@@ -412,6 +412,7 @@ gboolean Id3tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
                     {
                         id3_length_t size;
                         id3_byte_t const *data;
+                        
                         data = id3_field_getbinarydata(field, &size);
                         if (pic->data)
                             g_free(pic->data);
@@ -665,6 +666,7 @@ libid3tag_Get_Frame_Str(const struct id3_frame *frame, unsigned etag_field_type,
     retval = 0;
     is_latin = 1, is_utf16 = 0;
 
+    // Find the encoding used for the field
     for (i = 0; (field = id3_frame_field(frame, i)); i++)
     {
         if (id3_field_type(field) == ID3_FIELD_TYPE_TEXTENCODING)
@@ -782,6 +784,7 @@ gboolean Id3tag_Write_File_v24Tag (ET_File *ETFile)
 
     v1tag = v2tag = NULL;
 
+    // Write ID3v2 tag
     if (FILE_WRITING_ID3V2_WRITE_TAG)
     {
         struct id3_file *file;
@@ -803,7 +806,8 @@ gboolean Id3tag_Write_File_v24Tag (ET_File *ETFile)
                               | ID3_TAG_OPTION_ID3V1 
                               | ID3_TAG_OPTION_COMPRESSION 
                               | ID3_TAG_OPTION_APPENDEDTAG,
-            ID3_TAG_OPTION_UNSYNCHRONISATION);
+                        //ID3_TAG_OPTION_UNSYNCHRONISATION); // Taglib doesn't support frames with unsynchronisation (patch from Alexey Illarionov) http://bugs.kde.org/show_bug.cgi?id=138829
+                        0);
 
         /* XXX Create new tag and copy all frames*/
         tagsize = id3_tag_render(tmptag, NULL);
@@ -832,25 +836,27 @@ gboolean Id3tag_Write_File_v24Tag (ET_File *ETFile)
             v2tag->paddedsize = 1024;
 
         /* Set options */
-        id3_tag_options(v2tag,
-            ID3_TAG_OPTION_UNSYNCHRONISATION
-            | ID3_TAG_OPTION_APPENDEDTAG
-            | ID3_TAG_OPTION_ID3V1
-            | ID3_TAG_OPTION_CRC
-            | ID3_TAG_OPTION_COMPRESSION,
-            ID3_TAG_OPTION_UNSYNCHRONISATION
-            );
+        id3_tag_options(v2tag, ID3_TAG_OPTION_UNSYNCHRONISATION
+                             | ID3_TAG_OPTION_APPENDEDTAG
+                             | ID3_TAG_OPTION_ID3V1
+                             | ID3_TAG_OPTION_CRC
+                             | ID3_TAG_OPTION_COMPRESSION,
+                        //ID3_TAG_OPTION_UNSYNCHRONISATION); // Taglib doesn't support frames with unsynchronisation (patch from Alexey Illarionov) http://bugs.kde.org/show_bug.cgi?id=138829
+                        0);
+        
         if (FILE_WRITING_ID3V2_USE_CRC32)
             id3_tag_options(v2tag, ID3_TAG_OPTION_CRC, ~0);
         if (FILE_WRITING_ID3V2_USE_COMPRESSION)
             id3_tag_options(v2tag, ID3_TAG_OPTION_COMPRESSION, ~0);
     }
 
+    // Write ID3v1 tag
     if (FILE_WRITING_ID3V1_WRITE_TAG)
     {
         v1tag = id3_tag_new();
         if (!v1tag)
             return FALSE;
+        
         id3_tag_options(v1tag, ID3_TAG_OPTION_ID3V1, ~0);
     }
 
@@ -957,10 +963,9 @@ gboolean Id3tag_Write_File_v24Tag (ET_File *ETFile)
      ***********/
     Id3tag_delete_frames(v2tag, "APIC", 0);
 
-    pic = FileTag->picture;
-
     if (v2tag)
     {
+        pic = FileTag->picture;
         while (pic)
         {
             gint i;
@@ -1328,8 +1333,10 @@ etag_set_tags (const gchar *str,
         && (ftmp = Id3tag_find_and_create_frame(v1tag, frame_name)))
             id3taglib_set_field(ftmp, str, field_type, 0, 1, 1);
     }else
+    {
         if (v2tag)
             Id3tag_delete_frames(v2tag, frame_name, 0);
+    }
 
     return 0;
 }
@@ -1384,6 +1391,7 @@ etag_write_tags (const gchar *filename,
             }
         }
     }
+    
     if (v1buf == NULL)
         v1size = 0;
     if (v2buf == NULL)
@@ -1415,10 +1423,12 @@ etag_write_tags (const gchar *filename,
             goto out;
         }
     }else
+    {
         if ((curpos = lseek(fd, 0, SEEK_END)) < 0)
         {
             goto out;
         }
+    }
 
     /* Search id3v2 tags at the end of the file (before any ID3v1 tag) */
     /* XXX: Unsafe */
@@ -1441,8 +1451,8 @@ etag_write_tags (const gchar *filename,
 
     /* Write id3v1 tag */
     if (v1buf)
-    if ( write(fd, v1buf, v1size) != v1size)
-        goto out;
+        if ( write(fd, v1buf, v1size) != v1size)
+            goto out;
 
     /* Truncate file (strip tags) */
     if ((curpos = lseek(fd, 0, SEEK_CUR)) <= 0 )
@@ -1486,7 +1496,11 @@ etag_write_tags (const gchar *filename,
 
         if (write(fd, ctx, ctxsize) != ctxsize)
         {
-            g_print("OOPS\n");
+            gchar *filename_utf8 = filename_to_display(filename);
+            gchar *basename_utf8 = g_path_get_basename(filename_utf8);
+            Log_Print(LOG_ERROR,_("Size error while saving tag of '%s'"),basename_utf8);
+            g_free(filename_utf8);
+            g_free(basename_utf8);
             goto out;
         }
 

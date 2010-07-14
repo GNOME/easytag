@@ -277,7 +277,7 @@ void Log_Print (Log_Error_Type error_type, gchar const *format, ...)
         Log_Data *LogData = g_malloc0(sizeof(Log_Data));
         LogData->time       = Log_Format_Date();
         LogData->error_type = error_type;
-        LogData->string     = string;
+        LogData->string     = g_strdup(string);
 
         LogPrintTmpList = g_list_append(LogPrintTmpList,LogData);
         //g_print("%s",string);
@@ -308,6 +308,7 @@ void Log_Print (Log_Error_Type error_type, gchar const *format, ...)
         first_time = FALSE;
         fclose(file);
     }
+    g_free(string);
 
 }
 

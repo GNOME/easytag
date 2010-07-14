@@ -18,7 +18,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME             "EasyTAG"
-!define PRODUCT_VERSION          "2.1.4"
+!define PRODUCT_VERSION          "2.1.5"
 !define PRODUCT_PUBLISHER        "Jérôme COUDERC"
 !define PRODUCT_WEB_SITE         "http://easytag.sourceforge.net"
 !define PRODUCT_DIR_REGKEY       "Software\Microsoft\Windows\CurrentVersion\App Paths\easytag.exe"
@@ -182,10 +182,17 @@ Section "Program" SecProgram
   
   SetOutPath "$INSTDIR"
   SetOverwrite on
-  File "win32-install-dir\easytag.exe"
+  File "win32-install-dir\ChangeLog.txt"
+  File "win32-install-dir\COPYING.txt"
   File "win32-install-dir\easytag.dll"
-  File "win32-install-dir\*.dll"
-  File "win32-install-dir\*.txt"
+  File "win32-install-dir\easytag.exe"
+  File "win32-install-dir\libogg-0.dll"
+  File "win32-install-dir\libspeex-1.dll"
+  File "win32-install-dir\libvorbis-0.dll"
+  File "win32-install-dir\libvorbisfile-3.dll"
+  File "win32-install-dir\libwavpack-1.dll"
+  File "win32-install-dir\README.txt"
+  File "win32-install-dir\README_win32.txt"
 
   ; Shortcuts
   ;!insertmacro MUI_STARTMENU_WRITE_BEGIN Application
@@ -216,7 +223,7 @@ SectionGroup /e "Shortcuts" SecShortcuts
   Section "Context Menu" SecContextMenuShortcut
     SetOverwrite on
     WriteRegStr HKCR "Directory\shell\EasyTAG"         "" "Browse with EasyTAG"
-    WriteRegStr HKCR "Directory\shell\EasyTAG\Command" "" "$INSTDIR\easytag.exe"
+    WriteRegStr HKCR "Directory\shell\EasyTAG\command" "" '"$INSTDIR\easytag.exe" "%1"'
     SetOverwrite off
   SectionEnd
 SectionGroupEnd
@@ -289,10 +296,17 @@ Section Uninstall
   !insertmacro MUI_STARTMENU_GETFOLDER "Application" $ICONS_GROUP
   Delete "$INSTDIR\${PRODUCT_NAME}.url"
   Delete "$INSTDIR\uninst.exe"
+  Delete "$INSTDIR\ChangeLog.txt"
+  Delete "$INSTDIR\COPYING.txt"
   Delete "$INSTDIR\easytag.dll"
   Delete "$INSTDIR\easytag.exe"
-  Delete "$INSTDIR\*.dll"
-  Delete "$INSTDIR\*.txt"
+  Delete "$INSTDIR\libogg-0.dll"
+  Delete "$INSTDIR\libspeex-1.dll"
+  Delete "$INSTDIR\libvorbis-0.dll"
+  Delete "$INSTDIR\libvorbisfile-3.dll"
+  Delete "$INSTDIR\libwavpack-1.dll"
+  Delete "$INSTDIR\README.txt"
+  Delete "$INSTDIR\README_win32.txt"
   RMDir /r "$INSTDIR\Documentation\" ; Remove all files in documentation directory...
   RMDir /r "$INSTDIR\locale\" 
 
@@ -308,6 +322,8 @@ Section Uninstall
 
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
   DeleteRegKey HKLM "${PRODUCT_DIR_REGKEY}"
+  ; Delete "Browse with EasyTAG" context menu
+  DeleteRegKey HKCR "Directory\shell\EasyTAG"
 
   ; Delete personnals settings?
   MessageBox MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 \

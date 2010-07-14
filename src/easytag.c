@@ -84,6 +84,18 @@ gboolean SF_HideMsgbox_Delete_File;
 /* To remember which button was pressed when deleting file */
 gint     SF_ButtonPressed_Delete_File;
 
+#ifdef ENABLE_FLAC
+    #include <FLAC/metadata.h>
+
+    /* Patch from Josh Coalson
+     * FLAC 1.1.3 has FLAC_API_VERSION_CURRENT == 8 *
+     * by LEGACY_FLAC we mean pre-FLAC 1.1.3; in FLAC 1.1.3 the FLAC__FileDecoder was merged into the FLAC__StreamDecoder */
+    #if !defined(FLAC_API_VERSION_CURRENT) || FLAC_API_VERSION_CURRENT < 8
+    #define LEGACY_FLAC // For FLAC version < 1.1.3
+    #else
+    #undef LEGACY_FLAC
+    #endif
+#endif
 
 
 /**************
@@ -369,14 +381,14 @@ int main (int argc, char *argv[])
     /* Vertical pane for Browser Area + FileArea + TagArea */
     MainWindowVPaned = gtk_vpaned_new();
     gtk_box_pack_start(GTK_BOX(MainVBox),MainWindowVPaned,TRUE,TRUE,0);
-    gtk_paned_pack1(GTK_PANED(MainWindowVPaned),MainWindowHPaned,FALSE,FALSE);
+    gtk_paned_pack1(GTK_PANED(MainWindowVPaned),MainWindowHPaned,TRUE,FALSE);
     gtk_paned_set_position(GTK_PANED(MainWindowVPaned),PANE_HANDLE_POSITION4);
     gtk_widget_show(MainWindowVPaned);
 
 
     /* Log */
     LogArea = Create_Log_Area();
-    gtk_paned_pack2(GTK_PANED(MainWindowVPaned),LogArea,TRUE,TRUE);
+    gtk_paned_pack2(GTK_PANED(MainWindowVPaned),LogArea,FALSE,TRUE);
 
     /* Horizontal box for Status bar + Progress bar */
     HBox = gtk_hbox_new(FALSE,0);
@@ -2710,7 +2722,9 @@ gint Remove_Dir (const gchar *dirname_old, const gchar *dirname_new)
     {
         if (rmdir(temp_old)==-1)
         {
-            if (errno!=ENOTEMPTY)
+            // Patch from vdaghan : ENOTEMPTY & EEXIST are synonymous and used by some systems
+            if (errno != ENOTEMPTY 
+            &&  errno != EEXIST)
             {
                 g_free(temp_old);
                 g_free(temp_new);
@@ -3990,9 +4004,17 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
             gtk_widget_show(GTK_WIDGET(EncodedByLabel));
             gtk_widget_show(GTK_WIDGET(EncodedByEntry));
             gtk_widget_show(GTK_WIDGET(EncodedByMButton));
-            // Picture always supported now...
-            /*if (WRITE_ID3_TAGS_IN_FLAC_FILE)
-            {*/
+            #ifndef LEGACY_FLAC // Picture supported for FLAC >= 1.1.3...
+            gtk_widget_show(GTK_WIDGET(PictureLabel));
+            gtk_widget_show(GTK_WIDGET(PictureScrollWindow));
+            gtk_widget_show(GTK_WIDGET(PictureMButton));
+            gtk_widget_show(GTK_WIDGET(PictureClearButton));
+            gtk_widget_show(GTK_WIDGET(PictureAddButton));
+            gtk_widget_show(GTK_WIDGET(PictureSaveButton));
+            gtk_widget_show(GTK_WIDGET(PicturePropertiesButton));
+            #else
+            if (WRITE_ID3_TAGS_IN_FLAC_FILE)
+            {
                 gtk_widget_show(GTK_WIDGET(PictureLabel));
                 gtk_widget_show(GTK_WIDGET(PictureScrollWindow));
                 gtk_widget_show(GTK_WIDGET(PictureMButton));
@@ -4000,7 +4022,7 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
                 gtk_widget_show(GTK_WIDGET(PictureAddButton));
                 gtk_widget_show(GTK_WIDGET(PictureSaveButton));
                 gtk_widget_show(GTK_WIDGET(PicturePropertiesButton));
-            /*}else
+            }else
             {
                 gtk_widget_hide(GTK_WIDGET(PictureLabel));
                 gtk_widget_hide(GTK_WIDGET(PictureScrollWindow));
@@ -4009,7 +4031,8 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
                 gtk_widget_hide(GTK_WIDGET(PictureAddButton));
                 gtk_widget_hide(GTK_WIDGET(PictureSaveButton));
                 gtk_widget_hide(GTK_WIDGET(PicturePropertiesButton));
-            }*/
+            }
+            #endif
             break;
 #endif
 
@@ -4660,62 +4683,9 @@ void Quit_MainWindow (void)
     Save_Path_Entry_List(BrowserEntryModel, MISC_COMBO_TEXT);
 
     /* Exit ? */
-    if (CONFIRM_BEFORE_EXIT)
+    if (ET_Check_If_All_Files_Are_Saved() != TRUE)
     {
-        if (ET_Check_If_All_Files_Are_Saved() != TRUE)
-        {
-            /* Some files haven't been saved */
-            msgbox = msg_box_new(_("Confirm..."),
-                                 GTK_WINDOW(MainWindow),
-                                 NULL,
-                                 GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                 _("Some files have been modified but not saved...\nDo you want to save them before exiting the program?"),
-                                 GTK_STOCK_DIALOG_QUESTION,
-                                 GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,
-                                 GTK_STOCK_NO,    GTK_RESPONSE_NO,
-								 GTK_STOCK_YES,   GTK_RESPONSE_YES,
-                                 NULL);
-            response = gtk_dialog_run(GTK_DIALOG(msgbox));
-            gtk_widget_destroy(msgbox);
-            switch (response)
-            {
-                case GTK_RESPONSE_YES:
-                    Quit_MainWindow_Save_And_Quit();
-                    break;
-                case GTK_RESPONSE_NO:
-                    Quit_MainWindow_Confirmed();
-                    break;
-                case GTK_RESPONSE_CANCEL:
-                case GTK_RESPONSE_NONE:
-                    return;
-            }
-        } else
-        {
-            msgbox = msg_box_new(_("Confirm..."),
-                                 GTK_WINDOW(MainWindow),
-                                 NULL,
-                                 GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                 _(" Do you really want to exit the program? "),
-                                 GTK_STOCK_DIALOG_QUESTION,
-                                 GTK_STOCK_NO,    GTK_RESPONSE_NO,
-								 GTK_STOCK_YES,   GTK_RESPONSE_YES,
-                                 NULL);
-            response = gtk_dialog_run(GTK_DIALOG(msgbox));
-            gtk_widget_destroy(msgbox);
-            switch (response)
-            {
-                case GTK_RESPONSE_YES:
-                    Quit_MainWindow_Confirmed();
-                    break;
-                case GTK_RESPONSE_NO:
-                case GTK_RESPONSE_NONE:
-                    return;
-                    break;
-            }
-        }
-    }else if (ET_Check_If_All_Files_Are_Saved() != TRUE)
-    {
-        /* Some files aren't saved */
+        /* Some files haven't been saved */
         msgbox = msg_box_new(_("Confirm..."),
                              GTK_WINDOW(MainWindow),
                              NULL,
@@ -4724,7 +4694,7 @@ void Quit_MainWindow (void)
                              GTK_STOCK_DIALOG_QUESTION,
                              GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,
                              GTK_STOCK_NO,    GTK_RESPONSE_NO,
-							 GTK_STOCK_YES,   GTK_RESPONSE_YES,
+                             GTK_STOCK_YES,   GTK_RESPONSE_YES,
                              NULL);
         response = gtk_dialog_run(GTK_DIALOG(msgbox));
         gtk_widget_destroy(msgbox);
@@ -4740,10 +4710,35 @@ void Quit_MainWindow (void)
             case GTK_RESPONSE_NONE:
                 return;
         }
+        
+    } else if (CONFIRM_BEFORE_EXIT)
+    {
+         msgbox = msg_box_new(_("Confirm..."),
+                             GTK_WINDOW(MainWindow),
+                             NULL,
+                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                             _(" Do you really want to exit the program? "),
+                             GTK_STOCK_DIALOG_QUESTION,
+                             GTK_STOCK_NO,    GTK_RESPONSE_NO,
+                             GTK_STOCK_YES,   GTK_RESPONSE_YES,
+                             NULL);
+        response = gtk_dialog_run(GTK_DIALOG(msgbox));
+        gtk_widget_destroy(msgbox);
+        switch (response)
+        {
+            case GTK_RESPONSE_YES:
+                Quit_MainWindow_Confirmed();
+                break;
+            case GTK_RESPONSE_NO:
+            case GTK_RESPONSE_NONE:
+                return;
+                break;
+        }
     }else
     {
         Quit_MainWindow_Confirmed();
     }
+
 }
 
 /*

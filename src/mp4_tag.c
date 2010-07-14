@@ -85,7 +85,10 @@ gboolean Mp4tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     u_int8_t *coverArt;
     u_int32_t coverSize;
     Picture *prev_pic = NULL;
-
+#ifdef NEWMP4
+    gint pic_num;
+#endif
+    
     if (!filename || !FileTag)
         return FALSE;
 
@@ -187,7 +190,7 @@ gboolean Mp4tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
 #ifdef NEWMP4
     // There version can handle multiple pictures!
     // Version 1.6 of libmp4v2 introduces an index argument for MP4GetMetadataCoverart
-    for (i = 0; (MP4GetMetadataCoverArt( mp4file, &coverArt, &coverSize,i )); i++)
+    for (pic_num = 0; (MP4GetMetadataCoverArt( mp4file, &coverArt, &coverSize,pic_num )); pic_num++)
 #else
     // There version handle only one picture!
     if ( MP4GetMetadataCoverArt( mp4file, &coverArt, &coverSize ) )

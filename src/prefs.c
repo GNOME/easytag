@@ -61,14 +61,14 @@ gint Check_Config                (void);
 void Set_Default_Comment_Check_Button_Toggled  (void);
 void Number_Track_Formated_Toggled             (void);
 void Number_Track_Formated_Spin_Button_Changed (GtkObject *Label, GtkObject *SpinButton);
-void Change_Id3_Settings_Toggled (void);
-void File_Writing_Id3v2_Write_Tag_Toggled(void);
+void Change_Id3_Settings_Toggled               (void);
+void File_Writing_Id3v2_Write_Tag_Toggled      (void);
 void Use_Non_Standard_Id3_Reading_Character_Set_Toggled (void);
 void Scanner_Convert_Check_Button_Toggled_1    (GtkObject *object_rec, GtkObject *object_emi);
 void Cddb_Use_Proxy_Toggled                    (void);
 
-void DefaultPathToMp3_Combo_Add_String             (void);
-void CddbLocalPath_Combo_Add_String (void);
+void DefaultPathToMp3_Combo_Add_String         (void);
+void CddbLocalPath_Combo_Add_String            (void);
 
 
 
@@ -786,7 +786,7 @@ void Open_OptionsWindow (void)
     gtk_combo_box_append_text(GTK_COMBO_BOX(FileWritingId3v2UnicodeCharacterSetCombo), "UTF-8");
     gtk_combo_box_append_text(GTK_COMBO_BOX(FileWritingId3v2UnicodeCharacterSetCombo), "UTF-16");
     if ( FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET == NULL )
-        gtk_combo_box_set_active(GTK_COMBO_BOX(FileWritingId3v2UnicodeCharacterSetCombo), 0);
+        gtk_combo_box_set_active(GTK_COMBO_BOX(FileWritingId3v2UnicodeCharacterSetCombo), 0); // Set UTF-8 by default
     else
         gtk_combo_box_set_active(GTK_COMBO_BOX(FileWritingId3v2UnicodeCharacterSetCombo),
             strcmp(FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET, "UTF-8") ? 1 : 0);
@@ -1487,84 +1487,91 @@ void Use_Non_Standard_Id3_Reading_Character_Set_Toggled (void)
     gtk_widget_set_sensitive(FileReadingId3v1v2CharacterSetCombo,
         GTK_TOGGLE_BUTTON(UseNonStandardId3ReadingCharacterSet)->active);
 }
+
 void Change_Id3_Settings_Toggled (void)
 {
     int active;
 
     if ( !FileWritingId3v2UseUnicodeCharacterSet 
-    || !FileWritingId3v2UseNoUnicodeCharacterSet
-    || !FileWritingId3v2WriteTag
+    ||   !FileWritingId3v2UseNoUnicodeCharacterSet
+    ||   !FileWritingId3v2WriteTag
 #ifdef ENABLE_ID3LIB
-    || !FileWritingId3v2VersionCombo
-    || !LabelId3v2Version
+    ||   !FileWritingId3v2VersionCombo
+    ||   !LabelId3v2Version
 #endif
-    || !FileWritingId3v1WriteTag
-    || !LabelId3v2Charset
-    || !FileWritingId3v2UseUnicodeCharacterSet
-    || !FileWritingId3v2UseNoUnicodeCharacterSet
-    || !FileWritingId3v2UnicodeCharacterSetCombo
-    || !FileWritingId3v2NoUnicodeCharacterSetCombo
-    || !LabelAdditionalId3v2IconvOptions
-    || !FileWritingId3v2IconvOptionsNo
-    || !FileWritingId3v2IconvOptionsTranslit
-    || !FileWritingId3v2IconvOptionsIgnore
-    || !FileWritingId3v2UseCrc32
-    || !FileWritingId3v2UseCompression
-    || !ConvertOldId3v2TagVersion
-    || !LabelId3v1Charset
-    || !FileWritingId3v1CharacterSetCombo
-    || !LabelAdditionalId3v1IconvOptions
-    || !FileWritingId3v1IconvOptionsNo
-    || !FileWritingId3v1IconvOptionsTranslit
-    || !FileWritingId3v1IconvOptionsIgnore
-    )
+    ||   !FileWritingId3v1WriteTag
+    ||   !LabelId3v2Charset
+    ||   !FileWritingId3v2UseUnicodeCharacterSet
+    ||   !FileWritingId3v2UseNoUnicodeCharacterSet
+    ||   !FileWritingId3v2UnicodeCharacterSetCombo
+    ||   !FileWritingId3v2NoUnicodeCharacterSetCombo
+    ||   !LabelAdditionalId3v2IconvOptions
+    ||   !FileWritingId3v2IconvOptionsNo
+    ||   !FileWritingId3v2IconvOptionsTranslit
+    ||   !FileWritingId3v2IconvOptionsIgnore
+    ||   !FileWritingId3v2UseCrc32
+    ||   !FileWritingId3v2UseCompression
+    ||   !ConvertOldId3v2TagVersion
+    ||   !LabelId3v1Charset
+    ||   !FileWritingId3v1CharacterSetCombo
+    ||   !LabelAdditionalId3v1IconvOptions
+    ||   !FileWritingId3v1IconvOptionsNo
+    ||   !FileWritingId3v1IconvOptionsTranslit
+    ||   !FileWritingId3v1IconvOptionsIgnore
+       )
         return;
 
     active = (GTK_TOGGLE_BUTTON(FileWritingId3v2UseUnicodeCharacterSet)->active != 0);
 
     if (GTK_TOGGLE_BUTTON(FileWritingId3v2WriteTag)->active)
     {
-        gtk_widget_set_sensitive(LabelId3v2Charset, 1);
+        gtk_widget_set_sensitive(LabelId3v2Charset, TRUE);
 
 #ifdef ENABLE_ID3LIB
-        gtk_widget_set_sensitive(LabelId3v2Version, 1);
-        gtk_widget_set_sensitive(FileWritingId3v2VersionCombo, 1);
-        if (gtk_combo_box_get_active(GTK_COMBO_BOX(FileWritingId3v2VersionCombo)) == 1) {
+        gtk_widget_set_sensitive(LabelId3v2Version, TRUE);
+        gtk_widget_set_sensitive(FileWritingId3v2VersionCombo, TRUE);
+        if (gtk_combo_box_get_active(GTK_COMBO_BOX(FileWritingId3v2VersionCombo)) == 1)
+        {
+            // When "ID3v2.3" is selected
             gtk_combo_box_set_active(GTK_COMBO_BOX(FileWritingId3v2UnicodeCharacterSetCombo), 1);
-            gtk_widget_set_sensitive(FileWritingId3v2UnicodeCharacterSetCombo, 0);
+            gtk_widget_set_sensitive(FileWritingId3v2UnicodeCharacterSetCombo, FALSE);
         }else
+        {
+            // When "ID3v2.4" is selected
+            gtk_combo_box_set_active(GTK_COMBO_BOX(FileWritingId3v2UnicodeCharacterSetCombo), 0); // Set "UTF-8" as default value for this version of tag
             gtk_widget_set_sensitive(FileWritingId3v2UnicodeCharacterSetCombo, active);
+        }
 #else 
         gtk_widget_set_sensitive(FileWritingId3v2UnicodeCharacterSetCombo, active);
 #endif
-        gtk_widget_set_sensitive(FileWritingId3v2UseUnicodeCharacterSet, 1);
-        gtk_widget_set_sensitive(FileWritingId3v2UseNoUnicodeCharacterSet, 1);
+        gtk_widget_set_sensitive(FileWritingId3v2UseUnicodeCharacterSet, TRUE);
+        gtk_widget_set_sensitive(FileWritingId3v2UseNoUnicodeCharacterSet, TRUE);
         gtk_widget_set_sensitive(FileWritingId3v2NoUnicodeCharacterSetCombo, !active);
         gtk_widget_set_sensitive(LabelAdditionalId3v2IconvOptions, !active);
         gtk_widget_set_sensitive(FileWritingId3v2IconvOptionsNo, !active);
         gtk_widget_set_sensitive(FileWritingId3v2IconvOptionsTranslit, !active);
         gtk_widget_set_sensitive(FileWritingId3v2IconvOptionsIgnore, !active);
-        gtk_widget_set_sensitive(FileWritingId3v2UseCrc32, 1);
-        gtk_widget_set_sensitive(FileWritingId3v2UseCompression, 1);
-        gtk_widget_set_sensitive(ConvertOldId3v2TagVersion, 1);
+        gtk_widget_set_sensitive(FileWritingId3v2UseCrc32, TRUE);
+        gtk_widget_set_sensitive(FileWritingId3v2UseCompression, TRUE);
+        gtk_widget_set_sensitive(ConvertOldId3v2TagVersion, TRUE);
 
     }else
     {
-        gtk_widget_set_sensitive(LabelId3v2Charset, 0);
+        gtk_widget_set_sensitive(LabelId3v2Charset, FALSE);
 #ifdef ENABLE_ID3LIB
-        gtk_widget_set_sensitive(LabelId3v2Version, 0);
-        gtk_widget_set_sensitive(FileWritingId3v2VersionCombo, 0);
+        gtk_widget_set_sensitive(LabelId3v2Version, FALSE);
+        gtk_widget_set_sensitive(FileWritingId3v2VersionCombo, FALSE);
 #endif
-        gtk_widget_set_sensitive(FileWritingId3v2UseUnicodeCharacterSet, 0);
-        gtk_widget_set_sensitive(FileWritingId3v2UseNoUnicodeCharacterSet, 0);
-        gtk_widget_set_sensitive(FileWritingId3v2UnicodeCharacterSetCombo, 0);
-        gtk_widget_set_sensitive(FileWritingId3v2NoUnicodeCharacterSetCombo, 0);
-        gtk_widget_set_sensitive(LabelAdditionalId3v2IconvOptions, 0);
-        gtk_widget_set_sensitive(FileWritingId3v2IconvOptionsNo, 0);
-        gtk_widget_set_sensitive(FileWritingId3v2IconvOptionsTranslit, 0);
-        gtk_widget_set_sensitive(FileWritingId3v2IconvOptionsIgnore, 0);
-        gtk_widget_set_sensitive(FileWritingId3v2UseCrc32, 0);
-        gtk_widget_set_sensitive(FileWritingId3v2UseCompression, 0);
+        gtk_widget_set_sensitive(FileWritingId3v2UseUnicodeCharacterSet, FALSE);
+        gtk_widget_set_sensitive(FileWritingId3v2UseNoUnicodeCharacterSet, FALSE);
+        gtk_widget_set_sensitive(FileWritingId3v2UnicodeCharacterSetCombo, FALSE);
+        gtk_widget_set_sensitive(FileWritingId3v2NoUnicodeCharacterSetCombo, FALSE);
+        gtk_widget_set_sensitive(LabelAdditionalId3v2IconvOptions, FALSE);
+        gtk_widget_set_sensitive(FileWritingId3v2IconvOptionsNo, FALSE);
+        gtk_widget_set_sensitive(FileWritingId3v2IconvOptionsTranslit, FALSE);
+        gtk_widget_set_sensitive(FileWritingId3v2IconvOptionsIgnore, FALSE);
+        gtk_widget_set_sensitive(FileWritingId3v2UseCrc32, FALSE);
+        gtk_widget_set_sensitive(FileWritingId3v2UseCompression, FALSE);
         gtk_widget_set_sensitive(ConvertOldId3v2TagVersion, 0);
     }
 

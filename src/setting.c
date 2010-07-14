@@ -222,6 +222,7 @@ tConfigVariable Config_Variables[] =
     {"pf_convert_all_downcase",                 CV_TYPE_BOOL,    &PF_CONVERT_ALL_DOWNCASE                },
     {"pf_convert_first_letter_uppercase",       CV_TYPE_BOOL,    &PF_CONVERT_FIRST_LETTER_UPPERCASE      },
     {"pf_convert_first_letters_uppercase",      CV_TYPE_BOOL,    &PF_CONVERT_FIRST_LETTERS_UPPERCASE     },
+    {"pf_detect_roman_numerals",                CV_TYPE_BOOL,    &PF_DETECT_ROMAN_NUMERALS               },
     {"pf_remove_space",                         CV_TYPE_BOOL,    &PF_REMOVE_SPACE                        },
     {"pf_insert_space",                         CV_TYPE_BOOL,    &PF_INSERT_SPACE                        },
     {"pf_only_one_space",                       CV_TYPE_BOOL,    &PF_ONLY_ONE_SPACE                      },
@@ -487,6 +488,7 @@ void Init_Config_Variables (void)
     PF_CONVERT_ALL_DOWNCASE            = 0;
     PF_CONVERT_FIRST_LETTER_UPPERCASE  = 0;
     PF_CONVERT_FIRST_LETTERS_UPPERCASE = 1;
+    PF_DETECT_ROMAN_NUMERALS           = 1;
     PF_REMOVE_SPACE                    = 0;
     PF_INSERT_SPACE                    = 0;
     PF_ONLY_ONE_SPACE                  = 1;

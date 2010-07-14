@@ -1,3 +1,9 @@
+easytag (2.1.4-1) unstable; urgency=low
+
+  * New upstream version
+
+ -- Sebastien Bacher <seb128@debian.org>  Tue, 11 Dec 2007 12:27:03 +0100
+
 easytag (2.1.3-1) unstable; urgency=low
 
   * New upstream version
@@ -8,7 +14,7 @@ easytag (2.1.3-1) unstable; urgency=low
 
  -- Sebastien Bacher <seb128@debian.org>  Sun, 25 Nov 2007 16:15:43 +0100
 
- easytag (2.1.2-1) unstable; urgency=low
+easytag (2.1.2-1) unstable; urgency=low
 
   * New upstream version:
     - Fixed a mistake in the configure script (Closes: #432257)

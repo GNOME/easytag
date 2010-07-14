@@ -85,6 +85,7 @@ GtkWidget *ProcessFieldsAllUppercase          = NULL;
 GtkWidget *ProcessFieldsAllDowncase           = NULL;
 GtkWidget *ProcessFieldsFirstLetterUppercase  = NULL;
 GtkWidget *ProcessFieldsFirstLettersUppercase = NULL;
+GtkWidget *ProcessFieldsDetectRomanNumerals   = NULL;
 GtkWidget *ProcessFieldsRemoveSpace           = NULL;
 GtkWidget *ProcessFieldsInsertSpace           = NULL;
 GtkWidget *ProcessFieldsOnlyOneSpace          = NULL;
@@ -242,8 +243,9 @@ void     Scan_Process_Fields_Functions (gchar **string);
 
 gint     Scan_Word_Is_Roman_Numeral (gchar *text);
 
-void Process_Fields_Check_Button_Toggled (GtkObject *object, GList *list);
-void Process_Fields_Convert_Check_Button_Toggled (GtkObject *object);
+void Process_Fields_Check_Button_Toggled               (GtkObject *object, GList *list);
+void Process_Fields_Convert_Check_Button_Toggled       (GtkObject *object);
+void Process_Fields_First_Letters_Check_Button_Toggled (GtkObject *object);
 void Select_Fields_Invert_Selection    (void);
 void Select_Fields_Select_Unselect_All (void);
 void Select_Fields_Set_Sensitive       (void);
@@ -266,6 +268,11 @@ void Scanner_Option_Menu_Activate_Item (GtkWidget *widget, gpointer data);
 
 void Populate_Scan_Tag_Masks();
 void Populate_Rename_File_Masks();
+
+int roman2int (const char *str);
+const char * int2roman (int num);
+char * int2roman_r (int num, char * str, size_t len);
+
 
 
 /*************
@@ -1792,7 +1799,13 @@ gint Scan_Word_Is_Roman_Numeral (gchar *text)
 {
     gchar *tmp;
     gint  len;
+    gchar *buf = NULL;
+    gint   rn_int;
+    gchar *rn_char;
 
+    if (!GTK_TOGGLE_BUTTON(ProcessFieldsDetectRomanNumerals)->active)
+        return 0;
+    
     tmp = text;
     len = 0;
 
@@ -1815,66 +1828,381 @@ gint Scan_Word_Is_Roman_Numeral (gchar *text)
                ||  *tmp == ','
                ||  *tmp == '-')
         {
-            // Found separator => stop
-            return len;
+            // A separator was found => end of word
+            // Check if it is a valid roman numeral
+            goto roman_numeral_found;
+            
         } else
         {
             return 0;
         }
     }
 
-    return len;
+    // Found in last word of the string
+    
+roman_numeral_found:
+    // Check if it is a valid roman numeral
+    buf = g_strndup(text,len);
+    rn_int = roman2int(buf); // Convert the Roman numeral string to integer
+    
+    if (rn_int >= 0 )
+    {
+        // Some strings as "IIIII" or "CCCCC" are returned as valid, which is not correct...
+        // Same problem with: IC MIC IM MIM IL CIL XM MXM VC MVC VM MVM VL MVL LC MLC LD MLD LM MLM MDM 
+        // So we convert it again to a string, and compare to the initial one.
+        rn_char = (gchar *)int2roman(rn_int); // Convert the Roman numeral integer to string
+        if (rn_char
+        && strcasecmp(buf,rn_char)==0)
+        {
+            g_free(buf);
+            g_free(rn_char);
+            return len; // Roman numeral valid
+        }else
+        {
+            g_free(buf);
+            g_free(rn_char);
+            return 0;
+        }
+    }else
+    {
+        g_free(buf);
+        return 0;
+    }
 }
 
 
-/*
-**  roman2long() - Converts a roman numeral string into a long integer
-**  public domain by Bob Stout
-**  Arguments: 1 - Roman numeral string
-**
-**  Returns: Long value if valid, else -1L
-*/
-/*
-long roman2long(const char *str)
-{
-    struct numeral {
-      long val;
-      int  ch;
-    };
-    
-    static struct numeral numerals[] = {
-          {    1L, 'I' },
-          {    5L, 'V' },
-          {   10L, 'X' },
-          {   50L, 'L' },
-          {  100L, 'C' },
-          {  500L, 'D' },
-          { 1000L, 'M' }
-    };
-      int i, j, k;
-      long retval = 0L;
 
-      if (!str)
-            return -1L;
-      for (i = 0, k = -1; str[i]; ++i)
+/*
+ * Taken from :
+ *   Roman Numeral Conversion API (http://sourceforge.net/project/showfiles.php?group_id=211070)
+ *    Copyright (c) 2007 David M. Syzdek <roman-project@syzdek.net>
+ */
+/* Convert Roman numeral from integer to string */
+const char * int2roman (int num)
+{
+    #define ROMAN_BUFF_LEN 512
+    
+    /* buffer for storing conversions */
+    char roman_string[ROMAN_BUFF_LEN];
+
+    /* wrap long2roman_r() with library buffer */
+    char *result = int2roman_r(num, roman_string, ROMAN_BUFF_LEN);
+   
+    if (!result)
+         return NULL;
+    return g_strdup(roman_string);
+}
+char * int2roman_r (int num, char * str, size_t len)
+{
+   // local variables
+   unsigned pos;
+   unsigned u;
+   unsigned dividend;
+
+   // checks arguments
+   if (!str)
+   {
+      return NULL;
+   };
+   // verify that number is withing boundaries
+   if ((num > 5000) || (num < 0))
+   {
+      return NULL;
+   };
+
+   // sets initial values
+   pos = 0;
+   memset(str, 0, len);
+   len--;
+
+   // checks for nullae
+   if (!(num))
+   {
+      str[0] = 'N';
+      return str;
+   };
+
+   // calculates sign
+   if (num < 0)
+   {
+      num *= -1;
+      if (1 > len)
       {
-            for (j = 0; j < 7; ++j)
+         return NULL;
+      };
+      str[pos] = '-';
+      pos++;
+   };
+
+   // calculates thousands
+   dividend = num/1000;
+   if (dividend > (len-1))
+   {
+      return NULL;
+   };
+   for (u = 0; u < dividend; u++)
+      str[pos+u] = 'M';
+   num %= 1000;
+   pos += u;
+
+   // calculates hundreds
+   dividend = num/100;
+   if (dividend > (len-1-pos))
+   {
+      return NULL;
+   };
+   if (dividend == 9)
+   {
+      str[pos+0] = 'C';
+      str[pos+1] = 'M';
+      pos += 2;
+      dividend = 0;
+   };
+   if (dividend >= 5)
+   {
+      str[pos] = 'D';
+      dividend -= 5;
+      pos++;
+   };
+   if (dividend == 4)
+   {
+      str[pos+0] = 'C';
+      str[pos+1] = 'D';
+      dividend -= 4;
+      pos += 2;
+   };
+   for(u = 0; u < dividend; u++)
+      str[pos+u] = 'C';
+   pos += u;
+   num %= 100;
+
+   // calculates tens
+   dividend = num/10;
+   if (dividend > (len-1-pos))
+   {
+      return NULL;
+   };
+   if (dividend == 9)
+   {
+      str[pos+0] = 'X';
+      str[pos+1] = 'C';
+      dividend = 0;
+      pos += 2;
+   };
+   if (dividend >= 5)
+   {
+      str[pos+0] = 'L';
+      dividend -= 5;
+      pos++;
+   };
+   if (dividend == 4)
+   {
+      str[pos+0] = 'X';
+      str[pos+1] = 'L';
+      pos += 2;
+      dividend -= 4;
+   };
+   for (u = 0; u < dividend; u++)
+      str[pos+u] = 'X';
+   pos += u;
+   num %= 10;
+
+   // calculates ones
+   dividend = num;
+   if (dividend > (len-1-pos))
+   {
+      return NULL;
+   };
+   if (dividend == 9)
+   {
+      str[pos+0] = 'I';
+      str[pos+1] = 'X';
+      dividend = 0;
+      pos += 2;
+   };
+   if (dividend >= 5)
+   {
+      str[pos+0] = 'V';
+      dividend -= 5;
+      pos++;
+   };
+   if (dividend == 4)
+   {
+      str[pos+0] = 'I';
+      str[pos+1] = 'V';
+      pos += 2;
+      dividend -= 4;
+   };
+   for(u = 0; u < dividend; u++)
+      str[pos+u] = 'I';
+
+   /* ends function */
+   return str;
+}
+/* Convert Roman numeral from string to integer */
+int roman2int (const char * str)
+{
+   // declares local vars
+   int      num;
+   unsigned i;
+   unsigned len;
+   unsigned p[2];	// stores values of previous symbols for error checking
+
+   // checks args
+   if (!(str))
+   {
+      return(0);
+   };
+
+   // sets initial values 
+   num  = 0;
+   len  = strlen(str);
+   p[0] = 1000;
+   p[1] = 1000;
+
+   // loops through characters
+   for(i = 0; i < len; i++)
+   {
+      switch(str[i])
+      {
+         case 'n':
+         case 'N':
+            if (strlen(str) > 1)
             {
-                  if (numerals[j].ch == toupper(str[i]))
-                        break;
-            }
-            if (7 == j)
-                  return -1L;
-            if (k >= 0 && k < j)
+               return(-1);
+            };
+            return(0);
+            break;
+         case 'i':
+         case 'I':
+            num  += 1;
+            // prevent patterns like IXI
+            if ((p[1] == 1) && (p[0] != 1))
             {
-                  retval -= numerals[k].val * 2;
-                  retval += numerals[j].val;
+               return(-1);
+            };
+
+            // prevent patterns like IIIII and VIIIII
+            if ((!(num%5)) || (!(num%10)))
+            {
+              return(-1);
+            };
+            p[1]   = p[0];
+            p[0]  = 1;
+            break;
+         case 'v':
+         case 'V':
+            num += 5;
+            if (((p[0] < 5) && (p[1] < 5)) || (p[1] == 5) || (p[0] == 5))
+            {
+               return(-1);
             }
-            else  retval += numerals[j].val;
-            k = j;
-      }
-      return retval;
-}*/
+            else if (p[0] < 5)
+               num -= (p[0] * 2);
+            p[1]  = p[0];
+            p[0] = 5;
+            break;
+         case 'x':
+         case 'X':
+            num += 10;
+            // prevent patterns like XCX
+            if (((p[0] < 10) && (p[1] < 10)) || ((p[1] < 10) && (p[0] <= 10)))
+            {
+               return(-1);
+            };
+            if (p[0] == 1)
+               num -= (p[0] * 2);
+            else if (p[0] < 10)
+            {
+               return(-1);
+            };
+            
+            // prevent patterns like XXXXX and VXXXXX
+            if ((!(num%50)) || (!(num%100)))
+            {
+               return(-1);
+            };
+            p[1]  = p[0];
+            p[0] = 10;
+            break;
+         case 'l':
+         case 'L':
+            num += 50;
+            if (((p[0] < 50) && (p[1] < 50)) || (p[1] == 50) || (p[0] == 50))
+            {
+               return(-1);
+            }
+            else if (p[0] < 50)
+               num -= (p[0] * 2);
+            p[1]  = p[0];
+            p[0] = 50;
+            break;
+         case 'c':
+         case 'C':
+            num += 100;
+            // prevent patterns like CMC
+            if (((p[0] < 100) && (p[1] < 100)) || ((p[1] < 100) && (p[0] <= 100)))
+            {
+               return(-1);
+            };
+            if (p[0] == 10)
+               num -= (p[0] * 2);
+            else if (p[0] < 100)
+            {
+               return(-1);
+            };
+
+            // prevent patterns like CCCCC and VCCCCC
+            if ((!(num%500)) || (!(num%1000)))
+            {
+               return(-1);
+            };
+            p[1]  = p[0];
+            p[0] = 100;
+            break;
+         case 'd':
+         case 'D':
+            num += 500;
+            if (((p[0] < 500) && (p[1] < 500)) || (p[1] == 500) || (p[0] == 500))
+            {
+               return(-1);
+            }
+            else if (p[0] < 500)
+               num -= (p[0] * 2);
+            p[1]  = p[0];
+            p[0] = 500;
+            break;
+         case 'm':
+         case 'M':
+            num += 1000;
+            // prevent patterns like M?M
+            if (((p[0] < 1000) && (p[1] < 1000)) || ((p[1] < 100) && (p[0] <= 1000)))
+            {
+               return(-1);
+            };
+            if (p[0] == 100)
+               num -= (p[0] * 2);
+            else if (p[0] < 1000)
+            {
+               return(-1);
+            };
+
+            // prevent patterns like MMMMM and VMMMMM
+            if ((!(num%5000)) || (!(num%10000)))
+            {
+               return(-1);
+            };
+            p[1]  = p[0];
+            p[0] = 1000;
+            break;
+         default:
+            return(-1);
+      };
+   };
+
+   // ends function
+   return(num);
+}
 
 
 
@@ -2359,15 +2687,20 @@ void Open_ScannerWindow (gint scanner_type)
     Separator = gtk_hseparator_new();
     gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
 
+    hbox = gtk_hbox_new(FALSE,0);
+    
     /* Group: capitalize, ... */
     ProcessFieldsAllUppercase = gtk_check_button_new_with_label         (_("All uppercase"));
     ProcessFieldsAllDowncase  = gtk_check_button_new_with_label         (_("All downcase"));
     ProcessFieldsFirstLetterUppercase  = gtk_check_button_new_with_label(_("First letter uppercase"));
     ProcessFieldsFirstLettersUppercase = gtk_check_button_new_with_label(_("First letter uppercase of each word"));
+    ProcessFieldsDetectRomanNumerals = gtk_check_button_new_with_label(_("Detect Roman numerals"));
     gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsAllUppercase,         FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsAllDowncase,          FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsFirstLetterUppercase, FALSE,FALSE,0);
-    gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsFirstLettersUppercase,FALSE,FALSE,0);
+    gtk_box_pack_start(GTK_BOX(VBox),hbox,FALSE,FALSE,0);
+    gtk_box_pack_start(GTK_BOX(hbox),ProcessFieldsFirstLettersUppercase,FALSE,FALSE,0);
+    gtk_box_pack_start(GTK_BOX(hbox),ProcessFieldsDetectRomanNumerals,FALSE,FALSE,0);
     /* List creation for check buttons in group */
     pf_cb_group2 = g_list_append(pf_cb_group2,ProcessFieldsAllUppercase);
     pf_cb_group2 = g_list_append(pf_cb_group2,ProcessFieldsAllDowncase);
@@ -2378,11 +2711,14 @@ void Open_ScannerWindow (gint scanner_type)
     g_signal_connect(G_OBJECT(ProcessFieldsAllDowncase), "toggled",G_CALLBACK(Process_Fields_Check_Button_Toggled),pf_cb_group2);
     g_signal_connect(G_OBJECT(ProcessFieldsFirstLetterUppercase),"toggled",G_CALLBACK(Process_Fields_Check_Button_Toggled),pf_cb_group2);
     g_signal_connect(G_OBJECT(ProcessFieldsFirstLettersUppercase),"toggled",G_CALLBACK(Process_Fields_Check_Button_Toggled),pf_cb_group2);
+    g_signal_connect(G_OBJECT(ProcessFieldsFirstLettersUppercase),"toggled",G_CALLBACK(Process_Fields_First_Letters_Check_Button_Toggled),NULL);
+    g_signal_connect(G_OBJECT(ProcessFieldsDetectRomanNumerals),"toggled",G_CALLBACK(Process_Fields_Check_Button_Toggled),NULL);
     /* Set check buttons to init value */
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsAllUppercase),PF_CONVERT_ALL_UPPERCASE);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsAllDowncase),PF_CONVERT_ALL_DOWNCASE);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsFirstLetterUppercase),PF_CONVERT_FIRST_LETTER_UPPERCASE);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsFirstLettersUppercase),PF_CONVERT_FIRST_LETTERS_UPPERCASE);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsDetectRomanNumerals),PF_DETECT_ROMAN_NUMERALS);
     /* Tooltips */
     gtk_tooltips_set_tip(Tips,ProcessFieldsAllUppercase,
         _("Convert all words in all fields to upper case. "
@@ -2396,6 +2732,9 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_tooltips_set_tip(Tips,ProcessFieldsFirstLettersUppercase,
         _("Convert the initial of each word in all fields to upper case. "
           "Example, before: 'Text in an ENTRY', after: 'Text In An Entry'."),NULL);
+    gtk_tooltips_set_tip(Tips,ProcessFieldsDetectRomanNumerals,
+        _("Force to convert to upper case the Roman numerals. "
+          "Example, before: 'ix. text in an entry', after: 'IX. Text In An Entry'."),NULL);
 
     /* Separator line */
     Separator = gtk_hseparator_new();
@@ -2430,6 +2769,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_tooltips_set_tip(Tips,ProcessFieldsOnlyOneSpace,
         _("Duplicated spaces or underscores are removed. "
           "Example, before: 'Text__In__An   Entry', after: 'Text_In_An Entry'."),NULL);
+    Select_Fields_Set_Sensitive();
 
     /*
      * Frame to display codes legend
@@ -2626,6 +2966,7 @@ void Open_ScannerWindow (gint scanner_type)
     g_signal_emit_by_name(G_OBJECT(LegendButton),"toggled");        /* To hide legend frame */
     g_signal_emit_by_name(G_OBJECT(MaskEditorButton),"toggled");    /* To hide mask editor frame */
     g_signal_emit_by_name(G_OBJECT(ProcessFieldsConvert),"toggled");/* To enable / disable entries */
+    g_signal_emit_by_name(G_OBJECT(ProcessFieldsDetectRomanNumerals),"toggled");/* To enable / disable entries */
 
     // Activate the current menu in the option menu
     gtk_combo_box_set_active(GTK_COMBO_BOX(ScannerOptionCombo), scanner_type);
@@ -2778,6 +3119,7 @@ void ScannerWindow_Apply_Changes (void)
         PF_CONVERT_ALL_DOWNCASE            = GTK_TOGGLE_BUTTON(ProcessFieldsAllDowncase)->active;
         PF_CONVERT_FIRST_LETTER_UPPERCASE  = GTK_TOGGLE_BUTTON(ProcessFieldsFirstLetterUppercase)->active;
         PF_CONVERT_FIRST_LETTERS_UPPERCASE = GTK_TOGGLE_BUTTON(ProcessFieldsFirstLettersUppercase)->active;
+        PF_DETECT_ROMAN_NUMERALS           = GTK_TOGGLE_BUTTON(ProcessFieldsDetectRomanNumerals)->active;
 
         /* Group: remove/insert space */
         PF_REMOVE_SPACE   = GTK_TOGGLE_BUTTON(ProcessFieldsRemoveSpace)->active;
@@ -3022,6 +3364,11 @@ void Process_Fields_Convert_Check_Button_Toggled (GtkObject *object)
     gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsConvertFrom),GTK_TOGGLE_BUTTON(object)->active);
 }
 
+void Process_Fields_First_Letters_Check_Button_Toggled (GtkObject *object)
+{
+    gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsDetectRomanNumerals),GTK_TOGGLE_BUTTON(object)->active);
+}
+
 
 /*
  * Small buttons of Process Fields scanner
@@ -3100,6 +3447,7 @@ void Select_Fields_Set_Sensitive (void)
         gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsAllDowncase),          TRUE);
         gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsFirstLetterUppercase), TRUE);
         gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsFirstLettersUppercase),TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsDetectRomanNumerals),  TRUE);
         gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsRemoveSpace),          TRUE);
         gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsInsertSpace),          TRUE);
         gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsOnlyOneSpace),         TRUE);
@@ -3115,6 +3463,7 @@ void Select_Fields_Set_Sensitive (void)
         gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsAllDowncase),          FALSE);
         gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsFirstLetterUppercase), FALSE);
         gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsFirstLettersUppercase),FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsDetectRomanNumerals),  FALSE);
         gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsRemoveSpace),          FALSE);
         gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsInsertSpace),          FALSE);
         gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsOnlyOneSpace),         FALSE);

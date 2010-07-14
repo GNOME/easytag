@@ -1,5 +1,5 @@
 %define    name      easytag
-%define    version   2.1.4
+%define    version   2.1.5
 %define    release   1
 %define    prefix    /usr
 
@@ -38,8 +38,8 @@ Prefix:        %prefix
 
 %description
 EasyTAG is an utility for viewing and editing tags for MP3, MP2, FLAC, Ogg 
-Vorbis, MP4/AAC, MusePack, Monkey's Audio and WavPack files. Its simple and nice
-GTK2 interface makes tagging easier under GNU/Linux or Windows.
+Vorbis, Speex, MP4/AAC, MusePack, Monkey's Audio and WavPack files. Its simple 
+and nice GTK2 interface makes tagging easier under GNU/Linux or Windows.
 
 Features:
   o View, edit, write tags of MP3, MP2 files (ID3 tag with pictures), FLAC files

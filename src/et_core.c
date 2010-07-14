@@ -29,6 +29,7 @@
 #include <unistd.h>
 #include <utime.h>
 #include <ctype.h>
+#include <locale.h>
 #include "errno.h"
 
 #include "easytag.h"
@@ -484,9 +485,10 @@ GList *ET_Add_File_To_File_List (gchar *filename)
     FileTag = ET_File_Tag_Item_New();
     FileTag->saved = TRUE;    /* The file hasn't been changed, so it's saved */
 
-    /* Patch from Doruk Fisek : avoid upper/lower conversion bugs (like I->i conversion in 
-     * some locales) in tag parsing. The problem occurs for example with Turkish language
-     * where it can't read 'TITLE=' field if it is written as 'Title=' in the file */
+    /* Patch from Doruk Fisek and Onur Kucuk: avoid upper/lower conversion bugs 
+     * (like I->i conversion in some locales) in tag parsing. The problem occurs
+     * for example with Turkish language where it can't read 'TITLE=' field if
+     * it is written as 'Title=' in the file */
     setlocale(LC_CTYPE, "C");
 
     switch (ETFileDescription->TagType)
@@ -2404,6 +2406,7 @@ gboolean ET_Set_Field_File_Name_Item (gchar **FileNameField, gchar *value)
 /*
  * Fill content of a FileName item according to the filename passed in argument (UTF-8 filename or not)
  * Calculate also the collate key.
+ * It treats numbers intelligently so that "file1" "file10" "file5" is sorted as "file1" "file5" "file10"
  */
 gboolean ET_Set_Filename_File_Name_Item (File_Name *FileName, gchar *filename_utf8, gchar *filename)
 {
@@ -2429,7 +2432,7 @@ gboolean ET_Set_Filename_File_Name_Item (File_Name *FileName, gchar *filename_ut
     {
         return FALSE;
     }
-        
+    
     return TRUE;
 }
 

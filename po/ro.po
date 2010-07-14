@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EasyTAG 1.99.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-09 18:16+0100\n"
+"POT-Creation-Date: 2008-01-26 22:36+0100\n"
 "PO-Revision-Date: 2005-04-19 10:07+0200\n"
 "Last-Translator: Pauliuc George <romania@users.sourceforge.net>\n"
 "Language-Team: Romanian <pauliuc@gmx.net>\n"
@@ -123,7 +123,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: src/about.c:235 src/browser.c:2944 src/misc.c:1917
+#: src/about.c:235 src/browser.c:2961 src/misc.c:1917
 msgid "Comment"
 msgstr "Comentariu"
 
@@ -154,7 +154,7 @@ msgstr "(folosind: GTK+ %d.%d.%d si id3lib %d.%d.%d)"
 msgid "Author: %s"
 msgstr "Autor: %s"
 
-#: src/about.c:332 src/easytag.c:214
+#: src/about.c:332 src/easytag.c:226
 #, c-format
 msgid "E-mail: %s"
 msgstr "E-mail: %s"
@@ -249,10 +249,10 @@ msgid "Can't open file '%s' (%s)\n"
 msgstr "Nu pot deschide '%s' (%s)"
 
 #. g_print(_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
-#: src/ape_tag.c:74 src/et_core.c:4400 src/flac_header.c:126 src/id3_tag.c:145
+#: src/ape_tag.c:74 src/et_core.c:4403 src/flac_header.c:126 src/id3_tag.c:145
 #: src/id3_tag.c:1195 src/id3_tag.c:1271 src/misc.c:1760 src/mp4_header.c:211
-#: src/mp4_header.c:220 src/mp4_tag.c:95 src/mp4_tag.c:106 src/mp4_tag.c:246
-#: src/mp4_tag.c:255 src/mpeg_header.c:209 src/ogg_header.c:82
+#: src/mp4_header.c:220 src/mp4_tag.c:98 src/mp4_tag.c:109 src/mp4_tag.c:249
+#: src/mp4_tag.c:258 src/mpeg_header.c:209 src/ogg_header.c:82
 #: src/ogg_header.c:186 src/ogg_tag.c:142 src/ogg_tag.c:592
 #, fuzzy, c-format
 msgid "ERROR while opening file: '%s' (%s)."
@@ -585,7 +585,7 @@ msgstr "Redenumeste directorul..."
 msgid "Reload Directory"
 msgstr "Reîncarcã directorul"
 
-#: src/bar.c:216 src/browser.c:4062
+#: src/bar.c:216 src/browser.c:4080
 msgid "Browse Directory with ..."
 msgstr "Navigheazã directorul cu ..."
 
@@ -725,17 +725,16 @@ msgstr "Nu pot uni interfata, eroarea a fost: %s\n"
 msgid "Ready to start..."
 msgstr "Gata sã pornesc..."
 
-#: src/browser.c:330
+#: src/browser.c:332
 msgid "New default path for files selected"
 msgstr "Nouã cale implicitã pentru fiºierele alese"
 
 #. Some files haven't been saved
-#. Some files aren't saved
-#: src/browser.c:718 src/easytag.c:4668 src/easytag.c:4694 src/easytag.c:4719
+#: src/browser.c:720 src/easytag.c:4689 src/easytag.c:4716
 msgid "Confirm..."
 msgstr "Confirmãri..."
 
-#: src/browser.c:722
+#: src/browser.c:724
 msgid ""
 "Some files have been modified but not saved...\n"
 "Do you want to save them before changing the directory?"
@@ -743,115 +742,115 @@ msgstr ""
 "Unele fiºiere au fost modificate dar nu au fost salvate...\n"
 "Doriþi sã le salvez înainte de a schimba directorul?"
 
-#: src/browser.c:2164
+#: src/browser.c:2167
 #, fuzzy
 msgid "<All albums>"
 msgstr "# Albume"
 
-#: src/browser.c:2574
+#: src/browser.c:2577
 #, c-format
 msgid "Error: Searching for %s, could not find node %s in tree."
 msgstr "Eroare: cautind %s, nu am gasit nodul %s in arbore."
 
-#: src/browser.c:2942 src/browser.c:3069
+#: src/browser.c:2959 src/browser.c:3087
 msgid "Tree"
 msgstr "Arbore"
 
-#: src/browser.c:2943 src/cddb.c:722 src/misc.c:1909
+#: src/browser.c:2960 src/cddb.c:722 src/misc.c:1909
 msgid "File Name"
 msgstr "Numele fiºierlui"
 
-#: src/browser.c:2943 src/cddb.c:723 src/misc.c:1910
+#: src/browser.c:2960 src/cddb.c:723 src/misc.c:1910
 msgid "Title"
 msgstr "Titlu"
 
-#: src/browser.c:2943 src/browser.c:2947 src/cddb.c:437 src/cddb.c:724
+#: src/browser.c:2960 src/browser.c:2964 src/cddb.c:437 src/cddb.c:724
 #: src/misc.c:1911
 msgid "Artist"
 msgstr "Artist"
 
-#: src/browser.c:2943 src/browser.c:2948 src/cddb.c:438 src/cddb.c:725
+#: src/browser.c:2960 src/browser.c:2965 src/cddb.c:438 src/cddb.c:725
 #: src/misc.c:1912
 msgid "Album"
 msgstr "Album"
 
-#: src/browser.c:2944 src/cddb.c:726 src/misc.c:1914
+#: src/browser.c:2961 src/cddb.c:726 src/misc.c:1914
 msgid "Year"
 msgstr "An"
 
-#: src/browser.c:2944 src/misc.c:1915
+#: src/browser.c:2961 src/misc.c:1915
 msgid "Track"
 msgstr "Pistã"
 
-#: src/browser.c:2944 src/cddb.c:729 src/misc.c:1916
+#: src/browser.c:2961 src/cddb.c:729 src/misc.c:1916
 msgid "Genre"
 msgstr "Gen"
 
-#: src/browser.c:2945 src/misc.c:1918 src/picture.c:838
+#: src/browser.c:2962 src/misc.c:1918 src/picture.c:838
 msgid "Composer"
 msgstr "Compozitor"
 
-#: src/browser.c:2945 src/misc.c:1919
+#: src/browser.c:2962 src/misc.c:1919
 msgid "Orig. Artist"
 msgstr "Artist initial"
 
-#: src/browser.c:2945 src/misc.c:1920
+#: src/browser.c:2962 src/misc.c:1920
 msgid "Copyright"
 msgstr "Drept de autor"
 
-#: src/browser.c:2946 src/misc.c:1921
+#: src/browser.c:2963 src/misc.c:1921
 msgid "URL"
 msgstr "URL"
 
-#: src/browser.c:2946
+#: src/browser.c:2963
 #, fuzzy
 msgid "Encoded By"
 msgstr "Codor"
 
-#: src/browser.c:2947
+#: src/browser.c:2964
 msgid "# Albums"
 msgstr "# Albume"
 
-#: src/browser.c:2947 src/browser.c:2948
+#: src/browser.c:2964 src/browser.c:2965
 msgid "# Files"
 msgstr "# Fisiere"
 
-#: src/browser.c:2968
+#: src/browser.c:2985
 msgid "Go to parent directory"
 msgstr "Mergi în directorul parinte"
 
-#: src/browser.c:2985
+#: src/browser.c:3002
 msgid "Enter a directory to browse."
 msgstr "Introduceþi un director de navigat."
 
-#: src/browser.c:2994
+#: src/browser.c:3011
 #, fuzzy
 msgid "Select a directory to browse."
 msgstr "Alegeþi un director de navigat!"
 
-#: src/browser.c:3120
+#: src/browser.c:3138
 msgid "Artist & Album"
 msgstr "Artist si Album"
 
-#: src/browser.c:3592
+#: src/browser.c:3610
 msgid "Rename the directory"
 msgstr "Redenumeºte directorul"
 
-#: src/browser.c:3608
+#: src/browser.c:3626
 #, c-format
 msgid "Rename the directory '%s' to : "
 msgstr "Redenumeºte directorul '%s' : "
 
-#: src/browser.c:3627 src/misc.c:1268
+#: src/browser.c:3645 src/misc.c:1268
 msgid "Use mask :"
 msgstr "Foloseste masca:"
 
-#: src/browser.c:3630
+#: src/browser.c:3648
 #, fuzzy
 msgid "If activated, it will use masks to rename directory."
 msgstr "Daca este activata, lista va fi creata in directorul parinte.."
 
-#: src/browser.c:3649
+#: src/browser.c:3667
 #, fuzzy
 msgid ""
 "Select or type in a mask using codes (see Legend in Scanner Window) to "
@@ -861,32 +860,32 @@ msgstr ""
 "examina numele de fiºiere ºi calea. Folosit pentru a completa cîmpurile "
 "etichetei."
 
-#: src/browser.c:3669 src/misc.c:1288 src/misc.c:1385 src/scan.c:2121
-#: src/scan.c:2188 src/scan.c:2534
+#: src/browser.c:3687 src/misc.c:1288 src/misc.c:1385 src/scan.c:2449
+#: src/scan.c:2516 src/scan.c:2874
 msgid "Invalid Scanner Mask"
 msgstr "Mask de examinare invalid"
 
 #. Preview label
-#: src/browser.c:3675
+#: src/browser.c:3693
 #, fuzzy
 msgid "Rename directory preview..."
 msgstr "Previziualizeazã redenumirea fiºierului"
 
 #. Log_Print(LOG_ERROR,msg);
-#: src/browser.c:3791 src/browser.c:3811 src/browser.c:3883 src/browser.c:3924
-#: src/browser.c:3956 src/browser.c:4406 src/browser.c:4425 src/easytag.c:2637
-#: src/easytag.c:2787 src/easytag.c:2825 src/easytag.c:2846 src/easytag.c:2884
-#: src/easytag.c:2928 src/easytag.c:2981 src/easytag.c:3009 src/easytag.c:3033
-#: src/easytag.c:3260 src/id3_tag.c:545 src/misc.c:1655 src/picture.c:1122
-#: src/prefs.c:1746 src/prefs.c:1863
+#: src/browser.c:3809 src/browser.c:3829 src/browser.c:3901 src/browser.c:3942
+#: src/browser.c:3974 src/browser.c:4424 src/browser.c:4443 src/easytag.c:2649
+#: src/easytag.c:2801 src/easytag.c:2839 src/easytag.c:2860 src/easytag.c:2898
+#: src/easytag.c:2942 src/easytag.c:2995 src/easytag.c:3023 src/easytag.c:3047
+#: src/easytag.c:3274 src/id3_tag.c:545 src/misc.c:1655 src/picture.c:1122
+#: src/prefs.c:1753 src/prefs.c:1870
 msgid "Error..."
 msgstr "Eroare..."
 
-#: src/browser.c:3795
+#: src/browser.c:3813
 msgid "You must type a directory name!"
 msgstr "Trebuie sã introduceþi un nume de director!"
 
-#: src/browser.c:3815
+#: src/browser.c:3833
 #, c-format
 msgid "Could not convert '%s' into filename encoding. Please use another name."
 msgstr "Nu pot converti '%s' in codarea fisierului. Alegeti alt nume."
@@ -919,7 +918,7 @@ msgstr "Nu pot converti '%s' in codarea fisierului. Alegeti alt nume."
 #. case BUTTON_NO:
 #. break;
 #. }
-#: src/browser.c:3881
+#: src/browser.c:3899
 #, c-format
 msgid ""
 "Can't rename because this directory name already exists!\n"
@@ -928,7 +927,7 @@ msgstr ""
 "Nu pot redenumi pentru cã acest nume de director existã deja!\n"
 "(%s)"
 
-#: src/browser.c:3922 src/browser.c:3954
+#: src/browser.c:3940 src/browser.c:3972
 #, c-format
 msgid ""
 "Can't rename directory \n"
@@ -943,50 +942,50 @@ msgstr ""
 "'%s'!\n"
 "(%s)"
 
-#: src/browser.c:4003
+#: src/browser.c:4021
 msgid "Directory renamed"
 msgstr "Director redenumit"
 
-#: src/browser.c:4081 src/browser.c:4241
+#: src/browser.c:4099 src/browser.c:4259
 msgid "Program to run :"
 msgstr "Program de executat :"
 
-#: src/browser.c:4093
+#: src/browser.c:4111
 msgid ""
 "Enter the program to run. It will receive the current directory as parameter."
 msgstr ""
 "Introduceþi programul de executat. O sã primeascã directorul curent ca "
 "parametru."
 
-#: src/browser.c:4222
+#: src/browser.c:4240
 msgid "Open File with ..."
 msgstr "Deschide fisierul cu ..."
 
-#: src/browser.c:4253
+#: src/browser.c:4271
 msgid ""
 "Enter the program to run. It will receive the current file as parameter."
 msgstr ""
 "Introduceþi programul de executat. El va primi fiºierul curent ca parametru."
 
-#: src/browser.c:4410
+#: src/browser.c:4428
 msgid "You must type a program name!"
 msgstr "Trebuie sã introduceþi un nume de fiºier!"
 
-#: src/browser.c:4424 src/misc.c:868
+#: src/browser.c:4442 src/misc.c:868
 #, c-format
 msgid "The program '%s' can't be found!"
 msgstr ""
 
-#: src/browser.c:4479 src/misc.c:914
+#: src/browser.c:4497 src/misc.c:914
 #, fuzzy, c-format
 msgid "Can't execute %s (error %d)!\n"
 msgstr "Nu pot executa %s (%s)!\n"
 
-#: src/browser.c:4498 src/misc.c:953
+#: src/browser.c:4516 src/misc.c:953
 msgid "Can't fork another process!\n"
 msgstr "Nu pot porni (fork) alt proces!\n"
 
-#: src/browser.c:4532
+#: src/browser.c:4550
 #, c-format
 msgid "Executed command : '%s %s'"
 msgstr "Comanda executatã : '%s %s'"
@@ -1308,7 +1307,7 @@ msgstr "Eroare în timp ce ºtergeam eticheta ID3v1 de la '%s' (%s)\n"
 msgid "Can't create file '%s' (%s)"
 msgstr "Nu pot crea sau deschide '%s' (%s)"
 
-#: src/cddb.c:1814 src/misc.c:3119 src/setting.c:1317
+#: src/cddb.c:1814 src/misc.c:3119 src/setting.c:1319
 #, c-format
 msgid "Can't open file '%s' (%s)"
 msgstr "Nu pot deschide '%s' (%s)"
@@ -1631,47 +1630,47 @@ msgid "The string '%s' couldn't be converted into UTF-8 (%s)."
 msgstr ""
 
 #. Starting messages
-#: src/easytag.c:179
+#: src/easytag.c:191
 #, fuzzy, c-format
 msgid "Starting EasyTAG %s (PId: %d) ..."
 msgstr "Pornesc EasyTAG %s (Pld: %d) ...\n"
 
-#: src/easytag.c:181
+#: src/easytag.c:193
 #, fuzzy, c-format
 msgid "Currently using libid3tag version %s ..."
 msgstr "Folosesc id3lib versiunea %d.%d.%d ...\n"
 
-#: src/easytag.c:184
+#: src/easytag.c:196
 #, fuzzy, c-format
 msgid "Currently using id3lib version %d.%d.%d ..."
 msgstr "Folosesc id3lib versiunea %d.%d.%d ...\n"
 
-#: src/easytag.c:191
+#: src/easytag.c:203
 #, c-format
 msgid "Variable EASYTAGLANG defined. Setting locale : '%s'"
 msgstr ""
 
-#: src/easytag.c:193
+#: src/easytag.c:205
 #, fuzzy, c-format
 msgid "Setting locale : '%s'"
 msgstr "Redenumesc fiºierul '%s'"
 
-#: src/easytag.c:197
+#: src/easytag.c:209
 #, c-format
 msgid "Currently using locale '%s' (and eventually '%s')..."
 msgstr ""
 
-#: src/easytag.c:213
+#: src/easytag.c:225
 #, c-format
 msgid "%s %s by %s (compiled %s, %s)\n"
 msgstr "%s %s de %s (compilat %s, %s)\n"
 
-#: src/easytag.c:215
+#: src/easytag.c:227
 #, c-format
 msgid "Web Page: %s"
 msgstr "Paginã de web: %s"
 
-#: src/easytag.c:290
+#: src/easytag.c:302
 #, c-format
 msgid "Unknown parameter or path '%s'\n"
 msgstr ""
@@ -1679,140 +1678,140 @@ msgstr ""
 #.
 #. * Browser
 #.
-#: src/easytag.c:414 src/prefs.c:145 src/prefs.c:146
+#: src/easytag.c:426 src/prefs.c:145 src/prefs.c:146
 msgid "Browser"
 msgstr "Navigator"
 
-#: src/easytag.c:436 src/et_core.c:2614
+#: src/easytag.c:448 src/et_core.c:2617
 msgid "File"
 msgstr "Fiºier"
 
-#: src/easytag.c:462
+#: src/easytag.c:474
 msgid "Read Only File"
 msgstr "Fiºier doar citire"
 
-#: src/easytag.c:465
+#: src/easytag.c:477
 msgid "File Link Broken"
 msgstr "Legãturã fiºier incorectã"
 
 #. Default values are MPs data
 #. MPEG, Layer versions
-#: src/easytag.c:479 src/easytag.c:4184 src/mpeg_header.c:354
+#: src/easytag.c:491 src/easytag.c:4207 src/mpeg_header.c:354
 msgid "MPEG"
 msgstr "MPEG"
 
-#: src/easytag.c:481 src/easytag.c:4185
+#: src/easytag.c:493 src/easytag.c:4208
 msgid "?, Layer ?"
 msgstr "?, Strat ?"
 
-#: src/easytag.c:486
+#: src/easytag.c:498
 msgid "Bitrate:"
 msgstr "Bitrate:"
 
-#: src/easytag.c:488 src/easytag.c:4186
+#: src/easytag.c:500 src/easytag.c:4209
 msgid "? kb/s"
 msgstr "? kb/s"
 
-#: src/easytag.c:493
+#: src/easytag.c:505
 msgid "Freq:"
 msgstr "Frecvenþã:"
 
-#: src/easytag.c:495 src/easytag.c:4187
+#: src/easytag.c:507 src/easytag.c:4210
 msgid "? Hz"
 msgstr "? Hz"
 
 #. Mode
-#: src/easytag.c:503 src/easytag.c:4188 src/mpeg_header.c:377
+#: src/easytag.c:515 src/easytag.c:4211 src/mpeg_header.c:377
 msgid "Mode:"
 msgstr "Mod:"
 
-#: src/easytag.c:505 src/easytag.c:519 src/easytag.c:4189 src/easytag.c:4190
-#: src/easytag.c:4191
+#: src/easytag.c:517 src/easytag.c:531 src/easytag.c:4212 src/easytag.c:4213
+#: src/easytag.c:4214
 msgid "?"
 msgstr "?"
 
-#: src/easytag.c:510
+#: src/easytag.c:522
 msgid "Size:"
 msgstr "Lungime:"
 
-#: src/easytag.c:512
+#: src/easytag.c:524
 msgid "? kb"
 msgstr "? kb"
 
-#: src/easytag.c:517
+#: src/easytag.c:529
 msgid "Time:"
 msgstr "Timp:"
 
 #. Main Frame
-#: src/easytag.c:563 src/et_core.c:2552
+#: src/easytag.c:575 src/et_core.c:2555
 msgid "Tag"
 msgstr "Etichetã"
 
 #.
 #. * 1 - Page for common tag fields
 #.
-#: src/easytag.c:585
+#: src/easytag.c:597
 msgid "Common"
 msgstr "Comun"
 
 #. Title
-#: src/easytag.c:597
+#: src/easytag.c:609
 msgid "Title:"
 msgstr "Titlu:"
 
-#: src/easytag.c:610
+#: src/easytag.c:622
 msgid "Tag selected files with this title"
 msgstr "Eticheteaza fisierele alese cu titlul acesta"
 
 #. Artist
-#: src/easytag.c:617
+#: src/easytag.c:629
 msgid "Artist:"
 msgstr "Artist:"
 
-#: src/easytag.c:629
+#: src/easytag.c:641
 msgid "Tag selected files with this artist"
 msgstr "Eticheteaza toate fisierele cu artistul acesta"
 
 #. Album
-#: src/easytag.c:635
+#: src/easytag.c:647
 msgid "Album:"
 msgstr "Album:"
 
-#: src/easytag.c:648
+#: src/easytag.c:660
 msgid "Tag selected files with this album name"
 msgstr "Eticheteaza fisierele alese cu albumul acesta"
 
 #. Disc Number
-#: src/easytag.c:654
+#: src/easytag.c:666
 #, fuzzy
 msgid "CD:"
 msgstr "CD"
 
-#: src/easytag.c:670
+#: src/easytag.c:682
 msgid "Tag selected files with this disc number"
 msgstr "Eticheteaza fisierele alese cu acest numar de disc"
 
 #. Year
-#: src/easytag.c:676
+#: src/easytag.c:688
 msgid "Year:"
 msgstr "An:"
 
-#: src/easytag.c:693
+#: src/easytag.c:705
 msgid "Tag selected files with this year"
 msgstr "Eticheteaza fisierele alese cu anul acesta"
 
-#: src/easytag.c:705
+#: src/easytag.c:717
 msgid "Number selected tracks sequentially. Starts at 01 in each subdirectory."
 msgstr ""
 "Numara pistele alese secvential. Porneste de la 01 în fiecare subdirector"
 
 #. To have enought space to display the icon
 #. To have enought space to display the icon
-#: src/easytag.c:714
+#: src/easytag.c:726
 msgid "Track #:"
 msgstr "Pistã #:"
 
-#: src/easytag.c:740
+#: src/easytag.c:752
 msgid ""
 "Set the number of files, in the same directory of the displayed file, to the "
 "selected tracks."
@@ -1820,274 +1819,274 @@ msgstr ""
 "Alegeti numarul de fisiere, din acelasi director cu fisierul afisat, pentru "
 "pistele alese"
 
-#: src/easytag.c:759
+#: src/easytag.c:771
 msgid "Tag selected files with this number of tracks"
 msgstr "Eticheteaza fisierele alese cu acest numar de piste"
 
 #. Genre
-#: src/easytag.c:765
+#: src/easytag.c:777
 msgid "Genre:"
 msgstr "Gen"
 
-#: src/easytag.c:790
+#: src/easytag.c:802
 msgid "Tag selected files with this genre"
 msgstr "Eticheteaza fisierele alese cu acest gen"
 
 #. Comment
-#: src/easytag.c:796
+#: src/easytag.c:808
 msgid "Comment:"
 msgstr "Comentariu:"
 
-#: src/easytag.c:821
+#: src/easytag.c:833
 msgid "Tag selected files with this comment"
 msgstr "Eticheteaza fisierele alese cu acest comentariu"
 
 #. Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(CommentView));
 #. g_object_set_data(G_OBJECT(CommentView),"MButtonName",CommentMButton);
 #. Composer (name of the composers)
-#: src/easytag.c:830
+#: src/easytag.c:842
 msgid "Composer:"
 msgstr "Compozitor:"
 
-#: src/easytag.c:842
+#: src/easytag.c:854
 msgid "Tag selected files with this composer"
 msgstr "Eticheteaza fisierele alese cu acest compozitor"
 
 #. Original Artist / Performer
-#: src/easytag.c:849
+#: src/easytag.c:861
 msgid "Orig. Artist:"
 msgstr "Artist initial:"
 
-#: src/easytag.c:861
+#: src/easytag.c:873
 msgid "Tag selected files with this original artist"
 msgstr "Eticheteaza toate fisierele cu artistul initial acesta"
 
 #. Copyright
-#: src/easytag.c:868
+#: src/easytag.c:880
 msgid "Copyright:"
 msgstr "Drept de autor:"
 
-#: src/easytag.c:880
+#: src/easytag.c:892
 msgid "Tag selected files with this copyright"
 msgstr "Eticheteaza toate fisierele cu 'dreptul de autor' acesta"
 
 #. URL
-#: src/easytag.c:887
+#: src/easytag.c:899
 msgid "URL:"
 msgstr "URL:"
 
-#: src/easytag.c:899
+#: src/easytag.c:911
 msgid "Tag selected files with this URL"
 msgstr "Eticheteaza fisierele alese cu URL-ul acesta"
 
 #. Encoded by
-#: src/easytag.c:906
+#: src/easytag.c:918
 msgid "Encoded by:"
 msgstr "Codor:"
 
-#: src/easytag.c:918
+#: src/easytag.c:930
 msgid "Tag selected files with this encoder name"
 msgstr "Eticheteaza fisierele alese cu acest codor"
 
 #.
 #. * 2 - Page for extra tag fields
 #.
-#: src/easytag.c:978
+#: src/easytag.c:990
 msgid "Pictures"
 msgstr "Imagini"
 
 #. Picture
-#: src/easytag.c:989
+#: src/easytag.c:1001
 msgid "Pictures:"
 msgstr "Imagini:"
 
-#: src/easytag.c:1009
+#: src/easytag.c:1021
 msgid "You can use drag and drop to add picture."
 msgstr "Puteti folosi 'drag and drop' pentru a adauga o imagine."
 
-#: src/easytag.c:1047
+#: src/easytag.c:1059
 msgid "Tag selected files with these pictures"
 msgstr "Eticheteaza fisierele alese cu aceste imagini"
 
-#: src/easytag.c:1057
+#: src/easytag.c:1069
 msgid "Add pictures to the tag (drag and drop is also available)."
 msgstr "Adauga imagini etichetei ('drag and drop' este disponibil)."
 
-#: src/easytag.c:1063
+#: src/easytag.c:1075
 msgid "Remove selected pictures, else all pictures."
 msgstr "Sterge imaginile alese sau toate imaginile."
 
-#: src/easytag.c:1073
+#: src/easytag.c:1085
 msgid "Save the selected pictures on the hard disk."
 msgstr "Salveaza imaginile alese pe hard disc"
 
-#: src/easytag.c:1080
+#: src/easytag.c:1092
 msgid "Set properties of the selected pictures."
 msgstr "Alegeti proprietatile imaginilor alese."
 
-#: src/easytag.c:1160
+#: src/easytag.c:1172
 #, c-format
 msgid "Selected files tagged with title '%s'."
 msgstr "Fisierele alese etichetate cu titlul '%s'."
 
-#: src/easytag.c:1162
+#: src/easytag.c:1174
 msgid "Removed title from selected files."
 msgstr "Sters titlul din fisierele alese."
 
-#: src/easytag.c:1179
+#: src/easytag.c:1191
 #, c-format
 msgid "Selected files tagged with artist '%s'."
 msgstr "Toate fisierele etichetate cu artistul '%s'."
 
-#: src/easytag.c:1181
+#: src/easytag.c:1193
 msgid "Removed artist from selected files."
 msgstr "Sters artistul din toate fisierele."
 
-#: src/easytag.c:1198
+#: src/easytag.c:1210
 #, c-format
 msgid "Selected files tagged with album '%s'."
 msgstr "Fisierele alese etichetate cu albumul '%s'."
 
-#: src/easytag.c:1200
+#: src/easytag.c:1212
 msgid "Removed album name from selected files."
 msgstr "Sters albumul din fisierele alese."
 
-#: src/easytag.c:1217
+#: src/easytag.c:1229
 #, c-format
 msgid "Selected files tagged with disc number '%s'."
 msgstr "Fisierele alese etichetate cu numarul de disc '%s'."
 
-#: src/easytag.c:1219
+#: src/easytag.c:1231
 msgid "Removed disc number from selected files."
 msgstr "Sters numarul de disc din fisierele alese."
 
-#: src/easytag.c:1236
+#: src/easytag.c:1248
 #, c-format
 msgid "Selected files tagged with year '%s'."
 msgstr "Fisierele alese etichetate cu anul '%s'."
 
-#: src/easytag.c:1238
+#: src/easytag.c:1250
 msgid "Removed year from selected files."
 msgstr "Sters anul din fisierele alese."
 
-#: src/easytag.c:1266 src/easytag.c:1362
+#: src/easytag.c:1278 src/easytag.c:1374
 #, c-format
 msgid "Selected files tagged with track like 'xx/%s'."
 msgstr "Fisierele alese etichetate cu pista 'xx/%s'."
 
-#: src/easytag.c:1269
+#: src/easytag.c:1281
 msgid "Selected files tagged with track like 'xx'."
 msgstr "Fisierele alese etichetate cu pista 'xx'."
 
-#: src/easytag.c:1273 src/easytag.c:1365
+#: src/easytag.c:1285 src/easytag.c:1377
 msgid "Removed track number from selected files."
 msgstr "Sters numarul pistei din fisierele alese."
 
 #. msg = g_strdup_printf(_("All %d tracks numbered sequentially."), ETCore->ETFileSelectionList_Length);
-#: src/easytag.c:1331
+#: src/easytag.c:1343
 msgid "Selected tracks numbered sequentially."
 msgstr "Pistele alese etichetate secvential."
 
-#: src/easytag.c:1383
+#: src/easytag.c:1395
 #, c-format
 msgid "Selected files tagged with genre '%s'."
 msgstr "Fisierele alese etichetate cu genul '%s'."
 
-#: src/easytag.c:1385
+#: src/easytag.c:1397
 msgid "Removed genre from selected files."
 msgstr "Sters genul din fisierele alese."
 
-#: src/easytag.c:1409
+#: src/easytag.c:1421
 #, c-format
 msgid "Selected files tagged with comment '%s'."
 msgstr "Fisierele alese etichetate cu comentariul '%s'."
 
-#: src/easytag.c:1411
+#: src/easytag.c:1423
 msgid "Removed comment from selected files."
 msgstr "Sters comentariul din fisierele alese."
 
-#: src/easytag.c:1428
+#: src/easytag.c:1440
 #, c-format
 msgid "Selected files tagged with composer '%s'."
 msgstr "Fisierele alese etichetate cu compozitorul '%s'."
 
-#: src/easytag.c:1430
+#: src/easytag.c:1442
 msgid "Removed composer from selected files."
 msgstr "Sters compozitorul din fisierele alese."
 
-#: src/easytag.c:1447
+#: src/easytag.c:1459
 #, c-format
 msgid "Selected files tagged with original artist '%s'."
 msgstr "Toate fisierele etichetate cu artistul initial '%s'."
 
-#: src/easytag.c:1449
+#: src/easytag.c:1461
 msgid "Removed original artist from selected files."
 msgstr "Sters artistul intial din toate fisierele."
 
-#: src/easytag.c:1466
+#: src/easytag.c:1478
 #, c-format
 msgid "Selected files tagged with copyright '%s'."
 msgstr "Toate fisierele etichetate cu 'dreptul de autor' '%s'."
 
-#: src/easytag.c:1468
+#: src/easytag.c:1480
 msgid "Removed copyright from selected files."
 msgstr "Sters 'dreptul de autor' din toate fisierele."
 
-#: src/easytag.c:1485
+#: src/easytag.c:1497
 #, c-format
 msgid "Selected files tagged with URL '%s'."
 msgstr "Fisierele alese etichetate cu URL '%s'."
 
-#: src/easytag.c:1487
+#: src/easytag.c:1499
 msgid "Removed URL from selected files."
 msgstr "Sters URL din fisierele alese."
 
-#: src/easytag.c:1504
+#: src/easytag.c:1516
 #, c-format
 msgid "Selected files tagged with encoder name '%s'."
 msgstr "Fisierele alese etichetate cu codorul '%s'."
 
-#: src/easytag.c:1506
+#: src/easytag.c:1518
 msgid "Removed encoder name from selected files."
 msgstr "Sters codorul din fisierele alese."
 
-#: src/easytag.c:1541
+#: src/easytag.c:1553
 msgid "Selected files tagged with pictures."
 msgstr "Fisierele alese etichetate cu imagini '%s'."
 
-#: src/easytag.c:1543
+#: src/easytag.c:1555
 msgid "Removed pictures from selected files."
 msgstr "Sters imaginile din fisierele alese."
 
-#: src/easytag.c:1782
+#: src/easytag.c:1794
 msgid "Select Mode and Mask, and redo the same action"
 msgstr "Alegeþi modul ºi masca ºi refã aceeaºi actiune"
 
-#: src/easytag.c:1837
+#: src/easytag.c:1849
 msgid "All tags have been scanned"
 msgstr "Toate etichetele au fost examinate"
 
-#: src/easytag.c:1894
+#: src/easytag.c:1906
 msgid "All tags have been removed"
 msgstr "Toate etichetele au fost ºterse"
 
-#: src/easytag.c:2189 src/easytag.c:2212
+#: src/easytag.c:2201 src/easytag.c:2224
 msgid "All files have been saved..."
 msgstr "Toate fiºierele au fost salvate..."
 
-#: src/easytag.c:2210
+#: src/easytag.c:2222
 msgid "Files have been partially saved..."
 msgstr "Fiºierele au fost parþial salvate..."
 
-#: src/easytag.c:2360
+#: src/easytag.c:2372
 msgid "Files have been partially deleted..."
 msgstr "Fisierele au fost partial sterse..."
 
-#: src/easytag.c:2362
+#: src/easytag.c:2374
 msgid "All files have been deleted..."
 msgstr "Toate fisierele au fost sterse..."
 
-#: src/easytag.c:2435
+#: src/easytag.c:2447
 #, c-format
 msgid ""
 "Do you want to write the tag of file\n"
@@ -2096,17 +2095,17 @@ msgstr ""
 "Doriþi sã scrieþi eticheta fiºierului\n"
 "'%s' ?"
 
-#: src/easytag.c:2439 src/easytag.c:2452
+#: src/easytag.c:2451 src/easytag.c:2464
 msgid "Write Tag..."
 msgstr "Scriu eticheta..."
 
 #. Directories and filename changed
-#: src/easytag.c:2516
+#: src/easytag.c:2528
 #, fuzzy
 msgid "Rename File and Directory..."
 msgstr "Redenumeste fisierul si directorul"
 
-#: src/easytag.c:2517
+#: src/easytag.c:2529
 #, fuzzy, c-format
 msgid ""
 "Do you want to rename the file and directory \n"
@@ -2120,12 +2119,12 @@ msgstr ""
 "'%s' ?"
 
 #. Only directories changed
-#: src/easytag.c:2522
+#: src/easytag.c:2534
 #, fuzzy
 msgid "Rename Directory..."
 msgstr "Redenumeste directorul..."
 
-#: src/easytag.c:2523
+#: src/easytag.c:2535
 #, fuzzy, c-format
 msgid ""
 "Do you want to rename the directory \n"
@@ -2139,11 +2138,11 @@ msgstr ""
 "'%s' ?"
 
 #. Only filename changed
-#: src/easytag.c:2529
+#: src/easytag.c:2541
 msgid "Rename File..."
 msgstr "Redenumeºte fiºierul..."
 
-#: src/easytag.c:2530
+#: src/easytag.c:2542
 #, c-format
 msgid ""
 "Do you want to rename the file \n"
@@ -2156,17 +2155,17 @@ msgstr ""
 "în \n"
 "'%s' ?"
 
-#: src/easytag.c:2613
+#: src/easytag.c:2625
 #, c-format
 msgid "Writing tag of '%s'"
 msgstr "Scriu eticheta la '%s'"
 
-#: src/easytag.c:2619
+#: src/easytag.c:2631
 msgid "Tag(s) written"
 msgstr "Eticheta(le) scris(e)"
 
 #. Special for Ogg Vorbis because the error is defined into 'vcedit_error(state)'
-#: src/easytag.c:2628 src/easytag.c:2633
+#: src/easytag.c:2640 src/easytag.c:2645
 #, c-format
 msgid ""
 "Can't write tag in file '%s'!\n"
@@ -2175,14 +2174,14 @@ msgstr ""
 "Nu pot scrie eticheta în fiºierul '%s'!\n"
 "(%s)"
 
-#: src/easytag.c:2765
+#: src/easytag.c:2779
 #, c-format
 msgid "Renaming file '%s'"
 msgstr "Redenumesc fiºierul '%s'"
 
 #. Renaming file to the temporary filename has failed
 #. Renaming file from the temporary filename has failed
-#: src/easytag.c:2785 src/easytag.c:2823 src/easytag.c:3031
+#: src/easytag.c:2799 src/easytag.c:2837 src/easytag.c:3045
 #, c-format
 msgid ""
 "Can't rename file '%s'\n"
@@ -2195,11 +2194,11 @@ msgstr ""
 "'%s'!\n"
 "(%s)"
 
-#: src/easytag.c:2799 src/easytag.c:2837 src/easytag.c:2858 src/easytag.c:3045
+#: src/easytag.c:2813 src/easytag.c:2851 src/easytag.c:2872 src/easytag.c:3059
 msgid "File(s) not renamed..."
 msgstr "Fiºierul(ele) neredenumite..."
 
-#: src/easytag.c:2844
+#: src/easytag.c:2858
 #, c-format
 msgid ""
 "Can't rename file \n"
@@ -2212,7 +2211,7 @@ msgstr ""
 "pentru cã urmãtorul fiºier deja existã:\n"
 "'%s'"
 
-#: src/easytag.c:2882
+#: src/easytag.c:2896
 #, c-format
 msgid ""
 "Can't create target directory\n"
@@ -2224,16 +2223,16 @@ msgstr ""
 "(%s)"
 
 #. Renaming file has succeeded
-#: src/easytag.c:2910
+#: src/easytag.c:2924
 #, c-format
 msgid "Renamed file '%s' to '%s'"
 msgstr "Fiºier redenumit '%s' în '%s'"
 
-#: src/easytag.c:2916
+#: src/easytag.c:2930
 msgid "File(s) renamed..."
 msgstr "Fisierul(ele) redenumite..."
 
-#: src/easytag.c:2926 src/easytag.c:2979
+#: src/easytag.c:2940 src/easytag.c:2993
 #, fuzzy, c-format
 msgid ""
 "Can't remove old directory\n"
@@ -2245,18 +2244,18 @@ msgstr ""
 "(%s)"
 
 #. Renaming file has succeeded
-#: src/easytag.c:2963
+#: src/easytag.c:2977
 #, fuzzy, c-format
 msgid "Moved file '%s' to '%s'"
 msgstr "Fiºier redenumit '%s' în '%s'\n"
 
-#: src/easytag.c:2969
+#: src/easytag.c:2983
 #, fuzzy
 msgid "File(s) moved..."
 msgstr "Fisierul(ele) redenumite..."
 
 #. Moving file has failed
-#: src/easytag.c:3007
+#: src/easytag.c:3021
 #, fuzzy, c-format
 msgid ""
 "Can't move file '%s'\n"
@@ -2269,12 +2268,12 @@ msgstr ""
 "'%s'!\n"
 "(%s)"
 
-#: src/easytag.c:3021
+#: src/easytag.c:3035
 #, fuzzy
 msgid "File(s) not moved..."
 msgstr "Fiºierul(ele) neredenumite..."
 
-#: src/easytag.c:3080
+#: src/easytag.c:3094
 #, c-format
 msgid ""
 "Do you really want to delete definitively the file\n"
@@ -2283,16 +2282,16 @@ msgstr ""
 "Sigur doriti sa stergeti definitiv fisierul\n"
 "'%s' ?"
 
-#: src/easytag.c:3083 src/easytag.c:3096
+#: src/easytag.c:3097 src/easytag.c:3110
 msgid "Delete File..."
 msgstr "ªterge fiºierul..."
 
-#: src/easytag.c:3124
+#: src/easytag.c:3138
 #, c-format
 msgid "File '%s' deleted"
 msgstr "Fisierul '%s' a fost sters"
 
-#: src/easytag.c:3259
+#: src/easytag.c:3273
 #, c-format
 msgid ""
 "Can't read directory :\n"
@@ -2304,109 +2303,109 @@ msgstr ""
 "(%s)"
 
 #. Read the directory recursively
-#: src/easytag.c:3287
+#: src/easytag.c:3301
 msgid "Search in progress..."
 msgstr "Cãutare în curs..."
 
-#: src/easytag.c:3304 src/et_core.c:2621
+#: src/easytag.c:3318 src/et_core.c:2624
 #, c-format
 msgid "File: '%s'"
 msgstr "Fiºier: '%s'"
 
-#: src/easytag.c:3354
+#: src/easytag.c:3368
 #, c-format
 msgid "Found %d file(s) in this directory and subdirectories."
 msgstr "Gasit %d fisier(e) în acest director si subdirectoare."
 
-#: src/easytag.c:3356
+#: src/easytag.c:3370
 #, c-format
 msgid "Found %d file(s) in this directory."
 msgstr "Gasit %d fisier(e) în acest director."
 
 #. And refresh the number of files in this directory
-#: src/easytag.c:3369 src/et_core.c:2705
+#: src/easytag.c:3383 src/et_core.c:2708
 #, c-format
 msgid "%u file(s)"
 msgstr "%u fisier(e)"
 
-#: src/easytag.c:3375
+#: src/easytag.c:3389
 msgid "No file found in this directory and subdirectories!"
 msgstr "Nici un fiºier nu a fost gãsit în acest director ºi subdirectoare!"
 
-#: src/easytag.c:3377
+#: src/easytag.c:3391
 msgid "No file found in this directory!"
 msgstr "Nici un fiºier nu a fost gãsit în acest director!"
 
-#: src/easytag.c:3465
+#: src/easytag.c:3479
 msgid "Searching..."
 msgstr "Caut..."
 
 #. Button to stop...
-#: src/easytag.c:3485
+#: src/easytag.c:3499
 msgid "  STOP the search...  "
 msgstr "  Opreºte cãutarea...  "
 
 #. Open the last selected scanner
-#: src/easytag.c:4211
+#: src/easytag.c:4234
 msgid "Select a directory to browse!"
 msgstr "Alegeþi un director de navigat!"
 
 #. Menu items
-#: src/easytag.c:4347
+#: src/easytag.c:4370
 msgid "Tag selected files with this field"
 msgstr "Eticheteaza fisierele alese cu titlul acesta"
 
-#: src/easytag.c:4358
+#: src/easytag.c:4381
 msgid "Convert '_' and '%20' to spaces"
 msgstr "Schimbã '_' ºi '%20' în spaþii"
 
-#: src/easytag.c:4365 src/scan.c:2314
+#: src/easytag.c:4388 src/scan.c:2642
 msgid "Convert ' ' to '_'"
 msgstr "Schimbã ' ' în '_'"
 
 #. Group: capitalize, ...
-#: src/easytag.c:4376 src/scan.c:2363
+#: src/easytag.c:4399 src/scan.c:2693
 msgid "All uppercase"
 msgstr "Toate majuscule"
 
-#: src/easytag.c:4383 src/scan.c:2364
+#: src/easytag.c:4406 src/scan.c:2694
 msgid "All downcase"
 msgstr "Toate minuscule"
 
-#: src/easytag.c:4390 src/scan.c:2365
+#: src/easytag.c:4413 src/scan.c:2695
 msgid "First letter uppercase"
 msgstr "Prima literã majusculã"
 
-#: src/easytag.c:4397 src/scan.c:2366
+#: src/easytag.c:4420 src/scan.c:2696
 msgid "First letter uppercase of each word"
 msgstr "Prima literã a fiecãrui cuvînt majusculã"
 
 #. Group: insert/remove spaces
-#: src/easytag.c:4408 src/scan.c:2405
+#: src/easytag.c:4431 src/scan.c:2744
 msgid "Remove spaces"
 msgstr "ªterge spaþiile"
 
-#: src/easytag.c:4415
+#: src/easytag.c:4438
 msgid "Insert space before uppercase letter"
 msgstr "Introdu spaþiu înainte de majusculã"
 
-#: src/easytag.c:4422
+#: src/easytag.c:4445
 msgid "Remove duplicate spaces or underscores"
 msgstr "ªterge spaþiile si underscores multiple"
 
 #. gchar commmand[256];
 #. To send messages to the console...
-#: src/easytag.c:4442 src/easytag.c:4450
+#: src/easytag.c:4465 src/easytag.c:4473
 #, c-format
 msgid "EasyTAG %s: Abnormal exit! (PId: %d)."
 msgstr "EasyTAG %s: Ieºire anormalã! (PId: %d)."
 
-#: src/easytag.c:4443 src/easytag.c:4452
+#: src/easytag.c:4466 src/easytag.c:4475
 #, fuzzy, c-format
 msgid "Received signal %s (%d)\a"
 msgstr "Primit semnalul %s (%d)\n"
 
-#: src/easytag.c:4445 src/easytag.c:4454
+#: src/easytag.c:4468 src/easytag.c:4477
 #, fuzzy
 msgid ""
 "You have probably found a bug in EasyTAG. Please, send a bug report with a "
@@ -2416,11 +2415,11 @@ msgstr ""
 "Probabil ati gasit o problema cu EasyTAG. Va rog sa trimiteti un raport cu "
 "gdb backtrace ('gdb easytag core' apoi 'bt') la easytag@gmail.com\n"
 
-#: src/easytag.c:4581
+#: src/easytag.c:4604
 msgid "Unknown signal"
 msgstr "Semnal necunoscut"
 
-#: src/easytag.c:4597
+#: src/easytag.c:4620
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -2452,11 +2451,11 @@ msgstr ""
 "/calea_spre/fisiere   Folositi o cale absoluta pentru a încarca\n"
 "., ./                 Încarca directorul curent\n"
 
-#: src/easytag.c:4625
+#: src/easytag.c:4648
 msgid "EasyTAG: Normal exit."
 msgstr "EasyTAG: Ieºire normalã."
 
-#: src/easytag.c:4672 src/easytag.c:4723
+#: src/easytag.c:4693
 msgid ""
 "Some files have been modified but not saved...\n"
 "Do you want to save them before exiting the program?"
@@ -2464,80 +2463,80 @@ msgstr ""
 "Unele fiºiere au fost modificate dar nu ºi salvate...\n"
 "Doriþi sã le salvez înainte de ieºire?"
 
-#: src/easytag.c:4698
+#: src/easytag.c:4720
 msgid " Do you really want to exit the program? "
 msgstr " Sigur vreþi sã ieºiti din program? "
 
-#: src/et_core.c:2518
+#: src/et_core.c:2521
 msgid "ID3 Tag"
 msgstr "Etichetã ID3"
 
-#: src/et_core.c:2524
+#: src/et_core.c:2527
 msgid "Ogg Vorbis Tag"
 msgstr "Eticheta Ogg Vorbis"
 
-#: src/et_core.c:2530
+#: src/et_core.c:2533
 msgid "FLAC Vorbis Tag"
 msgstr "Eticheta FLAC Vorbis"
 
-#: src/et_core.c:2535
+#: src/et_core.c:2538
 msgid "APE Tag"
 msgstr "Eticheta APE"
 
-#: src/et_core.c:2540
+#: src/et_core.c:2543
 msgid "MP4/M4A/AAC Tag"
 msgstr ""
 
-#: src/et_core.c:2546
+#: src/et_core.c:2549
 msgid "Wavpack Tag"
 msgstr ""
 
-#: src/et_core.c:2566
+#: src/et_core.c:2569
 msgid "MP3 File"
 msgstr "Fiºier MP3"
 
-#: src/et_core.c:2570
+#: src/et_core.c:2573
 msgid "MP2 File"
 msgstr "Fiºier MP2"
 
-#: src/et_core.c:2576
+#: src/et_core.c:2579
 msgid "Ogg Vorbis File"
 msgstr "Fiºier Ogg Vorbis"
 
-#: src/et_core.c:2582
+#: src/et_core.c:2585
 #, fuzzy
 msgid "Speex File"
 msgstr "Urmatorul fisier"
 
-#: src/et_core.c:2588
+#: src/et_core.c:2591
 msgid "FLAC File"
 msgstr "Fiºier FLAC"
 
-#: src/et_core.c:2593
+#: src/et_core.c:2596
 msgid "MusePack File"
 msgstr "Fisier MusePack"
 
-#: src/et_core.c:2597
+#: src/et_core.c:2600
 msgid "Monkey's Audio File"
 msgstr "Fisier Monkey's Audio"
 
-#: src/et_core.c:2602
+#: src/et_core.c:2605
 #, fuzzy
 msgid "MP4/AAC File"
 msgstr "Fiºier MP2"
 
-#: src/et_core.c:2608
+#: src/et_core.c:2611
 #, fuzzy
 msgid "Wavpack File"
 msgstr "Fisier MusePack"
 
-#: src/et_core.c:2882
+#: src/et_core.c:2885
 #, fuzzy, c-format
 msgid "Pictures (%d)"
 msgstr "Imagini"
 
 #. Bitrate
-#: src/et_core.c:2921 src/flac_header.c:302 src/monkeyaudio_header.c:86
+#: src/et_core.c:2924 src/flac_header.c:302 src/monkeyaudio_header.c:86
 #: src/mp4_header.c:275 src/mpeg_header.c:367 src/musepack_header.c:88
 #: src/ogg_header.c:257 src/wavpack_header.c:78
 #, c-format
@@ -2545,14 +2544,14 @@ msgid "%d kb/s"
 msgstr "%d kb/s"
 
 #. Samplerate
-#: src/et_core.c:2926 src/flac_header.c:307 src/monkeyaudio_header.c:91
+#: src/et_core.c:2929 src/flac_header.c:307 src/monkeyaudio_header.c:91
 #: src/mp4_header.c:280 src/mpeg_header.c:372 src/musepack_header.c:93
 #: src/ogg_header.c:262 src/wavpack_header.c:83
 #, c-format
 msgid "%d Hz"
 msgstr "%d Hz"
 
-#: src/et_core.c:3066
+#: src/et_core.c:3069
 #, c-format
 msgid ""
 "Could not convert filename : '%s'\n"
@@ -2563,11 +2562,11 @@ msgstr ""
 "in codarea sistemului de fisiere\n"
 "(Incercati sa modificati variabila de mediu G_FILENAME_ENCODING)."
 
-#: src/et_core.c:3069 src/scan.c:668
+#: src/et_core.c:3072 src/scan.c:675
 msgid "Filename translation"
 msgstr "Optiuni ale conversiei numelui de fisier"
 
-#: src/et_core.c:4551 src/et_core.c:4559
+#: src/et_core.c:4554 src/et_core.c:4562
 #, c-format
 msgid "The filename '%s' exceeds %d characters and will be truncated!\n"
 msgstr ""
@@ -2592,24 +2591,24 @@ msgstr "Codor:"
 msgid "Channels:"
 msgstr "Schimbari"
 
-#: src/flac_tag.c:135 src/flac_tag.c:780 src/flac_tag.c:790
+#: src/flac_tag.c:137 src/flac_tag.c:780 src/flac_tag.c:790
 #, fuzzy, c-format
 msgid "ERROR while opening file: '%s' as FLAC (%s)."
 msgstr ""
 "Eroare în timpul deschiderii fisierului: '%s' (%s).\n"
 "\a"
 
-#: src/flac_tag.c:1091
+#: src/flac_tag.c:1096
 #, c-format
 msgid "Picture block isn't valid: '%s'"
 msgstr ""
 
-#: src/flac_tag.c:1126 src/ogg_tag.c:853
+#: src/flac_tag.c:1130 src/ogg_tag.c:853
 #, c-format
 msgid "ERROR: Failed to write comments to file '%s' (%s)."
 msgstr "Eroare: Am eºuat sã scriu comentariile în fiºierul '%s' (%s)."
 
-#: src/flac_tag.c:1131 src/ogg_tag.c:860
+#: src/flac_tag.c:1135 src/ogg_tag.c:860
 #, c-format
 msgid "Written tag of '%s'"
 msgstr "Eticheta de la '%s' scrisã"
@@ -3034,7 +3033,7 @@ msgstr ""
 msgid "Unknown"
 msgstr "Imagine necunoscuta"
 
-#: src/mp4_header.c:211 src/mp4_tag.c:106 src/mp4_tag.c:255
+#: src/mp4_header.c:211 src/mp4_tag.c:109 src/mp4_tag.c:258
 msgid "MP4 format invalid"
 msgstr ""
 
@@ -4313,19 +4312,19 @@ msgstr "Salveazã schimbãrile ºi închide fereastra"
 msgid "(Example : %.*d_-_Track_name_1.mp3)"
 msgstr ""
 
-#: src/prefs.c:1625
+#: src/prefs.c:1632
 msgid "Changes applied"
 msgstr "Schimbãrile aplicate"
 
-#: src/prefs.c:1644 src/setting.c:867
+#: src/prefs.c:1651 src/setting.c:869
 msgid "Configuration saved"
 msgstr "Configuraþia salvatã"
 
-#: src/prefs.c:1651
+#: src/prefs.c:1658
 msgid "Configuration unchanged"
 msgstr "Configuraþia neschimbatã"
 
-#: src/prefs.c:1743
+#: src/prefs.c:1750
 #, c-format
 msgid ""
 " The selected path for 'Default path to files' isn't valid!\n"
@@ -4336,58 +4335,58 @@ msgstr ""
 "'%s'\n"
 "(%s) "
 
-#: src/prefs.c:1745
+#: src/prefs.c:1752
 msgid "Not a directory"
 msgstr "Nu este director"
 
-#: src/prefs.c:1861
+#: src/prefs.c:1868
 #, c-format
 msgid "The audio file player '%s' can't be found!"
 msgstr ""
 
-#: src/scan.c:178
+#: src/scan.c:179
 msgid "Fill Tag"
 msgstr "Completeazã eticheta"
 
-#: src/scan.c:179
+#: src/scan.c:180
 msgid "Rename File and Directory"
 msgstr "Redenumeste fisierul si directorul"
 
-#: src/scan.c:180
+#: src/scan.c:181
 msgid "Process Fields"
 msgstr "Prelucreazã fiºierele"
 
-#: src/scan.c:357
+#: src/scan.c:364
 msgid "Tag successfully scanned..."
 msgstr "Eticheta examinatã cu succes..."
 
-#: src/scan.c:359
+#: src/scan.c:366
 #, fuzzy, c-format
 msgid "Tag successfully scanned...(%s)"
 msgstr "Eticheta examinata cu succes...(%s)"
 
-#: src/scan.c:399
+#: src/scan.c:406
 #, c-format
 msgid ""
 "Tag scanner: strange..., the extension '%s' was not found into filename '%s'!"
 msgstr ""
 
-#: src/scan.c:481 src/scan.c:510
+#: src/scan.c:488 src/scan.c:517
 #, c-format
 msgid "Scan Error: can't find separator '%s' within '%s'"
 msgstr "Eroare la examinare: nu pot gãsi separatorul '%s' în '%s'"
 
-#: src/scan.c:667
+#: src/scan.c:674
 #, c-format
 msgid "Could not convert filename '%s' into system filename encoding."
 msgstr ""
 "Nu am putut converti numele de fisier '%s' in codarea sistemului de fisiere."
 
-#: src/scan.c:697
+#: src/scan.c:704
 msgid "New file name successfully scanned..."
 msgstr "Noul nume de fiºier examinat cu succes..."
 
-#: src/scan.c:700
+#: src/scan.c:707
 #, c-format
 msgid "New file name successfully scanned...(%s)"
 msgstr "Noul nume de fiºier examinat cu succes...(%s)"
@@ -4395,41 +4394,41 @@ msgstr "Noul nume de fiºier examinat cu succes...(%s)"
 #. The init position is define below, cause the scanner window must be showed before
 #. * to be able to move it.
 #. Title
-#: src/scan.c:1978
+#: src/scan.c:2306
 msgid "Tag and File Name scan"
 msgstr "Examinarea etichetei ºi numelui de fiºier"
 
 #. Option Menu
-#: src/scan.c:2000
+#: src/scan.c:2328
 msgid "Scanner:"
 msgstr "Examinator :"
 
 #. Selection of the item made at the end of the function
-#: src/scan.c:2022
+#: src/scan.c:2350
 msgid "Select the type of scanner to use"
 msgstr "Alegeþi tipul de examinator"
 
-#: src/scan.c:2031
+#: src/scan.c:2359
 msgid "Open scanner window / Scan selected files"
 msgstr "Deschide fereastra examinatorului / Examinati fisierele alese"
 
-#: src/scan.c:2044
+#: src/scan.c:2372
 msgid "Scanner Options"
 msgstr "Opþiunile examinatorului"
 
-#: src/scan.c:2053
+#: src/scan.c:2381
 msgid "Show / Hide Masks Editor"
 msgstr "Aratã / ascunde editorul mask"
 
-#: src/scan.c:2063
+#: src/scan.c:2391
 msgid "Show / Hide Legend"
 msgstr "Aratã / ascunde legenda"
 
-#: src/scan.c:2073
+#: src/scan.c:2401
 msgid "Close this window"
 msgstr "Închide aceastã fereastrã"
 
-#: src/scan.c:2101
+#: src/scan.c:2429
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse file name and "
 "path. Used to fill in tag fields."
@@ -4439,15 +4438,15 @@ msgstr ""
 "etichetei."
 
 #. Preview label
-#: src/scan.c:2127
+#: src/scan.c:2455
 msgid "Fill tag preview..."
 msgstr "Completeaza previzualizarea etichetei..."
 
-#: src/scan.c:2154
+#: src/scan.c:2482
 msgid "Prefix mask with current path"
 msgstr "Pune calea actuala inaintea mastii"
 
-#: src/scan.c:2167
+#: src/scan.c:2495
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse tag fields. Used "
 "to rename the file.\n"
@@ -4460,15 +4459,15 @@ msgstr ""
 "cale absoluta, altfel este relativ la vechea cale."
 
 #. Preview label
-#: src/scan.c:2194
+#: src/scan.c:2522
 msgid "Rename file preview..."
 msgstr "Previziualizeazã redenumirea fiºierului"
 
-#: src/scan.c:2214
+#: src/scan.c:2542
 msgid "Select fields:"
 msgstr "Alegeþi cîmpurile:"
 
-#: src/scan.c:2217
+#: src/scan.c:2545
 msgid ""
 "The buttons on the right represent the fields which can be processed. Select "
 "those who interest you."
@@ -4477,126 +4476,126 @@ msgstr ""
 "Alegeþi acelea care vã intereseazã."
 
 #. Advice for Translators : set the first letter of filename translated
-#: src/scan.c:2220
+#: src/scan.c:2548
 msgid "F"
 msgstr "F"
 
-#: src/scan.c:2221
+#: src/scan.c:2549
 msgid "Process file name field"
 msgstr "Prelucrez cîmpul nume de fiºier"
 
 #. Advice for Translators : set the first letter of title translated
-#: src/scan.c:2223
+#: src/scan.c:2551
 msgid "T"
 msgstr "T"
 
-#: src/scan.c:2224
+#: src/scan.c:2552
 msgid "Process title field"
 msgstr "Prelucrez cîmpul titlu"
 
 #. Advice for Translators : set the first letter of artist translated
-#: src/scan.c:2226
+#: src/scan.c:2554
 msgid "Ar"
 msgstr "Ar"
 
-#: src/scan.c:2227
+#: src/scan.c:2555
 msgid "Process file artist field"
 msgstr "Prelucrez cîmpul artist"
 
 #. Advice for Translators : set the first letter of album translated
-#: src/scan.c:2229
+#: src/scan.c:2557
 msgid "Al"
 msgstr "Al"
 
-#: src/scan.c:2230
+#: src/scan.c:2558
 msgid "Process album field"
 msgstr "Prelucrez cîmpul album"
 
 #. Advice for Translators : set the first letter of genre translated
-#: src/scan.c:2232
+#: src/scan.c:2560
 msgid "G"
 msgstr "G"
 
-#: src/scan.c:2233
+#: src/scan.c:2561
 msgid "Process genre field"
 msgstr "Prelucrez cîmpul gen"
 
 #. Advice for Translators : set the first letter of comment translated
-#: src/scan.c:2235
+#: src/scan.c:2563
 msgid "Cm"
 msgstr "Cm"
 
-#: src/scan.c:2236
+#: src/scan.c:2564
 msgid "Process comment field"
 msgstr "Prelucrez cîmpul comentariu"
 
 #. Advice for Translators : set the first letter of composer translated
-#: src/scan.c:2238
+#: src/scan.c:2566
 msgid "Cp"
 msgstr "Cp"
 
-#: src/scan.c:2239
+#: src/scan.c:2567
 msgid "Process composer field"
 msgstr "Prelucrez cîmpul compozitor"
 
 #. Advice for Translators : set the first letter of orig artist translated
-#: src/scan.c:2241
+#: src/scan.c:2569
 msgid "O"
 msgstr "O"
 
-#: src/scan.c:2242
+#: src/scan.c:2570
 msgid "Process original artist field"
 msgstr "Prelucrez cîmpul artist initial"
 
 #. Advice for Translators : set the first letter of copyright translated
-#: src/scan.c:2244
+#: src/scan.c:2572
 msgid "Cr"
 msgstr "Cr"
 
-#: src/scan.c:2245
+#: src/scan.c:2573
 msgid "Process copyright field"
 msgstr "Prelucrez cîmpul 'drept de autor'"
 
 #. Advice for Translators : set the first letter of URL translated
-#: src/scan.c:2247
+#: src/scan.c:2575
 msgid "U"
 msgstr "U"
 
-#: src/scan.c:2248
+#: src/scan.c:2576
 msgid "Process URL field"
 msgstr "Prelucrez cîmpul URL"
 
 #. Advice for Translators : set the first letter of encoder name translated
-#: src/scan.c:2250
+#: src/scan.c:2578
 msgid "E"
 msgstr "E"
 
-#: src/scan.c:2251
+#: src/scan.c:2579
 msgid "Process encoder name field"
 msgstr "Prelucrez cîmpul nume de codor"
 
-#: src/scan.c:2297
+#: src/scan.c:2625
 msgid "Invert Selection"
 msgstr "Inveseazã alegerea"
 
-#: src/scan.c:2306
+#: src/scan.c:2634
 msgid "Select/Unselect All."
 msgstr "Alege/dealege toate."
 
 #. Group: character conversion
-#: src/scan.c:2313
+#: src/scan.c:2641
 msgid "Convert '_' and '%20' to ' '"
 msgstr "Schimbã '_' ºi '%20' în ' '"
 
-#: src/scan.c:2319
+#: src/scan.c:2647
 msgid "Convert:"
 msgstr "Conversie :"
 
-#: src/scan.c:2321
+#: src/scan.c:2649
 msgid "to: "
 msgstr "la : "
 
-#: src/scan.c:2350
+#: src/scan.c:2678
 msgid ""
 "The underscore character or the string '%20' are replaced by one space. "
 "Example, before: 'Text%20In%20An_Entry', after: 'Text In An Entry'."
@@ -4604,7 +4603,7 @@ msgstr ""
 "Caracterul '_' sau ºirul '%20' sînt înlocuite de un spaþiu. Exemplu, "
 "înainte: 'Text%20Introdus_înainte', dupã: 'Text Introdus înainte'."
 
-#: src/scan.c:2353
+#: src/scan.c:2681
 msgid ""
 "The space character is replaced by one underscore character. Example, "
 "before: 'Text In An Entry', after: 'Text_In_An_Entry'."
@@ -4612,12 +4611,16 @@ msgstr ""
 "Spaþiul este înlocuit de un '_'. Examplu, înainte: 'text introdus', dupã: "
 "'text_introdus'."
 
-#: src/scan.c:2356
+#: src/scan.c:2684
 msgid ""
 "Replace a string by an other one. Note that the search is case sensitive."
 msgstr ""
 
-#: src/scan.c:2388
+#: src/scan.c:2697
+msgid "Detect Roman numerals"
+msgstr ""
+
+#: src/scan.c:2724
 msgid ""
 "Convert all words in all fields to upper case. Example, before: 'Text IN AN "
 "entry', after: 'TEXT IN AN ENTRY'."
@@ -4625,7 +4628,7 @@ msgstr ""
 "Schimbã toate cuvintele în toate cîmpurile în majuscule. Exemplu, înainte "
 "'Text INTROUDS', dupã: 'TEXT INTRODUS'."
 
-#: src/scan.c:2391
+#: src/scan.c:2727
 msgid ""
 "Convert all words in all fields to lower case. Example, before: 'TEXT IN an "
 "entry', after: 'text in an entry'."
@@ -4633,7 +4636,7 @@ msgstr ""
 "Schimbã toate cuvintele în toate cîmpurile în minuscule. Exemplu, înainte: "
 "'TEXT Înainte', dupã: 'text înainte'."
 
-#: src/scan.c:2394
+#: src/scan.c:2730
 msgid ""
 "Convert the initial of the first word in all fields to upper case. Example, "
 "before: 'text IN An ENTRY', after: 'Text in an entry'."
@@ -4641,7 +4644,7 @@ msgstr ""
 "Schimbã iniþiala primului cuvînt în toate cîmpurile în majusculã. Exemplu "
 "înainte: 'tEXt înainte', dupã: 'Text Înainte'."
 
-#: src/scan.c:2397
+#: src/scan.c:2733
 msgid ""
 "Convert the initial of each word in all fields to upper case. Example, "
 "before: 'Text in an ENTRY', after: 'Text In An Entry'."
@@ -4649,15 +4652,24 @@ msgstr ""
 "Schimbã iniþiala fiecãrui cuvînt în toate cîmpurile în majusculã. Exemplu "
 "înainte: 'tEXt înainte', dupã: 'Text Înainte'."
 
-#: src/scan.c:2406
+#: src/scan.c:2736
+#, fuzzy
+msgid ""
+"Force to convert to upper case the Roman numerals. Example, before: 'ix. "
+"text in an entry', after: 'IX. Text In An Entry'."
+msgstr ""
+"Un spaþiu este introdus înainte de fiecare majusculã. Exemplu, înainte: "
+"'TextÎnainte', dupã: 'Text Înainte'."
+
+#: src/scan.c:2745
 msgid "Insert a space before an uppercase letter"
 msgstr "Introdu un spaþiu înainte de o majusculã"
 
-#: src/scan.c:2407
+#: src/scan.c:2746
 msgid "Remove duplicates of space or underscore"
 msgstr "ªterge spaþiile sau '_' multiple"
 
-#: src/scan.c:2425
+#: src/scan.c:2764
 msgid ""
 "All spaces between words are removed. Example, before: 'Text In An Entry', "
 "after: 'TextInAnEntry'."
@@ -4665,7 +4677,7 @@ msgstr ""
 "Toate paþiile dintre cuvinte sã fie ºterse. Exemplu, înainte: 'Text "
 "Înainte', dupã: 'TextÎnainte'."
 
-#: src/scan.c:2428
+#: src/scan.c:2767
 msgid ""
 "A space is inserted before each upper case letter. Example, before: "
 "'TextInAnEntry', after: 'Text In An Entry'."
@@ -4673,7 +4685,7 @@ msgstr ""
 "Un spaþiu este introdus înainte de fiecare majusculã. Exemplu, înainte: "
 "'TextÎnainte', dupã: 'Text Înainte'."
 
-#: src/scan.c:2431
+#: src/scan.c:2770
 msgid ""
 "Duplicated spaces or underscores are removed. Example, before: "
 "'Text__In__An   Entry', after: 'Text_In_An Entry'."
@@ -4684,159 +4696,159 @@ msgstr ""
 #.
 #. * Frame to display codes legend
 #.
-#: src/scan.c:2437
+#: src/scan.c:2777
 msgid "Legend"
 msgstr "Legendã"
 
-#: src/scan.c:2443
+#: src/scan.c:2783
 #, c-format
 msgid "%a : artist"
 msgstr "%a : artist"
 
-#: src/scan.c:2446
+#: src/scan.c:2786
 msgid "%b : album"
 msgstr "%b : album"
 
-#: src/scan.c:2449
+#: src/scan.c:2789
 #, c-format
 msgid "%c : comment"
 msgstr "%c : comentariu"
 
-#: src/scan.c:2452
+#: src/scan.c:2792
 #, c-format
 msgid "%p : composer"
 msgstr "%c : compozitor"
 
-#: src/scan.c:2455
+#: src/scan.c:2795
 msgid "%r : copyright"
 msgstr "%r: drept autor"
 
-#: src/scan.c:2458
+#: src/scan.c:2798
 #, c-format
 msgid "%d : disc number"
 msgstr ""
 
-#: src/scan.c:2461
+#: src/scan.c:2801
 #, c-format
 msgid "%e : encoded by"
 msgstr "%e: codat de"
 
-#: src/scan.c:2464
+#: src/scan.c:2804
 #, c-format
 msgid "%g : genre"
 msgstr "%g : gen"
 
-#: src/scan.c:2467
+#: src/scan.c:2807
 #, c-format
 msgid "%i : ignored"
 msgstr "%i : ignorat"
 
-#: src/scan.c:2470
+#: src/scan.c:2810
 msgid "%l : number of tracks"
 msgstr "%l : numãr de piste"
 
-#: src/scan.c:2473
+#: src/scan.c:2813
 #, c-format
 msgid "%o : orig. artist"
 msgstr "%a : artist initial"
 
-#: src/scan.c:2476
+#: src/scan.c:2816
 #, c-format
 msgid "%n : track"
 msgstr "%n : pistã"
 
-#: src/scan.c:2479
+#: src/scan.c:2819
 msgid "%t : title"
 msgstr "%t : titlu"
 
-#: src/scan.c:2482
+#: src/scan.c:2822
 #, c-format
 msgid "%u : URL"
 msgstr "%u : URL"
 
-#: src/scan.c:2485
+#: src/scan.c:2825
 msgid "%y : year"
 msgstr "%y : an"
 
 #.
 #. * Masks Editor
 #.
-#: src/scan.c:2492
+#: src/scan.c:2832
 msgid "Mask Editor"
 msgstr "Editor de mãºti"
 
-#: src/scan.c:2549
+#: src/scan.c:2889
 msgid "Create New Mask"
 msgstr "Creazã o mascã nouã"
 
-#: src/scan.c:2559
+#: src/scan.c:2899
 msgid "Move Up this Mask"
 msgstr "Mutã sus aceastã mascã"
 
-#: src/scan.c:2569
+#: src/scan.c:2909
 msgid "Move Down this Mask"
 msgstr "Mutã jos aceastã mascã"
 
-#: src/scan.c:2579
+#: src/scan.c:2919
 msgid "Duplicate Mask"
 msgstr "Copiazã masca"
 
-#: src/scan.c:2589
+#: src/scan.c:2929
 msgid "Add Default Masks"
 msgstr "Adaugã o mascã implicitã"
 
-#: src/scan.c:2599
+#: src/scan.c:2939
 msgid "Remove Mask"
 msgstr "ªterge masca"
 
-#: src/scan.c:2609
+#: src/scan.c:2949
 msgid "Save Masks"
 msgstr "Salveazã masca"
 
-#: src/scan.c:3186
+#: src/scan.c:3535
 msgid "New_mask"
 msgstr "Mascã nouã"
 
-#: src/scan.c:3224
+#: src/scan.c:3573
 msgid "Copy: No row selected!"
 msgstr "Copiazã: Nici un rînd ales!"
 
-#: src/scan.c:3330
+#: src/scan.c:3679
 msgid "Remove: No row selected!"
 msgstr "ªterge: Nici un rînd ales!"
 
-#: src/scan.c:3377
+#: src/scan.c:3726
 msgid "Move Up: No row selected!"
 msgstr "Mutã sus: Nici un rînd ales!"
 
-#: src/scan.c:3430
+#: src/scan.c:3779
 msgid "Move Down: No row selected!"
 msgstr "Mutã jos: Nici un rînd ales!"
 
-#: src/setting.c:888
+#: src/setting.c:890
 #, fuzzy, c-format
 msgid "ERROR: Can't write config file: %s (%s)"
 msgstr "Eroare: Nu pot scrie fisierul configuratie: %s (%s)\a"
 
-#: src/setting.c:1031 src/setting.c:1068
+#: src/setting.c:1033 src/setting.c:1070
 #, c-format
 msgid "Can't open configuration file '%s' (%s)"
 msgstr "Nu pot deschide fiºierul configuraþie '%s' (%s)"
 
-#: src/setting.c:1032
+#: src/setting.c:1034
 msgid "Loading default configuration..."
 msgstr "Încarc configuraþia implicitã..."
 
-#: src/setting.c:1132 src/setting.c:1139 src/setting.c:1146 src/setting.c:1153
-#: src/setting.c:1160 src/setting.c:1167 src/setting.c:1174 src/setting.c:1181
-#: src/setting.c:1188 src/setting.c:1195 src/setting.c:1202 src/setting.c:1209
-#: src/setting.c:1216 src/setting.c:1223 src/setting.c:1230 src/setting.c:1237
-#: src/setting.c:1244
+#: src/setting.c:1134 src/setting.c:1141 src/setting.c:1148 src/setting.c:1155
+#: src/setting.c:1162 src/setting.c:1169 src/setting.c:1176 src/setting.c:1183
+#: src/setting.c:1190 src/setting.c:1197 src/setting.c:1204 src/setting.c:1211
+#: src/setting.c:1218 src/setting.c:1225 src/setting.c:1232 src/setting.c:1239
+#: src/setting.c:1246
 #, c-format
 msgid "Can't create or open file '%s' (%s)"
 msgstr "Nu pot crea sau deschide '%s' (%s)"
 
-#: src/setting.c:1277
+#: src/setting.c:1279
 #, fuzzy, c-format
 msgid "ERROR: Can't write list to file: %s (%s)"
 msgstr ""
@@ -4844,29 +4856,29 @@ msgstr ""
 "\a"
 
 #. Fall back to defaults
-#: src/setting.c:1359
+#: src/setting.c:1361
 msgid "Loading default 'Fill Tag' masks..."
 msgstr "Încarc mask 'Completeazã eticheta' implicit..."
 
 #. Fall back to defaults
-#: src/setting.c:1387
+#: src/setting.c:1389
 msgid "Loading default 'Rename File' masks..."
 msgstr "Încarc mask-ul 'Redenumeºte fiºierul' implicit..."
 
 #. Fall back to defaults
-#: src/setting.c:1414
+#: src/setting.c:1416
 #, fuzzy
 msgid "Loading default 'Rename Directory' masks..."
 msgstr "Încarc mask-ul 'Redenumeºte fiºierul' implicit..."
 
-#: src/setting.c:1607
+#: src/setting.c:1609
 #, fuzzy
 msgid "ERROR: The environment variable HOME is not defined!"
 msgstr ""
 "Eroare: Variabila de mediu $HOME nu este definitã!\n"
 "\n"
 
-#: src/setting.c:1623
+#: src/setting.c:1625
 #, c-format
 msgid "ERROR: Can't create directory '%s' (%s)!"
 msgstr "Eroare: Nu pot crea directorul '%s' (%s)!"

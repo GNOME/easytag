@@ -61,7 +61,8 @@
 /* Pixmaps */
 #include "../pixmaps/opened_folder.xpm"
 #include "../pixmaps/closed_folder.xpm"
-#include "../pixmaps/closed_folder_locked.xpm"
+#include "../pixmaps/closed_folder_readonly.xpm"
+#include "../pixmaps/closed_folder_unreadable.xpm"
 #ifdef WIN32
 #include "../pixmaps/ram_disk.xpm"
 #endif
@@ -73,8 +74,9 @@
  ****************/
 
 // Pixmaps
-static GdkPixbuf *opened_folder_pixmap = NULL, *closed_folder_pixmap, *closed_folder_locked_pixmap;
+static GdkPixbuf *opened_folder_pixmap = NULL, *closed_folder_pixmap, *closed_folder_readonly_pixmap, *closed_folder_unreadable_pixmap;
 #ifdef WIN32
+// Pixmap used for Win32 only
 static GdkPixbuf *harddrive_pixmap, *removable_pixmap, *cdrom_pixmap, *network_pixmap, *ramdisk_pixmap;
 #endif
 
@@ -175,7 +177,7 @@ static gboolean check_for_subdir   (gchar *path);
 
 GtkTreePath *Find_Child_Node(GtkTreeIter *parent, gchar *searchtext);
 
-gboolean    Check_For_Access_Permission (gchar *path);
+GdkPixbuf  *Pixmap_From_Directory_Permission (gchar *path);
 
 static void expand_cb   (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *path, gpointer data);
 static void collapse_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *treePath, gpointer data);
@@ -1743,6 +1745,7 @@ void Browser_List_Refresh_Sort (void)
 
 /*
  * Intelligently sort the file list based on the current sorting method
+ * see also 'ET_Sort_File_List'
  */
 gint Browser_List_Sort_Func (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, gpointer data)
 {
@@ -2695,9 +2698,17 @@ static gboolean check_for_subdir (gchar *path)
     {
         while( (dirent=readdir(dir)) )
         {
-            // We don't read the directories '.' and '..', but may read hidden directories like '.mydir'
-            if ( (g_ascii_strcasecmp (dirent->d_name,"..")   != 0)
-            && ( (g_ascii_strncasecmp(dirent->d_name,".", 1) != 0) || (BROWSE_HIDDEN_DIR && strlen(dirent->d_name) > 1)) )
+            // We don't read the directories '.' and '..', but may read hidden directories
+            // like '.mydir' (note that '..mydir' or '...mydir' aren't hidden directories)
+            // See also the rule into 'expand_cb' function
+            if ((g_ascii_strcasecmp(dirent->d_name,".")  != 0)
+            && (g_ascii_strcasecmp(dirent->d_name,"..") != 0)
+            // Display hidden directories is needed, or keep only the not hidden directories
+            && (BROWSE_HIDDEN_DIR 
+              || !( (g_ascii_strncasecmp(dirent->d_name,".", 1) == 0) 
+                 && (strlen(dirent->d_name) > 1) 
+                 && (g_ascii_strncasecmp(dirent->d_name+1,".", 1) != 0) ))
+               )
             {
 #ifdef WIN32
                 // On win32 : stat("/path/to/dir") succeed, while stat("/path/to/dir/") fails
@@ -2714,7 +2725,7 @@ static gboolean check_for_subdir (gchar *path)
 
                 g_free(npath);
 
-                if(S_ISDIR(statbuf.st_mode))
+                if (S_ISDIR(statbuf.st_mode))
                 {
                     closedir(dir);
                     return TRUE;
@@ -2727,21 +2738,22 @@ static gboolean check_for_subdir (gchar *path)
 }
 
 /*
- * Check if you have access permissions for directory path. Returns 1 if ok, else 0.
+ * Check if you have permissions for directory path (autorized?, readonly? unreadable?).
+ * Returns the right pixmap.
  */
-gboolean Check_For_Access_Permission (gchar *path)
+GdkPixbuf *Pixmap_From_Directory_Permission (gchar *path)
 {
     DIR *dir;
 
     if( (dir=opendir(path)) == NULL )
     {
         if (errno == EACCES)
-            return FALSE;
+            return closed_folder_unreadable_pixmap;
     } else
     {
         closedir(dir);
     }
-    return TRUE;
+    return closed_folder_pixmap;
 }
 
 
@@ -2809,10 +2821,18 @@ static void expand_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *gtreePat
             path = g_strconcat(parentPath, dirent->d_name, NULL);
             stat(path, &statbuf);
 
-            // We don't read the directories '.' and '..', but may read hidden directories like '.mydir'
+            // We don't read the directories '.' and '..', but may read hidden directories
+            // like '.mydir' (note that '..mydir' or '...mydir' aren't hidden directories)
+            // See also the rule into 'check_for_subdir' function
             if (S_ISDIR(statbuf.st_mode)
-            && (  (g_ascii_strcasecmp (dirent->d_name,"..")   != 0)
-              && ((g_ascii_strncasecmp(dirent->d_name,".", 1) != 0) || (BROWSE_HIDDEN_DIR && strlen(dirent->d_name) > 1)) ) )
+            && (g_ascii_strcasecmp(dirent->d_name,".")  != 0)
+            && (g_ascii_strcasecmp(dirent->d_name,"..") != 0)
+            // Display hidden directories is needed, or keep only the not hidden directories
+            && (BROWSE_HIDDEN_DIR 
+              || !( (g_ascii_strncasecmp(dirent->d_name,".", 1) == 0) 
+                 && (strlen(dirent->d_name) > 1) 
+                 && (g_ascii_strncasecmp(dirent->d_name+1,".", 1) != 0) ))
+               )
             {
 
                 if (path[strlen(path)-1]!=G_DIR_SEPARATOR)
@@ -2833,11 +2853,8 @@ static void expand_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *gtreePat
                 else
                     has_subdir = FALSE;
 
-                /* Select pixmap for accessible/unaccessible directory */
-                if (Check_For_Access_Permission(path))
-                    pixbuf = closed_folder_pixmap;
-                else
-                    pixbuf = closed_folder_locked_pixmap;
+                // Select pixmap according permissions for the directory
+                pixbuf = Pixmap_From_Directory_Permission(path);
 
                 gtk_tree_store_append(directoryTreeModel, &currentIter, iter);
                 gtk_tree_store_set(directoryTreeModel, &currentIter,
@@ -2909,13 +2926,13 @@ static void collapse_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *treePa
         // update the icon of the node to closed folder :-)
         gtk_tree_store_set(directoryTreeModel, iter,
                            TREE_COLUMN_SCANNED, FALSE,
-                           TREE_COLUMN_PIXBUF, closed_folder_pixmap, -1);
+                           TREE_COLUMN_PIXBUF,  closed_folder_pixmap, -1);
     }
 #else
     // update the icon of the node to closed folder :-)
     gtk_tree_store_set(directoryTreeModel, iter,
                        TREE_COLUMN_SCANNED, FALSE,
-                       TREE_COLUMN_PIXBUF, closed_folder_pixmap, -1);
+                       TREE_COLUMN_PIXBUF,  closed_folder_pixmap, -1);
 #endif
 
     // insert dummy node
@@ -3004,9 +3021,10 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     /* Create pixmaps */
     if(!opened_folder_pixmap)
     {
-        opened_folder_pixmap = gdk_pixbuf_new_from_xpm_data(opened_folder_xpm);
-        closed_folder_pixmap = gdk_pixbuf_new_from_xpm_data(closed_folder_xpm);
-        closed_folder_locked_pixmap = gdk_pixbuf_new_from_xpm_data(closed_folder_locked_xpm);
+        opened_folder_pixmap            = gdk_pixbuf_new_from_xpm_data(opened_folder_xpm);
+        closed_folder_pixmap            = gdk_pixbuf_new_from_xpm_data(closed_folder_xpm);
+        closed_folder_readonly_pixmap   = gdk_pixbuf_new_from_xpm_data(closed_folder_readonly_xpm);
+        closed_folder_unreadable_pixmap = gdk_pixbuf_new_from_xpm_data(closed_folder_unreadable_xpm);
 
 #ifdef WIN32
         /* get GTK's theme harddrive and removable icons and render it in a pixbuf */

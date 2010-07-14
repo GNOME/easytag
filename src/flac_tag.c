@@ -105,7 +105,9 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     FLAC__Metadata_SimpleIterator *iter;
     gchar *string = NULL;
     guint i;
+#ifndef LEGACY_FLAC // For FLAC >= 1.1.3
     Picture *prev_pic = NULL;
+#endif
     //gint j = 1;
 
     
@@ -615,49 +617,47 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
             //
             // Read the PICTURE block (severals can exist)
             //
+#ifndef LEGACY_FLAC // For FLAC >= 1.1.3
             case FLAC__METADATA_TYPE_PICTURE: 
             {
                 
                 /***********
                  * Picture *
                  ***********/
-                // For FLAC >= 1.1.3
-                #ifndef LEGACY_FLAC
-                    FLAC__StreamMetadata_Picture *p;
-                    Picture *pic;
-                
-                    // Get picture data from block
-                    p = &block->data.picture;
-                
-                    pic = Picture_Allocate();
-                    if (!prev_pic)
-                        FileTag->picture = pic;
-                    else
-                        prev_pic->next = pic;
-                    prev_pic = pic;
+                FLAC__StreamMetadata_Picture *p;
+                Picture *pic;
+            
+                // Get picture data from block
+                p = &block->data.picture;
+            
+                pic = Picture_Allocate();
+                if (!prev_pic)
+                    FileTag->picture = pic;
+                else
+                    prev_pic->next = pic;
+                prev_pic = pic;
 
-                    pic->size = p->data_length;
-                    pic->data = g_memdup(p->data,pic->size);
-                    pic->type = p->type;
-                    pic->description = g_strdup((gchar *)p->description);
-                    // Not necessary: will be calculated later
-                    //pic->height = p->height;
-                    //pic->width  = p->width;
+                pic->size = p->data_length;
+                pic->data = g_memdup(p->data,pic->size);
+                pic->type = p->type;
+                pic->description = g_strdup((gchar *)p->description);
+                // Not necessary: will be calculated later
+                //pic->height = p->height;
+                //pic->width  = p->width;
 
-                    //g_print("Picture type : %s\n",FLAC__StreamMetadata_Picture_TypeString[p->type]);
-                    //g_print("Mime    type : %s\n",p->mime_type);
+                //g_print("Picture type : %s\n",FLAC__StreamMetadata_Picture_TypeString[p->type]);
+                //g_print("Mime    type : %s\n",p->mime_type);
 
-                #endif
-                
                 break;
             }
-            
+#endif
+                
             default:
                 break;
         }
         
         // Free block data
-        ////FLAC__metadata_object_delete(block);
+        //FLAC__metadata_object_delete(block);
     }
     
     // Free iter
@@ -811,7 +811,8 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
                 FLAC__StreamMetadata_VorbisComment *vc = &block->data.vorbis_comment;
                 
                 // Get initial vendor string, to don't alterate it by FLAC__VENDOR_STRING when saving file
-                vce_field_vendor_string = vc->vendor_string;
+                vce_field_vendor_string.entry = (FLAC__byte *)g_strdup((gchar *)vc->vendor_string.entry);
+                vce_field_vendor_string.length = strlen((gchar *)vce_field_vendor_string.entry);
                 vce_field_vendor_string_found = TRUE;
                 
                 // Free block data
@@ -822,12 +823,14 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
             //
             // Delete all the PICTURE blocks, and convert to padding
             //
+#ifndef LEGACY_FLAC // For FLAC >= 1.1.3
             case FLAC__METADATA_TYPE_PICTURE: 
             {
                 FLAC__metadata_iterator_delete_block(iter,true);
                 break;
             }
-
+#endif
+            
             default:
                 break;
         }
@@ -848,7 +851,10 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
 
         // Set the original vendor string, else will be use the version of library
         if (vce_field_vendor_string_found)
+        {
             FLAC__metadata_object_vorbiscomment_set_vendor_string(vc_block, vce_field_vendor_string, true);
+            g_free(vce_field_vendor_string.entry);
+        }
 
 
         /*********
@@ -1039,9 +1045,8 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
             list = list->next;
         }
 
-        // Add the block to the the chain
+        // Add the block to the the chain (so we don't need to free the block)
         FLAC__metadata_iterator_insert_block_after(iter, vc_block);
-        ////FLAC__metadata_object_delete(vc_block);
     }
     
     
@@ -1092,9 +1097,8 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
                     FLAC__metadata_object_delete(picture_block);
                 }else
                 {
-                    // Add the block to the the chain
+                    // Add the block to the the chain (so we don't need to free the block)
                     FLAC__metadata_iterator_insert_block_after(iter, picture_block);
-                    ////FLAC__metadata_object_delete(picture_block);
                 }
             }
             

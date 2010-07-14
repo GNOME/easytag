@@ -19,7 +19,8 @@ BITMAPS = \
     pixmaps/artist_album.xpm \
     pixmaps/black.xpm \
     pixmaps/blackwhite.xpm \
-    pixmaps/closed_folder_locked.xpm \
+    pixmaps/closed_folder_readonly.xpm \
+    pixmaps/closed_folder_unreadable.xpm \
     pixmaps/closed_folder.xpm \
     pixmaps/EasyTAG.ico \
     pixmaps/EasyTAG_icon.xpm \

@@ -1,3 +1,29 @@
+2.1.5 - January 26th, 2008 :
+============================
+    * Added an option in the "Process Fields" scanner to enable/disable
+      detection of Roman numerals,
+    * Disabled unsynchronisation when writing ID3v2.4 tags (as Taglib doesn't 
+      support them) to avoid problem with pictures on some applications (thanks 
+      to Alexey Illarionov),
+    * Fixed compilation problem with previous versions of flac older than 1.1.3,
+    * Fixed the size of log view when resizing the main window,
+    * Fixed browser problem with the hidden directories filter: directories
+      starting with severals dots were also hidden,
+    * Fixed problem when renaming severals directories and files with the 
+      'Rename File and Directory' scanner (thanks to vdaghan) ,
+    * Fixed detection of valid roman numerals in the "Process Fields" scanner 
+      (was used some parts of the Roman library from David M. Syzdek),
+    * Brazilian Portuguese translation updated (thanks to doutor.zero),
+    * Polish translation updated (thanks to Michał Smoczyk),
+    * Swedish translation updated (thanks to Anders Strömer),
+    * German translation updated (thanks to Götz Waschk),
+
+
+    Windows version :
+    * Fixed incorrect path when opening the program using the context menu "Browse with EasyTAG"
+    * Fixed uninstall of the context menu "Browse with EasyTAG"
+
+
 2.1.4 - December 12th, 2007 :
 =============================
     * Added support of pictures in Ogg Vorbis and Speex files (with Ogg Vorbis
@@ -19,7 +45,7 @@
       default to avoid an error message with UTF-8 strings. This was the setting
       used before using libid3tag instead of id3lib,
     * Fixed problem when reading tag with some languages as Turkish (patch from
-      Doruk Fisek),
+      Doruk Fisek and Onur Kucuk),
     * New Chinese (Taiwan) translation (thanks to Jose Sun),
     * Hungarian translation updated (thanks to Mészáros Csaba),
     * Chinese (Simplified) translation updated (thanks to Yang Jinsong),

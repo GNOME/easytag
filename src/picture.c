@@ -221,7 +221,7 @@ void Picture_Load_Filename (gchar *filename, gpointer user_data)
         // Behaviour following the tag type...
         switch (ETCore->ETFileDisplayed->ETFileDescription->TagType)
         {
-            // Only one picture supported
+            // Only one picture supported for MP4
             case MP4_TAG:
             {
                 pic->type = PICTURE_TYPE_FRONT_COVER;
