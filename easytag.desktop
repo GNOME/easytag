@@ -1,0 +1,25 @@
+[Desktop Entry]
+Name=EasyTAG
+Comment=EasyTAG is an utility for viewing and editing tags for MP3, MP2, FLAC, Ogg Vorbis, MusePack and Monkey's Audio files, with a GTK+ GUI.
+Comment[cs]=EasyTAG je utilita na prohlížení, editaci a zápis tagů do vašich MP3, MP2, FLAC, Ogg Vorbis, MusePack a Monkey Audio souborů.
+Comment[da]=Et program til at vise/redigere MP3 og Ogg Vorbis tags med et GTK+ interface.
+Comment[de]=EasyTAG ist ein Werkzeug zum Anschauen, Editieren und Schreiben von Tags Ihrer MP3-, MP2-, FLAC-, Ogg Vorbis-, MusePack- und  Monkey's Audio-Dateien.
+Comment[es]=EasyTAG es una utilidad para ver, editar y escribir etiquetas a tus archivos MP3, MP2, FLAC y Ogg Vorbis.
+Comment[fr]=EasyTAG est un utilitaire pour visualiser et éditer les tags des fichiers MP3, MP2, FLAC, Ogg Vorbis, MusePack et Monkey's Audio avec une interface GTK+.
+Comment[hu]=Az EasyTAG egy GTK+-on alapuló címkenéző és -szerkesztő segédeszköz MP3, MP2, FLAC, Ogg Vorbis, MusePack és Monkey's Audio fájlokhoz.
+Comment[it]=EasyTAG è programma per vedere, modificare e scrivere i tag dei file MP3, MP2, FLAC, Ogg Vorbis, MusePack e Monkey's Audio.
+Comment[ja]=EasyTAG は MP3, MP2, FLAC, Ogg Vorbis, MusePack と Monkey's オーディオ・ファイルの ID3 タグを表示したり、編集するためのツールです。シンプルでクールな GTK+ インタフェースを採用しているので、GNU/Linux で簡単にタグの編集ができます。
+Comment[nl]=EasyTAG is een programma voor het bewerken van tags van MP2-, MP3-, FLAC-, Ogg Vorbis, MusePack en Monkeys Audio-bestanden. Dit gebeurt in een verzorgde GTK+-omgeving.
+Comment[pl]=EasyTAG jest narzędziem do przeglądania, edytowania i zapisywania tagów w plikach MP3, MP2, FLAC, Ogg Vorbis, MusePack i Monkey's Audio. Jego prosty i miły interface wykonany w GTK+ ułatwia tagowanie.
+Comment[ro]=EasyTAG este un utilitar pentru afisarea, modificarea si scrierea etichtelor fisierelor MP3, MP2, FLAC, Ogg Vorbis, MusePack si Monkey Audio. Interfata sa simpla (GTK+) face etichetarea mai simpla.
+Comment[ru]=EasyTAG -- ЩРН ОПНЦПЮЛЛЮ ДКЪ ОПНЯЛНРПЮ Х ПЕДЮЙРХПНБЮМХЪ РЕЦНБ Б ТЮИКЮУ MP3, MP2, FLAC, MusePack, APE Х Ogg Vorbis Я СДНАМШЛ ХМРЕПТЕИЯНЛ GTK+ ДКЪ GNU/Linux.
+Comment[sv]=EasyTAG är ett verktyg för att undersöka, editera och skriva taggar för dina MP3-, MP2-, FLAC- och Ogg Vorbis-filer, och använder ett enkelt och trevligt GTK+-gränssnitt.
+Comment[uk]=EasyTAG - утиліта для перегляду, редагування та запису тегів у файли MP3, MP2, FLAC, Ogg Vorbis, MusePack та Monkey's Audio. Простий та приємний інтерфейс GTK+ допоможе процесу запису тегів.
+Exec=easytag %F
+Icon=EasyTAG.xpm
+Terminal=false
+Type=Application
+Encoding=UTF-8
+Categories=Application;AudioVideo;AudioVideoEditing;
+X-Desktop-File-Install-Version=0.3
+MimeType=audio/x-mp3;application/ogg;

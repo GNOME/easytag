@@ -1,0 +1,217 @@
+Bastian Kleineidam <calvin@cs.uni-sb.de>:
+  - German translation
+
+Andrew Shuvalov <andrew@metaphoria.net>:
+  - suggestions
+
+Sergey Zhumatiy <serg@parallel.ru>:
+  - suggestion (support of character translation)
+  - Russian translation
+
+Kevin Venkiteswaran <kevin.v@Binary-Design.com>:
+  - bug reports
+
+Sheikholeslami Navid <shnavid@cyberbeat.it>:
+  - bug reports
+
+Marcus Tegel <tegel@mpg3.de>:
+  - suggestions
+  - bug reports
+
+Robert <info@aim.nf.ca>:
+  - suggestions
+
+Lars Bohn <lars.bohn@web.de>:
+  - suggestions
+  - bug reports
+
+Vincent van Adrighem <V.vanAdrighem@ITS.TUDelft.nl>:
+  - Dutch translation
+
+Patrik Israelsson <fix@linux.nu>:
+  - suggestions
+  - Swedish translation
+
+Adrian Bunk <bunk@fs.tum.de>:
+  - Debian packager
+  - German translation
+
+Alexander D Harkness <alexander@harkness.co.uk>
+  - suggestion (support of Ogg Vorvis files)
+
+Vaclav Slavik <v.slavik@volny.cz>:
+  - bug reports
+
+Charles Kerr <charles@superimp.org>:
+  - patch to add a new button to sequence the track numbers
+
+Gian <giiiii@libero.it>
+  - suggestions
+
+Thomas Zajic <zlatko@gmx.at>
+  - suggestions
+
+Szel Miklos <mukka@freemail.hu>
+  - Hungarian translation
+  - suggestions
+
+Tore Aursand <tore@extend.no>
+  - suggestions
+
+Cappelletti Lorenzo <l.cappelletti@mail.com>
+  - bug reports
+  - suggestions
+  - Italian translation
+
+Colin Marquardt <colin@marquardt-home.de>
+  - a lot of wordind fixes, spelling mistakes fixes
+  - German translation
+
+Takeshi Aihana <aihana@gnome.gr.jp>
+  - Japanese translation
+
+Andrey Astafiev <andrei@tvcell.ru>
+  - Russian translation
+
+Goetz Waschk <waschk@informatik.uni-rostock.de>
+  - autoconf/automake
+  - a lot of patches
+  - German translation
+
+Olexander Kunytsa <kunia@istc.kiev.ua>
+  - Ukrainian translation
+
+Cawko Xakep <xakep@snark.ukma.kiev.ua>
+  - Ukrainian translation
+
+Philipp Thomas <pthomas@suse.de>
+  - German translation
+
+Holger Schemel <aeglos@valinor.owl.de>
+  - patch to fix tag priority problem with id3lib
+
+Björn Olievier <bjorn.olievier@advalvas.be>:
+  - Dutch translation
+  - bug reports
+
+Milan Siebenburger <milan.siebenburger@ais.cz>:
+  - Czech translation
+
+Jaime Serrano Cartagena <jaiserca@inf.upv.es>:
+  - Spanish translation
+
+Colin Macdonald <cbm@cs.sfu.ca>
+  - spelling mistakes fixes
+
+Maciej Kasprzyk <kasprzol@go2.pl>
+  - Polish translation
+  - bug reports + patches
+
+Artur Polaczynski <artii@o2.pl>
+  - patch and text corrections
+
+Nagy Boldizsar <boldi01@freemail.hu>
+  - Hungarian translation
+
+Pauliuc George <pauliuc@gmx.net>
+  - Romanian translation
+
+Daniel Pichler <dpichler@dnet.it>
+  - German help documentation
+
+Philipp Thomas <pthomas@suse.de>
+  - patches and cleaning for 64bit platform
+
+Oliver <oliver@are-b.org>
+  - some new feature (in playlist, CRC32)
+
+Tony Mancill <tony@mancill.com>:
+  - Debian packager
+  - patches
+
+Costantino Ceoldo
+  - Italian translation <ciclope10ATalice.it>
+
+Pavel Minayev <thalion@front.ru>
+  - FLAC vorbis tag support
+
+Mihael Vrbanec <miqster@gmx.net>
+  - Initial GTK2 porting work (for EasyTAG 0.28.1)
+
+Daniel Drake <dsd@gentoo.org>
+  - Full GTK 2.4 port!
+
+Morten Brix Pedersen <morten@wtf.dk>
+  - Danish translation
+
+Santtu Lakkala <inzane@ircing.org>
+  - patches / DLM support
+
+Justus Schwartz <justus@gmx.li>
+  - Cddb request from selected files
+
+Fredrik Noring <noring@nocrew.org>
+  - pictures for ID3v2 tags
+
+Fernando M. Bueno Moreno <fernantre@yahoo.es>
+  - Spanish translation
+
+Guilherme Destefani <gd@helixbrasil.com.br>
+  - Rename directories with scanner
+
+Zbynek Mrkvicka <zbynek@oachot.cz>
+  - Czech translation
+
+Apollon Oikonomopoulos <apoikos@mail.ntua.gr>
+  - Greek translation
+
+Francisco Javier F. Serrador <serrador@cvs.gnome.org>
+  - Spanish translation
+
+doutor.zero <doutor.zero@gmail.com>
+  - Brazilian Portuguese translation
+
+Paul Giordano <giordano@covad.net>
+  - patch to fix hangs on cddb lookups
+
+Michael Ihde <mike.ihde@randomwalking.com>
+  - MP4/AAC support
+
+Stewart Whitman <swhitman@cox.net>
+  - MP4/AAC support
+
+Luchezar P. Petkov <luchezar.petkov@gmail.com>
+  - Bulgarian translation
+
+Javier Kohen <jkohen@users.sourceforge.net>
+  - Support of Unicode in MP3 tag with id3lib
+
+Alexey Illarionov <littlesavage@rambler.ru>
+  - Support of Unicode in MP3 tag with id3lib
+  - Support of ID3v2.4 tags with libid3tag
+
+Michael Pujos <pujos.michael@laposte.net>
+  - Port of EasyTAG 1.99.9 to Win32
+
+Der Humph <humph@gmx.de>
+  - New icon
+
+Emmanuel Brun <brunema@wanadoo.fr>
+  - French USERS GUIDE
+
+FutureFog <futurefog@katamail.com>
+  - Wrote EasyTAG.Win32.Setup.iss script
+
+Maarten Maathuis <madman2003@gmail.com>
+  - Support of WavPack files
+
+Pierre Dumuid <pierre.dumuid@adelaide.edu.au>
+  - Support of Speex files
+
+Yuval Hager <yuval@avramzon.net>
+  - Hebrew translation
+
+
+
+My thanks to all :)
+    Jerome

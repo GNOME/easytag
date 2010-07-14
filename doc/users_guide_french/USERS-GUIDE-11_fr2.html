@@ -1,0 +1,274 @@
+<!-- ************************************************************************************
+     * USERS-GUIDE-11_fr2.html                                                			*
+     * auteur Emmanuel Brun     < manub91[at]gmail.com >                  				*
+     * date  : 28/12/06 mise en conformité avec W3C xhtml 1.0 strict 					*
+     *					test Firefox + IE6 												*
+     *                                                                      			*
+     * Guide de l'utilisateur de EasyTAG (version 1.99.11) 								*
+     * chapitre 2 - Description de l'interface.											*
+     *																					*
+     ************************************************************************************ -->
+     
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="fr">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Guide de l'utilisateur du logiciel EasyTAG - chapitre 2 - Description de l'interface.</title>
+	<link rel="stylesheet" type="text/css" href="USERS-GUIDE.css" />
+</head>
+
+<body>
+	<div><a href="#" name="haut_page"></a></div>
+
+	<h1>Guide de l'utilisateur du logiciel EasyTAG (version 1.99.11)<br/> - chapitre 2 -</h1>
+	
+<!-- TABLE DES MATIERES	=====================================================================-->
+	<p id="titre_TM">Table des matières.</p>
+	<ul class="TM1">
+		<li><a href="USERS-GUIDE-11_fr1.html">1 - Introduction.</a></li>
+		<li><a href="#ch_2">2 - Description de l'interface.</a>
+			<ul class="TM2">
+				<li><a href="#ch_2_1">2.1 - Barre de menus.</a>
+					<ul class="TM3">
+						<li><a href="#ch_2_1_1">2.1.1 - Menu &laquo;Fichier&raquo;.</a></li>
+						<li><a href="#ch_2_1_2">2.1.2 - Menu &laquo;Sélecteur&raquo;.</a></li>
+						<li><a href="#ch_2_1_3">2.1.3 - Menu &laquo;Scanner&raquo;.</a></li>
+						<li><a href="#ch_2_1_4">2.1.4 - Menu &laquo;Divers&raquo;.</a></li>
+						<li><a href="#ch_2_1_5">2.1.5 - Menu &laquo;Paramètres&raquo;.</a></li>
+					</ul>
+				</li>
+				<li><a href="#ch_2_2">2.2 - Barre de fonctions.</a></li>
+				<li><a href="#ch_2_3">2.3 - Fenêtre &laquo;Sélecteur&raquo;.</a>
+					<ul class="TM3">
+						<li><a href="#ch_2_3_1">2.3.1 - Mode arborescence des répertoires.</a></li>
+						<li><a href="#ch_2_3_2">2.3.2 - Mode arborescence artistes/albums.</a></li>
+					</ul>
+				</li>
+				<li><a href="#ch_2_4">2.4 - Fenêtre &laquo;Fichier&raquo;.</a></li>
+				<li><a href="#ch_2_5">2.5 - Fenêtre &laquo;Tag&raquo;.</a></li>
+				<li><a href="#ch_2_6">2.6 - Menus contextuels.</a></li>
+			</ul>
+		</li>
+		<li><a href="USERS-GUIDE-11_fr3.html">3 - Recherche rapide dans votre collection de fichiers audio.</a></li>
+		<li><a href="USERS-GUIDE-11_fr4.html">4 - Editer/corriger les tags.</a></li>
+		<li><a href="USERS-GUIDE-11_fr5.html">5 - Renommer les fichiers/les répertoires.</a></li>
+		<li><a href="USERS-GUIDE-11_fr6.html">6 - Autres fonctions.</a></li>
+		<li><a href="USERS-GUIDE-11_fr6.html#ch_7">7 - Pré-requis.</a></li>
+	</ul>
+
+<!-- FIN TABLE DES MATIERES	=================================================================-->
+
+<!-- DESCRIPTION DE L'INTERFACE	=============================================================-->
+
+	<h2><a name="ch_2" id="ch_2">2 - Description de l'interface.</a></h2>
+		<p>La figure ci-après présente une vue d'ensemble de l'interface. Celle-ci est organisée autour de trois fenêtres (Sélecteur, Fichier, Tag), fenêtres affichées avec une bordure rouge sur la figure. Au dessus de ces fenêtres, on trouve un ensemble de menus (Fichier, Sélecteur, Scanner, Divers, Paramètres, Aide) et une barre de boutons permettant un accès rapide à certaines fonctions. De plus, dans certaines zones, en cliquant sur le bouton droit de la souris, il est possible de faire apparaitre des menus contextuels permettant aussi un accès rapide à certaines fonctions.</p>
+		<div class="img_c">
+			<img src="images/interface.png" alt="interface"/>
+		</div>
+		<p>Dans la suite de ce chapitre, nous allons détailler ces différents menus et fenêtres.</p>
+
+<!-- Barre de menus -->
+		<h3><a name="ch_2_1" id="ch_2_1">2.1 - Barre de menus.</a></h3>
+			<p>La barre de menus est formée de six menus : menu &laquo;Fichier&raquo;, &laquo;Sélecteur&raquo;, &laquo;Scanner&raquo;, &laquo;Divers&raquo;, &laquo;Paramètres&raquo; et menu &laquo;Aide&raquo;.</p>
+			<h4><a name="ch_2_1_1" id="ch_2_1_1">2.1.1 - Menu &laquo;Fichier&raquo;.</a></h4>
+				<p>Ce menu (voir figure ci-contre) regroupe de nombreuses fonctions de manipulation des fichiers. Discutons plus particulièrement les fonctions suivantes :</p>
+				<ul class="liste1">
+					<li>
+						<img class="droite" src="images/menu_fic.png" alt="menu Fichier"/>
+						<span class="entree">Classer liste par tag</span> : Ce sous-menu déroulant (présenté, en partie, sur la figure ci-après) permet d'effectuer un classement de la liste des fichiers présents dans un répertoire sur la base des champs d'information du tag (piste, titre, artiste, &#8230;). Voir le <a href="USERS-GUIDE-11_fr3.html#ch_3_1">paragraphe 3.1</a> pour plus de détails.
+					</li>
+					<li><span class="entree">Classer liste par propriétés</span> : Ce sous-menu déroulant (présenté, en partie, sur la figure ci-après) permet d'effectuer un classement de la liste des fichiers présents dans un répertoire sur la base de caractéristiques du fichier (nom de fichier, date de création, type de fichier, &#8230;). Voir le <a href="USERS-GUIDE-11_fr3.html#ch_3_1">paragraphe 3.1</a> pour plus de détails.</li>
+					<li><span class="entree">Ouvrir le(s) Fichier(s) avec &#8230;</span> : Cette entrée permet la mise en oeuvre d'une application externe (par exemple, lecteur de fichiers audio Xmms) sur une sélection de fichiers. Voir le <a href="USERS-GUIDE-11_fr6.html#ch_6_2">paragraphe 6.2</a> pour plus de détails.</li>
+					<li><span class="entree">Premier Fichier</span> : Déplacement au premier fichier de la liste de la fenêtre &laquo;Sélecteur&raquo;.</li>
+					<li><span class="entree">Fichier Précédent</span> : Déplacement au fichier précédent de la liste de la fenêtre &laquo;Sélecteur&raquo;</li>
+					<li><span class="entree">Fichier Suivant</span> : Déplacement au fichier suivant de la liste de la fenêtre &laquo;Sélecteur&raquo;</li>
+					<li><span class="entree">Dernier Fichier</span> : Déplacement au dernier fichier de la liste de la fenêtre &laquo;Sélecteur&raquo;</li>
+					<li><span class="entree">Scanner le(s) Fichier(s)</span> : Lance la fenêtre &laquo;Scanner&raquo;. Voir le <a href="#ch_2_1_3">paragraphe 2.1.3</a> pour plus de détails.</li>
+					<li><span class="entree">Annuler Modifs des Fichiers</span> : Annule les modifications effectuées sur l'ensemble des fichiers sélectionnés.</li> 
+					<li><span class="entree">Refaire Modifs des Fichiers</span> : Effectue, sur l'ensemble des fichiers sélectionnés, l'opération inverse de l'entrée précédente.</li> 
+					<li><span class="entree">Sauver le(s) Fichier(s)</span> : Sauvegarde des fichiers sélectionnés ayant subi des modifications (fichiers indiqués en rouge dans la fenêtre &laquo;Sélecteur&raquo;).</li> 										
+					<li><span class="entree">Forcer la Sauvegarde de(s) Fichier(s)</span> : Force la sauvegarde de tous les fichiers sélectionnés, y compris ceux n'ayant pas subi de modifications (fonction utile lors de l'utilisation de certaines options avancées du logiciel).</li> 
+					<li><span class="entree">Annuler les Derniers Changements</span> : Annule les modifications du dernier fichier modifié même si ce fichier n'est pas sélectionné.</li> 
+					<li><span class="entree">Refaire les Derniers Changements</span> : Effectue, sur le dernier fichier modifié, l'opération inverse de l'entrée précédente.</li> 
+				</ul>
+				<hr class="fin_img"/>
+
+			<h4><a name="ch_2_1_2" id="ch_2_1_2">2.1.2 - Menu &laquo;Sélecteur&raquo;.</a></h4>
+				<p>Ce menu (voir figure ci-contre) regroupe de nombreuses fonctions de manipulation des répertoires. Discutons plus particulièrement les fonctions suivantes :</p>		
+				<ul class="liste1">
+					<li>
+						<img class="droite" src="images/menu_sel.png" alt="image menu Sélecteur"/>
+						<span class="entree">Arborescence/Vue par Artiste-Album</span> : Cette entrée permet de basculer entre le mode arborescence répertoires et le mode arborescence artistes/albums. Voir le <a href="#ch_2_3">paragraphe 2.3</a> pour plus de détails.
+					</li>
+					<li><span class="entree">Parcourir le Répertoire avec &#8230;</span> : Cette entrée permet la mise en oeuvre d'une application externe (par exemple, lecteur de fichiers audio Xmms) sur un répertoire particulier. Voir le <a href="USERS-GUIDE-11_fr6.html#ch_6_2">paragraphe 6.2</a> pour plus de détails.</li>
+					<li><span class="entree">Refermer l'Arbre</span> : Ferme l'arborescence des répertoires et retourne à l'affichage des répertoires racines.</li>
+					<li><span class="entree">Rafraîchir l'Arbre</span> : Dans le cas de changement dans l'arborescence des fichiers (création de répertoires, déplacements/suppression de fichiers, &#8230;), lance l'acquisition de la nouvelle arborescence.</li>
+				</ul>
+				<hr class="fin_img"/>
+
+			<h4><a name="ch_2_1_3" id="ch_2_1_3">2.1.3 - Menu &laquo;Scanner&raquo;.</a></h4>			
+				<p>Ce menu (voir figure ci-contre) permet d'ouvrir l'un des trois scanners disponibles :</p>
+				<ul class="liste1">
+					<li>
+						<img class="droite" src="images/menu_scan.png" alt="image menu Scanner"/>
+						<span class="entree">Compléter le(s) Tag(s) &#8230;</span> : Lancement du scanner qui permet la modification automatique des champs d'information des tags des fichiers présents dans un répertoire particulier. Voir le <a href="USERS-GUIDE-11_fr4.html#ch_4_2">paragraphe 4.2</a> pour plus de détails.
+					</li>
+					<li><span class="entree">Renommer le(s) Fichier(s) et Répertoire(s) &#8230;</span> : Lancement du scanner qui permet de renommer automatiquement les fichiers et les répertoires. Voir le <a href="USERS-GUIDE-11_fr5.html#ch_5_2">paragraphe 5.2</a> pour plus de détails.</li>
+					<li><span class="entree">Traiter le(s) Champs &#8230;</span> : Lancement du scanner qui permet d'effectuer un traitement automatique d'uniformisation (traitement de la casse &#8230;)  des noms et des tags des fichiers présents dans un répertoire particulier. Voir le <a href="USERS-GUIDE-11_fr4.html#ch_4_4">paragraphe 4.4</a> pour plus de détails.</li>
+				</ul>
+		
+				<hr class="fin_img"/>
+				
+			<h4><a name="ch_2_1_4" id="ch_2_1_4">2.1.4 - Menu &laquo;Divers&raquo;.</a></h4>
+				<p>Ce menu (voir figure ci-contre) regroupe, comme son nom l'indique, des fonctions très diverses :</p>
+				<ul class="liste1">
+					<li>
+						<img class="droite" src="images/menu_div.png" alt="image menu Divers"/>
+						<span class="entree">Rechercher le(s) Fichier(s) &#8230;</span> : Lance une recherche manuelle par mot clé sur l'ensemble des fichiers présents dans un répertoire particulier. Voir le <a href="USERS-GUIDE-11_fr3.html#ch_3_2">paragraphe 3.2</a> pour plus de détails.
+					</li>
+					<li><span class="entree">Recherche CDDB &#8230;</span> : Lance la modification automatique des tags des fichiers d'un album via la base de données cddb. Voir le <a href="USERS-GUIDE-11_fr4.html#ch_4_3">paragraphe 4.3</a> pour plus de détails.</li>
+					<li><span class="entree">Charger les Noms des fichiers à partir d'un TXT &#8230;</span> : Modification des noms d'un ensemble de fichiers à partir d'un fichier texte. Voir le <a href="USERS-GUIDE-11_fr5.html#ch_5_1_4">paragraphe 5.1.4</a> pour plus de détails.</li>
+					<li><span class="entree">Ecrire Liste de Lecture &#8230;</span> : Création d'une liste de lecture de fichiers audio pour les logiciels Winamp ou XMMS. Voir le <a href="USERS-GUIDE-11_fr6.html#ch_6_1">paragraphe 6.1</a> pour plus de détails.</li>
+					<li><span class="entree">Lancer Lecteur Audio</span> : Lancement du lecteur audio spécifié par défaut. Voir le <a href="USERS-GUIDE-11_fr6.html#ch_6_2">paragraphe 6.2</a> pour plus de détails.</li>					
+				</ul>
+
+				<hr class="fin_img"/>
+				
+			<h4><a name="ch_2_1_5" id="ch_2_1_5">2.1.5 - Menu &laquo;Paramètres&raquo;.</a></h4>
+			<p>Ce menu contient le sous-menu &laquo;Préférences &#8230;&raquo; qui permet d'effectuer un certain nombre de réglages par défaut du logiciel EasyTAG. Cette fenêtre dispose de huit onglets de réglages différents (Sélecteur, Divers, Paramètres du nom des fichiers, Paramètres des Tags, Paramètres des Tags ID3, Scanner, Base de données CD, Confirmation). Il n'est pas possible de décrire dans le cadre de ce guide l'ensemble des différentes options de réglage du logiciel (se référer alors à chaque bulle d'aide associée à chaque option). La figure suivante présente, par exemple, les possibilités de réglages disponibles dans l'onglet &laquo;Divers&raquo;. En particulier, vous pouvez voir, en bas de cette fenêtre, la zone dans laquelle vous pouvez définir le logiciel de lecture de fichiers audio par défaut (Xmms ou autre).</p>
+			<div class="img_c"><img src="images/menu_pref.png" alt="image menu Paramètres"/></div>
+
+<!-- Barre de boutons -->																						
+		<h3><a name="ch_2_2" id="ch_2_2">2.2 - Barre de boutons.</a></h3>
+			<div class="img_c">
+				<img src="images/fen_boutons.png" alt="image barre de boutons"/>
+			</div>
+			<p>La barre de boutons, présentée ci-dessus, incorpore 14 boutons de fonctions :</p>
+			<ul class="liste1">
+				<li>bouton 1  : déplacement au premier fichier de la liste de la fenêtre &laquo;Sélecteur&raquo;,</li>
+				<li>bouton 2  : déplacement au fichier précédent de la liste de la fenêtre &laquo;Sélecteur&raquo;,</li>
+				<li>bouton 3  : déplacement au fichier suivant de la liste de la fenêtre &laquo;Sélecteur&raquo;,</li>
+				<li>bouton 4  : déplacement au dernier fichier de la liste de la fenêtre &laquo;Sélecteur&raquo;,</li>
+				<li>bouton 5  : lancement de la fenêtre &laquo;Scanner&raquo; (voir le <a href="#ch_2_1_3">paragraphe 2.1.3</a> pour plus de détails),</li>
+				<li>bouton 6  : effacer le tag du(des) fichier(s) sélectionné(s),</li>
+				<li>bouton 7  : annuler les modifications du(des) fichier(s) sélectionné(s),</li>
+				<li>bouton 8  : refaire les modifications du(des) fichier(s) sélectionné(s),</li>
+				<li>bouton 9  : lancer la sauvegarde du(des) fichier(s) sélectionné(s),</li>
+				<li>bouton 10 : bascule entre le mode arborescence répertoires et le mode arborescence artistes/albums (voir le <a href="#ch_2_3">paragraphe 2.3</a> pour plus de détails),</li>		
+				<li>bouton 11 : sélectionner tous les fichiers de la liste,</li>
+				<li>bouton 12 : inverser la sélection des fichiers de la liste,</li>
+				<li>bouton 13 : arrêt de l'action en cours,</li>
+				<li>bouton 14 : quitter EasyTAG.</li>
+			</ul>		
+
+<!-- Fenêtre Sélecteur -->
+		<h3><a name="ch_2_3" id="ch_2_3">2.3 - Fenêtre &laquo;Sélecteur&raquo;.</a></h3>
+			<p>La fenêtre &laquo;Sélecteur&raquo; permet de choisir rapidement le répertoire de travail et les fichiers audio dont vous souhaitez éditer/modifier les tags. EasyTAG dispose, pour cela, de deux modes de visualisation du contenu d'un répertoire : mode arborescence des répertoires ou mode arborescence artistes/albums. Le basculement entre ces deux modes peut se faire en cliquant sur le bouton <img src="images/bouton_arbo.png" alt="bouton tête+disque"/> de la barre de boutons (voir le <a href="#ch_2_2">paragraphe 2.2</a>).</p>
+			<p>Cette fenêtre est divisée en trois zones (zones 1, 2, 3 : voir les figures suivantes). Nous allons maintenant discuter les deux formes que peut prendre cette fenêtre suivant le mode de visualisation choisi.</p>
+
+			<h4><a name="ch_2_3_1" id="ch_2_3_1">2.3.1 - Mode arborescence des répertoires.</a></h4>
+			<ul class="liste1">
+				<li>
+					<img class="droite"src="images/fen_sel1.png" alt="image mode arborescence des répertoires"/>
+					zone 1 : Cette zone permet d'afficher initialement le répertoire de travail par défaut puis, tout au long de l'édition des fichiers, le répertoire de travail courant.  Elle permet aussi de spécifier directement un certain répertoire de travail, soit en :
+					<ul class="liste2">
+						<li>entrant manuellement le chemin de ce répertoire,</li>
+						<li>choisissant un répertoire dans la liste déroulante des anciens répertoires déjà consultés.</li>
+					</ul>
+				</li>
+				<li>zone 2 : La zone 2 présente l'arborescence des différents répertoires du support de stockage. Il est alors possible de naviguer dans cette arborescence pour sélectionner très rapidement un répertoire particulier.</li>
+				<li>zone 3 : La zone 3 affiche alors la liste de l'ensemble des fichiers audio contenus dans ce répertoire et ses sous répertoires (option de l'onglet &laquo;Préférences&raquo; du menu &laquo;Divers&raquo;) et dont l'extension est reconnue par le programme. <br/>Le nombre de fichiers de cette liste peut être relativement important. De ce fait, pour s'y retrouver, une alternance de couleur (blanc/bleu) permet de distinguer les fichiers appartenant à des répertoires différents.</li>
+			</ul>											
+
+			<hr class="fin_img"/>
+			<h4><a name="ch_2_3_2" id="ch_2_3_2">2.3.2 - Mode arborescence artistes/albums.</a></h4>
+			<p>Ce mode de visualisation est totalement complémentaire du précédent.</p>
+			<div><img class="droite"src="images/fen_sel2.png" alt="image mode arborescence artistes-albums"/></div>
+			<ul class="liste1">
+				<li>zone 1 : Cette zone, identique à celle du mode précédent, permet d'afficher/spécifier le répertoire de travail.</li>
+				<li>zone 2 : La zone 2 présente le contenu du répertoire sélectionné sous la forme d'une arborescence de type artistes/albums. <br/>Les artistes correspondant aux fichiers du répertoire courant sont listés dans la partie haute de cette zone. <br/>Pour l'artiste sélectionné, les différents albums correspondant aux fichiers présents dans le répertoire courant sont listés dans la partie basse de cette zone.</li>
+				<li>zone 3 : La zone 3 affiche les différents fichiers audio de l'artiste et de l'album sélectionné.<br/>Nous voyons que ce nombre de fichiers est, par nature, limité.</li>
+			</ul>											
+			<hr class="fin_img"/>
+			<div><img class="droite"src="images/fen_sel3.png" alt="image modification fichiers"/></div>
+			<p>Dans la zone 3 de chacun de ces deux modes, les fichiers ayant subi des modifications soit de nom de fichier soit de tag et qui, par conséquent, doivent être sauvegardés sont clairement identifiables car ils apparaissent en rouge dans la liste des fichiers affichés (voir figure ci-contre pour le mode arborescence de répertoires). <br /> Astuce : double-cliquez sur un fichier pour sélectionner tous les fichiers d'un même dossier. Triple-cliquez pour sélectionner tous les fichiers de la liste.</p>
+			<hr class="fin_img"/>
+
+<!-- Fenêtre Fichier -->			
+		<h3><a name="ch_2_4" id="ch_2_4">2.4 - Fenêtre &laquo;Fichier&raquo;.</a></h3>
+			<p>La fenêtre &laquo;Fichier&raquo; est présentée, ci-contre, pour deux types de fichiers audio (Ogg et mp3).</p>
+			<p>En plus, d'une zone de saisie/affichage du nom de fichier, cette fenêtre montre certaines caractéristiques du fichier et certaines informations de base contenues dans l'en-tête du fichier audio comme :</p>
+			<div><img class="droite" src="images/fen_fich.png" alt="image fenêtre Fichier"/></div>
+			<ul class="liste1">
+				<li>le type d'encodage (par exemple MPEG1, layer III),</li>
+				<li>le débit,</li>
+				<li>la fréquence d'échantillonnage du fichier audio,</li>
+				<li>la taille en Mo du fichier audio,</li>
+				<li>la durée du morceau correspondant exprimée en (heure:minutes:secondes).</li>
+			</ul>
+			<p>De plus, dans cette fenêtre, sont indiquées entre parenthèses :</p>
+			<ul class="liste1">
+				<li>la taille totale en Mo/Go de l'ensemble des fichiers du répertoire sélectionné,</li>
+				<li>la durée totale des morceaux présents dans le répertoire, exprimée en (heure:minutes:secondes).</li>
+			</ul>
+			<hr class="fin_img"/>
+			
+<!-- Fenêtre Tag -->			
+		<h3><a name="ch_2_5" id="ch_2_5">2.5 - Fenêtre &laquo;Tag&raquo;.</a></h3>
+			<p>La fenêtre Tag sert à afficher l'ensemble des différents champs d'information du tag du fichier sélectionné. Elle se caractérise par la présence de deux onglets, onglet &laquo;Général&raquo; et onglet &laquo;Images&raquo; :</p>		
+			
+			<ul class="liste1">
+				<li><img class="droite" src="images/fen_tag_gen.png" alt="image fenêtre Tag"/>
+					<span class="entree">Onglet &laquo;Général&raquo;</span> : Cet onglet est présenté ci-contre pour un fichier audio de type mp3 (tag ID3) mais sa structure est la même quelque soit le type de fichier (tag ID3, tag Ogg Vorbis, tag Flac Vorbis &#8230;).<br/>Les différents champs d'information du tag sont presque tous clairement identifiables.
+					<ul class="liste2">					
+						<li>La zone de saisie (#) située à droite de la zone "Album" correspond au champ "numéro de disque".</li>
+						<li>La zone de saisie située à droite du / correspond au champ "nombre total de pistes".</li>
+					</ul>
+					<br/>Dans cette fenêtre, on remarque la présence de deux types de boutons :
+					<ul class="liste2">
+						<li>Le bouton <img src="images/fen_tag_bout1.png" alt="bouton"/> situé à droite de tous les champs d'information sert à généraliser la modification du champ à tous les fichiers sélectionnés dans la fenêtre "Sélecteur" (voir le <a href="USERS-GUIDE-11_fr4.html#ch_4_1">paragraphe 4.1</a> pour plus de détails).<br/><br/></li>
+						<li>Les boutons <img src="images/fen_tag_bout2.png"alt="bouton"/> servent à modifier manuellement les champs "numéro de piste" et "nombre total de pistes". Leur utilisation est décrite au <a href="USERS-GUIDE-11_fr4.html#ch_4_1">paragraphe 4.1</a>.</li>						
+					</ul>
+					<hr class="fin_img"/>
+				</li>
+				<li><img class="droite" src="images/fen_tag_img.png" alt="image fenêtre Tag Images"/>
+					<span class="entree">Onglet &laquo;Images&raquo;</span> : L'utilisation de cet onglet est spécifique au fichier Mp3 et au fichier Flac (option à activer dans l'onglet &laquo;Paramètres des tags ID3&raquo; du menu &laquo;Préférences&raquo;). En effet, dans le tag ID3, il est possible d'incorporer des images. Pour d'autres tags (Ogg Vorbis par exemple), cet onglet est présent mais n'est pas fonctionnel.<br/>La manière de procéder pour incorporer des images au tag est décrite au <a href="USERS-GUIDE-11_fr4.html#ch_4_1">paragraphe 4.1</a>.
+					<hr class="fin_img"/>
+				</li>
+			</ul>
+				
+<!-- Menus contextuels -->
+		<h3><a name="ch_2_6" id="ch_2_6">2.6 - Menus contextuels.</a></h3>
+			<p>Dans EasyTAG, on dispose de trois menus contextuels : menus accessibles en cliquant sur le bouton droit de la souris.</p>
+			
+			<div><img class="droite" src="images/menu_context1.png" alt="image menu contectuel"/></div>
+			<p>Le premier menu, présenté ci-contre, est accessible lorsque le pointeur de souris est situé dans la zone 2 de la fenêtre &laquo;Sélecteur&raquo; (voir le <a href="#ch_2_3">paragraphe 2.3</a>). Ce menu regroupe les différentes fonctions de manipulation des répertoires et est quasiment identique au menu &laquo;Sélecteur&raquo; (voir le <a href="#ch_2_1_2">paragraphe 2.1.2</a>). Dans cette liste, deux entrées doivent être commentées :</p>
+			<ul class="liste1">
+				<li><span class="entree">Lancer Lecteur Audio</span> : Lancement du lecteur audio spécifié par défaut. Voir le <a href="USERS-GUIDE-11_fr6.html#ch_6_2">paragraphe 6.2</a> pour plus de détails.</li>					
+				<li><span class="entree">Parcourir le Répertoire avec &#8230;</span> : Cette entrée permet la mise en oeuvre d'une application externe (par exemple, lecteur de fichiers audio Xmms) sur un répertoire particulier. Voir le <a href="USERS-GUIDE-11_fr6.html#ch_6_2">paragraphe 6.2</a> pour plus de détails.</li>
+			</ul>
+			<hr class="fin_img"/>
+			
+			<div><img class="droite" src="images/menu_context2.png" alt="image menu contectuel"/></div>
+			<p>Le deuxième menu, présenté ci-contre, est accessible lorsque le pointeur de souris est situé dans la zone 3 de la fenêtre &laquo;Sélecteur&raquo; (voir le <a href="#ch_2_3">paragraphe 2.3</a>). Ce menu regroupe les différentes fonctions de traitement des fichiers et reprend un certain nombre d'entrées du menu &laquo;Fichier&raquo; (voir le <a href="#ch_2_1_1">paragraphe 2.1.1</a>) et certaines entrées du menu &laquo;Divers&raquo; (voir le <a href="#ch_2_1_4">paragraphe 2.1.4</a>). Dans cette liste, deux entrées doivent être commentées :</p>
+			<ul class="liste1">
+				<li><span class="entree">Lancer Lecteur Audio</span> : Lancement du lecteur audio spécifié par défaut. Voir le <a href="USERS-GUIDE-11_fr6.html#ch_6_2">paragraphe 6.2</a> pour plus de détails.</li>					
+				<li><span class="entree">Ouvrir le(s) Fichier(s) avec &#8230;</span> : Cette entrée permet la mise en oeuvre d'une application externe (par exemple, lecteur de fichiers audio Xmms) sur une sélection de fichiers. Voir le <a href="USERS-GUIDE-11_fr6.html#ch_6_2">paragraphe 6.2</a> pour plus de détails.</li>
+			</ul>
+			<hr class="fin_img"/>
+			
+			<div><img class="droite" src="images/menu_context3.png" alt="image menu contectuel"/></div>			
+			<p>Le troisième menu, présenté ci-contre, est accessible lorsque le pointeur de souris est situé dans la zone de saisie de la fenêtre &laquo;Fichier&raquo; ou dans les zones de saisie de la fenêtre &laquo;Tag&raquo;. Les différentes entrées sont identiques à celles du sous-menu &laquo;Traiter les champs&raquo; du menu &laquo;Scanner&raquo; (voir <a href="USERS-GUIDE-11_fr3.html#ch_3_4">paragraphe 3.4</a>). Les différentes entrées permettent de réaliser des modifications sur le nom et sur les champs d'information des fichiers telles que :</p>
+			<ul class="liste1">
+				<li>conversion minuscules/majuscules.</li>
+				<li>remplacement d'un caractère par un autre &#8230;</li>
+			</ul>
+			<hr class="fin_img"/>
+		
+<!-- FIN DESCRIPTION DE L'INTERFACE	=========================================================-->	
+
+	<p class="img_c"><br/><a href="#haut_page">- RETOUR A LA TABLE DES MATIERES -</a></p>
+</body>
+</html>
+

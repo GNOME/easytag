@@ -1,0 +1,612 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <title>Documentation for EasyTAG</title>
+  <style>
+    <!--
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 10;
+        padding: 0;
+        color: #000000;
+        background-color: #FDFDE7;
+        font-size: 1em;
+      }
+      p {
+	    text-align: justify;
+	    text-indent: 2em;
+      }
+	  #contents {
+	    font-size: 1.5em;
+	    color: blue;
+	  }
+	
+      h1 {
+	    text-align: center;
+        border-top: 1px solid #CCCCCC;
+        border-bottom: 1px solid #CCCCCC;
+        border-left: 1px solid #CCCCCC;
+        border-right: 1px solid #CCCCCC;
+	    color: blue;
+      }
+    h2 {
+    	font-size: 2em;
+    	text-decoration: underline;
+    	text-indent: 0pt;
+    	margin-top: 1em;
+    	color: blue;
+    }
+    h3, h4 {
+    	text-decoration: underline;
+    	margin-top: 1em;
+    	color: blue;
+    }
+    li {
+    	list-style-type: circle;
+    	text-indent: 2em;
+    }
+    .example-text {
+    	font-family: "Courier New", Courier, mono;
+    }
+    .question-text {
+    	font-family: Verdana, Arial, Helvetica, sans-serif;
+    	font-style: italic;
+    	padding-top: 1em;
+    	color: #666666;
+    }
+    table {
+    	border: 1px solid #666666;
+    	margin: 0px;
+    	padding: 0px;
+    }
+    th {
+    	background-color: #CCCCCC;
+    	border: 1px solid;
+    }
+
+    -->
+  </style>
+</head>
+<body>
+<h1>EasyTAG</h1>
+	<p id="contents">Contents:</p>
+	<ul>
+		<li><a href="#ch_1">1. Presentation and steps:</a></li>
+	<ul>
+		<li><a href="#ch_1_1">1.1. Description (based on the last version 
+		  1.99.9 for GTK2):</a></li>
+		<li><a href="#ch_1_2">1.2. Basics steps of tagging/correcting tags:</a></li>
+		<ul>
+			<li><a href="#ch_1_2_1">1.2.1. Manually:</a></li>
+			<li><a href="#vh_1_2_2">1.2.2. Automatically with &#8220;Fill Tag&#8221; scanner:</a></li>
+			<li><a href="#ch_1_2_3">1.2.3. Automatically with CDDB:</a></li>
+			<li><a href="#ch_1_2_4">1.2.4. Correct tags fields with &#8220;Process Fields&#8221; 
+			  scanner:</a></li>
+			<li><a href="#ch_1_2_5">1.2.5. Automatic corrections:</a></li>
+		</ul>
+		<li><a href="#ch_1_3">1.3. Basics steps of renaming files and directories:</a></li>
+		<ul>
+			<li><a href="#ch_1_3_1">1.3.1. Manually:</a></li>
+			<li><a href="#ch_1_3_2">1.3.2. Automatically with scanner:</a></li>
+			<li><a href="#ch_1_3_3">1.3.3. Automatically with CDDB:</a></li>
+			<li><a href="#ch_1_3_4">1.3.4. Automatically from a TXT file:</a></li>
+		</ul>
+	</ul>
+	<li><a href="#ch_2">2. Tips:</a></li>
+</ul>
+<p><br /></p>
+<h2><a name="ch_1" id="ch_1"></a>1. Presentation and steps:</h2>
+<h3><a name="ch_1_1" id="ch_1"></a>1.1. Description (based on the last version 
+  1.99.9 for GTK2):</h3>
+<p> EasyTAG is a utility for viewing and editing tags for MP3, MP2,
+FLAC, Ogg Vorbis, MusePack and Monkey's Audio files, and based on a
+simple and nice GTK+ interface making tagging easier.</p>
+<p> With the tree browser, select quickly the directory to search for
+supported files (with or without including sub-directories). All files
+found are displayed in a main with a variable background colour to
+show, in one glance, the files in the same directory.</p>
+<p> A second useful view mode, organizes the files by artist and by
+album to have a quick look to all the artists of your collection, and
+all albums for each artist.</p>
+<p> The interface displays basic file informations taken from the file
+header, like bitrate or duration. With the interface, you can as well
+edit common tag fields as : title, artist, album, year, track number,
+genre and comment which were available into ID3v1.1 and ID3v2.3 tag.
+But you can also edit specials ID3v2.3 fields like : disc album,
+composer, original artist/performer, copyright, URL, encoder name and
+attached pictures.</p>
+<p> Three differents scanners allow you to tag automatically from the
+filename, rename the file and directory from the tag, and process
+fields (for example to change the case). The first two scanners use a
+preview to avoid any mistakes and help you when using or creating yours
+own patterns.</p>
+<p> If necessary you can use one of the both CDDB modes to fill yours
+tags with FreeDB servers. First, the automatic way tries to identify
+the selected files with the correct CDDB album. Else, a manual search
+lets you to search any word in the CDDB database to identify yourself
+the right album.</p>
+<p> Also, you can load the content of a simple TXT file (containing
+filenames) to set name of each file.</p>
+<p> Mass tagging is available with the scanners, but also with buttons
+to apply a field to all other selected files (small button on the right
+of each field).</p>
+<p> To prevent mistakes, the undo and redo functions assist the user to
+recover the last changes.</p>
+<p> The files collection can be export to a play list for Winamp or
+XMMS.</p>
+<p> With the search window, look for the requested files.</p>
+<p> After the various operations over the files, those who were changed
+and need to be saved are displayed in red in the list of files.<br>
+</p>
+<br>
+<p>The program depends on the following libraries:</p>
+<ul>
+  <li> GTK 2.4,</li>
+  <li> id3lib to handle MP3 files,</li>
+  <li> libogg,</li>
+  <li> libvorbis for Ogg Vorbis files,</li>
+  <li> libFLAC (with libogg and libvorbis) for FLAC Vorbis files,</li>
+  <li> mpeg4ip for MP4 files.</li>
+</ul>
+<h3><a name="ch_1_2" id="ch_1"></a>1.2. Basics steps of tagging/correcting tags:</h3>
+<p> EasyTAG offers three different &#8220;main&#8221; ways to tag or rename yours
+files: manually, automatically with the scanner or automatically with
+CDDB. Below is a description of each one.<br>
+But note that for better tagging (when tags are empty for example), the
+program prefers files classed by albums, than all the files in a same
+directory.<br>
+Also, it is important to know that the program works only with the
+selected files in the list. So when saving, using the scanner, using
+the &#8220;small buttons&#8221; and so on, only the selected files are affected,
+except when typing manually in one field. </p>
+<h4><a name="ch_1_2_1" id="ch_1"></a>1.2.1. Manually:</h4>
+<p> Some conditions to use this mode:</p>
+<ul>
+  <li> files mixed</li>
+  <li> not much files</li>
+  <li> little changes to do,</li>
+  <li> adding pictures to the MP3 tag</li>
+</ul>
+<p> If you have only some albums to tag, this mode is very easy to use.
+Indeed, you have to type directly and manually the strings into each
+field.<br>
+Of course, when working by albums, some values as the album name, the
+year and the genre are the same for all files. So for fastest tagging,
+use the &#8220;small buttons&#8221; on the right of each field, to set this value
+to all others selected files in one click.<br>
+The genre can be selected from the list (list of ID3 genres), but you
+can also type your own one.<br>
+The year field, offers also a little improvement, because you need to
+type only the last numbers. The other part will be filled automatically
+according the current century and decade. For example, typing only &#8216;4&#8217;
+will display &#8216;2004&#8217;, and &#8216;94&#8217; will display &#8216;1994&#8217;.<br>
+To number tracks quickly with the format xx/xx, use the first &#8220;small
+button&#8221; with a sharp to renumber automatically the file according its
+position in the list (so the order of files is important). Then the
+second &#8220;small button&#8221; set automatically the number of files.<br>
+For an efficient handling, to pass from one field to the next one, just
+press the enter key. The tab key gives focus to the &#8220;small button&#8221;
+corresponding to the field. The keys PageUp and PageDown permit to jump
+respectively to the previous and next file.<br>
+To attach a picture to the file, just select the image file (JPG or
+PNG) with the &#8220;+&#8221; button (in the picture tab), or Drag&amp;Drop
+directly the picture file in the zone. </p>
+<h4><a name="ch_1_2_2" id="ch_1"></a>1.2.2. Automatically with &#8220;Fill Tag&#8221; 
+  scanner:</h4>
+<p> Some conditions to use this mode:</p>
+<ul>
+  <li> files sorted by albums</li>
+  <li> filenames or parent directory contain tag information (artist,
+album, title, &#8230;)</li>
+  <li> empty or not correct tags</li>
+</ul>
+<p> The &#8220;Fill Tag&#8221; scanner uses a pattern to associate words in the
+filename and directories with the tag entries. By this way, the tag
+fields can be completed automatically by pressing the &#8220;green&#8221; button in
+the scanner window or the toolbar. If the tag is partially completed,
+use the option &#8220;Overwrite fields when scanning tag&#8221; in the &#8220;Scanner&#8221;
+tab of the &#8220;Preferences&#8221; window, to replace all fields by the new
+values.<br>
+<br>
+Each code correspond to a field, following theses rules :</p>
+<p>
+<table>
+  <tbody>
+    <tr>
+      <th>
+      <div align="center">Strings associated with code:</div>
+      </th>
+      <th>Will fill the field:</th>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%a</div>
+      </td>
+      <td>Artist</td>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%b</div>
+      </td>
+      <td>Album</td>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%c</div>
+      </td>
+      <td>Comment</td>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%p</div>
+      </td>
+      <td>Composer</td>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%r</div>
+      </td>
+      <td>Copyright</td>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%e</div>
+      </td>
+      <td>Encoded by</td>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%g</div>
+      </td>
+      <td>Genre</td>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%i</div>
+      </td>
+      <td>None! (used to ignore a string)</td>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%l</div>
+      </td>
+      <td>Number of tracks</td>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%o</div>
+      </td>
+      <td>Original artist</td>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%n</div>
+      </td>
+      <td>Track</td>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%t</div>
+      </td>
+      <td>Title</td>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%u</div>
+      </td>
+      <td>URL</td>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%y</div>
+      </td>
+      <td>Year</td>
+    </tr>
+  </tbody>
+</table>
+<p></p>
+<p><br>
+<br>
+Note : to avoid mistakes, it is recommended to use a code only one time
+in the pattern.
+Of course, like when tagging manually, only the selected files are
+processed by the scanner.<br>
+You can use the defined patterns in the list, or write yours own
+patterns to correspond to the format of yours file names and
+directories.<br>
+To avoid mistakes when selecting the right pattern, or writing it, a
+preview shows immediately the results before to apply the pattern.<br>
+If you need some help with the different codes, press the &#8220;Help&#8221; button
+(the lifebuoy) to display the legend of each code.<br>
+Also, if you want to save yours own patterns, edit or sort then, by
+pressing the &#8220;Mask&#8221; button an little editor will be shown on the
+scanner window.<br>
+<br>
+Below an example of use of patterns :
+</p>
+<blockquote>
+  <p> a) the following filename :</p>
+  <p class="example-text"> &#8220;/mnt/MP3/EVANESCENCE &#8211; Fallen (2003) &#8211;
+Rock/01. Going Under.mp3&#8221;</p>
+  <p> b) with the pattern :</p>
+  <p class="example-text"> &#8220;%a - %b (%y) - %g/%n. %t&#8221;</p>
+  <p> c) you will fill the tag with theses strings :</p>
+  <ul>
+    <li> Artist (%a) =&gt; EVANESCENCE</li>
+    <li> Album (%b) =&gt; Fallen</li>
+    <li> Year (%y) =&gt; 2003</li>
+    <li> Genre (%g) =&gt; Rock</li>
+    <li> Track (%n) =&gt; 01</li>
+    <li> Title (%t) =&gt; Going Under</li>
+  </ul>
+</blockquote>
+<h4><a name="ch_1_2_3" id="ch_1"></a>1.2.3. Automatically with CDDB:</h4>
+<p> Some conditions to use this mode:</p>
+<ul>
+  <li> files sorted by album</li>
+  <li> file audio data must correspond to the original CD (to use the
+Automatic Search)</li>
+  <li> album found in CD database</li>
+</ul>
+<p> To use tagging with the CD database, two modes are available.
+First, privilege the automatic search, but if it fails to identify the
+album, try with the manual search.</p>
+<p> Automatic Search</p>
+<p> This mode generates the CddbID from the audio files to request the
+database. So select all files of the album (and only them) in the right
+order (same order of the CD) and press the &#8220;Search&#8221; button.<br>
+All the corresponding albums found in the CD database are listed below.
+Select a line to display the tracks of this album on the right.<br>
+Finally, to fill the tag, select the interesting lines in the last list
+and press the &#8220;Apply&#8221; button.</p>
+<p> Manual Search</p>
+<p> If none album was found with the previous method, your last chance
+is to try a search using words (words supposed to by in the artist
+name, album name or track name). This search returns the same results
+of the search service on the freedb.org site. And may return lot of
+lines&#8230;<br>
+While browsing the albums list, those which have been already displayed
+are shown in red. Press the &#8220;red line button&#8221; to keep only these lines
+and remove all other.<br>
+When the right album was identified, follow the same method as the
+&#8220;automatic search&#8221; to select and apply the album to yours files. </p>
+<h4><a name="ch_1_2_4" id="ch_1"></a>1.2.4. Correct tags fields with &#8220;Process 
+  Fields&#8221; scanner:</h4>
+<p> Some conditions to use this mode:</p>
+<ul>
+  <li> filename or tag fields filled</li>
+  <li> want to correct the case</li>
+  <li> want to change some characters</li>
+</ul>
+<p> This feature is interesting to normalize quickly yours filenames or
+tags. For example to fix the case or convert some characters (filename
+to lower case and words separated with spaces).<br>
+On the top of the window, select the push-down buttons corresponding to
+each field to process. And then, press again the &#8220;green&#8221; button to run
+the scanner on the selected fields. </p>
+<h4><a name="ch_1_2_5" id="ch_1"></a>1.2.5. Automatic corrections:</h4>
+<p> Sometimes when loading files, you will note that some files are displayed to
+red. This will be due to useless spaces which are automatically stripped in the 
+fields.<br>
+So it displays the file in red to let you to save the file. Note that you can't 
+disable this feature). </p>
+<h3><a name="ch_1_3" id="ch_1"></a>1.3. Basics steps of renaming files and directories: 
+</h3>
+<h4><a name="ch_1_3_1" id="ch_1"></a>1.3.1. Manually:</h4>
+<p> Some conditions to use this mode:</p>
+<ul>
+  <li> little changes to do&#8230; </li>
+</ul>
+<p>To rename the filenames one by one (as only the selected file can be
+changed) enter the new file name, in the field of the &#8216;File&#8217; frame in
+the right top of the main window.<br>
+The last name remains in the file list up to saving the file. But the
+new name is displayed in the file field.<br>
+The invalid characters typed (for windows partitions like: &#8216;/&#8217;, &#8217;+&#8217;,
+and so on) will be automatically replaced, except if you disable the
+option &#8220;Replace illegal characters in filename (for Windows and
+CD-Rom)&#8221; in the &#8220;Misc&#8221; tab of the preferences window.<br>
+</p>
+<p>To rename the directory directly in the browser, use the popup menu
+to open the &#8216;Rename Directory&#8217; window and to edit the new name for the
+directory. The change takes effect immediately and you can&#8217;t undo it.<br>
+The version 1.99.9 adds the ability to rename the directory from tag
+with a pattern.<br>
+</p>
+<p>Note : Unlike the scanner, when renaming manually the directory, the
+files aren&#8217;t moved. As the directory is renamed all files (even files
+not supported in EasyTAG like jpeg) stay in the directory. </p>
+<h4><a name="ch_1_3_2" id="ch_1"></a>1.3.2. Automatically with scanner:</h4>
+<p> Some conditions to use this mode:</p>
+<ul>
+  <li> tags filled</li>
+</ul>
+<p> With the scanner mode &#8220;Rename File and Directory&#8221;, you can easily
+fix names of lot of files and move them into new directories. As the
+new file names will be based on the tag values, it is important to have
+correct tags.<br>
+Like in the &#8220;Fill Tag&#8221; scanner, it uses the same codes to build the
+filename structure from the tag entries, following theses rules:</p>
+<p>
+<table>
+  <tbody>
+    <tr>
+      <th>
+      <div align="center">To use the field:</div>
+      </th>
+      <th>
+      <div align="center">Use the code:</div>
+      </th>
+    </tr>
+    <tr>
+      <td>Artist</td>
+      <td>
+      <div align="center">%a</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Album</td>
+      <td>
+      <div align="center">%b</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Comment</td>
+      <td>
+      <div align="center">%c</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Composer</td>
+      <td>
+      <div align="center">%p</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Copyright</td>
+      <td>
+      <div align="center">%r</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Encoded by</td>
+      <td>
+      <div align="center">%e</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Genre</td>
+      <td>
+      <div align="center">%g</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Number of tracks</td>
+      <td>
+      <div align="center">%l</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Original artist</td>
+      <td>
+      <div align="center">%o</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Track</td>
+      <td>
+      <div align="center">%n</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Title</td>
+      <td>
+      <div align="center">%t</div>
+      </td>
+    </tr>
+    <tr>
+      <td>URL</td>
+      <td>
+      <div align="center">%u</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Year</td>
+      <td>
+      <div align="center">%y</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p></p>
+<p>Note : a code can be used several times Of course, like when
+renaming manually, only the selected files are processed by the
+scanner. The new files name are only visible in the &#8216;File&#8217; frame up to
+saving the files.<br>
+This scanner also offers the ability to move the files in new or
+existing directories, using an absolute or relative path.</p>
+<p>Relative path:</p>
+<p>By using a relative path, the files will be moved into a
+subdirectory of the current directory.<br>
+For example,<br>
+- the file &#8220;/mp3/evanescence/01. Going Under.mp3&#8221;<br>
+- with the pattern &#8220;%a - %b/%n - %t&#8221;<br>
+- will be moved to &#8220;/mp3/evanescence/EVANESCENCE &#8211; Fallen/01 - Going
+Under.mp3&#8221;<br>
+- if tag contains the values %a = EVANESCENCE, %b = Fallen, %n = 01 and
+%t = Going Under</p>
+<p> Absolute path:</p>
+<p> By using an absolute path, the files can be moved in any directory.
+The current path of the file can be added to the pattern by pressing
+the icon on the left of the field (a directory with a green &#8216;+&#8217;). With
+this feature, it is easier to change the current path of the file.<br>
+For example:<br>
+- the file &#8220;/mp3/evanescence/01. Going Under.mp3&#8221;<br>
+- with the pattern &#8220;/mp3/%a - %b/%n - %t&#8221;<br>
+- will be moved to &#8220;/mp3/EVANESCENCE &#8211; Fallen/01 - Going Under.mp3&#8221;<br>
+- if tag contains the values %a = EVANESCENCE, %b = Fallen, %n = 01and
+%t = Going Under</p>
+<p> Note: Unlike when renaming manually the directory, the scanner
+moves the files to the new destination. So it is important to know that
+the files not recognized by EasyTAG will not be moved to the new
+directory and will stay in the current location. The files are moved
+when only when saving files, so you can use undo if needed. </p>
+<h4><a name="ch_1_3_3" id="ch_1"></a>1.3.3. Automatically with CDDB:</h4>
+<p> Like for the tag fields, you can use the CDDB results to apply the
+new name to the file. But by this way you can rename only the file
+name, and not the path. So you can use the second method. Activate the
+&#8216;Rename file&#8217; scanner which will be ran after applying the results. </p>
+<h4><a name="ch_1_3_4" id="ch_1"></a>1.3.4. Automatically from a TXT file:</h4>
+<p> Some conditions to use this mode:</p>
+<ul>
+  <li> to have a text file with track names</li>
+  <li> files sorted by album</li>
+</ul>
+<p> With this feature, you can rename files, but not the directories. A
+simple text file containing the list of track names will be loaded to
+associate each line with a file.</p>
+<h2> <a name="ch_2" id="ch_1"></a>2. Tips:</h2>
+<p class="question-text">How to see in one glance all tags of each file?</p>
+<p> Open the search window and run it without typing any parameter
+(field &#8220;Search :&#8221; empty). As result you will display content of all
+files.</p>
+<p class="question-text">How to play files?</p>
+<p> You can play directly the selected files or those placed in a
+directory by using an external application like XMMS. Over the selected
+files on the files list, or a directory in the tree, use the popup menu
+an press &#8220;Run Audio Player&#8221;. But default, as set in the preference
+window, the command ran is &#8220;xmms &#8211;p&#8221; to play only this files. But if
+you want to enqueue files, type the command &#8220;xmms &#8211;e&#8221; when using the
+popup menu entries &#8220;Open file(s) with &#8230;&#8221; or &#8220;Browse directory with&#8230;&#8221;</p>
+<p class="question-text">Files can be organized by artist and album?</p>
+<p>The &#8220;Artist + Album&#8221; view is for you. To activate it press the
+pushbutton in the toolbar with &#8220;a head + a disc&#8221;. This mode allows to
+browser easier the albums of an artist. It is also a good way to
+identify files with a wrong tag.</p>
+<p class="question-text">How to run the program directly from a
+directory?</p>
+<p>For example to run EasyTAG loading files from the current directory,
+use the command &#8220;easytag . &amp;&#8221;. In the same way, to load an other
+directory, use the command line: &#8220;easytag /file-audio-dir&#8221;.</p>
+<p class="question-text">Tags and filenames changed, but how to save
+only tags?</p>
+<p>After renaming the files or correcting the tags you may want to save
+only tag data. When saving a file it will ask you confirmation before
+to save the tag and then to rename the file.<br>
+To do the same with several files at one time, answer like this to the
+confirmation dialog boxes:<br>
+- Confirmation to tag write: Check &#8220;Do the same for all files&#8221; and
+press &#8220;Yes&#8221;<br>
+- Confirmation to rename file: Check &#8220;Do the same for all files&#8221; and
+press &#8220;No&#8221;</p>
+<p class="question-text">How to see if a field haven&#8217;t been filled?</p>
+<p>Two ways are available:<br>
+- You can sort the list of files using the corresponding criteria.
+Empty fields appear on the top of the list. (Example: &#8220;sort by
+ascending artist name&#8221;).<br>
+- Use the search window to display all files and identify the &#8220;empty&#8221;
+cell. </p>
+<p>&nbsp;</p>
+</body>
+</html>

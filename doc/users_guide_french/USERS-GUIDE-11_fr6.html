@@ -1,0 +1,103 @@
+<!-- ************************************************************************************
+     * USERS-GUIDE-11_fr6.html                                                			*
+     * auteur Emmanuel Brun     < manub91[at]gmail.com >                  				*
+     * date  : 28/12/06 mise en conformité avec W3C xhtml 1.0 strict 					*
+     *					test Firefox + IE6 												*
+     *                                                                      			*
+     * Guide de l'utilisateur de EasyTAG (version 1.99.11) 								*
+     * chapitre 6 - Autres fonctions.													*
+     * chapitre 7 - Pré-requis.															*
+     *																					*
+     ************************************************************************************ -->
+     
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="fr">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Guide de l'utilisateur du logiciel EasyTAG - chapitre 6 et 7 </title>
+	<link rel="stylesheet" type="text/css" href="USERS-GUIDE.css" />
+</head>
+
+<body>
+	<div><a href="#" name="haut_page"></a></div>
+
+	<h1>Guide de l'utilisateur du logiciel EasyTAG (version 1.99.11)<br/> - chapitre 6 et 7 -</h1>
+	
+<!-- TABLE DES MATIERES	=====================================================================-->
+	<p id="titre_TM">Table des matières.</p>
+	<ul class="TM1">
+		<li><a href="USERS-GUIDE-11_fr1.html">1 - Introduction.</a></li>
+		<li><a href="USERS-GUIDE-11_fr2.html">2 - Description de l'interface.</a></li>
+		<li><a href="USERS-GUIDE-11_fr3.html">3 - Recherche rapide dans votre collection de fichiers audio.</a></li>
+		<li><a href="USERS-GUIDE-11_fr4.html">4 - Editer/corriger les tags.</a></li>
+		<li><a href="USERS-GUIDE-11_fr5.html">5 - Renommer les fichiers/les répertoires.</a></li>
+		<li>
+			<a href="#ch_6">6 - Autres fonctions.</a>
+			<ul class="TM2">
+				<li><a href="#ch_6_1">6.1 - Création d'une liste de lecture M3U.</a></li>
+				<li><a href="#ch_6_2">6.2 - Ecoute des fichiers audio.</a></li>
+			</ul>
+		</li>
+		<li><a href="#ch_7">7 - Pré-requis.</a></li>
+	</ul>
+
+<!-- FIN TABLE DES MATIERES	=================================================================-->
+
+<!-- AUTRES FONCTIONS	=====================================================================-->
+
+	<h2><a name="ch_6" id="ch_6">6 - Autres fonctions.</a></h2>
+		<h3><a name="ch_6_1" id="ch_6_1">6.1 - Création d'une liste de lecture M3U.</a></h3>
+			<p>Dans EasyTAG vous avez la possibilité de créer une liste de lecture de type m3u directement utilisable par un lecteur de fichiers audio externe (WinAmp, Xmms, Totem &#8230;)</p>
+			<p>Cette fonction est accessible depuis le menu &laquo;Divers&raquo; (voir le <a href="USERS-GUIDE-11_fr2.html#ch_2_1_4">paragraphe 2.1.4</a>). La fenêtre correspondante est présentée ci-contre.</p>
+			<div><img class="droite" src="images/fen_playlist.png" alt="image fenêtre -Générer une liste de lecture-"/></div>
+			<p>Pour que la liste de lecture ne contienne seulement que les fichiers sélectionnés, il faut faire attention que la case <span class="entree">Inclure seulement les fichiers sélectionnés</span> soit bien cochée. En effet, si cette case n'est pas cochée, la liste de lecture comprend alors l'ensemble de tous les fichiers audio présents dans le répertoire courant (ce qui peut représenter un nombre important de fichiers).</p>
+			<p>De plus, nous voyons que deux options font appel à certains codes (%a, %b, &#8230;). Ces codes sont les mêmes que ceux utilisés pour la fonction scanner (voir, par exemple, <a href="USERS-GUIDE-11_fr4.html#ch_4_2">paragraphe 4.2</a>). La signification des quelques codes visibles sur la figure est donnée dans le tableau ci-dessous.</p>
+			<div><table class="tab_c">
+				<tr><th>Code</th><th>Champ du tag</th></tr>
+				<tr><td>%a</td><td>Artiste </td></tr>
+				<tr><td>%b</td><td> Album </td></tr>
+				<tr><td>%n</td><td> Numéro de piste </td></tr>
+				<tr><td>%l</td><td> Nbre total de pistes </td></tr>
+				<tr><td>%t</td><td> Titre </td></tr>
+			</table></div>			
+			<p class="sans-retrait">Une fois les différentes options choisies, il suffit, pour créer la liste de lecture, de cliquer alors sur le bouton &laquo;Ecrire&raquo;.</p>
+			<hr class="fin_img"/>
+			
+		<h3><a name="ch_6_2" id="ch_6_2">6.2 - Ecoute des fichiers audio.</a></h3>
+			<p>EasyTAG permet la lecture des fichiers audio grâce au lancement depuis le logiciel d'une application externe de lecture de fichiers audio. Ceci peut être réalisé de trois façons différentes :</p>
+			<ul class="liste1">
+				<li><span class="entree">Lancer Lecteur Audio</span> : Cette entrée  du menu &laquo;Divers&raquo; (voir le <a href="USERS-GUIDE-11_fr2.html#ch_2_1_4">paragraphe 2.1.4</a>) permet de lancer le lecteur audio par défaut. Ce lecteur peut être défini dans l'onglet &laquo;Divers&raquo; du menu &laquo;Préférences&raquo; (voir le <a href="USERS-GUIDE-11_fr2.html#ch_2_1_5">paragraphe 2.1.5</a>).</li>
+			</ul>
+			<div><img class="droite" src="images/fen_lect1.png" alt="image fenêtre -Ouvrir le fichier avec-"/></div>
+			<ul class="liste1">
+				<li><span class="entree">Ouvrir le(s) Fichier(s) avec &#8230;</span> : Cette entrée du menu &laquo;Fichier&raquo; (voir le <a href="USERS-GUIDE-11_fr2.html#ch_2_1_1">paragraphe 2.1.1</a>) ouvre une fenêtre (voir figure ci-contre) qui permet de saisir l'application externe à lancer. Cette application traite l'ensemble des fichiers audio sélectionnés. Pour lancer l'application, il faut cliquer sur le bouton &laquo;Exécuter&raquo;.<br/>Dans le cas présent, l'application lancée 'Xmms -e' permet d'écouter les fichiers sélectionnés avec Xmms. De plus, l'option choisie permet de placer ces fichiers à la suite des fichiers audio déja en écoute.</li>
+			</ul>
+			<hr class="fin_img"/>
+			<div><img class="droite" src="images/fen_lect2.png" alt="image fenêtre -Parcourir le répertoire avec-"/></div>
+			<ul class="liste1">
+				<li><span class="entree">Parcourir le Répertoire avec &#8230;</span> : Cette entrée du menu &laquo;Sélecteur&raquo; (voir le <a href="USERS-GUIDE-11_fr2.html#ch_2_1_2">paragraphe 2.1.2</a>) ouvre une fenêtre (voir figure ci-contre) qui permet de saisir l'application externe à lancer. Cette application traite l'ensemble des fichiers audio présents dans le répertoire courant. Pour lancer l'application, il faut cliquer sur le bouton &laquo;Exécuter&raquo;.<br/>Dans le cas présent, l'application lancée 'Xmms -p' permet d'écouter tous les fichiers avec Xmms.</li>
+			</ul>
+			<hr class="fin_img"/>
+						
+<!-- FIN AUTRES FONCTIONS	=================================================================-->		
+
+<!-- PRE-REQUIS	=============================================================================-->
+
+	<h2><a name="ch_7" id="ch_7">7 - Pré-requis.</a></h2>
+		<p>Pour fonctionner, EasyTAG doit disposer des librairies suivantes :</p>
+		<ul class="liste1">
+			<li>GTK 2.4,</li>
+			<li>id3lib pour les fichiers MP3,</li>
+			<li>libogg,</li>
+			<li>libvorbis pour les fichiers Ogg Vorbis,</li>
+			<li>libFLAC (en complément de libogg and libvorbis) pour les fichiers FLAC Vorbis,</li>
+			<li>mpeg4ip pour les fichiers MP4.</li>
+		</ul>
+
+<!-- FIN PRE-REQUIS	=========================================================================-->
+		
+	<p class="img_c"><br/><a href="#haut_page">- RETOUR A LA TABLE DES MATIERES -</a></p>
+</body>
+</html>
+

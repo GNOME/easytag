@@ -1,0 +1,5 @@
+?package(easytag):needs="X11" \
+	section="Apps/Sound" \
+	title="easytag" \
+	command="/usr/bin/easytag" \
+	icon="/usr/share/pixmaps/easytag.xpm"

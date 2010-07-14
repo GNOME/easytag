@@ -1,0 +1,171 @@
+<!-- ************************************************************************************
+     * USERS-GUIDE-11_fr5.html                                                			*
+     * auteur Emmanuel Brun     < manub91[at]gmail.com >                  				*
+     * date  : 28/12/06 mise en conformité avec W3C xhtml 1.0 strict 					*
+     *					test Firefox + IE6 												*
+     *                                                                      			*
+     * Guide de l'utilisateur de EasyTAG (version 1.99.11) 								*
+     * chapitre 5 - Renommer les fichiers/les répertoires.								*
+     *																					*
+     ************************************************************************************ -->
+     
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="fr">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Guide de l'utilisateur du logiciel EasyTAG - chapitre 5 - Renommer les fichiers/les répertoires.</title>
+	<link rel="stylesheet" type="text/css" href="USERS-GUIDE.css" />
+</head>
+
+<body>
+	<div><a href="#" name="haut_page"></a></div>
+
+	<h1>Guide de l'utilisateur du logiciel EasyTAG (version 1.99.11)<br/> - chapitre 5 -</h1>
+	
+<!-- TABLE DES MATIERES	=====================================================================-->
+	<p id="titre_TM">Table des matières.</p>
+	<ul class="TM1">
+		<li><a href="USERS-GUIDE-11_fr1.html">1 - Introduction.</a></li>
+		<li><a href="USERS-GUIDE-11_fr2.html">2 - Description de l'interface.</a></li>
+		<li><a href="USERS-GUIDE-11_fr3.html">3 - Recherche rapide dans votre collection de fichiers audio.</a></li>
+		<li><a href="USERS-GUIDE-11_fr4.html">4 - Editer/corriger les tags.</a></li>
+		<li>
+			<a href="#ch_5">5 - Renommer les fichiers/les répertoires.</a>
+			<ul class="TM2">
+				<li>
+					<a href="#ch_5_1">5.1 - Renommer les fichiers.</a>
+					<ul class="TM3">		
+						<li><a href="#ch_5_1_1">5.1.1 - Mode manuel.</a></li>
+						<li><a href="#ch_5_1_2">5.1.2 - Mode automatique via le scanner.</a></li>
+						<li><a href="#ch_5_1_3">5.1.3 - Mode automatique via la base de données CDDB.</a></li>
+						<li><a href="#ch_5_1_4">5.1.4 - Mode automatique via la lecture d'un fichier texte.</a></li>
+					</ul>
+				</li>
+				<li><a href="#ch_5_2">5.2 - Renommer les répertoires.</a></li>
+				<li><a href="#ch_5_3">5.3 - Renommer et déplacer les fichiers dans un répertoire.</a></li>					
+			</ul>
+		</li>	
+		<li><a href="USERS-GUIDE-11_fr6.html">6 - Autres fonctions.</a></li>
+		<li><a href="USERS-GUIDE-11_fr6.html#ch_7">7 - Pré-requis.</a></li>
+	</ul>
+
+<!-- FIN TABLE DES MATIERES	=================================================================-->
+
+<!-- RENOMMER FICHIERS/REPERTOIRES	=========================================================-->
+
+	<h2><a name="ch_5" id="ch_5">5 - Renommer les fichiers/les répertoires.</a></h2>
+		<p>EasyTAG offre différents modes pour renommer les fichiers : un mode manuel, un mode automatique via le scanner, un mode automatique via la base de données CDDB et enfin un mode basé sur la lecture d'un fichier texte. Il offre la possibilité de renommer les répertoires contenant les fichiers audio. EasyTAG permet aussi, via le scanner, de renommer et de déplacer automatiquement les fichiers dans un nouveau répertoire. Dans la suite, nous allons décrire la mise en oeuvre de chacun d'entre eux.</p>
+		<h3><a name="ch_5_1" id="ch_5_1">5.1 Renommer les fichiers.</a></h3>
+			<h4><a name="ch_5_1_1" id="ch_5_1_1">5.1.1 - Mode manuel.</a></h4>
+			<p>Ce mode peut être utilisé si vous avez peu de modifications à réaliser (sinon, cela s'avérerait vite fastidieux)</p>
+			<div><img class="droite" src="images/fen_fich.png" alt="image fenêtre Fichier"/></div>
+			<p>Pour renommer manuellement un fichier, il suffit tout simplement de sélectionner ce dernier dans la liste de la fenêtre &laquo;Sélecteur&raquo; (voir le <a href="USERS-GUIDE-11_fr2.html#ch_2_3">paragraphe 2.3</a>) puis de modifier son nom dans la zone de saisie de la fenêtre &laquo;Fichier&raquo; (voir figure). Toutefois, ce nouveau nom de fichier ne sera effectif qu'après avoir sauvegardé le fichier.<br/>Note : Les caractères illégaux (pour les partitions Windows : &#8216;/&#8217;, &#8217;+&#8217; &#8230;) seront automatiquement remplacés à moins que vous n'ayez décoché l'option <span class="entree">Remplacer les caractères illégaux des noms de fichiers (pour Windows et les CD-Rom)</span> de l'onglet &laquo;Paramètres du nom des fichiers&raquo; du menu &laquo;Préférences&raquo;.</p>
+			<hr class="fin_img"/>
+
+			<h4><a name="ch_5_1_2" id="ch_5_1_2">5.1.2 - Mode automatique via le scanner.</a></h4>
+			<p>EasyTAG permet de renommer automatiquement les fichiers à partir des champs d'information du tag. Ce traitement est disponible via le scanner &laquo;Renommer le(s) Fichier(s) et Répertoire(s)&raquo;, accessible depuis le menu &laquo;Fichier&raquo; (voir <a href="USERS-GUIDE-11_fr2.html#ch_2_1_1">paragraphe 2.1.1</a>), le menu &laquo;Scanner&raquo; (voir <a href="USERS-GUIDE-11_fr2.html#ch_2_1_3">paragraphe 2.1.3</a>) ou depuis un menu contextuel (voir <a href="USERS-GUIDE-11_fr2.html#ch_2_6">paragraphe 2.6</a>).</p>
+			<p>La fenêtre du scanner &laquo;Renommer le(s) Fichier(s) et Répertoire(s)&raquo; est présentée sur la figure ci-contre. Sur cette figure, apparaissent les boutons de contrôle suivants :</p>		
+			<div><img class="droite" src="images/fen_scan2.png" alt="image fenêtre scanner -Renommer le(s) Fichier(s) et Répertoire(s)-"/></div>
+			<ul class="liste1">
+				<li>bouton <img src="images/bouton_scan1.png" alt="bouton porte"/> : Après la saisie d'un masque, cliquer sur ce bouton lance le traitement automatique des noms de fichiers et répertoire de l'ensemble des fichiers audio sélectionnés.</li>
+				<li>bouton <img src="images/bouton_scan3.png" alt="bouton point d'interrogation"/> : Ouvre/Ferme la fenêtre  &laquo;Légende&raquo; (voir figure ci-contre) qui rappelle la correspondance entre code du masque et champ d'information du tag.</li>								
+				<li>bouton <img src="images/bouton_scan2.png" alt="bouton masque"/> : Ouvre/Ferme la fenêtre  &laquo;Editeur de Masque&raquo; (voir figure ci-contre) qui permet de choisir ou de créer le masque adapté à votre besoin. Elle permet, bien sûr, de sauvegarder ce nouveau masque pour tout traitement ultérieur du même type.</li>
+				<li>bouton <img src="images/bouton_scan7.png" alt="bouton répertoire +"/> : Ajoute au début du masque le chemin du répertoire courant (l'intérêt de ce bouton est discuté dans le <a href="#ch_5_3">paragraphe 5.3</a>).</li>
+			</ul>
+			<p> Le nouveau nom des fichiers étant construit sur la base d'un modèle de masque, la première étape de ce traitement consiste à bien définir ce masque.<br/>Nous voyons, sur la figure ci-contre, qu'un masque est construit à partir d'un certain nombre de codes (%a, %b, %t, &#8230;) dont la signification est précisée dans la fenêtre  &laquo;Légende&raquo;. Dans EasyTAG, vous disposez d'une importante liste de modèle de masque (voir fenêtre ci-contre) mais vous pouvez aussi créer et ajouter à cette liste un masque particulier grâce à la fenêtre &laquo;Editeur de masque&raquo;<br/>Pour vous guider dans le choix du masque, EasyTAG affiche immédiatement, en dessous de la zone de saisie du masque de la fenêtre  &laquo;Renommer le Fichier et le Répertoire&raquo;, le nouveau nom du fichier.</p>
+			<hr class="fin_img"/>
+			
+			<p>Pour mieux comprendre comment utiliser les masques, prenons l'exemple du fichier <span class="entree">01.La_tête_en_arrière_(2004) Comme_un_homme.mp3</span> situé dans le répertoire <span class="entree">/media/musiques/</span>. De plus, supposons que les champs d'information du tag de ce fichier sont correctement renseignés et qu'ils prennent les valeurs données dans le tableau ci-contre.</p>
+			<div class="droite"> 
+			<table>
+				<tr><th>Code</th><th>Champ du tag</th><th>Valeur extraite</th></tr>
+				<tr><td>%a</td><td>Artiste </td><td>Luke </td></tr>
+				<tr><td>%y</td><td>Année </td><td>2004 </td></tr>
+				<tr><td>%b</td><td>Album </td><td>La tête en arrière </td></tr>
+				<tr><td>%n</td><td>Piste </td><td>01 </td></tr>
+				<tr><td>%t</td><td>Titre </td><td>Comme un homme </td></tr>
+			</table>
+			</div>			
+			<p>Sans indication d'un chemin de répertoire en début de masque, le fichier est renommé et reste dans le répertoire courant. Ainsi avec le masque "<span class="entree">%n - %t</span>", le fichier :</p>
+			<ul class="liste1">
+				<li>est renommé : <span class="entree">01 - Comme un homme.mp3</span>,</li>
+				<li>reste dans le répertoire : <span class="entree">/media/musiques/</span>.</li>
+			</ul>
+			<hr class="fin_img"/>
+			<p>Une fois le choix du masque effectué, cliquer sur le bouton <img src="images/bouton_scan1.png" alt="bouton porte"/> permet de lancer alors le traitement automatique de modification du nom des fichiers sur l'ensemble des fichiers selectionnés. Cependant, ces changements de nom ne seront effectifs qu'après avoir sauvegardé ces fichiers.</p>			
+			<p class="sans-retrait">Note : Si un chemin est précisé en début de masque, il est alors possible de renommer et de déplacer automatiquement les fichiers dans un répertoire particulier (voir le <a href="#ch_5_3">paragraphe 5.3</a> pour plus de détails).</p>
+
+			<h4><a name="ch_5_1_3" id="ch_5_1_3">5.1.3 - Mode automatique via la base de données CDDB.</a></h4>
+			<p>Dans le <a href="USERS-GUIDE-11_fr4.html#ch_4_3_1">paragraphe 4.3.1</a>, nous avons vu qu'il était très souvent possible, grâce à la base de données CDDB, d'identifier l'album CD audio correspondant à un ensemble de fichiers. Ce résultat permet non seulement de renseigner automatiquement les différents champs d'information du tag des fichiers mais aussi de renseigner automatiquement les noms des fichiers (voir figure ci-dessous).</p>
+			<div class="img_c"><img src="images/fen_cddb1.png" alt="image fenêtre Recherche CDDB"/></div>
+				
+			<h4><a name="ch_5_1_4" id="ch_5_1_4">5.1.4 - Mode automatique via la lecture d'un fichier texte.</a></h4>
+			<p>Si les méthodes automatiques ont échoué, il reste toujours possible de mettre à jour les noms des fichiers grâce à la lecture d'un fichier texte. Ce fichier texte doit contenir la liste des noms des fichiers à traiter (dans un ordre identique à celui des fichiers sélectionnés).</p>
+			<p>Avant tout traitement, il faut récupérer ou créer le fichier texte des noms de fichiers audio. Dans le cas du traitement d'un album particulier, il est, par exemple, très facile de récupérer sur internet la liste des noms des pistes d'un CD. Cette méthode permet d'éviter de rentrer à la main les différents noms des pistes et, par la même, les possibles fautes de frappe.</p>
+			<div><img class="droite" src="images/fen_fic_txt.png" alt="image fenêtre -Charger les noms des fichiers à partir d'un fichier TXT-"/></div>
+			<p>Ce traitement est accessible depuis l'entrée <span class="entree">Charger les Noms des fichiers à partir d'un TXT &#8230;</span> du menu &laquo;Divers&raquo; (voir le <a href="USERS-GUIDE-11_fr2.html#ch_2_1_4">paragraphe 2.1.4</a>). La fenêtre correspondante est présentée sur la figure ci-contre.</p>
+			<p>Au départ, il faut entrer le nom du fichier texte et cliquer sur le bouton "Charger" pour lire les données de ce fichier.<br/>Ces données sont alors affichées dans la zone gauche de la fenêtre.<br/>Les noms des fichiers à renseigner sont, par contre, affichés dans la zone droite de la fenêtre.</p>
+			<p>Pour finir, il suffit alors de cliquer sur le bouton "Appliquer" pour renseigner les noms des fichiers avec les valeurs lues dans le fichier texte. Toutefois, le changement de nom ne sera effectif qu'après la sauvegarde de ces fichiers.</p>
+			<hr class="fin_img"/>
+
+		<h3><a name="ch_5_2" id="ch_5_2">5.2 Renommer les répertoires.</a></h3>
+			<div><img class="droite" src="images/fen_rech1.png" alt="image fenêtre - Renommer le répertoire-"/></div>
+			<p>Pour renommer manuellement un répertoire, il vous suffit de cliquer sur l'entrée <span class="entree">Renommer le répertoire ...</span> du menu &laquo;Sélecteur&raquo; (voir le <a href="USERS-GUIDE-11_fr2.html#ch_2_1_2">paragraphe 2.1.2</a>) puis d'entrer le nouveau nom du répertoire dans la zone de saisie (voir figure ci-contre). Le fait de cliquer sur le bouton &laquo;Appliquer&raquo; rend cette modification immédiate et définitive.</p>
+			<p>Vous pouvez aussi renommer le nom du répertoire en utilisant un modèle de masque. Pour cela, il suffit de cocher la case <span class="entree">Utiliser le masque</span> et de saisir un masque particulier ou de choisir un masque dans la liste de masques disponibles. La définition des codes utilisés par le masque est donnée dans le <a href="#ch_5_1_2">paragraphe 5.1.2</a>. Le nom du répertoire construit à partir de ce masque est présenté sous la zone de saisie du masque. Si le nom vous convient, il vous suffit alors de cliquer sur le bouton "Appliquer" pour effectuer la modification.</p>
+			<hr class="fin_img"/>
+		
+			<p class="sans-retrait">Note : Contrairement au mode automatique via le scanner (voir le <a href="#ch_5_3">paragraphe 5.3</a>), lorsque le répertoire est renommé manuellement, les différents fichiers restent physiquement dans celui-ci. Le nouveau répertoire contient donc tous les fichiers présents dans l'ancien répertoire (y compris les fichiers non supportés par EasyTAG tels que les fichiers jpeg).</p>
+
+		<h3><a name="ch_5_3" id="ch_5_3">5.3 - Renommer et déplacer les fichiers dans un répertoire.</a></h3>
+			<p>EasyTAG permet, à partir des différents champs d'information du tag, de renommer et de déplacer automatiquement les fichiers dans un répertoire particulier. Ce traitement est disponible via le scanner &laquo;Renommer le(s) Fichier(s) et Répertoire(s)&raquo;, accessible depuis le menu &laquo;Fichier&raquo; (voir <a href="USERS-GUIDE-11_fr2.html#ch_2_1_1">paragraphe 2.1.1</a>), le menu &laquo;Scanner&raquo; (voir <a href="USERS-GUIDE-11_fr2.html#ch_2_1_3">paragraphe 2.1.3</a>) ou depuis un menu contextuel (voir <a href="USERS-GUIDE-11_fr2.html#ch_2_6">paragraphe 2.6</a>).</p>
+			<p>La fenêtre du scanner &laquo;Renommer le(s) Fichier(s) et Répertoire(s)&raquo; est présentée sur la figure ci-contre. Sur cette figure, apparaissent les boutons de contrôle suivants :</p>		
+			<div><img class="droite" src="images/fen_scan4.png" alt="image fenêtre -Renommer le(s) Fichier(s) et Répertoire(s)-"/></div>
+			<ul class="liste1">
+				<li>bouton <img src="images/bouton_scan1.png" alt="bouton porte"/> : Après la saisie d'un masque, cliquer sur ce bouton lance le traitement automatique des noms de fichiers et répertoire de l'ensemble des fichiers audio sélectionnés.</li>
+				<li>bouton <img src="images/bouton_scan3.png" alt="bouton point d'interrogation"/> : Ouvre/Ferme la fenêtre  &laquo;Légende&raquo; (voir figure ci-contre) qui rappelle la correspondance entre code du masque et champ d'information du tag.</li>								
+				<li>bouton <img src="images/bouton_scan2.png" alt="bouton masque"/> : Ouvre/Ferme la fenêtre  &laquo;Editeur de Masque&raquo; (voir figure ci-contre) qui permet de choisir ou de créer le masque adapté à votre besoin. Elle permet, bien sûr, de sauvegarder ce nouveau masque pour tout traitement ultérieur du même type.</li>
+				<li>bouton <img src="images/bouton_scan7.png" alt="bouton répertoire +"/> : Ajoute au début du masque le chemin du répertoire courant.</li>
+			</ul>
+			<p>Dans le <a href="#ch_5_1_2">paragraphe 5.1.2</a>, nous avons vu comment renommer automatiquement les fichiers via le scanner sur la base d'un modèle de masque.<br/>Avec ce même scanner, en précisant en début de masque un chemin de répertoire, il est alors possible non seulement de renommer les fichiers mais aussi de les déplacer automatiquement dans un répertoire particulier.</p>
+			<p>La définition du masque constitue la première étape de ce traitement. Pour cela, vous disposez d'une liste de modèles de masque (voir figure ci-contre) mais vous pouvez aussi créer et ajouter à la liste un masque particulier grâce à la fenêtre &laquo;Editeur de masque&raquo;.</p>
+			<p>Pour vous guider dans le choix du masque, EasyTAG affiche, en dessous de la zone de saisie du masque de la fenêtre  &laquo;Renommer le Fichier et le Répertoire&raquo;, le nouveau nom du fichier sous la forme "/arborescence du répertoire/nom du fichier".</p>
+			<hr class="fin_img"/>
+			
+			<p>Suivant le chemin précisé en début de masque, vous pouvez soit déplacer les fichiers dans un sous répertoire du répertoire courant soit déplacer les fichiers dans un répertoire particulier. Dans le suite de ce paragraphe, nous allons décrire ces deux traitements en prenant l'exemple du fichier <span class="entree">01.La_tête_en_arrière_(2004) Comme_un_homme.mp3</span> situé dans le répertoire <span class="entree">/media/musiques/</span>. De plus, nous supposerons que les champs d'information du tag de ce fichier prennent les valeurs données dans le tableau ci-contre.</p>
+			<div class="droite"> 
+			<table>
+				<tr><th>Code</th><th>Champ du tag</th><th>Valeur extraite</th></tr>
+				<tr><td>%a</td><td>Artiste </td><td>Luke </td></tr>
+				<tr><td>%y</td><td>Année </td><td>2004 </td></tr>
+				<tr><td>%b</td><td>Album </td><td>La tête en arrière </td></tr>
+				<tr><td>%n</td><td>Piste </td><td>01 </td></tr>
+				<tr><td>%t</td><td>Titre </td><td>Comme un homme </td></tr>
+			</table>
+			</div>			
+			<ul class="liste1">
+				<li><span class="entree">Déplacer le fichier dans un sous-répertoire</span> : Pour renommer le fichier et le déplacer dans un sous-répertoire du répertoire courant, il suffit d'indiquer un chemin relatif en début de masque.<br/>Ainsi, avec le masque "<span class="entree">%a/%y - %b/%n - %t</span>", le fichier est :
+					<ul class="liste2">
+						<li>renommé : <span class="entree">01 - Comme un homme.mp3</span>,</li>
+						<li>déplacé dans le répertoire : <span class="entree">/media/musiques/Luke/2004 - La tête en arrière/</span>.</li>
+					</ul>
+					<p>Si ce sous-répertoire n'existe pas, il est bien évidemment crée.</p>
+				</li>
+				<li><span class="entree">Déplacer le fichier dans un répertoire particulier</span> : Pour renommer le fichier et le déplacer dans un répertoire particulier, il suffit d'utiliser un chemin absolu en début de masque. Pour vous simplifier la saisie du chemin, il est possible, en cliquant sur le bouton <img src="images/bouton_scan7.png" alt="bouton répertoire +"/> d'ajouter le chemin courant en début de masque.<br/>Ainsi, avec le masque "<span class="entree">/media/Rock/%a/%y - %b/%n - %t</span>", le fichier est :								
+					<ul class="liste2">
+						<li>renommé : <span class="entree">01 - Comme un homme.mp3</span>,</li>
+						<li>déplacé dans le répertoire : <span class="entree">/media/Rock/Luke/2004 - La tête en arrière/</span>.</li>
+					</ul>
+					<p>Si ce répertoire n'existe pas, il est bien évidemment crée.</p>
+				</li>
+			</ul>
+			<p>Une fois le choix du masque effectué, cliquer sur le bouton <img src="images/bouton_scan1.png" alt="bouton porte"/> permet de lancer alors le traitement automatique de modification du nom et de déplacement des fichiers sur l'ensemble des fichiers selectionnés. Cependant, ces changements ne seront effectifs qu'après avoir sauvegardé ces fichiers.</p>	
+
+			<p class="sans-retrait"> Note : Contrairement au mode manuel, les fichiers sont physiquement déplacés vers leur nouveau répertoire. De ce fait, les fichiers qui ne sont pas supportés par EasyTAG tels que les fichiers jpeg ne seront pas eux déplacés et resteront donc dans le répertoire d'origine.</p>
+
+<!-- FIN RENOMMER FICHIERS/REPERTOIRES	=====================================================-->		
+
+	<p class="img_c"><br/><a href="#haut_page">- RETOUR A LA TABLE DES MATIERES -</a></p>
+</body>
+</html>
+

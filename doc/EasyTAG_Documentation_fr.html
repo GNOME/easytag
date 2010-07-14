@@ -1,0 +1,448 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Documentation du logiciel EasyTAG</title>
+	<style>
+	body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 10;
+        padding: 0;
+        background-color: #FDFDE7;
+        font-size: 1em;
+		}
+	p {
+		text-align: justify;
+		text-indent: 2em;
+		}
+		
+	.sans-retrait {	
+		text-align: justify;
+		text-indent: 0em;
+		}
+	.txt_autre {
+		font-family: "Arial", sans-serif;	
+		}
+		
+	#tab_matiere {
+		font-size: 1.5em;
+		color: blue;
+		}
+	
+	.souligne {
+		text-decoration: underline;
+		}
+		
+	h1 {
+		text-align: center;
+		border-top: 1px solid #CCCCCC;
+		border-bottom: 1px solid #CCCCCC;
+		border-left: 1px solid #CCCCCC;
+		border-right: 1px solid #CCCCCC;
+		color: blue;
+		}
+	h2 {
+		font-size: 1.5em;
+		text-decoration: underline;
+		text-indent: 0pt;
+		margin-top: 1em;
+		color: blue;
+		}
+	h3, h4 {
+		text-decoration: underline;
+		margin-top: 1em;
+		color: blue;
+		}
+	li {
+		margin-left: 2em;
+		list-style-type: circle;
+		text-indent: 0em;
+		}
+		
+	.example-text {
+		font-family: "Courier New", Courier, mono;
+		}
+		
+	.question-text {
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		font-style: italic;
+		padding-top: 1em;
+		color: #666666;
+		}
+	table {
+		border: 1px solid #666666;
+		margin: 0px;
+		padding: 0px;
+		}
+	th {
+		background-color: #CCCCCC;
+		border: 1px solid;
+		}
+
+	</style>
+</head>
+<body>
+	<h1>EasyTAG</h1>
+	<p id="tab_matiere">Table des matières.</p>
+	<ul>
+		<li><a href="#ch_1">1. Présentation générale</a></li>
+		<ul>
+			<li><a href="#ch_1_1">1.1. Vue d'ensemble des fonctionnalités du logiciel.</a></li>
+			<li><a href="#ch_1_2">1.2. Editer/corriger les tags.</a></li>
+			<ul>
+				<li><a href="#ch_1_2_1">1.2.1. Mode manuel.</a></li>
+				<li><a href="#ch_1_2_2">1.2.2. Mode automatique via le scanner "Compléter le(s) Tag(s)".</a></li>
+				<li><a href="#ch_1_2_3">1.2.3. Mode automatique via la base de données CDDB.</a></li>
+				<li><a href="#ch_1_2_4">1.2.4. Correction des tags via le scanner "Traiter les Champs".</a></li>
+			</ul>
+			<li><a href="#ch_1_3">1.3. Renommer les fichiers/les répertoires.</a></li>
+			<ul>
+				<li><a href="#ch_1_3_1">1.3.1. Mode manuel.</a></li>
+				<li><a href="#ch_1_3_2">1.3.2. Mode automatique via le scanner.</a></li>
+				<li><a href="#ch_1_3_3">1.3.3. Mode automatique via la base de données CDDB.</a></li>
+				<li><a href="#ch_1_3_4">1.3.4. Mode automatique via la lecture d'un fichier texte.</a></li>
+			</ul>
+		</ul>
+		<li><a href="#ch_2">2. Astuces.</a></li>
+	</ul>
+	<p><br/><br/></p>
+	
+	<h2><a name="ch_1" id="ch_1">1. Présentation générale.</a></h2>
+	<h3><a name="ch_1_1" id="ch_1_1">1.1. Vue d'ensemble des fonctionnalités du logiciel (version 1.99.9 développée avec GTK2).</a></h3>
+		<p>EasyTAG est un utilitaire permettant l'édition et la modification des tags des fichiers audio de type MP3, MP2, FLAC, Ogg Vorbis, MusePack et Monkey. Il s'appuie sur une interface, simple et intuitive, développée en GTK+. Cette interface est organisée autour de trois fenêtres.</p>
+		<p>Une première fenêtre, nommée Sélecteur, permet de choisir rapidement le répertoire particulier contenant les fichiers audio que vous voulez traiter (une option permet d'étendre cette recherche aux sous répertoires). EasyTAG dispose de deux modes de visualisation du contenu du répertoire (et/ou sous répertoires) :
+		<ul>
+			<li>Un premier mode de type arborescence qui permet de naviguer dans les différents répertoires du support de stockage et de sélectionner rapidement un répertoire particulier. L'ensemble des fichiers trouvés dans ce répertoire sont alors affichés sous forme d'une liste. Dans cette liste, seule une alternance de couleur permet de distinguer les fichiers appartenant à des artistes/albums différents.</li>
+			<li>Le deuxième mode, complémentaire du précédent, affiche le contenu du répertoire sélectionné sous la forme d'une arborescence de type artistes/albums qui permet d'accéder rapidement à un artiste donné et aux fichiers audio d'un album particulier de ce dernier.</li>
+		</ul>
+		<p>Une deuxième fenêtre, nommée Fichier, affiche certaines informations de base contenues dans l'en-tête du fichier audio comme, par exemple, le bitrate ou la durée du morceau.</p>
+		<p>La troisième fenêtre, nommée Tag, permet d'afficher et de modifier le contenu des tags disponibles dans les normes ID3v1.1 et ID3v2.3 comme : titre, artiste, album, année, numéro de piste, genre et commentaire. Mais vous pouvez avoir aussi accès à certains tags particuliers disponibles dans la norme ID3v2.3 comme : album, compositeur, premier artiste/interprète, copyright, URL, type d'encodeur et images.</p>
+
+		<p>EasyTAG offre la possibilité de traitement automatique des tags des fichiers par l'utilisation de scanners. Trois scanners sont disponibles qui permettent : 
+		<ul>
+			<li>soit de renseigner automatiquement les différents tags à partir des informations contenues dans le nom du fichier,</li>
+			<li>soit de renommer automatiquement les fichiers et le répertoire les contenant à partir des informations contenues dans leurs tags,</li>
+			<li>soit d'effectuer différentes opérations de mise en forme sur les différents tags et noms de fichiers (par exemple, changer la casse).</li>
+		</ul>
+		
+		<p class="sans-retrait">Dans le cas des deux premiers scanners, les opérations sont effectuées sur la base d'un masque (voir <a href="#ch_1_2_2">paragraphe 1.2.2</a>). Une pré-visualisation de l'effet d'un masque particulier est disponible ce qui :</p>
+		<ul>
+			<li>permet d'éviter toute erreur de traitement,</li>
+			<li>constitue une aide précieuse pour réaliser votre propre modèle de masque et ainsi adapter au mieux l'outil à vos propres besoins.</li>
+		</ul>
+		<p> EasyTAG offre aussi la possibilité de traitement automatique via une connexion internet. En effet, vous pouvez, en interrogeant la base de données CDDB disponible sur les serveurs FreeDB, rechercher le bon album correspondant aux fichiers sélectionnés et renseigner alors directement les différents tags de vos fichiers.<br/>Deux modes d'interrogation sont possibles : un mode automatique et un mode manuel. Dans le mode automatique, le programme essaie de trouver automatiquement, dans la base de données CDDB, le bon album correspondant aux fichiers sélectionnés. Dans le mode manuel, vous effectuez vous même la recherche dans la base de données CDDB sur la base de mots clé.</p>
+
+		<p> EasyTAG offre enfin la possibilité de renommer chaque fichier grâce à la lecture d'un simple fichier texte contenant la liste exhaustive des noms des fichiers sélectionnés.</p>
+	
+		<p> EasyTAG vous permet aussi de modifier simultanément les tags de plusieurs fichiers. Pour cela, il faut, après avoir sélectionné un ensemble de fichiers, soit utiliser un scanner (voir <a href="#ch_1_2_2">paragraphe 1.2.2</a>), soit cliquer sur le petit bouton rond situé à droite de chaque tag pour appliquer la modification à l'ensemble des fichiers.</p>
+		<p> Pour bien contrôler les opérations réalisées sur les fichiers et éviter toute modification involontaire, le programme dispose de deux touches : une touche "Annuler Modif. des fichier(s)" qui permet de revenir à l'état existant avant les modifications envisagées sur les fichiers et une touche "Refaire les modifications des fichiers" qui permet de réaliser l'opération inverse de la précédente.</p>
+
+		<p> Par ailleurs, le programme dispose des fonctionnalités suivantes :</p>
+		<ul>
+			<li>création d'une playlist de différents fichiers pour les logiciels Winamp ou XMMS,</li>
+			<li>possibilité de rechercher dans votre collection les fichiers par mots clé (sur le nom du fichier, le titre ...).</li>
+		</ul>	
+	
+		<p> Au final, les fichiers ayant subi des modifications (et qui, par conséquent, doivent être sauvegardés) sont clairement identifiables car ils apparaissent en rouge dans la liste des fichiers affichés.<br/></p>
+
+		<p>Pour fonctionner, EasyTAG doit disposer des librairies suivantes :</p>
+		<ul>
+			<li>GTK 2.4,</li>
+			<li>id3lib pour les fichiers MP3,</li>
+			<li>libogg,</li>
+			<li>libvorbis pour les fichiers Ogg Vorbis,</li>
+			<li>libFLAC (en complément de libogg and libvorbis) pour les fichiers FLAC Vorbis,</li>
+			<li>mpeg4ip pour les fichiers MP4.</li>
+		</ul>
+	
+	<h3><a name="ch_1_2" id="ch_1_2">1.2. Editer/corriger les tags.</a></h3>
+		<p>Nous avons vu que EasyTAG offre trois différents modes de traitement pour renommer ou bien encore pour modifier les tags de vos fichiers : un mode manuel, un mode automatique utilisant un scanner et un mode automatique utilisant une base de données CDDB. Dans la suite, nous allons décrire la mise en oeuvre de chacun d'entre eux.</p>
+		<p>Avant toute chose, il est bon de noter que le traitement des tags sera grandement facilité si les fichiers sont regroupés par album plutôt que d'être tous stockés dans un même répertoire.</p>
+		<p>De plus, il est important de garder à l'esprit que chaque traitement ne s'applique que sur les fichiers sélectionnés dans la liste. De même, la procédure de sauvegarde ne s'applique aussi que sur ces fichiers.</p>
+
+		<h4><a name="ch_1_2_1" id="ch_1_2_1">1.2.1. Mode manuel.</a></h4>
+		<p>Ce mode peut être utilisé dans les conditions suivantes :</p>
+		<ul>
+			<li>les fichiers sont mélangés et non pas classés album par album,</li>
+			<li>les fichiers ne sont pas trop nombreux,</li>
+			<li>le nombre de traitements à effectuer est faible,</li>
+			<li>vous voulez ajouter des images aux tags MP3 des fichiers.</li>
+		</ul>
+		<p>Si vous n'avez à modifier les tags que de quelques albums, ce mode répond bien à votre besoin puisqu'il suffit alors de taper dans chaque tag que vous voulez renseigner la valeur correspondante.</p>
+		<p>Bien évidemment, lorsque vous travaillez sur des albums entiers, certains paramètres comme le nom de l'album, l'année et le genre sont communs à tous les fichiers. Dans ce cas, il est conseillé d'utiliser le petit bouton rond situé à droite de chaque tag. En effet, en cliquant sur ce bouton, on affecte, pour un tag donné, la même valeur à l'ensemble des fichiers sélectionnés.</p>
+		<p>Le genre peut être choisi dans une liste prédéfinie (liste des genres ID3), mais vous pouvez très bien définir un genre qui vous est personnel.</p>
+		<p>La saisie de la valeur du tag année a été simplifiée au maximum. En effet, vous pouvez seulement saisir les deux derniers digits (dizaines et unités) de l'année et EasyTAG completera alors les digits manquants. Par exemple :</p>
+		<ul>
+			<li>si vous entrez "4", EasyTAG affichera "2004",</li>
+			<li>si vous entrez "94", EasyTAG affichera "1994".</li>
+		</ul>
+
+		<p>La numérotation des différentes pistes au format "numéro de piste/nombre total de pistes" peut se faire rapidement en utilisant le petit bouton situé à gauche du mot Piste et le petit bouton situé à gauche du tag "Nombre de pistes". Le premier bouton permet d'affecter au tag Piste une valeur correpondant à la position du fichier considéré dans la liste des fichiers présents dans le répertoire (l'ordre des fichiers est donc essentiel). Le deuxième petit bouton permet d'affecter au tag "Nombre de pistes" une valeur correspondant au nombre de fichiers présents dans le répertoire.
+		<p>La connaissance de certaines touches permettent d'être plus efficace. Ainsi, la touche "Entrée" permet de se déplacer rapidement d'un tag au suivant. De même, pour un tag particulier, la touche Tab permet d'activer directement le petit bouton rond situé à droite de celui-ci (valeur du tag donnée à l'ensemble des fichiers sélectionnés). Enfin, les touches PageUp et PageDown permettent respectivement de passer au fichier précédent ou au fichier suivant.</p>
+
+		<p>Enfin, il est possible d'attacher une image (couverture de l'album, par exemple) à un fichier mp3. Pour cela, il suffit de sélectionner le fichier image (JPG ou PNG) avec le bouton &#8220;+&#8221; présent dans le menu "Images". On peut aussi effectuer un &laquo;Drag and Drop&raquo; du fichier image directement dans la zone "Images" du menu du même nom.</p>
+
+		<h4><a name="ch_1_2_2" id="ch_1_2_2">1.2.2. Mode automatique via le scanner "Compléter le(s) Tag(s)".</a></h4>
+		<p>Ce mode peut être utilisé dans les conditions suivantes :</p>
+		<ul>
+			<li>les fichiers sont classés par album,</li>
+			<li>les noms des fichiers ou le répertoire de ces fichiers contiennent les informations pertinentes (artiste, album, titre, &#8230;),</li>
+			<li>les tags sont vides ou bien encore partiellement renseignés.</li>
+		</ul>
+		<p> Le scanner "Compléter le(s) Tag(s)" utilise un modèle de masque pour associer les différents mots constituant le nom du fichier ou le répertoire avec les différents tags correspondants. De cette façon, il est alors possible de renseigner automatiquement les tags en cliquant sur le bouton "vert" de la barre des tâches de la fenêtre Scanner. Si les tags sont déjà partiellement renseignés, vous pouvez remplacer tous les anciens tags par les nouveaux tags à la condition d'avoir coché la case "Ecraser les champs lors d'un Scan du tag" de l'onglet Scanner du menu Préférences.</p>
+		<p class="sans-retrait"><br/>Le tableau suivant présente, pour le modèle de masque du scanner, la correspondance entre code et tag :</p>
+		<div align="center"><table>
+		<tbody>
+		<tr>
+			<th><div align="center">Cette valeur de code :</div></th>
+			<th>va renseigner le tag :</th></tr>
+		<tr>
+			<td><div align="center">%a</div></td>
+			<td>Artiste</td></tr>
+		<tr>
+			<td><div align="center">%b</div></td>
+			<td>Album</td></tr>
+		<tr>
+			<td><div align="center">%c</div></td>
+			<td>Commentaire</td></tr>
+		<tr>
+			<td><div align="center">%p</div></td>
+			<td>Compositeur</td></tr>
+		<tr>
+			<td><div align="center">%r</div></td>
+			<td>Copyright</td></tr>
+		<tr>
+			<td><div align="center">%e</div></td>
+			<td>Encodeur</td></tr>
+		<tr>
+			<td><div align="center">%g</div></td>
+			<td>Genre</td></tr>
+		<tr>
+			<td><div align="center">%i</div></td>
+			<td>Rien! (utilisé pour ignorer un mot particulier)</td></tr>
+		<tr>
+			<td><div align="center">%l</div></td>
+			<td>Nombre de pistes</td></tr>
+		<tr>
+			<td><div align="center">%o</div></td>
+			<td>Artiste Orig.</td></tr>
+		<tr>
+			<td><div align="center">%n</div></td>
+			<td>Piste</td></tr>
+		<tr>
+			<td><div align="center">%t</div></td>
+			<td>Titre</td></tr>
+		<tr>
+			<td><div align="center">%u</div></td>
+			<td>URL</td></tr>
+		<tr>
+			<td><div align="center">%y</div></td>
+			<td>Année</td></tr>
+		</tbody>
+		</table>
+		</div>
+		<p class="sans-retrait"><br/><br/>Note : Pour éviter toute erreur, il est recommandé de n'utiliser un code particulier qu'une seule fois dans un modèle de masque. Bien évidemment, comme dans le cas de l'édition/modification manuelle des tags, seuls les fichiers sélectionnés seront modifiés par le scanner.</p>
+		<p>Dans EasyTAG, vous disposez d'une liste de modèles de masque pré-définis mais vous pouvez aussi créer votre propre modèle de masque pour correspondre au mieux au format des noms et des répertoires de vos fichiers audio. Pour éviter toute erreur lors de la définition du modèle de masque, EasyTAG intègre une fonction de pré-visualisation qui vous permet de vous rendre immédiatement compte du résultat du masque avant de l'appliquer effectivement sur les fichiers.</p>
+		<p>Si vous avez besoin d'aide quant à la signication des différents codes, vous pouvez presser le bouton "?" qui ouvre la fenêtre Légende décrivant toutes les correspondances possibles (code/tag). De plus, pour créer votre propre modèle de masque, le modifier ou le sauvegarder, vous avez à votre disposition l'outil "Editeur de masque" accessible en cliquant sur le bouton "masque" de la barre des tâches.</p>
+
+		<p class="sans-retrait"><br/>Voici un exemple d'utilisation d'un modèle de masque :</p>
+		<blockquote>
+			<p>a) si le fichier audio se nomme : </p>
+			<p class="example-text">&#8220;/mnt/MP3/EVANESCENCE &#8211; Fallen (2003) &#8211;Rock/01. Going Under.mp3&#8221;</p>
+			<p>b) avec ce masque particulier : <span class="example-text">&#8220;%a - %b (%y) - %g/%n. %t&#8221;</span></p>
+			<p>c) les tags vont être renseignés avec les valeurs suivantes :</p>
+			<ul>
+				<li>Artiste (%a) =&gt; EVANESCENCE</li>
+				<li>Album   (%b) =&gt; Fallen</li>
+				<li>Année   (%y) =&gt; 2003</li>
+				<li>Genre   (%g) =&gt; Rock</li>
+				<li>Piste   (%n) =&gt; 01</li>
+				<li>Titre   (%t) =&gt; Going Under</li>
+			</ul>
+		</blockquote>
+	
+		<h4><a name="ch_1_2_3" id="ch_1_2_3">1.2.3. Mode automatique via la base de données CDDB.</a></h4>
+		<p>Ce mode peut être utilisé dans les conditions suivantes :</p>
+		<ul>
+			<li>les fichiers sont classés par album,</li>
+			<li>les données du fichier audio doivent correspondre à celles du CD d'origine (condition nécessaire pour utiliser la recherche automatique),</li>
+			<li>l'album doit être répertorié dans la base de données CDDB.</li>
+		</ul>
+		<p>Pour renseigner les tags via la base de données, deux modes de recherche sont disponibles (un mode automatique et un mode manuel). Une bonne stratégie est d'utiliser, dans un premier temps, le mode automatique. Si ce dernier s'avère incapable d'identifier correctement l'album, vous pouvez vous rabattre sur le mode manuel et utiliser alors des mots clé pour guider la recherche.</p>
+
+		<p class="souligne">Recherche automatique.</p>
+		<p>La recherche se fait par l'envoi à la base de données CDDB d'un paramètre nommé CddbID identifiant normalement le CD audio. Ce paramètre est calculé par EasyTAG à partir des caractéristiques des différentes plages du CD audio (durée totale du CD, nombre de plages, durée de chaque plage). De ce fait, il est nécessaire de sélectionner tous les fichiers de l'album (et seulement ceux-ci) et il est aussi nécessaire que ces derniers soient classés exactement comme dans le CD d'origine. Pour lancer l'interrogation de la base de données, cliquez sur le bouton "Rechercher".</p>
+		<p>La liste des différents albums possibles trouvés dans la base de données (le cddbid n'étant pas unique) apparait alors. Sélectionnez une des lignes de cette liste pour visualiser à droite les différentes pistes de cet album.</p>
+		<p>Finalement, Il suffit alors de cliquer sur le bouton "Appliquer" pour renseigner les différents tags. Si aucune piste de l'album n'est sélectionnée, les tags de l'ensemble des pistes seront modifiés. Par contre, si une piste est sélectionnée, seuls les tags de cette piste seront modifiés.</p>
+	
+		<p class="souligne">Recherche manuelle.</p>
+		<p>Si aucun album n'a pu être identifié par la recherche automatique, vous pouvez toujours essayer une recherche manuelle en utilisant des mots clé (ces mots doivent être présents dans le nom de l'artiste, le nom de l'album ou bien encore dans le nom de la piste). La liste de résultats obtenue dans ce mode est identique à celle obtenue via l'outil de recherche du site freedb.org. Cette recherche peut s'avérer peu sélective et conduire à une liste de taille importante.</p>
+		<p>Dans la liste d'albums obtenue, tous les albums déjà consultés sont affichés en rouge. Cliquez sur le bouton caractérisé par des lignes rouges pour ne conserver que ces lignes et éliminer toutes les autres de la liste. Dès que vous avez réussi à identifier le bon album, il suffit alors, pour renseigner les tags de vos fichiers, de procéder exactement comme dans le mode automatique.</p>
+
+		<h4><a name="ch_1_2_4" id="ch_1_2_4">1.2.4. Correction des tags via le scanner "Traiter les Champs".</a></h4>
+		<p>Ce mode peut être utilisé dans les conditions suivantes :</p>
+		<ul>
+			<li>les noms des fichiers ou les différents tags sont déjà renseignés,</li>
+			<li>vous voulez corriger la casse,</li>
+			<li>vous voulez éliminer certains caractères de certains tags.</li>
+		</ul>
+		<p>Cette fonctionnalité est très utile lorsque vous voulez rapidement uniformiser les noms des fichiers ou bien encore les tags. Par exemple, il est très facile de modifier la casse (passage du titre en minuscules &#8230;) ou bien encore de remplacer certains caractères par d'autres (mots du nom de fichier séparés par des blancs et non plus par des %20 &#8230;).</p>
+		<p>Dans le haut de la fenêtre scanner, sélectionnez les boutons des tags sur lesquels vous souhaitez effectuer le traitement (ces boutons passent alors en grisé) puis, cliquez sur le bouton "vert" pour appliquer alors les modifications sur les différents fichiers et tags sélectionnés.</p>
+
+	<h3><a name="ch_1_3" id="ch_1_3">1.3. Renommer les fichiers/les répertoires. </a></h3>
+		<p>EasyTAG offre différents modes pour renommer les fichiers et/ou les répertoires : un mode manuel, un mode automatique via le scanner, un mode automatique via la base de données CDDB et enfin un mode basé sur la lecture d'un fichier texte. Dans la suite, nous allons décrire la mise en oeuvre de chacun d'entre eux.</p>
+
+		<h4><a name="ch_1_3_1" id="ch_1_3_1">1.3.1. Mode manuel.</a></h4>
+		<p>Ce mode peut être utilisé si vous avez peu de modifications à réaliser (sinon, cela s'avererait vite fastidieux)</p>
+
+		<p>Pour renommer manuellement un fichier, il suffit de sélectionner ce dernier dans la liste puis de modifier son nom dans la fenêtre Fichier située en haut, à droite de la fenêtre principale. Toutefois, ce nouveau nom de fichier ne sera effectif qu'après avoir sauvegardé le fichier. Les caractères illégaux (comme, pour les partitions Windows : &#8216;/&#8217;, &#8217;+&#8217; &#8230;) seront automatiquement remplacés à moins que vous n'ayez décoché l'option "Remplacer les caractères illégaux des noms de fichiers (pour Windows et les CD-Rom)" de l'onglet "Paramètres du nom des fichiers" du menu "Préférences".</p>
+		<p>Pour renommer manuellement un répertoire, il vous suffit de cliquer sur l'entrée "Renommer le répertoire ..." du menu Sélecteur puis de saisir alors le nouveau nom du répertoire. Le fait de cliquer sur "Appliquer" rend cette modification immédiate et définitive.</p>
+
+		<p>Note : Contrairement au mode automatique via le scanner (voir <a href="#ch_1_3_2">paragraphe 1.3.2</a>), lorsque le répertoire est renommé manuellement, les différents fichiers restent physiquement dans celui-ci. Il contient donc tous les fichiers présents dans l'ancien répertoire (y compris les fichiers qui ne sont pas supportés par EasyTAG tels que les fichiers jpeg).</p>
+
+		<h4><a name="ch_1_3_2" id="ch_1_3_2">1.3.2. Mode automatique via le scanner.</a></h4>
+		<p>A partir de la version 1.99.9, EasyTAG permet de renommer un répertoire à partir des tags des fichiers grâce à l'utilisation d'un modèle de masque. Pour utiliser ce mode, les tags doivent être préalablement renseignés.</p>
+
+		<p>Dans le mode "Renommer le(s) Fichier(s) et Répertoire(s)" du scanner, vous pouvez très facilement modifier les noms des fichiers et les déplacer dans un nouveau répertoire. Comme les nouveaux noms des fichiers sont basés sur les valeurs des tags, il est impératif que ceux-ci soient correctement renseignés.</p>
+		<p>Pour construire le nouveau nom de fichier à partir des valeurs de certains tags, EasyTAG utilise un modèle de masque similaire à celui utilisé dans le mode scanner "Compléter le(s) Tag(s)" (voir <a href="#ch_1_2_2">paragraphe 1.2.2</a>). La correspondance entre code et tag est donnée dans le tableau suivant :</p>
+
+		<div align="center">
+		<table>
+		  <tbody>
+			<tr>
+				<th><div align="center">Ce tag correspond :</div></th>
+				<th><div align="center">à ce code :</div></th>
+			</tr>
+			<tr>
+				<td>Artiste</td>
+				<td><div align="center">%a</div></td>
+			</tr>
+			<tr>
+				<td>Album</td>
+				<td><div align="center">%b</div></td>
+			</tr>
+			<tr>
+				<td>Commentaire</td>
+				<td><div align="center">%c</div></td>
+			</tr>
+			<tr>
+				<td>Compositeur</td>
+				<td><div align="center">%p</div></td>
+			</tr>
+			<tr>
+				<td>Copyright</td>
+				<td><div align="center">%r</div></td>
+			</tr>
+			<tr>
+				<td>Encodeur</td>
+				<td><div align="center">%e</div></td>
+			</tr>
+			<tr>
+				<td>Genre</td>
+				<td><div align="center">%g</div></td>
+			</tr>
+			<tr>
+				<td>Nombre de pistes</td>
+				<td><div align="center">%l</div></td>
+			</tr>
+			<tr>
+				<td>Artiste Orig.</td>
+				<td><div align="center">%o</div></td>
+			</tr>
+			<tr>
+				<td>Piste</td>
+				<td><div align="center">%n</div></td>
+			</tr>
+			<tr>
+				<td>Titre</td>
+				<td><div align="center">%t</div></td>
+			</tr>
+			<tr>
+				<td>URL</td>
+				<td><div align="center">%u</div></td>
+			</tr>
+			<tr>
+				<td>Année</td>
+				<td><div align="center">%y</div></td>
+			</tr>
+			</tbody>
+		</table>
+		</div>
+
+		<p class="sans-retrait">Note : Un même code peut être utilisé plusieurs fois. Bien évidemment, comme dans le mode manuel, seuls seront modifiés les fichiers que vous aurez préalablement sélectionnés. De plus, les nouveaux noms de fichiers visibles dans la fenêtre "Fichier" ne seront pris en compte qu'après avoir effectuer la sauvegarde de ces fichiers.</p>
+		<p>Ce mode scanner offre aussi la possibilité de déplacer simultanément les fichiers dans un répertoire existant ou dans un nouveau répertoire. Ce déplacement peut prendre en compte soit un chemin absolu, soit un chemin relatif.</p>
+		<p class="souligne">Utilisation d'un chemin relatif :</p>
+		<p>Dans ce cas, les fichiers vont être déplacés dans un sous-répertoire du répertoire courant (ce sous-répertoire étant crée s'il n'existe pas).</p>
+		<p>Par exemple :</p>
+		<ul>
+			<li>le fichier mp3 : &#8220;/mp3/evanescence/01. Going Under.mp3&#8221;,</li>
+			<li>possédant les tags : artiste = EVANESCENCE, album = Fallen, piste = 01 et titre = Going Under,</li>
+			<li>avec le masque : &#8220;%a - %b/%n - %t&#8221;</li>
+			<li>sera déplacé dans le répertoire : &#8220;/mp3/evanescence/EVANESCENCE &#8211; Fallen/01 - Going Under.mp3&#8221;.</li>
+		</ul>
+
+		<p class="souligne">Utilisation d'un chemin absolu :</li>
+		<p>L'utilisation d'un chemin absolu permet de déplacer les fichiers dans n'importe quel répertoire. Dans la fenêtre Scanner, il suffit d'ajouter le chemin du répertoire de destination au début du modèle de masque (le chemin du répertoire courant peut être ajouté en cliquant sur le répertoire marqué par une croix verte situé immédiatement à gauche du masque). De cette façon, il est très facile de modifier le répertoire courant des fichiers.</p>
+
+		<p>Par exemple :</p>
+		<ul>
+			<li>le fichier mp3 : &#8220;/mp3/evanescence/01. Going Under.mp3&#8221;,</li>
+			<li>possédant les tags : artiste = EVANESCENCE, album = Fallen, piste = 01 et titre = Going Under,</li>
+			<li>avec le masque : &#8220;/mp3/%a - %b/%n - %t&#8221;</li>
+			<li>sera renommé et déplacé dans le répertoire : &#8220;/mp3/EVANESCENCE &#8211; Fallen/01 - Going Under.mp3&#8221;.</li>
+		</ul>
+
+		<p class="sans-retrait"> Note: Contrairement au mode manuel, les fichiers sont physiquement déplacés vers leur nouveau répertoire. Les fichiers qui ne sont pas supportés par EasyTAG tels que les fichiers jpeg ne seront pas eux déplacés et resteront donc dans le répertoire d'origine.<br/>Enfin, le déplacement effectif des fichiers n'intervient que lorsque vous les sauvegardez. De ce fait, tant que vous n'avez pas effectuer la sauvegarde, vous pouvez toujours, en cas d'erreur, revenir en arrière en utilisant la touche "Annuler Modif. des fichier(s)".</p>
+
+		<h4><a name="ch_1_3_3" id="ch_1_3_3">1.3.3. Mode automatique via la base de données CDDB.</a></h4>
+		<p>Dans le <a href="#ch_1_2_3">paragraphe 1.2.3</a>, nous avons vu comment rechercher, dans la base de données CDDB, l'album CD audio correspondant à un ensemble de fichiers. Ce résultat permet non seulement de renseigner les différents tags mais aussi les noms des fichiers. Par contre, il ne permet pas de mettre directement à jour le nom du répertoire. Pour arriver à ce résultat, il faut alors procéder en deux étapes :</p>
+		<ul>
+			<li>étape 1 : renseigner les noms des fichiers par la méthode décrite au <a href="#ch_1_2_3">paragraphe 1.2.3</a>,</li>
+			<li>étape 2 : modifier le nom du répertoire par la méthode décrite au <a href="#ch_1_3_2">paragraphe 1.3.2.</a></li>
+		</ul>			 
+
+		<h4><a name="ch_1_3_4" id="ch_1_3_4">1.3.4. Mode automatique via la lecture d'un fichier texte.</a></h4>
+		<p>Ce mode peut être utilisé dans les conditions suivantes :</p>
+		<ul>
+			<li>il faut disposer d'un fichier texte contenant la liste des noms des fichiers,</li>
+			<li>les fichiers doivent être triés par album et ordonnés comme dans le fichier texte.</li>
+		</ul>
+		<p>Dans ce cas, vous pouvez renommer les différents fichiers mais pas le répertoire. Le traitement consiste alors à renommer le premier fichier avec la valeur de la première ligne du fichier texte. On procède alors de proche en proche jusqu'à la dernière ligne du fichier texte.</p>
+
+	<h2><a name="ch_2" id="ch_2">2. Astuces.</a></h2>
+		<p class="question-text">Comment voir en une fois tous les tags de chaque fichier ?</p>
+		<p>Il suffit d'ouvrir la fenêtre "Rechercher un fichier" et d'effectuer la recherche en laissant le champ "Rechercher" vide. L'ensemble des tags des différents fichiers seront alors affichés.</p>
+		
+		<p class="question-text">Comment faire pour écouter les fichiers audio ?</p>
+		<p>Vous pouvez écouter directement les fichiers sélectionnés ou bien tous les fichiers d'un répertoire particulier en faisant appel à une application externe (XMMS &#8230;).
+		 Après avoir sélectionné un ensemble de fichiers ou bien un répertoire, cliquez sur l'entrée "Lancer Lecteur Audio" du menu "Divers" pour lancer alors le lecteur audio. Par défaut, le lecteur utilisé est XMMS lancé par l'intermédiaire de la commande "xmms -p" (voir l'onglet "Divers" du menu "Préférences"). Si vous désirez ajouter d'autres fichiers à la playlist courante, il faut alors cliquer sur l'entrée : 
+		 <ul>
+		 	<li>"Ouvrir le(s) Fichier(s) avec ..." du menu "Fichier",</li>
+		 	<li>"Parcourir le Répertoire avec ..." du menu "Sélecteur".</li>
+		 </ul>
+		 et taper la commande "xmms -e" dans la boite qui s'affiche alors.</p>
+
+		<p class="question-text">Les fichiers peuvent-ils être organisés par artiste et album ?</p>
+		<p>Le mode de visualisation "Artiste + Album" est fait pour vous. Pour activer ce mode, il suffit de cliquer sur le bouton caractérisé par "une tête et un disque" présent dans la barre des tâches. Ce mode permet de naviguer très rapidement dans les albums d'un artiste donné. Ce mode permet aussi de localiser très vite les fichiers possédant des mauvais tags.</p>
+
+		<p class="question-text">Comment spécifier le répertoire au lancement du programme ?</p>
+		<p>Par exemple, pour lancer EasyTAG avec préchargement des fichiers présents dans le répertoire courant, il suffit de lancer le programme avec la commande <span class="txt_autre">"easytag . &amp;"</span>. Par ailleurs, pour spécifier un répertoire donné (par exemple, /file-audio-dir), il faut utiliser la commande : &#8220;easytag /file-audio-dir&#8221;.</p>
+
+		<p class="question-text">A la suite d'une modification des tags et des noms des fichiers, comment ne sauvegarder que les modifications effectuées sur les tags ?</p>
+		<p>Le processus de sauvegarde d'un fichier fait appel à deux écrans de confirmation distincts : le premier concernant les tags du fichier, le deuxième le nom du fichier. Si, à la suite d'une modification des tags et des noms des fichiers, vous ne voulez que sauvegarder les modifications effectuées sur les tags, il suffit alors de : 
+		<ul>
+			<li>répondre "OUI" dans l'écran de confirmation d'écriture des tags du fichier,</li>
+			<li>répondre "NON" dans l'écran de confirmation d'écriture du nom du fichier.</li>
+		</ul>
+		<p>Pour effectuer en une passe la même chose sur l'ensemble des fichiers sélectionnés, il suffit alors, avant de confirmer ou non la sauvegarde, de cocher la case "Répéter la même action pour les autres fichiers".<p>
+
+		<p class="question-text">Comment savoir si un tag n'est pas renseigné (champ vide) ?</p>
+		<p>Pour le savoir, deux façons de procéder sont possibles :</p>
+		<ul>
+			<li>Vous pouvez effectuer un tri sur la liste des fichiers avec le critère adapté au tag qui vous intéresse (Par exemple, "Classer par ordre croissant des artistes"). Les fichiers ne possédant aucune valeur du tag considéré sont affichés dans le haut de la liste.</li>
+			<li>Vous pouvez utiliser la fenêtre spécifique de "Rechercher Fichiers" pour afficher tous les fichiers et identifier alors toutes les cellules vides du tag qui vous intéresse.</li>
+		</ul>
+		<p>&nbsp;</p>
+</body>
+</html>
+

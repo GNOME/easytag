@@ -1,0 +1,52 @@
+<HTML><head><title>ID3v2 made easy</title>
+<style type="text/css">
+td.h1 {font: 43px Arial, Helvetica}
+td.h2 {font: 27px Arial, Helvetica}
+div.h5 {font: 14px Arial, Helvetica}
+td.t {font: 14px Arial, Helvetica}
+a {color: #DD6600; text-decoration: none}
+b {font-weight: bold}
+</style>
+<META name="description" content="Information about a new ID3 format, ID3v2.">
+<META name="keywords" content="ID3v2, ID3, MP3">
+</head>
+<body bgcolor=white text=black><center>
+
+<table border=0><tr><td class=h1>&nbsp;ID3v2 made easy&nbsp;</td></tr><tr><td bgcolor="#FF7700"><img src="fillpx.gif" width=1 height=1 alt=""></td></tr></table>
+
+<br>&nbsp;
+
+<table border=0 width="90%"><tr><td class=h2>What is ID3v2?</td></tr></table>
+
+<table border=0 width="80%"><tr valign=top><td class=t>
+<p>ID3v2 is a new tagging system that lets you put enriching and relevant information about your audio files within them. In more down to earth terms, ID3v2 is a chunk of data prepended to the binary audio data. Each ID3v2 tag holds one or more smaller chunks of information, called frames. These frames can contain any kind of information and data you could think of such as title, album, performer, website, lyrics, equalizer presets, pictures etc. The block scheme to the right is an example of how the layout of a typical ID3v2 tagged audio file may look like.</p>
+<p>One of the design goals were that the ID3v2 should be very flexible and expandable. It is very easy to add new functions to the ID3v2 tag, because, just like in HTML, all parsers will ignore any information they don't recognize. Since each frame can be 16MB and the entire tag can be 256MB you'll probably never again be in the same situation as when you tried to write a useful comment in the old ID3 being limited to 30 characters.</p>
+<p>Speaking of characters, the ID3v2 supports Unicode so even if you use the Bopomofo character set you'll be able to write in your native language. You can also include in which language you're writing so that one file might contain e.g. the same lyrics but in different languages.</p>
+<p>Even though the tag supports a lot of byte consuming capabilities like inline pictures and even the possibility to include any other file, ID3v2 still tries to use the bytes as efficient as possibly. If you convert an ID3v1 tag to an ID3v2 tag it is even likely that the new tag will be smaller. If you convert an ID3v1 tag where all fields are full (that is, all 30 characters are used in every field) to an ID3v2 tag it will be 56 bytes bigger. This is the worst case scenario for ID3v1 to ID3v2 conversion.</p>
+<p>Since it's so easy to implement new functionality into ID3v2, one can hope that we'll see a lot of creative uses for ID3v2 in the future. E.g. there is a built-in system for rating the music and counting how often you listen to a file, just to mention some brainstorm results that are included. This feature can be used to build playlists that play your favourite songs more often than others.</p>
+</td><td align=center class=t> <br><img src="id3v2_blocks.gif" width=229 height=354 alt="Internal layout of an ID3v2 tagged file."><br><i>Example of the internal layout<br>of an ID3v2 tagged file.</i></td></tr></table>
+
+<br>&nbsp;
+
+<table border=0 width="90%"><tr><td class=h2>Some main features</td></tr></table>
+
+<table border=0 width="80%"><tr><td class=t><ul>
+ <li>The ID3v2 tag is a container format, just like IFF or PNG files, allowing new frames (chunks) as evolution proceeds.</li>
+ <li>Residing in the beginning of the audio file makes it suitable for streaming.</li>
+ <li>Has an 'unsynchronization scheme' to prevent ID3v2-incompatible players to attempt to play the tag.</li>
+ <li>Maximum tag size is 256 megabytes and maximum frame size is 16 megabytes.</li>
+ <li>Byte conservative and with the capability to compress data it keeps the files small.</li>
+ <li>The tag supports Unicode.</li>
+ <li>Isn't entirely focused on musical audio, but also other types of audio.</li>
+ <li>Has several new text fields such as composer, conductor, media type, BPM, copyright message, etc. and the possibility to design your own as you see fit.</li>
+ <li>Can contain lyrics as well as music-synced lyrics (karaoke) in almost any language.</li>
+ <li>Is able to contain volume, balance, equalizer and reverb settings.</li>
+ <li>Could be linked to CD-databases such as <a href="http://www.cddb.com">CDDB</a>.</li>
+ <li>Is able to contain images and just about any file you want to include.</li>
+ <li>Supports enciphered information, linked information and weblinks.</li>
+ <li>and more... (a complete list of all frames and their functions can be found <a href="frames.html"><b>here</b></a>)</li>
+</ul></td></tr></table>
+
+<br>&nbsp;
+
+</center></body></html>

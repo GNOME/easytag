@@ -1,0 +1,10 @@
+body { background-color:#f0f0ff; color:#000000; margin-left:10px; margin-right:20px; }
+* { font-face:lucida, helvetica, sans-serif; }
+
+a:link { Color:#0000ee; Text-Decoration:none; } 
+a:visited { Color:#551a8b; Text-Decoration:none; } 
+a:active { Color:#ff0000; Text-Decoration:none; } 
+a:hover { Color:#0000ff; Text-Decoration:underline; } 
+table { background-color:#ccccff; }
+
+.anders { color:#000066; font-weight:bolder; font-size:larger; text-align:center; }

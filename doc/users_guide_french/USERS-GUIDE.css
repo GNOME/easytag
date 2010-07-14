@@ -1,0 +1,144 @@
+/************************************************************************************
+ * USERS-GUIDE.css                                                					*
+ * auteur Emmanuel Brun     < manub91[at]gmail.com >                  				*
+ * date  : 28/12/06 mise en conformité avec W3C xhtml 1.0 strict 					*
+ *					test Firefox + IE6 												*
+ *                                                                      			*
+ * Fichier CSS du Guide de l'utilisateur de EasyTAG (version 1.99.11) 				*
+ *																					*
+ ************************************************************************************/
+
+	body {
+		font-family: Verdana, "Trebuchet MS", Arial, sans-serif;
+        margin: 0;
+        padding: 0 30px 0 30px;
+        background-color: #FDFDE7;
+        font-size: 0.9em;
+        line-height: 1.5em;        
+		}
+		
+	/* LISTES */
+	/* ====== */		
+	/* Table des matières */	
+	.TM1 li {	 
+		margin-top:0.5em;
+		margin-left: 3em;
+		list-style-type: none;
+		list-style-position: outside;
+		text-indent: 0em;
+		line-height: 1.5em;		
+		}
+		
+	.TM2 li {
+		margin-top:0em;
+		margin-left: 3em;
+		list-style-type: none;
+		list-style-position: outside;
+		text-indent: 0em;
+		line-height: 1.5em;		
+		}
+
+	.TM3 li {
+		margin-top:0em;
+		margin-left: 3em;
+		list-style-type: none;
+		list-style-position: outside;
+		text-indent: 0em;
+		line-height: 1.5em;
+		}
+
+	/* Liste - paragraphe */
+	.liste1	li {
+		margin-top:0.5em;
+		margin-left: 3em;
+		list-style-type: disc;
+		list-style-position: outside;
+		text-indent: 0em;
+		line-height: 1.5em;
+		}
+		
+	.liste2	li {
+		margin-top:0em;
+		margin-left: 3em;
+		list-style-type: circle;
+		list-style-position: outside;
+		text-indent: 0em;
+		line-height: 1.5em;
+		}
+		
+	/* Chapitre */		
+	h1	{
+		font-size: 1.5em;
+		font-weight: bold;
+		text-align: center;
+		line-height: 1.5em;		
+		border-top: 1px solid #CCCCCC;
+		border-bottom: 1px solid #CCCCCC;
+		border-left: 1px solid #CCCCCC;
+		border-right: 1px solid #CCCCCC;
+		color: blue;
+		background-color: #D2E6FF;
+		}
+	h2	{
+		font-size: 1.1em;
+		text-decoration: none;
+		text-indent: 0em;
+		margin-top: 2em;
+		border-top: 1px solid #CCCCCC;
+		border-bottom: 1px solid #CCCCCC;
+		border-left: 1px solid #CCCCCC;
+		border-right: 1px solid #CCCCCC;
+		color: blue;
+		background-color: #D2E6FF;
+		}
+	h3	{
+		font-size: 1.1em;
+		text-decoration: none;
+		margin-top: 1.5em;
+		margin-left: 2em;
+		color: blue;
+		}
+	h4 {
+		font-size: 1.1em;
+		text-decoration: none;
+		margin-top: 1.5em;
+		margin-left: 5em;
+		color: blue;
+		}
+		
+	p { text-align: justify; text-indent: 2em; line-height: 1.5em; }
+		
+	.sans-retrait {	text-align: justify; text-indent: 0em; }
+
+	/* CARACTERES */
+	/* ========== */
+	#titre_TM {	font-size: 1.5em; color: blue; }
+	
+	.entree { font-weight: bold; }
+	
+	.souligne {	text-decoration: underline;	}
+		
+		
+	/* TABLEAU */
+	/* ======= */	
+	table { border: 1px solid #666666; margin: 0px; padding: 0px; }
+	
+	th { background-color: #CCCCCC; border: 1px solid; font-size: 0.8em; text-align: center; }
+	
+	td { background-color: #F9F9F9; border: 1px solid #CECECE; font-size: 0.8em; text-align: center; }
+
+	/* IMAGES */
+	/* ====== */
+	.img_c { margin-top: 2em; margin-bottom:2em; text-align: center; } /* image centree */
+	
+	.droite { margin-bottom: 1em; margin-left: 2em; margin-right: 0; float: right; } /* image à droite */
+
+	.fin_img { clear: both; visibility: hidden; } /* cale les paragraphes sur les images */	
+	
+	/* LIENS */
+	/* ===== */
+	a {	text-decoration: none; }
+	
+	a:hover { background-color: #E8F8FC; color: #FF02F5; }	
+	
+	.tab_c {margin: 1em auto 1em auto; }

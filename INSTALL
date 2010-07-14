@@ -1,0 +1,163 @@
+################################
+#                              #
+# INSTALL file for EasyTAG 2.1 #
+#                              #
+################################
+Last update: 2007/05/07
+
+
+1. Requirements :
+=================
+
+ - glib version highter than 2.8.0 (http://www.gtk.org) (Recommended: gtk+-2.8.4)
+ - GTK version highter than 2.4.1 (http://www.gtk.org) (Recommended: gtk+-2.4.14)
+ - id3lib version highter than 3.7.12 (http://id3lib.sourceforge.net) (Recommended: id3lib-3.8.3)
+ - libogg and libvorbis (http://www.vorbis.com) (if not desactivated by './configure --disable-ogg')
+ - flac (http://flac.sourceforge.net) (if not desactivated by './configure --disable-flac')
+ - libmp4v2 (http://resare.com/libmp4v2/) (if not desactivated by './configure --disable-mp4') (Recommended: libmp4v2-1.5.0.1)
+ - wavpack (http://www.wavpack.com/) (if not desactivated by './configure --disable-wavpack')
+ - libc 6 (glibc 2.1) or better
+ - gettext (if not desactivated by './configure --disable-nls')
+
+
+2. Compilation Instructions :
+=============================
+
+ 2.1. Before to compile EasyTAG you need to install some librairies.
+
+  2.1.1. To install id3lib :
+ - recompile sources of id3lib (id3lib-3.x.x.tar.gz) (Recommended),
+ - or install id3lib-3.x.x.i386.rpm and id3lib-devel-3.x.x.i386.rpm
+   then run the command 'ldconfig' to update shared library symlinks.
+   
+   (Nota: to see if links have been updated, run the command 'ldconfig -p|grep libid3'
+          if all is ok, it'll return lines like this :
+             libid3.so (libc6) => /usr/lib/libid3.so
+             libid3-3.8.so.2 (libc6) => /usr/lib/libid3-3.8.so.2 )
+
+  2.1.2. To install libogg and libvorbis (http://www.vorbis.com) :
+
+    Follow the same procedure as id3lib with the following packages :
+        - http://fatpipe.vorbis.com/files/1.0/unix/libogg-1.0.tar.gz
+        - http://fatpipe.vorbis.com/files/1.0/unix/libogg-1.0-1.i386.rpm
+        - http://fatpipe.vorbis.com/files/1.0/unix/libogg-devel-1.0-1.i386.rpm
+        
+        - http://fatpipe.vorbis.com/files/1.0/unix/libvorbis-1.0.tar.gz
+        - http://fatpipe.vorbis.com/files/1.0/unix/libvorbis-1.0-1.i386.rpm
+        - http://fatpipe.vorbis.com/files/1.0/unix/libvorbis-devel-1.0-1.i386.rpm
+
+  2.1.3. To install flac (http://flac.sourceforge.net) :
+
+  2.1.4. To install faad2 (http://www.audiocoding.com/) :
+        Else, you can install MPEG4IP (http://mpeg4ip.net/)
+
+ 2.2. Unpack the sources of EasyTAG with
+
+    > tar xfvz easytag-x.y.z.tar.gz
+(x.y.z represents the version of package, for example : 0.27.1) 
+
+ 2.3. Change into the new directory
+
+    > cd easytag-x.y.z/
+
+ 2.4. Compile and install the program
+
+    > ./configure
+    > make
+    # make install (You need root privileges)
+
+Notes : 
+ - If you want to compile EasyTAG with gcc3.x, you MUST install a version of id3lib compiled
+with the same version of the compiler.
+ - If you have the both versions of gcc installed (2.9x and 3.x), use the command './configure CC=gcc3'
+for compiling with gcc3.
+
+You may now run the program by simply typing "easytag".
+(Of course the directory in which you installed it (usually /usr/local/bin) has to 
+be in your PATH)
+
+
+
+3. RPM Building Instructions (RedHat 6.x 7.x) :
+===============================================
+
+If you prefer manipulate a RPM, you can build it with the following commands:
+
+ 3.1. Build the RPM
+
+    # rpm -tb easytag-x.y.z.tar.gz
+   or
+    # rpm --rebuild easytag-x.y.z.src.rpm
+   or
+    copy easytag-x.y.z.tar.gz into directory /usr/src/redhat/SOURCES, get easytag.spec
+    into tarball, and run :
+        # rpm -bb easytag.spec
+
+ 3.2. If succeed, you will found the rpm in /usr/src/redhat/RPM/i386/
+
+
+
+4. RPM Building Instructions (RedHat 8.x 9) :
+=============================================
+
+If you prefer manipulate a RPM, you can build it with the following commands:
+
+ 4.1. Build the RPM
+
+    # rpmbuild -tb easytag-x.y.z.tar.gz
+   or
+    # rpmbuild --rebuild easytag-x.y.z.src.rpm
+   or
+    copy easytag-x.y.z.tar.gz into directory /usr/src/redhat/SOURCES, get easytag.spec
+    into tarball, and run:
+        # rpmbuild -bb easytag.spec
+
+ 4.2. If succeed, you will found the rpm in /usr/src/redhat/RPM/i386/
+
+
+
+5. Addind a new translation file to EasyTAG :
+=============================================
+All catalogs are placed into po/ directory and are named as the following: fr.po for 
+France, de.po for Germany, and so on.
+
+The catalogs which will be compiled with EasyTAG are set into configure.in file, into
+field ALL_LINGUAS. If you have created a new translation file for your location, and 
+want to test it, add the corresponding code (xx for file xx.po) to this field.
+
+Then run the script: ./autogen.sh before to recompile program (see instructions of 
+paragraph 2).
+
+
+6. Applying a patch :
+=====================
+
+ 6.1. Unpack the sources (see 2.2),
+ 6.2. Go into the directory where you unpack sources (the parent directory of easytag-x.y.z directory)
+ 6.3. Put the patch file in this directory
+ 6.4. Apply the patch:
+   for example:
+
+    > cat patch_easytag_027_027a.diff | patch -p0   (if patch file was named : patch_easytag_027_027a.diff)
+
+(Note: the pacth file (of above example) is a diff file made with command:
+       diff -ruN easytag-0.27/ easytag-0.27a/ > patch_easytag_027_027a.diff
+       in the directory where are locate easytag-0.4 and easytag-0.4a directories)
+ 6.5. Recompile program (see 2.3 + 2.4).
+
+
+7. Segfault occurs when running EasyTAG? :
+==========================================
+ The best way to allow us to fix the problem, is to send back a backtrace :
+ 
+ 7.1. Be sure that core files are availables
+    If 'ulimit -c' returns 0, then run the command 'ulimit -c unlimited'
+ 7.2. Get the backtrace with 'gdb easytag core' (note that on some systems, the
+    core file is suffixed by the pid. So use 'core._pid_number_' instead of only
+    'core').
+    
+    > gdb easytag core._pid_number_
+    gdb> bt
+    gdb> ...
+    gdb> l
+    gdb> ...

@@ -1,0 +1,63 @@
+.TH EasyTAG 1
+.SH NAME
+EasyTAG @VERSION@ \- Tag editor for MP3 and Ogg Vorbis files
+.SH SYNOPSIS
+.na
+.nh
+.B easytag
+.RI [options]
+.br 
+.B easytag
+.RI [directory]
+
+.SH DESCRIPTION
+.B EasyTAG
+is an utility for viewing and editing tags for MP3, MP2, FLAC, Ogg Vorbis,
+MP4/AAC, MusePack and Monkey's Audio files. Its simple and nice GTK2 interface
+makes tagging easier under GNU/Linux.
+
+.SH OPTIONS
+.TP 
+.B \-\-help
+Display a short help
+.TP 
+.B \-\-version
+Display version information
+.TP 
+.B [directory]
+Choose the directory to open at startup.  It can be either 
+an absolute path or a relative path.
+
+.SH AVAILABILITY
+.PP 
+EasyTAG is licensed under the 
+GNU Public License(GPL). A copy of that license should 
+have come with the package in the file COPYING. You are 
+encouraged to distribute copies of the Samba suite, but 
+please obey the terms of this license.
+.PP 
+The latest version of EasyTAG can be 
+obtained via the project's webpage 
+<URL: \fIhttp://easytag.sourceforge.net/\fR>
+
+.SH FILES
+.PP 
+EasyTAG will create a directory named .easytag in your home 
+directory where it stores its configuration file and history files.
+.br
+\fI@prefix@/bin/easytag\fR: \fBEasyTAG\fR's location.
+.br
+\fI~/.easytag/easytagrc\fR: \fBEasyTAG\fR's configuration file.
+.br
+
+.SH VERSION
+.PP 
+This man page is done for the version @VERSION@ of EasyTAG.
+
+.SH AUTHOR
+.PP 
+The author of this software is Jerome COUDERC.
+.PP 
+You can mail him about EasyTAG at <\fIeasytag@gmail.com\fR>
+.PP 
+This man page was originally written by Pauliuc George <\fIpauliuc@gmx.net\fR>

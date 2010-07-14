@@ -1,0 +1,88 @@
+##########################
+#                        #
+# README for EasyTAG 2.1 #
+#                        #
+##########################
+Last update: 2007/05/07
+
+
+AUTHOR:
+=======
+  Jérôme Couderc
+  E-mail:    easytag@gmail.com
+  Home Page: http://easytag.sourceforge.net
+             http://sourceforge.net/project/?group_id=5216
+
+
+DESCRIPTION:
+============
+EasyTAG is an utility for viewing and editing tags for MP3, MP2, FLAC, Ogg 
+Vorbis, MP4/AAC, MusePack, Monkey's Audio and WavPack files. Its simple and nice
+GTK2 interface makes tagging easier under GNU/Linux or Windows.
+
+
+FEATURES:
+=========
+Currently EasyTAG supports the following:
+
+
+  o View, edit, write tags of MP3, MP2 files (ID3 tag with pictures), FLAC files
+    (FLAC Vorbis tag), Ogg Vorbis files (Ogg Vorbis tag), MP4/AAC (MP4/AAC tag),
+    MusePack, Monkey's Audio and WavPack files (APE tag),
+  o Can edit more tag fields : Title, Artist, Album, Disc Album, Year, Track
+    Number, Genre, Comment, Composer, Original Artist/Performer, Copyright, URL
+    and Encoder name,
+  o Auto tagging: parse filename and directory to complete automatically the
+    fields (using masks),
+  o Ability to rename files and directories from the tag (using masks) or by
+    loading a text file,
+  o Process selected files of the selected directory,
+  o Ability to browse subdirectories,
+  o Recursion for tagging, removing, renaming, saving...,
+  o Can set a field (artist, title,...) to all other selected files,
+  o Read file header informations (bitrate, time, ...) and display them,
+  o Auto completion of the date if a partial is entered,
+  o Undo and redo last changes,
+  o Ability to process fields of tag and file name (convert letters into
+    uppercase, downcase, ...),
+  o Ability to open a directory or a file with an external program,
+  o Remote and local CDDB support for manual or automatic search,
+  o A tree based browser or a view by Artist & Album,
+  o A list to select files,
+  o A playlist generator window,
+  o A file searching window,
+  o Simple and explicit interface!,
+  o Brazilian Portuguese, Bulgarian, Chinese, Czech, Danish, Dutch, French, 
+    German, Greek, Hungarian, Italian, Japanese, Polish, Romanian, Russian, 
+    Spanish, Swedish and Ukrainian translation languages,
+  o Written in C and uses GTK+ 2 for the GUI.
+
+
+INSTALLATION:
+=============
+Please see the file INSTALL.
+
+
+LICENSE:
+========
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+General Public License for more details.
+
+(It sould be included in this package in the file COPYING )
+
+
+CONTACTS:
+=========
+Visit the homepage at: http://easytag.sourceforge.net
+                   or: http://sourceforge.net/project/?group_id=5216
+for more informations and new releases.
+
+Please mail any bug reports, complaints, suggestions and comments to the 
+main author Jerome Couderc <easytag@gmail.com>.

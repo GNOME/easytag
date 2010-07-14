@@ -1,0 +1,205 @@
+<!-- ************************************************************************************
+     * USERS-GUIDE-11_fr4.html                                                			*
+     * auteur Emmanuel Brun     < manub91[at]gmail.com >                  				*
+     * date  : 28/12/06 mise en conformité avec W3C xhtml 1.0 strict 					*
+     *					test Firefox + IE6 												*
+     *                                                                      			*
+     * Guide de l'utilisateur de EasyTAG (version 1.99.11) 								*
+     * chapitre 4 - Editer/corriger les tags.											*
+     *																					*
+     ************************************************************************************ -->
+     
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="fr">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Guide de l'utilisateur du logiciel EasyTAG - chapitre 4 - Editer/corriger les tags.</title>
+	<link rel="stylesheet" type="text/css" href="USERS-GUIDE.css" />
+</head>
+
+<body>
+	<div><a href="#" name="haut_page"></a></div>
+
+	<h1>Guide de l'utilisateur du logiciel EasyTAG (version 1.99.11)<br/> - chapitre 4 -</h1>
+	
+<!-- TABLE DES MATIERES	=====================================================================-->
+	<p id="titre_TM">Table des matières.</p>
+	<ul class="TM1">
+		<li><a href="USERS-GUIDE-11_fr1.html">1 - Introduction.</a></li>
+		<li><a href="USERS-GUIDE-11_fr2.html">2 - Description de l'interface.</a></li>
+		<li><a href="USERS-GUIDE-11_fr3.html">3 - Recherche rapide dans votre collection de fichiers audio.</a></li>
+		<li><a href="#ch_4">4 - Editer/corriger les tags.</a>
+			<ul class="TM2">
+				<li>
+					<a href="#ch_4_1">4.1 - Mode manuel.</a>	
+					<ul class="TM3">
+						<li><a href="#ch_4_1_1">4.1.1 - Travail sur un fichier.</a></li>	
+						<li><a href="#ch_4_1_2">4.1.2 - Travail sur un ensemble de fichiers.</a></li>				
+					</ul>
+				</li>
+				<li><a href="#ch_4_2">4.2 - Mode automatique via le scanner "Compléter le(s) Tag(s)".</a></li>
+				<li>
+					<a href="#ch_4_3">4.3 - Mode automatique via la base de données CDDB.</a>
+					<ul class="TM3">
+						<li><a href="#ch_4_3_1">4.3.1 - Recherche automatique.</a></li>
+						<li><a href="#ch_4_3_2">4.3.2 - Recherche manuelle.</a></li>
+					</ul>	
+				</li>			
+				<li><a href="#ch_4_4">4.4 - Correction des champs d'information du tag via le scanner "Traiter les Champs".</a></li>
+			</ul>
+		</li>
+		<li><a href="USERS-GUIDE-11_fr5.html">5 - Renommer les fichiers/les répertoires.</a></li>
+		<li><a href="USERS-GUIDE-11_fr6.html">6 - Autres fonctions.</a></li>
+		<li><a href="USERS-GUIDE-11_fr6.html#ch_7">7 - Pré-requis.</a></li>
+	</ul>
+
+<!-- FIN TABLE DES MATIERES	=================================================================-->
+
+<!-- EDITER/CORRIGER LES TAGS	=============================================================-->
+
+	<h2><a name="ch_4" id="ch_4">4 - Editer/corriger les tags.</a></h2>
+		<p>EasyTAG offre trois modes différents pour modifier les champs d'information du tag de vos fichiers : un mode manuel, un mode automatique via un scanner et un mode automatique via la recherche dans une base de données CDDB. Dans la suite de ce chapitre, nous allons décrire la mise en oeuvre de chacun d'entre eux.</p>
+		<p>Avant toute chose, il est bon de noter que le traitement du tag des fichiers sera grandement facilité si ces fichiers sont regroupés par album plutôt que d'être tous stockés dans un même répertoire.</p>
+		<p>De plus, il est important de garder à l'esprit que chaque traitement ne s'applique que sur les fichiers sélectionnés dans la liste de la fenêtre  &laquo;Sélecteur&raquo;. De même, la procédure de sauvegarde ne s'applique aussi que sur ces fichiers.</p>
+
+<!--    Mode manuel -->
+		<h3><a name="ch_4_1" id="ch_4_1">4.1 - Mode manuel.</a></h3>
+			<p>Ce mode est utile lorsque vous n'avez à renseigner/modifier les champs d'information du tag que d'un nombre limité de fichiers.<br/>Si vous voulez traiter l'ensemble des fichiers d'un même album, il peut être préférable, dans un premier temps, d'utiliser le mode de modification via la base de données CDDB (voir <a href="#ch_4_3">paragraphe 4.3</a>).<br/>De même, si les noms des fichiers ou le répertoire de ces fichiers contiennent un certain nombre d'informations pertinentes (artiste, album, année &#8230;), il peut être judicieux d'utiliser le mode de modification automatique via le scanner &laquo;Compléter le(s) Tag(s)&raquo; (voir <a href="#ch_4_2">paragraphe 4.2</a>).</p>
+			<p>Dans le mode manuel, il est possible de travailler sur un fichier ou de travailler simultanément sur un ensemble de fichiers.</p>
+			<h4><a name="ch_4_1_1" id="ch_4_1_1">4.1.1 - Travail sur un fichier.</a></h4>
+				
+				<div><img class="droite" src="images/fen_tag_gen.png" alt="image Tag ID3 - onglet général"/></div>
+				<p>Pour renseigner un champ d'information du tag du fichier, il suffit alors de taper la valeur souhaitée dans la zone de saisie correspondante (voir figure ci-contre). Concernant certains champs, les points suivants doivent être notés :</p>
+				<ul class="liste1">
+					<li><span class="entree">Numéro de piste</span> : Le numéro de piste peut être saisi ou être choisi dans une liste déroulante (01 à 30).</li>
+					<li><span class="entree">Genre</span> : Le genre peut être choisi dans une liste prédéfinie (liste des genres ID3, de "Acid" à "Tribal") ou bien correspondre à une valeur qui vous est personnelle ("Chanson française", par exemple).</li>
+					<li><span class="entree">Année</span> : La saisie de la valeur de ce champ a été simplifiée au maximum. En effet, seule la saisie des deux derniers digits (dizaines et unités) de l'année est nécessaire. EasyTAG complete alors intelligemment les digits manquants (millénaires et siècles). Ainsi, la saisie "04" sera complétée en "2004" et la saisie "94" sera complétée en "1994".</li>
+				</ul>
+				<hr class="fin_img"/>
+				
+				<div><img class="droite" src="images/fen_tag_img.png" alt="image Tag ID3 - onglet images"/></div>
+				<p>Par ailleurs, pour les fichiers Mp3 et pour les fichiers Flac , il est possible d'incorporer au tag un certain nombre d'images (jpg ou png). Pour cela, on peut procéder de deux manières :</p>
+				<ul class="liste1">
+					<li>Utiliser une procédure de type "Glisser/Déposer" dans la zone Images,</li>
+					<li>Cliquer sur le bouton <img src="images/bouton_img1.png" alt="bouton"/> et sélectionner dans l'arborescence l'image souhaitée.</li>
+				</ul>
+				<p>Le bouton <img src="images/bouton_img3.png"alt="bouton"/> permet soit d'effacer toutes les images (comportement par défaut) soit de limiter cet effacement aux seules images sélectionnées.</p>
+				<p>Une fois le choix d'images effectué, il est possible de compléter l'information du champ &laquo;Images&raquo; en affectant à chaque image un type particulier (couverture "face avant", dépliant intérieur, artiste, &#8230;). Pour cela, il suffit de cliquer sur le bouton <img src="images/bouton_img2.png" alt="bouton"/> et d'effectuer un choix parmi la liste des types proposés.</p>
+				<hr class="fin_img"/>
+
+			<h4><a name="ch_4_1_2" id="ch_4_1_2">4.1.2 - Travail sur un ensemble de fichiers.</a></h4>
+				<div><img class="droite" src="images/fen_tag_gen.png" alt="image Tag ID3 - onglet général"/></div>
+				<p>Bien évidemment, lorsque vous travaillez sur l'ensemble des fichiers d'un album particulier, certains paramètres comme le nom de l'album, l'année et le genre sont communs à tous ces fichiers.<br/>De plus, on peut vouloir renseigner un ensemble de fichiers avec un paramètre particulier (fichiers de même genre, par exemple).</p>
+				<p>Dans ce cas, il est possible d'utiliser le bouton <img src="images/fen_tag_bout1.png" alt="bouton"/> situé à droite de chaque champ. En effet, pour un champ d'information du tag donné (année par exemple), cliquer sur ce bouton revient à affecter la même valeur du champ à l'ensemble des tags des fichiers sélectionnés.</p>
+				<p>Par ailleurs, si les fichiers présents dans un répertoire correspondent à l'ensemble des fichiers d'un album, la numérotation des différentes pistes au format "numéro de piste/nombre total de pistes" peut se faire rapidement en utilisant le bouton <img src="images/fen_tag_bout2.png" alt="bouton"/> situé à gauche du champ &laquo;numéro de piste&raquo; et le bouton <img src="images/fen_tag_bout2.png" alt="bouton"/> situé à gauche du champ &laquo;nombre total de pistes&raquo;.<br/>Le premier bouton permet d'affecter au champ "numéro de piste" une valeur correspondant à la position du fichier dans la liste des fichiers présents dans le répertoire (l'ordre des fichiers est donc essentiel).<br/>Le deuxième bouton permet d'affecter au champ "nombre de pistes" une valeur correspondant au nombre de fichiers présents dans le répertoire.</p>
+
+				<p>Enfin, dans le mode manuel, l'utilisation de certaines touches permettent de traiter les champs de façon plus efficace :</p>
+				<ul class="liste1">
+					<li>La touche Entrée permet de se déplacer rapidement d'un champ à l'autre.</li>
+					<li>La touche Tab permet, pour un champ particulier, d'activer directement le petit bouton rond situé à droite de celui-ci (valeur du champ donnée à l'ensemble des fichiers sélectionnés).</li>
+					<li>Les touches PageUp et PageDown permettent respectivement de passer au fichier précédent ou au fichier suivant de la liste.</li>
+				</ul>
+				<hr class="fin_img"/>
+				
+<!--    Mode automatique via le scanner "Compléter le(s) Tag(s)" -->
+		<h3><a name="ch_4_2" id="ch_4_2">4.2 - Mode automatique via le scanner "Compléter le(s) Tag(s)".</a></h3>
+			<p>Si les noms des fichiers ou le répertoire de ces fichiers contiennent un certain nombre d'informations pertinentes (artiste, album, année, titre, &#8230;), il est possible d'effectuer la modification automatique de certains champs d'information des tags via le scanner &laquo;Compléter le(s) Tag(s)&raquo;. Pour cela, EasyTAG se base sur un modèle de masque qui permet d'extraire les différentes informations contenues dans le nom du fichier et/ou du répertoire et de renseigner alors les différents champs d'information du tag correspondants.<br/>Ce scanner est accessible depuis le menu &laquo;Fichier&raquo; (voir <a href="USERS-GUIDE-11_fr2.html#ch_2_1_1">paragraphe 2.1.1</a>), le menu &laquo;Scanner&raquo; (voir <a href="USERS-GUIDE-11_fr2.html#ch_2_1_3">paragraphe 2.1.3</a>) ou depuis un menu contextuel (voir <a href="USERS-GUIDE-11_fr2.html#ch_2_6">paragraphe 2.6</a>).</p>
+			<p>La fenêtre  &laquo;Scanner de Tag et de Nom de Fichier&raquo; est présentée sur la figure ci-contre. Sur cette figure, apparaissent les boutons de contôle suivants :</p>		
+			<div><img class="droite" src="images/fen_scan1.png" alt="image fenêtre -Compléter le(s) Tag(s)-"/></div>
+			<ul class="liste1">
+				<li>bouton <img src="images/bouton_scan1.png" alt="bouton porte"/> : Après la saisie d'un masque, cliquer sur ce bouton lance le traitement automatique des champs d'information du tag de l'ensemble des fichiers audio sélectionnés.</li>
+				<li>bouton <img src="images/bouton_scan3.png" alt="bouton point d'interrogation"/> : Ouvre/Ferme la fenêtre  &laquo;Légende&raquo; (voir figure ci-contre) qui rappelle la correspondance entre code du masque et champ d'information du tag.</li>								
+				<li>bouton <img src="images/bouton_scan2.png" alt="bouton masque"/> : Ouvre/Ferme la fenêtre  &laquo;Editeur de Masque&raquo; (voir figure ci-contre) qui permet de choisir ou de créer le masque adapté à votre besoin. Elle permet, bien sûr, de sauvegarder ce nouveau masque pour tout traitement ultérieur du même type.</li>
+			</ul>
+			<p>La réussite de ce traitement est totalement conditionnée au choix du masque adapté aux données (nom du fichier et/ou nom du répertoire). Dans EasyTAG, de base, vous disposez d'une importante liste de modèles de masque (voir figure ci-contre). On voit qu'un masque est construit à partir d'un certain nombre de codes (%a, %b, %t, &#8230;) dont la signification est précisée dans la fenêtre  &laquo;Légende&raquo;.<br/>Pour vous guider dans le choix du masque, EasyTAG affiche immédiatement, en dessous de la zone de saisie du masque de la fenêtre  &laquo;Compléter Tag&raquo;, les informations extraites du nom du fichier et/ou du nom du répertoire.</p>
+			<hr class="fin_img"/>
+			
+			<p>Vous pouvez aussi créer votre propre modèle de masque pour correspondre au mieux au format du nom de vos fichiers audio et/ou du nom du répertoire les contenant. Pour mieux comprendre comment utiliser les codes, prenons deux exemples.</p>
+			<div class="droite"> 
+			<table>
+				<tr><th>Code</th><th>Champ du tag</th><th>Valeur extraite</th></tr>
+				<tr><td>%a</td><td>Artiste </td><td>Luke </td></tr>
+				<tr><td>%y</td><td> Année </td><td>2004 </td></tr>
+				<tr><td>%b</td><td> Album </td><td>La tête en arrière </td></tr>
+				<tr><td>%n</td><td> Piste </td><td>01 </td></tr>
+				<tr><td>%t</td><td> Titre </td><td>Comme un homme </td></tr>
+			</table>
+			</div>			
+			<p>Si le fichier dont on veut renseigner le tag et le masque choisi sont les suivants :</p>
+			<ul class="liste1">
+				<li><span class="entree">fichier</span> : <span class="entree">01 - Comme un homme.ogg</span> situé dans le répertoire <span class="entree">/media/musiques/Luke/2004 - La tête en arrière/</span>.</li>
+				<li><span class="entree">masque</span>  : "<span class="entree">%a/%y - %b/%n - %t</span>".</li>
+			</ul>
+			<p class="sans-retrait">Les informations extraites alors par l'application de ce masque sont données dans le tableau ci-contre.</p>
+			<hr class="fin_img"/>
+			
+			<p>Dans la liste des codes de la fenêtre  &laquo;Légende&raquo;, on voit qu'il existe un code "%i" qui ne correspond à aucun champ d'information du tag. Ce code permet d'extraire une information et de ne pas l'affecter à un champ particulier.</p>
+			<div class="droite"> 
+			<table>
+				<tr><th>Code</th><th>Champ du tag</th><th>Valeur extraite</th></tr>
+				<tr><td>%a</td><td>Artiste </td><td>Luke </td></tr>
+				<tr><td>%i</td><td>Aucun </td><td>disc </td></tr>
+				<tr><td>%b</td><td>Album </td><td>La tête en arrière </td></tr>
+				<tr><td>%y</td><td>Année </td><td>2004 </td></tr>
+				<tr><td>%n</td><td>Piste </td><td>01 </td></tr>
+				<tr><td>%t</td><td>Titre </td><td>Comme un homme </td></tr>
+			</table>
+			</div>
+
+			<p>Si le fichier dont on veut renseigner le tag et le masque choisi sont les suivants :</p>
+			<ul class="liste1">
+				<li><span class="entree">fichier</span> : <span class="entree">01 - Comme un homme.ogg</span> situé dans le répertoire <span class="entree">/media/musiques/Luke/disc - La tête en arrière(2004)/</span>.</li>
+				<li><span class="entree">masque</span>  : "<span class="entree">%a/%i - %b(%y)/%n - %t</span>".</li>
+			</ul>
+			<p class="sans-retrait">Les informations extraites alors par l'application de ce masque sont données dans le tableau ci-contre.</p>
+			<hr class="fin_img"/>
+			
+			<p>Une fois le choix du masque effectué, cliquer sur le bouton <img src="images/bouton_scan1.png" alt="bouton porte"/> permet de lancer alors le traitement automatique sur l'ensemble des fichiers selectionnés. Si les champs d'information du tag des fichiers sont déjà partiellement renseignés, vous pouvez remplacer toutes les anciennes valeurs des champs par les nouvelles valeurs extraites à la condition d'avoir coché la case <span class="entree">Ecraser les champs lors d'un Scan du tag</span> de l'onglet  &laquo;Scanner&raquo; du menu  &laquo;Préférences&raquo;.</p>
+
+<!--    Mode automatique via la base de données CDDB -->		
+		<h3><a name="ch_4_3" id="ch_4_3">4.3 - Mode automatique via la base de données CDDB.</a></h3>
+			<p>Si les fichiers sélectionnés constituent l'ensemble des fichiers d'un même album, il est alors possible d'utiliser le mode de traitement automatique via la base de données CDDB. En effet, sur internet, cette base de données répertorie les différentes informations d'un très grand nombre d'albums CD publiés. Il suffit alors de retouver l'album correspondant à vos fichiers pour pouvoir renseigner automatiquement l'ensemble des champs d'information du tag de ces fichiers. Deux modes d'interrogation de la base de données sont disponibles (un mode automatique et un mode manuel). Une bonne stratégie est d'utiliser, dans un premier temps, le mode automatique. Si ce dernier s'avère incapable d'identifier correctement l'album, vous pouvez vous rabattre sur le mode manuel et utiliser alors des mots clé pour guider la recherche.</p>
+
+			<h4><a name="ch_4_3_1" id="ch_4_3_1">4.3.1 - Recherche automatique.</a></h4>
+				<p>La recherche se fait par l'envoi à la base de données CDDB d'un paramètre nommé CddbID identifiant normalement le CD audio. Ce paramètre est calculé par EasyTAG à partir des caractéristiques des différentes plages du CD audio (durée totale du CD, nombre de plages, durée de chaque plage). De ce fait, il est nécessaire de sélectionner tous les fichiers de l'album (et seulement ceux-ci) et il est aussi nécessaire que ces derniers soient classés exactement comme dans le CD d'origine.</p>
+				<p>Une fois cette sélection effectuée, vous pouvez lancer l'interrogation de la base de données. La fenêtre correspondant au mode automatique est présentée sur la figure ci-contre. Pour lancer l'interrogation, cliquez sur le bouton  &laquo;Rechercher&raquo;.</p>			
+				<div class="img_c"><img src="images/fen_cddb1.png" alt="image fenêtre Recherche automatique"/></div>
+				<p>La liste des différents albums possibles trouvés dans la base de données (le cddbid n'étant pas unique) apparait alors dans la fenêtre &laquo;Résultats&raquo;. Sélectionnez une des lignes de cette liste pour visualiser à droite les différentes pistes de cet album. Les albums déja consultés sont affichés en rouge.</p>
+				<p>Une fois le bon album identifié, vous pouvez alors renseigner les champs d'information du tag des fichiers de cet album. Pour cela, il faut dans un premier temps, choisir quels champs mettre à jour. Il est possible de mettre à jour tous les champs ou seulement quelques uns choisis dans la liste (nom de fichier, titre, artiste &#8230;). Puis, dans un deuxième temps, cliquer sur le bouton &laquo;Appliquer&raquo; lance le traitement.  Si aucune piste de la fenêtre &laquo;Résultats&raquo; n'est sélectionnée, les champs d'information de l'ensemble des pistes seront modifiés. Par contre, si une piste particulière est sélectionnée, seuls les champs d'information du tag de cette piste seront mis à jour.</p>				
+
+			<h4><a name="ch_4_3_2" id="ch_4_3_2">4.3.2 - Recherche manuelle.</a></h4>
+				<p>Si aucun album n'a pu être identifié par la recherche automatique (fichiers audio du CD imcomplets &#8230;), vous pouvez toujours essayer une recherche manuelle en utilisant des mots clé (ces mots doivent être présents dans le nom de l'artiste, le nom de l'album ou bien encore dans le nom de la piste). La fenêtre correspondant à ce mode est présentée sur la figure suivante.</p>
+				<div class="img_c"><img src="images/fen_cddb2.png" alt="image fenêtre Recherche manuelle"/></div>
+				<p>Pour effectuer la recherche, il faut entrer les "bons" mots clé dans la zone  &laquo;Mots&raquo; puis cliquer sur le bouton  &laquo;Rechercher&raquo;. La liste des albums trouvés s'affiche alors dans la fenêtre  &laquo;Résultats &raquo;. La liste de résultats obtenue dans ce mode est identique à celle obtenue via l'outil de recherche du site freedb.org.</p>
+				<p>A ce stade, il faut noter que cette recherche peut s'avérer peu sélective et conduire à une liste d'albums trouvés de taille importante. Cette liste peut être réduite, soit :</p>
+				<ul class="liste1">
+					<li>En effectuant une recherche dans la liste des résultats. Pour cela, il faut entrer un mot clé dans la zone de saisie &laquo;Rechercher&raquo; de la fenêtre &laquo;Résultats&raquo;.</li>
+					<li>En faisant défiler la liste des albums et en pré-sélectionnant un certain nombre d'albums candidats. Ces albums sont affichés en rouge. Il suffit alors de cliquer sur le bouton <img src="images/bouton_scan6.png" alt="bouton liste rouge"/> pour ne conserver que les albums pré-sélectionnés.</li>
+				</ul>
+				<p>Dès que vous avez réussi à identifier le bon album, il suffit alors, pour renseigner les champs d'information du tag de vos fichiers, de procéder exactement comme dans le mode automatique.</p>
+
+<!--    Correction des tags via le scanner "Traiter les Champs" -->		
+		<h3><a name="ch_4_4" id="ch_4_4">4.4 - Correction des champs d'information du tag via le scanner "Traiter les Champs".</a></h3>
+			<p>Ce scanner ne doit être utilisé que si les noms des fichiers ou les différents champs d'information du tag des fichiers ont déjà été renseignés dans un premier temps. Il permet de rapidement uniformiser toutes ces chaînes de caractères en choisissant une mise en forme particulière.<br/>Ce scanner est accessible depuis le menu &laquo;Fichier&raquo; (voir <a href="USERS-GUIDE-11_fr2.html#ch_2_1_1">paragraphe 2.1.1</a>), le menu &laquo;Scanner&raquo; (voir <a href="USERS-GUIDE-11_fr2.html#ch_2_1_3">paragraphe 2.1.3</a>) ou depuis un menu contextuel (voir <a href="USERS-GUIDE-11_fr2.html#ch_2_6">paragraphe 2.6</a>).</p>
+			<div><img class="droite" src="images/fen_scan3.png" alt="image fenêtre -Traiter les Champs-"/></div>
+			<p>La fenêtre &laquo;Scanner de Tag et de Nom de Fichier&raquo; est présentée sur la figure ci-contre. Dans un premier temps, vous devez choisir sur quels champs effectuer le traitement. Cette sélection se fait, dans le haut de la fenêtre &laquo;Traiter Champs&raquo;, en cliquant sur les différents boutons correspondant aux différents champs. Les boutons des champs sélectionnés passent alors en grisé. Pour être complet, précisons la signification des deux boutons suivants :</p>
+			<ul class="liste1">
+				<li>bouton <img src="images/bouton_scan5.png" alt="bouton triangle"/> : Inverser la sélection des différents champs.</li>
+				<li>bouton <img src="images/bouton_scan4.png" alt="bouton carre"/> : Sélectionner/Désélectionner tous les champs.</li>
+			</ul>
+			<p>Une fois la sélection effectuée, il est possible de réaliser les traitements :</p>
+			<ul class="liste1">
+				<li>Remplacement de certains caractères (par exemple, élimination des caractères %20 du nom de fichier &#8230;).</li>
+				<li>Modification de la casse (transformation minuscule/majuscule).</li>
+				<li>Suppression de certains caractères en trop.</li>
+			</ul>
+
+			<p> Enfin, Cliquez sur le bouton <img src="images/bouton_scan1.png" alt="bouton porte"/>, lance les traitements de l'ensemble des différents champs des fichiers sélectionnés.</p>
+			<hr class="fin_img"/>
+
+<!-- FIN EDITER/CORRIGER LES TAGS	=========================================================-->				
+
+	<p class="img_c"><br/><a href="#haut_page">- RETOUR A LA TABLE DES MATIERES -</a></p>		
+</body>
+</html>

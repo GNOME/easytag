@@ -1,0 +1,42 @@
+# Makefile.mingw
+#
+# Author: hermanator12002@yahoo.com
+# Date 9/11/02
+# Description: Top Makefile for win32 (mingw) port of Gaim
+#
+
+EASYTAG_SRC = ./src
+EASYTAG_INSTALL_DIR = ./win32-install-dir
+PO = ./po
+
+##
+## Don't forget to change STATIC_PROTO_INIT, in config.h.mingw if you
+## change the status of a protocol (static/plugin)
+##
+
+all:
+	cp config.h.mingw config.h
+	$(MAKE) -C $(EASYTAG_SRC) -f Makefile.mingw
+
+install: all
+	$(MAKE) -C $(PO) -f Makefile.mingw install
+	$(MAKE) -C $(EASYTAG_SRC) -f Makefile.mingw install
+
+
+installer:
+	$(MAKENSIS) /DGAIM_VERSION="$(VERSION)" /DWITH_GTK gaim-installer.nsi
+
+installer_nogtk:
+	$(MAKENSIS) /DGAIM_VERSION="$(VERSION)" gaim-installer.nsi
+
+installer_debug:
+	$(MAKENSIS) /DGAIM_VERSION="$(VERSION)" /DDEBUG gaim-installer.nsi
+
+installers: installer installer_nogtk
+
+
+clean:
+	$(MAKE) -C $(PO) -f Makefile.mingw clean
+	$(MAKE) -C $(EASYTAG_SRC) -f Makefile.mingw clean
+	rm -rf config.h $(EASYTAG_INSTALL_DIR)
+	rm -rf easytag.exe
