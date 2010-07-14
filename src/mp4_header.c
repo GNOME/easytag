@@ -44,7 +44,7 @@
 #undef PACKAGE_STRING
 #undef PACKAGE_TARNAME
 #undef PACKAGE_VERSION
-#include <mp4.h>
+#include <mp4v2/mp4v2.h>
 
 
 /****************
