@@ -1,3 +1,21 @@
+2.1.2 - July 12th, 2007 :
+=========================
+    * Added an option to update modification time of the parent directory when 
+      changing tag values of a file (useful for Amarok for example),
+    * Added autoscroll in log view,
+    * Added new Swedish documentation (thanks to Anders Strömer),
+    * Fixed a problem to display the title in the Cddb window with translation
+      languages (bug introduced in version 2.1.1),
+    * Fixed the loose of focus after saving files : now the same control keep 
+      again the focus,
+    * Fixed a mistake in the configure script (thanks to Thomas Klausner),
+    * Swedish translation updated (thanks to Anders Strömer),
+    * Brazilian Portuguese translation updated (thanks to doutor.zero),
+    * Polish translation updated (thanks to Michał Smoczyk),
+    * German translation updated (thanks to Götz Waschk),
+    * French translation updated.
+
+
 2.1.1 - July 4th, 2007 :
 ========================
     * Added support of ID3v2.4 tags by using library libid3tag (thanks to Alexey

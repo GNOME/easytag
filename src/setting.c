@@ -139,14 +139,15 @@ tConfigVariable Config_Variables[] =
     {"sorting_file_mode",                    CV_TYPE_INT,     &SORTING_FILE_MODE                        },
     {"sorting_file_case_sensitive",          CV_TYPE_BOOL,    &SORTING_FILE_CASE_SENSITIVE              },
 
-    {"replace_illegal_character_in_filename",CV_TYPE_BOOL,    &REPLACE_ILLEGAL_CHARACTERS_IN_FILENAME   },
-    {"filename_extension_lower_case",        CV_TYPE_BOOL,    &FILENAME_EXTENSION_LOWER_CASE            },
-    {"filename_extension_upper_case",        CV_TYPE_BOOL,    &FILENAME_EXTENSION_UPPER_CASE            },
-    {"filename_extension_no_change",         CV_TYPE_BOOL,    &FILENAME_EXTENSION_NO_CHANGE             },
-    {"preserve_modification_time",           CV_TYPE_BOOL,    &PRESERVE_MODIFICATION_TIME               },
-    {"filename_character_set_other",         CV_TYPE_BOOL,    &FILENAME_CHARACTER_SET_OTHER             },
-    {"filename_character_set_approximate",   CV_TYPE_BOOL,    &FILENAME_CHARACTER_SET_APPROXIMATE       },
-    {"filename_character_set_discard",       CV_TYPE_BOOL,    &FILENAME_CHARACTER_SET_DISCARD           },
+    {"replace_illegal_character_in_filename",          CV_TYPE_BOOL,    &REPLACE_ILLEGAL_CHARACTERS_IN_FILENAME   },
+    {"filename_extension_lower_case",                  CV_TYPE_BOOL,    &FILENAME_EXTENSION_LOWER_CASE            },
+    {"filename_extension_upper_case",                  CV_TYPE_BOOL,    &FILENAME_EXTENSION_UPPER_CASE            },
+    {"filename_extension_no_change",                   CV_TYPE_BOOL,    &FILENAME_EXTENSION_NO_CHANGE             },
+    {"preserve_modification_time",                     CV_TYPE_BOOL,    &PRESERVE_MODIFICATION_TIME               },
+    {"update_parent_directory_modification_time",      CV_TYPE_BOOL,    &UPDATE_PARENT_DIRECTORY_MODIFICATION_TIME},
+    {"filename_character_set_other",                   CV_TYPE_BOOL,    &FILENAME_CHARACTER_SET_OTHER             },
+    {"filename_character_set_approximate",             CV_TYPE_BOOL,    &FILENAME_CHARACTER_SET_APPROXIMATE       },
+    {"filename_character_set_discard",                 CV_TYPE_BOOL,    &FILENAME_CHARACTER_SET_DISCARD           },
 
     {"write_id3_tags_in_flac_file",                    CV_TYPE_BOOL,  &WRITE_ID3_TAGS_IN_FLAC_FILE                     },
     {"strip_tag_when_empty_fields",                    CV_TYPE_BOOL,  &STRIP_TAG_WHEN_EMPTY_FIELDS                     },
@@ -396,6 +397,7 @@ void Init_Config_Variables (void)
     FILENAME_EXTENSION_UPPER_CASE               = 0;
     FILENAME_EXTENSION_NO_CHANGE                = 0;
     PRESERVE_MODIFICATION_TIME                  = 1;
+    UPDATE_PARENT_DIRECTORY_MODIFICATION_TIME   = 0;
 
     FILENAME_CHARACTER_SET_OTHER                = 1;
     FILENAME_CHARACTER_SET_APPROXIMATE          = 0;
@@ -653,24 +655,25 @@ void Apply_Changes_Of_Preferences_Window (void)
         MESSAGE_BOX_POSITION_CENTER_ON_PARENT   = GTK_TOGGLE_BUTTON(MessageBoxPositionCenterOnParent)->active;
 
         if (AUDIO_FILE_PLAYER) g_free(AUDIO_FILE_PLAYER);
-        AUDIO_FILE_PLAYER           = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(FilePlayerCombo)->child)));
+        AUDIO_FILE_PLAYER                       = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(FilePlayerCombo)->child)));
 
         /* File Settings */
-        REPLACE_ILLEGAL_CHARACTERS_IN_FILENAME = GTK_TOGGLE_BUTTON(ReplaceIllegalCharactersInFilename)->active;
-        FILENAME_EXTENSION_LOWER_CASE          = GTK_TOGGLE_BUTTON(FilenameExtensionLowerCase)->active;
-        FILENAME_EXTENSION_UPPER_CASE          = GTK_TOGGLE_BUTTON(FilenameExtensionUpperCase)->active;
-        FILENAME_EXTENSION_NO_CHANGE           = GTK_TOGGLE_BUTTON(FilenameExtensionNoChange)->active;
-        PRESERVE_MODIFICATION_TIME             = GTK_TOGGLE_BUTTON(PreserveModificationTime)->active;
+        REPLACE_ILLEGAL_CHARACTERS_IN_FILENAME    = GTK_TOGGLE_BUTTON(ReplaceIllegalCharactersInFilename)->active;
+        FILENAME_EXTENSION_LOWER_CASE             = GTK_TOGGLE_BUTTON(FilenameExtensionLowerCase)->active;
+        FILENAME_EXTENSION_UPPER_CASE             = GTK_TOGGLE_BUTTON(FilenameExtensionUpperCase)->active;
+        FILENAME_EXTENSION_NO_CHANGE              = GTK_TOGGLE_BUTTON(FilenameExtensionNoChange)->active;
+        PRESERVE_MODIFICATION_TIME                = GTK_TOGGLE_BUTTON(PreserveModificationTime)->active;
+        UPDATE_PARENT_DIRECTORY_MODIFICATION_TIME = GTK_TOGGLE_BUTTON(UpdateParentDirectoryModificationTime)->active;
 
-        FILENAME_CHARACTER_SET_OTHER           = GTK_TOGGLE_BUTTON(FilenameCharacterSetOther)->active;
-        FILENAME_CHARACTER_SET_APPROXIMATE     = GTK_TOGGLE_BUTTON(FilenameCharacterSetApproximate)->active;
-        FILENAME_CHARACTER_SET_DISCARD         = GTK_TOGGLE_BUTTON(FilenameCharacterSetDiscard)->active;
+        FILENAME_CHARACTER_SET_OTHER              = GTK_TOGGLE_BUTTON(FilenameCharacterSetOther)->active;
+        FILENAME_CHARACTER_SET_APPROXIMATE        = GTK_TOGGLE_BUTTON(FilenameCharacterSetApproximate)->active;
+        FILENAME_CHARACTER_SET_DISCARD            = GTK_TOGGLE_BUTTON(FilenameCharacterSetDiscard)->active;
 
         /* Tag Settings */
-        WRITE_ID3_TAGS_IN_FLAC_FILE   = GTK_TOGGLE_BUTTON(WriteId3TagsInFlacFiles)->active;
-        STRIP_TAG_WHEN_EMPTY_FIELDS   = GTK_TOGGLE_BUTTON(StripTagWhenEmptyFields)->active;
-        CONVERT_OLD_ID3V2_TAG_VERSION = GTK_TOGGLE_BUTTON(ConvertOldId3v2TagVersion)->active;
-        USE_NON_STANDARD_ID3_READING_CHARACTER_SET      = GTK_TOGGLE_BUTTON(UseNonStandardId3ReadingCharacterSet)->active;
+        WRITE_ID3_TAGS_IN_FLAC_FILE                = GTK_TOGGLE_BUTTON(WriteId3TagsInFlacFiles)->active;
+        STRIP_TAG_WHEN_EMPTY_FIELDS                = GTK_TOGGLE_BUTTON(StripTagWhenEmptyFields)->active;
+        CONVERT_OLD_ID3V2_TAG_VERSION              = GTK_TOGGLE_BUTTON(ConvertOldId3v2TagVersion)->active;
+        USE_NON_STANDARD_ID3_READING_CHARACTER_SET = GTK_TOGGLE_BUTTON(UseNonStandardId3ReadingCharacterSet)->active;
 
 #ifdef ENABLE_ID3LIB
         active = gtk_combo_box_get_active(GTK_COMBO_BOX(FileWritingId3v2VersionCombo));
@@ -682,30 +685,30 @@ void Apply_Changes_Of_Preferences_Window (void)
         FILE_READING_ID3V1V2_CHARACTER_SET = Charset_Get_Name_From_Title(temp);
         g_free(temp);
 
-        FILE_WRITING_ID3V2_WRITE_TAG = GTK_TOGGLE_BUTTON(FileWritingId3v2WriteTag)->active;
-        FILE_WRITING_ID3V2_USE_CRC32 = GTK_TOGGLE_BUTTON(FileWritingId3v2UseCrc32)->active;
-        FILE_WRITING_ID3V2_USE_COMPRESSION = GTK_TOGGLE_BUTTON(FileWritingId3v2UseCompression)->active;
+        FILE_WRITING_ID3V2_WRITE_TAG                 = GTK_TOGGLE_BUTTON(FileWritingId3v2WriteTag)->active;
+        FILE_WRITING_ID3V2_USE_CRC32                 = GTK_TOGGLE_BUTTON(FileWritingId3v2UseCrc32)->active;
+        FILE_WRITING_ID3V2_USE_COMPRESSION           = GTK_TOGGLE_BUTTON(FileWritingId3v2UseCompression)->active;
         FILE_WRITING_ID3V2_USE_UNICODE_CHARACTER_SET = GTK_TOGGLE_BUTTON(FileWritingId3v2UseUnicodeCharacterSet)->active;
 
         active = gtk_combo_box_get_active(GTK_COMBO_BOX(FileWritingId3v2UnicodeCharacterSetCombo));
-        FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET = (active == 1) ? "UTF-16" : "UTF-8";
+        FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET     = (active == 1) ? "UTF-16" : "UTF-8";
 
         temp = Get_Active_Combo_Box_Item(GTK_COMBO_BOX(FileWritingId3v2NoUnicodeCharacterSetCombo));
-        FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET = Charset_Get_Name_From_Title(temp);
-            g_free(temp);
+        FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET  = Charset_Get_Name_From_Title(temp);
+        g_free(temp);
 
-        FILE_WRITING_ID3V2_ICONV_OPTIONS_NO            = GTK_TOGGLE_BUTTON(FileWritingId3v2IconvOptionsNo)->active;
-        FILE_WRITING_ID3V2_ICONV_OPTIONS_TRANSLIT      = GTK_TOGGLE_BUTTON(FileWritingId3v2IconvOptionsTranslit)->active;
-        FILE_WRITING_ID3V2_ICONV_OPTIONS_IGNORE        = GTK_TOGGLE_BUTTON(FileWritingId3v2IconvOptionsIgnore)->active;
+        FILE_WRITING_ID3V2_ICONV_OPTIONS_NO          = GTK_TOGGLE_BUTTON(FileWritingId3v2IconvOptionsNo)->active;
+        FILE_WRITING_ID3V2_ICONV_OPTIONS_TRANSLIT    = GTK_TOGGLE_BUTTON(FileWritingId3v2IconvOptionsTranslit)->active;
+        FILE_WRITING_ID3V2_ICONV_OPTIONS_IGNORE      = GTK_TOGGLE_BUTTON(FileWritingId3v2IconvOptionsIgnore)->active;
 
-        FILE_WRITING_ID3V1_WRITE_TAG = GTK_TOGGLE_BUTTON(FileWritingId3v1WriteTag)->active;
+        FILE_WRITING_ID3V1_WRITE_TAG                 = GTK_TOGGLE_BUTTON(FileWritingId3v1WriteTag)->active;
         temp = Get_Active_Combo_Box_Item(GTK_COMBO_BOX(FileWritingId3v1CharacterSetCombo));
-        FILE_WRITING_ID3V1_CHARACTER_SET = Charset_Get_Name_From_Title(temp);
-            g_free(temp);
+        FILE_WRITING_ID3V1_CHARACTER_SET             = Charset_Get_Name_From_Title(temp);
+        g_free(temp);
 
-        FILE_WRITING_ID3V1_ICONV_OPTIONS_NO            = GTK_TOGGLE_BUTTON(FileWritingId3v1IconvOptionsNo)->active;
-        FILE_WRITING_ID3V1_ICONV_OPTIONS_TRANSLIT      = GTK_TOGGLE_BUTTON(FileWritingId3v1IconvOptionsTranslit)->active;
-        FILE_WRITING_ID3V1_ICONV_OPTIONS_IGNORE        = GTK_TOGGLE_BUTTON(FileWritingId3v1IconvOptionsIgnore)->active;
+        FILE_WRITING_ID3V1_ICONV_OPTIONS_NO          = GTK_TOGGLE_BUTTON(FileWritingId3v1IconvOptionsNo)->active;
+        FILE_WRITING_ID3V1_ICONV_OPTIONS_TRANSLIT    = GTK_TOGGLE_BUTTON(FileWritingId3v1IconvOptionsTranslit)->active;
+        FILE_WRITING_ID3V1_ICONV_OPTIONS_IGNORE      = GTK_TOGGLE_BUTTON(FileWritingId3v1IconvOptionsIgnore)->active;
 
         /* Scanner */
         // Fill Tag Scanner

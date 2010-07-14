@@ -87,6 +87,7 @@ EXTRA_DIST= \
     doc/easytag.1.in \
     doc/EasyTAG_Documentation.html \
     doc/EasyTAG_Documentation_fr.html \
+    doc/EasyTAG_Documentation_sv.html \
     doc/users_guide_french/USERS-GUIDE-11_fr1.html \
     doc/users_guide_french/USERS-GUIDE-11_fr2.html \
     doc/users_guide_french/USERS-GUIDE-11_fr3.html \

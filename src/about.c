@@ -304,7 +304,7 @@ void Show_About_Window (void)
 #endif
 
 #ifndef ENABLE_SPEEX
-    Label = gtk_label_new(_("(Speep file support disabled)"));
+    Label = gtk_label_new(_("(Speex file support disabled)"));
     gtk_box_pack_start(GTK_BOX(VBox),Label,FALSE,TRUE,0);
 #endif
 
@@ -358,6 +358,7 @@ void Show_About_Window (void)
     gtk_misc_set_padding(GTK_MISC(Label),2,2);
     gtk_label_set_line_wrap(GTK_LABEL(Label),TRUE);
     gtk_container_add(GTK_CONTAINER(Frame),Label);
+    gtk_container_resize_children(GTK_CONTAINER(Frame));
 
 
     /*

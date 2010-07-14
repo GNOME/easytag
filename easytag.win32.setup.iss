@@ -17,7 +17,7 @@
 
 ; Here you can specify the current version of EasyTAG.
 #define APP_NAME 	"EasyTAG"
-#define APP_VERSION "2.1.1"
+#define APP_VERSION "2.1.2"
 #define APP_URL 	"http://easytag.sourceforge.net"
 #define APP_NAME_2 	"easytag"
 #define DEV_NAME 	"Jérôme COUDERC"

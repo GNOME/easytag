@@ -225,7 +225,7 @@ void Open_Cddb_Window (void)
     GtkWidget *PopupMenu;
     GtkWidget *Icon;
     GtkTooltips *Tips;
-    gchar *CddbAlbumList_Titles[] = { "", N_("Artist / Album"), N_("Category")};
+    gchar *CddbAlbumList_Titles[] = { NULL, N_("Artist / Album"), N_("Category")}; // Note: don't set "" instead of NULL else this will cause problem with translation language
     gchar *CddbTrackList_Titles[] = { "#", N_("Track Name"), N_("Time")};
     GtkCellRenderer* renderer;
     GtkTreeViewColumn* column;

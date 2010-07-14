@@ -39,6 +39,7 @@
 #include "genres.h"
 #include "setting.h"
 #include "misc.h"
+#include "log.h"
 #include "et_core.h"
 #include "msgbox.h"
 #include "charset.h"
@@ -892,7 +893,7 @@ gboolean Id3tag_Write_File_v24Tag (ET_File *ETFile)
 
     /*********
      * Genre *
-     **********
+     *********/
     /* Genre is written like this :
      *    - "<genre_id>"    -> "3"
      *    - "<genre_name>"  -> "EuroDance"

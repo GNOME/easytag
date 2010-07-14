@@ -1,0 +1,569 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>EasyTAG_Documentation_sv</title>
+  <meta name="description" content="Swedish translation by Anders Strömer" >
+  <style>
+    <!--
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 10;
+        padding: 0;
+        color: #000000;
+        background-color: #FDFDE7;
+        font-size: 1em;
+      }
+      p {
+	    text-align: justify;
+	    text-indent: 2em;
+      }
+	  #contents {
+	    font-size: 1.5em;
+	    color: blue;
+	  }
+	
+      h1 {
+	    text-align: center;
+        border-top: 1px solid #CCCCCC;
+        border-bottom: 1px solid #CCCCCC;
+        border-left: 1px solid #CCCCCC;
+        border-right: 1px solid #CCCCCC;
+	    color: blue;
+      }
+    h2 {
+    	font-size: 2em;
+    	text-decoration: underline;
+    	text-indent: 0pt;
+    	margin-top: 1em;
+    	color: blue;
+    }
+    h3, h4 {
+    	text-decoration: underline;
+    	margin-top: 1em;
+    	color: blue;
+    }
+    li {
+    	list-style-type: circle;
+    	text-indent: 2em;
+    }
+    .example-text {
+    	font-family: "Courier New", Courier, mono;
+    }
+    .question-text {
+    	font-family: Verdana, Arial, Helvetica, sans-serif;
+    	font-style: italic;
+    	padding-top: 1em;
+    	color: #666666;
+    }
+    table {
+    	border: 1px solid #666666;
+    	margin: 0px;
+    	padding: 0px;
+    }
+    th {
+    	background-color: #CCCCCC;
+    	border: 1px solid;
+    }
+
+    -->
+  </style>
+</head>
+<body>
+<h1>EasyTAG</h1>
+	<p id="contents">Innehåll:</p>
+	<ul>
+		<li><a href="#ch_1">1. Presentation och tillvägagång:</a></li>
+	<ul>
+		<li><a href="#ch_1_1">1.1. Beskrivning (baserad på version 
+		  1.99.9 för GTK2):</a></li>
+		<li><a href="#ch_1_2">1.2. Grundläggande tillvägagång av taggning/rättning av taggar:</a></li>
+		<ul>
+			<li><a href="#ch_1_2_1">1.2.1. Manuellt:</a></li>
+			<li><a href="#vh_1_2_2">1.2.2. Automatiskt med &#8220;Fyll Tagg&#8221; scannern:</a></li>
+			<li><a href="#ch_1_2_3">1.2.3. Automatiskt med CDDB:</a></li>
+			<li><a href="#ch_1_2_4">1.2.4. Rättning av fält med &#8220;Bearbeta Fält&#8221; 
+			  scannern:</a></li>
+			<li><a href="#ch_1_2_5">1.2.5. Automatisk rättning:</a></li>
+		</ul>
+		<li><a href="#ch_1_3">1.3. Grundläggande tillvägagångssätt för byte av fil och katalognamn:</a></li>
+		<ul>
+			<li><a href="#ch_1_3_1">1.3.1. Manuellt:</a></li>
+			<li><a href="#ch_1_3_2">1.3.2. Automatiskt med scanner:</a></li>
+			<li><a href="#ch_1_3_3">1.3.3. Automatiskt med CDDB:</a></li>
+			<li><a href="#ch_1_3_4">1.3.4. Automatiskt från en TXT fil:</a></li>
+		</ul>
+	</ul>
+	<li><a href="#ch_2">2. Tips:</a></li>
+</ul>
+<p><br /></p>
+<h2><a name="ch_1" id="ch_1"></a>1. Presentation och tillvägagång:</h2>
+<h3><a name="ch_1_1" id="ch_1"></a>1.1. Beskrivning (baserad på den senaste versionen 
+		  1.99.9 för GTK2):</h3>
+<p> EasyTAG är ett verktyg för att läsa och editera MP3, MP2,
+FLAC, Ogg Vorbis, MusePack och Monkey's Audio filer. EasyTAG är baserat på ett 
+enkelt och trevligt GTK+ gränssnitt vilket gör taggingen enklare.</p>
+<p> Med hjälp av träd-vyn väljer man enkelt katalog att söka filer som stöds (med eller utan under
+ kataloger). Alla filer som hittas
+visas i ett huvudfönster med varierande bakgrundsfärg för att snabbt kunna se vilka filer som ligger
+ i samma katalog.</p>
+<p> Ett annat användbart vy-läge organiserar filerna efter artist och album, för att få en snabb överblick
+ över samtliga artister i din samling, samt
+alla albumen för vardera artist.</p>
+<p> Gränssnittet visar grundläggande information om filerna, fil informationen tas från filhuvudena,
+ sådant som bitrate eller duration. I gränssnittet kan du bland annat
+editera de vanliga fil-taggarna : titel, artist, album, år, spårnummer,
+genre och kommentarer vilka tillhandahålls av ID3v1.1 och ID3v2.3 taggar.
+Men du kan även editera ID3v2.3 taggarnas specialfält så som : skivalbum,
+kompositör, originalartist/framförare, copyright, URL, avkodarnamn och
+tilllagda bilder.</p>
+<p> Tre olika scannrar tillåter dej att automatiskt utföra taggning utifrån filnamn , 
+döpa om filen och katalogen från taggen, och bearbeta fälten
+ (exempelvis för att ändra bokstavsstorlek). De två första scannrarna använder
+förhandsvisning för att undvika misstag när du använder dessa till att skapa dina egna sökvägar.</p>
+<p> Vid behov kan du använda en av de bägge CDDB lägena för att fylla i dina taggar med information
+ från någon av de fria FreeDB servrarna. Först, det automatiska sättet som försöker identifiera de valda
+  filerna med det korrekta CDDB albumet. Eller det manuella sättet som tillåter dej att själv söka på valfritt
+   ord i CDDB databasen för att du ska kunna identifiera rätt album.</p>
+<p> Det går även bra att ladda innehållet från en enkel TXT fil (innehållandes
+filnamnen) för att skriva filnamn.</p>
+<p> Det går att med hjälp av scannrarna tagga flera filer samtidigt, Men även med hjälp av knappar 
+för att koppla ett fält till flera filer (små knappar till höger om vardera fält).</p>
+<p> För att undvika misstag finns ångra och utför funktioner, dessa finns för att assistera användaren 
+så att det går att återskapa de sista ändringarna.</p>
+<p> Samlingen av filerna kan exporteras till en spelningslista för Winamp eller
+XMMS.</p>
+<p> För vardera fönster, titta efter de efterfrågade filerna.</p>
+<p> Efter utförda operationer över olika filer visas dom som ändrats och som behöver sparas i rött i listan över filer.<br>
+</p>
+<br>
+<p>Programmet är beroende av följande bibliotek:</p>
+<ul>
+  <li> GTK 2.4,</li>
+  <li> id3lib för att handskas med MP3 filer,</li>
+  <li> libogg,</li>
+  <li> libvorbis för Ogg Vorbis filer,</li>
+  <li> libFLAC (med libogg och libvorbis) för FLAC Vorbis filer,</li>
+  <li> mpeg4ip för MP4 filer.</li>
+</ul>
+<h3><a name="ch_1_2" id="ch_1"></a>1.2. Grundläggande tillvägagång av taggning/rättning av taggar:</h3>
+<p> EasyTAG tillhandahåller tre &#8220;grundläggande&#8221; tillvägagångssätt för att tagga eller döpa om dina filer
+: manuellt, automatiskt med hjälp av scannrar eller automatiskt med hjälp av
+CDDB. Nedan följer en beskrivning av var och en av dessa tillvägagångssätt.<br>
+Notera att för att lyckas bättre med taggingen (exempelvis när taggarna är tomma), så
+föredrar programmet att filerna klassificeras efter album, snarare än att ha samtliga filer i en katalog.<br>
+Vidare är det viktigt att veta att programmet enbart arbetar med dom filer som valts i listan. 
+Så när man sparar, använder scanner, eller använder de &#8220;små knapparna&#8221; och så vidare, påverkas enbart de valda filerna.
+Undantaget när man skriver in manuellt i ett fält. </p>
+<h4><a name="ch_1_2_1" id="ch_1"></a>1.2.1. Manuellt:</h4>
+<p> Omständigheter för att använda detta läge:</p>
+<ul>
+  <li> filerna är blandade</li>
+  <li> inte så många filer</li>
+  <li> små ändringar som behöver utföras,</li>
+  <li> lägga till bilder till MP3 taggar</li>
+</ul>
+<p> Om du endast har något enstaka album som behöver taggas, så är detta läget användbart.
+Du är tvungen att manuellt skriva in all information direkt i fälten.<br>
+Naturligtvis, när man arbetar med album, så är vissa värden typ, albumets namn, dess år
+och genre samma för alla filerna. Så för att kunna tagga enklare, används de
+ &#8220;små knapparna&#8221; till höger om vardera fält, för att sätta samma värde till de
+  andra valda filerna med ett klick.<br>
+Det går att välja genre från rulllistan (lista över ID3 genrar), men du kan även skriva in din egen.<br>
+Fältet år, erbjuder även det en liten förbättring, eftersom du enbart behöver skriva in de två sista siffrorna. 
+Den första delen fylls i automatiskt med rätt sekel och decennium. 
+Exempelvis om du enbart skriver &#8216;4&#8217;
+så kommer &#8216;2004&#8217; att visas, och om du skriver &#8216;94&#8217; så kommer &#8216;1994&#8217; att visas.<br>
+För att snabbt numrera spår med formatet xx/xx, använd de första &#8220;små knapparna&#8221;
+ med en markering för att automatiskt numrera om filerna i förhållande till dess position i listan 
+ (därför är ordningen på filerna viktig). Den andra av de &#8220;små knapparna&#8221; sätter automatiskt spårnumret på filerna.<br>
+För ett effektivt handhavande, för att skicka informationen från ett fält till nästa är det bara att trycka på enter-tangenten.
+Med tabb-tangenten sätter man fokus till de &#8220;små tangenterna&#8221;
+och dess motsvarande fält. Tangenterna PageUp och PageDown tillåter att du hoppar mellan nästa och föregående fil.<br>
+För att koppla en bild till en fil, välj bilden (JPG eller
+PNG) med &#8220;+&#8221; knappen (i bildfliken), eller Drag&amp;Släpp
+bilden direkt i bild-zonen. </p>
+<h4><a name="ch_1_2_2" id="ch_1"></a>1.2.2. Automatiskt med &#8220;Fyll Tagg&#8221; scannern:</h4>
+<p> Några av omständigheterna för att använda detta läge:</p>
+<ul>
+  <li> filer sorterade efter album</li>
+  <li> filnamnen eller huvudkatalogen innehåller tagginformation (artist,
+album, titel, &#8230;)</li>
+  <li> tomma eller inkorrekta taggar</li>
+</ul>
+<p> &#8220;Fyll Tagg&#8221; scannern använder en sökväg för att associera ord i filnamn och kataloger
+med tagginnehåll. På detta vis kan taggfält kompletteras automatiskt genom att klicka på den &#8220;gröna&#8221; knappen i
+scannerfönstret eller verktygslisten. Om taggar bara delvis kompletterats,
+använd möjligheten &#8220;Skriv över fält när scannar taggar&#8221; i &#8220;Scanner&#8221;
+fliken i fönstret &#8220;Inställningar&#8221;, för att byta ut alla värden i taggarna.<br>
+<br>
+Varje kod motsvara respektive fält, följ dessa regler :</p>
+<p>
+<table>
+  <tbody>
+    <tr>
+      <th>
+      <div align="center">Sträng associerad med kod:</div>
+      </th>
+      <th>Kommer att fylla i fält:</th>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%a</div>
+      </td>
+      <td>Artist</td>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%b</div>
+      </td>
+      <td>Album</td>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%c</div>
+      </td>
+      <td>Kommentar</td>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%p</div>
+      </td>
+      <td>Kompositör</td>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%r</div>
+      </td>
+      <td>Copyright</td>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%e</div>
+      </td>
+      <td>Avkodad av</td>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%g</div>
+      </td>
+      <td>Genre</td>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%i</div>
+      </td>
+      <td>Inget! (används för att ignorera en sträng)</td>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%l</div>
+      </td>
+      <td>Antal spår</td>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%o</div>
+      </td>
+      <td>Original artist</td>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%n</div>
+      </td>
+      <td>Spår</td>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%t</div>
+      </td>
+      <td>Titel</td>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%u</div>
+      </td>
+      <td>URL</td>
+    </tr>
+    <tr>
+      <td>
+      <div align="center">%y</div>
+      </td>
+      <td>År</td>
+    </tr>
+  </tbody>
+</table>
+<p></p>
+<p><br>
+<br>
+Notera : för att undvika misstag, rekommenderas det att man endast använder kod en gång i mönstret.
+Naturligtvis, precis som när man taggar manuellt, påverkas endast de valda filerna av scannern.<br>
+Du kan använda den fördefinierade sökvägen i listan, eller skriva din egen för att motsvara mönster och format 
+för dina egna filnamn och kataloger.<br>
+För att undvika misstag vid valet av rätt mönster, eller skriver det samma, visar en förhands granskning
+omedelbart resultatet innan detta skrivs till mönstret.<br>
+Om du behöver hjälp med de olika koderna, tryck på &#8220;Hjälp&#8221;-knappen
+(livbojen) för att se vad de olika koderna gör.<br>
+Om du behöver spara, editera eller sortera dina egna mönster, så får du tillgång till en liten editor i scannerfönstret
+ genom att klicka på &#8220;Mask&#8221;-knappen.<br>
+<br>
+Nedan följer ett exempel på hur man använder mönster :
+</p>
+<blockquote>
+  <p> a) det följande filnamnet :</p>
+  <p class="example-text"> &#8220;/mnt/MP3/EVANESCENCE &#8211; Fallen (2003) &#8211;
+Rock/01. Going Under.mp3&#8221;</p>
+  <p> b) med mönstret :</p>
+  <p class="example-text"> &#8220;%a - %b (%y) - %g/%n. %t&#8221;</p>
+  <p> c) fyller taggen med dessa strängar :</p>
+  <ul>
+    <li> Artist (%a) =&gt; EVANESCENCE</li>
+    <li> Album (%b) =&gt; Fallen</li>
+    <li> År (%y) =&gt; 2003</li>
+    <li> Genre (%g) =&gt; Rock</li>
+    <li> Spår (%n) =&gt; 01</li>
+    <li> Titel (%t) =&gt; Going Under</li>
+  </ul>
+</blockquote>
+<h4><a name="ch_1_2_3" id="ch_1"></a>1.2.3. Automatiskt med CDDB:</h4>
+<p> Några av omständigheterna för att använda detta läge:</p>
+<ul>
+  <li> filer sorterade efter album</li>
+  <li> ljudfilernas data måste överensstämma med original CD (för att använda Automatisk Sökning)</li>
+  <li> albumen hittas i CD-databasen</li>
+</ul>
+<p> För att använda CD databasen vid taggning, tillhandahålls två lägen.
+Först, försök med den automatiska funktionen, men om denna inte lyckas identifiera
+albumet, försök med den manuella sökfunktionen.</p>
+<p> Automatisk Sökning</p>
+<p> Denna inställning genererar CddbID från ljudfilerna för att använda denna vid förfrågning till
+databasen. Välj alla filerna i ett album (och enbart dessa) i rätt ordning
+ (samma ordning som på CD'n) och klicka på &#8220;Sök&#8221;-knappen.<br>
+De motsvarande album funna i CD-databasen listas nedan.
+Välj en av raderna för att visa spåren från albumet till höger.<br>
+Slutligen, för att fylla en tagg, välj raden av intresse i den senare listan och klicka på &#8220;Utför&#8221;-knappen.</p>
+<p> Manuell Sökning</p>
+<p> Om inget album hittades med föregående metod är din sista chans att försöka manuellt genom att skriva in sökord
+ (ord av typ artistnamn, albumnamn eller spårnamn). Denna form av sökning återger samma resultat som söktjänsten på freedb.org platsen
+  och kan resultera i många rader&#8230;<br>
+När man bläddrar igenom listan av album, visas dom som redan listats i rött. 
+Klicka på &#8220;röd rad knappen&#8221; för att behålla dessa rader och ta bort de andra.<br>
+När rätt album har hittats, följ samma metod som för
+&#8220;automatisk sökning&#8221; för att välja och lägga till albumet till dina filer. </p>
+<h4><a name="ch_1_2_4" id="ch_1"></a>1.2.4. Rättning av fält med &#8220;Bearbeta Fält&#8221; 
+			  scannern:</h4>
+<p> Några av omständigheterna för att använda detta läge:</p>
+<ul>
+  <li> filnamn eller taggar redan ifyllda</li>
+  <li> vill korrigera bokstavstorlek</li>
+  <li> vill byta ut vissa tecken</li>
+</ul>
+<p> Denna möjlighet är intressant för att snabbt normalisera dina filnamn eller taggar.
+ Exempelvis för att fixa bokstavsstorleken eller för att ändra vissa tecken (filnamn till små bokstäver och
+ord separerade med mellanslag).<br>
+Överst i fönstret, välj nedrullnings-knappen som motsvarar det fält du vill bearbeta,
+ och sedan klicka på den &#8220;gröna&#8221;-knappen för att köra scannern på de valda fälten. </p>
+<h4><a name="ch_1_2_5" id="ch_1"></a>1.2.5. Automatisk rättning:</h4>
+<p> Ibland när du laddar filer kommer du notera hur dessa visas i rött. 
+Detta beror på att det finns oanvändbara mellanrum som automatiskt tas bort ifrån fälten.<br>
+Så dessa filer visas i rött för att du ska kunna spara om dessa filer. (Notera att det inte går att stänga av
+ denna möjlighet). </p>
+<h3><a name="ch_1_3" id="ch_1"></a>1.3. Grundläggande tillvägagångssätt för byte av fil och katalognamn: 
+</h3>
+<h4><a name="ch_1_3_1" id="ch_1"></a>1.3.1. Manuellt:</h4>
+<p> Några av omständigheterna för att använda detta läge:</p>
+<ul>
+  <li> få antal ändringar som behöver göras&#8230; </li>
+</ul>
+<p>För att byta namnen på filer en och en (eftersom enbart de valda filerna kan ändras) skriv in det nya filnamnet i fältet &#8216;Fil&#8217; 
+i den övre högra delen av huvudfönstret.<br>
+Det gamla namnet står kvar i fil-vyn efter att filnamnet sparats, men det nya namnet visas i fil-fältet.<br>
+Om oanvändbara tecken skrivits (för Windows partitioner typ: &#8216;/&#8217;, &#8217;+&#8217;,
+och så vidare) kommer dessa automatiskt att bytas ut, så vida du inte har stängt av funktionen
+ &#8220;Byt ut olagliga tecken i filnamn (för Windows och
+CD-Rom)&#8221; på fliken &#8220;Fil-inställningar&#8221; fliken finns i preferens-fönstret.<br>
+</p>
+<p>För att byta ut namnet på en katalog direkt i bläddraren använder du pop upp menyn och väljer
+ &#8216;Döp om Katalogen&#8217; i fönstret som öppnas skriver du in det nya namnet för katalogen. 
+ Efter du klickat på 'Ok' byts namnet direkt och du kan inte ångra.<br>
+Från och med version 1.99.9 finns möjligheten att använda mönster för att byta namnet på kataloger direkt från taggarna.<br>
+</p>
+<p>Notera : Olikt scannern, när namnet byts manuellt på katalogen flyttas inte filerna som finns i denna. 
+Alla filer som finns i katalogen ligger kvar på sina platser (även dom filer som inte stöds av EasyTAG som exempelvis jpeg). </p>
+<h4><a name="ch_1_3_2" id="ch_1"></a>1.3.2. Automatiskt med scanner:</h4>
+<p> Några av omständigheterna för att använda detta läge:</p>
+<ul>
+  <li> taggar redan fyllda</li>
+</ul>
+<p> Med scanner-läget &#8220;Byt Namn på Fil och Katalog&#8221;, kan du enkelt
+ordna namnen på många filer och flytta dessa till nya kataloger. Eftersom de nya filnamnen kommer att baseras på taggarnas
+ värden är det viktigt att dessa är ordentligt ifyllda.<br>
+Likt &#8220;Fyll Tagg&#8221; scannern, använder den samma koder för att bygga filnamns-strukturen 
+utifrån värdena som skall skrivas till taggarna, och följer dessa regler:</p>
+<p>
+<table>
+  <tbody>
+    <tr>
+      <th>
+      <div align="center">För att använda fältet:</div>
+      </th>
+      <th>
+      <div align="center">Använd kod:</div>
+      </th>
+    </tr>
+    <tr>
+      <td>Artist</td>
+      <td>
+      <div align="center">%a</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Album</td>
+      <td>
+      <div align="center">%b</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Kommentar</td>
+      <td>
+      <div align="center">%c</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Kompositör</td>
+      <td>
+      <div align="center">%p</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Copyright</td>
+      <td>
+      <div align="center">%r</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Avkodad av</td>
+      <td>
+      <div align="center">%e</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Genre</td>
+      <td>
+      <div align="center">%g</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Antal spår</td>
+      <td>
+      <div align="center">%l</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Original artist</td>
+      <td>
+      <div align="center">%o</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Spår</td>
+      <td>
+      <div align="center">%n</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Titel</td>
+      <td>
+      <div align="center">%t</div>
+      </td>
+    </tr>
+    <tr>
+      <td>URL</td>
+      <td>
+      <div align="center">%u</div>
+      </td>
+    </tr>
+    <tr>
+      <td>År</td>
+      <td>
+      <div align="center">%y</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p></p>
+<p>Notera : en kod kan naturligtvis användas flera gånger, och precis som när man byter namn manuellt
+så påverkas enbart dom valda filerna av scannern. 
+De nya filnamnen syns enbart i &#8216;Fil&#8217;-rutan tills dom har sparats.<br>
+Scannern erbjuder även möjligheten att flytta filer till nya eller redan existerande kataloger. 
+Scannern kan använda absolut eller relativ sökväg.</p>
+<p>Relativ sökväg:</p>
+<p>Genom att använda en relativ sökväg, flyttas filerna till en underkatalog i förhållande till den katalog man står i.<br>
+Till exempel:<br>
+- filen &#8220;/mp3/evanescence/01. Going Under.mp3&#8221;<br>
+- med mönstret &#8220;%a - %b/%n - %t&#8221;<br>
+- kommer att flyttas till &#8220;/mp3/evanescence/EVANESCENCE &#8211; Fallen/01 - Going
+Under.mp3&#8221;<br>
+- om taggen innehåller värdena %a = EVANESCENCE, %b = Fallen, %n = 01 och
+%t = Going Under</p>
+<p> Absolut sökväg:</p>
+<p> Genom att använda en absolut sökväg kan filerna flyttas till vilken katalog som helst.
+Den nuvarande sökvägen kan läggas till filen genom att klicka på ikonen till vänster om fältet 
+(en katalog med ett grönt &#8216;+&#8217;). Med denna möjlighet är det enklare att ändra nuvarande sökväg för en fil.<br>
+Till exempel:<br>
+- filen &#8220;/mp3/evanescence/01. Going Under.mp3&#8221;<br>
+- med mönstret &#8220;/mp3/%a - %b/%n - %t&#8221;<br>
+- kommer att flyttas till &#8220;/mp3/EVANESCENCE &#8211; Fallen/01 - Going Under.mp3&#8221;<br>
+- om taggen innehåller värdena %a = EVANESCENCE, %b = Fallen, %n = 01 och
+%t = Going Under</p>
+<p> Notera: Olikt manuellt namnbyte av kataloger så flyttar scannern filerna till den nya platsen. 
+Därför är det viktigt att känna till att filer som inte känns igen av EasyTAG inte kommer att flyttas, 
+utan dessa filer blir kvar på den gamla platsen. Filerna flyttas när du väljer att spara, så det går bra
+ att vid behov använda ångra funktionen. </p>
+<h4><a name="ch_1_3_3" id="ch_1"></a>1.3.3. Automatiskt med CDDB:</h4>
+<p> Precis som vid taggning av fält kan du använda resultatet från CDDB för det nya filnamnet. 
+Men det går enbart att byta själva filnamnet inte sökväg. Så därför kan du använda den andra metoden och
+ aktivera &#8216;Byt ut filnamn&#8217; scannern, vilket kommer att köras efter att resultatet lagts till filen. </p>
+<h4><a name="ch_1_3_4" id="ch_1"></a>1.3.4. Automatiskt från en TXT fil:</h4>
+<p> Några av omständigheterna för att använda detta läge:</p>
+<ul>
+  <li> det finns en textfil med spårnamn</li>
+  <li> filer sorterade efter album</li>
+</ul>
+<p> Med denna möjlighet kan du byta namnen på filer men inte på kataloger. 
+En enkel textfil innehållandes en lista över spårnamnen kommer att laddas och associeras med vardera rad i en fil.</p>
+<h2> <a name="ch_2" id="ch_1"></a>2. Tips:</h2>
+<p class="question-text">Hur kan jag få en fullständig överblick över samtliga taggar för varje fil?</p>
+<p> Öppna sökfönstret och genomför en sökning utan att ange någon parameter 
+(&#8220;Sök :&#8221;-fältet tomt). Som resultat visas samtliga filer.</p>
+<p class="question-text">Hur spela upp filer?</p>
+<p> Du kan välja att spela upp filerna direkt genom att använda ett externt program, typ XMMS. 
+Ovanför de valda filerna i fil-listan eller ovanför katalogerna i träd-vyn använd pop-upp menyn och klicka på &#8220;Starta Ljudspelare&#8221;. 
+Som default försöker programmet att öppna filer i &#8220;xmms &#8211;p&#8221; detta kan ändra i preferensfönstret. 
+Men du kan även efterfråga filer med hjälp av pop-upp menyns  &#8220;Öppna fil(er) med &#8230;&#8221; eller &#8220;Bläddra i kataloger med&#8230;&#8221;
+och skriva in &#8220;xmms &#8211;e&#8221;.</p>
+<p class="question-text">Kan filer organiseras efter artist och album?</p>
+<p> &#8220;Artist + Album&#8221; vyn är till för dej. För att aktivera vyn klicka på knappen i 
+verktygsfältet med ett &#8220;a huvud + en disk&#8221;. Detta läge gör det enklare att bläddra i en artists album.
+Det gör det även enklare att hitta taggar med fel.</p>
+<p class="question-text">Hur kan man köra programmet direkt från en katalog?</p>
+<p>Exempelvis för att låta EasyTAG ladda filerna i den katalog man befinner sej i,
+använd kommandot &#8220;easytag . &amp;&#8221;. På samma vis för att ladda från en annan katalog
+ använder du kommando raden: &#8220;easytag /fil-ljud-katalog&#8221;.</p>
+<p class="question-text">Taggar och filnamn har ändrats, men hur sparar jag enbart taggar?</p>
+<p>Efter du bytt namnen på filer eller rättat taggarna så som du vill ha dessa, kanske du endast vill spara taggarnas information. 
+När du sparar en fil får du en fråga om att bekräfta detta innan taggen sparas, och sedan en fråga om du vill byta filnamnet.<br>
+För att utföra samma operation på flera filer samtidigt, kan du använda dej av alternativen i dialogrutan:<br>
+- Bekräfta ändring av tagg: Klicka i rutan &#8220;Upprepa åtgärden för resterande filer&#8221; och
+klicka på &#8220;Ja&#8221;<br>
+- Bekräfta namnbyte på fil: Klicka i rutan &#8220;Upprepa åtgärden för resterande filer&#8221; och
+klicka på &#8220;Nej&#8221;</p>
+<p class="question-text">Hur ser man om ett fält inte har fyllts i?</p>
+<p>Det finns två sätt:<br>
+- Du kan sortera listan över filerna efter motsvarande kriterier.
+Tomma fält hamnar överst i listan. (Exempel: &#8220;sortera i stigande ordning efter artist&#8221;).<br>
+- Använd sökfönstret för att visa samtliga filer och identifiera dom &#8220;tomma&#8221;
+fälten. </p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,5 +1,5 @@
 %define    name      easytag
-%define    version   2.1.1
+%define    version   2.1.2
 %define    release   1
 %define    prefix    /usr
 
@@ -43,8 +43,8 @@ GTK2 interface makes tagging easier under GNU/Linux or Windows.
 
 Features:
   o View, edit, write tags of MP3, MP2 files (ID3 tag with pictures), FLAC files
-    (FLAC Vorbis tag), Ogg Vorbis files (Ogg Vorbis tag), MP4/AAC (MP4/AAC tag),
-    MusePack, Monkey's Audio and WavPack files (APE tag),
+    (FLAC Vorbis tag), Ogg Vorbis and Speex files (Ogg Vorbis tag), MP4/AAC 
+    (MP4/AAC tag), MusePack, Monkey's Audio and WavPack files (APE tag),
   o Can edit more tag fields : Title, Artist, Album, Disc Album, Year, Track
     Number, Genre, Comment, Composer, Original Artist/Performer, Copyright, URL
     and Encoder name,
@@ -118,6 +118,9 @@ rm -rf ${RPM_BUILD_ROOT}
 
 
 %changelog
+* Fri Jun 1 2007 Jerome Couderc <easytag@gmail.com>
+  - Updated (Build)Requires entries for libid3tag
+
 * Mon Feb 21 2007 Jerome Couderc <easytag@gmail.com>
   - Updated to generate doc package
 

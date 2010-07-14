@@ -789,17 +789,18 @@ GtkWidget *Create_Tag_Area (void)
     gtk_table_attach(GTK_TABLE(Table),CommentEntry,1,10,5,6,
                      GTK_EXPAND|GTK_FILL,GTK_EXPAND|GTK_FILL,TablePadding,TablePadding);
 
-    // Use of a text view instead of an entry...
-    //ScrollWindow = gtk_scrolled_window_new(NULL,NULL);
-    //gtk_table_attach_defaults(GTK_TABLE(Table),ScrollWindow,1,10,5,6);
-    //gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(ScrollWindow), GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
-    //gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(ScrollWindow), GTK_SHADOW_IN);
-    //gtk_widget_set_size_request(ScrollWindow,-1,52); // Display ~3 lines...
-    //TextBuffer = gtk_text_buffer_new(NULL);
-    //CommentView = gtk_text_view_new_with_buffer(TextBuffer);
-    //gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(CommentView), GTK_WRAP_WORD); // To not display the horizontal scrollbar
-    //gtk_container_add(GTK_CONTAINER(ScrollWindow),CommentView);
-    //Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(CommentView));
+	// Use of a text view instead of an entry...
+    /******ScrollWindow = gtk_scrolled_window_new(NULL,NULL);
+    gtk_table_attach(GTK_TABLE(Table),ScrollWindow,1,10,5,6,GTK_FILL,GTK_FILL,TablePadding,TablePadding);
+    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(ScrollWindow), GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
+    gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(ScrollWindow), GTK_SHADOW_IN);
+    gtk_widget_set_size_request(ScrollWindow,-1,52); // Display ~3 lines...
+    TextBuffer = gtk_text_buffer_new(NULL);
+    CommentView = gtk_text_view_new_with_buffer(TextBuffer);
+    gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(CommentView), GTK_WRAP_WORD); // To not display the horizontal scrollbar
+    gtk_container_add(GTK_CONTAINER(ScrollWindow),CommentView);
+    Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(CommentView));
+    *******/
 
     CommentMButton = gtk_button_new();
     gtk_widget_set_size_request(CommentMButton,MButtonSize,MButtonSize);
@@ -1620,6 +1621,9 @@ void Action_Select_First_File (void)
     Update_Command_Buttons_Sensivity();
     Scan_Rename_File_Generate_Preview();
     Scan_Fill_Tag_Generate_Preview();
+
+    if (SET_FOCUS_TO_FIRST_TAG_FIELD)
+        gtk_widget_grab_focus(GTK_WIDGET(TitleEntry));
 }
 
 
@@ -1716,6 +1720,9 @@ void Action_Select_Last_File (void)
     Update_Command_Buttons_Sensivity();
     Scan_Rename_File_Generate_Preview();
     Scan_Fill_Tag_Generate_Preview();
+
+    if (SET_FOCUS_TO_FIRST_TAG_FIELD)
+        gtk_widget_grab_focus(GTK_WIDGET(TitleEntry));
 }
 
 
@@ -2086,6 +2093,7 @@ gint Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
     double     fraction;
     GtkAction *uiaction;
     GtkWidget *TBViewMode;
+    GtkWidget *widget_focused;
     GtkTreePath *currentPath = NULL;
 
     if (!ETCore) return FALSE;
@@ -2095,6 +2103,9 @@ gint Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
 
     /* Save the current displayed data */
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
+
+    /* Save widget that has current focus, to give it again the focus after saving */
+    widget_focused = gtk_window_get_focus(GTK_WINDOW(MainWindow));
 
     /* Count the number of files to save */
     nb_files_to_save = 0;
@@ -2206,6 +2217,9 @@ gint Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
     Browser_Area_Set_Sensitive(TRUE);
     Tag_Area_Set_Sensitive(TRUE);
     File_Area_Set_Sensitive(TRUE);
+
+    /* Give again focus to the first entry, else the focus is passed to an other */
+    gtk_widget_grab_focus(GTK_WIDGET(widget_focused));
 
     gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), "");
     gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), 0);

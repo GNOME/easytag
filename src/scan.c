@@ -3381,16 +3381,17 @@ gboolean Mask_Editor_List_Key_Press (GtkWidget *widget, GdkEvent *event)
     if (event && event->type == GDK_KEY_PRESS) {
         GdkEventKey *kevent = (GdkEventKey *)event;
 
-        switch(kevent->keyval) {
-        case GDK_Delete:
-            Mask_Editor_List_Remove();
-            break;
-/*            case GDK_Up:
-            Mask_Editor_Clist_Move_Up();
-            break;
-        case GDK_Down:
-            Mask_Editor_Clist_Move_Down();
-            break;
+        switch(kevent->keyval)
+        {
+            case GDK_Delete:
+                Mask_Editor_List_Remove();
+                break;
+/*          case GDK_Up:
+                Mask_Editor_Clist_Move_Up();
+                break;
+            case GDK_Down:
+                Mask_Editor_Clist_Move_Down();
+                break;
 */      }
     }
     return TRUE;

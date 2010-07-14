@@ -67,6 +67,7 @@ struct _Log_Data
  * Prototypes *
  **************/
 gboolean Log_Popup_Menu_Handler (GtkMenu *menu, GdkEventButton *event);
+void     Log_List_Set_Row_Visible (GtkTreeModel *treeModel, GtkTreeIter *rowIter);
 void     Log_Print_Tmp_List (void);
 gchar   *Log_Format_Date (void);
 
@@ -162,6 +163,27 @@ gboolean Log_Popup_Menu_Handler (GtkMenu *menu, GdkEventButton *event)
     return FALSE;
 }
 
+
+/*
+ * Set a row visible in the log list (by scrolling the list)
+ */
+void Log_List_Set_Row_Visible (GtkTreeModel *treeModel, GtkTreeIter *rowIter)
+{
+    /*
+     * TODO: Make this only scroll to the row if it is not visible
+     * (like in easytag GTK1)
+     * See function gtk_tree_view_get_visible_rect() ??
+     */
+    GtkTreePath *rowPath;
+
+    if (!treeModel) return;
+
+    rowPath = gtk_tree_model_get_path(treeModel, rowIter);
+    gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(LogList), rowPath, NULL, FALSE, 0, 0);
+    gtk_tree_path_free(rowPath);
+}
+
+
 /*
  * Remove all lines in the log list
  */
@@ -221,6 +243,7 @@ void Log_Print (gchar const *format, ...)
                            LOG_ROW_BACKGROUND, NULL,
                            LOG_ROW_FOREGROUND, NULL,
                            -1);
+        Log_List_Set_Row_Visible(GTK_TREE_MODEL(logListModel), &iter);
         g_free(time);
     }else
     {
@@ -280,6 +303,7 @@ void Log_Print_Tmp_List (void)
                                LOG_ROW_BACKGROUND, NULL,
                                LOG_ROW_FOREGROUND, NULL,
                                -1);
+            Log_List_Set_Row_Visible(GTK_TREE_MODEL(logListModel), &iter);
         }
         
         if (!LogPrintTmpList->next) break;

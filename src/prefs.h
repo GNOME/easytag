@@ -67,6 +67,7 @@ GtkWidget *FilenameExtensionNoChange;
 GtkWidget *FilenameExtensionLowerCase;
 GtkWidget *FilenameExtensionUpperCase;
 GtkWidget *PreserveModificationTime;
+GtkWidget *UpdateParentDirectoryModificationTime;
 
 GtkWidget *FilenameCharacterSetOther;
 GtkWidget *FilenameCharacterSetApproximate;

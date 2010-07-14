@@ -468,6 +468,17 @@ void Open_OptionsWindow (void)
     gtk_tooltips_set_tip(Tips,PreserveModificationTime,_("Preserve the modification time "
         "(in file properties) when saving the file."),NULL);
 
+    /* Change directory modification time */
+    UpdateParentDirectoryModificationTime = gtk_check_button_new_with_label(_("Update modification time "
+        "of the parent directory of the file (recommended when using Amarok)"));
+    gtk_box_pack_start(GTK_BOX(vbox),UpdateParentDirectoryModificationTime,FALSE,FALSE,0);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(UpdateParentDirectoryModificationTime),UPDATE_PARENT_DIRECTORY_MODIFICATION_TIME);
+    gtk_tooltips_set_tip(Tips,UpdateParentDirectoryModificationTime,_("The modification time "
+        "of the parent directory of the file will be updated when saving tag the file. At the "
+        "present time it is automatically done only when renaming a file.\nThis feature is "
+        "interesting when using applications like Amarok. For performance reasons, they refresh "
+        "file informations by detecting changes of the parent directory."),NULL);
+
 
     /* Character Set for File Name */
     Frame = gtk_frame_new (_("Character Set for File Name"));

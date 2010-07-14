@@ -3,7 +3,7 @@ dnl AC_INIT(src/easytag.h)
 
 AC_PREREQ(2.53)
 
-AC_INIT(easytag, 2.1.1) dnl defines ($PACKAGE, $VERSION) - To set also in config.h.mingw
+AC_INIT(easytag, 2.1.2) dnl defines ($PACKAGE, $VERSION) - To set also in config.h.mingw
 
 AC_CONFIG_SRCDIR(src/easytag.h)
 dnl -------------------------------
@@ -250,8 +250,8 @@ if test "x$enable_mp3" = "xyes"; then
     AC_CHECK_HEADER(id3tag.h, [], [libid3tag_available=no])
     AC_CHECK_LIB(id3tag, id3_frame_field, [], [libid3tag_available=no], [-lz])
     if test "x$libid3tag_available" = "xno"; then
-    AC_MSG_RESULT(no)
-    enable_mp3="no"
+        AC_MSG_RESULT(no)
+        enable_mp3="no"
         echo "***"
         echo "*** Warning: MP3 file support disabled, libid3tag missing"
         echo "***"
@@ -260,7 +260,7 @@ if test "x$enable_mp3" = "xyes"; then
         AC_DEFINE(ENABLE_MP3,1,[Define for MP3 support])
     fi
 
-    if test "x$enable_id3v23" == "xyes"; then
+    if test "x$enable_id3v23" = "xyes"; then
         dnl Check which libs are required by id3lib, libid3.la is fucked up
         AC_SEARCH_LIBS(ID3Tag_Link,"id3" "id3 -lstdc++" "id3 -lz" "id3 -lz -lstdc++",,AC_MSG_WARN(id3lib not found); id3lib_available=no)
          

@@ -3624,7 +3624,7 @@ gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile)
 
     ETFileDescription = ETFile->ETFileDescription;
 
-    // Save permissions of the file (cause they may change with files on NFS)
+    // Save permissions and dates of the file (cause they may change with files on NFS)
     if ( stat(cur_filename,&statbuf)!=-1 )
         file_set_properties = TRUE;
     else
@@ -3685,6 +3685,17 @@ gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile)
 
     if (state==TRUE)
     {
+
+        // Update date and time of the parent directory of the file after changing the tag 
+        // value (ex: needed for Amarok for refreshing). Note that when renaming a file the
+        // parent directory is automatically updated.
+        if (UPDATE_PARENT_DIRECTORY_MODIFICATION_TIME)
+        {
+            gchar *path = g_path_get_dirname(cur_filename);
+            utime(g_path_get_dirname(cur_filename),NULL);
+            g_free(path);
+        }
+
         ET_Mark_File_Tag_As_Saved(ETFile);
         return TRUE;
     }else
