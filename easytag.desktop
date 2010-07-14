@@ -21,6 +21,4 @@ Icon=EasyTAG_icon
 Terminal=false
 Type=Application
 Categories=AudioVideo;AudioVideoEditing;GTK;
-X-Desktop-File-Install-Version=0.14
-MimeType=audio/x-mp3;application/ogg;x-directory/normal;
-
+MimeType=audio/x-mp3;application/ogg;
