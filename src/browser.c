@@ -84,6 +84,7 @@ GtkWidget    *BrowserList;     // List of files
 GtkListStore *fileListModel;
 GtkWidget    *BrowserLabel;
 GtkWidget    *BrowserButton;
+GtkWidget    *BrowserParentButton;
 GtkWidget    *BrowserNoteBook;
 GtkWidget    *BrowserArtistList;
 GtkListStore *artistListModel;
@@ -152,7 +153,7 @@ void        Browser_Entry_Activated (void);
 void        Browser_Entry_Disable   (void);
 void        Browser_Entry_Enable    (void);
 
-void        Browser_Button_Clicked  (void);
+void        Browser_Parent_Button_Clicked  (void);
 
 void        Browser_Artist_List_Load_Files        (ET_File *etfile_to_select);
 void        Browser_Artist_List_Row_Selected      (GtkTreeSelection *selection, gpointer data);
@@ -222,19 +223,22 @@ void Browser_Load_Home_Directory (void)
  */
 void Browser_Load_Default_Directory (void)
 {
-    gchar *temp;
-    temp = g_strdup(DEFAULT_PATH_TO_MP3);
-
-    if (temp && g_utf8_strlen(temp, -1)>0)
+    gchar *path_utf8;
+    gchar *path;
+    
+    path_utf8 = g_strdup(DEFAULT_PATH_TO_MP3);
+    if (!path_utf8 || strlen(path_utf8)<=0)
     {
-        Browser_Tree_Select_Dir(temp);
-    } else
-    {
-        g_free(temp);
-        temp = g_strdup(HOME_VARIABLE);
-        Browser_Tree_Select_Dir(HOME_VARIABLE);
+        g_free(path_utf8);
+        path_utf8 = g_strdup(HOME_VARIABLE);
     }
-    g_free(temp);
+
+    // 'DEFAULT_PATH_TO_MP3' is stored in UTF-8, we must convert it to the file system encoding before...
+    path = filename_from_display(path_utf8);
+    Browser_Tree_Select_Dir(path);
+    
+    g_free(path);
+    g_free(path_utf8);
 }
 
 
@@ -357,7 +361,7 @@ void Browser_Entry_Set_Text (gchar *text)
 /*
  * Button to go to parent directory
  */
-void Browser_Button_Clicked (void)
+void Browser_Parent_Button_Clicked (void)
 {
     gchar *parent_dir, *path;
 
@@ -531,6 +535,7 @@ gboolean Browser_List_Key_Press (GtkWidget *list, GdkEvent *event, gpointer data
                                    -1);
 
                 /* UTF-8 comparison */
+                //key_string = Try_To_Validate_Utf8_String(key_string);
                 if (g_utf8_validate(key_string, -1, NULL) == FALSE)
                 {
                     temp = convert_to_utf8(key_string);
@@ -708,24 +713,31 @@ gboolean Browser_Tree_Node_Selected (GtkTreeSelection *selection, gpointer user_
     if (ET_Check_If_All_Files_Are_Saved() != TRUE)
     {
         GtkWidget *msgbox = NULL;
-        gint button;
+        gint response;
 
-        msgbox = msg_box_new(_("Confirm..."),_("Some files have been modified but not "
-                                               "saved...\nDo you want to save them before changing the directory?"),
-                             GTK_STOCK_DIALOG_QUESTION,BUTTON_CANCEL,BUTTON_NO,BUTTON_YES,0);
-        msg_box_hide_check_button(MSG_BOX(msgbox));
-        button = msg_box_run(MSG_BOX(msgbox));
+        msgbox = msg_box_new(_("Confirm..."),
+                             GTK_WINDOW(MainWindow),
+                             NULL,
+                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                             _("Some files have been modified but not saved...\nDo you want to save them before "
+                             "changing the directory?"),
+                             GTK_STOCK_DIALOG_QUESTION,
+                             GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                             GTK_STOCK_NO,     GTK_RESPONSE_NO,
+                             GTK_STOCK_YES,    GTK_RESPONSE_YES,
+                             NULL);
+        response = gtk_dialog_run(GTK_DIALOG(msgbox));
         gtk_widget_destroy(msgbox);
-        switch (button)
+        switch (response)
         {
-            case BUTTON_YES:
+            case GTK_RESPONSE_YES:
                 if (Save_All_Files_With_Answer(FALSE)==-1)
                     return TRUE;
                 break;
-            case BUTTON_NO:
+            case GTK_RESPONSE_NO:
                 break;
-            case BUTTON_CANCEL:
-            case -1:
+            case GTK_RESPONSE_CANCEL:
+            case GTK_RESPONSE_NONE:
                 return TRUE;
         }
     }
@@ -818,6 +830,8 @@ gint Browser_Win32_Get_Drive_Root (gchar *drive, GtkTreeIter *rootNode, GtkTreeP
  * Browser_Tree_Select_Dir: Select the directory corresponding to the 'path' in
  * the tree browser, but it doesn't read it!
  * Check if path is correct before selecting it. And returns 1 on success, else 0.
+ *
+ * - "current_path" is in file system encoding (not UTF-8)
  */
 gint Browser_Tree_Select_Dir (gchar *current_path)
 {
@@ -840,6 +854,7 @@ gint Browser_Tree_Select_Dir (gchar *current_path)
     /* On win32 : stat("c:\path\to\dir") succeed, while stat("c:\path\to\dir\") fails */
     ET_Win32_Path_Remove_Trailing_Backslash(current_path);
 #endif
+
 
     /* Don't check here if the path is valid. It will be done later when 
      * selecting a node in the tree */
@@ -967,7 +982,7 @@ void Browser_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
 void Browser_List_Load_File_List (GList *etfilelist, ET_File *etfile_to_select)
 {
     gboolean activate_bg_color = 0;
-    GtkTreeIter row;
+    GtkTreeIter rowIter;
 
     if (!BrowserList) return;
 
@@ -975,9 +990,11 @@ void Browser_List_Load_File_List (GList *etfilelist, ET_File *etfile_to_select)
     etfilelist = g_list_first(etfilelist);
     while (etfilelist)
     {
-        guint fileKey = ((ET_File *)etfilelist->data)->ETFileKey;
+        guint fileKey                = ((ET_File *)etfilelist->data)->ETFileKey;
         gchar *current_filename_utf8 = ((File_Name *)((ET_File *)etfilelist->data)->FileNameCur->data)->value_utf8;
-        gchar *basename_utf8 = g_path_get_basename(current_filename_utf8);
+        gchar *basename_utf8         = g_path_get_basename(current_filename_utf8);
+        File_Tag *FileTag            = ((File_Tag *)((ET_File *)etfilelist->data)->FileTag->data);
+        gchar *track;
 
         // Change background color when changing directory (the first row must not be changed)
         if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(fileListModel), NULL) > 0)
@@ -996,24 +1013,39 @@ void Browser_List_Load_File_List (GList *etfilelist, ET_File *etfile_to_select)
             g_free(dir2_utf8);
         }
 
-        // File list displays the current filename (name on HD)
-        gtk_list_store_append(fileListModel, &row);
-        gtk_list_store_set(fileListModel, &row,
-                           LIST_FILE_NAME,      basename_utf8,
-                           LIST_FILE_POINTER,   etfilelist->data,
-                           LIST_FILE_KEY,       fileKey,
-                           LIST_FILE_OTHERDIR,  activate_bg_color,
+        // File list displays the current filename (name on HardDisk) and tag fields
+        gtk_list_store_append(fileListModel, &rowIter);
+        track = g_strconcat(FileTag->track ? FileTag->track : "",FileTag->track_total ? "/" : NULL,FileTag->track_total,NULL);
+
+        gtk_list_store_set(fileListModel, &rowIter,
+                           LIST_FILE_NAME,          basename_utf8,
+                           LIST_FILE_POINTER,       etfilelist->data,
+                           LIST_FILE_KEY,           fileKey,
+                           LIST_FILE_OTHERDIR,      activate_bg_color,
+                           LIST_FILE_TITLE,         FileTag->title,
+                           LIST_FILE_ARTIST,        FileTag->artist,
+                           LIST_FILE_ALBUM,         FileTag->album,
+                           LIST_FILE_YEAR,          FileTag->year,
+                           LIST_FILE_TRACK,         track,
+                           LIST_FILE_GENRE,         FileTag->genre,
+                           LIST_FILE_COMMENT,       FileTag->comment,
+                           LIST_FILE_COMPOSER,      FileTag->composer,
+                           LIST_FILE_ORIG_ARTIST,   FileTag->orig_artist,
+                           LIST_FILE_COPYRIGHT,     FileTag->copyright,
+                           LIST_FILE_URL,           FileTag->url,
+                           LIST_FILE_ENCODED_BY,    FileTag->encoded_by,
                            -1);
         g_free(basename_utf8);
+        g_free(track);
 
         if (etfile_to_select == etfilelist->data)
         {
-            Browser_List_Select_File_By_Iter(&row, TRUE);
+            Browser_List_Select_File_By_Iter(&rowIter, TRUE);
             //ET_Display_File_Data_To_UI(etfilelist->data);
         }
 
         // Set appearance of the row
-        Browser_List_Set_Row_Appearance(&row);
+        Browser_List_Set_Row_Appearance(&rowIter);
 
         etfilelist = g_list_next(etfilelist);
     }
@@ -1022,22 +1054,25 @@ void Browser_List_Load_File_List (GList *etfilelist, ET_File *etfile_to_select)
 
 /*
  * Update state of files in the list after changes (without clearing the list model!)
- *  - Refresh filename is file saved,
- *  - Change color is something change on the file
+ *  - Refresh 'filename' is file saved,
+ *  - Change color is something changed on the file
  */
 void Browser_List_Refresh_Whole_List (void)
 {
-    ET_File *ETFile;
+    ET_File   *ETFile;
+    File_Tag  *FileTag;
+    File_Name *FileName;
     //GtkTreeIter iter;
     GtkTreePath *currentPath = NULL;
     GtkTreeIter iter;
     gint row;
     gchar *current_basename_utf8;
+    gchar *track;
     gboolean valid;
     GtkWidget *TBViewMode;
 
-    if (!ETCore->ETFileDisplayedList || !BrowserList ||
-        gtk_tree_model_iter_n_children(GTK_TREE_MODEL(fileListModel), NULL) == 0)
+    if (!ETCore->ETFileDisplayedList || !BrowserList
+    ||  gtk_tree_model_iter_n_children(GTK_TREE_MODEL(fileListModel), NULL) == 0)
     {
         return;
     }
@@ -1053,12 +1088,33 @@ void Browser_List_Refresh_Whole_List (void)
     valid = gtk_tree_model_get_iter(GTK_TREE_MODEL(fileListModel), &iter, currentPath);
     while (valid)
     {
-        // Refresh filename
+        // Refresh filename and other fields
         gtk_tree_model_get(GTK_TREE_MODEL(fileListModel), &iter,
                            LIST_FILE_POINTER, &ETFile, -1);
-        current_basename_utf8 = g_path_get_basename( ((File_Name *)ETFile->FileNameCur->data)->value_utf8 );
-        gtk_list_store_set(fileListModel, &iter, LIST_FILE_NAME, current_basename_utf8, -1);
+        
+        FileName = (File_Name *)ETFile->FileNameCur->data;
+        FileTag  = (File_Tag *)ETFile->FileTag->data;
+
+        current_basename_utf8 = g_path_get_basename(FileName->value_utf8);
+        track = g_strconcat(FileTag->track ? FileTag->track : "",FileTag->track_total ? "/" : NULL,FileTag->track_total,NULL);
+        
+        gtk_list_store_set(fileListModel, &iter, 
+                           LIST_FILE_NAME,          current_basename_utf8,
+                           LIST_FILE_TITLE,         FileTag->title,
+                           LIST_FILE_ARTIST,        FileTag->artist,
+                           LIST_FILE_ALBUM,         FileTag->album,
+                           LIST_FILE_YEAR,          FileTag->year,
+                           LIST_FILE_TRACK,         track,
+                           LIST_FILE_GENRE,         FileTag->genre,
+                           LIST_FILE_COMMENT,       FileTag->comment,
+                           LIST_FILE_COMPOSER,      FileTag->composer,
+                           LIST_FILE_ORIG_ARTIST,   FileTag->orig_artist,
+                           LIST_FILE_COPYRIGHT,     FileTag->copyright,
+                           LIST_FILE_URL,           FileTag->url,
+                           LIST_FILE_ENCODED_BY,    FileTag->encoded_by,
+                           -1);
         g_free(current_basename_utf8);
+        g_free(track);
 
         Browser_List_Set_Row_Appearance(&iter);
 
@@ -1110,9 +1166,12 @@ void Browser_List_Refresh_File_In_List (ET_File *ETFile)
     GtkTreeSelection *selection;
     GtkTreeIter selectedIter;
     GtkTreePath *currentPath = NULL;
-    ET_File *file;
+    ET_File   *etfile;
+    File_Tag  *FileTag;
+    File_Name *FileName;
     gboolean row_found = FALSE;
-    gchar   *current_basename_utf8;
+    gchar *current_basename_utf8;
+    gchar *track;
     gboolean valid;
     gint row;
     gchar *artist, *album;
@@ -1133,8 +1192,8 @@ void Browser_List_Refresh_File_In_List (ET_File *ETFile)
         if (valid)
         {
             gtk_tree_model_get(GTK_TREE_MODEL(fileListModel), &selectedIter,
-                           LIST_FILE_POINTER, &file, -1);
-            if (ETFile->ETFileKey == file->ETFileKey)
+                           LIST_FILE_POINTER, &etfile, -1);
+            if (ETFile->ETFileKey == etfile->ETFileKey)
             {
                 row_found = TRUE;
             }
@@ -1153,8 +1212,8 @@ void Browser_List_Refresh_File_In_List (ET_File *ETFile)
             if (valid)
             {
                 gtk_tree_model_get(GTK_TREE_MODEL(fileListModel), &selectedIter,
-                                   LIST_FILE_POINTER, &file, -1);
-                if (ETFile->ETFileKey == file->ETFileKey)
+                                   LIST_FILE_POINTER, &etfile, -1);
+                if (ETFile->ETFileKey == etfile->ETFileKey)
                 {
                     row_found = TRUE;
                 }
@@ -1168,13 +1227,14 @@ void Browser_List_Refresh_File_In_List (ET_File *ETFile)
     if (row_found == FALSE)
     {
         valid = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(fileListModel), &selectedIter);
-        while (valid && !row_found)
+        while (valid)
         {
             gtk_tree_model_get(GTK_TREE_MODEL(fileListModel), &selectedIter,
-                               LIST_FILE_POINTER, &file, -1);
-            if (ETFile->ETFileKey == file->ETFileKey)
+                               LIST_FILE_POINTER, &etfile, -1);
+            if (ETFile->ETFileKey == etfile->ETFileKey)
             {
                 row_found = TRUE;
+                break;
             } else
             {
                 valid = gtk_tree_model_iter_next(GTK_TREE_MODEL(fileListModel), &selectedIter);
@@ -1186,10 +1246,30 @@ void Browser_List_Refresh_File_In_List (ET_File *ETFile)
     if (row_found == FALSE)
         return;
 
-    // Displayed the filename
-    current_basename_utf8 = g_path_get_basename( ((File_Name *)file->FileNameCur->data)->value_utf8 );
-    gtk_list_store_set(fileListModel, &selectedIter, LIST_FILE_NAME, current_basename_utf8, -1);
+    // Displayed the filename and refresh other fields
+    FileName = (File_Name *)etfile->FileNameCur->data;
+    FileTag  = (File_Tag *)etfile->FileTag->data;
+    
+    current_basename_utf8 = g_path_get_basename(FileName->value_utf8);
+    track = g_strconcat(FileTag->track ? FileTag->track : "",FileTag->track_total ? "/" : NULL,FileTag->track_total,NULL);
+    
+    gtk_list_store_set(fileListModel, &selectedIter, 
+                       LIST_FILE_NAME,          current_basename_utf8,
+                       LIST_FILE_TITLE,         FileTag->title,
+                       LIST_FILE_ARTIST,        FileTag->artist,
+                       LIST_FILE_ALBUM,         FileTag->album,
+                       LIST_FILE_YEAR,          FileTag->year,
+                       LIST_FILE_TRACK,         track,
+                       LIST_FILE_GENRE,         FileTag->genre,
+                       LIST_FILE_COMMENT,       FileTag->comment,
+                       LIST_FILE_COMPOSER,      FileTag->composer,
+                       LIST_FILE_ORIG_ARTIST,   FileTag->orig_artist,
+                       LIST_FILE_COPYRIGHT,     FileTag->copyright,
+                       LIST_FILE_URL,           FileTag->url,
+                       LIST_FILE_ENCODED_BY,    FileTag->encoded_by,
+                       -1);
     g_free(current_basename_utf8);
+    g_free(track);
 
     // Change appearance (line to red) if filename changed
     Browser_List_Set_Row_Appearance(&selectedIter);
@@ -1262,53 +1342,80 @@ void Browser_List_Refresh_File_In_List (ET_File *ETFile)
 
 /*
  * Set the appearance of the row
+ *  - change background according LIST_FILE_OTHERDIR
+ *  - change foreground according file status (saved or not)
  */
 void Browser_List_Set_Row_Appearance (GtkTreeIter *iter)
 {
-    ET_File *rowETFile;
+    ET_File *rowETFile = NULL;
     gboolean otherdir = FALSE;
     GdkColor *backgroundcolor;
-    gchar *temp;
+    //gchar *temp = NULL;
 
     if (iter == NULL)
         return;
 
     // Get the ETFile reference
     gtk_tree_model_get(GTK_TREE_MODEL(fileListModel), iter, 
-                       LIST_FILE_POINTER, &rowETFile, 
-                       LIST_FILE_OTHERDIR, &otherdir, 
-                       LIST_FILE_NAME, &temp, -1);
+                       LIST_FILE_POINTER,   &rowETFile, 
+                       LIST_FILE_OTHERDIR,  &otherdir, 
+                       //LIST_FILE_NAME,      &temp, 
+                       -1);
 
+    // Must change background color?
     if (otherdir)
         backgroundcolor = &LIGHT_BLUE;
     else
         backgroundcolor = NULL;
 
-    // Set text to bold/red if filename or tag changed
+    // Set text to bold/red if 'filename' or 'tag' changed
     if ( ET_Check_If_File_Is_Saved(rowETFile) == FALSE )
     {
         if (CHANGED_FILES_DISPLAYED_TO_BOLD)
         {
             gtk_list_store_set(fileListModel, iter, 
-                               LIST_FONT_WEIGHT, PANGO_WEIGHT_BOLD, 
+                               LIST_FONT_WEIGHT,    PANGO_WEIGHT_BOLD, 
                                LIST_ROW_BACKGROUND, backgroundcolor, 
                                LIST_ROW_FOREGROUND, NULL, -1);
         } else
         {
             gtk_list_store_set(fileListModel, iter, 
-                               LIST_FONT_WEIGHT, PANGO_WEIGHT_NORMAL, 
+                               LIST_FONT_WEIGHT,    PANGO_WEIGHT_NORMAL, 
                                LIST_ROW_BACKGROUND, backgroundcolor, 
                                LIST_ROW_FOREGROUND, &RED, -1);
         }
     } else
     {
         gtk_list_store_set(fileListModel, iter, 
-                           LIST_FONT_WEIGHT, PANGO_WEIGHT_NORMAL, 
+                           LIST_FONT_WEIGHT,    PANGO_WEIGHT_NORMAL, 
                            LIST_ROW_BACKGROUND, backgroundcolor, 
                            LIST_ROW_FOREGROUND, NULL ,-1);
     }
+
+    // Update text fields
+    // Don't do it here
+    /*if (rowETFile)
+    {
+        File_Tag *FileTag = ((File_Tag *)((ET_File *)rowETFile)->FileTag->data);
+        
+        gtk_list_store_set(fileListModel, iter, 
+                           LIST_FILE_TITLE,         FileTag->title,
+                           LIST_FILE_ARTIST,        FileTag->artist,
+                           LIST_FILE_ALBUM,         FileTag->album,
+                           LIST_FILE_YEAR,          FileTag->year,
+                           LIST_FILE_TRACK,         FileTag->track,
+                           LIST_FILE_GENRE,         FileTag->genre,
+                           LIST_FILE_COMMENT,       FileTag->comment,
+                           LIST_FILE_COMPOSER,      FileTag->composer,
+                           LIST_FILE_ORIG_ARTIST,   FileTag->orig_artist,
+                           LIST_FILE_COPYRIGHT,     FileTag->copyright,
+                           LIST_FILE_URL,           FileTag->url,
+                           LIST_FILE_ENCODED_BY,    FileTag->encoded_by,
+                           -1);
+    }*/
+    
     // Frees allocated item from gtk_tree_model_get...
-    g_free(temp);
+    //g_free(temp);
 }
 
 
@@ -1518,7 +1625,7 @@ ET_File *Browser_List_Select_File_By_DLM (const gchar* string, gboolean select_i
         do
         {
             gtk_tree_model_get(GTK_TREE_MODEL(fileListModel), &iter,
-                               LIST_FILE_NAME, &current_filename,
+                               LIST_FILE_NAME,    &current_filename,
                                LIST_FILE_POINTER, &current_etfile, -1);
             current_title = ((File_Tag *)current_etfile->FileTag->data)->title;
 
@@ -1903,6 +2010,7 @@ void Browser_Artist_List_Load_Files (ET_File *etfile_to_select)
         // Add the new row
         gtk_list_store_append(artistListModel, &iter);
         gtk_list_store_set(artistListModel, &iter,
+                           ARTIST_PIXBUF,             "easytag-artist",
                            ARTIST_NAME,               artistname,
                            ARTIST_NUM_ALBUMS,         g_list_length(g_list_first(AlbumList)),
                            ARTIST_NUM_FILES,          nbr_files,
@@ -1961,7 +2069,8 @@ void Browser_Artist_List_Row_Selected(GtkTreeSelection* selection, gpointer data
     // Save the current displayed data
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
 
-    gtk_tree_model_get(GTK_TREE_MODEL(artistListModel), &iter, ARTIST_ALBUM_LIST_POINTER, &AlbumList, -1);
+    gtk_tree_model_get(GTK_TREE_MODEL(artistListModel), &iter, 
+                       ARTIST_ALBUM_LIST_POINTER, &AlbumList, -1);
     Browser_Album_List_Load_Files(AlbumList, NULL);
 }
 
@@ -1972,10 +2081,12 @@ void Browser_Artist_List_Set_Row_Appearance (GtkTreeIter *iter)
 {
     GList *AlbumList;
     GList *etfilelist;
+    gboolean not_all_saved = FALSE;
 
-    gtk_tree_model_get(GTK_TREE_MODEL(artistListModel), iter, ARTIST_ALBUM_LIST_POINTER, &AlbumList, -1);
+    gtk_tree_model_get(GTK_TREE_MODEL(artistListModel), iter, 
+                       ARTIST_ALBUM_LIST_POINTER, &AlbumList, -1);
 
-    // Reset the style of the row if one of the files was changed
+    // Change the style (red/bold) of the row if one of the files was changed
     while (AlbumList)
     {
         etfilelist = (GList *)AlbumList->data;
@@ -1986,18 +2097,31 @@ void Browser_Artist_List_Set_Row_Appearance (GtkTreeIter *iter)
                 if (CHANGED_FILES_DISPLAYED_TO_BOLD)
                 {
                     // Set the font-style to "bold"
-                    gtk_list_store_set(artistListModel, iter, ARTIST_FONT_WEIGHT, PANGO_WEIGHT_BOLD, -1);
+                    gtk_list_store_set(artistListModel, iter, 
+                                       ARTIST_FONT_WEIGHT, PANGO_WEIGHT_BOLD, -1);
                 } else
                 {
                     // Set the background-color to "red"
-                    gtk_list_store_set(artistListModel, iter, ARTIST_FONT_WEIGHT, PANGO_WEIGHT_NORMAL, ARTIST_ROW_FOREGROUND, &RED, -1);
+                    gtk_list_store_set(artistListModel, iter, 
+                                       ARTIST_FONT_WEIGHT,    PANGO_WEIGHT_NORMAL, 
+                                       ARTIST_ROW_FOREGROUND, &RED, -1);
                 }
+                not_all_saved = TRUE;
                 break;
             }
             etfilelist = etfilelist->next;
         }
         AlbumList = AlbumList->next;
     }
+    
+    // Reset style if all files saved
+    if (not_all_saved == FALSE)
+    {
+        gtk_list_store_set(artistListModel, iter, 
+                           ARTIST_FONT_WEIGHT,    PANGO_WEIGHT_NORMAL, 
+                           ARTIST_ROW_FOREGROUND, NULL, -1);
+    }
+    
 }
 
 
@@ -2037,8 +2161,8 @@ void Browser_Album_List_Load_Files (GList *albumlist, ET_File *etfile_to_select)
     }
     gtk_list_store_append(albumListModel, &iter);
     gtk_list_store_set(albumListModel, &iter,
-                       ALBUM_NAME, _("<All albums>"),
-                       ALBUM_NUM_FILES, g_list_length(g_list_first(etfilelist)),
+                       ALBUM_NAME,                _("<All albums>"),
+                       ALBUM_NUM_FILES,           g_list_length(g_list_first(etfilelist)),
                        ALBUM_ETFILE_LIST_POINTER, etfilelist,
                        -1);
 
@@ -2054,8 +2178,9 @@ void Browser_Album_List_Load_Files (GList *albumlist, ET_File *etfile_to_select)
         // Add the new row
         gtk_list_store_append(albumListModel, &iter);
         gtk_list_store_set(albumListModel, &iter,
-                           ALBUM_NAME, albumname,
-                           ALBUM_NUM_FILES, g_list_length(g_list_first(etfilelist)),
+                           ALBUM_PIXBUF,              "easytag-album",
+                           ALBUM_NAME,                albumname,
+                           ALBUM_NUM_FILES,           g_list_length(g_list_first(etfilelist)),
                            ALBUM_ETFILE_LIST_POINTER, etfilelist,
                            -1);
 
@@ -2114,7 +2239,8 @@ void Browser_Album_List_Row_Selected (GtkTreeSelection *selection, gpointer data
     if (!gtk_tree_selection_get_selected(selection, NULL, &iter))
         return;
 
-    gtk_tree_model_get(GTK_TREE_MODEL(albumListModel), &iter, ALBUM_ETFILE_LIST_POINTER, &etfilelist, -1);
+    gtk_tree_model_get(GTK_TREE_MODEL(albumListModel), &iter, 
+                       ALBUM_ETFILE_LIST_POINTER, &etfilelist, -1);
 
     // Save the current displayed data
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
@@ -2135,10 +2261,12 @@ void Browser_Album_List_Row_Selected (GtkTreeSelection *selection, gpointer data
 void Browser_Album_List_Set_Row_Appearance (GtkTreeIter *iter)
 {
     GList *etfilelist;
+    gboolean not_all_saved = FALSE;
 
-    gtk_tree_model_get(GTK_TREE_MODEL(albumListModel), iter, ALBUM_ETFILE_LIST_POINTER, &etfilelist, -1);
+    gtk_tree_model_get(GTK_TREE_MODEL(albumListModel), iter, 
+                       ALBUM_ETFILE_LIST_POINTER, &etfilelist, -1);
 
-    // Reset the style of the row if one of the files was changed
+    // Change the style (red/bold) of the row if one of the files was changed
     while (etfilelist)
     {
         if ( ET_Check_If_File_Is_Saved((ET_File *)etfilelist->data) == FALSE )
@@ -2146,15 +2274,27 @@ void Browser_Album_List_Set_Row_Appearance (GtkTreeIter *iter)
             if (CHANGED_FILES_DISPLAYED_TO_BOLD)
             {
                 // Set the font-style to "bold"
-                gtk_list_store_set(albumListModel, iter, ALBUM_FONT_WEIGHT, PANGO_WEIGHT_BOLD, -1);
+                gtk_list_store_set(albumListModel, iter, 
+                                   ALBUM_FONT_WEIGHT, PANGO_WEIGHT_BOLD, -1);
             } else
             {
                 // Set the background-color to "red"
-                gtk_list_store_set(albumListModel, iter, ALBUM_ROW_FOREGROUND, &RED, -1);
+                gtk_list_store_set(albumListModel, iter, 
+                                   ALBUM_FONT_WEIGHT,    PANGO_WEIGHT_NORMAL,
+                                   ALBUM_ROW_FOREGROUND, &RED, -1);
             }
+            not_all_saved = TRUE;
             break;
         }
         etfilelist = etfilelist->next;
+    }
+    
+    // Reset style if all files saved
+    if (not_all_saved == FALSE)
+    {
+        gtk_list_store_set(albumListModel, iter, 
+                           ALBUM_FONT_WEIGHT,    PANGO_WEIGHT_NORMAL,
+                           ALBUM_ROW_FOREGROUND, NULL, -1);
     }
 }
 
@@ -2306,13 +2446,13 @@ void Browser_Tree_Initialize (void)
             drive_dir_name = g_strconcat("(", drive_slashless, ") ", drive_label, NULL);
 
             gtk_tree_store_append(directoryTreeModel, &parent_iter, NULL);
-            gtk_tree_store_set(directoryTreeModel, &parent_iter,
-                       TREE_COLUMN_DIR_NAME, drive_dir_name,
-                       TREE_COLUMN_FULL_PATH, drive_backslashed,
-                       TREE_COLUMN_HAS_SUBDIR, TRUE,
-                       TREE_COLUMN_SCANNED, FALSE,
-                       TREE_COLUMN_PIXBUF, drive_pixmap,
-                       -1);
+            gtk_tree_store_set(directoryTreeModel,      &parent_iter,
+                               TREE_COLUMN_DIR_NAME,    drive_dir_name,
+                               TREE_COLUMN_FULL_PATH,   drive_backslashed,
+                               TREE_COLUMN_HAS_SUBDIR,  TRUE,
+                               TREE_COLUMN_SCANNED,     FALSE,
+                               TREE_COLUMN_PIXBUF,      drive_pixmap,
+                               -1);
             // Insert dummy node
             gtk_tree_store_append(directoryTreeModel, &dummy_iter, &parent_iter);
 
@@ -2328,11 +2468,11 @@ void Browser_Tree_Initialize (void)
 
     gtk_tree_store_append(directoryTreeModel, &parent_iter, NULL);
     gtk_tree_store_set(directoryTreeModel, &parent_iter,
-                       TREE_COLUMN_DIR_NAME, G_DIR_SEPARATOR_S,
-                       TREE_COLUMN_FULL_PATH, G_DIR_SEPARATOR_S,
-                       TREE_COLUMN_HAS_SUBDIR, TRUE,
-                       TREE_COLUMN_SCANNED, FALSE,
-                       TREE_COLUMN_PIXBUF, closed_folder_pixmap,
+                       TREE_COLUMN_DIR_NAME,    G_DIR_SEPARATOR_S,
+                       TREE_COLUMN_FULL_PATH,   G_DIR_SEPARATOR_S,
+                       TREE_COLUMN_HAS_SUBDIR,  TRUE,
+                       TREE_COLUMN_SCANNED,     FALSE,
+                       TREE_COLUMN_PIXBUF,      closed_folder_pixmap,
                        -1);
     // insert dummy node
     gtk_tree_store_append(directoryTreeModel, &dummy_iter, &parent_iter);
@@ -2431,7 +2571,7 @@ void Browser_Tree_Rename_Directory (gchar *last_path, gchar *new_path)
         {
             // ERROR! Could not find it!
             gchar *text_utf8 = filename_to_display(textsplit[i]);
-            Log_Print(_("Error: Searching for %s, could not find node %s in tree."), last_path, text_utf8);
+            Log_Print(LOG_ERROR,_("Error: Searching for %s, could not find node %s in tree."), last_path, text_utf8);
             g_strfreev(textsplit);
             g_free(text_utf8);
             return;
@@ -2447,7 +2587,7 @@ void Browser_Tree_Rename_Directory (gchar *last_path, gchar *new_path)
     new_basename = g_path_get_basename(new_path);
     new_basename_utf8 = filename_to_display(new_basename);
     gtk_tree_store_set(directoryTreeModel, &iter,
-                       TREE_COLUMN_DIR_NAME, new_basename_utf8,
+                       TREE_COLUMN_DIR_NAME,  new_basename_utf8,
                        TREE_COLUMN_FULL_PATH, new_path,
                        -1);
 
@@ -2475,7 +2615,7 @@ void Browser_Tree_Handle_Rename (GtkTreeIter *parentnode, gchar *old_path, gchar
     gchar *path_new;
 
     // If there are no children then nothing needs to be done!
-    if(!gtk_tree_model_iter_children(GTK_TREE_MODEL(directoryTreeModel), &iter, parentnode))
+    if (!gtk_tree_model_iter_children(GTK_TREE_MODEL(directoryTreeModel), &iter, parentnode))
         return;
 
     do
@@ -2498,7 +2638,7 @@ void Browser_Tree_Handle_Rename (GtkTreeIter *parentnode, gchar *old_path, gchar
         if(gtk_tree_model_iter_has_child(GTK_TREE_MODEL(directoryTreeModel), &iter))
             Browser_Tree_Handle_Rename(&iter, old_path, new_path);
 
-    } while(gtk_tree_model_iter_next(GTK_TREE_MODEL(directoryTreeModel), &iter));
+    } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(directoryTreeModel), &iter));
 
 }
 
@@ -2657,7 +2797,7 @@ static void expand_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *gtreePat
 
     gtk_tree_model_get(GTK_TREE_MODEL(directoryTreeModel), iter,
                        TREE_COLUMN_FULL_PATH, &parentPath,
-                       TREE_COLUMN_SCANNED, &treeScanned, -1);
+                       TREE_COLUMN_SCANNED,   &treeScanned, -1);
 
     if (treeScanned)
         return;
@@ -2681,6 +2821,7 @@ static void expand_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *gtreePat
                     fullpath_file = g_strdup(path);
 
                 dirname_utf8 = filename_to_display(dirent->d_name);
+                
                 //if (!dirname_utf8)
                 //{
                 //    gchar *escaped_temp = g_strescape(dirent->d_name, NULL);
@@ -2786,7 +2927,7 @@ static void collapse_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *treePa
  */
 GtkWidget *Create_Browser_Items (GtkWidget *parent)
 {
-    GtkWidget *VerticalBox;
+	GtkWidget *VerticalBox;
     GtkWidget *HBox;
     GtkWidget *ScrollWindowDirectoryTree;
     GtkWidget *ScrollWindowFileList;
@@ -2798,8 +2939,13 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     GtkTreeViewColumn *column;
     GtkTooltips *Tips;
     GtkWidget *PopupMenu;
-    gchar *ArtistList_Titles[] = {N_("Artist"),N_("# Albums"),N_("# Files")};
-    gchar *AlbumList_Titles[]  = {N_("Album"),N_("# Files")};
+    gchar *BrowserTree_Titles[] = {N_("Tree")};
+    gchar *BrowserList_Titles[] = {N_("File Name"),N_("Title"),N_("Artist"),N_("Album"),
+                                   N_("Year"),N_("Track"),N_("Genre"),N_("Comment"),
+                                   N_("Composer"),N_("Orig. Artist"),N_("Copyright"),
+                                   N_("URL"),N_("Encoded By")};
+    gchar *ArtistList_Titles[]  = {N_("Artist"),N_("# Albums"),N_("# Files")};
+    gchar *AlbumList_Titles[]   = {N_("Album"),N_("# Files")};
 
     Tips = gtk_tooltips_new();
     VerticalBox = gtk_vbox_new(FALSE,2);
@@ -2813,13 +2959,13 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     /*
      * The button to go to the parent directory
      */
-    BrowserButton = gtk_button_new();
+    BrowserParentButton = gtk_button_new();
     Icon = gtk_image_new_from_stock("easytag-parent-folder", GTK_ICON_SIZE_SMALL_TOOLBAR); // On Win32, GTK_ICON_SIZE_BUTTON enlarge the combobox...
-    gtk_container_add(GTK_CONTAINER(BrowserButton),Icon);
-    gtk_box_pack_start(GTK_BOX(HBox),BrowserButton,FALSE,FALSE,0);
-    gtk_button_set_relief(GTK_BUTTON(BrowserButton),GTK_RELIEF_NONE);
-    g_signal_connect(G_OBJECT(BrowserButton),"clicked",G_CALLBACK(Browser_Button_Clicked),NULL);
-    gtk_tooltips_set_tip(Tips,BrowserButton,_("Go to parent directory"),NULL);
+    gtk_container_add(GTK_CONTAINER(BrowserParentButton),Icon);
+    gtk_box_pack_start(GTK_BOX(HBox),BrowserParentButton,FALSE,FALSE,0);
+    gtk_button_set_relief(GTK_BUTTON(BrowserParentButton),GTK_RELIEF_NONE);
+    g_signal_connect(G_OBJECT(BrowserParentButton),"clicked",G_CALLBACK(Browser_Parent_Button_Clicked),NULL);
+    gtk_tooltips_set_tip(Tips,BrowserParentButton,_("Go to parent directory"),NULL);
 
     /*
      * The entry box for displaying path
@@ -2837,6 +2983,15 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     g_signal_connect(G_OBJECT(GTK_ENTRY(GTK_BIN(BrowserEntryCombo)->child)),"activate",G_CALLBACK(Browser_Entry_Activated),NULL);
     gtk_box_pack_start(GTK_BOX(HBox),BrowserEntryCombo,TRUE,TRUE,1);
     gtk_tooltips_set_tip(Tips,GTK_WIDGET(GTK_ENTRY(GTK_BIN(BrowserEntryCombo)->child)),_("Enter a directory to browse."),NULL);
+
+    /*
+     * The button to select a directory to browse
+     */
+    BrowserButton = gtk_button_new_from_stock(GTK_STOCK_OPEN);
+    gtk_box_pack_start(GTK_BOX(HBox),BrowserButton,FALSE,FALSE,1);
+    g_signal_connect_swapped(G_OBJECT(BrowserButton),"clicked",
+                             G_CALLBACK(File_Selection_Window_For_Directory),G_OBJECT(GTK_BIN(BrowserEntryCombo)->child));
+    gtk_tooltips_set_tip(Tips,BrowserButton,_("Select a directory to browse."),NULL);
 
 
     /*
@@ -2857,28 +3012,28 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
         /* get GTK's theme harddrive and removable icons and render it in a pixbuf */
         harddrive_pixmap =  gtk_icon_set_render_icon(gtk_style_lookup_icon_set(parent->style, GTK_STOCK_HARDDISK),
                                                      parent->style,
-                                                     gtk_widget_get_direction (parent),
+                                                     gtk_widget_get_direction(parent),
                                                      GTK_STATE_NORMAL,
                                                      GTK_ICON_SIZE_BUTTON,
                                                      parent, NULL);
 
         removable_pixmap =  gtk_icon_set_render_icon(gtk_style_lookup_icon_set(parent->style, GTK_STOCK_FLOPPY),
                                                      parent->style,
-                                                     gtk_widget_get_direction (parent),
+                                                     gtk_widget_get_direction(parent),
                                                      GTK_STATE_NORMAL,
                                                      GTK_ICON_SIZE_BUTTON,
                                                      parent, NULL);
 
         cdrom_pixmap =  gtk_icon_set_render_icon(gtk_style_lookup_icon_set(parent->style, GTK_STOCK_CDROM),
                                                  parent->style,
-                                                 gtk_widget_get_direction (parent),
+                                                 gtk_widget_get_direction(parent),
                                                  GTK_STATE_NORMAL,
                                                  GTK_ICON_SIZE_BUTTON,
                                                  parent, NULL);
 
         network_pixmap =  gtk_icon_set_render_icon(gtk_style_lookup_icon_set(parent->style, GTK_STOCK_NETWORK),
                                                    parent->style,
-                                                   gtk_widget_get_direction (parent),
+                                                   gtk_widget_get_direction(parent),
                                                    GTK_STATE_NORMAL,
                                                    GTK_ICON_SIZE_BUTTON,
                                                    parent, NULL);
@@ -2916,19 +3071,27 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
 
     /* The tree view */
     BrowserTree = gtk_tree_view_new_with_model(GTK_TREE_MODEL(directoryTreeModel));
-    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(BrowserTree), FALSE);
-    renderer = gtk_cell_renderer_pixbuf_new();
+    gtk_container_add(GTK_CONTAINER(ScrollWindowDirectoryTree),BrowserTree);
+    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(BrowserTree), TRUE);
+    
+    // Column for the pixbuf + text
     column = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_title(column, _(BrowserTree_Titles[0]));
+
+    // Cell of the column for the pixbuf
+    renderer = gtk_cell_renderer_pixbuf_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
     gtk_tree_view_column_set_attributes(column, renderer,
-                                       "pixbuf", TREE_COLUMN_PIXBUF, NULL);
+                                       "pixbuf", TREE_COLUMN_PIXBUF, 
+                                        NULL);
+    // Cell of the column for the text
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
     gtk_tree_view_column_set_attributes(column, renderer,
-                                       "text", TREE_COLUMN_DIR_NAME, NULL);
+                                       "text", TREE_COLUMN_DIR_NAME, 
+                                        NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserTree), column);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-    gtk_container_add(GTK_CONTAINER(ScrollWindowDirectoryTree),BrowserTree);
 
     Browser_Tree_Initialize();
 
@@ -2962,47 +3125,71 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                    GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 
     artistListModel = gtk_list_store_new(ARTIST_COLUMN_COUNT,
-                                        G_TYPE_STRING,
-                                        G_TYPE_UINT,
-                                        G_TYPE_UINT,
-                                        G_TYPE_POINTER,
-                                        PANGO_TYPE_STYLE,
-                                        G_TYPE_INT,
-                                        GDK_TYPE_COLOR);
+                                         G_TYPE_STRING, // Stock-id
+                                         G_TYPE_STRING,
+                                         G_TYPE_UINT,
+                                         G_TYPE_UINT,
+                                         G_TYPE_POINTER,
+                                         PANGO_TYPE_STYLE,
+                                         G_TYPE_INT,
+                                         GDK_TYPE_COLOR);
 
     BrowserArtistList = gtk_tree_view_new_with_model(GTK_TREE_MODEL(artistListModel));
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(BrowserArtistList), TRUE);
-    renderer = gtk_cell_renderer_text_new();
-
-    column = gtk_tree_view_column_new_with_attributes(_(ArtistList_Titles[0]), renderer,
-                                                      "text",           ARTIST_NAME,
-                                                      "weight",         ARTIST_FONT_WEIGHT,
-                                                      "style",          ARTIST_FONT_STYLE,
-                                                      "foreground-gdk", ARTIST_ROW_FOREGROUND,
-                                                      NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserArtistList), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-
-    column = gtk_tree_view_column_new_with_attributes(_(ArtistList_Titles[1]), renderer,
-                                                      "text",           ARTIST_NUM_ALBUMS,
-                                                      "weight",         ARTIST_FONT_WEIGHT,
-                                                      "style",          ARTIST_FONT_STYLE,
-                                                      "foreground-gdk", ARTIST_ROW_FOREGROUND,
-                                                      NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserArtistList), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-
-    column = gtk_tree_view_column_new_with_attributes(_(ArtistList_Titles[2]), renderer,
-                                                      "text",           ARTIST_NUM_FILES,
-                                                      "weight",         ARTIST_FONT_WEIGHT,
-                                                      "style",          ARTIST_FONT_STYLE,
-                                                      "foreground-gdk", ARTIST_ROW_FOREGROUND,
-                                                      NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserArtistList), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-
     gtk_tree_view_set_reorderable(GTK_TREE_VIEW(BrowserArtistList), FALSE);
     gtk_tree_selection_set_mode(gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserArtistList)),GTK_SELECTION_SINGLE);
+
+
+    // Artist column
+    column = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_title(column, _(ArtistList_Titles[0]));
+
+    renderer = gtk_cell_renderer_pixbuf_new();
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    gtk_tree_view_column_set_attributes(column, renderer,
+                                       "stock-id",        ARTIST_PIXBUF,
+                                        NULL);
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    gtk_tree_view_column_set_attributes(column, renderer,
+                                        "text",           ARTIST_NAME,
+                                        "weight",         ARTIST_FONT_WEIGHT,
+                                        "style",          ARTIST_FONT_STYLE,
+                                        "foreground-gdk", ARTIST_ROW_FOREGROUND,
+                                        NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserArtistList), column);
+    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+
+    // # Albums of Artist column
+    column = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_title(column, _(ArtistList_Titles[1]));
+
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    gtk_tree_view_column_set_attributes(column, renderer,
+                                        "text",           ARTIST_NUM_ALBUMS,
+                                        "weight",         ARTIST_FONT_WEIGHT,
+                                        "style",          ARTIST_FONT_STYLE,
+                                        "foreground-gdk", ARTIST_ROW_FOREGROUND,
+                                        NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserArtistList), column);
+    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+
+    // # Files of Artist column
+    column = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_title(column, _(ArtistList_Titles[2]));
+
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    gtk_tree_view_column_set_attributes(column, renderer,
+                                        "text",           ARTIST_NUM_FILES,
+                                        "weight",         ARTIST_FONT_WEIGHT,
+                                        "style",          ARTIST_FONT_STYLE,
+                                        "foreground-gdk", ARTIST_ROW_FOREGROUND,
+                                        NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserArtistList), column);
+    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+
     g_signal_connect(G_OBJECT(gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserArtistList))),"changed",G_CALLBACK(Browser_Artist_List_Row_Selected),NULL);
 
     gtk_container_add(GTK_CONTAINER(ScrollWindowArtistList),BrowserArtistList);
@@ -3019,6 +3206,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                    GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 
     albumListModel = gtk_list_store_new(ALBUM_COLUMN_COUNT,
+                                        G_TYPE_STRING, // Stock-id
                                         G_TYPE_STRING,
                                         G_TYPE_UINT,
                                         G_TYPE_POINTER,
@@ -3028,28 +3216,43 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
 
     BrowserAlbumList = gtk_tree_view_new_with_model(GTK_TREE_MODEL(albumListModel));
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(BrowserAlbumList), TRUE);
-    renderer = gtk_cell_renderer_text_new();
-
-    column = gtk_tree_view_column_new_with_attributes(_(AlbumList_Titles[0]), renderer,
-                                                      "text",           ALBUM_NAME,
-                                                      "weight",         ALBUM_FONT_WEIGHT,
-                                                      "style",          ALBUM_FONT_STYLE,
-                                                      "foreground-gdk", ALBUM_ROW_FOREGROUND,
-                                                      NULL);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserAlbumList), column);
-
-    column = gtk_tree_view_column_new_with_attributes(_(AlbumList_Titles[1]), renderer,
-                                                      "text",           ALBUM_NUM_FILES,
-                                                      "weight",         ALBUM_FONT_WEIGHT,
-                                                      "style",          ALBUM_FONT_STYLE,
-                                                      "foreground-gdk", ALBUM_ROW_FOREGROUND,
-                                                      NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserAlbumList), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-
     gtk_tree_view_set_reorderable(GTK_TREE_VIEW(BrowserAlbumList), FALSE);
     gtk_tree_selection_set_mode(gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserAlbumList)), GTK_SELECTION_SINGLE);
+
+    // Album column
+    column = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_title(column, _(AlbumList_Titles[0]));
+
+    renderer = gtk_cell_renderer_pixbuf_new();
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    gtk_tree_view_column_set_attributes(column, renderer,
+                                       "stock-id",        ALBUM_PIXBUF,
+                                        NULL);
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    gtk_tree_view_column_set_attributes(column, renderer,
+                                        "text",           ALBUM_NAME,
+                                        "weight",         ALBUM_FONT_WEIGHT,
+                                        "style",          ALBUM_FONT_STYLE,
+                                        "foreground-gdk", ALBUM_ROW_FOREGROUND,
+                                        NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserAlbumList), column);
+    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+
+    // # files column
+    column = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_title(column, _(AlbumList_Titles[1]));
+
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    gtk_tree_view_column_set_attributes(column, renderer,
+                                        "text",           ALBUM_NUM_FILES,
+                                        "weight",         ALBUM_FONT_WEIGHT,
+                                        "style",          ALBUM_FONT_STYLE,
+                                        "foreground-gdk", ALBUM_ROW_FOREGROUND,
+                                        NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserAlbumList), column);
+    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 
     g_signal_connect(G_OBJECT(gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserAlbumList))),"changed",G_CALLBACK(Browser_Album_List_Row_Selected),NULL);
     gtk_container_add(GTK_CONTAINER(ScrollWindowAlbumList),BrowserAlbumList);
@@ -3082,17 +3285,32 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                        G_TYPE_BOOLEAN,
                                        G_TYPE_INT,
                                        GDK_TYPE_COLOR,
-                                       GDK_TYPE_COLOR);
+                                       GDK_TYPE_COLOR,
+                                       G_TYPE_STRING,
+                                       G_TYPE_STRING,
+                                       G_TYPE_STRING,
+                                       G_TYPE_STRING,
+                                       G_TYPE_STRING,
+                                       G_TYPE_STRING,
+                                       G_TYPE_STRING,
+                                       G_TYPE_STRING,
+                                       G_TYPE_STRING,
+                                       G_TYPE_STRING,
+                                       G_TYPE_STRING,
+                                       G_TYPE_STRING);
 
     BrowserList = gtk_tree_view_new_with_model(GTK_TREE_MODEL(fileListModel));
-    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(BrowserList), FALSE);
     gtk_container_add(GTK_CONTAINER(ScrollWindowFileList), BrowserList);
+    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(BrowserList), TRUE);
     gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(BrowserList), FALSE);
     
+    
     // Column for File Name
-    renderer = gtk_cell_renderer_text_new();
     column = gtk_tree_view_column_new();
+    renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+    gtk_tree_view_column_set_title(column, _(BrowserList_Titles[0]));
     gtk_tree_view_column_set_attributes(column, renderer,
                                         "text",           LIST_FILE_NAME,
                                         "weight",         LIST_FONT_WEIGHT,
@@ -3100,8 +3318,176 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                         "foreground-gdk", LIST_ROW_FOREGROUND,
                                         NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
     
+    // Column for Title
+    column = gtk_tree_view_column_new();
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+    gtk_tree_view_column_set_title(column, _(BrowserList_Titles[1]));
+    gtk_tree_view_column_set_attributes(column, renderer,
+                                        "text",           LIST_FILE_TITLE,
+                                        "weight",         LIST_FONT_WEIGHT,
+                                        "background-gdk", LIST_ROW_BACKGROUND,
+                                        "foreground-gdk", LIST_ROW_FOREGROUND,
+                                        NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
+    
+    // Column for Artist
+    column = gtk_tree_view_column_new();
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+    gtk_tree_view_column_set_title(column, _(BrowserList_Titles[2]));
+    gtk_tree_view_column_set_attributes(column, renderer,
+                                        "text",           LIST_FILE_ARTIST,
+                                        "weight",         LIST_FONT_WEIGHT,
+                                        "background-gdk", LIST_ROW_BACKGROUND,
+                                        "foreground-gdk", LIST_ROW_FOREGROUND,
+                                        NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
+    
+    // Column for Album
+    column = gtk_tree_view_column_new();
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+    gtk_tree_view_column_set_title(column, _(BrowserList_Titles[3]));
+    gtk_tree_view_column_set_attributes(column, renderer,
+                                        "text",           LIST_FILE_ALBUM,
+                                        "weight",         LIST_FONT_WEIGHT,
+                                        "background-gdk", LIST_ROW_BACKGROUND,
+                                        "foreground-gdk", LIST_ROW_FOREGROUND,
+                                        NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
+    
+    // Column for Year
+    column = gtk_tree_view_column_new();
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+    gtk_tree_view_column_set_title(column, _(BrowserList_Titles[4]));
+    gtk_tree_view_column_set_attributes(column, renderer,
+                                        "text",           LIST_FILE_YEAR,
+                                        "weight",         LIST_FONT_WEIGHT,
+                                        "background-gdk", LIST_ROW_BACKGROUND,
+                                        "foreground-gdk", LIST_ROW_FOREGROUND,
+                                        NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
+    
+    // Column for Track
+    column = gtk_tree_view_column_new();
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+    gtk_tree_view_column_set_title(column, _(BrowserList_Titles[5]));
+    gtk_tree_view_column_set_attributes(column, renderer,
+                                        "text",           LIST_FILE_TRACK,
+                                        "weight",         LIST_FONT_WEIGHT,
+                                        "background-gdk", LIST_ROW_BACKGROUND,
+                                        "foreground-gdk", LIST_ROW_FOREGROUND,
+                                        NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
+    
+    // Column for Genre
+    column = gtk_tree_view_column_new();
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+    gtk_tree_view_column_set_title(column, _(BrowserList_Titles[6]));
+    gtk_tree_view_column_set_attributes(column, renderer,
+                                        "text",           LIST_FILE_GENRE,
+                                        "weight",         LIST_FONT_WEIGHT,
+                                        "background-gdk", LIST_ROW_BACKGROUND,
+                                        "foreground-gdk", LIST_ROW_FOREGROUND,
+                                        NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
+    
+    // Column for Comment
+    column = gtk_tree_view_column_new();
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+    gtk_tree_view_column_set_title(column, _(BrowserList_Titles[7]));
+    gtk_tree_view_column_set_attributes(column, renderer,
+                                        "text",           LIST_FILE_COMMENT,
+                                        "weight",         LIST_FONT_WEIGHT,
+                                        "background-gdk", LIST_ROW_BACKGROUND,
+                                        "foreground-gdk", LIST_ROW_FOREGROUND,
+                                        NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
+    
+    // Column for Composer
+    column = gtk_tree_view_column_new();
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+    gtk_tree_view_column_set_title(column, _(BrowserList_Titles[8]));
+    gtk_tree_view_column_set_attributes(column, renderer,
+                                        "text",           LIST_FILE_COMPOSER,
+                                        "weight",         LIST_FONT_WEIGHT,
+                                        "background-gdk", LIST_ROW_BACKGROUND,
+                                        "foreground-gdk", LIST_ROW_FOREGROUND,
+                                        NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
+    
+    // Column for Original Artist
+    column = gtk_tree_view_column_new();
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+    gtk_tree_view_column_set_title(column, _(BrowserList_Titles[9]));
+    gtk_tree_view_column_set_attributes(column, renderer,
+                                        "text",           LIST_FILE_ORIG_ARTIST,
+                                        "weight",         LIST_FONT_WEIGHT,
+                                        "background-gdk", LIST_ROW_BACKGROUND,
+                                        "foreground-gdk", LIST_ROW_FOREGROUND,
+                                        NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
+    
+    // Column for Copyright
+    column = gtk_tree_view_column_new();
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+    gtk_tree_view_column_set_title(column, _(BrowserList_Titles[10]));
+    gtk_tree_view_column_set_attributes(column, renderer,
+                                        "text",           LIST_FILE_COPYRIGHT,
+                                        "weight",         LIST_FONT_WEIGHT,
+                                        "background-gdk", LIST_ROW_BACKGROUND,
+                                        "foreground-gdk", LIST_ROW_FOREGROUND,
+                                        NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
+    
+    // Column for Url
+    column = gtk_tree_view_column_new();
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+    gtk_tree_view_column_set_title(column, _(BrowserList_Titles[11]));
+    gtk_tree_view_column_set_attributes(column, renderer,
+                                        "text",           LIST_FILE_URL,
+                                        "weight",         LIST_FONT_WEIGHT,
+                                        "background-gdk", LIST_ROW_BACKGROUND,
+                                        "foreground-gdk", LIST_ROW_FOREGROUND,
+                                        NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
+    
+    // Column for Encoded By
+    column = gtk_tree_view_column_new();
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+    gtk_tree_view_column_set_title(column, _(BrowserList_Titles[12]));
+    gtk_tree_view_column_set_attributes(column, renderer,
+                                        "text",           LIST_FILE_ENCODED_BY,
+                                        "weight",         LIST_FONT_WEIGHT,
+                                        "background-gdk", LIST_ROW_BACKGROUND,
+                                        "foreground-gdk", LIST_ROW_FOREGROUND,
+                                        NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
+
+
     gtk_tree_view_set_reorderable(GTK_TREE_VIEW(BrowserList), FALSE);
     gtk_tree_selection_set_mode(gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList)),GTK_SELECTION_MULTIPLE);
     // When selecting a line
@@ -3402,10 +3788,15 @@ void Rename_Directory (void)
     {
         GtkWidget *msgbox;
 
-        msgbox = msg_box_new(_("Error..."),_("You must type a directory name!"),
-            GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
-        msg_box_hide_check_button(MSG_BOX(msgbox));
-        msg_box_run(MSG_BOX(msgbox));
+        msgbox = msg_box_new(_("Error..."),
+                             GTK_WINDOW(MainWindow),
+                             NULL,
+                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                             _("You must type a directory name!"),
+                             GTK_STOCK_DIALOG_ERROR,
+                             GTK_STOCK_OK, GTK_RESPONSE_OK,
+                             NULL);
+        gtk_dialog_run(GTK_DIALOG(msgbox));
         gtk_widget_destroy(msgbox);
         g_free(directory_new_name);
         return;
@@ -3417,9 +3808,15 @@ void Rename_Directory (void)
     {
         GtkWidget *msgbox;
 
-        msgbox = msg_box_new(_("Error..."),_("Could not convert '%s' into filename encoding. Please use another name."),GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
-        msg_box_hide_check_button(MSG_BOX(msgbox));
-        msg_box_run(MSG_BOX(msgbox));
+        msgbox = msg_box_new(_("Error..."),
+                             GTK_WINDOW(MainWindow),
+                             NULL,
+                             GTK_DIALOG_MODAL  | GTK_DIALOG_DESTROY_WITH_PARENT,
+                             _("Could not convert '%s' into filename encoding. Please use another name."),
+                             GTK_STOCK_DIALOG_ERROR,
+                             GTK_STOCK_OK, GTK_RESPONSE_OK,
+                             NULL);
+        gtk_dialog_run(GTK_DIALOG(msgbox));
         gtk_widget_destroy(msgbox);
         g_free(directory_new_name);
         g_free(directory_new_name_file);
@@ -3447,7 +3844,7 @@ void Rename_Directory (void)
     {
         gchar *msg;
         GtkWidget *msgbox;
-        //gint button;
+        //gint response;
 
         closedir(dir);
         if (strcasecmp(last_path,new_path) != 0)
@@ -3456,16 +3853,22 @@ void Rename_Directory (void)
     //        // The same directory already exists. So we ask if we want to move the files
     //        msg = g_strdup_printf(_("The directory already exists!\n(%s)\nDo you want "
     //            "to move the files?"),new_path_utf8);
-    //        msgbox = msg_box_new(_("Confirm..."),msg,GTK_STOCK_DIALOG_QUESTION,
-    //            BUTTON_NO,BUTTON_YES,0);
+    //        msgbox = msg_box_new(_("Confirm..."),
+    //                             GTK_WINDOW(MainWindow),
+    //                             NULL,
+    //                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+    //                             msg,
+    //                             GTK_STOCK_DIALOG_QUESTION,
+    //                             GTK_STOCK_NO,  GTK_RESPONSE_NO,
+	//                             GTK_STOCK_YES, GTK_RESPONSE_YES,
+    //                             NULL);
     //        g_free(msg);
-    //        msg_box_hide_check_button(MSG_BOX(msgbox));
-    //        button = msg_box_run(MSG_BOX(msgbox));
+    //        response = gtk_dialog_run(GTK_DIALOG(msgbox));
     //        gtk_widget_destroy(msgbox);
     //
-    //        switch (button)
+    //        switch (response)
     //        {
-    //            case BUTTON_YES:
+    //            case GTK_STOCK_YES:
     //                // Here we must rename all files with the new location, and remove the directory
     //
     //                Rename_File ()
@@ -3477,11 +3880,17 @@ void Rename_Directory (void)
 
             msg = g_strdup_printf(_("Can't rename because this directory name "
                                     "already exists!\n(%s)"),new_path_utf8);
-            msgbox = msg_box_new(_("Error..."),msg,GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
-            g_free(msg);
-            msg_box_hide_check_button(MSG_BOX(msgbox));
-            msg_box_run(MSG_BOX(msgbox));
+            msgbox = msg_box_new(_("Error..."),
+                                 GTK_WINDOW(MainWindow),
+                                 NULL,
+                                 GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                 msg,
+                                 GTK_STOCK_DIALOG_ERROR,
+                                 GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                 NULL);
+            gtk_dialog_run(GTK_DIALOG(msgbox));
             gtk_widget_destroy(msgbox);
+            g_free(msg);
 
             g_free(directory_new_name);
             g_free(directory_new_name_file);
@@ -3512,11 +3921,17 @@ void Rename_Directory (void)
 
         msg = g_strdup_printf(_("Can't rename directory \n'%s'\n to \n'%s'!\n(%s)"),
                     last_path_utf8,tmp_path_utf8,g_strerror(errno));
-        msgbox = msg_box_new(_("Error..."),msg,GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
-        g_free(msg);
-        msg_box_hide_check_button(MSG_BOX(msgbox));
-        msg_box_run(MSG_BOX(msgbox));
+        msgbox = msg_box_new(_("Error..."),
+                             GTK_WINDOW(MainWindow),
+                             NULL,
+                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                             msg,
+                             GTK_STOCK_DIALOG_ERROR,
+                             GTK_STOCK_OK, GTK_RESPONSE_OK,
+                             NULL);
+        gtk_dialog_run(GTK_DIALOG(msgbox));
         gtk_widget_destroy(msgbox);
+        g_free(msg);
 
         g_free(directory_new_name);
         g_free(directory_new_name_file);
@@ -3538,11 +3953,17 @@ void Rename_Directory (void)
 
         msg = g_strdup_printf(_("Can't rename directory \n'%s'\n to \n'%s'!\n(%s)"),
                               tmp_path_utf8,new_path_utf8,g_strerror(errno));
-        msgbox = msg_box_new(_("Error..."),msg,GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
-        g_free(msg);
-        msg_box_hide_check_button(MSG_BOX(msgbox));
-        msg_box_run(MSG_BOX(msgbox));
+        msgbox = msg_box_new(_("Error..."),
+                             GTK_WINDOW(MainWindow),
+                             NULL,
+                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                             msg,
+                             GTK_STOCK_DIALOG_ERROR,
+                             GTK_STOCK_OK, GTK_RESPONSE_OK,
+                             NULL);
+        gtk_dialog_run(GTK_DIALOG(msgbox));
         gtk_widget_destroy(msgbox);
+        g_free(msg);
 
         g_free(directory_new_name);
         g_free(directory_new_name_file);
@@ -3679,7 +4100,7 @@ void Browser_Open_Run_Program_Tree_Window (void)
         G_CALLBACK(Run_Program_With_Directory),G_OBJECT(RunProgramComboBox));
 
     /* The button to Browse */
-    Button = Create_Button_With_Pixmap(BUTTON_BROWSE);
+    Button = gtk_button_new_from_stock(GTK_STOCK_OPEN);
     gtk_box_pack_start(GTK_BOX(HBox),Button,FALSE,FALSE,0);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
                              G_CALLBACK(File_Selection_Window_For_File),G_OBJECT(GTK_BIN(RunProgramComboBox)->child));
@@ -3839,7 +4260,7 @@ void Browser_Open_Run_Program_List_Window (void)
         G_CALLBACK(Run_Program_With_Selected_Files),G_OBJECT(RunProgramComboBox));
 
     /* The button to Browse */
-    Button = Create_Button_With_Pixmap(BUTTON_BROWSE);
+    Button = gtk_button_new_from_stock(GTK_STOCK_OPEN);
     gtk_box_pack_start(GTK_BOX(HBox),Button,FALSE,FALSE,0);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
                              G_CALLBACK(File_Selection_Window_For_File),G_OBJECT(GTK_BIN(RunProgramComboBox)->child));
@@ -3982,10 +4403,15 @@ gboolean Run_Program (gchar *program_name, GList *args_list)
     {
         GtkWidget *msgbox;
 
-        msgbox = msg_box_new(_("Error..."),_("You must type a program name!"),
-                             GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
-        msg_box_hide_check_button(MSG_BOX(msgbox));
-        msg_box_run(MSG_BOX(msgbox));
+        msgbox = msg_box_new(_("Error..."),
+                             GTK_WINDOW(MainWindow),
+                             NULL,
+                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                             _("You must type a program name!"),
+                             GTK_STOCK_DIALOG_ERROR,
+                             GTK_STOCK_OK, GTK_RESPONSE_OK,
+                             NULL);
+        gtk_dialog_run(GTK_DIALOG(msgbox));
         gtk_widget_destroy(msgbox);
         return FALSE;
     }
@@ -3996,9 +4422,15 @@ gboolean Run_Program (gchar *program_name, GList *args_list)
         gchar *msg;
 
         msg = g_strdup_printf(_("The program '%s' can't be found!"),program_name);
-        msgbox = msg_box_new(_("Error..."),msg,GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
-        msg_box_hide_check_button(MSG_BOX(msgbox));
-        msg_box_run(MSG_BOX(msgbox));
+        msgbox = msg_box_new(_("Error..."),
+                             GTK_WINDOW(MainWindow),
+                             NULL,
+                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                             msg,
+                             GTK_STOCK_DIALOG_ERROR,
+                             GTK_STOCK_OK, GTK_RESPONSE_OK,
+                             NULL);
+        gtk_dialog_run(GTK_DIALOG(msgbox));
         gtk_widget_destroy(msgbox);
         g_free(msg);
         return FALSE;
@@ -4044,7 +4476,7 @@ gboolean Run_Program (gchar *program_name, GList *args_list)
                       &siStartupInfo,
                       &piProcessInfo) == FALSE)
     {
-        Log_Print(_("Can't execute %s (error %d)!\n"), program_name, GetLastError());
+        Log_Print(LOG_ERROR,_("Can't execute %s (error %d)!\n"), program_name, GetLastError());
     }
 
     // Free allocated parameters (for each filename)
@@ -4063,7 +4495,7 @@ gboolean Run_Program (gchar *program_name, GList *args_list)
     switch (pid)
     {
         case -1:
-            Log_Print(_("Can't fork another process!\n"));
+            Log_Print(LOG_ERROR,_("Can't fork another process!\n"));
             //exit(-1);
             break;
         case 0:

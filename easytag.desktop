@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=EasyTAG
+GenericName=Audio File Tag Viewer/Editor
 Comment=EasyTAG is an utility for viewing and editing tags for MP3, MP2, FLAC, Ogg Vorbis, MusePack and Monkey's Audio files, with a GTK+ GUI.
 Comment[cs]=EasyTAG je utilita na prohlížení, editaci a zápis tagů do vašich MP3, MP2, FLAC, Ogg Vorbis, MusePack a Monkey Audio souborů.
 Comment[da]=Et program til at vise/redigere MP3 og Ogg Vorbis tags med et GTK+ interface.
@@ -12,14 +13,14 @@ Comment[ja]=EasyTAG は MP3, MP2, FLAC, Ogg Vorbis, MusePack と Monkey's オー
 Comment[nl]=EasyTAG is een programma voor het bewerken van tags van MP2-, MP3-, FLAC-, Ogg Vorbis, MusePack en Monkeys Audio-bestanden. Dit gebeurt in een verzorgde GTK+-omgeving.
 Comment[pl]=EasyTAG jest narzędziem do przeglądania, edytowania i zapisywania tagów w plikach MP3, MP2, FLAC, Ogg Vorbis, MusePack i Monkey's Audio. Jego prosty i miły interface wykonany w GTK+ ułatwia tagowanie.
 Comment[ro]=EasyTAG este un utilitar pentru afisarea, modificarea si scrierea etichtelor fisierelor MP3, MP2, FLAC, Ogg Vorbis, MusePack si Monkey Audio. Interfata sa simpla (GTK+) face etichetarea mai simpla.
-Comment[ru]=EasyTAG -- ЩРН ОПНЦПЮЛЛЮ ДКЪ ОПНЯЛНРПЮ Х ПЕДЮЙРХПНБЮМХЪ РЕЦНБ Б ТЮИКЮУ MP3, MP2, FLAC, MusePack, APE Х Ogg Vorbis Я СДНАМШЛ ХМРЕПТЕИЯНЛ GTK+ ДКЪ GNU/Linux.
+Comment[ru]=EasyTAG -- это программа для просмотра и редактирования тегов в файлах MP3, MP2, FLAC, MusePack, APE и Ogg Vorbis с удобным интерфейсом GTK+ для GNU/Linux.
 Comment[sv]=EasyTAG är ett verktyg för att undersöka, editera och skriva taggar för dina MP3-, MP2-, FLAC- och Ogg Vorbis-filer, och använder ett enkelt och trevligt GTK+-gränssnitt.
 Comment[uk]=EasyTAG - утиліта для перегляду, редагування та запису тегів у файли MP3, MP2, FLAC, Ogg Vorbis, MusePack та Monkey's Audio. Простий та приємний інтерфейс GTK+ допоможе процесу запису тегів.
 Exec=easytag %F
-Icon=EasyTAG.xpm
+Icon=EasyTAG_icon
 Terminal=false
 Type=Application
-Encoding=UTF-8
-Categories=Application;AudioVideo;AudioVideoEditing;
-X-Desktop-File-Install-Version=0.3
-MimeType=audio/x-mp3;application/ogg;
+Categories=AudioVideo;AudioVideoEditing;GTK;
+X-Desktop-File-Install-Version=0.14
+MimeType=audio/x-mp3;application/ogg;x-directory/normal;
+

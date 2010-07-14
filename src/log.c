@@ -29,6 +29,7 @@
 #include "easytag.h"
 #include "bar.h"
 #include "setting.h"
+#include "charset.h"
 
 #ifdef WIN32
 #   include "win32/win32dep.h"
@@ -46,6 +47,7 @@ gint          LogListNbrRows;
 
 enum
 {
+    LOG_PIXBUF,
     LOG_TIME_TEXT,
     LOG_TEXT,
     LOG_ROW_BACKGROUND,
@@ -60,8 +62,9 @@ gchar *LOG_FILE = ".easytag/easytag.log";
 typedef struct _Log_Data Log_Data;
 struct _Log_Data
 {
-    gchar *time;    /* The time of this line of log */
-    gchar *string;  /* The string of the line of log to display */
+    gchar         *time;    /* The time of this line of log */
+    Log_Error_Type error_type;  
+    gchar         *string;  /* The string of the line of log to display */
 };
 
 
@@ -72,6 +75,7 @@ gboolean Log_Popup_Menu_Handler (GtkMenu *menu, GdkEventButton *event);
 void     Log_List_Set_Row_Visible (GtkTreeModel *treeModel, GtkTreeIter *rowIter);
 void     Log_Print_Tmp_List (void);
 gchar   *Log_Format_Date (void);
+gchar   *Log_Get_Stock_Id_From_Error_Type (Log_Error_Type error_type);
 
 
 
@@ -103,6 +107,7 @@ GtkWidget *Create_Log_Area (void)
     logListModel = gtk_list_store_new(LOG_COLUMN_COUNT,
                                       G_TYPE_STRING,
                                       G_TYPE_STRING,
+                                      G_TYPE_STRING,
                                       GDK_TYPE_COLOR,
                                       GDK_TYPE_COLOR);
 
@@ -114,27 +119,31 @@ GtkWidget *Create_Log_Area (void)
     gtk_tree_view_set_reorderable(GTK_TREE_VIEW(LogList), FALSE);
     gtk_tree_selection_set_mode(gtk_tree_view_get_selection(GTK_TREE_VIEW(LogList)),GTK_SELECTION_MULTIPLE);
 
-    renderer = gtk_cell_renderer_text_new();
     column = gtk_tree_view_column_new();
+    gtk_tree_view_append_column(GTK_TREE_VIEW(LogList), column);
+    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+
+    renderer = gtk_cell_renderer_pixbuf_new();
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    gtk_tree_view_column_set_attributes(column, renderer,
+                                       "stock-id", LOG_PIXBUF,
+                                        NULL);
+
+    renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
     gtk_tree_view_column_set_attributes(column, renderer,
                                         "text",           LOG_TIME_TEXT,
                                         "background-gdk", LOG_ROW_BACKGROUND,
                                         "foreground-gdk", LOG_ROW_FOREGROUND,
                                         NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(LogList), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 
     renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
     gtk_tree_view_column_set_attributes(column, renderer,
                                         "text",           LOG_TEXT,
                                         "background-gdk", LOG_ROW_BACKGROUND,
                                         "foreground-gdk", LOG_ROW_FOREGROUND,
                                         NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(LogList), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 
     // Create Popup Menu on browser album list
     PopupMenu = gtk_ui_manager_get_widget(UIManager, "/LogPopup");
@@ -207,13 +216,15 @@ gchar *Log_Format_Date (void)
 {
     struct tm *tms;
     time_t nowtime;
-    gchar *current_date = g_malloc0(21);
+    gchar *current_date, *current_work = g_malloc0(21);
 
     // Get current time and date
     nowtime = time(NULL);
     tms = localtime(&nowtime);
-    strftime(current_date,20,"%X",tms); // Time without date in current locale
-    //strftime(current_date,20,"%x",ptr); // Date without time in current locale
+    strftime(current_work,20,"%X",tms); // Time without date in current locale
+    //strftime(current_work,20,"%x",ptr); // Date without time in current locale
+    current_date = Try_To_Validate_Utf8_String(current_work);
+    g_free(current_work);
 
     return current_date;
 }
@@ -222,7 +233,7 @@ gchar *Log_Format_Date (void)
 /*
  * Function to use anywhere in the application to send a message to the LogList
  */
-void Log_Print (gchar const *format, ...)
+void Log_Print (Log_Error_Type error_type, gchar const *format, ...)
 {
     va_list args;
     gchar *string;
@@ -253,8 +264,9 @@ void Log_Print (gchar const *format, ...)
         LogListNbrRows++;
         gtk_list_store_append(logListModel, &iter);
         gtk_list_store_set(logListModel, &iter,
-                           LOG_TIME_TEXT, time,
-                           LOG_TEXT, string,
+                           LOG_PIXBUF,         Log_Get_Stock_Id_From_Error_Type(error_type),
+                           LOG_TIME_TEXT,      time,
+                           LOG_TEXT,           string,
                            LOG_ROW_BACKGROUND, NULL,
                            LOG_ROW_FOREGROUND, NULL,
                            -1);
@@ -263,8 +275,9 @@ void Log_Print (gchar const *format, ...)
     }else
     {
         Log_Data *LogData = g_malloc0(sizeof(Log_Data));
-        LogData->time   = Log_Format_Date();
-        LogData->string = string;
+        LogData->time       = Log_Format_Date();
+        LogData->error_type = error_type;
+        LogData->string     = string;
 
         LogPrintTmpList = g_list_append(LogPrintTmpList,LogData);
         //g_print("%s",string);
@@ -314,6 +327,7 @@ void Log_Print_Tmp_List (void)
             LogListNbrRows++;
             gtk_list_store_append(logListModel, &iter);
             gtk_list_store_set(logListModel, &iter,
+                               LOG_PIXBUF,    Log_Get_Stock_Id_From_Error_Type( ((Log_Data *)LogPrintTmpList->data)->error_type ),
                                LOG_TIME_TEXT, ((Log_Data *)LogPrintTmpList->data)->time,
                                LOG_TEXT,      ((Log_Data *)LogPrintTmpList->data)->string,
                                LOG_ROW_BACKGROUND, NULL,
@@ -345,3 +359,26 @@ void Log_Print_Tmp_List (void)
 
 }
 
+
+gchar *Log_Get_Stock_Id_From_Error_Type (Log_Error_Type error_type)
+{
+    gchar *stock_id;
+    
+    switch (error_type)
+    {
+        case LOG_OK:
+            stock_id = GTK_STOCK_APPLY;
+            break;
+        
+        case LOG_ERROR:
+            stock_id = GTK_STOCK_CANCEL;
+            break;
+        
+        case LOG_UNKNOWN:
+        default:
+            stock_id = NULL;
+            break;
+    }
+    
+    return stock_id;
+}

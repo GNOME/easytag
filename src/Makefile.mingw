@@ -51,6 +51,7 @@ LIB_PATHS =		`pkg-config --libs gtk+-2.0` \
 				-lid3 \
 				-lid3tag \
 				-liconv \
+				-lspeex \
 				-lstdc++ \
 				-lz \
 				-lwavpack \
@@ -66,6 +67,7 @@ RC_SRC = win32/easytag.rc
 DLL_C_SRC = about.c \
     ape_tag.c \
     bar.c \
+    base64.c \
     browser.c \
     charset.c \
     cddb.c \

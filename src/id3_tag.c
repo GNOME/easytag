@@ -142,7 +142,7 @@ gboolean Id3tag_Write_File_v23Tag (ET_File *ETFile)
     /* Test to know if we can write into the file */
     if ( (file=fopen(filename,"r+"))==NULL )
     {
-        Log_Print(_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
         return FALSE;
     }
     fclose(file);
@@ -386,23 +386,27 @@ gboolean Id3tag_Write_File_v23Tag (ET_File *ETFile)
         has_picture = 0;
     while (pic)
     {
+        Picture_Format format = Picture_Format_From_Data(pic);
+
         id3_frame = ID3Frame_NewID(ID3FID_PICTURE);
         ID3Tag_AttachFrame(id3_tag,id3_frame);
 
-        switch (Picture_Format(pic))
+        switch (format)
         {
             case PICTURE_FORMAT_JPEG:
                 if ((id3_field = ID3Frame_GetField(id3_frame,ID3FN_MIMETYPE)))
-                    ID3Field_SetASCII(id3_field, "image/jpeg");
+                    ID3Field_SetASCII(id3_field, Picture_Mime_Type_String(format));
                 if ((id3_field = ID3Frame_GetField(id3_frame,ID3FN_IMAGEFORMAT)))
                     ID3Field_SetASCII(id3_field, "JPG");
                 break;
 
             case PICTURE_FORMAT_PNG:
                 if ((id3_field = ID3Frame_GetField(id3_frame,ID3FN_MIMETYPE)))
-                    ID3Field_SetASCII(id3_field, "image/png");
+                    ID3Field_SetASCII(id3_field, Picture_Mime_Type_String(format));
                 if ((id3_field = ID3Frame_GetField(id3_frame,ID3FN_IMAGEFORMAT)))
                     ID3Field_SetASCII(id3_field, "PNG");
+                break;
+            default:
                 break;
         }
 
@@ -481,13 +485,13 @@ gboolean Id3tag_Write_File_v23Tag (ET_File *ETFile)
         /* Check error messages */
         if (error_strip_id3v1 == ID3E_NoError && error_strip_id3v2 == ID3E_NoError)
         {
-            Log_Print(_("Removed tag of '%s'"),basename_utf8);
+            Log_Print(LOG_OK,_("Removed tag of '%s'"),basename_utf8);
         }else
         {
             if (error_strip_id3v1 != ID3E_NoError)
-                Log_Print(_("Error while removing ID3v1 tag of '%s' (%s)"),basename_utf8,Id3tag_Get_Error_Message(error_strip_id3v1));
+                Log_Print(LOG_ERROR,_("Error while removing ID3v1 tag of '%s' (%s)"),basename_utf8,Id3tag_Get_Error_Message(error_strip_id3v1));
             if (error_strip_id3v2 != ID3E_NoError)
-                Log_Print(_("Error while removing ID3v2 tag of '%s' (%s)"),basename_utf8,Id3tag_Get_Error_Message(error_strip_id3v2));
+                Log_Print(LOG_ERROR,_("Error while removing ID3v2 tag of '%s' (%s)"),basename_utf8,Id3tag_Get_Error_Message(error_strip_id3v2));
             error++;
         }
 
@@ -506,7 +510,7 @@ gboolean Id3tag_Write_File_v23Tag (ET_File *ETFile)
             error_update_id3v2 = ID3Tag_UpdateByTagType(id3_tag,ID3TT_ID3V2);
             if (error_update_id3v2 != ID3E_NoError)
             {
-                Log_Print(_("Error while updating ID3v2 tag of '%s' (%s)"),basename_utf8,Id3tag_Get_Error_Message(error_update_id3v2));
+                Log_Print(LOG_ERROR,_("Error while updating ID3v2 tag of '%s' (%s)"),basename_utf8,Id3tag_Get_Error_Message(error_update_id3v2));
                 error++;
             }else
             {
@@ -536,13 +540,19 @@ gboolean Id3tag_Write_File_v23Tag (ET_File *ETFile)
                             "available in EasyTAG package sources.\n"
                             "Note that this message will appear only one time.\n\n"
                             "File : %s"),filename_utf8);
-                        //Log_Print(msg);
+                        //Log_Print(LOG_ERROR,msg);
 
-                        msgbox = msg_box_new(_("Error..."),msg,GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
-                        g_free(msg);
-                        msg_box_hide_check_button(MSG_BOX(msgbox));
-                        msg_box_run(MSG_BOX(msgbox));
+                        msgbox = msg_box_new(_("Error..."),
+                                             GTK_WINDOW(MainWindow),
+                                             NULL,
+                                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                             msg,
+                                             GTK_STOCK_DIALOG_ERROR,
+                                             GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                             NULL);
+                        gtk_dialog_run(GTK_DIALOG(msgbox));
                         gtk_widget_destroy(msgbox);
+                        g_free(msg);
                         flag_id3lib_bugged = FALSE; // To display the message only one time
                     }
                     ET_Free_File_Tag_Item(FileTag_tmp);
@@ -554,7 +564,7 @@ gboolean Id3tag_Write_File_v23Tag (ET_File *ETFile)
             error_strip_id3v2 = ID3Tag_Strip(id3_tag,ID3TT_ID3V2);
             if (error_strip_id3v2 != ID3E_NoError)
             {
-                Log_Print(_("Error while removing ID3v2 tag of '%s' (%s)"),basename_utf8,Id3tag_Get_Error_Message(error_strip_id3v2));
+                Log_Print(LOG_ERROR,_("Error while removing ID3v2 tag of '%s' (%s)"),basename_utf8,Id3tag_Get_Error_Message(error_strip_id3v2));
                 error++;
             }
         }
@@ -574,7 +584,7 @@ gboolean Id3tag_Write_File_v23Tag (ET_File *ETFile)
             error_update_id3v1 = ID3Tag_UpdateByTagType(id3_tag,ID3TT_ID3V1);
             if (error_update_id3v1 != ID3E_NoError)
             {
-                Log_Print(_("Error while updating ID3v1 tag of '%s' (%s)"),basename_utf8,Id3tag_Get_Error_Message(error_update_id3v1));
+                Log_Print(LOG_ERROR,_("Error while updating ID3v1 tag of '%s' (%s)"),basename_utf8,Id3tag_Get_Error_Message(error_update_id3v1));
                 error++;
             }
         }else
@@ -582,13 +592,13 @@ gboolean Id3tag_Write_File_v23Tag (ET_File *ETFile)
             error_strip_id3v1 = ID3Tag_Strip(id3_tag,ID3TT_ID3V1);
             if (error_strip_id3v1 != ID3E_NoError)
             {
-                Log_Print(_("Error while removing ID3v1 tag of '%s' (%s)"),basename_utf8,Id3tag_Get_Error_Message(error_strip_id3v1));
+                Log_Print(LOG_ERROR,_("Error while removing ID3v1 tag of '%s' (%s)"),basename_utf8,Id3tag_Get_Error_Message(error_strip_id3v1));
                 error++;
             }
         }
 
         if (error == 0)
-            Log_Print(_("Updated tag of '%s'"),basename_utf8);
+            Log_Print(LOG_OK,_("Updated tag of '%s'"),basename_utf8);
 
     }
 
@@ -794,7 +804,7 @@ gchar *Id3tag_Get_Field (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid)
         // Data of the field must be a TEXT (ID3FTY_TEXTSTRING)
         if (ID3Field_GetType(id3_field) != ID3FTY_TEXTSTRING)
         {
-            Log_Print("Id3tag_Get_Field() must be used only for fields containing text.\n");
+            Log_Print(LOG_ERROR,"Id3tag_Get_Field() must be used only for fields containing text.\n");
             return NULL;
         }
 
@@ -883,15 +893,15 @@ gchar *Id3tag_Get_Field (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid)
     if (num_chars && !string1)
     {
         gchar *escaped_str = g_strescape(string, NULL);
-        Log_Print("Id3tag_Get_Field: Trying to fix string '%s' ...",escaped_str);
+        Log_Print(LOG_OK,"Id3tag_Get_Field: Trying to fix string '%s' ...",escaped_str);
         g_free(escaped_str);
 
         string1 = filename_to_display(string);
 
         if (string1)
-            Log_Print("OK");
+            Log_Print(LOG_OK,"OK");
         else
-            Log_Print("KO");
+            Log_Print(LOG_ERROR,"KO");
     }
     g_free(string);
 
@@ -933,7 +943,7 @@ ID3_TextEnc Id3tag_Set_Field (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid
         // Data of the field must be a TEXT (ID3FTY_TEXTSTRING)
         if (ID3Field_GetType(id3_field) != ID3FTY_TEXTSTRING)
         {
-            Log_Print("Id3tag_Set_Field() must be used only for fields containing text.");
+            Log_Print(LOG_ERROR,"Id3tag_Set_Field() must be used only for fields containing text.");
             return ID3TE_NONE;
         }
 
@@ -1182,7 +1192,7 @@ gboolean Id3tag_Check_If_File_Is_Corrupted (gchar *filename)
     if ( (file=fopen(filename,"rb"))==NULL )
     {
         gchar *filename_utf8 = filename_to_display(filename);
-        Log_Print(_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
         g_free(filename_utf8);
         return FALSE;
     }
@@ -1211,9 +1221,15 @@ gboolean Id3tag_Check_If_File_Is_Corrupted (gchar *filename)
 
         msg = g_strdup_printf(_("As the following corrupted file: '%s'\nwill cause "
             "an error in id3lib, it will not be processed by the program."),basename_utf8);
-        msgbox = msg_box_new(_("Corrupted file..."),msg,GTK_STOCK_DIALOG_ERROR,BUTTON_CLOSE,0);
-        msg_box_hide_check_button(MSG_BOX(msgbox));
-        msg_box_run(MSG_BOX(msgbox));
+        msgbox = msg_box_new(_("Corrupted file..."),
+                             GTK_WINDOW(MainWindow),
+                             NULL,
+                             GTK_DIALOG_MODAL  | GTK_DIALOG_DESTROY_WITH_PARENT,
+                             msg,
+                             GTK_STOCK_DIALOG_ERROR,
+                             GTK_STOCK_OK, GTK_RESPONSE_OK,
+                             NULL);
+        gtk_dialog_run(GTK_DIALOG(msgbox));
         gtk_widget_destroy(msgbox);
         g_free(msg);
         g_free(basename);
@@ -1252,7 +1268,7 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
     if ( (file=fopen(filename,"w+"))==NULL )
     {
         gchar *filename_utf8 = filename_to_display(filename);
-        Log_Print(_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
         g_free(filename_utf8);
         return FALSE;
     }

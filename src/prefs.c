@@ -191,7 +191,7 @@ void Open_OptionsWindow (void)
     g_free(path_utf8);
 
     // Button browse
-    Button = Create_Button_With_Pixmap(BUTTON_BROWSE);
+    Button = gtk_button_new_from_stock(GTK_STOCK_OPEN);
     gtk_box_pack_start(GTK_BOX(HBox),Button,FALSE,FALSE,0);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
                              G_CALLBACK(File_Selection_Window_For_Directory),G_OBJECT(GTK_BIN(DefaultPathToMp3)->child));
@@ -402,7 +402,7 @@ void Open_OptionsWindow (void)
     g_free(program_path);
 
     // Button browse
-    Button = Create_Button_With_Pixmap(BUTTON_BROWSE);
+    Button = gtk_button_new_from_stock(GTK_STOCK_OPEN);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
         G_CALLBACK(File_Selection_Window_For_File), G_OBJECT(GTK_BIN(FilePlayerCombo)->child));
@@ -819,9 +819,13 @@ void Open_OptionsWindow (void)
     gtk_table_attach(GTK_TABLE(Table),LabelAdditionalId3v2IconvOptions,2,5,5,6,GTK_FILL,GTK_FILL,0,0);
     gtk_misc_set_alignment(GTK_MISC(LabelAdditionalId3v2IconvOptions),0,0.5);
 
-    FileWritingId3v2IconvOptionsNo = gtk_radio_button_new_with_label(NULL, _("No"));
+    FileWritingId3v2IconvOptionsNo = gtk_radio_button_new_with_label(NULL,
+        _("No"));
     gtk_table_attach(GTK_TABLE(Table),FileWritingId3v2IconvOptionsNo,2,3,6,7,GTK_FILL,GTK_FILL,0,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v2IconvOptionsNo),FILE_WRITING_ID3V2_ICONV_OPTIONS_NO);
+    gtk_tooltips_set_tip(Tips,FileWritingId3v2IconvOptionsNo,_("With this option, when "
+        "a character cannot be represented in the target character set, it isn't changed. "
+        "But note that an error message will be displayed for information."),NULL);
     FileWritingId3v2IconvOptionsTranslit = gtk_radio_button_new_with_label(
         gtk_radio_button_get_group(GTK_RADIO_BUTTON(FileWritingId3v2IconvOptionsNo)),
         _("//TRANSLIT"));
@@ -888,6 +892,9 @@ void Open_OptionsWindow (void)
         _("No"));
     gtk_table_attach(GTK_TABLE(Table),FileWritingId3v1IconvOptionsNo,1,2,4,5,GTK_FILL,GTK_FILL,0,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v1IconvOptionsNo),FILE_WRITING_ID3V1_ICONV_OPTIONS_NO);
+    gtk_tooltips_set_tip(Tips,FileWritingId3v1IconvOptionsNo,_("With this option, when "
+        "a character cannot be represented in the target character set, it isn't changed. "
+        "But note that an error message will be displayed for information."),NULL);
     FileWritingId3v1IconvOptionsTranslit = gtk_radio_button_new_with_label(
         gtk_radio_button_get_group(GTK_RADIO_BUTTON(FileWritingId3v1IconvOptionsNo)),
         _("//TRANSLIT"));
@@ -1275,7 +1282,7 @@ void Open_OptionsWindow (void)
         g_free(path_utf8);
     }
 
-    Button = Create_Button_With_Pixmap(BUTTON_BROWSE);
+    Button = gtk_button_new_from_stock(GTK_STOCK_OPEN);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
                              G_CALLBACK(File_Selection_Window_For_Directory),G_OBJECT(GTK_BIN(CddbLocalPath)->child));
@@ -1736,10 +1743,15 @@ gint Check_DefaultPathToMp3 (void)
         gchar *msg = g_strdup_printf(_(" The selected path for 'Default path to "
             "files' isn't valid!\n'%s'\n(%s) "),path_utf8,
             (stat(path_real,&stbuf)==0)?_("Not a directory"):g_strerror(errno) );
-        GtkWidget *msgbox = msg_box_new(_("Error..."),msg,GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
-        msg_box_hide_check_button(MSG_BOX(msgbox));
-        gtk_window_set_transient_for(GTK_WINDOW(msgbox),GTK_WINDOW(OptionsWindow));
-        msg_box_run(MSG_BOX(msgbox));
+        GtkWidget *msgbox = msg_box_new(_("Error..."),
+                                        GTK_WINDOW(OptionsWindow),
+                                        NULL,
+                                        GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                        msg,
+                                        GTK_STOCK_DIALOG_ERROR,
+                                        GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                        NULL);
+        gtk_dialog_run(GTK_DIALOG(msgbox));
         gtk_widget_destroy(msgbox);
         g_free(msg);
         g_free(path_real);
@@ -1774,10 +1786,15 @@ gint Check_CharacterSetTranslation (void)
     {
         gchar *msg = g_strdup_printf(_("The character set translation from '%s'\n"
                                        "to '%s' isn't supported!"),reading_character,"UTF-8");
-        GtkWidget *msgbox = msg_box_new(_("Error..."),msg,GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
-        msg_box_hide_check_button(MSG_BOX(msgbox));
-        gtk_window_set_transient_for(GTK_WINDOW(msgbox),GTK_WINDOW(OptionsWindow));
-        msg_box_run(MSG_BOX(msgbox));
+        GtkWidget *msgbox = msg_box_new(_("Error..."),
+                                        GTK_WINDOW(OptionsWindow),
+                                        NULL,
+                                        GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                        msg,
+                                        GTK_STOCK_DIALOG_ERROR,
+                                        GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                        NULL);
+        gtk_dialog_run(GTK_DIALOG(msgbox));
         gtk_widget_destroy(msgbox);
         g_free(msg);
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(UseNonStandardId3ReadingCharacterSet),FALSE);
@@ -1789,10 +1806,15 @@ gint Check_CharacterSetTranslation (void)
     {
         gchar *msg = g_strdup_printf(_("The character set translation from '%s'\n"
                                        "to '%s' isn't supported!"),"UTF-8",writing_character);
-        GtkWidget *msgbox = msg_box_new(_("Error..."),msg,GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
-        msg_box_hide_check_button(MSG_BOX(msgbox));
-        gtk_window_set_transient_for(GTK_WINDOW(msgbox),GTK_WINDOW(OptionsWindow));
-        msg_box_run(MSG_BOX(msgbox));
+        GtkWidget *msgbox = msg_box_new(_("Error..."),
+                                        GTK_WINDOW(OptionsWindow),
+                                        NULL,
+                                        GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                        msg,
+                                        GTK_STOCK_DIALOG_ERROR,
+                                        GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                        NULL);
+        gtk_dialog_run(GTK_DIALOG(msgbox));
         gtk_widget_destroy(msgbox);
         g_free(msg);
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(UseNonStandardId3WritingCharacterSet),FALSE);
@@ -1838,10 +1860,15 @@ gint Check_FilePlayerCombo (void)
     {
         gchar *msg = g_strdup_printf(_("The audio file player '%s' can't be found!"),
             gtk_entry_get_text(GTK_ENTRY(GTK_BIN(FilePlayerCombo)->child)));
-        GtkWidget *msgbox = msg_box_new(_("Error..."),msg,GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
-        msg_box_hide_check_button(MSG_BOX(msgbox));
-        gtk_window_set_transient_for(GTK_WINDOW(msgbox),GTK_WINDOW(OptionsWindow));
-        msg_box_run(MSG_BOX(msgbox));
+        GtkWidget *msgbox = msg_box_new(_("Error..."),
+                                        GTK_WINDOW(OptionsWindow),
+                                        NULL,
+                                        GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                        msg,
+                                        GTK_STOCK_DIALOG_ERROR,
+                                        GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                        NULL);
+        gtk_dialog_run(GTK_DIALOG(msgbox));
         gtk_widget_destroy(msgbox);
         g_free(msg);
 

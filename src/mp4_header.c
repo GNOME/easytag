@@ -208,7 +208,7 @@ gboolean Mp4_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
     {
         gchar *filename_utf8 = filename_to_display(filename);
         //g_print(_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
-        Log_Print(_("ERROR while opening file: '%s' (%s)."),filename_utf8,_("MP4 format invalid"));
+        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,_("MP4 format invalid"));
         g_free(filename_utf8);
         return FALSE;
     }
@@ -217,7 +217,7 @@ gboolean Mp4_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
     if( MP4GetNumberOfTracks(file,MP4_AUDIO_TRACK_TYPE,0) < 1 )
     {
         gchar *filename_utf8 = filename_to_display(filename);
-        Log_Print(_("ERROR while opening file: '%s' (%s)."),filename_utf8,("Contains no audio track"));
+        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,("Contains no audio track"));
         MP4Close(file);
         g_free(filename_utf8);
         return FALSE;

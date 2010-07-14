@@ -142,6 +142,8 @@ int main (int argc, char *argv[])
     GtkWidget *HBox, *VBox;
     gboolean created_settings;
     struct stat statbuf;
+    //GError *error = NULL;
+    //GdkPixbuf *pixbuf;
     GdkPixmap *pixmap;
     GdkBitmap *mask;
 
@@ -158,7 +160,7 @@ int main (int argc, char *argv[])
 #endif
 
 #ifdef ENABLE_NLS
-    bindtextdomain(GETTEXT_PACKAGE, LOCALE);
+    bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
     bind_textdomain_codeset(PACKAGE, "UTF-8");
     textdomain(GETTEXT_PACKAGE);
     /* Initialize i18n support */
@@ -174,25 +176,25 @@ int main (int argc, char *argv[])
     INIT_DIRECTORY = NULL;
 
     /* Starting messages */
-    Log_Print(_("Starting EasyTAG %s (PId: %d) ..."),VERSION,getpid());
+    Log_Print(LOG_OK,_("Starting EasyTAG %s (PId: %d) ..."),VERSION,getpid());
 #ifdef ENABLE_MP3
-    Log_Print(_("Currently using libid3tag version %s ..."), ID3_VERSION);
+    Log_Print(LOG_OK,_("Currently using libid3tag version %s ..."), ID3_VERSION);
 #endif
 #if defined ENABLE_MP3 && defined ENABLE_ID3LIB
-    Log_Print(_("Currently using id3lib version %d.%d.%d ..."),ID3LIB_MAJOR_VERSION,
+    Log_Print(LOG_OK,_("Currently using id3lib version %d.%d.%d ..."),ID3LIB_MAJOR_VERSION,
                                                                ID3LIB_MINOR_VERSION,
                                                                ID3LIB_PATCH_VERSION);
 #endif
 
 #ifdef WIN32
     if (g_getenv("EASYTAGLANG"))
-        Log_Print(_("Variable EASYTAGLANG defined. Setting locale : '%s'"),g_getenv("EASYTAGLANG"));
+        Log_Print(LOG_OK,_("Variable EASYTAGLANG defined. Setting locale : '%s'"),g_getenv("EASYTAGLANG"));
     else
-        Log_Print(_("Setting locale : '%s'"),g_getenv("LANG"));
+        Log_Print(LOG_OK,_("Setting locale : '%s'"),g_getenv("LANG"));
 #endif
 
     if (get_locale())
-        Log_Print(_("Currently using locale '%s' (and eventually '%s')..."),
+        Log_Print(LOG_OK,_("Currently using locale '%s' (and eventually '%s')..."),
                 get_locale(),get_encoding_from_locale(get_locale()));
 
 
@@ -316,10 +318,20 @@ int main (int argc, char *argv[])
 
     /* Minimised window icon */
     gtk_widget_realize(MainWindow);
+
     pixmap = gdk_pixmap_create_from_xpm_d(MainWindow->window,&mask,NULL,EasyTAG_icon_xpm);
     gdk_window_set_icon(MainWindow->window,(GdkWindow *)NULL,pixmap,mask);
-
-
+    /*pixbuf = gdk_pixbuf_new_from_file(PACKAGE_DATA_DIR"/EasyTAG_icon.png",&error);
+    if (pixbuf)
+    {
+        gtk_window_set_icon(GTK_WINDOW(MainWindow),pixbuf);
+        g_object_unref(G_OBJECT(pixbuf));
+    }else
+    {
+        Log_Print(LOG_ERROR,error->message);
+        g_error_free(error);
+    }*/
+    
     /* MainVBox for Menu bar + Tool bar + "Browser Area & FileArea & TagArea" + Log Area + "Status bar & Progress bar" */
     MainVBox = gtk_vbox_new(FALSE,0);
     gtk_container_add (GTK_CONTAINER(MainWindow),MainVBox);
@@ -1542,7 +1554,7 @@ void Mini_Button_Clicked (GObject *object)
 
     if (msg)
     {
-        Log_Print("%s",msg);
+        Log_Print(LOG_OK,"%s",msg);
         Statusbar_Message(msg,TRUE);
         g_free(msg);
     }
@@ -2134,7 +2146,7 @@ gint Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
     Tag_Area_Set_Sensitive(FALSE);
     File_Area_Set_Sensitive(FALSE);
 
-    /* Show msgbox (if needed) to ask confirmation */
+    /* Show msgbox (if needed) to ask confirmation ('SF' for Save File) */
     SF_HideMsgbox_Write_Tag = 0;
     SF_HideMsgbox_Rename_File = 0;
 
@@ -2413,7 +2425,8 @@ gint Save_File (ET_File *ETFile, gboolean multiple_files, gboolean force_saving_
     || FileTag->saved == FALSE ) // This tag had been already saved ?
     {
         GtkWidget *msgbox = NULL;
-        gint button;
+        GtkWidget *msgbox_check_button = NULL;
+        gint response;
 
         if (CONFIRM_WRITE_TAG && !SF_HideMsgbox_Write_Tag)
         {
@@ -2423,39 +2436,53 @@ gint Save_File (ET_File *ETFile, gboolean multiple_files, gboolean force_saving_
 
             if (multiple_files)
             {
-                msgbox = msg_box_new(_("Write Tag..."),msg,GTK_STOCK_DIALOG_QUESTION,
-                    BUTTON_CANCEL,BUTTON_NO,BUTTON_YES,0);
-                msg_box_check_button_set_active(MSG_BOX(msgbox),TRUE); // Checked by default
+                msgbox = msg_box_new(_("Write Tag..."),
+                                     GTK_WINDOW(MainWindow),
+                                     &msgbox_check_button,
+                                     GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                     msg,
+                                     GTK_STOCK_DIALOG_QUESTION,
+                                     GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,
+                                     GTK_STOCK_NO,    GTK_RESPONSE_NO,
+									 GTK_STOCK_YES,   GTK_RESPONSE_YES,
+                                     NULL);
+                GTK_TOGGLE_BUTTON(msgbox_check_button)->active = TRUE; // Checked by default
             }else
             {
-                msgbox = msg_box_new(_("Write Tag..."),msg,GTK_STOCK_DIALOG_QUESTION,
-                    BUTTON_NO,BUTTON_YES,0);
-                msg_box_hide_check_button(MSG_BOX(msgbox));
+                msgbox = msg_box_new(_("Write Tag..."),
+                                     GTK_WINDOW(MainWindow),
+                                     NULL,
+                                     GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                     msg,
+                                     GTK_STOCK_DIALOG_QUESTION,
+                                     GTK_STOCK_NO,  GTK_RESPONSE_NO,
+									 GTK_STOCK_YES, GTK_RESPONSE_YES,
+                                     NULL);
             }
             g_free(msg);
 
-            SF_ButtonPressed_Write_Tag = button = msg_box_run(MSG_BOX(msgbox));
-            /* When check button in msgbox was activated : do not display the message again */
-            if (msg_box_check_button_get_active(MSG_BOX(msgbox)))
-                SF_HideMsgbox_Write_Tag = MSG_BOX(msgbox)->check_button_state;
+            SF_ButtonPressed_Write_Tag = response = gtk_dialog_run(GTK_DIALOG(msgbox));
+            // When check button in msgbox was activated : do not display the message again 
+            if (msgbox_check_button && GTK_TOGGLE_BUTTON(msgbox_check_button)->active)
+                SF_HideMsgbox_Write_Tag = GTK_TOGGLE_BUTTON(msgbox_check_button)->active;
             gtk_widget_destroy(msgbox);
         }else
         {
             if (SF_HideMsgbox_Write_Tag)
-                button = SF_ButtonPressed_Write_Tag;
+                response = SF_ButtonPressed_Write_Tag;
             else
-                button = BUTTON_YES;
+                response = GTK_RESPONSE_YES;
         }
 
-        switch (button)
+        switch (response)
         {
-            case BUTTON_YES:
+            case GTK_RESPONSE_YES:
                 Write_File_Tag(ETFile);
                 break;
-            case BUTTON_NO:
+            case GTK_RESPONSE_NO:
                 break;
-            case BUTTON_CANCEL:
-            case -1:
+            case GTK_RESPONSE_CANCEL:
+            case GTK_RESPONSE_NONE:
                 stop_loop = -1;
                 return stop_loop;
                 break;
@@ -2470,7 +2497,8 @@ gint Save_File (ET_File *ETFile, gboolean multiple_files, gboolean force_saving_
     if ( FileNameNew->saved == FALSE ) // This filename had been already saved ?
     {
         GtkWidget *msgbox = NULL;
-        gint button;
+        GtkWidget *msgbox_check_button = NULL;
+        gint response;
 
         if (CONFIRM_RENAME_FILE && !SF_HideMsgbox_Rename_File)
         {
@@ -2509,38 +2537,52 @@ gint Save_File (ET_File *ETFile, gboolean multiple_files, gboolean force_saving_
             if (multiple_files)
             {
                 // Allow to cancel for all other files
-                msgbox = msg_box_new(msg_title,msg,GTK_STOCK_DIALOG_QUESTION,
-                    BUTTON_CANCEL,BUTTON_NO,BUTTON_YES,0);
-                msg_box_check_button_set_active(MSG_BOX(msgbox),TRUE); // Checked by default
+                msgbox = msg_box_new(msg_title,
+                                     GTK_WINDOW(MainWindow),
+                                     &msgbox_check_button,
+                                     GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                     msg,
+                                     GTK_STOCK_DIALOG_QUESTION,
+                                     GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,
+                                     GTK_STOCK_NO,    GTK_RESPONSE_NO,
+									 GTK_STOCK_YES,   GTK_RESPONSE_YES,
+                                     NULL);
+                GTK_TOGGLE_BUTTON(msgbox_check_button)->active = TRUE; // Checked by default
             }else
             {
-                msgbox = msg_box_new(msg_title,msg,GTK_STOCK_DIALOG_QUESTION,
-                    BUTTON_NO,BUTTON_YES,0);
-                msg_box_hide_check_button(MSG_BOX(msgbox));
+                msgbox = msg_box_new(msg_title,
+                                     GTK_WINDOW(MainWindow),
+                                     NULL,
+                                     GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                     msg,
+                                     GTK_STOCK_DIALOG_QUESTION,
+                                     GTK_STOCK_NO,  GTK_RESPONSE_NO,
+									 GTK_STOCK_YES, GTK_RESPONSE_YES,
+                                     NULL);
             }
             g_free(msg);
             g_free(msg_title);
-            SF_ButtonPressed_Rename_File = button = msg_box_run(MSG_BOX(msgbox));
-            if (msg_box_check_button_get_active(MSG_BOX(msgbox)))
-                SF_HideMsgbox_Rename_File = msg_box_check_button_get_active(MSG_BOX(msgbox));
+            SF_ButtonPressed_Rename_File = response = gtk_dialog_run(GTK_DIALOG(msgbox));
+            if (msgbox_check_button && GTK_TOGGLE_BUTTON(msgbox_check_button)->active)
+                SF_HideMsgbox_Rename_File = GTK_TOGGLE_BUTTON(msgbox_check_button)->active;
             gtk_widget_destroy(msgbox);
         }else
         {
             if (SF_HideMsgbox_Rename_File)
-                button = SF_ButtonPressed_Rename_File;
+                response = SF_ButtonPressed_Rename_File;
             else
-                button = BUTTON_YES;
+                response = GTK_RESPONSE_YES;
         }
 
-        switch(button)
+        switch(response)
         {
-            case BUTTON_YES:
+            case GTK_RESPONSE_YES:
                 Rename_File(ETFile);
                 break;
-            case BUTTON_NO:
+            case GTK_RESPONSE_NO:
                 break;
-            case BUTTON_CANCEL:
-            case -1:
+            case GTK_RESPONSE_CANCEL:
+            case GTK_RESPONSE_NONE:
                 stop_loop = -1;
                 return stop_loop;
                 break;
@@ -2592,12 +2634,18 @@ void Write_File_Tag (ET_File *ETFile)
                                   basename_utf8,g_strerror(errno));
     }
 
-    msgbox = msg_box_new(_("Error..."),msg,GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
+    msgbox = msg_box_new(_("Error..."),
+                         GTK_WINDOW(MainWindow),
+                         NULL,
+                         GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                         msg,
+                         GTK_STOCK_DIALOG_ERROR,
+                         GTK_STOCK_OK, GTK_RESPONSE_OK,
+                         NULL);
+    gtk_dialog_run(GTK_DIALOG(msgbox));
+    gtk_widget_destroy(msgbox);
     g_free(msg);
     g_free(basename_utf8);
-    msg_box_hide_check_button(MSG_BOX(msgbox));
-    msg_box_run(MSG_BOX(msgbox));
-    gtk_widget_destroy(msgbox);
 }
 
 
@@ -2736,11 +2784,17 @@ void Rename_File (ET_File *ETFile)
         /* Renaming file to the temporary filename has failed */
         msg = g_strdup_printf(_("Can't rename file '%s'\n to \n'%s'!\n(%s)"),
                                 cur_basename_utf8,new_basename_utf8,g_strerror(errno));
-        msgbox = msg_box_new(_("Error..."),msg,GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
-        g_free(msg);
-        msg_box_hide_check_button(MSG_BOX(msgbox));
-        msg_box_run(MSG_BOX(msgbox));
+        msgbox = msg_box_new(_("Error..."),
+                             GTK_WINDOW(MainWindow),
+                             NULL,
+                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                             msg,
+                             GTK_STOCK_DIALOG_ERROR,
+                             GTK_STOCK_OK, GTK_RESPONSE_OK,
+                             NULL);
+        gtk_dialog_run(GTK_DIALOG(msgbox));
         gtk_widget_destroy(msgbox);
+        g_free(msg);
 
         Statusbar_Message(_("File(s) not renamed..."),TRUE);
         g_free(tmp_filename);
@@ -2768,11 +2822,17 @@ void Rename_File (ET_File *ETFile)
             /* Renaming file from the temporary filename has failed */
             msg = g_strdup_printf(_("Can't rename file '%s'\n to \n'%s'!\n(%s)"),
                                     new_basename_utf8,cur_basename_utf8,g_strerror(errno));
-            msgbox = msg_box_new(_("Error..."),msg,GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
-            g_free(msg);
-            msg_box_hide_check_button(MSG_BOX(msgbox));
-            msg_box_run(MSG_BOX(msgbox));
+            msgbox = msg_box_new(_("Error..."),
+                                 GTK_WINDOW(MainWindow),
+                                 NULL,
+                                 GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                 msg,
+                                 GTK_STOCK_DIALOG_ERROR,
+                                 GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                 NULL);
+            gtk_dialog_run(GTK_DIALOG(msgbox));
             gtk_widget_destroy(msgbox);
+            g_free(msg);
 
             Statusbar_Message(_("File(s) not renamed..."),TRUE);
             g_free(tmp_filename);
@@ -2783,11 +2843,17 @@ void Rename_File (ET_File *ETFile)
 
         msg = g_strdup_printf(_("Can't rename file \n'%s'\nbecause the following "
                     "file already exists:\n'%s'"),cur_basename_utf8,new_basename_utf8);
-        msgbox = msg_box_new(_("Error..."),msg,GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
-        g_free(msg);
-        msg_box_hide_check_button(MSG_BOX(msgbox));
-        msg_box_run(MSG_BOX(msgbox));
-        gtk_widget_destroy(msgbox);
+        msgbox = msg_box_new(_("Error..."),
+                             GTK_WINDOW(MainWindow),
+                             NULL,
+                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                             msg,
+                             GTK_STOCK_DIALOG_ERROR,
+                             GTK_STOCK_OK, GTK_RESPONSE_OK,
+                             NULL);
+            gtk_dialog_run(GTK_DIALOG(msgbox));
+            gtk_widget_destroy(msgbox);
+            g_free(msg);
 
         Statusbar_Message(_("File(s) not renamed..."),TRUE);
 
@@ -2815,12 +2881,18 @@ void Rename_File (ET_File *ETFile)
             dirname_new_utf8 = filename_to_display(dirname_new);
             msg = g_strdup_printf(_("Can't create target directory\n'%s'!\n(%s)"),
                                   dirname_new_utf8,g_strerror(errno));
-            msgbox = msg_box_new(_("Error..."),msg,GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
+            msgbox = msg_box_new(_("Error..."),
+                                 GTK_WINDOW(MainWindow),
+                                 NULL,
+                                 GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                 msg,
+                                 GTK_STOCK_DIALOG_ERROR,
+                                 GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                 NULL);
+            gtk_dialog_run(GTK_DIALOG(msgbox));
+            gtk_widget_destroy(msgbox);
             g_free(msg);
             g_free(dirname_new_utf8);
-            msg_box_hide_check_button(MSG_BOX(msgbox));
-            msg_box_run(MSG_BOX(msgbox));
-            gtk_widget_destroy(msgbox);
 
             g_free(tmp_filename);
             g_free(cur_basename_utf8);
@@ -2835,7 +2907,7 @@ void Rename_File (ET_File *ETFile)
     if ( rename(tmp_filename,new_filename)==0 )
     {
         /* Renaming file has succeeded */
-        Log_Print(_("Renamed file '%s' to '%s'"),cur_basename_utf8,new_basename_utf8);
+        Log_Print(LOG_OK,_("Renamed file '%s' to '%s'"),cur_basename_utf8,new_basename_utf8);
 
         ETFile->FileNameCur = ETFile->FileNameNew;
         /* Now the file was renamed, so mark his state */
@@ -2853,12 +2925,18 @@ void Rename_File (ET_File *ETFile)
             dirname_cur_utf8 = filename_to_display(dirname_cur);
             msg = g_strdup_printf(_("Can't remove old directory\n'%s'!\n(%s)"),
                                   dirname_cur_utf8,g_strerror(errno));
-            msgbox = msg_box_new(_("Error..."),msg,GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
+            msgbox = msg_box_new(_("Error..."),
+                                 GTK_WINDOW(MainWindow),
+                                 NULL,
+                                 GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                 msg,
+                                 GTK_STOCK_DIALOG_ERROR,
+                                 GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                 NULL);
+            gtk_dialog_run(GTK_DIALOG(msgbox));
+            gtk_widget_destroy(msgbox);
             g_free(msg);
             g_free(dirname_cur_utf8);
-            msg_box_hide_check_button(MSG_BOX(msgbox));
-            msg_box_run(MSG_BOX(msgbox));
-            gtk_widget_destroy(msgbox);
 
             g_free(tmp_filename);
             g_free(cur_basename_utf8);
@@ -2882,7 +2960,7 @@ void Rename_File (ET_File *ETFile)
             unlink(tmp_filename);
             
             /* Renaming file has succeeded */
-            Log_Print(_("Moved file '%s' to '%s'"),cur_basename_utf8,new_basename_utf8);
+            Log_Print(LOG_OK,_("Moved file '%s' to '%s'"),cur_basename_utf8,new_basename_utf8);
 
             ETFile->FileNameCur = ETFile->FileNameNew;
             /* Now the file was renamed, so mark his state */
@@ -2900,12 +2978,18 @@ void Rename_File (ET_File *ETFile)
                 dirname_cur_utf8 = filename_to_display(dirname_cur);
                 msg = g_strdup_printf(_("Can't remove old directory\n'%s'!\n(%s)"),
                                       dirname_cur_utf8,g_strerror(errno));
-                msgbox = msg_box_new(_("Error..."),msg,GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
+                msgbox = msg_box_new(_("Error..."),
+                                     GTK_WINDOW(MainWindow),
+                                     NULL,
+                                     GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                     msg,
+                                     GTK_STOCK_DIALOG_ERROR,
+                                     GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                     NULL);
+                gtk_dialog_run(GTK_DIALOG(msgbox));
+                gtk_widget_destroy(msgbox);
                 g_free(msg);
                 g_free(dirname_cur_utf8);
-                msg_box_hide_check_button(MSG_BOX(msgbox));
-                msg_box_run(MSG_BOX(msgbox));
-                gtk_widget_destroy(msgbox);
     
                 g_free(tmp_filename);
                 g_free(cur_basename_utf8);
@@ -2922,12 +3006,18 @@ void Rename_File (ET_File *ETFile)
             /* Moving file has failed */
             msg = g_strdup_printf(_("Can't move file '%s'\n to \n'%s'!\n(%s)"),
                                   cur_basename_utf8,new_basename_utf8,g_strerror(errno));
-            msgbox = msg_box_new(_("Error..."),msg,GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
-            g_free(msg);
-            msg_box_hide_check_button(MSG_BOX(msgbox));
-            msg_box_run(MSG_BOX(msgbox));
+            msgbox = msg_box_new(_("Error..."),
+                                 GTK_WINDOW(MainWindow),
+                                 NULL,
+                                 GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                 msg,
+                                 GTK_STOCK_DIALOG_ERROR,
+                                 GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                 NULL);
+            gtk_dialog_run(GTK_DIALOG(msgbox));
             gtk_widget_destroy(msgbox);
-    
+            g_free(msg);
+
             Statusbar_Message(_("File(s) not moved..."),TRUE);
         }
     }else
@@ -2940,11 +3030,17 @@ void Rename_File (ET_File *ETFile)
 
         msg = g_strdup_printf(_("Can't rename file '%s'\n to \n'%s'!\n(%s)"),
                               cur_basename_utf8,new_basename_utf8,g_strerror(errno));
-        msgbox = msg_box_new(_("Error..."),msg,GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
-        g_free(msg);
-        msg_box_hide_check_button(MSG_BOX(msgbox));
-        msg_box_run(MSG_BOX(msgbox));
+        msgbox = msg_box_new(_("Error..."),
+                             GTK_WINDOW(MainWindow),
+                             NULL,
+                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                             msg,
+                             GTK_STOCK_DIALOG_ERROR,
+                             GTK_STOCK_OK, GTK_RESPONSE_OK,
+                             NULL);
+        gtk_dialog_run(GTK_DIALOG(msgbox));
         gtk_widget_destroy(msgbox);
+        g_free(msg);
 
         Statusbar_Message(_("File(s) not renamed..."),TRUE);
     }
@@ -2961,11 +3057,12 @@ void Rename_File (ET_File *ETFile)
 gint Delete_File (ET_File *ETFile, gboolean multiple_files)
 {
     GtkWidget *msgbox = NULL;
+    GtkWidget *msgbox_check_button = NULL;
     gchar *cur_filename;
     gchar *cur_filename_utf8;
     gchar *basename_utf8;
     gchar *msg;
-    gint button;
+    gint response;
     gint stop_loop;
 
     if (!ETFile) return FALSE;
@@ -2983,30 +3080,45 @@ gint Delete_File (ET_File *ETFile, gboolean multiple_files)
         msg = g_strdup_printf(_("Do you really want to delete definitively the file\n'%s' ?"),basename_utf8);
         if (multiple_files)
         {
-            msgbox = msg_box_new(_("Delete File..."),msg,GTK_STOCK_DIALOG_QUESTION,
-                BUTTON_CANCEL,BUTTON_NO,BUTTON_YES,0);
+            msgbox = msg_box_new(_("Delete File..."),
+                                 GTK_WINDOW(MainWindow),
+                                 &msgbox_check_button,
+                                 GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                 msg,
+                                 GTK_STOCK_DIALOG_QUESTION,
+                                 GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,
+                                 GTK_STOCK_NO,    GTK_RESPONSE_NO,
+								 GTK_STOCK_YES,   GTK_RESPONSE_YES,
+                                 NULL);
+            //GTK_TOGGLE_BUTTON(msgbox_check_button)->active = TRUE; // Checked by default
         }else
         {
-            msgbox = msg_box_new(_("Delete File..."),msg,GTK_STOCK_DIALOG_QUESTION,
-                BUTTON_NO,BUTTON_YES,0);
-            msg_box_hide_check_button(MSG_BOX(msgbox));
+            msgbox = msg_box_new(_("Delete File..."),
+                                 GTK_WINDOW(MainWindow),
+                                 NULL,
+                                 GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                 msg,
+                                 GTK_STOCK_DIALOG_QUESTION,
+                                 GTK_STOCK_NO,    GTK_RESPONSE_NO,
+								 GTK_STOCK_YES,   GTK_RESPONSE_YES,
+                                 NULL);
         }
         g_free(msg);
-        SF_ButtonPressed_Delete_File = button = msg_box_run(MSG_BOX(msgbox));
-        if (msg_box_check_button_get_active(MSG_BOX(msgbox)))
-            SF_HideMsgbox_Delete_File = MSG_BOX(msgbox)->check_button_state;
+        SF_ButtonPressed_Delete_File = response = gtk_dialog_run(GTK_DIALOG(msgbox));
+        if (msgbox_check_button && GTK_TOGGLE_BUTTON(msgbox_check_button)->active)
+            SF_HideMsgbox_Delete_File = GTK_TOGGLE_BUTTON(msgbox_check_button)->active;
         gtk_widget_destroy(msgbox);
     }else
     {
         if (SF_HideMsgbox_Delete_File)
-            button = SF_ButtonPressed_Delete_File;
+            response = SF_ButtonPressed_Delete_File;
         else
-            button = BUTTON_YES;
+            response = GTK_RESPONSE_YES;
     }
 
-    switch(button)
+    switch (response)
     {
-        case BUTTON_YES:
+        case GTK_RESPONSE_YES:
             if (remove(cur_filename)==0)
             {
                 msg = g_strdup_printf(_("File '%s' deleted"), basename_utf8);
@@ -3016,10 +3128,10 @@ gint Delete_File (ET_File *ETFile, gboolean multiple_files)
                 return 1;
             }
             break;
-        case BUTTON_NO:
+        case GTK_RESPONSE_NO:
             break;
-        case BUTTON_CANCEL:
-        case -1:
+        case GTK_RESPONSE_CANCEL:
+        case GTK_RESPONSE_NONE:
             stop_loop = -1;
             g_free(basename_utf8);
             return stop_loop;
@@ -3145,14 +3257,19 @@ gboolean Read_Directory (gchar *path_real)
         gchar *msg;
 
         msg = g_strdup_printf(_("Can't read directory :\n'%s'\n(%s)"),path_utf8,g_strerror(errno));
-        msgbox = msg_box_new(_("Error..."),msg,GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
+        msgbox = msg_box_new(_("Error..."),
+                             GTK_WINDOW(MainWindow),
+                             NULL,
+                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                             msg,
+                             GTK_STOCK_DIALOG_ERROR,
+                             GTK_STOCK_OK, GTK_RESPONSE_OK,
+                             NULL);
+        gtk_dialog_run(GTK_DIALOG(msgbox));
+        gtk_widget_destroy(msgbox);
         g_free(msg);
         g_free(path_utf8);
 
-        msg_box_hide_check_button(MSG_BOX(msgbox));
-        msg_box_run(MSG_BOX(msgbox));
-        gtk_widget_destroy(msgbox);
-        
         ReadingDirectory = FALSE; //Allow a new reading
         Browser_Area_Set_Sensitive(TRUE);
         return FALSE;
@@ -3843,13 +3960,13 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
             gtk_widget_show(GTK_WIDGET(EncodedByLabel));
             gtk_widget_show(GTK_WIDGET(EncodedByEntry));
             gtk_widget_show(GTK_WIDGET(EncodedByMButton));
-            gtk_widget_hide(GTK_WIDGET(PictureLabel));
-            gtk_widget_hide(GTK_WIDGET(PictureScrollWindow));
-            gtk_widget_hide(GTK_WIDGET(PictureMButton));
-            gtk_widget_hide(GTK_WIDGET(PictureClearButton));
-            gtk_widget_hide(GTK_WIDGET(PictureAddButton));
-            gtk_widget_hide(GTK_WIDGET(PictureSaveButton));
-            gtk_widget_hide(GTK_WIDGET(PicturePropertiesButton));
+            gtk_widget_show(GTK_WIDGET(PictureLabel));
+            gtk_widget_show(GTK_WIDGET(PictureScrollWindow));
+            gtk_widget_show(GTK_WIDGET(PictureMButton));
+            gtk_widget_show(GTK_WIDGET(PictureClearButton));
+            gtk_widget_show(GTK_WIDGET(PictureAddButton));
+            gtk_widget_show(GTK_WIDGET(PictureSaveButton));
+            gtk_widget_show(GTK_WIDGET(PicturePropertiesButton));
             break;
 #endif
 
@@ -3873,8 +3990,9 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
             gtk_widget_show(GTK_WIDGET(EncodedByLabel));
             gtk_widget_show(GTK_WIDGET(EncodedByEntry));
             gtk_widget_show(GTK_WIDGET(EncodedByMButton));
-            if (WRITE_ID3_TAGS_IN_FLAC_FILE)
-            {
+            // Picture always supported now...
+            /*if (WRITE_ID3_TAGS_IN_FLAC_FILE)
+            {*/
                 gtk_widget_show(GTK_WIDGET(PictureLabel));
                 gtk_widget_show(GTK_WIDGET(PictureScrollWindow));
                 gtk_widget_show(GTK_WIDGET(PictureMButton));
@@ -3882,7 +4000,7 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
                 gtk_widget_show(GTK_WIDGET(PictureAddButton));
                 gtk_widget_show(GTK_WIDGET(PictureSaveButton));
                 gtk_widget_show(GTK_WIDGET(PicturePropertiesButton));
-            }else
+            /*}else
             {
                 gtk_widget_hide(GTK_WIDGET(PictureLabel));
                 gtk_widget_hide(GTK_WIDGET(PictureScrollWindow));
@@ -3891,7 +4009,7 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
                 gtk_widget_hide(GTK_WIDGET(PictureAddButton));
                 gtk_widget_hide(GTK_WIDGET(PictureSaveButton));
                 gtk_widget_hide(GTK_WIDGET(PicturePropertiesButton));
-            }
+            }*/
             break;
 #endif
 
@@ -4321,10 +4439,10 @@ void Handle_Crash (gint signal_id)
 {
     //gchar commmand[256];
 
-    Log_Print(_("EasyTAG %s: Abnormal exit! (PId: %d)."),VERSION,getpid());
-    Log_Print(_("Received signal %s (%d)\a"),signal_to_string(signal_id),signal_id);
+    Log_Print(LOG_ERROR,_("EasyTAG %s: Abnormal exit! (PId: %d)."),VERSION,getpid());
+    Log_Print(LOG_ERROR,_("Received signal %s (%d)\a"),signal_to_string(signal_id),signal_id);
 
-    Log_Print(_("You have probably found a bug in EasyTAG. Please, send a bug "
+    Log_Print(LOG_ERROR,_("You have probably found a bug in EasyTAG. Please, send a bug "
               "report with a gdb backtrace ('gdb easytag core' then 'bt' and "
               "'l') and informations to reproduce it to easytag@gmail.com"));
 
@@ -4504,7 +4622,7 @@ void EasyTAG_Exit (void)
 {
     ET_Core_Destroy();
     Charset_Insert_Locales_Destroy();
-    Log_Print(_("EasyTAG: Normal exit."));
+    Log_Print(LOG_OK,_("EasyTAG: Normal exit."));
     gtk_main_quit();
 #ifdef WIN32
     ET_Win32_Cleanup();
@@ -4532,7 +4650,7 @@ void Quit_MainWindow_Save_And_Quit (void)
 void Quit_MainWindow (void)
 {
     GtkWidget *msgbox;
-    gint button;
+    gint response;
 
     /* If you change the displayed data and quit immediately */
     if (ETCore->ETFileList)
@@ -4547,38 +4665,50 @@ void Quit_MainWindow (void)
         if (ET_Check_If_All_Files_Are_Saved() != TRUE)
         {
             /* Some files haven't been saved */
-            msgbox = msg_box_new(_("Confirm..."),_("Some files have been modified but "
-                "not saved...\nDo you want to save them before exiting the program?"),
-                GTK_STOCK_DIALOG_QUESTION,BUTTON_CANCEL,BUTTON_NO,BUTTON_YES,0);
-            msg_box_hide_check_button(MSG_BOX(msgbox));
-            button = msg_box_run(MSG_BOX(msgbox));
+            msgbox = msg_box_new(_("Confirm..."),
+                                 GTK_WINDOW(MainWindow),
+                                 NULL,
+                                 GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                 _("Some files have been modified but not saved...\nDo you want to save them before exiting the program?"),
+                                 GTK_STOCK_DIALOG_QUESTION,
+                                 GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,
+                                 GTK_STOCK_NO,    GTK_RESPONSE_NO,
+								 GTK_STOCK_YES,   GTK_RESPONSE_YES,
+                                 NULL);
+            response = gtk_dialog_run(GTK_DIALOG(msgbox));
             gtk_widget_destroy(msgbox);
-            switch(button)
+            switch (response)
             {
-                case BUTTON_YES:
+                case GTK_RESPONSE_YES:
                     Quit_MainWindow_Save_And_Quit();
                     break;
-                case BUTTON_NO:
+                case GTK_RESPONSE_NO:
                     Quit_MainWindow_Confirmed();
                     break;
-                case BUTTON_CANCEL:
-                case -1:
+                case GTK_RESPONSE_CANCEL:
+                case GTK_RESPONSE_NONE:
                     return;
             }
         } else
         {
-            msgbox = msg_box_new(_("Confirm..."),_(" Do you really want to exit the program? "),
-                GTK_STOCK_DIALOG_QUESTION,BUTTON_NO,BUTTON_YES,0);
-            msg_box_hide_check_button(MSG_BOX(msgbox));
-            button = msg_box_run(MSG_BOX(msgbox));
+            msgbox = msg_box_new(_("Confirm..."),
+                                 GTK_WINDOW(MainWindow),
+                                 NULL,
+                                 GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                 _(" Do you really want to exit the program? "),
+                                 GTK_STOCK_DIALOG_QUESTION,
+                                 GTK_STOCK_NO,    GTK_RESPONSE_NO,
+								 GTK_STOCK_YES,   GTK_RESPONSE_YES,
+                                 NULL);
+            response = gtk_dialog_run(GTK_DIALOG(msgbox));
             gtk_widget_destroy(msgbox);
-            switch(button)
+            switch (response)
             {
-                case BUTTON_YES:
+                case GTK_RESPONSE_YES:
                     Quit_MainWindow_Confirmed();
                     break;
-                case BUTTON_NO:
-                case -1:
+                case GTK_RESPONSE_NO:
+                case GTK_RESPONSE_NONE:
                     return;
                     break;
             }
@@ -4586,22 +4716,28 @@ void Quit_MainWindow (void)
     }else if (ET_Check_If_All_Files_Are_Saved() != TRUE)
     {
         /* Some files aren't saved */
-        msgbox = msg_box_new(_("Confirm..."),_("Some files have been modified but not "
-            "saved...\nDo you want to save them before exiting the program?"),
-            GTK_STOCK_DIALOG_QUESTION,BUTTON_CANCEL,BUTTON_NO,BUTTON_YES,0);
-        msg_box_hide_check_button(MSG_BOX(msgbox));
-        button = msg_box_run(MSG_BOX(msgbox));
+        msgbox = msg_box_new(_("Confirm..."),
+                             GTK_WINDOW(MainWindow),
+                             NULL,
+                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                             _("Some files have been modified but not saved...\nDo you want to save them before exiting the program?"),
+                             GTK_STOCK_DIALOG_QUESTION,
+                             GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,
+                             GTK_STOCK_NO,    GTK_RESPONSE_NO,
+							 GTK_STOCK_YES,   GTK_RESPONSE_YES,
+                             NULL);
+        response = gtk_dialog_run(GTK_DIALOG(msgbox));
         gtk_widget_destroy(msgbox);
-        switch(button)
+        switch (response)
         {
-            case BUTTON_YES:
+            case GTK_RESPONSE_YES:
                 Quit_MainWindow_Save_And_Quit();
                 break;
-            case BUTTON_NO:
+            case GTK_RESPONSE_NO:
                 Quit_MainWindow_Confirmed();
                 break;
-            case BUTTON_CANCEL:
-            case -1:
+            case GTK_RESPONSE_CANCEL:
+            case GTK_RESPONSE_NONE:
                 return;
         }
     }else

@@ -79,7 +79,7 @@ gboolean Ogg_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
 
     if ( (file=fopen(filename,"rb"))==NULL ) // Warning : it is important to open the file in binary mode! (to get header informations under Win32)
     {
-        Log_Print(_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
         g_free(filename_utf8);
         return FALSE;
     }
@@ -97,7 +97,7 @@ gboolean Ogg_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
             bitrate_lower   = vi->bitrate_nominal; // (b/s) Specifies the lower limit in a VBR bitstream.
         }else
         {
-            Log_Print(_("Ogg Vorbis: The specified bitstream does not exist or the "
+            Log_Print(LOG_ERROR,_("Ogg Vorbis: The specified bitstream does not exist or the "
                         "file has been initialized improperly (file: '%s')."),filename_utf8);
         }
 
@@ -109,12 +109,12 @@ gboolean Ogg_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
         /***{
             // Test for displaying comments
             vorbis_comment *vc = ov_comment(&vf,-1);
-            Log_Print(">>> %s",filename_utf8);
-            Log_Print("Nbr comments : %d",vc->comments);
-            Log_Print("Vendor : %s",vc->vendor);
+            Log_Print(LOG_OK,">>> %s",filename_utf8);
+            Log_Print(LOG_OK,"Nbr comments : %d",vc->comments);
+            Log_Print(LOG_OK,"Vendor : %s",vc->vendor);
             char **ptr = vc->user_comments;
             while(*ptr){
-              Log_Print("> %s",*ptr);
+              Log_Print(LOG_OK,"> %s",*ptr);
               ++ptr;
             }
         }***/
@@ -128,19 +128,19 @@ gboolean Ogg_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
         switch (ret)
         {
             case OV_EREAD:
-                Log_Print(_("Ogg Vorbis: Read from media returned an error (file: '%s')."),filename_utf8);
+                Log_Print(LOG_ERROR,_("Ogg Vorbis: Read from media returned an error (file: '%s')."),filename_utf8);
                 break;
             case OV_ENOTVORBIS:
-                Log_Print(_("Ogg Vorbis: Bitstream is not Vorbis data (file: '%s')."),filename_utf8);
+                Log_Print(LOG_ERROR,_("Ogg Vorbis: Bitstream is not Vorbis data (file: '%s')."),filename_utf8);
                 break;
             case OV_EVERSION:
-                Log_Print(_("Ogg Vorbis: Vorbis version mismatch (file: '%s')."),filename_utf8);
+                Log_Print(LOG_ERROR,_("Ogg Vorbis: Vorbis version mismatch (file: '%s')."),filename_utf8);
                 break;
             case OV_EBADHEADER:
-                Log_Print(_("Ogg Vorbis: Invalid Vorbis bitstream header (file: '%s')."),filename_utf8);
+                Log_Print(LOG_ERROR,_("Ogg Vorbis: Invalid Vorbis bitstream header (file: '%s')."),filename_utf8);
                 break;
             case OV_EFAULT:
-                Log_Print(_("Ogg Vorbis: Internal logic fault, indicates a bug or heap/stack corruption (file: '%s')."),filename_utf8);
+                Log_Print(LOG_ERROR,_("Ogg Vorbis: Internal logic fault, indicates a bug or heap/stack corruption (file: '%s')."),filename_utf8);
                 break;
             default:
                 break;
@@ -183,7 +183,7 @@ gboolean Speex_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
 
     if ( (file=fopen(filename,"rb"))==NULL ) // Warning : it is important to open the file in binary mode! (to get header informations under Win32)
     {
-        Log_Print(_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
         g_free(filename_utf8);
         return FALSE;
     }
@@ -192,7 +192,7 @@ gboolean Speex_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
     state = vcedit_new_state();    // Allocate memory for 'state'
     if ( vcedit_open(state,file) < 0 )
     {
-        Log_Print(_("ERROR: Failed to open file: '%s' as vorbis (%s)."),filename_utf8,vcedit_error(state));
+        Log_Print(LOG_ERROR,_("ERROR: Failed to open file: '%s' as vorbis (%s)."),filename_utf8,vcedit_error(state));
         fclose(file);
         g_free(filename_utf8);
         vcedit_clear(state);

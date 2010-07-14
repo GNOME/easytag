@@ -1,3 +1,38 @@
+2.1.4 - December 12th, 2007 :
+=============================
+    * Added support of pictures in Ogg Vorbis and Speex files (with Ogg Vorbis
+      tags),
+    * Added support of pictures in FLAC files (with FLAC Vorbis tags).
+    * The code for handling FLAC files was also fully rewritten,
+    * Added view of tag fields in the main list of files,
+    * Added a button on the main window to select a directory to browse for file 
+      (useful when the tree is hidden),
+    * Fixed compilation problem with mpeg4ip 1.6 (thanks to Götz Waschk),
+    * Fixed messages boxes to use the stock buttons and labels of GTK,
+    * Fixed file easytag.desktop (thanks to Doruk Fisek and Götz Waschk),
+    * Fixed problem with dates and EUC-JP locale when displaying lines on the 
+      log window (thanks to Misty Haiku),
+    * Fixed problem with the Cddb manual search when using a proxy,
+    * Fixed detection of Roman numerals before a coma and dot characters in the
+      scanner window,
+    * Settings to write ID3v1.x tags : the option "//TRANSLIT" was enabled by 
+      default to avoid an error message with UTF-8 strings. This was the setting
+      used before using libid3tag instead of id3lib,
+    * Fixed problem when reading tag with some languages as Turkish (patch from
+      Doruk Fisek),
+    * New Chinese (Taiwan) translation (thanks to Jose Sun),
+    * Hungarian translation updated (thanks to Mészáros Csaba),
+    * Chinese (Simplified) translation updated (thanks to Yang Jinsong),
+    * German translation updated (thanks to Götz Waschk),
+    * French translation updated.
+
+
+    Windows version :
+    * Fixed crash on start up for Norwegian locale.
+    * Fixed problem when loading the default directory if it contains an UTF-8 character,
+    * Using NSIS installer to build the setup package (instead of Inno Setup)
+
+
 2.1.3 - October 15th, 2007 :
 ============================
     * The "convert" function of the 'Process Fields' scanner was improved to

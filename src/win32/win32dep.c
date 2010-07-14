@@ -76,6 +76,7 @@ typedef enum
  */
 static char app_data_dir[MAX_PATH + 1] = "C:";
 static char install_dir[MAXPATHLEN];
+static char lib_dir[MAXPATHLEN];
 static char locale_dir[MAXPATHLEN];
 
 static void str_replace_char (gchar *str, gchar in_char, gchar out_char);
@@ -109,30 +110,30 @@ HINSTANCE ET_Win32_Hinstance (void)
    and on being read back have their '\' chars used as an escape char.
    Returns an allocated string which needs to be freed.
 */
-char* ET_Win32_Escape_Dirsep (char* filename )
+char *ET_Win32_Escape_Dirsep (const char *filename)
 {
-    int sepcount=0;
-    char* ret=NULL;
-    int cnt=0;
+	int sepcount = 0;
+	const char *tmp = filename;
+	char *ret;
+	int cnt = 0;
 
-    ret = filename;
-    while(*ret)
-    {
-        if(*ret == '\\')
-            sepcount++;
-        ret++;
-    }
-    ret = g_malloc0(strlen(filename) + sepcount + 1);
-    while(*filename)
-    {
-        ret[cnt] = *filename;
-        if(*filename == '\\')
-            ret[++cnt] = '\\';
-        filename++;
-        cnt++;
-    }
-    ret[cnt] = '\0';
-    return ret;
+	g_return_val_if_fail(filename != NULL, NULL);
+
+	while(*tmp) {
+		if(*tmp == '\\')
+			sepcount++;
+		tmp++;
+	}
+	ret = g_malloc0(strlen(filename) + sepcount + 1);
+	while(*filename) {
+		ret[cnt] = *filename;
+		if(*filename == '\\')
+			ret[++cnt] = '\\';
+		filename++;
+		cnt++;
+	}
+	ret[cnt] = '\0';
+	return ret;
 }
 
 /* this is used by libmp4v2 : what is it doing here you think ? well...search! */
@@ -165,10 +166,10 @@ int mkstemp (char *template)
 
 /* Determine whether the specified dll contains the specified procedure.
    If so, load it (if not already loaded). */
-FARPROC ET_Win32_Find_And_Loadproc ( char* dllname, char* procedure )
+FARPROC ET_Win32_Find_And_Loadproc (char *dllname, char *procedure)
 {
     HMODULE hmod;
-    int did_load=0;
+	BOOL did_load = FALSE;
     FARPROC proc = 0;
 
     if(!(hmod=GetModuleHandle(dllname)))
@@ -240,14 +241,21 @@ char* ET_Win32_Install_Dir (void)
 }
 
 
-char* ET_Win32_Locale_Dir (void)
+char *ET_Win32_Lib_Dir (void)
+{
+	strcpy(lib_dir, ET_Win32_Install_Dir());
+	g_strlcat(lib_dir, G_DIR_SEPARATOR_S "library", sizeof(lib_dir));
+	return (char*)&lib_dir;
+}
+
+char *ET_Win32_Locale_Dir (void)
 {
     strcpy(locale_dir, ET_Win32_Install_Dir());
     g_strlcat(locale_dir, G_DIR_SEPARATOR_S "locale", sizeof(locale_dir));
     return (char*)&locale_dir;
 }
 
-char* ET_Win32_Data_Dir (void)
+char *ET_Win32_Data_Dir (void)
 {
     return (char*)&app_data_dir;
 }
@@ -448,6 +456,8 @@ void ET_Win32_Cleanup (void)
 {
     /* winsock cleanup */
     WSACleanup();
+
+	ET_dll_hInstance = NULL;
 }
 
 /* DLL initializer */

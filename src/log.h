@@ -27,6 +27,16 @@
 //#include "et_core.h"
 
 
+/*
+ * Types of errors
+ */
+typedef enum
+{                  
+    LOG_UNKNOWN = 0,
+    LOG_OK,
+    LOG_ERROR
+} Log_Error_Type;
+
 
 /**************
  * Prototypes *
@@ -36,7 +46,7 @@ GtkWidget *Create_Log_Area      (void);
 
 void       Log_Clean_Log_List   (void);
 
-void       Log_Print            (gchar const *format, ...);
+void       Log_Print            (Log_Error_Type error_type, gchar const *format, ...);
 
 
 #endif /* __LOG_H__ */

@@ -757,11 +757,11 @@ apetag_read_fp(apetag *mem_cnt, FILE * fp, char *filename, int flag)
             unsigned long flag = ape2long(p + 4);
             unsigned long sizeValue = ape2long(p);
             unsigned long sizeName;
-            char *name = p + 8;
+            char *name = (char *)p + 8;
             char *value;
             
-            sizeName = strlen(p + 8);
-            value = p + sizeName + 8 + 1;
+            sizeName = strlen((char *)p + 8);
+            value = (char *)p + sizeName + 8 + 1;
             if (apeTag2 == 1000 && value[sizeValue - 1] == '\0') {
                 libapetag_maloc_cont(mem_cnt, flag,
                              sizeName, name,

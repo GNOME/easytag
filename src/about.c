@@ -32,6 +32,9 @@
 #   include <id3.h>
 #   endif
 #endif
+#ifdef ENABLE_FLAC
+#   include <FLAC/metadata.h>
+#endif
 #include <errno.h>
 
 #include "about.h"
@@ -55,10 +58,12 @@
  ****************/
 static GtkWidget *AboutWindow = NULL;
 
+// Columns for features supported...
 enum
 {
     // Columns for titles
-    EXTENSION_NAME = 0,
+    EXTENSION_PIXBUF = 0,
+    EXTENSION_NAME,
     EXTENSION_STATUT,
     EXTENSION_COMMENT,
 
@@ -121,6 +126,7 @@ void Show_About_Window (void)
     GtkTextIter textIter;
     GtkWidget *Button;
     GtkWidget *Logo;
+    //GdkPixbuf *pixbuf = NULL;
     GdkPixmap *pixmap;
     GdkBitmap *mask;
     gchar  temp[MAX_STRING_LEN];
@@ -169,6 +175,7 @@ void Show_About_Window (void)
             {"    - doutor zero ",                  _("(Brazilian Portuguese translation)")},
             {"    - Luchezar P. Petkov ",           _("(Bulgarian translation)")},
             {"    - Yang Jinsong ",                 _("(Chinese translation)")},
+            {"    - Jose Sun ",                     _("(Chinese (Taiwan) translation)")},
             {"    - Yuval Hager ",                  _("(Hebrew translation)")},
             {"    - Miloš Popović ",                _("(Serbian translation)")},
             {NULL,NULL}
@@ -228,6 +235,7 @@ void Show_About_Window (void)
                                       N_("Comment")
                                     };
     GtkTreeIter treeIter;
+    //GError *error = NULL;
     
 
     /* Check if already opened */
@@ -275,7 +283,7 @@ void Show_About_Window (void)
 #else
     pixmap = gdk_pixmap_create_from_xpm_d(AboutWindow->window,&mask,NULL,EasyTAG_logo_xpm);
 #endif
-
+    
     if (pixmap)
     {
         Logo = gtk_image_new_from_pixmap(pixmap, mask);
@@ -284,6 +292,21 @@ void Show_About_Window (void)
         gtk_box_pack_start(GTK_BOX(VBox),Logo,FALSE,TRUE,0);
         gtk_misc_set_padding(GTK_MISC(Logo),2,2);
     }
+/*#ifdef PACKAGE_DATA_DIR
+    pixbuf = gdk_pixbuf_new_from_file(PACKAGE_DATA_DIR"/EasyTAG_logo.png",&error);
+#endif
+    
+    if (pixbuf)
+    {
+        Logo = gtk_image_new_from_pixbuf(pixbuf);
+        g_object_unref(pixbuf);
+        gtk_box_pack_start(GTK_BOX(VBox),Logo,FALSE,TRUE,0);
+        gtk_misc_set_padding(GTK_MISC(Logo),2,2);
+    }else
+    {
+        Log_Print(LOG_ERROR,error->message);
+        g_error_free(error);
+    }*/
 
     /* Infos */
     Label = gtk_label_new(NULL);
@@ -329,12 +352,12 @@ void Show_About_Window (void)
     gtk_frame_set_shadow_type(GTK_FRAME(Frame),GTK_SHADOW_IN);
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,TRUE,0);
     gtk_container_set_border_width(GTK_CONTAINER(Frame), 2);
-
+    
     Label = gtk_label_new(_(description_text));
     gtk_misc_set_padding(GTK_MISC(Label),2,2);
     gtk_label_set_line_wrap(GTK_LABEL(Label),TRUE);
     gtk_container_add(GTK_CONTAINER(Frame),Label);
-    gtk_container_resize_children(GTK_CONTAINER(Frame));
+
 
 
     /*
@@ -352,27 +375,42 @@ void Show_About_Window (void)
                                    GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 
     ExtensionListModel = gtk_list_store_new(EXTENSION_COLUMN_COUNT,
-                                            G_TYPE_STRING, /* Extension name */
-                                            G_TYPE_STRING, /* Statut */
-                                            G_TYPE_STRING  /* Comment */
+                                            G_TYPE_STRING,      /* Pixbuf, but we use the Stock ID, so don't use GDK_TYPE_PIXBUF */
+                                            G_TYPE_STRING,      /* Extension name */
+                                            G_TYPE_STRING,      /* Statut */
+                                            G_TYPE_STRING       /* Comment */
                                             );
     ExtensionList = gtk_tree_view_new_with_model(GTK_TREE_MODEL(ExtensionListModel));
 
-    renderer = gtk_cell_renderer_text_new(); /* Extension name */
-    column = gtk_tree_view_column_new_with_attributes(_(ExtensionList_Titles[0]), renderer,
-                                                      "text", EXTENSION_NAME,
-                                                      NULL);
+    /* Pixbuf and Extension name */
+    column = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_title(column, _(ExtensionList_Titles[0]));
+
+    // Cell of the column for the pixbuf
+    renderer = gtk_cell_renderer_pixbuf_new();
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    gtk_tree_view_column_set_attributes(column, renderer,
+                                       "stock-id", EXTENSION_PIXBUF,
+                                        NULL);
+    // Cell of the column for the text
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    gtk_tree_view_column_set_attributes(column, renderer,
+                                       "text", EXTENSION_NAME,
+                                        NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(ExtensionList), column);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 
-    renderer = gtk_cell_renderer_text_new(); /* Statut */
+    /* Statut */
+    renderer = gtk_cell_renderer_text_new();
     column = gtk_tree_view_column_new_with_attributes(_(ExtensionList_Titles[1]), renderer,
                                                       "text", EXTENSION_STATUT,
                                                       NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(ExtensionList), column);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 
-    renderer = gtk_cell_renderer_text_new(); /* Comment */
+    /* Comment */
+    renderer = gtk_cell_renderer_text_new();
     column = gtk_tree_view_column_new_with_attributes(_(ExtensionList_Titles[2]), renderer,
                                                       "text", EXTENSION_COMMENT,
                                                       NULL);
@@ -384,32 +422,37 @@ void Show_About_Window (void)
             GTK_SELECTION_NONE);
     gtk_tree_view_set_headers_clickable(GTK_TREE_VIEW(ExtensionList), FALSE);
     
+
     // Load extensions list
     // MP3
 #ifdef ENABLE_MP3
-    sprintf(temp, _("libid3tag %s"), ID3_VERSION);
+    sprintf(temp, "libid3tag %s", ID3_VERSION);
 #endif
     gtk_list_store_append(ExtensionListModel, &treeIter);
     gtk_list_store_set(ExtensionListModel, &treeIter,
                        EXTENSION_NAME,      _("MP3 file support"),
 #ifdef ENABLE_MP3
+                       EXTENSION_PIXBUF,    GTK_STOCK_APPLY,
                        EXTENSION_STATUT,    _("enabled"),
                        EXTENSION_COMMENT,   temp,
 #else
+                       EXTENSION_PIXBUF,    GTK_STOCK_CANCEL,
                        EXTENSION_STATUT,    _("disabled"),
 #endif
                        -1);
 #ifdef ENABLE_MP3
 #if (defined ENABLE_ID3LIB) 
-    sprintf(temp, _("id3lib %d.%d.%d"), ID3LIB_MAJOR_VERSION, ID3LIB_MINOR_VERSION, ID3LIB_PATCH_VERSION);
+    sprintf(temp, "id3lib %d.%d.%d", ID3LIB_MAJOR_VERSION, ID3LIB_MINOR_VERSION, ID3LIB_PATCH_VERSION);
 #endif
     gtk_list_store_append(ExtensionListModel, &treeIter);
     gtk_list_store_set(ExtensionListModel, &treeIter,
                        EXTENSION_NAME,      _("ID3v2.3 tags writting support"),
 #if (defined ENABLE_ID3LIB) 
+                       EXTENSION_PIXBUF,    GTK_STOCK_APPLY,
                        EXTENSION_STATUT,    _("available"), // May not be used
                        EXTENSION_COMMENT,   temp,
 #else
+                       EXTENSION_PIXBUF,    GTK_STOCK_CANCEL,
                        EXTENSION_STATUT,    _("disabled"),
 #endif
                        -1);
@@ -419,8 +462,10 @@ void Show_About_Window (void)
     gtk_list_store_set(ExtensionListModel, &treeIter,
                        EXTENSION_NAME,      _("Ogg Vorbis file support"),
 #ifdef ENABLE_OGG
+                       EXTENSION_PIXBUF,    GTK_STOCK_APPLY,
                        EXTENSION_STATUT,    _("enabled"),
 #else
+                       EXTENSION_PIXBUF,    GTK_STOCK_CANCEL,
                        EXTENSION_STATUT,    _("disabled"),
 #endif
                        -1);
@@ -429,18 +474,27 @@ void Show_About_Window (void)
     gtk_list_store_set(ExtensionListModel, &treeIter,
                        EXTENSION_NAME,      _("Speex file support"),
 #ifdef ENABLE_SPEEX
+                       EXTENSION_PIXBUF,    GTK_STOCK_APPLY,
                        EXTENSION_STATUT,    _("enabled"),
 #else
+                       EXTENSION_PIXBUF,    GTK_STOCK_CANCEL,
                        EXTENSION_STATUT,    _("disabled"),
 #endif
                        -1);
     // FLAC
+#ifdef ENABLE_FLAC
+    sprintf(temp, "flac %s", FLAC__VERSION_STRING);
+#endif
+
     gtk_list_store_append(ExtensionListModel, &treeIter);
     gtk_list_store_set(ExtensionListModel, &treeIter,
                        EXTENSION_NAME,      _("FLAC file support"),
 #ifdef ENABLE_FLAC
+                       EXTENSION_PIXBUF,    GTK_STOCK_APPLY,
                        EXTENSION_STATUT,    _("enabled"),
+                       EXTENSION_COMMENT,   temp,
 #else
+                       EXTENSION_PIXBUF,    GTK_STOCK_CANCEL,
                        EXTENSION_STATUT,    _("disabled"),
 #endif
                        -1);
@@ -449,8 +503,10 @@ void Show_About_Window (void)
     gtk_list_store_set(ExtensionListModel, &treeIter,
                        EXTENSION_NAME,      _("MP4/AAC file support"),
 #ifdef ENABLE_MP4
+                       EXTENSION_PIXBUF,    GTK_STOCK_APPLY,
                        EXTENSION_STATUT,    _("enabled"),
 #else
+                       EXTENSION_PIXBUF,    GTK_STOCK_CANCEL,
                        EXTENSION_STATUT,    _("disabled"),
 #endif
                        -1);
@@ -459,8 +515,10 @@ void Show_About_Window (void)
     gtk_list_store_set(ExtensionListModel, &treeIter,
                        EXTENSION_NAME,      _("WavPack file support"),
 #ifdef ENABLE_WAVPACK
+                       EXTENSION_PIXBUF,    GTK_STOCK_APPLY,
                        EXTENSION_STATUT,    _("enabled"),
 #else
+                       EXTENSION_PIXBUF,    GTK_STOCK_CANCEL,
                        EXTENSION_STATUT,    _("disabled"),
 #endif
                        -1);
@@ -498,18 +556,20 @@ void Show_About_Window (void)
     for (i=0; translations_thanks_text[i][0]!=NULL; i++)
     {
         // Translator name
-        if (!g_utf8_validate(translations_thanks_text[i][0], -1, NULL))
+        /*if (!g_utf8_validate(translations_thanks_text[i][0], -1, NULL))
             temp_str = convert_string(translations_thanks_text[i][0], "iso-8859-1", "utf-8",TRUE);
         else
-            temp_str = g_strdup(translations_thanks_text[i][0]);
+            temp_str = g_strdup(translations_thanks_text[i][0]);*/
+        temp_str = Try_To_Validate_Utf8_String(translations_thanks_text[i][0]);
         gtk_text_buffer_insert(TextBuffer, &textIter, temp_str, -1);
         g_free(temp_str);
 
         // Translation language
-        if (!g_utf8_validate(translations_thanks_text[i][1], -1, NULL))
+        /*if (!g_utf8_validate(translations_thanks_text[i][1], -1, NULL))
             temp_str = convert_string(translations_thanks_text[i][1], "iso-8859-1", "utf-8",TRUE);
         else
-            temp_str = g_strdup(translations_thanks_text[i][1]);
+            temp_str = g_strdup(translations_thanks_text[i][1]);*/
+        temp_str = Try_To_Validate_Utf8_String(translations_thanks_text[i][1]);
         gtk_text_buffer_insert_with_tags_by_name(TextBuffer, &textIter, temp_str, -1,
                                                  "italic", NULL);
         g_free(temp_str);
@@ -574,10 +634,11 @@ void Show_About_Window (void)
                 temp[strlen(temp)-1]='\0';
 
             // Convert line to UTF-8
-            if (!g_utf8_validate(temp, -1, NULL))
+            /*if (!g_utf8_validate(temp, -1, NULL))
                 tmp = convert_string(temp, "iso-8859-1", "utf-8",TRUE);
             else
-                tmp = g_strdup(temp);
+                tmp = g_strdup(temp);*/
+            tmp = Try_To_Validate_Utf8_String(tmp);
 
             if (tmp && tmp[0]!=' ') // If first character is a space => 1rst line after title
             {
@@ -625,10 +686,9 @@ void Show_About_Window (void)
     gtk_widget_grab_default(Button);
 
 
-    /* Disable main window */
-    /*gtk_widget_set_sensitive(MainWindow,FALSE);*/
-
     gtk_widget_show_all(AboutWindow);
+    //gtk_container_resize_children(GTK_CONTAINER(AboutNoteBook));
+
 }
 
 

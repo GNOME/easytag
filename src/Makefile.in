@@ -46,11 +46,11 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
 am_easytag_OBJECTS = about.$(OBJEXT) ape_tag.$(OBJEXT) bar.$(OBJEXT) \
-	browser.$(OBJEXT) cddb.$(OBJEXT) charset.$(OBJEXT) \
-	crc32.$(OBJEXT) dlm.$(OBJEXT) easytag.$(OBJEXT) \
-	et_core.$(OBJEXT) flac_header.$(OBJEXT) flac_tag.$(OBJEXT) \
-	id3_tag.$(OBJEXT) id3v24_tag.$(OBJEXT) log.$(OBJEXT) \
-	misc.$(OBJEXT) monkeyaudio_header.$(OBJEXT) \
+	base64.$(OBJEXT) browser.$(OBJEXT) cddb.$(OBJEXT) \
+	charset.$(OBJEXT) crc32.$(OBJEXT) dlm.$(OBJEXT) \
+	easytag.$(OBJEXT) et_core.$(OBJEXT) flac_header.$(OBJEXT) \
+	flac_tag.$(OBJEXT) id3_tag.$(OBJEXT) id3v24_tag.$(OBJEXT) \
+	log.$(OBJEXT) misc.$(OBJEXT) monkeyaudio_header.$(OBJEXT) \
 	mpeg_header.$(OBJEXT) mp4_header.$(OBJEXT) mp4_tag.$(OBJEXT) \
 	musepack_header.$(OBJEXT) msgbox.$(OBJEXT) \
 	ogg_header.$(OBJEXT) ogg_tag.$(OBJEXT) picture.$(OBJEXT) \
@@ -234,6 +234,8 @@ easytag_SOURCES = \
  ape_tag.h \
  bar.c \
  bar.h \
+ base64.c \
+ base64.h \
  browser.c \
  browser.h \
  cddb.c \
@@ -298,11 +300,17 @@ EXTRA_DIST = \
  win32/resource.h \
  win32/win32dep.c \
  win32/win32dep.h \
- win32/win_easytag.c
+ win32/win_easytag.c \
+ win32/nsis/easytag-header.bmp \
+ win32/nsis/easytag-install.bmp \
+ win32/nsis/easytag-install.ico \
+ win32/nsis/easytag-uninstall.bmp 
 
 easytag_LDADD = $(GTK_LIBS) libmpg123/libmpg123.a libapetag/libapetag.a  id3lib/libid3bugfix.a
 PACKAGE_DATA_DIR = $(datadir)/$(PACKAGE)
-INCLUDES = -DLOCALE=\"$(localedir)\" -DPACKAGE_DATA_DIR=\"$(PACKAGE_DATA_DIR)\"
+INCLUDES = -DLOCALEDIR=\"$(localedir)\" \
+           -DPACKAGE_DATA_DIR=\"$(PACKAGE_DATA_DIR)\"
+
 all: all-recursive
 
 .SUFFIXES:
@@ -377,6 +385,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/about.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ape_tag.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bar.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/base64.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/browser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cddb.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/charset.Po@am__quote@

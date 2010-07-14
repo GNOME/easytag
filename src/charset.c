@@ -166,7 +166,8 @@ insert_locales (GHashTable *encodings, char *enc, ...)
     char *s;
 
     va_start (args, enc);
-    for (;;) {
+    for (;;)
+    {
         s = va_arg (args, char *);
         if (s == NULL)
             break;
@@ -201,7 +202,7 @@ Charset_Insert_Locales_Init (void)
     insert_locales (encodings, "EUC-KR", "ko", NULL);
     /*insert_locales (encodings, "GEORGIAN-ACADEMY", NULL);*/
     insert_locales (encodings, "GEORGIAN-PS", "ka", NULL);
-    insert_locales (encodings, "ISO-8859-1", "br", "ca", "da", "de", "en", "es", "eu", "fi", "fr", "gl", "it", "nl", "wa", "no", "pt", "pt", "sv", NULL);
+    insert_locales (encodings, "ISO-8859-1", "br", "ca", "da", "de", "en", "es", "eu", "fi", "fr", "gl", "it", "nl", "wa", "nb", "nn", "pt", "pt", "sv", NULL);
 #if WIN32
     insert_locales (encodings, "windows-1250", "cs", "hr", "hu", "pl", "ro", "sk", "sl", "sq", "sr", NULL);
 #else
@@ -399,8 +400,8 @@ gchar *convert_string_1 (const gchar *string, gssize length, const gchar *from_c
         gchar *escaped_str = g_strescape(string, NULL);
         if (display_error)
         {
-            Log_Print("convert_string(): Failed conversion from charset '%s' to '%s'. "
-                      "String '%s'. Errcode %d (%s).\n",
+            Log_Print(LOG_ERROR,"convert_string(): Failed conversion from charset '%s' to '%s'. "
+                      "String '%s'. Errcode %d (%s).",
                       from_codeset, to_codeset, escaped_str, error->code, error->message);
         }
         g_free(escaped_str);
@@ -448,15 +449,15 @@ gchar *convert_to_utf8 (const gchar *string)
         const gchar *usercharset;
         gchar *escaped_str = g_strescape(string, NULL);
         g_get_charset(&usercharset);
-        Log_Print("convert_to_utf8(): Failed conversion from charset '%s'. "
-                  "String '%s'. Errcode %d (%s).\n",
+        Log_Print(LOG_ERROR,"convert_to_utf8(): Failed conversion from charset '%s'. "
+                  "String '%s'. Errcode %d (%s).",
                   usercharset, escaped_str, error->code, error->message);
         g_free(escaped_str);
 
         if (g_utf8_validate(string, -1, NULL))
-            Log_Print("convert_to_utf8(): String was valid UTF-8.\n");
+            Log_Print(LOG_ERROR,"convert_to_utf8(): String was valid UTF-8.");
         else
-            Log_Print("convert_to_utf8(): String was INVALID UTF-8.\n");
+            Log_Print(LOG_ERROR,"convert_to_utf8(): String was INVALID UTF-8.");
 
         g_error_free(error);
         return g_strdup(string);
@@ -480,15 +481,15 @@ gchar *convert_from_utf8 (const char *string)
         const gchar *usercharset;
         gchar *escaped_str = g_strescape(string, NULL);
         g_get_charset(&usercharset);
-        Log_Print("convert_from_utf8(): Failed conversion to charset '%s'. "
-                  "String '%s'. Errcode %d (%s).\n",
+        Log_Print(LOG_ERROR,"convert_from_utf8(): Failed conversion to charset '%s'. "
+                  "String '%s'. Errcode %d (%s).",
                   usercharset, escaped_str, error->code, error->message);
         g_free(escaped_str);
 
         if (g_utf8_validate(string, -1, NULL))
-            Log_Print("convert_from_utf8(): String was valid UTF-8.\n");
+            Log_Print(LOG_ERROR,"convert_from_utf8(): String was valid UTF-8.");
         else
-            Log_Print("convert_from_utf8(): String was INVALID UTF-8.\n");
+            Log_Print(LOG_ERROR,"convert_from_utf8(): String was INVALID UTF-8.");
 
         g_error_free(error);
         return g_strdup(string);
@@ -539,7 +540,7 @@ gchar *filename_to_display (const gchar *string)
         if (!ret)
         {
             gchar *escaped_str = g_strescape(string, NULL);
-            Log_Print(_("The filename '%s' couldn't be converted into UTF-8 (%s).\n"),
+            Log_Print(LOG_ERROR,_("The filename '%s' couldn't be converted into UTF-8 (%s)."),
                         escaped_str, error && error->message ? error->message : _("Invalid UTF-8"));
             g_clear_error(&error);
 
@@ -638,7 +639,7 @@ gchar *filename_from_display (const gchar *string)
     {
         // Conversion KO!
         gchar *escaped_str = g_strescape(string, NULL);
-        Log_Print(_("The UTF-8 string '%s' couldn't be converted into filename encoding (%s)\n"),
+        Log_Print(LOG_ERROR,_("The UTF-8 string '%s' couldn't be converted into filename encoding (%s)."),
                     escaped_str, error && error->message ? error->message : _("Invalid UTF-8"));
         g_clear_error(&error);
 
@@ -702,7 +703,7 @@ gchar *Try_To_Validate_Utf8_String (const gchar *string)
         if (!ret)
         {
             gchar *escaped_str = g_strescape(string, NULL);
-            Log_Print(_("The string '%s' couldn't be converted into UTF-8 (%s).\n"),
+            Log_Print(LOG_ERROR,_("The string '%s' couldn't be converted into UTF-8 (%s)."),
                         escaped_str, error && error->message ? error->message : _("Invalid UTF-8"));
             g_clear_error(&error);
 
@@ -789,25 +790,25 @@ gboolean test_conversion_charset (const gchar *from, const gchar *to)
         /*// Error in conversion
         if (error && error->code == G_CONVERT_ERROR_NO_CONVERSION)
         {
-            Log_Print("Conversion error from '%s' to '%s' (G_CONVERT_ERROR_NO_CONVERSION)",from,to);
+            Log_Print(LOG_ERROR,"Conversion error from '%s' to '%s' (G_CONVERT_ERROR_NO_CONVERSION)",from,to);
         } else if (error && error->code == G_CONVERT_ERROR_ILLEGAL_SEQUENCE)
         {
-            Log_Print("Conversion error from '%s' to '%s' (G_CONVERT_ERROR_ILLEGAL_SEQUENCE)",from,to);
+            Log_Print(LOG_ERROR,"Conversion error from '%s' to '%s' (G_CONVERT_ERROR_ILLEGAL_SEQUENCE)",from,to);
         } else if (error && error->code == G_CONVERT_ERROR_FAILED)
         {
-            Log_Print("Conversion error from '%s' to '%s' (G_CONVERT_ERROR_FAILED)",from,to);
+            Log_Print(LOG_ERROR,"Conversion error from '%s' to '%s' (G_CONVERT_ERROR_FAILED)",from,to);
         } else if (error && error->code == G_CONVERT_ERROR_PARTIAL_INPUT)
         {
-            Log_Print("Conversion error from '%s' to '%s' (G_CONVERT_ERROR_PARTIAL_INPUT)",from,to);
+            Log_Print(LOG_ERROR,"Conversion error from '%s' to '%s' (G_CONVERT_ERROR_PARTIAL_INPUT)",from,to);
         } else if (error && error->code == G_CONVERT_ERROR_BAD_URI)
         {
-            Log_Print("Conversion error from '%s' to '%s' (G_CONVERT_ERROR_BAD_URI)",from,to);
+            Log_Print(LOG_ERROR,"Conversion error from '%s' to '%s' (G_CONVERT_ERROR_BAD_URI)",from,to);
         } else if (error && error->code == G_CONVERT_ERROR_NOT_ABSOLUTE_PATH)
         {
-            Log_Print("Conversion error from '%s' to '%s' (G_CONVERT_ERROR_NOT_ABSOLUTE_PATH)",from,to);
+            Log_Print(LOG_ERROR,"Conversion error from '%s' to '%s' (G_CONVERT_ERROR_NOT_ABSOLUTE_PATH)",from,to);
         } else
         {
-            Log_Print("Conversion error from '%s' to '%s' (unknown : %d)",from,to,error->code);
+            Log_Print(LOG_ERROR,"Conversion error from '%s' to '%s' (unknown : %d)",from,to,error->code);
         }
 
         if (error)

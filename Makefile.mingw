@@ -5,9 +5,15 @@
 # Description: Top Makefile for win32 (mingw) port of Gaim
 #
 
-EASYTAG_SRC = ./src
+#MAKENSIS            = "C:/Program Files/NSIS/makensis.exe"
+#VERSION := $(shell cat ./config.h |grep VERSION)
+
+EASYTAG_SRC         = ./src
 EASYTAG_INSTALL_DIR = ./win32-install-dir
-PO = ./po
+DOC                 = ./doc
+PIXMAPS             = ./pixmaps
+PO                  = ./po
+
 
 ##
 ## Don't forget to change STATIC_PROTO_INIT, in config.h.mingw if you
@@ -21,18 +27,24 @@ all:
 install: all
 	$(MAKE) -C $(PO) -f Makefile.mingw install
 	$(MAKE) -C $(EASYTAG_SRC) -f Makefile.mingw install
+	cp ChangeLog $(EASYTAG_INSTALL_DIR)/ChangeLog.txt
+	cp COPYING $(EASYTAG_INSTALL_DIR)/COPYING.txt
+	cp README $(EASYTAG_INSTALL_DIR)/README.txt
+	cp README_win32.txt $(EASYTAG_INSTALL_DIR)
+	cp $(DOC)/EasyTAG_Documentation* $(EASYTAG_INSTALL_DIR)
+	cp -r $(DOC)/users_guide_* $(EASYTAG_INSTALL_DIR)
 
+#installer: 
+#	$(MAKENSIS) /DPRODUCT_VERSION="$(VERSION)"  easytag-win32-installer.nsi
+#	$(MAKENSIS) /DPRODUCT_VERSION="$(VERSION)" /DWITH_GTK easytag-win32-installer.nsi
 
-installer:
-	$(MAKENSIS) /DGAIM_VERSION="$(VERSION)" /DWITH_GTK gaim-installer.nsi
+#installer_nogtk:
+#	$(MAKENSIS) /DEASYTAG_VERSION="$(VERSION)" gaim-installer.nsi
 
-installer_nogtk:
-	$(MAKENSIS) /DGAIM_VERSION="$(VERSION)" gaim-installer.nsi
+#installer_debug:
+#	$(MAKENSIS) /DEASYTAG_VERSION="$(VERSION)" /DDEBUG easytag-win32-installer.nsi
 
-installer_debug:
-	$(MAKENSIS) /DGAIM_VERSION="$(VERSION)" /DDEBUG gaim-installer.nsi
-
-installers: installer installer_nogtk
+#installers: installer #installer_nogtk
 
 
 clean:

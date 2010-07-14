@@ -38,6 +38,8 @@
 #include "et_core.h"
 #include "log.h"
 #include "misc.h"
+#include "base64.h"
+#include "picture.h"
 #include "setting.h"
 #include "charset.h"
 
@@ -127,6 +129,7 @@ gboolean Ogg_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     gchar          *string2 = NULL;
     gchar          *filename_utf8 = filename_to_display(filename);
     guint           field_num, i;
+    Picture        *prev_pic = NULL;
 
 
     if (!filename || !FileTag)
@@ -136,7 +139,7 @@ gboolean Ogg_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
 
     if ( (file=fopen(filename,"rb")) == NULL )
     {
-        Log_Print(_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
         g_free(filename_utf8);
         return FALSE;
     }
@@ -160,7 +163,7 @@ gboolean Ogg_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
                 id3v2size = 10 + ( (long)(tmp_id3[3])        | ((long)(tmp_id3[2]) << 7)
                                 | ((long)(tmp_id3[1]) << 14) | ((long)(tmp_id3[0]) << 21) );
                 fseek(file, id3v2size, SEEK_SET);
-                Log_Print(_("Warning : The Ogg Vorbis file '%s' contains an ID3v2 tag."),filename_utf8);
+                Log_Print(LOG_ERROR,_("Warning : The Ogg Vorbis file '%s' contains an ID3v2 tag."),filename_utf8);
             }else
             {
                 fseek(file, 0L, SEEK_SET);
@@ -178,7 +181,7 @@ gboolean Ogg_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     state = vcedit_new_state();    // Allocate memory for 'state'
     if ( vcedit_open(state,file) < 0 )
     {
-        Log_Print(_("ERROR: Failed to open file: '%s' as vorbis (%s)."),filename_utf8,vcedit_error(state));
+        Log_Print(LOG_ERROR,_("ERROR: Failed to open file: '%s' as vorbis (%s)."),filename_utf8,vcedit_error(state));
         ogg_error_msg = vcedit_error(state);
         fclose(file);
         g_free(filename_utf8);
@@ -471,27 +474,82 @@ gboolean Ogg_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     }
 
 
+    /**************
+     * Picture    *
+     **************/
+    /* Non officials tags used for picture informations:
+     *  - COVERART            : contains the picture data
+     *  - COVERARTTYPE        : cover front, ...
+     *  - COVERARTDESCRIPTION : information set by user
+     *  - COVERARTMIME        : image/jpeg or image/png (written only)
+     */
+    field_num = 0;
+    while ( (string = vorbis_comment_query(vc,"COVERART",field_num++)) != NULL )
+    {
+        gchar *data;
+        gint size;
+        Picture *pic;
+            
+        pic = Picture_Allocate();
+        if (!prev_pic)
+            FileTag->picture = pic;
+        else
+            prev_pic->next = pic;
+        prev_pic = pic;
+
+        pic->data = NULL;
+        
+        // Decode picture data
+        data = g_strdup(string);
+        size = base64_decode(string, data);
+        if ( data && (pic->data = g_memdup(data, size)) )
+            pic->size = size;
+        g_free(data);
+
+        if ( (string = vorbis_comment_query(vc,"COVERARTTYPE",field_num-1)) != NULL )
+        {
+            pic->type = atoi(string);
+        }
+
+        if ( (string = vorbis_comment_query(vc,"COVERARTDESCRIPTION",field_num-1)) != NULL )
+        {
+            pic->description = g_strdup(string);
+        }
+
+        //if ((string = vorbis_comment_query(vc,"COVERTARTMIME",field_num-1)) != NULL )
+        //{
+        //    pic->description = g_strdup(string);
+        //}
+
+    }
+
+
     /***************************
      * Save unsupported fields *
      ***************************/
     for (i=0;i<(guint)vc->comments;i++)
     {
-        if ( strncasecmp(vc->user_comments[i],"TITLE=",       6) != 0
-          && strncasecmp(vc->user_comments[i],"ARTIST=",      7) != 0
-          && strncasecmp(vc->user_comments[i],"ALBUM=",       6) != 0
-          && strncasecmp(vc->user_comments[i],"DISCNUMBER=", 11) != 0
-          && strncasecmp(vc->user_comments[i],"DATE=",        5) != 0
-          && strncasecmp(vc->user_comments[i],"TRACKNUMBER=",12) != 0
-          && strncasecmp(vc->user_comments[i],"TRACKTOTAL=", 11) != 0
-          && strncasecmp(vc->user_comments[i],"GENRE=",       6) != 0
-          && strncasecmp(vc->user_comments[i],"DESCRIPTION=",12) != 0
-          && strncasecmp(vc->user_comments[i],"COMMENT=",     8) != 0
-          && strncasecmp(vc->user_comments[i],"=",            1) != 0
-          && strncasecmp(vc->user_comments[i],"COMPOSER=",    9) != 0
-          && strncasecmp(vc->user_comments[i],"PERFORMER=",  10) != 0
-          && strncasecmp(vc->user_comments[i],"COPYRIGHT=",  10) != 0
-          && strncasecmp(vc->user_comments[i],"LICENSE=",     8) != 0
-          && strncasecmp(vc->user_comments[i],"ENCODED-BY=", 11) != 0 )
+        if ( strncasecmp(vc->user_comments[i],"TITLE=",            6) != 0
+          && strncasecmp(vc->user_comments[i],"ARTIST=",           7) != 0
+          && strncasecmp(vc->user_comments[i],"ALBUM=",            6) != 0
+          && strncasecmp(vc->user_comments[i],"DISCNUMBER=",      11) != 0
+          && strncasecmp(vc->user_comments[i],"DATE=",             5) != 0
+          && strncasecmp(vc->user_comments[i],"TRACKNUMBER=",     12) != 0
+          && strncasecmp(vc->user_comments[i],"TRACKTOTAL=",      11) != 0
+          && strncasecmp(vc->user_comments[i],"GENRE=",            6) != 0
+          && strncasecmp(vc->user_comments[i],"DESCRIPTION=",     12) != 0
+          && strncasecmp(vc->user_comments[i],"COMMENT=",          8) != 0
+          && strncasecmp(vc->user_comments[i],"=",                 1) != 0
+          && strncasecmp(vc->user_comments[i],"COMPOSER=",         9) != 0
+          && strncasecmp(vc->user_comments[i],"PERFORMER=",       10) != 0
+          && strncasecmp(vc->user_comments[i],"COPYRIGHT=",       10) != 0
+          && strncasecmp(vc->user_comments[i],"LICENSE=",          8) != 0
+          && strncasecmp(vc->user_comments[i],"ENCODED-BY=",      11) != 0
+          && strncasecmp(vc->user_comments[i],"COVERART=",         9) != 0
+          && strncasecmp(vc->user_comments[i],"COVERARTTYPE=",       13) != 0
+          && strncasecmp(vc->user_comments[i],"COVERARTMIME=",       13) != 0
+          && strncasecmp(vc->user_comments[i],"COVERARTDESCRIPTION=",20) != 0
+           )
         {
             FileTag->other = g_list_append(FileTag->other,
                                            Try_To_Validate_Utf8_String(vc->user_comments[i]));
@@ -518,6 +576,7 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
     vorbis_comment *vc;
     gchar          *string;
     GList          *list;
+    Picture        *pic;
 
     if (!ETFile || !ETFile->FileTag)
         return FALSE;
@@ -530,7 +589,7 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
     /* Test to know if we can write into the file */
     if ( (file_in=fopen(filename,"rb"))==NULL )
     {
-        Log_Print(_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
         return FALSE;
     }
 
@@ -570,7 +629,7 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
     state = vcedit_new_state();    // Allocate memory for 'state'
     if ( vcedit_open(state,file_in) < 0 )
     {
-        Log_Print(_("ERROR: Failed to open file: '%s' as vorbis (%s)."),filename_utf8,vcedit_error(state));
+        Log_Print(LOG_ERROR,_("ERROR: Failed to open file: '%s' as vorbis (%s)."),filename_utf8,vcedit_error(state));
         ogg_error_msg = vcedit_error(state);
         fclose(file_in);
         vcedit_clear(state);
@@ -732,6 +791,48 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
         vorbis_comment_add(vc,string);
         g_free(string);
     }
+    
+    
+    /***********
+     * Picture *
+     ***********/
+    pic = FileTag->picture;
+    while (pic)
+    {
+        if (pic->data)
+        {
+            gchar *data_encoded = NULL;
+            gint size;
+            Picture_Format format = Picture_Format_From_Data(pic);
+
+            string = g_strdup_printf("COVERARTMIME=%s",Picture_Mime_Type_String(format));
+            vorbis_comment_add(vc,string);
+            g_free(string);
+        
+            if (pic->type)
+            {
+                string = g_strdup_printf("COVERARTTYPE=%d",pic->type);
+                vorbis_comment_add(vc,string);
+                g_free(string);
+            }
+
+            if (pic->description)
+            {
+                string = g_strdup_printf("COVERARTDESCRIPTION=%s",pic->description);
+                vorbis_comment_add(vc,string);
+                g_free(string);
+            }
+
+            size = base64_encode(pic->data, pic->size, &data_encoded);
+            string = g_strdup_printf("COVERART=%s",data_encoded);
+            vorbis_comment_add(vc,string);
+            g_free(data_encoded);
+            g_free(string);
+        }
+
+        pic = pic->next;
+    }
+
 
 
     /**************************
@@ -749,14 +850,14 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
     if ( Ogg_Tag_Write_File(file_in,filename,state) == FALSE )
     {
         ogg_error_msg = vcedit_error(state);
-        Log_Print(_("ERROR: Failed to write comments to file '%s' (%s)."),filename_utf8,ogg_error_msg == NULL ? "" : ogg_error_msg);
+        Log_Print(LOG_ERROR,_("ERROR: Failed to write comments to file '%s' (%s)."),filename_utf8,ogg_error_msg == NULL ? "" : ogg_error_msg);
 
         vcedit_clear(state);
         return FALSE;
     }else
     {
         basename_utf8 = g_path_get_basename(filename_utf8);
-        Log_Print(_("Written tag of '%s'"),basename_utf8);
+        Log_Print(LOG_OK,_("Written tag of '%s'"),basename_utf8);
 
         vcedit_clear(state);
     }

@@ -96,538 +96,578 @@ gboolean Flac_Tag_Write_File (FILE *file_in, gchar *filename_in, vcedit_state *s
  *************/
 
 /*
- * Read tag data from a FLAC file.
+ * Read tag data from a FLAC file using the level 1 flac interface,
  * Note:
  *  - if field is found but contains no info (strlen(str)==0), we don't read it
  */
 gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
 {
-    FLAC__Metadata_SimpleIterator               *iter;
-    FLAC__StreamMetadata                        *vc_block;
-    FLAC__StreamMetadata_VorbisComment          *vc;
-    FLAC__StreamMetadata_VorbisComment_Entry    *field;
-    gchar                                       *field_value;
-    gchar                                       *field_value_tmp;
-    gchar                                       *string = NULL;
-    gint                                        field_num;
-    gint                                        field_len;
-    guint                                       i;
+    FLAC__Metadata_SimpleIterator *iter;
+    gchar *string = NULL;
+    guint i;
+    Picture *prev_pic = NULL;
+    //gint j = 1;
 
-
+    
     if (!filename || !FileTag)
         return FALSE;
 
     flac_error_msg = NULL;
 
+    // Initialize the iterator for the blocks
     iter = FLAC__metadata_simple_iterator_new();
     if ( iter == NULL || !FLAC__metadata_simple_iterator_init(iter, filename, true, false) )
     {
         gchar *filename_utf8 = filename_to_display(filename);
         if ( iter == NULL )
         {
-#ifdef WIN32
-            const char ** const iter = FLAC__Metadata_SimpleIteratorStatusString; /* this is for win32 auto-import of this external symbol works */
-            flac_error_msg = iter[FLAC__METADATA_SIMPLE_ITERATOR_STATUS_MEMORY_ALLOCATION_ERROR];
-#else
+            // Error with "FLAC__metadata_simple_iterator_new"
             flac_error_msg = FLAC__Metadata_SimpleIteratorStatusString[FLAC__METADATA_SIMPLE_ITERATOR_STATUS_MEMORY_ALLOCATION_ERROR];
-#endif
         }else
         {
-            flac_error_msg = FLAC__Metadata_SimpleIteratorStatusString[FLAC__metadata_simple_iterator_status(iter)];
+            // Error with "FLAC__metadata_simple_iterator_init"
+            FLAC__Metadata_SimpleIteratorStatus status = FLAC__metadata_simple_iterator_status(iter);
+            flac_error_msg = FLAC__Metadata_SimpleIteratorStatusString[status];
+            
             FLAC__metadata_simple_iterator_delete(iter);
         }
 
-        Log_Print(_("ERROR while opening file: '%s' as FLAC (%s)."),filename_utf8,flac_error_msg);
+        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' as FLAC (%s)."),filename_utf8,flac_error_msg);
         g_free(filename_utf8);
         return FALSE;
     }
+    
 
     /* libFLAC is able to detect (and skip) ID3v2 tags by itself */
 
-    /* Find the VORBIS_COMMENT block */
-    while ( FLAC__metadata_simple_iterator_get_block_type(iter) != FLAC__METADATA_TYPE_VORBIS_COMMENT )
+    while (FLAC__metadata_simple_iterator_next(iter))
     {
-        if ( !FLAC__metadata_simple_iterator_next(iter) )
+        // Get block data
+        FLAC__StreamMetadata *block = FLAC__metadata_simple_iterator_get_block(iter);
+        //g_print("Read: %d %s -> block type: %d\n",j++,g_path_get_basename(filename),FLAC__metadata_simple_iterator_get_block_type(iter));
+        
+        // Action to do according the type
+        switch ( FLAC__metadata_simple_iterator_get_block_type(iter) )
         {
-            /* End of metadata: comment block not found, nothing to read */
-            FLAC__metadata_simple_iterator_delete(iter);
-            return TRUE;
-        }
-    }
-
-    /* Get comments from block */
-    vc_block = FLAC__metadata_simple_iterator_get_block(iter);
-    vc = &vc_block->data.vorbis_comment;
-
-    /* Get vendor string */
-    /*{
-        FLAC__StreamMetadata_VorbisComment_Entry vce;
-        vce = vc->vendor_string;
-        g_print("File %s : \n",filename);
-        g_print(" - FLAC File vendor string : '%s'\n",g_strndup(vce.entry,vce.length));
-        g_print(" - FLAC Lib vendor string  : '%s'\n",FLAC__VENDOR_STRING);
-    }*/
-
-
-    /*********
-     * Title *
-     *********/
-    field_num = 0;
-    while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(vc_block,field_num,"TITLE")) >= 0 )
-    {
-        /* Extract field value */
-        field = &vc->comments[field_num++];
-        field_value = memchr(field->entry, '=', field->length);
-
-        if (field_value)
-        {
-            field_value++;
-            if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+            //
+            // Read the VORBIS_COMMENT block (only one should exist)
+            //
+            case FLAC__METADATA_TYPE_VORBIS_COMMENT:
             {
-                field_len = field->length - (field_value - (gchar*) field->entry);
-                field_value_tmp = g_strndup(field_value, field_len);
-                field_value = Try_To_Validate_Utf8_String(field_value_tmp);
-                g_free(field_value_tmp);
-                if (FileTag->title==NULL)
-                    FileTag->title = g_strdup(field_value);
-                else
-                    FileTag->title = g_strconcat(FileTag->title,MULTIFIELD_SEPARATOR,field_value,NULL);
-                g_free(field_value);
-            }
-        }
-    }
+                FLAC__StreamMetadata_VorbisComment       *vc;
+                FLAC__StreamMetadata_VorbisComment_Entry *field;
+                gint   field_num;
+                gint   field_len;
+                gchar *field_value;
+                gchar *field_value_tmp;
+                
+                // Get comments from block
+                vc = &block->data.vorbis_comment;
 
-    /**********
-     * Artist *
-     **********/
-    field_num = 0;
-    while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(vc_block,field_num,"ARTIST")) >= 0 )
-    {
-        /* Extract field value */
-        field = &vc->comments[field_num++];
-        field_value = memchr(field->entry, '=', field->length);
-
-        if (field_value)
-        {
-            field_value++;
-            if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
-            {
-                field_len = field->length - (field_value - (gchar*) field->entry);
-                field_value_tmp = g_strndup(field_value, field_len);
-                field_value = Try_To_Validate_Utf8_String(field_value_tmp);
-                g_free(field_value_tmp);
-                if (FileTag->artist==NULL)
-                    FileTag->artist = g_strdup(field_value);
-                else
-                    FileTag->artist = g_strconcat(FileTag->artist,MULTIFIELD_SEPARATOR,field_value,NULL);
-                g_free(field_value);
-            }
-        }
-    }
-
-    /*********
-     * Album *
-     *********/
-    field_num = 0;
-    while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(vc_block,field_num,"ALBUM")) >= 0 )
-    {
-        /* Extract field value */
-        field = &vc->comments[field_num++];
-        field_value = memchr(field->entry, '=', field->length);
-
-        if (field_value)
-        {
-            field_value++;
-            if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
-            {
-                field_len = field->length - (field_value - (gchar*) field->entry);
-                field_value_tmp = g_strndup(field_value, field_len);
-                field_value = Try_To_Validate_Utf8_String(field_value_tmp);
-                g_free(field_value_tmp);
-                if (FileTag->album==NULL)
-                    FileTag->album = g_strdup(field_value);
-                else
-                    FileTag->album = g_strconcat(FileTag->album,MULTIFIELD_SEPARATOR,field_value,NULL);
-                g_free(field_value);
-            }
-        }
-    }
-
-    /***************
-     * Disc Number *
-     ***************/
-    if ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(vc_block,0,"DISCNUMBER")) >= 0 )
-    {
-        /* Extract field value */
-        field = &vc->comments[field_num];
-        field_value = memchr(field->entry, '=', field->length);
-
-        if (field_value)
-        {
-            field_value++;
-            if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
-            {
-                field_len = field->length - (field_value - (gchar*) field->entry);
-                field_value_tmp = g_strndup(field_value, field_len);
-                field_value = Try_To_Validate_Utf8_String(field_value_tmp);
-                g_free(field_value_tmp);
-                FileTag->disc_number = field_value;
-            }
-        }
-    }
-
-    /********
-     * Year *
-     ********/
-    if ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(vc_block,0,"DATE")) >= 0 )
-    {
-        /* Extract field value */
-        field = &vc->comments[field_num];
-        field_value = memchr(field->entry, '=', field->length);
-
-        if (field_value)
-        {
-            field_value++;
-            if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
-            {
-                field_len = field->length - (field_value - (gchar*) field->entry);
-                field_value_tmp = g_strndup(field_value, field_len);
-                field_value = Try_To_Validate_Utf8_String(field_value_tmp);
-                g_free(field_value_tmp);
-                FileTag->year = field_value;
-            }
-        }
-    }
-
-    /*************************
-     * Track and Total Track *
-     *************************/
-    if ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(vc_block,0,"TRACKTOTAL")) >= 0 )
-    {
-        /* Extract field value */
-        field = &vc->comments[field_num];
-        field_value = memchr(field->entry, '=', field->length);
-
-        if (field_value)
-        {
-            field_value++;
-            if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
-            {
-                field_len = field->length - (field_value - (gchar*) field->entry);
-                field_value_tmp = g_strndup(field_value, field_len);
-                field_value = Try_To_Validate_Utf8_String(field_value_tmp);
-                g_free(field_value_tmp);
-                if (NUMBER_TRACK_FORMATED)
+                /*********
+                 * Title *
+                 *********/
+                field_num = 0;
+                while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,field_num,"TITLE")) >= 0 )
                 {
-                    FileTag->track_total = g_strdup_printf("%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,atoi(field_value));
-                }else
-                {
-                    FileTag->track_total = g_strdup(field_value);
-                }
-                g_free(field_value);
-            }
-        }
-        // Below is also filled track_total if not done here
-    }
+                    /* Extract field value */
+                    field = &vc->comments[field_num++];
+                    field_value = memchr(field->entry, '=', field->length);
 
-    if ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(vc_block,0,"TRACKNUMBER")) >= 0 )
-    {
-        /* Extract field value */
-        field = &vc->comments[field_num];
-        field_value = memchr(field->entry, '=', field->length);
-
-        if (field_value)
-        {
-            field_value++;
-            if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
-            {
-                field_len = field->length - (field_value - (gchar*) field->entry);
-                field_value_tmp = g_strndup(field_value, field_len);
-                field_value = Try_To_Validate_Utf8_String(field_value_tmp);
-                g_free(field_value_tmp);
-                string = g_utf8_strchr(field_value, -1, '/');
-                if (NUMBER_TRACK_FORMATED)
-                {
-                    // If track_total not filled before, try now...
-                    if (string && !FileTag->track_total)
+                    if (field_value)
                     {
-                        FileTag->track_total = g_strdup_printf("%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,atoi(string+1));
-                        *string = '\0';
+                        field_value++;
+                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+                        {
+                            field_len = field->length - (field_value - (gchar*) field->entry);
+                            field_value_tmp = g_strndup(field_value, field_len);
+                            field_value = Try_To_Validate_Utf8_String(field_value_tmp);
+                            g_free(field_value_tmp);
+                            if (FileTag->title==NULL)
+                                FileTag->title = g_strdup(field_value);
+                            else
+                                FileTag->title = g_strconcat(FileTag->title,MULTIFIELD_SEPARATOR,field_value,NULL);
+                            g_free(field_value);
+                        }
                     }
-                    FileTag->track = g_strdup_printf("%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,atoi(field_value));
-                }else
-                {
-                    if (string && !FileTag->track_total)
-                    {
-                        FileTag->track_total = g_strdup(string+1);
-                        *string = '\0';
-                    }
-                    FileTag->track = g_strdup(field_value);
                 }
-                g_free(field_value);
+
+                /**********
+                 * Artist *
+                 **********/
+                field_num = 0;
+                while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,field_num,"ARTIST")) >= 0 )
+                {
+                    /* Extract field value */
+                    field = &vc->comments[field_num++];
+                    field_value = memchr(field->entry, '=', field->length);
+
+                    if (field_value)
+                    {
+                        field_value++;
+                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+                        {
+                            field_len = field->length - (field_value - (gchar*) field->entry);
+                            field_value_tmp = g_strndup(field_value, field_len);
+                            field_value = Try_To_Validate_Utf8_String(field_value_tmp);
+                            g_free(field_value_tmp);
+                            if (FileTag->artist==NULL)
+                                FileTag->artist = g_strdup(field_value);
+                            else
+                                FileTag->artist = g_strconcat(FileTag->artist,MULTIFIELD_SEPARATOR,field_value,NULL);
+                            g_free(field_value);
+                        }
+                    }
+                }
+
+                /*********
+                 * Album *
+                 *********/
+                field_num = 0;
+                while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,field_num,"ALBUM")) >= 0 )
+                {
+                    /* Extract field value */
+                    field = &vc->comments[field_num++];
+                    field_value = memchr(field->entry, '=', field->length);
+
+                    if (field_value)
+                    {
+                        field_value++;
+                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+                        {
+                            field_len = field->length - (field_value - (gchar*) field->entry);
+                            field_value_tmp = g_strndup(field_value, field_len);
+                            field_value = Try_To_Validate_Utf8_String(field_value_tmp);
+                            g_free(field_value_tmp);
+                            if (FileTag->album==NULL)
+                                FileTag->album = g_strdup(field_value);
+                            else
+                                FileTag->album = g_strconcat(FileTag->album,MULTIFIELD_SEPARATOR,field_value,NULL);
+                            g_free(field_value);
+                        }
+                    }
+                }
+
+                /***************
+                 * Disc Number *
+                 ***************/
+                if ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,0,"DISCNUMBER")) >= 0 )
+                {
+                    /* Extract field value */
+                    field = &vc->comments[field_num];
+                    field_value = memchr(field->entry, '=', field->length);
+
+                    if (field_value)
+                    {
+                        field_value++;
+                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+                        {
+                            field_len = field->length - (field_value - (gchar*) field->entry);
+                            field_value_tmp = g_strndup(field_value, field_len);
+                            field_value = Try_To_Validate_Utf8_String(field_value_tmp);
+                            g_free(field_value_tmp);
+                            FileTag->disc_number = field_value;
+                        }
+                    }
+                }
+
+                /********
+                 * Year *
+                 ********/
+                if ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,0,"DATE")) >= 0 )
+                {
+                    /* Extract field value */
+                    field = &vc->comments[field_num];
+                    field_value = memchr(field->entry, '=', field->length);
+
+                    if (field_value)
+                    {
+                        field_value++;
+                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+                        {
+                            field_len = field->length - (field_value - (gchar*) field->entry);
+                            field_value_tmp = g_strndup(field_value, field_len);
+                            field_value = Try_To_Validate_Utf8_String(field_value_tmp);
+                            g_free(field_value_tmp);
+                            FileTag->year = field_value;
+                        }
+                    }
+                }
+
+                /*************************
+                 * Track and Total Track *
+                 *************************/
+                if ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,0,"TRACKTOTAL")) >= 0 )
+                {
+                    /* Extract field value */
+                    field = &vc->comments[field_num];
+                    field_value = memchr(field->entry, '=', field->length);
+
+                    if (field_value)
+                    {
+                        field_value++;
+                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+                        {
+                            field_len = field->length - (field_value - (gchar*) field->entry);
+                            field_value_tmp = g_strndup(field_value, field_len);
+                            field_value = Try_To_Validate_Utf8_String(field_value_tmp);
+                            g_free(field_value_tmp);
+                            if (NUMBER_TRACK_FORMATED)
+                            {
+                                FileTag->track_total = g_strdup_printf("%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,atoi(field_value));
+                            }else
+                            {
+                                FileTag->track_total = g_strdup(field_value);
+                            }
+                            g_free(field_value);
+                        }
+                    }
+                    // Below is also filled track_total if not done here
+                }
+
+                if ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,0,"TRACKNUMBER")) >= 0 )
+                {
+                    /* Extract field value */
+                    field = &vc->comments[field_num];
+                    field_value = memchr(field->entry, '=', field->length);
+
+                    if (field_value)
+                    {
+                        field_value++;
+                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+                        {
+                            field_len = field->length - (field_value - (gchar*) field->entry);
+                            field_value_tmp = g_strndup(field_value, field_len);
+                            field_value = Try_To_Validate_Utf8_String(field_value_tmp);
+                            g_free(field_value_tmp);
+                            string = g_utf8_strchr(field_value, -1, '/');
+                            if (NUMBER_TRACK_FORMATED)
+                            {
+                                // If track_total not filled before, try now...
+                                if (string && !FileTag->track_total)
+                                {
+                                    FileTag->track_total = g_strdup_printf("%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,atoi(string+1));
+                                    *string = '\0';
+                                }
+                                FileTag->track = g_strdup_printf("%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,atoi(field_value));
+                            }else
+                            {
+                                if (string && !FileTag->track_total)
+                                {
+                                    FileTag->track_total = g_strdup(string+1);
+                                    *string = '\0';
+                                }
+                                FileTag->track = g_strdup(field_value);
+                            }
+                            g_free(field_value);
+                        }
+                    }
+                }
+
+                /*********
+                 * Genre *
+                 *********/
+                field_num = 0;
+                while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,field_num,"GENRE")) >= 0 )
+                {
+                    /* Extract field value */
+                    field = &vc->comments[field_num++];
+                    field_value = memchr(field->entry, '=', field->length);
+
+                    if (field_value)
+                    {
+                        field_value++;
+                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+                        {
+                            field_len = field->length - (field_value - (gchar*) field->entry);
+                            field_value_tmp = g_strndup(field_value, field_len);
+                            field_value = Try_To_Validate_Utf8_String(field_value_tmp);
+                            g_free(field_value_tmp);
+                            if (FileTag->genre==NULL)
+                                FileTag->genre = g_strdup(field_value);
+                            else
+                                FileTag->genre = g_strconcat(FileTag->genre,MULTIFIELD_SEPARATOR,field_value,NULL);
+                            g_free(field_value);
+                        }
+                    }
+                }
+
+                /***********
+                 * Comment *
+                 ***********/
+                field_num = 0;
+                while ( 1 )
+                {
+                    gint field_num1, field_num2;
+
+                    // The comment field can take two forms...
+                    field_num1 = FLAC__metadata_object_vorbiscomment_find_entry_from(block,field_num,"DESCRIPTION");
+                    field_num2 = FLAC__metadata_object_vorbiscomment_find_entry_from(block,field_num,"COMMENT");
+
+                    if (field_num1 >= 0 && field_num2 >= 0)
+                        // Note : We set field_num to the last "comment" field to avoid to concatenate 
+                        // the DESCRIPTION and COMMENT field if there are both present (EasyTAG writes the both...)
+                        if (field_num1 < field_num2)
+                            field_num = field_num2;
+                        else
+                            field_num = field_num1;
+                    else if (field_num1 >= 0)
+                        field_num = field_num1;
+                    else if (field_num2 >= 0)
+                        field_num = field_num2;
+                    else
+                        break;
+
+                    /* Extract field value */
+                    field = &vc->comments[field_num++];
+                    field_value = memchr(field->entry, '=', field->length);
+
+                    if (field_value)
+                    {
+                        field_value++;
+                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+                        {
+                            field_len = field->length - (field_value - (gchar*) field->entry);
+                            field_value_tmp = g_strndup(field_value, field_len);
+                            field_value = Try_To_Validate_Utf8_String(field_value_tmp);
+                            g_free(field_value_tmp);
+                            if (FileTag->comment==NULL)
+                                FileTag->comment = g_strdup(field_value);
+                            else
+                                FileTag->comment = g_strconcat(FileTag->comment,MULTIFIELD_SEPARATOR,field_value,NULL);
+                            g_free(field_value);
+                        }
+                    }
+                }
+
+                /************
+                 * Composer *
+                 ************/
+                field_num = 0;
+                while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,field_num,"COMPOSER")) >= 0 )
+                {
+                    /* Extract field value */
+                    field = &vc->comments[field_num++];
+                    field_value = memchr(field->entry, '=', field->length);
+
+                    if (field_value)
+                    {
+                        field_value++;
+                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+                        {
+                            field_len = field->length - (field_value - (gchar*) field->entry);
+                            field_value_tmp = g_strndup(field_value, field_len);
+                            field_value = Try_To_Validate_Utf8_String(field_value_tmp);
+                            g_free(field_value_tmp);
+                            if (FileTag->composer==NULL)
+                                FileTag->composer = g_strdup(field_value);
+                            else
+                                FileTag->composer = g_strconcat(FileTag->composer,MULTIFIELD_SEPARATOR,field_value,NULL);
+                            g_free(field_value);
+                        }
+                    }
+                }
+
+                /*******************
+                 * Original artist *
+                 *******************/
+                field_num = 0;
+                while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,field_num,"PERFORMER")) >= 0 )
+                {
+                    /* Extract field value */
+                    field = &vc->comments[field_num++];
+                    field_value = memchr(field->entry, '=', field->length);
+
+                    if (field_value)
+                    {
+                        field_value++;
+                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+                        {
+                            field_len = field->length - (field_value - (gchar*) field->entry);
+                            field_value_tmp = g_strndup(field_value, field_len);
+                            field_value = Try_To_Validate_Utf8_String(field_value_tmp);
+                            g_free(field_value_tmp);
+                            if (FileTag->orig_artist==NULL)
+                                FileTag->orig_artist = g_strdup(field_value);
+                            else
+                                FileTag->orig_artist = g_strconcat(FileTag->orig_artist,MULTIFIELD_SEPARATOR,field_value,NULL);
+                            g_free(field_value);
+                        }
+                    }
+                }
+
+                /*************
+                 * Copyright *
+                 *************/
+                field_num = 0;
+                while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,field_num,"COPYRIGHT")) >= 0 )
+                {
+                    /* Extract field value */
+                    field = &vc->comments[field_num++];
+                    field_value = memchr(field->entry, '=', field->length);
+
+                    if (field_value)
+                    {
+                        field_value++;
+                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+                        {
+                            field_len = field->length - (field_value - (gchar*) field->entry);
+                            field_value_tmp = g_strndup(field_value, field_len);
+                            field_value = Try_To_Validate_Utf8_String(field_value_tmp);
+                            g_free(field_value_tmp);
+                            if (FileTag->copyright==NULL)
+                                FileTag->copyright = g_strdup(field_value);
+                            else
+                                FileTag->copyright = g_strconcat(FileTag->copyright,MULTIFIELD_SEPARATOR,field_value,NULL);
+                            g_free(field_value);
+                        }
+                    }
+                }
+
+                /*******
+                 * URL *
+                 *******/
+                field_num = 0;
+                while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,field_num,"LICENSE")) >= 0 )
+                {
+                    /* Extract field value */
+                    field = &vc->comments[field_num++];
+                    field_value = memchr(field->entry, '=', field->length);
+
+                    if (field_value)
+                    {
+                        field_value++;
+                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+                        {
+                            field_len = field->length - (field_value - (gchar*) field->entry);
+                            field_value_tmp = g_strndup(field_value, field_len);
+                            field_value = Try_To_Validate_Utf8_String(field_value_tmp);
+                            g_free(field_value_tmp);
+                            if (FileTag->url==NULL)
+                                FileTag->url = g_strdup(field_value);
+                            else
+                                FileTag->url = g_strconcat(FileTag->url,MULTIFIELD_SEPARATOR,field_value,NULL);
+                            g_free(field_value);
+                        }
+                    }
+                }
+
+                /**************
+                 * Encoded by *
+                 **************/
+                field_num = 0;
+                while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,field_num,"ENCODED-BY")) >= 0 )
+                {
+                    /* Extract field value */
+                    field = &vc->comments[field_num++];
+                    field_value = memchr(field->entry, '=', field->length);
+
+                    if (field_value)
+                    {
+                        field_value++;
+                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+                        {
+                            field_len = field->length - (field_value - (gchar*) field->entry);
+                            field_value_tmp = g_strndup(field_value, field_len);
+                            field_value = Try_To_Validate_Utf8_String(field_value_tmp);
+                            g_free(field_value_tmp);
+                            if (FileTag->encoded_by==NULL)
+                                FileTag->encoded_by = g_strdup(field_value);
+                            else
+                                FileTag->encoded_by = g_strconcat(FileTag->encoded_by,MULTIFIELD_SEPARATOR,field_value,NULL);
+                            g_free(field_value);
+                        }
+                    }
+                }
+
+                /***************************
+                 * Save unsupported fields *
+                 ***************************/
+                for (i=0;i<(guint)vc->num_comments;i++)
+                {
+                    field = &vc->comments[i];
+                    if ( strncasecmp((gchar *)field->entry,"TITLE=",       MIN(6,  field->length)) != 0
+                      && strncasecmp((gchar *)field->entry,"ARTIST=",      MIN(7,  field->length)) != 0
+                      && strncasecmp((gchar *)field->entry,"ALBUM=",       MIN(6,  field->length)) != 0
+                      && strncasecmp((gchar *)field->entry,"DISCNUMBER=",  MIN(11, field->length)) != 0
+                      && strncasecmp((gchar *)field->entry,"DATE=",        MIN(5,  field->length)) != 0
+                      && strncasecmp((gchar *)field->entry,"TRACKNUMBER=", MIN(12, field->length)) != 0
+                      && strncasecmp((gchar *)field->entry,"TRACKTOTAL=",  MIN(11, field->length)) != 0
+                      && strncasecmp((gchar *)field->entry,"GENRE=",       MIN(6,  field->length)) != 0
+                      && strncasecmp((gchar *)field->entry,"DESCRIPTION=", MIN(12, field->length)) != 0
+                      && strncasecmp((gchar *)field->entry,"COMMENT=",     MIN(8,  field->length)) != 0
+                      && strncasecmp((gchar *)field->entry,"COMPOSER=",    MIN(9,  field->length)) != 0
+                      && strncasecmp((gchar *)field->entry,"PERFORMER=",   MIN(10, field->length)) != 0
+                      && strncasecmp((gchar *)field->entry,"COPYRIGHT=",   MIN(10, field->length)) != 0
+                      && strncasecmp((gchar *)field->entry,"LICENSE=",     MIN(8,  field->length)) != 0
+                      && strncasecmp((gchar *)field->entry,"ENCODED-BY=",  MIN(11, field->length)) != 0 )
+                    {
+                        //g_print("custom %*s\n", field->length, field->entry);
+                        FileTag->other = g_list_append(FileTag->other,g_strndup((const gchar *)field->entry, field->length));
+                    }
+                }
+
+                
+                break;
             }
-        }
-    }
 
-    /*********
-     * Genre *
-     *********/
-    field_num = 0;
-    while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(vc_block,field_num,"GENRE")) >= 0 )
-    {
-        /* Extract field value */
-        field = &vc->comments[field_num++];
-        field_value = memchr(field->entry, '=', field->length);
-
-        if (field_value)
-        {
-            field_value++;
-            if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+            
+            //
+            // Read the PICTURE block (severals can exist)
+            //
+            case FLAC__METADATA_TYPE_PICTURE: 
             {
-                field_len = field->length - (field_value - (gchar*) field->entry);
-                field_value_tmp = g_strndup(field_value, field_len);
-                field_value = Try_To_Validate_Utf8_String(field_value_tmp);
-                g_free(field_value_tmp);
-                if (FileTag->genre==NULL)
-                    FileTag->genre = g_strdup(field_value);
-                else
-                    FileTag->genre = g_strconcat(FileTag->genre,MULTIFIELD_SEPARATOR,field_value,NULL);
-                g_free(field_value);
+                
+                /***********
+                 * Picture *
+                 ***********/
+                // For FLAC >= 1.1.3
+                #ifndef LEGACY_FLAC
+                    FLAC__StreamMetadata_Picture *p;
+                    Picture *pic;
+                
+                    // Get picture data from block
+                    p = &block->data.picture;
+                
+                    pic = Picture_Allocate();
+                    if (!prev_pic)
+                        FileTag->picture = pic;
+                    else
+                        prev_pic->next = pic;
+                    prev_pic = pic;
+
+                    pic->size = p->data_length;
+                    pic->data = g_memdup(p->data,pic->size);
+                    pic->type = p->type;
+                    pic->description = g_strdup((gchar *)p->description);
+                    // Not necessary: will be calculated later
+                    //pic->height = p->height;
+                    //pic->width  = p->width;
+
+                    //g_print("Picture type : %s\n",FLAC__StreamMetadata_Picture_TypeString[p->type]);
+                    //g_print("Mime    type : %s\n",p->mime_type);
+
+                #endif
+                
+                break;
             }
+            
+            default:
+                break;
         }
+        
+        // Free block data
+        ////FLAC__metadata_object_delete(block);
     }
-
-    /***********
-     * Comment *
-     ***********/
-    field_num = 0;
-    while ( 1 )
-    {
-        gint field_num1, field_num2;
-
-        // The comment field can take two forms...
-        field_num1 = FLAC__metadata_object_vorbiscomment_find_entry_from(vc_block,field_num,"DESCRIPTION");
-        field_num2 = FLAC__metadata_object_vorbiscomment_find_entry_from(vc_block,field_num,"COMMENT");
-
-        if (field_num1 >= 0 && field_num2 >= 0)
-            // Note : We set field_num to the last "comment" field to avoid to concatenate 
-            // the DESCRIPTION and COMMENT field if there are both present (EasyTAG writes the both...)
-            if (field_num1 < field_num2)
-                field_num = field_num2;
-            else
-                field_num = field_num1;
-        else if (field_num1 >= 0)
-            field_num = field_num1;
-        else if (field_num2 >= 0)
-            field_num = field_num2;
-        else
-            break;
-
-        /* Extract field value */
-        field = &vc->comments[field_num++];
-        field_value = memchr(field->entry, '=', field->length);
-
-        if (field_value)
-        {
-            field_value++;
-            if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
-            {
-                field_len = field->length - (field_value - (gchar*) field->entry);
-                field_value_tmp = g_strndup(field_value, field_len);
-                field_value = Try_To_Validate_Utf8_String(field_value_tmp);
-                g_free(field_value_tmp);
-                if (FileTag->comment==NULL)
-                    FileTag->comment = g_strdup(field_value);
-                else
-                    FileTag->comment = g_strconcat(FileTag->comment,MULTIFIELD_SEPARATOR,field_value,NULL);
-                g_free(field_value);
-            }
-        }
-    }
-
-    /************
-     * Composer *
-     ************/
-    field_num = 0;
-    while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(vc_block,field_num,"COMPOSER")) >= 0 )
-    {
-        /* Extract field value */
-        field = &vc->comments[field_num++];
-        field_value = memchr(field->entry, '=', field->length);
-
-        if (field_value)
-        {
-            field_value++;
-            if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
-            {
-                field_len = field->length - (field_value - (gchar*) field->entry);
-                field_value_tmp = g_strndup(field_value, field_len);
-                field_value = Try_To_Validate_Utf8_String(field_value_tmp);
-                g_free(field_value_tmp);
-                if (FileTag->composer==NULL)
-                    FileTag->composer = g_strdup(field_value);
-                else
-                    FileTag->composer = g_strconcat(FileTag->composer,MULTIFIELD_SEPARATOR,field_value,NULL);
-                g_free(field_value);
-            }
-        }
-    }
-
-    /*******************
-     * Original artist *
-     *******************/
-    field_num = 0;
-    while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(vc_block,field_num,"PERFORMER")) >= 0 )
-    {
-        /* Extract field value */
-        field = &vc->comments[field_num++];
-        field_value = memchr(field->entry, '=', field->length);
-
-        if (field_value)
-        {
-            field_value++;
-            if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
-            {
-                field_len = field->length - (field_value - (gchar*) field->entry);
-                field_value_tmp = g_strndup(field_value, field_len);
-                field_value = Try_To_Validate_Utf8_String(field_value_tmp);
-                g_free(field_value_tmp);
-                if (FileTag->orig_artist==NULL)
-                    FileTag->orig_artist = g_strdup(field_value);
-                else
-                    FileTag->orig_artist = g_strconcat(FileTag->orig_artist,MULTIFIELD_SEPARATOR,field_value,NULL);
-                g_free(field_value);
-            }
-        }
-    }
-
-    /*************
-     * Copyright *
-     *************/
-    field_num = 0;
-    while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(vc_block,field_num,"COPYRIGHT")) >= 0 )
-    {
-        /* Extract field value */
-        field = &vc->comments[field_num++];
-        field_value = memchr(field->entry, '=', field->length);
-
-        if (field_value)
-        {
-            field_value++;
-            if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
-            {
-                field_len = field->length - (field_value - (gchar*) field->entry);
-                field_value_tmp = g_strndup(field_value, field_len);
-                field_value = Try_To_Validate_Utf8_String(field_value_tmp);
-                g_free(field_value_tmp);
-                if (FileTag->copyright==NULL)
-                    FileTag->copyright = g_strdup(field_value);
-                else
-                    FileTag->copyright = g_strconcat(FileTag->copyright,MULTIFIELD_SEPARATOR,field_value,NULL);
-                g_free(field_value);
-            }
-        }
-    }
-
-    /*******
-     * URL *
-     *******/
-    field_num = 0;
-    while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(vc_block,field_num,"LICENSE")) >= 0 )
-    {
-        /* Extract field value */
-        field = &vc->comments[field_num++];
-        field_value = memchr(field->entry, '=', field->length);
-
-        if (field_value)
-        {
-            field_value++;
-            if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
-            {
-                field_len = field->length - (field_value - (gchar*) field->entry);
-                field_value_tmp = g_strndup(field_value, field_len);
-                field_value = Try_To_Validate_Utf8_String(field_value_tmp);
-                g_free(field_value_tmp);
-                if (FileTag->url==NULL)
-                    FileTag->url = g_strdup(field_value);
-                else
-                    FileTag->url = g_strconcat(FileTag->url,MULTIFIELD_SEPARATOR,field_value,NULL);
-                g_free(field_value);
-            }
-        }
-    }
-
-    /**************
-     * Encoded by *
-     **************/
-    field_num = 0;
-    while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(vc_block,field_num,"ENCODED-BY")) >= 0 )
-    {
-        /* Extract field value */
-        field = &vc->comments[field_num++];
-        field_value = memchr(field->entry, '=', field->length);
-
-        if (field_value)
-        {
-            field_value++;
-            if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
-            {
-                field_len = field->length - (field_value - (gchar*) field->entry);
-                field_value_tmp = g_strndup(field_value, field_len);
-                field_value = Try_To_Validate_Utf8_String(field_value_tmp);
-                g_free(field_value_tmp);
-                if (FileTag->encoded_by==NULL)
-                    FileTag->encoded_by = g_strdup(field_value);
-                else
-                    FileTag->encoded_by = g_strconcat(FileTag->encoded_by,MULTIFIELD_SEPARATOR,field_value,NULL);
-                g_free(field_value);
-            }
-        }
-    }
-
-
-    /***********
-     * Picture *
-     ***********/
-    // For FLAC > 1.1.3
-    #ifndef LEGACY_FLAC
     
-    #endif
-
-
-    /***************************
-     * Save unsupported fields *
-     ***************************/
-    for (i=0;i<(guint)vc->num_comments;i++)
-    {
-        field = &vc->comments[i];
-        if ( strncasecmp((gchar *)field->entry,"TITLE=",       MIN(6,  field->length)) != 0
-          && strncasecmp((gchar *)field->entry,"ARTIST=",      MIN(7,  field->length)) != 0
-          && strncasecmp((gchar *)field->entry,"ALBUM=",       MIN(6,  field->length)) != 0
-          && strncasecmp((gchar *)field->entry,"DISCNUMBER=",  MIN(11, field->length)) != 0
-          && strncasecmp((gchar *)field->entry,"DATE=",        MIN(5,  field->length)) != 0
-          && strncasecmp((gchar *)field->entry,"TRACKNUMBER=", MIN(12, field->length)) != 0
-          && strncasecmp((gchar *)field->entry,"TRACKTOTAL=",  MIN(11, field->length)) != 0
-          && strncasecmp((gchar *)field->entry,"GENRE=",       MIN(6,  field->length)) != 0
-          && strncasecmp((gchar *)field->entry,"DESCRIPTION=", MIN(12, field->length)) != 0
-          && strncasecmp((gchar *)field->entry,"COMMENT=",     MIN(8,  field->length)) != 0
-          && strncasecmp((gchar *)field->entry,"COMPOSER=",    MIN(9,  field->length)) != 0
-          && strncasecmp((gchar *)field->entry,"PERFORMER=",   MIN(10, field->length)) != 0
-          && strncasecmp((gchar *)field->entry,"COPYRIGHT=",   MIN(10, field->length)) != 0
-          && strncasecmp((gchar *)field->entry,"LICENSE=",     MIN(8,  field->length)) != 0
-          && strncasecmp((gchar *)field->entry,"ENCODED-BY=",  MIN(11, field->length)) != 0 )
-        {
-            //g_print("custom %*s\n", field->length, field->entry);
-            FileTag->other = g_list_append(FileTag->other,g_strndup((const gchar *)field->entry, field->length));
-        }
-    }
-
-    FLAC__metadata_object_delete(vc_block);
+    // Free iter
     FLAC__metadata_simple_iterator_delete(iter);
+
+
 
 #ifdef ENABLE_MP3
     /* If no FLAC vorbis tag found : we try to get the ID3 tag if it exists
-     * (will be deleted when writing the tag */
+     * (but it will be deleted when rewriting the tag) */
     if ( FileTag->title       == NULL
       && FileTag->artist      == NULL
       && FileTag->album       == NULL
@@ -641,12 +681,13 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
       && FileTag->orig_artist == NULL
       && FileTag->copyright   == NULL
       && FileTag->url         == NULL
-      && FileTag->encoded_by  == NULL)
+      && FileTag->encoded_by  == NULL
+      && FileTag->picture     == NULL)
     {
         gint rc = Id3tag_Read_File_Tag(filename,FileTag);
 
         // If an ID3 tag has been found (and no FLAC tag), we mark the file as
-        // unsaved to rewrite a flac tag
+        // unsaved to rewrite a flac tag.
         if ( FileTag->title       != NULL
           || FileTag->artist      != NULL
           || FileTag->album       != NULL
@@ -660,7 +701,8 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
           || FileTag->orig_artist != NULL
           || FileTag->copyright   != NULL
           || FileTag->url         != NULL
-          || FileTag->encoded_by  != NULL)
+          || FileTag->encoded_by  != NULL
+          || FileTag->picture     != NULL)
         {
             FileTag->saved = FALSE;
         }
@@ -670,10 +712,10 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
 
     /* Part to get cover artist :
      * If we have read the ID3 tag previously we don't arrive here (and we have
-     * the picture if it exists)
+     * the picture if it exists).
      * Else the ID3 tag wasn't read (as there was data in FLAC tag) so we try
-     * to read it only to get the picture (not supported by the FLAC tag) */
-    if (WRITE_ID3_TAGS_IN_FLAC_FILE && FileTag->picture == NULL)
+     * to read it only to get the picture (not supported by the FLAC tag). */
+    /***if (WRITE_ID3_TAGS_IN_FLAC_FILE && FileTag->picture == NULL)
     {
         File_Tag *FileTag_tmp = ET_File_Tag_Item_New();
         gint rc = Id3tag_Read_File_Tag(filename,FileTag_tmp);
@@ -686,31 +728,28 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
         ET_Free_File_Tag_Item(FileTag_tmp);
 
         return rc;
-    }
+    }***/
 #endif
 
     return TRUE;
 }
 
 
+
+/*
+ * Write Flac tag, using the level 2 flac interface
+ */
 gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
 {
-    File_Tag                                 *FileTag;
-    gchar                                    *filename_utf8, *filename;
-    gchar                                    *basename_utf8;
-    FLAC__Metadata_SimpleIterator            *iter;
-    FLAC__StreamMetadata                     *vc_block;
-    FLAC__StreamMetadata_VorbisComment_Entry field;
-    FLAC__bool                               write_ok;
-    gchar                                    *string;
-    GList                                    *list;
-    // To get original vendor string
-    FLAC__StreamMetadata                     *vc_block_svg = NULL;
-    FLAC__StreamMetadata_VorbisComment       *vc_svg;
-    FLAC__StreamMetadata_VorbisComment_Entry field_svg;
-    gboolean                                 vc_found_svg = TRUE;
+    File_Tag *FileTag;
+    gchar *filename_utf8, *filename;
+    gchar *basename_utf8;
+    FLAC__Metadata_Chain *chain;
+    FLAC__Metadata_Iterator *iter;
+    FLAC__StreamMetadata_VorbisComment_Entry vce_field_vendor_string; // To save vendor string
+    gboolean vce_field_vendor_string_found = FALSE;
 
-
+    
     if (!ETFile || !ETFile->FileTag)
         return FALSE;
 
@@ -720,282 +759,382 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
     flac_error_msg = NULL;
 
     /* libFLAC is able to detect (and skip) ID3v2 tags by itself */
-
-    iter = FLAC__metadata_simple_iterator_new();
-    if ( iter == NULL || !FLAC__metadata_simple_iterator_init(iter,filename,false,false) )
+    
+    // Create a new chain instance to get all blocks in one time
+    chain = FLAC__metadata_chain_new();
+    if (chain == NULL || !FLAC__metadata_chain_read(chain,filename))
     {
-        if ( iter == NULL )
+        if (chain == NULL)
         {
-#ifdef WIN32
-            const char **iter = FLAC__Metadata_SimpleIteratorStatusString;  /* this is for win32 auto-import of this external symbol works */
-            flac_error_msg = iter[FLAC__METADATA_SIMPLE_ITERATOR_STATUS_MEMORY_ALLOCATION_ERROR];
-#else
-            flac_error_msg = FLAC__Metadata_SimpleIteratorStatusString[FLAC__METADATA_SIMPLE_ITERATOR_STATUS_MEMORY_ALLOCATION_ERROR];
-#endif
+            // Error with "FLAC__metadata_chain_new"
+            flac_error_msg = FLAC__Metadata_ChainStatusString[FLAC__METADATA_CHAIN_STATUS_MEMORY_ALLOCATION_ERROR];
         }else
         {
-            flac_error_msg = FLAC__Metadata_SimpleIteratorStatusString[FLAC__metadata_simple_iterator_status(iter)];
-            FLAC__metadata_simple_iterator_delete(iter);
+            // Error with "FLAC__metadata_chain_read"
+            FLAC__Metadata_ChainStatus status = FLAC__metadata_chain_status(chain);
+            flac_error_msg = FLAC__Metadata_ChainStatusString[status];
+            
+            FLAC__metadata_chain_delete(chain);
         }
-
-        Log_Print(_("ERROR while opening file: '%s' as FLAC (%s)."),filename_utf8,flac_error_msg);
+        
+        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' as FLAC (%s)."),filename_utf8,flac_error_msg);
         return FALSE;
     }
-
-    /* Find the VORBIS_COMMENT block to get original vendor string */
-    while ( FLAC__metadata_simple_iterator_get_block_type(iter) != FLAC__METADATA_TYPE_VORBIS_COMMENT )
+    
+    // Create a new iterator instance for the chain
+    iter = FLAC__metadata_iterator_new();
+    if (iter == NULL)
     {
-        if ( !FLAC__metadata_simple_iterator_next(iter) )
+        flac_error_msg = FLAC__Metadata_ChainStatusString[FLAC__METADATA_CHAIN_STATUS_MEMORY_ALLOCATION_ERROR];
+
+        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' as FLAC (%s)."),filename_utf8,flac_error_msg);
+        return FALSE;
+    }
+    
+    // Initialize the iterator to point to the first metadata block in the given chain.
+    FLAC__metadata_iterator_init(iter,chain);
+    
+    while (FLAC__metadata_iterator_next(iter))
+    {
+        //g_print("Write: %d %s -> block type: %d\n",j++,g_path_get_basename(filename),FLAC__metadata_iterator_get_block_type(iter));
+        
+        // Action to do according the type
+        switch ( FLAC__metadata_iterator_get_block_type(iter) )
         {
-            /* End of metadata: comment block not found, nothing to read */
-            vc_found_svg = FALSE;
-            break;
+            //
+            // Delete the VORBIS_COMMENT block and convert to padding. But before, save the original vendor string.
+            //
+            case FLAC__METADATA_TYPE_VORBIS_COMMENT:
+            {
+                // Get block data
+                FLAC__StreamMetadata *block = FLAC__metadata_iterator_get_block(iter);
+                FLAC__StreamMetadata_VorbisComment *vc = &block->data.vorbis_comment;
+                
+                // Get initial vendor string, to don't alterate it by FLAC__VENDOR_STRING when saving file
+                vce_field_vendor_string = vc->vendor_string;
+                vce_field_vendor_string_found = TRUE;
+                
+                // Free block data
+                FLAC__metadata_iterator_delete_block(iter,true);
+                break;
+            }
+            
+            //
+            // Delete all the PICTURE blocks, and convert to padding
+            //
+            case FLAC__METADATA_TYPE_PICTURE: 
+            {
+                FLAC__metadata_iterator_delete_block(iter,true);
+                break;
+            }
+
+            default:
+                break;
         }
     }
-    if (vc_found_svg)
+    
+    
+    //
+    // Create and insert a new VORBISCOMMENT block
+    //
     {
-        /* Get comments from block */
-        vc_block_svg = FLAC__metadata_simple_iterator_get_block(iter);
-        vc_svg = &vc_block_svg->data.vorbis_comment;
-        /* Get original vendor string */
-        field_svg = vc_svg->vendor_string;
-    }
+        FLAC__StreamMetadata *vc_block; // For vorbis comments
+        FLAC__StreamMetadata_VorbisComment_Entry field;
+        gchar *string;
+        GList *list;
+        
+        // Allocate a block for Vorbis comments
+        vc_block = FLAC__metadata_object_new(FLAC__METADATA_TYPE_VORBIS_COMMENT);
+
+        // Set the original vendor string, else will be use the version of library
+        if (vce_field_vendor_string_found)
+            FLAC__metadata_object_vorbiscomment_set_vendor_string(vc_block, vce_field_vendor_string, true);
 
 
-    vc_block = FLAC__metadata_object_new(FLAC__METADATA_TYPE_VORBIS_COMMENT);
-
-    /* Set the original vendor string else it is version of library */
-    if (vc_found_svg)
-        FLAC__metadata_object_vorbiscomment_set_vendor_string(vc_block, field_svg, true);
-
-
-    /*********
-     * Title *
-     *********/
-    if ( FileTag->title )
-    {
-        string  = g_strconcat("TITLE=",FileTag->title,NULL);
-        field.entry = (FLAC__byte *)string;
-        field.length = strlen(string); // Warning : g_utf8_strlen doesn't count the multibyte characters. Here we need the allocated size.
-        FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
-        g_free(string);
-    }
-
-    /**********
-     * Artist *
-     **********/
-    if ( FileTag->artist )
-    {
-        string  = g_strconcat("ARTIST=",FileTag->artist,NULL);
-        field.entry = (FLAC__byte *)string;
-        field.length = strlen(string);
-        FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
-        g_free(string);
-    }
-
-    /*********
-     * Album *
-     *********/
-    if ( FileTag->album )
-    {
-        string  = g_strconcat("ALBUM=",FileTag->album,NULL);
-        field.entry = (FLAC__byte *)string;
-        field.length = strlen(string);
-        FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
-        g_free(string);
-    }
-
-    /***************
-     * Disc Number *
-     ***************/
-    if ( FileTag->disc_number )
-    {
-        string  = g_strconcat("DISCNUMBER=",FileTag->disc_number,NULL);
-        field.entry = (FLAC__byte *)string;
-        field.length = strlen(string);
-        FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
-        g_free(string);
-    }
-
-    /********
-     * Year *
-     ********/
-    if ( FileTag->year )
-    {
-        string  = g_strconcat("DATE=",FileTag->year,NULL);
-        field.entry = (FLAC__byte *)string;
-        field.length = strlen(string);
-        FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
-        g_free(string);
-    }
-
-    /*************************
-     * Track and Total Track *
-     *************************/
-    if ( FileTag->track )
-    {
-        string = g_strconcat("TRACKNUMBER=",FileTag->track,NULL);
-        field.entry = (FLAC__byte *)string;
-        field.length = strlen(string);
-        FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
-        g_free(string);
-    }
-    if ( FileTag->track_total /*&& strlen(FileTag->track_total)>0*/ )
-    {
-        string = g_strconcat("TRACKTOTAL=",FileTag->track_total,NULL);
-        field.entry = (FLAC__byte *)string;
-        field.length = strlen(string);
-        FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
-        g_free(string);
-    }
-
-    /*********
-     * Genre *
-     *********/
-    if ( FileTag->genre )
-    {
-        string  = g_strconcat("GENRE=",FileTag->genre,NULL);
-        field.entry = (FLAC__byte *)string;
-        field.length = strlen(string);
-        FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
-        g_free(string);
-    }
-
-    /***********
-     * Comment *
-     ***********/
-    // We write the comment using the "both" format
-    if ( FileTag->comment )
-    {
-        string = g_strconcat("DESCRIPTION=",FileTag->comment,NULL);
-        field.entry = (FLAC__byte *)string;
-        field.length = strlen(string);
-        FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
-        g_free(string);
-
-        string = g_strconcat("COMMENT=",FileTag->comment,NULL);
-        field.entry = (FLAC__byte *)string;
-        field.length = strlen(string);
-        FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
-        g_free(string);
-    }
-
-    /************
-     * Composer *
-     ************/
-    if ( FileTag->composer )
-    {
-        string  = g_strconcat("COMPOSER=",FileTag->composer,NULL);
-        field.entry = (FLAC__byte *)string;
-        field.length = strlen(string);
-        FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
-        g_free(string);
-    }
-
-    /*******************
-     * Original artist *
-     *******************/
-    if ( FileTag->orig_artist )
-    {
-        string  = g_strconcat("PERFORMER=",FileTag->orig_artist,NULL);
-        field.entry = (FLAC__byte *)string;
-        field.length = strlen(string);
-        FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
-        g_free(string);
-    }
-
-    /*************
-     * Copyright *
-     *************/
-    if ( FileTag->copyright )
-    {
-        string  = g_strconcat("COPYRIGHT=",FileTag->copyright,NULL);
-        field.entry = (FLAC__byte *)string;
-        field.length = strlen(string);
-        FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
-        g_free(string);
-    }
-
-    /*******
-     * URL *
-     *******/
-    if ( FileTag->url )
-    {
-        string  = g_strconcat("LICENSE=",FileTag->url,NULL);
-        field.entry = (FLAC__byte *)string;
-        field.length = strlen(string);
-        FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
-        g_free(string);
-    }
-
-    /**************
-     * Encoded by *
-     **************/
-    if ( FileTag->encoded_by )
-    {
-        string  = g_strconcat("ENCODED-BY=",FileTag->encoded_by,NULL);
-        field.entry = (FLAC__byte *)string;
-        field.length = strlen(string);
-        FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
-        g_free(string);
-    }
-
-
-    /**************************
-     * Set unsupported fields *
-     **************************/
-    list = FileTag->other;
-    while (list)
-    {
-        if (list->data)
+        /*********
+         * Title *
+         *********/
+        if ( FileTag->title )
         {
-            string = (gchar*)list->data;
+            string = g_strconcat("TITLE=",FileTag->title,NULL);
+            field.entry = (FLAC__byte *)string;
+            field.length = strlen(string); // Warning : g_utf8_strlen doesn't count the multibyte characters. Here we need the allocated size.
+            FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
+            g_free(string);
+        }
+
+        /**********
+         * Artist *
+         **********/
+        if ( FileTag->artist )
+        {
+            string = g_strconcat("ARTIST=",FileTag->artist,NULL);
             field.entry = (FLAC__byte *)string;
             field.length = strlen(string);
             FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
+            g_free(string);
         }
-        list = list->next;
+
+        /*********
+         * Album *
+         *********/
+        if ( FileTag->album )
+        {
+            string = g_strconcat("ALBUM=",FileTag->album,NULL);
+            field.entry = (FLAC__byte *)string;
+            field.length = strlen(string);
+            FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
+            g_free(string);
+        }
+
+        /***************
+         * Disc Number *
+         ***************/
+        if ( FileTag->disc_number )
+        {
+            string = g_strconcat("DISCNUMBER=",FileTag->disc_number,NULL);
+            field.entry = (FLAC__byte *)string;
+            field.length = strlen(string);
+            FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
+            g_free(string);
+        }
+
+        /********
+         * Year *
+         ********/
+        if ( FileTag->year )
+        {
+            string = g_strconcat("DATE=",FileTag->year,NULL);
+            field.entry = (FLAC__byte *)string;
+            field.length = strlen(string);
+            FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
+            g_free(string);
+        }
+
+        /*************************
+         * Track and Total Track *
+         *************************/
+        if ( FileTag->track )
+        {
+            string = g_strconcat("TRACKNUMBER=",FileTag->track,NULL);
+            field.entry = (FLAC__byte *)string;
+            field.length = strlen(string);
+            FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
+            g_free(string);
+        }
+        if ( FileTag->track_total /*&& strlen(FileTag->track_total)>0*/ )
+        {
+            string = g_strconcat("TRACKTOTAL=",FileTag->track_total,NULL);
+            field.entry = (FLAC__byte *)string;
+            field.length = strlen(string);
+            FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
+            g_free(string);
+        }
+
+        /*********
+         * Genre *
+         *********/
+        if ( FileTag->genre )
+        {
+            string = g_strconcat("GENRE=",FileTag->genre,NULL);
+            field.entry = (FLAC__byte *)string;
+            field.length = strlen(string);
+            FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
+            g_free(string);
+        }
+
+        /***********
+         * Comment *
+         ***********/
+        // We write the comment using the "both" format
+        if ( FileTag->comment )
+        {
+            string = g_strconcat("DESCRIPTION=",FileTag->comment,NULL);
+            field.entry = (FLAC__byte *)string;
+            field.length = strlen(string);
+            FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
+            g_free(string);
+
+            string = g_strconcat("COMMENT=",FileTag->comment,NULL);
+            field.entry = (FLAC__byte *)string;
+            field.length = strlen(string);
+            FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
+            g_free(string);
+        }
+
+        /************
+         * Composer *
+         ************/
+        if ( FileTag->composer )
+        {
+            string = g_strconcat("COMPOSER=",FileTag->composer,NULL);
+            field.entry = (FLAC__byte *)string;
+            field.length = strlen(string);
+            FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
+            g_free(string);
+        }
+
+        /*******************
+         * Original artist *
+         *******************/
+        if ( FileTag->orig_artist )
+        {
+            string = g_strconcat("PERFORMER=",FileTag->orig_artist,NULL);
+            field.entry = (FLAC__byte *)string;
+            field.length = strlen(string);
+            FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
+            g_free(string);
+        }
+
+        /*************
+         * Copyright *
+         *************/
+        if ( FileTag->copyright )
+        {
+            string  = g_strconcat("COPYRIGHT=",FileTag->copyright,NULL);
+            field.entry = (FLAC__byte *)string;
+            field.length = strlen(string);
+            FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
+            g_free(string);
+        }
+
+        /*******
+         * URL *
+         *******/
+        if ( FileTag->url )
+        {
+            string = g_strconcat("LICENSE=",FileTag->url,NULL);
+            field.entry = (FLAC__byte *)string;
+            field.length = strlen(string);
+            FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
+            g_free(string);
+        }
+
+        /**************
+         * Encoded by *
+         **************/
+        if ( FileTag->encoded_by )
+        {
+            string = g_strconcat("ENCODED-BY=",FileTag->encoded_by,NULL);
+            field.entry = (FLAC__byte *)string;
+            field.length = strlen(string);
+            FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
+            g_free(string);
+        }
+
+
+        /**************************
+         * Set unsupported fields *
+         **************************/
+        list = FileTag->other;
+        while (list)
+        {
+            if (list->data)
+            {
+                string = (gchar*)list->data;
+                field.entry = (FLAC__byte *)string;
+                field.length = strlen(string);
+                FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
+            }
+            list = list->next;
+        }
+
+        // Add the block to the the chain
+        FLAC__metadata_iterator_insert_block_after(iter, vc_block);
+        ////FLAC__metadata_object_delete(vc_block);
     }
-
-    /* Find the VORBIS_COMMENT block */
-    while ( FLAC__metadata_simple_iterator_get_block_type(iter) != FLAC__METADATA_TYPE_VORBIS_COMMENT )
+    
+    
+    
+    //
+    // Create and insert PICTURE blocks
+    //
+    
+    /***********
+     * Picture *
+     ***********/
+    // For FLAC >= 1.1.3
+    #ifndef LEGACY_FLAC
     {
-        if ( !FLAC__metadata_simple_iterator_next(iter) )
-            break;
+        Picture *pic = FileTag->picture;
+        while (pic)
+        {
+            if (pic->data)
+            {
+                const gchar *violation;
+                FLAC__StreamMetadata *picture_block; // For picture data
+                Picture_Format format;
+                
+                // Allocate block for picture data
+                picture_block = FLAC__metadata_object_new(FLAC__METADATA_TYPE_PICTURE);
+                
+                // Type
+                picture_block->data.picture.type = pic->type;
+                
+                // Mime type
+                format = Picture_Format_From_Data(pic);
+                FLAC__metadata_object_picture_set_mime_type(picture_block, (gchar *)Picture_Mime_Type_String(format), TRUE);
+
+                // Description
+                FLAC__metadata_object_picture_set_description(picture_block, (FLAC__byte *)pic->description, TRUE);
+                
+                // Resolution
+                picture_block->data.picture.width  = pic->width;
+                picture_block->data.picture.height = pic->height;
+                picture_block->data.picture.depth  = 0;
+
+                // Picture data
+                FLAC__metadata_object_picture_set_data(picture_block, (FLAC__byte *)pic->data, (FLAC__uint32) pic->size, TRUE);
+                
+                if (!FLAC__metadata_object_picture_is_legal(picture_block, &violation))
+                {
+                    Log_Print(LOG_ERROR,_("Picture block isn't valid: '%s'"),violation);
+                    FLAC__metadata_object_delete(picture_block);
+                }else
+                {
+                    // Add the block to the the chain
+                    FLAC__metadata_iterator_insert_block_after(iter, picture_block);
+                    ////FLAC__metadata_object_delete(picture_block);
+                }
+            }
+            
+            pic = pic->next;
+        }
     }
-
-
-    /*
-     * Write FLAC tag (as Vorbis comment)
-     */
-    if ( FLAC__metadata_simple_iterator_get_block_type(iter) != FLAC__METADATA_TYPE_VORBIS_COMMENT )
+    #endif
+    
+    // Free iter
+    FLAC__metadata_iterator_delete(iter);
+    
+    
+    //
+    // Prepare for writing tag
+    //
+    
+    // Move all PADDING blocks to the end on the metadata, and merge them into a single block.
+    FLAC__metadata_chain_sort_padding(chain);
+ 
+    // Write tag
+    if ( !FLAC__metadata_chain_write(chain, /*padding*/TRUE, /*preserve_file_stats*/TRUE) )
     {
-        /* End of metadata: no comment block, so insert one */
-        write_ok = FLAC__metadata_simple_iterator_insert_block_after(iter,vc_block,true);
-    }else
-    {
-        write_ok = FLAC__metadata_simple_iterator_set_block(iter,vc_block,true);
-    }
+        // Error with "FLAC__metadata_chain_write"
+        FLAC__Metadata_ChainStatus status = FLAC__metadata_chain_status(chain);
+        flac_error_msg = FLAC__Metadata_ChainStatusString[status];
 
-    if ( !write_ok )
-    {
-        flac_error_msg = FLAC__Metadata_SimpleIteratorStatusString[FLAC__metadata_simple_iterator_status(iter)];
-        Log_Print(_("ERROR: Failed to write comments to file '%s' (%s)."),filename_utf8,flac_error_msg);
-        FLAC__metadata_simple_iterator_delete(iter);
-        FLAC__metadata_object_delete(vc_block);
+        FLAC__metadata_chain_delete(chain);
+        
+        Log_Print(LOG_ERROR,_("ERROR: Failed to write comments to file '%s' (%s)."),filename_utf8,flac_error_msg);
         return FALSE;
     }else
     {
         basename_utf8 = g_path_get_basename(filename_utf8);
-        Log_Print(_("Written tag of '%s'"),basename_utf8);
+        Log_Print(LOG_OK,_("Written tag of '%s'"),basename_utf8);
         g_free(basename_utf8);
     }
+    
+    FLAC__metadata_chain_delete(chain);
 
-    FLAC__metadata_simple_iterator_delete(iter);
-    FLAC__metadata_object_delete(vc_block);
-    if (vc_found_svg)
-        FLAC__metadata_object_delete(vc_block_svg);
-
+    
 #ifdef ENABLE_MP3
     /*
      * Write also the ID3 tags (ID3v1 and/or ID3v2) if wanted (as needed by some players)
@@ -1021,7 +1160,7 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
         ET_Free_File_List_Item(ETFile_tmp);
     }
 #endif
-
+    
     return TRUE;
 }
 

@@ -163,7 +163,7 @@ guint mpg123_get_song_time(FILE * file)
 		len = ftell(file) - id3v2size;
 		fseek(file, -128, SEEK_END);
 		fread(tmp, 1, 3, file);
-		if (!strncmp(tmp, "TAG", 3))
+		if (!strncmp((gchar *)tmp, "TAG", 3))
 			len -= 128;
 		return ((guint) ((guint)(len / bpf) * tpf * 1000));
 	}

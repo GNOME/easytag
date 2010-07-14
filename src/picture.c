@@ -66,12 +66,12 @@ void Picture_Properties_Button_Clicked  (GObject *object);
 void Picture_Save_Button_Clicked        (GObject *object);
 void Picture_Clear_Button_Clicked       (GObject *object);
 
-gint Picture_Format (Picture *pic);
-const gchar *Picture_Format_String (gint format);
-const gchar *Picture_Type_String   (gint type);
-gchar *Picture_Info (Picture *pic);
-void PictureEntry_Clear  (void);
-void PictureEntry_Update (Picture *pic, gint select);
+Picture_Format Picture_Format_From_Data (Picture *pic);
+const gchar   *Picture_Format_String    (Picture_Format format);
+const gchar   *Picture_Type_String      (Picture_Type type);
+gchar         *Picture_Info             (Picture *pic);
+void           PictureEntry_Clear       (void);
+void           PictureEntry_Update      (Picture *pic, gboolean select_it);
 
 Picture *Picture_Allocate (void);
 Picture *Picture_Copy_One (const Picture *pic);
@@ -126,7 +126,7 @@ void Tag_Area_Picture_Drag_Data (GtkWidget *widget, GdkDragContext *dc,
             /*pic = Picture_Load_File_Data(filename);
             g_free(filename);
             if (pic)
-                PictureEntry_Update(pic, 1);*/
+                PictureEntry_Update(pic, TRUE);*/
         }
         uri++;
     }
@@ -221,6 +221,7 @@ void Picture_Load_Filename (gchar *filename, gpointer user_data)
         // Behaviour following the tag type...
         switch (ETCore->ETFileDisplayed->ETFileDescription->TagType)
         {
+            // Only one picture supported
             case MP4_TAG:
             {
                 pic->type = PICTURE_TYPE_FRONT_COVER;
@@ -255,7 +256,7 @@ void Picture_Load_Filename (gchar *filename, gpointer user_data)
             }
         }
 
-        PictureEntry_Update(pic, 1);
+        PictureEntry_Update(pic, TRUE);
 
         // FIXME: Call Picture_Free(pic) here? It seems PictureEntry_Update makes copies of pic.
         //Picture_Free(pic);
@@ -271,7 +272,7 @@ void Picture_Load_Filename (gchar *filename, gpointer user_data)
 }
 
 /*
- * To add an image in the list -> call a FileSelectionWindow
+ * To add a picture in the list -> call a FileSelectionWindow
  */
 void Picture_Add_Button_Clicked (GObject *object)
 {
@@ -279,6 +280,7 @@ void Picture_Add_Button_Clicked (GObject *object)
     GtkFileFilter *filter;
     GtkWindow *parent_window = NULL;
     static gchar *init_dir = NULL;
+    gint response;
 
     if (!PictureEntryView) return;
 
@@ -294,7 +296,7 @@ void Picture_Add_Button_Clicked (GObject *object)
                                                       parent_window,
                                                       GTK_FILE_CHOOSER_ACTION_OPEN,
                                                       GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                                      GTK_STOCK_OPEN, GTK_RESPONSE_OK,
+                                                      GTK_STOCK_OPEN,   GTK_RESPONSE_OK,
                                                       NULL);
 
     // Add files filters
@@ -355,7 +357,8 @@ void Picture_Add_Button_Clicked (GObject *object)
     if (init_dir)
         gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(FileSelectionWindow),init_dir);
 
-    if (gtk_dialog_run(GTK_DIALOG(FileSelectionWindow)) == GTK_RESPONSE_OK)
+    response = gtk_dialog_run(GTK_DIALOG(FileSelectionWindow));
+    if (response == GTK_RESPONSE_OK)
     {
         GtkTreeSelection *selection;
         GSList *list;
@@ -375,6 +378,9 @@ void Picture_Add_Button_Clicked (GObject *object)
 }
 
 
+/*
+ * Open the window to select and type the picture properties
+ */
 void Picture_Properties_Button_Clicked (GObject *object)
 {
     GtkWidget *ScrollWindowPictureTypes, *PictureTypesWindow;
@@ -387,32 +393,9 @@ void Picture_Properties_Button_Clicked (GObject *object)
     GtkTreeModel *model;
     GtkWindow *parent_window = NULL;
     GList *selection_list = NULL;
-    guint i;
     gint selection_nbr, selection_i = 1;
-    gint picture_types[] =
-        {
-            PICTURE_TYPE_OTHER,
-            PICTURE_TYPE_FILE_ICON,
-            PICTURE_TYPE_OTHER_FILE_ICON,
-            PICTURE_TYPE_FRONT_COVER,
-            PICTURE_TYPE_BACK_COVER,
-            PICTURE_TYPE_LEAFLET_PAGE,
-            PICTURE_TYPE_MEDIA,
-            PICTURE_TYPE_LEAD_ARTIST_LEAD_PERFORMER_SOLOIST,
-            PICTURE_TYPE_ARTIST_PERFORMER,
-            PICTURE_TYPE_CONDUCTOR,
-            PICTURE_TYPE_BAND_ORCHESTRA,
-            PICTURE_TYPE_COMPOSER,
-            PICTURE_TYPE_LYRICIST_TEXT_WRITER,
-            PICTURE_TYPE_RECORDING_LOCATION,
-            PICTURE_TYPE_DURING_RECORDING,
-            PICTURE_TYPE_DURING_PERFORMANCE,
-            PICTURE_TYPE_MOVIDE_VIDEO_SCREEN_CAPTURE,
-            PICTURE_TYPE_A_BRIGHT_COLOURED_FISH,
-            PICTURE_TYPE_ILLUSTRATION,
-            PICTURE_TYPE_BAND_ARTIST_LOGOTYPE,
-            PICTURE_TYPE_PUBLISHER_STUDIO_LOGOTYPE
-        };
+    gint response;
+    Picture_Type pic_type;
 
 
     if (!PictureEntryView) return;
@@ -447,7 +430,7 @@ void Picture_Properties_Button_Clicked (GObject *object)
                                                          parent_window,
                                                          GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                                          GTK_STOCK_CANCEL, GTK_RESPONSE_REJECT,
-                                                         GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                                         GTK_STOCK_OK,     GTK_RESPONSE_OK,
                                                          NULL);
         g_free(title);
 
@@ -502,17 +485,17 @@ void Picture_Properties_Button_Clicked (GObject *object)
             default:
             {
                 // Load pictures types
-                for (i = 0; i < sizeof(picture_types)/sizeof(picture_types[0]); i++)
+                for (pic_type = PICTURE_TYPE_OTHER; pic_type < PICTURE_TYPE_UNDEFINED; pic_type++)
                 {
                     GtkTreeIter itertype;
 
                     gtk_list_store_append(store, &itertype);
                     gtk_list_store_set(store, &itertype,
-                                       PICTURE_TYPE_COLUMN_TEXT, _(Picture_Type_String(picture_types[i])),
-                                       PICTURE_TYPE_COLUMN_TYPE_CODE, picture_types[i],
+                                       PICTURE_TYPE_COLUMN_TEXT,      _(Picture_Type_String(pic_type)),
+                                       PICTURE_TYPE_COLUMN_TYPE_CODE, pic_type,
                                        -1);
                     // Line to select by default
-                    if (pic->type == picture_types[i])
+                    if (pic->type == pic_type)
                         type_iter_to_select = itertype;
                 }
                 break;
@@ -528,7 +511,7 @@ void Picture_Properties_Button_Clicked (GObject *object)
         gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(type), rowPath, NULL, FALSE, 0, 0);
         gtk_tree_path_free(rowPath);
 
-        // Description
+        // Description of the picture
         label = gtk_label_new(_("Picture Description:"));
         gtk_box_pack_start(GTK_BOX(GTK_DIALOG(PictureTypesWindow)->vbox),label,FALSE,FALSE,4);
 
@@ -537,7 +520,7 @@ void Picture_Properties_Button_Clicked (GObject *object)
         gtk_box_pack_start(GTK_BOX(GTK_DIALOG(PictureTypesWindow)->vbox),desc,FALSE,FALSE,0);
         if (pic->description)
         {
-            gchar *tmp = ET_Utf8_Validate_Full_String(pic->description);
+            gchar *tmp = Try_To_Validate_Utf8_String(pic->description);
             gtk_entry_set_text(GTK_ENTRY(desc), tmp);
             g_free(tmp);
         }
@@ -561,7 +544,8 @@ void Picture_Properties_Button_Clicked (GObject *object)
 
         gtk_widget_show_all(PictureTypesWindow);
 
-        if (gtk_dialog_run(GTK_DIALOG(PictureTypesWindow)) == GTK_RESPONSE_OK)
+        response = gtk_dialog_run(GTK_DIALOG(PictureTypesWindow));
+        if (response == GTK_RESPONSE_OK)
         {
             GtkTreeModel *modeltype;
             GtkTreeIter itertype;
@@ -640,6 +624,7 @@ void Picture_Save_Button_Clicked (GObject *object)
         Picture *pic;
         gchar *title;
         gboolean valid;
+        gint response;
 
         // Get corresponding picture
         valid = gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &iter, path);
@@ -651,7 +636,7 @@ void Picture_Save_Button_Clicked (GObject *object)
                                                           parent_window,
                                                           GTK_FILE_CHOOSER_ACTION_SAVE,
                                                           GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                                          GTK_STOCK_SAVE, GTK_RESPONSE_OK,
+                                                          GTK_STOCK_SAVE,   GTK_RESPONSE_OK,
                                                           NULL);
         g_free(title);
 
@@ -692,7 +677,7 @@ void Picture_Save_Button_Clicked (GObject *object)
         }else
         {
             gchar *image_name = NULL;
-            switch (Picture_Format(pic))
+            switch (Picture_Format_From_Data(pic))
             {
                 case PICTURE_FORMAT_JPEG :
                     image_name = g_strdup("image_name.jpg");
@@ -708,7 +693,8 @@ void Picture_Save_Button_Clicked (GObject *object)
             g_free(image_name);
         }
 
-        if (gtk_dialog_run(GTK_DIALOG(FileSelectionWindow)) == GTK_RESPONSE_OK)
+        response = gtk_dialog_run(GTK_DIALOG(FileSelectionWindow));
+        if (response == GTK_RESPONSE_OK)
         {
             FILE *file;
             gchar *filename, *filename_utf8;
@@ -725,20 +711,25 @@ void Picture_Save_Button_Clicked (GObject *object)
             {
                 gchar *msg;
                 GtkWidget *msgbox;
-                gint button;
 
                 fclose(file);
 
                 msg = g_strdup_printf(_("The following file already exists :\n'%s'\n"
                     "Do you want to overwrite?"),filename_utf8);
-                msgbox = msg_box_new(_("Save file..."),msg,
-                                     GTK_STOCK_DIALOG_QUESTION,BUTTON_NO,BUTTON_YES,0);
+                msgbox = msg_box_new(_("Save file..."),
+                                     GTK_WINDOW(MainWindow),
+                                     NULL,
+                                     GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                     msg,
+                                     GTK_STOCK_DIALOG_QUESTION,
+                                     GTK_STOCK_NO,  GTK_RESPONSE_NO,
+									 GTK_STOCK_YES, GTK_RESPONSE_YES,
+                                     NULL);
                 g_free(msg);
-                msg_box_hide_check_button(MSG_BOX(msgbox));
-                button = msg_box_run(MSG_BOX(msgbox));
+                response = gtk_dialog_run(GTK_DIALOG(msgbox));
                 gtk_widget_destroy(msgbox);
 
-                if (button == BUTTON_YES)
+                if (response == GTK_RESPONSE_YES)
                 {
                     Picture_Save_File_Data(pic, filename_utf8);
                 }
@@ -757,13 +748,15 @@ void Picture_Save_Button_Clicked (GObject *object)
 
 
 /* FIXME: Possibly use gnome_vfs_get_mime_type_for_buffer. */
-gint Picture_Format (Picture *pic)
+Picture_Format Picture_Format_From_Data (Picture *pic)
 {
+    // JPEG : "\xff\xd8"
     if (pic->data && pic->size > 2
     &&  pic->data[0] == 0xff
     &&  pic->data[1] == 0xd8)
         return PICTURE_FORMAT_JPEG;
 
+    // PNG : "\x89PNG\x0d\x0a\x1a\x0a"
     if (pic->data && pic->size > 8
     &&  pic->data[0] == 0x89
     &&  pic->data[1] == 0x50
@@ -774,11 +767,35 @@ gint Picture_Format (Picture *pic)
     &&  pic->data[6] == 0x1a
     &&  pic->data[7] == 0x0a)
         return PICTURE_FORMAT_PNG;
-
+    
+    /*// GIF : "GIF87a"
+    if (pic->data && pic->size > 6
+    &&  pic->data[0] == 0x47
+    &&  pic->data[1] == 0x49
+    &&  pic->data[2] == 0x46
+    &&  pic->data[3] == 0x38
+    &&  pic->data[4] == 0x37
+    &&  pic->data[5] == 0x61)
+        return PICTURE_FORMAT_GIF;*/
+    
     return PICTURE_FORMAT_UNKNOWN;
 }
 
-const gchar *Picture_Format_String (gint format)
+const gchar *Picture_Mime_Type_String (Picture_Format format)
+{
+    switch (format)
+    {
+        case PICTURE_FORMAT_JPEG:
+            return "image/jpeg";
+        case PICTURE_FORMAT_PNG:
+            return "image/png";
+        default:
+            return NULL;
+    }
+}
+
+
+const gchar *Picture_Format_String (Picture_Format format)
 {
     switch (format)
     {
@@ -791,7 +808,7 @@ const gchar *Picture_Format_String (gint format)
     }
 }
 
-const gchar *Picture_Type_String (gint type)
+const gchar *Picture_Type_String (Picture_Type type)
 {
     switch (type)
     {
@@ -837,6 +854,8 @@ const gchar *Picture_Type_String (gint type)
             return _("Band/Artist logotype");
         case PICTURE_TYPE_PUBLISHER_STUDIO_LOGOTYPE:
             return _("Publisher/studio logotype");
+        
+        case PICTURE_TYPE_UNDEFINED:
         default:
             return _("Unknown picture type");
     }
@@ -847,7 +866,7 @@ gchar *Picture_Info (Picture *pic)
     gchar *format, *desc, *type, *r, *size_str;
     GString *s;
 
-    format = (gchar *)Picture_Format_String(Picture_Format(pic));
+    format = (gchar *)Picture_Format_String(Picture_Format_From_Data(pic));
 
     if (pic->description)
         desc = pic->description;
@@ -883,7 +902,7 @@ gchar *Picture_Info (Picture *pic)
             break;
         }
     }
-    r = ET_Utf8_Validate_Full_String(s->str);
+    r = Try_To_Validate_Utf8_String(s->str);
     g_string_free(s, TRUE); // TRUE to free also 's->str'!
     g_free(size_str);
 
@@ -912,10 +931,11 @@ void PictureEntry_Clear (void)
         gtk_list_store_clear(picture_store);
 }
 
-void PictureEntry_Update (Picture *pic, gint select)
+void PictureEntry_Update (Picture *pic, gboolean select_it)
 {
     GdkPixbufLoader *loader = 0;
-
+    GError *error = NULL;
+    
     if (!pic || !PictureEntryView) return;
 
     if (!pic->data)
@@ -927,10 +947,16 @@ void PictureEntry_Update (Picture *pic, gint select)
     loader = gdk_pixbuf_loader_new();
     if (loader)
     {
-        if (gdk_pixbuf_loader_write(loader, pic->data, pic->size, 0))
+        if (gdk_pixbuf_loader_write(loader, pic->data, pic->size, &error))
         {
             GtkTreeSelection *selection;
             GdkPixbuf *pixbuf;
+
+            if (!gdk_pixbuf_loader_close(loader, &error))
+            {
+                Log_Print(LOG_ERROR,_("Error with 'loader_close': %s"), error->message);
+                g_error_free(error);
+            }
 
             selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(PictureEntryView));
 
@@ -944,9 +970,12 @@ void PictureEntry_Update (Picture *pic, gint select)
                 gint scaled_pixbuf_height;
                 gchar *pic_info;
 
+                g_object_ref(pixbuf);
+                g_object_unref(loader);
+                
                 // Keep aspect ratio of the picture
-                pic->width  = gdk_pixbuf_get_width (pixbuf);
-                pic->height = gdk_pixbuf_get_height (pixbuf);
+                pic->width  = gdk_pixbuf_get_width(pixbuf);
+                pic->height = gdk_pixbuf_get_height(pixbuf);
                 if (pic->width > pic->height)
                 {
                     scaled_pixbuf_width  = 96;
@@ -967,37 +996,47 @@ void PictureEntry_Update (Picture *pic, gint select)
                 gtk_list_store_append(picture_store, &iter1);
                 pic_info = Picture_Info(pic);
                 gtk_list_store_set(picture_store, &iter1,
-                                   PICTURE_COLUMN_PIC, scaled_pixbuf,
+                                   PICTURE_COLUMN_PIC,  scaled_pixbuf,
                                    PICTURE_COLUMN_TEXT, pic_info,
                                    PICTURE_COLUMN_DATA, Picture_Copy_One(pic),
                                    -1);
                 g_free(pic_info);
 
-                if (select)
+                if (select_it)
                     gtk_tree_selection_select_iter(selection, &iter1);
                 gdk_pixbuf_unref(scaled_pixbuf);
             }else
             {
                 GtkWidget *msgbox = NULL;
                 gchar *msg = NULL;
-
+                
+                g_object_unref(loader);
+                
                 msg = g_strdup(_("Can't display the picture, as not enough data "
                     "has been read to determine how to create the image buffer."));
-                Log_Print("%s",msg);
-                msgbox = msg_box_new(_("Loading Picture File..."),msg,
-                                     GTK_STOCK_DIALOG_ERROR,BUTTON_YES,0);
-                msg_box_hide_check_button(MSG_BOX(msgbox));
+                Log_Print(LOG_ERROR,"%s",msg);
+                msgbox = msg_box_new(_("Loading Picture File..."),
+                                     GTK_WINDOW(MainWindow),
+                                     NULL,
+                                     GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                     msg,
+                                     GTK_STOCK_DIALOG_ERROR,
+                                     GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                     NULL);
                 g_free(msg);
-                msg_box_run(MSG_BOX(msgbox));
+                gtk_dialog_run(GTK_DIALOG(msgbox));
                 gtk_widget_destroy(msgbox);
             }
+        }else
+        {
+            Log_Print(LOG_ERROR,_("Error with 'loader_write': %s"), error->message);
+            g_error_free(error);
         }
     }
-    gdk_pixbuf_loader_close(loader, 0);
 
     // Do also for next picture
     if (pic->next)
-        PictureEntry_Update(pic->next, select);
+        PictureEntry_Update(pic->next, select_it);
 
     return;
 }
@@ -1080,10 +1119,16 @@ Picture *Picture_Load_File_Data (const gchar *filename)
         filename_utf8 = filename_to_display(filename);
         msg = g_strdup_printf(_("Can't open file :\n'%s'!\n(%s)"),
                                 filename_utf8,g_strerror(errno));
-        msgbox = msg_box_new(_("Error..."),msg,GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
+        msgbox = msg_box_new(_("Error..."),
+                             GTK_WINDOW(MainWindow),
+                             NULL,
+                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                             msg,
+                             GTK_STOCK_DIALOG_ERROR,
+                             GTK_STOCK_OK, GTK_RESPONSE_OK,
+                             NULL);
         g_free(msg);
-        msg_box_hide_check_button(MSG_BOX(msgbox));
-        msg_box_run(MSG_BOX(msgbox));
+        gtk_dialog_run(GTK_DIALOG(msgbox));
         gtk_widget_destroy(msgbox);
 
         Statusbar_Message(_("Picture file not loaded..."),TRUE);

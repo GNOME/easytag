@@ -8,6 +8,3 @@ include /usr/share/cdbs/1/rules/simple-patchsys.mk
 DEB_MAKE_INVOKE := $(DEB_MAKE_ENVVARS) make -C $(DEB_BUILDDIR)
 
 DEB_INSTALL_MANPAGES_easytag := debian/easytag.1
-
-binary-install/easytag::
-	cp debian/easytag.xpm debian/easytag/usr/share/pixmaps/

@@ -196,93 +196,6 @@ void        File_Selection_Window_For_Directory (GtkWidget *entry);
 /******************************
  * Functions managing pixmaps *
  ******************************/
-/*
- * Buttons creation with pixmap
- */
-
-GtkWidget *Create_Button_With_Pixmap(guint button_type)
-{
-    GtkWidget *Button;
-    GtkWidget *HBox;
-    GtkWidget *Label;
-    GtkWidget *Pixmap;
-
-    gtk_widget_realize(MainWindow);
-    switch (button_type)
-    {
-        case BUTTON_OK:
-            Label = gtk_label_new(_(" OK "));
-            Pixmap = gtk_image_new_from_stock(GTK_STOCK_OK, GTK_ICON_SIZE_BUTTON);
-            break;
-
-        case BUTTON_YES:
-            Label = gtk_label_new(_(" Yes "));
-            Pixmap = gtk_image_new_from_stock(GTK_STOCK_YES, GTK_ICON_SIZE_BUTTON);
-            break;
-
-        case BUTTON_NO:
-            Label = gtk_label_new(_(" No "));
-            Pixmap = gtk_image_new_from_stock(GTK_STOCK_NO, GTK_ICON_SIZE_BUTTON);
-            break;
-
-        case BUTTON_APPLY:
-            Label = gtk_label_new(_(" Apply "));
-            Pixmap = gtk_image_new_from_stock(GTK_STOCK_APPLY, GTK_ICON_SIZE_BUTTON);
-            break;
-
-        case BUTTON_SAVE:
-            Label = gtk_label_new(_(" Save "));
-            Pixmap = gtk_image_new_from_stock(GTK_STOCK_SAVE, GTK_ICON_SIZE_BUTTON);
-            break;
-
-        case BUTTON_CANCEL:
-            Label = gtk_label_new(_(" Cancel "));
-            Pixmap = gtk_image_new_from_stock(GTK_STOCK_CANCEL, GTK_ICON_SIZE_BUTTON);
-            break;
-
-        case BUTTON_CLOSE:
-            Label = gtk_label_new(_(" Close "));
-            Pixmap = gtk_image_new_from_stock(GTK_STOCK_CLOSE, GTK_ICON_SIZE_BUTTON);
-            break;
-
-       case BUTTON_WRITE:
-            Label = gtk_label_new(_(" Write "));
-            Pixmap = gtk_image_new_from_stock(GTK_STOCK_SAVE_AS, GTK_ICON_SIZE_BUTTON);
-            break;
-
-        case BUTTON_EXECUTE:
-            Label = gtk_label_new(_(" Execute "));
-            Pixmap = gtk_image_new_from_stock(GTK_STOCK_EXECUTE, GTK_ICON_SIZE_BUTTON);
-            break;
-
-        case BUTTON_SEARCH:
-            Label = gtk_label_new(_(" Search "));
-            Pixmap = gtk_image_new_from_stock(GTK_STOCK_FIND, GTK_ICON_SIZE_BUTTON);
-            break;
-
-        case BUTTON_BROWSE:
-            Label = gtk_label_new(_(" Browse... "));
-            Pixmap = gtk_image_new_from_stock(GTK_STOCK_OPEN, GTK_ICON_SIZE_BUTTON);
-            break;
-
-        default:
-            Button = gtk_button_new_with_label("Unknown button");
-            return Button;
-            break;
-    }
-
-    Button = gtk_button_new();
-    HBox = gtk_hbox_new(FALSE,0);
-    gtk_container_add(GTK_CONTAINER(Button),HBox);
-    /* Add items in button */
-    gtk_container_add(GTK_CONTAINER(HBox),Pixmap);
-    gtk_container_add(GTK_CONTAINER(HBox),Label);
-    /* Alignment of items */
-    gtk_misc_set_alignment(GTK_MISC(Pixmap),1,0.5);
-    gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
-
-    return Button;
-}
 
 /*
  * Create an icon into an event box to allow some events (as to display tooltips).
@@ -676,50 +589,52 @@ void Set_Unbusy_Cursor (void)
 /*
  * Add easytag specific icons to GTK stock set
  */
-#include "../pixmaps/scan.xpm"
-#include "../pixmaps/select_all.xpm"
-#include "../pixmaps/invert_selection.xpm"
-#include "../pixmaps/add.xpm"
-#include "../pixmaps/unselect_all.xpm"
-#include "../pixmaps/grab.xpm"
-#include "../pixmaps/mask.xpm"
-//#include "../pixmaps/blackwhite.xpm"
-#include "../pixmaps/forbidden.xpm"
-#include "../pixmaps/read_only.xpm"
-//#include "../pixmaps/sequence_track.xpm"
-#include "../pixmaps/artist_album.xpm"
-#include "../pixmaps/red_lines.xpm"
 #include "../pixmaps/add_folder.xpm"
-#include "../pixmaps/parent_folder.xpm"
-#include "../pixmaps/sound.xpm"
+#include "../pixmaps/album.xpm"
 #include "../pixmaps/all_uppercase.xpm"
 #include "../pixmaps/all_downcase.xpm"
+#include "../pixmaps/artist.xpm"
+#include "../pixmaps/artist_album.xpm"
+//#include "../pixmaps/blackwhite.xpm"
 #include "../pixmaps/first_letter_uppercase.xpm"
 #include "../pixmaps/first_letter_uppercase_word.xpm"
+#include "../pixmaps/forbidden.xpm"
+#include "../pixmaps/grab.xpm"
+#include "../pixmaps/invert_selection.xpm"
+#include "../pixmaps/mask.xpm"
+#include "../pixmaps/parent_folder.xpm"
+#include "../pixmaps/read_only.xpm"
+#include "../pixmaps/red_lines.xpm"
+#include "../pixmaps/scan.xpm"
+#include "../pixmaps/select_all.xpm"
+//#include "../pixmaps/sequence_track.xpm"
+#include "../pixmaps/sound.xpm"
+#include "../pixmaps/unselect_all.xpm"
 void Init_Custom_Icons (void)
 {
-    Create_Xpm_Icon_Factory((const char**)select_all_xpm, "easytag-select-all");
-    Create_Xpm_Icon_Factory((const char**)scan_xpm, "easytag-scan");
-    ////Create_Png_Icon_Factory("scan.png", "easytag-scan");
-    Create_Xpm_Icon_Factory((const char**)invert_selection_xpm, "easytag-invert-selection");
-    Create_Xpm_Icon_Factory((const char**)add_xpm, "easytag-add");
-    Create_Xpm_Icon_Factory((const char**)unselect_all_xpm, "easytag-unselect-all");
-    Create_Xpm_Icon_Factory((const char**)grab_xpm, "easytag-grab");
-    Create_Xpm_Icon_Factory((const char**)mask_xpm, "easytag-mask");
-    //Create_Xpm_Icon_Factory((const char**)blackwhite_xpm, "easytag-blackwhite");
-    Create_Xpm_Icon_Factory((const char**)forbidden_xpm, "easytag-forbidden");
-    Create_Xpm_Icon_Factory((const char**)read_only_xpm, "easytag-read-only");
-    //Create_Xpm_Icon_Factory((const char**)sequence_track_xpm, "easytag-sequence-track");
-    Create_Xpm_Icon_Factory((const char**)red_lines_xpm, "easytag-red-lines");
-    Create_Xpm_Icon_Factory((const char**)artist_album_xpm, "easytag-artist-album");
-    ////Create_Png_Icon_Factory("artist_album.png", "easytag-artist-album");
-    Create_Xpm_Icon_Factory((const char**)parent_folder_xpm, "easytag-parent-folder");
-    Create_Xpm_Icon_Factory((const char**)add_folder_xpm, "easytag-add-folder");
-    Create_Xpm_Icon_Factory((const char**)sound_xpm, "easytag-sound");
-    Create_Xpm_Icon_Factory((const char**)all_uppercase_xpm, "easytag-all-uppercase");
-    Create_Xpm_Icon_Factory((const char**)all_downcase_xpm, "easytag-all-downcase");
-    Create_Xpm_Icon_Factory((const char**)first_letter_uppercase_xpm, "easytag-first-letter-uppercase");
-    Create_Xpm_Icon_Factory((const char**)first_letter_uppercase_word_xpm, "easytag-first-letter-uppercase-word");
+    Create_Xpm_Icon_Factory((const char**)artist_xpm,               "easytag-artist");
+    Create_Xpm_Icon_Factory((const char**)album_xpm,                "easytag-album");
+    Create_Xpm_Icon_Factory((const char**)select_all_xpm,           "easytag-select-all");
+    Create_Xpm_Icon_Factory((const char**)scan_xpm,             "easytag-scan");
+////    Create_Png_Icon_Factory("scan.png",                             "easytag-scan");
+    Create_Xpm_Icon_Factory((const char**)invert_selection_xpm,     "easytag-invert-selection");
+    Create_Xpm_Icon_Factory((const char**)unselect_all_xpm,         "easytag-unselect-all");
+    Create_Xpm_Icon_Factory((const char**)grab_xpm,                 "easytag-grab");
+    Create_Xpm_Icon_Factory((const char**)mask_xpm,                 "easytag-mask");
+    //Create_Xpm_Icon_Factory((const char**)blackwhite_xpm,         "easytag-blackwhite");
+    Create_Xpm_Icon_Factory((const char**)forbidden_xpm,            "easytag-forbidden");
+    Create_Xpm_Icon_Factory((const char**)read_only_xpm,            "easytag-read-only");
+    //Create_Xpm_Icon_Factory((const char**)sequence_track_xpm,     "easytag-sequence-track");
+    Create_Xpm_Icon_Factory((const char**)red_lines_xpm,            "easytag-red-lines");
+    Create_Xpm_Icon_Factory((const char**)artist_album_xpm,     "easytag-artist-album");
+////    Create_Png_Icon_Factory("artist_album.png",                     "easytag-artist-album");
+    Create_Xpm_Icon_Factory((const char**)parent_folder_xpm,        "easytag-parent-folder");
+    Create_Xpm_Icon_Factory((const char**)add_folder_xpm,           "easytag-add-folder");
+    Create_Xpm_Icon_Factory((const char**)sound_xpm,                "easytag-sound");
+    Create_Xpm_Icon_Factory((const char**)all_uppercase_xpm,        "easytag-all-uppercase");
+    Create_Xpm_Icon_Factory((const char**)all_downcase_xpm,         "easytag-all-downcase");
+    Create_Xpm_Icon_Factory((const char**)first_letter_uppercase_xpm,       "easytag-first-letter-uppercase");
+    Create_Xpm_Icon_Factory((const char**)first_letter_uppercase_word_xpm,  "easytag-first-letter-uppercase-word");
 }
 
 
@@ -754,6 +669,7 @@ void Create_Xpm_Icon_Factory (const char **xpm_data, const char *name_in_factory
  * Create an icon factory from the specified png file
  * Also add it to the GTK stock images
  */
+/*
 void Create_Png_Icon_Factory (const char *png_file, const char *name_in_factory)
 {
     GdkPixbuf       *pixbuf;
@@ -780,10 +696,11 @@ void Create_Png_Icon_Factory (const char *png_file, const char *name_in_factory)
         gtk_icon_factory_add_default(factory);
     }else
     {
-        Log_Print(error->message);
+        Log_Print(LOG_ERROR,error->message);
         g_error_free(error);
     }
 }
+*/
 
 /*
  * Return a widget with a pixmap
@@ -853,12 +770,12 @@ gint Combo_Alphabetic_Sort (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b,
  *************************/
 void File_Selection_Window_For_File (GtkWidget *entry)
 {
-    Open_File_Selection_Window(entry, _("Select directory..."), GTK_FILE_CHOOSER_ACTION_OPEN);
+    Open_File_Selection_Window(entry, _("Select file..."), GTK_FILE_CHOOSER_ACTION_OPEN);
 }
 
 void File_Selection_Window_For_Directory (GtkWidget *entry)
 {
-    Open_File_Selection_Window(entry, _("Select file..."), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
+    Open_File_Selection_Window(entry, _("Select directory..."), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
 }
 
 /*
@@ -870,6 +787,7 @@ static void Open_File_Selection_Window (GtkWidget *entry, gchar *title, GtkFileC
     gchar *filename, *filename_utf8;
     GtkWidget *FileSelectionWindow;
     GtkWindow *parent_window = NULL;
+    gint response;
 
     parent_window = (GtkWindow*) gtk_widget_get_toplevel(entry);
     if (!GTK_WIDGET_TOPLEVEL(parent_window))
@@ -880,7 +798,7 @@ static void Open_File_Selection_Window (GtkWidget *entry, gchar *title, GtkFileC
 
     FileSelectionWindow = gtk_file_chooser_dialog_new(title, parent_window, action,
                                                       GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                                      GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+                                                      GTK_STOCK_OPEN,   GTK_RESPONSE_ACCEPT,
                                                       NULL);
     // Set initial directory
     tmp = (gchar*) gtk_entry_get_text(GTK_ENTRY(entry));
@@ -890,15 +808,18 @@ static void Open_File_Selection_Window (GtkWidget *entry, gchar *title, GtkFileC
             gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(FileSelectionWindow),tmp);
     }
 
-
-    if (gtk_dialog_run(GTK_DIALOG(FileSelectionWindow)) == GTK_RESPONSE_ACCEPT)
+    response = gtk_dialog_run(GTK_DIALOG(FileSelectionWindow));
+    if (response == GTK_RESPONSE_ACCEPT)
     {
         filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(FileSelectionWindow));
         filename_utf8 = filename_to_display(filename);
         gtk_entry_set_text(GTK_ENTRY(entry),filename_utf8);
-        g_free(filename);
+		g_free(filename);
         g_free(filename_utf8);
+		// Gives the focus to the entry (useful for the button on the main window)
+		gtk_widget_grab_focus(GTK_WIDGET(entry));
     }
+	
     gtk_widget_destroy(FileSelectionWindow);
 }
 
@@ -928,10 +849,15 @@ void Run_Audio_Player_Using_File_List (GList *etfilelist_init)
     // Exit if no program selected...
     if (!AUDIO_FILE_PLAYER || strlen(g_strstrip(AUDIO_FILE_PLAYER))<1)
     {
-        GtkWidget *msgbox = msg_box_new(_("Warning..."),_("No audio player defined!"),GTK_STOCK_DIALOG_WARNING,BUTTON_OK,0);
-        msg_box_hide_check_button(MSG_BOX(msgbox));
-        //gtk_window_set_transient_for(GTK_WINDOW(msgbox),GTK_WINDOW(OptionsWindow));
-        msg_box_run(MSG_BOX(msgbox));
+        GtkWidget *msgbox = msg_box_new(_("Warning..."),
+										GTK_WINDOW(MainWindow),
+                                        NULL,
+			                            GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+							 			_("No audio player defined!"),
+										GTK_STOCK_DIALOG_WARNING,
+                                        GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                        NULL);
+        gtk_dialog_run(GTK_DIALOG(msgbox));
         gtk_widget_destroy(msgbox);
         
         return;
@@ -940,7 +866,7 @@ void Run_Audio_Player_Using_File_List (GList *etfilelist_init)
     if ( !(program_path = Check_If_Executable_Exists(AUDIO_FILE_PLAYER)) )
     {
         gchar *msg = g_strdup_printf(_("The program '%s' can't be found!"),AUDIO_FILE_PLAYER);
-        Log_Print(msg);
+        Log_Print(LOG_ERROR,msg);
         g_free(msg);
         return;
     }
@@ -985,7 +911,7 @@ void Run_Audio_Player_Using_File_List (GList *etfilelist_init)
                       &siStartupInfo,
                       &piProcessInfo) == FALSE)
     {
-        Log_Print(_("Can't execute %s (error %d)!\n"), AUDIO_FILE_PLAYER, GetLastError());
+        Log_Print(LOG_ERROR,_("Can't execute %s (error %d)!\n"), AUDIO_FILE_PLAYER, GetLastError());
     }
 
     // Free allocated parameters (for each filename)
@@ -1024,13 +950,13 @@ void Run_Audio_Player_Using_File_List (GList *etfilelist_init)
     switch (pid)
     {
         case -1:
-            Log_Print(_("Can't fork another process!\n"));
+            Log_Print(LOG_ERROR,_("Can't fork another process!\n"));
             break;
         case 0:
         {
             if (execvp(argv[0],argv) == -1)
             {
-                Log_Print(_("Can't execute %s (%s)!\n"),argv[0],g_strerror(errno));
+                Log_Print(LOG_ERROR,_("Can't execute %s (%s)!\n"),argv[0],g_strerror(errno));
             }
             g_strfreev(argv_user);
             _exit(1);
@@ -1495,7 +1421,7 @@ void Open_Write_Playlist_Window (void)
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(Destroy_Write_Playlist_Window),NULL);
 
     /* Button to Write the playlist */
-    Button = Create_Button_With_Pixmap(BUTTON_WRITE);
+    Button = gtk_button_new_from_stock(GTK_STOCK_SAVE);
     gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
     GTK_WIDGET_SET_FLAGS(Button,GTK_CAN_DEFAULT);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",G_CALLBACK(Playlist_Write_Button_Pressed),NULL);
@@ -1593,7 +1519,7 @@ void Playlist_Write_Button_Pressed (void)
     FILE  *file;
     gchar *msg;
     GtkWidget *msgbox;
-    gint msgbox_button = 0;
+    gint response = 0;
 
 
     // Check if playlist name was filled
@@ -1694,6 +1620,7 @@ void Playlist_Write_Button_Pressed (void)
     g_free(playlist_basename_utf8);
 
     playlist_name = filename_from_display(playlist_name_utf8);
+    playlist_basename_utf8 = g_path_get_basename(playlist_name_utf8);
 
     // Check if file exists
     if (CONFIRM_WRITE_PLAYLIST)
@@ -1701,35 +1628,59 @@ void Playlist_Write_Button_Pressed (void)
         if ( (file=fopen(playlist_name,"r")) != NULL )
         {
             fclose(file);
-            msg = g_strdup_printf(_("Playlist file '%s' already exists!\nOverwrite?"),playlist_name_utf8);
-            msgbox = msg_box_new(_("Write Playlist..."),msg,GTK_STOCK_DIALOG_QUESTION,BUTTON_NO,BUTTON_YES,0);
-            msg_box_hide_check_button(MSG_BOX(msgbox));
-            msgbox_button = msg_box_run(MSG_BOX(msgbox));
+            msg = g_strdup_printf(_("Playlist file '%s' already exists!\nOverwrite?"),playlist_basename_utf8);
+            msgbox = msg_box_new(_("Write Playlist..."),
+								 GTK_WINDOW(WritePlaylistWindow),
+                                 NULL,
+                             	 GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+							 	 msg,
+								 GTK_STOCK_DIALOG_QUESTION,
+                                 GTK_STOCK_NO,    GTK_RESPONSE_NO,
+								 GTK_STOCK_YES,   GTK_RESPONSE_YES,
+                                 NULL);
+            response = gtk_dialog_run(GTK_DIALOG(msgbox));
             gtk_widget_destroy(msgbox);
             g_free(msg);
         }
     }
 
     // Writing playlist if ok
-    if (msgbox_button==0 || msgbox_button==BUTTON_YES )
+    if (response == 0
+    ||  response == GTK_RESPONSE_YES )
     {
         if ( Write_Playlist(playlist_name) == FALSE )
         {
             // Writing fails...
             msg = g_strdup_printf(_("Can't write playlist file '%s'!\n(%s)"),playlist_name_utf8,g_strerror(errno));
-            msgbox = msg_box_new(_("Error..."),msg,GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
-            msg_box_hide_check_button(MSG_BOX(msgbox));
-            msg_box_run(MSG_BOX(msgbox));
+            msgbox = msg_box_new(_("Error..."),
+								 GTK_WINDOW(WritePlaylistWindow),
+                                 NULL,
+	                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+							 	 msg,
+								 GTK_STOCK_DIALOG_ERROR,
+                                 GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                 NULL);
+            gtk_dialog_run(GTK_DIALOG(msgbox));
             gtk_widget_destroy(msgbox);
         }else
         {
             msg = g_strdup_printf(_("Written playlist file '%s'"),playlist_name_utf8);
-            //msgbox = msg_box_new(_("Information..."),msg,GTK_STOCK_DIALOG_INFO,BUTTON_OK,0);
+            /*msgbox = msg_box_new(_("Information..."),
+                                   GTK_WINDOW(WritePlaylistWindow),
+                                   NULL,
+                                   GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+								   msg,
+								   GTK_STOCK_DIALOG_INFO,
+                                   GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                   NULL);
+            gtk_dialog_run(GTK_DIALOG(msgbox));
+            gtk_widget_destroy(msgbox);*/
             Statusbar_Message(msg,TRUE);
         }
         g_free(msg);
     }
     g_free(playlist_name_utf8);
+    g_free(playlist_basename_utf8);
     g_free(playlist_name);
 }
 
@@ -1806,7 +1757,7 @@ gboolean Write_Playlist (gchar *playlist_name)
 
     if ((file = fopen(playlist_name,"wb")) == NULL)
     {
-        Log_Print(_("ERROR while opening file: '%s' (%s)."),playlist_name_utf8,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),playlist_name_utf8,g_strerror(errno));
         g_free(playlist_name_utf8);
         return FALSE;
     }
@@ -2779,12 +2730,12 @@ void Open_Load_Filename_Window (void)
         gtk_entry_set_text(GTK_ENTRY(GTK_BIN(FileToLoadCombo)->child),path);
     // the 'changed' signal is attached below to enable/disable the button to load
     // Button 'browse'
-    Button = Create_Button_With_Pixmap(BUTTON_BROWSE);
+    Button = gtk_button_new_from_stock(GTK_STOCK_OPEN);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked", G_CALLBACK(File_Selection_Window_For_File), G_OBJECT(GTK_BIN(FileToLoadCombo)->child));
     // Button 'load'
     // the signal attached to this button, to load the file, is placed after the LoadFileContentList definition
-    ButtonLoad = Create_Button_With_Icon_And_Label("easytag-add",_(" Load "));
+    ButtonLoad = Create_Button_With_Icon_And_Label(GTK_STOCK_REVERT_TO_SAVED,_(" Load "));
     //ButtonLoad = gtk_button_new_with_label(_(" Load "));
     gtk_box_pack_start(GTK_BOX(hbox),ButtonLoad,FALSE,FALSE,0);
     g_signal_connect_swapped(G_OBJECT(GTK_BIN(FileToLoadCombo)->child),"changed", G_CALLBACK(Button_Load_Set_Sensivity), G_OBJECT(ButtonLoad));
@@ -3165,7 +3116,7 @@ void Load_File_Content (GtkWidget *entry)
 
     if ( (file=fopen(filename,"r"))==0 )
     {
-        Log_Print(_("Can't open file '%s' (%s)"),filename_utf8,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Can't open file '%s' (%s)"),filename_utf8,g_strerror(errno));
         g_free(filename);
         return;
     }
@@ -3179,13 +3130,14 @@ void Load_File_Content (GtkWidget *entry)
             buffer[strlen(buffer)-1]='\0';
         text = &buffer[0];
 
-        if (g_utf8_validate(text, -1, NULL))
+        /*if (g_utf8_validate(text, -1, NULL))
         {
             valid = g_strdup(buffer);
         } else
         {
             valid = convert_to_utf8(text);
-        }
+        }*/
+        valid = Try_To_Validate_Utf8_String(text);
 
         gtk_list_store_append(LoadFileContentListModel, &iter);
         gtk_list_store_set(LoadFileContentListModel, &iter,

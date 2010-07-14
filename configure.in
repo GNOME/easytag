@@ -4,7 +4,7 @@ dnl AC_INIT(src/easytag.h)
 AC_PREREQ(2.53)
 
 dnl To set also in config.h.mingw
-AC_INIT(easytag, 2.1.3) dnl defines ($PACKAGE, $VERSION)
+AC_INIT(easytag, 2.1.4) dnl defines ($PACKAGE, $VERSION)
 
 AC_CONFIG_SRCDIR(src/easytag.h)
 dnl -------------------------------
@@ -15,7 +15,7 @@ AM_INIT_AUTOMAKE(foreign)
 dnl -------------------------------
 dnl Translation files
 dnl -------------------------------
-ALL_LINGUAS="bg cs da de el es fr he hu it ja nl pl pt_BR ro ru sr sr@Latn sv uk zh_CN"
+ALL_LINGUAS="bg cs da de el es fr he hu it ja nl pl pt_BR ro ru sr sr@Latn sv uk zh_CN zh_TW"
 GETTEXT_PACKAGE=easytag
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Package name for gettext])
@@ -33,6 +33,11 @@ AC_PROG_LIBTOOL
 AC_ISC_POSIX
 AM_MAINTAINER_MODE
 
+dnl -------------------------
+dnl Handle mingw32 or cygwin
+dnl -------------------------
+AC_MINGW32
+AC_CYGWIN
 
 dnl -------------------------------
 dnl Configure switches.
@@ -278,8 +283,7 @@ if test "x$enable_mp3" = "xyes"; then
               AC_TRY_RUN([
         #include <id3.h>
         #include <stdio.h>
-        int 
-        main ()
+        int main ()
         {
             FILE *output;
             output=fopen("conftest.id3","w");
@@ -313,7 +317,6 @@ dnl ################################################
 if test "x$enable_mp4" = "xyes"; then
     dnl Librairies required for mp4 files, if not found 'enable_mp4' is disabled
     AC_CHECK_LIB(m, cos)
-    dnl AC_CHECK_LIB(mp4v2, MP4Read, , mp4_available=no)
     AC_CHECK_LIB(mp4v2, MP4GetTrackMediaDataName, , mp4_available=no)
 fi
 
@@ -327,6 +330,39 @@ if test "x$enable_mp4" = "xyes"; then
         echo "*** (Install libmp4v2 to enable it)"
         echo "***"
     else
+
+        dnl Check version of mpeg4ip installed
+        LIBS_SAVE="$LIBS"
+        CFLAGS_SAVE="$CFLAGS"
+        LIBS="$LIBS $LIBMP4V2_LIBS"
+        CFLAGS="$CFLAGS $LIBMP4V2_CFLAGS"
+        AC_MSG_CHECKING(for libmp4v2 version)
+            AC_TRY_RUN([
+                #include <stdio.h>
+                #include <mpeg4ip_config.h>
+                int main (void)
+                {
+                    FILE *output;
+                    output=fopen("conftest.mp4v2","w");
+                    fprintf(output,"LIBMP4V2_NAME=%s\nLIBMP4V2_VERSION=%s\n",PACKAGE_TARNAME,PACKAGE_VERSION);
+                    fclose(output);
+                    exit(0);
+                }
+            ], . ./conftest.mp4v2; echo "${LIBMP4V2_NAME}-${LIBMP4V2_VERSION}", AC_MSG_WARN(could not determine libmp4v2 version),[echo $ac_n "cross compiling; assuming ${LIBMP4V2_NAME}-${LIBMP4V2_VERSION} $ac_c"])
+        LIBS="$LIBS_SAVE"
+        CFLAGS="$CFLAGS_SAVE"
+        if test "$LIBMP4V2_VERSION" != ""; then
+            LIBMP4V2_VERSION="($LIBMP4V2_NAME-$LIBMP4V2_VERSION)"
+        fi
+
+        dnl Version 1.6 of libmp4v2 introduces an index argument for MP4GetMetadataCoverart. So we define 'NEWMP4' if it is the case
+        AC_COMPILE_IFELSE([
+           #include <mp4.h>
+           main () {
+           MP4FileHandle hFile;
+           MP4GetMetadataCoverArt(hFile, NULL, NULL,0); }
+        ], AC_DEFINE(NEWMP4,1,[Define for MP4 lib with multiple image support]),)
+
         AC_MSG_RESULT(yes)
         AC_DEFINE(ENABLE_MP4,1,[Define for MP4 support])
     fi
@@ -456,7 +492,7 @@ echo ID3v2.3 tags support ....: $enable_id3v23 $ID3LIB_VERSION
 echo Ogg Vorbis file support .: $enable_ogg
 echo Speex file support ......: $enable_speex
 echo FLAC file support .......: $enable_flac $LIBFLAC_VERSION
-echo MP4 file support ........: $enable_mp4 $MPEG4IP_VERSION
+echo MP4 file support ........: $enable_mp4 $LIBMP4V2_VERSION
 echo WavPack support .........: $enable_wavpack
 echo NLS/gettext .............: $USE_NLS
 echo Install path ............: $prefix

@@ -42,9 +42,10 @@ struct _Picture
     Picture *next;
 };*/
 
-enum // Picture types
+typedef enum // Picture types
 {
-    PICTURE_TYPE_OTHER,
+    // Same values for FLAC, see: http://flac.sourceforge.net/api/group__flac__format.html#ga113
+    PICTURE_TYPE_OTHER = 0,
     PICTURE_TYPE_FILE_ICON,
     PICTURE_TYPE_OTHER_FILE_ICON,
     PICTURE_TYPE_FRONT_COVER,
@@ -64,15 +65,17 @@ enum // Picture types
     PICTURE_TYPE_A_BRIGHT_COLOURED_FISH,
     PICTURE_TYPE_ILLUSTRATION,
     PICTURE_TYPE_BAND_ARTIST_LOGOTYPE,
-    PICTURE_TYPE_PUBLISHER_STUDIO_LOGOTYPE
-};
+    PICTURE_TYPE_PUBLISHER_STUDIO_LOGOTYPE,
+    
+    PICTURE_TYPE_UNDEFINED
+} Picture_Type;
 
-enum
+typedef enum
 {
     PICTURE_FORMAT_JPEG,
     PICTURE_FORMAT_PNG,
     PICTURE_FORMAT_UNKNOWN
-};
+} Picture_Format;
 
 enum // Columns for PictureEntryView
 {
@@ -110,13 +113,14 @@ void Picture_Save_Button_Clicked        (GObject *object);
 void Picture_Clear_Button_Clicked       (GObject *object);
 
 void PictureEntry_Clear  (void);
-void PictureEntry_Update (Picture *pic, gint select);
+void PictureEntry_Update (Picture *pic, gboolean select_it);
 
-Picture *Picture_Allocate (void);
-Picture *Picture_Copy_One (const Picture *pic);
-Picture *Picture_Copy (const Picture *pic);
-void     Picture_Free (Picture *pic);
-gint     Picture_Format (Picture *pic);
+Picture       *Picture_Allocate         (void);
+Picture       *Picture_Copy_One         (const Picture *pic);
+Picture       *Picture_Copy             (const Picture *pic);
+void           Picture_Free             (Picture *pic);
+Picture_Format Picture_Format_From_Data (Picture *pic);
+const gchar   *Picture_Mime_Type_String (Picture_Format format);
 
 gboolean Picture_Entry_View_Button_Pressed (GtkTreeView *treeview, GdkEventButton *event, gpointer data);
 gboolean Picture_Entry_View_Key_Pressed    (GtkTreeView *treeview, GdkEvent *event, gpointer data);

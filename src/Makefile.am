@@ -11,6 +11,8 @@ easytag_SOURCES = \
  ape_tag.h \
  bar.c \
  bar.h \
+ base64.c \
+ base64.h \
  browser.c \
  browser.h \
  cddb.c \
@@ -75,10 +77,15 @@ EXTRA_DIST = \
  win32/resource.h \
  win32/win32dep.c \
  win32/win32dep.h \
- win32/win_easytag.c
+ win32/win_easytag.c \
+ win32/nsis/easytag-header.bmp \
+ win32/nsis/easytag-install.bmp \
+ win32/nsis/easytag-install.ico \
+ win32/nsis/easytag-uninstall.bmp 
 
 easytag_LDADD = $(GTK_LIBS) libmpg123/libmpg123.a libapetag/libapetag.a  id3lib/libid3bugfix.a
 
 localedir = $(datadir)/locale
 PACKAGE_DATA_DIR = $(datadir)/$(PACKAGE)
-INCLUDES = -DLOCALE=\"$(localedir)\" -DPACKAGE_DATA_DIR=\"$(PACKAGE_DATA_DIR)\"
+INCLUDES = -DLOCALEDIR=\"$(localedir)\" \
+           -DPACKAGE_DATA_DIR=\"$(PACKAGE_DATA_DIR)\"

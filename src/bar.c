@@ -441,11 +441,12 @@ void Statusbar_Message (gchar *message, gint with_timer)
     if (!StatusBar) return;
 
     /* Validate UTF8 */
-    if (!g_utf8_validate(message, -1, NULL))
+    /*if (!g_utf8_validate(message, -1, NULL))
         msg_temp = convert_to_utf8(message);
     else
-        msg_temp = g_strdup(message);
-
+        msg_temp = g_strdup(message);*/
+    msg_temp = Try_To_Validate_Utf8_String(message);
+    
     /* Remove a running timer */
     Statusbar_Remove_Timer();
 

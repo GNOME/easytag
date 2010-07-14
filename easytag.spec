@@ -1,5 +1,5 @@
 %define    name      easytag
-%define    version   2.1.3
+%define    version   2.1.4
 %define    release   1
 %define    prefix    /usr
 

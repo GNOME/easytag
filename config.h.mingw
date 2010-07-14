@@ -337,11 +337,13 @@
 /* Define if you have the resolv library (-lresolv).  */
 /* #undef HAVE_LIBRESOLV */
 
+
+
 /* Name of package */
 #define PACKAGE "easytag"
 
 /* Version number of package */
-#define VERSION "2.1.3"
+#define VERSION "2.1.4"
 
 /* Define if you have the iconv() function. */
 /* #undef HAVE_ICONV */
@@ -375,10 +377,10 @@
 #define HAVE_NSS 1
 /*#define HAVE_GNUTLS 1*/
 
-/*
- * Following are added for Win32 version of Gaim
- */
 
+/*
+ * Following are added for Win32 version of EasyTAG
+ */
 #define HAVE_VSNPRINTF
 
 #define ENABLE_ID3LIB 1
@@ -408,7 +410,11 @@
 /* Define to 1 if you have the `vorbisfile' library (-lvorbisfile). */
 #define HAVE_LIBVORBISFILE 1
 
+/* Define for Ogg Vorbis support */
 #define ENABLE_OGG 1
+
+/* Define for Speex support (-lspeex) */
+#define ENABLE_SPEEX 1
 
 /* Define for FLAC support */
 #define ENABLE_FLAC 1
@@ -424,5 +430,8 @@
 
 /* Define to 1 if you have the `mp4v2' library (-lmp4v2). */
 #define HAVE_LIBMP4V2 1
+
+/* Define for MP4 libmp4v2 >= 1.6 */
+#define NEW_MP4 1
 
 #define HAVE_GLIB_H 1

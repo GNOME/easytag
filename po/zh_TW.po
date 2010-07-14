@@ -1,0 +1,4910 @@
+# Chinese (Taiwan) translation of EasyTAG
+# Copyright (C) 2007 Free Software Foundation, Inc.
+# This file is distributed under the same license as the EasyTAG package.
+# Jose Sun <josesun@gmail.com>, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: EasyTAG 2.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-12-09 18:16+0100\n"
+"PO-Revision-Date: 2007-09-25 20:57+0800\n"
+"Last-Translator: Jose Sun <josesun@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Chinese\n"
+"X-Poedit-Country: Taiwan\n"
+
+#: src/about.c:140
+msgid ""
+"    EasyTAG is an utility for viewing and editing tags for MP3, MP2, FLAC, "
+"Ogg Vorbis, MP4/AAC, MusePack and Monkey's Audio files. Its simple and nice "
+"GTK+ interface makes tagging easier under GNU/Linux."
+msgstr ""
+"    EasyTAG 是一個可以檢視並編輯 MP3, MP2, FLAC, Ogg Vorbis, MP4/AAC, "
+"MusePack 及 Monkey's Audio 格式標籤的工具， 輕巧及友善的 GTK+ 介面讓你在 GNU/"
+"Linux 下編輯音樂標籤變得非常簡單。"
+
+#: src/about.c:148 src/about.c:149 src/about.c:150 src/about.c:151
+msgid "(German translation)"
+msgstr "(德文翻譯)"
+
+#: src/about.c:152 src/about.c:153
+msgid "(Russian translation)"
+msgstr "(俄文翻譯)"
+
+#: src/about.c:154 src/about.c:155
+msgid "(Dutch translation)"
+msgstr "(荷蘭文翻譯)"
+
+#: src/about.c:156 src/about.c:157
+msgid "(Swedish translation)"
+msgstr "(瑞典文翻譯)"
+
+#: src/about.c:158 src/about.c:159 src/about.c:160
+msgid "(Hungarian translation)"
+msgstr "(匈牙利文翻譯)"
+
+#: src/about.c:161 src/about.c:162
+msgid "(Italian translation)"
+msgstr "(義大利文翻譯)"
+
+#: src/about.c:163
+msgid "(Japanese translation)"
+msgstr "(日文翻譯)"
+
+#: src/about.c:164 src/about.c:165
+msgid "(Ukrainian translation)"
+msgstr "(烏克蘭文翻譯)"
+
+#: src/about.c:166 src/about.c:167
+msgid "(Czech translation)"
+msgstr "(捷克文翻譯)"
+
+#: src/about.c:168 src/about.c:169 src/about.c:170
+msgid "(Spanish translation)"
+msgstr "(西班牙文翻譯)"
+
+#: src/about.c:171
+msgid "(Polish translation)"
+msgstr "(波蘭文翻譯)"
+
+#: src/about.c:172
+msgid "(Romanian translation)"
+msgstr "(羅馬尼亞文翻譯)"
+
+#: src/about.c:173
+msgid "(Danish translation)"
+msgstr "(丹麥文翻譯)"
+
+#: src/about.c:174
+msgid "(Greek translation)"
+msgstr "(希臘文翻譯)"
+
+#: src/about.c:175
+msgid "(Brazilian Portuguese translation)"
+msgstr "(巴西葡萄牙文翻譯)"
+
+#: src/about.c:176
+msgid "(Bulgarian translation)"
+msgstr "(保加利亞文翻譯)"
+
+#: src/about.c:177
+msgid "(Chinese translation)"
+msgstr "(中文翻譯)"
+
+#: src/about.c:178
+#, fuzzy
+msgid "(Chinese (Taiwan) translation)"
+msgstr "(中文翻譯)"
+
+#: src/about.c:179
+msgid "(Hebrew translation)"
+msgstr "(希伯來文翻譯)"
+
+#: src/about.c:180
+#, fuzzy
+msgid "(Serbian translation)"
+msgstr "(德文翻譯)"
+
+#: src/about.c:233
+msgid "Extension Name"
+msgstr ""
+
+#: src/about.c:234
+msgid "Status"
+msgstr ""
+
+#: src/about.c:235 src/browser.c:2944 src/misc.c:1917
+msgid "Comment"
+msgstr "備註"
+
+#. Config
+#: src/about.c:252
+msgid "About..."
+msgstr "關於..."
+
+#.
+#. * Tab for common informations
+#.
+#: src/about.c:270 src/bar.c:236
+msgid "About"
+msgstr "關於"
+
+#: src/about.c:316
+#, c-format
+msgid "(compiled: %s)"
+msgstr "(編譯時間:  %s)"
+
+#: src/about.c:320
+#, c-format
+msgid "(using: GTK+ %d.%d.%d)"
+msgstr "(使用: GTK+ %d.%d.%d)"
+
+#: src/about.c:328
+#, c-format
+msgid "Author: %s"
+msgstr "作者: %s"
+
+#: src/about.c:332 src/easytag.c:214
+#, c-format
+msgid "E-mail: %s"
+msgstr "E-mail: %s"
+
+#: src/about.c:338
+msgid "Web Page: "
+msgstr "網頁:"
+
+#: src/about.c:351
+msgid "Description:"
+msgstr "描述:"
+
+#.
+#. * Tab for extensions
+#.
+#: src/about.c:367
+msgid "Extensions"
+msgstr ""
+
+#: src/about.c:433
+#, fuzzy
+msgid "MP3 file support"
+msgstr "(已停用 MP3 格式支援)"
+
+#: src/about.c:436 src/about.c:466 src/about.c:478 src/about.c:494
+#: src/about.c:507 src/about.c:519
+msgid "enabled"
+msgstr ""
+
+#: src/about.c:440 src/about.c:456 src/about.c:469 src/about.c:481
+#: src/about.c:498 src/about.c:510 src/about.c:522
+msgid "disabled"
+msgstr ""
+
+#: src/about.c:449
+#, fuzzy
+msgid "ID3v2.3 tags writting support"
+msgstr "(已停用 ID3v2.3 格式支援)"
+
+#: src/about.c:452
+#, fuzzy
+msgid "available"
+msgstr "記憶體不足"
+
+#: src/about.c:463
+#, fuzzy
+msgid "Ogg Vorbis file support"
+msgstr "(已停用 Ogg Vorbis 格式支援)"
+
+#: src/about.c:475
+#, fuzzy
+msgid "Speex file support"
+msgstr "(已停用 Speex 格式支援)"
+
+#: src/about.c:491
+#, fuzzy
+msgid "FLAC file support"
+msgstr "(已停用 FLAC 格式支援)"
+
+#: src/about.c:504
+#, fuzzy
+msgid "MP4/AAC file support"
+msgstr "(已停用 MP4/AAC 格式支援)"
+
+#: src/about.c:516
+#, fuzzy
+msgid "WavPack file support"
+msgstr "(已停用 WavPack 格式支援)"
+
+#.
+#. * Tab for thanks
+#.
+#: src/about.c:531
+msgid "Thanks"
+msgstr "感謝"
+
+#: src/about.c:551
+msgid "Translations:\n"
+msgstr "介面翻譯:\n"
+
+#: src/about.c:581
+msgid "General:\n"
+msgstr "一般貢獻:\n"
+
+#: src/about.c:598
+msgid "Changes"
+msgstr "變更記錄"
+
+#: src/about.c:620
+#, c-format
+msgid "Can't open file '%s' (%s)\n"
+msgstr "無法開啟檔案「%s」 (%s)\n"
+
+#. g_print(_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
+#: src/ape_tag.c:74 src/et_core.c:4400 src/flac_header.c:126 src/id3_tag.c:145
+#: src/id3_tag.c:1195 src/id3_tag.c:1271 src/misc.c:1760 src/mp4_header.c:211
+#: src/mp4_header.c:220 src/mp4_tag.c:95 src/mp4_tag.c:106 src/mp4_tag.c:246
+#: src/mp4_tag.c:255 src/mpeg_header.c:209 src/ogg_header.c:82
+#: src/ogg_header.c:186 src/ogg_tag.c:142 src/ogg_tag.c:592
+#, c-format
+msgid "ERROR while opening file: '%s' (%s)."
+msgstr "開啟檔案時發生錯誤: 「%s」 (%s)"
+
+#.
+#. * Main Menu Actions
+#.
+#: src/bar.c:146
+msgid "_File"
+msgstr "檔案(_F)"
+
+#: src/bar.c:147
+msgid "Sort list by tag"
+msgstr "依標籤排序"
+
+#: src/bar.c:148
+msgid "Sort list by property"
+msgstr "依屬性排序"
+
+#: src/bar.c:149
+msgid "Ascending by filename"
+msgstr "依檔名遞增排序"
+
+#: src/bar.c:150
+msgid "Descending by filename"
+msgstr "依檔名遞減排序"
+
+#: src/bar.c:151
+msgid "Ascending by creation date"
+msgstr "依建立日期遞增排序"
+
+#: src/bar.c:152
+msgid "Descending by creation date"
+msgstr "依建立日期遞減排序"
+
+#: src/bar.c:153
+msgid "Ascending by track number"
+msgstr "依曲目編號遞增排序"
+
+#: src/bar.c:154
+msgid "Descending by track number"
+msgstr "依曲目編號遞減排序"
+
+#: src/bar.c:155
+msgid "Ascending by title"
+msgstr "依曲名遞增排序"
+
+#: src/bar.c:156
+msgid "Descending by title"
+msgstr "依曲名遞減排序"
+
+#: src/bar.c:157
+msgid "Ascending by artist"
+msgstr "依演唱者遞增排序"
+
+#: src/bar.c:158
+msgid "Descending by artist"
+msgstr "依演唱者遞減排序"
+
+#: src/bar.c:159
+msgid "Ascending by album"
+msgstr "依專輯遞增排序"
+
+#: src/bar.c:160
+msgid "Descending by album"
+msgstr "依專輯遞減排序"
+
+#: src/bar.c:161
+msgid "Ascending by year"
+msgstr "依年份遞增排序"
+
+#: src/bar.c:162
+msgid "Descending by year"
+msgstr "依年份遞減排序"
+
+#: src/bar.c:163
+msgid "Ascending by genre"
+msgstr "依曲風遞增排序"
+
+#: src/bar.c:164
+msgid "Descending by genre"
+msgstr "依曲風遞減排序"
+
+#: src/bar.c:165
+msgid "Ascending by comment"
+msgstr "依備註遞增排序"
+
+#: src/bar.c:166
+msgid "Descending by comment"
+msgstr "依備註遞減排序"
+
+#: src/bar.c:167
+msgid "Ascending by composer"
+msgstr "依作曲者遞增排序"
+
+#: src/bar.c:168
+msgid "Descending by composer"
+msgstr "依作曲者遞減排序"
+
+#: src/bar.c:169
+msgid "Ascending by original artist"
+msgstr "依原唱者遞增排序"
+
+#: src/bar.c:170
+msgid "Descending by original artist"
+msgstr "依原唱者遞減排序"
+
+#: src/bar.c:171
+msgid "Ascending by copyright"
+msgstr "依版權所有者遞增排序"
+
+#: src/bar.c:172
+msgid "Descending by copyright"
+msgstr "依版權所有者遞減排序"
+
+#: src/bar.c:173
+msgid "Ascending by URL"
+msgstr "依網址遞增排序"
+
+#: src/bar.c:174
+msgid "Descending by URL"
+msgstr "依網址遞減排序"
+
+#: src/bar.c:175
+msgid "Ascending by encoder name"
+msgstr "依編碼程式遞增排序"
+
+#: src/bar.c:176
+msgid "Descending by encoder name"
+msgstr "依編碼程式遞增排序"
+
+#: src/bar.c:177
+msgid "Ascending by file type"
+msgstr "依檔名遞增排序"
+
+#: src/bar.c:178
+msgid "Descending by file type"
+msgstr "依檔名遞減排序"
+
+#: src/bar.c:179
+msgid "Ascending by file size"
+msgstr "依檔案大小遞增排序"
+
+#: src/bar.c:180
+msgid "Descending by file size"
+msgstr "依檔案大小遞減排序"
+
+#: src/bar.c:181
+msgid "Ascending by duration"
+msgstr "依曲目長度遞增排序"
+
+#: src/bar.c:182
+msgid "Descending by duration"
+msgstr "依曲目長度遞減排序"
+
+#: src/bar.c:183
+msgid "Ascending by bitrate"
+msgstr "依位元率遞增排序"
+
+#: src/bar.c:184
+msgid "Descending by bitrate"
+msgstr "依位元率遞減排序"
+
+#: src/bar.c:185
+msgid "Ascending by samplerate"
+msgstr "依取樣率遞增排序"
+
+#: src/bar.c:186
+msgid "Descending by samplerate"
+msgstr "依取樣率遞減排序"
+
+#: src/bar.c:188
+msgid "Open File(s) with ..."
+msgstr "開啟檔案以..."
+
+#: src/bar.c:189 src/cddb.c:326
+msgid "Select All Files"
+msgstr "選取所有檔案"
+
+#: src/bar.c:190
+msgid "Unselect All Files"
+msgstr "取消選取所有檔案"
+
+#: src/bar.c:191 src/cddb.c:333
+msgid "Invert Files Selection"
+msgstr "反向選取檔案"
+
+#: src/bar.c:192
+msgid "Delete File(s)"
+msgstr "刪除檔案"
+
+#: src/bar.c:193
+msgid "_First File"
+msgstr "第一個檔案(_F)"
+
+#: src/bar.c:193
+msgid "First File"
+msgstr "第一個檔案"
+
+#: src/bar.c:194
+msgid "_Previous File"
+msgstr "上一個檔案(_P)"
+
+#: src/bar.c:194
+msgid "Previous File"
+msgstr "上一個檔案"
+
+#: src/bar.c:195
+msgid "_Next File"
+msgstr "下一個檔案(_N)"
+
+#: src/bar.c:195
+msgid "Next File"
+msgstr "下一個檔案"
+
+#: src/bar.c:196
+msgid "_Last File"
+msgstr "最後一個檔案(_L)"
+
+#: src/bar.c:196
+msgid "Last File"
+msgstr "最後一個檔案"
+
+#. XXX GTK1 version uses Ctrl+C for scanner, this doesnt work in GTK1 as its copy! in gtk2, behaviour is different
+#. and binding Ctrl+C effectively stops the user copying text..
+#: src/bar.c:199
+msgid "S_can File(s)"
+msgstr "掃瞄檔案(_C)"
+
+#: src/bar.c:199
+msgid "Scan File(s)"
+msgstr "掃瞄檔案"
+
+#: src/bar.c:200
+msgid "_Remove Tag(s)"
+msgstr "移除標籤(_R)"
+
+#: src/bar.c:200
+msgid "Remove Tag(s)"
+msgstr "移除標籤"
+
+#: src/bar.c:201
+msgid "_Undo Last File(s) Changes"
+msgstr "復原最後檔案變更(_U)"
+
+#: src/bar.c:201
+msgid "Undo Last File(s) Changes"
+msgstr "復原最後檔案變更"
+
+#: src/bar.c:202
+msgid "R_edo Last File(s) Changes"
+msgstr "取消復原最後檔案變更(_E)"
+
+#: src/bar.c:202
+msgid "Redo Last File(s) Changes"
+msgstr "取消復原最後檔案變更"
+
+#: src/bar.c:203
+msgid "_Save File(s)"
+msgstr "儲存檔案(_S)"
+
+#: src/bar.c:203
+msgid "Save File(s)"
+msgstr "儲存檔案"
+
+#: src/bar.c:204
+msgid "_Force Saving File(s)"
+msgstr "強制儲存檔案(_F)"
+
+#: src/bar.c:204
+msgid "Force Saving File(s)"
+msgstr "強制儲存檔案"
+
+#: src/bar.c:205
+msgid "Undo Last Changes"
+msgstr "復原最後變更"
+
+#: src/bar.c:206
+msgid "Redo Last Changes"
+msgstr "取消復原最後變更"
+
+#: src/bar.c:207
+msgid "_Quit"
+msgstr "離開(_Q)"
+
+#: src/bar.c:207
+msgid "Quit"
+msgstr "離開"
+
+#: src/bar.c:209
+msgid "_Browser"
+msgstr "瀏覽(_B)"
+
+#: src/bar.c:210
+msgid "Go to _Home Directory"
+msgstr "前往家目錄(_H)"
+
+#: src/bar.c:210
+msgid "Go to Home Directory"
+msgstr "前往家目錄"
+
+#: src/bar.c:211
+msgid "Go to _Default Directory"
+msgstr "前往預設目錄(_D)"
+
+#: src/bar.c:211
+msgid "Go to Default Directory"
+msgstr "前往預設目錄"
+
+#: src/bar.c:212
+msgid "Set _Current Path as Default"
+msgstr "設定目前路徑為預設(_C)"
+
+#: src/bar.c:212
+msgid "Set Current Path as Default"
+msgstr "設定目前路徑為預設"
+
+#: src/bar.c:213
+msgid "Tree View | Artist-Album View"
+msgstr "樹狀檢視 | 演唱者-專輯檢視"
+
+#: src/bar.c:214
+msgid "Rename Directory ..."
+msgstr "重新命名目錄 ..."
+
+#: src/bar.c:215
+msgid "Reload Directory"
+msgstr "重新載入目錄"
+
+#: src/bar.c:216 src/browser.c:4062
+msgid "Browse Directory with ..."
+msgstr "瀏覽目錄以 ..."
+
+#: src/bar.c:217
+msgid "_Collapse Tree"
+msgstr "摺疊目錄(_C)"
+
+#: src/bar.c:218
+msgid "_Refresh Tree"
+msgstr "重新整理目錄(_R)"
+
+#: src/bar.c:220 src/bar.c:249
+msgid "S_canner"
+msgstr "掃瞄(_C)"
+
+#: src/bar.c:221
+msgid "_Fill Tag(s) ..."
+msgstr "標籤填入(_F) ..."
+
+#: src/bar.c:221
+msgid "Fill Tag(s) ..."
+msgstr "標籤填入 ..."
+
+#: src/bar.c:222
+msgid "_Rename File(s) and Directory ..."
+msgstr "檔案及目錄更名(_R) ..."
+
+#: src/bar.c:222
+msgid "Rename File(s) and Directory ..."
+msgstr "檔案及目錄更名 ..."
+
+#: src/bar.c:223
+msgid "_Process Field(s) ..."
+msgstr "標籤欄位處理(_P) ..."
+
+#: src/bar.c:223
+msgid "Process Fields(s) ..."
+msgstr "標籤欄位處理 ..."
+
+#: src/bar.c:225
+msgid "_Misc"
+msgstr "其他(_M)"
+
+#: src/bar.c:226
+msgid "Search _File(s) ..."
+msgstr "搜尋檔案(_F) ..."
+
+#: src/bar.c:226
+msgid "Search File(s)..."
+msgstr "搜尋檔案 ..."
+
+#: src/bar.c:227
+msgid "CD Data _Base Search ..."
+msgstr "CD 資料庫搜尋(_B) ..."
+
+#: src/bar.c:227
+msgid "CDDB Search ..."
+msgstr "CDDB 搜尋 ..."
+
+#: src/bar.c:228
+msgid "Load Filenames from TXT ..."
+msgstr "從 TXT 檔載入檔名 ..."
+
+#: src/bar.c:229
+msgid "Write Playlist ..."
+msgstr "寫入播放清單 ..."
+
+#: src/bar.c:230 src/bar.c:250 src/bar.c:251 src/bar.c:252
+msgid "Run Audio Player"
+msgstr "執行播放程式"
+
+#: src/bar.c:232
+msgid "_Settings"
+msgstr "設定(_S)"
+
+#: src/bar.c:233
+msgid "_Preferences ..."
+msgstr "偏好設定(_P) ..."
+
+#: src/bar.c:233
+msgid "Preferences ..."
+msgstr "偏好設定 ..."
+
+#: src/bar.c:235
+msgid "_Help"
+msgstr "說明(_H)"
+
+#: src/bar.c:236
+msgid "_About"
+msgstr "關於(_A)"
+
+#.
+#. * Following items are on toolbar but not on menu
+#.
+#: src/bar.c:242
+msgid "Stop the current action"
+msgstr "停止目前動作"
+
+#.
+#. * Popup menu's Actions
+#.
+#: src/bar.c:248
+msgid "_File Operations"
+msgstr "檔案處理(_F)"
+
+#: src/bar.c:253
+msgid "CDDB Search File(s)..."
+msgstr "CDDB 搜尋檔案..."
+
+#. { AM_ARTIST_OPEN_FILE_WITH,     GTK_STOCK_OPEN,    _("Open File(s) with ..."),     NULL, _("Open File(s) with ..."),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
+#. { AM_ALBUM_OPEN_FILE_WITH,      GTK_STOCK_OPEN,    _("Open File(s) with ..."),     NULL, _("Open File(s) with ..."),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
+#: src/bar.c:257
+msgid "Clean Log"
+msgstr "清除記錄檔"
+
+#. { AM_BROWSE_SUBDIR,      GTK_STOCK_INDEX,        _("Browse _Sub-directories"),                         NULL, _("Browse _Sub-directories"),                         NULL,                                    FALSE },
+#: src/bar.c:264
+msgid "Browse _Sub-directories"
+msgstr "瀏覽子目錄"
+
+#. { AM_BROWSER_HIDDEN_DIR, NULL,                   _("Show Hidden Directories"),                         NULL, _("Show Hidden Directories"),                         G_CALLBACK(Browser_Tree_Rebuild),     FALSE },
+#: src/bar.c:267
+msgid "Show Hidden Directories"
+msgstr "顯示隱藏目錄"
+
+#: src/bar.c:269
+msgid "Show tree browser / Display by Artist and Album"
+msgstr "顯示樹狀瀏覽／依演唱者及專輯顯示"
+
+#: src/bar.c:306
+#, c-format
+msgid "Could not merge UI, error was: %s\n"
+msgstr "無法合併 UI，錯誤為: %s\n"
+
+#: src/bar.c:406
+msgid "Ready to start..."
+msgstr "已準備開始..."
+
+#: src/browser.c:330
+msgid "New default path for files selected"
+msgstr "已選擇新的預設檔案路徑"
+
+#. Some files haven't been saved
+#. Some files aren't saved
+#: src/browser.c:718 src/easytag.c:4668 src/easytag.c:4694 src/easytag.c:4719
+msgid "Confirm..."
+msgstr "確認..."
+
+#: src/browser.c:722
+msgid ""
+"Some files have been modified but not saved...\n"
+"Do you want to save them before changing the directory?"
+msgstr ""
+"某些檔案已修改但尚未儲存...\n"
+"你要在變更目錄前儲存檔案嗎？"
+
+#: src/browser.c:2164
+msgid "<All albums>"
+msgstr "<所有專輯>"
+
+#: src/browser.c:2574
+#, c-format
+msgid "Error: Searching for %s, could not find node %s in tree."
+msgstr "錯誤: 搜尋檔案 %s 時發生錯誤，於樹狀檢視中找不到節點 %s。"
+
+#: src/browser.c:2942 src/browser.c:3069
+msgid "Tree"
+msgstr "樹狀檢視"
+
+#: src/browser.c:2943 src/cddb.c:722 src/misc.c:1909
+msgid "File Name"
+msgstr "檔名"
+
+#: src/browser.c:2943 src/cddb.c:723 src/misc.c:1910
+msgid "Title"
+msgstr "曲名"
+
+#: src/browser.c:2943 src/browser.c:2947 src/cddb.c:437 src/cddb.c:724
+#: src/misc.c:1911
+msgid "Artist"
+msgstr "演唱者"
+
+#: src/browser.c:2943 src/browser.c:2948 src/cddb.c:438 src/cddb.c:725
+#: src/misc.c:1912
+msgid "Album"
+msgstr "專輯"
+
+#: src/browser.c:2944 src/cddb.c:726 src/misc.c:1914
+msgid "Year"
+msgstr "年份"
+
+#: src/browser.c:2944 src/misc.c:1915
+msgid "Track"
+msgstr "曲目"
+
+#: src/browser.c:2944 src/cddb.c:729 src/misc.c:1916
+msgid "Genre"
+msgstr "曲風"
+
+#: src/browser.c:2945 src/misc.c:1918 src/picture.c:838
+msgid "Composer"
+msgstr "作曲者"
+
+#: src/browser.c:2945 src/misc.c:1919
+msgid "Orig. Artist"
+msgstr "原唱者"
+
+#: src/browser.c:2945 src/misc.c:1920
+msgid "Copyright"
+msgstr "版權所有"
+
+#: src/browser.c:2946 src/misc.c:1921
+msgid "URL"
+msgstr "網址"
+
+#: src/browser.c:2946
+#, fuzzy
+msgid "Encoded By"
+msgstr "編碼程式"
+
+#: src/browser.c:2947
+msgid "# Albums"
+msgstr "# 專輯"
+
+#: src/browser.c:2947 src/browser.c:2948
+msgid "# Files"
+msgstr "# 檔案"
+
+#: src/browser.c:2968
+msgid "Go to parent directory"
+msgstr "前往上層目錄"
+
+#: src/browser.c:2985
+msgid "Enter a directory to browse."
+msgstr "請輸入要瀏覽的目錄。"
+
+#: src/browser.c:2994
+#, fuzzy
+msgid "Select a directory to browse."
+msgstr "請選擇要瀏覽的目錄！"
+
+#: src/browser.c:3120
+msgid "Artist & Album"
+msgstr "演唱者及專輯"
+
+#: src/browser.c:3592
+msgid "Rename the directory"
+msgstr "重新命名目錄"
+
+#: src/browser.c:3608
+#, c-format
+msgid "Rename the directory '%s' to : "
+msgstr "重新命名目錄「%s」為: "
+
+#: src/browser.c:3627 src/misc.c:1268
+msgid "Use mask :"
+msgstr "使用遮罩 :"
+
+#: src/browser.c:3630
+msgid "If activated, it will use masks to rename directory."
+msgstr "啟用此選項會用遮罩條件來重新命名目錄。"
+
+#: src/browser.c:3649
+msgid ""
+"Select or type in a mask using codes (see Legend in Scanner Window) to "
+"rename the directory from tag fields."
+msgstr ""
+"請選擇或利用代碼 (參見掃瞄視窗中的參數說明) 輸入遮罩條件，以利用標籤重新命名"
+"目錄。"
+
+#: src/browser.c:3669 src/misc.c:1288 src/misc.c:1385 src/scan.c:2121
+#: src/scan.c:2188 src/scan.c:2534
+msgid "Invalid Scanner Mask"
+msgstr "掃瞄遮罩條件無效"
+
+#. Preview label
+#: src/browser.c:3675
+msgid "Rename directory preview..."
+msgstr "重新命名目錄預覽..."
+
+#. Log_Print(LOG_ERROR,msg);
+#: src/browser.c:3791 src/browser.c:3811 src/browser.c:3883 src/browser.c:3924
+#: src/browser.c:3956 src/browser.c:4406 src/browser.c:4425 src/easytag.c:2637
+#: src/easytag.c:2787 src/easytag.c:2825 src/easytag.c:2846 src/easytag.c:2884
+#: src/easytag.c:2928 src/easytag.c:2981 src/easytag.c:3009 src/easytag.c:3033
+#: src/easytag.c:3260 src/id3_tag.c:545 src/misc.c:1655 src/picture.c:1122
+#: src/prefs.c:1746 src/prefs.c:1863
+msgid "Error..."
+msgstr "錯誤..."
+
+#: src/browser.c:3795
+msgid "You must type a directory name!"
+msgstr "你必須輸入目錄名稱！"
+
+#: src/browser.c:3815
+#, c-format
+msgid "Could not convert '%s' into filename encoding. Please use another name."
+msgstr "無法轉換「%s」為檔名編碼，請輸入其他名稱。"
+
+#. TODO
+#. // The same directory already exists. So we ask if we want to move the files
+#. msg = g_strdup_printf(_("The directory already exists!\n(%s)\nDo you want "
+#. "to move the files?"),new_path_utf8);
+#. msgbox = msg_box_new(_("Confirm..."),
+#. GTK_WINDOW(MainWindow),
+#. NULL,
+#. GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+#. msg,
+#. GTK_STOCK_DIALOG_QUESTION,
+#. GTK_STOCK_NO,  GTK_RESPONSE_NO,
+#. GTK_STOCK_YES, GTK_RESPONSE_YES,
+#. NULL);
+#. g_free(msg);
+#. response = gtk_dialog_run(GTK_DIALOG(msgbox));
+#. gtk_widget_destroy(msgbox);
+#.
+#. switch (response)
+#. {
+#. case GTK_STOCK_YES:
+#. // Here we must rename all files with the new location, and remove the directory
+#.
+#. Rename_File ()
+#.
+#. break;
+#. case BUTTON_NO:
+#. break;
+#. }
+#: src/browser.c:3881
+#, c-format
+msgid ""
+"Can't rename because this directory name already exists!\n"
+"(%s)"
+msgstr ""
+"無法重新命名，該目錄已存在！\n"
+"(%s)"
+
+#: src/browser.c:3922 src/browser.c:3954
+#, c-format
+msgid ""
+"Can't rename directory \n"
+"'%s'\n"
+" to \n"
+"'%s'!\n"
+"(%s)"
+msgstr ""
+"無法重新命名目錄 \n"
+"「%s」\n"
+" 為 \n"
+"「%s」！\n"
+"(%s)"
+
+#: src/browser.c:4003
+msgid "Directory renamed"
+msgstr "目錄已重新命名"
+
+#: src/browser.c:4081 src/browser.c:4241
+msgid "Program to run :"
+msgstr "要執行的程式 :"
+
+#: src/browser.c:4093
+msgid ""
+"Enter the program to run. It will receive the current directory as parameter."
+msgstr "請輸入要執行的程式，目前目錄會自動引入為參數。"
+
+#: src/browser.c:4222
+msgid "Open File with ..."
+msgstr "開啟檔案以 ..."
+
+#: src/browser.c:4253
+msgid ""
+"Enter the program to run. It will receive the current file as parameter."
+msgstr "請輸入要執行的程式，目前檔案會自動引入為參數。"
+
+#: src/browser.c:4410
+msgid "You must type a program name!"
+msgstr "你必須輸入程式名稱！"
+
+#: src/browser.c:4424 src/misc.c:868
+#, c-format
+msgid "The program '%s' can't be found!"
+msgstr "找不到程式「%s」！"
+
+#: src/browser.c:4479 src/misc.c:914
+#, c-format
+msgid "Can't execute %s (error %d)!\n"
+msgstr "無法執行 %s (錯誤 %d)！\n"
+
+#: src/browser.c:4498 src/misc.c:953
+msgid "Can't fork another process!\n"
+msgstr "無法產生其他程序！\n"
+
+#: src/browser.c:4532
+#, c-format
+msgid "Executed command : '%s %s'"
+msgstr "執行命令:「%s %s」"
+
+#: src/cddb.c:229
+msgid "Artist / Album"
+msgstr "演唱者／專輯"
+
+#: src/cddb.c:229
+msgid "Category"
+msgstr "分類"
+
+#. Note: don't set "" instead of NULL else this will cause problem with translation language
+#: src/cddb.c:230 src/cddb.c:439
+msgid "Track Name"
+msgstr "曲目編號"
+
+#: src/cddb.c:230
+msgid "Time"
+msgstr "時間"
+
+#: src/cddb.c:241
+msgid "CD Data Base Search"
+msgstr "CD 資料庫搜尋"
+
+#.
+#. * 1 - Page for automatic search (generate the CDDBId from files)
+#.
+#: src/cddb.c:273
+msgid "Automatic Search"
+msgstr "自動搜尋"
+
+#: src/cddb.c:285
+msgid "Request CD database :"
+msgstr "要求 CD 資料庫 :"
+
+#: src/cddb.c:295
+msgid ""
+"Request automatically the CDDB database using the selected files (the order "
+"is important!) to generate the CddbID."
+msgstr "自動從 CDDB 資料庫要求所選取檔案 (選取次序很重要！)  的 CCDB ID。"
+
+#: src/cddb.c:305 src/cddb.c:415
+msgid "Stop the search ..."
+msgstr "停止搜尋 ..."
+
+#. Check box to run the scanner
+#: src/cddb.c:312
+msgid "Use local Cddb"
+msgstr "使用本機 CDDB"
+
+#: src/cddb.c:315 src/cddb.c:769
+msgid ""
+"When activating this option, after loading the fields, the current selected "
+"scanner will be ran (the scanner window must be opened)."
+msgstr ""
+"啟用此選項會在欄位載入完成後，自動執行目前選擇的掃瞄 (掃瞄視窗必須打開)。"
+
+#.
+#. * 2 - Page for manual search
+#.
+#: src/cddb.c:360
+msgid "Manual Search"
+msgstr "手動搜尋"
+
+#: src/cddb.c:375
+msgid "Words :"
+msgstr "文字 :"
+
+#: src/cddb.c:387
+msgid "Enter the words to search (separated by a space or '+')"
+msgstr "請輸入要搜尋的文字 (以空格或「+」分開)"
+
+#.
+#. * Search options
+#.
+#: src/cddb.c:427
+msgid "Search In :"
+msgstr "搜尋於 :"
+
+#: src/cddb.c:435
+msgid "All Fields"
+msgstr "所有欄位"
+
+#: src/cddb.c:440 src/picture.c:816 src/prefs.c:800
+msgid "Other"
+msgstr "其他"
+
+#: src/cddb.c:462
+msgid "All Categories"
+msgstr "所有分類"
+
+#: src/cddb.c:464
+msgid "Blues"
+msgstr "Blues"
+
+#: src/cddb.c:465
+msgid "Classical"
+msgstr "Classical"
+
+#: src/cddb.c:466
+msgid "Country"
+msgstr "Country"
+
+#: src/cddb.c:467
+msgid "Folk"
+msgstr "Folk"
+
+#: src/cddb.c:468
+msgid "Jazz"
+msgstr "Jazz"
+
+#.
+#. * Misc
+#.
+#: src/cddb.c:469 src/prefs.c:236 src/prefs.c:237
+msgid "Misc"
+msgstr "Misc"
+
+#: src/cddb.c:470
+msgid "Newage"
+msgstr "Newage"
+
+#: src/cddb.c:471
+msgid "Reggae"
+msgstr "Reggae"
+
+#: src/cddb.c:472
+msgid "Rock"
+msgstr "Rock"
+
+#: src/cddb.c:473
+msgid "Soundtrack"
+msgstr "Soundtrack"
+
+#: src/cddb.c:510
+msgid "included : funk, soul, rap, pop, industrial, metal, etc."
+msgstr "包含: funk, soul, rap, pop, industrial, metal 等..."
+
+#: src/cddb.c:511
+msgid "movies, shows"
+msgstr "影片，顯示"
+
+#: src/cddb.c:512
+msgid "others that do not fit in the above categories"
+msgstr "其他不符合上列分類的檔案"
+
+#. Button to display/hide the categories
+#: src/cddb.c:515
+msgid " Categories "
+msgstr " 分類"
+
+#.
+#. * Results command
+#.
+#: src/cddb.c:523
+msgid "Results :"
+msgstr "結果 :"
+
+#: src/cddb.c:530 src/misc.c:1963
+msgid "Search :"
+msgstr "搜尋 :"
+
+#: src/cddb.c:543
+msgid "Enter the words to search in the list below"
+msgstr "請輸入下列的文字搜尋"
+
+#: src/cddb.c:555
+msgid "Search Next"
+msgstr "找下一個"
+
+#: src/cddb.c:561
+msgid "Search Previous"
+msgstr "找上一個"
+
+#: src/cddb.c:572
+msgid "Show only red lines (or show all lines) in the 'Artist / Album' list"
+msgstr "只顯示「演唱者／專輯」清單中的紅色項目 (或顯示所有項目)"
+
+#: src/cddb.c:578 src/cddb.c:1504
+msgid "Unselect all lines"
+msgstr "取消選取所有項目"
+
+#: src/cddb.c:584
+msgid "Invert lines selection"
+msgstr "反向選擇項目"
+
+#: src/cddb.c:590 src/cddb.c:1499
+msgid "Select all lines"
+msgstr "選擇所有項目"
+
+#: src/cddb.c:703
+msgid ""
+"Select lines to 'apply' to your files list. All lines will be processed if "
+"no line is selected.\n"
+"You can also reorder lines in this list before using 'apply' button."
+msgstr ""
+"請選擇你要「套用」的項目，如果不選則所有項目都會套用。\n"
+"妳也可以在「套用」前重新排列曲目順序。"
+
+#.
+#. * Apply results to fields...
+#.
+#: src/cddb.c:713
+msgid "Set Into :"
+msgstr "設定條件 :"
+
+#: src/cddb.c:720
+msgid "All"
+msgstr "全部"
+
+#: src/cddb.c:727
+msgid "Track #"
+msgstr "曲目編號"
+
+#: src/cddb.c:728
+msgid "# Tracks"
+msgstr "曲目總數"
+
+#. Check box to run the scanner
+#: src/cddb.c:766 src/misc.c:2964
+msgid "Run the current scanner for each file"
+msgstr "對每個檔案執行目前的掃瞄"
+
+#. Check box to use DLM (also used in the preferences window)
+#: src/cddb.c:773
+msgid "Match lines with the Levenshtein algorithm"
+msgstr "以 Levenshtein 演算法比對近似項目"
+
+#. Doesn't activate it by default because if the new user don't pay attention to it,
+#. it will not understand why the cddb results aren't loaded correctly...
+#. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbUseDLM2),CDDB_USE_DLM);
+#: src/cddb.c:778 src/prefs.c:1369
+msgid ""
+"When activating this option, the Levenshtein algorithm (DLM : Damerau-"
+"Levenshtein Metric) will be used to match the CDDB title against every file "
+"name in the current folder, and to select the best match. This will be used "
+"when selecting the corresponding audio file, or applying cddb results, "
+"instead of using directly the position order."
+msgstr ""
+"啟用此選項會使用 Levenshtein 演算法 (DLM : Damerau-Levenshtein 距離) 在目前目"
+"錄中尋找檔名有無和 CDDB 相似的曲名，並選擇最類似的項目。此選項可用在已選取正"
+"確的檔案後，不使用 CDDB 的結果，而直接採用曲目順序套用。"
+
+#: src/cddb.c:790
+msgid "Load the selected lines or all lines (if no line selected)."
+msgstr "載入已選的項目或所有項目 (如果未選擇)。"
+
+#: src/cddb.c:799 src/misc.c:2206
+msgid "Ready to search..."
+msgstr "已準備好搜尋 ..."
+
+#: src/cddb.c:1319
+#, c-format
+msgid ""
+"Album: '%s', artist: '%s', length: '%s', year: '%s', genre: '%s', ID: '%s'"
+msgstr ""
+"專輯:「%s」，演唱者:「%s」，曲目長度:「%s」，發行年份:「%s」，曲風:「%s」，編"
+"號:「%s」"
+
+#: src/cddb.c:1509
+msgid "Invert selection"
+msgstr "反向選擇"
+
+#: src/cddb.c:1517
+msgid "Sort by Track Number"
+msgstr "依曲目編號排序"
+
+#: src/cddb.c:1522
+msgid "Sort by Track Name"
+msgstr "依曲名排序"
+
+#: src/cddb.c:1620
+#, c-format
+msgid "Resolving host '%s' ..."
+msgstr "解析主機名稱「%s」中..."
+
+#: src/cddb.c:1628
+#, c-format
+msgid "Can't resolve host '%s' (%s)!"
+msgstr "無法解析主機名稱「%s」(%s)！"
+
+#: src/cddb.c:1643
+#, c-format
+msgid "Can't create a new socket (%s)!"
+msgstr "無法建立新 Socket (%s)！"
+
+#. Open connection to the server
+#: src/cddb.c:1657
+#, c-format
+msgid "Connecting to host '%s', port '%d' ..."
+msgstr "連線到主機「%s」，埠「%d」 ..."
+
+#: src/cddb.c:1664
+#, c-format
+msgid "Can't connect to host '%s' (%s)!"
+msgstr "無法連線主機「%s」(%s)！"
+
+#: src/cddb.c:1670
+#, c-format
+msgid "Connected to host '%s'"
+msgstr "已連線主機「%s」"
+
+#: src/cddb.c:1753
+#, c-format
+msgid "Receiving data (%s) ..."
+msgstr "接收資料 (%s) 中 ..."
+
+#: src/cddb.c:1765
+#, c-format
+msgid "Error when reading cddb response (%s)!"
+msgstr "讀取 CDDB 回應時錯誤 (%s)！"
+
+#: src/cddb.c:1771
+#, c-format
+msgid "Can't create file '%s' (%s)"
+msgstr "無法建立檔案「%s」 (%s)"
+
+#: src/cddb.c:1814 src/misc.c:3119 src/setting.c:1317
+#, c-format
+msgid "Can't open file '%s' (%s)"
+msgstr "無法開啟檔案「%s」 (%s)"
+
+#. g_print("Request : '%s'\n", cddb_in);
+#. Send the request
+#: src/cddb.c:2249 src/cddb.c:2568 src/cddb.c:3405
+msgid "Sending request ..."
+msgstr "送出要求中 ..."
+
+#: src/cddb.c:2253 src/cddb.c:2572 src/cddb.c:3133 src/cddb.c:3409
+#, c-format
+msgid "Can't send the request (%s)!"
+msgstr "無法送出要求 (%s)！"
+
+#.
+#. * Read the answer
+#.
+#. Read the answer
+#: src/cddb.c:2275 src/cddb.c:3146 src/cddb.c:3418
+msgid "Receiving data ..."
+msgstr "接收資料中 ..."
+
+#: src/cddb.c:2282 src/cddb.c:2601 src/cddb.c:3153 src/cddb.c:3425
+msgid "The server returned a wrong answer!"
+msgstr "伺服器回傳錯誤的回應！"
+
+#: src/cddb.c:2296 src/cddb.c:2617 src/cddb.c:3168 src/cddb.c:3440
+#, c-format
+msgid "The server returned a wrong answer! (%s)"
+msgstr "伺服器回傳錯誤的回應！(%s)"
+
+#: src/cddb.c:2443
+msgid "Sorry, the web-based search is currently down!"
+msgstr "抱歉，網頁搜尋目前無法使用！"
+
+#: src/cddb.c:2445 src/cddb.c:2789
+#, c-format
+msgid "Found %d matching album(s)"
+msgstr "找到 %d 個符合的專輯"
+
+#: src/cddb.c:2589
+#, c-format
+msgid "Receiving data of page %d (album %d/%d)..."
+msgstr "接收第 %d 頁的資料 (專輯 %d/%d)..."
+
+#: src/cddb.c:2591
+#, c-format
+msgid "Receiving data of page %d ..."
+msgstr "接收第 %d 頁的資料 ..."
+
+#: src/cddb.c:2756
+msgid "More results to load ..."
+msgstr "載入更多結果 ..."
+
+#: src/cddb.c:2885
+msgid "No file selected!"
+msgstr "沒有選擇檔案！"
+
+#. The CD redbook standard defines the maximum number of tracks as 99, any
+#. queries with more than 99 tracks will never return a result.
+#: src/cddb.c:2893
+msgid "More than 99 files selected! Can't send request!"
+msgstr "已選取超過 99 個檔案，無法送出要求！"
+
+#: src/cddb.c:2899
+#, c-format
+msgid "%d file(s) selected!"
+msgstr "已選擇 %d 個檔案！"
+
+#: src/cddb.c:2974
+msgid "Local CD search..."
+msgstr "本機 CD 搜尋 ..."
+
+#: src/cddb.c:2978
+#, fuzzy
+msgid ""
+"The path for 'Local CD Data Base' wasn't defined!\n"
+"Fill it in the preferences window before to use this search."
+msgstr ""
+"「本機 CD 資料庫」路徑尚未指定！\n"
+"請於偏好視窗中填入。"
+
+#. g_print("Request : '%s'\n", cddb_in);
+#: src/cddb.c:3123
+#, c-format
+msgid "Sending request (CddbId: %s, #tracks: %d, Disc length: %d) ..."
+msgstr "送出要求中 (CddbId: %s, 曲目總數: %d, 總長度: %d) ..."
+
+#: src/cddb.c:3276
+#, c-format
+msgid "Found %d matching album(s) for DiscID '%s'"
+msgstr "找到 %d 個符合 DiscID「%s」的專輯"
+
+#: src/cddb.c:3372
+#, c-format
+msgid "Can't load file: '%s' (%s)!"
+msgstr "無法載入檔案:「%s」(%s)！"
+
+#. Load the track list of the album
+#: src/cddb.c:3630
+msgid "Loading album track list ..."
+msgstr "載入專輯曲目清單中 ..."
+
+#: src/cddb.c:3827
+#, c-format
+msgid ""
+"Be careful, you are applying %d lines of the CDDB results to %d lines in the "
+"list of files!\n"
+"\n"
+"Do you want to continue ?"
+msgstr ""
+"注意，你要套用 CDDB 中的 %d 個項目的資料到檔案清單的 %d 個項目！\n"
+"\n"
+"你確定要繼續嗎？"
+
+#: src/cddb.c:3830
+msgid "Write Tag from CDDB..."
+msgstr "從 CDDB 寫入標籤 ..."
+
+#: src/charset.c:49
+msgid "Arabic (IBM-864)"
+msgstr "阿拉伯文 (IBM-864)"
+
+#: src/charset.c:50
+msgid "Arabic (ISO-8859-6)"
+msgstr "阿拉伯文 (ISO-8859-6)"
+
+#: src/charset.c:51
+msgid "Arabic (Windows-1256)"
+msgstr "阿拉伯文 (Windows-1256)"
+
+#: src/charset.c:52
+msgid "Baltic (ISO-8859-13)"
+msgstr "波羅的海文 (ISO-8859-13)"
+
+#: src/charset.c:53
+msgid "Baltic (ISO-8859-4)"
+msgstr "波羅的海文 (ISO-8859-4)"
+
+#: src/charset.c:54
+msgid "Baltic (Windows-1257)"
+msgstr "波羅的海文 (Windows-1257)"
+
+#: src/charset.c:55
+msgid "Celtic (ISO-8859-14)"
+msgstr "賽爾特文 (ISO-8859-14)"
+
+#: src/charset.c:56
+msgid "Central European (IBM-852)"
+msgstr "中歐語系 (IBM-852)"
+
+#: src/charset.c:57
+msgid "Central European (ISO-8859-2)"
+msgstr "中歐語系 (IBM-8859-2)"
+
+#: src/charset.c:58
+msgid "Central European (Windows-1250)"
+msgstr "中歐語系 (Windows-1250)"
+
+#: src/charset.c:59
+msgid "Chinese Simplified (GB18030)"
+msgstr "簡体中文 (GB18030)"
+
+#: src/charset.c:60
+msgid "Chinese Simplified (GB2312)"
+msgstr "簡体中文 (GB2312)"
+
+#: src/charset.c:61
+msgid "Chinese Traditional (Big5)"
+msgstr "繁體中文 (Big5)"
+
+#: src/charset.c:62
+msgid "Chinese Traditional (Big5-HKSCS)"
+msgstr "繁體中文香港字 (Big5-HKSCS)"
+
+#: src/charset.c:63
+msgid "Cyrillic (IBM-855)"
+msgstr "斯拉夫文 (IBM-855)"
+
+#: src/charset.c:64
+msgid "Cyrillic (ISO-8859-5)"
+msgstr "斯拉夫文 (ISO-8859-5)"
+
+#: src/charset.c:65
+msgid "Cyrillic (ISO-IR-111)"
+msgstr "斯拉夫文 (ISO-IR-111)"
+
+#: src/charset.c:66
+msgid "Cyrillic (KOI8-R)"
+msgstr "斯拉夫文 (KOI8-R)"
+
+#: src/charset.c:67
+msgid "Cyrillic (Windows-1251)"
+msgstr "斯拉夫文 (Windows-1251)"
+
+#: src/charset.c:68
+msgid "Cyrillic/Russian (CP-866)"
+msgstr "斯拉夫／俄文 (CP-866)"
+
+#: src/charset.c:69
+msgid "Cyrillic/Ukrainian (KOI8-U)"
+msgstr "斯拉夫／烏克蘭文 (KOI8-U)"
+
+#: src/charset.c:70
+msgid "English (US-ASCII)"
+msgstr "英文 (US-ASCII)"
+
+#: src/charset.c:71
+msgid "Greek (ISO-8859-7)"
+msgstr "希臘文 (ISO-8859-7)"
+
+#: src/charset.c:72
+msgid "Greek (Windows-1253)"
+msgstr "希臘文 (Windows-1253)"
+
+#: src/charset.c:73
+msgid "Hebrew (IBM-862)"
+msgstr "希伯來文 (IBM-862)"
+
+#: src/charset.c:74
+msgid "Hebrew (Windows-1255)"
+msgstr "希伯來文 (Windows-1255)"
+
+#: src/charset.c:75
+msgid "Japanese (EUC-JP)"
+msgstr "日文 (EUC-JP)"
+
+#: src/charset.c:76
+msgid "Japanese (ISO-2022-JP)"
+msgstr "日文 (ISO-2022-JP)"
+
+#: src/charset.c:77
+msgid "Japanese (Shift_JIS)"
+msgstr "日文 (Shift_JIS)"
+
+#: src/charset.c:78
+msgid "Korean (EUC-KR)"
+msgstr "韓文 (EUC-KR)"
+
+#: src/charset.c:79
+msgid "Nordic (ISO-8859-10)"
+msgstr "北歐文 (ISO-8859-10)"
+
+#: src/charset.c:80
+msgid "South European (ISO-8859-3)"
+msgstr "南歐語系 (ISO-8859-3)"
+
+#: src/charset.c:81
+msgid "Thai (TIS-620)"
+msgstr "泰文 (TIS-620)"
+
+#: src/charset.c:82
+msgid "Turkish (IBM-857)"
+msgstr "土耳其文 (IBM-857)"
+
+#: src/charset.c:83
+msgid "Turkish (ISO-8859-9)"
+msgstr "土耳其文 (ISO-8859-9)"
+
+#: src/charset.c:84
+msgid "Turkish (Windows-1254)"
+msgstr "土耳其文 (Windows-1254)"
+
+#. {N_("Unicode (UTF-7)"),                   "UTF-7"         },
+#: src/charset.c:86
+msgid "Unicode (UTF-8)"
+msgstr "Unicode (UTF-8)"
+
+#. {N_("Unicode (UTF-16BE)"),                "UTF-16BE"      },
+#. {N_("Unicode (UTF-16LE)"),                "UTF-16LE"      },
+#. {N_("Unicode (UTF-32BE)"),                "UTF-32BE"      },
+#. {N_("Unicode (UTF-32LE)"),                "UTF-32LE"      },
+#: src/charset.c:93
+msgid "Vietnamese (VISCII)"
+msgstr "越南文 (VISCII)"
+
+#: src/charset.c:94
+msgid "Vietnamese (Windows-1258)"
+msgstr "越南文 (Windows-1258)"
+
+#: src/charset.c:95
+msgid "Visual Hebrew (ISO-8859-8)"
+msgstr "希伯來文 (左至右) (ISO-8859-8)"
+
+#: src/charset.c:96
+msgid "Western (IBM-850)"
+msgstr "西歐語系 (IBM-850)"
+
+#: src/charset.c:97
+msgid "Western (ISO-8859-1)"
+msgstr "西歐語系 (ISO-8859-1)"
+
+#: src/charset.c:98
+msgid "Western (ISO-8859-15)"
+msgstr "西歐語系 (ISO-8859-15)"
+
+#: src/charset.c:99
+msgid "Western (Windows-1252)"
+msgstr "西歐語系 (Windows-1252)"
+
+#: src/charset.c:543
+#, fuzzy, c-format
+msgid "The filename '%s' couldn't be converted into UTF-8 (%s)."
+msgstr "檔名「%s」無法轉換成 UTF-8 (%s)。\n"
+
+#: src/charset.c:544 src/charset.c:643 src/charset.c:707
+msgid "Invalid UTF-8"
+msgstr "UTF-8 無效"
+
+#: src/charset.c:642
+#, fuzzy, c-format
+msgid ""
+"The UTF-8 string '%s' couldn't be converted into filename encoding (%s)."
+msgstr "UTF-8 字串「%s」無法轉換為檔名編碼 (%s)\n"
+
+#: src/charset.c:706
+#, fuzzy, c-format
+msgid "The string '%s' couldn't be converted into UTF-8 (%s)."
+msgstr "字串「%s」無法轉換為 UTF-8 (%s)。\n"
+
+#. Starting messages
+#: src/easytag.c:179
+#, c-format
+msgid "Starting EasyTAG %s (PId: %d) ..."
+msgstr "EasyTAG %s 開始中 (PId: %d) ..."
+
+#: src/easytag.c:181
+#, c-format
+msgid "Currently using libid3tag version %s ..."
+msgstr "目前使用的 libid3tag 版本 %s ..."
+
+#: src/easytag.c:184
+#, c-format
+msgid "Currently using id3lib version %d.%d.%d ..."
+msgstr "目前使用的 id3lib 版本 %d.%d.%d ..."
+
+#: src/easytag.c:191
+#, c-format
+msgid "Variable EASYTAGLANG defined. Setting locale : '%s'"
+msgstr "變數 EASYTAGLANG 已定義，設定語言 :「%s」"
+
+#: src/easytag.c:193
+#, c-format
+msgid "Setting locale : '%s'"
+msgstr "設定語言 :「%s」"
+
+#: src/easytag.c:197
+#, c-format
+msgid "Currently using locale '%s' (and eventually '%s')..."
+msgstr "目前使用的語言「%s」(最後設定為「%s」)..."
+
+#: src/easytag.c:213
+#, c-format
+msgid "%s %s by %s (compiled %s, %s)\n"
+msgstr "%s %s 由 %s (編譯時間 %s, %s)\n"
+
+#: src/easytag.c:215
+#, c-format
+msgid "Web Page: %s"
+msgstr "網頁: %s"
+
+#: src/easytag.c:290
+#, c-format
+msgid "Unknown parameter or path '%s'\n"
+msgstr "參數或路徑「%s」無效\n"
+
+#.
+#. * Browser
+#.
+#: src/easytag.c:414 src/prefs.c:145 src/prefs.c:146
+msgid "Browser"
+msgstr "瀏覽"
+
+#: src/easytag.c:436 src/et_core.c:2614
+msgid "File"
+msgstr "檔案"
+
+#: src/easytag.c:462
+msgid "Read Only File"
+msgstr "唯讀檔案"
+
+#: src/easytag.c:465
+msgid "File Link Broken"
+msgstr "檔案連結失效"
+
+#. Default values are MPs data
+#. MPEG, Layer versions
+#: src/easytag.c:479 src/easytag.c:4184 src/mpeg_header.c:354
+msgid "MPEG"
+msgstr "MPEG"
+
+#: src/easytag.c:481 src/easytag.c:4185
+msgid "?, Layer ?"
+msgstr "?, Layer ?"
+
+#: src/easytag.c:486
+msgid "Bitrate:"
+msgstr "位元率:"
+
+#: src/easytag.c:488 src/easytag.c:4186
+msgid "? kb/s"
+msgstr "? kb/秒"
+
+#: src/easytag.c:493
+msgid "Freq:"
+msgstr "頻率:"
+
+#: src/easytag.c:495 src/easytag.c:4187
+msgid "? Hz"
+msgstr "? Hz"
+
+#. Mode
+#: src/easytag.c:503 src/easytag.c:4188 src/mpeg_header.c:377
+msgid "Mode:"
+msgstr "模式:"
+
+#: src/easytag.c:505 src/easytag.c:519 src/easytag.c:4189 src/easytag.c:4190
+#: src/easytag.c:4191
+msgid "?"
+msgstr "?"
+
+#: src/easytag.c:510
+msgid "Size:"
+msgstr "大小:"
+
+#: src/easytag.c:512
+msgid "? kb"
+msgstr "? kb"
+
+#: src/easytag.c:517
+msgid "Time:"
+msgstr "時間:"
+
+#. Main Frame
+#: src/easytag.c:563 src/et_core.c:2552
+msgid "Tag"
+msgstr "標籤"
+
+#.
+#. * 1 - Page for common tag fields
+#.
+#: src/easytag.c:585
+msgid "Common"
+msgstr "一般"
+
+#. Title
+#: src/easytag.c:597
+msgid "Title:"
+msgstr "曲名:"
+
+#: src/easytag.c:610
+msgid "Tag selected files with this title"
+msgstr "以此曲名標記所選檔案"
+
+#. Artist
+#: src/easytag.c:617
+msgid "Artist:"
+msgstr "演唱者:"
+
+#: src/easytag.c:629
+msgid "Tag selected files with this artist"
+msgstr "以此演場者標記所選檔案"
+
+#. Album
+#: src/easytag.c:635
+msgid "Album:"
+msgstr "專輯:"
+
+#: src/easytag.c:648
+msgid "Tag selected files with this album name"
+msgstr "以此專輯名稱標記所選檔案"
+
+#. Disc Number
+#: src/easytag.c:654
+msgid "CD:"
+msgstr "CD:"
+
+#: src/easytag.c:670
+msgid "Tag selected files with this disc number"
+msgstr "以此碟片編號標記所選檔案"
+
+#. Year
+#: src/easytag.c:676
+msgid "Year:"
+msgstr "年份:"
+
+#: src/easytag.c:693
+msgid "Tag selected files with this year"
+msgstr "以此發行年份標記所選檔案"
+
+#: src/easytag.c:705
+msgid "Number selected tracks sequentially. Starts at 01 in each subdirectory."
+msgstr "為所選曲目依序編號，每個子目錄從 01 開始。"
+
+#. To have enought space to display the icon
+#. To have enought space to display the icon
+#: src/easytag.c:714
+msgid "Track #:"
+msgstr "曲目 #:"
+
+#: src/easytag.c:740
+msgid ""
+"Set the number of files, in the same directory of the displayed file, to the "
+"selected tracks."
+msgstr "設定曲目總數，以相同目錄中顯示的檔案計算。"
+
+#: src/easytag.c:759
+msgid "Tag selected files with this number of tracks"
+msgstr "以此曲目編號標記所選檔案"
+
+#. Genre
+#: src/easytag.c:765
+msgid "Genre:"
+msgstr "曲風:"
+
+#: src/easytag.c:790
+msgid "Tag selected files with this genre"
+msgstr "以此曲風標記所選檔案"
+
+#. Comment
+#: src/easytag.c:796
+msgid "Comment:"
+msgstr "備註:"
+
+#: src/easytag.c:821
+msgid "Tag selected files with this comment"
+msgstr "以此備註標記所選檔案"
+
+#. Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(CommentView));
+#. g_object_set_data(G_OBJECT(CommentView),"MButtonName",CommentMButton);
+#. Composer (name of the composers)
+#: src/easytag.c:830
+msgid "Composer:"
+msgstr "作曲者:"
+
+#: src/easytag.c:842
+msgid "Tag selected files with this composer"
+msgstr "以此作曲者標記所選檔案"
+
+#. Original Artist / Performer
+#: src/easytag.c:849
+msgid "Orig. Artist:"
+msgstr "原唱者:"
+
+#: src/easytag.c:861
+msgid "Tag selected files with this original artist"
+msgstr "以此原唱者記所選檔案"
+
+#. Copyright
+#: src/easytag.c:868
+msgid "Copyright:"
+msgstr "版權所有者:"
+
+#: src/easytag.c:880
+msgid "Tag selected files with this copyright"
+msgstr "以此版權所有者標記所選檔案"
+
+#. URL
+#: src/easytag.c:887
+msgid "URL:"
+msgstr "網址:"
+
+#: src/easytag.c:899
+msgid "Tag selected files with this URL"
+msgstr "以此網址標記所選檔案"
+
+#. Encoded by
+#: src/easytag.c:906
+msgid "Encoded by:"
+msgstr "編碼程式:"
+
+#: src/easytag.c:918
+msgid "Tag selected files with this encoder name"
+msgstr "以此編碼程式標記所選檔案"
+
+#.
+#. * 2 - Page for extra tag fields
+#.
+#: src/easytag.c:978
+msgid "Pictures"
+msgstr "封面"
+
+#. Picture
+#: src/easytag.c:989
+msgid "Pictures:"
+msgstr "封面:"
+
+#: src/easytag.c:1009
+msgid "You can use drag and drop to add picture."
+msgstr "你可以拖放圖片到這裡新增封面。"
+
+#: src/easytag.c:1047
+msgid "Tag selected files with these pictures"
+msgstr "以此封面標記所選檔案"
+
+#: src/easytag.c:1057
+msgid "Add pictures to the tag (drag and drop is also available)."
+msgstr "新增封面圖片 (也可以拖放圖片到這裡)"
+
+#: src/easytag.c:1063
+msgid "Remove selected pictures, else all pictures."
+msgstr "移除所選圖片，不選則全部刪除"
+
+#: src/easytag.c:1073
+msgid "Save the selected pictures on the hard disk."
+msgstr "儲存已選圖片到硬碟。"
+
+#: src/easytag.c:1080
+msgid "Set properties of the selected pictures."
+msgstr "設定已選圖片的屬性。"
+
+#: src/easytag.c:1160
+#, c-format
+msgid "Selected files tagged with title '%s'."
+msgstr "所選的檔案已用曲名「%s」標記。"
+
+#: src/easytag.c:1162
+msgid "Removed title from selected files."
+msgstr "所選的檔案曲名已移除。"
+
+#: src/easytag.c:1179
+#, c-format
+msgid "Selected files tagged with artist '%s'."
+msgstr "所選的檔案已用演唱者「%s」標記。"
+
+#: src/easytag.c:1181
+msgid "Removed artist from selected files."
+msgstr "所選的檔案演唱者已移除。"
+
+#: src/easytag.c:1198
+#, c-format
+msgid "Selected files tagged with album '%s'."
+msgstr "所選的檔案已用專輯「%s」標記。"
+
+#: src/easytag.c:1200
+msgid "Removed album name from selected files."
+msgstr "所選的檔案專輯名稱已移除。"
+
+#: src/easytag.c:1217
+#, c-format
+msgid "Selected files tagged with disc number '%s'."
+msgstr "所選的檔案已用曲目編號「%s」標記。"
+
+#: src/easytag.c:1219
+msgid "Removed disc number from selected files."
+msgstr "所選的檔案曲名編號已移除。"
+
+#: src/easytag.c:1236
+#, c-format
+msgid "Selected files tagged with year '%s'."
+msgstr "所選的檔案已用發行年份「%s」標記。"
+
+#: src/easytag.c:1238
+msgid "Removed year from selected files."
+msgstr "所選的檔案發行年份已移除。"
+
+#: src/easytag.c:1266 src/easytag.c:1362
+#, c-format
+msgid "Selected files tagged with track like 'xx/%s'."
+msgstr "所選的檔案已用曲目編號「xx/%s」的方式標記。"
+
+#: src/easytag.c:1269
+msgid "Selected files tagged with track like 'xx'."
+msgstr "所選的檔案已用曲目編號「xx」的方式標記。"
+
+#: src/easytag.c:1273 src/easytag.c:1365
+msgid "Removed track number from selected files."
+msgstr "所選的檔案曲目編號已移除。"
+
+#. msg = g_strdup_printf(_("All %d tracks numbered sequentially."), ETCore->ETFileSelectionList_Length);
+#: src/easytag.c:1331
+msgid "Selected tracks numbered sequentially."
+msgstr "所選的檔案已依序標記曲目編號。"
+
+#: src/easytag.c:1383
+#, c-format
+msgid "Selected files tagged with genre '%s'."
+msgstr "所選的檔案已用曲風「%s」標記。"
+
+#: src/easytag.c:1385
+msgid "Removed genre from selected files."
+msgstr "所選的檔案曲風已移除。"
+
+#: src/easytag.c:1409
+#, c-format
+msgid "Selected files tagged with comment '%s'."
+msgstr "所選的檔案已用備註「%s」標記。"
+
+#: src/easytag.c:1411
+msgid "Removed comment from selected files."
+msgstr "所選的檔案備註已移除。"
+
+#: src/easytag.c:1428
+#, c-format
+msgid "Selected files tagged with composer '%s'."
+msgstr "所選的檔案已用作曲者「%s」標記。"
+
+#: src/easytag.c:1430
+msgid "Removed composer from selected files."
+msgstr "所選的檔案作曲者已移除。"
+
+#: src/easytag.c:1447
+#, c-format
+msgid "Selected files tagged with original artist '%s'."
+msgstr "所選的檔案已用原唱者「%s」標記。"
+
+#: src/easytag.c:1449
+msgid "Removed original artist from selected files."
+msgstr "所選的檔案原唱者已移除。"
+
+#: src/easytag.c:1466
+#, c-format
+msgid "Selected files tagged with copyright '%s'."
+msgstr "所選的檔案已用版權所有者「%s」標記。"
+
+#: src/easytag.c:1468
+msgid "Removed copyright from selected files."
+msgstr "所選的檔案版權所有者已移除。"
+
+#: src/easytag.c:1485
+#, c-format
+msgid "Selected files tagged with URL '%s'."
+msgstr "所選的檔案已用網址「%s」標記。"
+
+#: src/easytag.c:1487
+msgid "Removed URL from selected files."
+msgstr "所選的檔案網址已移除。"
+
+#: src/easytag.c:1504
+#, c-format
+msgid "Selected files tagged with encoder name '%s'."
+msgstr "所選的檔案已用編碼程式「%s」標記。"
+
+#: src/easytag.c:1506
+msgid "Removed encoder name from selected files."
+msgstr "所選的檔案編碼程式已移除。"
+
+#: src/easytag.c:1541
+msgid "Selected files tagged with pictures."
+msgstr "所選的檔案封面已標記。"
+
+#: src/easytag.c:1543
+msgid "Removed pictures from selected files."
+msgstr "所選的檔案封面已移除。"
+
+#: src/easytag.c:1782
+msgid "Select Mode and Mask, and redo the same action"
+msgstr "請選擇模式和遮罩條件後重做相同動作"
+
+#: src/easytag.c:1837
+msgid "All tags have been scanned"
+msgstr "已掃描所有標籤"
+
+#: src/easytag.c:1894
+msgid "All tags have been removed"
+msgstr "已移除所有標籤"
+
+#: src/easytag.c:2189 src/easytag.c:2212
+msgid "All files have been saved..."
+msgstr "所有檔案已儲存..."
+
+#: src/easytag.c:2210
+msgid "Files have been partially saved..."
+msgstr "檔案已部份儲存..."
+
+#: src/easytag.c:2360
+msgid "Files have been partially deleted..."
+msgstr "檔案已部份刪除..."
+
+#: src/easytag.c:2362
+msgid "All files have been deleted..."
+msgstr "已刪除所有檔案..."
+
+#: src/easytag.c:2435
+#, c-format
+msgid ""
+"Do you want to write the tag of file\n"
+"'%s' ?"
+msgstr ""
+"你要寫入檔案標籤\n"
+"「%s」嗎 ?"
+
+#: src/easytag.c:2439 src/easytag.c:2452
+msgid "Write Tag..."
+msgstr "寫入標籤..."
+
+#. Directories and filename changed
+#: src/easytag.c:2516
+msgid "Rename File and Directory..."
+msgstr "檔案及目錄更名..."
+
+#: src/easytag.c:2517
+#, c-format
+msgid ""
+"Do you want to rename the file and directory \n"
+"'%s'\n"
+"to \n"
+"'%s' ?"
+msgstr ""
+"你要重新命名檔案及目錄 \n"
+"「%s」\n"
+"為 \n"
+"「'%s」嗎？"
+
+#. Only directories changed
+#: src/easytag.c:2522
+msgid "Rename Directory..."
+msgstr "目錄更名..."
+
+#: src/easytag.c:2523
+#, c-format
+msgid ""
+"Do you want to rename the directory \n"
+"'%s'\n"
+"to \n"
+"'%s' ?"
+msgstr ""
+"你要重新命名目錄 \n"
+"「%s」\n"
+"為 \n"
+"「'%s」嗎？"
+
+#. Only filename changed
+#: src/easytag.c:2529
+msgid "Rename File..."
+msgstr "檔案更名..."
+
+#: src/easytag.c:2530
+#, c-format
+msgid ""
+"Do you want to rename the file \n"
+"'%s'\n"
+"to \n"
+"'%s' ?"
+msgstr ""
+"你要重新命名檔案 \n"
+"「%s」\n"
+"為 \n"
+"「'%s」嗎？"
+
+#: src/easytag.c:2613
+#, c-format
+msgid "Writing tag of '%s'"
+msgstr "寫入「%s」的標籤中"
+
+#: src/easytag.c:2619
+msgid "Tag(s) written"
+msgstr "標籤已寫入"
+
+#. Special for Ogg Vorbis because the error is defined into 'vcedit_error(state)'
+#: src/easytag.c:2628 src/easytag.c:2633
+#, c-format
+msgid ""
+"Can't write tag in file '%s'!\n"
+"(%s)"
+msgstr ""
+"無法寫入標籤到檔案「%s」！\n"
+"(%s)"
+
+#: src/easytag.c:2765
+#, c-format
+msgid "Renaming file '%s'"
+msgstr "檔案「%s」更名中"
+
+#. Renaming file to the temporary filename has failed
+#. Renaming file from the temporary filename has failed
+#: src/easytag.c:2785 src/easytag.c:2823 src/easytag.c:3031
+#, c-format
+msgid ""
+"Can't rename file '%s'\n"
+" to \n"
+"'%s'!\n"
+"(%s)"
+msgstr ""
+"無法更名檔案「%s」\n"
+" 為 \n"
+"「%s」！\n"
+"(%s)"
+
+#: src/easytag.c:2799 src/easytag.c:2837 src/easytag.c:2858 src/easytag.c:3045
+msgid "File(s) not renamed..."
+msgstr "檔案未更名..."
+
+#: src/easytag.c:2844
+#, c-format
+msgid ""
+"Can't rename file \n"
+"'%s'\n"
+"because the following file already exists:\n"
+"'%s'"
+msgstr ""
+"無法更名檔案 \n"
+"「%s」\n"
+"因為下列檔案已存在:\n"
+"「%s」"
+
+#: src/easytag.c:2882
+#, c-format
+msgid ""
+"Can't create target directory\n"
+"'%s'!\n"
+"(%s)"
+msgstr ""
+"無法建立目的目錄\n"
+"'%s'!\n"
+"(%s)"
+
+#. Renaming file has succeeded
+#: src/easytag.c:2910
+#, c-format
+msgid "Renamed file '%s' to '%s'"
+msgstr "檔案「%s」已更名為「%s」"
+
+#: src/easytag.c:2916
+msgid "File(s) renamed..."
+msgstr "檔案已更名..."
+
+#: src/easytag.c:2926 src/easytag.c:2979
+#, c-format
+msgid ""
+"Can't remove old directory\n"
+"'%s'!\n"
+"(%s)"
+msgstr ""
+"無法移除舊目錄\n"
+"「%s」！\n"
+"(%s)"
+
+#. Renaming file has succeeded
+#: src/easytag.c:2963
+#, c-format
+msgid "Moved file '%s' to '%s'"
+msgstr "檔案「%s」已移動到「%s」"
+
+#: src/easytag.c:2969
+msgid "File(s) moved..."
+msgstr "檔案已移動..."
+
+#. Moving file has failed
+#: src/easytag.c:3007
+#, c-format
+msgid ""
+"Can't move file '%s'\n"
+" to \n"
+"'%s'!\n"
+"(%s)"
+msgstr ""
+"無法移動檔案「%s」\n"
+" 到 \n"
+"「%s」！\n"
+"(%s)"
+
+#: src/easytag.c:3021
+msgid "File(s) not moved..."
+msgstr "檔案未移動..."
+
+#: src/easytag.c:3080
+#, c-format
+msgid ""
+"Do you really want to delete definitively the file\n"
+"'%s' ?"
+msgstr ""
+"你確定要永遠刪除檔案\n"
+"「%s」嗎？"
+
+#: src/easytag.c:3083 src/easytag.c:3096
+msgid "Delete File..."
+msgstr "刪除檔案..."
+
+#: src/easytag.c:3124
+#, c-format
+msgid "File '%s' deleted"
+msgstr "檔案「%s」已刪除"
+
+#: src/easytag.c:3259
+#, c-format
+msgid ""
+"Can't read directory :\n"
+"'%s'\n"
+"(%s)"
+msgstr ""
+"無法讀取目錄 :\n"
+"「%s」\n"
+"(%s)"
+
+#. Read the directory recursively
+#: src/easytag.c:3287
+msgid "Search in progress..."
+msgstr "搜尋進行中..."
+
+#: src/easytag.c:3304 src/et_core.c:2621
+#, c-format
+msgid "File: '%s'"
+msgstr "檔案:「%s」"
+
+#: src/easytag.c:3354
+#, c-format
+msgid "Found %d file(s) in this directory and subdirectories."
+msgstr "於此目錄及其子目錄中找到 %d 個檔案。"
+
+#: src/easytag.c:3356
+#, c-format
+msgid "Found %d file(s) in this directory."
+msgstr "於此目錄中找到 %d 個檔案。"
+
+#. And refresh the number of files in this directory
+#: src/easytag.c:3369 src/et_core.c:2705
+#, c-format
+msgid "%u file(s)"
+msgstr "%u 個檔案"
+
+#: src/easytag.c:3375
+msgid "No file found in this directory and subdirectories!"
+msgstr "於此目錄及其子目錄中找不到檔案！"
+
+#: src/easytag.c:3377
+msgid "No file found in this directory!"
+msgstr "於此目錄中找不到檔案！"
+
+#: src/easytag.c:3465
+msgid "Searching..."
+msgstr "搜尋中..."
+
+#. Button to stop...
+#: src/easytag.c:3485
+msgid "  STOP the search...  "
+msgstr "  「停止」搜尋...  "
+
+#. Open the last selected scanner
+#: src/easytag.c:4211
+msgid "Select a directory to browse!"
+msgstr "請選擇要瀏覽的目錄！"
+
+#. Menu items
+#: src/easytag.c:4347
+msgid "Tag selected files with this field"
+msgstr "所選的檔案已用此欄位標記。"
+
+#: src/easytag.c:4358
+msgid "Convert '_' and '%20' to spaces"
+msgstr "轉換「_」及「%20」為空格"
+
+#: src/easytag.c:4365 src/scan.c:2314
+msgid "Convert ' ' to '_'"
+msgstr "轉換「 」為「_」"
+
+#. Group: capitalize, ...
+#: src/easytag.c:4376 src/scan.c:2363
+msgid "All uppercase"
+msgstr "全部大寫"
+
+#: src/easytag.c:4383 src/scan.c:2364
+msgid "All downcase"
+msgstr "全部小寫"
+
+#: src/easytag.c:4390 src/scan.c:2365
+msgid "First letter uppercase"
+msgstr "第一個字母大寫"
+
+#: src/easytag.c:4397 src/scan.c:2366
+msgid "First letter uppercase of each word"
+msgstr "每個字的第一個字母大寫"
+
+#. Group: insert/remove spaces
+#: src/easytag.c:4408 src/scan.c:2405
+msgid "Remove spaces"
+msgstr "移除空格"
+
+#: src/easytag.c:4415
+msgid "Insert space before uppercase letter"
+msgstr "在大寫字母前插入空格"
+
+#: src/easytag.c:4422
+msgid "Remove duplicate spaces or underscores"
+msgstr "移除重複的空格或底線"
+
+#. gchar commmand[256];
+#. To send messages to the console...
+#: src/easytag.c:4442 src/easytag.c:4450
+#, c-format
+msgid "EasyTAG %s: Abnormal exit! (PId: %d)."
+msgstr "EasyTAG %s: 異常結束！ (PId: %d)。"
+
+#: src/easytag.c:4443 src/easytag.c:4452
+#, c-format
+msgid "Received signal %s (%d)\a"
+msgstr "已接收信號 %s (%d)\a"
+
+#: src/easytag.c:4445 src/easytag.c:4454
+msgid ""
+"You have probably found a bug in EasyTAG. Please, send a bug report with a "
+"gdb backtrace ('gdb easytag core' then 'bt' and 'l') and informations to "
+"reproduce it to easytag@gmail.com"
+msgstr ""
+"你似乎在 EasyTAG 中遇到了錯誤。如果可以的話，請用 gdb 追蹤出問題點 (輸入"
+"「gdb easytag core」後打「bt」及「l」) 後將所得資訊及重現此錯誤的方法寄到 "
+"easytag@gmail.com"
+
+#: src/easytag.c:4581
+msgid "Unknown signal"
+msgstr "未知的信號"
+
+#: src/easytag.c:4597
+#, fuzzy, c-format
+msgid ""
+"\n"
+"Usage: easytag [option] \n"
+"   or: easytag [directory]\n"
+"\n"
+"Option:\n"
+"-------\n"
+"-h, --help        Display this text and exit.\n"
+"-v, --version     Print basic informations and exit.\n"
+"\n"
+"Directory:\n"
+"----------\n"
+"%s/path_to/files  Use an absolute path to load,\n"
+"path_to/files     Use a relative path.\n"
+"\n"
+msgstr ""
+"\n"
+"用法: easytag [option] \n"
+"   或: easytag [directory]\n"
+"\n"
+"選項:\n"
+"-------\n"
+"-h, --help        顯示本說明後離開。\n"
+"-v, --version     列出基本資訊後離開。\n"
+"\n"
+"目錄:\n"
+"----------\n"
+"c:/path_to/files  使用絕對路徑載入或，\n"
+"/path_to/files    使用絕對路徑載入或，\n"
+"path_to/files     使用相對路徑。\n"
+"\n"
+
+#: src/easytag.c:4625
+msgid "EasyTAG: Normal exit."
+msgstr "EasyTAG: 正常結束。"
+
+#: src/easytag.c:4672 src/easytag.c:4723
+msgid ""
+"Some files have been modified but not saved...\n"
+"Do you want to save them before exiting the program?"
+msgstr ""
+"某些檔案已變更但尚未儲存...\n"
+"你要在結束程式前儲存檔案嗎？"
+
+#: src/easytag.c:4698
+msgid " Do you really want to exit the program? "
+msgstr "你確定要結束本程式嗎？"
+
+#: src/et_core.c:2518
+msgid "ID3 Tag"
+msgstr "ID3 標籤"
+
+#: src/et_core.c:2524
+msgid "Ogg Vorbis Tag"
+msgstr "Ogg Vorbis 標籤"
+
+#: src/et_core.c:2530
+msgid "FLAC Vorbis Tag"
+msgstr "FLAC Vorbis 標籤"
+
+#: src/et_core.c:2535
+msgid "APE Tag"
+msgstr "APE 標籤"
+
+#: src/et_core.c:2540
+msgid "MP4/M4A/AAC Tag"
+msgstr "MP4/M4A/AAC 標籤"
+
+#: src/et_core.c:2546
+msgid "Wavpack Tag"
+msgstr "Wavpack 標籤"
+
+#: src/et_core.c:2566
+msgid "MP3 File"
+msgstr "MP3 檔案"
+
+#: src/et_core.c:2570
+msgid "MP2 File"
+msgstr "MP2 檔案"
+
+#: src/et_core.c:2576
+msgid "Ogg Vorbis File"
+msgstr "Ogg Vorbis 檔案"
+
+#: src/et_core.c:2582
+msgid "Speex File"
+msgstr "Speex 檔案"
+
+#: src/et_core.c:2588
+msgid "FLAC File"
+msgstr "FLAC 檔案"
+
+#: src/et_core.c:2593
+msgid "MusePack File"
+msgstr "MusePack 檔案"
+
+#: src/et_core.c:2597
+msgid "Monkey's Audio File"
+msgstr "Monkey's Audio 檔案"
+
+#: src/et_core.c:2602
+msgid "MP4/AAC File"
+msgstr "MP4/AAC 檔案"
+
+#: src/et_core.c:2608
+msgid "Wavpack File"
+msgstr "Wavpack 檔案"
+
+#: src/et_core.c:2882
+#, c-format
+msgid "Pictures (%d)"
+msgstr "圖片 (%d)"
+
+#. Bitrate
+#: src/et_core.c:2921 src/flac_header.c:302 src/monkeyaudio_header.c:86
+#: src/mp4_header.c:275 src/mpeg_header.c:367 src/musepack_header.c:88
+#: src/ogg_header.c:257 src/wavpack_header.c:78
+#, c-format
+msgid "%d kb/s"
+msgstr "%d kb/秒"
+
+#. Samplerate
+#: src/et_core.c:2926 src/flac_header.c:307 src/monkeyaudio_header.c:91
+#: src/mp4_header.c:280 src/mpeg_header.c:372 src/musepack_header.c:93
+#: src/ogg_header.c:262 src/wavpack_header.c:83
+#, c-format
+msgid "%d Hz"
+msgstr "%d Hz"
+
+#: src/et_core.c:3066
+#, c-format
+msgid ""
+"Could not convert filename : '%s'\n"
+"into system filename encoding\n"
+"(Try setting the environment variable G_FILENAME_ENCODING)."
+msgstr ""
+"無法轉換檔名 : 「%s」\n"
+"為系統編碼\n"
+"(請試著設定環境變數 G_FILENAME_ENCODING)。"
+
+#: src/et_core.c:3069 src/scan.c:668
+msgid "Filename translation"
+msgstr "檔名翻譯"
+
+#: src/et_core.c:4551 src/et_core.c:4559
+#, c-format
+msgid "The filename '%s' exceeds %d characters and will be truncated!\n"
+msgstr "檔名「%s」的長度超過 %d 個字元，多餘的字元會被截斷！\n"
+
+#. Nothing to display
+#. gtk_label_set_text(GTK_LABEL(VersionLabel),"");
+#. gtk_label_set_text(GTK_LABEL(VersionValueLabel),"");
+#. Version changed to encoder version
+#. Encoder version
+#: src/flac_header.c:298 src/monkeyaudio_header.c:96 src/musepack_header.c:98
+#: src/ogg_header.c:245 src/wavpack_header.c:72
+msgid "Encoder:"
+msgstr "編碼程式:"
+
+#. Mode
+#. Mode
+#. mpeg4ip library seems to always return -1
+#. Mode
+#: src/flac_header.c:312 src/mp4_header.c:286 src/ogg_header.c:267
+#: src/wavpack_header.c:88
+msgid "Channels:"
+msgstr "聲道:"
+
+#: src/flac_tag.c:135 src/flac_tag.c:780 src/flac_tag.c:790
+#, c-format
+msgid "ERROR while opening file: '%s' as FLAC (%s)."
+msgstr "開啟檔案時錯誤: 「%s」為 FLAC (%s)。"
+
+#: src/flac_tag.c:1091
+#, c-format
+msgid "Picture block isn't valid: '%s'"
+msgstr ""
+
+#: src/flac_tag.c:1126 src/ogg_tag.c:853
+#, c-format
+msgid "ERROR: Failed to write comments to file '%s' (%s)."
+msgstr "錯誤: 寫入備註到檔案「%s」(%s) 失敗。"
+
+#: src/flac_tag.c:1131 src/ogg_tag.c:860
+#, c-format
+msgid "Written tag of '%s'"
+msgstr "「%s」標籤已寫入"
+
+#: src/id3_tag.c:488
+#, c-format
+msgid "Removed tag of '%s'"
+msgstr "「%s」標籤已移除"
+
+#: src/id3_tag.c:492 src/id3_tag.c:595
+#, c-format
+msgid "Error while removing ID3v1 tag of '%s' (%s)"
+msgstr "移除「%s」(%s) 的 ID3v1 標籤時錯誤"
+
+#: src/id3_tag.c:494 src/id3_tag.c:567
+#, c-format
+msgid "Error while removing ID3v2 tag of '%s' (%s)"
+msgstr "移除「%s」(%s) 的 ID3v2 標籤時錯誤"
+
+#: src/id3_tag.c:513
+#, c-format
+msgid "Error while updating ID3v2 tag of '%s' (%s)"
+msgstr "更新「%s」(%s) 的 ID3v2 標籤時錯誤"
+
+#: src/id3_tag.c:535
+#, c-format
+msgid ""
+"You have tried to save this tag to Unicode but it was detected that your "
+"version of id3lib is bugged.\n"
+"If you reload this file, some characters in the tag may be not displayed "
+"correctly...\n"
+"Please, apply to id3lib the patch src/id3lib/"
+"patch_id3lib_3.8.3_UTF16_writing_bug.diff\n"
+"available in EasyTAG package sources.\n"
+"Note that this message will appear only one time.\n"
+"\n"
+"File : %s"
+msgstr ""
+"你正嘗試將標籤以 Unicode 儲存，但是系統中的 id3lib 是有問題的版本。\n"
+"若你儲存後重新載入此檔案，標籤的某些字元可能無法正確顯示...\n"
+"Please, apply to id3lib the patch src/id3lib/"
+"patch_id3lib_3.8.3_UTF16_writing_bug.diff\n"
+"available in EasyTAG package sources.\n"
+"Note that this message will appear only one time.\n"
+"\n"
+"File : %s"
+
+#: src/id3_tag.c:587
+#, c-format
+msgid "Error while updating ID3v1 tag of '%s' (%s)"
+msgstr "更新「%s」(%s) 的 ID3v1 標籤時錯誤"
+
+#: src/id3_tag.c:601
+#, c-format
+msgid "Updated tag of '%s'"
+msgstr "「%s」 標籤已更新"
+
+#: src/id3_tag.c:620
+msgid "No error reported"
+msgstr "無錯誤被回報"
+
+#: src/id3_tag.c:622
+msgid "No available memory"
+msgstr "記憶體不足"
+
+#: src/id3_tag.c:624
+msgid "No data to parse"
+msgstr "無資料可供解析"
+
+#: src/id3_tag.c:626
+msgid "Improperly formatted data"
+msgstr "不正確的格式化資料"
+
+#: src/id3_tag.c:628
+msgid "No buffer to write to"
+msgstr "無緩衝區以寫入到"
+
+#: src/id3_tag.c:630
+msgid "Buffer is too small"
+msgstr "緩衝區太小"
+
+#: src/id3_tag.c:632
+msgid "Invalid frame ID"
+msgstr "frame ID 無效"
+
+#: src/id3_tag.c:634
+msgid "Requested field not found"
+msgstr "找不到要求的欄位"
+
+#: src/id3_tag.c:636
+msgid "Unknown field type"
+msgstr "未知的檔案類型"
+
+#: src/id3_tag.c:638
+msgid "Tag is already attached to a file"
+msgstr "標籤已附加到檔案中"
+
+#: src/id3_tag.c:640
+msgid "Invalid tag version"
+msgstr "標籤版本無校"
+
+#: src/id3_tag.c:642
+msgid "No file to parse"
+msgstr "無檔案可供解析"
+
+#: src/id3_tag.c:644
+msgid "Attempting to write to a read-only file"
+msgstr "試圖寫入唯讀檔案"
+
+#: src/id3_tag.c:646
+msgid "Error in compression/uncompression"
+msgstr "壓縮╱解壓縮時錯誤"
+
+#: src/id3_tag.c:648
+msgid "Unknown error message!"
+msgstr "未知的錯誤訊息！"
+
+#: src/id3_tag.c:1222
+#, c-format
+msgid ""
+"As the following corrupted file: '%s'\n"
+"will cause an error in id3lib, it will not be processed by the program."
+msgstr ""
+"下列已毀損的檔案:「%s」\n"
+"導致 id3lib 產生錯誤，程式將不會處理此檔案。"
+
+#: src/id3_tag.c:1224
+msgid "Corrupted file..."
+msgstr "檔案已毀損..."
+
+#: src/log.c:95
+msgid "Log"
+msgstr "記錄"
+
+#: src/misc.c:773
+msgid "Select file..."
+msgstr "選擇檔案..."
+
+#: src/misc.c:778
+msgid "Select directory..."
+msgstr "選擇目錄..."
+
+#: src/misc.c:852
+msgid "Warning..."
+msgstr "警告..."
+
+#: src/misc.c:856
+msgid "No audio player defined!"
+msgstr "未指定播放程式！"
+
+#: src/misc.c:959
+#, c-format
+msgid "Can't execute %s (%s)!\n"
+msgstr "無法執行 %s (%s)！\n"
+
+#. Units Tab of file size (bytes,kilobytes,...)
+#: src/misc.c:1124 src/misc.c:1143
+msgid "B"
+msgstr "B"
+
+#: src/misc.c:1124 src/misc.c:1143
+msgid "KB"
+msgstr "KB"
+
+#: src/misc.c:1124 src/misc.c:1143
+msgid "MB"
+msgstr "MB"
+
+#: src/misc.c:1124 src/misc.c:1143
+msgid "GB"
+msgstr "GB"
+
+#: src/misc.c:1124 src/misc.c:1143
+msgid "TB"
+msgstr "TB"
+
+#: src/misc.c:1238
+msgid "Generate a playlist"
+msgstr "產生播放清單"
+
+#: src/misc.c:1262
+msgid "M3U Playlist Name"
+msgstr "M3U 播放清單名稱"
+
+#: src/misc.c:1275
+msgid "Use directory name"
+msgstr "使用目錄名稱"
+
+#: src/misc.c:1299 src/misc.c:1396
+msgid "Edit Masks"
+msgstr "編輯遮罩條件"
+
+#. Playlist options
+#: src/misc.c:1307
+msgid "Playlist Options"
+msgstr "播放清單選項"
+
+#: src/misc.c:1313
+msgid "Include only the selected files"
+msgstr "只含選擇的檔案"
+
+#: src/misc.c:1316
+msgid ""
+"If activated, only the selected files will be written in the playlist file. "
+"Else, all the files will be written."
+msgstr ""
+"啟用此選項只會產生所選檔案的播放清單檔案。如不取用則會產生所有檔案的播放清"
+"單。"
+
+#: src/misc.c:1323
+msgid "Use full path for files in playlist"
+msgstr "使用完整路徑產生播放清單"
+
+#: src/misc.c:1326
+msgid "Use relative path for files in playlist"
+msgstr "使用相對路徑產生播放清單"
+
+#. Create playlist in parent directory
+#: src/misc.c:1336
+msgid "Create playlist in the parent directory"
+msgstr "建立播放清單於上層目錄"
+
+#: src/misc.c:1339
+msgid "If activated, the playlist will be created in the parent directory."
+msgstr "啟用此選項則播放清單會產生於父目錄 (上層目錄)"
+
+#. DOS Separator
+#: src/misc.c:1343
+msgid "Use DOS directory separator"
+msgstr "使用 DOS 目錄分隔字元"
+
+#: src/misc.c:1348
+msgid ""
+"This option replaces the UNIX directory separator '/' into DOS separator "
+"'\\'."
+msgstr "此選項會用 DOS 格式的「\\」分隔字元取代 UNIX 格式的「/」分隔字元。"
+
+#: src/misc.c:1357
+msgid "Playlist Content"
+msgstr "播放清單內容"
+
+#: src/misc.c:1363
+msgid "Write only list of files"
+msgstr "只列出檔案清單"
+
+#: src/misc.c:1367
+msgid "Write info using filename"
+msgstr "用檔名寫入資訊"
+
+#: src/misc.c:1370
+msgid "Write info using :"
+msgstr "寫入資訊以 :"
+
+#: src/misc.c:1631
+#, c-format
+msgid ""
+"Playlist file '%s' already exists!\n"
+"Overwrite?"
+msgstr ""
+"播放清單檔案「%s」已存在！\n"
+"要覆蓋嗎？"
+
+#: src/misc.c:1632
+msgid "Write Playlist..."
+msgstr "寫入播放清單..."
+
+#. Writing fails...
+#: src/misc.c:1654
+#, c-format
+msgid ""
+"Can't write playlist file '%s'!\n"
+"(%s)"
+msgstr ""
+"無法寫入播放清單檔案「%s」！\n"
+"(%s)"
+
+#: src/misc.c:1667
+#, c-format
+msgid "Written playlist file '%s'"
+msgstr "播放清單檔案「%s」已寫入"
+
+#: src/misc.c:1913
+msgid "CD"
+msgstr "CD"
+
+#: src/misc.c:1922
+msgid "Encoded by"
+msgstr "編碼程式"
+
+#: src/misc.c:1933
+msgid "Search a file"
+msgstr "搜尋檔案"
+
+#: src/misc.c:1973
+msgid ""
+"Type the word to search into files. Or type nothing to display all files."
+msgstr "請輸入要搜尋的文字，不輸入任何文字則會顯示所有檔案。"
+
+#. Where...
+#: src/misc.c:1979
+msgid "In :"
+msgstr "於 :"
+
+#: src/misc.c:1982
+msgid "the File Name"
+msgstr "檔名"
+
+#. Note : label changed to "the Tag" (to be the only one) to fix a Hungarian grammatical problem (which uses one word to say "in the tag" like here)
+#: src/misc.c:1984
+msgid "the Tag"
+msgstr "標籤"
+
+#. Property of the search
+#: src/misc.c:1994 src/prefs.c:323
+msgid "Case sensitive"
+msgstr "大小寫相異"
+
+#: src/misc.c:2427
+#, c-format
+msgid "Found : %d file(s)"
+msgstr "找到 : %d 個檔案"
+
+#: src/misc.c:2690
+msgid "Load the filenames from a TXT file"
+msgstr "從 TXT 檔載入檔名"
+
+#: src/misc.c:2720
+msgid "File :"
+msgstr "檔案 :"
+
+#. Button 'load'
+#. the signal attached to this button, to load the file, is placed after the LoadFileContentList definition
+#: src/misc.c:2738
+msgid " Load "
+msgstr " 讀取 "
+
+#: src/misc.c:2761
+#, fuzzy
+msgid "Content of TXT file"
+msgstr "檔案更名確認"
+
+#. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+#: src/misc.c:2782 src/misc.c:2876
+#, fuzzy
+msgid "Insert a blank line before the selected line"
+msgstr "於大寫字母前插入空格"
+
+#. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+#: src/misc.c:2791 src/misc.c:2885
+#, fuzzy
+msgid "Delete the selected line"
+msgstr "刪除此項目"
+
+#. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+#: src/misc.c:2800 src/misc.c:2894 src/misc.c:3367
+msgid "Delete all blank lines"
+msgstr "刪除所有空白項目"
+
+#. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+#: src/misc.c:2812 src/misc.c:2906
+#, fuzzy
+msgid "Move up the selected line"
+msgstr "只含選擇的檔案"
+
+#. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+#: src/misc.c:2821 src/misc.c:2915
+#, fuzzy
+msgid "Move down the selected line"
+msgstr "只含選擇的檔案"
+
+#. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+#: src/misc.c:2833 src/misc.c:2927 src/misc.c:3391
+msgid "Reload"
+msgstr "重新載入"
+
+#: src/misc.c:2854
+#, fuzzy
+msgid "List of files"
+msgstr "只列出檔案清單"
+
+#: src/misc.c:2949
+#, fuzzy
+msgid "Selected line:"
+msgstr "選擇所有項目"
+
+#: src/misc.c:2967
+msgid ""
+"When activating this option, after loading the filenames, the current "
+"selected scanner will be ran (the scanner window must be opened)."
+msgstr ""
+"啟用此選項會在檔案清單載入完成後，自動執行目前選擇的掃瞄 (掃瞄視窗必須打開)。"
+
+#: src/misc.c:3355
+msgid "Insert a blank line"
+msgstr "插入空白項目"
+
+#: src/misc.c:3361
+msgid "Delete this line"
+msgstr "刪除此項目"
+
+#: src/misc.c:3376
+#, fuzzy
+msgid "Move up this line"
+msgstr "此遮罩向上移"
+
+#: src/misc.c:3382
+#, fuzzy
+msgid "Move down this line"
+msgstr "此遮罩向下移"
+
+#. Mode changed to profile name
+#: src/monkeyaudio_header.c:78 src/musepack_header.c:80
+msgid "Profile:"
+msgstr "設定檔:"
+
+#: src/mp4_header.c:130
+msgid "Audio"
+msgstr "音效"
+
+#: src/mp4_header.c:131
+msgid "Unknown"
+msgstr "未知"
+
+#: src/mp4_header.c:211 src/mp4_tag.c:106 src/mp4_tag.c:255
+msgid "MP4 format invalid"
+msgstr "MP4 格式無效"
+
+#: src/mp4_header.c:273 src/mpeg_header.c:365
+#, c-format
+msgid "~%d kb/s"
+msgstr "~%d kb/秒"
+
+#: src/mpeg_header.c:78
+msgid "Stereo"
+msgstr "立體聲"
+
+#: src/mpeg_header.c:79
+msgid "Joint stereo"
+msgstr "混合立體聲"
+
+#: src/mpeg_header.c:80
+msgid "Dual channel"
+msgstr "雙聲道"
+
+#: src/mpeg_header.c:81
+msgid "Single channel"
+msgstr "單聲道"
+
+#: src/msgbox.c:101
+msgid "Repeat action for the rest of the files"
+msgstr "剩下的檔案重複此動作"
+
+#: src/ogg_header.c:100
+#, c-format
+msgid ""
+"Ogg Vorbis: The specified bitstream does not exist or the file has been "
+"initialized improperly (file: '%s')."
+msgstr "Ogg Vorbis: 指定的 Bitstream 不存在或檔案初始化不正確 (檔案:「%s」)。"
+
+#: src/ogg_header.c:131
+#, c-format
+msgid "Ogg Vorbis: Read from media returned an error (file: '%s')."
+msgstr "Ogg Vorbis: 從媒體讀取時傳回錯誤 (檔案:「%s」)。"
+
+#: src/ogg_header.c:134
+#, c-format
+msgid "Ogg Vorbis: Bitstream is not Vorbis data (file: '%s')."
+msgstr "Ogg Vorbis: Bitstream 不是 Vorbis 資料 (檔案:「%s」)。"
+
+#: src/ogg_header.c:137
+#, c-format
+msgid "Ogg Vorbis: Vorbis version mismatch (file: '%s')."
+msgstr "Ogg Vorbis: Vorbis 版本不符 (檔案:「%s」)。"
+
+#: src/ogg_header.c:140
+#, c-format
+msgid "Ogg Vorbis: Invalid Vorbis bitstream header (file: '%s')."
+msgstr "Ogg Vorbis: Vorbis Bitstream 標頭無效 (檔案:「%s」)。"
+
+#: src/ogg_header.c:143
+#, c-format
+msgid ""
+"Ogg Vorbis: Internal logic fault, indicates a bug or heap/stack corruption "
+"(file: '%s')."
+msgstr ""
+"Ogg Vorbis: 內部邏輯錯誤，可能是程式錯誤或 Heap/Stack 損壞 (檔案:「%s」)。"
+
+#: src/ogg_header.c:195 src/ogg_tag.c:184 src/ogg_tag.c:632
+#, c-format
+msgid "ERROR: Failed to open file: '%s' as vorbis (%s)."
+msgstr "錯誤: 開啟檔案時錯誤:「%s」為 vorbis (%s)。"
+
+#: src/ogg_tag.c:166
+#, c-format
+msgid "Warning : The Ogg Vorbis file '%s' contains an ID3v2 tag."
+msgstr "警告 : Ogg Vorbis 檔案「%s」包含 ID3v2 標籤。"
+
+#: src/picture.c:295
+msgid "Add pictures"
+msgstr "新增封面"
+
+#: src/picture.c:305 src/picture.c:646
+msgid "All Files"
+msgstr "所有檔案"
+
+#: src/picture.c:311 src/picture.c:652
+msgid "PNG and JPEG"
+msgstr "PNG 及 JPEG"
+
+#: src/picture.c:428
+#, c-format
+msgid "Picture Properties %d/%d"
+msgstr "圖片屬性 %d/%d"
+
+#: src/picture.c:458
+msgid "Picture Type"
+msgstr "圖片類型"
+
+#. Description of the picture
+#: src/picture.c:515
+msgid "Picture Description:"
+msgstr "圖片敘述:"
+
+#: src/picture.c:634
+#, c-format
+msgid "Save picture %d/%d"
+msgstr "儲存圖片 %d/%d"
+
+#: src/picture.c:717
+#, c-format
+msgid ""
+"The following file already exists :\n"
+"'%s'\n"
+"Do you want to overwrite?"
+msgstr ""
+"下列檔案已存在 :\n"
+"「%s」\n"
+"你要覆蓋嗎？"
+
+#: src/picture.c:719
+msgid "Save file..."
+msgstr "儲存檔案..."
+
+#: src/picture.c:803
+msgid "JPEG image"
+msgstr "JPEG 圖片"
+
+#: src/picture.c:805
+msgid "PNG image"
+msgstr "PNG 圖片"
+
+#: src/picture.c:807
+msgid "Unknown image"
+msgstr "未知圖片"
+
+#: src/picture.c:818
+msgid "32x32 pixel PNG file icon"
+msgstr "32x32 像素 PNG 圖示"
+
+#: src/picture.c:820
+msgid "Other file icon"
+msgstr "其他圖示"
+
+#: src/picture.c:822
+msgid "Cover (front)"
+msgstr "封面 (前)"
+
+#: src/picture.c:824
+msgid "Cover (back)"
+msgstr "封面 (後)"
+
+#: src/picture.c:826
+msgid "Leaflet page"
+msgstr "小冊子"
+
+#: src/picture.c:828
+msgid "Media (e.g. label side of CD)"
+msgstr "媒體標籤 (例: CD 側邊的標籤)"
+
+#: src/picture.c:830
+msgid "Lead artist/lead performer/soloist"
+msgstr "領銜演唱╱領銜演奏╱獨唱人"
+
+#: src/picture.c:832
+msgid "Artist/performer"
+msgstr "演唱人╱演奏人"
+
+#: src/picture.c:834
+msgid "Conductor"
+msgstr "指揮"
+
+#: src/picture.c:836
+msgid "Band/Orchestra"
+msgstr "樂團╱樂隊"
+
+#: src/picture.c:840
+msgid "Lyricist/text writer"
+msgstr "作詞人╱文字寫作"
+
+#: src/picture.c:842
+msgid "Recording location"
+msgstr "錄音地點"
+
+#: src/picture.c:844
+msgid "During recording"
+msgstr "錄音中"
+
+#: src/picture.c:846
+msgid "During performance"
+msgstr "演奏中"
+
+#: src/picture.c:848
+msgid "Movie/video screen capture"
+msgstr "電影╱影片抓圖"
+
+#: src/picture.c:850
+msgid "A bright coloured fish"
+msgstr "明亮高彩魚"
+
+#: src/picture.c:852
+msgid "Illustration"
+msgstr "插圖"
+
+#: src/picture.c:854
+msgid "Band/Artist logotype"
+msgstr "樂團╱演唱者標誌"
+
+#: src/picture.c:856
+msgid "Publisher/studio logotype"
+msgstr "出版商╱錄音室標誌"
+
+#: src/picture.c:860
+msgid "Unknown picture type"
+msgstr "未知圖片類型"
+
+#: src/picture.c:888 src/picture.c:899
+msgid "pixels"
+msgstr "像素"
+
+#: src/picture.c:889 src/picture.c:900
+msgid "Type"
+msgstr "類型"
+
+#: src/picture.c:901
+msgid "Description"
+msgstr "敘述"
+
+#: src/picture.c:957
+#, c-format
+msgid "Error with 'loader_close': %s"
+msgstr ""
+
+#: src/picture.c:1015
+msgid ""
+"Can't display the picture, as not enough data has been read to determine how "
+"to create the image buffer."
+msgstr "無法顯示此圖片，可讀取的資料不足導致無法建立圖片緩衝區。"
+
+#: src/picture.c:1018
+msgid "Loading Picture File..."
+msgstr "圖片載入中..."
+
+#: src/picture.c:1032
+#, c-format
+msgid "Error with 'loader_write': %s"
+msgstr ""
+
+#: src/picture.c:1120
+#, c-format
+msgid ""
+"Can't open file :\n"
+"'%s'!\n"
+"(%s)"
+msgstr ""
+"無法開啟檔案 :\n"
+"「%s」！\n"
+"(%s)"
+
+#: src/picture.c:1134
+msgid "Picture file not loaded..."
+msgstr "圖片未載入..."
+
+#. Title
+#: src/prefs.c:118
+msgid "Preferences..."
+msgstr "偏好設定..."
+
+#. File Browser frame
+#: src/prefs.c:156
+msgid "File Browser"
+msgstr "檔案瀏覽"
+
+#. Label
+#: src/prefs.c:167
+msgid "Default directory :"
+msgstr "預設目錄 :"
+
+#: src/prefs.c:179
+msgid ""
+"Specify the directory where your files are located. This path will be loaded "
+"when EasyTAG starts without parameter."
+msgstr ""
+"請指定你的檔案存放目錄，EasyTag 啟動時會首先讀取此路徑而不讀取由參數傳入的路"
+"徑。"
+
+#. Load directory on startup
+#: src/prefs.c:200
+msgid ""
+"Load on startup the default directory or the directory passed as argument"
+msgstr "啟動時載入預設目錄或由參數傳入的目錄"
+
+#: src/prefs.c:203
+msgid ""
+"Automatically search files, when EasyTAG starts, into the default directory. "
+"Note that this path may be overriden by the parameter passed to easytag "
+"(easytag /path_to/mp3_files)."
+msgstr ""
+"EasyTAG 啟動時自動於預設目錄搜尋檔案。注意在此指定的路徑會覆蓋由參數傳入的路"
+"徑 (easytag /path_to/mp3_files)。"
+
+#. Browse subdirectories
+#: src/prefs.c:208
+msgid "Search subdirectories"
+msgstr "搜尋子目錄"
+
+#: src/prefs.c:211
+msgid "Search subdirectories for files when reading a directory into the tree."
+msgstr "讀取目錄時一併搜尋其子目錄中的軮案"
+
+#. Open the node to show subdirectories
+#: src/prefs.c:215
+msgid "Show subdirectories when selecting a directory"
+msgstr "選擇目錄時顯示子目錄"
+
+#: src/prefs.c:219
+msgid ""
+"This expands the selected node into the file browser to display the sub-"
+"directories."
+msgstr "於瀏覽視窗選擇目錄時展開其子目錄。"
+
+#. Browse hidden directories
+#: src/prefs.c:223
+msgid "Search hidden directories"
+msgstr "搜尋隱藏目錄"
+
+#: src/prefs.c:228
+msgid "Search hidden directories for files (directories starting by a '.')."
+msgstr "搜尋隱藏目錄中的檔案 (以「.」開頭的目錄)"
+
+#. User interface
+#: src/prefs.c:247
+msgid "User Interface"
+msgstr "使用者介面"
+
+#. Show header infos
+#: src/prefs.c:254
+msgid "Show header informations of file"
+msgstr "顯示檔案標頭資訊"
+
+#: src/prefs.c:257
+msgid ""
+"If activated, informations about the file as the bitrate, the time, the "
+"size, will be displayed under the filename entry."
+msgstr "啟用此選項則會在檔名下顯示位元率、長度、大小等資訊"
+
+#: src/prefs.c:264
+msgid "Display changed files in list using :"
+msgstr "以特定樣式顯示清單中的變更 : "
+
+#: src/prefs.c:267
+msgid "Red color"
+msgstr "紅色"
+
+#: src/prefs.c:273
+msgid "Bold style"
+msgstr "粗體"
+
+#. Sorting List Options
+#: src/prefs.c:279
+msgid "Sorting List Options"
+msgstr "清單排序選項"
+
+#. Sorting method
+#: src/prefs.c:289
+msgid "Sort the file list by :"
+msgstr "清單排序依 : "
+
+#. Two columns
+#. Items of option menu
+#: src/prefs.c:300
+msgid "Ascending file name"
+msgstr "檔案名稱遞增排序"
+
+#: src/prefs.c:301
+msgid "Descending file name"
+msgstr "檔案名稱遞減排序"
+
+#: src/prefs.c:302
+msgid "Ascending track number"
+msgstr "曲目編號遞增排序"
+
+#: src/prefs.c:303
+msgid "Descending track number"
+msgstr "曲目編號遞減排序"
+
+#: src/prefs.c:304
+msgid "Ascending creation date"
+msgstr "建立日期遞增排序"
+
+#: src/prefs.c:305
+msgid "Descending creation date"
+msgstr "建立日期遞減排序"
+
+#: src/prefs.c:306
+msgid "Ascending title"
+msgstr "曲名遞增排序"
+
+#: src/prefs.c:307
+msgid "Descending title"
+msgstr "曲名遞減排序"
+
+#: src/prefs.c:308
+msgid "Ascending artist"
+msgstr "演唱者遞增排序"
+
+#: src/prefs.c:309
+msgid "Descending artist"
+msgstr "演唱者遞減排序"
+
+#: src/prefs.c:310
+msgid "Ascending album"
+msgstr "專輯遞增排序"
+
+#: src/prefs.c:311
+msgid "Descending album"
+msgstr "專輯遞減排序"
+
+#: src/prefs.c:312
+msgid "Ascending year"
+msgstr "年份遞增排序"
+
+#: src/prefs.c:313
+msgid "Descending year"
+msgstr "年份遞減排序"
+
+#: src/prefs.c:314
+msgid "Ascending genre"
+msgstr "曲風遞增排序"
+
+#: src/prefs.c:315
+msgid "Descending genre"
+msgstr "曲風遞減排序"
+
+#: src/prefs.c:316
+msgid "Ascending comment"
+msgstr "備註遞增排序"
+
+#: src/prefs.c:317
+msgid "Descending comment"
+msgstr "備註遞減排序"
+
+#: src/prefs.c:320
+msgid "Select the type of file sorting when loading a directory."
+msgstr "載入目錄時選擇排序的方式。"
+
+#: src/prefs.c:329
+msgid "If activated, the sorting of the list will be dependent on the case."
+msgstr "啟用此選項時會依照大小寫不同排序清單。"
+
+#. Message Dialog Position
+#: src/prefs.c:333
+msgid "Message Dialog Position"
+msgstr "訊息方塊位置"
+
+#: src/prefs.c:341
+msgid "No particular position"
+msgstr "不指定位置"
+
+#: src/prefs.c:345
+msgid "Let the Window Manager to place the windows."
+msgstr "讓視窗管理員指定位置。"
+
+#: src/prefs.c:350
+msgid "Center of the main window"
+msgstr "顯示於主視窗中間"
+
+#: src/prefs.c:354
+msgid "Windows should be placed in the center of the main window."
+msgstr "將視窗顯示於主視窗的中間。"
+
+#: src/prefs.c:359
+msgid "Center of the screen"
+msgstr "顯示於螢幕中間"
+
+#: src/prefs.c:363
+msgid "Windows should be placed in the center of the screen."
+msgstr "將視窗顯示於螢幕的中間。"
+
+#: src/prefs.c:368
+msgid "Mouse position"
+msgstr "滑鼠所在位置"
+
+#: src/prefs.c:372
+msgid "Windows should be placed at the current mouse position."
+msgstr "將視窗顯示於滑鼠所在的位置。"
+
+#. File Player
+#: src/prefs.c:376
+msgid "File Audio Player"
+msgstr "音樂播放程式"
+
+#: src/prefs.c:388
+msgid "Player to run :"
+msgstr "要執行的播放程式 : "
+
+#: src/prefs.c:393
+msgid ""
+"Enter the program used to play the files. Some arguments can be passed for "
+"the program (as 'xmms -p') before to receive files as other arguments."
+msgstr ""
+"請輸入用來播放檔案的程式路徑。你可以指定要傳給程式的其他參數 (像 「xmms -"
+"p」)，最後面會接上檔案路徑。"
+
+#. Log options
+#: src/prefs.c:411
+#, fuzzy
+msgid "Log Options"
+msgstr "標籤選項"
+
+#. Show / hide log view
+#: src/prefs.c:418
+#, fuzzy
+msgid "Show log view in main window"
+msgstr "顯示於主視窗中間"
+
+#: src/prefs.c:421
+#, fuzzy
+msgid "If activated, the log view would be visible in the main window."
+msgstr "啟用此選項則播放清單會產生於父目錄 (上層目錄)"
+
+#: src/prefs.c:428
+msgid "Max number of lines :"
+msgstr ""
+
+#. g_signal_connect(G_OBJECT(NumberTrackFormated),"toggled",G_CALLBACK(Number_Track_Formated_Toggled),NULL);
+#. g_signal_emit_by_name(G_OBJECT(NumberTrackFormated),"toggled");
+#. gtk_tooltips_set_tip(Tips,GTK_BIN(FilePlayerCombo)->child,_("Enter the program used to "
+#. "play the files. Some arguments can be passed for the program (as 'xmms -p') before "
+#. "to receive files as other arguments."),NULL);
+#.
+#.
+#. * File Settings
+#.
+#: src/prefs.c:447 src/prefs.c:448
+msgid "File Settings"
+msgstr "檔案設定"
+
+#. File (name) Options
+#: src/prefs.c:458
+msgid "File Options"
+msgstr "檔案選項"
+
+#: src/prefs.c:464
+msgid "Replace illegal characters in filename (for Windows and CD-Rom)"
+msgstr "取代檔名中不合法的字元 (Windows 及 CD-Rom)"
+
+#: src/prefs.c:467
+msgid ""
+"Convert illegal characters for FAT32/16 and ISO9660 + Joliet filesystems "
+"('\\', ':', ';', '*', '?', '\"', '<', '>', '|') of the filename to avoid "
+"problem when renaming the file. This is usefull when renaming the file from "
+"the tag with the scanner."
+msgstr ""
+"檔案更名時轉換在 FAT32/16 及 ISO9660 + Joliet 檔案系統下不合法的字元 ('\\', "
+"':', ';', '*', '?', '\"', '<', '>', '|')，避免發生錯誤。當你要用掃描而來的標"
+"籤為檔案更名時非常有用。"
+
+#. Extension case (lower/upper?)
+#: src/prefs.c:476
+msgid "Convert filename extension to :"
+msgstr "轉換檔案副檔名為 : "
+
+#: src/prefs.c:479
+msgid "Lower Case"
+msgstr "小寫"
+
+#: src/prefs.c:482
+msgid "For example, the extension will be converted to '.mp3'"
+msgstr "例: 副檔名會變成「.mp3」"
+
+#: src/prefs.c:485
+msgid "Upper Case"
+msgstr "大寫"
+
+#: src/prefs.c:488
+msgid "For example, the extension will be converted to '.MP3'"
+msgstr "例: 副檔名會變成「.MP3」"
+
+#: src/prefs.c:491
+msgid "No Change"
+msgstr "不改變"
+
+#: src/prefs.c:494
+msgid "The extension will not be converted"
+msgstr "副檔名不會轉換"
+
+#. Preserve modification time
+#: src/prefs.c:497
+msgid "Preserve modification time of the file"
+msgstr "避免更動修改時間"
+
+#: src/prefs.c:500
+msgid ""
+"Preserve the modification time (in file properties) when saving the file."
+msgstr "儲存檔案時不要更動時間 (檔案屬性中的修改時間)。"
+
+#. Change directory modification time
+#: src/prefs.c:504
+msgid ""
+"Update modification time of the parent directory of the file (recommended "
+"when using Amarok)"
+msgstr "更新上層目錄的修改時間 (使用 Amarok 時建議勾選)"
+
+#: src/prefs.c:508
+msgid ""
+"The modification time of the parent directory of the file will be updated "
+"when saving tag the file. At the present time it is automatically done only "
+"when renaming a file.\n"
+"This feature is interesting when using applications like Amarok. For "
+"performance reasons, they refresh file informations by detecting changes of "
+"the parent directory."
+msgstr ""
+"儲存檔案時會更新其上層目錄的修改時間，目前只會在檔案更名時自動更新。\n"
+"此功能在使用 Amarok 等程式時才有用。這類程式為了效能考量，只在偵測到上層目錄"
+"有變更時才更新檔案資訊。"
+
+#. Character Set for File Name
+#: src/prefs.c:516
+msgid "Character Set for File Name"
+msgstr "檔名字元集"
+
+#. Rules for character set
+#: src/prefs.c:532
+msgid ""
+"Rules to apply if some characters can't be converted to the system character "
+"encoding when writing filename:"
+msgstr "當寫入檔名時遇到無法轉換為系統編碼的字元時要套用的規則: "
+
+#: src/prefs.c:540
+msgid "Try an other character encoding"
+msgstr "嘗試其他字元編碼"
+
+#: src/prefs.c:544
+msgid ""
+"With this option, it will try the conversion to the encoding associated to "
+"your locale (for example : ISO-8859-1 for 'fr', KOI8-R for 'ru', ISO-8859-2 "
+"for 'ro'). If it fails, it will try the character encoding ISO-8859-1."
+msgstr ""
+"啟用此選項會嘗試轉換編碼為系統語言相關的編碼 (例如 : ISO-8859-1 為「fr」，"
+"KOI8-R 為「ru」，ISO-8859-2 為「ro」)。如果轉換失敗，會嘗試以 ISO-8859-1 編碼"
+"儲存。"
+
+#: src/prefs.c:551
+msgid ""
+"Force using the system character encoding and activate the transliteration"
+msgstr "強制使用系統編碼並使用相似字元"
+
+#: src/prefs.c:554 src/prefs.c:834 src/prefs.c:903
+msgid ""
+"With this option, when a character cannot be represented in the target "
+"character set, it can be approximated through one or several similarly "
+"looking characters."
+msgstr "此選項啟用後，當字元無法以目的編碼表示時，會用相似的字元代替。"
+
+#: src/prefs.c:560
+msgid ""
+"Force using the system character encoding and silently discard some "
+"characters"
+msgstr "強制使用系統編碼並刪除無法表示的字元"
+
+#: src/prefs.c:563 src/prefs.c:843 src/prefs.c:912
+msgid ""
+"With this option, when a characters cannot be represented in the target "
+"character set, it will be silently discarded."
+msgstr "此選項啟用後，當遇到無法以目的編碼表示的字元時會自動刪除該字元。"
+
+#.
+#. * Tag Settings
+#.
+#: src/prefs.c:572 src/prefs.c:573
+msgid "Tag Settings"
+msgstr "標籤設定"
+
+#. Tag Options
+#: src/prefs.c:582
+msgid "Tag Options"
+msgstr "標籤選項"
+
+#: src/prefs.c:588
+msgid "Auto completion of date if not complete"
+msgstr "自動完成不完整的日期"
+
+#: src/prefs.c:591
+msgid ""
+"Try to complete the year field if you enter only the last numerals of the "
+"date (for instance, if the current year is 2005: 5 => 2005, 4 => 2004, 6 => "
+"1996, 95 => 1995, ...)."
+msgstr ""
+"如果年份只輸入最後一位數字則嘗試自動補齊完整數字 (例如今年是 2005 則: 5 => "
+"2005，4 => 2004，6 => 1996，95 => 1995...)。"
+
+#: src/prefs.c:598
+msgid "Write the track field with the following number of digits :"
+msgstr "寫入曲目編號欄位的數字位數 :"
+
+#: src/prefs.c:601
+msgid ""
+"If activated, the track field is written using the number '0' as padding to "
+"obtain a number with 'n' digits (Ex. with two digits : '05', '09', "
+"'10',...). Else it keeps the 'raw' track value."
+msgstr ""
+"啟用此選項後，曲目編號欄位會用「0」填滿剩餘的位數 (例: 設為兩位數: '05', "
+"'09', '10',...)。不選則會用「原始」的數值。"
+
+#: src/prefs.c:616
+msgid "Ogg Vorbis Files : Write also the comment to the XMMS format"
+msgstr "Ogg Vorbis 檔案 : 一併寫入 XMMS 格式的備註欄位"
+
+#: src/prefs.c:619
+msgid ""
+"XMMS doesn't make use of the right way to identify a comment in Ogg Vorbis "
+"files as other apps do. In fact, this field is usually labeled with "
+"'comment=', whereas XMMS uses only `='. Please, uncheck this option if you "
+"don't want other apps to complain about an unknown field. Comments won't be "
+"shown in XMMS, though."
+msgstr ""
+"XMMS 不像其他程式一樣能正確辨識 Ogg Vorbis 檔案的備註欄位。通常備註欄都以"
+"「comment=」標示，但 XMMS 只用「=」標示。如果你不使用 XMMS 請不要勾選，否則其"
+"他程式會一直向你抱怨有未知的欄位。"
+
+#: src/prefs.c:634
+msgid ""
+"Tag field focus when switching files in list with shortcuts Page Up/Page "
+"Down:"
+msgstr "在檔案清單中按 Page Up/Page Down 切換檔案後，欄位輸入焦點要位於:"
+
+#: src/prefs.c:643
+msgid "Keep focus to the same tag field"
+msgstr "保持在相同的標籤欄位"
+
+#: src/prefs.c:649
+msgid "Return focus to the first tag field (ie 'Title' field)"
+msgstr "回到第一個標籤欄位 (例:「曲名」欄)"
+
+#. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SetFocusToFirstTagField),SET_FOCUS_TO_FIRST_TAG_FIELD);
+#.
+#. * ID3 Tag Settings
+#.
+#: src/prefs.c:657 src/prefs.c:658
+msgid "ID3 Tag Settings"
+msgstr "ID3 標籤設定"
+
+#. Tag Rules frame
+#: src/prefs.c:670
+msgid "ID3 Tag Rules"
+msgstr "ID3 標籤規則"
+
+#. Write ID3 tags in FLAC files
+#: src/prefs.c:682
+msgid "Write ID3 tags in FLAC files (in addition to FLAC tag)"
+msgstr "寫入 ID3 標籤到 FLAC 檔案 (FLAC 標籤仍會寫入)"
+
+#: src/prefs.c:685
+msgid ""
+"If activated, ID3 tags will be also added in the FLAC file (according the "
+"two rules above, plus the FLAC tag). Else ID3 tags will be stripped."
+msgstr ""
+"啟用此選項則 ID3 標籤也會一併寫入 FLAC 檔案 (寫入何種格式則依據上面的兩個規"
+"則、FLAC 標籤仍會寫入)。不選則 ID3 標籤會被刪除。"
+
+#. Strip tag when fields (managed by EasyTAG) are empty
+#: src/prefs.c:690
+msgid "Strip tags if all fields are set to blank"
+msgstr "若標準欄位空白時刪除所有標籤"
+
+#: src/prefs.c:693
+msgid ""
+"As ID3v2 tags may contain other data than Title, Artist, Album, Year, Track, "
+"Genre or Comment (as an attached picture, lyrics, ...), this option allows "
+"you to strip the whole tag when these seven standard data fields have been "
+"set to blank."
+msgstr ""
+"ID3v2 標籤可以含除了曲名、演唱者、專輯、年份、曲目編號、曲風、備註等其他資訊 "
+"(像附加的圖片、歌詞等等...)。啟用此選項會在上列七個標準欄位都是空白時刪除其他"
+"的欄位。"
+
+#. Convert old ID3v2 tag version
+#: src/prefs.c:699
+msgid "Automatically convert old ID3v2 tag versions"
+msgstr "自動轉換舊的 ID3v2 版本標籤"
+
+#: src/prefs.c:702
+msgid ""
+"If activated, an old ID3v2 tag version (as ID3v2.2) will be updated to the "
+"ID3v2.3 version."
+msgstr "啟用此選項後，舊的 ID3v2 版本標籤 (ID3v2.2) 會更新為 ID3v2.3 版本。"
+
+#. Use CRC32
+#: src/prefs.c:706
+msgid "Use CRC32"
+msgstr "使用 CRC32"
+
+#: src/prefs.c:709
+msgid "Set CRC32 in the ID3v2 tags"
+msgstr "於 ID3v2 標籤設定 CRC32"
+
+#. Use Compression
+#: src/prefs.c:712
+msgid "Use Compression"
+msgstr "使用壓縮"
+
+#: src/prefs.c:715
+msgid "Set Compression in the ID3v2 tags"
+msgstr "設定 ID3v2 標籤壓縮"
+
+#. Character Set for writing ID3 tag
+#: src/prefs.c:718
+msgid "Character Set for writing ID3 tags"
+msgstr "寫入 ID3 標籤的字元編碼"
+
+#. ID3v2 tags
+#: src/prefs.c:725
+msgid "ID3v2 tags"
+msgstr "ID3v2 標籤"
+
+#. Write ID3v2 tag
+#: src/prefs.c:738
+msgid "Write ID3v2 tag"
+msgstr "寫入 ID3v2 標籤"
+
+#: src/prefs.c:741
+msgid ""
+"If activated, an ID3v2.4 tag will be added or updated at the beginning of "
+"the MP3 files. Else it will be stripped."
+msgstr "啟用此選項則會新增或更新 MP3 檔案開頭的 ID3v2.4 標籤，不選則會刪除。"
+
+#. ID3v2 tag version
+#: src/prefs.c:748
+msgid "Version:"
+msgstr "版本: "
+
+#: src/prefs.c:755
+msgid ""
+"Select the ID3v2 tag version to write:\n"
+" - ID3v2.3 is written using id3lib,\n"
+" - ID3v2.4 is written using libid3tag (recommended)."
+msgstr ""
+"選擇要寫入的 ID3v2 標籤版本:\n"
+" - ID3v2.3 使用 id3lib 寫入，\n"
+" - ID3v2.4 使用 libid3tag  寫入 (建議)。"
+
+#. Charset
+#. Id3V1 writing character set
+#: src/prefs.c:769 src/prefs.c:871
+msgid "Charset:"
+msgstr "字元集:"
+
+#. Unicode
+#: src/prefs.c:777
+msgid "Unicode "
+msgstr "Unicode "
+
+#: src/prefs.c:785
+msgid "Unicode type to use"
+msgstr "要使用的 Unicode 類型"
+
+#: src/prefs.c:808
+msgid "Character set used to write the tag data in the file."
+msgstr "要寫入檔案標籤所用的字元集。"
+
+#. ID3v2 Additional iconv() options
+#. ID3V1 Additional iconv() options
+#: src/prefs.c:818 src/prefs.c:887
+msgid "Additional settings for iconv():"
+msgstr "iconv() 的其他設定: "
+
+#: src/prefs.c:823 src/prefs.c:892
+msgid "No"
+msgstr "無"
+
+#: src/prefs.c:826 src/prefs.c:895
+#, fuzzy
+msgid ""
+"With this option, when a character cannot be represented in the target "
+"character set, it isn't changed. But note that an error message will be "
+"displayed for information."
+msgstr "此選項啟用後，當字元無法以目的編碼表示時，會用相似的字元代替。"
+
+#: src/prefs.c:831 src/prefs.c:900
+msgid "//TRANSLIT"
+msgstr "//TRANSLIT"
+
+#: src/prefs.c:840 src/prefs.c:909
+msgid "//IGNORE"
+msgstr "//IGNORE"
+
+#. ID3v1 tags
+#: src/prefs.c:848
+msgid "ID3v1 tags"
+msgstr "ID3v1 標籤"
+
+#. Write ID3v1 tag
+#: src/prefs.c:862
+msgid "Write ID3v1.x tag"
+msgstr "寫入 ID3v1.x 標籤"
+
+#: src/prefs.c:865
+msgid ""
+"If activated, an ID3v1 tag will be added or updated at the end of the MP3 "
+"files. Else it will be stripped."
+msgstr "啟用此選項則會新增或更新 MP3 檔案尾端的 ID3v1 標籤，不選則會刪除。"
+
+#: src/prefs.c:882
+msgid "Character set used to write ID3v1 tag data in the file."
+msgstr "要寫入 ID3v1 檔案標籤所用的字元集。"
+
+#. Character Set for reading tag
+#: src/prefs.c:917
+msgid "Character Set for reading ID3 tags"
+msgstr "讀取 ID3 標籤所用的字元集"
+
+#: src/prefs.c:931
+msgid "Non-standart:"
+msgstr "非標準: "
+
+#: src/prefs.c:936
+msgid ""
+"This character set will be used when reading the tag data, to convert each "
+"string found in an ISO-8859-1 field in the tag (for ID3v2 or/and ID3v1 "
+"tag).\n"
+"\n"
+"For example :\n"
+"  - in previous versions of EasyTAG, you can save UTF-8 strings in an ISO-"
+"8859-1 field. This is not correct! To convert these tags to Unicode: "
+"activate this option and select UTF-8. You must also activate above the "
+"option 'Try to save tags to ISO-8859-1. If it isn't possible then use "
+"UNICODE (recommended)' or 'Always save tags to UNICODE character set'.\n"
+"  - If unicode was not used, Russian people can select the character set "
+"'Windows-1251' to load tags written under Windows. And 'KOI8-R' to load tags "
+"written under Unix systems."
+msgstr ""
+"設定讀取標籤資料及遇到 ISO-8859-1 編碼時要轉換的字元集 (ID3v2 及 ID3v1 標"
+"籤)。\n"
+"\n"
+"例如 :\n"
+"  - EasyTAG 之前的版本可以於 ISO-8859-1 欄位中儲存 UTF-8 編碼，但這是不正確"
+"的！轉換這些欄位為 Unicode 編碼的步驟: 啟用本選項並選擇 UTF-8，你還必須同時啟"
+"用「若無法使用 UNICODE 編碼時，嘗試使用 ISO-8859-1 儲存標籤 (建議選用)」或"
+"「總是以 UNICODE 編碼儲存」。\n"
+"  - 如果無法使用 Unicode，俄文使用者可以選擇「Windows-1251」字元集讀取在 "
+"Windows 下寫入的標籤，選擇「KOI8-R」讀取在 Unix 系統下寫入的標籤。"
+
+#: src/prefs.c:954
+msgid "Character set used to read tag data in the file."
+msgstr "要讀取檔案標籤所用的字元集。"
+
+#.
+#. * Scanner
+#.
+#: src/prefs.c:969 src/prefs.c:970
+msgid "Scanner"
+msgstr "掃描"
+
+#. Character conversion for the 'Fill Tag' scanner (=> FTS...)
+#: src/prefs.c:982
+msgid "Fill Tag Scanner - Character Conversion"
+msgstr "標籤填入掃描 - 字元轉換"
+
+#: src/prefs.c:988 src/prefs.c:1014
+msgid "Convert underscore character '_' and string '%20' to space ' '"
+msgstr "轉換底線字元「_」及字串「%20」為空格「 」"
+
+#: src/prefs.c:990 src/prefs.c:1016
+msgid "Convert space ' ' to underscore '_'"
+msgstr "轉換空格「 」為底線「_」"
+
+#: src/prefs.c:1002 src/prefs.c:1004
+msgid ""
+"If activated, this conversion will be used when applying a mask from the "
+"scanner for tags."
+msgstr "啟用此選項，則標籤掃描要以遮罩套用時會使用此轉換規則。"
+
+#. Character conversion for the 'Rename File' scanner (=> RFS...)
+#: src/prefs.c:1008
+msgid "Rename File Scanner - Character Conversion"
+msgstr "檔案更名掃描 - 字元轉換"
+
+#: src/prefs.c:1028 src/prefs.c:1030
+msgid ""
+"If activated, this conversion will be used when applying a mask from the "
+"scanner for filenames."
+msgstr "啟用此選項，則檔名掃描要以遮罩套用時會使用此轉換規則。"
+
+#. Character conversion for the 'Process Fields' scanner (=> PFS...)
+#: src/prefs.c:1034
+msgid "Process Fields Scanner - Character Conversion"
+msgstr "欄位處理掃描 - 字元轉換"
+
+#. Don't convert some words like to, feat. first letter uppercase.
+#: src/prefs.c:1041
+msgid ""
+"Don't uppercase first letter of words for some prepositions and articles."
+msgstr "某些介系詞和冠詞的第一個字母不要轉為大寫"
+
+#: src/prefs.c:1045
+msgid ""
+"Don't convert first letter of the words like prepositions, articles and "
+"words like feat., when using the scanner 'First letter uppercase of each "
+"word' (for example, you will obtain 'Text in an Entry' instead of 'Text In "
+"An Entry')."
+msgstr ""
+"於掃描中使用「每個字的第一個字母大寫」時不要轉換介系詞、冠詞和某些字像 feat. "
+"的第一個字母為大寫 (例如: 「Text In An Entry」會變成「Text in an Entry」。"
+
+#. Properties of the scanner window
+#: src/prefs.c:1051
+msgid "Scanner Window"
+msgstr "掃描視窗"
+
+#: src/prefs.c:1057
+msgid "Open the Scanner Window on startup"
+msgstr "啟動時開啟掃描視窗"
+
+#: src/prefs.c:1060
+msgid ""
+"Activate this option to open automatically the scanner window when EasyTAG "
+"starts."
+msgstr "啟用此選項後，啟動 EasyTAG 時會自動開啟掃描視窗。"
+
+#: src/prefs.c:1063
+msgid "Scanner window always on top"
+msgstr "掃描視窗永遠在最上層"
+
+#: src/prefs.c:1066
+msgid ""
+"If activated, the window which contains the masks will stay always over the "
+"main window."
+msgstr "啟用此選項後，含遮罩條件的掃描視窗會永遠顯示在主視窗之上。"
+
+#. Other options
+#: src/prefs.c:1071
+msgid "Fields"
+msgstr "欄位"
+
+#. Overwrite text into tag fields
+#: src/prefs.c:1078
+msgid "Overwrite fields when scanning tag"
+msgstr "標籤掃描時覆蓋現有欄位"
+
+#: src/prefs.c:1081
+msgid ""
+"If activated, the scanner will replace existing text in fields by the new "
+"one. If deactivated, only blank fields of the tag will be filled."
+msgstr ""
+"啟用此選項後，標籤掃描會用新資料覆蓋已存在的欄位，若停用此選項，則只有空白欄"
+"位會填入新資料。"
+
+#: src/prefs.c:1092
+msgid "Set this text as default comment :"
+msgstr "設定要寫入備註的預設文字 :"
+
+#: src/prefs.c:1095
+msgid ""
+"Activate this option if you want to put the following string into the "
+"comment field when using the 'Fill Tag' scanner."
+msgstr "啟用此選項，則使用「標籤填入」掃描時會自動於備註欄位寫入下列字串。"
+
+#. CRC32 comment
+#: src/prefs.c:1112
+msgid "Use CRC32 as the default comment (for files with ID3 tags only)."
+msgstr "使用 CRC32 為預設的備註 (只對 ID3 標籤有效)"
+
+#: src/prefs.c:1116
+msgid ""
+"Calculates the CRC-32 value of the file and writes it into the comment field "
+"when using the 'Fill Tag' scanner."
+msgstr "當使用「標籤填入」掃描時計算檔案的 CRC-32 值並寫入備註欄位。"
+
+#.
+#. * CDDB
+#.
+#: src/prefs.c:1127 src/prefs.c:1128
+msgid "CD Data Base"
+msgstr "CD 資料庫"
+
+#. CDDB Server Settings (Automatic Search)
+#: src/prefs.c:1137
+msgid "Server Settings for Automatic Search"
+msgstr "自動搜尋的伺服器設定"
+
+#: src/prefs.c:1146 src/prefs.c:1185 src/prefs.c:1219
+msgid "Name :"
+msgstr "名稱 :"
+
+#: src/prefs.c:1165 src/prefs.c:1193 src/prefs.c:1228 src/prefs.c:1316
+msgid "Port :"
+msgstr "埠 :"
+
+#: src/prefs.c:1175 src/prefs.c:1203 src/prefs.c:1238
+msgid "CGI Path :"
+msgstr "CGI 路徑 :"
+
+#. CDDB Server Settings (Manual Search)
+#: src/prefs.c:1211
+msgid "Server Settings for Manual Search"
+msgstr "手動搜尋的伺服器設定"
+
+#. Local access for CDDB (Automatic Search)
+#: src/prefs.c:1246
+msgid "Local CD Data Base"
+msgstr "本機 CD 資料庫"
+
+#: src/prefs.c:1254
+msgid "Path :"
+msgstr "路徑 :"
+
+#: src/prefs.c:1265
+msgid ""
+"Specify the directory where are located the local cd data base. The local cd "
+"data base contains the eleven following directories 'blues', 'classical', "
+"'country', 'data', 'folk', 'jazz', 'newage', 'reggae', 'rock', 'soundtrack' "
+"and 'misc'."
+msgstr ""
+"指定本機 CD 資料庫的路徑。本機資料庫要包含下面七個目錄: 'blues', "
+"'classical', 'country', 'data', 'folk', 'jazz', 'newage', 'reggae', 'rock', "
+"'soundtrack' 及 'misc'。"
+
+#. CDDB Proxy Settings
+#: src/prefs.c:1291
+msgid "Proxy Settings"
+msgstr "Proxy 設定"
+
+#: src/prefs.c:1300
+msgid "Use a proxy"
+msgstr "使用 Proxy"
+
+#: src/prefs.c:1303
+msgid "Set active the settings of the proxy server."
+msgstr "設定有效 Proxy 伺服器的設定。"
+
+#: src/prefs.c:1308
+msgid "Host Name :"
+msgstr "主機名稱 :"
+
+#: src/prefs.c:1315
+msgid "Name of the proxy server."
+msgstr "Proxy 伺服器名稱。"
+
+#: src/prefs.c:1323
+msgid "Port of the proxy server."
+msgstr "Proxy 伺服器埠號。"
+
+#: src/prefs.c:1328
+msgid "User Name :"
+msgstr "使用者名稱 :"
+
+#: src/prefs.c:1335
+msgid "Name of user for the the proxy server."
+msgstr "Proxy 伺服器的使用者名稱。"
+
+#: src/prefs.c:1336
+msgid "User Password :"
+msgstr "使用者密碼 :"
+
+#: src/prefs.c:1344
+msgid "Password of user for the the proxy server."
+msgstr "Proxy 伺服器的使用者密碼。"
+
+#. Track Name list (CDDB results)
+#: src/prefs.c:1349
+msgid "Track Name List"
+msgstr "曲名清單"
+
+#: src/prefs.c:1356
+msgid ""
+"Select corresponding audio file (according position or DLM if activated "
+"below)"
+msgstr "選擇相符的聲音檔案 (根據順序或 DLM)"
+
+#: src/prefs.c:1360
+msgid ""
+"If activated, when selecting a line in the list of tracks name, the "
+"corresponding audio file in the main list will be also selected."
+msgstr ""
+"若啟用此選項，當於曲名欄位中選擇項目時會自動於主清單選擇相符的聲音檔案。"
+
+#. Check box to use DLM (also used in the cddb window)
+#: src/prefs.c:1365
+msgid ""
+"Use the Levenshtein algorithm (DLM) to match lines (using title) with audio "
+"files (using filename)"
+msgstr "使用 Levenshtein 演算法 (DLM) 依檔名比對符合的曲名"
+
+#.
+#. * Confirmation
+#.
+#: src/prefs.c:1380 src/prefs.c:1381
+msgid "Confirmation"
+msgstr "確認"
+
+#: src/prefs.c:1389
+msgid "Confirm exit from program"
+msgstr "離開程式確認"
+
+#: src/prefs.c:1392
+msgid ""
+"If activated, opens a dialog box to ask confirmation before exiting the "
+"program."
+msgstr "啟用此選項後在離開程式前會開啟對話方塊再次詢問。"
+
+#: src/prefs.c:1395
+msgid "Confirm writing of file tag"
+msgstr "寫入檔案標籤確認"
+
+#: src/prefs.c:1399
+msgid "Confirm renaming of file"
+msgstr "檔案更名確認"
+
+#: src/prefs.c:1403
+msgid "Confirm deleting of file"
+msgstr "檔案刪除確認"
+
+#: src/prefs.c:1407
+msgid "Confirm writing of playlist"
+msgstr "寫入播放清單確認"
+
+#. Disable temporarily the apply button
+#. //gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
+#. //g_signal_connect(G_OBJECT(Button),"clicked",G_CALLBACK(OptionsWindow_Apply_Button),NULL);
+#. //GTK_WIDGET_SET_FLAGS(Button, GTK_CAN_DEFAULT);
+#: src/prefs.c:1429
+msgid "Apply changes (but don't save) and close this window"
+msgstr "套用變更 (但不儲存) 並關閉視窗"
+
+#: src/prefs.c:1438
+msgid "Close this window without saving"
+msgstr "不儲存關閉視窗"
+
+#: src/prefs.c:1446
+msgid "Save changes and close this window"
+msgstr "儲存變更並關閉視窗"
+
+#. For translators : be aware to NOT translate '%.*d' in this string
+#: src/prefs.c:1479
+#, c-format
+msgid "(Example : %.*d_-_Track_name_1.mp3)"
+msgstr "(例如: %.*d_-_Track_name_1.mp3)"
+
+#: src/prefs.c:1625
+msgid "Changes applied"
+msgstr "變更已套用"
+
+#: src/prefs.c:1644 src/setting.c:867
+msgid "Configuration saved"
+msgstr "設定已儲存"
+
+#: src/prefs.c:1651
+msgid "Configuration unchanged"
+msgstr "設定未變更"
+
+#: src/prefs.c:1743
+#, c-format
+msgid ""
+" The selected path for 'Default path to files' isn't valid!\n"
+"'%s'\n"
+"(%s) "
+msgstr ""
+"選擇的「預設檔案路徑」無效！\n"
+"「%s」\n"
+"(%s) "
+
+#: src/prefs.c:1745
+msgid "Not a directory"
+msgstr "不是目錄"
+
+#: src/prefs.c:1861
+#, c-format
+msgid "The audio file player '%s' can't be found!"
+msgstr "找不到播放程式「%s」！"
+
+#: src/scan.c:178
+msgid "Fill Tag"
+msgstr "標籤填入"
+
+#: src/scan.c:179
+msgid "Rename File and Directory"
+msgstr "檔案及目錄更名"
+
+#: src/scan.c:180
+msgid "Process Fields"
+msgstr "欄位處理"
+
+#: src/scan.c:357
+msgid "Tag successfully scanned..."
+msgstr "標籤已成功掃描..."
+
+#: src/scan.c:359
+#, c-format
+msgid "Tag successfully scanned...(%s)"
+msgstr "標籤已成功掃描...(%s)"
+
+#: src/scan.c:399
+#, c-format
+msgid ""
+"Tag scanner: strange..., the extension '%s' was not found into filename '%s'!"
+msgstr "標籤掃描: 真奇怪...找不到副檔名「%s」於檔名「%s」！"
+
+#: src/scan.c:481 src/scan.c:510
+#, c-format
+msgid "Scan Error: can't find separator '%s' within '%s'"
+msgstr "掃描錯誤: 找不到分隔字元「%s」於「%s」"
+
+#: src/scan.c:667
+#, c-format
+msgid "Could not convert filename '%s' into system filename encoding."
+msgstr "無法轉換檔名「%s」為系統檔名編碼。"
+
+#: src/scan.c:697
+msgid "New file name successfully scanned..."
+msgstr "新檔名已成功掃描..."
+
+#: src/scan.c:700
+#, c-format
+msgid "New file name successfully scanned...(%s)"
+msgstr "新檔名已成功掃描...(%s)"
+
+#. The init position is define below, cause the scanner window must be showed before
+#. * to be able to move it.
+#. Title
+#: src/scan.c:1978
+msgid "Tag and File Name scan"
+msgstr "標籤及檔名掃描"
+
+#. Option Menu
+#: src/scan.c:2000
+msgid "Scanner:"
+msgstr "掃描:"
+
+#. Selection of the item made at the end of the function
+#: src/scan.c:2022
+msgid "Select the type of scanner to use"
+msgstr "選擇要掃描的類型"
+
+#: src/scan.c:2031
+msgid "Open scanner window / Scan selected files"
+msgstr "開啟掃描視窗╱掃描所選檔案"
+
+#: src/scan.c:2044
+msgid "Scanner Options"
+msgstr "掃描選項"
+
+#: src/scan.c:2053
+msgid "Show / Hide Masks Editor"
+msgstr "顯示╱隱藏遮罩條件編輯"
+
+#: src/scan.c:2063
+msgid "Show / Hide Legend"
+msgstr "顯示╱隱藏說明"
+
+#: src/scan.c:2073
+msgid "Close this window"
+msgstr "關閉視窗"
+
+#: src/scan.c:2101
+msgid ""
+"Select or type in a mask using codes (see Legend) to parse file name and "
+"path. Used to fill in tag fields."
+msgstr ""
+"請選擇或輸入要解析檔名和路徑的遮罩條件代碼 (請見說明)，用來填入標籤欄位。"
+
+#. Preview label
+#: src/scan.c:2127
+msgid "Fill tag preview..."
+msgstr "標籤填入預覽..."
+
+#: src/scan.c:2154
+msgid "Prefix mask with current path"
+msgstr "目前路徑的前置遮罩"
+
+#: src/scan.c:2167
+msgid ""
+"Select or type in a mask using codes (see Legend) to parse tag fields. Used "
+"to rename the file.\n"
+"Use / to make directories. If the first character is /, it's a absolute "
+"path, otherwise is relative to the old path."
+msgstr ""
+"請選擇或輸入要解析標籤欄位的遮罩條件代碼 (請見說明)，用來重新命名檔案。\n"
+"使用 / 代表目錄，如果第一個字元為 / 代表絕對路徑，不然則為相對路徑。"
+
+#. Preview label
+#: src/scan.c:2194
+msgid "Rename file preview..."
+msgstr "檔案更名預覽..."
+
+#: src/scan.c:2214
+msgid "Select fields:"
+msgstr "選擇欄位:"
+
+#: src/scan.c:2217
+msgid ""
+"The buttons on the right represent the fields which can be processed. Select "
+"those who interest you."
+msgstr "右邊的按鈕代表你可以處理的欄位，請選擇你想變更的欄位。"
+
+#. Advice for Translators : set the first letter of filename translated
+#: src/scan.c:2220
+msgid "F"
+msgstr "檔名"
+
+#: src/scan.c:2221
+msgid "Process file name field"
+msgstr "處理檔名欄位"
+
+#. Advice for Translators : set the first letter of title translated
+#: src/scan.c:2223
+msgid "T"
+msgstr "曲名"
+
+#: src/scan.c:2224
+msgid "Process title field"
+msgstr "處理曲名欄位"
+
+#. Advice for Translators : set the first letter of artist translated
+#: src/scan.c:2226
+msgid "Ar"
+msgstr "歌手"
+
+#: src/scan.c:2227
+msgid "Process file artist field"
+msgstr "處理演唱者欄位"
+
+#. Advice for Translators : set the first letter of album translated
+#: src/scan.c:2229
+msgid "Al"
+msgstr "專輯"
+
+#: src/scan.c:2230
+msgid "Process album field"
+msgstr "處理專輯欄位"
+
+#. Advice for Translators : set the first letter of genre translated
+#: src/scan.c:2232
+msgid "G"
+msgstr "曲風"
+
+#: src/scan.c:2233
+msgid "Process genre field"
+msgstr "處理曲風欄位"
+
+#. Advice for Translators : set the first letter of comment translated
+#: src/scan.c:2235
+msgid "Cm"
+msgstr "備註"
+
+#: src/scan.c:2236
+msgid "Process comment field"
+msgstr "處理備註欄位"
+
+#. Advice for Translators : set the first letter of composer translated
+#: src/scan.c:2238
+msgid "Cp"
+msgstr "作曲"
+
+#: src/scan.c:2239
+msgid "Process composer field"
+msgstr "處理作曲者欄位"
+
+#. Advice for Translators : set the first letter of orig artist translated
+#: src/scan.c:2241
+msgid "O"
+msgstr "原唱"
+
+#: src/scan.c:2242
+msgid "Process original artist field"
+msgstr "處理原唱者欄位"
+
+#. Advice for Translators : set the first letter of copyright translated
+#: src/scan.c:2244
+msgid "Cr"
+msgstr "版權"
+
+#: src/scan.c:2245
+msgid "Process copyright field"
+msgstr "處理版權所有者欄位"
+
+#. Advice for Translators : set the first letter of URL translated
+#: src/scan.c:2247
+msgid "U"
+msgstr "網址"
+
+#: src/scan.c:2248
+msgid "Process URL field"
+msgstr "處理網址欄位"
+
+#. Advice for Translators : set the first letter of encoder name translated
+#: src/scan.c:2250
+msgid "E"
+msgstr "程式"
+
+#: src/scan.c:2251
+msgid "Process encoder name field"
+msgstr "處理邊把程式欄位"
+
+#: src/scan.c:2297
+msgid "Invert Selection"
+msgstr "反向選擇"
+
+#: src/scan.c:2306
+msgid "Select/Unselect All."
+msgstr "全選╱全部不選"
+
+#. Group: character conversion
+#: src/scan.c:2313
+msgid "Convert '_' and '%20' to ' '"
+msgstr "轉換「_」及「%20」為「 」"
+
+#: src/scan.c:2319
+msgid "Convert:"
+msgstr "轉換: "
+
+#: src/scan.c:2321
+msgid "to: "
+msgstr "為: "
+
+#: src/scan.c:2350
+msgid ""
+"The underscore character or the string '%20' are replaced by one space. "
+"Example, before: 'Text%20In%20An_Entry', after: 'Text In An Entry'."
+msgstr ""
+"將底線或「%20」字串取代成空格，例如:「Text%20In%20An_Entry」會變「Text In An "
+"Entry」。"
+
+#: src/scan.c:2353
+msgid ""
+"The space character is replaced by one underscore character. Example, "
+"before: 'Text In An Entry', after: 'Text_In_An_Entry'."
+msgstr "將空格取代成底線，例如:「Text In An Entry」會變「Text_In_An_Entry」。"
+
+#: src/scan.c:2356
+msgid ""
+"Replace a string by an other one. Note that the search is case sensitive."
+msgstr ""
+
+#: src/scan.c:2388
+msgid ""
+"Convert all words in all fields to upper case. Example, before: 'Text IN AN "
+"entry', after: 'TEXT IN AN ENTRY'."
+msgstr ""
+"轉換所有欄位的文字為大寫，例如:「Text IN AN entry」會變「TEXT IN AN ENTRY」。"
+
+#: src/scan.c:2391
+msgid ""
+"Convert all words in all fields to lower case. Example, before: 'TEXT IN an "
+"entry', after: 'text in an entry'."
+msgstr ""
+"轉換所有欄位的文字為小寫，例如:「TEXT IN an entry」會變「text in an entry」。"
+
+#: src/scan.c:2394
+msgid ""
+"Convert the initial of the first word in all fields to upper case. Example, "
+"before: 'text IN An ENTRY', after: 'Text in an entry'."
+msgstr ""
+"轉換所有欄位的第一個字母為大寫，例如:「text IN An ENTRY」會變「Text in an "
+"entry」。"
+
+#: src/scan.c:2397
+msgid ""
+"Convert the initial of each word in all fields to upper case. Example, "
+"before: 'Text in an ENTRY', after: 'Text In An Entry'."
+msgstr ""
+"轉換所有欄位每個文字的第一個字母為大寫，例如:「Text in an ENTRY」會變「Text "
+"In An Entry」。"
+
+#: src/scan.c:2406
+msgid "Insert a space before an uppercase letter"
+msgstr "於大寫字母前插入空格"
+
+#: src/scan.c:2407
+msgid "Remove duplicates of space or underscore"
+msgstr "移除重複的空格或底線"
+
+#: src/scan.c:2425
+msgid ""
+"All spaces between words are removed. Example, before: 'Text In An Entry', "
+"after: 'TextInAnEntry'."
+msgstr ""
+"移除所有文字間的空格，例如: 「Text In An Entry」會變「TextInAnEntry」。"
+
+#: src/scan.c:2428
+msgid ""
+"A space is inserted before each upper case letter. Example, before: "
+"'TextInAnEntry', after: 'Text In An Entry'."
+msgstr ""
+"所有大寫字母前都插入空格，例如: 「TextInAnEntry」會變「Text In An Entry」。"
+
+#: src/scan.c:2431
+msgid ""
+"Duplicated spaces or underscores are removed. Example, before: "
+"'Text__In__An   Entry', after: 'Text_In_An Entry'."
+msgstr ""
+"移除重複的空格或底線，例如:「Text__In__An   Entry」會變「Text_In_An Entry」。"
+
+#.
+#. * Frame to display codes legend
+#.
+#: src/scan.c:2437
+msgid "Legend"
+msgstr "說明"
+
+#: src/scan.c:2443
+#, c-format
+msgid "%a : artist"
+msgstr "%a : 演唱者"
+
+#: src/scan.c:2446
+msgid "%b : album"
+msgstr "%b : 專輯"
+
+#: src/scan.c:2449
+#, c-format
+msgid "%c : comment"
+msgstr "%c : 備註"
+
+#: src/scan.c:2452
+#, c-format
+msgid "%p : composer"
+msgstr "%p : 作曲者"
+
+#: src/scan.c:2455
+msgid "%r : copyright"
+msgstr "%r : 版權所有"
+
+#: src/scan.c:2458
+#, c-format
+msgid "%d : disc number"
+msgstr "%d : 光碟編號"
+
+#: src/scan.c:2461
+#, c-format
+msgid "%e : encoded by"
+msgstr "%e : 編碼程式"
+
+#: src/scan.c:2464
+#, c-format
+msgid "%g : genre"
+msgstr "%g : 曲風"
+
+#: src/scan.c:2467
+#, c-format
+msgid "%i : ignored"
+msgstr "%i : 已忽略"
+
+#: src/scan.c:2470
+msgid "%l : number of tracks"
+msgstr "%l : 曲目總數"
+
+#: src/scan.c:2473
+#, c-format
+msgid "%o : orig. artist"
+msgstr "%o : 原唱者"
+
+#: src/scan.c:2476
+#, c-format
+msgid "%n : track"
+msgstr "%n : 曲目編號"
+
+#: src/scan.c:2479
+msgid "%t : title"
+msgstr "%t : 曲名"
+
+#: src/scan.c:2482
+#, c-format
+msgid "%u : URL"
+msgstr "%u : 網址"
+
+#: src/scan.c:2485
+msgid "%y : year"
+msgstr "%y : 發行年份"
+
+#.
+#. * Masks Editor
+#.
+#: src/scan.c:2492
+msgid "Mask Editor"
+msgstr "遮罩條件編輯"
+
+#: src/scan.c:2549
+msgid "Create New Mask"
+msgstr "建立新遮罩"
+
+#: src/scan.c:2559
+msgid "Move Up this Mask"
+msgstr "此遮罩向上移"
+
+#: src/scan.c:2569
+msgid "Move Down this Mask"
+msgstr "此遮罩向下移"
+
+#: src/scan.c:2579
+msgid "Duplicate Mask"
+msgstr "複製遮罩"
+
+#: src/scan.c:2589
+msgid "Add Default Masks"
+msgstr "加入預設遮罩"
+
+#: src/scan.c:2599
+msgid "Remove Mask"
+msgstr "移除遮罩"
+
+#: src/scan.c:2609
+msgid "Save Masks"
+msgstr "儲存遮罩"
+
+#: src/scan.c:3186
+msgid "New_mask"
+msgstr "新遮罩條件"
+
+#: src/scan.c:3224
+msgid "Copy: No row selected!"
+msgstr "複製: 未選擇項目！"
+
+#: src/scan.c:3330
+msgid "Remove: No row selected!"
+msgstr "移除: 未選擇項目！"
+
+#: src/scan.c:3377
+msgid "Move Up: No row selected!"
+msgstr "向上移: 未選擇項目！"
+
+#: src/scan.c:3430
+msgid "Move Down: No row selected!"
+msgstr "向下移: 未選擇項目！"
+
+#: src/setting.c:888
+#, c-format
+msgid "ERROR: Can't write config file: %s (%s)"
+msgstr "錯誤: 無法寫入組態檔案: %s (%s)"
+
+#: src/setting.c:1031 src/setting.c:1068
+#, c-format
+msgid "Can't open configuration file '%s' (%s)"
+msgstr "無法開啟組態檔案「%s」(%s)"
+
+#: src/setting.c:1032
+msgid "Loading default configuration..."
+msgstr "載入預設組態..."
+
+#: src/setting.c:1132 src/setting.c:1139 src/setting.c:1146 src/setting.c:1153
+#: src/setting.c:1160 src/setting.c:1167 src/setting.c:1174 src/setting.c:1181
+#: src/setting.c:1188 src/setting.c:1195 src/setting.c:1202 src/setting.c:1209
+#: src/setting.c:1216 src/setting.c:1223 src/setting.c:1230 src/setting.c:1237
+#: src/setting.c:1244
+#, c-format
+msgid "Can't create or open file '%s' (%s)"
+msgstr "無法建立或開啟檔案「%s」(%s)"
+
+#: src/setting.c:1277
+#, c-format
+msgid "ERROR: Can't write list to file: %s (%s)"
+msgstr "錯誤: 無法寫入檔案清單: %s (%s)"
+
+#. Fall back to defaults
+#: src/setting.c:1359
+msgid "Loading default 'Fill Tag' masks..."
+msgstr "載入預設「標籤填入」遮罩..."
+
+#. Fall back to defaults
+#: src/setting.c:1387
+msgid "Loading default 'Rename File' masks..."
+msgstr "載入預設「檔案更名」遮罩..."
+
+#. Fall back to defaults
+#: src/setting.c:1414
+msgid "Loading default 'Rename Directory' masks..."
+msgstr "載入預設「目錄更名」遮罩..."
+
+#: src/setting.c:1607
+msgid "ERROR: The environment variable HOME is not defined!"
+msgstr "錯誤: 環境變數 HOME 未定義！"
+
+#: src/setting.c:1623
+#, c-format
+msgid "ERROR: Can't create directory '%s' (%s)!"
+msgstr "錯誤: 無法建立目錄「%s」(%s)！"
+
+#: src/vcedit.c:287
+msgid "Input truncated or empty."
+msgstr "輸入資料被截斷或空白。"
+
+#: src/vcedit.c:289
+msgid "Input is not an Ogg bitstream."
+msgstr "輸入來源不是 Ogg Bitstream."
+
+#: src/vcedit.c:307
+msgid "Error reading first page of Ogg bitstream."
+msgstr "讀取 Ogg Bitstream 第一頁時錯誤。"
+
+#: src/vcedit.c:313
+msgid "Error reading initial header packet."
+msgstr "讀取初始標頭封包時錯誤。"
+
+#: src/vcedit.c:341
+msgid "Ogg bitstream contains neither speex or vorbis data."
+msgstr "Ogg Bitstream 包含既非 Speex 也非 vorbis 的資料。"
+
+#: src/vcedit.c:375
+msgid "Corrupt secondary header."
+msgstr "次要標頭損毀。"
+
+#: src/vcedit.c:405
+msgid "Need to save extra headers - TODO!!"
+msgstr "需要儲存額外標頭 - 未來目標！！"
+
+#: src/vcedit.c:419
+msgid "EOF before end of vorbis headers."
+msgstr "vorbis 標頭結尾前有 EOF。"
+
+#: src/vcedit.c:584
+msgid "Corrupt or missing data, continuing..."
+msgstr "損壞或缺少資料，繼續動作..."
+
+#: src/vcedit.c:621
+msgid ""
+"Error writing stream to output. Output stream may be corrupted or truncated."
+msgstr "寫入串流以輸出時錯誤，輸出串流可能損毀或被截斷。"
+
+#. Log_Print(_("DLL '%s' not found. Try loading it..."), dllname);
+#: src/win32/win32dep.c:178
+#, c-format
+msgid "DLL '%s' not found. Try loading it..."
+msgstr "找不到 DLL「%s」，嘗試載入中..."
+
+#. Log_Print(_("DLL '%s' could not be loaded"), dllname);
+#: src/win32/win32dep.c:183
+#, c-format
+msgid "DLL '%s' could not be loaded"
+msgstr "DLL「%s」無法載入"
+
+#. Log_Print(_("This version of '%s' contains '%s'"), dllname, procedure);
+#: src/win32/win32dep.c:194
+#, c-format
+msgid "This version of '%s' contains '%s'"
+msgstr "此版本的「%s」包含「%s」"
+
+#. Log_Print(_("Function '%s' not found in dll '%s'"), procedure, dllname);
+#: src/win32/win32dep.c:201
+#, c-format
+msgid "Function '%s' not found in dll '%s'"
+msgstr "找不到函數「%s」於 DLL「%s」中"
+
+#. Log_Print(_("Audio player: '%s'"), player);
+#: src/win32/win32dep.c:302
+#, c-format
+msgid "Audio player: '%s'"
+msgstr "播放程式:「%s」"
+
+#. ET_Win32_Path_Replace_Backslashes(app_data_dir);
+#. Log_Print(_("EasyTAG settings dir: '%s'"), app_data_dir);
+#: src/win32/win32dep.c:442
+#, c-format
+msgid "EasyTAG settings dir: '%s'"
+msgstr "EasyTAG 設定目錄:「%s」"
+
+#~ msgid " OK "
+#~ msgstr " 確定 "
+
+#~ msgid " Yes "
+#~ msgstr " 是 "
+
+#~ msgid " No "
+#~ msgstr " 否 "
+
+#~ msgid " Apply "
+#~ msgstr " 套用 "
+
+#~ msgid " Save "
+#~ msgstr " 儲存 "
+
+#~ msgid " Cancel "
+#~ msgstr " 取消 "
+
+#~ msgid " Close "
+#~ msgstr " 關閉 "
+
+#~ msgid " Write "
+#~ msgstr " 寫入 "
+
+#~ msgid " Execute "
+#~ msgstr " 執行 "
+
+#~ msgid " Search "
+#~ msgstr " 搜尋 "
+
+#~ msgid " Browse... "
+#~ msgstr " 瀏覽... "
+
+#~ msgid "(MP3 file support enabled using: libid3tag %s)"
+#~ msgstr "(已啟用 MP3 格式支援 使用: libid3tag %s)"
+
+#~ msgid "(ID3v2.3 tags support enabled using: id3lib %d.%d.%d)"
+#~ msgstr "(已啟用 ID3v2.3 格式支援 使用: id3lib %d.%d.%d)"
+
+#~ msgid ""
+#~ "The entered path is invalid!:\n"
+#~ "%s\n"
+#~ "(%s)"
+#~ msgstr ""
+#~ "輸入的路徑無效！:\n"
+#~ "%s\n"
+#~ "(%s)"
+
+#~ msgid "Loaded File Content :"
+#~ msgstr "已載入檔案內容 :"
+
+#~ msgid "Files Name List :"
+#~ msgstr "檔名清單 : "
+
+#~ msgid "Replace a character by an other one."
+#~ msgstr "將字元用其他文字取代。"

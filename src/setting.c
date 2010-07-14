@@ -59,42 +59,41 @@
  */
 
 // Base directory created into home dir
-gchar *EASYTAG_DIR                                 = ".easytag";
+#define EASYTAG_DIR                                 ".easytag"
 // File for configuration
-gchar *CONFIG_FILE                                 = ".easytag/easytagrc";
+#define CONFIG_FILE                                 EASYTAG_DIR "/easytagrc"
 // File of masks for tag scanner
-gchar *SCAN_TAG_MASKS_FILE                         = ".easytag/scan_tag.mask";
+#define SCAN_TAG_MASKS_FILE                         EASYTAG_DIR "/scan_tag.mask"
 // File of masks for rename file scanner
-gchar *RENAME_FILE_MASKS_FILE                      = ".easytag/rename_file.mask";
+#define RENAME_FILE_MASKS_FILE                      EASYTAG_DIR "/rename_file.mask"
 // File for history of RenameDirectoryMaskCombo combobox
-gchar *RENAME_DIRECTORY_MASKS_FILE                 = ".easytag/rename_directory.mask";
+#define RENAME_DIRECTORY_MASKS_FILE                 EASYTAG_DIR "/rename_directory.mask"
 // File for history of PlayListNameCombo combobox
-gchar *PLAY_LIST_NAME_MASKS_FILE                   = ".easytag/play_list_name.mask";
+#define PLAY_LIST_NAME_MASKS_FILE                   EASYTAG_DIR "/play_list_name.mask"
 // File for history of PlayListContentMaskEntry combobox
-gchar *PLAYLIST_CONTENT_MASKS_FILE                 = ".easytag/playlist_content.mask";
+#define PLAYLIST_CONTENT_MASKS_FILE                 EASYTAG_DIR "/playlist_content.mask"
 // File for history of DefaultPathToMp3 combobox
-gchar *DEFAULT_PATH_TO_MP3_HISTORY_FILE            = ".easytag/default_path_to_mp3.history";
+#define DEFAULT_PATH_TO_MP3_HISTORY_FILE            EASYTAG_DIR "/default_path_to_mp3.history"
 // File for history of DefaultComment combobox
-gchar *DEFAULT_TAG_COMMENT_HISTORY_FILE            = ".easytag/default_tag_comment.history";
+#define DEFAULT_TAG_COMMENT_HISTORY_FILE            EASYTAG_DIR "/default_tag_comment.history"
 // File for history of BrowserEntry combobox
-gchar *PATH_ENTRY_HISTORY_FILE                     = ".easytag/browser_path.history";
+#define PATH_ENTRY_HISTORY_FILE                     EASYTAG_DIR "/browser_path.history"
 // File for history of run program combobox for directories
-gchar *RUN_PROGRAM_WITH_DIRECTORY_HISTORY_FILE     = ".easytag/run_program_with_directory.history";
+#define RUN_PROGRAM_WITH_DIRECTORY_HISTORY_FILE     EASYTAG_DIR "/run_program_with_directory.history"
 // File for history of run program combobox for files
-gchar *RUN_PROGRAM_WITH_FILE_HISTORY_FILE          = ".easytag/run_program_with_file.history";
+#define RUN_PROGRAM_WITH_FILE_HISTORY_FILE          EASYTAG_DIR "/run_program_with_file.history"
 // File for history of run player combobox
-gchar *AUDIO_FILE_PLAYER_HISTORY_FILE              = ".easytag/audio_file_player.history";
+#define AUDIO_FILE_PLAYER_HISTORY_FILE              EASYTAG_DIR "/audio_file_player.history"
 // File for history of search string combobox
-gchar *SEARCH_FILE_HISTORY_FILE                    = ".easytag/search_file.history";
+#define SEARCH_FILE_HISTORY_FILE                    EASYTAG_DIR "/search_file.history"
 // File for history of FileToLoad combobox
-gchar *FILE_TO_LOAD_HISTORY_FILE                   = ".easytag/file_to_load.history";
+#define FILE_TO_LOAD_HISTORY_FILE                   EASYTAG_DIR "/file_to_load.history"
 // File for history of CddbSearchStringEntry combobox
-gchar *CDDB_SEARCH_STRING_HISTORY_FILE             = ".easytag/cddb_search_string.history";
+#define CDDB_SEARCH_STRING_HISTORY_FILE             EASYTAG_DIR "/cddb_search_string.history"
 // File for history of CddbSearchStringInResultEntry combobox
-gchar *CDDB_SEARCH_STRING_IN_RESULT_HISTORY_FILE   = ".easytag/cddb_search_string_in_result.history";
+#define CDDB_SEARCH_STRING_IN_RESULT_HISTORY_FILE   EASYTAG_DIR "/cddb_search_string_in_result.history"
 // File for history of CddbLocalPath combobox
-gchar *CDDB_LOCAL_PATH_HISTORY_FILE                = ".easytag/cddb_local_path.history";
-
+#define CDDB_LOCAL_PATH_HISTORY_FILE                EASYTAG_DIR "/cddb_local_path.history"
 
 
 
@@ -429,8 +428,8 @@ void Init_Config_Variables (void)
     FILE_WRITING_ID3V2_ICONV_OPTIONS_IGNORE         = 0;
     FILE_WRITING_ID3V1_WRITE_TAG                    = 1;
     FILE_WRITING_ID3V1_CHARACTER_SET                = g_strdup("ISO-8859-1");
-    FILE_WRITING_ID3V1_ICONV_OPTIONS_NO             = 1;
-    FILE_WRITING_ID3V1_ICONV_OPTIONS_TRANSLIT       = 0;
+    FILE_WRITING_ID3V1_ICONV_OPTIONS_NO             = 0;
+    FILE_WRITING_ID3V1_ICONV_OPTIONS_TRANSLIT       = 1;
     FILE_WRITING_ID3V1_ICONV_OPTIONS_IGNORE         = 0;
 
     /*
@@ -886,7 +885,7 @@ void Save_Config_To_File (void)
 
     if ( Create_Easytag_Directory()==0 || (file=fopen(file_path,"w+"))==0 )
     {
-        Log_Print(_("ERROR: Can't write config file: %s (%s)"),file_path,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("ERROR: Can't write config file: %s (%s)"),file_path,g_strerror(errno));
     }else
     {
         gint ConfigVarListLen = sizeof(Config_Variables)/sizeof(tConfigVariable);
@@ -929,7 +928,7 @@ void Save_Config_To_File (void)
                 }
                 default:
                 {
-                    Log_Print("ERROR: Can't save: type of config variable not supported "
+                    Log_Print(LOG_ERROR,"ERROR: Can't save: type of config variable not supported "
                               "for '%s'!",Config_Variables[i].name);
                     break;
                 }
@@ -1002,7 +1001,7 @@ void Set_Config (gchar *line)
 
                 default:
                 {
-                    Log_Print("ERROR: Can't read: type of config variable not supported "
+                    Log_Print(LOG_ERROR,"ERROR: Can't read: type of config variable not supported "
                               "for '%s'!",Config_Variables[i].name);
                     break;
                 }
@@ -1029,8 +1028,8 @@ void Read_Config (void)
 
     if ( (file=fopen(file_path,"r"))==0 )
     {
-        Log_Print(_("Can't open configuration file '%s' (%s)"),file_path,g_strerror(errno));
-        Log_Print(_("Loading default configuration..."));
+        Log_Print(LOG_ERROR,_("Can't open configuration file '%s' (%s)"),file_path,g_strerror(errno));
+        Log_Print(LOG_OK,_("Loading default configuration..."));
     }else
     {
         while (fgets(buffer,sizeof(buffer),file))
@@ -1130,119 +1129,119 @@ gboolean Setting_Create_Files (void)
     if ( (file=fopen(file_path,"a+")) != NULL )
         fclose(file);
     else
-        Log_Print(_("Can't create or open file '%s' (%s)"),CONFIG_FILE,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),CONFIG_FILE,g_strerror(errno));
     g_free(file_path);
 
     file_path = g_strconcat(home_path,SCAN_TAG_MASKS_FILE,NULL);
     if ( (file=fopen(file_path,"a+")) != NULL )
         fclose(file);
     else
-        Log_Print(_("Can't create or open file '%s' (%s)"),SCAN_TAG_MASKS_FILE,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),SCAN_TAG_MASKS_FILE,g_strerror(errno));
     g_free(file_path);
 
     file_path = g_strconcat(home_path,RENAME_FILE_MASKS_FILE,NULL);
     if ( (file=fopen(file_path,"a+")) != NULL )
         fclose(file);
     else
-        Log_Print(_("Can't create or open file '%s' (%s)"),RENAME_FILE_MASKS_FILE,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),RENAME_FILE_MASKS_FILE,g_strerror(errno));
     g_free(file_path);
 
     file_path = g_strconcat(home_path,RENAME_DIRECTORY_MASKS_FILE,NULL);
     if ( (file=fopen(file_path,"a+")) != NULL )
         fclose(file);
     else
-        Log_Print(_("Can't create or open file '%s' (%s)"),RENAME_DIRECTORY_MASKS_FILE,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),RENAME_DIRECTORY_MASKS_FILE,g_strerror(errno));
     g_free(file_path);
 
     file_path = g_strconcat(home_path,DEFAULT_PATH_TO_MP3_HISTORY_FILE,NULL);
     if ( (file=fopen(file_path,"a+")) != NULL )
         fclose(file);
     else
-        Log_Print(_("Can't create or open file '%s' (%s)"),DEFAULT_PATH_TO_MP3_HISTORY_FILE,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),DEFAULT_PATH_TO_MP3_HISTORY_FILE,g_strerror(errno));
     g_free(file_path);
 
     file_path = g_strconcat(home_path,DEFAULT_TAG_COMMENT_HISTORY_FILE,NULL);
     if ( (file=fopen(file_path,"a+")) != NULL )
         fclose(file);
     else
-        Log_Print(_("Can't create or open file '%s' (%s)"),DEFAULT_TAG_COMMENT_HISTORY_FILE,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),DEFAULT_TAG_COMMENT_HISTORY_FILE,g_strerror(errno));
     g_free(file_path);
 
     file_path = g_strconcat(home_path,PATH_ENTRY_HISTORY_FILE,NULL);
     if ( (file=fopen(file_path,"a+")) != NULL )
         fclose(file);
     else
-        Log_Print(_("Can't create or open file '%s' (%s)"),PATH_ENTRY_HISTORY_FILE,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),PATH_ENTRY_HISTORY_FILE,g_strerror(errno));
     g_free(file_path);
 
     file_path = g_strconcat(home_path,PLAY_LIST_NAME_MASKS_FILE,NULL);
     if ( (file=fopen(file_path,"a+")) != NULL )
         fclose(file);
     else
-        Log_Print(_("Can't create or open file '%s' (%s)"),PLAY_LIST_NAME_MASKS_FILE,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),PLAY_LIST_NAME_MASKS_FILE,g_strerror(errno));
     g_free(file_path);
 
     file_path = g_strconcat(home_path,RUN_PROGRAM_WITH_DIRECTORY_HISTORY_FILE,NULL);
     if ( (file=fopen(file_path,"a+")) != NULL )
         fclose(file);
     else
-        Log_Print(_("Can't create or open file '%s' (%s)"),RUN_PROGRAM_WITH_DIRECTORY_HISTORY_FILE,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),RUN_PROGRAM_WITH_DIRECTORY_HISTORY_FILE,g_strerror(errno));
     g_free(file_path);
 
     file_path = g_strconcat(home_path,RUN_PROGRAM_WITH_FILE_HISTORY_FILE,NULL);
     if ( (file=fopen(file_path,"a+")) != NULL )
         fclose(file);
     else
-        Log_Print(_("Can't create or open file '%s' (%s)"),RUN_PROGRAM_WITH_FILE_HISTORY_FILE,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),RUN_PROGRAM_WITH_FILE_HISTORY_FILE,g_strerror(errno));
     g_free(file_path);
 
     file_path = g_strconcat(home_path,AUDIO_FILE_PLAYER_HISTORY_FILE,NULL);
     if ( (file=fopen(file_path,"a+")) != NULL )
         fclose(file);
     else
-        Log_Print(_("Can't create or open file '%s' (%s)"),AUDIO_FILE_PLAYER_HISTORY_FILE,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),AUDIO_FILE_PLAYER_HISTORY_FILE,g_strerror(errno));
     g_free(file_path);
 
     file_path = g_strconcat(home_path,SEARCH_FILE_HISTORY_FILE,NULL);
     if ( (file=fopen(file_path,"a+")) != NULL )
         fclose(file);
     else
-        Log_Print(_("Can't create or open file '%s' (%s)"),SEARCH_FILE_HISTORY_FILE,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),SEARCH_FILE_HISTORY_FILE,g_strerror(errno));
     g_free(file_path);
 
     file_path = g_strconcat(home_path,FILE_TO_LOAD_HISTORY_FILE,NULL);
     if ( (file=fopen(file_path,"a+")) != NULL )
         fclose(file);
     else
-        Log_Print(_("Can't create or open file '%s' (%s)"),FILE_TO_LOAD_HISTORY_FILE,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),FILE_TO_LOAD_HISTORY_FILE,g_strerror(errno));
     g_free(file_path);
 
     file_path = g_strconcat(home_path,PLAYLIST_CONTENT_MASKS_FILE,NULL);
     if ( (file=fopen(file_path,"a+")) != NULL )
         fclose(file);
     else
-        Log_Print(_("Can't create or open file '%s' (%s)"),PLAYLIST_CONTENT_MASKS_FILE,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),PLAYLIST_CONTENT_MASKS_FILE,g_strerror(errno));
     g_free(file_path);
 
     file_path = g_strconcat(home_path,CDDB_SEARCH_STRING_HISTORY_FILE,NULL);
     if ( (file=fopen(file_path,"a+")) != NULL )
         fclose(file);
     else
-        Log_Print(_("Can't create or open file '%s' (%s)"),CDDB_SEARCH_STRING_HISTORY_FILE,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),CDDB_SEARCH_STRING_HISTORY_FILE,g_strerror(errno));
     g_free(file_path);
 
     file_path = g_strconcat(home_path,CDDB_SEARCH_STRING_IN_RESULT_HISTORY_FILE,NULL);
     if ( (file=fopen(file_path,"a+")) != NULL )
         fclose(file);
     else
-        Log_Print(_("Can't create or open file '%s' (%s)"),CDDB_SEARCH_STRING_IN_RESULT_HISTORY_FILE,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),CDDB_SEARCH_STRING_IN_RESULT_HISTORY_FILE,g_strerror(errno));
     g_free(file_path);
 
     file_path = g_strconcat(home_path,CDDB_LOCAL_PATH_HISTORY_FILE,NULL);
     if ( (file=fopen(file_path,"a+")) != NULL )
         fclose(file);
     else
-        Log_Print(_("Can't create or open file '%s' (%s)"),CDDB_LOCAL_PATH_HISTORY_FILE,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),CDDB_LOCAL_PATH_HISTORY_FILE,g_strerror(errno));
     g_free(file_path);
 
 
@@ -1275,7 +1274,7 @@ void Save_List_Store_To_File (gchar *filename, GtkListStore *liststore, gint col
 
     if ( Create_Easytag_Directory()==0 || (file=fopen(file_path,"w+"))==NULL )
     {
-        Log_Print(_("ERROR: Can't write list to file: %s (%s)"),file_path,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("ERROR: Can't write list to file: %s (%s)"),file_path,g_strerror(errno));
     }else
     {
         do
@@ -1315,7 +1314,7 @@ gboolean Populate_List_Store_From_File (gchar *filename, GtkListStore *liststore
 
     if ( (file=fopen(file_path,"r"))==NULL )
     {
-        Log_Print(_("Can't open file '%s' (%s)"),file_path,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Can't open file '%s' (%s)"),file_path,g_strerror(errno));
     }else
     {
         gchar *data = NULL;
@@ -1324,10 +1323,12 @@ gboolean Populate_List_Store_From_File (gchar *filename, GtkListStore *liststore
         {
             if (buffer[strlen(buffer)-1]=='\n')
                 buffer[strlen(buffer)-1]='\0';
-            if (g_utf8_validate(buffer, -1, NULL))
+            
+            /*if (g_utf8_validate(buffer, -1, NULL))
                 data = g_strdup(buffer);
             else
-                data = convert_to_utf8(buffer);
+                data = convert_to_utf8(buffer);*/
+            data = Try_To_Validate_Utf8_String(buffer);
 
             if (data && g_utf8_strlen(data, -1) > 0)
             {
@@ -1355,7 +1356,7 @@ void Load_Scan_Tag_Masks_List (GtkListStore *liststore, gint colnum, gchar **fal
     if (!Populate_List_Store_From_File(SCAN_TAG_MASKS_FILE, liststore, colnum))
     {
         // Fall back to defaults
-        Log_Print(_("Loading default 'Fill Tag' masks..."));
+        Log_Print(LOG_OK,_("Loading default 'Fill Tag' masks..."));
 
         while(fallback[i])
         {
@@ -1383,7 +1384,7 @@ void Load_Rename_File_Masks_List (GtkListStore *liststore, gint colnum, gchar **
     if (!Populate_List_Store_From_File(RENAME_FILE_MASKS_FILE, liststore, colnum))
     {
         // Fall back to defaults
-        Log_Print(_("Loading default 'Rename File' masks..."));
+        Log_Print(LOG_OK,_("Loading default 'Rename File' masks..."));
 
         while(fallback[i])
         {
@@ -1410,7 +1411,7 @@ void Load_Rename_Directory_Masks_List (GtkListStore *liststore, gint colnum, gch
     if (!Populate_List_Store_From_File(RENAME_DIRECTORY_MASKS_FILE, liststore, colnum))
     {
         // Fall back to defaults
-        Log_Print(_("Loading default 'Rename Directory' masks..."));
+        Log_Print(LOG_OK,_("Loading default 'Rename Directory' masks..."));
 
         while(fallback[i])
         {
@@ -1603,7 +1604,7 @@ gboolean Create_Easytag_Directory (void)
 
     if (!HOME_VARIABLE)
     {
-        Log_Print(_("ERROR: The environment variable HOME is not defined!"));
+        Log_Print(LOG_ERROR,_("ERROR: The environment variable HOME is not defined!"));
         return FALSE;
     }
 
@@ -1614,12 +1615,12 @@ gboolean Create_Easytag_Directory (void)
                                EASYTAG_DIR,
                                //EASYTAG_DIR[strlen(EASYTAG_DIR)-1]!=G_DIR_SEPARATOR?G_DIR_SEPARATOR_S:"",
                                NULL);
-
+        
     if ( (dir=opendir(easytag_path)) == NULL )
     {
         if ( (mkdir(easytag_path,S_IRWXU|S_IXGRP|S_IRGRP)) == -1)
         {
-            Log_Print(_("ERROR: Can't create directory '%s' (%s)!"),easytag_path,g_strerror(errno));
+            Log_Print(LOG_ERROR,_("ERROR: Can't create directory '%s' (%s)!"),easytag_path,g_strerror(errno));
             return FALSE;
         }
     }else

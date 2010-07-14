@@ -23,44 +23,10 @@
 #define __MSGBOX_H__
 
 
-#include <gtk/gtkdialog.h>
+#include <gtk/gtk.h>
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
-
-#define TYPE_MSG_BOX            (msg_box_get_type())
-#define MSG_BOX(obj)            (GTK_CHECK_CAST((obj), TYPE_MSG_BOX, MsgBox))
-#define MSG_BOX_CLASS(klass)    (GTK_CHECK_CLASS_CAST((klass), TYPE_MSG_BOX, MsgBoxClass))
-#define IS_MSG_BOX(obj)         (GTK_CHECK_TYPE((obj), TYPE_MSG_BOX))
-#define IS_MSG_BOX_CLASS(klass) (GTK_CHECK_CLASS_TYPE((klass), TYPE_MSG_BOX))
-
-
-typedef struct _MsgBox      MsgBox;
-typedef struct _MsgBoxClass MsgBoxClass;
-
-struct _MsgBox
-{
-    GtkDialog dialog;
-
-    gint icon;
-
-    /* Check button */
-    GtkWidget *check_button;
-    gint       check_button_state;
-
-    /* To know which button have been pressed */
-    gint button_clicked;
-};
-
-struct _MsgBoxClass
-{
-    GtkDialogClass parent_class;
-};
-
-
+/*
 enum Button_Type 
 {     
     BUTTON_OK       = 1<<0 ,
@@ -83,21 +49,11 @@ enum Message_Type
     MSG_QUESTION    = 1<<2,
     MSG_WARNING     = 1<<3
 };
+*/
 
 
-GType msg_box_get_type(void);
+GtkWidget *msg_box_new (gchar *title, GtkWindow *parent, GtkWidget **check_button, GtkDialogFlags flags, gchar *message, const gchar *icon, ...);
 
-GtkWidget *msg_box_new (gchar *title, gchar *message, const gchar *icon, ...);
-gint       msg_box_run (MsgBox *msgbox);
-void       msg_box_destroy (GtkObject *object);
-void       msg_box_check_button_set_active (MsgBox *msgbox, gboolean is_active);
-gboolean   msg_box_check_button_get_active (MsgBox *msgbox);
-void       msg_box_hide_check_button (MsgBox *msgbox);
-
-
-#ifdef __cplusplus
-};
-#endif /* __cplusplus */
 
 
 #endif /* __MSGBOX_H__ */

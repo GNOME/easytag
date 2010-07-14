@@ -143,6 +143,7 @@ gboolean Id3tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
         /* ID3v2 tag found */
         if (FILE_WRITING_ID3V2_WRITE_TAG == 0)
         {
+            // To delete the tag
             update = 1;
         }else
         {
@@ -414,7 +415,7 @@ gboolean Id3tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
                         data = id3_field_getbinarydata(field, &size);
                         if (pic->data)
                             g_free(pic->data);
-                        if ( (pic->data = g_memdup(data, size)) )
+                        if ( data && (pic->data = g_memdup(data, size)) )
                             pic->size = size;
                     }
                     break;
@@ -767,7 +768,6 @@ gboolean Id3tag_Write_File_v24Tag (ET_File *ETFile)
     union id3_field  *field;
     gchar            *string1;
     Picture          *pic;
-    unsigned          i;
     gint error = 0;
     gboolean strip_tags = TRUE;
     guchar genre_value = ID3_INVALID_GENRE;
@@ -786,7 +786,7 @@ gboolean Id3tag_Write_File_v24Tag (ET_File *ETFile)
     {
         struct id3_file *file;
         struct id3_tag *tmptag;
-        unsigned i;
+        unsigned tagsize;
         id3_byte_t *tmpbuf = NULL;
 
         /* Read old v2 tag */
@@ -806,12 +806,12 @@ gboolean Id3tag_Write_File_v24Tag (ET_File *ETFile)
             ID3_TAG_OPTION_UNSYNCHRONISATION);
 
         /* XXX Create new tag and copy all frames*/
-        i = id3_tag_render(tmptag, NULL);
-        if ((i > 10)
-        && (tmpbuf = g_try_malloc(i))
+        tagsize = id3_tag_render(tmptag, NULL);
+        if ((tagsize > 10)
+        && (tmpbuf = g_try_malloc(tagsize))
         && (id3_tag_render(tmptag, tmpbuf) != 0)
         )
-            v2tag = id3_tag_parse(tmpbuf, i);
+            v2tag = id3_tag_parse(tmpbuf, tagsize);
         g_free(tmpbuf);
 
         if (v2tag == NULL)
@@ -827,7 +827,7 @@ gboolean Id3tag_Write_File_v24Tag (ET_File *ETFile)
 
         /* Set padding  XXX */
         if ((v2tag->paddedsize < 1024)
-        || ((v2tag->paddedsize > 4096) && (i < 1024))
+        || ((v2tag->paddedsize > 4096) && (tagsize < 1024))
         )
             v2tag->paddedsize = 1024;
 
@@ -963,26 +963,21 @@ gboolean Id3tag_Write_File_v24Tag (ET_File *ETFile)
     {
         while (pic)
         {
+            gint i;
+
             if ((frame = id3_frame_new("APIC")) == NULL)
                 continue;
 
             id3_tag_attachframe(v2tag, frame);
             for (i = 0; (field = id3_frame_field(frame, i)); i++)
             {
+                Picture_Format format;
+                
                 switch (id3_field_type(field))
                 {
                     case ID3_FIELD_TYPE_LATIN1:
-                        switch (Picture_Format(pic))
-                        {
-                            case PICTURE_FORMAT_JPEG:
-                                id3_field_setlatin1(field, (id3_latin1_t const *)"image/jpeg");
-                                break;
-                            case PICTURE_FORMAT_PNG:
-                                id3_field_setlatin1(field, (id3_latin1_t const *)"image/png");
-                                break;
-                            default:
-                                break;
-                        }
+                        format = Picture_Format_From_Data(pic);
+                        id3_field_setlatin1(field, (id3_latin1_t const *)Picture_Mime_Type_String(format));
                         break;
                     case ID3_FIELD_TYPE_INT8:
                         id3_field_setint(field, pic->type);
@@ -1012,6 +1007,7 @@ gboolean Id3tag_Write_File_v24Tag (ET_File *ETFile)
      *********************************/
     error |= etag_write_tags(filename, v1tag, v2tag, strip_tags);
 
+    // Free data
     if (v1tag)
         id3_tag_delete(v1tag);
     if (v2tag)
@@ -1020,7 +1016,7 @@ gboolean Id3tag_Write_File_v24Tag (ET_File *ETFile)
     if (error == 0)
     {
         basename_utf8 = g_path_get_basename(filename_utf8);
-        Log_Print(_("Updated tag of '%s'"),basename_utf8);
+        Log_Print(LOG_OK,_("Updated tag of '%s'"),basename_utf8);
         g_free(basename_utf8);
     }
 
@@ -1108,7 +1104,7 @@ Id3tag_find_and_create_frame (struct id3_tag *tag, const gchar *name)
  * create new if not found
  */
 static struct id3_frame *
-Id3tag_find_and_create_txxframe(struct id3_tag *tag, const gchar *param1)
+Id3tag_find_and_create_txxframe (struct id3_tag *tag, const gchar *param1)
 {
     const id3_ucs4_t *ucs4string;
     struct id3_frame *frame;
@@ -1144,9 +1140,10 @@ Id3tag_find_and_create_txxframe(struct id3_tag *tag, const gchar *param1)
 }
 
 static int
-id3taglib_set_field(struct id3_frame *frame, const gchar *str,
-    enum id3_field_type type,
-    int num, int clear, int id3v1)
+id3taglib_set_field(struct id3_frame *frame,
+                    const gchar *str,
+                    enum id3_field_type type,
+                    int num, int clear, int id3v1)
 {
     union id3_field    *field;
     enum id3_field_type    curtype;
@@ -1311,12 +1308,12 @@ id3taglib_set_field(struct id3_frame *frame, const gchar *str,
 
 
 static int
-etag_set_tags(const gchar *str,
-    const char *frame_name,
-    enum id3_field_type field_type,
-    struct id3_tag *v1tag,
-    struct id3_tag *v2tag,
-    gboolean *strip_tags)
+etag_set_tags (const gchar *str,
+               const char *frame_name,
+               enum id3_field_type field_type,
+               struct id3_tag *v1tag,
+               struct id3_tag *v2tag,
+              gboolean *strip_tags)
 {
     struct id3_frame *ftmp;
 
@@ -1338,7 +1335,10 @@ etag_set_tags(const gchar *str,
 }
 
 static int
-etag_write_tags(const gchar *filename, const struct id3_tag *v1tag, const struct id3_tag *v2tag, gboolean strip_tags)
+etag_write_tags (const gchar *filename, 
+                 const struct id3_tag *v1tag, 
+                 const struct id3_tag *v2tag, 
+                 gboolean strip_tags)
 {
     id3_byte_t *v1buf, *v2buf;
     id3_length_t v1size = 0, v2size = 0;
@@ -1400,38 +1400,42 @@ etag_write_tags(const gchar *filename, const struct id3_tag *v1tag, const struct
     err = 1;
 
     /* Handle Id3v1 tag */
-    if (lseek(fd, -128, SEEK_END) < 0)
+    if ((curpos = lseek(fd, -128, SEEK_END)) < 0)
         goto out;
     if (read(fd, tmp, ID3_TAG_QUERYSIZE) != ID3_TAG_QUERYSIZE)
         goto out;
 
     if ( (tmp[0] == 'T')
-    && (tmp[1] == 'A')
-    && (tmp[2] == 'G')
+    &&   (tmp[1] == 'A')
+    &&   (tmp[2] == 'G')
        )
     {
-        if (lseek(fd, -128, SEEK_END) < 0)
+        if ((curpos = lseek(fd, -128, SEEK_END)) < 0)
+        {
             goto out;
+        }
     }else
-        if (lseek(fd, 0, SEEK_END) < 0)
+        if ((curpos = lseek(fd, 0, SEEK_END)) < 0)
+        {
             goto out;
+        }
 
     /* Search id3v2 tags at the end of the file (before any ID3v1 tag) */
     /* XXX: Unsafe */
-    if (lseek(fd, -ID3_TAG_QUERYSIZE, SEEK_CUR) >= 0)
+    if ((curpos = lseek(fd, -ID3_TAG_QUERYSIZE, SEEK_CUR)) >= 0)
     {
         if (read(fd, tmp, ID3_TAG_QUERYSIZE) != ID3_TAG_QUERYSIZE)
             goto out;
         filev2size = id3_tag_query((id3_byte_t const *)tmp, ID3_TAG_QUERYSIZE);
-        if ((filev2size > 10)
-        && lseek(fd, -filev2size, SEEK_CUR))
+        if ( (filev2size > 10)
+        &&   (curpos = lseek(fd, -filev2size, SEEK_CUR)) )
         {
             if (read(fd, tmp, ID3_TAG_QUERYSIZE) != ID3_TAG_QUERYSIZE)
                 goto out;
             if (id3_tag_query((id3_byte_t const *)tmp, ID3_TAG_QUERYSIZE) != filev2size)
-                lseek(fd, -ID3_TAG_QUERYSIZE - filev2size, SEEK_CUR);
+                curpos = lseek(fd, -ID3_TAG_QUERYSIZE - filev2size, SEEK_CUR);
             else
-                lseek(fd, -ID3_TAG_QUERYSIZE, SEEK_CUR);
+                curpos = lseek(fd, -ID3_TAG_QUERYSIZE, SEEK_CUR);
         }
     }
 
@@ -1447,7 +1451,7 @@ etag_write_tags(const gchar *filename, const struct id3_tag *v1tag, const struct
         goto out;
 
     /* Handle Id3v2 tag */
-    if (lseek(fd, 0, SEEK_SET) < 0)
+    if ((curpos = lseek(fd, 0, SEEK_SET)) < 0)
         goto out;
 
     if (read(fd, tmp, ID3_TAG_QUERYSIZE) != ID3_TAG_QUERYSIZE)
@@ -1461,35 +1465,35 @@ etag_write_tags(const gchar *filename, const struct id3_tag *v1tag, const struct
 
     if (filev2size == v2size)
     {
-        if (lseek(fd, 0, SEEK_SET) < 0)
+        if ((curpos = lseek(fd, 0, SEEK_SET)) < 0)
             goto out;
         if (write(fd, v2buf, v2size) != v2size)
             goto out;
     }else
     {
-    /* XXX */
-    ctxsize = lseek(fd, 0, SEEK_END) - filev2size;
-    if ((ctx = g_try_malloc(ctxsize)) == NULL)
-        goto out;
-    if (lseek(fd, filev2size, SEEK_SET) < 0)
-        goto out;
-    if (read(fd, ctx, ctxsize) != ctxsize)
-        goto out;
-    if (lseek(fd, 0, SEEK_SET) < 0)
-        goto out;
-    if (v2buf)
-        write(fd, v2buf, v2size);
+        /* XXX */
+        ctxsize = lseek(fd, 0, SEEK_END) - filev2size;
+        if ((ctx = g_try_malloc(ctxsize)) == NULL)
+            goto out;
+        if (lseek(fd, filev2size, SEEK_SET) < 0)
+            goto out;
+        if (read(fd, ctx, ctxsize) != ctxsize)
+            goto out;
+        if (lseek(fd, 0, SEEK_SET) < 0)
+            goto out;
+        if (v2buf)
+            write(fd, v2buf, v2size);
 
-    if (write(fd, ctx, ctxsize) != ctxsize)
-    {
-        g_print("OOPS\n");
-        goto out;
-    }
+        if (write(fd, ctx, ctxsize) != ctxsize)
+        {
+            g_print("OOPS\n");
+            goto out;
+        }
 
-    if ((curpos = lseek(fd, 0, SEEK_CUR)) <= 0 )
-        goto out;
-    if ((err = ftruncate(fd, curpos)))
-        goto out;
+        if ((curpos = lseek(fd, 0, SEEK_CUR)) <= 0 )
+            goto out;
+        if ((err = ftruncate(fd, curpos)))
+            goto out;
     }
 
     err = 0;

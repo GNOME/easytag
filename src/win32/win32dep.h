@@ -49,10 +49,11 @@ extern int       mkstemp(char *template);
 
 extern HINSTANCE ET_Win32_Hinstance       (void);
 extern gboolean  ET_Win32_Read_Reg_String (HKEY key, char* sub_key, char* val_name, LPBYTE data, LPDWORD data_len);
-extern char*     ET_Win32_Escape_Dirsep   (char*);
+extern char     *ET_Win32_Escape_Dirsep   (const char *filename);
 
 /* Determine ET paths */
 extern char*     ET_Win32_Install_Dir (void);
+extern char*     ET_Win32_Lib_Dir (void);
 extern char*     ET_Win32_Locale_Dir  (void);
 extern char*     ET_Win32_Data_Dir    (void);
 
@@ -76,7 +77,9 @@ extern void      ET_Win32_Path_Replace_Slashes           (gchar *path);
 /*
  *  ET specific
  */
-#define DATADIR ET_Win32_Install_Dir()
-#define LOCALE ET_Win32_Locale_Dir()
+#define DATADIR   ET_Win32_Install_Dir()
+#define LIBDIR    ET_Win32_Lib_Dir()
+#define LOCALEDIR ET_Win32_Locale_Dir()
+//#define PACKAGE_DATA_DIR DATADIR
 
 #endif /* _WIN32DEP_H_ */

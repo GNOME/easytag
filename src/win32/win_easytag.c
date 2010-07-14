@@ -360,7 +360,7 @@ static char* lcid_to_posix(LCID lcid) {
 */
 static const char *get_locale() {
 	const char *locale = NULL;
-	LCID lcid;
+	LCID lcid = 0;
 	char data[10];
 	DWORD datalen = 10;
 
@@ -377,6 +377,7 @@ static const char *get_locale() {
 			return locale;
 	}
 
+    // List of LCID : http://www.microsoft.com/globaldev/reference/lcid-all.mspx
 	lcid = GetUserDefaultLCID();
 	if ((locale = lcid_to_posix(lcid)))
 		return locale;
@@ -546,7 +547,7 @@ WinMain (struct HINSTANCE__ *hInstance, struct HINSTANCE__ *hPrevInstance,
 		snprintf(errbuf, 512, "Error loading 'easytag.dll'. Error: (%u) %s%s%s",
 			(UINT) dw, err_msg,
 			mod_not_found ? "\n" : "",
-			mod_not_found ? "This probably means that GTK+ can't be found." : "");
+			mod_not_found ? "This probably means that a dependency (like GTK+, libogg or libvorbis) can't be found." : "");
 		printf(errbuf);
 		MessageBox(NULL, errbuf, TEXT("Error"), MB_OK | MB_TOPMOST);
 

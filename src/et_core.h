@@ -164,7 +164,7 @@ struct _Picture
     gchar   *description;
     gint     width;         /* Original width of the picture */
     gint     height;        /* Original height of the picture */
-    gulong   size;          /* Picture size in bits */
+    gulong   size;          /* Picture size in bytes (like lstat) */
     guchar  *data;
     Picture *next;
 };
@@ -412,7 +412,6 @@ gboolean ET_File_Name_Convert_Character          (gchar *filename_utf8);
 gchar   *ET_File_Name_Format_Extension           (ET_File *ETFile);
 gchar   *ET_File_Name_Generate                   (ET_File *ETFile, gchar *new_file_name);
 guint    ET_Get_Number_Of_Files_In_Directory     (gchar *path_utf8);
-gchar   *ET_Utf8_Validate_Full_String            (gchar *string_to_validate);
 
 gboolean ET_Detect_Changes_Of_File_Tag          (File_Tag  *FileTag1,  File_Tag  *FileTag2);
 

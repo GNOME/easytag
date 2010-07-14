@@ -123,7 +123,7 @@ gboolean Flac_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
     if ( (file=fopen(filename,"r"))==NULL )
     {
         gchar *filename_utf8 = filename_to_display(filename);
-        Log_Print(_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
         g_free(filename_utf8);
         return FALSE;
     }
@@ -245,24 +245,27 @@ void metadata_callback_(const FLAC__StreamDecoder *decoder, const FLAC__StreamMe
 {
     file_info_struct *file_info = (file_info_struct *)client_data;
     (void)decoder;
-    if (metadata->type == FLAC__METADATA_TYPE_STREAMINFO) {
+    if (metadata->type == FLAC__METADATA_TYPE_STREAMINFO)
+    {
         FLAC__ASSERT(metadata->data.stream_info.total_samples < 0x100000000); /* this plugin can only handle < 4 gigasamples */
         file_info->total_samples = (unsigned)(metadata->data.stream_info.total_samples&0xffffffff);
         file_info->bits_per_sample = metadata->data.stream_info.bits_per_sample;
         file_info->channels = metadata->data.stream_info.channels;
         file_info->sample_rate = metadata->data.stream_info.sample_rate;
 
-        if (file_info->bits_per_sample == 8) {
+        if (file_info->bits_per_sample == 8)
+        {
             file_info->sample_format = FMT_S8;
-        }
-        else if (file_info->bits_per_sample == 16) {
+        } else if (file_info->bits_per_sample == 16)
+        {
             file_info->sample_format = FMT_S16_NE;
-        }
-        else {
+        } else
+        {
             file_info->abort_flag = true;
             return;
         }
-        file_info->length_in_msec = file_info->total_samples * 10 / (file_info->sample_rate / 100);
+        if (file_info->sample_rate != 0 && (file_info->sample_rate / 100) != 0) // To prevent crash...
+            file_info->length_in_msec = file_info->total_samples * 10 / (file_info->sample_rate / 100);
     }
 }
 

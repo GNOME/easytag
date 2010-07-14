@@ -141,6 +141,10 @@ gchar *Rename_File_Masks [] =
     "%n_-_%a_-_%t",
     "%n. %a - %t",
     "%n._%a_-_%t",
+    "%a - %b"G_DIR_SEPARATOR_S"%n - %t",
+    "%a_-_%b"G_DIR_SEPARATOR_S"%n_-_%t",
+    "%a - %b (%y) - %g"G_DIR_SEPARATOR_S"%n - %t",
+    "%a_-_%b_(%y)_-_%g"G_DIR_SEPARATOR_S"%n_-_%t",
     "%n - %t",
     "%n_-_%t",
     "%n. %t",
@@ -352,7 +356,7 @@ void Scan_Tag_With_Mask (ET_File *ETFile)
     g_free(mask);
     Statusbar_Message(_("Tag successfully scanned..."),TRUE);
     filename_utf8 = g_path_get_basename( ((File_Name *)ETFile->FileNameNew->data)->value_utf8 );
-    Log_Print(_("Tag successfully scanned...(%s)"),filename_utf8);
+    Log_Print(LOG_OK,_("Tag successfully scanned...(%s)"),filename_utf8);
     g_free(filename_utf8);
 }
 
@@ -392,7 +396,7 @@ GList *Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask)
     if (i==ET_FILE_DESCRIPTION_SIZE)
     {
         gchar *tmp1 = g_path_get_basename(filename_utf8);
-        Log_Print(_("Tag scanner: strange..., the extension '%s' was not found into filename '%s'!"),tmp,tmp1);
+        Log_Print(LOG_ERROR,_("Tag scanner: strange..., the extension '%s' was not found into filename '%s'!"),tmp,tmp1);
         g_free(tmp1);
     }
 
@@ -474,7 +478,7 @@ GList *Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask)
                     file_seq = file_seq + len; // We remove it
                 }else
                 {
-                    Log_Print(_("Scan Error: can't find separator '%s' within '%s'"),buf,file_seq_utf8);
+                    Log_Print(LOG_ERROR,_("Scan Error: can't find separator '%s' within '%s'"),buf,file_seq_utf8);
                 }
                 g_free(buf);
             }
@@ -503,7 +507,7 @@ GList *Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask)
                 // Try to find the separator in 'file_seq'
                 if ( (tmp=strstr(file_seq,separator)) == NULL )
                 {
-                    Log_Print(_("Scan Error: can't find separator '%s' within '%s'"),separator,file_seq_utf8);
+                    Log_Print(LOG_ERROR,_("Scan Error: can't find separator '%s' within '%s'"),separator,file_seq_utf8);
                     separator[0] = 0; // Needed to avoid error when calculting 'len' below
                 }
 
@@ -661,8 +665,15 @@ void Scan_Rename_File_With_Mask (ET_File *ETFile)
     {
         GtkWidget *msgbox;
         gchar *msg = g_strdup_printf(_("Could not convert filename '%s' into system filename encoding."), filename_generated_utf8);
-        msgbox = msg_box_new(_("Filename translation"),msg,GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
-        msg_box_run(MSG_BOX(msgbox));
+        msgbox = msg_box_new(_("Filename translation"),
+                             GTK_WINDOW(ScannerWindow),
+                             NULL,
+                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                             msg,
+                             GTK_STOCK_DIALOG_ERROR,
+                             GTK_STOCK_OK, GTK_RESPONSE_OK,
+                             NULL);
+        gtk_dialog_run(GTK_DIALOG(msgbox));
         gtk_widget_destroy(msgbox);
         g_free(msg);
         g_free(filename_generated_utf8);
@@ -686,7 +697,7 @@ void Scan_Rename_File_With_Mask (ET_File *ETFile)
     Statusbar_Message(_("New file name successfully scanned..."),TRUE);
 
     filename_new_utf8 = g_path_get_basename(((File_Name *)ETFile->FileNameNew->data)->value_utf8);
-    Log_Print(_("New file name successfully scanned...(%s)"),filename_new_utf8);
+    Log_Print(LOG_OK,_("New file name successfully scanned...(%s)"),filename_new_utf8);
     g_free(filename_new_utf8);
 
     return;
@@ -984,13 +995,14 @@ void Scan_Rename_File_Prefix_Path (void)
 
     // The current text in the combobox
     combo_text = (gchar *)gtk_entry_get_text(GTK_ENTRY(GTK_BIN(RenameFileMaskCombo)->child));
-    if (!g_utf8_validate(combo_text, -1, NULL))
+    /*if (!g_utf8_validate(combo_text, -1, NULL))
     {
         combo_tmp = convert_to_utf8(combo_text);
     }else
     {
         combo_tmp = g_strdup(combo_text);
-    }
+    }*/
+    combo_tmp = Try_To_Validate_Utf8_String(combo_text);
 
     // If the path already exists we don't add it again
     // Use g_utf8_collate_key instead of strncmp
@@ -1077,7 +1089,7 @@ void Scan_Process_Fields (ET_File *ETFile)
 
     st_filename = (File_Name *)ETFile->FileNameNew->data;
     st_filetag  = (File_Tag  *)ETFile->FileTag->data;
-    
+
     /* Process the filename */
     if (st_filename != NULL)
     {
@@ -1135,7 +1147,7 @@ void Scan_Process_Fields (ET_File *ETFile)
             }
 
             string = g_strdup(st_filetag->artist);
-            
+
             Scan_Process_Fields_Functions(&string);
 
             ET_Set_Field_File_Tag_Item(&FileTag->artist,string);
@@ -1153,7 +1165,7 @@ void Scan_Process_Fields (ET_File *ETFile)
             }
 
             string = g_strdup(st_filetag->album);
-            
+
             Scan_Process_Fields_Functions(&string);
 
             ET_Set_Field_File_Tag_Item(&FileTag->album,string);
@@ -1171,7 +1183,7 @@ void Scan_Process_Fields (ET_File *ETFile)
             }
 
             string = g_strdup(st_filetag->genre);
-            
+
             Scan_Process_Fields_Functions(&string);
 
             ET_Set_Field_File_Tag_Item(&FileTag->genre,string);
@@ -1189,7 +1201,7 @@ void Scan_Process_Fields (ET_File *ETFile)
             }
 
             string = g_strdup(st_filetag->comment);
-            
+
             Scan_Process_Fields_Functions(&string);
 
             ET_Set_Field_File_Tag_Item(&FileTag->comment,string);
@@ -1207,7 +1219,7 @@ void Scan_Process_Fields (ET_File *ETFile)
             }
 
             string = g_strdup(st_filetag->composer);
-            
+
             Scan_Process_Fields_Functions(&string);
 
             ET_Set_Field_File_Tag_Item(&FileTag->composer,string);
@@ -1225,7 +1237,7 @@ void Scan_Process_Fields (ET_File *ETFile)
             }
 
             string = g_strdup(st_filetag->orig_artist);
-            
+
             Scan_Process_Fields_Functions(&string);
 
             ET_Set_Field_File_Tag_Item(&FileTag->orig_artist,string);
@@ -1243,7 +1255,7 @@ void Scan_Process_Fields (ET_File *ETFile)
             }
 
             string = g_strdup(st_filetag->copyright);
-            
+
             Scan_Process_Fields_Functions(&string);
 
             ET_Set_Field_File_Tag_Item(&FileTag->copyright,string);
@@ -1261,7 +1273,7 @@ void Scan_Process_Fields (ET_File *ETFile)
             }
 
             string = g_strdup(st_filetag->url);
-            
+
             Scan_Process_Fields_Functions(&string);
 
             ET_Set_Field_File_Tag_Item(&FileTag->url,string);
@@ -1279,7 +1291,7 @@ void Scan_Process_Fields (ET_File *ETFile)
             }
 
             string = g_strdup(st_filetag->encoded_by);
-            
+
             Scan_Process_Fields_Functions(&string);
 
             ET_Set_Field_File_Tag_Item(&FileTag->encoded_by,string);
@@ -1418,7 +1430,7 @@ void Scan_Process_Fields_Letter_Uppercase (gchar *string)
 }
 
 /*
- * Function to set the first letter of each word to uppercase, according the "Chicago Manual of Style"
+ * Function to set the first letter of each word to uppercase, according the "Chicago Manual of Style" (http://www.docstyles.com/cmscrib.htm#Note2)
  * No needed to reallocate
  */
 void Scan_Process_Fields_First_Letters_Uppercase (gchar *string)
@@ -1485,7 +1497,7 @@ void Scan_Process_Fields_First_Letters_Uppercase (gchar *string)
 
     if (!g_utf8_validate(string,-1,NULL))
     {
-        Log_Print("Scan_Process_Fields_First_Letters_Uppercase: Not a valid utf8! quiting");
+        Log_Print(LOG_ERROR,"Scan_Process_Fields_First_Letters_Uppercase: Not a valid utf8! quiting");
         return;
     }
     // Removes trailing whitespace
@@ -1582,7 +1594,7 @@ void Scan_Process_Fields_First_Letters_Uppercase (gchar *string)
 void Scan_Process_Fields_Remove_Space (gchar *string)
 {
     gchar *tmp, *tmp1;
-    
+
     tmp = tmp1 = string;
 
     while (*tmp)
@@ -1606,7 +1618,7 @@ void Scan_Process_Fields_Insert_Space (gchar **string)
     gint j;
     guint string_length;
     gchar *string1;
-    
+
     // FIX ME : we suppose that it will not grow more than 2 times its size...
     string_length = 2 * strlen(*string);
     //string1 = g_realloc(*string, string_length+1);
@@ -1615,7 +1627,7 @@ void Scan_Process_Fields_Insert_Space (gchar **string)
     string1[string_length]='\0';
     g_free(*string);
     *string = string1;
-    
+
     for (iter = g_utf8_next_char(*string); *iter; iter = g_utf8_next_char(iter)) // At start : g_utf8_next_char to not consider first "uppercase" letter
     {
         c = g_utf8_get_char(iter);
@@ -1637,7 +1649,7 @@ void Scan_Process_Fields_Insert_Space (gchar **string)
 void Scan_Process_Fields_Keep_One_Space (gchar *string)
 {
     gchar *tmp, *tmp1;
-    
+
     tmp = tmp1 = string;
 
     // Remove multiple consecutive underscores and spaces.
@@ -1649,7 +1661,7 @@ void Scan_Process_Fields_Keep_One_Space (gchar *string)
             break;
         *(tmp++) = *(tmp1++);
         while (*tmp1 == ' ' || *tmp1 == '_')
-            *tmp1++;
+            *(tmp1++);
     }
     *tmp = '\0';
 }
@@ -1710,16 +1722,16 @@ void Scan_Convert_Character (gchar **string)
     gchar  *token;
     gint    n_tokens;
     gchar **result;
-   
-    
+
+
     tokens_list = NULL;
     n_tokens = 0;
     s = current = *string;
-    
+
     // Find tokens
     if (strlen(from) > 0)
     {
-        while (s 
+        while (s
         &&    *s != '\0'
         &&    (s = g_strstr_len(current,strlen(current),from)) )
         {
@@ -1738,7 +1750,7 @@ void Scan_Convert_Character (gchar **string)
     }else
     {
         // We search an empty string... we suppose it exists between each UTF-8 character
-        while (s 
+        while (s
         &&    *s != '\0'
         &&    (s = g_utf8_find_next_char(current,NULL)) )
         {
@@ -1748,16 +1760,16 @@ void Scan_Convert_Character (gchar **string)
             current = s;
         }
     }
-    
+
     // Load the tokens list in an array for g_strjoinv
     result = g_new (gchar *, n_tokens + 1);
     result[n_tokens] = NULL;
     for (list = tokens_list; list != NULL; list = list->next)
         result[--n_tokens] = list->data;
     g_slist_free(tokens_list);
-    
+
     g_free(*string);
-    
+
     // Join all the tokens with the 'to' separator
     *string = g_strjoinv(to,result);
 
@@ -1786,18 +1798,24 @@ gint Scan_Word_Is_Roman_Numeral (gchar *text)
 
     while (*tmp)
     {
-        if (*tmp == (gunichar)'i' || 
-            *tmp == (gunichar)'v' || 
-            *tmp == (gunichar)'x' || 
-            *tmp == (gunichar)'l' ||
-            *tmp == (gunichar)'c' ||
-            *tmp == (gunichar)'d' ||
-            *tmp == (gunichar)'m')
+        if (*tmp == (gunichar)'i'
+        ||  *tmp == (gunichar)'v'
+        ||  *tmp == (gunichar)'x'
+        ||  *tmp == (gunichar)'l'
+        ||  *tmp == (gunichar)'c'
+        ||  *tmp == (gunichar)'d'
+        ||  *tmp == (gunichar)'m')
         {
+            // Found a roman numeral => continue
             tmp++;
             len++;
-        } else if (*tmp == ' ' || *tmp == '_')
+        } else if (*tmp == ' '
+               ||  *tmp == '_'
+               ||  *tmp == '.'
+               ||  *tmp == ','
+               ||  *tmp == '-')
         {
+            // Found separator => stop
             return len;
         } else
         {
@@ -1807,6 +1825,57 @@ gint Scan_Word_Is_Roman_Numeral (gchar *text)
 
     return len;
 }
+
+
+/*
+**  roman2long() - Converts a roman numeral string into a long integer
+**  public domain by Bob Stout
+**  Arguments: 1 - Roman numeral string
+**
+**  Returns: Long value if valid, else -1L
+*/
+/*
+long roman2long(const char *str)
+{
+    struct numeral {
+      long val;
+      int  ch;
+    };
+    
+    static struct numeral numerals[] = {
+          {    1L, 'I' },
+          {    5L, 'V' },
+          {   10L, 'X' },
+          {   50L, 'L' },
+          {  100L, 'C' },
+          {  500L, 'D' },
+          { 1000L, 'M' }
+    };
+      int i, j, k;
+      long retval = 0L;
+
+      if (!str)
+            return -1L;
+      for (i = 0, k = -1; str[i]; ++i)
+      {
+            for (j = 0; j < 7; ++j)
+            {
+                  if (numerals[j].ch == toupper(str[i]))
+                        break;
+            }
+            if (7 == j)
+                  return -1L;
+            if (k >= 0 && k < j)
+            {
+                  retval -= numerals[k].val * 2;
+                  retval += numerals[j].val;
+            }
+            else  retval += numerals[j].val;
+            k = j;
+      }
+      return retval;
+}*/
+
 
 
 /*
@@ -1847,7 +1916,7 @@ gchar **Scan_Return_File_Tag_Field_From_Mask_Code (File_Tag *FileTag, gchar code
         case 'i':    /* Ignored */
             return NULL;
         default:
-            Log_Print("Scanner: Invalid code '%%%c' found!",code);
+            Log_Print(LOG_ERROR,"Scanner: Invalid code '%%%c' found!",code);
             return NULL;
     }
 }
@@ -1938,15 +2007,15 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_widget_set_size_request(ScannerOptionCombo, 160, -1);
 
     /* Option for Tag */
-    gtk_combo_box_append_text(GTK_COMBO_BOX(ScannerOptionCombo), 
+    gtk_combo_box_append_text(GTK_COMBO_BOX(ScannerOptionCombo),
                               _(Scanner_Option_Menu_Items[SCANNER_FILL_TAG]));
 
     /* Option for FileName */
-    gtk_combo_box_append_text(GTK_COMBO_BOX(ScannerOptionCombo), 
+    gtk_combo_box_append_text(GTK_COMBO_BOX(ScannerOptionCombo),
                               _(Scanner_Option_Menu_Items[SCANNER_RENAME_FILE]));
 
     /* Option for ProcessFields */
-    gtk_combo_box_append_text(GTK_COMBO_BOX(ScannerOptionCombo), 
+    gtk_combo_box_append_text(GTK_COMBO_BOX(ScannerOptionCombo),
                               _(Scanner_Option_Menu_Items[SCANNER_PROCESS_FIELDS]));
 
     // Selection of the item made at the end of the function
@@ -2677,7 +2746,7 @@ void ScannerWindow_Apply_Changes (void)
 
         // The scanner selected
         SCANNER_TYPE = gtk_combo_box_get_active(GTK_COMBO_BOX(ScannerOptionCombo));
-        
+
         SCAN_MASK_EDITOR_BUTTON   = GTK_TOGGLE_BUTTON(MaskEditorButton)->active;
         SCAN_LEGEND_BUTTON        = GTK_TOGGLE_BUTTON(LegendButton)->active;
 
@@ -2693,7 +2762,7 @@ void ScannerWindow_Apply_Changes (void)
         PROCESS_COPYRIGHT_FIELD   = GTK_TOGGLE_BUTTON(ProcessCopyrightField)->active;
         PROCESS_URL_FIELD         = GTK_TOGGLE_BUTTON(ProcessURLField)->active;
         PROCESS_ENCODED_BY_FIELD  = GTK_TOGGLE_BUTTON(ProcessEncodedByField)->active;
-        
+
         if (PROCESS_FIELDS_CONVERT_FROM) g_free(PROCESS_FIELDS_CONVERT_FROM);
         PROCESS_FIELDS_CONVERT_FROM = g_strdup(gtk_entry_get_text(GTK_ENTRY(ProcessFieldsConvertFrom)));
         if (PROCESS_FIELDS_CONVERT_TO) g_free(PROCESS_FIELDS_CONVERT_TO);
@@ -3152,14 +3221,14 @@ void Mask_Editor_List_Duplicate (void)
 
     if (g_list_length(selectedRows) == 0)
     {
-        Log_Print(_("Copy: No row selected!"));
+        Log_Print(LOG_ERROR,_("Copy: No row selected!"));
         g_list_foreach(selectedRows, (GFunc) gtk_tree_path_free, NULL);
         g_list_free(selectedRows);
         return;
     }
 
     /* Loop through selected rows, duplicating them into a GList
-     * We cannot directly insert because the paths in selectedRows 
+     * We cannot directly insert because the paths in selectedRows
      * get out of date after an insertion */
     while (selectedRows)
     {
@@ -3174,7 +3243,7 @@ void Mask_Editor_List_Duplicate (void)
         if (!selectedRows) break;
     }
 
-    /* Duplicate the relevant entries, by looping through the list backwards 
+    /* Duplicate the relevant entries, by looping through the list backwards
      * (to preserve original order) */
     toInsert = g_list_last(toInsert);
     while (toInsert)
@@ -3189,7 +3258,7 @@ void Mask_Editor_List_Duplicate (void)
     // Set focus to the last inserted line
     if (toInsert)
         Mask_Editor_List_Set_Row_Visible(treeModel,&rowIter);
-        
+
     /* Free data no longer needed */
     selectedRows = g_list_first(selectedRows);
     toInsert = g_list_first(toInsert);
@@ -3212,10 +3281,11 @@ void Mask_Editor_List_Add (void)
     {
         while(Scan_Masks[i])
         {
-            if (!g_utf8_validate(Scan_Masks[i], -1, NULL))
+            /*if (!g_utf8_validate(Scan_Masks[i], -1, NULL))
                 temp = convert_to_utf8(Scan_Masks[i]);
             else
-                temp = g_strdup(Scan_Masks[i]);
+                temp = g_strdup(Scan_Masks[i]);*/
+            temp = Try_To_Validate_Utf8_String(Scan_Masks[i]);
 
             gtk_list_store_append(GTK_LIST_STORE(treemodel), &iter);
             gtk_list_store_set(GTK_LIST_STORE(treemodel), &iter,
@@ -3227,10 +3297,11 @@ void Mask_Editor_List_Add (void)
     {
         while(Rename_File_Masks[i])
         {
-            if (!g_utf8_validate(Rename_File_Masks[i], -1, NULL))
+            /*if (!g_utf8_validate(Rename_File_Masks[i], -1, NULL))
                 temp = convert_to_utf8(Rename_File_Masks[i]);
             else
-                temp = g_strdup(Scan_Masks[i]);
+                temp = g_strdup(Rename_File_Masks[i]);*/
+            temp = Try_To_Validate_Utf8_String(Rename_File_Masks[i]);
 
             gtk_list_store_append(GTK_LIST_STORE(treemodel), &iter);
             gtk_list_store_set(GTK_LIST_STORE(treemodel), &iter,
@@ -3256,7 +3327,7 @@ void Mask_Editor_List_Remove (void)
     treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(MaskEditorList));
 
     if (gtk_tree_selection_count_selected_rows(selection) == 0) {
-        Log_Print(_("Remove: No row selected!"));
+        Log_Print(LOG_ERROR,_("Remove: No row selected!"));
         return;
     }
 
@@ -3303,7 +3374,7 @@ void Mask_Editor_List_Move_Up (void)
 
     if (g_list_length(selectedRows) == 0)
     {
-        Log_Print(_("Move Up: No row selected!"));
+        Log_Print(LOG_ERROR,_("Move Up: No row selected!"));
         g_list_foreach(selectedRows, (GFunc)gtk_tree_path_free, NULL);
         g_list_free(selectedRows);
         return;
@@ -3356,7 +3427,7 @@ void Mask_Editor_List_Move_Down (void)
 
     if (g_list_length(selectedRows) == 0)
     {
-        Log_Print(_("Move Down: No row selected!"));
+        Log_Print(LOG_ERROR,_("Move Down: No row selected!"));
         g_list_foreach(selectedRows, (GFunc)gtk_tree_path_free, NULL);
         g_list_free(selectedRows);
         return;

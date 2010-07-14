@@ -459,7 +459,8 @@ GList *ET_Add_File_To_File_List (gchar *filename)
     guint         ETFileKey;
     guint         undo_key;
     gchar        *filename_utf8 = filename_to_display(filename);
-
+    const gchar  *locale_lc_ctype = getenv("LC_CTYPE");
+    
     if (!filename)
         return ETCore->ETFileList;
 
@@ -482,6 +483,11 @@ GList *ET_Add_File_To_File_List (gchar *filename)
     /* Fill the File_Tag structure for FileTagList */
     FileTag = ET_File_Tag_Item_New();
     FileTag->saved = TRUE;    /* The file hasn't been changed, so it's saved */
+
+    /* Patch from Doruk Fisek : avoid upper/lower conversion bugs (like I->i conversion in 
+     * some locales) in tag parsing. The problem occurs for example with Turkish language
+     * where it can't read 'TITLE=' field if it is written as 'Title=' in the file */
+    setlocale(LC_CTYPE, "C");
 
     switch (ETFileDescription->TagType)
     {
@@ -515,7 +521,7 @@ GList *ET_Add_File_To_File_List (gchar *filename)
 #endif
         case UNKNOWN_TAG:
         default:
-            Log_Print("FileTag: Undefined tag type (%d) for file %s",ETFileDescription->TagType,filename_utf8);
+            Log_Print(LOG_ERROR,"FileTag: Undefined tag type (%d) for file %s",ETFileDescription->TagType,filename_utf8);
             break;
     }
 
@@ -563,11 +569,14 @@ GList *ET_Add_File_To_File_List (gchar *filename)
 #endif
         case UNKNOWN_FILE:
         default:
-            Log_Print("ETFileInfo: Undefined file type (%d) for file %s",ETFileDescription->FileType,filename_utf8);
+            Log_Print(LOG_ERROR,"ETFileInfo: Undefined file type (%d) for file %s",ETFileDescription->FileType,filename_utf8);
             ET_Read_File_Info(filename,ETFileInfo); // To get at least the file size
             break;
     }
 
+    /* Restore previous value */
+    setlocale(LC_CTYPE, locale_lc_ctype ? locale_lc_ctype : "");
+    
     /* Attach all data defined above to this ETFile item */
     ETFile = ET_File_Item_New();
     ETFile->IndexKey          = 0; // Will be renumered after...
@@ -2542,7 +2551,7 @@ void ET_Display_File_Data_To_UI (ET_File *ETFile)
         default:
             gtk_frame_set_label(GTK_FRAME(TagFrame),_("Tag"));
             ET_Display_File_Tag_To_UI(ETFile); // To reinit screen
-            Log_Print("FileTag: Undefined tag type %d for file %s.",ETFileDescription->TagType,cur_filename_utf8);
+            Log_Print(LOG_ERROR,"FileTag: Undefined tag type %d for file %s.",ETFileDescription->TagType,cur_filename_utf8);
             break;
     }
 
@@ -2605,7 +2614,7 @@ void ET_Display_File_Data_To_UI (ET_File *ETFile)
             gtk_frame_set_label(GTK_FRAME(FileFrame),_("File"));
             // Default displaying
             ET_Display_File_Info_To_UI(ETFile->ETFileInfo);
-            Log_Print("ETFileInfo: Undefined file type %d for file %s.",ETFileDescription->FileType,cur_filename_utf8);
+            Log_Print(LOG_ERROR,"ETFileInfo: Undefined file type %d for file %s.",ETFileDescription->FileType,cur_filename_utf8);
             break;
     }
 
@@ -2680,7 +2689,7 @@ void ET_Display_Filename_To_UI (ET_File *ETFile)
     if ((pos=g_utf8_strrchr(basename_utf8, -1, '.'))!=NULL)
         *pos = 0;
     gtk_entry_set_text(GTK_ENTRY(FileEntry),basename_utf8);
-    /*FIX ME : gchar *tmp =     ET_Utf8_Validate_Full_String(basename_utf8);
+    /*FIX ME : gchar *tmp = Try_To_Validate_Utf8_String(basename_utf8);
     g_free(tmp);*/
     g_free(basename_utf8);
     // Justify to the left text into FileEntry
@@ -2724,7 +2733,7 @@ gboolean ET_Display_File_Tag_To_UI (ET_File *ETFile)
     /* Show title */
     if (FileTag && FileTag->title)
     {
-        gchar *tmp = ET_Utf8_Validate_Full_String(FileTag->title);
+        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->title);
         gtk_entry_set_text(GTK_ENTRY(TitleEntry), tmp);
         g_free(tmp);
     }else
@@ -2733,7 +2742,7 @@ gboolean ET_Display_File_Tag_To_UI (ET_File *ETFile)
     /* Show artist */
     if (FileTag && FileTag->artist)
     {
-        gchar *tmp = ET_Utf8_Validate_Full_String(FileTag->artist);
+        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->artist);
         gtk_entry_set_text(GTK_ENTRY(ArtistEntry), tmp);
         g_free(tmp);
     }else
@@ -2742,7 +2751,7 @@ gboolean ET_Display_File_Tag_To_UI (ET_File *ETFile)
     /* Show album */
     if (FileTag && FileTag->album)
     {
-        gchar *tmp = ET_Utf8_Validate_Full_String(FileTag->album);
+        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->album);
         gtk_entry_set_text(GTK_ENTRY(AlbumEntry), tmp);
         g_free(tmp);
     }else
@@ -2751,7 +2760,7 @@ gboolean ET_Display_File_Tag_To_UI (ET_File *ETFile)
     /* Show disc_number */
     if (FileTag && FileTag->disc_number)
     {
-        gchar *tmp = ET_Utf8_Validate_Full_String(FileTag->disc_number);
+        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->disc_number);
         gtk_entry_set_text(GTK_ENTRY(DiscNumberEntry), tmp);
         g_free(tmp);
     }else
@@ -2760,7 +2769,7 @@ gboolean ET_Display_File_Tag_To_UI (ET_File *ETFile)
     /* Show year */
     if (FileTag && FileTag->year)
     {
-        gchar *tmp = ET_Utf8_Validate_Full_String(FileTag->year);
+        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->year);
         gtk_entry_set_text(GTK_ENTRY(YearEntry),tmp);
         g_free(tmp);
     }else
@@ -2769,7 +2778,7 @@ gboolean ET_Display_File_Tag_To_UI (ET_File *ETFile)
     /* Show track */
     if (FileTag && FileTag->track)
     {
-        gchar *tmp = ET_Utf8_Validate_Full_String(FileTag->track);
+        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->track);
         gtk_entry_set_text(GTK_ENTRY(GTK_BIN(TrackEntryCombo)->child),tmp);
         g_free(tmp);
     }else
@@ -2778,7 +2787,7 @@ gboolean ET_Display_File_Tag_To_UI (ET_File *ETFile)
     /* Show number of tracks on the album */
     if (FileTag && FileTag->track_total)
     {
-        gchar *tmp = ET_Utf8_Validate_Full_String(FileTag->track_total);
+        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->track_total);
         gtk_entry_set_text(GTK_ENTRY(TrackTotalEntry),tmp);
         g_free(tmp);
     }else
@@ -2787,7 +2796,7 @@ gboolean ET_Display_File_Tag_To_UI (ET_File *ETFile)
     /* Show genre */
     if (FileTag && FileTag->genre)
     {
-        gchar *tmp = ET_Utf8_Validate_Full_String(FileTag->genre);
+        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->genre);
         gtk_entry_set_text(GTK_ENTRY(GTK_BIN(GenreCombo)->child), tmp);
         g_free(tmp);
     }else
@@ -2797,7 +2806,7 @@ gboolean ET_Display_File_Tag_To_UI (ET_File *ETFile)
     //textbuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(CommentView));
     if (FileTag && FileTag->comment)
     {
-        gchar *tmp = ET_Utf8_Validate_Full_String(FileTag->comment);
+        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->comment);
         //gtk_text_buffer_set_text(GTK_TEXT_BUFFER(textbuffer), FileTag->comment, -1);
         gtk_entry_set_text(GTK_ENTRY(CommentEntry), tmp);
         g_free(tmp);
@@ -2808,7 +2817,7 @@ gboolean ET_Display_File_Tag_To_UI (ET_File *ETFile)
     /* Show composer */
     if (FileTag && FileTag->composer)
     {
-        gchar *tmp = ET_Utf8_Validate_Full_String(FileTag->composer);
+        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->composer);
         gtk_entry_set_text(GTK_ENTRY(ComposerEntry), tmp);
         g_free(tmp);
     }else
@@ -2817,7 +2826,7 @@ gboolean ET_Display_File_Tag_To_UI (ET_File *ETFile)
     /* Show original artist */
     if (FileTag && FileTag->orig_artist)
     {
-        gchar *tmp = ET_Utf8_Validate_Full_String(FileTag->orig_artist);
+        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->orig_artist);
         gtk_entry_set_text(GTK_ENTRY(OrigArtistEntry), tmp);
         g_free(tmp);
     }else
@@ -2826,7 +2835,7 @@ gboolean ET_Display_File_Tag_To_UI (ET_File *ETFile)
     /* Show copyright */
     if (FileTag && FileTag->copyright)
     {
-        gchar *tmp = ET_Utf8_Validate_Full_String(FileTag->copyright);
+        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->copyright);
         gtk_entry_set_text(GTK_ENTRY(CopyrightEntry), tmp);
         g_free(tmp);
     }else
@@ -2835,7 +2844,7 @@ gboolean ET_Display_File_Tag_To_UI (ET_File *ETFile)
     /* Show URL */
     if (FileTag && FileTag->url)
     {
-        gchar *tmp = ET_Utf8_Validate_Full_String(FileTag->url);
+        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->url);
         gtk_entry_set_text(GTK_ENTRY(URLEntry), tmp);
         g_free(tmp);
     }else
@@ -2844,7 +2853,7 @@ gboolean ET_Display_File_Tag_To_UI (ET_File *ETFile)
     /* Show Encoded by */
     if (FileTag && FileTag->encoded_by)
     {
-        gchar *tmp = ET_Utf8_Validate_Full_String(FileTag->encoded_by);
+        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->encoded_by);
         gtk_entry_set_text(GTK_ENTRY(EncodedByEntry), tmp);
         g_free(tmp);
     }else
@@ -2859,7 +2868,7 @@ gboolean ET_Display_File_Tag_To_UI (ET_File *ETFile)
         GtkWidget *page;
         gchar *string;
 
-        PictureEntry_Update(FileTag->picture, 0);
+        PictureEntry_Update(FileTag->picture, FALSE);
 
         // Count the number of items
         while (pic)
@@ -3012,7 +3021,7 @@ void ET_Save_File_Data_From_UI (ET_File *ETFile)
             break;
         case UNKNOWN_TAG:
         default:
-            Log_Print("FileTag: Undefined tag type %d for file %s.",ETFileDescription->TagType,cur_filename_utf8);
+            Log_Print(LOG_ERROR,"FileTag: Undefined tag type %d for file %s.",ETFileDescription->TagType,cur_filename_utf8);
             break;
     }
 
@@ -3057,9 +3066,15 @@ gboolean ET_Save_File_Name_From_UI (ET_File *ETFile, File_Name *FileName)
         msg = g_strdup_printf(_("Could not convert filename : '%s'\n"
                                 "into system filename encoding\n"
                                 "(Try setting the environment variable G_FILENAME_ENCODING)."), filename_escaped_utf8);
-        msgbox = msg_box_new(_("Filename translation"),msg,GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
-        msg_box_hide_check_button(MSG_BOX(msgbox));
-        msg_box_run(MSG_BOX(msgbox));
+        msgbox = msg_box_new(_("Filename translation"),
+                             GTK_WINDOW(MainWindow),
+                             NULL,
+                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                             msg,
+                             GTK_STOCK_DIALOG_ERROR,
+                             GTK_STOCK_OK, GTK_RESPONSE_OK,
+                             NULL);
+        gtk_dialog_run(GTK_DIALOG(msgbox));
         gtk_widget_destroy(msgbox);
         g_free(msg);
         g_free(filename);
@@ -3662,7 +3677,7 @@ gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile)
 #endif
         case UNKNOWN_TAG:
         default:
-            Log_Print("Saving to HD: Undefined function for tag type '%d' (file %s).",
+            Log_Print(LOG_ERROR,"Saving to HD: Undefined function for tag type '%d' (file %s).",
                 ETFileDescription->TagType,cur_filename_utf8);
             state = FALSE;
             break;
@@ -4382,7 +4397,7 @@ gboolean ET_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
     if ( (file=fopen(filename,"r"))==NULL )
     {
         gchar *filename_utf8 = filename_to_display(filename);
-        Log_Print(_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
         g_free(filename_utf8);
         return FALSE;
     }
@@ -4533,7 +4548,7 @@ void ET_File_Name_Check_Length (ET_File *ETFile, gchar *filename_utf8)
         case OGG_FILE:
             if ( (exceed_size = (strlen(basename) - 245)) > 0 ) // 255 - 4 (extension) - 6 (mkstemp)
             {
-                Log_Print(_("The filename '%s' exceeds %d characters and will be truncated!\n"), filename_utf8, 245);
+                Log_Print(LOG_ERROR,_("The filename '%s' exceeds %d characters and will be truncated!\n"), filename_utf8, 245);
                 filename_utf8[strlen(filename_utf8) - exceed_size] = '\0';
             }
             break;
@@ -4541,7 +4556,7 @@ void ET_File_Name_Check_Length (ET_File *ETFile, gchar *filename_utf8)
         default:
             if ( (exceed_size = (strlen(basename) - 251)) > 0 ) // 255 - 4 (extension)
             {
-                Log_Print(_("The filename '%s' exceeds %d characters and will be truncated!\n"), filename_utf8, 251);
+                Log_Print(LOG_ERROR,_("The filename '%s' exceeds %d characters and will be truncated!\n"), filename_utf8, 251);
                 filename_utf8[strlen(filename_utf8) - exceed_size] = '\0';
             }
             break;
@@ -4630,43 +4645,6 @@ guint ET_Get_Number_Of_Files_In_Directory (gchar *path_utf8)
     return count;
 }
 
-/*
- * Try to valide a full string : if some characters are invalid, we skip them to
- * return a string with only the valid characters.
- */
-gchar *ET_Utf8_Validate_Full_String (gchar *string_to_validate)
-{
-    gchar *stv;
-    gchar *stv_end;
-    gchar *tmp, *tmp1;
-
-    if (!string_to_validate)
-        return NULL;
-
-    stv = g_strdup(string_to_validate);
-    // Remove all invalid character
-    while ( !g_utf8_validate(stv,-1,(const gchar **)&stv_end) )
-    {
-        // Not UTF-8 validated
-        tmp = tmp1 = stv_end;
-        tmp++;
-        while (*tmp)
-        {
-            if (*tmp)
-                *(tmp1++) = *(tmp++);
-        }
-        *tmp1 = '\0';
-    }
-    /*
-    // Truncate at first invalid character
-    if ( !g_utf8_validate(stv,-1,(const gchar **)&stv_end) )
-    {
-        // Not UTF-8 validated
-        *stv_end = '\0';
-    }*/
-
-    return stv;
-}
 
 /***********************
  * Debugging functions *

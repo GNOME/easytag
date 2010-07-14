@@ -1,22 +1,23 @@
 # French catalog for EasyTAG.
 # Copyright (C) 2000-2007 Free Software Foundation, Inc.
+# This file is distributed under the same license as the EasyTAG package.
 # Jérôme Couderc <j.couderc@ifrance.com>, 2000, 2001, 2002, 2004, 2005.
 # Jérôme Couderc <easytag@gmail.com>, 2005, 2006, 2007.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: EasyTAG 2.1.3\n"
+"Project-Id-Version: EasyTAG 2.1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-15 23:53+0200\n"
-"PO-Revision-Date: 2007-10-07 10:41+0100\n"
-"Last-Translator: Jerome Couderc <easytag@gmail.com>Language-Team: French "
-"<fr@li.org>\n"
+"POT-Creation-Date: 2007-12-09 18:16+0100\n"
+"PO-Revision-Date: 2007-12-09 10:41+0100\n"
+"Last-Translator: Jerome Couderc <easytag@gmail.com>\n"
+"Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
-#: src/about.c:134
+#: src/about.c:140
 msgid ""
 "    EasyTAG is an utility for viewing and editing tags for MP3, MP2, FLAC, "
 "Ogg Vorbis, MP4/AAC, MusePack and Monkey's Audio files. Its simple and nice "
@@ -27,223 +28,217 @@ msgstr ""
 "Son interface GTK+ simple et agréable rend le marquage plus simple sous GNU/"
 "Linux."
 
-#: src/about.c:142 src/about.c:143 src/about.c:144 src/about.c:145
+#: src/about.c:148 src/about.c:149 src/about.c:150 src/about.c:151
 msgid "(German translation)"
 msgstr "(traduction Allemande)"
 
-#: src/about.c:146 src/about.c:147
+#: src/about.c:152 src/about.c:153
 msgid "(Russian translation)"
 msgstr "(traduction Russe)"
 
-#: src/about.c:148 src/about.c:149
+#: src/about.c:154 src/about.c:155
 msgid "(Dutch translation)"
 msgstr "(traduction Hollandaise)"
 
-#: src/about.c:150 src/about.c:151
+#: src/about.c:156 src/about.c:157
 msgid "(Swedish translation)"
 msgstr "(traduction Suédoise)"
 
-#: src/about.c:152 src/about.c:153 src/about.c:154
+#: src/about.c:158 src/about.c:159 src/about.c:160
 msgid "(Hungarian translation)"
 msgstr "(traduction Hongroise)"
 
-#: src/about.c:155 src/about.c:156
+#: src/about.c:161 src/about.c:162
 msgid "(Italian translation)"
 msgstr "(traduction Italienne)"
 
-#: src/about.c:157
+#: src/about.c:163
 msgid "(Japanese translation)"
 msgstr "(traduction Japonaise)"
 
-#: src/about.c:158 src/about.c:159
+#: src/about.c:164 src/about.c:165
 msgid "(Ukrainian translation)"
 msgstr "(traduction Ukrainienne)"
 
-#: src/about.c:160 src/about.c:161
+#: src/about.c:166 src/about.c:167
 msgid "(Czech translation)"
 msgstr "(traduction Tchèque)"
 
-#: src/about.c:162 src/about.c:163 src/about.c:164
+#: src/about.c:168 src/about.c:169 src/about.c:170
 msgid "(Spanish translation)"
 msgstr "(traduction Espagnole)"
 
-#: src/about.c:165
+#: src/about.c:171
 msgid "(Polish translation)"
 msgstr "(traduction Polonaise)"
 
-#: src/about.c:166
+#: src/about.c:172
 msgid "(Romanian translation)"
 msgstr "(traduction Roumaine)"
 
-#: src/about.c:167
+#: src/about.c:173
 msgid "(Danish translation)"
 msgstr "(traduction Danoise)"
 
-#: src/about.c:168
+#: src/about.c:174
 msgid "(Greek translation)"
 msgstr "(traduction Grecque)"
 
-#: src/about.c:169
+#: src/about.c:175
 msgid "(Brazilian Portuguese translation)"
 msgstr "(traduction Portugais Brésilien)"
 
-#: src/about.c:170
+#: src/about.c:176
 msgid "(Bulgarian translation)"
 msgstr "(traduction Bulgare)"
 
-#: src/about.c:171
+#: src/about.c:177
 msgid "(Chinese translation)"
 msgstr "(traduction Chinoise)"
 
-#: src/about.c:172
+#: src/about.c:178
+msgid "(Chinese (Taiwan) translation)"
+msgstr "(traduction Chinoise (Taïwan))"
+
+#: src/about.c:179
 msgid "(Hebrew translation)"
 msgstr "(traduction Hébraïque)"
 
-#: src/about.c:173
+#: src/about.c:180
 msgid "(Serbian translation)"
 msgstr "(traduction Serbe)"
 
-#: src/about.c:226
+#: src/about.c:233
 msgid "Extension Name"
 msgstr "Nom de l'extension"
 
-#: src/about.c:227
+#: src/about.c:234
 msgid "Status"
 msgstr "Statut"
 
-#: src/about.c:228 src/misc.c:1966
+#: src/about.c:235 src/browser.c:2944 src/misc.c:1917
 msgid "Comment"
 msgstr "Comment."
 
 #. Config
-#: src/about.c:244
+#: src/about.c:252
 msgid "About..."
 msgstr "A Propos..."
 
 #.
 #. * Tab for common informations
 #.
-#: src/about.c:262 src/bar.c:236
+#: src/about.c:270 src/bar.c:236
 msgid "About"
 msgstr "A Propos"
 
-#: src/about.c:293
+#: src/about.c:316
 #, c-format
 msgid "(compiled: %s)"
 msgstr "(compilé le: %s)"
 
-#: src/about.c:297
+#: src/about.c:320
 #, c-format
 msgid "(using: GTK+ %d.%d.%d)"
 msgstr "(utilisé: GTK+ %d.%d.%d)"
 
-#: src/about.c:305
+#: src/about.c:328
 #, c-format
 msgid "Author: %s"
 msgstr "Auteur : %s"
 
-#: src/about.c:309 src/easytag.c:212
+#: src/about.c:332 src/easytag.c:214
 #, c-format
 msgid "E-mail: %s"
 msgstr "E-mail : %s"
 
-#: src/about.c:315
+#: src/about.c:338
 msgid "Web Page: "
 msgstr "Page Web : "
 
-#: src/about.c:328
+#: src/about.c:351
 msgid "Description:"
 msgstr "Description :"
 
 #.
 #. * Tab for extensions
 #.
-#: src/about.c:344
+#: src/about.c:367
 msgid "Extensions"
 msgstr "Extensions"
 
-#: src/about.c:390
-#, c-format
-msgid "libid3tag %s"
-msgstr "libid3tag %s"
-
-#: src/about.c:394
+#: src/about.c:433
 msgid "MP3 file support"
 msgstr "Support des fichiers MP3"
 
-#: src/about.c:396 src/about.c:422 src/about.c:432 src/about.c:442
-#: src/about.c:452 src/about.c:462
+#: src/about.c:436 src/about.c:466 src/about.c:478 src/about.c:494
+#: src/about.c:507 src/about.c:519
 msgid "enabled"
 msgstr "activé"
 
-#: src/about.c:399 src/about.c:413 src/about.c:424 src/about.c:434
-#: src/about.c:444 src/about.c:454 src/about.c:464
+#: src/about.c:440 src/about.c:456 src/about.c:469 src/about.c:481
+#: src/about.c:498 src/about.c:510 src/about.c:522
 msgid "disabled"
 msgstr "désactivé"
 
-#: src/about.c:404
-#, c-format
-msgid "id3lib %d.%d.%d"
-msgstr "id3lib %d.%d.%d"
-
-#: src/about.c:408
+#: src/about.c:449
 msgid "ID3v2.3 tags writting support"
 msgstr "Support des tags ID3v2.3"
 
-#: src/about.c:410
+#: src/about.c:452
 msgid "available"
 msgstr "disponible"
 
-#: src/about.c:420
+#: src/about.c:463
 msgid "Ogg Vorbis file support"
 msgstr "Support des fichiers Ogg Vorbis"
 
-#: src/about.c:430
+#: src/about.c:475
 msgid "Speex file support"
 msgstr "Support des fichiers Speex"
 
-#: src/about.c:440
+#: src/about.c:491
 msgid "FLAC file support"
 msgstr "Support des fichiers FLAC"
 
-#: src/about.c:450
+#: src/about.c:504
 msgid "MP4/AAC file support"
 msgstr "Support des fichiers MP4/AAC"
 
-#: src/about.c:460
+#: src/about.c:516
 msgid "WavPack file support"
 msgstr "Support des fichiers WavPack"
 
 #.
 #. * Tab for thanks
 #.
-#: src/about.c:473
+#: src/about.c:531
 msgid "Thanks"
 msgstr "Remerciements"
 
-#: src/about.c:493
+#: src/about.c:551
 msgid "Translations:\n"
 msgstr "Traductions :\n"
 
-#: src/about.c:521
+#: src/about.c:581
 msgid "General:\n"
 msgstr "Général :\n"
 
-#: src/about.c:538
+#: src/about.c:598
 msgid "Changes"
 msgstr "Historique"
 
-#: src/about.c:560
+#: src/about.c:620
 #, c-format
 msgid "Can't open file '%s' (%s)\n"
 msgstr "Impossible d'ouvrir le fichier '%s' (%s)\n"
 
 #. g_print(_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
-#: src/ape_tag.c:74 src/et_core.c:4385 src/flac_header.c:126 src/id3_tag.c:145
-#: src/id3_tag.c:1185 src/id3_tag.c:1255 src/misc.c:1809 src/mp4_header.c:211
-#: src/mp4_header.c:220 src/mp4_tag.c:94 src/mp4_tag.c:105 src/mp4_tag.c:234
-#: src/mp4_tag.c:243 src/mpeg_header.c:209 src/ogg_header.c:82
-#: src/ogg_header.c:186 src/ogg_tag.c:139 src/ogg_tag.c:533
+#: src/ape_tag.c:74 src/et_core.c:4400 src/flac_header.c:126 src/id3_tag.c:145
+#: src/id3_tag.c:1195 src/id3_tag.c:1271 src/misc.c:1760 src/mp4_header.c:211
+#: src/mp4_header.c:220 src/mp4_tag.c:95 src/mp4_tag.c:106 src/mp4_tag.c:246
+#: src/mp4_tag.c:255 src/mpeg_header.c:209 src/ogg_header.c:82
+#: src/ogg_header.c:186 src/ogg_tag.c:142 src/ogg_tag.c:592
 #, c-format
 msgid "ERROR while opening file: '%s' (%s)."
 msgstr "ERREUR lors de l'ouverture du fichier: '%s' (%s)."
@@ -419,7 +414,7 @@ msgstr "Ordre décroissant des fréquences"
 msgid "Open File(s) with ..."
 msgstr "Ouvrir le(s) Fichier(s) avec ..."
 
-#: src/bar.c:189 src/cddb.c:325
+#: src/bar.c:189 src/cddb.c:326
 msgid "Select All Files"
 msgstr "Sélectionner tous les Fichiers"
 
@@ -427,7 +422,7 @@ msgstr "Sélectionner tous les Fichiers"
 msgid "Unselect All Files"
 msgstr "Désélectionner tous les Fichiers"
 
-#: src/bar.c:191 src/cddb.c:332
+#: src/bar.c:191 src/cddb.c:333
 msgid "Invert Files Selection"
 msgstr "Inverser la Sélection des Fichiers"
 
@@ -573,17 +568,17 @@ msgstr "Renommer le Répertoire ..."
 msgid "Reload Directory"
 msgstr "Recharger le Répertoire"
 
-#: src/bar.c:216 src/browser.c:3641
+#: src/bar.c:216 src/browser.c:4062
 msgid "Browse Directory with ..."
 msgstr "Parcourir le Répertoire avec ..."
 
 #: src/bar.c:217
 msgid "_Collapse Tree"
-msgstr "Refermer l'Arbre"
+msgstr "Refermer l'Arborescence"
 
 #: src/bar.c:218
 msgid "_Refresh Tree"
-msgstr "_Rafraîchir l'Arbre"
+msgstr "_Rafraîchir l'Arborescence"
 
 #: src/bar.c:220 src/bar.c:249
 msgid "S_canner"
@@ -712,17 +707,17 @@ msgstr "Impossible de fusionner l'UI, erreur: %s\n"
 msgid "Ready to start..."
 msgstr "Prêt à  démarrer"
 
-#: src/browser.c:326
+#: src/browser.c:330
 msgid "New default path for files selected"
 msgstr "Un nouveau chemin par défaut a été sélectionné"
 
 #. Some files haven't been saved
 #. Some files aren't saved
-#: src/browser.c:713 src/easytag.c:4550 src/easytag.c:4570 src/easytag.c:4589
+#: src/browser.c:718 src/easytag.c:4668 src/easytag.c:4694 src/easytag.c:4719
 msgid "Confirm..."
 msgstr "Confirmer..."
 
-#: src/browser.c:713
+#: src/browser.c:722
 msgid ""
 "Some files have been modified but not saved...\n"
 "Do you want to save them before changing the directory?"
@@ -730,66 +725,112 @@ msgstr ""
 "Des fichiers ont été modifiés mais pas sauvés...\n"
 "Voulez-vous les sauver avant de changer de répertoire?"
 
-#: src/browser.c:2040
+#: src/browser.c:2164
 msgid "<All albums>"
 msgstr "<Tous les albums>"
 
-#: src/browser.c:2434
+#: src/browser.c:2574
 #, c-format
 msgid "Error: Searching for %s, could not find node %s in tree."
 msgstr ""
 "Erreur: Recherche de %s, impossible de trouver le noeud %s dans l'arbre."
 
-#: src/browser.c:2801 src/cddb.c:436 src/cddb.c:723 src/misc.c:1960
-msgid "Artist"
-msgstr "Artiste"
-
-#: src/browser.c:2801
-msgid "# Albums"
-msgstr "# Albums"
-
-#: src/browser.c:2801 src/browser.c:2802
-msgid "# Files"
-msgstr "# Fichiers"
-
-#: src/browser.c:2802 src/cddb.c:437 src/cddb.c:724 src/misc.c:1961
-msgid "Album"
-msgstr "Album"
-
-#: src/browser.c:2822
-msgid "Go to parent directory"
-msgstr "Aller dans le Répertoire Parent"
-
-#: src/browser.c:2839
-msgid "Enter a directory to browse."
-msgstr "Entrer un répertoire à parcourir."
-
-#: src/browser.c:2914
+#: src/browser.c:2942 src/browser.c:3069
 msgid "Tree"
 msgstr "Arborescence"
 
-#: src/browser.c:2957
+#: src/browser.c:2943 src/cddb.c:722 src/misc.c:1909
+msgid "File Name"
+msgstr "Nom de Fichier"
+
+#: src/browser.c:2943 src/cddb.c:723 src/misc.c:1910
+msgid "Title"
+msgstr "Titre"
+
+#: src/browser.c:2943 src/browser.c:2947 src/cddb.c:437 src/cddb.c:724
+#: src/misc.c:1911
+msgid "Artist"
+msgstr "Artiste"
+
+#: src/browser.c:2943 src/browser.c:2948 src/cddb.c:438 src/cddb.c:725
+#: src/misc.c:1912
+msgid "Album"
+msgstr "Album"
+
+#: src/browser.c:2944 src/cddb.c:726 src/misc.c:1914
+msgid "Year"
+msgstr "Année"
+
+#: src/browser.c:2944 src/misc.c:1915
+msgid "Track"
+msgstr "Piste"
+
+#: src/browser.c:2944 src/cddb.c:729 src/misc.c:1916
+msgid "Genre"
+msgstr "Genre"
+
+#: src/browser.c:2945 src/misc.c:1918 src/picture.c:838
+msgid "Composer"
+msgstr "Compositeur"
+
+#: src/browser.c:2945 src/misc.c:1919
+msgid "Orig. Artist"
+msgstr "Artiste Orig."
+
+#: src/browser.c:2945 src/misc.c:1920
+msgid "Copyright"
+msgstr "Copyright"
+
+#: src/browser.c:2946 src/misc.c:1921
+msgid "URL"
+msgstr "URL"
+
+#: src/browser.c:2946
+msgid "Encoded By"
+msgstr "Encodeur"
+
+#: src/browser.c:2947
+msgid "# Albums"
+msgstr "# Albums"
+
+#: src/browser.c:2947 src/browser.c:2948
+msgid "# Files"
+msgstr "# Fichiers"
+
+#: src/browser.c:2968
+msgid "Go to parent directory"
+msgstr "Aller dans le Répertoire Parent"
+
+#: src/browser.c:2985
+msgid "Enter a directory to browse."
+msgstr "Entrer un répertoire à parcourir."
+
+#: src/browser.c:2994
+msgid "Select a directory to browse."
+msgstr "Séléctionner un répertoire à parcourir."
+
+#: src/browser.c:3120
 msgid "Artist & Album"
 msgstr "Artiste & Album"
 
-#: src/browser.c:3206
+#: src/browser.c:3592
 msgid "Rename the directory"
 msgstr "Renommer le Répertoire"
 
-#: src/browser.c:3222
+#: src/browser.c:3608
 #, c-format
 msgid "Rename the directory '%s' to : "
 msgstr "Renommer le répertoire '%s' en :"
 
-#: src/browser.c:3241 src/misc.c:1342
+#: src/browser.c:3627 src/misc.c:1268
 msgid "Use mask :"
 msgstr "Utiliser le masque :"
 
-#: src/browser.c:3244
+#: src/browser.c:3630
 msgid "If activated, it will use masks to rename directory."
 msgstr "Si activé, les masques seront utilisés pour renommer le répertoire."
 
-#: src/browser.c:3263
+#: src/browser.c:3649
 msgid ""
 "Select or type in a mask using codes (see Legend in Scanner Window) to "
 "rename the directory from tag fields."
@@ -797,31 +838,31 @@ msgstr ""
 "Sélectionner ou taper un masque en utilisant les codes (voir la légende dans "
 "la fenêtre du scanner) pour renommer le répertoire d'après les champs du tag."
 
-#: src/browser.c:3283 src/misc.c:1362 src/misc.c:1459 src/scan.c:2052
-#: src/scan.c:2119 src/scan.c:2465
+#: src/browser.c:3669 src/misc.c:1288 src/misc.c:1385 src/scan.c:2121
+#: src/scan.c:2188 src/scan.c:2534
 msgid "Invalid Scanner Mask"
 msgstr "Masque de Scanner Invalide"
 
 #. Preview label
-#: src/browser.c:3289
+#: src/browser.c:3675
 msgid "Rename directory preview..."
 msgstr "Apercu du renommeur de répertoires..."
 
-#. Log_Print(msg);
-#: src/browser.c:3405 src/browser.c:3420 src/browser.c:3480 src/browser.c:3515
-#: src/browser.c:3541 src/browser.c:3985 src/browser.c:3999 src/easytag.c:2595
-#: src/easytag.c:2739 src/easytag.c:2771 src/easytag.c:2786 src/easytag.c:2818
-#: src/easytag.c:2856 src/easytag.c:2903 src/easytag.c:2925 src/easytag.c:2943
-#: src/easytag.c:3148 src/id3_tag.c:541 src/misc.c:1720 src/picture.c:1083
-#: src/prefs.c:1739 src/prefs.c:1841
+#. Log_Print(LOG_ERROR,msg);
+#: src/browser.c:3791 src/browser.c:3811 src/browser.c:3883 src/browser.c:3924
+#: src/browser.c:3956 src/browser.c:4406 src/browser.c:4425 src/easytag.c:2637
+#: src/easytag.c:2787 src/easytag.c:2825 src/easytag.c:2846 src/easytag.c:2884
+#: src/easytag.c:2928 src/easytag.c:2981 src/easytag.c:3009 src/easytag.c:3033
+#: src/easytag.c:3260 src/id3_tag.c:545 src/misc.c:1655 src/picture.c:1122
+#: src/prefs.c:1746 src/prefs.c:1863
 msgid "Error..."
 msgstr "Erreur..."
 
-#: src/browser.c:3405
+#: src/browser.c:3795
 msgid "You must type a directory name!"
 msgstr "Vous devez saisir un nom de répertoire!"
 
-#: src/browser.c:3420
+#: src/browser.c:3815
 #, c-format
 msgid "Could not convert '%s' into filename encoding. Please use another name."
 msgstr ""
@@ -832,16 +873,22 @@ msgstr ""
 #. // The same directory already exists. So we ask if we want to move the files
 #. msg = g_strdup_printf(_("The directory already exists!\n(%s)\nDo you want "
 #. "to move the files?"),new_path_utf8);
-#. msgbox = msg_box_new(_("Confirm..."),msg,GTK_STOCK_DIALOG_QUESTION,
-#. BUTTON_NO,BUTTON_YES,0);
+#. msgbox = msg_box_new(_("Confirm..."),
+#. GTK_WINDOW(MainWindow),
+#. NULL,
+#. GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+#. msg,
+#. GTK_STOCK_DIALOG_QUESTION,
+#. GTK_STOCK_NO,  GTK_RESPONSE_NO,
+#. GTK_STOCK_YES, GTK_RESPONSE_YES,
+#. NULL);
 #. g_free(msg);
-#. msg_box_hide_check_button(MSG_BOX(msgbox));
-#. button = msg_box_run(MSG_BOX(msgbox));
+#. response = gtk_dialog_run(GTK_DIALOG(msgbox));
 #. gtk_widget_destroy(msgbox);
 #.
-#. switch (button)
+#. switch (response)
 #. {
-#. case BUTTON_YES:
+#. case GTK_STOCK_YES:
 #. // Here we must rename all files with the new location, and remove the directory
 #.
 #. Rename_File ()
@@ -850,7 +897,7 @@ msgstr ""
 #. case BUTTON_NO:
 #. break;
 #. }
-#: src/browser.c:3478
+#: src/browser.c:3881
 #, c-format
 msgid ""
 "Can't rename because this directory name already exists!\n"
@@ -859,7 +906,7 @@ msgstr ""
 "Impossible de renommer car ce répertoire existe déjà !\n"
 "(%s)"
 
-#: src/browser.c:3513 src/browser.c:3539
+#: src/browser.c:3922 src/browser.c:3954
 #, c-format
 msgid ""
 "Can't rename directory \n"
@@ -874,86 +921,86 @@ msgstr ""
 "'%s'!\n"
 "(%s)"
 
-#: src/browser.c:3582
+#: src/browser.c:4003
 msgid "Directory renamed"
 msgstr "Répertoire renommé"
 
-#: src/browser.c:3660 src/browser.c:3820
+#: src/browser.c:4081 src/browser.c:4241
 msgid "Program to run :"
 msgstr "Programme à  lancer :"
 
-#: src/browser.c:3672
+#: src/browser.c:4093
 msgid ""
 "Enter the program to run. It will receive the current directory as parameter."
 msgstr ""
 "Entrez le programme à lancer. Il recevra en paramètre le répertoire courant."
 
-#: src/browser.c:3801
+#: src/browser.c:4222
 msgid "Open File with ..."
 msgstr "Ouvrir le Fichier avec ..."
 
-#: src/browser.c:3832
+#: src/browser.c:4253
 msgid ""
 "Enter the program to run. It will receive the current file as parameter."
 msgstr ""
 "Entrez le programme à lancer. Il recevra en paramètre le fichier courant."
 
-#: src/browser.c:3985
+#: src/browser.c:4410
 msgid "You must type a program name!"
 msgstr "Vous devez saisir un nom de programme!"
 
-#: src/browser.c:3998 src/misc.c:942
+#: src/browser.c:4424 src/misc.c:868
 #, c-format
 msgid "The program '%s' can't be found!"
 msgstr "Le programme '%s' n'a pas été trouvé!"
 
-#: src/browser.c:4047 src/misc.c:988
+#: src/browser.c:4479 src/misc.c:914
 #, c-format
 msgid "Can't execute %s (error %d)!\n"
 msgstr "Impossible d'exécuter %s (erreur %d)!\n"
 
-#: src/browser.c:4066 src/misc.c:1027
+#: src/browser.c:4498 src/misc.c:953
 msgid "Can't fork another process!\n"
 msgstr "Ne peut lancer un processus fils!\n"
 
-#: src/browser.c:4100
+#: src/browser.c:4532
 #, c-format
 msgid "Executed command : '%s %s'"
 msgstr "Commande exécutée : '%s %s'"
 
-#: src/cddb.c:228
+#: src/cddb.c:229
 msgid "Artist / Album"
 msgstr "Artiste / Album"
 
-#: src/cddb.c:228
+#: src/cddb.c:229
 msgid "Category"
 msgstr "Catégorie"
 
 #. Note: don't set "" instead of NULL else this will cause problem with translation language
-#: src/cddb.c:229 src/cddb.c:438
+#: src/cddb.c:230 src/cddb.c:439
 msgid "Track Name"
 msgstr "Nom de Piste"
 
-#: src/cddb.c:229
+#: src/cddb.c:230
 msgid "Time"
 msgstr "Durée"
 
-#: src/cddb.c:240
+#: src/cddb.c:241
 msgid "CD Data Base Search"
 msgstr "Recherche Base de Données CD"
 
 #.
 #. * 1 - Page for automatic search (generate the CDDBId from files)
 #.
-#: src/cddb.c:272
+#: src/cddb.c:273
 msgid "Automatic Search"
 msgstr "Recherche Automatique"
 
-#: src/cddb.c:284
+#: src/cddb.c:285
 msgid "Request CD database :"
 msgstr "Interroger la base de CD :"
 
-#: src/cddb.c:294
+#: src/cddb.c:295
 msgid ""
 "Request automatically the CDDB database using the selected files (the order "
 "is important!) to generate the CddbID."
@@ -961,16 +1008,16 @@ msgstr ""
 "Interroger automatiquement la base CDDB à partir des fichiers sélectionnés "
 "pour générer le CddbID (l'ordre des fichiers est important!)"
 
-#: src/cddb.c:304 src/cddb.c:414
+#: src/cddb.c:305 src/cddb.c:415
 msgid "Stop the search ..."
 msgstr "Arrêter la recherche ..."
 
 #. Check box to run the scanner
-#: src/cddb.c:311
+#: src/cddb.c:312
 msgid "Use local Cddb"
 msgstr "Utiliser Cddb local"
 
-#: src/cddb.c:314 src/cddb.c:768
+#: src/cddb.c:315 src/cddb.c:769
 msgid ""
 "When activating this option, after loading the fields, the current selected "
 "scanner will be ran (the scanner window must be opened)."
@@ -981,139 +1028,139 @@ msgstr ""
 #.
 #. * 2 - Page for manual search
 #.
-#: src/cddb.c:359
+#: src/cddb.c:360
 msgid "Manual Search"
 msgstr " Recherche Manuelle"
 
-#: src/cddb.c:374
+#: src/cddb.c:375
 msgid "Words :"
 msgstr "Mots :"
 
-#: src/cddb.c:386
+#: src/cddb.c:387
 msgid "Enter the words to search (separated by a space or '+')"
 msgstr "Entrez les mots à rechercher (séparés par un espace ou un '+')"
 
 #.
 #. * Search options
 #.
-#: src/cddb.c:426
+#: src/cddb.c:427
 msgid "Search In :"
 msgstr "Rechercher dans :"
 
-#: src/cddb.c:434
+#: src/cddb.c:435
 msgid "All Fields"
 msgstr "Tous les Champs"
 
-#: src/cddb.c:439 src/picture.c:799 src/prefs.c:800
+#: src/cddb.c:440 src/picture.c:816 src/prefs.c:800
 msgid "Other"
 msgstr "Autres"
 
-#: src/cddb.c:461
+#: src/cddb.c:462
 msgid "All Categories"
 msgstr "Toutes les Catégories"
 
-#: src/cddb.c:463
+#: src/cddb.c:464
 msgid "Blues"
 msgstr "Blues"
 
-#: src/cddb.c:464
+#: src/cddb.c:465
 msgid "Classical"
 msgstr "Classique"
 
-#: src/cddb.c:465
+#: src/cddb.c:466
 msgid "Country"
 msgstr "Country"
 
-#: src/cddb.c:466
+#: src/cddb.c:467
 msgid "Folk"
 msgstr "Folk"
 
-#: src/cddb.c:467
+#: src/cddb.c:468
 msgid "Jazz"
 msgstr "Jazz"
 
 #.
 #. * Misc
 #.
-#: src/cddb.c:468 src/prefs.c:236 src/prefs.c:237
+#: src/cddb.c:469 src/prefs.c:236 src/prefs.c:237
 msgid "Misc"
 msgstr "Divers"
 
-#: src/cddb.c:469
+#: src/cddb.c:470
 msgid "Newage"
 msgstr "Newage"
 
-#: src/cddb.c:470
+#: src/cddb.c:471
 msgid "Reggae"
 msgstr "Reggae"
 
-#: src/cddb.c:471
+#: src/cddb.c:472
 msgid "Rock"
 msgstr "Rock"
 
-#: src/cddb.c:472
+#: src/cddb.c:473
 msgid "Soundtrack"
 msgstr "Soundtrack"
 
-#: src/cddb.c:509
+#: src/cddb.c:510
 msgid "included : funk, soul, rap, pop, industrial, metal, etc."
 msgstr "inclus : funk, soul, rap, pop, industrial, metal, etc."
 
-#: src/cddb.c:510
+#: src/cddb.c:511
 msgid "movies, shows"
 msgstr "films, shows"
 
-#: src/cddb.c:511
+#: src/cddb.c:512
 msgid "others that do not fit in the above categories"
 msgstr "tous ceux qui ne correspondent pas aux autres catégories"
 
 #. Button to display/hide the categories
-#: src/cddb.c:514
+#: src/cddb.c:515
 msgid " Categories "
 msgstr " Catégories "
 
 #.
 #. * Results command
 #.
-#: src/cddb.c:522
+#: src/cddb.c:523
 msgid "Results :"
 msgstr "Résultats :"
 
-#: src/cddb.c:529 src/misc.c:2012
+#: src/cddb.c:530 src/misc.c:1963
 msgid "Search :"
 msgstr "Rechercher :"
 
-#: src/cddb.c:542
+#: src/cddb.c:543
 msgid "Enter the words to search in the list below"
 msgstr "Entrez les mots à rechercher dans la liste du dessous"
 
-#: src/cddb.c:554
+#: src/cddb.c:555
 msgid "Search Next"
 msgstr " Rechercher le suivant"
 
-#: src/cddb.c:560
+#: src/cddb.c:561
 msgid "Search Previous"
 msgstr "Rechercher le précédent"
 
-#: src/cddb.c:571
+#: src/cddb.c:572
 msgid "Show only red lines (or show all lines) in the 'Artist / Album' list"
 msgstr ""
 "Afficher seulement les lignes rouges (ou afficher toutes les lignes) dans la "
 "liste 'Artiste / Album'"
 
-#: src/cddb.c:577 src/cddb.c:1503
+#: src/cddb.c:578 src/cddb.c:1504
 msgid "Unselect all lines"
 msgstr "Désélectionner toutes les lignes"
 
-#: src/cddb.c:583
+#: src/cddb.c:584
 msgid "Invert lines selection"
 msgstr "Inverser la sélection des lignes"
 
-#: src/cddb.c:589 src/cddb.c:1498
+#: src/cddb.c:590 src/cddb.c:1499
 msgid "Select all lines"
 msgstr "Sélectionner toutes les lignes"
 
-#: src/cddb.c:702
+#: src/cddb.c:703
 msgid ""
 "Select lines to 'apply' to your files list. All lines will be processed if "
 "no line is selected.\n"
@@ -1127,52 +1174,36 @@ msgstr ""
 #.
 #. * Apply results to fields...
 #.
-#: src/cddb.c:712
+#: src/cddb.c:713
 msgid "Set Into :"
 msgstr "Mettre dans :"
 
-#: src/cddb.c:719
+#: src/cddb.c:720
 msgid "All"
 msgstr "Tous"
 
-#: src/cddb.c:721 src/misc.c:1958
-msgid "File Name"
-msgstr "Nom de Fichier"
-
-#: src/cddb.c:722 src/misc.c:1959
-msgid "Title"
-msgstr "Titre"
-
-#: src/cddb.c:725 src/misc.c:1963
-msgid "Year"
-msgstr "Année"
-
-#: src/cddb.c:726
+#: src/cddb.c:727
 msgid "Track #"
 msgstr "N° Piste"
 
-#: src/cddb.c:727
+#: src/cddb.c:728
 msgid "# Tracks"
 msgstr "Nbr Pistes"
 
-#: src/cddb.c:728 src/misc.c:1965
-msgid "Genre"
-msgstr "Genre"
-
 #. Check box to run the scanner
-#: src/cddb.c:765 src/misc.c:3013
+#: src/cddb.c:766 src/misc.c:2964
 msgid "Run the current scanner for each file"
 msgstr "Exécuter le scanner courant pour chaque fichier"
 
 #. Check box to use DLM (also used in the preferences window)
-#: src/cddb.c:772
+#: src/cddb.c:773
 msgid "Match lines with the Levenshtein algorithm"
 msgstr "Correspondance des lignes avec DLM"
 
 #. Doesn't activate it by default because if the new user don't pay attention to it,
 #. it will not understand why the cddb results aren't loaded correctly...
 #. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbUseDLM2),CDDB_USE_DLM);
-#: src/cddb.c:777 src/prefs.c:1362
+#: src/cddb.c:778 src/prefs.c:1369
 msgid ""
 "When activating this option, the Levenshtein algorithm (DLM : Damerau-"
 "Levenshtein Metric) will be used to match the CDDB title against every file "
@@ -1186,93 +1217,93 @@ msgstr ""
 "sera utilisé pour sélectionner le fichier audio correspondant, ou lors du "
 "chargement des résultats CDDB au lieu de se baser sur la position."
 
-#: src/cddb.c:789
+#: src/cddb.c:790
 msgid "Load the selected lines or all lines (if no line selected)."
 msgstr ""
 "Charger les lignes sélectionnées ou toutes les lignes (si aucune n'est "
 "sélectionnée)"
 
-#: src/cddb.c:798 src/misc.c:2255
+#: src/cddb.c:799 src/misc.c:2206
 msgid "Ready to search..."
 msgstr "Prêt à chercher..."
 
-#: src/cddb.c:1318
+#: src/cddb.c:1319
 #, c-format
 msgid ""
 "Album: '%s', artist: '%s', length: '%s', year: '%s', genre: '%s', ID: '%s'"
 msgstr ""
 "Album: '%s', artiste: '%s', durée: '%s', année: '%s', genre: '%s', ID: '%s'"
 
-#: src/cddb.c:1508
+#: src/cddb.c:1509
 msgid "Invert selection"
 msgstr "Inverser la sélection"
 
-#: src/cddb.c:1516
+#: src/cddb.c:1517
 msgid "Sort by Track Number"
 msgstr "Classer par Numéro de Piste"
 
-#: src/cddb.c:1521
+#: src/cddb.c:1522
 msgid "Sort by Track Name"
 msgstr "Classer par Nom de Piste"
 
-#: src/cddb.c:1619
+#: src/cddb.c:1620
 #, c-format
 msgid "Resolving host '%s' ..."
 msgstr "Obtention de l'hôte '%s' ..."
 
-#: src/cddb.c:1627
+#: src/cddb.c:1628
 #, c-format
 msgid "Can't resolve host '%s' (%s)!"
 msgstr "Impossible d'obtenir l'hôte '%s' (%s)!"
 
-#: src/cddb.c:1642
+#: src/cddb.c:1643
 #, c-format
 msgid "Can't create a new socket (%s)!"
 msgstr "ERREUR: Impossible de créer un nouveau socket (%s)!"
 
 #. Open connection to the server
-#: src/cddb.c:1656
+#: src/cddb.c:1657
 #, c-format
 msgid "Connecting to host '%s', port '%d' ..."
 msgstr "Connexion en cours sur l'hôte '%s' (port '%d') ..."
 
-#: src/cddb.c:1663
+#: src/cddb.c:1664
 #, c-format
 msgid "Can't connect to host '%s' (%s)!"
 msgstr "Impossible de se connecter sur l'hôte '%s' (%s)"
 
-#: src/cddb.c:1669
+#: src/cddb.c:1670
 #, c-format
 msgid "Connected to host '%s'"
 msgstr "Connecté sur l'hôte '%s'"
 
-#: src/cddb.c:1752
+#: src/cddb.c:1753
 #, c-format
 msgid "Receiving data (%s) ..."
 msgstr "Réception des données (%s) ..."
 
-#: src/cddb.c:1764
+#: src/cddb.c:1765
 #, c-format
 msgid "Error when reading cddb response (%s)!"
 msgstr "Erreur lors de la lecture de la réponse cddb (%s)!"
 
-#: src/cddb.c:1770
+#: src/cddb.c:1771
 #, c-format
 msgid "Can't create file '%s' (%s)"
 msgstr "Impossible de créer le fichier '%s' (%s)"
 
-#: src/cddb.c:1813 src/misc.c:3168 src/setting.c:1318
+#: src/cddb.c:1814 src/misc.c:3119 src/setting.c:1317
 #, c-format
 msgid "Can't open file '%s' (%s)"
 msgstr "Impossible d'ouvrir le fichier '%s' (%s)"
 
 #. g_print("Request : '%s'\n", cddb_in);
 #. Send the request
-#: src/cddb.c:2246 src/cddb.c:2564 src/cddb.c:3397
+#: src/cddb.c:2249 src/cddb.c:2568 src/cddb.c:3405
 msgid "Sending request ..."
 msgstr "Envoi de la requête ..."
 
-#: src/cddb.c:2250 src/cddb.c:2568 src/cddb.c:3125 src/cddb.c:3401
+#: src/cddb.c:2253 src/cddb.c:2572 src/cddb.c:3133 src/cddb.c:3409
 #, c-format
 msgid "Can't send the request (%s)!"
 msgstr "Impossible d'envoyer la requête (%s)!"
@@ -1281,91 +1312,91 @@ msgstr "Impossible d'envoyer la requête (%s)!"
 #. * Read the answer
 #.
 #. Read the answer
-#: src/cddb.c:2272 src/cddb.c:3138 src/cddb.c:3410
+#: src/cddb.c:2275 src/cddb.c:3146 src/cddb.c:3418
 msgid "Receiving data ..."
 msgstr "Réception des données ..."
 
-#: src/cddb.c:2279 src/cddb.c:2597 src/cddb.c:3145 src/cddb.c:3417
+#: src/cddb.c:2282 src/cddb.c:2601 src/cddb.c:3153 src/cddb.c:3425
 msgid "The server returned a wrong answer!"
 msgstr "Le serveur a retourné une mauvaise réponse!"
 
-#: src/cddb.c:2293 src/cddb.c:2613 src/cddb.c:3160 src/cddb.c:3432
+#: src/cddb.c:2296 src/cddb.c:2617 src/cddb.c:3168 src/cddb.c:3440
 #, c-format
 msgid "The server returned a wrong answer! (%s)"
 msgstr "Le serveur a retourné une mauvaise réponse! (%s)"
 
-#: src/cddb.c:2440
+#: src/cddb.c:2443
 msgid "Sorry, the web-based search is currently down!"
 msgstr "Désolé, mais la recherche web est désactivée pour l'instant"
 
-#: src/cddb.c:2442 src/cddb.c:2785
+#: src/cddb.c:2445 src/cddb.c:2789
 #, c-format
 msgid "Found %d matching album(s)"
 msgstr "Trouvé(s) %d album(s) correspondant(s)"
 
-#: src/cddb.c:2585
+#: src/cddb.c:2589
 #, c-format
 msgid "Receiving data of page %d (album %d/%d)..."
 msgstr "Réception des données de la page %d (album %d/%d)..."
 
-#: src/cddb.c:2587
+#: src/cddb.c:2591
 #, c-format
 msgid "Receiving data of page %d ..."
 msgstr "Réception des données de la page %d ..."
 
-#: src/cddb.c:2752
+#: src/cddb.c:2756
 msgid "More results to load ..."
 msgstr "D'autres résultats à charger ..."
 
-#: src/cddb.c:2881
+#: src/cddb.c:2885
 msgid "No file selected!"
 msgstr "Aucun fichier sélectionné!"
 
 #. The CD redbook standard defines the maximum number of tracks as 99, any
 #. queries with more than 99 tracks will never return a result.
-#: src/cddb.c:2889
+#: src/cddb.c:2893
 msgid "More than 99 files selected! Can't send request!"
 msgstr "Plus de 99 fichiers sélectionnés! Impossible d'envoyer la requête!"
 
-#: src/cddb.c:2895
+#: src/cddb.c:2899
 #, c-format
 msgid "%d file(s) selected!"
 msgstr "%d fichier(s) sélectionné(s)!"
 
-#: src/cddb.c:2970
+#: src/cddb.c:2974
 msgid "Local CD search..."
 msgstr "Recherche CD locale ..."
 
-#: src/cddb.c:2971
+#: src/cddb.c:2978
 msgid ""
 "The path for 'Local CD Data Base' wasn't defined!\n"
-"Fill it in the preferences window."
+"Fill it in the preferences window before to use this search."
 msgstr ""
 "Le répertoire pour la 'Base de CD locale' n'a pas été définie!\n"
-"Renseignez le dans la fenêtre des préférences."
+"Renseignez le dans la fenêtre des préférences pour utiliser cette recherche."
 
 #. g_print("Request : '%s'\n", cddb_in);
-#: src/cddb.c:3115
+#: src/cddb.c:3123
 #, c-format
 msgid "Sending request (CddbId: %s, #tracks: %d, Disc length: %d) ..."
 msgstr "Envoi de la requête (CddbId: %s, #pistes: %d, Longueur disque: %d) ..."
 
-#: src/cddb.c:3268
+#: src/cddb.c:3276
 #, c-format
 msgid "Found %d matching album(s) for DiscID '%s'"
 msgstr "Trouvé(s) %d album(s) correspondant(s) pour le DiscID '%s'"
 
-#: src/cddb.c:3364
+#: src/cddb.c:3372
 #, c-format
 msgid "Can't load file: '%s' (%s)!"
 msgstr "Impossible de charger le fichier '%s' (%s)!"
 
 #. Load the track list of the album
-#: src/cddb.c:3622
+#: src/cddb.c:3630
 msgid "Loading album track list ..."
 msgstr "Chargement de la liste des pistes de l'album ..."
 
-#: src/cddb.c:3797
+#: src/cddb.c:3827
 #, c-format
 msgid ""
 "Be careful, you are applying %d lines of the CDDB results to %d lines in the "
@@ -1378,7 +1409,7 @@ msgstr ""
 "\n"
 "Voulez-vous continuer ?"
 
-#: src/cddb.c:3800
+#: src/cddb.c:3830
 msgid "Write Tag from CDDB..."
 msgstr "Ecriture des Tags à partir de CDDB..."
 
@@ -1563,70 +1594,70 @@ msgstr "Occidental (ISO-8859-15)"
 msgid "Western (Windows-1252)"
 msgstr "Occidental (Windows-1252)"
 
-#: src/charset.c:542
+#: src/charset.c:543
 #, c-format
-msgid "The filename '%s' couldn't be converted into UTF-8 (%s).\n"
-msgstr "Le nom de fichier '%s' n'a pas pu être converti en UTF-8 (%s).\n"
+msgid "The filename '%s' couldn't be converted into UTF-8 (%s)."
+msgstr "Le nom de fichier '%s' n'a pas pu être converti en UTF-8 (%s)."
 
-#: src/charset.c:543 src/charset.c:642 src/charset.c:706
+#: src/charset.c:544 src/charset.c:643 src/charset.c:707
 msgid "Invalid UTF-8"
 msgstr "UTF-8 Invalide"
 
-#: src/charset.c:641
+#: src/charset.c:642
 #, c-format
 msgid ""
-"The UTF-8 string '%s' couldn't be converted into filename encoding (%s)\n"
+"The UTF-8 string '%s' couldn't be converted into filename encoding (%s)."
 msgstr ""
 "La chaine UTF-8 '%s' n'a pas pu être convertie vers l'encodage du fichier (%"
-"s)\n"
+"s)."
 
-#: src/charset.c:705
+#: src/charset.c:706
 #, c-format
-msgid "The string '%s' couldn't be converted into UTF-8 (%s).\n"
-msgstr "La chaîne '%s' n'a pas pu être convertie en UTF-8 (%s).\n"
+msgid "The string '%s' couldn't be converted into UTF-8 (%s)."
+msgstr "La chaîne '%s' n'a pas pu être convertie en UTF-8 (%s)."
 
 #. Starting messages
-#: src/easytag.c:177
+#: src/easytag.c:179
 #, c-format
 msgid "Starting EasyTAG %s (PId: %d) ..."
 msgstr "Démarrage de EasyTAG %s (PId: %d) ..."
 
-#: src/easytag.c:179
+#: src/easytag.c:181
 #, c-format
 msgid "Currently using libid3tag version %s ..."
 msgstr "Version de libid3tag utilisée: %s ..."
 
-#: src/easytag.c:182
+#: src/easytag.c:184
 #, c-format
 msgid "Currently using id3lib version %d.%d.%d ..."
 msgstr "Version de id3lib utilisée: %d.%d.%d ..."
 
-#: src/easytag.c:189
+#: src/easytag.c:191
 #, c-format
 msgid "Variable EASYTAGLANG defined. Setting locale : '%s'"
 msgstr "Variable EASYTAGLANG non définie. Paramétrage de la locale à : '%s'"
 
-#: src/easytag.c:191
+#: src/easytag.c:193
 #, c-format
 msgid "Setting locale : '%s'"
 msgstr "Paramétrage de la locale à '%s'"
 
-#: src/easytag.c:195
+#: src/easytag.c:197
 #, c-format
 msgid "Currently using locale '%s' (and eventually '%s')..."
 msgstr "Locale utilisée '%s' (et éventuellement '%s')..."
 
-#: src/easytag.c:211
+#: src/easytag.c:213
 #, c-format
 msgid "%s %s by %s (compiled %s, %s)\n"
 msgstr "%s %s par %s (compilé le %s, %s)\n"
 
-#: src/easytag.c:213
+#: src/easytag.c:215
 #, c-format
 msgid "Web Page: %s"
 msgstr "Page Web: %s"
 
-#: src/easytag.c:288
+#: src/easytag.c:290
 #, c-format
 msgid "Unknown parameter or path '%s'\n"
 msgstr "Paramètre au chemin '%s' inconnu\n"
@@ -1634,128 +1665,128 @@ msgstr "Paramètre au chemin '%s' inconnu\n"
 #.
 #. * Browser
 #.
-#: src/easytag.c:402 src/prefs.c:145 src/prefs.c:146
+#: src/easytag.c:414 src/prefs.c:145 src/prefs.c:146
 msgid "Browser"
 msgstr "Sélecteur"
 
-#: src/easytag.c:424 src/et_core.c:2605
+#: src/easytag.c:436 src/et_core.c:2614
 msgid "File"
 msgstr "Fichier"
 
-#: src/easytag.c:450
+#: src/easytag.c:462
 msgid "Read Only File"
 msgstr "Fichier en Lecture Seule"
 
-#: src/easytag.c:453
+#: src/easytag.c:465
 msgid "File Link Broken"
 msgstr "Fichier Introuvable"
 
 #. Default values are MPs data
 #. MPEG, Layer versions
-#: src/easytag.c:467 src/easytag.c:4066 src/mpeg_header.c:354
+#: src/easytag.c:479 src/easytag.c:4184 src/mpeg_header.c:354
 msgid "MPEG"
 msgstr "MPEG"
 
-#: src/easytag.c:469 src/easytag.c:4067
+#: src/easytag.c:481 src/easytag.c:4185
 msgid "?, Layer ?"
 msgstr "?, Layer ?"
 
-#: src/easytag.c:474
+#: src/easytag.c:486
 msgid "Bitrate:"
 msgstr "Débit:"
 
-#: src/easytag.c:476 src/easytag.c:4068
+#: src/easytag.c:488 src/easytag.c:4186
 msgid "? kb/s"
 msgstr "? kb/s"
 
-#: src/easytag.c:481
+#: src/easytag.c:493
 msgid "Freq:"
 msgstr "Fréq:"
 
-#: src/easytag.c:483 src/easytag.c:4069
+#: src/easytag.c:495 src/easytag.c:4187
 msgid "? Hz"
 msgstr "? Hz"
 
 #. Mode
-#: src/easytag.c:491 src/easytag.c:4070 src/mpeg_header.c:377
+#: src/easytag.c:503 src/easytag.c:4188 src/mpeg_header.c:377
 msgid "Mode:"
 msgstr "Mode:"
 
-#: src/easytag.c:493 src/easytag.c:507 src/easytag.c:4071 src/easytag.c:4072
-#: src/easytag.c:4073
+#: src/easytag.c:505 src/easytag.c:519 src/easytag.c:4189 src/easytag.c:4190
+#: src/easytag.c:4191
 msgid "?"
 msgstr "?"
 
-#: src/easytag.c:498
+#: src/easytag.c:510
 msgid "Size:"
 msgstr "Taille:"
 
-#: src/easytag.c:500
+#: src/easytag.c:512
 msgid "? kb"
 msgstr "? ko"
 
-#: src/easytag.c:505
+#: src/easytag.c:517
 msgid "Time:"
 msgstr "Durée:"
 
 #. Main Frame
-#: src/easytag.c:551 src/et_core.c:2543
+#: src/easytag.c:563 src/et_core.c:2552
 msgid "Tag"
 msgstr "Tag"
 
 #.
 #. * 1 - Page for common tag fields
 #.
-#: src/easytag.c:573
+#: src/easytag.c:585
 msgid "Common"
 msgstr "Général"
 
 #. Title
-#: src/easytag.c:585
+#: src/easytag.c:597
 msgid "Title:"
 msgstr "Titre:"
 
-#: src/easytag.c:598
+#: src/easytag.c:610
 msgid "Tag selected files with this title"
 msgstr "Les fichiers sélectionnés sont taggés avec ce titre"
 
 #. Artist
-#: src/easytag.c:605
+#: src/easytag.c:617
 msgid "Artist:"
 msgstr "Artiste:"
 
-#: src/easytag.c:617
+#: src/easytag.c:629
 msgid "Tag selected files with this artist"
 msgstr "Les fichiers sélectionnés sont taggés avec cet artiste"
 
 #. Album
-#: src/easytag.c:623
+#: src/easytag.c:635
 msgid "Album:"
 msgstr "Album:"
 
-#: src/easytag.c:636
+#: src/easytag.c:648
 msgid "Tag selected files with this album name"
 msgstr "Les fichiers sélectionnés sont taggés avec cet album"
 
 #. Disc Number
-#: src/easytag.c:642
+#: src/easytag.c:654
 msgid "CD:"
 msgstr "CD:"
 
-#: src/easytag.c:658
+#: src/easytag.c:670
 msgid "Tag selected files with this disc number"
 msgstr "Les fichiers sélectionnés sont taggés avec ce numéro de disque"
 
 #. Year
-#: src/easytag.c:664
+#: src/easytag.c:676
 msgid "Year:"
 msgstr "Année:"
 
-#: src/easytag.c:681
+#: src/easytag.c:693
 msgid "Tag selected files with this year"
 msgstr "Les fichiers sélectionnés sont taggés avec cette année"
 
-#: src/easytag.c:693
+#: src/easytag.c:705
 msgid "Number selected tracks sequentially. Starts at 01 in each subdirectory."
 msgstr ""
 "Renumérote les pistes sélectionnées séquentiellement. Et redémarre à 01 dans "
@@ -1763,11 +1794,11 @@ msgstr ""
 
 #. To have enought space to display the icon
 #. To have enought space to display the icon
-#: src/easytag.c:702
+#: src/easytag.c:714
 msgid "Track #:"
 msgstr "Piste N°:"
 
-#: src/easytag.c:728
+#: src/easytag.c:740
 msgid ""
 "Set the number of files, in the same directory of the displayed file, to the "
 "selected tracks."
@@ -1775,277 +1806,277 @@ msgstr ""
 "Mettre le nombre de fichiers, présents dans le répertoire, pour les pistes "
 "sélectionnées"
 
-#: src/easytag.c:747
+#: src/easytag.c:759
 msgid "Tag selected files with this number of tracks"
 msgstr "Les fichiers sélectionnés sont taggés avec ce nombre de pistes"
 
 #. Genre
-#: src/easytag.c:753
+#: src/easytag.c:765
 msgid "Genre:"
 msgstr "Genre:"
 
-#: src/easytag.c:778
+#: src/easytag.c:790
 msgid "Tag selected files with this genre"
 msgstr "Les fichiers sélectionnés sont taggés avec ce genre"
 
 #. Comment
-#: src/easytag.c:784
+#: src/easytag.c:796
 msgid "Comment:"
 msgstr "Comment.:"
 
-#: src/easytag.c:809
+#: src/easytag.c:821
 msgid "Tag selected files with this comment"
 msgstr "Les fichiers sélectionnés sont taggés avec ce commentaire"
 
 #. Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(CommentView));
 #. g_object_set_data(G_OBJECT(CommentView),"MButtonName",CommentMButton);
 #. Composer (name of the composers)
-#: src/easytag.c:818
+#: src/easytag.c:830
 msgid "Composer:"
 msgstr "Compositeur:"
 
-#: src/easytag.c:830
+#: src/easytag.c:842
 msgid "Tag selected files with this composer"
 msgstr "Les fichiers sélectionnés sont taggés avec ce compositeur"
 
 #. Original Artist / Performer
-#: src/easytag.c:837
+#: src/easytag.c:849
 msgid "Orig. Artist:"
 msgstr "Artiste Orig.:"
 
-#: src/easytag.c:849
+#: src/easytag.c:861
 msgid "Tag selected files with this original artist"
 msgstr "Les fichiers sélectionnés sont taggés avec cet artiste original"
 
 #. Copyright
-#: src/easytag.c:856
+#: src/easytag.c:868
 msgid "Copyright:"
 msgstr "Copyright:"
 
-#: src/easytag.c:868
+#: src/easytag.c:880
 msgid "Tag selected files with this copyright"
 msgstr "Les fichiers sélectionnés sont taggés avec ce copyright"
 
 #. URL
-#: src/easytag.c:875
+#: src/easytag.c:887
 msgid "URL:"
 msgstr "URL:"
 
-#: src/easytag.c:887
+#: src/easytag.c:899
 msgid "Tag selected files with this URL"
 msgstr "Les fichiers sélectionnés sont taggés avec cette URL"
 
 #. Encoded by
-#: src/easytag.c:894
+#: src/easytag.c:906
 msgid "Encoded by:"
 msgstr "Encodeur:"
 
-#: src/easytag.c:906
+#: src/easytag.c:918
 msgid "Tag selected files with this encoder name"
 msgstr "Les fichiers sélectionnés sont taggés avec ce nom d'encodeur"
 
 #.
 #. * 2 - Page for extra tag fields
 #.
-#: src/easytag.c:966
+#: src/easytag.c:978
 msgid "Pictures"
 msgstr "Images"
 
 #. Picture
-#: src/easytag.c:977
+#: src/easytag.c:989
 msgid "Pictures:"
 msgstr "Images:"
 
-#: src/easytag.c:997
+#: src/easytag.c:1009
 msgid "You can use drag and drop to add picture."
 msgstr "Vous pouvez utiliser le Drag and Drop pour ajouter des images."
 
-#: src/easytag.c:1035
+#: src/easytag.c:1047
 msgid "Tag selected files with these pictures"
 msgstr "Les fichiers sélectionnés sont taggés avec ces images"
 
-#: src/easytag.c:1045
+#: src/easytag.c:1057
 msgid "Add pictures to the tag (drag and drop is also available)."
 msgstr "Ajouter des images au tag (le Drag and Drop est supporté)."
 
-#: src/easytag.c:1051
+#: src/easytag.c:1063
 msgid "Remove selected pictures, else all pictures."
 msgstr "Effacer les images sélectionnées, sinon toutes."
 
-#: src/easytag.c:1061
+#: src/easytag.c:1073
 msgid "Save the selected pictures on the hard disk."
 msgstr "Sauvegarder les fichiers sélectionnés sur le disque dur."
 
-#: src/easytag.c:1068
+#: src/easytag.c:1080
 msgid "Set properties of the selected pictures."
 msgstr "Définir les propriétés des images sélectionnées."
 
-#: src/easytag.c:1148
+#: src/easytag.c:1160
 #, c-format
 msgid "Selected files tagged with title '%s'."
 msgstr "Les fichiers sélectionnés sont taggés avec le titre '%s'."
 
-#: src/easytag.c:1150
+#: src/easytag.c:1162
 msgid "Removed title from selected files."
 msgstr "Le titre a été supprimé dans les fichiers sélectionnés."
 
-#: src/easytag.c:1167
+#: src/easytag.c:1179
 #, c-format
 msgid "Selected files tagged with artist '%s'."
 msgstr "Les fichiers sélectionnés sont taggés avec l'artiste '%s'."
 
-#: src/easytag.c:1169
+#: src/easytag.c:1181
 msgid "Removed artist from selected files."
 msgstr "L'artiste a été supprimé dans les fichiers sélectionnés."
 
-#: src/easytag.c:1186
+#: src/easytag.c:1198
 #, c-format
 msgid "Selected files tagged with album '%s'."
 msgstr "Les fichiers sélectionnés sont taggés avec l'album '%s'."
 
-#: src/easytag.c:1188
+#: src/easytag.c:1200
 msgid "Removed album name from selected files."
 msgstr "L'album a été supprimé dans les fichiers sélectionnés."
 
-#: src/easytag.c:1205
+#: src/easytag.c:1217
 #, c-format
 msgid "Selected files tagged with disc number '%s'."
 msgstr "Les fichiers sélectionnés sont taggés avec le numéro de disque '%s'."
 
-#: src/easytag.c:1207
+#: src/easytag.c:1219
 msgid "Removed disc number from selected files."
 msgstr "Le numéro de disque a été supprimé dans les fichiers sélectionnés."
 
-#: src/easytag.c:1224
+#: src/easytag.c:1236
 #, c-format
 msgid "Selected files tagged with year '%s'."
 msgstr "Les fichiers sélectionnés sont taggés avec l'année '%s'."
 
-#: src/easytag.c:1226
+#: src/easytag.c:1238
 msgid "Removed year from selected files."
 msgstr "L'année a été supprimée dans les fichiers sélectionnés."
 
-#: src/easytag.c:1254 src/easytag.c:1350
+#: src/easytag.c:1266 src/easytag.c:1362
 #, c-format
 msgid "Selected files tagged with track like 'xx/%s'."
 msgstr ""
 "Les fichiers sélectionnés sont taggés avec un numéro de piste du type 'xx/%"
 "s'."
 
-#: src/easytag.c:1257
+#: src/easytag.c:1269
 msgid "Selected files tagged with track like 'xx'."
 msgstr ""
 "Les fichiers sélectionnés sont taggés avec un numéro de piste du type 'xx'."
 
-#: src/easytag.c:1261 src/easytag.c:1353
+#: src/easytag.c:1273 src/easytag.c:1365
 msgid "Removed track number from selected files."
 msgstr "La piste a été supprimée dans les fichiers sélectionnés."
 
 #. msg = g_strdup_printf(_("All %d tracks numbered sequentially."), ETCore->ETFileSelectionList_Length);
-#: src/easytag.c:1319
+#: src/easytag.c:1331
 msgid "Selected tracks numbered sequentially."
 msgstr "Les pistes sélectionnées ont été renumérotées!"
 
-#: src/easytag.c:1371
+#: src/easytag.c:1383
 #, c-format
 msgid "Selected files tagged with genre '%s'."
 msgstr "Les fichiers sélectionnés sont taggés avec le genre '%s'."
 
-#: src/easytag.c:1373
+#: src/easytag.c:1385
 msgid "Removed genre from selected files."
 msgstr "Le genre a été supprimé dans les fichiers sélectionnés."
 
-#: src/easytag.c:1397
+#: src/easytag.c:1409
 #, c-format
 msgid "Selected files tagged with comment '%s'."
 msgstr "Les fichiers sélectionnés sont taggés avec le commentaire '%s'."
 
-#: src/easytag.c:1399
+#: src/easytag.c:1411
 msgid "Removed comment from selected files."
 msgstr "Le commentaire a été supprimé dans les fichiers sélectionnés."
 
-#: src/easytag.c:1416
+#: src/easytag.c:1428
 #, c-format
 msgid "Selected files tagged with composer '%s'."
 msgstr "Les fichiers sélectionnés sont taggés avec le compositeur '%s'."
 
-#: src/easytag.c:1418
+#: src/easytag.c:1430
 msgid "Removed composer from selected files."
 msgstr "Le compositeur a été supprimé dans les fichiers sélectionnés."
 
-#: src/easytag.c:1435
+#: src/easytag.c:1447
 #, c-format
 msgid "Selected files tagged with original artist '%s'."
 msgstr "Les fichiers sélectionnés sont taggés avec l'artiste original '%s'."
 
-#: src/easytag.c:1437
+#: src/easytag.c:1449
 msgid "Removed original artist from selected files."
 msgstr "L'artiste original a été supprimé dans les fichiers sélectionnés."
 
-#: src/easytag.c:1454
+#: src/easytag.c:1466
 #, c-format
 msgid "Selected files tagged with copyright '%s'."
 msgstr "Les fichiers sélectionnés sont taggés avec le copyright '%s'."
 
-#: src/easytag.c:1456
+#: src/easytag.c:1468
 msgid "Removed copyright from selected files."
 msgstr "Le copyright a été supprimé dans les fichiers sélectionnés."
 
-#: src/easytag.c:1473
+#: src/easytag.c:1485
 #, c-format
 msgid "Selected files tagged with URL '%s'."
 msgstr "Les fichiers sélectionnés sont taggés avec l'URL '%s'."
 
-#: src/easytag.c:1475
+#: src/easytag.c:1487
 msgid "Removed URL from selected files."
 msgstr "L'URL a été supprimée dans les fichiers sélectionnés."
 
-#: src/easytag.c:1492
+#: src/easytag.c:1504
 #, c-format
 msgid "Selected files tagged with encoder name '%s'."
 msgstr "Les fichiers sélectionnés sont taggés avec le nom de l'encodeur '%s'."
 
-#: src/easytag.c:1494
+#: src/easytag.c:1506
 msgid "Removed encoder name from selected files."
 msgstr "Le nom de l'encodeur a été supprimé dans les fichiers sélectionnés."
 
-#: src/easytag.c:1529
+#: src/easytag.c:1541
 msgid "Selected files tagged with pictures."
 msgstr "Les fichiers sélectionnés sont taggés avec ces images."
 
-#: src/easytag.c:1531
+#: src/easytag.c:1543
 msgid "Removed pictures from selected files."
 msgstr "Les images ont été supprimées des fichiers sélectionnés."
 
-#: src/easytag.c:1770
+#: src/easytag.c:1782
 msgid "Select Mode and Mask, and redo the same action"
 msgstr "Sélectionner le Mode et le Masque, et refaire la même action"
 
-#: src/easytag.c:1825
+#: src/easytag.c:1837
 msgid "All tags have been scanned"
 msgstr "Tous les tags ont été scannés"
 
-#: src/easytag.c:1882
+#: src/easytag.c:1894
 msgid "All tags have been removed"
 msgstr "Tous les tags ont été supprimés"
 
-#: src/easytag.c:2177 src/easytag.c:2200
+#: src/easytag.c:2189 src/easytag.c:2212
 msgid "All files have been saved..."
 msgstr "Tous les fichiers ont été sauvés..."
 
-#: src/easytag.c:2198
+#: src/easytag.c:2210
 msgid "Files have been partially saved..."
 msgstr "Les fichiers ont été partiellement sauvés..."
 
-#: src/easytag.c:2348
+#: src/easytag.c:2360
 msgid "Files have been partially deleted..."
 msgstr "Les fichiers ont été partiellement effacés..."
 
-#: src/easytag.c:2350
+#: src/easytag.c:2362
 msgid "All files have been deleted..."
 msgstr "Tous les fichiers ont été effacés..."
 
-#: src/easytag.c:2422
+#: src/easytag.c:2435
 #, c-format
 msgid ""
 "Do you want to write the tag of file\n"
@@ -2054,16 +2085,16 @@ msgstr ""
 "Voulez-vous écrire le tag du fichier\n"
 "'%s' ?"
 
-#: src/easytag.c:2426 src/easytag.c:2431
+#: src/easytag.c:2439 src/easytag.c:2452
 msgid "Write Tag..."
 msgstr "Ecriture des Tags..."
 
 #. Directories and filename changed
-#: src/easytag.c:2488
+#: src/easytag.c:2516
 msgid "Rename File and Directory..."
 msgstr "Renommer le Fichier et le Répertoire..."
 
-#: src/easytag.c:2489
+#: src/easytag.c:2517
 #, c-format
 msgid ""
 "Do you want to rename the file and directory \n"
@@ -2077,11 +2108,11 @@ msgstr ""
 "'%s' ?"
 
 #. Only directories changed
-#: src/easytag.c:2494
+#: src/easytag.c:2522
 msgid "Rename Directory..."
 msgstr "Renommer le Répertoire..."
 
-#: src/easytag.c:2495
+#: src/easytag.c:2523
 #, c-format
 msgid ""
 "Do you want to rename the directory \n"
@@ -2095,11 +2126,11 @@ msgstr ""
 "'%s' ?"
 
 #. Only filename changed
-#: src/easytag.c:2501
+#: src/easytag.c:2529
 msgid "Rename File..."
 msgstr "Renommer le Fichier..."
 
-#: src/easytag.c:2502
+#: src/easytag.c:2530
 #, c-format
 msgid ""
 "Do you want to rename the file \n"
@@ -2112,17 +2143,17 @@ msgstr ""
 "par \n"
 "'%s' ?"
 
-#: src/easytag.c:2571
+#: src/easytag.c:2613
 #, c-format
 msgid "Writing tag of '%s'"
 msgstr "Ecriture du tag de '%s'"
 
-#: src/easytag.c:2577
+#: src/easytag.c:2619
 msgid "Tag(s) written"
 msgstr "Tag(s) écrit"
 
 #. Special for Ogg Vorbis because the error is defined into 'vcedit_error(state)'
-#: src/easytag.c:2586 src/easytag.c:2591
+#: src/easytag.c:2628 src/easytag.c:2633
 #, c-format
 msgid ""
 "Can't write tag in file '%s'!\n"
@@ -2131,14 +2162,14 @@ msgstr ""
 "Impossible d'écrire le tag du fichier '%s'!\n"
 "(%s)"
 
-#: src/easytag.c:2717
+#: src/easytag.c:2765
 #, c-format
 msgid "Renaming file '%s'"
 msgstr "Renomme le fichier '%s'"
 
 #. Renaming file to the temporary filename has failed
 #. Renaming file from the temporary filename has failed
-#: src/easytag.c:2737 src/easytag.c:2769 src/easytag.c:2941
+#: src/easytag.c:2785 src/easytag.c:2823 src/easytag.c:3031
 #, c-format
 msgid ""
 "Can't rename file '%s'\n"
@@ -2151,11 +2182,11 @@ msgstr ""
 "'%s'!\n"
 "(%s)"
 
-#: src/easytag.c:2745 src/easytag.c:2777 src/easytag.c:2792 src/easytag.c:2949
+#: src/easytag.c:2799 src/easytag.c:2837 src/easytag.c:2858 src/easytag.c:3045
 msgid "File(s) not renamed..."
 msgstr "Fichier(s) non renommé(s)..."
 
-#: src/easytag.c:2784
+#: src/easytag.c:2844
 #, c-format
 msgid ""
 "Can't rename file \n"
@@ -2168,7 +2199,7 @@ msgstr ""
 "car ce fichier existe déjà :\n"
 "%s"
 
-#: src/easytag.c:2816
+#: src/easytag.c:2882
 #, c-format
 msgid ""
 "Can't create target directory\n"
@@ -2180,16 +2211,16 @@ msgstr ""
 "(%s)"
 
 #. Renaming file has succeeded
-#: src/easytag.c:2838
+#: src/easytag.c:2910
 #, c-format
 msgid "Renamed file '%s' to '%s'"
 msgstr "Fichier '%s' renommé en '%s'"
 
-#: src/easytag.c:2844
+#: src/easytag.c:2916
 msgid "File(s) renamed..."
 msgstr "Fichier(s) renommé(s)..."
 
-#: src/easytag.c:2854 src/easytag.c:2901
+#: src/easytag.c:2926 src/easytag.c:2979
 #, c-format
 msgid ""
 "Can't remove old directory\n"
@@ -2201,17 +2232,17 @@ msgstr ""
 "(%s)"
 
 #. Renaming file has succeeded
-#: src/easytag.c:2885
+#: src/easytag.c:2963
 #, c-format
 msgid "Moved file '%s' to '%s'"
 msgstr "Fichier '%s' déplacé vers '%s'"
 
-#: src/easytag.c:2891
+#: src/easytag.c:2969
 msgid "File(s) moved..."
 msgstr "Fichier(s) déplacé(s)..."
 
 #. Moving file has failed
-#: src/easytag.c:2923
+#: src/easytag.c:3007
 #, c-format
 msgid ""
 "Can't move file '%s'\n"
@@ -2224,11 +2255,11 @@ msgstr ""
 "'%s'!\n"
 "(%s)"
 
-#: src/easytag.c:2931
+#: src/easytag.c:3021
 msgid "File(s) not moved..."
 msgstr "Fichier(s) non déplacé(s)..."
 
-#: src/easytag.c:2983
+#: src/easytag.c:3080
 #, c-format
 msgid ""
 "Do you really want to delete definitively the file\n"
@@ -2237,16 +2268,16 @@ msgstr ""
 "Voulez-vous réellement effacer définitivement le fichier\n"
 "'%s' ?"
 
-#: src/easytag.c:2986 src/easytag.c:2990
+#: src/easytag.c:3083 src/easytag.c:3096
 msgid "Delete File..."
 msgstr "Effacer le Fichier..."
 
-#: src/easytag.c:3012
+#: src/easytag.c:3124
 #, c-format
 msgid "File '%s' deleted"
 msgstr "Fichier: '%s' effacé"
 
-#: src/easytag.c:3147
+#: src/easytag.c:3259
 #, c-format
 msgid ""
 "Can't read directory :\n"
@@ -2258,109 +2289,109 @@ msgstr ""
 "(%s)"
 
 #. Read the directory recursively
-#: src/easytag.c:3170
+#: src/easytag.c:3287
 msgid "Search in progress..."
 msgstr "Recherche en cours..."
 
-#: src/easytag.c:3187 src/et_core.c:2612
+#: src/easytag.c:3304 src/et_core.c:2621
 #, c-format
 msgid "File: '%s'"
 msgstr "Fichier: '%s'"
 
-#: src/easytag.c:3237
+#: src/easytag.c:3354
 #, c-format
 msgid "Found %d file(s) in this directory and subdirectories."
 msgstr "Trouvé(s) %d fichier(s) dans ce répertoire et sous répertoires."
 
-#: src/easytag.c:3239
+#: src/easytag.c:3356
 #, c-format
 msgid "Found %d file(s) in this directory."
 msgstr "Trouvé(s) %d fichier(s) dans ce répertoire."
 
 #. And refresh the number of files in this directory
-#: src/easytag.c:3252 src/et_core.c:2696
+#: src/easytag.c:3369 src/et_core.c:2705
 #, c-format
 msgid "%u file(s)"
 msgstr "%u fichier(s)"
 
-#: src/easytag.c:3258
+#: src/easytag.c:3375
 msgid "No file found in this directory and subdirectories!"
 msgstr "Aucun fichier trouvé dans ce répertoire et sous répertoires!"
 
-#: src/easytag.c:3260
+#: src/easytag.c:3377
 msgid "No file found in this directory!"
 msgstr "Aucun fichier trouvé dans ce répertoire!"
 
-#: src/easytag.c:3348
+#: src/easytag.c:3465
 msgid "Searching..."
 msgstr "Recherche en cours..."
 
 #. Button to stop...
-#: src/easytag.c:3368
+#: src/easytag.c:3485
 msgid "  STOP the search...  "
 msgstr "  ARRETER la recherche...  "
 
 #. Open the last selected scanner
-#: src/easytag.c:4093
+#: src/easytag.c:4211
 msgid "Select a directory to browse!"
 msgstr "Séléctionner un répertoire à parcourir!"
 
 #. Menu items
-#: src/easytag.c:4229
+#: src/easytag.c:4347
 msgid "Tag selected files with this field"
 msgstr "Tagger les fichiers sélectionnés avec ce champ"
 
-#: src/easytag.c:4240
+#: src/easytag.c:4358
 msgid "Convert '_' and '%20' to spaces"
 msgstr "Convertir '_' et '%20' par un espace"
 
-#: src/easytag.c:4247 src/scan.c:2245
+#: src/easytag.c:4365 src/scan.c:2314
 msgid "Convert ' ' to '_'"
 msgstr "Convertir ' ' par '_'"
 
 #. Group: capitalize, ...
-#: src/easytag.c:4258 src/scan.c:2294
+#: src/easytag.c:4376 src/scan.c:2363
 msgid "All uppercase"
 msgstr "Tout en majuscule"
 
-#: src/easytag.c:4265 src/scan.c:2295
+#: src/easytag.c:4383 src/scan.c:2364
 msgid "All downcase"
 msgstr "Tout en minuscule"
 
-#: src/easytag.c:4272 src/scan.c:2296
+#: src/easytag.c:4390 src/scan.c:2365
 msgid "First letter uppercase"
 msgstr "Première lettre en majuscule"
 
-#: src/easytag.c:4279 src/scan.c:2297
+#: src/easytag.c:4397 src/scan.c:2366
 msgid "First letter uppercase of each word"
 msgstr "Première lettre de chaque mot en majuscule"
 
 #. Group: insert/remove spaces
-#: src/easytag.c:4290 src/scan.c:2336
+#: src/easytag.c:4408 src/scan.c:2405
 msgid "Remove spaces"
 msgstr "Enlever les espaces"
 
-#: src/easytag.c:4297
+#: src/easytag.c:4415
 msgid "Insert space before uppercase letter"
 msgstr "Insérer un espace avant une majuscule"
 
-#: src/easytag.c:4304
+#: src/easytag.c:4422
 msgid "Remove duplicate spaces or underscores"
 msgstr "Supprimer les espaces ou underscores dupliqués"
 
 #. gchar commmand[256];
 #. To send messages to the console...
-#: src/easytag.c:4324 src/easytag.c:4332
+#: src/easytag.c:4442 src/easytag.c:4450
 #, c-format
 msgid "EasyTAG %s: Abnormal exit! (PId: %d)."
 msgstr "EasyTAG %s: Sortie anormale! (PId: %d)."
 
-#: src/easytag.c:4325 src/easytag.c:4334
+#: src/easytag.c:4443 src/easytag.c:4452
 #, c-format
 msgid "Received signal %s (%d)\a"
 msgstr "Signal reçu %s (%d)\a"
 
-#: src/easytag.c:4327 src/easytag.c:4336
+#: src/easytag.c:4445 src/easytag.c:4454
 msgid ""
 "You have probably found a bug in EasyTAG. Please, send a bug report with a "
 "gdb backtrace ('gdb easytag core' then 'bt' and 'l') and informations to "
@@ -2370,11 +2401,11 @@ msgstr ""
 "rapport de bug accompagné de la trace gdb ('gdb easytag core' puis 'bt' et "
 "'l') et des informations pour le reproduire à l'adresse <easytag@gmail.com>"
 
-#: src/easytag.c:4463
+#: src/easytag.c:4581
 msgid "Unknown signal"
 msgstr "Signal inconnu"
 
-#: src/easytag.c:4479
+#: src/easytag.c:4597
 #, c-format
 msgid ""
 "\n"
@@ -2407,11 +2438,11 @@ msgstr ""
 "path_to/files     Utiliser un chemin relatif.\n"
 "\n"
 
-#: src/easytag.c:4507
+#: src/easytag.c:4625
 msgid "EasyTAG: Normal exit."
 msgstr "EasyTAG: Sortie normale."
 
-#: src/easytag.c:4550 src/easytag.c:4589
+#: src/easytag.c:4672 src/easytag.c:4723
 msgid ""
 "Some files have been modified but not saved...\n"
 "Do you want to save them before exiting the program?"
@@ -2419,77 +2450,77 @@ msgstr ""
 "Des fichiers ont été modifiés mais pas sauvés...\n"
 "Voulez-vous les sauver avant de quitter le programme?"
 
-#: src/easytag.c:4570
+#: src/easytag.c:4698
 msgid " Do you really want to exit the program? "
 msgstr " Voulez-vous réellement quitter le programme ?"
 
-#: src/et_core.c:2509
+#: src/et_core.c:2518
 msgid "ID3 Tag"
 msgstr "Tag ID3"
 
-#: src/et_core.c:2515
+#: src/et_core.c:2524
 msgid "Ogg Vorbis Tag"
 msgstr "Tag Ogg Vorbis"
 
-#: src/et_core.c:2521
+#: src/et_core.c:2530
 msgid "FLAC Vorbis Tag"
 msgstr "Tag FLAC Vorbis"
 
-#: src/et_core.c:2526
+#: src/et_core.c:2535
 msgid "APE Tag"
 msgstr "Tag APE"
 
-#: src/et_core.c:2531
+#: src/et_core.c:2540
 msgid "MP4/M4A/AAC Tag"
 msgstr "Tag MP4/M4A/AAC"
 
-#: src/et_core.c:2537
+#: src/et_core.c:2546
 msgid "Wavpack Tag"
 msgstr "Tag Wavpack"
 
-#: src/et_core.c:2557
+#: src/et_core.c:2566
 msgid "MP3 File"
 msgstr "Fichier MP3"
 
-#: src/et_core.c:2561
+#: src/et_core.c:2570
 msgid "MP2 File"
 msgstr "Fichier MP2"
 
-#: src/et_core.c:2567
+#: src/et_core.c:2576
 msgid "Ogg Vorbis File"
 msgstr "Fichier Ogg Vorbis"
 
-#: src/et_core.c:2573
+#: src/et_core.c:2582
 msgid "Speex File"
 msgstr "Fichier Speex"
 
-#: src/et_core.c:2579
+#: src/et_core.c:2588
 msgid "FLAC File"
 msgstr "Fichier FLAC"
 
-#: src/et_core.c:2584
+#: src/et_core.c:2593
 msgid "MusePack File"
 msgstr "Fichier MusePack"
 
-#: src/et_core.c:2588
+#: src/et_core.c:2597
 msgid "Monkey's Audio File"
 msgstr "Fichier Monkey's Audio"
 
-#: src/et_core.c:2593
+#: src/et_core.c:2602
 msgid "MP4/AAC File"
 msgstr "Fichier MP4/AAC"
 
-#: src/et_core.c:2599
+#: src/et_core.c:2608
 msgid "Wavpack File"
 msgstr "Fichier Wavpack"
 
-#: src/et_core.c:2873
+#: src/et_core.c:2882
 #, c-format
 msgid "Pictures (%d)"
 msgstr "Images (%d)"
 
 #. Bitrate
-#: src/et_core.c:2912 src/flac_header.c:299 src/monkeyaudio_header.c:86
+#: src/et_core.c:2921 src/flac_header.c:302 src/monkeyaudio_header.c:86
 #: src/mp4_header.c:275 src/mpeg_header.c:367 src/musepack_header.c:88
 #: src/ogg_header.c:257 src/wavpack_header.c:78
 #, c-format
@@ -2497,14 +2528,14 @@ msgid "%d kb/s"
 msgstr "%d kb/s"
 
 #. Samplerate
-#: src/et_core.c:2917 src/flac_header.c:304 src/monkeyaudio_header.c:91
+#: src/et_core.c:2926 src/flac_header.c:307 src/monkeyaudio_header.c:91
 #: src/mp4_header.c:280 src/mpeg_header.c:372 src/musepack_header.c:93
 #: src/ogg_header.c:262 src/wavpack_header.c:83
 #, c-format
 msgid "%d Hz"
 msgstr "%d Hz"
 
-#: src/et_core.c:3057
+#: src/et_core.c:3066
 #, c-format
 msgid ""
 "Could not convert filename : '%s'\n"
@@ -2515,11 +2546,11 @@ msgstr ""
 "ne peut pas être converti vers l'encodage du système de fichiers\n"
 "(Essayez de définir la variable d'environnement G_FILENAME_ENCODING)."
 
-#: src/et_core.c:3060 src/scan.c:664
+#: src/et_core.c:3069 src/scan.c:668
 msgid "Filename translation"
 msgstr "Conversion du nom de fichier"
 
-#: src/et_core.c:4536 src/et_core.c:4544
+#: src/et_core.c:4551 src/et_core.c:4559
 #, c-format
 msgid "The filename '%s' exceeds %d characters and will be truncated!\n"
 msgstr ""
@@ -2530,7 +2561,7 @@ msgstr ""
 #. gtk_label_set_text(GTK_LABEL(VersionValueLabel),"");
 #. Version changed to encoder version
 #. Encoder version
-#: src/flac_header.c:295 src/monkeyaudio_header.c:96 src/musepack_header.c:98
+#: src/flac_header.c:298 src/monkeyaudio_header.c:96 src/musepack_header.c:98
 #: src/ogg_header.c:245 src/wavpack_header.c:72
 msgid "Encoder:"
 msgstr "Encodeur:"
@@ -2539,47 +2570,52 @@ msgstr "Encodeur:"
 #. Mode
 #. mpeg4ip library seems to always return -1
 #. Mode
-#: src/flac_header.c:309 src/mp4_header.c:286 src/ogg_header.c:267
+#: src/flac_header.c:312 src/mp4_header.c:286 src/ogg_header.c:267
 #: src/wavpack_header.c:88
 msgid "Channels:"
 msgstr "Canaux:"
 
-#: src/flac_tag.c:140 src/flac_tag.c:741
+#: src/flac_tag.c:135 src/flac_tag.c:780 src/flac_tag.c:790
 #, c-format
 msgid "ERROR while opening file: '%s' as FLAC (%s)."
 msgstr "ERREUR lors de l'ouverture du fichier: '%s' comme FLAC (%s)."
 
-#: src/flac_tag.c:983 src/ogg_tag.c:752
+#: src/flac_tag.c:1091
+#, c-format
+msgid "Picture block isn't valid: '%s'"
+msgstr "Le bloc image n'est pas valide : '%s'"
+
+#: src/flac_tag.c:1126 src/ogg_tag.c:853
 #, c-format
 msgid "ERROR: Failed to write comments to file '%s' (%s)."
 msgstr "ERREUR: Impossible d'écrire les commentaires du fichier '%s' (%s)."
 
-#: src/flac_tag.c:990 src/ogg_tag.c:759
+#: src/flac_tag.c:1131 src/ogg_tag.c:860
 #, c-format
 msgid "Written tag of '%s'"
 msgstr "Le tag de '%s' a été écrit"
 
-#: src/id3_tag.c:484
+#: src/id3_tag.c:488
 #, c-format
 msgid "Removed tag of '%s'"
 msgstr "Le tag de '%s' a été supprimé"
 
-#: src/id3_tag.c:488 src/id3_tag.c:585
+#: src/id3_tag.c:492 src/id3_tag.c:595
 #, c-format
 msgid "Error while removing ID3v1 tag of '%s' (%s)"
 msgstr "Erreur lors de la suppression du tag ID3v1 de '%s' (%s)"
 
-#: src/id3_tag.c:490 src/id3_tag.c:557
+#: src/id3_tag.c:494 src/id3_tag.c:567
 #, c-format
 msgid "Error while removing ID3v2 tag of '%s' (%s)"
 msgstr "Erreur lors de la suppression du tag ID3v2 de '%s' (%s)"
 
-#: src/id3_tag.c:509
+#: src/id3_tag.c:513
 #, c-format
 msgid "Error while updating ID3v2 tag of '%s' (%s)"
 msgstr "Erreur lors de la mise à jour du tag ID3v2 de '%s' (%s)"
 
-#: src/id3_tag.c:531
+#: src/id3_tag.c:535
 #, c-format
 msgid ""
 "You have tried to save this tag to Unicode but it was detected that your "
@@ -2604,77 +2640,77 @@ msgstr ""
 "\n"
 "Fichier : %s"
 
-#: src/id3_tag.c:577
+#: src/id3_tag.c:587
 #, c-format
 msgid "Error while updating ID3v1 tag of '%s' (%s)"
 msgstr "Erreur lors de la mise à jour du tag ID3v1 de '%s' (%s)"
 
-#: src/id3_tag.c:591
+#: src/id3_tag.c:601
 #, c-format
 msgid "Updated tag of '%s'"
 msgstr "Le tag de '%s' a été mis à jour"
 
-#: src/id3_tag.c:610
+#: src/id3_tag.c:620
 msgid "No error reported"
 msgstr "Aucune erreur reportée"
 
-#: src/id3_tag.c:612
+#: src/id3_tag.c:622
 msgid "No available memory"
 msgstr "Pas de mémoire disponible"
 
-#: src/id3_tag.c:614
+#: src/id3_tag.c:624
 msgid "No data to parse"
 msgstr "Pas de donnée à analyser"
 
-#: src/id3_tag.c:616
+#: src/id3_tag.c:626
 msgid "Improperly formatted data"
 msgstr "Donnée mal formatée"
 
-#: src/id3_tag.c:618
+#: src/id3_tag.c:628
 msgid "No buffer to write to"
 msgstr "Pas de tampon vers lequel écrire"
 
-#: src/id3_tag.c:620
+#: src/id3_tag.c:630
 msgid "Buffer is too small"
 msgstr "Le tampon est trop petit"
 
-#: src/id3_tag.c:622
+#: src/id3_tag.c:632
 msgid "Invalid frame ID"
 msgstr "ID du frame invalide"
 
-#: src/id3_tag.c:624
+#: src/id3_tag.c:634
 msgid "Requested field not found"
 msgstr "Le champ demandé n'a pas été trouvé"
 
-#: src/id3_tag.c:626
+#: src/id3_tag.c:636
 msgid "Unknown field type"
 msgstr "Type du champ inconnu"
 
-#: src/id3_tag.c:628
+#: src/id3_tag.c:638
 msgid "Tag is already attached to a file"
 msgstr "Le tag est déjà attaché à un fichier"
 
-#: src/id3_tag.c:630
+#: src/id3_tag.c:640
 msgid "Invalid tag version"
 msgstr "Version du tag invalide"
 
-#: src/id3_tag.c:632
+#: src/id3_tag.c:642
 msgid "No file to parse"
 msgstr "Pas de fichier à analyser"
 
-#: src/id3_tag.c:634
+#: src/id3_tag.c:644
 msgid "Attempting to write to a read-only file"
 msgstr "Tentative d'écriture vers un fichier en lecture seule"
 
-#: src/id3_tag.c:636
+#: src/id3_tag.c:646
 msgid "Error in compression/uncompression"
 msgstr "Erreur dans la compression/décompression"
 
-#: src/id3_tag.c:638
+#: src/id3_tag.c:648
 msgid "Unknown error message!"
 msgstr "Message d'erreur inconnu!"
 
-#: src/id3_tag.c:1212
+#: src/id3_tag.c:1222
 #, c-format
 msgid ""
 "As the following corrupted file: '%s'\n"
@@ -2683,126 +2719,82 @@ msgstr ""
 "Comme le fichier corrompu : '%s'\n"
 "va causer une erreur dans id3lib, il ne sera pas traité par le programme."
 
-#: src/id3_tag.c:1214
+#: src/id3_tag.c:1224
 msgid "Corrupted file..."
 msgstr "Fichier corrompu..."
 
-#: src/log.c:91
+#: src/log.c:95
 msgid "Log"
 msgstr "Journal"
 
-#: src/misc.c:214
-msgid " OK "
-msgstr " OK "
-
-#: src/misc.c:219
-msgid " Yes "
-msgstr " Oui "
-
-#: src/misc.c:224
-msgid " No "
-msgstr " Non "
-
-#: src/misc.c:229
-msgid " Apply "
-msgstr " Appliquer "
-
-#: src/misc.c:234
-msgid " Save "
-msgstr " Sauver "
-
-#: src/misc.c:239
-msgid " Cancel "
-msgstr " Annuler "
-
-#: src/misc.c:244
-msgid " Close "
-msgstr " Fermer "
-
-#: src/misc.c:249
-msgid " Write "
-msgstr " Ecrire "
-
-#: src/misc.c:254
-msgid " Execute "
-msgstr " Exécuter "
-
-#: src/misc.c:259
-msgid " Search "
-msgstr " Rechercher "
-
-#: src/misc.c:264
-msgid " Browse... "
-msgstr "Parcourir..."
-
-#: src/misc.c:856
-msgid "Select directory..."
-msgstr "Sélectionner un répertoire..."
-
-#: src/misc.c:861
+#: src/misc.c:773
 msgid "Select file..."
 msgstr "Sélectionner un fichier..."
 
-#: src/misc.c:931
+#: src/misc.c:778
+msgid "Select directory..."
+msgstr "Sélectionner un répertoire..."
+
+#: src/misc.c:852
 msgid "Warning..."
 msgstr "Attention..."
 
-#: src/misc.c:931
+#: src/misc.c:856
 msgid "No audio player defined!"
 msgstr "Aucun lecteur audio n'a été défini!"
 
-#: src/misc.c:1033
+#: src/misc.c:959
 #, c-format
 msgid "Can't execute %s (%s)!\n"
 msgstr "Impossible d'exécuter %s (%s)!\n"
 
 #. Units Tab of file size (bytes,kilobytes,...)
-#: src/misc.c:1198 src/misc.c:1217
+#: src/misc.c:1124 src/misc.c:1143
 msgid "B"
 msgstr "o"
 
-#: src/misc.c:1198 src/misc.c:1217
+#: src/misc.c:1124 src/misc.c:1143
 msgid "KB"
 msgstr "Ko"
 
-#: src/misc.c:1198 src/misc.c:1217
+#: src/misc.c:1124 src/misc.c:1143
 msgid "MB"
 msgstr "Mo"
 
-#: src/misc.c:1198 src/misc.c:1217
+#: src/misc.c:1124 src/misc.c:1143
 msgid "GB"
 msgstr "Go"
 
-#: src/misc.c:1198 src/misc.c:1217
+#: src/misc.c:1124 src/misc.c:1143
 msgid "TB"
 msgstr "To"
 
-#: src/misc.c:1312
+#: src/misc.c:1238
 msgid "Generate a playlist"
 msgstr "Générer une liste de lecture"
 
-#: src/misc.c:1336
+#: src/misc.c:1262
 msgid "M3U Playlist Name"
 msgstr "Nom de la Liste de Lecture M3U"
 
-#: src/misc.c:1349
+#: src/misc.c:1275
 msgid "Use directory name"
 msgstr "Utiliser le nom du répertoire"
 
-#: src/misc.c:1373 src/misc.c:1470
+#: src/misc.c:1299 src/misc.c:1396
 msgid "Edit Masks"
 msgstr "Editer les Masques"
 
 #. Playlist options
-#: src/misc.c:1381
+#: src/misc.c:1307
 msgid "Playlist Options"
 msgstr "Options de la Liste de Lecture"
 
-#: src/misc.c:1387
+#: src/misc.c:1313
 msgid "Include only the selected files"
 msgstr "Inclure seulement les fichiers sélectionnés"
 
-#: src/misc.c:1390
+#: src/misc.c:1316
 msgid ""
 "If activated, only the selected files will be written in the playlist file. "
 "Else, all the files will be written."
@@ -2810,30 +2802,30 @@ msgstr ""
 "Si activé, seulement les fichiers sélectionnés seront écrits dans la liste "
 "de lecture. Sinon, tous les fichiers seront pris."
 
-#: src/misc.c:1397
+#: src/misc.c:1323
 msgid "Use full path for files in playlist"
 msgstr "Utiliser le chemin complet pour les fichiers"
 
-#: src/misc.c:1400
+#: src/misc.c:1326
 msgid "Use relative path for files in playlist"
 msgstr "Utiliser le chemin relatif pour les fichiers"
 
 #. Create playlist in parent directory
-#: src/misc.c:1410
+#: src/misc.c:1336
 msgid "Create playlist in the parent directory"
 msgstr "Créer la Liste de Lecture dans le rép. supérieur"
 
-#: src/misc.c:1413
+#: src/misc.c:1339
 msgid "If activated, the playlist will be created in the parent directory."
 msgstr ""
 "Si activé, la Liste de Lecture sera créée dans le répertoire supérieur."
 
 #. DOS Separator
-#: src/misc.c:1417
+#: src/misc.c:1343
 msgid "Use DOS directory separator"
 msgstr "Utiliser le séparateur de répertoires DOS"
 
-#: src/misc.c:1422
+#: src/misc.c:1348
 msgid ""
 "This option replaces the UNIX directory separator '/' into DOS separator "
 "'\\'."
@@ -2841,23 +2833,23 @@ msgstr ""
 "Cette option remplace le séparateur de répertoires UNIX '/' par celui de DOS "
 "'\\'."
 
-#: src/misc.c:1431
+#: src/misc.c:1357
 msgid "Playlist Content"
 msgstr "Contenu de la Liste de Lecture"
 
-#: src/misc.c:1437
+#: src/misc.c:1363
 msgid "Write only list of files"
 msgstr "Ecrire seulement la liste des fichiers"
 
-#: src/misc.c:1441
+#: src/misc.c:1367
 msgid "Write info using filename"
 msgstr "Ecrire les infos en utilisant le nom du fichier"
 
-#: src/misc.c:1444
+#: src/misc.c:1370
 msgid "Write info using :"
 msgstr "Ecrire les infos en utilisant :"
 
-#: src/misc.c:1704
+#: src/misc.c:1631
 #, c-format
 msgid ""
 "Playlist file '%s' already exists!\n"
@@ -2866,12 +2858,12 @@ msgstr ""
 "Le fichier '%s' existe déjà!\n"
 "L'écraser?"
 
-#: src/misc.c:1705
+#: src/misc.c:1632
 msgid "Write Playlist..."
 msgstr "Ecrire Liste de Lecture..."
 
 #. Writing fails...
-#: src/misc.c:1719
+#: src/misc.c:1654
 #, c-format
 msgid ""
 "Can't write playlist file '%s'!\n"
@@ -2880,44 +2872,24 @@ msgstr ""
 "Impossible d'écrire la liste de lecture '%s'!\n"
 "(%s)"
 
-#: src/misc.c:1726
+#: src/misc.c:1667
 #, c-format
 msgid "Written playlist file '%s'"
 msgstr "La liste de lecture '%s' a été écrite"
 
-#: src/misc.c:1962
+#: src/misc.c:1913
 msgid "CD"
 msgstr "CD"
 
-#: src/misc.c:1964
-msgid "Track"
-msgstr "Piste"
-
-#: src/misc.c:1967 src/picture.c:821
-msgid "Composer"
-msgstr "Compositeur"
-
-#: src/misc.c:1968
-msgid "Orig. Artist"
-msgstr "Artiste Orig."
-
-#: src/misc.c:1969
-msgid "Copyright"
-msgstr "Copyright"
-
-#: src/misc.c:1970
-msgid "URL"
-msgstr "URL"
-
-#: src/misc.c:1971
+#: src/misc.c:1922
 msgid "Encoded by"
 msgstr "Encodeur"
 
-#: src/misc.c:1982
+#: src/misc.c:1933
 msgid "Search a file"
 msgstr "Rechercher un fichier"
 
-#: src/misc.c:2022
+#: src/misc.c:1973
 msgid ""
 "Type the word to search into files. Or type nothing to display all files."
 msgstr ""
@@ -2925,86 +2897,86 @@ msgstr ""
 "afficher."
 
 #. Where...
-#: src/misc.c:2028
+#: src/misc.c:1979
 msgid "In :"
 msgstr "Dans :"
 
-#: src/misc.c:2031
+#: src/misc.c:1982
 msgid "the File Name"
 msgstr "le Nom de fichier"
 
 #. Note : label changed to "the Tag" (to be the only one) to fix a Hungarian grammatical problem (which uses one word to say "in the tag" like here)
-#: src/misc.c:2033
+#: src/misc.c:1984
 msgid "the Tag"
 msgstr "le Tag"
 
 #. Property of the search
-#: src/misc.c:2043 src/prefs.c:323
+#: src/misc.c:1994 src/prefs.c:323
 msgid "Case sensitive"
 msgstr "Sensible à la casse"
 
-#: src/misc.c:2476
+#: src/misc.c:2427
 #, c-format
 msgid "Found : %d file(s)"
 msgstr "Trouvé(s) : %d fichier(s)"
 
-#: src/misc.c:2739
+#: src/misc.c:2690
 msgid "Load the filenames from a TXT file"
 msgstr "Charger les noms des fichiers à partir d'un fichier TXT"
 
-#: src/misc.c:2769
+#: src/misc.c:2720
 msgid "File :"
 msgstr "Fichier :"
 
 #. Button 'load'
 #. the signal attached to this button, to load the file, is placed after the LoadFileContentList definition
-#: src/misc.c:2787
+#: src/misc.c:2738
 msgid " Load "
 msgstr " Charger "
 
-#: src/misc.c:2810
+#: src/misc.c:2761
 msgid "Content of TXT file"
 msgstr "Contenu du fichier TXT"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: src/misc.c:2831 src/misc.c:2925
+#: src/misc.c:2782 src/misc.c:2876
 msgid "Insert a blank line before the selected line"
 msgstr "Insérer un espace avant la ligne sélectionnée"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: src/misc.c:2840 src/misc.c:2934
+#: src/misc.c:2791 src/misc.c:2885
 msgid "Delete the selected line"
 msgstr "Effacer la ligne sélectionnée"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: src/misc.c:2849 src/misc.c:2943 src/misc.c:3415
+#: src/misc.c:2800 src/misc.c:2894 src/misc.c:3367
 msgid "Delete all blank lines"
 msgstr "Effacer toutes les lignes vides"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: src/misc.c:2861 src/misc.c:2955
+#: src/misc.c:2812 src/misc.c:2906
 msgid "Move up the selected line"
 msgstr "Monter la ligne sélectionnée"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: src/misc.c:2870 src/misc.c:2964
+#: src/misc.c:2821 src/misc.c:2915
 msgid "Move down the selected line"
 msgstr "Descendre la ligne sélectionnée"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: src/misc.c:2882 src/misc.c:2976 src/misc.c:3439
+#: src/misc.c:2833 src/misc.c:2927 src/misc.c:3391
 msgid "Reload"
 msgstr "Recharger"
 
-#: src/misc.c:2903
+#: src/misc.c:2854
 msgid "List of files"
 msgstr "Liste de fichiers"
 
-#: src/misc.c:2998
+#: src/misc.c:2949
 msgid "Selected line:"
 msgstr "Ligne sélectionnée"
 
-#: src/misc.c:3016
+#: src/misc.c:2967
 msgid ""
 "When activating this option, after loading the filenames, the current "
 "selected scanner will be ran (the scanner window must be opened)."
@@ -3012,19 +2984,19 @@ msgstr ""
 "En activant cette option, après le chargement du nom des fichiers, le "
 "scanner courant sera exécuté (la fenêtre des scanners doit être ouverte)."
 
-#: src/misc.c:3403
+#: src/misc.c:3355
 msgid "Insert a blank line"
 msgstr "Insérer une ligne vide"
 
-#: src/misc.c:3409
+#: src/misc.c:3361
 msgid "Delete this line"
 msgstr "Effacer cette ligne"
 
-#: src/misc.c:3424
+#: src/misc.c:3376
 msgid "Move up this line"
 msgstr "Monter cette ligne"
 
-#: src/misc.c:3430
+#: src/misc.c:3382
 msgid "Move down this line"
 msgstr "Descendre cette ligne"
 
@@ -3041,7 +3013,7 @@ msgstr "Audio"
 msgid "Unknown"
 msgstr "Inconnu"
 
-#: src/mp4_header.c:211 src/mp4_tag.c:105 src/mp4_tag.c:243
+#: src/mp4_header.c:211 src/mp4_tag.c:106 src/mp4_tag.c:255
 msgid "MP4 format invalid"
 msgstr "Format MP4 invalide"
 
@@ -3066,8 +3038,7 @@ msgstr "Bi-canal"
 msgid "Single channel"
 msgstr "Mono canal"
 
-#. mb->icon = icon;
-#: src/msgbox.c:135
+#: src/msgbox.c:101
 msgid "Repeat action for the rest of the files"
 msgstr "Répéter la même action pour les autres fichiers"
 
@@ -3114,48 +3085,48 @@ msgstr ""
 "Ogg Vorbis : Erreur interne de logique, indocation d'un bug ou d'une "
 "corruption de pile (fichier ; '%s')."
 
-#: src/ogg_header.c:195 src/ogg_tag.c:181 src/ogg_tag.c:573
+#: src/ogg_header.c:195 src/ogg_tag.c:184 src/ogg_tag.c:632
 #, c-format
 msgid "ERROR: Failed to open file: '%s' as vorbis (%s)."
 msgstr "ERREUR lors de l'ouverture du fichier: '%s' en tant que vorbis (%s)."
 
-#: src/ogg_tag.c:163
+#: src/ogg_tag.c:166
 #, c-format
 msgid "Warning : The Ogg Vorbis file '%s' contains an ID3v2 tag."
 msgstr "Attention : Le fichier Vorbis Ogg '%s' contient un tag ID3v2."
 
-#: src/picture.c:293
+#: src/picture.c:295
 msgid "Add pictures"
 msgstr "Ajouter les images"
 
-#: src/picture.c:303 src/picture.c:661
+#: src/picture.c:305 src/picture.c:646
 msgid "All Files"
 msgstr "Tous les fichiers"
 
-#: src/picture.c:309 src/picture.c:667
+#: src/picture.c:311 src/picture.c:652
 msgid "PNG and JPEG"
 msgstr "PNG et JPEG"
 
-#: src/picture.c:445
+#: src/picture.c:428
 #, c-format
 msgid "Picture Properties %d/%d"
 msgstr "Propriétés de l'image %d/%d"
 
-#: src/picture.c:475
+#: src/picture.c:458
 msgid "Picture Type"
 msgstr "Type d'Image:"
 
-#. Description
-#: src/picture.c:532
+#. Description of the picture
+#: src/picture.c:515
 msgid "Picture Description:"
 msgstr "Description de l'image :"
 
-#: src/picture.c:649
+#: src/picture.c:634
 #, c-format
 msgid "Save picture %d/%d"
 msgstr "Sauvegarder l'image %d/%d"
 
-#: src/picture.c:732
+#: src/picture.c:717
 #, c-format
 msgid ""
 "The following file already exists :\n"
@@ -3166,115 +3137,120 @@ msgstr ""
 "'%s'\n"
 "Voulez vous l'écraser?"
 
-#: src/picture.c:734
+#: src/picture.c:719
 msgid "Save file..."
 msgstr "Sauvegarder le fichier..."
 
-#: src/picture.c:786
+#: src/picture.c:803
 msgid "JPEG image"
 msgstr "Image JPEG"
 
-#: src/picture.c:788
+#: src/picture.c:805
 msgid "PNG image"
 msgstr "Image PNG"
 
-#: src/picture.c:790
+#: src/picture.c:807
 msgid "Unknown image"
 msgstr "Image inconnue"
 
-#: src/picture.c:801
+#: src/picture.c:818
 msgid "32x32 pixel PNG file icon"
 msgstr "Fichier icone PNG de 32x32 pixels"
 
-#: src/picture.c:803
+#: src/picture.c:820
 msgid "Other file icon"
 msgstr "Autre fichier icone"
 
-#: src/picture.c:805
+#: src/picture.c:822
 msgid "Cover (front)"
 msgstr "Couverture (face avant)"
 
-#: src/picture.c:807
+#: src/picture.c:824
 msgid "Cover (back)"
 msgstr "Couverture (face arrière)"
 
-#: src/picture.c:809
+#: src/picture.c:826
 msgid "Leaflet page"
 msgstr "Dépliant intérieur"
 
-#: src/picture.c:811
+#: src/picture.c:828
 msgid "Media (e.g. label side of CD)"
 msgstr "Image de l'album"
 
-#: src/picture.c:813
+#: src/picture.c:830
 msgid "Lead artist/lead performer/soloist"
 msgstr "Artiste principal/Soliste"
 
-#: src/picture.c:815
+#: src/picture.c:832
 msgid "Artist/performer"
 msgstr "Artiste"
 
-#: src/picture.c:817
+#: src/picture.c:834
 msgid "Conductor"
 msgstr "Chef d'orchestre"
 
-#: src/picture.c:819
+#: src/picture.c:836
 msgid "Band/Orchestra"
 msgstr "Groupe/Orchestre"
 
-#: src/picture.c:823
+#: src/picture.c:840
 msgid "Lyricist/text writer"
 msgstr "Parolier/Ecrivain"
 
-#: src/picture.c:825
+#: src/picture.c:842
 msgid "Recording location"
 msgstr "Lieu d'enregistrement"
 
-#: src/picture.c:827
+#: src/picture.c:844
 msgid "During recording"
 msgstr "Artistes pendant l'enregistrement"
 
-#: src/picture.c:829
+#: src/picture.c:846
 msgid "During performance"
 msgstr "Artistes pendant la représentation"
 
-#: src/picture.c:831
+#: src/picture.c:848
 msgid "Movie/video screen capture"
 msgstr "Capture d'écran film/video"
 
-#: src/picture.c:833
+#: src/picture.c:850
 msgid "A bright coloured fish"
 msgstr "Un poisson aux couleurs vives"
 
-#: src/picture.c:835
+#: src/picture.c:852
 msgid "Illustration"
 msgstr "Illustration"
 
-#: src/picture.c:837
+#: src/picture.c:854
 msgid "Band/Artist logotype"
 msgstr "Logo du groupe/de l'artiste"
 
-#: src/picture.c:839
+#: src/picture.c:856
 msgid "Publisher/studio logotype"
 msgstr "Maison d'édition/Sigle du studio"
 
-#: src/picture.c:841
+#: src/picture.c:860
 msgid "Unknown picture type"
 msgstr "Type d'image inconnu"
 
-#: src/picture.c:869 src/picture.c:880
+#: src/picture.c:888 src/picture.c:899
 msgid "pixels"
 msgstr "pixels"
 
-#: src/picture.c:870 src/picture.c:881
+#: src/picture.c:889 src/picture.c:900
 msgid "Type"
 msgstr "Type"
 
-#: src/picture.c:882
+#: src/picture.c:901
 msgid "Description"
 msgstr "Description"
 
-#: src/picture.c:984
+#: src/picture.c:957
+#, c-format
+msgid "Error with 'loader_close': %s"
+msgstr "Erreur avec 'loader_close' : %s"
+
+#: src/picture.c:1015
 msgid ""
 "Can't display the picture, as not enough data has been read to determine how "
 "to create the image buffer."
@@ -3282,11 +3258,16 @@ msgstr ""
 "Impossible d'afficher l'image, car il n'y a pas assez de données lues pour "
 "créer le buffer image."
 
-#: src/picture.c:987
+#: src/picture.c:1018
 msgid "Loading Picture File..."
 msgstr "Chargement du fichier image..."
 
-#: src/picture.c:1081
+#: src/picture.c:1032
+#, c-format
+msgid "Error with 'loader_write': %s"
+msgstr "Erreur avec 'loader_write' : %s"
+
+#: src/picture.c:1120
 #, c-format
 msgid ""
 "Can't open file :\n"
@@ -3297,7 +3278,7 @@ msgstr ""
 "'%s'\n"
 "(%s)"
 
-#: src/picture.c:1089
+#: src/picture.c:1134
 msgid "Picture file not loaded..."
 msgstr "Image non chargée..."
 
@@ -3713,7 +3694,7 @@ msgid ""
 msgstr ""
 "Forcer l'utilisation de l'encodage du système et activer la transcription"
 
-#: src/prefs.c:554 src/prefs.c:830 src/prefs.c:896
+#: src/prefs.c:554 src/prefs.c:834 src/prefs.c:903
 msgid ""
 "With this option, when a character cannot be represented in the target "
 "character set, it can be approximated through one or several similarly "
@@ -3731,7 +3712,7 @@ msgstr ""
 "Forcer l'utilisation de l'encodage du système et supprimer certains "
 "caractères"
 
-#: src/prefs.c:563 src/prefs.c:839 src/prefs.c:905
+#: src/prefs.c:563 src/prefs.c:843 src/prefs.c:912
 msgid ""
 "With this option, when a characters cannot be represented in the target "
 "character set, it will be silently discarded."
@@ -3929,7 +3910,7 @@ msgstr ""
 
 #. Charset
 #. Id3V1 writing character set
-#: src/prefs.c:769 src/prefs.c:867
+#: src/prefs.c:769 src/prefs.c:871
 msgid "Charset:"
 msgstr "Jeu de charactères :"
 
@@ -3950,33 +3931,43 @@ msgstr ""
 
 #. ID3v2 Additional iconv() options
 #. ID3V1 Additional iconv() options
-#: src/prefs.c:818 src/prefs.c:883
+#: src/prefs.c:818 src/prefs.c:887
 msgid "Additional settings for iconv():"
 msgstr "Paramètres supplémentaires pour iconv() :"
 
-#: src/prefs.c:822 src/prefs.c:888
+#: src/prefs.c:823 src/prefs.c:892
 msgid "No"
 msgstr "Non"
 
-#: src/prefs.c:827 src/prefs.c:893
+#: src/prefs.c:826 src/prefs.c:895
+msgid ""
+"With this option, when a character cannot be represented in the target "
+"character set, it isn't changed. But note that an error message will be "
+"displayed for information."
+msgstr ""
+"Avec cette option, quand un caractère ne peut pas être représenté dans "
+"l'encodage cible, il ne sera pas changé. Mais notez qu'un message d'erreur "
+"apparaîtra pour vous informer."
+
+#: src/prefs.c:831 src/prefs.c:900
 msgid "//TRANSLIT"
 msgstr "//TRANSLIT"
 
-#: src/prefs.c:836 src/prefs.c:902
+#: src/prefs.c:840 src/prefs.c:909
 msgid "//IGNORE"
 msgstr "//IGNORE"
 
 #. ID3v1 tags
-#: src/prefs.c:844
+#: src/prefs.c:848
 msgid "ID3v1 tags"
 msgstr "Tags ID3v1"
 
 #. Write ID3v1 tag
-#: src/prefs.c:858
+#: src/prefs.c:862
 msgid "Write ID3v1.x tag"
 msgstr "Ecrire le tag ID3v1.x"
 
-#: src/prefs.c:861
+#: src/prefs.c:865
 msgid ""
 "If activated, an ID3v1 tag will be added or updated at the end of the MP3 "
 "files. Else it will be stripped."
@@ -3984,22 +3975,22 @@ msgstr ""
 "Si cette option est activée, un tag à la norme ID3v1 sera ajouté ou mis à "
 "jour, à la fin des fichiers MP3. Sinon, il sera supprimé."
 
-#: src/prefs.c:878
+#: src/prefs.c:882
 msgid "Character set used to write ID3v1 tag data in the file."
 msgstr ""
 "Jeu de caractères à utiliser pour l'écriture des données du tag ID3v1 dans "
 "le fichier."
 
 #. Character Set for reading tag
-#: src/prefs.c:910
+#: src/prefs.c:917
 msgid "Character Set for reading ID3 tags"
 msgstr "Jeu de caractères pour lire les tags ID3"
 
-#: src/prefs.c:924
+#: src/prefs.c:931
 msgid "Non-standart:"
 msgstr "Non standard :"
 
-#: src/prefs.c:929
+#: src/prefs.c:936
 msgid ""
 "This character set will be used when reading the tag data, to convert each "
 "string found in an ISO-8859-1 field in the tag (for ID3v2 or/and ID3v1 "
@@ -4030,7 +4021,7 @@ msgstr ""
 "sélectionner l'encodage 'Windows-1251' pour charger des tags écrits sous "
 "Windows. Et 'KOI8-R' pour charger des tags écrits sous un système Unix."
 
-#: src/prefs.c:947
+#: src/prefs.c:954
 msgid "Character set used to read tag data in the file."
 msgstr ""
 "Jeu de caractères à utiliser pour la lecture des données du tag dans le "
@@ -4039,25 +4030,25 @@ msgstr ""
 #.
 #. * Scanner
 #.
-#: src/prefs.c:962 src/prefs.c:963
+#: src/prefs.c:969 src/prefs.c:970
 msgid "Scanner"
 msgstr "Scanner"
 
 #. Character conversion for the 'Fill Tag' scanner (=> FTS...)
-#: src/prefs.c:975
+#: src/prefs.c:982
 msgid "Fill Tag Scanner - Character Conversion"
 msgstr "Scanner Compléter Tag - Conversion de Caractères"
 
-#: src/prefs.c:981 src/prefs.c:1007
+#: src/prefs.c:988 src/prefs.c:1014
 msgid "Convert underscore character '_' and string '%20' to space ' '"
 msgstr ""
 "Convertir le caractère underscore '_' et la chaîne '%20' par un espace ' '"
 
-#: src/prefs.c:983 src/prefs.c:1009
+#: src/prefs.c:990 src/prefs.c:1016
 msgid "Convert space ' ' to underscore '_'"
 msgstr "Convertir les espaces ' ' par des underscores '_'"
 
-#: src/prefs.c:995 src/prefs.c:997
+#: src/prefs.c:1002 src/prefs.c:1004
 msgid ""
 "If activated, this conversion will be used when applying a mask from the "
 "scanner for tags."
@@ -4066,11 +4057,11 @@ msgstr ""
 "à partir du scanner de tags."
 
 #. Character conversion for the 'Rename File' scanner (=> RFS...)
-#: src/prefs.c:1001
+#: src/prefs.c:1008
 msgid "Rename File Scanner - Character Conversion"
 msgstr "Scanner Renommer Fichier - Conversion de Caractères"
 
-#: src/prefs.c:1021 src/prefs.c:1023
+#: src/prefs.c:1028 src/prefs.c:1030
 msgid ""
 "If activated, this conversion will be used when applying a mask from the "
 "scanner for filenames."
@@ -4079,19 +4070,19 @@ msgstr ""
 "à partir du scanner de fichiers."
 
 #. Character conversion for the 'Process Fields' scanner (=> PFS...)
-#: src/prefs.c:1027
+#: src/prefs.c:1034
 msgid "Process Fields Scanner - Character Conversion"
 msgstr "Scanner Traiter les Champs - Conversion de Caractères"
 
 #. Don't convert some words like to, feat. first letter uppercase.
-#: src/prefs.c:1034
+#: src/prefs.c:1041
 msgid ""
 "Don't uppercase first letter of words for some prepositions and articles."
 msgstr ""
 "Ne pas convertir en majuscule la première lettre de certaines prépositions "
 "et articles."
 
-#: src/prefs.c:1038
+#: src/prefs.c:1045
 msgid ""
 "Don't convert first letter of the words like prepositions, articles and "
 "words like feat., when using the scanner 'First letter uppercase of each "
@@ -4104,15 +4095,15 @@ msgstr ""
 "'Text in an Entry' au lieu de 'Text In An Entry')."
 
 #. Properties of the scanner window
-#: src/prefs.c:1044
+#: src/prefs.c:1051
 msgid "Scanner Window"
 msgstr "Fenêtre du Scanner"
 
-#: src/prefs.c:1050
+#: src/prefs.c:1057
 msgid "Open the Scanner Window on startup"
 msgstr "Ouvrir la Fenêtre du Scanner au démarrage"
 
-#: src/prefs.c:1053
+#: src/prefs.c:1060
 msgid ""
 "Activate this option to open automatically the scanner window when EasyTAG "
 "starts."
@@ -4120,11 +4111,11 @@ msgstr ""
 "Activer cette option pour ouvrir automatiquement la fenêtre des scanners au "
 "démarrage de EasyTAG."
 
-#: src/prefs.c:1056
+#: src/prefs.c:1063
 msgid "Scanner window always on top"
 msgstr "Fenêtre du scanner toujours au dessus"
 
-#: src/prefs.c:1059
+#: src/prefs.c:1066
 msgid ""
 "If activated, the window which contains the masks will stay always over the "
 "main window."
@@ -4133,16 +4124,16 @@ msgstr ""
 "fenêtre principale (toujours visible)."
 
 #. Other options
-#: src/prefs.c:1064
+#: src/prefs.c:1071
 msgid "Fields"
 msgstr "Champs"
 
 #. Overwrite text into tag fields
-#: src/prefs.c:1071
+#: src/prefs.c:1078
 msgid "Overwrite fields when scanning tag"
 msgstr "Ecraser les champs lors d'un Scan du tag"
 
-#: src/prefs.c:1074
+#: src/prefs.c:1081
 msgid ""
 "If activated, the scanner will replace existing text in fields by the new "
 "one. If deactivated, only blank fields of the tag will be filled."
@@ -4151,11 +4142,11 @@ msgstr ""
 "champs, par le nouveau. Si désactivé, seulement les champs vides seront "
 "complétés."
 
-#: src/prefs.c:1085
+#: src/prefs.c:1092
 msgid "Set this text as default comment :"
 msgstr "Mettre ce texte en commentaire par défaut :"
 
-#: src/prefs.c:1088
+#: src/prefs.c:1095
 msgid ""
 "Activate this option if you want to put the following string into the "
 "comment field when using the 'Fill Tag' scanner."
@@ -4164,13 +4155,13 @@ msgstr ""
 "commentaire du tag lors de l'utilisation du scanner 'Compléter le Tag'."
 
 #. CRC32 comment
-#: src/prefs.c:1105
+#: src/prefs.c:1112
 msgid "Use CRC32 as the default comment (for files with ID3 tags only)."
 msgstr ""
 "Mettre la valeur CRC32 comme commentaire par défaut (pour fichier avec ID3 "
 "tag)."
 
-#: src/prefs.c:1109
+#: src/prefs.c:1116
 msgid ""
 "Calculates the CRC-32 value of the file and writes it into the comment field "
 "when using the 'Fill Tag' scanner."
@@ -4181,42 +4172,42 @@ msgstr ""
 #.
 #. * CDDB
 #.
-#: src/prefs.c:1120 src/prefs.c:1121
+#: src/prefs.c:1127 src/prefs.c:1128
 msgid "CD Data Base"
 msgstr "Base de données CD"
 
 #. CDDB Server Settings (Automatic Search)
-#: src/prefs.c:1130
+#: src/prefs.c:1137
 msgid "Server Settings for Automatic Search"
 msgstr "Paramètres du Serveur pour la Recherche Automatique"
 
-#: src/prefs.c:1139 src/prefs.c:1178 src/prefs.c:1212
+#: src/prefs.c:1146 src/prefs.c:1185 src/prefs.c:1219
 msgid "Name :"
 msgstr "Nom :"
 
-#: src/prefs.c:1158 src/prefs.c:1186 src/prefs.c:1221 src/prefs.c:1309
+#: src/prefs.c:1165 src/prefs.c:1193 src/prefs.c:1228 src/prefs.c:1316
 msgid "Port :"
 msgstr "Port :"
 
-#: src/prefs.c:1168 src/prefs.c:1196 src/prefs.c:1231
+#: src/prefs.c:1175 src/prefs.c:1203 src/prefs.c:1238
 msgid "CGI Path :"
 msgstr "Chemin CGI :"
 
 #. CDDB Server Settings (Manual Search)
-#: src/prefs.c:1204
+#: src/prefs.c:1211
 msgid "Server Settings for Manual Search"
 msgstr "Paramètres du Serveur pour la Recherche Manuelle"
 
 #. Local access for CDDB (Automatic Search)
-#: src/prefs.c:1239
+#: src/prefs.c:1246
 msgid "Local CD Data Base"
 msgstr "Base de données CD locale"
 
-#: src/prefs.c:1247
+#: src/prefs.c:1254
 msgid "Path :"
 msgstr "Chemin :"
 
-#: src/prefs.c:1258
+#: src/prefs.c:1265
 msgid ""
 "Specify the directory where are located the local cd data base. The local cd "
 "data base contains the eleven following directories 'blues', 'classical', "
@@ -4228,52 +4219,52 @@ msgstr ""
 "'data', 'folk', 'jazz', 'newage', 'reggae', 'rock', 'soundtrack' et 'misc'."
 
 #. CDDB Proxy Settings
-#: src/prefs.c:1284
+#: src/prefs.c:1291
 msgid "Proxy Settings"
 msgstr "Paramètres du Proxy"
 
-#: src/prefs.c:1293
+#: src/prefs.c:1300
 msgid "Use a proxy"
 msgstr "Utiliser un proxy"
 
-#: src/prefs.c:1296
+#: src/prefs.c:1303
 msgid "Set active the settings of the proxy server."
 msgstr "Active les paramètres du serveur proxy."
 
-#: src/prefs.c:1301
+#: src/prefs.c:1308
 msgid "Host Name :"
 msgstr "Nom d'Hôte :"
 
-#: src/prefs.c:1308
+#: src/prefs.c:1315
 msgid "Name of the proxy server."
 msgstr "Nom du proxy."
 
-#: src/prefs.c:1316
+#: src/prefs.c:1323
 msgid "Port of the proxy server."
 msgstr "Port du proxy."
 
-#: src/prefs.c:1321
+#: src/prefs.c:1328
 msgid "User Name :"
 msgstr "Nom d'Utilisateur :"
 
-#: src/prefs.c:1328
+#: src/prefs.c:1335
 msgid "Name of user for the the proxy server."
 msgstr "Nom de l'utilisateur sur le serveur proxy."
 
-#: src/prefs.c:1329
+#: src/prefs.c:1336
 msgid "User Password :"
 msgstr "Mot de Passe Utilisateur :"
 
-#: src/prefs.c:1337
+#: src/prefs.c:1344
 msgid "Password of user for the the proxy server."
 msgstr "Mot de Passe de l'utilisateur sur le serveur proxy."
 
 #. Track Name list (CDDB results)
-#: src/prefs.c:1342
+#: src/prefs.c:1349
 msgid "Track Name List"
 msgstr "Liste des Noms de Pistes"
 
-#: src/prefs.c:1349
+#: src/prefs.c:1356
 msgid ""
 "Select corresponding audio file (according position or DLM if activated "
 "below)"
@@ -4281,7 +4272,7 @@ msgstr ""
 "Sélectionner le fichier audio correspondant (d'après la position ou "
 "l'algorithme DLM si activé en dessous)"
 
-#: src/prefs.c:1353
+#: src/prefs.c:1360
 msgid ""
 "If activated, when selecting a line in the list of tracks name, the "
 "corresponding audio file in the main list will be also selected."
@@ -4291,7 +4282,7 @@ msgstr ""
 "sélectionné."
 
 #. Check box to use DLM (also used in the cddb window)
-#: src/prefs.c:1358
+#: src/prefs.c:1365
 msgid ""
 "Use the Levenshtein algorithm (DLM) to match lines (using title) with audio "
 "files (using filename)"
@@ -4303,15 +4294,15 @@ msgstr ""
 #.
 #. * Confirmation
 #.
-#: src/prefs.c:1373 src/prefs.c:1374
+#: src/prefs.c:1380 src/prefs.c:1381
 msgid "Confirmation"
 msgstr "Confirmation"
 
-#: src/prefs.c:1382
+#: src/prefs.c:1389
 msgid "Confirm exit from program"
 msgstr "Confirmer la sortie du programme"
 
-#: src/prefs.c:1385
+#: src/prefs.c:1392
 msgid ""
 "If activated, opens a dialog box to ask confirmation before exiting the "
 "program."
@@ -4319,19 +4310,19 @@ msgstr ""
 "Si cette option est activée, une boîte de dialogue s'ouvrira pour demander "
 "confirmation avant la fermeture de l'application."
 
-#: src/prefs.c:1388
+#: src/prefs.c:1395
 msgid "Confirm writing of file tag"
 msgstr "Confirmer l'écriture du tag du fichier"
 
-#: src/prefs.c:1392
+#: src/prefs.c:1399
 msgid "Confirm renaming of file"
 msgstr "Confirmer pour renommer les fichiers"
 
-#: src/prefs.c:1396
+#: src/prefs.c:1403
 msgid "Confirm deleting of file"
 msgstr "Confirmer l'effacement des fichiers"
 
-#: src/prefs.c:1400
+#: src/prefs.c:1407
 msgid "Confirm writing of playlist"
 msgstr "Confirmer l'écriture de la liste de lecture"
 
@@ -4339,37 +4330,37 @@ msgstr "Confirmer l'écriture de la liste de lecture"
 #. //gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
 #. //g_signal_connect(G_OBJECT(Button),"clicked",G_CALLBACK(OptionsWindow_Apply_Button),NULL);
 #. //GTK_WIDGET_SET_FLAGS(Button, GTK_CAN_DEFAULT);
-#: src/prefs.c:1422
+#: src/prefs.c:1429
 msgid "Apply changes (but don't save) and close this window"
 msgstr "Appliquer les changements (mais ne pas sauver) et fermer cette fenêtre"
 
-#: src/prefs.c:1431
+#: src/prefs.c:1438
 msgid "Close this window without saving"
 msgstr "Fermer cette fenêtre sans sauver"
 
-#: src/prefs.c:1439
+#: src/prefs.c:1446
 msgid "Save changes and close this window"
 msgstr "Sauver les changements et fermer cette fenêtre"
 
 #. For translators : be aware to NOT translate '%.*d' in this string
-#: src/prefs.c:1472
+#: src/prefs.c:1479
 #, c-format
 msgid "(Example : %.*d_-_Track_name_1.mp3)"
 msgstr "(Exemple : %.*d_-_Piste_1.mp3)"
 
-#: src/prefs.c:1618
+#: src/prefs.c:1625
 msgid "Changes applied"
 msgstr "Changements appliqués"
 
-#: src/prefs.c:1637 src/setting.c:868
+#: src/prefs.c:1644 src/setting.c:867
 msgid "Configuration saved"
 msgstr "Configuration sauvée"
 
-#: src/prefs.c:1644
+#: src/prefs.c:1651
 msgid "Configuration unchanged"
 msgstr "Configuration inchangée"
 
-#: src/prefs.c:1736
+#: src/prefs.c:1743
 #, c-format
 msgid ""
 " The selected path for 'Default path to files' isn't valid!\n"
@@ -4380,37 +4371,37 @@ msgstr ""
 "'%s'\n"
 "(%s) "
 
-#: src/prefs.c:1738
+#: src/prefs.c:1745
 msgid "Not a directory"
 msgstr "Ce n'est pas un répertoire"
 
-#: src/prefs.c:1839
+#: src/prefs.c:1861
 #, c-format
 msgid "The audio file player '%s' can't be found!"
 msgstr "Le programme de lecture audio '%s' n'a pas été trouvé!"
 
-#: src/scan.c:174
+#: src/scan.c:178
 msgid "Fill Tag"
 msgstr "Compléter Tag"
 
-#: src/scan.c:175
+#: src/scan.c:179
 msgid "Rename File and Directory"
 msgstr "Renommer le Fichier et le Répertoire"
 
-#: src/scan.c:176
+#: src/scan.c:180
 msgid "Process Fields"
 msgstr "Traiter Champs"
 
-#: src/scan.c:353
+#: src/scan.c:357
 msgid "Tag successfully scanned..."
 msgstr "Tag scanné avec succès..."
 
-#: src/scan.c:355
+#: src/scan.c:359
 #, c-format
 msgid "Tag successfully scanned...(%s)"
 msgstr "Tag scanné avec succès...(%s)"
 
-#: src/scan.c:395
+#: src/scan.c:399
 #, c-format
 msgid ""
 "Tag scanner: strange..., the extension '%s' was not found into filename '%s'!"
@@ -4418,23 +4409,23 @@ msgstr ""
 "Scanner de tags : étrange..., l'extension '%s' n'a pas été trouvée dans le "
 "nom de fichier '%s'!"
 
-#: src/scan.c:477 src/scan.c:506
+#: src/scan.c:481 src/scan.c:510
 #, c-format
 msgid "Scan Error: can't find separator '%s' within '%s'"
 msgstr "Erreur de scanner: Impossible de trouver le séparateur '%s' dans '%s'"
 
-#: src/scan.c:663
+#: src/scan.c:667
 #, c-format
 msgid "Could not convert filename '%s' into system filename encoding."
 msgstr ""
 "Impossible de convertir le nom de fichier '%s' vers l'encodage du système de "
 "fichiers."
 
-#: src/scan.c:686
+#: src/scan.c:697
 msgid "New file name successfully scanned..."
 msgstr "Nouveau nom de fichier scanné avec succès..."
 
-#: src/scan.c:689
+#: src/scan.c:700
 #, c-format
 msgid "New file name successfully scanned...(%s)"
 msgstr "Nouveau nom de fichier scanné avec succès...(%s)"
@@ -4442,41 +4433,41 @@ msgstr "Nouveau nom de fichier scanné avec succès...(%s)"
 #. The init position is define below, cause the scanner window must be showed before
 #. * to be able to move it.
 #. Title
-#: src/scan.c:1909
+#: src/scan.c:1978
 msgid "Tag and File Name scan"
 msgstr "Scanner de Tag et de Nom du Fichier"
 
 #. Option Menu
-#: src/scan.c:1931
+#: src/scan.c:2000
 msgid "Scanner:"
 msgstr "Scanner : "
 
 #. Selection of the item made at the end of the function
-#: src/scan.c:1953
+#: src/scan.c:2022
 msgid "Select the type of scanner to use"
 msgstr "Sélectionner le type du scanner à utiliser"
 
-#: src/scan.c:1962
+#: src/scan.c:2031
 msgid "Open scanner window / Scan selected files"
 msgstr "Ouvrir fenêtre de Scan / Scanner le(s) fichier(s) sélectionné(s)"
 
-#: src/scan.c:1975
+#: src/scan.c:2044
 msgid "Scanner Options"
 msgstr "Options du Scanner"
 
-#: src/scan.c:1984
+#: src/scan.c:2053
 msgid "Show / Hide Masks Editor"
 msgstr "Montrer / Cacher l'Editeur de Masques"
 
-#: src/scan.c:1994
+#: src/scan.c:2063
 msgid "Show / Hide Legend"
 msgstr "Montrer / Cacher la Légende"
 
-#: src/scan.c:2004
+#: src/scan.c:2073
 msgid "Close this window"
 msgstr "Fermer cette fenêtre"
 
-#: src/scan.c:2032
+#: src/scan.c:2101
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse file name and "
 "path. Used to fill in tag fields."
@@ -4485,15 +4476,15 @@ msgstr ""
 "analyser le nom du fichier et le chemin, afin de compléter les champs du tag."
 
 #. Preview label
-#: src/scan.c:2058
+#: src/scan.c:2127
 msgid "Fill tag preview..."
 msgstr "Apercu du scanner de tag..."
 
-#: src/scan.c:2085
+#: src/scan.c:2154
 msgid "Prefix mask with current path"
 msgstr "Préfixer le masque avec le chemin courant"
 
-#: src/scan.c:2098
+#: src/scan.c:2167
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse tag fields. Used "
 "to rename the file.\n"
@@ -4506,15 +4497,15 @@ msgstr ""
 "sinon d'un chemin relatif par rapport à l'ancien."
 
 #. Preview label
-#: src/scan.c:2125
+#: src/scan.c:2194
 msgid "Rename file preview..."
 msgstr "Apercu du renommeur de fichiers..."
 
-#: src/scan.c:2145
+#: src/scan.c:2214
 msgid "Select fields:"
 msgstr "Champs:"
 
-#: src/scan.c:2148
+#: src/scan.c:2217
 msgid ""
 "The buttons on the right represent the fields which can be processed. Select "
 "those who interest you."
@@ -4523,126 +4514,126 @@ msgstr ""
 "Sélectionnez ceux qui vous intéressent."
 
 #. Advice for Translators : set the first letter of filename translated
-#: src/scan.c:2151
+#: src/scan.c:2220
 msgid "F"
 msgstr "F"
 
-#: src/scan.c:2152
+#: src/scan.c:2221
 msgid "Process file name field"
 msgstr "Traiter le champ du nom de fichier"
 
 #. Advice for Translators : set the first letter of title translated
-#: src/scan.c:2154
+#: src/scan.c:2223
 msgid "T"
 msgstr "T"
 
-#: src/scan.c:2155
+#: src/scan.c:2224
 msgid "Process title field"
 msgstr "Traiter le champ du titre"
 
 #. Advice for Translators : set the first letter of artist translated
-#: src/scan.c:2157
+#: src/scan.c:2226
 msgid "Ar"
 msgstr "Ar"
 
-#: src/scan.c:2158
+#: src/scan.c:2227
 msgid "Process file artist field"
 msgstr "Traiter le champ de l'artiste"
 
 #. Advice for Translators : set the first letter of album translated
-#: src/scan.c:2160
+#: src/scan.c:2229
 msgid "Al"
 msgstr "Al"
 
-#: src/scan.c:2161
+#: src/scan.c:2230
 msgid "Process album field"
 msgstr "Traiter le champ de l'album"
 
 #. Advice for Translators : set the first letter of genre translated
-#: src/scan.c:2163
+#: src/scan.c:2232
 msgid "G"
 msgstr "G"
 
-#: src/scan.c:2164
+#: src/scan.c:2233
 msgid "Process genre field"
 msgstr "Traiter le champ du genre"
 
 #. Advice for Translators : set the first letter of comment translated
-#: src/scan.c:2166
+#: src/scan.c:2235
 msgid "Cm"
 msgstr "Cm"
 
-#: src/scan.c:2167
+#: src/scan.c:2236
 msgid "Process comment field"
 msgstr "Traiter le champ du commentaire"
 
 #. Advice for Translators : set the first letter of composer translated
-#: src/scan.c:2169
+#: src/scan.c:2238
 msgid "Cp"
 msgstr "Cp"
 
-#: src/scan.c:2170
+#: src/scan.c:2239
 msgid "Process composer field"
 msgstr "Traiter le champ du compositeur"
 
 #. Advice for Translators : set the first letter of orig artist translated
-#: src/scan.c:2172
+#: src/scan.c:2241
 msgid "O"
 msgstr "Ao"
 
-#: src/scan.c:2173
+#: src/scan.c:2242
 msgid "Process original artist field"
 msgstr "Traiter le champ de l'artiste originel"
 
 #. Advice for Translators : set the first letter of copyright translated
-#: src/scan.c:2175
+#: src/scan.c:2244
 msgid "Cr"
 msgstr "Cr"
 
-#: src/scan.c:2176
+#: src/scan.c:2245
 msgid "Process copyright field"
 msgstr "Traiter le champ du copyright"
 
 #. Advice for Translators : set the first letter of URL translated
-#: src/scan.c:2178
+#: src/scan.c:2247
 msgid "U"
 msgstr "U"
 
-#: src/scan.c:2179
+#: src/scan.c:2248
 msgid "Process URL field"
 msgstr "Traiter le champ de l'URL"
 
 #. Advice for Translators : set the first letter of encoder name translated
-#: src/scan.c:2181
+#: src/scan.c:2250
 msgid "E"
 msgstr "E"
 
-#: src/scan.c:2182
+#: src/scan.c:2251
 msgid "Process encoder name field"
 msgstr "Traiter le champ du nom de l'encodeur"
 
-#: src/scan.c:2228
+#: src/scan.c:2297
 msgid "Invert Selection"
 msgstr "Inverser la sélection"
 
-#: src/scan.c:2237
+#: src/scan.c:2306
 msgid "Select/Unselect All."
 msgstr "Tout (Dé)Sélectionner."
 
 #. Group: character conversion
-#: src/scan.c:2244
+#: src/scan.c:2313
 msgid "Convert '_' and '%20' to ' '"
 msgstr "Convertir '_' et '%20' par ' '"
 
-#: src/scan.c:2250
+#: src/scan.c:2319
 msgid "Convert:"
 msgstr "Convertir :"
 
-#: src/scan.c:2252
+#: src/scan.c:2321
 msgid "to: "
 msgstr "par : "
 
-#: src/scan.c:2281
+#: src/scan.c:2350
 msgid ""
 "The underscore character or the string '%20' are replaced by one space. "
 "Example, before: 'Text%20In%20An_Entry', after: 'Text In An Entry'."
@@ -4650,7 +4641,7 @@ msgstr ""
 "Le caractère underscore ou la chaîne %20 seront remplacés par un espace "
 "(exemple, avant : 'Text%20In%20An_Entry', après : 'Text In An Entry')."
 
-#: src/scan.c:2284
+#: src/scan.c:2353
 msgid ""
 "The space character is replaced by one underscore character. Example, "
 "before: 'Text In An Entry', after: 'Text_In_An_Entry'."
@@ -4658,14 +4649,14 @@ msgstr ""
 "Le caractère espace est remplacé par un caractère underscore (exemple, "
 "avant : 'Text In An Entry', après : 'Text_In_An_Entry')."
 
-#: src/scan.c:2287
+#: src/scan.c:2356
 msgid ""
 "Replace a string by an other one. Note that the search is case sensitive."
 msgstr ""
 "Remplace une chaine par une autre. Notez que la recherche est sensible à la "
 "casse."
 
-#: src/scan.c:2319
+#: src/scan.c:2388
 msgid ""
 "Convert all words in all fields to upper case. Example, before: 'Text IN AN "
 "entry', after: 'TEXT IN AN ENTRY'."
@@ -4673,7 +4664,7 @@ msgstr ""
 "Toutes les lettres sont mises en majuscules (exemple, avant : 'Text IN AN "
 "entry', après : 'TEXT IN AN ENTRY')."
 
-#: src/scan.c:2322
+#: src/scan.c:2391
 msgid ""
 "Convert all words in all fields to lower case. Example, before: 'TEXT IN an "
 "entry', after: 'text in an entry'."
@@ -4681,7 +4672,7 @@ msgstr ""
 "Toutes les lettres sont mises en minuscules (exemple, avant : 'Text IN AN "
 "entry', après : 'text in an entry')."
 
-#: src/scan.c:2325
+#: src/scan.c:2394
 msgid ""
 "Convert the initial of the first word in all fields to upper case. Example, "
 "before: 'text IN An ENTRY', after: 'Text in an entry'."
@@ -4690,7 +4681,7 @@ msgstr ""
 "majuscule et minuscules (exemple, avant : 'text IN An ENTRY', après : 'Text "
 "in an entry')."
 
-#: src/scan.c:2328
+#: src/scan.c:2397
 msgid ""
 "Convert the initial of each word in all fields to upper case. Example, "
 "before: 'Text in an ENTRY', after: 'Text In An Entry'."
@@ -4698,15 +4689,15 @@ msgstr ""
 "La première lettre de chaque mot est mise en majuscule et les autres en "
 "minuscules (exemple, avant : 'Text in an ENTRY', après : 'Text In An Entry')."
 
-#: src/scan.c:2337
+#: src/scan.c:2406
 msgid "Insert a space before an uppercase letter"
 msgstr "Insérer un espace avant une majuscule"
 
-#: src/scan.c:2338
+#: src/scan.c:2407
 msgid "Remove duplicates of space or underscore"
 msgstr "Effacer les espaces ou underscores dupliqués"
 
-#: src/scan.c:2356
+#: src/scan.c:2425
 msgid ""
 "All spaces between words are removed. Example, before: 'Text In An Entry', "
 "after: 'TextInAnEntry'."
@@ -4714,7 +4705,7 @@ msgstr ""
 "Tous les espaces sont supprimés (exemple, avant: 'Text In An Entry', après: "
 "'TextInAnEntry')."
 
-#: src/scan.c:2359
+#: src/scan.c:2428
 msgid ""
 "A space is inserted before each upper case letter. Example, before: "
 "'TextInAnEntry', after: 'Text In An Entry'."
@@ -4722,7 +4713,7 @@ msgstr ""
 "Avec cette option, vous pouvez ajouter un espace avant chaque lettre en "
 "majuscule (exemple, avant : 'TextInAnEntry', après : 'Text In An Entry')."
 
-#: src/scan.c:2362
+#: src/scan.c:2431
 msgid ""
 "Duplicated spaces or underscores are removed. Example, before: "
 "'Text__In__An   Entry', after: 'Text_In_An Entry'."
@@ -4733,183 +4724,183 @@ msgstr ""
 #.
 #. * Frame to display codes legend
 #.
-#: src/scan.c:2368
+#: src/scan.c:2437
 msgid "Legend"
 msgstr "Légende"
 
-#: src/scan.c:2374
+#: src/scan.c:2443
 #, c-format
 msgid "%a : artist"
 msgstr "%a : artiste"
 
-#: src/scan.c:2377
+#: src/scan.c:2446
 msgid "%b : album"
 msgstr "%b : album"
 
-#: src/scan.c:2380
+#: src/scan.c:2449
 #, c-format
 msgid "%c : comment"
 msgstr "%c : commentaire"
 
-#: src/scan.c:2383
+#: src/scan.c:2452
 #, c-format
 msgid "%p : composer"
 msgstr "%p : compositeur"
 
-#: src/scan.c:2386
+#: src/scan.c:2455
 msgid "%r : copyright"
 msgstr "%r : copyright:"
 
-#: src/scan.c:2389
+#: src/scan.c:2458
 #, c-format
 msgid "%d : disc number"
 msgstr "%d : n° disque"
 
-#: src/scan.c:2392
+#: src/scan.c:2461
 #, c-format
 msgid "%e : encoded by"
 msgstr "%e : encodé par"
 
-#: src/scan.c:2395
+#: src/scan.c:2464
 #, c-format
 msgid "%g : genre"
 msgstr "%g : genre"
 
-#: src/scan.c:2398
+#: src/scan.c:2467
 #, c-format
 msgid "%i : ignored"
 msgstr "%i : ignoré"
 
-#: src/scan.c:2401
+#: src/scan.c:2470
 msgid "%l : number of tracks"
 msgstr "%l : nombre de pistes"
 
-#: src/scan.c:2404
+#: src/scan.c:2473
 #, c-format
 msgid "%o : orig. artist"
 msgstr "%o : artiste orig."
 
-#: src/scan.c:2407
+#: src/scan.c:2476
 #, c-format
 msgid "%n : track"
 msgstr "%n : piste"
 
-#: src/scan.c:2410
+#: src/scan.c:2479
 msgid "%t : title"
 msgstr "%t : titre"
 
-#: src/scan.c:2413
+#: src/scan.c:2482
 #, c-format
 msgid "%u : URL"
 msgstr "%u : URL"
 
-#: src/scan.c:2416
+#: src/scan.c:2485
 msgid "%y : year"
 msgstr "%y : année"
 
 #.
 #. * Masks Editor
 #.
-#: src/scan.c:2423
+#: src/scan.c:2492
 msgid "Mask Editor"
 msgstr "Editeur de Masque"
 
-#: src/scan.c:2480
+#: src/scan.c:2549
 msgid "Create New Mask"
 msgstr "Créer un Nouveau Masque"
 
-#: src/scan.c:2490
+#: src/scan.c:2559
 msgid "Move Up this Mask"
 msgstr "Monter ce Masque"
 
-#: src/scan.c:2500
+#: src/scan.c:2569
 msgid "Move Down this Mask"
 msgstr "Descendre ce Masque"
 
-#: src/scan.c:2510
+#: src/scan.c:2579
 msgid "Duplicate Mask"
 msgstr "Dupliquer le Masque"
 
-#: src/scan.c:2520
+#: src/scan.c:2589
 msgid "Add Default Masks"
 msgstr "Ajouter les Masques par Défaut"
 
-#: src/scan.c:2530
+#: src/scan.c:2599
 msgid "Remove Mask"
 msgstr "Effacer le Masque"
 
-#: src/scan.c:2540
+#: src/scan.c:2609
 msgid "Save Masks"
 msgstr "Sauver les Masques"
 
-#: src/scan.c:3117
+#: src/scan.c:3186
 msgid "New_mask"
 msgstr "Nouveau_masque"
 
-#: src/scan.c:3155
+#: src/scan.c:3224
 msgid "Copy: No row selected!"
 msgstr "Copier: Ancune ligne sélectionnée!"
 
-#: src/scan.c:3259
+#: src/scan.c:3330
 msgid "Remove: No row selected!"
 msgstr "Effacer: Ancune ligne sélectionnée!"
 
-#: src/scan.c:3306
+#: src/scan.c:3377
 msgid "Move Up: No row selected!"
 msgstr "Monter: Ancune ligne sélectionnée!"
 
-#: src/scan.c:3359
+#: src/scan.c:3430
 msgid "Move Down: No row selected!"
 msgstr "Descendre: Ancune ligne sélectionnée!"
 
-#: src/setting.c:889
+#: src/setting.c:888
 #, c-format
 msgid "ERROR: Can't write config file: %s (%s)"
 msgstr "ERREUR: Impossible d'écrire le fichier de configuration: %s (%s)"
 
-#: src/setting.c:1032 src/setting.c:1069
+#: src/setting.c:1031 src/setting.c:1068
 #, c-format
 msgid "Can't open configuration file '%s' (%s)"
 msgstr "Impossible d'ouvrir le fichier de configuration '%s' (%s)"
 
-#: src/setting.c:1033
+#: src/setting.c:1032
 msgid "Loading default configuration..."
 msgstr "Chargement de la configuration par défaut..."
 
-#: src/setting.c:1133 src/setting.c:1140 src/setting.c:1147 src/setting.c:1154
-#: src/setting.c:1161 src/setting.c:1168 src/setting.c:1175 src/setting.c:1182
-#: src/setting.c:1189 src/setting.c:1196 src/setting.c:1203 src/setting.c:1210
-#: src/setting.c:1217 src/setting.c:1224 src/setting.c:1231 src/setting.c:1238
-#: src/setting.c:1245
+#: src/setting.c:1132 src/setting.c:1139 src/setting.c:1146 src/setting.c:1153
+#: src/setting.c:1160 src/setting.c:1167 src/setting.c:1174 src/setting.c:1181
+#: src/setting.c:1188 src/setting.c:1195 src/setting.c:1202 src/setting.c:1209
+#: src/setting.c:1216 src/setting.c:1223 src/setting.c:1230 src/setting.c:1237
+#: src/setting.c:1244
 #, c-format
 msgid "Can't create or open file '%s' (%s)"
 msgstr "Impossible de créer ou d'ouvrir le fichier '%s' (%s)"
 
-#: src/setting.c:1278
+#: src/setting.c:1277
 #, c-format
 msgid "ERROR: Can't write list to file: %s (%s)"
 msgstr "ERREUR: Impossible d'écrire la liste vers le fichier: %s (%s)"
 
 #. Fall back to defaults
-#: src/setting.c:1358
+#: src/setting.c:1359
 msgid "Loading default 'Fill Tag' masks..."
 msgstr "Chargement des masques par défaut pour 'Compléter les Tags' ..."
 
 #. Fall back to defaults
-#: src/setting.c:1386
+#: src/setting.c:1387
 msgid "Loading default 'Rename File' masks..."
 msgstr "Chargement des masques par défaut pour 'Renommer Fichier' ..."
 
 #. Fall back to defaults
-#: src/setting.c:1413
+#: src/setting.c:1414
 msgid "Loading default 'Rename Directory' masks..."
 msgstr "Chargement des masques par défaut pour 'Renommer le Répertoire' ..."
 
-#: src/setting.c:1606
+#: src/setting.c:1607
 msgid "ERROR: The environment variable HOME is not defined!"
 msgstr "ERREUR: La variable d'environnement HOME n'est pas définie!"
 
-#: src/setting.c:1622
+#: src/setting.c:1623
 #, c-format
 msgid "ERROR: Can't create directory '%s' (%s)!"
 msgstr "ERREUR: Impossible de créer le répertoire '%s' (%s)!"
@@ -4958,41 +4949,80 @@ msgstr ""
 "sortie soit corrompu ou tronqué."
 
 #. Log_Print(_("DLL '%s' not found. Try loading it..."), dllname);
-#: src/win32/win32dep.c:177
+#: src/win32/win32dep.c:178
 #, c-format
 msgid "DLL '%s' not found. Try loading it..."
 msgstr "La DLL '%s' n'a pas été trouvée. Tentative de chargement ..."
 
 #. Log_Print(_("DLL '%s' could not be loaded"), dllname);
-#: src/win32/win32dep.c:182
+#: src/win32/win32dep.c:183
 #, c-format
 msgid "DLL '%s' could not be loaded"
 msgstr "La DLL '%s' ne peut été chargée"
 
 #. Log_Print(_("This version of '%s' contains '%s'"), dllname, procedure);
-#: src/win32/win32dep.c:193
+#: src/win32/win32dep.c:194
 #, c-format
 msgid "This version of '%s' contains '%s'"
 msgstr "Cette version de '%s' contient '%s'"
 
 #. Log_Print(_("Function '%s' not found in dll '%s'"), procedure, dllname);
-#: src/win32/win32dep.c:200
+#: src/win32/win32dep.c:201
 #, c-format
 msgid "Function '%s' not found in dll '%s'"
 msgstr "La fonction '%s' n'a pas été trouvée dans la DLL '%s'"
 
 #. Log_Print(_("Audio player: '%s'"), player);
-#: src/win32/win32dep.c:294
+#: src/win32/win32dep.c:302
 #, c-format
 msgid "Audio player: '%s'"
 msgstr "Lecteur Audio : '%s'"
 
 #. ET_Win32_Path_Replace_Backslashes(app_data_dir);
 #. Log_Print(_("EasyTAG settings dir: '%s'"), app_data_dir);
-#: src/win32/win32dep.c:434
+#: src/win32/win32dep.c:442
 #, c-format
 msgid "EasyTAG settings dir: '%s'"
 msgstr "Répertoire pour les paramètres EasyTAG : '%s'"
+
+#~ msgid "libid3tag %s"
+#~ msgstr "libid3tag %s"
+
+#~ msgid "id3lib %d.%d.%d"
+#~ msgstr "id3lib %d.%d.%d"
+
+#~ msgid " OK "
+#~ msgstr " OK "
+
+#~ msgid " Yes "
+#~ msgstr " Oui "
+
+#~ msgid " No "
+#~ msgstr " Non "
+
+#~ msgid " Apply "
+#~ msgstr " Appliquer "
+
+#~ msgid " Save "
+#~ msgstr " Sauver "
+
+#~ msgid " Cancel "
+#~ msgstr " Annuler "
+
+#~ msgid " Close "
+#~ msgstr " Fermer "
+
+#~ msgid " Write "
+#~ msgstr " Ecrire "
+
+#~ msgid " Execute "
+#~ msgstr " Exécuter "
+
+#~ msgid " Search "
+#~ msgstr " Rechercher "
+
+#~ msgid " Browse... "
+#~ msgstr "Parcourir..."
 
 #~ msgid ""
 #~ "The entered path is invalid!:\n"

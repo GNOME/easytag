@@ -44,6 +44,7 @@
 #include "easytag.h"
 #include "et_core.h"
 #include "browser.h"
+#include "base64.h"
 #include "scan.h"
 #include "log.h"
 #include "misc.h"
@@ -55,7 +56,7 @@
 
 enum
 {
-    CDDB_ALBUM_LIST_BITMAP,
+    CDDB_ALBUM_LIST_PIXBUF,
     CDDB_ALBUM_LIST_ALBUM,
     CDDB_ALBUM_LIST_CATEGORY,
     CDDB_ALBUM_LIST_DATA,
@@ -196,7 +197,7 @@ gint Cddb_Track_List_Sort_Func (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter
 void Cddb_Track_List_Sort_By_Ascending_Track_Number (void);
 void Cddb_Track_List_Sort_By_Ascending_Track_Name   (void);
 
-char  *base64_encode (char *str);
+//char  *base64_encode (char *str);
 gchar *Cddb_Format_Proxy_Authentification (void);
 
 
@@ -614,7 +615,7 @@ void Open_Cddb_Window (void)
 
     renderer = gtk_cell_renderer_pixbuf_new();
     column = gtk_tree_view_column_new_with_attributes(_(CddbAlbumList_Titles[0]), renderer,
-                                                      "pixbuf", CDDB_ALBUM_LIST_BITMAP,
+                                                      "pixbuf",         CDDB_ALBUM_LIST_PIXBUF,
                                                       NULL);
     gtk_tree_view_column_set_resizable(column, FALSE);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -622,9 +623,9 @@ void Open_Cddb_Window (void)
 
     renderer = gtk_cell_renderer_text_new();
     column = gtk_tree_view_column_new_with_attributes(_(CddbAlbumList_Titles[1]), renderer,
-                                                      "text", CDDB_ALBUM_LIST_ALBUM,
-                                                      "weight", CDDB_ALBUM_LIST_FONT_WEIGHT,
-                                                      "style", CDDB_ALBUM_LIST_FONT_STYLE,
+                                                      "text",           CDDB_ALBUM_LIST_ALBUM,
+                                                      "weight",         CDDB_ALBUM_LIST_FONT_WEIGHT,
+                                                      "style",          CDDB_ALBUM_LIST_FONT_STYLE,
                                                       "foreground-gdk", CDDB_ALBUM_LIST_FOREGROUND_COLOR,
                                                       NULL);
     gtk_tree_view_column_set_resizable(column, TRUE);
@@ -633,9 +634,9 @@ void Open_Cddb_Window (void)
 
     renderer = gtk_cell_renderer_text_new();
     column = gtk_tree_view_column_new_with_attributes(_(CddbAlbumList_Titles[2]), renderer,
-                                                      "text", CDDB_ALBUM_LIST_CATEGORY,
-                                                      "weight", CDDB_ALBUM_LIST_FONT_WEIGHT,
-                                                      "style", CDDB_ALBUM_LIST_FONT_STYLE,
+                                                      "text",           CDDB_ALBUM_LIST_CATEGORY,
+                                                      "weight",         CDDB_ALBUM_LIST_FONT_WEIGHT,
+                                                      "style",          CDDB_ALBUM_LIST_FONT_STYLE,
                                                       "foreground-gdk", CDDB_ALBUM_LIST_FOREGROUND_COLOR,
                                                       NULL);
     gtk_tree_view_column_set_resizable(column, TRUE);
@@ -1626,7 +1627,7 @@ gint Cddb_Open_Connection (gchar *host, gint port)
     {
         msg = g_strdup_printf(_("Can't resolve host '%s' (%s)!"),host,g_strerror(errno));
         gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
-        Log_Print("%s",msg);
+        Log_Print(LOG_ERROR,"%s",msg);
         g_free(msg);
         return 0;
     }
@@ -1641,7 +1642,7 @@ gint Cddb_Open_Connection (gchar *host, gint port)
     {
         msg = g_strdup_printf(_("Can't create a new socket (%s)!"),g_strerror(errno));
         gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
-        Log_Print("%s",msg);
+        Log_Print(LOG_ERROR,"%s",msg);
         g_free(msg);
         return 0;
     }
@@ -1649,7 +1650,7 @@ gint Cddb_Open_Connection (gchar *host, gint port)
     // FIX ME : must catch SIGPIPE?
     if ( setsockopt(socket_id,SOL_SOCKET,SO_KEEPALIVE,(gchar *)&optval,sizeof(optval)) < 0 )
     {
-        Log_Print("Can't set option of the new created socket!");
+        Log_Print(LOG_ERROR,"Can't set option of the new created socket!");
     }
 
     // Open connection to the server
@@ -1662,7 +1663,7 @@ gint Cddb_Open_Connection (gchar *host, gint port)
     {
         msg = g_strdup_printf(_("Can't connect to host '%s' (%s)!"),host,g_strerror(errno));
         gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
-        Log_Print("%s",msg);
+        Log_Print(LOG_ERROR,"%s",msg);
         g_free(msg);
         return 0;
     }
@@ -1761,13 +1762,13 @@ gint Cddb_Write_Result_To_File (gint socket_id, gulong *bytes_read_total)
 
         if (bytes_read < 0)
         {
-            Log_Print(_("Error when reading cddb response (%s)!"),g_strerror(errno));
+            Log_Print(LOG_ERROR,_("Error when reading cddb response (%s)!"),g_strerror(errno));
             return -1; // Error!
         }
 
     } else
     {
-        Log_Print(_("Can't create file '%s' (%s)"),file_path,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Can't create file '%s' (%s)"),file_path,g_strerror(errno));
     }
     g_free(file_path);
     g_free(home_path);
@@ -1810,7 +1811,7 @@ gint Cddb_Read_Line (FILE **file, gchar **cddb_out)
 
         if ( (*file=fopen(file_path,"r"))==0 )
         {
-            Log_Print(_("Can't open file '%s' (%s)"),file_path,g_strerror(errno));
+            Log_Print(LOG_ERROR,_("Can't open file '%s' (%s)"),file_path,g_strerror(errno));
             g_free(file_path);
             return -1; // Error!
         }
@@ -1996,7 +1997,8 @@ void Cddb_Load_Album_List (gboolean only_red_lines)
         if (selectedRows)
         {
             if (gtk_tree_model_get_iter(GTK_TREE_MODEL(CddbAlbumListModel), &currentIter, (GtkTreePath*)selectedRows->data))
-                gtk_tree_model_get(GTK_TREE_MODEL(CddbAlbumListModel), &currentIter, CDDB_ALBUM_LIST_DATA, &cddbalbumSelected, -1);
+                gtk_tree_model_get(GTK_TREE_MODEL(CddbAlbumListModel), &currentIter, 
+                                   CDDB_ALBUM_LIST_DATA, &cddbalbumSelected, -1);
         }
 
         // Remove lines
@@ -2013,7 +2015,7 @@ void Cddb_Load_Album_List (gboolean only_red_lines)
                 // Load the row in the list
                 gtk_list_store_append(CddbAlbumListModel, &iter);
                 gtk_list_store_set(CddbAlbumListModel, &iter,
-                                   CDDB_ALBUM_LIST_BITMAP,   cddbalbum->bitmap,
+                                   CDDB_ALBUM_LIST_PIXBUF,   cddbalbum->bitmap,
                                    CDDB_ALBUM_LIST_ALBUM,    cddbalbum->artist_album,
                                    CDDB_ALBUM_LIST_CATEGORY, cddbalbum->category,
                                    CDDB_ALBUM_LIST_DATA,     cddbalbum, -1);
@@ -2220,7 +2222,7 @@ gboolean Cddb_Search_Album_List_From_String_Freedb (void)
 
     /* Build request */
     //cddb_in = g_strdup_printf("GET http://www.freedb.org/freedb_search.php?" // In this case, problem with squid cache...
-    cddb_in = g_strdup_printf("GET /freedb_search.php?"
+    cddb_in = g_strdup_printf("GET %s%s/freedb_search.php?"
                               "words=%s"
                               "%s"
                               "&grouping=none"
@@ -2230,6 +2232,7 @@ gboolean Cddb_Search_Album_List_From_String_Freedb (void)
                               "%s"
                               "Connection: close\r\n"
                               "\r\n",
+                              CDDB_USE_PROXY?"http://":"", CDDB_USE_PROXY?cddb_server_name:"",  // Needed when using proxy
                               string,
                               (tmp=Cddb_Generate_Request_String_With_Fields_And_Categories_Options()),
                               cddb_server_name,cddb_server_port,
@@ -2247,7 +2250,7 @@ gboolean Cddb_Search_Album_List_From_String_Freedb (void)
     while (gtk_events_pending()) gtk_main_iteration();
     if ( (bytes_written=send(socket_id,cddb_in,strlen(cddb_in)+1,0)) < 0)
     {
-        Log_Print(_("Can't send the request (%s)!"),g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Can't send the request (%s)!"),g_strerror(errno));
         Cddb_Close_Connection(socket_id);
         g_free(cddb_in);
         g_free(string);
@@ -2278,7 +2281,7 @@ gboolean Cddb_Search_Album_List_From_String_Freedb (void)
     {
         msg = g_strdup(_("The server returned a wrong answer!"));
         gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
-        Log_Print("%s",msg);
+        Log_Print(LOG_ERROR,"%s",msg);
         g_free(msg);
         g_free(cddb_server_name);
         g_free(cddb_server_cgi_path);
@@ -2292,7 +2295,7 @@ gboolean Cddb_Search_Album_List_From_String_Freedb (void)
     {
         msg = g_strdup_printf(_("The server returned a wrong answer! (%s)"),cddb_out);
         gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
-        Log_Print("%s",msg);
+        Log_Print(LOG_ERROR,"%s",msg);
         g_free(msg);
         g_free(cddb_out);
         g_free(cddb_server_name);
@@ -2541,7 +2544,7 @@ gboolean Cddb_Search_Album_List_From_String_Gnudb (void)
 
 
         /* Build request */
-        cddb_in = g_strdup_printf("GET /search/"
+        cddb_in = g_strdup_printf("GET %s%s/search/"
                                   "%s"
                                   "?page=%d"
                                   " HTTP/1.1\r\n"
@@ -2550,6 +2553,7 @@ gboolean Cddb_Search_Album_List_From_String_Gnudb (void)
                                   "%s"
                                   "Connection: close\r\n"
                                   "\r\n",
+                                  CDDB_USE_PROXY?"http://":"", CDDB_USE_PROXY?cddb_server_name:"",  // Needed when using proxy
                                   string,
                                   next_page_cpt,
                                   cddb_server_name,cddb_server_port,
@@ -2565,7 +2569,7 @@ gboolean Cddb_Search_Album_List_From_String_Gnudb (void)
         while (gtk_events_pending()) gtk_main_iteration();
         if ( (bytes_written=send(socket_id,cddb_in,strlen(cddb_in)+1,0)) < 0)
         {
-            Log_Print(_("Can't send the request (%s)!"),g_strerror(errno));
+            Log_Print(LOG_ERROR,_("Can't send the request (%s)!"),g_strerror(errno));
             Cddb_Close_Connection(socket_id);
             g_free(cddb_in);
             g_free(string);
@@ -2596,7 +2600,7 @@ gboolean Cddb_Search_Album_List_From_String_Gnudb (void)
         {
             msg = g_strdup(_("The server returned a wrong answer!"));
             gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
-            Log_Print("%s",msg);
+            Log_Print(LOG_ERROR,"%s",msg);
             g_free(msg);
             g_free(string);
             g_free(cddb_server_name);
@@ -2612,7 +2616,7 @@ gboolean Cddb_Search_Album_List_From_String_Gnudb (void)
         {
             msg = g_strdup_printf(_("The server returned a wrong answer! (%s)"),cddb_out);
             gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
-            Log_Print("%s",msg);
+            Log_Print(LOG_ERROR,"%s",msg);
             g_free(msg);
             g_free(cddb_out);
             g_free(string);
@@ -2968,11 +2972,15 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
                 GtkWidget *msgbox;
 
                 msgbox = msg_box_new(_("Local CD search..."),
-                                     _("The path for 'Local CD Data Base' wasn't "
-                                       "defined!\nFill it in the preferences window."),
-                                     GTK_STOCK_DIALOG_ERROR,BUTTON_YES,0);
-                msg_box_hide_check_button(MSG_BOX(msgbox));
-                msg_box_run(MSG_BOX(msgbox));
+									 GTK_WINDOW(CddbWindow),
+                                     NULL,
+                                     GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+									 _("The path for 'Local CD Data Base' wasn't defined!\nFill it in the preferences "
+                                     "window before to use this search."),
+                                     GTK_STOCK_DIALOG_ERROR,
+                                     GTK_STOCK_YES, GTK_RESPONSE_YES,
+                                     NULL);
+                gtk_dialog_run(GTK_DIALOG(msgbox));
                 gtk_widget_destroy(msgbox);
                 break;
             }
@@ -3122,7 +3130,7 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
 
             if ( (bytes_written=send(socket_id,cddb_in,strlen(cddb_in)+1,0)) < 0)
             {
-                Log_Print(_("Can't send the request (%s)!"),g_strerror(errno));
+                Log_Print(LOG_ERROR,_("Can't send the request (%s)!"),g_strerror(errno));
                 Cddb_Close_Connection(socket_id);
                 g_free(cddb_in);
                 g_free(cddb_server_name);
@@ -3144,7 +3152,7 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
             {
                 msg = g_strdup(_("The server returned a wrong answer!"));
                 gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
-                Log_Print("%s",msg);
+                Log_Print(LOG_ERROR,"%s",msg);
                 g_free(msg);
                 g_free(cddb_server_name);
                 g_free(cddb_server_cgi_path);
@@ -3159,7 +3167,7 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
             {
                 msg = g_strdup_printf(_("The server returned a wrong answer! (%s)"),cddb_out);
                 gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
-                Log_Print("%s",msg);
+                Log_Print(LOG_ERROR,"%s",msg);
                 g_free(msg);
                 g_free(cddb_out);
                 g_free(cddb_server_name);
@@ -3361,7 +3369,7 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
         // Local access
         if ( (file=fopen(cddb_server_cgi_path,"r"))==0 )
         {
-            Log_Print(_("Can't load file: '%s' (%s)!"),cddb_server_cgi_path,g_strerror(errno));
+            Log_Print(LOG_ERROR,_("Can't load file: '%s' (%s)!"),cddb_server_cgi_path,g_strerror(errno));
             return FALSE;
         }
         
@@ -3398,7 +3406,7 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
         while (gtk_events_pending()) gtk_main_iteration();
         if ( (bytes_written=send(socket_id,cddb_in,strlen(cddb_in)+1,0)) < 0)
         {
-            Log_Print(_("Can't send the request (%s)!"),g_strerror(errno));
+            Log_Print(LOG_ERROR,_("Can't send the request (%s)!"),g_strerror(errno));
             Cddb_Close_Connection(socket_id);
             g_free(cddb_in);
             return FALSE;
@@ -3416,7 +3424,7 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
         {
             msg = g_strdup(_("The server returned a wrong answer!"));
             gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
-            Log_Print("%s",msg);
+            Log_Print(LOG_ERROR,"%s",msg);
             g_free(msg);
             gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchButton),FALSE);
             gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchAutoButton),FALSE);
@@ -3431,7 +3439,7 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
         {
             gchar *msg = g_strdup_printf(_("The server returned a wrong answer! (%s)"),cddb_out);
             gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
-            Log_Print("%s",msg);
+            Log_Print(LOG_ERROR,"%s",msg);
             g_free(msg);
             g_free(cddb_out);
             if (file)
@@ -3640,41 +3648,63 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
 
 /*
  * Set the row apperance depending if we have cached info or not
- * Bold/Red = Info is cached
+ * Bold/Red = Info are already loaded, but not displayed
  * Italic/Light Red = Duplicate CDDB entry
  */
 void Cddb_Album_List_Set_Row_Appearance (GtkTreeIter *row)
 {
     CddbAlbum *cddbalbum = NULL;
 
-    gtk_tree_model_get(GTK_TREE_MODEL(CddbAlbumListModel), row, CDDB_ALBUM_LIST_DATA, &cddbalbum, -1);
+    gtk_tree_model_get(GTK_TREE_MODEL(CddbAlbumListModel), row, 
+                       CDDB_ALBUM_LIST_DATA, &cddbalbum, -1);
 
     if (cddbalbum->track_list != NULL)
     {
         if (CHANGED_FILES_DISPLAYED_TO_BOLD)
         {
-            gtk_list_store_set(CddbAlbumListModel, row, CDDB_ALBUM_LIST_FONT_WEIGHT, PANGO_WEIGHT_BOLD, -1);
+            gtk_list_store_set(CddbAlbumListModel, row,
+                               CDDB_ALBUM_LIST_FONT_STYLE,       PANGO_STYLE_NORMAL,
+                               CDDB_ALBUM_LIST_FONT_WEIGHT,      PANGO_WEIGHT_BOLD,
+                               CDDB_ALBUM_LIST_FOREGROUND_COLOR, NULL,-1);
         } else
         {
-            if(cddbalbum->other_version == TRUE)
+            if (cddbalbum->other_version == TRUE)
             {
-                gtk_list_store_set(CddbAlbumListModel, row, CDDB_ALBUM_LIST_FOREGROUND_COLOR, &LIGHT_RED, -1);
+                gtk_list_store_set(CddbAlbumListModel, row, 
+                                   CDDB_ALBUM_LIST_FONT_STYLE,       PANGO_STYLE_NORMAL,
+                                   CDDB_ALBUM_LIST_FONT_WEIGHT,      PANGO_WEIGHT_NORMAL,
+                                   CDDB_ALBUM_LIST_FOREGROUND_COLOR, &LIGHT_RED, -1);
             } else
             {
-                gtk_list_store_set(CddbAlbumListModel, row, CDDB_ALBUM_LIST_FOREGROUND_COLOR, &RED, -1);
+                gtk_list_store_set(CddbAlbumListModel, row, 
+                                   CDDB_ALBUM_LIST_FONT_STYLE,       PANGO_STYLE_NORMAL,
+                                   CDDB_ALBUM_LIST_FONT_WEIGHT,      PANGO_WEIGHT_NORMAL,
+                                   CDDB_ALBUM_LIST_FOREGROUND_COLOR, &RED, -1);
             }
         }
     } else
     {
-        if(cddbalbum->other_version == TRUE)
+        if (cddbalbum->other_version == TRUE)
         {
             if (CHANGED_FILES_DISPLAYED_TO_BOLD)
             {
-                gtk_list_store_set(CddbAlbumListModel, row, CDDB_ALBUM_LIST_FONT_STYLE, PANGO_STYLE_ITALIC, -1);
+                gtk_list_store_set(CddbAlbumListModel, row, 
+                                   CDDB_ALBUM_LIST_FONT_STYLE,       PANGO_STYLE_ITALIC,
+                                   CDDB_ALBUM_LIST_FONT_WEIGHT,      PANGO_WEIGHT_NORMAL,
+                                   CDDB_ALBUM_LIST_FOREGROUND_COLOR, NULL,-1);
             } else
             {
-                gtk_list_store_set(CddbAlbumListModel, row, CDDB_ALBUM_LIST_FOREGROUND_COLOR, &GREY, -1);
+                gtk_list_store_set(CddbAlbumListModel, row, 
+                                   CDDB_ALBUM_LIST_FONT_STYLE,       PANGO_STYLE_NORMAL,
+                                   CDDB_ALBUM_LIST_FONT_WEIGHT,      PANGO_WEIGHT_NORMAL,
+                                   CDDB_ALBUM_LIST_FOREGROUND_COLOR, &GREY, -1);
             }
+        } else
+        {
+            gtk_list_store_set(CddbAlbumListModel, row, 
+                               CDDB_ALBUM_LIST_FONT_STYLE,       PANGO_STYLE_NORMAL,
+                               CDDB_ALBUM_LIST_FONT_WEIGHT,      PANGO_WEIGHT_NORMAL,
+                               CDDB_ALBUM_LIST_FOREGROUND_COLOR, NULL, -1);
         }
     }
 }
@@ -3792,18 +3822,24 @@ gboolean Cddb_Set_Track_Infos_To_File_List (void)
     {
         GtkWidget *msgbox;
         gchar *msg;
-        gint button;
+        gint response;
 
         msg = g_strdup_printf(_("Be careful, you are applying %d lines of the CDDB "
                                 "results to %d lines in the list of files!\n\nDo you want to continue ?"),
                               rows_to_loop,file_selectedcount);
-        msgbox = msg_box_new(_("Write Tag from CDDB..."),msg,
-                             GTK_STOCK_DIALOG_QUESTION,BUTTON_NO,BUTTON_YES,0);
-        msg_box_hide_check_button(MSG_BOX(msgbox));
-        button = msg_box_run(MSG_BOX(msgbox));
+        msgbox = msg_box_new(_("Write Tag from CDDB..."),
+							 GTK_WINDOW(CddbWindow),
+                             NULL,
+                             GTK_DIALOG_MODAL  | GTK_DIALOG_DESTROY_WITH_PARENT,
+                             msg,
+                             GTK_STOCK_DIALOG_QUESTION,
+                             GTK_STOCK_NO,  GTK_RESPONSE_NO,
+							 GTK_STOCK_YES, GTK_RESPONSE_YES,
+                             NULL);
+        response = gtk_dialog_run(GTK_DIALOG(msgbox));
         gtk_widget_destroy(msgbox);
 
-        if (button != BUTTON_YES)
+        if (response != GTK_RESPONSE_YES)
         {
             g_list_foreach(file_iterlist, (GFunc)g_free, NULL);
             g_list_free(file_iterlist);
@@ -4089,12 +4125,14 @@ GdkPixbuf *Cddb_Get_Pixbuf_From_Server_Name (gchar *server_name)
  * Function taken from gFTP.
  * The standard to Base64 encoding can be found in RFC2045
  */
+/*
 char *base64_encode (char *str)
 {
     char *newstr, *newpos, *fillpos, *pos;
     unsigned char table[64], encode[3];
     int i, num;
 
+    // Build table
     for (i = 0; i < 26; i++)
     {
         table[i] = 'A' + i;
@@ -4107,6 +4145,7 @@ char *base64_encode (char *str)
     table[62] = '+';
     table[63] = '/';
 
+    
     num = strlen (str) / 3;
     if (strlen (str) % 3 > 0)
         num++;
@@ -4131,20 +4170,25 @@ char *base64_encode (char *str)
     }
     return (newstr);
 }
+*/
 
 gchar *Cddb_Format_Proxy_Authentification (void)
 {
-    gchar *tempstr;
-    gchar *str;
     gchar *ret;
 
     if (CDDB_USE_PROXY &&  CDDB_PROXY_USER_NAME != NULL && *CDDB_PROXY_USER_NAME != '\0')
     {
-        tempstr = g_strconcat(CDDB_PROXY_USER_NAME, ":", CDDB_PROXY_USER_PASSWORD, NULL);
-        str = base64_encode(tempstr);
+        
+        gchar *tempstr;
+        gchar *str_encoded;
+        gint size;
 
-        ret = g_strdup_printf("Proxy-authorization: Basic %s\r\n", str);
-        g_free (str);
+        tempstr = g_strconcat(CDDB_PROXY_USER_NAME, ":", CDDB_PROXY_USER_PASSWORD, NULL);
+        //str_encoded = base64_encode(tempstr);
+        size = base64_encode(tempstr, strlen(tempstr), &str_encoded);
+
+        ret = g_strdup_printf("Proxy-authorization: Basic %s\r\n", str_encoded);
+        g_free (str_encoded);
     }else
     {
         ret = g_strdup("");
