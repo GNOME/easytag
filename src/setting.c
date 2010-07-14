@@ -138,6 +138,8 @@ tConfigVariable Config_Variables[] =
     {"set_focus_to_first_tag_field",         CV_TYPE_BOOL,    &SET_FOCUS_TO_FIRST_TAG_FIELD             },
     {"sorting_file_mode",                    CV_TYPE_INT,     &SORTING_FILE_MODE                        },
     {"sorting_file_case_sensitive",          CV_TYPE_BOOL,    &SORTING_FILE_CASE_SENSITIVE              },
+    {"log_max_lines",                        CV_TYPE_INT,     &LOG_MAX_LINES                            },
+    {"sho_log_view",                         CV_TYPE_BOOL,    &SHOW_LOG_VIEW                            },
 
     {"replace_illegal_character_in_filename",          CV_TYPE_BOOL,    &REPLACE_ILLEGAL_CHARACTERS_IN_FILENAME   },
     {"filename_extension_lower_case",                  CV_TYPE_BOOL,    &FILENAME_EXTENSION_LOWER_CASE            },
@@ -211,6 +213,8 @@ tConfigVariable Config_Variables[] =
     {"process_copyright_field",                 CV_TYPE_BOOL,    &PROCESS_COPYRIGHT_FIELD                },
     {"process_url_field",                       CV_TYPE_BOOL,    &PROCESS_URL_FIELD                      },
     {"process_encoded_by_field",                CV_TYPE_BOOL,    &PROCESS_ENCODED_BY_FIELD               },
+    {"process_fields_convert_from",             CV_TYPE_STRING,  &PROCESS_FIELDS_CONVERT_FROM            },
+    {"process_fields_convert_to",               CV_TYPE_STRING,  &PROCESS_FIELDS_CONVERT_TO              },
 
     {"pf_convert_into_space",                   CV_TYPE_BOOL,    &PF_CONVERT_INTO_SPACE                  },
     {"pf_convert_space",                        CV_TYPE_BOOL,    &PF_CONVERT_SPACE                       },
@@ -339,7 +343,7 @@ void Init_Config_Variables (void)
     /*
      * Common
      */
-    LOAD_ON_STARTUP               = 1;
+    LOAD_ON_STARTUP               = 0;
     DEFAULT_PATH_TO_MP3           = g_strdup(HOME_VARIABLE);
     BROWSE_SUBDIR                 = 1;
 #ifdef WIN32
@@ -377,6 +381,8 @@ void Init_Config_Variables (void)
 #else
     SORTING_FILE_CASE_SENSITIVE             = 0;
 #endif
+    LOG_MAX_LINES                           = 50;
+    SHOW_LOG_VIEW                           = 1;
 
     MESSAGE_BOX_POSITION_NONE               = 0;
     MESSAGE_BOX_POSITION_CENTER             = 0;
@@ -471,6 +477,9 @@ void Init_Config_Variables (void)
     PROCESS_COPYRIGHT_FIELD            = 1;
     PROCESS_URL_FIELD                  = 1;
     PROCESS_ENCODED_BY_FIELD           = 1;
+    
+    PROCESS_FIELDS_CONVERT_FROM        = NULL;
+    PROCESS_FIELDS_CONVERT_TO          = NULL;
 
     PF_CONVERT_INTO_SPACE              = 1;
     PF_CONVERT_SPACE                   = 0;
@@ -646,6 +655,8 @@ void Apply_Changes_Of_Preferences_Window (void)
         SORTING_FILE_CASE_SENSITIVE            = GTK_TOGGLE_BUTTON(SortingFileCaseSensitive)->active;
         SET_FOCUS_TO_SAME_TAG_FIELD            = GTK_TOGGLE_BUTTON(SetFocusToSameTagField)->active;
         SET_FOCUS_TO_FIRST_TAG_FIELD           = GTK_TOGGLE_BUTTON(SetFocusToFirstTagField)->active;
+        LOG_MAX_LINES                          = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(LogMaxLinesSpinButton));
+        SHOW_LOG_VIEW                          = GTK_TOGGLE_BUTTON(ShowLogView)->active;
 
         SORTING_FILE_MODE = gtk_combo_box_get_active(GTK_COMBO_BOX(SortingFileCombo));
 
@@ -781,6 +792,9 @@ void Apply_Changes_Of_Preferences_Window (void)
     {
         if (SHOW_HEADER_INFO) gtk_widget_show_all(HeaderInfosTable);
         else                  gtk_widget_hide_all(HeaderInfosTable);
+
+        if (SHOW_LOG_VIEW)  gtk_widget_show_all(LogArea);
+        else                gtk_widget_hide_all(LogArea);
 
         /* Update state of check-menu-item into main/popup menu to browse subdirs */
         Check_Menu_Item_Update_Browse_Subdir();

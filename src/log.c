@@ -28,6 +28,7 @@
 #include "log.h"
 #include "easytag.h"
 #include "bar.h"
+#include "setting.h"
 
 #ifdef WIN32
 #   include "win32/win32dep.h"
@@ -41,6 +42,7 @@
 GtkWidget    *LogList          = NULL;
 GtkListStore *logListModel;
 GList        *LogPrintTmpList  = NULL; // Temporary list to store messages for the LogList when this control wasn't yet created
+gint          LogListNbrRows;
 
 enum
 {
@@ -142,8 +144,9 @@ GtkWidget *Create_Log_Area (void)
     // Load pending messages in the Log list
     Log_Print_Tmp_List();
 
-    //gtk_widget_show_all(ScrollWindowLogList);
-    gtk_widget_show_all(Frame);
+    if (SHOW_LOG_VIEW)
+        //gtk_widget_show_all(ScrollWindowLogList);
+        gtk_widget_show_all(Frame);
 
     //return ScrollWindowLogList;
     return Frame;
@@ -190,7 +193,10 @@ void Log_List_Set_Row_Visible (GtkTreeModel *treeModel, GtkTreeIter *rowIter)
 void Log_Clean_Log_List (void)
 {
     if (logListModel)
+    {
         gtk_list_store_clear(logListModel);
+        LogListNbrRows = 0;
+    }
 }
 
 
@@ -236,6 +242,15 @@ void Log_Print (gchar const *format, ...)
     if (LogList && logListModel)
     {
         gchar *time = Log_Format_Date();
+
+        // Remove lines that exceed the limit
+        if (LogListNbrRows > LOG_MAX_LINES - 1
+        &&  gtk_tree_model_get_iter_first(GTK_TREE_MODEL(logListModel), &iter))
+        {
+            gtk_list_store_remove(GTK_LIST_STORE(logListModel), &iter);         
+        }
+        
+        LogListNbrRows++;
         gtk_list_store_append(logListModel, &iter);
         gtk_list_store_set(logListModel, &iter,
                            LOG_TIME_TEXT, time,
@@ -296,6 +311,7 @@ void Log_Print_Tmp_List (void)
         
         if (LogList && logListModel)
         {
+            LogListNbrRows++;
             gtk_list_store_append(logListModel, &iter);
             gtk_list_store_set(logListModel, &iter,
                                LOG_TIME_TEXT, ((Log_Data *)LogPrintTmpList->data)->time,

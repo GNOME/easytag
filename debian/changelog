@@ -1,3 +1,24 @@
+easytag (2.1.2-1) unstable; urgency=low
+
+  * New upstream version:
+    - Fixed a mistake in the configure script (Closes: #432257)
+  * debian/control:
+    - Build-Depends on libid3tag0-dev, libspeex-dev (Closes: #401523, #434428)
+    - updated Standards-Version to 3.7.2
+
+ -- Sebastien Bacher <seb128@debian.org>  Thu,  2 Aug 2007 12:55:18 +0200
+
+easytag (2.1.1-1) unstable; urgency=low
+
+  * New upstream version (Closes: #414201):
+    - Added Speex support (Closes: #401523)
+  * debian/control:
+    - Build-Depends on libwavpack-dev
+    - correct spelling mistake, 
+      change indicated by Simon Waters <simon@technocool.net> (Closes: #363374)
+
+ -- Sebastien Bacher <seb128@debian.org>  Sat,  7 Jul 2007 14:37:46 +0200
+
 easytag (2.1-1) unstable; urgency=low
 
   * New upstream version

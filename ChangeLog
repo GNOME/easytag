@@ -1,3 +1,33 @@
+2.1.3 - October 15th, 2007 :
+============================
+    * The "convert" function of the 'Process Fields' scanner was improved to
+      allow to replace a string to an other one (instead of only one character),
+    * Added a option to limit the number of lines in the log view,
+    * Added ability to show or hide the log view,
+    * Added command buttons in the "Load TXT file" windows,
+    * Added support of .oga extension,
+    * The "Process Fields" scanner set to uppercase roman numerals (thanks to
+      Slash Bunny),
+    * Fixed problem with the "Encoded by" field in Id3v2.4 tags (thanks to 
+      Adrian Bunk),
+    * Fixed rules of the "process fields" to follows The Chicago Manual of Style
+      more closely(thanks to Slash Bunny),
+    * Fixed bug with UTF-8 characters in the "convert" function of the 'Process
+      Fields' scanner,
+    * Fixed problem with the browser window that stays grayed out if the 
+      selected directory doesn't exist,
+    * Fixed file descriptor leak in the cddb search,
+    * Improved displaying of extensions supported in the About window,
+    * Improved selection of directories, in the browser tree, if it doesn't
+      exist on the file system, the tree is refreshed automatically.
+    * New Serbian translation (thanks to Miloš Popović),
+    * Swedish translation updated (thanks to Anders Strömer),
+    * Polish translation updated (thanks to Tomasz Sałaciński and Michał Smoczyk),
+    * German translation updated (thanks to Götz Waschk),
+    * Czech translation updated (thanks to Zbyněk Mrkvička),
+    * French translation updated.
+
+
 2.1.2 - July 12th, 2007 :
 =========================
     * Added an option to update modification time of the parent directory when 
@@ -13,7 +43,6 @@
     * Brazilian Portuguese translation updated (thanks to doutor.zero),
     * Polish translation updated (thanks to Michał Smoczyk),
     * German translation updated (thanks to Götz Waschk),
-    * French translation updated.
 
 
 2.1.1 - July 4th, 2007 :

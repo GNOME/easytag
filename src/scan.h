@@ -67,18 +67,18 @@ void   Scan_Use_Process_Fields_Scanner      (void);
 
 gboolean Scan_Check_Rename_File_Mask (GtkObject *widget_to_show_hide, GtkEntry *widget_source);
 
-void Scan_Process_Fields_All_Uppercase           (gchar *text);
-void Scan_Process_Fields_All_Downcase            (gchar *text);
-void Scan_Process_Fields_Letter_Uppercase        (gchar *text);
-void Scan_Process_Fields_First_Letters_Uppercase (gchar *text);
-void Scan_Process_Fields_Remove_Space            (gchar *text);
-void Scan_Process_Fields_Insert_Space            (gchar *text);
-void Scan_Process_Fields_Keep_One_Space          (gchar *text);
+void Scan_Process_Fields_All_Uppercase           (gchar *string);
+void Scan_Process_Fields_All_Downcase            (gchar *string);
+void Scan_Process_Fields_Letter_Uppercase        (gchar *string);
+void Scan_Process_Fields_First_Letters_Uppercase (gchar *string);
+void Scan_Process_Fields_Remove_Space            (gchar *string);
+void Scan_Process_Fields_Insert_Space            (gchar **string);
+void Scan_Process_Fields_Keep_One_Space          (gchar *string);
 
 void Scan_Convert_Underscore_Into_Space (gchar *string);
 void Scan_Convert_P20_Into_Space        (gchar *string);
 void Scan_Convert_Space_Into_Undescore  (gchar *string);
-void Scan_Convert                       (gchar *string);
+void Scan_Convert_Character             (gchar **string);
 
 void Init_ScannerWindow (void);
 void Open_ScannerWindow (gint scanner_type);

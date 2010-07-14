@@ -34,8 +34,6 @@
 #define chown(a,b,c)
 #define chmod(a,b)
 
-//#define strcasestr(haystack, needle) strstr(haystack, needle)
-char *strcasestr(const char *s1, const char *s2);
 
 
 

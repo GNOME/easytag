@@ -111,6 +111,8 @@ GtkWidget *NumberTrackFormatedSpinButton;
 GtkWidget *OggTagWriteXmmsComment;
 GtkWidget *SetFocusToSameTagField;
 GtkWidget *SetFocusToFirstTagField;
+GtkWidget *LogMaxLinesSpinButton;
+GtkWidget *ShowLogView;
 
 
 /* Scanner */

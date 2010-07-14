@@ -2,15 +2,15 @@ Source: easytag
 Section: sound
 Priority: optional
 Maintainer: Sebastien Bacher <seb128@debian.org>
-Build-Depends: cdbs, debhelper (>= 4.0), libglib2.0-dev (>= 2.8), libgtk2.0-dev (>= 2.4), gettext, libvorbis-dev, libogg-dev, zlib1g-dev, libid3-3.8.3-dev, libflac-dev (>= 1.1.2)
-Standards-Version: 3.6.2
+Build-Depends: cdbs, debhelper (>= 4.0), libglib2.0-dev (>= 2.8), libgtk2.0-dev (>= 2.4), gettext, libvorbis-dev, libogg-dev, zlib1g-dev, libid3tag0-dev, libspeex-dev, libid3-3.8.3-dev, libflac-dev (>= 1.1.2), libwavpack-dev
+Standards-Version: 3.7.2
 
 Package: easytag
 Architecture: any
 Depends: ${shlibs:Depends}
 Description: viewing, editing and writing ID3 tags
  EasyTAG is an utility for viewing, editing and writing
- the ID3 tags of differents audio files, using a GTK+ interface.
+ the ID3 tags of different audio files, using a GTK+ interface.
  .
  Currently EasyTAG supports the following:
   - View, edit, write tags of MP3, MP2 files (ID3 tag), FLAC files (FLAC Vorbis

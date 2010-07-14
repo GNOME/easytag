@@ -79,8 +79,8 @@ static int    libid3tag_Get_Frame_Str   (const struct id3_frame *frame, unsigned
 
 static void   Id3tag_delete_frames      (struct id3_tag *tag, const gchar *name, int start);
 static void   Id3tag_delete_txxframes   (struct id3_tag *tag, const gchar *param1, int start);
-static struct id3_frame *Id3tag_findncreate_frame     (struct id3_tag *tag, const gchar *name);
-static struct id3_frame *Id3tag_findncreate_txxframe  (struct id3_tag *tag, const gchar *param1);
+static struct id3_frame *Id3tag_find_and_create_frame    (struct id3_tag *tag, const gchar *name);
+static struct id3_frame *Id3tag_find_and_create_txxframe (struct id3_tag *tag, const gchar *param1);
 static int    id3taglib_set_field       (struct id3_frame *frame, const gchar *str, enum id3_field_type type, int num, int clear, int id3v1);
 static int    etag_set_tags             (const gchar *str, const char *frame_name, enum id3_field_type field_type, struct id3_tag *v1tag, struct id3_tag *v2tag, gboolean *strip_tags);
 static int    etag_write_tags           (const gchar *filename, const struct id3_tag *v1tag, const struct id3_tag *v2tag, gboolean strip_tags);
@@ -359,21 +359,24 @@ gboolean Id3tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     if ( (frame = id3_tag_findframe(tag, "WXXX", 0)) )
         update |= libid3tag_Get_Frame_Str(frame, EASYTAG_ID3_FIELD_LATIN1, &FileTag->url);
 
-    /*********************
-     * Encoded by (TENC) *
-     *********************/
+    /*******************************
+     * Encoded by (TENC) or (TXXX) *
+     *******************************/
     if ( (frame = id3_tag_findframe(tag, "TENC", 0)) )
         update |= libid3tag_Get_Frame_Str(frame, ~0, &FileTag->encoded_by);
+    
     /* Encoded by in TXXX frames */
     string1 = NULL;
     for (i = 0; (frame = id3_tag_findframe(tag, "TXX", i)); i++)
     {
+        // Do nothing if already read...
         if (FileTag->encoded_by)
             break;
+        
         tmpupdate = libid3tag_Get_Frame_Str(frame, ~0, &string1);
         if (string1)
         {
-            if (strcasestr(string1, EASYTAG_STRING_ENCODEDBY MULTIFIELD_SEPARATOR) == string1)
+            if (strncasecmp(string1, EASYTAG_STRING_ENCODEDBY MULTIFIELD_SEPARATOR, strlen(EASYTAG_STRING_ENCODEDBY MULTIFIELD_SEPARATOR)) == 0)
             {
                 FileTag->encoded_by = g_strdup(&string1[sizeof(EASYTAG_STRING_ENCODEDBY) + sizeof(MULTIFIELD_SEPARATOR) - 2]);
                 g_free(string1);
@@ -937,13 +940,15 @@ gboolean Id3tag_Write_File_v24Tag (ET_File *ETFile)
     /***************
      * Encoded by  *
      ***************/
-    if ( v2tag && FileTag->encoded_by && *FileTag->encoded_by
-    && (frame = Id3tag_findncreate_txxframe(v2tag, EASYTAG_STRING_ENCODEDBY)))
-    {
-        id3taglib_set_field(frame, EASYTAG_STRING_ENCODEDBY, ID3_FIELD_TYPE_STRING, 0, 1, 0);
-        id3taglib_set_field(frame, FileTag->encoded_by, ID3_FIELD_TYPE_STRING, 1, 0, 0);
-        strip_tags = FALSE;
-    }else
+    //if ( v2tag && FileTag->encoded_by && *FileTag->encoded_by
+    //&& (frame = Id3tag_find_and_create_txxframe(v2tag, EASYTAG_STRING_ENCODEDBY)))
+    //{
+    //    id3taglib_set_field(frame, EASYTAG_STRING_ENCODEDBY, ID3_FIELD_TYPE_STRING, 0, 1, 0);
+    //    id3taglib_set_field(frame, FileTag->encoded_by, ID3_FIELD_TYPE_STRING, 1, 0, 0);
+    //    strip_tags = FALSE;
+    //}else
+    // Save encoder name in TENC frame instead of the TXX frame
+    etag_set_tags(FileTag->encoded_by, "TENC", ID3_FIELD_TYPE_STRINGLIST, NULL, v2tag, &strip_tags);
     if (v2tag)
         Id3tag_delete_txxframes(v2tag, EASYTAG_STRING_ENCODEDBY, 0);
 
@@ -1062,7 +1067,7 @@ Id3tag_delete_txxframes(struct id3_tag *tag, const gchar *param1, int start)
         {
             str = NULL;
             if ((str = (gchar *)id3_ucs4_latin1duplicate(ucs4string))
-            && (strcasestr(str, param1) == str) )
+            && (strncasecmp(str, param1, strlen(param1)) == 0) )
             {
                 g_free(str);
                 id3_tag_detachframe(tag, frame);
@@ -1080,7 +1085,7 @@ Id3tag_delete_txxframes(struct id3_tag *tag, const gchar *param1, int start)
  * create new if not found
  */
 static struct id3_frame *
-Id3tag_findncreate_frame(struct id3_tag *tag, const gchar *name)
+Id3tag_find_and_create_frame (struct id3_tag *tag, const gchar *name)
 {
     struct id3_frame *frame;
 
@@ -1103,7 +1108,7 @@ Id3tag_findncreate_frame(struct id3_tag *tag, const gchar *name)
  * create new if not found
  */
 static struct id3_frame *
-Id3tag_findncreate_txxframe(struct id3_tag *tag, const gchar *param1)
+Id3tag_find_and_create_txxframe(struct id3_tag *tag, const gchar *param1)
 {
     const id3_ucs4_t *ucs4string;
     struct id3_frame *frame;
@@ -1120,7 +1125,7 @@ Id3tag_findncreate_txxframe(struct id3_tag *tag, const gchar *param1)
     {
         str = NULL;
         if ((str = (gchar *)id3_ucs4_latin1duplicate(ucs4string))
-        && (strcasestr(str, param1) == str) )
+        && (strncasecmp(str, param1, strlen(param1)) == 0) )
         {
             g_free(str);
             break;
@@ -1320,10 +1325,10 @@ etag_set_tags(const gchar *str,
         *strip_tags = FALSE;
 
         if (v2tag
-        && (ftmp = Id3tag_findncreate_frame(v2tag, frame_name)))
+        && (ftmp = Id3tag_find_and_create_frame(v2tag, frame_name)))
             id3taglib_set_field(ftmp, str, field_type, 0, 1, 0);
         if (v1tag
-        && (ftmp = Id3tag_findncreate_frame(v1tag, frame_name)))
+        && (ftmp = Id3tag_find_and_create_frame(v1tag, frame_name)))
             id3taglib_set_field(ftmp, str, field_type, 0, 1, 1);
     }else
         if (v2tag)

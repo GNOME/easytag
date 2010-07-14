@@ -286,7 +286,7 @@ void Open_Cddb_Window (void)
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
 
     // Button to generate CddbId and request string from the selected files
-    CddbSearchAutoButton = Create_Button_With_Pixmap(BUTTON_SEARCH);
+    CddbSearchAutoButton = gtk_button_new_from_stock(GTK_STOCK_FIND);
     gtk_box_pack_start(GTK_BOX(hbox),CddbSearchAutoButton,FALSE,FALSE,0);
     GTK_WIDGET_SET_FLAGS(CddbSearchAutoButton,GTK_CAN_DEFAULT);
     gtk_widget_grab_default(CddbSearchAutoButton);
@@ -347,7 +347,7 @@ void Open_Cddb_Window (void)
     g_signal_connect(G_OBJECT(Button),"clicked",G_CALLBACK(ET_Sort_Displayed_File_List_And_Update_UI),GINT_TO_POINTER(SORTING_BY_ASCENDING_TRACK_NUMBER));
 */
     // Button to quit
-    Button = Create_Button_With_Pixmap(BUTTON_CLOSE);
+    Button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
     gtk_box_pack_end(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     GTK_WIDGET_SET_FLAGS(Button,GTK_CAN_DEFAULT);
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(Cddb_Destroy_Window),NULL);
@@ -396,7 +396,7 @@ void Open_Cddb_Window (void)
     gtk_editable_paste_clipboard(GTK_EDITABLE(GTK_BIN(CddbSearchStringCombo)->child));
 
     // Button to run the search
-    CddbSearchButton = Create_Button_With_Pixmap(BUTTON_SEARCH);
+    CddbSearchButton = gtk_button_new_from_stock(GTK_STOCK_FIND);
     gtk_box_pack_start(GTK_BOX(hbox),CddbSearchButton,FALSE,FALSE,0);
     GTK_WIDGET_SET_FLAGS(CddbSearchButton,GTK_CAN_DEFAULT);
     gtk_widget_grab_default(CddbSearchButton);
@@ -414,7 +414,7 @@ void Open_Cddb_Window (void)
     gtk_tooltips_set_tip(Tips,CddbStopSearchButton,_("Stop the search ..."),NULL);
 
     // Button to quit
-    Button = Create_Button_With_Pixmap(BUTTON_CLOSE);
+    Button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
     gtk_box_pack_end(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     GTK_WIDGET_SET_FLAGS(Button,GTK_CAN_DEFAULT);
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(Cddb_Destroy_Window),NULL);
@@ -783,7 +783,7 @@ void Open_Cddb_Window (void)
     g_signal_connect(G_OBJECT(CddbUseDLM2),"toggled",G_CALLBACK(Cddb_Use_Dlm_2_Check_Button_Toggled),NULL);
 
     // Button to apply
-    CddbApplyButton = Create_Button_With_Pixmap(BUTTON_APPLY);
+    CddbApplyButton = gtk_button_new_from_stock(GTK_STOCK_APPLY);
     gtk_box_pack_end(GTK_BOX(hbox),CddbApplyButton,FALSE,FALSE,2);
     g_signal_connect(G_OBJECT(CddbApplyButton),"clicked", G_CALLBACK(Cddb_Set_Track_Infos_To_File_List),NULL);
     gtk_tooltips_set_tip(Tips,CddbApplyButton,_("Load the selected lines or all lines (if no line selected)."),NULL);
@@ -827,10 +827,6 @@ gboolean Cddb_Destroy_Window (GtkWidget *widget, GdkEvent *event, gpointer data)
     if (CddbWindow)
     {
         Cddb_Window_Apply_Changes();
-
-        // Save combobox history lists before exit
-        Save_Cddb_Search_String_List(CddbSearchStringModel, MISC_COMBO_TEXT);
-        Save_Cddb_Search_String_In_Result_List(CddbSearchStringInResultModel, MISC_COMBO_TEXT);
 
         // FIX ME : This causes problem with memory !!
         Cddb_Free_Album_List();
@@ -908,6 +904,9 @@ void Cddb_Window_Apply_Changes (void)
         CDDB_USE_DLM            = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbUseDLM2));
         CDDB_USE_LOCAL_ACCESS   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbUseLocalAccess));
 
+        // Save combobox history lists before exit
+        Save_Cddb_Search_String_List(CddbSearchStringModel, MISC_COMBO_TEXT);
+        Save_Cddb_Search_String_In_Result_List(CddbSearchStringInResultModel, MISC_COMBO_TEXT);
     }
 }
 
@@ -1494,30 +1493,35 @@ GtkWidget *Create_Cddb_Track_List_Popup_Menu(GtkWidget *list)
 
     CddbPopupMenu = gtk_menu_new();
     g_signal_connect_swapped(G_OBJECT(list), "button_press_event",
-        G_CALLBACK(Cddb_Popup_Menu_Handler), G_OBJECT(CddbPopupMenu));
+                            G_CALLBACK(Cddb_Popup_Menu_Handler), G_OBJECT(CddbPopupMenu));
 
     MenuItem = gtk_menu_item_new_with_label(_("Select all lines"));
     gtk_menu_shell_append(GTK_MENU_SHELL(CddbPopupMenu), MenuItem);
-    g_signal_connect(G_OBJECT(MenuItem),"activate", G_CALLBACK(Cddb_Track_List_Select_All),NULL);
+    g_signal_connect(G_OBJECT(MenuItem),"activate",
+                     G_CALLBACK(Cddb_Track_List_Select_All),NULL);
 
     MenuItem = gtk_menu_item_new_with_label(_("Unselect all lines"));
     gtk_menu_shell_append(GTK_MENU_SHELL(CddbPopupMenu), MenuItem);
-    g_signal_connect(G_OBJECT(MenuItem),"activate", G_CALLBACK(Cddb_Track_List_Unselect_All),NULL);
+    g_signal_connect(G_OBJECT(MenuItem),"activate", 
+                     G_CALLBACK(Cddb_Track_List_Unselect_All),NULL);
 
     MenuItem = gtk_menu_item_new_with_label(_("Invert selection"));
     gtk_menu_shell_append(GTK_MENU_SHELL(CddbPopupMenu), MenuItem);
-    g_signal_connect(G_OBJECT(MenuItem),"activate", G_CALLBACK(Cddb_Track_List_Invert_Selection),NULL);
+    g_signal_connect(G_OBJECT(MenuItem),"activate", 
+                     G_CALLBACK(Cddb_Track_List_Invert_Selection),NULL);
 
     MenuItem = gtk_menu_item_new();
     gtk_menu_shell_append(GTK_MENU_SHELL(CddbPopupMenu), MenuItem);
 
     MenuItem = gtk_menu_item_new_with_label(_("Sort by Track Number"));
     gtk_menu_shell_append(GTK_MENU_SHELL(CddbPopupMenu),MenuItem);
-    g_signal_connect(G_OBJECT(MenuItem),"activate",G_CALLBACK(Cddb_Track_List_Sort_By_Ascending_Track_Number),NULL);
+    g_signal_connect(G_OBJECT(MenuItem),"activate",
+                     G_CALLBACK(Cddb_Track_List_Sort_By_Ascending_Track_Number),NULL);
 
     MenuItem = gtk_menu_item_new_with_label(_("Sort by Track Name"));
     gtk_menu_shell_append(GTK_MENU_SHELL(CddbPopupMenu),MenuItem);
-    g_signal_connect(G_OBJECT(MenuItem),"activate",G_CALLBACK(Cddb_Track_List_Sort_By_Ascending_Track_Name),NULL);
+    g_signal_connect(G_OBJECT(MenuItem),"activate",
+                     G_CALLBACK(Cddb_Track_List_Sort_By_Ascending_Track_Name),NULL);
 
     gtk_widget_show_all(CddbPopupMenu);
     return CddbPopupMenu;
@@ -1603,7 +1607,7 @@ gint Cddb_Open_Connection (gchar *host, gint port)
     struct hostent    *hostent;
     struct sockaddr_in sockaddr;
     gint               optval = 1;
-    gchar *msg;
+    gchar             *msg;
 
 
     if (!CddbWindow)
@@ -1753,20 +1757,20 @@ gint Cddb_Write_Result_To_File (gint socket_id, gulong *bytes_read_total)
                 gtk_main_iteration();
         }
 
+        fclose(file);
+
         if (bytes_read < 0)
         {
             Log_Print(_("Error when reading cddb response (%s)!"),g_strerror(errno));
             return -1; // Error!
         }
 
-        fclose(file);
     } else
     {
         Log_Print(_("Can't create file '%s' (%s)"),file_path,g_strerror(errno));
     }
     g_free(file_path);
     g_free(home_path);
-
 
     return 0;
 }
@@ -1789,11 +1793,12 @@ gint Cddb_Write_Result_To_File (gint socket_id, gulong *bytes_read_total)
  */
 gint Cddb_Read_Line (FILE **file, gchar **cddb_out)
 {
-    gchar buffer[MAX_STRING_LEN];
-
+    gchar  buffer[MAX_STRING_LEN];
+    gchar *result;
 
     if (*file == NULL)
     {
+        // Open the file for reading the first time
         gchar *home_path;
         gchar *file_path;
 
@@ -1812,7 +1817,8 @@ gint Cddb_Read_Line (FILE **file, gchar **cddb_out)
         g_free(file_path);
     }
 
-    if (fgets(buffer,sizeof(buffer),*file))
+    result = fgets(buffer,sizeof(buffer),*file);
+    if (result != NULL && result != (gchar *)EOF)
     {
         if (buffer && strlen(buffer)>0 && buffer[strlen(buffer)-1]=='\n')
             buffer[strlen(buffer)-1]='\0';
@@ -1821,8 +1827,9 @@ gint Cddb_Read_Line (FILE **file, gchar **cddb_out)
         *cddb_out = g_strdup(buffer);
     }else
     {
-        // On error or EOF
+        // On error, or EOF
         fclose(*file);
+        *file = NULL;
         
         //*cddb_out = NULL;
         *cddb_out = g_strdup(""); // To avoid a crash
@@ -1841,6 +1848,7 @@ gint Cddb_Read_Line (FILE **file, gchar **cddb_out)
 gint Cddb_Read_Http_Header (FILE **file, gchar **cddb_out)
 {
 
+    // The 'file' is opened (if no error) in this function
     if ( Cddb_Read_Line(file,cddb_out) < 0 )
         return -1; // Error!
 
@@ -2291,6 +2299,8 @@ gboolean Cddb_Search_Album_List_From_String_Freedb (void)
         g_free(cddb_server_cgi_path);
         gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchButton),FALSE);
         gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchAutoButton),FALSE);
+        if (file)
+            fclose(file);
         return FALSE;
     }
     g_free(cddb_out);
@@ -2413,6 +2423,13 @@ gboolean Cddb_Search_Album_List_From_String_Freedb (void)
     g_free(cddb_server_name);
     g_free(cddb_server_cgi_path);
 
+    // Close file opened for reading lines
+    if (file)
+    {
+        fclose(file);
+        file = NULL;
+    }
+
     gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchButton),FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchAutoButton),FALSE);
 
@@ -2463,8 +2480,8 @@ gboolean Cddb_Search_Album_List_From_String_Gnudb (void)
     gint   bytes_written;
     gulong bytes_read_total = 0;
     FILE  *file;
-    gint  num_albums = 0;
-    gint  total_num_albums = 0;
+    gint   num_albums = 0;
+    gint   total_num_albums = 0;
 
     gchar *next_page = NULL;
     gint   next_page_cpt = 0;
@@ -2603,6 +2620,8 @@ gboolean Cddb_Search_Album_List_From_String_Gnudb (void)
             g_free(cddb_server_cgi_path);
             gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchButton),FALSE);
             gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchAutoButton),FALSE);
+            if (file)
+                fclose(file);
             return FALSE;
         }
         g_free(cddb_out);
@@ -2745,6 +2764,13 @@ gboolean Cddb_Search_Album_List_From_String_Gnudb (void)
         g_free(sraf_str);g_free(sraf_end_str);
         g_free(cddb_server_name);
         g_free(cddb_server_cgi_path);
+
+        // Close file opened for reading lines
+        if (file)
+        {
+            fclose(file);
+            file = NULL;
+        }
 
         // Close connection
         Cddb_Close_Connection(socket_id);
@@ -2935,16 +2961,16 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
         // We check if the file corresponding to the discid exists in each directory
         for (i=0; i<=CddbDirSize; i++)
         {
-            FILE *file;
             gchar *file_path;
 
             if (!CDDB_LOCAL_PATH || strlen(CDDB_LOCAL_PATH)==0)
             {
                 GtkWidget *msgbox;
 
-                msgbox = msg_box_new(_("Local CD search..."),_("The path for 'Local "
-                                       "CD Data Base' wasn't defined!\nFill it in the "
-                                       "preferences window."),GTK_STOCK_DIALOG_ERROR,BUTTON_YES,0);
+                msgbox = msg_box_new(_("Local CD search..."),
+                                     _("The path for 'Local CD Data Base' wasn't "
+                                       "defined!\nFill it in the preferences window."),
+                                     GTK_STOCK_DIALOG_ERROR,BUTTON_YES,0);
                 msg_box_hide_check_button(MSG_BOX(msgbox));
                 msg_box_run(MSG_BOX(msgbox));
                 gtk_widget_destroy(msgbox);
@@ -3014,8 +3040,10 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
 
                 CddbAlbumList = g_list_append(CddbAlbumList,cddbalbum);
 
-                if (rc != 0) // Need to close it, if not done in Cddb_Read_Line
+                // Need to close it, if not done in Cddb_Read_Line
+                if (file)
                     fclose(file);
+                file = NULL;
             }
             g_free(file_path);
 
@@ -3138,6 +3166,8 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
                 g_free(cddb_server_cgi_path);
                 gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchButton),FALSE);
                 gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchAutoButton),FALSE);
+                if (file)
+                    fclose(file);
                 return FALSE;
             }
             g_free(cddb_out);
@@ -3222,6 +3252,13 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
             g_free(cddb_server_name);
             g_free(cddb_server_cgi_path);
 
+            // Close file opened for reading lines
+            if (file)
+            {
+                fclose(file);
+                file = NULL;
+            }
+            
             // Close connection
             Cddb_Close_Connection(socket_id);
         }
@@ -3291,7 +3328,7 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
     gchar     *cddb_server_cgi_path;
     gint       bytes_written;
     gulong     bytes_read_total = 0;
-    FILE      *file;
+    FILE      *file = NULL;
     gboolean   read_track_offset = FALSE;
     GtkTreeIter row;
 
@@ -3397,6 +3434,8 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
             Log_Print("%s",msg);
             g_free(msg);
             g_free(cddb_out);
+            if (file)
+                fclose(file);
             return FALSE;
         }
         g_free(cddb_out);
@@ -3561,6 +3600,13 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
     }
     g_free(cddb_end_str);
 
+    // Close file opened for reading lines
+    if (file)
+    {
+        fclose(file);
+        file = NULL;
+    }
+    
     if (cddb_server_name)
     {
         // Remote access
@@ -3751,7 +3797,8 @@ gboolean Cddb_Set_Track_Infos_To_File_List (void)
         msg = g_strdup_printf(_("Be careful, you are applying %d lines of the CDDB "
                                 "results to %d lines in the list of files!\n\nDo you want to continue ?"),
                               rows_to_loop,file_selectedcount);
-        msgbox = msg_box_new(_("Write Tag from CDDB..."),msg,GTK_STOCK_DIALOG_QUESTION,BUTTON_NO,BUTTON_YES,0);
+        msgbox = msg_box_new(_("Write Tag from CDDB..."),msg,
+                             GTK_STOCK_DIALOG_QUESTION,BUTTON_NO,BUTTON_YES,0);
         msg_box_hide_check_button(MSG_BOX(msgbox));
         button = msg_box_run(MSG_BOX(msgbox));
         gtk_widget_destroy(msgbox);
@@ -3760,6 +3807,7 @@ gboolean Cddb_Set_Track_Infos_To_File_List (void)
         {
             g_list_foreach(file_iterlist, (GFunc)g_free, NULL);
             g_list_free(file_iterlist);
+            //gdk_window_raise(CddbWindow->window);
             return FALSE;
         }
     }

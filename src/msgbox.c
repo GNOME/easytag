@@ -184,7 +184,7 @@ GtkWidget *msg_box_new (gchar *title, gchar *message, const gchar *stock_id,
     gtk_container_add(GTK_CONTAINER(GTK_DIALOG(mb)->action_area),ButtonBox);
 
     /* Read buttons from variable arguments */
-    va_start (cursor,stock_id);
+    va_start(cursor,stock_id);
     while ( (cursor_value = va_arg(cursor,gint)) != 0 )
     {
         Button = Create_Button_With_Pixmap(cursor_value);

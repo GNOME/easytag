@@ -37,6 +37,7 @@
 #include "about.h"
 #include "easytag.h"
 #include "misc.h"
+#include "log.h"
 #include "msgbox.h"
 #include "charset.h"
 
@@ -53,6 +54,17 @@
  * Declarations *
  ****************/
 static GtkWidget *AboutWindow = NULL;
+
+enum
+{
+    // Columns for titles
+    EXTENSION_NAME = 0,
+    EXTENSION_STATUT,
+    EXTENSION_COMMENT,
+
+    EXTENSION_COLUMN_COUNT
+};
+
 
 
 /**************
@@ -106,7 +118,7 @@ void Show_About_Window (void)
     GtkWidget *ScrollWindow;
     GtkWidget *TextView;
     GtkTextBuffer *TextBuffer;
-    GtkTextIter iter;
+    GtkTextIter textIter;
     GtkWidget *Button;
     GtkWidget *Logo;
     GdkPixmap *pixmap;
@@ -125,7 +137,6 @@ void Show_About_Window (void)
             "simple and nice GTK+ interface makes tagging easier under GNU/Linux."
             "");
 
-
     /* Translation contributions */
     gchar *translations_thanks_text [][2]= {
             {"    - Bastian Kleineidam ",           _("(German translation)")},
@@ -135,12 +146,12 @@ void Show_About_Window (void)
             {"    - Sergey Zhumatiy ",              _("(Russian translation)")},
             {"    - Andrey Astafiev ",              _("(Russian translation)")},
             {"    - Vincent van Adrighem ",         _("(Dutch translation)")},
-            {"    - Björn Olievier ",               _("(Dutch translation)")},
+            {"    - BjÃ¶rn Olievier ",               _("(Dutch translation)")},
             {"    - Patrik Israelsson ",            _("(Swedish translation)")},
-            {"    - Anders Strömer ",               _("(Swedish translation)")},
+            {"    - Anders StrÃ¶mer ",               _("(Swedish translation)")},
             {"    - Szel Miklos ",                  _("(Hungarian translation)")},
             {"    - Nagy Boldizsar ",               _("(Hungarian translation)")},
-            {"    - Mészáros Csaba ",               _("(Hungarian translation)")},
+            {"    - MÃ©szÃ¡ros Csaba ",               _("(Hungarian translation)")},
             {"    - Cappelletti Lorenzo ",          _("(Italian translation)")},
             {"    - Costantino Ceoldo ",            _("(Italian translation)")},
             {"    - Takeshi Aihana ",               _("(Japanese translation)")},
@@ -159,6 +170,7 @@ void Show_About_Window (void)
             {"    - Luchezar P. Petkov ",           _("(Bulgarian translation)")},
             {"    - Yang Jinsong ",                 _("(Chinese translation)")},
             {"    - Yuval Hager ",                  _("(Hebrew translation)")},
+            {"    - MiloÅ¡ PopoviÄ‡ ",                _("(Serbian translation)")},
             {NULL,NULL}
             };
 
@@ -207,6 +219,16 @@ void Show_About_Window (void)
             "    - Pierre Dumuid\n"
             "";
 
+    GtkWidget *ExtensionList;
+    GtkListStore *ExtensionListModel;
+    GtkTreeViewColumn* column;
+    GtkCellRenderer* renderer;
+    gchar *ExtensionList_Titles[] = { N_("Extension Name"),
+                                      N_("Status"),
+                                      N_("Comment")
+                                    };
+    GtkTreeIter treeIter;
+    
 
     /* Check if already opened */
     if (AboutWindow)
@@ -272,56 +294,9 @@ void Show_About_Window (void)
     Label = gtk_label_new(temp);
     gtk_box_pack_start(GTK_BOX(VBox),Label,FALSE,TRUE,0);
 
-#ifdef ENABLE_MP3 // FIX ME : should separate gtk and id3lib
-    sprintf(temp,_("(using: GTK+ %d.%d.%d)"),GTK_MAJOR_VERSION,GTK_MINOR_VERSION,
-        GTK_MICRO_VERSION);
+    sprintf(temp,_("(using: GTK+ %d.%d.%d)"),GTK_MAJOR_VERSION,GTK_MINOR_VERSION,GTK_MICRO_VERSION);
     Label = gtk_label_new(temp);
     gtk_box_pack_start(GTK_BOX(VBox),Label,FALSE,TRUE,0);
-#endif
-
-#ifdef ENABLE_MP3
-    sprintf(temp, _("(MP3 file support enabled using: libid3tag %s)"), ID3_VERSION);
-    Label = gtk_label_new(temp);
-    gtk_box_pack_start(GTK_BOX(VBox),Label,FALSE,TRUE,0);
-#if (defined ENABLE_ID3LIB) 
-    sprintf(temp, _("(ID3v2.3 tags support enabled using: id3lib %d.%d.%d)"),
-        ID3LIB_MAJOR_VERSION, ID3LIB_MINOR_VERSION, ID3LIB_PATCH_VERSION);
-    Label = gtk_label_new(temp);
-    gtk_box_pack_start(GTK_BOX(VBox),Label,FALSE,TRUE,0);
-#else
-    Label = gtk_label_new(_("(ID3v2.3 tags  support disabled)"));
-    gtk_box_pack_start(GTK_BOX(VBox),Label,FALSE,TRUE,0);
-#endif
-#else
-    sprintf(temp, _("(MP3 file support disabled)"));
-    Label = gtk_label_new(temp);
-    gtk_box_pack_start(GTK_BOX(VBox),Label,FALSE,TRUE,0);
-#endif
-
-#ifndef ENABLE_OGG
-    Label = gtk_label_new(_("(Ogg Vorbis file support disabled)"));
-    gtk_box_pack_start(GTK_BOX(VBox),Label,FALSE,TRUE,0);
-#endif
-
-#ifndef ENABLE_SPEEX
-    Label = gtk_label_new(_("(Speex file support disabled)"));
-    gtk_box_pack_start(GTK_BOX(VBox),Label,FALSE,TRUE,0);
-#endif
-
-#ifndef ENABLE_FLAC
-    Label = gtk_label_new(_("(FLAC file support disabled)"));
-    gtk_box_pack_start(GTK_BOX(VBox),Label,FALSE,TRUE,0);
-#endif
-
-#ifndef ENABLE_MP4
-    Label = gtk_label_new(_("(MP4/AAC file support disabled)"));
-    gtk_box_pack_start(GTK_BOX(VBox),Label,FALSE,TRUE,0);
-#endif
-
-#ifndef ENABLE_WAVPACK
-    Label = gtk_label_new(_("(WavPack file support disabled)"));
-    gtk_box_pack_start(GTK_BOX(VBox),Label,FALSE,TRUE,0);
-#endif
 
     /* Insert a blank line */
     Label = gtk_label_new("");
@@ -341,6 +316,7 @@ void Show_About_Window (void)
     gtk_misc_set_alignment(GTK_MISC(Label),1,0.5);
     gtk_box_pack_start(GTK_BOX(hbox),Label,TRUE,TRUE,0);
     Button = gtk_button_new_with_label(WEBPAGE);
+    //Button = gtk_link_button_new(WEBPAGE);
     gtk_box_pack_start(GTK_BOX(hbox),Button,TRUE,TRUE,0);
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(About_Window_Go_To_Home_Page),NULL);
     gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
@@ -362,12 +338,141 @@ void Show_About_Window (void)
 
 
     /*
+     * Tab for extensions
+     */
+
+    Label = gtk_label_new(_("Extensions"));
+    Frame = gtk_frame_new(NULL);
+    gtk_notebook_append_page(GTK_NOTEBOOK(AboutNoteBook),Frame,Label);
+
+    ScrollWindow = gtk_scrolled_window_new(NULL,NULL);
+    gtk_container_add(GTK_CONTAINER(Frame),ScrollWindow);
+    gtk_container_set_border_width(GTK_CONTAINER(Frame),2);
+    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(ScrollWindow),
+                                   GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
+
+    ExtensionListModel = gtk_list_store_new(EXTENSION_COLUMN_COUNT,
+                                            G_TYPE_STRING, /* Extension name */
+                                            G_TYPE_STRING, /* Statut */
+                                            G_TYPE_STRING  /* Comment */
+                                            );
+    ExtensionList = gtk_tree_view_new_with_model(GTK_TREE_MODEL(ExtensionListModel));
+
+    renderer = gtk_cell_renderer_text_new(); /* Extension name */
+    column = gtk_tree_view_column_new_with_attributes(_(ExtensionList_Titles[0]), renderer,
+                                                      "text", EXTENSION_NAME,
+                                                      NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(ExtensionList), column);
+    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+
+    renderer = gtk_cell_renderer_text_new(); /* Statut */
+    column = gtk_tree_view_column_new_with_attributes(_(ExtensionList_Titles[1]), renderer,
+                                                      "text", EXTENSION_STATUT,
+                                                      NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(ExtensionList), column);
+    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+
+    renderer = gtk_cell_renderer_text_new(); /* Comment */
+    column = gtk_tree_view_column_new_with_attributes(_(ExtensionList_Titles[2]), renderer,
+                                                      "text", EXTENSION_COMMENT,
+                                                      NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(ExtensionList), column);
+    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+
+    gtk_container_add(GTK_CONTAINER(ScrollWindow),ExtensionList);
+    gtk_tree_selection_set_mode(gtk_tree_view_get_selection(GTK_TREE_VIEW(ExtensionList)),
+            GTK_SELECTION_NONE);
+    gtk_tree_view_set_headers_clickable(GTK_TREE_VIEW(ExtensionList), FALSE);
+    
+    // Load extensions list
+    // MP3
+#ifdef ENABLE_MP3
+    sprintf(temp, _("libid3tag %s"), ID3_VERSION);
+#endif
+    gtk_list_store_append(ExtensionListModel, &treeIter);
+    gtk_list_store_set(ExtensionListModel, &treeIter,
+                       EXTENSION_NAME,      _("MP3 file support"),
+#ifdef ENABLE_MP3
+                       EXTENSION_STATUT,    _("enabled"),
+                       EXTENSION_COMMENT,   temp,
+#else
+                       EXTENSION_STATUT,    _("disabled"),
+#endif
+                       -1);
+#ifdef ENABLE_MP3
+#if (defined ENABLE_ID3LIB) 
+    sprintf(temp, _("id3lib %d.%d.%d"), ID3LIB_MAJOR_VERSION, ID3LIB_MINOR_VERSION, ID3LIB_PATCH_VERSION);
+#endif
+    gtk_list_store_append(ExtensionListModel, &treeIter);
+    gtk_list_store_set(ExtensionListModel, &treeIter,
+                       EXTENSION_NAME,      _("ID3v2.3 tags writting support"),
+#if (defined ENABLE_ID3LIB) 
+                       EXTENSION_STATUT,    _("available"), // May not be used
+                       EXTENSION_COMMENT,   temp,
+#else
+                       EXTENSION_STATUT,    _("disabled"),
+#endif
+                       -1);
+#endif
+    // Ogg Vorbis
+    gtk_list_store_append(ExtensionListModel, &treeIter);
+    gtk_list_store_set(ExtensionListModel, &treeIter,
+                       EXTENSION_NAME,      _("Ogg Vorbis file support"),
+#ifdef ENABLE_OGG
+                       EXTENSION_STATUT,    _("enabled"),
+#else
+                       EXTENSION_STATUT,    _("disabled"),
+#endif
+                       -1);
+    // Speex
+    gtk_list_store_append(ExtensionListModel, &treeIter);
+    gtk_list_store_set(ExtensionListModel, &treeIter,
+                       EXTENSION_NAME,      _("Speex file support"),
+#ifdef ENABLE_SPEEX
+                       EXTENSION_STATUT,    _("enabled"),
+#else
+                       EXTENSION_STATUT,    _("disabled"),
+#endif
+                       -1);
+    // FLAC
+    gtk_list_store_append(ExtensionListModel, &treeIter);
+    gtk_list_store_set(ExtensionListModel, &treeIter,
+                       EXTENSION_NAME,      _("FLAC file support"),
+#ifdef ENABLE_FLAC
+                       EXTENSION_STATUT,    _("enabled"),
+#else
+                       EXTENSION_STATUT,    _("disabled"),
+#endif
+                       -1);
+    // MP4
+    gtk_list_store_append(ExtensionListModel, &treeIter);
+    gtk_list_store_set(ExtensionListModel, &treeIter,
+                       EXTENSION_NAME,      _("MP4/AAC file support"),
+#ifdef ENABLE_MP4
+                       EXTENSION_STATUT,    _("enabled"),
+#else
+                       EXTENSION_STATUT,    _("disabled"),
+#endif
+                       -1);
+    // WavPack
+    gtk_list_store_append(ExtensionListModel, &treeIter);
+    gtk_list_store_set(ExtensionListModel, &treeIter,
+                       EXTENSION_NAME,      _("WavPack file support"),
+#ifdef ENABLE_WAVPACK
+                       EXTENSION_STATUT,    _("enabled"),
+#else
+                       EXTENSION_STATUT,    _("disabled"),
+#endif
+                       -1);
+
+
+    /*
      * Tab for thanks
      */
 
     Label = gtk_label_new(_("Thanks"));
     Frame = gtk_frame_new(NULL);
-    gtk_notebook_append_page (GTK_NOTEBOOK(AboutNoteBook),Frame,Label);
+    gtk_notebook_append_page(GTK_NOTEBOOK(AboutNoteBook),Frame,Label);
 
     ScrollWindow = gtk_scrolled_window_new(NULL,NULL);
     gtk_container_add(GTK_CONTAINER(Frame),ScrollWindow);
@@ -383,10 +488,10 @@ void Show_About_Window (void)
     //gtk_text_buffer_create_tag(TextBuffer, "x-large", "scale", PANGO_SCALE_X_LARGE, NULL);
     //gtk_text_buffer_create_tag(TextBuffer, "monospace", "family", "monospace", NULL);
 
-    gtk_text_buffer_get_iter_at_offset(TextBuffer, &iter, 0);
+    gtk_text_buffer_get_iter_at_offset(TextBuffer, &textIter, 0);
 
     temp_str = _("Translations:\n");
-    gtk_text_buffer_insert_with_tags_by_name(TextBuffer, &iter,
+    gtk_text_buffer_insert_with_tags_by_name(TextBuffer, &textIter,
                                              temp_str, -1,
                                              "bold", "underline", "large", NULL);
 
@@ -397,7 +502,7 @@ void Show_About_Window (void)
             temp_str = convert_string(translations_thanks_text[i][0], "iso-8859-1", "utf-8",TRUE);
         else
             temp_str = g_strdup(translations_thanks_text[i][0]);
-        gtk_text_buffer_insert(TextBuffer, &iter, temp_str, -1);
+        gtk_text_buffer_insert(TextBuffer, &textIter, temp_str, -1);
         g_free(temp_str);
 
         // Translation language
@@ -405,19 +510,19 @@ void Show_About_Window (void)
             temp_str = convert_string(translations_thanks_text[i][1], "iso-8859-1", "utf-8",TRUE);
         else
             temp_str = g_strdup(translations_thanks_text[i][1]);
-        gtk_text_buffer_insert_with_tags_by_name(TextBuffer, &iter, temp_str, -1,
+        gtk_text_buffer_insert_with_tags_by_name(TextBuffer, &textIter, temp_str, -1,
                                                  "italic", NULL);
         g_free(temp_str);
-        gtk_text_buffer_insert(TextBuffer, &iter, "\n", -1);
+        gtk_text_buffer_insert(TextBuffer, &textIter, "\n", -1);
     }
 
-    gtk_text_buffer_insert(TextBuffer, &iter, "\n", -1);
+    gtk_text_buffer_insert(TextBuffer, &textIter, "\n", -1);
 
     temp_str = _("General:\n");
-    gtk_text_buffer_insert_with_tags_by_name(TextBuffer, &iter,
+    gtk_text_buffer_insert_with_tags_by_name(TextBuffer, &textIter,
                                              temp_str, -1,
                                              "bold", "underline", "large", NULL);
-    gtk_text_buffer_insert(TextBuffer, &iter, general_thanks_text, -1);
+    gtk_text_buffer_insert(TextBuffer, &textIter, general_thanks_text, -1);
 
     TextView = gtk_text_view_new_with_buffer(TextBuffer);
     gtk_container_add(GTK_CONTAINER(ScrollWindow),TextView);
@@ -441,19 +546,19 @@ void Show_About_Window (void)
                                    GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 
     TextBuffer = gtk_text_buffer_new(NULL);
-    gtk_text_buffer_get_iter_at_offset(TextBuffer, &iter, 0);
+    gtk_text_buffer_get_iter_at_offset(TextBuffer, &textIter, 0);
     gtk_text_buffer_create_tag(TextBuffer, "monospace", "family", "monospace", NULL);
     gtk_text_buffer_create_tag(TextBuffer, "red_foreground", "foreground", "red", NULL);
     gtk_text_buffer_create_tag(TextBuffer, "blue_foreground", "foreground", "blue", NULL);
     gtk_text_buffer_create_tag(TextBuffer, "bold", "weight", PANGO_WEIGHT_BOLD, NULL);
 
-    gtk_text_buffer_get_iter_at_offset(TextBuffer, &iter, 0);
+    gtk_text_buffer_get_iter_at_offset(TextBuffer, &textIter, 0);
 
     // The file 'ChangeLog' to read
     if ( (file=fopen(PACKAGE_DATA_DIR"/ChangeLog","r"))==0 )
     {
         gchar *msg = g_strdup_printf(_("Can't open file '%s' (%s)\n"),PACKAGE_DATA_DIR"/ChangeLog",g_strerror(errno));
-        gtk_text_buffer_insert_with_tags_by_name(TextBuffer, &iter,
+        gtk_text_buffer_insert_with_tags_by_name(TextBuffer, &textIter,
                                                  msg, -1,
                                                  "monospace", "red_foreground", NULL);
         g_free(msg);
@@ -479,26 +584,26 @@ void Show_About_Window (void)
                 first_version++;
                 // To set to bold the title of the version and to red the first version
                 if (first_version > 2) // As title takes 2 lines
-                    gtk_text_buffer_insert_with_tags_by_name(TextBuffer, &iter,
+                    gtk_text_buffer_insert_with_tags_by_name(TextBuffer, &textIter,
                                                              tmp, -1,
                                                              "monospace", "bold", NULL);
                 else
-                    gtk_text_buffer_insert_with_tags_by_name(TextBuffer, &iter,
+                    gtk_text_buffer_insert_with_tags_by_name(TextBuffer, &textIter,
                                                              tmp, -1,
                                                              "monospace", "bold", "blue_foreground", NULL);
             }else
             {
                 if (first_version > 2) // As title takes 2 lines
-                    gtk_text_buffer_insert_with_tags_by_name(TextBuffer, &iter,
+                    gtk_text_buffer_insert_with_tags_by_name(TextBuffer, &textIter,
                                                              tmp, -1,
                                                              "monospace", NULL);
                 else
-                    gtk_text_buffer_insert_with_tags_by_name(TextBuffer, &iter,
+                    gtk_text_buffer_insert_with_tags_by_name(TextBuffer, &textIter,
                                                              tmp, -1,
                                                              "monospace", "blue_foreground", NULL);
             }
 
-            gtk_text_buffer_insert(TextBuffer, &iter, "\n", -1);
+            gtk_text_buffer_insert(TextBuffer, &textIter, "\n", -1);
             g_free(tmp);
         }
         fclose(file);
@@ -513,7 +618,7 @@ void Show_About_Window (void)
     /*
      * Close Button
      */
-    Button = Create_Button_With_Pixmap(BUTTON_CLOSE);
+    Button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
     gtk_box_pack_start(GTK_BOX(GTK_DIALOG(AboutWindow)->action_area),Button,FALSE,FALSE,0);
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(Quit_About_Window),NULL);
     GTK_WIDGET_SET_FLAGS(Button,GTK_CAN_DEFAULT);
@@ -532,6 +637,8 @@ void About_Window_Go_To_Home_Page (void)
 #ifdef WIN32
     ET_Win32_Notify_Uri(WEBPAGE);
 #else
-    system("gnome-moz-remote "WEBPAGE);
+    if (system("gnome-moz-remote "WEBPAGE)!=0)
+        if (system("x-www-browser "WEBPAGE)!=0)
+            system("www-browser "WEBPAGE);
 #endif
 }

@@ -242,6 +242,7 @@ static const ET_File_Description ETFileDescription[] =
 #endif
 #ifdef ENABLE_OGG
     {OGG_FILE,     ".ogg",  OGG_TAG},
+    {OGG_FILE,     ".oga",  OGG_TAG},
 #endif
 #ifdef ENABLE_SPEEX
     {SPEEX_FILE,   ".spx",  OGG_TAG},  // Implemented by Pierre Dumuid

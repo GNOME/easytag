@@ -234,7 +234,9 @@ void     Scan_Free_File_Fill_Tag_List         (GList *list);
 void     Scan_Rename_Directory_Generate_Preview (void);
 
 gchar  **Scan_Return_File_Tag_Field_From_Mask_Code (File_Tag *FileTag, gchar code);
-void     Scan_Process_Fields_Functions (gchar *string);
+void     Scan_Process_Fields_Functions (gchar **string);
+
+gint     Scan_Word_Is_Roman_Numeral (gchar *text);
 
 void Process_Fields_Check_Button_Toggled (GtkObject *object, GList *list);
 void Process_Fields_Convert_Check_Button_Toggled (GtkObject *object);
@@ -242,16 +244,17 @@ void Select_Fields_Invert_Selection    (void);
 void Select_Fields_Select_Unselect_All (void);
 void Select_Fields_Set_Sensitive       (void);
 
-void Mask_Editor_List_Row_Selected  (GtkTreeSelection* selection, gpointer data);
-void Mask_Editor_List_New           (void);
-void Mask_Editor_List_Duplicate     (void);
-void Mask_Editor_List_Add           (void);
-void Mask_Editor_List_Remove        (void);
-void Mask_Editor_List_Move_Up       (void);
-void Mask_Editor_List_Move_Down     (void);
-void Mask_Editor_List_Save_Button   (void);
-void Mask_Editor_Entry_Changed      (void);
-gboolean Mask_Editor_List_Key_Press (GtkWidget *widget, GdkEvent *event);
+void Mask_Editor_List_Row_Selected    (GtkTreeSelection* selection, gpointer data);
+void Mask_Editor_List_Set_Row_Visible (GtkTreeModel *treeModel, GtkTreeIter *rowIter);
+void Mask_Editor_List_New             (void);
+void Mask_Editor_List_Duplicate       (void);
+void Mask_Editor_List_Add             (void);
+void Mask_Editor_List_Remove          (void);
+void Mask_Editor_List_Move_Up         (void);
+void Mask_Editor_List_Move_Down       (void);
+void Mask_Editor_List_Save_Button     (void);
+void Mask_Editor_Entry_Changed        (void);
+gboolean Mask_Editor_List_Key_Press   (GtkWidget *widget, GdkEvent *event);
 
 void Mask_Editor_Clean_Up_Masks_List (void);
 
@@ -1067,18 +1070,14 @@ void Scan_Process_Fields (ET_File *ETFile)
     File_Name *st_filename;
     File_Tag  *st_filetag;
     gchar     *filename_utf8;
-    //GString *string2process;
-    guint  string_length;
-    gchar *string;
-    gchar *temp;
+    gchar     *string;
 
 
     if (!ScannerWindow || !ETFile) return;
 
-    st_filename      = (File_Name *)ETFile->FileNameNew->data;
-    st_filetag       = (File_Tag  *)ETFile->FileTag->data;
-    //string2process = g_string_sized_new(512);
-
+    st_filename = (File_Name *)ETFile->FileNameNew->data;
+    st_filetag  = (File_Tag  *)ETFile->FileTag->data;
+    
     /* Process the filename */
     if (st_filename != NULL)
     {
@@ -1092,17 +1091,11 @@ void Scan_Process_Fields (ET_File *ETFile)
             if (!FileName)
                 FileName = ET_File_Name_Item_New();
 
-            // FIX ME : we suppose that it will not grow more than 2 times its size...
-            temp = g_path_get_basename(filename_utf8);
-            string_length = 2 * g_utf8_strlen(temp,-1);
-            string        = g_malloc(string_length+1);
-            strncpy(string,temp,string_length);
-            g_free(temp);
-            string[string_length]='\0';
+            string = g_path_get_basename(filename_utf8);
             // Remove the extension to set it to lower case (to avoid problem with undo)
             if ((pos=strrchr(string,'.'))!=NULL) *pos = 0;
 
-            Scan_Process_Fields_Functions(string);
+            Scan_Process_Fields_Functions(&string);
 
             string_utf8 = ET_File_Name_Generate(ETFile,string);
             ET_Set_Filename_File_Name_Item(FileName,string_utf8,NULL);
@@ -1123,13 +1116,9 @@ void Scan_Process_Fields (ET_File *ETFile)
                 ET_Copy_File_Tag_Item(ETFile,FileTag);
             }
 
-            // FIX ME : we suppose that it will not grow more than 2 times its size...
-            string_length = 2 * strlen(st_filetag->title);
-            string        = g_malloc(string_length+1);
-            strncpy(string,st_filetag->title,string_length);
-            string[string_length]='\0';
+            string = g_strdup(st_filetag->title);
 
-            Scan_Process_Fields_Functions(string);
+            Scan_Process_Fields_Functions(&string);
 
             ET_Set_Field_File_Tag_Item(&FileTag->title,string);
 
@@ -1145,13 +1134,9 @@ void Scan_Process_Fields (ET_File *ETFile)
                 ET_Copy_File_Tag_Item(ETFile,FileTag);
             }
 
-            // FIX ME : we suppose that it will not grow more than 2 times its size...
-            string_length = 2 * strlen(st_filetag->artist);
-            string        = g_malloc(string_length+1);
-            strncpy(string,st_filetag->artist,string_length);
-            string[string_length]='\0';
-
-            Scan_Process_Fields_Functions(string);
+            string = g_strdup(st_filetag->artist);
+            
+            Scan_Process_Fields_Functions(&string);
 
             ET_Set_Field_File_Tag_Item(&FileTag->artist,string);
 
@@ -1167,13 +1152,9 @@ void Scan_Process_Fields (ET_File *ETFile)
                 ET_Copy_File_Tag_Item(ETFile,FileTag);
             }
 
-            // FIX ME : we suppose that it will not grow more than 2 times its size...
-            string_length = 2 * strlen(st_filetag->album);
-            string        = g_malloc(string_length+1);
-            strncpy(string,st_filetag->album,string_length);
-            string[string_length]='\0';
-
-            Scan_Process_Fields_Functions(string);
+            string = g_strdup(st_filetag->album);
+            
+            Scan_Process_Fields_Functions(&string);
 
             ET_Set_Field_File_Tag_Item(&FileTag->album,string);
 
@@ -1189,13 +1170,9 @@ void Scan_Process_Fields (ET_File *ETFile)
                 ET_Copy_File_Tag_Item(ETFile,FileTag);
             }
 
-            // FIX ME : we suppose that it will not grow more than 2 times its size...
-            string_length = 2 * strlen(st_filetag->genre);
-            string        = g_malloc(string_length+1);
-            strncpy(string,st_filetag->genre,string_length);
-            string[string_length]='\0';
-
-            Scan_Process_Fields_Functions(string);
+            string = g_strdup(st_filetag->genre);
+            
+            Scan_Process_Fields_Functions(&string);
 
             ET_Set_Field_File_Tag_Item(&FileTag->genre,string);
 
@@ -1211,13 +1188,9 @@ void Scan_Process_Fields (ET_File *ETFile)
                 ET_Copy_File_Tag_Item(ETFile,FileTag);
             }
 
-            // FIX ME : we suppose that it will not grow more than 2 times its size...
-            string_length = 2 * strlen(st_filetag->comment);
-            string        = g_malloc(string_length+1);
-            strncpy(string,st_filetag->comment,string_length);
-            string[string_length]='\0';
-
-            Scan_Process_Fields_Functions(string);
+            string = g_strdup(st_filetag->comment);
+            
+            Scan_Process_Fields_Functions(&string);
 
             ET_Set_Field_File_Tag_Item(&FileTag->comment,string);
 
@@ -1233,13 +1206,9 @@ void Scan_Process_Fields (ET_File *ETFile)
                 ET_Copy_File_Tag_Item(ETFile,FileTag);
             }
 
-            // FIX ME : we suppose that it will not grow more than 2 times its size...
-            string_length = 2 * strlen(st_filetag->composer);
-            string        = g_malloc(string_length+1);
-            strncpy(string,st_filetag->composer,string_length);
-            string[string_length]='\0';
-
-            Scan_Process_Fields_Functions(string);
+            string = g_strdup(st_filetag->composer);
+            
+            Scan_Process_Fields_Functions(&string);
 
             ET_Set_Field_File_Tag_Item(&FileTag->composer,string);
 
@@ -1255,13 +1224,9 @@ void Scan_Process_Fields (ET_File *ETFile)
                 ET_Copy_File_Tag_Item(ETFile,FileTag);
             }
 
-            // FIX ME : we suppose that it will not grow more than 2 times its size...
-            string_length = 2 * strlen(st_filetag->orig_artist);
-            string        = g_malloc(string_length+1);
-            strncpy(string,st_filetag->orig_artist,string_length);
-            string[string_length]='\0';
-
-            Scan_Process_Fields_Functions(string);
+            string = g_strdup(st_filetag->orig_artist);
+            
+            Scan_Process_Fields_Functions(&string);
 
             ET_Set_Field_File_Tag_Item(&FileTag->orig_artist,string);
 
@@ -1277,13 +1242,9 @@ void Scan_Process_Fields (ET_File *ETFile)
                 ET_Copy_File_Tag_Item(ETFile,FileTag);
             }
 
-            // FIX ME : we suppose that it will not grow more than 2 times its size...
-            string_length = 2 * strlen(st_filetag->copyright);
-            string        = g_malloc(string_length+1);
-            strncpy(string,st_filetag->copyright,string_length);
-            string[string_length]='\0';
-
-            Scan_Process_Fields_Functions(string);
+            string = g_strdup(st_filetag->copyright);
+            
+            Scan_Process_Fields_Functions(&string);
 
             ET_Set_Field_File_Tag_Item(&FileTag->copyright,string);
 
@@ -1299,13 +1260,9 @@ void Scan_Process_Fields (ET_File *ETFile)
                 ET_Copy_File_Tag_Item(ETFile,FileTag);
             }
 
-            // FIX ME : we suppose that it will not grow more than 2 times its size...
-            string_length = 2 * strlen(st_filetag->url);
-            string        = g_malloc(string_length+1);
-            strncpy(string,st_filetag->url,string_length);
-            string[string_length]='\0';
-
-            Scan_Process_Fields_Functions(string);
+            string = g_strdup(st_filetag->url);
+            
+            Scan_Process_Fields_Functions(&string);
 
             ET_Set_Field_File_Tag_Item(&FileTag->url,string);
 
@@ -1321,13 +1278,9 @@ void Scan_Process_Fields (ET_File *ETFile)
                 ET_Copy_File_Tag_Item(ETFile,FileTag);
             }
 
-            // FIX ME : we suppose that it will not grow more than 2 times its size...
-            string_length = 2 * strlen(st_filetag->encoded_by);
-            string        = g_malloc(string_length+1);
-            strncpy(string,st_filetag->encoded_by,string_length);
-            string[string_length]='\0';
-
-            Scan_Process_Fields_Functions(string);
+            string = g_strdup(st_filetag->encoded_by);
+            
+            Scan_Process_Fields_Functions(&string);
 
             ET_Set_Field_File_Tag_Item(&FileTag->encoded_by,string);
 
@@ -1346,51 +1299,50 @@ void Scan_Process_Fields (ET_File *ETFile)
 }
 
 
-void Scan_Process_Fields_Functions (gchar *string)
+void Scan_Process_Fields_Functions (gchar **string)
 {
-
     if (GTK_TOGGLE_BUTTON(ProcessFieldsConvertIntoSpace)->active)
     {
-        Scan_Convert_Underscore_Into_Space(string);
-        Scan_Convert_P20_Into_Space(string);
+        Scan_Convert_Underscore_Into_Space(*string);
+        Scan_Convert_P20_Into_Space(*string);
     }
 
     if (GTK_TOGGLE_BUTTON(ProcessFieldsConvertSpace)->active)
-        Scan_Convert_Space_Into_Undescore(string);
+        Scan_Convert_Space_Into_Undescore(*string);
 
     if (GTK_TOGGLE_BUTTON(ProcessFieldsInsertSpace)->active)
         Scan_Process_Fields_Insert_Space(string);
 
     if (GTK_TOGGLE_BUTTON(ProcessFieldsOnlyOneSpace)->active)
-        Scan_Process_Fields_Keep_One_Space(string);
+        Scan_Process_Fields_Keep_One_Space(*string);
 
     if (GTK_TOGGLE_BUTTON(ProcessFieldsConvert)->active)
-        Scan_Convert(string);
+        Scan_Convert_Character(string);
 
     if (GTK_TOGGLE_BUTTON(ProcessFieldsAllUppercase)->active)
-        Scan_Process_Fields_All_Uppercase(string);
+        Scan_Process_Fields_All_Uppercase(*string);
 
     if (GTK_TOGGLE_BUTTON(ProcessFieldsAllDowncase)->active)
-        Scan_Process_Fields_All_Downcase(string);
+        Scan_Process_Fields_All_Downcase(*string);
 
     if (GTK_TOGGLE_BUTTON(ProcessFieldsFirstLetterUppercase)->active)
-         Scan_Process_Fields_Letter_Uppercase(string);
+         Scan_Process_Fields_Letter_Uppercase(*string);
 
     if (GTK_TOGGLE_BUTTON(ProcessFieldsFirstLettersUppercase)->active)
-        Scan_Process_Fields_First_Letters_Uppercase(string);
+        Scan_Process_Fields_First_Letters_Uppercase(*string);
 
     if (GTK_TOGGLE_BUTTON(ProcessFieldsRemoveSpace)->active)
-        Scan_Process_Fields_Remove_Space(string);
+        Scan_Process_Fields_Remove_Space(*string);
 
 }
 
-void Scan_Process_Fields_All_Uppercase (gchar *text)
+void Scan_Process_Fields_All_Uppercase (gchar *string)
 {
     gchar *temp;
     gchar temp2[6]; // Must have at least 6 bytes of space
     gunichar c;
 
-    for (temp = text; *temp; temp = g_utf8_next_char(temp))
+    for (temp = string; *temp; temp = g_utf8_next_char(temp))
     {
         c = g_utf8_get_char(temp);
         if (g_unichar_islower(c))
@@ -1398,13 +1350,13 @@ void Scan_Process_Fields_All_Uppercase (gchar *text)
     }
 }
 
-void Scan_Process_Fields_All_Downcase (gchar *text)
+void Scan_Process_Fields_All_Downcase (gchar *string)
 {
     gchar *temp;
     gchar temp2[6];
     gunichar c;
 
-    for (temp = text; *temp; temp = g_utf8_next_char(temp))
+    for (temp = string; *temp; temp = g_utf8_next_char(temp))
     {
         c = g_utf8_get_char(temp);
         if (g_unichar_isupper(c))
@@ -1412,7 +1364,7 @@ void Scan_Process_Fields_All_Downcase (gchar *text)
     }
 }
 
-void Scan_Process_Fields_Letter_Uppercase (gchar *text)
+void Scan_Process_Fields_Letter_Uppercase (gchar *string)
 {
     gchar *temp;
     gchar temp2[6];
@@ -1421,7 +1373,7 @@ void Scan_Process_Fields_Letter_Uppercase (gchar *text)
     gchar utf8_character[6];
     gchar *word, *word1, *word2;
 
-    for (temp = text; *temp; temp = g_utf8_next_char(temp))
+    for (temp = string; *temp; temp = g_utf8_next_char(temp))
     {
         c = g_utf8_get_char(temp);
         if (set_to_upper_case && g_unichar_islower(c))
@@ -1431,11 +1383,12 @@ void Scan_Process_Fields_Letter_Uppercase (gchar *text)
         set_to_upper_case = FALSE; // After the first time, all will be down case
     }
 
-    temp = text;
+    temp = string;
 
     // Uppercase again the word 'I' in english
     while ( temp )
     {
+        word = temp; // Needed if there is only one word
         word1 = g_utf8_strchr(temp,-1,' ');
         word2 = g_utf8_strchr(temp,-1,'_');
 
@@ -1447,6 +1400,7 @@ void Scan_Process_Fields_Letter_Uppercase (gchar *text)
         else if (word2)
             word = word2;
         else
+            // Last word of the string
             break;
 
         // Go to first character of the word (char. after ' ' or '_')
@@ -1463,7 +1417,11 @@ void Scan_Process_Fields_Letter_Uppercase (gchar *text)
     }
 }
 
-void Scan_Process_Fields_First_Letters_Uppercase (gchar *text)
+/*
+ * Function to set the first letter of each word to uppercase, according the "Chicago Manual of Style"
+ * No needed to reallocate
+ */
+void Scan_Process_Fields_First_Letters_Uppercase (gchar *string)
 {
 /**** DANIEL TEST *****
     gchar *iter;
@@ -1487,31 +1445,35 @@ void Scan_Process_Fields_First_Letters_Uppercase (gchar *text)
 ****/
 /**** Barış Çiçek version ****/
     gchar *word, *word1, *word2, *temp;
-    gint i;
+    gint i, len;
     gchar utf8_character[6];
     gunichar c;
     gboolean set_to_upper_case, set_to_upper_case_tmp;
     // There have to be space at the end of words to seperate them from prefix
+    // Chicago Manual of Style "Heading caps" Capitalization Rules (CMS 1993, 282) (http://www.docstyles.com/cmscrib.htm#Note2)
     gchar *exempt[] =
     {
         "a ",       "a_",
+        "against ", "against_",
         "an ",      "an_",
         "and ",     "and_",
         "at ",      "at_",
+        "between ", "between_",
         "but ",     "but_",
-        "feat. ",   "feat._",
+        //"feat. ",   "feat._", // Removed by Slash Bunny
         "for ",     "for_",
         "in ",      "in_",
         "nor ",     "nor_",
         "of ",      "of_",
-        "off ",     "off_",
+        //"off ",     "off_",   // Removed by Slash Bunny
         "on ",      "on_",
         "or ",      "or_",
-        "over ",    "over_",
+        //"over ",    "over_",  // Removed by Slash Bunny
         "so ",      "so_",
         "the ",     "the_",
         "to ",      "to_",
         "with ",    "with_",
+        "yet ",     "yet_",
         NULL
     };
 
@@ -1519,25 +1481,33 @@ void Scan_Process_Fields_First_Letters_Uppercase (gchar *text)
     {
         exempt[0] = NULL;
     }
-    Scan_Process_Fields_All_Downcase(text);
+    Scan_Process_Fields_All_Downcase(string);
 
-    if (!g_utf8_validate(text,-1,NULL))
+    if (!g_utf8_validate(string,-1,NULL))
     {
         Log_Print("Scan_Process_Fields_First_Letters_Uppercase: Not a valid utf8! quiting");
         return;
     }
     // Removes trailing whitespace
-    text = g_strchomp(text);
+    string = g_strchomp(string);
 
-    temp = text;
+    temp = string;
 
-    // Set first character to uppercase
-    c = g_utf8_get_char(temp);
-    strncpy(text, utf8_character, g_unichar_to_utf8(g_unichar_toupper(c), utf8_character));
+    // If the word is a roman numeral, capitalize all of it
+    if ((len = Scan_Word_Is_Roman_Numeral(temp)))
+    {
+        strncpy(string, g_utf8_strup(temp, len), len);
+    } else
+    {
+        // Set first character to uppercase
+        c = g_utf8_get_char(temp);
+        strncpy(string, utf8_character, g_unichar_to_utf8(g_unichar_toupper(c), utf8_character));
+    }
 
     // Uppercase first character of each word, except for 'exempt[]' words lists
     while ( temp )
     {
+        word = temp; // Needed if there is only one word
         word1 = g_utf8_strchr(temp,-1,' ');
         word2 = g_utf8_strchr(temp,-1,'_');
 
@@ -1549,23 +1519,37 @@ void Scan_Process_Fields_First_Letters_Uppercase (gchar *text)
         else if (word2)
             word = word2;
         else
+        {
+            // Last word of the string: the first letter is always uppercase,
+            // even if it's in the exempt list. This is a Chicago Manual of Style rule.
+            // Last Word In String - Should Capitalize Regardless of Word (Chicago Manual of Style)
+            c = g_utf8_get_char(word);
+            strncpy(word, utf8_character, g_unichar_to_utf8(g_unichar_toupper(c), utf8_character));
             break;
+        }
 
         // Go to first character of the word (char. after ' ' or '_')
         word = word+1;
 
-        // Set uppercase the first character of this word
-        c = g_utf8_get_char(word);
-        strncpy(word, utf8_character, g_unichar_to_utf8(g_unichar_toupper(c), utf8_character));
-
-        // Set lowercase the first character of this word if found in the exempt words list
-        for (i=0; exempt[i]!=NULL; i++)
+        // If the word is a roman numeral, capitalize all of it
+        if ((len = Scan_Word_Is_Roman_Numeral(word)))
         {
-            if (g_ascii_strncasecmp(exempt[i], word, strlen(exempt[i])) == 0)
+            strncpy(word, g_utf8_strup(word, len), len);
+        } else
+        {
+            // Set uppercase the first character of this word
+            c = g_utf8_get_char(word);
+            strncpy(word, utf8_character, g_unichar_to_utf8(g_unichar_toupper(c), utf8_character));
+
+            // Set lowercase the first character of this word if found in the exempt words list
+            for (i=0; exempt[i]!=NULL; i++)
             {
-                c = g_utf8_get_char(word);
-                strncpy(word, utf8_character, g_unichar_to_utf8(g_unichar_tolower(c), utf8_character));
-                break;
+                if (g_ascii_strncasecmp(exempt[i], word, strlen(exempt[i])) == 0)
+                {
+                    c = g_utf8_get_char(word);
+                    strncpy(word, utf8_character, g_unichar_to_utf8(g_unichar_tolower(c), utf8_character));
+                    break;
+                }
             }
         }
 
@@ -1574,13 +1558,17 @@ void Scan_Process_Fields_First_Letters_Uppercase (gchar *text)
 
     // Uppercase letter placed after some characters like '(', '[', '{'
     set_to_upper_case = FALSE;
-    for (temp = text; *temp; temp = g_utf8_next_char(temp))
+    for (temp = string; *temp; temp = g_utf8_next_char(temp))
     {
         c = g_utf8_get_char(temp);
         set_to_upper_case_tmp = (  c == (gunichar)'('
                                 || c == (gunichar)'['
                                 || c == (gunichar)'{'
                                 || c == (gunichar)'"'
+                                || c == (gunichar)':'
+                                || c == (gunichar)'.'
+                                || c == (gunichar)'`'
+                                || c == (gunichar)'-'
                                 ) ? TRUE : FALSE;
 
         if (set_to_upper_case && g_unichar_islower(c))
@@ -1591,11 +1579,12 @@ void Scan_Process_Fields_First_Letters_Uppercase (gchar *text)
 
 }
 
-void Scan_Process_Fields_Remove_Space (gchar *text)
+void Scan_Process_Fields_Remove_Space (gchar *string)
 {
     gchar *tmp, *tmp1;
+    
+    tmp = tmp1 = string;
 
-    tmp = tmp1 = text;
     while (*tmp)
     {
         while (*tmp == ' ')
@@ -1606,14 +1595,28 @@ void Scan_Process_Fields_Remove_Space (gchar *text)
     *tmp1 = '\0';
 }
 
-void Scan_Process_Fields_Insert_Space (gchar *text)
+/*
+ * The function inserts a space before an uppercase letter
+ * It is needed to realloc the memory!
+ */
+void Scan_Process_Fields_Insert_Space (gchar **string)
 {
     gchar *iter;
     gunichar c;
     gint j;
-
-    // FIXME: try to use realloc
-    for (iter = g_utf8_next_char(text); *iter; iter = g_utf8_next_char(iter))    // i=1 to not consider first "uppercase" letter
+    guint string_length;
+    gchar *string1;
+    
+    // FIX ME : we suppose that it will not grow more than 2 times its size...
+    string_length = 2 * strlen(*string);
+    //string1 = g_realloc(*string, string_length+1);
+    string1       = g_malloc(string_length+1);
+    strncpy(string1,*string,string_length);
+    string1[string_length]='\0';
+    g_free(*string);
+    *string = string1;
+    
+    for (iter = g_utf8_next_char(*string); *iter; iter = g_utf8_next_char(iter)) // At start : g_utf8_next_char to not consider first "uppercase" letter
     {
         c = g_utf8_get_char(iter);
 
@@ -1626,10 +1629,16 @@ void Scan_Process_Fields_Insert_Space (gchar *text)
         }
     }
 }
-void Scan_Process_Fields_Keep_One_Space (gchar *text)
+
+/*
+ * The function removes the duplicated spaces
+ * No needed to reallocate
+ */
+void Scan_Process_Fields_Keep_One_Space (gchar *string)
 {
     gchar *tmp, *tmp1;
-    tmp = tmp1 = text;
+    
+    tmp = tmp1 = string;
 
     // Remove multiple consecutive underscores and spaces.
     while (*tmp1)
@@ -1647,6 +1656,7 @@ void Scan_Process_Fields_Keep_One_Space (gchar *text)
 
 /*
  * Function to replace underscore '_' by a space
+ * No needed to reallocate
  */
 void Scan_Convert_Underscore_Into_Space (gchar *string)
 {
@@ -1658,6 +1668,7 @@ void Scan_Convert_Underscore_Into_Space (gchar *string)
 
 /*
  * Function to replace %20 by a space
+ * No needed to reallocate
  */
 void Scan_Convert_P20_Into_Space (gchar *string)
 {
@@ -1675,6 +1686,7 @@ void Scan_Convert_P20_Into_Space (gchar *string)
 
 /*
  * Function to replace space by '_'
+ * No needed to reallocate
  */
 void Scan_Convert_Space_Into_Undescore (gchar *string)
 {
@@ -1688,17 +1700,113 @@ void Scan_Convert_Space_Into_Undescore (gchar *string)
  * Replace something with something else ;)
  * Currently this only works with one character for each
  */
-void Scan_Convert (gchar *string)
+void Scan_Convert_Character (gchar **string)
 {
-    gchar *tmp;
     gchar *from = gtk_editable_get_chars(GTK_EDITABLE(ProcessFieldsConvertFrom),0,-1 );
     gchar *to   = gtk_editable_get_chars(GTK_EDITABLE(ProcessFieldsConvertTo),0,-1 );
+    const gchar *s;
+    const gchar *current;
+    GSList *tokens_list, *list;
+    gchar  *token;
+    gint    n_tokens;
+    gchar **result;
+   
+    
+    tokens_list = NULL;
+    n_tokens = 0;
+    s = current = *string;
+    
+    // Find tokens
+    if (strlen(from) > 0)
+    {
+        while (s 
+        &&    *s != '\0'
+        &&    (s = g_strstr_len(current,strlen(current),from)) )
+        {
+            token = g_strndup(current, s - current);
+            tokens_list = g_slist_prepend(tokens_list, token);
+            n_tokens++;
+            current = s + strlen(from);
+        }
+        // For the last token
+        if (s == NULL)
+        {
+            token = g_strndup(current,strlen(current));
+            tokens_list = g_slist_prepend(tokens_list, token);
+            n_tokens++;
+        }
+    }else
+    {
+        // We search an empty string... we suppose it exists between each UTF-8 character
+        while (s 
+        &&    *s != '\0'
+        &&    (s = g_utf8_find_next_char(current,NULL)) )
+        {
+            token = g_strndup(current, s - current);
+            tokens_list = g_slist_prepend(tokens_list, token);
+            n_tokens++;
+            current = s;
+        }
+    }
+    
+    // Load the tokens list in an array for g_strjoinv
+    result = g_new (gchar *, n_tokens + 1);
+    result[n_tokens] = NULL;
+    for (list = tokens_list; list != NULL; list = list->next)
+        result[--n_tokens] = list->data;
+    g_slist_free(tokens_list);
+    
+    g_free(*string);
+    
+    // Join all the tokens with the 'to' separator
+    *string = g_strjoinv(to,result);
 
-    if ( from && to && strlen(from)>0 && strlen(to)>0 )
-        while ((tmp=strchr(string,*from))!=NULL)
-            *tmp = *to;
+    g_strfreev(result);
 }
 
+/*
+ * Quick roman numeral check (non-roman numerals may also return true)
+ * Patch from Slash Bunny (2007.08.12)
+ * (http://home.hiwaay.net/~lkseitz/math/roman/numerals.shtml)
+ *    I = 1    (one)
+ *    V = 5    (five)
+ *    X = 10   (ten)
+ *    L = 50   (fifty)
+ *    C = 100  (one hundred)
+ *    D = 500  (five hundred)
+ *    M = 1000 (one thousand)
+ */
+gint Scan_Word_Is_Roman_Numeral (gchar *text)
+{
+    gchar *tmp;
+    gint  len;
+
+    tmp = text;
+    len = 0;
+
+    while (*tmp)
+    {
+        if (*tmp == (gunichar)'i' || 
+            *tmp == (gunichar)'v' || 
+            *tmp == (gunichar)'x' || 
+            *tmp == (gunichar)'l' ||
+            *tmp == (gunichar)'c' ||
+            *tmp == (gunichar)'d' ||
+            *tmp == (gunichar)'m')
+        {
+            tmp++;
+            len++;
+        } else if (*tmp == ' ' || *tmp == '_')
+        {
+            return len;
+        } else
+        {
+            return 0;
+        }
+    }
+
+    return len;
+}
 
 
 /*
@@ -1830,13 +1938,16 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_widget_set_size_request(ScannerOptionCombo, 160, -1);
 
     /* Option for Tag */
-    gtk_combo_box_append_text(GTK_COMBO_BOX(ScannerOptionCombo), _(Scanner_Option_Menu_Items[SCANNER_FILL_TAG]));
+    gtk_combo_box_append_text(GTK_COMBO_BOX(ScannerOptionCombo), 
+                              _(Scanner_Option_Menu_Items[SCANNER_FILL_TAG]));
 
     /* Option for FileName */
-    gtk_combo_box_append_text(GTK_COMBO_BOX(ScannerOptionCombo), _(Scanner_Option_Menu_Items[SCANNER_RENAME_FILE]));
+    gtk_combo_box_append_text(GTK_COMBO_BOX(ScannerOptionCombo), 
+                              _(Scanner_Option_Menu_Items[SCANNER_RENAME_FILE]));
 
     /* Option for ProcessFields */
-    gtk_combo_box_append_text(GTK_COMBO_BOX(ScannerOptionCombo), _(Scanner_Option_Menu_Items[SCANNER_PROCESS_FIELDS]));
+    gtk_combo_box_append_text(GTK_COMBO_BOX(ScannerOptionCombo), 
+                              _(Scanner_Option_Menu_Items[SCANNER_PROCESS_FIELDS]));
 
     // Selection of the item made at the end of the function
     gtk_tooltips_set_tip(Tips, EventBox, _("Select the type of scanner to use"), NULL);
@@ -2135,19 +2246,23 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsConvertIntoSpace,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsConvertSpace,    FALSE,FALSE,0);
     hbox = gtk_hbox_new(FALSE,2);
+    gtk_box_pack_start(GTK_BOX(VBox),hbox,FALSE,FALSE,0);
     ProcessFieldsConvert          = gtk_check_button_new_with_label(_("Convert:"));  // Patch from Ben Hearsum, Oct. 3, 2003
     ProcessFieldsConvertTo        = gtk_entry_new();
     ProcessFieldsConvertLabelTo   = gtk_label_new(_("to: ")); // A "space" at the end to allow an other traduction for "to :" (needed in French!)
     ProcessFieldsConvertFrom      = gtk_entry_new();
-    gtk_entry_set_max_length(GTK_ENTRY(ProcessFieldsConvertTo), 1);
-    gtk_entry_set_max_length(GTK_ENTRY(ProcessFieldsConvertFrom), 1);
-    gtk_widget_set_size_request(ProcessFieldsConvertTo,40,-1);
-    gtk_widget_set_size_request(ProcessFieldsConvertFrom,40,-1);
+    //gtk_entry_set_max_length(GTK_ENTRY(ProcessFieldsConvertTo), 1); // Now, it isn't limited to one character
+    //gtk_entry_set_max_length(GTK_ENTRY(ProcessFieldsConvertFrom), 1);
+    gtk_widget_set_size_request(ProcessFieldsConvertTo,120,-1);
+    gtk_widget_set_size_request(ProcessFieldsConvertFrom,120,-1);
     gtk_box_pack_start(GTK_BOX(hbox),ProcessFieldsConvert,       FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),ProcessFieldsConvertFrom,   FALSE,FALSE,0);
-    gtk_box_pack_start(GTK_BOX(hbox),ProcessFieldsConvertLabelTo,FALSE,FALSE,4);
+    gtk_box_pack_start(GTK_BOX(hbox),ProcessFieldsConvertLabelTo,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),ProcessFieldsConvertTo,     FALSE,FALSE,0);
-    gtk_box_pack_start(GTK_BOX(VBox),hbox,FALSE,FALSE,0);
+    if (PROCESS_FIELDS_CONVERT_FROM)
+        gtk_entry_set_text(GTK_ENTRY(ProcessFieldsConvertFrom),PROCESS_FIELDS_CONVERT_FROM);
+    if (PROCESS_FIELDS_CONVERT_TO)
+        gtk_entry_set_text(GTK_ENTRY(ProcessFieldsConvertTo),PROCESS_FIELDS_CONVERT_TO);
     /* List creation for check buttons in group */
     pf_cb_group1 = g_list_append (pf_cb_group1,ProcessFieldsConvertIntoSpace);
     pf_cb_group1 = g_list_append (pf_cb_group1,ProcessFieldsConvertSpace);
@@ -2168,7 +2283,8 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_tooltips_set_tip(Tips,ProcessFieldsConvertSpace,
         _("The space character is replaced by one underscore character. "
           "Example, before: 'Text In An Entry', after: 'Text_In_An_Entry'."),NULL);
-    gtk_tooltips_set_tip(Tips,ProcessFieldsConvert,_("Replace a character by an other one."),NULL);
+    gtk_tooltips_set_tip(Tips,ProcessFieldsConvert,
+        _("Replace a string by an other one. Note that the search is case sensitive."),NULL);
 
     /* Separator line */
     Separator = gtk_hseparator_new();
@@ -2217,16 +2333,16 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
 
     /* Group: insert/remove spaces */
-    ProcessFieldsRemoveSpace = gtk_check_button_new_with_label(_("Remove spaces"));
-    ProcessFieldsInsertSpace = gtk_check_button_new_with_label(_("Insert a space before an uppercase letter"));
+    ProcessFieldsRemoveSpace  = gtk_check_button_new_with_label(_("Remove spaces"));
+    ProcessFieldsInsertSpace  = gtk_check_button_new_with_label(_("Insert a space before an uppercase letter"));
     ProcessFieldsOnlyOneSpace = gtk_check_button_new_with_label(_("Remove duplicates of space or underscore"));
     gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsRemoveSpace,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsInsertSpace,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsOnlyOneSpace,FALSE,FALSE,0);
     /* List creation for check buttons in group */
-    pf_cb_group3 = g_list_append (pf_cb_group3,ProcessFieldsRemoveSpace);
-    pf_cb_group3 = g_list_append (pf_cb_group3,ProcessFieldsInsertSpace);
-    pf_cb_group3 = g_list_append (pf_cb_group3,ProcessFieldsOnlyOneSpace);
+    pf_cb_group3 = g_list_append(pf_cb_group3,ProcessFieldsRemoveSpace);
+    pf_cb_group3 = g_list_append(pf_cb_group3,ProcessFieldsInsertSpace);
+    pf_cb_group3 = g_list_append(pf_cb_group3,ProcessFieldsOnlyOneSpace);
     /* Toggled signals */
     g_signal_connect(G_OBJECT(ProcessFieldsRemoveSpace), "toggled",G_CALLBACK(Process_Fields_Check_Button_Toggled),pf_cb_group3);
     g_signal_connect(G_OBJECT(ProcessFieldsInsertSpace), "toggled",G_CALLBACK(Process_Fields_Check_Button_Toggled),pf_cb_group3);
@@ -2516,16 +2632,6 @@ void ScannerWindow_Quit (void)
 {
     if (ScannerWindow)
     {
-        if (SCAN_TAG_DEFAULT_MASK) g_free(SCAN_TAG_DEFAULT_MASK);
-        SCAN_TAG_DEFAULT_MASK = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(ScanTagMaskCombo)->child)));
-        Add_String_To_Combo_List(ScanTagListModel, SCAN_TAG_DEFAULT_MASK);
-        Save_Rename_File_Masks_List(ScanTagListModel, MASK_EDITOR_TEXT);
-
-        if (RENAME_FILE_DEFAULT_MASK) g_free(RENAME_FILE_DEFAULT_MASK);
-        RENAME_FILE_DEFAULT_MASK = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(RenameFileMaskCombo)->child)));
-        Add_String_To_Combo_List(RenameFileListModel, RENAME_FILE_DEFAULT_MASK);
-        Save_Rename_File_Masks_List(RenameFileListModel, MASK_EDITOR_TEXT);
-
         ScannerWindow_Apply_Changes();
 
         gtk_widget_destroy(ScannerWindow);
@@ -2587,6 +2693,11 @@ void ScannerWindow_Apply_Changes (void)
         PROCESS_COPYRIGHT_FIELD   = GTK_TOGGLE_BUTTON(ProcessCopyrightField)->active;
         PROCESS_URL_FIELD         = GTK_TOGGLE_BUTTON(ProcessURLField)->active;
         PROCESS_ENCODED_BY_FIELD  = GTK_TOGGLE_BUTTON(ProcessEncodedByField)->active;
+        
+        if (PROCESS_FIELDS_CONVERT_FROM) g_free(PROCESS_FIELDS_CONVERT_FROM);
+        PROCESS_FIELDS_CONVERT_FROM = g_strdup(gtk_entry_get_text(GTK_ENTRY(ProcessFieldsConvertFrom)));
+        if (PROCESS_FIELDS_CONVERT_TO) g_free(PROCESS_FIELDS_CONVERT_TO);
+        PROCESS_FIELDS_CONVERT_TO   = g_strdup(gtk_entry_get_text(GTK_ENTRY(ProcessFieldsConvertTo)));
 
         /* Group: convert one character */
         PF_CONVERT_INTO_SPACE     = GTK_TOGGLE_BUTTON(ProcessFieldsConvertIntoSpace)->active;
@@ -2600,9 +2711,21 @@ void ScannerWindow_Apply_Changes (void)
         PF_CONVERT_FIRST_LETTERS_UPPERCASE = GTK_TOGGLE_BUTTON(ProcessFieldsFirstLettersUppercase)->active;
 
         /* Group: remove/insert space */
-        PF_REMOVE_SPACE   = GTK_TOGGLE_BUTTON(ProcessFieldsConvertIntoSpace)->active;
-        PF_INSERT_SPACE   = GTK_TOGGLE_BUTTON(ProcessFieldsConvertSpace)->active;
+        PF_REMOVE_SPACE   = GTK_TOGGLE_BUTTON(ProcessFieldsRemoveSpace)->active;
+        PF_INSERT_SPACE   = GTK_TOGGLE_BUTTON(ProcessFieldsInsertSpace)->active;
         PF_ONLY_ONE_SPACE = GTK_TOGGLE_BUTTON(ProcessFieldsOnlyOneSpace)->active;
+
+        // Save default masks...
+        if (SCAN_TAG_DEFAULT_MASK) g_free(SCAN_TAG_DEFAULT_MASK);
+        SCAN_TAG_DEFAULT_MASK = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(ScanTagMaskCombo)->child)));
+        Add_String_To_Combo_List(ScanTagListModel, SCAN_TAG_DEFAULT_MASK);
+        Save_Rename_File_Masks_List(ScanTagListModel, MASK_EDITOR_TEXT);
+
+        if (RENAME_FILE_DEFAULT_MASK) g_free(RENAME_FILE_DEFAULT_MASK);
+        RENAME_FILE_DEFAULT_MASK = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(RenameFileMaskCombo)->child)));
+        Add_String_To_Combo_List(RenameFileListModel, RENAME_FILE_DEFAULT_MASK);
+        Save_Rename_File_Masks_List(RenameFileListModel, MASK_EDITOR_TEXT);
+
     }
 }
 
@@ -2701,7 +2824,7 @@ gboolean Scan_Check_Rename_File_Mask (GtkObject *widget_to_show_hide, GtkEntry *
     if (!mask || strlen(mask)<1)
         goto Bad_Mask;
 
-    // Since version 1.99.4, it is available!
+    // Since version 1.99.4, it is available! => OK
     /*if ( strchr(mask,G_DIR_SEPARATOR)!=NULL ) // Renaming directory is not yet available
         goto Bad_Mask;*/
     // Not a valid path....
@@ -3017,15 +3140,15 @@ void Mask_Editor_List_Duplicate (void)
     GList *selectedRows;
     GList *toInsert = NULL;
     GtkTreeSelection *selection;
-    GtkTreeIter row;
-    GtkTreeModel *treemodel;
+    GtkTreeIter rowIter;
+    GtkTreeModel *treeModel;
     gboolean valid;
 
     if (!MaskEditorList) return;
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(MaskEditorList));
     selectedRows = gtk_tree_selection_get_selected_rows(selection, NULL);
-    treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(MaskEditorList));
+    treeModel = gtk_tree_view_get_model(GTK_TREE_VIEW(MaskEditorList));
 
     if (g_list_length(selectedRows) == 0)
     {
@@ -3035,14 +3158,15 @@ void Mask_Editor_List_Duplicate (void)
         return;
     }
 
-    /* Loop through selected rows, duplicating them into a GList */
-    /* We cannot directly insert because the paths in selectedRows get out of date after an insertion */
-    while(selectedRows)
+    /* Loop through selected rows, duplicating them into a GList
+     * We cannot directly insert because the paths in selectedRows 
+     * get out of date after an insertion */
+    while (selectedRows)
     {
-        valid = gtk_tree_model_get_iter(treemodel, &row, (GtkTreePath*) selectedRows->data);
+        valid = gtk_tree_model_get_iter(treeModel, &rowIter, (GtkTreePath*) selectedRows->data);
         if (valid)
         {
-            gtk_tree_model_get(treemodel, &row, MASK_EDITOR_TEXT, &text, -1);
+            gtk_tree_model_get(treeModel, &rowIter, MASK_EDITOR_TEXT, &text, -1);
             toInsert = g_list_append(toInsert, text);
         }
 
@@ -3050,18 +3174,22 @@ void Mask_Editor_List_Duplicate (void)
         if (!selectedRows) break;
     }
 
-    /* Duplicate the relevant entries, by looping through the list backwards (to preserve original order) */
+    /* Duplicate the relevant entries, by looping through the list backwards 
+     * (to preserve original order) */
     toInsert = g_list_last(toInsert);
-    while(toInsert)
+    while (toInsert)
     {
-        gtk_list_store_insert(GTK_LIST_STORE(treemodel), &row, 0);
-        gtk_list_store_set(GTK_LIST_STORE(treemodel), &row, MASK_EDITOR_TEXT, (gchar*) toInsert->data, -1);
+        gtk_list_store_insert(GTK_LIST_STORE(treeModel), &rowIter, 0);
+        gtk_list_store_set(GTK_LIST_STORE(treeModel), &rowIter, MASK_EDITOR_TEXT, (gchar*) toInsert->data, -1);
         g_free(toInsert->data);
 
         toInsert = toInsert->prev;
         if (!toInsert) break;
     }
-
+    // Set focus to the last inserted line
+    if (toInsert)
+        Mask_Editor_List_Set_Row_Visible(treeModel,&rowIter);
+        
     /* Free data no longer needed */
     selectedRows = g_list_first(selectedRows);
     toInsert = g_list_first(toInsert);
@@ -3071,7 +3199,7 @@ void Mask_Editor_List_Duplicate (void)
     g_list_free(toInsert);
 }
 
-void Mask_Editor_List_Add(void)
+void Mask_Editor_List_Add (void)
 {
     gint i = 0;
     GtkTreeIter iter;
@@ -3183,14 +3311,15 @@ void Mask_Editor_List_Move_Up (void)
 
     selectedRowsCopy = selectedRows;
 
-    while(selectedRows)
+    while (selectedRows)
     {
         currentPath = (GtkTreePath*) selectedRows->data;
         valid = gtk_tree_model_get_iter(treemodel, &currentFile, currentPath);
         if (valid)
         {
             /* Find the entry above the node... */
-            if (gtk_tree_path_prev(currentPath)) {
+            if (gtk_tree_path_prev(currentPath))
+            {
                 /* ...and if it exists, swap the two rows by iter */
                 gtk_tree_model_get_iter(treemodel, &nextFile, currentPath);
                 gtk_list_store_swap(GTK_LIST_STORE(treemodel), &currentFile, &nextFile);
@@ -3225,7 +3354,8 @@ void Mask_Editor_List_Move_Down (void)
     treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(MaskEditorList));
     selectedRows = gtk_tree_selection_get_selected_rows(selection, NULL);
 
-    if (g_list_length(selectedRows) == 0) {
+    if (g_list_length(selectedRows) == 0)
+    {
         Log_Print(_("Move Down: No row selected!"));
         g_list_foreach(selectedRows, (GFunc)gtk_tree_path_free, NULL);
         g_list_free(selectedRows);
@@ -3242,8 +3372,8 @@ void Mask_Editor_List_Move_Down (void)
         {
             /* Find the entry below the node and swap the two nodes by iter */
             gtk_tree_path_next(currentPath);
-            gtk_tree_model_get_iter(treemodel, &nextFile, currentPath);
-            gtk_list_store_swap(GTK_LIST_STORE(treemodel), &currentFile, &nextFile);
+            if (gtk_tree_model_get_iter(treemodel, &nextFile, currentPath))
+                gtk_list_store_swap(GTK_LIST_STORE(treemodel), &currentFile, &nextFile);
         }
 
         if (!selectedRows->next) break;
@@ -3252,6 +3382,25 @@ void Mask_Editor_List_Move_Down (void)
 
     g_list_foreach(selectedRowsCopy, (GFunc)gtk_tree_path_free, NULL);
     g_list_free(selectedRowsCopy);
+}
+
+/*
+ * Set a row visible in the mask editor list (by scrolling the list)
+ */
+void Mask_Editor_List_Set_Row_Visible (GtkTreeModel *treeModel, GtkTreeIter *rowIter)
+{
+    /*
+     * TODO: Make this only scroll to the row if it is not visible
+     * (like in easytag GTK1)
+     * See function gtk_tree_view_get_visible_rect() ??
+     */
+    GtkTreePath *rowPath;
+
+    if (!treeModel) return;
+
+    rowPath = gtk_tree_model_get_path(treeModel, rowIter);
+    gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(MaskEditorList), rowPath, NULL, FALSE, 0, 0);
+    gtk_tree_path_free(rowPath);
 }
 
 /*

@@ -60,7 +60,7 @@
 #   include "win32/win32dep.h"
 #endif
 
-#include "../pixmaps/EasyTAG.xpm"
+#include "../pixmaps/EasyTAG_icon.xpm"
 
 
 /****************
@@ -140,10 +140,10 @@ int main (int argc, char *argv[])
 {
     GtkWidget *MainVBox;
     GtkWidget *HBox, *VBox;
-    GdkPixmap *pixmap;
-    GdkBitmap *mask;
     gboolean created_settings;
     struct stat statbuf;
+    GdkPixmap *pixmap;
+    GdkBitmap *mask;
 
 
 #ifdef WIN32
@@ -316,7 +316,7 @@ int main (int argc, char *argv[])
 
     /* Minimised window icon */
     gtk_widget_realize(MainWindow);
-    pixmap = gdk_pixmap_create_from_xpm_d(MainWindow->window,&mask,NULL,EasyTAG_xpm);
+    pixmap = gdk_pixmap_create_from_xpm_d(MainWindow->window,&mask,NULL,EasyTAG_icon_xpm);
     gdk_window_set_icon(MainWindow->window,(GdkWindow *)NULL,pixmap,mask);
 
 
@@ -1038,17 +1038,17 @@ GtkWidget *Create_Tag_Area (void)
     hbox = gtk_hbox_new(FALSE, 4);
     gtk_table_attach(GTK_TABLE(Table),hbox,1,4,1,2,GTK_FILL,GTK_FILL,TablePadding,TablePadding);
 
-    PictureClearButton = gtk_button_new();
-    Icon = gtk_image_new_from_stock(GTK_STOCK_REMOVE, GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_container_add(GTK_CONTAINER(PictureClearButton),Icon);
-    gtk_box_pack_start(GTK_BOX(hbox),PictureClearButton,FALSE,FALSE,0);
-    gtk_tooltips_set_tip(Tips,PictureClearButton,_("Remove selected pictures, else all pictures."),NULL);
-
     PictureAddButton = gtk_button_new();
     Icon = gtk_image_new_from_stock(GTK_STOCK_ADD, GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_container_add(GTK_CONTAINER(PictureAddButton),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),PictureAddButton,FALSE,FALSE,0);
     gtk_tooltips_set_tip(Tips,PictureAddButton,_("Add pictures to the tag (drag and drop is also available)."),NULL);
+
+    PictureClearButton = gtk_button_new();
+    Icon = gtk_image_new_from_stock(GTK_STOCK_REMOVE, GTK_ICON_SIZE_SMALL_TOOLBAR);
+    gtk_container_add(GTK_CONTAINER(PictureClearButton),Icon);
+    gtk_box_pack_start(GTK_BOX(hbox),PictureClearButton,FALSE,FALSE,0);
+    gtk_tooltips_set_tip(Tips,PictureClearButton,_("Remove selected pictures, else all pictures."),NULL);
 
     Label = gtk_label_new("   ");
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
@@ -3097,7 +3097,7 @@ void Action_Select_Browser_Style (void)
 #include <sys/stat.h>
 #include <unistd.h>
 #include <string.h>
-void Read_Directory (gchar *path_real)
+gboolean Read_Directory (gchar *path_real)
 {
     DIR   *dir;
     gchar *msg;
@@ -3110,7 +3110,8 @@ void Read_Directory (gchar *path_real)
     GtkAction *uiaction;
     GtkWidget *TBViewMode;
 
-    if (!path_real) return;
+    if (!path_real)
+        return FALSE;
 
     ReadingDirectory = TRUE;    /* A flag to avoid to start an other reading */
 
@@ -3138,6 +3139,7 @@ void Read_Directory (gchar *path_real)
     /* Placed only here, to empty the previous list of files */
     if ((dir=opendir(path_real)) == NULL)
     {
+        // Message if the directory doesn't exist...
         GtkWidget *msgbox;
         gchar *path_utf8 = filename_to_display(path_real);
         gchar *msg;
@@ -3150,8 +3152,10 @@ void Read_Directory (gchar *path_real)
         msg_box_hide_check_button(MSG_BOX(msgbox));
         msg_box_run(MSG_BOX(msgbox));
         gtk_widget_destroy(msgbox);
+        
         ReadingDirectory = FALSE; //Allow a new reading
-        return;
+        Browser_Area_Set_Sensitive(TRUE);
+        return FALSE;
     }
     closedir(dir);
 
@@ -3266,6 +3270,8 @@ void Read_Directory (gchar *path_real)
     g_free(msg);
     Set_Unbusy_Cursor();
     ReadingDirectory = FALSE;
+    
+    return TRUE;
 }
 
 
@@ -4173,7 +4179,7 @@ void Convert_Insert_Space (GtkWidget *entry)
     strncpy(string,gtk_entry_get_text(GTK_ENTRY(entry)),string_length);
     string[string_length]='\0';
     
-    Scan_Process_Fields_Insert_Space(string);
+    Scan_Process_Fields_Insert_Space(&string);
     gtk_entry_set_text(GTK_ENTRY(entry),string);
     g_free(string);
 }
@@ -4463,6 +4469,13 @@ gchar *signal_to_string (gint signal)
  */
 void Display_Usage (void)
 {
+    // Fix from Steve Ralston for gcc-3.2.2
+#ifdef WIN32
+    #define xPREFIX "c:"
+#else
+    #define xPREFIX ""
+#endif
+
     g_print(_("\nUsage: easytag [option] "
               "\n   or: easytag [directory]\n"
               "\n"
@@ -4473,13 +4486,12 @@ void Display_Usage (void)
               "\n"
               "Directory:\n"
               "----------\n"
-#ifdef WIN32
-              "c:/path_to/files  Use an absolute path to load,\n"
-#else
-              "/path_to/files    Use an absolute path to load,\n"
-#endif
+              "%s/path_to/files  Use an absolute path to load,\n"
               "path_to/files     Use a relative path.\n"
-              "\n"));
+              "\n"),xPREFIX);
+    
+    #undef xPREFIX
+    
     exit(0);
 }
 
@@ -4535,8 +4547,8 @@ void Quit_MainWindow (void)
         if (ET_Check_If_All_Files_Are_Saved() != TRUE)
         {
             /* Some files haven't been saved */
-            msgbox = msg_box_new(_("Confirm..."),_("Some files have been modified but not "
-                "saved...\nDo you want to save them before exiting the program?"),
+            msgbox = msg_box_new(_("Confirm..."),_("Some files have been modified but "
+                "not saved...\nDo you want to save them before exiting the program?"),
                 GTK_STOCK_DIALOG_QUESTION,BUTTON_CANCEL,BUTTON_NO,BUTTON_YES,0);
             msg_box_hide_check_button(MSG_BOX(msgbox));
             button = msg_box_run(MSG_BOX(msgbox));

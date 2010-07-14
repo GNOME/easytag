@@ -527,7 +527,7 @@ gboolean Browser_List_Key_Press (GtkWidget *list, GdkEvent *event, gpointer data
             {
                 gtk_tree_model_get(GTK_TREE_MODEL(fileListModel), &currentIter, 
                                    LIST_FILE_POINTER, &currentETFile, 
-                                   LIST_FILE_NAME, &current_filename, 
+                                   LIST_FILE_NAME,    &current_filename, 
                                    -1);
 
                 /* UTF-8 comparison */
@@ -688,13 +688,13 @@ gboolean Browser_Tree_Node_Selected (GtkTreeSelection *selection, gpointer user_
     {
         gtk_tree_view_expand_row(GTK_TREE_VIEW(BrowserTree), selectedPath, FALSE);
     }
+    gtk_tree_path_free(selectedPath);
 
     /* Don't start a new reading, if another one is running... */
     if (ReadingDirectory == TRUE)
         return TRUE;
 
     //Browser_Tree_Set_Node_Visible(BrowserTree, selectedPath);
-    gtk_tree_path_free(selectedPath);
     gtk_tree_model_get(GTK_TREE_MODEL(directoryTreeModel), &selectedIter,
                        TREE_COLUMN_FULL_PATH, &pathName, -1);
     if (!pathName)
@@ -738,13 +738,40 @@ gboolean Browser_Tree_Node_Selected (GtkTreeSelection *selection, gpointer user_
     gtk_entry_set_text(GTK_ENTRY(GTK_BIN(BrowserEntryCombo)->child), pathName_utf8);
 
     /* Start to read the directory */
-    /* The first time 'counter' is equal to zero and if we don't want to load
-     * directory on startup, we skip the 'reading', but we must read it */
+    /* The first time, 'counter' is equal to zero. And if we don't want to load
+     * directory on startup, we skip the 'reading', but newt we must read it each time */
     if (LOAD_ON_STARTUP || counter)
-        Read_Directory(pathName);
-    else
+    {
+        gboolean dir_loaded;
+        GtkTreeIter parentIter;
+        
+        dir_loaded = Read_Directory(pathName);
+            
+        // If the directory can't be loaded, the directory musn't exist.
+        // So we load the parent node and refresh the children
+        if (dir_loaded == FALSE)
+        {
+            if (gtk_tree_selection_get_selected(selection, NULL, &selectedIter))
+            {
+                if (gtk_tree_model_iter_parent(GTK_TREE_MODEL(directoryTreeModel),&parentIter,&selectedIter) )
+                {
+                    gtk_tree_selection_select_iter(selection,&parentIter);
+                    selectedPath = gtk_tree_model_get_path(GTK_TREE_MODEL(directoryTreeModel), &parentIter);
+                    gtk_tree_view_collapse_row(GTK_TREE_VIEW(BrowserTree),selectedPath);
+                    if (OPEN_SELECTED_BROWSER_NODE)
+                    {
+                        gtk_tree_view_expand_row(GTK_TREE_VIEW(BrowserTree),selectedPath,FALSE);
+                    }
+                    gtk_tree_path_free(selectedPath);
+                }
+            }
+        }
+
+    }else
+    {
         /* As we don't use the function 'Read_Directory' we must add this function here */
         Update_Command_Buttons_Sensivity();
+    }
     counter++;
 
     g_free(pathName);
@@ -796,7 +823,6 @@ gint Browser_Tree_Select_Dir (gchar *current_path)
 {
     GtkTreePath *rootPath = NULL;
     GtkTreeIter parentNode, currentNode;
-    struct stat stbuf;
     gint index = 1; // Skip the first token as it is NULL due to leading /
     gchar **parts;
     gchar *nodeName;
@@ -815,26 +841,9 @@ gint Browser_Tree_Select_Dir (gchar *current_path)
     ET_Win32_Path_Remove_Trailing_Backslash(current_path);
 #endif
 
-    /* If path is invalid: inform the user, but load the first directories
-     * of the full path while parent directories are valid */
-    if (stat(current_path,&stbuf)==-1)
-    {
-        GtkWidget *msgbox;
-        gchar *msg;
-        gchar *current_path_utf8;
-
-        current_path_utf8 = filename_to_display(current_path);
-        msg = g_strdup_printf(_("The entered path is invalid!:\n%s\n(%s)"),
-            current_path_utf8,g_strerror(errno));
-        msgbox = msg_box_new(_("Error..."),msg,GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
-        g_free(msg);
-        msg_box_hide_check_button(MSG_BOX(msgbox));
-        msg_box_run(MSG_BOX(msgbox));
-        gtk_widget_destroy(msgbox);
-        g_free(current_path_utf8);
-        return FALSE;
-    }
-
+    /* Don't check here if the path is valid. It will be done later when 
+     * selecting a node in the tree */
+        
     Browser_Update_Current_Path(current_path);
 
     parts = g_strsplit((const gchar*)current_path, G_DIR_SEPARATOR_S, 0);
@@ -897,6 +906,7 @@ gint Browser_Tree_Select_Dir (gchar *current_path)
     if (rootPath)
     {
         gtk_tree_view_expand_to_path(GTK_TREE_VIEW(BrowserTree), rootPath);
+        // Select the node to load the corresponding directory
         gtk_tree_selection_select_path(gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserTree)), rootPath);
         Browser_Tree_Set_Node_Visible(BrowserTree, rootPath);
         gtk_tree_path_free(rootPath);
@@ -935,7 +945,8 @@ void Browser_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
         // Returns the last line selected (in ascending line order) to display the item
         lastSelected = (GtkTreePath *)g_list_last(selectedRows)->data;
         if (gtk_tree_model_get_iter(GTK_TREE_MODEL(fileListModel), &lastFile, lastSelected))
-            gtk_tree_model_get(GTK_TREE_MODEL(fileListModel), &lastFile, LIST_FILE_POINTER, &fileETFile, -1);
+            gtk_tree_model_get(GTK_TREE_MODEL(fileListModel), &lastFile, 
+                               LIST_FILE_POINTER, &fileETFile, -1);
 
         Action_Select_Nth_File_By_Etfile(fileETFile);
     }else
@@ -988,10 +999,10 @@ void Browser_List_Load_File_List (GList *etfilelist, ET_File *etfile_to_select)
         // File list displays the current filename (name on HD)
         gtk_list_store_append(fileListModel, &row);
         gtk_list_store_set(fileListModel, &row,
-                           LIST_FILE_NAME, basename_utf8,
-                           LIST_FILE_POINTER, etfilelist->data,
-                           LIST_FILE_KEY, fileKey,
-                           LIST_FILE_OTHERDIR, activate_bg_color,
+                           LIST_FILE_NAME,      basename_utf8,
+                           LIST_FILE_POINTER,   etfilelist->data,
+                           LIST_FILE_KEY,       fileKey,
+                           LIST_FILE_OTHERDIR,  activate_bg_color,
                            -1);
         g_free(basename_utf8);
 
@@ -1278,14 +1289,23 @@ void Browser_List_Set_Row_Appearance (GtkTreeIter *iter)
     {
         if (CHANGED_FILES_DISPLAYED_TO_BOLD)
         {
-            gtk_list_store_set(fileListModel, iter, LIST_FONT_WEIGHT, PANGO_WEIGHT_BOLD, LIST_ROW_BACKGROUND, backgroundcolor, LIST_ROW_FOREGROUND, NULL, -1);
+            gtk_list_store_set(fileListModel, iter, 
+                               LIST_FONT_WEIGHT, PANGO_WEIGHT_BOLD, 
+                               LIST_ROW_BACKGROUND, backgroundcolor, 
+                               LIST_ROW_FOREGROUND, NULL, -1);
         } else
         {
-            gtk_list_store_set(fileListModel, iter, LIST_FONT_WEIGHT, PANGO_WEIGHT_NORMAL, LIST_ROW_BACKGROUND, backgroundcolor, LIST_ROW_FOREGROUND, &RED, -1);
+            gtk_list_store_set(fileListModel, iter, 
+                               LIST_FONT_WEIGHT, PANGO_WEIGHT_NORMAL, 
+                               LIST_ROW_BACKGROUND, backgroundcolor, 
+                               LIST_ROW_FOREGROUND, &RED, -1);
         }
     } else
     {
-        gtk_list_store_set(fileListModel, iter, LIST_FONT_WEIGHT, PANGO_WEIGHT_NORMAL, LIST_ROW_BACKGROUND, backgroundcolor, LIST_ROW_FOREGROUND, NULL ,-1);
+        gtk_list_store_set(fileListModel, iter, 
+                           LIST_FONT_WEIGHT, PANGO_WEIGHT_NORMAL, 
+                           LIST_ROW_BACKGROUND, backgroundcolor, 
+                           LIST_ROW_FOREGROUND, NULL ,-1);
     }
     // Frees allocated item from gtk_tree_model_get...
     g_free(temp);
@@ -1317,7 +1337,8 @@ void Browser_List_Remove_File (ET_File *searchETFile)
         valid = gtk_tree_model_get_iter(GTK_TREE_MODEL(fileListModel), &currentIter, currentPath);
         if (valid)
         {
-            gtk_tree_model_get(GTK_TREE_MODEL(fileListModel), &currentIter, LIST_FILE_POINTER, &currentETFile, -1);
+            gtk_tree_model_get(GTK_TREE_MODEL(fileListModel), &currentIter, 
+                               LIST_FILE_POINTER, &currentETFile, -1);
 
             if (currentETFile == searchETFile)
             {
@@ -1392,7 +1413,8 @@ GtkTreePath *Browser_List_Select_File_By_Etfile2 (ET_File *searchETFile, gboolea
         valid = gtk_tree_model_get_iter(GTK_TREE_MODEL(fileListModel), &currentIter, startPath);
         if (valid)
         {
-            gtk_tree_model_get(GTK_TREE_MODEL(fileListModel), &currentIter, LIST_FILE_POINTER, &currentETFile, -1);
+            gtk_tree_model_get(GTK_TREE_MODEL(fileListModel), &currentIter, 
+                               LIST_FILE_POINTER, &currentETFile, -1);
             // It is the good file?
             if (currentETFile == searchETFile)
             {
@@ -1410,7 +1432,8 @@ GtkTreePath *Browser_List_Select_File_By_Etfile2 (ET_File *searchETFile, gboolea
         valid = gtk_tree_model_get_iter(GTK_TREE_MODEL(fileListModel), &currentIter, currentPath);
         if (valid)
         {
-            gtk_tree_model_get(GTK_TREE_MODEL(fileListModel), &currentIter, LIST_FILE_POINTER, &currentETFile, -1);
+            gtk_tree_model_get(GTK_TREE_MODEL(fileListModel), &currentIter, 
+                               LIST_FILE_POINTER, &currentETFile, -1);
 
             if (currentETFile == searchETFile)
             {
@@ -1548,7 +1571,8 @@ void Browser_List_Unselect_File_By_Etfile(ET_File *searchETFile)
         valid = gtk_tree_model_get_iter(GTK_TREE_MODEL(fileListModel), &currentIter, currentPath);
         if (valid)
         {
-            gtk_tree_model_get(GTK_TREE_MODEL(fileListModel), &currentIter, LIST_FILE_POINTER, &currentETFile, -1);
+            gtk_tree_model_get(GTK_TREE_MODEL(fileListModel), &currentIter, 
+                               LIST_FILE_POINTER, &currentETFile, -1);
 
             if (currentETFile == searchETFile)
             {
@@ -3064,6 +3088,8 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(BrowserList), FALSE);
     gtk_container_add(GTK_CONTAINER(ScrollWindowFileList), BrowserList);
     gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(BrowserList), FALSE);
+    
+    // Column for File Name
     renderer = gtk_cell_renderer_text_new();
     column = gtk_tree_view_column_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
@@ -3075,6 +3101,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                         NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+    
     gtk_tree_view_set_reorderable(GTK_TREE_VIEW(BrowserList), FALSE);
     gtk_tree_selection_set_mode(gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList)),GTK_SELECTION_MULTIPLE);
     // When selecting a line
@@ -3274,14 +3301,14 @@ void Browser_Open_Rename_Directory_Window (void)
     gtk_box_set_spacing(GTK_BOX(ButtonBox),10);
 
     /* Button to cancel */
-    Button = Create_Button_With_Pixmap(BUTTON_CANCEL);
+    Button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
     gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
     GTK_WIDGET_SET_FLAGS(Button,GTK_CAN_DEFAULT);
-    //gtk_widget_grab_default(Button);
+    gtk_widget_grab_default(Button);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",G_CALLBACK(Destroy_Rename_Directory_Window), G_OBJECT(RenameDirectoryCombo));
 
     /* Button to save: to rename directory */
-    Button = Create_Button_With_Pixmap(BUTTON_APPLY);
+    Button = gtk_button_new_from_stock(GTK_STOCK_APPLY);
     gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
     GTK_WIDGET_SET_FLAGS(Button,GTK_CAN_DEFAULT);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked", G_CALLBACK(Rename_Directory),NULL);
@@ -3670,14 +3697,14 @@ void Browser_Open_Run_Program_Tree_Window (void)
     gtk_box_set_spacing(GTK_BOX(ButtonBox), 10);
 
     /* Button to cancel */
-    Button = Create_Button_With_Pixmap(BUTTON_CANCEL);
+    Button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
     gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
     GTK_WIDGET_SET_FLAGS(Button,GTK_CAN_DEFAULT);
     gtk_widget_grab_default(Button);
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(Destroy_Run_Program_Tree_Window),NULL);
 
     /* Button to execute */
-    Button = Create_Button_With_Pixmap(BUTTON_EXECUTE);
+    Button = gtk_button_new_from_stock(GTK_STOCK_EXECUTE);
     gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
     GTK_WIDGET_SET_FLAGS(Button,GTK_CAN_DEFAULT);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked", G_CALLBACK(Run_Program_With_Directory),G_OBJECT(RunProgramComboBox));
@@ -3830,14 +3857,14 @@ void Browser_Open_Run_Program_List_Window (void)
     gtk_box_set_spacing(GTK_BOX(ButtonBox), 10);
 
     /* Button to cancel */
-    Button = Create_Button_With_Pixmap(BUTTON_CANCEL);
+    Button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
     gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
     GTK_WIDGET_SET_FLAGS(Button,GTK_CAN_DEFAULT);
     gtk_widget_grab_default(Button);
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(Destroy_Run_Program_List_Window),NULL);
 
     /* Button to execute */
-    Button = Create_Button_With_Pixmap(BUTTON_EXECUTE);
+    Button = gtk_button_new_from_stock(GTK_STOCK_EXECUTE);
     gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
     GTK_WIDGET_SET_FLAGS(Button,GTK_CAN_DEFAULT);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked", G_CALLBACK(Run_Program_With_Selected_Files),G_OBJECT(RunProgramComboBox));
@@ -3955,7 +3982,8 @@ gboolean Run_Program (gchar *program_name, GList *args_list)
     {
         GtkWidget *msgbox;
 
-        msgbox = msg_box_new(_("Error..."),_("You must type a program name!"),GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
+        msgbox = msg_box_new(_("Error..."),_("You must type a program name!"),
+                             GTK_STOCK_DIALOG_ERROR,BUTTON_OK,0);
         msg_box_hide_check_button(MSG_BOX(msgbox));
         msg_box_run(MSG_BOX(msgbox));
         gtk_widget_destroy(msgbox);

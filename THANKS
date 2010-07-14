@@ -90,7 +90,7 @@ Philipp Thomas <pthomas@suse.de>
 Holger Schemel <aeglos@valinor.owl.de>
   - patch to fix tag priority problem with id3lib
 
-Bj�rn Olievier <bjorn.olievier@advalvas.be>:
+Björn Olievier <bjorn.olievier@advalvas.be>:
   - Dutch translation
   - bug reports
 
@@ -211,8 +211,11 @@ Pierre Dumuid <pierre.dumuid@adelaide.edu.au>
 Yuval Hager <yuval@avramzon.net>
   - Hebrew translation
 
-Anders Str�mer <anders.stromer@comhem.se>
+Anders Strömer <anders.stromer@comhem.se>
   - Swedich documentation
+
+Miloš Popović <gpopac@gmail.com>
+  - Serbian translation
 
 
 My thanks to all :)

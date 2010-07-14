@@ -731,7 +731,8 @@ void Picture_Save_Button_Clicked (GObject *object)
 
                 msg = g_strdup_printf(_("The following file already exists :\n'%s'\n"
                     "Do you want to overwrite?"),filename_utf8);
-                msgbox = msg_box_new(_("Save file..."),msg,GTK_STOCK_DIALOG_QUESTION,BUTTON_NO,BUTTON_YES,0);
+                msgbox = msg_box_new(_("Save file..."),msg,
+                                     GTK_STOCK_DIALOG_QUESTION,BUTTON_NO,BUTTON_YES,0);
                 g_free(msg);
                 msg_box_hide_check_button(MSG_BOX(msgbox));
                 button = msg_box_run(MSG_BOX(msgbox));
@@ -984,7 +985,7 @@ void PictureEntry_Update (Picture *pic, gint select)
                     "has been read to determine how to create the image buffer."));
                 Log_Print("%s",msg);
                 msgbox = msg_box_new(_("Loading Picture File..."),msg,
-                    GTK_STOCK_DIALOG_ERROR,BUTTON_YES,0);
+                                     GTK_STOCK_DIALOG_ERROR,BUTTON_YES,0);
                 msg_box_hide_check_button(MSG_BOX(msgbox));
                 g_free(msg);
                 msg_box_run(MSG_BOX(msgbox));

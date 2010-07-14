@@ -173,12 +173,15 @@ void Button_Load_Set_Sensivity              (GtkWidget *button, GtkWidget *entry
 GtkWidget *Create_Load_Filename_Popup_Menu     (GtkWidget *list);
 void Load_Filename_List_Insert_Blank_Line      (GtkWidget *list);
 void Load_Filename_List_Delete_Line            (GtkWidget *list);
+void Load_Filename_List_Move_Up                (GtkWidget *list);
+void Load_Filename_List_Move_Down              (GtkWidget *list);
 void Load_Filename_List_Delete_All_Blank_Lines (GtkWidget *list);
 void Load_Filename_List_Reload                 (GtkWidget *list);
 void Load_Filename_Update_Text_Line            (GtkWidget *entry, GtkWidget *list);
 void Load_Filename_Edit_Text_Line              (GtkTreeSelection *selection, gpointer data);
 
-void Create_Xpm_Icon_Factory (const char **xpmdata, const char *name);
+void Create_Xpm_Icon_Factory (const char **xpm_data, const char *name_in_factory);
+void Create_Png_Icon_Factory (const char *png_file, const char *name_in_factory);
 
 /* Browser */
 static void Open_File_Selection_Window (GtkWidget *entry, gchar *title, GtkFileChooserAction action);
@@ -684,8 +687,8 @@ void Set_Unbusy_Cursor (void)
 #include "../pixmaps/forbidden.xpm"
 #include "../pixmaps/read_only.xpm"
 //#include "../pixmaps/sequence_track.xpm"
-#include "../pixmaps/red_lines.xpm"
 #include "../pixmaps/artist_album.xpm"
+#include "../pixmaps/red_lines.xpm"
 #include "../pixmaps/add_folder.xpm"
 #include "../pixmaps/parent_folder.xpm"
 #include "../pixmaps/sound.xpm"
@@ -697,6 +700,7 @@ void Init_Custom_Icons (void)
 {
     Create_Xpm_Icon_Factory((const char**)select_all_xpm, "easytag-select-all");
     Create_Xpm_Icon_Factory((const char**)scan_xpm, "easytag-scan");
+    ////Create_Png_Icon_Factory("scan.png", "easytag-scan");
     Create_Xpm_Icon_Factory((const char**)invert_selection_xpm, "easytag-invert-selection");
     Create_Xpm_Icon_Factory((const char**)add_xpm, "easytag-add");
     Create_Xpm_Icon_Factory((const char**)unselect_all_xpm, "easytag-unselect-all");
@@ -708,6 +712,7 @@ void Init_Custom_Icons (void)
     //Create_Xpm_Icon_Factory((const char**)sequence_track_xpm, "easytag-sequence-track");
     Create_Xpm_Icon_Factory((const char**)red_lines_xpm, "easytag-red-lines");
     Create_Xpm_Icon_Factory((const char**)artist_album_xpm, "easytag-artist-album");
+    ////Create_Png_Icon_Factory("artist_album.png", "easytag-artist-album");
     Create_Xpm_Icon_Factory((const char**)parent_folder_xpm, "easytag-parent-folder");
     Create_Xpm_Icon_Factory((const char**)add_folder_xpm, "easytag-add-folder");
     Create_Xpm_Icon_Factory((const char**)sound_xpm, "easytag-sound");
@@ -722,22 +727,62 @@ void Init_Custom_Icons (void)
  * Create an icon factory from the specified pixmap
  * Also add it to the GTK stock images
  */
-void Create_Xpm_Icon_Factory (const char **xpmdata, const char *xpmname)
+void Create_Xpm_Icon_Factory (const char **xpm_data, const char *name_in_factory)
 {
-    GtkIconSet *set;
-    GtkIconFactory *factory;
-    GdkPixbuf *pixbuf;
+    GtkIconSet      *icon;
+    GtkIconFactory  *factory;
+    GdkPixbuf       *pixbuf;
 
-    if (!*xpmdata || !xpmname)
+    if (!*xpm_data || !name_in_factory)
         return;
 
-    pixbuf = gdk_pixbuf_new_from_xpm_data(xpmdata);
+    pixbuf = gdk_pixbuf_new_from_xpm_data(xpm_data);
 
-    set = gtk_icon_set_new_from_pixbuf(pixbuf);
-    factory = gtk_icon_factory_new();
-    gtk_icon_factory_add(factory, xpmname, set);
-    gtk_icon_set_unref(set);
-    gtk_icon_factory_add_default(factory);
+    if (pixbuf)
+    {
+        icon = gtk_icon_set_new_from_pixbuf(pixbuf);
+        g_object_unref(G_OBJECT(pixbuf));
+
+        factory = gtk_icon_factory_new();
+        gtk_icon_factory_add(factory, name_in_factory, icon);
+        gtk_icon_set_unref(icon);
+        gtk_icon_factory_add_default(factory);
+    }
+}
+
+/*
+ * Create an icon factory from the specified png file
+ * Also add it to the GTK stock images
+ */
+void Create_Png_Icon_Factory (const char *png_file, const char *name_in_factory)
+{
+    GdkPixbuf       *pixbuf;
+    GtkIconSet      *icon;
+    GtkIconFactory  *factory;
+    gchar           *path;
+    GError          *error = NULL;
+    
+    if (!*png_file || !name_in_factory)
+        return;
+
+    path = g_strconcat(PACKAGE_DATA_DIR,"/",png_file,NULL);
+    pixbuf = gdk_pixbuf_new_from_file(path,&error);
+    g_free(path);
+    
+    if (pixbuf)
+    {
+        icon = gtk_icon_set_new_from_pixbuf(pixbuf);
+        g_object_unref(G_OBJECT(pixbuf));
+
+        factory = gtk_icon_factory_new();
+        gtk_icon_factory_add(factory, name_in_factory, icon);
+        gtk_icon_set_unref(icon);
+        gtk_icon_factory_add_default(factory);
+    }else
+    {
+        Log_Print(error->message);
+        g_error_free(error);
+    }
 }
 
 /*
@@ -1443,7 +1488,7 @@ void Open_Write_Playlist_Window (void)
     gtk_box_set_spacing(GTK_BOX(ButtonBox), 10);
 
     /* Button to Cancel */
-    Button = Create_Button_With_Pixmap(BUTTON_CLOSE);
+    Button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
     gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
     GTK_WIDGET_SET_FLAGS(Button, GTK_CAN_DEFAULT);
     gtk_widget_grab_default(Button);
@@ -1468,10 +1513,6 @@ void Destroy_Write_Playlist_Window (void)
 {
     if (WritePlaylistWindow)
     {
-        /* Save combobox history lists before exit */
-        Save_Play_List_Name_List(PlayListNameMaskModel, MISC_COMBO_TEXT);
-        Save_Playlist_Content_Mask_List(PlayListContentMaskModel, MISC_COMBO_TEXT);
-
         Write_Playlist_Window_Apply_Changes();
 
         gtk_widget_destroy(WritePlaylistWindow);
@@ -1515,8 +1556,13 @@ void Write_Playlist_Window_Apply_Changes (void)
         PLAYLIST_CONTENT_NONE         = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_content_none));
         PLAYLIST_CONTENT_FILENAME     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_content_filename));
         PLAYLIST_CONTENT_MASK         = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_content_mask));
+        
         if (PLAYLIST_CONTENT_MASK_VALUE) g_free(PLAYLIST_CONTENT_MASK_VALUE);
         PLAYLIST_CONTENT_MASK_VALUE   = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(PlayListContentMaskCombo)->child)));
+
+        /* Save combobox history lists before exit */
+        Save_Play_List_Name_List(PlayListNameMaskModel, MISC_COMBO_TEXT);
+        Save_Playlist_Content_Mask_List(PlayListContentMaskModel, MISC_COMBO_TEXT);
     }
 }
 
@@ -2189,7 +2235,7 @@ void Open_Search_File_Window (void)
             "changed", G_CALLBACK(Search_Result_List_Row_Selected), NULL);
 
     // Button to run the search
-    Button = Create_Button_With_Pixmap(BUTTON_SEARCH);
+    Button = gtk_button_new_from_stock(GTK_STOCK_FIND);
     gtk_table_attach(GTK_TABLE(Table),Button,5,6,0,1,GTK_FILL,GTK_FILL,0,0);
     GTK_WIDGET_SET_FLAGS(Button,GTK_CAN_DEFAULT);
     gtk_widget_grab_default(Button);
@@ -2197,7 +2243,7 @@ void Open_Search_File_Window (void)
     g_signal_connect(G_OBJECT(GTK_BIN(SearchStringCombo)->child),"activate", G_CALLBACK(Search_File),NULL);
 
     // Button to cancel
-    Button = Create_Button_With_Pixmap(BUTTON_CLOSE);
+    Button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
     gtk_table_attach(GTK_TABLE(Table),Button,5,6,1,2,GTK_FILL,GTK_FILL,0,0);
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(Destroy_Search_File_Window),NULL);
 
@@ -2670,6 +2716,7 @@ void Open_Load_Filename_Window (void)
     GtkWidget *Label;
     GtkWidget *ButtonBox;
     GtkWidget *Button;
+    GtkWidget *Icon;
     GtkWidget *Entry;
     GtkWidget *ButtonLoad;
     GtkWidget *Separator;
@@ -2746,37 +2793,103 @@ void Open_Load_Filename_Window (void)
     Separator = gtk_hseparator_new();
     gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
 
+    //
+    // Vbox for loaded files
+    //
     loadedvbox = gtk_vbox_new(FALSE, 4);
-
-    // Label of file content
-    Label = gtk_label_new(_("Loaded File Content :"));
-    gtk_box_pack_start(GTK_BOX(loadedvbox), Label, FALSE, FALSE, 0);
 
     // Content of the loaded file
     ScrollWindow = gtk_scrolled_window_new(NULL,NULL);
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(ScrollWindow),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
     gtk_widget_set_size_request(GTK_WIDGET(ScrollWindow), 250, 200);
+    gtk_box_pack_start(GTK_BOX(loadedvbox), ScrollWindow, TRUE, TRUE, 0);
     LoadFileContentListModel = gtk_list_store_new(LOAD_FILE_CONTENT_COUNT, G_TYPE_STRING);
     LoadFileContentList = gtk_tree_view_new_with_model(GTK_TREE_MODEL(LoadFileContentListModel));
+    
     renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes("",
-            renderer, "text", LOAD_FILE_CONTENT_TEXT, NULL);
+    column = gtk_tree_view_column_new_with_attributes(_("Content of TXT file"),
+                                                      renderer, "text", LOAD_FILE_CONTENT_TEXT, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(LoadFileContentList), column);
-    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(LoadFileContentList), FALSE);
+    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(LoadFileContentList), TRUE);
+    //gtk_tree_selection_set_mode(gtk_tree_view_get_selection(GTK_TREE_VIEW(LoadFileContentList)),GTK_SELECTION_MULTIPLE);
+    gtk_tree_view_set_reorderable(GTK_TREE_VIEW(LoadFileContentList),TRUE);
     gtk_container_add(GTK_CONTAINER(ScrollWindow),LoadFileContentList);
-    gtk_box_pack_start(GTK_BOX(loadedvbox), ScrollWindow, TRUE, TRUE, 0);
 
     // Signal to automatically load the file
     g_signal_connect_swapped(G_OBJECT(ButtonLoad),"clicked", G_CALLBACK(Load_File_Content), G_OBJECT(GTK_BIN(FileToLoadCombo)->child));
     g_signal_connect(G_OBJECT(LoadFileContentList),"key-press-event", G_CALLBACK(Load_Filename_List_Key_Press),NULL);
 
+    // Commands (like the popup menu)
+    hbox = gtk_hbox_new(FALSE,4);
+    gtk_box_pack_start(GTK_BOX(loadedvbox),hbox,FALSE,FALSE,0);
+
+    Button = gtk_button_new();
+    Icon = gtk_image_new_from_stock(GTK_STOCK_ADD,GTK_ICON_SIZE_SMALL_TOOLBAR);
+    gtk_container_add(GTK_CONTAINER(Button),Icon);
+    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
+    //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+    gtk_tooltips_set_tip(Tips,Button,_("Insert a blank line before the selected line"),NULL);
+    g_signal_connect_swapped(G_OBJECT(Button),"clicked",
+                             G_CALLBACK(Load_Filename_List_Insert_Blank_Line), G_OBJECT(LoadFileContentList));
+
+    Button = gtk_button_new();
+    Icon = gtk_image_new_from_stock(GTK_STOCK_REMOVE,GTK_ICON_SIZE_SMALL_TOOLBAR);
+    gtk_container_add(GTK_CONTAINER(Button),Icon);
+    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
+    //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+    gtk_tooltips_set_tip(Tips,Button,_("Delete the selected line"),NULL);
+    g_signal_connect_swapped(G_OBJECT(Button),"clicked",
+                             G_CALLBACK(Load_Filename_List_Delete_Line), G_OBJECT(LoadFileContentList));
+    
+    Button = gtk_button_new();
+    Icon = gtk_image_new_from_stock(GTK_STOCK_REMOVE,GTK_ICON_SIZE_SMALL_TOOLBAR);
+    gtk_container_add(GTK_CONTAINER(Button),Icon);
+    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
+    //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+    gtk_tooltips_set_tip(Tips,Button,_("Delete all blank lines"),NULL);
+    g_signal_connect_swapped(G_OBJECT(Button),"clicked",
+                             G_CALLBACK(Load_Filename_List_Delete_All_Blank_Lines), G_OBJECT(LoadFileContentList));
+    
+    Label = gtk_label_new("   ");
+    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
+
+    Button = gtk_button_new();
+    Icon = gtk_image_new_from_stock(GTK_STOCK_GO_UP, GTK_ICON_SIZE_SMALL_TOOLBAR);
+    gtk_container_add(GTK_CONTAINER(Button),Icon);
+    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
+    //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+    gtk_tooltips_set_tip(Tips,Button,_("Move up the selected line"),NULL);
+    g_signal_connect_swapped(G_OBJECT(Button),"clicked",
+                             G_CALLBACK(Load_Filename_List_Move_Up), G_OBJECT(LoadFileContentList));
+
+    Button = gtk_button_new();
+    Icon = gtk_image_new_from_stock(GTK_STOCK_GO_DOWN, GTK_ICON_SIZE_SMALL_TOOLBAR);
+    gtk_container_add(GTK_CONTAINER(Button),Icon);
+    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
+    //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+    gtk_tooltips_set_tip(Tips,Button,_("Move down the selected line"),NULL);
+    g_signal_connect_swapped(G_OBJECT(Button),"clicked",
+                             G_CALLBACK(Load_Filename_List_Move_Down), G_OBJECT(LoadFileContentList));
+
+    Label = gtk_label_new("   ");
+    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
+
+    Button = gtk_button_new();
+    Icon = gtk_image_new_from_stock(GTK_STOCK_REFRESH,GTK_ICON_SIZE_SMALL_TOOLBAR);
+    gtk_container_add(GTK_CONTAINER(Button),Icon);
+    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
+    //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+    gtk_tooltips_set_tip(Tips,Button,_("Reload"),NULL);
+    g_signal_connect_swapped(G_OBJECT(Button),"clicked",
+                             G_CALLBACK(Load_Filename_List_Reload), G_OBJECT(LoadFileContentList));
+    
     gtk_widget_show_all(loadedvbox);
 
+    
+    //
+    // Vbox for file list files
+    //
     filelistvbox = gtk_vbox_new(FALSE, 4);
-
-    // Label of current list
-    Label = gtk_label_new(_("Files Name List :"));
-    gtk_box_pack_start(GTK_BOX(filelistvbox), Label, FALSE, FALSE, 0);
 
     // List of current filenames
     ScrollWindow = gtk_scrolled_window_new(NULL,NULL);
@@ -2785,10 +2898,14 @@ void Open_Load_Filename_Window (void)
     gtk_box_pack_start(GTK_BOX(filelistvbox), ScrollWindow, TRUE, TRUE, 0);
     LoadFileNameListModel = gtk_list_store_new(LOAD_FILE_NAME_COUNT, G_TYPE_STRING,G_TYPE_POINTER);
     LoadFileNameList = gtk_tree_view_new_with_model(GTK_TREE_MODEL(LoadFileNameListModel));
+    
     renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes("", renderer, "text", LOAD_FILE_NAME_TEXT, NULL);
+    column = gtk_tree_view_column_new_with_attributes(_("List of files"), 
+                                                      renderer, "text", LOAD_FILE_NAME_TEXT, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(LoadFileNameList), column);
-    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(LoadFileNameList), FALSE);
+    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(LoadFileNameList), TRUE);
+    //gtk_tree_selection_set_mode(gtk_tree_view_get_selection(GTK_TREE_VIEW(LoadFileNameList)),GTK_SELECTION_MULTIPLE);
+    gtk_tree_view_set_reorderable(GTK_TREE_VIEW(LoadFileNameList),TRUE);
     g_signal_connect(G_OBJECT(LoadFileNameList),"key-press-event", G_CALLBACK(Load_Filename_List_Key_Press),NULL);
     gtk_container_add(GTK_CONTAINER(ScrollWindow),LoadFileNameList);
 
@@ -2796,8 +2913,73 @@ void Open_Load_Filename_Window (void)
     g_signal_connect_swapped(G_OBJECT(gtk_tree_view_get_selection(GTK_TREE_VIEW(LoadFileContentList))),"changed", G_CALLBACK(Load_Filename_Select_Row_In_Other_List), G_OBJECT(LoadFileNameList));
     g_signal_connect_swapped(G_OBJECT(gtk_tree_view_get_selection(GTK_TREE_VIEW(LoadFileNameList))),"changed", G_CALLBACK(Load_Filename_Select_Row_In_Other_List), G_OBJECT(LoadFileContentList));
 
+    // Commands (like the popup menu)
+    hbox = gtk_hbox_new(FALSE,4);
+    gtk_box_pack_start(GTK_BOX(filelistvbox),hbox,FALSE,FALSE,0);
+
+    Button = gtk_button_new();
+    Icon = gtk_image_new_from_stock(GTK_STOCK_ADD,GTK_ICON_SIZE_SMALL_TOOLBAR);
+    gtk_container_add(GTK_CONTAINER(Button),Icon);
+    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
+    //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+    gtk_tooltips_set_tip(Tips,Button,_("Insert a blank line before the selected line"),NULL);
+    g_signal_connect_swapped(G_OBJECT(Button),"clicked",
+                             G_CALLBACK(Load_Filename_List_Insert_Blank_Line), G_OBJECT(LoadFileNameList));
+
+    Button = gtk_button_new();
+    Icon = gtk_image_new_from_stock(GTK_STOCK_REMOVE,GTK_ICON_SIZE_SMALL_TOOLBAR);
+    gtk_container_add(GTK_CONTAINER(Button),Icon);
+    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
+    //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+    gtk_tooltips_set_tip(Tips,Button,_("Delete the selected line"),NULL);
+    g_signal_connect_swapped(G_OBJECT(Button),"clicked",
+                             G_CALLBACK(Load_Filename_List_Delete_Line), G_OBJECT(LoadFileNameList));
+
+    Button = gtk_button_new();
+    Icon = gtk_image_new_from_stock(GTK_STOCK_REMOVE,GTK_ICON_SIZE_SMALL_TOOLBAR);
+    gtk_container_add(GTK_CONTAINER(Button),Icon);
+    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
+    //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+    gtk_tooltips_set_tip(Tips,Button,_("Delete all blank lines"),NULL);
+    g_signal_connect_swapped(G_OBJECT(Button),"clicked",
+                             G_CALLBACK(Load_Filename_List_Delete_All_Blank_Lines), G_OBJECT(LoadFileNameList));
+    
+    Label = gtk_label_new("   ");
+    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
+
+    Button = gtk_button_new();
+    Icon = gtk_image_new_from_stock(GTK_STOCK_GO_UP, GTK_ICON_SIZE_SMALL_TOOLBAR);
+    gtk_container_add(GTK_CONTAINER(Button),Icon);
+    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
+    //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+    gtk_tooltips_set_tip(Tips,Button,_("Move up the selected line"),NULL);
+    g_signal_connect_swapped(G_OBJECT(Button),"clicked",
+                             G_CALLBACK(Load_Filename_List_Move_Up), G_OBJECT(LoadFileNameList));
+
+    Button = gtk_button_new();
+    Icon = gtk_image_new_from_stock(GTK_STOCK_GO_DOWN, GTK_ICON_SIZE_SMALL_TOOLBAR);
+    gtk_container_add(GTK_CONTAINER(Button),Icon);
+    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
+    //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+    gtk_tooltips_set_tip(Tips,Button,_("Move down the selected line"),NULL);
+    g_signal_connect_swapped(G_OBJECT(Button),"clicked",
+                             G_CALLBACK(Load_Filename_List_Move_Down), G_OBJECT(LoadFileNameList));
+
+    Label = gtk_label_new("   ");
+    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
+
+    Button = gtk_button_new();
+    Icon = gtk_image_new_from_stock(GTK_STOCK_REFRESH,GTK_ICON_SIZE_SMALL_TOOLBAR);
+    gtk_container_add(GTK_CONTAINER(Button),Icon);
+    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
+    //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+    gtk_tooltips_set_tip(Tips,Button,_("Reload"),NULL);
+    g_signal_connect_swapped(G_OBJECT(Button),"clicked",
+                             G_CALLBACK(Load_Filename_List_Reload), G_OBJECT(LoadFileNameList));
+    
     gtk_widget_show_all(filelistvbox);
 
+    
     // Load the list of files in the list widget
     Load_File_List();
 
@@ -2810,9 +2992,15 @@ void Open_Load_Filename_Window (void)
     Create_Load_Filename_Popup_Menu(LoadFileContentList);
     Create_Load_Filename_Popup_Menu(LoadFileNameList);
 
+    hbox = gtk_hbox_new(FALSE,4);
+    gtk_box_pack_start(GTK_BOX(VBox),hbox,FALSE,TRUE,0);
+
+    Label = gtk_label_new(_("Selected line:"));
+    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
+
     // Entry to edit a line into the list
     Entry = gtk_entry_new();
-    gtk_box_pack_start(GTK_BOX(VBox),Entry,FALSE,TRUE,0);
+    gtk_box_pack_start(GTK_BOX(hbox),Entry,TRUE,TRUE,0);
     g_signal_connect(G_OBJECT(Entry),"changed",G_CALLBACK(Load_Filename_Update_Text_Line),G_OBJECT(LoadFileContentList));
 
     // Signal to load the line text in the editing entry
@@ -2838,14 +3026,14 @@ void Open_Load_Filename_Window (void)
     gtk_box_set_spacing(GTK_BOX(ButtonBox), 10);
 
     // Button to cancel
-    Button = Create_Button_With_Pixmap(BUTTON_CLOSE);
+    Button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
     gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
     GTK_WIDGET_SET_FLAGS(Button, GTK_CAN_DEFAULT);
     gtk_widget_grab_default(Button);
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(Destroy_Load_Filename_Window),NULL);
 
     // Button to load filenames
-    Button = Create_Button_With_Pixmap(BUTTON_APPLY);
+    Button = gtk_button_new_from_stock(GTK_STOCK_APPLY);
     gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
     GTK_WIDGET_SET_FLAGS(Button,GTK_CAN_DEFAULT);
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(Load_Filename_Set_Filenames),NULL);
@@ -3146,11 +3334,13 @@ void Load_Filename_Set_Filenames (void)
 
         found = gtk_tree_model_get_iter(GTK_TREE_MODEL(LoadFileNameListModel), &iter_name, currentPath);
         if (found)
-            gtk_tree_model_get(GTK_TREE_MODEL(LoadFileNameListModel), &iter_name, LOAD_FILE_NAME_POINTER, &ETFile, -1);
+            gtk_tree_model_get(GTK_TREE_MODEL(LoadFileNameListModel), &iter_name, 
+                               LOAD_FILE_NAME_POINTER, &ETFile, -1);
 
         found = gtk_tree_model_get_iter(GTK_TREE_MODEL(LoadFileContentListModel), &iter_content, currentPath);
         if (found)
-            gtk_tree_model_get(GTK_TREE_MODEL(LoadFileContentListModel), &iter_content, LOAD_FILE_CONTENT_TEXT, &list_text, -1);
+            gtk_tree_model_get(GTK_TREE_MODEL(LoadFileContentListModel), &iter_content, 
+                               LOAD_FILE_CONTENT_TEXT, &list_text, -1);
 
         if (ETFile && list_text && g_utf8_strlen(list_text, -1)>0)
         {
@@ -3207,8 +3397,9 @@ GtkWidget *Create_Load_Filename_Popup_Menu(GtkWidget *list)
 
 
     BrowserPopupMenu = gtk_menu_new();
-    g_signal_connect_swapped(G_OBJECT(list),"button_press_event", G_CALLBACK(Load_Filename_Popup_Menu_Handler), G_OBJECT(BrowserPopupMenu));
-
+    g_signal_connect_swapped(G_OBJECT(list), "button_press_event", 
+                             G_CALLBACK(Load_Filename_Popup_Menu_Handler), G_OBJECT(BrowserPopupMenu));
+    
     MenuItem = gtk_image_menu_item_new_with_label(_("Insert a blank line"));
     Image = gtk_image_new_from_stock(GTK_STOCK_ADD,GTK_ICON_SIZE_MENU);
     gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
@@ -3230,6 +3421,21 @@ GtkWidget *Create_Load_Filename_Popup_Menu(GtkWidget *list)
     MenuItem = gtk_menu_item_new();
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
 
+    MenuItem = gtk_image_menu_item_new_with_label(_("Move up this line"));
+    Image = gtk_image_new_from_stock(GTK_STOCK_GO_UP,GTK_ICON_SIZE_MENU);
+    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
+    gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
+    g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Move_Up),G_OBJECT(list));
+
+    MenuItem = gtk_image_menu_item_new_with_label(_("Move down this line"));
+    Image = gtk_image_new_from_stock(GTK_STOCK_GO_DOWN,GTK_ICON_SIZE_MENU);
+    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
+    gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
+    g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Move_Down),G_OBJECT(list));
+
+    MenuItem = gtk_menu_item_new();
+    gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
+
     MenuItem = gtk_image_menu_item_new_with_label(_("Reload"));
     Image = gtk_image_new_from_stock(GTK_STOCK_REFRESH,GTK_ICON_SIZE_MENU);
     gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
@@ -3243,7 +3449,7 @@ GtkWidget *Create_Load_Filename_Popup_Menu(GtkWidget *list)
 /*
  * Insert a blank line before the selected line in the treeview passed as parameter
  */
-void Load_Filename_List_Insert_Blank_Line(GtkWidget *treeview)
+void Load_Filename_List_Insert_Blank_Line (GtkWidget *treeview)
 {
     GtkTreeSelection *selection;
     GtkTreeIter selectedIter;
@@ -3262,7 +3468,7 @@ void Load_Filename_List_Insert_Blank_Line(GtkWidget *treeview)
 }
 
 /*
- * Delete all blank lines in the treeview passed in as parameter
+ * Delete all blank lines in the treeview passed as parameter
  */
 void Load_Filename_List_Delete_All_Blank_Lines (GtkWidget *treeview)
 {
@@ -3297,9 +3503,9 @@ void Load_Filename_List_Delete_All_Blank_Lines (GtkWidget *treeview)
 }
 
 /*
- * Delete the selected line in the treeview passed in as parameter
+ * Delete the selected line in the treeview passed as parameter
  */
-void Load_Filename_List_Delete_Line(GtkWidget *treeview)
+void Load_Filename_List_Delete_Line (GtkWidget *treeview)
 {
     GtkTreeSelection *selection;
     GtkTreeIter selectedIter, itercopy;
@@ -3327,6 +3533,109 @@ void Load_Filename_List_Delete_Line(GtkWidget *treeview)
 }
 
 /*
+ * Move up the selected line in the treeview passed as parameter
+ */
+void Load_Filename_List_Move_Up (GtkWidget *treeview)
+{
+    GtkTreeSelection *selection;
+    GList *selectedRows;
+    GList *selectedRowsCopy;
+    GtkTreeIter currentFile;
+    GtkTreeIter nextFile;
+    GtkTreePath *currentPath;
+    GtkTreeModel *treemodel;
+    gboolean valid;
+
+    if (!treeview) return;
+
+    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
+    treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview));
+    selectedRows = gtk_tree_selection_get_selected_rows(selection, NULL);
+
+    if (g_list_length(selectedRows) == 0)
+    {
+        g_list_foreach(selectedRows, (GFunc)gtk_tree_path_free, NULL);
+        g_list_free(selectedRows);
+        return;
+    }
+
+    selectedRowsCopy = selectedRows;
+
+    while (selectedRows)
+    {
+        currentPath = (GtkTreePath*) selectedRows->data;
+        valid = gtk_tree_model_get_iter(treemodel, &currentFile, currentPath);
+        if (valid)
+        {
+            // Find the entry above the node...
+            if (gtk_tree_path_prev(currentPath))
+            {
+                // ...and if it exists, swap the two rows by iter
+                gtk_tree_model_get_iter(treemodel, &nextFile, currentPath);
+                gtk_list_store_swap(GTK_LIST_STORE(treemodel), &currentFile, &nextFile);
+            }
+        }
+
+        selectedRows = selectedRows->next;
+        if (!selectedRows) break;
+    }
+
+    g_list_foreach(selectedRowsCopy, (GFunc)gtk_tree_path_free, NULL);
+    g_list_free(selectedRowsCopy);
+    
+}
+
+/*
+ * Move down the selected line in the treeview passed as parameter
+ */
+void Load_Filename_List_Move_Down (GtkWidget *treeview)
+{
+    GtkTreeSelection *selection;
+    GList *selectedRows;
+    GList *selectedRowsCopy;
+    GtkTreeIter currentFile;
+    GtkTreeIter nextFile;
+    GtkTreePath *currentPath;
+    GtkTreeModel *treemodel;
+    gboolean valid;
+
+    if (!treeview) return;
+
+    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
+    treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview));
+    selectedRows = gtk_tree_selection_get_selected_rows(selection, NULL);
+
+    if (g_list_length(selectedRows) == 0)
+    {
+        g_list_foreach(selectedRows, (GFunc)gtk_tree_path_free, NULL);
+        g_list_free(selectedRows);
+        return;
+    }
+
+    selectedRowsCopy = selectedRows;
+
+    while (selectedRows)
+    {
+        currentPath = (GtkTreePath*) selectedRows->data;
+        valid = gtk_tree_model_get_iter(treemodel, &currentFile, currentPath);
+        if (valid)
+        {
+            // Find the entry below the node and swap the two nodes by iter
+            gtk_tree_path_next(currentPath);
+            if (gtk_tree_model_get_iter(treemodel, &nextFile, currentPath))
+                gtk_list_store_swap(GTK_LIST_STORE(treemodel), &currentFile, &nextFile);
+        }
+
+        if (!selectedRows->next) break;
+        selectedRows = selectedRows->next;
+    }
+
+    g_list_foreach(selectedRowsCopy, (GFunc)gtk_tree_path_free, NULL);
+    g_list_free(selectedRowsCopy);
+    
+}
+
+/*
  * Reload a list of choice
  * The list parameter refers to a GtkTreeView (LoadFileNameList or LoadFileContentList)
  */
@@ -3337,6 +3646,7 @@ void Load_Filename_List_Reload (GtkWidget *treeview)
     if (GTK_TREE_VIEW(treeview) == (GtkTreeView *)LoadFileContentList)
     {
         Load_File_Content(GTK_BIN(FileToLoadCombo)->child);
+        
     } else if (GTK_TREE_VIEW(treeview) == (GtkTreeView *)LoadFileNameList)
     {
         Load_File_List();

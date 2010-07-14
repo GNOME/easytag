@@ -106,7 +106,7 @@ rm -rf ${RPM_BUILD_ROOT}
 %prefix/bin/easytag
 %prefix/share/applications/easytag.desktop
 %prefix/share/pixmaps/*
-%prefix/man/*/easytag.*
+%prefix/share/man/*/easytag.*
 %prefix/share/easytag/*
 %prefix/share/locale/*/*/*
 
@@ -118,6 +118,10 @@ rm -rf ${RPM_BUILD_ROOT}
 
 
 %changelog
+* Thu Oct 11 2007 Jerome Couderc <easytag@gmail.com>
+  - Replace "%prefix/man/*/easytag.*" by "%prefix/share/man/*/easytag.*" to
+    fix rpmbuild under Fedora 7
+
 * Fri Jun 1 2007 Jerome Couderc <easytag@gmail.com>
   - Updated (Build)Requires entries for libid3tag
 

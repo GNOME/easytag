@@ -233,7 +233,7 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { AM_OPEN_OPTIONS_WINDOW,   GTK_STOCK_PREFERENCES,  _("_Preferences ..."),                  "<Alt>P",     _("Preferences ..."),                 G_CALLBACK(Open_OptionsWindow) },
 
         { MENU_HELP,                NULL,                   _("_Help"),                             NULL,         NULL,                                 NULL },
-        { AM_OPEN_ABOUT_WINDOW,     GTK_STOCK_HELP,         _("_About"),                            NULL,         _("About"),                           G_CALLBACK(Show_About_Window) },
+        { AM_OPEN_ABOUT_WINDOW,     GTK_STOCK_ABOUT,        _("_About"),                            NULL,         _("About"),                           G_CALLBACK(Show_About_Window) },
 
 
         /*

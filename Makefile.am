@@ -21,8 +21,8 @@ BITMAPS = \
     pixmaps/closed_folder_locked.xpm \
     pixmaps/closed_folder.xpm \
     pixmaps/EasyTAG.ico \
+    pixmaps/EasyTAG_icon.xpm \
     pixmaps/EasyTAG2.ico \
-    pixmaps/EasyTAG.xpm \
     pixmaps/EasyTAG2.xpm \
     pixmaps/first_letter_uppercase.xpm \
     pixmaps/first_letter_uppercase_word.xpm \
@@ -45,10 +45,12 @@ BITMAPS = \
     pixmaps/unselect_all.xpm
 
 pixmapdir = $(datadir)/$(PACKAGE)
-pixmap_DATA = pixmaps/EasyTAG_logo.xpm
+pixmap_DATA = \
+    pixmaps/EasyTAG_logo.xpm
+
 
 icondir = $(datadir)/pixmaps
-icon_DATA = pixmaps/EasyTAG.xpm
+icon_DATA = pixmaps/EasyTAG_icon.xpm
 
 
 EXTRA_DIST= \

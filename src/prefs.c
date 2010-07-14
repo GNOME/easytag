@@ -407,6 +407,38 @@ void Open_OptionsWindow (void)
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
         G_CALLBACK(File_Selection_Window_For_File), G_OBJECT(GTK_BIN(FilePlayerCombo)->child));
 
+    /* Log options */
+    Frame = gtk_frame_new (_("Log Options"));
+    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
+    vbox = gtk_vbox_new(FALSE,2);
+    gtk_container_add(GTK_CONTAINER(Frame),vbox);
+    gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
+
+    // Show / hide log view
+    ShowLogView = gtk_check_button_new_with_label(_("Show log view in main window"));
+    gtk_box_pack_start(GTK_BOX(vbox),ShowLogView,FALSE,FALSE,0);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ShowLogView),SHOW_LOG_VIEW);
+    gtk_tooltips_set_tip(Tips,ShowLogView,_("If activated, the log view would be "
+                                            "visible in the main window."),NULL);
+   
+    // Max number of lines
+    hbox = gtk_hbox_new(FALSE,2);
+    gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
+    gtk_container_set_border_width(GTK_CONTAINER(hbox), 4);
+    Label = gtk_label_new (_("Max number of lines :"));
+    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
+    
+    LogMaxLinesSpinButton = gtk_spin_button_new((GtkAdjustment *)gtk_adjustment_new(2.0,2.0,6.0,1.0,1.0,1.0),1.0,0);
+    LogMaxLinesSpinButton = gtk_spin_button_new_with_range(10.0,1500.0,10.0);
+    gtk_box_pack_start(GTK_BOX(hbox),LogMaxLinesSpinButton,FALSE,FALSE,0);
+    gtk_spin_button_set_value(GTK_SPIN_BUTTON(LogMaxLinesSpinButton),(gfloat)LOG_MAX_LINES);
+    //g_signal_connect(G_OBJECT(NumberTrackFormated),"toggled",G_CALLBACK(Number_Track_Formated_Toggled),NULL);
+    //g_signal_emit_by_name(G_OBJECT(NumberTrackFormated),"toggled");
+/*    gtk_tooltips_set_tip(Tips,GTK_BIN(FilePlayerCombo)->child,_("Enter the program used to "
+        "play the files. Some arguments can be passed for the program (as 'xmms -p') before "
+        "to receive files as other arguments."),NULL);
+*/
+
 
 
     /*
@@ -883,6 +915,7 @@ void Open_OptionsWindow (void)
 
     Table = gtk_table_new(4,2,FALSE);
     gtk_box_pack_start(GTK_BOX(vbox),Table,FALSE,FALSE,0);
+    //gtk_container_set_border_width(GTK_CONTAINER(Table), 2);
     //gtk_table_set_row_spacings(GTK_TABLE(Table),2);
     gtk_table_set_col_spacings(GTK_TABLE(Table),2);
 
@@ -1137,7 +1170,7 @@ void Open_OptionsWindow (void)
     CddbServerCgiPathAutomaticSearch = gtk_entry_new();
     gtk_box_pack_start(GTK_BOX(hbox),CddbServerCgiPathAutomaticSearch,FALSE,FALSE,0);
     if (CDDB_SERVER_CGI_PATH_AUTOMATIC_SEARCH)
-        gtk_entry_set_text(GTK_ENTRY(CddbServerCgiPathAutomaticSearch) ,CDDB_SERVER_CGI_PATH_AUTOMATIC_SEARCH);
+        gtk_entry_set_text(GTK_ENTRY(CddbServerCgiPathAutomaticSearch),CDDB_SERVER_CGI_PATH_AUTOMATIC_SEARCH);
 
     // 2sd automatic search server
     hbox = gtk_hbox_new(FALSE,2);
@@ -1381,25 +1414,25 @@ void Open_OptionsWindow (void)
 
 
     /* Apply Button */
-    Button = Create_Button_With_Pixmap(BUTTON_APPLY);
+    Button = gtk_button_new_from_stock(GTK_STOCK_APPLY);
     // Disable temporarily the apply button
     ////gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
-    g_signal_connect(G_OBJECT(Button),"clicked",G_CALLBACK(OptionsWindow_Apply_Button),NULL);
-    GTK_WIDGET_SET_FLAGS(Button, GTK_CAN_DEFAULT);
+    ////g_signal_connect(G_OBJECT(Button),"clicked",G_CALLBACK(OptionsWindow_Apply_Button),NULL);
+    ////GTK_WIDGET_SET_FLAGS(Button, GTK_CAN_DEFAULT);
     gtk_tooltips_set_tip(Tips,Button,_("Apply changes (but don't save) and close this window"),NULL);
 
 
     /* Cancel Button */
-    Button = Create_Button_With_Pixmap(BUTTON_CANCEL);
+    Button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
     gtk_container_add(GTK_CONTAINER(ButtonBox), Button);
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(OptionsWindow_Cancel_Button),NULL);
     GTK_WIDGET_SET_FLAGS(Button, GTK_CAN_DEFAULT);
-    gtk_widget_grab_default (Button);
+    gtk_widget_grab_default(Button);
     gtk_tooltips_set_tip(Tips,Button,_("Close this window without saving"),NULL);
 
 
     /* Save Button */
-    Button = Create_Button_With_Pixmap(BUTTON_SAVE);
+    Button = gtk_button_new_from_stock(GTK_STOCK_OK);
     gtk_container_add(GTK_CONTAINER(ButtonBox), Button);
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(OptionsWindow_Save_Button),NULL);
     GTK_WIDGET_SET_FLAGS(Button, GTK_CAN_DEFAULT);
@@ -1616,12 +1649,6 @@ void OptionsWindow_Quit(void)
 {
     if (OptionsWindow)
     {
-        /* Save combobox history lists before exit */
-        Save_Default_Path_To_MP3_List     (DefaultPathModel, MISC_COMBO_TEXT);
-        Save_Default_Tag_Comment_Text_List(DefaultCommentModel, MISC_COMBO_TEXT);
-        Save_Audio_File_Player_List       (FilePlayerModel, MISC_COMBO_TEXT);
-        Save_Cddb_Local_Path_List         (CddbLocalPathModel, MISC_COMBO_TEXT);
-
         OptionsWindow_Apply_Changes();
 
         /* Now quit */
@@ -1655,6 +1682,12 @@ void OptionsWindow_Apply_Changes (void)
 
         /* Get the last visible notebook page */
         OPTIONS_NOTEBOOK_PAGE = gtk_notebook_get_current_page(GTK_NOTEBOOK(OptionsNoteBook));
+
+        /* Save combobox history lists before exit */
+        Save_Default_Path_To_MP3_List     (DefaultPathModel, MISC_COMBO_TEXT);
+        Save_Default_Tag_Comment_Text_List(DefaultCommentModel, MISC_COMBO_TEXT);
+        Save_Audio_File_Player_List       (FilePlayerModel, MISC_COMBO_TEXT);
+        Save_Cddb_Local_Path_List         (CddbLocalPathModel, MISC_COMBO_TEXT);
     }
 }
 

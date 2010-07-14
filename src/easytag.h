@@ -192,7 +192,7 @@ void File_Area_Set_Sensitive (gboolean activate);
 void Tag_Area_Set_Sensitive  (gboolean activate);
 void Tag_Area_Display_Controls (ET_File *ETFile);
 
-void Read_Directory                   (gchar *path);
+gboolean Read_Directory               (gchar *path);
 void Quit_MainWindow                  (void);
 void MainWindow_Apply_Changes         (void);
 void Update_Command_Buttons_Sensivity (void);
