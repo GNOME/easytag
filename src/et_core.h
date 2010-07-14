@@ -164,7 +164,7 @@ struct _Picture
     gchar   *description;
     gint     width;         /* Original width of the picture */
     gint     height;        /* Original height of the picture */
-    gulong   size;          /* Picture size in bytes (like lstat) */
+    gulong   size;          /* Picture size in bytes (like stat) */
     guchar  *data;
     Picture *next;
 };
@@ -282,6 +282,8 @@ struct _ET_File
     guint IndexKey;           /* Value used to display the position in the list (and in the BrowserList) - Must be renumered after resorting the list - This value varies when resorting list */
 
     guint ETFileKey;          /* Primary key to identify each item of the list (no longer used?) */
+
+    time_t FileModificationTime;            /* Save modification time of the file */
 
     ET_File_Description *ETFileDescription;
     gchar               *ETFileExtension;   /* Real extension of the file (keeping the case) (should be placed in ETFileDescription?) */

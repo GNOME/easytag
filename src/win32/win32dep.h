@@ -23,7 +23,7 @@
 #ifndef _WIN32DEP_H_
 #define _WIN32DEP_H_
 
-
+#include <shlobj.h>
 #include <winsock2.h>
 #include <process.h>
 #include <gtk/gtk.h>
@@ -45,41 +45,42 @@
  ** win32dep.c
  **/
 /* Windows helper functions */
-extern int       mkstemp(char *template);
+FARPROC weasytag_find_and_loadproc(const char *dllname, const char *procedure);
+char *weasytag_read_reg_string(HKEY rootkey, const char *subkey, const char *valname); /* needs to be g_free'd */
+gboolean weasytag_write_reg_string(HKEY rootkey, const char *subkey, const char *valname, const char *value);
+char *weasytag_escape_dirsep(const char *filename); /* needs to be g_free'd */
 
-extern HINSTANCE ET_Win32_Hinstance       (void);
-extern gboolean  ET_Win32_Read_Reg_String (HKEY key, char* sub_key, char* val_name, LPBYTE data, LPDWORD data_len);
-extern char     *ET_Win32_Escape_Dirsep   (const char *filename);
-
-/* Determine ET paths */
-extern char*     ET_Win32_Install_Dir (void);
-extern char*     ET_Win32_Lib_Dir (void);
-extern char*     ET_Win32_Locale_Dir  (void);
-extern char*     ET_Win32_Data_Dir    (void);
-
-/* Misc */
-extern char *    ET_Win32_Get_Audio_File_Player (void);
-extern void      ET_Win32_Notify_Uri (const char *uri);
+/* Determine EasyTAG paths */
+char *weasytag_get_special_folder(int folder_type);
+const char *weasytag_install_dir(void);
+const char *weasytag_lib_dir(void);
+const char *weasytag_locale_dir(void);
+const char *weasytag_data_dir(void);
 
 /* init / cleanup */
-extern void      ET_Win32_Init    (HINSTANCE);
-extern void      ET_Win32_Cleanup (void);
+void weasytag_init(void);
+void weasytag_cleanup(void);
 
-extern void      ET_Win32_Path_Remove_Trailing_Slash     (gchar *path);
-extern void      ET_Win32_Path_Remove_Trailing_Backslash (gchar *path);
-extern void      ET_Win32_Path_Replace_Backslashes       (gchar *path);
-extern void      ET_Win32_Path_Replace_Slashes           (gchar *path);
+/* Misc */
+extern char *ET_Win32_Get_Audio_File_Player (void);
+
+extern void  ET_Win32_Path_Remove_Trailing_Slash     (gchar *path);
+extern void  ET_Win32_Path_Remove_Trailing_Backslash (gchar *path);
+extern void  ET_Win32_Path_Replace_Backslashes       (gchar *path);
+extern void  ET_Win32_Path_Replace_Slashes           (gchar *path);
+
+extern int   mkstemp (char *template);
 
 /*
  *  MACROS
  */
 
 /*
- *  ET specific
+ *  EasyTAG specific
  */
-#define DATADIR   ET_Win32_Install_Dir()
-#define LIBDIR    ET_Win32_Lib_Dir()
-#define LOCALEDIR ET_Win32_Locale_Dir()
-//#define PACKAGE_DATA_DIR DATADIR
+#define DATADIR   weasytag_install_dir()
+#define LIBDIR    weasytag_lib_dir()
+#define LOCALEDIR weasytag_locale_dir()
 
 #endif /* _WIN32DEP_H_ */
+

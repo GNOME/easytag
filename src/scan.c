@@ -344,7 +344,7 @@ void Scan_Tag_With_Mask (ET_File *ETFile)
             case ID3_TAG:
                 crc32_file_with_ID3_tag( ((File_Name *)((GList *)ETFile->FileNameNew)->data)->value, &crc32_value);
 
-            if (crc32_value > 0)
+                if (crc32_value > 0)
                 {
                     buffer = g_strdup_printf("%.8lx",crc32_value);
                     ET_Set_Field_File_Tag_Item((void *)&FileTag->comment,buffer);
@@ -1803,7 +1803,9 @@ gint Scan_Word_Is_Roman_Numeral (gchar *text)
     gint   rn_int;
     gchar *rn_char;
 
-    if (!GTK_TOGGLE_BUTTON(ProcessFieldsDetectRomanNumerals)->active)
+    if (!ScannerWindow
+    ||  !ProcessFieldsDetectRomanNumerals
+    ||  !GTK_TOGGLE_BUTTON(ProcessFieldsDetectRomanNumerals)->active)
         return 0;
     
     tmp = text;
@@ -2046,7 +2048,8 @@ int roman2int (const char * str)
    int      num;
    unsigned i;
    unsigned len;
-   unsigned p[2];	// stores values of previous symbols for error checking
+   unsigned last;
+   unsigned prevlast;
 
    // checks args
    if (!(str))
@@ -2057,8 +2060,8 @@ int roman2int (const char * str)
    // sets initial values 
    num  = 0;
    len  = strlen(str);
-   p[0] = 1000;
-   p[1] = 1000;
+   last = 1000;
+   prevlast = 1000;
 
    // loops through characters
    for(i = 0; i < len; i++)
@@ -2077,123 +2080,117 @@ int roman2int (const char * str)
          case 'I':
             num  += 1;
             // prevent patterns like IXI
-            if ((p[1] == 1) && (p[0] != 1))
+            if ((prevlast == 1) && (last != 1))
             {
                return(-1);
             };
-
             // prevent patterns like IIIII and VIIIII
             if ((!(num%5)) || (!(num%10)))
             {
               return(-1);
             };
-            p[1]   = p[0];
-            p[0]  = 1;
+            // rotates value into history
+            prevlast   = last;
+            last  = 1;
             break;
          case 'v':
          case 'V':
             num += 5;
-            if (((p[0] < 5) && (p[1] < 5)) || (p[1] == 5) || (p[0] == 5))
+            // tests for invalid syntax
+            if ( ((last <= 5) && (last != 1)) || (prevlast <= 5) )
             {
                return(-1);
             }
-            else if (p[0] < 5)
-               num -= (p[0] * 2);
-            p[1]  = p[0];
-            p[0] = 5;
+            // applies subtraction method & rotates value into history
+            if (last < 5)
+               num -= (last * 2);
+            prevlast  = last;
+            last = 5;
             break;
          case 'x':
          case 'X':
             num += 10;
-            // prevent patterns like XCX
-            if (((p[0] < 10) && (p[1] < 10)) || ((p[1] < 10) && (p[0] <= 10)))
+            // tests for invalid syntax
+            if ( ((prevlast < 10) && (last <= 10)) || ((last < 10) && (last != 1)) )
             {
                return(-1);
             };
-            if (p[0] == 1)
-               num -= (p[0] * 2);
-            else if (p[0] < 10)
-            {
-               return(-1);
-            };
-            
             // prevent patterns like XXXXX and VXXXXX
             if ((!(num%50)) || (!(num%100)))
             {
                return(-1);
             };
-            p[1]  = p[0];
-            p[0] = 10;
+            // applies subtraction method & rotates value into history
+            if (last == 1)
+               num -= (last * 2);
+            prevlast  = last;
+            last = 10;
             break;
          case 'l':
          case 'L':
             num += 50;
-            if (((p[0] < 50) && (p[1] < 50)) || (p[1] == 50) || (p[0] == 50))
+            // tests for invalid syntax
+            if ( ((last <= 50) && (last != 10)) || (prevlast <= 50) )
             {
                return(-1);
             }
-            else if (p[0] < 50)
-               num -= (p[0] * 2);
-            p[1]  = p[0];
-            p[0] = 50;
+            // applies subtraction method & rotates value into history
+            if (last < 50)
+               num -= (last * 2);
+            prevlast  = last;
+            last = 50;
             break;
          case 'c':
          case 'C':
             num += 100;
-            // prevent patterns like CMC
-            if (((p[0] < 100) && (p[1] < 100)) || ((p[1] < 100) && (p[0] <= 100)))
+            // tests for invalid syntax
+            if ( ((prevlast < 100) && (last <= 100)) || ((last < 100) && (last != 10)) )
             {
                return(-1);
             };
-            if (p[0] == 10)
-               num -= (p[0] * 2);
-            else if (p[0] < 100)
-            {
-               return(-1);
-            };
-
             // prevent patterns like CCCCC and VCCCCC
             if ((!(num%500)) || (!(num%1000)))
             {
                return(-1);
             };
-            p[1]  = p[0];
-            p[0] = 100;
+            // applies subtraction method & rotates value into history
+            if (last == 10)
+               num -= (last * 2);
+            prevlast  = last;
+            last = 100;
             break;
          case 'd':
          case 'D':
             num += 500;
-            if (((p[0] < 500) && (p[1] < 500)) || (p[1] == 500) || (p[0] == 500))
+            // tests for invalid syntax
+            if ( ((last <= 500) && (last != 100)) || (prevlast <= 500) )
             {
                return(-1);
             }
-            else if (p[0] < 500)
-               num -= (p[0] * 2);
-            p[1]  = p[0];
-            p[0] = 500;
+            // applies subtraction method & rotates value into history
+            if (last < 500)
+               num -= (last * 2);
+            prevlast  = last;
+            last = 500;
             break;
          case 'm':
          case 'M':
             num += 1000;
-            // prevent patterns like M?M
-            if (((p[0] < 1000) && (p[1] < 1000)) || ((p[1] < 100) && (p[0] <= 1000)))
+            // tests for invalid syntax
+            if ( ((prevlast < 1000) && (last <= 1000)) || ((last < 1000) && (last != 100)) )
             {
                return(-1);
             };
-            if (p[0] == 100)
-               num -= (p[0] * 2);
-            else if (p[0] < 1000)
-            {
-               return(-1);
-            };
-
             // prevent patterns like MMMMM and VMMMMM
             if ((!(num%5000)) || (!(num%10000)))
             {
                return(-1);
             };
-            p[1]  = p[0];
-            p[0] = 1000;
+            // applies subtraction method & rotates value into history
+            if (last == 100)
+               num -= (last * 2);
+            prevlast  = last;
+            last = 1000;
             break;
          default:
             return(-1);

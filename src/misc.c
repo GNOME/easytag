@@ -463,7 +463,7 @@ gboolean Parse_Date (void)
         /* Get the current date */
         memcpy(&t0, localtime(&t), sizeof(struct tm));
         /* Put the current year in 'current_year' tab */
-        sprintf(current_year,"%d",1900+t0.tm_year);
+        sprintf(current_year,"%04d",1900+t0.tm_year);
 
         tmp = &current_year[4-strlen(year)];
         if ( atoi(year) <= atoi(tmp) )
@@ -2635,6 +2635,7 @@ void Search_Result_List_Row_Selected(GtkTreeSelection *selection, gpointer data)
         return;
     }
 
+    // Unselect files in the main list before re-selecting them...
     Browser_List_Unselect_All_Files();
 
     while (selectedRows)
@@ -2642,9 +2643,13 @@ void Search_Result_List_Row_Selected(GtkTreeSelection *selection, gpointer data)
         found = gtk_tree_model_get_iter(GTK_TREE_MODEL(SearchResultListModel), &currentFile, (GtkTreePath*)selectedRows->data);
         if (found)
         {
-            gtk_tree_model_get(GTK_TREE_MODEL(SearchResultListModel), &currentFile, SEARCH_RESULT_POINTER, &ETFile, -1);
+            gtk_tree_model_get(GTK_TREE_MODEL(SearchResultListModel), &currentFile, 
+                               SEARCH_RESULT_POINTER, &ETFile, -1);
+            // Select the files (but don't display them to increase speed)
             Browser_List_Select_File_By_Etfile(ETFile, TRUE);
-            Action_Select_Nth_File_By_Etfile(ETFile);
+            // Display only the last file (to increase speed)
+            if (!selectedRows->next)
+                Action_Select_Nth_File_By_Etfile(ETFile);
         }
         selectedRows = selectedRows->next;
     }

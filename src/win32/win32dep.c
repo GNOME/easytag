@@ -4,7 +4,7 @@
  * File: win32dep.c
  * Date: June, 2002
  * Description: Windows dependant code for Easytag
- * this code if largely taken from win32 gaim
+ * this code if largely taken from win32 Gaim and Purple
  *
  * Copyright (C) 2002-2003, Herman Bloggs <hermanator12002@yahoo.com>
  *
@@ -28,7 +28,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <winuser.h>
-#include <shlobj.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -36,12 +35,8 @@
 
 #include <gtk/gtk.h>
 #include <glib.h>
-#if GLIB_CHECK_VERSION(2,6,0)
-#   include <glib/gstdio.h>
-#else
-#   define g_fopen fopen
-#   define g_unlink unlink
-#endif
+#include <glib/gstdio.h>
+
 #include <gdk/gdkwin32.h>
 
 #include "resource.h"
@@ -65,6 +60,7 @@
 typedef HRESULT (CALLBACK* LPFNSHGETFOLDERPATHA)(HWND, int, HANDLE, DWORD, LPSTR);
 typedef HRESULT (CALLBACK* LPFNSHGETFOLDERPATHW)(HWND, int, HANDLE, DWORD, LPWSTR);
 
+// Defined also in "#include <shlobj.h>"
 typedef enum
 {
     SHGFP_TYPE_CURRENT  = 0,   // current value for user, verify it exists
@@ -74,44 +70,22 @@ typedef enum
 /*
  * LOCALS
  */
-static char app_data_dir[MAX_PATH + 1] = "C:";
-static char install_dir[MAXPATHLEN];
-static char lib_dir[MAXPATHLEN];
-static char locale_dir[MAXPATHLEN];
+static char *app_data_dir = NULL, *install_dir = NULL,
+	*lib_dir = NULL, *locale_dir = NULL;
 
-static void str_replace_char (gchar *str, gchar in_char, gchar out_char);
+static HINSTANCE libeasytagdll_hInstance = 0;
 
-/*
- *  GLOBALS
- */
-HINSTANCE ET_exe_hInstance = 0;
-HINSTANCE ET_dll_hInstance = 0;
-
-/*
- *  PROTOS
- */
-LPFNSHGETFOLDERPATHA MySHGetFolderPathA = NULL;
-LPFNSHGETFOLDERPATHW MySHGetFolderPathW = NULL;
-
-FARPROC ET_Win32_Find_And_Loadproc (char*, char*);
-char* ET_Win32_Data_Dir (void);
 
 
 /*
  *  PUBLIC CODE
  */
 
-HINSTANCE ET_Win32_Hinstance (void)
-{
-    return ET_exe_hInstance;
-}
-
 /* Escape windows dir separators.  This is needed when paths are saved,
    and on being read back have their '\' chars used as an escape char.
    Returns an allocated string which needs to be freed.
 */
-char *ET_Win32_Escape_Dirsep (const char *filename)
-{
+char *weasytag_escape_dirsep(const char *filename) {
 	int sepcount = 0;
 	const char *tmp = filename;
 	char *ret;
@@ -135,6 +109,415 @@ char *ET_Win32_Escape_Dirsep (const char *filename)
 	ret[cnt] = '\0';
 	return ret;
 }
+
+/* Determine whether the specified dll contains the specified procedure.
+   If so, load it (if not already loaded). */
+FARPROC weasytag_find_and_loadproc(const char *dllname, const char *procedure) {
+    HMODULE hmod;
+	BOOL did_load = FALSE;
+    FARPROC proc = 0;
+
+	if(!(hmod = GetModuleHandle(dllname))) {
+        //Log_Print(_("DLL '%s' not already loaded. Try loading it..."), dllname);
+        g_printf(_("DLL '%s' not already loaded. Try loading it..."), dllname);
+        g_print("\n");
+		if(!(hmod = LoadLibrary(dllname))) {
+            //Log_Print(_("DLL '%s' could not be loaded"), dllname);
+            g_print(_("DLL '%s' could not be loaded"), dllname);
+            g_print("\n");
+            return NULL;
+        }
+        else
+			did_load = TRUE;
+    }
+
+	if((proc = GetProcAddress(hmod, procedure))) {
+        //Log_Print(_("This version of '%s' contains '%s'"), dllname, procedure);
+        g_print(_("This version of '%s' contains '%s'"), dllname, procedure);
+        g_print("\n");
+        return proc;
+    }
+	else {
+        //Log_Print(_("Function '%s' not found in dll '%s'"), procedure, dllname);
+        g_print(_("Function '%s' not found in dll '%s'"), procedure, dllname);
+        g_print("\n");
+		if(did_load) {
+            /* unload dll */
+            FreeLibrary(hmod);
+        }
+        return NULL;
+    }
+}
+
+/* Determine Easytag Paths during Runtime */
+
+/* Get paths to special Windows folders. */
+char *weasytag_get_special_folder(int folder_type) {
+	static LPFNSHGETFOLDERPATHA MySHGetFolderPathA = NULL;
+	static LPFNSHGETFOLDERPATHW MySHGetFolderPathW = NULL;
+	char *retval = NULL;
+
+	if (!MySHGetFolderPathW) {
+		MySHGetFolderPathW = (LPFNSHGETFOLDERPATHW)
+			weasytag_find_and_loadproc("shfolder.dll", "SHGetFolderPathW");
+	}
+
+	if (MySHGetFolderPathW) {
+		wchar_t utf_16_dir[MAX_PATH + 1];
+
+		if (SUCCEEDED(MySHGetFolderPathW(NULL, folder_type, NULL,
+						SHGFP_TYPE_CURRENT, utf_16_dir))) {
+			retval = g_utf16_to_utf8(utf_16_dir, -1, NULL, NULL, NULL);
+		}
+	}
+
+	if (!retval) {
+		if (!MySHGetFolderPathA) {
+			MySHGetFolderPathA = (LPFNSHGETFOLDERPATHA)
+				weasytag_find_and_loadproc("shfolder.dll", "SHGetFolderPathA");
+		}
+		if (MySHGetFolderPathA) {
+			char locale_dir[MAX_PATH + 1];
+
+			if (SUCCEEDED(MySHGetFolderPathA(NULL, folder_type, NULL,
+							SHGFP_TYPE_CURRENT, locale_dir))) {
+				retval = g_locale_to_utf8(locale_dir, -1, NULL, NULL, NULL);
+			}
+		}
+	}
+
+	return retval;
+}
+
+const char *weasytag_install_dir(void) {
+	static gboolean initialized = FALSE;
+
+	if (!initialized) {
+		char *tmp = NULL;
+		if (G_WIN32_HAVE_WIDECHAR_API()) {
+			wchar_t winstall_dir[MAXPATHLEN];
+			if (GetModuleFileNameW(NULL, winstall_dir,
+					MAXPATHLEN) > 0) {
+				tmp = g_utf16_to_utf8(winstall_dir, -1,
+					NULL, NULL, NULL);
+			}
+		} else {
+			gchar cpinstall_dir[MAXPATHLEN];
+			if (GetModuleFileNameA(NULL, cpinstall_dir,
+					MAXPATHLEN) > 0) {
+				tmp = g_locale_to_utf8(cpinstall_dir,
+					-1, NULL, NULL, NULL);
+			}
+		}
+
+		if (tmp == NULL) {
+			tmp = g_win32_error_message(GetLastError());
+            //Log_Print("GetModuleFileName error: %s", tmp);
+            g_print("GetModuleFileName error: %s", tmp);
+            g_print("\n");
+			g_free(tmp);
+			return NULL;
+		} else {
+			install_dir = g_path_get_dirname(tmp);
+			g_free(tmp);
+			initialized = TRUE;
+		}
+	}
+
+	return install_dir;
+}
+
+const char *weasytag_lib_dir(void) {
+	static gboolean initialized = FALSE;
+
+	if (!initialized) {
+		const char *inst_dir = weasytag_install_dir();
+		if (inst_dir != NULL) {
+			lib_dir = g_strdup_printf("%s" G_DIR_SEPARATOR_S "library", inst_dir);
+			initialized = TRUE;
+		} else {
+			return NULL;
+		}
+	}
+
+	return lib_dir;
+}
+
+const char *weasytag_locale_dir(void) {
+	static gboolean initialized = FALSE;
+
+	if (!initialized) {
+		const char *inst_dir = weasytag_install_dir();
+		if (inst_dir != NULL) {
+			locale_dir = g_strdup_printf("%s" G_DIR_SEPARATOR_S "locale", inst_dir);
+			initialized = TRUE;
+		} else {
+			return NULL;
+		}
+	}
+
+	return locale_dir;
+}
+
+const char *weasytag_data_dir(void) {
+
+	if (!app_data_dir) {
+		/* Set app data dir, used by easytag_home_dir */
+		const char *newenv = g_getenv("EASYTAGHOME");
+		if (newenv)
+			app_data_dir = g_strdup(newenv);
+		else {
+			app_data_dir = weasytag_get_special_folder(CSIDL_APPDATA);
+			if (!app_data_dir)
+				app_data_dir = g_strdup("C:");
+		}
+
+        //ET_Win32_Path_Replace_Backslashes(app_data_dir);
+
+        //Log_Print(_("EasyTAG settings dir: '%s'"), app_data_dir);
+        g_print(_("EasyTAG settings dir: '%s'"), app_data_dir);
+        g_print("\n");
+	}
+
+	return app_data_dir;
+}
+
+/* Miscellaneous */
+
+gboolean weasytag_write_reg_string(HKEY rootkey, const char *subkey, const char *valname,
+		const char *value) {
+	HKEY reg_key;
+	gboolean success = FALSE;
+
+	if(G_WIN32_HAVE_WIDECHAR_API()) {
+		wchar_t *wc_subkey = g_utf8_to_utf16(subkey, -1, NULL,
+			NULL, NULL);
+
+		if(RegOpenKeyExW(rootkey, wc_subkey, 0,
+				KEY_SET_VALUE, &reg_key) == ERROR_SUCCESS) {
+			wchar_t *wc_valname = NULL;
+
+			if (valname)
+				wc_valname = g_utf8_to_utf16(valname, -1,
+					NULL, NULL, NULL);
+
+			if(value) {
+				wchar_t *wc_value = g_utf8_to_utf16(value, -1,
+					NULL, NULL, NULL);
+				int len = (wcslen(wc_value) * sizeof(wchar_t)) + 1;
+				if(RegSetValueExW(reg_key, wc_valname, 0, REG_SZ,
+						(LPBYTE)wc_value, len
+						) == ERROR_SUCCESS)
+					success = TRUE;
+				g_free(wc_value);
+			} else
+				if(RegDeleteValueW(reg_key, wc_valname) ==  ERROR_SUCCESS)
+					success = TRUE;
+
+			g_free(wc_valname);
+		}
+		g_free(wc_subkey);
+	} else {
+		char *cp_subkey = g_locale_from_utf8(subkey, -1, NULL,
+			NULL, NULL);
+		if(RegOpenKeyExA(rootkey, cp_subkey, 0,
+				KEY_SET_VALUE, &reg_key) == ERROR_SUCCESS) {
+			char *cp_valname = NULL;
+			if(valname)
+				cp_valname = g_locale_from_utf8(valname, -1,
+					NULL, NULL, NULL);
+
+			if (value) {
+				char *cp_value = g_locale_from_utf8(value, -1,
+					NULL, NULL, NULL);
+				int len = strlen(cp_value) + 1;
+				if(RegSetValueExA(reg_key, cp_valname, 0, REG_SZ,
+						cp_value, len
+						) == ERROR_SUCCESS)
+					success = TRUE;
+				g_free(cp_value);
+			} else
+				if(RegDeleteValueA(reg_key, cp_valname) ==  ERROR_SUCCESS)
+					success = TRUE;
+
+			g_free(cp_valname);
+		}
+		g_free(cp_subkey);
+	}
+
+	if(reg_key != NULL)
+		RegCloseKey(reg_key);
+
+	return success;
+}
+
+static HKEY _reg_open_key(HKEY rootkey, const char *subkey, REGSAM access) {
+	HKEY reg_key = NULL;
+	LONG rv;
+
+	if(G_WIN32_HAVE_WIDECHAR_API()) {
+		wchar_t *wc_subkey = g_utf8_to_utf16(subkey, -1, NULL,
+			NULL, NULL);
+		rv = RegOpenKeyExW(rootkey, wc_subkey, 0, access, &reg_key);
+		g_free(wc_subkey);
+	} else {
+		char *cp_subkey = g_locale_from_utf8(subkey, -1, NULL,
+			NULL, NULL);
+		rv = RegOpenKeyExA(rootkey, cp_subkey, 0, access, &reg_key);
+		g_free(cp_subkey);
+	}
+
+	if (rv != ERROR_SUCCESS) {
+		char *errmsg = g_win32_error_message(rv);
+		g_print("Could not open reg key '%s' subkey '%s'. Message: (%ld) %s\n",
+					((rootkey == HKEY_LOCAL_MACHINE) ? "HKLM" :
+					 (rootkey == HKEY_CURRENT_USER) ? "HKCU" :
+					  (rootkey == HKEY_CLASSES_ROOT) ? "HKCR" : "???"),
+					subkey, rv, errmsg);
+		g_free(errmsg);
+	}
+
+	return reg_key;
+}
+
+static gboolean _reg_read(HKEY reg_key, const char *valname, LPDWORD type, LPBYTE data, LPDWORD data_len) {
+	LONG rv;
+
+	if(G_WIN32_HAVE_WIDECHAR_API()) {
+		wchar_t *wc_valname = NULL;
+		if (valname)
+			wc_valname = g_utf8_to_utf16(valname, -1, NULL, NULL, NULL);
+		rv = RegQueryValueExW(reg_key, wc_valname, 0, type, data, data_len);
+		g_free(wc_valname);
+	} else {
+		char *cp_valname = NULL;
+		if(valname)
+			cp_valname = g_locale_from_utf8(valname, -1, NULL, NULL, NULL);
+		rv = RegQueryValueExA(reg_key, cp_valname, 0, type, data, data_len);
+		g_free(cp_valname);
+	}
+
+	if (rv != ERROR_SUCCESS) {
+		char *errmsg = g_win32_error_message(rv);
+		g_print("Could not read from reg key value '%s'. Message: (%ld) %s\n",
+					valname, rv, errmsg);
+		g_free(errmsg);
+	}
+
+	return (rv == ERROR_SUCCESS);
+}
+
+gboolean weasytag_read_reg_dword(HKEY rootkey, const char *subkey, const char *valname, LPDWORD result) {
+
+	DWORD type;
+	DWORD nbytes;
+	HKEY reg_key = _reg_open_key(rootkey, subkey, KEY_QUERY_VALUE);
+	gboolean success = FALSE;
+
+	if(reg_key) {
+		if(_reg_read(reg_key, valname, &type, (LPBYTE)result, &nbytes))
+			success = TRUE;
+		RegCloseKey(reg_key);
+	}
+
+	return success;
+}
+
+char *weasytag_read_reg_string(HKEY rootkey, const char *subkey, const char *valname) {
+
+	DWORD type;
+	DWORD nbytes;
+	HKEY reg_key = _reg_open_key(rootkey, subkey, KEY_QUERY_VALUE);
+	char *result = NULL;
+
+	if(reg_key) {
+		if(_reg_read(reg_key, valname, &type, NULL, &nbytes) && type == REG_SZ) {
+			LPBYTE data;
+			if(G_WIN32_HAVE_WIDECHAR_API())
+				data = (LPBYTE) g_new(wchar_t, ((nbytes + 1) / sizeof(wchar_t)) + 1);
+			else
+				data = (LPBYTE) g_malloc(nbytes + 1);
+
+			if(_reg_read(reg_key, valname, &type, data, &nbytes)) {
+				if(G_WIN32_HAVE_WIDECHAR_API()) {
+					wchar_t *wc_temp = (wchar_t*) data;
+					wc_temp[nbytes / sizeof(wchar_t)] = '\0';
+					result = g_utf16_to_utf8(wc_temp, -1,
+						NULL, NULL, NULL);
+				} else {
+					char *cp_temp = (char*) data;
+					cp_temp[nbytes] = '\0';
+					result = g_locale_to_utf8(cp_temp, -1,
+						NULL, NULL, NULL);
+				}
+			}
+			g_free(data);
+		}
+		RegCloseKey(reg_key);
+	}
+
+	return result;
+}
+
+
+void weasytag_init(void) {
+    WORD wVersionRequested;
+    WSADATA wsaData;
+	char *newenv;
+
+    //Log_Print(_("weasytag_init start..."));
+    g_print(_("weasytag_init start..."));
+    g_print("\n");
+    //Log_Print(_("EasyTAG version: %s"),VERSION);
+    //g_print(_("EasyTAG version: %s"),VERSION);
+    //g_print("\n");
+
+	g_print(_("Glib version: %u.%u.%u\n"),glib_major_version, glib_minor_version, glib_micro_version);
+
+    /* Winsock init */
+    wVersionRequested = MAKEWORD( 2, 2 );
+    WSAStartup( wVersionRequested, &wsaData );
+
+    /* Confirm that the winsock DLL supports 2.2 */
+    /* Note that if the DLL supports versions greater than
+       2.2 in addition to 2.2, it will still return 2.2 in 
+       wVersion since that is the version we requested. */
+	if(LOBYTE(wsaData.wVersion) != 2 || HIBYTE(wsaData.wVersion) != 2) {
+        g_print("Could not find a usable WinSock DLL.  Oh well.\n");
+        WSACleanup();
+    }
+
+	/* Set Environmental Variables */
+
+    //Log_Print(_("weasytag_init end..."));
+    g_print(_("weasytag_init end..."));
+    g_print("\n");
+}
+
+/* Windows Cleanup */
+
+void weasytag_cleanup(void) {
+	//Log_Print("weasytag_cleanup");
+    g_print("weasytag_cleanup\n");
+
+    /* winsock cleanup */
+    WSACleanup();
+
+	g_free(app_data_dir);
+	app_data_dir = NULL;
+
+	libeasytagdll_hInstance = NULL;
+}
+
+/* DLL initializer */
+/* suppress gcc "no previous prototype" warning */
+BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved);
+BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
+	libeasytagdll_hInstance = hinstDLL;
+    return TRUE;
+}
+
+
 
 /* this is used by libmp4v2 : what is it doing here you think ? well...search! */
 int gettimeofday (struct timeval *t, void *foo)
@@ -164,170 +547,6 @@ int mkstemp (char *template)
     return fd;
 }
 
-/* Determine whether the specified dll contains the specified procedure.
-   If so, load it (if not already loaded). */
-FARPROC ET_Win32_Find_And_Loadproc (char *dllname, char *procedure)
-{
-    HMODULE hmod;
-	BOOL did_load = FALSE;
-    FARPROC proc = 0;
-
-    if(!(hmod=GetModuleHandle(dllname)))
-    {
-        //Log_Print(_("DLL '%s' not found. Try loading it..."), dllname);
-        g_printf(_("DLL '%s' not found. Try loading it..."), dllname);
-        g_print("\n");
-        if(!(hmod = LoadLibrary(dllname)))
-        {
-            //Log_Print(_("DLL '%s' could not be loaded"), dllname);
-            g_print(_("DLL '%s' could not be loaded"), dllname);
-            g_print("\n");
-            return NULL;
-        }
-        else
-			did_load = TRUE;
-    }
-
-    if((proc=GetProcAddress(hmod, procedure)))
-    {
-        //Log_Print(_("This version of '%s' contains '%s'"), dllname, procedure);
-        g_print(_("This version of '%s' contains '%s'"), dllname, procedure);
-        g_print("\n");
-        return proc;
-    }
-    else
-    {
-        //Log_Print(_("Function '%s' not found in dll '%s'"), procedure, dllname);
-        g_print(_("Function '%s' not found in dll '%s'"), procedure, dllname);
-        g_print("\n");
-        if(did_load)
-        {
-            /* unload dll */
-            FreeLibrary(hmod);
-        }
-        return NULL;
-    }
-}
-
-/* Determine Easytag Paths during Runtime */
-
-char* ET_Win32_Install_Dir (void)
-{
-    HMODULE hmod;
-    char* buf;
-
-    hmod = GetModuleHandle(NULL);
-    if ( hmod == 0 )
-    {
-        buf = g_win32_error_message( GetLastError() );
-        //Log_Print("GetModuleHandle error: %s\n", buf);
-        g_print("GetModuleHandle error: %s\n", buf);
-        g_free(buf);
-        return NULL;
-    }
-    if (GetModuleFileName( hmod, (char*)&install_dir, MAXPATHLEN ) == 0)
-    {
-        buf = g_win32_error_message( GetLastError() );
-        //Log_Print("GetModuleFileName error: %s\n", buf);
-        g_print("GetModuleFileName error: %s\n", buf);
-        g_free(buf);
-        return NULL;
-    }
-    buf = g_path_get_dirname( install_dir );
-    strcpy( (char*)&install_dir, buf );
-    g_free( buf );
-
-    return (char*)&install_dir;
-}
-
-
-char *ET_Win32_Lib_Dir (void)
-{
-	strcpy(lib_dir, ET_Win32_Install_Dir());
-	g_strlcat(lib_dir, G_DIR_SEPARATOR_S "library", sizeof(lib_dir));
-	return (char*)&lib_dir;
-}
-
-char *ET_Win32_Locale_Dir (void)
-{
-    strcpy(locale_dir, ET_Win32_Install_Dir());
-    g_strlcat(locale_dir, G_DIR_SEPARATOR_S "locale", sizeof(locale_dir));
-    return (char*)&locale_dir;
-}
-
-char *ET_Win32_Data_Dir (void)
-{
-    return (char*)&app_data_dir;
-}
-
-
-/* Miscellaneous */
-
-gboolean ET_Win32_Read_Reg_String (HKEY key, char* sub_key, char* val_name, LPBYTE data, LPDWORD data_len)
-{
-    HKEY hkey;
-    gboolean ret = FALSE;
-
-    if(ERROR_SUCCESS == RegOpenKeyEx(key, sub_key, 0, KEY_QUERY_VALUE, &hkey))
-    {
-        if (ERROR_SUCCESS == RegQueryValueEx(hkey, val_name, 0, NULL, data, data_len))
-            ret = TRUE;
-        RegCloseKey(key);
-    }
-    return ret;
-}
-
-/* find a default player executable */
-char*  ET_Win32_Get_Audio_File_Player (void)
-{
-    DWORD len = 256;
-    char key_value[256];
-
-    char *player;
-
-    if(ET_Win32_Read_Reg_String(HKEY_CURRENT_USER, "Software\\foobar2000", "InstallDir", key_value, &len))
-    {
-        player = g_strconcat(key_value, "\\foobar2000.exe", NULL);
-    }
-    else if(ET_Win32_Read_Reg_String(HKEY_CURRENT_USER, "Software\\Winamp", "", key_value, &len))
-    {
-        player = g_strconcat(key_value, "\\winamp.exe", NULL);
-    }
-    else
-    {
-        player = g_strdup("");
-    }
-     
-    //Log_Print(_("Audio player: '%s'"), player);
-    g_print(_("Audio player: '%s'"), player);
-    g_print("\n");
-
-    return player;
-}
-
-
-void ET_Win32_Notify_Uri (const char *uri)
-{
-    SHELLEXECUTEINFO sinfo;
-
-    memset(&sinfo, 0, sizeof(sinfo));
-    sinfo.cbSize = sizeof(sinfo);
-    sinfo.fMask = SEE_MASK_CLASSNAME;
-    sinfo.lpVerb = "open";
-    sinfo.lpFile = uri; 
-    sinfo.nShow = SW_SHOWNORMAL; 
-    sinfo.lpClass = "http";
-
-    /* We'll allow whatever URI schemes are supported by the
-       default http browser.
-    */
-    if(!ShellExecuteEx(&sinfo))
-        //Log_Print("Error opening URI: %s error: %d\n", uri, (int)sinfo.hInstApp);
-        g_print("Error opening URI: %s error: %d\n", uri, (int)sinfo.hInstApp);
-}
-
-
-
 void str_replace_char (gchar *str, gchar in_char, gchar out_char)
 {
     while(*str)
@@ -337,8 +556,6 @@ void str_replace_char (gchar *str, gchar in_char, gchar out_char)
         str++;
     }
 }
-
-
 
 /* Remove trailing '/' if any */
 void ET_Win32_Path_Remove_Trailing_Slash (gchar *path)
@@ -372,97 +589,32 @@ void ET_Win32_Path_Replace_Slashes (gchar *path)
     str_replace_char(path, '/', '\\');
 }
 
-void ET_Win32_Init (HINSTANCE hint)
+/* find a default player executable */
+char*  ET_Win32_Get_Audio_File_Player (void)
 {
-    WORD wVersionRequested;
-    WSADATA wsaData;
-        char *newenv;
+    char *key_value;
+    char *player;
 
-    ET_exe_hInstance = hint;
-
-    /* Winsock init */
-    wVersionRequested = MAKEWORD( 2, 2 );
-    WSAStartup( wVersionRequested, &wsaData );
-
-    /* Confirm that the winsock DLL supports 2.2 */
-    /* Note that if the DLL supports versions greater than
-       2.2 in addition to 2.2, it will still return 2.2 in 
-       wVersion since that is the version we requested. */
-    if ( LOBYTE( wsaData.wVersion ) != 2
-    ||   HIBYTE( wsaData.wVersion ) != 2 )
+    if (key_value=weasytag_read_reg_string(HKEY_CURRENT_USER, "Software\\foobar2000", "InstallDir"))
     {
-        g_print("Could not find a usable WinSock DLL.  Oh well.\n");
-        WSACleanup();
-    }
-
-    /* Set app data dir, used by easytag_home_dir */
-    newenv = (char*)g_getenv("EASYTAGHOME");
-    if(!newenv)
+        player = g_strconcat(key_value, "\\foobar2000.exe", NULL);
+        g_free(key_value);
+        
+    }else if(key_value=weasytag_read_reg_string(HKEY_CURRENT_USER, "Software\\Winamp", ""))
     {
-#if GLIB_CHECK_VERSION(2,6,0)
-        if ((MySHGetFolderPathW = (LPFNSHGETFOLDERPATHW) ET_Win32_Find_And_Loadproc("shfolder.dll", "SHGetFolderPathW")))
-        {
-            wchar_t utf_16_dir[MAX_PATH +1];
-            char *temp;
-            MySHGetFolderPathW(NULL, CSIDL_APPDATA, NULL,
-                    SHGFP_TYPE_CURRENT, utf_16_dir);
-            temp = g_utf16_to_utf8(utf_16_dir, -1, NULL, NULL, NULL);
-            g_strlcpy(app_data_dir, temp, sizeof(app_data_dir));
-            g_free(temp);
-        } else if ((MySHGetFolderPathA = (LPFNSHGETFOLDERPATHA) ET_Win32_Find_And_Loadproc("shfolder.dll", "SHGetFolderPathA")))
-        {
-            char locale_dir[MAX_PATH + 1];
-            char *temp;
-            MySHGetFolderPathA(NULL, CSIDL_APPDATA, NULL,
-                    SHGFP_TYPE_CURRENT, locale_dir);
-            temp = g_locale_to_utf8(locale_dir, -1, NULL, NULL, NULL);
-            g_strlcpy(app_data_dir, temp, sizeof(app_data_dir));
-            g_free(temp);
-        }
-#else
-        if ((MySHGetFolderPathA = (LPFNSHGETFOLDERPATHA) ET_Win32_Find_And_Loadproc("shfolder.dll", "SHGetFolderPathA")))
-        {
-            MySHGetFolderPathA(NULL, CSIDL_APPDATA, NULL,
-                    SHGFP_TYPE_CURRENT, app_data_dir);
-        }
-#endif
-        else
-        {
-            strcpy(app_data_dir, "C:");
-        }
-    }
-    else
+        player = g_strconcat(key_value, "\\winamp.exe", NULL);
+        g_free(key_value);
+        
+    }else
     {
-        g_strlcpy(app_data_dir, newenv, sizeof(app_data_dir));
+        player = g_strdup("");
     }
-
-    //ET_Win32_Path_Replace_Backslashes(app_data_dir);
-
-    //Log_Print(_("EasyTAG settings dir: '%s'"), app_data_dir);
-    g_print(_("EasyTAG settings dir: '%s'"), app_data_dir);
+     
+    //Log_Print(_("Audio player: '%s'"), player);
+    g_print(_("Audio player: '%s'"), player);
     g_print("\n");
 
-    newenv = g_strdup_printf("HOME=%s", app_data_dir);
-
-    if (putenv(newenv)<0)
-        g_print("putenv failed\n");
-    g_free(newenv);
-
+    return player;
 }
 
-/* Windows Cleanup */
 
-void ET_Win32_Cleanup (void)
-{
-    /* winsock cleanup */
-    WSACleanup();
-
-	ET_dll_hInstance = NULL;
-}
-
-/* DLL initializer */
-BOOL WINAPI DllMain ( HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved )
-{
-    ET_dll_hInstance = hinstDLL;
-    return TRUE;
-}

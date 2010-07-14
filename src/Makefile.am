@@ -74,6 +74,8 @@ easytag_SOURCES = \
 EXTRA_DIST = \
  Makefile.mingw \
  win32/easytag.rc \
+ win32/gtkwin32dep.c \
+ win32/gtkwin32dep.h \
  win32/resource.h \
  win32/win32dep.c \
  win32/win32dep.h \

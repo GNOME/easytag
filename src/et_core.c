@@ -459,9 +459,10 @@ GList *ET_Add_File_To_File_List (gchar *filename)
     gchar        *ETFileExtension;
     guint         ETFileKey;
     guint         undo_key;
+    struct stat   statbuf;
     gchar        *filename_utf8 = filename_to_display(filename);
     const gchar  *locale_lc_ctype = getenv("LC_CTYPE");
-    
+
     if (!filename)
         return ETCore->ETFileList;
 
@@ -474,6 +475,9 @@ GList *ET_Add_File_To_File_List (gchar *filename)
     /* Get real extension of the file (keeping the case) */
     ETFileExtension = g_strdup(ET_Get_File_Extension(filename));
 
+    /* Store the modification time of the file to check if the file was changed before saving */
+    stat(filename,&statbuf);
+
     /* Fill the File_Name structure for FileNameList */
     FileName = ET_File_Name_Item_New();
     FileName->saved      = TRUE;    /* The file hasn't been changed, so it's saved */
@@ -485,7 +489,7 @@ GList *ET_Add_File_To_File_List (gchar *filename)
     FileTag = ET_File_Tag_Item_New();
     FileTag->saved = TRUE;    /* The file hasn't been changed, so it's saved */
 
-    /* Patch from Doruk Fisek and Onur Kucuk: avoid upper/lower conversion bugs 
+    /* Patch from Doruk Fisek and Onur Kucuk: avoid upper/lower conversion bugs
      * (like I->i conversion in some locales) in tag parsing. The problem occurs
      * for example with Turkish language where it can't read 'TITLE=' field if
      * it is written as 'Title=' in the file */
@@ -578,19 +582,20 @@ GList *ET_Add_File_To_File_List (gchar *filename)
 
     /* Restore previous value */
     setlocale(LC_CTYPE, locale_lc_ctype ? locale_lc_ctype : "");
-    
+
     /* Attach all data defined above to this ETFile item */
     ETFile = ET_File_Item_New();
-    ETFile->IndexKey          = 0; // Will be renumered after...
-    ETFile->ETFileKey         = ETFileKey;
-    ETFile->ETFileDescription = ETFileDescription;
-    ETFile->ETFileExtension   = ETFileExtension;
-    ETFile->FileNameList      = g_list_append(NULL,FileName);
-    ETFile->FileNameCur       = ETFile->FileNameList;
-    ETFile->FileNameNew       = ETFile->FileNameList;
-    ETFile->FileTagList       = g_list_append(NULL,FileTag);
-    ETFile->FileTag           = ETFile->FileTagList;
-    ETFile->ETFileInfo        = ETFileInfo;
+    ETFile->IndexKey             = 0; // Will be renumered after...
+    ETFile->ETFileKey            = ETFileKey;
+    ETFile->FileModificationTime = statbuf.st_mtime;
+    ETFile->ETFileDescription    = ETFileDescription;
+    ETFile->ETFileExtension      = ETFileExtension;
+    ETFile->FileNameList         = g_list_append(NULL,FileName);
+    ETFile->FileNameCur          = ETFile->FileNameList;
+    ETFile->FileNameNew          = ETFile->FileNameList;
+    ETFile->FileTagList          = g_list_append(NULL,FileTag);
+    ETFile->FileTag              = ETFile->FileTagList;
+    ETFile->ETFileInfo           = ETFileInfo;
 
     /* Add the item to the "main list" */
     ETCore->ETFileList = g_list_append(ETCore->ETFileList,ETFile);
@@ -615,6 +620,16 @@ GList *ET_Add_File_To_File_List (gchar *filename)
      * If no changes detected, FileName and FileTag item are deleted.
      */
     ET_Manage_Changes_Of_File_Data(ETFile,FileName,FileTag);
+
+    /*
+     * Display a message if the file was changed at start
+     */
+    FileTag  = (File_Tag *)ETFile->FileTag->data;
+    FileName = (File_Name *)ETFile->FileNameNew->data;
+    if ( (FileName && FileName->saved==FALSE) || (FileTag && FileTag->saved==FALSE) )
+    {
+        Log_Print(LOG_INFO,_("Automatic corrections applied for file '%s'."), filename_utf8);
+    }
 
     /* Add the item to the ArtistAlbum list (placed here to take advantage of previous changes) */
     //ET_Add_File_To_Artist_Album_File_List(ETFile);
@@ -1110,8 +1125,8 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Creation_Date (ET_File *ETFile1, ET_Fil
     gchar *filename1 = ((File_Name *)ETFile1->FileNameCur->data)->value;
     gchar *filename2 = ((File_Name *)ETFile2->FileNameCur->data)->value;
 
-    lstat(filename1, &statbuf1);
-    lstat(filename2, &statbuf2);
+    stat(filename1, &statbuf1);
+    stat(filename2, &statbuf2);
 
     // Second criterion
     if (statbuf1.st_ctime == statbuf2.st_ctime)
@@ -2432,7 +2447,7 @@ gboolean ET_Set_Filename_File_Name_Item (File_Name *FileName, gchar *filename_ut
     {
         return FALSE;
     }
-    
+
     return TRUE;
 }
 
@@ -2498,7 +2513,9 @@ void ET_Display_File_Data_To_UI (ET_File *ETFile)
     gchar *cur_filename_utf8;
     gchar *msg;
 
-    if (!ETFile) return;
+    if (!ETFile
+    ||  !((GList *)ETFile->FileNameCur)->data ) // For the case where ETFile is an "empty" structure
+        return;
 
     cur_filename      = ((File_Name *)((GList *)ETFile->FileNameCur)->data)->value;
     cur_filename_utf8 = ((File_Name *)((GList *)ETFile->FileNameCur)->data)->value_utf8;
@@ -2885,7 +2902,7 @@ gboolean ET_Display_File_Tag_To_UI (ET_File *ETFile)
         string = g_strdup_printf(_("Pictures (%d)"),nbr_pic);
         // Update the notebook tab
         gtk_notebook_set_tab_label_text(GTK_NOTEBOOK(TagNoteBook),page,string);
-        // Update the notebook menu 
+        // Update the notebook menu
         gtk_notebook_set_menu_label_text(GTK_NOTEBOOK(TagNoteBook),page,string);
         g_free(string);
 
@@ -2896,7 +2913,7 @@ gboolean ET_Display_File_Tag_To_UI (ET_File *ETFile)
         page = gtk_notebook_get_nth_page(GTK_NOTEBOOK(TagNoteBook),1);
         // Update the notebook tab
         gtk_notebook_set_tab_label_text(GTK_NOTEBOOK(TagNoteBook),page,"Pictures");
-        // Update the notebook menu 
+        // Update the notebook menu
         gtk_notebook_set_menu_label_text(GTK_NOTEBOOK(TagNoteBook),page,"Pictures");
     }
 
@@ -3136,7 +3153,7 @@ gboolean ET_Save_File_Name_From_UI (ET_File *ETFile, File_Name *FileName)
 
 
 /*
- * Do the same thing of ET_Save_File_Name_From_UI, but without getting the 
+ * Do the same thing of ET_Save_File_Name_From_UI, but without getting the
  * data from the UI.
  */
 gboolean ET_Save_File_Name_Internal (ET_File *ETFile, File_Name *FileName)
@@ -3704,7 +3721,7 @@ gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile)
     if (state==TRUE)
     {
 
-        // Update date and time of the parent directory of the file after changing the tag 
+        // Update date and time of the parent directory of the file after changing the tag
         // value (ex: needed for Amarok for refreshing). Note that when renaming a file the
         // parent directory is automatically updated.
         if (UPDATE_PARENT_DIRECTORY_MODIFICATION_TIME)
@@ -3837,7 +3854,8 @@ gboolean ET_Manage_Changes_Of_File_Data (ET_File *ETFile, File_Name *FileName, F
     if (undo_added)
         ET_Add_File_To_History_List(ETFile);
 
-    return TRUE; //undo_added;
+    //return TRUE;
+    return undo_added;
 }
 
 
@@ -4683,6 +4701,8 @@ void ET_Debug_Print_File_List (GList *ETFileList, gchar *file, gint line, gchar 
     GList *etfilelist;
     GList *filenamelist;
     GList *filetaglist;
+    char str[50];
+    struct tm *tms;
 
 
     g_print("\n#### File list from %s:%d - start ####\n",file,line);
@@ -4694,8 +4714,13 @@ void ET_Debug_Print_File_List (GList *ETFileList, gchar *file, gint line, gchar 
     etfilelist_length = g_list_length(etfilelist);
     while (etfilelist)
     {
+        time_t time = ((ET_File *)etfilelist->data)->FileModificationTime;
+        tms = localtime(&time);
+        strftime(str,sizeof(str),"%Y.%m.%d %X",tms); // Time without date in current locale
+
         g_print("#> ETFile %d/%d (%p)\n",efl_item,etfilelist_length,(ET_File *)etfilelist->data);
         g_print("|--- IndexKey : '%d'\n",((ET_File *)etfilelist->data)->IndexKey);
+        g_print("|--- time     : '%s'\n",&str);
         g_print("|--- file_cur : '%s'\n",((File_Name *)((ET_File *)etfilelist->data)->FileNameCur->data)->value_utf8);
         g_print("|--- file_new : '%s'\n",((File_Name *)((ET_File *)etfilelist->data)->FileNameNew->data)->value_utf8);
         g_print("|--- saved    : '%d'\n",((File_Name *)((ET_File *)etfilelist->data)->FileNameNew->data)->saved);
@@ -4723,20 +4748,20 @@ void ET_Debug_Print_File_List (GList *ETFileList, gchar *file, gint line, gchar 
             g_print("|--> File_Tag : %d/%d %s\n",ftl_item,filetaglist_length,(filetaglist==((ET_File *)etfilelist->data)->FileTag)?"<<CURRENT>>":"");
             g_print("|    |-> key         : '%d'\n",((File_Tag *)filetaglist->data)->key);
             g_print("|    |-> saved       : '%d'\n",((File_Tag *)filetaglist->data)->saved);
-            g_print("|    |-> title       : '%s'\n",((File_Tag *)filetaglist->data)->title);
-            g_print("|    |-> artist      : '%s'\n",((File_Tag *)filetaglist->data)->artist);
-            g_print("|    |-> album       : '%s'\n",((File_Tag *)filetaglist->data)->album);
-            g_print("|    |-> disc_number : '%s'\n",((File_Tag *)filetaglist->data)->disc_number);
-            g_print("|    |-> year        : '%s'\n",((File_Tag *)filetaglist->data)->year);
-            g_print("|    |-> track       : '%s'\n",((File_Tag *)filetaglist->data)->track);
-            g_print("|    |-> track_total : '%s'\n",((File_Tag *)filetaglist->data)->track_total);
-            g_print("|    |-> genre       : '%s'\n",((File_Tag *)filetaglist->data)->genre);
-            g_print("|    |-> comment     : '%s'\n",((File_Tag *)filetaglist->data)->comment);
-            g_print("|    |-> composer    : '%s'\n",((File_Tag *)filetaglist->data)->composer);
-            g_print("|    |-> orig_artist : '%s'\n",((File_Tag *)filetaglist->data)->orig_artist);
-            g_print("|    |-> copyright   : '%s'\n",((File_Tag *)filetaglist->data)->copyright);
-            g_print("|    |-> url         : '%s'\n",((File_Tag *)filetaglist->data)->url);
-            g_print("|    |-> encoded_by  : '%s'\n",((File_Tag *)filetaglist->data)->encoded_by);
+            g_print("|    |-> title       : '%s'\n",((File_Tag *)filetaglist->data)->title       ? ((File_Tag *)filetaglist->data)->title        : "");
+            g_print("|    |-> artist      : '%s'\n",((File_Tag *)filetaglist->data)->artist      ? ((File_Tag *)filetaglist->data)->artist       : "");
+            g_print("|    |-> album       : '%s'\n",((File_Tag *)filetaglist->data)->album       ? ((File_Tag *)filetaglist->data)->album        : "");
+            g_print("|    |-> disc_number : '%s'\n",((File_Tag *)filetaglist->data)->disc_number ? ((File_Tag *)filetaglist->data)->disc_number  : "");
+            g_print("|    |-> year        : '%s'\n",((File_Tag *)filetaglist->data)->year        ? ((File_Tag *)filetaglist->data)->year         : "");
+            g_print("|    |-> track       : '%s'\n",((File_Tag *)filetaglist->data)->track       ? ((File_Tag *)filetaglist->data)->track        : "");
+            g_print("|    |-> track_total : '%s'\n",((File_Tag *)filetaglist->data)->track_total ? ((File_Tag *)filetaglist->data)->track_total  : "");
+            g_print("|    |-> genre       : '%s'\n",((File_Tag *)filetaglist->data)->genre       ? ((File_Tag *)filetaglist->data)->genre        : "");
+            g_print("|    |-> comment     : '%s'\n",((File_Tag *)filetaglist->data)->comment     ? ((File_Tag *)filetaglist->data)->comment      : "");
+            g_print("|    |-> composer    : '%s'\n",((File_Tag *)filetaglist->data)->composer    ? ((File_Tag *)filetaglist->data)->composer     : "");
+            g_print("|    |-> orig_artist : '%s'\n",((File_Tag *)filetaglist->data)->orig_artist ? ((File_Tag *)filetaglist->data)->orig_artist  : "");
+            g_print("|    |-> copyright   : '%s'\n",((File_Tag *)filetaglist->data)->copyright   ? ((File_Tag *)filetaglist->data)->copyright    : "");
+            g_print("|    |-> url         : '%s'\n",((File_Tag *)filetaglist->data)->url         ? ((File_Tag *)filetaglist->data)->url          : "");
+            g_print("|    |-> encoded_by  : '%s'\n",((File_Tag *)filetaglist->data)->encoded_by  ? ((File_Tag *)filetaglist->data)->encoded_by   : "");
 
             filetaglist = filetaglist->next;
             ftl_item++;
@@ -4786,8 +4811,8 @@ void ET_Debug_Print_Artist_Album_List (gchar *file, gint line, gchar *function)
                 etfile = (ET_File *)etfilelist->data;
                 g_print(" |   |-> ETFile %d/%d (%p)\n",etfile_item,etfile_length,etfile);
                 g_print(" |   |   |-> file     : '%s'\n",((File_Name *)etfile->FileNameCur->data)->value_utf8);
-                g_print(" |   |   |-> artist   : '%s'\n",((File_Tag *)etfile->FileTag->data)->artist);
-                g_print(" |   |   |-> album    : '%s'\n",((File_Tag *)etfile->FileTag->data)->album);
+                g_print(" |   |   |-> artist   : '%s'\n",((File_Tag *)etfile->FileTag->data)->artist ? ((File_Tag *)etfile->FileTag->data)->artist : "");
+                g_print(" |   |   |-> album    : '%s'\n",((File_Tag *)etfile->FileTag->data)->album  ? ((File_Tag *)etfile->FileTag->data)->album  : "");
 
                 etfilelist = etfilelist->next;
                 etfile_item++;

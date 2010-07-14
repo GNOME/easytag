@@ -1355,6 +1355,7 @@ etag_write_tags (const gchar *filename,
     long filev2size, ctxsize;
     char *ctx = NULL;
     int err = 0;
+    long size_read = 0;
 
     v1buf = v2buf = NULL;
     if ( !strip_tags )
@@ -1410,8 +1411,10 @@ etag_write_tags (const gchar *filename,
     /* Handle Id3v1 tag */
     if ((curpos = lseek(fd, -128, SEEK_END)) < 0)
         goto out;
-    if (read(fd, tmp, ID3_TAG_QUERYSIZE) != ID3_TAG_QUERYSIZE)
+    if ( (size_read = read(fd, tmp, ID3_TAG_QUERYSIZE)) != ID3_TAG_QUERYSIZE)
+    {
         goto out;
+    }
 
     if ( (tmp[0] == 'T')
     &&   (tmp[1] == 'A')
@@ -1440,8 +1443,10 @@ etag_write_tags (const gchar *filename,
         if ( (filev2size > 10)
         &&   (curpos = lseek(fd, -filev2size, SEEK_CUR)) )
         {
-            if (read(fd, tmp, ID3_TAG_QUERYSIZE) != ID3_TAG_QUERYSIZE)
+            if ( (size_read = read(fd, tmp, ID3_TAG_QUERYSIZE)) != ID3_TAG_QUERYSIZE)
+            {
                 goto out;
+            }
             if (id3_tag_query((id3_byte_t const *)tmp, ID3_TAG_QUERYSIZE) != filev2size)
                 curpos = lseek(fd, -ID3_TAG_QUERYSIZE - filev2size, SEEK_CUR);
             else
@@ -1451,10 +1456,12 @@ etag_write_tags (const gchar *filename,
 
     /* Write id3v1 tag */
     if (v1buf)
+    {
         if ( write(fd, v1buf, v1size) != v1size)
             goto out;
+    }
 
-    /* Truncate file (strip tags) */
+    /* Truncate file (strip tags at the end of file) */
     if ((curpos = lseek(fd, 0, SEEK_CUR)) <= 0 )
         goto out;
     if ((err = ftruncate(fd, curpos)))
@@ -1464,13 +1471,16 @@ etag_write_tags (const gchar *filename,
     if ((curpos = lseek(fd, 0, SEEK_SET)) < 0)
         goto out;
 
-    if (read(fd, tmp, ID3_TAG_QUERYSIZE) != ID3_TAG_QUERYSIZE)
+    if ( (size_read = read(fd, tmp, ID3_TAG_QUERYSIZE)) != ID3_TAG_QUERYSIZE)
+    {
         goto out;
+    }
 
     filev2size = id3_tag_query((id3_byte_t const *)tmp, ID3_TAG_QUERYSIZE);
 
+    // No ID3v2 tag in the file, and no new tag
     if ( (filev2size == 0)
-    && (v2size == 0))
+    &&   (v2size == 0) )
         goto out;
 
     if (filev2size == v2size)
@@ -1482,18 +1492,33 @@ etag_write_tags (const gchar *filename,
     }else
     {
         /* XXX */
+        // Size of audio data (tags at the end were already removed)
         ctxsize = lseek(fd, 0, SEEK_END) - filev2size;
+
         if ((ctx = g_try_malloc(ctxsize)) == NULL)
             goto out;
-        if (lseek(fd, filev2size, SEEK_SET) < 0)
+        if ((curpos = lseek(fd, filev2size, SEEK_SET)) < 0)
             goto out;
-        if (read(fd, ctx, ctxsize) != ctxsize)
+        if ((size_read = /*err = */read(fd, ctx, ctxsize)) != ctxsize)
+        {
+            gchar *filename_utf8 = filename_to_display(filename);
+            gchar *basename_utf8 = g_path_get_basename(filename_utf8);
+
+            Log_Print(LOG_ERROR,_("Can't write tag of file '%s' (were read %d bytes instead of %d bytes!)"),basename_utf8,size_read,ctxsize);
+            g_free(filename_utf8);
+            g_free(basename_utf8);
             goto out;
+        }
+        
+        // Return to the beginning of the file
         if (lseek(fd, 0, SEEK_SET) < 0)
             goto out;
+            
+        // Write the ID3v2 tag
         if (v2buf)
             write(fd, v2buf, v2size);
-
+        
+        // Write audio data
         if (write(fd, ctx, ctxsize) != ctxsize)
         {
             gchar *filename_utf8 = filename_to_display(filename);
@@ -1506,6 +1531,7 @@ etag_write_tags (const gchar *filename,
 
         if ((curpos = lseek(fd, 0, SEEK_CUR)) <= 0 )
             goto out;
+
         if ((err = ftruncate(fd, curpos)))
             goto out;
     }

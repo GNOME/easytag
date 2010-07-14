@@ -153,7 +153,7 @@ void         Browser_List_Clear                     (void);
 void         Browser_List_Select_File_By_Etfile     (ET_File *ETFile, gboolean select_it);
 GtkTreePath *Browser_List_Select_File_By_Etfile2    (ET_File *searchETFile, gboolean select_it, GtkTreePath *startPath);
 void         Browser_List_Select_File_By_Iter       (GtkTreeIter *iter, gboolean select_it);
-void         Browser_List_Select_File_By_Iter_String(const gchar* stringiter, gboolean select_it);
+ET_File     *Browser_List_Select_File_By_Iter_String(const gchar* stringiter, gboolean select_it);
 ET_File     *Browser_List_Select_File_By_DLM        (const gchar* string, gboolean select_it);
 void         Browser_List_Unselect_File_By_Etfile   (ET_File *ETFile);
 void         Browser_List_Unselect_File_By_Iter     (GtkTreeIter *iter);
@@ -179,6 +179,11 @@ void         Browser_Display_Tree_Or_Artist_Album_List (void);
 void         Browser_Area_Set_Sensitive  (gboolean activate);
 
 void         Browser_Load_Home_Directory            (void);
+void		 Browser_Load_Desktop_Directory 		(void);
+void		 Browser_Load_Documents_Directory 		(void);
+void		 Browser_Load_Downloads_Directory 		(void);
+void 		 Browser_Load_Music_Directory 			(void);
+
 void         Browser_Load_Default_Directory         (void);
 void         Browser_Reload_Directory               (void);
 gchar       *Browser_Tree_Get_Path_Of_Selected_Node (void);

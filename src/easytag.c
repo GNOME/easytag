@@ -117,8 +117,8 @@ void Clear_Header_Fields     (void);
 
 gint Make_Dir         (const gchar *dirname_old, const gchar *dirname_new);
 gint Remove_Dir       (const gchar *dirname_old, const gchar *dirname_new);
-void Write_File_Tag   (ET_File *ETFile);
-void Rename_File      (ET_File *ETFile);
+gboolean Write_File_Tag   (ET_File *ETFile, gboolean hide_msgbox);
+gboolean Rename_File      (ET_File *ETFile, gboolean hide_msgbox);
 gint Save_File        (ET_File *ETFile, gboolean multiple_files, gboolean force_saving_files);
 gint Delete_File      (ET_File *ETFile, gboolean multiple_files);
 gint Save_All_Files_With_Answer        (gboolean force_saving_files);
@@ -161,7 +161,8 @@ int main (int argc, char *argv[])
 
 
 #ifdef WIN32
-    ET_Win32_Init(hInstance);
+    weasytag_init();
+    //ET_Win32_Init(hInstance);
 #else
     /* Signal handling to display a message(SIGSEGV, ...) */
     signal(SIGBUS,Handle_Crash);
@@ -184,7 +185,13 @@ int main (int argc, char *argv[])
     gtk_init(&argc, &argv);
 
     /* Get home variable */
-    HOME_VARIABLE = (gchar *)g_getenv("HOME");
+#ifdef WIN32
+	HOME_VARIABLE = (gchar *)weasytag_data_dir();
+#else
+	HOME_VARIABLE = g_get_home_dir();
+    //HOME_VARIABLE = (gchar *)g_getenv("HOME");
+#endif
+
     INIT_DIRECTORY = NULL;
 
     /* Starting messages */
@@ -343,7 +350,7 @@ int main (int argc, char *argv[])
         Log_Print(LOG_ERROR,error->message);
         g_error_free(error);
     }*/
-    
+
     /* MainVBox for Menu bar + Tool bar + "Browser Area & FileArea & TagArea" + Log Area + "Status bar & Progress bar" */
     MainVBox = gtk_vbox_new(FALSE,0);
     gtk_container_add (GTK_CONTAINER(MainWindow),MainVBox);
@@ -1679,7 +1686,7 @@ void Action_Select_Prev_File (void)
     Update_Command_Buttons_Sensivity();
     Scan_Rename_File_Generate_Preview();
     Scan_Fill_Tag_Generate_Preview();
-    
+
     if (SET_FOCUS_TO_FIRST_TAG_FIELD)
         gtk_widget_grab_focus(GTK_WIDGET(TitleEntry));
 }
@@ -1713,7 +1720,7 @@ void Action_Select_Next_File (void)
     Update_Command_Buttons_Sensivity();
     Scan_Rename_File_Generate_Preview();
     Scan_Fill_Tag_Generate_Preview();
-    
+
     if (SET_FOCUS_TO_FIRST_TAG_FIELD)
         gtk_widget_grab_focus(GTK_WIDGET(TitleEntry));
 }
@@ -2108,6 +2115,7 @@ gint Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
     gint       progress_bar_index;
     gint       saving_answer;
     gint       nb_files_to_save;
+    gint       nb_files_changed_by_ext_program;
     gchar     *msg;
     gchar      progress_bar_text[30];
     GList     *etfilelist_tmp;
@@ -2132,17 +2140,30 @@ gint Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
     widget_focused = gtk_window_get_focus(GTK_WINDOW(MainWindow));
 
     /* Count the number of files to save */
+    /* Count the number of files changed by an external program */
     nb_files_to_save = 0;
+    nb_files_changed_by_ext_program = 0;
     etfilelist_tmp = etfilelist;
     while (etfilelist_tmp)
     {
-        File_Tag  *filetag  = ((ET_File *)etfilelist_tmp->data)->FileTag->data;
-        File_Name *filename = ((ET_File *)etfilelist_tmp->data)->FileNameNew->data;
+        struct stat   statbuf;
+        ET_File   *ETFile   = (ET_File *)etfilelist_tmp->data;
+        File_Tag  *FileTag  = (File_Tag *)ETFile->FileTag->data;
+        File_Name *FileName = (File_Name *)ETFile->FileNameNew->data;
+        gchar *filename_cur = ((File_Name *)ETFile->FileNameCur->data)->value;
+        gchar *filename_cur_utf8 = ((File_Name *)ETFile->FileNameCur->data)->value_utf8;
+        gchar *basename_cur_utf8 = g_path_get_basename(filename_cur_utf8);
 
         // Count only the changed files or all files if force_saving_files==TRUE
         if ( force_saving_files
-        || (filename && filename->saved==FALSE) || (filetag && filetag->saved==FALSE) )
+        || (FileName && FileName->saved==FALSE) || (FileTag && FileTag->saved==FALSE) )
             nb_files_to_save++;
+
+        stat(filename_cur,&statbuf);
+        if (ETFile->FileModificationTime != statbuf.st_mtime)
+            nb_files_changed_by_ext_program++;
+        g_free(basename_cur_utf8);
+
         etfilelist_tmp = etfilelist_tmp->next;
     }
 
@@ -2163,11 +2184,48 @@ gint Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
     SF_HideMsgbox_Rename_File = 0;
 
     Main_Stop_Button_Pressed = 0;
-    uiaction = gtk_ui_manager_get_action(UIManager, "/ToolBar/Stop");
+    uiaction = gtk_ui_manager_get_action(UIManager, "/ToolBar/Stop"); // Activate the stop button
     g_object_set(uiaction, "sensitive", FALSE, NULL);
 
+    /*
+     * Check if file was changed by an external program
+     */
+    if (nb_files_changed_by_ext_program > 0)
+    {
+        // Some files were changed by other program than EasyTAG
+        GtkWidget *msgbox = NULL;
+        gchar *msg;
+        gint response;
+
+        msg = g_strdup_printf(_("Be careful, severals files (%d file(s)) were changed by an external program.\n"
+                                "Do you want to continue anyway?"),nb_files_changed_by_ext_program);
+        msgbox = msg_box_new(_("Saving File(s)..."),
+                             GTK_WINDOW(MainWindow),
+                             NULL,
+                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                             msg,
+                             GTK_STOCK_DIALOG_WARNING,
+                             GTK_STOCK_NO,  GTK_RESPONSE_NO,
+							 GTK_STOCK_YES, GTK_RESPONSE_YES,
+                             NULL);
+        g_free(msg);
+
+        response = gtk_dialog_run(GTK_DIALOG(msgbox));
+        gtk_widget_destroy(msgbox);
+
+        switch (response)
+        {
+            case GTK_RESPONSE_YES:
+                break;
+            case GTK_RESPONSE_NO:
+            case GTK_RESPONSE_NONE:
+                Main_Stop_Button_Pressed = 1; // To don't enter to following loop
+                break;
+        }
+    }
+
     etfilelist_tmp = etfilelist;
-    while (etfilelist_tmp)
+    while (etfilelist_tmp && !Main_Stop_Button_Pressed)
     {
         FileTag     = ((ET_File *)etfilelist_tmp->data)->FileTag->data;
         FileNameNew = ((ET_File *)etfilelist_tmp->data)->FileNameNew->data;
@@ -2197,8 +2255,9 @@ gint Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
             if (saving_answer == -1)
             {
                 /* Stop saving files + reinit progress bar */
+                gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), "");
                 gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), 0.0);
-                Statusbar_Message(_("All files have been saved..."),TRUE);
+                Statusbar_Message(_("Saving files was stopped..."),TRUE);
                 /* To update state of command buttons */
                 Update_Command_Buttons_Sensivity();
                 Browser_Area_Set_Sensitive(TRUE);
@@ -2219,7 +2278,7 @@ gint Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
         gtk_tree_path_free(currentPath);
 
     if (Main_Stop_Button_Pressed)
-        msg = g_strdup(_("Files have been partially saved..."));
+        msg = g_strdup(_("Saving files was stopped..."));
     else
         msg = g_strdup(_("All files have been saved..."));
 
@@ -2413,6 +2472,8 @@ gint Save_File (ET_File *ETFile, gboolean multiple_files, gboolean force_saving_
     gchar *msg = NULL;
     gchar *msg_title = NULL;
     gint stop_loop = 0;
+    //struct stat   statbuf;
+    //gchar *filename_cur = ((File_Name *)ETFile->FileNameCur->data)->value;
     gchar *filename_cur_utf8 = ((File_Name *)ETFile->FileNameCur->data)->value_utf8;
     gchar *filename_new_utf8 = ((File_Name *)ETFile->FileNameNew->data)->value_utf8;
     gchar *basename_cur_utf8, *basename_new_utf8;
@@ -2425,9 +2486,47 @@ gint Save_File (ET_File *ETFile, gboolean multiple_files, gboolean force_saving_
     basename_new_utf8 = g_path_get_basename(filename_new_utf8);
 
     /* Save the current displayed data */
-    // Not needed, done before //ET_Save_File_Data_From_UI((ET_File *)ETFileList->data);
+    //ET_Save_File_Data_From_UI((ET_File *)ETFileList->data); // Not needed, because it was done before
     FileTag     = ETFile->FileTag->data;
     FileNameNew = ETFile->FileNameNew->data;
+
+    /*
+     * Check if file was changed by an external program
+     */
+    /*stat(filename_cur,&statbuf);
+    if (ETFile->FileModificationTime != statbuf.st_mtime)
+    {
+        // File was changed
+        GtkWidget *msgbox = NULL;
+        gint response;
+
+        msg = g_strdup_printf(_("The file '%s' was changed by an external program.\nDo you want to continue?"),basename_cur_utf8);
+        msgbox = msg_box_new(_("Write File..."),
+                             GTK_WINDOW(MainWindow),
+                             NULL,
+                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                             msg,
+                             GTK_STOCK_DIALOG_WARNING,
+                             GTK_STOCK_NO,  GTK_RESPONSE_NO,
+							 GTK_STOCK_YES, GTK_RESPONSE_YES,
+                             NULL);
+        g_free(msg);
+
+        response = gtk_dialog_run(GTK_DIALOG(msgbox));
+        gtk_widget_destroy(msgbox);
+
+        switch (response)
+        {
+            case GTK_RESPONSE_YES:
+                break;
+            case GTK_RESPONSE_NO:
+            case GTK_RESPONSE_NONE:
+                stop_loop = -1;
+                return stop_loop;
+                break;
+        }
+    }*/
+
 
     /*
      * First part: write tag informations (artist, title,...)
@@ -2474,7 +2573,7 @@ gint Save_File (ET_File *ETFile, gboolean multiple_files, gboolean force_saving_
             g_free(msg);
 
             SF_ButtonPressed_Write_Tag = response = gtk_dialog_run(GTK_DIALOG(msgbox));
-            // When check button in msgbox was activated : do not display the message again 
+            // When check button in msgbox was activated : do not display the message again
             if (msgbox_check_button && GTK_TOGGLE_BUTTON(msgbox_check_button)->active)
                 SF_HideMsgbox_Write_Tag = GTK_TOGGLE_BUTTON(msgbox_check_button)->active;
             gtk_widget_destroy(msgbox);
@@ -2489,8 +2588,19 @@ gint Save_File (ET_File *ETFile, gboolean multiple_files, gboolean force_saving_
         switch (response)
         {
             case GTK_RESPONSE_YES:
-                Write_File_Tag(ETFile);
+            {
+                gboolean rc;
+
+                // if 'SF_HideMsgbox_Write_Tag is TRUE', then errors are displayed only in log
+                rc = Write_File_Tag(ETFile,SF_HideMsgbox_Write_Tag);
+                // if an error occurs when 'SF_HideMsgbox_Write_Tag is TRUE', we don't stop saving...
+                if (rc != TRUE && !SF_HideMsgbox_Write_Tag)
+                {
+                    stop_loop = -1;
+                    return stop_loop;
+                }
                 break;
+            }
             case GTK_RESPONSE_NO:
                 break;
             case GTK_RESPONSE_CANCEL:
@@ -2589,8 +2699,19 @@ gint Save_File (ET_File *ETFile, gboolean multiple_files, gboolean force_saving_
         switch(response)
         {
             case GTK_RESPONSE_YES:
-                Rename_File(ETFile);
+            {
+                gboolean rc;
+
+                // if 'SF_HideMsgbox_Rename_File is TRUE', then errors are displayed only in log
+                rc = Rename_File(ETFile,SF_HideMsgbox_Rename_File);
+                // if an error occurs when 'SF_HideMsgbox_Rename_File is TRUE', we don't stop saving...
+                if (rc != TRUE && !SF_HideMsgbox_Rename_File)
+                {
+                    stop_loop = -1;
+                    return stop_loop;
+                }
                 break;
+            }
             case GTK_RESPONSE_NO:
                 break;
             case GTK_RESPONSE_CANCEL:
@@ -2613,11 +2734,14 @@ gint Save_File (ET_File *ETFile, gboolean multiple_files, gboolean force_saving_
 
 /*
  * Write tag of the ETFile
+ * Return TRUE => OK
+ *        FALSE => error
  */
-void Write_File_Tag (ET_File *ETFile)
+gboolean Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox)
 {
     gchar *cur_filename_utf8 = ((File_Name *)ETFile->FileNameCur->data)->value_utf8;
     gchar *msg;
+    gchar *msg1;
     gchar *basename_utf8;
     GtkWidget *msgbox;
 
@@ -2629,7 +2753,7 @@ void Write_File_Tag (ET_File *ETFile)
     if (ET_Save_File_Tag_To_HD(ETFile))
     {
         Statusbar_Message(_("Tag(s) written"),TRUE);
-        return;
+        return TRUE;
     }
 
     switch ( ((ET_File_Description *)ETFile->ETFileDescription)->TagType)
@@ -2639,25 +2763,37 @@ void Write_File_Tag (ET_File *ETFile)
             // Special for Ogg Vorbis because the error is defined into 'vcedit_error(state)'
             msg = g_strdup_printf(_("Can't write tag in file '%s'!\n(%s)"),
                                   basename_utf8,ogg_error_msg);
+            msg1 = g_strdup_printf(_("Can't write tag in file '%s'! (%s)"),
+                                  basename_utf8,ogg_error_msg);
             break;
 #endif
         default:
             msg = g_strdup_printf(_("Can't write tag in file '%s'!\n(%s)"),
                                   basename_utf8,g_strerror(errno));
+            msg1 = g_strdup_printf(_("Can't write tag in file '%s'! (%s)"),
+                                  basename_utf8,g_strerror(errno));
     }
 
-    msgbox = msg_box_new(_("Error..."),
-                         GTK_WINDOW(MainWindow),
-                         NULL,
-                         GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                         msg,
-                         GTK_STOCK_DIALOG_ERROR,
-                         GTK_STOCK_OK, GTK_RESPONSE_OK,
-                         NULL);
-    gtk_dialog_run(GTK_DIALOG(msgbox));
-    gtk_widget_destroy(msgbox);
+    Log_Print(LOG_ERROR,"%s", msg1);
+    g_free(msg1);
+
+    if (!hide_msgbox)
+    {
+        msgbox = msg_box_new(_("Error..."),
+                             GTK_WINDOW(MainWindow),
+                             NULL,
+                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                             msg,
+                             GTK_STOCK_DIALOG_ERROR,
+                             GTK_STOCK_OK, GTK_RESPONSE_OK,
+                             NULL);
+        gtk_dialog_run(GTK_DIALOG(msgbox));
+        gtk_widget_destroy(msgbox);
+    }
     g_free(msg);
     g_free(basename_utf8);
+
+    return FALSE;
 }
 
 
@@ -2717,13 +2853,13 @@ gint Remove_Dir (const gchar *dirname_old, const gchar *dirname_new)
 
     temp_old = g_strdup(dirname_old);
     temp_new = g_strdup(dirname_new);
-    
+
     while (temp_old && temp_new && strcmp(temp_old,temp_new)!=0 )
     {
         if (rmdir(temp_old)==-1)
         {
             // Patch from vdaghan : ENOTEMPTY & EEXIST are synonymous and used by some systems
-            if (errno != ENOTEMPTY 
+            if (errno != ENOTEMPTY
             &&  errno != EEXIST)
             {
                 g_free(temp_old);
@@ -2734,10 +2870,10 @@ gint Remove_Dir (const gchar *dirname_old, const gchar *dirname_new)
                 break;
             }
         }
-        
+
         temp_end_old = temp_old + strlen(temp_old) - 1;
         temp_end_new = temp_new + strlen(temp_new) - 1;
-        
+
         while (*temp_end_old && *temp_end_old!=G_DIR_SEPARATOR)
         {
             temp_end_old--;
@@ -2758,8 +2894,10 @@ gint Remove_Dir (const gchar *dirname_old, const gchar *dirname_new)
 
 /*
  * Rename the file ETFile
+ * Return TRUE => OK
+ *        FALSE => error
  */
-void Rename_File (ET_File *ETFile)
+gboolean Rename_File (ET_File *ETFile, gboolean hide_msgbox)
 {
     FILE  *file;
     gchar *tmp_filename = NULL;
@@ -2770,7 +2908,7 @@ void Rename_File (ET_File *ETFile)
     gchar *cur_basename_utf8 = g_path_get_basename(cur_filename_utf8); // Only filename
     gchar *new_basename_utf8 = g_path_get_basename(new_filename_utf8);
     gint   fd_tmp;
-    gchar *msg;
+    gchar *msg, *msg1;
     gchar *dirname_cur;
     gchar *dirname_new;
     gchar *dirname_cur_utf8;
@@ -2792,50 +2930,16 @@ void Rename_File (ET_File *ETFile)
     // Rename to the temporary name
     if ( rename(cur_filename,tmp_filename)!=0 ) // => rename() fails
     {
-        gchar *msg;
+        gchar *msg, *msg1;
         GtkWidget *msgbox;
 
         /* Renaming file to the temporary filename has failed */
         msg = g_strdup_printf(_("Can't rename file '%s'\n to \n'%s'!\n(%s)"),
                                 cur_basename_utf8,new_basename_utf8,g_strerror(errno));
-        msgbox = msg_box_new(_("Error..."),
-                             GTK_WINDOW(MainWindow),
-                             NULL,
-                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                             msg,
-                             GTK_STOCK_DIALOG_ERROR,
-                             GTK_STOCK_OK, GTK_RESPONSE_OK,
-                             NULL);
-        gtk_dialog_run(GTK_DIALOG(msgbox));
-        gtk_widget_destroy(msgbox);
-        g_free(msg);
-
-        Statusbar_Message(_("File(s) not renamed..."),TRUE);
-        g_free(tmp_filename);
-        g_free(cur_basename_utf8);
-        g_free(new_basename_utf8);
-        return;
-    }
-
-    /* Check if the new file name already exists. Must be done after changing 
-     * filename to the temporary name, else we can't detect the problem under 
-     * Linux when renaming a file 'aa.mp3' to 'AA.mp3' and if the last one 
-     * already exists */
-    if ( (file=fopen(new_filename,"r"))!=NULL )
-    {
-        GtkWidget *msgbox;
-
-        fclose(file);
-
-        // Restore the initial name
-        if ( rename(tmp_filename,cur_filename)!=0 ) // => rename() fails
+        msg1 = g_strdup_printf(_("Can't rename file '%s' to '%s'! (%s)"),
+                                cur_basename_utf8,new_basename_utf8,g_strerror(errno));
+        if (!hide_msgbox)
         {
-            gchar *msg;
-            GtkWidget *msgbox;
-
-            /* Renaming file from the temporary filename has failed */
-            msg = g_strdup_printf(_("Can't rename file '%s'\n to \n'%s'!\n(%s)"),
-                                    new_basename_utf8,cur_basename_utf8,g_strerror(errno));
             msgbox = msg_box_new(_("Error..."),
                                  GTK_WINDOW(MainWindow),
                                  NULL,
@@ -2846,35 +2950,92 @@ void Rename_File (ET_File *ETFile)
                                  NULL);
             gtk_dialog_run(GTK_DIALOG(msgbox));
             gtk_widget_destroy(msgbox);
+        }
+        g_free(msg);
+
+        Log_Print(LOG_ERROR,"%s", msg1);
+        g_free(msg1);
+
+        Statusbar_Message(_("File(s) not renamed..."),TRUE);
+        g_free(tmp_filename);
+        g_free(cur_basename_utf8);
+        g_free(new_basename_utf8);
+        return FALSE;
+    }
+
+    /* Check if the new file name already exists. Must be done after changing
+     * filename to the temporary name, else we can't detect the problem under
+     * Linux when renaming a file 'aa.mp3' to 'AA.mp3' and if the last one
+     * already exists */
+    if ( (file=fopen(new_filename,"r"))!=NULL )
+    {
+        GtkWidget *msgbox;
+
+        fclose(file);
+
+        // Restore the initial name
+        if ( rename(tmp_filename,cur_filename)!=0 ) // => rename() fails
+        {
+            gchar *msg, *msg1;
+            GtkWidget *msgbox;
+
+            /* Renaming file from the temporary filename has failed */
+            msg = g_strdup_printf(_("Can't rename file '%s'\n to \n'%s'!\n(%s)"),
+                                    new_basename_utf8,cur_basename_utf8,g_strerror(errno));
+            msg1 = g_strdup_printf(_("Can't rename file '%s' to '%s'! (%s)"),
+                                    new_basename_utf8,cur_basename_utf8,g_strerror(errno));
+            if (!hide_msgbox)
+            {
+                msgbox = msg_box_new(_("Error..."),
+                                     GTK_WINDOW(MainWindow),
+                                     NULL,
+                                     GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                     msg,
+                                     GTK_STOCK_DIALOG_ERROR,
+                                     GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                     NULL);
+                gtk_dialog_run(GTK_DIALOG(msgbox));
+                gtk_widget_destroy(msgbox);
+            }
             g_free(msg);
+
+            Log_Print(LOG_ERROR,"%s", msg1);
+            g_free(msg1);
 
             Statusbar_Message(_("File(s) not renamed..."),TRUE);
             g_free(tmp_filename);
             g_free(cur_basename_utf8);
             g_free(new_basename_utf8);
-            return;
+            return FALSE;
         }
 
         msg = g_strdup_printf(_("Can't rename file \n'%s'\nbecause the following "
                     "file already exists:\n'%s'"),cur_basename_utf8,new_basename_utf8);
-        msgbox = msg_box_new(_("Error..."),
-                             GTK_WINDOW(MainWindow),
-                             NULL,
-                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                             msg,
-                             GTK_STOCK_DIALOG_ERROR,
-                             GTK_STOCK_OK, GTK_RESPONSE_OK,
-                             NULL);
+        msg1 = g_strdup_printf(_("Can't rename file '%s' because the following "
+                    "file already exists: '%s'"),cur_basename_utf8,new_basename_utf8);
+        if (!hide_msgbox)
+        {
+            msgbox = msg_box_new(_("Error..."),
+                                 GTK_WINDOW(MainWindow),
+                                 NULL,
+                                 GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                 msg,
+                                 GTK_STOCK_DIALOG_ERROR,
+                                 GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                 NULL);
             gtk_dialog_run(GTK_DIALOG(msgbox));
             gtk_widget_destroy(msgbox);
-            g_free(msg);
+        }
+        g_free(msg);
+
+        Log_Print(LOG_ERROR,"%s", msg1);
+        g_free(msg1);
 
         Statusbar_Message(_("File(s) not renamed..."),TRUE);
 
         g_free(new_basename_utf8);
         g_free(cur_basename_utf8);
-        return;
-
+        return FALSE;
     }
 
     /* If files are in different directories, we need to create the new
@@ -2886,7 +3047,7 @@ void Rename_File (ET_File *ETFile)
     {
         if (Make_Dir(dirname_cur,dirname_new))
         {
-            gchar *msg;
+            gchar *msg, *msg1;
             GtkWidget *msgbox;
 
             /* Renaming file has failed, but we try to set the initial name */
@@ -2895,25 +3056,33 @@ void Rename_File (ET_File *ETFile)
             dirname_new_utf8 = filename_to_display(dirname_new);
             msg = g_strdup_printf(_("Can't create target directory\n'%s'!\n(%s)"),
                                   dirname_new_utf8,g_strerror(errno));
-            msgbox = msg_box_new(_("Error..."),
-                                 GTK_WINDOW(MainWindow),
-                                 NULL,
-                                 GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                 msg,
-                                 GTK_STOCK_DIALOG_ERROR,
-                                 GTK_STOCK_OK, GTK_RESPONSE_OK,
-                                 NULL);
-            gtk_dialog_run(GTK_DIALOG(msgbox));
-            gtk_widget_destroy(msgbox);
+            msg1 = g_strdup_printf(_("Can't create target directory '%s'! (%s)"),
+                                  dirname_new_utf8,g_strerror(errno));
+            if (!hide_msgbox)
+            {
+                msgbox = msg_box_new(_("Error..."),
+                                     GTK_WINDOW(MainWindow),
+                                     NULL,
+                                     GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                     msg,
+                                     GTK_STOCK_DIALOG_ERROR,
+                                     GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                     NULL);
+                gtk_dialog_run(GTK_DIALOG(msgbox));
+                gtk_widget_destroy(msgbox);
+            }
             g_free(msg);
             g_free(dirname_new_utf8);
+
+            Log_Print(LOG_ERROR,"%s", msg1);
+            g_free(msg1);
 
             g_free(tmp_filename);
             g_free(cur_basename_utf8);
             g_free(new_basename_utf8);
             g_free(dirname_cur);
             g_free(dirname_new);
-            return;
+            return FALSE;
         }
     }
 
@@ -2926,38 +3095,46 @@ void Rename_File (ET_File *ETFile)
         ETFile->FileNameCur = ETFile->FileNameNew;
         /* Now the file was renamed, so mark his state */
         ET_Mark_File_Name_As_Saved(ETFile);
-        
+
         Statusbar_Message(_("File(s) renamed..."),TRUE);
 
         /* Remove the of directory (check automatically if it is empty) */
         if (Remove_Dir(dirname_cur,dirname_new))
         {
-            gchar *msg;
+            gchar *msg, *msg1;
             GtkWidget *msgbox;
 
             /* Removing directories failed */
             dirname_cur_utf8 = filename_to_display(dirname_cur);
             msg = g_strdup_printf(_("Can't remove old directory\n'%s'!\n(%s)"),
                                   dirname_cur_utf8,g_strerror(errno));
-            msgbox = msg_box_new(_("Error..."),
-                                 GTK_WINDOW(MainWindow),
-                                 NULL,
-                                 GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                 msg,
-                                 GTK_STOCK_DIALOG_ERROR,
-                                 GTK_STOCK_OK, GTK_RESPONSE_OK,
-                                 NULL);
-            gtk_dialog_run(GTK_DIALOG(msgbox));
-            gtk_widget_destroy(msgbox);
+            msg1 = g_strdup_printf(_("Can't remove old directory '%s'! (%s)"),
+                                  dirname_cur_utf8,g_strerror(errno));
+            if (!hide_msgbox)
+            {
+                msgbox = msg_box_new(_("Error..."),
+                                     GTK_WINDOW(MainWindow),
+                                     NULL,
+                                     GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                     msg,
+                                     GTK_STOCK_DIALOG_ERROR,
+                                     GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                     NULL);
+                gtk_dialog_run(GTK_DIALOG(msgbox));
+                gtk_widget_destroy(msgbox);
+            }
             g_free(msg);
             g_free(dirname_cur_utf8);
+
+            Log_Print(LOG_ERROR,"%s", msg1);
+            g_free(msg1);
 
             g_free(tmp_filename);
             g_free(cur_basename_utf8);
             g_free(new_basename_utf8);
             g_free(dirname_cur);
             g_free(dirname_new);
-            return;
+            return FALSE;
         }
     }else if ( errno==EXDEV )
     {
@@ -2972,7 +3149,7 @@ void Rename_File (ET_File *ETFile)
         {
             /* Delete the old file */
             unlink(tmp_filename);
-            
+
             /* Renaming file has succeeded */
             Log_Print(LOG_OK,_("Moved file '%s' to '%s'"),cur_basename_utf8,new_basename_utf8);
 
@@ -2985,13 +3162,53 @@ void Rename_File (ET_File *ETFile)
             /* Remove the of directory (check automatically if it is empty) */
             if (Remove_Dir(dirname_cur,dirname_new))
             {
-                gchar *msg;
+                gchar *msg, *msg1;
                 GtkWidget *msgbox;
-    
+
                 /* Removing directories failed */
                 dirname_cur_utf8 = filename_to_display(dirname_cur);
                 msg = g_strdup_printf(_("Can't remove old directory\n'%s'!\n(%s)"),
                                       dirname_cur_utf8,g_strerror(errno));
+                msg1 = g_strdup_printf(_("Can't remove old directory '%s'! (%s)"),
+                                      dirname_cur_utf8,g_strerror(errno));
+                if (!hide_msgbox)
+                {
+                    msgbox = msg_box_new(_("Error..."),
+                                         GTK_WINDOW(MainWindow),
+                                         NULL,
+                                         GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                         msg,
+                                         GTK_STOCK_DIALOG_ERROR,
+                                         GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                         NULL);
+                    gtk_dialog_run(GTK_DIALOG(msgbox));
+                    gtk_widget_destroy(msgbox);
+                }
+                g_free(msg);
+                g_free(dirname_cur_utf8);
+
+                Log_Print(LOG_ERROR,"%s", msg1);
+                g_free(msg1);
+
+                g_free(tmp_filename);
+                g_free(cur_basename_utf8);
+                g_free(new_basename_utf8);
+                g_free(dirname_cur);
+                g_free(dirname_new);
+                return FALSE;
+            }
+        }else
+        {
+            gchar *msg, *msg1;
+            GtkWidget *msgbox;
+
+            /* Moving file has failed */
+            msg = g_strdup_printf(_("Can't move file '%s'\n to \n'%s'!\n(%s)"),
+                                  cur_basename_utf8,new_basename_utf8,g_strerror(errno));
+            msg1 = g_strdup_printf(_("Can't move file '%s' to '%s'! (%s)"),
+                                  cur_basename_utf8,new_basename_utf8,g_strerror(errno));
+            if (!hide_msgbox)
+            {
                 msgbox = msg_box_new(_("Error..."),
                                      GTK_WINDOW(MainWindow),
                                      NULL,
@@ -3002,24 +3219,35 @@ void Rename_File (ET_File *ETFile)
                                      NULL);
                 gtk_dialog_run(GTK_DIALOG(msgbox));
                 gtk_widget_destroy(msgbox);
-                g_free(msg);
-                g_free(dirname_cur_utf8);
-    
-                g_free(tmp_filename);
-                g_free(cur_basename_utf8);
-                g_free(new_basename_utf8);
-                g_free(dirname_cur);
-                g_free(dirname_new);
-                return;
             }
-        }else
+            g_free(msg);
+
+            Log_Print(LOG_ERROR,"%s", msg1);
+            g_free(msg1);
+
+            Statusbar_Message(_("File(s) not moved..."),TRUE);
+
+            g_free(tmp_filename);
+            g_free(cur_basename_utf8);
+            g_free(new_basename_utf8);
+            g_free(dirname_cur);
+            g_free(dirname_new);
+            return FALSE;
+        }
+    }else
+    {
+        gchar *msg, *msg1;
+        GtkWidget *msgbox;
+
+        /* Renaming file has failed, but we try to set the initial name */
+        rename(tmp_filename,cur_filename);
+
+        msg = g_strdup_printf(_("Can't rename file '%s'\n to \n'%s'!\n(%s)"),
+                              cur_basename_utf8,new_basename_utf8,g_strerror(errno));
+        msg1 = g_strdup_printf(_("Can't rename file '%s' to '%s'! (%s)"),
+                              cur_basename_utf8,new_basename_utf8,g_strerror(errno));
+        if (!hide_msgbox)
         {
-            gchar *msg;
-            GtkWidget *msgbox;
-    
-            /* Moving file has failed */
-            msg = g_strdup_printf(_("Can't move file '%s'\n to \n'%s'!\n(%s)"),
-                                  cur_basename_utf8,new_basename_utf8,g_strerror(errno));
             msgbox = msg_box_new(_("Error..."),
                                  GTK_WINDOW(MainWindow),
                                  NULL,
@@ -3030,39 +3258,23 @@ void Rename_File (ET_File *ETFile)
                                  NULL);
             gtk_dialog_run(GTK_DIALOG(msgbox));
             gtk_widget_destroy(msgbox);
-            g_free(msg);
-
-            Statusbar_Message(_("File(s) not moved..."),TRUE);
         }
-    }else
-    {
-        gchar *msg;
-        GtkWidget *msgbox;
-
-        /* Renaming file has failed, but we try to set the initial name */
-        rename(tmp_filename,cur_filename);
-
-        msg = g_strdup_printf(_("Can't rename file '%s'\n to \n'%s'!\n(%s)"),
-                              cur_basename_utf8,new_basename_utf8,g_strerror(errno));
-        msgbox = msg_box_new(_("Error..."),
-                             GTK_WINDOW(MainWindow),
-                             NULL,
-                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                             msg,
-                             GTK_STOCK_DIALOG_ERROR,
-                             GTK_STOCK_OK, GTK_RESPONSE_OK,
-                             NULL);
-        gtk_dialog_run(GTK_DIALOG(msgbox));
-        gtk_widget_destroy(msgbox);
         g_free(msg);
 
+        Log_Print(LOG_ERROR,"%s", msg1);
+        g_free(msg1);
+
         Statusbar_Message(_("File(s) not renamed..."),TRUE);
+
+        g_free(tmp_filename);
+        g_free(cur_basename_utf8);
+        g_free(new_basename_utf8);
+        g_free(dirname_cur);
+        g_free(dirname_new);
+        return FALSE;
     }
-    g_free(tmp_filename);
-    g_free(cur_basename_utf8);
-    g_free(new_basename_utf8);
-    g_free(dirname_cur);
-    g_free(dirname_new);
+
+    return TRUE;
 }
 
 /*
@@ -3401,7 +3613,7 @@ gboolean Read_Directory (gchar *path_real)
     g_free(msg);
     Set_Unbusy_Cursor();
     ReadingDirectory = FALSE;
-    
+
     return TRUE;
 }
 
@@ -3437,7 +3649,7 @@ GList *Read_Directory_Recursively (GList *file_list, gchar *path_real, gint recu
             else
                 filename = g_strconcat(path_real,dirent->d_name,NULL);
 
-            if (lstat(filename, &statbuf) == -1)
+            if (stat(filename, &statbuf) == -1)
             {
                 g_free(filename);
                 continue;
@@ -3643,6 +3855,7 @@ void Update_Command_Buttons_Sensivity (void)
         ET_File *etfile;
         gboolean has_undo = FALSE;
         gboolean has_redo = FALSE;
+        //gboolean has_to_save = FALSE;
         GtkTreeSelection *selection;
 
         /* File and Tag frames */
@@ -3710,8 +3923,8 @@ void Update_Command_Buttons_Sensivity (void)
                 etfile = Browser_List_Get_ETFile_From_Path(selfilelist->data);
                 has_undo    |= ET_File_Data_Has_Undo_Data(etfile);
                 has_redo    |= ET_File_Data_Has_Redo_Data(etfile);
-                //has_to_save |= ET_Check_If_File_Is_Saved((ET_File *)etfilelist->data);
-                if ((has_undo && has_redo) || !selfilelist->next) // Useless to check the other files
+                //has_to_save |= ET_Check_If_File_Is_Saved(etfile);
+                if ((has_undo && has_redo /*&& has_to_save*/) || !selfilelist->next) // Useless to check the other files
                     break;
                 selfilelist = g_list_next(selfilelist);
             }
@@ -3732,15 +3945,12 @@ void Update_Command_Buttons_Sensivity (void)
             ui_widget_set_sensitive(MENU_FILE, AM_REDO, FALSE);
 
         /* Enable save file command if file has been changed */
-        // Desactivated because problem with only one file in the list
-        //if (has_to_save)
-        //{
-        //    gtk_widget_set_sensitive(TBSaveButton,FALSE);
-        //    ui_widget_set_sensitive(AM_SAVE,FALSE);
-        //}else
-        //{
-        ui_widget_set_sensitive(MENU_FILE, AM_SAVE, TRUE);
-        //}
+        // Desactivated because problem with only one file in the list, as we can't change the selected file => can't mark file as changed
+        /*if (has_to_save)
+            ui_widget_set_sensitive(MENU_FILE, AM_SAVE, FALSE);
+        else*/
+            ui_widget_set_sensitive(MENU_FILE, AM_SAVE, TRUE);
+        
         ui_widget_set_sensitive(MENU_FILE, AM_SAVE_FORCED, TRUE);
 
         /* Enable undo command if there are data into main undo list (history list) */
@@ -4319,7 +4529,7 @@ void Convert_Insert_Space (GtkWidget *entry)
     gchar *string       = g_malloc(string_length+1);
     strncpy(string,gtk_entry_get_text(GTK_ENTRY(entry)),string_length);
     string[string_length]='\0';
-    
+
     Scan_Process_Fields_Insert_Space(&string);
     gtk_entry_set_text(GTK_ENTRY(entry),string);
     g_free(string);
@@ -4630,9 +4840,9 @@ void Display_Usage (void)
               "%s/path_to/files  Use an absolute path to load,\n"
               "path_to/files     Use a relative path.\n"
               "\n"),xPREFIX);
-    
+
     #undef xPREFIX
-    
+
     exit(0);
 }
 
@@ -4648,7 +4858,7 @@ void EasyTAG_Exit (void)
     Log_Print(LOG_OK,_("EasyTAG: Normal exit."));
     gtk_main_quit();
 #ifdef WIN32
-    ET_Win32_Cleanup();
+    weasytag_cleanup();
 #endif
     exit(0);
 }
@@ -4710,7 +4920,7 @@ void Quit_MainWindow (void)
             case GTK_RESPONSE_NONE:
                 return;
         }
-        
+
     } else if (CONFIRM_BEFORE_EXIT)
     {
          msgbox = msg_box_new(_("Confirm..."),
@@ -4758,7 +4968,7 @@ void MainWindow_Apply_Changes (void)
         gdk_window_get_size(MainWindow->window,&width,&height);
         MAIN_WINDOW_WIDTH  = width;
         MAIN_WINDOW_HEIGHT = height;
-        
+
         // Handle panes position
         PANE_HANDLE_POSITION1 = GTK_PANED(MainWindowHPaned)->child1_size;
         PANE_HANDLE_POSITION2 = GTK_PANED(BrowserHPaned)->child1_size;

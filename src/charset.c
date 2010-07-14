@@ -354,19 +354,20 @@ get_encoding_from_locale (const char *locale)
  */
 const gchar *get_locale (void)
 {
-    if (g_getenv("LC_ALL"))
-        return g_getenv("LC_ALL");
+    gchar *loc;
+    
+    if ((loc = g_getenv("LC_ALL")) && *loc)
+        return loc;
 
-    else if (g_getenv("LC_CTYPE"))
-        return g_getenv("LC_CTYPE");
+    else if ((loc = g_getenv("LC_CTYPE")) && *loc)
+        return loc;
 
-    else if (g_getenv("LANG"))
-        return g_getenv("LANG");
+    else if ((loc = g_getenv("LANG")) && *loc)
+        return loc;
 
-    else
-        return NULL;
+     else
+         return NULL;
 }
-
 
 
 

@@ -4,7 +4,7 @@ dnl AC_INIT(src/easytag.h)
 AC_PREREQ(2.53)
 
 dnl To set also in config.h.mingw
-AC_INIT(easytag, 2.1.5) dnl defines ($PACKAGE, $VERSION)
+AC_INIT(easytag, 2.1.6) dnl defines ($PACKAGE, $VERSION)
 
 AC_CONFIG_SRCDIR(src/easytag.h)
 dnl -------------------------------
@@ -77,8 +77,8 @@ dnl -------------------------------
 
 dnl GTK+-2 libraries
 AM_PATH_GLIB_2_0(2.8.0,, AC_MSG_ERROR([*** GLIB >= 2.8.0 not installed! ***]))
-AM_PATH_GTK_2_0(2.4.1,, AC_MSG_ERROR([*** GTK >= 2.4.1 not installed! ***]))
-PKG_CHECK_MODULES(GTK, gtk+-2.0 >= 2.4.1 glib-2.0 >= 2.4.1)
+AM_PATH_GTK_2_0(2.12.0,, AC_MSG_ERROR([*** GTK >= 2.12.0 not installed! ***]))
+PKG_CHECK_MODULES(GTK, gtk+-2.0 >= 2.12.0 glib-2.0 >= 2.8.0)
 
 
 dnl Patch from Ben Taylor to fix a Solaris bug (for CDDB)
@@ -149,7 +149,7 @@ if test "x$enable_speex" = "xyes"; then
         echo "*** Warning: Speex file support disabled, speex missing"
         echo "*** (Install speex, libogg and libvorbis libraries to enable it)"
         echo "***"
-    elif test "x$ogg_available" = "xno"; then
+    elif test "x$enable_ogg" = "xno"; then
         AC_MSG_RESULT(no)
         enable_speex="no"
         echo "***"

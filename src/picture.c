@@ -233,7 +233,7 @@ void Picture_Load_Filename (gchar *filename, gpointer user_data)
             {
                 // By default, set the filename in the description
                 pic->description = g_path_get_basename(filename_utf8);
-
+                
                 // Try to identify the type of the picture from the file name
                 filename_utf8_folded = g_utf8_casefold(pic->description, -1);
                 front_folded         = g_utf8_casefold("Front", -1);
@@ -309,11 +309,11 @@ void Picture_Add_Button_Clicked (GObject *object)
     // "PNG and JPEG" filter
     filter = gtk_file_filter_new ();
     gtk_file_filter_set_name(GTK_FILE_FILTER(filter), _("PNG and JPEG"));
-    //gtk_file_filter_add_mime_type(GTK_FILE_FILTER(filter), "image/jpeg");
-    //gtk_file_filter_add_mime_type(GTK_FILE_FILTER(filter), "image/png");
-    gtk_file_filter_add_pattern(GTK_FILE_FILTER(filter), "*.jpeg");
-    gtk_file_filter_add_pattern(GTK_FILE_FILTER(filter), "*.jpg");
-    gtk_file_filter_add_pattern(GTK_FILE_FILTER(filter), "*.png");
+    gtk_file_filter_add_mime_type(GTK_FILE_FILTER(filter), "image/jpeg"); // Using mime type avoid problem of case sensitive with extensions
+    gtk_file_filter_add_mime_type(GTK_FILE_FILTER(filter), "image/png");
+    //gtk_file_filter_add_pattern(GTK_FILE_FILTER(filter), "*.jpeg"); // Warning: *.JPEG or *.JpEg files will not be displayed
+    //gtk_file_filter_add_pattern(GTK_FILE_FILTER(filter), "*.jpg");
+    //gtk_file_filter_add_pattern(GTK_FILE_FILTER(filter), "*.png");
     gtk_file_chooser_add_filter(GTK_FILE_CHOOSER (FileSelectionWindow), GTK_FILE_FILTER(filter));
     // Make this filter the default
     gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(FileSelectionWindow), GTK_FILE_FILTER(filter));
@@ -1095,15 +1095,31 @@ void Picture_Free (Picture *pic)
  * Load the picture represented by the 'filename' (must be passed in
  * file system encoding, not UTF-8)
  */
+#ifdef WIN32
+Picture *Picture_Load_File_Data (const gchar *filename_utf8)
+#else
 Picture *Picture_Load_File_Data (const gchar *filename)
+#endif
 {
     Picture *pic;
     gchar *buffer = 0;
     size_t size = 0;
     struct stat st;
 
-    if (lstat(filename, &st)==-1)
+#ifdef WIN32
+    // Strange : on Win32, the file seems to be in UTF-8, so we can't load files with accentuated characters...
+    // To avoid this problem, we convert the filename to the file system encoding
+    gchar *filename = filename_from_display(filename_utf8);
+#endif
+
+    if (stat(filename, &st)==-1)
+    {
+        Log_Print(LOG_ERROR,_("Picture file not loaded (%s)..."),g_strerror(errno));
+#ifdef WIN32
+        g_free(filename);
+#endif
         return (Picture *)NULL;
+    }
 
     size = st.st_size;
     buffer = g_malloc(size);
@@ -1131,26 +1147,41 @@ Picture *Picture_Load_File_Data (const gchar *filename)
         gtk_dialog_run(GTK_DIALOG(msgbox));
         gtk_widget_destroy(msgbox);
 
-        Statusbar_Message(_("Picture file not loaded..."),TRUE);
+        Log_Print(LOG_ERROR,_("Picture file not loaded (%s)..."),g_strerror(errno));
         g_free(filename_utf8);
+#ifdef WIN32
+        g_free(filename);
+#endif
         return FALSE;
     }
 
+#ifdef WIN32
+    g_free(filename);
+#endif
+
     if (fread(buffer, size, 1, fd) != 1)
-      goto fail;
-
-    fclose(fd);
-
-    pic = Picture_Allocate();
-    pic->size = size;
-    pic->data = (guchar *)buffer;
-    return pic;
-
-    fail:
+    {
+        // Error
+        fclose(fd);
         if (buffer)
             g_free(buffer);
-        fclose(fd);
+        
+        Log_Print(LOG_ERROR,_("Picture file not loaded (%s)..."),g_strerror(errno));
+
         return (Picture *)NULL;
+    }else
+    {
+        // Loaded
+        fclose(fd);
+    
+        pic = Picture_Allocate();
+        pic->size = size;
+        pic->data = (guchar *)buffer;
+
+        Log_Print(LOG_OK,_("Picture file loaded..."));
+
+        return pic;
+    }
 }
 
 /*
@@ -1162,11 +1193,15 @@ gboolean Picture_Save_File_Data (const Picture *pic, const gchar *filename)
 
     fd = open(filename, O_WRONLY|O_CREAT|O_TRUNC, 0666);
     if (fd == -1)
+    {
+        Log_Print(LOG_ERROR,_("Picture file can't be saved (%s)..."),g_strerror(errno));
         return FALSE;
+    }
 
     if (write(fd, pic->data, pic->size) != pic->size)
     {
         close(fd);
+        Log_Print(LOG_ERROR,_("Picture file can't be saved (%s)..."),g_strerror(errno));
         return FALSE;
     }
 

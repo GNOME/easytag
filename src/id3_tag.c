@@ -948,7 +948,7 @@ ID3_TextEnc Id3tag_Set_Field (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid
         }
 
         /*
-         * We prioritize the rule selected in options. If the encoding of the 
+         * We prioritize the rule selected in options. If the encoding of the
          * field is ISO-8859-1, we can write it to an other single byte encoding.
          */
         if (FILE_WRITING_ID3V2_USE_UNICODE_CHARACTER_SET)
@@ -1252,6 +1252,7 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
                              0x00, 0x00, 0x00, 0x00};
     ID3Tag *id3_tag = NULL;
     gchar *filename;
+    gchar *filename_tmp;
     gchar *result = NULL;
     ID3Frame *id3_frame;
     gboolean use_unicode;
@@ -1262,9 +1263,15 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
 
     // Create a temporary file
     filename = g_strconcat(HOME_VARIABLE,
-                           HOME_VARIABLE[strlen(HOME_VARIABLE)-1]!=G_DIR_SEPARATOR?G_DIR_SEPARATOR_S:"",
-                           ".easytag"G_DIR_SEPARATOR_S"test_easytag.mp3",
+                           HOME_VARIABLE[strlen(HOME_VARIABLE)-1]!=G_DIR_SEPARATOR ? G_DIR_SEPARATOR_S : "",
+                           ".easytag" G_DIR_SEPARATOR_S "test_easytag.mp3",
                            NULL);
+
+    // Must convert to the filesystem encoding (else may cause problem under XP with accounts like "Léo")
+    filename_tmp = filename;
+    filename = filename_from_display(filename);
+    g_free(filename_tmp);
+
     if ( (file=fopen(filename,"w+"))==NULL )
     {
         gchar *filename_utf8 = filename_to_display(filename);

@@ -1,3 +1,32 @@
+2.1.6 - July 12th, 2008 :
+=========================
+    * Fixed displaying of the corresponding file when handling the Cddb track 
+      list,
+    * Fixed configure script to check needed libraries for Speex support,
+    * Fixed problem of displaying picture files which have an extension not in
+      lowercase,
+    * Fixed a crash when writing Flac tag if the file doesn't contain a vendor
+      string (thanks to Marcus Holland-Moritz),
+    * Fixed displaying of ChangeLog in the 'About' window,
+    * Fixed crash with language environment variables set to nul (thanks to Juliya Valeeva),
+    * Fixed saving Ogg and Flac files with multifields and warn if the year value will be truncated (thanks to Zohaib Hassan),
+    * Added shortcuts to the Desktop, Documents, Download and Music directories,
+    * Improved process to save severals files : the stop button is enabled, the 
+      user is warned if the file was changed by an external program, and the error 
+      messages are displayed in the log view instead of message boxes,
+    * Japanese translation updated (thanks to Hironao Komatsu),
+    * Swedish translation updated (thanks to Arild Matsson),
+    * Polish translation updated (thanks to Michał Smoczyk),
+    * German translation updated (thanks to Götz Waschk),
+    * French translation updated.
+
+
+    Windows version :
+    * Fixed problem to read and save configuration files under WinXP or Vista with
+      accounts containing non ASCII characters.,
+    * Fixed problem to load picture files containing accuentuated character on the name or the path.
+
+
 2.1.5 - January 26th, 2008 :
 ============================
     * Added an option in the "Process Fields" scanner to enable/disable
@@ -17,11 +46,13 @@
     * Polish translation updated (thanks to Michał Smoczyk),
     * Swedish translation updated (thanks to Anders Strömer),
     * German translation updated (thanks to Götz Waschk),
+    * French translation updated.
 
 
     Windows version :
-    * Fixed incorrect path when opening the program using the context menu "Browse with EasyTAG"
-    * Fixed uninstall of the context menu "Browse with EasyTAG"
+    * Fixed incorrect path when opening the program using the context menu 
+      "Browse with EasyTAG",
+    * Fixed uninstall of the context menu "Browse with EasyTAG".
 
 
 2.1.4 - December 12th, 2007 :

@@ -109,6 +109,8 @@
  **************/
 gboolean Ogg_Tag_Write_File (FILE *file_in, gchar *filename_in, vcedit_state *state);
 
+static gboolean Ogg_Write_Delimetered_Tag (vorbis_comment *vc, const gchar *tag_name, gchar *values);
+
 
 /*************
  * Functions *
@@ -271,6 +273,8 @@ gboolean Ogg_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     if ( (string = vorbis_comment_query(vc,"DATE",0)) != NULL && g_utf8_strlen(string, -1) > 0 )
     {
         FileTag->year = g_strdup(string);
+        if (g_utf8_strlen(FileTag->year, -1) > 4)
+            Log_Print(LOG_WARNING,_("The year value '%s' seems to be invalid in file '%s'. The information will be lost while saving tag."),FileTag->year,filename_utf8);
     }
 
     /*************************
@@ -564,6 +568,28 @@ gboolean Ogg_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
 }
 
 
+/*
+ * Save field value in separated tags if it contains multifields
+ */
+static gboolean Ogg_Write_Delimetered_Tag (vorbis_comment *vc, const gchar *tag_name, gchar *values)
+{
+    gchar **strings = g_strsplit(values,MULTIFIELD_SEPARATOR,255);
+    unsigned int i=0;
+    
+    for (i=0;i<g_strv_length(strings);i++)
+    {
+        if (strlen(strings[i])>0)
+        {
+            char *string = g_strconcat(tag_name,strings[i],NULL);
+            
+            vorbis_comment_add(vc,string);
+            g_free(string);
+        }
+    }
+    g_strfreev(strings);
+    return TRUE;
+}
+
 
 gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
 {
@@ -646,9 +672,7 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
      *********/
     if ( FileTag->title )
     {
-        string = g_strconcat("TITLE=",FileTag->title,NULL);
-        vorbis_comment_add(vc,string);
-        g_free(string);
+        Ogg_Write_Delimetered_Tag(vc,"TITLE=",FileTag->title);
     }
 
     /**********
@@ -656,9 +680,7 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
      **********/
     if ( FileTag->artist )
     {
-        string = g_strconcat("ARTIST=",FileTag->artist,NULL);
-        vorbis_comment_add(vc,string);
-        g_free(string);
+        Ogg_Write_Delimetered_Tag(vc,"ARTIST=",FileTag->artist);
     }
 
     /*********
@@ -666,9 +688,7 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
      *********/
     if ( FileTag->album )
     {
-        string = g_strconcat("ALBUM=",FileTag->album,NULL);
-        vorbis_comment_add(vc,string);
-        g_free(string);
+        Ogg_Write_Delimetered_Tag(vc,"ALBUM=",FileTag->album);
     }
 
     /***************
@@ -712,9 +732,7 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
      *********/
     if ( FileTag->genre )
     {
-        string = g_strconcat("GENRE=",FileTag->genre,NULL);
-        vorbis_comment_add(vc,string);
-        g_free(string);
+        Ogg_Write_Delimetered_Tag(vc,"GENRE=",FileTag->genre);
     }
 
     /***********
@@ -724,21 +742,15 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
     if ( FileTag->comment )
     {
         // Format of new specification
-        string = g_strconcat("DESCRIPTION=",FileTag->comment,NULL);
-        vorbis_comment_add(vc,string);
-        g_free(string);
+        Ogg_Write_Delimetered_Tag(vc,"DESCRIPTION=",FileTag->comment);
 
         // Format used in winamp plugin
-        string = g_strconcat("COMMENT=",FileTag->comment,NULL);
-        vorbis_comment_add(vc,string);
-        g_free(string);
+        Ogg_Write_Delimetered_Tag(vc,"COMMENT=",FileTag->comment);
 
         if (OGG_TAG_WRITE_XMMS_COMMENT)
         {
             // Format used into xmms-1.2.5
-            string = g_strconcat("=",FileTag->comment,NULL);
-            vorbis_comment_add(vc,string);
-            g_free(string);
+            Ogg_Write_Delimetered_Tag(vc,"=",FileTag->comment);
         }
     }
 
@@ -747,9 +759,7 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
      ************/
     if ( FileTag->composer )
     {
-        string = g_strconcat("COMPOSER=",FileTag->composer,NULL);
-        vorbis_comment_add(vc,string);
-        g_free(string);
+        Ogg_Write_Delimetered_Tag(vc,"COMPOSER=",FileTag->composer);
     }
 
     /*******************
@@ -757,9 +767,7 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
      *******************/
     if ( FileTag->orig_artist )
     {
-        string = g_strconcat("PERFORMER=",FileTag->orig_artist,NULL);
-        vorbis_comment_add(vc,string);
-        g_free(string);
+        Ogg_Write_Delimetered_Tag(vc,"PERFORMER=",FileTag->orig_artist);
     }
 
     /*************

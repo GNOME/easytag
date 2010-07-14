@@ -63,7 +63,7 @@ typedef struct _Log_Data Log_Data;
 struct _Log_Data
 {
     gchar         *time;    /* The time of this line of log */
-    Log_Error_Type error_type;  
+    Log_Error_Type error_type;
     gchar         *string;  /* The string of the line of log to display */
 };
 
@@ -245,7 +245,7 @@ void Log_Print (Log_Error_Type error_type, gchar const *format, ...)
 
 
     va_start (args, format);
-    string = g_strdup_vprintf (format, args);
+    string = g_strdup_vprintf(format, args);
     va_end (args);
 
     // If the log window is displayed then messages are displayed, else
@@ -258,9 +258,9 @@ void Log_Print (Log_Error_Type error_type, gchar const *format, ...)
         if (LogListNbrRows > LOG_MAX_LINES - 1
         &&  gtk_tree_model_get_iter_first(GTK_TREE_MODEL(logListModel), &iter))
         {
-            gtk_list_store_remove(GTK_LIST_STORE(logListModel), &iter);         
+            gtk_list_store_remove(GTK_LIST_STORE(logListModel), &iter);
         }
-        
+
         LogListNbrRows++;
         gtk_list_store_append(logListModel, &iter);
         gtk_list_store_set(logListModel, &iter,
@@ -286,9 +286,18 @@ void Log_Print (Log_Error_Type error_type, gchar const *format, ...)
 
     // Store also the messages in the log file.
     if (!file_path)
+    {
+        gchar *file_path_tmp = NULL;
+
         file_path = g_strconcat(HOME_VARIABLE,
                                 HOME_VARIABLE[strlen(HOME_VARIABLE)-1]!=G_DIR_SEPARATOR ? G_DIR_SEPARATOR_S : "",
                                 LOG_FILE,NULL);
+
+        // Must convert to the filesystem encoding (else may cause problem under XP with accounts like "Léo")
+        file_path_tmp = file_path;
+        file_path = filename_from_display(file_path);
+        g_free(file_path_tmp);
+    }
 
     // The first time, the whole file is delete. Else, text is appended
     if (first_time)
@@ -322,7 +331,7 @@ void Log_Print_Tmp_List (void)
     LogPrintTmpList = g_list_first(LogPrintTmpList);
     while (LogPrintTmpList)
     {
-        
+
         if (LogList && logListModel)
         {
             LogListNbrRows++;
@@ -336,7 +345,7 @@ void Log_Print_Tmp_List (void)
                                -1);
             Log_List_Set_Row_Visible(GTK_TREE_MODEL(logListModel), &iter);
         }
-        
+
         if (!LogPrintTmpList->next) break;
         LogPrintTmpList = LogPrintTmpList->next;
     }
@@ -364,22 +373,30 @@ void Log_Print_Tmp_List (void)
 gchar *Log_Get_Stock_Id_From_Error_Type (Log_Error_Type error_type)
 {
     gchar *stock_id;
-    
+
     switch (error_type)
     {
         case LOG_OK:
             stock_id = GTK_STOCK_APPLY;
             break;
-        
+
+        case LOG_INFO:
+            stock_id = GTK_STOCK_DIALOG_INFO;
+            break;
+
+        case LOG_WARNING:
+            stock_id = GTK_STOCK_DIALOG_WARNING;
+            break;
+
         case LOG_ERROR:
             stock_id = GTK_STOCK_CANCEL;
             break;
-        
+
         case LOG_UNKNOWN:
         default:
             stock_id = NULL;
             break;
     }
-    
+
     return stock_id;
 }

@@ -34,6 +34,8 @@ typedef enum
 {                  
     LOG_UNKNOWN = 0,
     LOG_OK,
+    LOG_INFO,
+    LOG_WARNING,
     LOG_ERROR
 } Log_Error_Type;
 

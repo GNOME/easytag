@@ -112,6 +112,11 @@ static const gchar *ui_xml =
 
 "    <menu action='BrowserMenu'>"
 "      <menuitem action='GoToHome' />"
+"      <menuitem action='GoToDesktop' />"
+"      <menuitem action='GoToDocument' />"
+"      <menuitem action='GoToDownload' />"
+"      <menuitem action='GoToMusic' />"
+"      <separator />"
 "      <menuitem action='GoToDefaultPath' />"
 "      <menuitem action='SetDefaultPath' />"
 "      <separator />"

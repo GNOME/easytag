@@ -1,5 +1,5 @@
 %define    name      easytag
-%define    version   2.1.5
+%define    version   2.1.6
 %define    release   1
 %define    prefix    /usr
 
@@ -17,7 +17,7 @@ Vendor:        Jerome Couderc <easytag@gmail.com>
 Distribution:  Any
 Packager:      Jerome Couderc <easytag@gmail.com>
 Requires:      glib2     >= 2.8.0
-Requires:      gtk2      >= 2.4.1
+Requires:      gtk2      >= 2.12.0
 Requires:      id3lib    >= 3.7.12
 Requires:      libid3tag >= 0.15
 Requires:      libogg    >= 1.0
@@ -26,7 +26,7 @@ Requires:      flac      >= 1.1.0
 Requires:      libmp4v2  >= 1.5.0.1
 Requires:      wavpack   >= 4.40
 BuildRequires: glib2-devel     >= 2.8.0
-BuildRequires: gtk2-devel      >= 2.4.1
+BuildRequires: gtk2-devel      >= 2.12.0
 BuildRequires: id3lib-devel    >= 3.7.12
 BuildRequires: libid3tag-devel >= 0.15
 BuildRequires: libogg-devel    >= 1.0

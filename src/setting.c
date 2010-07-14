@@ -61,39 +61,39 @@
 // Base directory created into home dir
 #define EASYTAG_DIR                                 ".easytag"
 // File for configuration
-#define CONFIG_FILE                                 EASYTAG_DIR "/easytagrc"
+#define CONFIG_FILE                                 EASYTAG_DIR G_DIR_SEPARATOR_S "easytagrc"
 // File of masks for tag scanner
-#define SCAN_TAG_MASKS_FILE                         EASYTAG_DIR "/scan_tag.mask"
+#define SCAN_TAG_MASKS_FILE                         EASYTAG_DIR G_DIR_SEPARATOR_S "scan_tag.mask"
 // File of masks for rename file scanner
-#define RENAME_FILE_MASKS_FILE                      EASYTAG_DIR "/rename_file.mask"
+#define RENAME_FILE_MASKS_FILE                      EASYTAG_DIR G_DIR_SEPARATOR_S "rename_file.mask"
 // File for history of RenameDirectoryMaskCombo combobox
-#define RENAME_DIRECTORY_MASKS_FILE                 EASYTAG_DIR "/rename_directory.mask"
+#define RENAME_DIRECTORY_MASKS_FILE                 EASYTAG_DIR G_DIR_SEPARATOR_S "rename_directory.mask"
 // File for history of PlayListNameCombo combobox
-#define PLAY_LIST_NAME_MASKS_FILE                   EASYTAG_DIR "/play_list_name.mask"
+#define PLAY_LIST_NAME_MASKS_FILE                   EASYTAG_DIR G_DIR_SEPARATOR_S "play_list_name.mask"
 // File for history of PlayListContentMaskEntry combobox
-#define PLAYLIST_CONTENT_MASKS_FILE                 EASYTAG_DIR "/playlist_content.mask"
+#define PLAYLIST_CONTENT_MASKS_FILE                 EASYTAG_DIR G_DIR_SEPARATOR_S "playlist_content.mask"
 // File for history of DefaultPathToMp3 combobox
-#define DEFAULT_PATH_TO_MP3_HISTORY_FILE            EASYTAG_DIR "/default_path_to_mp3.history"
+#define DEFAULT_PATH_TO_MP3_HISTORY_FILE            EASYTAG_DIR G_DIR_SEPARATOR_S "default_path_to_mp3.history"
 // File for history of DefaultComment combobox
-#define DEFAULT_TAG_COMMENT_HISTORY_FILE            EASYTAG_DIR "/default_tag_comment.history"
+#define DEFAULT_TAG_COMMENT_HISTORY_FILE            EASYTAG_DIR G_DIR_SEPARATOR_S "default_tag_comment.history"
 // File for history of BrowserEntry combobox
-#define PATH_ENTRY_HISTORY_FILE                     EASYTAG_DIR "/browser_path.history"
+#define PATH_ENTRY_HISTORY_FILE                     EASYTAG_DIR G_DIR_SEPARATOR_S "browser_path.history"
 // File for history of run program combobox for directories
-#define RUN_PROGRAM_WITH_DIRECTORY_HISTORY_FILE     EASYTAG_DIR "/run_program_with_directory.history"
+#define RUN_PROGRAM_WITH_DIRECTORY_HISTORY_FILE     EASYTAG_DIR G_DIR_SEPARATOR_S "run_program_with_directory.history"
 // File for history of run program combobox for files
-#define RUN_PROGRAM_WITH_FILE_HISTORY_FILE          EASYTAG_DIR "/run_program_with_file.history"
+#define RUN_PROGRAM_WITH_FILE_HISTORY_FILE          EASYTAG_DIR G_DIR_SEPARATOR_S "run_program_with_file.history"
 // File for history of run player combobox
-#define AUDIO_FILE_PLAYER_HISTORY_FILE              EASYTAG_DIR "/audio_file_player.history"
+#define AUDIO_FILE_PLAYER_HISTORY_FILE              EASYTAG_DIR G_DIR_SEPARATOR_S "audio_file_player.history"
 // File for history of search string combobox
-#define SEARCH_FILE_HISTORY_FILE                    EASYTAG_DIR "/search_file.history"
+#define SEARCH_FILE_HISTORY_FILE                    EASYTAG_DIR G_DIR_SEPARATOR_S "search_file.history"
 // File for history of FileToLoad combobox
-#define FILE_TO_LOAD_HISTORY_FILE                   EASYTAG_DIR "/file_to_load.history"
+#define FILE_TO_LOAD_HISTORY_FILE                   EASYTAG_DIR G_DIR_SEPARATOR_S "file_to_load.history"
 // File for history of CddbSearchStringEntry combobox
-#define CDDB_SEARCH_STRING_HISTORY_FILE             EASYTAG_DIR "/cddb_search_string.history"
+#define CDDB_SEARCH_STRING_HISTORY_FILE             EASYTAG_DIR G_DIR_SEPARATOR_S "cddb_search_string.history"
 // File for history of CddbSearchStringInResultEntry combobox
-#define CDDB_SEARCH_STRING_IN_RESULT_HISTORY_FILE   EASYTAG_DIR "/cddb_search_string_in_result.history"
+#define CDDB_SEARCH_STRING_IN_RESULT_HISTORY_FILE   EASYTAG_DIR G_DIR_SEPARATOR_S "cddb_search_string_in_result.history"
 // File for history of CddbLocalPath combobox
-#define CDDB_LOCAL_PATH_HISTORY_FILE                EASYTAG_DIR "/cddb_local_path.history"
+#define CDDB_LOCAL_PATH_HISTORY_FILE                EASYTAG_DIR G_DIR_SEPARATOR_S "cddb_local_path.history"
 
 
 
@@ -418,11 +418,19 @@ void Init_Config_Variables (void)
     USE_NON_STANDARD_ID3_READING_CHARACTER_SET      = 0;
     FILE_READING_ID3V1V2_CHARACTER_SET              = g_strdup("UTF-8");
     FILE_WRITING_ID3V2_WRITE_TAG                    = 1;
+#ifdef WIN32
+    FILE_WRITING_ID3V2_VERSION_4                    = 0;
+#else
     FILE_WRITING_ID3V2_VERSION_4                    = 1;
+#endif
     FILE_WRITING_ID3V2_USE_CRC32                    = 0;
     FILE_WRITING_ID3V2_USE_COMPRESSION              = 0;
     FILE_WRITING_ID3V2_USE_UNICODE_CHARACTER_SET    = 1;
+#ifdef WIN32
+    FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET        = g_strdup("UTF-16");
+#else
     FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET        = g_strdup("UTF-8");
+#endif
     FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET     = g_strdup("ISO-8859-1");
     FILE_WRITING_ID3V2_ICONV_OPTIONS_NO             = 1;
     FILE_WRITING_ID3V2_ICONV_OPTIONS_TRANSLIT       = 0;
@@ -477,7 +485,7 @@ void Init_Config_Variables (void)
     PROCESS_COPYRIGHT_FIELD            = 1;
     PROCESS_URL_FIELD                  = 1;
     PROCESS_ENCODED_BY_FIELD           = 1;
-    
+
     PROCESS_FIELDS_CONVERT_FROM        = NULL;
     PROCESS_FIELDS_CONVERT_TO          = NULL;
 
@@ -877,6 +885,7 @@ void Save_Changes_Of_Preferences_Window (void)
 void Save_Config_To_File (void)
 {
     gchar *file_path = NULL;
+    gchar *file_path_tmp = NULL;
     FILE *file;
 
     /* The file to write */
@@ -884,6 +893,11 @@ void Save_Config_To_File (void)
     file_path = g_strconcat(HOME_VARIABLE,
                             HOME_VARIABLE[strlen(HOME_VARIABLE)-1]!=G_DIR_SEPARATOR ? G_DIR_SEPARATOR_S : "",
                             CONFIG_FILE,NULL);
+
+    // Must convert to the filesystem encoding (else may cause problem under XP with accounts like "Léo")
+    file_path_tmp = file_path;
+    file_path = filename_from_display(file_path);
+    g_free(file_path_tmp);
 
     if ( Create_Easytag_Directory()==0 || (file=fopen(file_path,"w+"))==0 )
     {
@@ -1019,6 +1033,7 @@ void Set_Config (gchar *line)
 void Read_Config (void)
 {
     gchar *file_path = NULL;
+    gchar *file_path_tmp = NULL;
     FILE *file;
     gchar buffer[MAX_STRING_LEN];
 
@@ -1027,6 +1042,11 @@ void Read_Config (void)
     file_path = g_strconcat(HOME_VARIABLE,
                             HOME_VARIABLE[strlen(HOME_VARIABLE)-1]!=G_DIR_SEPARATOR?G_DIR_SEPARATOR_S:"",
                             CONFIG_FILE,NULL);
+
+    // Must convert to the filesystem encoding (else may cause problem under XP with accounts like "Léo")
+    file_path_tmp = file_path;
+    file_path = filename_from_display(file_path);
+    g_free(file_path_tmp);
 
     if ( (file=fopen(file_path,"r"))==0 )
     {
@@ -1057,6 +1077,7 @@ void Read_Config (void)
 void Display_Config (void)
 {
     gchar *file_path = NULL;
+    gchar *file_path_tmp = NULL;
     FILE *file;
 
     /* The file to write */
@@ -1064,6 +1085,11 @@ void Display_Config (void)
     file_path = g_strconcat(HOME_VARIABLE,
                             HOME_VARIABLE[strlen(HOME_VARIABLE)-1]!=G_DIR_SEPARATOR?G_DIR_SEPARATOR_S:"",
                             CONFIG_FILE,NULL);
+
+    // Must convert to the filesystem encoding (else may cause problem under XP with accounts like "Léo")
+    file_path_tmp = file_path;
+    file_path = filename_from_display(file_path);
+    g_free(file_path_tmp);
 
     if ( (file=fopen(file_path,"r"))==0 )
     {
@@ -1113,6 +1139,7 @@ void Display_Config (void)
 gboolean Setting_Create_Files (void)
 {
     gchar *home_path = NULL;
+    gchar *home_path_tmp = NULL;
     gchar *file_path = NULL;
     FILE  *file;
 
@@ -1124,8 +1151,14 @@ gboolean Setting_Create_Files (void)
         return FALSE;
 
     home_path = g_strconcat(HOME_VARIABLE,
-                            HOME_VARIABLE[strlen(HOME_VARIABLE)-1]!=G_DIR_SEPARATOR?G_DIR_SEPARATOR_S:"",
+                            HOME_VARIABLE[strlen(HOME_VARIABLE)-1]!=G_DIR_SEPARATOR ? G_DIR_SEPARATOR_S : "",
                             NULL);
+
+    // Must convert to the filesystem encoding (else may cause problem under XP with accounts like "Léo")
+    // We do it only for 'home_path' to avoid lot of code...
+    home_path_tmp = home_path;
+    home_path = filename_from_display(home_path);
+    g_free(home_path_tmp);
 
     file_path = g_strconcat(home_path,CONFIG_FILE,NULL);
     if ( (file=fopen(file_path,"a+")) != NULL )
@@ -1260,6 +1293,7 @@ gboolean Setting_Create_Files (void)
 void Save_List_Store_To_File (gchar *filename, GtkListStore *liststore, gint colnum)
 {
     gchar *file_path = NULL;
+    gchar *file_path_tmp = NULL;
     FILE *file;
     gchar *data = NULL;
     gchar *text;
@@ -1273,6 +1307,11 @@ void Save_List_Store_To_File (gchar *filename, GtkListStore *liststore, gint col
     file_path = g_strconcat(HOME_VARIABLE,
                             HOME_VARIABLE[strlen(HOME_VARIABLE)-1]!=G_DIR_SEPARATOR?G_DIR_SEPARATOR_S:"",
                             filename,NULL);
+
+    // Must convert to the filesystem encoding (else may cause problem under XP with accounts like "Léo")
+    file_path_tmp = file_path;
+    file_path = filename_from_display(file_path);
+    g_free(file_path_tmp);
 
     if ( Create_Easytag_Directory()==0 || (file=fopen(file_path,"w+"))==NULL )
     {
@@ -1303,6 +1342,7 @@ gboolean Populate_List_Store_From_File (gchar *filename, GtkListStore *liststore
 {
 
     gchar *file_path = NULL;
+    gchar *file_path_tmp = NULL;
     FILE *file;
     gchar buffer[MAX_STRING_LEN];
     GtkTreeIter iter;
@@ -1313,6 +1353,11 @@ gboolean Populate_List_Store_From_File (gchar *filename, GtkListStore *liststore
     file_path = g_strconcat(HOME_VARIABLE,
                             HOME_VARIABLE[strlen(HOME_VARIABLE)-1]!=G_DIR_SEPARATOR?G_DIR_SEPARATOR_S:"",
                             filename,NULL);
+
+    // Must convert to the filesystem encoding (else may cause problem under XP with accounts like "Léo")
+    file_path_tmp = file_path;
+    file_path = filename_from_display(file_path);
+    g_free(file_path_tmp);
 
     if ( (file=fopen(file_path,"r"))==NULL )
     {
@@ -1325,7 +1370,7 @@ gboolean Populate_List_Store_From_File (gchar *filename, GtkListStore *liststore
         {
             if (buffer[strlen(buffer)-1]=='\n')
                 buffer[strlen(buffer)-1]='\0';
-            
+
             /*if (g_utf8_validate(buffer, -1, NULL))
                 data = g_strdup(buffer);
             else
@@ -1602,6 +1647,7 @@ void Save_Cddb_Local_Path_List (GtkListStore *liststore, gint colnum)
 gboolean Create_Easytag_Directory (void)
 {
     gchar *easytag_path = NULL;
+    gchar *easytag_path_tmp = NULL;
     DIR *dir;
 
     if (!HOME_VARIABLE)
@@ -1617,7 +1663,12 @@ gboolean Create_Easytag_Directory (void)
                                EASYTAG_DIR,
                                //EASYTAG_DIR[strlen(EASYTAG_DIR)-1]!=G_DIR_SEPARATOR?G_DIR_SEPARATOR_S:"",
                                NULL);
-        
+
+    // Must convert to the filesystem encoding (else may cause problem under XP with accounts like "Léo")
+    easytag_path_tmp = easytag_path;
+    easytag_path = filename_from_display(easytag_path);
+    g_free(easytag_path_tmp);
+
     if ( (dir=opendir(easytag_path)) == NULL )
     {
         if ( (mkdir(easytag_path,S_IRWXU|S_IXGRP|S_IRGRP)) == -1)

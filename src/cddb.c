@@ -772,7 +772,7 @@ void Open_Cddb_Window (void)
     // Check box to use DLM (also used in the preferences window)
     CddbUseDLM2 = gtk_check_button_new_with_label(_("Match lines with the Levenshtein algorithm"));
     gtk_box_pack_start(GTK_BOX(hbox),CddbUseDLM2,FALSE,FALSE,2);
-    // Doesn't activate it by default because if the new user don't pay attention to it, 
+    // Doesn't activate it by default because if the new user don't pay attention to it,
     // it will not understand why the cddb results aren't loaded correctly...
     //gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbUseDLM2),CDDB_USE_DLM);
     gtk_tooltips_set_tip(Tips,CddbUseDLM2,_("When activating this option, the "
@@ -1503,12 +1503,12 @@ GtkWidget *Create_Cddb_Track_List_Popup_Menu(GtkWidget *list)
 
     MenuItem = gtk_menu_item_new_with_label(_("Unselect all lines"));
     gtk_menu_shell_append(GTK_MENU_SHELL(CddbPopupMenu), MenuItem);
-    g_signal_connect(G_OBJECT(MenuItem),"activate", 
+    g_signal_connect(G_OBJECT(MenuItem),"activate",
                      G_CALLBACK(Cddb_Track_List_Unselect_All),NULL);
 
     MenuItem = gtk_menu_item_new_with_label(_("Invert selection"));
     gtk_menu_shell_append(GTK_MENU_SHELL(CddbPopupMenu), MenuItem);
-    g_signal_connect(G_OBJECT(MenuItem),"activate", 
+    g_signal_connect(G_OBJECT(MenuItem),"activate",
                      G_CALLBACK(Cddb_Track_List_Invert_Selection),NULL);
 
     MenuItem = gtk_menu_item_new();
@@ -1714,6 +1714,7 @@ gint Cddb_Write_Result_To_File (gint socket_id, gulong *bytes_read_total)
 {
     gchar *home_path = NULL;
     gchar *file_path = NULL;
+    gchar *file_path_tmp = NULL;
     FILE  *file;
 
 
@@ -1725,8 +1726,13 @@ gint Cddb_Write_Result_To_File (gint socket_id, gulong *bytes_read_total)
                             HOME_VARIABLE[strlen(HOME_VARIABLE)-1]!=G_DIR_SEPARATOR?G_DIR_SEPARATOR_S:"",
                             NULL);
 
-
     file_path = g_strconcat(home_path,CDDB_RESULT_FILE,NULL);
+
+    // Must convert to the filesystem encoding (else may cause problem under XP with accounts like "Léo")
+    file_path_tmp = file_path;
+    file_path = filename_from_display(file_path);
+    g_free(file_path_tmp);
+
     if ( (file=fopen(file_path,"w+")) != NULL )
     {
         gchar cddb_out[MAX_STRING_LEN+1];
@@ -1747,7 +1753,7 @@ gint Cddb_Write_Result_To_File (gint socket_id, gulong *bytes_read_total)
             *bytes_read_total += bytes_read;
 
             //g_print("\nLine : %lu : %s\n",bytes_read,cddb_out);
-            
+
             // Display message
             size_str = Convert_Size_1(*bytes_read_total);
             msg = g_strdup_printf(_("Receiving data (%s) ..."),size_str);
@@ -1802,12 +1808,18 @@ gint Cddb_Read_Line (FILE **file, gchar **cddb_out)
         // Open the file for reading the first time
         gchar *home_path;
         gchar *file_path;
+        gchar *file_path_tmp;
 
         home_path = g_strconcat(HOME_VARIABLE,
                                 HOME_VARIABLE[strlen(HOME_VARIABLE)-1]!=G_DIR_SEPARATOR?G_DIR_SEPARATOR_S:"",
                                 NULL);
         file_path = g_strconcat(home_path,CDDB_RESULT_FILE,NULL);
         g_free(home_path);
+
+        // Must convert to the filesystem encoding (else may cause problem under XP with accounts like "Léo")
+        file_path_tmp = file_path;
+        file_path = filename_from_display(file_path);
+        g_free(file_path_tmp);
 
         if ( (*file=fopen(file_path,"r"))==0 )
         {
@@ -1831,10 +1843,10 @@ gint Cddb_Read_Line (FILE **file, gchar **cddb_out)
         // On error, or EOF
         fclose(*file);
         *file = NULL;
-        
+
         //*cddb_out = NULL;
         *cddb_out = g_strdup(""); // To avoid a crash
-        
+
         return 0;
     }
 
@@ -1997,7 +2009,7 @@ void Cddb_Load_Album_List (gboolean only_red_lines)
         if (selectedRows)
         {
             if (gtk_tree_model_get_iter(GTK_TREE_MODEL(CddbAlbumListModel), &currentIter, (GtkTreePath*)selectedRows->data))
-                gtk_tree_model_get(GTK_TREE_MODEL(CddbAlbumListModel), &currentIter, 
+                gtk_tree_model_get(GTK_TREE_MODEL(CddbAlbumListModel), &currentIter,
                                    CDDB_ALBUM_LIST_DATA, &cddbalbumSelected, -1);
         }
 
@@ -2889,7 +2901,7 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
     }else if (file_selectedcount > 99)
     {
         // The CD redbook standard defines the maximum number of tracks as 99, any
-        // queries with more than 99 tracks will never return a result. 
+        // queries with more than 99 tracks will never return a result.
         msg = g_strdup_printf(_("More than 99 files selected! Can't send request!"));
         gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
         g_free(msg);
@@ -3056,7 +3068,7 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
             g_free(file_path);
 
         }
-        
+
 
     }else
     {
@@ -3084,7 +3096,7 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
                 cddb_server_port     = CDDB_SERVER_PORT_AUTOMATIC_SEARCH2;
                 cddb_server_cgi_path = g_strdup(CDDB_SERVER_CGI_PATH_AUTOMATIC_SEARCH2);
             }
-            
+
             // Check values
             if (!cddb_server_name || strcmp(cddb_server_name,"")==0)
                 continue;
@@ -3215,7 +3227,7 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
                 ||   strncmp(cddb_out_tmp,"211",3)==0) )
                     cddb_out_tmp = cddb_out_tmp + 4;
 
-                // Reading of lines with albums (skiping return code lines : 
+                // Reading of lines with albums (skiping return code lines :
                 // "211 Found inexact matches, list follows (until terminating `.')" )
                 if (cddb_out != NULL && strstr(cddb_out_tmp,"/") != NULL)
                 {
@@ -3266,7 +3278,7 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
                 fclose(file);
                 file = NULL;
             }
-            
+
             // Close connection
             Cddb_Close_Connection(socket_id);
         }
@@ -3363,7 +3375,7 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
     cddb_server_name     = cddbalbum->server_name;
     cddb_server_port     = cddbalbum->server_port;
     cddb_server_cgi_path = cddbalbum->server_cgi_path;
-    
+
     if (!cddb_server_name)
     {
         // Local access
@@ -3372,16 +3384,16 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
             Log_Print(LOG_ERROR,_("Can't load file: '%s' (%s)!"),cddb_server_cgi_path,g_strerror(errno));
             return FALSE;
         }
-        
+
     }else
     {
         // Remote access
-        
+
         // Connection to the server
         if ( (socket_id=Cddb_Open_Connection(CDDB_USE_PROXY?CDDB_PROXY_NAME:cddb_server_name,
                                              CDDB_USE_PROXY?CDDB_PROXY_PORT:cddb_server_port)) <= 0 )
             return FALSE;
-        
+
         // CDDB Request (ex: GET /~cddb/cddb.cgi?cmd=cddb+read+jazz+0200a401&hello=noname+localhost+EasyTAG+0.31&proto=1 HTTP/1.1\r\nHost: freedb.freedb.org:80\r\nConnection: close)
         // Without proxy : "GET /~cddb/cddb.cgi?..." but doesn't work with a proxy.
         // With proxy    : "GET http://freedb.freedb.org/~cddb/cddb.cgi?..."
@@ -3400,7 +3412,7 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
                                   );
         g_free(proxy_auth);
         //g_print("Request : '%s'\n", cddb_in);
-        
+
         // Send the request
         gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,_("Sending request ..."));
         while (gtk_events_pending()) gtk_main_iteration();
@@ -3412,13 +3424,13 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
             return FALSE;
         }
         g_free(cddb_in);
-        
-        
+
+
         // Read the answer
         gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,_("Receiving data ..."));
         while (gtk_events_pending())
             gtk_main_iteration();
-        
+
         // Write result in a file
         if (Cddb_Write_Result_To_File(socket_id,&bytes_read_total) < 0)
         {
@@ -3430,8 +3442,8 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
             gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchAutoButton),FALSE);
             return FALSE;
         }
-        
-        
+
+
         // Parse server answer : Check HTTP Header and CDDB Header
         file = NULL;
         if ( Cddb_Read_Http_Header(&file,&cddb_out) <= 0
@@ -3614,11 +3626,11 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
         fclose(file);
         file = NULL;
     }
-    
+
     if (cddb_server_name)
     {
         // Remote access
-        
+
         /* Close connection */
         Cddb_Close_Connection(socket_id);
     }
@@ -3655,7 +3667,7 @@ void Cddb_Album_List_Set_Row_Appearance (GtkTreeIter *row)
 {
     CddbAlbum *cddbalbum = NULL;
 
-    gtk_tree_model_get(GTK_TREE_MODEL(CddbAlbumListModel), row, 
+    gtk_tree_model_get(GTK_TREE_MODEL(CddbAlbumListModel), row,
                        CDDB_ALBUM_LIST_DATA, &cddbalbum, -1);
 
     if (cddbalbum->track_list != NULL)
@@ -3670,13 +3682,13 @@ void Cddb_Album_List_Set_Row_Appearance (GtkTreeIter *row)
         {
             if (cddbalbum->other_version == TRUE)
             {
-                gtk_list_store_set(CddbAlbumListModel, row, 
+                gtk_list_store_set(CddbAlbumListModel, row,
                                    CDDB_ALBUM_LIST_FONT_STYLE,       PANGO_STYLE_NORMAL,
                                    CDDB_ALBUM_LIST_FONT_WEIGHT,      PANGO_WEIGHT_NORMAL,
                                    CDDB_ALBUM_LIST_FOREGROUND_COLOR, &LIGHT_RED, -1);
             } else
             {
-                gtk_list_store_set(CddbAlbumListModel, row, 
+                gtk_list_store_set(CddbAlbumListModel, row,
                                    CDDB_ALBUM_LIST_FONT_STYLE,       PANGO_STYLE_NORMAL,
                                    CDDB_ALBUM_LIST_FONT_WEIGHT,      PANGO_WEIGHT_NORMAL,
                                    CDDB_ALBUM_LIST_FOREGROUND_COLOR, &RED, -1);
@@ -3688,20 +3700,20 @@ void Cddb_Album_List_Set_Row_Appearance (GtkTreeIter *row)
         {
             if (CHANGED_FILES_DISPLAYED_TO_BOLD)
             {
-                gtk_list_store_set(CddbAlbumListModel, row, 
+                gtk_list_store_set(CddbAlbumListModel, row,
                                    CDDB_ALBUM_LIST_FONT_STYLE,       PANGO_STYLE_ITALIC,
                                    CDDB_ALBUM_LIST_FONT_WEIGHT,      PANGO_WEIGHT_NORMAL,
                                    CDDB_ALBUM_LIST_FOREGROUND_COLOR, NULL,-1);
             } else
             {
-                gtk_list_store_set(CddbAlbumListModel, row, 
+                gtk_list_store_set(CddbAlbumListModel, row,
                                    CDDB_ALBUM_LIST_FONT_STYLE,       PANGO_STYLE_NORMAL,
                                    CDDB_ALBUM_LIST_FONT_WEIGHT,      PANGO_WEIGHT_NORMAL,
                                    CDDB_ALBUM_LIST_FOREGROUND_COLOR, &GREY, -1);
             }
         } else
         {
-            gtk_list_store_set(CddbAlbumListModel, row, 
+            gtk_list_store_set(CddbAlbumListModel, row,
                                CDDB_ALBUM_LIST_FONT_STYLE,       PANGO_STYLE_NORMAL,
                                CDDB_ALBUM_LIST_FONT_WEIGHT,      PANGO_WEIGHT_NORMAL,
                                CDDB_ALBUM_LIST_FOREGROUND_COLOR, NULL, -1);
@@ -4031,7 +4043,7 @@ gboolean Cddb_Set_Track_Infos_To_File_List (void)
                 // Build the filename with the path
                 if (NUMBER_TRACK_FORMATED) snprintf(buffer,sizeof(buffer),"%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,cddbtrackalbum->track_number);
                 else                       snprintf(buffer,sizeof(buffer),"%d",  cddbtrackalbum->track_number);
-                
+
                 filename_generated_utf8 = g_strconcat(buffer," - ",cddbtrackalbum->track_name,NULL);
                 ET_File_Name_Convert_Character(filename_generated_utf8); // Replace invalid characters
                 filename_new_utf8 = ET_File_Name_Generate(etfile,filename_generated_utf8);
@@ -4100,7 +4112,7 @@ gchar *Cddb_Get_Id3_Genre_From_Cddb_Genre (gchar *cddb_genre)
 #include "../pixmaps/musicbrainz.xpm"
 //#include "../pixmaps/closed_folder.xpm"
 
-/* 
+/*
  * Returns the pixmap to display following the server name
  */
 GdkPixbuf *Cddb_Get_Pixbuf_From_Server_Name (gchar *server_name)
@@ -4145,7 +4157,7 @@ char *base64_encode (char *str)
     table[62] = '+';
     table[63] = '/';
 
-    
+
     num = strlen (str) / 3;
     if (strlen (str) % 3 > 0)
         num++;
@@ -4178,7 +4190,7 @@ gchar *Cddb_Format_Proxy_Authentification (void)
 
     if (CDDB_USE_PROXY &&  CDDB_PROXY_USER_NAME != NULL && *CDDB_PROXY_USER_NAME != '\0')
     {
-        
+
         gchar *tempstr;
         gchar *str_encoded;
         gint size;

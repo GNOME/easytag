@@ -50,6 +50,7 @@
 
 #ifdef WIN32
 #   include "win32/win32dep.h"
+#   include "win32/gtkwin32dep.h"
 #endif
 
 
@@ -155,6 +156,7 @@ void Show_About_Window (void)
             {"    - Björn Olievier ",               _("(Dutch translation)")},
             {"    - Patrik Israelsson ",            _("(Swedish translation)")},
             {"    - Anders Strömer ",               _("(Swedish translation)")},
+            {"    - Arild Matsson ",                _("(Swedish translation)")},
             {"    - Szel Miklos ",                  _("(Hungarian translation)")},
             {"    - Nagy Boldizsar ",               _("(Hungarian translation)")},
             {"    - Mészáros Csaba ",               _("(Hungarian translation)")},
@@ -638,7 +640,7 @@ void Show_About_Window (void)
                 tmp = convert_string(temp, "iso-8859-1", "utf-8",TRUE);
             else
                 tmp = g_strdup(temp);*/
-            tmp = Try_To_Validate_Utf8_String(tmp);
+            tmp = Try_To_Validate_Utf8_String(temp);
 
             if (tmp && tmp[0]!=' ') // If first character is a space => 1rst line after title
             {
@@ -695,7 +697,7 @@ void Show_About_Window (void)
 void About_Window_Go_To_Home_Page (void)
 {
 #ifdef WIN32
-    ET_Win32_Notify_Uri(WEBPAGE);
+    wineasytag_notify_uri(WEBPAGE);
 #else
     if (system("gnome-moz-remote "WEBPAGE)!=0)
         if (system("x-www-browser "WEBPAGE)!=0)

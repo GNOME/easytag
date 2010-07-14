@@ -108,6 +108,7 @@ DLL_C_SRC = about.c \
     vcedit.c \
     wavpack_header.c \
     wavpack_tag.c \
+    win32/gtkwin32dep.c \
     win32/win32dep.c
 
 DLL_OBJECTS = $(DLL_C_SRC:%.c=%.o) $(RC_SRC:%.rc=%.o) 
