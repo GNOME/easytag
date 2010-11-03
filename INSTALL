@@ -12,18 +12,18 @@ Last update: 2007/05/07
  - glib version highter than 2.8.0 (http://www.gtk.org) (Recommended: gtk+-2.8.4)
  - GTK version highter than 2.4.1 (http://www.gtk.org) (Recommended: gtk+-2.4.14)
  - id3lib version highter than 3.7.12 (http://id3lib.sourceforge.net) (Recommended: id3lib-3.8.3)
- - libogg and libvorbis (http://www.vorbis.com) (if not desactivated by './configure --disable-ogg')
- - flac (http://flac.sourceforge.net) (if not desactivated by './configure --disable-flac')
- - libmp4v2 (http://resare.com/libmp4v2/) (if not desactivated by './configure --disable-mp4') (Recommended: libmp4v2-1.5.0.1)
- - wavpack (http://www.wavpack.com/) (if not desactivated by './configure --disable-wavpack')
+ - libogg and libvorbis (http://www.vorbis.com) (if not deactivated by './configure --disable-ogg')
+ - flac (http://flac.sourceforge.net) (if not deactivated by './configure --disable-flac')
+ - libmp4v2 (http://mp4v2.googlecode.com/) (if not deactivated by './configure --disable-mp4') (Recommended: libmp4v2-1.9.0)
+ - wavpack (http://www.wavpack.com/) (if not deactivated by './configure --disable-wavpack')
  - libc 6 (glibc 2.1) or better
- - gettext (if not desactivated by './configure --disable-nls')
+ - gettext (if not deactivated by './configure --disable-nls')
 
 
 2. Compilation Instructions :
 =============================
 
- 2.1. Before to compile EasyTAG you need to install some librairies.
+ 2.1. Before to compile EasyTAG you need to install some libraries.
 
   2.1.1. To install id3lib :
  - recompile sources of id3lib (id3lib-3.x.x.tar.gz) (Recommended),
@@ -116,7 +116,7 @@ If you prefer manipulate a RPM, you can build it with the following commands:
 
 
 
-5. Addind a new translation file to EasyTAG :
+5. Adding a new translation file to EasyTAG :
 =============================================
 All catalogs are placed into po/ directory and are named as the following: fr.po for 
 France, de.po for Germany, and so on.
