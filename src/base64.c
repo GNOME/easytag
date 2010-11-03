@@ -104,8 +104,17 @@
 #include <string.h>
 #include "base64.h"
 
+/* Useful for encoding */
 static char base64_chars[] = 
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
+/* For constant time lookups */
+static int
+is_base64_char(char c)
+{
+    return (('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z') || 
+            ('0' <= c && c <= '9') || (c == '+' || c == '/'));
+}
 
 static int 
 pos(char c)
@@ -156,16 +165,16 @@ base64_encode(const void *data, int size, char **str)
     return strlen(s);
 }
 
-#define DECODE_ERROR 0xffffffff
+#define DECODE_ERROR ((unsigned) -1)
 
 static unsigned int
-token_decode(const char *token)
+token_decode(const char *token, const size_t size)
 {
     int i;
     unsigned int val = 0;
     int marker = 0;
     
-    if (strlen(token) < 4)
+    if (size < 4)
         return DECODE_ERROR;
     for (i = 0; i < 4; i++)
     {
@@ -185,13 +194,15 @@ token_decode(const char *token)
 int
 base64_decode(const char *str, void *data)
 {
-    const char *p;
-    unsigned char *q;
+    const char     *p;
+    unsigned char  *q;
+    unsigned int    size;
 
     q = data;
-    for (p = str; *p && (*p == '=' || strchr(base64_chars, *p)); p += 4)
+    size = strlen(str);
+    for (p = str; *p && (*p == '=' || is_base64_char(*p)); p += 4, size -= 4)
     {
-        unsigned int val = token_decode(p);
+        unsigned int val = token_decode(p, size);
         unsigned int marker = (val >> 24) & 0xff;
         
         if (val == DECODE_ERROR)
@@ -204,3 +215,4 @@ base64_decode(const char *str, void *data)
     }
     return q - (unsigned char *) data;
 }
+
