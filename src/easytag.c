@@ -4441,12 +4441,13 @@ void Init_Load_Default_Dir (void)
     if (OPEN_SCANNER_WINDOW_ON_STARTUP)
         Open_ScannerWindow(SCANNER_TYPE); // Open the last selected scanner
 
-    Statusbar_Message(_("Select a directory to browse!"),FALSE);
     if (INIT_DIRECTORY)
     {
         Browser_Tree_Select_Dir(INIT_DIRECTORY);
+        Browser_Reload_Directory();
     }else
     {
+        Statusbar_Message(_("Select a directory to browse!"),FALSE);
         Browser_Load_Default_Directory();
     }
 

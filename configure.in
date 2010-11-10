@@ -7,6 +7,7 @@ dnl To set also in config.h.mingw
 AC_INIT(easytag, 2.1.6) dnl defines ($PACKAGE, $VERSION)
 
 AC_CONFIG_SRCDIR(src/easytag.h)
+AC_CONFIG_MACRO_DIR([m4])
 dnl -------------------------------
 dnl Init automake
 dnl -------------------------------
@@ -316,8 +317,9 @@ dnl # libmp4v2 library
 dnl ################################################
 if test "x$enable_mp4" = "xyes"; then
     dnl Librairies required for mp4 files, if not found 'enable_mp4' is disabled
-    AC_CHECK_LIB(m, cos)
-    AC_CHECK_LIB(mp4v2, MP4GetTrackMediaDataName, , mp4_available=no)
+    AC_MSG_CHECKING(for MP4 file support)
+    AC_CHECK_HEADER(mp4v2/mp4v2.h, [], [mp4_available=no])
+    AC_CHECK_LIB(mp4v2, MP4GetTrackMediaDataName, [], [mp4_available=no], [-lmp4v2])
 fi
 
 AC_MSG_CHECKING(for MP4/AAC file support)
@@ -327,11 +329,11 @@ if test "x$enable_mp4" = "xyes"; then
         enable_mp4="no"
         echo "***"
         echo "*** Warning: MP4 file support disabled"
-        echo "*** (Install libmp4v2 to enable it)"
+        echo "*** (Install libmp4v2 >= 1.9.0 to enable it)"
         echo "***"
     else
 
-        dnl Check version of mpeg4ip installed
+        dnl Check version of mp4v2 installed
         LIBS_SAVE="$LIBS"
         CFLAGS_SAVE="$CFLAGS"
         LIBS="$LIBS $LIBMP4V2_LIBS"
@@ -339,12 +341,12 @@ if test "x$enable_mp4" = "xyes"; then
         AC_MSG_CHECKING(for libmp4v2 version)
             AC_TRY_RUN([
                 #include <stdio.h>
-                #include <mpeg4ip_config.h>
+                #include <mp4v2/mp4v2.h>
                 int main (void)
                 {
                     FILE *output;
                     output=fopen("conftest.mp4v2","w");
-                    fprintf(output,"LIBMP4V2_NAME=%s\nLIBMP4V2_VERSION=%s\n",PACKAGE_TARNAME,PACKAGE_VERSION);
+                    fprintf(output,"MP4V2_PROJECT_name=%s\nMP4V2_PROJECT_version=%s\n",PACKAGE_TARNAME,PACKAGE_VERSION);
                     fclose(output);
                     exit(0);
                 }
@@ -357,7 +359,7 @@ if test "x$enable_mp4" = "xyes"; then
 
         dnl Version 1.6 of libmp4v2 introduces an index argument for MP4GetMetadataCoverart. So we define 'NEWMP4' if it is the case
         AC_COMPILE_IFELSE([
-           #include <mp4.h>
+           #include <mp4v2/mp4v2.h>
            main () {
            MP4FileHandle hFile;
            MP4GetMetadataCoverArt(hFile, NULL, NULL,0); }

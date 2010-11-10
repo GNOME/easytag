@@ -1,6 +1,6 @@
 .TH EasyTAG 1
 .SH NAME
-EasyTAG @VERSION@ \- Tag editor for MP3 and Ogg Vorbis files
+easytag \- Tag editor for MP3 and Ogg Vorbis files
 .SH SYNOPSIS
 .na
 .nh
