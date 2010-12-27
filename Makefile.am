@@ -78,17 +78,6 @@ EXTRA_DIST= \
     TODO \
     USERS-GUIDE \
     \
-    debian/changelog \
-    debian/compat \
-    debian/control \
-    debian/copyright \
-    debian/dirs \
-    debian/docs \
-    debian/easytag.1 \
-    debian/easytag.xpm \
-    debian/menu \
-    debian/rules \
-    \
     config.h.mingw \
     Makefile.mingw \
     README_win32.txt \
