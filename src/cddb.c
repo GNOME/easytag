@@ -223,7 +223,6 @@ void Open_Cddb_Window (void)
     GtkWidget *Button;
     GtkWidget *Separator;
     GtkWidget *ScrollWindow;
-    GtkWidget *PopupMenu;
     GtkWidget *Icon;
     GtkTooltips *Tips;
     gchar *CddbAlbumList_Titles[] = { NULL, N_("Artist / Album"), N_("Category")}; // Note: don't set "" instead of NULL else this will cause problem with translation language
@@ -703,9 +702,6 @@ void Open_Cddb_Window (void)
     gtk_tooltips_set_tip(Tips, CddbTrackListView, _("Select lines to 'apply' to "
         "your files list. All lines will be processed if no line is selected.\n"
         "You can also reorder lines in this list before using 'apply' button."), NULL);
-
-    // Create Popup Menu on CddbTrackCList
-    PopupMenu = Create_Cddb_Track_List_Popup_Menu(CddbTrackListView);
 
     /*
      * Apply results to fields...
