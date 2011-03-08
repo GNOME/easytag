@@ -2227,6 +2227,7 @@ gboolean Cddb_Search_Album_List_From_String_Freedb (void)
     {
         g_free(string);
         g_free(cddb_server_name);
+	g_free(cddb_server_cgi_path);
         return FALSE;
     }
 
@@ -2547,6 +2548,7 @@ gboolean Cddb_Search_Album_List_From_String_Gnudb (void)
         {
             g_free(string);
             g_free(cddb_server_name);
+	    g_free(cddb_server_cgi_path);
             gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchButton),FALSE);
             gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchAutoButton),FALSE);
             return FALSE;
@@ -3103,6 +3105,9 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
             if ( (socket_id=Cddb_Open_Connection(CDDB_USE_PROXY?CDDB_PROXY_NAME:cddb_server_name,
                                                  CDDB_USE_PROXY?CDDB_PROXY_PORT:cddb_server_port)) <= 0 )
             {
+                g_free(cddb_in);
+                g_free(cddb_server_name);
+                g_free(cddb_server_cgi_path);
                 return FALSE;
             }
 
