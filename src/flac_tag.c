@@ -886,8 +886,10 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
         // Set the original vendor string, else will be use the version of library
         if (vce_field_vendor_string_found)
         {
-            FLAC__metadata_object_vorbiscomment_set_vendor_string(vc_block, vce_field_vendor_string, true);
-            g_free(vce_field_vendor_string.entry);
+            // must set 'copy' param to false, because the API will reuse the  pointer of an empty
+            // string (yet still return 'true', indicating it was copied); the string is free'd during
+            // metadata_chain_delete routine
+            FLAC__metadata_object_vorbiscomment_set_vendor_string(vc_block, vce_field_vendor_string, /*copy=*/false);
         }
 
 
