@@ -1798,6 +1798,7 @@ gint Cddb_Read_Line (FILE **file, gchar **cddb_out)
 {
     gchar  buffer[MAX_STRING_LEN];
     gchar *result;
+    size_t l;
 
     if (*file == NULL)
     {
@@ -1827,12 +1828,16 @@ gint Cddb_Read_Line (FILE **file, gchar **cddb_out)
     }
 
     result = fgets(buffer,sizeof(buffer),*file);
-    if (result != NULL && result != (gchar *)EOF)
+    if (result != NULL)
     {
-        if (buffer && strlen(buffer)>0 && buffer[strlen(buffer)-1]=='\n')
-            buffer[strlen(buffer)-1]='\0';
-        while (buffer && strlen(buffer)>0 && buffer[strlen(buffer)-1]=='\r') // Severals chars '\r' may be present
-            buffer[strlen(buffer)-1]='\0';
+	l = strlen(buffer);
+        if (l > 0 && buffer[l-1] == '\n')
+            buffer[l-1] = '\0';
+
+	// Many '\r' chars may be present
+        while ((l = strlen(buffer)) > 0 && buffer[l-1] == '\r')
+            buffer[l-1] = '\0';
+
         *cddb_out = g_strdup(buffer);
     }else
     {
@@ -2548,7 +2553,7 @@ gboolean Cddb_Search_Album_List_From_String_Gnudb (void)
         {
             g_free(string);
             g_free(cddb_server_name);
-	    g_free(cddb_server_cgi_path);
+            g_free(cddb_server_cgi_path);
             gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchButton),FALSE);
             gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchAutoButton),FALSE);
             return FALSE;
