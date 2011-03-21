@@ -2197,7 +2197,7 @@ gint Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
         gchar *msg;
         gint response;
 
-        msg = g_strdup_printf(_("Be careful, severals files (%d file(s)) were changed by an external program.\n"
+        msg = g_strdup_printf(_("Be careful, several files (%d file(s)) were changed by an external program.\n"
                                 "Do you want to continue anyway?"),nb_files_changed_by_ext_program);
         msgbox = msg_box_new(_("Saving File(s)..."),
                              GTK_WINDOW(MainWindow),

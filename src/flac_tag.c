@@ -1123,7 +1123,7 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
     FLAC__metadata_chain_sort_padding(chain);
  
     // Write tag
-    if ( !FLAC__metadata_chain_write(chain, /*padding*/TRUE, /*preserve_file_stats*/TRUE) )
+    if ( !FLAC__metadata_chain_write(chain, /*padding*/TRUE, PRESERVE_MODIFICATION_TIME) )
     {
         // Error with "FLAC__metadata_chain_write"
         FLAC__Metadata_ChainStatus status = FLAC__metadata_chain_status(chain);
