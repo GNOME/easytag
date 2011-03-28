@@ -223,7 +223,6 @@ void Open_Cddb_Window (void)
     GtkWidget *Button;
     GtkWidget *Separator;
     GtkWidget *ScrollWindow;
-    GtkWidget *PopupMenu;
     GtkWidget *Icon;
     GtkTooltips *Tips;
     gchar *CddbAlbumList_Titles[] = { NULL, N_("Artist / Album"), N_("Category")}; // Note: don't set "" instead of NULL else this will cause problem with translation language
@@ -703,9 +702,6 @@ void Open_Cddb_Window (void)
     gtk_tooltips_set_tip(Tips, CddbTrackListView, _("Select lines to 'apply' to "
         "your files list. All lines will be processed if no line is selected.\n"
         "You can also reorder lines in this list before using 'apply' button."), NULL);
-
-    // Create Popup Menu on CddbTrackCList
-    PopupMenu = Create_Cddb_Track_List_Popup_Menu(CddbTrackListView);
 
     /*
      * Apply results to fields...
@@ -1802,6 +1798,7 @@ gint Cddb_Read_Line (FILE **file, gchar **cddb_out)
 {
     gchar  buffer[MAX_STRING_LEN];
     gchar *result;
+    size_t l;
 
     if (*file == NULL)
     {
@@ -1831,12 +1828,16 @@ gint Cddb_Read_Line (FILE **file, gchar **cddb_out)
     }
 
     result = fgets(buffer,sizeof(buffer),*file);
-    if (result != NULL && result != (gchar *)EOF)
+    if (result != NULL)
     {
-        if (buffer && strlen(buffer)>0 && buffer[strlen(buffer)-1]=='\n')
-            buffer[strlen(buffer)-1]='\0';
-        while (buffer && strlen(buffer)>0 && buffer[strlen(buffer)-1]=='\r') // Severals chars '\r' may be present
-            buffer[strlen(buffer)-1]='\0';
+	l = strlen(buffer);
+        if (l > 0 && buffer[l-1] == '\n')
+            buffer[l-1] = '\0';
+
+	// Many '\r' chars may be present
+        while ((l = strlen(buffer)) > 0 && buffer[l-1] == '\r')
+            buffer[l-1] = '\0';
+
         *cddb_out = g_strdup(buffer);
     }else
     {
@@ -2231,6 +2232,7 @@ gboolean Cddb_Search_Album_List_From_String_Freedb (void)
     {
         g_free(string);
         g_free(cddb_server_name);
+	g_free(cddb_server_cgi_path);
         return FALSE;
     }
 
@@ -2551,6 +2553,7 @@ gboolean Cddb_Search_Album_List_From_String_Gnudb (void)
         {
             g_free(string);
             g_free(cddb_server_name);
+            g_free(cddb_server_cgi_path);
             gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchButton),FALSE);
             gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchAutoButton),FALSE);
             return FALSE;
@@ -3107,6 +3110,9 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
             if ( (socket_id=Cddb_Open_Connection(CDDB_USE_PROXY?CDDB_PROXY_NAME:cddb_server_name,
                                                  CDDB_USE_PROXY?CDDB_PROXY_PORT:cddb_server_port)) <= 0 )
             {
+                g_free(cddb_in);
+                g_free(cddb_server_name);
+                g_free(cddb_server_cgi_path);
                 return FALSE;
             }
 
