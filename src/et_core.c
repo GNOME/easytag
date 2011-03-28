@@ -3718,6 +3718,11 @@ gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile)
         }
     }
 
+    // update the stored file modification time to prevent easytag
+    // from warning that an external program has changed the file
+    if ( stat(cur_filename,&statbuf)!=-1 )
+        ETFile->FileModificationTime = statbuf.st_mtime;
+
     if (state==TRUE)
     {
 
