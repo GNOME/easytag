@@ -415,7 +415,7 @@ void Insert_Only_Digit (GtkEditable *editable, const gchar *inserted_text, gint 
     }
 
     g_signal_stop_emission_by_name(G_OBJECT(editable),"insert_text");
-    result = g_malloc0(length);
+    result = g_malloc0(length+1);
     result[0] = inserted_text[0];
 
     // Check the rest, if any...
@@ -426,6 +426,8 @@ void Insert_Only_Digit (GtkEditable *editable, const gchar *inserted_text, gint 
             result[j++] = inserted_text[i];
         }
     }
+    // Null terminate for the benefit of glib/gtk
+    result[j] = '\0';
 
     if (result[0] == (gchar)NULL)
     {
