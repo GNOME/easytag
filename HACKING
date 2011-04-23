@@ -1,0 +1,45 @@
+This version of EasyTag is maintained in a git repository on github as
+the project never had a publicly accessible version control
+repository. The initial repository was created from a number of
+publicly available tarballs. You can find the current state of the
+repository at:
+
+    https://github.com/stsquad/easytag
+
+It is intended as a place where patches and pull requests can be
+processed until Jérôme starts making releases again (hopefully with a
+public repo). In the meantime patches that look sane and don't crash
+EasyTag it will be accepted by myself.
+
+Contributing
+============
+
+My preferences for contributions are as follows:
+
+1. Pull request on github
+2. Pull request from another git repository
+3. Patches
+
+Patches are fine but GIT pull requests make it a lot easier to keep
+attribution correct and it makes my life easier ;-)
+
+Coding Style
+============
+
+I couldn't find any reference to the style to follow but running
+indent_finder.py suggests the code is currently:
+
+    No Tabs, Indent Level of 4 characters
+
+In Emacs the style can be set by the following:
+
+   (defconst easytag-c-style
+    '(
+       (indent-tabs-mode . nil)
+       (c-basic-offset . 4)
+       (c-comment-only-line-offset . 0))
+       "EasyTag Programming Style")
+
+       
+
+

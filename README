@@ -84,5 +84,9 @@ Visit the homepage at: http://easytag.sourceforge.net
                    or: http://sourceforge.net/project/?group_id=5216
 for more informations and new releases.
 
-Please mail any bug reports, complaints, suggestions and comments to the 
-main author Jerome Couderc <easytag@gmail.com>.
+This version is currently being maintained in an external version
+control repository. If you wish to make a contribution please see the
+HACKING document. You may still of course mail the original author any
+bug reports, complaints, suggestions and comments to the main author
+Jerome Couderc <easytag@gmail.com>.
+
