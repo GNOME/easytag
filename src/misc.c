@@ -82,6 +82,7 @@ enum
     SEARCH_RESULT_FILENAME = 0,
     SEARCH_RESULT_TITLE,
     SEARCH_RESULT_ARTIST,
+    SEARCH_RESULT_ALBUM_ARTIST,
     SEARCH_RESULT_ALBUM,
     SEARCH_RESULT_DISC_NUMBER,
     SEARCH_RESULT_YEAR,
@@ -98,6 +99,7 @@ enum
     SEARCH_RESULT_FILENAME_WEIGHT,
     SEARCH_RESULT_TITLE_WEIGHT,
     SEARCH_RESULT_ARTIST_WEIGHT,
+    SEARCH_RESULT_ALBUM_ARTIST_WEIGHT,
     SEARCH_RESULT_ALBUM_WEIGHT,
     SEARCH_RESULT_DISC_NUMBER_WEIGHT,
     SEARCH_RESULT_YEAR_WEIGHT,
@@ -114,6 +116,7 @@ enum
     SEARCH_RESULT_FILENAME_FOREGROUND,
     SEARCH_RESULT_TITLE_FOREGROUND,
     SEARCH_RESULT_ARTIST_FOREGROUND,
+    SEARCH_RESULT_ALBUM_ARTIST_FOREGROUND,
     SEARCH_RESULT_ALBUM_FOREGROUND,
     SEARCH_RESULT_DISC_NUMBER_FOREGROUND,
     SEARCH_RESULT_YEAR_FOREGROUND,
@@ -1911,6 +1914,7 @@ void Open_Search_File_Window (void)
     gchar *SearchResultList_Titles[] = { N_("File Name"),
                                          N_("Title"),
                                          N_("Artist"),
+                                         N_("Album Artist"),
                                          N_("Album"),
                                          N_("CD"),
                                          N_("Year"),
@@ -2007,7 +2011,8 @@ void Open_Search_File_Window (void)
                                                G_TYPE_STRING, /* Filename */
                                                G_TYPE_STRING, /* Title */
                                                G_TYPE_STRING, /* Artist */
-                                               G_TYPE_STRING, /* Album */
+                                               G_TYPE_STRING, /* Album Artist */
+											   G_TYPE_STRING, /* Album */
                                                G_TYPE_STRING, /* Disc Number */
                                                G_TYPE_STRING, /* Year */
                                                G_TYPE_STRING, /* Track + Track Total */
@@ -2022,7 +2027,8 @@ void Open_Search_File_Window (void)
                                                G_TYPE_INT, /* Font Weight for Filename */
                                                G_TYPE_INT, /* Font Weight for Title */
                                                G_TYPE_INT, /* Font Weight for Artist */
-                                               G_TYPE_INT, /* Font Weight for Album */
+                                               G_TYPE_INT, /* Font Weight for Album Artist */
+											   G_TYPE_INT, /* Font Weight for Album */
                                                G_TYPE_INT, /* Font Weight for Disc Number */
                                                G_TYPE_INT, /* Font Weight for Year */
                                                G_TYPE_INT, /* Font Weight for Track + Track Total */
@@ -2037,7 +2043,8 @@ void Open_Search_File_Window (void)
                                                GDK_TYPE_COLOR, /* Color Weight for Filename */
                                                GDK_TYPE_COLOR, /* Color Weight for Title */
                                                GDK_TYPE_COLOR, /* Color Weight for Artist */
-                                               GDK_TYPE_COLOR, /* Color Weight for Album */
+                                               GDK_TYPE_COLOR, /* Color Weight for Album Artist */
+											   GDK_TYPE_COLOR, /* Color Weight for Album */
                                                GDK_TYPE_COLOR, /* Color Weight for Disc Number */
                                                GDK_TYPE_COLOR, /* Color Weight for Year */
                                                GDK_TYPE_COLOR, /* Color Weight for Track + Track Total */
@@ -2079,8 +2086,17 @@ void Open_Search_File_Window (void)
     gtk_tree_view_append_column(GTK_TREE_VIEW(SearchResultList), column);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 
-    renderer = gtk_cell_renderer_text_new(); /* Album */
+	renderer = gtk_cell_renderer_text_new(); /* Album Artist */
     column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[3]), renderer,
+                                                      "text",           SEARCH_RESULT_ALBUM_ARTIST,
+                                                      "weight",         SEARCH_RESULT_ALBUM_ARTIST_WEIGHT,
+                                                      "foreground-gdk", SEARCH_RESULT_ALBUM_ARTIST_FOREGROUND,
+                                                      NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(SearchResultList), column);
+    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+
+    renderer = gtk_cell_renderer_text_new(); /* Album */
+    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[4]), renderer,
                                                       "text",           SEARCH_RESULT_ALBUM,
                                                       "weight",         SEARCH_RESULT_ALBUM_WEIGHT,
                                                       "foreground-gdk", SEARCH_RESULT_ALBUM_FOREGROUND,
@@ -2089,7 +2105,7 @@ void Open_Search_File_Window (void)
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 
     renderer = gtk_cell_renderer_text_new(); /* Disc Number */
-    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[4]), renderer,
+    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[5]), renderer,
                                                       "text",           SEARCH_RESULT_DISC_NUMBER,
                                                       "weight",         SEARCH_RESULT_DISC_NUMBER_WEIGHT,
                                                       "foreground-gdk", SEARCH_RESULT_DISC_NUMBER_FOREGROUND,
@@ -2098,7 +2114,7 @@ void Open_Search_File_Window (void)
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 
     renderer = gtk_cell_renderer_text_new(); /* Year */
-    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[5]), renderer,
+    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[6]), renderer,
                                                       "text",           SEARCH_RESULT_YEAR,
                                                       "weight",         SEARCH_RESULT_YEAR_WEIGHT,
                                                       "foreground-gdk", SEARCH_RESULT_YEAR_FOREGROUND,
@@ -2107,7 +2123,7 @@ void Open_Search_File_Window (void)
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 
     renderer = gtk_cell_renderer_text_new(); /* Track */
-    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[6]), renderer,
+    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[7]), renderer,
                                                       "text",           SEARCH_RESULT_TRACK,
                                                       "weight",         SEARCH_RESULT_TRACK_WEIGHT,
                                                       "foreground-gdk", SEARCH_RESULT_TRACK_FOREGROUND,
@@ -2116,7 +2132,7 @@ void Open_Search_File_Window (void)
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 
     renderer = gtk_cell_renderer_text_new(); /* Genre */
-    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[7]), renderer,
+    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[8]), renderer,
                                                       "text",           SEARCH_RESULT_GENRE,
                                                       "weight",         SEARCH_RESULT_GENRE_WEIGHT,
                                                       "foreground-gdk", SEARCH_RESULT_GENRE_FOREGROUND,
@@ -2125,7 +2141,7 @@ void Open_Search_File_Window (void)
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 
     renderer = gtk_cell_renderer_text_new(); /* Comment */
-    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[8]), renderer,
+    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[9]), renderer,
                                                       "text",           SEARCH_RESULT_COMMENT,
                                                       "weight",         SEARCH_RESULT_COMMENT_WEIGHT,
                                                       "foreground-gdk", SEARCH_RESULT_COMMENT_FOREGROUND,
@@ -2134,7 +2150,7 @@ void Open_Search_File_Window (void)
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 
     renderer = gtk_cell_renderer_text_new(); /* Composer */
-    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[9]), renderer,
+    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[10]), renderer,
                                                       "text",           SEARCH_RESULT_COMPOSER,
                                                       "weight",         SEARCH_RESULT_COMPOSER_WEIGHT,
                                                       "foreground-gdk", SEARCH_RESULT_COMPOSER_FOREGROUND,
@@ -2143,7 +2159,7 @@ void Open_Search_File_Window (void)
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 
     renderer = gtk_cell_renderer_text_new(); /* Orig. Artist */
-    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[10]), renderer,
+    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[11]), renderer,
                                                       "text",           SEARCH_RESULT_ORIG_ARTIST,
                                                       "weight",         SEARCH_RESULT_ORIG_ARTIST_WEIGHT,
                                                       "foreground-gdk", SEARCH_RESULT_ORIG_ARTIST_FOREGROUND,
@@ -2152,7 +2168,7 @@ void Open_Search_File_Window (void)
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 
     renderer = gtk_cell_renderer_text_new(); /* Copyright */
-    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[11]), renderer,
+    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[12]), renderer,
                                                       "text",           SEARCH_RESULT_COPYRIGHT,
                                                       "weight",         SEARCH_RESULT_COPYRIGHT_WEIGHT,
                                                       "foreground-gdk", SEARCH_RESULT_COPYRIGHT_FOREGROUND,
@@ -2161,7 +2177,7 @@ void Open_Search_File_Window (void)
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 
     renderer = gtk_cell_renderer_text_new(); /* URL */
-    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[12]), renderer,
+    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[13]), renderer,
                                                       "text",           SEARCH_RESULT_URL,
                                                       "weight",         SEARCH_RESULT_URL_WEIGHT,
                                                       "foreground-gdk", SEARCH_RESULT_URL_FOREGROUND,
@@ -2170,7 +2186,7 @@ void Open_Search_File_Window (void)
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 
     renderer = gtk_cell_renderer_text_new(); /* Encoded by */
-    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[13]), renderer,
+    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[14]), renderer,
                                                       "text",           SEARCH_RESULT_ENCODED_BY,
                                                       "weight",         SEARCH_RESULT_ENCODED_BY_WEIGHT,
                                                       "foreground-gdk", SEARCH_RESULT_ENCODED_BY_FOREGROUND,
@@ -2284,7 +2300,7 @@ void Search_File (GtkWidget *search_button)
     ET_File *ETFile;
     gchar *msg;
     gchar *temp = NULL;
-    gchar *title2, *artist2, *album2, *disc_number2, *year2, *track2,
+    gchar *title2, *artist2, *album_artist2, *album2, *disc_number2, *year2, *track2,
           *track_total2, *genre2, *comment2, *composer2, *orig_artist2,
           *copyright2, *url2, *encoded_by2, *string_to_search2;
     gint resultCount = 0;
@@ -2351,6 +2367,7 @@ void Search_File (GtkWidget *search_button)
                 // Duplicate and convert the strings into UTF-8 in loxer case
                 if (FileTag->title)       title2       = g_utf8_casefold(FileTag->title, -1);        else title2       = NULL;
                 if (FileTag->artist)      artist2      = g_utf8_casefold(FileTag->artist, -1);       else artist2      = NULL;
+                if (FileTag->album_artist) album_artist2 = g_utf8_casefold(FileTag->album_artist, -1); else album_artist2= NULL;
                 if (FileTag->album)       album2       = g_utf8_casefold(FileTag->album, -1);        else album2       = NULL;
                 if (FileTag->disc_number) disc_number2 = g_utf8_casefold(FileTag->disc_number, -1);  else disc_number2 = NULL;
                 if (FileTag->year)        year2        = g_utf8_casefold(FileTag->year, -1);         else year2        = NULL;
@@ -2370,6 +2387,7 @@ void Search_File (GtkWidget *search_button)
                 // Duplicate and convert the strings into UTF-8
                 title2       = g_strdup(FileTag->title);
                 artist2      = g_strdup(FileTag->artist);
+				album_artist2= g_strdup(FileTag->album_artist);
                 album2       = g_strdup(FileTag->album);
                 disc_number2 = g_strdup(FileTag->disc_number);
                 year2        = g_strdup(FileTag->year);
@@ -2388,6 +2406,7 @@ void Search_File (GtkWidget *search_button)
             // FIX ME : should use UTF-8 functions?
             if ( (title2       && strstr(title2,       string_to_search2) )
              ||  (artist2      && strstr(artist2,      string_to_search2) )
+             ||  (album_artist2 && strstr(album_artist2,string_to_search2) )
              ||  (album2       && strstr(album2,       string_to_search2) )
              ||  (disc_number2 && strstr(disc_number2, string_to_search2) )
              ||  (year2        && strstr(year2,        string_to_search2) )
@@ -2405,6 +2424,7 @@ void Search_File (GtkWidget *search_button)
             }
             g_free(title2);
             g_free(artist2);
+            g_free(album_artist2);
             g_free(album2);
             g_free(disc_number2);
             g_free(year2);
@@ -2468,7 +2488,9 @@ void Add_Row_To_Search_Result_List(ET_File *ETFile,const gchar *string_to_search
     SearchResultList_Text[SEARCH_RESULT_TITLE]       = g_strdup(((File_Tag *)ETFile->FileTag->data)->title);
     // Artist
     SearchResultList_Text[SEARCH_RESULT_ARTIST]      = g_strdup(((File_Tag *)ETFile->FileTag->data)->artist);
-    // Album
+    // Album Artist
+    SearchResultList_Text[SEARCH_RESULT_ALBUM_ARTIST]= g_strdup(((File_Tag *)ETFile->FileTag->data)->album_artist);
+	// Album
     SearchResultList_Text[SEARCH_RESULT_ALBUM]       = g_strdup(((File_Tag *)ETFile->FileTag->data)->album);
     // Disc Number
     SearchResultList_Text[SEARCH_RESULT_DISC_NUMBER] = g_strdup(((File_Tag *)ETFile->FileTag->data)->disc_number);
@@ -2552,6 +2574,7 @@ void Add_Row_To_Search_Result_List(ET_File *ETFile,const gchar *string_to_search
                        SEARCH_RESULT_FILENAME,    SearchResultList_Text[SEARCH_RESULT_FILENAME],
                        SEARCH_RESULT_TITLE,       SearchResultList_Text[SEARCH_RESULT_TITLE],
                        SEARCH_RESULT_ARTIST,      SearchResultList_Text[SEARCH_RESULT_ARTIST],
+                       SEARCH_RESULT_ALBUM_ARTIST,SearchResultList_Text[SEARCH_RESULT_ALBUM_ARTIST],
                        SEARCH_RESULT_ALBUM,       SearchResultList_Text[SEARCH_RESULT_ALBUM],
                        SEARCH_RESULT_DISC_NUMBER, SearchResultList_Text[SEARCH_RESULT_DISC_NUMBER],
                        SEARCH_RESULT_YEAR,        SearchResultList_Text[SEARCH_RESULT_YEAR],
@@ -2567,7 +2590,8 @@ void Add_Row_To_Search_Result_List(ET_File *ETFile,const gchar *string_to_search
                        SEARCH_RESULT_FILENAME_WEIGHT,    SearchResultList_Weight[SEARCH_RESULT_FILENAME],
                        SEARCH_RESULT_TITLE_WEIGHT,       SearchResultList_Weight[SEARCH_RESULT_TITLE],
                        SEARCH_RESULT_ARTIST_WEIGHT,      SearchResultList_Weight[SEARCH_RESULT_ARTIST],
-                       SEARCH_RESULT_ALBUM_WEIGHT,       SearchResultList_Weight[SEARCH_RESULT_ALBUM],
+                       SEARCH_RESULT_ALBUM_ARTIST_WEIGHT, SearchResultList_Weight[SEARCH_RESULT_ALBUM_ARTIST],
+		       SEARCH_RESULT_ALBUM_WEIGHT,       SearchResultList_Weight[SEARCH_RESULT_ALBUM],
                        SEARCH_RESULT_DISC_NUMBER_WEIGHT, SearchResultList_Weight[SEARCH_RESULT_DISC_NUMBER],
                        SEARCH_RESULT_YEAR_WEIGHT,        SearchResultList_Weight[SEARCH_RESULT_YEAR],
                        SEARCH_RESULT_TRACK_WEIGHT,       SearchResultList_Weight[SEARCH_RESULT_TRACK],
@@ -2582,7 +2606,8 @@ void Add_Row_To_Search_Result_List(ET_File *ETFile,const gchar *string_to_search
                        SEARCH_RESULT_FILENAME_FOREGROUND,    SearchResultList_Color[SEARCH_RESULT_FILENAME],
                        SEARCH_RESULT_TITLE_FOREGROUND,       SearchResultList_Color[SEARCH_RESULT_TITLE],
                        SEARCH_RESULT_ARTIST_FOREGROUND,      SearchResultList_Color[SEARCH_RESULT_ARTIST],
-                       SEARCH_RESULT_ALBUM_FOREGROUND,       SearchResultList_Color[SEARCH_RESULT_ALBUM],
+                       SEARCH_RESULT_ALBUM_ARTIST_FOREGROUND,       SearchResultList_Color[SEARCH_RESULT_ALBUM_ARTIST],
+		       SEARCH_RESULT_ALBUM_FOREGROUND,       SearchResultList_Color[SEARCH_RESULT_ALBUM],
                        SEARCH_RESULT_DISC_NUMBER_FOREGROUND, SearchResultList_Color[SEARCH_RESULT_DISC_NUMBER],
                        SEARCH_RESULT_YEAR_FOREGROUND,        SearchResultList_Color[SEARCH_RESULT_YEAR],
                        SEARCH_RESULT_TRACK_FOREGROUND,       SearchResultList_Color[SEARCH_RESULT_TRACK],
@@ -2601,6 +2626,7 @@ void Add_Row_To_Search_Result_List(ET_File *ETFile,const gchar *string_to_search
     g_free(SearchResultList_Text[SEARCH_RESULT_FILENAME]);
     g_free(SearchResultList_Text[SEARCH_RESULT_TITLE]);
     g_free(SearchResultList_Text[SEARCH_RESULT_ARTIST]);
+    g_free(SearchResultList_Text[SEARCH_RESULT_ALBUM_ARTIST]);
     g_free(SearchResultList_Text[SEARCH_RESULT_ALBUM]);
     g_free(SearchResultList_Text[SEARCH_RESULT_DISC_NUMBER]);
     g_free(SearchResultList_Text[SEARCH_RESULT_YEAR]);

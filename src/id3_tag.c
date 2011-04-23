@@ -100,6 +100,7 @@ gboolean Id3tag_Write_File_v23Tag (ET_File *ETFile)
     gint number_of_frames;
     gboolean has_title       = FALSE;
     gboolean has_artist      = FALSE;
+    gboolean has_album_artist= FALSE;
     gboolean has_album       = FALSE;
     gboolean has_disc_number = FALSE;
     gboolean has_year        = FALSE;
@@ -194,6 +195,18 @@ gboolean Id3tag_Write_File_v23Tag (ET_File *ETFile)
         has_artist = TRUE;
     }
 
+	/****************
+     * Album Artist *
+     ***************/
+    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_BAND)) )
+        ID3Tag_RemoveFrame(id3_tag,id3_frame);
+    if (FileTag->album_artist && g_utf8_strlen(FileTag->album_artist, -1) > 0)
+    {
+        id3_frame = ID3Frame_NewID(ID3FID_BAND);
+        ID3Tag_AttachFrame(id3_tag,id3_frame);
+        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, FileTag->album_artist);
+        has_album_artist = TRUE;
+    }
 
     /*********
      * Album *
@@ -476,7 +489,7 @@ gboolean Id3tag_Write_File_v23Tag (ET_File *ETFile)
      * is set to 1, we strip the ID3v1.x and ID3v2 tags. Else, write ID3v2 and/or ID3v1
      */
     if ( STRIP_TAG_WHEN_EMPTY_FIELDS
-    && !has_title      && !has_artist   && !has_album       && !has_year      && !has_track
+    && !has_title      && !has_artist   && !has_album_artist && !has_album       && !has_year      && !has_track
     && !has_genre      && !has_composer && !has_orig_artist && !has_copyright && !has_url
     && !has_encoded_by && !has_picture  && !has_comment     && !has_disc_number)//&& !has_song_len )
     {
@@ -1092,6 +1105,7 @@ void Id3tag_Prepare_ID3v1 (ID3Tag *id3_tag)
 
             if (frameid != ID3FID_TITLE
             &&  frameid != ID3FID_LEADARTIST
+            &&  frameid != ID3FID_BAND
             &&  frameid != ID3FID_ALBUM
             &&  frameid != ID3FID_YEAR
             &&  frameid != ID3FID_TRACKNUM
@@ -1296,7 +1310,7 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
     // Use a Chinese character instead of the latin-1 character as in Id3tag_Set_Field()
     // we try to convert the string to ISO-8859-1 even in the Unicode mode.
     //Id3tag_Set_Field(id3_frame, ID3FN_TEXT, "é"); // This latin-1 character is written in Unicode as 'E9 FF' instead of 'E9 00' if bugged
-    Id3tag_Set_Field(id3_frame, ID3FN_TEXT, "グ"); // This Chinese character is written in Unicode as 'FF FE B0 FF' instead of 'FF FE B0 30' if bugged
+    Id3tag_Set_Field(id3_frame, ID3FN_TEXT, "�°"); // This Chinese character is written in Unicode as 'FF FE B0 FF' instead of 'FF FE B0 30' if bugged
 
     // Update the tag
     ID3Tag_UpdateByTagType(id3_tag,ID3TT_ID3V2);
@@ -1318,7 +1332,7 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
 
     // Same string found? if yes => not bugged
     //if ( result && strcmp(result,"é")!=0 )
-    if ( result && strcmp(result,"グ")!=0 )
+    if ( result && strcmp(result,"�°")!=0 )
     {
         return TRUE;
     }

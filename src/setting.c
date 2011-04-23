@@ -204,6 +204,7 @@ tConfigVariable Config_Variables[] =
     {"process_filename_field",                  CV_TYPE_BOOL,    &PROCESS_FILENAME_FIELD                 },
     {"process_title_field",                     CV_TYPE_BOOL,    &PROCESS_TITLE_FIELD                    },
     {"process_artist_field",                    CV_TYPE_BOOL,    &PROCESS_ARTIST_FIELD                   },
+    {"process_album_artist_field",              CV_TYPE_BOOL,    &PROCESS_ALBUM_ARTIST_FIELD             },
     {"process_album_field",                     CV_TYPE_BOOL,    &PROCESS_ALBUM_FIELD                    },
     {"process_genre_field",                     CV_TYPE_BOOL,    &PROCESS_GENRE_FIELD                    },
     {"process_comment_field",                   CV_TYPE_BOOL,    &PROCESS_COMMENT_FIELD                  },
@@ -477,6 +478,7 @@ void Init_Config_Variables (void)
     PROCESS_FILENAME_FIELD             = 0;
     PROCESS_TITLE_FIELD                = 1;
     PROCESS_ARTIST_FIELD               = 1;
+    PROCESS_ALBUM_ARTIST_FIELD         = 1;
     PROCESS_ALBUM_FIELD                = 1;
     PROCESS_GENRE_FIELD                = 1;
     PROCESS_COMMENT_FIELD              = 1;

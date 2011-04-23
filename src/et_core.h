@@ -74,6 +74,8 @@ typedef enum
     SORTING_BY_DESCENDING_TITLE,
     SORTING_BY_ASCENDING_ARTIST,
     SORTING_BY_DESCENDING_ARTIST,
+    SORTING_BY_ASCENDING_ALBUM_ARTIST,
+    SORTING_BY_DESCENDING_ALBUM_ARTIST,
     SORTING_BY_ASCENDING_ALBUM,
     SORTING_BY_DESCENDING_ALBUM,
     SORTING_BY_ASCENDING_YEAR,
@@ -181,6 +183,7 @@ struct _File_Tag
 
     gchar *title;          /* Title of track */
     gchar *artist;         /* Artist name */
+    gchar *album_artist;   /* Album Artist */
     gchar *album;          /* Album name */
     gchar *disc_number;    /* Disc number */
     gchar *year;           /* Year of track */
@@ -430,6 +433,8 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Title            (ET_File *ETFile1, ET_
 gint ET_Comp_Func_Sort_File_By_Descending_Title           (ET_File *ETFile1, ET_File *ETFile2);
 gint ET_Comp_Func_Sort_File_By_Ascending_Artist           (ET_File *ETFile1, ET_File *ETFile2);
 gint ET_Comp_Func_Sort_File_By_Descending_Artist          (ET_File *ETFile1, ET_File *ETFile2);
+gint ET_Comp_Func_Sort_File_By_Ascending_Album_Artist     (ET_File *ETFile1, ET_File *ETFile2);
+gint ET_Comp_Func_Sort_File_By_Descending_Album_Artist    (ET_File *ETFile1, ET_File *ETFile2);
 gint ET_Comp_Func_Sort_File_By_Ascending_Album            (ET_File *ETFile1, ET_File *ETFile2);
 gint ET_Comp_Func_Sort_File_By_Descending_Album           (ET_File *ETFile1, ET_File *ETFile2);
 gint ET_Comp_Func_Sort_File_By_Ascending_Year             (ET_File *ETFile1, ET_File *ETFile2);

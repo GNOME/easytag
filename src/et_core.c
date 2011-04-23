@@ -377,6 +377,7 @@ void ET_Initialize_File_Tag_Item (File_Tag *FileTag)
         FileTag->saved       = FALSE;
         FileTag->title       = NULL;
         FileTag->artist      = NULL;
+        FileTag->album_artist= NULL;
         FileTag->album       = NULL;
         FileTag->disc_number = NULL;
         FileTag->track       = NULL;
@@ -945,7 +946,13 @@ GList *ET_Sort_File_List (GList *ETFileList, ET_Sorting_Type Sorting_Type)
         case SORTING_BY_DESCENDING_ARTIST:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_Artist);
             break;
-        case SORTING_BY_ASCENDING_ALBUM:
+        case SORTING_BY_ASCENDING_ALBUM_ARTIST:
+            etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_Album_Artist);
+            break;
+        case SORTING_BY_DESCENDING_ALBUM_ARTIST:
+            etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_Album_Artist);
+            break;
+		case SORTING_BY_ASCENDING_ALBUM:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_Album);
             break;
         case SORTING_BY_DESCENDING_ALBUM:
@@ -1228,9 +1235,50 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Artist (ET_File *ETFile1, ET_File *ETFi
  */
 gint ET_Comp_Func_Sort_File_By_Descending_Artist (ET_File *ETFile1, ET_File *ETFile2)
 {
-    return ET_Comp_Func_Sort_File_By_Ascending_Album(ETFile2,ETFile1);
+    return ET_Comp_Func_Sort_File_By_Ascending_Artist(ETFile2,ETFile1);
 }
 
+/*
+ * Comparison function for sorting by ascending album artist.
+ */
+gint ET_Comp_Func_Sort_File_By_Ascending_Album_Artist (ET_File *ETFile1, ET_File *ETFile2)
+{
+   // Compare pointers just in case they are the same (e.g. both are NULL)
+   if ((ETFile1->FileTag->data == ETFile2->FileTag->data)
+   ||  (((File_Tag *)ETFile1->FileTag->data)->album_artist == ((File_Tag *)ETFile2->FileTag->data)->album_artist))
+        return 0;
+
+    if ( !ETFile1->FileTag->data || !((File_Tag *)ETFile1->FileTag->data)->album_artist )
+        return -1;
+    if ( !ETFile2->FileTag->data || !((File_Tag *)ETFile2->FileTag->data)->album_artist )
+        return 1;
+
+    if (SORTING_FILE_CASE_SENSITIVE)
+    {
+        if ( strcmp(((File_Tag *)ETFile1->FileTag->data)->album_artist,((File_Tag *)ETFile2->FileTag->data)->album_artist) == 0 )
+            // Second criterion
+            return ET_Comp_Func_Sort_File_By_Ascending_Artist(ETFile1,ETFile2);
+        else
+            // First criterion
+            return strcmp(((File_Tag *)ETFile1->FileTag->data)->album_artist,((File_Tag *)ETFile2->FileTag->data)->album_artist);
+    }else
+    {
+        if ( strcasecmp(((File_Tag *)ETFile1->FileTag->data)->album_artist,((File_Tag *)ETFile2->FileTag->data)->album_artist) == 0 )
+            // Second criterion
+            return ET_Comp_Func_Sort_File_By_Ascending_Artist(ETFile1,ETFile2);
+        else
+            // First criterion
+            return strcasecmp(((File_Tag *)ETFile1->FileTag->data)->album_artist,((File_Tag *)ETFile2->FileTag->data)->album_artist);
+    }
+}
+
+/*
+ * Comparison function for sorting by descending album artist.
+ */
+gint ET_Comp_Func_Sort_File_By_Descending_Album_Artist (ET_File *ETFile1, ET_File *ETFile2)
+{
+    return ET_Comp_Func_Sort_File_By_Ascending_Album_Artist(ETFile2,ETFile1);
+}
 
 /*
  * Comparison function for sorting by ascending album.
@@ -2107,6 +2155,7 @@ gboolean ET_Free_File_Tag_Item (File_Tag *FileTag)
 
     g_free(FileTag->title);
     g_free(FileTag->artist);
+    g_free(FileTag->album_artist);
     g_free(FileTag->album);
     g_free(FileTag->disc_number);
     g_free(FileTag->year);
@@ -2275,6 +2324,15 @@ gboolean ET_Copy_File_Tag_Item (ET_File *ETFile, File_Tag *FileTag)
     {
         g_free(FileTag->artist);
         FileTag->artist = NULL;
+    }
+
+    if (FileTagCur->album_artist)
+    {
+        FileTag->album_artist = g_strdup(FileTagCur->album_artist);
+    }else
+    {
+        g_free(FileTag->album_artist);
+        FileTag->album_artist = NULL;
     }
 
     if (FileTagCur->album)
@@ -2768,6 +2826,15 @@ gboolean ET_Display_File_Tag_To_UI (ET_File *ETFile)
     }else
         gtk_entry_set_text(GTK_ENTRY(ArtistEntry),"");
 
+	/* Show album artist */
+    if (FileTag && FileTag->album_artist)
+    {
+        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->album_artist);
+        gtk_entry_set_text(GTK_ENTRY(AlbumArtistEntry), tmp);
+        g_free(tmp);
+    }else
+        gtk_entry_set_text(GTK_ENTRY(AlbumArtistEntry),"");
+
     /* Show album */
     if (FileTag && FileTag->album)
     {
@@ -3255,6 +3322,18 @@ gboolean ET_Save_File_Tag_From_UI (File_Tag *FileTag)
         g_free(buffer);
     }
 
+	/* Album Artist */
+    buffer = g_strdup(gtk_entry_get_text(GTK_ENTRY(AlbumArtistEntry)));
+    Strip_String(buffer);
+
+    if ( g_utf8_strlen(buffer, -1) > 0 )
+        FileTag->album_artist = buffer;
+    else
+    {
+        FileTag->album_artist = NULL;
+        g_free(buffer);
+    }
+
     /* Album */
     buffer = g_strdup(gtk_entry_get_text(GTK_ENTRY(AlbumEntry)));
     Strip_String(buffer);
@@ -3476,6 +3555,16 @@ gboolean ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
     } else
     {
         FileTag->artist = NULL;
+    }
+
+	/* Album Artist */
+    if ( FileTagCur->album_artist && g_utf8_strlen(FileTagCur->album_artist, -1)>0 )
+    {
+        FileTag->album_artist = g_strdup(FileTagCur->album_artist);
+        Strip_String(FileTag->album_artist);
+    } else
+    {
+        FileTag->album_artist = NULL;
     }
 
 
@@ -3925,6 +4014,11 @@ gboolean ET_Detect_Changes_Of_File_Tag (File_Tag *FileTag1, File_Tag *FileTag2)
     if ( FileTag1->artist && !FileTag2->artist && g_utf8_strlen(FileTag1->artist, -1)>0 ) return TRUE;
     if (!FileTag1->artist &&  FileTag2->artist && g_utf8_strlen(FileTag2->artist, -1)>0 ) return TRUE;
     if ( FileTag1->artist &&  FileTag2->artist && g_utf8_collate(FileTag1->artist,FileTag2->artist)!=0 ) return TRUE;
+
+	/* Album Artist */
+    if ( FileTag1->album_artist && !FileTag2->album_artist && g_utf8_strlen(FileTag1->album_artist, -1)>0 ) return TRUE;
+    if (!FileTag1->album_artist &&  FileTag2->album_artist && g_utf8_strlen(FileTag2->album_artist, -1)>0 ) return TRUE;
+    if ( FileTag1->album_artist &&  FileTag2->album_artist && g_utf8_collate(FileTag1->album_artist,FileTag2->album_artist)!=0 ) return TRUE;
 
     /* Album */
     if ( FileTag1->album && !FileTag2->album && g_utf8_strlen(FileTag1->album, -1)>0 ) return TRUE;
@@ -4755,6 +4849,7 @@ void ET_Debug_Print_File_List (GList *ETFileList, gchar *file, gint line, gchar 
             g_print("|    |-> saved       : '%d'\n",((File_Tag *)filetaglist->data)->saved);
             g_print("|    |-> title       : '%s'\n",((File_Tag *)filetaglist->data)->title       ? ((File_Tag *)filetaglist->data)->title        : "");
             g_print("|    |-> artist      : '%s'\n",((File_Tag *)filetaglist->data)->artist      ? ((File_Tag *)filetaglist->data)->artist       : "");
+            g_print("|    |-> album_artist: '%s'\n",((File_Tag *)filetaglist->data)->album_artist? ((File_Tag *)filetaglist->data)->album_artist : "");
             g_print("|    |-> album       : '%s'\n",((File_Tag *)filetaglist->data)->album       ? ((File_Tag *)filetaglist->data)->album        : "");
             g_print("|    |-> disc_number : '%s'\n",((File_Tag *)filetaglist->data)->disc_number ? ((File_Tag *)filetaglist->data)->disc_number  : "");
             g_print("|    |-> year        : '%s'\n",((File_Tag *)filetaglist->data)->year        ? ((File_Tag *)filetaglist->data)->year         : "");

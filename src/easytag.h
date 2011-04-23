@@ -88,6 +88,7 @@ GtkWidget    *TagFrame;
 GtkWidget    *TagNoteBook;
 GtkWidget    *TitleEntry;
 GtkWidget    *ArtistEntry;
+GtkWidget    *AlbumArtistEntry;
 GtkWidget    *AlbumEntry;
 GtkWidget    *DiscNumberEntry;
 GtkWidget    *YearEntry;
@@ -108,6 +109,7 @@ GtkListStore *PictureEntryModel;
 // Labels
 GtkWidget    *TitleLabel;
 GtkWidget    *ArtistLabel;
+GtkWidget    *AlbumArtistLabel;
 GtkWidget    *AlbumLabel;
 GtkWidget    *DiscNumberLabel;
 GtkWidget    *YearLabel;
@@ -123,6 +125,7 @@ GtkWidget    *PictureLabel;
 // Mini buttons
 GtkWidget    *TitleMButton;
 GtkWidget    *ArtistMButton;
+GtkWidget    *AlbumArtistMButton;
 GtkWidget    *AlbumMButton;
 GtkWidget    *DiscNumberMButton;
 GtkWidget    *YearMButton;

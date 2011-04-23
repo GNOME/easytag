@@ -117,6 +117,8 @@ GtkWidget *CheckMenuItemBrowseHiddenDirMainMenu;
 #define AM_SORT_DESCENDING_TITLE            "SortTitleDesc"
 #define AM_SORT_ASCENDING_ARTIST            "SortArtistAsc"
 #define AM_SORT_DESCENDING_ARTIST           "SortArtistDesc"
+#define AM_SORT_ASCENDING_ALBUM_ARTIST      "SortAlbumArtistAsc"
+#define AM_SORT_DESCENDING_ALBUM_ARTIST     "SortAlbumArtistDesc"
 #define AM_SORT_ASCENDING_ALBUM             "SortAlbumAsc"
 #define AM_SORT_DESCENDING_ALBUM            "SortAlbumDesc"
 #define AM_SORT_ASCENDING_YEAR              "SortYearAsc"

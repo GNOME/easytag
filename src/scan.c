@@ -67,6 +67,7 @@ GtkListStore *ScanTagListModel;
 GtkWidget *ProcessFileNameField;
 GtkWidget *ProcessTitleField;
 GtkWidget *ProcessArtistField;
+GtkWidget *ProcessAlbumArtistField;
 GtkWidget *ProcessAlbumField;
 GtkWidget *ProcessGenreField;
 GtkWidget *ProcessCommentField;
@@ -1162,6 +1163,23 @@ void Scan_Process_Fields (ET_File *ETFile)
             g_free(string);
         }
 
+		// Album Artist field
+        if (st_filetag->album_artist && GTK_TOGGLE_BUTTON(ProcessAlbumArtistField)->active)
+        {
+            if (!FileTag)
+            {
+                FileTag = ET_File_Tag_Item_New();
+                ET_Copy_File_Tag_Item(ETFile,FileTag);
+            }
+
+            string = g_strdup(st_filetag->album_artist);
+
+            Scan_Process_Fields_Functions(&string);
+
+            ET_Set_Field_File_Tag_Item(&FileTag->album_artist,string);
+
+            g_free(string);
+        }
         // Album field
         if (st_filetag->album && GTK_TOGGLE_BUTTON(ProcessAlbumField)->active)
         {
@@ -2238,6 +2256,8 @@ gchar **Scan_Return_File_Tag_Field_From_Mask_Code (File_Tag *FileTag, gchar code
             return &FileTag->url;
         case 'e':    /* Encoded by */
             return &FileTag->encoded_by;
+        case 'z':    /* Album Artist */
+            return &FileTag->album_artist;
         case 'i':    /* Ignored */
             return NULL;
         default:
@@ -2550,7 +2570,10 @@ void Open_ScannerWindow (gint scanner_type)
     // Advice for Translators : set the first letter of artist translated
     ProcessArtistField = gtk_toggle_button_new_with_label(     _("Ar"));
     gtk_tooltips_set_tip(Tips,ProcessArtistField,              _("Process file artist field"),NULL);
-    // Advice for Translators : set the first letter of album translated
+    // Advice for Translators : set the first letter of album artist translated
+    ProcessAlbumArtistField = gtk_toggle_button_new_with_label(      _("AA"));
+    gtk_tooltips_set_tip(Tips,ProcessAlbumArtistField,               _("Process album artist field"),NULL);
+	// Advice for Translators : set the first letter of album translated
     ProcessAlbumField = gtk_toggle_button_new_with_label(      _("Al"));
     gtk_tooltips_set_tip(Tips,ProcessAlbumField,               _("Process album field"),NULL);
     // Advice for Translators : set the first letter of genre translated
@@ -2577,6 +2600,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_box_pack_start(GTK_BOX(hbox),ProcessFileNameField,   TRUE,TRUE,2);
     gtk_box_pack_start(GTK_BOX(hbox),ProcessTitleField,      TRUE,TRUE,2);
     gtk_box_pack_start(GTK_BOX(hbox),ProcessArtistField,     TRUE,TRUE,2);
+    gtk_box_pack_start(GTK_BOX(hbox),ProcessAlbumArtistField,TRUE,TRUE,2);
     gtk_box_pack_start(GTK_BOX(hbox),ProcessAlbumField,      TRUE,TRUE,2);
     gtk_box_pack_start(GTK_BOX(hbox),ProcessGenreField,      TRUE,TRUE,2);
     gtk_box_pack_start(GTK_BOX(hbox),ProcessCommentField,    TRUE,TRUE,2);
@@ -2588,6 +2612,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFileNameField),   PROCESS_FILENAME_FIELD);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessTitleField),      PROCESS_TITLE_FIELD);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessArtistField),     PROCESS_ARTIST_FIELD);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessAlbumArtistField),PROCESS_ALBUM_ARTIST_FIELD);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessAlbumField),      PROCESS_ALBUM_FIELD);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessGenreField),      PROCESS_GENRE_FIELD);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessCommentField),    PROCESS_COMMENT_FIELD);
@@ -2599,6 +2624,7 @@ void Open_ScannerWindow (gint scanner_type)
     g_signal_connect(G_OBJECT(ProcessFileNameField),   "toggled",G_CALLBACK(Select_Fields_Set_Sensitive),NULL);
     g_signal_connect(G_OBJECT(ProcessTitleField),      "toggled",G_CALLBACK(Select_Fields_Set_Sensitive),NULL);
     g_signal_connect(G_OBJECT(ProcessArtistField),     "toggled",G_CALLBACK(Select_Fields_Set_Sensitive),NULL);
+    g_signal_connect(G_OBJECT(ProcessAlbumArtistField),"toggled",G_CALLBACK(Select_Fields_Set_Sensitive),NULL);
     g_signal_connect(G_OBJECT(ProcessAlbumField),      "toggled",G_CALLBACK(Select_Fields_Set_Sensitive),NULL);
     g_signal_connect(G_OBJECT(ProcessGenreField),      "toggled",G_CALLBACK(Select_Fields_Set_Sensitive),NULL);
     g_signal_connect(G_OBJECT(ProcessCommentField),    "toggled",G_CALLBACK(Select_Fields_Set_Sensitive),NULL);
@@ -2780,11 +2806,14 @@ void Open_ScannerWindow (gint scanner_type)
     Label = gtk_label_new(_("%a : artist"));
     gtk_table_attach_defaults(GTK_TABLE(Table),Label,0,1,0,1);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
-    Label = gtk_label_new(_("%b : album"));
+    Label = gtk_label_new(_("%z : album artist"));
     gtk_table_attach_defaults(GTK_TABLE(Table),Label,0,1,1,2);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
-    Label = gtk_label_new(_("%c : comment"));
+    Label = gtk_label_new(_("%b : album"));
     gtk_table_attach_defaults(GTK_TABLE(Table),Label,0,1,2,3);
+    gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
+    Label = gtk_label_new(_("%c : comment"));
+    gtk_table_attach_defaults(GTK_TABLE(Table),Label,0,1,3,4);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
     Label = gtk_label_new(_("%p : composer"));
     gtk_table_attach_defaults(GTK_TABLE(Table),Label,0,1,3,4);
@@ -3092,6 +3121,7 @@ void ScannerWindow_Apply_Changes (void)
         PROCESS_FILENAME_FIELD    = GTK_TOGGLE_BUTTON(ProcessFileNameField)->active;
         PROCESS_TITLE_FIELD       = GTK_TOGGLE_BUTTON(ProcessTitleField)->active;
         PROCESS_ARTIST_FIELD      = GTK_TOGGLE_BUTTON(ProcessArtistField)->active;
+        PROCESS_ALBUM_ARTIST_FIELD= GTK_TOGGLE_BUTTON(ProcessAlbumArtistField)->active;
         PROCESS_ALBUM_FIELD       = GTK_TOGGLE_BUTTON(ProcessAlbumField)->active;
         PROCESS_GENRE_FIELD       = GTK_TOGGLE_BUTTON(ProcessGenreField)->active;
         PROCESS_COMMENT_FIELD     = GTK_TOGGLE_BUTTON(ProcessCommentField)->active;
@@ -3378,6 +3408,8 @@ void Select_Fields_Invert_Selection (void)
                                 !GTK_TOGGLE_BUTTON(ProcessTitleField)->active);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessArtistField),
                                 !GTK_TOGGLE_BUTTON(ProcessArtistField)->active);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessAlbumArtistField),
+                                !GTK_TOGGLE_BUTTON(ProcessAlbumArtistField)->active);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessAlbumField),
                                 !GTK_TOGGLE_BUTTON(ProcessAlbumField)->active);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessGenreField),
@@ -3402,6 +3434,7 @@ void Select_Fields_Select_Unselect_All (void)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFileNameField),   state);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessTitleField),      state);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessArtistField),     state);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessAlbumArtistField),state);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessAlbumField),      state);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessGenreField),      state);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessCommentField),    state);
@@ -3421,6 +3454,7 @@ void Select_Fields_Set_Sensitive (void)
     if (GTK_TOGGLE_BUTTON(ProcessFileNameField)->active
     ||  GTK_TOGGLE_BUTTON(ProcessTitleField)->active
     ||  GTK_TOGGLE_BUTTON(ProcessArtistField)->active
+    ||  GTK_TOGGLE_BUTTON(ProcessAlbumArtistField)->active
     ||  GTK_TOGGLE_BUTTON(ProcessAlbumField)->active
     ||  GTK_TOGGLE_BUTTON(ProcessGenreField)->active
     ||  GTK_TOGGLE_BUTTON(ProcessCommentField)->active
