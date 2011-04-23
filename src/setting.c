@@ -710,6 +710,7 @@ void Apply_Changes_Of_Preferences_Window (void)
         FILE_WRITING_ID3V2_WRITE_TAG                 = GTK_TOGGLE_BUTTON(FileWritingId3v2WriteTag)->active;
         FILE_WRITING_ID3V2_USE_CRC32                 = GTK_TOGGLE_BUTTON(FileWritingId3v2UseCrc32)->active;
         FILE_WRITING_ID3V2_USE_COMPRESSION           = GTK_TOGGLE_BUTTON(FileWritingId3v2UseCompression)->active;
+        FILE_WRITING_ID3V2_TEXT_ONLY_GENRE           = GTK_TOGGLE_BUTTON(FileWritingId3v2TextOnlyGenre)->active;
         FILE_WRITING_ID3V2_USE_UNICODE_CHARACTER_SET = GTK_TOGGLE_BUTTON(FileWritingId3v2UseUnicodeCharacterSet)->active;
 
         active = gtk_combo_box_get_active(GTK_COMBO_BOX(FileWritingId3v2UnicodeCharacterSetCombo));

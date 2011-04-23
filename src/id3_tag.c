@@ -290,7 +290,7 @@ gboolean Id3tag_Write_File_v23Tag (ET_File *ETFile)
 
         genre_value = Id3tag_String_To_Genre(FileTag->genre);
         // If genre not defined don't write genre value between brackets! (priority problem noted with some tools)
-        if (genre_value == ID3_INVALID_GENRE)
+        if ((genre_value == ID3_INVALID_GENRE)||(FILE_WRITING_ID3V2_TEXT_ONLY_GENRE))
             genre_string_tmp = g_strdup_printf("%s",FileTag->genre);
         else
             genre_string_tmp = g_strdup_printf("(%d)",genre_value);

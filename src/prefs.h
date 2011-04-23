@@ -79,6 +79,7 @@ GtkWidget *FileWritingId3v1WriteTag;
 GtkWidget *WriteId3TagsInFlacFiles;
 GtkWidget *FileWritingId3v2UseCrc32;
 GtkWidget *FileWritingId3v2UseCompression;
+GtkWidget *FileWritingId3v2TextOnlyGenre;
 GtkWidget *StripTagWhenEmptyFields;
 GtkWidget *ConvertOldId3v2TagVersion;
 

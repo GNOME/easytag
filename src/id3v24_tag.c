@@ -921,7 +921,7 @@ gboolean Id3tag_Write_File_v24Tag (ET_File *ETFile)
     if (FileTag->genre)
         genre_value = Id3tag_String_To_Genre(FileTag->genre);
 
-    if (genre_value == ID3_INVALID_GENRE)
+    if ((genre_value == ID3_INVALID_GENRE)||(FILE_WRITING_ID3V2_TEXT_ONLY_GENRE))
         string1 = g_strdup(FileTag->genre);
     else
         string1 = g_strdup_printf("%d",genre_value);

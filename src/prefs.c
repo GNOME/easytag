@@ -713,6 +713,12 @@ void Open_OptionsWindow (void)
     gtk_table_attach(GTK_TABLE(Table),FileWritingId3v2UseCompression,1,2,1,2,GTK_FILL,GTK_FILL,0,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v2UseCompression),FILE_WRITING_ID3V2_USE_COMPRESSION);
     gtk_tooltips_set_tip(Tips,FileWritingId3v2UseCompression,_("Set Compression in the ID3v2 tags"),NULL);
+	
+    /* Write Genre in text */
+    FileWritingId3v2TextOnlyGenre = gtk_check_button_new_with_label(_("Write Genre in text only"));
+    gtk_table_attach(GTK_TABLE(Table),FileWritingId3v2TextOnlyGenre,1,2,2,3,GTK_FILL,GTK_FILL,0,0);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v2TextOnlyGenre),FILE_WRITING_ID3V2_TEXT_ONLY_GENRE);
+    gtk_tooltips_set_tip(Tips,FileWritingId3v2TextOnlyGenre,_("Don't use ID3v1 number references in genre tag. Enable this if you see numbers as genre in your music player."),NULL);	
 
     /* Character Set for writing ID3 tag */
     Frame = gtk_frame_new (_("Character Set for writing ID3 tags"));
@@ -1511,6 +1517,7 @@ void Change_Id3_Settings_Toggled (void)
     ||   !FileWritingId3v2IconvOptionsIgnore
     ||   !FileWritingId3v2UseCrc32
     ||   !FileWritingId3v2UseCompression
+    ||   !FileWritingId3v2TextOnlyGenre
     ||   !ConvertOldId3v2TagVersion
     ||   !LabelId3v1Charset
     ||   !FileWritingId3v1CharacterSetCombo
@@ -1553,6 +1560,7 @@ void Change_Id3_Settings_Toggled (void)
         gtk_widget_set_sensitive(FileWritingId3v2IconvOptionsIgnore, !active);
         gtk_widget_set_sensitive(FileWritingId3v2UseCrc32, TRUE);
         gtk_widget_set_sensitive(FileWritingId3v2UseCompression, TRUE);
+        gtk_widget_set_sensitive(FileWritingId3v2TextOnlyGenre, TRUE);
         gtk_widget_set_sensitive(ConvertOldId3v2TagVersion, TRUE);
 
     }else
@@ -1572,6 +1580,7 @@ void Change_Id3_Settings_Toggled (void)
         gtk_widget_set_sensitive(FileWritingId3v2IconvOptionsIgnore, FALSE);
         gtk_widget_set_sensitive(FileWritingId3v2UseCrc32, FALSE);
         gtk_widget_set_sensitive(FileWritingId3v2UseCompression, FALSE);
+        gtk_widget_set_sensitive(FileWritingId3v2TextOnlyGenre, FALSE);
         gtk_widget_set_sensitive(ConvertOldId3v2TagVersion, 0);
     }
 
