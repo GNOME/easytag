@@ -1085,7 +1085,10 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
                 FLAC__metadata_object_picture_set_mime_type(picture_block, (gchar *)Picture_Mime_Type_String(format), TRUE);
 
                 // Description
-                FLAC__metadata_object_picture_set_description(picture_block, (FLAC__byte *)pic->description, TRUE);
+                if (pic->description)
+                {
+                    FLAC__metadata_object_picture_set_description(picture_block, (FLAC__byte *)pic->description, TRUE);
+                }
                 
                 // Resolution
                 picture_block->data.picture.width  = pic->width;
