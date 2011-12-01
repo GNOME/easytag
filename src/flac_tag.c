@@ -65,6 +65,7 @@
  *  - TITLE        : Track name
  *  - VERSION      : The version field may be used to differentiate multiple version of the same track title in a single collection. (e.g. remix info)
  *  - ALBUM        : The collection name to which this track belongs
+ *  - ALBUMARTIST  : Compilation Artist or overall artist of an album
  *  - TRACKNUMBER  : The track number of this piece if part of a specific larger collection or album
  *  - TRACKTOTAL   :
  *  - ARTIST       : Track performer
@@ -219,6 +220,34 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
                                 FileTag->artist = g_strdup(field_value);
                             else
                                 FileTag->artist = g_strconcat(FileTag->artist,MULTIFIELD_SEPARATOR,field_value,NULL);
+                            g_free(field_value);
+                        }
+                    }
+                }
+
+                /****************
+                 * Album Artist *
+                 ****************/
+                field_num = 0;
+                while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,field_num,"ALBUMARTIST")) >= 0 )
+                {
+                    /* Extract field value */
+                    field = &vc->comments[field_num++];
+                    field_value = memchr(field->entry, '=', field->length);
+
+                    if (field_value)
+                    {
+                        field_value++;
+                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+                        {
+                            field_len = field->length - (field_value - (gchar*) field->entry);
+                            field_value_tmp = g_strndup(field_value, field_len);
+                            field_value = Try_To_Validate_Utf8_String(field_value_tmp);
+                            g_free(field_value_tmp);
+                            if (FileTag->album_artist==NULL)
+                                FileTag->album_artist = g_strdup(field_value);
+                            else
+                                FileTag->album_artist = g_strconcat(FileTag->album_artist,MULTIFIELD_SEPARATOR,field_value,NULL);
                             g_free(field_value);
                         }
                     }
@@ -594,6 +623,7 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
                     field = &vc->comments[i];
                     if ( strncasecmp((gchar *)field->entry,"TITLE=",       MIN(6,  field->length)) != 0
                       && strncasecmp((gchar *)field->entry,"ARTIST=",      MIN(7,  field->length)) != 0
+                      && strncasecmp((gchar *)field->entry,"ALBUMARTIST=", MIN(12, field->length)) != 0
                       && strncasecmp((gchar *)field->entry,"ALBUM=",       MIN(6,  field->length)) != 0
                       && strncasecmp((gchar *)field->entry,"DISCNUMBER=",  MIN(11, field->length)) != 0
                       && strncasecmp((gchar *)field->entry,"DATE=",        MIN(5,  field->length)) != 0
@@ -672,6 +702,7 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
      * (but it will be deleted when rewriting the tag) */
     if ( FileTag->title       == NULL
       && FileTag->artist      == NULL
+      && FileTag->album_artist == NULL
       && FileTag->album       == NULL
       && FileTag->disc_number == NULL
       && FileTag->year        == NULL
@@ -692,6 +723,7 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
         // unsaved to rewrite a flac tag.
         if ( FileTag->title       != NULL
           || FileTag->artist      != NULL
+          || FileTag->album_artist != NULL
           || FileTag->album       != NULL
           || FileTag->disc_number != NULL
           || FileTag->year        != NULL
@@ -907,6 +939,14 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
         if ( FileTag->artist )
         {
             Flac_Write_Delimetered_Tag(vc_block,"ARTIST=",FileTag->artist);
+        }
+
+        /****************
+         * Album Artist *
+         ****************/
+        if ( FileTag->album_artist )
+        {
+            Flac_Write_Delimetered_Tag(vc_block,"ALBUMARTIST=",FileTag->album_artist);
         }
 
         /*********
