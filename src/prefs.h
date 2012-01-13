@@ -168,7 +168,7 @@ GtkWidget *ConfirmWriteTag;
 GtkWidget *ConfirmRenameFile;
 GtkWidget *ConfirmDeleteFile;
 GtkWidget *ConfirmWritePlayList;
-
+GtkWidget *ConfirmWhenUnsavedFiles;
 
 
 /**************

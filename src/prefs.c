@@ -1414,6 +1414,9 @@ void Open_OptionsWindow (void)
     gtk_box_pack_start(GTK_BOX(VBox),ConfirmWritePlayList,FALSE,FALSE,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ConfirmWritePlayList),CONFIRM_WRITE_PLAYLIST);
 
+    ConfirmWhenUnsavedFiles = gtk_check_button_new_with_label(_("Confirm changing directory when there are unsaved changes"));
+    gtk_box_pack_start(GTK_BOX(VBox),ConfirmWhenUnsavedFiles,FALSE,FALSE,0);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ConfirmWhenUnsavedFiles),CONFIRM_WHEN_UNSAVED_FILES);
 
 
     /*
