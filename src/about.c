@@ -180,6 +180,7 @@ void Show_About_Window (void)
             {"    - Jose Sun ",                     _("(Chinese (Taiwan) translation)")},
             {"    - Yuval Hager ",                  _("(Hebrew translation)")},
             {"    - Miloš Popović ",                _("(Serbian translation)")},
+            {"    - Götz Waschk ",                  _("(German translation)")},
             {NULL,NULL}
             };
 
@@ -226,6 +227,9 @@ void Show_About_Window (void)
             "    - Emmanuel Brun\n"
             "    - Maarten Maathuis\n"
             "    - Pierre Dumuid\n"
+            "    - Kip Warner\n"
+            "    - Mark Ferry\n"
+            "    - Gaute Amundsen\n"
             "";
 
     GtkWidget *ExtensionList;

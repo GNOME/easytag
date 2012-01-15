@@ -1,3 +1,13 @@
+2.1.7 - Jan 14th, 2012 :
+========================
+    * Gaute Amundsen's ConfirmWhenUnsavedFiles.patch
+    * Mark Ferry's albumartist patch for ogg and flac
+    * Götz Waschk's update for German translation
+    * Kip's optimized base64 decoder for album art
+    * Updated contributor credits
+    * Debianized
+    * Updated version to 2.1.7
+
 2.1.6 - July 12th, 2008 :
 =========================
     * Fixed displaying of the corresponding file when handling the Cddb track 
