@@ -885,7 +885,6 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
     {
         FLAC__StreamMetadata *vc_block; // For vorbis comments
         FLAC__StreamMetadata_VorbisComment_Entry field;
-        gchar *string;
         GList *list;
         
         // Allocate a block for Vorbis comments
@@ -930,11 +929,7 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
          ***************/
         if ( FileTag->disc_number )
         {
-            string = g_strconcat("DISCNUMBER=",FileTag->disc_number,NULL);
-            field.entry = (FLAC__byte *)string;
-            field.length = strlen(string);
-            FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
-            g_free(string);
+            Flac_Write_Tag(vc_block,"DISCNUMBER=",FileTag->disc_number,NULL);
         }
 
         /********
@@ -942,11 +937,7 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
          ********/
         if ( FileTag->year )
         {
-            string = g_strconcat("DATE=",FileTag->year,NULL);
-            field.entry = (FLAC__byte *)string;
-            field.length = strlen(string);
-            FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
-            g_free(string);
+            Flac_Write_Tag(vc_block,"DATE=",FileTag->year,NULL);
         }
 
         /*************************
@@ -954,19 +945,11 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
          *************************/
         if ( FileTag->track )
         {
-            string = g_strconcat("TRACKNUMBER=",FileTag->track,NULL);
-            field.entry = (FLAC__byte *)string;
-            field.length = strlen(string);
-            FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
-            g_free(string);
+            Flac_Write_Tag(vc_block,"TRACKNUMBER=",FileTag->track);
         }
         if ( FileTag->track_total /*&& strlen(FileTag->track_total)>0*/ )
         {
-            string = g_strconcat("TRACKTOTAL=",FileTag->track_total,NULL);
-            field.entry = (FLAC__byte *)string;
-            field.length = strlen(string);
-            FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
-            g_free(string);
+            Flac_Write_Tag(vc_block,"TRACKTOTAL=",FileTag->track_total);
         }
 
         /*********
@@ -1009,11 +992,7 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
          *************/
         if ( FileTag->copyright )
         {
-            string  = g_strconcat("COPYRIGHT=",FileTag->copyright,NULL);
-            field.entry = (FLAC__byte *)string;
-            field.length = strlen(string);
-            FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
-            g_free(string);
+            Flac_Write_Tag(vc_block,"COPYRIGHT=",FileTag->copyright);
         }
 
         /*******
@@ -1021,11 +1000,7 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
          *******/
         if ( FileTag->url )
         {
-            string = g_strconcat("LICENSE=",FileTag->url,NULL);
-            field.entry = (FLAC__byte *)string;
-            field.length = strlen(string);
-            FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
-            g_free(string);
+            Flac_Write_Tag(vc_block,"LICENSE=",FileTag->url);
         }
 
         /**************
@@ -1033,11 +1008,7 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
          **************/
         if ( FileTag->encoded_by )
         {
-            string = g_strconcat("ENCODED-BY=",FileTag->encoded_by,NULL);
-            field.entry = (FLAC__byte *)string;
-            field.length = strlen(string);
-            FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
-            g_free(string);
+            Flac_Write_Tag(vc_block,"ENCODED-BY=",FileTag->encoded_by);
         }
 
 
@@ -1049,10 +1020,7 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
         {
             if (list->data)
             {
-                string = (gchar*)list->data;
-                field.entry = (FLAC__byte *)string;
-                field.length = strlen(string);
-                FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
+                Flac_Write_Tag(vc_block, "", (gchar*)list->data);
             }
             list = list->next;
         }
