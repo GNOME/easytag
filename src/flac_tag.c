@@ -91,6 +91,7 @@
 gboolean Flac_Tag_Write_File (FILE *file_in, gchar *filename_in, vcedit_state *state);
 
 static gboolean Flac_Write_Delimetered_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag_name, gchar *values);
+static gboolean Flac_Write_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag_name, gchar *value);
 
 
 /*************
@@ -752,19 +753,26 @@ static gboolean Flac_Write_Delimetered_Tag (FLAC__StreamMetadata *vc_block, cons
     {
         if (strlen(strings[i])>0)
         {
-            FLAC__StreamMetadata_VorbisComment_Entry field;
-            char *string = g_strconcat(tag_name,strings[i],NULL);
-            
-            field.entry = (FLAC__byte *)string;
-            field.length = strlen(string); // Warning : g_utf8_strlen doesn't count the multibyte characters. Here we need the allocated size.
-            FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
-            g_free(string);
+            Flac_Write_Tag(vc_block, tag_name, strings[i]);
         }
     }
     g_strfreev(strings);
     return TRUE;
 }
 
+/*
+ * Save field value in a single tag
+ */
+static gboolean Flac_Write_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag_name, gchar *value) {
+    FLAC__StreamMetadata_VorbisComment_Entry field;
+    char *string = g_strconcat(tag_name,value,NULL);
+
+    field.entry = (FLAC__byte *)string;
+    field.length = strlen(string); // Warning : g_utf8_strlen doesn't count the multibyte characters. Here we need the allocated size.
+    FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
+    g_free(string);
+    return TRUE;
+}
 
 
 /*
