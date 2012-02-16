@@ -649,7 +649,43 @@ void Open_OptionsWindow (void)
         _("Return focus to the first tag field (ie 'Title' field)"));
     gtk_table_attach(GTK_TABLE(Table),SetFocusToFirstTagField,1,2,2,3,GTK_FILL,GTK_FILL,0,0);
     //gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SetFocusToFirstTagField),SET_FOCUS_TO_FIRST_TAG_FIELD);
+    
+    /* Tag Splitting */
+    Frame = gtk_frame_new (_("Tag Splitting"));
+    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
 
+    Table = gtk_table_new(5,2,FALSE);
+    gtk_container_add(GTK_CONTAINER(Frame),Table);
+    gtk_table_set_col_spacings(GTK_TABLE(Table),2);
+    
+    Label = gtk_label_new(_("For Vorbis tags, selected fields will be split at"
+                "dashes and saved as separate tags"));
+    gtk_table_attach(GTK_TABLE(Table),Label,0,2,0,1,GTK_FILL,GTK_FILL,0,1);
+    gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
+
+    VorbisSplitFieldTitle = gtk_check_button_new_with_label(_("Title"));
+    VorbisSplitFieldArtist = gtk_check_button_new_with_label(_("Artist"));
+    VorbisSplitFieldAlbum = gtk_check_button_new_with_label(_("Album"));
+    VorbisSplitFieldGenre = gtk_check_button_new_with_label(_("Genre"));
+    VorbisSplitFieldComment = gtk_check_button_new_with_label(_("Comment"));
+    VorbisSplitFieldComposer = gtk_check_button_new_with_label(_("Composer"));
+    VorbisSplitFieldOrigArtist = gtk_check_button_new_with_label(_("Orig. Artist"));
+
+    gtk_table_attach(GTK_TABLE(Table),VorbisSplitFieldTitle,0,1,1,2,GTK_FILL,GTK_FILL,0,0);
+    gtk_table_attach(GTK_TABLE(Table),VorbisSplitFieldArtist,0,1,2,3,GTK_FILL,GTK_FILL,0,0);
+    gtk_table_attach(GTK_TABLE(Table),VorbisSplitFieldAlbum,0,1,3,4,GTK_FILL,GTK_FILL,0,0);
+    gtk_table_attach(GTK_TABLE(Table),VorbisSplitFieldGenre,0,1,4,5,GTK_FILL,GTK_FILL,0,0);
+    gtk_table_attach(GTK_TABLE(Table),VorbisSplitFieldComment,1,2,1,2,GTK_FILL,GTK_FILL,0,0);
+    gtk_table_attach(GTK_TABLE(Table),VorbisSplitFieldComposer,1,2,2,3,GTK_FILL,GTK_FILL,0,0);
+    gtk_table_attach(GTK_TABLE(Table),VorbisSplitFieldOrigArtist,1,2,3,4,GTK_FILL,GTK_FILL,0,0);
+
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(VorbisSplitFieldTitle), VORBIS_SPLIT_FIELD_TITLE);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(VorbisSplitFieldArtist), VORBIS_SPLIT_FIELD_ARTIST);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(VorbisSplitFieldAlbum), VORBIS_SPLIT_FIELD_ALBUM);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(VorbisSplitFieldGenre), VORBIS_SPLIT_FIELD_GENRE);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(VorbisSplitFieldComment), VORBIS_SPLIT_FIELD_COMMENT);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(VorbisSplitFieldComposer), VORBIS_SPLIT_FIELD_COMPOSER);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(VorbisSplitFieldOrigArtist), VORBIS_SPLIT_FIELD_ORIG_ARTIST);
 
     /*
      * ID3 Tag Settings

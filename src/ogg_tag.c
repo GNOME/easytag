@@ -110,7 +110,8 @@
 gboolean Ogg_Tag_Write_File (FILE *file_in, gchar *filename_in, vcedit_state *state);
 
 static gboolean Ogg_Write_Delimetered_Tag (vorbis_comment *vc, const gchar *tag_name, gchar *values);
-
+static gboolean Ogg_Write_Tag (vorbis_comment *vc, const gchar *tag_name, gchar *value);
+static void Ogg_Set_Tag (vorbis_comment *vc, const gchar *tag_name, gchar *value, gboolean split);
 
 /*************
  * Functions *
@@ -580,16 +581,33 @@ static gboolean Ogg_Write_Delimetered_Tag (vorbis_comment *vc, const gchar *tag_
     {
         if (strlen(strings[i])>0)
         {
-            char *string = g_strconcat(tag_name,strings[i],NULL);
-            
-            vorbis_comment_add(vc,string);
-            g_free(string);
+            Ogg_Write_Tag(vc,tag_name,strings[i]);
         }
     }
     g_strfreev(strings);
     return TRUE;
 }
 
+/*
+ * Save field value in a single tag
+ */
+static gboolean Ogg_Write_Tag (vorbis_comment *vc, const gchar *tag_name, gchar *value)
+{
+    char *string = g_strconcat(tag_name,value,NULL);
+
+    vorbis_comment_add(vc,string);
+    g_free(string);
+    return TRUE;
+}
+
+static void Ogg_Set_Tag (vorbis_comment *vc, const gchar *tag_name, gchar *value, gboolean split)
+{
+    if ( value && split ) {
+        Ogg_Write_Delimetered_Tag(vc,tag_name,value);
+    } else if ( value ) {
+        Ogg_Write_Tag(vc,tag_name,value);
+    }
+}
 
 gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
 {
@@ -670,135 +688,81 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
     /*********
      * Title *
      *********/
-    if ( FileTag->title )
-    {
-        Ogg_Write_Delimetered_Tag(vc,"TITLE=",FileTag->title);
-    }
+    Ogg_Set_Tag(vc,"TITLE=",FileTag->title,VORBIS_SPLIT_FIELD_TITLE);
 
     /**********
      * Artist *
      **********/
-    if ( FileTag->artist )
-    {
-        Ogg_Write_Delimetered_Tag(vc,"ARTIST=",FileTag->artist);
-    }
+    Ogg_Set_Tag(vc,"ARTIST=",FileTag->artist, VORBIS_SPLIT_FIELD_ARTIST);
 
     /*********
      * Album *
      *********/
-    if ( FileTag->album )
-    {
-        Ogg_Write_Delimetered_Tag(vc,"ALBUM=",FileTag->album);
-    }
+    Ogg_Set_Tag(vc,"ALBUM=",FileTag->album, VORBIS_SPLIT_FIELD_ALBUM);
 
     /***************
      * Disc Number *
      ***************/
-    if ( FileTag->disc_number )
-    {
-        string = g_strconcat("DISCNUMBER=",FileTag->disc_number,NULL);
-        vorbis_comment_add(vc,string);
-        g_free(string);
-    }
+    Ogg_Set_Tag(vc,"DISCNUMBER=",FileTag->disc_number,FALSE);
 
     /********
      * Year *
      ********/
-    if ( FileTag->year )
-    {
-        string = g_strconcat("DATE=",FileTag->year,NULL);
-        vorbis_comment_add(vc,string);
-        g_free(string);
-    }
+    Ogg_Set_Tag(vc,"DATE=",FileTag->year,FALSE);
 
     /*************************
      * Track and Total Track *
      *************************/
-    if ( FileTag->track )
-    {
-        string = g_strconcat("TRACKNUMBER=",FileTag->track,NULL);
-        vorbis_comment_add(vc,string);
-        g_free(string);
-    }
-    if ( FileTag->track_total /*&& strlen(FileTag->track_total)>0*/ )
-    {
-        string = g_strconcat("TRACKTOTAL=",FileTag->track_total,NULL);
-        vorbis_comment_add(vc,string);
-        g_free(string);
-    }
+    Ogg_Set_Tag(vc,"TRACKNUMBER=",FileTag->track,FALSE);
+
+    Ogg_Set_Tag(vc,"TRACKTOTAL=",FileTag->track_total,FALSE);
 
     /*********
      * Genre *
      *********/
-    if ( FileTag->genre )
-    {
-        Ogg_Write_Delimetered_Tag(vc,"GENRE=",FileTag->genre);
-    }
+    Ogg_Set_Tag(vc,"GENRE=",FileTag->genre,VORBIS_SPLIT_FIELD_GENRE);
 
     /***********
      * Comment *
      ***********/
     // We write the comment using the two formats "DESCRIPTION" and "COMMENT" to be compatible with old versions
-    if ( FileTag->comment )
+    // Format of new specification
+    Ogg_Set_Tag(vc,"DESCRIPTION=",FileTag->comment,VORBIS_SPLIT_FIELD_COMMENT);
+
+    // Format used in winamp plugin
+    Ogg_Set_Tag(vc,"COMMENT=",FileTag->comment,VORBIS_SPLIT_FIELD_COMMENT);
+
+    if (OGG_TAG_WRITE_XMMS_COMMENT)
     {
-        // Format of new specification
-        Ogg_Write_Delimetered_Tag(vc,"DESCRIPTION=",FileTag->comment);
-
-        // Format used in winamp plugin
-        Ogg_Write_Delimetered_Tag(vc,"COMMENT=",FileTag->comment);
-
-        if (OGG_TAG_WRITE_XMMS_COMMENT)
-        {
-            // Format used into xmms-1.2.5
-            Ogg_Write_Delimetered_Tag(vc,"=",FileTag->comment);
-        }
+        // Format used into xmms-1.2.5
+        Ogg_Set_Tag(vc,"=",FileTag->comment,VORBIS_SPLIT_FIELD_COMMENT);
     }
+
 
     /************
      * Composer *
      ************/
-    if ( FileTag->composer )
-    {
-        Ogg_Write_Delimetered_Tag(vc,"COMPOSER=",FileTag->composer);
-    }
+    Ogg_Set_Tag(vc,"COMPOSER=",FileTag->composer,VORBIS_SPLIT_FIELD_COMPOSER);
 
     /*******************
      * Original artist *
      *******************/
-    if ( FileTag->orig_artist )
-    {
-        Ogg_Write_Delimetered_Tag(vc,"PERFORMER=",FileTag->orig_artist);
-    }
+    Ogg_Set_Tag(vc,"PERFORMER=",FileTag->orig_artist,VORBIS_SPLIT_FIELD_ORIG_ARTIST);
 
     /*************
      * Copyright *
      *************/
-    if ( FileTag->copyright )
-    {
-        string = g_strconcat("COPYRIGHT=",FileTag->copyright,NULL);
-        vorbis_comment_add(vc,string);
-        g_free(string);
-    }
+    Ogg_Set_Tag(vc,"COPYRIGHT=",FileTag->copyright,FALSE);
 
     /*******
      * URL *
      *******/
-    if ( FileTag->url )
-    {
-        string = g_strconcat("LICENSE=",FileTag->url,NULL);
-        vorbis_comment_add(vc,string);
-        g_free(string);
-    }
+    Ogg_Set_Tag(vc,"LICENSE=",FileTag->url,FALSE);
 
     /**************
      * Encoded by *
      **************/
-    if ( FileTag->encoded_by )
-    {
-        string = g_strconcat("ENCODED-BY=",FileTag->encoded_by,NULL);
-        vorbis_comment_add(vc,string);
-        g_free(string);
-    }
+    Ogg_Set_Tag(vc,"ENCODED-BY=",FileTag->encoded_by,FALSE);
     
     
     /***********
@@ -840,8 +804,6 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
 
         pic = pic->next;
     }
-
-
 
     /**************************
      * Set unsupported fields *

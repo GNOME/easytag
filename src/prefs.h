@@ -115,6 +115,13 @@ GtkWidget *SetFocusToFirstTagField;
 GtkWidget *LogMaxLinesSpinButton;
 GtkWidget *ShowLogView;
 
+GtkWidget *VorbisSplitFieldTitle;
+GtkWidget *VorbisSplitFieldArtist;
+GtkWidget *VorbisSplitFieldAlbum;
+GtkWidget *VorbisSplitFieldGenre;
+GtkWidget *VorbisSplitFieldComment;
+GtkWidget *VorbisSplitFieldComposer;
+GtkWidget *VorbisSplitFieldOrigArtist;
 
 /* Scanner */
 GtkWidget *FTSConvertUnderscoreAndP20IntoSpace;

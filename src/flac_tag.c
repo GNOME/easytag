@@ -92,6 +92,7 @@ gboolean Flac_Tag_Write_File (FILE *file_in, gchar *filename_in, vcedit_state *s
 
 static gboolean Flac_Write_Delimetered_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag_name, gchar *values);
 static gboolean Flac_Write_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag_name, gchar *value);
+static gboolean Flac_Set_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag_name, gchar *value, gboolean split);
 
 
 /*************
@@ -763,7 +764,8 @@ static gboolean Flac_Write_Delimetered_Tag (FLAC__StreamMetadata *vc_block, cons
 /*
  * Save field value in a single tag
  */
-static gboolean Flac_Write_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag_name, gchar *value) {
+static gboolean Flac_Write_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag_name, gchar *value)
+{
     FLAC__StreamMetadata_VorbisComment_Entry field;
     char *string = g_strconcat(tag_name,value,NULL);
 
@@ -774,6 +776,14 @@ static gboolean Flac_Write_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag
     return TRUE;
 }
 
+static gboolean Flac_Set_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag_name, gchar *value, gboolean split)
+{
+    if ( value && split ) {
+        Flac_Write_Delimetered_Tag(vc_block,tag_name,value);
+    } else if ( value ) {
+        Flac_Write_Tag(vc_block,tag_name,value);
+    }
+}
 
 /*
  * Write Flac tag, using the level 2 flac interface
@@ -884,7 +894,6 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
     //
     {
         FLAC__StreamMetadata *vc_block; // For vorbis comments
-        FLAC__StreamMetadata_VorbisComment_Entry field;
         GList *list;
         
         // Allocate a block for Vorbis comments
@@ -903,113 +912,70 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
         /*********
          * Title *
          *********/
-        if ( FileTag->title )
-        {
-            Flac_Write_Delimetered_Tag(vc_block,"TITLE=",FileTag->title);
-        }
+        Flac_Set_Tag(vc_block,"TITLE=",FileTag->title, VORBIS_SPLIT_FIELD_TITLE);
 
         /**********
          * Artist *
          **********/
-        if ( FileTag->artist )
-        {
-            Flac_Write_Delimetered_Tag(vc_block,"ARTIST=",FileTag->artist);
-        }
+        Flac_Set_Tag(vc_block,"ARTIST=",FileTag->artist,VORBIS_SPLIT_FIELD_ARTIST);
 
         /*********
          * Album *
          *********/
-        if ( FileTag->album )
-        {
-            Flac_Write_Delimetered_Tag(vc_block,"ALBUM=",FileTag->album);
-        }
+        Flac_Set_Tag(vc_block,"ALBUM=",FileTag->album,VORBIS_SPLIT_FIELD_ALBUM);
 
         /***************
          * Disc Number *
          ***************/
-        if ( FileTag->disc_number )
-        {
-            Flac_Write_Tag(vc_block,"DISCNUMBER=",FileTag->disc_number,NULL);
-        }
+        Flac_Set_Tag(vc_block,"DISCNUMBER=",FileTag->disc_number,FALSE);
 
         /********
          * Year *
          ********/
-        if ( FileTag->year )
-        {
-            Flac_Write_Tag(vc_block,"DATE=",FileTag->year,NULL);
-        }
+        Flac_Set_Tag(vc_block,"DATE=",FileTag->year,FALSE);
 
         /*************************
          * Track and Total Track *
          *************************/
-        if ( FileTag->track )
-        {
-            Flac_Write_Tag(vc_block,"TRACKNUMBER=",FileTag->track);
-        }
-        if ( FileTag->track_total /*&& strlen(FileTag->track_total)>0*/ )
-        {
-            Flac_Write_Tag(vc_block,"TRACKTOTAL=",FileTag->track_total);
-        }
+        Flac_Set_Tag(vc_block,"TRACKNUMBER=",FileTag->track,FALSE);
+        Flac_Set_Tag(vc_block,"TRACKTOTAL=",FileTag->track_total,FALSE);
 
         /*********
          * Genre *
          *********/
-        if ( FileTag->genre )
-        {
-            Flac_Write_Delimetered_Tag(vc_block,"GENRE=",FileTag->genre);
-        }
+        Flac_Set_Tag(vc_block,"GENRE=",FileTag->genre,VORBIS_SPLIT_FIELD_GENRE);
 
         /***********
          * Comment *
          ***********/
         // We write the comment using the "both" format
-        if ( FileTag->comment )
-        {
-            Flac_Write_Delimetered_Tag(vc_block,"DESCRIPTION=",FileTag->comment);
-
-            Flac_Write_Delimetered_Tag(vc_block,"COMMENT=",FileTag->comment);
-        }
+        Flac_Set_Tag(vc_block,"DESCRIPTION=",FileTag->comment,VORBIS_SPLIT_FIELD_COMMENT);
+        Flac_Set_Tag(vc_block,"COMMENT=",FileTag->comment,VORBIS_SPLIT_FIELD_COMMENT);
 
         /************
          * Composer *
          ************/
-        if ( FileTag->composer )
-        {
-            Flac_Write_Delimetered_Tag(vc_block,"COMPOSER=",FileTag->composer);
-        }
+        Flac_Set_Tag(vc_block,"COMPOSER=",FileTag->composer,VORBIS_SPLIT_FIELD_COMPOSER);
 
         /*******************
          * Original artist *
          *******************/
-        if ( FileTag->orig_artist )
-        {
-            Flac_Write_Delimetered_Tag(vc_block,"PERFORMER=",FileTag->orig_artist);
-        }
+        Flac_Set_Tag(vc_block,"PERFORMER=",FileTag->orig_artist,VORBIS_SPLIT_FIELD_ORIG_ARTIST);
 
         /*************
          * Copyright *
          *************/
-        if ( FileTag->copyright )
-        {
-            Flac_Write_Tag(vc_block,"COPYRIGHT=",FileTag->copyright);
-        }
+        Flac_Set_Tag(vc_block,"COPYRIGHT=",FileTag->copyright,FALSE);
 
         /*******
          * URL *
          *******/
-        if ( FileTag->url )
-        {
-            Flac_Write_Tag(vc_block,"LICENSE=",FileTag->url);
-        }
+        Flac_Set_Tag(vc_block,"LICENSE=",FileTag->url,FALSE);
 
         /**************
          * Encoded by *
          **************/
-        if ( FileTag->encoded_by )
-        {
-            Flac_Write_Tag(vc_block,"ENCODED-BY=",FileTag->encoded_by);
-        }
+        Flac_Set_Tag(vc_block,"ENCODED-BY=",FileTag->encoded_by,FALSE);
 
 
         /**************************
@@ -1018,10 +984,7 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
         list = FileTag->other;
         while (list)
         {
-            if (list->data)
-            {
-                Flac_Write_Tag(vc_block, "", (gchar*)list->data);
-            }
+            Flac_Set_Tag(vc_block, "", (gchar*)list->data, FALSE);
             list = list->next;
         }
 
