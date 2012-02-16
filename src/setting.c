@@ -170,6 +170,13 @@ tConfigVariable Config_Variables[] =
     {"file_writing_id3v1_iconv_options_no",            CV_TYPE_BOOL,  &FILE_WRITING_ID3V1_ICONV_OPTIONS_NO},
     {"file_writing_id3v1_iconv_options_translit",      CV_TYPE_BOOL,  &FILE_WRITING_ID3V1_ICONV_OPTIONS_TRANSLIT},
     {"file_writing_id3v1_iconv_options_ignore",        CV_TYPE_BOOL,  &FILE_WRITING_ID3V1_ICONV_OPTIONS_IGNORE},
+    {"vorbis_split_field_title",                       CV_TYPE_BOOL,  &VORBIS_SPLIT_FIELD_TITLE},
+    {"vorbis_split_field_artist",                      CV_TYPE_BOOL,  &VORBIS_SPLIT_FIELD_ARTIST},
+    {"vorbis_split_field_album",                       CV_TYPE_BOOL,  &VORBIS_SPLIT_FIELD_ALBUM},
+    {"vorbis_split_field_genre",                       CV_TYPE_BOOL,  &VORBIS_SPLIT_FIELD_GENRE},
+    {"vorbis_split_field_comment",                     CV_TYPE_BOOL,  &VORBIS_SPLIT_FIELD_COMMENT},
+    {"vorbis_split_field_composer",                    CV_TYPE_BOOL,  &VORBIS_SPLIT_FIELD_COMPOSER},
+    {"vorbis_split_field_orig_artist",                 CV_TYPE_BOOL,  &VORBIS_SPLIT_FIELD_ORIG_ARTIST},
 
     {"message_box_position_none",               CV_TYPE_BOOL,  &MESSAGE_BOX_POSITION_NONE                },
     {"message_box_position_center",             CV_TYPE_BOOL,  &MESSAGE_BOX_POSITION_CENTER              },
@@ -442,6 +449,13 @@ void Init_Config_Variables (void)
     FILE_WRITING_ID3V1_ICONV_OPTIONS_TRANSLIT       = 1;
     FILE_WRITING_ID3V1_ICONV_OPTIONS_IGNORE         = 0;
 
+    VORBIS_SPLIT_FIELD_TITLE                          = 1;
+    VORBIS_SPLIT_FIELD_ARTIST                         = 1;
+    VORBIS_SPLIT_FIELD_ALBUM                          = 1;
+    VORBIS_SPLIT_FIELD_GENRE                          = 1;
+    VORBIS_SPLIT_FIELD_COMMENT                        = 1;
+    VORBIS_SPLIT_FIELD_COMPOSER                       = 1;
+    VORBIS_SPLIT_FIELD_ORIG_ARTIST                    = 1;
     /*
      * Scanner
      */
@@ -732,6 +746,14 @@ void Apply_Changes_Of_Preferences_Window (void)
         FILE_WRITING_ID3V1_ICONV_OPTIONS_NO          = GTK_TOGGLE_BUTTON(FileWritingId3v1IconvOptionsNo)->active;
         FILE_WRITING_ID3V1_ICONV_OPTIONS_TRANSLIT    = GTK_TOGGLE_BUTTON(FileWritingId3v1IconvOptionsTranslit)->active;
         FILE_WRITING_ID3V1_ICONV_OPTIONS_IGNORE      = GTK_TOGGLE_BUTTON(FileWritingId3v1IconvOptionsIgnore)->active;
+
+        VORBIS_SPLIT_FIELD_TITLE                       = GTK_TOGGLE_BUTTON(VorbisSplitFieldTitle)->active;
+        VORBIS_SPLIT_FIELD_ARTIST                      = GTK_TOGGLE_BUTTON(VorbisSplitFieldArtist)->active;
+        VORBIS_SPLIT_FIELD_ALBUM                       = GTK_TOGGLE_BUTTON(VorbisSplitFieldAlbum)->active;
+        VORBIS_SPLIT_FIELD_GENRE                       = GTK_TOGGLE_BUTTON(VorbisSplitFieldGenre)->active;
+        VORBIS_SPLIT_FIELD_COMMENT                     = GTK_TOGGLE_BUTTON(VorbisSplitFieldComment)->active;
+        VORBIS_SPLIT_FIELD_COMPOSER                    = GTK_TOGGLE_BUTTON(VorbisSplitFieldComposer)->active;
+        VORBIS_SPLIT_FIELD_ORIG_ARTIST                 = GTK_TOGGLE_BUTTON(VorbisSplitFieldOrigArtist)->active;
 
         /* Scanner */
         // Fill Tag Scanner
