@@ -3355,7 +3355,7 @@ void Load_Filename_Set_Filenames (void)
         g_free(list_text);
     }
 
-    g_free(currentPath);
+    gtk_tree_path_free(currentPath);
 
     Browser_List_Refresh_Whole_List();
     ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
