@@ -695,6 +695,11 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
      **********/
     Ogg_Set_Tag(vc,"ARTIST=",FileTag->artist, VORBIS_SPLIT_FIELD_ARTIST);
 
+    /****************
+     * Album Artist *
+     ****************/
+    Ogg_Set_Tag(vc,"ALBUMARTIST=",FileTag->album_artist, VORBIS_SPLIT_FIELD_ARTIST);
+
     /*********
      * Album *
      *********/
