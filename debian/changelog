@@ -1,0 +1,587 @@
+easytag (2.1.7-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Kip Warner <kip@thevertigo.com>  Sat, 14 Jan 2012 16:37:54 -0800
+
+easytag (2.1.6-1ubuntu1) lucid; urgency=low
+
+  * Fix broken manual search via CDDB (LP: #384929)
+    - Add debian/patches/cddb_manual_search_fix.patch
+
+ -- Benjamin Drung <bdrung@ubuntu.com>  Sat, 14 Nov 2009 16:27:54 +0100
+
+easytag (2.1.6-1) unstable; urgency=low
+
+  * Upload to unstable
+  * Close nmu bug (Closes: #460247, #498294)
+
+  [ Benjamin Drung ]
+  * Non-maintainer upload.
+  * New upstream release (Closes: #490979).
+  * Added debian/patches/01-autoload.patch.
+  * debian/control:
+    - Break and sort Build-Depends line.
+    - Update Standards-Version to 3.8.1 and add Homepage field.
+    - Add ${misc:Depends} to Depends.
+  * debian/rules:
+    - Remove encoding line (only ansi characters used).
+    - Add gnome.mk class for Debian menu.
+    - Remove not needed DEB_MAKE_INVOKE.
+    - Do not install changelog twice (Closes: #448880).
+  * Drop debian/easytag.1 and use man page provided by upstream.
+  * Switch to debhelper 7.
+  * Remove debian/docs and thus do not install useless USERS-GUIDE
+    (Closes: #467240).
+  * Remove unneeded debian/dirs.
+  * Add debian/patches/02-autoreconf.patch to get rid of
+    binary-or-shlib-defines-rpath lintian warning.
+  * Add debian/patches/manpage-has-bad-whatis-entry.patch to fix lintian
+    warning.
+
+ -- Sebastien Bacher <seb128@debian.org>  Wed, 13 May 2009 16:21:20 +0200
+
+easytag (2.1.4-1.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Warn user when ogg vorbis tags will be lost, fix handling of multiple same
+    ogg vorbis tags (Closes: #460247).
+  * Fix lintian warnings:
+    - Add watch file.
+    - Install icon for menu file (Closes: #460247).
+    - Fix section in menu file.
+    - Drop version from NAME section of man page to `apropos' and `whatis'
+      happy.
+    - Include copyright information in debian/copyright.
+
+ -- Michal Čihař <nijel@debian.org>  Mon, 08 Sep 2008 21:44:11 +0200
+
+easytag (2.1.4-1) unstable; urgency=low
+
+  * New upstream version
+
+ -- Sebastien Bacher <seb128@debian.org>  Tue, 11 Dec 2007 12:27:03 +0100
+
+easytag (2.1.3-1) unstable; urgency=low
+
+  * New upstream version
+  * debian/easytag.xpm, debian/rules:
+    - use the upstream icon version
+  * easytag.desktop:
+    - use the correct icon naming
+
+ -- Sebastien Bacher <seb128@debian.org>  Sun, 25 Nov 2007 16:15:43 +0100
+
+easytag (2.1.2-1) unstable; urgency=low
+
+  * New upstream version:
+    - Fixed a mistake in the configure script (Closes: #432257)
+  * debian/control:
+    - Build-Depends on libid3tag0-dev, libspeex-dev (Closes: #401523, #434428)
+    - updated Standards-Version to 3.7.2
+
+ -- Sebastien Bacher <seb128@debian.org>  Thu,  2 Aug 2007 12:55:18 +0200
+
+easytag (2.1.1-1) unstable; urgency=low
+
+  * New upstream version (Closes: #414201):
+    - Added Speex support (Closes: #401523)
+  * debian/control:
+    - Build-Depends on libwavpack-dev
+    - correct spelling mistake, 
+      change indicated by Simon Waters <simon@technocool.net> (Closes: #363374)
+
+ -- Sebastien Bacher <seb128@debian.org>  Sat,  7 Jul 2007 14:37:46 +0200
+
+easytag (2.1-1) unstable; urgency=low
+
+  * New upstream version
+  * debian/control:
+    - required glib version specified to configure
+
+ -- Sebastien Bacher <seb128@debian.org>  Thu, 31 May 2007 00:10:52 +0200
+
+easytag (1.99.12-1) unstable; urgency=low
+
+  * New upstream version:
+    - New logo and icons,
+    - Added ability to display all albums of an artist in the 'Artist / Album'
+      view,
+    - Added detection of the bugged version of id3lib when writting ID3 tag to 
+      Unicode to inform the user (a patch for id3lib is supplied in package
+      source),
+    - For Ogg files, the field DESCRIPTION is also used for the comment,
+    - Fixed stack corruption bugs in Fill Tag scanner,
+    - Fixed loading disk number for FLAC tag,
+    - Fixed error that displays MP3 files in red when no tag is present,
+    - Fixed a crash in the CDDB window when getting tracks of a album,
+    - Fixed playlist name bug when creating it in the parent directory,
+    - Fixed manual CDDB search when using Squid,
+    - Little fix for FLAC tags,
+    - Fixed various bugs,
+    - Russian translation updated,
+    - Greek translation updated,
+    - Spanish translation updated,
+    - Japanese translation updated,
+    - Czech translation updated,
+    - Brazilian Portuguese translation updated
+    - Danish translation updated,
+    - Italian translation updated,
+    - Hungarian translation updated,
+    - German translation updated.
+
+ -- Sebastien Bacher <seb128@debian.org>  Sat, 15 Apr 2006 15:47:47 +0200
+
+easytag (1.99.11-1) unstable; urgency=low
+
+  * New upstream version:
+    - Added ability to force saving tag of file even if no changes made (useful
+      to convert quickly tags),
+    - Added switch '--disable-mp3' to not compile the program with id3lib (will
+      allow in future version to choose between id3lib or taglib),
+    - Fixed problem of saving file order (bug introduced in version 1.99.10),
+    - French translation updated,
+    - Czech translation updated,
+    - Hungarian translation updated,
+    - Spanish translation updated,
+    - German translation updated
+    - fix implicit function (Closes: #341277)
+
+ -- Sebastien Bacher <seb128@debian.org>  Sun, 18 Dec 2005 23:43:03 +0100
+
+easytag (1.99.10-1) unstable; urgency=low
+
+  * New upstream version:
+    - Added port to Win32, to compile under MinGW (thanks to Michael Pujos),
+    - The preferences window was clean up : saving configuration changed (the
+      apply button was removed to not confuse user), position of main window,
+      scanner window and cddb are automatically saved (settings were removed
+      from the window),
+    - Added a protection against MP3 corrupted files (files containing only
+      zeroes) which cause a bug in id3lib and so freeze the program,
+    - Added some documentation,
+    - Changed some shortcuts in the menu by following the GNOME Human Interface
+      Guidelines 2.0,
+    - Added ability to load pictures contained in ID3v2 tag of a FLAC file,
+    - Fixed a crash that may occurs with the browser at startup,
+    - Fixed displaying of player in preferences window if it not exists, else
+      were can't save the settings,
+    - Fixed a crash that may occurs with message boxes ,
+    - Fixed some memory leaks,
+    - French translation updated,
+    - Czech translation updated,
+    - Danish translation updated,
+    - Brazilian Portuguese translation updated,
+    - German translation updated
+
+ -- Sebastien Bacher <seb128@debian.org>  Tue, 29 Nov 2005 14:34:00 +0100
+
+easytag (1.99.9-1) unstable; urgency=low
+
+  * New upstream version:
+    - Ability to read and write UTF-16 strings in ID3 tag 
+    - Added options to save tags only in ISO-8859-1, or only in Unicode, or to
+      let the program to do the best choice (Closes: #281255)
+    - Added options to select a non-standard encoding for ISO-8859-1 fields in
+      the tag (very useful for example for Russian people), and can apply some
+      rules when writing tag if some characters can't be converted to this
+      non-standard encoding (activate the transliteration or silently discard
+      some characters) (Closes: #246856)
+    - Changed way to read and write filenames : use the encoding specified into
+      environment variables of language (as LANG or LC_ALL), instead of the 
+      GTK2 environment variable G_FILENAME_ENCODING
+    - Added options to apply some rules when writing filename if some 
+      characters can't be converted to the system encoding (activate the 
+      transliteration or silently discard some characters)
+    - Added ability to rename the directory in the browser with masks,
+    - Added an option to return focus to the 'Title' field when switching files
+      with the previous/next button/shortcut
+    - Added a menu item for the action "Show hidden directories" in the browser
+    - For Ogg Vorbis files, the file vcedit.h was updated 
+      from vorbis-tools-1.1.1
+    - Some fixes and improvements in the CDDB windows
+    - Improvements when handling character set of the locale when reading and
+      writing filenames
+    - Improved compatibility for MP4/AAC files with MPEG4IP-1.2
+    - Fixed a crash when reading FLAC files
+    - Fixed : remove old directories when changing path of the file with the
+      'Rename File' scanner
+    - Fixed crash when numbering tracks sequentially after renaming files
+    - Fixed problem when renaming file from one partition to an other one
+      (mananage the error "Invalid cross-device link")
+    - Fixed : don't replace illegal characters when writing playlist content
+      from a pattern
+    - Fixed writting of playlist to improve compatibility with some players
+      (uses DOS characters for a new line)
+    - Fixed conversion of the word 'I' with the 
+      'first letter uppercase' scanner: now it stays to upper case
+    - Check if the program to launch to open files exists before to run it
+    - A new bulgarian translation 
+    - French translation updated
+    - Brazilian Portuguese translation updated
+    - German translation updated 
+
+ -- Sebastien Bacher <seb128@debian.org>  Thu, 10 Nov 2005 17:17:14 +0100
+
+easytag (1.99.8-1) unstable; urgency=low
+
+  * New upstream version (Closes: #326802):
+    - Fixed hangs in the cddb lookups (Closes: #292188).
+    - Fixed problem when parsing markup in the 'Fill Tag' scanner preview.
+    - Added MP4/AAC file and tag support (including pictures in tag) by using
+      MPEG4IP (libmp4v2).
+    - "Copyright" replaced by "License" in .spec file to allow to build the RPM
+      package with rpm-4.4.0.
+    - French translation updated.
+    - Italian translation updated.
+    - German translation updated.
+  * debian/control:
+    - updated the Build-Depends on flac package (Closes: #325949).
+
+ -- Sebastien Bacher <seb128@debian.org>  Sun, 11 Sep 2005 15:03:36 +0200
+
+easytag (1.99.7-2) unstable; urgency=low
+
+  * Rebuild with the current libid3 (Closes: #321431, #323089).
+  * debian/control:
+    - updated the Standards-Version.
+
+ -- Sebastien Bacher <seb128@debian.org>  Wed, 17 Aug 2005 23:05:14 +0200
+
+easytag (1.99.7-1) unstable; urgency=low
+
+  * New upstream version.
+
+ -- Sebastien Bacher <seb128@debian.org>  Fri, 15 Jul 2005 22:46:51 +0200
+
+easytag (1.99.6-2) unstable; urgency=low
+
+  * debian/copyright, debian/easytag.1:
+    - fix upstream email.
+  * debian/patches/patch_1996_browser_entry_fix.diff:
+    - upstream patch to fix an issue with the browser entry.
+
+ -- Sebastien Bacher <seb128@debian.org>  Wed, 29 Jun 2005 11:59:23 +0200
+
+easytag (1.99.6-1) unstable; urgency=low
+
+  * New upstream version:
+    - fix tab order for the label editor (Closes: #292033).
+    - fix the FTBFS on ppc64 (Closes: #299280).
+    - updated german translation (Closes: #313692).
+
+ -- Sebastien Bacher <seb128@debian.org>  Tue, 28 Jun 2005 17:43:07 +0200
+
+easytag (1.99.5-1) unstable; urgency=low
+
+  * New upstream version.
+
+ -- Sebastien Bacher <seb128@debian.org>  Thu,  9 Jun 2005 15:09:01 +0200
+
+easytag (1.99.4-1) unstable; urgency=low
+
+  * New upstream version.
+
+ -- Sebastien Bacher <seb128@debian.org>  Mon,  2 May 2005 16:58:03 +0200
+
+easytag (1.99.3-1) unstable; urgency=low
+
+  * Upload of the GTK2 version to unstable.
+  * New upstream release.
+
+ -- Sebastien Bacher <seb128@debian.org>  Fri, 21 Jan 2005 19:29:31 +0100
+
+easytag (1.99.2-2) experimental; urgency=low
+
+  * easytag.desktop: 
+    - don't list x-directory/normal.
+  * debian/control.in:
+    - updated the Build-Depends on libflac-dev to 1.1.1-3.
+
+ -- Sebastien Bacher <seb128@debian.org>  Sat,  8 Jan 2005 14:33:06 +0100
+
+easytag (1.99.2-1) experimental; urgency=low
+
+  * New upstream release (Closes: #288033).
+
+ -- Sebastien Bacher <seb128@debian.org>  Sat,  1 Jan 2005 22:32:01 +0100
+
+easytag (1.99.1-1) experimental; urgency=low
+
+  * New upstream release:
+    - added new fields for ID3v2 tag, Ogg Vorbis tag, FLAC tag and APE tag :
+      Composer, Original Artist/Performer, Copyright, URL and Encoder name.
+    - added an option to select or not the corresponding file when selecting a
+      track name in the Cddb results.
+    - added ability to search files in hidden directories.
+    - added an option to not convert some words when using the scanner 'First
+      letter uppercase of each word'.
+
+ -- Sebastien Bacher <seb128@debian.org>  Sun,  7 Nov 2004 22:14:54 +0100
+
+easytag (0.31gtk2pre2-2) experimental; urgency=low
+
+  * New upstream release.
+
+ -- Sebastien Bacher <seb128@debian.org>  Fri,  8 Oct 2004 11:21:15 +0200
+
+easytag (0.31gtk2pre2-1) experimental; urgency=low
+
+  * New upstream pre-release.
+  * debian/control:
+    - updated the description with the upstream one. The flac format is 
+      mentioned now (Closes: #255052).
+
+ -- Sebastien Bacher <seb128@debian.org>  Sat, 18 Sep 2004 15:39:05 +0200
+
+easytag (0.31gtk2pre1-1) experimental; urgency=low
+
+  * New pre-release.
+
+ -- Sebastien Bacher <seb128@debian.org>  Mon, 19 Jul 2004 23:39:35 +0200
+
+easytag (0.31gtk2pre0-1) experimental; urgency=low
+
+  * First pre-release of the GTK+2 version.
+
+ -- Sebastien Bacher <seb128@debian.org>  Wed, 14 Jul 2004 15:44:41 +0200
+
+easytag (0.31-1) unstable; urgency=low
+
+  * New upstream release
+    + allow to display the files by artists and by albums (Closes: #208090).
+  * debian/patches/*:
+    + removed patchs included in the new version.
+  * debian/menu:
+    + added an icon (Closes: #252859).
+
+ -- Sebastien Bacher <seb128@debian.org>  Sun,  6 Jun 2004 23:30:01 +0200
+
+easytag (0.30-5) unstable; urgency=low
+
+  * Updated es.po (Closes: #236800).
+
+ -- Sebastien Bacher <seb128@debian.org>  Tue, 11 May 2004 21:13:49 +0200
+
+easytag (0.30-4) unstable; urgency=low
+
+  * Updated Build-Depends on debhelper to 4.1.46 (Closes: #219480).
+  * debian/patches/patch_easytag_030c_030d.diff:
+    + new patch to fix the cddb server selection (Closes: #230672).
+
+ -- Sebastien Bacher <seb128@debian.org>  Sat,  7 Feb 2004 11:55:58 +0100
+
+easytag (0.30-3) unstable; urgency=low
+
+  * Added patches to fix the repeat action (Closes: #217661).
+
+ -- Sebastien Bacher <seb128@debian.org>  Thu, 30 Oct 2003 17:05:22 +0100
+
+easytag (0.30-2) unstable; urgency=low
+
+  * Added the upstream patch to fix the renaming bug (Closes: #210420).
+
+ -- Sebastien Bacher <seb128@debian.org>  Sun, 28 Sep 2003 11:35:44 +0200
+
+easytag (0.30-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Sebastien Bacher <seb128@debian.org>  Thu, 11 Sep 2003 00:53:00 +0200
+
+easytag (0.29-1) unstable; urgency=low
+
+  * New maintainer (Closes: #202543).
+  * New upstream release.
+  * Switched to cdbs.
+  * Updated Build-Depends.
+  * Updated Standards-Version to 3.6.1.0.
+
+ -- Sebastien Bacher <seb128@debian.org>  Wed,  3 Sep 2003 02:57:29 +0200
+
+easytag (0.28.1-2) unstable; urgency=low
+
+  * orphaned; maintainer set to packages@qa.debian.org
+
+ -- tony mancill <tmancill@debian.org>  Tue, 22 Jul 2003 21:14:14 -0700
+
+easytag (0.28.1-1) unstable; urgency=low
+
+  * new upstream release
+
+ -- tony mancill <tmancill@debian.org>  Sun, 13 Jul 2003 11:31:37 -0700
+
+easytag (0.28-4) unstable; urgency=low
+
+  * added signal handler to ignore SIGCHLD; prevents zombies when 
+    spawning audio player (closes: #177185)
+
+ -- tony mancill <tmancill@debian.org>  Mon, 30 Jun 2003 21:40:30 -0700
+
+easytag (0.28-3) unstable; urgency=low
+
+  * crc32 renamed; workaround for GTK themes problem (closes: #195884)
+
+ -- tony mancill <tmancill@debian.org>  Sat, 28 Jun 2003 10:29:13 -0700
+
+easytag (0.28-2) unstable; urgency=low
+
+  * using CDDB results will no longer blank out filenames
+    applied upstream patch 0.28a (closes: #197971)
+
+ -- tony mancill <tmancill@debian.org>  Mon, 23 Jun 2003 21:20:42 -0700
+
+easytag (0.28-1) unstable; urgency=low
+
+  * new upstream release
+  * updated description regarding ID3v2 support (closes: #185259)
+
+ -- tony mancill <tmancill@debian.org>  Sun,  1 Jun 2003 16:12:25 -0700
+
+easytag (0.27a-3) unstable; urgency=low
+
+  * scanner window now provides WM_CLASS (closes: #185980)
+    (thanks to Nikolai Prokoschenko for the patch)
+  * now build depends upon libid3-3.8.3-dev 
+  * added string.h include to configure.in and flac_header.c (for ia64)
+
+ -- tony mancill <tmancill@debian.org>  Mon, 28 Apr 2003 21:55:28 -0700
+
+easytag (0.27a-2) unstable; urgency=low
+
+  * rebuilt against libvorbis0a (closes: #185060)
+
+ -- tony mancill (Debian) <tmancill@debian.org>  Sun, 16 Mar 2003 13:33:54 -0800
+
+easytag (0.27a-1) unstable; urgency=low
+
+  * new upstream version
+  * new maintainer
+
+ -- tony mancill <tmancill@debian.org>  Tue, 11 Feb 2003 21:13:10 -0800
+
+easytag (0.25b-1) unstable; urgency=low
+
+  * New upstream version (Closes: bug#171195)
+  * Add Ogg to description (Closes: bug#171455)
+
+ -- Baruch Even <baruch@debian.org>  Fri, 13 Dec 2002 15:00:41 +0200
+
+easytag (0.24b-1) unstable; urgency=low
+
+  * New upstream version (Closes: bug#160751)
+    + Compile against new libflac4 (Closes: bug#164187)
+    + Fix code to compile with libflac4 (Closes: bug#164087)
+
+ -- Baruch Even <baruch@debian.org>  Sat, 12 Oct 2002 03:07:45 +0200
+
+easytag (0.23-1) unstable; urgency=low
+
+  * New upstream version (Closes: bug#158176)
+  * Use libid3 from debian package it's version 3.8.0 now (Closes: bug#158178)
+
+ -- Baruch Even <baruch@debian.org>  Sat, 31 Aug 2002 22:22:55 +0300
+
+easytag (0.21-1.1) unstable; urgency=low
+
+  * NMU to fix breakage caused by libvorbis0 split.
+
+ -- Christopher L Cheney <ccheney@debian.org>  Mon, 29 Jul 2002 23:00:00 -0500
+
+easytag (0.21-1) unstable; urgency=low
+
+  * New upstream version
+
+ -- Baruch Even <baruch@debian.org>  Sat,  8 Jun 2002 22:40:41 +0300
+
+easytag (0.18-3) unstable; urgency=low
+
+  * Add a missing Build-Dep: zlib1g-dev
+
+ -- Baruch Even <baruch@debian.org>  Fri, 12 Apr 2002 22:29:07 +0300
+
+easytag (0.18-2) unstable; urgency=low
+
+  * Really try to compile for alpha
+
+ -- Baruch Even <baruch@debian.org>  Thu, 11 Apr 2002 01:19:01 +0300
+
+easytag (0.18-1) unstable; urgency=low
+
+  * New upstream release
+  * Try to get the libid3 to compile with gcc 3.0
+
+ -- Baruch Even <baruch@debian.org>  Sun,  7 Apr 2002 02:07:02 +0300
+
+easytag (0.17-1) unstable; urgency=low
+
+  * New upstream release.
+  * Upped Standards-Version, no action required.
+  * Included a static version of libid3 3.8.0pre2 due to stability problems
+    with the current version. (Closes: bug#136819)
+
+ -- Baruch Even <baruch@debian.org>  Tue, 12 Mar 2002 02:30:05 +0200
+
+easytag (0.16-1) unstable; urgency=low
+
+  * New upstream release (Closes: bug#134570)
+
+ -- Baruch Even <baruch@debian.org>  Tue, 19 Feb 2002 23:57:11 +0200
+
+easytag (0.15-2) unstable; urgency=low
+
+  * Added libid3-dev to Build-Deps
+  * Added a manpage (Closes: bug#87080)
+
+ -- Baruch Even <baruch@debian.org>  Sat,  2 Feb 2002 04:16:05 +0200
+
+easytag (0.15-1) unstable; urgency=low
+
+  * New maintainer (Closes: bug#130821)
+  * New upstream release (Closes: bug#98387)
+
+ -- Baruch Even <baruch@debian.org>  Thu, 31 Jan 2002 01:58:55 +0200
+
+easytag (0.13-2) unstable; urgency=low
+
+  * Orphaned this package.
+
+ -- Adrian Bunk <bunk@fs.tum.de>  Fri, 25 Jan 2002 12:47:39 +0100
+
+easytag (0.13-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Adrian Bunk <bunk@fs.tum.de>  Thu,  4 Jan 2001 17:52:42 +0100
+
+easytag (0.12-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Adrian Bunk <bunk@fs.tum.de>  Wed, 22 Nov 2000 19:09:39 +0100
+
+easytag (0.11-1) unstable; urgency=low
+
+  * New upstream release.
+  * Added THANKS and USERS-GUIDE.
+  * Upload sponsored by Tony Mancill <tmancill@debian.org>.
+
+ -- Adrian Bunk <bunk@fs.tum.de>  Fri, 27 Oct 2000 00:38:24 +0200
+
+easytag (0.10.2-1) unstable; urgency=low
+
+  * New upstream release.
+  * Upload sponsored by Tony Mancill <tmancill@debian.org>.
+
+ -- Adrian Bunk <bunk@fs.tum.de>  Sun, 22 Oct 2000 21:33:44 +0200
+
+easytag (0.10.1-1) unstable; urgency=low
+
+  * Initial Release. (closes: #74068)
+  * Upload sponsored by Oliver M. Bolzer <oliver@debian.org>.
+
+ -- Adrian Bunk <bunk@fs.tum.de>  Sun,  8 Oct 2000 20:40:42 +0200
+
+Local variables:
+mode: debian-changelog
+End:

@@ -31,7 +31,7 @@
 
 #define APPNAME            "EasyTAG"
 #define AUTHOR             "Jerome Couderc"    // Note: do not use accents
-#define EMAIL              "easytag@gmail.com"
+#define EMAIL              "easytag-mailing@lists.sourceforge.net"
 #define WEBPAGE            "http://easytag.sourceforge.net"
 /*#define VERSION "0.15.1" //Now version is defined in ../configure.h.in */
 

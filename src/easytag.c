@@ -4936,8 +4936,8 @@ void Quit_MainWindow (void)
     /* Save combobox history list before exit */
     Save_Path_Entry_List(BrowserEntryModel, MISC_COMBO_TEXT);
 
-    /* Exit ? */
-    if (ET_Check_If_All_Files_Are_Saved() != TRUE)
+    /* Check if all files have been saved before exit */
+    if (CONFIRM_WHEN_UNSAVED_FILES && ET_Check_If_All_Files_Are_Saved() != TRUE)
     {
         /* Some files haven't been saved */
         msgbox = msg_box_new(_("Confirm..."),

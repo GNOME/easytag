@@ -1,3 +1,20 @@
+2.1.8 - March 9th, 2012 :
+=========================
+    * Leonid Podolny's easytag-2.1.6-from-txt.patch for segfault when pressing 
+      "Apply" in "Load filenames from TXT" dialog,
+    * WiseLord's fix-genre-tag.patch to fix predefined genres displayed under
+      legacy systems.
+
+2.1.7 - Jan 14th, 2012 :
+========================
+    * Gaute Amundsen's ConfirmWhenUnsavedFiles.patch
+    * Mark Ferry's albumartist patch for ogg and flac
+    * Götz Waschk's update for German translation
+    * Kip Warner's optimized base64 decoder for album art
+    * Updated contributor credits
+    * Debianized
+    * Updated version to 2.1.7
+
 2.1.6 - July 12th, 2008 :
 =========================
     * Fixed displaying of the corresponding file when handling the Cddb track 

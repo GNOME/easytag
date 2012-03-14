@@ -208,6 +208,7 @@ tConfigVariable Config_Variables[] =
     {"confirm_rename_file",                     CV_TYPE_BOOL,    &CONFIRM_RENAME_FILE                    },
     {"confirm_write_playlist",                  CV_TYPE_BOOL,    &CONFIRM_WRITE_PLAYLIST                 },
     {"confirm_delete_file",                     CV_TYPE_BOOL,    &CONFIRM_DELETE_FILE                    },
+    {"confirm_when_unsaved_files",              CV_TYPE_BOOL,    &CONFIRM_WHEN_UNSAVED_FILES             },
     {"process_filename_field",                  CV_TYPE_BOOL,    &PROCESS_FILENAME_FIELD                 },
     {"process_title_field",                     CV_TYPE_BOOL,    &PROCESS_TITLE_FIELD                    },
     {"process_artist_field",                    CV_TYPE_BOOL,    &PROCESS_ARTIST_FIELD                   },
@@ -814,6 +815,7 @@ void Apply_Changes_Of_Preferences_Window (void)
         CONFIRM_RENAME_FILE    = GTK_TOGGLE_BUTTON(ConfirmRenameFile)->active;
         CONFIRM_DELETE_FILE    = GTK_TOGGLE_BUTTON(ConfirmDeleteFile)->active;
         CONFIRM_WRITE_PLAYLIST = GTK_TOGGLE_BUTTON(ConfirmWritePlayList)->active;
+        CONFIRM_WHEN_UNSAVED_FILES = GTK_TOGGLE_BUTTON(ConfirmWhenUnsavedFiles)->active;
 
         /* Parameters and variables of Scanner Window are in "scan.c" file */
         /* Parameters and variables of Cddb Window are in "cddb.c" file */

@@ -10,10 +10,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: EasyTAG 2.1.5\n"
+"Project-Id-Version: EasyTAG 2.1.6\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-07-12 17:02+0200\n"
-"PO-Revision-Date: 2008-01-27 18:47+0000\n"
+"PO-Revision-Date: 2008-07-14 21:51+0200\n"
 "Last-Translator: Götz Waschk <goetz.waschk@gmail.com>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -544,24 +544,20 @@ msgid "Go to Home Directory"
 msgstr "Zum persönlichen Ordner gehen"
 
 #: src/bar.c:211
-#, fuzzy
 msgid "Go to Desktop Directory"
-msgstr "Zum Vorgabeverzeichnis gehen"
+msgstr "Zum Desktopverzeichnis gehen"
 
 #: src/bar.c:212
-#, fuzzy
 msgid "Go to Documents Directory"
-msgstr "Zum persönlichen Ordner gehen"
+msgstr "Zum Dokumentenverzeichnis gehen"
 
 #: src/bar.c:213
-#, fuzzy
 msgid "Go to Downloads Directory"
-msgstr "Zum persönlichen Ordner gehen"
+msgstr "Zum Downloads-Ordner gehen"
 
 #: src/bar.c:214
-#, fuzzy
 msgid "Go to Music Directory"
-msgstr "Zum persönlichen Ordner gehen"
+msgstr "Zum Musikordner gehen"
 
 #: src/bar.c:215
 msgid "Go to _Default Directory"
@@ -836,9 +832,8 @@ msgstr "Wählen sie ein Verzeichnis aus!"
 #. * The label for displaying number of files in path (without subdirs)
 #.
 #: src/browser.c:3085
-#, fuzzy
 msgid "... file(s)"
-msgstr "%u Datei(en)"
+msgstr "... Datei(en)"
 
 #: src/browser.c:3206
 msgid "Artist & Album"
@@ -2098,15 +2093,16 @@ msgid ""
 "program.\n"
 "Do you want to continue anyway?"
 msgstr ""
+"Seien sie vorsichtig, mehrere Dateien (%d Datei(en)) wurden von einem externen Programm verändert.\n"
+"Wollen sie trotzdem fortfahren?"
 
 #: src/easytag.c:2202
-#, fuzzy
 msgid "Saving File(s)..."
-msgstr "Suche Datei(en)..."
+msgstr "Speichere Datei(en)..."
 
 #: src/easytag.c:2260 src/easytag.c:2281
 msgid "Saving files was stopped..."
-msgstr ""
+msgstr "Speichern der Dateien wurde gestoppt..."
 
 #: src/easytag.c:2283
 msgid "All files have been saved..."
@@ -2202,16 +2198,12 @@ msgstr "Tag(s) wurden geschrieben"
 msgid ""
 "Can't write tag in file '%s'!\n"
 "(%s)"
-msgstr ""
-"Tag kann nicht in Datei '%s' geschrieben werden!\n"
-"(%s)"
+msgstr "Tag kann nicht in Datei '%s' geschrieben werden! (%s)"
 
 #: src/easytag.c:2766 src/easytag.c:2773
-#, fuzzy, c-format
+#, c-format
 msgid "Can't write tag in file '%s'! (%s)"
-msgstr ""
-"Tag kann nicht in Datei '%s' geschrieben werden!\n"
-"(%s)"
+msgstr "Tag kann nicht in Datei '%s' geschrieben werden! (%s)"
 
 #: src/easytag.c:2917
 #, c-format
@@ -2234,13 +2226,9 @@ msgstr ""
 "(%s)"
 
 #: src/easytag.c:2939 src/easytag.c:2985 src/easytag.c:3247
-#, fuzzy, c-format
+#, c-format
 msgid "Can't rename file '%s' to '%s'! (%s)"
-msgstr ""
-"Datei '%s'\n"
-" kann nicht in \n"
-"'%s' umbenannt werden!\n"
-"(%s)"
+msgstr "Datei '%s' kann nicht in '%s' umbenannt werden! (%s)"
 
 #: src/easytag.c:2959 src/easytag.c:3005 src/easytag.c:3034 src/easytag.c:3267
 msgid "File(s) not renamed..."
@@ -2260,13 +2248,9 @@ msgstr ""
 "'%s'"
 
 #: src/easytag.c:3014
-#, fuzzy, c-format
+#, c-format
 msgid "Can't rename file '%s' because the following file already exists: '%s'"
-msgstr ""
-"Datei \n"
-"'%s'\n"
-"kann nicht umbenannt werden, da die folgende Datei bereits existiert:\n"
-"'%s'"
+msgstr "Datei '%s' kann nicht umbenannt werden, da die folgende Datei bereits existiert: '%s'"
 
 #: src/easytag.c:3057
 #, c-format
@@ -2280,12 +2264,9 @@ msgstr ""
 "(%s)"
 
 #: src/easytag.c:3059
-#, fuzzy, c-format
+#, c-format
 msgid "Can't create target directory '%s'! (%s)"
-msgstr ""
-"Kann das Zielverzeichnis nicht anlegen\n"
-"'%s'!\n"
-"(%s)"
+msgstr "Kann das Zielverzeichnis '%s' nicht anlegen ! (%s)"
 
 #. Renaming file has succeeded
 #: src/easytag.c:3093
@@ -2309,12 +2290,9 @@ msgstr ""
 "(%s)"
 
 #: src/easytag.c:3111 src/easytag.c:3172
-#, fuzzy, c-format
+#, c-format
 msgid "Can't remove old directory '%s'! (%s)"
-msgstr ""
-"Kann das alte Verzeichnis nicht entfernen\n"
-"'%s'!\n"
-"(%s)"
+msgstr "Kann das alte Verzeichnis '%s' nicht entfernen! (%s)"
 
 #. Renaming file has succeeded
 #: src/easytag.c:3154
@@ -2341,13 +2319,9 @@ msgstr ""
 "(%s)"
 
 #: src/easytag.c:3208
-#, fuzzy, c-format
+#, c-format
 msgid "Can't move file '%s' to '%s'! (%s)"
-msgstr ""
-"Datei '%s'\n"
-" kann nicht nach \n"
-"'%s' verschoben werden!\n"
-"(%s)"
+msgstr "Datei '%s' kann nicht nach '%s' verschoben werden! (%s)"
 
 #: src/easytag.c:3228
 msgid "File(s) not moved..."
@@ -2552,7 +2526,7 @@ msgstr " Wollen sie das Programm wirklich beenden? "
 #: src/et_core.c:631
 #, c-format
 msgid "Automatic corrections applied for file '%s'."
-msgstr ""
+msgstr "Automatische Korrekturen wurden für die Datei '%s' angewendet."
 
 #: src/et_core.c:2538
 msgid "ID3 Tag"
@@ -2684,7 +2658,7 @@ msgstr "FEHLER beim Öffnen der Datei: '%s' als FLAC (%s)."
 msgid ""
 "The year value '%s' seems to be invalid in file '%s'. The information will "
 "be lost while saving tag."
-msgstr ""
+msgstr "Der Jahreswert '%s' scheint für die Datei '%s' ungültig zu sein. Diese Information wird beim Speichern des Tags verloren gehen."
 
 #: src/flac_tag.c:1098
 #, c-format
@@ -3370,9 +3344,9 @@ msgid "Error with 'loader_write': %s"
 msgstr "Fehler bei 'loader_write': %s"
 
 #: src/picture.c:1117 src/picture.c:1150 src/picture.c:1169
-#, fuzzy, c-format
+#, c-format
 msgid "Picture file not loaded (%s)..."
-msgstr "Bilddatei nicht geladen..."
+msgstr "Bilddatei nicht geladen (%s)..."
 
 #: src/picture.c:1136
 #, c-format
@@ -3386,14 +3360,13 @@ msgstr ""
 "(%s)"
 
 #: src/picture.c:1181
-#, fuzzy
 msgid "Picture file loaded..."
-msgstr "Bilddatei nicht geladen..."
+msgstr "Bilddatei geladen..."
 
 #: src/picture.c:1197 src/picture.c:1204
-#, fuzzy, c-format
+#, c-format
 msgid "Picture file can't be saved (%s)..."
-msgstr "Bilddatei nicht geladen..."
+msgstr "Bilddatei kann nicht gespeichert werden (%s)..."
 
 #. Title
 #: src/prefs.c:118
@@ -5056,7 +5029,7 @@ msgstr ""
 
 #. Log_Print(_("DLL '%s' not already loaded. Try loading it..."), dllname);
 #: src/win32/win32dep.c:122
-#, fuzzy, c-format
+#, c-format
 msgid "DLL '%s' not already loaded. Try loading it..."
 msgstr "DLL '%s' nicht gefunden. Versuche sie zu laden..."
 
@@ -5087,9 +5060,8 @@ msgstr "Verzeichnis für EasyTAG-Einstellungen: '%s'"
 
 #. Log_Print(_("weasytag_init start..."));
 #: src/win32/win32dep.c:469
-#, fuzzy
 msgid "weasytag_init start..."
-msgstr "Bereit zum Start..."
+msgstr "weasytag_init Start..."
 
 #. Log_Print(_("EasyTAG version: %s"),VERSION);
 #. g_print(_("EasyTAG version: %s"),VERSION);
@@ -5097,13 +5069,13 @@ msgstr "Bereit zum Start..."
 #: src/win32/win32dep.c:475
 #, c-format
 msgid "Glib version: %u.%u.%u\n"
-msgstr ""
+msgstr "Glib Version: %u.%u.%u\n"
 
 #. Set Environmental Variables
 #. Log_Print(_("weasytag_init end..."));
 #: src/win32/win32dep.c:493
 msgid "weasytag_init end..."
-msgstr ""
+msgstr "weasytag_init end..."
 
 #. Log_Print(_("Audio player: '%s'"), player);
 #: src/win32/win32dep.c:614

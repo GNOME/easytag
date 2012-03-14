@@ -66,6 +66,7 @@
  * ALBUM        : The collection name to which this track belongs
  * TRACKNUMBER  : The track number of this piece if part of a specific larger collection or album
  * ARTIST       : The artist generally considered responsible for the work. In popular music this is usually the performing band or singer. For classical music it would be the composer. For an audio book it would be the author of the original text.
+ * ALBUMARTIST  : The compilation artist or overall artist of an album
  * PERFORMER    : The artist(s) who performed the work. In classical music this would be the conductor, orchestra, soloists. In an audio book it would be the actor who did the reading. In popular music this is typically the same as the ARTIST and is omitted.
  * COPYRIGHT    : Copyright attribution, e.g., '2001 Nobody's Band' or '1999 Jack Moffitt'
  * LICENSE      : License information, eg, 'All Rights Reserved', 'Any Use Permitted', a URL to a license such as a Creative Commons license ("www.creativecommons.org/blahblah/license.html") or the EFF Open Audio License ('distributed under the terms of the Open Audio License. see http://www.eff.org/IP/Open_licenses/eff_oal.html for details'), etc.
@@ -236,6 +237,25 @@ gboolean Ogg_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
                 FileTag->artist = g_strdup(string);
             else
                 FileTag->artist = g_strconcat(FileTag->artist,MULTIFIELD_SEPARATOR,string,NULL);
+        }
+
+        g_free(string);
+    }
+
+    /****************
+     * Album Artist *
+     ****************/
+    field_num = 0;
+    while ( (string = vorbis_comment_query(vc,"ALBUMARTIST",field_num++)) != NULL )
+    {
+        string = Try_To_Validate_Utf8_String(string);
+
+        if ( g_utf8_strlen(string, -1) > 0 )
+        {
+            if (FileTag->album_artist==NULL)
+                FileTag->album_artist = g_strdup(string);
+            else
+                FileTag->album_artist = g_strconcat(FileTag->album_artist,MULTIFIELD_SEPARATOR,string,NULL);
         }
 
         g_free(string);
@@ -536,6 +556,7 @@ gboolean Ogg_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     {
         if ( strncasecmp(vc->user_comments[i],"TITLE=",            6) != 0
           && strncasecmp(vc->user_comments[i],"ARTIST=",           7) != 0
+          && strncasecmp(vc->user_comments[i],"ALBUMARTIST=",     12) != 0
           && strncasecmp(vc->user_comments[i],"ALBUM=",            6) != 0
           && strncasecmp(vc->user_comments[i],"DISCNUMBER=",      11) != 0
           && strncasecmp(vc->user_comments[i],"DATE=",             5) != 0

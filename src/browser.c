@@ -744,7 +744,7 @@ gboolean Browser_Tree_Node_Selected (GtkTreeSelection *selection, gpointer user_
     Update_Command_Buttons_Sensivity(); // Not clean to put this here...
 
     /* Check if all files have been saved before changing the directory */
-    if (ET_Check_If_All_Files_Are_Saved() != TRUE)
+    if (CONFIRM_WHEN_UNSAVED_FILES && ET_Check_If_All_Files_Are_Saved() != TRUE)
     {
         GtkWidget *msgbox = NULL;
         gint response;
