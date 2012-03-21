@@ -128,6 +128,7 @@ GtkWidget *FTSConvertUnderscoreAndP20IntoSpace;
 GtkWidget *FTSConvertSpaceIntoUnderscore;
 GtkWidget *RFSConvertUnderscoreAndP20IntoSpace;
 GtkWidget *RFSConvertSpaceIntoUnderscore;
+GtkWidget *RFSRemoveSpaces;
 GtkWidget *PFSDontUpperSomeWords;
 GtkWidget *OverwriteTagField;
 GtkWidget *OpenScannerWindowOnStartup;

@@ -1578,6 +1578,10 @@ void Playlist_Write_Button_Pressed (void)
         {
             Scan_Convert_Space_Into_Undescore(playlist_basename_utf8);
         }
+        if (RFS_REMOVE_SPACES)
+				 {
+				    Scan_Remove_Spaces(playlist_basename_utf8);
+				 }
 
     }else // PLAYLIST_USE_DIR_NAME
     {

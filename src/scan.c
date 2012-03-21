@@ -798,7 +798,13 @@ gchar *Scan_Generate_New_Filename_From_Mask (ET_File *ETFile, gchar *mask, gbool
                 Scan_Convert_P20_Into_Space(mask_item->string);
             }
             if (RFS_CONVERT_SPACE_INTO_UNDERSCORE)
+						 {
                 Scan_Convert_Space_Into_Undescore(mask_item->string);
+						 }
+						 if (RFS_REMOVE_SPACES)
+						 {
+						    Scan_Remove_Spaces(mask_item->string);
+						 }
         }else
         {
             mask_item->type = EMPTY_FIELD;
@@ -1669,7 +1675,7 @@ void Scan_Process_Fields_Insert_Space (gchar **string)
 
 /*
  * The function removes the duplicated spaces
- * No needed to reallocate
+ * No need to reallocate
  */
 void Scan_Process_Fields_Keep_One_Space (gchar *string)
 {
@@ -1693,7 +1699,7 @@ void Scan_Process_Fields_Keep_One_Space (gchar *string)
 
 /*
  * Function to replace underscore '_' by a space
- * No needed to reallocate
+ * No need to reallocate
  */
 void Scan_Convert_Underscore_Into_Space (gchar *string)
 {
@@ -1705,7 +1711,7 @@ void Scan_Convert_Underscore_Into_Space (gchar *string)
 
 /*
  * Function to replace %20 by a space
- * No needed to reallocate
+ * No need to reallocate
  */
 void Scan_Convert_P20_Into_Space (gchar *string)
 {
@@ -1722,8 +1728,30 @@ void Scan_Convert_P20_Into_Space (gchar *string)
 }
 
 /*
+ * Function to remove spaces
+ * No need to reallocate
+ */
+void Scan_Remove_Spaces (gchar *string)
+{
+  int nextnotspace = 0, pos = 0;
+
+  while(string[pos] != '\0')
+  {
+    if(string[pos] == ' ')
+    {
+      nextnotspace = pos;
+      while(string[++nextnotspace] == ' ');
+      string[pos] = string[nextnotspace];
+      string[nextnotspace] = ' ';
+      continue;
+    }
+    pos++;
+  }
+}
+
+/*
  * Function to replace space by '_'
- * No needed to reallocate
+ * No need to reallocate
  */
 void Scan_Convert_Space_Into_Undescore (gchar *string)
 {

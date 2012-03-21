@@ -1052,25 +1052,23 @@ void Open_OptionsWindow (void)
     vbox = gtk_vbox_new(FALSE,2);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox),2);
-
-    RFSConvertUnderscoreAndP20IntoSpace = gtk_check_button_new_with_label(_("Convert underscore "
-        "character '_' and string '%20' to space ' '"));
-    RFSConvertSpaceIntoUnderscore = gtk_check_button_new_with_label(_("Convert space ' ' to underscore '_'"));
+    RFSConvertUnderscoreAndP20IntoSpace = gtk_radio_button_new_with_label(NULL, _("Convert underscore " "character '_' and string '%20' to space ' '"));
+    RFSConvertSpaceIntoUnderscore = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(RFSConvertUnderscoreAndP20IntoSpace), _("Convert space ' ' to underscore '_'"));
+		RFSRemoveSpaces = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(RFSConvertUnderscoreAndP20IntoSpace), _("Remove spaces"));
     gtk_box_pack_start(GTK_BOX(vbox),RFSConvertUnderscoreAndP20IntoSpace,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(vbox),RFSConvertSpaceIntoUnderscore,      FALSE,FALSE,0);
-    g_signal_connect_swapped(G_OBJECT(RFSConvertUnderscoreAndP20IntoSpace),"toggled",
-                             G_CALLBACK(Scanner_Convert_Check_Button_Toggled_1),G_OBJECT(RFSConvertSpaceIntoUnderscore));
-    g_signal_connect_swapped(G_OBJECT(RFSConvertSpaceIntoUnderscore),"toggled",
-                             G_CALLBACK(Scanner_Convert_Check_Button_Toggled_1),G_OBJECT(RFSConvertUnderscoreAndP20IntoSpace));
-
+		 gtk_box_pack_start(GTK_BOX(vbox),RFSRemoveSpaces,                    FALSE,FALSE,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(RFSConvertUnderscoreAndP20IntoSpace),
         RFS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(RFSConvertSpaceIntoUnderscore),
         RFS_CONVERT_SPACE_INTO_UNDERSCORE);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(RFSRemoveSpaces),
+        RFS_REMOVE_SPACES);
     gtk_tooltips_set_tip(Tips,RFSConvertUnderscoreAndP20IntoSpace,_("If activated, this conversion "
         "will be used when applying a mask from the scanner for filenames."),NULL);
     gtk_tooltips_set_tip(Tips,RFSConvertSpaceIntoUnderscore,_("If activated, this conversion "
         "will be used when applying a mask from the scanner for filenames."),NULL);
+    gtk_tooltips_set_tip(Tips,RFSRemoveSpaces,_("If activated, this conversion "        "will be used when applying a mask from the scanner for filenames."),NULL);
 
     /* Character conversion for the 'Process Fields' scanner (=> PFS...) */
     Frame = gtk_frame_new (_("Process Fields Scanner - Character Conversion"));
@@ -1962,7 +1960,6 @@ void Scanner_Convert_Check_Button_Toggled_1 (GtkObject *object_rec, GtkObject *o
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(object_rec),!GTK_TOGGLE_BUTTON(object_emi)->active);
 
 }
-
 
 void DefaultPathToMp3_Combo_Add_String (void)
 {

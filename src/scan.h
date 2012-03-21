@@ -79,6 +79,7 @@ void Scan_Convert_Underscore_Into_Space (gchar *string);
 void Scan_Convert_P20_Into_Space        (gchar *string);
 void Scan_Convert_Space_Into_Undescore  (gchar *string);
 void Scan_Convert_Character             (gchar **string);
+void Scan_Remove_Spaces                 (gchar *string);
 
 void Init_ScannerWindow (void);
 void Open_ScannerWindow (gint scanner_type);

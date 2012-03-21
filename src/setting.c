@@ -192,6 +192,7 @@ tConfigVariable Config_Variables[] =
     {"fts_convert_space_into_underscore",        CV_TYPE_BOOL,&FTS_CONVERT_SPACE_INTO_UNDERSCORE         },
     {"rfs_convert_underscore_and_p20_into_space",CV_TYPE_BOOL,&RFS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE },
     {"rfs_convert_space_into_underscore",        CV_TYPE_BOOL,&RFS_CONVERT_SPACE_INTO_UNDERSCORE         },
+    {"rfs_remove_spaces",                        CV_TYPE_BOOL,&RFS_REMOVE_SPACES                         },
     {"pfs_dont_upper_some_words",                CV_TYPE_BOOL,&PFS_DONT_UPPER_SOME_WORDS                 },
     {"overwrite_tag_field",                     CV_TYPE_BOOL,    &OVERWRITE_TAG_FIELD                    },
     {"set_default_comment",                     CV_TYPE_BOOL,    &SET_DEFAULT_COMMENT                    },
@@ -763,6 +764,7 @@ void Apply_Changes_Of_Preferences_Window (void)
         // Rename File Scanner
         RFS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE = GTK_TOGGLE_BUTTON(RFSConvertUnderscoreAndP20IntoSpace)->active;
         RFS_CONVERT_SPACE_INTO_UNDERSCORE         = GTK_TOGGLE_BUTTON(RFSConvertSpaceIntoUnderscore)->active;
+				RFS_REMOVE_SPACES                         = GTK_TOGGLE_BUTTON(RFSRemoveSpaces)->active;
         // Process File Scanner
         PFS_DONT_UPPER_SOME_WORDS                 = GTK_TOGGLE_BUTTON(PFSDontUpperSomeWords)->active;
 
