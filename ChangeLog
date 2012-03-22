@@ -4,6 +4,10 @@
       "Apply" in "Load filenames from TXT" dialog,
     * WiseLord's fix-genre-tag.patch to fix predefined genres displayed under
       legacy systems.
+    * Michał Smoczyk's updated Polish translation
+    * Christoph J. Thompson's .desktop cleanup patch
+    * Christoph J. Thompson's add a new option to trim spaces when renaming 
+      files patch
 
 2.1.7 - Jan 14th, 2012 :
 ========================
