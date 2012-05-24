@@ -230,6 +230,7 @@ void Show_About_Window (void)
             "    - Kip Warner\n"
             "    - Mark Ferry\n"
             "    - Gaute Amundsen\n"
+            "    - Nick Lanham\n"
             "";
 
     GtkWidget *ExtensionList;
