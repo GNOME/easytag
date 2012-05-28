@@ -229,5 +229,8 @@ Arild Matsson <arild@niddler.se>
 Nick Lanham <nick@afternight.org>
  - Compilation against newest version of libmp4v2
 
+Wojciech Wierchola <admin@webcarrot.pl>
+ - File save performance improvement
+
 My thanks to all :)
     Jerome

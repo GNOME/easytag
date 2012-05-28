@@ -9,6 +9,7 @@
     * Christoph J. Thompson's add a new option to trim spaces when renaming 
       files patch
     * Nick Lanham's to make easytag compile against newest version of libmp4v2
+    * Wojciech Wierchola's file save performance improvement
 
 2.1.7 - Jan 14th, 2012 :
 ========================

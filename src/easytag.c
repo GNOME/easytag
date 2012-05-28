@@ -2275,7 +2275,7 @@ gint Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
         if ( force_saving_files
         || FileTag->saved == FALSE || FileNameNew->saved == FALSE )
         {
-            ET_Display_File_Data_To_UI((ET_File *)etfilelist_tmp->data);
+            // ET_Display_File_Data_To_UI((ET_File *)etfilelist_tmp->data);
             // Use of 'currentPath' to try to increase speed. Indeed, in many
             // cases, the next file to select, is the next in the list
             currentPath = Browser_List_Select_File_By_Etfile2((ET_File *)etfilelist_tmp->data,FALSE,currentPath);
@@ -2348,7 +2348,7 @@ gint Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
     gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), 0);
     Statusbar_Message(msg,TRUE);
     g_free(msg);
-
+    Browser_List_Refresh_Whole_List();
     return TRUE;
 }
 
@@ -2581,7 +2581,7 @@ gint Save_File (ET_File *ETFile, gboolean multiple_files, gboolean force_saving_
 
         if (CONFIRM_WRITE_TAG && !SF_HideMsgbox_Write_Tag)
         {
-            ET_Display_File_Data_To_UI(ETFile);
+            // ET_Display_File_Data_To_UI(ETFile);
 
             msg = g_strdup_printf(_("Do you want to write the tag of file\n'%s' ?"),basename_cur_utf8);
 
@@ -2664,7 +2664,7 @@ gint Save_File (ET_File *ETFile, gboolean multiple_files, gboolean force_saving_
 
         if (CONFIRM_RENAME_FILE && !SF_HideMsgbox_Rename_File)
         {
-            ET_Display_File_Data_To_UI(ETFile);
+            // ET_Display_File_Data_To_UI(ETFile);
 
             dirname_cur_utf8 = g_path_get_dirname(filename_cur_utf8);
             dirname_new_utf8 = g_path_get_dirname(filename_new_utf8);
@@ -2766,7 +2766,7 @@ gint Save_File (ET_File *ETFile, gboolean multiple_files, gboolean force_saving_
     g_free(basename_new_utf8);
 
     /* Refresh file into browser list */
-    Browser_List_Refresh_File_In_List(ETFile);
+    // Browser_List_Refresh_File_In_List(ETFile);
 
     return 1;
 }
