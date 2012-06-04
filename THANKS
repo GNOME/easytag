@@ -232,5 +232,8 @@ Nick Lanham <nick@afternight.org>
 Wojciech Wierchola <admin@webcarrot.pl>
  - File save performance improvement
 
+Julian Taylor <jtaylor@ubuntu.com>
+ - Fix out of bound array access
+
 My thanks to all :)
     Jerome

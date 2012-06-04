@@ -232,6 +232,7 @@ void Show_About_Window (void)
             "    - Gaute Amundsen\n"
             "    - Nick Lanham\n"
             "    - Wojciech Wierchola\n"
+            "    - Julian Taylor\n"
             "";
 
     GtkWidget *ExtensionList;

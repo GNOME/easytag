@@ -2466,16 +2466,18 @@ void Search_File (GtkWidget *search_button)
 
 void Add_Row_To_Search_Result_List(ET_File *ETFile,const gchar *string_to_search)
 {
-    gchar *SearchResultList_Text[14]; // Because : 14 columns to display
-    gint SearchResultList_Weight[14] = {PANGO_WEIGHT_NORMAL, PANGO_WEIGHT_NORMAL,
+    gchar *SearchResultList_Text[15]; // Because : 15 columns to display
+    gint SearchResultList_Weight[15] = {PANGO_WEIGHT_NORMAL, PANGO_WEIGHT_NORMAL,
                                         PANGO_WEIGHT_NORMAL, PANGO_WEIGHT_NORMAL,
                                         PANGO_WEIGHT_NORMAL, PANGO_WEIGHT_NORMAL,
                                         PANGO_WEIGHT_NORMAL, PANGO_WEIGHT_NORMAL,
                                         PANGO_WEIGHT_NORMAL, PANGO_WEIGHT_NORMAL,
                                         PANGO_WEIGHT_NORMAL, PANGO_WEIGHT_NORMAL,
-                                        PANGO_WEIGHT_NORMAL, PANGO_WEIGHT_NORMAL};
-    GdkColor *SearchResultList_Color[14] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                                            NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+                                        PANGO_WEIGHT_NORMAL, PANGO_WEIGHT_NORMAL,
+                                        PANGO_WEIGHT_NORMAL};
+    GdkColor *SearchResultList_Color[15] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                            NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                            NULL};
     gchar *track, *track_total;
     gboolean case_sensitive;
     gint column;

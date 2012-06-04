@@ -1,4 +1,4 @@
-2.1.8 - March 9th, 2012 :
+2.1.8 - June 3rd, 2012 :
 =========================
     * Leonid Podolny's easytag-2.1.6-from-txt.patch for segfault when pressing 
       "Apply" in "Load filenames from TXT" dialog,
@@ -10,6 +10,7 @@
       files patch
     * Nick Lanham's to make easytag compile against newest version of libmp4v2
     * Wojciech Wierchola's file save performance improvement
+    * Julian Taylor's fix out of bound array access
 
 2.1.7 - Jan 14th, 2012 :
 ========================
