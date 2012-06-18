@@ -235,5 +235,8 @@ Wojciech Wierchola <admin@webcarrot.pl>
 Julian Taylor <jtaylor@ubuntu.com>
  - Fix out of bound array access
 
+Honore Doktorr <hdfssk@gmail.com>
+    - Revised libmp4v2 patch
+
 My thanks to all :)
     Jerome

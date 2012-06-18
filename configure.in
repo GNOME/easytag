@@ -4,7 +4,7 @@ dnl AC_INIT(src/easytag.h)
 AC_PREREQ(2.53)
 
 dnl To set also in config.h.mingw
-AC_INIT(easytag, 2.1.7) dnl defines ($PACKAGE, $VERSION)
+AC_INIT(easytag, 2.1.8) dnl defines ($PACKAGE, $VERSION)
 
 AC_CONFIG_SRCDIR(src/easytag.h)
 AC_CONFIG_MACRO_DIR([m4])

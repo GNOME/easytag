@@ -11,6 +11,7 @@
     * Nick Lanham's to make easytag compile against newest version of libmp4v2
     * Wojciech Wierchola's file save performance improvement
     * Julian Taylor's fix out of bound array access
+    * Honore Doktorr's revised libmp4v2 patch
 
 2.1.7 - Jan 14th, 2012 :
 ========================
