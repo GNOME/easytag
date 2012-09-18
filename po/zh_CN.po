@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: easytag-2.1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-20 16:47-0800\n"
+"POT-Creation-Date: 2012-09-17 16:45-0700\n"
 "PO-Revision-Date: 2007-10-25 18:58+0800\n"
 "Last-Translator: Yang Jinsong <shannleon@gmail.com>\n"
 "Language-Team: Simplified Chinese\n"
@@ -110,137 +110,142 @@ msgstr "(Hebrew translation)"
 msgid "(Serbian translation)"
 msgstr "(Serbian translation)"
 
-#: src/about.c:239
+#: src/about.c:184
+#, fuzzy
+msgid "(Lithuanian translation)"
+msgstr "(意大利语翻译)"
+
+#: src/about.c:243
 msgid "Extension Name"
 msgstr "后缀名"
 
-#: src/about.c:240
+#: src/about.c:244
 msgid "Status"
 msgstr "状态"
 
-#: src/about.c:241 src/browser.c:3039 src/misc.c:1923
+#: src/about.c:245 src/browser.c:3039 src/misc.c:1927 src/prefs.c:670
 msgid "Comment"
 msgstr "备注"
 
 #. Config
-#: src/about.c:258
+#: src/about.c:262
 msgid "About..."
 msgstr "关于..."
 
 #.
 #. * Tab for common informations
 #.
-#: src/about.c:276 src/bar.c:244
+#: src/about.c:280 src/bar.c:244
 msgid "About"
 msgstr "关于"
 
-#: src/about.c:322
+#: src/about.c:326
 #, c-format
 msgid "(compiled: %s)"
 msgstr "(编译于： %s)"
 
-#: src/about.c:326
+#: src/about.c:330
 #, c-format
 msgid "(using: GTK+ %d.%d.%d)"
 msgstr "(使用： GTK+ %d.%d.%d)"
 
-#: src/about.c:334
+#: src/about.c:338
 #, c-format
 msgid "Author: %s"
 msgstr "作者： %s"
 
-#: src/about.c:338 src/easytag.c:233
+#: src/about.c:342 src/easytag.c:233
 #, c-format
 msgid "E-mail: %s"
 msgstr "电子邮件： %s"
 
-#: src/about.c:344
+#: src/about.c:348
 msgid "Web Page: "
 msgstr "Web 页面："
 
-#: src/about.c:357
+#: src/about.c:361
 msgid "Description:"
 msgstr "描述："
 
 #.
 #. * Tab for extensions
 #.
-#: src/about.c:373
+#: src/about.c:377
 msgid "Extensions"
 msgstr "后缀"
 
-#: src/about.c:439
+#: src/about.c:443
 msgid "MP3 file support"
 msgstr "MP3 文件支持"
 
-#: src/about.c:442 src/about.c:472 src/about.c:484 src/about.c:500
-#: src/about.c:513 src/about.c:525
+#: src/about.c:446 src/about.c:476 src/about.c:488 src/about.c:504
+#: src/about.c:517 src/about.c:529
 msgid "enabled"
 msgstr "允许"
 
-#: src/about.c:446 src/about.c:462 src/about.c:475 src/about.c:487
-#: src/about.c:504 src/about.c:516 src/about.c:528
+#: src/about.c:450 src/about.c:466 src/about.c:479 src/about.c:491
+#: src/about.c:508 src/about.c:520 src/about.c:532
 msgid "disabled"
 msgstr "不允许"
 
-#: src/about.c:455
+#: src/about.c:459
 msgid "ID3v2.3 tags writting support"
 msgstr "ID3V2.3 标签写入支持"
 
-#: src/about.c:458
+#: src/about.c:462
 msgid "available"
 msgstr "可用"
 
-#: src/about.c:469
+#: src/about.c:473
 msgid "Ogg Vorbis file support"
 msgstr "Ogg Vorbis 文件支持"
 
-#: src/about.c:481
+#: src/about.c:485
 msgid "Speex file support"
 msgstr "Speex 文件支持"
 
-#: src/about.c:497
+#: src/about.c:501
 msgid "FLAC file support"
 msgstr "FLAC 文件支持"
 
-#: src/about.c:510
+#: src/about.c:514
 msgid "MP4/AAC file support"
 msgstr "MP4/AAC 文件支持"
 
-#: src/about.c:522
+#: src/about.c:526
 msgid "WavPack file support"
 msgstr "WavPack 文件支持"
 
 #.
 #. * Tab for thanks
 #.
-#: src/about.c:537
+#: src/about.c:541
 msgid "Thanks"
 msgstr "致谢"
 
-#: src/about.c:557
+#: src/about.c:561
 msgid "Translations:\n"
 msgstr "翻译：\n"
 
-#: src/about.c:587
+#: src/about.c:591
 msgid "General:\n"
 msgstr "一般：\n"
 
-#: src/about.c:604
+#: src/about.c:608
 msgid "Changes"
 msgstr "变更"
 
-#: src/about.c:626
+#: src/about.c:630
 #, c-format
 msgid "Can't open file '%s' (%s)\n"
 msgstr "无法打开文件 “%s” (%s)\n"
 
 #. g_print(_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
 #: src/ape_tag.c:74 src/et_core.c:4520 src/flac_header.c:126 src/id3_tag.c:146
-#: src/id3_tag.c:1209 src/id3_tag.c:1292 src/misc.c:1765 src/mp4_header.c:211
-#: src/mp4_header.c:220 src/mp4_tag.c:98 src/mp4_tag.c:109 src/mp4_tag.c:249
-#: src/mp4_tag.c:258 src/mpeg_header.c:209 src/ogg_header.c:82
-#: src/ogg_header.c:186 src/ogg_tag.c:145 src/ogg_tag.c:639
+#: src/id3_tag.c:1209 src/id3_tag.c:1292 src/misc.c:1769 src/mp4_header.c:211
+#: src/mp4_header.c:220 src/mp4_tag.c:98 src/mp4_tag.c:109 src/mp4_tag.c:281
+#: src/mp4_tag.c:290 src/mpeg_header.c:209 src/ogg_header.c:82
+#: src/ogg_header.c:186 src/ogg_tag.c:146 src/ogg_tag.c:657
 #, c-format
 msgid "ERROR while opening file: '%s' (%s)."
 msgstr "文件打开时出错： “%s” (%s)。"
@@ -769,54 +774,54 @@ msgstr "错误：搜索 “%s”，无法在树中找到节点 %s。"
 msgid "Tree"
 msgstr "树"
 
-#: src/browser.c:3038 src/cddb.c:718 src/misc.c:1914
+#: src/browser.c:3038 src/cddb.c:718 src/misc.c:1918
 msgid "File Name"
 msgstr "文件名"
 
-#: src/browser.c:3038 src/cddb.c:719 src/misc.c:1915
+#: src/browser.c:3038 src/cddb.c:719 src/misc.c:1919 src/prefs.c:666
 msgid "Title"
 msgstr "标题"
 
 #: src/browser.c:3038 src/browser.c:3042 src/cddb.c:436 src/cddb.c:720
-#: src/misc.c:1916
+#: src/misc.c:1920 src/prefs.c:667
 msgid "Artist"
 msgstr "艺术家"
 
-#: src/browser.c:3038 src/misc.c:1917
+#: src/browser.c:3038 src/misc.c:1921
 #, fuzzy
 msgid "Album Artist"
 msgstr "艺术家"
 
 #: src/browser.c:3038 src/browser.c:3043 src/cddb.c:437 src/cddb.c:721
-#: src/misc.c:1918
+#: src/misc.c:1922 src/prefs.c:668
 msgid "Album"
 msgstr "专辑"
 
-#: src/browser.c:3039 src/cddb.c:722 src/misc.c:1920
+#: src/browser.c:3039 src/cddb.c:722 src/misc.c:1924
 msgid "Year"
 msgstr "年份"
 
-#: src/browser.c:3039 src/misc.c:1921
+#: src/browser.c:3039 src/misc.c:1925
 msgid "Track"
 msgstr "音轨"
 
-#: src/browser.c:3039 src/cddb.c:725 src/misc.c:1922
+#: src/browser.c:3039 src/cddb.c:725 src/misc.c:1926 src/prefs.c:669
 msgid "Genre"
 msgstr "流派"
 
-#: src/browser.c:3040 src/misc.c:1924 src/picture.c:838
+#: src/browser.c:3040 src/misc.c:1928 src/picture.c:838 src/prefs.c:671
 msgid "Composer"
 msgstr "作曲家"
 
-#: src/browser.c:3040 src/misc.c:1925
+#: src/browser.c:3040 src/misc.c:1929 src/prefs.c:672
 msgid "Orig. Artist"
 msgstr "原始艺术家"
 
-#: src/browser.c:3040 src/misc.c:1926
+#: src/browser.c:3040 src/misc.c:1930
 msgid "Copyright"
 msgstr "版权所有"
 
-#: src/browser.c:3041 src/misc.c:1927
+#: src/browser.c:3041 src/misc.c:1931
 msgid "URL"
 msgstr "URL"
 
@@ -881,8 +886,8 @@ msgid ""
 "rename the directory from tag fields."
 msgstr "选择或输入一个掩码(参看扫描器窗口图示)用来以标签域重命名目录。"
 
-#: src/browser.c:3780 src/misc.c:1293 src/misc.c:1390 src/scan.c:2466
-#: src/scan.c:2533 src/scan.c:2900
+#: src/browser.c:3780 src/misc.c:1293 src/misc.c:1390 src/scan.c:2494
+#: src/scan.c:2561 src/scan.c:2928
 msgid "Invalid Scanner Mask"
 msgstr "非法的扫描器掩码"
 
@@ -896,8 +901,8 @@ msgstr "重命名目录预览..."
 #: src/browser.c:4067 src/browser.c:4517 src/browser.c:4536 src/easytag.c:2822
 #: src/easytag.c:2983 src/easytag.c:3029 src/easytag.c:3058 src/easytag.c:3103
 #: src/easytag.c:3155 src/easytag.c:3216 src/easytag.c:3252 src/easytag.c:3291
-#: src/easytag.c:3526 src/id3_tag.c:558 src/misc.c:1660 src/picture.c:1138
-#: src/prefs.c:1765 src/prefs.c:1882
+#: src/easytag.c:3526 src/id3_tag.c:558 src/misc.c:1664 src/picture.c:1138
+#: src/prefs.c:1799 src/prefs.c:1916
 msgid "Error..."
 msgstr "错误..."
 
@@ -1086,7 +1091,7 @@ msgstr "搜索："
 msgid "All Fields"
 msgstr "所有域"
 
-#: src/cddb.c:439 src/picture.c:816 src/prefs.c:806
+#: src/cddb.c:439 src/picture.c:816 src/prefs.c:842
 msgid "Other"
 msgstr "其他"
 
@@ -1161,7 +1166,7 @@ msgstr " 类别 "
 msgid "Results :"
 msgstr "结果："
 
-#: src/cddb.c:529 src/misc.c:1969
+#: src/cddb.c:529 src/misc.c:1973
 msgid "Search :"
 msgstr "搜索："
 
@@ -1222,7 +1227,7 @@ msgid "# Tracks"
 msgstr "# 音轨"
 
 #. Check box to run the scanner
-#: src/cddb.c:762 src/misc.c:2997
+#: src/cddb.c:762 src/misc.c:3003
 msgid "Run the current scanner for each file"
 msgstr "每一个文件都运行当前的扫描器"
 
@@ -1234,7 +1239,7 @@ msgstr "使用 Levenshtein 算法匹配行"
 #. Doesn't activate it by default because if the new user don't pay attention to it,
 #. it will not understand why the cddb results aren't loaded correctly...
 #. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbUseDLM2),CDDB_USE_DLM);
-#: src/cddb.c:774 src/prefs.c:1375
+#: src/cddb.c:774 src/prefs.c:1409
 msgid ""
 "When activating this option, the Levenshtein algorithm (DLM : Damerau-"
 "Levenshtein Metric) will be used to match the CDDB title against every file "
@@ -1250,7 +1255,7 @@ msgstr ""
 msgid "Load the selected lines or all lines (if no line selected)."
 msgstr "加载所选行或所有行（如果没有行被选中的话）。"
 
-#: src/cddb.c:795 src/misc.c:2224
+#: src/cddb.c:795 src/misc.c:2228
 msgid "Ready to search..."
 msgstr "搜索准备就绪..."
 
@@ -1318,7 +1323,7 @@ msgstr "读取 CDDB 响应时发生错误 (%s)！"
 msgid "Can't create file '%s' (%s)"
 msgstr "无法创建文件 “%s” (%s)"
 
-#: src/cddb.c:1823 src/misc.c:3152 src/setting.c:1369
+#: src/cddb.c:1823 src/misc.c:3158 src/setting.c:1393
 #, c-format
 msgid "Can't open file '%s' (%s)"
 msgstr "无法打开文件 “%s” (%s)"
@@ -2132,6 +2137,7 @@ msgstr "文件部分被删除..."
 msgid "All files have been deleted..."
 msgstr "所有文件都已删除..."
 
+#. ET_Display_File_Data_To_UI(ETFile);
 #: src/easytag.c:2586
 #, c-format
 msgid ""
@@ -2450,29 +2456,29 @@ msgstr "以此域标志所选文件"
 msgid "Convert '_' and '%20' to spaces"
 msgstr "转换 “_” 和 “%20” 为空格"
 
-#: src/easytag.c:4642 src/scan.c:2665
+#: src/easytag.c:4642 src/scan.c:2693
 msgid "Convert ' ' to '_'"
 msgstr "转换 “ ” 为 “_”"
 
 #. Group: capitalize, ...
-#: src/easytag.c:4653 src/scan.c:2716
+#: src/easytag.c:4653 src/scan.c:2744
 msgid "All uppercase"
 msgstr "所有字母大写"
 
-#: src/easytag.c:4660 src/scan.c:2717
+#: src/easytag.c:4660 src/scan.c:2745
 msgid "All downcase"
 msgstr "所有字母小写"
 
-#: src/easytag.c:4667 src/scan.c:2718
+#: src/easytag.c:4667 src/scan.c:2746
 msgid "First letter uppercase"
 msgstr "第一个字母大写"
 
-#: src/easytag.c:4674 src/scan.c:2719
+#: src/easytag.c:4674 src/scan.c:2747
 msgid "First letter uppercase of each word"
 msgstr "每个词第一个字母大写"
 
 #. Group: insert/remove spaces
-#: src/easytag.c:4685 src/scan.c:2767
+#: src/easytag.c:4685 src/prefs.c:1057 src/scan.c:2795
 msgid "Remove spaces"
 msgstr "移除空格"
 
@@ -2684,29 +2690,29 @@ msgstr "编码器："
 msgid "Channels:"
 msgstr "声道："
 
-#: src/flac_tag.c:140 src/flac_tag.c:843 src/flac_tag.c:853
+#: src/flac_tag.c:142 src/flac_tag.c:861 src/flac_tag.c:871
 #, c-format
 msgid "ERROR while opening file: '%s' as FLAC (%s)."
 msgstr "当做 FLAC 打开文件：“%s” 时发生错误 (%s)。"
 
-#: src/flac_tag.c:327 src/ogg_tag.c:297
+#: src/flac_tag.c:329 src/ogg_tag.c:298
 #, c-format
 msgid ""
 "The year value '%s' seems to be invalid in file '%s'. The information will "
 "be lost while saving tag."
 msgstr ""
 
-#: src/flac_tag.c:1140
+#: src/flac_tag.c:1079
 #, c-format
 msgid "Picture block isn't valid: '%s'"
 msgstr ""
 
-#: src/flac_tag.c:1174 src/ogg_tag.c:890
+#: src/flac_tag.c:1113 src/ogg_tag.c:849
 #, c-format
 msgid "ERROR: Failed to write comments to file '%s' (%s)."
 msgstr "错误： 为文件 “%s” 写入备注时操作失败 (%s)。"
 
-#: src/flac_tag.c:1179 src/ogg_tag.c:897
+#: src/flac_tag.c:1118 src/ogg_tag.c:856
 #, c-format
 msgid "Written tag of '%s'"
 msgstr "写入 “%s” 的标签"
@@ -2959,7 +2965,7 @@ msgstr "使用文件名写入信息"
 msgid "Write info using :"
 msgstr "写入信息时使用："
 
-#: src/misc.c:1636
+#: src/misc.c:1640
 #, c-format
 msgid ""
 "Playlist file '%s' already exists!\n"
@@ -2968,12 +2974,12 @@ msgstr ""
 "播放列表文件 “%s” 已经存在！\n"
 "覆盖吗？"
 
-#: src/misc.c:1637
+#: src/misc.c:1641
 msgid "Write Playlist..."
 msgstr "写入播放列表..."
 
 #. Writing fails...
-#: src/misc.c:1659
+#: src/misc.c:1663
 #, c-format
 msgid ""
 "Can't write playlist file '%s'!\n"
@@ -2982,109 +2988,109 @@ msgstr ""
 "无法写入播放列表文件 “%s”！\n"
 "(%s)"
 
-#: src/misc.c:1672
+#: src/misc.c:1676
 #, c-format
 msgid "Written playlist file '%s'"
 msgstr "播放列表文件 “%s” 已写入"
 
-#: src/misc.c:1919
+#: src/misc.c:1923
 msgid "CD"
 msgstr "光盘"
 
-#: src/misc.c:1928
+#: src/misc.c:1932
 msgid "Encoded by"
 msgstr "使用的编码器"
 
-#: src/misc.c:1939
+#: src/misc.c:1943
 msgid "Search a file"
 msgstr "搜索文件"
 
-#: src/misc.c:1979
+#: src/misc.c:1983
 msgid ""
 "Type the word to search into files. Or type nothing to display all files."
 msgstr "输入词语搜索文件，什么也不输入则显示所有文件。"
 
 #. Where...
-#: src/misc.c:1985
+#: src/misc.c:1989
 msgid "In :"
 msgstr "在："
 
-#: src/misc.c:1988
+#: src/misc.c:1992
 msgid "the File Name"
 msgstr "文件名"
 
 #. Note : label changed to "the Tag" (to be the only one) to fix a Hungarian grammatical problem (which uses one word to say "in the tag" like here)
-#: src/misc.c:1990
+#: src/misc.c:1994
 msgid "the Tag"
 msgstr "标签"
 
 #. Property of the search
-#: src/misc.c:2000 src/prefs.c:323
+#: src/misc.c:2004 src/prefs.c:323
 msgid "Case sensitive"
 msgstr "区分大小写"
 
-#: src/misc.c:2449
+#: src/misc.c:2453
 #, c-format
 msgid "Found : %d file(s)"
 msgstr "找到： %d 个文件"
 
-#: src/misc.c:2723
+#: src/misc.c:2729
 msgid "Load the filenames from a TXT file"
 msgstr "从文本文件中载入文件名"
 
-#: src/misc.c:2753
+#: src/misc.c:2759
 msgid "File :"
 msgstr "文件："
 
 #. Button 'load'
 #. the signal attached to this button, to load the file, is placed after the LoadFileContentList definition
-#: src/misc.c:2771
+#: src/misc.c:2777
 msgid " Load "
 msgstr " 装载 "
 
-#: src/misc.c:2794
+#: src/misc.c:2800
 msgid "Content of TXT file"
 msgstr "文本文件内容"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: src/misc.c:2815 src/misc.c:2909
+#: src/misc.c:2821 src/misc.c:2915
 msgid "Insert a blank line before the selected line"
 msgstr "在所选行之前插入一个空白行"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: src/misc.c:2824 src/misc.c:2918
+#: src/misc.c:2830 src/misc.c:2924
 msgid "Delete the selected line"
 msgstr "移除所选行"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: src/misc.c:2833 src/misc.c:2927 src/misc.c:3400
+#: src/misc.c:2839 src/misc.c:2933 src/misc.c:3406
 msgid "Delete all blank lines"
 msgstr "移除所有空白行"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: src/misc.c:2845 src/misc.c:2939
+#: src/misc.c:2851 src/misc.c:2945
 msgid "Move up the selected line"
 msgstr "上移所选行"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: src/misc.c:2854 src/misc.c:2948
+#: src/misc.c:2860 src/misc.c:2954
 msgid "Move down the selected line"
 msgstr "下移所选行"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: src/misc.c:2866 src/misc.c:2960 src/misc.c:3424
+#: src/misc.c:2872 src/misc.c:2966 src/misc.c:3430
 msgid "Reload"
 msgstr "重新载入"
 
-#: src/misc.c:2887
+#: src/misc.c:2893
 msgid "List of files"
 msgstr "文件列表"
 
-#: src/misc.c:2982
+#: src/misc.c:2988
 msgid "Selected line:"
 msgstr "所选行："
 
-#: src/misc.c:3000
+#: src/misc.c:3006
 msgid ""
 "When activating this option, after loading the filenames, the current "
 "selected scanner will be ran (the scanner window must be opened)."
@@ -3092,19 +3098,19 @@ msgstr ""
 "当此选项被激活时，文件名被装入以后当前选择的扫描器将会工作 (扫描器窗口必须打"
 "开)。"
 
-#: src/misc.c:3388
+#: src/misc.c:3394
 msgid "Insert a blank line"
 msgstr "插入空白行"
 
-#: src/misc.c:3394
+#: src/misc.c:3400
 msgid "Delete this line"
 msgstr "移除此行"
 
-#: src/misc.c:3409
+#: src/misc.c:3415
 msgid "Move up this line"
 msgstr "上移此行"
 
-#: src/misc.c:3415
+#: src/misc.c:3421
 msgid "Move down this line"
 msgstr "下移此行"
 
@@ -3121,7 +3127,8 @@ msgstr "音频"
 msgid "Unknown"
 msgstr "未知"
 
-#: src/mp4_header.c:211 src/mp4_tag.c:109 src/mp4_tag.c:258
+#: src/mp4_header.c:211 src/mp4_tag.c:109 src/mp4_tag.c:118 src/mp4_tag.c:290
+#: src/mp4_tag.c:297
 msgid "MP4 format invalid"
 msgstr "MP4 格式非法"
 
@@ -3129,6 +3136,11 @@ msgstr "MP4 格式非法"
 #, c-format
 msgid "~%d kb/s"
 msgstr "~%d kb/s"
+
+#: src/mp4_tag.c:118 src/mp4_tag.c:297
+#, fuzzy, c-format
+msgid "ERROR reading tags from file: '%s' (%s)."
+msgstr "文件打开时出错： “%s” (%s)。"
 
 #: src/mpeg_header.c:78
 msgid "Stereo"
@@ -3185,12 +3197,12 @@ msgid ""
 "(file: '%s')."
 msgstr "Ogg Vorbis: 内部逻辑错误， 发现臭虫或者堆栈出错 (文件： “%s”)。"
 
-#: src/ogg_header.c:195 src/ogg_tag.c:187 src/ogg_tag.c:679
+#: src/ogg_header.c:195 src/ogg_tag.c:188 src/ogg_tag.c:697
 #, c-format
 msgid "ERROR: Failed to open file: '%s' as vorbis (%s)."
 msgstr "错误： 作为 Vorbis 打开文件 “%s” 时失败 (%s)。"
 
-#: src/ogg_tag.c:169
+#: src/ogg_tag.c:170
 #, c-format
 msgid "Warning : The Ogg Vorbis file '%s' contains an ID3v2 tag."
 msgstr "警告： Ogg Vorbis 文件 “%s” 包含 ID3v2 标签。"
@@ -3771,7 +3783,7 @@ msgid ""
 "Force using the system character encoding and activate the transliteration"
 msgstr "强制使用系统字符编码"
 
-#: src/prefs.c:554 src/prefs.c:840 src/prefs.c:909
+#: src/prefs.c:554 src/prefs.c:876 src/prefs.c:945
 msgid ""
 "With this option, when a character cannot be represented in the target "
 "character set, it can be approximated through one or several similarly "
@@ -3786,7 +3798,7 @@ msgid ""
 "characters"
 msgstr "强制使用系统字符编码方式，不能被表示的字符将被丢弃"
 
-#: src/prefs.c:563 src/prefs.c:849 src/prefs.c:918
+#: src/prefs.c:563 src/prefs.c:885 src/prefs.c:954
 msgid ""
 "With this option, when a characters cannot be represented in the target "
 "character set, it will be silently discarded."
@@ -3861,24 +3873,36 @@ msgid "Return focus to the first tag field (ie 'Title' field)"
 msgstr "将焦点至于标签域的第一项 (“标题” 域)"
 
 #. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SetFocusToFirstTagField),SET_FOCUS_TO_FIRST_TAG_FIELD);
+#. Tag Splitting
+#: src/prefs.c:654
+#, fuzzy
+msgid "Tag Splitting"
+msgstr "标签设置"
+
+#: src/prefs.c:661
+msgid ""
+"For Vorbis tags, selected fields will be split atdashes and saved as "
+"separate tags"
+msgstr ""
+
 #.
 #. * ID3 Tag Settings
 #.
-#: src/prefs.c:657 src/prefs.c:658
+#: src/prefs.c:693 src/prefs.c:694
 msgid "ID3 Tag Settings"
 msgstr "ID3 标签设置"
 
 #. Tag Rules frame
-#: src/prefs.c:670
+#: src/prefs.c:706
 msgid "ID3 Tag Rules"
 msgstr "ID3 标签规则"
 
 #. Write ID3 tags in FLAC files
-#: src/prefs.c:682
+#: src/prefs.c:718
 msgid "Write ID3 tags in FLAC files (in addition to FLAC tag)"
 msgstr "为 FLAC 文件 FLAC 标签时也写入 ID3 标签"
 
-#: src/prefs.c:685
+#: src/prefs.c:721
 msgid ""
 "If activated, ID3 tags will be also added in the FLAC file (according the "
 "two rules above, plus the FLAC tag). Else ID3 tags will be stripped."
@@ -3887,11 +3911,11 @@ msgstr ""
 "签)。 其它则 ID3 标签被移除。"
 
 #. Strip tag when fields (managed by EasyTAG) are empty
-#: src/prefs.c:690
+#: src/prefs.c:726
 msgid "Strip tags if all fields are set to blank"
 msgstr "如果所有域都为空则移除标签"
 
-#: src/prefs.c:693
+#: src/prefs.c:729
 msgid ""
 "As ID3v2 tags may contain other data than Title, Artist, Album, Year, Track, "
 "Genre or Comment (as an attached picture, lyrics, ...), this option allows "
@@ -3902,72 +3926,72 @@ msgstr ""
 "加的图片 歌词等)，此选项允许您当标准的域都为空的时侯移除全部标签。"
 
 #. Convert old ID3v2 tag version
-#: src/prefs.c:699
+#: src/prefs.c:735
 msgid "Automatically convert old ID3v2 tag versions"
 msgstr "自动转换旧的 ID3v2 标签版本"
 
-#: src/prefs.c:702
+#: src/prefs.c:738
 msgid ""
 "If activated, an old ID3v2 tag version (as ID3v2.2) will be updated to the "
 "ID3v2.3 version."
 msgstr "如果激活，则老的 ID3v2 标签版本(如 ID3v2.2) 将被升级为 ID3v2.3 版本。"
 
 #. Use CRC32
-#: src/prefs.c:706
+#: src/prefs.c:742
 msgid "Use CRC32"
 msgstr "使用 CRC32 校验"
 
-#: src/prefs.c:709
+#: src/prefs.c:745
 msgid "Set CRC32 in the ID3v2 tags"
 msgstr "为 ID3v2 标签设置 CRC32 校验"
 
 #. Use Compression
-#: src/prefs.c:712
+#: src/prefs.c:748
 msgid "Use Compression"
 msgstr "使用压缩"
 
-#: src/prefs.c:715
+#: src/prefs.c:751
 msgid "Set Compression in the ID3v2 tags"
 msgstr "设置 ID3v2 标签的压缩方式"
 
 #. Write Genre in text
-#: src/prefs.c:718
+#: src/prefs.c:754
 msgid "Write Genre in text only"
 msgstr ""
 
-#: src/prefs.c:721
+#: src/prefs.c:757
 msgid ""
 "Don't use ID3v1 number references in genre tag. Enable this if you see "
 "numbers as genre in your music player."
 msgstr ""
 
 #. Character Set for writing ID3 tag
-#: src/prefs.c:724
+#: src/prefs.c:760
 msgid "Character Set for writing ID3 tags"
 msgstr "写入 ID3 标签使用的字符集"
 
 #. ID3v2 tags
-#: src/prefs.c:731
+#: src/prefs.c:767
 msgid "ID3v2 tags"
 msgstr "ID3v2 标签"
 
 #. Write ID3v2 tag
-#: src/prefs.c:744
+#: src/prefs.c:780
 msgid "Write ID3v2 tag"
 msgstr "写入 ID3v2 标签"
 
-#: src/prefs.c:747
+#: src/prefs.c:783
 msgid ""
 "If activated, an ID3v2.4 tag will be added or updated at the beginning of "
 "the MP3 files. Else it will be stripped."
 msgstr "如果激活，ID3v2.4 标志将在 MP3 文件头部被添加或更新。否则则移除。"
 
 #. ID3v2 tag version
-#: src/prefs.c:754
+#: src/prefs.c:790
 msgid "Version:"
 msgstr "版本："
 
-#: src/prefs.c:761
+#: src/prefs.c:797
 msgid ""
 "Select the ID3v2 tag version to write:\n"
 " - ID3v2.3 is written using id3lib,\n"
@@ -3979,34 +4003,34 @@ msgstr ""
 
 #. Charset
 #. Id3V1 writing character set
-#: src/prefs.c:775 src/prefs.c:877
+#: src/prefs.c:811 src/prefs.c:913
 msgid "Charset:"
 msgstr "字符集："
 
 #. Unicode
-#: src/prefs.c:783
+#: src/prefs.c:819
 msgid "Unicode "
 msgstr "Unicode "
 
-#: src/prefs.c:791
+#: src/prefs.c:827
 msgid "Unicode type to use"
 msgstr "使用的 Unicode 编码方式"
 
-#: src/prefs.c:814
+#: src/prefs.c:850
 msgid "Character set used to write the tag data in the file."
 msgstr "写入文件时标签所使用的字符集。"
 
 #. ID3v2 Additional iconv() options
 #. ID3V1 Additional iconv() options
-#: src/prefs.c:824 src/prefs.c:893
+#: src/prefs.c:860 src/prefs.c:929
 msgid "Additional settings for iconv():"
 msgstr "iconv() 函数的附加设定："
 
-#: src/prefs.c:829 src/prefs.c:898
+#: src/prefs.c:865 src/prefs.c:934
 msgid "No"
 msgstr "否"
 
-#: src/prefs.c:832 src/prefs.c:901
+#: src/prefs.c:868 src/prefs.c:937
 #, fuzzy
 msgid ""
 "With this option, when a character cannot be represented in the target "
@@ -4016,44 +4040,44 @@ msgstr ""
 "使用此选项，当一个字符无法被目标字符集表示的时侯，它将以看起来相似的字符表"
 "示。"
 
-#: src/prefs.c:837 src/prefs.c:906
+#: src/prefs.c:873 src/prefs.c:942
 msgid "//TRANSLIT"
 msgstr "//TRANSLIT"
 
-#: src/prefs.c:846 src/prefs.c:915
+#: src/prefs.c:882 src/prefs.c:951
 msgid "//IGNORE"
 msgstr "//IGNORE"
 
 #. ID3v1 tags
-#: src/prefs.c:854
+#: src/prefs.c:890
 msgid "ID3v1 tags"
 msgstr "ID3v1 标签"
 
 #. Write ID3v1 tag
-#: src/prefs.c:868
+#: src/prefs.c:904
 msgid "Write ID3v1.x tag"
 msgstr "写入 ID3v1.x 标签"
 
-#: src/prefs.c:871
+#: src/prefs.c:907
 msgid ""
 "If activated, an ID3v1 tag will be added or updated at the end of the MP3 "
 "files. Else it will be stripped."
 msgstr "如果激活，ID3v1 标志将在 MP3 文件头部被添加或更新。否则将移除。"
 
-#: src/prefs.c:888
+#: src/prefs.c:924
 msgid "Character set used to write ID3v1 tag data in the file."
 msgstr "写入文件时 ID3v1 标签所使用的字符集。"
 
 #. Character Set for reading tag
-#: src/prefs.c:923
+#: src/prefs.c:959
 msgid "Character Set for reading ID3 tags"
 msgstr "读取 ID3 标签时使用的字符集"
 
-#: src/prefs.c:937
+#: src/prefs.c:973
 msgid "Non-standart:"
 msgstr "Non-standart:"
 
-#: src/prefs.c:942
+#: src/prefs.c:978
 msgid ""
 "This character set will be used when reading the tag data, to convert each "
 "string found in an ISO-8859-1 field in the tag (for ID3v2 or/and ID3v1 "
@@ -4080,60 +4104,60 @@ msgstr ""
 "  - 如果 unicod 未被使用，俄国人无法选择字符集 “Windows-1251” 来载入 Windows "
 "下写 入的标签。也无法在 Unix 系统下以 “KOI8-R” 编码载入标签。"
 
-#: src/prefs.c:960
+#: src/prefs.c:996
 msgid "Character set used to read tag data in the file."
 msgstr "从文件中读取标签时使用的字符集。"
 
 #.
 #. * Scanner
 #.
-#: src/prefs.c:975 src/prefs.c:976
+#: src/prefs.c:1011 src/prefs.c:1012
 msgid "Scanner"
 msgstr "扫描器"
 
 #. Character conversion for the 'Fill Tag' scanner (=> FTS...)
-#: src/prefs.c:988
+#: src/prefs.c:1024
 msgid "Fill Tag Scanner - Character Conversion"
 msgstr "填充标签扫描器 - 字符转换"
 
-#: src/prefs.c:994 src/prefs.c:1020
+#: src/prefs.c:1030 src/prefs.c:1055
 msgid "Convert underscore character '_' and string '%20' to space ' '"
 msgstr "转换下划线 “_” 和字符串 “%20” 为空格 “ ”"
 
-#: src/prefs.c:996 src/prefs.c:1022
+#: src/prefs.c:1032 src/prefs.c:1056
 msgid "Convert space ' ' to underscore '_'"
 msgstr "转换空格 “ ” 为下划线 “_”"
 
-#: src/prefs.c:1008 src/prefs.c:1010
+#: src/prefs.c:1044 src/prefs.c:1046
 msgid ""
 "If activated, this conversion will be used when applying a mask from the "
 "scanner for tags."
 msgstr "如果激活，此转换将在标签扫描器应用掩码时使用。"
 
 #. Character conversion for the 'Rename File' scanner (=> RFS...)
-#: src/prefs.c:1014
+#: src/prefs.c:1050
 msgid "Rename File Scanner - Character Conversion"
 msgstr "重命名文件扫描器 - 字符转换"
 
-#: src/prefs.c:1034 src/prefs.c:1036
+#: src/prefs.c:1067 src/prefs.c:1069 src/prefs.c:1071
 msgid ""
 "If activated, this conversion will be used when applying a mask from the "
 "scanner for filenames."
 msgstr "如果激活，此转换将在文件名扫描器应用掩码时使用。"
 
 #. Character conversion for the 'Process Fields' scanner (=> PFS...)
-#: src/prefs.c:1040
+#: src/prefs.c:1074
 msgid "Process Fields Scanner - Character Conversion"
 msgstr "域扫描器 - 字符转换"
 
 #. Don't convert some words like to, feat. first letter uppercase.
-#: src/prefs.c:1047
+#: src/prefs.c:1081
 msgid ""
 "Don't uppercase first letter of words for some prepositions and articles."
 msgstr ""
 "Don't uppercase first letter of words for some prepositions and articles."
 
-#: src/prefs.c:1051
+#: src/prefs.c:1085
 msgid ""
 "Don't convert first letter of the words like prepositions, articles and "
 "words like feat., when using the scanner 'First letter uppercase of each "
@@ -4146,41 +4170,41 @@ msgstr ""
 "An Entry')."
 
 #. Properties of the scanner window
-#: src/prefs.c:1057
+#: src/prefs.c:1091
 msgid "Scanner Window"
 msgstr "扫描器窗口"
 
-#: src/prefs.c:1063
+#: src/prefs.c:1097
 msgid "Open the Scanner Window on startup"
 msgstr "启动时打开扫描器窗口"
 
-#: src/prefs.c:1066
+#: src/prefs.c:1100
 msgid ""
 "Activate this option to open automatically the scanner window when EasyTAG "
 "starts."
 msgstr "激活此选项将使 EasyTAG 启动时自动打开扫描器窗口。"
 
-#: src/prefs.c:1069
+#: src/prefs.c:1103
 msgid "Scanner window always on top"
 msgstr "扫描器窗口总是置顶"
 
-#: src/prefs.c:1072
+#: src/prefs.c:1106
 msgid ""
 "If activated, the window which contains the masks will stay always over the "
 "main window."
 msgstr "如果激活，掩码窗口将总是置于主窗口之上。"
 
 #. Other options
-#: src/prefs.c:1077
+#: src/prefs.c:1111
 msgid "Fields"
 msgstr "域"
 
 #. Overwrite text into tag fields
-#: src/prefs.c:1084
+#: src/prefs.c:1118
 msgid "Overwrite fields when scanning tag"
 msgstr "扫描标签时覆盖域"
 
-#: src/prefs.c:1087
+#: src/prefs.c:1121
 msgid ""
 "If activated, the scanner will replace existing text in fields by the new "
 "one. If deactivated, only blank fields of the tag will be filled."
@@ -4188,11 +4212,11 @@ msgstr ""
 "如果激活，扫描器将会把已存在的域中文字替换为新的。如果不激活，只有空白的域会"
 "被填充。"
 
-#: src/prefs.c:1098
+#: src/prefs.c:1132
 msgid "Set this text as default comment :"
 msgstr "将此文本作为默认备注："
 
-#: src/prefs.c:1101
+#: src/prefs.c:1135
 msgid ""
 "Activate this option if you want to put the following string into the "
 "comment field when using the 'Fill Tag' scanner."
@@ -4200,11 +4224,11 @@ msgstr ""
 "激活此选项，如果您希望在使用 “填充标签” 扫描器时将以下字符串填充到备注域。"
 
 #. CRC32 comment
-#: src/prefs.c:1118
+#: src/prefs.c:1152
 msgid "Use CRC32 as the default comment (for files with ID3 tags only)."
 msgstr "使用 CRC32 作为默认备注 (仅限使用 ID3 标签的文件)。"
 
-#: src/prefs.c:1122
+#: src/prefs.c:1156
 msgid ""
 "Calculates the CRC-32 value of the file and writes it into the comment field "
 "when using the 'Fill Tag' scanner."
@@ -4215,42 +4239,42 @@ msgstr ""
 #.
 #. * CDDB
 #.
-#: src/prefs.c:1133 src/prefs.c:1134
+#: src/prefs.c:1167 src/prefs.c:1168
 msgid "CD Data Base"
 msgstr "CD 数据库"
 
 #. CDDB Server Settings (Automatic Search)
-#: src/prefs.c:1143
+#: src/prefs.c:1177
 msgid "Server Settings for Automatic Search"
 msgstr "自动搜索的服务器设置"
 
-#: src/prefs.c:1152 src/prefs.c:1191 src/prefs.c:1225
+#: src/prefs.c:1186 src/prefs.c:1225 src/prefs.c:1259
 msgid "Name :"
 msgstr "名称："
 
-#: src/prefs.c:1171 src/prefs.c:1199 src/prefs.c:1234 src/prefs.c:1322
+#: src/prefs.c:1205 src/prefs.c:1233 src/prefs.c:1268 src/prefs.c:1356
 msgid "Port :"
 msgstr "端口："
 
-#: src/prefs.c:1181 src/prefs.c:1209 src/prefs.c:1244
+#: src/prefs.c:1215 src/prefs.c:1243 src/prefs.c:1278
 msgid "CGI Path :"
 msgstr "CGI 路径："
 
 #. CDDB Server Settings (Manual Search)
-#: src/prefs.c:1217
+#: src/prefs.c:1251
 msgid "Server Settings for Manual Search"
 msgstr "手动搜索的服务器设置"
 
 #. Local access for CDDB (Automatic Search)
-#: src/prefs.c:1252
+#: src/prefs.c:1286
 msgid "Local CD Data Base"
 msgstr "本地 CD 数据库"
 
-#: src/prefs.c:1260
+#: src/prefs.c:1294
 msgid "Path :"
 msgstr "路径："
 
-#: src/prefs.c:1271
+#: src/prefs.c:1305
 msgid ""
 "Specify the directory where are located the local cd data base. The local cd "
 "data base contains the eleven following directories 'blues', 'classical', "
@@ -4262,65 +4286,65 @@ msgstr ""
 "'soundtrack' and 'misc'。"
 
 #. CDDB Proxy Settings
-#: src/prefs.c:1297
+#: src/prefs.c:1331
 msgid "Proxy Settings"
 msgstr "代理服务器设置"
 
-#: src/prefs.c:1306
+#: src/prefs.c:1340
 msgid "Use a proxy"
 msgstr "使用代理服务器"
 
-#: src/prefs.c:1309
+#: src/prefs.c:1343
 msgid "Set active the settings of the proxy server."
 msgstr "激活代理服务器设置"
 
-#: src/prefs.c:1314
+#: src/prefs.c:1348
 msgid "Host Name :"
 msgstr "主机名："
 
-#: src/prefs.c:1321
+#: src/prefs.c:1355
 msgid "Name of the proxy server."
 msgstr "代理服务器名称。"
 
-#: src/prefs.c:1329
+#: src/prefs.c:1363
 msgid "Port of the proxy server."
 msgstr "代理服务器端口。"
 
-#: src/prefs.c:1334
+#: src/prefs.c:1368
 msgid "User Name :"
 msgstr "用户名："
 
-#: src/prefs.c:1341
+#: src/prefs.c:1375
 msgid "Name of user for the the proxy server."
 msgstr "代理服务器用户名。"
 
-#: src/prefs.c:1342
+#: src/prefs.c:1376
 msgid "User Password :"
 msgstr "用户密码："
 
-#: src/prefs.c:1350
+#: src/prefs.c:1384
 msgid "Password of user for the the proxy server."
 msgstr "代理服务器用户密码。"
 
 #. Track Name list (CDDB results)
-#: src/prefs.c:1355
+#: src/prefs.c:1389
 msgid "Track Name List"
 msgstr "音轨名列表"
 
-#: src/prefs.c:1362
+#: src/prefs.c:1396
 msgid ""
 "Select corresponding audio file (according position or DLM if activated "
 "below)"
 msgstr "选择音频文件 (根据位置或 DLM，如果已激活)"
 
-#: src/prefs.c:1366
+#: src/prefs.c:1400
 msgid ""
 "If activated, when selecting a line in the list of tracks name, the "
 "corresponding audio file in the main list will be also selected."
 msgstr "如果激活，当在音轨名列表中选中一行时，主要列表中的音频文件也将被选择。"
 
 #. Check box to use DLM (also used in the cddb window)
-#: src/prefs.c:1371
+#: src/prefs.c:1405
 msgid ""
 "Use the Levenshtein algorithm (DLM) to match lines (using title) with audio "
 "files (using filename)"
@@ -4329,37 +4353,37 @@ msgstr "使用 Levenshtein 算法 (DLM) 匹配行 (使用标题) 与音频文件
 #.
 #. * Confirmation
 #.
-#: src/prefs.c:1386 src/prefs.c:1387
+#: src/prefs.c:1420 src/prefs.c:1421
 msgid "Confirmation"
 msgstr "确认"
 
-#: src/prefs.c:1395
+#: src/prefs.c:1429
 msgid "Confirm exit from program"
 msgstr "退出程序时请求确认"
 
-#: src/prefs.c:1398
+#: src/prefs.c:1432
 msgid ""
 "If activated, opens a dialog box to ask confirmation before exiting the "
 "program."
 msgstr "如果激活，退出程序前将打开一个对话框窗口请求确认。"
 
-#: src/prefs.c:1401
+#: src/prefs.c:1435
 msgid "Confirm writing of file tag"
 msgstr "为文件写入标签时请求确认"
 
-#: src/prefs.c:1405
+#: src/prefs.c:1439
 msgid "Confirm renaming of file"
 msgstr "重命名文件时请求确认"
 
-#: src/prefs.c:1409
+#: src/prefs.c:1443
 msgid "Confirm deleting of file"
 msgstr "删除文件时请求确认"
 
-#: src/prefs.c:1413
+#: src/prefs.c:1447
 msgid "Confirm writing of playlist"
 msgstr "写入播放列表时请求确认"
 
-#: src/prefs.c:1417
+#: src/prefs.c:1451
 msgid "Confirm changing directory when there are unsaved changes"
 msgstr ""
 
@@ -4367,37 +4391,37 @@ msgstr ""
 #. //gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
 #. //g_signal_connect(G_OBJECT(Button),"clicked",G_CALLBACK(OptionsWindow_Apply_Button),NULL);
 #. //GTK_WIDGET_SET_FLAGS(Button, GTK_CAN_DEFAULT);
-#: src/prefs.c:1438
+#: src/prefs.c:1472
 msgid "Apply changes (but don't save) and close this window"
 msgstr "应用变更(但不保存)并关闭此窗口"
 
-#: src/prefs.c:1447
+#: src/prefs.c:1481
 msgid "Close this window without saving"
 msgstr "不保存变更并关闭此窗口"
 
-#: src/prefs.c:1455
+#: src/prefs.c:1489
 msgid "Save changes and close this window"
 msgstr "保存变更并关闭此窗口"
 
 #. For translators : be aware to NOT translate '%.*d' in this string
-#: src/prefs.c:1488
+#: src/prefs.c:1522
 #, c-format
 msgid "(Example : %.*d_-_Track_name_1.mp3)"
 msgstr "(示例： %.*d_-_Track_name_1.mp3)"
 
-#: src/prefs.c:1644
+#: src/prefs.c:1678
 msgid "Changes applied"
 msgstr "变更已应用"
 
-#: src/prefs.c:1663 src/setting.c:882
+#: src/prefs.c:1697 src/setting.c:906
 msgid "Configuration saved"
 msgstr "配置已保存"
 
-#: src/prefs.c:1670
+#: src/prefs.c:1704
 msgid "Configuration unchanged"
 msgstr "配置未改变"
 
-#: src/prefs.c:1762
+#: src/prefs.c:1796
 #, c-format
 msgid ""
 " The selected path for 'Default path to files' isn't valid!\n"
@@ -4408,11 +4432,11 @@ msgstr ""
 "“%s”\n"
 "(%s) "
 
-#: src/prefs.c:1764
+#: src/prefs.c:1798
 msgid "Not a directory"
 msgstr "不是一个目录"
 
-#: src/prefs.c:1880
+#: src/prefs.c:1914
 #, c-format
 msgid "The audio file player '%s' can't be found!"
 msgstr "音频文件播放器 “%s” 无法被找到！"
@@ -4466,56 +4490,56 @@ msgstr "新文件名成功被扫描...(%s)"
 #. The init position is define below, cause the scanner window must be showed before
 #. * to be able to move it.
 #. Title
-#: src/scan.c:2323
+#: src/scan.c:2351
 msgid "Tag and File Name scan"
 msgstr "标签与文件名扫描"
 
 #. Option Menu
-#: src/scan.c:2345
+#: src/scan.c:2373
 msgid "Scanner:"
 msgstr "扫描器："
 
 #. Selection of the item made at the end of the function
-#: src/scan.c:2367
+#: src/scan.c:2395
 msgid "Select the type of scanner to use"
 msgstr "选择使用的扫描方式"
 
-#: src/scan.c:2376
+#: src/scan.c:2404
 msgid "Open scanner window / Scan selected files"
 msgstr "打开扫描器窗口 / 扫描选择的文件"
 
-#: src/scan.c:2389
+#: src/scan.c:2417
 msgid "Scanner Options"
 msgstr "扫描器选项"
 
-#: src/scan.c:2398
+#: src/scan.c:2426
 msgid "Show / Hide Masks Editor"
 msgstr "显示 / 隐藏掩码编辑器"
 
-#: src/scan.c:2408
+#: src/scan.c:2436
 msgid "Show / Hide Legend"
 msgstr "显示 / 隐藏图示"
 
-#: src/scan.c:2418
+#: src/scan.c:2446
 msgid "Close this window"
 msgstr "关闭此窗口"
 
-#: src/scan.c:2446
+#: src/scan.c:2474
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse file name and "
 "path. Used to fill in tag fields."
 msgstr "选择或输入掩码 (参看图示) 来处理文件名和路径。用来填充标签域。"
 
 #. Preview label
-#: src/scan.c:2472
+#: src/scan.c:2500
 msgid "Fill tag preview..."
 msgstr "填充标签预览..."
 
-#: src/scan.c:2499
+#: src/scan.c:2527
 msgid "Prefix mask with current path"
 msgstr "以当前路径为掩码前缀"
 
-#: src/scan.c:2512
+#: src/scan.c:2540
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse tag fields. Used "
 "to rename the file.\n"
@@ -4527,151 +4551,151 @@ msgstr ""
 "径。"
 
 #. Preview label
-#: src/scan.c:2539
+#: src/scan.c:2567
 msgid "Rename file preview..."
 msgstr "重命名文件预览..."
 
-#: src/scan.c:2559
+#: src/scan.c:2587
 msgid "Select fields:"
 msgstr "选择域："
 
-#: src/scan.c:2562
+#: src/scan.c:2590
 msgid ""
 "The buttons on the right represent the fields which can be processed. Select "
 "those who interest you."
 msgstr "右侧的按钮表示此域可被处理。当您对其感兴趣的时侯请选择它。"
 
 #. Advice for Translators : set the first letter of filename translated
-#: src/scan.c:2565
+#: src/scan.c:2593
 msgid "F"
 msgstr "F"
 
-#: src/scan.c:2566
+#: src/scan.c:2594
 msgid "Process file name field"
 msgstr "处理文件名域"
 
 #. Advice for Translators : set the first letter of title translated
-#: src/scan.c:2568
+#: src/scan.c:2596
 msgid "T"
 msgstr "T"
 
-#: src/scan.c:2569
+#: src/scan.c:2597
 msgid "Process title field"
 msgstr "处理标题域"
 
 #. Advice for Translators : set the first letter of artist translated
-#: src/scan.c:2571
+#: src/scan.c:2599
 msgid "Ar"
 msgstr "Ar"
 
-#: src/scan.c:2572
+#: src/scan.c:2600
 msgid "Process file artist field"
 msgstr "处理艺术家域"
 
 #. Advice for Translators : set the first letter of album artist translated
-#: src/scan.c:2574
+#: src/scan.c:2602
 msgid "AA"
 msgstr ""
 
-#: src/scan.c:2575
+#: src/scan.c:2603
 #, fuzzy
 msgid "Process album artist field"
 msgstr "处理艺术家域"
 
 #. Advice for Translators : set the first letter of album translated
-#: src/scan.c:2577
+#: src/scan.c:2605
 msgid "Al"
 msgstr "Al"
 
-#: src/scan.c:2578
+#: src/scan.c:2606
 msgid "Process album field"
 msgstr "处理专辑域"
 
 #. Advice for Translators : set the first letter of genre translated
-#: src/scan.c:2580
+#: src/scan.c:2608
 msgid "G"
 msgstr "G"
 
-#: src/scan.c:2581
+#: src/scan.c:2609
 msgid "Process genre field"
 msgstr "处理流派域"
 
 #. Advice for Translators : set the first letter of comment translated
-#: src/scan.c:2583
+#: src/scan.c:2611
 msgid "Cm"
 msgstr "Cm"
 
-#: src/scan.c:2584
+#: src/scan.c:2612
 msgid "Process comment field"
 msgstr "处理备注域"
 
 #. Advice for Translators : set the first letter of composer translated
-#: src/scan.c:2586
+#: src/scan.c:2614
 msgid "Cp"
 msgstr "Cp"
 
-#: src/scan.c:2587
+#: src/scan.c:2615
 msgid "Process composer field"
 msgstr "处理作曲家域"
 
 #. Advice for Translators : set the first letter of orig artist translated
-#: src/scan.c:2589
+#: src/scan.c:2617
 msgid "O"
 msgstr "O"
 
-#: src/scan.c:2590
+#: src/scan.c:2618
 msgid "Process original artist field"
 msgstr "处理原始艺术家域"
 
 #. Advice for Translators : set the first letter of copyright translated
-#: src/scan.c:2592
+#: src/scan.c:2620
 msgid "Cr"
 msgstr "Cr"
 
-#: src/scan.c:2593
+#: src/scan.c:2621
 msgid "Process copyright field"
 msgstr "处理版权域"
 
 #. Advice for Translators : set the first letter of URL translated
-#: src/scan.c:2595
+#: src/scan.c:2623
 msgid "U"
 msgstr "U"
 
-#: src/scan.c:2596
+#: src/scan.c:2624
 msgid "Process URL field"
 msgstr "处理 URL 域"
 
 #. Advice for Translators : set the first letter of encoder name translated
-#: src/scan.c:2598
+#: src/scan.c:2626
 msgid "E"
 msgstr "E"
 
-#: src/scan.c:2599
+#: src/scan.c:2627
 msgid "Process encoder name field"
 msgstr "处理编码器域"
 
-#: src/scan.c:2648
+#: src/scan.c:2676
 msgid "Invert Selection"
 msgstr "反向选择"
 
-#: src/scan.c:2657
+#: src/scan.c:2685
 msgid "Select/Unselect All."
 msgstr "全选 / 全不选。"
 
 #. Group: character conversion
-#: src/scan.c:2664
+#: src/scan.c:2692
 msgid "Convert '_' and '%20' to ' '"
 msgstr "转换 “_” 和 “%20” 为 “ ”"
 
-#: src/scan.c:2670
+#: src/scan.c:2698
 msgid "Convert:"
 msgstr "转换："
 
-#: src/scan.c:2672
+#: src/scan.c:2700
 msgid "to: "
 msgstr "为： "
 
-#: src/scan.c:2701
+#: src/scan.c:2729
 msgid ""
 "The underscore character or the string '%20' are replaced by one space. "
 "Example, before: 'Text%20In%20An_Entry', after: 'Text In An Entry'."
@@ -4679,7 +4703,7 @@ msgstr ""
 "下划线字符或字符串 “%20” 被一个空格替换。比如，之前为 “Text%20In"
 "%20An_Entry”， 之后则为 “Text In An Entry”。"
 
-#: src/scan.c:2704
+#: src/scan.c:2732
 msgid ""
 "The space character is replaced by one underscore character. Example, "
 "before: 'Text In An Entry', after: 'Text_In_An_Entry'."
@@ -4687,16 +4711,16 @@ msgstr ""
 "空格字符会被一个下划线字符替换。比如，之前 “Text In An Entry”，之后 "
 "“Text_In_An_Entry”。"
 
-#: src/scan.c:2707
+#: src/scan.c:2735
 msgid ""
 "Replace a string by an other one. Note that the search is case sensitive."
 msgstr "将一个字符串替换为另外一个。 请注意搜索是区分大小写的。"
 
-#: src/scan.c:2720
+#: src/scan.c:2748
 msgid "Detect Roman numerals"
 msgstr ""
 
-#: src/scan.c:2747
+#: src/scan.c:2775
 msgid ""
 "Convert all words in all fields to upper case. Example, before: 'Text IN AN "
 "entry', after: 'TEXT IN AN ENTRY'."
@@ -4704,7 +4728,7 @@ msgstr ""
 "转换所有域中的词语为大写。比如，之前 “Text IN AN entry”，之后则为 “TEXT IN "
 "AN ENTRY”。"
 
-#: src/scan.c:2750
+#: src/scan.c:2778
 msgid ""
 "Convert all words in all fields to lower case. Example, before: 'TEXT IN an "
 "entry', after: 'text in an entry'."
@@ -4712,7 +4736,7 @@ msgstr ""
 "转换所有域中的词语为小写。比如，之前 “TEXT IN an entry”，之后则为 “text in "
 "an entry”。"
 
-#: src/scan.c:2753
+#: src/scan.c:2781
 msgid ""
 "Convert the initial of the first word in all fields to upper case. Example, "
 "before: 'text IN An ENTRY', after: 'Text in an entry'."
@@ -4720,7 +4744,7 @@ msgstr ""
 "转换所有域中的第一个词语首字母为大写。比如，之前 “text IN An ENTRY”，之后则"
 "为 “Text in an entry”。"
 
-#: src/scan.c:2756
+#: src/scan.c:2784
 msgid ""
 "Convert the initial of each word in all fields to upper case. Example, "
 "before: 'Text in an ENTRY', after: 'Text In An Entry'."
@@ -4728,7 +4752,7 @@ msgstr ""
 "转换所有域中每个词的首字母为大写。比如，之前 “Text in an ENTRY”，之后则为 "
 "“Text In An Entry”。"
 
-#: src/scan.c:2759
+#: src/scan.c:2787
 #, fuzzy
 msgid ""
 "Force to convert to upper case the Roman numerals. Example, before: 'ix. "
@@ -4737,15 +4761,15 @@ msgstr ""
 "在每一个大写字母前插入一个空格。比如，之前 “TextInAnEntry”，之后则为 “Text "
 "In An Entry”。"
 
-#: src/scan.c:2768
+#: src/scan.c:2796
 msgid "Insert a space before an uppercase letter"
 msgstr "在大写字母之前插入一个空格"
 
-#: src/scan.c:2769
+#: src/scan.c:2797
 msgid "Remove duplicates of space or underscore"
 msgstr "移除重复的空格与下划线"
 
-#: src/scan.c:2787
+#: src/scan.c:2815
 msgid ""
 "All spaces between words are removed. Example, before: 'Text In An Entry', "
 "after: 'TextInAnEntry'."
@@ -4753,7 +4777,7 @@ msgstr ""
 "移除所有词语间的空格。比如，之前 “Text In An Entry”，之后则为 "
 "“TextInAnEntry”。"
 
-#: src/scan.c:2790
+#: src/scan.c:2818
 msgid ""
 "A space is inserted before each upper case letter. Example, before: "
 "'TextInAnEntry', after: 'Text In An Entry'."
@@ -4761,7 +4785,7 @@ msgstr ""
 "在每一个大写字母前插入一个空格。比如，之前 “TextInAnEntry”，之后则为 “Text "
 "In An Entry”。"
 
-#: src/scan.c:2793
+#: src/scan.c:2821
 msgid ""
 "Duplicated spaces or underscores are removed. Example, before: "
 "'Text__In__An   Entry', after: 'Text_In_An Entry'."
@@ -4772,188 +4796,188 @@ msgstr ""
 #.
 #. * Frame to display codes legend
 #.
-#: src/scan.c:2800
+#: src/scan.c:2828
 msgid "Legend"
 msgstr "图示"
 
-#: src/scan.c:2806
+#: src/scan.c:2834
 #, c-format
 msgid "%a : artist"
 msgstr "%a ：艺术家"
 
-#: src/scan.c:2809
+#: src/scan.c:2837
 #, fuzzy
 msgid "%z : album artist"
 msgstr "%a ：艺术家"
 
-#: src/scan.c:2812
+#: src/scan.c:2840
 msgid "%b : album"
 msgstr "%b ：专辑"
 
-#: src/scan.c:2815
+#: src/scan.c:2843
 #, c-format
 msgid "%c : comment"
 msgstr "%c ：备注"
 
-#: src/scan.c:2818
+#: src/scan.c:2846
 #, c-format
 msgid "%p : composer"
 msgstr "%p ：作曲"
 
-#: src/scan.c:2821
+#: src/scan.c:2849
 msgid "%r : copyright"
 msgstr "%r ：版权"
 
-#: src/scan.c:2824
+#: src/scan.c:2852
 #, c-format
 msgid "%d : disc number"
 msgstr "%d：光盘号"
 
-#: src/scan.c:2827
+#: src/scan.c:2855
 #, c-format
 msgid "%e : encoded by"
 msgstr "%e ：编码器"
 
-#: src/scan.c:2830
+#: src/scan.c:2858
 #, c-format
 msgid "%g : genre"
 msgstr "%g ：流派"
 
-#: src/scan.c:2833
+#: src/scan.c:2861
 #, c-format
 msgid "%i : ignored"
 msgstr "%i ：忽略"
 
-#: src/scan.c:2836
+#: src/scan.c:2864
 msgid "%l : number of tracks"
 msgstr "%l ：音轨数"
 
-#: src/scan.c:2839
+#: src/scan.c:2867
 #, c-format
 msgid "%o : orig. artist"
 msgstr "%o ：原始艺术家"
 
-#: src/scan.c:2842
+#: src/scan.c:2870
 #, c-format
 msgid "%n : track"
 msgstr "%n ：音轨"
 
-#: src/scan.c:2845
+#: src/scan.c:2873
 msgid "%t : title"
 msgstr "%t ：标题"
 
-#: src/scan.c:2848
+#: src/scan.c:2876
 #, c-format
 msgid "%u : URL"
 msgstr "%u ：URL"
 
-#: src/scan.c:2851
+#: src/scan.c:2879
 msgid "%y : year"
 msgstr "%y ：年份"
 
 #.
 #. * Masks Editor
 #.
-#: src/scan.c:2858
+#: src/scan.c:2886
 msgid "Mask Editor"
 msgstr "掩码编辑器"
 
-#: src/scan.c:2915
+#: src/scan.c:2943
 msgid "Create New Mask"
 msgstr "创建新掩码"
 
-#: src/scan.c:2925
+#: src/scan.c:2953
 msgid "Move Up this Mask"
 msgstr "上移此掩码"
 
-#: src/scan.c:2935
+#: src/scan.c:2963
 msgid "Move Down this Mask"
 msgstr "下移此掩码"
 
-#: src/scan.c:2945
+#: src/scan.c:2973
 msgid "Duplicate Mask"
 msgstr "复制掩码"
 
-#: src/scan.c:2955
+#: src/scan.c:2983
 msgid "Add Default Masks"
 msgstr "添加默认掩码"
 
-#: src/scan.c:2965
+#: src/scan.c:2993
 msgid "Remove Mask"
 msgstr "删除掩码"
 
-#: src/scan.c:2975
+#: src/scan.c:3003
 msgid "Save Masks"
 msgstr "保存掩码"
 
-#: src/scan.c:3566
+#: src/scan.c:3594
 msgid "New_mask"
 msgstr "新掩码(_M)"
 
-#: src/scan.c:3604
+#: src/scan.c:3632
 msgid "Copy: No row selected!"
 msgstr "复制：没有行被选择！"
 
-#: src/scan.c:3710
+#: src/scan.c:3738
 msgid "Remove: No row selected!"
 msgstr "删除： 没有行被选择！"
 
-#: src/scan.c:3757
+#: src/scan.c:3785
 msgid "Move Up: No row selected!"
 msgstr "上移： 没有行被选择！"
 
-#: src/scan.c:3810
+#: src/scan.c:3838
 msgid "Move Down: No row selected!"
 msgstr "下移： 没有行被选择！"
 
-#: src/setting.c:909
+#: src/setting.c:933
 #, c-format
 msgid "ERROR: Can't write config file: %s (%s)"
 msgstr "错误： 无法写入配置文件： %s (%s)"
 
-#: src/setting.c:1058 src/setting.c:1101
+#: src/setting.c:1082 src/setting.c:1125
 #, c-format
 msgid "Can't open configuration file '%s' (%s)"
 msgstr "无法打开配置文件 “%s” (%s)"
 
-#: src/setting.c:1059
+#: src/setting.c:1083
 msgid "Loading default configuration..."
 msgstr "正在加载默认配置..."
 
-#: src/setting.c:1172 src/setting.c:1179 src/setting.c:1186 src/setting.c:1193
-#: src/setting.c:1200 src/setting.c:1207 src/setting.c:1214 src/setting.c:1221
-#: src/setting.c:1228 src/setting.c:1235 src/setting.c:1242 src/setting.c:1249
-#: src/setting.c:1256 src/setting.c:1263 src/setting.c:1270 src/setting.c:1277
-#: src/setting.c:1284
+#: src/setting.c:1196 src/setting.c:1203 src/setting.c:1210 src/setting.c:1217
+#: src/setting.c:1224 src/setting.c:1231 src/setting.c:1238 src/setting.c:1245
+#: src/setting.c:1252 src/setting.c:1259 src/setting.c:1266 src/setting.c:1273
+#: src/setting.c:1280 src/setting.c:1287 src/setting.c:1294 src/setting.c:1301
+#: src/setting.c:1308
 #, c-format
 msgid "Can't create or open file '%s' (%s)"
 msgstr "无法创建或打开文件 “%s” (%s)"
 
-#: src/setting.c:1323
+#: src/setting.c:1347
 #, c-format
 msgid "ERROR: Can't write list to file: %s (%s)"
 msgstr "错误： 无法写入列表文件： %s (%s)"
 
 #. Fall back to defaults
-#: src/setting.c:1411
+#: src/setting.c:1435
 msgid "Loading default 'Fill Tag' masks..."
 msgstr "正在载入默认的 “填充标签” 掩码..."
 
 #. Fall back to defaults
-#: src/setting.c:1439
+#: src/setting.c:1463
 msgid "Loading default 'Rename File' masks..."
 msgstr "正在载入默认的 “重命名文件” 掩码..."
 
 #. Fall back to defaults
-#: src/setting.c:1466
+#: src/setting.c:1490
 msgid "Loading default 'Rename Directory' masks..."
 msgstr "正在载入默认的 “重命名目录” 掩码..."
 
-#: src/setting.c:1660
+#: src/setting.c:1684
 msgid "ERROR: The environment variable HOME is not defined!"
 msgstr "错误： 环境变量 HOME 未设置！"
 
-#: src/setting.c:1681
+#: src/setting.c:1705
 #, c-format
 msgid "ERROR: Can't create directory '%s' (%s)!"
 msgstr "错误： 无法创建目录 “%s” (%s)！"

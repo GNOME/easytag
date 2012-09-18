@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EasyTAG 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-20 16:47-0800\n"
+"POT-Creation-Date: 2012-09-17 16:45-0700\n"
 "PO-Revision-Date: 2005-12-26 16:40+0200\n"
 "Last-Translator: Apollon Oikonomopoulos <apoikos@mail.ntua.gr>\n"
 "Language-Team: Modern Greek <el@li.org>\n"
@@ -117,111 +117,116 @@ msgstr "(Ελληνική μετάφραση)"
 msgid "(Serbian translation)"
 msgstr "(Γερμανική μετάφραση)"
 
-#: src/about.c:239
+#: src/about.c:184
+#, fuzzy
+msgid "(Lithuanian translation)"
+msgstr "(Ιταλική μετάφραση)"
+
+#: src/about.c:243
 msgid "Extension Name"
 msgstr ""
 
-#: src/about.c:240
+#: src/about.c:244
 msgid "Status"
 msgstr ""
 
-#: src/about.c:241 src/browser.c:3039 src/misc.c:1923
+#: src/about.c:245 src/browser.c:3039 src/misc.c:1927 src/prefs.c:670
 msgid "Comment"
 msgstr "Σχόλιο"
 
 #. Config
-#: src/about.c:258
+#: src/about.c:262
 msgid "About..."
 msgstr "Περί..."
 
 #.
 #. * Tab for common informations
 #.
-#: src/about.c:276 src/bar.c:244
+#: src/about.c:280 src/bar.c:244
 msgid "About"
 msgstr "Περί"
 
-#: src/about.c:322
+#: src/about.c:326
 #, c-format
 msgid "(compiled: %s)"
 msgstr "(Δημιουργήθηκε: %s)"
 
-#: src/about.c:326
+#: src/about.c:330
 #, fuzzy, c-format
 msgid "(using: GTK+ %d.%d.%d)"
 msgstr "(Χρησιμοποιεί: GTK+ %d.%d.%d και id3lib %d.%d.%d)"
 
-#: src/about.c:334
+#: src/about.c:338
 #, c-format
 msgid "Author: %s"
 msgstr "Δημιουργός: %s"
 
-#: src/about.c:338 src/easytag.c:233
+#: src/about.c:342 src/easytag.c:233
 #, c-format
 msgid "E-mail: %s"
 msgstr "E-mail: %s"
 
-#: src/about.c:344
+#: src/about.c:348
 msgid "Web Page: "
 msgstr "Ιστοσελίδα:"
 
-#: src/about.c:357
+#: src/about.c:361
 msgid "Description:"
 msgstr "Περιγραφή:"
 
 #.
 #. * Tab for extensions
 #.
-#: src/about.c:373
+#: src/about.c:377
 msgid "Extensions"
 msgstr ""
 
-#: src/about.c:439
+#: src/about.c:443
 #, fuzzy
 msgid "MP3 file support"
 msgstr "(Χωρίς υποστήριξη αρχείων MP3)"
 
-#: src/about.c:442 src/about.c:472 src/about.c:484 src/about.c:500
-#: src/about.c:513 src/about.c:525
+#: src/about.c:446 src/about.c:476 src/about.c:488 src/about.c:504
+#: src/about.c:517 src/about.c:529
 msgid "enabled"
 msgstr ""
 
-#: src/about.c:446 src/about.c:462 src/about.c:475 src/about.c:487
-#: src/about.c:504 src/about.c:516 src/about.c:528
+#: src/about.c:450 src/about.c:466 src/about.c:479 src/about.c:491
+#: src/about.c:508 src/about.c:520 src/about.c:532
 msgid "disabled"
 msgstr ""
 
-#: src/about.c:455
+#: src/about.c:459
 #, fuzzy
 msgid "ID3v2.3 tags writting support"
 msgstr "(Χωρίς υποστήριξη αρχείων MP3)"
 
-#: src/about.c:458
+#: src/about.c:462
 #, fuzzy
 msgid "available"
 msgstr "Δεν υπάρχει διαθέσιμη μνήμη"
 
-#: src/about.c:469
+#: src/about.c:473
 #, fuzzy
 msgid "Ogg Vorbis file support"
 msgstr "(Χωρίς υποστήριξη αρχείων Ogg Vorbis)"
 
-#: src/about.c:481
+#: src/about.c:485
 #, fuzzy
 msgid "Speex file support"
 msgstr "(Χωρίς υποστήριξη αρχείων MP3)"
 
-#: src/about.c:497
+#: src/about.c:501
 #, fuzzy
 msgid "FLAC file support"
 msgstr "(Χωρίς υποστήριξη αρχείων FLAC)"
 
-#: src/about.c:510
+#: src/about.c:514
 #, fuzzy
 msgid "MP4/AAC file support"
 msgstr "(Χωρίς υποστήριξη αρχείων MP4/AAC)"
 
-#: src/about.c:522
+#: src/about.c:526
 #, fuzzy
 msgid "WavPack file support"
 msgstr "(Χωρίς υποστήριξη αρχείων MP3)"
@@ -229,33 +234,33 @@ msgstr "(Χωρίς υποστήριξη αρχείων MP3)"
 #.
 #. * Tab for thanks
 #.
-#: src/about.c:537
+#: src/about.c:541
 msgid "Thanks"
 msgstr "Ευχαριστίες"
 
-#: src/about.c:557
+#: src/about.c:561
 msgid "Translations:\n"
 msgstr "Μεταφράσεις:\n"
 
-#: src/about.c:587
+#: src/about.c:591
 msgid "General:\n"
 msgstr "Γενικά:\n"
 
-#: src/about.c:604
+#: src/about.c:608
 msgid "Changes"
 msgstr "Ιστορικό αλλαγών"
 
-#: src/about.c:626
+#: src/about.c:630
 #, fuzzy, c-format
 msgid "Can't open file '%s' (%s)\n"
 msgstr "Αδυναμία ανοίγματος του αρχείου '%s' (%s)"
 
 #. g_print(_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
 #: src/ape_tag.c:74 src/et_core.c:4520 src/flac_header.c:126 src/id3_tag.c:146
-#: src/id3_tag.c:1209 src/id3_tag.c:1292 src/misc.c:1765 src/mp4_header.c:211
-#: src/mp4_header.c:220 src/mp4_tag.c:98 src/mp4_tag.c:109 src/mp4_tag.c:249
-#: src/mp4_tag.c:258 src/mpeg_header.c:209 src/ogg_header.c:82
-#: src/ogg_header.c:186 src/ogg_tag.c:145 src/ogg_tag.c:639
+#: src/id3_tag.c:1209 src/id3_tag.c:1292 src/misc.c:1769 src/mp4_header.c:211
+#: src/mp4_header.c:220 src/mp4_tag.c:98 src/mp4_tag.c:109 src/mp4_tag.c:281
+#: src/mp4_tag.c:290 src/mpeg_header.c:209 src/ogg_header.c:82
+#: src/ogg_header.c:186 src/ogg_tag.c:146 src/ogg_tag.c:657
 #, fuzzy, c-format
 msgid "ERROR while opening file: '%s' (%s)."
 msgstr "ΣΦΑΛΜΑ κατά το άνοιγμα του αρχείου:  '%s' (%s)."
@@ -785,54 +790,54 @@ msgstr "Σφάλμα κατά την αναζήτηση για %s: Δε βρέθηκε κόμβος %s στο δένδρο."
 msgid "Tree"
 msgstr "Δένδρο"
 
-#: src/browser.c:3038 src/cddb.c:718 src/misc.c:1914
+#: src/browser.c:3038 src/cddb.c:718 src/misc.c:1918
 msgid "File Name"
 msgstr "Όνομα αρχείου"
 
-#: src/browser.c:3038 src/cddb.c:719 src/misc.c:1915
+#: src/browser.c:3038 src/cddb.c:719 src/misc.c:1919 src/prefs.c:666
 msgid "Title"
 msgstr "Τίτλο"
 
 #: src/browser.c:3038 src/browser.c:3042 src/cddb.c:436 src/cddb.c:720
-#: src/misc.c:1916
+#: src/misc.c:1920 src/prefs.c:667
 msgid "Artist"
 msgstr "Καλλιτέχνης"
 
-#: src/browser.c:3038 src/misc.c:1917
+#: src/browser.c:3038 src/misc.c:1921
 #, fuzzy
 msgid "Album Artist"
 msgstr "Καλλιτέχνης"
 
 #: src/browser.c:3038 src/browser.c:3043 src/cddb.c:437 src/cddb.c:721
-#: src/misc.c:1918
+#: src/misc.c:1922 src/prefs.c:668
 msgid "Album"
 msgstr "Δίσκος"
 
-#: src/browser.c:3039 src/cddb.c:722 src/misc.c:1920
+#: src/browser.c:3039 src/cddb.c:722 src/misc.c:1924
 msgid "Year"
 msgstr "Χρονιά"
 
-#: src/browser.c:3039 src/misc.c:1921
+#: src/browser.c:3039 src/misc.c:1925
 msgid "Track"
 msgstr "Τίτλος κομματιού"
 
-#: src/browser.c:3039 src/cddb.c:725 src/misc.c:1922
+#: src/browser.c:3039 src/cddb.c:725 src/misc.c:1926 src/prefs.c:669
 msgid "Genre"
 msgstr "Είδος"
 
-#: src/browser.c:3040 src/misc.c:1924 src/picture.c:838
+#: src/browser.c:3040 src/misc.c:1928 src/picture.c:838 src/prefs.c:671
 msgid "Composer"
 msgstr "Συνθέτης"
 
-#: src/browser.c:3040 src/misc.c:1925
+#: src/browser.c:3040 src/misc.c:1929 src/prefs.c:672
 msgid "Orig. Artist"
 msgstr "Αρχικός καλλιτέχνης"
 
-#: src/browser.c:3040 src/misc.c:1926
+#: src/browser.c:3040 src/misc.c:1930
 msgid "Copyright"
 msgstr "Copyright"
 
-#: src/browser.c:3041 src/misc.c:1927
+#: src/browser.c:3041 src/misc.c:1931
 msgid "URL"
 msgstr "Ιστοσελίδα"
 
@@ -901,8 +906,8 @@ msgstr ""
 "Επιλέξτε ή πληκτρολογήστε μία μάσκα χρησιμοποιώντας τους κωδικούς (βλ. "
 "υπόμνημα) για να μετονομαστεί ο κατάλογος βάσει των πεδίων της ετικέτας."
 
-#: src/browser.c:3780 src/misc.c:1293 src/misc.c:1390 src/scan.c:2466
-#: src/scan.c:2533 src/scan.c:2900
+#: src/browser.c:3780 src/misc.c:1293 src/misc.c:1390 src/scan.c:2494
+#: src/scan.c:2561 src/scan.c:2928
 msgid "Invalid Scanner Mask"
 msgstr "Ακατάλληλη μάσκα σάρωσης"
 
@@ -916,8 +921,8 @@ msgstr "Προεπισκόπηση μετονομασίαςκαταλόγου."
 #: src/browser.c:4067 src/browser.c:4517 src/browser.c:4536 src/easytag.c:2822
 #: src/easytag.c:2983 src/easytag.c:3029 src/easytag.c:3058 src/easytag.c:3103
 #: src/easytag.c:3155 src/easytag.c:3216 src/easytag.c:3252 src/easytag.c:3291
-#: src/easytag.c:3526 src/id3_tag.c:558 src/misc.c:1660 src/picture.c:1138
-#: src/prefs.c:1765 src/prefs.c:1882
+#: src/easytag.c:3526 src/id3_tag.c:558 src/misc.c:1664 src/picture.c:1138
+#: src/prefs.c:1799 src/prefs.c:1916
 msgid "Error..."
 msgstr "Σφάλμα..."
 
@@ -1118,7 +1123,7 @@ msgstr "Αναζήτηση σε:"
 msgid "All Fields"
 msgstr "Όλα τα πεδία"
 
-#: src/cddb.c:439 src/picture.c:816 src/prefs.c:806
+#: src/cddb.c:439 src/picture.c:816 src/prefs.c:842
 msgid "Other"
 msgstr "Άλλο"
 
@@ -1193,7 +1198,7 @@ msgstr " Κατηγορίες"
 msgid "Results :"
 msgstr "Αποτελέσματα:"
 
-#: src/cddb.c:529 src/misc.c:1969
+#: src/cddb.c:529 src/misc.c:1973
 msgid "Search :"
 msgstr "Αναζήτηση:"
 
@@ -1257,7 +1262,7 @@ msgid "# Tracks"
 msgstr "Αρ. κομματιών"
 
 #. Check box to run the scanner
-#: src/cddb.c:762 src/misc.c:2997
+#: src/cddb.c:762 src/misc.c:3003
 msgid "Run the current scanner for each file"
 msgstr "Σάρωση κάθε αρχείου με τις τρέχουσες ρυθμίσεις σάρωσης"
 
@@ -1269,7 +1274,7 @@ msgstr ""
 #. Doesn't activate it by default because if the new user don't pay attention to it,
 #. it will not understand why the cddb results aren't loaded correctly...
 #. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbUseDLM2),CDDB_USE_DLM);
-#: src/cddb.c:774 src/prefs.c:1375
+#: src/cddb.c:774 src/prefs.c:1409
 msgid ""
 "When activating this option, the Levenshtein algorithm (DLM : Damerau-"
 "Levenshtein Metric) will be used to match the CDDB title against every file "
@@ -1289,7 +1294,7 @@ msgstr ""
 "Φόρτωση των επιλεγμένων ή όλων των γραμμών (αν δεν έχει επιλεγεί κάποια "
 "γραμμή)."
 
-#: src/cddb.c:795 src/misc.c:2224
+#: src/cddb.c:795 src/misc.c:2228
 msgid "Ready to search..."
 msgstr "Έτοιμο για αναζήτηση..."
 
@@ -1359,7 +1364,7 @@ msgstr "Σφάλμα κατά την αφαίρεση της ετικέτας ID3v1 του '%s' (%s)\n"
 msgid "Can't create file '%s' (%s)"
 msgstr "Αδυναμία δημιουργίας ή ανοίγματος του αρχείου '%s' (%s)\n"
 
-#: src/cddb.c:1823 src/misc.c:3152 src/setting.c:1369
+#: src/cddb.c:1823 src/misc.c:3158 src/setting.c:1393
 #, c-format
 msgid "Can't open file '%s' (%s)"
 msgstr "Αδυναμία ανοίγματος του αρχείου '%s' (%s)"
@@ -2210,6 +2215,7 @@ msgstr "Τα αρχεία διαγράφηκαν εν μέρει..."
 msgid "All files have been deleted..."
 msgstr "Διαγράφηκαν όλα τα αρχεία..."
 
+#. ET_Display_File_Data_To_UI(ETFile);
 #: src/easytag.c:2586
 #, c-format
 msgid ""
@@ -2529,29 +2535,29 @@ msgstr "Συμπλήρωση αυτού του πεδίου των ετικετών των επιλεγμένων αρχείων"
 msgid "Convert '_' and '%20' to spaces"
 msgstr "Μετατροπή του '_' και του '%20' σε κενά"
 
-#: src/easytag.c:4642 src/scan.c:2665
+#: src/easytag.c:4642 src/scan.c:2693
 msgid "Convert ' ' to '_'"
 msgstr "Μετατροπή του ' ' σε '_'"
 
 #. Group: capitalize, ...
-#: src/easytag.c:4653 src/scan.c:2716
+#: src/easytag.c:4653 src/scan.c:2744
 msgid "All uppercase"
 msgstr "Όλα κεφαλαία"
 
-#: src/easytag.c:4660 src/scan.c:2717
+#: src/easytag.c:4660 src/scan.c:2745
 msgid "All downcase"
 msgstr "Όλα πεζά"
 
-#: src/easytag.c:4667 src/scan.c:2718
+#: src/easytag.c:4667 src/scan.c:2746
 msgid "First letter uppercase"
 msgstr "Πρώτο γράμμα κεφαλαίο"
 
-#: src/easytag.c:4674 src/scan.c:2719
+#: src/easytag.c:4674 src/scan.c:2747
 msgid "First letter uppercase of each word"
 msgstr "Πρώτο γράμμα κάθε λέξης κεφαλαίο"
 
 #. Group: insert/remove spaces
-#: src/easytag.c:4685 src/scan.c:2767
+#: src/easytag.c:4685 src/prefs.c:1057 src/scan.c:2795
 msgid "Remove spaces"
 msgstr "Αφαίρεση κενών"
 
@@ -2767,31 +2773,31 @@ msgstr "Εφαρμογή κωδ/σης:"
 msgid "Channels:"
 msgstr "Κανάλια:"
 
-#: src/flac_tag.c:140 src/flac_tag.c:843 src/flac_tag.c:853
+#: src/flac_tag.c:142 src/flac_tag.c:861 src/flac_tag.c:871
 #, fuzzy, c-format
 msgid "ERROR while opening file: '%s' as FLAC (%s)."
 msgstr ""
 "ΣΦΑΛΜΑ κατά το άνοιγμα του αρχείου:  '%s' (%s).\n"
 "\a"
 
-#: src/flac_tag.c:327 src/ogg_tag.c:297
+#: src/flac_tag.c:329 src/ogg_tag.c:298
 #, c-format
 msgid ""
 "The year value '%s' seems to be invalid in file '%s'. The information will "
 "be lost while saving tag."
 msgstr ""
 
-#: src/flac_tag.c:1140
+#: src/flac_tag.c:1079
 #, c-format
 msgid "Picture block isn't valid: '%s'"
 msgstr ""
 
-#: src/flac_tag.c:1174 src/ogg_tag.c:890
+#: src/flac_tag.c:1113 src/ogg_tag.c:849
 #, c-format
 msgid "ERROR: Failed to write comments to file '%s' (%s)."
 msgstr "ΣΦΑΛΜΑ: Αποτυχία αποθήκευσης σχολίων στο αρχείο '%s' (%s)."
 
-#: src/flac_tag.c:1179 src/ogg_tag.c:897
+#: src/flac_tag.c:1118 src/ogg_tag.c:856
 #, c-format
 msgid "Written tag of '%s'"
 msgstr "Η ετικέτα του '%s' αποθηκεύτηκε"
@@ -3044,7 +3050,7 @@ msgstr "Αποθήκευση πληροφοριών με χρήση του ονόματος αρχείου"
 msgid "Write info using :"
 msgstr "Αποθήκευση πληροφοριών με χρήση:"
 
-#: src/misc.c:1636
+#: src/misc.c:1640
 #, c-format
 msgid ""
 "Playlist file '%s' already exists!\n"
@@ -3053,12 +3059,12 @@ msgstr ""
 "Το αρχείο λίστας αναπαραγωγής '%s' υπάρχει ήδη!\n"
 " Να αντικατασταθεί;"
 
-#: src/misc.c:1637
+#: src/misc.c:1641
 msgid "Write Playlist..."
 msgstr "Αποθήκευση λίστας αναπαραγωγής..."
 
 #. Writing fails...
-#: src/misc.c:1659
+#: src/misc.c:1663
 #, c-format
 msgid ""
 "Can't write playlist file '%s'!\n"
@@ -3067,24 +3073,24 @@ msgstr ""
 "Αδυναμία αποθήκευσης της λίστας αναπαραγωγής '%s'!\n"
 "(%s)"
 
-#: src/misc.c:1672
+#: src/misc.c:1676
 #, c-format
 msgid "Written playlist file '%s'"
 msgstr "Αποθηκεύτηκε η λίστα αναπαραγωγής '%s'"
 
-#: src/misc.c:1919
+#: src/misc.c:1923
 msgid "CD"
 msgstr "CD"
 
-#: src/misc.c:1928
+#: src/misc.c:1932
 msgid "Encoded by"
 msgstr "Κωδικοποιήθηκε από"
 
-#: src/misc.c:1939
+#: src/misc.c:1943
 msgid "Search a file"
 msgstr "Αναζήτηση σε ένα αρχείο"
 
-#: src/misc.c:1979
+#: src/misc.c:1983
 msgid ""
 "Type the word to search into files. Or type nothing to display all files."
 msgstr ""
@@ -3092,93 +3098,93 @@ msgstr ""
 "εμφανιστούν όλα τα αρχεία."
 
 #. Where...
-#: src/misc.c:1985
+#: src/misc.c:1989
 msgid "In :"
 msgstr "Σε:"
 
-#: src/misc.c:1988
+#: src/misc.c:1992
 msgid "the File Name"
 msgstr "το Όνομα αρχείου"
 
 #. Note : label changed to "the Tag" (to be the only one) to fix a Hungarian grammatical problem (which uses one word to say "in the tag" like here)
-#: src/misc.c:1990
+#: src/misc.c:1994
 msgid "the Tag"
 msgstr "η ετικέτα ..."
 
 #. Property of the search
-#: src/misc.c:2000 src/prefs.c:323
+#: src/misc.c:2004 src/prefs.c:323
 msgid "Case sensitive"
 msgstr "Ταίριασμα πεζών/κεφαλαίων"
 
-#: src/misc.c:2449
+#: src/misc.c:2453
 #, c-format
 msgid "Found : %d file(s)"
 msgstr "Βρέθηκαν: %d αρχείο/α"
 
-#: src/misc.c:2723
+#: src/misc.c:2729
 msgid "Load the filenames from a TXT file"
 msgstr "Φόρτωση ονομάτων αρχείων από ένα αρχείο κειμένου"
 
-#: src/misc.c:2753
+#: src/misc.c:2759
 msgid "File :"
 msgstr "Αρχείο:"
 
 #. Button 'load'
 #. the signal attached to this button, to load the file, is placed after the LoadFileContentList definition
-#: src/misc.c:2771
+#: src/misc.c:2777
 msgid " Load "
 msgstr "Φόρτωση"
 
-#: src/misc.c:2794
+#: src/misc.c:2800
 #, fuzzy
 msgid "Content of TXT file"
 msgstr "Επιβεβαίωση μετονομασίας του αρχείου"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: src/misc.c:2815 src/misc.c:2909
+#: src/misc.c:2821 src/misc.c:2915
 #, fuzzy
 msgid "Insert a blank line before the selected line"
 msgstr "Εισαγωγή ενός κενού πριν από κάθε κεφαλαίο γράμμα"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: src/misc.c:2824 src/misc.c:2918
+#: src/misc.c:2830 src/misc.c:2924
 #, fuzzy
 msgid "Delete the selected line"
 msgstr "Διαγραφή αυτής της γραμμής"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: src/misc.c:2833 src/misc.c:2927 src/misc.c:3400
+#: src/misc.c:2839 src/misc.c:2933 src/misc.c:3406
 msgid "Delete all blank lines"
 msgstr "Διαγραφή όλων των κενών γραμμών"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: src/misc.c:2845 src/misc.c:2939
+#: src/misc.c:2851 src/misc.c:2945
 #, fuzzy
 msgid "Move up the selected line"
 msgstr "Να περιλαμβάνει μόνο τα επιλεγμένα αρχεία"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: src/misc.c:2854 src/misc.c:2948
+#: src/misc.c:2860 src/misc.c:2954
 #, fuzzy
 msgid "Move down the selected line"
 msgstr "Να περιλαμβάνει μόνο τα επιλεγμένα αρχεία"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: src/misc.c:2866 src/misc.c:2960 src/misc.c:3424
+#: src/misc.c:2872 src/misc.c:2966 src/misc.c:3430
 msgid "Reload"
 msgstr "Επαναφόρτωση"
 
-#: src/misc.c:2887
+#: src/misc.c:2893
 #, fuzzy
 msgid "List of files"
 msgstr "Αποθήκευση μόνο της λίστας των αρχείων"
 
-#: src/misc.c:2982
+#: src/misc.c:2988
 #, fuzzy
 msgid "Selected line:"
 msgstr "Επιλογή όλων των γραμμών"
 
-#: src/misc.c:3000
+#: src/misc.c:3006
 msgid ""
 "When activating this option, after loading the filenames, the current "
 "selected scanner will be ran (the scanner window must be opened)."
@@ -3187,20 +3193,20 @@ msgstr ""
 "χρησιμοποιηθεί ο σαρωτής με τις τρέχουσες ρυθμίσεις του (το παράθυρο του "
 "σαρωτή πρέπει να είναι ανοιχτό)."
 
-#: src/misc.c:3388
+#: src/misc.c:3394
 msgid "Insert a blank line"
 msgstr "Εισαγωγή μίας κενής γραμμής"
 
-#: src/misc.c:3394
+#: src/misc.c:3400
 msgid "Delete this line"
 msgstr "Διαγραφή αυτής της γραμμής"
 
-#: src/misc.c:3409
+#: src/misc.c:3415
 #, fuzzy
 msgid "Move up this line"
 msgstr "Μετακίνηση της μάσκας προς τα πάνω"
 
-#: src/misc.c:3415
+#: src/misc.c:3421
 #, fuzzy
 msgid "Move down this line"
 msgstr "Μετακίνηση της μάσκας προς τα κάτω"
@@ -3218,7 +3224,8 @@ msgstr "Ήχος"
 msgid "Unknown"
 msgstr "Άγνωστο"
 
-#: src/mp4_header.c:211 src/mp4_tag.c:109 src/mp4_tag.c:258
+#: src/mp4_header.c:211 src/mp4_tag.c:109 src/mp4_tag.c:118 src/mp4_tag.c:290
+#: src/mp4_tag.c:297
 msgid "MP4 format invalid"
 msgstr "Λάθος μορφοποίηση MP4."
 
@@ -3226,6 +3233,11 @@ msgstr "Λάθος μορφοποίηση MP4."
 #, c-format
 msgid "~%d kb/s"
 msgstr "~%d kb/s"
+
+#: src/mp4_tag.c:118 src/mp4_tag.c:297
+#, fuzzy, c-format
+msgid "ERROR reading tags from file: '%s' (%s)."
+msgstr "ΣΦΑΛΜΑ κατά το άνοιγμα του αρχείου:  '%s' (%s)."
 
 #: src/mpeg_header.c:78
 msgid "Stereo"
@@ -3281,12 +3293,12 @@ msgid ""
 "(file: '%s')."
 msgstr ""
 
-#: src/ogg_header.c:195 src/ogg_tag.c:187 src/ogg_tag.c:679
+#: src/ogg_header.c:195 src/ogg_tag.c:188 src/ogg_tag.c:697
 #, c-format
 msgid "ERROR: Failed to open file: '%s' as vorbis (%s)."
 msgstr "ΣΦΑΛΜΑ: Αποτυχία ανοίγματος του αρχείου '%s' ως αρχείο vorbis (%s)."
 
-#: src/ogg_tag.c:169
+#: src/ogg_tag.c:170
 #, c-format
 msgid "Warning : The Ogg Vorbis file '%s' contains an ID3v2 tag."
 msgstr "Προσοχή: Το αρχείο Ogg Vorbis  '%s' περιέχει ετικέτα ID3v2."
@@ -3900,7 +3912,7 @@ msgstr ""
 "Χρήση οπωσδήποτε της κωδικοποίησης χαρακτήρων του συστήματος και "
 "ενεργοποίηση της μετατροπής χαρακτήρων."
 
-#: src/prefs.c:554 src/prefs.c:840 src/prefs.c:909
+#: src/prefs.c:554 src/prefs.c:876 src/prefs.c:945
 msgid ""
 "With this option, when a character cannot be represented in the target "
 "character set, it can be approximated through one or several similarly "
@@ -3919,7 +3931,7 @@ msgstr ""
 "Χρήση οπωσδήποτε της κωδικοποίησης χαρακτήρων του συστήματος και σιωπηρή "
 "απόρριψη μερικών χαρακτήρων."
 
-#: src/prefs.c:563 src/prefs.c:849 src/prefs.c:918
+#: src/prefs.c:563 src/prefs.c:885 src/prefs.c:954
 msgid ""
 "With this option, when a characters cannot be represented in the target "
 "character set, it will be silently discarded."
@@ -4004,25 +4016,37 @@ msgstr ""
 "Μεταφορά του κέρσορα στο πρώτο πεδίο της ετικέτας (δηλ. το πεδίο 'Τίτλος')"
 
 #. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SetFocusToFirstTagField),SET_FOCUS_TO_FIRST_TAG_FIELD);
+#. Tag Splitting
+#: src/prefs.c:654
+#, fuzzy
+msgid "Tag Splitting"
+msgstr "Ρυθμίσεις ετικετών"
+
+#: src/prefs.c:661
+msgid ""
+"For Vorbis tags, selected fields will be split atdashes and saved as "
+"separate tags"
+msgstr ""
+
 #.
 #. * ID3 Tag Settings
 #.
-#: src/prefs.c:657 src/prefs.c:658
+#: src/prefs.c:693 src/prefs.c:694
 msgid "ID3 Tag Settings"
 msgstr "Ρυθμίσεις ετικετών ID3"
 
 #. Tag Rules frame
-#: src/prefs.c:670
+#: src/prefs.c:706
 msgid "ID3 Tag Rules"
 msgstr "Κανόνες συμπλήρωσης ετικετών ID3"
 
 #. Write ID3 tags in FLAC files
-#: src/prefs.c:682
+#: src/prefs.c:718
 #, fuzzy
 msgid "Write ID3 tags in FLAC files (in addition to FLAC tag)"
 msgstr "Προσθήκη ετικέτας ID3 στα αρχεία FLAC που φέρουν ετικέτες FLAC"
 
-#: src/prefs.c:685
+#: src/prefs.c:721
 msgid ""
 "If activated, ID3 tags will be also added in the FLAC file (according the "
 "two rules above, plus the FLAC tag). Else ID3 tags will be stripped."
@@ -4032,11 +4056,11 @@ msgstr ""
 "Διαφορετικά οι ετικέτες ID3 θα απομακρύνονται."
 
 #. Strip tag when fields (managed by EasyTAG) are empty
-#: src/prefs.c:690
+#: src/prefs.c:726
 msgid "Strip tags if all fields are set to blank"
 msgstr "Αφαίρεση των ετικετών αν όλα τα πεδία είναι κενά"
 
-#: src/prefs.c:693
+#: src/prefs.c:729
 msgid ""
 "As ID3v2 tags may contain other data than Title, Artist, Album, Year, Track, "
 "Genre or Comment (as an attached picture, lyrics, ...), this option allows "
@@ -4049,11 +4073,11 @@ msgstr ""
 "την ετικέτα, σε περίπτωση που και τα 7 τυπικά πεδία είναι άδεια."
 
 #. Convert old ID3v2 tag version
-#: src/prefs.c:699
+#: src/prefs.c:735
 msgid "Automatically convert old ID3v2 tag versions"
 msgstr "Αυτόματη μετατροπή των παλαιών εκδόσεων ετικετών ID3v2"
 
-#: src/prefs.c:702
+#: src/prefs.c:738
 msgid ""
 "If activated, an old ID3v2 tag version (as ID3v2.2) will be updated to the "
 "ID3v2.3 version."
@@ -4062,53 +4086,53 @@ msgstr ""
 "αναβαθμίζονται σε ID3v2.3."
 
 #. Use CRC32
-#: src/prefs.c:706
+#: src/prefs.c:742
 msgid "Use CRC32"
 msgstr ""
 
-#: src/prefs.c:709
+#: src/prefs.c:745
 #, fuzzy
 msgid "Set CRC32 in the ID3v2 tags"
 msgstr "Δημιουργία ετικέτας ID3v2"
 
 #. Use Compression
-#: src/prefs.c:712
+#: src/prefs.c:748
 msgid "Use Compression"
 msgstr ""
 
-#: src/prefs.c:715
+#: src/prefs.c:751
 msgid "Set Compression in the ID3v2 tags"
 msgstr ""
 
 #. Write Genre in text
-#: src/prefs.c:718
+#: src/prefs.c:754
 msgid "Write Genre in text only"
 msgstr ""
 
-#: src/prefs.c:721
+#: src/prefs.c:757
 msgid ""
 "Don't use ID3v1 number references in genre tag. Enable this if you see "
 "numbers as genre in your music player."
 msgstr ""
 
 #. Character Set for writing ID3 tag
-#: src/prefs.c:724
+#: src/prefs.c:760
 #, fuzzy
 msgid "Character Set for writing ID3 tags"
 msgstr "Σύνολο χαρακτήρων για τις ετικέτες ID3"
 
 #. ID3v2 tags
-#: src/prefs.c:731
+#: src/prefs.c:767
 #, fuzzy
 msgid "ID3v2 tags"
 msgstr "Δημιουργία ετικέτας ID3v2"
 
 #. Write ID3v2 tag
-#: src/prefs.c:744
+#: src/prefs.c:780
 msgid "Write ID3v2 tag"
 msgstr "Δημιουργία ετικέτας ID3v2"
 
-#: src/prefs.c:747
+#: src/prefs.c:783
 #, fuzzy
 msgid ""
 "If activated, an ID3v2.4 tag will be added or updated at the beginning of "
@@ -4119,12 +4143,12 @@ msgstr ""
 "θα αφαιρείται."
 
 #. ID3v2 tag version
-#: src/prefs.c:754
+#: src/prefs.c:790
 #, fuzzy
 msgid "Version:"
 msgstr "Περιγραφή:"
 
-#: src/prefs.c:761
+#: src/prefs.c:797
 msgid ""
 "Select the ID3v2 tag version to write:\n"
 " - ID3v2.3 is written using id3lib,\n"
@@ -4133,37 +4157,37 @@ msgstr ""
 
 #. Charset
 #. Id3V1 writing character set
-#: src/prefs.c:775 src/prefs.c:877
+#: src/prefs.c:811 src/prefs.c:913
 msgid "Charset:"
 msgstr ""
 
 #. Unicode
-#: src/prefs.c:783
+#: src/prefs.c:819
 #, fuzzy
 msgid "Unicode "
 msgstr "Unicode (UTF-8)"
 
-#: src/prefs.c:791
+#: src/prefs.c:827
 #, fuzzy
 msgid "Unicode type to use"
 msgstr "Κωδικοποιήθηκε από"
 
-#: src/prefs.c:814
+#: src/prefs.c:850
 msgid "Character set used to write the tag data in the file."
 msgstr "Σύνολο χαρακτήρων με το οποίο θα αποθηκεύεται η ετικέτα στο αρχείο."
 
 #. ID3v2 Additional iconv() options
 #. ID3V1 Additional iconv() options
-#: src/prefs.c:824 src/prefs.c:893
+#: src/prefs.c:860 src/prefs.c:929
 msgid "Additional settings for iconv():"
 msgstr ""
 
-#: src/prefs.c:829 src/prefs.c:898
+#: src/prefs.c:865 src/prefs.c:934
 #, fuzzy
 msgid "No"
 msgstr "Όχι"
 
-#: src/prefs.c:832 src/prefs.c:901
+#: src/prefs.c:868 src/prefs.c:937
 #, fuzzy
 msgid ""
 "With this option, when a character cannot be represented in the target "
@@ -4175,26 +4199,26 @@ msgstr ""
 "σύνολο αυτό, τότε θα αντικατασταθεί αν έναν ή περισσότερους όμοιους στην "
 "εμφάνιση χαρακτήρες."
 
-#: src/prefs.c:837 src/prefs.c:906
+#: src/prefs.c:873 src/prefs.c:942
 msgid "//TRANSLIT"
 msgstr ""
 
-#: src/prefs.c:846 src/prefs.c:915
+#: src/prefs.c:882 src/prefs.c:951
 msgid "//IGNORE"
 msgstr ""
 
 #. ID3v1 tags
-#: src/prefs.c:854
+#: src/prefs.c:890
 #, fuzzy
 msgid "ID3v1 tags"
 msgstr "Ετικέτα ID3"
 
 #. Write ID3v1 tag
-#: src/prefs.c:868
+#: src/prefs.c:904
 msgid "Write ID3v1.x tag"
 msgstr "Δημιουργία ετικέτας ID3v1.x"
 
-#: src/prefs.c:871
+#: src/prefs.c:907
 msgid ""
 "If activated, an ID3v1 tag will be added or updated at the end of the MP3 "
 "files. Else it will be stripped."
@@ -4203,22 +4227,22 @@ msgstr ""
 "ID3v1, ή, εφόσον αυτή υπάρχει, θα ανανεώνεται. Διαφορετικά η ετικέτα ID3v1 "
 "θα αφαιρείται."
 
-#: src/prefs.c:888
+#: src/prefs.c:924
 #, fuzzy
 msgid "Character set used to write ID3v1 tag data in the file."
 msgstr "Σύνολο χαρακτήρων με το οποίο θα αποθηκεύεται η ετικέτα στο αρχείο."
 
 #. Character Set for reading tag
-#: src/prefs.c:923
+#: src/prefs.c:959
 #, fuzzy
 msgid "Character Set for reading ID3 tags"
 msgstr "Σύνολο χαρακτήρων για τις ετικέτες ID3"
 
-#: src/prefs.c:937
+#: src/prefs.c:973
 msgid "Non-standart:"
 msgstr ""
 
-#: src/prefs.c:942
+#: src/prefs.c:978
 msgid ""
 "This character set will be used when reading the tag data, to convert each "
 "string found in an ISO-8859-1 field in the tag (for ID3v2 or/and ID3v1 "
@@ -4251,7 +4275,7 @@ msgstr ""
 "τις ετικέτες που γράφτηκαν στα Ελληνικά σε Windows ή ISO-8859-7 για ετικέτες "
 "που γράφτηκαν στα Ελληνικά σε Unix."
 
-#: src/prefs.c:960
+#: src/prefs.c:996
 msgid "Character set used to read tag data in the file."
 msgstr ""
 "Σύνολο χαρακτήρων με το οποίο θα γίνεται η ανάγνωση της ετικέτας από το "
@@ -4260,24 +4284,24 @@ msgstr ""
 #.
 #. * Scanner
 #.
-#: src/prefs.c:975 src/prefs.c:976
+#: src/prefs.c:1011 src/prefs.c:1012
 msgid "Scanner"
 msgstr "Σαρωτής"
 
 #. Character conversion for the 'Fill Tag' scanner (=> FTS...)
-#: src/prefs.c:988
+#: src/prefs.c:1024
 msgid "Fill Tag Scanner - Character Conversion"
 msgstr "Συμπλήρωση ετικέτας - μετατροπή χαρακτήρων"
 
-#: src/prefs.c:994 src/prefs.c:1020
+#: src/prefs.c:1030 src/prefs.c:1055
 msgid "Convert underscore character '_' and string '%20' to space ' '"
 msgstr "Μετατροπή του '_' και του '%20' σε κενό ' '"
 
-#: src/prefs.c:996 src/prefs.c:1022
+#: src/prefs.c:1032 src/prefs.c:1056
 msgid "Convert space ' ' to underscore '_'"
 msgstr "Μετατροπή του κενού ' ' σε '_'"
 
-#: src/prefs.c:1008 src/prefs.c:1010
+#: src/prefs.c:1044 src/prefs.c:1046
 msgid ""
 "If activated, this conversion will be used when applying a mask from the "
 "scanner for tags."
@@ -4286,11 +4310,11 @@ msgstr ""
 "μίας μάσκας στο σαρωτή ετικετών."
 
 #. Character conversion for the 'Rename File' scanner (=> RFS...)
-#: src/prefs.c:1014
+#: src/prefs.c:1050
 msgid "Rename File Scanner - Character Conversion"
 msgstr "Μετονομασία αρχείων - μετατροπή χαρακτήρων"
 
-#: src/prefs.c:1034 src/prefs.c:1036
+#: src/prefs.c:1067 src/prefs.c:1069 src/prefs.c:1071
 msgid ""
 "If activated, this conversion will be used when applying a mask from the "
 "scanner for filenames."
@@ -4299,17 +4323,17 @@ msgstr ""
 "μίας μάσκας στο σαρωτή μετονομασίας αρχείων."
 
 #. Character conversion for the 'Process Fields' scanner (=> PFS...)
-#: src/prefs.c:1040
+#: src/prefs.c:1074
 msgid "Process Fields Scanner - Character Conversion"
 msgstr "Επεξεργασία πεδίων - μετατροπή χαρακτήρων"
 
 #. Don't convert some words like to, feat. first letter uppercase.
-#: src/prefs.c:1047
+#: src/prefs.c:1081
 msgid ""
 "Don't uppercase first letter of words for some prepositions and articles."
 msgstr "Πεζό πρώτο γράμμα σε μερικές προθέσεις και άρθρα"
 
-#: src/prefs.c:1051
+#: src/prefs.c:1085
 msgid ""
 "Don't convert first letter of the words like prepositions, articles and "
 "words like feat., when using the scanner 'First letter uppercase of each "
@@ -4322,15 +4346,15 @@ msgstr ""
 "Ένα Πεδίο')."
 
 #. Properties of the scanner window
-#: src/prefs.c:1057
+#: src/prefs.c:1091
 msgid "Scanner Window"
 msgstr "Παράθυρο σαρωτή"
 
-#: src/prefs.c:1063
+#: src/prefs.c:1097
 msgid "Open the Scanner Window on startup"
 msgstr "Άνοιγμα του παραθύρου σαρωτή κατά την εκκίνηση"
 
-#: src/prefs.c:1066
+#: src/prefs.c:1100
 msgid ""
 "Activate this option to open automatically the scanner window when EasyTAG "
 "starts."
@@ -4338,11 +4362,11 @@ msgstr ""
 "Ενεργοποιήστε την επιλογή αυτή για να ανοίγει αυτόματα το παράθυρο του "
 "σαρωτή κάθε φορά που ξεκινά το EasyTAG."
 
-#: src/prefs.c:1069
+#: src/prefs.c:1103
 msgid "Scanner window always on top"
 msgstr "Πάντα ορατό παράθυρο σαρωτή"
 
-#: src/prefs.c:1072
+#: src/prefs.c:1106
 msgid ""
 "If activated, the window which contains the masks will stay always over the "
 "main window."
@@ -4351,16 +4375,16 @@ msgstr ""
 "κύριο παράθυρο."
 
 #. Other options
-#: src/prefs.c:1077
+#: src/prefs.c:1111
 msgid "Fields"
 msgstr "Πεδία"
 
 #. Overwrite text into tag fields
-#: src/prefs.c:1084
+#: src/prefs.c:1118
 msgid "Overwrite fields when scanning tag"
 msgstr "Εγγραφή πάνω από τα υπάρχοντα πεδία"
 
-#: src/prefs.c:1087
+#: src/prefs.c:1121
 msgid ""
 "If activated, the scanner will replace existing text in fields by the new "
 "one. If deactivated, only blank fields of the tag will be filled."
@@ -4368,11 +4392,11 @@ msgstr ""
 "Αν ενεργοποιηθεί, τότε ο σαρωτής θα αντικαθιστά το κείμενο στα πεδία που ήδη "
 "έχουν εγγραφή με νέο. Αν απενεργοποιηθεί, τότε θα γράφει μόνο στα κενά πεδία."
 
-#: src/prefs.c:1098
+#: src/prefs.c:1132
 msgid "Set this text as default comment :"
 msgstr "Καθορισμός ερήμην σχολίου :"
 
-#: src/prefs.c:1101
+#: src/prefs.c:1135
 msgid ""
 "Activate this option if you want to put the following string into the "
 "comment field when using the 'Fill Tag' scanner."
@@ -4381,11 +4405,11 @@ msgstr ""
 "στο πεδίο «σχόλιο» όταν χρησιμοποιείτε το σαρωτή για συμπλήρωση της ετικέτας."
 
 #. CRC32 comment
-#: src/prefs.c:1118
+#: src/prefs.c:1152
 msgid "Use CRC32 as the default comment (for files with ID3 tags only)."
 msgstr "Χρήση του CRC32 ως ερήμην σχόλιο (για αρχεία με ετικέτες ID3 μόνο)."
 
-#: src/prefs.c:1122
+#: src/prefs.c:1156
 msgid ""
 "Calculates the CRC-32 value of the file and writes it into the comment field "
 "when using the 'Fill Tag' scanner."
@@ -4397,46 +4421,46 @@ msgstr ""
 #.
 #. * CDDB
 #.
-#: src/prefs.c:1133 src/prefs.c:1134
+#: src/prefs.c:1167 src/prefs.c:1168
 msgid "CD Data Base"
 msgstr "Βάση Δεδομένων CD"
 
 #. CDDB Server Settings (Automatic Search)
-#: src/prefs.c:1143
+#: src/prefs.c:1177
 #, fuzzy
 msgid "Server Settings for Automatic Search"
 msgstr "Αυτόματη αναζήτηση"
 
-#: src/prefs.c:1152 src/prefs.c:1191 src/prefs.c:1225
+#: src/prefs.c:1186 src/prefs.c:1225 src/prefs.c:1259
 msgid "Name :"
 msgstr "Όνομα :"
 
-#: src/prefs.c:1171 src/prefs.c:1199 src/prefs.c:1234 src/prefs.c:1322
+#: src/prefs.c:1205 src/prefs.c:1233 src/prefs.c:1268 src/prefs.c:1356
 msgid "Port :"
 msgstr "Θύρα :"
 
-#: src/prefs.c:1181 src/prefs.c:1209 src/prefs.c:1244
+#: src/prefs.c:1215 src/prefs.c:1243 src/prefs.c:1278
 msgid "CGI Path :"
 msgstr "Διαδρομή CGI :"
 
 #. CDDB Server Settings (Manual Search)
-#: src/prefs.c:1217
+#: src/prefs.c:1251
 #, fuzzy
 msgid "Server Settings for Manual Search"
 msgstr "Ρυθμίσεις εξυπηρετητή"
 
 #. Local access for CDDB (Automatic Search)
-#: src/prefs.c:1252
+#: src/prefs.c:1286
 #, fuzzy
 msgid "Local CD Data Base"
 msgstr "Βάση Δεδομένων CD"
 
-#: src/prefs.c:1260
+#: src/prefs.c:1294
 #, fuzzy
 msgid "Path :"
 msgstr "Διαδρομή CGI :"
 
-#: src/prefs.c:1271
+#: src/prefs.c:1305
 msgid ""
 "Specify the directory where are located the local cd data base. The local cd "
 "data base contains the eleven following directories 'blues', 'classical', "
@@ -4445,52 +4469,52 @@ msgid ""
 msgstr ""
 
 #. CDDB Proxy Settings
-#: src/prefs.c:1297
+#: src/prefs.c:1331
 msgid "Proxy Settings"
 msgstr "Ρυθμίσεις διαμεσολαβητή δικτύου"
 
-#: src/prefs.c:1306
+#: src/prefs.c:1340
 msgid "Use a proxy"
 msgstr "Χρήση διαμεσολαβητή δικτύου"
 
-#: src/prefs.c:1309
+#: src/prefs.c:1343
 msgid "Set active the settings of the proxy server."
 msgstr "Ενεργοποίηση χρήσης ενός διαμεσολαβητή δικτύου."
 
-#: src/prefs.c:1314
+#: src/prefs.c:1348
 msgid "Host Name :"
 msgstr "Όνομα διαμεσολαβητή :"
 
-#: src/prefs.c:1321
+#: src/prefs.c:1355
 msgid "Name of the proxy server."
 msgstr "Όνομα του διαμεσολαβητή δικτύου"
 
-#: src/prefs.c:1329
+#: src/prefs.c:1363
 msgid "Port of the proxy server."
 msgstr "Θύρα σύνδεσης στο διαμεσολαβητή δικτύου"
 
-#: src/prefs.c:1334
+#: src/prefs.c:1368
 msgid "User Name :"
 msgstr "Όνομα χρήστη :"
 
-#: src/prefs.c:1341
+#: src/prefs.c:1375
 msgid "Name of user for the the proxy server."
 msgstr "Όνομα χρήστη για πιστοποίηση στο διαμεσολαβητή δικτύου"
 
-#: src/prefs.c:1342
+#: src/prefs.c:1376
 msgid "User Password :"
 msgstr "Συνθηματικό χρήστη :"
 
-#: src/prefs.c:1350
+#: src/prefs.c:1384
 msgid "Password of user for the the proxy server."
 msgstr "Συνθηματικό χρήστη για πιστοποίηση στο διαμεσολαβητή δικτύου"
 
 #. Track Name list (CDDB results)
-#: src/prefs.c:1355
+#: src/prefs.c:1389
 msgid "Track Name List"
 msgstr "Λίστα Τίτλων Κομματιών"
 
-#: src/prefs.c:1362
+#: src/prefs.c:1396
 msgid ""
 "Select corresponding audio file (according position or DLM if activated "
 "below)"
@@ -4498,7 +4522,7 @@ msgstr ""
 "Επιλογή του αντίστοιχου αρχείου ήχου (ανάλογα με τη θέση ή το DLM, αν αυτό "
 "είναι ενεργοποιημένο)"
 
-#: src/prefs.c:1366
+#: src/prefs.c:1400
 msgid ""
 "If activated, when selecting a line in the list of tracks name, the "
 "corresponding audio file in the main list will be also selected."
@@ -4508,7 +4532,7 @@ msgstr ""
 "λίστα."
 
 #. Check box to use DLM (also used in the cddb window)
-#: src/prefs.c:1371
+#: src/prefs.c:1405
 msgid ""
 "Use the Levenshtein algorithm (DLM) to match lines (using title) with audio "
 "files (using filename)"
@@ -4519,15 +4543,15 @@ msgstr ""
 #.
 #. * Confirmation
 #.
-#: src/prefs.c:1386 src/prefs.c:1387
+#: src/prefs.c:1420 src/prefs.c:1421
 msgid "Confirmation"
 msgstr "Επιβεβαιώσεις"
 
-#: src/prefs.c:1395
+#: src/prefs.c:1429
 msgid "Confirm exit from program"
 msgstr "Επιβεβαίωση εξόδου από το πρόγραμμα"
 
-#: src/prefs.c:1398
+#: src/prefs.c:1432
 msgid ""
 "If activated, opens a dialog box to ask confirmation before exiting the "
 "program."
@@ -4535,23 +4559,23 @@ msgstr ""
 "Αν ενεργοποιηθεί, τότε θα ζητείται από το χρήστη επιβεβαίωση εξόδου από το "
 "πρόγραμμα."
 
-#: src/prefs.c:1401
+#: src/prefs.c:1435
 msgid "Confirm writing of file tag"
 msgstr "Επιβεβαίωση αποθήκευσης της ετικέτας του αρχείου"
 
-#: src/prefs.c:1405
+#: src/prefs.c:1439
 msgid "Confirm renaming of file"
 msgstr "Επιβεβαίωση μετονομασίας του αρχείου"
 
-#: src/prefs.c:1409
+#: src/prefs.c:1443
 msgid "Confirm deleting of file"
 msgstr "Επιβεβαίωση διαγραφής του αρχείου"
 
-#: src/prefs.c:1413
+#: src/prefs.c:1447
 msgid "Confirm writing of playlist"
 msgstr "Επιβεβαίωση αποθήκευσης της λίστας αναπαραγωγής"
 
-#: src/prefs.c:1417
+#: src/prefs.c:1451
 msgid "Confirm changing directory when there are unsaved changes"
 msgstr ""
 
@@ -4559,38 +4583,38 @@ msgstr ""
 #. //gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
 #. //g_signal_connect(G_OBJECT(Button),"clicked",G_CALLBACK(OptionsWindow_Apply_Button),NULL);
 #. //GTK_WIDGET_SET_FLAGS(Button, GTK_CAN_DEFAULT);
-#: src/prefs.c:1438
+#: src/prefs.c:1472
 msgid "Apply changes (but don't save) and close this window"
 msgstr ""
 "Εφαρμογή των αλλαγών (χωρίς αποθήκευσή τους) και κλείσιμο του παραθύρου"
 
-#: src/prefs.c:1447
+#: src/prefs.c:1481
 msgid "Close this window without saving"
 msgstr "Κλείσιμο του παραθύρου χωρίς να αποθηκευτούν οι αλλαγές"
 
-#: src/prefs.c:1455
+#: src/prefs.c:1489
 msgid "Save changes and close this window"
 msgstr "Αποθήκευση των αλλαγών και κλείσιμο του παραθύρου"
 
 #. For translators : be aware to NOT translate '%.*d' in this string
-#: src/prefs.c:1488
+#: src/prefs.c:1522
 #, c-format
 msgid "(Example : %.*d_-_Track_name_1.mp3)"
 msgstr "(Π.χ.: %.*d_-_Όνομα_αρχείου_1.mp3)"
 
-#: src/prefs.c:1644
+#: src/prefs.c:1678
 msgid "Changes applied"
 msgstr "Οι αλλαγές τέθηκαν σε ισχύ"
 
-#: src/prefs.c:1663 src/setting.c:882
+#: src/prefs.c:1697 src/setting.c:906
 msgid "Configuration saved"
 msgstr "Οι ρυθμίσεις αποθηκεύτηκαν"
 
-#: src/prefs.c:1670
+#: src/prefs.c:1704
 msgid "Configuration unchanged"
 msgstr "Οι ρυθμίσεις έμειναν αμετάβλητες"
 
-#: src/prefs.c:1762
+#: src/prefs.c:1796
 #, c-format
 msgid ""
 " The selected path for 'Default path to files' isn't valid!\n"
@@ -4601,11 +4625,11 @@ msgstr ""
 "'%s'\n"
 "(%s) "
 
-#: src/prefs.c:1764
+#: src/prefs.c:1798
 msgid "Not a directory"
 msgstr "Δεν είναι κατάλογος"
 
-#: src/prefs.c:1880
+#: src/prefs.c:1914
 #, c-format
 msgid "The audio file player '%s' can't be found!"
 msgstr "Το πρόγραμμα αναπαραγωγής ήχου '%s' δε βρέθηκε!"
@@ -4659,41 +4683,41 @@ msgstr "Το αρχείο μετονομάστηκε με επιτυχία...(%s)"
 #. The init position is define below, cause the scanner window must be showed before
 #. * to be able to move it.
 #. Title
-#: src/scan.c:2323
+#: src/scan.c:2351
 msgid "Tag and File Name scan"
 msgstr "Σάρωση ετικέτας και ονόματος αρχείου."
 
 #. Option Menu
-#: src/scan.c:2345
+#: src/scan.c:2373
 msgid "Scanner:"
 msgstr "Ενέργεια :"
 
 #. Selection of the item made at the end of the function
-#: src/scan.c:2367
+#: src/scan.c:2395
 msgid "Select the type of scanner to use"
 msgstr "Επιλέξτε τον τύπο σαρωτή που επιθυμείτε"
 
-#: src/scan.c:2376
+#: src/scan.c:2404
 msgid "Open scanner window / Scan selected files"
 msgstr "Σάρωση των επιλεγμένων αρχείων"
 
-#: src/scan.c:2389
+#: src/scan.c:2417
 msgid "Scanner Options"
 msgstr "Επιλογές σαρωτή"
 
-#: src/scan.c:2398
+#: src/scan.c:2426
 msgid "Show / Hide Masks Editor"
 msgstr "Εμφάνιση / Απόκρυψη του διορθωτή μασκών"
 
-#: src/scan.c:2408
+#: src/scan.c:2436
 msgid "Show / Hide Legend"
 msgstr "Εμφάνιση / Απόκρυψη υπομνήματος"
 
-#: src/scan.c:2418
+#: src/scan.c:2446
 msgid "Close this window"
 msgstr "Κλείσιμο του παραθύρου αυτού"
 
-#: src/scan.c:2446
+#: src/scan.c:2474
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse file name and "
 "path. Used to fill in tag fields."
@@ -4703,15 +4727,15 @@ msgstr ""
 "Χρησιμοποιείται για τη συμπλήρωση της ετικέτας."
 
 #. Preview label
-#: src/scan.c:2472
+#: src/scan.c:2500
 msgid "Fill tag preview..."
 msgstr "Προεπισκόπηση ετικέτας..."
 
-#: src/scan.c:2499
+#: src/scan.c:2527
 msgid "Prefix mask with current path"
 msgstr "Χρήση της τρέχουσας διαδρομής ως πρόθεμα στη μάσκα"
 
-#: src/scan.c:2512
+#: src/scan.c:2540
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse tag fields. Used "
 "to rename the file.\n"
@@ -4726,15 +4750,15 @@ msgstr ""
 "την προηγούμενη διαδρομή."
 
 #. Preview label
-#: src/scan.c:2539
+#: src/scan.c:2567
 msgid "Rename file preview..."
 msgstr "Προεπισκόπηση ονόματος αρχείου..."
 
-#: src/scan.c:2559
+#: src/scan.c:2587
 msgid "Select fields:"
 msgstr "Επιλέξτε πεδία:"
 
-#: src/scan.c:2562
+#: src/scan.c:2590
 msgid ""
 "The buttons on the right represent the fields which can be processed. Select "
 "those who interest you."
@@ -4743,136 +4767,136 @@ msgstr ""
 "αυτά που σας ενδιαφέρουν."
 
 #. Advice for Translators : set the first letter of filename translated
-#: src/scan.c:2565
+#: src/scan.c:2593
 msgid "F"
 msgstr "Α"
 
-#: src/scan.c:2566
+#: src/scan.c:2594
 msgid "Process file name field"
 msgstr "Όνομα αρχείου"
 
 #. Advice for Translators : set the first letter of title translated
-#: src/scan.c:2568
+#: src/scan.c:2596
 msgid "T"
 msgstr "Τ"
 
-#: src/scan.c:2569
+#: src/scan.c:2597
 msgid "Process title field"
 msgstr "Τίτλος κομματιού"
 
 #. Advice for Translators : set the first letter of artist translated
-#: src/scan.c:2571
+#: src/scan.c:2599
 msgid "Ar"
 msgstr "Κ"
 
-#: src/scan.c:2572
+#: src/scan.c:2600
 msgid "Process file artist field"
 msgstr "Καλλιτέχνης"
 
 #. Advice for Translators : set the first letter of album artist translated
-#: src/scan.c:2574
+#: src/scan.c:2602
 msgid "AA"
 msgstr ""
 
-#: src/scan.c:2575
+#: src/scan.c:2603
 #, fuzzy
 msgid "Process album artist field"
 msgstr "Καλλιτέχνης"
 
 #. Advice for Translators : set the first letter of album translated
-#: src/scan.c:2577
+#: src/scan.c:2605
 msgid "Al"
 msgstr "Δ"
 
-#: src/scan.c:2578
+#: src/scan.c:2606
 msgid "Process album field"
 msgstr "Όνομα δίσκου"
 
 #. Advice for Translators : set the first letter of genre translated
-#: src/scan.c:2580
+#: src/scan.c:2608
 msgid "G"
 msgstr "Ε"
 
-#: src/scan.c:2581
+#: src/scan.c:2609
 msgid "Process genre field"
 msgstr "Μουσικό είδος"
 
 #. Advice for Translators : set the first letter of comment translated
-#: src/scan.c:2583
+#: src/scan.c:2611
 msgid "Cm"
 msgstr "Σχ"
 
-#: src/scan.c:2584
+#: src/scan.c:2612
 msgid "Process comment field"
 msgstr "Σχόλιο"
 
 #. Advice for Translators : set the first letter of composer translated
-#: src/scan.c:2586
+#: src/scan.c:2614
 msgid "Cp"
 msgstr "Συ"
 
-#: src/scan.c:2587
+#: src/scan.c:2615
 msgid "Process composer field"
 msgstr "Όνομα συνθέτη"
 
 #. Advice for Translators : set the first letter of orig artist translated
-#: src/scan.c:2589
+#: src/scan.c:2617
 msgid "O"
 msgstr "Αρ"
 
-#: src/scan.c:2590
+#: src/scan.c:2618
 msgid "Process original artist field"
 msgstr "Όνομα αρχικού καλλιτέχνη"
 
 #. Advice for Translators : set the first letter of copyright translated
-#: src/scan.c:2592
+#: src/scan.c:2620
 msgid "Cr"
 msgstr "C"
 
-#: src/scan.c:2593
+#: src/scan.c:2621
 msgid "Process copyright field"
 msgstr "Copyright"
 
 #. Advice for Translators : set the first letter of URL translated
-#: src/scan.c:2595
+#: src/scan.c:2623
 msgid "U"
 msgstr "U"
 
-#: src/scan.c:2596
+#: src/scan.c:2624
 msgid "Process URL field"
 msgstr "URL"
 
 #. Advice for Translators : set the first letter of encoder name translated
-#: src/scan.c:2598
+#: src/scan.c:2626
 msgid "E"
 msgstr "Κω"
 
-#: src/scan.c:2599
+#: src/scan.c:2627
 msgid "Process encoder name field"
 msgstr "Κωδικοποιήθηκε από"
 
-#: src/scan.c:2648
+#: src/scan.c:2676
 msgid "Invert Selection"
 msgstr "Αντιστροφή επιλογής"
 
-#: src/scan.c:2657
+#: src/scan.c:2685
 msgid "Select/Unselect All."
 msgstr "Επιλογή/αποεπιλογή όλων"
 
 #. Group: character conversion
-#: src/scan.c:2664
+#: src/scan.c:2692
 msgid "Convert '_' and '%20' to ' '"
 msgstr "Μετατροπή του '_' και του '%20' σε ' '"
 
-#: src/scan.c:2670
+#: src/scan.c:2698
 msgid "Convert:"
 msgstr "Μετατροπή :"
 
-#: src/scan.c:2672
+#: src/scan.c:2700
 msgid "to: "
 msgstr "σε : "
 
-#: src/scan.c:2701
+#: src/scan.c:2729
 msgid ""
 "The underscore character or the string '%20' are replaced by one space. "
 "Example, before: 'Text%20In%20An_Entry', after: 'Text In An Entry'."
@@ -4880,7 +4904,7 @@ msgstr ""
 "Η κάτω παύλα και η συμβολοσειρά '%20' αντικαθιστώνται από ένα κενό. Π.χ. το "
 "'Κείμενο%20σε%20οποιοδήποτε_πεδίο' γίνεται 'Κείμενο σε οποιοδήποτε_πεδίο'."
 
-#: src/scan.c:2704
+#: src/scan.c:2732
 msgid ""
 "The space character is replaced by one underscore character. Example, "
 "before: 'Text In An Entry', after: 'Text_In_An_Entry'."
@@ -4888,16 +4912,16 @@ msgstr ""
 "Το κενό αντικαθίσταται από μία κάτω παύλα. Π.χ. το 'Κείμενο σε οποιοδήποτε "
 "πεδίο' γίνεται 'Κείμενο_σε_οποιοδήποτε_πεδίο'."
 
-#: src/scan.c:2707
+#: src/scan.c:2735
 msgid ""
 "Replace a string by an other one. Note that the search is case sensitive."
 msgstr ""
 
-#: src/scan.c:2720
+#: src/scan.c:2748
 msgid "Detect Roman numerals"
 msgstr ""
 
-#: src/scan.c:2747
+#: src/scan.c:2775
 msgid ""
 "Convert all words in all fields to upper case. Example, before: 'Text IN AN "
 "entry', after: 'TEXT IN AN ENTRY'."
@@ -4905,7 +4929,7 @@ msgstr ""
 "Μετατροπή όλων των γραμμάτων σε όλα τα πεδία σε κεφαλαία. Π.χ. το 'Κείμενο "
 "σε κάποιο ΠΕΔΙΟ' γίνεται 'ΚΕΙΜΕΝΟ ΣΕ ΚΑΠΟΙΟ ΠΕΔΙΟ'."
 
-#: src/scan.c:2750
+#: src/scan.c:2778
 msgid ""
 "Convert all words in all fields to lower case. Example, before: 'TEXT IN an "
 "entry', after: 'text in an entry'."
@@ -4913,7 +4937,7 @@ msgstr ""
 "Μετατροπή όλων των γραμμάτων σε όλα τα πεδία σε πεζά. Π.χ. το 'Κείμενο σε "
 "κάποιο ΠΕΔΙΟ' γίνεται 'κείμενο σε κάποιο πεδίο'."
 
-#: src/scan.c:2753
+#: src/scan.c:2781
 msgid ""
 "Convert the initial of the first word in all fields to upper case. Example, "
 "before: 'text IN An ENTRY', after: 'Text in an entry'."
@@ -4921,7 +4945,7 @@ msgstr ""
 "Μετατροπή του αρχικού γράμματος της πρώτης λέξης κάθε πεδίου σε κεφαλαίο. Π."
 "χ. το 'κείμενο ΣΕ Κάποιο ΠΕδίο' γίνεται 'Κείμενο σε κάποιο πεδίο'."
 
-#: src/scan.c:2756
+#: src/scan.c:2784
 msgid ""
 "Convert the initial of each word in all fields to upper case. Example, "
 "before: 'Text in an ENTRY', after: 'Text In An Entry'."
@@ -4929,7 +4953,7 @@ msgstr ""
 "Μετατροπή του αρχικού γράμματος κάθε λέξης κάθε πεδίου σε κεφαλαίο. Π.χ. το "
 "'κείμενο ΣΕ ΚΑποιο Πεδίο' γίνεται 'Κείμενο Σε Κάποιο Πεδίο'."
 
-#: src/scan.c:2759
+#: src/scan.c:2787
 #, fuzzy
 msgid ""
 "Force to convert to upper case the Roman numerals. Example, before: 'ix. "
@@ -4938,15 +4962,15 @@ msgstr ""
 "Εισάγεται ένα κενό πριν από κάθε κεφαλαίο χαρακτήρα. Π.χ. το "
 "'ΚείμενοΣεΚάποιοΠεδίο' γίνεται 'Κείμενο Σε Κάποιο Πεδίο'."
 
-#: src/scan.c:2768
+#: src/scan.c:2796
 msgid "Insert a space before an uppercase letter"
 msgstr "Εισαγωγή ενός κενού πριν από κάθε κεφαλαίο γράμμα"
 
-#: src/scan.c:2769
+#: src/scan.c:2797
 msgid "Remove duplicates of space or underscore"
 msgstr "Αφαίρεση διπλών κενών ή κάτω παυλών"
 
-#: src/scan.c:2787
+#: src/scan.c:2815
 msgid ""
 "All spaces between words are removed. Example, before: 'Text In An Entry', "
 "after: 'TextInAnEntry'."
@@ -4954,7 +4978,7 @@ msgstr ""
 "Αφαιρούνται όλα τα κενά ανάμεσα στις λέξεις. Π.χ. το 'Κείμενο Σε Κάποιο "
 "Πεδίο' γίνεται 'ΚείμενοΣεΚάποιοΠεδίο'."
 
-#: src/scan.c:2790
+#: src/scan.c:2818
 msgid ""
 "A space is inserted before each upper case letter. Example, before: "
 "'TextInAnEntry', after: 'Text In An Entry'."
@@ -4962,7 +4986,7 @@ msgstr ""
 "Εισάγεται ένα κενό πριν από κάθε κεφαλαίο χαρακτήρα. Π.χ. το "
 "'ΚείμενοΣεΚάποιοΠεδίο' γίνεται 'Κείμενο Σε Κάποιο Πεδίο'."
 
-#: src/scan.c:2793
+#: src/scan.c:2821
 msgid ""
 "Duplicated spaces or underscores are removed. Example, before: "
 "'Text__In__An   Entry', after: 'Text_In_An Entry'."
@@ -4973,166 +4997,166 @@ msgstr ""
 #.
 #. * Frame to display codes legend
 #.
-#: src/scan.c:2800
+#: src/scan.c:2828
 msgid "Legend"
 msgstr "Υπόμνημα"
 
-#: src/scan.c:2806
+#: src/scan.c:2834
 #, c-format
 msgid "%a : artist"
 msgstr "%a : Όνομα καλλιτέχνη"
 
-#: src/scan.c:2809
+#: src/scan.c:2837
 #, fuzzy
 msgid "%z : album artist"
 msgstr "%a : Όνομα καλλιτέχνη"
 
-#: src/scan.c:2812
+#: src/scan.c:2840
 msgid "%b : album"
 msgstr "%b : Τίτλος δίσκου"
 
-#: src/scan.c:2815
+#: src/scan.c:2843
 #, c-format
 msgid "%c : comment"
 msgstr "%c : Σχόλιο"
 
-#: src/scan.c:2818
+#: src/scan.c:2846
 #, c-format
 msgid "%p : composer"
 msgstr "%p : Όνομα συνθέτη"
 
-#: src/scan.c:2821
+#: src/scan.c:2849
 msgid "%r : copyright"
 msgstr "%r : Copyright"
 
-#: src/scan.c:2824
+#: src/scan.c:2852
 #, c-format
 msgid "%d : disc number"
 msgstr "%d : α/α δίσκου"
 
-#: src/scan.c:2827
+#: src/scan.c:2855
 #, c-format
 msgid "%e : encoded by"
 msgstr "%e : Κωδικοποιήθηκε από"
 
-#: src/scan.c:2830
+#: src/scan.c:2858
 #, c-format
 msgid "%g : genre"
 msgstr "%g : Μουσικό είδος"
 
-#: src/scan.c:2833
+#: src/scan.c:2861
 #, c-format
 msgid "%i : ignored"
 msgstr "%i : Να αγνοηθεί"
 
-#: src/scan.c:2836
+#: src/scan.c:2864
 msgid "%l : number of tracks"
 msgstr "%l : Αριθμός κομματιών"
 
-#: src/scan.c:2839
+#: src/scan.c:2867
 #, c-format
 msgid "%o : orig. artist"
 msgstr "%o : Όνομα αρχικού καλλιτέχνη"
 
-#: src/scan.c:2842
+#: src/scan.c:2870
 #, c-format
 msgid "%n : track"
 msgstr "%n Αριθμός κομματιού"
 
-#: src/scan.c:2845
+#: src/scan.c:2873
 msgid "%t : title"
 msgstr "%t : Τίτλος"
 
-#: src/scan.c:2848
+#: src/scan.c:2876
 #, c-format
 msgid "%u : URL"
 msgstr "%u : URL"
 
-#: src/scan.c:2851
+#: src/scan.c:2879
 msgid "%y : year"
 msgstr "%y : Χρονιά"
 
 #.
 #. * Masks Editor
 #.
-#: src/scan.c:2858
+#: src/scan.c:2886
 msgid "Mask Editor"
 msgstr "Διορθωτής Μάσκας"
 
-#: src/scan.c:2915
+#: src/scan.c:2943
 msgid "Create New Mask"
 msgstr "Δημιουργία νέας μάσκας"
 
-#: src/scan.c:2925
+#: src/scan.c:2953
 msgid "Move Up this Mask"
 msgstr "Μετακίνηση της μάσκας προς τα πάνω"
 
-#: src/scan.c:2935
+#: src/scan.c:2963
 msgid "Move Down this Mask"
 msgstr "Μετακίνηση της μάσκας προς τα κάτω"
 
-#: src/scan.c:2945
+#: src/scan.c:2973
 msgid "Duplicate Mask"
 msgstr "Διπλασιασμός της μάσκας"
 
-#: src/scan.c:2955
+#: src/scan.c:2983
 msgid "Add Default Masks"
 msgstr "Προσθήκη εξ ορισμού μασκών"
 
-#: src/scan.c:2965
+#: src/scan.c:2993
 msgid "Remove Mask"
 msgstr "Διαγραφή μάσκας"
 
-#: src/scan.c:2975
+#: src/scan.c:3003
 msgid "Save Masks"
 msgstr "Αποθήκευση μασκών"
 
-#: src/scan.c:3566
+#: src/scan.c:3594
 msgid "New_mask"
 msgstr "_Νέα μάσκα"
 
-#: src/scan.c:3604
+#: src/scan.c:3632
 msgid "Copy: No row selected!"
 msgstr "Αντιγραφή: Δεν έχει επιλεγεί καμία σειρά!"
 
-#: src/scan.c:3710
+#: src/scan.c:3738
 msgid "Remove: No row selected!"
 msgstr "Διαγραφή: Δεν έχει επιλεγεί καμία σειρά!"
 
-#: src/scan.c:3757
+#: src/scan.c:3785
 msgid "Move Up: No row selected!"
 msgstr "Μετακίνηση προς τα πάνω: Δεν έχει επιλεγεί καμία σειρά!"
 
-#: src/scan.c:3810
+#: src/scan.c:3838
 msgid "Move Down: No row selected!"
 msgstr "Μετακίνηση προς τα κάτω: Δεν έχει επιλεγεί καμία σειρά!"
 
-#: src/setting.c:909
+#: src/setting.c:933
 #, fuzzy, c-format
 msgid "ERROR: Can't write config file: %s (%s)"
 msgstr ""
 "ΣΦΑΛΜΑ: Αδυναμία αποθήκευσης του αρχείου ρυθμίσεων %s (%s)\n"
 "\a"
 
-#: src/setting.c:1058 src/setting.c:1101
+#: src/setting.c:1082 src/setting.c:1125
 #, c-format
 msgid "Can't open configuration file '%s' (%s)"
 msgstr "Αδυναμία ανοίγματος του αρχείου ρυθμίσεων  '%s' (%s)"
 
-#: src/setting.c:1059
+#: src/setting.c:1083
 msgid "Loading default configuration..."
 msgstr "Φόρτωση ερήμην ρυθμίσεων..."
 
-#: src/setting.c:1172 src/setting.c:1179 src/setting.c:1186 src/setting.c:1193
-#: src/setting.c:1200 src/setting.c:1207 src/setting.c:1214 src/setting.c:1221
-#: src/setting.c:1228 src/setting.c:1235 src/setting.c:1242 src/setting.c:1249
-#: src/setting.c:1256 src/setting.c:1263 src/setting.c:1270 src/setting.c:1277
-#: src/setting.c:1284
+#: src/setting.c:1196 src/setting.c:1203 src/setting.c:1210 src/setting.c:1217
+#: src/setting.c:1224 src/setting.c:1231 src/setting.c:1238 src/setting.c:1245
+#: src/setting.c:1252 src/setting.c:1259 src/setting.c:1266 src/setting.c:1273
+#: src/setting.c:1280 src/setting.c:1287 src/setting.c:1294 src/setting.c:1301
+#: src/setting.c:1308
 #, c-format
 msgid "Can't create or open file '%s' (%s)"
 msgstr "Αδυναμία δημιουργίας ή ανοίγματος του αρχείου '%s' (%s)"
 
-#: src/setting.c:1323
+#: src/setting.c:1347
 #, fuzzy, c-format
 msgid "ERROR: Can't write list to file: %s (%s)"
 msgstr ""
@@ -5140,28 +5164,28 @@ msgstr ""
 "\a"
 
 #. Fall back to defaults
-#: src/setting.c:1411
+#: src/setting.c:1435
 msgid "Loading default 'Fill Tag' masks..."
 msgstr "Φόρτωση των προκαθορισμένων μασκών συμπλήρωσης ετικέτας..."
 
 #. Fall back to defaults
-#: src/setting.c:1439
+#: src/setting.c:1463
 msgid "Loading default 'Rename File' masks..."
 msgstr "Φόρτωση των προκαθορισμένων μασκών μετονομασίας αρχείου..."
 
 #. Fall back to defaults
-#: src/setting.c:1466
+#: src/setting.c:1490
 msgid "Loading default 'Rename Directory' masks..."
 msgstr "Φόρτωση των προκαθορισμένων μασκών μετονομασίας καταλόγου..."
 
-#: src/setting.c:1660
+#: src/setting.c:1684
 #, fuzzy
 msgid "ERROR: The environment variable HOME is not defined!"
 msgstr ""
 "ΣΦΑΛΜΑ: Δεν έχει οριστεί η μεταβλητή περιβάλλοντος HOME!\n"
 "\n"
 
-#: src/setting.c:1681
+#: src/setting.c:1705
 #, c-format
 msgid "ERROR: Can't create directory '%s' (%s)!"
 msgstr "ΣΦΑΛΜΑ: Αδυναμία δημιουργίας του καταλόγου  '%s' (%s)!"
