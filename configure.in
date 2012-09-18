@@ -16,7 +16,7 @@ AM_INIT_AUTOMAKE(foreign)
 dnl -------------------------------
 dnl Translation files
 dnl -------------------------------
-ALL_LINGUAS="bg cs da de el es fr he hu it ja nl pl pt_BR ro ru sr sr@Latn sv uk zh_CN zh_TW"
+ALL_LINGUAS="bg cs da de el es fr he hu it ja lt nl pl pt_BR ro ru sr sr@Latn sv uk zh_CN zh_TW"
 GETTEXT_PACKAGE=easytag
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Package name for gettext])
@@ -502,3 +502,4 @@ echo
 echo Now type 'make' to build $PACKAGE $VERSION,
 echo and then 'make install' for installation.
 echo
+
