@@ -116,77 +116,15 @@ dnl ################################################
 dnl check for system libflac
 dnl Note that libvorbis is required for flac support, even if the user chooses --disable-ogg
 
-if test "x$enable_flac" = "xyes"; then
-    dnl Library required for flac files, if not found 'enable_flac' is disabled
-    AC_CHECK_LIB(m, cos) dnl Patch from Christian Weisgerber
-    AC_CHECK_LIB(FLAC, FLAC__metadata_simple_iterator_new, , flac_available=no)
+FLAC_DEPS="flac >= 1.1.0"
+AS_IF([test "x$enable_flac" != "xno"],
+      [PKG_CHECK_MODULES([FLAC], [$FLAC_DEPS], [have_flac=yes], [have_flac=no])],
+      [have_flac=no])
 
-    AC_MSG_CHECKING(for FLAC file support)
-    if test "x$flac_available" = "xno"; then
-        AC_MSG_RESULT(no)
-        enable_flac="no"
-        echo "***"
-        echo "*** Warning: FLAC file support disabled, libflac missing"
-        echo "*** (Install libflac, libogg and libvorbis libraries to enable it)"
-        echo "***"
-    elif test "x$ogg_available" = "xno"; then
-        AC_MSG_RESULT(no)
-        enable_flac="no"
-        echo "***"
-        echo "*** Warning: FLAC file support disabled, libvorbis missing"
-        echo "*** (Install libflac, libogg and libvorbis libraries to enable it)"
-        echo "***"
-    else
-        AC_MSG_RESULT(yes)
-        AC_DEFINE(ENABLE_FLAC,1,[Define for FLAC support])
-    fi
-else
-    AC_MSG_CHECKING(for FLAC file support)
-    AC_MSG_RESULT(no)
-    echo "***"
-    echo "*** FLAC file support disabled on commandline"
-    echo "*** (Install libflac, libogg and libvorbis libraries, and use --enable-flac to enable it)"
-    echo "***"
-fi
-
-dnl Check version of libFLAC installed
-dnl version of libFLAC must be at least 1.1.0
-if test "x$enable_flac" = "xyes"; then
-    LIBS_SAVE="$LIBS"
-    CFLAGS_SAVE="$CFLAGS"
-    LIBS="$LIBS $LIBFLAC_LIBS"
-    CFLAGS="$CFLAGS $LIBFLAC_CFLAGS"
-    AC_MSG_CHECKING(for libFLAC version)
-        AC_TRY_RUN([
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <FLAC/format.h>
-int 
-main (void)
-{
-    FILE *output;
-    char tmp[16];
-    int libflac_major, libflac_minor, libflac_patch;
-
-    sprintf(tmp,"%s",FLAC__VERSION_STRING);
-    libflac_major = atoi( (char *)strtok(tmp,".") );
-    libflac_minor = atoi( (char *)strtok(NULL,".") );
-    libflac_patch = atoi( (char *)strtok(NULL,".") );
-    output=fopen("conftest.flac","w");
-    fprintf(output,"LIBFLAC_MAJOR=%d\nLIBFLAC_MINOR=%d\nLIBFLAC_PATCH=%d\n",libflac_major,libflac_minor,libflac_patch);
-    fclose(output);
-    exit(0);
-}
-], . ./conftest.flac; echo "${LIBFLAC_MAJOR}.${LIBFLAC_MINOR}.${LIBFLAC_PATCH}", AC_MSG_WARN(could not determine libFLAC version),[echo $ac_n "cross compiling; assuming ${LIBFLAC_MAJOR}.${LIBFLAC_MINOR}.${LIBFLAC_PATCH} $ac_c"])
-    LIBS="$LIBS_SAVE"
-    CFLAGS="$CFLAGS_SAVE"
-    LIBFLAC_VERSION="(flac-$LIBFLAC_MAJOR.$LIBFLAC_MINOR.$LIBFLAC_PATCH)"
-fi
-AC_DEFINE_UNQUOTED(LIBFLAC_MAJOR, $LIBFLAC_MAJOR, [libflac major version])
-AC_DEFINE_UNQUOTED(LIBFLAC_MINOR, $LIBFLAC_MINOR, [libflac minor version])
-AC_DEFINE_UNQUOTED(LIBFLAC_PATCH, $LIBFLAC_PATCH, [libflac patch version])
-
+AS_IF([test "x$have_flac" != "xno"],
+      [AC_DEFINE([ENABLE_FLAC], [], [Define for FLAC support])],
+      [AS_IF([test "x$enable_flac" = "xyes"],
+             [AC_MSG_ERROR([FLAC support requested but required dependencies ($FLAC_DEPS) not found])])])
 
 dnl ################################################
 dnl # libid3tag and Id3lib libraries
@@ -421,8 +359,8 @@ echo GTK2 version ............: `pkg-config --modversion gtk+-2.0`
 echo MP3 file support ........: $enable_mp3
 echo ID3v2.3 tags support ....: $enable_id3v23 $ID3LIB_VERSION
 echo Ogg Vorbis file support .: $have_ogg
-echo Speex file support ......: $have_speex
-echo FLAC file support .......: $enable_flac $LIBFLAC_VERSION
+echo Ogg Speex file support ..: $have_speex
+echo FLAC file support .......: $have_flac
 echo MP4 file support ........: $enable_mp4 $LIBMP4V2_VERSION
 echo WavPack support .........: $enable_wavpack
 echo NLS/gettext .............: $USE_NLS

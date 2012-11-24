@@ -160,13 +160,8 @@ gboolean Flac_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
 #endif
 
 #ifdef LEGACY_FLAC
-    // In FLAC 1.0.3, is used : FLAC__file_decoder_process_metadata
     // In FLAC 1.0.4, is used : FLAC__file_decoder_process_until_end_of_metadata
-#if ( (LIBFLAC_MAJOR <= 1) && (LIBFLAC_MINOR <= 0) && (LIBFLAC_PATCH <= 3) )
-    if (!FLAC__file_decoder_process_metadata(tmp_decoder)) // FLAC 1.0.3
-#else
     if (!FLAC__file_decoder_process_until_end_of_metadata(tmp_decoder)) // FLAC 1.0.4 (Bastian Kleineidam)
-#endif
 #else
     if(!FLAC__stream_decoder_process_until_end_of_metadata(tmp_decoder))
 #endif
