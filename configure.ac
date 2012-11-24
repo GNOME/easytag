@@ -16,6 +16,7 @@ dnl Init automake
 dnl -------------------------------
 AM_INIT_AUTOMAKE([1.11 -Wall no-define dist-xz no-dist-gzip foreign nostdinc subdir-objects])
 AM_MAINTAINER_MODE([enable])
+AM_SILENT_RULES([yes])
 
 dnl -------------------------------
 dnl Translation files.
