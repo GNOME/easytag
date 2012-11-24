@@ -241,7 +241,6 @@ dnl AM_GNU_GETTEXT_VERSION(0.10.40)
 AC_CONFIG_FILES([ Makefile
                   easytag.spec
                   doc/easytag.1
-                  src/id3lib/Makefile
                   src/libapetag/Makefile
                   src/libmpg123/Makefile
                   po/Makefile.in
