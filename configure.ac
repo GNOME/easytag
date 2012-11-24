@@ -193,68 +193,20 @@ fi
 dnl ################################################
 dnl # libmp4v2 library
 dnl ################################################
-if test "x$enable_mp4" = "xyes"; then
-    dnl Librairies required for mp4 files, if not found 'enable_mp4' is disabled
-    AC_MSG_CHECKING(for MP4 file support)
-    AC_CHECK_HEADER(mp4v2/mp4v2.h, [], [mp4_available=no])
-    AC_CHECK_LIB(mp4v2, MP4GetTrackMediaDataName, [], [mp4_available=no], [-lmp4v2])
-fi
 
-AC_MSG_CHECKING(for MP4/AAC file support)
-if test "x$enable_mp4" = "xyes"; then
-    if test "x$mp4_available" = "xno"; then
-        AC_MSG_RESULT(no)
-        enable_mp4="no"
-        echo "***"
-        echo "*** Warning: MP4 file support disabled"
-        echo "*** (Install libmp4v2 >= 1.9.0 to enable it)"
-        echo "***"
-    else
+AS_IF([test "x$enable_mp4" != "xno"],
+      [AC_CHECK_HEADER([mp4v2/mp4v2.h], [mp4_header=yes], [mp4_header=no])
+       AC_CHECK_LIB([mp4v2], [MP4GetTrackMediaDataName], [mp4_lib=yes], [mp4_lib=no])
+       AS_IF([test "x$mp4_header" = "xyes" -a "x$mp4_lib" = "xyes"],
+             [have_mp4=yes
+              AC_DEFINE([ENABLE_MP4], [], [Define for MP4 support])
+              AC_SUBST([LIBMP4V2_LIBS], [-lmp4v2])],
+             [have_mp4=no])],
+      [have_mp4=no])
 
-        dnl Check version of mp4v2 installed
-        LIBS_SAVE="$LIBS"
-        CFLAGS_SAVE="$CFLAGS"
-        LIBS="$LIBS $LIBMP4V2_LIBS"
-        CFLAGS="$CFLAGS $LIBMP4V2_CFLAGS"
-        AC_MSG_CHECKING(for libmp4v2 version)
-            AC_TRY_RUN([
-                #include <stdio.h>
-                #include <mp4v2/mp4v2.h>
-                int main (void)
-                {
-                    FILE *output;
-                    output=fopen("conftest.mp4v2","w");
-                    fprintf(output,"MP4V2_PROJECT_name=%s\nMP4V2_PROJECT_version=%s\n",PACKAGE_TARNAME,PACKAGE_VERSION);
-                    fclose(output);
-                    exit(0);
-                }
-            ], . ./conftest.mp4v2; echo "${LIBMP4V2_NAME}-${LIBMP4V2_VERSION}", AC_MSG_WARN(could not determine libmp4v2 version),[echo $ac_n "cross compiling; assuming ${LIBMP4V2_NAME}-${LIBMP4V2_VERSION} $ac_c"])
-        LIBS="$LIBS_SAVE"
-        CFLAGS="$CFLAGS_SAVE"
-        if test "$LIBMP4V2_VERSION" != ""; then
-            LIBMP4V2_VERSION="($LIBMP4V2_NAME-$LIBMP4V2_VERSION)"
-        fi
-
-        dnl Version 1.6 of libmp4v2 introduces an index argument for MP4GetMetadataCoverart. So we define 'NEWMP4' if it is the case
-        AC_COMPILE_IFELSE([
-           #include <mp4v2/mp4v2.h>
-           main () {
-           MP4FileHandle hFile;
-           MP4GetMetadataCoverArt(hFile, NULL, NULL,0); }
-        ], AC_DEFINE(NEWMP4,1,[Define for MP4 lib with multiple image support]),)
-
-        AC_MSG_RESULT(yes)
-        AC_DEFINE(ENABLE_MP4,1,[Define for MP4 support])
-    fi
-else
-    AC_MSG_RESULT(no)
-    enable_mp4="no"
-    echo "***"
-    echo "*** MP4 file support disabled on commandline"
-    echo "*** (Install libmp4v2 and use --enable-mp4 to enable it)"
-    echo "***"
-fi
-
+AS_IF([test "x$have_mp4" = "xyes"],
+      [AC_DEFINE([ENABLE_MP4], [], [Define for MP4 support])
+       AC_SUBST([LIBMP4V2_LIBS], [-lmp4v2])])
 
 dnl ################################################
 dnl # WavPack library
@@ -338,7 +290,7 @@ echo ID3v2.3 tags support ....: $enable_id3v23 $ID3LIB_VERSION
 echo Ogg Vorbis file support .: $have_ogg
 echo Ogg Speex file support ..: $have_speex
 echo FLAC file support .......: $have_flac
-echo MP4 file support ........: $enable_mp4 $LIBMP4V2_VERSION
+echo MP4 file support ........: $have_mp4
 echo WavPack support .........: $have_wavpack
 echo NLS/gettext .............: $USE_NLS
 echo Install prefix ..........: $prefix

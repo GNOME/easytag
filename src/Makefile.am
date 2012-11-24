@@ -101,6 +101,7 @@ easytag_LDADD = \
 	$(SPEEX_LIBS) \
 	$(FLAC_LIBS) \
 	$(WAVPACK_LIBS) \
+	$(LIBMP4V2_LIBS) \
 	libmpg123/libmpg123.a \
 	libapetag/libapetag.a \
 	id3lib/libid3bugfix.a
