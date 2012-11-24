@@ -1,13 +1,12 @@
-AUTOMAKE_OPTIONS=dist-bzip2
-ACLOCAL_AMFLAGS=-I m4
+ACLOCAL_AMFLAGS = -I m4
  
-SUBDIRS=src po
+SUBDIRS = src po
 
-gnome_menudir=$(datadir)/applications
-gnome_menu_DATA=easytag.desktop
+desktopdir = $(datadir)/applications
+dist_desktop_DATA = easytag.desktop
 
-textdir = $(datadir)/$(PACKAGE)
-text_DATA = ChangeLog
+textdir = $(pkgdatadir)
+dist_text_DATA = ChangeLog
 
 man_MANS = doc/easytag.1
 
@@ -47,32 +46,20 @@ BITMAPS = \
     pixmaps/sound.xpm \
     pixmaps/unselect_all.xpm
 
-pixmapdir = $(datadir)/$(PACKAGE)
-pixmap_DATA = \
+pixmapdir = $(pkgdatadir)
+dist_pixmap_DATA = \
     pixmaps/EasyTAG_logo.xpm
-#    pixmaps/artist_album.png \
-#    pixmaps/EasyTAG_icon.png \
-#    pixmaps/EasyTAG_logo.png \
-#    pixmaps/scan.png
-
 
 icondir = $(datadir)/pixmaps
-icon_DATA = pixmaps/EasyTAG_icon.xpm
-#icon_DATA = pixmaps/EasyTAG_icon.png
+dist_icon_DATA = pixmaps/EasyTAG_icon.xpm
 
 
-EXTRA_DIST= \
-    $(gnome_menu_DATA) \
-    $(text_DATA) \
+dist_noinst_DATA = \
     $(BITMAPS) \
-    $(pixmap_DATA) \
-    $(icon_DATA) \
     \
-    autogen.sh \
     easytag.spec \
     easytag-win32-installer.nsi \
     COPYING \
-    INSTALL \
     README \
     THANKS \
     TODO \
@@ -90,4 +77,5 @@ EXTRA_DIST= \
     doc/id3/* \
     doc/vorbis/* 
 
-
+dist_noinst_SCRIPTS = \
+    autogen.sh
