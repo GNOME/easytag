@@ -283,3 +283,9 @@ dist_noinst_DATA = \
 
 dist_noinst_SCRIPTS = \
     autogen.sh
+
+DISTCLEANFILES = \
+	intltool-extract \
+	intltool-merge \
+	intltool-update \
+	po/.intltool-merge-cache

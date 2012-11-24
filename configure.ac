@@ -21,8 +21,8 @@ AM_SILENT_RULES([yes])
 dnl -------------------------------
 dnl Translation files.
 dnl -------------------------------
-ALL_LINGUAS="bg cs da de el es fr he hu it ja lt nl pl pt_BR ro ru sr sr@Latn sv uk zh_CN zh_TW"
-AC_SUBST([GETTEXT_PACKAGE], [easytag])
+IT_PROG_INTLTOOL([0.50.0])
+AC_SUBST([GETTEXT_PACKAGE], [$PACKAGE_TARNAME])
 AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Package name for gettext])
 
 dnl -------------------------------
@@ -228,14 +228,6 @@ dnl -------------------------------
 AC_FUNC_FORK
 AC_CHECK_FUNCS(mkdir strstr strtol mkstemp)
 AC_SEARCH_LIBS([strerror], [cposix])
-
-
-dnl -------------------------------
-dnl check for NLS
-dnl -------------------------------
-AM_GLIB_GNU_GETTEXT
-dnl AM_GNU_GETTEXT_VERSION(0.10.40)
-
 
 
 AC_CONFIG_FILES([ Makefile

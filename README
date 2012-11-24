@@ -71,7 +71,7 @@ INSTALLATION:
  - libmp4v2 (http://mp4v2.googlecode.com/) (if not deactivated by './configure --disable-mp4') (Recommended: libmp4v2-1.9.0)
  - wavpack (http://www.wavpack.com/) (if not deactivated by './configure --disable-wavpack')
  - libc 6 (glibc 2.1) or better
- - gettext (if not deactivated by './configure --disable-nls')
+ - intltool (if not deactivated by './configure --disable-nls')
 
 
 2. Compilation Instructions :
