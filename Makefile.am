@@ -1,6 +1,6 @@
 ACLOCAL_AMFLAGS = -I m4
  
-SUBDIRS = src/libapetag src/libmpg123 po
+SUBDIRS = src/libmpg123 po
 
 bin_PROGRAMS = easytag
 
@@ -19,6 +19,10 @@ easytag_CPPFLAGS = \
 
 easytag_SOURCES = \
 	src/id3lib/c_wrapper.cpp \
+	src/libapetag/apetaglib.c \
+	src/libapetag/is_tag.c \
+	src/libapetag/info_mac.c \
+	src/libapetag/info_mpc.c \
 	src/about.c \
 	src/ape_tag.c \
 	src/bar.c \
@@ -55,6 +59,10 @@ easytag_SOURCES = \
 
 easytag_headers = \
 	src/id3lib/id3_bugfix.h \
+	src/libapetag/apetaglib.h \
+	src/libapetag/is_tag.h \
+	src/libapetag/info_mac.h \
+	src/libapetag/info_mpc.h \
 	src/about.h \
 	src/ape_tag.h \
 	src/bar.h \
@@ -97,8 +105,7 @@ easytag_LDADD = \
 	$(LIBMP4V2_LIBS) \
 	$(ID3TAG_LIBS) \
 	$(ID3LIB_LIBS) \
-	src/libmpg123/libmpg123.a \
-	src/libapetag/libapetag.a
+	src/libmpg123/libmpg123.a
 
 desktopdir = $(datadir)/applications
 dist_desktop_DATA = easytag.desktop
@@ -157,6 +164,10 @@ dist_noinst_DATA = \
 	$(easytag_headers) \
 	Makefile.mingw \
 	src/id3lib/patch_id3lib_3.8.3_UTF16_writing_bug.diff \
+	src/libapetag/COPYING.LGPL \
+	src/libapetag/README.apetag \
+	src/libapetag/id3v2_read.c \
+	src/libapetag/id3v2_read.h \
 	src/win32/easytag.rc \
 	src/win32/gtkwin32dep.c \
 	src/win32/gtkwin32dep.h \
