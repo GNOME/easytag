@@ -1,8 +1,9 @@
 # ignore file
 *.o
+.dirstamp
 /build-aux
 m4/*
-src/easytag
+/easytag
 Makefile
 Makefile.in
 aclocal.m4
@@ -21,7 +22,6 @@ po/POTFILES
 src/.deps/
 src/Makefile
 src/Makefile.in
-src/easytag
 src/id3lib/.deps/
 src/id3lib/Makefile
 src/id3lib/Makefile.in
