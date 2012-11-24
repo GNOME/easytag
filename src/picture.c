@@ -990,7 +990,7 @@ void PictureEntry_Update (Picture *pic, gboolean select_it)
                                     scaled_pixbuf_width, scaled_pixbuf_height,
                                     //GDK_INTERP_NEAREST); // Lower quality but better speed
                                     GDK_INTERP_BILINEAR);
-                gdk_pixbuf_unref(pixbuf);
+                g_object_unref(pixbuf);
 
                 picture_store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(PictureEntryView)));
                 gtk_list_store_append(picture_store, &iter1);
@@ -1004,7 +1004,7 @@ void PictureEntry_Update (Picture *pic, gboolean select_it)
 
                 if (select_it)
                     gtk_tree_selection_select_iter(selection, &iter1);
-                gdk_pixbuf_unref(scaled_pixbuf);
+                g_object_unref(scaled_pixbuf);
             }else
             {
                 GtkWidget *msgbox = NULL;
