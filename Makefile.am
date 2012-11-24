@@ -1,6 +1,6 @@
 ACLOCAL_AMFLAGS = -I m4
  
-SUBDIRS = src/libmpg123 po
+SUBDIRS = po
 
 bin_PROGRAMS = easytag
 
@@ -23,6 +23,13 @@ easytag_SOURCES = \
 	src/libapetag/is_tag.c \
 	src/libapetag/info_mac.c \
 	src/libapetag/info_mpc.c \
+	src/libmpg123/common.c \
+	src/libmpg123/dxhead.c \
+	src/libmpg123/getbits.c \
+	src/libmpg123/layer1.c \
+	src/libmpg123/layer2.c \
+	src/libmpg123/layer3.c \
+	src/libmpg123/mpg123.c \
 	src/about.c \
 	src/ape_tag.c \
 	src/bar.c \
@@ -63,6 +70,11 @@ easytag_headers = \
 	src/libapetag/is_tag.h \
 	src/libapetag/info_mac.h \
 	src/libapetag/info_mpc.h \
+	src/libmpg123/dxhead.h \
+	src/libmpg123/getbits.h \
+	src/libmpg123/huffman.h \
+	src/libmpg123/l2tables.h \
+	src/libmpg123/mpg123.h \
 	src/about.h \
 	src/ape_tag.h \
 	src/bar.h \
@@ -104,8 +116,7 @@ easytag_LDADD = \
 	$(WAVPACK_LIBS) \
 	$(LIBMP4V2_LIBS) \
 	$(ID3TAG_LIBS) \
-	$(ID3LIB_LIBS) \
-	src/libmpg123/libmpg123.a
+	$(ID3LIB_LIBS)
 
 desktopdir = $(datadir)/applications
 dist_desktop_DATA = easytag.desktop
@@ -168,6 +179,7 @@ dist_noinst_DATA = \
 	src/libapetag/README.apetag \
 	src/libapetag/id3v2_read.c \
 	src/libapetag/id3v2_read.h \
+	src/libmpg123/README \
 	src/win32/easytag.rc \
 	src/win32/gtkwin32dep.c \
 	src/win32/gtkwin32dep.h \
