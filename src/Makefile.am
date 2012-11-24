@@ -1,8 +1,15 @@
-CFLAGS = @CFLAGS@ @GTK_CFLAGS@
-
 SUBDIRS = libmpg123 libapetag id3lib
 
 bin_PROGRAMS = easytag
+
+localedir = $(datadir)/locale
+easytag_CPPFLAGS = \
+	-I$(top_builddir) \
+	$(GTK_CFLAGS) \
+	$(OGG_CFLAGS) \
+	$(WARN_CPPFLAGS) \
+	-DLOCALEDIR=\"$(localedir)\" \
+	-DPACKAGE_DATA_DIR=\"$(pkgdatadir)\"
 
 easytag_SOURCES = \
  about.c \
@@ -85,9 +92,9 @@ EXTRA_DIST = \
  win32/nsis/easytag-install.ico \
  win32/nsis/easytag-uninstall.bmp 
 
-easytag_LDADD = $(GTK_LIBS) libmpg123/libmpg123.a libapetag/libapetag.a  id3lib/libid3bugfix.a
-
-localedir = $(datadir)/locale
-PACKAGE_DATA_DIR = $(datadir)/$(PACKAGE)
-INCLUDES = -DLOCALEDIR=\"$(localedir)\" \
-           -DPACKAGE_DATA_DIR=\"$(PACKAGE_DATA_DIR)\"
+easytag_LDADD = \
+	$(GTK_LIBS) \
+	$(OGG_LIBS) \
+	libmpg123/libmpg123.a \
+	libapetag/libapetag.a \
+	id3lib/libid3bugfix.a

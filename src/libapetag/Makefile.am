@@ -1,9 +1,9 @@
-CFLAGS = @CFLAGS@ @GTK_CFLAGS@
-
 noinst_LIBRARIES = libapetag.a
 
-INCLUDES = -DLOCALE=\"$(localedir)\"
-
+libapetag_a_CPPFLAGS = \
+	$(GTK_CFLAGS) \
+	$(WARN_CPPFLAGS) \
+	-DLOCALE=\"$(localedir)\"
 
 libapetag_a_SOURCES = \
     apetaglib.c \
@@ -15,7 +15,7 @@ libapetag_a_SOURCES = \
     info_mpc.c \
     info_mpc.h
 
-EXTRA_DIST = \
+dist_noinst_DATA = \
     COPYING.LGPL \
     README.apetag \
     id3v2_read.c \

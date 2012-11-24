@@ -18,7 +18,7 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
@@ -2252,7 +2252,7 @@ gboolean Cddb_Search_Album_List_From_String_Freedb (void)
                               string,
                               (tmp=Cddb_Generate_Request_String_With_Fields_And_Categories_Options()),
                               cddb_server_name,cddb_server_port,
-                              APPNAME,VERSION,
+                              APPNAME,PACKAGE_VERSION,
                               (proxy_auth=Cddb_Format_Proxy_Authentification())
                               );
 
@@ -2574,7 +2574,7 @@ gboolean Cddb_Search_Album_List_From_String_Gnudb (void)
                                   string,
                                   next_page_cpt,
                                   cddb_server_name,cddb_server_port,
-                                  APPNAME,VERSION,
+                                  APPNAME,PACKAGE_VERSION,
                                   (proxy_auth=Cddb_Format_Proxy_Authentification())
                                   );
         next_page_found = FALSE;
@@ -3133,7 +3133,7 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
                                       cddb_discid,
                                       num_tracks, query_string,
                                       disc_length,
-                                      APPNAME,VERSION,
+                                      APPNAME,PACKAGE_VERSION,
                                       cddb_server_name,cddb_server_port,
                                       (proxy_auth=Cddb_Format_Proxy_Authentification())
                                       );
@@ -3417,7 +3417,7 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
 		                              CDDB_USE_PROXY?"http://":"", CDDB_USE_PROXY?cddb_server_name:"",  // Needed when using proxy
 		                              cddbalbum->category,cddbalbum->id,
 		                              cddb_server_name,cddb_server_port,
-		                              APPNAME,VERSION,
+		                              APPNAME,PACKAGE_VERSION,
 		                              (proxy_auth=Cddb_Format_Proxy_Authentification())
 		                              );
 		}else
@@ -3434,7 +3434,7 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
 		                              "Connection: close\r\n\r\n",
 		                              CDDB_USE_PROXY?"http://":"",CDDB_USE_PROXY?cddb_server_name:"", cddb_server_cgi_path,
 		                              cddbalbum->category,cddbalbum->id,
-		                              APPNAME,VERSION,
+		                              APPNAME,PACKAGE_VERSION,
 		                              cddb_server_name,cddb_server_port,
 		                              (proxy_auth=Cddb_Format_Proxy_Authentification())
 		                              );

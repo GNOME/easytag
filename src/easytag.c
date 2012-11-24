@@ -19,7 +19,7 @@
  */
 
 
-#include <config.h> // For definition of ENABLE_OGG
+#include "config.h" // For definition of ENABLE_OGG
 #include <gtk/gtk.h>
 #include <stdio.h>
 #include <string.h>
@@ -174,7 +174,7 @@ int main (int argc, char *argv[])
 
 #ifdef ENABLE_NLS
     bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
-    bind_textdomain_codeset(PACKAGE, "UTF-8");
+    bind_textdomain_codeset(PACKAGE_TARNAME, "UTF-8");
     textdomain(GETTEXT_PACKAGE);
     /* Initialize i18n support */
     //gtk_set_locale();
@@ -195,7 +195,7 @@ int main (int argc, char *argv[])
     INIT_DIRECTORY = NULL;
 
     /* Starting messages */
-    Log_Print(LOG_OK,_("Starting EasyTAG %s (PId: %d) ..."),VERSION,getpid());
+    Log_Print(LOG_OK,_("Starting EasyTAG %s (PId: %d) ..."),PACKAGE_VERSION,getpid());
 #ifdef ENABLE_MP3
     Log_Print(LOG_OK,_("Currently using libid3tag version %s ..."), ID3_VERSION);
 #endif
@@ -229,7 +229,7 @@ int main (int argc, char *argv[])
     {
         if ( (strcmp(argv[1],"--version")==0) || (strcmp(argv[1],"-v")==0) ) // Query version
         {
-            g_print(_("%s %s by %s (compiled %s, %s)\n"),APPNAME,VERSION,AUTHOR,__TIME__,__DATE__);
+            g_print(_("%s %s by %s (compiled %s, %s)\n"),APPNAME,PACKAGE_VERSION,AUTHOR,__TIME__,__DATE__);
             g_print(_("E-mail: %s"),EMAIL"\n");
             g_print(_("Web Page: %s"),WEBPAGE"\n");
             exit (0);
@@ -328,7 +328,7 @@ int main (int argc, char *argv[])
 
     /* The main window */
     MainWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW(MainWindow),APPNAME" "VERSION);
+    gtk_window_set_title(GTK_WINDOW(MainWindow),APPNAME" "PACKAGE_VERSION);
     // This part is needed to set correctly the position of handle panes
     gtk_window_set_default_size(GTK_WINDOW(MainWindow),MAIN_WINDOW_WIDTH,MAIN_WINDOW_HEIGHT);
 
@@ -4716,7 +4716,7 @@ void Handle_Crash (gint signal_id)
 {
     //gchar commmand[256];
 
-    Log_Print(LOG_ERROR,_("EasyTAG %s: Abnormal exit! (PId: %d)."),VERSION,getpid());
+    Log_Print(LOG_ERROR,_("EasyTAG %s: Abnormal exit! (PId: %d)."),PACKAGE_VERSION,getpid());
     Log_Print(LOG_ERROR,_("Received signal %s (%d)\a"),signal_to_string(signal_id),signal_id);
 
     Log_Print(LOG_ERROR,_("You have probably found a bug in EasyTAG. Please, send a bug "
@@ -4724,7 +4724,7 @@ void Handle_Crash (gint signal_id)
               "'l') and informations to reproduce it to easytag@gmail.com"));
 
     // To send messages to the console...
-    g_print(_("EasyTAG %s: Abnormal exit! (PId: %d)."),VERSION,getpid());
+    g_print(_("EasyTAG %s: Abnormal exit! (PId: %d)."),PACKAGE_VERSION,getpid());
     g_print("\n");
     g_print(_("Received signal %s (%d)\a"),signal_to_string(signal_id),signal_id);
     g_print("\n");

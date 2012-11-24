@@ -24,7 +24,7 @@
 // http://download.sourceforge.net/id3lib/
 
 //#include <string.h>
-#include <config.h>
+#include "config.h"
 
 #ifdef ENABLE_ID3LIB
 

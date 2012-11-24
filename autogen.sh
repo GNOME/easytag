@@ -1,7 +1,8 @@
-#!/bin/sh
+#!/bin/sh -e
 
-libtoolize --force --copy
-aclocal
-autoheader
-automake --add-missing -a --foreign
-autoconf
+test -n "$srcdir" || srcdir=`dirname "$0"`
+test -n "$srcdir" || srcdir=.
+
+mkdir -p m4
+autoreconf --force --install --verbose --warnings=all "$srcdir"
+test -n "$NOCONFIGURE" || "$srcdir/configure" "$@"

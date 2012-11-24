@@ -1,5 +1,6 @@
 # ignore file
 *.o
+/build-aux
 m4/*
 src/easytag
 Makefile
@@ -12,10 +13,10 @@ config.log
 config.status
 configure
 doc/easytag.1
+/easytag.spec
 libtool
 ltmain.sh
-po/Makefile
-po/Makefile.in
+/po/*.gmo
 po/POTFILES
 src/.deps/
 src/Makefile

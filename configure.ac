@@ -1,38 +1,41 @@
 dnl Process this file with autoconf to produce a configure script.
-dnl AC_INIT(src/easytag.h)
 
-AC_PREREQ(2.53)
+AC_PREREQ([2.64])
 
 dnl To set also in config.h.mingw
-AC_INIT(easytag, 2.1.8) dnl defines ($PACKAGE, $VERSION)
+dnl defines ($PACKAGE_NAME, $PACKAGE_VERSION, etc.)
+AC_INIT([EasyTAG], [2.1.8], [easytag-mailing@lists.sourceforge.net], [easytag], [http://easytag.sourceforge.net/])
 
-AC_CONFIG_SRCDIR(src/easytag.h)
+AC_CONFIG_AUX_DIR([build-aux])
+AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_SRCDIR([src/easytag.h])
 AC_CONFIG_MACRO_DIR([m4])
+
 dnl -------------------------------
 dnl Init automake
 dnl -------------------------------
-AM_INIT_AUTOMAKE(foreign)
+AM_INIT_AUTOMAKE([1.11 -Wall no-define dist-xz no-dist-gzip foreign nostdinc subdir-objects])
+AM_MAINTAINER_MODE([enable])
 
 dnl -------------------------------
-dnl Translation files
+dnl Translation files.
 dnl -------------------------------
 ALL_LINGUAS="bg cs da de el es fr he hu it ja lt nl pl pt_BR ro ru sr sr@Latn sv uk zh_CN zh_TW"
-GETTEXT_PACKAGE=easytag
-AC_SUBST(GETTEXT_PACKAGE)
-AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Package name for gettext])
+AC_SUBST([GETTEXT_PACKAGE], [easytag])
+AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Package name for gettext])
 
 dnl -------------------------------
 dnl Checks for programs.
 dnl -------------------------------
 AC_PROG_CC
+AM_PROG_CC_C_O
 AC_PROG_CXX
 AC_PROG_CXXCPP
-AC_PROG_INSTALL
 AC_PROG_MAKE_SET
-AC_DISABLE_SHARED
-AC_PROG_LIBTOOL
+LT_PREREQ([2.2])
+LT_INIT([disable-shared])
 AC_ISC_POSIX
-AM_MAINTAINER_MODE
+PKG_PROG_PKG_CONFIG([0.24])
 
 dnl -------------------------
 dnl Handle mingw32 or cygwin
@@ -43,33 +46,26 @@ AC_CYGWIN
 dnl -------------------------------
 dnl Configure switches.
 dnl -------------------------------
-AC_ARG_ENABLE(mp3,
-              AC_HELP_STRING([--disable-mp3], [Disable support for MP3 files (default=enabled)]),
-              , enable_mp3=yes)
+AC_ARG_ENABLE([mp3],
+              [AS_HELP_STRING([--disable-mp3], [Disable support for MP3 files (default=auto)])])
 
-AC_ARG_ENABLE(id3v23,
-              AC_HELP_STRING([--disable-id3v23], [Disable support for writing id3v2.3 tags (default=enabled)]),
-              , enable_id3v23=yes)
+AC_ARG_ENABLE([id3v23],
+              [AS_HELP_STRING([--disable-id3v23], [Disable support for writing id3v2.3 tags (default=enabled)])])
 
-AC_ARG_ENABLE(ogg,
-              AC_HELP_STRING([--disable-ogg], [Disable support for Ogg Vorbis files (default=enabled)]),
-              , enable_ogg=yes)
+AC_ARG_ENABLE([ogg],
+              [AS_HELP_STRING([--disable-ogg], [Disable support for Ogg Vorbis files (default=auto)])])
 
-AC_ARG_ENABLE(speex,
-              AC_HELP_STRING([--disable-speex], [Disable support for Ogg Speex files (default=enabled)]),
-              , enable_speex=yes)
+AC_ARG_ENABLE([speex],
+              [AS_HELP_STRING([--disable-speex], [Disable support for Ogg Speex files (default=auto)])])
 
-AC_ARG_ENABLE(flac,
-              AC_HELP_STRING([--disable-flac],[Disable support for FLAC files (default=enabled)]),
-              , enable_flac=yes)
+AC_ARG_ENABLE([flac],
+              [AS_HELP_STRING([--disable-flac], [Disable support for FLAC files (default=auto)])])
 
-AC_ARG_ENABLE(mp4,
-              AC_HELP_STRING([--disable-mp4],[Disable support for MP4 files (default=enabled)]),
-              , enable_mp4=yes)
+AC_ARG_ENABLE([mp4],
+              [AS_HELP_STRING([--disable-mp4], [Disable support for MP4 files (default=auto)])])
 
-AC_ARG_ENABLE(wavpack,
-              AC_HELP_STRING([--disable-wavpack],[Disable support for Wavpack files (default=enabled)]),
-              , enable_wavpack=yes)
+AC_ARG_ENABLE([wavpack],
+              [AS_HELP_STRING([--disable-wavpack], [Disable support for Wavpack files (default=auto)])])
 
 
 dnl -------------------------------
@@ -77,59 +73,26 @@ dnl Checks for libraries.
 dnl -------------------------------
 
 dnl GTK+-2 libraries
-AM_PATH_GLIB_2_0(2.8.0,, AC_MSG_ERROR([*** GLIB >= 2.8.0 not installed! ***]))
-AM_PATH_GTK_2_0(2.12.0,, AC_MSG_ERROR([*** GTK >= 2.12.0 not installed! ***]))
-PKG_CHECK_MODULES(GTK, gtk+-2.0 >= 2.12.0 glib-2.0 >= 2.8.0)
+PKG_CHECK_MODULES([GTK], [gtk+-2.0 >= 2.12.0 glib-2.0 >= 2.8.0])
 
 
 dnl Patch from Ben Taylor to fix a Solaris bug (for CDDB)
-AC_CHECK_LIB(socket, recv)
+AC_CHECK_LIB([socket], [recv])
 
 
 dnl ################################################
-dnl # Ogg Vorbis librairies (rq : needed also for libFLAC)
+dnl # Ogg Vorbis libraries (rq : needed also for libFLAC)
 dnl ################################################
-dnl XIPH_PATH_OGG(enable_ogg="yes",enable_ogg="no")
 
-if test "x$enable_ogg" = "xyes" -o "x$enable_flac" = "xyes"; then
-    PKG_CHECK_MODULES(OGG, ogg >= 1.0, , ogg_available=no)
-    if test "x$ogg_available" = "xno"; then
-        echo "***"
-        echo "*** Warning: libogg >= 1.0 needed"
-        echo "***"
-    fi
-    PKG_CHECK_MODULES(VORBIS, vorbis >= 1.0.1, , ogg_available=no)
-    if test "x$ogg_available" = "xno"; then
-        echo "***"
-        echo "*** Warning: libvorbis >= 1.0.1 needed"
-        echo "***"
-    fi
-    AC_CHECK_LIB(m, cos) dnl Patch from Christian Weisgerber
-    AC_CHECK_LIB(ogg, ogg_sync_init, , ogg_available=no)
-    AC_CHECK_LIB(vorbis, vorbis_comment_init, , ogg_available=no)
-    AC_CHECK_LIB(vorbisfile, ov_open, , ogg_available=no)
-fi
+OGG_DEPS="ogg >= 1.0 vorbis >= 1.0.1 vorbisfile"
+AS_IF([test "x$enable_ogg" != "xno" -o "x$enable_flac" != "xno"],
+      [PKG_CHECK_MODULES([OGG], [$OGG_DEPS], [have_ogg=yes], [have_ogg=no])],
+      [have_ogg=no])
 
-AC_MSG_CHECKING(for Ogg Vorbis file support)
-if test "x$enable_ogg" = "xyes"; then
-    if test "x$ogg_available" = "xno"; then
-        AC_MSG_RESULT(no)
-        enable_ogg="no"
-        echo "***"
-        echo "*** Warning: Ogg Vorbis file support disabled"
-        echo "*** (Install libogg and libvorbis libraries to enable it)"
-        echo "***"
-    else
-        AC_MSG_RESULT(yes)
-        AC_DEFINE(ENABLE_OGG,1,[Define for Ogg Vorbis support])
-    fi
-else
-    echo "***"
-    echo "*** Ogg Vorbis file support disabled on commandline"
-    echo "*** (Install libogg and libvorbis libraries, and use --enable-ogg to enable it)"
-    echo "***"
-fi
-
+AS_IF([test "x$have_ogg" != "xno"],
+      [AC_DEFINE([ENABLE_OGG], [], [Define for Ogg Vorbis support])],
+      [AS_IF([test "x$enable_ogg" = "xyes"],
+             [AC_MSG_ERROR([OGG or FLAC support requested but required dependencies ($OGG_DEPS) not found])])])
 
 dnl ################################################
 dnl # libSpeex library
@@ -416,14 +379,8 @@ else
 fi
 
 dnl Use -Wall if we have gcc.
-changequote(,)dnl
-if test "x$GCC" = "xyes"; then
-  case " $CFLAGS " in
-  *[\ \	]-Wall[\ \	]*) ;;
-  *) CFLAGS="$CFLAGS -Wall" ;;
-  esac
-fi
-changequote([,])
+AS_IF([test "x$GCC" = "xyes"],
+  [AC_SUBST([WARN_CPPFLAGS], [-Wall])])
 
 dnl To enable 'gprof' profiling
 dnl CFLAGS="$CFLAGS -pg"
@@ -463,24 +420,20 @@ AM_GLIB_GNU_GETTEXT
 dnl AM_GNU_GETTEXT_VERSION(0.10.40)
 
 
-dnl -------------------------------
-dnl config header
-dnl -------------------------------
-AM_CONFIG_HEADER(config.h)
 
-
-AC_OUTPUT([ Makefile
-            easytag.spec
-            doc/easytag.1
-            src/Makefile
-            src/id3lib/Makefile
-            src/libapetag/Makefile
-            src/libmpg123/Makefile
-            po/Makefile.in
-         ])
+AC_CONFIG_FILES([ Makefile
+                  easytag.spec
+                  doc/easytag.1
+                  src/Makefile
+                  src/id3lib/Makefile
+                  src/libapetag/Makefile
+                  src/libmpg123/Makefile
+                  po/Makefile.in
+               ])
+AC_OUTPUT
 
 echo 
-echo Configuration for $PACKAGE $VERSION :
+echo Configuration for $PACKAGE_NAME $PACKAGE_VERSION :
 echo --------------------------------
 echo 
 echo Source code location ....: $srcdir
@@ -491,15 +444,14 @@ echo Linker ..................: $CC $LDFLAGS $LIBS
 echo GTK2 version ............: `pkg-config --modversion gtk+-2.0`
 echo MP3 file support ........: $enable_mp3
 echo ID3v2.3 tags support ....: $enable_id3v23 $ID3LIB_VERSION
-echo Ogg Vorbis file support .: $enable_ogg
+echo Ogg Vorbis file support .: $have_ogg
 echo Speex file support ......: $enable_speex
 echo FLAC file support .......: $enable_flac $LIBFLAC_VERSION
 echo MP4 file support ........: $enable_mp4 $LIBMP4V2_VERSION
 echo WavPack support .........: $enable_wavpack
 echo NLS/gettext .............: $USE_NLS
-echo Install path ............: $prefix
+echo Install prefix ..........: $prefix
 echo 
-echo Now type 'make' to build $PACKAGE $VERSION,
+echo Now type 'make' to build $PACKAGE_NAME $PACKAGE_VERSION,
 echo and then 'make install' for installation.
 echo
-

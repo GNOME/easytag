@@ -52,7 +52,7 @@ directory where it stores its configuration file and history files.
 
 .SH VERSION
 .PP 
-This man page is done for the version @VERSION@ of EasyTAG.
+This man page is done for the version @PACKAGE_VERSION@ of EasyTAG.
 
 .SH AUTHOR
 .PP 

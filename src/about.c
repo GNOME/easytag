@@ -18,7 +18,7 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
@@ -320,7 +320,7 @@ void Show_About_Window (void)
 
     /* Infos */
     Label = gtk_label_new(NULL);
-    gtk_label_set_markup(GTK_LABEL(Label),"<b>"APPNAME" "VERSION"</b>");
+    gtk_label_set_markup(GTK_LABEL(Label),"<b>"APPNAME" "PACKAGE_VERSION"</b>");
     gtk_box_pack_start(GTK_BOX(VBox),Label,FALSE,TRUE,0);
 
     sprintf(temp,_("(compiled: %s)"),__DATE__);
