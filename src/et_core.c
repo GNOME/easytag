@@ -4819,7 +4819,7 @@ void ET_Debug_Print_File_List (GList *ETFileList, gchar *file, gint line, gchar 
 
         g_print("#> ETFile %d/%d (%p)\n",efl_item,etfilelist_length,(ET_File *)etfilelist->data);
         g_print("|--- IndexKey : '%d'\n",((ET_File *)etfilelist->data)->IndexKey);
-        g_print("|--- time     : '%s'\n",&str);
+        g_print("|--- time     : '%s'\n", (char *)str);
         g_print("|--- file_cur : '%s'\n",((File_Name *)((ET_File *)etfilelist->data)->FileNameCur->data)->value_utf8);
         g_print("|--- file_new : '%s'\n",((File_Name *)((ET_File *)etfilelist->data)->FileNameNew->data)->value_utf8);
         g_print("|--- saved    : '%d'\n",((File_Name *)((ET_File *)etfilelist->data)->FileNameNew->data)->saved);
