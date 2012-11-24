@@ -7,6 +7,7 @@ easytag_CPPFLAGS = \
 	-I$(top_builddir) \
 	$(GTK_CFLAGS) \
 	$(OGG_CFLAGS) \
+	$(SPEEX_CFLAGS) \
 	$(WARN_CPPFLAGS) \
 	-DLOCALEDIR=\"$(localedir)\" \
 	-DPACKAGE_DATA_DIR=\"$(pkgdatadir)\"
@@ -95,6 +96,7 @@ EXTRA_DIST = \
 easytag_LDADD = \
 	$(GTK_LIBS) \
 	$(OGG_LIBS) \
+	$(SPEEX_LIBS) \
 	libmpg123/libmpg123.a \
 	libapetag/libapetag.a \
 	id3lib/libid3bugfix.a

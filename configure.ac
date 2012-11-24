@@ -92,47 +92,23 @@ AS_IF([test "x$enable_ogg" != "xno" -o "x$enable_flac" != "xno"],
 AS_IF([test "x$have_ogg" != "xno"],
       [AC_DEFINE([ENABLE_OGG], [], [Define for Ogg Vorbis support])],
       [AS_IF([test "x$enable_ogg" = "xyes"],
-             [AC_MSG_ERROR([OGG or FLAC support requested but required dependencies ($OGG_DEPS) not found])])])
+             [AC_MSG_ERROR([OGG Vorbis support requested but required dependencies ($OGG_DEPS) not found])])])
 
 dnl ################################################
 dnl # libSpeex library
 dnl ################################################
 dnl check for system libspeex
-dnl Note that libvorbis is required for speex support, even if the user chooses --disable-speex
+dnl Note that libvorbis is required for speex support, even if the user chooses --disable-ogg
 
-if test "x$enable_speex" = "xyes"; then
-    dnl Library required for speex files, if not found 'enable_speex' is disabled
-    AC_CHECK_LIB(m, cos) dnl Patch from Christian Weisgerber
-    AC_CHECK_LIB(speex, speex_packet_to_header, , speex_available=no)
+SPEEX_DEPS="speex"
+AS_IF([test "x$enable_speex" != "xno"],
+      [PKG_CHECK_MODULES([SPEEX], [$SPEEX_DEPS], [have_speex=yes], [have_speex=no])],
+      [have_speex=no])
 
-    AC_MSG_CHECKING(for Speex file support)
-    if test "x$speex_available" = "xno"; then
-        AC_MSG_RESULT(no)
-        enable_speex="no"
-        echo "***"
-        echo "*** Warning: Speex file support disabled, speex missing"
-        echo "*** (Install speex, libogg and libvorbis libraries to enable it)"
-        echo "***"
-    elif test "x$enable_ogg" = "xno"; then
-        AC_MSG_RESULT(no)
-        enable_speex="no"
-        echo "***"
-        echo "*** Warning: Speex file support disabled, libvorbis missing"
-        echo "*** (Install speex, libogg and libvorbis libraries to enable it)"
-        echo "***"
-    else
-        AC_MSG_RESULT(yes)
-        AC_DEFINE(ENABLE_SPEEX,1,[Define for Speex support])
-    fi
-else
-    AC_MSG_CHECKING(for Speex file support)
-    AC_MSG_RESULT(no)
-    echo "***"
-    echo "*** Speex file support disabled on commandline"
-    echo "*** (Install speex, libogg and libvorbis libraries, and use --enable-speex to enable it)"
-    echo "***"
-fi
-
+AS_IF([test "x$have_speex" != "xno"],
+      [AC_DEFINE([ENABLE_SPEEX], [], [Define for Speex support])],
+      [AS_IF([test "x$enable_speex" = "xyes"],
+             [AC_MSG_ERROR([OGG Speex support requested but required dependencies ($SPEEX_DEPS) not found])])])
 
 dnl ################################################
 dnl # libFLAC library
@@ -445,7 +421,7 @@ echo GTK2 version ............: `pkg-config --modversion gtk+-2.0`
 echo MP3 file support ........: $enable_mp3
 echo ID3v2.3 tags support ....: $enable_id3v23 $ID3LIB_VERSION
 echo Ogg Vorbis file support .: $have_ogg
-echo Speex file support ......: $enable_speex
+echo Speex file support ......: $have_speex
 echo FLAC file support .......: $enable_flac $LIBFLAC_VERSION
 echo MP4 file support ........: $enable_mp4 $LIBMP4V2_VERSION
 echo WavPack support .........: $enable_wavpack
