@@ -259,39 +259,15 @@ fi
 dnl ################################################
 dnl # WavPack library
 dnl ################################################
-if test "x$enable_wavpack" = "xyes"; then
-    dnl Librairies required for wavpack files, if not found 'enable_wavpack' is disabled
-    PKG_CHECK_MODULES(WAVPACK, wavpack >= 4.40, , wavpack_available=no)
-    if test "x$wavpack_available" = "xno"; then
-        echo "***"
-        echo "*** Warning: wavpack >= 4.40 needed"
-        echo "***"
-    fi
-    AC_CHECK_LIB(m, cos)
-    AC_CHECK_LIB(wavpack, WavpackOpenFileInput, , wavpack_available=no)
-fi
+WAVPACK_DEPS="wavpack >= 4.40"
+AS_IF([test "x$enable_wavpack" != "xno"],
+      [PKG_CHECK_MODULES([WAVPACK], [$WAVPACK_DEPS], [have_wavpack=yes], [have_wavpack=no])],
+      [have_wavpack=no])
 
-AC_MSG_CHECKING(for Wavpack file support)
-if test "x$enable_wavpack" = "xyes"; then
-    if test "x$wavpack_available" = "xno"; then
-        AC_MSG_RESULT(no)
-        enable_wavpack="no"
-        echo "***"
-        echo "*** Warning: Wavpack file support disabled"
-        echo "*** (Install libwavpack to enable it)"
-        echo "***"
-    else
-        AC_MSG_RESULT(yes)
-        AC_DEFINE(ENABLE_WAVPACK,1,[Define for Wavpack support])
-    fi
-else
-    AC_MSG_RESULT(no)
-    enable_wavpack="no"
-    echo "***"
-    echo "*** Wavpack file support disabled on commandline"
-    echo "*** (Install libwavpack, and use --enable-wavpack to enable it)"
-    echo "***"
-fi
+AS_IF([test "x$have_wavpack" != "xno"],
+      [AC_DEFINE([ENABLE_WAVPACK], [], [Define for Wavpack support])],
+      [AS_IF([test "x$enable_wavpack" = "xyes"],
+             [AC_MSG_ERROR([Wavpack support requested but required dependencies ($WAVPACK_DEPS) not found])])])
 
 dnl Use -Wall if we have gcc.
 AS_IF([test "x$GCC" = "xyes"],
@@ -363,7 +339,7 @@ echo Ogg Vorbis file support .: $have_ogg
 echo Ogg Speex file support ..: $have_speex
 echo FLAC file support .......: $have_flac
 echo MP4 file support ........: $enable_mp4 $LIBMP4V2_VERSION
-echo WavPack support .........: $enable_wavpack
+echo WavPack support .........: $have_wavpack
 echo NLS/gettext .............: $USE_NLS
 echo Install prefix ..........: $prefix
 echo 

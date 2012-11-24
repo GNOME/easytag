@@ -9,6 +9,7 @@ easytag_CPPFLAGS = \
 	$(OGG_CFLAGS) \
 	$(SPEEX_CFLAGS) \
 	$(FLAC_CFLAGS) \
+	$(WAVPACK_CFLAGS) \
 	$(WARN_CPPFLAGS) \
 	-DLOCALEDIR=\"$(localedir)\" \
 	-DPACKAGE_DATA_DIR=\"$(pkgdatadir)\"
@@ -99,6 +100,7 @@ easytag_LDADD = \
 	$(OGG_LIBS) \
 	$(SPEEX_LIBS) \
 	$(FLAC_LIBS) \
+	$(WAVPACK_LIBS) \
 	libmpg123/libmpg123.a \
 	libapetag/libapetag.a \
 	id3lib/libid3bugfix.a
