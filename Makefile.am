@@ -6,6 +6,7 @@ bin_PROGRAMS = easytag
 
 localedir = $(datadir)/locale
 easytag_CPPFLAGS = \
+	-I$(top_srcdir) \
 	-I$(top_builddir) \
 	$(GTK_CFLAGS) \
 	$(OGG_CFLAGS) \

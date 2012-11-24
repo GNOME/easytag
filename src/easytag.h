@@ -24,7 +24,7 @@
 
 
 /* 'include' and 'define' created by autoconf/automake */
-#include "../config.h"
+#include "config.h"
 
 #include "et_core.h"
 

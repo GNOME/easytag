@@ -59,12 +59,12 @@
 #endif
 
 /* Pixmaps */
-#include "../pixmaps/opened_folder.xpm"
-#include "../pixmaps/closed_folder.xpm"
-#include "../pixmaps/closed_folder_readonly.xpm"
-#include "../pixmaps/closed_folder_unreadable.xpm"
+#include "pixmaps/opened_folder.xpm"
+#include "pixmaps/closed_folder.xpm"
+#include "pixmaps/closed_folder_readonly.xpm"
+#include "pixmaps/closed_folder_unreadable.xpm"
 #ifdef WIN32
-#include "../pixmaps/ram_disk.xpm"
+#include "pixmaps/ram_disk.xpm"
 #endif
 
 
