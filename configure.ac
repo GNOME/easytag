@@ -32,10 +32,8 @@ AC_PROG_CC
 AM_PROG_CC_C_O
 AC_PROG_CXX
 AC_PROG_CXXCPP
-AC_PROG_MAKE_SET
 LT_PREREQ([2.2])
 LT_INIT([disable-shared])
-AC_ISC_POSIX
 PKG_PROG_PKG_CONFIG([0.24])
 
 dnl -------------------------
@@ -214,27 +212,22 @@ dnl -------------------------------
 dnl Checks for header files.
 dnl -------------------------------
 AC_HEADER_DIRENT
-AC_HEADER_STDC
-AC_CHECK_HEADERS(fcntl.h unistd.h)
 
 
 dnl -------------------------------
 dnl Checks for typedefs, structures, and compiler characteristics.
 dnl -------------------------------
-AC_C_CONST
 AC_TYPE_MODE_T
 AC_TYPE_PID_T
 AC_TYPE_SIZE_T
-AC_STRUCT_TM
 
 
 dnl -------------------------------
 dnl Checks for library functions.
 dnl -------------------------------
 AC_FUNC_FORK
-AC_FUNC_STAT
-AC_TYPE_SIGNAL
 AC_CHECK_FUNCS(mkdir strstr strtol mkstemp)
+AC_SEARCH_LIBS([strerror], [cposix])
 
 
 dnl -------------------------------
