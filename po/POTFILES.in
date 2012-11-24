@@ -9,6 +9,7 @@ src/et_core.c
 src/flac_header.c
 src/flac_tag.c
 src/id3_tag.c
+src/id3v24_tag.c
 src/log.c
 src/misc.c
 src/monkeyaudio_header.c
