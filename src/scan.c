@@ -3384,7 +3384,7 @@ void Scan_Toggle_Mask_Editor_Button (void)
         g_signal_emit_by_name(GTK_OBJECT(MaskEditorEntry),"changed");
     }else
     {
-        gtk_widget_hide_all(MaskEditorFrame);
+        gtk_widget_hide(MaskEditorFrame);
     }
 }
 

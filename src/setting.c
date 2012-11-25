@@ -829,10 +829,10 @@ void Apply_Changes_Of_Preferences_Window (void)
     if (MainWindow)
     {
         if (SHOW_HEADER_INFO) gtk_widget_show_all(HeaderInfosTable);
-        else                  gtk_widget_hide_all(HeaderInfosTable);
+        else                  gtk_widget_hide(HeaderInfosTable);
 
         if (SHOW_LOG_VIEW)  gtk_widget_show_all(LogArea);
-        else                gtk_widget_hide_all(LogArea);
+        else                gtk_widget_hide(LogArea);
 
         /* Update state of check-menu-item into main/popup menu to browse subdirs */
         Check_Menu_Item_Update_Browse_Subdir();
