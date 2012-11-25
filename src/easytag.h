@@ -150,7 +150,7 @@ GtkWidget *PictureScrollWindow;
 
 GdkCursor *MouseCursor;
 
-gchar *HOME_VARIABLE;
+const gchar *HOME_VARIABLE;
 gchar *INIT_DIRECTORY;
 
 #ifndef errno

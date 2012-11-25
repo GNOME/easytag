@@ -143,7 +143,7 @@ GtkWidget *RenameDirectoryPreviewLabel;
  **************/
 
 GtkWidget   *Create_Browser_Items    (GtkWidget *parent);
-gint         Browser_Tree_Select_Dir (gchar *current_path);
+gboolean     Browser_Tree_Select_Dir (const gchar *current_path);
 void         Browser_Tree_Rebuild    (gchar *path_to_load);
 void         Browser_Tree_Collapse   (void);
 

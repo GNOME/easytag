@@ -354,7 +354,7 @@ get_encoding_from_locale (const char *locale)
  */
 const gchar *get_locale (void)
 {
-    gchar *loc;
+    const gchar *loc;
     
     if ((loc = g_getenv("LC_ALL")) && *loc)
         return loc;

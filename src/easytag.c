@@ -186,10 +186,9 @@ int main (int argc, char *argv[])
 
     /* Get home variable */
 #ifdef WIN32
-	HOME_VARIABLE = (gchar *)weasytag_data_dir();
+	HOME_VARIABLE = weasytag_data_dir();
 #else
 	HOME_VARIABLE = g_get_home_dir();
-    //HOME_VARIABLE = (gchar *)g_getenv("HOME");
 #endif
 
     INIT_DIRECTORY = NULL;

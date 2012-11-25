@@ -166,7 +166,7 @@ void        Browser_Album_List_Row_Selected      (GtkTreeSelection *selection, g
 void        Browser_Album_List_Set_Row_Appearance(GtkTreeIter *row);
 
 gchar      *Browser_Get_Current_Path       (void);
-void        Browser_Update_Current_Path    (gchar *path);
+void        Browser_Update_Current_Path    (const gchar *path);
 void        Browser_Load_Home_Directory    (void);
 void        Browser_Load_Default_Directory (void);
 void        Browser_Reload_Directory       (void);
@@ -306,7 +306,7 @@ gchar *Browser_Tree_Get_Path_Of_Selected_Node (void)
 /*
  * Set the 'path' within the variable BrowserCurrentPath.
  */
-void Browser_Update_Current_Path (gchar *path)
+void Browser_Update_Current_Path (const gchar *path)
 {
     /* Be sure that we aren't passing 'BrowserCurrentPath' as parameter of the function :
      * to avoid some memory problems */
@@ -867,7 +867,7 @@ gint Browser_Win32_Get_Drive_Root (gchar *drive, GtkTreeIter *rootNode, GtkTreeP
  *
  * - "current_path" is in file system encoding (not UTF-8)
  */
-gint Browser_Tree_Select_Dir (gchar *current_path)
+gboolean Browser_Tree_Select_Dir (const gchar *current_path)
 {
     GtkTreePath *rootPath = NULL;
     GtkTreeIter parentNode, currentNode;
@@ -895,7 +895,7 @@ gint Browser_Tree_Select_Dir (gchar *current_path)
 
     Browser_Update_Current_Path(current_path);
 
-    parts = g_strsplit((const gchar*)current_path, G_DIR_SEPARATOR_S, 0);
+    parts = g_strsplit(current_path, G_DIR_SEPARATOR_S, 0);
 
     // Expand root node (fill parentNode and rootPath)
 #ifdef WIN32
