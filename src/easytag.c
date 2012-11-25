@@ -1124,7 +1124,7 @@ GtkWidget *Create_Tag_Area (void)
 
 
     //Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(PictureEntryView));
-    gtk_object_set_data(GTK_OBJECT(PictureEntryView),"MButtonName",PictureMButton);
+    g_object_set_data(G_OBJECT(PictureEntryView),"MButtonName",PictureMButton);
 
     gtk_widget_show_all(TagFrame);
     return TagFrame;
