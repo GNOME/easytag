@@ -270,11 +270,11 @@ void Open_Cddb_Window (void)
     Label = gtk_label_new(_("Automatic Search"));
     Frame = gtk_frame_new(NULL);
     gtk_notebook_append_page(GTK_NOTEBOOK(CddbNoteBook),Frame,Label);
-    gtk_container_border_width(GTK_CONTAINER(Frame),2);
+    gtk_container_set_border_width(GTK_CONTAINER(Frame),2);
 
     notebookvbox = gtk_vbox_new(FALSE,4);
     gtk_container_add(GTK_CONTAINER(Frame),notebookvbox);
-    gtk_container_border_width(GTK_CONTAINER(notebookvbox),2);
+    gtk_container_set_border_width(GTK_CONTAINER(notebookvbox),2);
 
     hbox = gtk_hbox_new(FALSE,4);
     gtk_box_pack_start(GTK_BOX(notebookvbox),hbox,FALSE,FALSE,0);
@@ -357,11 +357,11 @@ void Open_Cddb_Window (void)
     Label = gtk_label_new(_("Manual Search"));
     Frame = gtk_frame_new(NULL);
     gtk_notebook_append_page(GTK_NOTEBOOK(CddbNoteBook),Frame,Label);
-    gtk_container_border_width(GTK_CONTAINER(Frame),2);
+    gtk_container_set_border_width(GTK_CONTAINER(Frame),2);
 
     notebookvbox = gtk_vbox_new(FALSE,4);
     gtk_container_add(GTK_CONTAINER(Frame),notebookvbox);
-    gtk_container_border_width(GTK_CONTAINER(notebookvbox),2);
+    gtk_container_set_border_width(GTK_CONTAINER(notebookvbox),2);
 
     /*
      * Words to search
