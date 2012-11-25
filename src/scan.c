@@ -267,9 +267,6 @@ void Mask_Editor_Clean_Up_Masks_List (void);
 
 void Scanner_Option_Menu_Activate_Item (GtkWidget *widget, gpointer data);
 
-void Populate_Scan_Tag_Masks();
-void Populate_Rename_File_Masks();
-
 int roman2int (const char *str);
 const char * int2roman (int num);
 char * int2roman_r (int num, char * str, size_t len);

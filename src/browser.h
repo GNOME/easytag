@@ -159,8 +159,6 @@ ET_File     *Browser_List_Select_File_By_DLM        (const gchar* string, gboole
 void         Browser_List_Unselect_File_By_Etfile   (ET_File *ETFile);
 void         Browser_List_Unselect_File_By_Iter     (GtkTreeIter *iter);
 void         Browser_List_Unselect_File_By_Iter_String(const gchar* stringiter);
-void         Browser_List_Scroll_Vertical           (/*GtkCList *clist, GtkScrollType scroll_type,
-                                                     gfloat position, gpointer user_data*/);
 void         Browser_List_Set_Row_Appearance      (GtkTreeIter *iter);
 void         Browser_List_Refresh_Sort            (void);
 void         Browser_List_Select_All_Files        (void);
