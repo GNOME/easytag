@@ -303,7 +303,7 @@ void Scan_Tag_With_Mask (ET_File *ETFile)
     File_Tag *FileTag;
 
     if (!ScannerWindow || !ScanTagMaskCombo || !ETFile) return;
-    mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(ScanTagMaskCombo)->child)));
+    mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(ScanTagMaskCombo)))));
     if (!mask) return;
 
     // Create a new File_Tag item
@@ -566,7 +566,7 @@ void Scan_Fill_Tag_Generate_Preview (void)
     ||  gtk_combo_box_get_active(GTK_COMBO_BOX(ScannerOptionCombo)) != SCANNER_FILL_TAG)
         return;
 
-    mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(ScanTagMaskCombo)->child)));
+    mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(ScanTagMaskCombo)))));
     if (!mask)
         return;
 
@@ -651,7 +651,7 @@ void Scan_Rename_File_With_Mask (ET_File *ETFile)
 
     if (!ScannerWindow || !RenameFileMaskCombo || !ETFile) return;
 
-    mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(RenameFileMaskCombo)->child)));
+    mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameFileMaskCombo)))));
     if (!mask) return;
 
     // Note : if the first character is '/', we have a path with the filename,
@@ -943,7 +943,7 @@ void Scan_Rename_File_Generate_Preview (void)
     if (gtk_combo_box_get_active(GTK_COMBO_BOX(ScannerOptionCombo)) != SCANNER_RENAME_FILE)
         return;
 
-    mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(RenameFileMaskCombo)->child)));
+    mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameFileMaskCombo)))));
     if (!mask)
         return;
 
@@ -1009,7 +1009,7 @@ void Scan_Rename_File_Prefix_Path (void)
     path_utf8_cur = g_path_get_dirname(filename_utf8_cur);
 
     // The current text in the combobox
-    combo_text = (gchar *)gtk_entry_get_text(GTK_ENTRY(GTK_BIN(RenameFileMaskCombo)->child));
+    combo_text = (gchar *)gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameFileMaskCombo))));
     /*if (!g_utf8_validate(combo_text, -1, NULL))
     {
         combo_tmp = convert_to_utf8(combo_text);
@@ -1031,7 +1031,7 @@ void Scan_Rename_File_Prefix_Path (void)
             path_tmp = g_strconcat(path_utf8_cur,G_DIR_SEPARATOR_S,NULL);
         }
 	pos = 0;
-        gtk_editable_insert_text(GTK_EDITABLE(GTK_BIN(RenameFileMaskCombo)->child),path_tmp, -1, &pos);
+        gtk_editable_insert_text(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(RenameFileMaskCombo))),path_tmp, -1, &pos);
         g_free(path_tmp);
     }
 
@@ -1051,7 +1051,7 @@ void Scan_Rename_Directory_Generate_Preview (void)
     ||  !RenameDirectoryWindow || !RenameDirectoryMaskCombo || !RenameDirectoryPreviewLabel)
         return;
 
-    mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(RenameDirectoryMaskCombo)->child)));
+    mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameDirectoryMaskCombo)))));
     if (!mask)
         return;
 
@@ -2468,11 +2468,11 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(ScanTagMaskCombo), MASK_EDITOR_TEXT);
 
     gtk_box_pack_start(GTK_BOX(HBox2),ScanTagMaskCombo,TRUE,TRUE,2);
-    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(GTK_BIN(ScanTagMaskCombo)->child)),
+    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(ScanTagMaskCombo)))),
         _("Select or type in a mask using codes (see Legend) to parse file name and "
         "path. Used to fill in tag fields."));
     // Signal to generate preview (preview of the new tag values)
-    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(GTK_BIN(ScanTagMaskCombo)->child)),"changed",
+    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(ScanTagMaskCombo)))),"changed",
         G_CALLBACK(Scan_Fill_Tag_Generate_Preview),NULL);
 
     // Load masks into the combobox from a file
@@ -2480,7 +2480,7 @@ void Open_ScannerWindow (gint scanner_type)
     if (SCAN_TAG_DEFAULT_MASK)
     {
         Add_String_To_Combo_List(ScanTagListModel, SCAN_TAG_DEFAULT_MASK);
-        gtk_entry_set_text(GTK_ENTRY(GTK_BIN(ScanTagMaskCombo)->child), SCAN_TAG_DEFAULT_MASK);
+        gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(ScanTagMaskCombo))), SCAN_TAG_DEFAULT_MASK);
     }else
     {
         gtk_combo_box_set_active(GTK_COMBO_BOX(ScanTagMaskCombo), 0);
@@ -2491,7 +2491,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_box_pack_start(GTK_BOX(HBox2),MaskStatusIconBox,FALSE,FALSE,0);
     gtk_widget_set_tooltip_text(MaskStatusIconBox,_("Invalid Scanner Mask"));
     // Signal connection to check if mask is correct into the mask entry
-    g_signal_connect_swapped(G_OBJECT(GTK_BIN(ScanTagMaskCombo)->child),"changed",
+    g_signal_connect_swapped(G_OBJECT(gtk_bin_get_child(GTK_BIN(ScanTagMaskCombo))),"changed",
         G_CALLBACK(Scan_Check_Scan_Tag_Mask),GTK_OBJECT(MaskStatusIconBox));
 
     // Preview label
@@ -2534,12 +2534,12 @@ void Open_ScannerWindow (gint scanner_type)
 
     gtk_box_pack_start(GTK_BOX(HBox4),RenameFileMaskCombo,TRUE,TRUE,2);
     gtk_container_set_border_width(GTK_CONTAINER(HBox4), 2);
-    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(GTK_BIN(RenameFileMaskCombo)->child)),
+    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameFileMaskCombo)))),
         _("Select or type in a mask using codes (see Legend) to parse tag fields. "
         "Used to rename the file.\nUse / to make directories. If the first character "
         "is /, it's a absolute path, otherwise is relative to the old path."));
     // Signal to generate preview (preview of the new filename)
-    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(GTK_BIN(RenameFileMaskCombo)->child)),"changed",
+    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameFileMaskCombo)))),"changed",
         G_CALLBACK(Scan_Rename_File_Generate_Preview),NULL);
 
     // Load masks into the combobox from a file
@@ -2547,7 +2547,7 @@ void Open_ScannerWindow (gint scanner_type)
     if (RENAME_FILE_DEFAULT_MASK)
     {
         Add_String_To_Combo_List(RenameFileListModel, RENAME_FILE_DEFAULT_MASK);
-        gtk_entry_set_text(GTK_ENTRY(GTK_BIN(RenameFileMaskCombo)->child), RENAME_FILE_DEFAULT_MASK);
+        gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameFileMaskCombo))), RENAME_FILE_DEFAULT_MASK);
     }else
     {
         gtk_combo_box_set_active(GTK_COMBO_BOX(RenameFileMaskCombo), 0);
@@ -2558,7 +2558,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_box_pack_start(GTK_BOX(HBox4),MaskStatusIconBox,FALSE,FALSE,0);
     gtk_widget_set_tooltip_text(MaskStatusIconBox,_("Invalid Scanner Mask"));
     // Signal connection to check if mask is correct into the mask entry
-    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(GTK_BIN(RenameFileMaskCombo)->child)),"changed",
+    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameFileMaskCombo)))),"changed",
         G_CALLBACK(Scan_Check_Rename_File_Mask),G_OBJECT(MaskStatusIconBox));
 
     /* Preview label */
@@ -3012,8 +3012,8 @@ void Open_ScannerWindow (gint scanner_type)
     Scan_Set_Scanner_Window_Init_Position();
 
     /* To initialize the mask status icon and visibility */
-    g_signal_emit_by_name(G_OBJECT(GTK_ENTRY(GTK_BIN(ScanTagMaskCombo)->child)),"changed");
-    g_signal_emit_by_name(G_OBJECT(GTK_ENTRY(GTK_BIN(RenameFileMaskCombo)->child)),"changed");
+    g_signal_emit_by_name(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(ScanTagMaskCombo)))),"changed");
+    g_signal_emit_by_name(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameFileMaskCombo)))),"changed");
     g_signal_emit_by_name(G_OBJECT(MaskEditorEntry),"changed");
     g_signal_emit_by_name(G_OBJECT(LegendButton),"toggled");        /* To hide legend frame */
     g_signal_emit_by_name(G_OBJECT(MaskEditorButton),"toggled");    /* To hide mask editor frame */
@@ -3183,12 +3183,12 @@ void ScannerWindow_Apply_Changes (void)
 
         // Save default masks...
         if (SCAN_TAG_DEFAULT_MASK) g_free(SCAN_TAG_DEFAULT_MASK);
-        SCAN_TAG_DEFAULT_MASK = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(ScanTagMaskCombo)->child)));
+        SCAN_TAG_DEFAULT_MASK = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(ScanTagMaskCombo)))));
         Add_String_To_Combo_List(ScanTagListModel, SCAN_TAG_DEFAULT_MASK);
         Save_Rename_File_Masks_List(ScanTagListModel, MASK_EDITOR_TEXT);
 
         if (RENAME_FILE_DEFAULT_MASK) g_free(RENAME_FILE_DEFAULT_MASK);
-        RENAME_FILE_DEFAULT_MASK = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(RenameFileMaskCombo)->child)));
+        RENAME_FILE_DEFAULT_MASK = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameFileMaskCombo)))));
         Add_String_To_Combo_List(RenameFileListModel, RENAME_FILE_DEFAULT_MASK);
         Save_Rename_File_Masks_List(RenameFileListModel, MASK_EDITOR_TEXT);
 

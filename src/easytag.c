@@ -753,7 +753,7 @@ GtkWidget *Create_Tag_Area (void)
     gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(TrackEntryCombo),3); // Three columns to display track numbers list
 
     gtk_widget_set_size_request(TrackEntryCombo,50,-1);
-    g_signal_connect(G_OBJECT(GTK_ENTRY(GTK_BIN(TrackEntryCombo)->child)),"insert_text",
+    g_signal_connect(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(TrackEntryCombo)))),"insert_text",
         G_CALLBACK(Insert_Only_Digit),NULL);
 
     Label = gtk_label_new("/");
@@ -785,7 +785,7 @@ GtkWidget *Create_Tag_Area (void)
     g_signal_connect(G_OBJECT(TrackMButton),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
     gtk_widget_set_tooltip_text(TrackMButton,_("Tag selected files with this number of tracks"));
 
-    g_object_set_data(G_OBJECT(GTK_ENTRY(GTK_BIN(TrackEntryCombo)->child)),"MButtonName",TrackMButton);
+    g_object_set_data(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(TrackEntryCombo)))),"MButtonName",TrackMButton);
     g_object_set_data(G_OBJECT(TrackTotalEntry),"MButtonName",TrackMButton);
 
     /* Genre */
@@ -800,7 +800,7 @@ GtkWidget *Create_Tag_Area (void)
     GenreCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(GenreComboModel));
     gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(GenreCombo),MISC_COMBO_TEXT);
     completion = gtk_entry_completion_new();
-    gtk_entry_set_completion(GTK_ENTRY(GTK_BIN(GenreCombo)->child), completion);
+    gtk_entry_set_completion(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(GenreCombo))), completion);
     g_object_unref(completion);
     gtk_entry_completion_set_model(completion, GTK_TREE_MODEL(GenreComboModel));
     gtk_entry_completion_set_text_column(completion, 0);
@@ -817,8 +817,8 @@ GtkWidget *Create_Tag_Area (void)
     g_signal_connect(G_OBJECT(GenreMButton),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
     gtk_widget_set_tooltip_text(GenreMButton,_("Tag selected files with this genre"));
 
-    Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(GTK_BIN(GenreCombo)->child));
-    g_object_set_data(G_OBJECT(GTK_BIN(GenreCombo)->child),"MButtonName",GenreMButton);
+    Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(GenreCombo))));
+    g_object_set_data(G_OBJECT(gtk_bin_get_child(GTK_BIN(GenreCombo))),"MButtonName",GenreMButton);
 
     /* Comment */
     CommentLabel = gtk_label_new(_("Comment:"));
@@ -954,10 +954,10 @@ GtkWidget *Create_Tag_Area (void)
     g_signal_connect_swapped(G_OBJECT(ArtistEntry),     "activate",G_CALLBACK(gtk_widget_grab_focus),G_OBJECT(AlbumEntry));
     g_signal_connect_swapped(G_OBJECT(AlbumEntry),      "activate",G_CALLBACK(gtk_widget_grab_focus),G_OBJECT(DiscNumberEntry));
     g_signal_connect_swapped(G_OBJECT(DiscNumberEntry), "activate",G_CALLBACK(gtk_widget_grab_focus),G_OBJECT(YearEntry));
-    g_signal_connect_swapped(G_OBJECT(YearEntry),       "activate",G_CALLBACK(gtk_widget_grab_focus),G_OBJECT(GTK_ENTRY(GTK_BIN(TrackEntryCombo)->child)));
-    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(GTK_BIN(TrackEntryCombo)->child)),"activate",G_CALLBACK(gtk_widget_grab_focus),G_OBJECT(TrackTotalEntry));
-    g_signal_connect_swapped(G_OBJECT(TrackTotalEntry), "activate",G_CALLBACK(gtk_widget_grab_focus),G_OBJECT(GTK_BIN(GenreCombo)->child));
-    g_signal_connect_swapped(G_OBJECT(GTK_BIN(GenreCombo)->child),"activate",G_CALLBACK(gtk_widget_grab_focus),G_OBJECT(CommentEntry));
+    g_signal_connect_swapped(G_OBJECT(YearEntry),       "activate",G_CALLBACK(gtk_widget_grab_focus),G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(TrackEntryCombo)))));
+    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(TrackEntryCombo)))),"activate",G_CALLBACK(gtk_widget_grab_focus),G_OBJECT(TrackTotalEntry));
+    g_signal_connect_swapped(G_OBJECT(TrackTotalEntry), "activate",G_CALLBACK(gtk_widget_grab_focus),G_OBJECT(gtk_bin_get_child(GTK_BIN(GenreCombo))));
+    g_signal_connect_swapped(G_OBJECT(gtk_bin_get_child(GTK_BIN(GenreCombo))),"activate",G_CALLBACK(gtk_widget_grab_focus),G_OBJECT(CommentEntry));
     g_signal_connect_swapped(G_OBJECT(CommentEntry),    "activate",G_CALLBACK(gtk_widget_grab_focus),G_OBJECT(ComposerEntry));
     g_signal_connect_swapped(G_OBJECT(ComposerEntry),   "activate",G_CALLBACK(gtk_widget_grab_focus),G_OBJECT(OrigArtistEntry));
     g_signal_connect_swapped(G_OBJECT(OrigArtistEntry), "activate",G_CALLBACK(gtk_widget_grab_focus),G_OBJECT(CopyrightEntry));
@@ -1290,7 +1290,7 @@ void Mini_Button_Clicked (GObject *object)
     else if (object==G_OBJECT(TrackMButton))
     {
         /* Used of Track and Total Track values */
-        string_to_set = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(TrackEntryCombo)->child)));
+        string_to_set = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(TrackEntryCombo)))));
         string_to_set1 = gtk_editable_get_chars(GTK_EDITABLE(TrackTotalEntry),0,-1);
         while (etfilelist)
         {
@@ -1417,7 +1417,7 @@ void Mini_Button_Clicked (GObject *object)
     }
     else if (object==G_OBJECT(GenreMButton))
     {
-        string_to_set = gtk_editable_get_chars(GTK_EDITABLE(GTK_BIN(GenreCombo)->child),0,-1);
+        string_to_set = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(GenreCombo))),0,-1);
         while (etfilelist)
         {
             etfile = (ET_File *)etfilelist->data;
@@ -4060,7 +4060,7 @@ void Tag_Area_Set_Sensitive (gboolean activate)
     if (!TagArea) return;
 
     // TAG Area (entries + buttons)
-    gtk_widget_set_sensitive(GTK_BIN(TagArea)->child,activate);
+    gtk_widget_set_sensitive(gtk_bin_get_child(GTK_BIN(TagArea)),activate);
 
     /*// TAG Area
     gtk_widget_set_sensitive(GTK_WIDGET(TitleEntry),            activate);
@@ -4095,7 +4095,7 @@ void File_Area_Set_Sensitive (gboolean activate)
     if (!FileArea) return;
 
     // File Area
-    gtk_widget_set_sensitive(GTK_BIN(FileArea)->child,activate);
+    gtk_widget_set_sensitive(gtk_bin_get_child(GTK_BIN(FileArea)),activate);
     /*gtk_widget_set_sensitive(GTK_WIDGET(FileEntry),activate);*/
 }
 
@@ -4414,9 +4414,9 @@ void Clear_Tag_Entry_Fields (void)
     gtk_entry_set_text(GTK_ENTRY(AlbumEntry),                       "");
     gtk_entry_set_text(GTK_ENTRY(DiscNumberEntry),                  "");
     gtk_entry_set_text(GTK_ENTRY(YearEntry),                        "");
-    gtk_entry_set_text(GTK_ENTRY(GTK_BIN(TrackEntryCombo)->child),  "");
+    gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(TrackEntryCombo))),  "");
     gtk_entry_set_text(GTK_ENTRY(TrackTotalEntry),                  "");
-    gtk_entry_set_text(GTK_ENTRY(GTK_BIN(GenreCombo)->child),       "");
+    gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(GenreCombo))),       "");
     gtk_entry_set_text(GTK_ENTRY(CommentEntry),                     "");
     //textbuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(CommentView));
     //gtk_text_buffer_set_text(GTK_TEXT_BUFFER(textbuffer),           "", -1);

@@ -383,17 +383,17 @@ void Open_Cddb_Window (void)
     gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(CddbSearchStringCombo),MISC_COMBO_TEXT);
     gtk_widget_set_size_request(GTK_WIDGET(CddbSearchStringCombo),220,-1);
     gtk_box_pack_start(GTK_BOX(hbox),CddbSearchStringCombo,FALSE,TRUE,0);
-    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(GTK_BIN(CddbSearchStringCombo)->child)),_("Enter the words to "
+    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbSearchStringCombo)))),_("Enter the words to "
         "search (separated by a space or '+')"));
     // History List
     Load_Cddb_Search_String_List(CddbSearchStringModel, MISC_COMBO_TEXT);
 
-    g_signal_connect(G_OBJECT(GTK_ENTRY(GTK_BIN(CddbSearchStringCombo)->child)),"activate",
+    g_signal_connect(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbSearchStringCombo)))),"activate",
         G_CALLBACK(Cddb_Search_Album_List_From_String),NULL);
-    gtk_entry_set_text(GTK_ENTRY(GTK_BIN(CddbSearchStringCombo)->child),"");
+    gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbSearchStringCombo))),"");
 
     // Set content of the clipboard if available
-    gtk_editable_paste_clipboard(GTK_EDITABLE(GTK_BIN(CddbSearchStringCombo)->child));
+    gtk_editable_paste_clipboard(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(CddbSearchStringCombo))));
 
     // Button to run the search
     CddbSearchButton = gtk_button_new_from_stock(GTK_STOCK_FIND);
@@ -402,7 +402,7 @@ void Open_Cddb_Window (void)
     gtk_widget_grab_default(CddbSearchButton);
     g_signal_connect(G_OBJECT(CddbSearchButton),"clicked",
         G_CALLBACK(Cddb_Search_Album_List_From_String),NULL);
-    g_signal_connect(G_OBJECT(GTK_ENTRY(GTK_BIN(CddbSearchStringCombo)->child)),"changed",
+    g_signal_connect(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbSearchStringCombo)))),"changed",
         G_CALLBACK(Cddb_Set_Search_Button_Sensivity),NULL);
 
     // Button to stop the search
@@ -482,7 +482,7 @@ void Open_Cddb_Window (void)
     gtk_table_attach(GTK_TABLE(Table),CddbSearchInReggaeCategory,    4,5,3,4,GTK_FILL,GTK_FILL,0,0);
     gtk_table_attach(GTK_TABLE(Table),CddbSearchInRockCategory,      5,6,3,4,GTK_FILL,GTK_FILL,0,0);
     gtk_table_attach(GTK_TABLE(Table),CddbSearchInSoundtrackCategory,6,7,3,4,GTK_FILL,GTK_FILL,0,0);
-    gtk_label_set_line_wrap(GTK_LABEL(GTK_BIN(CddbSearchInAllCategories)->child),TRUE); // Wrap label of the check button.
+    gtk_label_set_line_wrap(GTK_LABEL(gtk_bin_get_child(GTK_BIN(CddbSearchInAllCategories))),TRUE); // Wrap label of the check button.
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbSearchInAllCategories),     CDDB_SEARCH_IN_ALL_CATEGORIES);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbSearchInBluesCategory),     CDDB_SEARCH_IN_BLUES_CATEGORY);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbSearchInClassicalCategory), CDDB_SEARCH_IN_CLASSICAL_CATEGORY);
@@ -538,26 +538,26 @@ void Open_Cddb_Window (void)
     CddbSearchStringInResultCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(CddbSearchStringInResultModel));
     gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(CddbSearchStringInResultCombo),MISC_COMBO_TEXT);
     gtk_box_pack_start(GTK_BOX(hbox),CddbSearchStringInResultCombo,FALSE,FALSE,0);
-    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(GTK_BIN(CddbSearchStringInResultCombo)->child)),"activate",
-                             G_CALLBACK(Cddb_Search_String_In_Result), G_OBJECT(GTK_ENTRY(GTK_BIN(CddbSearchStringInResultCombo)->child)));
-    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(GTK_BIN(CddbSearchStringInResultCombo)->child)),_("Enter the words to "
+    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbSearchStringInResultCombo)))),"activate",
+                             G_CALLBACK(Cddb_Search_String_In_Result), G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbSearchStringInResultCombo)))));
+    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbSearchStringInResultCombo)))),_("Enter the words to "
         "search in the list below"));
 
     // History List
     Load_Cddb_Search_String_In_Result_List(CddbSearchStringInResultModel, MISC_COMBO_TEXT);
 
-    gtk_entry_set_text(GTK_ENTRY(GTK_BIN(CddbSearchStringInResultCombo)->child),"");
+    gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbSearchStringInResultCombo))),"");
 
     CddbSearchStringInResultNextButton = Create_Button_With_Icon_And_Label(GTK_STOCK_GO_DOWN,NULL);
     gtk_box_pack_start(GTK_BOX(hbox),CddbSearchStringInResultNextButton,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(CddbSearchStringInResultNextButton),GTK_RELIEF_NONE);
-    g_signal_connect_swapped(G_OBJECT(CddbSearchStringInResultNextButton),"clicked", G_CALLBACK(Cddb_Search_String_In_Result), G_OBJECT(GTK_ENTRY(GTK_BIN(CddbSearchStringInResultCombo)->child)));
+    g_signal_connect_swapped(G_OBJECT(CddbSearchStringInResultNextButton),"clicked", G_CALLBACK(Cddb_Search_String_In_Result), G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbSearchStringInResultCombo)))));
     gtk_widget_set_tooltip_text(CddbSearchStringInResultNextButton,_("Search Next"));
 
     CddbSearchStringInResultPrevButton = Create_Button_With_Icon_And_Label(GTK_STOCK_GO_UP,NULL);
     gtk_box_pack_start(GTK_BOX(hbox),CddbSearchStringInResultPrevButton,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(CddbSearchStringInResultPrevButton),GTK_RELIEF_NONE);
-    g_signal_connect_swapped(G_OBJECT(CddbSearchStringInResultPrevButton),"clicked", G_CALLBACK(Cddb_Search_String_In_Result), G_OBJECT(GTK_ENTRY(GTK_BIN(CddbSearchStringInResultCombo)->child)));
+    g_signal_connect_swapped(G_OBJECT(CddbSearchStringInResultPrevButton),"clicked", G_CALLBACK(Cddb_Search_String_In_Result), G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbSearchStringInResultCombo)))));
     gtk_widget_set_tooltip_text(CddbSearchStringInResultPrevButton,_("Search Previous"));
 
     // Separator line
@@ -796,7 +796,7 @@ void Open_Cddb_Window (void)
     gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,_("Ready to search..."));
 
 
-    g_signal_emit_by_name(G_OBJECT(GTK_ENTRY(GTK_BIN(CddbSearchStringCombo)->child)),"changed");
+    g_signal_emit_by_name(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbSearchStringCombo)))),"changed");
     g_signal_emit_by_name(G_OBJECT(CddbSearchInAllFields),"toggled");
     g_signal_emit_by_name(G_OBJECT(CddbSearchInAllCategories),"toggled");
     g_signal_emit_by_name(G_OBJECT(CddbSetToAllFields),"toggled");
@@ -1071,7 +1071,7 @@ void Cddb_Set_Search_Button_Sensivity (void)
     cddbinrockcategory       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSearchInRockCategory));
     cddbinsoundtrackcategory = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSearchInSoundtrackCategory));
 
-    if ( CddbSearchButton && CddbSearchStringCombo && g_utf8_strlen(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(CddbSearchStringCombo)->child)), -1) > 0
+    if ( CddbSearchButton && CddbSearchStringCombo && g_utf8_strlen(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbSearchStringCombo)))), -1) > 0
     && (cddbinallfields     || cddbinartistfield   || cddbintitlefield        || cddbintracknamefield || cddbinotherfield)
     && (cddbinallcategories || cddbinbluescategory || cddbinclassicalcategory || cddbincountrycategory
         || cddbinfolkcategory   || cddbinjazzcategory || cddbinmisccategory || cddbinnewagecategory
@@ -1102,7 +1102,7 @@ void Cddb_Notebook_Switch_Page (GtkNotebook *notebook, gpointer page, guint page
         GtkWidget *frame = gtk_notebook_get_nth_page(GTK_NOTEBOOK(notebook), page_tmp); // Child of the page
         if (frame)
         {
-            GtkWidget *box = GTK_BIN(frame)->child;
+            GtkWidget *box = gtk_bin_get_child(GTK_BIN(frame));
             if (box)
             {
                 if (page_tmp == page_num)
@@ -2206,7 +2206,7 @@ gboolean Cddb_Search_Album_List_From_String_Freedb (void)
     gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,"");
 
     /* Get words to search... */
-    string = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(CddbSearchStringCombo)->child)));
+    string = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbSearchStringCombo)))));
     if (!string || g_utf8_strlen(string, -1) <= 0)
         return FALSE;
 
@@ -2515,7 +2515,7 @@ gboolean Cddb_Search_Album_List_From_String_Gnudb (void)
     gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,"");
 
     /* Get words to search... */
-    string = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(CddbSearchStringCombo)->child)));
+    string = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbSearchStringCombo)))));
     if (!string || g_utf8_strlen(string, -1) <= 0)
         return FALSE;
 

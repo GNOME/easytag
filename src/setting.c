@@ -656,7 +656,7 @@ void Apply_Changes_Of_Preferences_Window (void)
         /* Common */
         LOAD_ON_STARTUP               = GTK_TOGGLE_BUTTON(LoadOnStartup)->active;
         if (DEFAULT_PATH_TO_MP3) g_free(DEFAULT_PATH_TO_MP3);
-        DEFAULT_PATH_TO_MP3           = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(DefaultPathToMp3)->child))); // Saved in UTF-8
+        DEFAULT_PATH_TO_MP3           = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3))))); // Saved in UTF-8
 //#ifdef WIN32
 //        ET_Win32_Path_Replace_Backslashes(DEFAULT_PATH_TO_MP3);
 //#endif
@@ -693,7 +693,7 @@ void Apply_Changes_Of_Preferences_Window (void)
         MESSAGE_BOX_POSITION_CENTER_ON_PARENT   = GTK_TOGGLE_BUTTON(MessageBoxPositionCenterOnParent)->active;
 
         if (AUDIO_FILE_PLAYER) g_free(AUDIO_FILE_PLAYER);
-        AUDIO_FILE_PLAYER                       = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(FilePlayerCombo)->child)));
+        AUDIO_FILE_PLAYER                       = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)))));
 
         /* File Settings */
         REPLACE_ILLEGAL_CHARACTERS_IN_FILENAME    = GTK_TOGGLE_BUTTON(ReplaceIllegalCharactersInFilename)->active;
@@ -771,7 +771,7 @@ void Apply_Changes_Of_Preferences_Window (void)
         OVERWRITE_TAG_FIELD = GTK_TOGGLE_BUTTON(OverwriteTagField)->active;
         SET_DEFAULT_COMMENT = GTK_TOGGLE_BUTTON(SetDefaultComment)->active;
         if (DEFAULT_COMMENT) g_free(DEFAULT_COMMENT);
-        DEFAULT_COMMENT     = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(DefaultComment)->child)));
+        DEFAULT_COMMENT     = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultComment)))));
         SET_CRC32_COMMENT   = GTK_TOGGLE_BUTTON(Crc32Comment)->active;
 
         OPEN_SCANNER_WINDOW_ON_STARTUP = GTK_TOGGLE_BUTTON(OpenScannerWindowOnStartup)->active;
@@ -779,25 +779,25 @@ void Apply_Changes_Of_Preferences_Window (void)
 
         /* CDDB */
         if (CDDB_SERVER_NAME_AUTOMATIC_SEARCH) g_free(CDDB_SERVER_NAME_AUTOMATIC_SEARCH);
-        CDDB_SERVER_NAME_AUTOMATIC_SEARCH     = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(CddbServerNameAutomaticSearch)->child)));
+        CDDB_SERVER_NAME_AUTOMATIC_SEARCH     = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbServerNameAutomaticSearch)))));
         CDDB_SERVER_PORT_AUTOMATIC_SEARCH     = atoi(gtk_entry_get_text(GTK_ENTRY(CddbServerPortAutomaticSearch)));
         if (CDDB_SERVER_CGI_PATH_AUTOMATIC_SEARCH) g_free(CDDB_SERVER_CGI_PATH_AUTOMATIC_SEARCH);
         CDDB_SERVER_CGI_PATH_AUTOMATIC_SEARCH = g_strdup(gtk_entry_get_text(GTK_ENTRY(CddbServerCgiPathAutomaticSearch)));
 
         if (CDDB_SERVER_NAME_AUTOMATIC_SEARCH2) g_free(CDDB_SERVER_NAME_AUTOMATIC_SEARCH2);
-        CDDB_SERVER_NAME_AUTOMATIC_SEARCH2     = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(CddbServerNameAutomaticSearch2)->child)));
+        CDDB_SERVER_NAME_AUTOMATIC_SEARCH2     = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbServerNameAutomaticSearch2)))));
         CDDB_SERVER_PORT_AUTOMATIC_SEARCH2     = atoi(gtk_entry_get_text(GTK_ENTRY(CddbServerPortAutomaticSearch2)));
         if (CDDB_SERVER_CGI_PATH_AUTOMATIC_SEARCH2) g_free(CDDB_SERVER_CGI_PATH_AUTOMATIC_SEARCH2);
         CDDB_SERVER_CGI_PATH_AUTOMATIC_SEARCH2 = g_strdup(gtk_entry_get_text(GTK_ENTRY(CddbServerCgiPathAutomaticSearch2)));
 
         if (CDDB_SERVER_NAME_MANUAL_SEARCH) g_free(CDDB_SERVER_NAME_MANUAL_SEARCH);
-        CDDB_SERVER_NAME_MANUAL_SEARCH     = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(CddbServerNameManualSearch)->child)));
+        CDDB_SERVER_NAME_MANUAL_SEARCH     = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbServerNameManualSearch)))));
         CDDB_SERVER_PORT_MANUAL_SEARCH     = atoi(gtk_entry_get_text(GTK_ENTRY(CddbServerPortManualSearch)));
         if (CDDB_SERVER_CGI_PATH_MANUAL_SEARCH) g_free(CDDB_SERVER_CGI_PATH_MANUAL_SEARCH);
         CDDB_SERVER_CGI_PATH_MANUAL_SEARCH = g_strdup(gtk_entry_get_text(GTK_ENTRY(CddbServerCgiPathManualSearch)));
 
         if (CDDB_LOCAL_PATH) g_free(CDDB_LOCAL_PATH);
-        CDDB_LOCAL_PATH = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(CddbLocalPath)->child)));
+        CDDB_LOCAL_PATH = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbLocalPath)))));
 
         CDDB_USE_PROXY       = GTK_TOGGLE_BUTTON(CddbUseProxy)->active;
         if (CDDB_PROXY_NAME) g_free(CDDB_PROXY_NAME);

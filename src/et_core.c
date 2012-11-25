@@ -2866,10 +2866,10 @@ gboolean ET_Display_File_Tag_To_UI (ET_File *ETFile)
     if (FileTag && FileTag->track)
     {
         gchar *tmp = Try_To_Validate_Utf8_String(FileTag->track);
-        gtk_entry_set_text(GTK_ENTRY(GTK_BIN(TrackEntryCombo)->child),tmp);
+        gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(TrackEntryCombo))),tmp);
         g_free(tmp);
     }else
-        gtk_entry_set_text(GTK_ENTRY(GTK_BIN(TrackEntryCombo)->child),"");
+        gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(TrackEntryCombo))),"");
 
     /* Show number of tracks on the album */
     if (FileTag && FileTag->track_total)
@@ -2884,10 +2884,10 @@ gboolean ET_Display_File_Tag_To_UI (ET_File *ETFile)
     if (FileTag && FileTag->genre)
     {
         gchar *tmp = Try_To_Validate_Utf8_String(FileTag->genre);
-        gtk_entry_set_text(GTK_ENTRY(GTK_BIN(GenreCombo)->child), tmp);
+        gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(GenreCombo))), tmp);
         g_free(tmp);
     }else
-        gtk_entry_set_text(GTK_ENTRY(GTK_BIN(GenreCombo)->child),"");
+        gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(GenreCombo))),"");
 
     /* Show comment */
     //textbuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(CommentView));
@@ -3371,7 +3371,7 @@ gboolean ET_Save_File_Tag_From_UI (File_Tag *FileTag)
     }
 
     /* Track */
-    buffer = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(TrackEntryCombo)->child)));
+    buffer = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(TrackEntryCombo)))));
     Strip_String(buffer);
 
     if ( g_utf8_strlen(buffer, -1) > 0  )
@@ -3406,7 +3406,7 @@ gboolean ET_Save_File_Tag_From_UI (File_Tag *FileTag)
     }
 
     /* Genre */
-    buffer = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(GenreCombo)->child)));
+    buffer = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(GenreCombo)))));
     Strip_String(buffer);
 
     if ( g_utf8_strlen(buffer, -1) > 0 )

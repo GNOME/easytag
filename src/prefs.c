@@ -174,10 +174,10 @@ void Open_OptionsWindow (void)
     gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(DefaultPathToMp3), MISC_COMBO_TEXT);
     gtk_box_pack_start(GTK_BOX(HBox),DefaultPathToMp3,TRUE,TRUE,0);
     gtk_widget_set_size_request(DefaultPathToMp3, 400, -1);
-    gtk_widget_set_tooltip_text(GTK_BIN(DefaultPathToMp3)->child,_("Specify the directory where "
+    gtk_widget_set_tooltip_text(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3)),_("Specify the directory where "
         "your files are located. This path will be loaded when EasyTAG starts without parameter."));
-    g_signal_connect(G_OBJECT(GTK_ENTRY(GTK_BIN(DefaultPathToMp3)->child)),"activate",G_CALLBACK(DefaultPathToMp3_Combo_Add_String),NULL);
-    //g_signal_connect(G_OBJECT(GTK_ENTRY(GTK_BIN(DefaultPathToMp3)->child)),"focus_out_event",G_CALLBACK(DefaultPathToMp3_Combo_Add_String),NULL);
+    g_signal_connect(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3)))),"activate",G_CALLBACK(DefaultPathToMp3_Combo_Add_String),NULL);
+    //g_signal_connect(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3)))),"focus_out_event",G_CALLBACK(DefaultPathToMp3_Combo_Add_String),NULL);
 
     // History list
     Load_Default_Path_To_MP3_List(DefaultPathModel, MISC_COMBO_TEXT);
@@ -185,14 +185,14 @@ void Open_OptionsWindow (void)
     path_utf8 = filename_to_display(DEFAULT_PATH_TO_MP3);
     Add_String_To_Combo_List(DefaultPathModel, path_utf8);
     if (path_utf8)
-        gtk_entry_set_text(GTK_ENTRY(GTK_BIN(DefaultPathToMp3)->child), path_utf8);
+        gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3))), path_utf8);
     g_free(path_utf8);
 
     // Button browse
     Button = gtk_button_new_from_stock(GTK_STOCK_OPEN);
     gtk_box_pack_start(GTK_BOX(HBox),Button,FALSE,FALSE,0);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
-                             G_CALLBACK(File_Selection_Window_For_Directory),G_OBJECT(GTK_BIN(DefaultPathToMp3)->child));
+                             G_CALLBACK(File_Selection_Window_For_Directory),G_OBJECT(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3))));
 
     /* Load directory on startup */
     LoadOnStartup = gtk_check_button_new_with_label(_("Load on startup the default directory or the directory passed as argument"));
@@ -389,7 +389,7 @@ void Open_OptionsWindow (void)
     gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(FilePlayerCombo),MISC_COMBO_TEXT);
     gtk_widget_set_size_request(GTK_WIDGET(FilePlayerCombo), 300, -1);
     gtk_box_pack_start(GTK_BOX(hbox),FilePlayerCombo,FALSE,FALSE,0);
-    gtk_widget_set_tooltip_text(GTK_BIN(FilePlayerCombo)->child,_("Enter the program used to "
+    gtk_widget_set_tooltip_text(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)),_("Enter the program used to "
         "play the files. Some arguments can be passed for the program (as 'xmms -p') before "
         "to receive files as other arguments."));
     // History List
@@ -397,14 +397,14 @@ void Open_OptionsWindow (void)
     Add_String_To_Combo_List(FilePlayerModel, AUDIO_FILE_PLAYER);
     // Don't load the parameter if XMMS not found, else user can't save the preference
     if ( (program_path=Check_If_Executable_Exists(AUDIO_FILE_PLAYER)))
-        gtk_entry_set_text(GTK_ENTRY(GTK_BIN(FilePlayerCombo)->child), AUDIO_FILE_PLAYER);
+        gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo))), AUDIO_FILE_PLAYER);
     g_free(program_path);
 
     // Button browse
     Button = gtk_button_new_from_stock(GTK_STOCK_OPEN);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
-        G_CALLBACK(File_Selection_Window_For_File), G_OBJECT(GTK_BIN(FilePlayerCombo)->child));
+        G_CALLBACK(File_Selection_Window_For_File), G_OBJECT(gtk_bin_get_child(GTK_BIN(FilePlayerCombo))));
 
     /* Log options */
     Frame = gtk_frame_new (_("Log Options"));
@@ -1146,7 +1146,7 @@ void Open_OptionsWindow (void)
     Load_Default_Tag_Comment_Text_List(DefaultCommentModel, MISC_COMBO_TEXT);
     Add_String_To_Combo_List(DefaultCommentModel, DEFAULT_COMMENT);
     if (DEFAULT_COMMENT)
-        gtk_entry_set_text(GTK_ENTRY(GTK_BIN(DefaultComment)->child), DEFAULT_COMMENT);
+        gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultComment))), DEFAULT_COMMENT);
 
     // CRC32 comment
     Crc32Comment = gtk_check_button_new_with_label(_("Use CRC32 as the default "
@@ -1200,7 +1200,7 @@ void Open_OptionsWindow (void)
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch), "uk.freedb.org");
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch), "us.freedb.org");
     if (CDDB_SERVER_NAME_AUTOMATIC_SEARCH)
-        gtk_entry_set_text(GTK_ENTRY(GTK_BIN(CddbServerNameAutomaticSearch)->child),CDDB_SERVER_NAME_AUTOMATIC_SEARCH);
+        gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbServerNameAutomaticSearch))),CDDB_SERVER_NAME_AUTOMATIC_SEARCH);
 
     Label = gtk_label_new (_("Port :"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
@@ -1228,7 +1228,7 @@ void Open_OptionsWindow (void)
     gtk_box_pack_start(GTK_BOX(hbox),CddbServerNameAutomaticSearch2,FALSE,FALSE,0);
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch2), "freedb.musicbrainz.org");
     if (CDDB_SERVER_NAME_AUTOMATIC_SEARCH2)
-        gtk_entry_set_text(GTK_ENTRY(GTK_BIN(CddbServerNameAutomaticSearch2)->child),CDDB_SERVER_NAME_AUTOMATIC_SEARCH2);
+        gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbServerNameAutomaticSearch2))),CDDB_SERVER_NAME_AUTOMATIC_SEARCH2);
 
     Label = gtk_label_new (_("Port :"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
@@ -1263,7 +1263,7 @@ void Open_OptionsWindow (void)
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameManualSearch), "www.freedb.org");
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameManualSearch), "www.gnudb.org");
     if (CDDB_SERVER_NAME_MANUAL_SEARCH)
-        gtk_entry_set_text(GTK_ENTRY(GTK_BIN(CddbServerNameManualSearch)->child),CDDB_SERVER_NAME_MANUAL_SEARCH);
+        gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbServerNameManualSearch))),CDDB_SERVER_NAME_MANUAL_SEARCH);
 
     Label = gtk_label_new (_("Port :"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
@@ -1303,11 +1303,11 @@ void Open_OptionsWindow (void)
     gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(CddbLocalPath),MISC_COMBO_TEXT);
     gtk_box_pack_start(GTK_BOX(hbox),CddbLocalPath,FALSE,FALSE,0);
     gtk_widget_set_size_request(GTK_WIDGET(CddbLocalPath), 450, -1);
-    gtk_widget_set_tooltip_text(GTK_BIN(CddbLocalPath)->child,_("Specify the directory "
+    gtk_widget_set_tooltip_text(gtk_bin_get_child(GTK_BIN(CddbLocalPath)),_("Specify the directory "
         "where are located the local cd data base. The local cd data base contains the eleven following "
         "directories 'blues', 'classical', 'country', 'data', 'folk', 'jazz', 'newage', 'reggae', "
         "'rock', 'soundtrack' and 'misc'."));
-    g_signal_connect(G_OBJECT(GTK_ENTRY(GTK_BIN(CddbLocalPath)->child)),"activate",G_CALLBACK(CddbLocalPath_Combo_Add_String),NULL);
+    g_signal_connect(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbLocalPath)))),"activate",G_CALLBACK(CddbLocalPath_Combo_Add_String),NULL);
     //g_signal_connect(G_OBJECT(GTK_ENTRY(GTK_BIN(CddbLocalPath)->child)),"focus_out_event",G_CALLBACK(CddbLocalPath_Combo_Add_String),NULL);
 
     // History list
@@ -1319,14 +1319,14 @@ void Open_OptionsWindow (void)
         path_utf8 = filename_to_display(CDDB_LOCAL_PATH);
         Add_String_To_Combo_List(CddbLocalPathModel, path_utf8);
         if (path_utf8)
-            gtk_entry_set_text(GTK_ENTRY(GTK_BIN(CddbLocalPath)->child), path_utf8);
+            gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbLocalPath))), path_utf8);
         g_free(path_utf8);
     }
 
     Button = gtk_button_new_from_stock(GTK_STOCK_OPEN);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
-                             G_CALLBACK(File_Selection_Window_For_Directory),G_OBJECT(GTK_BIN(CddbLocalPath)->child));
+                             G_CALLBACK(File_Selection_Window_For_Directory),G_OBJECT(gtk_bin_get_child(GTK_BIN(CddbLocalPath))));
 
     // CDDB Proxy Settings
     Frame = gtk_frame_new (_("Proxy Settings"));
@@ -1667,10 +1667,10 @@ void OptionsWindow_Apply_Button(void)
 
 #ifndef WIN32
     /* FIXME : make gtk crash on win32 */
-    Add_String_To_Combo_List(DefaultPathModel,    (gchar*) gtk_entry_get_text(GTK_ENTRY(GTK_BIN(DefaultPathToMp3)->child)));
-    Add_String_To_Combo_List(FilePlayerModel,     (gchar*) gtk_entry_get_text(GTK_ENTRY(GTK_BIN(FilePlayerCombo)->child)));
-    Add_String_To_Combo_List(DefaultCommentModel, (gchar*) gtk_entry_get_text(GTK_ENTRY(GTK_BIN(DefaultComment)->child)));
-    Add_String_To_Combo_List(CddbLocalPathModel,  (gchar*) gtk_entry_get_text(GTK_ENTRY(GTK_BIN(CddbLocalPath)->child)));
+    Add_String_To_Combo_List(DefaultPathModel,    (gchar*) gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3)))));
+    Add_String_To_Combo_List(FilePlayerModel,     (gchar*) gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)))));
+    Add_String_To_Combo_List(DefaultCommentModel, (gchar*) gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultComment)))));
+    Add_String_To_Combo_List(CddbLocalPathModel,  (gchar*) gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbLocalPath)))));
 #endif
 
     Apply_Changes_Of_Preferences_Window();
@@ -1686,10 +1686,10 @@ void OptionsWindow_Save_Button(void)
 
 #ifndef WIN32
     /* FIXME : make gtk crash on win32 */
-    Add_String_To_Combo_List(DefaultPathModel,      (gchar*) gtk_entry_get_text(GTK_ENTRY(GTK_BIN(DefaultPathToMp3)->child)));
-    Add_String_To_Combo_List(FilePlayerModel,       (gchar*) gtk_entry_get_text(GTK_ENTRY(GTK_BIN(FilePlayerCombo)->child)));
-    Add_String_To_Combo_List(DefaultCommentModel,   (gchar*) gtk_entry_get_text(GTK_ENTRY(GTK_BIN(DefaultComment)->child)));
-    Add_String_To_Combo_List(CddbLocalPathModel,    (gchar*) gtk_entry_get_text(GTK_ENTRY(GTK_BIN(CddbLocalPath)->child)));
+    Add_String_To_Combo_List(DefaultPathModel,      (gchar*) gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3)))));
+    Add_String_To_Combo_List(FilePlayerModel,       (gchar*) gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)))));
+    Add_String_To_Combo_List(DefaultCommentModel,   (gchar*) gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultComment)))));
+    Add_String_To_Combo_List(CddbLocalPathModel,    (gchar*) gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbLocalPath)))));
 #endif
 
     Save_Changes_Of_Preferences_Window();
@@ -1776,7 +1776,7 @@ gint Check_DefaultPathToMp3 (void)
     gchar *path_real;
     struct stat stbuf;
 
-    path_utf8 = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(DefaultPathToMp3)->child)));
+    path_utf8 = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3)))));
     if (!path_utf8 || g_utf8_strlen(path_utf8, -1) < 1)
     {
         g_free(path_utf8);
@@ -1886,7 +1886,7 @@ gint Check_DefaultComment (void)
 {
     const gchar *file;
 
-    file = gtk_entry_get_text(GTK_ENTRY(GTK_BIN(DefaultComment)->child));
+    file = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultComment))));
     if (!file || g_utf8_strlen(file, -1) < 1)
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SetDefaultComment),FALSE);
 
@@ -1907,7 +1907,7 @@ gint Check_FilePlayerCombo (void)
 #endif
 
     // The program typed
-    program_path = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(FilePlayerCombo)->child)));
+    program_path = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)))));
     g_strstrip(program_path);
     // The program file validated
     if (program_path && strlen(program_path)>0)
@@ -1916,7 +1916,7 @@ gint Check_FilePlayerCombo (void)
     if ( program_path && strlen(program_path)>0 && !program_path_validated ) // A file is typed but it is invalid!
     {
         gchar *msg = g_strdup_printf(_("The audio file player '%s' can't be found!"),
-            gtk_entry_get_text(GTK_ENTRY(GTK_BIN(FilePlayerCombo)->child)));
+            gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)))));
         GtkWidget *msgbox = msg_box_new(_("Error..."),
                                         GTK_WINDOW(OptionsWindow),
                                         NULL,
@@ -1969,7 +1969,7 @@ void DefaultPathToMp3_Combo_Add_String (void)
 {
     const gchar *path;
 
-    path = gtk_entry_get_text(GTK_ENTRY(GTK_BIN(DefaultPathToMp3)->child));
+    path = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3))));
     Add_String_To_Combo_List(GTK_LIST_STORE(DefaultPathModel), (gchar *)path);
 }
 
@@ -1977,7 +1977,7 @@ void CddbLocalPath_Combo_Add_String (void)
 {
     const gchar *path;
 
-    path = gtk_entry_get_text(GTK_ENTRY(GTK_BIN(CddbLocalPath)->child));
+    path = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbLocalPath))));
     Add_String_To_Combo_List(GTK_LIST_STORE(CddbLocalPath), (gchar *)path);
 }
 

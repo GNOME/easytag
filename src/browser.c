@@ -372,7 +372,7 @@ void Browser_Entry_Activated (void)
     const gchar *path_utf8;
     gchar *path;
 
-    path_utf8 = gtk_entry_get_text(GTK_ENTRY(GTK_BIN(BrowserEntryCombo)->child));
+    path_utf8 = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(BrowserEntryCombo))));
     Add_String_To_Combo_List(GTK_LIST_STORE(BrowserEntryModel), (gchar *)path_utf8);
 
     path = filename_from_display(path_utf8);
@@ -389,7 +389,7 @@ void Browser_Entry_Set_Text (gchar *text)
     if (!text || !BrowserEntryCombo)
         return;
 
-    gtk_entry_set_text(GTK_ENTRY(GTK_BIN(BrowserEntryCombo)->child),text);
+    gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(BrowserEntryCombo))),text);
 }
 
 /*
@@ -781,7 +781,7 @@ gboolean Browser_Tree_Node_Selected (GtkTreeSelection *selection, gpointer user_
 
     /* Display the selected path into the BrowserEntry */
     pathName_utf8 = filename_to_display(pathName);
-    gtk_entry_set_text(GTK_ENTRY(GTK_BIN(BrowserEntryCombo)->child), pathName_utf8);
+    gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(BrowserEntryCombo))), pathName_utf8);
 
     /* Start to read the directory */
     /* The first time, 'counter' is equal to zero. And if we don't want to load
@@ -2561,8 +2561,8 @@ void Browser_Tree_Rebuild (gchar *path_to_load)
         /* If no node selected, get path from BrowserEntry or default path */
         if (BrowserCurrentPath != NULL)
             current_path = g_strdup(BrowserCurrentPath);
-        else if (g_utf8_strlen(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(BrowserEntryCombo)->child)), -1) > 0)
-            current_path = filename_from_display(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(BrowserEntryCombo)->child)));
+        else if (g_utf8_strlen(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(BrowserEntryCombo)))), -1) > 0)
+            current_path = filename_from_display(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(BrowserEntryCombo)))));
         else
             current_path = g_strdup(DEFAULT_PATH_TO_MP3);
     }
@@ -3072,9 +3072,9 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     Load_Path_Entry_List(BrowserEntryModel, MISC_COMBO_TEXT);
     //gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(BrowserEntryCombo),2); // Two columns to display paths
 
-    g_signal_connect(G_OBJECT(GTK_ENTRY(GTK_BIN(BrowserEntryCombo)->child)),"activate",G_CALLBACK(Browser_Entry_Activated),NULL);
+    g_signal_connect(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(BrowserEntryCombo)))),"activate",G_CALLBACK(Browser_Entry_Activated),NULL);
     gtk_box_pack_start(GTK_BOX(HBox),BrowserEntryCombo,TRUE,TRUE,1);
-    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(GTK_BIN(BrowserEntryCombo)->child)),_("Enter a directory to browse."));
+    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(BrowserEntryCombo)))),_("Enter a directory to browse."));
 
     /*
      * The button to select a directory to browse
@@ -3082,7 +3082,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     BrowserButton = gtk_button_new_from_stock(GTK_STOCK_OPEN);
     gtk_box_pack_start(GTK_BOX(HBox),BrowserButton,FALSE,FALSE,1);
     g_signal_connect_swapped(G_OBJECT(BrowserButton),"clicked",
-                             G_CALLBACK(File_Selection_Window_For_Directory),G_OBJECT(GTK_BIN(BrowserEntryCombo)->child));
+                             G_CALLBACK(File_Selection_Window_For_Directory),G_OBJECT(gtk_bin_get_child(GTK_BIN(BrowserEntryCombo))));
     gtk_widget_set_tooltip_text(BrowserButton,_("Select a directory to browse."));
 
 
@@ -3721,8 +3721,8 @@ void Browser_Open_Rename_Directory_Window (void)
     /* Set the directory into the combobox */
     gtk_combo_box_text_prepend_text(GTK_COMBO_BOX_TEXT(RenameDirectoryCombo), directory_name_utf8);
     gtk_combo_box_text_prepend_text(GTK_COMBO_BOX_TEXT(RenameDirectoryCombo), "");
-    gtk_entry_set_text(GTK_ENTRY(GTK_BIN(RenameDirectoryCombo)->child),directory_name_utf8);
-    Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(GTK_BIN(RenameDirectoryCombo)->child));
+    gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameDirectoryCombo))),directory_name_utf8);
+    Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameDirectoryCombo))));
 
     /* Rename directory : check box + combo box + Status icon */
     HBox = gtk_hbox_new(FALSE,2);
@@ -3748,11 +3748,11 @@ void Browser_Open_Rename_Directory_Window (void)
     gtk_widget_set_size_request(RenameDirectoryMaskCombo, 80, -1);
 
     gtk_box_pack_start(GTK_BOX(HBox),RenameDirectoryMaskCombo,TRUE,TRUE,0);
-    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(GTK_BIN(RenameDirectoryMaskCombo)->child)),
+    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameDirectoryMaskCombo)))),
         _("Select or type in a mask using codes (see Legend in Scanner Window) to rename "
         "the directory from tag fields."));
     // Signal to generate preview (preview of the new directory)
-    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(GTK_BIN(RenameDirectoryMaskCombo)->child)),"changed",
+    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameDirectoryMaskCombo)))),"changed",
         G_CALLBACK(Scan_Rename_Directory_Generate_Preview),NULL);
 
     // Load masks into the combobox from a file
@@ -3760,7 +3760,7 @@ void Browser_Open_Rename_Directory_Window (void)
     if (RENAME_DIRECTORY_DEFAULT_MASK)
     {
         Add_String_To_Combo_List(RenameDirectoryMaskModel, RENAME_DIRECTORY_DEFAULT_MASK);
-        gtk_entry_set_text(GTK_ENTRY(GTK_BIN(RenameDirectoryMaskCombo)->child), RENAME_DIRECTORY_DEFAULT_MASK);
+        gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameDirectoryMaskCombo))), RENAME_DIRECTORY_DEFAULT_MASK);
     }else
     {
         gtk_combo_box_set_active(GTK_COMBO_BOX(RenameDirectoryMaskCombo), 0);
@@ -3771,7 +3771,7 @@ void Browser_Open_Rename_Directory_Window (void)
     gtk_box_pack_start(GTK_BOX(HBox),RenameDirectoryMaskStatusIconBox,FALSE,FALSE,0);
     gtk_widget_set_tooltip_text(RenameDirectoryMaskStatusIconBox,_("Invalid Scanner Mask"));
     // Signal connection to check if mask is correct into the mask entry
-    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(GTK_BIN(RenameDirectoryMaskCombo)->child)),"changed",
+    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameDirectoryMaskCombo)))),"changed",
         G_CALLBACK(Scan_Check_Rename_File_Mask),G_OBJECT(RenameDirectoryMaskStatusIconBox));
 
     // Preview label
@@ -3801,7 +3801,7 @@ void Browser_Open_Rename_Directory_Window (void)
     gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
     gtk_widget_set_can_default(Button,TRUE);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked", G_CALLBACK(Rename_Directory),NULL);
-    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(GTK_BIN(RenameDirectoryCombo)->child)),"changed",
+    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameDirectoryCombo)))),"changed",
         G_CALLBACK(Entry_Changed_Disable_Object),G_OBJECT(Button));
 
     g_signal_connect_swapped(G_OBJECT(RenameDirectoryWindow),"destroy", G_CALLBACK(Destroy_Rename_Directory_Window), NULL);
@@ -3821,7 +3821,7 @@ void Browser_Open_Rename_Directory_Window (void)
     g_signal_emit_by_name(G_OBJECT(RenameDirectoryWithMask),"toggled");
 
     // To initialize PreviewLabel + MaskStatusIconBox
-    g_signal_emit_by_name(G_OBJECT(GTK_BIN(RenameDirectoryMaskCombo)->child),"changed");
+    g_signal_emit_by_name(G_OBJECT(gtk_bin_get_child(GTK_BIN(RenameDirectoryMaskCombo))),"changed");
 
     g_free(directory_name_utf8);
 }
@@ -3838,7 +3838,7 @@ void Destroy_Rename_Directory_Window (void)
         g_signal_handlers_block_by_func(RenameDirectoryWindow, Destroy_Rename_Directory_Window, NULL);
 
         if (RENAME_DIRECTORY_DEFAULT_MASK) g_free(RENAME_DIRECTORY_DEFAULT_MASK);
-        RENAME_DIRECTORY_DEFAULT_MASK = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(RenameDirectoryMaskCombo)->child)));
+        RENAME_DIRECTORY_DEFAULT_MASK = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameDirectoryMaskCombo)))));
         Add_String_To_Combo_List(RenameDirectoryMaskModel, RENAME_DIRECTORY_DEFAULT_MASK);
         Save_Rename_Directory_Masks_List(RenameDirectoryMaskModel, MASK_EDITOR_TEXT);
 
@@ -3876,14 +3876,14 @@ void Rename_Directory (void)
     if (GTK_TOGGLE_BUTTON(RenameDirectoryWithMask)->active)
     {
         // Renamed from mask
-        gchar *mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(RenameDirectoryMaskCombo)->child)));
+        gchar *mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameDirectoryMaskCombo)))));
         directory_new_name = Scan_Generate_New_Directory_Name_From_Mask(ETCore->ETFileDisplayed,mask,FALSE);
         g_free(mask);
 
     }else
     {
         // Renamed 'manually'
-        directory_new_name  = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(RenameDirectoryCombo)->child)));
+        directory_new_name  = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameDirectoryCombo)))));
     }
 
     /* Check if a name for the directory have been supplied */
@@ -4191,20 +4191,20 @@ void Browser_Open_Run_Program_Tree_Window (void)
     gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(RunProgramComboBox), MISC_COMBO_TEXT);
     gtk_box_pack_start(GTK_BOX(HBox),RunProgramComboBox,TRUE,TRUE,0);
     gtk_widget_set_size_request(GTK_WIDGET(RunProgramComboBox),250,-1);
-    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(GTK_BIN(RunProgramComboBox)->child)),_("Enter the program to run. "
+    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RunProgramComboBox)))),_("Enter the program to run. "
         "It will receive the current directory as parameter."));
 
     /* History list */
     gtk_list_store_clear(RunProgramModel);
     Load_Run_Program_With_Directory_List(RunProgramModel, MISC_COMBO_TEXT);
-    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(GTK_BIN(RunProgramComboBox)->child)),"activate",
+    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RunProgramComboBox)))),"activate",
         G_CALLBACK(Run_Program_With_Directory),G_OBJECT(RunProgramComboBox));
 
     /* The button to Browse */
     Button = gtk_button_new_from_stock(GTK_STOCK_OPEN);
     gtk_box_pack_start(GTK_BOX(HBox),Button,FALSE,FALSE,0);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
-                             G_CALLBACK(File_Selection_Window_For_File),G_OBJECT(GTK_BIN(RunProgramComboBox)->child));
+                             G_CALLBACK(File_Selection_Window_For_File),G_OBJECT(gtk_bin_get_child(GTK_BIN(RunProgramComboBox))));
 
     /* We attach usefull data to the combobox (into Run_Program_With_Directory) */
     g_object_set_data(G_OBJECT(RunProgramComboBox), "Current_Directory", current_directory);
@@ -4230,8 +4230,8 @@ void Browser_Open_Run_Program_Tree_Window (void)
     gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
     gtk_widget_set_can_default(Button,TRUE);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked", G_CALLBACK(Run_Program_With_Directory),G_OBJECT(RunProgramComboBox));
-    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(GTK_BIN(RunProgramComboBox)->child)),"changed", G_CALLBACK(Entry_Changed_Disable_Object),G_OBJECT(Button));
-    g_signal_emit_by_name(G_OBJECT(GTK_ENTRY(GTK_BIN(RunProgramComboBox)->child)),"changed",NULL);
+    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RunProgramComboBox)))),"changed", G_CALLBACK(Entry_Changed_Disable_Object),G_OBJECT(Button));
+    g_signal_emit_by_name(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RunProgramComboBox)))),"changed",NULL);
 
     gtk_widget_show_all(RunProgramTreeWindow);
 }
@@ -4271,7 +4271,7 @@ void Run_Program_With_Directory (GtkObject *combobox)
 
     if (!GTK_IS_COMBO_BOX(combobox)) return;
 
-    program_name      = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(combobox)->child)));
+    program_name      = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(combobox)))));
     current_directory = g_object_get_data(G_OBJECT(combobox), "Current_Directory");
 #ifdef WIN32
     /* On win32 : 'winamp.exe "c:\path\to\dir"' succeed, while 'winamp.exe "c:\path\to\dir\"' fails */
@@ -4349,20 +4349,20 @@ void Browser_Open_Run_Program_List_Window (void)
     gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(RunProgramComboBox),MISC_COMBO_TEXT);
     gtk_box_pack_start(GTK_BOX(HBox),RunProgramComboBox,TRUE,TRUE,0);
     gtk_widget_set_size_request(GTK_WIDGET(RunProgramComboBox),250,-1);
-    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(GTK_BIN(RunProgramComboBox)->child)),_("Enter the program to run. "
+    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RunProgramComboBox)))),_("Enter the program to run. "
         "It will receive the current file as parameter."));
 
     /* History list */
     gtk_list_store_clear(RunProgramModel);
     Load_Run_Program_With_File_List(RunProgramModel, MISC_COMBO_TEXT);
-    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(GTK_BIN(RunProgramComboBox)->child)),"activate",
+    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RunProgramComboBox)))),"activate",
         G_CALLBACK(Run_Program_With_Selected_Files),G_OBJECT(RunProgramComboBox));
 
     /* The button to Browse */
     Button = gtk_button_new_from_stock(GTK_STOCK_OPEN);
     gtk_box_pack_start(GTK_BOX(HBox),Button,FALSE,FALSE,0);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
-                             G_CALLBACK(File_Selection_Window_For_File),G_OBJECT(GTK_BIN(RunProgramComboBox)->child));
+                             G_CALLBACK(File_Selection_Window_For_File),G_OBJECT(gtk_bin_get_child(GTK_BIN(RunProgramComboBox))));
 
     /* We attach usefull data to the combobox (into Run_Program_With_Directory) */
     //g_object_set_data(G_OBJECT(Combo), "Current_File", current_file);
@@ -4388,8 +4388,8 @@ void Browser_Open_Run_Program_List_Window (void)
     gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
     gtk_widget_set_can_default(Button,TRUE);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked", G_CALLBACK(Run_Program_With_Selected_Files),G_OBJECT(RunProgramComboBox));
-    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(GTK_BIN(RunProgramComboBox)->child)),"changed", G_CALLBACK(Entry_Changed_Disable_Object),G_OBJECT(Button));
-    g_signal_emit_by_name(G_OBJECT(GTK_ENTRY(GTK_BIN(RunProgramComboBox)->child)),"changed",NULL);
+    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RunProgramComboBox)))),"changed", G_CALLBACK(Entry_Changed_Disable_Object),G_OBJECT(Button));
+    g_signal_emit_by_name(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RunProgramComboBox)))),"changed",NULL);
 
     gtk_widget_show_all(RunProgramListWindow);
 }
@@ -4434,7 +4434,7 @@ void Run_Program_With_Selected_Files (GtkObject *combobox)
         return;
 
     // Programe name to run
-    program_name = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(combobox)->child)));
+    program_name = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(combobox)))));
 
     // List of files to pass as parameters
     selected_paths = gtk_tree_selection_get_selected_rows(gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList)), NULL);

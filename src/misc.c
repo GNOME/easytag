@@ -1280,7 +1280,7 @@ void Open_Write_Playlist_Window (void)
     // History list
     Load_Play_List_Name_List(PlayListNameMaskModel, MISC_COMBO_TEXT);
     Add_String_To_Combo_List(PlayListNameMaskModel, PLAYLIST_NAME);
-    gtk_entry_set_text(GTK_ENTRY(GTK_BIN(PlayListNameMaskCombo)->child), PLAYLIST_NAME);
+    gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(PlayListNameMaskCombo))), PLAYLIST_NAME);
 
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_use_mask_name),PLAYLIST_USE_MASK_NAME);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_use_dir_name),PLAYLIST_USE_DIR_NAME);
@@ -1290,7 +1290,7 @@ void Open_Write_Playlist_Window (void)
     gtk_box_pack_start(GTK_BOX(hbox),MaskStatusIconBox,FALSE,FALSE,0);
     gtk_widget_set_tooltip_text(MaskStatusIconBox,_("Invalid Scanner Mask"));
     // Signal connection to check if mask is correct into the mask entry
-    g_signal_connect_swapped(G_OBJECT(GTK_BIN(PlayListNameMaskCombo)->child),"changed",
+    g_signal_connect_swapped(G_OBJECT(gtk_bin_get_child(GTK_BIN(PlayListNameMaskCombo))),"changed",
         G_CALLBACK(Playlist_Check_Content_Mask),G_OBJECT(MaskStatusIconBox));
 
     // Button for Mask editor
@@ -1381,14 +1381,14 @@ void Open_Write_Playlist_Window (void)
     // History list
     Load_Playlist_Content_Mask_List(PlayListContentMaskModel, MISC_COMBO_TEXT);
     Add_String_To_Combo_List(PlayListContentMaskModel, PLAYLIST_CONTENT_MASK_VALUE);
-    gtk_entry_set_text(GTK_ENTRY(GTK_BIN(PlayListContentMaskCombo)->child), PLAYLIST_CONTENT_MASK_VALUE);
+    gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(PlayListContentMaskCombo))), PLAYLIST_CONTENT_MASK_VALUE);
 
     // Mask status icon
     MaskStatusIconBox1 = Create_Pixmap_Icon_With_Event_Box("easytag-forbidden");
     gtk_box_pack_start(GTK_BOX(hbox),MaskStatusIconBox1,FALSE,FALSE,0);
     gtk_widget_set_tooltip_text(MaskStatusIconBox1,_("Invalid Scanner Mask"));
     // Signal connection to check if mask is correct into the mask entry
-    g_signal_connect_swapped(G_OBJECT(GTK_BIN(PlayListContentMaskCombo)->child),"changed",
+    g_signal_connect_swapped(G_OBJECT(gtk_bin_get_child(GTK_BIN(PlayListContentMaskCombo))),"changed",
         G_CALLBACK(Playlist_Check_Content_Mask),G_OBJECT(MaskStatusIconBox1));
 
     // Button for Mask editor
@@ -1435,8 +1435,8 @@ void Open_Write_Playlist_Window (void)
         gdk_window_move(gtk_widget_get_window(WritePlaylistWindow),PLAYLIST_WINDOW_X,PLAYLIST_WINDOW_Y);
 
     /* To initialize the mask status icon and visibility */
-    g_signal_emit_by_name(G_OBJECT(GTK_BIN(PlayListNameMaskCombo)->child),"changed");
-    g_signal_emit_by_name(G_OBJECT(GTK_BIN(PlayListContentMaskCombo)->child),"changed");
+    g_signal_emit_by_name(G_OBJECT(gtk_bin_get_child(GTK_BIN(PlayListNameMaskCombo))),"changed");
+    g_signal_emit_by_name(G_OBJECT(gtk_bin_get_child(GTK_BIN(PlayListContentMaskCombo))),"changed");
 }
 
 void Destroy_Write_Playlist_Window (void)
@@ -1476,7 +1476,7 @@ void Write_Playlist_Window_Apply_Changes (void)
 
         /* List of variables also set in the function 'Playlist_Write_Button_Pressed' */
         if (PLAYLIST_NAME) g_free(PLAYLIST_NAME);
-        PLAYLIST_NAME                 = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(PlayListNameMaskCombo)->child)));
+        PLAYLIST_NAME                 = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(PlayListNameMaskCombo)))));
         PLAYLIST_USE_MASK_NAME        = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_use_mask_name));
         PLAYLIST_USE_DIR_NAME         = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_use_dir_name));
 
@@ -1491,7 +1491,7 @@ void Write_Playlist_Window_Apply_Changes (void)
         PLAYLIST_CONTENT_MASK         = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_content_mask));
         
         if (PLAYLIST_CONTENT_MASK_VALUE) g_free(PLAYLIST_CONTENT_MASK_VALUE);
-        PLAYLIST_CONTENT_MASK_VALUE   = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(PlayListContentMaskCombo)->child)));
+        PLAYLIST_CONTENT_MASK_VALUE   = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(PlayListContentMaskCombo)))));
 
         /* Save combobox history lists before exit */
         Save_Play_List_Name_List(PlayListNameMaskModel, MISC_COMBO_TEXT);
@@ -1531,7 +1531,7 @@ void Playlist_Write_Button_Pressed (void)
 
     // Check if playlist name was filled
     if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_use_mask_name))
-    &&   g_utf8_strlen(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(PlayListNameMaskCombo)->child)), -1)<=0 )
+    &&   g_utf8_strlen(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(PlayListNameMaskCombo)))), -1)<=0 )
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_use_dir_name),TRUE);
 
     /* List of variables also set in the function 'Write_Playlist_Window_Apply_Changes' */
@@ -1829,7 +1829,7 @@ gboolean Write_Playlist (gchar *playlist_name)
                 }else if (PLAYLIST_CONTENT_MASK)
                 {
                     // Header uses generated filename from a mask
-                    gchar *mask = filename_from_display(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(PlayListContentMaskCombo)->child)));
+                    gchar *mask = filename_from_display(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(PlayListContentMaskCombo)))));
                     // Special case : we don't replace illegal characters and don't check if there is a directory separator in the mask.
                     gchar *filename_generated_utf8 = Scan_Generate_New_Filename_From_Mask(etfile,mask,TRUE);
                     gchar *filename_generated = filename_from_display(filename_generated_utf8);
@@ -1865,7 +1865,7 @@ gboolean Write_Playlist (gchar *playlist_name)
             }else if (PLAYLIST_CONTENT_MASK)
             {
                 // Header uses generated filename from a mask
-                gchar *mask = filename_from_display(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(PlayListContentMaskCombo)->child)));
+                gchar *mask = filename_from_display(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(PlayListContentMaskCombo)))));
                 gchar *filename_generated_utf8 = Scan_Generate_New_Filename_From_Mask(etfile,mask,TRUE);
                 gchar *filename_generated = filename_from_display(filename_generated_utf8);
                 fprintf(file,"#EXTINF:%d,%s\r\n",duration,filename_generated); // Must be written in system encoding (not UTF-8)
@@ -1977,12 +1977,12 @@ void Open_Search_File_Window (void)
     gtk_table_attach(GTK_TABLE(Table),SearchStringCombo,1,5,0,1,GTK_EXPAND|GTK_FILL,GTK_FILL,0,0);
     // History List
     Load_Search_File_List(SearchStringModel, MISC_COMBO_TEXT);
-    gtk_entry_set_text(GTK_ENTRY(GTK_BIN(SearchStringCombo)->child),"");
-    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(GTK_BIN(SearchStringCombo)->child)),
+    gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(SearchStringCombo))),"");
+    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(SearchStringCombo)))),
         _("Type the word to search into files. Or type nothing to display all files."));
 
     // Set content of the clipboard if available
-    gtk_editable_paste_clipboard(GTK_EDITABLE(GTK_BIN(SearchStringCombo)->child));
+    gtk_editable_paste_clipboard(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(SearchStringCombo))));
 
     // Where...
     Label = gtk_label_new(_("In :"));
@@ -2212,7 +2212,7 @@ void Open_Search_File_Window (void)
     gtk_widget_set_can_default(Button,TRUE);
     gtk_widget_grab_default(Button);
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(Search_File),NULL);
-    g_signal_connect(G_OBJECT(GTK_BIN(SearchStringCombo)->child),"activate", G_CALLBACK(Search_File),NULL);
+    g_signal_connect(G_OBJECT(gtk_bin_get_child(GTK_BIN(SearchStringCombo))),"activate", G_CALLBACK(Search_File),NULL);
 
     // Button to cancel
     Button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
@@ -2315,7 +2315,7 @@ void Search_File (GtkWidget *search_button)
     if (!SearchStringCombo || !SearchInFilename || !SearchInTag || !SearchResultList)
         return;
 
-    string_to_search = gtk_entry_get_text(GTK_ENTRY(GTK_BIN(SearchStringCombo)->child));
+    string_to_search = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(SearchStringCombo))));
     if (!string_to_search)
         return;
 
@@ -2766,18 +2766,18 @@ void Open_Load_Filename_Window (void)
     Load_File_To_Load_List(FileToLoadModel, MISC_COMBO_TEXT);
     // Initial value
     if ((path=Browser_Get_Current_Path())!=NULL)
-        gtk_entry_set_text(GTK_ENTRY(GTK_BIN(FileToLoadCombo)->child),path);
+        gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FileToLoadCombo))),path);
     // the 'changed' signal is attached below to enable/disable the button to load
     // Button 'browse'
     Button = gtk_button_new_from_stock(GTK_STOCK_OPEN);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    g_signal_connect_swapped(G_OBJECT(Button),"clicked", G_CALLBACK(File_Selection_Window_For_File), G_OBJECT(GTK_BIN(FileToLoadCombo)->child));
+    g_signal_connect_swapped(G_OBJECT(Button),"clicked", G_CALLBACK(File_Selection_Window_For_File), G_OBJECT(gtk_bin_get_child(GTK_BIN(FileToLoadCombo))));
     // Button 'load'
     // the signal attached to this button, to load the file, is placed after the LoadFileContentList definition
     ButtonLoad = Create_Button_With_Icon_And_Label(GTK_STOCK_REVERT_TO_SAVED,_(" Load "));
     //ButtonLoad = gtk_button_new_with_label(_(" Load "));
     gtk_box_pack_start(GTK_BOX(hbox),ButtonLoad,FALSE,FALSE,0);
-    g_signal_connect_swapped(G_OBJECT(GTK_BIN(FileToLoadCombo)->child),"changed", G_CALLBACK(Button_Load_Set_Sensivity), G_OBJECT(ButtonLoad));
+    g_signal_connect_swapped(G_OBJECT(gtk_bin_get_child(GTK_BIN(FileToLoadCombo))),"changed", G_CALLBACK(Button_Load_Set_Sensivity), G_OBJECT(ButtonLoad));
 
     // Separator line
     Separator = gtk_hseparator_new();
@@ -2806,7 +2806,7 @@ void Open_Load_Filename_Window (void)
     gtk_container_add(GTK_CONTAINER(ScrollWindow),LoadFileContentList);
 
     // Signal to automatically load the file
-    g_signal_connect_swapped(G_OBJECT(ButtonLoad),"clicked", G_CALLBACK(Load_File_Content), G_OBJECT(GTK_BIN(FileToLoadCombo)->child));
+    g_signal_connect_swapped(G_OBJECT(ButtonLoad),"clicked", G_CALLBACK(Load_File_Content), G_OBJECT(gtk_bin_get_child(GTK_BIN(FileToLoadCombo))));
     g_signal_connect(G_OBJECT(LoadFileContentList),"key-press-event", G_CALLBACK(Load_Filename_List_Key_Press),NULL);
 
     // Commands (like the popup menu)
@@ -3030,7 +3030,7 @@ void Open_Load_Filename_Window (void)
 
 
     // To initialize 'ButtonLoad' sensivity
-    g_signal_emit_by_name(G_OBJECT(GTK_BIN(FileToLoadCombo)->child),"changed");
+    g_signal_emit_by_name(G_OBJECT(gtk_bin_get_child(GTK_BIN(FileToLoadCombo))),"changed");
 
     gtk_widget_show_all(LoadFilenameWindow);
     if (LOAD_FILE_WINDOW_X > 0 && LOAD_FILE_WINDOW_Y > 0)
@@ -3639,7 +3639,7 @@ void Load_Filename_List_Reload (GtkWidget *treeview)
 
     if (GTK_TREE_VIEW(treeview) == (GtkTreeView *)LoadFileContentList)
     {
-        Load_File_Content(GTK_BIN(FileToLoadCombo)->child);
+        Load_File_Content(gtk_bin_get_child(GTK_BIN(FileToLoadCombo)));
         
     } else if (GTK_TREE_VIEW(treeview) == (GtkTreeView *)LoadFileNameList)
     {
