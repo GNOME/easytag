@@ -268,7 +268,7 @@ void Show_About_Window (void)
      /* The NoteBook */
     AboutNoteBook = gtk_notebook_new();
     gtk_notebook_popup_enable(GTK_NOTEBOOK(AboutNoteBook));
-    gtk_box_pack_start(GTK_BOX(GTK_DIALOG(AboutWindow)->vbox),AboutNoteBook,TRUE,TRUE,0);
+    gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(AboutWindow))),AboutNoteBook,TRUE,TRUE,0);
 
 
     /*
@@ -676,7 +676,7 @@ void Show_About_Window (void)
      * Close Button
      */
     Button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
-    gtk_box_pack_start(GTK_BOX(GTK_DIALOG(AboutWindow)->action_area),Button,FALSE,FALSE,0);
+    gtk_box_pack_start(GTK_BOX(gtk_dialog_get_action_area(GTK_DIALOG(AboutWindow))),Button,FALSE,FALSE,0);
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(Quit_About_Window),NULL);
     gtk_widget_set_can_default(Button,TRUE);
     gtk_widget_grab_default(Button);

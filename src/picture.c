@@ -461,7 +461,7 @@ void Picture_Properties_Button_Clicked (GObject *object)
                                             NULL);
         gtk_tree_view_append_column(GTK_TREE_VIEW(type), column);
         gtk_widget_set_size_request(type, 256, 256);
-        gtk_box_pack_start(GTK_BOX(GTK_DIALOG(PictureTypesWindow)->vbox),ScrollWindowPictureTypes,TRUE,TRUE,0);
+        gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(PictureTypesWindow))),ScrollWindowPictureTypes,TRUE,TRUE,0);
 
         // Behaviour following the tag type...
         switch (ETCore->ETFileDisplayed->ETFileDescription->TagType)
@@ -513,11 +513,11 @@ void Picture_Properties_Button_Clicked (GObject *object)
 
         // Description of the picture
         label = gtk_label_new(_("Picture Description:"));
-        gtk_box_pack_start(GTK_BOX(GTK_DIALOG(PictureTypesWindow)->vbox),label,FALSE,FALSE,4);
+        gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(PictureTypesWindow))),label,FALSE,FALSE,4);
 
         // Entry for the description
         desc = gtk_entry_new();
-        gtk_box_pack_start(GTK_BOX(GTK_DIALOG(PictureTypesWindow)->vbox),desc,FALSE,FALSE,0);
+        gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(PictureTypesWindow))),desc,FALSE,FALSE,0);
         if (pic->description)
         {
             gchar *tmp = Try_To_Validate_Utf8_String(pic->description);

@@ -76,7 +76,7 @@ GtkWidget *msg_box_new (gchar *title,
 
     // Table to insert: the pixmap, the message and the check button
     Table = gtk_table_new(2,2,FALSE);
-    gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->vbox),Table,TRUE,TRUE,0);
+    gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog))),Table,TRUE,TRUE,0);
     gtk_container_set_border_width(GTK_CONTAINER(Table),4);
     gtk_widget_show(Table);
 
