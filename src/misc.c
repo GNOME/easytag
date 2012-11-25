@@ -1508,7 +1508,7 @@ gboolean Write_Playlist_Window_Key_Press (GtkWidget *window, GdkEvent *event)
         kevent = (GdkEventKey *)event;
         switch(kevent->keyval)
         {
-            case GDK_Escape:
+            case GDK_KEY_Escape:
                 Destroy_Write_Playlist_Window();
                 break;
         }
@@ -2287,7 +2287,7 @@ gboolean Search_File_Window_Key_Press (GtkWidget *window, GdkEvent *event)
         kevent = (GdkEventKey *)event;
         switch(kevent->keyval)
         {
-            case GDK_Escape:
+            case GDK_KEY_Escape:
                 Destroy_Search_File_Window();
                 break;
         }
@@ -3088,7 +3088,7 @@ gboolean Load_Filename_Window_Key_Press (GtkWidget *window, GdkEvent *event)
         kevent = (GdkEventKey *)event;
         switch(kevent->keyval)
         {
-            case GDK_Escape:
+            case GDK_KEY_Escape:
                 Destroy_Load_Filename_Window();
                 break;
         }
@@ -3124,11 +3124,11 @@ void Load_Filename_List_Key_Press (GtkWidget *treeview, GdkEvent *event)
 
         switch(kevent->keyval)
         {
-            case GDK_Delete:
+            case GDK_KEY_Delete:
                 Load_Filename_List_Delete_Line(treeview);
                 break;
-            case GDK_I:
-            case GDK_i:
+            case GDK_KEY_I:
+            case GDK_KEY_i:
                 Load_Filename_List_Insert_Blank_Line(treeview);
                 break;
         }

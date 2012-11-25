@@ -3033,7 +3033,7 @@ gboolean ScannerWindow_Key_Press (GtkWidget *window, GdkEvent *event)
         kevent = (GdkEventKey *)event;
         switch(kevent->keyval)
         {
-            case GDK_Escape:
+            case GDK_KEY_Escape:
                 ScannerWindow_Quit();
                 break;
         }
@@ -4011,13 +4011,13 @@ gboolean Mask_Editor_List_Key_Press (GtkWidget *widget, GdkEvent *event)
 
         switch(kevent->keyval)
         {
-            case GDK_Delete:
+            case GDK_KEY_Delete:
                 Mask_Editor_List_Remove();
                 break;
-/*          case GDK_Up:
+/*          case GDK_KEY_Up:
                 Mask_Editor_Clist_Move_Up();
                 break;
-            case GDK_Down:
+            case GDK_KEY_Down:
                 Mask_Editor_Clist_Move_Down();
                 break;
 */      }

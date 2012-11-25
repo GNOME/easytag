@@ -1245,7 +1245,7 @@ gboolean Picture_Entry_View_Key_Pressed (GtkTreeView *treeview, GdkEvent *event,
     {
         switch(kevent->keyval)
         {
-            case GDK_Delete:
+            case GDK_KEY_Delete:
                 Picture_Clear_Button_Clicked(NULL);
                 return TRUE;
         }

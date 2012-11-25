@@ -1653,7 +1653,7 @@ gboolean OptionsWindow_Key_Press (GtkWidget *window, GdkEvent *event)
         kevent = (GdkEventKey *)event;
         switch(kevent->keyval)
         {
-            case GDK_Escape:
+            case GDK_KEY_Escape:
             {
                 OptionsWindow_Quit();
                 break;

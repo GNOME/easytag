@@ -97,7 +97,7 @@ void About_Window_Key_Press (GtkWidget *window ATTRIBUTE_UNUSED, GdkEvent *event
         kevent = (GdkEventKey *)event;
         switch(kevent->keyval)
         {
-            case GDK_Escape:
+            case GDK_KEY_Escape:
                 Quit_About_Window();
                 break;
         }

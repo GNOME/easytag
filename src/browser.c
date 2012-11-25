@@ -445,10 +445,10 @@ gboolean Browser_Tree_Key_Press (GtkWidget *tree, GdkEvent *event, gpointer data
 
         switch(kevent->keyval)
         {
-            case GDK_KP_Enter:    /* Enter key in Num Pad */
-            case GDK_Return:      /* 'Normal' Enter key */
-            case GDK_t:           /* Expand/Collapse node */
-            case GDK_T:           /* Expand/Collapse node */
+            case GDK_KEY_KP_Enter:    /* Enter key in Num Pad */
+            case GDK_KEY_Return:      /* 'Normal' Enter key */
+            case GDK_KEY_t:           /* Expand/Collapse node */
+            case GDK_KEY_T:           /* Expand/Collapse node */
                 if(gtk_tree_view_row_expanded(GTK_TREE_VIEW(tree), treePath))
                     gtk_tree_view_collapse_row(GTK_TREE_VIEW(tree), treePath);
                 else
@@ -458,15 +458,15 @@ gboolean Browser_Tree_Key_Press (GtkWidget *tree, GdkEvent *event, gpointer data
                 return TRUE;
                 break;
 
-            case GDK_e:           /* Expand node */
-            case GDK_E:           /* Expand node */
+            case GDK_KEY_e:           /* Expand node */
+            case GDK_KEY_E:           /* Expand node */
                 gtk_tree_view_expand_row(GTK_TREE_VIEW(tree), treePath, FALSE);
                 gtk_tree_path_free(treePath);
                 return TRUE;
                 break;
 
-            case GDK_c:           /* Collapse node */
-            case GDK_C:           /* Collapse node */
+            case GDK_KEY_c:           /* Collapse node */
+            case GDK_KEY_C:           /* Collapse node */
                 gtk_tree_view_collapse_row(GTK_TREE_VIEW(tree), treePath);
                 gtk_tree_path_free(treePath);
                 return TRUE;
@@ -522,7 +522,7 @@ gboolean Browser_List_Key_Press (GtkWidget *list, GdkEvent *event, gpointer data
         {
             switch(kevent->keyval)
             {
-                case GDK_Delete:
+                case GDK_KEY_Delete:
                     Action_Delete_Selected_Files();
                     return TRUE;
             }
@@ -4115,7 +4115,7 @@ gboolean Rename_Directory_Window_Key_Press (GtkWidget *window, GdkEvent *event)
         kevent = (GdkEventKey *)event;
         switch(kevent->keyval)
         {
-            case GDK_Escape:
+            case GDK_KEY_Escape:
                 // Destroy_Rename_Directory_Window();
                 g_signal_emit_by_name(window, "destroy");
                 break;
@@ -4254,7 +4254,7 @@ gboolean Run_Program_Tree_Window_Key_Press (GtkWidget *window, GdkEvent *event)
         kevent = (GdkEventKey *)event;
         switch(kevent->keyval)
         {
-            case GDK_Escape:
+            case GDK_KEY_Escape:
                 Destroy_Run_Program_Tree_Window();
                 break;
         }
@@ -4412,7 +4412,7 @@ gboolean Run_Program_List_Window_Key_Press(GtkWidget *window, GdkEvent *event)
         kevent = (GdkEventKey *)event;
         switch(kevent->keyval)
         {
-            case GDK_Escape:
+            case GDK_KEY_Escape:
                 Destroy_Run_Program_List_Window();
                 break;
         }

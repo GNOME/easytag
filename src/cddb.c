@@ -922,7 +922,7 @@ gboolean Cddb_Window_Key_Press (GtkWidget *window, GdkEvent *event)
         kevent = (GdkEventKey *)event;
         switch(kevent->keyval)
         {
-            case GDK_Escape:
+            case GDK_KEY_Escape:
                 Cddb_Destroy_Window(window, event, NULL);
                 break;
         }

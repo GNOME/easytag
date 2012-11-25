@@ -3769,7 +3769,7 @@ void Quit_Recursion_Window_Key_Press (GtkWidget *window, GdkEvent *event)
         kevent = (GdkEventKey *)event;
         switch(kevent->keyval)
         {
-            case GDK_Escape:
+            case GDK_KEY_Escape:
                 Destroy_Quit_Recursion_Function_Window();
                 break;
         }
