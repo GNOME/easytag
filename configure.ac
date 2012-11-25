@@ -70,7 +70,7 @@ dnl Checks for libraries.
 dnl -------------------------------
 
 dnl GTK+-2 libraries
-PKG_CHECK_MODULES([GTK], [gtk+-2.0 >= 2.12.0 glib-2.0 >= 2.8.0])
+PKG_CHECK_MODULES([GTK], [gtk+-2.0 >= 2.24.0 glib-2.0 >= 2.8.0])
 
 
 dnl Patch from Ben Taylor to fix a Solaris bug (for CDDB)
@@ -198,9 +198,13 @@ AS_IF([test "x$have_wavpack" != "xno"],
       [AS_IF([test "x$enable_wavpack" = "xyes"],
              [AC_MSG_ERROR([Wavpack support requested but required dependencies ($WAVPACK_DEPS) not found])])])
 
+WARN_CPPFLAGS="-DG_DISABLE_SINGLE_INCLUDES -DGTK_DISABLE_SINGLE_INCLUDES -DG_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED -DGSEAL_ENABLE"
+
 dnl Use -Wall if we have gcc.
 AS_IF([test "x$GCC" = "xyes"],
-  [AC_SUBST([WARN_CPPFLAGS], [-Wall])])
+  [WARN_CPPFLAGS="-Wall $WARN_CPPFLAGS"])
+
+AC_SUBST([WARN_CPPFLAGS])
 
 dnl To enable 'gprof' profiling
 dnl CFLAGS="$CFLAGS -pg"
