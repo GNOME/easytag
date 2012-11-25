@@ -723,7 +723,7 @@ void Charset_Populate_Combobox (GtkComboBox *combo, gchar *select_charset)
 
     for (i=0; i<CHARSET_TRANS_ARRAY_LEN; i++)
     {
-        gtk_combo_box_append_text(combo, _(charset_trans_array[i].charset_title));
+        gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(combo), _(charset_trans_array[i].charset_title));
 
         if (select_charset && strcmp(charset_trans_array[i].charset_name, select_charset) == 0)
             gtk_combo_box_set_active(combo, i);

@@ -746,7 +746,8 @@ GtkWidget *Create_Tag_Area (void)
     else
         TrackEntryComboModel = gtk_list_store_new(MISC_COMBO_COUNT, G_TYPE_STRING);
 
-    TrackEntryCombo = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(TrackEntryComboModel), MISC_COMBO_TEXT);
+    TrackEntryCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(TrackEntryComboModel));
+    gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(TrackEntryCombo),MISC_COMBO_TEXT);
     gtk_table_attach(GTK_TABLE(Table),TrackEntryCombo,6,7,4,5,
                      GTK_EXPAND|GTK_FILL,GTK_EXPAND|GTK_FILL,TablePadding,TablePadding);
     gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(TrackEntryCombo),3); // Three columns to display track numbers list
@@ -796,7 +797,8 @@ GtkWidget *Create_Tag_Area (void)
         gtk_list_store_clear(GenreComboModel);
     else
         GenreComboModel = gtk_list_store_new(MISC_COMBO_COUNT, G_TYPE_STRING);
-    GenreCombo = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(GenreComboModel), MISC_COMBO_TEXT);
+    GenreCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(GenreComboModel));
+    gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(GenreCombo),MISC_COMBO_TEXT);
     completion = gtk_entry_completion_new();
     gtk_entry_set_completion(GTK_ENTRY(GTK_BIN(GenreCombo)->child), completion);
     g_object_unref(completion);

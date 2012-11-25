@@ -378,7 +378,8 @@ void Open_Cddb_Window (void)
     else
         gtk_list_store_clear(CddbSearchStringModel);
 
-    CddbSearchStringCombo = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(CddbSearchStringModel), MISC_COMBO_TEXT);
+    CddbSearchStringCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(CddbSearchStringModel));
+    gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(CddbSearchStringCombo),MISC_COMBO_TEXT);
     gtk_widget_set_size_request(GTK_WIDGET(CddbSearchStringCombo),220,-1);
     gtk_box_pack_start(GTK_BOX(hbox),CddbSearchStringCombo,FALSE,TRUE,0);
     gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(GTK_BIN(CddbSearchStringCombo)->child)),_("Enter the words to "
@@ -533,7 +534,8 @@ void Open_Cddb_Window (void)
     else
         gtk_list_store_clear(CddbSearchStringInResultModel);
 
-    CddbSearchStringInResultCombo = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(CddbSearchStringInResultModel), MISC_COMBO_TEXT);
+    CddbSearchStringInResultCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(CddbSearchStringInResultModel));
+    gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(CddbSearchStringInResultCombo),MISC_COMBO_TEXT);
     gtk_box_pack_start(GTK_BOX(hbox),CddbSearchStringInResultCombo,FALSE,FALSE,0);
     g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(GTK_BIN(CddbSearchStringInResultCombo)->child)),"activate",
                              G_CALLBACK(Cddb_Search_String_In_Result), G_OBJECT(GTK_ENTRY(GTK_BIN(CddbSearchStringInResultCombo)->child)));

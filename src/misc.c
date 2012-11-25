@@ -1271,7 +1271,8 @@ void Open_Write_Playlist_Window (void)
     hbox = gtk_hbox_new(FALSE,0);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),playlist_use_mask_name,FALSE,FALSE,0);
-    PlayListNameMaskCombo = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(PlayListNameMaskModel), MISC_COMBO_TEXT);
+    PlayListNameMaskCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(PlayListNameMaskModel));
+    gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(PlayListNameMaskCombo),MISC_COMBO_TEXT);
     gtk_box_pack_start(GTK_BOX(hbox),PlayListNameMaskCombo,FALSE,FALSE,4);
     playlist_use_dir_name = gtk_radio_button_new_with_label_from_widget(
         GTK_RADIO_BUTTON(playlist_use_mask_name),_("Use directory name"));
@@ -1374,7 +1375,8 @@ void Open_Write_Playlist_Window (void)
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),playlist_content_mask,FALSE,FALSE,0);
     // Set a label, a combobox and un editor button in the 3rd radio button
-    PlayListContentMaskCombo = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(PlayListContentMaskModel), MISC_COMBO_TEXT);
+    PlayListContentMaskCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(PlayListContentMaskModel));
+    gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(PlayListContentMaskCombo),MISC_COMBO_TEXT);
     gtk_box_pack_start(GTK_BOX(hbox),PlayListContentMaskCombo,FALSE,FALSE,0);
     // History list
     Load_Playlist_Content_Mask_List(PlayListContentMaskModel, MISC_COMBO_TEXT);
@@ -1966,7 +1968,8 @@ void Open_Search_File_Window (void)
     Label = gtk_label_new(_("Search :"));
     gtk_misc_set_alignment(GTK_MISC(Label),1.0,0.5);
     gtk_table_attach(GTK_TABLE(Table),Label,0,1,0,1,GTK_FILL,GTK_FILL,0,0);
-    SearchStringCombo = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(SearchStringModel), MISC_COMBO_TEXT);
+    SearchStringCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(SearchStringModel));
+    gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(SearchStringCombo),MISC_COMBO_TEXT);
     gtk_widget_set_size_request(GTK_WIDGET(SearchStringCombo),200,-1);
     gtk_table_attach(GTK_TABLE(Table),SearchStringCombo,1,5,0,1,GTK_EXPAND|GTK_FILL,GTK_FILL,0,0);
     // History List
@@ -2749,7 +2752,8 @@ void Open_Load_Filename_Window (void)
     Label = gtk_label_new(_("File :"));
     gtk_misc_set_alignment(GTK_MISC(Label),1.0,0.5);
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
-    FileToLoadCombo = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(FileToLoadModel), MISC_COMBO_TEXT);
+    FileToLoadCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(FileToLoadModel));
+    gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(FileToLoadCombo),MISC_COMBO_TEXT);
     gtk_widget_set_size_request(GTK_WIDGET(FileToLoadCombo), 200, -1);
     gtk_box_pack_start(GTK_BOX(hbox),FileToLoadCombo,TRUE,TRUE,0);
     // History List

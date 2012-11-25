@@ -170,7 +170,8 @@ void Open_OptionsWindow (void)
     else
         DefaultPathModel = gtk_list_store_new(MISC_COMBO_COUNT, G_TYPE_STRING);
 
-    DefaultPathToMp3 = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(DefaultPathModel), MISC_COMBO_TEXT);
+    DefaultPathToMp3 = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(DefaultPathModel));
+    gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(DefaultPathToMp3), MISC_COMBO_TEXT);
     gtk_box_pack_start(GTK_BOX(HBox),DefaultPathToMp3,TRUE,TRUE,0);
     gtk_widget_set_size_request(DefaultPathToMp3, 400, -1);
     gtk_widget_set_tooltip_text(GTK_BIN(DefaultPathToMp3)->child,_("Specify the directory where "
@@ -287,31 +288,31 @@ void Open_OptionsWindow (void)
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
 
     EventBox = gtk_event_box_new();
-    SortingFileCombo = gtk_combo_box_new_text();
+    SortingFileCombo = gtk_combo_box_text_new();
     gtk_container_add(GTK_CONTAINER(EventBox),SortingFileCombo);
     gtk_box_pack_start(GTK_BOX(hbox),EventBox,FALSE,FALSE,2);
     gtk_widget_set_size_request(GTK_WIDGET(SortingFileCombo), 260, -1);
     gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(SortingFileCombo),2); // Two columns
 
     // Items of option menu
-    gtk_combo_box_append_text(GTK_COMBO_BOX(SortingFileCombo), _("Ascending file name"));
-    gtk_combo_box_append_text(GTK_COMBO_BOX(SortingFileCombo), _("Descending file name"));
-    gtk_combo_box_append_text(GTK_COMBO_BOX(SortingFileCombo), _("Ascending track number"));
-    gtk_combo_box_append_text(GTK_COMBO_BOX(SortingFileCombo), _("Descending track number"));
-    gtk_combo_box_append_text(GTK_COMBO_BOX(SortingFileCombo), _("Ascending creation date"));
-    gtk_combo_box_append_text(GTK_COMBO_BOX(SortingFileCombo), _("Descending creation date"));
-    gtk_combo_box_append_text(GTK_COMBO_BOX(SortingFileCombo), _("Ascending title"));
-    gtk_combo_box_append_text(GTK_COMBO_BOX(SortingFileCombo), _("Descending title"));
-    gtk_combo_box_append_text(GTK_COMBO_BOX(SortingFileCombo), _("Ascending artist"));
-    gtk_combo_box_append_text(GTK_COMBO_BOX(SortingFileCombo), _("Descending artist"));
-    gtk_combo_box_append_text(GTK_COMBO_BOX(SortingFileCombo), _("Ascending album"));
-    gtk_combo_box_append_text(GTK_COMBO_BOX(SortingFileCombo), _("Descending album"));
-    gtk_combo_box_append_text(GTK_COMBO_BOX(SortingFileCombo), _("Ascending year"));
-    gtk_combo_box_append_text(GTK_COMBO_BOX(SortingFileCombo), _("Descending year"));
-    gtk_combo_box_append_text(GTK_COMBO_BOX(SortingFileCombo), _("Ascending genre"));
-    gtk_combo_box_append_text(GTK_COMBO_BOX(SortingFileCombo), _("Descending genre"));
-    gtk_combo_box_append_text(GTK_COMBO_BOX(SortingFileCombo), _("Ascending comment"));
-    gtk_combo_box_append_text(GTK_COMBO_BOX(SortingFileCombo), _("Descending comment"));
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending file name"));
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending file name"));
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending track number"));
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending track number"));
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending creation date"));
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending creation date"));
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending title"));
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending title"));
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending artist"));
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending artist"));
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending album"));
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending album"));
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending year"));
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending year"));
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending genre"));
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending genre"));
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending comment"));
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending comment"));
 
     gtk_combo_box_set_active(GTK_COMBO_BOX(SortingFileCombo), SORTING_FILE_MODE);
     gtk_widget_set_tooltip_text(EventBox,_("Select the type of file sorting "
@@ -384,7 +385,8 @@ void Open_OptionsWindow (void)
     gtk_container_set_border_width(GTK_CONTAINER(hbox), 4);
     Label = gtk_label_new (_("Player to run :"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
-    FilePlayerCombo = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(FilePlayerModel), MISC_COMBO_TEXT);
+    FilePlayerCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(FilePlayerModel));
+    gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(FilePlayerCombo),MISC_COMBO_TEXT);
     gtk_widget_set_size_request(GTK_WIDGET(FilePlayerCombo), 300, -1);
     gtk_box_pack_start(GTK_BOX(hbox),FilePlayerCombo,FALSE,FALSE,0);
     gtk_widget_set_tooltip_text(GTK_BIN(FilePlayerCombo)->child,_("Enter the program used to "
@@ -789,13 +791,13 @@ void Open_OptionsWindow (void)
     gtk_misc_set_alignment(GTK_MISC(LabelId3v2Version),0,0.5);
 
     EventBox = gtk_event_box_new();
-    FileWritingId3v2VersionCombo = gtk_combo_box_new_text();
+    FileWritingId3v2VersionCombo = gtk_combo_box_text_new();
     gtk_container_add(GTK_CONTAINER(EventBox),FileWritingId3v2VersionCombo);
     gtk_widget_set_tooltip_text(EventBox,_("Select the ID3v2 tag version to write:\n"
         " - ID3v2.3 is written using id3lib,\n"
         " - ID3v2.4 is written using libid3tag (recommended)."));
-    gtk_combo_box_append_text(GTK_COMBO_BOX(FileWritingId3v2VersionCombo), "ID3v2.4");
-    gtk_combo_box_append_text(GTK_COMBO_BOX(FileWritingId3v2VersionCombo), "ID3v2.3");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(FileWritingId3v2VersionCombo), "ID3v2.4");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(FileWritingId3v2VersionCombo), "ID3v2.3");
     gtk_combo_box_set_active(GTK_COMBO_BOX(FileWritingId3v2VersionCombo),
         FILE_WRITING_ID3V2_VERSION_4 ? 0 : 1);
     gtk_table_attach(GTK_TABLE(Table),EventBox,2,4,1,2,GTK_FILL,GTK_FILL,0,0);
@@ -819,11 +821,11 @@ void Open_OptionsWindow (void)
     gtk_table_attach(GTK_TABLE(Table),FileWritingId3v2UseUnicodeCharacterSet,1,2,3,4,GTK_FILL,GTK_FILL,0,0);
 
     EventBox = gtk_event_box_new();
-    FileWritingId3v2UnicodeCharacterSetCombo = gtk_combo_box_new_text();
+    FileWritingId3v2UnicodeCharacterSetCombo = gtk_combo_box_text_new();
     gtk_container_add(GTK_CONTAINER(EventBox),FileWritingId3v2UnicodeCharacterSetCombo);
     gtk_widget_set_tooltip_text(EventBox,_("Unicode type to use"));
-    gtk_combo_box_append_text(GTK_COMBO_BOX(FileWritingId3v2UnicodeCharacterSetCombo), "UTF-8");
-    gtk_combo_box_append_text(GTK_COMBO_BOX(FileWritingId3v2UnicodeCharacterSetCombo), "UTF-16");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(FileWritingId3v2UnicodeCharacterSetCombo), "UTF-8");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(FileWritingId3v2UnicodeCharacterSetCombo), "UTF-16");
     if ( FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET == NULL )
         gtk_combo_box_set_active(GTK_COMBO_BOX(FileWritingId3v2UnicodeCharacterSetCombo), 0); // Set UTF-8 by default
     else
@@ -842,7 +844,7 @@ void Open_OptionsWindow (void)
         !FILE_WRITING_ID3V2_USE_UNICODE_CHARACTER_SET);
 
     EventBox = gtk_event_box_new();
-    FileWritingId3v2NoUnicodeCharacterSetCombo = gtk_combo_box_new_text();
+    FileWritingId3v2NoUnicodeCharacterSetCombo = gtk_combo_box_text_new();
     gtk_container_add(GTK_CONTAINER(EventBox),FileWritingId3v2NoUnicodeCharacterSetCombo);
     gtk_widget_set_tooltip_text(EventBox,_("Character set used to write the tag "
         "data in the file."));
@@ -915,7 +917,7 @@ void Open_OptionsWindow (void)
     gtk_table_attach(GTK_TABLE(Table),Label,0,1,2,3,GTK_FILL,GTK_FILL,0,0);
 
     EventBox = gtk_event_box_new();
-    FileWritingId3v1CharacterSetCombo = gtk_combo_box_new_text();
+    FileWritingId3v1CharacterSetCombo = gtk_combo_box_text_new();
     gtk_container_add(GTK_CONTAINER(EventBox),FileWritingId3v1CharacterSetCombo);
     gtk_table_attach(GTK_TABLE(Table),EventBox,1,4,2,3,GTK_FILL,GTK_FILL,0,0);
     gtk_widget_set_tooltip_text(EventBox,_("Character set used to write ID3v1 tag data "
@@ -986,7 +988,7 @@ void Open_OptionsWindow (void)
         "written under Unix systems."));
 
     EventBox = gtk_event_box_new();
-    FileReadingId3v1v2CharacterSetCombo = gtk_combo_box_new_text();
+    FileReadingId3v1v2CharacterSetCombo = gtk_combo_box_text_new();
     gtk_container_add(GTK_CONTAINER(EventBox),FileReadingId3v1v2CharacterSetCombo);
     gtk_table_attach(GTK_TABLE(Table),EventBox,2,3,0,1,GTK_FILL,GTK_FILL,0,0);
 
@@ -1131,7 +1133,8 @@ void Open_OptionsWindow (void)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SetDefaultComment),SET_DEFAULT_COMMENT);
     gtk_widget_set_tooltip_text(SetDefaultComment,_("Activate this option if you want to put the "
         "following string into the comment field when using the 'Fill Tag' scanner."));
-    DefaultComment = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(DefaultCommentModel), MISC_COMBO_TEXT);
+    DefaultComment = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(DefaultCommentModel));
+    gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(DefaultComment),MISC_COMBO_TEXT);
     gtk_box_pack_start(GTK_BOX(hbox),DefaultComment,FALSE,FALSE,0);
     gtk_widget_set_size_request(GTK_WIDGET(DefaultComment), 250, -1);
     g_signal_connect(G_OBJECT(SetDefaultComment),"toggled",
@@ -1182,20 +1185,20 @@ void Open_OptionsWindow (void)
     gtk_container_add(GTK_CONTAINER(vbox),hbox);
     Label = gtk_label_new(_("Name :"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
-    CddbServerNameAutomaticSearch = gtk_combo_box_entry_new_text();
+    CddbServerNameAutomaticSearch = gtk_combo_box_text_new_with_entry();
     gtk_box_pack_start(GTK_BOX(hbox),CddbServerNameAutomaticSearch,FALSE,FALSE,0);
-    gtk_combo_box_append_text(GTK_COMBO_BOX(CddbServerNameAutomaticSearch), "freedb.freedb.org");
-    gtk_combo_box_append_text(GTK_COMBO_BOX(CddbServerNameAutomaticSearch), "www.gnudb.org");
-    gtk_combo_box_append_text(GTK_COMBO_BOX(CddbServerNameAutomaticSearch), "at.freedb.org");
-    gtk_combo_box_append_text(GTK_COMBO_BOX(CddbServerNameAutomaticSearch), "au.freedb.org");
-    gtk_combo_box_append_text(GTK_COMBO_BOX(CddbServerNameAutomaticSearch), "ca.freedb.org");
-    //gtk_combo_box_append_text(GTK_COMBO_BOX(CddbServerNameAutomaticSearch), "ca2.freedb.org");
-    //gtk_combo_box_append_text(GTK_COMBO_BOX(CddbServerNameAutomaticSearch), "de.freedb.org");
-    gtk_combo_box_append_text(GTK_COMBO_BOX(CddbServerNameAutomaticSearch), "es.freedb.org");
-    gtk_combo_box_append_text(GTK_COMBO_BOX(CddbServerNameAutomaticSearch), "fi.freedb.org");
-    gtk_combo_box_append_text(GTK_COMBO_BOX(CddbServerNameAutomaticSearch), "ru.freedb.org");
-    gtk_combo_box_append_text(GTK_COMBO_BOX(CddbServerNameAutomaticSearch), "uk.freedb.org");
-    gtk_combo_box_append_text(GTK_COMBO_BOX(CddbServerNameAutomaticSearch), "us.freedb.org");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch), "freedb.freedb.org");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch), "www.gnudb.org");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch), "at.freedb.org");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch), "au.freedb.org");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch), "ca.freedb.org");
+    //gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch), "ca2.freedb.org");
+    //gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch), "de.freedb.org");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch), "es.freedb.org");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch), "fi.freedb.org");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch), "ru.freedb.org");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch), "uk.freedb.org");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch), "us.freedb.org");
     if (CDDB_SERVER_NAME_AUTOMATIC_SEARCH)
         gtk_entry_set_text(GTK_ENTRY(GTK_BIN(CddbServerNameAutomaticSearch)->child),CDDB_SERVER_NAME_AUTOMATIC_SEARCH);
 
@@ -1221,9 +1224,9 @@ void Open_OptionsWindow (void)
     gtk_container_add(GTK_CONTAINER(vbox),hbox);
     Label = gtk_label_new(_("Name :"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
-    CddbServerNameAutomaticSearch2 = gtk_combo_box_entry_new_text();
+    CddbServerNameAutomaticSearch2 = gtk_combo_box_text_new_with_entry();
     gtk_box_pack_start(GTK_BOX(hbox),CddbServerNameAutomaticSearch2,FALSE,FALSE,0);
-    gtk_combo_box_append_text(GTK_COMBO_BOX(CddbServerNameAutomaticSearch2), "freedb.musicbrainz.org");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch2), "freedb.musicbrainz.org");
     if (CDDB_SERVER_NAME_AUTOMATIC_SEARCH2)
         gtk_entry_set_text(GTK_ENTRY(GTK_BIN(CddbServerNameAutomaticSearch2)->child),CDDB_SERVER_NAME_AUTOMATIC_SEARCH2);
 
@@ -1255,10 +1258,10 @@ void Open_OptionsWindow (void)
     gtk_container_add(GTK_CONTAINER(vbox),hbox);
     Label = gtk_label_new(_("Name :"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
-    CddbServerNameManualSearch = gtk_combo_box_entry_new_text();
+    CddbServerNameManualSearch = gtk_combo_box_text_new_with_entry();
     gtk_box_pack_start(GTK_BOX(hbox),CddbServerNameManualSearch,FALSE,FALSE,0);
-    gtk_combo_box_append_text(GTK_COMBO_BOX(CddbServerNameManualSearch), "www.freedb.org");
-    gtk_combo_box_append_text(GTK_COMBO_BOX(CddbServerNameManualSearch), "www.gnudb.org");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameManualSearch), "www.freedb.org");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameManualSearch), "www.gnudb.org");
     if (CDDB_SERVER_NAME_MANUAL_SEARCH)
         gtk_entry_set_text(GTK_ENTRY(GTK_BIN(CddbServerNameManualSearch)->child),CDDB_SERVER_NAME_MANUAL_SEARCH);
 
@@ -1296,7 +1299,8 @@ void Open_OptionsWindow (void)
     else
         CddbLocalPathModel = gtk_list_store_new(MISC_COMBO_COUNT, G_TYPE_STRING);
 
-    CddbLocalPath = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(CddbLocalPathModel), MISC_COMBO_TEXT);
+    CddbLocalPath = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(CddbLocalPathModel));
+    gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(CddbLocalPath),MISC_COMBO_TEXT);
     gtk_box_pack_start(GTK_BOX(hbox),CddbLocalPath,FALSE,FALSE,0);
     gtk_widget_set_size_request(GTK_WIDGET(CddbLocalPath), 450, -1);
     gtk_widget_set_tooltip_text(GTK_BIN(CddbLocalPath)->child,_("Specify the directory "

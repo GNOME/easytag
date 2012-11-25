@@ -2370,21 +2370,21 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_box_pack_start(GTK_BOX(HBox1),Label,FALSE,FALSE,0);
 
     EventBox = gtk_event_box_new();
-    ScannerOptionCombo = gtk_combo_box_new_text();
+    ScannerOptionCombo = gtk_combo_box_text_new();
     gtk_container_add(GTK_CONTAINER(EventBox),ScannerOptionCombo);
     gtk_box_pack_start(GTK_BOX(HBox1),EventBox,TRUE,TRUE,2);
     gtk_widget_set_size_request(ScannerOptionCombo, 160, -1);
 
     /* Option for Tag */
-    gtk_combo_box_append_text(GTK_COMBO_BOX(ScannerOptionCombo),
-                              _(Scanner_Option_Menu_Items[SCANNER_FILL_TAG]));
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(ScannerOptionCombo),
+                                   _(Scanner_Option_Menu_Items[SCANNER_FILL_TAG]));
 
     /* Option for FileName */
-    gtk_combo_box_append_text(GTK_COMBO_BOX(ScannerOptionCombo),
-                              _(Scanner_Option_Menu_Items[SCANNER_RENAME_FILE]));
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(ScannerOptionCombo),
+                                   _(Scanner_Option_Menu_Items[SCANNER_RENAME_FILE]));
 
     /* Option for ProcessFields */
-    gtk_combo_box_append_text(GTK_COMBO_BOX(ScannerOptionCombo),
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(ScannerOptionCombo),
                               _(Scanner_Option_Menu_Items[SCANNER_PROCESS_FIELDS]));
 
     // Selection of the item made at the end of the function
@@ -2461,9 +2461,9 @@ void Open_ScannerWindow (gint scanner_type)
     ScanTagListModel = gtk_list_store_new(MASK_EDITOR_COUNT, G_TYPE_STRING);
 
     // The combo box to select the mask to apply
-    ScanTagMaskCombo = gtk_combo_box_entry_new();
+    ScanTagMaskCombo = gtk_combo_box_new_with_entry();
     gtk_combo_box_set_model(GTK_COMBO_BOX(ScanTagMaskCombo), GTK_TREE_MODEL(ScanTagListModel));
-    gtk_combo_box_entry_set_text_column(GTK_COMBO_BOX_ENTRY(ScanTagMaskCombo), MASK_EDITOR_TEXT);
+    gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(ScanTagMaskCombo), MASK_EDITOR_TEXT);
 
     gtk_box_pack_start(GTK_BOX(HBox2),ScanTagMaskCombo,TRUE,TRUE,2);
     gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(GTK_BIN(ScanTagMaskCombo)->child)),
@@ -2526,9 +2526,9 @@ void Open_ScannerWindow (gint scanner_type)
     RenameFileListModel = gtk_list_store_new(MASK_EDITOR_COUNT, G_TYPE_STRING);
 
     // The combo box to select the mask to apply
-    RenameFileMaskCombo = gtk_combo_box_entry_new();
+    RenameFileMaskCombo = gtk_combo_box_new_with_entry();
     gtk_combo_box_set_model(GTK_COMBO_BOX(RenameFileMaskCombo), GTK_TREE_MODEL(RenameFileListModel));
-    gtk_combo_box_entry_set_text_column(GTK_COMBO_BOX_ENTRY(RenameFileMaskCombo), MASK_EDITOR_TEXT);
+    gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(RenameFileMaskCombo), MASK_EDITOR_TEXT);
 
     gtk_box_pack_start(GTK_BOX(HBox4),RenameFileMaskCombo,TRUE,TRUE,2);
     gtk_container_set_border_width(GTK_CONTAINER(HBox4), 2);

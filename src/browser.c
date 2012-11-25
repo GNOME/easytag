@@ -3066,7 +3066,8 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     else
         BrowserEntryModel = gtk_list_store_new(MISC_COMBO_COUNT, G_TYPE_STRING);
 
-    BrowserEntryCombo = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(BrowserEntryModel), MISC_COMBO_TEXT);
+    BrowserEntryCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(BrowserEntryModel));
+    gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(BrowserEntryCombo), MISC_COMBO_TEXT);
     /* History list */
     Load_Path_Entry_List(BrowserEntryModel, MISC_COMBO_TEXT);
     //gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(BrowserEntryCombo),2); // Two columns to display paths
@@ -3715,11 +3716,11 @@ void Browser_Open_Rename_Directory_Window (void)
     gtk_label_set_line_wrap(GTK_LABEL(Label),TRUE);
 
     /* The combobox to rename the directory */
-    RenameDirectoryCombo = gtk_combo_box_entry_new_text();
+    RenameDirectoryCombo = gtk_combo_box_text_new_with_entry();
     gtk_box_pack_start(GTK_BOX(VBox),RenameDirectoryCombo,FALSE,FALSE,0);
     /* Set the directory into the combobox */
-    gtk_combo_box_prepend_text(GTK_COMBO_BOX(RenameDirectoryCombo), directory_name_utf8);
-    gtk_combo_box_prepend_text(GTK_COMBO_BOX(RenameDirectoryCombo), "");
+    gtk_combo_box_text_prepend_text(GTK_COMBO_BOX_TEXT(RenameDirectoryCombo), directory_name_utf8);
+    gtk_combo_box_text_prepend_text(GTK_COMBO_BOX_TEXT(RenameDirectoryCombo), "");
     gtk_entry_set_text(GTK_ENTRY(GTK_BIN(RenameDirectoryCombo)->child),directory_name_utf8);
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(GTK_BIN(RenameDirectoryCombo)->child));
 
@@ -3741,9 +3742,9 @@ void Browser_Open_Rename_Directory_Window (void)
         gtk_list_store_clear(RenameDirectoryMaskModel);
 
     // The combo box to select the mask to apply
-    RenameDirectoryMaskCombo = gtk_combo_box_entry_new();
+    RenameDirectoryMaskCombo = gtk_combo_box_new_with_entry();
     gtk_combo_box_set_model(GTK_COMBO_BOX(RenameDirectoryMaskCombo), GTK_TREE_MODEL(RenameDirectoryMaskModel));
-    gtk_combo_box_entry_set_text_column(GTK_COMBO_BOX_ENTRY(RenameDirectoryMaskCombo), MASK_EDITOR_TEXT);
+    gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(RenameDirectoryMaskCombo), MASK_EDITOR_TEXT);
     gtk_widget_set_size_request(RenameDirectoryMaskCombo, 80, -1);
 
     gtk_box_pack_start(GTK_BOX(HBox),RenameDirectoryMaskCombo,TRUE,TRUE,0);
@@ -4186,7 +4187,8 @@ void Browser_Open_Run_Program_Tree_Window (void)
     gtk_container_set_border_width(GTK_CONTAINER(HBox), 2);
 
     /* The combobox to enter the program to run */
-    RunProgramComboBox = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(RunProgramModel), MISC_COMBO_TEXT);
+    RunProgramComboBox = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(RunProgramModel));
+    gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(RunProgramComboBox), MISC_COMBO_TEXT);
     gtk_box_pack_start(GTK_BOX(HBox),RunProgramComboBox,TRUE,TRUE,0);
     gtk_widget_set_size_request(GTK_WIDGET(RunProgramComboBox),250,-1);
     gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(GTK_BIN(RunProgramComboBox)->child)),_("Enter the program to run. "
@@ -4343,7 +4345,8 @@ void Browser_Open_Run_Program_List_Window (void)
     gtk_container_set_border_width(GTK_CONTAINER(HBox), 2);
 
     /* The combobox to enter the program to run */
-    RunProgramComboBox = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(RunProgramModel), MISC_COMBO_TEXT);
+    RunProgramComboBox = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(RunProgramModel));
+    gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(RunProgramComboBox),MISC_COMBO_TEXT);
     gtk_box_pack_start(GTK_BOX(HBox),RunProgramComboBox,TRUE,TRUE,0);
     gtk_widget_set_size_request(GTK_WIDGET(RunProgramComboBox),250,-1);
     gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(GTK_BIN(RunProgramComboBox)->child)),_("Enter the program to run. "
