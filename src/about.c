@@ -678,7 +678,7 @@ void Show_About_Window (void)
     Button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
     gtk_box_pack_start(GTK_BOX(GTK_DIALOG(AboutWindow)->action_area),Button,FALSE,FALSE,0);
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(Quit_About_Window),NULL);
-    GTK_WIDGET_SET_FLAGS(Button,GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default(Button,TRUE);
     gtk_widget_grab_default(Button);
 
 

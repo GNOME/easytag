@@ -742,8 +742,8 @@ GtkWidget *Create_Tag_Area (void)
     //Icon = gtk_image_new_from_stock("easytag-sequence-track", GTK_ICON_SIZE_BUTTON); // FIX ME : it doesn't display the good size of the '#'
     Icon = Create_Xpm_Image((const char **)sequence_track_xpm);
     gtk_container_add(GTK_CONTAINER(TrackMButtonSequence),Icon);
-    GTK_WIDGET_UNSET_FLAGS(TrackMButtonSequence,GTK_CAN_DEFAULT); // To have enought space to display the icon
-    GTK_WIDGET_UNSET_FLAGS(TrackMButtonSequence,GTK_CAN_FOCUS);   // To have enought space to display the icon
+    gtk_widget_set_can_default(TrackMButtonSequence,TRUE); // To have enough space to display the icon
+    gtk_widget_set_can_focus(TrackMButtonSequence,FALSE);   // To have enough space to display the icon
 
     TrackLabel = gtk_label_new(_("Track #:"));
     gtk_table_attach(GTK_TABLE(Table),TrackLabel,5,6,4,5,GTK_FILL,GTK_FILL,TablePadding,TablePadding);
@@ -776,8 +776,8 @@ GtkWidget *Create_Tag_Area (void)
     //Icon = gtk_image_new_from_stock("easytag-sequence-track", GTK_ICON_SIZE_BUTTON);
     Icon = Create_Xpm_Image((const char **)sequence_track_xpm);
     gtk_container_add(GTK_CONTAINER(TrackMButtonNbrFiles),Icon);
-    GTK_WIDGET_UNSET_FLAGS(TrackMButtonNbrFiles,GTK_CAN_DEFAULT); // To have enought space to display the icon
-    GTK_WIDGET_UNSET_FLAGS(TrackMButtonNbrFiles,GTK_CAN_FOCUS);   // To have enought space to display the icon
+    gtk_widget_set_can_default(TrackMButtonNbrFiles,TRUE); // To have enough space to display the icon
+    gtk_widget_set_can_focus(TrackMButtonNbrFiles,FALSE); // To have enough space to display the icon
 
     TrackTotalEntry = gtk_entry_new();
     gtk_table_attach(GTK_TABLE(Table),TrackTotalEntry,9,10,4,5,

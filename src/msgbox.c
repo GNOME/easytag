@@ -117,7 +117,7 @@ GtkWidget *msg_box_new (gchar *title,
             break;
         
         Button = gtk_dialog_add_button(GTK_DIALOG(dialog),button_text,response_id);
-        GTK_WIDGET_SET_FLAGS(Button,GTK_CAN_DEFAULT);
+        gtk_widget_set_can_default(Button,TRUE);
         
         // To focus to the first button
         if (first_button)

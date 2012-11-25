@@ -288,7 +288,7 @@ void Open_Cddb_Window (void)
     // Button to generate CddbId and request string from the selected files
     CddbSearchAutoButton = gtk_button_new_from_stock(GTK_STOCK_FIND);
     gtk_box_pack_start(GTK_BOX(hbox),CddbSearchAutoButton,FALSE,FALSE,0);
-    GTK_WIDGET_SET_FLAGS(CddbSearchAutoButton,GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default(CddbSearchAutoButton,TRUE);
     gtk_widget_grab_default(CddbSearchAutoButton);
     g_signal_connect(GTK_OBJECT(CddbSearchAutoButton),"clicked",G_CALLBACK(Cddb_Search_Album_From_Selected_Files),NULL);
     gtk_tooltips_set_tip(Tips,CddbSearchAutoButton,_("Request automatically the "
@@ -349,7 +349,7 @@ void Open_Cddb_Window (void)
     // Button to quit
     Button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
     gtk_box_pack_end(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    GTK_WIDGET_SET_FLAGS(Button,GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default(Button,TRUE);
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(Cddb_Destroy_Window),NULL);
 
 
@@ -398,7 +398,7 @@ void Open_Cddb_Window (void)
     // Button to run the search
     CddbSearchButton = gtk_button_new_from_stock(GTK_STOCK_FIND);
     gtk_box_pack_start(GTK_BOX(hbox),CddbSearchButton,FALSE,FALSE,0);
-    GTK_WIDGET_SET_FLAGS(CddbSearchButton,GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default(CddbSearchButton,TRUE);
     gtk_widget_grab_default(CddbSearchButton);
     g_signal_connect(G_OBJECT(CddbSearchButton),"clicked",
         G_CALLBACK(Cddb_Search_Album_List_From_String),NULL);
@@ -416,7 +416,7 @@ void Open_Cddb_Window (void)
     // Button to quit
     Button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
     gtk_box_pack_end(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    GTK_WIDGET_SET_FLAGS(Button,GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default(Button,TRUE);
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(Cddb_Destroy_Window),NULL);
 
 

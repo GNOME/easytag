@@ -3798,14 +3798,14 @@ void Browser_Open_Rename_Directory_Window (void)
     /* Button to cancel */
     Button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
     gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
-    GTK_WIDGET_SET_FLAGS(Button,GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default(Button,TRUE);
     gtk_widget_grab_default(Button);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",G_CALLBACK(Destroy_Rename_Directory_Window), G_OBJECT(RenameDirectoryCombo));
 
     /* Button to save: to rename directory */
     Button = gtk_button_new_from_stock(GTK_STOCK_APPLY);
     gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
-    GTK_WIDGET_SET_FLAGS(Button,GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default(Button,TRUE);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked", G_CALLBACK(Rename_Directory),NULL);
     g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(GTK_BIN(RenameDirectoryCombo)->child)),"changed",
         G_CALLBACK(Entry_Changed_Disable_Object),G_OBJECT(Button));
@@ -4229,14 +4229,14 @@ void Browser_Open_Run_Program_Tree_Window (void)
     /* Button to cancel */
     Button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
     gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
-    GTK_WIDGET_SET_FLAGS(Button,GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default(Button,TRUE);
     gtk_widget_grab_default(Button);
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(Destroy_Run_Program_Tree_Window),NULL);
 
     /* Button to execute */
     Button = gtk_button_new_from_stock(GTK_STOCK_EXECUTE);
     gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
-    GTK_WIDGET_SET_FLAGS(Button,GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default(Button,TRUE);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked", G_CALLBACK(Run_Program_With_Directory),G_OBJECT(RunProgramComboBox));
     g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(GTK_BIN(RunProgramComboBox)->child)),"changed", G_CALLBACK(Entry_Changed_Disable_Object),G_OBJECT(Button));
     g_signal_emit_by_name(G_OBJECT(GTK_ENTRY(GTK_BIN(RunProgramComboBox)->child)),"changed",NULL);
@@ -4389,14 +4389,14 @@ void Browser_Open_Run_Program_List_Window (void)
     /* Button to cancel */
     Button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
     gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
-    GTK_WIDGET_SET_FLAGS(Button,GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default(Button,TRUE);
     gtk_widget_grab_default(Button);
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(Destroy_Run_Program_List_Window),NULL);
 
     /* Button to execute */
     Button = gtk_button_new_from_stock(GTK_STOCK_EXECUTE);
     gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
-    GTK_WIDGET_SET_FLAGS(Button,GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default(Button,TRUE);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked", G_CALLBACK(Run_Program_With_Selected_Files),G_OBJECT(RunProgramComboBox));
     g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(GTK_BIN(RunProgramComboBox)->child)),"changed", G_CALLBACK(Entry_Changed_Disable_Object),G_OBJECT(Button));
     g_signal_emit_by_name(G_OBJECT(GTK_ENTRY(GTK_BIN(RunProgramComboBox)->child)),"changed",NULL);

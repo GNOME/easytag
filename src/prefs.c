@@ -1476,7 +1476,7 @@ void Open_OptionsWindow (void)
     Button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
     gtk_container_add(GTK_CONTAINER(ButtonBox), Button);
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(OptionsWindow_Cancel_Button),NULL);
-    GTK_WIDGET_SET_FLAGS(Button, GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default(Button,TRUE);
     gtk_widget_grab_default(Button);
     gtk_tooltips_set_tip(Tips,Button,_("Close this window without saving"),NULL);
 
@@ -1485,7 +1485,7 @@ void Open_OptionsWindow (void)
     Button = gtk_button_new_from_stock(GTK_STOCK_OK);
     gtk_container_add(GTK_CONTAINER(ButtonBox), Button);
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(OptionsWindow_Save_Button),NULL);
-    GTK_WIDGET_SET_FLAGS(Button, GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default(Button,TRUE);
     gtk_tooltips_set_tip(Tips,Button,_("Save changes and close this window"),NULL);
 
     /* Show all in the options window */

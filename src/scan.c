@@ -2670,8 +2670,8 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_widget_set_size_request(Button, 12, 12);
     //Icon = gtk_image_new_from_stock("easytag-blackwhite", GTK_ICON_SIZE_BUTTON);
     Icon = Create_Xpm_Image((const char **)blackwhite_xpm);
-    GTK_WIDGET_UNSET_FLAGS(Button,GTK_CAN_DEFAULT); // To have enought space to display the icon
-    GTK_WIDGET_UNSET_FLAGS(Button,GTK_CAN_FOCUS);
+    gtk_widget_set_can_default(Button,FALSE); // To have enough space to display the icon
+    gtk_widget_set_can_focus(Button,FALSE);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_tooltips_set_tip(Tips,Button,_("Invert Selection"),NULL);
     Button = gtk_button_new();
@@ -2679,8 +2679,8 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_box_pack_start(GTK_BOX(vbox),Button,FALSE,FALSE,0);
     gtk_widget_set_size_request(Button, 12, 12);
     Icon = Create_Xpm_Image((const char **)black_xpm);
-    GTK_WIDGET_UNSET_FLAGS(Button,GTK_CAN_DEFAULT); // To have enought space to display the icon
-    GTK_WIDGET_UNSET_FLAGS(Button,GTK_CAN_FOCUS);
+    gtk_widget_set_can_default(Button,FALSE); // To have enough space to display the icon
+    gtk_widget_set_can_focus(Button,FALSE);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_tooltips_set_tip(Tips,Button,_("Select/Unselect All."),NULL);
 

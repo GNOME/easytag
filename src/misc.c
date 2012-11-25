@@ -1421,14 +1421,14 @@ void Open_Write_Playlist_Window (void)
     /* Button to Cancel */
     Button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
     gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
-    GTK_WIDGET_SET_FLAGS(Button, GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default(Button,TRUE);
     gtk_widget_grab_default(Button);
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(Destroy_Write_Playlist_Window),NULL);
 
     /* Button to Write the playlist */
     Button = gtk_button_new_from_stock(GTK_STOCK_SAVE);
     gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
-    GTK_WIDGET_SET_FLAGS(Button,GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default(Button,TRUE);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",G_CALLBACK(Playlist_Write_Button_Pressed),NULL);
 
     gtk_widget_show_all(WritePlaylistWindow);
@@ -2210,7 +2210,7 @@ void Open_Search_File_Window (void)
     // Button to run the search
     Button = gtk_button_new_from_stock(GTK_STOCK_FIND);
     gtk_table_attach(GTK_TABLE(Table),Button,5,6,0,1,GTK_FILL,GTK_FILL,0,0);
-    GTK_WIDGET_SET_FLAGS(Button,GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default(Button,TRUE);
     gtk_widget_grab_default(Button);
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(Search_File),NULL);
     g_signal_connect(G_OBJECT(GTK_BIN(SearchStringCombo)->child),"activate", G_CALLBACK(Search_File),NULL);
@@ -3018,14 +3018,14 @@ void Open_Load_Filename_Window (void)
     // Button to cancel
     Button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
     gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
-    GTK_WIDGET_SET_FLAGS(Button, GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default(Button,TRUE);
     gtk_widget_grab_default(Button);
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(Destroy_Load_Filename_Window),NULL);
 
     // Button to load filenames
     Button = gtk_button_new_from_stock(GTK_STOCK_APPLY);
     gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
-    GTK_WIDGET_SET_FLAGS(Button,GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default(Button,TRUE);
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(Load_Filename_Set_Filenames),NULL);
 
 
