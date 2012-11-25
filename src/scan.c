@@ -1692,7 +1692,7 @@ void Scan_Process_Fields_Keep_One_Space (gchar *string)
             break;
         *(tmp++) = *(tmp1++);
         while (*tmp1 == ' ' || *tmp1 == '_')
-            *(tmp1++);
+            tmp1++;
     }
     *tmp = '\0';
 }
