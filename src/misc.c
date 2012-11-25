@@ -263,7 +263,7 @@ gboolean Add_String_To_Combo_List (GtkListStore *liststore, const gchar *str)
 {
     GtkTreeIter iter;
     gchar *text;
-    guint HISTORY_MAX_LENGTH = 15;
+    const gint HISTORY_MAX_LENGTH = 15;
     //gboolean found = FALSE;
     gchar *string = g_strdup(str);
 
