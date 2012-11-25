@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EasyTAG 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-25 18:09+0000\n"
+"POT-Creation-Date: 2012-11-25 19:00+0000\n"
 "PO-Revision-Date: 2005-12-26 16:40+0200\n"
 "Last-Translator: Apollon Oikonomopoulos <apoikos@mail.ntua.gr>\n"
 "Language-Team: Modern Greek <el@li.org>\n"
@@ -20,6 +20,19 @@ msgstr ""
 "X-Poedit-Country: GREECE\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Generator: KBabel 1.11\n"
+
+#: ../easytag.desktop.in.h:1
+#, fuzzy
+msgid "Sound File Metadata Editor"
+msgstr "Εμφάνιση / Απόκρυψη του διορθωτή μασκών"
+
+#: ../easytag.desktop.in.h:2
+msgid "Edit sound file metadata"
+msgstr ""
+
+#: ../easytag.desktop.in.h:3
+msgid "mp3;tag;audio;"
+msgstr ""
 
 #: ../src/about.c:139
 msgid ""

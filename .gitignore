@@ -3,7 +3,6 @@
 .dirstamp
 /build-aux
 m4/*
-/easytag
 Makefile
 Makefile.in
 aclocal.m4
@@ -14,10 +13,13 @@ config.log
 config.status
 configure
 doc/easytag.1
+/easytag
+/easytag.desktop
 /easytag.spec
 libtool
 ltmain.sh
 /po/*.gmo
+/po/.intltool-merge-cache
 /po/Makefile.in.in
 /po/POTFILES
 /po/stamp-it

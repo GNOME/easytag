@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: easytag-2.1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-25 18:09+0000\n"
+"POT-Creation-Date: 2012-11-25 19:00+0000\n"
 "PO-Revision-Date: 2007-10-25 18:58+0800\n"
 "Last-Translator: Yang Jinsong <shannleon@gmail.com>\n"
 "Language-Team: Simplified Chinese\n"
@@ -18,6 +18,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.10.2\n"
+
+#: ../easytag.desktop.in.h:1
+#, fuzzy
+msgid "Sound File Metadata Editor"
+msgstr "显示 / 隐藏掩码编辑器"
+
+#: ../easytag.desktop.in.h:2
+msgid "Edit sound file metadata"
+msgstr ""
+
+#: ../easytag.desktop.in.h:3
+msgid "mp3;tag;audio;"
+msgstr ""
 
 #: ../src/about.c:139
 msgid ""

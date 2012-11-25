@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EasyTAG 2.1.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-25 18:09+0000\n"
+"POT-Creation-Date: 2012-11-25 19:00+0000\n"
 "PO-Revision-Date: 2008-07-12 10:41+0100\n"
 "Last-Translator: Jerome Couderc <easytag@gmail.com>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -17,6 +17,19 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
+
+#: ../easytag.desktop.in.h:1
+#, fuzzy
+msgid "Sound File Metadata Editor"
+msgstr "Montrer / Cacher l'Editeur de Masques"
+
+#: ../easytag.desktop.in.h:2
+msgid "Edit sound file metadata"
+msgstr ""
+
+#: ../easytag.desktop.in.h:3
+msgid "mp3;tag;audio;"
+msgstr ""
 
 #: ../src/about.c:139
 msgid ""

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EasyTAG 1.99.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-25 18:09+0000\n"
+"POT-Creation-Date: 2012-11-25 19:00+0000\n"
 "PO-Revision-Date: 2005-04-19 10:07+0200\n"
 "Last-Translator: Pauliuc George <romania@users.sourceforge.net>\n"
 "Language-Team: Romanian <pauliuc@gmx.net>\n"
@@ -17,6 +17,19 @@ msgstr ""
 "X-Poedit-Language: Romanian\n"
 "X-Poedit-Country: ROMANIA\n"
 "X-Poedit-SourceCharset: iso-8859-1\n"
+
+#: ../easytag.desktop.in.h:1
+#, fuzzy
+msgid "Sound File Metadata Editor"
+msgstr "Aratã / ascunde editorul mask"
+
+#: ../easytag.desktop.in.h:2
+msgid "Edit sound file metadata"
+msgstr ""
+
+#: ../easytag.desktop.in.h:3
+msgid "mp3;tag;audio;"
+msgstr ""
 
 #: ../src/about.c:139
 #, fuzzy

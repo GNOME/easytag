@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EasyTag 0.28.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-25 18:09+0000\n"
+"POT-Creation-Date: 2012-11-25 19:00+0000\n"
 "PO-Revision-Date: 2003-09-12 12:02+0300\n"
 "Last-Translator: Cawko Xakep <xakep@snark.ukma.kiev.ua>\n"
 "Language-Team: Ukrainian <linux@linux.org.ua>\n"
@@ -17,6 +17,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: ../easytag.desktop.in.h:1
+#, fuzzy
+msgid "Sound File Metadata Editor"
+msgstr "Показати/сховати редактор масок"
+
+#: ../easytag.desktop.in.h:2
+msgid "Edit sound file metadata"
+msgstr ""
+
+#: ../easytag.desktop.in.h:3
+msgid "mp3;tag;audio;"
+msgstr ""
 
 #: ../src/about.c:139
 #, fuzzy

@@ -1,14 +1,18 @@
 [Desktop Entry]
-Version=1.0
-
-Type=Application
-
 Name=EasyTAG
-GenericName=Sound File Metadata Editor
+_GenericName=Sound File Metadata Editor
+_Comment=Edit sound file metadata
+_Keywords=mp3;tag;audio;
+Type=Application
+Icon=EasyTAG_icon
+Categories=GTK;AudioVideo;
+MimeType=x-directory/normal;inode/directory;audio/x-mp3;audio/x-mpeg;audio/mpeg;application/ogg;audio/x-vorbis+ogg;audio/x-flac;audio/x-musepack;audio/x-ape;
+Exec=easytag %F
+Terminal=false
+StartupNotify=false
 GenericName[de]=Audiodateimetadaten-Editor
 GenericName[fr]=Éditeur de Métadonnées de Fichier Son
 GenericName[it]=Compositore di Metadati di File Sono
-Comment=Edit sound file metadata
 Comment[de]=Audiodatei Metadaten editieren
 Comment[fr]=Modifier les métadonnées de fichiers son
 Comment[it]=Modificare i metadati di file sono
@@ -23,11 +27,3 @@ Comment[ro]=EasyTAG este un utilitar pentru afisarea, modificarea si scrierea et
 Comment[ru]=EasyTAG -- это программа для просмотра и редактирования тегов в файлах MP3, MP2, FLAC, MusePack, APE и Ogg Vorbis с удобным интерфейсом GTK+ для GNU/Linux.
 Comment[sv]=EasyTAG är ett verktyg för att undersöka, editera och skriva taggar för dina MP3-, MP2-, FLAC- och Ogg Vorbis-filer, och använder ett enkelt och trevligt GTK+-gränssnitt.
 Comment[uk]=EasyTAG - утиліта для перегляду, редагування та запису тегів у файли MP3, MP2, FLAC, Ogg Vorbis, MusePack та Monkey's Audio. Простий та приємний інтерфейс GTK+ допоможе процесу запису тегів.
-Icon=EasyTAG_icon
-
-Categories=GTK;AudioVideo;Editor;
-MimeType=x-directory/normal;inode/directory;audio/x-mp3;audio/x-mpeg;audio/mpeg;application/ogg;audio/x-vorbis+ogg;audio/x-flac;audio/x-musepack;audio/x-ape;
-
-Exec=easytag %F
-Terminal=false
-StartupNotify=false

@@ -119,8 +119,10 @@ easytag_LDADD = \
 	$(ID3TAG_LIBS) \
 	$(ID3LIB_LIBS)
 
+@INTLTOOL_DESKTOP_RULE@
 desktopdir = $(datadir)/applications
-dist_desktop_DATA = easytag.desktop
+desktop_in_files = easytag.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
 textdir = $(pkgdatadir)
 dist_text_DATA = ChangeLog
@@ -173,6 +175,7 @@ dist_icon_DATA = \
 
 
 dist_noinst_DATA = \
+	$(desktop_in_files) \
 	$(easytag_headers) \
 	Makefile.mingw \
 	src/id3lib/patch_id3lib_3.8.3_UTF16_writing_bug.diff \
@@ -283,6 +286,9 @@ dist_noinst_DATA = \
 
 dist_noinst_SCRIPTS = \
     autogen.sh
+
+CLEANFILES = \
+	$(desktop_DATA)
 
 DISTCLEANFILES = \
 	intltool-extract \

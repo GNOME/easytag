@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: easytag-2.1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-25 18:09+0000\n"
+"POT-Creation-Date: 2012-11-25 19:00+0000\n"
 "PO-Revision-Date: 2007-12-21 14:54-0200\n"
 "Last-Translator: doutor.zero <doutor.zero@gmail.com>\n"
 "Language-Team: Português do Brasil <kde-i18n-pt_br@kde.org>\n"
@@ -21,6 +21,19 @@ msgstr ""
 "X-Poedit-Language: Portuguese\n"
 "X-Poedit-Country: BRAZIL\n"
 "Plural-Forms:  nplurals=2; plural=n != 1;\n"
+
+#: ../easytag.desktop.in.h:1
+#, fuzzy
+msgid "Sound File Metadata Editor"
+msgstr "Mostrar / Esconder o Editor de Máscaras"
+
+#: ../easytag.desktop.in.h:2
+msgid "Edit sound file metadata"
+msgstr ""
+
+#: ../easytag.desktop.in.h:3
+msgid "mp3;tag;audio;"
+msgstr ""
 
 #: ../src/about.c:139
 msgid ""
