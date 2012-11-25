@@ -4,4 +4,35 @@
 #             #
 ###############
 
-...not up to date...
+General tidying
+---------------
+
+* Convert user guide to help in Mallard or DocBook XML
+* Avoid using GdkWindow all over the place
+* Use PNG icons and drop the XPM ones
+* Use libproxy for proxy settings
+* Port configuration settings to use GSettings
+* Port file I/O to use GFile from GIO
+** Additionally, make I/O asynchronous
+* Use g_spawn_async() or g_app_info_launch() to spawn processes
+* Check usage and casting away of const
+* Check C-style casts for errors
+
+GTK+ 3 porting preparation
+--------------------------
+
+* Remove usage of GtkObject
+
+After GTK+ 3
+------------
+
+* Port to GtkApplication
+* Add an application menu with gtk_application_set_app_menu()
+
+UI work
+-------
+
+* Use more of the standard GTK+ widgets, for example GtkAboutDialog
+* Try to follow a style guide, for example the GNOME HIG
+** Remove GtkFrame from most places
+** Add a bit more padding
