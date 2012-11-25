@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EasyTag 0.28.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-17 16:45-0700\n"
+"POT-Creation-Date: 2012-11-25 18:09+0000\n"
 "PO-Revision-Date: 2003-09-12 12:02+0300\n"
 "Last-Translator: Cawko Xakep <xakep@snark.ukma.kiev.ua>\n"
 "Language-Team: Ukrainian <linux@linux.org.ua>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: src/about.c:141
+#: ../src/about.c:139
 #, fuzzy
 msgid ""
 "    EasyTAG is an utility for viewing and editing tags for MP3, MP2, FLAC, "
@@ -29,206 +29,207 @@ msgstr ""
 "MP2, FLAC, Ogg Vorbis, MusePack та Monkey's Audio. Простий та при╓мний "
 "╕нтерфейс GTK+ допоможе процесу запису тег╕в."
 
-#: src/about.c:149 src/about.c:150 src/about.c:151 src/about.c:152
-#: src/about.c:183
+#: ../src/about.c:147 ../src/about.c:148 ../src/about.c:149 ../src/about.c:150
+#: ../src/about.c:181
 msgid "(German translation)"
 msgstr "(Переклад н╕мецькою)"
 
-#: src/about.c:153 src/about.c:154
+#: ../src/about.c:151 ../src/about.c:152
 msgid "(Russian translation)"
 msgstr "(Переклад рос╕йською)"
 
-#: src/about.c:155 src/about.c:156
+#: ../src/about.c:153 ../src/about.c:154
 msgid "(Dutch translation)"
 msgstr "(Переклад датською)"
 
-#: src/about.c:157 src/about.c:158 src/about.c:159
+#: ../src/about.c:155 ../src/about.c:156 ../src/about.c:157
 msgid "(Swedish translation)"
 msgstr "(Переклад шведською)"
 
-#: src/about.c:160 src/about.c:161 src/about.c:162
+#: ../src/about.c:158 ../src/about.c:159 ../src/about.c:160
 msgid "(Hungarian translation)"
 msgstr "(Переклад угорською)"
 
-#: src/about.c:163 src/about.c:164
+#: ../src/about.c:161 ../src/about.c:162
 msgid "(Italian translation)"
 msgstr "(Переклад ╕тал╕йською)"
 
-#: src/about.c:165
+#: ../src/about.c:163
 msgid "(Japanese translation)"
 msgstr "(Переклад японською)"
 
-#: src/about.c:166 src/about.c:167
+#: ../src/about.c:164 ../src/about.c:165
 msgid "(Ukrainian translation)"
 msgstr "(Переклад укра╖нською)"
 
-#: src/about.c:168 src/about.c:169
+#: ../src/about.c:166 ../src/about.c:167
 msgid "(Czech translation)"
 msgstr "(Переклад чеською)"
 
-#: src/about.c:170 src/about.c:171 src/about.c:172
+#: ../src/about.c:168 ../src/about.c:169 ../src/about.c:170
 msgid "(Spanish translation)"
 msgstr "(Переклад ╕спанською)"
 
-#: src/about.c:173
+#: ../src/about.c:171
 msgid "(Polish translation)"
 msgstr "(Переклад польською)"
 
-#: src/about.c:174
+#: ../src/about.c:172
 msgid "(Romanian translation)"
 msgstr "(Переклад румунською)"
 
-#: src/about.c:175
+#: ../src/about.c:173
 #, fuzzy
 msgid "(Danish translation)"
 msgstr "(Переклад ╕спанською)"
 
-#: src/about.c:176
+#: ../src/about.c:174
 #, fuzzy
 msgid "(Greek translation)"
 msgstr "(Переклад н╕мецькою)"
 
-#: src/about.c:177
+#: ../src/about.c:175
 #, fuzzy
 msgid "(Brazilian Portuguese translation)"
 msgstr "(Переклад японською)"
 
-#: src/about.c:178
+#: ../src/about.c:176
 #, fuzzy
 msgid "(Bulgarian translation)"
 msgstr "(Переклад угорською)"
 
-#: src/about.c:179
+#: ../src/about.c:177
 #, fuzzy
 msgid "(Chinese translation)"
 msgstr "(Переклад японською)"
 
-#: src/about.c:180
+#: ../src/about.c:178
 #, fuzzy
 msgid "(Chinese (Taiwan) translation)"
 msgstr "(Переклад японською)"
 
-#: src/about.c:181
+#: ../src/about.c:179
 #, fuzzy
 msgid "(Hebrew translation)"
 msgstr "(Переклад н╕мецькою)"
 
-#: src/about.c:182
+#: ../src/about.c:180
 #, fuzzy
 msgid "(Serbian translation)"
 msgstr "(Переклад н╕мецькою)"
 
-#: src/about.c:184
+#: ../src/about.c:182
 #, fuzzy
 msgid "(Lithuanian translation)"
 msgstr "(Переклад ╕тал╕йською)"
 
-#: src/about.c:243
+#: ../src/about.c:241
 msgid "Extension Name"
 msgstr ""
 
-#: src/about.c:244
+#: ../src/about.c:242
 msgid "Status"
 msgstr ""
 
-#: src/about.c:245 src/browser.c:3039 src/misc.c:1927 src/prefs.c:670
+#: ../src/about.c:243 ../src/browser.c:3037 ../src/misc.c:1928
+#: ../src/prefs.c:669
 msgid "Comment"
 msgstr "Коментар"
 
 #. Config
-#: src/about.c:262
+#: ../src/about.c:260
 msgid "About..."
 msgstr "Про..."
 
 #.
 #. * Tab for common informations
 #.
-#: src/about.c:280 src/bar.c:244
+#: ../src/about.c:278 ../src/bar.c:244
 msgid "About"
 msgstr "Про"
 
-#: src/about.c:326
+#: ../src/about.c:312
 #, c-format
 msgid "(compiled: %s)"
 msgstr "(з╕брано: %s)"
 
-#: src/about.c:330
+#: ../src/about.c:316
 #, fuzzy, c-format
 msgid "(using: GTK+ %d.%d.%d)"
 msgstr "(використовую: gtk+ %d.%d.%d та id3lib %d.%d.%d)"
 
-#: src/about.c:338
+#: ../src/about.c:324
 #, c-format
 msgid "Author: %s"
 msgstr "Автор: %s"
 
-#: src/about.c:342 src/easytag.c:233
+#: ../src/about.c:328 ../src/easytag.c:230
 #, c-format
 msgid "E-mail: %s"
 msgstr "E-mail: %s"
 
-#: src/about.c:348
+#: ../src/about.c:334
 msgid "Web Page: "
 msgstr "Домашня стор╕нка: "
 
-#: src/about.c:361
+#: ../src/about.c:347
 msgid "Description:"
 msgstr "Характеристика:"
 
 #.
 #. * Tab for extensions
 #.
-#: src/about.c:377
+#: ../src/about.c:363
 msgid "Extensions"
 msgstr ""
 
-#: src/about.c:443
+#: ../src/about.c:429
 #, fuzzy
 msgid "MP3 file support"
 msgstr "(п╕дтримку OGG вимкнено)"
 
-#: src/about.c:446 src/about.c:476 src/about.c:488 src/about.c:504
-#: src/about.c:517 src/about.c:529
+#: ../src/about.c:432 ../src/about.c:462 ../src/about.c:474 ../src/about.c:490
+#: ../src/about.c:503 ../src/about.c:515
 #, fuzzy
 msgid "enabled"
 msgstr "закладками"
 
-#: src/about.c:450 src/about.c:466 src/about.c:479 src/about.c:491
-#: src/about.c:508 src/about.c:520 src/about.c:532
+#: ../src/about.c:436 ../src/about.c:452 ../src/about.c:465 ../src/about.c:477
+#: ../src/about.c:494 ../src/about.c:506 ../src/about.c:518
 msgid "disabled"
 msgstr ""
 
-#: src/about.c:459
+#: ../src/about.c:445
 #, fuzzy
 msgid "ID3v2.3 tags writting support"
 msgstr "(п╕дтримку OGG вимкнено)"
 
-#: src/about.c:462
+#: ../src/about.c:448
 #, fuzzy
 msgid "available"
 msgstr "Недостатньо пам'ят╕"
 
-#: src/about.c:473
+#: ../src/about.c:459
 #, fuzzy
 msgid "Ogg Vorbis file support"
 msgstr "(п╕дтримку OGG вимкнено)"
 
-#: src/about.c:485
+#: ../src/about.c:471
 #, fuzzy
 msgid "Speex file support"
 msgstr "(п╕дтримку OGG вимкнено)"
 
-#: src/about.c:501
+#: ../src/about.c:487
 #, fuzzy
 msgid "FLAC file support"
 msgstr "(п╕дтримку OGG вимкнено)"
 
-#: src/about.c:514
+#: ../src/about.c:500
 #, fuzzy
 msgid "MP4/AAC file support"
 msgstr "(п╕дтримку OGG вимкнено)"
 
-#: src/about.c:526
+#: ../src/about.c:512
 #, fuzzy
 msgid "WavPack file support"
 msgstr "(п╕дтримку OGG вимкнено)"
@@ -236,33 +237,34 @@ msgstr "(п╕дтримку OGG вимкнено)"
 #.
 #. * Tab for thanks
 #.
-#: src/about.c:541
+#: ../src/about.c:527
 msgid "Thanks"
 msgstr "Подяки"
 
-#: src/about.c:561
+#: ../src/about.c:547
 msgid "Translations:\n"
 msgstr "Переклади:\n"
 
-#: src/about.c:591
+#: ../src/about.c:577
 msgid "General:\n"
 msgstr "Загальн╕:\n"
 
-#: src/about.c:608
+#: ../src/about.c:594
 msgid "Changes"
 msgstr "Зм╕ни"
 
-#: src/about.c:630
+#: ../src/about.c:616
 #, fuzzy, c-format
 msgid "Can't open file '%s' (%s)\n"
 msgstr "Не можу в╕дкрити файл '%s' (%s)"
 
 #. g_print(_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
-#: src/ape_tag.c:74 src/et_core.c:4520 src/flac_header.c:126 src/id3_tag.c:146
-#: src/id3_tag.c:1209 src/id3_tag.c:1292 src/misc.c:1769 src/mp4_header.c:211
-#: src/mp4_header.c:220 src/mp4_tag.c:98 src/mp4_tag.c:109 src/mp4_tag.c:281
-#: src/mp4_tag.c:290 src/mpeg_header.c:209 src/ogg_header.c:82
-#: src/ogg_header.c:186 src/ogg_tag.c:146 src/ogg_tag.c:657
+#: ../src/ape_tag.c:74 ../src/et_core.c:4520 ../src/flac_header.c:126
+#: ../src/id3_tag.c:146 ../src/id3_tag.c:1209 ../src/id3_tag.c:1292
+#: ../src/misc.c:1771 ../src/mp4_header.c:211 ../src/mp4_header.c:220
+#: ../src/mp4_tag.c:98 ../src/mp4_tag.c:109 ../src/mp4_tag.c:281
+#: ../src/mp4_tag.c:290 ../src/mpeg_header.c:209 ../src/ogg_header.c:82
+#: ../src/ogg_header.c:186 ../src/ogg_tag.c:146 ../src/ogg_tag.c:657
 #, fuzzy, c-format
 msgid "ERROR while opening file: '%s' (%s)."
 msgstr "ПОМИЛКА в╕дкриття файла: '%s' (%s)."
@@ -270,536 +272,536 @@ msgstr "ПОМИЛКА в╕дкриття файла: '%s' (%s)."
 #.
 #. * Main Menu Actions
 #.
-#: src/bar.c:148
+#: ../src/bar.c:148
 #, fuzzy
 msgid "_File"
 msgstr "/Файл"
 
-#: src/bar.c:149
+#: ../src/bar.c:149
 #, fuzzy
 msgid "Sort list by tag"
 msgstr "Сортувати список файл╕в за: "
 
-#: src/bar.c:150
+#: ../src/bar.c:150
 #, fuzzy
 msgid "Sort list by property"
 msgstr "Сортувати за зростанням частоти дискретизац╕╖"
 
-#: src/bar.c:151
+#: ../src/bar.c:151
 #, fuzzy
 msgid "Ascending by filename"
 msgstr "За зростанням ╕мен╕"
 
-#: src/bar.c:152
+#: ../src/bar.c:152
 #, fuzzy
 msgid "Descending by filename"
 msgstr "За спаданням ╕мен╕"
 
-#: src/bar.c:153
+#: ../src/bar.c:153
 #, fuzzy
 msgid "Ascending by creation date"
 msgstr "За зростанням дати створення"
 
-#: src/bar.c:154
+#: ../src/bar.c:154
 #, fuzzy
 msgid "Descending by creation date"
 msgstr "За спаданням дати створення"
 
-#: src/bar.c:155
+#: ../src/bar.c:155
 #, fuzzy
 msgid "Ascending by track number"
 msgstr "За зростанням номера трека"
 
-#: src/bar.c:156
+#: ../src/bar.c:156
 #, fuzzy
 msgid "Descending by track number"
 msgstr "За спаданням номера трека"
 
-#: src/bar.c:157
+#: ../src/bar.c:157
 #, fuzzy
 msgid "Ascending by title"
 msgstr "За зростанням ╕мен╕ композиц╕╖"
 
-#: src/bar.c:158
+#: ../src/bar.c:158
 #, fuzzy
 msgid "Descending by title"
 msgstr "За спаданням ╕мен╕ композиц╕╖"
 
-#: src/bar.c:159
+#: ../src/bar.c:159
 #, fuzzy
 msgid "Ascending by artist"
 msgstr "За зростанням ╕мен╕ виконавця"
 
-#: src/bar.c:160
+#: ../src/bar.c:160
 #, fuzzy
 msgid "Descending by artist"
 msgstr "За спаданням ╕мен╕ виконавця"
 
-#: src/bar.c:161
+#: ../src/bar.c:161
 #, fuzzy
 msgid "Ascending by album artist"
 msgstr "За зростанням ╕мен╕ виконавця"
 
-#: src/bar.c:162
+#: ../src/bar.c:162
 #, fuzzy
 msgid "Descending by album artist"
 msgstr "За спаданням ╕мен╕ виконавця"
 
-#: src/bar.c:163
+#: ../src/bar.c:163
 #, fuzzy
 msgid "Ascending by album"
 msgstr "За зростанням назви альбому"
 
-#: src/bar.c:164
+#: ../src/bar.c:164
 #, fuzzy
 msgid "Descending by album"
 msgstr "За спаданням назви альбому"
 
-#: src/bar.c:165
+#: ../src/bar.c:165
 #, fuzzy
 msgid "Ascending by year"
 msgstr "За зростанням року"
 
-#: src/bar.c:166
+#: ../src/bar.c:166
 #, fuzzy
 msgid "Descending by year"
 msgstr "За спаданням року"
 
-#: src/bar.c:167
+#: ../src/bar.c:167
 #, fuzzy
 msgid "Ascending by genre"
 msgstr "За зростанням жанру"
 
-#: src/bar.c:168
+#: ../src/bar.c:168
 #, fuzzy
 msgid "Descending by genre"
 msgstr "За спаданням жанру"
 
-#: src/bar.c:169
+#: ../src/bar.c:169
 #, fuzzy
 msgid "Ascending by comment"
 msgstr "За зростанням дати коментаря"
 
-#: src/bar.c:170
+#: ../src/bar.c:170
 #, fuzzy
 msgid "Descending by comment"
 msgstr "За спаданням дати коментаря"
 
-#: src/bar.c:171
+#: ../src/bar.c:171
 #, fuzzy
 msgid "Ascending by composer"
 msgstr "За зростанням дати коментаря"
 
-#: src/bar.c:172
+#: ../src/bar.c:172
 #, fuzzy
 msgid "Descending by composer"
 msgstr "За спаданням дати коментаря"
 
-#: src/bar.c:173
+#: ../src/bar.c:173
 #, fuzzy
 msgid "Ascending by original artist"
 msgstr "За зростанням ╕мен╕ виконавця"
 
-#: src/bar.c:174
+#: ../src/bar.c:174
 #, fuzzy
 msgid "Descending by original artist"
 msgstr "За спаданням ╕мен╕ виконавця"
 
-#: src/bar.c:175
+#: ../src/bar.c:175
 #, fuzzy
 msgid "Ascending by copyright"
 msgstr "За зростанням ╕мен╕ виконавця"
 
-#: src/bar.c:176
+#: ../src/bar.c:176
 #, fuzzy
 msgid "Descending by copyright"
 msgstr "За спаданням ╕мен╕ виконавця"
 
-#: src/bar.c:177
+#: ../src/bar.c:177
 #, fuzzy
 msgid "Ascending by URL"
 msgstr "За зростанням року"
 
-#: src/bar.c:178
+#: ../src/bar.c:178
 #, fuzzy
 msgid "Descending by URL"
 msgstr "За спаданням року"
 
-#: src/bar.c:179
+#: ../src/bar.c:179
 #, fuzzy
 msgid "Ascending by encoder name"
 msgstr "За зростанням жанру"
 
-#: src/bar.c:180
+#: ../src/bar.c:180
 #, fuzzy
 msgid "Descending by encoder name"
 msgstr "За спаданням жанру"
 
-#: src/bar.c:181
+#: ../src/bar.c:181
 #, fuzzy
 msgid "Ascending by file type"
 msgstr "За зростанням ╕мен╕"
 
-#: src/bar.c:182
+#: ../src/bar.c:182
 #, fuzzy
 msgid "Descending by file type"
 msgstr "За спаданням ╕мен╕"
 
-#: src/bar.c:183
+#: ../src/bar.c:183
 #, fuzzy
 msgid "Ascending by file size"
 msgstr "За зростанням ╕мен╕"
 
-#: src/bar.c:184
+#: ../src/bar.c:184
 #, fuzzy
 msgid "Descending by file size"
 msgstr "За спаданням ╕мен╕"
 
-#: src/bar.c:185
+#: ../src/bar.c:185
 #, fuzzy
 msgid "Ascending by duration"
 msgstr "Сортувати за зростанням часу в╕дтворення"
 
-#: src/bar.c:186
+#: ../src/bar.c:186
 #, fuzzy
 msgid "Descending by duration"
 msgstr "Сортувати за спаданням часу в╕дтворення"
 
-#: src/bar.c:187
+#: ../src/bar.c:187
 #, fuzzy
 msgid "Ascending by bitrate"
 msgstr "Сортувати за зростанням б╕трейта"
 
-#: src/bar.c:188
+#: ../src/bar.c:188
 #, fuzzy
 msgid "Descending by bitrate"
 msgstr "Сортувати за спаданням б╕трейта"
 
-#: src/bar.c:189
+#: ../src/bar.c:189
 #, fuzzy
 msgid "Ascending by samplerate"
 msgstr "Сортувати за зростанням частоти дискретизац╕╖"
 
-#: src/bar.c:190
+#: ../src/bar.c:190
 #, fuzzy
 msgid "Descending by samplerate"
 msgstr "Сортувати за спаданням частоти дискретизац╕╖"
 
-#: src/bar.c:192
+#: ../src/bar.c:192
 msgid "Open File(s) with ..."
 msgstr "В╕дкрити за допомогою..."
 
-#: src/bar.c:193 src/cddb.c:325
+#: ../src/bar.c:193 ../src/cddb.c:324
 msgid "Select All Files"
 msgstr "Вибрати вс╕ файл"
 
-#: src/bar.c:194
+#: ../src/bar.c:194
 msgid "Unselect All Files"
 msgstr "Скасувати виб╕рку"
 
-#: src/bar.c:195 src/cddb.c:332
+#: ../src/bar.c:195 ../src/cddb.c:331
 msgid "Invert Files Selection"
 msgstr "╤нвертувати виб╕рку"
 
-#: src/bar.c:196
+#: ../src/bar.c:196
 msgid "Delete File(s)"
 msgstr "Видалення файл╕в"
 
-#: src/bar.c:197
+#: ../src/bar.c:197
 #, fuzzy
 msgid "_First File"
 msgstr "/Файл/Перший файл"
 
-#: src/bar.c:197
+#: ../src/bar.c:197
 #, fuzzy
 msgid "First File"
 msgstr "/Файл/Перший файл"
 
-#: src/bar.c:198
+#: ../src/bar.c:198
 #, fuzzy
 msgid "_Previous File"
 msgstr "/Файл/Попередн╕й файл"
 
-#: src/bar.c:198
+#: ../src/bar.c:198
 #, fuzzy
 msgid "Previous File"
 msgstr "/Файл/Попередн╕й файл"
 
-#: src/bar.c:199
+#: ../src/bar.c:199
 #, fuzzy
 msgid "_Next File"
 msgstr "/Файл/Наступний файл"
 
-#: src/bar.c:199
+#: ../src/bar.c:199
 #, fuzzy
 msgid "Next File"
 msgstr "/Файл/Наступний файл"
 
-#: src/bar.c:200
+#: ../src/bar.c:200
 #, fuzzy
 msgid "_Last File"
 msgstr "/Файл/Останн╕й файл"
 
-#: src/bar.c:200
+#: ../src/bar.c:200
 #, fuzzy
 msgid "Last File"
 msgstr "/Файл/Останн╕й файл"
 
 #. XXX GTK1 version uses Ctrl+C for scanner, this doesnt work in GTK1 as its copy! in gtk2, behaviour is different
 #. and binding Ctrl+C effectively stops the user copying text..
-#: src/bar.c:203
+#: ../src/bar.c:203
 #, fuzzy
 msgid "S_can File(s)"
 msgstr "/Файл/Сканувати файл"
 
-#: src/bar.c:203
+#: ../src/bar.c:203
 #, fuzzy
 msgid "Scan File(s)"
 msgstr "/Файл/Сканувати файл"
 
-#: src/bar.c:204
+#: ../src/bar.c:204
 #, fuzzy
 msgid "_Remove Tag(s)"
 msgstr "/Файл/Видалити теги"
 
-#: src/bar.c:204
+#: ../src/bar.c:204
 #, fuzzy
 msgid "Remove Tag(s)"
 msgstr "/Файл/Видалити теги"
 
-#: src/bar.c:205
+#: ../src/bar.c:205
 #, fuzzy
 msgid "_Undo Last File(s) Changes"
 msgstr "/Файл/В_iдм╕нити зм╕ни в останньому файл╕"
 
-#: src/bar.c:205
+#: ../src/bar.c:205
 #, fuzzy
 msgid "Undo Last File(s) Changes"
 msgstr "/Файл/В_iдм╕нити зм╕ни в останньому файл╕"
 
-#: src/bar.c:206
+#: ../src/bar.c:206
 #, fuzzy
 msgid "R_edo Last File(s) Changes"
 msgstr "/Файл/Повторити зм╕ни в останньому файл╕"
 
-#: src/bar.c:206
+#: ../src/bar.c:206
 #, fuzzy
 msgid "Redo Last File(s) Changes"
 msgstr "/Файл/Повторити зм╕ни в останньому файл╕"
 
-#: src/bar.c:207
+#: ../src/bar.c:207
 #, fuzzy
 msgid "_Save File(s)"
 msgstr "/Файл/Зберегти файли"
 
-#: src/bar.c:207
+#: ../src/bar.c:207
 #, fuzzy
 msgid "Save File(s)"
 msgstr "/Файл/Зберегти файли"
 
-#: src/bar.c:208
+#: ../src/bar.c:208
 #, fuzzy
 msgid "_Force Saving File(s)"
 msgstr "/Файл/Сканувати файл"
 
-#: src/bar.c:208
+#: ../src/bar.c:208
 #, fuzzy
 msgid "Force Saving File(s)"
 msgstr "/Файл/Сканувати файл"
 
-#: src/bar.c:209
+#: ../src/bar.c:209
 #, fuzzy
 msgid "Undo Last Changes"
 msgstr "/Файл/Скасувати останн╕ зм╕ни"
 
-#: src/bar.c:210
+#: ../src/bar.c:210
 #, fuzzy
 msgid "Redo Last Changes"
 msgstr "/Файл/Повторити останн╕ зм╕ни"
 
-#: src/bar.c:211
+#: ../src/bar.c:211
 #, fuzzy
 msgid "_Quit"
 msgstr "/Файл/Вих╕д"
 
-#: src/bar.c:211
+#: ../src/bar.c:211
 msgid "Quit"
 msgstr ""
 
-#: src/bar.c:213
+#: ../src/bar.c:213
 #, fuzzy
 msgid "_Browser"
 msgstr "/Переглядач"
 
-#: src/bar.c:214
+#: ../src/bar.c:214
 #, fuzzy
 msgid "Go to _Home Directory"
 msgstr "Перейти в домашн╕й каталог"
 
-#: src/bar.c:214
+#: ../src/bar.c:214
 msgid "Go to Home Directory"
 msgstr "Перейти в домашн╕й каталог"
 
-#: src/bar.c:215
+#: ../src/bar.c:215
 #, fuzzy
 msgid "Go to Desktop Directory"
 msgstr "Перейти у стартовий каталог"
 
-#: src/bar.c:216
+#: ../src/bar.c:216
 #, fuzzy
 msgid "Go to Documents Directory"
 msgstr "Перейти в домашн╕й каталог"
 
-#: src/bar.c:217
+#: ../src/bar.c:217
 #, fuzzy
 msgid "Go to Downloads Directory"
 msgstr "Перейти в домашн╕й каталог"
 
-#: src/bar.c:218
+#: ../src/bar.c:218
 #, fuzzy
 msgid "Go to Music Directory"
 msgstr "Перейти в домашн╕й каталог"
 
-#: src/bar.c:219
+#: ../src/bar.c:219
 #, fuzzy
 msgid "Go to _Default Directory"
 msgstr "Перейти у стартовий каталог"
 
-#: src/bar.c:219
+#: ../src/bar.c:219
 msgid "Go to Default Directory"
 msgstr "Перейти у стартовий каталог"
 
-#: src/bar.c:220
+#: ../src/bar.c:220
 #, fuzzy
 msgid "Set _Current Path as Default"
 msgstr "Встановити стартовим каталогом"
 
-#: src/bar.c:220
+#: ../src/bar.c:220
 msgid "Set Current Path as Default"
 msgstr "Встановити стартовим каталогом"
 
-#: src/bar.c:221
+#: ../src/bar.c:221
 msgid "Tree View | Artist-Album View"
 msgstr ""
 
-#: src/bar.c:222
+#: ../src/bar.c:222
 #, fuzzy
 msgid "Rename Directory ..."
 msgstr "Перейменувати каталог..."
 
-#: src/bar.c:223
+#: ../src/bar.c:223
 msgid "Reload Directory"
 msgstr "Перечитати каталог"
 
-#: src/bar.c:224 src/browser.c:4173
+#: ../src/bar.c:224 ../src/browser.c:4165
 msgid "Browse Directory with ..."
 msgstr "Переглянути за допомогою..."
 
-#: src/bar.c:225
+#: ../src/bar.c:225
 #, fuzzy
 msgid "_Collapse Tree"
 msgstr "Згорнути дерево"
 
-#: src/bar.c:226
+#: ../src/bar.c:226
 #, fuzzy
 msgid "_Refresh Tree"
 msgstr "Оновити дерево"
 
-#: src/bar.c:228 src/bar.c:257
+#: ../src/bar.c:228 ../src/bar.c:257
 #, fuzzy
 msgid "S_canner"
 msgstr "Сканер"
 
-#: src/bar.c:229
+#: ../src/bar.c:229
 #, fuzzy
 msgid "_Fill Tag(s) ..."
 msgstr "/Сканер/Заповнити теги..."
 
-#: src/bar.c:229
+#: ../src/bar.c:229
 #, fuzzy
 msgid "Fill Tag(s) ..."
 msgstr "/Сканер/Заповнити теги..."
 
-#: src/bar.c:230
+#: ../src/bar.c:230
 #, fuzzy
 msgid "_Rename File(s) and Directory ..."
 msgstr "Перейменування каталога"
 
-#: src/bar.c:230
+#: ../src/bar.c:230
 #, fuzzy
 msgid "Rename File(s) and Directory ..."
 msgstr "Перейменування каталога"
 
-#: src/bar.c:231
+#: ../src/bar.c:231
 #, fuzzy
 msgid "_Process Field(s) ..."
 msgstr "Обробка пол╕в"
 
-#: src/bar.c:231
+#: ../src/bar.c:231
 #, fuzzy
 msgid "Process Fields(s) ..."
 msgstr "Обробка пол╕в"
 
-#: src/bar.c:233
+#: ../src/bar.c:233
 #, fuzzy
 msgid "_Misc"
 msgstr "/Р╕зне"
 
-#: src/bar.c:234
+#: ../src/bar.c:234
 #, fuzzy
 msgid "Search _File(s) ..."
 msgstr "Пошук файл╕в..."
 
-#: src/bar.c:234
+#: ../src/bar.c:234
 #, fuzzy
 msgid "Search File(s)..."
 msgstr "Пошук файл╕в..."
 
-#: src/bar.c:235
+#: ../src/bar.c:235
 #, fuzzy
 msgid "CD Data _Base Search ..."
 msgstr "Пошук в CDDB"
 
-#: src/bar.c:235
+#: ../src/bar.c:235
 #, fuzzy
 msgid "CDDB Search ..."
 msgstr "Пошук в CDDB"
 
-#: src/bar.c:236
+#: ../src/bar.c:236
 #, fuzzy
 msgid "Load Filenames from TXT ..."
 msgstr "/Р╕зне/Завантажити ╕мена файл╕в з текстового файла..."
 
-#: src/bar.c:237
+#: ../src/bar.c:237
 #, fuzzy
 msgid "Write Playlist ..."
 msgstr "Запис списку в╕дтворення..."
 
-#: src/bar.c:238 src/bar.c:258 src/bar.c:259 src/bar.c:260
+#: ../src/bar.c:238 ../src/bar.c:258 ../src/bar.c:259 ../src/bar.c:260
 msgid "Run Audio Player"
 msgstr "Завантажити програвач"
 
-#: src/bar.c:240
+#: ../src/bar.c:240
 #, fuzzy
 msgid "_Settings"
 msgstr "/Настройки"
 
-#: src/bar.c:241
+#: ../src/bar.c:241
 #, fuzzy
 msgid "_Preferences ..."
 msgstr "Параметри..."
 
-#: src/bar.c:241
+#: ../src/bar.c:241
 #, fuzzy
 msgid "Preferences ..."
 msgstr "Параметри..."
 
-#: src/bar.c:243
+#: ../src/bar.c:243
 #, fuzzy
 msgid "_Help"
 msgstr "/Допомога"
 
-#: src/bar.c:244
+#: ../src/bar.c:244
 #, fuzzy
 msgid "_About"
 msgstr "Про"
@@ -807,64 +809,64 @@ msgstr "Про"
 #.
 #. * Following items are on toolbar but not on menu
 #.
-#: src/bar.c:250
+#: ../src/bar.c:250
 msgid "Stop the current action"
 msgstr "Зупинити поточну д╕ю"
 
 #.
 #. * Popup menu's Actions
 #.
-#: src/bar.c:256
+#: ../src/bar.c:256
 #, fuzzy
 msgid "_File Operations"
 msgstr "Параметри ╕мен файл╕в"
 
-#: src/bar.c:261
+#: ../src/bar.c:261
 #, fuzzy
 msgid "CDDB Search File(s)..."
 msgstr "Пошук файл╕в..."
 
 #. { AM_ARTIST_OPEN_FILE_WITH,     GTK_STOCK_OPEN,    _("Open File(s) with ..."),     NULL, _("Open File(s) with ..."),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
 #. { AM_ALBUM_OPEN_FILE_WITH,      GTK_STOCK_OPEN,    _("Open File(s) with ..."),     NULL, _("Open File(s) with ..."),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
-#: src/bar.c:265
+#: ../src/bar.c:265
 msgid "Clean Log"
 msgstr ""
 
 #. { AM_BROWSE_SUBDIR,      GTK_STOCK_INDEX,        _("Browse _Sub-directories"),                         NULL, _("Browse _Sub-directories"),                         NULL,                                    FALSE },
-#: src/bar.c:272
+#: ../src/bar.c:272
 #, fuzzy
 msgid "Browse _Sub-directories"
 msgstr "Переглядати п╕дкаталоги"
 
 #. { AM_BROWSER_HIDDEN_DIR, NULL,                   _("Show Hidden Directories"),                         NULL, _("Show Hidden Directories"),                         G_CALLBACK(Browser_Tree_Rebuild),     FALSE },
-#: src/bar.c:275
+#: ../src/bar.c:275
 #, fuzzy
 msgid "Show Hidden Directories"
 msgstr "Шукати в п╕дкаталогах"
 
-#: src/bar.c:277
+#: ../src/bar.c:277
 msgid "Show tree browser / Display by Artist and Album"
 msgstr ""
 
-#: src/bar.c:314
+#: ../src/bar.c:314
 #, c-format
 msgid "Could not merge UI, error was: %s\n"
 msgstr ""
 
-#: src/bar.c:414
+#: ../src/bar.c:414
 msgid "Ready to start..."
 msgstr "Готовий до роботи..."
 
-#: src/browser.c:364
+#: ../src/browser.c:364
 msgid "New default path for files selected"
 msgstr "Вибрано новий типовий шлях"
 
 #. Some files haven't been saved
-#: src/browser.c:752 src/easytag.c:4943 src/easytag.c:4970
+#: ../src/browser.c:752 ../src/easytag.c:4934 ../src/easytag.c:4961
 msgid "Confirm..."
 msgstr "П╕дтвердження..."
 
-#: src/browser.c:756
+#: ../src/browser.c:756
 msgid ""
 "Some files have been modified but not saved...\n"
 "Do you want to save them before changing the directory?"
@@ -872,98 +874,101 @@ msgstr ""
 "Деяк╕ файли зм╕нено, але не записано...\n"
 "Ви б хот╕ли зберегти зм╕ни перед виходом з каталогу?"
 
-#: src/browser.c:2215
+#: ../src/browser.c:2215
 #, fuzzy
 msgid "<All albums>"
 msgstr "Альбом"
 
-#: src/browser.c:2626
+#: ../src/browser.c:2626
 #, c-format
 msgid "Error: Searching for %s, could not find node %s in tree."
 msgstr ""
 
-#: src/browser.c:3037 src/browser.c:3165
+#: ../src/browser.c:3035 ../src/browser.c:3163
 msgid "Tree"
 msgstr ""
 
-#: src/browser.c:3038 src/cddb.c:718 src/misc.c:1918
+#: ../src/browser.c:3036 ../src/cddb.c:719 ../src/misc.c:1919
 msgid "File Name"
 msgstr "╤м'я файла"
 
-#: src/browser.c:3038 src/cddb.c:719 src/misc.c:1919 src/prefs.c:666
+#: ../src/browser.c:3036 ../src/cddb.c:720 ../src/misc.c:1920
+#: ../src/prefs.c:665
 msgid "Title"
 msgstr "Заголовок"
 
-#: src/browser.c:3038 src/browser.c:3042 src/cddb.c:436 src/cddb.c:720
-#: src/misc.c:1920 src/prefs.c:667
+#: ../src/browser.c:3036 ../src/browser.c:3040 ../src/cddb.c:436
+#: ../src/cddb.c:721 ../src/misc.c:1921 ../src/prefs.c:666
 msgid "Artist"
 msgstr "Виконавець"
 
-#: src/browser.c:3038 src/misc.c:1921
+#: ../src/browser.c:3036 ../src/misc.c:1922
 #, fuzzy
 msgid "Album Artist"
 msgstr "Виконавець"
 
-#: src/browser.c:3038 src/browser.c:3043 src/cddb.c:437 src/cddb.c:721
-#: src/misc.c:1922 src/prefs.c:668
+#: ../src/browser.c:3036 ../src/browser.c:3041 ../src/cddb.c:437
+#: ../src/cddb.c:722 ../src/misc.c:1923 ../src/prefs.c:667
 msgid "Album"
 msgstr "Альбом"
 
-#: src/browser.c:3039 src/cddb.c:722 src/misc.c:1924
+#: ../src/browser.c:3037 ../src/cddb.c:723 ../src/misc.c:1925
 msgid "Year"
 msgstr "Р╕к"
 
-#: src/browser.c:3039 src/misc.c:1925
+#: ../src/browser.c:3037 ../src/misc.c:1926
 msgid "Track"
 msgstr "Трек N"
 
-#: src/browser.c:3039 src/cddb.c:725 src/misc.c:1926 src/prefs.c:669
+#: ../src/browser.c:3037 ../src/cddb.c:726 ../src/misc.c:1927
+#: ../src/prefs.c:668
 msgid "Genre"
 msgstr "Стиль"
 
-#: src/browser.c:3040 src/misc.c:1928 src/picture.c:838 src/prefs.c:671
+#: ../src/browser.c:3038 ../src/misc.c:1929 ../src/picture.c:838
+#: ../src/prefs.c:670
 #, fuzzy
 msgid "Composer"
 msgstr "%c : коментар"
 
-#: src/browser.c:3040 src/misc.c:1929 src/prefs.c:672
+#: ../src/browser.c:3038 ../src/misc.c:1930 ../src/prefs.c:671
 #, fuzzy
 msgid "Orig. Artist"
 msgstr "Виконавець:"
 
-#: src/browser.c:3040 src/misc.c:1930
+#: ../src/browser.c:3038 ../src/misc.c:1931
 msgid "Copyright"
 msgstr ""
 
-#: src/browser.c:3041 src/misc.c:1931
+#: ../src/browser.c:3039 ../src/misc.c:1932
 msgid "URL"
 msgstr ""
 
-#: src/browser.c:3041
+#: ../src/browser.c:3039
 #, fuzzy
 msgid "Encoded By"
 msgstr "Кодувальник:"
 
-#: src/browser.c:3042
+#: ../src/browser.c:3040
 #, fuzzy
 msgid "# Albums"
 msgstr "Альбом"
 
-#: src/browser.c:3042 src/browser.c:3043
+#: ../src/browser.c:3040 ../src/browser.c:3041
 #, fuzzy
 msgid "# Files"
 msgstr "Файл"
 
-#: src/browser.c:3063
+#: ../src/browser.c:3060
 #, fuzzy
 msgid "Go to parent directory"
 msgstr "Перейти в домашн╕й каталог"
 
-#: src/browser.c:3080
+#: ../src/browser.c:3078
 msgid "Enter a directory to browse."
 msgstr "Задайте каталог для перегляду."
 
-#: src/browser.c:3089
+#: ../src/browser.c:3087
 #, fuzzy
 msgid "Select a directory to browse."
 msgstr "Вибер╕ть каталог для перегляду!"
@@ -971,65 +976,67 @@ msgstr "Вибер╕ть каталог для перегляду!"
 #.
 #. * The label for displaying number of files in path (without subdirs)
 #.
-#: src/browser.c:3095
+#: ../src/browser.c:3093
 #, fuzzy
 msgid "... file(s)"
 msgstr "%u файл(╕в)"
 
-#: src/browser.c:3216
+#: ../src/browser.c:3214
 #, fuzzy
 msgid "Artist & Album"
 msgstr "Виконавець / Альбом"
 
-#: src/browser.c:3703
+#: ../src/browser.c:3697
 msgid "Rename the directory"
 msgstr "Перейменування каталога"
 
-#: src/browser.c:3719
+#: ../src/browser.c:3713
 #, c-format
 msgid "Rename the directory '%s' to : "
 msgstr "Перейменувати каталог '%s' на: "
 
-#: src/browser.c:3738 src/misc.c:1273
+#: ../src/browser.c:3732 ../src/misc.c:1270
 msgid "Use mask :"
 msgstr "За маскою: "
 
-#: src/browser.c:3741
+#: ../src/browser.c:3735
 msgid "If activated, it will use masks to rename directory."
 msgstr ""
 
-#: src/browser.c:3760
+#: ../src/browser.c:3753
 msgid ""
 "Select or type in a mask using codes (see Legend in Scanner Window) to "
 "rename the directory from tag fields."
 msgstr ""
 
-#: src/browser.c:3780 src/misc.c:1293 src/misc.c:1390 src/scan.c:2494
-#: src/scan.c:2561 src/scan.c:2928
+#: ../src/browser.c:3773 ../src/misc.c:1291 ../src/misc.c:1389
+#: ../src/scan.c:2492 ../src/scan.c:2559 ../src/scan.c:2926
 msgid "Invalid Scanner Mask"
 msgstr "Некоректна маска для сканера"
 
 #. Preview label
-#: src/browser.c:3786
+#: ../src/browser.c:3779
 #, fuzzy
 msgid "Rename directory preview..."
 msgstr "Попередн╕й вигляд: Перейменування файла..."
 
 #. Log_Print(LOG_ERROR,msg);
-#: src/browser.c:3902 src/browser.c:3922 src/browser.c:3994 src/browser.c:4035
-#: src/browser.c:4067 src/browser.c:4517 src/browser.c:4536 src/easytag.c:2822
-#: src/easytag.c:2983 src/easytag.c:3029 src/easytag.c:3058 src/easytag.c:3103
-#: src/easytag.c:3155 src/easytag.c:3216 src/easytag.c:3252 src/easytag.c:3291
-#: src/easytag.c:3526 src/id3_tag.c:558 src/misc.c:1664 src/picture.c:1138
-#: src/prefs.c:1799 src/prefs.c:1916
+#: ../src/browser.c:3895 ../src/browser.c:3915 ../src/browser.c:3987
+#: ../src/browser.c:4028 ../src/browser.c:4060 ../src/browser.c:4506
+#: ../src/browser.c:4525 ../src/easytag.c:2813 ../src/easytag.c:2974
+#: ../src/easytag.c:3020 ../src/easytag.c:3049 ../src/easytag.c:3094
+#: ../src/easytag.c:3146 ../src/easytag.c:3207 ../src/easytag.c:3243
+#: ../src/easytag.c:3282 ../src/easytag.c:3517 ../src/id3_tag.c:558
+#: ../src/misc.c:1666 ../src/picture.c:1138 ../src/prefs.c:1806
+#: ../src/prefs.c:1923
 msgid "Error..."
 msgstr "Помилка..."
 
-#: src/browser.c:3906
+#: ../src/browser.c:3899
 msgid "You must type a directory name!"
 msgstr "Сл╕д ввести ╕м'я каталогу!"
 
-#: src/browser.c:3926
+#: ../src/browser.c:3919
 #, c-format
 msgid "Could not convert '%s' into filename encoding. Please use another name."
 msgstr ""
@@ -1062,7 +1069,7 @@ msgstr ""
 #. case BUTTON_NO:
 #. break;
 #. }
-#: src/browser.c:3992
+#: ../src/browser.c:3985
 #, c-format
 msgid ""
 "Can't rename because this directory name already exists!\n"
@@ -1071,7 +1078,7 @@ msgstr ""
 "Не можу перейменувати, оск╕льки такий каталог вже ╓!\n"
 "(%s)"
 
-#: src/browser.c:4033 src/browser.c:4065
+#: ../src/browser.c:4026 ../src/browser.c:4058
 #, c-format
 msgid ""
 "Can't rename directory \n"
@@ -1086,69 +1093,69 @@ msgstr ""
 "'%s'!\n"
 "(%s)"
 
-#: src/browser.c:4114
+#: ../src/browser.c:4107
 msgid "Directory renamed"
 msgstr "Каталог перейменовано"
 
-#: src/browser.c:4192 src/browser.c:4352
+#: ../src/browser.c:4182 ../src/browser.c:4340
 msgid "Program to run :"
 msgstr "Виконати програму: "
 
-#: src/browser.c:4204
+#: ../src/browser.c:4195
 msgid ""
 "Enter the program to run. It will receive the current directory as parameter."
 msgstr "Введ╕ть ╕м'я програми. Поточний каталог буде ╖╖ параметром."
 
-#: src/browser.c:4333
+#: ../src/browser.c:4323
 msgid "Open File with ..."
 msgstr "В╕дкрити за допомогою..."
 
-#: src/browser.c:4364
+#: ../src/browser.c:4353
 msgid ""
 "Enter the program to run. It will receive the current file as parameter."
 msgstr "Введ╕ть ╕м'я програми. Поточний файл буде ╖╖ параметром."
 
-#: src/browser.c:4521
+#: ../src/browser.c:4510
 msgid "You must type a program name!"
 msgstr "Сл╕д ввести ╕м'я програми!"
 
-#: src/browser.c:4535 src/misc.c:873
+#: ../src/browser.c:4524 ../src/misc.c:873
 #, c-format
 msgid "The program '%s' can't be found!"
 msgstr ""
 
-#: src/browser.c:4590 src/misc.c:919
+#: ../src/browser.c:4579 ../src/misc.c:919
 #, fuzzy, c-format
 msgid "Can't execute %s (error %d)!\n"
 msgstr "Невда╓ться виконати %s (%s)!\n"
 
-#: src/browser.c:4609 src/misc.c:958
+#: ../src/browser.c:4598 ../src/misc.c:958
 msgid "Can't fork another process!\n"
 msgstr "Не можу почати ╕нший процес!\n"
 
-#: src/browser.c:4643
+#: ../src/browser.c:4632
 #, c-format
 msgid "Executed command : '%s %s'"
 msgstr "Виконана команда: '%s %s'"
 
-#: src/cddb.c:228
+#: ../src/cddb.c:227
 msgid "Artist / Album"
 msgstr "Виконавець / Альбом"
 
-#: src/cddb.c:228
+#: ../src/cddb.c:227
 msgid "Category"
 msgstr "Категор╕я"
 
 #. Note: don't set "" instead of NULL else this will cause problem with translation language
-#: src/cddb.c:229 src/cddb.c:438
+#: ../src/cddb.c:228 ../src/cddb.c:438
 msgid "Track Name"
 msgstr "Назва трека"
 
-#: src/cddb.c:229
+#: ../src/cddb.c:228
 msgid "Time"
 msgstr "Час"
 
-#: src/cddb.c:240
+#: ../src/cddb.c:239
 #, fuzzy
 msgid "CD Data Base Search"
 msgstr "Пошук в CDDB"
@@ -1156,31 +1163,31 @@ msgstr "Пошук в CDDB"
 #.
 #. * 1 - Page for automatic search (generate the CDDBId from files)
 #.
-#: src/cddb.c:272
+#: ../src/cddb.c:271
 msgid "Automatic Search"
 msgstr ""
 
-#: src/cddb.c:284
+#: ../src/cddb.c:283
 msgid "Request CD database :"
 msgstr ""
 
-#: src/cddb.c:294
+#: ../src/cddb.c:293
 msgid ""
 "Request automatically the CDDB database using the selected files (the order "
 "is important!) to generate the CddbID."
 msgstr ""
 
-#: src/cddb.c:304 src/cddb.c:414
+#: ../src/cddb.c:303 ../src/cddb.c:414
 #, fuzzy
 msgid "Stop the search ..."
 msgstr "  ЗУПИНИТИ пошук...  "
 
 #. Check box to run the scanner
-#: src/cddb.c:311
+#: ../src/cddb.c:310
 msgid "Use local Cddb"
 msgstr ""
 
-#: src/cddb.c:314 src/cddb.c:765
+#: ../src/cddb.c:313 ../src/cddb.c:766
 msgid ""
 "When activating this option, after loading the fields, the current selected "
 "scanner will be ran (the scanner window must be opened)."
@@ -1189,139 +1196,139 @@ msgstr ""
 #.
 #. * 2 - Page for manual search
 #.
-#: src/cddb.c:359
+#: ../src/cddb.c:358
 #, fuzzy
 msgid "Manual Search"
 msgstr " Шукати "
 
-#: src/cddb.c:374
+#: ../src/cddb.c:373
 msgid "Words :"
 msgstr "Слова: "
 
-#: src/cddb.c:386
+#: ../src/cddb.c:386
 msgid "Enter the words to search (separated by a space or '+')"
 msgstr "Введ╕ть слова для пошуку (розд╕лен╕ пропуском або '+')"
 
 #.
 #. * Search options
 #.
-#: src/cddb.c:426
+#: ../src/cddb.c:426
 msgid "Search In :"
 msgstr "Де шукати: "
 
-#: src/cddb.c:434
+#: ../src/cddb.c:434
 msgid "All Fields"
 msgstr "Вс╕ поля"
 
-#: src/cddb.c:439 src/picture.c:816 src/prefs.c:842
+#: ../src/cddb.c:439 ../src/picture.c:816 ../src/prefs.c:841
 msgid "Other"
 msgstr "╤нше"
 
-#: src/cddb.c:461
+#: ../src/cddb.c:461
 msgid "All Categories"
 msgstr "Вс╕ категор╕╖"
 
-#: src/cddb.c:463
+#: ../src/cddb.c:463
 msgid "Blues"
 msgstr "Блюз"
 
-#: src/cddb.c:464
+#: ../src/cddb.c:464
 msgid "Classical"
 msgstr "Класика"
 
-#: src/cddb.c:465
+#: ../src/cddb.c:465
 msgid "Country"
 msgstr "Кантр╕"
 
-#: src/cddb.c:466
+#: ../src/cddb.c:466
 msgid "Folk"
 msgstr "Народна"
 
-#: src/cddb.c:467
+#: ../src/cddb.c:467
 msgid "Jazz"
 msgstr "Джаз"
 
 #.
 #. * Misc
 #.
-#: src/cddb.c:468 src/prefs.c:236 src/prefs.c:237
+#: ../src/cddb.c:468 ../src/prefs.c:234 ../src/prefs.c:235
 msgid "Misc"
 msgstr "Р╕зне"
 
-#: src/cddb.c:469
+#: ../src/cddb.c:469
 msgid "Newage"
 msgstr "Нова хвиля"
 
-#: src/cddb.c:470
+#: ../src/cddb.c:470
 msgid "Reggae"
 msgstr "Регг╕"
 
-#: src/cddb.c:471
+#: ../src/cddb.c:471
 msgid "Rock"
 msgstr "Рок"
 
-#: src/cddb.c:472
+#: ../src/cddb.c:472
 msgid "Soundtrack"
 msgstr "Саундтре"
 
-#: src/cddb.c:509
+#: ../src/cddb.c:509
 msgid "included : funk, soul, rap, pop, industrial, metal, etc."
 msgstr "включно: фанк, соул, реп, поп, ╕ндастр╕ал, метал, тощо."
 
-#: src/cddb.c:510
+#: ../src/cddb.c:510
 msgid "movies, shows"
 msgstr "ф╕льми, телешоу"
 
-#: src/cddb.c:511
+#: ../src/cddb.c:511
 msgid "others that do not fit in the above categories"
 msgstr "т╕, що не належать жодн╕й з перерахованих категор╕й"
 
 #. Button to display/hide the categories
-#: src/cddb.c:514
+#: ../src/cddb.c:514
 msgid " Categories "
 msgstr " Категор╕╖ "
 
 #.
 #. * Results command
 #.
-#: src/cddb.c:522
+#: ../src/cddb.c:522
 msgid "Results :"
 msgstr "Результати: "
 
-#: src/cddb.c:529 src/misc.c:1973
+#: ../src/cddb.c:529 ../src/misc.c:1971
 msgid "Search :"
 msgstr "Пошук:"
 
-#: src/cddb.c:542
+#: ../src/cddb.c:543
 msgid "Enter the words to search in the list below"
 msgstr "Введ╕ть слова для пошуку в списку"
 
-#: src/cddb.c:554
+#: ../src/cddb.c:555
 msgid "Search Next"
 msgstr "Шукати наступний"
 
-#: src/cddb.c:560
+#: ../src/cddb.c:561
 msgid "Search Previous"
 msgstr "Шукати попередн╕й"
 
-#: src/cddb.c:571
+#: ../src/cddb.c:572
 msgid "Show only red lines (or show all lines) in the 'Artist / Album' list"
 msgstr ""
 
-#: src/cddb.c:577 src/cddb.c:1500
+#: ../src/cddb.c:578 ../src/cddb.c:1505
 msgid "Unselect all lines"
 msgstr "Скасувати виб╕рку"
 
-#: src/cddb.c:583
+#: ../src/cddb.c:584
 #, fuzzy
 msgid "Invert lines selection"
 msgstr "╤нвертувати виб╕рку"
 
-#: src/cddb.c:589 src/cddb.c:1495
+#: ../src/cddb.c:590 ../src/cddb.c:1500
 msgid "Select all lines"
 msgstr "Вибрати вс╕ рядки"
 
-#: src/cddb.c:702
+#: ../src/cddb.c:703
 msgid ""
 "Select lines to 'apply' to your files list. All lines will be processed if "
 "no line is selected.\n"
@@ -1331,36 +1338,36 @@ msgstr ""
 #.
 #. * Apply results to fields...
 #.
-#: src/cddb.c:709
+#: ../src/cddb.c:710
 msgid "Set Into :"
 msgstr "Виставити як:"
 
-#: src/cddb.c:716
+#: ../src/cddb.c:717
 msgid "All"
 msgstr "Вс╕"
 
-#: src/cddb.c:723
+#: ../src/cddb.c:724
 msgid "Track #"
 msgstr "Трек N"
 
-#: src/cddb.c:724
+#: ../src/cddb.c:725
 msgid "# Tracks"
 msgstr "Трек╕в"
 
 #. Check box to run the scanner
-#: src/cddb.c:762 src/misc.c:3003
+#: ../src/cddb.c:763 ../src/misc.c:3003
 msgid "Run the current scanner for each file"
 msgstr ""
 
 #. Check box to use DLM (also used in the preferences window)
-#: src/cddb.c:769
+#: ../src/cddb.c:770
 msgid "Match lines with the Levenshtein algorithm"
 msgstr ""
 
 #. Doesn't activate it by default because if the new user don't pay attention to it,
 #. it will not understand why the cddb results aren't loaded correctly...
 #. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbUseDLM2),CDDB_USE_DLM);
-#: src/cddb.c:774 src/prefs.c:1409
+#: ../src/cddb.c:775 ../src/prefs.c:1410
 msgid ""
 "When activating this option, the Levenshtein algorithm (DLM : Damerau-"
 "Levenshtein Metric) will be used to match the CDDB title against every file "
@@ -1369,15 +1376,15 @@ msgid ""
 "instead of using directly the position order."
 msgstr ""
 
-#: src/cddb.c:786
+#: ../src/cddb.c:787
 msgid "Load the selected lines or all lines (if no line selected)."
 msgstr ""
 
-#: src/cddb.c:795 src/misc.c:2228
+#: ../src/cddb.c:796 ../src/misc.c:2227
 msgid "Ready to search..."
 msgstr "Готовий до пошуку..."
 
-#: src/cddb.c:1315
+#: ../src/cddb.c:1320
 #, c-format
 msgid ""
 "Album: '%s', artist: '%s', length: '%s', year: '%s', genre: '%s', ID: '%s'"
@@ -1385,67 +1392,67 @@ msgstr ""
 "Альбом: '%s', виконавець: '%s', довжина: '%s', р╕к: '%s', жанр: '%s', ID: "
 "'%s'"
 
-#: src/cddb.c:1505
+#: ../src/cddb.c:1510
 msgid "Invert selection"
 msgstr "╤нвертувати виб╕рку"
 
-#: src/cddb.c:1513
+#: ../src/cddb.c:1518
 #, fuzzy
 msgid "Sort by Track Number"
 msgstr "Сортувати за зростанням номера трека"
 
-#: src/cddb.c:1518
+#: ../src/cddb.c:1523
 #, fuzzy
 msgid "Sort by Track Name"
 msgstr "Назва трека"
 
-#: src/cddb.c:1616
+#: ../src/cddb.c:1621
 #, c-format
 msgid "Resolving host '%s' ..."
 msgstr "Визначення ╕мен╕ хоста '%s'..."
 
-#: src/cddb.c:1624
+#: ../src/cddb.c:1629
 #, c-format
 msgid "Can't resolve host '%s' (%s)!"
 msgstr "Не можу визначити ╕м'я хоста '%s' (%s)!"
 
-#: src/cddb.c:1639
+#: ../src/cddb.c:1644
 #, c-format
 msgid "Can't create a new socket (%s)!"
 msgstr "Не можу створити новий сокет (%s)!"
 
 #. Open connection to the server
-#: src/cddb.c:1653
+#: ../src/cddb.c:1658
 #, c-format
 msgid "Connecting to host '%s', port '%d' ..."
 msgstr "П╕д'╓днання з '%s', порт '%d'..."
 
-#: src/cddb.c:1660
+#: ../src/cddb.c:1665
 #, c-format
 msgid "Can't connect to host '%s' (%s)!"
 msgstr "Не можу п╕д'╓днатися до '%s' (%s)!"
 
-#: src/cddb.c:1666
+#: ../src/cddb.c:1671
 #, c-format
 msgid "Connected to host '%s'"
 msgstr "П╕д'╓днано до '%s'"
 
-#: src/cddb.c:1755
+#: ../src/cddb.c:1760
 #, c-format
 msgid "Receiving data (%s) ..."
 msgstr "Отримання даних (%s)..."
 
-#: src/cddb.c:1767
+#: ../src/cddb.c:1772
 #, fuzzy, c-format
 msgid "Error when reading cddb response (%s)!"
 msgstr "Помилка видалення тегу ID3v1 з '%s' (%s)."
 
-#: src/cddb.c:1773
+#: ../src/cddb.c:1778
 #, fuzzy, c-format
 msgid "Can't create file '%s' (%s)"
 msgstr "Не можу в╕дкрити файл '%s' (%s)"
 
-#: src/cddb.c:1823 src/misc.c:3158 src/setting.c:1393
+#: ../src/cddb.c:1828 ../src/misc.c:3161 ../src/setting.c:1393
 #, c-format
 msgid "Can't open file '%s' (%s)"
 msgstr "Не можу в╕дкрити файл '%s' (%s)"
@@ -1456,11 +1463,11 @@ msgstr "Не можу в╕дкрити файл '%s' (%s)"
 #. Send the request
 #. g_print("Request Cddb_Get_Album_Tracks_List : '%s'\n", cddb_in);
 #. Send the request
-#: src/cddb.c:2265 src/cddb.c:2585 src/cddb.c:3448
+#: ../src/cddb.c:2270 ../src/cddb.c:2590 ../src/cddb.c:3453
 msgid "Sending request ..."
 msgstr "Надсилання запиту..."
 
-#: src/cddb.c:2269 src/cddb.c:2589 src/cddb.c:3153 src/cddb.c:3452
+#: ../src/cddb.c:2274 ../src/cddb.c:2594 ../src/cddb.c:3158 ../src/cddb.c:3457
 #, c-format
 msgid "Can't send the request (%s)!"
 msgstr "Не можу над╕слати запит (%s)!"
@@ -1469,93 +1476,96 @@ msgstr "Не можу над╕слати запит (%s)!"
 #. * Read the answer
 #.
 #. Read the answer
-#: src/cddb.c:2291 src/cddb.c:3166 src/cddb.c:3461
+#: ../src/cddb.c:2296 ../src/cddb.c:3171 ../src/cddb.c:3466
 msgid "Receiving data ..."
 msgstr "Отримання даних..."
 
-#: src/cddb.c:2298 src/cddb.c:2618 src/cddb.c:3173 src/cddb.c:3468
+#: ../src/cddb.c:2303 ../src/cddb.c:2623 ../src/cddb.c:3178 ../src/cddb.c:3473
 #, fuzzy
 msgid "The server returned a wrong answer!"
 msgstr "Неправильна в╕дпов╕дь сервера! (%s)"
 
-#: src/cddb.c:2312 src/cddb.c:2634 src/cddb.c:3188 src/cddb.c:3485
-#: src/cddb.c:3500
+#: ../src/cddb.c:2317 ../src/cddb.c:2639 ../src/cddb.c:3193 ../src/cddb.c:3490
+#: ../src/cddb.c:3505
 #, c-format
 msgid "The server returned a wrong answer! (%s)"
 msgstr "Неправильна в╕дпов╕дь сервера! (%s)"
 
-#: src/cddb.c:2459
+#: ../src/cddb.c:2464
+#, c-format
 msgid "Sorry, the web-based search is currently down!"
 msgstr ""
 
-#: src/cddb.c:2461 src/cddb.c:2806
+#: ../src/cddb.c:2466 ../src/cddb.c:2811
 #, c-format
 msgid "Found %d matching album(s)"
 msgstr "Знайдено %d альбоми(╕в)"
 
-#: src/cddb.c:2606
+#: ../src/cddb.c:2611
 #, fuzzy, c-format
 msgid "Receiving data of page %d (album %d/%d)..."
 msgstr "Отримання даних (%s)..."
 
-#: src/cddb.c:2608
+#: ../src/cddb.c:2613
 #, fuzzy, c-format
 msgid "Receiving data of page %d ..."
 msgstr "Отримання даних (%s)..."
 
-#: src/cddb.c:2773
+#: ../src/cddb.c:2778
+#, c-format
 msgid "More results to load ..."
 msgstr ""
 
-#: src/cddb.c:2902
-#, fuzzy
+#: ../src/cddb.c:2907
+#, fuzzy, c-format
 msgid "No file selected!"
 msgstr "Не вибрано рядок!\n"
 
 #. The CD redbook standard defines the maximum number of tracks as 99, any
 #. queries with more than 99 tracks will never return a result.
-#: src/cddb.c:2910
+#: ../src/cddb.c:2915
+#, c-format
 msgid "More than 99 files selected! Can't send request!"
 msgstr ""
 
-#: src/cddb.c:2916
+#: ../src/cddb.c:2921
 #, fuzzy, c-format
 msgid "%d file(s) selected!"
 msgstr "%u файл(╕в)"
 
-#: src/cddb.c:2991
+#: ../src/cddb.c:2996
 #, fuzzy
 msgid "Local CD search..."
 msgstr "Готовий до пошуку..."
 
-#: src/cddb.c:2995
+#: ../src/cddb.c:3000
 msgid ""
 "The path for 'Local CD Data Base' wasn't defined!\n"
 "Fill it in the preferences window before to use this search."
 msgstr ""
 
 #. g_print("Request Cddb_Search_Album_From_Selected_Files : '%s'\n", cddb_in);
-#: src/cddb.c:3143
+#: ../src/cddb.c:3148
 #, c-format
 msgid "Sending request (CddbId: %s, #tracks: %d, Disc length: %d) ..."
 msgstr ""
 
-#: src/cddb.c:3296
+#: ../src/cddb.c:3301
 #, fuzzy, c-format
 msgid "Found %d matching album(s) for DiscID '%s'"
 msgstr "Знайдено %d альбоми(╕в)"
 
-#: src/cddb.c:3392
+#: ../src/cddb.c:3397
 #, fuzzy, c-format
 msgid "Can't load file: '%s' (%s)!"
 msgstr "Не можу в╕дкрити файл '%s' (%s)"
 
 #. Load the track list of the album
-#: src/cddb.c:3691
+#: ../src/cddb.c:3696
 msgid "Loading album track list ..."
 msgstr "Завантаження списку трек╕в альбому..."
 
-#: src/cddb.c:3888
+#: ../src/cddb.c:3893
 #, fuzzy, c-format
 msgid ""
 "Be careful, you are applying %d lines of the CDDB results to %d lines in the "
@@ -1567,156 +1577,156 @@ msgstr ""
 "\n"
 "Продовжити?"
 
-#: src/cddb.c:3891
+#: ../src/cddb.c:3896
 msgid "Write Tag from CDDB..."
 msgstr "Запис тегу за даними CDDB..."
 
-#: src/charset.c:49
+#: ../src/charset.c:49
 msgid "Arabic (IBM-864)"
 msgstr "Арабське (IBM-864)"
 
-#: src/charset.c:50
+#: ../src/charset.c:50
 msgid "Arabic (ISO-8859-6)"
 msgstr "Арабське (ISO-8859-6)"
 
-#: src/charset.c:51
+#: ../src/charset.c:51
 msgid "Arabic (Windows-1256)"
 msgstr "Арабське (Windows-1256)"
 
-#: src/charset.c:52
+#: ../src/charset.c:52
 msgid "Baltic (ISO-8859-13)"
 msgstr "Балт╕йське (ISO-8859-13)"
 
-#: src/charset.c:53
+#: ../src/charset.c:53
 msgid "Baltic (ISO-8859-4)"
 msgstr "Балт╕йське (ISO-8859-4)"
 
-#: src/charset.c:54
+#: ../src/charset.c:54
 msgid "Baltic (Windows-1257)"
 msgstr "Балт╕йське (Windows-1257)"
 
-#: src/charset.c:55
+#: ../src/charset.c:55
 msgid "Celtic (ISO-8859-14)"
 msgstr "Celtic (ISO-8859-14)"
 
-#: src/charset.c:56
+#: ../src/charset.c:56
 msgid "Central European (IBM-852)"
 msgstr "Центр.-╢вропейське (IBM-852)"
 
-#: src/charset.c:57
+#: ../src/charset.c:57
 msgid "Central European (ISO-8859-2)"
 msgstr "Центр.-╢вропейське (ISO-8859-2)"
 
-#: src/charset.c:58
+#: ../src/charset.c:58
 msgid "Central European (Windows-1250)"
 msgstr "Центр.-╢вропейське (Windows-1250)"
 
-#: src/charset.c:59
+#: ../src/charset.c:59
 msgid "Chinese Simplified (GB18030)"
 msgstr "Спрощена китайська (GB18030)"
 
-#: src/charset.c:60
+#: ../src/charset.c:60
 msgid "Chinese Simplified (GB2312)"
 msgstr "Спрощена китайська (GB2312)"
 
-#: src/charset.c:61
+#: ../src/charset.c:61
 msgid "Chinese Traditional (Big5)"
 msgstr "Традиц╕йна китайська (Big5)"
 
-#: src/charset.c:62
+#: ../src/charset.c:62
 msgid "Chinese Traditional (Big5-HKSCS)"
 msgstr "Традиц╕йна китайська (Big5-HKSCS)"
 
-#: src/charset.c:63
+#: ../src/charset.c:63
 msgid "Cyrillic (IBM-855)"
 msgstr "Кирилиця (IBM-855)"
 
-#: src/charset.c:64
+#: ../src/charset.c:64
 msgid "Cyrillic (ISO-8859-5)"
 msgstr "Кирилиця (ISO-8859-5)"
 
-#: src/charset.c:65
+#: ../src/charset.c:65
 msgid "Cyrillic (ISO-IR-111)"
 msgstr "Кирилиця (ISO-IR-111)"
 
-#: src/charset.c:66
+#: ../src/charset.c:66
 msgid "Cyrillic (KOI8-R)"
 msgstr "Кирилиця (KOI8-R)"
 
-#: src/charset.c:67
+#: ../src/charset.c:67
 msgid "Cyrillic (Windows-1251)"
 msgstr "Кирилиця (Windows-1251)"
 
-#: src/charset.c:68
+#: ../src/charset.c:68
 msgid "Cyrillic/Russian (CP-866)"
 msgstr "Кирилиця/Рос╕йська (CP-866)"
 
-#: src/charset.c:69
+#: ../src/charset.c:69
 msgid "Cyrillic/Ukrainian (KOI8-U)"
 msgstr "Кирилиця/Укра╖нська (KOI8-U)"
 
-#: src/charset.c:70
+#: ../src/charset.c:70
 msgid "English (US-ASCII)"
 msgstr "Англ╕йська (US-ASCII)"
 
-#: src/charset.c:71
+#: ../src/charset.c:71
 msgid "Greek (ISO-8859-7)"
 msgstr "Грецька (ISO-8859-7)"
 
-#: src/charset.c:72
+#: ../src/charset.c:72
 msgid "Greek (Windows-1253)"
 msgstr "Грецька (Windows-1253)"
 
-#: src/charset.c:73
+#: ../src/charset.c:73
 msgid "Hebrew (IBM-862)"
 msgstr "╤врит (IBM-862)"
 
-#: src/charset.c:74
+#: ../src/charset.c:74
 msgid "Hebrew (Windows-1255)"
 msgstr "╤врит (Windows-1255)"
 
-#: src/charset.c:75
+#: ../src/charset.c:75
 msgid "Japanese (EUC-JP)"
 msgstr "Японська (EUC-JP)"
 
-#: src/charset.c:76
+#: ../src/charset.c:76
 msgid "Japanese (ISO-2022-JP)"
 msgstr "Японська (ISO-2022-JP)"
 
-#: src/charset.c:77
+#: ../src/charset.c:77
 msgid "Japanese (Shift_JIS)"
 msgstr "Японська (Shift_JIS)"
 
-#: src/charset.c:78
+#: ../src/charset.c:78
 msgid "Korean (EUC-KR)"
 msgstr "Корейська (EUC-KR)"
 
-#: src/charset.c:79
+#: ../src/charset.c:79
 msgid "Nordic (ISO-8859-10)"
 msgstr ""
 
-#: src/charset.c:80
+#: ../src/charset.c:80
 msgid "South European (ISO-8859-3)"
 msgstr "П╕вденна ╢вропа (ISO-8859-3)"
 
-#: src/charset.c:81
+#: ../src/charset.c:81
 msgid "Thai (TIS-620)"
 msgstr ""
 
-#: src/charset.c:82
+#: ../src/charset.c:82
 msgid "Turkish (IBM-857)"
 msgstr "Турецька (IBM-857)"
 
-#: src/charset.c:83
+#: ../src/charset.c:83
 msgid "Turkish (ISO-8859-9)"
 msgstr "Турецька (ISO-8859-9)"
 
-#: src/charset.c:84
+#: ../src/charset.c:84
 msgid "Turkish (Windows-1254)"
 msgstr "Турецька (Windows-1254)"
 
 #. {N_("Unicode (UTF-7)"),                   "UTF-7"         },
-#: src/charset.c:86
+#: ../src/charset.c:86
 msgid "Unicode (UTF-8)"
 msgstr "Юн╕код (UTF-8)"
 
@@ -1724,97 +1734,97 @@ msgstr "Юн╕код (UTF-8)"
 #. {N_("Unicode (UTF-16LE)"),                "UTF-16LE"      },
 #. {N_("Unicode (UTF-32BE)"),                "UTF-32BE"      },
 #. {N_("Unicode (UTF-32LE)"),                "UTF-32LE"      },
-#: src/charset.c:93
+#: ../src/charset.c:93
 msgid "Vietnamese (VISCII)"
 msgstr "В'╓тнамська (VISCII)"
 
-#: src/charset.c:94
+#: ../src/charset.c:94
 msgid "Vietnamese (Windows-1258)"
 msgstr "В'╓тнамська (Windows-1258)"
 
-#: src/charset.c:95
+#: ../src/charset.c:95
 msgid "Visual Hebrew (ISO-8859-8)"
 msgstr ""
 
-#: src/charset.c:96
+#: ../src/charset.c:96
 msgid "Western (IBM-850)"
 msgstr "Зах╕дна (IBM-850)"
 
-#: src/charset.c:97
+#: ../src/charset.c:97
 msgid "Western (ISO-8859-1)"
 msgstr "Зах╕дна (ISO-8859-1)"
 
-#: src/charset.c:98
+#: ../src/charset.c:98
 msgid "Western (ISO-8859-15)"
 msgstr "Зах╕дна (ISO-8859-15)"
 
-#: src/charset.c:99
+#: ../src/charset.c:99
 msgid "Western (Windows-1252)"
 msgstr "Зах╕дна (Windows-1252)"
 
-#: src/charset.c:544
+#: ../src/charset.c:544
 #, c-format
 msgid "The filename '%s' couldn't be converted into UTF-8 (%s)."
 msgstr ""
 
-#: src/charset.c:545 src/charset.c:644 src/charset.c:708
+#: ../src/charset.c:545 ../src/charset.c:644 ../src/charset.c:708
 #, fuzzy
 msgid "Invalid UTF-8"
 msgstr "Юн╕код (UTF-8)"
 
-#: src/charset.c:643
+#: ../src/charset.c:643
 #, c-format
 msgid ""
 "The UTF-8 string '%s' couldn't be converted into filename encoding (%s)."
 msgstr ""
 
-#: src/charset.c:707
+#: ../src/charset.c:707
 #, c-format
 msgid "The string '%s' couldn't be converted into UTF-8 (%s)."
 msgstr ""
 
 #. Starting messages
-#: src/easytag.c:198
+#: ../src/easytag.c:195
 #, fuzzy, c-format
 msgid "Starting EasyTAG %s (PId: %d) ..."
 msgstr "Запуск EasyTAG %s (PId: %d) ...\n"
 
-#: src/easytag.c:200
+#: ../src/easytag.c:197
 #, fuzzy, c-format
 msgid "Currently using libid3tag version %s ..."
 msgstr "Використову╓ться id3lib верс╕я %d.%d.%d...\n"
 
-#: src/easytag.c:203
+#: ../src/easytag.c:200
 #, fuzzy, c-format
 msgid "Currently using id3lib version %d.%d.%d ..."
 msgstr "Використову╓ться id3lib верс╕я %d.%d.%d...\n"
 
-#: src/easytag.c:210
+#: ../src/easytag.c:207
 #, c-format
 msgid "Variable EASYTAGLANG defined. Setting locale : '%s'"
 msgstr ""
 
-#: src/easytag.c:212
+#: ../src/easytag.c:209
 #, fuzzy, c-format
 msgid "Setting locale : '%s'"
 msgstr "Перейменування файла '%s'"
 
-#: src/easytag.c:216
+#: ../src/easytag.c:213
 #, c-format
 msgid "Currently using locale '%s' (and eventually '%s')..."
 msgstr ""
 
-#: src/easytag.c:232
+#: ../src/easytag.c:229
 #, c-format
 msgid "%s %s by %s (compiled %s, %s)\n"
 msgstr "%s %s в╕д %s (з╕брано: %s, %s)\n"
 
-#: src/easytag.c:234
+#: ../src/easytag.c:231
 #, c-format
 msgid "Web Page: %s"
 msgstr "Домашня стор╕нка: %s"
 
-#: src/easytag.c:309
+#: ../src/easytag.c:306
 #, c-format
 msgid "Unknown parameter or path '%s'\n"
 msgstr ""
@@ -1822,182 +1832,182 @@ msgstr ""
 #.
 #. * Browser
 #.
-#: src/easytag.c:433 src/prefs.c:145 src/prefs.c:146
+#: ../src/easytag.c:430 ../src/prefs.c:142 ../src/prefs.c:143
 msgid "Browser"
 msgstr "Переглядач"
 
-#: src/easytag.c:455 src/et_core.c:2692
+#: ../src/easytag.c:451 ../src/et_core.c:2692
 msgid "File"
 msgstr "Файл"
 
-#: src/easytag.c:481
+#: ../src/easytag.c:474
 msgid "Read Only File"
 msgstr "Лише для читання"
 
-#: src/easytag.c:484
+#: ../src/easytag.c:477
 msgid "File Link Broken"
 msgstr "Бите файлове посилання"
 
 #. Default values are MPs data
 #. MPEG, Layer versions
-#: src/easytag.c:498 src/easytag.c:4460 src/mpeg_header.c:354
+#: ../src/easytag.c:491 ../src/easytag.c:4451 ../src/mpeg_header.c:354
 msgid "MPEG"
 msgstr "MPEG"
 
-#: src/easytag.c:500 src/easytag.c:4461
+#: ../src/easytag.c:493 ../src/easytag.c:4452
 msgid "?, Layer ?"
 msgstr "?, Layer ?"
 
-#: src/easytag.c:505
+#: ../src/easytag.c:498
 msgid "Bitrate:"
 msgstr "Б╕трейт:"
 
-#: src/easytag.c:507 src/easytag.c:4462
+#: ../src/easytag.c:500 ../src/easytag.c:4453
 msgid "? kb/s"
 msgstr "? Кб/с"
 
-#: src/easytag.c:512
+#: ../src/easytag.c:505
 msgid "Freq:"
 msgstr "Частота:"
 
-#: src/easytag.c:514 src/easytag.c:4463
+#: ../src/easytag.c:507 ../src/easytag.c:4454
 msgid "? Hz"
 msgstr "? Гц"
 
 #. Mode
-#: src/easytag.c:522 src/easytag.c:4464 src/mpeg_header.c:377
+#: ../src/easytag.c:515 ../src/easytag.c:4455 ../src/mpeg_header.c:377
 msgid "Mode:"
 msgstr "Тип:"
 
-#: src/easytag.c:524 src/easytag.c:538 src/easytag.c:4465 src/easytag.c:4466
-#: src/easytag.c:4467
+#: ../src/easytag.c:517 ../src/easytag.c:531 ../src/easytag.c:4456
+#: ../src/easytag.c:4457 ../src/easytag.c:4458
 msgid "?"
 msgstr "?"
 
-#: src/easytag.c:529
+#: ../src/easytag.c:522
 msgid "Size:"
 msgstr "Розм╕р:"
 
-#: src/easytag.c:531
+#: ../src/easytag.c:524
 msgid "? kb"
 msgstr "? Кб"
 
-#: src/easytag.c:536
+#: ../src/easytag.c:529
 msgid "Time:"
 msgstr "Час:"
 
 #. Main Frame
-#: src/easytag.c:582 src/et_core.c:2630
+#: ../src/easytag.c:571 ../src/et_core.c:2630
 msgid "Tag"
 msgstr "Тег"
 
 #.
 #. * 1 - Page for common tag fields
 #.
-#: src/easytag.c:604
+#: ../src/easytag.c:593
 msgid "Common"
 msgstr "Загальне"
 
 #. Title
-#: src/easytag.c:616
+#: ../src/easytag.c:605
 msgid "Title:"
 msgstr "Заголовок:"
 
-#: src/easytag.c:629
+#: ../src/easytag.c:618
 #, fuzzy
 msgid "Tag selected files with this title"
 msgstr "Пробиркувати вс╕ файли таким заголовком"
 
 #. Artist
-#: src/easytag.c:636
+#: ../src/easytag.c:625
 msgid "Artist:"
 msgstr "Виконавець:"
 
-#: src/easytag.c:648
+#: ../src/easytag.c:637
 #, fuzzy
 msgid "Tag selected files with this artist"
 msgstr "Пробиркувати вс╕ файли цим виконавцем"
 
 #. Album Artist
-#: src/easytag.c:654
+#: ../src/easytag.c:643
 #, fuzzy
 msgid "Album Artist:"
 msgstr "Виконавець:"
 
-#: src/easytag.c:666
+#: ../src/easytag.c:655
 #, fuzzy
 msgid "Tag selected files with this album artist"
 msgstr "Пробиркувати вс╕ файли цим виконавцем"
 
 #. Album
-#: src/easytag.c:672
+#: ../src/easytag.c:661
 msgid "Album:"
 msgstr "Альбом:"
 
-#: src/easytag.c:685
+#: ../src/easytag.c:674
 #, fuzzy
 msgid "Tag selected files with this album name"
 msgstr "Пробиркувати вс╕ файли назвою цього альбому"
 
 #. Disc Number
-#: src/easytag.c:691
+#: ../src/easytag.c:680
 #, fuzzy
 msgid "CD:"
 msgstr "CDDB"
 
-#: src/easytag.c:707
+#: ../src/easytag.c:696
 #, fuzzy
 msgid "Tag selected files with this disc number"
 msgstr "Пробиркувати вс╕ файли цим коментарем"
 
 #. Year
-#: src/easytag.c:713
+#: ../src/easytag.c:702
 msgid "Year:"
 msgstr "Р╕к:"
 
-#: src/easytag.c:730
+#: ../src/easytag.c:719
 #, fuzzy
 msgid "Tag selected files with this year"
 msgstr "Пробиркувати вс╕ файли цим роком"
 
-#: src/easytag.c:742
+#: ../src/easytag.c:731
 #, fuzzy
 msgid "Number selected tracks sequentially. Starts at 01 in each subdirectory."
 msgstr "Пронумерувати вс╕ треки. Починати з 01 в кожному п╕дкаталоз╕."
 
-#. To have enought space to display the icon
-#. To have enought space to display the icon
-#: src/easytag.c:751
+#. To have enough space to display the icon
+#. To have enough space to display the icon
+#: ../src/easytag.c:740
 msgid "Track #:"
 msgstr "Трек N:"
 
-#: src/easytag.c:777
+#: ../src/easytag.c:767
 msgid ""
 "Set the number of files, in the same directory of the displayed file, to the "
 "selected tracks."
 msgstr ""
 
-#: src/easytag.c:796
+#: ../src/easytag.c:786
 #, fuzzy
 msgid "Tag selected files with this number of tracks"
 msgstr "Пробиркувати вс╕ файли цим же номером треку"
 
 #. Genre
-#: src/easytag.c:802
+#: ../src/easytag.c:792
 msgid "Genre:"
 msgstr "Стиль:"
 
-#: src/easytag.c:827
+#: ../src/easytag.c:818
 #, fuzzy
 msgid "Tag selected files with this genre"
 msgstr "Пробиркувати вс╕ файли цим же стилем"
 
 #. Comment
-#: src/easytag.c:833
+#: ../src/easytag.c:824
 msgid "Comment:"
 msgstr "Коментар:"
 
-#: src/easytag.c:858
+#: ../src/easytag.c:849
 #, fuzzy
 msgid "Tag selected files with this comment"
 msgstr "Пробиркувати вс╕ файли цим коментарем"
@@ -2005,53 +2015,53 @@ msgstr "Пробиркувати вс╕ файли цим коментарем"
 #. Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(CommentView));
 #. g_object_set_data(G_OBJECT(CommentView),"MButtonName",CommentMButton);
 #. Composer (name of the composers)
-#: src/easytag.c:867
+#: ../src/easytag.c:858
 msgid "Composer:"
 msgstr ""
 
-#: src/easytag.c:879
+#: ../src/easytag.c:870
 #, fuzzy
 msgid "Tag selected files with this composer"
 msgstr "Пробиркувати вс╕ файли цим коментарем"
 
 #. Original Artist / Performer
-#: src/easytag.c:886
+#: ../src/easytag.c:877
 #, fuzzy
 msgid "Orig. Artist:"
 msgstr "Виконавець:"
 
-#: src/easytag.c:898
+#: ../src/easytag.c:889
 #, fuzzy
 msgid "Tag selected files with this original artist"
 msgstr "Пробиркувати вс╕ файли цим виконавцем"
 
 #. Copyright
-#: src/easytag.c:905
+#: ../src/easytag.c:896
 msgid "Copyright:"
 msgstr ""
 
-#: src/easytag.c:917
+#: ../src/easytag.c:908
 #, fuzzy
 msgid "Tag selected files with this copyright"
 msgstr "Пробиркувати вс╕ файли цим виконавцем"
 
 #. URL
-#: src/easytag.c:924
+#: ../src/easytag.c:915
 msgid "URL:"
 msgstr ""
 
-#: src/easytag.c:936
+#: ../src/easytag.c:927
 #, fuzzy
 msgid "Tag selected files with this URL"
 msgstr "Пробиркувати вс╕ файли цим роком"
 
 #. Encoded by
-#: src/easytag.c:943
+#: ../src/easytag.c:934
 #, fuzzy
 msgid "Encoded by:"
 msgstr "Кодувальник:"
 
-#: src/easytag.c:955
+#: ../src/easytag.c:946
 #, fuzzy
 msgid "Tag selected files with this encoder name"
 msgstr "Пробиркувати вс╕ файли цим же стилем"
@@ -2059,246 +2069,246 @@ msgstr "Пробиркувати вс╕ файли цим же стилем"
 #.
 #. * 2 - Page for extra tag fields
 #.
-#: src/easytag.c:1018
+#: ../src/easytag.c:1009
 msgid "Pictures"
 msgstr ""
 
 #. Picture
-#: src/easytag.c:1029
+#: ../src/easytag.c:1020
 msgid "Pictures:"
 msgstr ""
 
-#: src/easytag.c:1049
+#: ../src/easytag.c:1040
 msgid "You can use drag and drop to add picture."
 msgstr ""
 
-#: src/easytag.c:1087
+#: ../src/easytag.c:1078
 #, fuzzy
 msgid "Tag selected files with these pictures"
 msgstr "Пробиркувати вс╕ файли таким заголовком"
 
-#: src/easytag.c:1097
+#: ../src/easytag.c:1088
 msgid "Add pictures to the tag (drag and drop is also available)."
 msgstr ""
 
-#: src/easytag.c:1103
+#: ../src/easytag.c:1094
 #, fuzzy
 msgid "Remove selected pictures, else all pictures."
 msgstr "Видалити тег з вид╕лених файл╕в"
 
-#: src/easytag.c:1113
+#: ../src/easytag.c:1104
 #, fuzzy
 msgid "Save the selected pictures on the hard disk."
 msgstr "Кодування, що використову╓ться у файлах на диску."
 
-#: src/easytag.c:1120
+#: ../src/easytag.c:1111
 #, fuzzy
 msgid "Set properties of the selected pictures."
 msgstr "Вс╕ файли пробирковано заголовком '%s'."
 
-#: src/easytag.c:1200
+#: ../src/easytag.c:1191
 #, fuzzy, c-format
 msgid "Selected files tagged with title '%s'."
 msgstr "Вс╕ файли пробирковано заголовком '%s'."
 
-#: src/easytag.c:1202
+#: ../src/easytag.c:1193
 #, fuzzy
 msgid "Removed title from selected files."
 msgstr "З ус╕х файл╕в видалено заголовки."
 
-#: src/easytag.c:1219
+#: ../src/easytag.c:1210
 #, fuzzy, c-format
 msgid "Selected files tagged with artist '%s'."
 msgstr "Вс╕ файли пробирковано виконавцем '%s'."
 
-#: src/easytag.c:1221
+#: ../src/easytag.c:1212
 #, fuzzy
 msgid "Removed artist from selected files."
 msgstr "З ус╕х файл╕в видалено виконавця."
 
-#: src/easytag.c:1238
+#: ../src/easytag.c:1229
 #, fuzzy, c-format
 msgid "Selected files tagged with album artist '%s'."
 msgstr "Вс╕ файли пробирковано виконавцем '%s'."
 
-#: src/easytag.c:1240
+#: ../src/easytag.c:1231
 #, fuzzy
 msgid "Removed album artist from selected files."
 msgstr "З ус╕х файл╕в видалено виконавця."
 
-#: src/easytag.c:1257
+#: ../src/easytag.c:1248
 #, fuzzy, c-format
 msgid "Selected files tagged with album '%s'."
 msgstr "Вс╕ файли пробирковано назвою альбому '%s'."
 
-#: src/easytag.c:1259
+#: ../src/easytag.c:1250
 #, fuzzy
 msgid "Removed album name from selected files."
 msgstr "З ус╕х файл╕в видалено назву альбому."
 
-#: src/easytag.c:1276
+#: ../src/easytag.c:1267
 #, fuzzy, c-format
 msgid "Selected files tagged with disc number '%s'."
 msgstr "Вс╕ файли пробирковано коментарем '%s'."
 
-#: src/easytag.c:1278
+#: ../src/easytag.c:1269
 #, fuzzy
 msgid "Removed disc number from selected files."
 msgstr "З ус╕х файл╕в видалено номер треку."
 
-#: src/easytag.c:1295
+#: ../src/easytag.c:1286
 #, fuzzy, c-format
 msgid "Selected files tagged with year '%s'."
 msgstr "Вс╕ файли пробирковано '%s' роком."
 
-#: src/easytag.c:1297
+#: ../src/easytag.c:1288
 #, fuzzy
 msgid "Removed year from selected files."
 msgstr "З ус╕х файл╕в видалено р╕к композиц╕╖."
 
-#: src/easytag.c:1325 src/easytag.c:1421
+#: ../src/easytag.c:1316 ../src/easytag.c:1412
 #, fuzzy, c-format
 msgid "Selected files tagged with track like 'xx/%s'."
 msgstr "Вс╕ файли пробирковано номером треку на зразок 'xx/%s'."
 
-#: src/easytag.c:1328
-#, fuzzy
+#: ../src/easytag.c:1319
+#, fuzzy, c-format
 msgid "Selected files tagged with track like 'xx'."
 msgstr "Вс╕ файли пробирковано номером треку на зразок 'xx'."
 
-#: src/easytag.c:1332 src/easytag.c:1424
+#: ../src/easytag.c:1323 ../src/easytag.c:1415
 #, fuzzy
 msgid "Removed track number from selected files."
 msgstr "З ус╕х файл╕в видалено номер треку."
 
 #. msg = g_strdup_printf(_("All %d tracks numbered sequentially."), ETCore->ETFileSelectionList_Length);
-#: src/easytag.c:1390
-#, fuzzy
+#: ../src/easytag.c:1381
+#, fuzzy, c-format
 msgid "Selected tracks numbered sequentially."
 msgstr "Пронумеровано трек╕в: %d."
 
-#: src/easytag.c:1442
+#: ../src/easytag.c:1433
 #, fuzzy, c-format
 msgid "Selected files tagged with genre '%s'."
 msgstr "Вс╕ файли пробирковано стилем '%s'."
 
-#: src/easytag.c:1444
+#: ../src/easytag.c:1435
 #, fuzzy
 msgid "Removed genre from selected files."
 msgstr "З ус╕х файл╕в видалено стиль трек╕в."
 
-#: src/easytag.c:1468
+#: ../src/easytag.c:1459
 #, fuzzy, c-format
 msgid "Selected files tagged with comment '%s'."
 msgstr "Вс╕ файли пробирковано коментарем '%s'."
 
-#: src/easytag.c:1470
+#: ../src/easytag.c:1461
 #, fuzzy
 msgid "Removed comment from selected files."
 msgstr "З ус╕х файл╕в видалено коментар╕."
 
-#: src/easytag.c:1487
+#: ../src/easytag.c:1478
 #, fuzzy, c-format
 msgid "Selected files tagged with composer '%s'."
 msgstr "Вс╕ файли пробирковано коментарем '%s'."
 
-#: src/easytag.c:1489
+#: ../src/easytag.c:1480
 #, fuzzy
 msgid "Removed composer from selected files."
 msgstr "З ус╕х файл╕в видалено коментар╕."
 
-#: src/easytag.c:1506
+#: ../src/easytag.c:1497
 #, fuzzy, c-format
 msgid "Selected files tagged with original artist '%s'."
 msgstr "Вс╕ файли пробирковано виконавцем '%s'."
 
-#: src/easytag.c:1508
+#: ../src/easytag.c:1499
 #, fuzzy
 msgid "Removed original artist from selected files."
 msgstr "З ус╕х файл╕в видалено виконавця."
 
-#: src/easytag.c:1525
+#: ../src/easytag.c:1516
 #, fuzzy, c-format
 msgid "Selected files tagged with copyright '%s'."
 msgstr "Вс╕ файли пробирковано виконавцем '%s'."
 
-#: src/easytag.c:1527
+#: ../src/easytag.c:1518
 #, fuzzy
 msgid "Removed copyright from selected files."
 msgstr "З ус╕х файл╕в видалено виконавця."
 
-#: src/easytag.c:1544
+#: ../src/easytag.c:1535
 #, fuzzy, c-format
 msgid "Selected files tagged with URL '%s'."
 msgstr "Вс╕ файли пробирковано '%s' роком."
 
-#: src/easytag.c:1546
+#: ../src/easytag.c:1537
 #, fuzzy
 msgid "Removed URL from selected files."
 msgstr "З ус╕х файл╕в видалено р╕к композиц╕╖."
 
-#: src/easytag.c:1563
+#: ../src/easytag.c:1554
 #, fuzzy, c-format
 msgid "Selected files tagged with encoder name '%s'."
 msgstr "Вс╕ файли пробирковано стилем '%s'."
 
-#: src/easytag.c:1565
+#: ../src/easytag.c:1556
 #, fuzzy
 msgid "Removed encoder name from selected files."
 msgstr "З ус╕х файл╕в видалено стиль трек╕в."
 
-#: src/easytag.c:1600
+#: ../src/easytag.c:1591
 #, fuzzy
 msgid "Selected files tagged with pictures."
 msgstr "Вс╕ файли пробирковано заголовком '%s'."
 
-#: src/easytag.c:1602
+#: ../src/easytag.c:1593
 #, fuzzy
 msgid "Removed pictures from selected files."
 msgstr "З ус╕х файл╕в видалено заголовки."
 
-#: src/easytag.c:1841
+#: ../src/easytag.c:1832
 msgid "Select Mode and Mask, and redo the same action"
 msgstr "Вибер╕ть режим та маску, та повтор╕ть ц╕ ж д╕╖"
 
-#: src/easytag.c:1896
+#: ../src/easytag.c:1887
 msgid "All tags have been scanned"
 msgstr "Проскановано вс╕ теги"
 
-#: src/easytag.c:1953
+#: ../src/easytag.c:1944
 msgid "All tags have been removed"
 msgstr "Вс╕ теги видалено..."
 
-#: src/easytag.c:2240
+#: ../src/easytag.c:2231
 #, c-format
 msgid ""
 "Be careful, several files (%d file(s)) were changed by an external program.\n"
 "Do you want to continue anyway?"
 msgstr ""
 
-#: src/easytag.c:2242
+#: ../src/easytag.c:2233
 #, fuzzy
 msgid "Saving File(s)..."
 msgstr "Пошук файл╕в..."
 
-#: src/easytag.c:2300 src/easytag.c:2321
+#: ../src/easytag.c:2291 ../src/easytag.c:2312
 msgid "Saving files was stopped..."
 msgstr ""
 
-#: src/easytag.c:2323
+#: ../src/easytag.c:2314
 msgid "All files have been saved..."
 msgstr "Вс╕ теги записано..."
 
-#: src/easytag.c:2471
+#: ../src/easytag.c:2462
 msgid "Files have been partially deleted..."
 msgstr "Частину файл╕в видалено..."
 
-#: src/easytag.c:2473
+#: ../src/easytag.c:2464
 msgid "All files have been deleted..."
 msgstr "Вс╕ файли видалено..."
 
 #. ET_Display_File_Data_To_UI(ETFile);
-#: src/easytag.c:2586
+#: ../src/easytag.c:2577
 #, c-format
 msgid ""
 "Do you want to write the tag of file\n"
@@ -2307,17 +2317,17 @@ msgstr ""
 "Ви д╕йсно хочете записати тег у файл\n"
 "'%s' ?"
 
-#: src/easytag.c:2590 src/easytag.c:2603
+#: ../src/easytag.c:2581 ../src/easytag.c:2594
 msgid "Write Tag..."
 msgstr "Запис тегу..."
 
 #. Directories and filename changed
-#: src/easytag.c:2678
+#: ../src/easytag.c:2669
 #, fuzzy
 msgid "Rename File and Directory..."
 msgstr "Перейменування каталога"
 
-#: src/easytag.c:2679
+#: ../src/easytag.c:2670
 #, fuzzy, c-format
 msgid ""
 "Do you want to rename the file and directory \n"
@@ -2331,12 +2341,12 @@ msgstr ""
 "'%s' ?"
 
 #. Only directories changed
-#: src/easytag.c:2684
+#: ../src/easytag.c:2675
 #, fuzzy
 msgid "Rename Directory..."
 msgstr "Перейменувати каталог..."
 
-#: src/easytag.c:2685
+#: ../src/easytag.c:2676
 #, fuzzy, c-format
 msgid ""
 "Do you want to rename the directory \n"
@@ -2350,11 +2360,11 @@ msgstr ""
 "'%s' ?"
 
 #. Only filename changed
-#: src/easytag.c:2691
+#: ../src/easytag.c:2682
 msgid "Rename File..."
 msgstr "Перейменувати файл..."
 
-#: src/easytag.c:2692
+#: ../src/easytag.c:2683
 #, c-format
 msgid ""
 "Do you want to rename the file \n"
@@ -2367,17 +2377,17 @@ msgstr ""
 "на \n"
 "'%s' ?"
 
-#: src/easytag.c:2789
+#: ../src/easytag.c:2780
 #, c-format
 msgid "Writing tag of '%s'"
 msgstr "Запис тегу до '%s'"
 
-#: src/easytag.c:2795
+#: ../src/easytag.c:2786
 msgid "Tag(s) written"
 msgstr "Тег записано"
 
 #. Special for Ogg Vorbis because the error is defined into 'vcedit_error(state)'
-#: src/easytag.c:2804 src/easytag.c:2811
+#: ../src/easytag.c:2795 ../src/easytag.c:2802
 #, c-format
 msgid ""
 "Can't write tag in file '%s'!\n"
@@ -2386,21 +2396,21 @@ msgstr ""
 "Не можу пробиркувати файл '%s'!\n"
 "(%s)"
 
-#: src/easytag.c:2806 src/easytag.c:2813
+#: ../src/easytag.c:2797 ../src/easytag.c:2804
 #, fuzzy, c-format
 msgid "Can't write tag in file '%s'! (%s)"
 msgstr ""
 "Не можу пробиркувати файл '%s'!\n"
 "(%s)"
 
-#: src/easytag.c:2957
+#: ../src/easytag.c:2948
 #, c-format
 msgid "Renaming file '%s'"
 msgstr "Перейменування файла '%s'"
 
 #. Renaming file to the temporary filename has failed
 #. Renaming file from the temporary filename has failed
-#: src/easytag.c:2977 src/easytag.c:3023 src/easytag.c:3285
+#: ../src/easytag.c:2968 ../src/easytag.c:3014 ../src/easytag.c:3276
 #, c-format
 msgid ""
 "Can't rename file '%s'\n"
@@ -2413,7 +2423,7 @@ msgstr ""
 "'%s'!\n"
 "(%s)"
 
-#: src/easytag.c:2979 src/easytag.c:3025 src/easytag.c:3287
+#: ../src/easytag.c:2970 ../src/easytag.c:3016 ../src/easytag.c:3278
 #, fuzzy, c-format
 msgid "Can't rename file '%s' to '%s'! (%s)"
 msgstr ""
@@ -2422,11 +2432,12 @@ msgstr ""
 "'%s'!\n"
 "(%s)"
 
-#: src/easytag.c:2999 src/easytag.c:3045 src/easytag.c:3074 src/easytag.c:3307
+#: ../src/easytag.c:2990 ../src/easytag.c:3036 ../src/easytag.c:3065
+#: ../src/easytag.c:3298
 msgid "File(s) not renamed..."
 msgstr "Файли не перейменовано..."
 
-#: src/easytag.c:3052
+#: ../src/easytag.c:3043
 #, c-format
 msgid ""
 "Can't rename file \n"
@@ -2439,7 +2450,7 @@ msgstr ""
 "оск╕льки вже ╕сну╓ файл з таким ╕менем:\n"
 "'%s'"
 
-#: src/easytag.c:3054
+#: ../src/easytag.c:3045
 #, fuzzy, c-format
 msgid "Can't rename file '%s' because the following file already exists: '%s'"
 msgstr ""
@@ -2448,7 +2459,7 @@ msgstr ""
 "оск╕льки вже ╕сну╓ файл з таким ╕менем:\n"
 "'%s'"
 
-#: src/easytag.c:3097
+#: ../src/easytag.c:3088
 #, fuzzy, c-format
 msgid ""
 "Can't create target directory\n"
@@ -2459,7 +2470,7 @@ msgstr ""
 "'%s'\n"
 "(%s)"
 
-#: src/easytag.c:3099
+#: ../src/easytag.c:3090
 #, fuzzy, c-format
 msgid "Can't create target directory '%s'! (%s)"
 msgstr ""
@@ -2468,16 +2479,16 @@ msgstr ""
 "(%s)"
 
 #. Renaming file has succeeded
-#: src/easytag.c:3133
+#: ../src/easytag.c:3124
 #, c-format
 msgid "Renamed file '%s' to '%s'"
 msgstr "'%s' перейменовано в '%s'"
 
-#: src/easytag.c:3139
+#: ../src/easytag.c:3130
 msgid "File(s) renamed..."
 msgstr "Файли перейменовано..."
 
-#: src/easytag.c:3149 src/easytag.c:3210
+#: ../src/easytag.c:3140 ../src/easytag.c:3201
 #, fuzzy, c-format
 msgid ""
 "Can't remove old directory\n"
@@ -2488,7 +2499,7 @@ msgstr ""
 "'%s'\n"
 "(%s)"
 
-#: src/easytag.c:3151 src/easytag.c:3212
+#: ../src/easytag.c:3142 ../src/easytag.c:3203
 #, fuzzy, c-format
 msgid "Can't remove old directory '%s'! (%s)"
 msgstr ""
@@ -2497,18 +2508,18 @@ msgstr ""
 "(%s)"
 
 #. Renaming file has succeeded
-#: src/easytag.c:3194
+#: ../src/easytag.c:3185
 #, fuzzy, c-format
 msgid "Moved file '%s' to '%s'"
 msgstr "'%s' перейменовано в '%s'"
 
-#: src/easytag.c:3200
+#: ../src/easytag.c:3191
 #, fuzzy
 msgid "File(s) moved..."
 msgstr "Файли перейменовано..."
 
 #. Moving file has failed
-#: src/easytag.c:3246
+#: ../src/easytag.c:3237
 #, fuzzy, c-format
 msgid ""
 "Can't move file '%s'\n"
@@ -2521,7 +2532,7 @@ msgstr ""
 "'%s'!\n"
 "(%s)"
 
-#: src/easytag.c:3248
+#: ../src/easytag.c:3239
 #, fuzzy, c-format
 msgid "Can't move file '%s' to '%s'! (%s)"
 msgstr ""
@@ -2530,12 +2541,12 @@ msgstr ""
 "'%s'!\n"
 "(%s)"
 
-#: src/easytag.c:3268
+#: ../src/easytag.c:3259
 #, fuzzy
 msgid "File(s) not moved..."
 msgstr "Файли не перейменовано..."
 
-#: src/easytag.c:3346
+#: ../src/easytag.c:3337
 #, c-format
 msgid ""
 "Do you really want to delete definitively the file\n"
@@ -2544,16 +2555,16 @@ msgstr ""
 "Ви д╕йсно хочете видалити файл\n"
 "'%s' ?"
 
-#: src/easytag.c:3349 src/easytag.c:3362
+#: ../src/easytag.c:3340 ../src/easytag.c:3353
 msgid "Delete File..."
 msgstr "Видалення файл╕в..."
 
-#: src/easytag.c:3390
+#: ../src/easytag.c:3381
 #, c-format
 msgid "File '%s' deleted"
 msgstr "Файл '%s' видалено"
 
-#: src/easytag.c:3525
+#: ../src/easytag.c:3516
 #, c-format
 msgid ""
 "Can't read directory :\n"
@@ -2565,110 +2576,111 @@ msgstr ""
 "(%s)"
 
 #. Read the directory recursively
-#: src/easytag.c:3553
+#: ../src/easytag.c:3544
+#, c-format
 msgid "Search in progress..."
 msgstr "Трива╓ пошук..."
 
-#: src/easytag.c:3570 src/et_core.c:2699
+#: ../src/easytag.c:3561 ../src/et_core.c:2699
 #, c-format
 msgid "File: '%s'"
 msgstr "Файл: '%s'"
 
-#: src/easytag.c:3620
+#: ../src/easytag.c:3611
 #, c-format
 msgid "Found %d file(s) in this directory and subdirectories."
 msgstr "К╕льк╕сть знайдених файл╕в у цьому каталоз╕ та п╕дкаталогах: %d"
 
-#: src/easytag.c:3622
+#: ../src/easytag.c:3613
 #, c-format
 msgid "Found %d file(s) in this directory."
 msgstr "К╕льк╕сть знайдених файл╕в у цьому каталоз╕: %d"
 
 #. And refresh the number of files in this directory
-#: src/easytag.c:3635 src/et_core.c:2783
+#: ../src/easytag.c:3626 ../src/et_core.c:2783
 #, c-format
 msgid "%u file(s)"
 msgstr "%u файл(╕в)"
 
-#: src/easytag.c:3641
+#: ../src/easytag.c:3632
 msgid "No file found in this directory and subdirectories!"
 msgstr "В цьому каталоз╕ та його п╕дкаталогах нема╓ файл╕в MP3!"
 
-#: src/easytag.c:3643
+#: ../src/easytag.c:3634
 msgid "No file found in this directory!"
 msgstr "В цьому каталоз╕ нема╓ файл╕в з музикою!"
 
-#: src/easytag.c:3731
+#: ../src/easytag.c:3722
 msgid "Searching..."
 msgstr "Пошук..."
 
 #. Button to stop...
-#: src/easytag.c:3751
+#: ../src/easytag.c:3742
 msgid "  STOP the search...  "
 msgstr "  ЗУПИНИТИ пошук...  "
 
-#: src/easytag.c:4493
+#: ../src/easytag.c:4484
 msgid "Select a directory to browse!"
 msgstr "Вибер╕ть каталог для перегляду!"
 
 #. Menu items
-#: src/easytag.c:4624
+#: ../src/easytag.c:4615
 #, fuzzy
 msgid "Tag selected files with this field"
 msgstr "Пробиркувати вс╕ файли таким заголовком"
 
-#: src/easytag.c:4635
+#: ../src/easytag.c:4626
 msgid "Convert '_' and '%20' to spaces"
 msgstr "Зам╕нювати '_' та '%20' на проб╕ли"
 
-#: src/easytag.c:4642 src/scan.c:2693
+#: ../src/easytag.c:4633 ../src/scan.c:2691
 msgid "Convert ' ' to '_'"
 msgstr "Зам╕нювати ' ' на '_'"
 
 #. Group: capitalize, ...
-#: src/easytag.c:4653 src/scan.c:2744
+#: ../src/easytag.c:4644 ../src/scan.c:2742
 msgid "All uppercase"
 msgstr "ВЕЛИКИМИ Л╤ТЕРАМИ"
 
-#: src/easytag.c:4660 src/scan.c:2745
+#: ../src/easytag.c:4651 ../src/scan.c:2743
 msgid "All downcase"
 msgstr "малими л╕терами"
 
-#: src/easytag.c:4667 src/scan.c:2746
+#: ../src/easytag.c:4658 ../src/scan.c:2744
 msgid "First letter uppercase"
 msgstr "З велико╖ л╕тери"
 
-#: src/easytag.c:4674 src/scan.c:2747
+#: ../src/easytag.c:4665 ../src/scan.c:2745
 msgid "First letter uppercase of each word"
 msgstr "З Велико╖ Л╕тери Кожне Слово"
 
 #. Group: insert/remove spaces
-#: src/easytag.c:4685 src/prefs.c:1057 src/scan.c:2795
+#: ../src/easytag.c:4676 ../src/prefs.c:1056 ../src/scan.c:2793
 msgid "Remove spaces"
 msgstr "Видалити проб╕ли"
 
-#: src/easytag.c:4692
+#: ../src/easytag.c:4683
 msgid "Insert space before uppercase letter"
 msgstr "Вставити проб╕л перед Великою л╕терою"
 
-#: src/easytag.c:4699
+#: ../src/easytag.c:4690
 msgid "Remove duplicate spaces or underscores"
 msgstr "Видалити дубльован╕ проб╕ли та п╕дкреслення"
 
 #. gchar commmand[256];
 #. To send messages to the console...
-#: src/easytag.c:4719 src/easytag.c:4727
+#: ../src/easytag.c:4710 ../src/easytag.c:4718
 #, c-format
 msgid "EasyTAG %s: Abnormal exit! (PId: %d)."
 msgstr "EasyTAG %s: Ненормальне завершення (PId: %d)!."
 
-#: src/easytag.c:4720 src/easytag.c:4729
+#: ../src/easytag.c:4711 ../src/easytag.c:4720
 #, fuzzy, c-format
 msgid "Received signal %s (%d)\a"
 msgstr "Отримано сигнал %s (%d)\a"
 
-#: src/easytag.c:4722 src/easytag.c:4731
-#, fuzzy
+#: ../src/easytag.c:4713 ../src/easytag.c:4722
+#, fuzzy, c-format
 msgid ""
 "You have probably found a bug in EasyTAG. Please, send a bug report with a "
 "gdb backtrace ('gdb easytag core' then 'bt' and 'l') and informations to "
@@ -2678,11 +2690,11 @@ msgstr ""
 "трасування gdb ('gdb easytag core' пот╕м 'bt') на адресу j.couderc@ifrance."
 "com\n"
 
-#: src/easytag.c:4858
+#: ../src/easytag.c:4849
 msgid "Unknown signal"
 msgstr "Нев╕домий сигнал"
 
-#: src/easytag.c:4874
+#: ../src/easytag.c:4865
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -2715,11 +2727,11 @@ msgstr ""
 "., ./             чи завантажити поточний каталог.\n"
 "\n"
 
-#: src/easytag.c:4902
+#: ../src/easytag.c:4893
 msgid "EasyTAG: Normal exit."
 msgstr "EasyTAG: Нормальне завершення."
 
-#: src/easytag.c:4947
+#: ../src/easytag.c:4938
 msgid ""
 "Some files have been modified but not saved...\n"
 "Do you want to save them before exiting the program?"
@@ -2727,101 +2739,103 @@ msgstr ""
 "Деяк╕ файли зм╕нено, але не записано...\n"
 "Ви б хот╕ли зберегти зм╕ни перед виходом з програми?"
 
-#: src/easytag.c:4974
+#: ../src/easytag.c:4965
 msgid " Do you really want to exit the program? "
 msgstr " Ви д╕йсно хочете вийти з програми? "
 
-#: src/et_core.c:632
+#: ../src/et_core.c:632
 #, c-format
 msgid "Automatic corrections applied for file '%s'."
 msgstr ""
 
-#: src/et_core.c:2596
+#: ../src/et_core.c:2596
 msgid "ID3 Tag"
 msgstr "Тег ID3"
 
-#: src/et_core.c:2602
+#: ../src/et_core.c:2602
 msgid "Ogg Vorbis Tag"
 msgstr "Тег OGG Vorbis"
 
-#: src/et_core.c:2608
+#: ../src/et_core.c:2608
 #, fuzzy
 msgid "FLAC Vorbis Tag"
 msgstr "Тег OGG Vorbis"
 
-#: src/et_core.c:2613
+#: ../src/et_core.c:2613
 msgid "APE Tag"
 msgstr "Тег APE"
 
-#: src/et_core.c:2618
+#: ../src/et_core.c:2618
 msgid "MP4/M4A/AAC Tag"
 msgstr ""
 
-#: src/et_core.c:2624
+#: ../src/et_core.c:2624
 msgid "Wavpack Tag"
 msgstr ""
 
-#: src/et_core.c:2644
+#: ../src/et_core.c:2644
 msgid "MP3 File"
 msgstr "Файл MP3"
 
-#: src/et_core.c:2648
+#: ../src/et_core.c:2648
 msgid "MP2 File"
 msgstr "Файл MP2"
 
-#: src/et_core.c:2654
+#: ../src/et_core.c:2654
 msgid "Ogg Vorbis File"
 msgstr "Файл OGG Vorbis"
 
-#: src/et_core.c:2660
+#: ../src/et_core.c:2660
 #, fuzzy
 msgid "Speex File"
 msgstr "/Файл/Наступний файл"
 
-#: src/et_core.c:2666
+#: ../src/et_core.c:2666
 msgid "FLAC File"
 msgstr "Файл FLAC"
 
-#: src/et_core.c:2671
+#: ../src/et_core.c:2671
 msgid "MusePack File"
 msgstr "Файл MusePack"
 
-#: src/et_core.c:2675
+#: ../src/et_core.c:2675
 msgid "Monkey's Audio File"
 msgstr "Файл Monkey's Audio"
 
-#: src/et_core.c:2680
+#: ../src/et_core.c:2680
 #, fuzzy
 msgid "MP4/AAC File"
 msgstr "Файл MP2"
 
-#: src/et_core.c:2686
+#: ../src/et_core.c:2686
 #, fuzzy
 msgid "Wavpack File"
 msgstr "Файл MusePack"
 
-#: src/et_core.c:2969
+#: ../src/et_core.c:2969
 #, c-format
 msgid "Pictures (%d)"
 msgstr ""
 
 #. Bitrate
-#: src/et_core.c:3008 src/flac_header.c:302 src/monkeyaudio_header.c:86
-#: src/mp4_header.c:275 src/mpeg_header.c:367 src/musepack_header.c:88
-#: src/ogg_header.c:257 src/wavpack_header.c:78
+#: ../src/et_core.c:3008 ../src/flac_header.c:297
+#: ../src/monkeyaudio_header.c:86 ../src/mp4_header.c:275
+#: ../src/mpeg_header.c:367 ../src/musepack_header.c:88
+#: ../src/ogg_header.c:257 ../src/wavpack_header.c:78
 #, c-format
 msgid "%d kb/s"
 msgstr "%d Кб/c"
 
 #. Samplerate
-#: src/et_core.c:3013 src/flac_header.c:307 src/monkeyaudio_header.c:91
-#: src/mp4_header.c:280 src/mpeg_header.c:372 src/musepack_header.c:93
-#: src/ogg_header.c:262 src/wavpack_header.c:83
+#: ../src/et_core.c:3013 ../src/flac_header.c:302
+#: ../src/monkeyaudio_header.c:91 ../src/mp4_header.c:280
+#: ../src/mpeg_header.c:372 ../src/musepack_header.c:93
+#: ../src/ogg_header.c:262 ../src/wavpack_header.c:83
 #, c-format
 msgid "%d Hz"
 msgstr "%d Гц"
 
-#: src/et_core.c:3153
+#: ../src/et_core.c:3153
 #, c-format
 msgid ""
 "Could not convert filename : '%s'\n"
@@ -2829,12 +2843,12 @@ msgid ""
 "(Try setting the environment variable G_FILENAME_ENCODING)."
 msgstr ""
 
-#: src/et_core.c:3156 src/scan.c:676
+#: ../src/et_core.c:3156 ../src/scan.c:676
 #, fuzzy
 msgid "Filename translation"
 msgstr "Параметри ╕мен файл╕в"
 
-#: src/et_core.c:4671 src/et_core.c:4679
+#: ../src/et_core.c:4671 ../src/et_core.c:4679
 #, c-format
 msgid "The filename '%s' exceeds %d characters and will be truncated!\n"
 msgstr ""
@@ -2844,8 +2858,10 @@ msgstr ""
 #. gtk_label_set_text(GTK_LABEL(VersionValueLabel),"");
 #. Version changed to encoder version
 #. Encoder version
-#: src/flac_header.c:298 src/monkeyaudio_header.c:96 src/musepack_header.c:98
-#: src/ogg_header.c:245 src/wavpack_header.c:72
+#: ../src/flac_header.c:293 ../src/monkeyaudio_header.c:96
+#: ../src/musepack_header.c:98 ../src/ogg_header.c:245
+#: ../src/wavpack_header.c:72
+#, c-format
 msgid "Encoder:"
 msgstr "Кодувальник:"
 
@@ -2853,59 +2869,59 @@ msgstr "Кодувальник:"
 #. Mode
 #. mpeg4ip library seems to always return -1
 #. Mode
-#: src/flac_header.c:312 src/mp4_header.c:286 src/ogg_header.c:267
-#: src/wavpack_header.c:88
+#: ../src/flac_header.c:307 ../src/mp4_header.c:286 ../src/ogg_header.c:267
+#: ../src/wavpack_header.c:88
 msgid "Channels:"
 msgstr "Канали:"
 
-#: src/flac_tag.c:142 src/flac_tag.c:861 src/flac_tag.c:871
+#: ../src/flac_tag.c:142 ../src/flac_tag.c:863 ../src/flac_tag.c:873
 #, fuzzy, c-format
 msgid "ERROR while opening file: '%s' as FLAC (%s)."
 msgstr "ПОМИЛКА в╕дкриття файла: '%s' (%s)."
 
-#: src/flac_tag.c:329 src/ogg_tag.c:298
+#: ../src/flac_tag.c:329 ../src/ogg_tag.c:298
 #, c-format
 msgid ""
 "The year value '%s' seems to be invalid in file '%s'. The information will "
 "be lost while saving tag."
 msgstr ""
 
-#: src/flac_tag.c:1079
+#: ../src/flac_tag.c:1081
 #, c-format
 msgid "Picture block isn't valid: '%s'"
 msgstr ""
 
-#: src/flac_tag.c:1113 src/ogg_tag.c:849
+#: ../src/flac_tag.c:1115 ../src/ogg_tag.c:849
 #, c-format
 msgid "ERROR: Failed to write comments to file '%s' (%s)."
 msgstr "ПОМИЛКА: Невдача запису коментаря у файл '%s' (%s)."
 
-#: src/flac_tag.c:1118 src/ogg_tag.c:856
+#: ../src/flac_tag.c:1120 ../src/ogg_tag.c:856
 #, c-format
 msgid "Written tag of '%s'"
 msgstr "Записано тег у '%s'"
 
-#: src/id3_tag.c:501
+#: ../src/id3_tag.c:501
 #, c-format
 msgid "Removed tag of '%s'"
 msgstr "Видалено тег з '%s'"
 
-#: src/id3_tag.c:505 src/id3_tag.c:608
+#: ../src/id3_tag.c:505 ../src/id3_tag.c:608
 #, c-format
 msgid "Error while removing ID3v1 tag of '%s' (%s)"
 msgstr "Помилка видалення тегу ID3v1 з '%s' (%s)."
 
-#: src/id3_tag.c:507 src/id3_tag.c:580
+#: ../src/id3_tag.c:507 ../src/id3_tag.c:580
 #, c-format
 msgid "Error while removing ID3v2 tag of '%s' (%s)"
 msgstr "Помилка видалення тегу ID3v2 з '%s' (%s)."
 
-#: src/id3_tag.c:526
+#: ../src/id3_tag.c:526
 #, c-format
 msgid "Error while updating ID3v2 tag of '%s' (%s)"
 msgstr "Помилка поновлення тегу ID3v1 у '%s' (%s)."
 
-#: src/id3_tag.c:548
+#: ../src/id3_tag.c:548
 #, c-format
 msgid ""
 "You have tried to save this tag to Unicode but it was detected that your "
@@ -2920,212 +2936,229 @@ msgid ""
 "File : %s"
 msgstr ""
 
-#: src/id3_tag.c:600
+#: ../src/id3_tag.c:600
 #, c-format
 msgid "Error while updating ID3v1 tag of '%s' (%s)"
 msgstr "Помилка поновлення тегу ID3v1 у '%s' (%s)."
 
-#: src/id3_tag.c:614
+#: ../src/id3_tag.c:614 ../src/id3v24_tag.c:1035
 #, c-format
 msgid "Updated tag of '%s'"
 msgstr "Поновлено тег у '%s'"
 
-#: src/id3_tag.c:633
+#: ../src/id3_tag.c:633
 msgid "No error reported"
 msgstr "Жодно╖ помилки"
 
-#: src/id3_tag.c:635
+#: ../src/id3_tag.c:635
 msgid "No available memory"
 msgstr "Недостатньо пам'ят╕"
 
-#: src/id3_tag.c:637
+#: ../src/id3_tag.c:637
 msgid "No data to parse"
 msgstr "Дан╕ в╕дсутн╕"
 
-#: src/id3_tag.c:639
+#: ../src/id3_tag.c:639
 msgid "Improperly formatted data"
 msgstr "Неправильний формати даних"
 
-#: src/id3_tag.c:641
+#: ../src/id3_tag.c:641
 msgid "No buffer to write to"
 msgstr "В╕дсутн╕й буфер запису"
 
-#: src/id3_tag.c:643
+#: ../src/id3_tag.c:643
 msgid "Buffer is too small"
 msgstr "Замалий буфер"
 
-#: src/id3_tag.c:645
+#: ../src/id3_tag.c:645
 msgid "Invalid frame ID"
 msgstr "Неправильний ID кадру"
 
-#: src/id3_tag.c:647
+#: ../src/id3_tag.c:647
 msgid "Requested field not found"
 msgstr "Не знайдено в╕дпов╕дне поле"
 
-#: src/id3_tag.c:649
+#: ../src/id3_tag.c:649
 msgid "Unknown field type"
 msgstr "Нев╕домий тип поля"
 
-#: src/id3_tag.c:651
+#: ../src/id3_tag.c:651
 msgid "Tag is already attached to a file"
 msgstr "Тег вже додано до файла"
 
-#: src/id3_tag.c:653
+#: ../src/id3_tag.c:653
 msgid "Invalid tag version"
 msgstr "Нев╕рна верс╕я тегу"
 
-#: src/id3_tag.c:655
+#: ../src/id3_tag.c:655
 msgid "No file to parse"
 msgstr "Не задано файл"
 
-#: src/id3_tag.c:657
+#: ../src/id3_tag.c:657
 msgid "Attempting to write to a read-only file"
 msgstr "Спроба запису в файл 'лише для запису'"
 
-#: src/id3_tag.c:659
+#: ../src/id3_tag.c:659
 msgid "Error in compression/uncompression"
 msgstr "Помилка компрес╕╖/декомпрес╕╖"
 
-#: src/id3_tag.c:661
+#: ../src/id3_tag.c:661
 msgid "Unknown error message!"
 msgstr "Нев╕дома помилка!"
 
-#: src/id3_tag.c:1236
+#: ../src/id3_tag.c:1236
 #, c-format
 msgid ""
 "As the following corrupted file: '%s'\n"
 "will cause an error in id3lib, it will not be processed by the program."
 msgstr ""
 
-#: src/id3_tag.c:1238
+#: ../src/id3_tag.c:1238
 #, fuzzy
 msgid "Corrupted file..."
 msgstr "Вибрати файл..."
 
-#: src/log.c:95
+#: ../src/id3v24_tag.c:117
+#, fuzzy, c-format
+msgid ""
+"ERROR while opening file: '%s' (%s).\n"
+"\a"
+msgstr "ПОМИЛКА в╕дкриття файла: '%s' (%s)."
+
+#: ../src/id3v24_tag.c:1518
+#, c-format
+msgid "Can't write tag of file '%s' (were read %d bytes instead of %d bytes!)"
+msgstr ""
+
+#: ../src/id3v24_tag.c:1537
+#, fuzzy, c-format
+msgid "Size error while saving tag of '%s'"
+msgstr "Помилка видалення тегу ID3v1 з '%s' (%s)."
+
+#: ../src/log.c:95
 msgid "Log"
 msgstr ""
 
-#: src/misc.c:778
+#: ../src/misc.c:778
 msgid "Select file..."
 msgstr "Вибрати файл..."
 
-#: src/misc.c:783
+#: ../src/misc.c:783
 msgid "Select directory..."
 msgstr "Вибер╕ть каталог..."
 
-#: src/misc.c:857
+#: ../src/misc.c:857
 #, fuzzy
 msgid "Warning..."
 msgstr "Пошук..."
 
-#: src/misc.c:861
+#: ../src/misc.c:861
 msgid "No audio player defined!"
 msgstr ""
 
-#: src/misc.c:964
+#: ../src/misc.c:964
 #, c-format
 msgid "Can't execute %s (%s)!\n"
 msgstr "Невда╓ться виконати %s (%s)!\n"
 
 #. Units Tab of file size (bytes,kilobytes,...)
-#: src/misc.c:1129 src/misc.c:1148
+#: ../src/misc.c:1129 ../src/misc.c:1148
 msgid "B"
 msgstr "б"
 
-#: src/misc.c:1129 src/misc.c:1148
+#: ../src/misc.c:1129 ../src/misc.c:1148
 msgid "KB"
 msgstr "Кб"
 
-#: src/misc.c:1129 src/misc.c:1148
+#: ../src/misc.c:1129 ../src/misc.c:1148
 msgid "MB"
 msgstr "Мб"
 
-#: src/misc.c:1129 src/misc.c:1148
+#: ../src/misc.c:1129 ../src/misc.c:1148
 msgid "GB"
 msgstr "Гб"
 
-#: src/misc.c:1129 src/misc.c:1148
+#: ../src/misc.c:1129 ../src/misc.c:1148
 msgid "TB"
 msgstr "Тб"
 
-#: src/misc.c:1243
+#: ../src/misc.c:1240
 msgid "Generate a playlist"
 msgstr "Створення списку в╕дтворення"
 
-#: src/misc.c:1267
+#: ../src/misc.c:1264
 msgid "M3U Playlist Name"
 msgstr "╤м'я списку в╕дтворення M3U"
 
-#: src/misc.c:1280
+#: ../src/misc.c:1278
 msgid "Use directory name"
 msgstr "За ╕менем каталога"
 
-#: src/misc.c:1304 src/misc.c:1401
+#: ../src/misc.c:1302 ../src/misc.c:1400
 msgid "Edit Masks"
 msgstr "Редагувати Маски"
 
 #. Playlist options
-#: src/misc.c:1312
+#: ../src/misc.c:1310
 msgid "Playlist Options"
 msgstr "Параметри списку в╕дтворення"
 
-#: src/misc.c:1318
+#: ../src/misc.c:1316
 #, fuzzy
 msgid "Include only the selected files"
 msgstr "Скасувати останн╕ зм╕ни у вид╕лених файлах"
 
-#: src/misc.c:1321
+#: ../src/misc.c:1319
 msgid ""
 "If activated, only the selected files will be written in the playlist file. "
 "Else, all the files will be written."
 msgstr ""
 
-#: src/misc.c:1328
+#: ../src/misc.c:1326
 msgid "Use full path for files in playlist"
 msgstr "Повний шлях в списку в╕дтворення"
 
-#: src/misc.c:1331
+#: ../src/misc.c:1329
 msgid "Use relative path for files in playlist"
 msgstr "В╕дносний шлях в списку в╕дтворення"
 
 #. Create playlist in parent directory
-#: src/misc.c:1341
+#: ../src/misc.c:1339
 msgid "Create playlist in the parent directory"
 msgstr "Сворити список в╕дтворення у поточкному каталоз╕"
 
-#: src/misc.c:1344
+#: ../src/misc.c:1342
 msgid "If activated, the playlist will be created in the parent directory."
 msgstr ""
 
 #. DOS Separator
-#: src/misc.c:1348
+#: ../src/misc.c:1346
 msgid "Use DOS directory separator"
 msgstr "Використовувати розд╕льник каталог╕в DOS"
 
-#: src/misc.c:1353
+#: ../src/misc.c:1351
 msgid ""
 "This option replaces the UNIX directory separator '/' into DOS separator "
 "'\\'."
 msgstr ""
 
-#: src/misc.c:1362
+#: ../src/misc.c:1360
 msgid "Playlist Content"
 msgstr "Зм╕ст списку в╕дтворення"
 
-#: src/misc.c:1368
+#: ../src/misc.c:1366
 msgid "Write only list of files"
 msgstr "Записувати лише список файл╕в"
 
-#: src/misc.c:1372
+#: ../src/misc.c:1370
 msgid "Write info using filename"
 msgstr "Записувати ╕нформац╕ю зг╕дно з ╕менем файла"
 
-#: src/misc.c:1375
+#: ../src/misc.c:1373
 msgid "Write info using :"
 msgstr "Записувати ╕нформац╕ю зг╕дно з: "
 
-#: src/misc.c:1640
+#: ../src/misc.c:1642
 #, c-format
 msgid ""
 "Playlist file '%s' already exists!\n"
@@ -3134,12 +3167,12 @@ msgstr ""
 "Cписок в╕дтворення '%s' вже ╕сну╓!\n"
 "Перезаписати?"
 
-#: src/misc.c:1641
+#: ../src/misc.c:1643
 msgid "Write Playlist..."
 msgstr "Запис списку в╕дтворення..."
 
 #. Writing fails...
-#: src/misc.c:1663
+#: ../src/misc.c:1665
 #, c-format
 msgid ""
 "Can't write playlist file '%s'!\n"
@@ -3148,270 +3181,271 @@ msgstr ""
 "Не можу записати список в╕дтворення '%s'!\n"
 "(%s)"
 
-#: src/misc.c:1676
+#: ../src/misc.c:1678
 #, c-format
 msgid "Written playlist file '%s'"
 msgstr "Записано список в╕дтворення '%s'"
 
-#: src/misc.c:1923
+#: ../src/misc.c:1924
 #, fuzzy
 msgid "CD"
 msgstr "CDDB"
 
-#: src/misc.c:1932
+#: ../src/misc.c:1933
 #, fuzzy
 msgid "Encoded by"
 msgstr "Кодувальник:"
 
-#: src/misc.c:1943
+#: ../src/misc.c:1944
 msgid "Search a file"
 msgstr "Знайти файл"
 
-#: src/misc.c:1983
+#: ../src/misc.c:1982
 msgid ""
 "Type the word to search into files. Or type nothing to display all files."
 msgstr ""
 
 #. Where...
-#: src/misc.c:1989
+#: ../src/misc.c:1988
 msgid "In :"
 msgstr "Де:"
 
-#: src/misc.c:1992
+#: ../src/misc.c:1991
 #, fuzzy
 msgid "the File Name"
 msgstr "╤м'я файла"
 
 #. Note : label changed to "the Tag" (to be the only one) to fix a Hungarian grammatical problem (which uses one word to say "in the tag" like here)
-#: src/misc.c:1994
+#: ../src/misc.c:1993
 #, fuzzy
 msgid "the Tag"
 msgstr "Запис тегу..."
 
 #. Property of the search
-#: src/misc.c:2004 src/prefs.c:323
+#: ../src/misc.c:2003 ../src/prefs.c:321
 msgid "Case sensitive"
 msgstr "Ре╜╕стро-залежний"
 
-#: src/misc.c:2453
+#: ../src/misc.c:2455
 #, c-format
 msgid "Found : %d file(s)"
 msgstr "Знайдено: %d файл(╕в)"
 
-#: src/misc.c:2729
+#: ../src/misc.c:2730
 msgid "Load the filenames from a TXT file"
 msgstr "Завантажити список файл╕в з текстового файла"
 
-#: src/misc.c:2759
+#: ../src/misc.c:2758
 msgid "File :"
 msgstr "Файл :"
 
 #. Button 'load'
 #. the signal attached to this button, to load the file, is placed after the LoadFileContentList definition
-#: src/misc.c:2777
+#: ../src/misc.c:2777
 msgid " Load "
 msgstr " Завантажити "
 
-#: src/misc.c:2800
+#: ../src/misc.c:2800
 #, fuzzy
 msgid "Content of TXT file"
 msgstr "П╕дтвердження перейменування файла"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: src/misc.c:2821 src/misc.c:2915
+#: ../src/misc.c:2821 ../src/misc.c:2915
 #, fuzzy
 msgid "Insert a blank line before the selected line"
 msgstr "Вставити пропуск перед Великою л╕терою"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: src/misc.c:2830 src/misc.c:2924
+#: ../src/misc.c:2830 ../src/misc.c:2924
 #, fuzzy
 msgid "Delete the selected line"
 msgstr "Видалити цей рядок"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: src/misc.c:2839 src/misc.c:2933 src/misc.c:3406
+#: ../src/misc.c:2839 ../src/misc.c:2933 ../src/misc.c:3409
 msgid "Delete all blank lines"
 msgstr "Видалити вс╕ порожн╕ рядки"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: src/misc.c:2851 src/misc.c:2945
+#: ../src/misc.c:2851 ../src/misc.c:2945
 #, fuzzy
 msgid "Move up the selected line"
 msgstr "Скасувати останн╕ зм╕ни у вид╕лених файлах"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: src/misc.c:2860 src/misc.c:2954
+#: ../src/misc.c:2860 ../src/misc.c:2954
 #, fuzzy
 msgid "Move down the selected line"
 msgstr "Скасувати останн╕ зм╕ни у вид╕лених файлах"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: src/misc.c:2872 src/misc.c:2966 src/misc.c:3430
+#: ../src/misc.c:2872 ../src/misc.c:2966 ../src/misc.c:3433
 msgid "Reload"
 msgstr "Перечитати"
 
-#: src/misc.c:2893
+#: ../src/misc.c:2893
 #, fuzzy
 msgid "List of files"
 msgstr "Записувати лише список файл╕в"
 
-#: src/misc.c:2988
+#: ../src/misc.c:2988
 #, fuzzy
 msgid "Selected line:"
 msgstr "Вибрати вс╕ рядки"
 
-#: src/misc.c:3006
+#: ../src/misc.c:3006
 msgid ""
 "When activating this option, after loading the filenames, the current "
 "selected scanner will be ran (the scanner window must be opened)."
 msgstr ""
 
-#: src/misc.c:3394
+#: ../src/misc.c:3397
 msgid "Insert a blank line"
 msgstr "Вставити порожн╕й рядок"
 
-#: src/misc.c:3400
+#: ../src/misc.c:3403
 msgid "Delete this line"
 msgstr "Видалити цей рядок"
 
-#: src/misc.c:3415
+#: ../src/misc.c:3418
 #, fuzzy
 msgid "Move up this line"
 msgstr "П╕дняти на одну позиц╕ю"
 
-#: src/misc.c:3421
+#: ../src/misc.c:3424
 #, fuzzy
 msgid "Move down this line"
 msgstr "Опустити на одну позиц╕ю"
 
 #. Mode changed to profile name
-#: src/monkeyaudio_header.c:78 src/musepack_header.c:80
+#: ../src/monkeyaudio_header.c:78 ../src/musepack_header.c:80
+#, c-format
 msgid "Profile:"
 msgstr ""
 
-#: src/mp4_header.c:130
+#: ../src/mp4_header.c:130
 msgid "Audio"
 msgstr ""
 
-#: src/mp4_header.c:131
+#: ../src/mp4_header.c:131
 #, fuzzy
 msgid "Unknown"
 msgstr "Нев╕домий сигнал"
 
-#: src/mp4_header.c:211 src/mp4_tag.c:109 src/mp4_tag.c:118 src/mp4_tag.c:290
-#: src/mp4_tag.c:297
+#: ../src/mp4_header.c:211 ../src/mp4_tag.c:109 ../src/mp4_tag.c:118
+#: ../src/mp4_tag.c:290 ../src/mp4_tag.c:297
 msgid "MP4 format invalid"
 msgstr ""
 
-#: src/mp4_header.c:273 src/mpeg_header.c:365
+#: ../src/mp4_header.c:273 ../src/mpeg_header.c:365
 #, fuzzy, c-format
 msgid "~%d kb/s"
 msgstr "%d Кб/c"
 
-#: src/mp4_tag.c:118 src/mp4_tag.c:297
+#: ../src/mp4_tag.c:118 ../src/mp4_tag.c:297
 #, fuzzy, c-format
 msgid "ERROR reading tags from file: '%s' (%s)."
 msgstr "ПОМИЛКА в╕дкриття файла: '%s' (%s)."
 
-#: src/mpeg_header.c:78
+#: ../src/mpeg_header.c:78
 msgid "Stereo"
 msgstr ""
 
-#: src/mpeg_header.c:79
+#: ../src/mpeg_header.c:79
 msgid "Joint stereo"
 msgstr ""
 
-#: src/mpeg_header.c:80
+#: ../src/mpeg_header.c:80
 msgid "Dual channel"
 msgstr ""
 
-#: src/mpeg_header.c:81
+#: ../src/mpeg_header.c:81
 msgid "Single channel"
 msgstr ""
 
-#: src/msgbox.c:101
+#: ../src/msgbox.c:101
 msgid "Repeat action for the rest of the files"
 msgstr "Повторити д╕ю на решт╕ файл╕в"
 
-#: src/ogg_header.c:100
+#: ../src/ogg_header.c:100
 #, c-format
 msgid ""
 "Ogg Vorbis: The specified bitstream does not exist or the file has been "
 "initialized improperly (file: '%s')."
 msgstr ""
 
-#: src/ogg_header.c:131
+#: ../src/ogg_header.c:131
 #, c-format
 msgid "Ogg Vorbis: Read from media returned an error (file: '%s')."
 msgstr ""
 
-#: src/ogg_header.c:134
+#: ../src/ogg_header.c:134
 #, fuzzy, c-format
 msgid "Ogg Vorbis: Bitstream is not Vorbis data (file: '%s')."
 msgstr "Пот╕к Ogg не м╕стить даних vorbis."
 
-#: src/ogg_header.c:137
+#: ../src/ogg_header.c:137
 #, c-format
 msgid "Ogg Vorbis: Vorbis version mismatch (file: '%s')."
 msgstr ""
 
-#: src/ogg_header.c:140
+#: ../src/ogg_header.c:140
 #, c-format
 msgid "Ogg Vorbis: Invalid Vorbis bitstream header (file: '%s')."
 msgstr ""
 
-#: src/ogg_header.c:143
+#: ../src/ogg_header.c:143
 #, c-format
 msgid ""
 "Ogg Vorbis: Internal logic fault, indicates a bug or heap/stack corruption "
 "(file: '%s')."
 msgstr ""
 
-#: src/ogg_header.c:195 src/ogg_tag.c:188 src/ogg_tag.c:697
+#: ../src/ogg_header.c:195 ../src/ogg_tag.c:188 ../src/ogg_tag.c:697
 #, c-format
 msgid "ERROR: Failed to open file: '%s' as vorbis (%s)."
 msgstr "ПОМИЛКА: Невдача в╕дкриття файла: '%s' як vorbis (%s)."
 
-#: src/ogg_tag.c:170
+#: ../src/ogg_tag.c:170
 #, c-format
 msgid "Warning : The Ogg Vorbis file '%s' contains an ID3v2 tag."
 msgstr ""
 
-#: src/picture.c:295
+#: ../src/picture.c:295
 msgid "Add pictures"
 msgstr ""
 
-#: src/picture.c:305 src/picture.c:646
+#: ../src/picture.c:305 ../src/picture.c:646
 #, fuzzy
 msgid "All Files"
 msgstr "Вс╕ поля"
 
-#: src/picture.c:311 src/picture.c:652
+#: ../src/picture.c:311 ../src/picture.c:652
 msgid "PNG and JPEG"
 msgstr ""
 
-#: src/picture.c:428
+#: ../src/picture.c:428
 #, c-format
 msgid "Picture Properties %d/%d"
 msgstr ""
 
-#: src/picture.c:458
+#: ../src/picture.c:458
 msgid "Picture Type"
 msgstr ""
 
 #. Description of the picture
-#: src/picture.c:515
+#: ../src/picture.c:515
 #, fuzzy
 msgid "Picture Description:"
 msgstr "Характеристика:"
 
-#: src/picture.c:634
+#: ../src/picture.c:634
 #, c-format
 msgid "Save picture %d/%d"
 msgstr ""
 
-#: src/picture.c:717
+#: ../src/picture.c:717
 #, c-format
 msgid ""
 "The following file already exists :\n"
@@ -3419,147 +3453,147 @@ msgid ""
 "Do you want to overwrite?"
 msgstr ""
 
-#: src/picture.c:719
+#: ../src/picture.c:719
 #, fuzzy
 msgid "Save file..."
 msgstr "Вибрати файл..."
 
-#: src/picture.c:803
+#: ../src/picture.c:803
 msgid "JPEG image"
 msgstr ""
 
-#: src/picture.c:805
+#: ../src/picture.c:805
 msgid "PNG image"
 msgstr ""
 
-#: src/picture.c:807
+#: ../src/picture.c:807
 #, fuzzy
 msgid "Unknown image"
 msgstr "Нев╕домий сигнал"
 
-#: src/picture.c:818
+#: ../src/picture.c:818
 msgid "32x32 pixel PNG file icon"
 msgstr ""
 
-#: src/picture.c:820
+#: ../src/picture.c:820
 msgid "Other file icon"
 msgstr ""
 
-#: src/picture.c:822
+#: ../src/picture.c:822
 msgid "Cover (front)"
 msgstr ""
 
-#: src/picture.c:824
+#: ../src/picture.c:824
 msgid "Cover (back)"
 msgstr ""
 
-#: src/picture.c:826
+#: ../src/picture.c:826
 msgid "Leaflet page"
 msgstr ""
 
-#: src/picture.c:828
+#: ../src/picture.c:828
 msgid "Media (e.g. label side of CD)"
 msgstr ""
 
-#: src/picture.c:830
+#: ../src/picture.c:830
 msgid "Lead artist/lead performer/soloist"
 msgstr ""
 
-#: src/picture.c:832
+#: ../src/picture.c:832
 msgid "Artist/performer"
 msgstr ""
 
-#: src/picture.c:834
+#: ../src/picture.c:834
 #, fuzzy
 msgid "Conductor"
 msgstr "Кантр╕"
 
-#: src/picture.c:836
+#: ../src/picture.c:836
 msgid "Band/Orchestra"
 msgstr ""
 
-#: src/picture.c:840
+#: ../src/picture.c:840
 msgid "Lyricist/text writer"
 msgstr ""
 
-#: src/picture.c:842
+#: ../src/picture.c:842
 #, fuzzy
 msgid "Recording location"
 msgstr "Сортувати за спаданням часу в╕дтворення"
 
-#: src/picture.c:844
+#: ../src/picture.c:844
 msgid "During recording"
 msgstr ""
 
-#: src/picture.c:846
+#: ../src/picture.c:846
 msgid "During performance"
 msgstr ""
 
-#: src/picture.c:848
+#: ../src/picture.c:848
 msgid "Movie/video screen capture"
 msgstr ""
 
-#: src/picture.c:850
+#: ../src/picture.c:850
 msgid "A bright coloured fish"
 msgstr ""
 
-#: src/picture.c:852
+#: ../src/picture.c:852
 msgid "Illustration"
 msgstr ""
 
-#: src/picture.c:854
+#: ../src/picture.c:854
 msgid "Band/Artist logotype"
 msgstr ""
 
-#: src/picture.c:856
+#: ../src/picture.c:856
 msgid "Publisher/studio logotype"
 msgstr ""
 
-#: src/picture.c:860
+#: ../src/picture.c:860
 #, fuzzy
 msgid "Unknown picture type"
 msgstr "Нев╕домий тип поля"
 
-#: src/picture.c:888 src/picture.c:899
+#: ../src/picture.c:888 ../src/picture.c:899
 #, fuzzy
 msgid "pixels"
 msgstr "Поля"
 
-#: src/picture.c:889 src/picture.c:900
+#: ../src/picture.c:889 ../src/picture.c:900
 msgid "Type"
 msgstr ""
 
-#: src/picture.c:901
+#: ../src/picture.c:901
 #, fuzzy
 msgid "Description"
 msgstr "Характеристика:"
 
-#: src/picture.c:957
+#: ../src/picture.c:957
 #, c-format
 msgid "Error with 'loader_close': %s"
 msgstr ""
 
-#: src/picture.c:1015
+#: ../src/picture.c:1015
 msgid ""
 "Can't display the picture, as not enough data has been read to determine how "
 "to create the image buffer."
 msgstr ""
 
-#: src/picture.c:1018
+#: ../src/picture.c:1018
 msgid "Loading Picture File..."
 msgstr ""
 
-#: src/picture.c:1032
+#: ../src/picture.c:1032
 #, c-format
 msgid "Error with 'loader_write': %s"
 msgstr ""
 
-#: src/picture.c:1117 src/picture.c:1150 src/picture.c:1169
+#: ../src/picture.c:1117 ../src/picture.c:1150 ../src/picture.c:1169
 #, c-format
 msgid "Picture file not loaded (%s)..."
 msgstr ""
 
-#: src/picture.c:1136
+#: ../src/picture.c:1136
 #, fuzzy, c-format
 msgid ""
 "Can't open file :\n"
@@ -3567,32 +3601,32 @@ msgid ""
 "(%s)"
 msgstr "Не можу в╕дкрити файл '%s' (%s)\n"
 
-#: src/picture.c:1181
+#: ../src/picture.c:1181
 msgid "Picture file loaded..."
 msgstr ""
 
-#: src/picture.c:1197 src/picture.c:1204
+#: ../src/picture.c:1197 ../src/picture.c:1204
 #, fuzzy, c-format
 msgid "Picture file can't be saved (%s)..."
 msgstr "Вс╕ теги записано..."
 
 #. Title
-#: src/prefs.c:118
+#: ../src/prefs.c:117
 msgid "Preferences..."
 msgstr "Параметри..."
 
 #. File Browser frame
-#: src/prefs.c:156
+#: ../src/prefs.c:153
 msgid "File Browser"
 msgstr "Переглядач"
 
 #. Label
-#: src/prefs.c:167
+#: ../src/prefs.c:164
 #, fuzzy
 msgid "Default directory :"
 msgstr "Перейти у стартовий каталог"
 
-#: src/prefs.c:179
+#: ../src/prefs.c:177
 msgid ""
 "Specify the directory where your files are located. This path will be loaded "
 "when EasyTAG starts without parameter."
@@ -3601,12 +3635,12 @@ msgstr ""
 "завантажувати файли, якщо запущений без параметр╕в."
 
 #. Load directory on startup
-#: src/prefs.c:200
+#: ../src/prefs.c:198
 msgid ""
 "Load on startup the default directory or the directory passed as argument"
 msgstr ""
 
-#: src/prefs.c:203
+#: ../src/prefs.c:201
 #, fuzzy
 msgid ""
 "Automatically search files, when EasyTAG starts, into the default directory. "
@@ -3617,21 +3651,21 @@ msgstr ""
 "можна задавати також ╕ з командного рядку (easytag /шлях/до_файл╕в)."
 
 #. Browse subdirectories
-#: src/prefs.c:208
+#: ../src/prefs.c:206
 msgid "Search subdirectories"
 msgstr "Шукати в п╕дкаталогах"
 
-#: src/prefs.c:211
+#: ../src/prefs.c:209
 msgid "Search subdirectories for files when reading a directory into the tree."
 msgstr "Шукати в п╕дкаталогах коли чита╓ться каталог в дерев╕."
 
 #. Open the node to show subdirectories
-#: src/prefs.c:215
+#: ../src/prefs.c:213
 #, fuzzy
 msgid "Show subdirectories when selecting a directory"
 msgstr "Показувати п╕дкаталоги коли вибирають каталог"
 
-#: src/prefs.c:219
+#: ../src/prefs.c:217
 msgid ""
 "This expands the selected node into the file browser to display the sub-"
 "directories."
@@ -3639,27 +3673,27 @@ msgstr ""
 "Ця опц╕я розкрива╓ дерево з п╕дкаталогами вид╕леного каталога в переглядач╕"
 
 #. Browse hidden directories
-#: src/prefs.c:223
+#: ../src/prefs.c:221
 #, fuzzy
 msgid "Search hidden directories"
 msgstr "Шукати в п╕дкаталогах"
 
-#: src/prefs.c:228
+#: ../src/prefs.c:226
 #, fuzzy
 msgid "Search hidden directories for files (directories starting by a '.')."
 msgstr "Шукати в п╕дкаталогах коли чита╓ться каталог в дерев╕."
 
 #. User interface
-#: src/prefs.c:247
+#: ../src/prefs.c:245
 msgid "User Interface"
 msgstr "╤нтерфейс"
 
 #. Show header infos
-#: src/prefs.c:254
+#: ../src/prefs.c:252
 msgid "Show header informations of file"
 msgstr "Показувати ╕нфо з заголовку файла"
 
-#: src/prefs.c:257
+#: ../src/prefs.c:255
 msgid ""
 "If activated, informations about the file as the bitrate, the time, the "
 "size, will be displayed under the filename entry."
@@ -3667,186 +3701,186 @@ msgstr ""
 "Активуйте, щоб п╕д полем ╕мен╕ файла показувалася така ╕нформац╕я, як "
 "б╕трейт, час в╕дтворення та розм╕р файла."
 
-#: src/prefs.c:264
+#: ../src/prefs.c:262
 msgid "Display changed files in list using :"
 msgstr ""
 
-#: src/prefs.c:267
+#: ../src/prefs.c:265
 msgid "Red color"
 msgstr ""
 
-#: src/prefs.c:273
+#: ../src/prefs.c:271
 #, fuzzy
 msgid "Bold style"
 msgstr "Стиль переглядача  "
 
 #. Sorting List Options
-#: src/prefs.c:279
+#: ../src/prefs.c:277
 msgid "Sorting List Options"
 msgstr "Параметри сортування списку"
 
 #. Sorting method
-#: src/prefs.c:289
+#: ../src/prefs.c:287
 msgid "Sort the file list by :"
 msgstr "Сортувати список файл╕в за: "
 
 #. Two columns
 #. Items of option menu
-#: src/prefs.c:300
+#: ../src/prefs.c:298
 msgid "Ascending file name"
 msgstr "За зростанням ╕мен╕"
 
-#: src/prefs.c:301
+#: ../src/prefs.c:299
 msgid "Descending file name"
 msgstr "За спаданням ╕мен╕"
 
-#: src/prefs.c:302
+#: ../src/prefs.c:300
 msgid "Ascending track number"
 msgstr "За зростанням номера трека"
 
-#: src/prefs.c:303
+#: ../src/prefs.c:301
 msgid "Descending track number"
 msgstr "За спаданням номера трека"
 
-#: src/prefs.c:304
+#: ../src/prefs.c:302
 msgid "Ascending creation date"
 msgstr "За зростанням дати створення"
 
-#: src/prefs.c:305
+#: ../src/prefs.c:303
 #, fuzzy
 msgid "Descending creation date"
 msgstr "За спаданням дати створення"
 
-#: src/prefs.c:306
+#: ../src/prefs.c:304
 msgid "Ascending title"
 msgstr "За зростанням ╕мен╕ композиц╕╖"
 
-#: src/prefs.c:307
+#: ../src/prefs.c:305
 msgid "Descending title"
 msgstr "За спаданням ╕мен╕ композиц╕╖"
 
-#: src/prefs.c:308
+#: ../src/prefs.c:306
 msgid "Ascending artist"
 msgstr "За зростанням ╕мен╕ виконавця"
 
-#: src/prefs.c:309
+#: ../src/prefs.c:307
 msgid "Descending artist"
 msgstr "За спаданням ╕мен╕ виконавця"
 
-#: src/prefs.c:310
+#: ../src/prefs.c:308
 msgid "Ascending album"
 msgstr "За зростанням назви альбому"
 
-#: src/prefs.c:311
+#: ../src/prefs.c:309
 msgid "Descending album"
 msgstr "За спаданням назви альбому"
 
-#: src/prefs.c:312
+#: ../src/prefs.c:310
 msgid "Ascending year"
 msgstr "За зростанням року"
 
-#: src/prefs.c:313
+#: ../src/prefs.c:311
 msgid "Descending year"
 msgstr "За спаданням року"
 
-#: src/prefs.c:314
+#: ../src/prefs.c:312
 msgid "Ascending genre"
 msgstr "За зростанням жанру"
 
-#: src/prefs.c:315
+#: ../src/prefs.c:313
 msgid "Descending genre"
 msgstr "За спаданням жанру"
 
-#: src/prefs.c:316
+#: ../src/prefs.c:314
 msgid "Ascending comment"
 msgstr "За зростанням дати коментаря"
 
-#: src/prefs.c:317
+#: ../src/prefs.c:315
 msgid "Descending comment"
 msgstr "За спаданням дати коментаря"
 
-#: src/prefs.c:320
+#: ../src/prefs.c:318
 msgid "Select the type of file sorting when loading a directory."
 msgstr "Вибер╕ть тип сортування списку файл╕в."
 
-#: src/prefs.c:329
+#: ../src/prefs.c:327
 msgid "If activated, the sorting of the list will be dependent on the case."
 msgstr "Активуйте, щоб сортування списк╕в було ре╜╕стро-залежним."
 
 #. Message Dialog Position
-#: src/prefs.c:333
+#: ../src/prefs.c:331
 msgid "Message Dialog Position"
 msgstr "Позиц╕ювання д╕алогових в╕кон"
 
-#: src/prefs.c:341
+#: ../src/prefs.c:339
 msgid "No particular position"
 msgstr "Без р╕зниц╕"
 
-#: src/prefs.c:345
+#: ../src/prefs.c:343
 msgid "Let the Window Manager to place the windows."
 msgstr "Дозволити в╕конному менеджеру керувати розм╕щенням в╕кон."
 
-#: src/prefs.c:350
+#: ../src/prefs.c:348
 #, fuzzy
 msgid "Center of the main window"
 msgstr "Центр екрану"
 
-#: src/prefs.c:354
+#: ../src/prefs.c:352
 #, fuzzy
 msgid "Windows should be placed in the center of the main window."
 msgstr "В╕кна будуть розм╕щуватися в центр╕ екрану."
 
-#: src/prefs.c:359
+#: ../src/prefs.c:357
 msgid "Center of the screen"
 msgstr "Центр екрану"
 
-#: src/prefs.c:363
+#: ../src/prefs.c:361
 msgid "Windows should be placed in the center of the screen."
 msgstr "В╕кна будуть розм╕щуватися в центр╕ екрану."
 
-#: src/prefs.c:368
+#: ../src/prefs.c:366
 msgid "Mouse position"
 msgstr "Там де мишка"
 
-#: src/prefs.c:372
+#: ../src/prefs.c:370
 msgid "Windows should be placed at the current mouse position."
 msgstr "В╕кна будуть розм╕щуватися п╕д курсором мишки."
 
 #. File Player
-#: src/prefs.c:376
+#: ../src/prefs.c:374
 msgid "File Audio Player"
 msgstr "Програвач ауд╕о-файл╕в"
 
-#: src/prefs.c:388
+#: ../src/prefs.c:386
 msgid "Player to run :"
 msgstr "Що запускати: "
 
-#: src/prefs.c:393
+#: ../src/prefs.c:392
 msgid ""
 "Enter the program used to play the files. Some arguments can be passed for "
 "the program (as 'xmms -p') before to receive files as other arguments."
 msgstr ""
 
 #. Log options
-#: src/prefs.c:411
+#: ../src/prefs.c:410
 #, fuzzy
 msgid "Log Options"
 msgstr "Параметри биркування"
 
 #. Show / hide log view
-#: src/prefs.c:418
+#: ../src/prefs.c:417
 #, fuzzy
 msgid "Show log view in main window"
 msgstr "Центр екрану"
 
-#: src/prefs.c:421
+#: ../src/prefs.c:420
 #, fuzzy
 msgid "If activated, the log view would be visible in the main window."
 msgstr ""
 "Активуйте, щоб в╕кно, що м╕стить маски, завжди залишалося поверх головного "
 "в╕кна."
 
-#: src/prefs.c:428
+#: ../src/prefs.c:427
 msgid "Max number of lines :"
 msgstr ""
 
@@ -3859,22 +3893,22 @@ msgstr ""
 #.
 #. * File Settings
 #.
-#: src/prefs.c:447 src/prefs.c:448
+#: ../src/prefs.c:446 ../src/prefs.c:447
 #, fuzzy
 msgid "File Settings"
 msgstr "/Настройки"
 
 #. File (name) Options
-#: src/prefs.c:458
+#: ../src/prefs.c:457
 #, fuzzy
 msgid "File Options"
 msgstr "Параметри ╕мен файл╕в"
 
-#: src/prefs.c:464
+#: ../src/prefs.c:463
 msgid "Replace illegal characters in filename (for Windows and CD-Rom)"
 msgstr "Зам╕нювати не допустим╕ символи в ╕мен╕ файла (для Windows та CD-Rom)"
 
-#: src/prefs.c:467
+#: ../src/prefs.c:466
 msgid ""
 "Convert illegal characters for FAT32/16 and ISO9660 + Joliet filesystems "
 "('\\', ':', ';', '*', '?', '\"', '<', '>', '|') of the filename to avoid "
@@ -3883,55 +3917,55 @@ msgid ""
 msgstr ""
 
 #. Extension case (lower/upper?)
-#: src/prefs.c:476
+#: ../src/prefs.c:475
 #, fuzzy
 msgid "Convert filename extension to :"
 msgstr "╤нвертувати виб╕рку"
 
-#: src/prefs.c:479
+#: ../src/prefs.c:478
 msgid "Lower Case"
 msgstr ""
 
-#: src/prefs.c:482
+#: ../src/prefs.c:481
 msgid "For example, the extension will be converted to '.mp3'"
 msgstr ""
 
-#: src/prefs.c:485
+#: ../src/prefs.c:484
 #, fuzzy
 msgid "Upper Case"
 msgstr "ВЕЛИКИМИ Л╤ТЕРАМИ"
 
-#: src/prefs.c:488
+#: ../src/prefs.c:487
 msgid "For example, the extension will be converted to '.MP3'"
 msgstr ""
 
-#: src/prefs.c:491
+#: ../src/prefs.c:490
 #, fuzzy
 msgid "No Change"
 msgstr "Зм╕ни"
 
-#: src/prefs.c:494
+#: ../src/prefs.c:493
 msgid "The extension will not be converted"
 msgstr ""
 
 #. Preserve modification time
-#: src/prefs.c:497
+#: ../src/prefs.c:496
 msgid "Preserve modification time of the file"
 msgstr ""
 
-#: src/prefs.c:500
+#: ../src/prefs.c:499
 msgid ""
 "Preserve the modification time (in file properties) when saving the file."
 msgstr ""
 
 #. Change directory modification time
-#: src/prefs.c:504
+#: ../src/prefs.c:503
 msgid ""
 "Update modification time of the parent directory of the file (recommended "
 "when using Amarok)"
 msgstr ""
 
-#: src/prefs.c:508
+#: ../src/prefs.c:507
 msgid ""
 "The modification time of the parent directory of the file will be updated "
 "when saving tag the file. At the present time it is automatically done only "
@@ -3942,48 +3976,48 @@ msgid ""
 msgstr ""
 
 #. Character Set for File Name
-#: src/prefs.c:516
+#: ../src/prefs.c:515
 #, fuzzy
 msgid "Character Set for File Name"
 msgstr "Перекодування символ╕в"
 
 #. Rules for character set
-#: src/prefs.c:532
+#: ../src/prefs.c:531
 msgid ""
 "Rules to apply if some characters can't be converted to the system character "
 "encoding when writing filename:"
 msgstr ""
 
-#: src/prefs.c:540
+#: ../src/prefs.c:539
 msgid "Try an other character encoding"
 msgstr ""
 
-#: src/prefs.c:544
+#: ../src/prefs.c:543
 msgid ""
 "With this option, it will try the conversion to the encoding associated to "
 "your locale (for example : ISO-8859-1 for 'fr', KOI8-R for 'ru', ISO-8859-2 "
 "for 'ro'). If it fails, it will try the character encoding ISO-8859-1."
 msgstr ""
 
-#: src/prefs.c:551
+#: ../src/prefs.c:550
 msgid ""
 "Force using the system character encoding and activate the transliteration"
 msgstr ""
 
-#: src/prefs.c:554 src/prefs.c:876 src/prefs.c:945
+#: ../src/prefs.c:553 ../src/prefs.c:875 ../src/prefs.c:944
 msgid ""
 "With this option, when a character cannot be represented in the target "
 "character set, it can be approximated through one or several similarly "
 "looking characters."
 msgstr ""
 
-#: src/prefs.c:560
+#: ../src/prefs.c:559
 msgid ""
 "Force using the system character encoding and silently discard some "
 "characters"
 msgstr ""
 
-#: src/prefs.c:563 src/prefs.c:885 src/prefs.c:954
+#: ../src/prefs.c:562 ../src/prefs.c:884 ../src/prefs.c:953
 msgid ""
 "With this option, when a characters cannot be represented in the target "
 "character set, it will be silently discarded."
@@ -3992,21 +4026,21 @@ msgstr ""
 #.
 #. * Tag Settings
 #.
-#: src/prefs.c:572 src/prefs.c:573
+#: ../src/prefs.c:571 ../src/prefs.c:572
 #, fuzzy
 msgid "Tag Settings"
 msgstr "/Настройки"
 
 #. Tag Options
-#: src/prefs.c:582
+#: ../src/prefs.c:581
 msgid "Tag Options"
 msgstr "Параметри биркування"
 
-#: src/prefs.c:588
+#: ../src/prefs.c:587
 msgid "Auto completion of date if not complete"
 msgstr "Автоматичне доповнення дати, якщо не повна"
 
-#: src/prefs.c:591
+#: ../src/prefs.c:590
 msgid ""
 "Try to complete the year field if you enter only the last numerals of the "
 "date (for instance, if the current year is 2005: 5 => 2005, 4 => 2004, 6 => "
@@ -4016,11 +4050,11 @@ msgstr ""
 "(Наприклад, якщо зараз 2002-ий р╕к, тод╕ 5 => 2005, 4 => 2004, 6 => 1996, 95 "
 "=> 1995, тощо)."
 
-#: src/prefs.c:598
+#: ../src/prefs.c:597
 msgid "Write the track field with the following number of digits :"
 msgstr ""
 
-#: src/prefs.c:601
+#: ../src/prefs.c:600
 #, fuzzy
 msgid ""
 "If activated, the track field is written using the number '0' as padding to "
@@ -4028,11 +4062,11 @@ msgid ""
 "'10',...). Else it keeps the 'raw' track value."
 msgstr "Активуйте, щоб поле номера трека прописувалося двома символами."
 
-#: src/prefs.c:616
+#: ../src/prefs.c:615
 msgid "Ogg Vorbis Files : Write also the comment to the XMMS format"
 msgstr "OGG-файли: Записувати коментар також ╕ у формат╕ XMMS"
 
-#: src/prefs.c:619
+#: ../src/prefs.c:618
 msgid ""
 "XMMS doesn't make use of the right way to identify a comment in Ogg Vorbis "
 "files as other apps do. In fact, this field is usually labeled with "
@@ -4041,28 +4075,28 @@ msgid ""
 "shown in XMMS, though."
 msgstr ""
 
-#: src/prefs.c:634
+#: ../src/prefs.c:633
 msgid ""
 "Tag field focus when switching files in list with shortcuts Page Up/Page "
 "Down:"
 msgstr ""
 
-#: src/prefs.c:643
+#: ../src/prefs.c:642
 msgid "Keep focus to the same tag field"
 msgstr ""
 
-#: src/prefs.c:649
+#: ../src/prefs.c:648
 msgid "Return focus to the first tag field (ie 'Title' field)"
 msgstr ""
 
 #. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SetFocusToFirstTagField),SET_FOCUS_TO_FIRST_TAG_FIELD);
 #. Tag Splitting
-#: src/prefs.c:654
+#: ../src/prefs.c:653
 #, fuzzy
 msgid "Tag Splitting"
 msgstr "/Настройки"
 
-#: src/prefs.c:661
+#: ../src/prefs.c:660
 msgid ""
 "For Vorbis tags, selected fields will be split atdashes and saved as "
 "separate tags"
@@ -4071,22 +4105,22 @@ msgstr ""
 #.
 #. * ID3 Tag Settings
 #.
-#: src/prefs.c:693 src/prefs.c:694
+#: ../src/prefs.c:692 ../src/prefs.c:693
 #, fuzzy
 msgid "ID3 Tag Settings"
 msgstr "/Настройки"
 
 #. Tag Rules frame
-#: src/prefs.c:706
+#: ../src/prefs.c:705
 msgid "ID3 Tag Rules"
 msgstr "Правила биркування"
 
 #. Write ID3 tags in FLAC files
-#: src/prefs.c:718
+#: ../src/prefs.c:717
 msgid "Write ID3 tags in FLAC files (in addition to FLAC tag)"
 msgstr ""
 
-#: src/prefs.c:721
+#: ../src/prefs.c:720
 #, fuzzy
 msgid ""
 "If activated, ID3 tags will be also added in the FLAC file (according the "
@@ -4096,11 +4130,11 @@ msgstr ""
 "вони будуть обр╕зан╕."
 
 #. Strip tag when fields (managed by EasyTAG) are empty
-#: src/prefs.c:726
+#: ../src/prefs.c:725
 msgid "Strip tags if all fields are set to blank"
 msgstr "Видаляти теги, якщо вс╕ поля порожн╕"
 
-#: src/prefs.c:729
+#: ../src/prefs.c:728
 msgid ""
 "As ID3v2 tags may contain other data than Title, Artist, Album, Year, Track, "
 "Genre or Comment (as an attached picture, lyrics, ...), this option allows "
@@ -4114,11 +4148,11 @@ msgstr ""
 "порожн╕ми."
 
 #. Convert old ID3v2 tag version
-#: src/prefs.c:735
+#: ../src/prefs.c:734
 msgid "Automatically convert old ID3v2 tag versions"
 msgstr "Автоматична конвертац╕я тегу ID3v2 старих верс╕й"
 
-#: src/prefs.c:738
+#: ../src/prefs.c:737
 msgid ""
 "If activated, an old ID3v2 tag version (as ID3v2.2) will be updated to the "
 "ID3v2.3 version."
@@ -4127,53 +4161,53 @@ msgstr ""
 "верс╕╖ ID3v2.3."
 
 #. Use CRC32
-#: src/prefs.c:742
+#: ../src/prefs.c:741
 msgid "Use CRC32"
 msgstr ""
 
-#: src/prefs.c:745
+#: ../src/prefs.c:744
 #, fuzzy
 msgid "Set CRC32 in the ID3v2 tags"
 msgstr "Биркувати тегом ID3v2"
 
 #. Use Compression
-#: src/prefs.c:748
+#: ../src/prefs.c:747
 msgid "Use Compression"
 msgstr ""
 
-#: src/prefs.c:751
+#: ../src/prefs.c:750
 msgid "Set Compression in the ID3v2 tags"
 msgstr ""
 
 #. Write Genre in text
-#: src/prefs.c:754
+#: ../src/prefs.c:753
 msgid "Write Genre in text only"
 msgstr ""
 
-#: src/prefs.c:757
+#: ../src/prefs.c:756
 msgid ""
 "Don't use ID3v1 number references in genre tag. Enable this if you see "
 "numbers as genre in your music player."
 msgstr ""
 
 #. Character Set for writing ID3 tag
-#: src/prefs.c:760
+#: ../src/prefs.c:759
 #, fuzzy
 msgid "Character Set for writing ID3 tags"
 msgstr "Перекодування символ╕в"
 
 #. ID3v2 tags
-#: src/prefs.c:767
+#: ../src/prefs.c:766
 #, fuzzy
 msgid "ID3v2 tags"
 msgstr "Биркувати тегом ID3v2"
 
 #. Write ID3v2 tag
-#: src/prefs.c:780
+#: ../src/prefs.c:779
 msgid "Write ID3v2 tag"
 msgstr "Биркувати тегом ID3v2"
 
-#: src/prefs.c:783
+#: ../src/prefs.c:782
 #, fuzzy
 msgid ""
 "If activated, an ID3v2.4 tag will be added or updated at the beginning of "
@@ -4183,12 +4217,12 @@ msgstr ""
 "╤накше вони будуть обр╕зан╕."
 
 #. ID3v2 tag version
-#: src/prefs.c:790
+#: ../src/prefs.c:789
 #, fuzzy
 msgid "Version:"
 msgstr "Характеристика:"
 
-#: src/prefs.c:797
+#: ../src/prefs.c:796
 msgid ""
 "Select the ID3v2 tag version to write:\n"
 " - ID3v2.3 is written using id3lib,\n"
@@ -4197,64 +4231,64 @@ msgstr ""
 
 #. Charset
 #. Id3V1 writing character set
-#: src/prefs.c:811 src/prefs.c:913
+#: ../src/prefs.c:810 ../src/prefs.c:912
 msgid "Charset:"
 msgstr ""
 
 #. Unicode
-#: src/prefs.c:819
+#: ../src/prefs.c:818
 #, fuzzy
 msgid "Unicode "
 msgstr "Юн╕код (UTF-8)"
 
-#: src/prefs.c:827
+#: ../src/prefs.c:826
 #, fuzzy
 msgid "Unicode type to use"
 msgstr "Кодувальник:"
 
-#: src/prefs.c:850
+#: ../src/prefs.c:849
 #, fuzzy
 msgid "Character set used to write the tag data in the file."
 msgstr "Кодування, що використову╓ться для показу тег╕в в ╕нтерфейс╕ програми."
 
 #. ID3v2 Additional iconv() options
 #. ID3V1 Additional iconv() options
-#: src/prefs.c:860 src/prefs.c:929
+#: ../src/prefs.c:859 ../src/prefs.c:928
 msgid "Additional settings for iconv():"
 msgstr ""
 
-#: src/prefs.c:865 src/prefs.c:934
+#: ../src/prefs.c:864 ../src/prefs.c:933
 #, fuzzy
 msgid "No"
 msgstr "нема╓"
 
-#: src/prefs.c:868 src/prefs.c:937
+#: ../src/prefs.c:867 ../src/prefs.c:936
 msgid ""
 "With this option, when a character cannot be represented in the target "
 "character set, it isn't changed. But note that an error message will be "
 "displayed for information."
 msgstr ""
 
-#: src/prefs.c:873 src/prefs.c:942
+#: ../src/prefs.c:872 ../src/prefs.c:941
 msgid "//TRANSLIT"
 msgstr ""
 
-#: src/prefs.c:882 src/prefs.c:951
+#: ../src/prefs.c:881 ../src/prefs.c:950
 msgid "//IGNORE"
 msgstr ""
 
 #. ID3v1 tags
-#: src/prefs.c:890
+#: ../src/prefs.c:889
 #, fuzzy
 msgid "ID3v1 tags"
 msgstr "Тег ID3"
 
 #. Write ID3v1 tag
-#: src/prefs.c:904
+#: ../src/prefs.c:903
 msgid "Write ID3v1.x tag"
 msgstr "Биркувати тегом ID3v1.x"
 
-#: src/prefs.c:907
+#: ../src/prefs.c:906
 msgid ""
 "If activated, an ID3v1 tag will be added or updated at the end of the MP3 "
 "files. Else it will be stripped."
@@ -4262,22 +4296,22 @@ msgstr ""
 "Активуйте, щоб додавати та поновлювати теги ID3v1 в к╕нц╕ MP3-файл╕в. ╤накше "
 "вони будуть обр╕зан╕."
 
-#: src/prefs.c:924
+#: ../src/prefs.c:923
 #, fuzzy
 msgid "Character set used to write ID3v1 tag data in the file."
 msgstr "Кодування, що використову╓ться для показу тег╕в в ╕нтерфейс╕ програми."
 
 #. Character Set for reading tag
-#: src/prefs.c:959
+#: ../src/prefs.c:958
 #, fuzzy
 msgid "Character Set for reading ID3 tags"
 msgstr "Перекодування символ╕в"
 
-#: src/prefs.c:973
+#: ../src/prefs.c:972
 msgid "Non-standart:"
 msgstr ""
 
-#: src/prefs.c:978
+#: ../src/prefs.c:977
 msgid ""
 "This character set will be used when reading the tag data, to convert each "
 "string found in an ISO-8859-1 field in the tag (for ID3v2 or/and ID3v1 "
@@ -4294,7 +4328,7 @@ msgid ""
 "written under Unix systems."
 msgstr ""
 
-#: src/prefs.c:996
+#: ../src/prefs.c:995
 #, fuzzy
 msgid "Character set used to read tag data in the file."
 msgstr "Кодування, що використову╓ться для показу тег╕в в ╕нтерфейс╕ програми."
@@ -4302,55 +4336,55 @@ msgstr "Кодування, що використову╓ться для показу тег╕в в ╕нтерфейс╕ програми."
 #.
 #. * Scanner
 #.
-#: src/prefs.c:1011 src/prefs.c:1012
+#: ../src/prefs.c:1010 ../src/prefs.c:1011
 msgid "Scanner"
 msgstr "Сканер"
 
 #. Character conversion for the 'Fill Tag' scanner (=> FTS...)
-#: src/prefs.c:1024
+#: ../src/prefs.c:1023
 #, fuzzy
 msgid "Fill Tag Scanner - Character Conversion"
 msgstr "Таблиця перекодування"
 
-#: src/prefs.c:1030 src/prefs.c:1055
+#: ../src/prefs.c:1029 ../src/prefs.c:1054
 msgid "Convert underscore character '_' and string '%20' to space ' '"
 msgstr "Конвертувати символ п╕дкреслення '_' та рядок '%20' на проб╕л ' '"
 
-#: src/prefs.c:1032 src/prefs.c:1056
+#: ../src/prefs.c:1031 ../src/prefs.c:1055
 msgid "Convert space ' ' to underscore '_'"
 msgstr "Конвертувати проб╕л ' ' на п╕дкреслення '_'"
 
-#: src/prefs.c:1044 src/prefs.c:1046
+#: ../src/prefs.c:1043 ../src/prefs.c:1045
 msgid ""
 "If activated, this conversion will be used when applying a mask from the "
 "scanner for tags."
 msgstr ""
 
 #. Character conversion for the 'Rename File' scanner (=> RFS...)
-#: src/prefs.c:1050
+#: ../src/prefs.c:1049
 #, fuzzy
 msgid "Rename File Scanner - Character Conversion"
 msgstr "Таблиця перекодування"
 
-#: src/prefs.c:1067 src/prefs.c:1069 src/prefs.c:1071
+#: ../src/prefs.c:1066 ../src/prefs.c:1068 ../src/prefs.c:1070
 msgid ""
 "If activated, this conversion will be used when applying a mask from the "
 "scanner for filenames."
 msgstr ""
 
 #. Character conversion for the 'Process Fields' scanner (=> PFS...)
-#: src/prefs.c:1074
+#: ../src/prefs.c:1073
 #, fuzzy
 msgid "Process Fields Scanner - Character Conversion"
 msgstr "Таблиця перекодування"
 
 #. Don't convert some words like to, feat. first letter uppercase.
-#: src/prefs.c:1081
+#: ../src/prefs.c:1080
 msgid ""
 "Don't uppercase first letter of words for some prepositions and articles."
 msgstr ""
 
-#: src/prefs.c:1085
+#: ../src/prefs.c:1084
 msgid ""
 "Don't convert first letter of the words like prepositions, articles and "
 "words like feat., when using the scanner 'First letter uppercase of each "
@@ -4359,15 +4393,15 @@ msgid ""
 msgstr ""
 
 #. Properties of the scanner window
-#: src/prefs.c:1091
+#: ../src/prefs.c:1090
 msgid "Scanner Window"
 msgstr "В╕кно сканера"
 
-#: src/prefs.c:1097
+#: ../src/prefs.c:1096
 msgid "Open the Scanner Window on startup"
 msgstr "В╕дкрити в╕кно сканера на початку роботи"
 
-#: src/prefs.c:1100
+#: ../src/prefs.c:1099
 msgid ""
 "Activate this option to open automatically the scanner window when EasyTAG "
 "starts."
@@ -4375,11 +4409,11 @@ msgstr ""
 "Активуйте, щоб в╕кно сканера автоматично в╕дкривалося на початку роботи "
 "EasyTAG."
 
-#: src/prefs.c:1103
+#: ../src/prefs.c:1102
 msgid "Scanner window always on top"
 msgstr "В╕кно сканера завжди зверху"
 
-#: src/prefs.c:1106
+#: ../src/prefs.c:1105
 msgid ""
 "If activated, the window which contains the masks will stay always over the "
 "main window."
@@ -4388,37 +4422,37 @@ msgstr ""
 "в╕кна."
 
 #. Other options
-#: src/prefs.c:1111
+#: ../src/prefs.c:1110
 msgid "Fields"
 msgstr "Поля"
 
 #. Overwrite text into tag fields
-#: src/prefs.c:1118
+#: ../src/prefs.c:1117
 msgid "Overwrite fields when scanning tag"
 msgstr "Перезаписувати поля в процес╕ сканування тег╕в"
 
-#: src/prefs.c:1121
+#: ../src/prefs.c:1120
 msgid ""
 "If activated, the scanner will replace existing text in fields by the new "
 "one. If deactivated, only blank fields of the tag will be filled."
 msgstr ""
 
-#: src/prefs.c:1132
+#: ../src/prefs.c:1131
 msgid "Set this text as default comment :"
 msgstr "Текст як типовий коментар:"
 
-#: src/prefs.c:1135
+#: ../src/prefs.c:1134
 msgid ""
 "Activate this option if you want to put the following string into the "
 "comment field when using the 'Fill Tag' scanner."
 msgstr ""
 
 #. CRC32 comment
-#: src/prefs.c:1152
+#: ../src/prefs.c:1152
 msgid "Use CRC32 as the default comment (for files with ID3 tags only)."
 msgstr ""
 
-#: src/prefs.c:1156
+#: ../src/prefs.c:1156
 msgid ""
 "Calculates the CRC-32 value of the file and writes it into the comment field "
 "when using the 'Fill Tag' scanner."
@@ -4427,45 +4461,46 @@ msgstr ""
 #.
 #. * CDDB
 #.
-#: src/prefs.c:1167 src/prefs.c:1168
+#: ../src/prefs.c:1167 ../src/prefs.c:1168
 msgid "CD Data Base"
 msgstr ""
 
 #. CDDB Server Settings (Automatic Search)
-#: src/prefs.c:1177
+#: ../src/prefs.c:1177
 msgid "Server Settings for Automatic Search"
 msgstr ""
 
-#: src/prefs.c:1186 src/prefs.c:1225 src/prefs.c:1259
+#: ../src/prefs.c:1186 ../src/prefs.c:1225 ../src/prefs.c:1259
 msgid "Name :"
 msgstr "Назва: "
 
-#: src/prefs.c:1205 src/prefs.c:1233 src/prefs.c:1268 src/prefs.c:1356
+#: ../src/prefs.c:1205 ../src/prefs.c:1233 ../src/prefs.c:1268
+#: ../src/prefs.c:1357
 msgid "Port :"
 msgstr "Порт: "
 
-#: src/prefs.c:1215 src/prefs.c:1243 src/prefs.c:1278
+#: ../src/prefs.c:1215 ../src/prefs.c:1243 ../src/prefs.c:1278
 msgid "CGI Path :"
 msgstr "Шлях до CGI: "
 
 #. CDDB Server Settings (Manual Search)
-#: src/prefs.c:1251
+#: ../src/prefs.c:1251
 #, fuzzy
 msgid "Server Settings for Manual Search"
 msgstr "Настройка сервера"
 
 #. Local access for CDDB (Automatic Search)
-#: src/prefs.c:1286
+#: ../src/prefs.c:1286
 #, fuzzy
 msgid "Local CD Data Base"
 msgstr "Пошук в CDDB"
 
-#: src/prefs.c:1294
+#: ../src/prefs.c:1294
 #, fuzzy
 msgid "Path :"
 msgstr "Шлях до CGI: "
 
-#: src/prefs.c:1305
+#: ../src/prefs.c:1306
 msgid ""
 "Specify the directory where are located the local cd data base. The local cd "
 "data base contains the eleven following directories 'blues', 'classical', "
@@ -4474,66 +4509,66 @@ msgid ""
 msgstr ""
 
 #. CDDB Proxy Settings
-#: src/prefs.c:1331
+#: ../src/prefs.c:1332
 msgid "Proxy Settings"
 msgstr "Настройки прокс╕"
 
-#: src/prefs.c:1340
+#: ../src/prefs.c:1341
 msgid "Use a proxy"
 msgstr "Використовувати прокс╕"
 
-#: src/prefs.c:1343
+#: ../src/prefs.c:1344
 msgid "Set active the settings of the proxy server."
 msgstr "Активуйте настройки прокс╕-сервера."
 
-#: src/prefs.c:1348
+#: ../src/prefs.c:1349
 msgid "Host Name :"
 msgstr "Адреса: "
 
-#: src/prefs.c:1355
+#: ../src/prefs.c:1356
 msgid "Name of the proxy server."
 msgstr "╤м'я прокс╕-сервера."
 
-#: src/prefs.c:1363
+#: ../src/prefs.c:1364
 msgid "Port of the proxy server."
 msgstr "Порт прокс╕-сервера."
 
-#: src/prefs.c:1368
+#: ../src/prefs.c:1369
 msgid "User Name :"
 msgstr "╤м'я користувача: "
 
-#: src/prefs.c:1375
+#: ../src/prefs.c:1376
 msgid "Name of user for the the proxy server."
 msgstr "╤м'я користувача для прокс╕-сервера."
 
-#: src/prefs.c:1376
+#: ../src/prefs.c:1377
 msgid "User Password :"
 msgstr "Пароль: "
 
-#: src/prefs.c:1384
+#: ../src/prefs.c:1385
 msgid "Password of user for the the proxy server."
 msgstr "Пароль користувача для прокс╕-сервера."
 
 #. Track Name list (CDDB results)
-#: src/prefs.c:1389
+#: ../src/prefs.c:1390
 #, fuzzy
 msgid "Track Name List"
 msgstr "Назва трека"
 
-#: src/prefs.c:1396
+#: ../src/prefs.c:1397
 msgid ""
 "Select corresponding audio file (according position or DLM if activated "
 "below)"
 msgstr ""
 
-#: src/prefs.c:1400
+#: ../src/prefs.c:1401
 msgid ""
 "If activated, when selecting a line in the list of tracks name, the "
 "corresponding audio file in the main list will be also selected."
 msgstr ""
 
 #. Check box to use DLM (also used in the cddb window)
-#: src/prefs.c:1405
+#: ../src/prefs.c:1406
 msgid ""
 "Use the Levenshtein algorithm (DLM) to match lines (using title) with audio "
 "files (using filename)"
@@ -4542,15 +4577,15 @@ msgstr ""
 #.
 #. * Confirmation
 #.
-#: src/prefs.c:1420 src/prefs.c:1421
+#: ../src/prefs.c:1421 ../src/prefs.c:1422
 msgid "Confirmation"
 msgstr "П╕дтвердження"
 
-#: src/prefs.c:1429
+#: ../src/prefs.c:1430
 msgid "Confirm exit from program"
 msgstr "П╕дтвердження виходу з програми"
 
-#: src/prefs.c:1432
+#: ../src/prefs.c:1433
 msgid ""
 "If activated, opens a dialog box to ask confirmation before exiting the "
 "program."
@@ -4558,23 +4593,23 @@ msgstr ""
 "Коли активовано, вида╓ д╕алогове в╕кно ╕з запитом п╕дтвердження перед "
 "виходом з програми."
 
-#: src/prefs.c:1435
+#: ../src/prefs.c:1436
 msgid "Confirm writing of file tag"
 msgstr "П╕дтвердження запису тегу до файла"
 
-#: src/prefs.c:1439
+#: ../src/prefs.c:1440
 msgid "Confirm renaming of file"
 msgstr "П╕дтвердження перейменування файла"
 
-#: src/prefs.c:1443
+#: ../src/prefs.c:1444
 msgid "Confirm deleting of file"
 msgstr "П╕дтвердження видалення файла"
 
-#: src/prefs.c:1447
+#: ../src/prefs.c:1448
 msgid "Confirm writing of playlist"
 msgstr "П╕дтвердження запису списку в╕дтворення"
 
-#: src/prefs.c:1451
+#: ../src/prefs.c:1452
 msgid "Confirm changing directory when there are unsaved changes"
 msgstr ""
 
@@ -4582,37 +4617,37 @@ msgstr ""
 #. //gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
 #. //g_signal_connect(G_OBJECT(Button),"clicked",G_CALLBACK(OptionsWindow_Apply_Button),NULL);
 #. //GTK_WIDGET_SET_FLAGS(Button, GTK_CAN_DEFAULT);
-#: src/prefs.c:1472
+#: ../src/prefs.c:1473
 msgid "Apply changes (but don't save) and close this window"
 msgstr "Застосувати зм╕ни (але не збер╕гати) та закрити в╕кно"
 
-#: src/prefs.c:1481
+#: ../src/prefs.c:1482
 msgid "Close this window without saving"
 msgstr "Закрити в╕кно без збереження"
 
-#: src/prefs.c:1489
+#: ../src/prefs.c:1490
 msgid "Save changes and close this window"
 msgstr "Зберегти зм╕ни й закрити це в╕кно"
 
 #. For translators : be aware to NOT translate '%.*d' in this string
-#: src/prefs.c:1522
+#: ../src/prefs.c:1523
 #, c-format
 msgid "(Example : %.*d_-_Track_name_1.mp3)"
 msgstr ""
 
-#: src/prefs.c:1678
+#: ../src/prefs.c:1682
 msgid "Changes applied"
 msgstr "Зм╕ни застосован╕"
 
-#: src/prefs.c:1697 src/setting.c:906
+#: ../src/prefs.c:1701 ../src/setting.c:906
 msgid "Configuration saved"
 msgstr "Конф╕гурац╕ю збережено"
 
-#: src/prefs.c:1704
+#: ../src/prefs.c:1708
 msgid "Configuration unchanged"
 msgstr "Конф╕гурац╕ю не зм╕нено"
 
-#: src/prefs.c:1796
+#: ../src/prefs.c:1803
 #, fuzzy, c-format
 msgid ""
 " The selected path for 'Default path to files' isn't valid!\n"
@@ -4623,58 +4658,58 @@ msgstr ""
 "%s\n"
 "(%s)"
 
-#: src/prefs.c:1798
+#: ../src/prefs.c:1805
 msgid "Not a directory"
 msgstr "Це не каталог"
 
-#: src/prefs.c:1914
+#: ../src/prefs.c:1921
 #, c-format
 msgid "The audio file player '%s' can't be found!"
 msgstr ""
 
-#: src/scan.c:180
+#: ../src/scan.c:180
 msgid "Fill Tag"
 msgstr "Заповнити тег"
 
-#: src/scan.c:181
+#: ../src/scan.c:181
 #, fuzzy
 msgid "Rename File and Directory"
 msgstr "Перейменування каталога"
 
-#: src/scan.c:182
+#: ../src/scan.c:182
 msgid "Process Fields"
 msgstr "Обробка пол╕в"
 
-#: src/scan.c:365
+#: ../src/scan.c:365
 msgid "Tag successfully scanned..."
 msgstr "Тег проскановано..."
 
-#: src/scan.c:367
+#: ../src/scan.c:367
 #, fuzzy, c-format
 msgid "Tag successfully scanned...(%s)"
 msgstr "Тег проскановано... (%s)"
 
-#: src/scan.c:407
+#: ../src/scan.c:407
 #, c-format
 msgid ""
 "Tag scanner: strange..., the extension '%s' was not found into filename '%s'!"
 msgstr ""
 
-#: src/scan.c:489 src/scan.c:518
+#: ../src/scan.c:489 ../src/scan.c:518
 #, c-format
 msgid "Scan Error: can't find separator '%s' within '%s'"
 msgstr "Помилка Сканера: не можу знайти розд╕льник '%s' в '%s'"
 
-#: src/scan.c:675
+#: ../src/scan.c:675
 #, c-format
 msgid "Could not convert filename '%s' into system filename encoding."
 msgstr ""
 
-#: src/scan.c:705
+#: ../src/scan.c:705
 msgid "New file name successfully scanned..."
 msgstr "Нове ╕м'я файла проскановано..."
 
-#: src/scan.c:708
+#: ../src/scan.c:708
 #, c-format
 msgid "New file name successfully scanned...(%s)"
 msgstr "Нове ╕м'я файла проскановано... (%s)"
@@ -4682,57 +4717,57 @@ msgstr "Нове ╕м'я файла проскановано... (%s)"
 #. The init position is define below, cause the scanner window must be showed before
 #. * to be able to move it.
 #. Title
-#: src/scan.c:2351
+#: ../src/scan.c:2352
 msgid "Tag and File Name scan"
 msgstr "Сканування тегу та ╕мен╕ файла"
 
 #. Option Menu
-#: src/scan.c:2373
+#: ../src/scan.c:2371
 msgid "Scanner:"
 msgstr "Сканер: "
 
 #. Selection of the item made at the end of the function
-#: src/scan.c:2395
+#: ../src/scan.c:2393
 msgid "Select the type of scanner to use"
 msgstr "Вибер╕ть, який тип сканеру використати"
 
-#: src/scan.c:2404
+#: ../src/scan.c:2402
 #, fuzzy
 msgid "Open scanner window / Scan selected files"
 msgstr "Сканувати вид╕лен╕ файли"
 
-#: src/scan.c:2417
+#: ../src/scan.c:2415
 msgid "Scanner Options"
 msgstr "Параметри Сканера"
 
-#: src/scan.c:2426
+#: ../src/scan.c:2424
 msgid "Show / Hide Masks Editor"
 msgstr "Показати/сховати редактор масок"
 
-#: src/scan.c:2436
+#: ../src/scan.c:2434
 msgid "Show / Hide Legend"
 msgstr "Показати/сховати легенду"
 
-#: src/scan.c:2446
+#: ../src/scan.c:2444
 msgid "Close this window"
 msgstr "Закрити в╕кно"
 
-#: src/scan.c:2474
+#: ../src/scan.c:2472
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse file name and "
 "path. Used to fill in tag fields."
 msgstr ""
 
 #. Preview label
-#: src/scan.c:2500
+#: ../src/scan.c:2498
 msgid "Fill tag preview..."
 msgstr "Попередн╕й перегляд..."
 
-#: src/scan.c:2527
+#: ../src/scan.c:2525
 msgid "Prefix mask with current path"
 msgstr ""
 
-#: src/scan.c:2540
+#: ../src/scan.c:2538
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse tag fields. Used "
 "to rename the file.\n"
@@ -4741,232 +4776,232 @@ msgid ""
 msgstr ""
 
 #. Preview label
-#: src/scan.c:2567
+#: ../src/scan.c:2565
 msgid "Rename file preview..."
 msgstr "Попередн╕й вигляд: Перейменування файла..."
 
-#: src/scan.c:2587
+#: ../src/scan.c:2585
 msgid "Select fields:"
 msgstr "Вибер╕ть поля:"
 
-#: src/scan.c:2590
+#: ../src/scan.c:2588
 msgid ""
 "The buttons on the right represent the fields which can be processed. Select "
 "those who interest you."
 msgstr ""
 
 #. Advice for Translators : set the first letter of filename translated
-#: src/scan.c:2593
+#: ../src/scan.c:2591
 msgid "F"
 msgstr "Ф"
 
-#: src/scan.c:2594
+#: ../src/scan.c:2592
 msgid "Process file name field"
 msgstr "Оброблювати поле ╕мен╕ файла"
 
 #. Advice for Translators : set the first letter of title translated
-#: src/scan.c:2596
+#: ../src/scan.c:2594
 msgid "T"
 msgstr "З"
 
-#: src/scan.c:2597
+#: ../src/scan.c:2595
 msgid "Process title field"
 msgstr "Оброблювати поле заголовку"
 
 #. Advice for Translators : set the first letter of artist translated
-#: src/scan.c:2599
+#: ../src/scan.c:2597
 msgid "Ar"
 msgstr "В"
 
-#: src/scan.c:2600
+#: ../src/scan.c:2598
 msgid "Process file artist field"
 msgstr "Оброблювати поле виконавця"
 
 #. Advice for Translators : set the first letter of album artist translated
-#: src/scan.c:2602
+#: ../src/scan.c:2600
 msgid "AA"
 msgstr ""
 
-#: src/scan.c:2603
+#: ../src/scan.c:2601
 #, fuzzy
 msgid "Process album artist field"
 msgstr "Оброблювати поле виконавця"
 
 #. Advice for Translators : set the first letter of album translated
-#: src/scan.c:2605
+#: ../src/scan.c:2603
 msgid "Al"
 msgstr "А"
 
-#: src/scan.c:2606
+#: ../src/scan.c:2604
 msgid "Process album field"
 msgstr "Оброблювати поле альбому"
 
 #. Advice for Translators : set the first letter of genre translated
-#: src/scan.c:2608
+#: ../src/scan.c:2606
 msgid "G"
 msgstr "Гб"
 
-#: src/scan.c:2609
+#: ../src/scan.c:2607
 msgid "Process genre field"
 msgstr "Оброблювати поле жанру"
 
 #. Advice for Translators : set the first letter of comment translated
-#: src/scan.c:2611
+#: ../src/scan.c:2609
 #, fuzzy
 msgid "Cm"
 msgstr "К"
 
-#: src/scan.c:2612
+#: ../src/scan.c:2610
 msgid "Process comment field"
 msgstr "Оброблювати поле коментаря"
 
 #. Advice for Translators : set the first letter of composer translated
-#: src/scan.c:2614
+#: ../src/scan.c:2612
 #, fuzzy
 msgid "Cp"
 msgstr "К"
 
-#: src/scan.c:2615
+#: ../src/scan.c:2613
 #, fuzzy
 msgid "Process composer field"
 msgstr "Оброблювати поле коментаря"
 
 #. Advice for Translators : set the first letter of orig artist translated
-#: src/scan.c:2617
+#: ../src/scan.c:2615
 msgid "O"
 msgstr ""
 
-#: src/scan.c:2618
+#: ../src/scan.c:2616
 #, fuzzy
 msgid "Process original artist field"
 msgstr "Оброблювати поле виконавця"
 
 #. Advice for Translators : set the first letter of copyright translated
-#: src/scan.c:2620
+#: ../src/scan.c:2618
 #, fuzzy
 msgid "Cr"
 msgstr "К"
 
-#: src/scan.c:2621
+#: ../src/scan.c:2619
 #, fuzzy
 msgid "Process copyright field"
 msgstr "Оброблювати поле коментаря"
 
 #. Advice for Translators : set the first letter of URL translated
-#: src/scan.c:2623
+#: ../src/scan.c:2621
 msgid "U"
 msgstr ""
 
-#: src/scan.c:2624
+#: ../src/scan.c:2622
 #, fuzzy
 msgid "Process URL field"
 msgstr "Оброблювати поле заголовку"
 
 #. Advice for Translators : set the first letter of encoder name translated
-#: src/scan.c:2626
+#: ../src/scan.c:2624
 msgid "E"
 msgstr ""
 
-#: src/scan.c:2627
+#: ../src/scan.c:2625
 #, fuzzy
 msgid "Process encoder name field"
 msgstr "Оброблювати поле ╕мен╕ файла"
 
-#: src/scan.c:2676
+#: ../src/scan.c:2674
 msgid "Invert Selection"
 msgstr "╤нвертувати виб╕рку"
 
-#: src/scan.c:2685
+#: ../src/scan.c:2683
 msgid "Select/Unselect All."
 msgstr "Вибрати/Скасувати виб╕рку."
 
 #. Group: character conversion
-#: src/scan.c:2692
+#: ../src/scan.c:2690
 msgid "Convert '_' and '%20' to ' '"
 msgstr "Конвертувати '_'та '%20' на ' '"
 
-#: src/scan.c:2698
+#: ../src/scan.c:2696
 #, fuzzy
 msgid "Convert:"
 msgstr "Порт: "
 
-#: src/scan.c:2700
+#: ../src/scan.c:2698
 #, fuzzy
 msgid "to: "
 msgstr "в: "
 
-#: src/scan.c:2729
+#: ../src/scan.c:2727
 msgid ""
 "The underscore character or the string '%20' are replaced by one space. "
 "Example, before: 'Text%20In%20An_Entry', after: 'Text In An Entry'."
 msgstr ""
 
-#: src/scan.c:2732
+#: ../src/scan.c:2730
 msgid ""
 "The space character is replaced by one underscore character. Example, "
 "before: 'Text In An Entry', after: 'Text_In_An_Entry'."
 msgstr ""
 
-#: src/scan.c:2735
+#: ../src/scan.c:2733
 msgid ""
 "Replace a string by an other one. Note that the search is case sensitive."
 msgstr ""
 
-#: src/scan.c:2748
+#: ../src/scan.c:2746
 msgid "Detect Roman numerals"
 msgstr ""
 
-#: src/scan.c:2775
+#: ../src/scan.c:2773
 msgid ""
 "Convert all words in all fields to upper case. Example, before: 'Text IN AN "
 "entry', after: 'TEXT IN AN ENTRY'."
 msgstr ""
 
-#: src/scan.c:2778
+#: ../src/scan.c:2776
 msgid ""
 "Convert all words in all fields to lower case. Example, before: 'TEXT IN an "
 "entry', after: 'text in an entry'."
 msgstr ""
 
-#: src/scan.c:2781
+#: ../src/scan.c:2779
 msgid ""
 "Convert the initial of the first word in all fields to upper case. Example, "
 "before: 'text IN An ENTRY', after: 'Text in an entry'."
 msgstr ""
 
-#: src/scan.c:2784
+#: ../src/scan.c:2782
 msgid ""
 "Convert the initial of each word in all fields to upper case. Example, "
 "before: 'Text in an ENTRY', after: 'Text In An Entry'."
 msgstr ""
 
-#: src/scan.c:2787
+#: ../src/scan.c:2785
 msgid ""
 "Force to convert to upper case the Roman numerals. Example, before: 'ix. "
 "text in an entry', after: 'IX. Text In An Entry'."
 msgstr ""
 
-#: src/scan.c:2796
+#: ../src/scan.c:2794
 msgid "Insert a space before an uppercase letter"
 msgstr "Вставити пропуск перед Великою л╕терою"
 
-#: src/scan.c:2797
+#: ../src/scan.c:2795
 msgid "Remove duplicates of space or underscore"
 msgstr "Видалити дубльован╕ проб╕ли та п╕дкреслення"
 
-#: src/scan.c:2815
+#: ../src/scan.c:2813
 msgid ""
 "All spaces between words are removed. Example, before: 'Text In An Entry', "
 "after: 'TextInAnEntry'."
 msgstr ""
 
-#: src/scan.c:2818
+#: ../src/scan.c:2816
 msgid ""
 "A space is inserted before each upper case letter. Example, before: "
 "'TextInAnEntry', after: 'Text In An Entry'."
 msgstr ""
 
-#: src/scan.c:2821
+#: ../src/scan.c:2819
 msgid ""
 "Duplicated spaces or underscores are removed. Example, before: "
 "'Text__In__An   Entry', after: 'Text_In_An Entry'."
@@ -4975,234 +5010,235 @@ msgstr ""
 #.
 #. * Frame to display codes legend
 #.
-#: src/scan.c:2828
+#: ../src/scan.c:2826
 msgid "Legend"
 msgstr "Легенда"
 
-#: src/scan.c:2834
+#: ../src/scan.c:2832
 #, c-format
 msgid "%a : artist"
 msgstr "%a : виконавець"
 
-#: src/scan.c:2837
+#: ../src/scan.c:2835
 #, fuzzy
 msgid "%z : album artist"
 msgstr "%a : виконавець"
 
-#: src/scan.c:2840
+#: ../src/scan.c:2838
 msgid "%b : album"
 msgstr "%b : альбом"
 
-#: src/scan.c:2843
+#: ../src/scan.c:2841
 #, c-format
 msgid "%c : comment"
 msgstr "%c : коментар"
 
-#: src/scan.c:2846
+#: ../src/scan.c:2844
 #, fuzzy, c-format
 msgid "%p : composer"
 msgstr "%c : коментар"
 
-#: src/scan.c:2849
+#: ../src/scan.c:2847
 msgid "%r : copyright"
 msgstr ""
 
-#: src/scan.c:2852
+#: ../src/scan.c:2850
 #, c-format
 msgid "%d : disc number"
 msgstr ""
 
-#: src/scan.c:2855
+#: ../src/scan.c:2853
 #, fuzzy, c-format
 msgid "%e : encoded by"
 msgstr "Кодувальник:"
 
-#: src/scan.c:2858
+#: ../src/scan.c:2856
 #, c-format
 msgid "%g : genre"
 msgstr "%g : стиль"
 
-#: src/scan.c:2861
+#: ../src/scan.c:2859
 #, c-format
 msgid "%i : ignored"
 msgstr "%i : ╕гнору╓ться"
 
-#: src/scan.c:2864
+#: ../src/scan.c:2862
 msgid "%l : number of tracks"
 msgstr "%l : к╕льк╕сть трек╕в"
 
-#: src/scan.c:2867
+#: ../src/scan.c:2865
 #, fuzzy, c-format
 msgid "%o : orig. artist"
 msgstr "%a : виконавець"
 
-#: src/scan.c:2870
+#: ../src/scan.c:2868
 #, c-format
 msgid "%n : track"
 msgstr "%n : трек"
 
-#: src/scan.c:2873
+#: ../src/scan.c:2871
 msgid "%t : title"
 msgstr "%t : назва"
 
-#: src/scan.c:2876
+#: ../src/scan.c:2874
 #, c-format
 msgid "%u : URL"
 msgstr ""
 
-#: src/scan.c:2879
+#: ../src/scan.c:2877
 msgid "%y : year"
 msgstr "%y : р╕к"
 
 #.
 #. * Masks Editor
 #.
-#: src/scan.c:2886
+#: ../src/scan.c:2884
 msgid "Mask Editor"
 msgstr "Редактор масок"
 
-#: src/scan.c:2943
+#: ../src/scan.c:2941
 msgid "Create New Mask"
 msgstr "Створити нову маску"
 
-#: src/scan.c:2953
+#: ../src/scan.c:2951
 msgid "Move Up this Mask"
 msgstr "П╕дняти на одну позиц╕ю"
 
-#: src/scan.c:2963
+#: ../src/scan.c:2961
 msgid "Move Down this Mask"
 msgstr "Опустити на одну позиц╕ю"
 
-#: src/scan.c:2973
+#: ../src/scan.c:2971
 msgid "Duplicate Mask"
 msgstr "Дублювати маску"
 
-#: src/scan.c:2983
+#: ../src/scan.c:2981
 msgid "Add Default Masks"
 msgstr "Додати типову"
 
-#: src/scan.c:2993
+#: ../src/scan.c:2991
 msgid "Remove Mask"
 msgstr "Видалити маску"
 
-#: src/scan.c:3003
+#: ../src/scan.c:3001
 msgid "Save Masks"
 msgstr "Зберегти маски"
 
-#: src/scan.c:3594
+#: ../src/scan.c:3594
 msgid "New_mask"
 msgstr "Нова_Маску"
 
-#: src/scan.c:3632
+#: ../src/scan.c:3632
 msgid "Copy: No row selected!"
 msgstr "Коп╕ювати: не вибрано рядок!"
 
-#: src/scan.c:3738
+#: ../src/scan.c:3738
 msgid "Remove: No row selected!"
 msgstr "Видалити: не вибрано рядок!"
 
-#: src/scan.c:3785
+#: ../src/scan.c:3785
 msgid "Move Up: No row selected!"
 msgstr "Зм╕стити вгору: не вибрано рядок!"
 
-#: src/scan.c:3838
+#: ../src/scan.c:3838
 msgid "Move Down: No row selected!"
 msgstr "Зм╕стити вниз: не вибрано рядок!"
 
-#: src/setting.c:933
+#: ../src/setting.c:933
 #, fuzzy, c-format
 msgid "ERROR: Can't write config file: %s (%s)"
 msgstr "ПОМИЛКА: Не можу записати файл параметр╕в: %s (%s)"
 
-#: src/setting.c:1082 src/setting.c:1125
+#: ../src/setting.c:1082 ../src/setting.c:1125
 #, c-format
 msgid "Can't open configuration file '%s' (%s)"
 msgstr "Не можу в╕дкрити файл параметр╕в '%s' (%s)"
 
-#: src/setting.c:1083
+#: ../src/setting.c:1083
 msgid "Loading default configuration..."
 msgstr "Завантаження типових параметр╕в..."
 
-#: src/setting.c:1196 src/setting.c:1203 src/setting.c:1210 src/setting.c:1217
-#: src/setting.c:1224 src/setting.c:1231 src/setting.c:1238 src/setting.c:1245
-#: src/setting.c:1252 src/setting.c:1259 src/setting.c:1266 src/setting.c:1273
-#: src/setting.c:1280 src/setting.c:1287 src/setting.c:1294 src/setting.c:1301
-#: src/setting.c:1308
+#: ../src/setting.c:1196 ../src/setting.c:1203 ../src/setting.c:1210
+#: ../src/setting.c:1217 ../src/setting.c:1224 ../src/setting.c:1231
+#: ../src/setting.c:1238 ../src/setting.c:1245 ../src/setting.c:1252
+#: ../src/setting.c:1259 ../src/setting.c:1266 ../src/setting.c:1273
+#: ../src/setting.c:1280 ../src/setting.c:1287 ../src/setting.c:1294
+#: ../src/setting.c:1301 ../src/setting.c:1308
 #, fuzzy, c-format
 msgid "Can't create or open file '%s' (%s)"
 msgstr "Не можу в╕дкрити файл '%s' (%s)"
 
-#: src/setting.c:1347
+#: ../src/setting.c:1347
 #, fuzzy, c-format
 msgid "ERROR: Can't write list to file: %s (%s)"
 msgstr "ПОМИЛКА: Не можу записати список у файл: %s (%s)"
 
 #. Fall back to defaults
-#: src/setting.c:1435
+#: ../src/setting.c:1435
 msgid "Loading default 'Fill Tag' masks..."
 msgstr "Завантаження типово╖ маски 'Заповнити Теги'..."
 
 #. Fall back to defaults
-#: src/setting.c:1463
+#: ../src/setting.c:1463
 msgid "Loading default 'Rename File' masks..."
 msgstr "Завантаження типово╖ маски 'Перейменувати файли'..."
 
 #. Fall back to defaults
-#: src/setting.c:1490
+#: ../src/setting.c:1490
 #, fuzzy
 msgid "Loading default 'Rename Directory' masks..."
 msgstr "Завантаження типово╖ маски 'Перейменувати файли'..."
 
-#: src/setting.c:1684
+#: ../src/setting.c:1684
 #, fuzzy
 msgid "ERROR: The environment variable HOME is not defined!"
 msgstr ""
 "ПОМИЛКА: зм╕нна HOME не визначена!\n"
 "\n"
 
-#: src/setting.c:1705
+#: ../src/setting.c:1705
 #, c-format
 msgid "ERROR: Can't create directory '%s' (%s)!"
 msgstr "ПОМИЛКА: Не можу створити каталог '%s' (%s)!"
 
-#: src/vcedit.c:287
+#: ../src/vcedit.c:287
 msgid "Input truncated or empty."
 msgstr "Вх╕дн╕ дан╕ обр╕зан╕ або порожн╕."
 
-#: src/vcedit.c:289
+#: ../src/vcedit.c:289
 msgid "Input is not an Ogg bitstream."
 msgstr "Вх╕дн╕ дан╕ не ╓ потоком Ogg."
 
-#: src/vcedit.c:307
+#: ../src/vcedit.c:307
 msgid "Error reading first page of Ogg bitstream."
 msgstr "Помилка читання першо╖ стор╕нки потоку Ogg."
 
-#: src/vcedit.c:313
+#: ../src/vcedit.c:313
 msgid "Error reading initial header packet."
 msgstr "Помилка читання початкового заголовку."
 
-#: src/vcedit.c:341
+#: ../src/vcedit.c:341
 #, fuzzy
 msgid "Ogg bitstream contains neither speex or vorbis data."
 msgstr "Пот╕к Ogg не м╕стить даних vorbis."
 
-#: src/vcedit.c:375
+#: ../src/vcedit.c:375
 msgid "Corrupt secondary header."
 msgstr "Другий заголовок пошкоджено."
 
-#: src/vcedit.c:405
+#: ../src/vcedit.c:405
 msgid "Need to save extra headers - TODO!!"
 msgstr ""
 
-#: src/vcedit.c:419
+#: ../src/vcedit.c:419
 msgid "EOF before end of vorbis headers."
 msgstr "К╕нець файла перед к╕нцем заголовка vorbis."
 
-#: src/vcedit.c:584
+#: ../src/vcedit.c:584
 msgid "Corrupt or missing data, continuing..."
 msgstr "Дан╕ в╕дсутн╕ або пошкоджен╕, продовжу╓мо..."
 
-#: src/vcedit.c:621
+#: ../src/vcedit.c:621
 msgid ""
 "Error writing stream to output. Output stream may be corrupted or truncated."
 msgstr ""
@@ -5210,58 +5246,59 @@ msgstr ""
 "обр╕заним."
 
 #. Log_Print(_("DLL '%s' not already loaded. Try loading it..."), dllname);
-#: src/win32/win32dep.c:122
+#: ../src/win32/win32dep.c:122
 #, c-format
 msgid "DLL '%s' not already loaded. Try loading it..."
 msgstr ""
 
 #. Log_Print(_("DLL '%s' could not be loaded"), dllname);
-#: src/win32/win32dep.c:126
+#: ../src/win32/win32dep.c:126
 #, c-format
 msgid "DLL '%s' could not be loaded"
 msgstr ""
 
 #. Log_Print(_("This version of '%s' contains '%s'"), dllname, procedure);
-#: src/win32/win32dep.c:136
+#: ../src/win32/win32dep.c:136
 #, c-format
 msgid "This version of '%s' contains '%s'"
 msgstr ""
 
 #. Log_Print(_("Function '%s' not found in dll '%s'"), procedure, dllname);
-#: src/win32/win32dep.c:142
+#: ../src/win32/win32dep.c:142
 #, c-format
 msgid "Function '%s' not found in dll '%s'"
 msgstr ""
 
 #. ET_Win32_Path_Replace_Backslashes(app_data_dir);
 #. Log_Print(_("EasyTAG settings dir: '%s'"), app_data_dir);
-#: src/win32/win32dep.c:278
+#: ../src/win32/win32dep.c:278
 #, c-format
 msgid "EasyTAG settings dir: '%s'"
 msgstr ""
 
 #. Log_Print(_("weasytag_init start..."));
-#: src/win32/win32dep.c:469
-#, fuzzy
+#: ../src/win32/win32dep.c:469
+#, fuzzy, c-format
 msgid "weasytag_init start..."
 msgstr "Готовий до роботи..."
 
 #. Log_Print(_("EasyTAG version: %s"),VERSION);
 #. g_print(_("EasyTAG version: %s"),VERSION);
 #. g_print("\n");
-#: src/win32/win32dep.c:475
+#: ../src/win32/win32dep.c:475
 #, c-format
 msgid "Glib version: %u.%u.%u\n"
 msgstr ""
 
 #. Set Environmental Variables
 #. Log_Print(_("weasytag_init end..."));
-#: src/win32/win32dep.c:493
+#: ../src/win32/win32dep.c:493
+#, c-format
 msgid "weasytag_init end..."
 msgstr ""
 
 #. Log_Print(_("Audio player: '%s'"), player);
-#: src/win32/win32dep.c:614
+#: ../src/win32/win32dep.c:614
 #, fuzzy, c-format
 msgid "Audio player: '%s'"
 msgstr "Завантажити програвач"
