@@ -3662,7 +3662,7 @@ void Browser_Open_Rename_Directory_Window (void)
 
     if (RenameDirectoryWindow != NULL)
     {
-        gdk_window_raise(RenameDirectoryWindow->window);
+        gtk_window_present(GTK_WINDOW(RenameDirectoryWindow));
         return;
     }
 
@@ -4151,7 +4151,7 @@ void Browser_Open_Run_Program_Tree_Window (void)
 
     if (RunProgramTreeWindow != NULL)
     {
-        gdk_window_raise(RunProgramTreeWindow->window);
+        gtk_window_present(GTK_WINDOW(RunProgramTreeWindow));
         return;
     }
 
@@ -4314,7 +4314,7 @@ void Browser_Open_Run_Program_List_Window (void)
 
     if (RunProgramListWindow != NULL)
     {
-        gdk_window_raise(RunProgramListWindow->window);
+        gtk_window_present(GTK_WINDOW(RunProgramListWindow));
         return;
     }
 

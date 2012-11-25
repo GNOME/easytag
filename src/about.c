@@ -249,7 +249,7 @@ void Show_About_Window (void)
     /* Check if already opened */
     if (AboutWindow)
     {
-        gdk_window_raise(AboutWindow->window);
+        gtk_window_present(GTK_WINDOW(AboutWindow));
         return;
     }
 

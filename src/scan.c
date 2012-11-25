@@ -2324,7 +2324,7 @@ void Open_ScannerWindow (gint scanner_type)
     if (ScannerWindow)
     {
         //gdk_window_show(ScannerWindow->window);
-        gdk_window_raise(ScannerWindow->window);
+        gtk_window_present(GTK_WINDOW(ScannerWindow));
         if (ScannerOptionCombo)
         {
             gtk_combo_box_set_active(GTK_COMBO_BOX(ScannerOptionCombo), scanner_type);
@@ -3124,15 +3124,17 @@ void ScannerWindow_Apply_Changes (void)
     if (ScannerWindow)
     {
         gint x, y;//, width, height;
+        GdkWindow *window;
 
-        if ( ScannerWindow->window!=NULL && gdk_window_is_visible(ScannerWindow->window)
-        &&   gdk_window_get_state(ScannerWindow->window)!=GDK_WINDOW_STATE_MAXIMIZED )
+        window = gtk_widget_get_window(ScannerWindow);
+
+        if ( window && gdk_window_is_visible(window) && gdk_window_get_state(window)!=GDK_WINDOW_STATE_MAXIMIZED )
         {
             // Position and Origin of the scanner window
-            gdk_window_get_root_origin(ScannerWindow->window,&x,&y);
+            gdk_window_get_root_origin(window,&x,&y);
             SCANNER_WINDOW_X = x;
             SCANNER_WINDOW_Y = y;
-            //gdk_window_get_size(ScannerWindow->window,&width,&height);
+            //gdk_window_get_size(window,&width,&height);
             //SCANNER_WINDOW_WIDTH  = width;
             //SCANNER_WINDOW_HEIGHT = height;
         }
@@ -4077,6 +4079,6 @@ void Scan_Set_Scanner_Window_Init_Position (void)
     if (ScannerWindow && SET_SCANNER_WINDOW_POSITION)
     {
         gtk_widget_realize(ScannerWindow);
-        gdk_window_move(ScannerWindow->window,SCANNER_WINDOW_X,SCANNER_WINDOW_Y);
+        gdk_window_move(gtk_widget_get_window(ScannerWindow),SCANNER_WINDOW_X,SCANNER_WINDOW_Y);
     }
 }

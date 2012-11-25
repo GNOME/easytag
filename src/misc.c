@@ -579,13 +579,13 @@ void Set_Busy_Cursor (void)
     Destroy_Mouse_Cursor();
     /* Create the new cursor */
     MouseCursor = gdk_cursor_new(GDK_WATCH);
-    gdk_window_set_cursor(MainWindow->window,MouseCursor);
+    gdk_window_set_cursor(gtk_widget_get_window(MainWindow),MouseCursor);
 }
 
 void Set_Unbusy_Cursor (void)
 {
     /* Back to standard cursor */
-    gdk_window_set_cursor(MainWindow->window,NULL);
+    gdk_window_set_cursor(gtk_widget_get_window(MainWindow),NULL);
     Destroy_Mouse_Cursor();
 }
 
@@ -1232,7 +1232,7 @@ void Open_Write_Playlist_Window (void)
 
     if (WritePlaylistWindow != NULL)
     {
-        gdk_window_raise(WritePlaylistWindow->window);
+        gtk_window_present(GTK_WINDOW(WritePlaylistWindow));
         return;
     }
 
@@ -1432,7 +1432,7 @@ void Open_Write_Playlist_Window (void)
 
     gtk_widget_show_all(WritePlaylistWindow);
     if (PLAYLIST_WINDOW_X > 0 && PLAYLIST_WINDOW_Y > 0)
-        gdk_window_move(WritePlaylistWindow->window,PLAYLIST_WINDOW_X,PLAYLIST_WINDOW_Y);
+        gdk_window_move(gtk_widget_get_window(WritePlaylistWindow),PLAYLIST_WINDOW_X,PLAYLIST_WINDOW_Y);
 
     /* To initialize the mask status icon and visibility */
     g_signal_emit_by_name(G_OBJECT(GTK_BIN(PlayListNameMaskCombo)->child),"changed");
@@ -1458,16 +1458,18 @@ void Write_Playlist_Window_Apply_Changes (void)
     if (WritePlaylistWindow)
     {
         gint x, y, width, height;
+        GdkWindow *window;
 
-        if ( WritePlaylistWindow->window && gdk_window_is_visible(WritePlaylistWindow->window)
-        &&   gdk_window_get_state(WritePlaylistWindow->window)!=GDK_WINDOW_STATE_MAXIMIZED )
+        window = gtk_widget_get_window (WritePlaylistWindow);
+
+        if ( window && gdk_window_is_visible(window) && gdk_window_get_state(window)!=GDK_WINDOW_STATE_MAXIMIZED )
         {
             // Position and Origin of the window
-            gdk_window_get_root_origin(WritePlaylistWindow->window,&x,&y);
+            gdk_window_get_root_origin(window,&x,&y);
             PLAYLIST_WINDOW_X = x;
             PLAYLIST_WINDOW_Y = y;
-	    width = gdk_window_get_width(WritePlaylistWindow->window);
-	    height = gdk_window_get_height(WritePlaylistWindow->window);
+            width = gdk_window_get_width(window);
+            height = gdk_window_get_height(window);
             PLAYLIST_WINDOW_WIDTH  = width;
             PLAYLIST_WINDOW_HEIGHT = height;
         }
@@ -1934,7 +1936,7 @@ void Open_Search_File_Window (void)
 
     if (SearchFileWindow != NULL)
     {
-        gdk_window_raise(SearchFileWindow->window);
+        gtk_window_present(GTK_WINDOW(SearchFileWindow));
         return;
     }
 
@@ -2227,7 +2229,7 @@ void Open_Search_File_Window (void)
     gtk_widget_show_all(SearchFileWindow);
 
     if (SET_SEARCH_WINDOW_POSITION)
-        gdk_window_move(SearchFileWindow->window, SEARCH_WINDOW_X, SEARCH_WINDOW_Y);
+        gdk_window_move(gtk_widget_get_window(SearchFileWindow), SEARCH_WINDOW_X, SEARCH_WINDOW_Y);
     //else
     //    gtk_window_set_position(GTK_WINDOW(SearchFileWindow), GTK_WIN_POS_CENTER_ON_PARENT); // Must use gtk_window_set_transient_for to work
 }
@@ -2254,16 +2256,18 @@ void Search_File_Window_Apply_Changes (void)
     if (SearchFileWindow)
     {
         gint x, y, width, height;
+        GdkWindow *window;
 
-        if ( SearchFileWindow->window!=NULL && gdk_window_is_visible(SearchFileWindow->window)
-        &&   gdk_window_get_state(SearchFileWindow->window)!=GDK_WINDOW_STATE_MAXIMIZED )
+        window = gtk_widget_get_window(SearchFileWindow);
+
+        if ( window && gdk_window_is_visible(window) && gdk_window_get_state(window)!=GDK_WINDOW_STATE_MAXIMIZED )
         {
             // Position and Origin of the scanner window
-            gdk_window_get_root_origin(SearchFileWindow->window,&x,&y);
+            gdk_window_get_root_origin(window,&x,&y);
             SEARCH_WINDOW_X = x;
             SEARCH_WINDOW_Y = y;
-	    width = gdk_window_get_width(WritePlaylistWindow->window);
-	    height = gdk_window_get_height(WritePlaylistWindow->window);
+            width = gdk_window_get_width(window);
+            height = gdk_window_get_height(window);
             SEARCH_WINDOW_WIDTH  = width;
             SEARCH_WINDOW_HEIGHT = height;
         }
@@ -2718,7 +2722,7 @@ void Open_Load_Filename_Window (void)
 
     if (LoadFilenameWindow != NULL)
     {
-        gdk_window_raise(LoadFilenameWindow->window);
+        gtk_window_present(GTK_WINDOW(LoadFilenameWindow));
         return;
     }
 
@@ -3030,7 +3034,7 @@ void Open_Load_Filename_Window (void)
 
     gtk_widget_show_all(LoadFilenameWindow);
     if (LOAD_FILE_WINDOW_X > 0 && LOAD_FILE_WINDOW_Y > 0)
-        gdk_window_move(LoadFilenameWindow->window,LOAD_FILE_WINDOW_X,LOAD_FILE_WINDOW_Y);
+        gdk_window_move(gtk_widget_get_window(LoadFilenameWindow),LOAD_FILE_WINDOW_X,LOAD_FILE_WINDOW_Y);
 }
 
 void Destroy_Load_Filename_Window (void)
@@ -3055,16 +3059,18 @@ void Load_Filename_Window_Apply_Changes (void)
     if (LoadFilenameWindow)
     {
         gint x, y, width, height;
+        GdkWindow *window;
 
-        if ( LoadFilenameWindow->window && gdk_window_is_visible(LoadFilenameWindow->window)
-        &&   gdk_window_get_state(LoadFilenameWindow->window)!=GDK_WINDOW_STATE_MAXIMIZED )
+        window = gtk_widget_get_window (LoadFilenameWindow);
+
+        if ( window && gdk_window_is_visible(window) && gdk_window_get_state(window)!=GDK_WINDOW_STATE_MAXIMIZED )
         {
             // Position and Origin of the window
-            gdk_window_get_root_origin(LoadFilenameWindow->window,&x,&y);
+            gdk_window_get_root_origin(window,&x,&y);
             LOAD_FILE_WINDOW_X = x;
             LOAD_FILE_WINDOW_Y = y;
-	    width = gdk_window_get_width(WritePlaylistWindow->window);
-	    height = gdk_window_get_height(WritePlaylistWindow->window);
+            width = gdk_window_get_width(window);
+            height = gdk_window_get_height(window);
             LOAD_FILE_WINDOW_WIDTH  = width;
             LOAD_FILE_WINDOW_HEIGHT = height;
         }

@@ -228,10 +228,11 @@ void Open_Cddb_Window (void)
     gchar *CddbTrackList_Titles[] = { "#", N_("Track Name"), N_("Time")};
     GtkCellRenderer* renderer;
     GtkTreeViewColumn* column;
+    GtkAllocation allocation = { 0,0,0,0 };
 
     if (CddbWindow != NULL)
     {
-        gdk_window_raise(CddbWindow->window);
+        gtk_window_present(GTK_WINDOW(CddbWindow));
         return;
     }
     CddbWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -805,10 +806,11 @@ void Open_Cddb_Window (void)
     if (SET_CDDB_WINDOW_POSITION
     && CDDB_WINDOW_X > 0 && CDDB_WINDOW_Y > 0)
     {
-        gdk_window_move(CddbWindow->window,CDDB_WINDOW_X,CDDB_WINDOW_Y);
+        gtk_window_move(GTK_WINDOW(CddbWindow),CDDB_WINDOW_X,CDDB_WINDOW_Y);
     }
     // Force resize window
-    gtk_widget_set_size_request(GTK_WIDGET(CddbSearchInAllFields), CddbSearchInAllCategories->allocation.width, -1);
+    gtk_widget_get_allocation(GTK_WIDGET(CddbSearchInAllCategories), &allocation);
+    gtk_widget_set_size_request(GTK_WIDGET(CddbSearchInAllFields), allocation.width, -1);
     g_signal_emit_by_name(G_OBJECT(CddbShowCategoriesButton),"toggled");
 
     g_signal_connect(G_OBJECT(CddbNoteBook),"switch-page",G_CALLBACK(Cddb_Notebook_Switch_Page),NULL);
@@ -852,16 +854,18 @@ void Cddb_Window_Apply_Changes (void)
     if (CddbWindow)
     {
         gint x, y, width, height;
+        GdkWindow *window;
 
-        if ( CddbWindow->window && gdk_window_is_visible(CddbWindow->window)
-        &&   gdk_window_get_state(CddbWindow->window)!=GDK_WINDOW_STATE_MAXIMIZED )
+        gtk_widget_get_window(CddbWindow);
+
+        if ( window && gdk_window_is_visible(window) && gdk_window_get_state(window)!=GDK_WINDOW_STATE_MAXIMIZED )
         {
             // Position and Origin of the window
-            gdk_window_get_root_origin(CddbWindow->window,&x,&y);
+            gdk_window_get_root_origin(window,&x,&y);
             CDDB_WINDOW_X = x;
             CDDB_WINDOW_Y = y;
-	    width = gdk_window_get_width(CddbWindow->window);
-	    height = gdk_window_get_height(CddbWindow->window);
+            width = gdk_window_get_width(window);
+            height = gdk_window_get_height(window);
             CDDB_WINDOW_WIDTH  = width;
             CDDB_WINDOW_HEIGHT = height;
 

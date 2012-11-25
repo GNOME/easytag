@@ -410,7 +410,7 @@ int main (int argc, char *argv[])
     gtk_widget_show(MainWindow);
 
     if (SET_MAIN_WINDOW_POSITION)
-        gdk_window_move(MainWindow->window, MAIN_WINDOW_X, MAIN_WINDOW_Y);
+        gdk_window_move(gtk_widget_get_window(MainWindow), MAIN_WINDOW_X, MAIN_WINDOW_Y);
 
     /* Load the default dir when the UI is created and displayed
      * to the screen and open also the scanner window */
@@ -4991,17 +4991,22 @@ void Quit_MainWindow (void)
  */
 void MainWindow_Apply_Changes (void)
 {
-    if ( MainWindow && MainWindow->window && gdk_window_is_visible(MainWindow->window)
-    &&   gdk_window_get_state(MainWindow->window)!=GDK_WINDOW_STATE_MAXIMIZED )
+    GdkWindow *window;
+
+    g_return_if_fail(MainWindow !=NULL);
+
+    window = gtk_widget_get_window(MainWindow);
+
+    if ( window && gdk_window_is_visible(window) && gdk_window_get_state(window)!=GDK_WINDOW_STATE_MAXIMIZED )
     {
         gint x, y, width, height;
 
         // Position and Origin of the window
-        gdk_window_get_root_origin(MainWindow->window,&x,&y);
+        gdk_window_get_root_origin(window,&x,&y);
         MAIN_WINDOW_X = x;
         MAIN_WINDOW_Y = y;
-        width = gdk_window_get_width(MainWindow->window);
-        height = gdk_window_get_height(MainWindow->window);
+        width = gdk_window_get_width(window);
+        height = gdk_window_get_height(window);
         MAIN_WINDOW_WIDTH  = width;
         MAIN_WINDOW_HEIGHT = height;
 
