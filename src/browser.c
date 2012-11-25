@@ -3811,7 +3811,7 @@ void Browser_Open_Rename_Directory_Window (void)
 
     // Just center it over the main window
     gtk_window_set_position(GTK_WINDOW(RenameDirectoryWindow), GTK_WIN_POS_CENTER_ON_PARENT);
-    gtk_window_set_policy(GTK_WINDOW(RenameDirectoryWindow),FALSE,FALSE,TRUE);
+    gtk_window_set_resizable(GTK_WINDOW(RenameDirectoryWindow),FALSE);
     gtk_widget_set_size_request(GTK_WIDGET(RenameDirectoryWindow), 350, -1);
 
     // To avoid/minimize 'flicker'
