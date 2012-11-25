@@ -32,8 +32,6 @@ AC_PROG_CC
 AM_PROG_CC_C_O
 AC_PROG_CXX
 AC_PROG_CXXCPP
-LT_PREREQ([2.2])
-LT_INIT([disable-shared])
 PKG_PROG_PKG_CONFIG([0.24])
 
 dnl -------------------------
