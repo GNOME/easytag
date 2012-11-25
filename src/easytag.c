@@ -1073,7 +1073,7 @@ GtkWidget *Create_Tag_Area (void)
     // The mini button for picture
     PictureMButton = gtk_button_new();
     gtk_table_attach(GTK_TABLE(Table),PictureMButton,4,5,0,1,0,0,TablePadding,TablePadding);
-    gtk_widget_set_usize(PictureMButton,MButtonSize,MButtonSize);
+    gtk_widget_set_size_request(PictureMButton,MButtonSize,MButtonSize);
     g_signal_connect(G_OBJECT(PictureMButton),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
     gtk_widget_set_tooltip_text(PictureMButton,_("Tag selected files with these pictures"));
 
