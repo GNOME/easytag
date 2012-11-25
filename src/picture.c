@@ -882,7 +882,7 @@ gchar *Picture_Info (Picture *pic)
     {
         case MP4_TAG:
         {
-            g_string_sprintf(s, "%s (%s - %dx%d %s)\n%s: %s",
+            g_string_printf(s, "%s (%s - %dx%d %s)\n%s: %s",
                              format,
                              size_str,
                              pic->width, pic->height, _("pixels"),
@@ -893,7 +893,7 @@ gchar *Picture_Info (Picture *pic)
         // Other tag types
         default:
         {
-            g_string_sprintf(s, "%s (%s - %dx%d %s)\n%s: %s\n%s: %s",
+            g_string_printf(s, "%s (%s - %dx%d %s)\n%s: %s\n%s: %s",
                              format,
                              size_str,
                              pic->width, pic->height, _("pixels"),
