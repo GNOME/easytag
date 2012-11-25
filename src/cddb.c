@@ -935,17 +935,17 @@ void Cddb_Search_In_All_Fields_Check_Button_Toggled (void)
 {
     if (CddbSearchInAllFields)
     {
-        gtk_widget_set_sensitive(CddbSearchInArtistField,   !GTK_TOGGLE_BUTTON(CddbSearchInAllFields)->active);
-        gtk_widget_set_sensitive(CddbSearchInTitleField,    !GTK_TOGGLE_BUTTON(CddbSearchInAllFields)->active);
-        gtk_widget_set_sensitive(CddbSearchInTrackNameField,!GTK_TOGGLE_BUTTON(CddbSearchInAllFields)->active);
-        gtk_widget_set_sensitive(CddbSearchInOtherField,    !GTK_TOGGLE_BUTTON(CddbSearchInAllFields)->active);
+        gtk_widget_set_sensitive(CddbSearchInArtistField,   !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSearchInAllFields)));
+        gtk_widget_set_sensitive(CddbSearchInTitleField,    !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSearchInAllFields)));
+        gtk_widget_set_sensitive(CddbSearchInTrackNameField,!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSearchInAllFields)));
+        gtk_widget_set_sensitive(CddbSearchInOtherField,    !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSearchInAllFields)));
     }
 }
 void Cddb_Show_Categories_Button_Toggled (void)
 {
     if (CddbShowCategoriesButton)
     {
-        if (GTK_TOGGLE_BUTTON(CddbShowCategoriesButton)->active)
+        if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbShowCategoriesButton)))
         {
             gtk_widget_show(CddbSeparatorH);
             gtk_widget_show(CddbSearchInAllCategories);
@@ -984,30 +984,30 @@ void Cddb_Search_In_All_Categories_Check_Button_Toggled (void)
 {
     if (CddbSearchInAllCategories)
     {
-        gtk_widget_set_sensitive(CddbSearchInBluesCategory,     !GTK_TOGGLE_BUTTON(CddbSearchInAllCategories)->active);
-        gtk_widget_set_sensitive(CddbSearchInClassicalCategory, !GTK_TOGGLE_BUTTON(CddbSearchInAllCategories)->active);
-        gtk_widget_set_sensitive(CddbSearchInCountryCategory,   !GTK_TOGGLE_BUTTON(CddbSearchInAllCategories)->active);
-        gtk_widget_set_sensitive(CddbSearchInFolkCategory,      !GTK_TOGGLE_BUTTON(CddbSearchInAllCategories)->active);
-        gtk_widget_set_sensitive(CddbSearchInJazzCategory,      !GTK_TOGGLE_BUTTON(CddbSearchInAllCategories)->active);
-        gtk_widget_set_sensitive(CddbSearchInMiscCategory,      !GTK_TOGGLE_BUTTON(CddbSearchInAllCategories)->active);
-        gtk_widget_set_sensitive(CddbSearchInNewageCategory,    !GTK_TOGGLE_BUTTON(CddbSearchInAllCategories)->active);
-        gtk_widget_set_sensitive(CddbSearchInReggaeCategory,    !GTK_TOGGLE_BUTTON(CddbSearchInAllCategories)->active);
-        gtk_widget_set_sensitive(CddbSearchInRockCategory,      !GTK_TOGGLE_BUTTON(CddbSearchInAllCategories)->active);
-        gtk_widget_set_sensitive(CddbSearchInSoundtrackCategory,!GTK_TOGGLE_BUTTON(CddbSearchInAllCategories)->active);
+        gtk_widget_set_sensitive(CddbSearchInBluesCategory,     !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSearchInAllCategories)));
+        gtk_widget_set_sensitive(CddbSearchInClassicalCategory, !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSearchInAllCategories)));
+        gtk_widget_set_sensitive(CddbSearchInCountryCategory,   !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSearchInAllCategories)));
+        gtk_widget_set_sensitive(CddbSearchInFolkCategory,      !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSearchInAllCategories)));
+        gtk_widget_set_sensitive(CddbSearchInJazzCategory,      !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSearchInAllCategories)));
+        gtk_widget_set_sensitive(CddbSearchInMiscCategory,      !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSearchInAllCategories)));
+        gtk_widget_set_sensitive(CddbSearchInNewageCategory,    !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSearchInAllCategories)));
+        gtk_widget_set_sensitive(CddbSearchInReggaeCategory,    !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSearchInAllCategories)));
+        gtk_widget_set_sensitive(CddbSearchInRockCategory,      !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSearchInAllCategories)));
+        gtk_widget_set_sensitive(CddbSearchInSoundtrackCategory,!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSearchInAllCategories)));
     }
 }
 void Cddb_Set_To_All_Fields_Check_Button_Toggled (void)
 {
     if (CddbSetToAllFields)
     {
-        gtk_widget_set_sensitive(CddbSetToTitle,     !GTK_TOGGLE_BUTTON(CddbSetToAllFields)->active);
-        gtk_widget_set_sensitive(CddbSetToArtist,    !GTK_TOGGLE_BUTTON(CddbSetToAllFields)->active);
-        gtk_widget_set_sensitive(CddbSetToAlbum,     !GTK_TOGGLE_BUTTON(CddbSetToAllFields)->active);
-        gtk_widget_set_sensitive(CddbSetToYear,      !GTK_TOGGLE_BUTTON(CddbSetToAllFields)->active);
-        gtk_widget_set_sensitive(CddbSetToTrack,     !GTK_TOGGLE_BUTTON(CddbSetToAllFields)->active);
-        gtk_widget_set_sensitive(CddbSetToTrackTotal,!GTK_TOGGLE_BUTTON(CddbSetToAllFields)->active);
-        gtk_widget_set_sensitive(CddbSetToGenre,     !GTK_TOGGLE_BUTTON(CddbSetToAllFields)->active);
-        gtk_widget_set_sensitive(CddbSetToFileName,  !GTK_TOGGLE_BUTTON(CddbSetToAllFields)->active);
+        gtk_widget_set_sensitive(CddbSetToTitle,     !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSetToAllFields)));
+        gtk_widget_set_sensitive(CddbSetToArtist,    !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSetToAllFields)));
+        gtk_widget_set_sensitive(CddbSetToAlbum,     !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSetToAllFields)));
+        gtk_widget_set_sensitive(CddbSetToYear,      !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSetToAllFields)));
+        gtk_widget_set_sensitive(CddbSetToTrack,     !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSetToAllFields)));
+        gtk_widget_set_sensitive(CddbSetToTrackTotal,!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSetToAllFields)));
+        gtk_widget_set_sensitive(CddbSetToGenre,     !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSetToAllFields)));
+        gtk_widget_set_sensitive(CddbSetToFileName,  !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSetToAllFields)));
     }
 }
 
@@ -1041,7 +1041,7 @@ void Cddb_Use_Dlm_2_Check_Button_Toggled (void)
 {
     if (CddbUseDLM2)
     {
-        CDDB_USE_DLM = GTK_TOGGLE_BUTTON(CddbUseDLM2)->active;
+        CDDB_USE_DLM = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbUseDLM2));
     }
 }
 

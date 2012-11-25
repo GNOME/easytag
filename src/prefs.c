@@ -1499,12 +1499,12 @@ void Open_OptionsWindow (void)
 
 void Set_Default_Comment_Check_Button_Toggled (void)
 {
-    gtk_widget_set_sensitive(DefaultComment,GTK_TOGGLE_BUTTON(SetDefaultComment)->active);
+    gtk_widget_set_sensitive(DefaultComment,gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(SetDefaultComment)));
 }
 
 void Number_Track_Formated_Toggled (void)
 {
-    gtk_widget_set_sensitive(NumberTrackFormatedSpinButton,GTK_TOGGLE_BUTTON(NumberTrackFormated)->active);
+    gtk_widget_set_sensitive(NumberTrackFormatedSpinButton,gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(NumberTrackFormated)));
     // To update the example...
     g_signal_emit_by_name(G_OBJECT(NumberTrackFormatedSpinButton),"changed",NULL);
 }
@@ -1514,7 +1514,7 @@ void Number_Track_Formated_Spin_Button_Changed (GtkObject *Label, GtkObject *Spi
     gchar *tmp;
     gint val;
 
-    if (GTK_TOGGLE_BUTTON(NumberTrackFormated)->active)
+    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(NumberTrackFormated)))
         val = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(SpinButton));
     else
         val = 1;
@@ -1529,7 +1529,7 @@ void Number_Track_Formated_Spin_Button_Changed (GtkObject *Label, GtkObject *Spi
 void Use_Non_Standard_Id3_Reading_Character_Set_Toggled (void)
 {
     gtk_widget_set_sensitive(FileReadingId3v1v2CharacterSetCombo,
-        GTK_TOGGLE_BUTTON(UseNonStandardId3ReadingCharacterSet)->active);
+        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(UseNonStandardId3ReadingCharacterSet)));
 }
 
 void Change_Id3_Settings_Toggled (void)
@@ -1566,9 +1566,9 @@ void Change_Id3_Settings_Toggled (void)
        )
         return;
 
-    active = (GTK_TOGGLE_BUTTON(FileWritingId3v2UseUnicodeCharacterSet)->active != 0);
+    active = (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FileWritingId3v2UseUnicodeCharacterSet)) != 0);
 
-    if (GTK_TOGGLE_BUTTON(FileWritingId3v2WriteTag)->active)
+    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FileWritingId3v2WriteTag)))
     {
         gtk_widget_set_sensitive(LabelId3v2Charset, TRUE);
 
@@ -1622,7 +1622,7 @@ void Change_Id3_Settings_Toggled (void)
         gtk_widget_set_sensitive(ConvertOldId3v2TagVersion, 0);
     }
 
-    active = GTK_TOGGLE_BUTTON(FileWritingId3v1WriteTag)->active;
+    active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FileWritingId3v1WriteTag));
 
     gtk_widget_set_sensitive(LabelId3v1Charset, active);
     gtk_widget_set_sensitive(FileWritingId3v1CharacterSetCombo, active);
@@ -1634,10 +1634,13 @@ void Change_Id3_Settings_Toggled (void)
 
 void Cddb_Use_Proxy_Toggled (void)
 {
-    gtk_widget_set_sensitive(CddbProxyName,GTK_TOGGLE_BUTTON(CddbUseProxy)->active);
-    gtk_widget_set_sensitive(CddbProxyPort,GTK_TOGGLE_BUTTON(CddbUseProxy)->active);
-    gtk_widget_set_sensitive(CddbProxyUserName,GTK_TOGGLE_BUTTON(CddbUseProxy)->active);
-    gtk_widget_set_sensitive(CddbProxyUserPassword,GTK_TOGGLE_BUTTON(CddbUseProxy)->active);
+    gboolean active;
+
+    active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbUseProxy));
+    gtk_widget_set_sensitive(CddbProxyName,active);
+    gtk_widget_set_sensitive(CddbProxyPort,active);
+    gtk_widget_set_sensitive(CddbProxyUserName,active);
+    gtk_widget_set_sensitive(CddbProxyUserPassword,active);
 }
 
 /* Callback from Open_OptionsWindow */
@@ -1960,8 +1963,8 @@ void Scanner_Convert_Check_Button_Toggled_1 (GtkObject *object_rec, GtkObject *o
 {
     if (!object_rec || !object_emi) return;
 
-    if (GTK_TOGGLE_BUTTON(object_emi)->active == TRUE)
-        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(object_rec),!GTK_TOGGLE_BUTTON(object_emi)->active);
+    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(object_emi)) == TRUE)
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(object_rec),!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(object_emi)));
 
 }
 

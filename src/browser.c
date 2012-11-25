@@ -3842,7 +3842,7 @@ void Destroy_Rename_Directory_Window (void)
         Add_String_To_Combo_List(RenameDirectoryMaskModel, RENAME_DIRECTORY_DEFAULT_MASK);
         Save_Rename_Directory_Masks_List(RenameDirectoryMaskModel, MASK_EDITOR_TEXT);
 
-        RENAME_DIRECTORY_WITH_MASK = GTK_TOGGLE_BUTTON(RenameDirectoryWithMask)->active;
+        RENAME_DIRECTORY_WITH_MASK = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(RenameDirectoryWithMask));
 
         gtk_list_store_clear(RenameDirectoryMaskModel);
 
@@ -3873,7 +3873,7 @@ void Rename_Directory (void)
     directory_parent    = g_object_get_data(G_OBJECT(RenameDirectoryWindow),"Parent_Directory");
     directory_last_name = g_object_get_data(G_OBJECT(RenameDirectoryWindow),"Current_Directory");
 
-    if (GTK_TOGGLE_BUTTON(RenameDirectoryWithMask)->active)
+    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(RenameDirectoryWithMask)))
     {
         // Renamed from mask
         gchar *mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameDirectoryMaskCombo)))));
@@ -4126,10 +4126,10 @@ gboolean Rename_Directory_Window_Key_Press (GtkWidget *window, GdkEvent *event)
 
 void Rename_Directory_With_Mask_Toggled (void)
 {
-    gtk_widget_set_sensitive(GTK_WIDGET(RenameDirectoryCombo),            !GTK_TOGGLE_BUTTON(RenameDirectoryWithMask)->active);
-    gtk_widget_set_sensitive(GTK_WIDGET(RenameDirectoryMaskCombo),         GTK_TOGGLE_BUTTON(RenameDirectoryWithMask)->active);
-    gtk_widget_set_sensitive(GTK_WIDGET(RenameDirectoryMaskStatusIconBox), GTK_TOGGLE_BUTTON(RenameDirectoryWithMask)->active);
-    gtk_widget_set_sensitive(GTK_WIDGET(RenameDirectoryPreviewLabel),      GTK_TOGGLE_BUTTON(RenameDirectoryWithMask)->active);
+    gtk_widget_set_sensitive(GTK_WIDGET(RenameDirectoryCombo),            !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(RenameDirectoryWithMask)));
+    gtk_widget_set_sensitive(GTK_WIDGET(RenameDirectoryMaskCombo),         gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(RenameDirectoryWithMask)));
+    gtk_widget_set_sensitive(GTK_WIDGET(RenameDirectoryMaskStatusIconBox), gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(RenameDirectoryWithMask)));
+    gtk_widget_set_sensitive(GTK_WIDGET(RenameDirectoryPreviewLabel),      gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(RenameDirectoryWithMask)));
 }
 
 

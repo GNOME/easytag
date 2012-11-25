@@ -654,64 +654,64 @@ void Apply_Changes_Of_Preferences_Window (void)
     if (OptionsWindow)
     {
         /* Common */
-        LOAD_ON_STARTUP               = GTK_TOGGLE_BUTTON(LoadOnStartup)->active;
+        LOAD_ON_STARTUP               = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(LoadOnStartup));
         if (DEFAULT_PATH_TO_MP3) g_free(DEFAULT_PATH_TO_MP3);
         DEFAULT_PATH_TO_MP3           = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3))))); // Saved in UTF-8
 //#ifdef WIN32
 //        ET_Win32_Path_Replace_Backslashes(DEFAULT_PATH_TO_MP3);
 //#endif
-        BROWSE_SUBDIR                 = GTK_TOGGLE_BUTTON(BrowseSubdir)->active;
-        BROWSE_HIDDEN_DIR             = GTK_TOGGLE_BUTTON(BrowseHiddendir)->active;
-        OPEN_SELECTED_BROWSER_NODE    = GTK_TOGGLE_BUTTON(OpenSelectedBrowserNode)->active;
+        BROWSE_SUBDIR                 = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(BrowseSubdir));
+        BROWSE_HIDDEN_DIR             = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(BrowseHiddendir));
+        OPEN_SELECTED_BROWSER_NODE    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(OpenSelectedBrowserNode));
 
         /* User interface */
-        SHOW_HEADER_INFO              = GTK_TOGGLE_BUTTON(ShowHeaderInfos)->active;
+        SHOW_HEADER_INFO              = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ShowHeaderInfos));
         // We reload the list if the selected style have changed
-        if (CHANGED_FILES_DISPLAYED_TO_RED != GTK_TOGGLE_BUTTON(ChangedFilesDisplayedToRed)->active)
+        if (CHANGED_FILES_DISPLAYED_TO_RED != gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ChangedFilesDisplayedToRed)))
         {
-            CHANGED_FILES_DISPLAYED_TO_RED  = GTK_TOGGLE_BUTTON(ChangedFilesDisplayedToRed)->active;
-            CHANGED_FILES_DISPLAYED_TO_BOLD = GTK_TOGGLE_BUTTON(ChangedFilesDisplayedToBold)->active;
+            CHANGED_FILES_DISPLAYED_TO_RED  = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ChangedFilesDisplayedToRed));
+            CHANGED_FILES_DISPLAYED_TO_BOLD = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ChangedFilesDisplayedToBold));
             Browser_List_Refresh_Whole_List();
         }
 
         /* Misc */
-        DATE_AUTO_COMPLETION                   = GTK_TOGGLE_BUTTON(DateAutoCompletion)->active;
-        NUMBER_TRACK_FORMATED                  = GTK_TOGGLE_BUTTON(NumberTrackFormated)->active;
+        DATE_AUTO_COMPLETION                   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(DateAutoCompletion));
+        NUMBER_TRACK_FORMATED                  = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(NumberTrackFormated));
         NUMBER_TRACK_FORMATED_SPIN_BUTTON      = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(NumberTrackFormatedSpinButton));
-        OGG_TAG_WRITE_XMMS_COMMENT             = GTK_TOGGLE_BUTTON(OggTagWriteXmmsComment)->active;
-        SORTING_FILE_CASE_SENSITIVE            = GTK_TOGGLE_BUTTON(SortingFileCaseSensitive)->active;
-        SET_FOCUS_TO_SAME_TAG_FIELD            = GTK_TOGGLE_BUTTON(SetFocusToSameTagField)->active;
-        SET_FOCUS_TO_FIRST_TAG_FIELD           = GTK_TOGGLE_BUTTON(SetFocusToFirstTagField)->active;
+        OGG_TAG_WRITE_XMMS_COMMENT             = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(OggTagWriteXmmsComment));
+        SORTING_FILE_CASE_SENSITIVE            = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(SortingFileCaseSensitive));
+        SET_FOCUS_TO_SAME_TAG_FIELD            = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(SetFocusToSameTagField));
+        SET_FOCUS_TO_FIRST_TAG_FIELD           = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(SetFocusToFirstTagField));
         LOG_MAX_LINES                          = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(LogMaxLinesSpinButton));
-        SHOW_LOG_VIEW                          = GTK_TOGGLE_BUTTON(ShowLogView)->active;
+        SHOW_LOG_VIEW                          = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ShowLogView));
 
         SORTING_FILE_MODE = gtk_combo_box_get_active(GTK_COMBO_BOX(SortingFileCombo));
 
-        MESSAGE_BOX_POSITION_NONE               = GTK_TOGGLE_BUTTON(MessageBoxPositionNone)->active;
-        MESSAGE_BOX_POSITION_CENTER             = GTK_TOGGLE_BUTTON(MessageBoxPositionCenter)->active;
-        MESSAGE_BOX_POSITION_MOUSE              = GTK_TOGGLE_BUTTON(MessageBoxPositionMouse)->active;
-        MESSAGE_BOX_POSITION_CENTER_ON_PARENT   = GTK_TOGGLE_BUTTON(MessageBoxPositionCenterOnParent)->active;
+        MESSAGE_BOX_POSITION_NONE               = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(MessageBoxPositionNone));
+        MESSAGE_BOX_POSITION_CENTER             = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(MessageBoxPositionCenter));
+        MESSAGE_BOX_POSITION_MOUSE              = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(MessageBoxPositionMouse));
+        MESSAGE_BOX_POSITION_CENTER_ON_PARENT   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(MessageBoxPositionCenterOnParent));
 
         if (AUDIO_FILE_PLAYER) g_free(AUDIO_FILE_PLAYER);
         AUDIO_FILE_PLAYER                       = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)))));
 
         /* File Settings */
-        REPLACE_ILLEGAL_CHARACTERS_IN_FILENAME    = GTK_TOGGLE_BUTTON(ReplaceIllegalCharactersInFilename)->active;
-        FILENAME_EXTENSION_LOWER_CASE             = GTK_TOGGLE_BUTTON(FilenameExtensionLowerCase)->active;
-        FILENAME_EXTENSION_UPPER_CASE             = GTK_TOGGLE_BUTTON(FilenameExtensionUpperCase)->active;
-        FILENAME_EXTENSION_NO_CHANGE              = GTK_TOGGLE_BUTTON(FilenameExtensionNoChange)->active;
-        PRESERVE_MODIFICATION_TIME                = GTK_TOGGLE_BUTTON(PreserveModificationTime)->active;
-        UPDATE_PARENT_DIRECTORY_MODIFICATION_TIME = GTK_TOGGLE_BUTTON(UpdateParentDirectoryModificationTime)->active;
+        REPLACE_ILLEGAL_CHARACTERS_IN_FILENAME    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ReplaceIllegalCharactersInFilename));
+        FILENAME_EXTENSION_LOWER_CASE             = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FilenameExtensionLowerCase));
+        FILENAME_EXTENSION_UPPER_CASE             = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FilenameExtensionUpperCase));
+        FILENAME_EXTENSION_NO_CHANGE              = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FilenameExtensionNoChange));
+        PRESERVE_MODIFICATION_TIME                = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(PreserveModificationTime));
+        UPDATE_PARENT_DIRECTORY_MODIFICATION_TIME = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(UpdateParentDirectoryModificationTime));
 
-        FILENAME_CHARACTER_SET_OTHER              = GTK_TOGGLE_BUTTON(FilenameCharacterSetOther)->active;
-        FILENAME_CHARACTER_SET_APPROXIMATE        = GTK_TOGGLE_BUTTON(FilenameCharacterSetApproximate)->active;
-        FILENAME_CHARACTER_SET_DISCARD            = GTK_TOGGLE_BUTTON(FilenameCharacterSetDiscard)->active;
+        FILENAME_CHARACTER_SET_OTHER              = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FilenameCharacterSetOther));
+        FILENAME_CHARACTER_SET_APPROXIMATE        = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FilenameCharacterSetApproximate));
+        FILENAME_CHARACTER_SET_DISCARD            = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FilenameCharacterSetDiscard));
 
         /* Tag Settings */
-        WRITE_ID3_TAGS_IN_FLAC_FILE                = GTK_TOGGLE_BUTTON(WriteId3TagsInFlacFiles)->active;
-        STRIP_TAG_WHEN_EMPTY_FIELDS                = GTK_TOGGLE_BUTTON(StripTagWhenEmptyFields)->active;
-        CONVERT_OLD_ID3V2_TAG_VERSION              = GTK_TOGGLE_BUTTON(ConvertOldId3v2TagVersion)->active;
-        USE_NON_STANDARD_ID3_READING_CHARACTER_SET = GTK_TOGGLE_BUTTON(UseNonStandardId3ReadingCharacterSet)->active;
+        WRITE_ID3_TAGS_IN_FLAC_FILE                = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(WriteId3TagsInFlacFiles));
+        STRIP_TAG_WHEN_EMPTY_FIELDS                = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(StripTagWhenEmptyFields));
+        CONVERT_OLD_ID3V2_TAG_VERSION              = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ConvertOldId3v2TagVersion));
+        USE_NON_STANDARD_ID3_READING_CHARACTER_SET = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(UseNonStandardId3ReadingCharacterSet));
 
 #ifdef ENABLE_ID3LIB
         active = gtk_combo_box_get_active(GTK_COMBO_BOX(FileWritingId3v2VersionCombo));
@@ -723,11 +723,11 @@ void Apply_Changes_Of_Preferences_Window (void)
         FILE_READING_ID3V1V2_CHARACTER_SET = Charset_Get_Name_From_Title(temp);
         g_free(temp);
 
-        FILE_WRITING_ID3V2_WRITE_TAG                 = GTK_TOGGLE_BUTTON(FileWritingId3v2WriteTag)->active;
-        FILE_WRITING_ID3V2_USE_CRC32                 = GTK_TOGGLE_BUTTON(FileWritingId3v2UseCrc32)->active;
-        FILE_WRITING_ID3V2_USE_COMPRESSION           = GTK_TOGGLE_BUTTON(FileWritingId3v2UseCompression)->active;
-        FILE_WRITING_ID3V2_TEXT_ONLY_GENRE           = GTK_TOGGLE_BUTTON(FileWritingId3v2TextOnlyGenre)->active;
-        FILE_WRITING_ID3V2_USE_UNICODE_CHARACTER_SET = GTK_TOGGLE_BUTTON(FileWritingId3v2UseUnicodeCharacterSet)->active;
+        FILE_WRITING_ID3V2_WRITE_TAG                 = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FileWritingId3v2WriteTag));
+        FILE_WRITING_ID3V2_USE_CRC32                 = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FileWritingId3v2UseCrc32));
+        FILE_WRITING_ID3V2_USE_COMPRESSION           = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FileWritingId3v2UseCompression));
+        FILE_WRITING_ID3V2_TEXT_ONLY_GENRE           = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FileWritingId3v2TextOnlyGenre));
+        FILE_WRITING_ID3V2_USE_UNICODE_CHARACTER_SET = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FileWritingId3v2UseUnicodeCharacterSet));
 
         active = gtk_combo_box_get_active(GTK_COMBO_BOX(FileWritingId3v2UnicodeCharacterSetCombo));
         FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET     = (active == 1) ? "UTF-16" : "UTF-8";
@@ -736,46 +736,46 @@ void Apply_Changes_Of_Preferences_Window (void)
         FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET  = Charset_Get_Name_From_Title(temp);
         g_free(temp);
 
-        FILE_WRITING_ID3V2_ICONV_OPTIONS_NO          = GTK_TOGGLE_BUTTON(FileWritingId3v2IconvOptionsNo)->active;
-        FILE_WRITING_ID3V2_ICONV_OPTIONS_TRANSLIT    = GTK_TOGGLE_BUTTON(FileWritingId3v2IconvOptionsTranslit)->active;
-        FILE_WRITING_ID3V2_ICONV_OPTIONS_IGNORE      = GTK_TOGGLE_BUTTON(FileWritingId3v2IconvOptionsIgnore)->active;
+        FILE_WRITING_ID3V2_ICONV_OPTIONS_NO          = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FileWritingId3v2IconvOptionsNo));
+        FILE_WRITING_ID3V2_ICONV_OPTIONS_TRANSLIT    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FileWritingId3v2IconvOptionsTranslit));
+        FILE_WRITING_ID3V2_ICONV_OPTIONS_IGNORE      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FileWritingId3v2IconvOptionsIgnore));
 
-        FILE_WRITING_ID3V1_WRITE_TAG                 = GTK_TOGGLE_BUTTON(FileWritingId3v1WriteTag)->active;
+        FILE_WRITING_ID3V1_WRITE_TAG                 = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FileWritingId3v1WriteTag));
         temp = Get_Active_Combo_Box_Item(GTK_COMBO_BOX(FileWritingId3v1CharacterSetCombo));
         FILE_WRITING_ID3V1_CHARACTER_SET             = Charset_Get_Name_From_Title(temp);
         g_free(temp);
 
-        FILE_WRITING_ID3V1_ICONV_OPTIONS_NO          = GTK_TOGGLE_BUTTON(FileWritingId3v1IconvOptionsNo)->active;
-        FILE_WRITING_ID3V1_ICONV_OPTIONS_TRANSLIT    = GTK_TOGGLE_BUTTON(FileWritingId3v1IconvOptionsTranslit)->active;
-        FILE_WRITING_ID3V1_ICONV_OPTIONS_IGNORE      = GTK_TOGGLE_BUTTON(FileWritingId3v1IconvOptionsIgnore)->active;
+        FILE_WRITING_ID3V1_ICONV_OPTIONS_NO          = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FileWritingId3v1IconvOptionsNo));
+        FILE_WRITING_ID3V1_ICONV_OPTIONS_TRANSLIT    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FileWritingId3v1IconvOptionsTranslit));
+        FILE_WRITING_ID3V1_ICONV_OPTIONS_IGNORE      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FileWritingId3v1IconvOptionsIgnore));
 
-        VORBIS_SPLIT_FIELD_TITLE                       = GTK_TOGGLE_BUTTON(VorbisSplitFieldTitle)->active;
-        VORBIS_SPLIT_FIELD_ARTIST                      = GTK_TOGGLE_BUTTON(VorbisSplitFieldArtist)->active;
-        VORBIS_SPLIT_FIELD_ALBUM                       = GTK_TOGGLE_BUTTON(VorbisSplitFieldAlbum)->active;
-        VORBIS_SPLIT_FIELD_GENRE                       = GTK_TOGGLE_BUTTON(VorbisSplitFieldGenre)->active;
-        VORBIS_SPLIT_FIELD_COMMENT                     = GTK_TOGGLE_BUTTON(VorbisSplitFieldComment)->active;
-        VORBIS_SPLIT_FIELD_COMPOSER                    = GTK_TOGGLE_BUTTON(VorbisSplitFieldComposer)->active;
-        VORBIS_SPLIT_FIELD_ORIG_ARTIST                 = GTK_TOGGLE_BUTTON(VorbisSplitFieldOrigArtist)->active;
+        VORBIS_SPLIT_FIELD_TITLE                       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(VorbisSplitFieldTitle));
+        VORBIS_SPLIT_FIELD_ARTIST                      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(VorbisSplitFieldArtist));
+        VORBIS_SPLIT_FIELD_ALBUM                       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(VorbisSplitFieldAlbum));
+        VORBIS_SPLIT_FIELD_GENRE                       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(VorbisSplitFieldGenre));
+        VORBIS_SPLIT_FIELD_COMMENT                     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(VorbisSplitFieldComment));
+        VORBIS_SPLIT_FIELD_COMPOSER                    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(VorbisSplitFieldComposer));
+        VORBIS_SPLIT_FIELD_ORIG_ARTIST                 = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(VorbisSplitFieldOrigArtist));
 
         /* Scanner */
         // Fill Tag Scanner
-        FTS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE = GTK_TOGGLE_BUTTON(FTSConvertUnderscoreAndP20IntoSpace)->active;
-        FTS_CONVERT_SPACE_INTO_UNDERSCORE         = GTK_TOGGLE_BUTTON(FTSConvertSpaceIntoUnderscore)->active;
+        FTS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FTSConvertUnderscoreAndP20IntoSpace));
+        FTS_CONVERT_SPACE_INTO_UNDERSCORE         = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FTSConvertSpaceIntoUnderscore));
         // Rename File Scanner
-        RFS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE = GTK_TOGGLE_BUTTON(RFSConvertUnderscoreAndP20IntoSpace)->active;
-        RFS_CONVERT_SPACE_INTO_UNDERSCORE         = GTK_TOGGLE_BUTTON(RFSConvertSpaceIntoUnderscore)->active;
-				RFS_REMOVE_SPACES                         = GTK_TOGGLE_BUTTON(RFSRemoveSpaces)->active;
+        RFS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(RFSConvertUnderscoreAndP20IntoSpace));
+        RFS_CONVERT_SPACE_INTO_UNDERSCORE         = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(RFSConvertSpaceIntoUnderscore));
+				RFS_REMOVE_SPACES                         = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(RFSRemoveSpaces));
         // Process File Scanner
-        PFS_DONT_UPPER_SOME_WORDS                 = GTK_TOGGLE_BUTTON(PFSDontUpperSomeWords)->active;
+        PFS_DONT_UPPER_SOME_WORDS                 = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(PFSDontUpperSomeWords));
 
-        OVERWRITE_TAG_FIELD = GTK_TOGGLE_BUTTON(OverwriteTagField)->active;
-        SET_DEFAULT_COMMENT = GTK_TOGGLE_BUTTON(SetDefaultComment)->active;
+        OVERWRITE_TAG_FIELD = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(OverwriteTagField));
+        SET_DEFAULT_COMMENT = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(SetDefaultComment));
         if (DEFAULT_COMMENT) g_free(DEFAULT_COMMENT);
         DEFAULT_COMMENT     = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultComment)))));
-        SET_CRC32_COMMENT   = GTK_TOGGLE_BUTTON(Crc32Comment)->active;
+        SET_CRC32_COMMENT   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(Crc32Comment));
 
-        OPEN_SCANNER_WINDOW_ON_STARTUP = GTK_TOGGLE_BUTTON(OpenScannerWindowOnStartup)->active;
-        SCANNER_WINDOW_ON_TOP          = GTK_TOGGLE_BUTTON(ScannerWindowOnTop)->active;
+        OPEN_SCANNER_WINDOW_ON_STARTUP = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(OpenScannerWindowOnStartup));
+        SCANNER_WINDOW_ON_TOP          = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ScannerWindowOnTop));
 
         /* CDDB */
         if (CDDB_SERVER_NAME_AUTOMATIC_SEARCH) g_free(CDDB_SERVER_NAME_AUTOMATIC_SEARCH);
@@ -799,7 +799,7 @@ void Apply_Changes_Of_Preferences_Window (void)
         if (CDDB_LOCAL_PATH) g_free(CDDB_LOCAL_PATH);
         CDDB_LOCAL_PATH = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbLocalPath)))));
 
-        CDDB_USE_PROXY       = GTK_TOGGLE_BUTTON(CddbUseProxy)->active;
+        CDDB_USE_PROXY       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbUseProxy));
         if (CDDB_PROXY_NAME) g_free(CDDB_PROXY_NAME);
         CDDB_PROXY_NAME      = g_strdup(gtk_entry_get_text(GTK_ENTRY(CddbProxyName)));
         CDDB_PROXY_PORT      = atoi(gtk_entry_get_text(GTK_ENTRY(CddbProxyPort)));
@@ -808,16 +808,16 @@ void Apply_Changes_Of_Preferences_Window (void)
         if (CDDB_PROXY_USER_PASSWORD) g_free(CDDB_PROXY_USER_PASSWORD);
         CDDB_PROXY_USER_PASSWORD      = g_strdup(gtk_entry_get_text(GTK_ENTRY(CddbProxyUserPassword)));
 
-        CDDB_FOLLOW_FILE      = GTK_TOGGLE_BUTTON(CddbFollowFile)->active;
-        CDDB_USE_DLM          = GTK_TOGGLE_BUTTON(CddbUseDLM)->active;
+        CDDB_FOLLOW_FILE      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbFollowFile));
+        CDDB_USE_DLM          = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbUseDLM));
 
         /* Confirmation */
-        CONFIRM_BEFORE_EXIT    = GTK_TOGGLE_BUTTON(ConfirmBeforeExit)->active;
-        CONFIRM_WRITE_TAG      = GTK_TOGGLE_BUTTON(ConfirmWriteTag)->active;
-        CONFIRM_RENAME_FILE    = GTK_TOGGLE_BUTTON(ConfirmRenameFile)->active;
-        CONFIRM_DELETE_FILE    = GTK_TOGGLE_BUTTON(ConfirmDeleteFile)->active;
-        CONFIRM_WRITE_PLAYLIST = GTK_TOGGLE_BUTTON(ConfirmWritePlayList)->active;
-        CONFIRM_WHEN_UNSAVED_FILES = GTK_TOGGLE_BUTTON(ConfirmWhenUnsavedFiles)->active;
+        CONFIRM_BEFORE_EXIT    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ConfirmBeforeExit));
+        CONFIRM_WRITE_TAG      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ConfirmWriteTag));
+        CONFIRM_RENAME_FILE    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ConfirmRenameFile));
+        CONFIRM_DELETE_FILE    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ConfirmDeleteFile));
+        CONFIRM_WRITE_PLAYLIST = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ConfirmWritePlayList));
+        CONFIRM_WHEN_UNSAVED_FILES = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ConfirmWhenUnsavedFiles));
 
         /* Parameters and variables of Scanner Window are in "scan.c" file */
         /* Parameters and variables of Cddb Window are in "cddb.c" file */

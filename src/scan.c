@@ -1109,7 +1109,7 @@ void Scan_Process_Fields (ET_File *ETFile)
     /* Process the filename */
     if (st_filename != NULL)
     {
-        if (st_filename->value_utf8 && GTK_TOGGLE_BUTTON(ProcessFileNameField)->active) // File name field
+        if (st_filename->value_utf8 && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFileNameField))) // File name field
         {
             gchar *string_utf8;
             gchar *pos;
@@ -1136,7 +1136,7 @@ void Scan_Process_Fields (ET_File *ETFile)
     if (st_filetag != NULL)
     {
         // Title field
-        if (st_filetag->title && GTK_TOGGLE_BUTTON(ProcessTitleField)->active)
+        if (st_filetag->title && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessTitleField)))
         {
             if (!FileTag)
             {
@@ -1154,7 +1154,7 @@ void Scan_Process_Fields (ET_File *ETFile)
         }
 
         // Artist field
-        if (st_filetag->artist && GTK_TOGGLE_BUTTON(ProcessArtistField)->active)
+        if (st_filetag->artist && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessArtistField)))
         {
             if (!FileTag)
             {
@@ -1172,7 +1172,7 @@ void Scan_Process_Fields (ET_File *ETFile)
         }
 
 		// Album Artist field
-        if (st_filetag->album_artist && GTK_TOGGLE_BUTTON(ProcessAlbumArtistField)->active)
+        if (st_filetag->album_artist && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessAlbumArtistField)))
         {
             if (!FileTag)
             {
@@ -1189,7 +1189,7 @@ void Scan_Process_Fields (ET_File *ETFile)
             g_free(string);
         }
         // Album field
-        if (st_filetag->album && GTK_TOGGLE_BUTTON(ProcessAlbumField)->active)
+        if (st_filetag->album && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessAlbumField)))
         {
             if (!FileTag)
             {
@@ -1207,7 +1207,7 @@ void Scan_Process_Fields (ET_File *ETFile)
         }
 
         // Genre field
-        if (st_filetag->genre && GTK_TOGGLE_BUTTON(ProcessGenreField)->active)
+        if (st_filetag->genre && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessGenreField)))
         {
             if (!FileTag)
             {
@@ -1225,7 +1225,7 @@ void Scan_Process_Fields (ET_File *ETFile)
         }
 
         // Comment field
-        if (st_filetag->comment && GTK_TOGGLE_BUTTON(ProcessCommentField)->active)
+        if (st_filetag->comment && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessCommentField)))
         {
             if (!FileTag)
             {
@@ -1243,7 +1243,7 @@ void Scan_Process_Fields (ET_File *ETFile)
         }
 
         // Composer field
-        if (st_filetag->composer && GTK_TOGGLE_BUTTON(ProcessComposerField)->active)
+        if (st_filetag->composer && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessComposerField)))
         {
             if (!FileTag)
             {
@@ -1261,7 +1261,7 @@ void Scan_Process_Fields (ET_File *ETFile)
         }
 
         // Original artist field
-        if (st_filetag->orig_artist && GTK_TOGGLE_BUTTON(ProcessOrigArtistField)->active)
+        if (st_filetag->orig_artist && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessOrigArtistField)))
         {
             if (!FileTag)
             {
@@ -1279,7 +1279,7 @@ void Scan_Process_Fields (ET_File *ETFile)
         }
 
         // Copyright field
-        if (st_filetag->copyright && GTK_TOGGLE_BUTTON(ProcessCopyrightField)->active)
+        if (st_filetag->copyright && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessCopyrightField)))
         {
             if (!FileTag)
             {
@@ -1297,7 +1297,7 @@ void Scan_Process_Fields (ET_File *ETFile)
         }
 
         // URL field
-        if (st_filetag->url && GTK_TOGGLE_BUTTON(ProcessURLField)->active)
+        if (st_filetag->url && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessURLField)))
         {
             if (!FileTag)
             {
@@ -1315,7 +1315,7 @@ void Scan_Process_Fields (ET_File *ETFile)
         }
 
         // 'Encoded by' field
-        if (st_filetag->encoded_by && GTK_TOGGLE_BUTTON(ProcessEncodedByField)->active)
+        if (st_filetag->encoded_by && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessEncodedByField)))
         {
             if (!FileTag)
             {
@@ -1346,37 +1346,37 @@ void Scan_Process_Fields (ET_File *ETFile)
 
 void Scan_Process_Fields_Functions (gchar **string)
 {
-    if (GTK_TOGGLE_BUTTON(ProcessFieldsConvertIntoSpace)->active)
+    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsConvertIntoSpace)))
     {
         Scan_Convert_Underscore_Into_Space(*string);
         Scan_Convert_P20_Into_Space(*string);
     }
 
-    if (GTK_TOGGLE_BUTTON(ProcessFieldsConvertSpace)->active)
+    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsConvertSpace)))
         Scan_Convert_Space_Into_Undescore(*string);
 
-    if (GTK_TOGGLE_BUTTON(ProcessFieldsInsertSpace)->active)
+    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsInsertSpace)))
         Scan_Process_Fields_Insert_Space(string);
 
-    if (GTK_TOGGLE_BUTTON(ProcessFieldsOnlyOneSpace)->active)
+    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsOnlyOneSpace)))
         Scan_Process_Fields_Keep_One_Space(*string);
 
-    if (GTK_TOGGLE_BUTTON(ProcessFieldsConvert)->active)
+    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsConvert)))
         Scan_Convert_Character(string);
 
-    if (GTK_TOGGLE_BUTTON(ProcessFieldsAllUppercase)->active)
+    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsAllUppercase)))
         Scan_Process_Fields_All_Uppercase(*string);
 
-    if (GTK_TOGGLE_BUTTON(ProcessFieldsAllDowncase)->active)
+    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsAllDowncase)))
         Scan_Process_Fields_All_Downcase(*string);
 
-    if (GTK_TOGGLE_BUTTON(ProcessFieldsFirstLetterUppercase)->active)
+    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsFirstLetterUppercase)))
          Scan_Process_Fields_Letter_Uppercase(*string);
 
-    if (GTK_TOGGLE_BUTTON(ProcessFieldsFirstLettersUppercase)->active)
+    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsFirstLettersUppercase)))
         Scan_Process_Fields_First_Letters_Uppercase(*string);
 
-    if (GTK_TOGGLE_BUTTON(ProcessFieldsRemoveSpace)->active)
+    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsRemoveSpace)))
         Scan_Process_Fields_Remove_Space(*string);
 
 }
@@ -1853,7 +1853,7 @@ gint Scan_Word_Is_Roman_Numeral (gchar *text)
 
     if (!ScannerWindow
     ||  !ProcessFieldsDetectRomanNumerals
-    ||  !GTK_TOGGLE_BUTTON(ProcessFieldsDetectRomanNumerals)->active)
+    ||  !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsDetectRomanNumerals)))
         return 0;
     
     tmp = text;
@@ -3142,22 +3142,22 @@ void ScannerWindow_Apply_Changes (void)
         // The scanner selected
         SCANNER_TYPE = gtk_combo_box_get_active(GTK_COMBO_BOX(ScannerOptionCombo));
 
-        SCAN_MASK_EDITOR_BUTTON   = GTK_TOGGLE_BUTTON(MaskEditorButton)->active;
-        SCAN_LEGEND_BUTTON        = GTK_TOGGLE_BUTTON(LegendButton)->active;
+        SCAN_MASK_EDITOR_BUTTON   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(MaskEditorButton));
+        SCAN_LEGEND_BUTTON        = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(LegendButton));
 
         /* Group: select entries to process */
-        PROCESS_FILENAME_FIELD    = GTK_TOGGLE_BUTTON(ProcessFileNameField)->active;
-        PROCESS_TITLE_FIELD       = GTK_TOGGLE_BUTTON(ProcessTitleField)->active;
-        PROCESS_ARTIST_FIELD      = GTK_TOGGLE_BUTTON(ProcessArtistField)->active;
-        PROCESS_ALBUM_ARTIST_FIELD= GTK_TOGGLE_BUTTON(ProcessAlbumArtistField)->active;
-        PROCESS_ALBUM_FIELD       = GTK_TOGGLE_BUTTON(ProcessAlbumField)->active;
-        PROCESS_GENRE_FIELD       = GTK_TOGGLE_BUTTON(ProcessGenreField)->active;
-        PROCESS_COMMENT_FIELD     = GTK_TOGGLE_BUTTON(ProcessCommentField)->active;
-        PROCESS_COMPOSER_FIELD    = GTK_TOGGLE_BUTTON(ProcessComposerField)->active;
-        PROCESS_ORIG_ARTIST_FIELD = GTK_TOGGLE_BUTTON(ProcessOrigArtistField)->active;
-        PROCESS_COPYRIGHT_FIELD   = GTK_TOGGLE_BUTTON(ProcessCopyrightField)->active;
-        PROCESS_URL_FIELD         = GTK_TOGGLE_BUTTON(ProcessURLField)->active;
-        PROCESS_ENCODED_BY_FIELD  = GTK_TOGGLE_BUTTON(ProcessEncodedByField)->active;
+        PROCESS_FILENAME_FIELD    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFileNameField));
+        PROCESS_TITLE_FIELD       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessTitleField));
+        PROCESS_ARTIST_FIELD      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessArtistField));
+        PROCESS_ALBUM_ARTIST_FIELD= gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessAlbumArtistField));
+        PROCESS_ALBUM_FIELD       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessAlbumField));
+        PROCESS_GENRE_FIELD       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessGenreField));
+        PROCESS_COMMENT_FIELD     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessCommentField));
+        PROCESS_COMPOSER_FIELD    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessComposerField));
+        PROCESS_ORIG_ARTIST_FIELD = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessOrigArtistField));
+        PROCESS_COPYRIGHT_FIELD   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessCopyrightField));
+        PROCESS_URL_FIELD         = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessURLField));
+        PROCESS_ENCODED_BY_FIELD  = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessEncodedByField));
 
         if (PROCESS_FIELDS_CONVERT_FROM) g_free(PROCESS_FIELDS_CONVERT_FROM);
         PROCESS_FIELDS_CONVERT_FROM = g_strdup(gtk_entry_get_text(GTK_ENTRY(ProcessFieldsConvertFrom)));
@@ -3165,21 +3165,21 @@ void ScannerWindow_Apply_Changes (void)
         PROCESS_FIELDS_CONVERT_TO   = g_strdup(gtk_entry_get_text(GTK_ENTRY(ProcessFieldsConvertTo)));
 
         /* Group: convert one character */
-        PF_CONVERT_INTO_SPACE     = GTK_TOGGLE_BUTTON(ProcessFieldsConvertIntoSpace)->active;
-        PF_CONVERT_SPACE          = GTK_TOGGLE_BUTTON(ProcessFieldsConvertSpace)->active;
-        PF_CONVERT                = GTK_TOGGLE_BUTTON(ProcessFieldsConvert)->active;
+        PF_CONVERT_INTO_SPACE     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsConvertIntoSpace));
+        PF_CONVERT_SPACE          = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsConvertSpace));
+        PF_CONVERT                = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsConvert));
 
         /* Group: capitalize */
-        PF_CONVERT_ALL_UPPERCASE           = GTK_TOGGLE_BUTTON(ProcessFieldsAllUppercase)->active;
-        PF_CONVERT_ALL_DOWNCASE            = GTK_TOGGLE_BUTTON(ProcessFieldsAllDowncase)->active;
-        PF_CONVERT_FIRST_LETTER_UPPERCASE  = GTK_TOGGLE_BUTTON(ProcessFieldsFirstLetterUppercase)->active;
-        PF_CONVERT_FIRST_LETTERS_UPPERCASE = GTK_TOGGLE_BUTTON(ProcessFieldsFirstLettersUppercase)->active;
-        PF_DETECT_ROMAN_NUMERALS           = GTK_TOGGLE_BUTTON(ProcessFieldsDetectRomanNumerals)->active;
+        PF_CONVERT_ALL_UPPERCASE           = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsAllUppercase));
+        PF_CONVERT_ALL_DOWNCASE            = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsAllDowncase));
+        PF_CONVERT_FIRST_LETTER_UPPERCASE  = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsFirstLetterUppercase));
+        PF_CONVERT_FIRST_LETTERS_UPPERCASE = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsFirstLettersUppercase));
+        PF_DETECT_ROMAN_NUMERALS           = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsDetectRomanNumerals));
 
         /* Group: remove/insert space */
-        PF_REMOVE_SPACE   = GTK_TOGGLE_BUTTON(ProcessFieldsRemoveSpace)->active;
-        PF_INSERT_SPACE   = GTK_TOGGLE_BUTTON(ProcessFieldsInsertSpace)->active;
-        PF_ONLY_ONE_SPACE = GTK_TOGGLE_BUTTON(ProcessFieldsOnlyOneSpace)->active;
+        PF_REMOVE_SPACE   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsRemoveSpace));
+        PF_INSERT_SPACE   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsInsertSpace));
+        PF_ONLY_ONE_SPACE = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsOnlyOneSpace));
 
         // Save default masks...
         if (SCAN_TAG_DEFAULT_MASK) g_free(SCAN_TAG_DEFAULT_MASK);
@@ -3399,7 +3399,7 @@ void Process_Fields_Check_Button_Toggled (GtkObject *object, GList *list)
 {
     gint i = 0;
 
-    if ( GTK_TOGGLE_BUTTON(object)->active )
+    if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(object)) )
     {
         while (list)
         {
@@ -3415,13 +3415,13 @@ void Process_Fields_Check_Button_Toggled (GtkObject *object, GList *list)
 
 void Process_Fields_Convert_Check_Button_Toggled (GtkObject *object)
 {
-    gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsConvertTo),GTK_TOGGLE_BUTTON(object)->active);
-    gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsConvertFrom),GTK_TOGGLE_BUTTON(object)->active);
+    gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsConvertTo),gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(object)));
+    gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsConvertFrom),gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(object)));
 }
 
 void Process_Fields_First_Letters_Check_Button_Toggled (GtkObject *object)
 {
-    gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsDetectRomanNumerals),GTK_TOGGLE_BUTTON(object)->active);
+    gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsDetectRomanNumerals),gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(object)));
 }
 
 
@@ -3431,33 +3431,33 @@ void Process_Fields_First_Letters_Check_Button_Toggled (GtkObject *object)
 void Select_Fields_Invert_Selection (void)
 {
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFileNameField),
-                                !GTK_TOGGLE_BUTTON(ProcessFileNameField)->active);
+                                !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFileNameField)));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessTitleField),
-                                !GTK_TOGGLE_BUTTON(ProcessTitleField)->active);
+                                !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessTitleField)));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessArtistField),
-                                !GTK_TOGGLE_BUTTON(ProcessArtistField)->active);
+                                !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessArtistField)));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessAlbumArtistField),
-                                !GTK_TOGGLE_BUTTON(ProcessAlbumArtistField)->active);
+                                !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessAlbumArtistField)));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessAlbumField),
-                                !GTK_TOGGLE_BUTTON(ProcessAlbumField)->active);
+                                !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessAlbumField)));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessGenreField),
-                                !GTK_TOGGLE_BUTTON(ProcessGenreField)->active);
+                                !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessGenreField)));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessCommentField),
-                                !GTK_TOGGLE_BUTTON(ProcessCommentField)->active);
+                                !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessCommentField)));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessComposerField),
-                                !GTK_TOGGLE_BUTTON(ProcessComposerField)->active);
+                                !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessComposerField)));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessOrigArtistField),
-                                !GTK_TOGGLE_BUTTON(ProcessOrigArtistField)->active);
+                                !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessOrigArtistField)));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessCopyrightField),
-                                !GTK_TOGGLE_BUTTON(ProcessCopyrightField)->active);
+                                !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessCopyrightField)));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessURLField),
-                                !GTK_TOGGLE_BUTTON(ProcessURLField)->active);
+                                !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessURLField)));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessEncodedByField),
-                                !GTK_TOGGLE_BUTTON(ProcessEncodedByField)->active);
+                                !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessEncodedByField)));
 }
 void Select_Fields_Select_Unselect_All (void)
 {
-    static gboolean state = 1;
+    static gboolean state = TRUE;
 
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFileNameField),   state);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessTitleField),      state);
@@ -3479,25 +3479,25 @@ void Select_Fields_Select_Unselect_All (void)
  */
 void Select_Fields_Set_Sensitive (void)
 {
-    if (GTK_TOGGLE_BUTTON(ProcessFileNameField)->active
-    ||  GTK_TOGGLE_BUTTON(ProcessTitleField)->active
-    ||  GTK_TOGGLE_BUTTON(ProcessArtistField)->active
-    ||  GTK_TOGGLE_BUTTON(ProcessAlbumArtistField)->active
-    ||  GTK_TOGGLE_BUTTON(ProcessAlbumField)->active
-    ||  GTK_TOGGLE_BUTTON(ProcessGenreField)->active
-    ||  GTK_TOGGLE_BUTTON(ProcessCommentField)->active
-    ||  GTK_TOGGLE_BUTTON(ProcessComposerField)->active
-    ||  GTK_TOGGLE_BUTTON(ProcessOrigArtistField)->active
-    ||  GTK_TOGGLE_BUTTON(ProcessCopyrightField)->active
-    ||  GTK_TOGGLE_BUTTON(ProcessURLField)->active
-    ||  GTK_TOGGLE_BUTTON(ProcessEncodedByField)->active)
+    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFileNameField))
+    ||  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessTitleField))
+    ||  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessArtistField))
+    ||  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessAlbumArtistField))
+    ||  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessAlbumField))
+    ||  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessGenreField))
+    ||  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessCommentField))
+    ||  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessComposerField))
+    ||  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessOrigArtistField))
+    ||  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessCopyrightField))
+    ||  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessURLField))
+    ||  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessEncodedByField)))
     {
         gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsConvertIntoSpace),     TRUE);
         gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsConvertSpace),         TRUE);
         gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsConvert),              TRUE);
         gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsConvertLabelTo),       TRUE);
-        // Activate the two entries only if the check box is actived, esle keep them disabled
-        if (GTK_TOGGLE_BUTTON(ProcessFieldsConvert)->active)
+        // Activate the two entries only if the check box is activated, else keep them disabled
+        if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsConvert)))
         {
             gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsConvertTo),        TRUE);
             gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsConvertFrom),      TRUE);

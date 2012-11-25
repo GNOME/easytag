@@ -2588,7 +2588,7 @@ gint Save_File (ET_File *ETFile, gboolean multiple_files, gboolean force_saving_
                                      GTK_STOCK_NO,    GTK_RESPONSE_NO,
 									 GTK_STOCK_YES,   GTK_RESPONSE_YES,
                                      NULL);
-                GTK_TOGGLE_BUTTON(msgbox_check_button)->active = TRUE; // Checked by default
+                gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(msgbox_check_button), TRUE); // Checked by default
             }else
             {
                 msgbox = msg_box_new(_("Write Tag..."),
@@ -2605,8 +2605,8 @@ gint Save_File (ET_File *ETFile, gboolean multiple_files, gboolean force_saving_
 
             SF_ButtonPressed_Write_Tag = response = gtk_dialog_run(GTK_DIALOG(msgbox));
             // When check button in msgbox was activated : do not display the message again
-            if (msgbox_check_button && GTK_TOGGLE_BUTTON(msgbox_check_button)->active)
-                SF_HideMsgbox_Write_Tag = GTK_TOGGLE_BUTTON(msgbox_check_button)->active;
+            if (msgbox_check_button && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(msgbox_check_button)))
+                SF_HideMsgbox_Write_Tag = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(msgbox_check_button));
             gtk_widget_destroy(msgbox);
         }else
         {
@@ -2700,7 +2700,7 @@ gint Save_File (ET_File *ETFile, gboolean multiple_files, gboolean force_saving_
                                      GTK_STOCK_NO,    GTK_RESPONSE_NO,
 									 GTK_STOCK_YES,   GTK_RESPONSE_YES,
                                      NULL);
-                GTK_TOGGLE_BUTTON(msgbox_check_button)->active = TRUE; // Checked by default
+                gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(msgbox_check_button), TRUE); // Checked by default
             }else
             {
                 msgbox = msg_box_new(msg_title,
@@ -2716,8 +2716,8 @@ gint Save_File (ET_File *ETFile, gboolean multiple_files, gboolean force_saving_
             g_free(msg);
             g_free(msg_title);
             SF_ButtonPressed_Rename_File = response = gtk_dialog_run(GTK_DIALOG(msgbox));
-            if (msgbox_check_button && GTK_TOGGLE_BUTTON(msgbox_check_button)->active)
-                SF_HideMsgbox_Rename_File = GTK_TOGGLE_BUTTON(msgbox_check_button)->active;
+            if (msgbox_check_button && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(msgbox_check_button)))
+                SF_HideMsgbox_Rename_File = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(msgbox_check_button));
             gtk_widget_destroy(msgbox);
         }else
         {
@@ -3362,8 +3362,8 @@ gint Delete_File (ET_File *ETFile, gboolean multiple_files)
         }
         g_free(msg);
         SF_ButtonPressed_Delete_File = response = gtk_dialog_run(GTK_DIALOG(msgbox));
-        if (msgbox_check_button && GTK_TOGGLE_BUTTON(msgbox_check_button)->active)
-            SF_HideMsgbox_Delete_File = GTK_TOGGLE_BUTTON(msgbox_check_button)->active;
+        if (msgbox_check_button && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(msgbox_check_button)))
+            SF_HideMsgbox_Delete_File = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(msgbox_check_button));
         gtk_widget_destroy(msgbox);
     }else
     {

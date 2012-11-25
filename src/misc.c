@@ -2272,9 +2272,9 @@ void Search_File_Window_Apply_Changes (void)
             SEARCH_WINDOW_HEIGHT = height;
         }
 
-        SEARCH_IN_FILENAME    = GTK_TOGGLE_BUTTON(SearchInFilename)->active;
-        SEARCH_IN_TAG         = GTK_TOGGLE_BUTTON(SearchInTag)->active;
-        SEARCH_CASE_SENSITIVE = GTK_TOGGLE_BUTTON(SearchCaseSensitive)->active;
+        SEARCH_IN_FILENAME    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(SearchInFilename));
+        SEARCH_IN_TAG         = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(SearchInTag));
+        SEARCH_CASE_SENSITIVE = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(SearchCaseSensitive));
     }
 }
 
