@@ -285,7 +285,7 @@ void Picture_Add_Button_Clicked (GObject *object)
     if (!PictureEntryView) return;
 
     parent_window = (GtkWindow *) gtk_widget_get_toplevel(GTK_WIDGET(object));
-    if (!GTK_WIDGET_TOPLEVEL(parent_window))
+    if (!gtk_widget_is_toplevel(GTK_WIDGET(parent_window)))
     {
         g_warning("Could not get parent window\n");
         return;
@@ -401,7 +401,7 @@ void Picture_Properties_Button_Clicked (GObject *object)
     if (!PictureEntryView) return;
 
     parent_window = (GtkWindow *) gtk_widget_get_toplevel(GTK_WIDGET(object));
-    if (!GTK_WIDGET_TOPLEVEL(parent_window))
+    if (!gtk_widget_is_toplevel(GTK_WIDGET(parent_window)))
     {
         g_warning("Could not get parent window\n");
         return;
@@ -606,7 +606,7 @@ void Picture_Save_Button_Clicked (GObject *object)
     if (!PictureEntryView) return;
 
     parent_window = (GtkWindow*) gtk_widget_get_toplevel(GTK_WIDGET(object));
-    if (!GTK_WIDGET_TOPLEVEL(parent_window))
+    if (!gtk_widget_is_toplevel(GTK_WIDGET(parent_window)))
     {
         g_warning("Could not get parent window\n");
         return;

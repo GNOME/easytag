@@ -795,7 +795,7 @@ static void Open_File_Selection_Window (GtkWidget *entry, gchar *title, GtkFileC
     gint response;
 
     parent_window = (GtkWindow*) gtk_widget_get_toplevel(entry);
-    if (!GTK_WIDGET_TOPLEVEL(parent_window))
+    if (!gtk_widget_is_toplevel(GTK_WIDGET(parent_window)))
     {
         g_warning("Could not get parent window\n");
         return;
