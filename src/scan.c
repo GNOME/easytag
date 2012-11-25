@@ -996,6 +996,7 @@ void Scan_Free_File_Rename_List (GList *list)
  */
 void Scan_Rename_File_Prefix_Path (void)
 {
+    gint pos;
     gchar *path_tmp;
     gchar *combo_text = NULL;
     gchar *combo_tmp;
@@ -1029,7 +1030,8 @@ void Scan_Rename_File_Prefix_Path (void)
         {
             path_tmp = g_strconcat(path_utf8_cur,G_DIR_SEPARATOR_S,NULL);
         }
-        gtk_entry_prepend_text(GTK_ENTRY(GTK_BIN(RenameFileMaskCombo)->child),path_tmp);
+	pos = 0;
+        gtk_editable_insert_text(GTK_EDITABLE(GTK_BIN(RenameFileMaskCombo)->child),path_tmp, -1, &pos);
         g_free(path_tmp);
     }
 
