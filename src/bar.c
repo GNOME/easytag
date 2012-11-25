@@ -366,7 +366,7 @@ void Init_Menu_Bar (void)
  */
 void Check_Menu_Item_Toggled_Browse_Subdir (GtkWidget *checkmenuitem)
 {
-    BROWSE_SUBDIR = GTK_CHECK_MENU_ITEM(checkmenuitem)->active;
+    BROWSE_SUBDIR = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(checkmenuitem));
     Check_Menu_Item_Update_Browse_Subdir();
 }
 void Check_Menu_Item_Update_Browse_Subdir (void)
@@ -379,7 +379,7 @@ void Check_Menu_Item_Update_Browse_Subdir (void)
  */
 void Check_Menu_Item_Toggled_Browse_Hidden_Dir (GtkWidget *checkmenuitem)
 {
-    BROWSE_HIDDEN_DIR = GTK_CHECK_MENU_ITEM(checkmenuitem)->active;
+    BROWSE_HIDDEN_DIR = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(checkmenuitem));
     Check_Menu_Item_Update_Browse_Hidden_Dir();
 
     // Reload directory, in case we have changed BROWSE_HIDDEN_DIR
