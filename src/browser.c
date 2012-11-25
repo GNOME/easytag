@@ -549,7 +549,7 @@ gboolean Browser_List_Key_Press (GtkWidget *list, GdkEvent *event, gpointer data
             BrowserListTimerId = 0;
         }
         // Start a new timer of 500ms
-        BrowserListTimerId = g_timeout_add(500,(GtkFunction)Browser_List_Stop_Timer,&timer_is_running);
+        BrowserListTimerId = g_timeout_add(500,(GSourceFunc)Browser_List_Stop_Timer,&timer_is_running);
         timer_is_running = TRUE;
 
         // Browse the list keeping the current classification

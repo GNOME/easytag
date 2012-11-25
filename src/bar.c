@@ -426,7 +426,7 @@ gboolean Statusbar_Stop_Timer (void)
 void Statusbar_Start_Timer (void)
 {
     Statusbar_Remove_Timer();
-    StatusbarTimerId = g_timeout_add(4000,(GtkFunction)Statusbar_Stop_Timer,NULL);
+    StatusbarTimerId = g_timeout_add(4000,(GSourceFunc)Statusbar_Stop_Timer,NULL);
 }
 
 void Statusbar_Remove_Timer (void)

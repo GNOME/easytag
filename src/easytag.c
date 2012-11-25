@@ -414,7 +414,7 @@ int main (int argc, char *argv[])
 
     /* Load the default dir when the UI is created and displayed
      * to the screen and open also the scanner window */
-    idle_handler_id = g_idle_add((GtkFunction)Init_Load_Default_Dir,NULL);
+    idle_handler_id = g_idle_add((GSourceFunc)Init_Load_Default_Dir,NULL);
 
     /* Enter the event loop */
     gtk_main ();
