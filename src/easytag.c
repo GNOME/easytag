@@ -5000,7 +5000,8 @@ void MainWindow_Apply_Changes (void)
         gdk_window_get_root_origin(MainWindow->window,&x,&y);
         MAIN_WINDOW_X = x;
         MAIN_WINDOW_Y = y;
-        gdk_window_get_size(MainWindow->window,&width,&height);
+        width = gdk_window_get_width(MainWindow->window);
+        height = gdk_window_get_height(MainWindow->window);
         MAIN_WINDOW_WIDTH  = width;
         MAIN_WINDOW_HEIGHT = height;
 

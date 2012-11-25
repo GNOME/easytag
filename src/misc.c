@@ -1466,7 +1466,8 @@ void Write_Playlist_Window_Apply_Changes (void)
             gdk_window_get_root_origin(WritePlaylistWindow->window,&x,&y);
             PLAYLIST_WINDOW_X = x;
             PLAYLIST_WINDOW_Y = y;
-            gdk_window_get_size(WritePlaylistWindow->window,&width,&height);
+	    width = gdk_window_get_width(WritePlaylistWindow->window);
+	    height = gdk_window_get_height(WritePlaylistWindow->window);
             PLAYLIST_WINDOW_WIDTH  = width;
             PLAYLIST_WINDOW_HEIGHT = height;
         }
@@ -2261,7 +2262,8 @@ void Search_File_Window_Apply_Changes (void)
             gdk_window_get_root_origin(SearchFileWindow->window,&x,&y);
             SEARCH_WINDOW_X = x;
             SEARCH_WINDOW_Y = y;
-            gdk_window_get_size(SearchFileWindow->window,&width,&height);
+	    width = gdk_window_get_width(WritePlaylistWindow->window);
+	    height = gdk_window_get_height(WritePlaylistWindow->window);
             SEARCH_WINDOW_WIDTH  = width;
             SEARCH_WINDOW_HEIGHT = height;
         }
@@ -3061,7 +3063,8 @@ void Load_Filename_Window_Apply_Changes (void)
             gdk_window_get_root_origin(LoadFilenameWindow->window,&x,&y);
             LOAD_FILE_WINDOW_X = x;
             LOAD_FILE_WINDOW_Y = y;
-            gdk_window_get_size(LoadFilenameWindow->window,&width,&height);
+	    width = gdk_window_get_width(WritePlaylistWindow->window);
+	    height = gdk_window_get_height(WritePlaylistWindow->window);
             LOAD_FILE_WINDOW_WIDTH  = width;
             LOAD_FILE_WINDOW_HEIGHT = height;
         }

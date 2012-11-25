@@ -1736,7 +1736,8 @@ void OptionsWindow_Apply_Changes (void)
             //gdk_window_get_root_origin(OptionsWindow->window,&x,&y);
             //OPTIONS_WINDOW_X = x;
             //OPTIONS_WINDOW_Y = y;
-            gdk_window_get_size(OptionsWindow->window,&width,&height);
+            width = gdk_window_get_width(OptionsWindow->window);
+            height = gdk_window_get_height(OptionsWindow->window);
             OPTIONS_WINDOW_WIDTH  = width;
             OPTIONS_WINDOW_HEIGHT = height;
         }

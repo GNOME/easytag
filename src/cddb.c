@@ -860,7 +860,8 @@ void Cddb_Window_Apply_Changes (void)
             gdk_window_get_root_origin(CddbWindow->window,&x,&y);
             CDDB_WINDOW_X = x;
             CDDB_WINDOW_Y = y;
-            gdk_window_get_size(CddbWindow->window,&width,&height);
+	    width = gdk_window_get_width(CddbWindow->window);
+	    height = gdk_window_get_height(CddbWindow->window);
             CDDB_WINDOW_WIDTH  = width;
             CDDB_WINDOW_HEIGHT = height;
 
