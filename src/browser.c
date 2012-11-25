@@ -2598,7 +2598,6 @@ void Browser_Tree_Rename_Directory (gchar *last_path, gchar *new_path)
     gchar *new_basename;
     gchar *new_basename_utf8;
     gchar *path;
-    gboolean valid;
 
     if (!last_path || !new_path)
         return;
@@ -2617,7 +2616,7 @@ void Browser_Tree_Rename_Directory (gchar *last_path, gchar *new_path)
 
     for (i = 1; textsplit[i] != NULL; i++)
     {
-        valid = gtk_tree_model_get_iter(GTK_TREE_MODEL(directoryTreeModel), &iter, parentpath);
+        gtk_tree_model_get_iter(GTK_TREE_MODEL(directoryTreeModel), &iter, parentpath);
         childpath = Find_Child_Node(&iter, textsplit[i]);
         if (childpath == NULL)
         {
@@ -2632,7 +2631,7 @@ void Browser_Tree_Rename_Directory (gchar *last_path, gchar *new_path)
         parentpath = childpath;
     }
 
-    valid = gtk_tree_model_get_iter(GTK_TREE_MODEL(directoryTreeModel), &iter, parentpath);
+    gtk_tree_model_get_iter(GTK_TREE_MODEL(directoryTreeModel), &iter, parentpath);
     gtk_tree_path_free(parentpath);
 
     /* Rename the on-screen node */
@@ -2793,11 +2792,10 @@ static gboolean check_for_subdir (gchar *path)
 GdkPixbuf *Pixmap_From_Directory_Permission (gchar *path)
 {
     DIR *dir;
-    struct stat statbuf;
-
 
 #if 0
     // TESTING : to display a different icon for non writable directories
+    struct stat statbuf;
     if (stat(path,&statbuf) == 0)
     {
         //aaaaaaaaaaaaaaaaaaaaaaaaa
