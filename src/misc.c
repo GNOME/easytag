@@ -3256,28 +3256,28 @@ void Load_Filename_Select_Row_In_Other_List(GtkWidget* treeview_target, gpointer
     ce_adj = gtk_tree_view_get_vadjustment(treeview_orig);
     ct_adj = gtk_tree_view_get_vadjustment(GTK_TREE_VIEW(treeview_target));
 
-    if (GTK_ADJUSTMENT(ct_adj)->upper >= GTK_ADJUSTMENT(ct_adj)->page_size
-    &&  GTK_ADJUSTMENT(ce_adj)->upper >= GTK_ADJUSTMENT(ce_adj)->page_size)
+    if (gtk_adjustment_get_upper(GTK_ADJUSTMENT(ct_adj)) >= gtk_adjustment_get_page_size(GTK_ADJUSTMENT(ct_adj))
+    &&  gtk_adjustment_get_upper(GTK_ADJUSTMENT(ce_adj)) >= gtk_adjustment_get_page_size(GTK_ADJUSTMENT(ce_adj)))
     {
         // Rules are displayed in the both clist
-        if (GTK_ADJUSTMENT(ce_adj)->value <= GTK_ADJUSTMENT(ct_adj)->upper - GTK_ADJUSTMENT(ct_adj)->page_size)
+        if (gtk_adjustment_get_value(GTK_ADJUSTMENT(ce_adj)) <= gtk_adjustment_get_upper(GTK_ADJUSTMENT(ct_adj)) - gtk_adjustment_get_page_size(GTK_ADJUSTMENT(ct_adj)))
         {
-            gtk_adjustment_set_value(GTK_ADJUSTMENT(ct_adj),GTK_ADJUSTMENT(ce_adj)->value);
+            gtk_adjustment_set_value(GTK_ADJUSTMENT(ct_adj),gtk_adjustment_get_value(GTK_ADJUSTMENT(ce_adj)));
         } else
         {
-            gtk_adjustment_set_value(GTK_ADJUSTMENT(ct_adj),GTK_ADJUSTMENT(ct_adj)->upper - GTK_ADJUSTMENT(ct_adj)->page_size);
+            gtk_adjustment_set_value(GTK_ADJUSTMENT(ct_adj),gtk_adjustment_get_upper(GTK_ADJUSTMENT(ct_adj)) - gtk_adjustment_get_page_size(GTK_ADJUSTMENT(ct_adj)));
             indices_orig = gtk_tree_path_get_indices(path_orig);
 
             if (indices_orig[0] <= (gtk_tree_model_iter_n_children(treemodel_target, NULL) - 1))
-                gtk_adjustment_set_value(GTK_ADJUSTMENT(ce_adj),GTK_ADJUSTMENT(ct_adj)->value);
+                gtk_adjustment_set_value(GTK_ADJUSTMENT(ce_adj),gtk_adjustment_get_value(GTK_ADJUSTMENT(ct_adj)));
 
         }
-    }else if (GTK_ADJUSTMENT(ct_adj)->upper < GTK_ADJUSTMENT(ct_adj)->page_size) // Target Clist rule not visible
+    }else if (gtk_adjustment_get_upper(GTK_ADJUSTMENT(ct_adj)) < gtk_adjustment_get_page_size(GTK_ADJUSTMENT(ct_adj))) // Target Clist rule not visible
     {
         indices_orig = gtk_tree_path_get_indices(path_orig);
 
         if (indices_orig[0] <= (gtk_tree_model_iter_n_children(treemodel_target, NULL) - 1))
-            gtk_adjustment_set_value(GTK_ADJUSTMENT(ce_adj),GTK_ADJUSTMENT(ct_adj)->value);
+            gtk_adjustment_set_value(GTK_ADJUSTMENT(ce_adj),gtk_adjustment_get_value(GTK_ADJUSTMENT(ct_adj)));
     }
 
     // Must block the select signal of the target to avoid looping
