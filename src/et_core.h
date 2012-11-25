@@ -24,7 +24,7 @@
 
 
 #include <glib.h>
-#include <gdk/gdktypes.h>
+#include <gdk/gdk.h>
 #include <config.h> // For definition of ENABLE_OGG, ...
 
 
