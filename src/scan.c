@@ -2311,7 +2311,6 @@ void Open_ScannerWindow (gint scanner_type)
     GtkWidget *Separator;
     GtkWidget *Icon;
     GtkWidget *EventBox;
-    GtkTooltips *Tips;
     GtkWidget *MaskStatusIconBox;
     GList *pf_cb_group1 = NULL;
     GList *pf_cb_group2 = NULL;
@@ -2355,9 +2354,6 @@ void Open_ScannerWindow (gint scanner_type)
     g_signal_connect(G_OBJECT(ScannerWindow),"delete_event",G_CALLBACK(ScannerWindow_Quit),NULL);
     g_signal_connect(G_OBJECT(ScannerWindow),"key_press_event",G_CALLBACK(ScannerWindow_Key_Press),NULL);
 
-    /* The tooltips */
-    Tips = gtk_tooltips_new();
-
     /* The main vbox */
     ScanVBox = gtk_vbox_new(FALSE,2);
     gtk_container_add(GTK_CONTAINER(ScannerWindow),ScanVBox);
@@ -2392,7 +2388,7 @@ void Open_ScannerWindow (gint scanner_type)
                               _(Scanner_Option_Menu_Items[SCANNER_PROCESS_FIELDS]));
 
     // Selection of the item made at the end of the function
-    gtk_tooltips_set_tip(Tips, EventBox, _("Select the type of scanner to use"), NULL);
+    gtk_widget_set_tooltip_text(EventBox, _("Select the type of scanner to use"));
     g_signal_connect(G_OBJECT(ScannerOptionCombo), "changed", G_CALLBACK(Scanner_Option_Menu_Activate_Item), NULL);
 
     /* 'Scan selected files' button */
@@ -2401,7 +2397,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_container_add(GTK_CONTAINER(SWScanButton),Icon);
     gtk_box_pack_start(GTK_BOX(HBox1),SWScanButton,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(SWScanButton),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,SWScanButton,_("Open scanner window / Scan selected files"),NULL);
+    gtk_widget_set_tooltip_text(SWScanButton,_("Open scanner window / Scan selected files"));
     g_signal_connect(G_OBJECT(SWScanButton),"clicked",G_CALLBACK(Action_Scan_Selected_Files),NULL);
 
     /* Separator line */
@@ -2414,7 +2410,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(HBox1),Button,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,Button,_("Scanner Options"),NULL);
+    gtk_widget_set_tooltip_text(Button,_("Scanner Options"));
     g_signal_connect(G_OBJECT(Button),"clicked",G_CALLBACK(Scan_Option_Button),NULL);
 
     /* Mask Editor button */
@@ -2423,7 +2419,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_container_add(GTK_CONTAINER(MaskEditorButton),Icon);
     gtk_box_pack_start(GTK_BOX(HBox1),MaskEditorButton,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(MaskEditorButton),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,MaskEditorButton,_("Show / Hide Masks Editor"),NULL);
+    gtk_widget_set_tooltip_text(MaskEditorButton,_("Show / Hide Masks Editor"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(MaskEditorButton),SCAN_MASK_EDITOR_BUTTON);
     g_signal_connect(G_OBJECT(MaskEditorButton),"toggled",G_CALLBACK(Scan_Toggle_Mask_Editor_Button),NULL);
 
@@ -2433,7 +2429,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_container_add(GTK_CONTAINER(LegendButton),Icon);
     gtk_box_pack_start(GTK_BOX(HBox1),LegendButton,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(LegendButton),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,LegendButton,_("Show / Hide Legend"),NULL);
+    gtk_widget_set_tooltip_text(LegendButton,_("Show / Hide Legend"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(LegendButton),SCAN_LEGEND_BUTTON);
     g_signal_connect(G_OBJECT(LegendButton),"toggled",G_CALLBACK(Scan_Toggle_Legend_Button),NULL);
 
@@ -2443,7 +2439,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(HBox1),Button,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,Button,_("Close this window"),NULL);
+    gtk_widget_set_tooltip_text(Button,_("Close this window"));
     g_signal_connect(G_OBJECT(Button),"clicked",G_CALLBACK(ScannerWindow_Quit),NULL);
 
     /*
@@ -2470,9 +2466,9 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_combo_box_entry_set_text_column(GTK_COMBO_BOX_ENTRY(ScanTagMaskCombo), MASK_EDITOR_TEXT);
 
     gtk_box_pack_start(GTK_BOX(HBox2),ScanTagMaskCombo,TRUE,TRUE,2);
-    gtk_tooltips_set_tip(Tips,GTK_WIDGET(GTK_ENTRY(GTK_BIN(ScanTagMaskCombo)->child)),
+    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(GTK_BIN(ScanTagMaskCombo)->child)),
         _("Select or type in a mask using codes (see Legend) to parse file name and "
-        "path. Used to fill in tag fields."),NULL);
+        "path. Used to fill in tag fields."));
     // Signal to generate preview (preview of the new tag values)
     g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(GTK_BIN(ScanTagMaskCombo)->child)),"changed",
         G_CALLBACK(Scan_Fill_Tag_Generate_Preview),NULL);
@@ -2491,7 +2487,7 @@ void Open_ScannerWindow (gint scanner_type)
     // Mask status icon
     MaskStatusIconBox = Create_Pixmap_Icon_With_Event_Box("easytag-forbidden");
     gtk_box_pack_start(GTK_BOX(HBox2),MaskStatusIconBox,FALSE,FALSE,0);
-    gtk_tooltips_set_tip(Tips,MaskStatusIconBox,_("Invalid Scanner Mask"),NULL);
+    gtk_widget_set_tooltip_text(MaskStatusIconBox,_("Invalid Scanner Mask"));
     // Signal connection to check if mask is correct into the mask entry
     g_signal_connect_swapped(G_OBJECT(GTK_BIN(ScanTagMaskCombo)->child),"changed",
         G_CALLBACK(Scan_Check_Scan_Tag_Mask),GTK_OBJECT(MaskStatusIconBox));
@@ -2524,7 +2520,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_box_pack_start(GTK_BOX(HBox4),RenameFilePrefixPathButton,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(RenameFilePrefixPathButton),GTK_RELIEF_NONE);
     g_signal_connect(G_OBJECT(RenameFilePrefixPathButton),"clicked",G_CALLBACK(Scan_Rename_File_Prefix_Path),NULL);
-    gtk_tooltips_set_tip(Tips,RenameFilePrefixPathButton,_("Prefix mask with current path"),NULL);
+    gtk_widget_set_tooltip_text(RenameFilePrefixPathButton,_("Prefix mask with current path"));
 
     // Set up list model which is used both by the combobox and the editor
     RenameFileListModel = gtk_list_store_new(MASK_EDITOR_COUNT, G_TYPE_STRING);
@@ -2536,10 +2532,10 @@ void Open_ScannerWindow (gint scanner_type)
 
     gtk_box_pack_start(GTK_BOX(HBox4),RenameFileMaskCombo,TRUE,TRUE,2);
     gtk_container_set_border_width(GTK_CONTAINER(HBox4), 2);
-    gtk_tooltips_set_tip(Tips,GTK_WIDGET(GTK_ENTRY(GTK_BIN(RenameFileMaskCombo)->child)),
+    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(GTK_BIN(RenameFileMaskCombo)->child)),
         _("Select or type in a mask using codes (see Legend) to parse tag fields. "
         "Used to rename the file.\nUse / to make directories. If the first character "
-        "is /, it's a absolute path, otherwise is relative to the old path."),NULL);
+        "is /, it's a absolute path, otherwise is relative to the old path."));
     // Signal to generate preview (preview of the new filename)
     g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(GTK_BIN(RenameFileMaskCombo)->child)),"changed",
         G_CALLBACK(Scan_Rename_File_Generate_Preview),NULL);
@@ -2558,7 +2554,7 @@ void Open_ScannerWindow (gint scanner_type)
     // Mask status icon
     MaskStatusIconBox = Create_Pixmap_Icon_With_Event_Box("easytag-forbidden");
     gtk_box_pack_start(GTK_BOX(HBox4),MaskStatusIconBox,FALSE,FALSE,0);
-    gtk_tooltips_set_tip(Tips,MaskStatusIconBox,_("Invalid Scanner Mask"),NULL);
+    gtk_widget_set_tooltip_text(MaskStatusIconBox,_("Invalid Scanner Mask"));
     // Signal connection to check if mask is correct into the mask entry
     g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(GTK_BIN(RenameFileMaskCombo)->child)),"changed",
         G_CALLBACK(Scan_Check_Rename_File_Mask),G_OBJECT(MaskStatusIconBox));
@@ -2587,44 +2583,44 @@ void Open_ScannerWindow (gint scanner_type)
     Label = gtk_label_new(_("Select fields:"));
     gtk_box_pack_start(GTK_BOX(hbox),EventBox,FALSE,FALSE,2);
     gtk_container_add(GTK_CONTAINER(EventBox),Label);
-    gtk_tooltips_set_tip(Tips,EventBox,_("The buttons on the right represent the fields which can "
-        "be processed. Select those who interest you."),NULL);
+    gtk_widget_set_tooltip_text(EventBox,_("The buttons on the right represent the fields which can "
+        "be processed. Select those who interest you."));
     // Advice for Translators : set the first letter of filename translated
     ProcessFileNameField = gtk_toggle_button_new_with_label(   _("F"));
-    gtk_tooltips_set_tip(Tips,ProcessFileNameField,            _("Process file name field"),NULL);
+    gtk_widget_set_tooltip_text(ProcessFileNameField,          _("Process file name field"));
     // Advice for Translators : set the first letter of title translated
     ProcessTitleField = gtk_toggle_button_new_with_label(      _("T"));
-    gtk_tooltips_set_tip(Tips,ProcessTitleField,               _("Process title field"),NULL);
+    gtk_widget_set_tooltip_text(ProcessTitleField,             _("Process title field"));
     // Advice for Translators : set the first letter of artist translated
     ProcessArtistField = gtk_toggle_button_new_with_label(     _("Ar"));
-    gtk_tooltips_set_tip(Tips,ProcessArtistField,              _("Process file artist field"),NULL);
+    gtk_widget_set_tooltip_text(ProcessArtistField,            _("Process file artist field"));
     // Advice for Translators : set the first letter of album artist translated
-    ProcessAlbumArtistField = gtk_toggle_button_new_with_label(      _("AA"));
-    gtk_tooltips_set_tip(Tips,ProcessAlbumArtistField,               _("Process album artist field"),NULL);
-	// Advice for Translators : set the first letter of album translated
+    ProcessAlbumArtistField = gtk_toggle_button_new_with_label(_("AA"));
+    gtk_widget_set_tooltip_text(ProcessAlbumArtistField,       _("Process album artist field"));
+    // Advice for Translators : set the first letter of album translated
     ProcessAlbumField = gtk_toggle_button_new_with_label(      _("Al"));
-    gtk_tooltips_set_tip(Tips,ProcessAlbumField,               _("Process album field"),NULL);
+    gtk_widget_set_tooltip_text(ProcessAlbumField,             _("Process album field"));
     // Advice for Translators : set the first letter of genre translated
     ProcessGenreField = gtk_toggle_button_new_with_label(      _("G"));
-    gtk_tooltips_set_tip(Tips,ProcessGenreField,               _("Process genre field"),NULL);
+    gtk_widget_set_tooltip_text(ProcessGenreField,             _("Process genre field"));
     // Advice for Translators : set the first letter of comment translated
     ProcessCommentField = gtk_toggle_button_new_with_label(    _("Cm"));
-    gtk_tooltips_set_tip(Tips,ProcessCommentField,             _("Process comment field"),NULL);
+    gtk_widget_set_tooltip_text(ProcessCommentField,           _("Process comment field"));
     // Advice for Translators : set the first letter of composer translated
     ProcessComposerField = gtk_toggle_button_new_with_label(   _("Cp"));
-    gtk_tooltips_set_tip(Tips,ProcessComposerField,            _("Process composer field"),NULL);
+    gtk_widget_set_tooltip_text(ProcessComposerField,          _("Process composer field"));
     // Advice for Translators : set the first letter of orig artist translated
     ProcessOrigArtistField = gtk_toggle_button_new_with_label( _("O"));
-    gtk_tooltips_set_tip(Tips,ProcessOrigArtistField,          _("Process original artist field"),NULL);
+    gtk_widget_set_tooltip_text(ProcessOrigArtistField,        _("Process original artist field"));
     // Advice for Translators : set the first letter of copyright translated
     ProcessCopyrightField = gtk_toggle_button_new_with_label(  _("Cr"));
-    gtk_tooltips_set_tip(Tips,ProcessCopyrightField,           _("Process copyright field"),NULL);
+    gtk_widget_set_tooltip_text(ProcessCopyrightField,         _("Process copyright field"));
     // Advice for Translators : set the first letter of URL translated
     ProcessURLField = gtk_toggle_button_new_with_label(        _("U"));
-    gtk_tooltips_set_tip(Tips,ProcessURLField,                 _("Process URL field"),NULL);
+    gtk_widget_set_tooltip_text(ProcessURLField,               _("Process URL field"));
     // Advice for Translators : set the first letter of encoder name translated
     ProcessEncodedByField = gtk_toggle_button_new_with_label(  _("E"));
-    gtk_tooltips_set_tip(Tips,ProcessEncodedByField,           _("Process encoder name field"),NULL);
+    gtk_widget_set_tooltip_text(ProcessEncodedByField,         _("Process encoder name field"));
     gtk_box_pack_start(GTK_BOX(hbox),ProcessFileNameField,   TRUE,TRUE,2);
     gtk_box_pack_start(GTK_BOX(hbox),ProcessTitleField,      TRUE,TRUE,2);
     gtk_box_pack_start(GTK_BOX(hbox),ProcessArtistField,     TRUE,TRUE,2);
@@ -2673,7 +2669,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_widget_set_can_default(Button,FALSE); // To have enough space to display the icon
     gtk_widget_set_can_focus(Button,FALSE);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
-    gtk_tooltips_set_tip(Tips,Button,_("Invert Selection"),NULL);
+    gtk_widget_set_tooltip_text(Button,_("Invert Selection"));
     Button = gtk_button_new();
     g_signal_connect(G_OBJECT(Button),"clicked",G_CALLBACK(Select_Fields_Select_Unselect_All),NULL);
     gtk_box_pack_start(GTK_BOX(vbox),Button,FALSE,FALSE,0);
@@ -2682,7 +2678,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_widget_set_can_default(Button,FALSE); // To have enough space to display the icon
     gtk_widget_set_can_focus(Button,FALSE);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
-    gtk_tooltips_set_tip(Tips,Button,_("Select/Unselect All."),NULL);
+    gtk_widget_set_tooltip_text(Button,_("Select/Unselect All."));
 
     /* Separator line */
     Separator = gtk_hseparator_new();
@@ -2725,14 +2721,14 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsConvertSpace),PF_CONVERT_SPACE);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsConvert),PF_CONVERT);
     /* Tooltips */
-    gtk_tooltips_set_tip(Tips,ProcessFieldsConvertIntoSpace,
+    gtk_widget_set_tooltip_text(ProcessFieldsConvertIntoSpace,
         _("The underscore character or the string '%20' are replaced by one space. "
-          "Example, before: 'Text%20In%20An_Entry', after: 'Text In An Entry'."),NULL);
-    gtk_tooltips_set_tip(Tips,ProcessFieldsConvertSpace,
+          "Example, before: 'Text%20In%20An_Entry', after: 'Text In An Entry'."));
+    gtk_widget_set_tooltip_text(ProcessFieldsConvertSpace,
         _("The space character is replaced by one underscore character. "
-          "Example, before: 'Text In An Entry', after: 'Text_In_An_Entry'."),NULL);
-    gtk_tooltips_set_tip(Tips,ProcessFieldsConvert,
-        _("Replace a string by an other one. Note that the search is case sensitive."),NULL);
+          "Example, before: 'Text In An Entry', after: 'Text_In_An_Entry'."));
+    gtk_widget_set_tooltip_text(ProcessFieldsConvert,
+        _("Replace a string by an other one. Note that the search is case sensitive."));
 
     /* Separator line */
     Separator = gtk_hseparator_new();
@@ -2771,21 +2767,21 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsFirstLettersUppercase),PF_CONVERT_FIRST_LETTERS_UPPERCASE);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsDetectRomanNumerals),PF_DETECT_ROMAN_NUMERALS);
     /* Tooltips */
-    gtk_tooltips_set_tip(Tips,ProcessFieldsAllUppercase,
+    gtk_widget_set_tooltip_text(ProcessFieldsAllUppercase,
         _("Convert all words in all fields to upper case. "
-          "Example, before: 'Text IN AN entry', after: 'TEXT IN AN ENTRY'."),NULL);
-    gtk_tooltips_set_tip(Tips,ProcessFieldsAllDowncase,
+          "Example, before: 'Text IN AN entry', after: 'TEXT IN AN ENTRY'."));
+    gtk_widget_set_tooltip_text(ProcessFieldsAllDowncase,
         _("Convert all words in all fields to lower case. "
-          "Example, before: 'TEXT IN an entry', after: 'text in an entry'."),NULL);
-    gtk_tooltips_set_tip(Tips,ProcessFieldsFirstLetterUppercase,
+          "Example, before: 'TEXT IN an entry', after: 'text in an entry'."));
+    gtk_widget_set_tooltip_text(ProcessFieldsFirstLetterUppercase,
         _("Convert the initial of the first word in all fields to upper case. "
-          "Example, before: 'text IN An ENTRY', after: 'Text in an entry'."),NULL);
-    gtk_tooltips_set_tip(Tips,ProcessFieldsFirstLettersUppercase,
+          "Example, before: 'text IN An ENTRY', after: 'Text in an entry'."));
+    gtk_widget_set_tooltip_text(ProcessFieldsFirstLettersUppercase,
         _("Convert the initial of each word in all fields to upper case. "
-          "Example, before: 'Text in an ENTRY', after: 'Text In An Entry'."),NULL);
-    gtk_tooltips_set_tip(Tips,ProcessFieldsDetectRomanNumerals,
+          "Example, before: 'Text in an ENTRY', after: 'Text In An Entry'."));
+    gtk_widget_set_tooltip_text(ProcessFieldsDetectRomanNumerals,
         _("Force to convert to upper case the Roman numerals. "
-          "Example, before: 'ix. text in an entry', after: 'IX. Text In An Entry'."),NULL);
+          "Example, before: 'ix. text in an entry', after: 'IX. Text In An Entry'."));
 
     /* Separator line */
     Separator = gtk_hseparator_new();
@@ -2811,15 +2807,15 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsInsertSpace),PF_INSERT_SPACE);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsOnlyOneSpace),PF_ONLY_ONE_SPACE);
     /* Tooltips */
-    gtk_tooltips_set_tip(Tips,ProcessFieldsRemoveSpace,
+    gtk_widget_set_tooltip_text(ProcessFieldsRemoveSpace,
         _("All spaces between words are removed. "
-          "Example, before: 'Text In An Entry', after: 'TextInAnEntry'."),NULL);
-    gtk_tooltips_set_tip(Tips,ProcessFieldsInsertSpace,
+          "Example, before: 'Text In An Entry', after: 'TextInAnEntry'."));
+    gtk_widget_set_tooltip_text(ProcessFieldsInsertSpace,
         _("A space is inserted before each upper case letter. "
-          "Example, before: 'TextInAnEntry', after: 'Text In An Entry'."),NULL);
-    gtk_tooltips_set_tip(Tips,ProcessFieldsOnlyOneSpace,
+          "Example, before: 'TextInAnEntry', after: 'Text In An Entry'."));
+    gtk_widget_set_tooltip_text(ProcessFieldsOnlyOneSpace,
         _("Duplicated spaces or underscores are removed. "
-          "Example, before: 'Text__In__An   Entry', after: 'Text_In_An Entry'."),NULL);
+          "Example, before: 'Text__In__An   Entry', after: 'Text_In_An Entry'."));
     Select_Fields_Set_Sensitive();
 
     /*
@@ -2925,7 +2921,7 @@ void Open_ScannerWindow (gint scanner_type)
     // Mask status icon
     MaskStatusIconBox = Create_Pixmap_Icon_With_Event_Box("easytag-forbidden");
     gtk_box_pack_start(GTK_BOX(hbox),MaskStatusIconBox,FALSE,FALSE,0);
-    gtk_tooltips_set_tip(Tips,MaskStatusIconBox,_("Invalid Scanner Mask"),NULL);
+    gtk_widget_set_tooltip_text(MaskStatusIconBox,_("Invalid Scanner Mask"));
     // Signal connection to check if mask is correct into the mask entry
     g_signal_connect_swapped(G_OBJECT(MaskEditorEntry),"changed",
         G_CALLBACK(Scan_Check_Editor_Mask),G_OBJECT(MaskStatusIconBox));
@@ -2940,7 +2936,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_container_add(GTK_CONTAINER(MaskEditorNewButton),Icon);
     gtk_box_pack_start(GTK_BOX(MaskEditorVBox),MaskEditorNewButton,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(MaskEditorNewButton),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,MaskEditorNewButton,_("Create New Mask"),NULL);
+    gtk_widget_set_tooltip_text(MaskEditorNewButton,_("Create New Mask"));
     g_signal_connect(G_OBJECT(MaskEditorNewButton),"clicked",
         G_CALLBACK(Mask_Editor_List_New),NULL);
 
@@ -2950,7 +2946,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_container_add(GTK_CONTAINER(MaskEditorUpButton),Icon);
     gtk_box_pack_start(GTK_BOX(MaskEditorVBox),MaskEditorUpButton,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(MaskEditorUpButton),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,MaskEditorUpButton,_("Move Up this Mask"),NULL);
+    gtk_widget_set_tooltip_text(MaskEditorUpButton,_("Move Up this Mask"));
     g_signal_connect(G_OBJECT(MaskEditorUpButton),"clicked",
         G_CALLBACK(Mask_Editor_List_Move_Up),NULL);
 
@@ -2960,7 +2956,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_container_add(GTK_CONTAINER(MaskEditorDownButton),Icon);
     gtk_box_pack_start(GTK_BOX(MaskEditorVBox),MaskEditorDownButton,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(MaskEditorDownButton),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,MaskEditorDownButton,_("Move Down this Mask"),NULL);
+    gtk_widget_set_tooltip_text(MaskEditorDownButton,_("Move Down this Mask"));
     g_signal_connect(G_OBJECT(MaskEditorDownButton),"clicked",
         G_CALLBACK(Mask_Editor_List_Move_Down),NULL);
 
@@ -2970,7 +2966,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_container_add(GTK_CONTAINER(MaskEditorCopyButton),Icon);
     gtk_box_pack_start(GTK_BOX(MaskEditorVBox),MaskEditorCopyButton,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(MaskEditorCopyButton),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,MaskEditorCopyButton,_("Duplicate Mask"),NULL);
+    gtk_widget_set_tooltip_text(MaskEditorCopyButton,_("Duplicate Mask"));
     g_signal_connect(G_OBJECT(MaskEditorCopyButton),"clicked",
         G_CALLBACK(Mask_Editor_List_Duplicate),NULL);
 
@@ -2980,7 +2976,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_container_add(GTK_CONTAINER(MaskEditorAddButton),Icon);
     gtk_box_pack_start(GTK_BOX(MaskEditorVBox),MaskEditorAddButton,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(MaskEditorAddButton),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,MaskEditorAddButton,_("Add Default Masks"),NULL);
+    gtk_widget_set_tooltip_text(MaskEditorAddButton,_("Add Default Masks"));
     g_signal_connect(G_OBJECT(MaskEditorAddButton),"clicked",
         G_CALLBACK(Mask_Editor_List_Add),NULL);
 
@@ -2990,7 +2986,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_container_add(GTK_CONTAINER(MaskEditorRemoveButton),Icon);
     gtk_box_pack_start(GTK_BOX(MaskEditorVBox),MaskEditorRemoveButton,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(MaskEditorRemoveButton),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,MaskEditorRemoveButton,_("Remove Mask"),NULL);
+    gtk_widget_set_tooltip_text(MaskEditorRemoveButton,_("Remove Mask"));
     g_signal_connect(G_OBJECT(MaskEditorRemoveButton),"clicked",
         G_CALLBACK(Mask_Editor_List_Remove),NULL);
 
@@ -3000,7 +2996,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_container_add(GTK_CONTAINER(MaskEditorSaveButton),Icon);
     gtk_box_pack_end(GTK_BOX(MaskEditorVBox),MaskEditorSaveButton,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(MaskEditorSaveButton),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,MaskEditorSaveButton,_("Save Masks"),NULL);
+    gtk_widget_set_tooltip_text(MaskEditorSaveButton,_("Save Masks"));
     g_signal_connect(G_OBJECT(MaskEditorSaveButton),"clicked",
         G_CALLBACK(Mask_Editor_List_Save_Button),NULL);
 

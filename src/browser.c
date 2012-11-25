@@ -3030,7 +3030,6 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     GtkWidget *Icon;
     GtkCellRenderer *renderer;
     GtkTreeViewColumn *column;
-    GtkTooltips *Tips;
     GtkWidget *PopupMenu;
     gchar *BrowserTree_Titles[] = {N_("Tree")};
     gchar *BrowserList_Titles[] = {N_("File Name"),N_("Title"),N_("Artist"),N_("Album Artist"),N_("Album"),
@@ -3040,7 +3039,6 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     gchar *ArtistList_Titles[]  = {N_("Artist"),N_("# Albums"),N_("# Files")};
     gchar *AlbumList_Titles[]   = {N_("Album"),N_("# Files")};
 
-    Tips = gtk_tooltips_new();
     VerticalBox = gtk_vbox_new(FALSE,2);
     gtk_container_set_border_width(GTK_CONTAINER(VerticalBox),2);
 
@@ -3058,7 +3056,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     gtk_box_pack_start(GTK_BOX(HBox),BrowserParentButton,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(BrowserParentButton),GTK_RELIEF_NONE);
     g_signal_connect(G_OBJECT(BrowserParentButton),"clicked",G_CALLBACK(Browser_Parent_Button_Clicked),NULL);
-    gtk_tooltips_set_tip(Tips,BrowserParentButton,_("Go to parent directory"),NULL);
+    gtk_widget_set_tooltip_text(BrowserParentButton,_("Go to parent directory"));
 
     /*
      * The entry box for displaying path
@@ -3075,7 +3073,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
 
     g_signal_connect(G_OBJECT(GTK_ENTRY(GTK_BIN(BrowserEntryCombo)->child)),"activate",G_CALLBACK(Browser_Entry_Activated),NULL);
     gtk_box_pack_start(GTK_BOX(HBox),BrowserEntryCombo,TRUE,TRUE,1);
-    gtk_tooltips_set_tip(Tips,GTK_WIDGET(GTK_ENTRY(GTK_BIN(BrowserEntryCombo)->child)),_("Enter a directory to browse."),NULL);
+    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(GTK_BIN(BrowserEntryCombo)->child)),_("Enter a directory to browse."));
 
     /*
      * The button to select a directory to browse
@@ -3084,7 +3082,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     gtk_box_pack_start(GTK_BOX(HBox),BrowserButton,FALSE,FALSE,1);
     g_signal_connect_swapped(G_OBJECT(BrowserButton),"clicked",
                              G_CALLBACK(File_Selection_Window_For_Directory),G_OBJECT(GTK_BIN(BrowserEntryCombo)->child));
-    gtk_tooltips_set_tip(Tips,BrowserButton,_("Select a directory to browse."),NULL);
+    gtk_widget_set_tooltip_text(BrowserButton,_("Select a directory to browse."));
 
 
     /*
@@ -3655,7 +3653,6 @@ void Browser_Open_Rename_Directory_Window (void)
     GtkWidget *ButtonBox;
     GtkWidget *Button;
     GtkWidget *Separator;
-    GtkTooltips *Tips;
     gchar *directory_parent = NULL;
     gchar *directory_name = NULL;
     gchar *directory_name_utf8 = NULL;
@@ -3691,9 +3688,6 @@ void Browser_Open_Rename_Directory_Window (void)
         g_free(directory_parent);
         return;
     }
-
-    /* The tooltips */
-    Tips = gtk_tooltips_new();
 
     directory_name_utf8 = filename_to_display(directory_name);
 
@@ -3736,8 +3730,7 @@ void Browser_Open_Rename_Directory_Window (void)
     RenameDirectoryWithMask = gtk_check_button_new_with_label(_("Use mask :"));
     gtk_box_pack_start(GTK_BOX(HBox),RenameDirectoryWithMask,FALSE,FALSE,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(RenameDirectoryWithMask),RENAME_DIRECTORY_WITH_MASK);
-    gtk_tooltips_set_tip(Tips,RenameDirectoryWithMask,_("If activated, it will use "
-        "masks to rename directory."),NULL);
+    gtk_widget_set_tooltip_text(RenameDirectoryWithMask,_("If activated, it will use masks to rename directory."));
     g_signal_connect(G_OBJECT(RenameDirectoryWithMask),"toggled",G_CALLBACK(Rename_Directory_With_Mask_Toggled),NULL);
 
     // Set up list model which is used by the combobox
@@ -3754,9 +3747,9 @@ void Browser_Open_Rename_Directory_Window (void)
     gtk_widget_set_size_request(RenameDirectoryMaskCombo, 80, -1);
 
     gtk_box_pack_start(GTK_BOX(HBox),RenameDirectoryMaskCombo,TRUE,TRUE,0);
-    gtk_tooltips_set_tip(Tips,GTK_WIDGET(GTK_ENTRY(GTK_BIN(RenameDirectoryMaskCombo)->child)),
+    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(GTK_BIN(RenameDirectoryMaskCombo)->child)),
         _("Select or type in a mask using codes (see Legend in Scanner Window) to rename "
-        "the directory from tag fields."),NULL);
+        "the directory from tag fields."));
     // Signal to generate preview (preview of the new directory)
     g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(GTK_BIN(RenameDirectoryMaskCombo)->child)),"changed",
         G_CALLBACK(Scan_Rename_Directory_Generate_Preview),NULL);
@@ -3775,7 +3768,7 @@ void Browser_Open_Rename_Directory_Window (void)
     // Mask status icon
     RenameDirectoryMaskStatusIconBox = Create_Pixmap_Icon_With_Event_Box("easytag-forbidden");
     gtk_box_pack_start(GTK_BOX(HBox),RenameDirectoryMaskStatusIconBox,FALSE,FALSE,0);
-    gtk_tooltips_set_tip(Tips,RenameDirectoryMaskStatusIconBox,_("Invalid Scanner Mask"),NULL);
+    gtk_widget_set_tooltip_text(RenameDirectoryMaskStatusIconBox,_("Invalid Scanner Mask"));
     // Signal connection to check if mask is correct into the mask entry
     g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(GTK_BIN(RenameDirectoryMaskCombo)->child)),"changed",
         G_CALLBACK(Scan_Check_Rename_File_Mask),G_OBJECT(RenameDirectoryMaskStatusIconBox));
@@ -4153,7 +4146,6 @@ void Browser_Open_Run_Program_Tree_Window (void)
     GtkWidget *ButtonBox;
     GtkWidget *Button;
     GtkWidget *Separator;
-    GtkTooltips *Tips;
     gchar *current_directory = NULL;
 
     if (RunProgramTreeWindow != NULL)
@@ -4177,8 +4169,6 @@ void Browser_Open_Run_Program_Tree_Window (void)
     // Just center it over mainwindow
     gtk_window_set_position(GTK_WINDOW(RunProgramTreeWindow), GTK_WIN_POS_CENTER_ON_PARENT);
 
-    Tips = gtk_tooltips_new();
-
     Frame = gtk_frame_new(NULL);
     gtk_container_add(GTK_CONTAINER(RunProgramTreeWindow),Frame);
     gtk_container_set_border_width(GTK_CONTAINER(Frame),2);
@@ -4199,8 +4189,8 @@ void Browser_Open_Run_Program_Tree_Window (void)
     RunProgramComboBox = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(RunProgramModel), MISC_COMBO_TEXT);
     gtk_box_pack_start(GTK_BOX(HBox),RunProgramComboBox,TRUE,TRUE,0);
     gtk_widget_set_size_request(GTK_WIDGET(RunProgramComboBox),250,-1);
-    gtk_tooltips_set_tip(Tips,GTK_WIDGET(GTK_ENTRY(GTK_BIN(RunProgramComboBox)->child)),_("Enter the program to run. "
-        "It will receive the current directory as parameter."),NULL);
+    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(GTK_BIN(RunProgramComboBox)->child)),_("Enter the program to run. "
+        "It will receive the current directory as parameter."));
 
     /* History list */
     gtk_list_store_clear(RunProgramModel);
@@ -4319,7 +4309,6 @@ void Browser_Open_Run_Program_List_Window (void)
     GtkWidget *ButtonBox;
     GtkWidget *Button;
     GtkWidget *Separator;
-    GtkTooltips *Tips;
 
     if (RunProgramListWindow != NULL)
     {
@@ -4336,8 +4325,6 @@ void Browser_Open_Run_Program_List_Window (void)
 
     // Just center over mainwindow
     gtk_window_set_position(GTK_WINDOW(RunProgramListWindow),GTK_WIN_POS_CENTER_ON_PARENT);
-
-    Tips = gtk_tooltips_new();
 
     Frame = gtk_frame_new(NULL);
     gtk_container_add(GTK_CONTAINER(RunProgramListWindow),Frame);
@@ -4359,8 +4346,8 @@ void Browser_Open_Run_Program_List_Window (void)
     RunProgramComboBox = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(RunProgramModel), MISC_COMBO_TEXT);
     gtk_box_pack_start(GTK_BOX(HBox),RunProgramComboBox,TRUE,TRUE,0);
     gtk_widget_set_size_request(GTK_WIDGET(RunProgramComboBox),250,-1);
-    gtk_tooltips_set_tip(Tips,GTK_WIDGET(GTK_ENTRY(GTK_BIN(RunProgramComboBox)->child)),_("Enter the program to run. "
-        "It will receive the current file as parameter."),NULL);
+    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(GTK_BIN(RunProgramComboBox)->child)),_("Enter the program to run. "
+        "It will receive the current file as parameter."));
 
     /* History list */
     gtk_list_store_clear(RunProgramModel);

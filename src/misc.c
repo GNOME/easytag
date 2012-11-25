@@ -1229,15 +1229,12 @@ void Open_Write_Playlist_Window (void)
     GtkWidget *Separator;
     GtkWidget *Icon;
     GtkWidget *MaskStatusIconBox, *MaskStatusIconBox1;
-    GtkTooltips *Tips;
 
     if (WritePlaylistWindow != NULL)
     {
         gdk_window_raise(WritePlaylistWindow->window);
         return;
     }
-
-    Tips = gtk_tooltips_new();
 
     WritePlaylistWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(WritePlaylistWindow),_("Generate a playlist"));
@@ -1290,7 +1287,7 @@ void Open_Write_Playlist_Window (void)
     // Mask status icon
     MaskStatusIconBox = Create_Pixmap_Icon_With_Event_Box("easytag-forbidden");
     gtk_box_pack_start(GTK_BOX(hbox),MaskStatusIconBox,FALSE,FALSE,0);
-    gtk_tooltips_set_tip(Tips,MaskStatusIconBox,_("Invalid Scanner Mask"),NULL);
+    gtk_widget_set_tooltip_text(MaskStatusIconBox,_("Invalid Scanner Mask"));
     // Signal connection to check if mask is correct into the mask entry
     g_signal_connect_swapped(G_OBJECT(GTK_BIN(PlayListNameMaskCombo)->child),"changed",
         G_CALLBACK(Playlist_Check_Content_Mask),G_OBJECT(MaskStatusIconBox));
@@ -1301,7 +1298,7 @@ void Open_Write_Playlist_Window (void)
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,Button,_("Edit Masks"),NULL);
+    gtk_widget_set_tooltip_text(Button,_("Edit Masks"));
     // The masks will be edited into a tab of the preferences window. In the future...
     //g_signal_connect(G_OBJECT(Button),"clicked",(GtkSignalFunc)???,NULL);
     // FIX ME : edit the masks
@@ -1318,8 +1315,8 @@ void Open_Write_Playlist_Window (void)
     playlist_only_selected_files = gtk_check_button_new_with_label(_("Include only the selected files"));
     gtk_box_pack_start(GTK_BOX(vbox),playlist_only_selected_files,FALSE,FALSE,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_only_selected_files),PLAYLIST_ONLY_SELECTED_FILES);
-    gtk_tooltips_set_tip(Tips,playlist_only_selected_files,_("If activated, only the selected files will be "
-        "written in the playlist file. Else, all the files will be written."),NULL);
+    gtk_widget_set_tooltip_text(playlist_only_selected_files,_("If activated, only the selected files will be "
+        "written in the playlist file. Else, all the files will be written."));
 
     // Separator line
     Separator = gtk_hseparator_new();
@@ -1341,8 +1338,8 @@ void Open_Write_Playlist_Window (void)
     playlist_create_in_parent_dir = gtk_check_button_new_with_label(_("Create playlist in the parent directory"));
     gtk_box_pack_start(GTK_BOX(vbox),playlist_create_in_parent_dir,FALSE,FALSE,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_create_in_parent_dir),PLAYLIST_CREATE_IN_PARENT_DIR);
-    gtk_tooltips_set_tip(Tips,playlist_create_in_parent_dir,_("If activated, the playlist will be created "
-        "in the parent directory."),NULL);
+    gtk_widget_set_tooltip_text(playlist_create_in_parent_dir,_("If activated, the playlist will be created "
+        "in the parent directory."));
 
     // DOS Separator
     playlist_use_dos_separator = gtk_check_button_new_with_label(_("Use DOS directory separator"));
@@ -1350,8 +1347,8 @@ void Open_Write_Playlist_Window (void)
     gtk_box_pack_start(GTK_BOX(vbox),playlist_use_dos_separator,FALSE,FALSE,0);
 #endif
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_use_dos_separator),PLAYLIST_USE_DOS_SEPARATOR);
-    gtk_tooltips_set_tip(Tips,playlist_use_dos_separator,_("This option replaces the UNIX directory "
-        "separator '/' into DOS separator '\\'."),NULL);
+    gtk_widget_set_tooltip_text(playlist_use_dos_separator,_("This option replaces the UNIX directory "
+        "separator '/' into DOS separator '\\'."));
 
     /* Playlist content */
     if (!PlayListContentMaskModel)
@@ -1387,7 +1384,7 @@ void Open_Write_Playlist_Window (void)
     // Mask status icon
     MaskStatusIconBox1 = Create_Pixmap_Icon_With_Event_Box("easytag-forbidden");
     gtk_box_pack_start(GTK_BOX(hbox),MaskStatusIconBox1,FALSE,FALSE,0);
-    gtk_tooltips_set_tip(Tips,MaskStatusIconBox1,_("Invalid Scanner Mask"),NULL);
+    gtk_widget_set_tooltip_text(MaskStatusIconBox1,_("Invalid Scanner Mask"));
     // Signal connection to check if mask is correct into the mask entry
     g_signal_connect_swapped(G_OBJECT(GTK_BIN(PlayListContentMaskCombo)->child),"changed",
         G_CALLBACK(Playlist_Check_Content_Mask),G_OBJECT(MaskStatusIconBox1));
@@ -1398,7 +1395,7 @@ void Open_Write_Playlist_Window (void)
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,Button,_("Edit Masks"),NULL);
+    gtk_widget_set_tooltip_text(Button,_("Edit Masks"));
     // The masks will be edited into a tab of the preferences window. In the future...
     //g_signal_connect(G_OBJECT(Button),"clicked",(GtkSignalFunc)???,NULL);
     // FIX ME : edit the masks
@@ -1911,7 +1908,6 @@ void Open_Search_File_Window (void)
     GtkWidget *Label;
     GtkWidget *Button;
     GtkWidget *Separator;
-    GtkTooltips *Tips;
     GtkWidget *ScrollWindow;
     GtkTreeViewColumn* column;
     GtkCellRenderer* renderer;
@@ -1946,9 +1942,6 @@ void Open_Search_File_Window (void)
     g_signal_connect(G_OBJECT(SearchFileWindow),"key_press_event", G_CALLBACK(Search_File_Window_Key_Press),NULL);
     gtk_window_set_default_size(GTK_WINDOW(SearchFileWindow),SEARCH_WINDOW_WIDTH,SEARCH_WINDOW_HEIGHT);
 
-    // The tooltips
-    Tips = gtk_tooltips_new();
-
     VBox = gtk_vbox_new(FALSE,0);
     gtk_container_add(GTK_CONTAINER(SearchFileWindow),VBox);
     gtk_container_set_border_width(GTK_CONTAINER(VBox), 1);
@@ -1979,8 +1972,8 @@ void Open_Search_File_Window (void)
     // History List
     Load_Search_File_List(SearchStringModel, MISC_COMBO_TEXT);
     gtk_entry_set_text(GTK_ENTRY(GTK_BIN(SearchStringCombo)->child),"");
-    gtk_tooltips_set_tip(Tips,GTK_WIDGET(GTK_ENTRY(GTK_BIN(SearchStringCombo)->child)),
-        _("Type the word to search into files. Or type nothing to display all files."),NULL);
+    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(GTK_BIN(SearchStringCombo)->child)),
+        _("Type the word to search into files. Or type nothing to display all files."));
 
     // Set content of the clipboard if available
     gtk_editable_paste_clipboard(GTK_EDITABLE(GTK_BIN(SearchStringCombo)->child));
@@ -2714,7 +2707,6 @@ void Open_Load_Filename_Window (void)
     GtkWidget *loadedvbox;
     GtkWidget *filelistvbox;
     GtkWidget *vboxpaned;
-    GtkTooltips *Tips;
     gchar *path;
     GtkCellRenderer* renderer;
     GtkTreeViewColumn* column;
@@ -2735,8 +2727,6 @@ void Open_Load_Filename_Window (void)
     // Just center on mainwindow
     gtk_window_set_position(GTK_WINDOW(LoadFilenameWindow), GTK_WIN_POS_CENTER_ON_PARENT);
     gtk_window_set_default_size(GTK_WINDOW(LoadFilenameWindow),LOAD_FILE_WINDOW_WIDTH,LOAD_FILE_WINDOW_HEIGHT);
-
-    Tips = gtk_tooltips_new();
 
     Frame = gtk_frame_new(NULL);
     gtk_container_add(GTK_CONTAINER(LoadFilenameWindow),Frame);
@@ -2818,7 +2808,7 @@ void Open_Load_Filename_Window (void)
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,Button,_("Insert a blank line before the selected line"),NULL);
+    gtk_widget_set_tooltip_text(Button,_("Insert a blank line before the selected line"));
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
                              G_CALLBACK(Load_Filename_List_Insert_Blank_Line), G_OBJECT(LoadFileContentList));
 
@@ -2827,7 +2817,7 @@ void Open_Load_Filename_Window (void)
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,Button,_("Delete the selected line"),NULL);
+    gtk_widget_set_tooltip_text(Button,_("Delete the selected line"));
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
                              G_CALLBACK(Load_Filename_List_Delete_Line), G_OBJECT(LoadFileContentList));
     
@@ -2836,7 +2826,7 @@ void Open_Load_Filename_Window (void)
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,Button,_("Delete all blank lines"),NULL);
+    gtk_widget_set_tooltip_text(Button,_("Delete all blank lines"));
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
                              G_CALLBACK(Load_Filename_List_Delete_All_Blank_Lines), G_OBJECT(LoadFileContentList));
     
@@ -2848,7 +2838,7 @@ void Open_Load_Filename_Window (void)
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,Button,_("Move up the selected line"),NULL);
+    gtk_widget_set_tooltip_text(Button,_("Move up the selected line"));
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
                              G_CALLBACK(Load_Filename_List_Move_Up), G_OBJECT(LoadFileContentList));
 
@@ -2857,7 +2847,7 @@ void Open_Load_Filename_Window (void)
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,Button,_("Move down the selected line"),NULL);
+    gtk_widget_set_tooltip_text(Button,_("Move down the selected line"));
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
                              G_CALLBACK(Load_Filename_List_Move_Down), G_OBJECT(LoadFileContentList));
 
@@ -2869,7 +2859,7 @@ void Open_Load_Filename_Window (void)
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,Button,_("Reload"),NULL);
+    gtk_widget_set_tooltip_text(Button,_("Reload"));
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
                              G_CALLBACK(Load_Filename_List_Reload), G_OBJECT(LoadFileContentList));
     
@@ -2912,7 +2902,7 @@ void Open_Load_Filename_Window (void)
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,Button,_("Insert a blank line before the selected line"),NULL);
+    gtk_widget_set_tooltip_text(Button,_("Insert a blank line before the selected line"));
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
                              G_CALLBACK(Load_Filename_List_Insert_Blank_Line), G_OBJECT(LoadFileNameList));
 
@@ -2921,7 +2911,7 @@ void Open_Load_Filename_Window (void)
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,Button,_("Delete the selected line"),NULL);
+    gtk_widget_set_tooltip_text(Button,_("Delete the selected line"));
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
                              G_CALLBACK(Load_Filename_List_Delete_Line), G_OBJECT(LoadFileNameList));
 
@@ -2930,7 +2920,7 @@ void Open_Load_Filename_Window (void)
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,Button,_("Delete all blank lines"),NULL);
+    gtk_widget_set_tooltip_text(Button,_("Delete all blank lines"));
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
                              G_CALLBACK(Load_Filename_List_Delete_All_Blank_Lines), G_OBJECT(LoadFileNameList));
     
@@ -2942,7 +2932,7 @@ void Open_Load_Filename_Window (void)
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,Button,_("Move up the selected line"),NULL);
+    gtk_widget_set_tooltip_text(Button,_("Move up the selected line"));
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
                              G_CALLBACK(Load_Filename_List_Move_Up), G_OBJECT(LoadFileNameList));
 
@@ -2951,7 +2941,7 @@ void Open_Load_Filename_Window (void)
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,Button,_("Move down the selected line"),NULL);
+    gtk_widget_set_tooltip_text(Button,_("Move down the selected line"));
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
                              G_CALLBACK(Load_Filename_List_Move_Down), G_OBJECT(LoadFileNameList));
 
@@ -2963,7 +2953,7 @@ void Open_Load_Filename_Window (void)
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,Button,_("Reload"),NULL);
+    gtk_widget_set_tooltip_text(Button,_("Reload"));
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
                              G_CALLBACK(Load_Filename_List_Reload), G_OBJECT(LoadFileNameList));
     
@@ -3003,8 +2993,8 @@ void Open_Load_Filename_Window (void)
     LoadFileRunScanner = gtk_check_button_new_with_label(_("Run the current scanner for each file"));
     gtk_box_pack_start(GTK_BOX(VBox),LoadFileRunScanner,FALSE,TRUE,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(LoadFileRunScanner),LOAD_FILE_RUN_SCANNER);
-    gtk_tooltips_set_tip(Tips,LoadFileRunScanner,_("When activating this option, after loading the "
-        "filenames, the current selected scanner will be ran (the scanner window must be opened)."),NULL);
+    gtk_widget_set_tooltip_text(LoadFileRunScanner,_("When activating this option, after loading the "
+        "filenames, the current selected scanner will be ran (the scanner window must be opened)."));
 
     // Separator line
     Separator = gtk_hseparator_new();

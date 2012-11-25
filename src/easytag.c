@@ -446,7 +446,6 @@ GtkWidget *Create_File_Area (void)
 {
     GtkWidget *VBox, *HBox;
     GtkWidget *Separator;
-    GtkTooltips *Tips;
 
 
     FileFrame = gtk_frame_new(_("File"));
@@ -455,9 +454,6 @@ GtkWidget *Create_File_Area (void)
     VBox = gtk_vbox_new(FALSE,0);
     gtk_container_add(GTK_CONTAINER(FileFrame),VBox);
     gtk_container_set_border_width(GTK_CONTAINER(VBox),2);
-
-    /* Tips */
-    Tips = gtk_tooltips_new();
 
     /* HBox for FileEntry and IconBox */
     HBox = gtk_hbox_new(FALSE,2);
@@ -475,10 +471,10 @@ GtkWidget *Create_File_Area (void)
     /* Access status icon */
     ReadOnlyStatusIconBox = Create_Pixmap_Icon_With_Event_Box("easytag-read-only");
     gtk_box_pack_start(GTK_BOX(HBox),ReadOnlyStatusIconBox,FALSE,FALSE,0);
-    gtk_tooltips_set_tip(Tips,ReadOnlyStatusIconBox,_("Read Only File"),NULL);
+    gtk_widget_set_tooltip_text(ReadOnlyStatusIconBox,_("Read Only File"));
     BrokenStatusIconBox = Create_Pixmap_Icon_With_Event_Box(GTK_STOCK_MISSING_IMAGE);
     gtk_box_pack_start(GTK_BOX(HBox),BrokenStatusIconBox,FALSE,FALSE,0);
-    gtk_tooltips_set_tip(Tips,BrokenStatusIconBox,_("File Link Broken"),NULL);
+    gtk_widget_set_tooltip_text(BrokenStatusIconBox,_("File Link Broken"));
 
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(FileEntry));
 
@@ -561,7 +557,6 @@ GtkWidget *Create_Tag_Area (void)
     //GtkWidget *ScrollWindow;
     //GtkTextBuffer *TextBuffer;
     GtkEntryCompletion *completion;
-    GtkTooltips *Tips;
     gint MButtonSize = 13;
     gint TablePadding = 2;
 
@@ -571,9 +566,6 @@ GtkWidget *Create_Tag_Area (void)
     GtkTreeViewColumn *column;
     GtkTreeSelection *selection;
 
-
-    /* Tips */
-    Tips = gtk_tooltips_new();
 
     /* Main Frame */
     TagFrame = gtk_frame_new(_("Tag"));
@@ -623,7 +615,7 @@ GtkWidget *Create_Tag_Area (void)
     gtk_widget_set_size_request(TitleMButton,MButtonSize,MButtonSize);
     gtk_table_attach(GTK_TABLE(Table),TitleMButton,10,11,0,1,0,0,TablePadding,TablePadding);
     g_signal_connect(G_OBJECT(TitleMButton),"clicked", G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_tooltips_set_tip(Tips,TitleMButton,_("Tag selected files with this title"),NULL);
+    gtk_widget_set_tooltip_text(TitleMButton,_("Tag selected files with this title"));
 
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(TitleEntry));
     g_object_set_data(G_OBJECT(TitleEntry),"MButtonName",TitleMButton);
@@ -642,7 +634,7 @@ GtkWidget *Create_Tag_Area (void)
     gtk_widget_set_size_request(ArtistMButton,MButtonSize,MButtonSize);
     gtk_table_attach(GTK_TABLE(Table),ArtistMButton,10,11,1,2,0,0,TablePadding,TablePadding);
     g_signal_connect(G_OBJECT(ArtistMButton),"clicked", G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_tooltips_set_tip(Tips,ArtistMButton,_("Tag selected files with this artist"),NULL);
+    gtk_widget_set_tooltip_text(ArtistMButton,_("Tag selected files with this artist"));
 
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(ArtistEntry));
     g_object_set_data(G_OBJECT(ArtistEntry),"MButtonName",ArtistMButton);
@@ -660,7 +652,7 @@ GtkWidget *Create_Tag_Area (void)
     gtk_widget_set_size_request(AlbumArtistMButton,MButtonSize,MButtonSize);
     gtk_table_attach(GTK_TABLE(Table),AlbumArtistMButton,10,11,2,3,0,0,TablePadding,TablePadding);
     g_signal_connect(G_OBJECT(AlbumArtistMButton),"clicked", G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_tooltips_set_tip(Tips,AlbumArtistMButton,_("Tag selected files with this album artist"),NULL);
+    gtk_widget_set_tooltip_text(AlbumArtistMButton,_("Tag selected files with this album artist"));
 
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(AlbumArtistEntry));
     g_object_set_data(G_OBJECT(AlbumArtistEntry),"MButtonName",AlbumArtistMButton);
@@ -679,7 +671,7 @@ GtkWidget *Create_Tag_Area (void)
     gtk_widget_set_size_request(AlbumMButton,MButtonSize,MButtonSize);
     gtk_table_attach(GTK_TABLE(Table),AlbumMButton,7,8,3,4,0,0,TablePadding,TablePadding);
     g_signal_connect(G_OBJECT(AlbumMButton),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_tooltips_set_tip(Tips,AlbumMButton,_("Tag selected files with this album name"),NULL);
+    gtk_widget_set_tooltip_text(AlbumMButton,_("Tag selected files with this album name"));
 
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(AlbumEntry));
     g_object_set_data(G_OBJECT(AlbumEntry),"MButtonName",AlbumMButton);
@@ -701,7 +693,7 @@ GtkWidget *Create_Tag_Area (void)
     gtk_widget_set_size_request(DiscNumberMButton,MButtonSize,MButtonSize);
     gtk_table_attach(GTK_TABLE(Table),DiscNumberMButton,10,11,3,4,0,0,TablePadding,TablePadding);
     g_signal_connect(G_OBJECT(DiscNumberMButton),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_tooltips_set_tip(Tips,DiscNumberMButton,_("Tag selected files with this disc number"),NULL);
+    gtk_widget_set_tooltip_text(DiscNumberMButton,_("Tag selected files with this disc number"));
 
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(DiscNumberEntry));
     g_object_set_data(G_OBJECT(DiscNumberEntry),"MButtonName",DiscNumberMButton);
@@ -724,7 +716,7 @@ GtkWidget *Create_Tag_Area (void)
     gtk_widget_set_size_request(YearMButton,MButtonSize,MButtonSize);
     gtk_table_attach(GTK_TABLE(Table),YearMButton,2,3,4,5,0,0,TablePadding,TablePadding);
     g_signal_connect(G_OBJECT(YearMButton),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_tooltips_set_tip(Tips,YearMButton,_("Tag selected files with this year"),NULL);
+    gtk_widget_set_tooltip_text(YearMButton,_("Tag selected files with this year"));
 
     /* Small vertical separator */
     Separator = gtk_vseparator_new();
@@ -736,8 +728,8 @@ GtkWidget *Create_Tag_Area (void)
     gtk_widget_set_size_request(TrackMButtonSequence,MButtonSize,MButtonSize);
     gtk_table_attach(GTK_TABLE(Table),TrackMButtonSequence,4,5,4,5,0,0,TablePadding,TablePadding);
     g_signal_connect(G_OBJECT(TrackMButtonSequence),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_tooltips_set_tip(Tips,TrackMButtonSequence,_("Number selected tracks sequentially. "
-                                                     "Starts at 01 in each subdirectory."), NULL);
+    gtk_widget_set_tooltip_text(TrackMButtonSequence,_("Number selected tracks sequentially. "
+                                                     "Starts at 01 in each subdirectory."));
     // Pixmap into TrackMButtonSequence button
     //Icon = gtk_image_new_from_stock("easytag-sequence-track", GTK_ICON_SIZE_BUTTON); // FIX ME : it doesn't display the good size of the '#'
     Icon = Create_Xpm_Image((const char **)sequence_track_xpm);
@@ -771,7 +763,7 @@ GtkWidget *Create_Tag_Area (void)
     gtk_widget_set_size_request(TrackMButtonNbrFiles,MButtonSize,MButtonSize);
     gtk_table_attach(GTK_TABLE(Table),TrackMButtonNbrFiles,8,9,4,5,0,0,TablePadding,TablePadding);
     g_signal_connect(G_OBJECT(TrackMButtonNbrFiles),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_tooltips_set_tip(Tips,TrackMButtonNbrFiles,_("Set the number of files, in the same directory of the displayed file, to the selected tracks."), NULL);
+    gtk_widget_set_tooltip_text(TrackMButtonNbrFiles,_("Set the number of files, in the same directory of the displayed file, to the selected tracks."));
     // Pixmap into TrackMButtonNbrFiles button
     //Icon = gtk_image_new_from_stock("easytag-sequence-track", GTK_ICON_SIZE_BUTTON);
     Icon = Create_Xpm_Image((const char **)sequence_track_xpm);
@@ -790,7 +782,7 @@ GtkWidget *Create_Tag_Area (void)
     gtk_widget_set_size_request(TrackMButton,MButtonSize,MButtonSize);
     gtk_table_attach(GTK_TABLE(Table),TrackMButton,10,11,4,5,0,0,TablePadding,TablePadding);
     g_signal_connect(G_OBJECT(TrackMButton),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_tooltips_set_tip(Tips,TrackMButton,_("Tag selected files with this number of tracks"),NULL);
+    gtk_widget_set_tooltip_text(TrackMButton,_("Tag selected files with this number of tracks"));
 
     g_object_set_data(G_OBJECT(GTK_ENTRY(GTK_BIN(TrackEntryCombo)->child)),"MButtonName",TrackMButton);
     g_object_set_data(G_OBJECT(TrackTotalEntry),"MButtonName",TrackMButton);
@@ -821,7 +813,7 @@ GtkWidget *Create_Tag_Area (void)
     gtk_widget_set_size_request(GenreMButton,MButtonSize,MButtonSize);
     gtk_table_attach(GTK_TABLE(Table),GenreMButton,10,11,5,6,0,0,TablePadding,TablePadding);
     g_signal_connect(G_OBJECT(GenreMButton),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_tooltips_set_tip(Tips,GenreMButton,_("Tag selected files with this genre"),NULL);
+    gtk_widget_set_tooltip_text(GenreMButton,_("Tag selected files with this genre"));
 
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(GTK_BIN(GenreCombo)->child));
     g_object_set_data(G_OBJECT(GTK_BIN(GenreCombo)->child),"MButtonName",GenreMButton);
@@ -852,7 +844,7 @@ GtkWidget *Create_Tag_Area (void)
     gtk_widget_set_size_request(CommentMButton,MButtonSize,MButtonSize);
     gtk_table_attach(GTK_TABLE(Table),CommentMButton,10,11,6,7,0,0,TablePadding,TablePadding);
     g_signal_connect(G_OBJECT(CommentMButton),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_tooltips_set_tip(Tips,CommentMButton,_("Tag selected files with this comment"),NULL);
+    gtk_widget_set_tooltip_text(CommentMButton,_("Tag selected files with this comment"));
 
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(CommentEntry));
     g_object_set_data(G_OBJECT(CommentEntry),"MButtonName",CommentMButton);
@@ -873,7 +865,7 @@ GtkWidget *Create_Tag_Area (void)
     gtk_widget_set_size_request(ComposerMButton,MButtonSize,MButtonSize);
     gtk_table_attach(GTK_TABLE(Table),ComposerMButton,10,11,7,8,0,0,TablePadding,TablePadding);
     g_signal_connect(G_OBJECT(ComposerMButton),"clicked", G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_tooltips_set_tip(Tips,ComposerMButton,_("Tag selected files with this composer"),NULL);
+    gtk_widget_set_tooltip_text(ComposerMButton,_("Tag selected files with this composer"));
 
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(ComposerEntry));
     g_object_set_data(G_OBJECT(ComposerEntry),"MButtonName",ComposerMButton);
@@ -892,7 +884,7 @@ GtkWidget *Create_Tag_Area (void)
     gtk_widget_set_size_request(OrigArtistMButton,MButtonSize,MButtonSize);
     gtk_table_attach(GTK_TABLE(Table),OrigArtistMButton,10,11,8,9,0,0,TablePadding,TablePadding);
     g_signal_connect(G_OBJECT(OrigArtistMButton),"clicked", G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_tooltips_set_tip(Tips,OrigArtistMButton,_("Tag selected files with this original artist"),NULL);
+    gtk_widget_set_tooltip_text(OrigArtistMButton,_("Tag selected files with this original artist"));
 
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(OrigArtistEntry));
     g_object_set_data(G_OBJECT(OrigArtistEntry),"MButtonName",OrigArtistMButton);
@@ -911,7 +903,7 @@ GtkWidget *Create_Tag_Area (void)
     gtk_widget_set_size_request(CopyrightMButton,MButtonSize,MButtonSize);
     gtk_table_attach(GTK_TABLE(Table),CopyrightMButton,10,11,9,10,0,0,TablePadding,TablePadding);
     g_signal_connect(G_OBJECT(CopyrightMButton),"clicked", G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_tooltips_set_tip(Tips,CopyrightMButton,_("Tag selected files with this copyright"),NULL);
+    gtk_widget_set_tooltip_text(CopyrightMButton,_("Tag selected files with this copyright"));
 
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(CopyrightEntry));
     g_object_set_data(G_OBJECT(CopyrightEntry),"MButtonName",CopyrightMButton);
@@ -930,7 +922,7 @@ GtkWidget *Create_Tag_Area (void)
     gtk_widget_set_size_request(URLMButton,MButtonSize,MButtonSize);
     gtk_table_attach(GTK_TABLE(Table),URLMButton,10,11,10,11,0,0,TablePadding,TablePadding);
     g_signal_connect(G_OBJECT(URLMButton),"clicked", G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_tooltips_set_tip(Tips,URLMButton,_("Tag selected files with this URL"),NULL);
+    gtk_widget_set_tooltip_text(URLMButton,_("Tag selected files with this URL"));
 
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(URLEntry));
     g_object_set_data(G_OBJECT(URLEntry),"MButtonName",URLMButton);
@@ -949,7 +941,7 @@ GtkWidget *Create_Tag_Area (void)
     gtk_widget_set_size_request(EncodedByMButton,MButtonSize,MButtonSize);
     gtk_table_attach(GTK_TABLE(Table),EncodedByMButton,10,11,11,12,0,0,TablePadding,TablePadding);
     g_signal_connect(G_OBJECT(EncodedByMButton),"clicked", G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_tooltips_set_tip(Tips,EncodedByMButton,_("Tag selected files with this encoder name"),NULL);
+    gtk_widget_set_tooltip_text(EncodedByMButton,_("Tag selected files with this encoder name"));
 
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(EncodedByEntry));
     g_object_set_data(G_OBJECT(EncodedByEntry),"MButtonName",EncodedByMButton);
@@ -1043,7 +1035,7 @@ GtkWidget *Create_Tag_Area (void)
     gtk_container_add(GTK_CONTAINER(PictureScrollWindow), PictureEntryView);
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(PictureEntryView), FALSE);
     gtk_widget_set_size_request(PictureEntryView, -1, 200);
-    gtk_tooltips_set_tip(Tips,PictureEntryView,_("You can use drag and drop to add picture."),NULL);
+    gtk_widget_set_tooltip_text(PictureEntryView,_("You can use drag and drop to add picture."));
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(PictureEntryView));
     gtk_tree_selection_set_mode(selection, GTK_SELECTION_MULTIPLE);
@@ -1081,7 +1073,7 @@ GtkWidget *Create_Tag_Area (void)
     gtk_table_attach(GTK_TABLE(Table),PictureMButton,4,5,0,1,0,0,TablePadding,TablePadding);
     gtk_widget_set_usize(PictureMButton,MButtonSize,MButtonSize);
     g_signal_connect(G_OBJECT(PictureMButton),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_tooltips_set_tip(Tips,PictureMButton,_("Tag selected files with these pictures"),NULL);
+    gtk_widget_set_tooltip_text(PictureMButton,_("Tag selected files with these pictures"));
 
     // Picture action buttons
     hbox = gtk_hbox_new(FALSE, 4);
@@ -1091,13 +1083,13 @@ GtkWidget *Create_Tag_Area (void)
     Icon = gtk_image_new_from_stock(GTK_STOCK_ADD, GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_container_add(GTK_CONTAINER(PictureAddButton),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),PictureAddButton,FALSE,FALSE,0);
-    gtk_tooltips_set_tip(Tips,PictureAddButton,_("Add pictures to the tag (drag and drop is also available)."),NULL);
+    gtk_widget_set_tooltip_text(PictureAddButton,_("Add pictures to the tag (drag and drop is also available)."));
 
     PictureClearButton = gtk_button_new();
     Icon = gtk_image_new_from_stock(GTK_STOCK_REMOVE, GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_container_add(GTK_CONTAINER(PictureClearButton),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),PictureClearButton,FALSE,FALSE,0);
-    gtk_tooltips_set_tip(Tips,PictureClearButton,_("Remove selected pictures, else all pictures."),NULL);
+    gtk_widget_set_tooltip_text(PictureClearButton,_("Remove selected pictures, else all pictures."));
 
     Label = gtk_label_new("   ");
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
@@ -1107,14 +1099,14 @@ GtkWidget *Create_Tag_Area (void)
     gtk_container_add(GTK_CONTAINER(PictureSaveButton),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),PictureSaveButton,FALSE,FALSE,0);
     gtk_widget_set_sensitive(GTK_WIDGET(PictureSaveButton), FALSE);
-    gtk_tooltips_set_tip(Tips,PictureSaveButton,_("Save the selected pictures on the hard disk."),NULL);
+    gtk_widget_set_tooltip_text(PictureSaveButton,_("Save the selected pictures on the hard disk."));
 
     PicturePropertiesButton = gtk_button_new();
     Icon = gtk_image_new_from_stock(GTK_STOCK_PROPERTIES, GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_container_add(GTK_CONTAINER(PicturePropertiesButton),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),PicturePropertiesButton,FALSE,FALSE,0);
     gtk_widget_set_sensitive(GTK_WIDGET(PicturePropertiesButton), FALSE);
-    gtk_tooltips_set_tip(Tips,PicturePropertiesButton,_("Set properties of the selected pictures."),NULL);
+    gtk_widget_set_tooltip_text(PicturePropertiesButton,_("Set properties of the selected pictures."));
 
     g_signal_connect(G_OBJECT(PictureClearButton),      "clicked", G_CALLBACK(Picture_Clear_Button_Clicked), NULL);
     g_signal_connect(G_OBJECT(PictureAddButton),        "clicked", G_CALLBACK(Picture_Add_Button_Clicked), NULL);
