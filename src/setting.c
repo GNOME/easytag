@@ -1001,8 +1001,8 @@ void Set_Config (gchar *line)
     if (*line=='\n' || *line=='#') return;
 
     /* Cut string */
-    var_descriptor = (gchar*)strtok(line,"=");
-    var_value      = (gchar*)strtok(NULL,"=");
+    var_descriptor = strtok(line,"=");
+    var_value      = strtok(NULL,"=");
     //g_print("\nstr1:'%s',\t str2:'%s'",var_descriptor,var_value);
 
     ConfigVarListLen = sizeof(Config_Variables)/sizeof(tConfigVariable);

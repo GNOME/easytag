@@ -259,7 +259,7 @@ GtkWidget *Create_Button_With_Icon_And_Label (const gchar *pixmap_name, gchar *l
  * If this string already exists in the list store, it doesn't add it.
  * Returns TRUE if string was added.
  */
-gboolean Add_String_To_Combo_List (GtkListStore *liststore, gchar *str)
+gboolean Add_String_To_Combo_List (GtkListStore *liststore, const gchar *str)
 {
     GtkTreeIter iter;
     gchar *text;
@@ -788,7 +788,7 @@ void File_Selection_Window_For_Directory (GtkWidget *entry)
  */
 static void Open_File_Selection_Window (GtkWidget *entry, gchar *title, GtkFileChooserAction action)
 {
-    gchar *tmp;
+    const gchar *tmp;
     gchar *filename, *filename_utf8;
     GtkWidget *FileSelectionWindow;
     GtkWindow *parent_window = NULL;
@@ -806,7 +806,7 @@ static void Open_File_Selection_Window (GtkWidget *entry, gchar *title, GtkFileC
                                                       GTK_STOCK_OPEN,   GTK_RESPONSE_ACCEPT,
                                                       NULL);
     // Set initial directory
-    tmp = (gchar*) gtk_entry_get_text(GTK_ENTRY(entry));
+    tmp = gtk_entry_get_text(GTK_ENTRY(entry));
     if (tmp && *tmp)
     {
         if (!gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(FileSelectionWindow),tmp))
@@ -2319,7 +2319,7 @@ void Search_File (GtkWidget *search_button)
     if (!string_to_search)
         return;
 
-    Add_String_To_Combo_List(SearchStringModel, (gchar*)string_to_search);
+    Add_String_To_Combo_List(SearchStringModel, string_to_search);
 
     gtk_widget_set_sensitive(GTK_WIDGET(search_button),FALSE);
     gtk_list_store_clear(SearchResultListModel);
@@ -3153,7 +3153,7 @@ void Load_File_Content (GtkWidget *entry)
 
     // The file to read
     filename_utf8 = gtk_entry_get_text(GTK_ENTRY(entry)); // Don't free me!
-    Add_String_To_Combo_List(FileToLoadModel, (gchar*)filename_utf8);
+    Add_String_To_Combo_List(FileToLoadModel, filename_utf8);
     filename = filename_from_display(filename_utf8);
 
     if ( (file=fopen(filename,"r"))==0 )

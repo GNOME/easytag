@@ -1670,10 +1670,10 @@ void OptionsWindow_Apply_Button(void)
 
 #ifndef WIN32
     /* FIXME : make gtk crash on win32 */
-    Add_String_To_Combo_List(DefaultPathModel,    (gchar*) gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3)))));
-    Add_String_To_Combo_List(FilePlayerModel,     (gchar*) gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)))));
-    Add_String_To_Combo_List(DefaultCommentModel, (gchar*) gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultComment)))));
-    Add_String_To_Combo_List(CddbLocalPathModel,  (gchar*) gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbLocalPath)))));
+    Add_String_To_Combo_List(DefaultPathModel,    gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3)))));
+    Add_String_To_Combo_List(FilePlayerModel,     gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)))));
+    Add_String_To_Combo_List(DefaultCommentModel, gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultComment)))));
+    Add_String_To_Combo_List(CddbLocalPathModel,  gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbLocalPath)))));
 #endif
 
     Apply_Changes_Of_Preferences_Window();
@@ -1689,10 +1689,10 @@ void OptionsWindow_Save_Button(void)
 
 #ifndef WIN32
     /* FIXME : make gtk crash on win32 */
-    Add_String_To_Combo_List(DefaultPathModel,      (gchar*) gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3)))));
-    Add_String_To_Combo_List(FilePlayerModel,       (gchar*) gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)))));
-    Add_String_To_Combo_List(DefaultCommentModel,   (gchar*) gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultComment)))));
-    Add_String_To_Combo_List(CddbLocalPathModel,    (gchar*) gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbLocalPath)))));
+    Add_String_To_Combo_List(DefaultPathModel,      gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3)))));
+    Add_String_To_Combo_List(FilePlayerModel,       gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)))));
+    Add_String_To_Combo_List(DefaultCommentModel,   gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultComment)))));
+    Add_String_To_Combo_List(CddbLocalPathModel,    gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbLocalPath)))));
 #endif
 
     Save_Changes_Of_Preferences_Window();
@@ -1973,7 +1973,7 @@ void DefaultPathToMp3_Combo_Add_String (void)
     const gchar *path;
 
     path = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3))));
-    Add_String_To_Combo_List(GTK_LIST_STORE(DefaultPathModel), (gchar *)path);
+    Add_String_To_Combo_List(GTK_LIST_STORE(DefaultPathModel), path);
 }
 
 void CddbLocalPath_Combo_Add_String (void)
@@ -1981,7 +1981,7 @@ void CddbLocalPath_Combo_Add_String (void)
     const gchar *path;
 
     path = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbLocalPath))));
-    Add_String_To_Combo_List(GTK_LIST_STORE(CddbLocalPath), (gchar *)path);
+    Add_String_To_Combo_List(GTK_LIST_STORE(CddbLocalPath), path);
 }
 
 

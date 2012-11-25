@@ -64,7 +64,7 @@ GtkWidget *Create_Xpm_Image                  (const char **xpm_name);
 /*
  * Combobox misc functions
  */
-gboolean Add_String_To_Combo_List(GtkListStore *liststore, gchar *string);
+gboolean Add_String_To_Combo_List(GtkListStore *liststore, const gchar *string);
 gchar   *Get_Active_Combo_Box_Item(GtkComboBox *combo);
 
 
