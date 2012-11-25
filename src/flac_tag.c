@@ -811,10 +811,12 @@ static gboolean Flac_Write_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag
 static gboolean Flac_Set_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag_name, gchar *value, gboolean split)
 {
     if ( value && split ) {
-        Flac_Write_Delimetered_Tag(vc_block,tag_name,value);
+        return Flac_Write_Delimetered_Tag(vc_block,tag_name,value);
     } else if ( value ) {
-        Flac_Write_Tag(vc_block,tag_name,value);
+        return Flac_Write_Tag(vc_block,tag_name,value);
     }
+
+    return FALSE;
 }
 
 /*
