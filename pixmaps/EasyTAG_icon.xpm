@@ -1,5 +1,5 @@
 /* XPM */
-static char * EasyTAG_icon_xpm[] = {
+static const char * EasyTAG_icon_xpm[] = {
 "64 64 1173 2",
 "  	c None",
 ". 	c #FFD547",

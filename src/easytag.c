@@ -155,9 +155,7 @@ int main (int argc, char *argv[])
     gboolean created_settings;
     struct stat statbuf;
     //GError *error = NULL;
-    //GdkPixbuf *pixbuf;
-    GdkPixmap *pixmap;
-    GdkBitmap *mask;
+    GdkPixbuf *pixbuf;
 
 
 #ifdef WIN32
@@ -337,8 +335,8 @@ int main (int argc, char *argv[])
     /* Minimised window icon */
     gtk_widget_realize(MainWindow);
 
-    pixmap = gdk_pixmap_create_from_xpm_d(MainWindow->window,&mask,NULL,EasyTAG_icon_xpm);
-    gdk_window_set_icon(MainWindow->window,(GdkWindow *)NULL,pixmap,mask);
+    pixbuf = gdk_pixbuf_new_from_xpm_data(EasyTAG_icon_xpm);
+    gtk_window_set_icon(GTK_WINDOW (MainWindow),pixbuf);
     /*pixbuf = gdk_pixbuf_new_from_file(PACKAGE_DATA_DIR"/EasyTAG_icon.png",&error);
     if (pixbuf)
     {

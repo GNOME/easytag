@@ -127,9 +127,7 @@ void Show_About_Window (void)
     GtkTextIter textIter;
     GtkWidget *Button;
     GtkWidget *Logo;
-    //GdkPixbuf *pixbuf = NULL;
-    GdkPixmap *pixmap;
-    GdkBitmap *mask;
+    GdkPixbuf *pixbuf = NULL;
     gchar  temp[MAX_STRING_LEN];
     gchar *temp_str;
     gint i;
@@ -245,7 +243,7 @@ void Show_About_Window (void)
                                       N_("Comment")
                                     };
     GtkTreeIter treeIter;
-    //GError *error = NULL;
+    GError *error = NULL;
     
 
     /* Check if already opened */
@@ -289,21 +287,9 @@ void Show_About_Window (void)
     gtk_widget_realize(AboutWindow);
 
 #ifdef PACKAGE_DATA_DIR
-    pixmap = gdk_pixmap_create_from_xpm(AboutWindow->window,&mask,NULL,PACKAGE_DATA_DIR"/EasyTAG_logo.xpm");
+    pixbuf = gdk_pixbuf_new_from_file(PACKAGE_DATA_DIR"/EasyTAG_logo.xpm", &error);
 #else
-    pixmap = gdk_pixmap_create_from_xpm_d(AboutWindow->window,&mask,NULL,EasyTAG_logo_xpm);
-#endif
-    
-    if (pixmap)
-    {
-        Logo = gtk_image_new_from_pixmap(pixmap, mask);
-        g_object_unref(pixmap);
-        g_object_unref(mask);
-        gtk_box_pack_start(GTK_BOX(VBox),Logo,FALSE,TRUE,0);
-        gtk_misc_set_padding(GTK_MISC(Logo),2,2);
-    }
-/*#ifdef PACKAGE_DATA_DIR
-    pixbuf = gdk_pixbuf_new_from_file(PACKAGE_DATA_DIR"/EasyTAG_logo.png",&error);
+    pixbuf = gdk_pixbuf_new_from_file(EasyTAG_logo_xpm, &error);
 #endif
     
     if (pixbuf)
@@ -316,8 +302,8 @@ void Show_About_Window (void)
     {
         Log_Print(LOG_ERROR,error->message);
         g_error_free(error);
-    }*/
-
+    }
+    
     /* Infos */
     Label = gtk_label_new(NULL);
     gtk_label_set_markup(GTK_LABEL(Label),"<b>"APPNAME" "PACKAGE_VERSION"</b>");
