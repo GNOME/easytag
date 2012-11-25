@@ -174,7 +174,7 @@ void Cddb_Search_In_All_Fields_Check_Button_Toggled     (void);
 void Cddb_Search_In_All_Categories_Check_Button_Toggled (void);
 void Cddb_Set_To_All_Fields_Check_Button_Toggled        (void);
 void Cddb_Stop_Search                                   (void);
-void Cddb_Notebook_Switch_Page                          (GtkNotebook *notebook, GtkNotebookPage *page, guint page_num, gpointer user_data);
+void Cddb_Notebook_Switch_Page                          (GtkNotebook *notebook, gpointer page, guint page_num, gpointer user_data);
 void Cddb_Search_String_In_Result                       (GtkWidget *entry, GtkButton *button);
 void Cddb_Display_Red_Lines_In_Result                   (void);
 
@@ -811,7 +811,7 @@ void Open_Cddb_Window (void)
     gtk_widget_set_size_request(GTK_WIDGET(CddbSearchInAllFields), CddbSearchInAllCategories->allocation.width, -1);
     g_signal_emit_by_name(G_OBJECT(CddbShowCategoriesButton),"toggled");
 
-    g_signal_connect(GTK_OBJECT(CddbNoteBook),"switch-page",G_CALLBACK(Cddb_Notebook_Switch_Page),NULL);
+    g_signal_connect(G_OBJECT(CddbNoteBook),"switch-page",G_CALLBACK(Cddb_Notebook_Switch_Page),NULL);
     //g_signal_emit_by_name(G_OBJECT(CddbNoteBook),"switch-page"); // Cause crash... => the 2 following lines to fix
     gtk_notebook_set_current_page(GTK_NOTEBOOK(CddbNoteBook),1);
     gtk_notebook_set_current_page(GTK_NOTEBOOK(CddbNoteBook),0);
@@ -1085,7 +1085,7 @@ void Cddb_Stop_Search (void)
     CddbStopSearch = TRUE;
 }
 
-void Cddb_Notebook_Switch_Page (GtkNotebook *notebook, GtkNotebookPage *page, guint page_num, gpointer user_data)
+void Cddb_Notebook_Switch_Page (GtkNotebook *notebook, gpointer page, guint page_num, gpointer user_data)
 {
     gint page_total;
     guint page_tmp;
