@@ -5011,10 +5011,10 @@ void MainWindow_Apply_Changes (void)
         MAIN_WINDOW_HEIGHT = height;
 
         // Handle panes position
-        PANE_HANDLE_POSITION1 = GTK_PANED(MainWindowHPaned)->child1_size;
-        PANE_HANDLE_POSITION2 = GTK_PANED(BrowserHPaned)->child1_size;
-        PANE_HANDLE_POSITION3 = GTK_PANED(ArtistAlbumVPaned)->child1_size;
-        PANE_HANDLE_POSITION4 = GTK_PANED(MainWindowVPaned)->child1_size;
+        PANE_HANDLE_POSITION1 = gtk_paned_get_position(GTK_PANED(MainWindowHPaned));
+        PANE_HANDLE_POSITION2 = gtk_paned_get_position(GTK_PANED(BrowserHPaned));
+        PANE_HANDLE_POSITION3 = gtk_paned_get_position(GTK_PANED(ArtistAlbumVPaned));
+        PANE_HANDLE_POSITION4 = gtk_paned_get_position(GTK_PANED(MainWindowVPaned));
     }
 
 }

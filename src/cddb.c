@@ -870,7 +870,7 @@ void Cddb_Window_Apply_Changes (void)
             CDDB_WINDOW_HEIGHT = height;
 
             // Handle panes position
-            CDDB_PANE_HANDLE_POSITION = GTK_PANED(CddbWindowHPaned)->child1_size;
+            CDDB_PANE_HANDLE_POSITION = gtk_paned_get_position(GTK_PANED(CddbWindowHPaned));
         }
 
         CDDB_SEARCH_IN_ALL_FIELDS       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSearchInAllFields));
