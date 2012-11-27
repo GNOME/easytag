@@ -198,13 +198,27 @@ AS_IF([test "x$have_wavpack" != "xno"],
       [AS_IF([test "x$enable_wavpack" = "xyes"],
              [AC_MSG_ERROR([Wavpack support requested but required dependencies ($WAVPACK_DEPS) not found])])])
 
-WARN_CPPFLAGS="-DG_DISABLE_SINGLE_INCLUDES -DGTK_DISABLE_SINGLE_INCLUDES -DG_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED -DGSEAL_ENABLE"
+dnl Check that the compiler accepts the given warning flags.
+warning_flags="-Wall -Wstrict-prototypes -Wnested-externs -Wmissing-prototypes -Werror=implicit-function-declaration -Werror=pointer-arith -Werror=init-self -Werror=format-security -Werror=format=2 -Werror=missing-include-dirs"
 
-dnl Use -Wall if we have gcc.
-AS_IF([test "x$GCC" = "xyes"],
-  [WARN_CPPFLAGS="-Wall $WARN_CPPFLAGS"])
+realsave_CFLAGS="$CFLAGS"
+for option in $warning_flags; do
+    save_CFLAGS="$CFLAGS"
+    CFLAGS="$CFLAGS $option"
+	AC_MSG_CHECKING([whether the compiler understands $option])
+	AC_COMPILE_IFELSE([AC_LANG_PROGRAM], [has_option=yes], [has_option=no])
+	CFLAGS="$save_CFLAGS"
+	AC_MSG_RESULT([$has_option])
+	AS_IF([test $has_option = yes],
+	      [tested_warning_flags="$tested_warning_flags $option"])
+	unset has_option
+	unset save_CFLAGS
+done
+unset option
+CFLAGS="$realsave_CFLAGS"
 
-AC_SUBST([WARN_CPPFLAGS])
+AC_SUBST([WARN_CFLAGS], ["$tested_warning_flags"])
+AC_SUBST([DEPRECATED_CPPFLAGS], ["-DG_DISABLE_SINGLE_INCLUDES -DGTK_DISABLE_SINGLE_INCLUDES -DG_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED -DGSEAL_ENABLE"])
 
 dnl To enable 'gprof' profiling
 dnl CFLAGS="$CFLAGS -pg"
@@ -246,9 +260,11 @@ echo
 echo Source code location ....: $srcdir
 echo Host System Type ........: $host
 echo Preprocessor ............: $CC $CPPFLAGS
+echo Deprecation defines .....: $DEPRECATED_CPPFLAGS
 echo Compiler ................: $CC $CFLAGS
+echo Compiler warnings .......: $WARN_CFLAGS
 echo Linker ..................: $CC $LDFLAGS $LIBS
-echo GTK2 version ............: `pkg-config --modversion gtk+-2.0`
+echo GTK2 version ............: `$PKG_CONFIG --modversion gtk+-2.0`
 echo MP3 file support ........: $have_mp3
 echo ID3v2.3 tags support ....: $have_id3v23 $ID3LIB_VERSION
 echo Ogg Vorbis file support .: $have_ogg

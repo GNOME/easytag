@@ -8,15 +8,17 @@ localedir = $(datadir)/locale
 easytag_CPPFLAGS = \
 	-I$(top_srcdir) \
 	-I$(top_builddir) \
+	$(DEPRECATED_CPPFLAGS) \
+	-DLOCALEDIR=\"$(localedir)\" \
+	-DPACKAGE_DATA_DIR=\"$(pkgdatadir)\"
+easytag_CFLAGS = \
+	$(WARN_CFLAGS) \
 	$(GTK_CFLAGS) \
 	$(OGG_CFLAGS) \
 	$(SPEEX_CFLAGS) \
 	$(FLAC_CFLAGS) \
 	$(WAVPACK_CFLAGS) \
-	$(ID3TAG_CFLAGS) \
-	$(WARN_CPPFLAGS) \
-	-DLOCALEDIR=\"$(localedir)\" \
-	-DPACKAGE_DATA_DIR=\"$(pkgdatadir)\"
+	$(ID3TAG_CFLAGS)
 
 easytag_SOURCES = \
 	src/id3lib/c_wrapper.cpp \
