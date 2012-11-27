@@ -4073,6 +4073,6 @@ void Scan_Set_Scanner_Window_Init_Position (void)
     if (ScannerWindow && SET_SCANNER_WINDOW_POSITION)
     {
         gtk_widget_realize(ScannerWindow);
-        gdk_window_move(gtk_widget_get_window(ScannerWindow),SCANNER_WINDOW_X,SCANNER_WINDOW_Y);
+        gtk_window_move(GTK_WINDOW(ScannerWindow),SCANNER_WINDOW_X,SCANNER_WINDOW_Y);
     }
 }

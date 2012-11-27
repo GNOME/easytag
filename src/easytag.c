@@ -409,7 +409,7 @@ int main (int argc, char *argv[])
     gtk_widget_show(MainWindow);
 
     if (SET_MAIN_WINDOW_POSITION)
-        gdk_window_move(gtk_widget_get_window(MainWindow), MAIN_WINDOW_X, MAIN_WINDOW_Y);
+        gtk_window_move(GTK_WINDOW(MainWindow), MAIN_WINDOW_X, MAIN_WINDOW_Y);
 
     /* Load the default dir when the UI is created and displayed
      * to the screen and open also the scanner window */

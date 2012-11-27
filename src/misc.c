@@ -1431,7 +1431,7 @@ void Open_Write_Playlist_Window (void)
 
     gtk_widget_show_all(WritePlaylistWindow);
     if (PLAYLIST_WINDOW_X > 0 && PLAYLIST_WINDOW_Y > 0)
-        gdk_window_move(gtk_widget_get_window(WritePlaylistWindow),PLAYLIST_WINDOW_X,PLAYLIST_WINDOW_Y);
+        gtk_window_move(GTK_WINDOW(WritePlaylistWindow),PLAYLIST_WINDOW_X,PLAYLIST_WINDOW_Y);
 
     /* To initialize the mask status icon and visibility */
     g_signal_emit_by_name(G_OBJECT(gtk_bin_get_child(GTK_BIN(PlayListNameMaskCombo))),"changed");
@@ -2227,7 +2227,7 @@ void Open_Search_File_Window (void)
     gtk_widget_show_all(SearchFileWindow);
 
     if (SET_SEARCH_WINDOW_POSITION)
-        gdk_window_move(gtk_widget_get_window(SearchFileWindow), SEARCH_WINDOW_X, SEARCH_WINDOW_Y);
+        gtk_window_move(GTK_WINDOW(SearchFileWindow), SEARCH_WINDOW_X, SEARCH_WINDOW_Y);
     //else
     //    gtk_window_set_position(GTK_WINDOW(SearchFileWindow), GTK_WIN_POS_CENTER_ON_PARENT); // Must use gtk_window_set_transient_for to work
 }
@@ -3032,7 +3032,7 @@ void Open_Load_Filename_Window (void)
 
     gtk_widget_show_all(LoadFilenameWindow);
     if (LOAD_FILE_WINDOW_X > 0 && LOAD_FILE_WINDOW_Y > 0)
-        gdk_window_move(gtk_widget_get_window(LoadFilenameWindow),LOAD_FILE_WINDOW_X,LOAD_FILE_WINDOW_Y);
+        gtk_window_move(GTK_WINDOW(LoadFilenameWindow),LOAD_FILE_WINDOW_X,LOAD_FILE_WINDOW_Y);
 }
 
 void Destroy_Load_Filename_Window (void)
