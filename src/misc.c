@@ -31,6 +31,7 @@
 #include <unistd.h>
 #include <errno.h>
 
+#include "gtk2_compat.h"
 #include "misc.h"
 #include "easytag.h"
 #include "id3_tag.h"
@@ -228,7 +229,7 @@ GtkWidget *Create_Button_With_Icon_And_Label (const gchar *pixmap_name, gchar *l
     GtkWidget *Pixmap;
 
     Button = gtk_button_new();
-    HBox = gtk_hbox_new(FALSE,0);
+    HBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
     gtk_container_add(GTK_CONTAINER(Button),HBox);
 
     /* Add a pixmap if not null */
@@ -1250,7 +1251,7 @@ void Open_Write_Playlist_Window (void)
     gtk_container_add(GTK_CONTAINER(WritePlaylistWindow),Frame);
     gtk_container_set_border_width(GTK_CONTAINER(Frame),4);
 
-    VBox = gtk_vbox_new(FALSE,2);
+    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),VBox);
     gtk_container_set_border_width(GTK_CONTAINER(VBox), 4);
 
@@ -1262,12 +1263,12 @@ void Open_Write_Playlist_Window (void)
 
     Frame = gtk_frame_new(_("M3U Playlist Name"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,TRUE,TRUE,0);
-    vbox = gtk_vbox_new(FALSE,0);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 4);
 
     playlist_use_mask_name = gtk_radio_button_new_with_label(NULL, _("Use mask :"));
-    hbox = gtk_hbox_new(FALSE,0);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),playlist_use_mask_name,FALSE,FALSE,0);
     PlayListNameMaskCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(PlayListNameMaskModel));
@@ -1308,7 +1309,7 @@ void Open_Write_Playlist_Window (void)
     /* Playlist options */
     Frame = gtk_frame_new(_("Playlist Options"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,TRUE,TRUE,0);
-    vbox = gtk_vbox_new(FALSE,0);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 4);
 
@@ -1358,7 +1359,7 @@ void Open_Write_Playlist_Window (void)
 
     Frame = gtk_frame_new(_("Playlist Content"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,TRUE,TRUE,0);
-    vbox = gtk_vbox_new(FALSE,0);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 4);
 
@@ -1370,7 +1371,7 @@ void Open_Write_Playlist_Window (void)
     gtk_box_pack_start(GTK_BOX(vbox),playlist_content_filename,FALSE,FALSE,0);
 
     playlist_content_mask = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(playlist_content_none), _("Write info using :"));
-    hbox = gtk_hbox_new(FALSE,0);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),playlist_content_mask,FALSE,FALSE,0);
     // Set a label, a combobox and un editor button in the 3rd radio button
@@ -1945,7 +1946,7 @@ void Open_Search_File_Window (void)
     g_signal_connect(G_OBJECT(SearchFileWindow),"key_press_event", G_CALLBACK(Search_File_Window_Key_Press),NULL);
     gtk_window_set_default_size(GTK_WINDOW(SearchFileWindow),SEARCH_WINDOW_WIDTH,SEARCH_WINDOW_HEIGHT);
 
-    VBox = gtk_vbox_new(FALSE,0);
+    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
     gtk_container_add(GTK_CONTAINER(SearchFileWindow),VBox);
     gtk_container_set_border_width(GTK_CONTAINER(VBox), 1);
 
@@ -2739,12 +2740,12 @@ void Open_Load_Filename_Window (void)
     gtk_container_add(GTK_CONTAINER(LoadFilenameWindow),Frame);
     gtk_container_set_border_width(GTK_CONTAINER(Frame),2);
 
-    VBox = gtk_vbox_new(FALSE,4);
+    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,4);
     gtk_container_add(GTK_CONTAINER(Frame),VBox);
     gtk_container_set_border_width(GTK_CONTAINER(VBox), 2);
 
     // Hbox for file entry and browser/load buttons
-    hbox = gtk_hbox_new(FALSE,4);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,4);
     gtk_box_pack_start(GTK_BOX(VBox),hbox,FALSE,TRUE,0);
 
     // File to load
@@ -2784,7 +2785,7 @@ void Open_Load_Filename_Window (void)
     //
     // Vbox for loaded files
     //
-    loadedvbox = gtk_vbox_new(FALSE, 4);
+    loadedvbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
 
     // Content of the loaded file
     ScrollWindow = gtk_scrolled_window_new(NULL,NULL);
@@ -2808,7 +2809,7 @@ void Open_Load_Filename_Window (void)
     g_signal_connect(G_OBJECT(LoadFileContentList),"key-press-event", G_CALLBACK(Load_Filename_List_Key_Press),NULL);
 
     // Commands (like the popup menu)
-    hbox = gtk_hbox_new(FALSE,4);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,4);
     gtk_box_pack_start(GTK_BOX(loadedvbox),hbox,FALSE,FALSE,0);
 
     Button = gtk_button_new();
@@ -2877,7 +2878,7 @@ void Open_Load_Filename_Window (void)
     //
     // Vbox for file list files
     //
-    filelistvbox = gtk_vbox_new(FALSE, 4);
+    filelistvbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
 
     // List of current filenames
     ScrollWindow = gtk_scrolled_window_new(NULL,NULL);
@@ -2902,7 +2903,7 @@ void Open_Load_Filename_Window (void)
     g_signal_connect_swapped(G_OBJECT(gtk_tree_view_get_selection(GTK_TREE_VIEW(LoadFileNameList))),"changed", G_CALLBACK(Load_Filename_Select_Row_In_Other_List), G_OBJECT(LoadFileContentList));
 
     // Commands (like the popup menu)
-    hbox = gtk_hbox_new(FALSE,4);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,4);
     gtk_box_pack_start(GTK_BOX(filelistvbox),hbox,FALSE,FALSE,0);
 
     Button = gtk_button_new();
@@ -2980,7 +2981,7 @@ void Open_Load_Filename_Window (void)
     Create_Load_Filename_Popup_Menu(LoadFileContentList);
     Create_Load_Filename_Popup_Menu(LoadFileNameList);
 
-    hbox = gtk_hbox_new(FALSE,4);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,4);
     gtk_box_pack_start(GTK_BOX(VBox),hbox,FALSE,TRUE,0);
 
     Label = gtk_label_new(_("Selected line:"));

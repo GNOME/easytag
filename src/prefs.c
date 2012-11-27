@@ -31,6 +31,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+#include "gtk2_compat.h"
 #include "prefs.h"
 #include "setting.h"
 #include "bar.h"
@@ -123,7 +124,7 @@ void Open_OptionsWindow (void)
 
      /* Options */
      /* The vbox */
-    OptionsVBox = gtk_vbox_new(FALSE,0);
+    OptionsVBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
     gtk_box_set_spacing (GTK_BOX(OptionsVBox),5);
     gtk_container_add(GTK_CONTAINER(OptionsWindow),OptionsVBox);
 
@@ -143,7 +144,7 @@ void Open_OptionsWindow (void)
     gtk_notebook_append_page(GTK_NOTEBOOK(OptionsNoteBook),Frame,Label);
     gtk_container_set_border_width(GTK_CONTAINER(Frame), 5);
 
-    VBox = gtk_vbox_new(FALSE,4);
+    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,4);
     gtk_container_add(GTK_CONTAINER(Frame),VBox);
     gtk_container_set_border_width(GTK_CONTAINER(VBox), 4);
 
@@ -151,12 +152,12 @@ void Open_OptionsWindow (void)
     /* File Browser frame */
     Frame = gtk_frame_new(_("File Browser"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_vbox_new(FALSE,0);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
 
     /* Default directory */
-    HBox = gtk_hbox_new(FALSE,2);
+    HBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_box_pack_start(GTK_BOX(vbox),HBox,FALSE,FALSE,0);
 
     // Label
@@ -235,7 +236,7 @@ void Open_OptionsWindow (void)
     gtk_notebook_append_page (GTK_NOTEBOOK(OptionsNoteBook),Frame,Label);
     gtk_container_set_border_width(GTK_CONTAINER(Frame), 5);
 
-    VBox = gtk_vbox_new(FALSE,4);
+    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,4);
     gtk_container_add(GTK_CONTAINER(Frame),VBox);
     gtk_container_set_border_width(GTK_CONTAINER(VBox), 4);
 
@@ -243,7 +244,7 @@ void Open_OptionsWindow (void)
     /* User interface */
     Frame = gtk_frame_new (_("User Interface"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_vbox_new(FALSE,2);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
 
@@ -255,7 +256,7 @@ void Open_OptionsWindow (void)
         "the bitrate, the time, the size, will be displayed under the filename entry."));
 
     // Display color mode for changed files in list
-    hbox = gtk_hbox_new(FALSE,2);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
     Label = gtk_label_new(_("Display changed files in list using :"));
@@ -275,11 +276,11 @@ void Open_OptionsWindow (void)
     /* Sorting List Options */
     Frame = gtk_frame_new (_("Sorting List Options"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_vbox_new(FALSE,2);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
 
-    hbox = gtk_hbox_new(FALSE,2);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
     /* Sorting method */
@@ -379,7 +380,7 @@ void Open_OptionsWindow (void)
     else
         gtk_list_store_clear(FilePlayerModel);
 
-    hbox = gtk_hbox_new(FALSE,2);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),hbox);
     gtk_container_set_border_width(GTK_CONTAINER(hbox), 4);
     Label = gtk_label_new (_("Player to run :"));
@@ -408,7 +409,7 @@ void Open_OptionsWindow (void)
     /* Log options */
     Frame = gtk_frame_new (_("Log Options"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_vbox_new(FALSE,2);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
 
@@ -420,7 +421,7 @@ void Open_OptionsWindow (void)
                                             "visible in the main window."));
    
     // Max number of lines
-    hbox = gtk_hbox_new(FALSE,2);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     gtk_container_set_border_width(GTK_CONTAINER(hbox), 4);
     Label = gtk_label_new (_("Max number of lines :"));
@@ -447,7 +448,7 @@ void Open_OptionsWindow (void)
     gtk_notebook_append_page (GTK_NOTEBOOK(OptionsNoteBook),Frame,Label);
     gtk_container_set_border_width(GTK_CONTAINER(Frame),5);
 
-    VBox = gtk_vbox_new(FALSE,2);
+    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),VBox);
     gtk_container_set_border_width(GTK_CONTAINER(VBox),4);
 
@@ -455,7 +456,7 @@ void Open_OptionsWindow (void)
     /* File (name) Options */
     Frame = gtk_frame_new (_("File Options"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_vbox_new(FALSE,2);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
 
@@ -467,7 +468,7 @@ void Open_OptionsWindow (void)
         "of the filename to avoid problem when renaming the file. This is useful when renaming the "
         "file from the tag with the scanner."));
 
-    hbox = gtk_hbox_new(FALSE,2);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
     /* Extension case (lower/upper?) */
@@ -513,11 +514,11 @@ void Open_OptionsWindow (void)
     /* Character Set for File Name */
     Frame = gtk_frame_new (_("Character Set for File Name"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_vbox_new(FALSE,2);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
 
-    /****hbox = gtk_hbox_new(FALSE,2);
+    /****hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);***/
 
@@ -572,14 +573,14 @@ void Open_OptionsWindow (void)
     gtk_notebook_append_page (GTK_NOTEBOOK(OptionsNoteBook),Frame,Label);
     gtk_container_set_border_width(GTK_CONTAINER(Frame),5);
 
-    VBox = gtk_vbox_new(FALSE,2);
+    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),VBox);
     gtk_container_set_border_width(GTK_CONTAINER(VBox),4);
 
     /* Tag Options */
     Frame = gtk_frame_new (_("Tag Options"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_vbox_new(FALSE,2);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
 
@@ -590,7 +591,7 @@ void Open_OptionsWindow (void)
         "only the last numerals of the date (for instance, if the current year is 2005: "
         "5 => 2005, 4 => 2004, 6 => 1996, 95 => 1995 …)."));
 
-    hbox = gtk_hbox_new(FALSE,0);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
 
     NumberTrackFormated = gtk_check_button_new_with_label(_("Write the track field with the following number of digits :"));
@@ -695,7 +696,7 @@ void Open_OptionsWindow (void)
 #endif
     gtk_container_set_border_width(GTK_CONTAINER(Frame),5);
 
-    VBox = gtk_vbox_new(FALSE,2);
+    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),VBox);
     gtk_container_set_border_width(GTK_CONTAINER(VBox),4);
 
@@ -703,7 +704,7 @@ void Open_OptionsWindow (void)
     /* Tag Rules frame */
     Frame = gtk_frame_new (_("ID3 Tag Rules"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_vbox_new(FALSE,2);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox),2);
 
@@ -757,7 +758,7 @@ void Open_OptionsWindow (void)
     /* Character Set for writing ID3 tag */
     Frame = gtk_frame_new (_("Character Set for writing ID3 tags"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    id3v1v2hbox = gtk_hbox_new(FALSE,3);
+    id3v1v2hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,3);
     gtk_container_add(GTK_CONTAINER(Frame),id3v1v2hbox);
     gtk_container_set_border_width(GTK_CONTAINER(id3v1v2hbox), 2);
 
@@ -765,7 +766,7 @@ void Open_OptionsWindow (void)
     Frame = gtk_frame_new (_("ID3v2 tags"));
     gtk_box_pack_start(GTK_BOX(id3v1v2hbox),Frame,FALSE,FALSE,2);
 
-    vbox = gtk_vbox_new(FALSE,2);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox),2);
 
@@ -888,7 +889,7 @@ void Open_OptionsWindow (void)
     Frame = gtk_frame_new (_("ID3v1 tags"));
     gtk_box_pack_start(GTK_BOX(id3v1v2hbox),Frame,FALSE,FALSE,2);
 
-    vbox = gtk_vbox_new(FALSE,2);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox),2);
 
@@ -956,7 +957,7 @@ void Open_OptionsWindow (void)
     /* Character Set for reading tag */
     Frame = gtk_frame_new (_("Character Set for reading ID3 tags"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_vbox_new(FALSE,2);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
 
@@ -1014,14 +1015,14 @@ void Open_OptionsWindow (void)
     /* Save the number of the page. Asked in Scanner window */
     OptionsNoteBook_Scanner_Page_Num = gtk_notebook_page_num(GTK_NOTEBOOK(OptionsNoteBook),Frame);
 
-    VBox = gtk_vbox_new(FALSE,2);
+    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),VBox);
     gtk_container_set_border_width(GTK_CONTAINER(VBox), 4);
 
     /* Character conversion for the 'Fill Tag' scanner (=> FTS...) */
     Frame = gtk_frame_new (_("Fill Tag Scanner - Character Conversion"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_vbox_new(FALSE,2);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
 
@@ -1047,7 +1048,7 @@ void Open_OptionsWindow (void)
     /* Character conversion for the 'Rename File' scanner (=> RFS...) */
     Frame = gtk_frame_new (_("Rename File Scanner - Character Conversion"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_vbox_new(FALSE,2);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox),2);
     RFSConvertUnderscoreAndP20IntoSpace = gtk_radio_button_new_with_label(NULL, _("Convert underscore " "character '_' and string '%20' to space ' '"));
@@ -1071,7 +1072,7 @@ void Open_OptionsWindow (void)
     /* Character conversion for the 'Process Fields' scanner (=> PFS...) */
     Frame = gtk_frame_new (_("Process Fields Scanner - Character Conversion"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_vbox_new(FALSE,2);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox),2);
 
@@ -1088,7 +1089,7 @@ void Open_OptionsWindow (void)
     /* Properties of the scanner window */
     Frame = gtk_frame_new (_("Scanner Window"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_vbox_new(FALSE,2);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
 
@@ -1108,7 +1109,7 @@ void Open_OptionsWindow (void)
     /* Other options */
     Frame = gtk_frame_new (_("Fields"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_vbox_new(FALSE,2);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
 
@@ -1125,7 +1126,7 @@ void Open_OptionsWindow (void)
     else
         gtk_list_store_clear(DefaultCommentModel);
 
-    hbox = gtk_hbox_new(FALSE,2);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     SetDefaultComment = gtk_check_button_new_with_label(_("Set this text as default comment :"));
     gtk_box_pack_start(GTK_BOX(hbox),SetDefaultComment,FALSE,FALSE,0);
@@ -1168,19 +1169,19 @@ void Open_OptionsWindow (void)
     gtk_notebook_append_page (GTK_NOTEBOOK(OptionsNoteBook),Frame,Label);
     gtk_container_set_border_width(GTK_CONTAINER(Frame), 5);
 
-    VBox = gtk_vbox_new(FALSE,2);
+    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),VBox);
     gtk_container_set_border_width(GTK_CONTAINER(VBox), 4);
 
     // CDDB Server Settings (Automatic Search)
     Frame = gtk_frame_new (_("Server Settings for Automatic Search"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE, 0);
-    vbox = gtk_vbox_new(FALSE,2);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 4);
 
     // 1rst automatic search server
-    hbox = gtk_hbox_new(FALSE,2);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_container_add(GTK_CONTAINER(vbox),hbox);
     Label = gtk_label_new(_("Name :"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
@@ -1219,7 +1220,7 @@ void Open_OptionsWindow (void)
         gtk_entry_set_text(GTK_ENTRY(CddbServerCgiPathAutomaticSearch),CDDB_SERVER_CGI_PATH_AUTOMATIC_SEARCH);
 
     // 2sd automatic search server
-    hbox = gtk_hbox_new(FALSE,2);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_container_add(GTK_CONTAINER(vbox),hbox);
     Label = gtk_label_new(_("Name :"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
@@ -1249,11 +1250,11 @@ void Open_OptionsWindow (void)
     // CDDB Server Settings (Manual Search)
     Frame = gtk_frame_new (_("Server Settings for Manual Search"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_vbox_new(FALSE,2);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 4);
 
-    hbox = gtk_hbox_new(FALSE,2);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_container_add(GTK_CONTAINER(vbox),hbox);
     Label = gtk_label_new(_("Name :"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
@@ -1284,11 +1285,11 @@ void Open_OptionsWindow (void)
     // Local access for CDDB (Automatic Search)
     Frame = gtk_frame_new (_("Local CD Data Base"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_vbox_new(FALSE,2);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 4);
 
-    hbox = gtk_hbox_new(FALSE,2);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_container_add(GTK_CONTAINER(vbox),hbox);
     Label = gtk_label_new(_("Path :"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
@@ -1389,7 +1390,7 @@ void Open_OptionsWindow (void)
     Frame = gtk_frame_new (_("Track Name List"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
 
-    vbox = gtk_vbox_new(FALSE,2);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
 
@@ -1422,7 +1423,7 @@ void Open_OptionsWindow (void)
     gtk_notebook_append_page (GTK_NOTEBOOK(OptionsNoteBook),Frame,Label);
     gtk_container_set_border_width(GTK_CONTAINER(Frame), 5);
 
-    VBox = gtk_vbox_new(FALSE,2);
+    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),VBox);
     gtk_container_set_border_width(GTK_CONTAINER(VBox), 2);
 

@@ -39,6 +39,7 @@
 #include <sys/types.h>
 #include <utime.h>
 
+#include "gtk2_compat.h"
 #include "easytag.h"
 #include "browser.h"
 #include "log.h"
@@ -348,7 +349,7 @@ int main (int argc, char *argv[])
     }*/
 
     /* MainVBox for Menu bar + Tool bar + "Browser Area & FileArea & TagArea" + Log Area + "Status bar & Progress bar" */
-    MainVBox = gtk_vbox_new(FALSE,0);
+    MainVBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
     gtk_container_add (GTK_CONTAINER(MainWindow),MainVBox);
     gtk_widget_show(MainVBox);
 
@@ -369,7 +370,7 @@ int main (int argc, char *argv[])
     gtk_paned_pack1(GTK_PANED(MainWindowHPaned),BrowseArea,TRUE,TRUE);
 
     /* Vertical box for FileArea + TagArea */
-    VBox = gtk_vbox_new(FALSE,0);
+    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
     gtk_paned_pack2(GTK_PANED(MainWindowHPaned),VBox,FALSE,FALSE);
     gtk_widget_show(VBox);
 
@@ -394,7 +395,7 @@ int main (int argc, char *argv[])
     gtk_paned_pack2(GTK_PANED(MainWindowVPaned),LogArea,FALSE,TRUE);
 
     /* Horizontal box for Status bar + Progress bar */
-    HBox = gtk_hbox_new(FALSE,0);
+    HBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
     gtk_box_pack_start(GTK_BOX(MainVBox),HBox,FALSE,FALSE,0);
     gtk_widget_show(HBox);
 
@@ -450,12 +451,12 @@ GtkWidget *Create_File_Area (void)
     FileFrame = gtk_frame_new(_("File"));
     gtk_container_set_border_width(GTK_CONTAINER(FileFrame),2);
 
-    VBox = gtk_vbox_new(FALSE,0);
+    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
     gtk_container_add(GTK_CONTAINER(FileFrame),VBox);
     gtk_container_set_border_width(GTK_CONTAINER(VBox),2);
 
     /* HBox for FileEntry and IconBox */
-    HBox = gtk_hbox_new(FALSE,2);
+    HBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_box_pack_start(GTK_BOX(VBox),HBox,TRUE,TRUE,0);
 
     /* File index (position in list + list length) */
@@ -571,7 +572,7 @@ GtkWidget *Create_Tag_Area (void)
     gtk_container_set_border_width(GTK_CONTAINER(TagFrame),2);
 
     /* Box for the notebook (only for setting a border) */
-    VBox = gtk_vbox_new(FALSE,0);
+    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
     gtk_container_add(GTK_CONTAINER(TagFrame),VBox);
     gtk_container_set_border_width(GTK_CONTAINER(VBox),2);
 
@@ -1077,7 +1078,7 @@ GtkWidget *Create_Tag_Area (void)
     gtk_widget_set_tooltip_text(PictureMButton,_("Tag selected files with these pictures"));
 
     // Picture action buttons
-    hbox = gtk_hbox_new(FALSE, 4);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 4);
     gtk_table_attach(GTK_TABLE(Table),hbox,1,4,1,2,GTK_FILL,GTK_FILL,TablePadding,TablePadding);
 
     PictureAddButton = gtk_button_new();

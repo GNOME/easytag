@@ -39,6 +39,7 @@
 #include <stdio.h>
 #include <errno.h>
 
+#include "gtk2_compat.h"
 #include "easytag.h"
 #include "browser.h"
 #include "et_core.h"
@@ -3037,12 +3038,12 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     gchar *ArtistList_Titles[]  = {N_("Artist"),N_("# Albums"),N_("# Files")};
     gchar *AlbumList_Titles[]   = {N_("Album"),N_("# Files")};
 
-    VerticalBox = gtk_vbox_new(FALSE,2);
+    VerticalBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_set_border_width(GTK_CONTAINER(VerticalBox),2);
 
 
     // HBox for BrowserEntry + BrowserLabel
-    HBox = gtk_hbox_new(FALSE,0);
+    HBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
     gtk_box_pack_start(GTK_BOX(VerticalBox),HBox,FALSE,TRUE,0);
 
     /*
@@ -3703,7 +3704,7 @@ void Browser_Open_Rename_Directory_Window (void)
     gtk_container_add(GTK_CONTAINER(RenameDirectoryWindow),Frame);
     gtk_container_set_border_width(GTK_CONTAINER(Frame),2);
 
-    VBox = gtk_vbox_new(FALSE,4);
+    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,4);
     gtk_container_add(GTK_CONTAINER(Frame),VBox);
     gtk_container_set_border_width(GTK_CONTAINER(VBox), 4);
 
@@ -3723,7 +3724,7 @@ void Browser_Open_Rename_Directory_Window (void)
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameDirectoryCombo))));
 
     /* Rename directory : check box + combo box + Status icon */
-    HBox = gtk_hbox_new(FALSE,2);
+    HBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_box_pack_start(GTK_BOX(VBox),HBox,TRUE,TRUE,0);
 
     RenameDirectoryWithMask = gtk_check_button_new_with_label(_("Use mask :"));
@@ -4166,7 +4167,7 @@ void Browser_Open_Run_Program_Tree_Window (void)
     gtk_container_add(GTK_CONTAINER(RunProgramTreeWindow),Frame);
     gtk_container_set_border_width(GTK_CONTAINER(Frame),2);
 
-    VBox = gtk_vbox_new(FALSE,4);
+    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,4);
     gtk_container_add(GTK_CONTAINER(Frame),VBox);
     gtk_container_set_border_width(GTK_CONTAINER(VBox), 4);
 
@@ -4174,7 +4175,7 @@ void Browser_Open_Run_Program_Tree_Window (void)
     gtk_box_pack_start(GTK_BOX(VBox),Label,TRUE,FALSE,0);
     gtk_label_set_line_wrap(GTK_LABEL(Label),TRUE);
 
-    HBox = gtk_hbox_new(FALSE,4);
+    HBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,4);
     gtk_box_pack_start(GTK_BOX(VBox),HBox,FALSE,FALSE,2);
     gtk_container_set_border_width(GTK_CONTAINER(HBox), 2);
 
@@ -4324,7 +4325,7 @@ void Browser_Open_Run_Program_List_Window (void)
     gtk_container_add(GTK_CONTAINER(RunProgramListWindow),Frame);
     gtk_container_set_border_width(GTK_CONTAINER(Frame),2);
 
-    VBox = gtk_vbox_new(FALSE,4);
+    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,4);
     gtk_container_add(GTK_CONTAINER(Frame),VBox);
     gtk_container_set_border_width(GTK_CONTAINER(VBox), 4);
 
@@ -4332,7 +4333,7 @@ void Browser_Open_Run_Program_List_Window (void)
     gtk_box_pack_start(GTK_BOX(VBox),Label,TRUE,TRUE,0);
     gtk_label_set_line_wrap(GTK_LABEL(Label),TRUE);
 
-    HBox = gtk_hbox_new(FALSE,4);
+    HBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,4);
     gtk_box_pack_start(GTK_BOX(VBox),HBox,FALSE,FALSE,2);
     gtk_container_set_border_width(GTK_CONTAINER(HBox), 2);
 

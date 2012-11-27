@@ -37,6 +37,7 @@
 #endif
 #include <errno.h>
 
+#include "gtk2_compat.h"
 #include "about.h"
 #include "easytag.h"
 #include "misc.h"
@@ -279,7 +280,7 @@ void Show_About_Window (void)
     gtk_notebook_append_page (GTK_NOTEBOOK(AboutNoteBook),Frame,Label);
     gtk_container_set_border_width(GTK_CONTAINER(Frame), 2);
 
-    VBox = gtk_vbox_new(FALSE,0);
+    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
     gtk_container_add(GTK_CONTAINER(Frame),VBox);
 
     /* EasyTAG Logo */
@@ -328,7 +329,7 @@ void Show_About_Window (void)
     Label = gtk_label_new(temp);
     gtk_box_pack_start(GTK_BOX(VBox),Label,FALSE,TRUE,0);
 
-    hbox = gtk_hbox_new(FALSE,0);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
     gtk_box_pack_start(GTK_BOX(VBox),hbox,FALSE,TRUE,0);
     Label = gtk_label_new(_("Web Page: "));
     gtk_misc_set_alignment(GTK_MISC(Label),1,0.5);

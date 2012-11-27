@@ -40,6 +40,7 @@
 #endif
 #include <errno.h>
 
+#include "gtk2_compat.h"
 #include "cddb.h"
 #include "easytag.h"
 #include "et_core.h"
@@ -244,7 +245,7 @@ void Open_Cddb_Window (void)
     g_signal_connect(G_OBJECT(CddbWindow),"delete_event", G_CALLBACK(Cddb_Destroy_Window),NULL);
     g_signal_connect(G_OBJECT(CddbWindow),"key_press_event", G_CALLBACK(Cddb_Window_Key_Press),NULL);
 
-    MainVBox = gtk_vbox_new(FALSE,0);
+    MainVBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
     gtk_container_add(GTK_CONTAINER(CddbWindow),MainVBox);
     gtk_container_set_border_width(GTK_CONTAINER(MainVBox),1);
 
@@ -252,7 +253,7 @@ void Open_Cddb_Window (void)
     gtk_box_pack_start(GTK_BOX(MainVBox),Frame,TRUE,TRUE,0);
     gtk_container_set_border_width(GTK_CONTAINER(Frame),2);
 
-    VBox = gtk_vbox_new(FALSE,4);
+    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,4);
     gtk_container_add(GTK_CONTAINER(Frame),VBox);
     gtk_container_set_border_width(GTK_CONTAINER(VBox),2);
 
@@ -272,11 +273,11 @@ void Open_Cddb_Window (void)
     gtk_notebook_append_page(GTK_NOTEBOOK(CddbNoteBook),Frame,Label);
     gtk_container_set_border_width(GTK_CONTAINER(Frame),2);
 
-    notebookvbox = gtk_vbox_new(FALSE,4);
+    notebookvbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,4);
     gtk_container_add(GTK_CONTAINER(Frame),notebookvbox);
     gtk_container_set_border_width(GTK_CONTAINER(notebookvbox),2);
 
-    hbox = gtk_hbox_new(FALSE,4);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,4);
     gtk_box_pack_start(GTK_BOX(notebookvbox),hbox,FALSE,FALSE,0);
 
     Label = gtk_label_new(_("Request CD database :"));
@@ -359,14 +360,14 @@ void Open_Cddb_Window (void)
     gtk_notebook_append_page(GTK_NOTEBOOK(CddbNoteBook),Frame,Label);
     gtk_container_set_border_width(GTK_CONTAINER(Frame),2);
 
-    notebookvbox = gtk_vbox_new(FALSE,4);
+    notebookvbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,4);
     gtk_container_add(GTK_CONTAINER(Frame),notebookvbox);
     gtk_container_set_border_width(GTK_CONTAINER(notebookvbox),2);
 
     /*
      * Words to search
      */
-    hbox = gtk_hbox_new(FALSE,4);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,4);
     gtk_box_pack_start(GTK_BOX(notebookvbox),hbox,FALSE,FALSE,0);
 
     Label = gtk_label_new(_("Words :"));
@@ -521,7 +522,7 @@ void Open_Cddb_Window (void)
     Frame = gtk_frame_new(_("Results :"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,TRUE,0);
 
-    hbox = gtk_hbox_new(FALSE,4);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,4);
     gtk_container_set_border_width(GTK_CONTAINER(hbox),2);
     gtk_container_add(GTK_CONTAINER(Frame),hbox);
 
@@ -709,7 +710,7 @@ void Open_Cddb_Window (void)
     Frame = gtk_frame_new(_("Set Into :"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,TRUE,0);
 
-    vbox = gtk_vbox_new(FALSE,2);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_set_border_width(GTK_CONTAINER(vbox),2);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
 
@@ -723,7 +724,7 @@ void Open_Cddb_Window (void)
     CddbSetToTrack      = gtk_check_button_new_with_label(_("Track #"));
     CddbSetToTrackTotal = gtk_check_button_new_with_label(_("# Tracks"));
     CddbSetToGenre      = gtk_check_button_new_with_label(_("Genre"));
-    hbox = gtk_hbox_new(FALSE,0);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),CddbSetToAllFields, FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),Separator,          FALSE,FALSE,2);
@@ -755,7 +756,7 @@ void Open_Cddb_Window (void)
     g_signal_connect(G_OBJECT(CddbSetToGenre),     "toggled",G_CALLBACK(Cddb_Set_Apply_Button_Sensivity),NULL);
     g_signal_connect(G_OBJECT(CddbSetToFileName),  "toggled",G_CALLBACK(Cddb_Set_Apply_Button_Sensivity),NULL);
 
-    hbox = gtk_hbox_new(FALSE,0);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
 
     // Check box to run the scanner

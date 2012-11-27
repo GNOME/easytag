@@ -47,6 +47,7 @@ easytag_SOURCES = \
 	src/et_core.c \
 	src/flac_header.c \
 	src/flac_tag.c \
+	src/gtk2_compat.c \
 	src/id3_tag.c \
 	src/id3v24_tag.c \
 	src/log.c \
@@ -90,6 +91,7 @@ easytag_headers = \
 	src/flac_header.h \
 	src/flac_tag.h \
 	src/genres.h \
+	src/gtk2_compat.h \
 	src/id3_tag.h \
 	src/log.h \
 	src/misc.h \

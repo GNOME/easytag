@@ -28,6 +28,7 @@
 #include <config.h>
 #include <glib/gi18n-lib.h>
 
+#include "gtk2_compat.h"
 #include "scan.h"
 #include "easytag.h"
 #include "prefs.h"
@@ -2351,14 +2352,14 @@ void Open_ScannerWindow (gint scanner_type)
     g_signal_connect(G_OBJECT(ScannerWindow),"key_press_event",G_CALLBACK(ScannerWindow_Key_Press),NULL);
 
     /* The main vbox */
-    ScanVBox = gtk_vbox_new(FALSE,2);
+    ScanVBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(ScannerWindow),ScanVBox);
 
 
     /*
      * The hbox for mode buttons + buttons + what to scan
      */
-    HBox1 = gtk_hbox_new(FALSE,0);
+    HBox1 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
     gtk_box_pack_start(GTK_BOX(ScanVBox),HBox1,FALSE,FALSE,0);
 
     /* Option Menu */
@@ -2444,13 +2445,13 @@ void Open_ScannerWindow (gint scanner_type)
     ScanTagFrame = gtk_frame_new (_(Scanner_Option_Menu_Items[0]));
     gtk_box_pack_start(GTK_BOX(ScanVBox),ScanTagFrame,FALSE,FALSE,0);
 
-    vbox = gtk_vbox_new(FALSE,4);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,4);
     gtk_container_add(GTK_CONTAINER(ScanTagFrame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 4);
     gtk_widget_show(vbox);
 
     /* The combo box + Status icon */
-    HBox2 = gtk_hbox_new(FALSE,2);
+    HBox2 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_box_pack_start(GTK_BOX(vbox),HBox2,TRUE,TRUE,0);
 
     // Set up list model which is used both by the combobox and the editor
@@ -2500,13 +2501,13 @@ void Open_ScannerWindow (gint scanner_type)
     RenameFileFrame = gtk_frame_new (_(Scanner_Option_Menu_Items[1]));
     gtk_box_pack_start(GTK_BOX(ScanVBox),RenameFileFrame,FALSE,FALSE,0);
 
-    vbox = gtk_vbox_new(FALSE,4);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,4);
     gtk_container_add(GTK_CONTAINER(RenameFileFrame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 4);
     gtk_widget_show(vbox);
 
     /* The button to prefix path + combo box + Status icon */
-    HBox4 = gtk_hbox_new(FALSE,2);
+    HBox4 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_box_pack_start(GTK_BOX(vbox),HBox4,TRUE,TRUE,0);
 
     // Button to prefix path
@@ -2567,13 +2568,13 @@ void Open_ScannerWindow (gint scanner_type)
     ProcessFieldsFrame = gtk_frame_new (_(Scanner_Option_Menu_Items[2]));
     gtk_box_pack_start(GTK_BOX(ScanVBox),ProcessFieldsFrame,FALSE,FALSE,0);
 
-    VBox = gtk_vbox_new(FALSE,0);
+    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
     gtk_container_add(GTK_CONTAINER(ProcessFieldsFrame),VBox);
     gtk_container_set_border_width(GTK_CONTAINER(VBox), 4);
     gtk_widget_show(VBox);
 
     /* Group: select entry fields to process */
-    hbox = gtk_hbox_new(FALSE,0);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
     gtk_box_pack_start(GTK_BOX(VBox),hbox,FALSE,FALSE,2);
     EventBox = gtk_event_box_new();
     Label = gtk_label_new(_("Select fields:"));
@@ -2654,7 +2655,7 @@ void Open_ScannerWindow (gint scanner_type)
     g_signal_connect(G_OBJECT(ProcessURLField),        "toggled",G_CALLBACK(Select_Fields_Set_Sensitive),NULL);
     g_signal_connect(G_OBJECT(ProcessEncodedByField),  "toggled",G_CALLBACK(Select_Fields_Set_Sensitive),NULL);
     /* The small buttons */
-    vbox = gtk_vbox_new(FALSE,2);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_box_pack_start(GTK_BOX(hbox),vbox,FALSE,FALSE,0);
     Button = gtk_button_new();
     g_signal_connect(G_OBJECT(Button),"clicked",G_CALLBACK(Select_Fields_Invert_Selection),NULL);
@@ -2685,7 +2686,7 @@ void Open_ScannerWindow (gint scanner_type)
     ProcessFieldsConvertSpace     = gtk_check_button_new_with_label(_("Convert ' ' to '_'"));
     gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsConvertIntoSpace,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsConvertSpace,    FALSE,FALSE,0);
-    hbox = gtk_hbox_new(FALSE,2);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_box_pack_start(GTK_BOX(VBox),hbox,FALSE,FALSE,0);
     ProcessFieldsConvert          = gtk_check_button_new_with_label(_("Convert:"));  // Patch from Ben Hearsum, Oct. 3, 2003
     ProcessFieldsConvertTo        = gtk_entry_new();
@@ -2730,7 +2731,7 @@ void Open_ScannerWindow (gint scanner_type)
     Separator = gtk_hseparator_new();
     gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
 
-    hbox = gtk_hbox_new(FALSE,0);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
     
     /* Group: capitalize, ... */
     ProcessFieldsAllUppercase = gtk_check_button_new_with_label         (_("All uppercase"));
@@ -2877,12 +2878,12 @@ void Open_ScannerWindow (gint scanner_type)
      */
     MaskEditorFrame = gtk_frame_new (_("Mask Editor"));
     gtk_box_pack_start(GTK_BOX(ScanVBox),MaskEditorFrame,FALSE,FALSE,0);
-    MaskEditorHBox = gtk_hbox_new(FALSE,4);
+    MaskEditorHBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,4);
     gtk_container_add(GTK_CONTAINER(MaskEditorFrame),MaskEditorHBox);
     gtk_container_set_border_width(GTK_CONTAINER(MaskEditorHBox), 4);
 
     /* The editor part */
-    MaskEditorVBox = gtk_vbox_new(FALSE,2);
+    MaskEditorVBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_box_pack_start(GTK_BOX(MaskEditorHBox),MaskEditorVBox,TRUE,TRUE,0);
     MaskEditorScrollWindow = gtk_scrolled_window_new(NULL,NULL);
     gtk_box_pack_start(GTK_BOX(MaskEditorVBox),MaskEditorScrollWindow,TRUE,TRUE,0);
@@ -2908,7 +2909,7 @@ void Open_ScannerWindow (gint scanner_type)
     g_signal_connect(G_OBJECT(MaskEditorList), "key-press-event",
         G_CALLBACK(Mask_Editor_List_Key_Press), NULL);
     /* The entry */
-    hbox = gtk_hbox_new(FALSE,2);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_box_pack_start(GTK_BOX(MaskEditorVBox),hbox,FALSE,FALSE,0);
     MaskEditorEntry = gtk_entry_new();
     gtk_box_pack_start(GTK_BOX(hbox),MaskEditorEntry,TRUE,TRUE,2);
@@ -2923,7 +2924,7 @@ void Open_ScannerWindow (gint scanner_type)
         G_CALLBACK(Scan_Check_Editor_Mask),G_OBJECT(MaskStatusIconBox));
 
     /* The buttons part */
-    MaskEditorVBox = gtk_vbox_new(FALSE,0);
+    MaskEditorVBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
     gtk_box_pack_start(GTK_BOX(MaskEditorHBox),MaskEditorVBox,FALSE,FALSE,0);
 
     /* New mask button */
