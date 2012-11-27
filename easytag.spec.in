@@ -56,7 +56,7 @@ Features:
   o Ability to browse subdirectories,
   o Recursion for tagging, removing, renaming, saving...,
   o Can set a field (artist, title,...) to all other selected files,
-  o Read file header informations (bitrate, time, ...) and display them,
+  o Read file header information (bitrate, time, ...) and display them,
   o Auto completion of the date if a partial is entered,
   o Undo and redo last changes,
   o Ability to process fields of tag and file name (convert letters into

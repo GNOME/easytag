@@ -14,7 +14,7 @@ the "C:\Documents and Settings\<user>\Application Data\.easytag" folder
 It should autodetect your audio player. foobar2k and winamp in order, if you have them installed. If not you can set 
 your audio player in the settings dialog.
 
-It should use the langage of your Windows installation. It can be overriden by setting the EASYTAGLANG environment variable
+It should use the langage of your Windows installation. It can be overridden by setting the EASYTAGLANG environment variable
 to the two letter country code found in the "locale" subdirectory. 
 To define this variable, go in the "Advanced" tab of the "Desktop" properties window. Click the  "Environment variable"
 button, and then create it with the "New" button of the User variables frame.
@@ -68,7 +68,7 @@ V. TO COMPILE
 	                          - unzip in MinGW/ directory
 	                          - edit drmingw.reg to set the correct path to drmingw.exe and apply it
 	                          - run "drmingw -i")
-    * (interesting informations on http://developer.pidgin.im/wiki/BuildingWinPidgin)
+    * (interesting information on http://developer.pidgin.im/wiki/BuildingWinPidgin)
     
 - install pkg-config (see http://www.gimp.org/~tml/gimp/win32/downloads.html)
 

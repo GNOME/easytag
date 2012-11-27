@@ -287,7 +287,7 @@ void Init_ScannerWindow (void)
 
 
 /*
- * Uses the filename and path to fill tag informations
+ * Uses the filename and path to fill tag information
  * Note: mask and source are read from the right to the left
  */
 void Scan_Tag_With_Mask (ET_File *ETFile)
@@ -633,7 +633,7 @@ void Scan_Free_File_Fill_Tag_List (GList *list)
  * Scanner To Rename File *
  **************************/
 /*
- * Uses tag informations (displayed into tag entries) to rename file
+ * Uses tag information (displayed into tag entries) to rename file
  * Note: mask and source are read from the right to the left.
  * Note1: a mask code may be used severals times...
  */
@@ -2689,7 +2689,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_box_pack_start(GTK_BOX(VBox),hbox,FALSE,FALSE,0);
     ProcessFieldsConvert          = gtk_check_button_new_with_label(_("Convert:"));  // Patch from Ben Hearsum, Oct. 3, 2003
     ProcessFieldsConvertTo        = gtk_entry_new();
-    ProcessFieldsConvertLabelTo   = gtk_label_new(_("to: ")); // A "space" at the end to allow an other traduction for "to :" (needed in French!)
+    ProcessFieldsConvertLabelTo   = gtk_label_new(_("to: ")); // A "space" at the end to allow another traduction for "to :" (needed in French!)
     ProcessFieldsConvertFrom      = gtk_entry_new();
     //gtk_entry_set_max_length(GTK_ENTRY(ProcessFieldsConvertTo), 1); // Now, it isn't limited to one character
     //gtk_entry_set_max_length(GTK_ENTRY(ProcessFieldsConvertFrom), 1);
@@ -2724,7 +2724,7 @@ void Open_ScannerWindow (gint scanner_type)
         _("The space character is replaced by one underscore character. "
           "Example, before: 'Text In An Entry', after: 'Text_In_An_Entry'."));
     gtk_widget_set_tooltip_text(ProcessFieldsConvert,
-        _("Replace a string by an other one. Note that the search is case sensitive."));
+        _("Replace a string by another one. Note that the search is case sensitive."));
 
     /* Separator line */
     Separator = gtk_hseparator_new();

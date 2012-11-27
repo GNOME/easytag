@@ -77,7 +77,7 @@ gboolean Ogg_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
 
     filename_utf8 = filename_to_display(filename);
 
-    if ( (file=fopen(filename,"rb"))==NULL ) // Warning : it is important to open the file in binary mode! (to get header informations under Win32)
+    if ( (file=fopen(filename,"rb"))==NULL ) // Warning : it is important to open the file in binary mode! (to get header information under Win32)
     {
         Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
         g_free(filename_utf8);
@@ -181,7 +181,7 @@ gboolean Speex_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
 
     filename_utf8 = filename_to_display(filename);
 
-    if ( (file=fopen(filename,"rb"))==NULL ) // Warning : it is important to open the file in binary mode! (to get header informations under Win32)
+    if ( (file=fopen(filename,"rb"))==NULL ) // Warning : it is important to open the file in binary mode! (to get header information under Win32)
     {
         Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
         g_free(filename_utf8);
@@ -199,7 +199,7 @@ gboolean Speex_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
         return FALSE;
     }
 
-    // Get Speex informations
+    // Get Speex information
     if ( (si=state->si) != NULL )
     {
         encoder_version = si->speex_version;

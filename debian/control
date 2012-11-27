@@ -38,7 +38,7 @@ Description: viewing, editing and writing ID3 tags
   - Ability to browse subdirectories,
   - Recursion for tagging, removing, renaming, saving...,
   - Can set a field (artist, title,...) to all other selected files,
-  - Read file header informations (bitrate, time, ...) and display them,
+  - Read file header information (bitrate, time, ...) and display them,
   - Undo and redo last changes,
   - Ability to process fields of tag and file name (convert letters into
     uppercase, downcase, ...),

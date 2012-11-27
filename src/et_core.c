@@ -446,7 +446,7 @@ guint ET_Undo_Key_New (void)
  **********************************/
 
 /*
- * ET_Add_File_To_File_List: Add a file to the "main" list. And get all informations of the file.
+ * ET_Add_File_To_File_List: Add a file to the "main" list. And get all information of the file.
  * The filename passed in should be in raw format, only convert it to UTF8 when displaying it.
  */
 GList *ET_Add_File_To_File_List (gchar *filename)
@@ -2560,7 +2560,7 @@ gboolean ET_Set_Field_File_Tag_Picture (Picture **FileTagField, Picture *pic)
  ************************/
 
 /*
- * Display informations of the file (Position + Header + Tag) to the user interface.
+ * Display information of the file (Position + Header + Tag) to the user interface.
  * Before doing it, it saves data of the file currently displayed
  */
 void ET_Display_File_Data_To_UI (ET_File *ETFile)
@@ -3047,7 +3047,7 @@ gboolean ET_Display_File_Info_To_UI(ET_File_Info *ETFileInfo)
  ********************/
 
 /*
- * Save informations of the file, contained into the entries of the user interface, in the list.
+ * Save information of the file, contained into the entries of the user interface, in the list.
  * An undo key is generated to be used for filename and tag if there are changed is the same time.
  * Filename and Tag.
  */

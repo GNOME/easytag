@@ -108,7 +108,7 @@ static char *id3_genres[] =
     "Native American", 
     "Cabaret",          /* 65 */
     "New Wave",
-    "Psychadelic", 
+    "Psychedelic",
     "Rave",
     "Showtunes", 
     "Trailer",          /* 70 */

@@ -39,7 +39,7 @@ Currently EasyTAG supports the following:
   o Ability to browse subdirectories,
   o Recursion for tagging, removing, renaming, saving...,
   o Can set a field (artist, title,...) to all other selected files,
-  o Read file header informations (bitrate, time, ...) and display them,
+  o Read file header information (bitrate, time, ...) and display them,
   o Auto completion of the date if a partial is entered,
   o Undo and redo last changes,
   o Ability to process fields of tag and file name (convert letters into
@@ -235,7 +235,7 @@ CONTACTS:
 =========
 Visit the homepage at: http://easytag.sourceforge.net
                    or: http://sourceforge.net/project/?group_id=5216
-for more informations and new releases.
+for more information and new releases.
 
 This version is currently being maintained in an external version
 control repository. If you wish to make a contribution please see the

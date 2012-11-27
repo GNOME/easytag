@@ -502,7 +502,7 @@ gboolean Ogg_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     /**************
      * Picture    *
      **************/
-    /* Non officials tags used for picture informations:
+    /* Non officials tags used for picture information:
      *  - COVERART            : contains the picture data
      *  - COVERARTTYPE        : cover front, ...
      *  - COVERARTDESCRIPTION : information set by user
@@ -864,7 +864,7 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
 
 
 /* 
- * Write tag informations to a new temporary file, and rename it the the initial name.
+ * Write tag information to a new temporary file, and rename it the the initial name.
  */
 gboolean Ogg_Tag_Write_File (FILE *file_in, gchar *filename_in, vcedit_state *state)
 {

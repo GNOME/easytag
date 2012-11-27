@@ -198,7 +198,7 @@ void Open_OptionsWindow (void)
     gtk_box_pack_start(GTK_BOX(vbox),LoadOnStartup,FALSE,FALSE,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(LoadOnStartup),LOAD_ON_STARTUP);
     gtk_widget_set_tooltip_text(LoadOnStartup,_("Automatically search files, when EasyTAG starts, "
-        "into the default directory. Note that this path may be overriden by the parameter "
+        "into the default directory. Note that this path may be overridden by the parameter "
         "passed to easytag (easytag /path_to/mp3_files)."));
 
     /* Browse subdirectories */
@@ -248,10 +248,10 @@ void Open_OptionsWindow (void)
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
 
     // Show header infos
-    ShowHeaderInfos = gtk_check_button_new_with_label(_("Show header informations of file"));
+    ShowHeaderInfos = gtk_check_button_new_with_label(_("Show header information of file"));
     gtk_box_pack_start(GTK_BOX(vbox),ShowHeaderInfos,FALSE,FALSE,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ShowHeaderInfos),SHOW_HEADER_INFO);
-    gtk_widget_set_tooltip_text(ShowHeaderInfos,_("If activated, informations about the file as "
+    gtk_widget_set_tooltip_text(ShowHeaderInfos,_("If activated, information about the file as "
         "the bitrate, the time, the size, will be displayed under the filename entry."));
 
     // Display color mode for changed files in list
@@ -464,7 +464,7 @@ void Open_OptionsWindow (void)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ReplaceIllegalCharactersInFilename),REPLACE_ILLEGAL_CHARACTERS_IN_FILENAME);
     gtk_widget_set_tooltip_text(ReplaceIllegalCharactersInFilename,_("Convert illegal characters for "
         "FAT32/16 and ISO9660 + Joliet filesystems ('\\', ':', ';', '*', '?', '\"', '<', '>', '|') "
-        "of the filename to avoid problem when renaming the file. This is usefull when renaming the "
+        "of the filename to avoid problem when renaming the file. This is useful when renaming the "
         "file from the tag with the scanner."));
 
     hbox = gtk_hbox_new(FALSE,2);
@@ -507,7 +507,7 @@ void Open_OptionsWindow (void)
         "of the parent directory of the file will be updated when saving tag the file. At the "
         "present time it is automatically done only when renaming a file.\nThis feature is "
         "interesting when using applications like Amarok. For performance reasons, they refresh "
-        "file informations by detecting changes of the parent directory."));
+        "file information by detecting changes of the parent directory."));
 
 
     /* Character Set for File Name */
@@ -535,7 +535,7 @@ void Open_OptionsWindow (void)
     Label = gtk_label_new("    ");
     gtk_table_attach(GTK_TABLE(Table),Label,0,1,1,2,GTK_FILL,GTK_FILL,0,0);
 
-    FilenameCharacterSetOther = gtk_radio_button_new_with_label(NULL,_("Try an other "
+    FilenameCharacterSetOther = gtk_radio_button_new_with_label(NULL,_("Try another "
         "character encoding"));
     gtk_table_attach(GTK_TABLE(Table),FilenameCharacterSetOther,1,2,1,2,GTK_FILL,GTK_FILL,0,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FilenameCharacterSetOther),FILENAME_CHARACTER_SET_OTHER);
@@ -968,7 +968,7 @@ void Open_OptionsWindow (void)
 
     // "File Reading Charset" Check Button + Combo
     UseNonStandardId3ReadingCharacterSet = gtk_check_button_new_with_label(_(
-        "Non-standart:"));
+        "Non-standard:"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(UseNonStandardId3ReadingCharacterSet),
         USE_NON_STANDARD_ID3_READING_CHARACTER_SET);
     gtk_table_attach(GTK_TABLE(Table),UseNonStandardId3ReadingCharacterSet,0,1,0,1,GTK_FILL,GTK_FILL,0,0);
@@ -1760,7 +1760,7 @@ void OptionsWindow_Apply_Changes (void)
 
 
 /*
- * Check_Config: Check if config informations are correct
+ * Check_Config: Check if config information are correct
  * dsd: Check this... going from utf8 to raw is dodgy stuff
  *
  * Problem noted : if a character is escaped (like : 'C\351line DION') in

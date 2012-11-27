@@ -157,7 +157,7 @@ gchar *INIT_DIRECTORY;
 extern int errno;
 #endif
 
-/* A flag to start/avoid a new reading while an other one is running */
+/* A flag to start/avoid a new reading while another one is running */
 gboolean ReadingDirectory;
 
 

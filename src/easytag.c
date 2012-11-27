@@ -2327,7 +2327,7 @@ gint Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
     Tag_Area_Set_Sensitive(TRUE);
     File_Area_Set_Sensitive(TRUE);
 
-    /* Give again focus to the first entry, else the focus is passed to an other */
+    /* Give again focus to the first entry, else the focus is passed to another */
     gtk_widget_grab_focus(GTK_WIDGET(widget_focused));
 
     gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), "");
@@ -2553,7 +2553,7 @@ gint Save_File (ET_File *ETFile, gboolean multiple_files, gboolean force_saving_
 
 
     /*
-     * First part: write tag informations (artist, title,...)
+     * First part: write tag information (artist, title,...)
      */
     // Note : the option 'force_saving_files' is only used to save tags
     if ( force_saving_files
@@ -3453,7 +3453,7 @@ gboolean Read_Directory (gchar *path_real)
     if (!path_real)
         return FALSE;
 
-    ReadingDirectory = TRUE;    /* A flag to avoid to start an other reading */
+    ReadingDirectory = TRUE;    /* A flag to avoid to start another reading */
 
     /* Initialize file list */
     ET_Core_Free();
@@ -3473,7 +3473,7 @@ gboolean Read_Directory (gchar *path_real)
     gtk_toggle_tool_button_set_active(GTK_TOGGLE_TOOL_BUTTON(TBViewMode),FALSE);
     //Browser_Display_Tree_Or_Artist_Album_List(); // To show the corresponding lists...
 
-    // Set to unsensitive the Browser Area, to avoid to select an other file while loading the first one
+    // Set to unsensitive the Browser Area, to avoid to select another file while loading the first one
     Browser_Area_Set_Sensitive(FALSE);
 
     /* Placed only here, to empty the previous list of files */
@@ -4412,7 +4412,7 @@ void Clear_File_Entry_Field (void)
 
 
 /*
- * Clear the header informations
+ * Clear the header information
  */
 void Clear_Header_Fields (void)
 {
@@ -4683,7 +4683,7 @@ void Handle_Crash (gint signal_id)
 
     Log_Print(LOG_ERROR,_("You have probably found a bug in EasyTAG. Please, send a bug "
               "report with a gdb backtrace ('gdb easytag core' then 'bt' and "
-              "'l') and informations to reproduce it to easytag@gmail.com"));
+              "'l') and information to reproduce it to easytag@gmail.com"));
 
     // To send messages to the console...
     g_print(_("EasyTAG %s: Abnormal exit! (PId: %d)."),PACKAGE_VERSION,getpid());
@@ -4692,7 +4692,7 @@ void Handle_Crash (gint signal_id)
     g_print("\n");
     g_print(_("You have probably found a bug in EasyTAG. Please, send a bug "
             "report with a gdb backtrace ('gdb easytag core' then 'bt' and "
-            "'l') and informations to reproduce it to easytag@gmail.com"));
+            "'l') and information to reproduce it to easytag@gmail.com"));
     g_print("\n");
 
     signal(signal_id,SIG_DFL); // Let the OS handle recursive seg faults
@@ -4822,7 +4822,7 @@ gchar *signal_to_string (gint signal)
 
 
 /*
- * Display usage informations
+ * Display usage information
  */
 void Display_Usage (void)
 {
@@ -4839,7 +4839,7 @@ void Display_Usage (void)
               "Option:\n"
               "-------\n"
               "-h, --help        Display this text and exit.\n"
-              "-v, --version     Print basic informations and exit.\n"
+              "-v, --version     Print basic information and exit.\n"
               "\n"
               "Directory:\n"
               "----------\n"

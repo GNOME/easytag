@@ -616,7 +616,7 @@ gboolean Browser_List_Button_Press (GtkTreeView *treeView, GdkEventButton *event
     if (event->type==GDK_2BUTTON_PRESS && event->button==1)
     {
         /* Double left mouse click */
-        // Select files of the same directory (usefull when browsing sub-directories)
+        // Select files of the same directory (useful when browsing sub-directories)
         GList *etfilelist = NULL;
         gchar *path_ref = NULL;
         gchar *patch_check = NULL;
@@ -2202,7 +2202,7 @@ void Browser_Album_List_Load_Files (GList *albumlist, ET_File *etfile_to_select)
     {
         GList *etfilelist_tmp;
         etfilelist_tmp = (GList *)AlbumList->data;
-        // We must make a copy to not "alter" the initial list by appending an other list
+        // We must make a copy to not "alter" the initial list by appending another list
         etfilelist_tmp = g_list_copy(etfilelist_tmp);
         etfilelist = g_list_concat(etfilelist, etfilelist_tmp);
 
@@ -3695,7 +3695,7 @@ void Browser_Open_Rename_Directory_Window (void)
     gtk_window_set_transient_for(GTK_WINDOW(RenameDirectoryWindow),GTK_WINDOW(MainWindow));
     gtk_window_set_position(GTK_WINDOW(RenameDirectoryWindow),GTK_WIN_POS_CENTER_ON_PARENT);
 
-    /* We attach usefull data to the combobox */
+    /* We attach useful data to the combobox */
     g_object_set_data(G_OBJECT(RenameDirectoryWindow), "Parent_Directory", directory_parent);
     g_object_set_data(G_OBJECT(RenameDirectoryWindow), "Current_Directory", directory_name);
 
@@ -4198,7 +4198,7 @@ void Browser_Open_Run_Program_Tree_Window (void)
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
                              G_CALLBACK(File_Selection_Window_For_File),G_OBJECT(gtk_bin_get_child(GTK_BIN(RunProgramComboBox))));
 
-    /* We attach usefull data to the combobox (into Run_Program_With_Directory) */
+    /* We attach useful data to the combobox (into Run_Program_With_Directory) */
     g_object_set_data(G_OBJECT(RunProgramComboBox), "Current_Directory", current_directory);
 
     /* Separator line */
@@ -4356,7 +4356,7 @@ void Browser_Open_Run_Program_List_Window (void)
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
                              G_CALLBACK(File_Selection_Window_For_File),G_OBJECT(gtk_bin_get_child(GTK_BIN(RunProgramComboBox))));
 
-    /* We attach usefull data to the combobox (into Run_Program_With_Directory) */
+    /* We attach useful data to the combobox (into Run_Program_With_Directory) */
     //g_object_set_data(G_OBJECT(Combo), "Current_File", current_file);
 
     /* Separator line */

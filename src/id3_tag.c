@@ -819,7 +819,7 @@ gchar *Id3tag_Get_Field (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid)
 
         /*
          * We prioritize the encoding of the field. If the encoding of the field
-         * is ISO-8859-1, it can be read with an other single byte encoding.
+         * is ISO-8859-1, it can be read with another single byte encoding.
          */
         // Get encoding from content of file...
         id3_field_encoding = ID3Frame_GetField(id3_frame,ID3FN_TEXTENC);
@@ -830,7 +830,7 @@ gchar *Id3tag_Get_Field (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid)
 
         if (enc != ID3TE_UTF16 && enc != ID3TE_UTF8) // Encoding is ISO-8859-1?
         {
-            if (USE_NON_STANDARD_ID3_READING_CHARACTER_SET) // Override with an other character set?
+            if (USE_NON_STANDARD_ID3_READING_CHARACTER_SET) // Override with another character set?
             {
                 // Encoding set by user to ???.
                 if ( strcmp(FILE_READING_ID3V1V2_CHARACTER_SET,"ISO-8859-1") == 0 )
@@ -958,7 +958,7 @@ ID3_TextEnc Id3tag_Set_Field (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid
 
         /*
          * We prioritize the rule selected in options. If the encoding of the
-         * field is ISO-8859-1, we can write it to an other single byte encoding.
+         * field is ISO-8859-1, we can write it to another single byte encoding.
          */
         if (FILE_WRITING_ID3V2_USE_UNICODE_CHARACTER_SET)
         {
@@ -1006,7 +1006,7 @@ ID3_TextEnc Id3tag_Set_Field (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid
                 // Write into ISO-8859-1
                 //string_converted = convert_string(string,"UTF-8","ISO-8859-1",TRUE);
                 string_converted = Id3tag_Rules_For_ISO_Fields(string,"UTF-8","ISO-8859-1");
-                ID3Field_SetEncoding(id3_field,ID3TE_ISO8859_1); // Not necessary for ISO-8859-1, but better to precise if field has an other encoding...
+                ID3Field_SetEncoding(id3_field,ID3TE_ISO8859_1); // Not necessary for ISO-8859-1, but better to precise if field has another encoding...
                 ID3Field_SetASCII(id3_field,string_converted);
                 g_free(string_converted);
 

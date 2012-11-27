@@ -271,7 +271,7 @@ void Show_About_Window (void)
 
 
     /*
-     * Tab for common informations
+     * Tab for common information
      */
 
     Label = gtk_label_new(_("About"));

@@ -374,7 +374,7 @@ gchar *Get_Active_Combo_Box_Item (GtkComboBox *combo)
 }
 
 /*
- * Event attached to an entry to disable an other widget (for example: a button)
+ * Event attached to an entry to disable another widget (for example: a button)
  * when the entry is empty
  */
 void Entry_Changed_Disable_Object(GtkObject *widget_to_disable, GtkEditable *source_widget)
