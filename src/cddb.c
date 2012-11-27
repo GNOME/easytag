@@ -303,7 +303,7 @@ void Open_Cddb_Window (void)
     gtk_widget_set_tooltip_text(CddbStopSearchAutoButton,_("Stop the search…"));
 
     // Separator line
-    Separator = gtk_vseparator_new();
+    Separator = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
     gtk_box_pack_start(GTK_BOX(hbox),Separator,FALSE,FALSE,0);
 
     // Check box to run the scanner
@@ -314,7 +314,7 @@ void Open_Cddb_Window (void)
         "fields, the current selected scanner will be ran (the scanner window must be opened)."));
 
     // Separator line
-    Separator = gtk_vseparator_new();
+    Separator = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
     gtk_box_pack_start(GTK_BOX(hbox),Separator,FALSE,FALSE,0);
 
     // Button to select all files in list
@@ -432,7 +432,7 @@ void Open_Cddb_Window (void)
     gtk_table_set_col_spacings(GTK_TABLE(Table),1);
 
     CddbSearchInAllFields      = gtk_check_button_new_with_label(_("All Fields"));
-    Separator                  = gtk_vseparator_new();
+    Separator                  = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
     CddbSearchInArtistField    = gtk_check_button_new_with_label(_("Artist"));
     CddbSearchInTitleField     = gtk_check_button_new_with_label(_("Album"));
     CddbSearchInTrackNameField = gtk_check_button_new_with_label(_("Track Name"));
@@ -455,11 +455,11 @@ void Open_Cddb_Window (void)
     g_signal_connect(G_OBJECT(CddbSearchInTrackNameField), "toggled", G_CALLBACK(Cddb_Set_Search_Button_Sensivity),NULL);
     g_signal_connect(G_OBJECT(CddbSearchInOtherField), "toggled", G_CALLBACK(Cddb_Set_Search_Button_Sensivity),NULL);
 
-    CddbSeparatorH = gtk_hseparator_new();
+    CddbSeparatorH = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
     gtk_table_attach(GTK_TABLE(Table),CddbSeparatorH,0,7,1,2,GTK_FILL,GTK_FILL,0,0);
 
     CddbSearchInAllCategories      = gtk_check_button_new_with_label(_("All Categories"));
-    CddbSeparatorV                 = gtk_vseparator_new();
+    CddbSeparatorV                 = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
     CddbSearchInBluesCategory      = gtk_check_button_new_with_label(_("Blues"));
     CddbSearchInClassicalCategory  = gtk_check_button_new_with_label(_("Classical"));
     CddbSearchInCountryCategory    = gtk_check_button_new_with_label(_("Country"));
@@ -561,7 +561,7 @@ void Open_Cddb_Window (void)
     gtk_widget_set_tooltip_text(CddbSearchStringInResultPrevButton,_("Search Previous"));
 
     // Separator line
-    Separator = gtk_vseparator_new();
+    Separator = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
     gtk_box_pack_start(GTK_BOX(hbox),Separator,FALSE,FALSE,2);
 
     CddbDisplayRedLinesButton = gtk_toggle_button_new();
@@ -715,7 +715,7 @@ void Open_Cddb_Window (void)
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
 
     CddbSetToAllFields  = gtk_check_button_new_with_label(_("All"));
-    Separator           = gtk_vseparator_new();
+    Separator           = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
     CddbSetToFileName   = gtk_check_button_new_with_label(_("File Name"));
     CddbSetToTitle      = gtk_check_button_new_with_label(_("Title"));
     CddbSetToArtist     = gtk_check_button_new_with_label(_("Artist"));

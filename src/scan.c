@@ -2398,7 +2398,7 @@ void Open_ScannerWindow (gint scanner_type)
     g_signal_connect(G_OBJECT(SWScanButton),"clicked",G_CALLBACK(Action_Scan_Selected_Files),NULL);
 
     /* Separator line */
-    Separator = gtk_vseparator_new();
+    Separator = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
     gtk_box_pack_start(GTK_BOX(HBox1),Separator,FALSE,FALSE,2);
 
     /* Options button */
@@ -2678,7 +2678,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_widget_set_tooltip_text(Button,_("Select/Unselect All."));
 
     /* Separator line */
-    Separator = gtk_hseparator_new();
+    Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
     gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
 
     /* Group: character conversion */
@@ -2728,7 +2728,7 @@ void Open_ScannerWindow (gint scanner_type)
         _("Replace a string by another one. Note that the search is case sensitive."));
 
     /* Separator line */
-    Separator = gtk_hseparator_new();
+    Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
     gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
 
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
@@ -2781,7 +2781,7 @@ void Open_ScannerWindow (gint scanner_type)
           "Example, before: 'ix. text in an entry', after: 'IX. Text In An Entry'."));
 
     /* Separator line */
-    Separator = gtk_hseparator_new();
+    Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
     gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
 
     /* Group: insert/remove spaces */

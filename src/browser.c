@@ -3780,7 +3780,7 @@ void Browser_Open_Rename_Directory_Window (void)
     gtk_box_pack_start(GTK_BOX(VBox),RenameDirectoryPreviewLabel,TRUE,TRUE,0);
 
     /* Separator line */
-    Separator = gtk_hseparator_new();
+    Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
     gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
 
     ButtonBox = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
@@ -4203,7 +4203,7 @@ void Browser_Open_Run_Program_Tree_Window (void)
     g_object_set_data(G_OBJECT(RunProgramComboBox), "Current_Directory", current_directory);
 
     /* Separator line */
-    Separator = gtk_hseparator_new();
+    Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
     gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
 
     ButtonBox = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
@@ -4361,7 +4361,7 @@ void Browser_Open_Run_Program_List_Window (void)
     //g_object_set_data(G_OBJECT(Combo), "Current_File", current_file);
 
     /* Separator line */
-    Separator = gtk_hseparator_new();
+    Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
     gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
 
     ButtonBox = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);

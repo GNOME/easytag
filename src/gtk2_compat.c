@@ -41,4 +41,11 @@ GtkWidget *gtk_paned_new(GtkOrientation orientation)
     return gtk_vpaned_new();
 }
 
+GtkWidget *gtk_separator_new(GtkOrientation orientation)
+{
+    if (orientation==GTK_ORIENTATION_HORIZONTAL)
+        return gtk_hseparator_new();
+    return gtk_vseparator_new();
+}
+
 #endif /* !GTK_CHECK_VERSION(3,0,0) */

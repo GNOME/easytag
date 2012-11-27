@@ -621,7 +621,7 @@ void Open_OptionsWindow (void)
         "other apps to complain about an unknown field. Comments won't be shown in XMMS, though."));
 
     // Separator line
-    Separator = gtk_hseparator_new();
+    Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
     gtk_box_pack_start(GTK_BOX(vbox),Separator,FALSE,FALSE,0);
 
     /* Tag field focus */

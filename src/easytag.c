@@ -509,7 +509,7 @@ GtkWidget *Create_File_Area (void)
     gtk_misc_set_alignment(GTK_MISC(SampleRateLabel),1,0.5);
     gtk_misc_set_alignment(GTK_MISC(SampleRateValueLabel),0,0.5);
 
-    Separator = gtk_vseparator_new();
+    Separator = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
     gtk_table_attach(GTK_TABLE(HeaderInfosTable),Separator,2,3,0,4,GTK_FILL,GTK_FILL,0,0);
 
     ModeLabel = gtk_label_new(_("Mode:"));
@@ -719,7 +719,7 @@ GtkWidget *Create_Tag_Area (void)
     gtk_widget_set_tooltip_text(YearMButton,_("Tag selected files with this year"));
 
     /* Small vertical separator */
-    Separator = gtk_vseparator_new();
+    Separator = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
     gtk_table_attach(GTK_TABLE(Table),Separator,3,4,4,5,GTK_FILL,GTK_FILL,TablePadding,TablePadding);
 
 

@@ -1320,7 +1320,7 @@ void Open_Write_Playlist_Window (void)
         "written in the playlist file. Else, all the files will be written."));
 
     // Separator line
-    Separator = gtk_hseparator_new();
+    Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
     gtk_box_pack_start(GTK_BOX(vbox),Separator,FALSE,FALSE,0);
 
     playlist_full_path = gtk_radio_button_new_with_label(NULL,_("Use full path for files in playlist"));
@@ -1332,7 +1332,7 @@ void Open_Write_Playlist_Window (void)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_relative_path),PLAYLIST_RELATIVE_PATH);
 
     // Separator line
-    Separator = gtk_hseparator_new();
+    Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
     gtk_box_pack_start(GTK_BOX(vbox),Separator,FALSE,FALSE,0);
 
     // Create playlist in parent directory
@@ -1409,7 +1409,7 @@ void Open_Write_Playlist_Window (void)
 
 
     /* Separator line */
-    Separator = gtk_hseparator_new();
+    Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
     gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
 
     ButtonBox = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
@@ -1995,7 +1995,7 @@ void Open_Search_File_Window (void)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SearchInFilename),SEARCH_IN_FILENAME);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SearchInTag),SEARCH_IN_TAG);
 
-    Separator = gtk_vseparator_new();
+    Separator = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
     gtk_table_attach(GTK_TABLE(Table),Separator,3,4,1,2,GTK_FILL,GTK_FILL,4,0);
 
     // Property of the search
@@ -2779,7 +2779,7 @@ void Open_Load_Filename_Window (void)
     g_signal_connect_swapped(G_OBJECT(gtk_bin_get_child(GTK_BIN(FileToLoadCombo))),"changed", G_CALLBACK(Button_Load_Set_Sensivity), G_OBJECT(ButtonLoad));
 
     // Separator line
-    Separator = gtk_hseparator_new();
+    Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
     gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
 
     //
@@ -2996,7 +2996,7 @@ void Open_Load_Filename_Window (void)
     g_signal_connect(G_OBJECT(gtk_tree_view_get_selection(GTK_TREE_VIEW(LoadFileContentList))),"changed", G_CALLBACK(Load_Filename_Edit_Text_Line), G_OBJECT(Entry));
 
     // Separator line
-    Separator = gtk_hseparator_new();
+    Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
     gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
 
     LoadFileRunScanner = gtk_check_button_new_with_label(_("Run the current scanner for each file"));
@@ -3006,7 +3006,7 @@ void Open_Load_Filename_Window (void)
         "filenames, the current selected scanner will be ran (the scanner window must be opened)."));
 
     // Separator line
-    Separator = gtk_hseparator_new();
+    Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
     gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
 
     ButtonBox = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
