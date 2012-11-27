@@ -431,7 +431,7 @@ void Insert_Only_Digit (GtkEditable *editable, const gchar *inserted_text, gint 
     // Null terminate for the benefit of glib/gtk
     result[j] = '\0';
 
-    if (result[0] == (gchar)NULL)
+    if (result[0] == '\0')
     {
         g_free(result);
         return;
