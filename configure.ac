@@ -69,8 +69,26 @@ dnl -------------------------------
 dnl Checks for libraries.
 dnl -------------------------------
 
-dnl GTK+-2 libraries
-PKG_CHECK_MODULES([GTK], [gtk+-2.0 >= 2.24.0 glib-2.0 >= 2.8.0])
+dnl GTK+ libraries
+GTK2_DEPS="gtk+-2.0 >= 2.24.0"
+GTK3_DEPS="gtk+-3.0 >= 3.0.0"
+PKG_CHECK_EXISTS([$GTK2_DEPS], [have_gtk2=yes], [have_gtk2=no])
+PKG_CHECK_EXISTS([$GTK3_DEPS], [have_gtk3=yes], [have_gtk3=no])
+
+AC_ARG_WITH([gtk3],
+            [AS_HELP_STRING([--with-gtk3], [Enable experimental GTK+ 3 support (and disable GTK+ 2 support)])])
+
+AC_MSG_CHECKING([whether to use GTK+ 3])
+AS_IF([test "x$have_gtk3" = "xyes" -a "x$have_gtk2" = "xno" -a "x$with_gtk3" != "xyes"],
+      [AC_MSG_WARN([forcing GTK+ 3 support, as GTK+ 2 was not found])
+       with_gtk3=yes])
+AS_IF([test "x$with_gtk3" = "xyes"],
+      [AC_MSG_RESULT([yes])
+       AC_MSG_WARN([GTK+ 3 support is currently experimental!])
+       GTK_DEPS="$GTK3_DEPS"],
+      [AC_MSG_RESULT([no])
+       GTK_DEPS="$GTK2_DEPS"])
+PKG_CHECK_MODULES([GTK], [$GTK_DEPS])
 
 
 dnl Patch from Ben Taylor to fix a Solaris bug (for CDDB)
@@ -264,7 +282,7 @@ echo Deprecation defines .....: $DEPRECATED_CPPFLAGS
 echo Compiler ................: $CC $CFLAGS
 echo Compiler warnings .......: $WARN_CFLAGS
 echo Linker ..................: $CC $LDFLAGS $LIBS
-echo GTK2 version ............: `$PKG_CONFIG --modversion gtk+-2.0`
+echo GTK version .............: `$PKG_CONFIG --modversion $GTK_DEPS`
 echo MP3 file support ........: $have_mp3
 echo ID3v2.3 tags support ....: $have_id3v23 $ID3LIB_VERSION
 echo Ogg Vorbis file support .: $have_ogg
