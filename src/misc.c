@@ -3252,8 +3252,8 @@ void Load_Filename_Select_Row_In_Other_List(GtkWidget* treeview_target, gpointer
     gtk_tree_selection_unselect_all(selection_target);
 
     // Synchronize the two lists
-    ce_adj = gtk_tree_view_get_vadjustment(treeview_orig);
-    ct_adj = gtk_tree_view_get_vadjustment(GTK_TREE_VIEW(treeview_target));
+    ce_adj = gtk_scrollable_get_vadjustment(treeview_orig);
+    ct_adj = gtk_scrollable_get_vadjustment(GTK_SCROLLABLE(treeview_target));
 
     if (gtk_adjustment_get_upper(GTK_ADJUSTMENT(ct_adj)) >= gtk_adjustment_get_page_size(GTK_ADJUSTMENT(ct_adj))
     &&  gtk_adjustment_get_upper(GTK_ADJUSTMENT(ce_adj)) >= gtk_adjustment_get_page_size(GTK_ADJUSTMENT(ce_adj)))
