@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: easytag 2.1.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-25 19:00+0000\n"
+"POT-Creation-Date: 2012-11-27 21:49+0000\n"
 "PO-Revision-Date: 2008-02-23 16:03+0900\n"
 "Last-Translator: Takeshi AIHANA <takeshi.aihana@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
@@ -134,18 +134,19 @@ msgstr "拡張子"
 msgid "Status"
 msgstr "状態"
 
-#: ../src/about.c:243 ../src/browser.c:3037 ../src/misc.c:1928
+#: ../src/about.c:243 ../src/browser.c:3035 ../src/misc.c:1927
 #: ../src/prefs.c:669
 msgid "Comment"
 msgstr "コメント"
 
 #. Config
 #: ../src/about.c:260
-msgid "About..."
-msgstr "情報..."
+#, fuzzy
+msgid "About…"
+msgstr "情報"
 
 #.
-#. * Tab for common informations
+#. * Tab for common information
 #.
 #: ../src/about.c:278 ../src/bar.c:244
 msgid "About"
@@ -253,9 +254,9 @@ msgid "Can't open file '%s' (%s)\n"
 msgstr "ファイル '%s' (%s) が開けません\n"
 
 #. g_print(_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
-#: ../src/ape_tag.c:74 ../src/et_core.c:4520 ../src/flac_header.c:126
-#: ../src/id3_tag.c:146 ../src/id3_tag.c:1209 ../src/id3_tag.c:1292
-#: ../src/misc.c:1771 ../src/mp4_header.c:211 ../src/mp4_header.c:220
+#: ../src/ape_tag.c:74 ../src/et_core.c:4515 ../src/flac_header.c:126
+#: ../src/id3_tag.c:145 ../src/id3_tag.c:1205 ../src/id3_tag.c:1284
+#: ../src/misc.c:1770 ../src/mp4_header.c:211 ../src/mp4_header.c:220
 #: ../src/mp4_tag.c:98 ../src/mp4_tag.c:109 ../src/mp4_tag.c:281
 #: ../src/mp4_tag.c:290 ../src/mpeg_header.c:209 ../src/ogg_header.c:82
 #: ../src/ogg_header.c:186 ../src/ogg_tag.c:146 ../src/ogg_tag.c:657
@@ -441,7 +442,8 @@ msgid "Descending by samplerate"
 msgstr "サンプリングレートで降順"
 
 #: ../src/bar.c:192
-msgid "Open File(s) with ..."
+#, fuzzy
+msgid "Open File(s) with…"
 msgstr "他のプログラムで開く..."
 
 #: ../src/bar.c:193 ../src/cddb.c:324
@@ -554,7 +556,8 @@ msgstr "最後の変更を取り消す"
 msgid "_Quit"
 msgstr "終了(_Q)"
 
-#: ../src/bar.c:211
+#: ../src/bar.c:211 ../src/easytag.c:2238 ../src/easytag.c:4913
+#: ../src/easytag.c:4939
 msgid "Quit"
 msgstr "終了します"
 
@@ -610,16 +613,19 @@ msgstr "このパスをデフォルト・フォルダにセットします"
 msgid "Tree View | Artist-Album View"
 msgstr "ツリー表示 | 演奏者・アルバム表示"
 
-#: ../src/bar.c:222
-msgid "Rename Directory ..."
+#. Only directories changed
+#: ../src/bar.c:222 ../src/easytag.c:2664
+#, fuzzy
+msgid "Rename Directory…"
 msgstr "フォルダ名の変更..."
 
 #: ../src/bar.c:223
 msgid "Reload Directory"
 msgstr "フォルダの再読み込み"
 
-#: ../src/bar.c:224 ../src/browser.c:4165
-msgid "Browse Directory with ..."
+#: ../src/bar.c:224 ../src/browser.c:4157
+#, fuzzy
+msgid "Browse Directory with…"
 msgstr "他のプログラムで参照 ..."
 
 #: ../src/bar.c:225
@@ -635,27 +641,33 @@ msgid "S_canner"
 msgstr "スキャナ(_C)"
 
 #: ../src/bar.c:229
-msgid "_Fill Tag(s) ..."
+#, fuzzy
+msgid "_Fill Tag(s)…"
 msgstr "タグの付与(_F)..."
 
 #: ../src/bar.c:229
-msgid "Fill Tag(s) ..."
+#, fuzzy
+msgid "Fill Tag(s)…"
 msgstr "タグを付与します..."
 
 #: ../src/bar.c:230
-msgid "_Rename File(s) and Directory ..."
-msgstr "ファイル名とフォルダ名の変更(_R)..."
+#, fuzzy
+msgid "_Rename File(s) and Directory…"
+msgstr "ファイル名とフォルダ名の変更"
 
 #: ../src/bar.c:230
-msgid "Rename File(s) and Directory ..."
-msgstr "ファイル名とフォルダ名を変更します..."
+#, fuzzy
+msgid "Rename File(s) and Directory…"
+msgstr "ファイル名とフォルダ名の変更"
 
 #: ../src/bar.c:231
-msgid "_Process Field(s) ..."
+#, fuzzy
+msgid "_Process Field(s)…"
 msgstr "フィールドの編集(_P)..."
 
 #: ../src/bar.c:231
-msgid "Process Fields(s) ..."
+#, fuzzy
+msgid "Process Fields(s)…"
 msgstr "フィールドを編集します..."
 
 #: ../src/bar.c:233
@@ -663,28 +675,34 @@ msgid "_Misc"
 msgstr "その他(_M)"
 
 #: ../src/bar.c:234
-msgid "Search _File(s) ..."
+#, fuzzy
+msgid "Search _File(s)…"
 msgstr "ファイルの検索(_F)..."
 
 #: ../src/bar.c:234
-msgid "Search File(s)..."
+#, fuzzy
+msgid "Search File(s)…"
 msgstr "ファイルを検索します..."
 
 #: ../src/bar.c:235
-msgid "CD Data _Base Search ..."
-msgstr "CDデータベースの検索(_B)..."
+#, fuzzy
+msgid "CD Data _Base Search…"
+msgstr "CD データベースの検索"
 
 #: ../src/bar.c:235
-msgid "CDDB Search ..."
+#, fuzzy
+msgid "CDDB Search…"
 msgstr "CDDB から検索します..."
 
 #: ../src/bar.c:236
-msgid "Load Filenames from TXT ..."
+#, fuzzy
+msgid "Load Filenames from TXT…"
 msgstr "TXT からファイル名の読み込み..."
 
 #: ../src/bar.c:237
-msgid "Write Playlist ..."
-msgstr "演奏一覧の書き込み..."
+#, fuzzy
+msgid "Write Playlist…"
+msgstr "演奏一覧の書き込み中..."
 
 #: ../src/bar.c:238 ../src/bar.c:258 ../src/bar.c:259 ../src/bar.c:260
 msgid "Run Audio Player"
@@ -695,11 +713,14 @@ msgid "_Settings"
 msgstr "設定(_S)"
 
 #: ../src/bar.c:241
-msgid "_Preferences ..."
+#, fuzzy
+msgid "_Preferences…"
 msgstr "設定(_P)..."
 
-#: ../src/bar.c:241
-msgid "Preferences ..."
+#. Title
+#: ../src/bar.c:241 ../src/prefs.c:117
+#, fuzzy
+msgid "Preferences…"
 msgstr "設定..."
 
 #: ../src/bar.c:243
@@ -725,11 +746,12 @@ msgid "_File Operations"
 msgstr "ファイル操作(_F)"
 
 #: ../src/bar.c:261
-msgid "CDDB Search File(s)..."
+#, fuzzy
+msgid "CDDB Search File(s)…"
 msgstr "CDDB 検索..."
 
-#. { AM_ARTIST_OPEN_FILE_WITH,     GTK_STOCK_OPEN,    _("Open File(s) with ..."),     NULL, _("Open File(s) with ..."),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
-#. { AM_ALBUM_OPEN_FILE_WITH,      GTK_STOCK_OPEN,    _("Open File(s) with ..."),     NULL, _("Open File(s) with ..."),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
+#. { AM_ARTIST_OPEN_FILE_WITH,     GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
+#. { AM_ALBUM_OPEN_FILE_WITH,      GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
 #: ../src/bar.c:265
 msgid "Clean Log"
 msgstr "ログの消去"
@@ -754,147 +776,153 @@ msgid "Could not merge UI, error was: %s\n"
 msgstr "UI をマージできませんでした (エラー: %s)\n"
 
 #: ../src/bar.c:414
-msgid "Ready to start..."
+#, fuzzy
+msgid "Ready to start…"
 msgstr "起動完了..."
 
 #: ../src/browser.c:364
 msgid "New default path for files selected"
 msgstr "新しいデフォルトパスが指定されました"
 
-#. Some files haven't been saved
-#: ../src/browser.c:752 ../src/easytag.c:4934 ../src/easytag.c:4961
-msgid "Confirm..."
-msgstr "確認..."
+#: ../src/browser.c:757 ../src/easytag.c:4911
+#, fuzzy
+msgid "Some files have been modified but not saved"
+msgstr "全てのファイルが保存されました..."
 
-#: ../src/browser.c:756
-msgid ""
-"Some files have been modified but not saved...\n"
-"Do you want to save them before changing the directory?"
+#: ../src/browser.c:758
+#, fuzzy
+msgid "Do you want to save them before changing the directory?"
 msgstr ""
-"いくつかのファイルを変更しましたが、保存していません...\n"
-"フォルダを移動する前に保存しますか？"
+"ファイル名を変更しますか？\n"
+"'%s'\n"
+"=>\n"
+"'%s'"
 
-#: ../src/browser.c:2215
+#: ../src/browser.c:760
+msgid "Confirm Directory Change"
+msgstr ""
+
+#: ../src/browser.c:2214
 msgid "<All albums>"
 msgstr "<全てのアルバム>"
 
-#: ../src/browser.c:2626
+#: ../src/browser.c:2624
 #, c-format
 msgid "Error: Searching for %s, could not find node %s in tree."
 msgstr "エラー: %s の検索中に、ツリーのノード %s が見つかりませんでした。"
 
-#: ../src/browser.c:3035 ../src/browser.c:3163
+#: ../src/browser.c:3033 ../src/browser.c:3161
 msgid "Tree"
 msgstr "ツリー"
 
-#: ../src/browser.c:3036 ../src/cddb.c:719 ../src/misc.c:1919
+#: ../src/browser.c:3034 ../src/cddb.c:719 ../src/misc.c:1918
 msgid "File Name"
 msgstr "ファイル名"
 
-#: ../src/browser.c:3036 ../src/cddb.c:720 ../src/misc.c:1920
+#: ../src/browser.c:3034 ../src/cddb.c:720 ../src/misc.c:1919
 #: ../src/prefs.c:665
 msgid "Title"
 msgstr "タイトル"
 
-#: ../src/browser.c:3036 ../src/browser.c:3040 ../src/cddb.c:436
-#: ../src/cddb.c:721 ../src/misc.c:1921 ../src/prefs.c:666
+#: ../src/browser.c:3034 ../src/browser.c:3038 ../src/cddb.c:436
+#: ../src/cddb.c:721 ../src/misc.c:1920 ../src/prefs.c:666
 msgid "Artist"
 msgstr "演奏者"
 
-#: ../src/browser.c:3036 ../src/misc.c:1922
+#: ../src/browser.c:3034 ../src/misc.c:1921
 #, fuzzy
 msgid "Album Artist"
 msgstr "演奏者"
 
-#: ../src/browser.c:3036 ../src/browser.c:3041 ../src/cddb.c:437
-#: ../src/cddb.c:722 ../src/misc.c:1923 ../src/prefs.c:667
+#: ../src/browser.c:3034 ../src/browser.c:3039 ../src/cddb.c:437
+#: ../src/cddb.c:722 ../src/misc.c:1922 ../src/prefs.c:667
 msgid "Album"
 msgstr "アルバム名"
 
-#: ../src/browser.c:3037 ../src/cddb.c:723 ../src/misc.c:1925
+#: ../src/browser.c:3035 ../src/cddb.c:723 ../src/misc.c:1924
 msgid "Year"
 msgstr "制作年"
 
-#: ../src/browser.c:3037 ../src/misc.c:1926
+#: ../src/browser.c:3035 ../src/misc.c:1925
 msgid "Track"
 msgstr "トラック"
 
-#: ../src/browser.c:3037 ../src/cddb.c:726 ../src/misc.c:1927
+#: ../src/browser.c:3035 ../src/cddb.c:726 ../src/misc.c:1926
 #: ../src/prefs.c:668
 msgid "Genre"
 msgstr "ジャンル"
 
-#: ../src/browser.c:3038 ../src/misc.c:1929 ../src/picture.c:838
+#: ../src/browser.c:3036 ../src/misc.c:1928 ../src/picture.c:834
 #: ../src/prefs.c:670
 msgid "Composer"
 msgstr "コンポーザ"
 
-#: ../src/browser.c:3038 ../src/misc.c:1930 ../src/prefs.c:671
+#: ../src/browser.c:3036 ../src/misc.c:1929 ../src/prefs.c:671
 msgid "Orig. Artist"
 msgstr "演奏者:"
 
-#: ../src/browser.c:3038 ../src/misc.c:1931
+#: ../src/browser.c:3036 ../src/misc.c:1930
 msgid "Copyright"
 msgstr "ライセンス"
 
-#: ../src/browser.c:3039 ../src/misc.c:1932
+#: ../src/browser.c:3037 ../src/misc.c:1931
 msgid "URL"
 msgstr "URL"
 
-#: ../src/browser.c:3039
+#: ../src/browser.c:3037
 msgid "Encoded By"
 msgstr "エンコーダ"
 
-#: ../src/browser.c:3040
+#: ../src/browser.c:3038
 msgid "# Albums"
 msgstr "# アルバム"
 
-#: ../src/browser.c:3040 ../src/browser.c:3041
+#: ../src/browser.c:3038 ../src/browser.c:3039
 msgid "# Files"
 msgstr "# ファイル"
 
-#: ../src/browser.c:3060
+#: ../src/browser.c:3058
 msgid "Go to parent directory"
 msgstr "上のフォルダへ移動します"
 
-#: ../src/browser.c:3078
+#: ../src/browser.c:3076
 msgid "Enter a directory to browse."
 msgstr "参照するフォルダを入力して下さい。"
 
-#: ../src/browser.c:3087
+#: ../src/browser.c:3085
 msgid "Select a directory to browse."
 msgstr "参照するフォルダを選択して下さい"
 
 #.
 #. * The label for displaying number of files in path (without subdirs)
 #.
-#: ../src/browser.c:3093
+#: ../src/browser.c:3091
 #, fuzzy
-msgid "... file(s)"
+msgid "… file(s)"
 msgstr "%u 個のファイル"
 
-#: ../src/browser.c:3214
+#: ../src/browser.c:3212
 msgid "Artist & Album"
 msgstr "演奏者 / アルバム"
 
-#: ../src/browser.c:3697
+#: ../src/browser.c:3695
 msgid "Rename the directory"
 msgstr "フォルダ名の変更"
 
-#: ../src/browser.c:3713
+#: ../src/browser.c:3711
 #, c-format
 msgid "Rename the directory '%s' to : "
 msgstr "変更後のフォルダ '%s' の名前 : "
 
-#: ../src/browser.c:3732 ../src/misc.c:1270
+#: ../src/browser.c:3730 ../src/misc.c:1270
 msgid "Use mask :"
 msgstr "使用するマスク :"
 
-#: ../src/browser.c:3735
+#: ../src/browser.c:3733
 msgid "If activated, it will use masks to rename directory."
 msgstr "これを有効にすると、フォルダ名を変更する時のマスクとして使用します"
 
-#: ../src/browser.c:3753
+#: ../src/browser.c:3751
 msgid ""
 "Select or type in a mask using codes (see Legend in Scanner Window) to "
 "rename the directory from tag fields."
@@ -902,136 +930,109 @@ msgstr ""
 "タグフィールドからフォルダ名を変更するために使用するマスクのコード(凡例を参照"
 "のこと)を選択または入力して下さい"
 
-#: ../src/browser.c:3773 ../src/misc.c:1291 ../src/misc.c:1389
-#: ../src/scan.c:2492 ../src/scan.c:2559 ../src/scan.c:2926
+#: ../src/browser.c:3771 ../src/misc.c:1291 ../src/misc.c:1389
+#: ../src/scan.c:2487 ../src/scan.c:2554 ../src/scan.c:2921
 msgid "Invalid Scanner Mask"
 msgstr "スキャナマスクが正しくありません"
 
 #. Preview label
-#: ../src/browser.c:3779
-msgid "Rename directory preview..."
+#: ../src/browser.c:3777
+#, fuzzy
+msgid "Rename directory preview…"
 msgstr "フォルダ名変更のプレビュー..."
 
-#. Log_Print(LOG_ERROR,msg);
-#: ../src/browser.c:3895 ../src/browser.c:3915 ../src/browser.c:3987
-#: ../src/browser.c:4028 ../src/browser.c:4060 ../src/browser.c:4506
-#: ../src/browser.c:4525 ../src/easytag.c:2813 ../src/easytag.c:2974
-#: ../src/easytag.c:3020 ../src/easytag.c:3049 ../src/easytag.c:3094
-#: ../src/easytag.c:3146 ../src/easytag.c:3207 ../src/easytag.c:3243
-#: ../src/easytag.c:3282 ../src/easytag.c:3517 ../src/id3_tag.c:558
-#: ../src/misc.c:1666 ../src/picture.c:1138 ../src/prefs.c:1806
-#: ../src/prefs.c:1923
-msgid "Error..."
-msgstr "エラー..."
-
-#: ../src/browser.c:3899
-msgid "You must type a directory name!"
+#: ../src/browser.c:3898
+#, fuzzy
+msgid "You must type a directory name"
 msgstr "フォルダ名を入力して下さい！"
 
+#: ../src/browser.c:3899 ../src/browser.c:3920
+#, fuzzy
+msgid "Directory Name Error"
+msgstr "フォルダ名を変更しました"
+
+#: ../src/browser.c:3917
+#, fuzzy, c-format
+msgid "Could not convert '%s' into filename encoding."
+msgstr "ファイル '%s' をシステムのエンコーディングに変換できませんでした"
+
 #: ../src/browser.c:3919
-#, c-format
-msgid "Could not convert '%s' into filename encoding. Please use another name."
+msgid "Please use another name"
 msgstr ""
-"'%s' をファイル名のエンコーディングに変換できませんでした。別の名前を指定して"
-"下さい。"
 
-#. TODO
-#. // The same directory already exists. So we ask if we want to move the files
-#. msg = g_strdup_printf(_("The directory already exists!\n(%s)\nDo you want "
-#. "to move the files?"),new_path_utf8);
-#. msgbox = msg_box_new(_("Confirm..."),
-#. GTK_WINDOW(MainWindow),
-#. NULL,
-#. GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-#. msg,
-#. GTK_STOCK_DIALOG_QUESTION,
-#. GTK_STOCK_NO,  GTK_RESPONSE_NO,
-#. GTK_STOCK_YES, GTK_RESPONSE_YES,
-#. NULL);
-#. g_free(msg);
-#. response = gtk_dialog_run(GTK_DIALOG(msgbox));
-#. gtk_widget_destroy(msgbox);
-#.
-#. switch (response)
-#. {
-#. case GTK_STOCK_YES:
-#. // Here we must rename all files with the new location, and remove the directory
-#.
-#. Rename_File ()
-#.
-#. break;
-#. case BUTTON_NO:
-#. break;
-#. }
-#: ../src/browser.c:3985
-#, c-format
-msgid ""
-"Can't rename because this directory name already exists!\n"
-"(%s)"
+#: ../src/browser.c:3989
+#, fuzzy, c-format
+msgid "The directory name '%s' already exists"
 msgstr ""
-"このフォルダ名が既に存在しているので、名前を変更できません！\n"
-"(%s)"
+"演奏一覧ファイル '%s' は既に存在します！\n"
+"上書きしますか？"
 
-#: ../src/browser.c:4026 ../src/browser.c:4058
-#, c-format
-msgid ""
-"Can't rename directory \n"
-"'%s'\n"
-" to \n"
-"'%s'!\n"
-"(%s)"
-msgstr ""
-"フォルダ名を変更できません！\n"
-"'%s'\n"
-" =>\n"
-"'%s'\n"
-"(%s)"
+#: ../src/browser.c:3990 ../src/easytag.c:2965 ../src/easytag.c:3006
+#: ../src/easytag.c:3033 ../src/easytag.c:3075 ../src/easytag.c:3261
+#, fuzzy
+msgid "Rename File Error"
+msgstr "ファイル名とフォルダ名の変更"
 
-#: ../src/browser.c:4107
+#: ../src/browser.c:4029
+#, fuzzy
+msgid "Rename Directory Error"
+msgstr "フォルダ名の変更..."
+
+#: ../src/browser.c:4059
+#, fuzzy
+msgid "Directory Rename Error"
+msgstr "フォルダ名を変更しました"
+
+#: ../src/browser.c:4099
 msgid "Directory renamed"
 msgstr "フォルダ名を変更しました"
 
-#: ../src/browser.c:4182 ../src/browser.c:4340
+#: ../src/browser.c:4174 ../src/browser.c:4332
 msgid "Program to run :"
 msgstr "実行するプログラム :"
 
-#: ../src/browser.c:4195
+#: ../src/browser.c:4187
 msgid ""
 "Enter the program to run. It will receive the current directory as parameter."
 msgstr ""
 "実行するプログラム名を入力して下さい。引数は現在のフォルダ名になります。"
 
-#: ../src/browser.c:4323
-msgid "Open File with ..."
+#: ../src/browser.c:4315
+#, fuzzy
+msgid "Open File with…"
 msgstr "他のプログラムで開く..."
 
-#: ../src/browser.c:4353
+#: ../src/browser.c:4345
 msgid ""
 "Enter the program to run. It will receive the current file as parameter."
 msgstr ""
 "実行するプログラム名を入力して下さい。引数は現在のファイル名になります。"
 
-#: ../src/browser.c:4510
+#: ../src/browser.c:4502
 msgid "You must type a program name!"
 msgstr "プログラム名を入力して下さい！"
 
-#: ../src/browser.c:4524 ../src/misc.c:873
-#, c-format
-msgid "The program '%s' can't be found!"
+#: ../src/browser.c:4503 ../src/browser.c:4520
+msgid "Program Name Error"
+msgstr ""
+
+#: ../src/browser.c:4518
+#, fuzzy, c-format
+msgid "The program '%s' cannot be found"
 msgstr "プログラム '%s' が見つかりません！"
 
-#: ../src/browser.c:4579 ../src/misc.c:919
+#: ../src/browser.c:4567 ../src/misc.c:919
 #, c-format
 msgid "Can't execute %s (error %d)!\n"
 msgstr "%sを実行できません！ (エラー %d)\n"
 
-#: ../src/browser.c:4598 ../src/misc.c:958
+#: ../src/browser.c:4586 ../src/misc.c:958
 msgid "Can't fork another process!\n"
 msgstr "子プロセスを作成すできません！\n"
 
-#: ../src/browser.c:4632
-#, c-format
-msgid "Executed command : '%s %s'"
+#: ../src/browser.c:4621
+#, fuzzy, c-format
+msgid "Executed command: '%s %s'"
 msgstr "コマンドと引数 : '%s %s'"
 
 #: ../src/cddb.c:227
@@ -1075,7 +1076,8 @@ msgstr ""
 "も関係します！)"
 
 #: ../src/cddb.c:303 ../src/cddb.c:414
-msgid "Stop the search ..."
+#, fuzzy
+msgid "Stop the search…"
 msgstr "検索の停止..."
 
 #. Check box to run the scanner
@@ -1117,7 +1119,7 @@ msgstr "検索対象 :"
 msgid "All Fields"
 msgstr "全てのフィールド"
 
-#: ../src/cddb.c:439 ../src/picture.c:816 ../src/prefs.c:841
+#: ../src/cddb.c:439 ../src/picture.c:812 ../src/prefs.c:841
 msgid "Other"
 msgstr "その他"
 
@@ -1192,7 +1194,7 @@ msgstr " カテゴリ "
 msgid "Results :"
 msgstr "結果 :"
 
-#: ../src/cddb.c:529 ../src/misc.c:1971
+#: ../src/cddb.c:529 ../src/misc.c:1970
 msgid "Search :"
 msgstr "検索 :"
 
@@ -1254,7 +1256,7 @@ msgid "# Tracks"
 msgstr "# トラック"
 
 #. Check box to run the scanner
-#: ../src/cddb.c:763 ../src/misc.c:3003
+#: ../src/cddb.c:763 ../src/misc.c:3002
 msgid "Run the current scanner for each file"
 msgstr "各ファイルに現在のスキャナを実行する"
 
@@ -1283,8 +1285,9 @@ msgstr ""
 msgid "Load the selected lines or all lines (if no line selected)."
 msgstr "指定した行または (もし行が指定されなければ) 全ての行を読み込みます"
 
-#: ../src/cddb.c:796 ../src/misc.c:2227
-msgid "Ready to search..."
+#: ../src/cddb.c:796 ../src/misc.c:2226
+#, fuzzy
+msgid "Ready to search…"
 msgstr "検索の準備完了..."
 
 #: ../src/cddb.c:1320
@@ -1308,8 +1311,8 @@ msgid "Sort by Track Name"
 msgstr "トラック名で並べ替え"
 
 #: ../src/cddb.c:1621
-#, c-format
-msgid "Resolving host '%s' ..."
+#, fuzzy, c-format
+msgid "Resolving host '%s'…"
 msgstr "ホスト '%s' の検索中 ..."
 
 #: ../src/cddb.c:1629
@@ -1324,8 +1327,8 @@ msgstr "新しいソケット (%s) を生成できません！"
 
 #. Open connection to the server
 #: ../src/cddb.c:1658
-#, c-format
-msgid "Connecting to host '%s', port '%d' ..."
+#, fuzzy, c-format
+msgid "Connecting to host '%s', port '%d'…"
 msgstr "ホスト '%s' (ポート '%d') に接続中 ..."
 
 #: ../src/cddb.c:1665
@@ -1339,8 +1342,8 @@ msgid "Connected to host '%s'"
 msgstr "ホスト '%s' に接続しました"
 
 #: ../src/cddb.c:1760
-#, c-format
-msgid "Receiving data (%s) ..."
+#, fuzzy, c-format
+msgid "Receiving data (%s)…"
 msgstr "データ (%s) の受信中 ..."
 
 #: ../src/cddb.c:1772
@@ -1353,7 +1356,7 @@ msgstr "cddb からの応答 (%s) の読み込み中にエラー！"
 msgid "Can't create file '%s' (%s)"
 msgstr "ファイル '%s' (%s) を生成できません"
 
-#: ../src/cddb.c:1828 ../src/misc.c:3161 ../src/setting.c:1393
+#: ../src/cddb.c:1828 ../src/misc.c:3160 ../src/setting.c:1393
 #, c-format
 msgid "Can't open file '%s' (%s)"
 msgstr "ファイル '%s' (%s) が開けません"
@@ -1365,7 +1368,8 @@ msgstr "ファイル '%s' (%s) が開けません"
 #. g_print("Request Cddb_Get_Album_Tracks_List : '%s'\n", cddb_in);
 #. Send the request
 #: ../src/cddb.c:2270 ../src/cddb.c:2590 ../src/cddb.c:3453
-msgid "Sending request ..."
+#, fuzzy
+msgid "Sending request…"
 msgstr "リクエストの送信中 ..."
 
 #: ../src/cddb.c:2274 ../src/cddb.c:2594 ../src/cddb.c:3158 ../src/cddb.c:3457
@@ -1378,7 +1382,8 @@ msgstr "リクエスト (%s) を送信できません！"
 #.
 #. Read the answer
 #: ../src/cddb.c:2296 ../src/cddb.c:3171 ../src/cddb.c:3466
-msgid "Receiving data ..."
+#, fuzzy
+msgid "Receiving data…"
 msgstr "データの受信中 ..."
 
 #: ../src/cddb.c:2303 ../src/cddb.c:2623 ../src/cddb.c:3178 ../src/cddb.c:3473
@@ -1402,18 +1407,18 @@ msgid "Found %d matching album(s)"
 msgstr "一致するアルバムが %d 個見つかりました"
 
 #: ../src/cddb.c:2611
-#, c-format
-msgid "Receiving data of page %d (album %d/%d)..."
+#, fuzzy, c-format
+msgid "Receiving data of page %d (album %d/%d)…"
 msgstr "%d ページのデータの受信中 (アルバム %d/%d)..."
 
 #: ../src/cddb.c:2613
-#, c-format
-msgid "Receiving data of page %d ..."
+#, fuzzy, c-format
+msgid "Receiving data of page %d…"
 msgstr "%d ページのデータの受信中..."
 
 #: ../src/cddb.c:2778
-#, c-format
-msgid "More results to load ..."
+#, fuzzy, c-format
+msgid "More results to load…"
 msgstr "さらに読み込んだ結果..."
 
 #: ../src/cddb.c:2907
@@ -1433,22 +1438,19 @@ msgstr "ファイル選択が99個を越えています。リクエストを送�
 msgid "%d file(s) selected!"
 msgstr "%d 個のファイルを選択しました"
 
-#: ../src/cddb.c:2996
-msgid "Local CD search..."
-msgstr "ローカル CD の検索..."
-
-#: ../src/cddb.c:3000
-msgid ""
-"The path for 'Local CD Data Base' wasn't defined!\n"
-"Fill it in the preferences window before to use this search."
+#: ../src/cddb.c:3001
+msgid "The path for 'Local CD Data Base' was not defined"
 msgstr ""
-"ローカル CD データベースのパスが未設定です！\n"
-"この検索の前に設定ウィンドウで設定してください。"
+
+#: ../src/cddb.c:3003
+#, fuzzy
+msgid "Local CD search…"
+msgstr "ローカル CD の検索..."
 
 #. g_print("Request Cddb_Search_Album_From_Selected_Files : '%s'\n", cddb_in);
 #: ../src/cddb.c:3148
-#, c-format
-msgid "Sending request (CddbId: %s, #tracks: %d, Disc length: %d) ..."
+#, fuzzy, c-format
+msgid "Sending request (CddbId: %s, #tracks: %d, Disc length: %d)…"
 msgstr "リクエストの要求中 (CddbId: %s, トラック番号: %d, サイズ: %d) ..."
 
 #: ../src/cddb.c:3301
@@ -1463,24 +1465,24 @@ msgstr "ファイル '%s' (%s) が読み込めません！"
 
 #. Load the track list of the album
 #: ../src/cddb.c:3696
-msgid "Loading album track list ..."
+#, fuzzy
+msgid "Loading album track list…"
 msgstr "アルバムのトラック一覧の読み込み中 ..."
 
-#: ../src/cddb.c:3893
-#, c-format
+#: ../src/cddb.c:3896
+#, fuzzy, c-format
 msgid ""
-"Be careful, you are applying %d lines of the CDDB results to %d lines in the "
-"list of files!\n"
-"\n"
-"Do you want to continue ?"
+"You are applying %d lines of the CDDB results to %d lines in the list of "
+"files"
 msgstr ""
 "[注意] 受信した CDDB 結果の %d 行 (ファイル一覧の %d 行に対して) を適用してい"
 "ます！\n"
 "\n"
 "続行してもよろしいですか？"
 
-#: ../src/cddb.c:3896
-msgid "Write Tag from CDDB..."
+#: ../src/cddb.c:3901
+#, fuzzy
+msgid "Write Tag from CDDB…"
 msgstr "CDDB からタグの書き込み中..."
 
 #: ../src/charset.c:49
@@ -1689,18 +1691,18 @@ msgstr ""
 
 #. Starting messages
 #: ../src/easytag.c:195
-#, c-format
-msgid "Starting EasyTAG %s (PId: %d) ..."
+#, fuzzy, c-format
+msgid "Starting EasyTAG %s (PId: %d)…"
 msgstr "EasyTAG %s (PID: %d)の起動中..."
 
 #: ../src/easytag.c:197
-#, c-format
-msgid "Currently using libid3tag version %s ..."
+#, fuzzy, c-format
+msgid "Currently using libid3tag version %s…"
 msgstr "現在 id3lib バージョン %s を使用しています..."
 
 #: ../src/easytag.c:200
-#, c-format
-msgid "Currently using id3lib version %d.%d.%d ..."
+#, fuzzy, c-format
+msgid "Currently using id3lib version %d.%d.%d…"
 msgstr "現在 id3lib バージョン %d.%d.%d を使用しています..."
 
 #: ../src/easytag.c:207
@@ -1714,8 +1716,8 @@ msgid "Setting locale : '%s'"
 msgstr "ロケールを '%s' に設定"
 
 #: ../src/easytag.c:213
-#, c-format
-msgid "Currently using locale '%s' (and eventually '%s')..."
+#, fuzzy, c-format
+msgid "Currently using locale '%s' (and eventually '%s')…"
 msgstr "現在使用しているロケールは '%s' (最終的には '%s')..."
 
 #: ../src/easytag.c:229
@@ -1740,7 +1742,7 @@ msgstr "未知のパラメータまたはパス '%s'\n"
 msgid "Browser"
 msgstr "参照"
 
-#: ../src/easytag.c:451 ../src/et_core.c:2692
+#: ../src/easytag.c:451 ../src/et_core.c:2691
 msgid "File"
 msgstr "ファイル"
 
@@ -1754,11 +1756,11 @@ msgstr "ファイルのリンクがありません"
 
 #. Default values are MPs data
 #. MPEG, Layer versions
-#: ../src/easytag.c:491 ../src/easytag.c:4451 ../src/mpeg_header.c:354
+#: ../src/easytag.c:491 ../src/easytag.c:4423 ../src/mpeg_header.c:354
 msgid "MPEG"
 msgstr "MPEG"
 
-#: ../src/easytag.c:493 ../src/easytag.c:4452
+#: ../src/easytag.c:493 ../src/easytag.c:4424
 msgid "?, Layer ?"
 msgstr "?, レイヤー ?"
 
@@ -1766,7 +1768,7 @@ msgstr "?, レイヤー ?"
 msgid "Bitrate:"
 msgstr "ビットレート:"
 
-#: ../src/easytag.c:500 ../src/easytag.c:4453
+#: ../src/easytag.c:500 ../src/easytag.c:4425
 msgid "? kb/s"
 msgstr "? KB/秒"
 
@@ -1774,17 +1776,17 @@ msgstr "? KB/秒"
 msgid "Freq:"
 msgstr "周波数:"
 
-#: ../src/easytag.c:507 ../src/easytag.c:4454
+#: ../src/easytag.c:507 ../src/easytag.c:4426
 msgid "? Hz"
 msgstr "? Hz"
 
 #. Mode
-#: ../src/easytag.c:515 ../src/easytag.c:4455 ../src/mpeg_header.c:377
+#: ../src/easytag.c:515 ../src/easytag.c:4427 ../src/mpeg_header.c:377
 msgid "Mode:"
 msgstr "モード:"
 
-#: ../src/easytag.c:517 ../src/easytag.c:531 ../src/easytag.c:4456
-#: ../src/easytag.c:4457 ../src/easytag.c:4458
+#: ../src/easytag.c:517 ../src/easytag.c:531 ../src/easytag.c:4428
+#: ../src/easytag.c:4429 ../src/easytag.c:4430
 msgid "?"
 msgstr "?"
 
@@ -1801,7 +1803,7 @@ msgid "Time:"
 msgstr "演奏時間:"
 
 #. Main Frame
-#: ../src/easytag.c:571 ../src/et_core.c:2630
+#: ../src/easytag.c:571 ../src/et_core.c:2629
 msgid "Tag"
 msgstr "タグ"
 
@@ -2150,78 +2152,76 @@ msgstr "全てのタグはスキャン済みです"
 msgid "All tags have been removed"
 msgstr "全てのタグが削除されています"
 
-#: ../src/easytag.c:2231
+#: ../src/easytag.c:2234
 #, c-format
-msgid ""
-"Be careful, several files (%d file(s)) were changed by an external program.\n"
-"Do you want to continue anyway?"
+msgid "A file was changed by an external program"
+msgid_plural "%d files were changed by an external program."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../src/easytag.c:2287 ../src/easytag.c:2308
+msgid "Saving files was stopped…"
 msgstr ""
 
-#: ../src/easytag.c:2233
+#: ../src/easytag.c:2310
 #, fuzzy
-msgid "Saving File(s)..."
-msgstr "ファイルを検索します..."
-
-#: ../src/easytag.c:2291 ../src/easytag.c:2312
-msgid "Saving files was stopped..."
-msgstr ""
-
-#: ../src/easytag.c:2314
-msgid "All files have been saved..."
+msgid "All files have been saved…"
 msgstr "全てのファイルが保存されました..."
 
-#: ../src/easytag.c:2462
-msgid "Files have been partially deleted..."
+#: ../src/easytag.c:2458
+#, fuzzy
+msgid "Files have been partially deleted…"
 msgstr "ファイルの一部が削除されました..."
 
-#: ../src/easytag.c:2464
-msgid "All files have been deleted..."
+#: ../src/easytag.c:2460
+#, fuzzy
+msgid "All files have been deleted…"
 msgstr "全てのファイルが削除されました..."
 
-#. ET_Display_File_Data_To_UI(ETFile);
-#: ../src/easytag.c:2577
-#, c-format
-msgid ""
-"Do you want to write the tag of file\n"
-"'%s' ?"
+#: ../src/easytag.c:2575
+#, fuzzy, c-format
+msgid "Do you want to write the tag of file '%s'?"
 msgstr ""
 "次のファイル にタグを書き込みますか？\n"
 "%s"
 
-#: ../src/easytag.c:2581 ../src/easytag.c:2594
-msgid "Write Tag..."
-msgstr "タグの書き込み中..."
+#: ../src/easytag.c:2577
+#, fuzzy
+msgid "Confirm Tag Writing"
+msgstr "確認メッセージ"
+
+#: ../src/easytag.c:2582 ../src/easytag.c:2693 ../src/easytag.c:3320
+#, fuzzy
+msgid "Repeat action for the remaining files"
+msgstr "残りのファイルに対して処理を繰り返します"
 
 #. Directories and filename changed
-#: ../src/easytag.c:2669
-msgid "Rename File and Directory..."
-msgstr "ファイル名とフォルダ名の変更..."
+#: ../src/easytag.c:2657
+#, fuzzy
+msgid "Rename File and Directory…"
+msgstr "ファイル名とフォルダ名の変更"
 
-#: ../src/easytag.c:2670
-#, c-format
-msgid ""
-"Do you want to rename the file and directory \n"
-"'%s'\n"
-"to \n"
-"'%s' ?"
+#: ../src/easytag.c:2658
+msgid "File and directory rename confirmation required"
+msgstr ""
+
+#: ../src/easytag.c:2659
+#, fuzzy, c-format
+msgid "Do you want to rename the file and directory '%s' to '%s'?"
 msgstr ""
 "ファイル名とフォルダ名を変更しますか？\n"
 "'%s'\n"
 "=>\n"
 "'%s'"
 
-#. Only directories changed
-#: ../src/easytag.c:2675
-msgid "Rename Directory..."
-msgstr "フォルダ名の変更..."
+#: ../src/easytag.c:2665
+#, fuzzy
+msgid "Directory rename confirmation required"
+msgstr "フォルダ名を変更しました"
 
-#: ../src/easytag.c:2676
-#, c-format
-msgid ""
-"Do you want to rename the directory \n"
-"'%s'\n"
-"to \n"
-"'%s' ?"
+#: ../src/easytag.c:2666
+#, fuzzy, c-format
+msgid "Do you want to rename the directory '%s' to '%s'?"
 msgstr ""
 "フォルダ名を変更しますか？\n"
 "'%s'\n"
@@ -2229,135 +2229,161 @@ msgstr ""
 "'%s'"
 
 #. Only filename changed
-#: ../src/easytag.c:2682
-msgid "Rename File..."
+#: ../src/easytag.c:2672
+#, fuzzy
+msgid "Rename File…"
 msgstr "ファイル名の変更中..."
 
-#: ../src/easytag.c:2683
-#, c-format
-msgid ""
-"Do you want to rename the file \n"
-"'%s'\n"
-"to \n"
-"'%s' ?"
+#: ../src/easytag.c:2673
+msgid "File rename confirmation required"
+msgstr ""
+
+#: ../src/easytag.c:2674
+#, fuzzy, c-format
+msgid "Do you want to rename the file '%s' to '%s'?"
 msgstr ""
 "ファイル名を変更しますか？\n"
 "'%s'\n"
 "=>\n"
 "'%s'"
 
-#: ../src/easytag.c:2780
+#: ../src/easytag.c:2766
 #, c-format
 msgid "Writing tag of '%s'"
 msgstr "'%s' のタグが書き込まれました"
 
-#: ../src/easytag.c:2786
+#: ../src/easytag.c:2772
 msgid "Tag(s) written"
 msgstr "タグが書き込まれました"
 
-#. Special for Ogg Vorbis because the error is defined into 'vcedit_error(state)'
-#: ../src/easytag.c:2795 ../src/easytag.c:2802
-#, c-format
-msgid ""
-"Can't write tag in file '%s'!\n"
-"(%s)"
-msgstr ""
-"ファイル '%s' にタグを書き込めません！\n"
-"(%s)"
-
-#: ../src/easytag.c:2797 ../src/easytag.c:2804
+#: ../src/easytag.c:2782 ../src/easytag.c:2790
 #, fuzzy, c-format
-msgid "Can't write tag in file '%s'! (%s)"
+msgid "Cannot write tag in file '%s' (%s)"
 msgstr ""
 "ファイル '%s' にタグを書き込めません！\n"
 "(%s)"
 
-#: ../src/easytag.c:2948
+#: ../src/easytag.c:2801
+#, fuzzy, c-format
+msgid "Cannot write tag in file '%s'"
+msgstr ""
+"ファイル '%s' にタグを書き込めません！\n"
+"(%s)"
+
+#: ../src/easytag.c:2804
+#, fuzzy
+msgid "Tag Write Error"
+msgstr " 書き込み "
+
+#: ../src/easytag.c:2933
 #, c-format
 msgid "Renaming file '%s'"
 msgstr "ファイル名の変更中 (%s)"
 
 #. Renaming file to the temporary filename has failed
-#. Renaming file from the temporary filename has failed
-#: ../src/easytag.c:2968 ../src/easytag.c:3014 ../src/easytag.c:3276
-#, c-format
-msgid ""
-"Can't rename file '%s'\n"
-" to \n"
-"'%s'!\n"
-"(%s)"
-msgstr ""
-"ファイル '%s' の名前を変更できません\n"
-"=>\n"
-"'%s'\n"
-"(%s)"
-
-#: ../src/easytag.c:2970 ../src/easytag.c:3016 ../src/easytag.c:3278
+#: ../src/easytag.c:2953
 #, fuzzy, c-format
-msgid "Can't rename file '%s' to '%s'! (%s)"
+msgid "Cannot rename file '%s' to '%s' (%s)"
 msgstr ""
 "ファイル '%s' の名前を変更できません\n"
 "=>\n"
 "'%s'\n"
 "(%s)"
 
-#: ../src/easytag.c:2990 ../src/easytag.c:3036 ../src/easytag.c:3065
-#: ../src/easytag.c:3298
-msgid "File(s) not renamed..."
+#: ../src/easytag.c:2961 ../src/easytag.c:3002 ../src/easytag.c:3030
+#: ../src/easytag.c:3257
+#, fuzzy, c-format
+msgid "Cannot rename file '%s' to '%s'"
+msgstr ""
+"ファイル '%s' の名前を変更できません\n"
+"=>\n"
+"'%s'\n"
+"(%s)"
+
+#: ../src/easytag.c:2973 ../src/easytag.c:3017 ../src/easytag.c:3043
+#: ../src/easytag.c:3272
+#, fuzzy
+msgid "File(s) not renamed…"
 msgstr "ファイル名は変更されませんでした..."
 
-#: ../src/easytag.c:3043
-#, c-format
-msgid ""
-"Can't rename file \n"
-"'%s'\n"
-"because the following file already exists:\n"
-"'%s'"
-msgstr ""
-"ファイル名を変更できません:\n"
-"'%s'\n"
-"次のファイルは既に存在していますからです:\n"
-"'%s'"
-
-#: ../src/easytag.c:3045
+#: ../src/easytag.c:3012
 #, fuzzy, c-format
-msgid "Can't rename file '%s' because the following file already exists: '%s'"
+msgid "Cannot rename file '%s' to '%s': %s"
+msgstr ""
+"ファイル '%s' の名前を変更できません\n"
+"=>\n"
+"'%s'\n"
+"(%s)"
+
+#: ../src/easytag.c:3038
+#, fuzzy, c-format
+msgid "Cannot rename file '%s' because the following file already exists: '%s'"
 msgstr ""
 "ファイル名を変更できません:\n"
 "'%s'\n"
 "次のファイルは既に存在していますからです:\n"
 "'%s'"
 
-#: ../src/easytag.c:3088
-#, c-format
-msgid ""
-"Can't create target directory\n"
-"'%s'!\n"
-"(%s)"
+#: ../src/easytag.c:3072
+#, fuzzy, c-format
+msgid "Cannot create target directory '%s'"
 msgstr ""
 "変更するフォルダを生成できません\n"
 "'%s'\n"
 "(%s)"
 
-#: ../src/easytag.c:3090
+#: ../src/easytag.c:3080
 #, fuzzy, c-format
-msgid "Can't create target directory '%s'! (%s)"
+msgid "Cannot create target directory '%s': %s"
 msgstr ""
 "変更するフォルダを生成できません\n"
 "'%s'\n"
 "(%s)"
 
 #. Renaming file has succeeded
-#: ../src/easytag.c:3124
+#: ../src/easytag.c:3099
 #, c-format
 msgid "Renamed file '%s' to '%s'"
 msgstr "ファイル名 '%s' => '%s' へ変更されました"
 
-#: ../src/easytag.c:3130
-msgid "File(s) renamed..."
-msgstr "ファイル名が変更されました..."
+#: ../src/easytag.c:3105
+#, fuzzy
+msgid "File(s) renamed…"
+msgstr "ファイル名は変更されませんでした..."
 
-#: ../src/easytag.c:3140 ../src/easytag.c:3201
+#: ../src/easytag.c:3121 ../src/easytag.c:3181
+#, fuzzy, c-format
+msgid "Cannot remove old directory '%s'"
+msgstr ""
+"古いフォルダを削除できません\n"
+"'%s'\n"
+"(%s)"
+
+#: ../src/easytag.c:3124 ../src/easytag.c:3184
+#, fuzzy
+msgid "Remove Directory Error"
+msgstr "フォルダ名の変更..."
+
+#: ../src/easytag.c:3129
+#, fuzzy, c-format
+msgid "Cannot remove old directory '%s': %s"
+msgstr ""
+"古いフォルダを削除できません\n"
+"'%s'\n"
+"(%s)"
+
+#. Renaming file has succeeded
+#: ../src/easytag.c:3157
+#, c-format
+msgid "Moved file '%s' to '%s'"
+msgstr "ファイル '%s' => '%s' へ移動しました"
+
+#: ../src/easytag.c:3163
+#, fuzzy
+msgid "File(s) moved…"
+msgstr "ファイルを移動しました..."
+
+#: ../src/easytag.c:3173
 #, c-format
 msgid ""
 "Can't remove old directory\n"
@@ -2368,26 +2394,16 @@ msgstr ""
 "'%s'\n"
 "(%s)"
 
-#: ../src/easytag.c:3142 ../src/easytag.c:3203
+#: ../src/easytag.c:3189
 #, fuzzy, c-format
-msgid "Can't remove old directory '%s'! (%s)"
+msgid "Cannot remove old directory '%s': (%s)"
 msgstr ""
 "古いフォルダを削除できません\n"
 "'%s'\n"
 "(%s)"
 
-#. Renaming file has succeeded
-#: ../src/easytag.c:3185
-#, c-format
-msgid "Moved file '%s' to '%s'"
-msgstr "ファイル '%s' => '%s' へ移動しました"
-
-#: ../src/easytag.c:3191
-msgid "File(s) moved..."
-msgstr "ファイルを移動しました..."
-
 #. Moving file has failed
-#: ../src/easytag.c:3237
+#: ../src/easytag.c:3209
 #, c-format
 msgid ""
 "Can't move file '%s'\n"
@@ -2400,38 +2416,73 @@ msgstr ""
 "'%s'\n"
 "(%s)"
 
-#: ../src/easytag.c:3239
+#: ../src/easytag.c:3217
 #, fuzzy, c-format
-msgid "Can't move file '%s' to '%s'! (%s)"
+msgid "Cannot move file '%s' to '%s'"
 msgstr ""
 "ファイル '%s' を移動できません\n"
 "=>\n"
 "'%s'\n"
 "(%s)"
 
-#: ../src/easytag.c:3259
-msgid "File(s) not moved..."
-msgstr "ファイルは移動しませんでした..."
+#: ../src/easytag.c:3221
+#, fuzzy
+msgid "File Move Error"
+msgstr "画像ファイルを読み込んでいません..."
 
-#: ../src/easytag.c:3337
-#, c-format
+#: ../src/easytag.c:3227
+#, fuzzy, c-format
+msgid "Cannot move file '%s' to '%s': (%s)"
+msgstr ""
+"ファイル '%s' を移動できません\n"
+"=>\n"
+"'%s'\n"
+"(%s)"
+
+#: ../src/easytag.c:3232
+#, fuzzy
+msgid "File(s) not moved…"
+msgstr "ファイル名は変更されませんでした..."
+
+#: ../src/easytag.c:3249
+#, fuzzy, c-format
+msgid "Can't rename file '%s' to '%s'! (%s)"
+msgstr ""
+"ファイル '%s' の名前を変更できません\n"
+"=>\n"
+"'%s'\n"
+"(%s)"
+
+#: ../src/easytag.c:3267
+#, fuzzy, c-format
 msgid ""
-"Do you really want to delete definitively the file\n"
-"'%s' ?"
+"Cannot rename file '%s'\n"
+" to \n"
+"'%s': (%s)"
+msgstr ""
+"ファイル '%s' の名前を変更できません\n"
+"=>\n"
+"'%s'\n"
+"(%s)"
+
+#: ../src/easytag.c:3317 ../src/easytag.c:3331
+#, fuzzy, c-format
+msgid "Do you really want to delete the file '%s'?"
 msgstr ""
 "次のファイルを完全に削除しても宜しいですか？\n"
 "'%s'"
 
-#: ../src/easytag.c:3340 ../src/easytag.c:3353
-msgid "Delete File..."
+#: ../src/easytag.c:3323 ../src/easytag.c:3333
+#, fuzzy
+msgid "Delete File"
 msgstr "ファイルの削除..."
 
-#: ../src/easytag.c:3381
+#: ../src/easytag.c:3353
 #, c-format
 msgid "File '%s' deleted"
 msgstr "ファイル '%s' が削除されました"
 
-#: ../src/easytag.c:3516
+#: ../src/easytag.c:3488
 #, c-format
 msgid ""
 "Can't read directory :\n"
@@ -2442,126 +2493,140 @@ msgstr ""
 "'%s'\n"
 "(%s)"
 
+#: ../src/easytag.c:3493
+#, fuzzy, c-format
+msgid "Cannot read directory '%s'"
+msgstr ""
+"フォルダを読み込めません:\n"
+"'%s'\n"
+"(%s)"
+
+#: ../src/easytag.c:3496
+#, fuzzy
+msgid "Directory Read Error"
+msgstr "フォルダ名を変更しました"
+
 #. Read the directory recursively
-#: ../src/easytag.c:3544
-#, c-format
-msgid "Search in progress..."
+#: ../src/easytag.c:3516
+#, fuzzy, c-format
+msgid "Search in progress…"
 msgstr "検索中..."
 
-#: ../src/easytag.c:3561 ../src/et_core.c:2699
+#: ../src/easytag.c:3533 ../src/et_core.c:2698
 #, c-format
 msgid "File: '%s'"
 msgstr "ファイル: '%s'"
 
-#: ../src/easytag.c:3611
+#: ../src/easytag.c:3583
 #, c-format
 msgid "Found %d file(s) in this directory and subdirectories."
 msgstr "このフォルダ配下に %d 個のファイルが見つかりました"
 
-#: ../src/easytag.c:3613
+#: ../src/easytag.c:3585
 #, c-format
 msgid "Found %d file(s) in this directory."
 msgstr "このフォルダの中に %d 個のファイルが見つかりました"
 
 #. And refresh the number of files in this directory
-#: ../src/easytag.c:3626 ../src/et_core.c:2783
+#: ../src/easytag.c:3598 ../src/et_core.c:2782
 #, c-format
 msgid "%u file(s)"
 msgstr "%u 個のファイル"
 
-#: ../src/easytag.c:3632
+#: ../src/easytag.c:3604
 msgid "No file found in this directory and subdirectories!"
 msgstr "このフォルダ配下にはファイルがありませんでした！"
 
-#: ../src/easytag.c:3634
+#: ../src/easytag.c:3606
 msgid "No file found in this directory!"
 msgstr "このフォルダの中にはファイルがありませんでした！"
 
-#: ../src/easytag.c:3722
-msgid "Searching..."
+#: ../src/easytag.c:3694
+#, fuzzy
+msgid "Searching…"
 msgstr "検索中..."
 
 #. Button to stop...
-#: ../src/easytag.c:3742
+#: ../src/easytag.c:3714
 msgid "  STOP the search...  "
 msgstr "  検索の停止...  "
 
-#: ../src/easytag.c:4484
+#: ../src/easytag.c:4456
 msgid "Select a directory to browse!"
 msgstr "参照するフォルダを選択して下さい！"
 
 #. Menu items
-#: ../src/easytag.c:4615
+#: ../src/easytag.c:4587
 msgid "Tag selected files with this field"
 msgstr "選択したファイルにこのフィールドをタグ付けします"
 
-#: ../src/easytag.c:4626
+#: ../src/easytag.c:4598
 msgid "Convert '_' and '%20' to spaces"
 msgstr "'_' と '%20' をスペースに変換する"
 
-#: ../src/easytag.c:4633 ../src/scan.c:2691
+#: ../src/easytag.c:4605 ../src/scan.c:2686
 msgid "Convert ' ' to '_'"
 msgstr "' ' を '_' に変換する"
 
 #. Group: capitalize, ...
-#: ../src/easytag.c:4644 ../src/scan.c:2742
+#: ../src/easytag.c:4616 ../src/scan.c:2737
 msgid "All uppercase"
 msgstr "全て大文字にする"
 
-#: ../src/easytag.c:4651 ../src/scan.c:2743
+#: ../src/easytag.c:4623 ../src/scan.c:2738
 msgid "All downcase"
 msgstr "全て小文字にする"
 
-#: ../src/easytag.c:4658 ../src/scan.c:2744
+#: ../src/easytag.c:4630 ../src/scan.c:2739
 msgid "First letter uppercase"
 msgstr "最初の文字だけ大文字にする"
 
-#: ../src/easytag.c:4665 ../src/scan.c:2745
+#: ../src/easytag.c:4637 ../src/scan.c:2740
 msgid "First letter uppercase of each word"
 msgstr "単語の最初の文字だけ大文字にする"
 
 #. Group: insert/remove spaces
-#: ../src/easytag.c:4676 ../src/prefs.c:1056 ../src/scan.c:2793
+#: ../src/easytag.c:4648 ../src/prefs.c:1056 ../src/scan.c:2788
 msgid "Remove spaces"
 msgstr "スペースを削除する"
 
-#: ../src/easytag.c:4683
+#: ../src/easytag.c:4655
 msgid "Insert space before uppercase letter"
 msgstr "大文字の前にスペースを挿入する"
 
-#: ../src/easytag.c:4690
+#: ../src/easytag.c:4662
 msgid "Remove duplicate spaces or underscores"
 msgstr "重複したスペースまたはアンダースコアを削除する"
 
 #. gchar commmand[256];
 #. To send messages to the console...
-#: ../src/easytag.c:4710 ../src/easytag.c:4718
+#: ../src/easytag.c:4682 ../src/easytag.c:4690
 #, c-format
 msgid "EasyTAG %s: Abnormal exit! (PId: %d)."
 msgstr "EasyTAG %s: 異常終了しました！ (PID: %d)."
 
-#: ../src/easytag.c:4711 ../src/easytag.c:4720
+#: ../src/easytag.c:4683 ../src/easytag.c:4692
 #, c-format
 msgid "Received signal %s (%d)\a"
 msgstr "シグナル %s (%d) を受け取りました\a"
 
-#: ../src/easytag.c:4713 ../src/easytag.c:4722
-#, c-format
+#: ../src/easytag.c:4685 ../src/easytag.c:4694
+#, fuzzy, c-format
 msgid ""
 "You have probably found a bug in EasyTAG. Please, send a bug report with a "
-"gdb backtrace ('gdb easytag core' then 'bt' and 'l') and informations to "
+"gdb backtrace ('gdb easytag core' then 'bt' and 'l') and information to "
 "reproduce it to easytag@gmail.com"
 msgstr ""
 "EasyTAG でバグと思われるものが見つかりました。gdb によるバックトレースのログ "
 "(`gdb easytag core` して 'bt' と 'l' コマンドの結果) を easytag@gmail.com ま"
 "でメールして下さい。"
 
-#: ../src/easytag.c:4849
+#: ../src/easytag.c:4821
 msgid "Unknown signal"
 msgstr "不明なシグナル"
 
-#: ../src/easytag.c:4865
-#, c-format
+#: ../src/easytag.c:4837
+#, fuzzy, c-format
 msgid ""
 "\n"
 "Usage: easytag [option] \n"
@@ -2570,7 +2635,7 @@ msgid ""
 "Option:\n"
 "-------\n"
 "-h, --help        Display this text and exit.\n"
-"-v, --version     Print basic informations and exit.\n"
+"-v, --version     Print basic information and exit.\n"
 "\n"
 "Directory:\n"
 "----------\n"
@@ -2593,94 +2658,96 @@ msgstr ""
 "path_to/files     現在のフォルダからファイルを読み込む\n"
 "\n"
 
-#: ../src/easytag.c:4893
+#: ../src/easytag.c:4865
 msgid "EasyTAG: Normal exit."
 msgstr "EasyTAG: 正常に終了しました。"
 
-#: ../src/easytag.c:4938
-msgid ""
-"Some files have been modified but not saved...\n"
-"Do you want to save them before exiting the program?"
+#: ../src/easytag.c:4914
+#, fuzzy
+msgid "Do you want to save them before quitting?"
 msgstr ""
-"いくつかのファイルを変更しましたが、保存していません...\n"
-"プログラムを終了する前に保存しますか？"
+"ファイル名を変更しますか？\n"
+"'%s'\n"
+"=>\n"
+"'%s'"
 
-#: ../src/easytag.c:4965
-msgid " Do you really want to exit the program? "
+#: ../src/easytag.c:4937
+#, fuzzy
+msgid "Do you really want to quit?"
 msgstr " 本当にプログラムを終了しますか？"
 
-#: ../src/et_core.c:632
+#: ../src/et_core.c:631
 #, c-format
 msgid "Automatic corrections applied for file '%s'."
 msgstr ""
 
-#: ../src/et_core.c:2596
+#: ../src/et_core.c:2595
 msgid "ID3 Tag"
 msgstr "ID3 タグ"
 
-#: ../src/et_core.c:2602
+#: ../src/et_core.c:2601
 msgid "Ogg Vorbis Tag"
 msgstr "Ogg Vorbis タグ"
 
-#: ../src/et_core.c:2608
+#: ../src/et_core.c:2607
 msgid "FLAC Vorbis Tag"
 msgstr "FLAC Vorbis タグ"
 
-#: ../src/et_core.c:2613
+#: ../src/et_core.c:2612
 msgid "APE Tag"
 msgstr "APE タグ"
 
-#: ../src/et_core.c:2618
+#: ../src/et_core.c:2617
 msgid "MP4/M4A/AAC Tag"
 msgstr "MP4/M4A/AAC タグ"
 
-#: ../src/et_core.c:2624
+#: ../src/et_core.c:2623
 msgid "Wavpack Tag"
 msgstr "Wavpack タグ"
 
-#: ../src/et_core.c:2644
+#: ../src/et_core.c:2643
 msgid "MP3 File"
 msgstr "MP3 ファイル"
 
-#: ../src/et_core.c:2648
+#: ../src/et_core.c:2647
 msgid "MP2 File"
 msgstr "MP2 ファイル"
 
-#: ../src/et_core.c:2654
+#: ../src/et_core.c:2653
 msgid "Ogg Vorbis File"
 msgstr "Ogg Vorbis ファイル"
 
-#: ../src/et_core.c:2660
+#: ../src/et_core.c:2659
 msgid "Speex File"
 msgstr "Speex ファイル"
 
-#: ../src/et_core.c:2666
+#: ../src/et_core.c:2665
 msgid "FLAC File"
 msgstr "FLAC ファイル"
 
-#: ../src/et_core.c:2671
+#: ../src/et_core.c:2670
 msgid "MusePack File"
 msgstr "MusePack ファイル"
 
-#: ../src/et_core.c:2675
+#: ../src/et_core.c:2674
 msgid "Monkey's Audio File"
 msgstr "Monkey's オーディオ・ファイル"
 
-#: ../src/et_core.c:2680
+#: ../src/et_core.c:2679
 msgid "MP4/AAC File"
 msgstr "MP4/AAC ファイル"
 
-#: ../src/et_core.c:2686
+#: ../src/et_core.c:2685
 msgid "Wavpack File"
 msgstr "Wavpack ファイル"
 
-#: ../src/et_core.c:2969
+#: ../src/et_core.c:2968
 #, c-format
 msgid "Pictures (%d)"
 msgstr "画像 (%d)"
 
 #. Bitrate
-#: ../src/et_core.c:3008 ../src/flac_header.c:297
+#: ../src/et_core.c:3007 ../src/flac_header.c:297
 #: ../src/monkeyaudio_header.c:86 ../src/mp4_header.c:275
 #: ../src/mpeg_header.c:367 ../src/musepack_header.c:88
 #: ../src/ogg_header.c:257 ../src/wavpack_header.c:78
@@ -2689,7 +2756,7 @@ msgid "%d kb/s"
 msgstr "%d KB/秒"
 
 #. Samplerate
-#: ../src/et_core.c:3013 ../src/flac_header.c:302
+#: ../src/et_core.c:3012 ../src/flac_header.c:302
 #: ../src/monkeyaudio_header.c:91 ../src/mp4_header.c:280
 #: ../src/mpeg_header.c:372 ../src/musepack_header.c:93
 #: ../src/ogg_header.c:262 ../src/wavpack_header.c:83
@@ -2697,22 +2764,24 @@ msgstr "%d KB/秒"
 msgid "%d Hz"
 msgstr "%d Hz"
 
-#: ../src/et_core.c:3153
-#, c-format
-msgid ""
-"Could not convert filename : '%s'\n"
-"into system filename encoding\n"
-"(Try setting the environment variable G_FILENAME_ENCODING)."
+#: ../src/et_core.c:3155 ../src/scan.c:676
+#, fuzzy, c-format
+msgid "Could not convert filename '%s' into system filename encoding"
+msgstr "ファイル '%s' をシステムのエンコーディングに変換できませんでした"
+
+#: ../src/et_core.c:3157
+#, fuzzy
+msgid "Try setting the environment variable G_FILENAME_ENCODING."
 msgstr ""
 "ファイル名をシステムのエンコーディングに\n"
 "変換できませんでした : '%s'\n"
 "(環境変数 G_FILENAME_ENCODING を設定してみて下さい)"
 
-#: ../src/et_core.c:3156 ../src/scan.c:676
+#: ../src/et_core.c:3158 ../src/scan.c:678
 msgid "Filename translation"
 msgstr "ファイル名の翻訳"
 
-#: ../src/et_core.c:4671 ../src/et_core.c:4679
+#: ../src/et_core.c:4666 ../src/et_core.c:4674
 #, c-format
 msgid "The filename '%s' exceeds %d characters and will be truncated!\n"
 msgstr "ファイル名 '%s' が %d 文字だけ多すぎるので切りつめます！\n"
@@ -2765,37 +2834,40 @@ msgstr "ERROR: ファイル '%s' (%s) にコメントを書き込むのに失敗
 msgid "Written tag of '%s'"
 msgstr "'%s' のタグが書き込まれました"
 
-#: ../src/id3_tag.c:501
+#: ../src/id3_tag.c:500
 #, c-format
 msgid "Removed tag of '%s'"
 msgstr "'%s' のタグを削除しました"
 
-#: ../src/id3_tag.c:505 ../src/id3_tag.c:608
+#: ../src/id3_tag.c:504 ../src/id3_tag.c:604
 #, c-format
 msgid "Error while removing ID3v1 tag of '%s' (%s)"
 msgstr "'%s' (%s) の ID3v1 タグの削除中にエラー"
 
-#: ../src/id3_tag.c:507 ../src/id3_tag.c:580
+#: ../src/id3_tag.c:506 ../src/id3_tag.c:576
 #, c-format
 msgid "Error while removing ID3v2 tag of '%s' (%s)"
 msgstr "'%s' (%s) の ID3v2 タグの削除中にエラー"
 
-#: ../src/id3_tag.c:526
+#: ../src/id3_tag.c:525
 #, c-format
 msgid "Error while updating ID3v2 tag of '%s' (%s)"
 msgstr "'%s' (%s) の ID3v2 タグの更新中にエラー"
 
-#: ../src/id3_tag.c:548
-#, c-format
+#: ../src/id3_tag.c:553
 msgid ""
 "You have tried to save this tag to Unicode but it was detected that your "
-"version of id3lib is bugged.\n"
-"If you reload this file, some characters in the tag may be not displayed "
-"correctly...\n"
-"Please, apply to id3lib the patch src/id3lib/"
-"patch_id3lib_3.8.3_UTF16_writing_bug.diff\n"
-"available in EasyTAG package sources.\n"
-"Note that this message will appear only one time.\n"
+"version of id3lib is buggy"
+msgstr ""
+
+#: ../src/id3_tag.c:555
+#, fuzzy, c-format
+msgid ""
+"If you reload this file, some characters in the tag may not be displayed "
+"correctly. Please, apply the patch src/id3lib/"
+"patch_id3lib_3.8.3_UTF16_writing_bug.diff to id3lib, which isavailable in "
+"the EasyTAG package sources.\n"
+"Note that this message will appear only once.\n"
 "\n"
 "File : %s"
 msgstr ""
@@ -2810,102 +2882,107 @@ msgstr ""
 "\n"
 "ファイル : %s"
 
-#: ../src/id3_tag.c:600
+#: ../src/id3_tag.c:562
+msgid "Buggy id3lib"
+msgstr ""
+
+#: ../src/id3_tag.c:596
 #, c-format
 msgid "Error while updating ID3v1 tag of '%s' (%s)"
 msgstr "'%s' (%s) の ID3v1 タグの更新中にエラー"
 
-#: ../src/id3_tag.c:614 ../src/id3v24_tag.c:1035
+#: ../src/id3_tag.c:610 ../src/id3v24_tag.c:1034
 #, c-format
 msgid "Updated tag of '%s'"
 msgstr "'%s' のタグを更新しました"
 
-#: ../src/id3_tag.c:633
+#: ../src/id3_tag.c:629
 msgid "No error reported"
 msgstr "エラーはありません"
 
-#: ../src/id3_tag.c:635
+#: ../src/id3_tag.c:631
 msgid "No available memory"
 msgstr "有効なメモリがありません"
 
-#: ../src/id3_tag.c:637
+#: ../src/id3_tag.c:633
 msgid "No data to parse"
 msgstr "解析するデータがありません"
 
-#: ../src/id3_tag.c:639
+#: ../src/id3_tag.c:635
 msgid "Improperly formatted data"
 msgstr "データのフォーマットが不適切です"
 
-#: ../src/id3_tag.c:641
+#: ../src/id3_tag.c:637
 msgid "No buffer to write to"
 msgstr "書き込むバッファがありません"
 
-#: ../src/id3_tag.c:643
+#: ../src/id3_tag.c:639
 msgid "Buffer is too small"
 msgstr "バッファが小さすぎます"
 
-#: ../src/id3_tag.c:645
+#: ../src/id3_tag.c:641
 msgid "Invalid frame ID"
 msgstr "フレーム ID が正しくありません。"
 
-#: ../src/id3_tag.c:647
+#: ../src/id3_tag.c:643
 msgid "Requested field not found"
 msgstr "指定したフィールドが見つかりません"
 
-#: ../src/id3_tag.c:649
+#: ../src/id3_tag.c:645
 msgid "Unknown field type"
 msgstr "フィールドの種類が不明です"
 
-#: ../src/id3_tag.c:651
+#: ../src/id3_tag.c:647
 msgid "Tag is already attached to a file"
 msgstr "既にタグがファイルについています"
 
-#: ../src/id3_tag.c:653
+#: ../src/id3_tag.c:649
 msgid "Invalid tag version"
 msgstr "タグのバージョンが正しくありません"
 
-#: ../src/id3_tag.c:655
+#: ../src/id3_tag.c:651
 msgid "No file to parse"
 msgstr "解析するファイルがありません"
 
-#: ../src/id3_tag.c:657
+#: ../src/id3_tag.c:653
 msgid "Attempting to write to a read-only file"
 msgstr "読み込み専用のファイルに書き込もうとしています"
 
-#: ../src/id3_tag.c:659
+#: ../src/id3_tag.c:655
 msgid "Error in compression/uncompression"
 msgstr "圧縮/非圧縮エラーです"
 
-#: ../src/id3_tag.c:661
+#: ../src/id3_tag.c:657
 msgid "Unknown error message!"
 msgstr "不明なエラーです！"
 
-#: ../src/id3_tag.c:1236
-#, c-format
+#: ../src/id3_tag.c:1235
+#, fuzzy, c-format
 msgid ""
-"As the following corrupted file: '%s'\n"
-"will cause an error in id3lib, it will not be processed by the program."
+"As the following corrupted file '%s' will cause an error in id3lib, it will "
+"not be processed"
 msgstr ""
 "次に示すような壊れたファイル '%s' は\n"
 "id3lib の中でエラーを引き起こすためプログラムが正常に処理しません。"
 
-#: ../src/id3_tag.c:1238
-msgid "Corrupted file..."
+#: ../src/id3_tag.c:1237
+#, fuzzy
+msgid "Corrupted file"
 msgstr "壊れたファイル..."
 
-#: ../src/id3v24_tag.c:117
+#: ../src/id3v24_tag.c:116
 #, fuzzy, c-format
 msgid ""
 "ERROR while opening file: '%s' (%s).\n"
 "\a"
 msgstr "ファイルのオープン中にエラー: '%s' (%s)"
 
-#: ../src/id3v24_tag.c:1518
+#: ../src/id3v24_tag.c:1517
 #, c-format
 msgid "Can't write tag of file '%s' (were read %d bytes instead of %d bytes!)"
 msgstr ""
 
-#: ../src/id3v24_tag.c:1537
+#: ../src/id3v24_tag.c:1536
 #, fuzzy, c-format
 msgid "Size error while saving tag of '%s'"
 msgstr "'%s' (%s) の ID3v1 タグの削除中にエラー"
@@ -2915,20 +2992,29 @@ msgid "Log"
 msgstr "ログ"
 
 #: ../src/misc.c:778
-msgid "Select file..."
+#, fuzzy
+msgid "Select file…"
 msgstr "ファイルの選択..."
 
 #: ../src/misc.c:783
-msgid "Select directory..."
+#, fuzzy
+msgid "Select directory…"
 msgstr "フォルダの選択..."
 
-#: ../src/misc.c:857
-msgid "Warning..."
-msgstr "警告..."
-
-#: ../src/misc.c:861
-msgid "No audio player defined!"
+#: ../src/misc.c:862
+#, fuzzy
+msgid "No audio player defined"
 msgstr "オーディオプレーヤが未設定です！"
+
+#: ../src/misc.c:863
+#, fuzzy
+msgid "Audio Player Warning"
+msgstr "オーディオ・プレイヤーの起動"
+
+#: ../src/misc.c:873
+#, c-format
+msgid "The program '%s' can't be found!"
+msgstr "プログラム '%s' が見つかりません！"
 
 #: ../src/misc.c:964
 #, c-format
@@ -3035,47 +3121,55 @@ msgstr "ファイル名で使用する情報の保存のみ"
 msgid "Write info using :"
 msgstr "書き込む情報 :"
 
-#: ../src/misc.c:1642
-#, c-format
-msgid ""
-"Playlist file '%s' already exists!\n"
-"Overwrite?"
+#: ../src/misc.c:1645
+#, fuzzy, c-format
+msgid "Playlist file '%s' already exists"
 msgstr ""
 "演奏一覧ファイル '%s' は既に存在します！\n"
 "上書きしますか？"
 
-#: ../src/misc.c:1643
-msgid "Write Playlist..."
+#: ../src/misc.c:1647
+#, fuzzy
+msgid "Do you want to save the playlist, overwriting the existing file?"
+msgstr ""
+"次のファイル にタグを書き込みますか？\n"
+"%s"
+
+#: ../src/misc.c:1649
+#, fuzzy
+msgid "Write Playlist"
 msgstr "演奏一覧の書き込み中..."
 
-#. Writing fails...
-#: ../src/misc.c:1665
-#, c-format
-msgid ""
-"Can't write playlist file '%s'!\n"
-"(%s)"
+#: ../src/misc.c:1667
+#, fuzzy, c-format
+msgid "Cannot write playlist file '%s'"
 msgstr ""
 "演奏一覧ファイル '%s' を書き込めません！\n"
 "(%s)"
 
-#: ../src/misc.c:1678
+#: ../src/misc.c:1670
+#, fuzzy
+msgid "Playlist File Error"
+msgstr "画像ファイルを読み込んでいません..."
+
+#: ../src/misc.c:1677
 #, c-format
 msgid "Written playlist file '%s'"
 msgstr "演奏一覧ファイル '%s' が書き込まれました"
 
-#: ../src/misc.c:1924
+#: ../src/misc.c:1923
 msgid "CD"
 msgstr "CD"
 
-#: ../src/misc.c:1933
+#: ../src/misc.c:1932
 msgid "Encoded by"
 msgstr "エンコーダ"
 
-#: ../src/misc.c:1944
+#: ../src/misc.c:1943
 msgid "Search a file"
 msgstr "ファイルの検索"
 
-#: ../src/misc.c:1982
+#: ../src/misc.c:1981
 msgid ""
 "Type the word to search into files. Or type nothing to display all files."
 msgstr ""
@@ -3083,104 +3177,104 @@ msgstr ""
 "示します)"
 
 #. Where...
-#: ../src/misc.c:1988
+#: ../src/misc.c:1987
 msgid "In :"
 msgstr "対象 :"
 
-#: ../src/misc.c:1991
+#: ../src/misc.c:1990
 msgid "the File Name"
 msgstr "ファイル名"
 
 #. Note : label changed to "the Tag" (to be the only one) to fix a Hungarian grammatical problem (which uses one word to say "in the tag" like here)
-#: ../src/misc.c:1993
+#: ../src/misc.c:1992
 msgid "the Tag"
 msgstr "タグ"
 
 #. Property of the search
-#: ../src/misc.c:2003 ../src/prefs.c:321
+#: ../src/misc.c:2002 ../src/prefs.c:321
 msgid "Case sensitive"
 msgstr "大小文字を無視する"
 
-#: ../src/misc.c:2455
+#: ../src/misc.c:2454
 #, c-format
 msgid "Found : %d file(s)"
 msgstr "一致するファイル: %d 個"
 
-#: ../src/misc.c:2730
+#: ../src/misc.c:2729
 msgid "Load the filenames from a TXT file"
 msgstr "TEXT ファイルからファイル名を読み込む"
 
-#: ../src/misc.c:2758
+#: ../src/misc.c:2757
 msgid "File :"
 msgstr "TEXT ファイル :"
 
 #. Button 'load'
 #. the signal attached to this button, to load the file, is placed after the LoadFileContentList definition
-#: ../src/misc.c:2777
+#: ../src/misc.c:2776
 msgid " Load "
 msgstr " 読み込む "
 
-#: ../src/misc.c:2800
+#: ../src/misc.c:2799
 msgid "Content of TXT file"
 msgstr "テキストファイルの内容"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2821 ../src/misc.c:2915
+#: ../src/misc.c:2820 ../src/misc.c:2914
 msgid "Insert a blank line before the selected line"
 msgstr "選択した行の前にスペースを挿入する"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2830 ../src/misc.c:2924
+#: ../src/misc.c:2829 ../src/misc.c:2923
 msgid "Delete the selected line"
 msgstr "選択した行を削除する"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2839 ../src/misc.c:2933 ../src/misc.c:3409
+#: ../src/misc.c:2838 ../src/misc.c:2932 ../src/misc.c:3408
 msgid "Delete all blank lines"
 msgstr "空行を全て削除する"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2851 ../src/misc.c:2945
+#: ../src/misc.c:2850 ../src/misc.c:2944
 msgid "Move up the selected line"
 msgstr "選択した行を上に移動"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2860 ../src/misc.c:2954
+#: ../src/misc.c:2859 ../src/misc.c:2953
 msgid "Move down the selected line"
 msgstr "選択した行を下へ移動"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2872 ../src/misc.c:2966 ../src/misc.c:3433
+#: ../src/misc.c:2871 ../src/misc.c:2965 ../src/misc.c:3432
 msgid "Reload"
 msgstr "再読込"
 
-#: ../src/misc.c:2893
+#: ../src/misc.c:2892
 msgid "List of files"
 msgstr "ファイルの一覧"
 
-#: ../src/misc.c:2988
+#: ../src/misc.c:2987
 msgid "Selected line:"
 msgstr "選択した行:"
 
-#: ../src/misc.c:3006
+#: ../src/misc.c:3005
 msgid ""
 "When activating this option, after loading the filenames, the current "
 "selected scanner will be ran (the scanner window must be opened)."
 msgstr "このオプションを有効にすると"
 
-#: ../src/misc.c:3397
+#: ../src/misc.c:3396
 msgid "Insert a blank line"
 msgstr "空行を挿入する"
 
-#: ../src/misc.c:3403
+#: ../src/misc.c:3402
 msgid "Delete this line"
 msgstr "この行を削除する"
 
-#: ../src/misc.c:3418
+#: ../src/misc.c:3417
 msgid "Move up this line"
 msgstr "この行を上に移動します"
 
-#: ../src/misc.c:3424
+#: ../src/misc.c:3423
 msgid "Move down this line"
 msgstr "この行を下に移動します"
 
@@ -3228,10 +3322,6 @@ msgstr "デュアルチャンネル"
 #: ../src/mpeg_header.c:81
 msgid "Single channel"
 msgstr "シングルチャンネル"
-
-#: ../src/msgbox.c:101
-msgid "Repeat action for the rest of the files"
-msgstr "残りのファイルに対して処理を繰り返します"
 
 #: ../src/ogg_header.c:100
 #, c-format
@@ -3282,208 +3372,221 @@ msgstr "ERROR: ファイル '%s' を vorbis (%s) として開くのに失敗し�
 msgid "Warning : The Ogg Vorbis file '%s' contains an ID3v2 tag."
 msgstr "警告: Ogg Vorbis ファイル '%s' には ID3v2 タグがあります。"
 
-#: ../src/picture.c:295
+#: ../src/picture.c:294
 msgid "Add pictures"
 msgstr "画像の追加"
 
-#: ../src/picture.c:305 ../src/picture.c:646
+#: ../src/picture.c:304 ../src/picture.c:645
 msgid "All Files"
 msgstr "全てのファイル"
 
-#: ../src/picture.c:311 ../src/picture.c:652
+#: ../src/picture.c:310 ../src/picture.c:651
 msgid "PNG and JPEG"
 msgstr "PNG と JPEG"
 
-#: ../src/picture.c:428
+#: ../src/picture.c:427
 #, c-format
 msgid "Picture Properties %d/%d"
 msgstr "画像 %d/%d のプロパティ "
 
-#: ../src/picture.c:458
+#: ../src/picture.c:457
 msgid "Picture Type"
 msgstr "種類:"
 
 #. Description of the picture
-#: ../src/picture.c:515
+#: ../src/picture.c:514
 msgid "Picture Description:"
 msgstr "説明:"
 
-#: ../src/picture.c:634
+#: ../src/picture.c:633
 #, c-format
 msgid "Save picture %d/%d"
 msgstr "画像 %d/%d の保存"
 
-#: ../src/picture.c:717
-#, c-format
-msgid ""
-"The following file already exists :\n"
-"'%s'\n"
-"Do you want to overwrite?"
+#: ../src/picture.c:719
+#, fuzzy, c-format
+msgid "The following file already exists: '%s'"
 msgstr ""
 "次のファイルは既にあります :\n"
 "'%s'\n"
 "上書きしてもよろしいですか？"
 
-#: ../src/picture.c:719
-msgid "Save file..."
-msgstr "ファイルの保存..."
+#: ../src/picture.c:721
+#, fuzzy
+msgid "Do you want to save anyway, overwriting the file?"
+msgstr ""
+"次のファイル にタグを書き込みますか？\n"
+"%s"
 
-#: ../src/picture.c:803
+#: ../src/picture.c:723
+#, fuzzy
+msgid "Save"
+msgstr " 保存 "
+
+#: ../src/picture.c:799
 msgid "JPEG image"
 msgstr "JPEG 画像"
 
-#: ../src/picture.c:805
+#: ../src/picture.c:801
 msgid "PNG image"
 msgstr "PNG 画像"
 
-#: ../src/picture.c:807
+#: ../src/picture.c:803
 msgid "Unknown image"
 msgstr "不明"
 
-#: ../src/picture.c:818
+#: ../src/picture.c:814
 msgid "32x32 pixel PNG file icon"
 msgstr "PNG 形式のアイコン"
 
-#: ../src/picture.c:820
+#: ../src/picture.c:816
 msgid "Other file icon"
 msgstr "別の種類のアイコン"
 
-#: ../src/picture.c:822
+#: ../src/picture.c:818
 msgid "Cover (front)"
 msgstr "ジャケット (表)"
 
-#: ../src/picture.c:824
+#: ../src/picture.c:820
 msgid "Cover (back)"
 msgstr "ジャケット (裏)"
 
-#: ../src/picture.c:826
+#: ../src/picture.c:822
 msgid "Leaflet page"
 msgstr "チラシ"
 
-#: ../src/picture.c:828
+#: ../src/picture.c:824
 msgid "Media (e.g. label side of CD)"
 msgstr "メディア (例: CDのラベル)"
 
-#: ../src/picture.c:830
+#: ../src/picture.c:826
 msgid "Lead artist/lead performer/soloist"
 msgstr "メインの演奏者/出演者/ソロ"
 
-#: ../src/picture.c:832
+#: ../src/picture.c:828
 msgid "Artist/performer"
 msgstr "演奏者/出演者"
 
-#: ../src/picture.c:834
+#: ../src/picture.c:830
 msgid "Conductor"
 msgstr "指揮者"
 
-#: ../src/picture.c:836
+#: ../src/picture.c:832
 msgid "Band/Orchestra"
 msgstr "バンド/オーケストラ"
 
-#: ../src/picture.c:840
+#: ../src/picture.c:836
 msgid "Lyricist/text writer"
 msgstr "作詞"
 
-#: ../src/picture.c:842
+#: ../src/picture.c:838
 msgid "Recording location"
 msgstr "録音場所"
 
-#: ../src/picture.c:844
+#: ../src/picture.c:840
 msgid "During recording"
 msgstr "録音時間"
 
-#: ../src/picture.c:846
+#: ../src/picture.c:842
 msgid "During performance"
 msgstr "演奏時間"
 
-#: ../src/picture.c:848
+#: ../src/picture.c:844
 msgid "Movie/video screen capture"
 msgstr "映画/ビデオのキャプチャ"
 
-#: ../src/picture.c:850
+#: ../src/picture.c:846
 msgid "A bright coloured fish"
 msgstr "A bright coloured fish"
 
-#: ../src/picture.c:852
+#: ../src/picture.c:848
 msgid "Illustration"
 msgstr "イラスト"
 
-#: ../src/picture.c:854
+#: ../src/picture.c:850
 msgid "Band/Artist logotype"
 msgstr "バンド/演奏者のロゴ"
 
-#: ../src/picture.c:856
+#: ../src/picture.c:852
 msgid "Publisher/studio logotype"
 msgstr "販売元/スタジオのロゴ"
 
-#: ../src/picture.c:860
+#: ../src/picture.c:856
 msgid "Unknown picture type"
 msgstr "不明"
 
-#: ../src/picture.c:888 ../src/picture.c:899
+#: ../src/picture.c:885 ../src/picture.c:896
 msgid "pixels"
 msgstr "ピクセル"
 
-#: ../src/picture.c:889 ../src/picture.c:900
+#: ../src/picture.c:886 ../src/picture.c:897
 msgid "Type"
 msgstr "種類"
 
-#: ../src/picture.c:901
+#: ../src/picture.c:898
 msgid "Description"
 msgstr "説明"
 
-#: ../src/picture.c:957
+#: ../src/picture.c:954
 #, c-format
 msgid "Error with 'loader_close': %s"
 msgstr "'loader_close' のエラー: %s"
 
-#: ../src/picture.c:1015
+#: ../src/picture.c:1011
+#, fuzzy
 msgid ""
-"Can't display the picture, as not enough data has been read to determine how "
-"to create the image buffer."
+"Cannot display the picutre, as not enough data has been read to determine "
+"how to create the image buffer."
 msgstr ""
 "画像用のバッファを生成するために必要なデータを読み込むことができなかったた"
 "め、画像を表示できません。"
 
 #: ../src/picture.c:1018
-msgid "Loading Picture File..."
+msgid "Cannot display the picture"
+msgstr ""
+
+#: ../src/picture.c:1019
+#, fuzzy
+msgid ""
+"Not enough data has been read to determine how to create the image buffer"
+msgstr ""
+"画像用のバッファを生成するために必要なデータを読み込むことができなかったた"
+"め、画像を表示できません。"
+
+#: ../src/picture.c:1020
+#, fuzzy
+msgid "Load Picture File"
 msgstr "画像ファイルの読み込み中..."
 
-#: ../src/picture.c:1032
+#: ../src/picture.c:1026
 #, c-format
 msgid "Error with 'loader_write': %s"
 msgstr "'loader_write' のエラー: %s"
 
-#: ../src/picture.c:1117 ../src/picture.c:1150 ../src/picture.c:1169
+#: ../src/picture.c:1111 ../src/picture.c:1140 ../src/picture.c:1159
 #, fuzzy, c-format
-msgid "Picture file not loaded (%s)..."
+msgid "Picture file not loaded (%s)…"
 msgstr "画像ファイルを読み込んでいません..."
+
+#: ../src/picture.c:1133
+#, fuzzy, c-format
+msgid "Cannot open file: '%s'"
+msgstr "ファイル '%s' (%s) が開けません"
 
 #: ../src/picture.c:1136
-#, c-format
-msgid ""
-"Can't open file :\n"
-"'%s'!\n"
-"(%s)"
-msgstr ""
-"ファイルを開けません:\n"
-"'%s'\n"
-"(%s)"
-
-#: ../src/picture.c:1181
 #, fuzzy
-msgid "Picture file loaded..."
+msgid "Picture File Error"
 msgstr "画像ファイルを読み込んでいません..."
 
-#: ../src/picture.c:1197 ../src/picture.c:1204
+#: ../src/picture.c:1171
+#, fuzzy
+msgid "Picture file loaded…"
+msgstr "画像ファイルを読み込んでいません..."
+
+#: ../src/picture.c:1187 ../src/picture.c:1194
 #, fuzzy, c-format
-msgid "Picture file can't be saved (%s)..."
+msgid "Picture file can't be saved (%s)…"
 msgstr "画像ファイルを読み込んでいません..."
-
-#. Title
-#: ../src/prefs.c:117
-msgid "Preferences..."
-msgstr "設定..."
 
 #. File Browser frame
 #: ../src/prefs.c:153
@@ -3510,9 +3613,10 @@ msgid ""
 msgstr "起動時にデフォルトのファルダや起動引数のフォルダを読み込む"
 
 #: ../src/prefs.c:201
+#, fuzzy
 msgid ""
 "Automatically search files, when EasyTAG starts, into the default directory. "
-"Note that this path may be overriden by the parameter passed to easytag "
+"Note that this path may be overridden by the parameter passed to easytag "
 "(easytag /path_to/mp3_files)."
 msgstr ""
 "EasyTAG の起動時に、デフォルトのフォルダにあるファイルを自動的に検索します。"
@@ -3556,13 +3660,15 @@ msgstr "ユーザ・インタフェース"
 
 #. Show header infos
 #: ../src/prefs.c:252
-msgid "Show header informations of file"
+#, fuzzy
+msgid "Show header information of file"
 msgstr "ファイルのヘッダ情報を表示する"
 
 #: ../src/prefs.c:255
+#, fuzzy
 msgid ""
-"If activated, informations about the file as the bitrate, the time, the "
-"size, will be displayed under the filename entry."
+"If activated, information about the file as the bitrate, the time, the size, "
+"will be displayed under the filename entry."
 msgstr ""
 "これを有効にすると、ファイルの情報 (ビットレート、演奏時間、サイズ) がファイ"
 "ル名の下に表示されます"
@@ -3767,10 +3873,11 @@ msgid "Replace illegal characters in filename (for Windows and CD-Rom)"
 msgstr "ファイル名にある不正な文字を置き換える (Windows と CD-ROM 向け)"
 
 #: ../src/prefs.c:466
+#, fuzzy
 msgid ""
 "Convert illegal characters for FAT32/16 and ISO9660 + Joliet filesystems "
 "('\\', ':', ';', '*', '?', '\"', '<', '>', '|') of the filename to avoid "
-"problem when renaming the file. This is usefull when renaming the file from "
+"problem when renaming the file. This is useful when renaming the file from "
 "the tag with the scanner."
 msgstr ""
 "ファイル名を変更する場合に発生する問題を回避するために、ファイル名にある "
@@ -3825,12 +3932,13 @@ msgid ""
 msgstr "親フォルダの更新時刻を更新する (Amarokを使う場合推奨)"
 
 #: ../src/prefs.c:507
+#, fuzzy
 msgid ""
 "The modification time of the parent directory of the file will be updated "
 "when saving tag the file. At the present time it is automatically done only "
 "when renaming a file.\n"
 "This feature is interesting when using applications like Amarok. For "
-"performance reasons, they refresh file informations by detecting changes of "
+"performance reasons, they refresh file information by detecting changes of "
 "the parent directory."
 msgstr ""
 "タグの保存時にも、親フォルダの更新時刻を更新します。今はファイル名が変更され"
@@ -3853,7 +3961,8 @@ msgstr ""
 "合に適用するルールです"
 
 #: ../src/prefs.c:539
-msgid "Try an other character encoding"
+#, fuzzy
+msgid "Try another character encoding"
 msgstr "別のエンコーディングを試す"
 
 #: ../src/prefs.c:543
@@ -3911,10 +4020,11 @@ msgid "Auto completion of date if not complete"
 msgstr "日付を自動的に補完する"
 
 #: ../src/prefs.c:590
+#, fuzzy
 msgid ""
 "Try to complete the year field if you enter only the last numerals of the "
 "date (for instance, if the current year is 2005: 5 => 2005, 4 => 2004, 6 => "
-"1996, 95 => 1995, ...)."
+"1996, 95 => 1995 …)."
 msgstr ""
 "入力した日付の最後が数字の場合、年を自動的に補完してみます (例: 現在の年が "
 "2005 年の場合、5 => 2005、4 => 2004、6 => 1996、95 => 1995)"
@@ -3924,10 +4034,11 @@ msgid "Write the track field with the following number of digits :"
 msgstr "トラック番号に書き込む二桁の数値:"
 
 #: ../src/prefs.c:600
+#, fuzzy
 msgid ""
 "If activated, the track field is written using the number '0' as padding to "
-"obtain a number with 'n' digits (Ex. with two digits : '05', '09', "
-"'10',...). Else it keeps the 'raw' track value."
+"obtain a number with 'n' digits (Ex. with two digits : '05', '09', '10' …). "
+"Else it keeps the 'raw' track value."
 msgstr ""
 "これを有効にすると、トラック番号に '0' でパディングされた数値 'n' (例: 二桁の"
 "数値で指定: '05'、'09'、'10'...) が付与されます (それ以外は実際のトラック・"
@@ -4009,11 +4120,12 @@ msgid "Strip tags if all fields are set to blank"
 msgstr "タグの全てのフィールドが空白の場合は削除する"
 
 #: ../src/prefs.c:728
+#, fuzzy
 msgid ""
 "As ID3v2 tags may contain other data than Title, Artist, Album, Year, Track, "
-"Genre or Comment (as an attached picture, lyrics, ...), this option allows "
-"you to strip the whole tag when these seven standard data fields have been "
-"set to blank."
+"Genre or Comment (as an attached picture, lyrics …), this option allows you "
+"to strip the whole tag when these seven standard data fields have been set "
+"to blank."
 msgstr ""
 "ID3v2 タグがタイトル、演奏者、アルバム名、制作年、トラック、ジャンル、コメン"
 "ト (ジャケットの画像や歌詞など) 以外のデータを含んでいるため、このオプション"
@@ -4174,7 +4286,8 @@ msgid "Character Set for reading ID3 tags"
 msgstr "ID3 タグ読み込み時の文字セット"
 
 #: ../src/prefs.c:972
-msgid "Non-standart:"
+#, fuzzy
+msgid "Non-standard:"
 msgstr "規格外:"
 
 #: ../src/prefs.c:977
@@ -4533,25 +4646,35 @@ msgstr "設定が保存されました"
 msgid "Configuration unchanged"
 msgstr "設定が変更されませんでした"
 
-#: ../src/prefs.c:1803
-#, c-format
-msgid ""
-" The selected path for 'Default path to files' isn't valid!\n"
-"'%s'\n"
-"(%s) "
+#: ../src/prefs.c:1808
+#, fuzzy
+msgid " The selected path for 'Default path to files' is invalid"
 msgstr ""
 " 'デフォルトパス名' に指定したパス名が正しくありません！\n"
 "'%s'\n"
 "(%s) "
 
-#: ../src/prefs.c:1805
-msgid "Not a directory"
-msgstr "フォルダではありません"
-
-#: ../src/prefs.c:1921
+#: ../src/prefs.c:1809
 #, c-format
-msgid "The audio file player '%s' can't be found!"
+msgid ""
+"Path: '%s'\n"
+"Error: %s"
+msgstr ""
+
+#: ../src/prefs.c:1810
+#, fuzzy
+msgid "Invalid Path Error"
+msgstr "タグのバージョンが正しくありません"
+
+#: ../src/prefs.c:1922
+#, fuzzy, c-format
+msgid "The audio file player '%s' cannot be found"
 msgstr "オーディオ・プレイヤー '%s' が見つかりません！"
+
+#: ../src/prefs.c:1924
+#, fuzzy
+msgid "Audio Player Error"
+msgstr "オーディオ・プレイヤーの起動"
 
 #: ../src/scan.c:180
 msgid "Fill Tag"
@@ -4565,78 +4688,75 @@ msgstr "ファイル名とフォルダ名の変更"
 msgid "Process Fields"
 msgstr "フィールドを編集する"
 
-#: ../src/scan.c:365
-msgid "Tag successfully scanned..."
+#: ../src/scan.c:362
+#, fuzzy
+msgid "Tag successfully scanned…"
 msgstr "タグのスキャンが完了しました..."
 
-#: ../src/scan.c:367
-#, c-format
-msgid "Tag successfully scanned...(%s)"
+#: ../src/scan.c:364
+#, fuzzy, c-format
+msgid "Tag successfully scanned…(%s)"
 msgstr "タグのスキャンが成功しました...(%s)"
 
-#: ../src/scan.c:407
+#: ../src/scan.c:404
 #, fuzzy, c-format
 msgid ""
-"Tag scanner: strange..., the extension '%s' was not found into filename '%s'!"
+"Tag scanner: strange… the extension '%s' was not found in filename '%s'!"
 msgstr "Tag scanner: 拡張子 '%s' は ファイル名 '%s' の中に見つかりません！"
 
-#: ../src/scan.c:489 ../src/scan.c:518
+#: ../src/scan.c:486 ../src/scan.c:515
 #, c-format
 msgid "Scan Error: can't find separator '%s' within '%s'"
 msgstr "スキャンエラー: セパレータ '%s' ('%s' の中にある) が見つかりません"
 
-#: ../src/scan.c:675
-#, c-format
-msgid "Could not convert filename '%s' into system filename encoding."
-msgstr "ファイル '%s' をシステムのエンコーディングに変換できませんでした"
-
-#: ../src/scan.c:705
-msgid "New file name successfully scanned..."
+#: ../src/scan.c:700
+#, fuzzy
+msgid "New file name successfully scanned…"
 msgstr "新しいファイル名のスキャンが完了しました..."
 
-#: ../src/scan.c:708
-#, c-format
-msgid "New file name successfully scanned...(%s)"
+#: ../src/scan.c:703
+#, fuzzy, c-format
+msgid "New file name successfully scanned…(%s)"
 msgstr "新しいファイル名のスキャンが完了しました...(%s)"
 
 #. The init position is define below, cause the scanner window must be showed before
 #. * to be able to move it.
 #. Title
-#: ../src/scan.c:2352
+#: ../src/scan.c:2347
 msgid "Tag and File Name scan"
 msgstr "タグとファイル名のスキャン"
 
 #. Option Menu
-#: ../src/scan.c:2371
+#: ../src/scan.c:2366
 msgid "Scanner:"
 msgstr "スキャナ :"
 
 #. Selection of the item made at the end of the function
-#: ../src/scan.c:2393
+#: ../src/scan.c:2388
 msgid "Select the type of scanner to use"
 msgstr "使用するスキャナのタイプを選択して下さい"
 
-#: ../src/scan.c:2402
+#: ../src/scan.c:2397
 msgid "Open scanner window / Scan selected files"
 msgstr "スキャナ・ウィンドを開くか、指定したファイルをスキャンします"
 
-#: ../src/scan.c:2415
+#: ../src/scan.c:2410
 msgid "Scanner Options"
 msgstr "スキャナに関連するオプションです"
 
-#: ../src/scan.c:2424
+#: ../src/scan.c:2419
 msgid "Show / Hide Masks Editor"
 msgstr "マスクエディタの表示を ON/OFF します"
 
-#: ../src/scan.c:2434
+#: ../src/scan.c:2429
 msgid "Show / Hide Legend"
 msgstr "凡例の表示を ON/OFF します"
 
-#: ../src/scan.c:2444
+#: ../src/scan.c:2439
 msgid "Close this window"
 msgstr "このウィンドウを閉じます"
 
-#: ../src/scan.c:2472
+#: ../src/scan.c:2467
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse file name and "
 "path. Used to fill in tag fields."
@@ -4645,15 +4765,16 @@ msgstr ""
 "選択または入力して下さい (タグフィールドを埋めるときに使用します)"
 
 #. Preview label
-#: ../src/scan.c:2498
-msgid "Fill tag preview..."
+#: ../src/scan.c:2493
+#, fuzzy
+msgid "Fill tag preview…"
 msgstr "タグの埋め込みのプレビュー..."
 
-#: ../src/scan.c:2525
+#: ../src/scan.c:2520
 msgid "Prefix mask with current path"
 msgstr "このパスをマスクする接頭子"
 
-#: ../src/scan.c:2538
+#: ../src/scan.c:2533
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse tag fields. Used "
 "to rename the file.\n"
@@ -4666,15 +4787,16 @@ msgstr ""
 "て扱い、それ以外は相対パスとして扱います"
 
 #. Preview label
-#: ../src/scan.c:2565
-msgid "Rename file preview..."
+#: ../src/scan.c:2560
+#, fuzzy
+msgid "Rename file preview…"
 msgstr "ファイル名変更のプレビュー..."
 
-#: ../src/scan.c:2585
+#: ../src/scan.c:2580
 msgid "Select fields:"
 msgstr "フィールドの選択:"
 
-#: ../src/scan.c:2588
+#: ../src/scan.c:2583
 msgid ""
 "The buttons on the right represent the fields which can be processed. Select "
 "those who interest you."
@@ -4683,136 +4805,136 @@ msgstr ""
 "下さい。"
 
 #. Advice for Translators : set the first letter of filename translated
-#: ../src/scan.c:2591
+#: ../src/scan.c:2586
 msgid "F"
 msgstr "F"
 
-#: ../src/scan.c:2592
+#: ../src/scan.c:2587
 msgid "Process file name field"
 msgstr "プロセスファイル名・フィールド"
 
 #. Advice for Translators : set the first letter of title translated
-#: ../src/scan.c:2594
+#: ../src/scan.c:2589
 msgid "T"
 msgstr "T"
 
-#: ../src/scan.c:2595
+#: ../src/scan.c:2590
 msgid "Process title field"
 msgstr "プロセスタイトル・フィールド"
 
 #. Advice for Translators : set the first letter of artist translated
-#: ../src/scan.c:2597
+#: ../src/scan.c:2592
 msgid "Ar"
 msgstr "Ar"
 
-#: ../src/scan.c:2598
+#: ../src/scan.c:2593
 msgid "Process file artist field"
 msgstr "プロセスファイル・演奏者フィールド"
 
 #. Advice for Translators : set the first letter of album artist translated
-#: ../src/scan.c:2600
+#: ../src/scan.c:2595
 msgid "AA"
 msgstr ""
 
-#: ../src/scan.c:2601
+#: ../src/scan.c:2596
 #, fuzzy
 msgid "Process album artist field"
 msgstr "プロセスファイル・演奏者フィールド"
 
 #. Advice for Translators : set the first letter of album translated
-#: ../src/scan.c:2603
+#: ../src/scan.c:2598
 msgid "Al"
 msgstr "Al"
 
-#: ../src/scan.c:2604
+#: ../src/scan.c:2599
 msgid "Process album field"
 msgstr "プロセスアルバム・フィールド"
 
 #. Advice for Translators : set the first letter of genre translated
-#: ../src/scan.c:2606
+#: ../src/scan.c:2601
 msgid "G"
 msgstr "G"
 
-#: ../src/scan.c:2607
+#: ../src/scan.c:2602
 msgid "Process genre field"
 msgstr "プロセス・ジャンル・フィールド"
 
 #. Advice for Translators : set the first letter of comment translated
-#: ../src/scan.c:2609
+#: ../src/scan.c:2604
 msgid "Cm"
 msgstr "Cm"
 
-#: ../src/scan.c:2610
+#: ../src/scan.c:2605
 msgid "Process comment field"
 msgstr "プロセスコメント・フィールド"
 
 #. Advice for Translators : set the first letter of composer translated
-#: ../src/scan.c:2612
+#: ../src/scan.c:2607
 msgid "Cp"
 msgstr "Cp"
 
-#: ../src/scan.c:2613
+#: ../src/scan.c:2608
 msgid "Process composer field"
 msgstr "プロセス・コンポーザ・フィールド"
 
 #. Advice for Translators : set the first letter of orig artist translated
-#: ../src/scan.c:2615
+#: ../src/scan.c:2610
 msgid "O"
 msgstr "O"
 
-#: ../src/scan.c:2616
+#: ../src/scan.c:2611
 msgid "Process original artist field"
 msgstr "プロセス・オリジナルの演奏者フィールド"
 
 #. Advice for Translators : set the first letter of copyright translated
-#: ../src/scan.c:2618
+#: ../src/scan.c:2613
 msgid "Cr"
 msgstr "Cr"
 
-#: ../src/scan.c:2619
+#: ../src/scan.c:2614
 msgid "Process copyright field"
 msgstr "プロセス・ライセンス・フィールド"
 
 #. Advice for Translators : set the first letter of URL translated
-#: ../src/scan.c:2621
+#: ../src/scan.c:2616
 msgid "U"
 msgstr "U"
 
-#: ../src/scan.c:2622
+#: ../src/scan.c:2617
 msgid "Process URL field"
 msgstr "プロセス URL フィールド"
 
 #. Advice for Translators : set the first letter of encoder name translated
-#: ../src/scan.c:2624
+#: ../src/scan.c:2619
 msgid "E"
 msgstr "E"
 
-#: ../src/scan.c:2625
+#: ../src/scan.c:2620
 msgid "Process encoder name field"
 msgstr "プロセス・エンコーディング・フィールド"
 
-#: ../src/scan.c:2674
+#: ../src/scan.c:2669
 msgid "Invert Selection"
 msgstr "選択範囲の反転"
 
-#: ../src/scan.c:2683
+#: ../src/scan.c:2678
 msgid "Select/Unselect All."
 msgstr "全て選択/選択解除"
 
 #. Group: character conversion
-#: ../src/scan.c:2690
+#: ../src/scan.c:2685
 msgid "Convert '_' and '%20' to ' '"
 msgstr "'_' と '%20' を ' ' に変換する"
 
-#: ../src/scan.c:2696
+#: ../src/scan.c:2691
 msgid "Convert:"
 msgstr "変換 :"
 
-#: ../src/scan.c:2698
+#: ../src/scan.c:2693
 msgid "to: "
 msgstr "→"
 
-#: ../src/scan.c:2727
+#: ../src/scan.c:2722
 msgid ""
 "The underscore character or the string '%20' are replaced by one space. "
 "Example, before: 'Text%20In%20An_Entry', after: 'Text In An Entry'."
@@ -4820,7 +4942,7 @@ msgstr ""
 "アンダースコアまたは文字列 %20 を一つのスペースに置き換えます (例: 変換前"
 "='Text%20In%20An_Entry' 変換後='Text In An Entry')"
 
-#: ../src/scan.c:2730
+#: ../src/scan.c:2725
 msgid ""
 "The space character is replaced by one underscore character. Example, "
 "before: 'Text In An Entry', after: 'Text_In_An_Entry'."
@@ -4828,16 +4950,17 @@ msgstr ""
 "スペースを一つのアンダースコアに置き換えます (例: 変換前='Text In An Entry' "
 "変換後='Text_In_An_Entry')"
 
-#: ../src/scan.c:2733
+#: ../src/scan.c:2728
+#, fuzzy
 msgid ""
-"Replace a string by an other one. Note that the search is case sensitive."
+"Replace a string by another one. Note that the search is case sensitive."
 msgstr "文字列を逐次置換します。大文字と小文字は区別されます。"
 
-#: ../src/scan.c:2746
+#: ../src/scan.c:2741
 msgid "Detect Roman numerals"
 msgstr "ローマ数字を検出します"
 
-#: ../src/scan.c:2773
+#: ../src/scan.c:2768
 msgid ""
 "Convert all words in all fields to upper case. Example, before: 'Text IN AN "
 "entry', after: 'TEXT IN AN ENTRY'."
@@ -4845,7 +4968,7 @@ msgstr ""
 "全てのフィールドの全ての文字を大文字に変換します (例: 変換前='Text IN AN "
 "entry' 変換後='TEXT IN AN ENTRY')"
 
-#: ../src/scan.c:2776
+#: ../src/scan.c:2771
 msgid ""
 "Convert all words in all fields to lower case. Example, before: 'TEXT IN an "
 "entry', after: 'text in an entry'."
@@ -4853,7 +4976,7 @@ msgstr ""
 "全てのフィールドの全ての文字を小文字に変換します (例: 変換前='TEXT IN an "
 "entry' 変換後='text in an entry')"
 
-#: ../src/scan.c:2779
+#: ../src/scan.c:2774
 msgid ""
 "Convert the initial of the first word in all fields to upper case. Example, "
 "before: 'text IN An ENTRY', after: 'Text in an entry'."
@@ -4861,7 +4984,7 @@ msgstr ""
 "全てのフィールドの最初の文字を大文字に、その他の文字を小文字置き換えます "
 "(例: 変換前='text IN An ENTRY' 変換後='Text in an entry')"
 
-#: ../src/scan.c:2782
+#: ../src/scan.c:2777
 msgid ""
 "Convert the initial of each word in all fields to upper case. Example, "
 "before: 'Text in an ENTRY', after: 'Text In An Entry'."
@@ -4869,7 +4992,7 @@ msgstr ""
 "全てのフィールドの各単語の最初の文字を大文字に、その他の文字を小文字に置き換"
 "えます (例: 変換前='Text in an ENTRY' 変換後='Text In An Entry')"
 
-#: ../src/scan.c:2785
+#: ../src/scan.c:2780
 msgid ""
 "Force to convert to upper case the Roman numerals. Example, before: 'ix. "
 "text in an entry', after: 'IX. Text In An Entry'."
@@ -4877,15 +5000,15 @@ msgstr ""
 "小文字のローマ数字を大文字に変換します。例えば、 'ix. text in an entry' は "
 "'IX. Text In An Entry' となります。"
 
-#: ../src/scan.c:2794
+#: ../src/scan.c:2789
 msgid "Insert a space before an uppercase letter"
 msgstr "大文字の前にスペースを挿入する"
 
-#: ../src/scan.c:2795
+#: ../src/scan.c:2790
 msgid "Remove duplicates of space or underscore"
 msgstr "重複するスペースまたはアンダースコアを削除する"
 
-#: ../src/scan.c:2813
+#: ../src/scan.c:2808
 msgid ""
 "All spaces between words are removed. Example, before: 'Text In An Entry', "
 "after: 'TextInAnEntry'."
@@ -4893,7 +5016,7 @@ msgstr ""
 "単語間にあるスペースを全て削除します (例: 変換前='Text In An Entry' 変換後"
 "='TextInAnEntry')"
 
-#: ../src/scan.c:2816
+#: ../src/scan.c:2811
 msgid ""
 "A space is inserted before each upper case letter. Example, before: "
 "'TextInAnEntry', after: 'Text In An Entry'."
@@ -4901,7 +5024,7 @@ msgstr ""
 "各大文字の前にスペースを挿入します (例: 変換前='TextInAnEntry' 変換後='Text "
 "In An Entry')"
 
-#: ../src/scan.c:2819
+#: ../src/scan.c:2814
 msgid ""
 "Duplicated spaces or underscores are removed. Example, before: "
 "'Text__In__An   Entry', after: 'Text_In_An Entry'."
@@ -4912,137 +5035,137 @@ msgstr ""
 #.
 #. * Frame to display codes legend
 #.
-#: ../src/scan.c:2826
+#: ../src/scan.c:2821
 msgid "Legend"
 msgstr "凡例"
 
-#: ../src/scan.c:2832
+#: ../src/scan.c:2827
 #, c-format
 msgid "%a : artist"
 msgstr "%a : 演奏者"
 
-#: ../src/scan.c:2835
+#: ../src/scan.c:2830
 #, fuzzy
 msgid "%z : album artist"
 msgstr "%a : 演奏者"
 
-#: ../src/scan.c:2838
+#: ../src/scan.c:2833
 msgid "%b : album"
 msgstr "%b : アルバム"
 
-#: ../src/scan.c:2841
+#: ../src/scan.c:2836
 #, c-format
 msgid "%c : comment"
 msgstr "%c : コメント"
 
-#: ../src/scan.c:2844
+#: ../src/scan.c:2839
 #, c-format
 msgid "%p : composer"
 msgstr "%p : コンポーザ"
 
-#: ../src/scan.c:2847
+#: ../src/scan.c:2842
 msgid "%r : copyright"
 msgstr "%r : ライセンス"
 
-#: ../src/scan.c:2850
+#: ../src/scan.c:2845
 #, c-format
 msgid "%d : disc number"
 msgstr "%d : ディスクの番号"
 
-#: ../src/scan.c:2853
+#: ../src/scan.c:2848
 #, c-format
 msgid "%e : encoded by"
 msgstr "%e : エンコーディング"
 
-#: ../src/scan.c:2856
+#: ../src/scan.c:2851
 #, c-format
 msgid "%g : genre"
 msgstr "%g : ジャンル"
 
-#: ../src/scan.c:2859
+#: ../src/scan.c:2854
 #, c-format
 msgid "%i : ignored"
 msgstr "%i : 無視"
 
-#: ../src/scan.c:2862
+#: ../src/scan.c:2857
 msgid "%l : number of tracks"
 msgstr "%l : トラック番号"
 
-#: ../src/scan.c:2865
+#: ../src/scan.c:2860
 #, c-format
 msgid "%o : orig. artist"
 msgstr "%o : 演奏者"
 
-#: ../src/scan.c:2868
+#: ../src/scan.c:2863
 #, c-format
 msgid "%n : track"
 msgstr "%n : トラック"
 
-#: ../src/scan.c:2871
+#: ../src/scan.c:2866
 msgid "%t : title"
 msgstr "%t : タイトル"
 
-#: ../src/scan.c:2874
+#: ../src/scan.c:2869
 #, c-format
 msgid "%u : URL"
 msgstr "%u : URL"
 
-#: ../src/scan.c:2877
+#: ../src/scan.c:2872
 msgid "%y : year"
 msgstr "%y : 制作年"
 
 #.
 #. * Masks Editor
 #.
-#: ../src/scan.c:2884
+#: ../src/scan.c:2879
 msgid "Mask Editor"
 msgstr "マスク・エディタ"
 
-#: ../src/scan.c:2941
+#: ../src/scan.c:2936
 msgid "Create New Mask"
 msgstr "新しいマスクを作成します"
 
-#: ../src/scan.c:2951
+#: ../src/scan.c:2946
 msgid "Move Up this Mask"
 msgstr "このマスクを上に移動します"
 
-#: ../src/scan.c:2961
+#: ../src/scan.c:2956
 msgid "Move Down this Mask"
 msgstr "このマスクを下に移動します"
 
-#: ../src/scan.c:2971
+#: ../src/scan.c:2966
 msgid "Duplicate Mask"
 msgstr "マスクの複製を作成します"
 
-#: ../src/scan.c:2981
+#: ../src/scan.c:2976
 msgid "Add Default Masks"
 msgstr "デフォルト・マスクを追加します"
 
-#: ../src/scan.c:2991
+#: ../src/scan.c:2986
 msgid "Remove Mask"
 msgstr "マスクを削除します"
 
-#: ../src/scan.c:3001
+#: ../src/scan.c:2996
 msgid "Save Masks"
 msgstr "マスクを保存します"
 
-#: ../src/scan.c:3594
+#: ../src/scan.c:3589
 msgid "New_mask"
 msgstr "新しいマスク"
 
-#: ../src/scan.c:3632
+#: ../src/scan.c:3627
 msgid "Copy: No row selected!"
 msgstr "複製: マスクが選択されていません！"
 
-#: ../src/scan.c:3738
+#: ../src/scan.c:3733
 msgid "Remove: No row selected!"
 msgstr "削除: マスクが選択されていません！"
 
-#: ../src/scan.c:3785
+#: ../src/scan.c:3780
 msgid "Move Up: No row selected!"
 msgstr "上に移動: マスクが選択されていません！"
 
-#: ../src/scan.c:3838
+#: ../src/scan.c:3833
 msgid "Move Down: No row selected!"
 msgstr "下に移動: マスクが選択されていません！"
 
@@ -5057,7 +5180,8 @@ msgid "Can't open configuration file '%s' (%s)"
 msgstr "設定ファイル '%s' を開けません (%s)"
 
 #: ../src/setting.c:1083
-msgid "Loading default configuration..."
+#, fuzzy
+msgid "Loading default configuration…"
 msgstr "デフォルトの設定をロード中..."
 
 #: ../src/setting.c:1196 ../src/setting.c:1203 ../src/setting.c:1210
@@ -5077,17 +5201,20 @@ msgstr "エラー: 一覧をファイルに書き込めません: %s (%s)"
 
 #. Fall back to defaults
 #: ../src/setting.c:1435
-msgid "Loading default 'Fill Tag' masks..."
+#, fuzzy
+msgid "Loading default 'Fill Tag' masks…"
 msgstr "デフォルトの 'タグを埋める' マスクをロード中..."
 
 #. Fall back to defaults
 #: ../src/setting.c:1463
-msgid "Loading default 'Rename File' masks..."
+#, fuzzy
+msgid "Loading default 'Rename File' masks…"
 msgstr "デフォルトの 'ファイル名変更' マスクをロード中..."
 
 #. Fall back to defaults
 #: ../src/setting.c:1490
-msgid "Loading default 'Rename Directory' masks..."
+#, fuzzy
+msgid "Loading default 'Rename Directory' masks…"
 msgstr "デフォルトの 'フォルダ名変更' マスクをロード中..."
 
 #: ../src/setting.c:1684
@@ -5132,7 +5259,8 @@ msgid "EOF before end of vorbis headers."
 msgstr "Vorbis ヘッダが終了する前に EOF があります。"
 
 #: ../src/vcedit.c:584
-msgid "Corrupt or missing data, continuing..."
+#, fuzzy
+msgid "Corrupt or missing data, continuing…"
 msgstr "データがおかしいか存在しません。続行します..."
 
 #: ../src/vcedit.c:621
@@ -5200,6 +5328,148 @@ msgstr ""
 msgid "Audio player: '%s'"
 msgstr "オーディオ・プレイヤー: '%s'"
 
+#~ msgid "About..."
+#~ msgstr "情報..."
+
+#~ msgid "Rename Directory ..."
+#~ msgstr "フォルダ名の変更..."
+
+#~ msgid "_Rename File(s) and Directory ..."
+#~ msgstr "ファイル名とフォルダ名の変更(_R)..."
+
+#~ msgid "Rename File(s) and Directory ..."
+#~ msgstr "ファイル名とフォルダ名を変更します..."
+
+#~ msgid "CD Data _Base Search ..."
+#~ msgstr "CDデータベースの検索(_B)..."
+
+#~ msgid "Write Playlist ..."
+#~ msgstr "演奏一覧の書き込み..."
+
+#~ msgid "Preferences ..."
+#~ msgstr "設定..."
+
+#, fuzzy
+#~ msgid "... file(s)"
+#~ msgstr "%u 個のファイル"
+
+#~ msgid "File(s) not renamed..."
+#~ msgstr "ファイル名は変更されませんでした..."
+
+#~ msgid "File(s) renamed..."
+#~ msgstr "ファイル名が変更されました..."
+
+#~ msgid "File(s) not moved..."
+#~ msgstr "ファイルは移動しませんでした..."
+
+#, fuzzy
+#~ msgid "Picture file not loaded (%s)..."
+#~ msgstr "画像ファイルを読み込んでいません..."
+
+#~ msgid "Confirm..."
+#~ msgstr "確認..."
+
+#~ msgid ""
+#~ "Some files have been modified but not saved...\n"
+#~ "Do you want to save them before changing the directory?"
+#~ msgstr ""
+#~ "いくつかのファイルを変更しましたが、保存していません...\n"
+#~ "フォルダを移動する前に保存しますか？"
+
+#~ msgid "Error..."
+#~ msgstr "エラー..."
+
+#~ msgid ""
+#~ "Could not convert '%s' into filename encoding. Please use another name."
+#~ msgstr ""
+#~ "'%s' をファイル名のエンコーディングに変換できませんでした。別の名前を指定"
+#~ "して下さい。"
+
+#~ msgid ""
+#~ "Can't rename because this directory name already exists!\n"
+#~ "(%s)"
+#~ msgstr ""
+#~ "このフォルダ名が既に存在しているので、名前を変更できません！\n"
+#~ "(%s)"
+
+#~ msgid ""
+#~ "Can't rename directory \n"
+#~ "'%s'\n"
+#~ " to \n"
+#~ "'%s'!\n"
+#~ "(%s)"
+#~ msgstr ""
+#~ "フォルダ名を変更できません！\n"
+#~ "'%s'\n"
+#~ " =>\n"
+#~ "'%s'\n"
+#~ "(%s)"
+
+#~ msgid "Write Tag..."
+#~ msgstr "タグの書き込み中..."
+
+#~ msgid "Rename File and Directory..."
+#~ msgstr "ファイル名とフォルダ名の変更..."
+
+#~ msgid ""
+#~ "Can't rename file \n"
+#~ "'%s'\n"
+#~ "because the following file already exists:\n"
+#~ "'%s'"
+#~ msgstr ""
+#~ "ファイル名を変更できません:\n"
+#~ "'%s'\n"
+#~ "次のファイルは既に存在していますからです:\n"
+#~ "'%s'"
+
+#~ msgid ""
+#~ "Can't create target directory\n"
+#~ "'%s'!\n"
+#~ "(%s)"
+#~ msgstr ""
+#~ "変更するフォルダを生成できません\n"
+#~ "'%s'\n"
+#~ "(%s)"
+
+#~ msgid "Delete File..."
+#~ msgstr "ファイルの削除..."
+
+#~ msgid "Not a directory"
+#~ msgstr "フォルダではありません"
+
+#~ msgid "Warning..."
+#~ msgstr "警告..."
+
+#~ msgid ""
+#~ "The path for 'Local CD Data Base' wasn't defined!\n"
+#~ "Fill it in the preferences window before to use this search."
+#~ msgstr ""
+#~ "ローカル CD データベースのパスが未設定です！\n"
+#~ "この検索の前に設定ウィンドウで設定してください。"
+
+#, fuzzy
+#~ msgid "Saving File(s)..."
+#~ msgstr "ファイルを検索します..."
+
+#~ msgid ""
+#~ "Some files have been modified but not saved...\n"
+#~ "Do you want to save them before exiting the program?"
+#~ msgstr ""
+#~ "いくつかのファイルを変更しましたが、保存していません...\n"
+#~ "プログラムを終了する前に保存しますか？"
+
+#~ msgid "Save file..."
+#~ msgstr "ファイルの保存..."
+
+#~ msgid ""
+#~ "Can't open file :\n"
+#~ "'%s'!\n"
+#~ "(%s)"
+#~ msgstr ""
+#~ "ファイルを開けません:\n"
+#~ "'%s'\n"
+#~ "(%s)"
+
 #~ msgid "Files have been partially saved..."
 #~ msgstr "ファイルの一部が保存されました..."
 
@@ -5215,17 +5485,11 @@ msgstr "オーディオ・プレイヤー: '%s'"
 #~ msgid " Apply "
 #~ msgstr " 適用 "
 
-#~ msgid " Save "
-#~ msgstr " 保存 "
-
 #~ msgid " Cancel "
 #~ msgstr " キャンセル "
 
 #~ msgid " Close "
 #~ msgstr " 閉じる "
-
-#~ msgid " Write "
-#~ msgstr " 書き込み "
 
 #~ msgid " Execute "
 #~ msgstr " 実行 "
