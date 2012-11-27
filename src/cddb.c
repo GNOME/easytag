@@ -593,7 +593,7 @@ void Open_Cddb_Window (void)
     /*
      * Result of search
      */
-    CddbWindowHPaned = gtk_hpaned_new();
+    CddbWindowHPaned = gtk_paned_new(GTK_ORIENTATION_HORIZONTAL);
     gtk_box_pack_start(GTK_BOX(VBox),CddbWindowHPaned,TRUE,TRUE,0);
     gtk_paned_set_position(GTK_PANED(CddbWindowHPaned),CDDB_PANE_HANDLE_POSITION);
 

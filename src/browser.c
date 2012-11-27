@@ -3207,7 +3207,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
      * The ScrollWindows with the Artist and Album Lists
      */
 
-    ArtistAlbumVPaned = gtk_vpaned_new();
+    ArtistAlbumVPaned = gtk_paned_new(GTK_ORIENTATION_VERTICAL);
 
     Label = gtk_label_new(_("Artist & Album"));
     gtk_notebook_append_page(GTK_NOTEBOOK(BrowserNoteBook),ArtistAlbumVPaned,Label);
@@ -3625,7 +3625,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     /*
      * The pane for the tree and list
      */
-    BrowserHPaned = gtk_hpaned_new();
+    BrowserHPaned = gtk_paned_new(GTK_ORIENTATION_HORIZONTAL);
     gtk_box_pack_start(GTK_BOX(VerticalBox),BrowserHPaned,TRUE,TRUE,0);
     gtk_paned_pack1(GTK_PANED(BrowserHPaned),BrowserNoteBook,TRUE,TRUE);   // Left side
     gtk_paned_pack2(GTK_PANED(BrowserHPaned),ScrollWindowFileList,TRUE,TRUE); // Right side

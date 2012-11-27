@@ -360,7 +360,7 @@ int main (int argc, char *argv[])
 
 
     /* The two panes: BrowserArea on the left, FileArea+TagArea on the right */
-    MainWindowHPaned = gtk_hpaned_new();
+    MainWindowHPaned = gtk_paned_new(GTK_ORIENTATION_HORIZONTAL);
     //gtk_box_pack_start(GTK_BOX(MainVBox),MainWindowHPaned,TRUE,TRUE,0);
     gtk_paned_set_position(GTK_PANED(MainWindowHPaned),PANE_HANDLE_POSITION1);
     gtk_widget_show(MainWindowHPaned);
@@ -383,7 +383,7 @@ int main (int argc, char *argv[])
     gtk_box_pack_start(GTK_BOX(VBox),TagArea,FALSE,FALSE,0);
 
     /* Vertical pane for Browser Area + FileArea + TagArea */
-    MainWindowVPaned = gtk_vpaned_new();
+    MainWindowVPaned = gtk_paned_new(GTK_ORIENTATION_VERTICAL);
     gtk_box_pack_start(GTK_BOX(MainVBox),MainWindowVPaned,TRUE,TRUE,0);
     gtk_paned_pack1(GTK_PANED(MainWindowVPaned),MainWindowHPaned,TRUE,FALSE);
     gtk_paned_set_position(GTK_PANED(MainWindowVPaned),PANE_HANDLE_POSITION4);

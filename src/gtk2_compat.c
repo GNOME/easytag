@@ -33,4 +33,12 @@ GtkWidget *gtk_button_box_new(GtkOrientation orientation)
         return gtk_hbutton_box_new();
     return gtk_vbutton_box_new();
 }
+
+GtkWidget *gtk_paned_new(GtkOrientation orientation)
+{
+    if (orientation==GTK_ORIENTATION_HORIZONTAL)
+        return gtk_hpaned_new();
+    return gtk_vpaned_new();
+}
+
 #endif /* !GTK_CHECK_VERSION(3,0,0) */

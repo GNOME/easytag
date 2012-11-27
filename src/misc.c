@@ -2972,7 +2972,7 @@ void Open_Load_Filename_Window (void)
     // Load the list of files in the list widget
     Load_File_List();
 
-    vboxpaned = gtk_hpaned_new();
+    vboxpaned = gtk_paned_new(GTK_ORIENTATION_HORIZONTAL);
     gtk_paned_pack1(GTK_PANED(vboxpaned),loadedvbox,  TRUE,FALSE);
     gtk_paned_pack2(GTK_PANED(vboxpaned),filelistvbox,TRUE,FALSE);
     gtk_box_pack_start(GTK_BOX(VBox),vboxpaned,TRUE,TRUE,0);
