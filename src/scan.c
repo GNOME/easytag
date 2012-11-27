@@ -39,7 +39,6 @@
 #include "misc.h"
 #include "et_core.h"
 #include "crc32.h"
-#include "msgbox.h"
 #include "charset.h"
 
 
@@ -668,19 +667,17 @@ void Scan_Rename_File_With_Mask (ET_File *ETFile)
     filename_generated = filename_from_display(filename_generated_utf8);
     if (!filename_generated)
     {
-        GtkWidget *msgbox;
-        gchar *msg = g_strdup_printf(_("Could not convert filename '%s' into system filename encoding."), filename_generated_utf8);
-        msgbox = msg_box_new(_("Filename translation"),
-                             GTK_WINDOW(ScannerWindow),
-                             NULL,
+        GtkWidget *msgdialog;
+        msgdialog = gtk_message_dialog_new(GTK_WINDOW(ScannerWindow),
                              GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                             msg,
-                             GTK_STOCK_DIALOG_ERROR,
-                             GTK_STOCK_OK, GTK_RESPONSE_OK,
-                             NULL);
-        gtk_dialog_run(GTK_DIALOG(msgbox));
-        gtk_widget_destroy(msgbox);
-        g_free(msg);
+                             GTK_MESSAGE_ERROR,
+                             GTK_BUTTONS_CLOSE,
+                             _("Could not convert filename '%s' into system filename encoding"),
+                             filename_generated_utf8);
+        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Filename translation"));
+
+        gtk_dialog_run(GTK_DIALOG(msgdialog));
+        gtk_widget_destroy(msgdialog);
         g_free(filename_generated_utf8);
         return;
     }

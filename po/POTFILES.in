@@ -17,7 +17,6 @@ src/monkeyaudio_header.c
 src/mp4_header.c
 src/mp4_tag.c
 src/mpeg_header.c
-src/msgbox.c
 src/musepack_header.c
 src/ogg_header.c
 src/ogg_tag.c

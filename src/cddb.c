@@ -51,7 +51,6 @@
 #include "setting.h"
 #include "id3_tag.h"
 #include "setting.h"
-#include "msgbox.h"
 #include "charset.h"
 
 enum
@@ -2991,19 +2990,19 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
 
             if (!CDDB_LOCAL_PATH || strlen(CDDB_LOCAL_PATH)==0)
             {
-                GtkWidget *msgbox;
+                GtkWidget *msgdialog;
 
-                msgbox = msg_box_new(_("Local CD search..."),
-									 GTK_WINDOW(CddbWindow),
-                                     NULL,
-                                     GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-									 _("The path for 'Local CD Data Base' wasn't defined!\nFill it in the preferences "
-                                     "window before to use this search."),
-                                     GTK_STOCK_DIALOG_ERROR,
-                                     GTK_STOCK_YES, GTK_RESPONSE_YES,
-                                     NULL);
-                gtk_dialog_run(GTK_DIALOG(msgbox));
-                gtk_widget_destroy(msgbox);
+                msgdialog = gtk_message_dialog_new(GTK_WINDOW(CddbWindow),
+                                                   GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                   GTK_MESSAGE_ERROR,
+                                                   GTK_BUTTONS_CLOSE,
+                                                   "%s",
+                                                   _("The path for 'Local CD Data Base' was not defined"));
+                gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog), "%s", _("Enter it in the preferences window before using this search."));
+                gtk_window_set_title(GTK_WINDOW(msgdialog),_("Local CD search..."));
+
+                gtk_dialog_run(GTK_DIALOG(msgdialog));
+                gtk_widget_destroy(msgdialog);
                 break;
             }
             file_path = g_strconcat(CDDB_LOCAL_PATH,
@@ -3886,26 +3885,23 @@ gboolean Cddb_Set_Track_Infos_To_File_List (void)
 
     if (file_selectedcount != rows_to_loop)
     {
-        GtkWidget *msgbox;
-        gchar *msg;
+        GtkWidget *msgdialog;
         gint response;
 
-        msg = g_strdup_printf(_("Be careful, you are applying %d lines of the CDDB "
-                                "results to %d lines in the list of files!\n\nDo you want to continue ?"),
-                              rows_to_loop,file_selectedcount);
-        msgbox = msg_box_new(_("Write Tag from CDDB..."),
-							 GTK_WINDOW(CddbWindow),
-                             NULL,
-                             GTK_DIALOG_MODAL  | GTK_DIALOG_DESTROY_WITH_PARENT,
-                             msg,
-                             GTK_STOCK_DIALOG_QUESTION,
-                             GTK_STOCK_NO,  GTK_RESPONSE_NO,
-							 GTK_STOCK_YES, GTK_RESPONSE_YES,
-                             NULL);
-        response = gtk_dialog_run(GTK_DIALOG(msgbox));
-        gtk_widget_destroy(msgbox);
+        msgdialog = gtk_message_dialog_new(GTK_WINDOW(CddbWindow),
+                                           GTK_DIALOG_MODAL  | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                           GTK_MESSAGE_QUESTION,
+                                           GTK_BUTTONS_NONE,
+                                           _("You are applying %d lines of the CDDB results to %d lines in the list of files"),
+                                           rows_to_loop,
+                                           file_selectedcount);
+        gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_APPLY,GTK_RESPONSE_APPLY, NULL);
+        gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),"%s","Do you want to continue?");
+        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Write Tag from CDDB..."));
+        response = gtk_dialog_run(GTK_DIALOG(msgdialog));
+        gtk_widget_destroy(msgdialog);
 
-        if (response != GTK_RESPONSE_YES)
+        if (response != GTK_RESPONSE_APPLY)
         {
             g_list_foreach(file_iterlist, (GFunc)g_free, NULL);
             g_list_free(file_iterlist);

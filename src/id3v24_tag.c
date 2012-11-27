@@ -41,7 +41,6 @@
 #include "misc.h"
 #include "log.h"
 #include "et_core.h"
-#include "msgbox.h"
 #include "charset.h"
 
 #ifdef WIN32

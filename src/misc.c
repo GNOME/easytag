@@ -33,7 +33,6 @@
 
 #include "misc.h"
 #include "easytag.h"
-#include "msgbox.h"
 #include "id3_tag.h"
 #include "browser.h"
 #include "setting.h"
@@ -854,16 +853,16 @@ void Run_Audio_Player_Using_File_List (GList *etfilelist_init)
     // Exit if no program selected...
     if (!AUDIO_FILE_PLAYER || strlen(g_strstrip(AUDIO_FILE_PLAYER))<1)
     {
-        GtkWidget *msgbox = msg_box_new(_("Warning..."),
-										GTK_WINDOW(MainWindow),
-                                        NULL,
-			                            GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-							 			_("No audio player defined!"),
-										GTK_STOCK_DIALOG_WARNING,
-                                        GTK_STOCK_OK, GTK_RESPONSE_OK,
-                                        NULL);
-        gtk_dialog_run(GTK_DIALOG(msgbox));
-        gtk_widget_destroy(msgbox);
+        GtkWidget *msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
+                                                      GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                      GTK_MESSAGE_WARNING,
+                                                      GTK_BUTTONS_CLOSE,
+                                                      "%s",
+                                                      _("No audio player defined"));
+        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Audio Player Warning"));
+
+        gtk_dialog_run(GTK_DIALOG(msgdialog));
+        gtk_widget_destroy(msgdialog);
         
         return;
     }
@@ -1524,8 +1523,7 @@ void Playlist_Write_Button_Pressed (void)
     gchar *playlist_name_utf8;      // Path + filename
     gchar *temp;
     FILE  *file;
-    gchar *msg;
-    GtkWidget *msgbox;
+    GtkWidget *msgdialog;
     gint response = 0;
 
 
@@ -1639,19 +1637,18 @@ void Playlist_Write_Button_Pressed (void)
         if ( (file=fopen(playlist_name,"r")) != NULL )
         {
             fclose(file);
-            msg = g_strdup_printf(_("Playlist file '%s' already exists!\nOverwrite?"),playlist_basename_utf8);
-            msgbox = msg_box_new(_("Write Playlist..."),
-								 GTK_WINDOW(WritePlaylistWindow),
-                                 NULL,
-                             	 GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-							 	 msg,
-								 GTK_STOCK_DIALOG_QUESTION,
-                                 GTK_STOCK_NO,    GTK_RESPONSE_NO,
-								 GTK_STOCK_YES,   GTK_RESPONSE_YES,
-                                 NULL);
-            response = gtk_dialog_run(GTK_DIALOG(msgbox));
-            gtk_widget_destroy(msgbox);
-            g_free(msg);
+            msgdialog = gtk_message_dialog_new(GTK_WINDOW(WritePlaylistWindow),
+                                               GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                               GTK_MESSAGE_QUESTION,
+                                               GTK_BUTTONS_NONE,
+                                               _("Playlist file '%s' already exists"),
+                                               playlist_basename_utf8);
+            gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),"%s",_("Do you want to save the playlist, overwriting the existing file?"));
+            gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_SAVE,GTK_RESPONSE_YES,NULL);
+            gtk_window_set_title(GTK_WINDOW(msgdialog),_("Write Playlist"));
+
+            response = gtk_dialog_run(GTK_DIALOG(msgdialog));
+            gtk_widget_destroy(msgdialog);
         }
     }
 
@@ -1662,19 +1659,20 @@ void Playlist_Write_Button_Pressed (void)
         if ( Write_Playlist(playlist_name) == FALSE )
         {
             // Writing fails...
-            msg = g_strdup_printf(_("Can't write playlist file '%s'!\n(%s)"),playlist_name_utf8,g_strerror(errno));
-            msgbox = msg_box_new(_("Error..."),
-								 GTK_WINDOW(WritePlaylistWindow),
-                                 NULL,
-	                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-							 	 msg,
-								 GTK_STOCK_DIALOG_ERROR,
-                                 GTK_STOCK_OK, GTK_RESPONSE_OK,
-                                 NULL);
-            gtk_dialog_run(GTK_DIALOG(msgbox));
-            gtk_widget_destroy(msgbox);
+            msgdialog = gtk_message_dialog_new(GTK_WINDOW(WritePlaylistWindow),
+                                               GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                               GTK_MESSAGE_ERROR,
+                                               GTK_BUTTONS_CLOSE,
+                                               _("Cannot write playlist file '%s'"),
+                                               playlist_name_utf8);
+            gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),"%s",g_strerror(errno));
+            gtk_window_set_title(GTK_WINDOW(msgdialog),_("Playlist File Error"));
+
+            gtk_dialog_run(GTK_DIALOG(msgdialog));
+            gtk_widget_destroy(msgdialog);
         }else
         {
+            gchar *msg;
             msg = g_strdup_printf(_("Written playlist file '%s'"),playlist_name_utf8);
             /*msgbox = msg_box_new(_("Information..."),
                                    GTK_WINDOW(WritePlaylistWindow),
@@ -1687,8 +1685,8 @@ void Playlist_Write_Button_Pressed (void)
             gtk_dialog_run(GTK_DIALOG(msgbox));
             gtk_widget_destroy(msgbox);*/
             Statusbar_Message(msg,TRUE);
+            g_free(msg);
         }
-        g_free(msg);
     }
     g_free(playlist_name_utf8);
     g_free(playlist_basename_utf8);

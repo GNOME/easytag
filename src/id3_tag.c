@@ -38,7 +38,6 @@
 #include "log.h"
 #include "misc.h"
 #include "et_core.h"
-#include "msgbox.h"
 #include "charset.h"
 
 #ifdef ENABLE_MP3
@@ -542,30 +541,27 @@ gboolean Id3tag_Write_File_v23Tag (ET_File *ETFile)
                     if (Id3tag_Read_File_Tag(filename,FileTag_tmp) == TRUE
                     &&  ET_Detect_Changes_Of_File_Tag(FileTag,FileTag_tmp) == TRUE)
                     {
-                        GtkWidget *msgbox = NULL;
-                        gchar *msg;
+                        GtkWidget *msgdialog;
 
-                        msg = g_strdup_printf(_("You have tried to save this tag to Unicode "
-                            "but it was detected that your version of id3lib is bugged.\n"
-                            "If you reload this file, some characters in the tag may be not "
-                            "displayed correctly...\nPlease, apply to id3lib the patch "
-                            "src/id3lib/patch_id3lib_3.8.3_UTF16_writing_bug.diff\n"
-                            "available in EasyTAG package sources.\n"
-                            "Note that this message will appear only one time.\n\n"
-                            "File : %s"),filename_utf8);
                         //Log_Print(LOG_ERROR,msg);
 
-                        msgbox = msg_box_new(_("Error..."),
-                                             GTK_WINDOW(MainWindow),
-                                             NULL,
-                                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                             msg,
-                                             GTK_STOCK_DIALOG_ERROR,
-                                             GTK_STOCK_OK, GTK_RESPONSE_OK,
-                                             NULL);
-                        gtk_dialog_run(GTK_DIALOG(msgbox));
-                        gtk_widget_destroy(msgbox);
-                        g_free(msg);
+                        msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
+                                                           GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                           GTK_MESSAGE_ERROR,
+                                                           GTK_BUTTONS_CLOSE,
+                                                           "%s",
+                                                           _("You have tried to save this tag to Unicode but it was detected that your version of id3lib is buggy"));
+                        gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),
+                                                                 _("If you reload this file, some characters in the tag may not be displayed "
+                                                                 "correctly. Please, apply the patch "
+                                                                 "src/id3lib/patch_id3lib_3.8.3_UTF16_writing_bug.diff to id3lib, which is"
+                                                                 "available in the EasyTAG package sources.\nNote that this message will "
+                                                                 "appear only once.\n\nFile : %s"),
+                                                                  filename_utf8);
+
+                        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Buggy id3lib"));
+                        gtk_dialog_run(GTK_DIALOG(msgdialog));
+                        gtk_widget_destroy(msgdialog);
                         flag_id3lib_bugged = FALSE; // To display the message only one time
                     }
                     ET_Free_File_Tag_Item(FileTag_tmp);
@@ -1225,27 +1221,23 @@ gboolean Id3tag_Check_If_File_Is_Corrupted (gchar *filename)
 
     if (result)
     {
-        GtkWidget *msgbox = NULL;
-        gchar *msg;
+        GtkWidget *msgdialog;
         gchar *basename;
         gchar *basename_utf8;
 
         basename = g_path_get_basename(filename);
         basename_utf8 = filename_to_display(basename);
 
-        msg = g_strdup_printf(_("As the following corrupted file: '%s'\nwill cause "
-            "an error in id3lib, it will not be processed by the program."),basename_utf8);
-        msgbox = msg_box_new(_("Corrupted file..."),
-                             GTK_WINDOW(MainWindow),
-                             NULL,
-                             GTK_DIALOG_MODAL  | GTK_DIALOG_DESTROY_WITH_PARENT,
-                             msg,
-                             GTK_STOCK_DIALOG_ERROR,
-                             GTK_STOCK_OK, GTK_RESPONSE_OK,
-                             NULL);
-        gtk_dialog_run(GTK_DIALOG(msgbox));
-        gtk_widget_destroy(msgbox);
-        g_free(msg);
+        msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
+                                           GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                           GTK_MESSAGE_ERROR,
+                                           GTK_BUTTONS_CLOSE,
+                                           _("As the following corrupted file '%s' will cause an error in id3lib, it will not be processed"),
+                                           basename_utf8);
+        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Corrupted file"));
+
+        gtk_dialog_run(GTK_DIALOG(msgdialog));
+        gtk_widget_destroy(msgdialog);
         g_free(basename);
         g_free(basename_utf8);
     }

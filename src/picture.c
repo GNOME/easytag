@@ -37,7 +37,6 @@
 #include "log.h"
 #include "misc.h"
 #include "setting.h"
-#include "msgbox.h"
 #include "bar.h"
 #include "charset.h"
 
@@ -709,25 +708,22 @@ void Picture_Save_Button_Clicked (GObject *object)
             // Warn user if the file already exists, else saves directly
             if ( (file=fopen(filename_utf8,"r"))!=NULL )
             {
-                gchar *msg;
-                GtkWidget *msgbox;
+                GtkWidget *msgdialog;
 
                 fclose(file);
 
-                msg = g_strdup_printf(_("The following file already exists :\n'%s'\n"
-                    "Do you want to overwrite?"),filename_utf8);
-                msgbox = msg_box_new(_("Save file..."),
-                                     GTK_WINDOW(MainWindow),
-                                     NULL,
-                                     GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                     msg,
-                                     GTK_STOCK_DIALOG_QUESTION,
-                                     GTK_STOCK_NO,  GTK_RESPONSE_NO,
-									 GTK_STOCK_YES, GTK_RESPONSE_YES,
-                                     NULL);
-                g_free(msg);
-                response = gtk_dialog_run(GTK_DIALOG(msgbox));
-                gtk_widget_destroy(msgbox);
+                msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
+                                                   GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                   GTK_MESSAGE_QUESTION,
+                                                   GTK_BUTTONS_NONE,
+                                                   _("The following file already exists: '%s'"),
+                                                   filename_utf8);
+                gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),"%s",_("Do you want to save anyway, overwriting the file?"));
+                gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_SAVE,GTK_RESPONSE_YES,NULL);
+                gtk_window_set_title(GTK_WINDOW(msgdialog),_("Save"));
+
+                response = gtk_dialog_run(GTK_DIALOG(msgdialog));
+                gtk_widget_destroy(msgdialog);
 
                 if (response == GTK_RESPONSE_YES)
                 {
@@ -1008,25 +1004,22 @@ void PictureEntry_Update (Picture *pic, gboolean select_it)
                 g_object_unref(scaled_pixbuf);
             }else
             {
-                GtkWidget *msgbox = NULL;
-                gchar *msg = NULL;
+                GtkWidget *msgdialog;
                 
                 g_object_unref(loader);
                 
-                msg = g_strdup(_("Can't display the picture, as not enough data "
-                    "has been read to determine how to create the image buffer."));
-                Log_Print(LOG_ERROR,"%s",msg);
-                msgbox = msg_box_new(_("Loading Picture File..."),
-                                     GTK_WINDOW(MainWindow),
-                                     NULL,
-                                     GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                     msg,
-                                     GTK_STOCK_DIALOG_ERROR,
-                                     GTK_STOCK_OK, GTK_RESPONSE_OK,
-                                     NULL);
-                g_free(msg);
-                gtk_dialog_run(GTK_DIALOG(msgbox));
-                gtk_widget_destroy(msgbox);
+                Log_Print(LOG_ERROR,"%s",_("Cannot display the picutre, as not enough data has been read to determine how to create the image buffer."));
+
+                msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
+                                                   GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                   GTK_MESSAGE_ERROR,
+                                                   GTK_BUTTONS_CLOSE,
+                                                   "%s",
+                                                   _("Cannot display the picture"));
+                gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),_("Not enough data has been read to determine how to create the image buffer"));
+                gtk_window_set_title(GTK_WINDOW(msgdialog),_("Load Picture File"));
+                gtk_dialog_run(GTK_DIALOG(msgdialog));
+                gtk_widget_destroy(msgdialog);
             }
         }else
         {
@@ -1128,27 +1121,23 @@ Picture *Picture_Load_File_Data (const gchar *filename)
     FILE *fd = fopen(filename, "rb");
     if (!fd)
     {
-        gchar *msg;
         gchar *filename_utf8;
-        GtkWidget *msgbox;
+        GtkWidget *msgdialog;
 
         /* Picture file not opened */
         filename_utf8 = filename_to_display(filename);
-        msg = g_strdup_printf(_("Can't open file :\n'%s'!\n(%s)"),
-                                filename_utf8,g_strerror(errno));
-        msgbox = msg_box_new(_("Error..."),
-                             GTK_WINDOW(MainWindow),
-                             NULL,
-                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                             msg,
-                             GTK_STOCK_DIALOG_ERROR,
-                             GTK_STOCK_OK, GTK_RESPONSE_OK,
-                             NULL);
-        g_free(msg);
-        gtk_dialog_run(GTK_DIALOG(msgbox));
-        gtk_widget_destroy(msgbox);
+        msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
+                                           GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                           GTK_MESSAGE_ERROR,
+                                           GTK_BUTTONS_CLOSE,
+                                           _("Cannot open file: '%s'"),
+                                           filename_utf8);
+        gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),"%s",g_strerror(errno));
+        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Picture File Error"));
+        gtk_dialog_run(GTK_DIALOG(msgdialog));
+        gtk_widget_destroy(msgdialog);
 
-        Log_Print(LOG_ERROR,_("Picture file not loaded (%s)..."),g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Picture file not loaded (%s)…"),g_strerror(errno));
         g_free(filename_utf8);
 #ifdef WIN32
         g_free(filename);

@@ -63,7 +63,6 @@
 #include "log.h"
 #include "misc.h"
 #include "setting.h"
-#include "msgbox.h"
 #include "charset.h"
 
 #ifdef WIN32
@@ -3147,23 +3146,19 @@ gboolean ET_Save_File_Name_From_UI (ET_File *ETFile, File_Name *FileName)
     if (!filename)
     {
         // If translation fails...
-        GtkWidget *msgbox;
-        gchar *msg;
+        GtkWidget *msgdialog;
         gchar *filename_escaped_utf8 = g_strescape(filename_utf8, NULL);
-        msg = g_strdup_printf(_("Could not convert filename : '%s'\n"
-                                "into system filename encoding\n"
-                                "(Try setting the environment variable G_FILENAME_ENCODING)."), filename_escaped_utf8);
-        msgbox = msg_box_new(_("Filename translation"),
-                             GTK_WINDOW(MainWindow),
-                             NULL,
-                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                             msg,
-                             GTK_STOCK_DIALOG_ERROR,
-                             GTK_STOCK_OK, GTK_RESPONSE_OK,
-                             NULL);
-        gtk_dialog_run(GTK_DIALOG(msgbox));
-        gtk_widget_destroy(msgbox);
-        g_free(msg);
+        msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
+                                           GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                           GTK_MESSAGE_ERROR,
+                                           GTK_BUTTONS_CLOSE,
+                                           _("Could not convert filename '%s' into system filename encoding"),
+                                           filename_escaped_utf8);
+        gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),_("Try setting the environment variable G_FILENAME_ENCODING."));
+        gtk_window_set_title(GTK_WINDOW(msgdialog), _("Filename translation"));
+
+        gtk_dialog_run(GTK_DIALOG(msgdialog));
+        gtk_widget_destroy(msgdialog);
         g_free(filename);
         g_free(filename_escaped_utf8);
         return FALSE;

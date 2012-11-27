@@ -33,7 +33,6 @@
 
 #include "prefs.h"
 #include "setting.h"
-#include "msgbox.h"
 #include "bar.h"
 #include "misc.h"
 #include "scan.h"
@@ -1800,20 +1799,17 @@ gint Check_DefaultPathToMp3 (void)
         return 1;    /* Path is good */
     }else
     {
-        gchar *msg = g_strdup_printf(_(" The selected path for 'Default path to "
-            "files' isn't valid!\n'%s'\n(%s) "),path_utf8,
-            (stat(path_real,&stbuf)==0)?_("Not a directory"):g_strerror(errno) );
-        GtkWidget *msgbox = msg_box_new(_("Error..."),
-                                        GTK_WINDOW(OptionsWindow),
-                                        NULL,
-                                        GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                        msg,
-                                        GTK_STOCK_DIALOG_ERROR,
-                                        GTK_STOCK_OK, GTK_RESPONSE_OK,
-                                        NULL);
-        gtk_dialog_run(GTK_DIALOG(msgbox));
-        gtk_widget_destroy(msgbox);
-        g_free(msg);
+        GtkWidget *msgdialog = gtk_message_dialog_new(GTK_WINDOW(OptionsWindow),
+                                                      GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                      GTK_MESSAGE_ERROR,
+                                                      GTK_BUTTONS_CLOSE,
+                                                      "%s",
+                                                      _("The selected path for 'Default path to files' is invalid"));
+        gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),_("Path: '%s'\nError: %s"),path_utf8,g_strerror(errno));
+        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Invalid Path Error"));
+
+        gtk_dialog_run(GTK_DIALOG(msgdialog));
+        gtk_widget_destroy(msgdialog);
         g_free(path_real);
         g_free(path_utf8);
         return 0;
@@ -1918,19 +1914,16 @@ gint Check_FilePlayerCombo (void)
 
     if ( program_path && strlen(program_path)>0 && !program_path_validated ) // A file is typed but it is invalid!
     {
-        gchar *msg = g_strdup_printf(_("The audio file player '%s' can't be found!"),
-            gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)))));
-        GtkWidget *msgbox = msg_box_new(_("Error..."),
-                                        GTK_WINDOW(OptionsWindow),
-                                        NULL,
-                                        GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                        msg,
-                                        GTK_STOCK_DIALOG_ERROR,
-                                        GTK_STOCK_OK, GTK_RESPONSE_OK,
-                                        NULL);
-        gtk_dialog_run(GTK_DIALOG(msgbox));
-        gtk_widget_destroy(msgbox);
-        g_free(msg);
+        GtkWidget *msgdialog = gtk_message_dialog_new(GTK_WINDOW(OptionsWindow),
+                                                      GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                      GTK_MESSAGE_ERROR,
+                                                      GTK_BUTTONS_CLOSE,
+                                                      _("The audio file player '%s' cannot be found"),
+                                                      program_path);
+        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Audio Player Error"));
+
+        gtk_dialog_run(GTK_DIALOG(msgdialog));
+        gtk_widget_destroy(msgdialog);
 
         g_free(program_path);
         return 0;

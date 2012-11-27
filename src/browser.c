@@ -43,7 +43,6 @@
 #include "browser.h"
 #include "et_core.h"
 #include "scan.h"
-#include "msgbox.h"
 #include "bar.h"
 #include "log.h"
 #include "misc.h"
@@ -746,22 +745,21 @@ gboolean Browser_Tree_Node_Selected (GtkTreeSelection *selection, gpointer user_
     /* Check if all files have been saved before changing the directory */
     if (CONFIRM_WHEN_UNSAVED_FILES && ET_Check_If_All_Files_Are_Saved() != TRUE)
     {
-        GtkWidget *msgbox = NULL;
+        GtkWidget *msgdialog;
         gint response;
 
-        msgbox = msg_box_new(_("Confirm..."),
-                             GTK_WINDOW(MainWindow),
-                             NULL,
-                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                             _("Some files have been modified but not saved...\nDo you want to save them before "
-                             "changing the directory?"),
-                             GTK_STOCK_DIALOG_QUESTION,
-                             GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                             GTK_STOCK_NO,     GTK_RESPONSE_NO,
-                             GTK_STOCK_YES,    GTK_RESPONSE_YES,
-                             NULL);
-        response = gtk_dialog_run(GTK_DIALOG(msgbox));
-        gtk_widget_destroy(msgbox);
+        msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
+                                           GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                           GTK_MESSAGE_QUESTION,
+                                           GTK_BUTTONS_NONE,
+                                           "%s",
+                                           _("Some files have been modified but not saved"));
+        gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),"%s",_("Do you want to save them before changing the directory?"));
+        gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_DISCARD,GTK_RESPONSE_NO,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_SAVE,GTK_RESPONSE_YES,NULL);
+        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Confirm Directory Change"));
+
+        response = gtk_dialog_run(GTK_DIALOG(msgdialog));
+        gtk_widget_destroy(msgdialog);
         switch (response)
         {
             case GTK_RESPONSE_YES:
@@ -3889,18 +3887,18 @@ void Rename_Directory (void)
     /* Check if a name for the directory have been supplied */
     if (!directory_new_name || g_utf8_strlen(directory_new_name, -1) < 1)
     {
-        GtkWidget *msgbox;
+        GtkWidget *msgdialog;
 
-        msgbox = msg_box_new(_("Error..."),
-                             GTK_WINDOW(MainWindow),
-                             NULL,
-                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                             _("You must type a directory name!"),
-                             GTK_STOCK_DIALOG_ERROR,
-                             GTK_STOCK_OK, GTK_RESPONSE_OK,
-                             NULL);
-        gtk_dialog_run(GTK_DIALOG(msgbox));
-        gtk_widget_destroy(msgbox);
+        msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
+                                           GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                           GTK_MESSAGE_ERROR,
+                                           GTK_BUTTONS_CLOSE,
+                                           "%s",
+                                           _("You must type a directory name"));
+        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Directory Name Error"));
+
+        gtk_dialog_run(GTK_DIALOG(msgdialog));
+        gtk_widget_destroy(msgdialog);
         g_free(directory_new_name);
         return;
     }
@@ -3909,18 +3907,19 @@ void Rename_Directory (void)
     directory_new_name_file = filename_from_display(directory_new_name);
     if (!directory_new_name_file)
     {
-        GtkWidget *msgbox;
+        GtkWidget *msgdialog;
 
-        msgbox = msg_box_new(_("Error..."),
-                             GTK_WINDOW(MainWindow),
-                             NULL,
-                             GTK_DIALOG_MODAL  | GTK_DIALOG_DESTROY_WITH_PARENT,
-                             _("Could not convert '%s' into filename encoding. Please use another name."),
-                             GTK_STOCK_DIALOG_ERROR,
-                             GTK_STOCK_OK, GTK_RESPONSE_OK,
-                             NULL);
-        gtk_dialog_run(GTK_DIALOG(msgbox));
-        gtk_widget_destroy(msgbox);
+        msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
+                                           GTK_DIALOG_MODAL  | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                           GTK_MESSAGE_ERROR,
+                                           GTK_BUTTONS_CLOSE,
+                                           _("Could not convert '%s' into filename encoding."),
+                                           directory_new_name);
+        gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),_("Please use another name"));
+        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Directory Name Error"));
+
+        gtk_dialog_run(GTK_DIALOG(msgdialog));
+        gtk_widget_destroy(msgdialog);
         g_free(directory_new_name);
         g_free(directory_new_name_file);
     }
@@ -3945,8 +3944,7 @@ void Rename_Directory (void)
      * it's only a case change (needed for vfat) */
     if ( (dir=opendir(new_path))!=NULL )
     {
-        gchar *msg;
-        GtkWidget *msgbox;
+        GtkWidget *msgdialog;
         //gint response;
 
         closedir(dir);
@@ -3981,19 +3979,17 @@ void Rename_Directory (void)
     //                break;
     //        }
 
-            msg = g_strdup_printf(_("Can't rename because this directory name "
-                                    "already exists!\n(%s)"),new_path_utf8);
-            msgbox = msg_box_new(_("Error..."),
-                                 GTK_WINDOW(MainWindow),
-                                 NULL,
-                                 GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                 msg,
-                                 GTK_STOCK_DIALOG_ERROR,
-                                 GTK_STOCK_OK, GTK_RESPONSE_OK,
-                                 NULL);
-            gtk_dialog_run(GTK_DIALOG(msgbox));
-            gtk_widget_destroy(msgbox);
-            g_free(msg);
+            msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
+                                               GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                               GTK_MESSAGE_ERROR,
+                                               GTK_BUTTONS_CLOSE,
+                                               "%s",
+                                               "Cannot rename file");
+            gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),_("The directory name '%s' already exists"),new_path_utf8);
+            gtk_window_set_title(GTK_WINDOW(msgdialog),_("Rename File Error"));
+
+            gtk_dialog_run(GTK_DIALOG(msgdialog));
+            gtk_widget_destroy(msgdialog);
 
             g_free(directory_new_name);
             g_free(directory_new_name_file);
@@ -4019,22 +4015,20 @@ void Rename_Directory (void)
     /* Rename the directory from 'last name' to 'tmp name' */
     if ( rename(last_path,tmp_path)!=0 )
     {
-        gchar *msg;
-        GtkWidget *msgbox;
+        GtkWidget *msgdialog;
 
-        msg = g_strdup_printf(_("Can't rename directory \n'%s'\n to \n'%s'!\n(%s)"),
-                    last_path_utf8,tmp_path_utf8,g_strerror(errno));
-        msgbox = msg_box_new(_("Error..."),
-                             GTK_WINDOW(MainWindow),
-                             NULL,
-                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                             msg,
-                             GTK_STOCK_DIALOG_ERROR,
-                             GTK_STOCK_OK, GTK_RESPONSE_OK,
-                             NULL);
-        gtk_dialog_run(GTK_DIALOG(msgbox));
-        gtk_widget_destroy(msgbox);
-        g_free(msg);
+        msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
+                                           GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                           GTK_MESSAGE_ERROR,
+                                           GTK_BUTTONS_CLOSE,
+                                           "Cannot rename directory '%s' to '%s'",
+                                           last_path_utf8,
+                                           tmp_path_utf8);
+        gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),"%s",g_strerror(errno));
+        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Rename Directory Error"));
+
+        gtk_dialog_run(GTK_DIALOG(msgdialog));
+        gtk_widget_destroy(msgdialog);
 
         g_free(directory_new_name);
         g_free(directory_new_name_file);
@@ -4051,22 +4045,20 @@ void Rename_Directory (void)
     /* Rename the directory from 'tmp name' to 'new name' (final name) */
     if ( rename(tmp_path,new_path)!=0 )
     {
-        gchar *msg;
-        GtkWidget *msgbox;
+        GtkWidget *msgdialog;
 
-        msg = g_strdup_printf(_("Can't rename directory \n'%s'\n to \n'%s'!\n(%s)"),
-                              tmp_path_utf8,new_path_utf8,g_strerror(errno));
-        msgbox = msg_box_new(_("Error..."),
-                             GTK_WINDOW(MainWindow),
-                             NULL,
-                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                             msg,
-                             GTK_STOCK_DIALOG_ERROR,
-                             GTK_STOCK_OK, GTK_RESPONSE_OK,
-                             NULL);
-        gtk_dialog_run(GTK_DIALOG(msgbox));
-        gtk_widget_destroy(msgbox);
-        g_free(msg);
+        msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
+                                           GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                           GTK_MESSAGE_ERROR,
+                                           GTK_BUTTONS_CLOSE,
+                                           "Cannot rename directory '%s' to '%s",
+                                           tmp_path_utf8,
+                                           new_path_utf8);
+        gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),"%s",g_strerror(errno));
+        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Directory Rename Error"));
+
+        gtk_dialog_run(GTK_DIALOG(msgdialog));
+        gtk_widget_destroy(msgdialog);
 
         g_free(directory_new_name);
         g_free(directory_new_name_file);
@@ -4493,45 +4485,41 @@ gboolean Run_Program (gchar *program_name, GList *args_list)
 #else
     pid_t   pid;
 #endif
-    gchar *msg;
     gchar *program_path;
 
 
     /* Check if a name for the program have been supplied */
     if (!program_name || strlen(program_name)<1)
     {
-        GtkWidget *msgbox;
+        GtkWidget *msgdialog;
 
-        msgbox = msg_box_new(_("Error..."),
-                             GTK_WINDOW(MainWindow),
-                             NULL,
-                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                             _("You must type a program name!"),
-                             GTK_STOCK_DIALOG_ERROR,
-                             GTK_STOCK_OK, GTK_RESPONSE_OK,
-                             NULL);
-        gtk_dialog_run(GTK_DIALOG(msgbox));
-        gtk_widget_destroy(msgbox);
+        msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
+                                           GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                           GTK_MESSAGE_ERROR,
+                                           GTK_BUTTONS_OK,
+                                           "%s",
+                                           _("You must type a program name!"));
+        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Program Name Error"));
+
+        gtk_dialog_run(GTK_DIALOG(msgdialog));
+        gtk_widget_destroy(msgdialog);
         return FALSE;
     }
 
     if ( !(program_path = Check_If_Executable_Exists(program_name)) )
     {
-        GtkWidget *msgbox;
-        gchar *msg;
+        GtkWidget *msgdialog;
 
-        msg = g_strdup_printf(_("The program '%s' can't be found!"),program_name);
-        msgbox = msg_box_new(_("Error..."),
-                             GTK_WINDOW(MainWindow),
-                             NULL,
-                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                             msg,
-                             GTK_STOCK_DIALOG_ERROR,
-                             GTK_STOCK_OK, GTK_RESPONSE_OK,
-                             NULL);
-        gtk_dialog_run(GTK_DIALOG(msgbox));
-        gtk_widget_destroy(msgbox);
-        g_free(msg);
+        msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
+                                           GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                           GTK_MESSAGE_ERROR,
+                                           GTK_BUTTONS_CLOSE,
+                                           _("The program '%s' cannot be found"),
+                                           program_name);
+        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Program Name Error"));
+
+        gtk_dialog_run(GTK_DIALOG(msgdialog));
+        gtk_widget_destroy(msgdialog);
         return FALSE;
     }
 
@@ -4603,6 +4591,7 @@ gboolean Run_Program (gchar *program_name, GList *args_list)
             gint    argv_index = 0;
             gchar **argv_user;
             gint    argv_user_number;
+            gchar  *msg;
 
             argv_user = g_strsplit(program_name," ",0); // the string may contains arguments, space is the delimiter
             // Number of arguments into 'argv_user'
@@ -4628,7 +4617,7 @@ gboolean Run_Program (gchar *program_name, GList *args_list)
             // Execution ...
             execvp(argv[0],argv);
 
-            msg = g_strdup_printf(_("Executed command : '%s %s'"),program_name,"...");
+            msg = g_strdup_printf(_("Executed command: '%s %s'"),program_name,"…");
             Statusbar_Message(msg,TRUE);
             g_free(msg);
             //_exit(-1);

@@ -41,7 +41,6 @@
 #include "easytag.h"
 #include "misc.h"
 #include "log.h"
-#include "msgbox.h"
 #include "charset.h"
 
 #ifndef PACKAGE_DATA_DIR

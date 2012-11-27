@@ -54,7 +54,6 @@ easytag_SOURCES = \
 	src/mp4_header.c \
 	src/mp4_tag.c \
 	src/musepack_header.c \
-	src/msgbox.c \
 	src/ogg_header.c \
 	src/ogg_tag.c \
 	src/picture.c \
@@ -97,7 +96,6 @@ easytag_headers = \
 	src/mp4_header.h \
 	src/mp4_tag.h \
 	src/musepack_header.h \
-	src/msgbox.h \
 	src/ogg_header.h \
 	src/ogg_tag.h \
 	src/picture.h \
