@@ -71,7 +71,7 @@ gchar   *Get_Active_Combo_Box_Item(GtkComboBox *combo);
 /*
  * Other
  */
-void Entry_Changed_Disable_Object (GtkObject *widget_to_disable, GtkEditable *source_widget);
+void Entry_Changed_Disable_Object (GtkWidget *widget_to_disable, GtkEditable *source_widget);
 void Insert_Only_Digit (GtkEditable *editable,const gchar *text,gint length,gint *position,gpointer data);
 gboolean Parse_Date (void);
 void Load_Genres_List_To_UI (void);

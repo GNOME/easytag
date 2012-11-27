@@ -195,13 +195,13 @@ void        Rename_Directory_With_Mask_Toggled   (void);
 void        Browser_Open_Run_Program_Tree_Window (void);
 void        Destroy_Run_Program_Tree_Window (void);
 gboolean    Run_Program_Tree_Window_Key_Press (GtkWidget *window, GdkEvent *event);
-void        Run_Program_With_Directory (GtkObject *combobox);
+void        Run_Program_With_Directory (GtkWidget *combobox);
 
 /* For window to run a program with the file */
 void        Browser_Open_Run_Program_List_Window (void);
 void        Destroy_Run_Program_List_Window (void);
 gboolean    Run_Program_List_Window_Key_Press (GtkWidget *window, GdkEvent *event);
-void        Run_Program_With_Selected_Files (GtkObject *combobox);
+void        Run_Program_With_Selected_Files (GtkWidget *combobox);
 
 gboolean    Run_Program (gchar *program_name, GList *args_list);
 
@@ -4254,7 +4254,7 @@ gboolean Run_Program_Tree_Window_Key_Press (GtkWidget *window, GdkEvent *event)
     return FALSE;
 }
 
-void Run_Program_With_Directory (GtkObject *combobox)
+void Run_Program_With_Directory (GtkWidget *combobox)
 {
     gchar *program_name;
     gchar *current_directory;
@@ -4412,7 +4412,7 @@ gboolean Run_Program_List_Window_Key_Press(GtkWidget *window, GdkEvent *event)
     return FALSE;
 }
 
-void Run_Program_With_Selected_Files (GtkObject *combobox)
+void Run_Program_With_Selected_Files (GtkWidget *combobox)
 {
     gchar   *program_name;
     ET_File *ETFile;

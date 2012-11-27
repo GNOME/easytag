@@ -153,7 +153,7 @@ gboolean Write_Playlist_Window_Key_Press (GtkWidget *window, GdkEvent *event);
 void     Destroy_Write_Playlist_Window   (void);
 void     Playlist_Write_Button_Pressed   (void);
 gboolean Write_Playlist                  (gchar *play_list_name);
-gboolean Playlist_Check_Content_Mask     (GtkObject *widget_to_show_hide, GtkEntry *widget_source);
+gboolean Playlist_Check_Content_Mask     (GtkWidget *widget_to_show_hide, GtkEntry *widget_source);
 void     Playlist_Convert_Forwardslash_Into_Backslash (gchar *string);
 
 void Open_Search_File_Window          (void);
@@ -377,7 +377,7 @@ gchar *Get_Active_Combo_Box_Item (GtkComboBox *combo)
  * Event attached to an entry to disable another widget (for example: a button)
  * when the entry is empty
  */
-void Entry_Changed_Disable_Object(GtkObject *widget_to_disable, GtkEditable *source_widget)
+void Entry_Changed_Disable_Object(GtkWidget *widget_to_disable, GtkEditable *source_widget)
 {
     gchar *text = NULL;
 
@@ -385,9 +385,9 @@ void Entry_Changed_Disable_Object(GtkObject *widget_to_disable, GtkEditable *sou
 
     text = gtk_editable_get_chars(GTK_EDITABLE(source_widget),0,-1);
     if (!text || strlen(text)<1)
-        gtk_widget_set_sensitive(GTK_WIDGET(widget_to_disable),FALSE);
+        gtk_widget_set_sensitive(widget_to_disable,FALSE);
     else
-        gtk_widget_set_sensitive(GTK_WIDGET(widget_to_disable),TRUE);
+        gtk_widget_set_sensitive(widget_to_disable,TRUE);
 
     g_free(text);
 }
@@ -1693,7 +1693,7 @@ void Playlist_Write_Button_Pressed (void)
     g_free(playlist_name);
 }
 
-gboolean Playlist_Check_Content_Mask (GtkObject *widget_to_show_hide, GtkEntry *widget_source)
+gboolean Playlist_Check_Content_Mask (GtkWidget *widget_to_show_hide, GtkEntry *widget_source)
 {
     gchar *tmp  = NULL;
     gchar *mask = NULL;

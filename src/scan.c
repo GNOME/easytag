@@ -225,9 +225,9 @@ void     Scan_Toggle_Legend_Button      (void);
 void     Scan_Toggle_Mask_Editor_Button (void);
 gchar   *Scan_Replace_String (gchar *string, gchar *last, gchar *new);
 void     Scan_Option_Button (void);
-gboolean Scan_Check_Scan_Tag_Mask    (GtkObject *widget_to_show_hide, GtkEntry *widget_source);
-gboolean Scan_Check_Rename_File_Mask (GtkObject *widget_to_show_hide, GtkEntry *widget_source);
-gboolean Scan_Check_Editor_Mask      (GtkObject *widget_to_show_hide, GtkEntry *widget_source);
+gboolean Scan_Check_Scan_Tag_Mask    (GtkWidget *widget_to_show_hide, GtkEntry *widget_source);
+gboolean Scan_Check_Rename_File_Mask (GtkWidget *widget_to_show_hide, GtkEntry *widget_source);
+gboolean Scan_Check_Editor_Mask      (GtkWidget *widget_to_show_hide, GtkEntry *widget_source);
 
 gchar   *Scan_Generate_New_Filename_From_Mask (ET_File *ETFile, gchar *mask, gboolean no_dir_check_or_conversion);
 GList   *Scan_Generate_New_Tag_From_Mask      (ET_File *ETFile, gchar *mask);
@@ -243,9 +243,9 @@ void     Scan_Process_Fields_Functions (gchar **string);
 
 gint     Scan_Word_Is_Roman_Numeral (gchar *text);
 
-void Process_Fields_Check_Button_Toggled               (GtkObject *object, GList *list);
-void Process_Fields_Convert_Check_Button_Toggled       (GtkObject *object);
-void Process_Fields_First_Letters_Check_Button_Toggled (GtkObject *object);
+void Process_Fields_Check_Button_Toggled               (GtkWidget *object, GList *list);
+void Process_Fields_Convert_Check_Button_Toggled       (GtkWidget *object);
+void Process_Fields_First_Letters_Check_Button_Toggled (GtkWidget *object);
 void Select_Fields_Invert_Selection    (void);
 void Select_Fields_Select_Unselect_All (void);
 void Select_Fields_Set_Sensitive       (void);
@@ -2486,7 +2486,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_widget_set_tooltip_text(MaskStatusIconBox,_("Invalid Scanner Mask"));
     // Signal connection to check if mask is correct into the mask entry
     g_signal_connect_swapped(G_OBJECT(gtk_bin_get_child(GTK_BIN(ScanTagMaskCombo))),"changed",
-        G_CALLBACK(Scan_Check_Scan_Tag_Mask),GTK_OBJECT(MaskStatusIconBox));
+        G_CALLBACK(Scan_Check_Scan_Tag_Mask),G_OBJECT(MaskStatusIconBox));
 
     // Preview label
     FillTagPreviewLabel = gtk_label_new(_("Fill tag preview..."));
@@ -3202,7 +3202,7 @@ void Scan_Option_Button (void)
 /*
  * Check if mask of the "Scan Tag" is valid. Return TRUE if valid, else FALSE.
  */
-gboolean Scan_Check_Scan_Tag_Mask (GtkObject *widget_to_show_hide, GtkEntry *widget_source)
+gboolean Scan_Check_Scan_Tag_Mask (GtkWidget *widget_to_show_hide, GtkEntry *widget_source)
 {
     gchar *tmp  = NULL;
     gchar *mask = NULL;
@@ -3271,7 +3271,7 @@ gboolean Scan_Check_Scan_Tag_Mask (GtkObject *widget_to_show_hide, GtkEntry *wid
 /*
  * Check if mask of the "Rename File" is valid. Return TRUE if valid, else FALSE.
  */
-gboolean Scan_Check_Rename_File_Mask (GtkObject *widget_to_show_hide, GtkEntry *widget_source)
+gboolean Scan_Check_Rename_File_Mask (GtkWidget *widget_to_show_hide, GtkEntry *widget_source)
 {
     gchar *tmp = NULL;
     gchar *mask = NULL;
@@ -3330,7 +3330,7 @@ gboolean Scan_Check_Rename_File_Mask (GtkObject *widget_to_show_hide, GtkEntry *
 /*
  * Check if the selected mask in the Mask Editor is valid, else display the mask status icon.
  */
-gboolean Scan_Check_Editor_Mask (GtkObject *widget_to_show_hide, GtkEntry *widget_source)
+gboolean Scan_Check_Editor_Mask (GtkWidget *widget_to_show_hide, GtkEntry *widget_source)
 {
     /* Select and get result of check scanner */
     if (gtk_combo_box_get_active(GTK_COMBO_BOX(ScannerOptionCombo)) == SCANNER_FILL_TAG)
@@ -3377,7 +3377,7 @@ void Scan_Toggle_Mask_Editor_Button (void)
         }
 
         // Update status of the icon box cause prev instruction show it for all cases
-        g_signal_emit_by_name(GTK_OBJECT(MaskEditorEntry),"changed");
+        g_signal_emit_by_name(G_OBJECT(MaskEditorEntry),"changed");
     }else
     {
         gtk_widget_hide(MaskEditorFrame);
@@ -3389,7 +3389,7 @@ void Scan_Toggle_Mask_Editor_Button (void)
 /*
  * Manage/Toggle check buttons into 'Process Fields' frame
  */
-void Process_Fields_Check_Button_Toggled (GtkObject *object, GList *list)
+void Process_Fields_Check_Button_Toggled (GtkWidget *object, GList *list)
 {
     gint i = 0;
 
@@ -3397,7 +3397,7 @@ void Process_Fields_Check_Button_Toggled (GtkObject *object, GList *list)
     {
         while (list)
         {
-            if ( list->data!=NULL && GTK_OBJECT(list->data)!=object )
+            if ( list->data!=NULL && list->data!=object )
                 gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(list->data),FALSE);
             i++;
             if (!list->next) break;
@@ -3407,13 +3407,13 @@ void Process_Fields_Check_Button_Toggled (GtkObject *object, GList *list)
 }
 
 
-void Process_Fields_Convert_Check_Button_Toggled (GtkObject *object)
+void Process_Fields_Convert_Check_Button_Toggled (GtkWidget *object)
 {
     gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsConvertTo),gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(object)));
     gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsConvertFrom),gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(object)));
 }
 
-void Process_Fields_First_Letters_Check_Button_Toggled (GtkObject *object)
+void Process_Fields_First_Letters_Check_Button_Toggled (GtkWidget *object)
 {
     gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsDetectRomanNumerals),gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(object)));
 }

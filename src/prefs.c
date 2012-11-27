@@ -59,11 +59,11 @@ gint Check_Config                (void);
 
 void Set_Default_Comment_Check_Button_Toggled  (void);
 void Number_Track_Formated_Toggled             (void);
-void Number_Track_Formated_Spin_Button_Changed (GtkObject *Label, GtkObject *SpinButton);
+void Number_Track_Formated_Spin_Button_Changed (GtkWidget *Label, GtkWidget *SpinButton);
 void Change_Id3_Settings_Toggled               (void);
 void File_Writing_Id3v2_Write_Tag_Toggled      (void);
 void Use_Non_Standard_Id3_Reading_Character_Set_Toggled (void);
-void Scanner_Convert_Check_Button_Toggled_1    (GtkObject *object_rec, GtkObject *object_emi);
+void Scanner_Convert_Check_Button_Toggled_1    (GtkWidget *object_rec, GtkWidget *object_emi);
 void Cddb_Use_Proxy_Toggled                    (void);
 
 void DefaultPathToMp3_Combo_Add_String         (void);
@@ -1508,7 +1508,7 @@ void Number_Track_Formated_Toggled (void)
     g_signal_emit_by_name(G_OBJECT(NumberTrackFormatedSpinButton),"changed",NULL);
 }
 
-void Number_Track_Formated_Spin_Button_Changed (GtkObject *Label, GtkObject *SpinButton)
+void Number_Track_Formated_Spin_Button_Changed (GtkWidget *Label, GtkWidget *SpinButton)
 {
     gchar *tmp;
     gint val;
@@ -1952,7 +1952,7 @@ gint Check_Config (void)
  * Manage Check buttons into Scanner tab: conversion group
  * This reproduces "something" like the behaviour of radio buttons with check buttons
  */
-void Scanner_Convert_Check_Button_Toggled_1 (GtkObject *object_rec, GtkObject *object_emi)
+void Scanner_Convert_Check_Button_Toggled_1 (GtkWidget *object_rec, GtkWidget *object_emi)
 {
     if (!object_rec || !object_emi) return;
 

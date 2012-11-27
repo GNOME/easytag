@@ -18,11 +18,6 @@ General tidying
 * Check usage and casting away of const
 * Check C-style casts for errors
 
-GTK+ 3 porting preparation
---------------------------
-
-* Remove usage of GtkObject
-
 After GTK+ 3
 ------------
 

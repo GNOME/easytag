@@ -288,7 +288,7 @@ void Open_Cddb_Window (void)
     gtk_box_pack_start(GTK_BOX(hbox),CddbSearchAutoButton,FALSE,FALSE,0);
     gtk_widget_set_can_default(CddbSearchAutoButton,TRUE);
     gtk_widget_grab_default(CddbSearchAutoButton);
-    g_signal_connect(GTK_OBJECT(CddbSearchAutoButton),"clicked",G_CALLBACK(Cddb_Search_Album_From_Selected_Files),NULL);
+    g_signal_connect(G_OBJECT(CddbSearchAutoButton),"clicked",G_CALLBACK(Cddb_Search_Album_From_Selected_Files),NULL);
     gtk_widget_set_tooltip_text(CddbSearchAutoButton,_("Request automatically the "
         "CDDB database using the selected files (the order is important!) to "
         "generate the CddbID."));

@@ -65,7 +65,7 @@ void   Scan_Use_Fill_Tag_Scanner            (void);
 void   Scan_Use_Rename_File_Scanner         (void);
 void   Scan_Use_Process_Fields_Scanner      (void);
 
-gboolean Scan_Check_Rename_File_Mask (GtkObject *widget_to_show_hide, GtkEntry *widget_source);
+gboolean Scan_Check_Rename_File_Mask (GtkWidget *widget_to_show_hide, GtkEntry *widget_source);
 
 void Scan_Process_Fields_All_Uppercase           (gchar *string);
 void Scan_Process_Fields_All_Downcase            (gchar *string);
