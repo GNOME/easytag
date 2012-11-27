@@ -299,7 +299,7 @@ void Open_Cddb_Window (void)
     gtk_button_set_relief(GTK_BUTTON(CddbStopSearchAutoButton),GTK_RELIEF_NONE);
     gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchAutoButton),FALSE);
     g_signal_connect(G_OBJECT(CddbStopSearchAutoButton), "clicked", G_CALLBACK(Cddb_Stop_Search), NULL);
-    gtk_widget_set_tooltip_text(CddbStopSearchAutoButton,_("Stop the search ..."));
+    gtk_widget_set_tooltip_text(CddbStopSearchAutoButton,_("Stop the search…"));
 
     // Separator line
     Separator = gtk_vseparator_new();
@@ -410,7 +410,7 @@ void Open_Cddb_Window (void)
     gtk_button_set_relief(GTK_BUTTON(CddbStopSearchButton),GTK_RELIEF_NONE);
     gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchButton),FALSE);
     g_signal_connect(G_OBJECT(CddbStopSearchButton), "clicked", G_CALLBACK(Cddb_Stop_Search), NULL);
-    gtk_widget_set_tooltip_text(CddbStopSearchButton,_("Stop the search ..."));
+    gtk_widget_set_tooltip_text(CddbStopSearchButton,_("Stop the search…"));
 
     // Button to quit
     Button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
@@ -792,7 +792,7 @@ void Open_Cddb_Window (void)
     gtk_box_pack_start(GTK_BOX(MainVBox),CddbStatusBar,FALSE,TRUE,0);
     gtk_widget_set_size_request(CddbStatusBar, 300, -1);
     CddbStatusBarContext = gtk_statusbar_get_context_id(GTK_STATUSBAR(CddbStatusBar),"Messages");
-    gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,_("Ready to search..."));
+    gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,_("Ready to search…"));
 
 
     g_signal_emit_by_name(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbSearchStringCombo)))),"changed");
@@ -1617,7 +1617,7 @@ gint Cddb_Open_Connection (const gchar *host, gint port)
     if (!host || port <= 0)
         return 0;
 
-    msg = g_strdup_printf(_("Resolving host '%s' ..."),host);
+    msg = g_strdup_printf(_("Resolving host '%s'…"),host);
     gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
     g_free(msg);
     while (gtk_events_pending())
@@ -1654,7 +1654,7 @@ gint Cddb_Open_Connection (const gchar *host, gint port)
     }
 
     // Open connection to the server
-    msg = g_strdup_printf(_("Connecting to host '%s', port '%d' ..."),host,port);
+    msg = g_strdup_printf(_("Connecting to host '%s', port '%d'…"),host,port);
     gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
     g_free(msg);
     while (gtk_events_pending())
@@ -1756,7 +1756,7 @@ gint Cddb_Write_Result_To_File (gint socket_id, gulong *bytes_read_total)
 
             // Display message
             size_str = Convert_Size_1(*bytes_read_total);
-            msg = g_strdup_printf(_("Receiving data (%s) ..."),size_str);
+            msg = g_strdup_printf(_("Receiving data (%s)…"),size_str);
             gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
             g_free(msg);
             g_free(size_str);
@@ -2266,7 +2266,7 @@ gboolean Cddb_Search_Album_List_From_String_Freedb (void)
     //g_print("Request Cddb_Search_Album_List_From_String_Freedb : '%s'\n", cddb_in);
 
     // Send the request
-    gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,_("Sending request ..."));
+    gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,_("Sending request…"));
     while (gtk_events_pending()) gtk_main_iteration();
     if ( (bytes_written=send(socket_id,cddb_in,strlen(cddb_in)+1,0)) < 0)
     {
@@ -2292,7 +2292,7 @@ gboolean Cddb_Search_Album_List_From_String_Freedb (void)
     /*
      * Read the answer
      */
-    gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,_("Receiving data ..."));
+    gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,_("Receiving data…"));
     while (gtk_events_pending())
         gtk_main_iteration();
 
@@ -2586,7 +2586,7 @@ gboolean Cddb_Search_Album_List_From_String_Gnudb (void)
         //g_print("Request Cddb_Search_Album_List_From_String_Gnudb : '%s'\n", cddb_in);
 
         // Send the request
-        gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,_("Sending request ..."));
+        gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,_("Sending request…"));
         while (gtk_events_pending()) gtk_main_iteration();
         if ( (bytes_written=send(socket_id,cddb_in,strlen(cddb_in)+1,0)) < 0)
         {
@@ -2607,9 +2607,9 @@ gboolean Cddb_Search_Album_List_From_String_Gnudb (void)
          * Read the answer
          */
         if (total_num_albums != 0)
-            msg = g_strdup_printf(_("Receiving data of page %d (album %d/%d)..."),next_page_cpt,num_albums,total_num_albums);
+            msg = g_strdup_printf(_("Receiving data of page %d (album %d/%d)…"),next_page_cpt,num_albums,total_num_albums);
         else
-            msg = g_strdup_printf(_("Receiving data of page %d ..."),next_page_cpt);
+            msg = g_strdup_printf(_("Receiving data of page %d…"),next_page_cpt);
 
         gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
         g_free(msg);
@@ -2774,7 +2774,7 @@ gboolean Cddb_Search_Album_List_From_String_Gnudb (void)
 
                 if ( !(next_page_cpt < 2) ) // Don't display message in this case as it will be displayed each line of page 0 and 1
                 {
-                    msg = g_strdup_printf(_("More results to load ..."));
+                    msg = g_strdup_printf(_("More results to load…"));
                     gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
                     g_free(msg);
 
@@ -2999,7 +2999,7 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
                                                    "%s",
                                                    _("The path for 'Local CD Data Base' was not defined"));
                 gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog), "%s", _("Enter it in the preferences window before using this search."));
-                gtk_window_set_title(GTK_WINDOW(msgdialog),_("Local CD search..."));
+                gtk_window_set_title(GTK_WINDOW(msgdialog),_("Local CD search…"));
 
                 gtk_dialog_run(GTK_DIALOG(msgdialog));
                 gtk_widget_destroy(msgdialog);
@@ -3121,8 +3121,8 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
             }
 
             // CDDB Request (ex: GET /~cddb/cddb.cgi?cmd=cddb+query+0800ac01+1++150+172&hello=noname+localhost+EasyTAG+0.31&proto=1 HTTP/1.1\r\nHost: freedb.freedb.org:80\r\nConnection: close)
-            // Without proxy : "GET /~cddb/cddb.cgi?..." but doesn't work with a proxy.
-            // With proxy    : "GET http://freedb.freedb.org/~cddb/cddb.cgi?..."
+            // Without proxy : "GET /~cddb/cddb.cgi?…" but doesn't work with a proxy.
+            // With proxy    : "GET http://freedb.freedb.org/~cddb/cddb.cgi?…"
             // proto=1 => ISO-8859-1 - proto=6 => UTF-8
             cddb_in = g_strdup_printf("GET %s%s%s?cmd=cddb+query+"
                                       "%s+"
@@ -3144,7 +3144,7 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
             g_free(proxy_auth);
             //g_print("Request Cddb_Search_Album_From_Selected_Files : '%s'\n", cddb_in);
 
-            msg = g_strdup_printf(_("Sending request (CddbId: %s, #tracks: %d, Disc length: %d) ..."),
+            msg = g_strdup_printf(_("Sending request (CddbId: %s, #tracks: %d, Disc length: %d)…"),
                                 cddb_discid,num_tracks,disc_length);
             gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
             g_free(msg);
@@ -3167,7 +3167,7 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
             /*
              * Read the answer
              */
-            gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,_("Receiving data ..."));
+            gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,_("Receiving data…"));
             while (gtk_events_pending())
                 gtk_main_iteration();
 
@@ -3427,8 +3427,8 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
 		}else
 		{
 		    // CDDB Request (ex: GET /~cddb/cddb.cgi?cmd=cddb+read+jazz+0200a401&hello=noname+localhost+EasyTAG+0.31&proto=1 HTTP/1.1\r\nHost: freedb.freedb.org:80\r\nConnection: close)
-		    // Without proxy : "GET /~cddb/cddb.cgi?..." but doesn't work with a proxy.
-		    // With proxy    : "GET http://freedb.freedb.org/~cddb/cddb.cgi?..."
+		    // Without proxy : "GET /~cddb/cddb.cgi?…" but doesn't work with a proxy.
+		    // With proxy    : "GET http://freedb.freedb.org/~cddb/cddb.cgi?…"
 		    cddb_in = g_strdup_printf("GET %s%s%s?cmd=cddb+read+"
 		                              "%s+%s"
 		                              "&hello=noname+localhost+%s+%s"
@@ -3449,7 +3449,7 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
         //g_print("Request Cddb_Get_Album_Tracks_List : '%s'\n", cddb_in);
 
         // Send the request
-        gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,_("Sending request ..."));
+        gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,_("Sending request…"));
         while (gtk_events_pending()) gtk_main_iteration();
         if ( (bytes_written=send(socket_id,cddb_in,strlen(cddb_in)+1,0)) < 0)
         {
@@ -3462,7 +3462,7 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
 
 
         // Read the answer
-        gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,_("Receiving data ..."));
+        gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,_("Receiving data…"));
         while (gtk_events_pending())
             gtk_main_iteration();
 
@@ -3692,7 +3692,7 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
     Cddb_Album_List_Set_Row_Appearance(&row);
 
     /* Load the track list of the album */
-    gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,_("Loading album track list ..."));
+    gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,_("Loading album track list…"));
     while (gtk_events_pending()) gtk_main_iteration();
     Cddb_Load_Track_Album_List(cddbalbum->track_list);
 
@@ -3897,7 +3897,7 @@ gboolean Cddb_Set_Track_Infos_To_File_List (void)
                                            file_selectedcount);
         gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_APPLY,GTK_RESPONSE_APPLY, NULL);
         gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),"%s","Do you want to continue?");
-        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Write Tag from CDDB..."));
+        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Write Tag from CDDB…"));
         response = gtk_dialog_run(GTK_DIALOG(msgdialog));
         gtk_widget_destroy(msgdialog);
 

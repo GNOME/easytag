@@ -774,12 +774,12 @@ gint Combo_Alphabetic_Sort (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b,
  *************************/
 void File_Selection_Window_For_File (GtkWidget *entry)
 {
-    Open_File_Selection_Window(entry, _("Select file..."), GTK_FILE_CHOOSER_ACTION_OPEN);
+    Open_File_Selection_Window(entry, _("Select file…"), GTK_FILE_CHOOSER_ACTION_OPEN);
 }
 
 void File_Selection_Window_For_Directory (GtkWidget *entry)
 {
-    Open_File_Selection_Window(entry, _("Select directory..."), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
+    Open_File_Selection_Window(entry, _("Select directory…"), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
 }
 
 /*
@@ -1674,7 +1674,7 @@ void Playlist_Write_Button_Pressed (void)
         {
             gchar *msg;
             msg = g_strdup_printf(_("Written playlist file '%s'"),playlist_name_utf8);
-            /*msgbox = msg_box_new(_("Information..."),
+            /*msgbox = msg_box_new(_("Information…"),
                                    GTK_WINDOW(WritePlaylistWindow),
                                    NULL,
                                    GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -2222,7 +2222,7 @@ void Open_Search_File_Window (void)
     //gtk_table_attach(GTK_TABLE(Table),SearchStatusBar,0,6,3,4,GTK_FILL,GTK_FILL,0,0);
     gtk_box_pack_start(GTK_BOX(VBox),SearchStatusBar,FALSE,TRUE,0);
     SearchStatusBarContext = gtk_statusbar_get_context_id(GTK_STATUSBAR(SearchStatusBar),"Messages");
-    gtk_statusbar_push(GTK_STATUSBAR(SearchStatusBar),SearchStatusBarContext,_("Ready to search..."));
+    gtk_statusbar_push(GTK_STATUSBAR(SearchStatusBar),SearchStatusBarContext,_("Ready to search…"));
 
     gtk_widget_show_all(SearchFileWindow);
 

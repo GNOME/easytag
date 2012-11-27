@@ -1,7 +1,7 @@
 /*
  * Main part of code, written by:
  *
- * Copyright (C) 1999-2001  Håvard Kvålen <havardk@xmms.org>
+ * Copyright (C) 1999-2001  HÃ¥vard KvÃ¥len <havardk@xmms.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -663,7 +663,7 @@ gchar *filename_from_display (const gchar *string)
  * Examples :
  *   - some Ogg Vorbis tags contain ISO-8859-1 characters instead of UTF-8).
  *   - some Flac tags may be probably encoded to ISO-8859-15 (by using for example
- *     "metaflac --no-utf8-convert ...") so we convert it from ISO-8859-1 to UTF-8.
+ *     "metaflac --no-utf8-convert â€¦") so we convert it from ISO-8859-1 to UTF-8.
  *
  * If not valid UTF-8, we try some conversion to try to get the correct string
  *  - conversion OK : returns the UTF-8 string (new allocated)

@@ -191,12 +191,12 @@ int main (int argc, char *argv[])
     INIT_DIRECTORY = NULL;
 
     /* Starting messages */
-    Log_Print(LOG_OK,_("Starting EasyTAG %s (PId: %d) ..."),PACKAGE_VERSION,getpid());
+    Log_Print(LOG_OK,_("Starting EasyTAG %s (PId: %d)…"),PACKAGE_VERSION,getpid());
 #ifdef ENABLE_MP3
-    Log_Print(LOG_OK,_("Currently using libid3tag version %s ..."), ID3_VERSION);
+    Log_Print(LOG_OK,_("Currently using libid3tag version %s…"), ID3_VERSION);
 #endif
 #if defined ENABLE_MP3 && defined ENABLE_ID3LIB
-    Log_Print(LOG_OK,_("Currently using id3lib version %d.%d.%d ..."),ID3LIB_MAJOR_VERSION,
+    Log_Print(LOG_OK,_("Currently using id3lib version %d.%d.%d…"),ID3LIB_MAJOR_VERSION,
                                                                ID3LIB_MINOR_VERSION,
                                                                ID3LIB_PATCH_VERSION);
 #endif
@@ -209,7 +209,7 @@ int main (int argc, char *argv[])
 #endif
 
     if (get_locale())
-        Log_Print(LOG_OK,_("Currently using locale '%s' (and eventually '%s')..."),
+        Log_Print(LOG_OK,_("Currently using locale '%s' (and eventually '%s')…"),
                 get_locale(),get_encoding_from_locale(get_locale()));
 
 
@@ -2283,7 +2283,7 @@ gint Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
                 /* Stop saving files + reinit progress bar */
                 gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), "");
                 gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), 0.0);
-                Statusbar_Message(_("Saving files was stopped..."),TRUE);
+                Statusbar_Message(_("Saving files was stopped…"),TRUE);
                 /* To update state of command buttons */
                 Update_Command_Buttons_Sensivity();
                 Browser_Area_Set_Sensitive(TRUE);
@@ -2304,9 +2304,9 @@ gint Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
         gtk_tree_path_free(currentPath);
 
     if (Main_Stop_Button_Pressed)
-        msg = g_strdup(_("Saving files was stopped..."));
+        msg = g_strdup(_("Saving files was stopped…"));
     else
-        msg = g_strdup(_("All files have been saved..."));
+        msg = g_strdup(_("All files have been saved…"));
 
     Main_Stop_Button_Pressed = 0;
     uiaction = gtk_ui_manager_get_action(UIManager, "/ToolBar/Stop");
@@ -2454,9 +2454,9 @@ gint Delete_Selected_Files_With_Answer (void)
     g_list_free(rowreflist);
 
     if (nb_files_deleted < nb_files_to_delete)
-        msg = g_strdup(_("Files have been partially deleted..."));
+        msg = g_strdup(_("Files have been partially deleted…"));
     else
-        msg = g_strdup(_("All files have been deleted..."));
+        msg = g_strdup(_("All files have been deleted…"));
 
     // It's important to displayed the new item, as it'll check the changes in Browser_Display_Tree_Or_Artist_Album_List
     if (ETCore->ETFileDisplayed)
@@ -2525,7 +2525,7 @@ gint Save_File (ET_File *ETFile, gboolean multiple_files, gboolean force_saving_
         gint response;
 
         msg = g_strdup_printf(_("The file '%s' was changed by an external program.\nDo you want to continue?"),basename_cur_utf8);
-        msgbox = msg_box_new(_("Write File..."),
+        msgbox = msg_box_new(_("Write File…"),
                              GTK_WINDOW(MainWindow),
                              NULL,
                              GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -2969,7 +2969,7 @@ gboolean Rename_File (ET_File *ETFile, gboolean hide_msgbox)
         Log_Print(LOG_ERROR,"%s", msg);
         g_free(msg);
 
-        Statusbar_Message(_("File(s) not renamed..."),TRUE);
+        Statusbar_Message(_("File(s) not renamed…"),TRUE);
         g_free(tmp_filename);
         g_free(cur_basename_utf8);
         g_free(new_basename_utf8);
@@ -3101,7 +3101,7 @@ gboolean Rename_File (ET_File *ETFile, gboolean hide_msgbox)
         /* Now the file was renamed, so mark his state */
         ET_Mark_File_Name_As_Saved(ETFile);
 
-        Statusbar_Message(_("File(s) renamed..."),TRUE);
+        Statusbar_Message(_("File(s) renamed…"),TRUE);
 
         /* Remove the of directory (check automatically if it is empty) */
         if (Remove_Dir(dirname_cur,dirname_new))
@@ -3159,7 +3159,7 @@ gboolean Rename_File (ET_File *ETFile, gboolean hide_msgbox)
             /* Now the file was renamed, so mark his state */
             ET_Mark_File_Name_As_Saved(ETFile);
 
-            Statusbar_Message(_("File(s) moved..."),TRUE);
+            Statusbar_Message(_("File(s) moved…"),TRUE);
 
             /* Remove the of directory (check automatically if it is empty) */
             if (Remove_Dir(dirname_cur,dirname_new))
@@ -3228,7 +3228,7 @@ gboolean Rename_File (ET_File *ETFile, gboolean hide_msgbox)
             Log_Print(LOG_ERROR,"%s", msg);
             g_free(msg);
 
-            Statusbar_Message(_("File(s) not moved..."),TRUE);
+            Statusbar_Message(_("File(s) not moved…"),TRUE);
 
             g_free(tmp_filename);
             g_free(cur_basename_utf8);
@@ -3512,7 +3512,7 @@ gboolean Read_Directory (gchar *path_real)
         Open_Quit_Recursion_Function_Window();
 
     /* Read the directory recursively */
-    msg = g_strdup_printf(_("Search in progress..."));
+    msg = g_strdup_printf(_("Search in progress…"));
     Statusbar_Message(msg,FALSE);
     g_free(msg);
     // Search the supported files
@@ -3690,7 +3690,7 @@ void Open_Quit_Recursion_Function_Window (void)
     if (QuitRecursionWindow != NULL)
         return;
     QuitRecursionWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW(QuitRecursionWindow),_("Searching..."));
+    gtk_window_set_title(GTK_WINDOW(QuitRecursionWindow),_("Searching…"));
     gtk_window_set_transient_for(GTK_WINDOW(QuitRecursionWindow),GTK_WINDOW(MainWindow));
     //gtk_window_set_policy(GTK_WINDOW(QuitRecursionWindow),FALSE,FALSE,TRUE);
 

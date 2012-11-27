@@ -581,7 +581,7 @@ int vcedit_write(vcedit_state *state, void *out)
             if(result==0)
                 break;
             if(result<0)
-                state->lasterror = _("Corrupt or missing data, continuing...");
+                state->lasterror = _("Corrupt or missing data, continuing…");
             else
             {
                 /* Don't bother going through the rest, we can just

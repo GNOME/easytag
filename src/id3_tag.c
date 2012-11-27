@@ -902,7 +902,7 @@ gchar *Id3tag_Get_Field (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid)
     if (num_chars && !string1)
     {
         gchar *escaped_str = g_strescape(string, NULL);
-        Log_Print(LOG_OK,"Id3tag_Get_Field: Trying to fix string '%s' ...",escaped_str);
+        Log_Print(LOG_OK,"Id3tag_Get_Field: Trying to fix string '%s'…",escaped_str);
         g_free(escaped_str);
 
         string1 = filename_to_display(string);

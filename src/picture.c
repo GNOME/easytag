@@ -1108,7 +1108,7 @@ Picture *Picture_Load_File_Data (const gchar *filename)
 
     if (stat(filename, &st)==-1)
     {
-        Log_Print(LOG_ERROR,_("Picture file not loaded (%s)..."),g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Picture file not loaded (%s)…"),g_strerror(errno));
 #ifdef WIN32
         g_free(filename);
 #endif
@@ -1156,7 +1156,7 @@ Picture *Picture_Load_File_Data (const gchar *filename)
         if (buffer)
             g_free(buffer);
         
-        Log_Print(LOG_ERROR,_("Picture file not loaded (%s)..."),g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Picture file not loaded (%s)…"),g_strerror(errno));
 
         return NULL;
     }else
@@ -1168,7 +1168,7 @@ Picture *Picture_Load_File_Data (const gchar *filename)
         pic->size = size;
         pic->data = (guchar *)buffer;
 
-        Log_Print(LOG_OK,_("Picture file loaded..."));
+        Log_Print(LOG_OK,_("Picture file loaded…"));
 
         return pic;
     }
@@ -1184,14 +1184,14 @@ gboolean Picture_Save_File_Data (const Picture *pic, const gchar *filename)
     fd = open(filename, O_WRONLY|O_CREAT|O_TRUNC, 0666);
     if (fd == -1)
     {
-        Log_Print(LOG_ERROR,_("Picture file can't be saved (%s)..."),g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Picture file can't be saved (%s)…"),g_strerror(errno));
         return FALSE;
     }
 
     if (write(fd, pic->data, pic->size) != pic->size)
     {
         close(fd);
-        Log_Print(LOG_ERROR,_("Picture file can't be saved (%s)..."),g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Picture file can't be saved (%s)…"),g_strerror(errno));
         return FALSE;
     }
 

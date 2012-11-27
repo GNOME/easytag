@@ -113,7 +113,7 @@ void Open_OptionsWindow (void)
     gtk_container_set_border_width(GTK_CONTAINER(OptionsWindow), 5);
     gtk_window_set_default_size(GTK_WINDOW(OptionsWindow),OPTIONS_WINDOW_WIDTH,OPTIONS_WINDOW_HEIGHT);
     /* Title */
-    gtk_window_set_title(GTK_WINDOW(OptionsWindow),_("Preferences..."));
+    gtk_window_set_title(GTK_WINDOW(OptionsWindow),_("Preferences…"));
 
     /* Signals connection */
     g_signal_connect(G_OBJECT(OptionsWindow),"destroy", G_CALLBACK(OptionsWindow_Quit),NULL);
@@ -588,7 +588,7 @@ void Open_OptionsWindow (void)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(DateAutoCompletion),DATE_AUTO_COMPLETION);
     gtk_widget_set_tooltip_text(DateAutoCompletion,_("Try to complete the year field if you enter "
         "only the last numerals of the date (for instance, if the current year is 2005: "
-        "5 => 2005, 4 => 2004, 6 => 1996, 95 => 1995, ...)."));
+        "5 => 2005, 4 => 2004, 6 => 1996, 95 => 1995 …)."));
 
     hbox = gtk_hbox_new(FALSE,0);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
@@ -598,7 +598,7 @@ void Open_OptionsWindow (void)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(NumberTrackFormated),NUMBER_TRACK_FORMATED);
     gtk_widget_set_tooltip_text(NumberTrackFormated,_("If activated, the track field is written using "
         "the number '0' as padding to obtain a number with 'n' digits (Ex. with two digits : '05', "
-        "'09', '10',...). Else it keeps the 'raw' track value."));
+        "'09', '10' …). Else it keeps the 'raw' track value."));
 
     NumberTrackFormatedSpinButton = gtk_spin_button_new(GTK_ADJUSTMENT(gtk_adjustment_new(2.0,2.0,6.0,1.0,1.0,1.0)),1.0,0);
     gtk_box_pack_start(GTK_BOX(hbox),NumberTrackFormatedSpinButton,FALSE,FALSE,0);
@@ -725,7 +725,7 @@ void Open_OptionsWindow (void)
     gtk_table_attach(GTK_TABLE(Table),StripTagWhenEmptyFields,0,1,1,2,GTK_FILL,GTK_FILL,0,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(StripTagWhenEmptyFields),STRIP_TAG_WHEN_EMPTY_FIELDS);
     gtk_widget_set_tooltip_text(StripTagWhenEmptyFields,_("As ID3v2 tags may contain other data than "
-        "Title, Artist, Album, Year, Track, Genre or Comment (as an attached picture, lyrics, ...), "
+        "Title, Artist, Album, Year, Track, Genre or Comment (as an attached picture, lyrics …), "
         "this option allows you to strip the whole tag when these seven standard data fields have "
         "been set to blank."));
 
@@ -1842,7 +1842,7 @@ gint Check_CharacterSetTranslation (void)
     {
         gchar *msg = g_strdup_printf(_("The character set translation from '%s'\n"
                                        "to '%s' isn't supported!"),reading_character,"UTF-8");
-        GtkWidget *msgbox = msg_box_new(_("Error..."),
+        GtkWidget *msgbox = msg_box_new(_("Error…"),
                                         GTK_WINDOW(OptionsWindow),
                                         NULL,
                                         GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -1862,7 +1862,7 @@ gint Check_CharacterSetTranslation (void)
     {
         gchar *msg = g_strdup_printf(_("The character set translation from '%s'\n"
                                        "to '%s' isn't supported!"),"UTF-8",writing_character);
-        GtkWidget *msgbox = msg_box_new(_("Error..."),
+        GtkWidget *msgbox = msg_box_new(_("Error…"),
                                         GTK_WINDOW(OptionsWindow),
                                         NULL,
                                         GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,

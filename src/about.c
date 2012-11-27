@@ -256,7 +256,7 @@ void Show_About_Window (void)
     AboutWindow = gtk_dialog_new();
 
     /* Config */
-    gtk_window_set_title(GTK_WINDOW(AboutWindow),_("About..."));
+    gtk_window_set_title(GTK_WINDOW(AboutWindow),_("About…"));
     gtk_window_set_position(GTK_WINDOW(AboutWindow),GTK_WIN_POS_CENTER);
 
     /* Signals connection */

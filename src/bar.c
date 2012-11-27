@@ -189,7 +189,7 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { AM_SORT_ASCENDING_FILE_SAMPLERATE,  GTK_STOCK_SORT_ASCENDING,  _("Ascending by samplerate"),       NULL, _("Ascending by samplerate"),       G_CALLBACK(Menu_Sort_Action) },
         { AM_SORT_DESCENDING_FILE_SAMPLERATE, GTK_STOCK_SORT_DESCENDING, _("Descending by samplerate"),      NULL, _("Descending by samplerate"),      G_CALLBACK(Menu_Sort_Action) },
 
-        { AM_OPEN_FILE_WITH,     GTK_STOCK_OPEN,             _("Open File(s) with ..."),      NULL,                _("Open File(s) with ..."),     G_CALLBACK(Browser_Open_Run_Program_List_Window) },
+        { AM_OPEN_FILE_WITH,     GTK_STOCK_OPEN,             _("Open File(s) with…"),      NULL,                _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window) },
         { AM_SELECT_ALL_FILES,   "easytag-select-all",       _("Select All Files"),           "<Control>A",        _("Select All Files"),          G_CALLBACK(Action_Select_All_Files) },
         { AM_UNSELECT_ALL_FILES, "easytag-unselect-all",     _("Unselect All Files"),         "<Shift><Control>A", _("Unselect All Files"),        G_CALLBACK(Action_Unselect_All_Files) },
         { AM_INVERT_SELECTION,   "easytag-invert-selection", _("Invert Files Selection"),     "<Control>I",        _("Invert Files Selection"),    G_CALLBACK(Action_Invert_Files_Selection) },
@@ -219,26 +219,26 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { AM_LOAD_DEFAULT_DIR,         GTK_STOCK_JUMP_TO,      _("Go to _Default Directory"),      "<Control>D",        _("Go to Default Directory"),       G_CALLBACK(Browser_Load_Default_Directory) },
         { AM_SET_PATH_AS_DEFAULT,      GTK_STOCK_DIRECTORY,    _("Set _Current Path as Default"),  NULL,                _("Set Current Path as Default"),   G_CALLBACK(Set_Current_Path_As_Default) },
         { AM_TREE_OR_ARTISTALBUM_VIEW, "easytag-artist-album", _("Tree View | Artist-Album View"), NULL,                _("Tree View | Artist-Album View"), G_CALLBACK(Menu_Sort_Action) },
-        { AM_RENAME_DIR,               GTK_STOCK_INDEX,        _("Rename Directory ..."),          "F2",                _("Rename Directory ..."),          G_CALLBACK(Browser_Open_Rename_Directory_Window) },
+        { AM_RENAME_DIR,               GTK_STOCK_INDEX,        _("Rename Directory…"),          "F2",                _("Rename Directory…"),          G_CALLBACK(Browser_Open_Rename_Directory_Window) },
         { AM_RELOAD_DIRECTORY,         GTK_STOCK_REFRESH,      _("Reload Directory"),              "F5",                _("Reload Directory"),              G_CALLBACK(Browser_Reload_Directory) },
-        { AM_BROWSE_DIRECTORY_WITH,    GTK_STOCK_EXECUTE,      _("Browse Directory with ..."),     NULL,                _("Browse Directory with ..."),     G_CALLBACK(Browser_Open_Run_Program_Tree_Window) },
+        { AM_BROWSE_DIRECTORY_WITH,    GTK_STOCK_EXECUTE,      _("Browse Directory with…"),     NULL,                _("Browse Directory with…"),     G_CALLBACK(Browser_Open_Run_Program_Tree_Window) },
         { AM_COLLAPSE_TREE,            NULL,                   _("_Collapse Tree"),                "<Control><Shift>C", _("_Collapse Tree"),                G_CALLBACK(Browser_Tree_Collapse) },
         { AM_INITIALIZE_TREE,          GTK_STOCK_REFRESH,      _("_Refresh Tree"),                 "<Control><Shift>R", _("_Refresh Tree"),                 G_CALLBACK(Browser_Tree_Rebuild) },
 
         { MENU_SCANNER,              NULL,                  _("S_canner"),                          NULL,         NULL,                                 NULL },
-        { AM_SCANNER_FILL_TAG,       "easytag-scan",        _("_Fill Tag(s) ..."),                  NULL,         _("Fill Tag(s) ..."),                 G_CALLBACK(Scan_Use_Fill_Tag_Scanner) },
-        { AM_SCANNER_RENAME_FILE,    "easytag-scan",        _("_Rename File(s) and Directory ..."), NULL,         _("Rename File(s) and Directory ..."),G_CALLBACK(Scan_Use_Rename_File_Scanner) },
-        { AM_SCANNER_PROCESS_FIELDS, "easytag-scan",        _("_Process Field(s) ..."),             NULL,         _("Process Fields(s) ..."),           G_CALLBACK(Scan_Use_Process_Fields_Scanner) },
+        { AM_SCANNER_FILL_TAG,       "easytag-scan",        _("_Fill Tag(s)…"),                  NULL,         _("Fill Tag(s)…"),                 G_CALLBACK(Scan_Use_Fill_Tag_Scanner) },
+        { AM_SCANNER_RENAME_FILE,    "easytag-scan",        _("_Rename File(s) and Directory…"), NULL,         _("Rename File(s) and Directory…"),G_CALLBACK(Scan_Use_Rename_File_Scanner) },
+        { AM_SCANNER_PROCESS_FIELDS, "easytag-scan",        _("_Process Field(s)…"),             NULL,         _("Process Fields(s)…"),           G_CALLBACK(Scan_Use_Process_Fields_Scanner) },
 
         { MENU_MISC,                NULL,                   _("_Misc"),                             NULL,         NULL,                                 NULL },
-        { AM_SEARCH_FILE,           GTK_STOCK_FIND,         _("Search _File(s) ..."),               "<Control>F", _("Search File(s)..."),               G_CALLBACK(Open_Search_File_Window) },
-        { AM_CDDB_SEARCH,           GTK_STOCK_CDROM,        _("CD Data _Base Search ..."),          "<Control>B", _("CDDB Search ..."),                 G_CALLBACK(Open_Cddb_Window) },
-        { AM_FILENAME_FROM_TXT,     GTK_STOCK_OPEN,         _("Load Filenames from TXT ..."),       "<Alt>T",     _("Load Filenames from TXT ..."),     G_CALLBACK(Open_Load_Filename_Window) },
-        { AM_WRITE_PLAYLIST,        GTK_STOCK_SAVE_AS,      _("Write Playlist ..."),                "<Alt>W",     _("Write Playlist ..."),              G_CALLBACK(Open_Write_Playlist_Window) },
+        { AM_SEARCH_FILE,           GTK_STOCK_FIND,         _("Search _File(s)…"),               "<Control>F", _("Search File(s)…"),               G_CALLBACK(Open_Search_File_Window) },
+        { AM_CDDB_SEARCH,           GTK_STOCK_CDROM,        _("CD Data _Base Search…"),          "<Control>B", _("CDDB Search…"),                 G_CALLBACK(Open_Cddb_Window) },
+        { AM_FILENAME_FROM_TXT,     GTK_STOCK_OPEN,         _("Load Filenames from TXT…"),       "<Alt>T",     _("Load Filenames from TXT…"),     G_CALLBACK(Open_Load_Filename_Window) },
+        { AM_WRITE_PLAYLIST,        GTK_STOCK_SAVE_AS,      _("Write Playlist…"),                "<Alt>W",     _("Write Playlist…"),              G_CALLBACK(Open_Write_Playlist_Window) },
         { AM_RUN_AUDIO_PLAYER,      "easytag-sound",        _("Run Audio Player"),                  "<Alt>X",     _("Run Audio Player"),                G_CALLBACK(Run_Audio_Player_Using_Selection) },
 
         { MENU_SETTINGS,            NULL,                   _("_Settings"),                         NULL,         NULL,                                 NULL },
-        { AM_OPEN_OPTIONS_WINDOW,   GTK_STOCK_PREFERENCES,  _("_Preferences ..."),                  "<Alt>P",     _("Preferences ..."),                 G_CALLBACK(Open_OptionsWindow) },
+        { AM_OPEN_OPTIONS_WINDOW,   GTK_STOCK_PREFERENCES,  _("_Preferences…"),                  "<Alt>P",     _("Preferences…"),                 G_CALLBACK(Open_OptionsWindow) },
 
         { MENU_HELP,                NULL,                   _("_Help"),                             NULL,         NULL,                                 NULL },
         { AM_OPEN_ABOUT_WINDOW,     GTK_STOCK_ABOUT,        _("_About"),                            NULL,         _("About"),                           G_CALLBACK(Show_About_Window) },
@@ -258,9 +258,9 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { POPUP_DIR_RUN_AUDIO,          "easytag-sound",   _("Run Audio Player"),          NULL, _("Run Audio Player"),        G_CALLBACK(Run_Audio_Player_Using_Directory) },
         { AM_ARTIST_RUN_AUDIO_PLAYER,   "easytag-sound",   _("Run Audio Player"),          NULL, _("Run Audio Player"),        G_CALLBACK(Run_Audio_Player_Using_Browser_Artist_List) },
         { AM_ALBUM_RUN_AUDIO_PLAYER,    "easytag-sound",   _("Run Audio Player"),          NULL, _("Run Audio Player"),        G_CALLBACK(Run_Audio_Player_Using_Browser_Album_List)  },
-        { AM_CDDB_SEARCH_FILE,          GTK_STOCK_CDROM,   _("CDDB Search File(s)..."),    NULL, _("CDDB Search File(s)..."),  G_CALLBACK(Cddb_Popup_Menu_Search_Selected_File) },
-        //{ AM_ARTIST_OPEN_FILE_WITH,     GTK_STOCK_OPEN,    _("Open File(s) with ..."),     NULL, _("Open File(s) with ..."),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
-        //{ AM_ALBUM_OPEN_FILE_WITH,      GTK_STOCK_OPEN,    _("Open File(s) with ..."),     NULL, _("Open File(s) with ..."),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
+        { AM_CDDB_SEARCH_FILE,          GTK_STOCK_CDROM,   _("CDDB Search File(s)…"),    NULL, _("CDDB Search File(s)…"),  G_CALLBACK(Cddb_Popup_Menu_Search_Selected_File) },
+        //{ AM_ARTIST_OPEN_FILE_WITH,     GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
+        //{ AM_ALBUM_OPEN_FILE_WITH,      GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
 
         { AM_LOG_CLEAN,                 GTK_STOCK_CLEAR,   _("Clean Log"),                 NULL, _("Clean Log"),              G_CALLBACK(Log_Clean_Log_List) }
 
@@ -411,7 +411,7 @@ GtkWidget *Create_Status_Bar (void)
     /* Create serie */
     StatusBarContext = gtk_statusbar_get_context_id(GTK_STATUSBAR(StatusBar),"Messages");
 
-    Statusbar_Message(_("Ready to start..."),TRUE);
+    Statusbar_Message(_("Ready to start…"),TRUE);
 
     gtk_widget_show(StatusBar);
     return StatusBar;

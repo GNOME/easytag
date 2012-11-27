@@ -1080,7 +1080,7 @@ void Read_Config (void)
     if ( (file=fopen(file_path,"r"))==0 )
     {
         Log_Print(LOG_ERROR,_("Can't open configuration file '%s' (%s)"),file_path,g_strerror(errno));
-        Log_Print(LOG_OK,_("Loading default configuration..."));
+        Log_Print(LOG_OK,_("Loading default configuration…"));
     }else
     {
         while (fgets(buffer,sizeof(buffer),file))
@@ -1432,7 +1432,7 @@ void Load_Scan_Tag_Masks_List (GtkListStore *liststore, gint colnum, gchar **fal
     if (!Populate_List_Store_From_File(SCAN_TAG_MASKS_FILE, liststore, colnum))
     {
         // Fall back to defaults
-        Log_Print(LOG_OK,_("Loading default 'Fill Tag' masks..."));
+        Log_Print(LOG_OK,_("Loading default 'Fill Tag' masks…"));
 
         while(fallback[i])
         {
@@ -1460,7 +1460,7 @@ void Load_Rename_File_Masks_List (GtkListStore *liststore, gint colnum, gchar **
     if (!Populate_List_Store_From_File(RENAME_FILE_MASKS_FILE, liststore, colnum))
     {
         // Fall back to defaults
-        Log_Print(LOG_OK,_("Loading default 'Rename File' masks..."));
+        Log_Print(LOG_OK,_("Loading default 'Rename File' masks…"));
 
         while(fallback[i])
         {
@@ -1487,7 +1487,7 @@ void Load_Rename_Directory_Masks_List (GtkListStore *liststore, gint colnum, gch
     if (!Populate_List_Store_From_File(RENAME_DIRECTORY_MASKS_FILE, liststore, colnum))
     {
         // Fall back to defaults
-        Log_Print(LOG_OK,_("Loading default 'Rename Directory' masks..."));
+        Log_Print(LOG_OK,_("Loading default 'Rename Directory' masks…"));
 
         while(fallback[i])
         {

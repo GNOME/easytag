@@ -358,9 +358,9 @@ void Scan_Tag_With_Mask (ET_File *ETFile)
     ET_Manage_Changes_Of_File_Data(ETFile,NULL,FileTag);
 
     g_free(mask);
-    Statusbar_Message(_("Tag successfully scanned..."),TRUE);
+    Statusbar_Message(_("Tag successfully scanned…"),TRUE);
     filename_utf8 = g_path_get_basename( ((File_Name *)ETFile->FileNameNew->data)->value_utf8 );
-    Log_Print(LOG_OK,_("Tag successfully scanned...(%s)"),filename_utf8);
+    Log_Print(LOG_OK,_("Tag successfully scanned…(%s)"),filename_utf8);
     g_free(filename_utf8);
 }
 
@@ -400,7 +400,7 @@ GList *Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask)
     if (i==ET_FILE_DESCRIPTION_SIZE)
     {
         gchar *tmp1 = g_path_get_basename(filename_utf8);
-        Log_Print(LOG_ERROR,_("Tag scanner: strange..., the extension '%s' was not found into filename '%s'!"),tmp,tmp1);
+        Log_Print(LOG_ERROR,_("Tag scanner: strange… the extension '%s' was not found in filename '%s'!"),tmp,tmp1);
         g_free(tmp1);
     }
 
@@ -696,10 +696,10 @@ void Scan_Rename_File_With_Mask (ET_File *ETFile)
     ET_Manage_Changes_Of_File_Data(ETFile,FileName,NULL);
     g_free(filename_new_utf8);
 
-    Statusbar_Message(_("New file name successfully scanned..."),TRUE);
+    Statusbar_Message(_("New file name successfully scanned…"),TRUE);
 
     filename_new_utf8 = g_path_get_basename(((File_Name *)ETFile->FileNameNew->data)->value_utf8);
-    Log_Print(LOG_OK,_("New file name successfully scanned...(%s)"),filename_new_utf8);
+    Log_Print(LOG_OK,_("New file name successfully scanned…(%s)"),filename_new_utf8);
     g_free(filename_new_utf8);
 
     return;
@@ -2489,7 +2489,7 @@ void Open_ScannerWindow (gint scanner_type)
         G_CALLBACK(Scan_Check_Scan_Tag_Mask),G_OBJECT(MaskStatusIconBox));
 
     // Preview label
-    FillTagPreviewLabel = gtk_label_new(_("Fill tag preview..."));
+    FillTagPreviewLabel = gtk_label_new(_("Fill tag preview…"));
     gtk_label_set_line_wrap(GTK_LABEL(FillTagPreviewLabel),TRUE);
     gtk_widget_show(FillTagPreviewLabel);
     gtk_box_pack_start(GTK_BOX(vbox),FillTagPreviewLabel,TRUE,TRUE,0);
@@ -2556,7 +2556,7 @@ void Open_ScannerWindow (gint scanner_type)
         G_CALLBACK(Scan_Check_Rename_File_Mask),G_OBJECT(MaskStatusIconBox));
 
     /* Preview label */
-    RenameFilePreviewLabel = gtk_label_new(_("Rename file preview..."));
+    RenameFilePreviewLabel = gtk_label_new(_("Rename file preview…"));
     gtk_label_set_line_wrap(GTK_LABEL(RenameFilePreviewLabel),TRUE);
     gtk_widget_show(RenameFilePreviewLabel);
     gtk_box_pack_start(GTK_BOX(vbox),RenameFilePreviewLabel,TRUE,TRUE,0);
