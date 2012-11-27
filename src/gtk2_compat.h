@@ -26,6 +26,7 @@ G_BEGIN_DECLS
 #if !GTK_CHECK_VERSION(3,0,0)
 
 GtkWidget *gtk_box_new(GtkOrientation orientation, gint padding);
+GtkWidget *gtk_button_box_new(GtkOrientation orientation);
 
 #endif /* !GTK_CHECK_VERSION(3,0,0) */
 

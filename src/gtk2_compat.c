@@ -27,4 +27,10 @@ GtkWidget *gtk_box_new(GtkOrientation orientation,gint padding)
     return gtk_vbox_new(FALSE,padding);
 }
 
+GtkWidget *gtk_button_box_new(GtkOrientation orientation)
+{
+    if (orientation==GTK_ORIENTATION_HORIZONTAL)
+        return gtk_hbutton_box_new();
+    return gtk_vbutton_box_new();
+}
 #endif /* !GTK_CHECK_VERSION(3,0,0) */

@@ -1457,7 +1457,7 @@ void Open_OptionsWindow (void)
     /*
      * Buttons box of Option Window
      */
-    ButtonBox = gtk_hbutton_box_new ();
+    ButtonBox = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
     gtk_box_pack_start(GTK_BOX(OptionsVBox), ButtonBox, FALSE, FALSE, 4);
 
     gtk_button_box_set_layout (GTK_BUTTON_BOX (ButtonBox), GTK_BUTTONBOX_END);

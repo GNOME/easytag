@@ -3783,7 +3783,7 @@ void Browser_Open_Rename_Directory_Window (void)
     Separator = gtk_hseparator_new();
     gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
 
-    ButtonBox = gtk_hbutton_box_new ();
+    ButtonBox = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
     gtk_box_pack_start(GTK_BOX(VBox),ButtonBox,FALSE,FALSE,0);
     gtk_button_box_set_layout(GTK_BUTTON_BOX(ButtonBox),GTK_BUTTONBOX_END);
     gtk_box_set_spacing(GTK_BOX(ButtonBox),10);
@@ -4206,7 +4206,7 @@ void Browser_Open_Run_Program_Tree_Window (void)
     Separator = gtk_hseparator_new();
     gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
 
-    ButtonBox = gtk_hbutton_box_new ();
+    ButtonBox = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
     gtk_box_pack_start(GTK_BOX(VBox),ButtonBox,FALSE,FALSE,0);
     gtk_button_box_set_layout(GTK_BUTTON_BOX(ButtonBox),GTK_BUTTONBOX_END);
     gtk_box_set_spacing(GTK_BOX(ButtonBox), 10);
@@ -4364,7 +4364,7 @@ void Browser_Open_Run_Program_List_Window (void)
     Separator = gtk_hseparator_new();
     gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
 
-    ButtonBox = gtk_hbutton_box_new ();
+    ButtonBox = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
     gtk_box_pack_start(GTK_BOX(VBox),ButtonBox,FALSE,FALSE,0);
     gtk_button_box_set_layout(GTK_BUTTON_BOX(ButtonBox),GTK_BUTTONBOX_END);
     gtk_box_set_spacing(GTK_BOX(ButtonBox), 10);

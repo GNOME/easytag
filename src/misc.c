@@ -1412,7 +1412,7 @@ void Open_Write_Playlist_Window (void)
     Separator = gtk_hseparator_new();
     gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
 
-    ButtonBox = gtk_hbutton_box_new ();
+    ButtonBox = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
     gtk_box_pack_start(GTK_BOX(VBox),ButtonBox,FALSE,FALSE,0);
     gtk_button_box_set_layout(GTK_BUTTON_BOX(ButtonBox),GTK_BUTTONBOX_END);
     gtk_box_set_spacing(GTK_BOX(ButtonBox), 10);
@@ -3009,7 +3009,7 @@ void Open_Load_Filename_Window (void)
     Separator = gtk_hseparator_new();
     gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
 
-    ButtonBox = gtk_hbutton_box_new ();
+    ButtonBox = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
     gtk_box_pack_start(GTK_BOX(VBox),ButtonBox,FALSE,FALSE,0);
     gtk_button_box_set_layout(GTK_BUTTON_BOX(ButtonBox),GTK_BUTTONBOX_END);
     gtk_box_set_spacing(GTK_BOX(ButtonBox), 10);
