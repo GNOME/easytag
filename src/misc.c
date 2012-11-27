@@ -1446,7 +1446,7 @@ void Destroy_Write_Playlist_Window (void)
         Write_Playlist_Window_Apply_Changes();
 
         gtk_widget_destroy(WritePlaylistWindow);
-        WritePlaylistWindow = (GtkWidget *)NULL;
+        WritePlaylistWindow = NULL;
     }
 }
 
@@ -2244,7 +2244,7 @@ void Destroy_Search_File_Window (void)
         Search_File_Window_Apply_Changes();
 
         gtk_widget_destroy(SearchFileWindow);
-        SearchFileWindow = (GtkWidget *)NULL;
+        SearchFileWindow = NULL;
     }
 }
 
@@ -3047,7 +3047,7 @@ void Destroy_Load_Filename_Window (void)
         Load_Filename_Window_Apply_Changes();
 
         gtk_widget_destroy(LoadFilenameWindow);
-        LoadFilenameWindow = (GtkWidget *)NULL;
+        LoadFilenameWindow = NULL;
     }
 }
 
@@ -3241,7 +3241,7 @@ void Load_Filename_Select_Row_In_Other_List(GtkWidget* treeview_target, gpointer
     if (!treeview_target || !origselection)
         return;
 
-    selection_orig = (GtkTreeSelection*) origselection;
+    selection_orig = GTK_TREE_SELECTION(origselection);
     selection_target = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview_target));
     treemodel_target = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview_target));
 
@@ -3637,11 +3637,11 @@ void Load_Filename_List_Reload (GtkWidget *treeview)
 {
     if (!treeview) return;
 
-    if (GTK_TREE_VIEW(treeview) == (GtkTreeView *)LoadFileContentList)
+    if (GTK_TREE_VIEW(treeview) == GTK_TREE_VIEW(LoadFileContentList))
     {
         Load_File_Content(gtk_bin_get_child(GTK_BIN(FileToLoadCombo)));
         
-    } else if (GTK_TREE_VIEW(treeview) == (GtkTreeView *)LoadFileNameList)
+    } else if (GTK_TREE_VIEW(treeview) == GTK_TREE_VIEW(LoadFileNameList))
     {
         Load_File_List();
     }
@@ -3675,7 +3675,7 @@ void Load_Filename_Edit_Text_Line(GtkTreeSelection *selection, gpointer data)
 {
     gchar *text;
     GtkTreeIter selectedIter;
-    GtkEntry *entry = (GtkEntry*)data;
+    GtkEntry *entry = GTK_ENTRY(data);
     gulong handler;
 
     if (gtk_tree_selection_get_selected(selection, NULL, &selectedIter) != TRUE)

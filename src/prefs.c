@@ -77,7 +77,7 @@ void CddbLocalPath_Combo_Add_String            (void);
  *************/
 void Init_OptionsWindow (void)
 {
-    OptionsWindow = (GtkWidget *)NULL;
+    OptionsWindow = NULL;
 }
 
 /*
@@ -427,7 +427,7 @@ void Open_OptionsWindow (void)
     Label = gtk_label_new (_("Max number of lines :"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
     
-    LogMaxLinesSpinButton = gtk_spin_button_new((GtkAdjustment *)gtk_adjustment_new(2.0,2.0,6.0,1.0,1.0,1.0),1.0,0);
+    LogMaxLinesSpinButton = gtk_spin_button_new(GTK_ADJUSTMENT(gtk_adjustment_new(2.0,2.0,6.0,1.0,1.0,1.0)),1.0,0);
     LogMaxLinesSpinButton = gtk_spin_button_new_with_range(10.0,1500.0,10.0);
     gtk_box_pack_start(GTK_BOX(hbox),LogMaxLinesSpinButton,FALSE,FALSE,0);
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(LogMaxLinesSpinButton),(gfloat)LOG_MAX_LINES);
@@ -601,7 +601,7 @@ void Open_OptionsWindow (void)
         "the number '0' as padding to obtain a number with 'n' digits (Ex. with two digits : '05', "
         "'09', '10',...). Else it keeps the 'raw' track value."));
 
-    NumberTrackFormatedSpinButton = gtk_spin_button_new((GtkAdjustment *)gtk_adjustment_new(2.0,2.0,6.0,1.0,1.0,1.0),1.0,0);
+    NumberTrackFormatedSpinButton = gtk_spin_button_new(GTK_ADJUSTMENT(gtk_adjustment_new(2.0,2.0,6.0,1.0,1.0,1.0)),1.0,0);
     gtk_box_pack_start(GTK_BOX(hbox),NumberTrackFormatedSpinButton,FALSE,FALSE,0);
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(NumberTrackFormatedSpinButton),(gfloat)NUMBER_TRACK_FORMATED_SPIN_BUTTON);
     g_signal_connect(G_OBJECT(NumberTrackFormated),"toggled",G_CALLBACK(Number_Track_Formated_Toggled),NULL);
@@ -1717,7 +1717,7 @@ void OptionsWindow_Quit(void)
 
         /* Now quit */
         gtk_widget_destroy(OptionsWindow);
-        OptionsWindow = (GtkWidget *)NULL;
+        OptionsWindow = NULL;
         gtk_widget_set_sensitive(MainWindow, TRUE);
     }
 }

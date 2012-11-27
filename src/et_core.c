@@ -2035,7 +2035,7 @@ gboolean ET_Free_File_List (void)
     }
 
     g_list_free(list);
-    ETCore->ETFileList = (GList *)NULL;
+    ETCore->ETFileList = NULL;
     return TRUE;
 }
 
@@ -2081,7 +2081,7 @@ gboolean ET_Free_File_Name_List (GList *FileNameList)
         list = list->prev;
     }
     g_list_free(list);
-    FileNameList = (GList *)NULL;
+    FileNameList = NULL;
     return TRUE;
 }
 
@@ -2097,7 +2097,7 @@ gboolean ET_Free_File_Name_Item (File_Name *FileName)
     g_free(FileName->value_utf8);
     g_free(FileName->value_ck);
     g_free(FileName);
-    FileName = (File_Name *)NULL;
+    FileName = NULL;
     return TRUE;
 }
 
@@ -2121,7 +2121,7 @@ gboolean ET_Free_File_Tag_List (GList *FileTagList)
         list = list->prev;
     }
     g_list_free(list);
-    FileTagList = (GList *)NULL;
+    FileTagList = NULL;
     return TRUE;
 }
 
@@ -2173,7 +2173,7 @@ gboolean ET_Free_File_Tag_Item (File_Tag *FileTag)
     ET_Free_File_Tag_Item_Other_Field(FileTag);
 
     g_free(FileTag);
-    FileTag = (File_Tag *)NULL;
+    FileTag = NULL;
     return TRUE;
 }
 
@@ -2189,7 +2189,7 @@ gboolean ET_Free_File_Info_Item (ET_File_Info *ETFileInfo)
     g_free(ETFileInfo->mpc_version);
 
     g_free(ETFileInfo);
-    ETFileInfo = (ET_File_Info *)NULL;
+    ETFileInfo = NULL;
     return TRUE;
 }
 
@@ -2213,7 +2213,7 @@ gboolean ET_Free_History_File_List (void)
         list = list->next;
     }
     g_list_free(ETCore->ETHistoryFileList);
-    ETCore->ETHistoryFileList = (GList *)NULL;
+    ETCore->ETHistoryFileList = NULL;
     return TRUE;
 }
 
@@ -2225,7 +2225,7 @@ gboolean ET_Free_Displayed_File_List (void)
     if (!ETCore || !ETCore->ETFileDisplayedList) return FALSE;
 
     ETCore->ETFileDisplayedList = g_list_first(ETCore->ETFileDisplayedList);
-    ETCore->ETFileDisplayedList = (GList *)NULL;
+    ETCore->ETFileDisplayedList = NULL;
 
     return TRUE;
 }
@@ -2261,7 +2261,7 @@ gboolean ET_Free_Artist_Album_File_List (void)
     if (ETCore->ETArtistAlbumFileList)
         g_list_free(ETCore->ETArtistAlbumFileList);
 
-    ETCore->ETArtistAlbumFileList = (GList *)NULL;
+    ETCore->ETArtistAlbumFileList = NULL;
 
     return TRUE;
 }
@@ -3136,13 +3136,13 @@ gboolean ET_Save_File_Name_From_UI (ET_File *ETFile, File_Name *FileName)
     gchar *filename_new = NULL;
     gchar *dirname = NULL;
     gchar *filename;
-    gchar *filename_utf8;
+    const gchar *filename_utf8;
     gchar *extension;
 
     if (!ETFile || !FileName)
         return FALSE;
 
-    filename_utf8 = (gchar *)gtk_entry_get_text(GTK_ENTRY(FileEntry));
+    filename_utf8 = gtk_entry_get_text(GTK_ENTRY(FileEntry));
     filename = filename_from_display(filename_utf8);
     if (!filename)
     {

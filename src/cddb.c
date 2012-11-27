@@ -149,7 +149,7 @@ void     Cddb_Show_Album_Info  (GtkTreeSelection *selection, gpointer data);
 gboolean Cddb_Free_Album_List (void);
 gboolean Cddb_Free_Track_Album_List (GList *track_list);
 
-gint     Cddb_Open_Connection  (gchar *host, gint port);
+gint     Cddb_Open_Connection  (const gchar *host, gint port);
 void     Cddb_Close_Connection (gint socket_id);
 gint     Cddb_Read_Line        (FILE **file, gchar **cddb_out);
 gint     Cddb_Read_Http_Header (FILE **file, gchar **cddb_out);
@@ -168,7 +168,7 @@ void       Cddb_Load_Album_List               (gboolean only_red_lines);
 void       Cddb_Load_Track_Album_List         (GList *track_list);
 gboolean   Cddb_Set_Track_Infos_To_File_List  (void);
 void       Cddb_Album_List_Set_Row_Appearance (GtkTreeIter *row);
-GdkPixbuf *Cddb_Get_Pixbuf_From_Server_Name   (gchar *server_name);
+GdkPixbuf *Cddb_Get_Pixbuf_From_Server_Name   (const gchar *server_name);
 
 void Cddb_Search_In_All_Fields_Check_Button_Toggled     (void);
 void Cddb_Search_In_All_Categories_Check_Button_Toggled (void);
@@ -207,7 +207,7 @@ gchar *Cddb_Format_Proxy_Authentification (void);
  *************/
 void Init_CddbWindow (void)
 {
-    CddbWindow = (GtkWidget *)NULL;
+    CddbWindow = NULL;
 }
 
 /*
@@ -1374,11 +1374,11 @@ void Cddb_Track_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
                 gtk_tree_model_get(GTK_TREE_MODEL(CddbTrackListModel), &currentFile,
                                    CDDB_TRACK_LIST_NAME, &text_path,
                                    CDDB_TRACK_LIST_ETFILE, &etfile, -1);
-                *etfile = Browser_List_Select_File_By_DLM((const gchar*) text_path, TRUE);
+                *etfile = Browser_List_Select_File_By_DLM(text_path, TRUE);
             } else
             {
                 text_path = gtk_tree_model_get_string_from_iter(GTK_TREE_MODEL(CddbTrackListModel), &currentFile);
-                Browser_List_Select_File_By_Iter_String((const gchar*) text_path, TRUE);
+                Browser_List_Select_File_By_Iter_String(text_path, TRUE);
             }
             g_free(text_path);
         }
@@ -1603,7 +1603,7 @@ void Cddb_Track_List_Sort_By_Ascending_Track_Name (void)
  * Some help on : http://shoe.bocks.com/net/
  *                http://www.zone-h.org/files/4/socket.txt
  */
-gint Cddb_Open_Connection (gchar *host, gint port)
+gint Cddb_Open_Connection (const gchar *host, gint port)
 {
     gint               socket_id = 0;
     struct hostent    *hostent;
@@ -1624,7 +1624,7 @@ gint Cddb_Open_Connection (gchar *host, gint port)
     while (gtk_events_pending())
         gtk_main_iteration();
 
-    if ( (hostent=gethostbyname((const gchar*)host)) == NULL )
+    if ( (hostent=gethostbyname(host)) == NULL )
     {
         msg = g_strdup_printf(_("Can't resolve host '%s' (%s)!"),host,g_strerror(errno));
         gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
@@ -1957,14 +1957,14 @@ gboolean Cddb_Free_Album_List (void)
             g_free(cddbalbum->year);
 
             g_free(cddbalbum);
-            cddbalbum = (CddbAlbum *)NULL;
+            cddbalbum = NULL;
         }
         if (!CddbAlbumList->prev) break;
         CddbAlbumList = CddbAlbumList->prev;
     }
 
     g_list_free(CddbAlbumList);
-    CddbAlbumList = (GList *)NULL;
+    CddbAlbumList = NULL;
     return TRUE;
 }
 
@@ -1982,13 +1982,13 @@ gboolean Cddb_Free_Track_Album_List (GList *track_list)
         {
             g_free(cddbtrackalbum->track_name);
             g_free(cddbtrackalbum);
-            cddbtrackalbum = (CddbTrackAlbum *)NULL;
+            cddbtrackalbum = NULL;
         }
         if (!CddbTrackAlbumList->prev) break;
         CddbTrackAlbumList = CddbTrackAlbumList->prev;
     }
     g_list_free(CddbTrackAlbumList);
-    CddbTrackAlbumList = (GList *)NULL;
+    CddbTrackAlbumList = NULL;
     return TRUE;
 }
 
@@ -3708,7 +3708,7 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
         TrackOffsetList = TrackOffsetList->prev;
     }
     g_list_free(TrackOffsetList);
-    TrackOffsetList = (GList *)NULL;
+    TrackOffsetList = NULL;
     return TRUE;
 }
 
@@ -4169,17 +4169,17 @@ gchar *Cddb_Get_Id3_Genre_From_Cddb_Genre (gchar *cddb_genre)
 /*
  * Returns the pixmap to display following the server name
  */
-GdkPixbuf *Cddb_Get_Pixbuf_From_Server_Name (gchar *server_name)
+GdkPixbuf *Cddb_Get_Pixbuf_From_Server_Name (const gchar *server_name)
 {
     if (!server_name)
         return NULL;
-    else if (strstr((const gchar *)server_name,"freedb.org"))
+    else if (strstr(server_name,"freedb.org"))
         return gdk_pixbuf_new_from_xpm_data(freedb_xpm);
-    else if (strstr((const gchar *)server_name,"gnudb.org"))
+    else if (strstr(server_name,"gnudb.org"))
         return gdk_pixbuf_new_from_xpm_data(gnudb_xpm);
-    else if (strstr((const gchar *)server_name,"musicbrainz.org"))
+    else if (strstr(server_name,"musicbrainz.org"))
         return gdk_pixbuf_new_from_xpm_data(musicbrainz_xpm);
-    else if (strstr((const gchar *)server_name,"/"))
+    else if (strstr(server_name,"/"))
         //return gdk_pixbuf_new_from_xpm_data(closed_folder_xpm);
         return NULL;
     else

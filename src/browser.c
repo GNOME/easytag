@@ -224,7 +224,7 @@ void Browser_Load_Home_Directory (void)
  */
 void Browser_Load_Desktop_Directory (void)
 {
-    Browser_Tree_Select_Dir((gchar *)g_get_user_special_dir(G_USER_DIRECTORY_DESKTOP));
+    Browser_Tree_Select_Dir(g_get_user_special_dir(G_USER_DIRECTORY_DESKTOP));
 }
 
 /*
@@ -232,7 +232,7 @@ void Browser_Load_Desktop_Directory (void)
  */
 void Browser_Load_Documents_Directory (void)
 {
-    Browser_Tree_Select_Dir((gchar *)g_get_user_special_dir(G_USER_DIRECTORY_DOCUMENTS));
+    Browser_Tree_Select_Dir(g_get_user_special_dir(G_USER_DIRECTORY_DOCUMENTS));
 }
 
 /*
@@ -240,7 +240,7 @@ void Browser_Load_Documents_Directory (void)
  */
 void Browser_Load_Downloads_Directory (void)
 {
-    Browser_Tree_Select_Dir((gchar *)g_get_user_special_dir(G_USER_DIRECTORY_DOWNLOAD));
+    Browser_Tree_Select_Dir(g_get_user_special_dir(G_USER_DIRECTORY_DOWNLOAD));
 }
 
 /*
@@ -248,7 +248,7 @@ void Browser_Load_Downloads_Directory (void)
  */
 void Browser_Load_Music_Directory (void)
 {
-    Browser_Tree_Select_Dir((gchar *)g_get_user_special_dir(G_USER_DIRECTORY_MUSIC));
+    Browser_Tree_Select_Dir(g_get_user_special_dir(G_USER_DIRECTORY_MUSIC));
 }
 
 
@@ -3847,7 +3847,7 @@ void Destroy_Rename_Directory_Window (void)
         gtk_list_store_clear(RenameDirectoryMaskModel);
 
         gtk_widget_destroy(RenameDirectoryWindow);
-        RenameDirectoryWindow = (GtkWidget *)NULL;
+        RenameDirectoryWindow = NULL;
     }
 }
 
@@ -4241,7 +4241,7 @@ void Destroy_Run_Program_Tree_Window (void)
     if (RunProgramTreeWindow)
     {
         gtk_widget_destroy(RunProgramTreeWindow);
-        RunProgramTreeWindow = (GtkWidget *)NULL;
+        RunProgramTreeWindow = NULL;
     }
 }
 
@@ -4399,7 +4399,7 @@ void Destroy_Run_Program_List_Window (void)
     if (RunProgramListWindow)
     {
         gtk_widget_destroy(RunProgramListWindow);
-        RunProgramListWindow = (GtkWidget *)NULL;
+        RunProgramListWindow = NULL;
     }
 }
 
@@ -4466,7 +4466,7 @@ void Run_Program_With_Selected_Files (GtkObject *combobox)
         // Append newest choice to the drop down list
         //gtk_list_store_prepend(GTK_LIST_STORE(RunProgramModel), &iter);
         //gtk_list_store_set(RunProgramModel, &iter, MISC_COMBO_TEXT, program_name, -1);
-        Add_String_To_Combo_List(GTK_LIST_STORE(RunProgramModel), (gchar *)program_name);
+        Add_String_To_Combo_List(GTK_LIST_STORE(RunProgramModel), program_name);
 
         // Save list attached to the combobox
         Save_Run_Program_With_File_List(RunProgramModel, MISC_COMBO_TEXT);

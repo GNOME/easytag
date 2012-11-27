@@ -1138,7 +1138,7 @@ GtkWidget *Create_Tag_Area (void)
 void Menu_Mini_Button_Clicked (GtkEntry *entry)
 {
     if ( g_object_get_data(G_OBJECT(entry),"MButtonName") )
-        Mini_Button_Clicked((GObject *)g_object_get_data(G_OBJECT(entry),"MButtonName"));
+        Mini_Button_Clicked(G_OBJECT(g_object_get_data(G_OBJECT(entry),"MButtonName")));
 }
 void Mini_Button_Clicked (GObject *object)
 {
@@ -3751,7 +3751,7 @@ void Destroy_Quit_Recursion_Function_Window (void)
     if (QuitRecursionWindow)
     {
         gtk_widget_destroy(QuitRecursionWindow);
-        QuitRecursionWindow = (GtkWidget *)NULL;
+        QuitRecursionWindow = NULL;
         /*Statusbar_Message(_("Recursive file search interrupted."),FALSE);*/
     }
 }
@@ -4467,7 +4467,7 @@ void Clear_Header_Fields (void)
  */
 void Init_Load_Default_Dir (void)
 {
-    //ETCore->ETFileList = (GList *)NULL;
+    //ETCore->ETFileList = NULL;
     ET_Core_Free();
     ET_Core_Initialize();
 

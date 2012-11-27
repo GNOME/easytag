@@ -284,7 +284,7 @@ void Picture_Add_Button_Clicked (GObject *object)
 
     if (!PictureEntryView) return;
 
-    parent_window = (GtkWindow *) gtk_widget_get_toplevel(GTK_WIDGET(object));
+    parent_window = GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(object)));
     if (!gtk_widget_is_toplevel(GTK_WIDGET(parent_window)))
     {
         g_warning("Could not get parent window\n");
@@ -400,7 +400,7 @@ void Picture_Properties_Button_Clicked (GObject *object)
 
     if (!PictureEntryView) return;
 
-    parent_window = (GtkWindow *) gtk_widget_get_toplevel(GTK_WIDGET(object));
+    parent_window = GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(object)));
     if (!gtk_widget_is_toplevel(GTK_WIDGET(parent_window)))
     {
         g_warning("Could not get parent window\n");
@@ -605,7 +605,7 @@ void Picture_Save_Button_Clicked (GObject *object)
 
     if (!PictureEntryView) return;
 
-    parent_window = (GtkWindow*) gtk_widget_get_toplevel(GTK_WIDGET(object));
+    parent_window = GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(object)));
     if (!gtk_widget_is_toplevel(GTK_WIDGET(parent_window)))
     {
         g_warning("Could not get parent window\n");
@@ -863,17 +863,18 @@ const gchar *Picture_Type_String (Picture_Type type)
 
 gchar *Picture_Info (Picture *pic)
 {
-    gchar *format, *desc, *type, *r, *size_str;
+    const gchar *format, *desc, *type;
+    gchar *r, *size_str;
     GString *s;
 
-    format = (gchar *)Picture_Format_String(Picture_Format_From_Data(pic));
+    format = Picture_Format_String(Picture_Format_From_Data(pic));
 
     if (pic->description)
         desc = pic->description;
     else
         desc = "";
 
-    type = (gchar *)Picture_Type_String(pic->type);
+    type = Picture_Type_String(pic->type);
     size_str = Convert_Size_1((gfloat)pic->size);
 
     s = g_string_new(0);
@@ -1118,7 +1119,7 @@ Picture *Picture_Load_File_Data (const gchar *filename)
 #ifdef WIN32
         g_free(filename);
 #endif
-        return (Picture *)NULL;
+        return NULL;
     }
 
     size = st.st_size;
@@ -1168,7 +1169,7 @@ Picture *Picture_Load_File_Data (const gchar *filename)
         
         Log_Print(LOG_ERROR,_("Picture file not loaded (%s)..."),g_strerror(errno));
 
-        return (Picture *)NULL;
+        return NULL;
     }else
     {
         // Loaded

@@ -281,9 +281,9 @@ char * int2roman_r (int num, char * str, size_t len);
 
 void Init_ScannerWindow (void)
 {
-    ScannerWindow     = (GtkWidget *)NULL;
-    ScannerOptionCombo= (GtkWidget *)NULL;
-    SWScanButton      = (GtkWidget *)NULL;
+    ScannerWindow     = NULL;
+    ScannerOptionCombo= NULL;
+    SWScanButton      = NULL;
 }
 
 
@@ -625,7 +625,7 @@ void Scan_Free_File_Fill_Tag_List (GList *list)
         list = list->next;
     }
     g_list_free(list);
-    list = (GList *)NULL;
+    list = NULL;
 }
 
 
@@ -985,7 +985,7 @@ void Scan_Free_File_Rename_List (GList *list)
         list = list->prev;
     }
     g_list_free(list);
-    list = (GList *)NULL;
+    list = NULL;
 }
 
 /*
@@ -995,7 +995,7 @@ void Scan_Rename_File_Prefix_Path (void)
 {
     gint pos;
     gchar *path_tmp;
-    gchar *combo_text = NULL;
+    const gchar *combo_text = NULL;
     gchar *combo_tmp;
     ET_File *ETFile          = ETCore->ETFileDisplayed;
     gchar *filename_utf8_cur = ((File_Name *)ETFile->FileNameCur->data)->value_utf8;
@@ -1006,7 +1006,7 @@ void Scan_Rename_File_Prefix_Path (void)
     path_utf8_cur = g_path_get_dirname(filename_utf8_cur);
 
     // The current text in the combobox
-    combo_text = (gchar *)gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameFileMaskCombo))));
+    combo_text = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameFileMaskCombo))));
     /*if (!g_utf8_validate(combo_text, -1, NULL))
     {
         combo_tmp = convert_to_utf8(combo_text);
@@ -3096,19 +3096,19 @@ void ScannerWindow_Quit (void)
         gtk_widget_destroy(ScannerWindow);
         gtk_list_store_clear(ScanTagListModel);
         gtk_list_store_clear(RenameFileListModel);
-        ScannerWindow     = (GtkWidget *)NULL;
-        ScannerOptionCombo= (GtkWidget *)NULL;
-        SWScanButton      = (GtkWidget *)NULL;
+        ScannerWindow     = NULL;
+        ScannerOptionCombo= NULL;
+        SWScanButton      = NULL;
 
         // To avoid crashs after tests
-        ScanTagMaskCombo              = (GtkWidget *)NULL;
-        RenameFileMaskCombo           = (GtkWidget *)NULL;
-        MaskEditorEntry               = (GtkWidget *)NULL;
-        LegendFrame                   = (GtkWidget *)NULL;
-        ProcessFieldsConvertIntoSpace = (GtkWidget *)NULL;
-        ProcessFieldsConvertSpace     = (GtkWidget *)NULL;
-        FillTagPreviewLabel           = (GtkWidget *)NULL;
-        RenameFilePreviewLabel        = (GtkWidget *)NULL;
+        ScanTagMaskCombo              = NULL;
+        RenameFileMaskCombo           = NULL;
+        MaskEditorEntry               = NULL;
+        LegendFrame                   = NULL;
+        ProcessFieldsConvertIntoSpace = NULL;
+        ProcessFieldsConvertSpace     = NULL;
+        FillTagPreviewLabel           = NULL;
+        RenameFilePreviewLabel        = NULL;
     }
 }
 
@@ -3401,7 +3401,7 @@ void Process_Fields_Check_Button_Toggled (GtkObject *object, GList *list)
         while (list)
         {
             if ( list->data!=NULL && GTK_OBJECT(list->data)!=object )
-                gtk_toggle_button_set_active((GtkToggleButton *)list->data,FALSE);
+                gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(list->data),FALSE);
             i++;
             if (!list->next) break;
             list = list->next;

@@ -110,7 +110,7 @@ void Quit_About_Window (void)
     if (AboutWindow)
     {
         gtk_widget_destroy(AboutWindow);
-        AboutWindow = (GtkWidget *)NULL;
+        AboutWindow = NULL;
         /*gtk_widget_set_sensitive(MainWindow,TRUE);*/
     }
 }
