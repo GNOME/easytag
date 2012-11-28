@@ -106,7 +106,8 @@ AS_IF([test "x$enable_ogg" != "xno" -o "x$enable_flac" != "xno"],
 
 AS_IF([test "x$have_ogg" != "xno"],
       [AC_DEFINE([ENABLE_OGG], [], [Define for Ogg Vorbis support])],
-      [AS_IF([test "x$enable_ogg" = "xyes"],
+      [OGG_DEPS=""
+       AS_IF([test "x$enable_ogg" = "xyes"],
              [AC_MSG_ERROR([OGG Vorbis support requested but required dependencies ($OGG_DEPS) not found])])])
 
 dnl ################################################
@@ -122,7 +123,8 @@ AS_IF([test "x$enable_speex" != "xno"],
 
 AS_IF([test "x$have_speex" != "xno"],
       [AC_DEFINE([ENABLE_SPEEX], [], [Define for Speex support])],
-      [AS_IF([test "x$enable_speex" = "xyes"],
+      [SPEEX_DEPS=""
+       AS_IF([test "x$enable_speex" = "xyes"],
              [AC_MSG_ERROR([OGG Speex support requested but required dependencies ($SPEEX_DEPS) not found])])])
 
 dnl ################################################
@@ -138,7 +140,8 @@ AS_IF([test "x$enable_flac" != "xno"],
 
 AS_IF([test "x$have_flac" != "xno"],
       [AC_DEFINE([ENABLE_FLAC], [], [Define for FLAC support])],
-      [AS_IF([test "x$enable_flac" = "xyes"],
+      [FLAC_DEPS=""
+       AS_IF([test "x$enable_flac" = "xyes"],
              [AC_MSG_ERROR([FLAC support requested but required dependencies ($FLAC_DEPS) not found])])])
 
 dnl ################################################
@@ -151,7 +154,8 @@ AS_IF([test "x$enable_mp3" != "xno"],
 
 AS_IF([test "x$have_mp3" != "xno"],
       [AC_DEFINE([ENABLE_MP3], [], [Define for MP3 support])],
-      [AS_IF([test "x$enable_mp3" = "xyes"],
+      [ID3TAG_DEPS=""
+       AS_IF([test "x$enable_mp3" = "xyes"],
              [AC_MSG_ERROR([MP3 support requested but required dependencies ($ID3TAG_DEPS) not found])])])
 
 AS_IF([test "x$have_mp3" = "xyes" -a "x$enable_id3v23" != "xno"],
@@ -196,7 +200,8 @@ AS_IF([test "x$enable_mp4" != "xno"],
 
 AS_IF([test "x$have_taglib" != "xno"],
       [AC_DEFINE([ENABLE_MP4], [], [Define for taglib MP4 support])],
-      [AS_IF([test "x$enable_mp4" = "xyes"],
+      [TAGLIB_DEPS=""
+       AS_IF([test "x$enable_mp4" = "xyes"],
              [AC_MSG_ERROR([Taglib MP4 support requested but required dependencies ($TAGLIB_DEPS) not found])])])
 
 dnl ################################################
@@ -209,8 +214,12 @@ AS_IF([test "x$enable_wavpack" != "xno"],
 
 AS_IF([test "x$have_wavpack" != "xno"],
       [AC_DEFINE([ENABLE_WAVPACK], [], [Define for Wavpack support])],
-      [AS_IF([test "x$enable_wavpack" = "xyes"],
+      [WAVPACK_DEPS=""
+       AS_IF([test "x$enable_wavpack" = "xyes"],
              [AC_MSG_ERROR([Wavpack support requested but required dependencies ($WAVPACK_DEPS) not found])])])
+
+dnl Check the pkg-config dependencies
+PKG_CHECK_MODULES([EASYTAG], [$GTK_DEPS $OGG_DEPS $SPEEX_DEPS $FLAC_DEPS $ID3TAG_DEPS $TAGLIB_DEPS $WAVPACK_DEPS])
 
 dnl Check that the compiler accepts the given warning flags.
 warning_flags="-Wall -Wstrict-prototypes -Wnested-externs -Wmissing-prototypes -Werror=implicit-function-declaration -Werror=pointer-arith -Werror=init-self -Werror=format-security -Werror=format=2 -Werror=missing-include-dirs"

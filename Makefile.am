@@ -13,13 +13,7 @@ easytag_CPPFLAGS = \
 	-DPACKAGE_DATA_DIR=\"$(pkgdatadir)\"
 easytag_CFLAGS = \
 	$(WARN_CFLAGS) \
-	$(GTK_CFLAGS) \
-	$(OGG_CFLAGS) \
-	$(SPEEX_CFLAGS) \
-	$(FLAC_CFLAGS) \
-	$(WAVPACK_CFLAGS) \
-	$(TAGLIB_CFLAGS) \
-	$(ID3TAG_CFLAGS)
+	$(EASYTAG_CFLAGS)
 
 easytag_SOURCES = \
 	src/id3lib/c_wrapper.cpp \
@@ -113,13 +107,7 @@ easytag_headers = \
 	src/wavpack_tag.h
 
 easytag_LDADD = \
-	$(GTK_LIBS) \
-	$(OGG_LIBS) \
-	$(SPEEX_LIBS) \
-	$(FLAC_LIBS) \
-	$(WAVPACK_LIBS) \
-	$(TAGLIB_LIBS) \
-	$(ID3TAG_LIBS) \
+	$(EASYTAG_LIBS) \
 	$(ID3LIB_LIBS)
 
 @INTLTOOL_DESKTOP_RULE@
