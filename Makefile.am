@@ -18,6 +18,7 @@ easytag_CFLAGS = \
 	$(SPEEX_CFLAGS) \
 	$(FLAC_CFLAGS) \
 	$(WAVPACK_CFLAGS) \
+	$(TAGLIB_CFLAGS) \
 	$(ID3TAG_CFLAGS)
 
 easytag_SOURCES = \
@@ -117,7 +118,7 @@ easytag_LDADD = \
 	$(SPEEX_LIBS) \
 	$(FLAC_LIBS) \
 	$(WAVPACK_LIBS) \
-	$(LIBMP4V2_LIBS) \
+	$(TAGLIB_LIBS) \
 	$(ID3TAG_LIBS) \
 	$(ID3LIB_LIBS)
 

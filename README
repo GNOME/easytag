@@ -68,7 +68,7 @@ INSTALLATION:
  - id3lib version highter than 3.7.12 (http://id3lib.sourceforge.net) (Recommended: id3lib-3.8.3)
  - libogg and libvorbis (http://www.vorbis.com) (if not deactivated by './configure --disable-ogg')
  - flac (http://flac.sourceforge.net) (if not deactivated by './configure --disable-flac')
- - libmp4v2 (http://mp4v2.googlecode.com/) (if not deactivated by './configure --disable-mp4') (Recommended: libmp4v2-1.9.0)
+ - taglib (http://taglib.github.com/) (if not deactivated by './configure --disable-mp4')
  - wavpack (http://www.wavpack.com/) (if not deactivated by './configure --disable-wavpack')
  - libc 6 (glibc 2.1) or greater
  - intltool (if not deactivated by './configure --disable-nls')
@@ -102,8 +102,7 @@ INSTALLATION:
 
   2.1.3. To install flac (http://flac.sourceforge.net) :
 
-  2.1.4. To install faad2 (http://www.audiocoding.com/) :
-        Else, you can install MPEG4IP (http://mpeg4ip.net/)
+  2.1.4. To install taglib (http://taglib.github.com/) :
 
  2.2. Unpack the sources of EasyTAG with
 

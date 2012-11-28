@@ -186,22 +186,18 @@ AS_IF([test "x$have_mp3" = "xyes" -a "x$enable_id3v23" != "xno"],
 
 
 dnl ################################################
-dnl # libmp4v2 library
+dnl # taglib library
 dnl ################################################
 
+TAGLIB_DEPS="taglib_c >= 1.6.0"
 AS_IF([test "x$enable_mp4" != "xno"],
-      [AC_CHECK_HEADER([mp4v2/mp4v2.h], [mp4_header=yes], [mp4_header=no])
-       AC_CHECK_LIB([mp4v2], [MP4GetTrackMediaDataName], [mp4_lib=yes], [mp4_lib=no])
-       AS_IF([test "x$mp4_header" = "xyes" -a "x$mp4_lib" = "xyes"],
-             [have_mp4=yes
-              AC_DEFINE([ENABLE_MP4], [], [Define for MP4 support])
-              AC_SUBST([LIBMP4V2_LIBS], [-lmp4v2])],
-             [have_mp4=no])],
-      [have_mp4=no])
+      [PKG_CHECK_MODULES([TAGLIB], [$TAGLIB_DEPS], [have_taglib=yes], [have_taglib=no])],
+      [have_wavpack=no])
 
-AS_IF([test "x$have_mp4" = "xyes"],
-      [AC_DEFINE([ENABLE_MP4], [], [Define for MP4 support])
-       AC_SUBST([LIBMP4V2_LIBS], [-lmp4v2])])
+AS_IF([test "x$have_taglib" != "xno"],
+      [AC_DEFINE([ENABLE_MP4], [], [Define for taglib MP4 support])],
+      [AS_IF([test "x$enable_mp4" = "xyes"],
+             [AC_MSG_ERROR([Taglib MP4 support requested but required dependencies ($TAGLIB_DEPS) not found])])])
 
 dnl ################################################
 dnl # WavPack library
@@ -288,7 +284,7 @@ echo ID3v2.3 tags support ....: $have_id3v23 $ID3LIB_VERSION
 echo Ogg Vorbis file support .: $have_ogg
 echo Ogg Speex file support ..: $have_speex
 echo FLAC file support .......: $have_flac
-echo MP4 file support ........: $have_mp4
+echo MP4 file support ........: $have_taglib
 echo WavPack support .........: $have_wavpack
 echo NLS/gettext .............: $USE_NLS
 echo Install prefix ..........: $prefix

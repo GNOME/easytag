@@ -4281,12 +4281,12 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
 
 #ifdef ENABLE_MP4
         case MP4_TAG:
-            gtk_widget_show(GTK_WIDGET(DiscNumberLabel));
-            gtk_widget_show(GTK_WIDGET(DiscNumberEntry));
-            gtk_widget_show(GTK_WIDGET(DiscNumberMButton));
-            gtk_widget_show(GTK_WIDGET(ComposerLabel));
-            gtk_widget_show(GTK_WIDGET(ComposerEntry));
-            gtk_widget_show(GTK_WIDGET(ComposerMButton));
+            gtk_widget_hide(GTK_WIDGET(DiscNumberLabel));
+            gtk_widget_hide(GTK_WIDGET(DiscNumberEntry));
+            gtk_widget_hide(GTK_WIDGET(DiscNumberMButton));
+            gtk_widget_hide(GTK_WIDGET(ComposerLabel));
+            gtk_widget_hide(GTK_WIDGET(ComposerEntry));
+            gtk_widget_hide(GTK_WIDGET(ComposerMButton));
             gtk_widget_hide(GTK_WIDGET(OrigArtistLabel));
             gtk_widget_hide(GTK_WIDGET(OrigArtistEntry));
             gtk_widget_hide(GTK_WIDGET(OrigArtistMButton));
@@ -4296,16 +4296,16 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
             gtk_widget_hide(GTK_WIDGET(URLLabel));
             gtk_widget_hide(GTK_WIDGET(URLEntry));
             gtk_widget_hide(GTK_WIDGET(URLMButton));
-            gtk_widget_show(GTK_WIDGET(EncodedByLabel));
-            gtk_widget_show(GTK_WIDGET(EncodedByEntry));
-            gtk_widget_show(GTK_WIDGET(EncodedByMButton));
-            gtk_widget_show(GTK_WIDGET(PictureLabel));
-            gtk_widget_show(GTK_WIDGET(PictureScrollWindow));
-            gtk_widget_show(GTK_WIDGET(PictureMButton));
-            gtk_widget_show(GTK_WIDGET(PictureClearButton));
-            gtk_widget_show(GTK_WIDGET(PictureAddButton));
-            gtk_widget_show(GTK_WIDGET(PictureSaveButton));
-            gtk_widget_show(GTK_WIDGET(PicturePropertiesButton));
+            gtk_widget_hide(GTK_WIDGET(EncodedByLabel));
+            gtk_widget_hide(GTK_WIDGET(EncodedByEntry));
+            gtk_widget_hide(GTK_WIDGET(EncodedByMButton));
+            gtk_widget_hide(GTK_WIDGET(PictureLabel));
+            gtk_widget_hide(GTK_WIDGET(PictureScrollWindow));
+            gtk_widget_hide(GTK_WIDGET(PictureMButton));
+            gtk_widget_hide(GTK_WIDGET(PictureClearButton));
+            gtk_widget_hide(GTK_WIDGET(PictureAddButton));
+            gtk_widget_hide(GTK_WIDGET(PictureSaveButton));
+            gtk_widget_hide(GTK_WIDGET(PicturePropertiesButton));
             break;
 #endif
 
