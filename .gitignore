@@ -16,6 +16,7 @@ doc/easytag.1
 /easytag
 /easytag.desktop
 /easytag.spec
+/INSTALL
 libtool
 ltmain.sh
 /po/*.gmo

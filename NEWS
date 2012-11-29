@@ -1,0 +1,1654 @@
+2.1.8 - June 3rd, 2012 :
+=========================
+    * Leonid Podolny's easytag-2.1.6-from-txt.patch for segfault when pressing 
+      "Apply" in "Load filenames from TXT" dialog,
+    * WiseLord's fix-genre-tag.patch to fix predefined genres displayed under
+      legacy systems.
+    * Michał Smoczyk's updated Polish translation
+    * Christoph J. Thompson's .desktop cleanup patch
+    * Christoph J. Thompson's add a new option to trim spaces when renaming 
+      files patch
+    * Nick Lanham's to make easytag compile against newest version of libmp4v2
+    * Wojciech Wierchola's file save performance improvement
+    * Julian Taylor's fix out of bound array access
+    * Honore Doktorr's revised libmp4v2 patch
+    * Algimantas Margevičius's Lithuanian translation
+
+2.1.7 - Jan 14th, 2012 :
+========================
+    * Gaute Amundsen's ConfirmWhenUnsavedFiles.patch
+    * Mark Ferry's albumartist patch for ogg and flac
+    * Götz Waschk's update for German translation
+    * Kip Warner's optimized base64 decoder for album art
+    * Updated contributor credits
+    * Debianized
+    * Updated version to 2.1.7
+
+2.1.6 - July 12th, 2008 :
+=========================
+    * Fixed displaying of the corresponding file when handling the Cddb track 
+      list,
+    * Fixed configure script to check needed libraries for Speex support,
+    * Fixed problem of displaying picture files which have an extension not in
+      lowercase,
+    * Fixed a crash when writing Flac tag if the file doesn't contain a vendor
+      string (thanks to Marcus Holland-Moritz),
+    * Fixed displaying of ChangeLog in the 'About' window,
+    * Fixed crash with language environment variables set to nul (thanks to Juliya Valeeva),
+    * Fixed saving Ogg and Flac files with multifields and warn if the year value will be truncated (thanks to Zohaib Hassan),
+    * Added shortcuts to the Desktop, Documents, Download and Music directories,
+    * Improved process to save severals files : the stop button is enabled, the 
+      user is warned if the file was changed by an external program, and the error 
+      messages are displayed in the log view instead of message boxes,
+    * Japanese translation updated (thanks to Hironao Komatsu),
+    * Swedish translation updated (thanks to Arild Matsson),
+    * Polish translation updated (thanks to Michał Smoczyk),
+    * German translation updated (thanks to Götz Waschk),
+    * French translation updated.
+
+
+    Windows version :
+    * Fixed problem to read and save configuration files under WinXP or Vista with
+      accounts containing non ASCII characters.,
+    * Fixed problem to load picture files containing accuentuated character on the name or the path.
+
+
+2.1.5 - January 26th, 2008 :
+============================
+    * Added an option in the "Process Fields" scanner to enable/disable
+      detection of Roman numerals,
+    * Disabled unsynchronisation when writing ID3v2.4 tags (as Taglib doesn't 
+      support them) to avoid problem with pictures on some applications (thanks 
+      to Alexey Illarionov),
+    * Fixed compilation problem with previous versions of flac older than 1.1.3,
+    * Fixed the size of log view when resizing the main window,
+    * Fixed browser problem with the hidden directories filter: directories
+      starting with severals dots were also hidden,
+    * Fixed problem when renaming severals directories and files with the 
+      'Rename File and Directory' scanner (thanks to vdaghan) ,
+    * Fixed detection of valid roman numerals in the "Process Fields" scanner 
+      (was used some parts of the Roman library from David M. Syzdek),
+    * Brazilian Portuguese translation updated (thanks to doutor.zero),
+    * Polish translation updated (thanks to Michał Smoczyk),
+    * Swedish translation updated (thanks to Anders Strömer),
+    * German translation updated (thanks to Götz Waschk),
+    * French translation updated.
+
+
+    Windows version :
+    * Fixed incorrect path when opening the program using the context menu 
+      "Browse with EasyTAG",
+    * Fixed uninstall of the context menu "Browse with EasyTAG".
+
+
+2.1.4 - December 12th, 2007 :
+=============================
+    * Added support of pictures in Ogg Vorbis and Speex files (with Ogg Vorbis
+      tags),
+    * Added support of pictures in FLAC files (with FLAC Vorbis tags).
+    * The code for handling FLAC files was also fully rewritten,
+    * Added view of tag fields in the main list of files,
+    * Added a button on the main window to select a directory to browse for file 
+      (useful when the tree is hidden),
+    * Fixed compilation problem with mpeg4ip 1.6 (thanks to Götz Waschk),
+    * Fixed messages boxes to use the stock buttons and labels of GTK,
+    * Fixed file easytag.desktop (thanks to Doruk Fisek and Götz Waschk),
+    * Fixed problem with dates and EUC-JP locale when displaying lines on the 
+      log window (thanks to Misty Haiku),
+    * Fixed problem with the Cddb manual search when using a proxy,
+    * Fixed detection of Roman numerals before a coma and dot characters in the
+      scanner window,
+    * Settings to write ID3v1.x tags : the option "//TRANSLIT" was enabled by 
+      default to avoid an error message with UTF-8 strings. This was the setting
+      used before using libid3tag instead of id3lib,
+    * Fixed problem when reading tag with some languages as Turkish (patch from
+      Doruk Fisek and Onur Kucuk),
+    * New Chinese (Taiwan) translation (thanks to Jose Sun),
+    * Hungarian translation updated (thanks to Mészáros Csaba),
+    * Chinese (Simplified) translation updated (thanks to Yang Jinsong),
+    * German translation updated (thanks to Götz Waschk),
+    * French translation updated.
+
+
+    Windows version :
+    * Fixed crash on start up for Norwegian locale.
+    * Fixed problem when loading the default directory if it contains an UTF-8 character,
+    * Using NSIS installer to build the setup package (instead of Inno Setup)
+
+
+2.1.3 - October 15th, 2007 :
+============================
+    * The "convert" function of the 'Process Fields' scanner was improved to
+      allow to replace a string to an other one (instead of only one character),
+    * Added a option to limit the number of lines in the log view,
+    * Added ability to show or hide the log view,
+    * Added command buttons in the "Load TXT file" windows,
+    * Added support of .oga extension,
+    * The "Process Fields" scanner set to uppercase roman numerals (thanks to
+      Slash Bunny),
+    * Fixed problem with the "Encoded by" field in Id3v2.4 tags (thanks to 
+      Adrian Bunk),
+    * Fixed rules of the "process fields" to follows The Chicago Manual of Style
+      more closely(thanks to Slash Bunny),
+    * Fixed bug with UTF-8 characters in the "convert" function of the 'Process
+      Fields' scanner,
+    * Fixed problem with the browser window that stays grayed out if the 
+      selected directory doesn't exist,
+    * Fixed file descriptor leak in the cddb search,
+    * Improved displaying of extensions supported in the About window,
+    * Improved selection of directories, in the browser tree, if it doesn't
+      exist on the file system, the tree is refreshed automatically.
+    * New Serbian translation (thanks to Miloš Popović),
+    * Swedish translation updated (thanks to Anders Strömer),
+    * Polish translation updated (thanks to Tomasz Sałaciński and Michał Smoczyk),
+    * German translation updated (thanks to Götz Waschk),
+    * Czech translation updated (thanks to Zbyněk Mrkvička),
+    * French translation updated.
+
+
+2.1.2 - July 12th, 2007 :
+=========================
+    * Added an option to update modification time of the parent directory when 
+      changing tag values of a file (useful for Amarok for example),
+    * Added autoscroll in log view,
+    * Added new Swedish documentation (thanks to Anders Strömer),
+    * Fixed a problem to display the title in the Cddb window with translation
+      languages (bug introduced in version 2.1.1),
+    * Fixed the loose of focus after saving files : now the same control keep 
+      again the focus,
+    * Fixed a mistake in the configure script (thanks to Thomas Klausner),
+    * Swedish translation updated (thanks to Anders Strömer),
+    * Brazilian Portuguese translation updated (thanks to doutor.zero),
+    * Polish translation updated (thanks to Michał Smoczyk),
+    * German translation updated (thanks to Götz Waschk),
+
+
+2.1.1 - July 4th, 2007 :
+========================
+    * Added support of ID3v2.4 tags by using library libid3tag (thanks to Alexey
+      Illarionov),
+    * Added Speex support (thanks to Pierre Dumuid) (without displaying bitrate 
+      and duration),
+    * Added displaying of the number of pictures in the label of the tab.
+    * Fixed name of default server for the MusicBrainz FreeDB Gateway (thanks to
+      Steve Wyles),
+    * Fixed a problem when renaming file, by changing the case, that may delete
+      one file,
+    * Fixed a small mistake in the cddb query string (thanks to Steve Wyles),
+    * Fix for Ogg Vorbis files: read also the COMMENT tag field when it is used
+      instead of DESCRIPTION,
+    * Should be fixed a bug when refreshing the tree (not sure as it is 
+      difficult to reproduce),
+    * In preferences window, the load on startup option and the default 
+      directory setting were splitted,
+    * Added some improvments in the cddb window,
+    * Added time in log view,
+    * New Hebrew translation (thanks to Yuval Hager),
+    * Czech translation updated (thanks to Zbynek Mrkvicka),
+    * German translation updated (thanks to Götz Waschk),
+    * French translation updated.
+
+
+    Windows version :
+    * Fixed the default Russian encoding used under Windows (set to windows-1251
+      instead of KOI8-R)
+
+
+2.1 - May 7th, 2007 :
+=====================
+    * Fixed a crash in the Artist/Album view after saving files,
+    * Italian translation updated (thanks to Costantino Ceoldo),
+    * Brazilian Portuguese translation updated (thanks to doutor.zero),
+    * French translation updated.
+
+
+    Windows version :
+    * Fixed displaying of header informations of Ogg Vorbis file,
+    * Fixed crash when writing tag of Ogg Vorbis file.
+
+
+2.0.2 - May 1st, 2007 :
+=========================
+    * Fixed a runtime crash on Mac OS 10.x platform (thanks to Timothy Lee),
+    * When adding a picture to a file, the selection window starts on the same
+      directory of the file,
+    * Fixed command buttons not disabled when using the scanner command,
+    * Fixed a compilation bug under Solaris (thanks to Ben Taylor),
+    * Fixed sorting of filenames containing some particular UTF-8 characters,
+    * Fixed a crash when double clicking over the file list when no file loaded,
+    * Fixed a crash when deleting severals files,
+    * Some code improvments to increase speed,
+    * Czech translation updated (thanks to Zbynek Mrkvicka),
+    * German translation updated (thanks to Götz Waschk),
+    * French translation updated.
+
+
+2.0.1 - April 12th, 2007 :
+==========================
+    * Added WavPack support (thanks to Maarten Maathuis),
+    * Added a log area in the main window to avoid sending all messages to the
+      console,
+    * Added local access to the cddb search for the automatic mode,
+    * Fixed some bugs in the cddb window,
+    * Fixed the reloading of the current which was done two times when changing
+      state of the "Show hidden directories" checkbox,
+    * Fixed Glib warnings on startup,
+    * Italian translation updated (thanks to Costantino Ceoldo),
+    * Brazilian Portuguese translation updated (thanks to doutor.zero),
+    * German translation updated (thanks to Götz Waschk),
+    * French translation updated.
+
+
+    Windows version :
+    * Fixed a crash in the Cddb window for the manual search.
+
+
+2.0 - February 21th, 2007 :
+===========================
+    * Added buttons in toolbar to search files, to search in cddb and to write
+      playlist,
+    * Added in the cddb window the option to match lines with the Levenshtein
+      algorithm,
+    * Fixed crash when no audio player is defined and problem of checking in the
+      preferences window,
+    * Added automatically removing of APE tag in a MP3 file,
+    * Improved decoding of Arabic characters,
+    * Added French Users Guide (Than to Emmanuel Brun),
+    * Swedish translation updated (thanks to Anders Strömer),
+    * Brazilian Portuguese translation updated (thanks to doutor.zero),
+    * Czech translation updated (thanks to Zbynek Mrkvicka),
+    * German translation updated (thanks to Götz Waschk),
+    * Italian translation updated (thanks to Costantino Ceoldo),
+    * Japanese translation updated (thanks to Takeshi Aihana),
+    * French translation updated and typo fixed (thanks to Emmanuel Brun).
+
+
+    Windows version :
+    * Fixed autocompletion of year when a partial one was entered,
+    * Fixed crash when no audio player selected in the preferences window,
+    * Improved detection of the locale.
+
+
+1.99.13 - December 10th, 2006 :
+===============================
+    * The manual cddb search was reactivated by using now "gnudb.org" instead of
+      "freedb.org" as the last service didn't work,
+    * Faster access for the Cddb search,
+    * Added ability to use the MusicBrainz Cddb Gateway for the automatic search,
+    * The automatic search request the two servers : freedb.org and the 
+      MusicBrainz Cddb Gateway,
+    * Fixed compilation for the new FLAC version 1.1.3 (thanks to Josh Coalson),
+    * Fixed reading of invalid UTF-8 strings in Ogg Vorbis and APE tags. We try 
+      to convert it to the right encoding.
+    * Added French documentation (thanks to Emmanuel Brun),
+    * A new Chinese translation (thanks to Yang Jinsong),
+    * Hungarian translation updated (thanks to Mészáros Csaba),
+    * Italian translation updated (thanks to Costantino Ceoldo),
+    * Swedish translation updated (thanks to Anders Strömer),
+    * German translation updated (thanks to Götz Waschk),
+    * French translation updated.
+
+    Windows version :
+    * Fixed problem when renaming file with the scanner if a field contained
+      the character '/' or '\',
+    * Fixed loading of a path ended by '\' in the browser entry,
+    * Fixed, missing the first file when lauching the player.
+
+
+1.99.12 - April 6th, 2006 :
+===========================
+    * New logo and icons (thanks to Der Humph),
+    * Added ability to display all albums of an artist in the 'Artist / Album'
+      view,
+    * Added detection of the bugged version of id3lib when writting ID3 tag to 
+      Unicode to inform the user (a patch for id3lib is supplied in package
+      source),
+    * For Ogg files, the field DESCRIPTION is also used for the comment,
+    * Fixed stack corruption bugs in Fill Tag scanner (thanks to Mark Ferry),
+    * Fixed loading disk number for FLAC tag (thanks to Robert Norris),
+    * Fixed error that displays MP3 files in red when no tag is present,
+    * Fixed a crash in the CDDB window when getting tracks of a album,
+    * Fixed playlist name bug when creating it in the parent directory,
+    * Fixed manual CDDB search when using Squid (thanks to Christopher Oliver),
+    * Little fix for FLAC tags,
+    * Fixed various bugs,
+    * Russian translation updated (thanks to Andrey Astafiev),
+    * Greek translation updated (thanks to Apollon Oikonomopoulos),
+    * Spanish translation updated (thanks to Francisco Javier F. Serrador),
+    * Japanese translation updated (thanks to Takeshi Aihana),
+    * Czech translation updated (thanks to Zbynek Mrkvicka),
+    * Brazilian Portuguese translation updated (thanks to doutor.zero),
+    * Danish translation updated (thanks to Morten Brix Pedersen),
+    * Italian translation updated (thanks to Costantino Ceoldo),
+    * Hungarian translation updated (thanks to Mészáros Csaba),
+    * German translation updated (thanks to Götz Waschk),
+    * French translation updated.
+
+    Windows version : (thanks to Michael Pujos)
+    * Fixed starting the program with a directory as parameter,
+    * Fixed problem in Fill Tag scanner with the first code,
+    * Available menu entry to "Open file(s) with...",    
+    * Available menu entry to "Browse Directory with...",    
+    * We recommend to remove your .easytag directory to reinitialize it : as 
+      there are many changes when storing filenames or directories in 
+      configuration files.
+
+
+1.99.11 - December 15th, 2005 :
+===============================
+    * Added ability to force saving tag of file even if no changes made (useful
+      to convert quickly tags),
+    * Added switch '--disable-mp3' to not compile the program with id3lib (will
+      allow in future version to choose between id3lib or taglib),
+    * Fixed problem of saving file order (bug introduced in version 1.99.10),
+    * French translation updated,
+    * Czech translation updated (thanks to Zbynek Mrkvicka),
+    * Hungarian translation updated (thanks to Mészáros Csaba),
+    * Spanish translation updated (thanks to Francisco Javier F. Serrador),
+    * German translation updated (thanks to Götz Waschk).
+
+    Windows version : (thanks to Michael Pujos)
+    * Fixed sorting of files,
+    * Paths and file names are displayed with character '\' instead of '/',
+    * Fixed renaming directories,
+    * Various fixes.
+
+
+1.99.10 - November 28th, 2005 :
+===============================
+    * Added port to Win32, to compile under MinGW (thanks to Michael Pujos),
+    * The preferences window was clean up : saving configuration changed (the
+      apply button was removed to not confuse user), position of main window,
+      scanner window and cddb are automatically saved (settings were removed
+      from the window),
+    * Added a protection against MP3 corrupted files (files containing only 
+      zeroes) which cause a bug in id3lib and so freeze the program,
+    * Added some documentation,
+    * Changed some shortcuts in the menu by following the GNOME Human Interface
+      Guidelines 2.0,
+    * Added ability to load pictures contained in ID3v2 tag of a FLAC file,
+    * Fixed a crash that may occurs with the browser at startup,
+    * Fixed displaying of player in preferences window if it not exists, else
+      were can't save the settings,
+    * Fixed a crash that may occurs with message boxes (thanks to Falk Hueffner),
+    * Fixed some memory leaks,
+    * French translation updated,
+    * Czech translation updated (thanks to Zbynek Mrkvicka),
+    * Danish translation updated (thanks to Morten Brix Pedersen),
+    * Brazilian Portuguese translation updated (thanks to doutor.zero)
+    * German translation updated (thanks to Götz Waschk).
+
+
+1.99.9 - November 3rd, 2005 :
+=============================
+    * Ability to read and write UTF-16 strings in ID3 tag (thanks to Javier
+      Kohen and Alexey Illarionov),
+    * Added options to save tags only in ISO-8859-1, or only in Unicode, or to 
+      let the program to do the best choice,
+    * Added options to select a non-standard encoding for ISO-8859-1 fields in 
+      the tag (very useful for example for Russian people), and can apply some 
+      rules when writing tag if some characters can't be converted to this 
+      non-standard encoding (activate the transliteration or silently discard 
+      some characters),
+    * Changed way to read and write filenames : use the encoding specified into
+      environment variables of language (as LANG or LC_ALL), instead of the GTK2
+      environment variable G_FILENAME_ENCODING,
+    * Added options to apply some rules when writing filename if some characters
+      can't be converted to the system encoding (activate the transliteration or
+      silently discard some characters),
+    * Added ability to rename the directory in the browser with masks,
+    * Added an option to return focus to the 'Title' field when switching files
+      with the previous/next button/shortcut,
+    * Added a menu item for the action "Show hidden directories" in the browser,
+    * For Ogg Vorbis files, the file vcedit.h was updated from vorbis-tools-1.1.1,
+    * Some fixes and improvements in the CDDB windows,
+    * Improved compatibility for MP4/AAC files with MPEG4IP-1.2,
+    * Fixed a crash when reading FLAC files,
+    * Fixed : remove old directories when changing path of the file with the 
+      'Rename File' scanner,
+    * Fixed crash when numbering tracks sequentially after renaming files,
+    * Fixed problem when renaming file from one partition to an other one
+      (mananage the error "Invalid cross-device link"),
+    * Fixed : don't replace illegal characters when writing playlist content
+      from a pattern,
+    * Fixed writting of playlist to improve compatibility with some players
+      (uses DOS characters for a new line),
+    * Fixed conversion of the word 'I' with the 'first letter uppercase' scanner:
+      now it stays to upper case,
+    * Check if the program to launch to open files exists before to run it,
+    * A new bulgarian translation (thanks to Luchezar P. Petkov),
+    * French translation updated,
+    * Brazilian Portuguese translation updated (thanks to doutor.zero)
+    * German translation updated (thanks to Götz Waschk).
+
+
+1.99.8 - August 31th, 2005 :
+============================
+    * Added MP4/AAC file and tag support (including pictures in tag) by using
+      MPEG4IP-1.3 (libmp4v2) (thanks to Michael Ihde and Stewart Whitman),
+    * Fixed hangs in the cddb lookups (thanks to Paul Giordano),
+    * Fixed problem when parsing markup in the 'Fill Tag' scanner preview,
+    * "Copyright" replaced by "License" in .spec file to allow to build the RPM 
+      package with rpm-4.4.0 (thanks to Nathaniel Clark),
+    * French translation updated,
+    * Italian translation updated (thanks to Costantino Ceoldo),
+    * German translation updated (thanks to Götz Waschk).
+
+
+1.99.7 - July 11th, 2005 :
+==========================
+    * When adding a picture, it tries to identify the type (front or back cover)
+      from the filename,
+    * Fixed saving a path in the browser entry after entering a new path,
+    * Fixed bug on Ogg Vorbis and Flac files which saves severals times the 
+      TRACKTOTAL field if tag contains an unsupported field (thanks to Alan 
+      Swanson),
+    * Fixed some strings that don't appear translated,
+    * Fixed loading of picture in ID3 tag with file name containing characters
+      not in UTF-8,
+    * French translation updated,
+    * Czech translation updated (thanks to Zbynek Mrkvicka),
+    * Brazilian Portuguese translation updated (thanks to doutor.zero)
+    * Hungarian translation updated (thanks to Mészáros Csaba),
+    * Italian translation updated (thanks to Costantino Ceoldo),
+    * German translation updated (thanks to Götz Waschk).
+
+
+1.99.6 - June 26th, 2005 :
+==========================
+    * Added scanner code '%d' for disc number,
+    * Configuration files updated to support ppc64 (thanks to Andreas Jochens),
+    * History list in comboboxes limited to 15 items,
+    * Fixed tab focus order in the 'Tag' area to avoid auto handling from gtk
+      (may changes on some systems),
+    * Fixed problem when writing playlist after renaming a directory,
+    * Fixed string encoding when writing playlist with the scanner,
+    * Fixed encoding of the default path to file chosen from preferences,
+    * Fixed problem of different file name sorting between file list and cddb
+      track name list,
+    * Fixed displaying number of files located in a directory with UTF-8 characters,
+    * Spanish translation updated (thanks to Francisco Javier F. Serrador),
+    * Italian translation updated (thanks to Costantino Ceoldo),
+    * German translation updated (thanks to Götz Waschk).
+
+
+1.99.5 - June 6th, 2005 :
+=========================
+    * Fixed crash when deleting pictures to severals tags at same time (thanks
+      to Fredrik Noring),
+    * Fixed a little bug when writing album disc number,
+    * Fixed changing case of a directory in FAT partitions,
+    * Fixed crash when using scanner to uppercase first letter of each word,
+    * Added icons in popup menu of tag fields,
+    * A new Greek translation (thanks to Apollon Oikonomopoulos),
+    * A new Brazilian Portuguese translation (thanks to doutor.zero),
+    * French translation updated,
+    * Spanish translation updated (thanks to Francisco Javier F. Serrador),
+    * Czech translation updated (thanks to Zbynek Mrkvicka),
+    * German translation updated (thanks to Götz Waschk).
+
+
+1.99.4 - May 1st, 2005 :
+========================
+    * Added ability to rename directories from the "Rename File" scanner (thanks
+      to Guilherme Destefani),
+    * Added new field for ID3v2 tag, Ogg Vorbis tag, FLAC tag and APE tag : disc
+      number,
+    * Added entry in file popup menu to run directly an automatic CDDB search 
+      with the selected files,
+    * The CDDB protocol level had been changed to 6 to accept UTF-8 strings,
+    * Some fixes in the CDDB window and search file window,
+    * Added reading of FLAC Vorbis tag encoded into ISO-8859-1 character set,
+    * Added an option to preserve the modification time when saving the file,
+    * Improved settings of character set (for ID3 tags) to allow you to fix some
+      tags (for example if tags were written with UTF-8 instead of ISO-8859-15),
+    * Fixed wrong order of ID3 genres 'Swing' and 'Fast Fusion' (thanks to
+      Charles Shannon Hendrix),
+    * Fixed a bug into APE tag when deleting a field (thanks to Artur 
+      Polaczynski),
+    * Fixed a bug in the Process fields scanner to remove spaces,
+    * Fixed for FLAC tag : keep the original vendor string while saving tag,
+    * Fixed displaying picture size when changing properties,
+    * Fixed lot of problems when handling UTF-8 filenames and strings,
+    * Fixed converting filenames to UTF-8 : if it fails try to convert from the
+      locale of your lang, else from ISO-8859-1,
+    * Fixed some memory leaks,
+    * French translation updated,
+    * Japanese translation updated (thanks to Takeshi Aihana),
+    * Romanian translation updated (thanks to George Pauliuc),
+    * Spanish translation updated (thanks to Fernando M. Bueno Moreno),
+    * Danish translation updated (thanks to Morten Brix Pedersen),
+    * Italian translation updated (thanks to Costantino Ceoldo),
+    * German translation updated (thanks to Götz Waschk).
+      
+      
+1.99.3 - January 20th, 2005 :
+=============================
+    * Added searching (search window) in the new tag fields added in the
+      previous version 1.99.1 (Composer, ...),
+    * Fixed displaying ratio for pictures in ID3v2 tags,
+    * Fixed requested server when using a proxy for the Cddb automatic searching
+      (thanks to bjustus schwartz),
+    * Fixed a bug with APE tags (thanks to Daniel Drake and Artur Polaczynski),
+    * Removed association of the program with directories in easytag.desktop,
+    * Removed forcing ID3v2.3 tags to ISO-8859-1 at start (was boring for 
+      russian people),
+    * Replaced icons for directories in the browser,
+    * French translation updated,
+    * Italian translation updated (thanks to Costantino Ceoldo),
+    * German translation updated (thanks to Götz Waschk).
+
+
+1.99.2 - November 30th, 2004 :
+==============================
+    * Added support for picture into ID3v2 tags (thanks to Fredrik Noring),
+    * Added, for Ogg Vorbis and FLAC Vorbis, use of field TRACKTOTAL for the
+      number of file (instead doing like '02/21' in field TRACKNUMBER),
+    * Added ability to authentifiate on the proxy with username and password,
+    * Some fixes for the process fields scanner (thanks to Baris Cicek),
+    * Changed order of buttons in the message box dialogs (button OK on the
+      right, ...),
+    * Fixed saving of FLAC Vorbis tag, which was truncated with UTF-8 strings,
+    * Fixed running program from console using a relative or absolute path,
+    * Fixed displaying of hidden directories in the browser,
+    * Fixed using the command line to run EasyTAG with an hidden directory as
+      parameter (for example "easytag .a_hidden_dir/"),
+    * Using previous version for requesting cddb server as the new one doesn't
+      work with a proxy,
+    * Fixed gtk2 dependencies in easytag.spec file (thanks to John Thacker),
+    * French translation updated,
+    * Danish translation updated (thanks to Morten Brix Pedersen),
+    * Dutch translation updated (thanks to Vincent van Adrighem),
+    * Italian translation updated (thanks to Costantino Ceoldo),
+    * Russian translation updated (thanks to Andrey Astafiev),
+    * German translation updated (thanks to Götz Waschk).
+
+
+1.99.1 - October 25th, 2004 :
+=============================
+    * Added new fields for ID3v2 tag, Ogg Vorbis tag, FLAC tag and APE tag :
+      Composer, Original Artist/Performer, Copyright, URL and Encoder name,
+    * Added an option to select or not the corresponding file when selecting a
+      track name in the Cddb results,
+    * Added ability to search files in hidden directories,
+    * Added an option to not convert some words when using the scanner 'First
+      letter uppercase of each word' (theses words were skipped automatically in
+      the previous release),
+    * Fixed crash when switching between the Artist/Album view and the Browser
+      view (thanks to Daniel Drake), code was also improved,
+    * Fixed bug of loss of filename after opening the file with an external
+      program,
+    * Fixed displaying of small icons on small button as in Sequence Track
+      button,
+    * Fixed some memory leaks,
+    * French translation updated,
+    * German translation updated (thanks to Götz Waschk).
+
+    Note about numbering :
+      - 1.x : versions for GTK 1.2
+      - 2.x : versions for GTK 2.4 (1.99.x were pre releases)
+
+
+0.31_gtk2.4_pre3 - September 29th, 2004 :
+=========================================
+    * UTF-8 filename fixes (thanks to Daniel Drake),
+    * Added ability to request Cddb database automatically from the selected
+      files (computing the CddbId) (thanks to Justus Schwartz),
+    * When applying Cddb results to the files, the cddb genre is converted to an
+      ID3 genre,
+    * Added ability to convert filename extension to lower or upper case,
+    * Removed old function to keep the tree browser in memory (to not refresh it
+      automatically when collapsing and expanding a node),
+    * Fixed problem with UTF-8 strings and the process fields scanner (thanks to
+      Baris Cicek),
+    * Fixed ability to open a file with the popup menu entry "Open File(s)
+      with ...",
+    * Fixed displaying search result to red if matching
+    * Fixed displaying of the last selected file when selecting severals files,
+    * Fixed error messages in the Artist/Album view,
+    * French translation updated,
+    * Danish translation updated (thanks to Morten Brix Pedersen),
+    * Italian translation updated (thanks to Costantino Ceoldo),
+    * German translation updated (thanks to Götz Waschk).
+
+
+0.31_gtk2.4_pre2 - September 11th, 2004 :
+=========================================
+    * Fixed the option to load a directory at start (it read the dir. even if
+      disactivated),
+    * Fixed the conversion of the red lines to black when file was saved (thanks
+      to John Spray),
+    * Fixed UTF-8 strings in easytag.desktop,
+    * Fixed 'configure' scripts as libvorbis is needed for libFLAC (thanks to
+      Daniel Drake),
+    * Fixed request to cddb for getting album tracks,
+    * Fixed the command to 'Reload Directory' which didn't work,
+    * The fields identifiers for Vorbis FLAC tag are written with upper letters
+      (ex: TITLE= instead of title=) as they are recommended by Vorbis standard,
+    * Various fixes,
+    * Some updates in the USERS-GUIDE files (thanks to David Greaves),
+    * Added an option to write or remove ID3 tag in FLAC files,
+    * Added the matching of cddb title against every file using the Levenshtein
+      algorithm (DLM : Damerau-Levenshtein Metric) (thanks to Santtu Lakkala),
+    * Added Mime type in desktop file to be visible in the right click menu for
+      directories (with GNOME-2.7) (thanks to Goetz Waschk),
+    * A new Danish translation (thanks to Morten Brix Pedersen),
+    * French translation updated,
+    * German translation updated (thanks to Götz Waschk).
+
+
+
+0.31_gtk2.4_pre1 - July 16th, 2004 :
+====================================
+    * Added an option to display the changed files to bold or red, like in the
+      gtk-1.2 version (thanks to Hagen Möbius),
+    * Fixed functions to process fields with UTF-8 strings, in the scanner
+      (thanks to Santtu Lakkala),
+    * Fixed renaming directories (thanks to Daniel Drake),
+    * Fixed sensivity of file and tag area, when changing directory,
+    * French translation updated,
+    * Japanese translation updated (thanks to Takeshi Aihana),
+    * German translation updated (thanks to Götz Waschk).
+
+
+0.31_gtk2.4_pre0 - July 3rd, 2004 :
+===================================
+    * GTK 2.4 port (thanks to Daniel Drake),
+    * Initial GTK2 porting work (thanks to Mihael Vrbanec).
+
+
+0.31 - May 29th, 2004 :
+=======================
+
+    * Tried to fixed the problem to get list of selected files after deleting of
+      files,
+    * Added ability to set/unset padding in ID3v2 tags,
+    * Added an option in the 'Playlist window' to write only the selected files
+      or directly all the files in the playlist,
+    * Polish translation updated (thanks to Artur Polaczynski),
+    * Russian translation updated (thanks to Andrey Astafiev),
+    * Romanian translation updated (thanks to George Pauliuc),
+    * Dutch translation updated (thanks to Björn Olievier),
+    * Japanese translation updated (thanks to Takeshi Aihana),
+    * Czech translation updated (thanks to Milan Siebenburger),
+    * Italian translation updated (thanks to Costantino Ceoldo).
+
+
+0.30.2 - March 25th, 2004 :
+===========================
+    * Some tabs in the preferences window have been reorganized,
+    * Fixed in configure script, the detection of libFLAC when using the switch
+      --disable-ogg,
+    * Fixed a wrong numbering in sub directories for the new track field button
+      (to set the number of files in the directory to the track field),
+    * German translation updated (thanks to Götz Waschk).
+
+
+0.30.1 - March 22th, 2004 :
+===========================
+    * Added support of FLAC Vorbis tag for FLAC files (if the file has no FLAC
+      vorbis file, it tries to read the ID3 tag) (thanks to Pavel Minayev),
+    * Added support of APE tag for OptimFROG files (.ofr, .ofs),
+    * Added ability to write by default ID3v2.3 tags to ISO-8859-1,
+    * Version of libFLAC (1.0.3) supplied in the package was removed,
+    * Added ability in the Process Fields scanner to convert a character by an
+      other on (patch from Ben Hearsum),
+    * Added ability to display the files by Artists and by Albums,
+    * Added ability to set independently the character conversion for the Tag
+      scanner and the Rename File scanner,
+    * Added a new button to set the number of files in the directory to the
+      track field,
+    * Added the entry "Tag selected files with this field" in the popup menu of
+      tag entries,
+    * Added a sub menu Scanner into popup menu over the file list,
+    * When resizing the main window, the tag area doesn't grow,
+    * The fields identifiers for Ogg Vorbis tag are written with upper letters
+      (ex: TITLE= instead of title=) as they are recommended by Vorbis standard,
+    * The CDDB results can be applied to the files selected in the main list,
+    * Fixed the execution of scanner, when using entries of the main menu
+      'Scanner' in the menu bar,
+    * Fixed the CDDB server name, that wasn't saved in the configuration file,
+    * Fixed connection to CDDB under FreeBSD 5.1 (thanks to from Jan Kanty Palus),
+    * Fixed a bug when using "Repeat action for the rest of the files" when
+      deleting files,
+    * Fixed a bug that doesn't save the changed files, which aren't selected,
+      when changing of directory or exiting, even if you select the button "Yes"
+      in the dialog box,
+    * Fixed a bug when renaming files with the scanner and using the character
+      conversion (some spaces or underscores weren't replaced),
+    * Fixed some memory leaks (in browser, scanner, ...),
+    * Updated easytag.desktop and EasyTAG icon,
+    * French translation updated,
+    * Spanish translation updated (thanks to Fernando M. Bueno Moreno),
+    * Italian translation updated (thanks to Costantino Ceoldo),
+    * Dutch translation updated (thanks to Björn Olievier),
+    * Ukrainian translation updated (thanks to Cawko Xakep).
+
+
+
+0.30 - September 8th, 2003 :
+============================
+    * Added an option to define the number of characters to use for the Track
+      field (see Misc tab),
+    * Added a button in the browser to jump to the parent directory,
+    * Pressing the Enter key in the tag entries set the focus to the next entry,
+    * The selection of files in the search window select also the corresponding
+      files in the main list,
+    * Added ability to select files of the same directory by double clicking
+      over the list, triple clicking select all files,
+    * The tree browser is sorted again after renaming a directory,
+    * The tree browser is sorted ignoring the word case,
+    * Content of the clipboard is automatically set in the 'Words' field of the
+      CDDB window and Search window, when opening them,
+    * Added button in the CDDB window to filtrate the 'red' lines in the albums
+      list,
+    * Added button in the CDDB window to select/unselect all lines and invert
+      the selection in the tracks album list,
+    * Fixed position in the list when selecting a file with the mouse (use of
+      the next or previous button select the wrong line),
+    * Fixed state of the Undo and Redo buttons when using the command to select
+      all files and invert the selection,
+    * Fixed tooltips message on the small buttons in the tag area,
+    * French translation updated,
+    * Czech translation updated (thanks to Milan Siebenburger),
+    * German translation updated (thanks to Götz Waschk).
+
+
+0.29 - September 1rst, 2003 :
+=============================
+    * When selecting a "changed" file, the background color is set to red (as
+      for the filename in the normal state),
+    * Fixed problem when selecting file after to have been sorted,
+    * Fixed problem to display file data, when selecting finally only one file
+      of the last selected files,
+    * Added ability to sort the CDDB results by track name or track number or
+      manually,
+    * Added detection and linking with iconv in the configure script to avoid
+      compilation error,
+    * When using buttons 'first', 'previous', 'next' and 'last', only one line
+      is selected,
+    * Russian translation updated (thanks to Andrey Astafiev),
+    * Dutch translation updated (thanks to Björn Olievier),
+    * Japanese translation updated (thanks to Takeshi Aihana),
+    * Polish translation updated (thanks to Artur Polaczynski),
+    * Italian translation updated (thanks to Lorenzo Cappelletti),
+    * Romanian translation updated (thanks to George Pauliuc),
+    * German translation updated (thanks to Götz Waschk).
+
+
+0.28.1 - July 13th, 2003 :
+==========================
+    * Added the ability to perform an action only for the selected files : to
+      set a field to other files, to remove tags, to scan files, to save files,
+      to delete files, to use undo and redo, to open files with an external
+      program,
+    * Added ability to (un)select all files or to invert the selection,
+    * Changed writing of the genre in ID3v2.3 tags (according to id3v2.3.0
+      standard),
+    * Added displaying of number of files in the directory of the selected file
+      (in the browser area),
+    * Added preview for the Fill Tag scanner,
+    * Added buttons in the toolbar to select all files and invert the selection,
+    * Cleanup in the toolbar and in menus,
+    * Warning : Many shortcuts have been changed!,
+    * A lot of code cleanup,
+    * Fixed a small bug in the preview of the Rename File Scanner,
+    * Fixed problem of zombie process when terminating the audio player (thanks
+      to Tony Mancill),
+    * Fixed a bug when starting with some gtk themes as H2O (no window appeared)
+      (thanks to Tony Mancill),
+    * Fixed a bug when applying CDDB results to the files excepted for the
+      filename,
+    * French translation updated,
+    * Romanian translation updated (thanks to George Pauliuc),
+    * German translation updated (thanks to Götz Waschk),
+    * Russian translation updated (thanks to Andrey Astafiev).
+
+
+0.28 - May 31th, 2003 :
+=======================
+    * Added ability to add the CRC-32 value (for files with ID3 tags only) as
+      default comment when using scanner (thanks to Oliver),
+    * Added ability to write the playlist with DOS directory separator (thanks
+      to Oliver),
+    * Added ability to write the playlist in the parent directory (thanks to
+      Oliver),
+    * Fix for Ogg Vorbis files : skip the ID3v2 tag (if it exists) to open the
+      file without error,
+    * Bugfixes in the playlist generator (character replacement, ...),
+    * Fixed refreshing of file path when renaming a directory,
+    * Now the configuration and history files were created at the start up to
+      avoid error messages,
+    * Added some patch for NetBSD (thanks to Soren Jacobsen),
+    * French translation updated,
+    * German translation updated (thanks to Götz Waschk).
+
+
+0.27.1 - April 20th, 2003 :
+===========================
+    * Added support of APE tag for MusePack and Monkey's Audio files (thanks to
+      Artur Polaczynski),
+    * Cast and pointers fixes for a clean compilation on 64bits platform (thanks
+      to Philipp Thomas),
+    * Fixed a bug when using "Open File With..." after renaming a file without
+      reloading the directory (it was using the old filename),
+    * Cleaning in the configure script (thanks to Philipp Thomas),
+    * When loading files with id3 tags, it checks if it has the versions of tags
+      specified in the preferences window,
+    * Genre in ID3v2 tag : use only the string for an unknowm id3v1 genre,
+    * Added the missing instruction "#include <errno.h>" in about.c that may
+      produce compilation problems,
+    * Dutch translation updated (thanks to Björn Olievier),
+    * Polish translation updated (thanks to Artur Polaczynski),
+    * Czech translation updated (thanks to Milan Siebenburger),
+    * German translation updated (thanks to Götz Waschk).
+
+
+0.27 - February 2nd, 2003 :
+===========================
+    * Fixed an other filepointer leak when renaming file and directories (thanks
+      to Artur Polaczynski),
+    * Improved speed when applying a field to all other files, removing all tags
+      and scanning all files,
+    * Fixed problem with too long track name in CDDB albums,
+    * When getting files list of a cddb album, it tries to reconnect severals
+      times if the connection fails,
+    * Ability to select lines in the CDDB track name to load to the file list,
+    * Ability to run the scanner when loading filenames from a TXT file,
+    * Ability to run the scanner when loading fields from CDDB results,
+    * Ability to load CDDB results only for the selected lines,
+    * Ability to generate the playlist name from mask codes,
+    * Added tab in "About" window to display the ChangeLog,
+    * Fixed detection of version id3lib (due to an error in configure.in),
+    * Added german help documentation (thanks to Daniel Pichler),
+    * Russian translation updated (thanks to Andrey Astafiev),
+    * German translation updated (thanks to Götz Waschk).
+
+
+0.26 - December 31th, 2002 :
+============================
+    * Fixed filepointers leaks when ID3v2 tag is missing for files using ID3
+      tags (thanks to Martijn van Buul),
+    * NetBSD patches from Thomas Klausner,
+    * Some bugfixes in the CDDB search,
+    * Updated character conversion for CD-Rom filesystems,
+    * Fixed a crash when applying the CDDB result to a list with less files,
+    * Fixed a memory bug when using the menu entry 'Reload the directory',
+    * Added a man page (thanks to George Pauliuc),
+    * When sorting the files, they are sorted also by ascending filename by
+      default,
+    * When tag entries have the focus, PageUp and PageDown keys select the
+      previous or the next file,
+    * Polish translation updated (thanks to Maciej Kasprzyk),
+    * Italian translation updated (thanks to Lorenzo Cappelletti),
+    * Ukrainian translation updated (thanks to Cawko Xakep).
+
+
+0.25 - November 11th, 2002 :
+============================
+    * Ability to stop the saving of all files,
+    * Improvement of the directory browser, when renaming a directory,
+    * Ability to set also the filename from CDDB results,
+    * Ability to search a word in the album list of the CDDB window,
+    * Don't loose unsupported tag items for the Ogg files,
+    * A new Romanian translation (thanks to George Pauliuc),
+    * French translation updated,
+    * Dutch translation updated (thanks to Björn Olievier),
+    * Japanese translation updated (thanks to Takeshi Aihana),
+    * Spanish translation updated (thanks to Jaime Serrano Cartagena),
+    * Swedish translation updated (thanks to Patrik Israelsson),
+    * Hungarian translation updated (thanks to Nagy Boldizsar),
+    * Czech translation updated (thanks to Milan Siebenburger),
+    * German translation updated (thanks to Götz Waschk).
+
+
+0.24.1 - October 24th, 2002 :
+=============================
+    * Added CDDB support (from http protocol),
+    * New possibilities for sorting the list of files (type, size, duration,
+      birate, ...),
+    * Fixed to compile with flac-1.0.4 (thanks to Bastian Kleineidam and Götz
+      Waschk),
+    * Old versions of ID3v2 tags are automatically updated to ID3v2.3,
+    * Fixed renaming files or directories (the old method was better than the
+      newer one, with patch from Alan Swanson),
+    * Use of 'mkstemp' instead of 'mktemp',
+    * Various bugfixes,
+    * French translation updated,
+    * Polish translation updated (thanks to Maciej Kasprzyk),
+    * Ukrainian translation updated (thanks to Cawko Xakep),
+    * German translation updated (thanks to Götz Waschk),
+    * Hungarian translation updated (thanks to Nagy Boldizsar).
+
+
+0.24 - September 15th, 2002 :
+=============================
+    * Added ability to open a file with an external program,
+    * Added ability to use arguments when opening a directory or a file with an
+      external program (for example : 'xmms -e'),
+    * Some fixes when deleting files : the total size and total duration are
+      updated,
+    * Invalid characters are replaced when renaming the file from the scanner,
+    * Re-added preprocessor instructions in the file vcedit.h (forgotten when
+      updating this file from vorbis-tools-1.0),
+    * Fix for an unsupported ID3v2 tag : we get data of the ID3v1 tag (for
+      example: ID3v2.4 tag with id3lib-3.8.0),
+    * Added check of validity of playlist content mask,
+    * Fixed reading of informations of mpeg header, and calculation of song
+      time, with files containing an ID3v2 tag (patch from Artur Polaczynski),
+    * Fixed the popup menu in entries field : now we don't need to click two
+      times the left mouse button (patch from Maciej Kasprzyk),
+    * Corrections in text menu (thanks to Artur Polaczynski),
+    * Fixed renaming of directory,
+    * Number of files to save is displayed in the progress bar,
+    * Code clean up for scanners,
+    * Various fixes,
+    * Logo "updated",
+    * French translation updated,
+    * Polish translation updated (thanks to Maciej Kasprzyk),
+    * Japanese translation updated (thanks to Takeshi Aihana),
+    * Italian translation updated (thanks to Lorenzo Cappelletti),
+    * Russian translation updated (thanks to Andrey Astafiev),
+    * Czech translation updated (thanks to Milan Siebenburger),
+    * German translation updated (thanks to Götz Waschk).
+
+
+0.23.2 - September 1rst, 2002 :
+===============================
+    * Fixed a stupid bug in the rename file scanner : the file path was lost!
+
+
+0.23.1 - September 1rst, 2002 :
+===============================
+    * Playlist generator : ability to define the informations to write in the
+      playlist, by using masks (like in scanners),
+    * Fixed a bug with an empty field in Ogg Vorbis file,
+    * Fixed a bug into the scanner window, due to a missing initialisation,
+    * A fix for the undo function: now the history list has a logical behaviour,
+    * Patch from Götz Waschk to compile with the version of libFLAC installed on
+      your system if found,
+    * Added switch '--disable-flac' to force the compilation with files of
+      libFLAC supplied in the package,
+    * Improved speed of removing tags from the interface,
+    * Improved speed of the three scanners,
+    * Improved speed of searching and loading files when browsing directories,
+    * Process fields: the genre field was added,
+    * Number of files parsed is displayed in the progress bar,
+    * Updated vcedit.c from vorbis-tools-1.0 to remove all memory leaks when
+      processing Ogg Vorbis files,
+    * Binary linked with Vorbis libraries 1.0,
+    * A new Polish translation (thanks to Maciej Kasprzyk),
+    * French translation updated,
+    * Czech translation updated (thanks to Milan Siebenburger).
+
+
+0.23 - July 18th, 2002 :
+========================
+    * A fix for 'Makefile.am' in the FLAC directory : the file /usr/include/assert.h'
+      may be overwritten on some systems,
+    * Russian translation updated (thanks to Andrey Astafiev),
+    * German translation updated (thanks to Götz Waschk).
+
+
+0.22 - July 17th, 2002 :
+========================
+    * Added an option to ignore the case when sorting the list,
+    * Italian translation updated (thanks to Lorenzo Cappelletti),
+    * Dutch translation updated (thanks to Björn Olievier),
+    * Spanish translation updated (thanks to Jaime Serrano Cartagena),
+    * Czech translation updated (thanks to Milan Siebenburger),
+    * Japanese translation updated (thanks to Takeshi Aihana),
+    * German translation updated (thanks to Götz Waschk).
+
+
+0.21.1 - July 9th, 2002 : (released for translators only)
+=========================
+    * id3_tag.c : replaced 'index_t' by 'size_t' to compile with
+      id3lib-3.8.0pre3.0,
+    * Configure scripts upgraded to autoconf 2.53, automake 1.6.1 and gettext
+      0.10.40,
+    * The old command bar on the right (hidden by default) was removed,
+    * Fixed the behaviour of the tag entries when increasing the height of the
+      window,
+    * Added reading of header informations of FLAC files,
+    * Changed files during the loading are shown (spaces stripped for example),
+    * When saving all files, it displays only modified files to improve speed,
+    * Improvement when applying a field to all other files,
+    * Code cleanup for the undo functions,
+    * Fixed displaying of file sorting into the preferences window,
+    * Added ability to sort files by the other fields (as artist, ...),
+    * Added ability to open the scanner window on startup,
+    * Added scanner items in the main menu bar,
+    * French translation updated,
+    * Italian translation updated (thanks to Lorenzo Cappelletti).
+
+
+0.21 - May 26th, 2002 :
+=======================
+    * Fixed crash when deleting the filename,
+    * Fixed displaying of an error message for Ogg Vorbis files (when writting
+      tag),
+    * Scanner to Fill Tag : the problem to parse correctly filename like
+      '01 track name.mp3', with a mask like '%n %t' was fixed,
+    * Added shorcuts in the menu 'Misc.',
+    * Fix the popup menu of the genre entry which was opened when typing the
+      space bar,
+    * Russian translation updated (thanks to Andrey Astafiev),
+    * Czech translation updated (thanks to Milan Siebenburger),
+    * Japanese translation updated (thanks to Takeshi Aihana),
+    * German translation updated (thanks to Götz Waschk).
+
+
+0.20 - May 10th, 2002 :
+=======================
+    * Added ability to load the filenames from a TXT file,
+    * Added an option for the Ogg Vorbis files to not write the comment field to
+      the XMMS format (it appears as unknow for the others applications),
+    * Added options to select the style of the lines and expanders in the tree
+      browser,
+    * Ogg file : when reading the file, if the tag contains severals entries for
+      each field,
+      they are concatenated,
+    * Fixed properties of the file (owner and group) that may changes when
+      rewriting the file,
+    * Dutch translation updated (thanks to Björn Olievier),
+    * Italian translation updated (thanks to Lorenzo Cappelletti),
+    * Czech translation updated (thanks to Milan Siebenburger),
+    * German translation updated (thanks to Götz Waschk).
+
+
+0.19 - April 22th, 2002 :
+=========================
+    * Added a protection to prevent corrupted fields doing segfaults into id3lib
+      (for mp3), 
+    * Fixed a bug when deleting the last file of the file,
+    * Now the button used to apply the track number to all files, can only
+      remove the track fields or set the number of tracks (length of album) to
+      all files,
+    * Searching window : added a status bar,
+    * Searching window : keywords hightighted in the result list,
+    * A new Spanish translation (thanks to Jaime Serrano Cartagena),
+    * Japanese translation updated (thanks to Takeshi Aihana),
+    * French translation updated,
+    * German translation updated (thanks to Götz Waschk).
+
+
+0.18.1 - April 17th, 2002 :
+===========================
+    * Added a searching window for the files in the list,
+    * Added ability to choose the audio player, and to play only the selected
+      file,
+    * Fixed a bug into playlist writter (tag of the first file might be changed),
+    * Fixed problem with comboboxes which were not case sensitive,
+    * Fixed a bug of the ENABLE/DISABLE_OGG feature. The problem occured when
+      using the Tag Scanner with Ogg Vorbis files,
+    * Fixed a crash that may occurs when displaying the layer version,
+    * Fixed a bug that prevents to delete the first file of the list,
+    * Added song length (TLEN) into the ID3v2 tag,
+    * A new Czech translation (thanks to Milan Siebenburger),
+    * Dutch translation updated (thanks to Björn Olievier),
+    * Italian translation updated (thanks to Lorenzo Cappelletti),
+    * Russian translation updated (thanks to Andrey Astafiev),
+    * German translation updated (thanks to Götz Waschk).
+
+
+0.18 - April 4th, 2002 :
+========================
+    * Added ability to browse a directory with an external program,
+    * Fixed execution of XMMS: use of execvp intead of system, and load only the
+      list of files instead of the base directory,
+    * French translation updated,
+    * Ukrainian translation updated (thanks to Olexander Kunytsa),
+    * Japanese translation updated (thanks to Takeshi Aihana),
+    * German translation updated (thanks to Götz Waschk).
+
+
+0.17.2 (devel) - March 24th, 2002 :
+===================================
+    * Ability to delete files,
+    * Improved sensivity of buttons for saving files,
+    * Fixed a bug into "Rename File" scanner with the trailing separator (patch
+      from Björn Olievier),
+    * Swedish translation updated (thanks to Patrik Israelsson),
+    * Russian translation updated (thanks to Andrey Astafiev),
+    * Italian translation updated (thanks to Lorenzo Cappelletti).
+
+
+0.17.1 (devel) - March 12th, 2002 :
+===================================
+    * Code cleanup and better memory use (very big optimization due to some old
+      parts of code removed),
+    * Fixed syntax of static librairy libmpeg123 into Makefile.am (might cause
+      some problems),
+    * Ability to choose the genre freely, completion of text rewritten,
+    * Rename file scanner: doesn't write the 'trailing separator' of an empty
+      field,
+    * Dutch translation updated (thanks to Björn Olievier),
+    * Japanese translation updated (thanks to Takeshi Aihana).
+
+
+0.17 - March 5th, 2002 :
+========================
+    * Ability to disable the Ogg Vorbis file support with the switch
+      '--disable-ogg',
+    * Fixed problem with fields declared in the tag and containing no
+      information,
+    * Fixed coloration of changed files in the list,
+    * Added code %l into scanner corresponding to the field of the number of
+      tracks,
+    * German translation updated (thanks to Götz Waschk),
+    * Italian translation updated (thanks to Lorenzo Cappelletti).
+
+
+0.16.1 (devel) - February 21th, 2002 :
+======================================
+    * Ability to write playlist of files,
+    * Ability to write the track field with the number of tracks (ex: "10/21"),
+    * Name of files (in list) are refreshed when renamed,
+    * Testing: File in list colored in red when modified,
+    * Ability to select a file in the list by typing the first characters of the
+      file name (like the genre field),
+    * Fixed and improved parsing of header and VBR detection for MP3 and MP2
+      files,
+    * Fixed displaying of state of a file on read-only file system,
+    * French translation updated,
+    * Japanese translation updated (thanks to Takeshi Aihana),
+    * German translation updated (thanks to Götz Waschk).
+
+
+0.16 - February 3rd, 2002 :
+===========================
+    * Fixed compilation problem with id3lib-3.7.13,
+    * Fixed a bug when fields are empty into preview of filename scanner,
+    * Improved genre handling: ability to type the first characters of the word
+      to select it directly (example: 'tec' for 'Techno'),
+    * Added an option to expand the selected node in file browser,
+    * Added an option to convert the track field to two characters or to don't
+      change it,
+    * Added 'redo' buttons in command bar,
+    * Now, value 0 for the track is authorised (else causes problems with undo
+      function),
+    * French translation updated,
+    * Russian translation updated (thanks to Andrey Astafiev),
+    * German translation updated (thanks to Götz Waschk).
+
+
+0.15.7 (devel) - January 20th, 2002 :
+=====================================
+    * Added "main" undo/redo (history list) to process all files,
+    * A fix for tag priority problem with id3lib-3.8.0 (patch from Holger
+      Schemel),
+    * Patch from Goetz Waschk for id3lib detection into configure.in,
+    * A fix for undo and redo function to check chronological order when aplying
+      them,
+    * The character '/' into filename is replaced automatically by '-' instead
+      of to don't accept them,
+    * Added an option to convert in filename other characters as '\', ':', ...,
+      which cause problem on windows filesystems,
+    * 'Rename file' scanner: remove the separator before a mask code if the
+      corresponding entry doesn't contain text,
+    * Preview of renaming file scanner, updated when changing the selected file,
+    * Changed some icons (taken from gtk 2),
+    * Italian translation updated (thanks to Lorenzo Cappelletti),
+    * German translation updated (thanks to Götz Waschk),
+    * Japanese translation updated (thanks to Takeshi Aihana).
+
+
+0.15.6 (devel) - December 24th, 2001 :
+======================================
+    * A fix for a BIG bug when writing ID3 tags: if the character set
+      translation isn't used, the tag is converted to UTF-8 by default!,
+    * A fix for "configure.in" to detect correctly libvorbis (thanks to Goetz
+      Waschk),
+    * A fix for "configure.in" to compile EasyTAG with id3lib 3.8.0pre2 and
+      3.8.0pre2.1 (linked with zlib and libstdc++),
+    * A fix for character set identification for Ogg Vorbis files (patch from
+      Vaclav Slavik),
+    * A fix for path of files in list after renaming a parent directory,
+    * Tree browser: update subdirectories when collapsing and re-expanding a
+      node,
+    * Minor changes into the preference window,
+    * Removed some unused pixmaps,
+    * Russian translation updated (thanks to Andrey Astafiev).
+
+
+0.15.5 (devel) - December 18th, 2001 :
+======================================
+    * Rewritten core to support other file formats,
+    * Ability to write tag of Ogg Vorbis files (Ogg Vorbis tag) and file infos,
+    * Ability to write tag of FLAC files (ID3 tag),
+    * Ability to write tag of MP2 files (ID3 tag),
+    * File type and tag type displayed into label of each frame,
+    * Now, masks musn't be suffixed by an extension (users must remove .mp3 at
+      the end of each mask),
+    * Use of iconv for character set translations,
+    * Changed file names for 'scan tag' and 'rename file' lists (lists without
+      extension),
+    * Added a preview for the 'rename file' scanner,
+    * Ability to load a directory by command line (ex: "easytag /tmp/mp3" or
+      "easytag ." to load the current directory),
+    * Added an option to select the mode of sorting for the file list by default,
+    * Added individual undo/redo for each file, undo/redo for "all files" not
+      yet implemented,
+    * Added a button into tools bar to stop the recursive search of files,
+    * Changed displayed icon for read only file,
+    * Fixed sorting of files (ascending by filename) at loading of the list,
+    * Reading id3 tag with id3lib 3.7.x : added a fix for the year field with
+      garbage when the id3v1 tag was filled with spaces instead of zeroes (for
+      files containing only id3v1 tag),
+    * Added the missing "Rename directory" entry into Browser sub-menu,
+    * Fixed some memory leak (tag scanner and other location),
+    * The both scan buttons (in toolbar) have been duplicated into the scanner
+      window,
+    * Now, the yellow background of tooltips can be turn off by an option to
+      avoid problem with cyrrilic font.
+    * French translation updated,
+    * German translation updated (thanks to Philipp Thomas),
+    * Russian translation updated (thanks to Andrey Astafiev).
+
+
+0.15.1 (devel) - September 23th, 2001 :
+=======================================
+    * Now autoconf and automake are used to build the package (thanks to
+      Götz Waschk),
+    * Some language corrections (thanks to Colin Marquardt),
+    * Fixed bug when refreshing browser directory from popup menu,
+    * Ability to sort (ascending/descending) the list of files by track number,
+    * Ability to sort (ascending/descending) the list of files by date of
+      creation,
+    * A new Ukrainian translation (thanks to Olexander Kunytsa),
+    * Russian translation updated (thanks to Andrey Astafiev),
+    * German translation updated (thanks to Colin Marquardt),
+    * Dutch translation updated (thanks to Vincent van Adrighem).
+
+
+0.15 - July 17th, 2001 :
+========================
+    * All widgets usable by user were disabled when saving files,
+    * Can't press the Save button to rename the directory is no text typed
+      in the entry,
+    * Some code cleanup.
+
+
+0.14.4 (devel) - July 3rd, 2001 :
+=================================
+    * Added a browser list to wiew directly all mp3 files,
+    * Background color of list changes for each new directory,
+    * Default configuration modified,
+    * Makefile in po directory: display state of each po file when compiling
+      (thanks to Lorenzo Cappelletti),
+    * French translation updated,
+    * German translation updated (thanks to Colin Marquardt).
+
+
+0.14.3 (devel) - June 19th, 2001 :
+=================================
+    * Added a toolbar (use the option to hide the 'command area'),
+    * Ability to sort (ascending/descending) the list of files (useful
+      when changing file names),
+    * Keep permissions of the file when writing the tag (may change on NFS),
+    * Ability to rename a directory in the browser,
+    * Added 'Escape' event to all small windows to close them,
+    * Dutch translation updated (thanks to Vincent van Adrighem),
+    * Italian translation updated (thanks to Cappelletti Lorenzo).
+
+
+0.14.2 (devel) - May 22th, 2001 :
+=================================
+    * Process fields: manage also non english characters ('à', 'é', ...),
+    * Fixed segfault when refreshing the tree,
+    * A fix for the history list attached to the browser entry,
+    * Fixed renaming file when only case was changed,
+    * Fixed a problem with id3lib that doesn't strip trailing spaces of the 
+      id3v1 comment in some cases,
+    * Japanese translation updated (thanks to Takeshi Aihana),
+    * Italian translation updated (thanks to Cappelletti Lorenzo).
+
+
+0.14.1 (devel) - May 1st, 2001 :
+================================
+    * Fixed a segfault when using translation table,
+    * Fixed problem with id3lib-3.7.13,
+    * Message boxes when saving files: now "Do the same for the rest" when
+      renaming files and when saving tags are separated,
+    * Fixed positioning of the small window with a stop button,
+    * Added a handle on the right of the browser frame to adjust the size
+      of tag entries,
+    * German translation updated (thanks to Colin Marquardt),
+    * French translation updated,
+    * Russian translation updated (thanks to Serg Zhumatiy).
+
+
+0.14 - April 16th, 2001 :
+=========================
+    * 'Process fields' scanner: ability to select fields to process,
+    * Buttons "Tag all files with ...": added messages when fields are empty,
+    * file 'id3tag.c' was missing in POTFILES (for translation),
+    * Japanese translation updated (thanks to Takeshi Aihana),
+    * Italian translation updated (thanks to Cappelletti Lorenzo),
+    * Dutch translation updated (thanks to Vincent van Adrighem),
+    * German translation updated (thanks to Colin Marquardt).
+
+
+0.13.7 (devel) - April 09th, 2001 :
+===================================
+    * Fixed: now it doesn't ask you for saving even if there is no change to save,
+    * Added a history list to comboboxes,
+    * Fixed saving all files: it didn't save changes in currently displayed file,
+    * Added icons in options window for selecting buttons to display (command bar),
+    * Wording fixes, spelling mistake fixes (thanks to Colin Marquardt),
+    * A new Japanese translation (thanks to Takeshi Aihana),
+    * German translation updated (thanks to Colin Marquardt),
+    * French translation updated,
+    * Some code cleanup.
+
+
+0.13.6 (devel) - March 24th, 2001 :
+===================================
+    * Fixed a typing error which can cause a segfault with the title entry,
+    * Display which version of id3lib is used. And display a warning message for 
+      verion 3.7.13,
+    * Some spelling mistakes corrected (thanks to Cappelletti Lorenzo),
+    * Disable the 'file frame' and 'tag frame' when no MP3 have been found,
+    * Fix: after canceling a 'Save All Files' sequence, sensivity of command
+      buttons wasn't updated,
+    * Fix: Go button linked with the spinner button when hiding/showing this one,
+    * Dutch translation updated (thanks to Vincent van Adrighem),
+    * A new Italian translation (thanks to Cappelletti Lorenzo).
+
+
+0.13.5 (devel) - March 18th, 2001 :
+===================================
+    * Added ID3v2 support (need id3lib, see in http://id3lib.sourceforge.net),
+    * Ability to select tags to write (ID3v1.x, or ID3v2, or the both),
+    * A fix for the 'Save All Files' button that save only files placed after
+      the current position,
+    * The old and buggy tag scanner has been removed,
+    * Added an option to load or not the default path on startup,
+    * Renaming file: check if there is already a file with the new name, to
+      avoid loss of data (thanks to Cappelletti Lorenzo for warning me about
+      this bug),
+    * A fix when using the last defined genre,
+    * Track list : load at least 30 numbers,
+    * Sequence Tracks : restart numbering for each directory,
+    * Added thanks into the about window,
+    * New icons for the 'scan file' buttons,
+    * French translation updated,
+    * A new Hungarian translation (thanks to Szel Miklos).
+
+
+0.13 - December 25th, 2000 :
+============================
+    * A new button into the frame "ID3 Tag" to sequence the track numbers 
+     (thanks to Charles Kerr for the patch),
+    * New windows for messages (improvements) which give more choices (ability
+      to cancel a file saving loop, ability to do the same action for all other
+      files),
+    * Added an option for the placement of message windows,
+    * Added a Go button next to the spinner button,
+    * French translation updated,
+    * Dutch translation updated (thanks to Vincent van Adrighem),
+    * German translation updated (thanks to Adrian Bunk),
+    * Russian translation updated (thanks to Serg Zhumatiy).
+
+
+0.12 - November 21th, 2000 :
+============================
+    * French translation updated,
+    * German translation updated (thanks to Adrian Bunk),
+    * Added some documentation: a guide for users,
+    * Doesn't block you, if the translation file is invalid and you don't use
+      it,
+    * Fixed problems when compiling with "-pedantic" option (without gettext),
+    * Added file 'mp3types.h' to avoid to including incorrectly 'easytag.h',
+    * Added an option to confirm before renaming file,
+    * Added an option into 'Option Window' to browse subdirectories,
+    * Removed the 'beep' when a file can't be opened.
+
+
+0.11 - October 26th, 2000 :
+===========================
+    * Fixed the loss of focus of an entry when using shortcut keys and reaching
+      an extremity of the list,
+    * French translation updated,
+    * Some code clean up,
+    * Added ability to select directly any MP3 file in the list (via a spinner
+      button).
+
+
+0.10.2 (devel) - October 8th, 2000 :
+====================================
+    * Added Swedish translation (thanks to Patrik Israelsson),
+    * French translation updated,
+    * Corrected some spelling mistakes... oops :),
+    * A fix for message dialogs with running gtk loops,
+    * A fix for a memory leak when reading directories,
+    * New options for 'Process Fields': keep only one space or underscore when
+      they're duplicated (ex: "My_-__string" => "My_-_string").
+
+
+0.10.1 (devel) - October 4th, 2000 :
+====================================
+    * Justify to left the text into file name entry, when text is longer than
+      the entry,
+    * Justify to right the text into path entry (frame browser), when text
+      is longer than the entry,
+    * Scanner options: radio group replaced by check buttons to allow to
+      disable conversion!,
+    * Tree Browser: don't freeze it when reading a directory (doesn't lost
+      focus),
+    * Added Dutch translation (thanks to Vincent van Adrighem),
+    * The path to the current displayed file is shown into the path_entry of
+      browser.
+
+
+0.10 - September 18th, 2000 :
+=============================
+    * French translation updated,
+    * Added a button to stop recursion when browsing directories recursively,
+    * Added recursion for the browser, to get mp3 files into sub-directories,
+    * Added an option to (des)activate recursion, into main menu and browser
+      popup menu.
+
+
+0.9.7 (devel) - September 4th, 2000 :
+=====================================
+    * Added ability to overwrite filled fields into tag when using the scanner,
+    * New options for 'Process Fields': remove and insert spaces,
+    * French translation updated,
+    * "First letter uppercase of each word": doesn't capitalize letter after an
+      apostrophe,
+    * Added an option to set a default comment text while scanning tag,
+    * Scanner for tag rewritten to allow text on the left of the mask,
+    * Functions to check masks fixed,
+    * Mask editor: new button to append defaults masks.
+
+
+0.9.6 (devel) - August 3rd, 2000 :
+===================================
+    * Added new entries into popup menu (over text entries) to 'process' field,
+    * New feature into Scanner window: ability to process fields (file name,
+      artist, title, album, comment).
+      You can convert letters into uppercase/downcase/...
+    * Improvements into masks editor: now you can select severals lines (to
+      duplicate, to move,...),
+    * The popup menu of the file entry is now also attached to other entries
+      (artist, album,...),
+    * Fixed a memory leak into file rename scanner.
+
+
+0.9.5 (devel) - July 27th, 2000 :
+=================================
+    * A fix for a bug into option menu of scanner window when using gettext.
+
+
+0.9.4 (devel) - July 26th, 2000 :
+=================================
+    * Added Russian translation, thanks to Sergey Zhumatiy,
+    * Added ability to rename file from tag using masks (as to scan tag),
+    * File is renamed using two stages to avoid problems if you change only the
+      case,
+    * Now it warns you before to change directory, if some files haven't been
+      saved (but a little bug will appear).
+
+
+0.9.3 (devel) - July 17th, 2000 :
+=================================
+    * French translation updated,
+    * Added buttons into command bar for recursive actions,
+    * Added options to select buttons to display into command bar,
+    * Added functions for charset translation tables (thanks to Sergey Zhumatiy),
+    * A fix for track number: it used 1 byte and was limited to 127 :(, 
+      now the limit is 255 (1 byte :),
+    * A fix for the scanner: use the new name of file (if file has been renamed)
+      instead of name of file on hard disk,
+    * Added ability to save only the current tag, save recursively also,
+    * Added recursivity to scan tag in all files and undo,
+    * Refresh Tree: a fix to read again the refreshed directory, and a fix if
+      you doesn't selected a directory before refreshing,
+    * Added new entries in menu "File",
+    * Added recursivity to remove tag in all files.
+
+
+0.9 - July 9th, 2000 :
+======================
+    * French translation updated,
+    * Added new default masks for scanner,
+    * Bugfix while saving files,
+    * Added ability to determine scanner window position with regard to main
+      window,
+    * Names of size variables of main window have been changed to avoid conflict
+      with new variables, so your settings must to be reconfigurated,
+    * Added a popup menu in the entry of the file's name to convert '%20' and
+      '_' into spaces, or convert spaces into '_',
+    * Added ability to rename the mp3 file,
+    * Mask editor: doesn't save duplicate masks. If you save an empty mask list,
+      default masks will be loaded,
+    * A message box appears if you quit the program without to have saved all
+      files,
+    * Mask editor: doesn't save blank masks,
+    * Added a button to apply track to all tag (usually, you use a different
+      track number for each file, but it's usefull for delete this field for all
+      files),
+    * Fixed the list index after saving files,
+    * Added an option to set the scanner window on top (or not),
+    * Improvement of parsing date (for auto-completion) (for instance, if you
+      are in year 1995, and if you type 3 => 1993, if 6 => 1986, if 94 => 1994,
+      if 96 => 1896, and so on),
+    * Added German translation (thanks to Bastian Kleineidam
+      <calvin@users.sourceforge.net>).
+
+
+0.8 - June 22th, 2000 :
+=======================
+    * Implementation of functions for the masks editor,
+    * Location of main config file changed: config file <home>/.easytagrc has
+      moved to the file <home>/.easytag/easytagrc,
+    * French translation updated,
+    * Added a Close button into buttons builder,
+    * Added buttons to scanner window,
+    * Code clean up,
+    * Added new method for scanning tag. Now, you can define your mask or use a
+      predifined mask.
+      Thanks to Patrik <fix@lupus.herjedalen.se> for suggesting me this feature,
+    * Creation of a scan window to select/modifie mask to apply for auto tagging,
+    * rewritten function to find and parse mp3 header (now it shouldn't be 
+      mistaken by garbage or corrupted header). Better parsing...
+
+
+0.7 - June 11th, 2000 :
+=======================
+    * Implemented undo feature,
+    * Added an option to (des)activate auto completion of date in tag area,
+    * Added icon in message dialogs,
+    * Fixed displaying of current position and list length while saving tags,
+    * An icon is displayed next filename entry if you haven't write access
+      permission for the file,
+    * Now, easytag logo (in about dialog) isn't include in binary,
+    * Fixed some small memory leak,
+    * Improvenment of mp3 header parsing and fixed a mistake into bitrate
+      calculation,
+    * Added ability to refresh the tree browser,
+    * Change mouse cursor when busy,
+    * Added new icon type in browser for unaccessible directories (no access
+      permissions).
+
+
+0.6 - June 4th, 2000 :
+======================
+    * an option to confirm write of tags,
+    * at start, the default directory is loaded when UI is entirely displayed,
+    * fixed a memory leak,
+    * layout of command buttons changed (nicer!),
+    * scan: an option to put text between parentheses to comment field,
+    * menu entry to run xmms,
+    * added a popup menu in browser area,
+    * display in the header the total size and total duration of mp3 in
+      directory,
+    * suppressed parameter for auto-shrinking main window,
+    * An option to adjust the main window default size,
+    * Ability to replace underscore character and %20 string by a space
+     character, in scan feature,
+    * New menu entries (can reload default directory),
+    * New option to show/hide command buttons.
+
+
+0.5 - May 21th, 2000 :
+======================
+    * release of EasyTAG-0.5,
+    * new menu entries (set current path, save config),
+    * status bar is now working...
+    * new option to show/hide header infos,
+    * can select directly first/last mp3 file (usefull when numerous),
+    * menu entry to load home dir and collapse(clean) whole tree,
+    * read informations of mp3 header (support of MPEG 1, 2, 2.5),
+    * display theses informations (version, layer, bitrate,...),
+    * code cleanup,
+    * bug fix,
+    * fix a bug that doesn't save track number in some case ?&#@!%$!@,
+    * patch 0.4a to correct this bug.
+
+
+0.4 - May 11th, 2000 :
+======================
+    * ability to choose genre type by typing the first character,
+    * added progress bar for displaying reading/saving activity,
+    * fix saving bug (it doesn't save all modified tags),
+    * you can type a path into the entry above the tree browser,
+    * check if the entered config is good,
+    * now, read only one time the default dir at start,
+    * Makefile and .spec files corrected,
+    * code cleanup,
+    * ask priority (tag id3 v1 or id3v1.1),
+    * new options.
+
+
+0.3 - May 7th, 2000 :
+=====================
+    * rewrite tag only if it was modified,
+    * toggle sensivity of menu items (as command buttons),
+    * mini icon modified,
+    * fix stupid bug that imposed current year on the entry when this 
+      one was empty and lost focus :(,
+    * added a config file (to save default path to mp3,...),
+    * added an options window,
+    * added logo to about window.
+
+
+0.2 - May 5th, 2000 :
+=====================
+    * added menu bar,
+    * support of ID3v1.1 implemented,
+    * created easytag.specs file,
+    * created easytag.desktop file,
+    * improved makefile,
+    * added pre-version of scanning (auto completion of fields),
+    * added indicator of position in list of scanned files.
+
+
+0.1 - May 3rd, 2000 :
+=====================
+    * Added icon for the window when minimized,
+    * Added auto completion of date if a partial is entered,
+    * Added a directory selector (tree),
+    * Interface created.
