@@ -101,7 +101,7 @@ dnl ################################################
 
 OGG_DEPS="ogg >= 1.0 vorbis >= 1.0.1 vorbisfile"
 AS_IF([test "x$enable_ogg" != "xno" -o "x$enable_flac" != "xno"],
-      [PKG_CHECK_MODULES([OGG], [$OGG_DEPS], [have_ogg=yes], [have_ogg=no])],
+      [PKG_CHECK_EXISTS([$OGG_DEPS], [have_ogg=yes], [have_ogg=no])],
       [have_ogg=no])
 
 AS_IF([test "x$have_ogg" != "xno"],
@@ -118,7 +118,7 @@ dnl Note that libvorbis is required for speex support, even if the user chooses 
 
 SPEEX_DEPS="speex"
 AS_IF([test "x$enable_speex" != "xno"],
-      [PKG_CHECK_MODULES([SPEEX], [$SPEEX_DEPS], [have_speex=yes], [have_speex=no])],
+      [PKG_CHECK_EXISTS([$SPEEX_DEPS], [have_speex=yes], [have_speex=no])],
       [have_speex=no])
 
 AS_IF([test "x$have_speex" != "xno"],
@@ -135,7 +135,7 @@ dnl Note that libvorbis is required for flac support, even if the user chooses -
 
 FLAC_DEPS="flac >= 1.1.0"
 AS_IF([test "x$enable_flac" != "xno"],
-      [PKG_CHECK_MODULES([FLAC], [$FLAC_DEPS], [have_flac=yes], [have_flac=no])],
+      [PKG_CHECK_EXISTS([$FLAC_DEPS], [have_flac=yes], [have_flac=no])],
       [have_flac=no])
 
 AS_IF([test "x$have_flac" != "xno"],
@@ -149,7 +149,7 @@ dnl # libid3tag and Id3lib libraries
 dnl ################################################
 ID3TAG_DEPS="id3tag"
 AS_IF([test "x$enable_mp3" != "xno"],
-      [PKG_CHECK_MODULES([ID3TAG], [$ID3TAG_DEPS], [have_mp3=yes], [have_mp3=no])],
+      [PKG_CHECK_EXISTS([$ID3TAG_DEPS], [have_mp3=yes], [have_mp3=no])],
       [have_mp3=no])
 
 AS_IF([test "x$have_mp3" != "xno"],
@@ -195,7 +195,7 @@ dnl ################################################
 
 TAGLIB_DEPS="taglib_c >= 1.6.0"
 AS_IF([test "x$enable_mp4" != "xno"],
-      [PKG_CHECK_MODULES([TAGLIB], [$TAGLIB_DEPS], [have_taglib=yes], [have_taglib=no])],
+      [PKG_CHECK_EXISTS([$TAGLIB_DEPS], [have_taglib=yes], [have_taglib=no])],
       [have_wavpack=no])
 
 AS_IF([test "x$have_taglib" != "xno"],
@@ -209,7 +209,7 @@ dnl # WavPack library
 dnl ################################################
 WAVPACK_DEPS="wavpack >= 4.40"
 AS_IF([test "x$enable_wavpack" != "xno"],
-      [PKG_CHECK_MODULES([WAVPACK], [$WAVPACK_DEPS], [have_wavpack=yes], [have_wavpack=no])],
+      [PKG_CHECK_EXISTS([$WAVPACK_DEPS], [have_wavpack=yes], [have_wavpack=no])],
       [have_wavpack=no])
 
 AS_IF([test "x$have_wavpack" != "xno"],
