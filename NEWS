@@ -1,5 +1,15 @@
-2.1.8 - June 3rd, 2012 :
+2.1.8 - … :
 =========================
+    * Port to and require the most recent GTK+ 2 release (2.24)
+    * Allow experimental compilation against GTK+ 3
+    * Switch to TagLib for MP4 tag editing and drop libmp4v2 support
+    * Fix album artist entry focus chain order
+    * Remove Changes tab in about dialog
+    * Tidy and internationalize the desktop file
+    * Fix many spelling errors and typos
+    * Rewrite build system
+    * Use intltool for internationalization
+    * Drop dependency on libtool
     * Leonid Podolny's easytag-2.1.6-from-txt.patch for segfault when pressing 
       "Apply" in "Load filenames from TXT" dialog,
     * WiseLord's fix-genre-tag.patch to fix predefined genres displayed under
