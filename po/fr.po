@@ -19,13 +19,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
 #: ../easytag.desktop.in.h:1
-#, fuzzy
 msgid "Sound File Metadata Editor"
-msgstr "Montrer / Cacher l'Editeur de Masques"
+msgstr "Éditeur de Métadonnées de Fichier Son"
 
 #: ../easytag.desktop.in.h:2
 msgid "Edit sound file metadata"
-msgstr ""
+msgstr "Modifier les métadonnées de fichiers son"
 
 #: ../easytag.desktop.in.h:3
 msgid "mp3;tag;audio;"

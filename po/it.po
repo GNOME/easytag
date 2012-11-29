@@ -22,13 +22,12 @@ msgstr ""
 "X-Generator: KBabel 1.10.2\n"
 
 #: ../easytag.desktop.in.h:1
-#, fuzzy
 msgid "Sound File Metadata Editor"
-msgstr "Mostra/Nascondi Modificatore Maschere"
+msgstr "Compositore di Metadati di File Sono"
 
 #: ../easytag.desktop.in.h:2
 msgid "Edit sound file metadata"
-msgstr ""
+msgstr "Modificare i metadati di file sono"
 
 #: ../easytag.desktop.in.h:3
 msgid "mp3;tag;audio;"

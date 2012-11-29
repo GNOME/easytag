@@ -22,13 +22,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../easytag.desktop.in.h:1
-#, fuzzy
 msgid "Sound File Metadata Editor"
-msgstr "Maskeneditor anzeigen/verstecken"
+msgstr "Audiodateimetadaten-Editor"
 
 #: ../easytag.desktop.in.h:2
 msgid "Edit sound file metadata"
-msgstr ""
+msgstr "Audiodatei Metadaten editieren"
 
 #: ../easytag.desktop.in.h:3
 msgid "mp3;tag;audio;"
