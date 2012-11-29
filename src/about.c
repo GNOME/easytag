@@ -185,8 +185,10 @@ void Show_About_Window (void)
 
     /* General contributions */
     gchar *general_thanks_text =
-            "    - Daniel Drake (GTK2 port)\n"
-            "    - Mihael Vrbanec (GTK2 port)\n"
+            "    - David King (GTK+ 3 port)\n"
+            "    - Santtu Lakkala (GTK+ 3 port)\n"
+            "    - Daniel Drake (GTK+ 2 port)\n"
+            "    - Mihael Vrbanec (GTK+ 2 port)\n"
             "    - Michael Pujos (Win32 port)\n"
             "    - Andrew Shuvalov\n"
             "    - Sergey Zhumatiy\n"
@@ -231,8 +233,7 @@ void Show_About_Window (void)
             "    - Gaute Amundsen\n"
             "    - Nick Lanham\n"
             "    - Wojciech Wierchola\n"
-            "    - Julian Taylor\n"
-            "";
+            "    - Julian Taylor";
 
     GtkWidget *ExtensionList;
     GtkListStore *ExtensionListModel;

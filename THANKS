@@ -1,3 +1,6 @@
+David King <amigadave@amigadave.com>:
+  - GTK+ 3 port
+
 Bastian Kleineidam <calvin@cs.uni-sb.de>:
   - German translation
 
@@ -146,6 +149,7 @@ Morten Brix Pedersen <morten@wtf.dk>
 
 Santtu Lakkala <inzane@ircing.org>
   - patches / DLM support
+  - Initial GTK+ 3 port
 
 Justus Schwartz <justus@gmx.li>
   - Cddb request from selected files
