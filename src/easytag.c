@@ -967,38 +967,41 @@ GtkWidget *Create_Tag_Area (void)
     g_signal_connect_swapped(G_OBJECT(AlbumArtistEntry),"activate",G_CALLBACK(gtk_widget_grab_focus),G_OBJECT(TitleEntry));
 
     // Set focus chain
-    focusable_widgets_list = g_list_append(focusable_widgets_list,TitleEntry);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,TitleMButton);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,ArtistEntry);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,ArtistMButton);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,AlbumEntry);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,AlbumMButton);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,DiscNumberEntry);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,DiscNumberMButton);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,YearEntry);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,YearMButton);
-    //focusable_widgets_list = g_list_append(focusable_widgets_list,TrackMButtonSequence); // Doesn't work as focus disabled for this widget to have enought space to display icon
-    focusable_widgets_list = g_list_append(focusable_widgets_list,TrackEntryCombo);
-    //focusable_widgets_list = g_list_append(focusable_widgets_list,TrackMButtonNbrFiles);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,TrackTotalEntry);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,TrackMButton);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,GenreCombo);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,GenreMButton);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,CommentEntry);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,CommentMButton);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,ComposerEntry);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,ComposerMButton);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,OrigArtistEntry);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,OrigArtistMButton);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,CopyrightEntry);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,CopyrightMButton);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,URLEntry);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,URLMButton);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,EncodedByEntry);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,EncodedByMButton);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,AlbumArtistEntry);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,AlbumArtistMButton);
-    focusable_widgets_list = g_list_append(focusable_widgets_list,TitleEntry); // To loop to the beginning
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,TitleEntry);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,TitleMButton);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,ArtistEntry);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,ArtistMButton);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,AlbumArtistEntry);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,AlbumArtistMButton);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,AlbumEntry);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,AlbumMButton);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,DiscNumberEntry);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,DiscNumberMButton);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,YearEntry);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,YearMButton);
+    //focusable_widgets_list = g_list_prepend(focusable_widgets_list,TrackMButtonSequence); // Doesn't work as focus disabled for this widget to have enought space to display icon
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,TrackEntryCombo);
+    //focusable_widgets_list = g_list_prepend(focusable_widgets_list,TrackMButtonNbrFiles);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,TrackTotalEntry);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,TrackMButton);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,GenreCombo);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,GenreMButton);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,CommentEntry);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,CommentMButton);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,ComposerEntry);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,ComposerMButton);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,OrigArtistEntry);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,OrigArtistMButton);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,CopyrightEntry);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,CopyrightMButton);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,URLEntry);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,URLMButton);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,EncodedByEntry);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,EncodedByMButton);
+    focusable_widgets_list = g_list_prepend(focusable_widgets_list,TitleEntry); // To loop to the beginning
+    /* More efficient than using g_list_append(), which must traverse the
+     * whole list. */
+    focusable_widgets_list = g_list_reverse(focusable_widgets_list);
     gtk_container_set_focus_chain(GTK_CONTAINER(Table),focusable_widgets_list);
 
 
