@@ -586,93 +586,6 @@ void Show_About_Window (void)
     gtk_text_view_set_editable(GTK_TEXT_VIEW(TextView), FALSE);
     gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(TextView), GTK_WRAP_WORD);
 
-
-    /*
-     * Tab for ChangeLog
-     */
-
-#ifdef PACKAGE_DATA_DIR
-    Label = gtk_label_new(_("Changes"));
-    Frame = gtk_frame_new(NULL);
-    gtk_notebook_append_page (GTK_NOTEBOOK(AboutNoteBook),Frame,Label);
-
-    ScrollWindow = gtk_scrolled_window_new(NULL,NULL);
-    gtk_container_add(GTK_CONTAINER(Frame),ScrollWindow);
-    gtk_container_set_border_width(GTK_CONTAINER(Frame),2);
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(ScrollWindow),
-                                   GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
-
-    TextBuffer = gtk_text_buffer_new(NULL);
-    gtk_text_buffer_get_iter_at_offset(TextBuffer, &textIter, 0);
-    gtk_text_buffer_create_tag(TextBuffer, "monospace", "family", "monospace", NULL);
-    gtk_text_buffer_create_tag(TextBuffer, "red_foreground", "foreground", "red", NULL);
-    gtk_text_buffer_create_tag(TextBuffer, "blue_foreground", "foreground", "blue", NULL);
-    gtk_text_buffer_create_tag(TextBuffer, "bold", "weight", PANGO_WEIGHT_BOLD, NULL);
-
-    gtk_text_buffer_get_iter_at_offset(TextBuffer, &textIter, 0);
-
-    // The file 'ChangeLog' to read
-    if ( (file=fopen(PACKAGE_DATA_DIR"/ChangeLog","r"))==0 )
-    {
-        gchar *msg = g_strdup_printf(_("Can't open file '%s' (%s)\n"),PACKAGE_DATA_DIR"/ChangeLog",g_strerror(errno));
-        gtk_text_buffer_insert_with_tags_by_name(TextBuffer, &textIter,
-                                                 msg, -1,
-                                                 "monospace", "red_foreground", NULL);
-        g_free(msg);
-    } else
-    {
-        gint first_version = 0;
-
-        while (fgets(temp,sizeof(temp),file))
-        {
-            if (temp[strlen(temp)-1]=='\n')
-                temp[strlen(temp)-1]='\0';
-            if (temp[strlen(temp)-1]=='\r')
-                temp[strlen(temp)-1]='\0';
-
-            // Convert line to UTF-8
-            /*if (!g_utf8_validate(temp, -1, NULL))
-                tmp = convert_string(temp, "iso-8859-1", "utf-8",TRUE);
-            else
-                tmp = g_strdup(temp);*/
-            tmp = Try_To_Validate_Utf8_String(temp);
-
-            if (tmp && tmp[0]!=' ') // If first character is a space => 1rst line after title
-            {
-                first_version++;
-                // To set to bold the title of the version and to red the first version
-                if (first_version > 2) // As title takes 2 lines
-                    gtk_text_buffer_insert_with_tags_by_name(TextBuffer, &textIter,
-                                                             tmp, -1,
-                                                             "monospace", "bold", NULL);
-                else
-                    gtk_text_buffer_insert_with_tags_by_name(TextBuffer, &textIter,
-                                                             tmp, -1,
-                                                             "monospace", "bold", "blue_foreground", NULL);
-            }else
-            {
-                if (first_version > 2) // As title takes 2 lines
-                    gtk_text_buffer_insert_with_tags_by_name(TextBuffer, &textIter,
-                                                             tmp, -1,
-                                                             "monospace", NULL);
-                else
-                    gtk_text_buffer_insert_with_tags_by_name(TextBuffer, &textIter,
-                                                             tmp, -1,
-                                                             "monospace", "blue_foreground", NULL);
-            }
-
-            gtk_text_buffer_insert(TextBuffer, &textIter, "\n", -1);
-            g_free(tmp);
-        }
-        fclose(file);
-    }
-    TextView = gtk_text_view_new_with_buffer(TextBuffer);
-    gtk_container_add(GTK_CONTAINER(ScrollWindow),TextView);
-    gtk_text_view_set_editable(GTK_TEXT_VIEW(TextView), FALSE);
-    gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(TextView), GTK_WRAP_WORD);
-#endif
-
-
     /*
      * Close Button
      */
@@ -685,7 +598,6 @@ void Show_About_Window (void)
 
     gtk_widget_show_all(AboutWindow);
     //gtk_container_resize_children(GTK_CONTAINER(AboutNoteBook));
-
 }
 
 
