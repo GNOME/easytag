@@ -1,0 +1,28 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/"
+         xmlns:gnome="http://api.gnome.org/doap-extensions#"
+         xmlns="http://usefulinc.com/ns/doap#">
+
+  <name xml:lang="en">EasyTAG</name>
+  <shortdesc xml:lang="en">View and edit tags for MP3, MP2, MP4/AAC, FLAC, Ogg
+  Vorbis, MusePack, Monkey's Audio and WavPack files.</shortdesc>
+  <description>EasyTAG is a utility for viewing and editing tags for MP3, MP2,
+  MP4/AAC, FLAC, Ogg Vorbis, MusePack, Monkey's Audio and WavPack files. Its
+  simple and nice GTK+ interface makes tagging easier under GNU/Linux or
+  Windows.</description>
+  <homepage rdf:resource="http://easytag.sourceforge.net/" />
+  <download-page rdf:resource="https://sourceforge.net/projects/easytag/files/" />
+  <mailing-list rdf:resource="https://lists.sourceforge.net/lists/listinfo/easytag-mailing" />
+  <bug-database rdf:resource="http://sourceforge.net/tracker/?group_id=5216&amp;atid=105216" />
+  <category rdf:resource="http://api.gnome.org/doap-extensions#productivity" />
+
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>David King</foaf:name>
+      <foaf:mbox rdf:resource="mailto:amigadave@amigadave.com" />
+      <foaf:seeAlso rdf:resource="http://amigadave.com/foaf.rdf#david" />
+      <gnome:userid>davidk</gnome:userid>
+    </foaf:Person>
+  </maintainer>
+</Project>
