@@ -23,6 +23,7 @@ ltmain.sh
 /po/.intltool-merge-cache
 /po/Makefile.in.in
 /po/POTFILES
+/po/easytag.pot
 /po/stamp-it
 src/.deps/
 src/Makefile
