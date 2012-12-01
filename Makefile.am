@@ -160,10 +160,26 @@ pixmapdir = $(pkgdatadir)
 dist_pixmap_DATA = \
 	pixmaps/EasyTAG_logo.xpm
 
-icondir = $(datadir)/pixmaps
-dist_icon_DATA = \
-	pixmaps/EasyTAG_icon.xpm
+iconthemedir = $(datadir)/icons/hicolor
 
+appicondir = $(iconthemedir)/64x64/apps
+dist_appicon_DATA = \
+	pixmaps/easytag.png
+
+UPDATE_ICON_CACHE = gtk-update-icon-cache --ignore-theme-index --force
+
+install-data-hook: install-update-icon-cache
+uninstall-hook: uninstall-update-icon-cache
+
+install-update-icon-cache:
+	$(AM_V_at)$(POST_INSTALL)
+	test -n "$(DESTDIR)" || $(UPDATE_ICON_CACHE) "$(iconthemedir)"
+
+uninstall-update-icon-cache:
+	$(AM_V_at)$(POST_UNINSTALL)
+	test -n "$(DESTDIR)" || $(UPDATE_ICON_CACHE) "$(iconthemedir)"
+dist_doc_DATA = \
+	THANKS
 
 dist_noinst_DATA = \
 	$(desktop_in_files) \
@@ -273,7 +289,7 @@ dist_noinst_DATA = \
 	doc/vorbis/white-ogg.png
 
 dist_noinst_SCRIPTS = \
-    autogen.sh
+	autogen.sh
 
 CLEANFILES = \
 	$(desktop_DATA)

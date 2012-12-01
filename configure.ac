@@ -4,7 +4,7 @@ AC_PREREQ([2.64])
 
 dnl To set also in config.h.mingw
 dnl defines ($PACKAGE_NAME, $PACKAGE_VERSION, etc.)
-AC_INIT([EasyTAG], [2.1.8], [easytag-mailing@lists.sourceforge.net], [easytag], [http://easytag.sourceforge.net/])
+AC_INIT([EasyTAG], [2.1.8], [https://bugzilla.gnome.org/enter_bug.cgi?product=easytag], [easytag], [http://projects.gnome.org/easytag/])
 
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_HEADERS([config.h])
