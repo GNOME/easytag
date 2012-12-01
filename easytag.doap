@@ -5,15 +5,15 @@
          xmlns="http://usefulinc.com/ns/doap#">
 
   <name xml:lang="en">EasyTAG</name>
-  <shortdesc xml:lang="en">View and edit tags for MP3, MP2, MP4/AAC, FLAC, Ogg Vorbis, MusePack, Monkey's Audio and WavPack files.</shortdesc>
+  <shortdesc xml:lang="en">View and edit tags for MP3, MP2, MP4/AAC, FLAC, Ogg Vorbis, MusePack, Monkey's Audio and WavPack files</shortdesc>
   <description>EasyTAG is a utility for viewing and editing tags for MP3, MP2,
   MP4/AAC, FLAC, Ogg Vorbis, MusePack, Monkey's Audio and WavPack files. Its
   simple and nice GTK+ interface makes tagging easier under GNU/Linux or
   Windows.</description>
-  <homepage rdf:resource="http://easytag.sourceforge.net/" />
+  <homepage rdf:resource="http://projects.gnome.org/easytag/" />
   <download-page rdf:resource="https://sourceforge.net/projects/easytag/files/" />
-  <mailing-list rdf:resource="https://lists.sourceforge.net/lists/listinfo/easytag-mailing" />
-  <bug-database rdf:resource="http://sourceforge.net/tracker/?group_id=5216&amp;atid=105216" />
+  <mailing-list rdf:resource="https://mail.gnome.org/mailman/listinfo/easytag-list" />
+  <bug-database rdf:resource="https://bugzilla.gnome.org/browse.cgi?product=easytag" />
   <category rdf:resource="http://api.gnome.org/doap-extensions#productivity" />
 
   <maintainer>
