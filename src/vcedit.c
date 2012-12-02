@@ -402,7 +402,7 @@ int vcedit_open_callbacks(vcedit_state *state, void *in,
                                     _speex_unpack_comment(state->vc,&opb);
                                     break;
                                 default:
-                                    state->lasterror = _("Need to save extra headers - TODO!!");
+                                    state->lasterror = _("Need to save extra headers"); /* FIXME. */
                                     goto err;
                                     break;
                             }

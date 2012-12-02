@@ -161,7 +161,7 @@ void Open_OptionsWindow (void)
     gtk_box_pack_start(GTK_BOX(vbox),HBox,FALSE,FALSE,0);
 
     // Label
-    Label = gtk_label_new(_("Default directory :"));
+    Label = gtk_label_new(_("Default directory:"));
     gtk_box_pack_start(GTK_BOX(HBox),Label,FALSE,FALSE,0);
 
     // Combo
@@ -259,7 +259,7 @@ void Open_OptionsWindow (void)
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
-    Label = gtk_label_new(_("Display changed files in list using :"));
+    Label = gtk_label_new(_("Display changed files in list using:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
 
     ChangedFilesDisplayedToRed = gtk_radio_button_new_with_label(NULL,_("Red color"));
@@ -284,7 +284,7 @@ void Open_OptionsWindow (void)
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
     /* Sorting method */
-    Label = gtk_label_new(_("Sort the file list by :"));
+    Label = gtk_label_new(_("Sort the file list by:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
 
     EventBox = gtk_event_box_new();
@@ -383,7 +383,7 @@ void Open_OptionsWindow (void)
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),hbox);
     gtk_container_set_border_width(GTK_CONTAINER(hbox), 4);
-    Label = gtk_label_new (_("Player to run :"));
+    Label = gtk_label_new (_("Player to run:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
     FilePlayerCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(FilePlayerModel));
     gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(FilePlayerCombo),MISC_COMBO_TEXT);
@@ -424,7 +424,7 @@ void Open_OptionsWindow (void)
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     gtk_container_set_border_width(GTK_CONTAINER(hbox), 4);
-    Label = gtk_label_new (_("Max number of lines :"));
+    Label = gtk_label_new (_("Max number of lines:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
     
     LogMaxLinesSpinButton = gtk_spin_button_new_with_range(10.0,1500.0,10.0);
@@ -471,7 +471,7 @@ void Open_OptionsWindow (void)
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
     /* Extension case (lower/upper?) */
-    Label = gtk_label_new(_("Convert filename extension to :"));
+    Label = gtk_label_new(_("Convert filename extension to:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
 
     FilenameExtensionLowerCase = gtk_radio_button_new_with_label(NULL,_("Lower Case"));
@@ -593,11 +593,11 @@ void Open_OptionsWindow (void)
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
 
-    NumberTrackFormated = gtk_check_button_new_with_label(_("Write the track field with the following number of digits :"));
+    NumberTrackFormated = gtk_check_button_new_with_label(_("Write the track field with the following number of digits:"));
     gtk_box_pack_start(GTK_BOX(hbox),NumberTrackFormated,FALSE,FALSE,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(NumberTrackFormated),NUMBER_TRACK_FORMATED);
     gtk_widget_set_tooltip_text(NumberTrackFormated,_("If activated, the track field is written using "
-        "the number '0' as padding to obtain a number with 'n' digits (Ex. with two digits : '05', "
+        "the number '0' as padding to obtain a number with 'n' digits (for example, with two digits: '05', "
         "'09', '10' …). Else it keeps the 'raw' track value."));
 
     NumberTrackFormatedSpinButton = gtk_spin_button_new_with_range(2.0,6.0,1.0);
@@ -611,7 +611,7 @@ void Open_OptionsWindow (void)
     g_signal_connect_swapped(G_OBJECT(NumberTrackFormatedSpinButton),"changed",G_CALLBACK(Number_Track_Formated_Spin_Button_Changed),G_OBJECT(Label));
     g_signal_emit_by_name(G_OBJECT(NumberTrackFormatedSpinButton),"changed",NULL);
 
-    OggTagWriteXmmsComment = gtk_check_button_new_with_label(_("Ogg Vorbis Files : Write also the comment to the XMMS format"));
+    OggTagWriteXmmsComment = gtk_check_button_new_with_label(_("Ogg Vorbis Files: write also the comment in the XMMS format"));
     gtk_box_pack_start(GTK_BOX(vbox),OggTagWriteXmmsComment,FALSE,FALSE,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(OggTagWriteXmmsComment),OGG_TAG_WRITE_XMMS_COMMENT);
     gtk_widget_set_tooltip_text(OggTagWriteXmmsComment,_("XMMS doesn't make use of the right way to "
@@ -656,8 +656,7 @@ void Open_OptionsWindow (void)
     gtk_container_add(GTK_CONTAINER(Frame),Table);
     gtk_table_set_col_spacings(GTK_TABLE(Table),2);
     
-    Label = gtk_label_new(_("For Vorbis tags, selected fields will be split at"
-                "dashes and saved as separate tags"));
+    Label = gtk_label_new(_("For Vorbis tags, selected fields will be split at dashes and saved as separate tags"));
     gtk_table_attach(GTK_TABLE(Table),Label,0,2,0,1,GTK_FILL,GTK_FILL,0,1);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
 
@@ -667,7 +666,7 @@ void Open_OptionsWindow (void)
     VorbisSplitFieldGenre = gtk_check_button_new_with_label(_("Genre"));
     VorbisSplitFieldComment = gtk_check_button_new_with_label(_("Comment"));
     VorbisSplitFieldComposer = gtk_check_button_new_with_label(_("Composer"));
-    VorbisSplitFieldOrigArtist = gtk_check_button_new_with_label(_("Orig. Artist"));
+    VorbisSplitFieldOrigArtist = gtk_check_button_new_with_label(_("Original artist"));
 
     gtk_table_attach(GTK_TABLE(Table),VorbisSplitFieldTitle,0,1,1,2,GTK_FILL,GTK_FILL,0,0);
     gtk_table_attach(GTK_TABLE(Table),VorbisSplitFieldArtist,0,1,2,3,GTK_FILL,GTK_FILL,0,0);
@@ -1407,7 +1406,7 @@ void Open_OptionsWindow (void)
     gtk_box_pack_start(GTK_BOX(vbox),CddbUseDLM,FALSE,FALSE,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbUseDLM),CDDB_USE_DLM);
     gtk_widget_set_tooltip_text(CddbUseDLM,_("When activating this option, the "
-        "Levenshtein algorithm (DLM : Damerau-Levenshtein Metric) will be used "
+        "Levenshtein algorithm (DLM: Damerau-Levenshtein Metric) will be used "
         "to match the CDDB title against every file name in the current folder, "
         "and to select the best match. This will be used when selecting the "
         "corresponding audio file, or applying cddb results, instead of using "

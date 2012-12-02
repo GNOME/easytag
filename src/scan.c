@@ -2682,7 +2682,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
 
     /* Group: character conversion */
-    ProcessFieldsConvertIntoSpace = gtk_check_button_new_with_label(_("Convert '_' and '%20' to ' '"));
+    ProcessFieldsConvertIntoSpace = gtk_check_button_new_with_label(_("Convert '_' and '%20' to spaces"));
     ProcessFieldsConvertSpace     = gtk_check_button_new_with_label(_("Convert ' ' to '_'"));
     gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsConvertIntoSpace,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsConvertSpace,    FALSE,FALSE,0);

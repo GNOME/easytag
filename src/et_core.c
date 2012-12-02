@@ -2779,7 +2779,7 @@ void ET_Display_Filename_To_UI (ET_File *ETFile)
     Browser_Entry_Set_Text(dirname_utf8);
 
     // And refresh the number of files in this directory
-    text = g_strdup_printf(_("%u file(s)"),ET_Get_Number_Of_Files_In_Directory(dirname_utf8));
+    text = g_strdup_printf(ngettext("One file","%u files",ET_Get_Number_Of_Files_In_Directory(dirname_utf8)),ET_Get_Number_Of_Files_In_Directory(dirname_utf8));
     Browser_Label_Set_Text(text);
     g_free(dirname_utf8);
     g_free(text);

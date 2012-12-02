@@ -192,7 +192,7 @@ int main (int argc, char *argv[])
     INIT_DIRECTORY = NULL;
 
     /* Starting messages */
-    Log_Print(LOG_OK,_("Starting EasyTAG %s (PId: %d)…"),PACKAGE_VERSION,getpid());
+    Log_Print(LOG_OK,_("Starting EasyTAG version %s (PID: %d)…"),PACKAGE_VERSION,getpid());
 #ifdef ENABLE_MP3
     Log_Print(LOG_OK,_("Currently using libid3tag version %s…"), ID3_VERSION);
 #endif
@@ -204,9 +204,9 @@ int main (int argc, char *argv[])
 
 #ifdef WIN32
     if (g_getenv("EASYTAGLANG"))
-        Log_Print(LOG_OK,_("Variable EASYTAGLANG defined. Setting locale : '%s'"),g_getenv("EASYTAGLANG"));
+        Log_Print(LOG_OK,_("Variable EASYTAGLANG defined. Setting locale: '%s'"),g_getenv("EASYTAGLANG"));
     else
-        Log_Print(LOG_OK,_("Setting locale : '%s'"),g_getenv("LANG"));
+        Log_Print(LOG_OK,_("Setting locale: '%s'"),g_getenv("LANG"));
 #endif
 
     if (get_locale())
@@ -227,8 +227,8 @@ int main (int argc, char *argv[])
         if ( (strcmp(argv[1],"--version")==0) || (strcmp(argv[1],"-v")==0) ) // Query version
         {
             g_print(_("%s %s by %s (compiled %s, %s)\n"),APPNAME,PACKAGE_VERSION,AUTHOR,__TIME__,__DATE__);
-            g_print(_("E-mail: %s"),EMAIL"\n");
-            g_print(_("Web Page: %s"),WEBPAGE"\n");
+            g_print(_("Email: %s"),EMAIL"\n");
+            g_print(_("Web Page: %s"),PACKAGE_URL"\n");
             exit (0);
         }else if ( (strcmp(argv[1],"--help")==0) || (strcmp(argv[1],"-h")==0) ) // Query help
         {
@@ -471,7 +471,7 @@ GtkWidget *Create_File_Area (void)
     /* Access status icon */
     ReadOnlyStatusIconBox = Create_Pixmap_Icon_With_Event_Box("easytag-read-only");
     gtk_box_pack_start(GTK_BOX(HBox),ReadOnlyStatusIconBox,FALSE,FALSE,0);
-    gtk_widget_set_tooltip_text(ReadOnlyStatusIconBox,_("Read Only File"));
+    gtk_widget_set_tooltip_text(ReadOnlyStatusIconBox,_("Read-only File"));
     BrokenStatusIconBox = Create_Pixmap_Icon_With_Event_Box(GTK_STOCK_MISSING_IMAGE);
     gtk_box_pack_start(GTK_BOX(HBox),BrokenStatusIconBox,FALSE,FALSE,0);
     gtk_widget_set_tooltip_text(BrokenStatusIconBox,_("File Link Broken"));
@@ -488,23 +488,25 @@ GtkWidget *Create_File_Area (void)
     gtk_table_set_row_spacings(GTK_TABLE(HeaderInfosTable),1);
     gtk_table_set_col_spacings(GTK_TABLE(HeaderInfosTable),2);
 
-    VersionLabel = gtk_label_new(_("MPEG"));
+    VersionLabel = gtk_label_new(_("Encoder:"));
     gtk_table_attach_defaults(GTK_TABLE(HeaderInfosTable),VersionLabel,0,1,0,1);
-    VersionValueLabel = gtk_label_new(_("?, Layer ?"));
+    VersionValueLabel = gtk_label_new("");
     gtk_table_attach_defaults(GTK_TABLE(HeaderInfosTable),VersionValueLabel,1,2,0,1);
     gtk_misc_set_alignment(GTK_MISC(VersionLabel),1,0.5);
     gtk_misc_set_alignment(GTK_MISC(VersionValueLabel),0,0.5);
 
     BitrateLabel = gtk_label_new(_("Bitrate:"));
     gtk_table_attach_defaults(GTK_TABLE(HeaderInfosTable),BitrateLabel,0,1,1,2);
-    BitrateValueLabel = gtk_label_new(_("? kb/s"));
+    BitrateValueLabel = gtk_label_new("");
     gtk_table_attach_defaults(GTK_TABLE(HeaderInfosTable),BitrateValueLabel,1,2,1,2);
     gtk_misc_set_alignment(GTK_MISC(BitrateLabel),1,0.5);
     gtk_misc_set_alignment(GTK_MISC(BitrateValueLabel),0,0.5);
 
-    SampleRateLabel = gtk_label_new(_("Freq:"));
+    /* Translators: Please try to keep this string as short as possible as it
+     * is shown in a narrow column. */
+    SampleRateLabel = gtk_label_new(_("Freq.:"));
     gtk_table_attach_defaults(GTK_TABLE(HeaderInfosTable),SampleRateLabel,0,1,2,3);
-    SampleRateValueLabel = gtk_label_new(_("? Hz"));
+    SampleRateValueLabel = gtk_label_new("");
     gtk_table_attach_defaults(GTK_TABLE(HeaderInfosTable),SampleRateValueLabel,1,2,2,3);
     gtk_misc_set_alignment(GTK_MISC(SampleRateLabel),1,0.5);
     gtk_misc_set_alignment(GTK_MISC(SampleRateValueLabel),0,0.5);
@@ -514,21 +516,21 @@ GtkWidget *Create_File_Area (void)
 
     ModeLabel = gtk_label_new(_("Mode:"));
     gtk_table_attach_defaults(GTK_TABLE(HeaderInfosTable),ModeLabel,3,4,0,1);
-    ModeValueLabel = gtk_label_new(_("?"));
+    ModeValueLabel = gtk_label_new("");
     gtk_table_attach_defaults(GTK_TABLE(HeaderInfosTable),ModeValueLabel,4,5,0,1);
     gtk_misc_set_alignment(GTK_MISC(ModeLabel),1,0.5);
     gtk_misc_set_alignment(GTK_MISC(ModeValueLabel),0,0.5);
 
     SizeLabel = gtk_label_new(_("Size:"));
     gtk_table_attach_defaults(GTK_TABLE(HeaderInfosTable),SizeLabel,3,4,1,2);
-    SizeValueLabel = gtk_label_new(_("? kb"));
+    SizeValueLabel = gtk_label_new("");
     gtk_table_attach_defaults(GTK_TABLE(HeaderInfosTable),SizeValueLabel,4,5,1,2);
     gtk_misc_set_alignment(GTK_MISC(SizeLabel),1,0.5);
     gtk_misc_set_alignment(GTK_MISC(SizeValueLabel),0,0.5);
 
-    DurationLabel = gtk_label_new(_("Time:"));
+    DurationLabel = gtk_label_new(_("Duration:"));
     gtk_table_attach_defaults(GTK_TABLE(HeaderInfosTable),DurationLabel,3,4,2,3);
-    DurationValueLabel = gtk_label_new(_("?"));
+    DurationValueLabel = gtk_label_new("");
     gtk_table_attach_defaults(GTK_TABLE(HeaderInfosTable),DurationValueLabel,4,5,2,3);
     gtk_misc_set_alignment(GTK_MISC(DurationLabel),1,0.5);
     gtk_misc_set_alignment(GTK_MISC(DurationValueLabel),0,0.5);
@@ -640,7 +642,7 @@ GtkWidget *Create_Tag_Area (void)
     g_object_set_data(G_OBJECT(ArtistEntry),"MButtonName",ArtistMButton);
 
     /* Album Artist */
-    AlbumArtistLabel = gtk_label_new(_("Album Artist:"));
+    AlbumArtistLabel = gtk_label_new(_("Album artist:"));
     gtk_table_attach(GTK_TABLE(Table),AlbumArtistLabel,0,1,2,3,GTK_FILL,GTK_FILL,TablePadding,TablePadding);
     gtk_misc_set_alignment(GTK_MISC(AlbumArtistLabel),1,0.5);
 
@@ -873,8 +875,9 @@ GtkWidget *Create_Tag_Area (void)
     g_object_set_data(G_OBJECT(ComposerEntry),"MButtonName",ComposerMButton);
 
 
-    /* Original Artist / Performer */
-    OrigArtistLabel = gtk_label_new(_("Orig. Artist:"));
+    /* Translators: Original Artist / Performer. Please try to keep this string
+     * as short as possible, as it must fit into a narrow column. */
+    OrigArtistLabel = gtk_label_new(_("Orig. artist:"));
     gtk_table_attach(GTK_TABLE(Table),OrigArtistLabel,0,1,8,9,GTK_FILL,GTK_FILL,TablePadding,TablePadding);
     gtk_misc_set_alignment(GTK_MISC(OrigArtistLabel),1,0.5);
 
@@ -3173,8 +3176,6 @@ gboolean Rename_File (ET_File *ETFile, gboolean hide_msgbox)
 
                 /* Removing directories failed */
                 dirname_cur_utf8 = filename_to_display(dirname_cur);
-                msg = g_strdup_printf(_("Can't remove old directory\n'%s'!\n(%s)"),
-                                      dirname_cur_utf8,g_strerror(errno));
                 if (!hide_msgbox)
                 {
                     msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
@@ -3209,8 +3210,6 @@ gboolean Rename_File (ET_File *ETFile, gboolean hide_msgbox)
             GtkWidget *msgdialog;
 
             /* Moving file has failed */
-            msg = g_strdup_printf(_("Can't move file '%s'\n to \n'%s'!\n(%s)"),
-                                  cur_basename_utf8,new_basename_utf8,g_strerror(errno));
             if (!hide_msgbox)
             {
                 msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
@@ -3445,7 +3444,6 @@ gboolean Read_Directory (gchar *path_real)
 {
     DIR   *dir;
     gchar *msg;
-    gchar *tmp;
     gchar  progress_bar_text[30];
     guint  nbrfile = 0;
     double fraction;
@@ -3598,9 +3596,9 @@ gboolean Read_Directory (gchar *path_real)
             gtk_label_set_text(GTK_LABEL(FileIndex),"0/0:");
 
 
-        tmp = g_strdup_printf(_("%u file(s)"),0); // See in ET_Display_Filename_To_UI
-        Browser_Label_Set_Text(tmp);
-        g_free(tmp);
+
+	/* Translators: No files, as in "0 files". */
+        Browser_Label_Set_Text(_("No files")); /* See in ET_Display_Filename_To_UI */
 
         /* Prepare message for the status bar */
         if (BROWSE_SUBDIR)
@@ -4423,14 +4421,14 @@ void Clear_Header_Fields (void)
     if (!VersionValueLabel) return;
 
     /* Default values are MPs data */
-    gtk_label_set_text(GTK_LABEL(VersionLabel),        _("MPEG"));
-    gtk_label_set_text(GTK_LABEL(VersionValueLabel),   _("?, Layer ?"));
-    gtk_label_set_text(GTK_LABEL(BitrateValueLabel),   _("? kb/s"));
-    gtk_label_set_text(GTK_LABEL(SampleRateValueLabel),_("? Hz"));
+    gtk_label_set_text(GTK_LABEL(VersionLabel),        _("Encoder:"));
+    gtk_label_set_text(GTK_LABEL(VersionValueLabel),   "");
+    gtk_label_set_text(GTK_LABEL(BitrateValueLabel),   "");
+    gtk_label_set_text(GTK_LABEL(SampleRateValueLabel),"");
     gtk_label_set_text(GTK_LABEL(ModeLabel),           _("Mode:"));
-    gtk_label_set_text(GTK_LABEL(ModeValueLabel),      _("?"));
-    gtk_label_set_text(GTK_LABEL(SizeValueLabel),      _("?"));
-    gtk_label_set_text(GTK_LABEL(DurationValueLabel),  _("?"));
+    gtk_label_set_text(GTK_LABEL(ModeValueLabel),      "");
+    gtk_label_set_text(GTK_LABEL(SizeValueLabel),      "");
+    gtk_label_set_text(GTK_LABEL(DurationValueLabel),  "");
 }
 
 
@@ -4682,21 +4680,22 @@ void Handle_Crash (gint signal_id)
 {
     //gchar commmand[256];
 
-    Log_Print(LOG_ERROR,_("EasyTAG %s: Abnormal exit! (PId: %d)."),PACKAGE_VERSION,getpid());
-    Log_Print(LOG_ERROR,_("Received signal %s (%d)\a"),signal_to_string(signal_id),signal_id);
+    Log_Print(LOG_ERROR,_("EasyTAG version %s: Abnormal exit! (PID: %d)."),PACKAGE_VERSION,getpid());
+    Log_Print(LOG_ERROR,_("Received signal %s (%d)"),signal_to_string(signal_id),signal_id);
 
-    Log_Print(LOG_ERROR,_("You have probably found a bug in EasyTAG. Please, send a bug "
-              "report with a gdb backtrace ('gdb easytag core' then 'bt' and "
-              "'l') and information to reproduce it to easytag@gmail.com"));
+    Log_Print(LOG_ERROR,_("You have probably found a bug in EasyTAG. Please, "
+                          "file a bug report with a gdb backtrace ('gdb "
+			  "easytag core' then 'bt' and 'l') and information "
+			  "to reproduce it at: %s"),PACKAGE_BUGREPORT);
 
     // To send messages to the console...
-    g_print(_("EasyTAG %s: Abnormal exit! (PId: %d)."),PACKAGE_VERSION,getpid());
+    g_print(_("EasyTAG version %s: Abnormal exit! (PID: %d)."),PACKAGE_VERSION,getpid());
     g_print("\n");
     g_print(_("Received signal %s (%d)\a"),signal_to_string(signal_id),signal_id);
     g_print("\n");
-    g_print(_("You have probably found a bug in EasyTAG. Please, send a bug "
+    g_print(_("You have probably found a bug in EasyTAG. Please, file a bug "
             "report with a gdb backtrace ('gdb easytag core' then 'bt' and "
-            "'l') and information to reproduce it to easytag@gmail.com"));
+            "'l') and information to reproduce it at: %s"),PACKAGE_BUGREPORT);
     g_print("\n");
 
     signal(signal_id,SIG_DFL); // Let the OS handle recursive seg faults

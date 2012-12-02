@@ -225,7 +225,7 @@ void Open_Cddb_Window (void)
     GtkWidget *ScrollWindow;
     GtkWidget *Icon;
     gchar *CddbAlbumList_Titles[] = { NULL, N_("Artist / Album"), N_("Category")}; // Note: don't set "" instead of NULL else this will cause problem with translation language
-    gchar *CddbTrackList_Titles[] = { "#", N_("Track Name"), N_("Time")};
+    gchar *CddbTrackList_Titles[] = { "#", N_("Track Name"), N_("Duration")};
     GtkCellRenderer* renderer;
     GtkTreeViewColumn* column;
     GtkAllocation allocation = { 0,0,0,0 };
@@ -236,7 +236,7 @@ void Open_Cddb_Window (void)
         return;
     }
     CddbWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW(CddbWindow),_("CD Data Base Search"));
+    gtk_window_set_title(GTK_WINDOW(CddbWindow),_("CD Database Search"));
     gtk_window_set_position(GTK_WINDOW(CddbWindow),GTK_WIN_POS_CENTER);
 
     // This part is needed to set correctly the position of handle panes
@@ -280,7 +280,7 @@ void Open_Cddb_Window (void)
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,4);
     gtk_box_pack_start(GTK_BOX(notebookvbox),hbox,FALSE,FALSE,0);
 
-    Label = gtk_label_new(_("Request CD database :"));
+    Label = gtk_label_new(_("Request CD database:"));
     gtk_misc_set_alignment(GTK_MISC(Label),1.0,0.5);
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
 
@@ -370,7 +370,7 @@ void Open_Cddb_Window (void)
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,4);
     gtk_box_pack_start(GTK_BOX(notebookvbox),hbox,FALSE,FALSE,0);
 
-    Label = gtk_label_new(_("Words :"));
+    Label = gtk_label_new(_("Words:"));
     gtk_misc_set_alignment(GTK_MISC(Label),1.0,0.5);
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
 
@@ -423,7 +423,7 @@ void Open_Cddb_Window (void)
     /*
      * Search options
      */
-    Frame = gtk_frame_new(_("Search In :"));
+    Frame = gtk_frame_new(_("Search In:"));
     gtk_box_pack_start(GTK_BOX(notebookvbox),Frame,FALSE,TRUE,0);
 
     Table = gtk_table_new(7,4,FALSE);
@@ -431,11 +431,21 @@ void Open_Cddb_Window (void)
     gtk_table_set_row_spacings(GTK_TABLE(Table),1);
     gtk_table_set_col_spacings(GTK_TABLE(Table),1);
 
+    /* Translators: This option is for the previous 'search in' option. For
+     * instance, translate this as "Search in:" "All fields". */
     CddbSearchInAllFields      = gtk_check_button_new_with_label(_("All Fields"));
     Separator                  = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
+    /* Translators: This option is for the previous 'search in' option. For
+     * instance, translate this as "Search in:" "Artist". */
     CddbSearchInArtistField    = gtk_check_button_new_with_label(_("Artist"));
+    /* Translators: This option is for the previous 'search in' option. For
+     * instance, translate this as "Search in:" "Album". */
     CddbSearchInTitleField     = gtk_check_button_new_with_label(_("Album"));
+    /* Translators: This option is for the previous 'search in' option. For
+     * instance, translate this as "Search in:" "Track Name". */
     CddbSearchInTrackNameField = gtk_check_button_new_with_label(_("Track Name"));
+    /* Translators: This option is for the previous 'search in' option. For
+     * instance, translate this as "Search in:" "Other". */
     CddbSearchInOtherField     = gtk_check_button_new_with_label(_("Other"));
     gtk_table_attach(GTK_TABLE(Table),CddbSearchInAllFields,     0,1,0,1,GTK_FILL,GTK_FILL,0,0);
     gtk_table_attach(GTK_TABLE(Table),Separator,                 1,2,0,1,GTK_FILL,GTK_FILL,0,0);
@@ -458,17 +468,39 @@ void Open_Cddb_Window (void)
     CddbSeparatorH = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
     gtk_table_attach(GTK_TABLE(Table),CddbSeparatorH,0,7,1,2,GTK_FILL,GTK_FILL,0,0);
 
+    /* Translators: This option is for the previous 'search in' option. For
+     * instance, translate this as "Search in:" "All Categories". */
     CddbSearchInAllCategories      = gtk_check_button_new_with_label(_("All Categories"));
     CddbSeparatorV                 = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
+    /* Translators: This option is for the previous 'search in' option. For
+     * instance, translate this as "Search in:" "Blues". */
     CddbSearchInBluesCategory      = gtk_check_button_new_with_label(_("Blues"));
+    /* Translators: This option is for the previous 'search in' option. For
+     * instance, translate this as "Search in:" "Classical". */
     CddbSearchInClassicalCategory  = gtk_check_button_new_with_label(_("Classical"));
+    /* Translators: This option is for the previous 'search in' option. For
+     * instance, translate this as "Search in:" "Country". */
     CddbSearchInCountryCategory    = gtk_check_button_new_with_label(_("Country"));
+    /* Translators: This option is for the previous 'search in' option. For
+     * instance, translate this as "Search in:" "Folk". */
     CddbSearchInFolkCategory       = gtk_check_button_new_with_label(_("Folk"));
+    /* Translators: This option is for the previous 'search in' option. For
+     * instance, translate this as "Search in:" "Jazz". */
     CddbSearchInJazzCategory       = gtk_check_button_new_with_label(_("Jazz"));
-    CddbSearchInMiscCategory       = gtk_check_button_new_with_label(_("Misc"));
-    CddbSearchInNewageCategory     = gtk_check_button_new_with_label(_("Newage"));
+    /* Translators: This option is for the previous 'search in' option. For
+     * instance, translate this as "Search in:" "Misc". */
+    CddbSearchInMiscCategory       = gtk_check_button_new_with_label(_("Misc."));
+    /* Translators: This option is for the previous 'search in' option. For
+     * instance, translate this as "Search in:" "New age". */
+    CddbSearchInNewageCategory     = gtk_check_button_new_with_label(_("New Age"));
+    /* Translators: This option is for the previous 'search in' option. For
+     * instance, translate this as "Search in:" "Reggae". */
     CddbSearchInReggaeCategory     = gtk_check_button_new_with_label(_("Reggae"));
+    /* Translators: This option is for the previous 'search in' option. For
+     * instance, translate this as "Search in:" "Rock". */
     CddbSearchInRockCategory       = gtk_check_button_new_with_label(_("Rock"));
+    /* Translators: This option is for the previous 'search in' option. For
+     * instance, translate this as "Search in:" "Soundtrack". */
     CddbSearchInSoundtrackCategory = gtk_check_button_new_with_label(_("Soundtrack"));
     gtk_table_attach(GTK_TABLE(Table),CddbSearchInAllCategories,     0,1,2,4,GTK_FILL,GTK_FILL,0,0);
     gtk_table_attach(GTK_TABLE(Table),CddbSeparatorV,                1,2,2,4,GTK_FILL,GTK_FILL,0,0);
@@ -506,12 +538,12 @@ void Open_Cddb_Window (void)
     g_signal_connect(G_OBJECT(CddbSearchInReggaeCategory),    "toggled",G_CALLBACK(Cddb_Set_Search_Button_Sensivity),NULL);
     g_signal_connect(G_OBJECT(CddbSearchInRockCategory),      "toggled",G_CALLBACK(Cddb_Set_Search_Button_Sensivity),NULL);
     g_signal_connect(G_OBJECT(CddbSearchInSoundtrackCategory),"toggled",G_CALLBACK(Cddb_Set_Search_Button_Sensivity),NULL);
-    gtk_widget_set_tooltip_text(CddbSearchInRockCategory,_("included : funk, soul, rap, pop, industrial, metal, etc."));
+    gtk_widget_set_tooltip_text(CddbSearchInRockCategory,_("included: funk, soul, rap, pop, industrial, metal, etc."));
     gtk_widget_set_tooltip_text(CddbSearchInSoundtrackCategory,_("movies, shows"));
     gtk_widget_set_tooltip_text(CddbSearchInMiscCategory,_("others that do not fit in the above categories"));
 
     // Button to display/hide the categories
-    CddbShowCategoriesButton = gtk_toggle_button_new_with_label(_(" Categories "));
+    CddbShowCategoriesButton = gtk_toggle_button_new_with_label(_("Categories"));
     gtk_table_attach(GTK_TABLE(Table),CddbShowCategoriesButton,6,7,0,1,GTK_FILL,GTK_FILL,4,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbShowCategoriesButton),CDDB_SHOW_CATEGORIES);
     g_signal_connect(G_OBJECT(CddbShowCategoriesButton),"toggled", G_CALLBACK(Cddb_Show_Categories_Button_Toggled),NULL);
@@ -519,7 +551,7 @@ void Open_Cddb_Window (void)
     /*
      * Results command
      */
-    Frame = gtk_frame_new(_("Results :"));
+    Frame = gtk_frame_new(_("Results:"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,TRUE,0);
 
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,4);
@@ -707,7 +739,7 @@ void Open_Cddb_Window (void)
     /*
      * Apply results to fields...
      */
-    Frame = gtk_frame_new(_("Set Into :"));
+    Frame = gtk_frame_new(_("Set Into:"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,TRUE,0);
 
     vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
@@ -773,7 +805,7 @@ void Open_Cddb_Window (void)
     // it will not understand why the cddb results aren't loaded correctly...
     //gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbUseDLM2),CDDB_USE_DLM);
     gtk_widget_set_tooltip_text(CddbUseDLM2,_("When activating this option, the "
-        "Levenshtein algorithm (DLM : Damerau-Levenshtein Metric) will be used "
+        "Levenshtein algorithm (DLM: Damerau-Levenshtein Metric) will be used "
         "to match the CDDB title against every file name in the current folder, "
         "and to select the best match. This will be used when selecting the "
         "corresponding audio file, or applying cddb results, instead of using "
@@ -2463,7 +2495,7 @@ gboolean Cddb_Search_Album_List_From_String_Freedb (void)
     if (web_search_disabled)
         msg = g_strdup_printf(_("Sorry, the web-based search is currently down!"));
     else
-        msg = g_strdup_printf(_("Found %d matching album(s)"),g_list_length(CddbAlbumList));
+        msg = g_strdup_printf(ngettext("Found one matching album","Found %d matching albums",g_list_length(CddbAlbumList)),g_list_length(CddbAlbumList));
     gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
     g_free(msg);
 
@@ -2808,7 +2840,7 @@ gboolean Cddb_Search_Album_List_From_String_Gnudb (void)
     gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchButton),FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchAutoButton),FALSE);
 
-    msg = g_strdup_printf(_("Found %d matching album(s)"),num_albums);
+    msg = g_strdup_printf(ngettext("Found one matching album","Found %d matching albums",num_albums),num_albums);
     gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
     g_free(msg);
 
@@ -2918,7 +2950,7 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
         return FALSE;
     }else
     {
-        msg = g_strdup_printf(_("%d file(s) selected!"),file_selectedcount);
+        msg = g_strdup_printf(ngettext("One file selected","%d files selected",file_selectedcount),file_selectedcount);
         gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
         g_free(msg);
     }
@@ -2998,7 +3030,9 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
                                                    GTK_MESSAGE_ERROR,
                                                    GTK_BUTTONS_CLOSE,
                                                    "%s",
-                                                   _("The path for 'Local CD Data Base' was not defined"));
+                                                   _("The path for 'Local CD Database' was not defined"));
+                /* Translators: 'it' in this sentence refers to the local CD
+                 * database path. */
                 gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog), "%s", _("Enter it in the preferences window before using this search."));
                 gtk_window_set_title(GTK_WINDOW(msgdialog),_("Local CD search…"));
 
@@ -3298,7 +3332,7 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
 
     }
 
-    msg = g_strdup_printf(_("Found %d matching album(s) for DiscID '%s'"), g_list_length(CddbAlbumList),cddb_discid);
+    msg = g_strdup_printf(ngettext("DiscID '%s' gave one matching album","DiscID '%s' gave %d matching albums",g_list_length(CddbAlbumList)),cddb_discid,g_list_length(CddbAlbumList));
     gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
     g_free(msg);
 
@@ -3893,9 +3927,8 @@ gboolean Cddb_Set_Track_Infos_To_File_List (void)
                                            GTK_DIALOG_MODAL  | GTK_DIALOG_DESTROY_WITH_PARENT,
                                            GTK_MESSAGE_QUESTION,
                                            GTK_BUTTONS_NONE,
-                                           _("You are applying %d lines of the CDDB results to %d lines in the list of files"),
-                                           rows_to_loop,
-                                           file_selectedcount);
+                                           "%s",
+                                           _("The number of CDDB results does not match the number of selected files"));
         gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_APPLY,GTK_RESPONSE_APPLY, NULL);
         gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),"%s","Do you want to continue?");
         gtk_window_set_title(GTK_WINDOW(msgdialog),_("Write Tag from CDDB…"));

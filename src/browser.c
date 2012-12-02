@@ -3033,7 +3033,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     gchar *BrowserTree_Titles[] = {N_("Tree")};
     gchar *BrowserList_Titles[] = {N_("File Name"),N_("Title"),N_("Artist"),N_("Album Artist"),N_("Album"),
                                    N_("Year"),N_("Track"),N_("Genre"),N_("Comment"),
-                                   N_("Composer"),N_("Orig. Artist"),N_("Copyright"),
+                                   N_("Composer"),N_("Original Artist"),N_("Copyright"),
                                    N_("URL"),N_("Encoded By")};
     gchar *ArtistList_Titles[]  = {N_("Artist"),N_("# Albums"),N_("# Files")};
     gchar *AlbumList_Titles[]   = {N_("Album"),N_("# Files")};
@@ -3088,7 +3088,8 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     /*
      * The label for displaying number of files in path (without subdirs)
      */
-    BrowserLabel = gtk_label_new(_("… file(s)"));
+    /* Translators: No files, as in "0 files". */
+    BrowserLabel = gtk_label_new(_("No files"));
     gtk_box_pack_start(GTK_BOX(HBox),BrowserLabel,FALSE,FALSE,2);
 
 
@@ -3708,7 +3709,7 @@ void Browser_Open_Rename_Directory_Window (void)
     gtk_container_add(GTK_CONTAINER(Frame),VBox);
     gtk_container_set_border_width(GTK_CONTAINER(VBox), 4);
 
-    string = g_strdup_printf(_("Rename the directory '%s' to : "),directory_name_utf8);
+    string = g_strdup_printf(_("Rename the directory '%s' to:"),directory_name_utf8);
     Label = gtk_label_new(_(string));
     g_free(string);
     gtk_box_pack_start(GTK_BOX(VBox),Label,FALSE,TRUE,0);
@@ -4056,7 +4057,7 @@ void Rename_Directory (void)
                                            tmp_path_utf8,
                                            new_path_utf8);
         gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),"%s",g_strerror(errno));
-        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Directory Rename Error"));
+        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Rename Directory Error"));
 
         gtk_dialog_run(GTK_DIALOG(msgdialog));
         gtk_widget_destroy(msgdialog);

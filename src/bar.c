@@ -232,7 +232,7 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
 
         { MENU_MISC,                NULL,                   _("_Misc"),                             NULL,         NULL,                                 NULL },
         { AM_SEARCH_FILE,           GTK_STOCK_FIND,         _("Search _File(s)…"),               "<Control>F", _("Search File(s)…"),               G_CALLBACK(Open_Search_File_Window) },
-        { AM_CDDB_SEARCH,           GTK_STOCK_CDROM,        _("CD Data _Base Search…"),          "<Control>B", _("CDDB Search…"),                 G_CALLBACK(Open_Cddb_Window) },
+        { AM_CDDB_SEARCH,           GTK_STOCK_CDROM,        _("CD Data_base Search…"),          "<Control>B", _("CDDB Search…"),                 G_CALLBACK(Open_Cddb_Window) },
         { AM_FILENAME_FROM_TXT,     GTK_STOCK_OPEN,         _("Load Filenames from TXT…"),       "<Alt>T",     _("Load Filenames from TXT…"),     G_CALLBACK(Open_Load_Filename_Window) },
         { AM_WRITE_PLAYLIST,        GTK_STOCK_SAVE_AS,      _("Write Playlist…"),                "<Alt>W",     _("Write Playlist…"),              G_CALLBACK(Open_Write_Playlist_Window) },
         { AM_RUN_AUDIO_PLAYER,      "easytag-sound",        _("Run Audio Player"),                  "<Alt>X",     _("Run Audio Player"),                G_CALLBACK(Run_Audio_Player_Using_Selection) },
@@ -268,8 +268,8 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
 
     GtkToggleActionEntry ToggleActionEntries[] =
     {
-        //{ AM_BROWSE_SUBDIR,      GTK_STOCK_INDEX,        _("Browse _Sub-directories"),                         NULL, _("Browse _Sub-directories"),                         NULL,                                    FALSE },
-        { AM_BROWSE_SUBDIR,      NULL,                   _("Browse _Sub-directories"),                         NULL, _("Browse _Sub-directories"),                         NULL,                                    BROWSE_SUBDIR },
+        //{ AM_BROWSE_SUBDIR,      GTK_STOCK_INDEX,        _("Browse _Subdirectories"),                         NULL, _("Browse _Sub-directories"),                         NULL,                                    FALSE },
+        { AM_BROWSE_SUBDIR,      NULL,                   _("Browse _Subdirectories"),                         NULL, _("Browse _Subdirectories"),                         NULL,                                    BROWSE_SUBDIR },
 #ifndef WIN32 // No sense here for Win32, "hidden" means : starts with a '.'
         //{ AM_BROWSER_HIDDEN_DIR, NULL,                   _("Show Hidden Directories"),                         NULL, _("Show Hidden Directories"),                         G_CALLBACK(Browser_Tree_Rebuild),     FALSE },
         { AM_BROWSER_HIDDEN_DIR, NULL,                   _("Show Hidden Directories"),                         NULL, _("Show Hidden Directories"),                         G_CALLBACK(Browser_Tree_Rebuild),     BROWSE_HIDDEN_DIR },

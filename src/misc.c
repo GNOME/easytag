@@ -1370,7 +1370,7 @@ void Open_Write_Playlist_Window (void)
         GTK_RADIO_BUTTON(playlist_content_none),_("Write info using filename"));
     gtk_box_pack_start(GTK_BOX(vbox),playlist_content_filename,FALSE,FALSE,0);
 
-    playlist_content_mask = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(playlist_content_none), _("Write info using :"));
+    playlist_content_mask = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(playlist_content_none), _("Write info using:"));
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),playlist_content_mask,FALSE,FALSE,0);
@@ -1926,7 +1926,7 @@ void Open_Search_File_Window (void)
                                          N_("Genre"),
                                          N_("Comment"),
                                          N_("Composer"),
-                                         N_("Orig. Artist"),
+                                         N_("Original Artist"),
                                          N_("Copyright"),
                                          N_("URL"),
                                          N_("Encoded by")
@@ -1967,7 +1967,7 @@ void Open_Search_File_Window (void)
     else
         gtk_list_store_clear(SearchStringModel);
 
-    Label = gtk_label_new(_("Search :"));
+    Label = gtk_label_new(_("Search:"));
     gtk_misc_set_alignment(GTK_MISC(Label),1.0,0.5);
     gtk_table_attach(GTK_TABLE(Table),Label,0,1,0,1,GTK_FILL,GTK_FILL,0,0);
     SearchStringCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(SearchStringModel));
@@ -1984,11 +1984,17 @@ void Open_Search_File_Window (void)
     gtk_editable_paste_clipboard(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(SearchStringCombo))));
 
     // Where...
-    Label = gtk_label_new(_("In :"));
+    Label = gtk_label_new(_("In:"));
     gtk_misc_set_alignment(GTK_MISC(Label),1.0,0.5);
     gtk_table_attach(GTK_TABLE(Table),Label,0,1,1,2,GTK_FILL,GTK_FILL,0,0);
-    SearchInFilename = gtk_check_button_new_with_label(_("the File Name"));
-    // Note : label changed to "the Tag" (to be the only one) to fix a Hungarian grammatical problem (which uses one word to say "in the tag" like here)
+    /* Translators: This option is for the previous 'in' option. For instance,
+     * translate this as "Search" "In:" "the Filename". */
+    SearchInFilename = gtk_check_button_new_with_label(_("the Filename"));
+    /* Translators: This option is for the previous 'in' option. For instance,
+     * translate this as "Search" "In:" "the Tag".
+     * Note: label changed to "the Tag" (to be the only one) to fix a Hungarian
+     * grammatical problem (which uses one word to say "in the tag" like here)
+     */
     SearchInTag = gtk_check_button_new_with_label(_("the Tag"));
     gtk_table_attach(GTK_TABLE(Table),SearchInFilename,1,2,1,2,GTK_FILL,GTK_FILL,0,0);
     gtk_table_attach(GTK_TABLE(Table),SearchInTag,2,3,1,2,GTK_FILL,GTK_FILL,0,0);
