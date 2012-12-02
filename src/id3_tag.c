@@ -554,7 +554,7 @@ gboolean Id3tag_Write_File_v23Tag (ET_File *ETFile)
                         gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),
                                                                  _("If you reload this file, some characters in the tag may not be displayed "
                                                                  "correctly. Please, apply the patch "
-                                                                 "src/id3lib/patch_id3lib_3.8.3_UTF16_writing_bug.diff to id3lib, which is"
+                                                                 "src/id3lib/patch_id3lib_3.8.3_UTF16_writing_bug.diff to id3lib, which is "
                                                                  "available in the EasyTAG package sources.\nNote that this message will "
                                                                  "appear only once.\n\nFile : %s"),
                                                                   filename_utf8);
