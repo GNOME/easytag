@@ -182,13 +182,6 @@ int main (int argc, char *argv[])
     /* Initialize GTK */
     gtk_init(&argc, &argv);
 
-    /* Get home variable */
-#ifdef WIN32
-        HOME_VARIABLE = weasytag_data_dir();
-#else
-        HOME_VARIABLE = g_get_home_dir();
-#endif
-
     INIT_DIRECTORY = NULL;
 
     /* Starting messages */

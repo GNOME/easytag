@@ -58,42 +58,40 @@
  *    NetBSD's mkdir(2).
  */
 
-// Base directory created into home dir
-#define EASYTAG_DIR                                 ".easytag"
 // File for configuration
-#define CONFIG_FILE                                 EASYTAG_DIR G_DIR_SEPARATOR_S "easytagrc"
+static const gchar CONFIG_FILE[] = "easytagrc";
 // File of masks for tag scanner
-#define SCAN_TAG_MASKS_FILE                         EASYTAG_DIR G_DIR_SEPARATOR_S "scan_tag.mask"
+static const gchar SCAN_TAG_MASKS_FILE[] = "scan_tag.mask";
 // File of masks for rename file scanner
-#define RENAME_FILE_MASKS_FILE                      EASYTAG_DIR G_DIR_SEPARATOR_S "rename_file.mask"
+static const gchar RENAME_FILE_MASKS_FILE[] = "rename_file.mask";
 // File for history of RenameDirectoryMaskCombo combobox
-#define RENAME_DIRECTORY_MASKS_FILE                 EASYTAG_DIR G_DIR_SEPARATOR_S "rename_directory.mask"
+static const gchar RENAME_DIRECTORY_MASKS_FILE[] = "rename_directory.mask";
 // File for history of PlayListNameCombo combobox
-#define PLAY_LIST_NAME_MASKS_FILE                   EASYTAG_DIR G_DIR_SEPARATOR_S "play_list_name.mask"
+static const gchar PLAY_LIST_NAME_MASKS_FILE[] = "play_list_name.mask";
 // File for history of PlayListContentMaskEntry combobox
-#define PLAYLIST_CONTENT_MASKS_FILE                 EASYTAG_DIR G_DIR_SEPARATOR_S "playlist_content.mask"
+static const gchar PLAYLIST_CONTENT_MASKS_FILE[] = "playlist_content.mask";
 // File for history of DefaultPathToMp3 combobox
-#define DEFAULT_PATH_TO_MP3_HISTORY_FILE            EASYTAG_DIR G_DIR_SEPARATOR_S "default_path_to_mp3.history"
+static const gchar DEFAULT_PATH_TO_MP3_HISTORY_FILE[] = "default_path_to_mp3.history";
 // File for history of DefaultComment combobox
-#define DEFAULT_TAG_COMMENT_HISTORY_FILE            EASYTAG_DIR G_DIR_SEPARATOR_S "default_tag_comment.history"
+static const gchar DEFAULT_TAG_COMMENT_HISTORY_FILE[] = "default_tag_comment.history";
 // File for history of BrowserEntry combobox
-#define PATH_ENTRY_HISTORY_FILE                     EASYTAG_DIR G_DIR_SEPARATOR_S "browser_path.history"
+static const gchar PATH_ENTRY_HISTORY_FILE[] = "browser_path.history";
 // File for history of run program combobox for directories
-#define RUN_PROGRAM_WITH_DIRECTORY_HISTORY_FILE     EASYTAG_DIR G_DIR_SEPARATOR_S "run_program_with_directory.history"
+static const gchar RUN_PROGRAM_WITH_DIRECTORY_HISTORY_FILE[] = "run_program_with_directory.history";
 // File for history of run program combobox for files
-#define RUN_PROGRAM_WITH_FILE_HISTORY_FILE          EASYTAG_DIR G_DIR_SEPARATOR_S "run_program_with_file.history"
+static const gchar RUN_PROGRAM_WITH_FILE_HISTORY_FILE[] = "run_program_with_file.history";
 // File for history of run player combobox
-#define AUDIO_FILE_PLAYER_HISTORY_FILE              EASYTAG_DIR G_DIR_SEPARATOR_S "audio_file_player.history"
+static const gchar AUDIO_FILE_PLAYER_HISTORY_FILE[] = "audio_file_player.history";
 // File for history of search string combobox
-#define SEARCH_FILE_HISTORY_FILE                    EASYTAG_DIR G_DIR_SEPARATOR_S "search_file.history"
+static const gchar SEARCH_FILE_HISTORY_FILE[] = "search_file.history";
 // File for history of FileToLoad combobox
-#define FILE_TO_LOAD_HISTORY_FILE                   EASYTAG_DIR G_DIR_SEPARATOR_S "file_to_load.history"
+static const gchar FILE_TO_LOAD_HISTORY_FILE[] = "file_to_load.history";
 // File for history of CddbSearchStringEntry combobox
-#define CDDB_SEARCH_STRING_HISTORY_FILE             EASYTAG_DIR G_DIR_SEPARATOR_S "cddb_search_string.history"
+static const gchar CDDB_SEARCH_STRING_HISTORY_FILE[] = "cddb_search_string.history";
 // File for history of CddbSearchStringInResultEntry combobox
-#define CDDB_SEARCH_STRING_IN_RESULT_HISTORY_FILE   EASYTAG_DIR G_DIR_SEPARATOR_S "cddb_search_string_in_result.history"
+static const gchar CDDB_SEARCH_STRING_IN_RESULT_HISTORY_FILE[] = "cddb_search_string_in_result.history";
 // File for history of CddbLocalPath combobox
-#define CDDB_LOCAL_PATH_HISTORY_FILE                EASYTAG_DIR G_DIR_SEPARATOR_S "cddb_local_path.history"
+static const gchar CDDB_LOCAL_PATH_HISTORY_FILE[] = "cddb_local_path.history";
 
 
 
@@ -354,7 +352,7 @@ void Init_Config_Variables (void)
      * Common
      */
     LOAD_ON_STARTUP               = 0;
-    DEFAULT_PATH_TO_MP3           = g_strdup(HOME_VARIABLE);
+    DEFAULT_PATH_TO_MP3           = g_strdup(g_get_home_dir ());
     BROWSE_SUBDIR                 = 1;
 #ifdef WIN32
     BROWSE_HIDDEN_DIR             = 1;
@@ -914,24 +912,18 @@ void Save_Changes_Of_Preferences_Window (void)
 void Save_Config_To_File (void)
 {
     gchar *file_path = NULL;
-    gchar *file_path_tmp = NULL;
     FILE *file;
 
-    /* The file to write */
-    if (!HOME_VARIABLE) return;
-    file_path = g_strconcat(HOME_VARIABLE,
-                            HOME_VARIABLE[strlen(HOME_VARIABLE)-1]!=G_DIR_SEPARATOR ? G_DIR_SEPARATOR_S : "",
-                            CONFIG_FILE,NULL);
+    file_path = g_build_filename (g_get_user_config_dir (), PACKAGE_TARNAME,
+                                  CONFIG_FILE, NULL);
 
-    // Must convert to the filesystem encoding (else may cause problem under XP with accounts like "Léo")
-    file_path_tmp = file_path;
-    file_path = filename_from_display(file_path);
-    g_free(file_path_tmp);
-
-    if ( Create_Easytag_Directory()==0 || (file=fopen(file_path,"w+"))==0 )
+    if (!Create_Easytag_Directory () || (file = fopen (file_path, "w+")) == 0)
     {
-        Log_Print(LOG_ERROR,_("ERROR: Can't write config file: %s (%s)"),file_path,g_strerror(errno));
-    }else
+        Log_Print (LOG_ERROR,
+                   _("ERROR: Cannot write configuration file: %s (%s)"),
+                   file_path, g_strerror(errno));
+    }
+    else
     {
         gint ConfigVarListLen = sizeof(Config_Variables)/sizeof(tConfigVariable);
         gint i;
@@ -1062,25 +1054,18 @@ void Set_Config (gchar *line)
 void Read_Config (void)
 {
     gchar *file_path = NULL;
-    gchar *file_path_tmp = NULL;
     FILE *file;
     gchar buffer[MAX_STRING_LEN];
 
     /* The file to read */
-    if (!HOME_VARIABLE) return;
-    file_path = g_strconcat(HOME_VARIABLE,
-                            HOME_VARIABLE[strlen(HOME_VARIABLE)-1]!=G_DIR_SEPARATOR?G_DIR_SEPARATOR_S:"",
-                            CONFIG_FILE,NULL);
+    file_path = g_build_filename (g_get_user_config_dir (), PACKAGE_TARNAME,
+                                  CONFIG_FILE, NULL);
 
-    // Must convert to the filesystem encoding (else may cause problem under XP with accounts like "Léo")
-    file_path_tmp = file_path;
-    file_path = filename_from_display(file_path);
-    g_free(file_path_tmp);
-
-    if ( (file=fopen(file_path,"r"))==0 )
+    if ((file = fopen (file_path,"r")) == 0)
     {
-        Log_Print(LOG_ERROR,_("Can't open configuration file '%s' (%s)"),file_path,g_strerror(errno));
-        Log_Print(LOG_OK,_("Loading default configurationâ€¦"));
+        Log_Print (LOG_ERROR, _("Cannot open configuration file '%s' (%s)"),
+                   file_path, g_strerror (errno));
+        Log_Print (LOG_OK, _("Loading default configuration"));
     }else
     {
         while (fgets(buffer,sizeof(buffer),file))
@@ -1106,23 +1091,16 @@ void Read_Config (void)
 void Display_Config (void)
 {
     gchar *file_path = NULL;
-    gchar *file_path_tmp = NULL;
     FILE *file;
 
     /* The file to write */
-    if (!HOME_VARIABLE) return;
-    file_path = g_strconcat(HOME_VARIABLE,
-                            HOME_VARIABLE[strlen(HOME_VARIABLE)-1]!=G_DIR_SEPARATOR?G_DIR_SEPARATOR_S:"",
-                            CONFIG_FILE,NULL);
+    file_path = g_build_filename (g_get_user_config_dir (), PACKAGE_TARNAME,
+                                  CONFIG_FILE, NULL);
 
-    // Must convert to the filesystem encoding (else may cause problem under XP with accounts like "Léo")
-    file_path_tmp = file_path;
-    file_path = filename_from_display(file_path);
-    g_free(file_path_tmp);
-
-    if ( (file=fopen(file_path,"r"))==0 )
+    if ((file = fopen (file_path, "r")) == 0)
     {
-        g_print(_("Can't open configuration file '%s' (%s)"),file_path,g_strerror(errno));
+        g_print (_("Cannot open configuration file '%s' (%s)"), file_path,
+                 g_strerror (errno));
     }else
     {
         gint ConfigVarListLen = sizeof(Config_Variables)/sizeof(tConfigVariable);
@@ -1160,156 +1138,62 @@ void Display_Config (void)
 }
 
 
+/*
+ * check_or_create_file:
+ * @filename: (type filename): the filename to create
+ *
+ * Check that the provided @filename exists, and if not, create it.
+ */
+static void check_or_create_file (const gchar *filename)
+{
+    FILE  *file;
+    gchar *file_path = NULL;
 
+    g_return_if_fail (filename != NULL);
+
+    file_path = g_build_filename (g_get_user_config_dir (), PACKAGE_TARNAME,
+                                  filename, NULL);
+
+    if ((file = fopen (file_path, "a+")) != NULL )
+    {
+        fclose (file);
+    }
+    else
+    {
+        Log_Print (LOG_ERROR, _("Cannot create or open file '%s' (%s)"),
+                   CONFIG_FILE, g_strerror (errno));
+    }
+
+    g_free (file_path);
+}
 
 /*
  * Create the main directory with empty history files
  */
 gboolean Setting_Create_Files (void)
 {
-    gchar *home_path = NULL;
-    gchar *home_path_tmp = NULL;
-    gchar *file_path = NULL;
-    FILE  *file;
-
     /* The file to write */
-    if (!HOME_VARIABLE)
+    if (!Create_Easytag_Directory ())
+    {
         return FALSE;
+    }
 
-    if ( Create_Easytag_Directory()==FALSE )
-        return FALSE;
-
-    home_path = g_strconcat(HOME_VARIABLE,
-                            HOME_VARIABLE[strlen(HOME_VARIABLE)-1]!=G_DIR_SEPARATOR ? G_DIR_SEPARATOR_S : "",
-                            NULL);
-
-    // Must convert to the filesystem encoding (else may cause problem under XP with accounts like "Léo")
-    // We do it only for 'home_path' to avoid lot of code...
-    home_path_tmp = home_path;
-    home_path = filename_from_display(home_path);
-    g_free(home_path_tmp);
-
-    file_path = g_strconcat(home_path,CONFIG_FILE,NULL);
-    if ( (file=fopen(file_path,"a+")) != NULL )
-        fclose(file);
-    else
-        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),CONFIG_FILE,g_strerror(errno));
-    g_free(file_path);
-
-    file_path = g_strconcat(home_path,SCAN_TAG_MASKS_FILE,NULL);
-    if ( (file=fopen(file_path,"a+")) != NULL )
-        fclose(file);
-    else
-        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),SCAN_TAG_MASKS_FILE,g_strerror(errno));
-    g_free(file_path);
-
-    file_path = g_strconcat(home_path,RENAME_FILE_MASKS_FILE,NULL);
-    if ( (file=fopen(file_path,"a+")) != NULL )
-        fclose(file);
-    else
-        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),RENAME_FILE_MASKS_FILE,g_strerror(errno));
-    g_free(file_path);
-
-    file_path = g_strconcat(home_path,RENAME_DIRECTORY_MASKS_FILE,NULL);
-    if ( (file=fopen(file_path,"a+")) != NULL )
-        fclose(file);
-    else
-        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),RENAME_DIRECTORY_MASKS_FILE,g_strerror(errno));
-    g_free(file_path);
-
-    file_path = g_strconcat(home_path,DEFAULT_PATH_TO_MP3_HISTORY_FILE,NULL);
-    if ( (file=fopen(file_path,"a+")) != NULL )
-        fclose(file);
-    else
-        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),DEFAULT_PATH_TO_MP3_HISTORY_FILE,g_strerror(errno));
-    g_free(file_path);
-
-    file_path = g_strconcat(home_path,DEFAULT_TAG_COMMENT_HISTORY_FILE,NULL);
-    if ( (file=fopen(file_path,"a+")) != NULL )
-        fclose(file);
-    else
-        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),DEFAULT_TAG_COMMENT_HISTORY_FILE,g_strerror(errno));
-    g_free(file_path);
-
-    file_path = g_strconcat(home_path,PATH_ENTRY_HISTORY_FILE,NULL);
-    if ( (file=fopen(file_path,"a+")) != NULL )
-        fclose(file);
-    else
-        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),PATH_ENTRY_HISTORY_FILE,g_strerror(errno));
-    g_free(file_path);
-
-    file_path = g_strconcat(home_path,PLAY_LIST_NAME_MASKS_FILE,NULL);
-    if ( (file=fopen(file_path,"a+")) != NULL )
-        fclose(file);
-    else
-        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),PLAY_LIST_NAME_MASKS_FILE,g_strerror(errno));
-    g_free(file_path);
-
-    file_path = g_strconcat(home_path,RUN_PROGRAM_WITH_DIRECTORY_HISTORY_FILE,NULL);
-    if ( (file=fopen(file_path,"a+")) != NULL )
-        fclose(file);
-    else
-        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),RUN_PROGRAM_WITH_DIRECTORY_HISTORY_FILE,g_strerror(errno));
-    g_free(file_path);
-
-    file_path = g_strconcat(home_path,RUN_PROGRAM_WITH_FILE_HISTORY_FILE,NULL);
-    if ( (file=fopen(file_path,"a+")) != NULL )
-        fclose(file);
-    else
-        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),RUN_PROGRAM_WITH_FILE_HISTORY_FILE,g_strerror(errno));
-    g_free(file_path);
-
-    file_path = g_strconcat(home_path,AUDIO_FILE_PLAYER_HISTORY_FILE,NULL);
-    if ( (file=fopen(file_path,"a+")) != NULL )
-        fclose(file);
-    else
-        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),AUDIO_FILE_PLAYER_HISTORY_FILE,g_strerror(errno));
-    g_free(file_path);
-
-    file_path = g_strconcat(home_path,SEARCH_FILE_HISTORY_FILE,NULL);
-    if ( (file=fopen(file_path,"a+")) != NULL )
-        fclose(file);
-    else
-        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),SEARCH_FILE_HISTORY_FILE,g_strerror(errno));
-    g_free(file_path);
-
-    file_path = g_strconcat(home_path,FILE_TO_LOAD_HISTORY_FILE,NULL);
-    if ( (file=fopen(file_path,"a+")) != NULL )
-        fclose(file);
-    else
-        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),FILE_TO_LOAD_HISTORY_FILE,g_strerror(errno));
-    g_free(file_path);
-
-    file_path = g_strconcat(home_path,PLAYLIST_CONTENT_MASKS_FILE,NULL);
-    if ( (file=fopen(file_path,"a+")) != NULL )
-        fclose(file);
-    else
-        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),PLAYLIST_CONTENT_MASKS_FILE,g_strerror(errno));
-    g_free(file_path);
-
-    file_path = g_strconcat(home_path,CDDB_SEARCH_STRING_HISTORY_FILE,NULL);
-    if ( (file=fopen(file_path,"a+")) != NULL )
-        fclose(file);
-    else
-        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),CDDB_SEARCH_STRING_HISTORY_FILE,g_strerror(errno));
-    g_free(file_path);
-
-    file_path = g_strconcat(home_path,CDDB_SEARCH_STRING_IN_RESULT_HISTORY_FILE,NULL);
-    if ( (file=fopen(file_path,"a+")) != NULL )
-        fclose(file);
-    else
-        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),CDDB_SEARCH_STRING_IN_RESULT_HISTORY_FILE,g_strerror(errno));
-    g_free(file_path);
-
-    file_path = g_strconcat(home_path,CDDB_LOCAL_PATH_HISTORY_FILE,NULL);
-    if ( (file=fopen(file_path,"a+")) != NULL )
-        fclose(file);
-    else
-        Log_Print(LOG_ERROR,_("Can't create or open file '%s' (%s)"),CDDB_LOCAL_PATH_HISTORY_FILE,g_strerror(errno));
-    g_free(file_path);
-
-
-    g_free(home_path);
+    check_or_create_file (SCAN_TAG_MASKS_FILE);
+    check_or_create_file (RENAME_FILE_MASKS_FILE);
+    check_or_create_file (RENAME_DIRECTORY_MASKS_FILE);
+    check_or_create_file (DEFAULT_PATH_TO_MP3_HISTORY_FILE);
+    check_or_create_file (DEFAULT_TAG_COMMENT_HISTORY_FILE);
+    check_or_create_file (PATH_ENTRY_HISTORY_FILE);
+    check_or_create_file (PLAY_LIST_NAME_MASKS_FILE);
+    check_or_create_file (RUN_PROGRAM_WITH_DIRECTORY_HISTORY_FILE);
+    check_or_create_file (RUN_PROGRAM_WITH_FILE_HISTORY_FILE);
+    check_or_create_file (AUDIO_FILE_PLAYER_HISTORY_FILE);
+    check_or_create_file (SEARCH_FILE_HISTORY_FILE);
+    check_or_create_file (FILE_TO_LOAD_HISTORY_FILE);
+    check_or_create_file (PLAYLIST_CONTENT_MASKS_FILE);
+    check_or_create_file (CDDB_SEARCH_STRING_HISTORY_FILE);
+    check_or_create_file (CDDB_SEARCH_STRING_IN_RESULT_HISTORY_FILE);
+    check_or_create_file (CDDB_LOCAL_PATH_HISTORY_FILE);
 
     return TRUE;
 }
@@ -1319,10 +1203,9 @@ gboolean Setting_Create_Files (void)
 /*
  * Save the contents of a list store to a file
  */
-void Save_List_Store_To_File (gchar *filename, GtkListStore *liststore, gint colnum)
+void Save_List_Store_To_File (const gchar *filename, GtkListStore *liststore, gint colnum)
 {
     gchar *file_path = NULL;
-    gchar *file_path_tmp = NULL;
     FILE *file;
     gchar *data = NULL;
     gchar *text;
@@ -1332,19 +1215,13 @@ void Save_List_Store_To_File (gchar *filename, GtkListStore *liststore, gint col
         return;
 
     /* The file to write */
-    if (!HOME_VARIABLE) return;
-    file_path = g_strconcat(HOME_VARIABLE,
-                            HOME_VARIABLE[strlen(HOME_VARIABLE)-1]!=G_DIR_SEPARATOR?G_DIR_SEPARATOR_S:"",
-                            filename,NULL);
+    file_path = g_build_filename (g_get_user_config_dir (), PACKAGE_TARNAME,
+                                  filename, NULL);
 
-    // Must convert to the filesystem encoding (else may cause problem under XP with accounts like "Léo")
-    file_path_tmp = file_path;
-    file_path = filename_from_display(file_path);
-    g_free(file_path_tmp);
-
-    if ( Create_Easytag_Directory()==0 || (file=fopen(file_path,"w+"))==NULL )
+    if (!Create_Easytag_Directory () || (file = fopen (file_path, "w+")) == NULL)
     {
-        Log_Print(LOG_ERROR,_("ERROR: Can't write list to file: %s (%s)"),file_path,g_strerror(errno));
+        Log_Print (LOG_ERROR, _("ERROR: Cannot write list to file: %s (%s)"),
+                   file_path, g_strerror (errno));
     }else
     {
         do
@@ -1367,30 +1244,25 @@ void Save_List_Store_To_File (gchar *filename, GtkListStore *liststore, gint col
 /*
  * Populate a list store with data from a file passed in as first parameter
  */
-gboolean Populate_List_Store_From_File (gchar *filename, GtkListStore *liststore, gint text_column)
+gboolean Populate_List_Store_From_File (const gchar *filename, GtkListStore *liststore, gint text_column)
 {
 
     gchar *file_path = NULL;
-    gchar *file_path_tmp = NULL;
     FILE *file;
     gchar buffer[MAX_STRING_LEN];
     GtkTreeIter iter;
     gboolean entries_set = FALSE;
 
     /* The file to write */
-    if (!filename || !HOME_VARIABLE) return FALSE;
-    file_path = g_strconcat(HOME_VARIABLE,
-                            HOME_VARIABLE[strlen(HOME_VARIABLE)-1]!=G_DIR_SEPARATOR?G_DIR_SEPARATOR_S:"",
-                            filename,NULL);
+    g_return_val_if_fail (filename != NULL, FALSE);
 
-    // Must convert to the filesystem encoding (else may cause problem under XP with accounts like "Léo")
-    file_path_tmp = file_path;
-    file_path = filename_from_display(file_path);
-    g_free(file_path_tmp);
+    file_path = g_build_filename (g_get_user_config_dir (), PACKAGE_TARNAME,
+                                  filename, NULL);
 
-    if ( (file=fopen(file_path,"r"))==NULL )
+    if ((file = fopen (file_path, "r")) == NULL)
     {
-        Log_Print(LOG_ERROR,_("Can't open file '%s' (%s)"),file_path,g_strerror(errno));
+        Log_Print (LOG_ERROR, _("Cannot open file '%s' (%s)"), file_path,
+                   g_strerror (errno));
     }else
     {
         gchar *data = NULL;
@@ -1668,49 +1540,33 @@ void Save_Cddb_Local_Path_List (GtkListStore *liststore, gint colnum)
 
 
 
-/*
- * Create the directory used by EasyTAG to store files for each user.
- * If the directory already exists, does nothing and returns 1.
- * If unable to create the directory, returns 0.
+/**
+ * Create the directory used by EasyTAG to store user configuration files.
+ *
+ * Returns: %TRUE if the directory was created, or already exists. %FALSE if
+ * the directory could not be created.
  */
 gboolean Create_Easytag_Directory (void)
 {
     gchar *easytag_path = NULL;
-    gchar *easytag_path_tmp = NULL;
-    DIR *dir;
+    gint result;
 
-    if (!HOME_VARIABLE)
+    /* Directory to create (if it does not exist) with absolute path. */
+    easytag_path = g_build_filename (g_get_user_config_dir (), PACKAGE_TARNAME,
+                                     NULL);
+
+    result = g_mkdir_with_parents (easytag_path, S_IRWXU);
+
+    if (result == -1)
     {
-        Log_Print(LOG_ERROR,_("ERROR: The environment variable HOME is not defined!"));
+        Log_Print (LOG_ERROR,_("ERROR: Cannot create directory '%s' (%s)!"),
+                  easytag_path, g_strerror (errno));
+        g_free (easytag_path);
         return FALSE;
     }
-
-    /* Directory to create (if doesn't exists) with absolute path
-     * Note for NetBSD : avoid passing a trailing slash to mkdir() */
-    easytag_path = g_strconcat(HOME_VARIABLE,
-                               HOME_VARIABLE[strlen(HOME_VARIABLE)-1]!=G_DIR_SEPARATOR?G_DIR_SEPARATOR_S:"",
-                               EASYTAG_DIR,
-                               //EASYTAG_DIR[strlen(EASYTAG_DIR)-1]!=G_DIR_SEPARATOR?G_DIR_SEPARATOR_S:"",
-                               NULL);
-
-    // Must convert to the filesystem encoding (else may cause problem under XP with accounts like "Léo")
-    easytag_path_tmp = easytag_path;
-    easytag_path = filename_from_display(easytag_path);
-    g_free(easytag_path_tmp);
-
-    if ( (dir=opendir(easytag_path)) == NULL )
+    else
     {
-        if ( (mkdir(easytag_path,S_IRWXU|S_IXGRP|S_IRGRP)) == -1)
-        {
-            Log_Print(LOG_ERROR,_("ERROR: Can't create directory '%s' (%s)!"),easytag_path,g_strerror(errno));
-            return FALSE;
-        }
-    }else
-    {
-        closedir(dir);
+        g_free (easytag_path);
+        return TRUE;
     }
-
-    g_free(easytag_path);
-
-    return TRUE;
 }

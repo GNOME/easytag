@@ -102,7 +102,7 @@ static char *cddb_genre_vs_id3_genre [][2] =
 
 
 // File for result of the Cddb/Freedb request (on remote access)
-gchar *CDDB_RESULT_FILE                            = ".easytag/cddb_result_file.tmp";
+static const gchar CDDB_RESULT_FILE[] = "cddb_result_file.tmp";
 
 
 /****************
@@ -1745,28 +1745,15 @@ void Cddb_Close_Connection (gint socket_id)
  */
 gint Cddb_Write_Result_To_File (gint socket_id, gulong *bytes_read_total)
 {
-    gchar *home_path = NULL;
     gchar *file_path = NULL;
-    gchar *file_path_tmp = NULL;
     FILE  *file;
+    gint result;
 
+    /* Cache directory was already created by Log_Print(). */
+    file_path = g_build_filename (g_get_user_cache_dir (), PACKAGE_TARNAME,
+                                  CDDB_RESULT_FILE, NULL);
 
-    /* The file to write */
-    if (!HOME_VARIABLE)
-        return FALSE;
-
-    home_path = g_strconcat(HOME_VARIABLE,
-                            HOME_VARIABLE[strlen(HOME_VARIABLE)-1]!=G_DIR_SEPARATOR?G_DIR_SEPARATOR_S:"",
-                            NULL);
-
-    file_path = g_strconcat(home_path,CDDB_RESULT_FILE,NULL);
-
-    // Must convert to the filesystem encoding (else may cause problem under XP with accounts like "Léo")
-    file_path_tmp = file_path;
-    file_path = filename_from_display(file_path);
-    g_free(file_path_tmp);
-
-    if ( (file=fopen(file_path,"w+")) != NULL )
+    if ((file = fopen (file_path, "w+")) != NULL)
     {
         gchar cddb_out[MAX_STRING_LEN+1];
         gint  bytes_read = 0;
@@ -1801,16 +1788,17 @@ gint Cddb_Write_Result_To_File (gint socket_id, gulong *bytes_read_total)
 
         if (bytes_read < 0)
         {
-            Log_Print(LOG_ERROR,_("Error when reading cddb response (%s)!"),g_strerror(errno));
+            Log_Print (LOG_ERROR, _("Error when reading CDDB response (%s)"),
+	               g_strerror(errno));
             return -1; // Error!
         }
 
     } else
     {
-        Log_Print(LOG_ERROR,_("Can't create file '%s' (%s)"),file_path,g_strerror(errno));
+        Log_Print (LOG_ERROR, _("Cannot create file '%s' (%s)"), file_path,
+	           g_strerror(errno));
     }
     g_free(file_path);
-    g_free(home_path);
 
     return 0;
 }
@@ -1840,28 +1828,19 @@ gint Cddb_Read_Line (FILE **file, gchar **cddb_out)
     if (*file == NULL)
     {
         // Open the file for reading the first time
-        gchar *home_path;
         gchar *file_path;
-        gchar *file_path_tmp;
 
-        home_path = g_strconcat(HOME_VARIABLE,
-                                HOME_VARIABLE[strlen(HOME_VARIABLE)-1]!=G_DIR_SEPARATOR?G_DIR_SEPARATOR_S:"",
-                                NULL);
-        file_path = g_strconcat(home_path,CDDB_RESULT_FILE,NULL);
-        g_free(home_path);
+        file_path = g_build_filename (g_get_user_cache_dir (), PACKAGE_TARNAME,
+                                      CDDB_RESULT_FILE, NULL);
 
-        // Must convert to the filesystem encoding (else may cause problem under XP with accounts like "Léo")
-        file_path_tmp = file_path;
-        file_path = filename_from_display(file_path);
-        g_free(file_path_tmp);
-
-        if ( (*file=fopen(file_path,"r"))==0 )
+        if ((*file = fopen (file_path, "r")) == 0)
         {
-            Log_Print(LOG_ERROR,_("Can't open file '%s' (%s)"),file_path,g_strerror(errno));
-            g_free(file_path);
+            Log_Print (LOG_ERROR, _("Cannot open file '%s' (%s)"), file_path,
+                       g_strerror(errno));
+            g_free (file_path);
             return -1; // Error!
         }
-        g_free(file_path);
+        g_free (file_path);
     }
 
     result = fgets(buffer,sizeof(buffer),*file);

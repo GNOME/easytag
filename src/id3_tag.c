@@ -1253,36 +1253,22 @@ gboolean Id3tag_Check_If_File_Is_Corrupted (gchar *filename)
 gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
 {
     FILE *file;
-    unsigned char tmp[16] = {0xFF, 0xFB, 0x00, 0x00, 0x00, 0x00,
-                             0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                             0x00, 0x00, 0x00, 0x00};
+    guchar tmp[16] = {0xFF, 0xFB, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
     ID3Tag *id3_tag = NULL;
     gchar *filename;
-    gchar *filename_tmp;
     gchar *result = NULL;
     ID3Frame *id3_frame;
     gboolean use_unicode;
 
 
-    if (!HOME_VARIABLE)
-        return FALSE;
-
     // Create a temporary file
-    filename = g_strconcat(HOME_VARIABLE,
-                           HOME_VARIABLE[strlen(HOME_VARIABLE)-1]!=G_DIR_SEPARATOR ? G_DIR_SEPARATOR_S : "",
-                           ".easytag" G_DIR_SEPARATOR_S "test_easytag.mp3",
-                           NULL);
-
-    // Must convert to the filesystem encoding (else may cause problem under XP with accounts like "Léo")
-    filename_tmp = filename;
-    filename = filename_from_display(filename);
-    g_free(filename_tmp);
-
-    if ( (file=fopen(filename,"w+"))==NULL )
+    if ((file = g_mkstemp ("easytagXXXXXX.mp3")) == NULL)
     {
         gchar *filename_utf8 = filename_to_display(filename);
-        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
-        g_free(filename_utf8);
+        Log_Print (LOG_ERROR, _("ERROR while opening file: '%s' (%s)"),
+                   filename_utf8, g_strerror(errno));
+        g_free (filename_utf8);
         return FALSE;
     }
     // Set data in the file

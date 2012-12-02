@@ -21,9 +21,13 @@
 #include <config.h>
 
 #include <glib/gi18n-lib.h>
+#include <errno.h>
 #include <string.h>
 #include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <time.h>
+#include <unistd.h>
 
 #include "log.h"
 #include "easytag.h"
@@ -56,7 +60,7 @@ enum
 };
 
 // File for log
-gchar *LOG_FILE = ".easytag/easytag.log";
+static const gchar LOG_FILE[] = "easytag.log";
 
 // Structure used to store information for the temporary list
 typedef struct _Log_Data Log_Data;
@@ -283,23 +287,30 @@ void Log_Print (Log_Error_Type error_type, gchar const *format, ...)
         //g_print("%s",string);
     }
 
-
     // Store also the messages in the log file.
     if (!file_path)
     {
-        gchar *file_path_tmp = NULL;
+        gchar *cache_path = g_build_filename (g_get_user_cache_dir (),
+                                              PACKAGE_TARNAME, NULL);
 
-        file_path = g_strconcat(HOME_VARIABLE,
-                                HOME_VARIABLE[strlen(HOME_VARIABLE)-1]!=G_DIR_SEPARATOR ? G_DIR_SEPARATOR_S : "",
-                                LOG_FILE,NULL);
+        if (!g_file_test (cache_path, G_FILE_TEST_IS_DIR))
+        {
+            gint result = g_mkdir_with_parents (cache_path, S_IRWXU);
 
-        // Must convert to the filesystem encoding (else may cause problem under XP with accounts like "Léo")
-        file_path_tmp = file_path;
-        file_path = filename_from_display(file_path);
-        g_free(file_path_tmp);
+            if (result == -1)
+            {
+                g_printerr ("%s", "Unable to create cache directory");
+                g_free (cache_path);
+
+                return;
+            }
+        }
+
+        file_path = g_build_filename (cache_path, LOG_FILE, NULL);
+        g_free (cache_path);
     }
 
-    // The first time, the whole file is delete. Else, text is appended
+    // The first time, the whole file is deleted. Else, text is appended.
     if (first_time)
         file = fopen(file_path,"w+");
     else
@@ -317,8 +328,8 @@ void Log_Print (Log_Error_Type error_type, gchar const *format, ...)
         first_time = FALSE;
         fclose(file);
     }
-    g_free(string);
 
+    g_free(string);
 }
 
 /*

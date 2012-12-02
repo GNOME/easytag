@@ -216,7 +216,7 @@ gboolean    Run_Program (gchar *program_name, GList *args_list);
  */
 void Browser_Load_Home_Directory (void)
 {
-    Browser_Tree_Select_Dir(HOME_VARIABLE);
+    Browser_Tree_Select_Dir (g_get_home_dir ());
 }
 
 /*
@@ -264,7 +264,7 @@ void Browser_Load_Default_Directory (void)
     if (!path_utf8 || strlen(path_utf8)<=0)
     {
         g_free(path_utf8);
-        path_utf8 = g_strdup(HOME_VARIABLE);
+        path_utf8 = g_strdup (g_get_home_dir ());
     }
 
     // 'DEFAULT_PATH_TO_MP3' is stored in UTF-8, we must convert it to the file system encoding before...
@@ -3635,7 +3635,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     gtk_widget_show_all(VerticalBox);
 
     /* Set home variable as current path */
-    Browser_Update_Current_Path(HOME_VARIABLE);
+    Browser_Update_Current_Path (g_get_home_dir ());
 
     return VerticalBox;
 }
