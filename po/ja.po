@@ -1454,7 +1454,7 @@ msgid "Sending request (CddbId: %s, #tracks: %d, Disc length: %d)…"
 msgstr "リクエストの要求中 (CddbId: %s, トラック番号: %d, サイズ: %d) ..."
 
 #: ../src/cddb.c:3301
-#, c-format
+#, fuzzy, c-format
 msgid "Found %d matching album(s) for DiscID '%s'"
 msgstr "DiscID '%s' に一致するアルバムが %d 個見つかりました"
 
@@ -5297,7 +5297,7 @@ msgstr "関数 '%s' は DLL '%s' にありません"
 #. ET_Win32_Path_Replace_Backslashes(app_data_dir);
 #. Log_Print(_("EasyTAG settings dir: '%s'"), app_data_dir);
 #: ../src/win32/win32dep.c:278
-#, c-format
+#, fuzzy, c-format
 msgid "EasyTAG settings dir: '%s'"
 msgstr "EasyTAGの設定フォルダ"
 

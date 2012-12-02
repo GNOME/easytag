@@ -2869,7 +2869,7 @@ msgstr "Fjernede mærke på '%s'"
 #: ../src/id3_tag.c:504 ../src/id3_tag.c:604
 #, c-format
 msgid "Error while removing ID3v1 tag of '%s' (%s)"
-msgstr "Fejl under fjernelse af ID3v1 mærke på '%s' (%d)"
+msgstr "Fejl under fjernelse af ID3v1 mærke på '%s' (%s)"
 
 #: ../src/id3_tag.c:506 ../src/id3_tag.c:576
 #, c-format

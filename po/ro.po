@@ -5092,7 +5092,7 @@ msgstr "%c : comentariu"
 #: ../src/scan.c:2839
 #, c-format
 msgid "%p : composer"
-msgstr "%c : compozitor"
+msgstr "%p : compozitor"
 
 #: ../src/scan.c:2842
 msgid "%r : copyright"
@@ -5125,7 +5125,7 @@ msgstr "%l : număr de piste"
 #: ../src/scan.c:2860
 #, c-format
 msgid "%o : orig. artist"
-msgstr "%a : artist initial"
+msgstr "%o : artist initial"
 
 #: ../src/scan.c:2863
 #, c-format
