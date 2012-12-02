@@ -870,7 +870,7 @@ void Run_Audio_Player_Using_File_List (GList *etfilelist_init)
 
     if ( !(program_path = Check_If_Executable_Exists(AUDIO_FILE_PLAYER)) )
     {
-        gchar *msg = g_strdup_printf(_("The program '%s' can't be found!"),AUDIO_FILE_PLAYER);
+        gchar *msg = g_strdup_printf(_("The program '%s' cannot be found!"),AUDIO_FILE_PLAYER);
         Log_Print(LOG_ERROR,msg);
         g_free(msg);
         return;
@@ -1929,7 +1929,7 @@ void Open_Search_File_Window (void)
                                          N_("Original Artist"),
                                          N_("Copyright"),
                                          N_("URL"),
-                                         N_("Encoded by")
+                                         N_("Encoded By")
                                        };
 
 
