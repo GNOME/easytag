@@ -57,7 +57,9 @@
 #include "charset.h"
 
 #ifdef WIN32
-#   include "win32/win32dep.h"
+#include "win32/win32dep.h"
+#else
+#include <sys/wait.h>
 #endif
 
 #include "../pixmaps/EasyTAG_icon.xpm"
@@ -139,7 +141,24 @@ void Destroy_Quit_Recursion_Function_Window (void);
 void Quit_Recursion_Function_Button_Pressed (void);
 void Quit_Recursion_Window_Key_Press (GtkWidget *window, GdkEvent *event);
 
+#ifndef WIN32
+static void
+sigchld_handler (int signum)
+{
+    wait (NULL);
+}
 
+static void
+setup_sigchld (void)
+{
+    struct sigaction sa;
+    memset (&sa, 0, sizeof (struct sigaction));
+    sa.sa_handler = sigchld_handler;
+    sigemptyset (&sa.sa_mask);
+    sa.sa_flags = SA_RESTART;
+    sigaction (SIGCHLD, &sa, NULL);
+}
+#endif /* !WIN32 */
 
 /********
  * Main *
@@ -167,7 +186,7 @@ int main (int argc, char *argv[])
     signal(SIGFPE,Handle_Crash);
     signal(SIGSEGV,Handle_Crash);
     // Must handle this signal to avoid zombie of applications executed (ex: xmms)
-    signal(SIGCHLD,SIG_IGN); // Fix me! : can't run nautilus 1.0.6 with "Browse Directory With"
+    setup_sigchld ();
 #endif
 
 #ifdef ENABLE_NLS
