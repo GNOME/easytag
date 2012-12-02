@@ -977,11 +977,11 @@ void Open_OptionsWindow (void)
         "\n"
         "For example :\n"
         "  - in previous versions of EasyTAG, you can save UTF-8 strings in an ISO-8859-1 "
-        "field. This is not correct! To convert these tags to Unicode: activate this option "
+        "field. This is not correct. To convert these tags to Unicode: activate this option "
         "and select UTF-8. You must also activate above the option 'Try to save tags to "
         "ISO-8859-1. If it isn't possible then use UNICODE (recommended)' or 'Always save "
         "tags to UNICODE character set'.\n"
-        "  - If unicode was not used, Russian people can select the character set "
+        "  - If Unicode was not used, Russian people can select the character set "
         "'Windows-1251' to load tags written under Windows. And 'KOI8-R' to load tags "
         "written under Unix systems."));
 
@@ -1840,8 +1840,8 @@ gint Check_CharacterSetTranslation (void)
     && (test_conversion_charset(reading_character,"UTF-8")!=TRUE) )
     {
         gchar *msg = g_strdup_printf(_("The character set translation from '%s'\n"
-                                       "to '%s' isn't supported!"),reading_character,"UTF-8");
-        GtkWidget *msgbox = msg_box_new(_("Error…"),
+                                       "to '%s' is not supported"),reading_character,"UTF-8");
+        GtkWidget *msgbox = msg_box_new(_("Error"),
                                         GTK_WINDOW(OptionsWindow),
                                         NULL,
                                         GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -1860,8 +1860,8 @@ gint Check_CharacterSetTranslation (void)
     && (test_conversion_charset("UTF-8",writing_character)!=TRUE) )
     {
         gchar *msg = g_strdup_printf(_("The character set translation from '%s'\n"
-                                       "to '%s' isn't supported!"),"UTF-8",writing_character);
-        GtkWidget *msgbox = msg_box_new(_("Error…"),
+                                       "to '%s' is not supported"),"UTF-8",writing_character);
+        GtkWidget *msgbox = msg_box_new(_("Error"),
                                         GTK_WINDOW(OptionsWindow),
                                         NULL,
                                         GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,

@@ -870,7 +870,7 @@ void Run_Audio_Player_Using_File_List (GList *etfilelist_init)
 
     if ( !(program_path = Check_If_Executable_Exists(AUDIO_FILE_PLAYER)) )
     {
-        gchar *msg = g_strdup_printf(_("The program '%s' cannot be found!"),AUDIO_FILE_PLAYER);
+        gchar *msg = g_strdup_printf(_("The program '%s' cannot be found"),AUDIO_FILE_PLAYER);
         Log_Print(LOG_ERROR,msg);
         g_free(msg);
         return;
@@ -916,7 +916,7 @@ void Run_Audio_Player_Using_File_List (GList *etfilelist_init)
                       &siStartupInfo,
                       &piProcessInfo) == FALSE)
     {
-        Log_Print(LOG_ERROR,_("Can't execute %s (error %d)!\n"), AUDIO_FILE_PLAYER, GetLastError());
+        Log_Print(LOG_ERROR,_("Cannot execute %s (error %d)\n"), AUDIO_FILE_PLAYER, GetLastError());
     }
 
     // Free allocated parameters (for each filename)
@@ -955,13 +955,13 @@ void Run_Audio_Player_Using_File_List (GList *etfilelist_init)
     switch (pid)
     {
         case -1:
-            Log_Print(LOG_ERROR,_("Can't fork another process!\n"));
+            Log_Print(LOG_ERROR,_("Cannot fork another process"));
             break;
         case 0:
         {
             if (execvp(argv[0],argv) == -1)
             {
-                Log_Print(LOG_ERROR,_("Can't execute %s (%s)!\n"),argv[0],g_strerror(errno));
+                Log_Print(LOG_ERROR,_("Cannot execute %s (%s)"),argv[0],g_strerror(errno));
             }
             g_strfreev(argv_user);
             _exit(1);

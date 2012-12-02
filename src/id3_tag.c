@@ -654,7 +654,7 @@ gchar *Id3tag_Get_Error_Message(ID3_Err error)
         case ID3E_zlibError:
             return _("Error in compression/uncompression");
         default:
-            return _("Unknown error message!");
+            return _("Unknown error message");
     }
 
 }

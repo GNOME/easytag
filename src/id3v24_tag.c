@@ -1514,7 +1514,7 @@ etag_write_tags (const gchar *filename,
             gchar *filename_utf8 = filename_to_display(filename);
             gchar *basename_utf8 = g_path_get_basename(filename_utf8);
 
-            Log_Print(LOG_ERROR,_("Can't write tag of file '%s' (were read %d bytes instead of %d bytes!)"),basename_utf8,size_read,ctxsize);
+            Log_Print(LOG_ERROR,_("Cannot write tag of file '%s' (%d bytes were read but %d bytes were expected)"),basename_utf8,size_read,ctxsize);
             g_free(filename_utf8);
             g_free(basename_utf8);
             goto out;

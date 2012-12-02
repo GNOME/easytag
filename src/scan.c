@@ -401,7 +401,7 @@ GList *Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask)
     if (i==ET_FILE_DESCRIPTION_SIZE)
     {
         gchar *tmp1 = g_path_get_basename(filename_utf8);
-        Log_Print(LOG_ERROR,_("Tag scanner: strange… the extension '%s' was not found in filename '%s'!"),tmp,tmp1);
+        Log_Print(LOG_ERROR,_("Tag scanner: strange… the extension '%s' was not found in filename '%s'"),tmp,tmp1);
         g_free(tmp1);
     }
 
@@ -3624,7 +3624,7 @@ void Mask_Editor_List_Duplicate (void)
 
     if (g_list_length(selectedRows) == 0)
     {
-        Log_Print(LOG_ERROR,_("Copy: No row selected!"));
+        Log_Print(LOG_ERROR,_("Copy: No row selected"));
         g_list_foreach(selectedRows, (GFunc) gtk_tree_path_free, NULL);
         g_list_free(selectedRows);
         return;
@@ -3730,7 +3730,7 @@ void Mask_Editor_List_Remove (void)
     treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(MaskEditorList));
 
     if (gtk_tree_selection_count_selected_rows(selection) == 0) {
-        Log_Print(LOG_ERROR,_("Remove: No row selected!"));
+        Log_Print(LOG_ERROR,_("Remove: No row selected"));
         return;
     }
 
@@ -3777,7 +3777,7 @@ void Mask_Editor_List_Move_Up (void)
 
     if (g_list_length(selectedRows) == 0)
     {
-        Log_Print(LOG_ERROR,_("Move Up: No row selected!"));
+        Log_Print(LOG_ERROR,_("Move Up: No row selected"));
         g_list_foreach(selectedRows, (GFunc)gtk_tree_path_free, NULL);
         g_list_free(selectedRows);
         return;
@@ -3830,7 +3830,7 @@ void Mask_Editor_List_Move_Down (void)
 
     if (g_list_length(selectedRows) == 0)
     {
-        Log_Print(LOG_ERROR,_("Move Down: No row selected!"));
+        Log_Print(LOG_ERROR,_("Move Down: No row selected"));
         g_list_foreach(selectedRows, (GFunc)gtk_tree_path_free, NULL);
         g_list_free(selectedRows);
         return;

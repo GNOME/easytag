@@ -291,8 +291,8 @@ void Open_Cddb_Window (void)
     gtk_widget_grab_default(CddbSearchAutoButton);
     g_signal_connect(G_OBJECT(CddbSearchAutoButton),"clicked",G_CALLBACK(Cddb_Search_Album_From_Selected_Files),NULL);
     gtk_widget_set_tooltip_text(CddbSearchAutoButton,_("Request automatically the "
-        "CDDB database using the selected files (the order is important!) to "
-        "generate the CddbID."));
+        "CDDB database using the selected files (the order is important) to "
+        "generate the CddbID"));
 
     // Button to stop the search
     CddbStopSearchAutoButton = Create_Button_With_Icon_And_Label(GTK_STOCK_STOP,NULL);
@@ -1658,7 +1658,7 @@ gint Cddb_Open_Connection (const gchar *host, gint port)
 
     if ( (hostent=gethostbyname(host)) == NULL )
     {
-        msg = g_strdup_printf(_("Can't resolve host '%s' (%s)!"),host,g_strerror(errno));
+        msg = g_strdup_printf(_("Can't resolve host '%s' (%s)."),host,g_strerror(errno));
         gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
         Log_Print(LOG_ERROR,"%s",msg);
         g_free(msg);
@@ -1673,7 +1673,7 @@ gint Cddb_Open_Connection (const gchar *host, gint port)
     // Create socket
     if( (socket_id = socket(AF_INET,SOCK_STREAM,0)) < 0 )
     {
-        msg = g_strdup_printf(_("Can't create a new socket (%s)!"),g_strerror(errno));
+        msg = g_strdup_printf(_("Cannot create a new socket (%s)"),g_strerror(errno));
         gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
         Log_Print(LOG_ERROR,"%s",msg);
         g_free(msg);
@@ -1683,7 +1683,7 @@ gint Cddb_Open_Connection (const gchar *host, gint port)
     // FIX ME : must catch SIGPIPE?
     if ( setsockopt(socket_id,SOL_SOCKET,SO_KEEPALIVE,(gchar *)&optval,sizeof(optval)) < 0 )
     {
-        Log_Print(LOG_ERROR,"Can't set option of the new created socket!");
+        Log_Print(LOG_ERROR,"Cannot set options on the newly-created socket");
     }
 
     // Open connection to the server
@@ -1694,7 +1694,7 @@ gint Cddb_Open_Connection (const gchar *host, gint port)
         gtk_main_iteration();
     if ( connect(socket_id,(struct sockaddr *)&sockaddr,sizeof(struct sockaddr_in)) < 0 )
     {
-        msg = g_strdup_printf(_("Can't connect to host '%s' (%s)!"),host,g_strerror(errno));
+        msg = g_strdup_printf(_("Cannot connect to host '%s' (%s)"),host,g_strerror(errno));
         gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
         Log_Print(LOG_ERROR,"%s",msg);
         g_free(msg);
@@ -2282,7 +2282,7 @@ gboolean Cddb_Search_Album_List_From_String_Freedb (void)
     while (gtk_events_pending()) gtk_main_iteration();
     if ( (bytes_written=send(socket_id,cddb_in,strlen(cddb_in)+1,0)) < 0)
     {
-        Log_Print(LOG_ERROR,_("Can't send the request (%s)!"),g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Cannot send the request (%s)"),g_strerror(errno));
         Cddb_Close_Connection(socket_id);
         g_free(cddb_in);
         g_free(string);
@@ -2311,7 +2311,7 @@ gboolean Cddb_Search_Album_List_From_String_Freedb (void)
     // Write result in a file
     if (Cddb_Write_Result_To_File(socket_id,&bytes_read_total) < 0)
     {
-        msg = g_strdup(_("The server returned a wrong answer!"));
+        msg = g_strdup(_("The server returned a bad response"));
         gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
         Log_Print(LOG_ERROR,"%s",msg);
         g_free(msg);
@@ -2325,7 +2325,7 @@ gboolean Cddb_Search_Album_List_From_String_Freedb (void)
     // Parse server answer : Check returned code in the first line
     if (Cddb_Read_Http_Header(&file,&cddb_out) <= 0 || !cddb_out) // Order is important!
     {
-        msg = g_strdup_printf(_("The server returned a wrong answer! (%s)"),cddb_out);
+        msg = g_strdup_printf(_("The server returned a bad response: %s"),cddb_out);
         gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
         Log_Print(LOG_ERROR,"%s",msg);
         g_free(msg);
@@ -2472,7 +2472,7 @@ gboolean Cddb_Search_Album_List_From_String_Freedb (void)
     Cddb_Close_Connection(socket_id);
 
     if (web_search_disabled)
-        msg = g_strdup_printf(_("Sorry, the web-based search is currently down!"));
+        msg = g_strdup_printf(_("Sorry, the web-based search is currently not available"));
     else
         msg = g_strdup_printf(ngettext("Found one matching album","Found %d matching albums",g_list_length(CddbAlbumList)),g_list_length(CddbAlbumList));
     gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
@@ -2602,7 +2602,7 @@ gboolean Cddb_Search_Album_List_From_String_Gnudb (void)
         while (gtk_events_pending()) gtk_main_iteration();
         if ( (bytes_written=send(socket_id,cddb_in,strlen(cddb_in)+1,0)) < 0)
         {
-            Log_Print(LOG_ERROR,_("Can't send the request (%s)!"),g_strerror(errno));
+            Log_Print(LOG_ERROR,_("Cannot send the request (%s)"),g_strerror(errno));
             Cddb_Close_Connection(socket_id);
             g_free(cddb_in);
             g_free(string);
@@ -2631,7 +2631,7 @@ gboolean Cddb_Search_Album_List_From_String_Gnudb (void)
         // Write result in a file
         if (Cddb_Write_Result_To_File(socket_id,&bytes_read_total) < 0)
         {
-            msg = g_strdup(_("The server returned a wrong answer!"));
+            msg = g_strdup(_("The server returned a bad response"));
             gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
             Log_Print(LOG_ERROR,"%s",msg);
             g_free(msg);
@@ -2647,7 +2647,7 @@ gboolean Cddb_Search_Album_List_From_String_Gnudb (void)
         file = NULL;
         if (Cddb_Read_Http_Header(&file,&cddb_out) <= 0 || !cddb_out) // Order is important!
         {
-            msg = g_strdup_printf(_("The server returned a wrong answer! (%s)"),cddb_out);
+            msg = g_strdup_printf(_("The server returned a bad response: %s"),cddb_out);
             gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
             Log_Print(LOG_ERROR,"%s",msg);
             g_free(msg);
@@ -2915,7 +2915,7 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
 
     if (file_selectedcount == 0)
     {
-        msg = g_strdup_printf(_("No file selected!"));
+        msg = g_strdup_printf(_("No file selected"));
         gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
         g_free(msg);
         return TRUE;
@@ -2923,7 +2923,7 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
     {
         // The CD redbook standard defines the maximum number of tracks as 99, any
         // queries with more than 99 tracks will never return a result.
-        msg = g_strdup_printf(_("More than 99 files selected! Can't send request!"));
+        msg = g_strdup_printf(_("More than 99 files selected. Cannot send request"));
         gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
         g_free(msg);
         return FALSE;
@@ -3168,7 +3168,7 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
 
             if ( (bytes_written=send(socket_id,cddb_in,strlen(cddb_in)+1,0)) < 0)
             {
-                Log_Print(LOG_ERROR,_("Can't send the request (%s)!"),g_strerror(errno));
+                Log_Print(LOG_ERROR,_("Cannot send the request (%s)"),g_strerror(errno));
                 Cddb_Close_Connection(socket_id);
                 g_free(cddb_in);
                 g_free(cddb_server_name);
@@ -3188,7 +3188,7 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
             // Write result in a file
             if (Cddb_Write_Result_To_File(socket_id,&bytes_read_total) < 0)
             {
-                msg = g_strdup(_("The server returned a wrong answer!"));
+                msg = g_strdup(_("The server returned a bad response"));
                 gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
                 Log_Print(LOG_ERROR,"%s",msg);
                 g_free(msg);
@@ -3203,7 +3203,7 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
             file = NULL;
             if (Cddb_Read_Http_Header(&file,&cddb_out) <= 0 || !cddb_out) // Order is important!
             {
-                msg = g_strdup_printf(_("The server returned a wrong answer! (%s)"),cddb_out);
+                msg = g_strdup_printf(_("The server returned a bad response: %s"),cddb_out);
                 gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
                 Log_Print(LOG_ERROR,"%s",msg);
                 g_free(msg);
@@ -3407,7 +3407,7 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
         // Local access
         if ( (file=fopen(cddb_server_cgi_path,"r"))==0 )
         {
-            Log_Print(LOG_ERROR,_("Can't load file: '%s' (%s)!"),cddb_server_cgi_path,g_strerror(errno));
+            Log_Print(LOG_ERROR,_("Can't load file: '%s' (%s)."),cddb_server_cgi_path,g_strerror(errno));
             return FALSE;
         }
 
@@ -3467,7 +3467,7 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
         while (gtk_events_pending()) gtk_main_iteration();
         if ( (bytes_written=send(socket_id,cddb_in,strlen(cddb_in)+1,0)) < 0)
         {
-            Log_Print(LOG_ERROR,_("Can't send the request (%s)!"),g_strerror(errno));
+            Log_Print(LOG_ERROR,_("Cannot send the request (%s)"),g_strerror(errno));
             Cddb_Close_Connection(socket_id);
             g_free(cddb_in);
             return FALSE;
@@ -3483,7 +3483,7 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
         // Write result in a file
         if (Cddb_Write_Result_To_File(socket_id,&bytes_read_total) < 0)
         {
-            msg = g_strdup(_("The server returned a wrong answer!"));
+            msg = g_strdup(_("The server returned a bad response"));
             gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
             Log_Print(LOG_ERROR,"%s",msg);
             g_free(msg);
@@ -3500,7 +3500,7 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
 			// For gnudb (don't check CDDB header)
 			if ( Cddb_Read_Http_Header(&file,&cddb_out) <= 0 )
 		    {
-		        gchar *msg = g_strdup_printf(_("The server returned a wrong answer! (%s)"),cddb_out);
+		        gchar *msg = g_strdup_printf(_("The server returned a bad response: %s"),cddb_out);
 		        gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
 		        Log_Print(LOG_ERROR,"%s",msg);
 		        g_free(msg);
@@ -3515,7 +3515,7 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
 			if ( Cddb_Read_Http_Header(&file,&cddb_out) <= 0
 		      || Cddb_Read_Cddb_Header(&file,&cddb_out) <= 0 )
 		    {
-		        gchar *msg = g_strdup_printf(_("The server returned a wrong answer! (%s)"),cddb_out);
+		        gchar *msg = g_strdup_printf(_("The server returned a bad response: %s"),cddb_out);
 		        gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
 		        Log_Print(LOG_ERROR,"%s",msg);
 		        g_free(msg);

@@ -4500,7 +4500,7 @@ gboolean Run_Program (gchar *program_name, GList *args_list)
                                            GTK_MESSAGE_ERROR,
                                            GTK_BUTTONS_OK,
                                            "%s",
-                                           _("You must type a program name!"));
+                                           _("You must type a program name"));
         gtk_window_set_title(GTK_WINDOW(msgdialog),_("Program Name Error"));
 
         gtk_dialog_run(GTK_DIALOG(msgdialog));
@@ -4565,7 +4565,7 @@ gboolean Run_Program (gchar *program_name, GList *args_list)
                       &siStartupInfo,
                       &piProcessInfo) == FALSE)
     {
-        Log_Print(LOG_ERROR,_("Can't execute %s (error %d)!\n"), program_name, GetLastError());
+        Log_Print(LOG_ERROR,_("Cannot execute %s (error %d)\n"), program_name, GetLastError());
     }
 
     // Free allocated parameters (for each filename)
@@ -4584,7 +4584,7 @@ gboolean Run_Program (gchar *program_name, GList *args_list)
     switch (pid)
     {
         case -1:
-            Log_Print(LOG_ERROR,_("Can't fork another process!\n"));
+            Log_Print(LOG_ERROR,_("Cannot fork another process\n"));
             //exit(-1);
             break;
         case 0:

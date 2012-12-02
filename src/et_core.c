@@ -4663,7 +4663,7 @@ void ET_File_Name_Check_Length (ET_File *ETFile, gchar *filename_utf8)
         case OGG_FILE:
             if ( (exceed_size = (strlen(basename) - 245)) > 0 ) // 255 - 4 (extension) - 6 (mkstemp)
             {
-                Log_Print(LOG_ERROR,_("The filename '%s' exceeds %d characters and will be truncated!\n"), filename_utf8, 245);
+                Log_Print(LOG_ERROR,_("The filename '%s' exceeds %d characters and will be truncated"), filename_utf8, 245);
                 filename_utf8[strlen(filename_utf8) - exceed_size] = '\0';
             }
             break;
@@ -4671,7 +4671,7 @@ void ET_File_Name_Check_Length (ET_File *ETFile, gchar *filename_utf8)
         default:
             if ( (exceed_size = (strlen(basename) - 251)) > 0 ) // 255 - 4 (extension)
             {
-                Log_Print(LOG_ERROR,_("The filename '%s' exceeds %d characters and will be truncated!\n"), filename_utf8, 251);
+                Log_Print(LOG_ERROR,_("The filename '%s' exceeds %d characters and will be truncated"), filename_utf8, 251);
                 filename_utf8[strlen(filename_utf8) - exceed_size] = '\0';
             }
             break;

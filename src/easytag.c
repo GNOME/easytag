@@ -3241,7 +3241,7 @@ gboolean Rename_File (ET_File *ETFile, gboolean hide_msgbox)
         /* Renaming file has failed, but we try to set the initial name */
         rename(tmp_filename,cur_filename);
 
-        msg1 = g_strdup_printf(_("Can't rename file '%s' to '%s'! (%s)"),
+        msg1 = g_strdup_printf(_("Cannot rename file '%s' to '%s'. (%s)"),
                               cur_basename_utf8,new_basename_utf8,g_strerror(errno));
         if (!hide_msgbox)
         {
@@ -3595,9 +3595,9 @@ gboolean Read_Directory (gchar *path_real)
 
         /* Prepare message for the status bar */
         if (BROWSE_SUBDIR)
-            msg = g_strdup(_("No file found in this directory and subdirectories!"));
+            msg = g_strdup(_("No file found in this directory and subdirectories"));
         else
-            msg = g_strdup(_("No file found in this directory!"));
+            msg = g_strdup(_("No file found in this directory"));
     }
 
     /* Update sensitivity of buttons and menus */
@@ -4447,7 +4447,7 @@ void Init_Load_Default_Dir (void)
         Browser_Reload_Directory();
     }else
     {
-        Statusbar_Message(_("Select a directory to browse!"),FALSE);
+        Statusbar_Message(_("Select a directory to browse"),FALSE);
         Browser_Load_Default_Directory();
     }
 
@@ -4673,7 +4673,7 @@ void Handle_Crash (gint signal_id)
 {
     //gchar commmand[256];
 
-    Log_Print(LOG_ERROR,_("EasyTAG version %s: Abnormal exit! (PID: %d)."),PACKAGE_VERSION,getpid());
+    Log_Print(LOG_ERROR,_("EasyTAG version %s: Abnormal exit (PID: %d)"),PACKAGE_VERSION,getpid());
     Log_Print(LOG_ERROR,_("Received signal %s (%d)"),signal_to_string(signal_id),signal_id);
 
     Log_Print(LOG_ERROR,_("You have probably found a bug in EasyTAG. Please, "
@@ -4682,7 +4682,7 @@ void Handle_Crash (gint signal_id)
 			  "to reproduce it at: %s"),PACKAGE_BUGREPORT);
 
     // To send messages to the console...
-    g_print(_("EasyTAG version %s: Abnormal exit! (PID: %d)."),PACKAGE_VERSION,getpid());
+    g_print(_("EasyTAG version %s: Abnormal exit (PID: %d)."),PACKAGE_VERSION,getpid());
     g_print("\n");
     g_print(_("Received signal %s (%d)\a"),signal_to_string(signal_id),signal_id);
     g_print("\n");
