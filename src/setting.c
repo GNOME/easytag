@@ -1538,7 +1538,72 @@ void Save_Cddb_Local_Path_List (GtkListStore *liststore, gint colnum)
 
 
 
+/*
+ * migrate_config_to_xdg_dir:
+ * @old_path: (type filename): the path to migrate from
+ * @new_path: (type filename): the path to migrate to
+ *
+ * Migrate the EasyTAG configuration files contained in the old path to the new
+ * one.
+ */
+static void
+migrate_config_file_dir (const gchar *old_path, const gchar *new_path)
+{
+    gsize i;
+    static const gchar *filenames[] = { CONFIG_FILE,
+                                        SCAN_TAG_MASKS_FILE,
+                                        RENAME_FILE_MASKS_FILE,
+                                        RENAME_DIRECTORY_MASKS_FILE,
+                                        DEFAULT_PATH_TO_MP3_HISTORY_FILE,
+                                        DEFAULT_TAG_COMMENT_HISTORY_FILE,
+                                        PATH_ENTRY_HISTORY_FILE,
+                                        PLAY_LIST_NAME_MASKS_FILE,
+                                        RUN_PROGRAM_WITH_DIRECTORY_HISTORY_FILE,
+                                        RUN_PROGRAM_WITH_FILE_HISTORY_FILE,
+                                        AUDIO_FILE_PLAYER_HISTORY_FILE,
+                                        SEARCH_FILE_HISTORY_FILE,
+                                        FILE_TO_LOAD_HISTORY_FILE,
+                                        PLAYLIST_CONTENT_MASKS_FILE,
+                                        CDDB_SEARCH_STRING_HISTORY_FILE,
+                                        CDDB_SEARCH_STRING_IN_RESULT_HISTORY_FILE,
+                                        CDDB_LOCAL_PATH_HISTORY_FILE,
+                                        NULL
+    };
 
+    Log_Print (LOG_OK, _("Migrating configuration from directory '%s' to '%s'"),
+               old_path, new_path);
+
+    for (i = 0; filenames[i]; i++)
+    {
+        gchar *old_filename, *new_filename;
+        GFile *old_file, *new_file;
+
+        old_filename = g_build_filename (old_path, filenames[i], NULL);
+
+        if (!g_file_test (old_filename, G_FILE_TEST_EXISTS))
+        {
+            g_free (old_filename);
+            continue;
+        }
+
+        new_filename = g_build_filename (new_path, filenames[i], NULL);
+        old_file = g_file_new_for_path (old_filename);
+        new_file = g_file_new_for_path (new_filename);
+
+        if (!g_file_move (old_file, new_file, G_FILE_COPY_NONE, NULL, NULL,
+                          NULL, NULL))
+        {
+            Log_Print (LOG_ERROR,
+                       _("Failed to migrate configuration file '%s'"),
+                       filenames[i]);
+        }
+
+        g_free (old_filename);
+        g_free (new_filename);
+        g_object_unref (old_file);
+        g_object_unref (new_file);
+    }
+}
 
 /**
  * Create the directory used by EasyTAG to store user configuration files.
@@ -1555,18 +1620,34 @@ gboolean Create_Easytag_Directory (void)
     easytag_path = g_build_filename (g_get_user_config_dir (), PACKAGE_TARNAME,
                                      NULL);
 
+    if (g_file_test (easytag_path, G_FILE_TEST_IS_DIR))
+    {
+        g_free (easytag_path);
+        return TRUE;
+    }
+
     result = g_mkdir_with_parents (easytag_path, S_IRWXU);
 
     if (result == -1)
     {
-        Log_Print (LOG_ERROR,_("ERROR: Cannot create directory '%s' (%s)!"),
+        Log_Print (LOG_ERROR,_("ERROR: Cannot create directory '%s' (%s)"),
                   easytag_path, g_strerror (errno));
         g_free (easytag_path);
         return FALSE;
     }
     else
     {
+        gchar *old_path = g_build_filename (g_get_home_dir (),
+                                            "." PACKAGE_TARNAME, NULL);
+
+        if (g_file_test (old_path, G_FILE_TEST_IS_DIR))
+        {
+            migrate_config_file_dir (old_path, easytag_path);
+        }
+
+        g_free (old_path);
         g_free (easytag_path);
+
         return TRUE;
     }
 }
