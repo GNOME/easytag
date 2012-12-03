@@ -200,7 +200,7 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { AM_LAST,               GTK_STOCK_GOTO_LAST,        _("_Last File"),                 "<Control>End",      _("Last file"),                 G_CALLBACK(Action_Select_Last_File) },
         // XXX GTK1 version uses Ctrl+C for scanner, this doesnt work in GTK1 as its copy! in gtk2, behaviour is different
         // and binding Ctrl+C effectively stops the user copying text..
-        { AM_SCAN,               "easytag-scan",             _("S_can Files…"),              NULL,                _("Scan files"),              G_CALLBACK(Action_Scan_Selected_Files) },
+        { AM_SCAN,               "document-properties",             _("S_can Files…"),              NULL,                _("Scan files"),              G_CALLBACK(Action_Scan_Selected_Files) },
         { AM_REMOVE,             GTK_STOCK_CLEAR,            _("_Remove Tags"),             "<Control>R",        _("Remove tags"),             G_CALLBACK(Action_Remove_Selected_Tags) },
         { AM_UNDO,               GTK_STOCK_UNDO,             _("_Undo Last Files Changes"), "<Control>Z",        _("Undo last Files changes"), G_CALLBACK(Action_Undo_Selected_Files) },
         { AM_REDO,               GTK_STOCK_REDO,             _("R_edo Last Files Changes"), "<Shift><Control>Z", _("Redo last files changes"), G_CALLBACK(Action_Redo_Selected_File) },
@@ -212,10 +212,10 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
 
         { MENU_BROWSER,                NULL,                   _("_Browser"),                      NULL,                NULL,                               NULL },
         { AM_LOAD_HOME_DIR,            GTK_STOCK_HOME,         _("Go to _Home Directory"),         "<Alt>Home",         _("Go to home directory"),          G_CALLBACK(Browser_Load_Home_Directory) },
-        { AM_LOAD_DESKTOP_DIR,         GTK_STOCK_JUMP_TO,      _("Go to Desktop Directory"),       NULL,         		_("Go to desktop directory"),       G_CALLBACK(Browser_Load_Desktop_Directory) },
-        { AM_LOAD_DOCUMENTS_DIR,       GTK_STOCK_JUMP_TO,      _("Go to Documents Directory"),     NULL,         		_("Go to documents directory"),     G_CALLBACK(Browser_Load_Documents_Directory) },
-        { AM_LOAD_DOWNLOADS_DIR,       GTK_STOCK_JUMP_TO,      _("Go to Downloads Directory"),     NULL,         		_("Go to downloads directory"),     G_CALLBACK(Browser_Load_Downloads_Directory) },
-        { AM_LOAD_MUSIC_DIR,           GTK_STOCK_JUMP_TO,      _("Go to Music Directory"),         NULL,         		_("Go to music directory"),         G_CALLBACK(Browser_Load_Music_Directory) },
+        { AM_LOAD_DESKTOP_DIR,         "user-desktop",      _("Go to Desktop Directory"),       NULL,         		_("Go to desktop directory"),       G_CALLBACK(Browser_Load_Desktop_Directory) },
+        { AM_LOAD_DOCUMENTS_DIR,       "folder-documents",      _("Go to Documents Directory"),     NULL,         		_("Go to documents directory"),     G_CALLBACK(Browser_Load_Documents_Directory) },
+        { AM_LOAD_DOWNLOADS_DIR,       "folder-download",      _("Go to Downloads Directory"),     NULL,         		_("Go to downloads directory"),     G_CALLBACK(Browser_Load_Downloads_Directory) },
+        { AM_LOAD_MUSIC_DIR,           "folder-music",      _("Go to Music Directory"),         NULL,         		_("Go to music directory"),         G_CALLBACK(Browser_Load_Music_Directory) },
         { AM_LOAD_DEFAULT_DIR,         GTK_STOCK_JUMP_TO,      _("Go to _Default Directory"),      "<Control>D",        _("Go to default directory"),       G_CALLBACK(Browser_Load_Default_Directory) },
         { AM_SET_PATH_AS_DEFAULT,      GTK_STOCK_DIRECTORY,    _("Set _Current Path as Default"),  NULL,                _("Set current path as default"),   G_CALLBACK(Set_Current_Path_As_Default) },
         { AM_TREE_OR_ARTISTALBUM_VIEW, "easytag-artist-album", _("Tree View | Artist-Album View"), NULL,                _("Toggle between tree view and artist-album view"), G_CALLBACK(Menu_Sort_Action) },
@@ -226,9 +226,9 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { AM_INITIALIZE_TREE,          GTK_STOCK_REFRESH,      _("_Refresh Tree"),                 "<Control><Shift>R", _("_Refresh tree"),                 G_CALLBACK(Browser_Tree_Rebuild) },
 
         { MENU_SCANNER,              NULL,                  _("S_canner"),                          NULL,         NULL,                                 NULL },
-        { AM_SCANNER_FILL_TAG,       "easytag-scan",        _("_Fill Tags…"),                  NULL,         _("Fill tags"),                 G_CALLBACK(Scan_Use_Fill_Tag_Scanner) },
-        { AM_SCANNER_RENAME_FILE,    "easytag-scan",        _("_Rename Files and Directories…"), NULL,         _("Rename files and directories"),G_CALLBACK(Scan_Use_Rename_File_Scanner) },
-        { AM_SCANNER_PROCESS_FIELDS, "easytag-scan",        _("_Process Fields…"),             NULL,         _("Process Fields"),           G_CALLBACK(Scan_Use_Process_Fields_Scanner) },
+        { AM_SCANNER_FILL_TAG,       "document-properties",        _("_Fill Tags…"),                  NULL,         _("Fill tags"),                 G_CALLBACK(Scan_Use_Fill_Tag_Scanner) },
+        { AM_SCANNER_RENAME_FILE,    "document-properties",        _("_Rename Files and Directories…"), NULL,         _("Rename files and directories"),G_CALLBACK(Scan_Use_Rename_File_Scanner) },
+        { AM_SCANNER_PROCESS_FIELDS, "document-properties",        _("_Process Fields…"),             NULL,         _("Process Fields"),           G_CALLBACK(Scan_Use_Process_Fields_Scanner) },
 
         { MENU_MISC,                NULL,                   _("_Miscellaneous"),                             NULL,         NULL,                                 NULL },
         { AM_SEARCH_FILE,           GTK_STOCK_FIND,         _("Find _Files…"),               "<Control>F", _("Find files"),               G_CALLBACK(Open_Search_File_Window) },
@@ -254,7 +254,7 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
          * Popup menu's Actions
          */
         { POPUP_FILE,                   NULL,              _("_File Operations"),          NULL, NULL,                         NULL },
-        { POPUP_SUBMENU_SCANNER,        "easytag-scan",    _("S_canner"),                  NULL, NULL,                         NULL },
+        { POPUP_SUBMENU_SCANNER,        "document-properties",    _("S_canner"),                  NULL, NULL,                         NULL },
         { POPUP_DIR_RUN_AUDIO,          GTK_STOCK_MEDIA_PLAY,   _("Run Audio Player"),          NULL, _("Run audio player"),        G_CALLBACK(Run_Audio_Player_Using_Directory) },
         { AM_ARTIST_RUN_AUDIO_PLAYER,   GTK_STOCK_MEDIA_PLAY,   _("Run Audio Player"),          NULL, _("Run audio player"),        G_CALLBACK(Run_Audio_Player_Using_Browser_Artist_List) },
         { AM_ALBUM_RUN_AUDIO_PLAYER,    GTK_STOCK_MEDIA_PLAY,   _("Run Audio Player"),          NULL, _("Run audio player"),        G_CALLBACK(Run_Audio_Player_Using_Browser_Album_List)  },

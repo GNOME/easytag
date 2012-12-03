@@ -2390,7 +2390,7 @@ void Open_ScannerWindow (gint scanner_type)
 
     /* 'Scan selected files' button */
     SWScanButton = gtk_button_new();
-    Icon = gtk_image_new_from_stock("easytag-scan", GTK_ICON_SIZE_BUTTON);
+    Icon = gtk_image_new_from_icon_name ("document-properties", GTK_ICON_SIZE_BUTTON);
     gtk_container_add(GTK_CONTAINER(SWScanButton),Icon);
     gtk_box_pack_start(GTK_BOX(HBox1),SWScanButton,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(SWScanButton),GTK_RELIEF_NONE);
