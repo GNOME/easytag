@@ -143,6 +143,17 @@ void Quit_Recursion_Window_Key_Press (GtkWidget *window, GdkEvent *event);
 
 #ifndef WIN32
 static void
+setup_sigbus_fpe_segv (void)
+{
+    struct sigaction sa;
+    memset (&sa, 0, sizeof (struct sigaction));
+    sa.sa_handler = Handle_Crash;
+    sigaction (SIGBUS, &sa, NULL);
+    sigaction (SIGFPE, &sa, NULL);
+    sigaction (SIGSEGV, &sa, NULL);
+}
+
+static void
 sigchld_handler (int signum)
 {
     wait (NULL);
@@ -182,9 +193,7 @@ int main (int argc, char *argv[])
     //ET_Win32_Init(hInstance);
 #else
     /* Signal handling to display a message(SIGSEGV, ...) */
-    signal(SIGBUS,Handle_Crash);
-    signal(SIGFPE,Handle_Crash);
-    signal(SIGSEGV,Handle_Crash);
+    setup_sigbus_fpe_segv ();
     // Must handle this signal to avoid zombie of applications executed (ex: xmms)
     setup_sigchld ();
 #endif
