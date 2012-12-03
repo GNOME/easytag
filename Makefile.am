@@ -149,8 +149,6 @@ pixmaps = \
 	pixmaps/ram_disk.xpm \
 	pixmaps/read_only.xpm \
 	pixmaps/red_lines.xpm \
-	pixmaps/scan.xpm \
-	pixmaps/select_all.xpm \
 	pixmaps/sequence_track.xpm \
 	pixmaps/sound.xpm \
 	pixmaps/unselect_all.xpm

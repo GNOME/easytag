@@ -610,8 +610,6 @@ void Set_Unbusy_Cursor (void)
 #include "../pixmaps/parent_folder.xpm"
 #include "../pixmaps/read_only.xpm"
 #include "../pixmaps/red_lines.xpm"
-#include "../pixmaps/scan.xpm"
-#include "../pixmaps/select_all.xpm"
 //#include "../pixmaps/sequence_track.xpm"
 #include "../pixmaps/sound.xpm"
 #include "../pixmaps/unselect_all.xpm"
@@ -619,9 +617,6 @@ void Init_Custom_Icons (void)
 {
     Create_Xpm_Icon_Factory((const char**)artist_xpm,               "easytag-artist");
     Create_Xpm_Icon_Factory((const char**)album_xpm,                "easytag-album");
-    Create_Xpm_Icon_Factory((const char**)select_all_xpm,           "easytag-select-all");
-    Create_Xpm_Icon_Factory((const char**)scan_xpm,             "easytag-scan");
-////    Create_Png_Icon_Factory("scan.png",                             "easytag-scan");
     Create_Xpm_Icon_Factory((const char**)invert_selection_xpm,     "easytag-invert-selection");
     Create_Xpm_Icon_Factory((const char**)unselect_all_xpm,         "easytag-unselect-all");
     Create_Xpm_Icon_Factory((const char**)grab_xpm,                 "easytag-grab");

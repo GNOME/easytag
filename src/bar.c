@@ -190,7 +190,7 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { AM_SORT_DESCENDING_FILE_SAMPLERATE, GTK_STOCK_SORT_DESCENDING, _("Descending by samplerate"),      NULL, _("Descending by samplerate"),      G_CALLBACK(Menu_Sort_Action) },
 
         { AM_OPEN_FILE_WITH,     GTK_STOCK_OPEN,             _("Open Files With…"),      NULL,                _("Open files with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window) },
-        { AM_SELECT_ALL_FILES,   "easytag-select-all",       _("Select All Files"),           "<Control>A",        _("Select all files"),          G_CALLBACK(Action_Select_All_Files) },
+        { AM_SELECT_ALL_FILES,   GTK_STOCK_SELECT_ALL,       _("Select All Files"),           "<Control>A",        _("Select all files"),          G_CALLBACK(Action_Select_All_Files) },
         { AM_UNSELECT_ALL_FILES, "easytag-unselect-all",     _("Unselect All Files"),         "<Shift><Control>A", _("Unselect all files"),        G_CALLBACK(Action_Unselect_All_Files) },
         { AM_INVERT_SELECTION,   "easytag-invert-selection", _("Invert Files Selection"),     "<Control>I",        _("Invert files selection"),    G_CALLBACK(Action_Invert_Files_Selection) },
         { AM_DELETE_FILE,        GTK_STOCK_DELETE,           _("Delete Files"),             NULL,                _("Delete files"),            G_CALLBACK(Action_Delete_Selected_Files) },
@@ -235,7 +235,7 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { AM_CDDB_SEARCH,           GTK_STOCK_CDROM,        _("CD Data_base Search…"),          "<Control>B", _("CDDB search"),                 G_CALLBACK(Open_Cddb_Window) },
         { AM_FILENAME_FROM_TXT,     GTK_STOCK_OPEN,         _("Load Filenames From Text File…"),       "<Alt>T",     _("Load filenames from text file"),     G_CALLBACK(Open_Load_Filename_Window) },
         { AM_WRITE_PLAYLIST,        GTK_STOCK_SAVE_AS,      _("Write Playlist…"),                "<Alt>W",     _("Write playlist"),              G_CALLBACK(Open_Write_Playlist_Window) },
-        { AM_RUN_AUDIO_PLAYER,      "easytag-sound",        _("Run Audio Player"),                  "<Alt>X",     _("Run audio player"),                G_CALLBACK(Run_Audio_Player_Using_Selection) },
+        { AM_RUN_AUDIO_PLAYER,      GTK_STOCK_MEDIA_PLAY,        _("Run Audio Player"),                  "<Alt>X",     _("Run audio player"),                G_CALLBACK(Run_Audio_Player_Using_Selection) },
 
         { MENU_SETTINGS,            NULL,                   _("_Settings"),                         NULL,         NULL,                                 NULL },
         { AM_OPEN_OPTIONS_WINDOW,   GTK_STOCK_PREFERENCES,  _("_Preferences"),                  "<Alt>P",     _("Preferences"),                 G_CALLBACK(Open_OptionsWindow) },
@@ -255,9 +255,9 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
          */
         { POPUP_FILE,                   NULL,              _("_File Operations"),          NULL, NULL,                         NULL },
         { POPUP_SUBMENU_SCANNER,        "easytag-scan",    _("S_canner"),                  NULL, NULL,                         NULL },
-        { POPUP_DIR_RUN_AUDIO,          "easytag-sound",   _("Run Audio Player"),          NULL, _("Run audio player"),        G_CALLBACK(Run_Audio_Player_Using_Directory) },
-        { AM_ARTIST_RUN_AUDIO_PLAYER,   "easytag-sound",   _("Run Audio Player"),          NULL, _("Run audio player"),        G_CALLBACK(Run_Audio_Player_Using_Browser_Artist_List) },
-        { AM_ALBUM_RUN_AUDIO_PLAYER,    "easytag-sound",   _("Run Audio Player"),          NULL, _("Run audio player"),        G_CALLBACK(Run_Audio_Player_Using_Browser_Album_List)  },
+        { POPUP_DIR_RUN_AUDIO,          GTK_STOCK_MEDIA_PLAY,   _("Run Audio Player"),          NULL, _("Run audio player"),        G_CALLBACK(Run_Audio_Player_Using_Directory) },
+        { AM_ARTIST_RUN_AUDIO_PLAYER,   GTK_STOCK_MEDIA_PLAY,   _("Run Audio Player"),          NULL, _("Run audio player"),        G_CALLBACK(Run_Audio_Player_Using_Browser_Artist_List) },
+        { AM_ALBUM_RUN_AUDIO_PLAYER,    GTK_STOCK_MEDIA_PLAY,   _("Run Audio Player"),          NULL, _("Run audio player"),        G_CALLBACK(Run_Audio_Player_Using_Browser_Album_List)  },
         { AM_CDDB_SEARCH_FILE,          GTK_STOCK_CDROM,   _("CDDB Search Files…"),    NULL, _("CDDB search files…"),  G_CALLBACK(Cddb_Popup_Menu_Search_Selected_File) },
         //{ AM_ARTIST_OPEN_FILE_WITH,     GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
         //{ AM_ALBUM_OPEN_FILE_WITH,      GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
