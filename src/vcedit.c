@@ -165,7 +165,8 @@ static int _blocksize(vcedit_state *s, ogg_packet *p)
     return ret;
 }
 
-static int _fetch_next_packet(vcedit_state *s, ogg_packet *p, ogg_page *page)
+static gboolean
+_fetch_next_packet (vcedit_state *s, ogg_packet *p, ogg_page *page)
 {
     int result;
     char *buffer;
@@ -174,18 +175,18 @@ static int _fetch_next_packet(vcedit_state *s, ogg_packet *p, ogg_page *page)
     result = ogg_stream_packetout(s->os, p);
 
     if(result > 0)
-        return 1;
+        return TRUE;
     else
     {
         if(s->eosin)
-            return 0;
+            return FALSE;
         while(ogg_sync_pageout(s->oy, page) <= 0)
         {
             buffer = ogg_sync_buffer(s->oy, CHUNKSIZE);
             bytes = s->read(buffer,1, CHUNKSIZE, s->in);
             ogg_sync_wrote(s->oy, bytes);
             if(bytes == 0)
-                return 0;
+                return FALSE;
         }
         if(ogg_page_eos(page))
             s->eosin = 1;
@@ -193,7 +194,7 @@ static int _fetch_next_packet(vcedit_state *s, ogg_packet *p, ogg_page *page)
         {
             s->eosin = 1;
             s->extrapage = 1;
-            return 0;
+            return FALSE;
         }
 
         ogg_stream_pagein(s->os, page);

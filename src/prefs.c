@@ -56,7 +56,7 @@ void OptionsWindow_Apply_Button  (void);
 void OptionsWindow_Save_Button   (void);
 void OptionsWindow_Cancel_Button (void);
 gboolean OptionsWindow_Key_Press (GtkWidget *window, GdkEvent *event);
-gint Check_Config                (void);
+static gboolean Check_Config     (void);
 
 void Set_Default_Comment_Check_Button_Toggled  (void);
 void Number_Track_Formated_Toggled             (void);
@@ -1771,7 +1771,7 @@ void OptionsWindow_Apply_Changes (void)
  *  - converted to UTF-8 (path_utf8)                : Céline DION - D'eux (1995)
  *  - try to convert to system encoding (path_real) : ?????
  */
-static gint
+static gboolean
 Check_DefaultPathToMp3 (void)
 {
     gchar *path_utf8;
@@ -1782,7 +1782,7 @@ Check_DefaultPathToMp3 (void)
     if (!path_utf8 || g_utf8_strlen(path_utf8, -1) < 1)
     {
         g_free(path_utf8);
-        return 1;
+        return TRUE;
     }
 
     path_real = filename_from_display(path_utf8);
@@ -1796,7 +1796,7 @@ Check_DefaultPathToMp3 (void)
     {
         g_free(path_real);
         g_free(path_utf8);
-        return 1;    /* Path is good */
+        return TRUE; /* Path is good */
     }else
     {
         GtkWidget *msgdialog = gtk_message_dialog_new(GTK_WINDOW(OptionsWindow),
@@ -1812,7 +1812,7 @@ Check_DefaultPathToMp3 (void)
         gtk_widget_destroy(msgdialog);
         g_free(path_real);
         g_free(path_utf8);
-        return 0;
+        return FALSE;
     }
 }
 
@@ -1881,7 +1881,7 @@ gint Check_CharacterSetTranslation (void)
 }
 *************/
 
-static gint
+static gboolean
 Check_DefaultComment (void)
 {
     const gchar *file;
@@ -1890,20 +1890,20 @@ Check_DefaultComment (void)
     if (!file || g_utf8_strlen(file, -1) < 1)
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SetDefaultComment),FALSE);
 
-    return 1;    /* A blank entry is ignored */
+    return TRUE;    /* A blank entry is ignored */
 }
 
 /*
  * Check if player binary is found
  */
-static gint
+static gboolean
 Check_FilePlayerCombo (void)
 {
     gchar *program_path = NULL;
     gchar *program_path_validated = NULL;
 
 #ifdef WIN32
-    return 1; /* FIXME see Check_If_Executable_Exists */
+    return TRUE; /* FIXME see Check_If_Executable_Exists */
     /* Note : Check_If_Executable_Exists crashes when player is 'winamp.exe' with g_find_program_in_path */
 #endif
 
@@ -1928,24 +1928,24 @@ Check_FilePlayerCombo (void)
         gtk_widget_destroy(msgdialog);
 
         g_free(program_path);
-        return 0;
+        return FALSE;
     } else
     {
         g_free(program_path);
         g_free(program_path_validated);
-        return 1;
+        return TRUE;
     }
 }
 
-gint Check_Config (void)
+static gboolean
+Check_Config (void)
 {
-    if ( Check_DefaultPathToMp3()
-    //&& Check_CharacterSetTranslation()
-    && Check_DefaultComment()
-    && Check_FilePlayerCombo() )
-        return 1;    /* No problem detected */
+    if (Check_DefaultPathToMp3 ()
+        && Check_DefaultComment ()
+        && Check_FilePlayerCombo ())
+        return TRUE; /* No problem detected */
     else
-        return 0;    /* Oups! */
+        return FALSE; /* Oops! */
 }
 
 
