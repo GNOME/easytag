@@ -133,7 +133,6 @@ pixmaps = \
 	pixmaps/closed_folder_unreadable.xpm \
 	pixmaps/closed_folder.xpm \
 	pixmaps/EasyTAG.ico \
-	pixmaps/EasyTAG_icon.xpm \
 	pixmaps/EasyTAG2.ico \
 	pixmaps/EasyTAG2.xpm \
 	pixmaps/first_letter_uppercase.xpm \

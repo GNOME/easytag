@@ -62,8 +62,6 @@
 #include <sys/wait.h>
 #endif
 
-#include "../pixmaps/EasyTAG_icon.xpm"
-
 
 /****************
  * Declarations *
@@ -357,18 +355,7 @@ int main (int argc, char *argv[])
     /* Minimised window icon */
     gtk_widget_realize(MainWindow);
 
-    pixbuf = gdk_pixbuf_new_from_xpm_data(EasyTAG_icon_xpm);
-    gtk_window_set_icon(GTK_WINDOW (MainWindow),pixbuf);
-    /*pixbuf = gdk_pixbuf_new_from_file(PACKAGE_DATA_DIR"/EasyTAG_icon.png",&error);
-    if (pixbuf)
-    {
-        gtk_window_set_icon(GTK_WINDOW(MainWindow),pixbuf);
-        g_object_unref(G_OBJECT(pixbuf));
-    }else
-    {
-        Log_Print(LOG_ERROR,error->message);
-        g_error_free(error);
-    }*/
+    gtk_window_set_icon_name (GTK_WINDOW (MainWindow), PACKAGE_TARNAME);
 
     /* MainVBox for Menu bar + Tool bar + "Browser Area & FileArea & TagArea" + Log Area + "Status bar & Progress bar" */
     MainVBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
