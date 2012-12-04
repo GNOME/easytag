@@ -1493,7 +1493,8 @@ gboolean Cddb_Track_List_Button_Press (GtkTreeView *treeView, GdkEventButton *ev
  * Create_Browser_Tree_Popup_Menu: Create a popup menu for the tree browser
  * Create_Browser_List_Popup_Menu: Create a popup menu for the list of files of browser
  */
-gboolean Cddb_Popup_Menu_Handler (GtkMenu *menu, GdkEventButton *event)
+static gboolean
+Cddb_Popup_Menu_Handler (GtkMenu *menu, GdkEventButton *event)
 {
     if (event && (event->type==GDK_BUTTON_PRESS) && (event->button==3))
     {

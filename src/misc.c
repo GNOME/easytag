@@ -494,11 +494,6 @@ gboolean Parse_Date (void)
 /*
  * Load the genres list to the combo, and sorts it
  */
-int Compare_Two_Genres (gchar *genre1,gchar *genre2)
-{
-    return strcmp(genre1,genre2);
-}
-
 void Load_Genres_List_To_UI (void)
 {
     guint i;
@@ -3373,7 +3368,8 @@ void Load_Filename_Set_Filenames (void)
 /*
  * Create and attach a popup menu on the two clist of the LoadFileWindow
  */
-gboolean Load_Filename_Popup_Menu_Handler (GtkMenu *menu, GdkEventButton *event)
+static gboolean
+Load_Filename_Popup_Menu_Handler (GtkMenu *menu, GdkEventButton *event)
 {
     if (event && (event->type==GDK_BUTTON_PRESS) && (event->button==3))
     {

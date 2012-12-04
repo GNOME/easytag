@@ -82,7 +82,8 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void);
 /*
  * Write the ID3 tags to the file. Returns TRUE on success, else 0.
  */
-gboolean Id3tag_Write_File_v23Tag (ET_File *ETFile)
+static gboolean
+Id3tag_Write_File_v23Tag (ET_File *ETFile)
 {
     File_Tag *FileTag;
     gchar    *filename;

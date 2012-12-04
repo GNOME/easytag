@@ -1771,7 +1771,8 @@ void OptionsWindow_Apply_Changes (void)
  *  - converted to UTF-8 (path_utf8)                : Céline DION - D'eux (1995)
  *  - try to convert to system encoding (path_real) : ?????
  */
-gint Check_DefaultPathToMp3 (void)
+static gint
+Check_DefaultPathToMp3 (void)
 {
     gchar *path_utf8;
     gchar *path_real;
@@ -1880,7 +1881,8 @@ gint Check_CharacterSetTranslation (void)
 }
 *************/
 
-gint Check_DefaultComment (void)
+static gint
+Check_DefaultComment (void)
 {
     const gchar *file;
 
@@ -1894,7 +1896,8 @@ gint Check_DefaultComment (void)
 /*
  * Check if player binary is found
  */
-gint Check_FilePlayerCombo (void)
+static gint
+Check_FilePlayerCombo (void)
 {
     gchar *program_path = NULL;
     gchar *program_path_validated = NULL;

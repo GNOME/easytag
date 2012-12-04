@@ -229,7 +229,7 @@ dnl Check the pkg-config dependencies
 PKG_CHECK_MODULES([EASYTAG], [$GTK_DEPS $OGG_DEPS $SPEEX_DEPS $FLAC_DEPS $ID3TAG_DEPS $TAGLIB_DEPS $WAVPACK_DEPS])
 
 dnl Check that the compiler accepts the given warning flags.
-warning_flags="-Wall -Wstrict-prototypes -Wnested-externs -Wmissing-prototypes -Werror=implicit-function-declaration -Werror=pointer-arith -Werror=init-self -Werror=format-security -Werror=format=2 -Werror=missing-include-dirs"
+warning_flags="-Wall -Wstrict-prototypes -Wnested-externs -Werror=missing-prototypes -Werror=implicit-function-declaration -Werror=pointer-arith -Werror=init-self -Werror=format-security -Werror=format=2 -Werror=missing-include-dirs"
 
 realsave_CFLAGS="$CFLAGS"
 for option in $warning_flags; do

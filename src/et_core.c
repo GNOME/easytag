@@ -4463,10 +4463,12 @@ gboolean ET_Check_If_All_Files_Are_Saved (void)
  * Set to TRUE the value of 'FileTag->saved' for the File_Tag item passed in parameter.
  * And set ALL other values of the list to FALSE.
  */
-void Set_Saved_Value_Of_File_Tag (File_Tag *FileTag, gboolean saved)
+static void
+Set_Saved_Value_Of_File_Tag (File_Tag *FileTag, gboolean saved)
 {
     if (FileTag) FileTag->saved = saved;
 }
+
 void ET_Mark_File_Tag_As_Saved (ET_File *ETFile)
 {
     File_Tag *FileTag;
@@ -4479,14 +4481,6 @@ void ET_Mark_File_Tag_As_Saved (ET_File *ETFile)
 }
 
 
-/*
- * Set to TRUE the value of 'FileName->saved' for the File_Name item passed in parameter.
- * And set ALL other values of the list to FALSE.
- */
-void Set_Saved_Value_Of_File_Name (File_Name *FileName, gboolean saved)
-{
-    if (FileName) FileName->saved = saved;
-}
 void ET_Mark_File_Name_As_Saved (ET_File *ETFile)
 {
     File_Name *FileNameNew;

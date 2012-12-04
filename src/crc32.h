@@ -91,7 +91,6 @@ static const unsigned long crctable[256] = {
   0xb40bbe37, 0xc30c8ea1, 0x5a05df1b, 0x2d02ef8d,
 };
 
-int crc32_easytag(register int fd, unsigned long *main_val);
 int crc32_file_with_ID3_tag(char *filename, unsigned long *main_val);
 
 

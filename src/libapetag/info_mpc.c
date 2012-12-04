@@ -57,13 +57,6 @@ profile_stringify(unsigned int profile)    // profile is 0...15, where 7...13 is
         sizeof (Names) / sizeof (*Names) ? na : Names[profile];
 }
 
-int
-read_file_header_fp(FILE *fp, StreamInfoMpc * Info)
-{
-
-return 0;
-}
-
 /*
     return 0; Info has all info
     return 1; File not found

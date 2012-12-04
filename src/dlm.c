@@ -3,6 +3,8 @@
 #include <glib.h>
 #include <string.h>
 
+#include "dlm.h"
+
 int dlm_cost    (const gchar, const gchar);
 int dlm_minimum (int a, int b, int c, int d);
 

@@ -480,7 +480,8 @@ gboolean Browser_Tree_Key_Press (GtkWidget *tree, GdkEvent *event, gpointer data
 /*
  * Key Press events into browser list
  */
-gboolean Browser_List_Stop_Timer (guint *flag)
+static gboolean
+Browser_List_Stop_Timer (guint *flag)
 {
     *flag = FALSE;
     return FALSE;
@@ -2004,24 +2005,6 @@ void Browser_List_Invert_File_Selection (void)
 }
 
 
-/*
- * Load the list of Artists found in the tags
- */
-gint Browser_Artist_List_Data_Comp_Func_Sort_By_Ascending_Album (ET_File *ETFile1, ET_File *ETFile2)
-{
-    gchar *current_album1 = ((File_Tag *)((GList *)ETFile1->FileTag)->data)->album;
-    gchar *current_album2 = ((File_Tag *)((GList *)ETFile2->FileTag)->data)->album;
-
-    if (!current_album1 && !current_album2)
-        return 0;
-    else if (!current_album1)
-        return -1;
-    else if (!current_album2)
-        return 1;
-    else
-        return strcmp(current_album1,current_album2);
-}
-
 void Browser_Artist_List_Load_Files (ET_File *etfile_to_select)
 {
     GList *ArtistList;
@@ -2841,13 +2824,14 @@ GdkPixbuf *Pixmap_From_Directory_Permission (gchar *path)
  * The select function should return TRUE if the state of the node may be toggled,
  * and FALSE if the state of the node should be left unchanged.
  */
-gboolean Browser_List_Select_Func (GtkTreeSelection *selection, GtkTreeModel *model, GtkTreePath *path, gboolean path_currently_selected, gpointer data)
+static gboolean
+Browser_List_Select_Func (GtkTreeSelection *selection, GtkTreeModel *model, GtkTreePath *path, gboolean path_currently_selected, gpointer data)
 {
-    // This line will be selected at the end of the event.
-    // We store the last ETFile selected, as gtk_tree_selection_get_selected_rows
-    // returns the selection, in the ascending line order, instead of the real
-    // order of line selection (so we can't displayed the last selected file)
-    // FIXME : should generate a list to get the previous selected file if unselected the last selected file
+    /* This line will be selected at the end of the event.
+     * We store the last ETFile selected, as gtk_tree_selection_get_selected_rows
+     * returns the selection, in the ascending line order, instead of the real
+     * order of line selection (so we can't displayed the last selected file)
+     * FIXME : should generate a list to get the previous selected file if unselected the last selected file */
     if (!path_currently_selected)
     {
         GtkTreeIter iter;

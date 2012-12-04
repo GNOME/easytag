@@ -23,7 +23,6 @@ easytag_SOURCES = \
 	src/libapetag/info_mpc.c \
 	src/libmpg123/common.c \
 	src/libmpg123/dxhead.c \
-	src/libmpg123/getbits.c \
 	src/libmpg123/layer1.c \
 	src/libmpg123/layer2.c \
 	src/libmpg123/layer3.c \

@@ -38,6 +38,7 @@
 
 #include "easytag.h"
 #include "et_core.h"
+#include "flac_header.h"
 #include "log.h"
 #include "misc.h"
 #include "charset.h"

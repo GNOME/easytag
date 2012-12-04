@@ -24,33 +24,6 @@
 #include "crc32.h"
 
 /*
- * Initial crc32 function
- * This function was renamed from crc32(...) to crc32_easytag(...) to avoid a
- * strange problem with some gtk theme that may use the same name of function.
- */
-int crc32_easytag(register int fd, unsigned long *main_val)
-{
-    char          buf[BUFFERSIZE], *p;
-    int           nr;
-    unsigned long crc = ~0, crc32_total = ~0;
-
-    while ((nr = read(fd, &buf, sizeof(buf))) > 0)
-        for (p = buf; nr--; ++p)
-        {
-            crc = (crc >> 8) ^ crctable[(crc ^ *p) & 0xff];
-            crc32_total = (crc >> 8) ^ crctable[(crc32_total ^ *p) & 0xff];
-        }
-    if (nr < 0)
-        return 1;
-
-    *main_val = ~crc;
-
-    return 0;
-}
-
-
-
-/*
  * Calculate the CRC-32 value of audio data (doesn't read the ID3v2 and ID3v1 tags).
  * Return 0 if OK
  */

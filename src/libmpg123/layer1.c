@@ -15,7 +15,8 @@
 /* Used by the getbits macros */
 static unsigned long rval;
 
-void I_step_one(unsigned int balloc[], unsigned int scale_index[2][SBLIMIT], struct frame *fr)
+static void
+I_step_one (unsigned int balloc[], unsigned int scale_index[2][SBLIMIT], struct frame *fr)
 {
 	unsigned int *ba = balloc;
 	unsigned int *sca = (unsigned int *) scale_index;
@@ -62,7 +63,8 @@ void I_step_one(unsigned int balloc[], unsigned int scale_index[2][SBLIMIT], str
 	}
 }
 
-void I_step_two(real fraction[2][SBLIMIT], unsigned int balloc[2 * SBLIMIT],
+static void
+I_step_two (real fraction[2][SBLIMIT], unsigned int balloc[2 * SBLIMIT],
 		unsigned int scale_index[2][SBLIMIT], struct frame *fr)
 {
 	int i, n;

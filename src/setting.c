@@ -984,7 +984,8 @@ void Save_Config_To_File (void)
  * Parse lines read (line as <var_description>=<value>) and load the values
  * into the corresponding config variables.
  */
-void Set_Config (gchar *line)
+static void
+Set_Config (gchar *line)
 {
     gchar *var_descriptor;
     gchar *var_value;
@@ -1204,7 +1205,8 @@ gboolean Setting_Create_Files (void)
 /*
  * Save the contents of a list store to a file
  */
-void Save_List_Store_To_File (const gchar *filename, GtkListStore *liststore, gint colnum)
+static void
+Save_List_Store_To_File (const gchar *filename, GtkListStore *liststore, gint colnum)
 {
     gchar *file_path = NULL;
     FILE *file;
@@ -1245,7 +1247,8 @@ void Save_List_Store_To_File (const gchar *filename, GtkListStore *liststore, gi
 /*
  * Populate a list store with data from a file passed in as first parameter
  */
-gboolean Populate_List_Store_From_File (const gchar *filename, GtkListStore *liststore, gint text_column)
+static gboolean
+Populate_List_Store_From_File (const gchar *filename, GtkListStore *liststore, gint text_column)
 {
 
     gchar *file_path = NULL;
