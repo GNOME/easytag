@@ -1,45 +1,30 @@
-This version of EasyTag is maintained in a git repository on github as
-the project never had a publicly accessible version control
-repository. The initial repository was created from a number of
-publicly available tarballs. You can find the current state of the
-repository at:
-
-    https://github.com/stsquad/easytag
-
-It is intended as a place where patches and pull requests can be
-processed until Jérôme starts making releases again (hopefully with a
-public repo). In the meantime patches that look sane and don't crash
-EasyTag it will be accepted by myself.
+Hacking on EasyTAG
+==================
 
 Contributing
-============
+------------
 
-My preferences for contributions are as follows:
+If you have a suggestion or found a bug, please either file a bug:
 
-1. Pull request on github
-2. Pull request from another git repository
-3. Patches
+https://bugzilla.gnome.org/enter_bug.cgi?product=easytag
 
-Patches are fine but GIT pull requests make it a lot easier to keep
-attribution correct and it makes my life easier ;-)
+or bring it up on the mailing list:
+
+easytag-list@gnome.org
+
+Patches are best filed on Bugzilla, but a pull request is also fine.
 
 Coding Style
-============
+------------
 
-I couldn't find any reference to the style to follow but running
-indent_finder.py suggests the code is currently:
+The original EasyTAG coding style was close to K&R style, with four-space
+indents. This has been changed slightly to the following guidelines:
 
-    No Tabs, Indent Level of 4 characters
+* BSD/Allman brace style
+* One space before opening bracket, none after opening or closing
+* Four space indent
+* Try to keep to 80 character lines
+* Space after ',', spaces around logical operators
+* Function return values on a line separate from the function name
 
-In Emacs the style can be set by the following:
-
-   (defconst easytag-c-style
-    '(
-       (indent-tabs-mode . nil)
-       (c-basic-offset . 4)
-       (c-comment-only-line-offset . 0))
-       "EasyTag Programming Style")
-
-       
-
-
+New code should follow this style.
