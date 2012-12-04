@@ -179,7 +179,10 @@ uninstall-update-icon-cache:
 	$(AM_V_at)$(POST_UNINSTALL)
 	test -n "$(DESTDIR)" || $(UPDATE_ICON_CACHE) "$(iconthemedir)"
 dist_doc_DATA = \
-	THANKS
+	HACKING \
+	THANKS \
+	TODO \
+	USERS-GUIDE
 
 dist_noinst_DATA = \
 	$(desktop_in_files) \
@@ -206,8 +209,6 @@ dist_noinst_DATA = \
 	\
 	easytag.spec \
 	easytag-win32-installer.nsi \
-	TODO \
-	USERS-GUIDE \
 	\
 	config.h.mingw \
 	Makefile.mingw \
