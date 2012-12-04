@@ -295,6 +295,7 @@ CLEANFILES = \
 	$(desktop_DATA)
 
 DISTCLEANFILES = \
+	$(man_MANS) \
 	intltool-extract \
 	intltool-merge \
 	intltool-update \

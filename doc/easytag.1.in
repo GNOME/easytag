@@ -12,14 +12,14 @@ easytag \- Tag editor for MP3 and Ogg Vorbis files
 
 .SH DESCRIPTION
 .B EasyTAG
-is an utility for viewing and editing tags for MP3, MP2, FLAC, Ogg Vorbis,
-MP4/AAC, MusePack and Monkey's Audio files. Its simple and nice GTK2 interface
-makes tagging easier under GNU/Linux.
+is a utility for viewing and editing tags for MP3, MP2, FLAC, Ogg Vorbis,
+MP4/AAC, MusePack and Monkey's Audio files. Its simple and nice GTK+ 2
+interface makes tagging easier under GNU/Linux.
 
 .SH OPTIONS
 .TP 
 .B \-\-help
-Display a short help
+Display some short help
 .TP 
 .B \-\-version
 Display version information
@@ -36,9 +36,8 @@ have come with the package in the file COPYING. You are
 encouraged to distribute copies of the Samba suite, but 
 please obey the terms of this license.
 .PP 
-The latest version of EasyTAG can be 
-obtained via the project's webpage 
-<URL: \fIhttp://easytag.sourceforge.net/\fR>
+The latest version of EasyTAG can be obtained via the project's webpage
+<URL: \fIhttp://projects.gnome.org/easytag/\fR>
 
 .SH FILES
 .PP 
