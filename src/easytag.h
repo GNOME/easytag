@@ -29,19 +29,7 @@
 #include "et_core.h"
 
 
-#define APPNAME            "EasyTAG"
-#define AUTHOR             "Jerome Couderc"    // Note: do not use accents
-#define EMAIL              "easytag-mailing@lists.sourceforge.net"
-#define WEBPAGE            "http://easytag.sourceforge.net"
-/*#define VERSION "0.15.1" //Now version is defined in ../configure.h.in */
-
 #define MAX_STRING_LEN     1024
-
-#if defined(__GNUC__) && (__GNUC__ > 2 || __GNUC__ == 2 && __GNUC_MINOR__ >= 7)
-#  define ATTRIBUTE_UNUSED __attribute__((__unused__))
-#else
-#  define ATTRIBUTE_UNUSED
-#endif 
 
 
 /***************

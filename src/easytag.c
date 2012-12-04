@@ -247,9 +247,9 @@ int main (int argc, char *argv[])
     {
         if ( (strcmp(argv[1],"--version")==0) || (strcmp(argv[1],"-v")==0) ) // Query version
         {
-            g_print(_("%s %s by %s (compiled %s, %s)\n"),APPNAME,PACKAGE_VERSION,AUTHOR,__TIME__,__DATE__);
-            g_print(_("Email: %s"),EMAIL"\n");
-            g_print(_("Web Page: %s"),PACKAGE_URL"\n");
+            g_print (_("%s %s (compiled %s, %s)\n"), PACKAGE_NAME,
+	             PACKAGE_VERSION, __TIME__, __DATE__);
+            g_print (_("Website: %s"), PACKAGE_URL"\n");
             exit (0);
         }else if ( (strcmp(argv[1],"--help")==0) || (strcmp(argv[1],"-h")==0) ) // Query help
         {
@@ -346,7 +346,8 @@ int main (int argc, char *argv[])
 
     /* The main window */
     MainWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW(MainWindow),APPNAME" "PACKAGE_VERSION);
+    gtk_window_set_title (GTK_WINDOW (MainWindow),
+                          PACKAGE_NAME " " PACKAGE_VERSION);
     // This part is needed to set correctly the position of handle panes
     gtk_window_set_default_size(GTK_WINDOW(MainWindow),MAIN_WINDOW_WIDTH,MAIN_WINDOW_HEIGHT);
 
