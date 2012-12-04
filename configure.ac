@@ -186,7 +186,8 @@ AS_IF([test "x$have_mp3" = "xyes" -a "x$enable_id3v23" != "xno"],
 
        AC_SUBST([ID3LIB_LIBS], [$ac_cv_search_ID3Tag_Link])
        AC_DEFINE([ENABLE_ID3LIB], [], [Define for ID3v2.3 support])
-       ID3LIB_VERSION="(id3lib-$ID3LIB_MAJOR.$ID3LIB_MINOR.$ID3LIB_PATCH)"])
+       ID3LIB_VERSION="(id3lib-$ID3LIB_MAJOR.$ID3LIB_MINOR.$ID3LIB_PATCH)"],
+      [have_id3lib=no])
 
 
 dnl ################################################
@@ -289,7 +290,7 @@ echo Compiler warnings .......: $WARN_CFLAGS
 echo Linker ..................: $CC $LDFLAGS $LIBS
 echo GTK version .............: `$PKG_CONFIG --modversion $GTK_DEPS`
 echo MP3 file support ........: $have_mp3
-echo ID3v2.3 tags support ....: $have_id3v23 $ID3LIB_VERSION
+echo ID3v2.3 tags support ....: $have_id3lib $ID3LIB_VERSION
 echo Ogg Vorbis file support .: $have_ogg
 echo Ogg Speex file support ..: $have_speex
 echo FLAC file support .......: $have_flac
