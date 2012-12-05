@@ -888,7 +888,7 @@ void Cddb_Window_Apply_Changes (void)
         gint x, y, width, height;
         GdkWindow *window;
 
-        gtk_widget_get_window(CddbWindow);
+        window = gtk_widget_get_window(CddbWindow);
 
         if ( window && gdk_window_is_visible(window) && gdk_window_get_state(window)!=GDK_WINDOW_STATE_MAXIMIZED )
         {
