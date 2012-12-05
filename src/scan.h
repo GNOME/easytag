@@ -50,12 +50,8 @@ enum {
  * Prototypes *
  **************/
 
-void   Scan_Tag_With_Mask                   (ET_File *ETFile);
-void   Scan_Rename_File_With_Mask           (ET_File *ETFile);
-void   Scan_Process_Fields                  (ET_File *ETFile);
 void   Scan_Select_Mode_And_Run_Scanner     (ET_File *ETFile);
 gchar *Scan_Generate_New_Filename_From_Mask       (ET_File *ETFile, gchar *mask, gboolean no_dir_check_or_conversion);
-GList *Scan_Generate_New_Tag_From_Mask            (ET_File *ETFile, gchar *mask);
 gchar *Scan_Generate_New_Directory_Name_From_Mask (ET_File *ETFile, gchar *mask, gboolean no_dir_check_or_conversion);
 void   Scan_Rename_File_Generate_Preview      (void);
 void   Scan_Fill_Tag_Generate_Preview         (void);
@@ -78,13 +74,10 @@ void Scan_Process_Fields_Keep_One_Space          (gchar *string);
 void Scan_Convert_Underscore_Into_Space (gchar *string);
 void Scan_Convert_P20_Into_Space        (gchar *string);
 void Scan_Convert_Space_Into_Undescore  (gchar *string);
-void Scan_Convert_Character             (gchar **string);
 void Scan_Remove_Spaces                 (gchar *string);
 
 void Init_ScannerWindow (void);
 void Open_ScannerWindow (gint scanner_type);
 void ScannerWindow_Apply_Changes (void);
-
-void Scan_Set_Scanner_Window_Init_Position (void);
 
 #endif /* __SCAN_H__ */

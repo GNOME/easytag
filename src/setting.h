@@ -312,15 +312,10 @@ gint    OPTIONS_WINDOW_WIDTH;
 
 void Init_Config_Variables (void);
 void Read_Config           (void);
-void Display_Config        (void);
 
-void Apply_Changes_Of_Preferences_Window (void);
-void Apply_Changes_Of_UI                 (void);
 void Save_Changes_Of_Preferences_Window  (void);
 void Save_Changes_Of_UI                  (void);
-void Save_Config_To_File                 (void);
 
-gboolean Create_Easytag_Directory (void);
 gboolean Setting_Create_Files     (void);
 
 

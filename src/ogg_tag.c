@@ -108,7 +108,7 @@
 /**************
  * Prototypes *
  **************/
-gboolean Ogg_Tag_Write_File (FILE *file_in, gchar *filename_in, vcedit_state *state);
+static gboolean Ogg_Tag_Write_File (FILE *file_in, gchar *filename_in, vcedit_state *state);
 
 static gboolean Ogg_Write_Delimetered_Tag (vorbis_comment *vc, const gchar *tag_name, gchar *values);
 static gboolean Ogg_Write_Tag (vorbis_comment *vc, const gchar *tag_name, gchar *value);
@@ -865,7 +865,8 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
 /* 
  * Write tag information to a new temporary file, and rename it the the initial name.
  */
-gboolean Ogg_Tag_Write_File (FILE *file_in, gchar *filename_in, vcedit_state *state)
+static gboolean
+Ogg_Tag_Write_File (FILE *file_in, gchar *filename_in, vcedit_state *state)
 {
     gchar *filename_out;
     gint   file_mkstemp;

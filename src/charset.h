@@ -52,7 +52,6 @@ gchar *convert_string_1 (const gchar *string, gssize length, const gchar *from_c
 
 /* Used for Ogg Vorbis and FLAC tags */
 gchar *convert_to_utf8   (const gchar *string);
-gchar *convert_from_utf8 (const gchar *string);
 
 gchar *filename_to_display   (const gchar *string);
 gchar *filename_from_display (const gchar *string);
@@ -61,9 +60,7 @@ gchar *Try_To_Validate_Utf8_String (const gchar *string);
 
 void   Charset_Populate_Combobox   (GtkComboBox *combo, gchar *select_charset);
 gchar *Charset_Get_Name_From_Title (const gchar *charset_title);
-gchar *Charset_Get_Title_From_Name (gchar *charset_name);
 
-gboolean test_conversion_charset (const gchar *from, const gchar *to);
 
 void Charset_Insert_Locales_Init    (void);
 void Charset_Insert_Locales_Destroy (void);

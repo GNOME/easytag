@@ -58,7 +58,7 @@ void Tag_Area_Picture_Drag_Data (GtkWidget *widget, GdkDragContext *dc,
                                  gint x, gint y, GtkSelectionData *selection_data,
                                  guint info, guint t, gpointer data);
 void Picture_Selection_Changed_cb (GtkTreeSelection *selection, gpointer data);
-void Picture_Load_Filename (gchar *filename, gpointer user_data);
+static void Picture_Load_Filename (gchar *filename, gpointer user_data);
 
 void Picture_Add_Button_Clicked         (GObject *object);
 void Picture_Properties_Button_Clicked  (GObject *object);
@@ -66,9 +66,9 @@ void Picture_Save_Button_Clicked        (GObject *object);
 void Picture_Clear_Button_Clicked       (GObject *object);
 
 Picture_Format Picture_Format_From_Data (Picture *pic);
-const gchar   *Picture_Format_String    (Picture_Format format);
-const gchar   *Picture_Type_String      (Picture_Type type);
-gchar         *Picture_Info             (Picture *pic);
+static const gchar *Picture_Format_String (Picture_Format format);
+static const gchar *Picture_Type_String (Picture_Type type);
+static gchar *Picture_Info (Picture *pic);
 void           PictureEntry_Clear       (void);
 void           PictureEntry_Update      (Picture *pic, gboolean select_it);
 
@@ -76,8 +76,9 @@ Picture *Picture_Allocate (void);
 Picture *Picture_Copy_One (const Picture *pic);
 Picture *Picture_Copy     (const Picture *pic);
 void     Picture_Free     (Picture *pic);
-Picture *Picture_Load_File_Data (const gchar *filename);
-gboolean Picture_Save_File_Data (const Picture *pic, const gchar *filename);
+static Picture *Picture_Load_File_Data (const gchar *filename);
+static gboolean Picture_Save_File_Data (const Picture *pic,
+                                        const gchar *filename);
 
 gboolean Picture_Entry_View_Button_Pressed (GtkTreeView *treeview, GdkEventButton *event, gpointer data);
 gboolean Picture_Entry_View_Key_Pressed    (GtkTreeView *treeview, GdkEvent *event, gpointer data);
@@ -199,7 +200,8 @@ void Picture_Clear_Button_Clicked (GObject *object)
 /*
  * - 'filename' : path + filename of picture file
  */
-void Picture_Load_Filename (gchar *filename, gpointer user_data)
+static void
+Picture_Load_Filename (gchar *filename, gpointer user_data)
 {
     Picture *pic;
     gchar *filename_utf8;
@@ -791,7 +793,8 @@ const gchar *Picture_Mime_Type_String (Picture_Format format)
 }
 
 
-const gchar *Picture_Format_String (Picture_Format format)
+static const gchar *
+Picture_Format_String (Picture_Format format)
 {
     switch (format)
     {
@@ -804,7 +807,8 @@ const gchar *Picture_Format_String (Picture_Format format)
     }
 }
 
-const gchar *Picture_Type_String (Picture_Type type)
+static const gchar *
+Picture_Type_String (Picture_Type type)
 {
     switch (type)
     {
@@ -857,7 +861,8 @@ const gchar *Picture_Type_String (Picture_Type type)
     }
 }
 
-gchar *Picture_Info (Picture *pic)
+static gchar *
+Picture_Info (Picture *pic)
 {
     const gchar *format, *desc, *type;
     gchar *r, *size_str;
@@ -1090,9 +1095,11 @@ void Picture_Free (Picture *pic)
  * file system encoding, not UTF-8)
  */
 #ifdef WIN32
-Picture *Picture_Load_File_Data (const gchar *filename_utf8)
+static Picture *
+Picture_Load_File_Data (const gchar *filename_utf8)
 #else
-Picture *Picture_Load_File_Data (const gchar *filename)
+static Picture *
+Picture_Load_File_Data (const gchar *filename)
 #endif
 {
     Picture *pic;
@@ -1177,7 +1184,8 @@ Picture *Picture_Load_File_Data (const gchar *filename)
 /*
  * Save picture data to a file (jpeg, png)
  */
-gboolean Picture_Save_File_Data (const Picture *pic, const gchar *filename)
+static gboolean
+Picture_Save_File_Data (const Picture *pic, const gchar *filename)
 {
     gint fd;
 

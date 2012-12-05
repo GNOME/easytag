@@ -82,12 +82,10 @@ gchar *Check_If_Executable_Exists (const gchar *program);
 
 // Mouse cursor
 void Init_Mouse_Cursor    (void);
-void Destroy_Mouse_Cursor (void);
 void Set_Busy_Cursor      (void);
 void Set_Unbusy_Cursor    (void);
 
 // Run Audio Player
-void Run_Audio_Player_Using_File_List (GList *etfilelist);
 void Run_Audio_Player_Using_Directory (void);
 void Run_Audio_Player_Using_Selection (void);
 void Run_Audio_Player_Using_Browser_Artist_List (void);
@@ -97,7 +95,7 @@ gchar *Convert_Size     (gfloat size);
 gchar *Convert_Size_1   (gfloat size);
 gchar *Convert_Duration (gulong duration);
 
-gulong Get_File_Size (gchar *filename);
+gulong Get_File_Size (const gchar *filename);
 
 void Strip_String (gchar *string);
 gint Combo_Alphabetic_Sort (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, gpointer data);

@@ -163,9 +163,7 @@ GtkWidget *Create_Status_Bar   (void);
 void       Statusbar_Message   (gchar *message, gint with_timer);
 GtkWidget *Create_Progress_Bar (void);
 
-void Check_Menu_Item_Toggled_Browse_Subdir (GtkWidget *checkmenuitem);
 void Check_Menu_Item_Update_Browse_Subdir  (void);
-void Check_Menu_Item_Toggled_Browse_Hidden_Dir (GtkWidget *checkmenuitem);
 void Check_Menu_Item_Update_Browse_Hidden_Dir  (void);
 
 #endif /* __BAR_H__ */

@@ -51,24 +51,24 @@
  * Prototypes *
  **************/
 /* Options window */
-void OptionsWindow_Quit          (void);
-void OptionsWindow_Apply_Button  (void);
-void OptionsWindow_Save_Button   (void);
-void OptionsWindow_Cancel_Button (void);
-gboolean OptionsWindow_Key_Press (GtkWidget *window, GdkEvent *event);
-static gboolean Check_Config     (void);
+static void OptionsWindow_Quit (void);
+static void OptionsWindow_Save_Button (void);
+static void OptionsWindow_Cancel_Button (void);
+static gboolean OptionsWindow_Key_Press (GtkWidget *window, GdkEvent *event);
+static gboolean Check_Config (void);
 
-void Set_Default_Comment_Check_Button_Toggled  (void);
-void Number_Track_Formated_Toggled             (void);
-void Number_Track_Formated_Spin_Button_Changed (GtkWidget *Label, GtkWidget *SpinButton);
-void Change_Id3_Settings_Toggled               (void);
-void File_Writing_Id3v2_Write_Tag_Toggled      (void);
-void Use_Non_Standard_Id3_Reading_Character_Set_Toggled (void);
-void Scanner_Convert_Check_Button_Toggled_1    (GtkWidget *object_rec, GtkWidget *object_emi);
-void Cddb_Use_Proxy_Toggled                    (void);
+static void Set_Default_Comment_Check_Button_Toggled (void);
+static void Number_Track_Formatted_Toggled (void);
+static void Number_Track_Formatted_Spin_Button_Changed (GtkWidget *Label,
+                                                        GtkWidget *SpinButton);
+static void Change_Id3_Settings_Toggled (void);
+static void Use_Non_Standard_Id3_Reading_Character_Set_Toggled (void);
+static void Scanner_Convert_Check_Button_Toggled_1 (GtkWidget *object_rec,
+                                                    GtkWidget *object_emi);
+static void Cddb_Use_Proxy_Toggled (void);
 
-void DefaultPathToMp3_Combo_Add_String         (void);
-void CddbLocalPath_Combo_Add_String            (void);
+static void DefaultPathToMp3_Combo_Add_String (void);
+static void CddbLocalPath_Combo_Add_String (void);
 
 
 
@@ -430,9 +430,9 @@ void Open_OptionsWindow (void)
     LogMaxLinesSpinButton = gtk_spin_button_new_with_range(10.0,1500.0,10.0);
     gtk_box_pack_start(GTK_BOX(hbox),LogMaxLinesSpinButton,FALSE,FALSE,0);
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(LogMaxLinesSpinButton),(gfloat)LOG_MAX_LINES);
-    //g_signal_connect(G_OBJECT(NumberTrackFormated),"toggled",G_CALLBACK(Number_Track_Formated_Toggled),NULL);
-    //g_signal_emit_by_name(G_OBJECT(NumberTrackFormated),"toggled");
-/*    gtk_tooltips_set_tip(Tips,GTK_BIN(FilePlayerCombo)->child,_("Enter the program used to "
+    /* g_signal_connect(G_OBJECT(NumberTrackFormated),"toggled",G_CALLBACK(Number_Track_Formatted_Toggled),NULL);
+     * g_signal_emit_by_name(G_OBJECT(NumberTrackFormated),"toggled");
+       gtk_tooltips_set_tip(Tips,GTK_BIN(FilePlayerCombo)->child,_("Enter the program used to "
         "play the files. Some arguments can be passed for the program (as 'xmms -p') before "
         "to receive files as other arguments."),NULL);
 */
@@ -603,12 +603,12 @@ void Open_OptionsWindow (void)
     NumberTrackFormatedSpinButton = gtk_spin_button_new_with_range(2.0,6.0,1.0);
     gtk_box_pack_start(GTK_BOX(hbox),NumberTrackFormatedSpinButton,FALSE,FALSE,0);
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(NumberTrackFormatedSpinButton),(gfloat)NUMBER_TRACK_FORMATED_SPIN_BUTTON);
-    g_signal_connect(G_OBJECT(NumberTrackFormated),"toggled",G_CALLBACK(Number_Track_Formated_Toggled),NULL);
+    g_signal_connect(G_OBJECT(NumberTrackFormated),"toggled",G_CALLBACK(Number_Track_Formatted_Toggled),NULL);
     g_signal_emit_by_name(G_OBJECT(NumberTrackFormated),"toggled");
 
     Label = gtk_label_new(""); // Label to show the example
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,4);
-    g_signal_connect_swapped(G_OBJECT(NumberTrackFormatedSpinButton),"changed",G_CALLBACK(Number_Track_Formated_Spin_Button_Changed),G_OBJECT(Label));
+    g_signal_connect_swapped(G_OBJECT(NumberTrackFormatedSpinButton),"changed",G_CALLBACK(Number_Track_Formatted_Spin_Button_Changed),G_OBJECT(Label));
     g_signal_emit_by_name(G_OBJECT(NumberTrackFormatedSpinButton),"changed",NULL);
 
     OggTagWriteXmmsComment = gtk_check_button_new_with_label(_("Ogg Vorbis Files: write also the comment in the XMMS format"));
@@ -1464,10 +1464,6 @@ void Open_OptionsWindow (void)
 
     /* Apply Button */
     Button = gtk_button_new_from_stock(GTK_STOCK_APPLY);
-    // Disable temporarily the apply button
-    ////gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
-    ////g_signal_connect(G_OBJECT(Button),"clicked",G_CALLBACK(OptionsWindow_Apply_Button),NULL);
-    ////GTK_WIDGET_SET_FLAGS(Button, GTK_CAN_DEFAULT);
     gtk_widget_set_tooltip_text(Button,_("Apply changes (but don't save) and close this window"));
 
 
@@ -1495,19 +1491,21 @@ void Open_OptionsWindow (void)
 }
 
 
-void Set_Default_Comment_Check_Button_Toggled (void)
+static void Set_Default_Comment_Check_Button_Toggled (void)
 {
     gtk_widget_set_sensitive(DefaultComment,gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(SetDefaultComment)));
 }
 
-void Number_Track_Formated_Toggled (void)
+void Number_Track_Formatted_Toggled (void)
 {
     gtk_widget_set_sensitive(NumberTrackFormatedSpinButton,gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(NumberTrackFormated)));
     // To update the example...
     g_signal_emit_by_name(G_OBJECT(NumberTrackFormatedSpinButton),"changed",NULL);
 }
 
-void Number_Track_Formated_Spin_Button_Changed (GtkWidget *Label, GtkWidget *SpinButton)
+static void
+Number_Track_Formatted_Spin_Button_Changed (GtkWidget *Label,
+                                            GtkWidget *SpinButton)
 {
     gchar *tmp;
     gint val;
@@ -1524,13 +1522,15 @@ void Number_Track_Formated_Spin_Button_Changed (GtkWidget *Label, GtkWidget *Spi
     g_free(tmp);
 }
 
-void Use_Non_Standard_Id3_Reading_Character_Set_Toggled (void)
+static void
+Use_Non_Standard_Id3_Reading_Character_Set_Toggled (void)
 {
     gtk_widget_set_sensitive(FileReadingId3v1v2CharacterSetCombo,
         gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(UseNonStandardId3ReadingCharacterSet)));
 }
 
-void Change_Id3_Settings_Toggled (void)
+static void
+Change_Id3_Settings_Toggled (void)
 {
     int active;
 
@@ -1630,7 +1630,8 @@ void Change_Id3_Settings_Toggled (void)
     gtk_widget_set_sensitive(FileWritingId3v1IconvOptionsIgnore, active);
 }
 
-void Cddb_Use_Proxy_Toggled (void)
+static void
+Cddb_Use_Proxy_Toggled (void)
 {
     gboolean active;
 
@@ -1642,7 +1643,8 @@ void Cddb_Use_Proxy_Toggled (void)
 }
 
 /* Callback from Open_OptionsWindow */
-gboolean OptionsWindow_Key_Press (GtkWidget *window, GdkEvent *event)
+static gboolean
+OptionsWindow_Key_Press (GtkWidget *window, GdkEvent *event)
 {
     GdkEventKey *kevent;
 
@@ -1662,26 +1664,8 @@ gboolean OptionsWindow_Key_Press (GtkWidget *window, GdkEvent *event)
 }
 
 /* Callback from Open_OptionsWindow */
-void OptionsWindow_Apply_Button(void)
-{
-    if (!Check_Config()) return;
-
-#ifndef WIN32
-    /* FIXME : make gtk crash on win32 */
-    Add_String_To_Combo_List(DefaultPathModel,    gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3)))));
-    Add_String_To_Combo_List(FilePlayerModel,     gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)))));
-    Add_String_To_Combo_List(DefaultCommentModel, gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultComment)))));
-    Add_String_To_Combo_List(CddbLocalPathModel,  gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbLocalPath)))));
-#endif
-
-    Apply_Changes_Of_Preferences_Window();
-
-    OptionsWindow_Quit();
-    Statusbar_Message(_("Changes applied"),TRUE);
-}
-
-/* Callback from Open_OptionsWindow */
-void OptionsWindow_Save_Button(void)
+static void
+OptionsWindow_Save_Button (void)
 {
     if (!Check_Config()) return;
 
@@ -1700,14 +1684,16 @@ void OptionsWindow_Save_Button(void)
 }
 
 /* Callback from Open_OptionsWindow */
-void OptionsWindow_Cancel_Button(void)
+static void
+OptionsWindow_Cancel_Button (void)
 {
     OptionsWindow_Quit();
     Statusbar_Message(_("Configuration unchanged"),TRUE);
 }
 
 /* Callback from Open_OptionsWindow */
-void OptionsWindow_Quit(void)
+static void
+OptionsWindow_Quit (void)
 {
     if (OptionsWindow)
     {
@@ -1954,16 +1940,18 @@ Check_Config (void)
  * Manage Check buttons into Scanner tab: conversion group
  * This reproduces "something" like the behaviour of radio buttons with check buttons
  */
-void Scanner_Convert_Check_Button_Toggled_1 (GtkWidget *object_rec, GtkWidget *object_emi)
+static void
+Scanner_Convert_Check_Button_Toggled_1 (GtkWidget *object_rec,
+                                        GtkWidget *object_emi)
 {
     if (!object_rec || !object_emi) return;
 
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(object_emi)) == TRUE)
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(object_rec),!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(object_emi)));
-
 }
 
-void DefaultPathToMp3_Combo_Add_String (void)
+static void
+DefaultPathToMp3_Combo_Add_String (void)
 {
     const gchar *path;
 
@@ -1971,7 +1959,8 @@ void DefaultPathToMp3_Combo_Add_String (void)
     Add_String_To_Combo_List(GTK_LIST_STORE(DefaultPathModel), path);
 }
 
-void CddbLocalPath_Combo_Add_String (void)
+static void
+CddbLocalPath_Combo_Add_String (void)
 {
     const gchar *path;
 

@@ -5,8 +5,8 @@
 
 #include "dlm.h"
 
-int dlm_cost    (const gchar, const gchar);
-int dlm_minimum (int a, int b, int c, int d);
+static int dlm_cost    (const gchar, const gchar);
+static int dlm_minimum (int a, int b, int c, int d);
 
 /*
  * Compute the Damerau-Levenshtein Distance between utf-8 strings ds and dt.
@@ -67,13 +67,15 @@ int dlm (const gchar *ds, const gchar *dt)
 }
 
 /* "Cost" of changing from a to b. */
-int dlm_cost (const char a, const char b)
+static int
+dlm_cost (const char a, const char b)
 {
     return a == b ? 0 : 1;
 }
 
 /* Return the smallest of four integers. */
-int dlm_minimum (int a, int b, int c, int d)
+static int
+dlm_minimum (int a, int b, int c, int d)
 {
     int min = a;
     if (b < min)

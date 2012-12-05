@@ -150,40 +150,49 @@ enum
  * Prototypes *
  **************/
 void     Open_Write_Playlist_Window      (void);
-gboolean Write_Playlist_Window_Key_Press (GtkWidget *window, GdkEvent *event);
-void     Destroy_Write_Playlist_Window   (void);
-void     Playlist_Write_Button_Pressed   (void);
-gboolean Write_Playlist                  (gchar *play_list_name);
-gboolean Playlist_Check_Content_Mask     (GtkWidget *widget_to_show_hide, GtkEntry *widget_source);
-void     Playlist_Convert_Forwardslash_Into_Backslash (gchar *string);
+static gboolean Write_Playlist_Window_Key_Press (GtkWidget *window,
+                                                 GdkEvent *event);
+static void Destroy_Write_Playlist_Window (void);
+static void Playlist_Write_Button_Pressed (void);
+static gboolean Write_Playlist (const gchar *play_list_name);
+static gboolean Playlist_Check_Content_Mask (GtkWidget *widget_to_show_hide,
+                                             GtkEntry *widget_source);
+static void Playlist_Convert_Forwardslash_Into_Backslash (const gchar *string);
 
 void Open_Search_File_Window          (void);
-void Destroy_Search_File_Window       (void);
-gboolean Search_File_Window_Key_Press (GtkWidget *window, GdkEvent *event);
-void Search_File                      (GtkWidget *search_button);
-void Add_Row_To_Search_Result_List    (ET_File *ETFile,const gchar *string_to_search);
-void Search_Result_List_Row_Selected  (GtkTreeSelection* selection, gpointer data);
+static void Destroy_Search_File_Window (void);
+static gboolean Search_File_Window_Key_Press (GtkWidget *window,
+                                              GdkEvent *event);
+static void Search_File (GtkWidget *search_button);
+static void Add_Row_To_Search_Result_List (ET_File *ETFile,
+                                           const gchar *string_to_search);
+static void Search_Result_List_Row_Selected (GtkTreeSelection* selection,
+                                             gpointer data);
 
 void Open_Load_Filename_Window      (void);
-void Destroy_Load_Filename_Window   (void);
-gboolean Load_Filename_Window_Key_Press (GtkWidget *window, GdkEvent *event);
-void Load_Filename_List_Key_Press   (GtkWidget *clist, GdkEvent *event);
-void Load_File_Content              (GtkWidget *file_entry);
-void Load_File_List                 (void);
-void Load_Filename_Select_Row_In_Other_List (GtkWidget *target, gpointer selection_emit);
-void Load_Filename_Set_Filenames            (void);
-void Button_Load_Set_Sensivity              (GtkWidget *button, GtkWidget *entry);
-GtkWidget *Create_Load_Filename_Popup_Menu     (GtkWidget *list);
-void Load_Filename_List_Insert_Blank_Line      (GtkWidget *list);
-void Load_Filename_List_Delete_Line            (GtkWidget *list);
-void Load_Filename_List_Move_Up                (GtkWidget *list);
-void Load_Filename_List_Move_Down              (GtkWidget *list);
-void Load_Filename_List_Delete_All_Blank_Lines (GtkWidget *list);
-void Load_Filename_List_Reload                 (GtkWidget *list);
-void Load_Filename_Update_Text_Line            (GtkWidget *entry, GtkWidget *list);
-void Load_Filename_Edit_Text_Line              (GtkTreeSelection *selection, gpointer data);
+static void Destroy_Load_Filename_Window (void);
+static gboolean Load_Filename_Window_Key_Press (GtkWidget *window,
+                                                GdkEvent *event);
+static void Load_Filename_List_Key_Press (GtkWidget *clist, GdkEvent *event);
+static void Load_File_Content (GtkWidget *file_entry);
+static void Load_File_List (void);
+static void Load_Filename_Select_Row_In_Other_List (GtkWidget *target,
+                                                    gpointer selection_emit);
+static void Load_Filename_Set_Filenames (void);
+static void Button_Load_Set_Sensivity (GtkWidget *button, GtkWidget *entry);
+static GtkWidget *Create_Load_Filename_Popup_Menu (GtkWidget *list);
+static void Load_Filename_List_Insert_Blank_Line (GtkWidget *list);
+static void Load_Filename_List_Delete_Line (GtkWidget *list);
+static void Load_Filename_List_Move_Up (GtkWidget *list);
+static void Load_Filename_List_Move_Down (GtkWidget *list);
+static void Load_Filename_List_Delete_All_Blank_Lines (GtkWidget *list);
+static void Load_Filename_List_Reload (GtkWidget *list);
+static void Load_Filename_Update_Text_Line (GtkWidget *entry, GtkWidget *list);
+static void Load_Filename_Edit_Text_Line (GtkTreeSelection *selection,
+                                          gpointer data);
 
-void Create_Xpm_Icon_Factory (const char **xpm_data, const char *name_in_factory);
+static void Create_Xpm_Icon_Factory (const char **xpm_data,
+                                     const char *name_in_factory);
 void Create_Png_Icon_Factory (const char *png_file, const char *name_in_factory);
 
 /* Browser */
@@ -559,7 +568,8 @@ void Init_Mouse_Cursor (void)
     MouseCursor = NULL;
 }
 
-void Destroy_Mouse_Cursor (void)
+static void
+Destroy_Mouse_Cursor (void)
 {
     if (MouseCursor)
     {
@@ -637,7 +647,8 @@ void Init_Custom_Icons (void)
  * Create an icon factory from the specified pixmap
  * Also add it to the GTK stock images
  */
-void Create_Xpm_Icon_Factory (const char **xpm_data, const char *name_in_factory)
+static void
+Create_Xpm_Icon_Factory (const char **xpm_data, const char *name_in_factory)
 {
     GtkIconSet      *icon;
     GtkIconFactory  *factory;
@@ -823,7 +834,8 @@ static void Open_File_Selection_Window (GtkWidget *entry, gchar *title, GtkFileC
 /*
  * Run the audio player and load files of the current dir
  */
-void Run_Audio_Player_Using_File_List (GList *etfilelist_init)
+static void
+Run_Audio_Player_Using_File_List (GList *etfilelist_init)
 {
     gchar  **argv;
     gint     argv_index = 0;
@@ -1178,7 +1190,8 @@ gchar *Convert_Duration (gulong duration)
 /*
  * Returns the size of a file in bytes
  */
-gulong Get_File_Size(gchar *filename)
+gulong
+Get_File_Size (const gchar *filename)
 {
     struct stat statbuf;
 
@@ -1429,7 +1442,8 @@ void Open_Write_Playlist_Window (void)
     g_signal_emit_by_name(G_OBJECT(gtk_bin_get_child(GTK_BIN(PlayListContentMaskCombo))),"changed");
 }
 
-void Destroy_Write_Playlist_Window (void)
+static void
+Destroy_Write_Playlist_Window (void)
 {
     if (WritePlaylistWindow)
     {
@@ -1506,7 +1520,8 @@ gboolean Write_Playlist_Window_Key_Press (GtkWidget *window, GdkEvent *event)
     return FALSE;
 }
 
-void Playlist_Write_Button_Pressed (void)
+static void
+Playlist_Write_Button_Pressed (void)
 {
     gchar *playlist_name = NULL;
     gchar *playlist_path_utf8;      // Path
@@ -1684,7 +1699,9 @@ void Playlist_Write_Button_Pressed (void)
     g_free(playlist_name);
 }
 
-gboolean Playlist_Check_Content_Mask (GtkWidget *widget_to_show_hide, GtkEntry *widget_source)
+static gboolean
+Playlist_Check_Content_Mask (GtkWidget *widget_to_show_hide,
+                             GtkEntry *widget_source)
 {
     gchar *tmp  = NULL;
     gchar *mask = NULL;
@@ -1731,7 +1748,8 @@ gboolean Playlist_Check_Content_Mask (GtkWidget *widget_to_show_hide, GtkEntry *
 /*
  * Function to replace UNIX ForwardSlash with a DOS BackSlash
  */
-void Playlist_Convert_Forwardslash_Into_Backslash (gchar *string)
+static void
+Playlist_Convert_Forwardslash_Into_Backslash (const gchar *string)
 {
     gchar *tmp;
 
@@ -1744,7 +1762,8 @@ void Playlist_Convert_Forwardslash_Into_Backslash (gchar *string)
  * Write a playlist
  *  - 'playlist_name' in file system encoding (not UTF-8)
  */
-gboolean Write_Playlist (gchar *playlist_name)
+static gboolean
+Write_Playlist (const gchar *playlist_name)
 {
     FILE  *file;
     ET_File *etfile;
@@ -2229,7 +2248,8 @@ void Open_Search_File_Window (void)
     //    gtk_window_set_position(GTK_WINDOW(SearchFileWindow), GTK_WIN_POS_CENTER_ON_PARENT); // Must use gtk_window_set_transient_for to work
 }
 
-void Destroy_Search_File_Window (void)
+static void
+Destroy_Search_File_Window (void)
 {
     if (SearchFileWindow)
     {
@@ -2273,7 +2293,8 @@ void Search_File_Window_Apply_Changes (void)
     }
 }
 
-gboolean Search_File_Window_Key_Press (GtkWidget *window, GdkEvent *event)
+static gboolean
+Search_File_Window_Key_Press (GtkWidget *window, GdkEvent *event)
 {
     GdkEventKey *kevent;
 
@@ -2294,7 +2315,8 @@ gboolean Search_File_Window_Key_Press (GtkWidget *window, GdkEvent *event)
  * This function and the one below could do with improving
  * as we are looking up tag data twice (once when searching, once when adding to list)
  */
-void Search_File (GtkWidget *search_button)
+static void
+Search_File (GtkWidget *search_button)
 {
     const gchar *string_to_search = NULL;
     GList *etfilelist;
@@ -2461,7 +2483,8 @@ void Search_File (GtkWidget *search_button)
     }
 }
 
-void Add_Row_To_Search_Result_List(ET_File *ETFile,const gchar *string_to_search)
+static void
+Add_Row_To_Search_Result_List (ET_File *ETFile, const gchar *string_to_search)
 {
     gchar *SearchResultList_Text[15]; // Because : 15 columns to display
     gint SearchResultList_Weight[15] = {PANGO_WEIGHT_NORMAL, PANGO_WEIGHT_NORMAL,
@@ -2647,7 +2670,8 @@ void Add_Row_To_Search_Result_List(ET_File *ETFile,const gchar *string_to_search
  * Callback to select-row event
  * Select all results that are selected in the search result list also in the browser list
  */
-void Search_Result_List_Row_Selected(GtkTreeSelection *selection, gpointer data)
+static void
+Search_Result_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
 {
     GList       *selectedRows;
     GList       *selectedRowsCopy;
@@ -3032,7 +3056,8 @@ void Open_Load_Filename_Window (void)
         gtk_window_move(GTK_WINDOW(LoadFilenameWindow),LOAD_FILE_WINDOW_X,LOAD_FILE_WINDOW_Y);
 }
 
-void Destroy_Load_Filename_Window (void)
+static void
+Destroy_Load_Filename_Window (void)
 {
     if (LoadFilenameWindow)
     {
@@ -3074,7 +3099,8 @@ void Load_Filename_Window_Apply_Changes (void)
     }
 }
 
-gboolean Load_Filename_Window_Key_Press (GtkWidget *window, GdkEvent *event)
+static gboolean
+Load_Filename_Window_Key_Press (GtkWidget *window, GdkEvent *event)
 {
     GdkEventKey *kevent;
 
@@ -3094,7 +3120,8 @@ gboolean Load_Filename_Window_Key_Press (GtkWidget *window, GdkEvent *event)
 /*
  * To enable/disable sensivity of the button 'Load'
  */
-void Button_Load_Set_Sensivity (GtkWidget *button, GtkWidget *entry)
+static void
+Button_Load_Set_Sensivity (GtkWidget *button, GtkWidget *entry)
 {
     struct stat statbuf;
     gchar *path;
@@ -3111,7 +3138,8 @@ void Button_Load_Set_Sensivity (GtkWidget *button, GtkWidget *entry)
     g_free(path);
 }
 
-void Load_Filename_List_Key_Press (GtkWidget *treeview, GdkEvent *event)
+static void
+Load_Filename_List_Key_Press (GtkWidget *treeview, GdkEvent *event)
 {
     if (event && event->type == GDK_KEY_PRESS)
     {
@@ -3133,7 +3161,8 @@ void Load_Filename_List_Key_Press (GtkWidget *treeview, GdkEvent *event)
 /*
  * Load content of the file into the LoadFileContentList list
  */
-void Load_File_Content (GtkWidget *entry)
+static void
+Load_File_Content (GtkWidget *entry)
 {
     FILE *file;
     gchar *filename;
@@ -3190,7 +3219,8 @@ void Load_File_Content (GtkWidget *entry)
 /*
  * Load the names of the current list of files
  */
-void Load_File_List (void)
+static void
+Load_File_List (void)
 {
     GList *etfilelist;
     ET_File *etfile;
@@ -3219,7 +3249,8 @@ void Load_File_List (void)
 /*
  * To select the corresponding row in the other list
  */
-void Load_Filename_Select_Row_In_Other_List(GtkWidget* treeview_target, gpointer origselection)
+static void
+Load_Filename_Select_Row_In_Other_List (GtkWidget* treeview_target, gpointer origselection)
 {
     GtkAdjustment *ct_adj, *ce_adj;
     GtkTreeSelection *selection_orig;
@@ -3292,7 +3323,8 @@ void Load_Filename_Select_Row_In_Other_List(GtkWidget* treeview_target, gpointer
  * Set the new file name of each file.
  * Associate lines from LoadFileContentList with LoadFileNameList
  */
-void Load_Filename_Set_Filenames (void)
+static void
+Load_Filename_Set_Filenames (void)
 {
     gint row;
     ET_File   *ETFile;
@@ -3379,7 +3411,8 @@ Load_Filename_Popup_Menu_Handler (GtkMenu *menu, GdkEventButton *event)
     return FALSE;
 }
 
-GtkWidget *Create_Load_Filename_Popup_Menu(GtkWidget *list)
+static GtkWidget *
+Create_Load_Filename_Popup_Menu (GtkWidget *list)
 {
     GtkWidget *BrowserPopupMenu;
     GtkWidget *Image;
@@ -3439,7 +3472,8 @@ GtkWidget *Create_Load_Filename_Popup_Menu(GtkWidget *list)
 /*
  * Insert a blank line before the selected line in the treeview passed as parameter
  */
-void Load_Filename_List_Insert_Blank_Line (GtkWidget *treeview)
+static void
+Load_Filename_List_Insert_Blank_Line (GtkWidget *treeview)
 {
     GtkTreeSelection *selection;
     GtkTreeIter selectedIter;
@@ -3460,7 +3494,8 @@ void Load_Filename_List_Insert_Blank_Line (GtkWidget *treeview)
 /*
  * Delete all blank lines in the treeview passed as parameter
  */
-void Load_Filename_List_Delete_All_Blank_Lines (GtkWidget *treeview)
+static void
+Load_Filename_List_Delete_All_Blank_Lines (GtkWidget *treeview)
 {
     gchar *text = NULL;
     GtkTreeIter iter;
@@ -3495,7 +3530,8 @@ void Load_Filename_List_Delete_All_Blank_Lines (GtkWidget *treeview)
 /*
  * Delete the selected line in the treeview passed as parameter
  */
-void Load_Filename_List_Delete_Line (GtkWidget *treeview)
+static void
+Load_Filename_List_Delete_Line (GtkWidget *treeview)
 {
     GtkTreeSelection *selection;
     GtkTreeIter selectedIter, itercopy;
@@ -3525,7 +3561,8 @@ void Load_Filename_List_Delete_Line (GtkWidget *treeview)
 /*
  * Move up the selected line in the treeview passed as parameter
  */
-void Load_Filename_List_Move_Up (GtkWidget *treeview)
+static void
+Load_Filename_List_Move_Up (GtkWidget *treeview)
 {
     GtkTreeSelection *selection;
     GList *selectedRows;
@@ -3578,7 +3615,8 @@ void Load_Filename_List_Move_Up (GtkWidget *treeview)
 /*
  * Move down the selected line in the treeview passed as parameter
  */
-void Load_Filename_List_Move_Down (GtkWidget *treeview)
+static void
+Load_Filename_List_Move_Down (GtkWidget *treeview)
 {
     GtkTreeSelection *selection;
     GList *selectedRows;
@@ -3629,7 +3667,8 @@ void Load_Filename_List_Move_Down (GtkWidget *treeview)
  * Reload a list of choice
  * The list parameter refers to a GtkTreeView (LoadFileNameList or LoadFileContentList)
  */
-void Load_Filename_List_Reload (GtkWidget *treeview)
+static void
+Load_Filename_List_Reload (GtkWidget *treeview)
 {
     if (!treeview) return;
 
@@ -3646,7 +3685,8 @@ void Load_Filename_List_Reload (GtkWidget *treeview)
 /*
  * Update the text of the selected line into the list, with the text entered into the entry
  */
-void Load_Filename_Update_Text_Line(GtkWidget *entry, GtkWidget *list)
+static void
+Load_Filename_Update_Text_Line(GtkWidget *entry, GtkWidget *list)
 {
     GtkTreeIter SelectedRow;
     GtkTreeSelection *selection;
@@ -3667,7 +3707,8 @@ void Load_Filename_Update_Text_Line(GtkWidget *entry, GtkWidget *list)
 /*
  * Set the text of the selected line of the list into the entry
  */
-void Load_Filename_Edit_Text_Line(GtkTreeSelection *selection, gpointer data)
+static void
+Load_Filename_Edit_Text_Line(GtkTreeSelection *selection, gpointer data)
 {
     gchar *text;
     GtkTreeIter selectedIter;

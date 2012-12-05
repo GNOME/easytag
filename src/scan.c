@@ -220,56 +220,68 @@ struct _Scan_Mask_Item
 /**************
  * Prototypes *
  **************/
-void     ScannerWindow_Quit      (void);
-gboolean ScannerWindow_Key_Press (GtkWidget *window, GdkEvent *event);
-void     Scan_Toggle_Legend_Button      (void);
-void     Scan_Toggle_Mask_Editor_Button (void);
+static void Scan_Tag_With_Mask (ET_File *ETFile);
+static void ScannerWindow_Quit (void);
+static gboolean ScannerWindow_Key_Press (GtkWidget *window, GdkEvent *event);
+static void Scan_Toggle_Legend_Button (void);
+static void Scan_Toggle_Mask_Editor_Button (void);
 gchar   *Scan_Replace_String (gchar *string, gchar *last, gchar *new);
-void     Scan_Option_Button (void);
-gboolean Scan_Check_Scan_Tag_Mask    (GtkWidget *widget_to_show_hide, GtkEntry *widget_source);
+static void Scan_Option_Button (void);
+static gboolean Scan_Check_Scan_Tag_Mask (GtkWidget *widget_to_show_hide,
+                                          GtkEntry *widget_source);
 gboolean Scan_Check_Rename_File_Mask (GtkWidget *widget_to_show_hide, GtkEntry *widget_source);
-gboolean Scan_Check_Editor_Mask      (GtkWidget *widget_to_show_hide, GtkEntry *widget_source);
+static gboolean Scan_Check_Editor_Mask (GtkWidget *widget_to_show_hide,
+                                        GtkEntry *widget_source);
 
 gchar   *Scan_Generate_New_Filename_From_Mask (ET_File *ETFile, gchar *mask, gboolean no_dir_check_or_conversion);
-GList   *Scan_Generate_New_Tag_From_Mask      (ET_File *ETFile, gchar *mask);
+static GList *Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask);
 void     Scan_Rename_File_Generate_Preview    (void);
-void     Scan_Rename_File_Prefix_Path         (void);
+static void Scan_Rename_File_Prefix_Path (void);
 void     Scan_Fill_Tag_Generate_Preview       (void);
-void     Scan_Free_File_Rename_List           (GList *list);
-void     Scan_Free_File_Fill_Tag_List         (GList *list);
+static void Scan_Free_File_Rename_List (GList *list);
+static void Scan_Free_File_Fill_Tag_List (GList *list);
 void     Scan_Rename_Directory_Generate_Preview (void);
 
-gchar  **Scan_Return_File_Tag_Field_From_Mask_Code (File_Tag *FileTag, gchar code);
-void     Scan_Process_Fields_Functions (gchar **string);
+static gchar **Scan_Return_File_Tag_Field_From_Mask_Code (File_Tag *FileTag,
+                                                          gchar code);
+static void Scan_Process_Fields_Functions (gchar **string);
 
-gint     Scan_Word_Is_Roman_Numeral (gchar *text);
+static gint Scan_Word_Is_Roman_Numeral (const gchar *text);
 
-void Process_Fields_Check_Button_Toggled               (GtkWidget *object, GList *list);
-void Process_Fields_Convert_Check_Button_Toggled       (GtkWidget *object);
-void Process_Fields_First_Letters_Check_Button_Toggled (GtkWidget *object);
-void Select_Fields_Invert_Selection    (void);
-void Select_Fields_Select_Unselect_All (void);
-void Select_Fields_Set_Sensitive       (void);
+static void Process_Fields_Check_Button_Toggled (GtkWidget *object,
+                                                 GList *list);
+static void Process_Fields_Convert_Check_Button_Toggled (GtkWidget *object);
+static void Process_Fields_First_Letters_Check_Button_Toggled (GtkWidget *object);
+static void Select_Fields_Invert_Selection (void);
+static void Select_Fields_Select_Unselect_All (void);
+static void Select_Fields_Set_Sensitive (void);
 
-void Mask_Editor_List_Row_Selected    (GtkTreeSelection* selection, gpointer data);
-void Mask_Editor_List_Set_Row_Visible (GtkTreeModel *treeModel, GtkTreeIter *rowIter);
-void Mask_Editor_List_New             (void);
-void Mask_Editor_List_Duplicate       (void);
-void Mask_Editor_List_Add             (void);
-void Mask_Editor_List_Remove          (void);
-void Mask_Editor_List_Move_Up         (void);
-void Mask_Editor_List_Move_Down       (void);
-void Mask_Editor_List_Save_Button     (void);
-void Mask_Editor_Entry_Changed        (void);
-gboolean Mask_Editor_List_Key_Press   (GtkWidget *widget, GdkEvent *event);
+static void Mask_Editor_List_Row_Selected (GtkTreeSelection* selection,
+                                           gpointer data);
+static void Mask_Editor_List_Set_Row_Visible (GtkTreeModel *treeModel,
+                                              GtkTreeIter *rowIter);
+static void Mask_Editor_List_New (void);
+static void Mask_Editor_List_Duplicate (void);
+static void Mask_Editor_List_Add (void);
+static void Mask_Editor_List_Remove (void);
+static void Mask_Editor_List_Move_Up (void);
+static void Mask_Editor_List_Move_Down (void);
+static void Mask_Editor_List_Save_Button (void);
+static void Mask_Editor_Entry_Changed (void);
+static gboolean Mask_Editor_List_Key_Press (GtkWidget *widget,
+                                            GdkEvent *event);
 
-void Mask_Editor_Clean_Up_Masks_List (void);
+static void Mask_Editor_Clean_Up_Masks_List (void);
 
-void Scanner_Option_Menu_Activate_Item (GtkWidget *widget, gpointer data);
+static void Scanner_Option_Menu_Activate_Item (GtkWidget *widget, gpointer data);
 
-int roman2int (const char *str);
-const char * int2roman (int num);
-char * int2roman_r (int num, char * str, size_t len);
+static int roman2int (const char *str);
+static const char *int2roman (int num);
+static char *int2roman_r (int num, char * str, size_t len);
+
+static void Scan_Convert_Character (gchar **string);
+static GList *Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask);
+static void Scan_Set_Scanner_Window_Init_Position (void);
 
 
 
@@ -291,7 +303,8 @@ void Init_ScannerWindow (void)
  * Uses the filename and path to fill tag information
  * Note: mask and source are read from the right to the left
  */
-void Scan_Tag_With_Mask (ET_File *ETFile)
+static void
+Scan_Tag_With_Mask (ET_File *ETFile)
 {
     GList *fill_tag_list = NULL;
     gchar **dest = NULL;
@@ -365,7 +378,8 @@ void Scan_Tag_With_Mask (ET_File *ETFile)
     g_free(filename_utf8);
 }
 
-GList *Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask)
+static GList *
+Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask)
 {
     GList *fill_tag_list = NULL;
     gchar *filename_utf8;
@@ -610,7 +624,8 @@ void Scan_Fill_Tag_Generate_Preview (void)
     g_free(preview_text);
 }
 
-void Scan_Free_File_Fill_Tag_List (GList *list)
+static void
+Scan_Free_File_Fill_Tag_List (GList *list)
 {
     // Free the list
     list = g_list_first(list);
@@ -638,7 +653,8 @@ void Scan_Free_File_Fill_Tag_List (GList *list)
  * Note: mask and source are read from the right to the left.
  * Note1: a mask code may be used severals times...
  */
-void Scan_Rename_File_With_Mask (ET_File *ETFile)
+static void
+Scan_Rename_File_With_Mask (ET_File *ETFile)
 {
     gchar *filename_generated_utf8 = NULL;
     gchar *filename_generated = NULL;
@@ -968,7 +984,8 @@ void Scan_Rename_File_Generate_Preview (void)
 }
 
 
-void Scan_Free_File_Rename_List (GList *list)
+static void
+Scan_Free_File_Rename_List (GList *list)
 {
     // Free the list
     list = g_list_last(list);
@@ -989,7 +1006,8 @@ void Scan_Free_File_Rename_List (GList *list)
 /*
  * Adds the current path of the file to the mask on the "Rename File Scanner" entry
  */
-void Scan_Rename_File_Prefix_Path (void)
+static void
+Scan_Rename_File_Prefix_Path (void)
 {
     gint pos;
     gchar *path_tmp;
@@ -1086,7 +1104,8 @@ gchar *Scan_Generate_New_Directory_Name_From_Mask (ET_File *ETFile, gchar *mask,
  * Scanner To Process Fields *
  *****************************/
 /* See also functions : Convert_P20_And_Undescore_Into_Spaces, ... in easytag.c */
-void Scan_Process_Fields (ET_File *ETFile)
+static void
+Scan_Process_Fields (ET_File *ETFile)
 {
     File_Name *FileName = NULL;
     File_Tag  *FileTag  = NULL;
@@ -1339,7 +1358,8 @@ void Scan_Process_Fields (ET_File *ETFile)
 }
 
 
-void Scan_Process_Fields_Functions (gchar **string)
+static void
+Scan_Process_Fields_Functions (gchar **string)
 {
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsConvertIntoSpace)))
     {
@@ -1762,7 +1782,8 @@ void Scan_Convert_Space_Into_Undescore (gchar *string)
  * Replace something with something else ;)
  * Currently this only works with one character for each
  */
-void Scan_Convert_Character (gchar **string)
+static void
+Scan_Convert_Character (gchar **string)
 {
     gchar *from = gtk_editable_get_chars(GTK_EDITABLE(ProcessFieldsConvertFrom),0,-1 );
     gchar *to   = gtk_editable_get_chars(GTK_EDITABLE(ProcessFieldsConvertTo),0,-1 );
@@ -1838,9 +1859,10 @@ void Scan_Convert_Character (gchar **string)
  *    D = 500  (five hundred)
  *    M = 1000 (one thousand)
  */
-gint Scan_Word_Is_Roman_Numeral (gchar *text)
+static gint
+Scan_Word_Is_Roman_Numeral (const gchar *text)
 {
-    gchar *tmp;
+    const gchar *tmp;
     gint  len;
     gchar *buf = NULL;
     gint   rn_int;
@@ -1923,7 +1945,8 @@ roman_numeral_found:
  *    Copyright (c) 2007 David M. Syzdek <roman-project@syzdek.net>
  */
 /* Convert Roman numeral from integer to string */
-const char * int2roman (int num)
+static const char *
+int2roman (int num)
 {
     #define ROMAN_BUFF_LEN 512
     
@@ -1937,7 +1960,9 @@ const char * int2roman (int num)
          return NULL;
     return g_strdup(roman_string);
 }
-char * int2roman_r (int num, char * str, size_t len)
+
+static char *
+int2roman_r (int num, char * str, size_t len)
 {
    // local variables
    unsigned pos;
@@ -2084,8 +2109,10 @@ char * int2roman_r (int num, char * str, size_t len)
    /* ends function */
    return str;
 }
+
 /* Convert Roman numeral from string to integer */
-int roman2int (const char * str)
+static int
+roman2int (const char *str)
 {
    // declares local vars
    int      num;
@@ -2249,7 +2276,8 @@ int roman2int (const char * str)
 /*
  * Return the field of a 'File_Tag' structure corresponding to the mask code
  */
-gchar **Scan_Return_File_Tag_Field_From_Mask_Code (File_Tag *FileTag, gchar code)
+static gchar
+**Scan_Return_File_Tag_Field_From_Mask_Code (File_Tag *FileTag, gchar code)
 {
     switch (code)
     {
@@ -3019,7 +3047,8 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_combo_box_set_active(GTK_COMBO_BOX(ScannerOptionCombo), scanner_type);
 }
 
-gboolean ScannerWindow_Key_Press (GtkWidget *window, GdkEvent *event)
+static gboolean
+ScannerWindow_Key_Press (GtkWidget *window, GdkEvent *event)
 {
     GdkEventKey *kevent;
 
@@ -3085,7 +3114,8 @@ void Scan_Use_Process_Fields_Scanner (void)
 
 
 /* Callback from Open_ScannerWindow */
-void ScannerWindow_Quit (void)
+static void
+ScannerWindow_Quit (void)
 {
     if (ScannerWindow)
     {
@@ -3192,7 +3222,8 @@ void ScannerWindow_Apply_Changes (void)
 
 
 /* Callback from Option button */
-void Scan_Option_Button (void)
+static void
+Scan_Option_Button (void)
 {
     Open_OptionsWindow();
     gtk_notebook_set_current_page(GTK_NOTEBOOK(OptionsNoteBook), OptionsNoteBook_Scanner_Page_Num);
@@ -3331,7 +3362,9 @@ gboolean Scan_Check_Rename_File_Mask (GtkWidget *widget_to_show_hide, GtkEntry *
 /*
  * Check if the selected mask in the Mask Editor is valid, else display the mask status icon.
  */
-gboolean Scan_Check_Editor_Mask (GtkWidget *widget_to_show_hide, GtkEntry *widget_source)
+static gboolean
+Scan_Check_Editor_Mask (GtkWidget *widget_to_show_hide,
+                        GtkEntry *widget_source)
 {
     /* Select and get result of check scanner */
     if (gtk_combo_box_get_active(GTK_COMBO_BOX(ScannerOptionCombo)) == SCANNER_FILL_TAG)
@@ -3345,7 +3378,8 @@ gboolean Scan_Check_Editor_Mask (GtkWidget *widget_to_show_hide, GtkEntry *widge
 }
 
 
-void Scan_Toggle_Legend_Button (void)
+static void
+Scan_Toggle_Legend_Button (void)
 {
     if (!LegendButton || !LegendFrame) return;
 
@@ -3356,7 +3390,8 @@ void Scan_Toggle_Legend_Button (void)
 }
 
 
-void Scan_Toggle_Mask_Editor_Button (void)
+static void
+Scan_Toggle_Mask_Editor_Button (void)
 {
     GtkTreeModel *treemodel;
     GtkTreeSelection *selection;
@@ -3390,7 +3425,8 @@ void Scan_Toggle_Mask_Editor_Button (void)
 /*
  * Manage/Toggle check buttons into 'Process Fields' frame
  */
-void Process_Fields_Check_Button_Toggled (GtkWidget *object, GList *list)
+static void
+Process_Fields_Check_Button_Toggled (GtkWidget *object, GList *list)
 {
     gint i = 0;
 
@@ -3408,13 +3444,15 @@ void Process_Fields_Check_Button_Toggled (GtkWidget *object, GList *list)
 }
 
 
-void Process_Fields_Convert_Check_Button_Toggled (GtkWidget *object)
+static void
+Process_Fields_Convert_Check_Button_Toggled (GtkWidget *object)
 {
     gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsConvertTo),gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(object)));
     gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsConvertFrom),gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(object)));
 }
 
-void Process_Fields_First_Letters_Check_Button_Toggled (GtkWidget *object)
+static void
+Process_Fields_First_Letters_Check_Button_Toggled (GtkWidget *object)
 {
     gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsDetectRomanNumerals),gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(object)));
 }
@@ -3423,7 +3461,8 @@ void Process_Fields_First_Letters_Check_Button_Toggled (GtkWidget *object)
 /*
  * Small buttons of Process Fields scanner
  */
-void Select_Fields_Invert_Selection (void)
+static void
+Select_Fields_Invert_Selection (void)
 {
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFileNameField),
                                 !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFileNameField)));
@@ -3450,7 +3489,9 @@ void Select_Fields_Invert_Selection (void)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessEncodedByField),
                                 !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessEncodedByField)));
 }
-void Select_Fields_Select_Unselect_All (void)
+
+static void
+Select_Fields_Select_Unselect_All (void)
 {
     static gboolean state = TRUE;
 
@@ -3472,7 +3513,8 @@ void Select_Fields_Select_Unselect_All (void)
 /*
  * Set sensitive state of the processing check boxes : if no one is selected => all disabled
  */
-void Select_Fields_Set_Sensitive (void)
+static void
+Select_Fields_Set_Sensitive (void)
 {
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFileNameField))
     ||  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessTitleField))
@@ -3532,7 +3574,8 @@ void Select_Fields_Set_Sensitive (void)
  * Callback from the mask edit list
  * Previously known as Mask_Editor_List_Select_Row
  */
-void Mask_Editor_List_Row_Selected (GtkTreeSelection* selection, gpointer data)
+static void
+Mask_Editor_List_Row_Selected (GtkTreeSelection* selection, gpointer data)
 {
     GList *selectedRows;
     gchar *text = NULL;
@@ -3584,7 +3627,8 @@ void Mask_Editor_List_Row_Selected (GtkTreeSelection* selection, gpointer data)
 /*
  * Add a new mask to the list
  */
-void Mask_Editor_List_New (void)
+static void
+Mask_Editor_List_New (void)
 {
     gchar *text = _("New_mask");
     GtkTreeIter iter;
@@ -3606,7 +3650,8 @@ void Mask_Editor_List_New (void)
 /*
  * Duplicate a mask on the list
  */
-void Mask_Editor_List_Duplicate (void)
+static void
+Mask_Editor_List_Duplicate (void)
 {
     gchar *text = NULL;
     GList *selectedRows;
@@ -3671,7 +3716,8 @@ void Mask_Editor_List_Duplicate (void)
     g_list_free(toInsert);
 }
 
-void Mask_Editor_List_Add (void)
+static void
+Mask_Editor_List_Add (void)
 {
     gint i = 0;
     GtkTreeIter iter;
@@ -3718,7 +3764,8 @@ void Mask_Editor_List_Add (void)
 /*
  * Remove the selected rows from the mask editor list
  */
-void Mask_Editor_List_Remove (void)
+static void
+Mask_Editor_List_Remove (void)
 {
     GtkTreeSelection *selection;
     GtkTreeIter iter;
@@ -3758,7 +3805,8 @@ void Mask_Editor_List_Remove (void)
 /*
  * Move all selected rows up one place in the mask list
  */
-void Mask_Editor_List_Move_Up (void)
+static void
+Mask_Editor_List_Move_Up (void)
 {
     GtkTreeSelection *selection;
     GList *selectedRows;
@@ -3811,7 +3859,8 @@ void Mask_Editor_List_Move_Up (void)
 /*
  * Move all selected rows down one place in the mask list
  */
-void Mask_Editor_List_Move_Down (void)
+static void
+Mask_Editor_List_Move_Down (void)
 {
     GtkTreeSelection *selection;
     GList *selectedRows;
@@ -3861,7 +3910,8 @@ void Mask_Editor_List_Move_Down (void)
 /*
  * Set a row visible in the mask editor list (by scrolling the list)
  */
-void Mask_Editor_List_Set_Row_Visible (GtkTreeModel *treeModel, GtkTreeIter *rowIter)
+static void
+Mask_Editor_List_Set_Row_Visible (GtkTreeModel *treeModel, GtkTreeIter *rowIter)
 {
     /*
      * TODO: Make this only scroll to the row if it is not visible
@@ -3880,7 +3930,8 @@ void Mask_Editor_List_Set_Row_Visible (GtkTreeModel *treeModel, GtkTreeIter *row
 /*
  * Save the currently displayed mask list in the mask editor
  */
-void Mask_Editor_List_Save_Button (void)
+static void
+Mask_Editor_List_Save_Button (void)
 {
     Mask_Editor_Clean_Up_Masks_List();
 
@@ -3896,7 +3947,8 @@ void Mask_Editor_List_Save_Button (void)
 /*
  * Clean up the currently displayed masks lists, ready for saving
  */
-void Mask_Editor_Clean_Up_Masks_List (void)
+static void
+Mask_Editor_Clean_Up_Masks_List (void)
 {
     gchar *text = NULL;
     gchar *text1 = NULL;
@@ -3962,7 +4014,8 @@ void Mask_Editor_Clean_Up_Masks_List (void)
 /*
  * Update the Mask List with the new value of the entry box
  */
-void Mask_Editor_Entry_Changed (void)
+static void
+Mask_Editor_Entry_Changed (void)
 {
     GtkTreeSelection *selection;
     GtkTreePath *firstSelected;
@@ -3999,7 +4052,8 @@ void Mask_Editor_Entry_Changed (void)
 /*
  * Actions when the a key is pressed into the masks editor clist
  */
-gboolean Mask_Editor_List_Key_Press (GtkWidget *widget, GdkEvent *event)
+static gboolean
+Mask_Editor_List_Key_Press (GtkWidget *widget, GdkEvent *event)
 {
     if (event && event->type == GDK_KEY_PRESS) {
         GdkEventKey *kevent = (GdkEventKey *)event;
@@ -4023,7 +4077,8 @@ gboolean Mask_Editor_List_Key_Press (GtkWidget *widget, GdkEvent *event)
 /*
  * Function when you select an item of the option menu
  */
-void Scanner_Option_Menu_Activate_Item (GtkWidget *combo, gpointer data)
+static void
+Scanner_Option_Menu_Activate_Item (GtkWidget *combo, gpointer data)
 {
     switch (gtk_combo_box_get_active(GTK_COMBO_BOX(combo)))
     {
@@ -4069,7 +4124,8 @@ void Scanner_Option_Menu_Activate_Item (GtkWidget *combo, gpointer data)
 /*
  * Init the position of the scanner window
  */
-void Scan_Set_Scanner_Window_Init_Position (void)
+static void
+Scan_Set_Scanner_Window_Init_Position (void)
 {
     if (ScannerWindow && SET_SCANNER_WINDOW_POSITION)
     {

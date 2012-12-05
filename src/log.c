@@ -75,11 +75,12 @@ struct _Log_Data
 /**************
  * Prototypes *
  **************/
-gboolean Log_Popup_Menu_Handler (GtkMenu *menu, GdkEventButton *event);
-void     Log_List_Set_Row_Visible (GtkTreeModel *treeModel, GtkTreeIter *rowIter);
-void     Log_Print_Tmp_List (void);
-gchar   *Log_Format_Date (void);
-gchar   *Log_Get_Stock_Id_From_Error_Type (Log_Error_Type error_type);
+static gboolean Log_Popup_Menu_Handler (GtkMenu *menu, GdkEventButton *event);
+static void Log_List_Set_Row_Visible (GtkTreeModel *treeModel,
+                                      GtkTreeIter *rowIter);
+static void Log_Print_Tmp_List (void);
+static gchar *Log_Format_Date (void);
+static gchar *Log_Get_Stock_Id_From_Error_Type (Log_Error_Type error_type);
 
 
 
@@ -169,7 +170,8 @@ GtkWidget *Create_Log_Area (void)
 /*
  * Log_Popup_Menu_Handler : displays the corresponding menu
  */
-gboolean Log_Popup_Menu_Handler (GtkMenu *menu, GdkEventButton *event)
+static gboolean
+Log_Popup_Menu_Handler (GtkMenu *menu, GdkEventButton *event)
 {
     if (event && (event->type==GDK_BUTTON_PRESS) && (event->button == 3))
     {
@@ -183,7 +185,8 @@ gboolean Log_Popup_Menu_Handler (GtkMenu *menu, GdkEventButton *event)
 /*
  * Set a row visible in the log list (by scrolling the list)
  */
-void Log_List_Set_Row_Visible (GtkTreeModel *treeModel, GtkTreeIter *rowIter)
+static void
+Log_List_Set_Row_Visible (GtkTreeModel *treeModel, GtkTreeIter *rowIter)
 {
     /*
      * TODO: Make this only scroll to the row if it is not visible
@@ -216,7 +219,8 @@ void Log_Clean_Log_List (void)
 /*
  * Return time in allocated data
  */
-gchar *Log_Format_Date (void)
+static gchar *
+Log_Format_Date (void)
 {
     struct tm *tms;
     time_t nowtime;
@@ -335,7 +339,8 @@ void Log_Print (Log_Error_Type error_type, gchar const *format, ...)
 /*
  * Display pending messages in the LogList
  */
-void Log_Print_Tmp_List (void)
+static void
+Log_Print_Tmp_List (void)
 {
     GtkTreeIter iter;
 
@@ -381,7 +386,8 @@ void Log_Print_Tmp_List (void)
 }
 
 
-gchar *Log_Get_Stock_Id_From_Error_Type (Log_Error_Type error_type)
+static gchar *
+Log_Get_Stock_Id_From_Error_Type (Log_Error_Type error_type)
 {
     gchar *stock_id;
 

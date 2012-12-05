@@ -26,6 +26,10 @@
 
 #define CHUNKSIZE 4096
 
+static int vcedit_open_callbacks(vcedit_state *state, void *in,
+                                 vcedit_read_func read_func,
+                                 vcedit_write_func write_func);
+
 vcedit_state *vcedit_new_state(void)
 {
     vcedit_state *state = malloc(sizeof(vcedit_state));
@@ -252,8 +256,9 @@ int vcedit_open(vcedit_state *state, FILE *in)
             (vcedit_read_func)fread, (vcedit_write_func)fwrite);
 }
 
-int vcedit_open_callbacks(vcedit_state *state, void *in,
-        vcedit_read_func read_func, vcedit_write_func write_func)
+static int
+vcedit_open_callbacks(vcedit_state *state, void *in,
+                      vcedit_read_func read_func, vcedit_write_func write_func)
 {
 
     char *buffer;

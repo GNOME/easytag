@@ -131,80 +131,102 @@ gchar *Rename_Directory_Masks [] =
  * Prototypes *
  **************/
 
-gboolean    Browser_Tree_Key_Press        (GtkWidget *tree, GdkEvent *event, gpointer data);
-void        Browser_Tree_Set_Node_Visible (GtkWidget *directoryView, GtkTreePath * path);
-void        Browser_List_Set_Row_Visible  (GtkTreeModel *treeModel, GtkTreeIter *rowIter);
+static gboolean Browser_Tree_Key_Press (GtkWidget *tree, GdkEvent *event,
+                                        gpointer data);
+static void Browser_Tree_Set_Node_Visible (GtkWidget *directoryView,
+                                           GtkTreePath *path);
+static void Browser_List_Set_Row_Visible (GtkTreeModel *treeModel,
+                                          GtkTreeIter *rowIter);
 void        Browser_Tree_Disable          (void);
 void        Browser_Tree_Enable           (void);
-void        Browser_Tree_Initialize       (void);
-gboolean    Browser_Tree_Node_Selected    (GtkTreeSelection *selection, gpointer user_data);
-void        Browser_Tree_Rename_Directory (gchar *last_path, gchar *new_path);
-void        Browser_Tree_Handle_Rename    (GtkTreeIter *parentnode, gchar *old_path, gchar *new_path);
+static void Browser_Tree_Initialize (void);
+static gboolean Browser_Tree_Node_Selected (GtkTreeSelection *selection,
+                                            gpointer user_data);
+static void Browser_Tree_Rename_Directory (const gchar *last_path,
+                                           const gchar *new_path);
+static void Browser_Tree_Handle_Rename (GtkTreeIter *parentnode,
+                                        const gchar *old_path,
+                                        const gchar *new_path);
 
 static gint Browser_List_Key_Press        (GtkWidget *list, GdkEvent *event, gpointer data);
-gboolean    Browser_List_Button_Press     (GtkTreeView *treeView, GdkEventButton *event);
+static gboolean Browser_List_Button_Press (GtkTreeView *treeView,
+                                           GdkEventButton *event);
 void        Browser_List_Disable          (void);
 void        Browser_List_Enable           (void);
-void        Browser_List_Row_Selected     (GtkTreeSelection * selection, gpointer data);
-gint        Browser_List_Sort_Func        (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, gpointer data);
+static void Browser_List_Row_Selected (GtkTreeSelection * selection,
+                                       gpointer data);
+static void Browser_List_Set_Row_Appearance (GtkTreeIter *iter);
+static gint Browser_List_Sort_Func (GtkTreeModel *model, GtkTreeIter *a,
+                                    GtkTreeIter *b, gpointer data);
+static void Browser_List_Select_File_By_Iter (GtkTreeIter *iter,
+                                              gboolean select_it);
 void        Browser_List_Select_All_Files       (void);
 void        Browser_List_Unselect_All_Files     (void);
 void        Browser_List_Invert_File_Selection  (void);
 
-void        Browser_Entry_Activated (void);
+static void Browser_Entry_Activated (void);
 void        Browser_Entry_Disable   (void);
 void        Browser_Entry_Enable    (void);
 
-void        Browser_Parent_Button_Clicked  (void);
+static void Browser_Parent_Button_Clicked (void);
 
-void        Browser_Artist_List_Load_Files        (ET_File *etfile_to_select);
-void        Browser_Artist_List_Row_Selected      (GtkTreeSelection *selection, gpointer data);
-void        Browser_Artist_List_Set_Row_Appearance(GtkTreeIter *row);
+static void Browser_Artist_List_Load_Files (ET_File *etfile_to_select);
+static void Browser_Artist_List_Row_Selected (GtkTreeSelection *selection,
+                                              gpointer data);
+static void Browser_Artist_List_Set_Row_Appearance (GtkTreeIter *row);
 
-void        Browser_Album_List_Load_Files        (GList *albumlist, ET_File *etfile_to_select);
-void        Browser_Album_List_Row_Selected      (GtkTreeSelection *selection, gpointer data);
-void        Browser_Album_List_Set_Row_Appearance(GtkTreeIter *row);
+static void Browser_Album_List_Load_Files (GList *albumlist,
+                                           ET_File *etfile_to_select);
+static void Browser_Album_List_Row_Selected (GtkTreeSelection *selection,
+                                             gpointer data);
+static void Browser_Album_List_Set_Row_Appearance (GtkTreeIter *row);
 
 gchar      *Browser_Get_Current_Path       (void);
-void        Browser_Update_Current_Path    (const gchar *path);
+static void Browser_Update_Current_Path (const gchar *path);
 void        Browser_Load_Home_Directory    (void);
 void        Browser_Load_Default_Directory (void);
 void        Browser_Reload_Directory       (void);
 
-gint        Browser_Win32_Get_Drive_Root   (gchar *drive, GtkTreeIter *rootNode, GtkTreePath **rootPath);
+static gboolean Browser_Win32_Get_Drive_Root (gchar *drive,
+                                              GtkTreeIter *rootNode,
+                                              GtkTreePath **rootPath);
 
 static gboolean check_for_subdir   (gchar *path);
 
-GtkTreePath *Find_Child_Node(GtkTreeIter *parent, gchar *searchtext);
+static GtkTreePath *Find_Child_Node(GtkTreeIter *parent, gchar *searchtext);
 
-GdkPixbuf  *Pixmap_From_Directory_Permission (gchar *path);
+static GdkPixbuf *Pixmap_From_Directory_Permission (const gchar *path);
 
 static void expand_cb   (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *path, gpointer data);
 static void collapse_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *treePath, gpointer data);
 
 /* Pop up menus */
-gboolean    Browser_Popup_Menu_Handler (GtkMenu *menu, GdkEventButton *event);
+static gboolean Browser_Popup_Menu_Handler (GtkMenu *menu,
+                                            GdkEventButton *event);
 
 /* For window to rename a directory */
 void        Browser_Open_Rename_Directory_Window (void);
-void        Destroy_Rename_Directory_Window      (void);
-void        Rename_Directory                     (void);
-gboolean    Rename_Directory_Window_Key_Press    (GtkWidget *window, GdkEvent *event);
-void        Rename_Directory_With_Mask_Toggled   (void);
+static void Destroy_Rename_Directory_Window (void);
+static void Rename_Directory (void);
+static gboolean Rename_Directory_Window_Key_Press (GtkWidget *window,
+                                                   GdkEvent *event);
+static void Rename_Directory_With_Mask_Toggled (void);
 
 /* For window to run a program with the directory */
 void        Browser_Open_Run_Program_Tree_Window (void);
-void        Destroy_Run_Program_Tree_Window (void);
-gboolean    Run_Program_Tree_Window_Key_Press (GtkWidget *window, GdkEvent *event);
-void        Run_Program_With_Directory (GtkWidget *combobox);
+static void Destroy_Run_Program_Tree_Window (void);
+static gboolean Run_Program_Tree_Window_Key_Press (GtkWidget *window,
+                                                   GdkEvent *event);
+static void Run_Program_With_Directory (GtkWidget *combobox);
 
 /* For window to run a program with the file */
 void        Browser_Open_Run_Program_List_Window (void);
-void        Destroy_Run_Program_List_Window (void);
-gboolean    Run_Program_List_Window_Key_Press (GtkWidget *window, GdkEvent *event);
-void        Run_Program_With_Selected_Files (GtkWidget *combobox);
+static void Destroy_Run_Program_List_Window (void);
+static gboolean Run_Program_List_Window_Key_Press (GtkWidget *window,
+                                                   GdkEvent *event);
+static void Run_Program_With_Selected_Files (GtkWidget *combobox);
 
-gboolean    Run_Program (gchar *program_name, GList *args_list);
+static gboolean Run_Program (const gchar *program_name, GList *args_list);
 
 
 
@@ -281,7 +303,8 @@ void Browser_Load_Default_Directory (void)
  * Warning: return NULL if no row selected int the tree.
  * Remember to free the value returned from this function!
  */
-gchar *Browser_Tree_Get_Path_Of_Selected_Node (void)
+static gchar *
+Browser_Tree_Get_Path_Of_Selected_Node (void)
 {
     GtkTreeSelection *selection;
     GtkTreeIter selectedIter;
@@ -306,7 +329,8 @@ gchar *Browser_Tree_Get_Path_Of_Selected_Node (void)
 /*
  * Set the 'path' within the variable BrowserCurrentPath.
  */
-void Browser_Update_Current_Path (const gchar *path)
+static void
+Browser_Update_Current_Path (const gchar *path)
 {
     /* Be sure that we aren't passing 'BrowserCurrentPath' as parameter of the function :
      * to avoid some memory problems */
@@ -367,7 +391,8 @@ void Set_Current_Path_As_Default (void)
 /*
  * When you press the key 'enter' in the BrowserEntry to validate the text (browse the directory)
  */
-void Browser_Entry_Activated (void)
+static void
+Browser_Entry_Activated (void)
 {
     const gchar *path_utf8;
     gchar *path;
@@ -395,7 +420,8 @@ void Browser_Entry_Set_Text (gchar *text)
 /*
  * Button to go to parent directory
  */
-void Browser_Parent_Button_Clicked (void)
+static void
+Browser_Parent_Button_Clicked (void)
 {
     gchar *parent_dir, *path;
 
@@ -423,7 +449,8 @@ void Browser_Label_Set_Text (gchar *text)
 /*
  * Key Press events into browser tree
  */
-gboolean Browser_Tree_Key_Press (GtkWidget *tree, GdkEvent *event, gpointer data)
+static gboolean
+Browser_Tree_Key_Press (GtkWidget *tree, GdkEvent *event, gpointer data)
 {
     GdkEventKey *kevent;
     GtkTreeIter SelectedNode;
@@ -610,7 +637,8 @@ gboolean Browser_List_Key_Press (GtkWidget *list, GdkEvent *event, gpointer data
 /*
  * Action for double/triple click
  */
-gboolean Browser_List_Button_Press (GtkTreeView *treeView, GdkEventButton *event)
+static gboolean
+Browser_List_Button_Press (GtkTreeView *treeView, GdkEventButton *event)
 {
     if (!event)
         return FALSE;
@@ -681,7 +709,8 @@ void Browser_Tree_Collapse (void)
 /*
  * Set a row (or node) visible in the TreeView (by scrolling the tree)
  */
-void Browser_Tree_Set_Node_Visible (GtkWidget *directoryView, GtkTreePath *path)
+static void
+Browser_Tree_Set_Node_Visible (GtkWidget *directoryView, GtkTreePath *path)
 {
     if (!directoryView || !path) return;
 
@@ -712,7 +741,8 @@ void Browser_List_Set_Row_Visible (GtkTreeModel *treeModel, GtkTreeIter *rowIter
  * Triggers when a new node in the browser tree is selected
  * Do file-save confirmation, and then prompt the new dir to be loaded
  */
-gboolean Browser_Tree_Node_Selected (GtkTreeSelection *selection, gpointer user_data)
+static gboolean
+Browser_Tree_Node_Selected (GtkTreeSelection *selection, gpointer user_data)
 {
     gchar *pathName, *pathName_utf8;
     static int counter = 0;
@@ -826,7 +856,8 @@ gboolean Browser_Tree_Node_Selected (GtkTreeSelection *selection, gpointer user_
 }
 
 
-gint Browser_Win32_Get_Drive_Root (gchar *drive, GtkTreeIter *rootNode, GtkTreePath **rootPath)
+static gboolean
+Browser_Win32_Get_Drive_Root (gchar *drive, GtkTreeIter *rootNode, GtkTreePath **rootPath)
 {
     gint root_index;
     gboolean found = FALSE;
@@ -969,7 +1000,8 @@ gboolean Browser_Tree_Select_Dir (const gchar *current_path)
  * Callback to select-row event
  * Displays the file info of the lowest selected file in the right-hand pane
  */
-void Browser_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
+static void
+Browser_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
 {
     GList *selectedRows;
     GtkTreePath *lastSelected;
@@ -1385,7 +1417,8 @@ void Browser_List_Refresh_File_In_List (ET_File *ETFile)
  *  - change background according LIST_FILE_OTHERDIR
  *  - change foreground according file status (saved or not)
  */
-void Browser_List_Set_Row_Appearance (GtkTreeIter *iter)
+static void
+Browser_List_Set_Row_Appearance (GtkTreeIter *iter)
 {
     ET_File *rowETFile = NULL;
     gboolean otherdir = FALSE;
@@ -1601,7 +1634,8 @@ GtkTreePath *Browser_List_Select_File_By_Etfile2 (ET_File *searchETFile, gboolea
 /*
  * Select the specified file in the list, by an iter
  */
-void Browser_List_Select_File_By_Iter (GtkTreeIter *rowIter, gboolean select_it)
+static void
+Browser_List_Select_File_By_Iter (GtkTreeIter *rowIter, gboolean select_it)
 {
     if (!BrowserList) return;
 
@@ -1701,75 +1735,6 @@ ET_File *Browser_List_Select_File_By_DLM (const gchar* string, gboolean select_i
 
 
 /*
- * Unselect the specified file in the list, by its ETFile
- */
-void Browser_List_Unselect_File_By_Etfile(ET_File *searchETFile)
-{
-    gint row;
-    GtkTreePath *currentPath = NULL;
-    GtkTreeIter currentIter;
-    ET_File *currentETFile;
-    gboolean valid;
-
-    if (searchETFile == NULL)
-        return;
-
-    // Go through the file list until it is found
-    for (row=0; row < gtk_tree_model_iter_n_children(GTK_TREE_MODEL(fileListModel), NULL); row++)
-    {
-        if (row == 0)
-            currentPath = gtk_tree_path_new_first();
-        else
-            gtk_tree_path_next(currentPath);
-
-        valid = gtk_tree_model_get_iter(GTK_TREE_MODEL(fileListModel), &currentIter, currentPath);
-        if (valid)
-        {
-            gtk_tree_model_get(GTK_TREE_MODEL(fileListModel), &currentIter,
-                               LIST_FILE_POINTER, &currentETFile, -1);
-
-            if (currentETFile == searchETFile)
-            {
-                Browser_List_Unselect_File_By_Iter(&currentIter);
-                break;
-            }
-        }
-    }
-}
-
-
-/*
- * Unselect the specified file, by its iter.
- */
-void Browser_List_Unselect_File_By_Iter (GtkTreeIter *rowIter)
-{
-    GtkTreeSelection *selection;
-
-    if (!BrowserList) return;
-
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
-    if (selection)
-    {
-        g_signal_handlers_block_by_func(G_OBJECT(selection),G_CALLBACK(Browser_List_Row_Selected),NULL);
-        gtk_tree_selection_unselect_iter(selection, rowIter);
-        g_signal_handlers_unblock_by_func(G_OBJECT(selection),G_CALLBACK(Browser_List_Row_Selected),NULL);
-    }
-}
-
-
-/*
- * Unselect the specified file in the list, by a string representation of an iter
- * e.g. output of gtk_tree_model_get_string_from_iter()
- */
-void Browser_List_Unselect_File_By_Iter_String(const gchar* stringIter)
-{
-    GtkTreeIter iter;
-
-    if (gtk_tree_model_get_iter_from_string(GTK_TREE_MODEL(fileListModel), &iter, stringIter))
-        Browser_List_Unselect_File_By_Iter(&iter);
-}
-
-/*
  * Clear all entries on the file list
  */
 void Browser_List_Clear()
@@ -1792,7 +1757,9 @@ void Browser_List_Refresh_Sort (void)
  * Intelligently sort the file list based on the current sorting method
  * see also 'ET_Sort_File_List'
  */
-gint Browser_List_Sort_Func (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, gpointer data)
+static gint
+Browser_List_Sort_Func (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b,
+                        gpointer data)
 {
     ET_File *ETFile1;
     ET_File *ETFile2;
@@ -2093,7 +2060,8 @@ void Browser_Artist_List_Load_Files (ET_File *etfile_to_select)
 /*
  * Callback to select-row event
  */
-void Browser_Artist_List_Row_Selected(GtkTreeSelection* selection, gpointer data)
+static void
+Browser_Artist_List_Row_Selected (GtkTreeSelection* selection, gpointer data)
 {
     GList *AlbumList;
     GtkTreeIter iter;
@@ -2113,7 +2081,8 @@ void Browser_Artist_List_Row_Selected(GtkTreeSelection* selection, gpointer data
 /*
  * Set the color of the row of BrowserArtistList
  */
-void Browser_Artist_List_Set_Row_Appearance (GtkTreeIter *iter)
+static void
+Browser_Artist_List_Set_Row_Appearance (GtkTreeIter *iter)
 {
     GList *AlbumList;
     GList *etfilelist;
@@ -2165,7 +2134,8 @@ void Browser_Artist_List_Set_Row_Appearance (GtkTreeIter *iter)
 /*
  * Load the list of Albums for each Artist
  */
-void Browser_Album_List_Load_Files (GList *albumlist, ET_File *etfile_to_select)
+static void
+Browser_Album_List_Load_Files (GList *albumlist, ET_File *etfile_to_select)
 {
     GList *AlbumList;
     GList *etfilelist = NULL;
@@ -2265,7 +2235,8 @@ void Browser_Album_List_Load_Files (GList *albumlist, ET_File *etfile_to_select)
 /*
  * Callback to select-row event
  */
-void Browser_Album_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
+static void
+Browser_Album_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
 {
     GList *etfilelist;
     GtkTreeIter iter;
@@ -2294,7 +2265,8 @@ void Browser_Album_List_Row_Selected (GtkTreeSelection *selection, gpointer data
 /*
  * Set the color of the row of BrowserAlbumList
  */
-void Browser_Album_List_Set_Row_Appearance (GtkTreeIter *iter)
+static void
+Browser_Album_List_Set_Row_Appearance (GtkTreeIter *iter)
 {
     GList *etfilelist;
     gboolean not_all_saved = FALSE;
@@ -2401,7 +2373,8 @@ void Browser_Area_Set_Sensitive (gboolean activate)
 /*
  * Browser_Popup_Menu_Handler : displays the corresponding menu
  */
-gboolean Browser_Popup_Menu_Handler (GtkMenu *menu, GdkEventButton *event)
+static gboolean
+Browser_Popup_Menu_Handler (GtkMenu *menu, GdkEventButton *event)
 {
     if (event && (event->type==GDK_BUTTON_PRESS) && (event->button == 3))
     {
@@ -2414,7 +2387,8 @@ gboolean Browser_Popup_Menu_Handler (GtkMenu *menu, GdkEventButton *event)
 /*
  * Destroy the whole tree up to the root node
  */
-void Browser_Tree_Initialize (void)
+static void
+Browser_Tree_Initialize (void)
 {
     GtkTreeIter parent_iter;
     GtkTreeIter dummy_iter;
@@ -2572,7 +2546,8 @@ void Browser_Tree_Rebuild (gchar *path_to_load)
  * new_path:
  * Parameters are non-utf8!
  */
-void Browser_Tree_Rename_Directory (gchar *last_path, gchar *new_path)
+static void
+Browser_Tree_Rename_Directory (const gchar *last_path, const gchar *new_path)
 {
 
     gchar **textsplit;
@@ -2643,7 +2618,9 @@ void Browser_Tree_Rename_Directory (gchar *last_path, gchar *new_path)
 /*
  * Recursive function to update paths of all child nodes
  */
-void Browser_Tree_Handle_Rename (GtkTreeIter *parentnode, gchar *old_path, gchar *new_path)
+static void
+Browser_Tree_Handle_Rename (GtkTreeIter *parentnode, const gchar *old_path,
+                            const gchar *new_path)
 {
     GtkTreeIter iter;
     gchar *path;
@@ -2682,6 +2659,7 @@ void Browser_Tree_Handle_Rename (GtkTreeIter *parentnode, gchar *old_path, gchar
  * Find the child node of "parentnode" that has text of "childtext
  * Returns NULL on failure
  */
+static
 GtkTreePath *Find_Child_Node (GtkTreeIter *parentnode, gchar *childtext)
 {
     gint row;
@@ -2774,7 +2752,8 @@ static gboolean check_for_subdir (gchar *path)
  * Check if you have permissions for directory path (autorized?, readonly? unreadable?).
  * Returns the right pixmap.
  */
-GdkPixbuf *Pixmap_From_Directory_Permission (gchar *path)
+static GdkPixbuf *
+Pixmap_From_Directory_Permission (const gchar *path)
 {
     DIR *dir;
 
@@ -3828,7 +3807,8 @@ void Browser_Open_Rename_Directory_Window (void)
     g_free(directory_name_utf8);
 }
 
-void Destroy_Rename_Directory_Window (void)
+static void
+Destroy_Rename_Directory_Window (void)
 {
     if (RenameDirectoryWindow)
     {
@@ -3853,7 +3833,8 @@ void Destroy_Rename_Directory_Window (void)
     }
 }
 
-void Rename_Directory (void)
+static void
+Rename_Directory (void)
 {
     DIR   *dir;
     gchar *directory_parent;
@@ -4102,7 +4083,8 @@ void Rename_Directory (void)
     Statusbar_Message(_("Directory renamed"),TRUE);
 }
 
-gboolean Rename_Directory_Window_Key_Press (GtkWidget *window, GdkEvent *event)
+static gboolean
+Rename_Directory_Window_Key_Press (GtkWidget *window, GdkEvent *event)
 {
     GdkEventKey *kevent;
 
@@ -4120,7 +4102,8 @@ gboolean Rename_Directory_Window_Key_Press (GtkWidget *window, GdkEvent *event)
     return FALSE;
 }
 
-void Rename_Directory_With_Mask_Toggled (void)
+static void
+Rename_Directory_With_Mask_Toggled (void)
 {
     gtk_widget_set_sensitive(GTK_WIDGET(RenameDirectoryCombo),            !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(RenameDirectoryWithMask)));
     gtk_widget_set_sensitive(GTK_WIDGET(RenameDirectoryMaskCombo),         gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(RenameDirectoryWithMask)));
@@ -4232,7 +4215,8 @@ void Browser_Open_Run_Program_Tree_Window (void)
     gtk_widget_show_all(RunProgramTreeWindow);
 }
 
-void Destroy_Run_Program_Tree_Window (void)
+static void
+Destroy_Run_Program_Tree_Window (void)
 {
     if (RunProgramTreeWindow)
     {
@@ -4241,7 +4225,8 @@ void Destroy_Run_Program_Tree_Window (void)
     }
 }
 
-gboolean Run_Program_Tree_Window_Key_Press (GtkWidget *window, GdkEvent *event)
+static gboolean
+Run_Program_Tree_Window_Key_Press (GtkWidget *window, GdkEvent *event)
 {
     GdkEventKey *kevent;
 
@@ -4390,7 +4375,8 @@ void Browser_Open_Run_Program_List_Window (void)
     gtk_widget_show_all(RunProgramListWindow);
 }
 
-void Destroy_Run_Program_List_Window (void)
+static void
+Destroy_Run_Program_List_Window (void)
 {
     if (RunProgramListWindow)
     {
@@ -4399,7 +4385,8 @@ void Destroy_Run_Program_List_Window (void)
     }
 }
 
-gboolean Run_Program_List_Window_Key_Press(GtkWidget *window, GdkEvent *event)
+static gboolean
+Run_Program_List_Window_Key_Press (GtkWidget *window, GdkEvent *event)
 {
     GdkEventKey *kevent;
 
@@ -4416,7 +4403,8 @@ gboolean Run_Program_List_Window_Key_Press(GtkWidget *window, GdkEvent *event)
     return FALSE;
 }
 
-void Run_Program_With_Selected_Files (GtkWidget *combobox)
+static void
+Run_Program_With_Selected_Files (GtkWidget *combobox)
 {
     gchar   *program_name;
     ET_File *ETFile;
@@ -4476,7 +4464,8 @@ void Run_Program_With_Selected_Files (GtkWidget *combobox)
  * Run a program with a list of parameters
  *  - args_list : list of filename (with path)
  */
-gboolean Run_Program (gchar *program_name, GList *args_list)
+static gboolean
+Run_Program (const gchar *program_name, GList *args_list)
 {
 #ifdef WIN32
     GList              *filelist;

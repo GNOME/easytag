@@ -46,12 +46,11 @@ GList *ActionPairsList = NULL;
 /**************
  * Prototypes *
  **************/
-void Init_Menu_Bar (void);
-void Menu_Sort_Action (GtkAction *action, gpointer data);
 
-void     Statusbar_Start_Timer  (void);
-gboolean Statusbar_Stop_Timer   (void);
-void     Statusbar_Remove_Timer (void);
+static void Check_Menu_Item_Toggled_Browse_Hidden_Dir (GtkWidget *checkmenuitem);
+static void Check_Menu_Item_Toggled_Browse_Subdir (GtkWidget *checkmenuitem);
+static void Init_Menu_Bar (void);
+static void Statusbar_Remove_Timer (void);
 
 
 /*************
@@ -67,7 +66,8 @@ void     Statusbar_Remove_Timer (void);
 /*
  * Menu bar
  */
-void Menu_Sort_Action (GtkAction *item, gpointer data)
+static void
+Menu_Sort_Action (GtkAction *item, gpointer data)
 {
     GtkWidget *TBViewMode;
     const gchar *action = gtk_action_get_name(item);
@@ -337,7 +337,8 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
 /*
  * Initialize some items of the main menu
  */
-void Init_Menu_Bar (void)
+static void
+Init_Menu_Bar (void)
 {
     
     CheckMenuItemBrowseSubdirMainMenu = gtk_ui_manager_get_widget(UIManager, "/MenuBar/BrowserMenu/BrowseSubdir");
@@ -364,7 +365,8 @@ void Init_Menu_Bar (void)
 /*
  * Callback to update state of check button to browse subdir into menu
  */
-void Check_Menu_Item_Toggled_Browse_Subdir (GtkWidget *checkmenuitem)
+static void
+Check_Menu_Item_Toggled_Browse_Subdir (GtkWidget *checkmenuitem)
 {
     BROWSE_SUBDIR = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(checkmenuitem));
     Check_Menu_Item_Update_Browse_Subdir();
@@ -377,7 +379,8 @@ void Check_Menu_Item_Update_Browse_Subdir (void)
 /*
  * Callback to update state of check button to show hiddendirectories into menu
  */
-void Check_Menu_Item_Toggled_Browse_Hidden_Dir (GtkWidget *checkmenuitem)
+static void
+Check_Menu_Item_Toggled_Browse_Hidden_Dir (GtkWidget *checkmenuitem)
 {
     BROWSE_HIDDEN_DIR = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(checkmenuitem));
     Check_Menu_Item_Update_Browse_Hidden_Dir();
@@ -385,7 +388,9 @@ void Check_Menu_Item_Toggled_Browse_Hidden_Dir (GtkWidget *checkmenuitem)
     // Reload directory, in case we have changed BROWSE_HIDDEN_DIR
     //Browser_Tree_Rebuild(NULL); // Commented, as already done in GtkToggleActionEntry for AM_BROWSER_HIDDEN_DIR
 }
-void Check_Menu_Item_Update_Browse_Hidden_Dir (void)
+
+void
+Check_Menu_Item_Update_Browse_Hidden_Dir (void)
 {
 #ifndef WIN32
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(CheckMenuItemBrowseHiddenDirMainMenu),BROWSE_HIDDEN_DIR);
@@ -417,19 +422,22 @@ GtkWidget *Create_Status_Bar (void)
     return StatusBar;
 }
 
-gboolean Statusbar_Stop_Timer (void)
+static gboolean
+Statusbar_Stop_Timer (void)
 {
     gtk_statusbar_pop(GTK_STATUSBAR(StatusBar),StatusBarContext);
     return FALSE;    /* Stop the timer */
 }
 
-void Statusbar_Start_Timer (void)
+static void
+Statusbar_Start_Timer (void)
 {
-    Statusbar_Remove_Timer();
+    Statusbar_Remove_Timer ();
     StatusbarTimerId = g_timeout_add(4000,(GSourceFunc)Statusbar_Stop_Timer,NULL);
 }
 
-void Statusbar_Remove_Timer (void)
+static void
+Statusbar_Remove_Timer (void)
 {
     if (StatusbarTimerId)
     {

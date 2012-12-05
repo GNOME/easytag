@@ -467,40 +467,6 @@ gchar *convert_to_utf8 (const gchar *string)
     return output;
 }
 
-gchar *convert_from_utf8 (const char *string)
-{
-    gchar *output;
-    GError *error = NULL;
-
-    if (!string)
-        return NULL;
-
-    output = g_locale_from_utf8(string, -1, NULL, NULL, &error);
-
-    if (output == NULL)
-    {
-        const gchar *usercharset;
-        gchar *escaped_str = g_strescape(string, NULL);
-        g_get_charset(&usercharset);
-        Log_Print(LOG_ERROR,"convert_from_utf8(): Failed conversion to charset '%s'. "
-                  "String '%s'. Errcode %d (%s).",
-                  usercharset, escaped_str, error->code, error->message);
-        g_free(escaped_str);
-
-        if (g_utf8_validate(string, -1, NULL))
-            Log_Print(LOG_ERROR,"convert_from_utf8(): String was valid UTF-8.");
-        else
-            Log_Print(LOG_ERROR,"convert_from_utf8(): String was INVALID UTF-8.");
-
-        g_error_free(error);
-        return g_strdup(string);
-    }
-
-    return output;
-}
-
-
-
 /*
  * Convert a string from the filename system encoding to UTF-8.
  *  - conversion OK : returns the UTF-8 string (new allocated)
@@ -742,87 +708,6 @@ gchar *Charset_Get_Name_From_Title (const gchar *charset_title)
         for (i=0; i<CHARSET_TRANS_ARRAY_LEN; i++)
             if ( strcasecmp(_(charset_title),_(charset_trans_array[i].charset_title)) == 0 )
                 return charset_trans_array[i].charset_name;
-    return "";
-}
-
-
-/*
- * Return charset_title from charset_name
- */
-gchar *Charset_Get_Title_From_Name (gchar *charset_name)
-{
-    guint i;
-
-    if (charset_name)
-        for (i=0; i<CHARSET_TRANS_ARRAY_LEN; i++)
-            if ( strcasecmp(charset_name,charset_trans_array[i].charset_name) == 0 )
-                return _(charset_trans_array[i].charset_title);
-    return "";
-}
-
-
-
-/*
- * Test if the conversion is supported between two character sets ('from' and 'to)
- * (function called in the preferences window).
- * Note : for UTF-16 (2 byte for each character) we make a special test...
- */
-gboolean test_conversion_charset (const gchar *from, const gchar *to)
-{
-    gchar *temp;
-
-    if (!from || !to)
-        return FALSE;
-
-    // Do a quick test conversion and examine error output
-    if ( strcmp(from,"UTF-16BE") == 0 )
-    {
-        temp = convert_string_1("F\0O\0O\0\0\0", 6, from, to, FALSE);
-    }else if ( strcmp(from,"UTF-16LE") == 0 )
-    {
-        temp = convert_string_1("\0F\0O\0O\0\0", 6, from, to, FALSE);
-    }else
-    {
-        temp = convert_string("FOO", from, to, FALSE);
-    }
-
-    if (!temp)
-    {
-        /*// Error in conversion
-        if (error && error->code == G_CONVERT_ERROR_NO_CONVERSION)
-        {
-            Log_Print(LOG_ERROR,"Conversion error from '%s' to '%s' (G_CONVERT_ERROR_NO_CONVERSION)",from,to);
-        } else if (error && error->code == G_CONVERT_ERROR_ILLEGAL_SEQUENCE)
-        {
-            Log_Print(LOG_ERROR,"Conversion error from '%s' to '%s' (G_CONVERT_ERROR_ILLEGAL_SEQUENCE)",from,to);
-        } else if (error && error->code == G_CONVERT_ERROR_FAILED)
-        {
-            Log_Print(LOG_ERROR,"Conversion error from '%s' to '%s' (G_CONVERT_ERROR_FAILED)",from,to);
-        } else if (error && error->code == G_CONVERT_ERROR_PARTIAL_INPUT)
-        {
-            Log_Print(LOG_ERROR,"Conversion error from '%s' to '%s' (G_CONVERT_ERROR_PARTIAL_INPUT)",from,to);
-        } else if (error && error->code == G_CONVERT_ERROR_BAD_URI)
-        {
-            Log_Print(LOG_ERROR,"Conversion error from '%s' to '%s' (G_CONVERT_ERROR_BAD_URI)",from,to);
-        } else if (error && error->code == G_CONVERT_ERROR_NOT_ABSOLUTE_PATH)
-        {
-            Log_Print(LOG_ERROR,"Conversion error from '%s' to '%s' (G_CONVERT_ERROR_NOT_ABSOLUTE_PATH)",from,to);
-        } else
-        {
-            Log_Print(LOG_ERROR,"Conversion error from '%s' to '%s' (unknown : %d)",from,to,error->code);
-        }
-
-        if (error)
-            g_error_free(error);*/
-        return FALSE;
-    } else
-    {
-        /*// No error
-        if (error)
-            g_error_free(error);*/
-        g_free(temp);
-        return TRUE;
-    }
 
     return NULL;
 }

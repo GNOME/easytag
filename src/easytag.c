@@ -101,43 +101,50 @@ gint     SF_ButtonPressed_Delete_File;
 /**************
  * Prototypes *
  **************/
-void     Handle_Crash     (gint signal_id);
-gchar   *signal_to_string (gint signal);
+static void Handle_Crash (gint signal_id);
+static const gchar *signal_to_string (gint signal);
 
-GtkWidget *Create_Browser_Area (void);
-GtkWidget *Create_File_Area    (void);
-GtkWidget *Create_Tag_Area     (void);
+static GtkWidget *Create_Browser_Area (void);
+static GtkWidget *Create_File_Area    (void);
+static GtkWidget *Create_Tag_Area     (void);
 
-void Menu_Mini_Button_Clicked (GtkEntry *entry);
-void Mini_Button_Clicked      (GObject *object);
-void Disable_Command_Buttons (void);
+static void Menu_Mini_Button_Clicked (GtkEntry *entry);
+static void Mini_Button_Clicked (GObject *object);
+static void Disable_Command_Buttons (void);
 void Clear_Tag_Entry_Fields  (void);
 void Clear_File_Entry_Field  (void);
 void Clear_Header_Fields     (void);
 
-gint Make_Dir         (const gchar *dirname_old, const gchar *dirname_new);
-gint Remove_Dir       (const gchar *dirname_old, const gchar *dirname_new);
-gboolean Write_File_Tag   (ET_File *ETFile, gboolean hide_msgbox);
-gboolean Rename_File      (ET_File *ETFile, gboolean hide_msgbox);
-gint Save_File        (ET_File *ETFile, gboolean multiple_files, gboolean force_saving_files);
-gint Delete_File      (ET_File *ETFile, gboolean multiple_files);
+static gboolean Make_Dir (const gchar *dirname_old, const gchar *dirname_new);
+static gboolean Remove_Dir (const gchar *dirname_old,
+                            const gchar *dirname_new);
+static gboolean Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox);
+static gboolean Rename_File (ET_File *ETFile, gboolean hide_msgbox);
+static gint Save_File (ET_File *ETFile, gboolean multiple_files,
+                       gboolean force_saving_files);
+static gint Delete_File (ET_File *ETFile, gboolean multiple_files);
 gint Save_All_Files_With_Answer        (gboolean force_saving_files);
-gint Save_Selected_Files_With_Answer   (gboolean force_saving_files);
-gint Save_List_Of_Files                (GList *etfilelist, gboolean force_saving_files);
-gint Delete_Selected_Files_With_Answer (void);
-gint Copy_File (gchar const *fileold, gchar const *filenew);
+static gint Save_Selected_Files_With_Answer (gboolean force_saving_files);
+static gint Save_List_Of_Files (GList *etfilelist,
+                                gboolean force_saving_files);
+static gint Delete_Selected_Files_With_Answer (void);
+static gboolean Copy_File (const gchar *fileold, const gchar *filenew);
 
-void Display_Usage (void);
+static void Display_Usage (void);
 
-void Init_Load_Default_Dir (void);
-void EasyTAG_Exit (void);
+static void Init_Load_Default_Dir (void);
+static void EasyTAG_Exit (void);
 void Quit_MainWindow_Ok_Button (void);
 
-GList *Read_Directory_Recursively (GList *file_list, gchar *path, gint recurse);
-void Open_Quit_Recursion_Function_Window    (void);
-void Destroy_Quit_Recursion_Function_Window (void);
-void Quit_Recursion_Function_Button_Pressed (void);
-void Quit_Recursion_Window_Key_Press (GtkWidget *window, GdkEvent *event);
+static GList *Read_Directory_Recursively (GList *file_list, const gchar *path,
+                                          gboolean recurse);
+static void Open_Quit_Recursion_Function_Window (void);
+static void Destroy_Quit_Recursion_Function_Window (void);
+static void Quit_Recursion_Function_Button_Pressed (void);
+static void Quit_Recursion_Window_Key_Press (GtkWidget *window,
+                                             GdkEvent *event);
+static void File_Area_Set_Sensitive (gboolean activate);
+static void Tag_Area_Set_Sensitive  (gboolean activate);
 
 #ifndef WIN32
 static void
@@ -433,7 +440,8 @@ int main (int argc, char *argv[])
 }
 
 
-GtkWidget *Create_Browser_Area (void)
+static GtkWidget *
+Create_Browser_Area (void)
 {
     GtkWidget *Frame;
     GtkWidget *Tree;
@@ -453,7 +461,8 @@ GtkWidget *Create_Browser_Area (void)
 }
 
 
-GtkWidget *Create_File_Area (void)
+static GtkWidget *
+Create_File_Area (void)
 {
     GtkWidget *VBox, *HBox;
     GtkWidget *Separator;
@@ -557,7 +566,8 @@ GtkWidget *Create_File_Area (void)
 }
 
 #include "../pixmaps/sequence_track.xpm"
-GtkWidget *Create_Tag_Area (void)
+static GtkWidget *
+Create_Tag_Area (void)
 {
     GtkWidget *Separator;
     GtkWidget *Frame;
@@ -1152,12 +1162,15 @@ GtkWidget *Create_Tag_Area (void)
 /*
  * Actions when mini buttons are pressed: apply the field to all others files
  */
-void Menu_Mini_Button_Clicked (GtkEntry *entry)
+static void
+Menu_Mini_Button_Clicked (GtkEntry *entry)
 {
     if ( g_object_get_data(G_OBJECT(entry),"MButtonName") )
         Mini_Button_Clicked(G_OBJECT(g_object_get_data(G_OBJECT(entry),"MButtonName")));
 }
-void Mini_Button_Clicked (GObject *object)
+
+static void
+Mini_Button_Clicked (GObject *object)
 {
     GList *etfilelist = NULL;
     GList *selection_filelist = NULL;
@@ -2125,7 +2138,8 @@ gint Save_All_Files_With_Answer (gboolean force_saving_files)
 /*
  * Will save only the selected files in the file list
  */
-gint Save_Selected_Files_With_Answer (gboolean force_saving_files)
+static gint
+Save_Selected_Files_With_Answer (gboolean force_saving_files)
 {
     gint toreturn;
     GList *etfilelist = NULL;
@@ -2158,7 +2172,8 @@ gint Save_Selected_Files_With_Answer (gboolean force_saving_files)
  *  - force_saving_files = TRUE => force saving the file even if it wasn't changed
  *  - force_saving_files = FALSE => force saving only the changed files
  */
-gint Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
+static gint
+Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
 {
     gint       progress_bar_index;
     gint       saving_answer;
@@ -2368,7 +2383,8 @@ void Action_Delete_Selected_Files (void)
 }
 
 
-gint Delete_Selected_Files_With_Answer (void)
+static gint
+Delete_Selected_Files_With_Answer (void)
 {
     GList *selfilelist;
     GList *rowreflist = NULL;
@@ -2510,7 +2526,9 @@ gint Delete_Selected_Files_With_Answer (void)
  *                             to do the same action for all files.
  *  - multiple_files = FALSE : appears only a msgbox to ask confirmation.
  */
-gint Save_File (ET_File *ETFile, gboolean multiple_files, gboolean force_saving_files)
+static gint
+Save_File (ET_File *ETFile, gboolean multiple_files,
+           gboolean force_saving_files)
 {
     File_Tag  *FileTag;
     File_Name *FileNameNew;
@@ -2774,7 +2792,8 @@ gint Save_File (ET_File *ETFile, gboolean multiple_files, gboolean force_saving_
  * Return TRUE => OK
  *        FALSE => error
  */
-gboolean Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox)
+static gboolean
+Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox)
 {
     gchar *cur_filename_utf8 = ((File_Name *)ETFile->FileNameCur->data)->value_utf8;
     gchar *msg;
@@ -2804,7 +2823,7 @@ gboolean Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox)
             break;
 #endif
         default:
-            msg = g_strerror(errno);
+            msg = g_strdup (g_strerror (errno));
     }
 
     msg1 = g_strdup_printf(_("Cannot write tag in file '%s' (%s)"),
@@ -2836,7 +2855,8 @@ gboolean Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox)
 /*
  * Make dir and all parents with permission mode
  */
-gint Make_Dir (const gchar *dirname_old, const gchar *dirname_new)
+static gboolean
+Make_Dir (const gchar *dirname_old, const gchar *dirname_new)
 {
     gchar *parent, *temp;
     struct stat dirstat;
@@ -2866,23 +2886,24 @@ gint Make_Dir (const gchar *dirname_old, const gchar *dirname_new)
         if (mkdir(parent,dirstat.st_mode)==-1 && errno!=EEXIST)
         {
             g_free(parent);
-            return(-1);
+            return FALSE;
         }
         *temp=G_DIR_SEPARATOR; // To cancel the '*temp=0;'
     }
     g_free(parent);
 
     if (mkdir(dirname_new,dirstat.st_mode)==-1 && errno!=EEXIST)
-        return(-1);
+        return FALSE;
 
-    return(0);
+    return TRUE;
 }
 
 /*
  * Remove old directories after renaming the file
  * Badly coded, but works....
  */
-gint Remove_Dir (const gchar *dirname_old, const gchar *dirname_new)
+static gboolean
+Remove_Dir (const gchar *dirname_old, const gchar *dirname_new)
 {
     gchar *temp_old, *temp_new;
     gchar *temp_end_old, *temp_end_new;
@@ -2900,7 +2921,7 @@ gint Remove_Dir (const gchar *dirname_old, const gchar *dirname_new)
             {
                 g_free(temp_old);
                 g_free(temp_new);
-                return(-1);
+                return FALSE;
             }else
             {
                 break;
@@ -2924,7 +2945,7 @@ gint Remove_Dir (const gchar *dirname_old, const gchar *dirname_new)
     g_free(temp_old);
     g_free(temp_new);
 
-    return(0);
+    return TRUE;
 }
 
 
@@ -2933,7 +2954,8 @@ gint Remove_Dir (const gchar *dirname_old, const gchar *dirname_new)
  * Return TRUE => OK
  *        FALSE => error
  */
-gboolean Rename_File (ET_File *ETFile, gboolean hide_msgbox)
+static gboolean
+Rename_File (ET_File *ETFile, gboolean hide_msgbox)
 {
     FILE  *file;
     gchar *tmp_filename = NULL;
@@ -3074,7 +3096,7 @@ gboolean Rename_File (ET_File *ETFile, gboolean hide_msgbox)
 
     if (dirname_cur && dirname_new && strcmp(dirname_cur,dirname_new)) /* Need to create target directory? */
     {
-        if (Make_Dir(dirname_cur,dirname_new))
+        if (!Make_Dir(dirname_cur,dirname_new))
         {
             gchar *msg;
             GtkWidget *msgdialog;
@@ -3125,7 +3147,7 @@ gboolean Rename_File (ET_File *ETFile, gboolean hide_msgbox)
         Statusbar_Message(_("File(s) renamed…"),TRUE);
 
         /* Remove the of directory (check automatically if it is empty) */
-        if (Remove_Dir(dirname_cur,dirname_new))
+        if (!Remove_Dir(dirname_cur,dirname_new))
         {
             gchar *msg;
             GtkWidget *msgdialog;
@@ -3183,7 +3205,7 @@ gboolean Rename_File (ET_File *ETFile, gboolean hide_msgbox)
             Statusbar_Message(_("File(s) moved…"),TRUE);
 
             /* Remove the of directory (check automatically if it is empty) */
-            if (Remove_Dir(dirname_cur,dirname_new))
+            if (!Remove_Dir(dirname_cur,dirname_new))
             {
                 gchar *msg;
                 GtkWidget *msgdialog;
@@ -3297,7 +3319,8 @@ gboolean Rename_File (ET_File *ETFile, gboolean hide_msgbox)
 /*
  * Delete the file ETFile
  */
-gint Delete_File (ET_File *ETFile, gboolean multiple_files)
+static gint
+Delete_File (ET_File *ETFile, gboolean multiple_files)
 {
     GtkWidget *msgdialog;
     GtkWidget *msgdialog_check_button = NULL;
@@ -3386,7 +3409,8 @@ gint Delete_File (ET_File *ETFile, gboolean multiple_files)
 /*
  * Copy a file to a new location
  */
-gint Copy_File (gchar const *fileold, gchar const *filenew)
+static gboolean
+Copy_File (const gchar *fileold, const gchar *filenew)
 {
     FILE* fOld;
     FILE* fNew;
@@ -3634,7 +3658,9 @@ gboolean Read_Directory (gchar *path_real)
 /*
  * Recurse the path to create a list of files. Return a GList of the files found.
  */
-GList *Read_Directory_Recursively (GList *file_list, gchar *path_real, gint recurse)
+static GList *
+Read_Directory_Recursively (GList *file_list, const gchar *path_real,
+                            gboolean recurse)
 {
     DIR *dir;
     struct dirent *dirent;
@@ -3692,7 +3718,8 @@ GList *Read_Directory_Recursively (GList *file_list, gchar *path_real, gint recu
 /*
  * Window with the 'STOP' button to stop recursion when reading directories
  */
-void Open_Quit_Recursion_Function_Window (void)
+static void
+Open_Quit_Recursion_Function_Window (void)
 {
     GtkWidget *button;
     GtkWidget *frame;
@@ -3727,7 +3754,9 @@ void Open_Quit_Recursion_Function_Window (void)
 
     gtk_widget_show_all(QuitRecursionWindow);
 }
-void Destroy_Quit_Recursion_Function_Window (void)
+
+static void
+Destroy_Quit_Recursion_Function_Window (void)
 {
     if (QuitRecursionWindow)
     {
@@ -3736,12 +3765,16 @@ void Destroy_Quit_Recursion_Function_Window (void)
         /*Statusbar_Message(_("Recursive file search interrupted."),FALSE);*/
     }
 }
-void Quit_Recursion_Function_Button_Pressed (void)
+
+static void
+Quit_Recursion_Function_Button_Pressed (void)
 {
     Action_Main_Stop_Button_Pressed();
     Destroy_Quit_Recursion_Function_Window();
 }
-void Quit_Recursion_Window_Key_Press (GtkWidget *window, GdkEvent *event)
+
+static void
+Quit_Recursion_Window_Key_Press (GtkWidget *window, GdkEvent *event)
 {
     GdkEventKey *kevent;
 
@@ -4002,7 +4035,8 @@ void Update_Command_Buttons_Sensivity (void)
 /*
  * Just to disable buttons when we are saving files (do not disable Quit button)
  */
-void Disable_Command_Buttons (void)
+static void
+Disable_Command_Buttons (void)
 {
     /* Scanner Window */
     if (SWScanButton)
@@ -4037,7 +4071,8 @@ void Disable_Command_Buttons (void)
 /*
  * Disable (FALSE) / Enable (TRUE) all user widgets in the tag area
  */
-void Tag_Area_Set_Sensitive (gboolean activate)
+static void
+Tag_Area_Set_Sensitive (gboolean activate)
 {
     if (!TagArea) return;
 
@@ -4072,7 +4107,8 @@ void Tag_Area_Set_Sensitive (gboolean activate)
 /*
  * Disable (FALSE) / Enable (TRUE) all user widgets in the file area
  */
-void File_Area_Set_Sensitive (gboolean activate)
+static void
+File_Area_Set_Sensitive (gboolean activate)
 {
     if (!FileArea) return;
 
@@ -4447,7 +4483,8 @@ void Clear_Header_Fields (void)
  * Load the default directory when the user interface is completely displayed
  * to avoid bad visualization effect at startup.
  */
-void Init_Load_Default_Dir (void)
+static void
+Init_Load_Default_Dir (void)
 {
     //ETCore->ETFileList = NULL;
     ET_Core_Free();
@@ -4709,7 +4746,8 @@ void Attach_Popup_Menu_To_Tag_Entries (GtkEntry *entry)
  * Function to manage the received signals (specially for segfaults)
  * Handle crashs
  */
-void Handle_Crash (gint signal_id)
+static void
+Handle_Crash (gint signal_id)
 {
     //gchar commmand[256];
 
@@ -4737,7 +4775,8 @@ void Handle_Crash (gint signal_id)
     //system(commmand);
 }
 
-gchar *signal_to_string (gint signal)
+static const gchar *
+signal_to_string (gint signal)
 {
 #ifdef SIGHUP
     if (signal == SIGHUP)     return ("SIGHUP");
@@ -4860,7 +4899,8 @@ gchar *signal_to_string (gint signal)
 /*
  * Display usage information
  */
-void Display_Usage (void)
+static void
+Display_Usage (void)
 {
     // Fix from Steve Ralston for gcc-3.2.2
 #ifdef WIN32
@@ -4893,7 +4933,8 @@ void Display_Usage (void)
 /*
  * Exit the program
  */
-void EasyTAG_Exit (void)
+static void
+EasyTAG_Exit (void)
 {
     ET_Core_Destroy();
     Charset_Insert_Locales_Destroy();

@@ -142,63 +142,66 @@ gboolean   CddbStopSearch = FALSE;
 /**************
  * Prototypes *
  **************/
-gboolean Cddb_Destroy_Window   (GtkWidget *widget, GdkEvent *event, gpointer data);
-gboolean Cddb_Window_Key_Press (GtkWidget *window, GdkEvent *event);
-void     Cddb_Show_Album_Info  (GtkTreeSelection *selection, gpointer data);
+static gboolean Cddb_Destroy_Window (GtkWidget *widget, GdkEvent *event,
+                                     gpointer data);
+static gboolean Cddb_Window_Key_Press (GtkWidget *window, GdkEvent *event);
+static void Cddb_Show_Album_Info (GtkTreeSelection *selection, gpointer data);
 
-gboolean Cddb_Free_Album_List (void);
-gboolean Cddb_Free_Track_Album_List (GList *track_list);
+static gboolean Cddb_Free_Album_List (void);
+static gboolean Cddb_Free_Track_Album_List (GList *track_list);
 
-gint     Cddb_Open_Connection  (const gchar *host, gint port);
-void     Cddb_Close_Connection (gint socket_id);
-gint     Cddb_Read_Line        (FILE **file, gchar **cddb_out);
-gint     Cddb_Read_Http_Header (FILE **file, gchar **cddb_out);
-gint     Cddb_Read_Cddb_Header (FILE **file, gchar **cddb_out);
+static gint Cddb_Open_Connection (const gchar *host, gint port);
+static void Cddb_Close_Connection (gint socket_id);
+static gint Cddb_Read_Line        (FILE **file, gchar **cddb_out);
+static gint Cddb_Read_Http_Header (FILE **file, gchar **cddb_out);
+static gint Cddb_Read_Cddb_Header (FILE **file, gchar **cddb_out);
 
-gint     Cddb_Write_Result_To_File (gint socket_id, gulong *bytes_read_total);
+static gint Cddb_Write_Result_To_File (gint socket_id,
+                                       gulong *bytes_read_total);
 
-gboolean Cddb_Search_Album_List_From_String        (void);
-gboolean Cddb_Search_Album_List_From_String_Freedb (void);
-gboolean Cddb_Search_Album_List_From_String_Gnudb  (void);
-gboolean Cddb_Search_Album_From_Selected_Files     (void);
-gboolean Cddb_Get_Album_Tracks_List_CB (GtkTreeSelection *selection, gpointer data);
-gboolean Cddb_Get_Album_Tracks_List    (GtkTreeSelection *selection);
+static gboolean Cddb_Search_Album_List_From_String (void);
+static gboolean Cddb_Search_Album_List_From_String_Freedb (void);
+static gboolean Cddb_Search_Album_List_From_String_Gnudb (void);
+static gboolean Cddb_Search_Album_From_Selected_Files (void);
+static gboolean Cddb_Get_Album_Tracks_List_CB (GtkTreeSelection *selection,
+                                               gpointer data);
+static gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection *selection);
 
-void       Cddb_Load_Album_List               (gboolean only_red_lines);
-void       Cddb_Load_Track_Album_List         (GList *track_list);
-gboolean   Cddb_Set_Track_Infos_To_File_List  (void);
-void       Cddb_Album_List_Set_Row_Appearance (GtkTreeIter *row);
-GdkPixbuf *Cddb_Get_Pixbuf_From_Server_Name   (const gchar *server_name);
+static void Cddb_Load_Album_List (gboolean only_red_lines);
+static void Cddb_Load_Track_Album_List (GList *track_list);
+static gboolean Cddb_Set_Track_Infos_To_File_List (void);
+static void Cddb_Album_List_Set_Row_Appearance (GtkTreeIter *row);
+static GdkPixbuf *Cddb_Get_Pixbuf_From_Server_Name (const gchar *server_name);
 
-void Cddb_Search_In_All_Fields_Check_Button_Toggled     (void);
-void Cddb_Search_In_All_Categories_Check_Button_Toggled (void);
-void Cddb_Set_To_All_Fields_Check_Button_Toggled        (void);
-void Cddb_Stop_Search                                   (void);
-void Cddb_Notebook_Switch_Page                          (GtkNotebook *notebook, gpointer page, guint page_num, gpointer user_data);
-void Cddb_Search_String_In_Result                       (GtkWidget *entry, GtkButton *button);
-void Cddb_Display_Red_Lines_In_Result                   (void);
+static void Cddb_Search_In_All_Fields_Check_Button_Toggled (void);
+static void Cddb_Search_In_All_Categories_Check_Button_Toggled (void);
+static void Cddb_Set_To_All_Fields_Check_Button_Toggled (void);
+static void Cddb_Stop_Search (void);
+static void Cddb_Notebook_Switch_Page (GtkNotebook *notebook, gpointer page,
+                                       guint page_num, gpointer user_data);
+static void Cddb_Search_String_In_Result (GtkWidget *entry, GtkButton *button);
+static void Cddb_Display_Red_Lines_In_Result (void);
 
-void   Cddb_Set_Apply_Button_Sensivity     (void);
-void   Cddb_Set_Search_Button_Sensivity    (void);
-void   Cddb_Use_Dlm_2_Check_Button_Toggled (void);
-void   Cddb_Show_Categories_Button_Toggled (void);
-gchar *Cddb_Generate_Request_String_With_Fields_And_Categories_Options (void);
-gchar *Cddb_Get_Id3_Genre_From_Cddb_Genre  (gchar *cddb_genre);
+static void Cddb_Set_Apply_Button_Sensitivity (void);
+static void Cddb_Set_Search_Button_Sensitivity (void);
+static void Cddb_Use_Dlm_2_Check_Button_Toggled (void);
+static void Cddb_Show_Categories_Button_Toggled (void);
+static gchar *Cddb_Generate_Request_String_With_Fields_And_Categories_Options (void);
+static const gchar *Cddb_Get_Id3_Genre_From_Cddb_Genre (const gchar *cddb_genre);
 
-GtkWidget *Create_Cddb_Track_List_Popup_Menu (GtkWidget *listView);
-void       Cddb_Track_List_Row_Selected      (GtkTreeSelection *selection, gpointer data);
-gboolean   Cddb_Track_List_Button_Press      (GtkTreeView *treeView, GdkEventButton *event);
+static void Cddb_Track_List_Row_Selected (GtkTreeSelection *selection,
+                                          gpointer data);
+static gboolean Cddb_Track_List_Button_Press (GtkTreeView *treeView,
+                                              GdkEventButton *event);
 
-void Cddb_Track_List_Select_All       (void);
-void Cddb_Track_List_Unselect_All     (void);
-void Cddb_Track_List_Invert_Selection (void);
+static void Cddb_Track_List_Select_All (void);
+static void Cddb_Track_List_Unselect_All (void);
+static void Cddb_Track_List_Invert_Selection (void);
 
-gint Cddb_Track_List_Sort_Func (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, gpointer data);
-void Cddb_Track_List_Sort_By_Ascending_Track_Number (void);
-void Cddb_Track_List_Sort_By_Ascending_Track_Name   (void);
+static gint Cddb_Track_List_Sort_Func (GtkTreeModel *model, GtkTreeIter *a,
+                                       GtkTreeIter *b, gpointer data);
 
-//char  *base64_encode (char *str);
-gchar *Cddb_Format_Proxy_Authentification (void);
+static gchar *Cddb_Format_Proxy_Authentification (void);
 
 
 
@@ -403,7 +406,7 @@ void Open_Cddb_Window (void)
     g_signal_connect(G_OBJECT(CddbSearchButton),"clicked",
         G_CALLBACK(Cddb_Search_Album_List_From_String),NULL);
     g_signal_connect(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbSearchStringCombo)))),"changed",
-        G_CALLBACK(Cddb_Set_Search_Button_Sensivity),NULL);
+        G_CALLBACK(Cddb_Set_Search_Button_Sensitivity),NULL);
 
     // Button to stop the search
     CddbStopSearchButton = Create_Button_With_Icon_And_Label(GTK_STOCK_STOP,NULL);
@@ -459,11 +462,11 @@ void Open_Cddb_Window (void)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbSearchInTrackNameField), CDDB_SEARCH_IN_TRACK_NAME_FIELD);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbSearchInOtherField), CDDB_SEARCH_IN_OTHER_FIELD);
     g_signal_connect(G_OBJECT(CddbSearchInAllFields), "toggled", G_CALLBACK(Cddb_Search_In_All_Fields_Check_Button_Toggled),NULL);
-    g_signal_connect(G_OBJECT(CddbSearchInAllFields), "toggled", G_CALLBACK(Cddb_Set_Search_Button_Sensivity),NULL);
-    g_signal_connect(G_OBJECT(CddbSearchInArtistField), "toggled", G_CALLBACK(Cddb_Set_Search_Button_Sensivity),NULL);
-    g_signal_connect(G_OBJECT(CddbSearchInTitleField), "toggled", G_CALLBACK(Cddb_Set_Search_Button_Sensivity),NULL);
-    g_signal_connect(G_OBJECT(CddbSearchInTrackNameField), "toggled", G_CALLBACK(Cddb_Set_Search_Button_Sensivity),NULL);
-    g_signal_connect(G_OBJECT(CddbSearchInOtherField), "toggled", G_CALLBACK(Cddb_Set_Search_Button_Sensivity),NULL);
+    g_signal_connect(G_OBJECT(CddbSearchInAllFields), "toggled", G_CALLBACK(Cddb_Set_Search_Button_Sensitivity),NULL);
+    g_signal_connect(G_OBJECT(CddbSearchInArtistField), "toggled", G_CALLBACK(Cddb_Set_Search_Button_Sensitivity),NULL);
+    g_signal_connect(G_OBJECT(CddbSearchInTitleField), "toggled", G_CALLBACK(Cddb_Set_Search_Button_Sensitivity),NULL);
+    g_signal_connect(G_OBJECT(CddbSearchInTrackNameField), "toggled", G_CALLBACK(Cddb_Set_Search_Button_Sensitivity),NULL);
+    g_signal_connect(G_OBJECT(CddbSearchInOtherField), "toggled", G_CALLBACK(Cddb_Set_Search_Button_Sensitivity),NULL);
 
     CddbSeparatorH = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
     gtk_table_attach(GTK_TABLE(Table),CddbSeparatorH,0,7,1,2,GTK_FILL,GTK_FILL,0,0);
@@ -527,17 +530,17 @@ void Open_Cddb_Window (void)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbSearchInRockCategory),      CDDB_SEARCH_IN_ROCK_CATEGORY);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbSearchInSoundtrackCategory),CDDB_SEARCH_IN_SOUNDTRACK_CATEGORY);
     g_signal_connect(G_OBJECT(CddbSearchInAllCategories),     "toggled",G_CALLBACK(Cddb_Search_In_All_Categories_Check_Button_Toggled),NULL);
-    g_signal_connect(G_OBJECT(CddbSearchInAllCategories),     "toggled",G_CALLBACK(Cddb_Set_Search_Button_Sensivity),NULL);
-    g_signal_connect(G_OBJECT(CddbSearchInBluesCategory),     "toggled",G_CALLBACK(Cddb_Set_Search_Button_Sensivity),NULL);
-    g_signal_connect(G_OBJECT(CddbSearchInClassicalCategory), "toggled",G_CALLBACK(Cddb_Set_Search_Button_Sensivity),NULL);
-    g_signal_connect(G_OBJECT(CddbSearchInCountryCategory),   "toggled",G_CALLBACK(Cddb_Set_Search_Button_Sensivity),NULL);
-    g_signal_connect(G_OBJECT(CddbSearchInFolkCategory),      "toggled",G_CALLBACK(Cddb_Set_Search_Button_Sensivity),NULL);
-    g_signal_connect(G_OBJECT(CddbSearchInJazzCategory),      "toggled",G_CALLBACK(Cddb_Set_Search_Button_Sensivity),NULL);
-    g_signal_connect(G_OBJECT(CddbSearchInMiscCategory),      "toggled",G_CALLBACK(Cddb_Set_Search_Button_Sensivity),NULL);
-    g_signal_connect(G_OBJECT(CddbSearchInNewageCategory),    "toggled",G_CALLBACK(Cddb_Set_Search_Button_Sensivity),NULL);
-    g_signal_connect(G_OBJECT(CddbSearchInReggaeCategory),    "toggled",G_CALLBACK(Cddb_Set_Search_Button_Sensivity),NULL);
-    g_signal_connect(G_OBJECT(CddbSearchInRockCategory),      "toggled",G_CALLBACK(Cddb_Set_Search_Button_Sensivity),NULL);
-    g_signal_connect(G_OBJECT(CddbSearchInSoundtrackCategory),"toggled",G_CALLBACK(Cddb_Set_Search_Button_Sensivity),NULL);
+    g_signal_connect(G_OBJECT(CddbSearchInAllCategories),     "toggled",G_CALLBACK(Cddb_Set_Search_Button_Sensitivity),NULL);
+    g_signal_connect(G_OBJECT(CddbSearchInBluesCategory),     "toggled",G_CALLBACK(Cddb_Set_Search_Button_Sensitivity),NULL);
+    g_signal_connect(G_OBJECT(CddbSearchInClassicalCategory), "toggled",G_CALLBACK(Cddb_Set_Search_Button_Sensitivity),NULL);
+    g_signal_connect(G_OBJECT(CddbSearchInCountryCategory),   "toggled",G_CALLBACK(Cddb_Set_Search_Button_Sensitivity),NULL);
+    g_signal_connect(G_OBJECT(CddbSearchInFolkCategory),      "toggled",G_CALLBACK(Cddb_Set_Search_Button_Sensitivity),NULL);
+    g_signal_connect(G_OBJECT(CddbSearchInJazzCategory),      "toggled",G_CALLBACK(Cddb_Set_Search_Button_Sensitivity),NULL);
+    g_signal_connect(G_OBJECT(CddbSearchInMiscCategory),      "toggled",G_CALLBACK(Cddb_Set_Search_Button_Sensitivity),NULL);
+    g_signal_connect(G_OBJECT(CddbSearchInNewageCategory),    "toggled",G_CALLBACK(Cddb_Set_Search_Button_Sensitivity),NULL);
+    g_signal_connect(G_OBJECT(CddbSearchInReggaeCategory),    "toggled",G_CALLBACK(Cddb_Set_Search_Button_Sensitivity),NULL);
+    g_signal_connect(G_OBJECT(CddbSearchInRockCategory),      "toggled",G_CALLBACK(Cddb_Set_Search_Button_Sensitivity),NULL);
+    g_signal_connect(G_OBJECT(CddbSearchInSoundtrackCategory),"toggled",G_CALLBACK(Cddb_Set_Search_Button_Sensitivity),NULL);
     gtk_widget_set_tooltip_text(CddbSearchInRockCategory,_("included: funk, soul, rap, pop, industrial, metal, etc."));
     gtk_widget_set_tooltip_text(CddbSearchInSoundtrackCategory,_("movies, shows"));
     gtk_widget_set_tooltip_text(CddbSearchInMiscCategory,_("others that do not fit in the above categories"));
@@ -778,15 +781,15 @@ void Open_Cddb_Window (void)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbSetToGenre),     CDDB_SET_TO_GENRE);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbSetToFileName),  CDDB_SET_TO_FILE_NAME);
     g_signal_connect(G_OBJECT(CddbSetToAllFields), "toggled",G_CALLBACK(Cddb_Set_To_All_Fields_Check_Button_Toggled),NULL);
-    g_signal_connect(G_OBJECT(CddbSetToAllFields), "toggled",G_CALLBACK(Cddb_Set_Apply_Button_Sensivity),NULL);
-    g_signal_connect(G_OBJECT(CddbSetToTitle),     "toggled",G_CALLBACK(Cddb_Set_Apply_Button_Sensivity),NULL);
-    g_signal_connect(G_OBJECT(CddbSetToArtist),    "toggled",G_CALLBACK(Cddb_Set_Apply_Button_Sensivity),NULL);
-    g_signal_connect(G_OBJECT(CddbSetToAlbum),     "toggled",G_CALLBACK(Cddb_Set_Apply_Button_Sensivity),NULL);
-    g_signal_connect(G_OBJECT(CddbSetToYear),      "toggled",G_CALLBACK(Cddb_Set_Apply_Button_Sensivity),NULL);
-    g_signal_connect(G_OBJECT(CddbSetToTrack),     "toggled",G_CALLBACK(Cddb_Set_Apply_Button_Sensivity),NULL);
-    g_signal_connect(G_OBJECT(CddbSetToTrackTotal),"toggled",G_CALLBACK(Cddb_Set_Apply_Button_Sensivity),NULL);
-    g_signal_connect(G_OBJECT(CddbSetToGenre),     "toggled",G_CALLBACK(Cddb_Set_Apply_Button_Sensivity),NULL);
-    g_signal_connect(G_OBJECT(CddbSetToFileName),  "toggled",G_CALLBACK(Cddb_Set_Apply_Button_Sensivity),NULL);
+    g_signal_connect(G_OBJECT(CddbSetToAllFields), "toggled",G_CALLBACK(Cddb_Set_Apply_Button_Sensitivity),NULL);
+    g_signal_connect(G_OBJECT(CddbSetToTitle),     "toggled",G_CALLBACK(Cddb_Set_Apply_Button_Sensitivity),NULL);
+    g_signal_connect(G_OBJECT(CddbSetToArtist),    "toggled",G_CALLBACK(Cddb_Set_Apply_Button_Sensitivity),NULL);
+    g_signal_connect(G_OBJECT(CddbSetToAlbum),     "toggled",G_CALLBACK(Cddb_Set_Apply_Button_Sensitivity),NULL);
+    g_signal_connect(G_OBJECT(CddbSetToYear),      "toggled",G_CALLBACK(Cddb_Set_Apply_Button_Sensitivity),NULL);
+    g_signal_connect(G_OBJECT(CddbSetToTrack),     "toggled",G_CALLBACK(Cddb_Set_Apply_Button_Sensitivity),NULL);
+    g_signal_connect(G_OBJECT(CddbSetToTrackTotal),"toggled",G_CALLBACK(Cddb_Set_Apply_Button_Sensitivity),NULL);
+    g_signal_connect(G_OBJECT(CddbSetToGenre),     "toggled",G_CALLBACK(Cddb_Set_Apply_Button_Sensitivity),NULL);
+    g_signal_connect(G_OBJECT(CddbSetToFileName),  "toggled",G_CALLBACK(Cddb_Set_Apply_Button_Sensitivity),NULL);
 
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
@@ -851,7 +854,8 @@ void Open_Cddb_Window (void)
     gtk_notebook_set_current_page(GTK_NOTEBOOK(CddbNoteBook),0);
 }
 
-gboolean Cddb_Destroy_Window (GtkWidget *widget, GdkEvent *event, gpointer data)
+static gboolean
+Cddb_Destroy_Window (GtkWidget *widget, GdkEvent *event, gpointer data)
 {
 
     CddbStopSearch = TRUE;
@@ -945,7 +949,8 @@ void Cddb_Window_Apply_Changes (void)
 }
 
 
-gboolean Cddb_Window_Key_Press (GtkWidget *window, GdkEvent *event)
+static gboolean
+Cddb_Window_Key_Press (GtkWidget *window, GdkEvent *event)
 {
     GdkEventKey *kevent;
 
@@ -963,7 +968,8 @@ gboolean Cddb_Window_Key_Press (GtkWidget *window, GdkEvent *event)
 }
 
 
-void Cddb_Search_In_All_Fields_Check_Button_Toggled (void)
+static void
+Cddb_Search_In_All_Fields_Check_Button_Toggled (void)
 {
     if (CddbSearchInAllFields)
     {
@@ -973,7 +979,9 @@ void Cddb_Search_In_All_Fields_Check_Button_Toggled (void)
         gtk_widget_set_sensitive(CddbSearchInOtherField,    !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSearchInAllFields)));
     }
 }
-void Cddb_Show_Categories_Button_Toggled (void)
+
+static void
+Cddb_Show_Categories_Button_Toggled (void)
 {
     if (CddbShowCategoriesButton)
     {
@@ -1012,7 +1020,9 @@ void Cddb_Show_Categories_Button_Toggled (void)
         gtk_widget_queue_resize(CddbWindow);
     }
 }
-void Cddb_Search_In_All_Categories_Check_Button_Toggled (void)
+
+static void
+Cddb_Search_In_All_Categories_Check_Button_Toggled (void)
 {
     if (CddbSearchInAllCategories)
     {
@@ -1028,7 +1038,9 @@ void Cddb_Search_In_All_Categories_Check_Button_Toggled (void)
         gtk_widget_set_sensitive(CddbSearchInSoundtrackCategory,!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbSearchInAllCategories)));
     }
 }
-void Cddb_Set_To_All_Fields_Check_Button_Toggled (void)
+
+static void
+Cddb_Set_To_All_Fields_Check_Button_Toggled (void)
 {
     if (CddbSetToAllFields)
     {
@@ -1043,7 +1055,8 @@ void Cddb_Set_To_All_Fields_Check_Button_Toggled (void)
     }
 }
 
-void Cddb_Set_Apply_Button_Sensivity (void)
+static void
+Cddb_Set_Apply_Button_Sensitivity (void)
 {
     gboolean cddbsettoallfields, cddbsettotitle, cddbsettoartist, cddbsettoalbum,
              cddbsettoyear, cddbsettotrack, cddbsettotracktotal, cddbsettogenre, cddbsettofilename;
@@ -1069,7 +1082,8 @@ void Cddb_Set_Apply_Button_Sensivity (void)
     }
 }
 
-void Cddb_Use_Dlm_2_Check_Button_Toggled (void)
+static void
+Cddb_Use_Dlm_2_Check_Button_Toggled (void)
 {
     if (CddbUseDLM2)
     {
@@ -1077,7 +1091,8 @@ void Cddb_Use_Dlm_2_Check_Button_Toggled (void)
     }
 }
 
-void Cddb_Set_Search_Button_Sensivity (void)
+static void
+Cddb_Set_Search_Button_Sensitivity (void)
 {
     gboolean cddbinallfields, cddbinartistfield, cddbintitlefield, cddbintracknamefield, cddbinotherfield;
     gboolean cddbinallcategories, cddbinbluescategory, cddbinclassicalcategory, cddbincountrycategory,
@@ -1116,12 +1131,15 @@ void Cddb_Set_Search_Button_Sensivity (void)
     }
 }
 
-void Cddb_Stop_Search (void)
+static void
+Cddb_Stop_Search (void)
 {
     CddbStopSearch = TRUE;
 }
 
-void Cddb_Notebook_Switch_Page (GtkNotebook *notebook, gpointer page, guint page_num, gpointer user_data)
+static void
+Cddb_Notebook_Switch_Page (GtkNotebook *notebook, gpointer page,
+                           guint page_num, gpointer user_data)
 {
     gint page_total;
     guint page_tmp;
@@ -1156,7 +1174,8 @@ void Cddb_Notebook_Switch_Page (GtkNotebook *notebook, gpointer page, guint page
  * Searches the Cddb Album List for specific terms
  * (this is not search the remote CDDB database...)
  */
-void Cddb_Search_String_In_Result (GtkWidget *entry, GtkButton *button)
+static void
+Cddb_Search_String_In_Result (GtkWidget *entry, GtkButton *button)
 {
     gchar *string;
     gchar  buffer[256];
@@ -1316,7 +1335,8 @@ void Cddb_Search_String_In_Result (GtkWidget *entry, GtkButton *button)
 /*
  * Show collected infos of the album in the status bar
  */
-void Cddb_Show_Album_Info (GtkTreeSelection *selection, gpointer data)
+static void
+Cddb_Show_Album_Info (GtkTreeSelection *selection, gpointer data)
 {
     CddbAlbum *cddbalbum = NULL;
     gchar *msg, *duration_str;
@@ -1354,7 +1374,8 @@ void Cddb_Show_Album_Info (GtkTreeSelection *selection, gpointer data)
 /*
  * Select the corresponding file into the main file list
  */
-void Cddb_Track_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
+static void
+Cddb_Track_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
 {
     GList       *selectedRows;
     GtkTreeIter  currentFile;
@@ -1410,7 +1431,8 @@ void Cddb_Track_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
 /*
  * Unselect all rows in the track list
  */
-void Cddb_Track_List_Unselect_All ()
+static void
+Cddb_Track_List_Unselect_All ()
 {
     GtkTreeSelection *selection;
 
@@ -1426,7 +1448,8 @@ void Cddb_Track_List_Unselect_All ()
 /*
  * Select all rows in the track list
  */
-void Cddb_Track_List_Select_All ()
+static void
+Cddb_Track_List_Select_All ()
 {
     GtkTreeSelection *selection;
 
@@ -1442,7 +1465,8 @@ void Cddb_Track_List_Select_All ()
 /*
  * Invert the selection of every row in the track list
  */
-void Cddb_Track_List_Invert_Selection ()
+static void
+Cddb_Track_List_Invert_Selection ()
 {
     GtkTreeSelection *selection;
     GtkTreeIter iter;
@@ -1474,7 +1498,8 @@ void Cddb_Track_List_Invert_Selection ()
     }
 }
 
-gboolean Cddb_Track_List_Button_Press (GtkTreeView *treeView, GdkEventButton *event)
+static gboolean
+Cddb_Track_List_Button_Press (GtkTreeView *treeView, GdkEventButton *event)
 {
     if (!event)
         return FALSE;
@@ -1489,64 +1514,6 @@ gboolean Cddb_Track_List_Button_Press (GtkTreeView *treeView, GdkEventButton *ev
 
 
 /*
- * Cddb_Popup_Menu_Handler : displays the corresponding menu
- * Create_Browser_Tree_Popup_Menu: Create a popup menu for the tree browser
- * Create_Browser_List_Popup_Menu: Create a popup menu for the list of files of browser
- */
-static gboolean
-Cddb_Popup_Menu_Handler (GtkMenu *menu, GdkEventButton *event)
-{
-    if (event && (event->type==GDK_BUTTON_PRESS) && (event->button==3))
-    {
-        gtk_menu_popup(menu,NULL,NULL,NULL,NULL,event->button,event->time);
-        return TRUE;
-    }
-    return FALSE;
-}
-
-GtkWidget *Create_Cddb_Track_List_Popup_Menu(GtkWidget *list)
-{
-    GtkWidget *CddbPopupMenu;
-    GtkWidget *MenuItem;
-
-
-    CddbPopupMenu = gtk_menu_new();
-    g_signal_connect_swapped(G_OBJECT(list), "button_press_event",
-                            G_CALLBACK(Cddb_Popup_Menu_Handler), G_OBJECT(CddbPopupMenu));
-
-    MenuItem = gtk_menu_item_new_with_label(_("Select all lines"));
-    gtk_menu_shell_append(GTK_MENU_SHELL(CddbPopupMenu), MenuItem);
-    g_signal_connect(G_OBJECT(MenuItem),"activate",
-                     G_CALLBACK(Cddb_Track_List_Select_All),NULL);
-
-    MenuItem = gtk_menu_item_new_with_label(_("Unselect all lines"));
-    gtk_menu_shell_append(GTK_MENU_SHELL(CddbPopupMenu), MenuItem);
-    g_signal_connect(G_OBJECT(MenuItem),"activate",
-                     G_CALLBACK(Cddb_Track_List_Unselect_All),NULL);
-
-    MenuItem = gtk_menu_item_new_with_label(_("Invert selection"));
-    gtk_menu_shell_append(GTK_MENU_SHELL(CddbPopupMenu), MenuItem);
-    g_signal_connect(G_OBJECT(MenuItem),"activate",
-                     G_CALLBACK(Cddb_Track_List_Invert_Selection),NULL);
-
-    MenuItem = gtk_menu_item_new();
-    gtk_menu_shell_append(GTK_MENU_SHELL(CddbPopupMenu), MenuItem);
-
-    MenuItem = gtk_menu_item_new_with_label(_("Sort by Track Number"));
-    gtk_menu_shell_append(GTK_MENU_SHELL(CddbPopupMenu),MenuItem);
-    g_signal_connect(G_OBJECT(MenuItem),"activate",
-                     G_CALLBACK(Cddb_Track_List_Sort_By_Ascending_Track_Number),NULL);
-
-    MenuItem = gtk_menu_item_new_with_label(_("Sort by Track Name"));
-    gtk_menu_shell_append(GTK_MENU_SHELL(CddbPopupMenu),MenuItem);
-    g_signal_connect(G_OBJECT(MenuItem),"activate",
-                     G_CALLBACK(Cddb_Track_List_Sort_By_Ascending_Track_Name),NULL);
-
-    gtk_widget_show_all(CddbPopupMenu);
-    return CddbPopupMenu;
-}
-
-/*
  * To run an "automatic search" from a popup menu with the sélected files
  */
 void Cddb_Popup_Menu_Search_Selected_File (void)
@@ -1558,7 +1525,9 @@ void Cddb_Popup_Menu_Search_Selected_File (void)
 /*
  * Sort the track list
  */
-gint Cddb_Track_List_Sort_Func (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, gpointer data)
+static gint
+Cddb_Track_List_Sort_Func (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b,
+                           gpointer data)
 {
     gint sortcol = GPOINTER_TO_INT(data);
     gchar *text1, *text1cp;
@@ -1599,20 +1568,6 @@ gint Cddb_Track_List_Sort_Func (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter
     return ret;
 }
 
-void Cddb_Track_List_Sort_By_Ascending_Track_Number (void)
-{
-    // Sort ascending by column '#'
-    gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(CddbTrackListModel), SORT_LIST_NUMBER, GTK_SORT_ASCENDING);
-}
-
-void Cddb_Track_List_Sort_By_Ascending_Track_Name (void)
-{
-    // Sort ascending by column 'Track Name'
-    gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(CddbTrackListModel), SORT_LIST_NAME, GTK_SORT_ASCENDING);
-}
-
-
-
 /*
  * Open a connection to "server_name" and retun the socket_id
  * On error, returns 0.
@@ -1620,7 +1575,8 @@ void Cddb_Track_List_Sort_By_Ascending_Track_Name (void)
  * Some help on : http://shoe.bocks.com/net/
  *                http://www.zone-h.org/files/4/socket.txt
  */
-gint Cddb_Open_Connection (const gchar *host, gint port)
+static gint
+Cddb_Open_Connection (const gchar *host, gint port)
 {
     gint               socket_id = 0;
     struct hostent    *hostent;
@@ -1698,7 +1654,8 @@ gint Cddb_Open_Connection (const gchar *host, gint port)
 /*
  * Close the connection correcponding to the socket_id
  */
-void Cddb_Close_Connection (gint socket_id)
+static void
+Cddb_Close_Connection (gint socket_id)
 {
 #ifndef WIN32
     shutdown(socket_id,SHUT_RDWR);
@@ -1728,7 +1685,8 @@ void Cddb_Close_Connection (gint socket_id)
  * <html>\n                                         }
  * [...]                                            } "Body"
  */
-gint Cddb_Write_Result_To_File (gint socket_id, gulong *bytes_read_total)
+static gint
+Cddb_Write_Result_To_File (gint socket_id, gulong *bytes_read_total)
 {
     gchar *file_path = NULL;
     FILE  *file;
@@ -1803,7 +1761,8 @@ gint Cddb_Write_Result_To_File (gint socket_id, gulong *bytes_read_total)
  * <html>\n                                         }
  * [...]                                            } "Body"
  */
-gint Cddb_Read_Line (FILE **file, gchar **cddb_out)
+static gint
+Cddb_Read_Line (FILE **file, gchar **cddb_out)
 {
     gchar  buffer[MAX_STRING_LEN];
     gchar *result;
@@ -1859,7 +1818,8 @@ gint Cddb_Read_Line (FILE **file, gchar **cddb_out)
 /*
  * Read HTTP header data : from "HTTP/1.1 200 OK" to the blank line
  */
-gint Cddb_Read_Http_Header (FILE **file, gchar **cddb_out)
+static gint
+Cddb_Read_Http_Header (FILE **file, gchar **cddb_out)
 {
 
     // The 'file' is opened (if no error) in this function
@@ -1896,7 +1856,8 @@ gint Cddb_Read_Http_Header (FILE **file, gchar **cddb_out)
  * Cddb Header is the line like this :
  *      210 newage 710ed208 CD database entry follows (until terminating `.')
  */
-gint Cddb_Read_Cddb_Header (FILE **file, gchar **cddb_out)
+static gint
+Cddb_Read_Cddb_Header (FILE **file, gchar **cddb_out)
 {
     if ( Cddb_Read_Line(file,cddb_out) < 0 )
         return -1; // Error!
@@ -1927,7 +1888,8 @@ gint Cddb_Read_Cddb_Header (FILE **file, gchar **cddb_out)
 /*
  * Free the CddbAlbumList
  */
-gboolean Cddb_Free_Album_List (void)
+static gboolean
+Cddb_Free_Album_List (void)
 {
     if (!CddbAlbumList) return FALSE;
 
@@ -1963,7 +1925,8 @@ gboolean Cddb_Free_Album_List (void)
     return TRUE;
 }
 
-gboolean Cddb_Free_Track_Album_List (GList *track_list)
+static gboolean
+Cddb_Free_Track_Album_List (GList *track_list)
 {
     GList *CddbTrackAlbumList;
 
@@ -1992,7 +1955,8 @@ gboolean Cddb_Free_Track_Album_List (GList *track_list)
 /*
  * Load the CddbAlbumList into the corresponding List
  */
-void Cddb_Load_Album_List (gboolean only_red_lines)
+static void
+Cddb_Load_Album_List (gboolean only_red_lines)
 {
     if (CddbWindow && CddbAlbumList && CddbAlbumListView)
     {
@@ -2048,7 +2012,8 @@ void Cddb_Load_Album_List (gboolean only_red_lines)
 /*
  * Load the CddbTrackList into the corresponding List
  */
-void Cddb_Load_Track_Album_List (GList *track_list)
+static void
+Cddb_Load_Track_Album_List (GList *track_list)
 {
     GtkTreeIter iter;
 
@@ -2080,7 +2045,7 @@ void Cddb_Load_Track_Album_List (GList *track_list)
             tracklist = tracklist->next;
             g_free(row_text[0]);
         }
-        Cddb_Set_Apply_Button_Sensivity();
+        Cddb_Set_Apply_Button_Sensitivity();
     }
 }
 
@@ -2088,7 +2053,8 @@ void Cddb_Load_Track_Album_List (GList *track_list)
  * Fields          : artist, title, track, rest
  * CDDB Categories : blues, classical, country, data, folk, jazz, misc, newage, reggae, rock, soundtrack
  */
-gchar *Cddb_Generate_Request_String_With_Fields_And_Categories_Options (void)
+static gchar *
+Cddb_Generate_Request_String_With_Fields_And_Categories_Options (void)
 {
     gchar string[256];
     gboolean cddbinallfields, cddbinartistfield, cddbintitlefield, cddbintracknamefield, cddbinotherfield;
@@ -2157,7 +2123,8 @@ gchar *Cddb_Generate_Request_String_With_Fields_And_Categories_Options (void)
  *      - freedb.freedb.org
  *      - gnudb.gnudb.org
  */
-gboolean Cddb_Search_Album_List_From_String (void)
+static gboolean
+Cddb_Search_Album_List_From_String (void)
 {
     if ( strstr(CDDB_SERVER_NAME_MANUAL_SEARCH,"gnudb") != NULL )
 		// Use of gnudb
@@ -2173,7 +2140,8 @@ gboolean Cddb_Search_Album_List_From_String (void)
  * Send request (using the HTML search page in freedb.org site) to the CD database
  * to get the list of albums matching to a string.
  */
-gboolean Cddb_Search_Album_List_From_String_Freedb (void)
+static gboolean
+Cddb_Search_Album_List_From_String_Freedb (void)
 {
     gint   socket_id;
     gchar *string = NULL;
@@ -2477,7 +2445,8 @@ gboolean Cddb_Search_Album_List_From_String_Freedb (void)
  * Send request (using the HTML search page in freedb.org site) to the CD database
  * to get the list of albums matching to a string.
  */
-gboolean Cddb_Search_Album_List_From_String_Gnudb (void)
+static gboolean
+Cddb_Search_Album_List_From_String_Gnudb (void)
 {
     gint   socket_id;
     gchar *string = NULL;
@@ -2820,7 +2789,8 @@ gboolean Cddb_Search_Album_List_From_String_Gnudb (void)
  * Send cddb query using the CddbId generated from the selected files to get the
  * list of albums matching with this cddbid.
  */
-gboolean Cddb_Search_Album_From_Selected_Files (void)
+static gboolean
+Cddb_Search_Album_From_Selected_Files (void)
 {
     gint   socket_id;
     gint   bytes_written;
@@ -3318,7 +3288,8 @@ gboolean Cddb_Search_Album_From_Selected_Files (void)
  * Callback when selecting a row in the Album List.
  * We get the list of tracks of the selected album
  */
-gboolean Cddb_Get_Album_Tracks_List_CB (GtkTreeSelection *selection, gpointer data)
+static gboolean
+Cddb_Get_Album_Tracks_List_CB (GtkTreeSelection *selection, gpointer data)
 {
     gint i;
     gint i_max = 5;
@@ -3344,7 +3315,8 @@ gboolean Cddb_Get_Album_Tracks_List_CB (GtkTreeSelection *selection, gpointer da
 /*
  * Look up a specific album in freedb, and save to a CddbAlbum structure
  */
-gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
+static gboolean
+Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
 {
     gint       socket_id = 0;
     CddbAlbum *cddbalbum = NULL;
@@ -3365,7 +3337,7 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
         return FALSE;
 
     gtk_list_store_clear(CddbTrackListModel);
-    Cddb_Set_Apply_Button_Sensivity();
+    Cddb_Set_Apply_Button_Sensitivity();
     if (gtk_tree_selection_get_selected(selection, NULL, &row))
     {
         gtk_tree_model_get(GTK_TREE_MODEL(CddbAlbumListModel), &row, CDDB_ALBUM_LIST_DATA, &cddbalbum, -1);
@@ -3713,7 +3685,8 @@ gboolean Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
  * Bold/Red = Info are already loaded, but not displayed
  * Italic/Light Red = Duplicate CDDB entry
  */
-void Cddb_Album_List_Set_Row_Appearance (GtkTreeIter *row)
+static void
+Cddb_Album_List_Set_Row_Appearance (GtkTreeIter *row)
 {
     CddbAlbum *cddbalbum = NULL;
 
@@ -3775,7 +3748,8 @@ void Cddb_Album_List_Set_Row_Appearance (GtkTreeIter *row)
 /*
  * Set CDDB data (from tracks list) into tags of the main file list
  */
-gboolean Cddb_Set_Track_Infos_To_File_List (void)
+static gboolean
+Cddb_Set_Track_Infos_To_File_List (void)
 {
     guint row;
     guint list_length;
@@ -4121,7 +4095,8 @@ gboolean Cddb_Set_Track_Infos_To_File_List (void)
 }
 
 
-void Cddb_Display_Red_Lines_In_Result (void)
+static void
+Cddb_Display_Red_Lines_In_Result (void)
 {
     if (!CddbDisplayRedLinesButton) return;
 
@@ -4140,7 +4115,8 @@ void Cddb_Display_Red_Lines_In_Result (void)
 /*
  * Returns the corresponding ID3 genre (the name, not the value)
  */
-gchar *Cddb_Get_Id3_Genre_From_Cddb_Genre (gchar *cddb_genre)
+static const gchar *
+Cddb_Get_Id3_Genre_From_Cddb_Genre (const gchar *cddb_genre)
 {
     guint i;
 
@@ -4161,7 +4137,8 @@ gchar *Cddb_Get_Id3_Genre_From_Cddb_Genre (gchar *cddb_genre)
 /*
  * Returns the pixmap to display following the server name
  */
-GdkPixbuf *Cddb_Get_Pixbuf_From_Server_Name (const gchar *server_name)
+static GdkPixbuf *
+Cddb_Get_Pixbuf_From_Server_Name (const gchar *server_name)
 {
     if (!server_name)
         return NULL;
@@ -4230,7 +4207,8 @@ char *base64_encode (char *str)
 }
 */
 
-gchar *Cddb_Format_Proxy_Authentification (void)
+static gchar *
+Cddb_Format_Proxy_Authentification (void)
 {
     gchar *ret;
 

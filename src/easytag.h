@@ -173,13 +173,10 @@ void Action_Undo_From_History_List      (void);
 void Action_Redo_From_History_List      (void);
 void Action_Delete_Selected_Files       (void);
 gint Save_All_Files_With_Answer         (gboolean force_saving_files);
-gint Save_Selected_Files_With_Answer    (gboolean force_saving_files);
 
 void Action_Main_Stop_Button_Pressed    (void);
 void Action_Select_Browser_Style        (void);
 
-void File_Area_Set_Sensitive (gboolean activate);
-void Tag_Area_Set_Sensitive  (gboolean activate);
 void Tag_Area_Display_Controls (ET_File *ETFile);
 
 gboolean Read_Directory               (gchar *path);

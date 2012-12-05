@@ -62,8 +62,6 @@ extern vcedit_state    *vcedit_new_state(void);
 extern void             vcedit_clear(vcedit_state *state);
 extern vorbis_comment  *vcedit_comments(vcedit_state *state);
 extern int              vcedit_open(vcedit_state *state, FILE *in);
-extern int              vcedit_open_callbacks(vcedit_state *state, void *in,
-                        vcedit_read_func read_func, vcedit_write_func write_func);
 extern int              vcedit_write(vcedit_state *state, void *out);
 extern char            *vcedit_error(vcedit_state *state);
 
