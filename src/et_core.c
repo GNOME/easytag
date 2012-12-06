@@ -230,7 +230,7 @@ ET_Get_File_Description (const gchar *filename)
 /*
  * Returns TRUE if the file is supported, else returns FALSE
  */
-gboolean ET_File_Is_Supported (gchar *filename)
+gboolean ET_File_Is_Supported (const gchar *filename)
 {
     if (ET_Get_File_Description(filename)->FileType != UNKNOWN_FILE)
         return TRUE;
@@ -1057,7 +1057,7 @@ GList *ET_Sort_File_List (GList *ETFileList, ET_Sorting_Type Sorting_Type)
  */
 void ET_Sort_Displayed_File_List_And_Update_UI (ET_Sorting_Type Sorting_Type)
 {
-    if (!ETCore->ETFileList) return;
+    g_return_if_fail (ETCore->ETFileList != NULL);
 
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
 
@@ -2011,7 +2011,7 @@ gboolean ET_Free_File_List (void)
 {
     GList *list = NULL;
 
-    if (!ETCore || !ETCore->ETFileList) return FALSE;
+    g_return_val_if_fail (ETCore != NULL || ETCore->ETFileList != NULL, FALSE);
 
     list = g_list_last(ETCore->ETFileList);
     while (list)
@@ -2035,10 +2035,22 @@ gboolean ET_Free_File_List_Item (ET_File *ETFile)
     if (ETFile)
     {
         /* Frees the lists */
-        ET_Free_File_Name_List(ETFile->FileNameList);
-        ET_Free_File_Name_List(ETFile->FileNameListBak);
-        ET_Free_File_Tag_List (ETFile->FileTagList);
-        ET_Free_File_Tag_List (ETFile->FileTagListBak);
+        if (ETFile->FileNameList)
+        {
+            ET_Free_File_Name_List(ETFile->FileNameList);
+        }
+        if (ETFile->FileNameListBak)
+        {
+            ET_Free_File_Name_List(ETFile->FileNameListBak);
+        }
+        if (ETFile->FileTagList)
+        {
+            ET_Free_File_Tag_List (ETFile->FileTagList);
+        }
+        if (ETFile->FileTagListBak)
+        {
+            ET_Free_File_Tag_List (ETFile->FileTagListBak);
+        }
         /* Frees infos of ETFileInfo */
         ET_Free_File_Info_Item (ETFile->ETFileInfo);
         g_free(ETFile->ETFileExtension);
@@ -2056,7 +2068,7 @@ gboolean ET_Free_File_Name_List (GList *FileNameList)
 {
     GList *list;
 
-    if (!FileNameList) return FALSE;
+    g_return_val_if_fail (FileNameList != NULL, FALSE);
 
     list = g_list_last(FileNameList);
     while (list)
@@ -2078,7 +2090,7 @@ gboolean ET_Free_File_Name_List (GList *FileNameList)
  */
 gboolean ET_Free_File_Name_Item (File_Name *FileName)
 {
-    if (!FileName) return FALSE;
+    g_return_val_if_fail (FileName != NULL, FALSE);
 
     g_free(FileName->value);
     g_free(FileName->value_utf8);
@@ -2097,7 +2109,7 @@ ET_Free_File_Tag_List (GList *FileTagList)
 {
     GList *list;
 
-    if (!FileTagList) return FALSE;
+    g_return_val_if_fail (FileTagList != NULL, FALSE);
 
     list = g_list_last(FileTagList);
     while (list)
@@ -2140,7 +2152,7 @@ ET_Free_File_Tag_Item_Other_Field (File_Tag *FileTag)
  */
 gboolean ET_Free_File_Tag_Item (File_Tag *FileTag)
 {
-    if (!FileTag) return FALSE;
+    g_return_val_if_fail (FileTag != NULL, FALSE);
 
     g_free(FileTag->title);
     g_free(FileTag->artist);
@@ -2173,7 +2185,7 @@ gboolean ET_Free_File_Tag_Item (File_Tag *FileTag)
 static gboolean
 ET_Free_File_Info_Item (ET_File_Info *ETFileInfo)
 {
-    if (!ETFileInfo) return FALSE;
+    g_return_val_if_fail (ETFileInfo != NULL, FALSE);
 
     g_free(ETFileInfo->mpc_profile);
     g_free(ETFileInfo->mpc_version);
@@ -2192,7 +2204,8 @@ ET_Free_History_File_List (void)
 {
     GList *list;
 
-    if (!ETCore || !ETCore->ETHistoryFileList) return FALSE;
+    g_return_val_if_fail (ETCore != NULL || ETCore->ETHistoryFileList != NULL,
+                          FALSE);
 
     ETCore->ETHistoryFileList = g_list_first(ETCore->ETHistoryFileList);
     list = ETCore->ETHistoryFileList;
@@ -2214,7 +2227,8 @@ ET_Free_History_File_List (void)
 static gboolean
 ET_Free_Displayed_File_List (void)
 {
-    if (!ETCore || !ETCore->ETFileDisplayedList) return FALSE;
+    g_return_val_if_fail (ETCore != NULL ||
+                          ETCore->ETFileDisplayedList != NULL, FALSE);
 
     ETCore->ETFileDisplayedList = g_list_first(ETCore->ETFileDisplayedList);
     ETCore->ETFileDisplayedList = NULL;
@@ -2233,7 +2247,8 @@ ET_Free_Artist_Album_File_List (void)
     GList *AlbumList;
     GList *etfilelist;
 
-    if (!ETCore || !ETCore->ETArtistAlbumFileList) return FALSE;
+    g_return_val_if_fail (ETCore != NULL ||
+                          ETCore->ETArtistAlbumFileList != NULL, FALSE);
 
     ArtistList = ETCore->ETArtistAlbumFileList;
     while (ArtistList)
@@ -2294,8 +2309,9 @@ gboolean ET_Copy_File_Tag_Item (ET_File *ETFile, File_Tag *FileTag)
 {
     File_Tag *FileTagCur;
 
-    if (!ETFile || !ETFile->FileTag || !(File_Tag *)(ETFile->FileTag)->data || !FileTag)
-        return FALSE;
+    g_return_val_if_fail (ETFile != NULL || ETFile->FileTag != NULL ||
+                          (File_Tag *)(ETFile->FileTag)->data != NULL ||
+                          FileTag != NULL, FALSE);
 
     /* The data to duplicate to FileTag */
     FileTagCur = (File_Tag *)(ETFile->FileTag)->data;
@@ -2467,8 +2483,7 @@ gboolean ET_Copy_File_Tag_Item (ET_File *ETFile, File_Tag *FileTag)
  */
 gboolean ET_Set_Filename_File_Name_Item (File_Name *FileName, gchar *filename_utf8, gchar *filename)
 {
-    if (!FileName)
-        return FALSE;
+    g_return_val_if_fail (FileName != FALSE, FALSE);
 
     if (filename_utf8 && filename)
     {
@@ -2500,7 +2515,7 @@ gboolean ET_Set_Filename_File_Name_Item (File_Name *FileName, gchar *filename_ut
  */
 gboolean ET_Set_Field_File_Tag_Item (gchar **FileTagField, const gchar *value)
 {
-    if (!FileTagField) return FALSE;
+    g_return_val_if_fail (FileTagField != NULL, FALSE);
 
     if (*FileTagField != NULL)
     {
@@ -2525,7 +2540,7 @@ gboolean ET_Set_Field_File_Tag_Item (gchar **FileTagField, const gchar *value)
  */
 gboolean ET_Set_Field_File_Tag_Picture (Picture **FileTagField, Picture *pic)
 {
-    if (!FileTagField) return FALSE;
+    g_return_val_if_fail (FileTagField != NULL, FALSE);
 
     if (*FileTagField != NULL)
     {
@@ -2555,9 +2570,9 @@ void ET_Display_File_Data_To_UI (ET_File *ETFile)
     gchar *cur_filename_utf8;
     gchar *msg;
 
-    if (!ETFile
-    ||  !((GList *)ETFile->FileNameCur)->data ) // For the case where ETFile is an "empty" structure
-        return;
+    g_return_if_fail (ETFile != NULL ||
+                      ((GList *)ETFile->FileNameCur)->data != NULL);
+                      /* For the case where ETFile is an "empty" structure. */
 
     cur_filename      = ((File_Name *)((GList *)ETFile->FileNameCur)->data)->value;
     cur_filename_utf8 = ((File_Name *)((GList *)ETFile->FileNameCur)->data)->value_utf8;
@@ -2697,7 +2712,7 @@ ET_Display_File_And_List_Status_To_UI (ET_File *ETFile)
     gchar *text;
     gchar *cur_filename;
 
-    if (!ETFile) return;
+    g_return_if_fail (ETFile != NULL);
 
     cur_filename = ((File_Name *)((GList *)ETFile->FileNameCur)->data)->value;
 
@@ -2740,7 +2755,7 @@ ET_Display_Filename_To_UI (ET_File *ETFile)
     gchar *dirname_utf8;
     gchar *text;
 
-    if (!ETFile) return;
+    g_return_if_fail (ETFile != NULL);
 
     new_filename_utf8 = ((File_Name *)((GList *)ETFile->FileNameNew)->data)->value_utf8;
 
@@ -3729,7 +3744,7 @@ gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile)
     struct utimbuf utimbufbuf;
     gboolean file_set_properties;
 
-    if (!ETFile) return FALSE;
+    g_return_val_if_fail (ETFile != NULL, FALSE);
 
     cur_filename      = ((File_Name *)(ETFile->FileNameCur)->data)->value;
     cur_filename_utf8 = ((File_Name *)(ETFile->FileNameCur)->data)->value_utf8;
@@ -3898,7 +3913,7 @@ gboolean ET_Manage_Changes_Of_File_Data (ET_File *ETFile, File_Name *FileName, F
 {
     gboolean undo_added = FALSE;
 
-    if (!ETFile) return FALSE;
+    g_return_val_if_fail (ETFile != NULL, FALSE);
 
     /*
      * Detect changes of filename and generate the filename undo list
@@ -3987,8 +4002,7 @@ gboolean ET_Detect_Changes_Of_File_Tag (File_Tag *FileTag1, File_Tag *FileTag2)
     Picture *pic1;
     Picture *pic2;
 
-    if ( !FileTag1 && !FileTag2 )
-        return FALSE;
+    g_return_val_if_fail (FileTag1 != NULL && FileTag2 != NULL, FALSE);
 
     if ( ( FileTag1 && !FileTag2)
       || (!FileTag1 &&  FileTag2) )
@@ -4179,7 +4193,7 @@ ET_Add_File_To_History_List (ET_File *ETFile)
 {
     ET_History_File *ETHistoryFile;
 
-    if (!ETFile) return FALSE;
+    g_return_val_if_fail (ETFile != NULL, FALSE);
 
     ETHistoryFile = g_malloc0(sizeof(ET_History_File));
     ETHistoryFile->ETFile = ETFile;
@@ -4206,8 +4220,7 @@ gboolean ET_Undo_File_Data (ET_File *ETFile)
     gboolean has_filetag_undo_data  = FALSE;
     guint    filename_key, filetag_key, undo_key;
 
-    if (!ETFile)
-        return FALSE;
+    g_return_val_if_fail (ETFile != NULL, FALSE);
 
     /* Find the valid key */
     if (ETFile->FileNameNew->prev && ETFile->FileNameNew->data)
@@ -4249,7 +4262,7 @@ gboolean ET_File_Data_Has_Undo_Data (ET_File *ETFile)
     gboolean has_filename_undo_data = FALSE;
     gboolean has_filetag_undo_data  = FALSE;
 
-    if (!ETFile) return FALSE;
+    g_return_val_if_fail (ETFile != NULL, FALSE);
 
     if (ETFile->FileNameNew && ETFile->FileNameNew->prev) has_filename_undo_data = TRUE;
     if (ETFile->FileTag && ETFile->FileTag->prev)         has_filetag_undo_data  = TRUE;
@@ -4267,8 +4280,7 @@ gboolean ET_Redo_File_Data (ET_File *ETFile)
     gboolean has_filetag_redo_data  = FALSE;
     guint    filename_key, filetag_key, undo_key;
 
-    if (!ETFile)
-        return FALSE;
+    g_return_val_if_fail (ETFile != NULL, FALSE);
 
     /* Find the valid key */
     if (ETFile->FileNameNew->next && ETFile->FileNameNew->next->data)
@@ -4310,7 +4322,7 @@ gboolean ET_File_Data_Has_Redo_Data (ET_File *ETFile)
     gboolean has_filename_redo_data = FALSE;
     gboolean has_filetag_redo_data  = FALSE;
 
-    if (!ETFile) return FALSE;
+    g_return_val_if_fail (ETFile != NULL, FALSE);
 
     if (ETFile->FileNameNew && ETFile->FileNameNew->next) has_filename_redo_data = TRUE;
     if (ETFile->FileTag && ETFile->FileTag->next)         has_filetag_redo_data  = TRUE;
@@ -4328,7 +4340,8 @@ ET_File *ET_Undo_History_File_Data (void)
     ET_File *ETFile;
     ET_History_File *ETHistoryFile;
 
-    if (!ETCore->ETHistoryFileList || !ET_History_File_List_Has_Undo_Data()) return NULL;
+    g_return_val_if_fail (ETCore->ETHistoryFileList != NULL ||
+                          !ET_History_File_List_Has_Undo_Data (), NULL);
 
     ETHistoryFile = (ET_History_File *)ETCore->ETHistoryFileList->data;
     ETFile        = (ET_File *)ETHistoryFile->ETFile;
@@ -4403,7 +4416,7 @@ gboolean ET_Check_If_File_Is_Saved (ET_File *ETFile)
     File_Tag  *FileTag     = NULL;
     File_Name *FileNameNew = NULL;
 
-    if (!ETFile) return TRUE;
+    g_return_val_if_fail (ETFile != NULL, TRUE);
 
     if (ETFile->FileTag)
         FileTag     = ETFile->FileTag->data;
@@ -4687,12 +4700,13 @@ gboolean ET_File_Name_Convert_Character (gchar *filename_utf8)
  * Returns the number of file in the directory of the selected file.
  * Parameter "path" should be in UTF-8
  */
-guint ET_Get_Number_Of_Files_In_Directory (gchar *path_utf8)
+guint
+ET_Get_Number_Of_Files_In_Directory (const gchar *path_utf8)
 {
     GList *etfilelist;
     guint  count = 0;
 
-    if (!path_utf8) return count;
+    g_return_val_if_fail (path_utf8 != NULL, count);
 
     etfilelist = g_list_first(ETCore->ETFileList);
     while (etfilelist)

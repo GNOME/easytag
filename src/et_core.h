@@ -357,7 +357,7 @@ void ET_Core_Initialize (void);
 void ET_Core_Free       (void);
 void ET_Core_Destroy    (void);
 
-gboolean ET_File_Is_Supported            (gchar *filename);
+gboolean ET_File_Is_Supported (const gchar *filename);
 GList   *ET_Add_File_To_File_List        (gchar *filename);
 gboolean ET_Remove_File_From_File_List   (ET_File *ETFile);
 
@@ -406,7 +406,7 @@ void     ET_Mark_File_Name_As_Saved              (ET_File *ETFile);
 void     ET_Update_Directory_Name_Into_File_List (gchar* last_path, gchar *new_path);
 gboolean ET_File_Name_Convert_Character          (gchar *filename_utf8);
 gchar   *ET_File_Name_Generate                   (ET_File *ETFile, gchar *new_file_name);
-guint    ET_Get_Number_Of_Files_In_Directory     (gchar *path_utf8);
+guint ET_Get_Number_Of_Files_In_Directory (const gchar *path_utf8);
 
 gboolean ET_Detect_Changes_Of_File_Tag          (File_Tag  *FileTag1,  File_Tag  *FileTag2);
 

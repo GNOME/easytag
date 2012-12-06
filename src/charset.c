@@ -381,17 +381,18 @@ gchar *convert_string (const gchar *string, const gchar *from_codeset,
 {
     return convert_string_1(string, -1, from_codeset, to_codeset, display_error);
 }
+
 /* Length must be passed, as the string might be Unicode, in which case we can't
  * count zeroes (see strlen call below). */
-gchar *convert_string_1 (const gchar *string, gssize length, const gchar *from_codeset,
+gchar *
+convert_string_1 (const gchar *string, gssize length, const gchar *from_codeset,
                          const gchar *to_codeset, const gboolean display_error)
 {
     gchar *output;
     GError *error = NULL;
     gsize bytes_written;
 
-    if (!string)
-        return NULL;
+    g_return_val_if_fail (string != NULL, NULL);
 
     output = g_convert(string, length, to_codeset, from_codeset, NULL, &bytes_written, &error);
     //output = g_convert_with_fallback(string, length, to_codeset, from_codeset, "?", NULL, &bytes_written, &error);
@@ -472,13 +473,13 @@ gchar *convert_to_utf8 (const gchar *string)
  *  - conversion OK : returns the UTF-8 string (new allocated)
  *  - conversion KO : tries others encodings else returns an 'escaped' string
  */
-gchar *filename_to_display (const gchar *string)
+gchar *
+filename_to_display (const gchar *string)
 {
     gchar *ret = NULL;
     GError *error = NULL;
 
-    if (!string)
-        return NULL;
+    g_return_val_if_fail (string != NULL, NULL);
 
     if (g_utf8_validate(string, -1, NULL))
     {
@@ -535,7 +536,7 @@ gchar *filename_from_display (const gchar *string)
     const gchar *char_encoding = NULL;
     //const gchar *filename_encoding = NULL;
 
-    if (!string) return NULL;
+    g_return_val_if_fail (string != NULL, NULL);
 
     // Get system encoding from LANG if found (ex : fr_FR.UTF-8 => UTF-8)
     if (get_locale())
@@ -700,14 +701,21 @@ void Charset_Populate_Combobox (GtkComboBox *combo, gchar *select_charset)
 /*
  * Return charset_name from charset_title
  */
-gchar *Charset_Get_Name_From_Title (const gchar *charset_title)
+gchar *
+Charset_Get_Name_From_Title (const gchar *charset_title)
 {
     guint i;
 
-    if (charset_title)
-        for (i=0; i<CHARSET_TRANS_ARRAY_LEN; i++)
-            if ( strcasecmp(_(charset_title),_(charset_trans_array[i].charset_title)) == 0 )
-                return charset_trans_array[i].charset_name;
+    g_return_val_if_fail (charset_title != NULL, NULL);
+
+    for (i = 0; i < CHARSET_TRANS_ARRAY_LEN; i++)
+    {
+        if (strcasecmp (_(charset_title),
+                        _(charset_trans_array[i].charset_title)) == 0)
+        {
+            return charset_trans_array[i].charset_name;
+        }
+    }
 
     return NULL;
 }

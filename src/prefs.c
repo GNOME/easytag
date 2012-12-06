@@ -1944,7 +1944,7 @@ static void
 Scanner_Convert_Check_Button_Toggled_1 (GtkWidget *object_rec,
                                         GtkWidget *object_emi)
 {
-    if (!object_rec || !object_emi) return;
+    g_return_if_fail (object_rec != NULL || object_emi != NULL);
 
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(object_emi)) == TRUE)
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(object_rec),!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(object_emi)));

@@ -1436,7 +1436,7 @@ Cddb_Track_List_Unselect_All ()
 {
     GtkTreeSelection *selection;
 
-    if (!CddbTrackListView) return;
+    g_return_if_fail (CddbTrackListView != NULL);
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(CddbTrackListView));
     if (selection)
@@ -1453,7 +1453,7 @@ Cddb_Track_List_Select_All ()
 {
     GtkTreeSelection *selection;
 
-    if (!CddbTrackListView) return;
+    g_return_if_fail (CddbTrackListView != NULL);
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(CddbTrackListView));
     if (selection)
@@ -1472,7 +1472,7 @@ Cddb_Track_List_Invert_Selection ()
     GtkTreeIter iter;
     gboolean valid;
 
-    if (!CddbTrackListView) return;
+    g_return_if_fail (CddbTrackListView != NULL);
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(CddbTrackListView));
 
@@ -1891,7 +1891,7 @@ Cddb_Read_Cddb_Header (FILE **file, gchar **cddb_out)
 static gboolean
 Cddb_Free_Album_List (void)
 {
-    if (!CddbAlbumList) return FALSE;
+    g_return_val_if_fail (CddbAlbumList != NULL, FALSE);
 
     CddbAlbumList = g_list_last(CddbAlbumList);
     while (CddbAlbumList)
@@ -1930,7 +1930,7 @@ Cddb_Free_Track_Album_List (GList *track_list)
 {
     GList *CddbTrackAlbumList;
 
-    if (!track_list) return FALSE;
+    g_return_val_if_fail (track_list != NULL, FALSE);
 
     CddbTrackAlbumList = g_list_last(track_list);
     while (CddbTrackAlbumList)
@@ -2826,8 +2826,7 @@ Cddb_Search_Album_From_Selected_Files (void)
     GtkTreeIter *fileIter;
     GList *file_iterlist = NULL;
 
-
-    if (!BrowserList) return FALSE;
+    g_return_val_if_fail (BrowserList != NULL, FALSE);
 
     // Number of selected files
     fileListModel = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(BrowserList)));
@@ -4098,7 +4097,7 @@ Cddb_Set_Track_Infos_To_File_List (void)
 static void
 Cddb_Display_Red_Lines_In_Result (void)
 {
-    if (!CddbDisplayRedLinesButton) return;
+    g_return_if_fail (CddbDisplayRedLinesButton != NULL);
 
     if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbDisplayRedLinesButton)) )
     {
@@ -4120,7 +4119,7 @@ Cddb_Get_Id3_Genre_From_Cddb_Genre (const gchar *cddb_genre)
 {
     guint i;
 
-    if (!cddb_genre) return "";
+    g_return_val_if_fail (cddb_genre != NULL, "");
 
     for (i=0; i<=CDDB_GENRE_MAX; i++)
         if (strcasecmp(cddb_genre,cddb_genre_vs_id3_genre[i][0])==0)

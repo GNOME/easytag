@@ -1181,8 +1181,8 @@ Mini_Button_Clicked (GObject *object)
     File_Tag *FileTag;
     GtkTreeSelection *selection;
 
-
-    if (!ETCore->ETFileDisplayedList || !BrowserList) return;
+    g_return_if_fail (ETCore->ETFileDisplayedList != NULL ||
+                      BrowserList != NULL);
 
     // Save the current displayed data
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
@@ -1853,7 +1853,8 @@ void Action_Scan_Selected_Files (void)
     ET_File *etfile;
     GtkTreeSelection *selection;
 
-    if (!ETCore->ETFileDisplayedList || !BrowserList) return;
+    g_return_if_fail (ETCore->ETFileDisplayedList != NULL ||
+                      BrowserList != NULL);
 
     /* Check if scanner window is opened */
     if (!ScannerWindow)
@@ -1932,7 +1933,8 @@ void Action_Remove_Selected_Tags (void)
     double fraction;
     GtkTreeSelection *selection;
 
-    if (!ETCore->ETFileDisplayedList || !BrowserList) return;
+    g_return_if_fail (ETCore->ETFileDisplayedList != NULL ||
+                      BrowserList != NULL);
 
     /* Save the current displayed data */
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
@@ -1988,7 +1990,8 @@ gint Action_Undo_Selected_Files (void)
     ET_File *etfile;
     GtkTreeSelection *selection;
 
-    if (!ETCore->ETFileDisplayedList || !BrowserList) return FALSE;
+    g_return_val_if_fail (ETCore->ETFileDisplayedList != NULL ||
+                          BrowserList != NULL, FALSE);
 
     /* Save the current displayed data */
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
@@ -2024,7 +2027,7 @@ void Action_Undo_From_History_List (void)
 {
     ET_File *ETFile;
 
-    if (!ETCore->ETFileList) return;
+    g_return_if_fail (ETCore->ETFileList != NULL);
 
     /* Save the current displayed data */
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
@@ -2054,7 +2057,8 @@ gint Action_Redo_Selected_File (void)
     ET_File *etfile;
     GtkTreeSelection *selection;
 
-    if (!ETCore->ETFileDisplayedList || !BrowserList) return FALSE;
+    g_return_val_if_fail (ETCore->ETFileDisplayedList != NULL ||
+                          BrowserList != NULL, FALSE);
 
     /* Save the current displayed data */
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
@@ -2088,7 +2092,7 @@ void Action_Redo_From_History_List (void)
 {
     ET_File *ETFile;
 
-    if (!ETCore->ETFileDisplayedList) return;
+    g_return_if_fail (ETCore->ETFileDisplayedList != NULL);
 
     /* Save the current displayed data */
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
@@ -2130,9 +2134,11 @@ gint Save_All_Files_With_Answer (gboolean force_saving_files)
 {
     GList *etfilelist;
 
-    if (!ETCore || !ETCore->ETFileList) return FALSE;
-    etfilelist = g_list_first(ETCore->ETFileList);
-    return Save_List_Of_Files(etfilelist,force_saving_files);
+    g_return_val_if_fail (ETCore != NULL || ETCore->ETFileList != NULL, FALSE);
+
+    etfilelist = g_list_first (ETCore->ETFileList);
+
+    return Save_List_Of_Files (etfilelist, force_saving_files);
 }
 
 /*
@@ -2147,7 +2153,7 @@ Save_Selected_Files_With_Answer (gboolean force_saving_files)
     ET_File *etfile;
     GtkTreeSelection *selection;
 
-    if (!BrowserList) return FALSE;
+    g_return_val_if_fail (BrowserList != NULL, FALSE);
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
     selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
@@ -2191,7 +2197,7 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
     GtkWidget *widget_focused;
     GtkTreePath *currentPath = NULL;
 
-    if (!ETCore) return FALSE;
+    g_return_val_if_fail (ETCore != NULL, FALSE);
 
     /* Save the current position in the list */
     etfile_save_position = ETCore->ETFileDisplayed;
@@ -2399,7 +2405,8 @@ Delete_Selected_Files_With_Answer (void)
     GtkTreeRowReference *rowref;
     GtkTreeSelection *selection;
 
-    if (!ETCore->ETFileDisplayedList || !BrowserList) return FALSE;
+    g_return_val_if_fail (ETCore->ETFileDisplayedList != NULL ||
+                          BrowserList != NULL, FALSE);
 
     /* Save the current displayed data */
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
@@ -2540,8 +2547,7 @@ Save_File (ET_File *ETFile, gboolean multiple_files,
     gchar *basename_cur_utf8, *basename_new_utf8;
     gchar *dirname_cur_utf8, *dirname_new_utf8;
 
-
-    if (!ETFile) return 0;
+    g_return_val_if_fail (ETFile != NULL, 0);
 
     basename_cur_utf8 = g_path_get_basename(filename_cur_utf8);
     basename_new_utf8 = g_path_get_basename(filename_new_utf8);
@@ -3330,7 +3336,7 @@ Delete_File (ET_File *ETFile, gboolean multiple_files)
     gint response;
     gint stop_loop;
 
-    if (!ETFile) return FALSE;
+    g_return_val_if_fail (ETFile != NULL, FALSE);
 
     /* Filename of the file to delete. */
     cur_filename      = ((File_Name *)(ETFile->FileNameCur)->data)->value;
@@ -3449,9 +3455,10 @@ Copy_File (const gchar *fileold, const gchar *filenew)
     return TRUE;
 }
 
-void Action_Select_Browser_Style (void)
+void
+Action_Select_Browser_Style (void)
 {
-    if (!ETCore->ETFileDisplayedList) return;
+    g_return_if_fail (ETCore->ETFileDisplayedList != NULL);
 
     /* Save the current displayed data */
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
@@ -3486,8 +3493,7 @@ gboolean Read_Directory (gchar *path_real)
     GtkAction *uiaction;
     GtkWidget *TBViewMode;
 
-    if (!path_real)
-        return FALSE;
+    g_return_val_if_fail (path_real != NULL, FALSE);
 
     ReadingDirectory = TRUE;    /* A flag to avoid to start another reading */
 
@@ -4074,9 +4080,9 @@ Disable_Command_Buttons (void)
 static void
 Tag_Area_Set_Sensitive (gboolean activate)
 {
-    if (!TagArea) return;
+    g_return_if_fail (TagArea != NULL);
 
-    // TAG Area (entries + buttons)
+    /* TAG Area (entries + buttons). */
     gtk_widget_set_sensitive(gtk_bin_get_child(GTK_BIN(TagArea)),activate);
 
     /*// TAG Area
@@ -4110,9 +4116,9 @@ Tag_Area_Set_Sensitive (gboolean activate)
 static void
 File_Area_Set_Sensitive (gboolean activate)
 {
-    if (!FileArea) return;
+    g_return_if_fail (FileArea != NULL);
 
-    // File Area
+    /* File Area. */
     gtk_widget_set_sensitive(gtk_bin_get_child(GTK_BIN(FileArea)),activate);
     /*gtk_widget_set_sensitive(GTK_WIDGET(FileEntry),activate);*/
 }
@@ -4122,10 +4128,10 @@ File_Area_Set_Sensitive (gboolean activate)
  */
 void Tag_Area_Display_Controls (ET_File *ETFile)
 {
-    if (!ETFile || !ETFile->ETFileDescription || !TitleLabel)
-        return;
+    g_return_if_fail (ETFile != NULL || ETFile->ETFileDescription != NULL ||
+                      TitleLabel != NULL);
 
-    // Commun controls for all tags
+    /* Common controls for all tags. */
     gtk_widget_show(GTK_WIDGET(TitleLabel));
     gtk_widget_show(GTK_WIDGET(TitleEntry));
     gtk_widget_show(GTK_WIDGET(TitleMButton));
@@ -4422,9 +4428,9 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
  */
 void Clear_Tag_Entry_Fields (void)
 {
-    //GtkTextBuffer *textbuffer;
+    /* GtkTextBuffer *textbuffer; */
 
-    if (!TitleEntry) return;
+    g_return_if_fail (TitleEntry != NULL);
 
     gtk_entry_set_text(GTK_ENTRY(TitleEntry),                       "");
     gtk_entry_set_text(GTK_ENTRY(ArtistEntry),                      "");
@@ -4436,8 +4442,8 @@ void Clear_Tag_Entry_Fields (void)
     gtk_entry_set_text(GTK_ENTRY(TrackTotalEntry),                  "");
     gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(GenreCombo))),       "");
     gtk_entry_set_text(GTK_ENTRY(CommentEntry),                     "");
-    //textbuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(CommentView));
-    //gtk_text_buffer_set_text(GTK_TEXT_BUFFER(textbuffer),           "", -1);
+    /* textbuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(CommentView));
+     * gtk_text_buffer_set_text(GTK_TEXT_BUFFER(textbuffer),           "", -1); */
     gtk_entry_set_text(GTK_ENTRY(ComposerEntry),                    "");
     gtk_entry_set_text(GTK_ENTRY(OrigArtistEntry),                  "");
     gtk_entry_set_text(GTK_ENTRY(CopyrightEntry),                   "");
@@ -4450,11 +4456,12 @@ void Clear_Tag_Entry_Fields (void)
 /*
  * Clear the entry of file area
  */
-void Clear_File_Entry_Field (void)
+void
+Clear_File_Entry_Field (void)
 {
-    if (!FileEntry) return;
+    g_return_if_fail (FileEntry != NULL);
 
-    gtk_entry_set_text(GTK_ENTRY(FileEntry),"");
+    gtk_entry_set_text (GTK_ENTRY (FileEntry),"");
 }
 
 
@@ -4463,7 +4470,7 @@ void Clear_File_Entry_Field (void)
  */
 void Clear_Header_Fields (void)
 {
-    if (!VersionValueLabel) return;
+    g_return_if_fail (VersionValueLabel != NULL);
 
     /* Default values are MPs data */
     gtk_label_set_text(GTK_LABEL(VersionLabel),        _("Encoder:"));

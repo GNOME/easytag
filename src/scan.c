@@ -312,7 +312,9 @@ Scan_Tag_With_Mask (ET_File *ETFile)
     gchar *filename_utf8;
     File_Tag *FileTag;
 
-    if (!ScannerWindow || !ScanTagMaskCombo || !ETFile) return;
+    g_return_if_fail (ScannerWindow != NULL || ScanTagMaskCombo != NULL ||
+                      ETFile != NULL);
+
     mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(ScanTagMaskCombo)))));
     if (!mask) return;
 
@@ -396,7 +398,7 @@ Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask)
     guint file_splitted_index;
     Scan_Mask_Item *mask_item;
 
-    if (!ETFile || !mask) return NULL;
+    g_return_val_if_fail (ETFile != NULL || mask != NULL, NULL);
 
     filename_utf8 = g_strdup(((File_Name *)((GList *)ETFile->FileNameNew)->data)->value_utf8);
     if (!filename_utf8) return NULL;
@@ -662,7 +664,8 @@ Scan_Rename_File_With_Mask (ET_File *ETFile)
     gchar *mask = NULL;
     File_Name *FileName;
 
-    if (!ScannerWindow || !RenameFileMaskCombo || !ETFile) return;
+    g_return_if_fail (ScannerWindow != NULL || RenameFileMaskCombo != NULL ||
+                      ETFile != NULL);
 
     mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameFileMaskCombo)))));
     if (!mask) return;
@@ -745,8 +748,7 @@ gchar *Scan_Generate_New_Filename_From_Mask (ET_File *ETFile, gchar *mask, gbool
     File_Mask_Item *mask_item_next;
     gint counter = 0;
 
-
-    if (!ETFile || !mask) return NULL;
+    g_return_val_if_fail (ETFile != NULL || mask != NULL, NULL);
 
     /*
      * Check for a directory in the mask
@@ -1114,8 +1116,7 @@ Scan_Process_Fields (ET_File *ETFile)
     gchar     *filename_utf8;
     gchar     *string;
 
-
-    if (!ScannerWindow || !ETFile) return;
+    g_return_if_fail (ScannerWindow != NULL || ETFile != NULL);
 
     st_filename = (File_Name *)ETFile->FileNameNew->data;
     st_filetag  = (File_Tag  *)ETFile->FileTag->data;
@@ -3070,7 +3071,7 @@ ScannerWindow_Key_Press (GtkWidget *window, GdkEvent *event)
  */
 void Scan_Select_Mode_And_Run_Scanner (ET_File *ETFile)
 {
-    if (!ScannerWindow || !ETFile) return;
+    g_return_if_fail (ScannerWindow != NULL || ETFile != NULL);
 
     if (gtk_combo_box_get_active(GTK_COMBO_BOX(ScannerOptionCombo)) == SCANNER_FILL_TAG)
     {
@@ -3381,7 +3382,7 @@ Scan_Check_Editor_Mask (GtkWidget *widget_to_show_hide,
 static void
 Scan_Toggle_Legend_Button (void)
 {
-    if (!LegendButton || !LegendFrame) return;
+    g_return_if_fail (LegendButton != NULL || LegendFrame != NULL);
 
     if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(LegendButton)) )
         gtk_widget_show_all(LegendFrame);
@@ -3397,7 +3398,8 @@ Scan_Toggle_Mask_Editor_Button (void)
     GtkTreeSelection *selection;
     GtkTreeIter iter;
 
-    if (!MaskEditorButton || !MaskEditorFrame || !MaskEditorList) return;
+    g_return_if_fail (MaskEditorButton != NULL || MaskEditorFrame != NULL ||
+                      MaskEditorList != NULL);
 
     if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(MaskEditorButton)) )
     {
@@ -3635,7 +3637,7 @@ Mask_Editor_List_New (void)
     GtkTreeSelection *selection;
     GtkTreeModel *treemodel;
 
-    if (!MaskEditorList) return;
+    g_return_if_fail (MaskEditorList != NULL);
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(MaskEditorList));
     treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(MaskEditorList));
@@ -3661,7 +3663,7 @@ Mask_Editor_List_Duplicate (void)
     GtkTreeModel *treeModel;
     gboolean valid;
 
-    if (!MaskEditorList) return;
+    g_return_if_fail (MaskEditorList != NULL);
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(MaskEditorList));
     selectedRows = gtk_tree_selection_get_selected_rows(selection, NULL);
@@ -3771,7 +3773,7 @@ Mask_Editor_List_Remove (void)
     GtkTreeIter iter;
     GtkTreeModel *treemodel;
 
-    if (!MaskEditorList) return;
+    g_return_if_fail (MaskEditorList != NULL);
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(MaskEditorList));
     treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(MaskEditorList));
@@ -3817,7 +3819,7 @@ Mask_Editor_List_Move_Up (void)
     GtkTreeModel *treemodel;
     gboolean valid;
 
-    if (!MaskEditorList) return;
+    g_return_if_fail (MaskEditorList != NULL);
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(MaskEditorList));
     treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(MaskEditorList));
@@ -3871,7 +3873,7 @@ Mask_Editor_List_Move_Down (void)
     GtkTreeModel *treemodel;
     gboolean valid;
 
-    if (!MaskEditorList) return;
+    g_return_if_fail (MaskEditorList != NULL);
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(MaskEditorList));
     treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(MaskEditorList));
@@ -3920,7 +3922,7 @@ Mask_Editor_List_Set_Row_Visible (GtkTreeModel *treeModel, GtkTreeIter *rowIter)
      */
     GtkTreePath *rowPath;
 
-    if (!treeModel) return;
+    g_return_if_fail (treeModel != NULL);
 
     rowPath = gtk_tree_model_get_path(treeModel, rowIter);
     gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(MaskEditorList), rowPath, NULL, FALSE, 0, 0);
@@ -4025,7 +4027,7 @@ Mask_Editor_Entry_Changed (void)
     const gchar* text;
     gboolean valid;
 
-    if (!MaskEditorList) return;
+    g_return_if_fail (MaskEditorList != NULL);
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(MaskEditorList));
     treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(MaskEditorList));

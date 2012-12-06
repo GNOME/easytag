@@ -155,7 +155,7 @@ void Picture_Clear_Button_Clicked (GObject *object)
     gpointer proxy;
     gint n = 0;
 
-    if (!PictureEntryView) return;
+    g_return_if_fail (PictureEntryView != NULL);
 
     model = gtk_tree_view_get_model(GTK_TREE_VIEW(PictureEntryView));
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(PictureEntryView));
@@ -283,7 +283,7 @@ void Picture_Add_Button_Clicked (GObject *object)
     static gchar *init_dir = NULL;
     gint response;
 
-    if (!PictureEntryView) return;
+    g_return_if_fail (PictureEntryView != NULL);
 
     parent_window = GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(object)));
     if (!gtk_widget_is_toplevel(GTK_WIDGET(parent_window)))
@@ -398,8 +398,7 @@ void Picture_Properties_Button_Clicked (GObject *object)
     gint response;
     Picture_Type pic_type;
 
-
-    if (!PictureEntryView) return;
+    g_return_if_fail (PictureEntryView != NULL);
 
     parent_window = GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(object)));
     if (!gtk_widget_is_toplevel(GTK_WIDGET(parent_window)))
@@ -603,8 +602,7 @@ void Picture_Save_Button_Clicked (GObject *object)
     GtkTreeModel *model;
     gint selection_nbr, selection_i = 1;
 
-
-    if (!PictureEntryView) return;
+    g_return_if_fail (PictureEntryView != NULL);
 
     parent_window = GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(object)));
     if (!gtk_widget_is_toplevel(GTK_WIDGET(parent_window)))
@@ -938,7 +936,7 @@ void PictureEntry_Update (Picture *pic, gboolean select_it)
     GdkPixbufLoader *loader = 0;
     GError *error = NULL;
     
-    if (!pic || !PictureEntryView) return;
+    g_return_if_fail (pic != NULL && PictureEntryView != NULL);
 
     if (!pic->data)
     {

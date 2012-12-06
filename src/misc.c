@@ -387,19 +387,20 @@ gchar *Get_Active_Combo_Box_Item (GtkComboBox *combo)
  * Event attached to an entry to disable another widget (for example: a button)
  * when the entry is empty
  */
-void Entry_Changed_Disable_Object(GtkWidget *widget_to_disable, GtkEditable *source_widget)
+void
+Entry_Changed_Disable_Object (GtkWidget *widget_to_disable,
+                              GtkEditable *source_widget)
 {
-    gchar *text = NULL;
+    const gchar *text;
 
-    if (!widget_to_disable || !source_widget) return;
+    g_return_if_fail (widget_to_disable != NULL || source_widget != NULL);
 
-    text = gtk_editable_get_chars(GTK_EDITABLE(source_widget),0,-1);
+    text = gtk_entry_get_text (GTK_ENTRY (source_widget));
+
     if (!text || strlen(text)<1)
         gtk_widget_set_sensitive(widget_to_disable,FALSE);
     else
         gtk_widget_set_sensitive(widget_to_disable,TRUE);
-
-    g_free(text);
 }
 
 /*
@@ -466,6 +467,7 @@ gboolean Parse_Date (void)
     time_t t;
     struct tm t0;
 
+    /* Early return. */
     if (!DATE_AUTO_COMPLETION) return FALSE;
 
     /* Get the info entered by user */
@@ -508,7 +510,7 @@ void Load_Genres_List_To_UI (void)
     guint i;
     GtkTreeIter iter;
 
-    if (!GenreComboModel) return;
+    g_return_if_fail (GenreComboModel != NULL);
 
     gtk_list_store_append(GTK_LIST_STORE(GenreComboModel), &iter);
     gtk_list_store_set(GTK_LIST_STORE(GenreComboModel), &iter, MISC_COMBO_TEXT, "", -1);
@@ -534,7 +536,8 @@ void Load_Track_List_To_UI (void)
     GtkTreeIter iter;
     gchar *text;
 
-    if (!ETCore->ETFileDisplayedList || !TrackEntryComboModel) return;
+    g_return_if_fail (ETCore->ETFileDisplayedList != NULL ||
+                      TrackEntryComboModel != NULL);
 
     // Number mini of items
     //if ((len=ETCore->ETFileDisplayedList_Length) < 30)
@@ -992,7 +995,7 @@ void Run_Audio_Player_Using_Selection (void)
     ET_File *etfile;
     GtkTreeSelection *selection;
 
-    if (!BrowserList) return;
+    g_return_if_fail (BrowserList != NULL);
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
     selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
@@ -1021,7 +1024,7 @@ void Run_Audio_Player_Using_Browser_Artist_List (void)
     GList *AlbumList, *etfilelist;
     GList *concatenated_list = NULL;
 
-    if (!BrowserArtistList) return;
+    g_return_if_fail (BrowserArtistList != NULL);
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserArtistList));
     if (!gtk_tree_selection_get_selected(selection, &artistListModel, &iter))
@@ -1054,7 +1057,7 @@ void Run_Audio_Player_Using_Browser_Album_List (void)
     GtkTreeModel *albumListModel;
     GList *etfilelist;
 
-    if (!BrowserAlbumList) return;
+    g_return_if_fail (BrowserAlbumList != NULL);
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserAlbumList));
     if (!gtk_tree_selection_get_selected(selection, &albumListModel, &iter))
@@ -1195,23 +1198,22 @@ Get_File_Size (const gchar *filename)
 {
     struct stat statbuf;
 
-    if (filename)
-    {
-        stat(filename,&statbuf);
-        return statbuf.st_size;
-    }else
-    {
-        return 0;
-    }
+    g_return_val_if_fail (filename != NULL, 0);
+
+    stat (filename, &statbuf);
+
+    return statbuf.st_size;
 }
 
 /*
  * Delete spaces at the end and the beginning of the string
  */
-void Strip_String (gchar *string)
+void
+Strip_String (gchar *string)
 {
-    if (!string) return;
-    string = g_strstrip(string);
+    g_return_if_fail (string != NULL);
+
+    string = g_strstrip (string);
 }
 
 
@@ -3480,7 +3482,7 @@ Load_Filename_List_Insert_Blank_Line (GtkWidget *treeview)
     GtkTreeIter *temp;
     GtkTreeModel *model;
 
-    if (!treeview) return;
+    g_return_if_fail (treeview != NULL);
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
 
@@ -3538,7 +3540,7 @@ Load_Filename_List_Delete_Line (GtkWidget *treeview)
     GtkTreeModel *model;
     gboolean rowafter;
 
-    if (!treeview) return;
+    g_return_if_fail (treeview != NULL);
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
 
@@ -3573,7 +3575,7 @@ Load_Filename_List_Move_Up (GtkWidget *treeview)
     GtkTreeModel *treemodel;
     gboolean valid;
 
-    if (!treeview) return;
+    g_return_if_fail (treeview != NULL);
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
     treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview));
@@ -3627,7 +3629,7 @@ Load_Filename_List_Move_Down (GtkWidget *treeview)
     GtkTreeModel *treemodel;
     gboolean valid;
 
-    if (!treeview) return;
+    g_return_if_fail (treeview != NULL);
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
     treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview));
@@ -3670,7 +3672,7 @@ Load_Filename_List_Move_Down (GtkWidget *treeview)
 static void
 Load_Filename_List_Reload (GtkWidget *treeview)
 {
-    if (!treeview) return;
+    g_return_if_fail (treeview != NULL);
 
     if (GTK_TREE_VIEW(treeview) == GTK_TREE_VIEW(LoadFileContentList))
     {
@@ -3693,7 +3695,7 @@ Load_Filename_Update_Text_Line(GtkWidget *entry, GtkWidget *list)
     GtkTreeModel *model;
     gboolean hasSelectedRows = FALSE;
 
-    if (!list || !entry) return;
+    g_return_if_fail (entry != NULL || list != NULL);
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list));
     hasSelectedRows = gtk_tree_selection_get_selected(selection, &model, &SelectedRow);

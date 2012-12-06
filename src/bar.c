@@ -454,7 +454,8 @@ Statusbar_Remove_Timer (void)
 void Statusbar_Message (gchar *message, gint with_timer)
 {
     gchar *msg_temp;
-    if (!StatusBar) return;
+
+    g_return_if_fail (StatusBar != NULL);
 
     /* Validate UTF8 */
     /*if (!g_utf8_validate(message, -1, NULL))

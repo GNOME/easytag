@@ -310,7 +310,7 @@ Browser_Tree_Get_Path_Of_Selected_Node (void)
     GtkTreeIter selectedIter;
     gchar *path;
 
-    if (!BrowserTree) return NULL;
+    g_return_val_if_fail (BrowserTree != NULL, NULL);
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserTree));
     if (selection
@@ -334,7 +334,7 @@ Browser_Update_Current_Path (const gchar *path)
 {
     /* Be sure that we aren't passing 'BrowserCurrentPath' as parameter of the function :
      * to avoid some memory problems */
-    if (path == NULL || path == BrowserCurrentPath) return;
+    g_return_if_fail (path != NULL || path != BrowserCurrentPath);
 
     if (BrowserCurrentPath != NULL)
         g_free(BrowserCurrentPath);
@@ -458,7 +458,7 @@ Browser_Tree_Key_Press (GtkWidget *tree, GdkEvent *event, gpointer data)
     GtkTreeSelection *treeSelection;
     GtkTreePath *treePath;
 
-    if (!tree) return FALSE;
+    g_return_val_if_fail (tree != NULL, FALSE);
 
     treeSelection = gtk_tree_view_get_selection(GTK_TREE_VIEW(tree));
 
@@ -537,8 +537,7 @@ gboolean Browser_List_Key_Press (GtkWidget *list, GdkEvent *event, gpointer data
     GtkTreeModel     *fileListModel;
     GtkTreeSelection *fileSelection;
 
-
-    if (!list) return FALSE;
+    g_return_val_if_fail (list != NULL, FALSE);
 
     fileListModel = gtk_tree_view_get_model(GTK_TREE_VIEW(list));
     fileSelection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list));
@@ -693,7 +692,7 @@ void Browser_Tree_Collapse (void)
 {
     GtkTreePath *rootPath;
 
-    if (!BrowserTree) return;
+    g_return_if_fail (BrowserTree != NULL);
 
     gtk_tree_view_collapse_all(GTK_TREE_VIEW(BrowserTree));
 
@@ -712,7 +711,7 @@ void Browser_Tree_Collapse (void)
 static void
 Browser_Tree_Set_Node_Visible (GtkWidget *directoryView, GtkTreePath *path)
 {
-    if (!directoryView || !path) return;
+    g_return_if_fail (directoryView != NULL || path != NULL);
 
     gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(directoryView), path, NULL, TRUE, 0.5, 0.0);
 }
@@ -730,7 +729,7 @@ void Browser_List_Set_Row_Visible (GtkTreeModel *treeModel, GtkTreeIter *rowIter
      */
     GtkTreePath *rowPath;
 
-    if (!treeModel || !rowIter) return;
+    g_return_if_fail (treeModel != NULL || rowIter != NULL);
 
     rowPath = gtk_tree_model_get_path(treeModel, rowIter);
     gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(BrowserList), rowPath, NULL, FALSE, 0, 0);
@@ -907,7 +906,7 @@ gboolean Browser_Tree_Select_Dir (const gchar *current_path)
     gchar *nodeName;
     gchar *temp;
 
-    if (!BrowserTree) return FALSE;
+    g_return_val_if_fail (BrowserTree != NULL, FALSE);
 
     /* Load current_path */
     if(!current_path || !*current_path)
@@ -1050,7 +1049,7 @@ void Browser_List_Load_File_List (GList *etfilelist, ET_File *etfile_to_select)
     gboolean activate_bg_color = 0;
     GtkTreeIter rowIter;
 
-    if (!BrowserList) return;
+    g_return_if_fail (BrowserList != NULL);
 
     gtk_list_store_clear(fileListModel);
     etfilelist = g_list_first(etfilelist);
@@ -1637,7 +1636,7 @@ GtkTreePath *Browser_List_Select_File_By_Etfile2 (ET_File *searchETFile, gboolea
 static void
 Browser_List_Select_File_By_Iter (GtkTreeIter *rowIter, gboolean select_it)
 {
-    if (!BrowserList) return;
+    g_return_if_fail (BrowserList != NULL);
 
     if (select_it)
     {
@@ -1661,7 +1660,7 @@ ET_File *Browser_List_Select_File_By_Iter_String (const gchar* stringIter, gbool
     GtkTreeIter iter;
     ET_File *current_etfile = NULL;
 
-    if (!fileListModel || !BrowserList) return NULL;
+    g_return_val_if_fail (fileListModel != NULL || BrowserList != NULL, NULL);
 
     if (gtk_tree_model_get_iter_from_string(GTK_TREE_MODEL(fileListModel), &iter, stringIter))
     {
@@ -1699,7 +1698,7 @@ ET_File *Browser_List_Select_File_By_DLM (const gchar* string, gboolean select_i
     gchar *current_filename = NULL, *current_title = NULL;
     int max = 0, this;
 
-    if (!fileListModel || !BrowserList) return NULL;
+    g_return_val_if_fail (fileListModel != NULL || BrowserList != NULL, NULL);
 
     if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(fileListModel), &iter))
     {
@@ -1911,7 +1910,7 @@ void Browser_List_Select_All_Files (void)
 {
     GtkTreeSelection *selection;
 
-    if (!BrowserList) return;
+    g_return_if_fail (BrowserList != NULL);
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
     if (selection)
@@ -1930,7 +1929,7 @@ void Browser_List_Unselect_All_Files (void)
 {
     GtkTreeSelection *selection;
 
-    if (!BrowserList) return;
+    g_return_if_fail (BrowserList != NULL);
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
     if (selection)
@@ -1948,7 +1947,7 @@ void Browser_List_Invert_File_Selection (void)
     GtkTreeSelection *selection;
     gboolean valid;
 
-    if (!fileListModel || !BrowserList) return;
+    g_return_if_fail (fileListModel != NULL || BrowserList != NULL);
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
     if (selection)
@@ -1983,7 +1982,7 @@ void Browser_Artist_List_Load_Files (ET_File *etfile_to_select)
     GtkTreeSelection *selection;
     gchar *artistname, *artist_to_select = NULL;
 
-    if (!BrowserArtistList) return;
+    g_return_if_fail (BrowserArtistList != NULL);
 
     if (etfile_to_select)
         artist_to_select = ((File_Tag *)etfile_to_select->FileTag->data)->artist;
@@ -2144,7 +2143,7 @@ Browser_Album_List_Load_Files (GList *albumlist, ET_File *etfile_to_select)
     GtkTreeSelection *selection;
     gchar *albumname, *album_to_select = NULL;
 
-    if (!BrowserAlbumList) return;
+    g_return_if_fail (BrowserAlbumList != NULL);
 
     if (etfile_to_select)
         album_to_select = ((File_Tag *)etfile_to_select->FileTag->data)->album;
@@ -2393,7 +2392,7 @@ Browser_Tree_Initialize (void)
     GtkTreeIter parent_iter;
     GtkTreeIter dummy_iter;
 
-    if (!directoryTreeModel) return;
+    g_return_if_fail (directoryTreeModel != NULL);
 
     gtk_tree_store_clear(directoryTreeModel);
 
@@ -2846,7 +2845,7 @@ static void expand_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *gtreePat
     GtkTreeIter subNodeIter;
     GdkPixbuf *pixbuf;
 
-    if (!directoryTreeModel) return;
+    g_return_if_fail (directoryTreeModel != NULL);
 
     gtk_tree_model_get(GTK_TREE_MODEL(directoryTreeModel), iter,
                        TREE_COLUMN_FULL_PATH, &parentPath,
@@ -2950,7 +2949,7 @@ static void collapse_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *treePa
 {
     GtkTreeIter subNodeIter;
 
-    if (!directoryTreeModel) return;
+    g_return_if_fail (directoryTreeModel != NULL);
 
     gtk_tree_model_iter_children(GTK_TREE_MODEL(directoryTreeModel),
                                  &subNodeIter, iter);
@@ -4250,7 +4249,7 @@ void Run_Program_With_Directory (GtkWidget *combobox)
     GList *args_list = NULL;
     gboolean program_ran;
 
-    if (!GTK_IS_COMBO_BOX(combobox)) return;
+    g_return_if_fail (GTK_IS_COMBO_BOX (combobox));
 
     program_name      = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(combobox)))));
     current_directory = g_object_get_data(G_OBJECT(combobox), "Current_Directory");

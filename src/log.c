@@ -195,7 +195,7 @@ Log_List_Set_Row_Visible (GtkTreeModel *treeModel, GtkTreeIter *rowIter)
      */
     GtkTreePath *rowPath;
 
-    if (!treeModel) return;
+    g_return_if_fail (treeModel != NULL);
 
     rowPath = gtk_tree_model_get_path(treeModel, rowIter);
     gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(LogList), rowPath, NULL, FALSE, 0, 0);
