@@ -34,11 +34,17 @@ AC_PROG_CXX
 AC_PROG_CXXCPP
 PKG_PROG_PKG_CONFIG([0.24])
 
-dnl -------------------------
-dnl Handle mingw32 or cygwin
-dnl -------------------------
-AC_MINGW32
-AC_CYGWIN
+dnl -------------------------------
+dnl Handle cross-compiling with mingw32.
+dnl -------------------------------
+AC_CANONICAL_HOST
+AC_MSG_CHECKING([whether to build with mingw32 for a Windows host])
+AS_CASE([$host_os],
+        [*mingw*], [windows_host=yes],
+        [windows_host=no])
+AC_MSG_RESULT([$windows_host])
+
+AM_CONDITIONAL([WINDOWS_HOST], [test "x$windows_host" = "xyes"])
 
 dnl -------------------------------
 dnl Configure switches.
