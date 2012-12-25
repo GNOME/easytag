@@ -4561,6 +4561,12 @@ void Convert_Only_One_Space (GtkWidget *entry)
     g_free(string);
 }
 
+static void
+Convert_Remove_All_Text (GtkWidget *entry)
+{
+    gtk_entry_set_text (GTK_ENTRY (entry), "");
+}
+
 /*
  * Entry_Popup_Menu_Handler: show the popup menu when the third mouse button is pressed.
  */
@@ -4675,6 +4681,14 @@ void Attach_Popup_Menu_To_Tag_Entries (GtkEntry *entry)
     gtk_menu_shell_append(GTK_MENU_SHELL(PopupMenu),MenuItem);
     g_signal_connect_swapped(G_OBJECT(MenuItem),"activate",
         G_CALLBACK(Convert_Only_One_Space),G_OBJECT(entry));
+
+    MenuItem = gtk_image_menu_item_new_with_label (_("Remove all text"));
+    Image = gtk_image_new_from_stock (GTK_STOCK_REMOVE, GTK_ICON_SIZE_MENU);
+    gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM(MenuItem), Image);
+    gtk_menu_shell_append (GTK_MENU_SHELL(PopupMenu), MenuItem);
+    g_signal_connect_swapped (G_OBJECT (MenuItem), "activate",
+                              G_CALLBACK (Convert_Remove_All_Text),
+                              G_OBJECT (entry));
 
     gtk_widget_show_all(PopupMenu);
 }
