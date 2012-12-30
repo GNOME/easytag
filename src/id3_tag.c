@@ -142,7 +142,7 @@ gboolean Id3tag_Write_File_v23Tag (ET_File *ETFile)
     /* Test to know if we can write into the file */
     if ( (file=fopen(filename,"r+"))==NULL )
     {
-        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
         return FALSE;
     }
     fclose(file);
@@ -556,7 +556,7 @@ gboolean Id3tag_Write_File_v23Tag (ET_File *ETFile)
                                                                  "correctly. Please, apply the patch "
                                                                  "src/id3lib/patch_id3lib_3.8.3_UTF16_writing_bug.diff to id3lib, which is "
                                                                  "available in the EasyTAG package sources.\nNote that this message will "
-                                                                 "appear only once.\n\nFile : %s"),
+                                                                 "appear only once.\n\nFile: %s"),
                                                                   filename_utf8);
 
                         gtk_window_set_title(GTK_WINDOW(msgdialog),_("Buggy id3lib"));
@@ -1202,7 +1202,7 @@ gboolean Id3tag_Check_If_File_Is_Corrupted (gchar *filename)
     if ( (file=fopen(filename,"rb"))==NULL )
     {
         gchar *filename_utf8 = filename_to_display(filename);
-        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
         g_free(filename_utf8);
         return FALSE;
     }
@@ -1266,7 +1266,7 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
     if ((file = g_mkstemp ("easytagXXXXXX.mp3")) == NULL)
     {
         gchar *filename_utf8 = filename_to_display(filename);
-        Log_Print (LOG_ERROR, _("ERROR while opening file: '%s' (%s)"),
+        Log_Print (LOG_ERROR, _("Error while opening file: '%s' (%s)"),
                    filename_utf8, g_strerror(errno));
         g_free (filename_utf8);
         return FALSE;

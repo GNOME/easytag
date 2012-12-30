@@ -143,7 +143,7 @@ gboolean Ogg_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
 
     if ( (file=fopen(filename,"rb")) == NULL )
     {
-        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
         g_free(filename_utf8);
         return FALSE;
     }
@@ -167,7 +167,7 @@ gboolean Ogg_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
                 id3v2size = 10 + ( (long)(tmp_id3[3])        | ((long)(tmp_id3[2]) << 7)
                                 | ((long)(tmp_id3[1]) << 14) | ((long)(tmp_id3[0]) << 21) );
                 fseek(file, id3v2size, SEEK_SET);
-                Log_Print(LOG_ERROR,_("Warning : The Ogg Vorbis file '%s' contains an ID3v2 tag."),filename_utf8);
+                Log_Print(LOG_ERROR,_("Warning: The Ogg Vorbis file '%s' contains an ID3v2 tag."),filename_utf8);
             }else
             {
                 fseek(file, 0L, SEEK_SET);
@@ -185,7 +185,7 @@ gboolean Ogg_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     state = vcedit_new_state();    // Allocate memory for 'state'
     if ( vcedit_open(state,file) < 0 )
     {
-        Log_Print(LOG_ERROR,_("ERROR: Failed to open file: '%s' as vorbis (%s)."),filename_utf8,vcedit_error(state));
+        Log_Print(LOG_ERROR,_("Error: Failed to open file: '%s' as Vorbis (%s)."),filename_utf8,vcedit_error(state));
         ogg_error_msg = vcedit_error(state);
         fclose(file);
         g_free(filename_utf8);
@@ -654,7 +654,7 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
     /* Test to know if we can write into the file */
     if ( (file_in=fopen(filename,"rb"))==NULL )
     {
-        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
         return FALSE;
     }
 
@@ -694,7 +694,7 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
     state = vcedit_new_state();    // Allocate memory for 'state'
     if ( vcedit_open(state,file_in) < 0 )
     {
-        Log_Print(LOG_ERROR,_("ERROR: Failed to open file: '%s' as vorbis (%s)."),filename_utf8,vcedit_error(state));
+        Log_Print(LOG_ERROR,_("Error: Failed to open file: '%s' as Vorbis (%s)."),filename_utf8,vcedit_error(state));
         ogg_error_msg = vcedit_error(state);
         fclose(file_in);
         vcedit_clear(state);
@@ -846,7 +846,7 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
     if ( Ogg_Tag_Write_File(file_in,filename,state) == FALSE )
     {
         ogg_error_msg = vcedit_error(state);
-        Log_Print(LOG_ERROR,_("ERROR: Failed to write comments to file '%s' (%s)."),filename_utf8,ogg_error_msg == NULL ? "" : ogg_error_msg);
+        Log_Print(LOG_ERROR,_("Error: Failed to write comments to file '%s' (%s)."),filename_utf8,ogg_error_msg == NULL ? "" : ogg_error_msg);
 
         vcedit_clear(state);
         return FALSE;

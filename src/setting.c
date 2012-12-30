@@ -920,7 +920,7 @@ void Save_Config_To_File (void)
     if (!Create_Easytag_Directory () || (file = fopen (file_path, "w+")) == 0)
     {
         Log_Print (LOG_ERROR,
-                   _("ERROR: Cannot write configuration file: %s (%s)"),
+                   _("Error: Cannot write configuration file: %s (%s)"),
                    file_path, g_strerror(errno));
     }
     else
@@ -1220,7 +1220,7 @@ void Save_List_Store_To_File (const gchar *filename, GtkListStore *liststore, gi
 
     if (!Create_Easytag_Directory () || (file = fopen (file_path, "w+")) == NULL)
     {
-        Log_Print (LOG_ERROR, _("ERROR: Cannot write list to file: %s (%s)"),
+        Log_Print (LOG_ERROR, _("Error: Cannot write list to file: %s (%s)"),
                    file_path, g_strerror (errno));
     }else
     {
@@ -1630,7 +1630,7 @@ gboolean Create_Easytag_Directory (void)
 
     if (result == -1)
     {
-        Log_Print (LOG_ERROR,_("ERROR: Cannot create directory '%s' (%s)"),
+        Log_Print (LOG_ERROR,_("Error: Cannot create directory '%s' (%s)"),
                   easytag_path, g_strerror (errno));
         g_free (easytag_path);
         return FALSE;

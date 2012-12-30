@@ -139,7 +139,7 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
             FLAC__metadata_simple_iterator_delete(iter);
         }
 
-        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' as FLAC (%s)."),filename_utf8,flac_error_msg);
+        Log_Print(LOG_ERROR,_("Error while opening file: '%s' as FLAC (%s)."),filename_utf8,flac_error_msg);
         g_free(filename_utf8);
         return FALSE;
     }
@@ -860,7 +860,7 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
             FLAC__metadata_chain_delete(chain);
         }
         
-        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' as FLAC (%s)."),filename_utf8,flac_error_msg);
+        Log_Print(LOG_ERROR,_("Error while opening file: '%s' as FLAC (%s)."),filename_utf8,flac_error_msg);
         return FALSE;
     }
     
@@ -870,7 +870,7 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
     {
         flac_error_msg = FLAC__Metadata_ChainStatusString[FLAC__METADATA_CHAIN_STATUS_MEMORY_ALLOCATION_ERROR];
 
-        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' as FLAC (%s)."),filename_utf8,flac_error_msg);
+        Log_Print(LOG_ERROR,_("Error while opening file: '%s' as FLAC (%s)."),filename_utf8,flac_error_msg);
         return FALSE;
     }
     
@@ -1112,7 +1112,7 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
 
         FLAC__metadata_chain_delete(chain);
         
-        Log_Print(LOG_ERROR,_("ERROR: Failed to write comments to file '%s' (%s)."),filename_utf8,flac_error_msg);
+        Log_Print(LOG_ERROR,_("Error: Failed to write comments to file '%s' (%s)."),filename_utf8,flac_error_msg);
         return FALSE;
     }else
     {

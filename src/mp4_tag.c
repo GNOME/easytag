@@ -69,7 +69,7 @@ gboolean Mp4tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     if ( (file=fopen(filename,"r"))==NULL )
     {
         gchar *filename_utf8 = filename_to_display(filename);
-        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
         g_free(filename_utf8);
         return FALSE;
     }
@@ -80,7 +80,7 @@ gboolean Mp4tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     if (mp4file == NULL)
     {
         gchar *filename_utf8 = filename_to_display(filename);
-        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,_("MP4 format invalid"));
+        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,_("MP4 format invalid"));
         g_free(filename_utf8);
         return FALSE;
     }
@@ -183,7 +183,7 @@ gboolean Mp4tag_Write_File_Tag (ET_File *ETFile)
     /* Test to know if we can write into the file */
     if ( (file=fopen(filename,"r+"))==NULL )
     {
-        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
         return FALSE;
     }
     fclose(file);
@@ -192,7 +192,7 @@ gboolean Mp4tag_Write_File_Tag (ET_File *ETFile)
     mp4file = taglib_file_new_type(filename, TagLib_File_MP4);
     if (mp4file == NULL)
     {
-        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,_("MP4 format invalid"));
+        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,_("MP4 format invalid"));
         return FALSE;
     }
 

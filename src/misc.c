@@ -1267,7 +1267,7 @@ void Open_Write_Playlist_Window (void)
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 4);
 
-    playlist_use_mask_name = gtk_radio_button_new_with_label(NULL, _("Use mask :"));
+    playlist_use_mask_name = gtk_radio_button_new_with_label(NULL, _("Use mask:"));
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),playlist_use_mask_name,FALSE,FALSE,0);
@@ -1767,7 +1767,7 @@ gboolean Write_Playlist (gchar *playlist_name)
 
     if ((file = fopen(playlist_name,"wb")) == NULL)
     {
-        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),playlist_name_utf8,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),playlist_name_utf8,g_strerror(errno));
         g_free(playlist_name_utf8);
         return FALSE;
     }
@@ -2457,7 +2457,7 @@ void Search_File (GtkWidget *search_button)
 
     // Display the number of files in the statusbar
     resultCount = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(SearchResultListModel), NULL);
-    msg = g_strdup_printf(_("Found : %d file(s)"), resultCount);
+    msg = g_strdup_printf(_("Found: %d file(s)"), resultCount);
     gtk_statusbar_push(GTK_STATUSBAR(SearchStatusBar),SearchStatusBarContext,msg);
     g_free(msg);
 
@@ -2760,7 +2760,7 @@ void Open_Load_Filename_Window (void)
     else
         gtk_list_store_clear(FileToLoadModel);
 
-    Label = gtk_label_new(_("File :"));
+    Label = gtk_label_new(_("File:"));
     gtk_misc_set_alignment(GTK_MISC(Label),1.0,0.5);
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
     FileToLoadCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(FileToLoadModel));

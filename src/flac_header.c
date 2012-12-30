@@ -123,7 +123,7 @@ gboolean Flac_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
     if ( (file=fopen(filename,"r"))==NULL )
     {
         gchar *filename_utf8 = filename_to_display(filename);
-        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
         g_free(filename_utf8);
         return FALSE;
     }

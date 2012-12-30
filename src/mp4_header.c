@@ -60,8 +60,8 @@ gboolean Mp4_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
     if ((file = taglib_file_new_type(filename, TagLib_File_MP4)) == NULL )
     {
         gchar *filename_utf8 = filename_to_display(filename);
-        //g_print(_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
-        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,_("MP4 format invalid"));
+        //g_print(_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,_("MP4 format invalid"));
         g_free(filename_utf8);
         return FALSE;
     }
@@ -70,7 +70,7 @@ gboolean Mp4_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
     if( !taglib_file_is_valid(file) )
     {
         gchar *filename_utf8 = filename_to_display(filename);
-        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,("Contains no audio track"));
+        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,("Contains no audio track"));
         g_free(filename_utf8);
         return FALSE;
     }

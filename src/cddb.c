@@ -307,7 +307,7 @@ void Open_Cddb_Window (void)
     gtk_box_pack_start(GTK_BOX(hbox),Separator,FALSE,FALSE,0);
 
     // Check box to run the scanner
-    CddbUseLocalAccess = gtk_check_button_new_with_label(_("Use local Cddb"));
+    CddbUseLocalAccess = gtk_check_button_new_with_label(_("Use local CDDB"));
     gtk_box_pack_start(GTK_BOX(hbox),CddbUseLocalAccess,FALSE,FALSE,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbUseLocalAccess),CDDB_USE_LOCAL_ACCESS);
     gtk_widget_set_tooltip_text(CddbUseLocalAccess,_("When activating this option, after loading the "
@@ -558,7 +558,7 @@ void Open_Cddb_Window (void)
     gtk_container_set_border_width(GTK_CONTAINER(hbox),2);
     gtk_container_add(GTK_CONTAINER(Frame),hbox);
 
-    Label = gtk_label_new(_("Search :"));
+    Label = gtk_label_new(_("Search:"));
     gtk_misc_set_alignment(GTK_MISC(Label),1.0,0.5);
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
 
@@ -808,7 +808,7 @@ void Open_Cddb_Window (void)
         "Levenshtein algorithm (DLM: Damerau-Levenshtein Metric) will be used "
         "to match the CDDB title against every file name in the current folder, "
         "and to select the best match. This will be used when selecting the "
-        "corresponding audio file, or applying cddb results, instead of using "
+        "corresponding audio file, or applying CDDB results, instead of using "
         "directly the position order."));
     g_signal_connect(G_OBJECT(CddbUseDLM2),"toggled",G_CALLBACK(Cddb_Use_Dlm_2_Check_Button_Toggled),NULL);
 

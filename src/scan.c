@@ -2582,40 +2582,40 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_container_add(GTK_CONTAINER(EventBox),Label);
     gtk_widget_set_tooltip_text(EventBox,_("The buttons on the right represent the fields which can "
         "be processed. Select those who interest you."));
-    // Advice for Translators : set the first letter of filename translated
+    // Advice for Translators: set the first letter of filename translated
     ProcessFileNameField = gtk_toggle_button_new_with_label(   _("F"));
     gtk_widget_set_tooltip_text(ProcessFileNameField,          _("Process file name field"));
-    // Advice for Translators : set the first letter of title translated
+    // Advice for Translators: set the first letter of title translated
     ProcessTitleField = gtk_toggle_button_new_with_label(      _("T"));
     gtk_widget_set_tooltip_text(ProcessTitleField,             _("Process title field"));
-    // Advice for Translators : set the first letter of artist translated
+    // Advice for Translators: set the first letter of artist translated
     ProcessArtistField = gtk_toggle_button_new_with_label(     _("Ar"));
     gtk_widget_set_tooltip_text(ProcessArtistField,            _("Process file artist field"));
-    // Advice for Translators : set the first letter of album artist translated
+    // Advice for Translators: set the first letter of album artist translated
     ProcessAlbumArtistField = gtk_toggle_button_new_with_label(_("AA"));
     gtk_widget_set_tooltip_text(ProcessAlbumArtistField,       _("Process album artist field"));
-    // Advice for Translators : set the first letter of album translated
+    // Advice for Translators: set the first letter of album translated
     ProcessAlbumField = gtk_toggle_button_new_with_label(      _("Al"));
     gtk_widget_set_tooltip_text(ProcessAlbumField,             _("Process album field"));
-    // Advice for Translators : set the first letter of genre translated
+    // Advice for Translators: set the first letter of genre translated
     ProcessGenreField = gtk_toggle_button_new_with_label(      _("G"));
     gtk_widget_set_tooltip_text(ProcessGenreField,             _("Process genre field"));
-    // Advice for Translators : set the first letter of comment translated
+    // Advice for Translators: set the first letter of comment translated
     ProcessCommentField = gtk_toggle_button_new_with_label(    _("Cm"));
     gtk_widget_set_tooltip_text(ProcessCommentField,           _("Process comment field"));
-    // Advice for Translators : set the first letter of composer translated
+    // Advice for Translators: set the first letter of composer translated
     ProcessComposerField = gtk_toggle_button_new_with_label(   _("Cp"));
     gtk_widget_set_tooltip_text(ProcessComposerField,          _("Process composer field"));
-    // Advice for Translators : set the first letter of orig artist translated
+    // Advice for Translators: set the first letter of orig artist translated
     ProcessOrigArtistField = gtk_toggle_button_new_with_label( _("O"));
     gtk_widget_set_tooltip_text(ProcessOrigArtistField,        _("Process original artist field"));
-    // Advice for Translators : set the first letter of copyright translated
+    // Advice for Translators: set the first letter of copyright translated
     ProcessCopyrightField = gtk_toggle_button_new_with_label(  _("Cr"));
     gtk_widget_set_tooltip_text(ProcessCopyrightField,         _("Process copyright field"));
-    // Advice for Translators : set the first letter of URL translated
+    // Advice for Translators: set the first letter of URL translated
     ProcessURLField = gtk_toggle_button_new_with_label(        _("U"));
     gtk_widget_set_tooltip_text(ProcessURLField,               _("Process URL field"));
-    // Advice for Translators : set the first letter of encoder name translated
+    // Advice for Translators: set the first letter of encoder name translated
     ProcessEncodedByField = gtk_toggle_button_new_with_label(  _("E"));
     gtk_widget_set_tooltip_text(ProcessEncodedByField,         _("Process encoder name field"));
     gtk_box_pack_start(GTK_BOX(hbox),ProcessFileNameField,   TRUE,TRUE,2);
@@ -2675,7 +2675,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_widget_set_can_default(Button,FALSE); // To have enough space to display the icon
     gtk_widget_set_can_focus(Button,FALSE);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
-    gtk_widget_set_tooltip_text(Button,_("Select/Unselect All."));
+    gtk_widget_set_tooltip_text(Button,_("Select/Unselect All"));
 
     /* Separator line */
     Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
@@ -2690,7 +2690,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_box_pack_start(GTK_BOX(VBox),hbox,FALSE,FALSE,0);
     ProcessFieldsConvert          = gtk_check_button_new_with_label(_("Convert:"));  // Patch from Ben Hearsum, Oct. 3, 2003
     ProcessFieldsConvertTo        = gtk_entry_new();
-    ProcessFieldsConvertLabelTo   = gtk_label_new(_("to: ")); // A "space" at the end to allow another traduction for "to :" (needed in French!)
+    ProcessFieldsConvertLabelTo   = gtk_label_new(_("to: ")); // A "space" at the end to allow another translation for "to :" (needed in French!)
     ProcessFieldsConvertFrom      = gtk_entry_new();
     //gtk_entry_set_max_length(GTK_ENTRY(ProcessFieldsConvertTo), 1); // Now, it isn't limited to one character
     //gtk_entry_set_max_length(GTK_ENTRY(ProcessFieldsConvertFrom), 1);
@@ -2735,7 +2735,7 @@ void Open_ScannerWindow (gint scanner_type)
     
     /* Group: capitalize, ... */
     ProcessFieldsAllUppercase = gtk_check_button_new_with_label         (_("All uppercase"));
-    ProcessFieldsAllDowncase  = gtk_check_button_new_with_label         (_("All downcase"));
+    ProcessFieldsAllDowncase  = gtk_check_button_new_with_label         (_("All lowercase"));
     ProcessFieldsFirstLetterUppercase  = gtk_check_button_new_with_label(_("First letter uppercase"));
     ProcessFieldsFirstLettersUppercase = gtk_check_button_new_with_label(_("First letter uppercase of each word"));
     ProcessFieldsDetectRomanNumerals = gtk_check_button_new_with_label(_("Detect Roman numerals"));
@@ -2824,52 +2824,52 @@ void Open_ScannerWindow (gint scanner_type)
     Table = gtk_table_new(3,3,FALSE);
     gtk_container_add(GTK_CONTAINER(LegendFrame),Table);
     gtk_container_set_border_width(GTK_CONTAINER(Table),4);
-    Label = gtk_label_new(_("%a : artist"));
+    Label = gtk_label_new(_("%a: artist"));
     gtk_table_attach_defaults(GTK_TABLE(Table),Label,0,1,0,1);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
-    Label = gtk_label_new(_("%z : album artist"));
+    Label = gtk_label_new(_("%z: album artist"));
     gtk_table_attach_defaults(GTK_TABLE(Table),Label,0,1,1,2);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
-    Label = gtk_label_new(_("%b : album"));
+    Label = gtk_label_new(_("%b: album"));
     gtk_table_attach_defaults(GTK_TABLE(Table),Label,0,1,2,3);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
-    Label = gtk_label_new(_("%c : comment"));
+    Label = gtk_label_new(_("%c: comment"));
     gtk_table_attach_defaults(GTK_TABLE(Table),Label,0,1,3,4);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
-    Label = gtk_label_new(_("%p : composer"));
+    Label = gtk_label_new(_("%p: composer"));
     gtk_table_attach_defaults(GTK_TABLE(Table),Label,0,1,3,4);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
-    Label = gtk_label_new(_("%r : copyright"));
+    Label = gtk_label_new(_("%r: copyright"));
     gtk_table_attach_defaults(GTK_TABLE(Table),Label,0,1,4,5);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
-    Label = gtk_label_new(_("%d : disc number"));
+    Label = gtk_label_new(_("%d: disc number"));
     gtk_table_attach_defaults(GTK_TABLE(Table),Label,1,2,0,1);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
-    Label = gtk_label_new(_("%e : encoded by"));
+    Label = gtk_label_new(_("%e: encoded by"));
     gtk_table_attach_defaults(GTK_TABLE(Table),Label,1,2,1,2);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
-    Label = gtk_label_new(_("%g : genre"));
+    Label = gtk_label_new(_("%g: genre"));
     gtk_table_attach_defaults(GTK_TABLE(Table),Label,1,2,2,3);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
-    Label = gtk_label_new(_("%i : ignored"));
+    Label = gtk_label_new(_("%i: ignored"));
     gtk_table_attach_defaults(GTK_TABLE(Table),Label,1,2,3,4);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
-    Label = gtk_label_new(_("%l : number of tracks"));
+    Label = gtk_label_new(_("%l: number of tracks"));
     gtk_table_attach_defaults(GTK_TABLE(Table),Label,1,2,4,5);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
-    Label = gtk_label_new(_("%o : orig. artist"));
+    Label = gtk_label_new(_("%o: orig. artist"));
     gtk_table_attach_defaults(GTK_TABLE(Table),Label,2,3,0,1);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
-    Label = gtk_label_new(_("%n : track"));
+    Label = gtk_label_new(_("%n: track"));
     gtk_table_attach_defaults(GTK_TABLE(Table),Label,2,3,1,2);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
-    Label = gtk_label_new(_("%t : title"));
+    Label = gtk_label_new(_("%t: title"));
     gtk_table_attach_defaults(GTK_TABLE(Table),Label,2,3,2,3);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
-    Label = gtk_label_new(_("%u : URL"));
+    Label = gtk_label_new(_("%u: URL"));
     gtk_table_attach_defaults(GTK_TABLE(Table),Label,2,3,3,4);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
-    Label = gtk_label_new(_("%y : year"));
+    Label = gtk_label_new(_("%y: year"));
     gtk_table_attach_defaults(GTK_TABLE(Table),Label,2,3,4,5);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
 

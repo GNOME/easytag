@@ -3495,7 +3495,7 @@ gboolean Read_Directory (gchar *path_real)
         gchar *path_utf8 = filename_to_display(path_real);
         gchar *msg;
 
-        msg = g_strdup_printf(_("Can't read directory :\n'%s'\n(%s)"),path_utf8,g_strerror(errno));
+        msg = g_strdup_printf(_("Can't read directory:\n'%s'\n(%s)"),path_utf8,g_strerror(errno));
         msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
                                            GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                            GTK_MESSAGE_ERROR,
@@ -4630,7 +4630,7 @@ void Attach_Popup_Menu_To_Tag_Entries (GtkEntry *entry)
     g_signal_connect_swapped(G_OBJECT(MenuItem),"activate",
         G_CALLBACK(Convert_All_Uppercase),G_OBJECT(entry));
 
-    MenuItem = gtk_image_menu_item_new_with_label(_("All downcase"));
+    MenuItem = gtk_image_menu_item_new_with_label(_("All lowercase"));
     Image = gtk_image_new_from_stock("easytag-all-downcase",GTK_ICON_SIZE_MENU);
     gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
     gtk_menu_shell_append(GTK_MENU_SHELL(PopupMenu),MenuItem);
@@ -4693,7 +4693,7 @@ void Handle_Crash (gint signal_id)
     Log_Print(LOG_ERROR,_("Received signal %s (%d)"),signal_to_string(signal_id),signal_id);
 
     Log_Print(LOG_ERROR,_("You have probably found a bug in EasyTAG. Please, "
-                          "file a bug report with a gdb backtrace ('gdb "
+                          "file a bug report with a GDB backtrace ('gdb "
 			  "easytag core' then 'bt' and 'l') and information "
 			  "to reproduce it at: %s"),PACKAGE_BUGREPORT);
 
@@ -4703,7 +4703,7 @@ void Handle_Crash (gint signal_id)
     g_print(_("Received signal %s (%d)\a"),signal_to_string(signal_id),signal_id);
     g_print("\n");
     g_print(_("You have probably found a bug in EasyTAG. Please, file a bug "
-            "report with a gdb backtrace ('gdb easytag core' then 'bt' and "
+            "report with a GDB backtrace ('gdb easytag core' then 'bt' and "
             "'l') and information to reproduce it at: %s"),PACKAGE_BUGREPORT);
     g_print("\n");
 

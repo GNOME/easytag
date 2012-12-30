@@ -338,7 +338,7 @@ int vcedit_open_callbacks(vcedit_state *state, void *in,
 
     if (state->oggtype == VCEDIT_IS_UNKNOWN)
     {
-        state->lasterror = _("Ogg bitstream contains neither speex or vorbis data.");
+        state->lasterror = _("Ogg bitstream contains neither Speex or Vorbis data.");
         goto err;
     }
 
@@ -416,7 +416,7 @@ int vcedit_open_callbacks(vcedit_state *state, void *in,
         bytes = state->read(buffer, 1, CHUNKSIZE, state->in);
         if(bytes == 0 && i < 2)
         {
-            state->lasterror = _("EOF before end of vorbis headers.");
+            state->lasterror = _("EOF before end of Vorbis headers.");
             goto err;
         }
         ogg_sync_wrote(state->oy, bytes);

@@ -79,7 +79,7 @@ gboolean Ogg_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
 
     if ( (file=fopen(filename,"rb"))==NULL ) // Warning : it is important to open the file in binary mode! (to get header information under Win32)
     {
-        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
         g_free(filename_utf8);
         return FALSE;
     }
@@ -183,7 +183,7 @@ gboolean Speex_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
 
     if ( (file=fopen(filename,"rb"))==NULL ) // Warning : it is important to open the file in binary mode! (to get header information under Win32)
     {
-        Log_Print(LOG_ERROR,_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
+        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
         g_free(filename_utf8);
         return FALSE;
     }
@@ -192,7 +192,7 @@ gboolean Speex_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
     state = vcedit_new_state();    // Allocate memory for 'state'
     if ( vcedit_open(state,file) < 0 )
     {
-        Log_Print(LOG_ERROR,_("ERROR: Failed to open file: '%s' as vorbis (%s)."),filename_utf8,vcedit_error(state));
+        Log_Print(LOG_ERROR,_("Error: Failed to open file: '%s' as Vorbis (%s)."),filename_utf8,vcedit_error(state));
         fclose(file);
         g_free(filename_utf8);
         vcedit_clear(state);

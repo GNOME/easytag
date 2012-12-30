@@ -843,7 +843,7 @@ const gchar *Picture_Type_String (Picture_Type type)
         case PICTURE_TYPE_MOVIDE_VIDEO_SCREEN_CAPTURE:
             return _("Movie/video screen capture");
         case PICTURE_TYPE_A_BRIGHT_COLOURED_FISH:
-            return _("A bright coloured fish");
+            return _("A bright colored fish");
         case PICTURE_TYPE_ILLUSTRATION:
             return _("Illustration");
         case PICTURE_TYPE_BAND_ARTIST_LOGOTYPE:

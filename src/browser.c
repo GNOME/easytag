@@ -3728,7 +3728,7 @@ void Browser_Open_Rename_Directory_Window (void)
     HBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_box_pack_start(GTK_BOX(VBox),HBox,TRUE,TRUE,0);
 
-    RenameDirectoryWithMask = gtk_check_button_new_with_label(_("Use mask :"));
+    RenameDirectoryWithMask = gtk_check_button_new_with_label(_("Use mask:"));
     gtk_box_pack_start(GTK_BOX(HBox),RenameDirectoryWithMask,FALSE,FALSE,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(RenameDirectoryWithMask),RENAME_DIRECTORY_WITH_MASK);
     gtk_widget_set_tooltip_text(RenameDirectoryWithMask,_("If activated, it will use masks to rename directory."));
@@ -4172,7 +4172,7 @@ void Browser_Open_Run_Program_Tree_Window (void)
     gtk_container_add(GTK_CONTAINER(Frame),VBox);
     gtk_container_set_border_width(GTK_CONTAINER(VBox), 4);
 
-    Label = gtk_label_new(_("Program to run :"));
+    Label = gtk_label_new(_("Program to run:"));
     gtk_box_pack_start(GTK_BOX(VBox),Label,TRUE,FALSE,0);
     gtk_label_set_line_wrap(GTK_LABEL(Label),TRUE);
 
@@ -4330,7 +4330,7 @@ void Browser_Open_Run_Program_List_Window (void)
     gtk_container_add(GTK_CONTAINER(Frame),VBox);
     gtk_container_set_border_width(GTK_CONTAINER(VBox), 4);
 
-    Label = gtk_label_new(_("Program to run :"));
+    Label = gtk_label_new(_("Program to run:"));
     gtk_box_pack_start(GTK_BOX(VBox),Label,TRUE,TRUE,0);
     gtk_label_set_line_wrap(GTK_LABEL(Label),TRUE);
 

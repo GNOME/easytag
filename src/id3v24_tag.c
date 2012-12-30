@@ -113,7 +113,7 @@ gboolean Id3tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     if ( (tmpfile=open(filename,O_RDONLY)) < 0 )
     {
         gchar *filename_utf8 = filename_to_display(filename);
-        g_print(_("ERROR while opening file: '%s' (%s).\n\a"),filename_utf8,g_strerror(errno));
+        g_print(_("Error while opening file: '%s' (%s).\n\a"),filename_utf8,g_strerror(errno));
         g_free(filename_utf8);
         return FALSE;
     }

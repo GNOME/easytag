@@ -540,7 +540,7 @@ void Open_OptionsWindow (void)
     gtk_table_attach(GTK_TABLE(Table),FilenameCharacterSetOther,1,2,1,2,GTK_FILL,GTK_FILL,0,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FilenameCharacterSetOther),FILENAME_CHARACTER_SET_OTHER);
     gtk_widget_set_tooltip_text(FilenameCharacterSetOther,_("With this option, it will "
-        "try the conversion to the encoding associated to your locale (for example : "
+        "try the conversion to the encoding associated to your locale (for example: "
         "ISO-8859-1 for 'fr', KOI8-R for 'ru', ISO-8859-2 for 'ro'). If it fails, it "
         "will try the character encoding ISO-8859-1."));
 
@@ -588,7 +588,7 @@ void Open_OptionsWindow (void)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(DateAutoCompletion),DATE_AUTO_COMPLETION);
     gtk_widget_set_tooltip_text(DateAutoCompletion,_("Try to complete the year field if you enter "
         "only the last numerals of the date (for instance, if the current year is 2005: "
-        "5 => 2005, 4 => 2004, 6 => 1996, 95 => 1995 …)."));
+        "5 => 2005, 4 => 2004, 6 => 1996, 95 => 1995…)."));
 
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
@@ -598,7 +598,7 @@ void Open_OptionsWindow (void)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(NumberTrackFormated),NUMBER_TRACK_FORMATED);
     gtk_widget_set_tooltip_text(NumberTrackFormated,_("If activated, the track field is written using "
         "the number '0' as padding to obtain a number with 'n' digits (for example, with two digits: '05', "
-        "'09', '10' …). Else it keeps the 'raw' track value."));
+        "'09', '10'…). Else it keeps the 'raw' track value."));
 
     NumberTrackFormatedSpinButton = gtk_spin_button_new_with_range(2.0,6.0,1.0);
     gtk_box_pack_start(GTK_BOX(hbox),NumberTrackFormatedSpinButton,FALSE,FALSE,0);
@@ -644,7 +644,7 @@ void Open_OptionsWindow (void)
 
     SetFocusToFirstTagField = gtk_radio_button_new_with_label(
         gtk_radio_button_get_group(GTK_RADIO_BUTTON(SetFocusToSameTagField)),
-        _("Return focus to the first tag field (ie 'Title' field)"));
+        _("Return focus to the first tag field (i.e. 'Title' field)"));
     gtk_table_attach(GTK_TABLE(Table),SetFocusToFirstTagField,1,2,2,3,GTK_FILL,GTK_FILL,0,0);
     //gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SetFocusToFirstTagField),SET_FOCUS_TO_FIRST_TAG_FIELD);
     
@@ -724,7 +724,7 @@ void Open_OptionsWindow (void)
     gtk_table_attach(GTK_TABLE(Table),StripTagWhenEmptyFields,0,1,1,2,GTK_FILL,GTK_FILL,0,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(StripTagWhenEmptyFields),STRIP_TAG_WHEN_EMPTY_FIELDS);
     gtk_widget_set_tooltip_text(StripTagWhenEmptyFields,_("As ID3v2 tags may contain other data than "
-        "Title, Artist, Album, Year, Track, Genre or Comment (as an attached picture, lyrics …), "
+        "Title, Artist, Album, Year, Track, Genre or Comment (as an attached picture, lyrics…), "
         "this option allows you to strip the whole tag when these seven standard data fields have "
         "been set to blank."));
 
@@ -1126,7 +1126,7 @@ void Open_OptionsWindow (void)
 
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
-    SetDefaultComment = gtk_check_button_new_with_label(_("Set this text as default comment :"));
+    SetDefaultComment = gtk_check_button_new_with_label(_("Set this text as default comment:"));
     gtk_box_pack_start(GTK_BOX(hbox),SetDefaultComment,FALSE,FALSE,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SetDefaultComment),SET_DEFAULT_COMMENT);
     gtk_widget_set_tooltip_text(SetDefaultComment,_("Activate this option if you want to put the "
@@ -1181,7 +1181,7 @@ void Open_OptionsWindow (void)
     // 1rst automatic search server
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_container_add(GTK_CONTAINER(vbox),hbox);
-    Label = gtk_label_new(_("Name :"));
+    Label = gtk_label_new(_("Name:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
     CddbServerNameAutomaticSearch = gtk_combo_box_text_new_with_entry();
     gtk_box_pack_start(GTK_BOX(hbox),CddbServerNameAutomaticSearch,FALSE,FALSE,0);
@@ -1200,7 +1200,7 @@ void Open_OptionsWindow (void)
     if (CDDB_SERVER_NAME_AUTOMATIC_SEARCH)
         gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbServerNameAutomaticSearch))),CDDB_SERVER_NAME_AUTOMATIC_SEARCH);
 
-    Label = gtk_label_new (_("Port :"));
+    Label = gtk_label_new (_("Port:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
     CddbServerPortAutomaticSearch = gtk_entry_new();
     gtk_widget_set_size_request(GTK_WIDGET(CddbServerPortAutomaticSearch), 45, -1);
@@ -1210,7 +1210,7 @@ void Open_OptionsWindow (void)
     gtk_entry_set_text(GTK_ENTRY(CddbServerPortAutomaticSearch),temp);
     g_signal_connect(G_OBJECT(CddbServerPortAutomaticSearch),"insert_text",G_CALLBACK(Insert_Only_Digit),NULL);
 
-    Label = gtk_label_new (_("CGI Path :"));
+    Label = gtk_label_new (_("CGI Path:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
     CddbServerCgiPathAutomaticSearch = gtk_entry_new();
     gtk_box_pack_start(GTK_BOX(hbox),CddbServerCgiPathAutomaticSearch,FALSE,FALSE,0);
@@ -1220,7 +1220,7 @@ void Open_OptionsWindow (void)
     // 2sd automatic search server
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_container_add(GTK_CONTAINER(vbox),hbox);
-    Label = gtk_label_new(_("Name :"));
+    Label = gtk_label_new(_("Name:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
     CddbServerNameAutomaticSearch2 = gtk_combo_box_text_new_with_entry();
     gtk_box_pack_start(GTK_BOX(hbox),CddbServerNameAutomaticSearch2,FALSE,FALSE,0);
@@ -1228,7 +1228,7 @@ void Open_OptionsWindow (void)
     if (CDDB_SERVER_NAME_AUTOMATIC_SEARCH2)
         gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbServerNameAutomaticSearch2))),CDDB_SERVER_NAME_AUTOMATIC_SEARCH2);
 
-    Label = gtk_label_new (_("Port :"));
+    Label = gtk_label_new (_("Port:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
     CddbServerPortAutomaticSearch2 = gtk_entry_new();
     gtk_widget_set_size_request(GTK_WIDGET(CddbServerPortAutomaticSearch2), 45, -1);
@@ -1238,7 +1238,7 @@ void Open_OptionsWindow (void)
     gtk_entry_set_text(GTK_ENTRY(CddbServerPortAutomaticSearch2),temp);
     g_signal_connect(G_OBJECT(CddbServerPortAutomaticSearch2),"insert_text",G_CALLBACK(Insert_Only_Digit),NULL);
 
-    Label = gtk_label_new (_("CGI Path :"));
+    Label = gtk_label_new (_("CGI Path:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
     CddbServerCgiPathAutomaticSearch2 = gtk_entry_new();
     gtk_box_pack_start(GTK_BOX(hbox),CddbServerCgiPathAutomaticSearch2,FALSE,FALSE,0);
@@ -1254,7 +1254,7 @@ void Open_OptionsWindow (void)
 
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_container_add(GTK_CONTAINER(vbox),hbox);
-    Label = gtk_label_new(_("Name :"));
+    Label = gtk_label_new(_("Name:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
     CddbServerNameManualSearch = gtk_combo_box_text_new_with_entry();
     gtk_box_pack_start(GTK_BOX(hbox),CddbServerNameManualSearch,FALSE,FALSE,0);
@@ -1263,7 +1263,7 @@ void Open_OptionsWindow (void)
     if (CDDB_SERVER_NAME_MANUAL_SEARCH)
         gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbServerNameManualSearch))),CDDB_SERVER_NAME_MANUAL_SEARCH);
 
-    Label = gtk_label_new (_("Port :"));
+    Label = gtk_label_new (_("Port:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
     CddbServerPortManualSearch = gtk_entry_new();
     gtk_widget_set_size_request(GTK_WIDGET(CddbServerPortManualSearch), 45, -1);
@@ -1273,7 +1273,7 @@ void Open_OptionsWindow (void)
     gtk_entry_set_text(GTK_ENTRY(CddbServerPortManualSearch),temp);
     g_signal_connect(G_OBJECT(CddbServerPortManualSearch),"insert_text",G_CALLBACK(Insert_Only_Digit),NULL);
 
-    Label = gtk_label_new (_("CGI Path :"));
+    Label = gtk_label_new (_("CGI Path:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
     CddbServerCgiPathManualSearch = gtk_entry_new();
     gtk_box_pack_start(GTK_BOX(hbox),CddbServerCgiPathManualSearch,FALSE,FALSE,0);
@@ -1289,7 +1289,7 @@ void Open_OptionsWindow (void)
 
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_container_add(GTK_CONTAINER(vbox),hbox);
-    Label = gtk_label_new(_("Path :"));
+    Label = gtk_label_new(_("Path:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
 
     if (CddbLocalPathModel != NULL)
@@ -1302,7 +1302,7 @@ void Open_OptionsWindow (void)
     gtk_box_pack_start(GTK_BOX(hbox),CddbLocalPath,FALSE,FALSE,0);
     gtk_widget_set_size_request(GTK_WIDGET(CddbLocalPath), 450, -1);
     gtk_widget_set_tooltip_text(gtk_bin_get_child(GTK_BIN(CddbLocalPath)),_("Specify the directory "
-        "where are located the local cd data base. The local cd data base contains the eleven following "
+        "where are located the local CD data base. The local CD data base contains the eleven following "
         "directories 'blues', 'classical', 'country', 'data', 'folk', 'jazz', 'newage', 'reggae', "
         "'rock', 'soundtrack' and 'misc'."));
     g_signal_connect(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbLocalPath)))),"activate",G_CALLBACK(CddbLocalPath_Combo_Add_String),NULL);
@@ -1344,7 +1344,7 @@ void Open_OptionsWindow (void)
     Label = gtk_label_new("     ");
     gtk_table_attach(GTK_TABLE(Table),Label,0,1,1,2,GTK_FILL,GTK_FILL,0,0);
 
-    Label = gtk_label_new(_("Host Name :"));
+    Label = gtk_label_new(_("Host Name:"));
     gtk_table_attach(GTK_TABLE(Table),Label,1,2,1,2,GTK_FILL,GTK_FILL,0,0);
     gtk_misc_set_alignment(GTK_MISC(Label),1,0.5);
     CddbProxyName = gtk_entry_new();
@@ -1352,7 +1352,7 @@ void Open_OptionsWindow (void)
     if (CDDB_PROXY_NAME)
         gtk_entry_set_text(GTK_ENTRY(CddbProxyName),CDDB_PROXY_NAME);
     gtk_widget_set_tooltip_text(CddbProxyName,_("Name of the proxy server."));
-    Label = gtk_label_new (_("Port :"));
+    Label = gtk_label_new (_("Port:"));
     gtk_table_attach(GTK_TABLE(Table),Label,3,4,1,2,GTK_FILL,GTK_FILL,0,0);
     gtk_misc_set_alignment(GTK_MISC(Label),1,0.5);
     CddbProxyPort = gtk_entry_new();
@@ -1364,7 +1364,7 @@ void Open_OptionsWindow (void)
     gtk_entry_set_text(GTK_ENTRY(CddbProxyPort),temp);
     g_signal_connect(G_OBJECT(CddbProxyPort),"insert_text",G_CALLBACK(Insert_Only_Digit),NULL);
     g_signal_connect(G_OBJECT(CddbUseProxy),"toggled",G_CALLBACK(Cddb_Use_Proxy_Toggled),NULL);
-    Label = gtk_label_new(_("User Name :"));
+    Label = gtk_label_new(_("User Name:"));
     gtk_table_attach(GTK_TABLE(Table),Label,1,2,2,3,GTK_FILL,GTK_FILL,0,0);
     gtk_misc_set_alignment(GTK_MISC(Label),1,0.5);
     CddbProxyUserName = gtk_entry_new();
@@ -1372,7 +1372,7 @@ void Open_OptionsWindow (void)
         gtk_entry_set_text(GTK_ENTRY(CddbProxyUserName),CDDB_PROXY_USER_NAME);
     gtk_table_attach(GTK_TABLE(Table),CddbProxyUserName,2,3,2,3,GTK_FILL,GTK_FILL,0,0);
     gtk_widget_set_tooltip_text(CddbProxyUserName,_("Name of user for the the proxy server."));
-    Label = gtk_label_new(_("User Password :"));
+    Label = gtk_label_new(_("User Password:"));
     gtk_table_attach(GTK_TABLE(Table),Label,3,4,2,3,GTK_FILL,GTK_FILL,0,0);
     gtk_misc_set_alignment(GTK_MISC(Label),1,0.5);
     CddbProxyUserPassword = gtk_entry_new();
@@ -1409,7 +1409,7 @@ void Open_OptionsWindow (void)
         "Levenshtein algorithm (DLM: Damerau-Levenshtein Metric) will be used "
         "to match the CDDB title against every file name in the current folder, "
         "and to select the best match. This will be used when selecting the "
-        "corresponding audio file, or applying cddb results, instead of using "
+        "corresponding audio file, or applying CDDB results, instead of using "
         "directly the position order."));
 
 
@@ -1518,7 +1518,7 @@ void Number_Track_Formated_Spin_Button_Changed (GtkWidget *Label, GtkWidget *Spi
         val = 1;
 
     // For translators : be aware to NOT translate '%.*d' in this string
-    tmp = g_strdup_printf(_("(Example : %.*d_-_Track_name_1.mp3)"),val,1);
+    tmp = g_strdup_printf(_("(Example: %.*d_-_Track_name_1.mp3)"),val,1);
 
     gtk_label_set_text(GTK_LABEL(Label),tmp);
     g_free(tmp);

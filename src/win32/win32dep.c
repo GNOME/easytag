@@ -139,7 +139,7 @@ FARPROC weasytag_find_and_loadproc(const char *dllname, const char *procedure) {
     }
 	else {
         //Log_Print(_("Function '%s' not found in dll '%s'"), procedure, dllname);
-        g_print(_("Function '%s' not found in dll '%s'"), procedure, dllname);
+        g_print(_("Function '%s' not found in DLL '%s'"), procedure, dllname);
         g_print("\n");
 		if(did_load) {
             /* unload dll */
@@ -274,8 +274,8 @@ const char *weasytag_data_dir(void) {
 
         //ET_Win32_Path_Replace_Backslashes(app_data_dir);
 
-        //Log_Print(_("EasyTAG settings dir: '%s'"), app_data_dir);
-        g_print(_("EasyTAG settings dir: '%s'"), app_data_dir);
+        //Log_Print(_("EasyTAG settings directory: '%s'"), app_data_dir);
+        g_print(_("EasyTAG settings directory: '%s'"), app_data_dir);
         g_print("\n");
 	}
 
@@ -472,7 +472,7 @@ void weasytag_init(void) {
     //g_print(_("EasyTAG version: %s"),VERSION);
     //g_print("\n");
 
-	g_print(_("Glib version: %u.%u.%u\n"),glib_major_version, glib_minor_version, glib_micro_version);
+	g_print(_("GLib version: %u.%u.%u\n"),glib_major_version, glib_minor_version, glib_micro_version);
 
     /* Winsock init */
     wVersionRequested = MAKEWORD( 2, 2 );
