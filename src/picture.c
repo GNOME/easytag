@@ -1008,7 +1008,7 @@ void PictureEntry_Update (Picture *pic, gboolean select_it)
                 
                 g_object_unref(loader);
                 
-                Log_Print(LOG_ERROR,"%s",_("Cannot display the picutre, as not enough data has been read to determine how to create the image buffer."));
+                Log_Print(LOG_ERROR,"%s",_("Cannot display the picture, as not enough data has been read to determine how to create the image buffer."));
 
                 msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
                                                    GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,

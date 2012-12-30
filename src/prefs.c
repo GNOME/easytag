@@ -976,7 +976,7 @@ void Open_OptionsWindow (void)
         "each string found in an ISO-8859-1 field in the tag (for ID3v2 or/and ID3v1 tag).\n"
         "\n"
         "For example :\n"
-        "  - in previous versions of EasyTAG, you can save UTF-8 strings in an ISO-8859-1 "
+        "  - in previous versions of EasyTAG, you could save UTF-8 strings in an ISO-8859-1 "
         "field. This is not correct. To convert these tags to Unicode: activate this option "
         "and select UTF-8. You must also activate above the option 'Try to save tags to "
         "ISO-8859-1. If it isn't possible then use UNICODE (recommended)' or 'Always save "
