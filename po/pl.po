@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: easytag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-30 19:51+0100\n"
-"PO-Revision-Date: 2012-12-30 19:52+0100\n"
+"POT-Creation-Date: 2012-12-30 21:44+0100\n"
+"PO-Revision-Date: 2012-12-30 21:45+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -84,7 +84,7 @@ msgstr ""
 msgid "View and edit tags in audio files"
 msgstr "Wyświetlanie i modyfikowanie etykiet w plikach dźwiękowych"
 
-#. g_print(_("ERROR while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
+#. g_print(_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
 #: ../src/ape_tag.c:74 ../src/et_core.c:4515 ../src/flac_header.c:126
 #: ../src/id3_tag.c:145 ../src/id3_tag.c:1205 ../src/misc.c:1770
 #: ../src/mp4_header.c:64 ../src/mp4_header.c:73 ../src/mp4_tag.c:72
@@ -92,8 +92,8 @@ msgstr "Wyświetlanie i modyfikowanie etykiet w plikach dźwiękowych"
 #: ../src/mpeg_header.c:209 ../src/ogg_header.c:82 ../src/ogg_header.c:186
 #: ../src/ogg_tag.c:146 ../src/ogg_tag.c:657
 #, c-format
-msgid "ERROR while opening file: '%s' (%s)."
-msgstr "BŁĄD podczas otwierania pliku: \"%s\" (%s)."
+msgid "Error while opening file: '%s' (%s)."
+msgstr "Błąd podczas otwierania pliku: \"%s\" (%s)."
 
 #.
 #. * Main Menu Actions
@@ -821,7 +821,7 @@ msgid "Rename the directory '%s' to:"
 msgstr "Zmiana nazwy katalogu \"%s\" na:"
 
 #: ../src/browser.c:3731 ../src/misc.c:1270
-msgid "Use mask :"
+msgid "Use mask:"
 msgstr "Maska:"
 
 #: ../src/browser.c:3734
@@ -882,7 +882,7 @@ msgid "Directory renamed"
 msgstr "Zmieniono nazwę katalogu"
 
 #: ../src/browser.c:4175 ../src/browser.c:4333
-msgid "Program to run :"
+msgid "Program to run:"
 msgstr "Program do uruchomienia:"
 
 #: ../src/browser.c:4188
@@ -977,7 +977,7 @@ msgstr "Zatrzymaj wyszukiwanie…"
 
 #. Check box to run the scanner
 #: ../src/cddb.c:310
-msgid "Use local Cddb"
+msgid "Use local CDDB"
 msgstr "Użycie lokalnej bazy CDDB"
 
 #: ../src/cddb.c:313 ../src/cddb.c:798
@@ -1112,8 +1112,8 @@ msgstr "Kategorie"
 msgid "Results:"
 msgstr "Wyniki:"
 
-#: ../src/cddb.c:561
-msgid "Search :"
+#: ../src/cddb.c:561 ../src/misc.c:1970
+msgid "Search:"
 msgstr "Wyszukiwanie:"
 
 #: ../src/cddb.c:575
@@ -1194,7 +1194,7 @@ msgid ""
 "When activating this option, the Levenshtein algorithm (DLM: Damerau-"
 "Levenshtein Metric) will be used to match the CDDB title against every file "
 "name in the current folder, and to select the best match. This will be used "
-"when selecting the corresponding audio file, or applying cddb results, "
+"when selecting the corresponding audio file, or applying CDDB results, "
 "instead of using directly the position order."
 msgstr ""
 "Po aktywowaniu tej opcji, algorytm Levenshteina (DLM: odległość Damerau-"
@@ -2302,7 +2302,7 @@ msgstr "Usunięto plik \"%s\""
 #: ../src/easytag.c:3498
 #, c-format
 msgid ""
-"Can't read directory :\n"
+"Can't read directory:\n"
 "'%s'\n"
 "(%s)"
 msgstr ""
@@ -2381,7 +2381,7 @@ msgid "All uppercase"
 msgstr "Wszystko wielką literą"
 
 #: ../src/easytag.c:4633 ../src/scan.c:2738
-msgid "All downcase"
+msgid "All lowercase"
 msgstr "Wszystko małą literą"
 
 #: ../src/easytag.c:4640 ../src/scan.c:2739
@@ -2420,7 +2420,7 @@ msgstr "Otrzymano sygnał %s (%d)"
 #, c-format
 msgid ""
 "You have probably found a bug in EasyTAG. Please, file a bug report with a "
-"gdb backtrace ('gdb easytag core' then 'bt' and 'l') and information to "
+"GDB backtrace ('gdb easytag core' then 'bt' and 'l') and information to "
 "reproduce it at: %s"
 msgstr ""
 "Prawdopodobnie znaleziono błąd w programie EasyTAG. Prosimy wysłać "
@@ -2615,8 +2615,8 @@ msgstr "Kanały:"
 
 #: ../src/flac_tag.c:142 ../src/flac_tag.c:863 ../src/flac_tag.c:873
 #, c-format
-msgid "ERROR while opening file: '%s' as FLAC (%s)."
-msgstr "BŁĄD podczas otwierania pliku: \"%s\" jako FLAC (%s)."
+msgid "Error while opening file: '%s' as FLAC (%s)."
+msgstr "Błąd podczas otwierania pliku: \"%s\" jako FLAC (%s)."
 
 #: ../src/flac_tag.c:329 ../src/ogg_tag.c:298
 #, c-format
@@ -2634,8 +2634,8 @@ msgstr "Nieprawidłowy blok obrazu: \"%s\""
 
 #: ../src/flac_tag.c:1115 ../src/ogg_tag.c:849
 #, c-format
-msgid "ERROR: Failed to write comments to file '%s' (%s)."
-msgstr "BŁĄD: zapisanie komentarzy do pliku \"%s\" się nie powiodło (%s)."
+msgid "Error: Failed to write comments to file '%s' (%s)."
+msgstr "Błąd: zapisanie komentarzy do pliku \"%s\" się nie powiodło (%s)."
 
 #: ../src/flac_tag.c:1120 ../src/ogg_tag.c:856
 #, c-format
@@ -2679,7 +2679,7 @@ msgid ""
 "the EasyTAG package sources.\n"
 "Note that this message will appear only once.\n"
 "\n"
-"File : %s"
+"File: %s"
 msgstr ""
 "Jeśli ten plik zostanie ponownie wczytany, to niektóre znaki w etykiecie "
 "mogą nie być poprawnie wyświetlane. Proszę zastosować łatę src/id3lib/"
@@ -2778,16 +2778,16 @@ msgstr "Uszkodzony plik"
 
 #: ../src/id3_tag.c:1269
 #, c-format
-msgid "ERROR while opening file: '%s' (%s)"
-msgstr "BŁĄD podczas otwierania pliku: \"%s\" (%s)"
+msgid "Error while opening file: '%s' (%s)"
+msgstr "Błąd podczas otwierania pliku: \"%s\" (%s)"
 
 #: ../src/id3v24_tag.c:116
 #, c-format
 msgid ""
-"ERROR while opening file: '%s' (%s).\n"
+"Error while opening file: '%s' (%s).\n"
 "\a"
 msgstr ""
-"BŁĄD podczas otwierania pliku: \"%s\" (%s).\n"
+"Błąd podczas otwierania pliku: \"%s\" (%s).\n"
 "\a"
 
 #: ../src/id3v24_tag.c:1517
@@ -2969,10 +2969,6 @@ msgstr "CD"
 msgid "Search a file"
 msgstr "Wyszukaj plik"
 
-#: ../src/misc.c:1970
-msgid "Search:"
-msgstr "Wyszukiwanie:"
-
 #: ../src/misc.c:1981
 msgid ""
 "Type the word to search into files. Or type nothing to display all files."
@@ -3007,7 +3003,7 @@ msgstr "Rozróżnianie małych i wielkich liter"
 
 #: ../src/misc.c:2460
 #, c-format
-msgid "Found : %d file(s)"
+msgid "Found: %d file(s)"
 msgstr "Odnaleziono: %d plików"
 
 #: ../src/misc.c:2735
@@ -3015,7 +3011,7 @@ msgid "Load the filenames from a TXT file"
 msgstr "Wczytaj nazwy plików z pliku tekstowego"
 
 #: ../src/misc.c:2763
-msgid "File :"
+msgid "File:"
 msgstr "Plik:"
 
 #. Button 'load'
@@ -3172,12 +3168,12 @@ msgstr ""
 
 #: ../src/ogg_header.c:195 ../src/ogg_tag.c:188 ../src/ogg_tag.c:697
 #, c-format
-msgid "ERROR: Failed to open file: '%s' as vorbis (%s)."
-msgstr "BŁĄD: otwarcie pliku się nie powiodło: \"%s\" jako Vorbis (%s)."
+msgid "Error: Failed to open file: '%s' as Vorbis (%s)."
+msgstr "Błąd: otwarcie pliku się nie powiodło: \"%s\" jako Vorbis (%s)."
 
 #: ../src/ogg_tag.c:170
 #, c-format
-msgid "Warning : The Ogg Vorbis file '%s' contains an ID3v2 tag."
+msgid "Warning: The Ogg Vorbis file '%s' contains an ID3v2 tag."
 msgstr "Ostrzeżenie: plik Ogg Vorbis \"%s\" zawiera etykietę ID3v2."
 
 #: ../src/picture.c:294
@@ -3297,7 +3293,7 @@ msgid "Movie/video screen capture"
 msgstr "Zrzut ekranu z filmu/wideo"
 
 #: ../src/picture.c:846
-msgid "A bright coloured fish"
+msgid "A bright colored fish"
 msgstr "Jaskrawo pokolorowana ryba"
 
 #: ../src/picture.c:848
@@ -3781,7 +3777,7 @@ msgstr "Próbowanie innego kodowania znaków"
 #: ../src/prefs.c:542
 msgid ""
 "With this option, it will try the conversion to the encoding associated to "
-"your locale (for example : ISO-8859-1 for 'fr', KOI8-R for 'ru', ISO-8859-2 "
+"your locale (for example: ISO-8859-1 for 'fr', KOI8-R for 'ru', ISO-8859-2 "
 "for 'ro'). If it fails, it will try the character encoding ISO-8859-1."
 msgstr ""
 "Jeśli ta opcja jest włączona, próbowana będzie konwersja na kodowanie znaków "
@@ -3840,7 +3836,7 @@ msgstr "Automatyczne uzupełnianie danych"
 msgid ""
 "Try to complete the year field if you enter only the last numerals of the "
 "date (for instance, if the current year is 2005: 5 => 2005, 4 => 2004, 6 => "
-"1996, 95 => 1995 …)."
+"1996, 95 => 1995…)."
 msgstr ""
 "Próbuje uzupełnić pole \"rok\", jeśli podano tylko ostatnie cyfry daty (na "
 "przykład, jeśli obecny rok to 2005: 5 => 2005, 4 => 2004, 6 => 1996, 95 => "
@@ -3854,7 +3850,7 @@ msgstr "Zapisywanie pola ścieżki za pomocą następującej liczby cyfr:"
 msgid ""
 "If activated, the track field is written using the number '0' as padding to "
 "obtain a number with 'n' digits (for example, with two digits: '05', '09', "
-"'10' …). Else it keeps the 'raw' track value."
+"'10'…). Else it keeps the 'raw' track value."
 msgstr ""
 "Jeśli ta opcja jest włączona, pole ścieżki zapisywane jest używając liczby "
 "\"0\" jako wyrównanie, aby uzyskać liczbę o \"n\" cyfrach (na przykład za "
@@ -3893,7 +3889,7 @@ msgid "Keep focus to the same tag field"
 msgstr "Utrzymywanie aktywacji na tym samym polu etykiety"
 
 #: ../src/prefs.c:647
-msgid "Return focus to the first tag field (ie 'Title' field)"
+msgid "Return focus to the first tag field (i.e. 'Title' field)"
 msgstr "Ustawienie aktywacji na pierwsze pole etykiety (tzn. pole \"Tytuł\")"
 
 #. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SetFocusToFirstTagField),SET_FOCUS_TO_FIRST_TAG_FIELD);
@@ -3948,7 +3944,7 @@ msgstr "Usuwanie etykiet, jeśli wszystkie pola są puste"
 #: ../src/prefs.c:726
 msgid ""
 "As ID3v2 tags may contain other data than Title, Artist, Album, Year, Track, "
-"Genre or Comment (as an attached picture, lyrics …), this option allows you "
+"Genre or Comment (as an attached picture, lyrics…), this option allows you "
 "to strip the whole tag when these seven standard data fields have been set "
 "to blank."
 msgstr ""
@@ -4123,8 +4119,8 @@ msgid ""
 "string found in an ISO-8859-1 field in the tag (for ID3v2 or/and ID3v1 "
 "tag).\n"
 "\n"
-"For example :\n"
-"  - in previous versions of EasyTAG, you could save UTF-8 strings in an "
+"For example:\n"
+"  - In previous versions of EasyTAG, you could save UTF-8 strings in an "
 "ISO-8859-1 field. This is not correct. To convert these tags to Unicode: "
 "activate this option and select UTF-8. You must also activate above the "
 "option 'Try to save tags to ISO-8859-1. If it isn't possible then use "
@@ -4260,7 +4256,7 @@ msgstr ""
 "tekst. Jeśli nie jest włączone, tylko puste pola etykiet zostaną wypełnione."
 
 #: ../src/prefs.c:1129
-msgid "Set this text as default comment :"
+msgid "Set this text as default comment:"
 msgstr "Ustawianie tego tekstu jako domyślny komentarz:"
 
 #: ../src/prefs.c:1132
@@ -4297,16 +4293,16 @@ msgid "Server Settings for Automatic Search"
 msgstr "Ustawienia serwera do automatycznego wyszukiwania"
 
 #: ../src/prefs.c:1184 ../src/prefs.c:1223 ../src/prefs.c:1257
-msgid "Name :"
+msgid "Name:"
 msgstr "Nazwa:"
 
 #: ../src/prefs.c:1203 ../src/prefs.c:1231 ../src/prefs.c:1266
 #: ../src/prefs.c:1355
-msgid "Port :"
+msgid "Port:"
 msgstr "Port:"
 
 #: ../src/prefs.c:1213 ../src/prefs.c:1241 ../src/prefs.c:1276
-msgid "CGI Path :"
+msgid "CGI Path:"
 msgstr "Ścieżka CGI:"
 
 #. CDDB Server Settings (Manual Search)
@@ -4320,12 +4316,12 @@ msgid "Local CD Data Base"
 msgstr "Lokalna baza danych CD"
 
 #: ../src/prefs.c:1292
-msgid "Path :"
+msgid "Path:"
 msgstr "Ścieżka:"
 
 #: ../src/prefs.c:1304
 msgid ""
-"Specify the directory where are located the local cd data base. The local cd "
+"Specify the directory where are located the local CD data base. The local CD "
 "data base contains the eleven following directories 'blues', 'classical', "
 "'country', 'data', 'folk', 'jazz', 'newage', 'reggae', 'rock', 'soundtrack' "
 "and 'misc'."
@@ -4349,7 +4345,7 @@ msgid "Set active the settings of the proxy server."
 msgstr "Włącza ustawienia serwera pośredniczącego."
 
 #: ../src/prefs.c:1347
-msgid "Host Name :"
+msgid "Host Name:"
 msgstr "Nazwa komputera:"
 
 #: ../src/prefs.c:1354
@@ -4361,7 +4357,7 @@ msgid "Port of the proxy server."
 msgstr "Port serwera pośredniczącego."
 
 #: ../src/prefs.c:1367
-msgid "User Name :"
+msgid "User Name:"
 msgstr "Nazwa użytkownika:"
 
 #: ../src/prefs.c:1374
@@ -4369,7 +4365,7 @@ msgid "Name of user for the the proxy server."
 msgstr "Nazwa użytkownika dla serwera pośredniczącego."
 
 #: ../src/prefs.c:1375
-msgid "User Password :"
+msgid "User Password:"
 msgstr "Hasło użytkownika:"
 
 #: ../src/prefs.c:1383
@@ -4464,7 +4460,7 @@ msgstr "Zapisz zmiany i zamknij to okno"
 #. For translators : be aware to NOT translate '%.*d' in this string
 #: ../src/prefs.c:1521
 #, c-format
-msgid "(Example : %.*d_-_Track_name_1.mp3)"
+msgid "(Example: %.*d_-_Track_name_1.mp3)"
 msgstr "(Przykład: %.*d_-_Nazwa_ścieżki_1.mp3)"
 
 #: ../src/prefs.c:1680
@@ -4627,7 +4623,7 @@ msgstr ""
 "Przyciski po prawej stronie reprezentują pola, które mogą zostać "
 "przetworzone. Proszę wybrać te, które mają zostać zmienione."
 
-#. Advice for Translators : set the first letter of filename translated
+#. Advice for Translators: set the first letter of filename translated
 #: ../src/scan.c:2586
 msgid "F"
 msgstr "N"
@@ -4636,7 +4632,7 @@ msgstr "N"
 msgid "Process file name field"
 msgstr "Przetwarzanie pola nazwy pliku"
 
-#. Advice for Translators : set the first letter of title translated
+#. Advice for Translators: set the first letter of title translated
 #: ../src/scan.c:2589
 msgid "T"
 msgstr "T"
@@ -4645,7 +4641,7 @@ msgstr "T"
 msgid "Process title field"
 msgstr "Przetwarzanie pola tytułu"
 
-#. Advice for Translators : set the first letter of artist translated
+#. Advice for Translators: set the first letter of artist translated
 #: ../src/scan.c:2592
 msgid "Ar"
 msgstr "W"
@@ -4654,7 +4650,7 @@ msgstr "W"
 msgid "Process file artist field"
 msgstr "Przetwarzanie pola wykonawcy"
 
-#. Advice for Translators : set the first letter of album artist translated
+#. Advice for Translators: set the first letter of album artist translated
 #: ../src/scan.c:2595
 msgid "AA"
 msgstr "WA"
@@ -4663,7 +4659,7 @@ msgstr "WA"
 msgid "Process album artist field"
 msgstr "Przetwarzanie pola wykonawcy albumu"
 
-#. Advice for Translators : set the first letter of album translated
+#. Advice for Translators: set the first letter of album translated
 #: ../src/scan.c:2598
 msgid "Al"
 msgstr "Al"
@@ -4672,7 +4668,7 @@ msgstr "Al"
 msgid "Process album field"
 msgstr "Przetwarzanie pola albumu"
 
-#. Advice for Translators : set the first letter of genre translated
+#. Advice for Translators: set the first letter of genre translated
 #: ../src/scan.c:2601
 msgid "G"
 msgstr "G"
@@ -4681,7 +4677,7 @@ msgstr "G"
 msgid "Process genre field"
 msgstr "Przetwarzanie pola gatunku"
 
-#. Advice for Translators : set the first letter of comment translated
+#. Advice for Translators: set the first letter of comment translated
 #: ../src/scan.c:2604
 msgid "Cm"
 msgstr "Km"
@@ -4690,7 +4686,7 @@ msgstr "Km"
 msgid "Process comment field"
 msgstr "Przetwarzanie pola komentarza"
 
-#. Advice for Translators : set the first letter of composer translated
+#. Advice for Translators: set the first letter of composer translated
 #: ../src/scan.c:2607
 msgid "Cp"
 msgstr "Kp"
@@ -4699,7 +4695,7 @@ msgstr "Kp"
 msgid "Process composer field"
 msgstr "Przetwarzanie pola kompozytora"
 
-#. Advice for Translators : set the first letter of orig artist translated
+#. Advice for Translators: set the first letter of orig artist translated
 #: ../src/scan.c:2610
 msgid "O"
 msgstr "P"
@@ -4708,7 +4704,7 @@ msgstr "P"
 msgid "Process original artist field"
 msgstr "Przetwarzanie pola pierwotnego wykonawcy"
 
-#. Advice for Translators : set the first letter of copyright translated
+#. Advice for Translators: set the first letter of copyright translated
 #: ../src/scan.c:2613
 msgid "Cr"
 msgstr "Cr"
@@ -4717,7 +4713,7 @@ msgstr "Cr"
 msgid "Process copyright field"
 msgstr "Przetwarzanie pola praw autorskich"
 
-#. Advice for Translators : set the first letter of URL translated
+#. Advice for Translators: set the first letter of URL translated
 #: ../src/scan.c:2616
 msgid "U"
 msgstr "U"
@@ -4726,7 +4722,7 @@ msgstr "U"
 msgid "Process URL field"
 msgstr "Przetwarzanie pola adresu URL"
 
-#. Advice for Translators : set the first letter of encoder name translated
+#. Advice for Translators: set the first letter of encoder name translated
 #: ../src/scan.c:2619
 msgid "E"
 msgstr "K"
@@ -4740,7 +4736,7 @@ msgid "Invert Selection"
 msgstr "Odwróć zaznaczenie"
 
 #: ../src/scan.c:2678
-msgid "Select/Unselect All."
+msgid "Select/Unselect All"
 msgstr "Zaznacz/odznacz wszystko"
 
 #: ../src/scan.c:2691
@@ -4859,76 +4855,76 @@ msgstr "Legenda"
 
 #: ../src/scan.c:2827
 #, c-format
-msgid "%a : artist"
+msgid "%a: artist"
 msgstr "%a: wykonawca"
 
 #: ../src/scan.c:2830
-msgid "%z : album artist"
-msgstr "%a: wykonawca albumu"
+msgid "%z: album artist"
+msgstr "%z: wykonawca albumu"
 
 #: ../src/scan.c:2833
-msgid "%b : album"
+msgid "%b: album"
 msgstr "%b: album"
 
 #: ../src/scan.c:2836
 #, c-format
-msgid "%c : comment"
+msgid "%c: comment"
 msgstr "%c: komentarz"
 
 #: ../src/scan.c:2839
 #, c-format
-msgid "%p : composer"
+msgid "%p: composer"
 msgstr "%p: kompozytor"
 
 #: ../src/scan.c:2842
-msgid "%r : copyright"
+msgid "%r: copyright"
 msgstr "%r: prawa autorskie"
 
 #: ../src/scan.c:2845
 #, c-format
-msgid "%d : disc number"
+msgid "%d: disc number"
 msgstr "%d: numer płyty"
 
 #: ../src/scan.c:2848
 #, c-format
-msgid "%e : encoded by"
+msgid "%e: encoded by"
 msgstr "%e: koder"
 
 #: ../src/scan.c:2851
 #, c-format
-msgid "%g : genre"
+msgid "%g: genre"
 msgstr "%g: gatunek"
 
 #: ../src/scan.c:2854
 #, c-format
-msgid "%i : ignored"
+msgid "%i: ignored"
 msgstr "%i: ignorowane"
 
 #: ../src/scan.c:2857
-msgid "%l : number of tracks"
+msgid "%l: number of tracks"
 msgstr "%l: liczba ścieżek"
 
 #: ../src/scan.c:2860
 #, c-format
-msgid "%o : orig. artist"
+msgid "%o: orig. artist"
 msgstr "%o: pierwotny wykonawca"
 
 #: ../src/scan.c:2863
 #, c-format
-msgid "%n : track"
+msgid "%n: track"
 msgstr "%n: ścieżka"
 
 #: ../src/scan.c:2866
-msgid "%t : title"
+msgid "%t: title"
 msgstr "%t: tytuł"
 
 #: ../src/scan.c:2869
 #, c-format
-msgid "%u : URL"
+msgid "%u: URL"
 msgstr "%u: adres URL"
 
 #: ../src/scan.c:2872
-msgid "%y : year"
+msgid "%y: year"
 msgstr "%y: rok"
 
 #.
@@ -4988,8 +4984,8 @@ msgstr "Przesunięcie w dół: Nie wybrano rzędu"
 
 #: ../src/setting.c:923
 #, c-format
-msgid "ERROR: Cannot write configuration file: %s (%s)"
-msgstr "BŁĄD: nie można zapisać pliku konfiguracji: %s (%s)"
+msgid "Error: Cannot write configuration file: %s (%s)"
+msgstr "Błąd: nie można zapisać pliku konfiguracji: %s (%s)"
 
 #: ../src/setting.c:1066 ../src/setting.c:1102
 #, c-format
@@ -5007,8 +5003,8 @@ msgstr "Nie można utworzyć lub otworzyć pliku \"%s\" (%s)"
 
 #: ../src/setting.c:1223
 #, c-format
-msgid "ERROR: Cannot write list to file: %s (%s)"
-msgstr "BŁĄD: nie można zapisać listy do pliku: %s (%s)"
+msgid "Error: Cannot write list to file: %s (%s)"
+msgstr "Błąd: nie można zapisać listy do pliku: %s (%s)"
 
 #. Fall back to defaults
 #: ../src/setting.c:1307
@@ -5037,8 +5033,8 @@ msgstr "Przeniesienie pliku konfiguracji \"%s\" się nie powiodło"
 
 #: ../src/setting.c:1633
 #, c-format
-msgid "ERROR: Cannot create directory '%s' (%s)"
-msgstr "BŁĄD: nie można utworzyć katalogu \"%s\" (%s)"
+msgid "Error: Cannot create directory '%s' (%s)"
+msgstr "Błąd: nie można utworzyć katalogu \"%s\" (%s)"
 
 #: ../src/vcedit.c:287
 msgid "Input truncated or empty."
@@ -5057,7 +5053,7 @@ msgid "Error reading initial header packet."
 msgstr "Błąd podczas odczytywania pakietu początkowego nagłówka."
 
 #: ../src/vcedit.c:341
-msgid "Ogg bitstream contains neither speex or vorbis data."
+msgid "Ogg bitstream contains neither Speex or Vorbis data."
 msgstr "Strumień Ogg nie zawiera danych Speex lub Vorbis."
 
 #: ../src/vcedit.c:375
@@ -5069,7 +5065,7 @@ msgid "Need to save extra headers"
 msgstr "Należy zapisać dodatkowe nagłówki"
 
 #: ../src/vcedit.c:419
-msgid "EOF before end of vorbis headers."
+msgid "EOF before end of Vorbis headers."
 msgstr "Koniec pliku przed końcem nagłówków Vorbis."
 
 #: ../src/vcedit.c:584
@@ -5105,14 +5101,14 @@ msgstr "Ta wersja \"%s\" zawiera \"%s\""
 #. Log_Print(_("Function '%s' not found in dll '%s'"), procedure, dllname);
 #: ../src/win32/win32dep.c:142
 #, c-format
-msgid "Function '%s' not found in dll '%s'"
+msgid "Function '%s' not found in DLL '%s'"
 msgstr "Nie odnaleziono funkcji \"%s\" w bibliotece DLL \"%s\""
 
 #. ET_Win32_Path_Replace_Backslashes(app_data_dir);
-#. Log_Print(_("EasyTAG settings dir: '%s'"), app_data_dir);
+#. Log_Print(_("EasyTAG settings directory: '%s'"), app_data_dir);
 #: ../src/win32/win32dep.c:278
 #, c-format
-msgid "EasyTAG settings dir: '%s'"
+msgid "EasyTAG settings directory: '%s'"
 msgstr "Katalog ustawień programu EasyTAG: \"%s\""
 
 #. Log_Print(_("weasytag_init start..."));
@@ -5126,7 +5122,7 @@ msgstr "Rozpoczynanie weasytag_init..."
 #. g_print("\n");
 #: ../src/win32/win32dep.c:475
 #, c-format
-msgid "Glib version: %u.%u.%u\n"
+msgid "GLib version: %u.%u.%u\n"
 msgstr "Wersja biblioteki GLib: %u.%u.%u\n"
 
 #. Set Environmental Variables
