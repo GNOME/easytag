@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: easytag-1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-30 20:45+0000\n"
-"PO-Revision-Date: 2012-12-31 11:27+0100\n"
-"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
+"POT-Creation-Date: 2012-12-31 11:17+0000\n"
+"PO-Revision-Date: 2013-01-03 20:40-0300\n"
+"Last-Translator: Nicolás Satragno <nsatragno@gnome.org>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -4919,7 +4919,7 @@ msgstr "Procesar el campo de codificador"
 
 #: ../src/scan.c:2669
 msgid "Invert Selection"
-msgstr "Invertir la selección"
+msgstr "Invertir selección"
 
 #: ../src/scan.c:2678
 #, fuzzy
@@ -4929,27 +4929,27 @@ msgstr "Seleccionar/Deseleccionar todo."
 
 #: ../src/scan.c:2691
 msgid "Convert:"
-msgstr "Convertir :"
+msgstr "Convertir:"
 
 #: ../src/scan.c:2693
 msgid "to: "
-msgstr "a : "
+msgstr "a:"
 
 #: ../src/scan.c:2722
 msgid ""
 "The underscore character or the string '%20' are replaced by one space. "
 "Example, before: 'Text%20In%20An_Entry', after: 'Text In An Entry'."
 msgstr ""
-"El carácter de subrayado o la cadena '%20' son reemplazados por un espacio. "
-"Ejemplo, antes: 'Texto%20En%20Una_Entrada', después: 'Texto En Una Entrada'."
+"El carácter de subrayado o la cadena «%20» se reemplazan por un espacio. "
+"Ejemplo, antes: «Texto%20En%20Una_Entrada», después: «Texto En Una Entrada»."
 
 #: ../src/scan.c:2725
 msgid ""
 "The space character is replaced by one underscore character. Example, "
 "before: 'Text In An Entry', after: 'Text_In_An_Entry'."
 msgstr ""
-"El carácter de espacio es reemplazado por un carácter de subrayado. Ejemplo, "
-"antes: 'Texto En Una Entrada', después: 'Texto_En_Una_Entrada'."
+"El carácter de espacio se reemplaza por un carácter de subrayado. Ejemplo, "
+"antes: «Texto En Una Entrada», después: «Texto_En_Una_Entrada»."
 
 #: ../src/scan.c:2728
 msgid ""
@@ -4966,15 +4966,15 @@ msgid ""
 "entry', after: 'TEXT IN AN ENTRY'."
 msgstr ""
 "Convertir todas las palabras en todos los campos a mayúsculas. Ejemplo, "
-"antes: 'Texto EN UNA entrada', después: 'TEXTO EN UNA ENTRADA'."
+"antes: «Texto EN UNA entrada», después: «TEXTO EN UNA ENTRADA»."
 
 #: ../src/scan.c:2771
 msgid ""
 "Convert all words in all fields to lower case. Example, before: 'TEXT IN an "
 "entry', after: 'text in an entry'."
 msgstr ""
-"Convertir todas las palabras de todos los campos a minúsculas. Ejemplo, "
-"antes: 'TEXTO EN una entrada', después: 'texto en una entrada'."
+"Convertir todas las palabras en todos los campos a minúsculas. Ejemplo, "
+"antes: «TEXTO EN una entrada», después: «texto en una entrada»."
 
 #: ../src/scan.c:2774
 msgid ""
@@ -4982,7 +4982,7 @@ msgid ""
 "before: 'text IN An ENTRY', after: 'Text in an entry'."
 msgstr ""
 "Convertir la inicial de la primera palabra en todos los campos a mayúsculas. "
-"Ejemplo, antes: 'texto EN Una ENTRADA', después: 'Texto en una entrada'."
+"Ejemplo, antes: «texto EN Una ENTRADA», después: «Texto en una entrada»."
 
 #: ../src/scan.c:2777
 msgid ""
@@ -4990,15 +4990,15 @@ msgid ""
 "before: 'Text in an ENTRY', after: 'Text In An Entry'."
 msgstr ""
 "Convertir la inicial de cada palabra en todos los campos a mayúsculas. "
-"Ejemplo, antes: 'Texto en una ENTRADA', después: 'Texto En Una Entrada'."
+"Ejemplo, antes: «Texto en una ENTRADA», después: «Texto En Una Entrada»."
 
 #: ../src/scan.c:2780
 msgid ""
 "Force to convert to upper case the Roman numerals. Example, before: 'ix. "
 "text in an entry', after: 'IX. Text In An Entry'."
 msgstr ""
-"Forzar a convertir los números romanos a mayúsculas. Ejemplo, antes: «ix», "
-"después: «IX»."
+"Forzar a convertir a mayúsculas los números romanos. Ejemplo, antes: «ix. "
+"texto en una entrada», después: «IX. Texto En Una Entrada»."
 
 #: ../src/scan.c:2789
 msgid "Insert a space before an uppercase letter"
@@ -5013,8 +5013,8 @@ msgid ""
 "All spaces between words are removed. Example, before: 'Text In An Entry', "
 "after: 'TextInAnEntry'."
 msgstr ""
-"Todos los espacios entre palabras se eliminan. Ejemplo, antes: 'Texto En Una "
-"Entrada', después: 'TextoEnUnaEntrada'."
+"Todos los espacios entre palabras se eliminan. Ejemplo, antes: «Texto En Una "
+"Entrada», después: «TextoEnUnaEntrada»."
 
 #: ../src/scan.c:2811
 msgid ""
@@ -5022,15 +5022,15 @@ msgid ""
 "'TextInAnEntry', after: 'Text In An Entry'."
 msgstr ""
 "Se inserta un espacio antes de cada letra mayúscula. Ejemplo, antes: "
-"'TextoEnUnaEntrada', después: 'Texto En Una Entrada'."
+"«TextoEnUnaEntrada», después: «Texto En Una Entrada»."
 
 #: ../src/scan.c:2814
 msgid ""
 "Duplicated spaces or underscores are removed. Example, before: "
 "'Text__In__An   Entry', after: 'Text_In_An Entry'."
 msgstr ""
-"Espacios o subrayados duplicados se eliminan. Ejemplo, antes: "
-"'Texto__En__Una  Entrada', después: 'Texto_En_Una Entrada'."
+"Espacios duplicados o subrayados se eliminan. Ejemplo, antes: "
+"«Texto__En__Una   Entrada», después: «Texto_En_Una Entrada»."
 
 #.
 #. * Frame to display codes legend
@@ -5140,7 +5140,7 @@ msgstr "%y : año"
 #.
 #: ../src/scan.c:2879
 msgid "Mask Editor"
-msgstr "Editor de máscaras"
+msgstr "Editor de máscara"
 
 #: ../src/scan.c:2936
 msgid "Create New Mask"
@@ -5160,7 +5160,7 @@ msgstr "Duplicar máscara"
 
 #: ../src/scan.c:2976
 msgid "Add Default Masks"
-msgstr "Añadir máscara predeterminada"
+msgstr "Añadir máscaras predeterminadas"
 
 #: ../src/scan.c:2986
 msgid "Remove Mask"
@@ -5203,7 +5203,7 @@ msgstr "No se puede abrir el archivo de configuración «%s» (%s)"
 
 #: ../src/setting.c:1068
 msgid "Loading default configuration"
-msgstr "Cargando la configuración predeterminada"
+msgstr "Cargando configuración predeterminada"
 
 #: ../src/setting.c:1163
 #, c-format
@@ -5219,17 +5219,17 @@ msgstr "Errot: no se puede escribir la lista al archivo: %s (%s)"
 #. Fall back to defaults
 #: ../src/setting.c:1307
 msgid "Loading default 'Fill Tag' masks…"
-msgstr "Cargando máscaras de «Rellenar etiqueta» predefinidas…"
+msgstr "Cargando máscaras predeterminadas de «Rellenar etiqueta»…"
 
 #. Fall back to defaults
 #: ../src/setting.c:1335
 msgid "Loading default 'Rename File' masks…"
-msgstr "Cargando máscaras de «Renombrar archivo» predefinidas…"
+msgstr "Cargando máscaras predeterminadas de «Renombrar archivo»…"
 
 #. Fall back to defaults
 #: ../src/setting.c:1362
 msgid "Loading default 'Rename Directory' masks…"
-msgstr "Cargar las máscaras de «Renombrar carpeta» predefinidas…"
+msgstr "Cargando máscaras predeterminadas de «Renombrar carpeta»…"
 
 #: ../src/setting.c:1573
 #, c-format
@@ -5249,7 +5249,7 @@ msgstr "Error: no se puede crear la carpeta «%s» (%s)"
 
 #: ../src/vcedit.c:287
 msgid "Input truncated or empty."
-msgstr "Entrada interrumpida o vacía."
+msgstr "Entrada truncada o vacía."
 
 #: ../src/vcedit.c:289
 msgid "Input is not an Ogg bitstream."
@@ -5257,11 +5257,11 @@ msgstr "La entrada no es un flujo de bits de Ogg."
 
 #: ../src/vcedit.c:307
 msgid "Error reading first page of Ogg bitstream."
-msgstr "Error leyendo la primera página del flujo de bits Ogg."
+msgstr "Error leyendo primera página del flujo de bits Ogg."
 
 #: ../src/vcedit.c:313
 msgid "Error reading initial header packet."
-msgstr "Error leyendo el paquete inicial de la cabecera."
+msgstr "Error leyendo paquete de cabecera inicial."
 
 #: ../src/vcedit.c:341
 #, fuzzy
@@ -5271,7 +5271,7 @@ msgstr "El flujo de bits Ogg contiene datos speex o vorbis."
 
 #: ../src/vcedit.c:375
 msgid "Corrupt secondary header."
-msgstr "Cabecera secundaria errónea."
+msgstr "Cabecera secundaria corrupta."
 
 #: ../src/vcedit.c:405
 msgid "Need to save extra headers"
@@ -5291,8 +5291,8 @@ msgstr "Datos corruptos o perdidos, continuando…"
 msgid ""
 "Error writing stream to output. Output stream may be corrupted or truncated."
 msgstr ""
-"Error escribiendo la trama a la salida. Los datos de salida pueden ser "
-"erróneos."
+"Error escribiendo el flujo a la salida. El flujo de salida puede estar "
+"corrupto o truncado."
 
 #. Log_Print(_("DLL '%s' not already loaded. Try loading it..."), dllname);
 #: ../src/win32/win32dep.c:122
@@ -5351,7 +5351,7 @@ msgstr ""
 #: ../src/win32/win32dep.c:614
 #, c-format
 msgid "Audio player: '%s'"
-msgstr "Reproductor de audio: «%s»"
+msgstr "Reproductor de sonido: «%s»"
 
 #~ msgid "Search :"
 #~ msgstr "Buscar:"
