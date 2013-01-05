@@ -163,6 +163,7 @@ tConfigVariable Config_Variables[] =
     {"file_writing_id3v2_iconv_options_no",            CV_TYPE_BOOL,  &FILE_WRITING_ID3V2_ICONV_OPTIONS_NO},
     {"file_writing_id3v2_iconv_options_translit",      CV_TYPE_BOOL,  &FILE_WRITING_ID3V2_ICONV_OPTIONS_TRANSLIT},
     {"file_writing_id3v2_iconv_options_ignore",        CV_TYPE_BOOL,  &FILE_WRITING_ID3V2_ICONV_OPTIONS_IGNORE},
+    {"file_writing_id3v2_text_only_genre",             CV_TYPE_BOOL,  &FILE_WRITING_ID3V2_TEXT_ONLY_GENRE},
     {"file_writing_id3v1_write_tag",                   CV_TYPE_BOOL,  &FILE_WRITING_ID3V1_WRITE_TAG   },
     {"file_writing_id3v1_character_set",               CV_TYPE_STRING,&FILE_WRITING_ID3V1_CHARACTER_SET},
     {"file_writing_id3v1_iconv_options_no",            CV_TYPE_BOOL,  &FILE_WRITING_ID3V1_ICONV_OPTIONS_NO},
