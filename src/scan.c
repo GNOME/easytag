@@ -2821,7 +2821,7 @@ void Open_ScannerWindow (gint scanner_type)
     LegendFrame = gtk_frame_new (_("Legend"));
     gtk_box_pack_start(GTK_BOX(ScanVBox),LegendFrame,FALSE,FALSE,0);
     /* Legend labels */
-    Table = gtk_table_new(3,3,FALSE);
+    Table = gtk_table_new (3, 6, FALSE);
     gtk_container_add(GTK_CONTAINER(LegendFrame),Table);
     gtk_container_set_border_width(GTK_CONTAINER(Table),4);
     Label = gtk_label_new(_("%a: artist"));
@@ -2837,10 +2837,10 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_table_attach_defaults(GTK_TABLE(Table),Label,0,1,3,4);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
     Label = gtk_label_new(_("%p: composer"));
-    gtk_table_attach_defaults(GTK_TABLE(Table),Label,0,1,3,4);
+    gtk_table_attach_defaults (GTK_TABLE (Table), Label, 0, 1, 4, 5);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
     Label = gtk_label_new(_("%r: copyright"));
-    gtk_table_attach_defaults(GTK_TABLE(Table),Label,0,1,4,5);
+    gtk_table_attach_defaults (GTK_TABLE (Table), Label, 0, 1, 5, 6);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
     Label = gtk_label_new(_("%d: disc number"));
     gtk_table_attach_defaults(GTK_TABLE(Table),Label,1,2,0,1);
@@ -2858,19 +2858,19 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_table_attach_defaults(GTK_TABLE(Table),Label,1,2,4,5);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
     Label = gtk_label_new(_("%o: orig. artist"));
-    gtk_table_attach_defaults(GTK_TABLE(Table),Label,2,3,0,1);
+    gtk_table_attach_defaults (GTK_TABLE (Table), Label, 1, 2, 5, 6);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
     Label = gtk_label_new(_("%n: track"));
-    gtk_table_attach_defaults(GTK_TABLE(Table),Label,2,3,1,2);
+    gtk_table_attach_defaults (GTK_TABLE (Table), Label, 2, 3, 0, 1);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
     Label = gtk_label_new(_("%t: title"));
-    gtk_table_attach_defaults(GTK_TABLE(Table),Label,2,3,2,3);
+    gtk_table_attach_defaults (GTK_TABLE (Table), Label, 2, 3, 1, 2);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
     Label = gtk_label_new(_("%u: URL"));
-    gtk_table_attach_defaults(GTK_TABLE(Table),Label,2,3,3,4);
+    gtk_table_attach_defaults (GTK_TABLE (Table), Label, 2, 3, 2, 3);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
     Label = gtk_label_new(_("%y: year"));
-    gtk_table_attach_defaults(GTK_TABLE(Table),Label,2,3,4,5);
+    gtk_table_attach_defaults (GTK_TABLE (Table), Label, 2, 3, 3, 4);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
 
     /*
