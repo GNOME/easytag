@@ -8,14 +8,14 @@
 # Artur Polaczyński <artii@o2.pl>, 2003-2004.
 # Tomasz Sałaciński <tsalacinski@gmail.com>, 2007.
 # Michał Smoczyk <msmoczyk@wp.pl>, 2007-2012.
-# Piotr Drąg <piotrdrag@gmail.com>, 2012.
-# Aviary.pl <gnomepl@aviary.pl>, 2012.
+# Piotr Drąg <piotrdrag@gmail.com>, 2012-2013.
+# Aviary.pl <gnomepl@aviary.pl>, 2012-2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-30 21:44+0100\n"
-"PO-Revision-Date: 2012-12-30 21:45+0100\n"
+"POT-Creation-Date: 2013-01-09 21:13+0100\n"
+"PO-Revision-Date: 2013-01-09 21:14+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -77,8 +77,8 @@ msgstr ""
 "Artur Polaczyński <artii@o2.pl>, 2003-2004\n"
 "Tomasz Sałaciński <tsalacinski@gmail.com>, 2007\n"
 "Michał Smoczyk <msmoczyk@wp.pl>, 2007-2012\n"
-"Piotr Drąg <piotrdrag@gmail.com>, 2012\n"
-"Aviary.pl <gnomepl@aviary.pl>, 2012"
+"Piotr Drąg <piotrdrag@gmail.com>, 2012-2013\n"
+"Aviary.pl <gnomepl@aviary.pl>, 2012-2013"
 
 #: ../src/about.c:114
 msgid "View and edit tags in audio files"
@@ -412,8 +412,8 @@ msgstr "Ponów ostatnie zmiany"
 msgid "_Quit"
 msgstr "Za_kończ"
 
-#: ../src/bar.c:211 ../src/easytag.c:2253 ../src/easytag.c:4924
-#: ../src/easytag.c:4950
+#: ../src/bar.c:211 ../src/easytag.c:2253 ../src/easytag.c:4938
+#: ../src/easytag.c:4964
 msgid "Quit"
 msgstr "Zakończ"
 
@@ -502,7 +502,7 @@ msgstr "Ponownie wczytaj katalog"
 msgid "Reload directory"
 msgstr "Ponownie wczytaj katalog"
 
-#: ../src/bar.c:224 ../src/browser.c:4158
+#: ../src/bar.c:224 ../src/browser.c:4176
 msgid "Browse Directory with…"
 msgstr "Przeglądaj katalog za pomocą…"
 
@@ -689,7 +689,7 @@ msgstr "Gotowe do rozpoczęcia…"
 msgid "New default path for files selected"
 msgstr "Wybrano nową domyślną ścieżkę do plików"
 
-#: ../src/browser.c:757 ../src/easytag.c:4922
+#: ../src/browser.c:757 ../src/easytag.c:4936
 msgid "Some files have been modified but not saved"
 msgstr "Niektóre pliki zostały zmodyfikowane, ale nie zostały zapisane"
 
@@ -701,101 +701,105 @@ msgstr "Zapisać je przed zmianą katalogu?"
 msgid "Confirm Directory Change"
 msgstr "Potwierdzenie zmiany katalogu"
 
-#: ../src/browser.c:2214
+#: ../src/browser.c:2217
 msgid "<All albums>"
 msgstr "<Wszystkie albumy>"
 
-#: ../src/browser.c:2624
+#: ../src/browser.c:2627
 #, c-format
 msgid "Error: Searching for %s, could not find node %s in tree."
 msgstr "Błąd: wyszukiwanie %s, nie można odnaleźć węzła %s w drzewie."
 
-#: ../src/browser.c:3033 ../src/browser.c:3162
+#: ../src/browser.c:3036 ../src/browser.c:3165
 msgid "Tree"
 msgstr "Drzewo"
 
-#: ../src/browser.c:3034 ../src/cddb.c:751 ../src/misc.c:1918
+#: ../src/browser.c:3037 ../src/cddb.c:751 ../src/misc.c:1918
 msgid "File Name"
 msgstr "Nazwa pliku"
 
-#: ../src/browser.c:3034 ../src/cddb.c:752 ../src/misc.c:1919
+#: ../src/browser.c:3037 ../src/cddb.c:752 ../src/misc.c:1919
 #: ../src/prefs.c:663
 msgid "Title"
 msgstr "Tytuł"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Artist".
-#: ../src/browser.c:3034 ../src/browser.c:3038 ../src/cddb.c:440
+#: ../src/browser.c:3037 ../src/browser.c:3041 ../src/cddb.c:440
 #: ../src/cddb.c:753 ../src/misc.c:1920 ../src/prefs.c:664
 msgid "Artist"
 msgstr "Wykonawca"
 
-#: ../src/browser.c:3034 ../src/misc.c:1921
+#: ../src/browser.c:3037 ../src/misc.c:1921
 msgid "Album Artist"
 msgstr "Wykonawca albumu"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Album".
-#: ../src/browser.c:3034 ../src/browser.c:3039 ../src/cddb.c:443
+#: ../src/browser.c:3037 ../src/browser.c:3042 ../src/cddb.c:443
 #: ../src/cddb.c:754 ../src/misc.c:1922 ../src/prefs.c:665
 msgid "Album"
 msgstr "Album"
 
-#: ../src/browser.c:3035 ../src/cddb.c:755 ../src/misc.c:1924
+#: ../src/browser.c:3038 ../src/cddb.c:755 ../src/misc.c:1924
 msgid "Year"
 msgstr "Rok"
 
-#: ../src/browser.c:3035 ../src/misc.c:1925
+#: ../src/browser.c:3038
+msgid "Disc"
+msgstr "Płyta"
+
+#: ../src/browser.c:3038 ../src/misc.c:1925
 msgid "Track"
 msgstr "Ścieżka"
 
-#: ../src/browser.c:3035 ../src/cddb.c:758 ../src/misc.c:1926
+#: ../src/browser.c:3038 ../src/cddb.c:758 ../src/misc.c:1926
 #: ../src/prefs.c:666
 msgid "Genre"
 msgstr "Gatunek"
 
-#: ../src/browser.c:3035 ../src/misc.c:1927 ../src/prefs.c:667
+#: ../src/browser.c:3038 ../src/misc.c:1927 ../src/prefs.c:667
 msgid "Comment"
 msgstr "Komentarz"
 
-#: ../src/browser.c:3036 ../src/misc.c:1928 ../src/picture.c:834
+#: ../src/browser.c:3039 ../src/misc.c:1928 ../src/picture.c:834
 #: ../src/prefs.c:668
 msgid "Composer"
 msgstr "Kompozytor"
 
-#: ../src/browser.c:3036 ../src/misc.c:1929
+#: ../src/browser.c:3039 ../src/misc.c:1929
 msgid "Original Artist"
 msgstr "Pierwotny wykonawca"
 
-#: ../src/browser.c:3036 ../src/misc.c:1930
+#: ../src/browser.c:3039 ../src/misc.c:1930
 msgid "Copyright"
 msgstr "Prawa autorskie"
 
-#: ../src/browser.c:3037 ../src/misc.c:1931
+#: ../src/browser.c:3040 ../src/misc.c:1931
 msgid "URL"
 msgstr "URL"
 
-#: ../src/browser.c:3037 ../src/misc.c:1932
+#: ../src/browser.c:3040 ../src/misc.c:1932
 msgid "Encoded By"
 msgstr "Koder"
 
-#: ../src/browser.c:3038
+#: ../src/browser.c:3041
 msgid "# Albums"
 msgstr "# Albumy"
 
-#: ../src/browser.c:3038 ../src/browser.c:3039
+#: ../src/browser.c:3041 ../src/browser.c:3042
 msgid "# Files"
 msgstr "# Pliki"
 
-#: ../src/browser.c:3058
+#: ../src/browser.c:3061
 msgid "Go to parent directory"
 msgstr "Przejdź do katalogu nadrzędnego"
 
-#: ../src/browser.c:3076
+#: ../src/browser.c:3079
 msgid "Enter a directory to browse."
 msgstr "Proszę podać katalog do przeglądania."
 
-#: ../src/browser.c:3085
+#: ../src/browser.c:3088
 msgid "Select a directory to browse."
 msgstr "Proszę wybrać katalog do przeglądania."
 
@@ -803,32 +807,32 @@ msgstr "Proszę wybrać katalog do przeglądania."
 #. * The label for displaying number of files in path (without subdirs)
 #.
 #. Translators: No files, as in "0 files".
-#: ../src/browser.c:3092 ../src/easytag.c:3610
+#: ../src/browser.c:3095 ../src/easytag.c:3610
 msgid "No files"
 msgstr "Brak plików"
 
-#: ../src/browser.c:3213
+#: ../src/browser.c:3216
 msgid "Artist & Album"
 msgstr "Wykonawca i album"
 
-#: ../src/browser.c:3696
+#: ../src/browser.c:3714
 msgid "Rename the directory"
 msgstr "Zmień nazwę katalogu"
 
-#: ../src/browser.c:3712
+#: ../src/browser.c:3730
 #, c-format
 msgid "Rename the directory '%s' to:"
 msgstr "Zmiana nazwy katalogu \"%s\" na:"
 
-#: ../src/browser.c:3731 ../src/misc.c:1270
+#: ../src/browser.c:3749 ../src/misc.c:1270
 msgid "Use mask:"
 msgstr "Maska:"
 
-#: ../src/browser.c:3734
+#: ../src/browser.c:3752
 msgid "If activated, it will use masks to rename directory."
 msgstr "Jeśli jest włączone, to użyje maski do zmiany nazwy katalogu."
 
-#: ../src/browser.c:3752
+#: ../src/browser.c:3770
 msgid ""
 "Select or type in a mask using codes (see Legend in Scanner Window) to "
 "rename the directory from tag fields."
@@ -836,95 +840,95 @@ msgstr ""
 "Proszę wybrać lub wprowadzić maskę używając kodów (proszę zobaczyć \"Legendę"
 "\"), aby zmienić nazwę katalogu z pól etykiet."
 
-#: ../src/browser.c:3772 ../src/misc.c:1291 ../src/misc.c:1389
+#: ../src/browser.c:3790 ../src/misc.c:1291 ../src/misc.c:1389
 #: ../src/scan.c:2487 ../src/scan.c:2554 ../src/scan.c:2921
 msgid "Invalid Scanner Mask"
 msgstr "Nieprawidłowa maska skanera"
 
 #. Preview label
-#: ../src/browser.c:3778
+#: ../src/browser.c:3796
 msgid "Rename directory preview…"
 msgstr "Podgląd zmiany nazwy katalogu…"
 
-#: ../src/browser.c:3899
+#: ../src/browser.c:3917
 msgid "You must type a directory name"
 msgstr "Należy wprowadzić nazwę katalogu"
 
-#: ../src/browser.c:3900 ../src/browser.c:3921
+#: ../src/browser.c:3918 ../src/browser.c:3939
 msgid "Directory Name Error"
 msgstr "Błąd nazwy katalogu"
 
-#: ../src/browser.c:3918
+#: ../src/browser.c:3936
 #, c-format
 msgid "Could not convert '%s' into filename encoding."
 msgstr "Nie można przekonwertować \"%s\" na kodowanie znaków nazwy pliku."
 
-#: ../src/browser.c:3920
+#: ../src/browser.c:3938
 msgid "Please use another name"
 msgstr "Proszę użyć innej nazwy"
 
-#: ../src/browser.c:3990
+#: ../src/browser.c:4008
 #, c-format
 msgid "The directory name '%s' already exists"
 msgstr "Nazwa katalogu \"%s\" już istnieje"
 
-#: ../src/browser.c:3991 ../src/easytag.c:2980 ../src/easytag.c:3021
+#: ../src/browser.c:4009 ../src/easytag.c:2980 ../src/easytag.c:3021
 #: ../src/easytag.c:3048 ../src/easytag.c:3090 ../src/easytag.c:3272
 msgid "Rename File Error"
 msgstr "Błąd zmiany nazwy pliku"
 
-#: ../src/browser.c:4030 ../src/browser.c:4060
+#: ../src/browser.c:4048 ../src/browser.c:4078
 msgid "Rename Directory Error"
 msgstr "Błąd zmiany nazwy katalogu"
 
-#: ../src/browser.c:4100
+#: ../src/browser.c:4118
 msgid "Directory renamed"
 msgstr "Zmieniono nazwę katalogu"
 
-#: ../src/browser.c:4175 ../src/browser.c:4333
+#: ../src/browser.c:4193 ../src/browser.c:4351
 msgid "Program to run:"
 msgstr "Program do uruchomienia:"
 
-#: ../src/browser.c:4188
+#: ../src/browser.c:4206
 msgid ""
 "Enter the program to run. It will receive the current directory as parameter."
 msgstr ""
 "Proszę podać program do uruchomienia. Otrzyma on bieżący katalog jako "
 "parametr."
 
-#: ../src/browser.c:4316
+#: ../src/browser.c:4334
 msgid "Open File with…"
 msgstr "Otwórz plik za pomocą…"
 
-#: ../src/browser.c:4346
+#: ../src/browser.c:4364
 msgid ""
 "Enter the program to run. It will receive the current file as parameter."
 msgstr ""
 "Proszę podać program do uruchomienia. Otrzyma on bieżący plik jako parametr."
 
-#: ../src/browser.c:4503
+#: ../src/browser.c:4521
 msgid "You must type a program name"
 msgstr "Należy wprowadzić nazwę programu"
 
-#: ../src/browser.c:4504 ../src/browser.c:4521
+#: ../src/browser.c:4522 ../src/browser.c:4539
 msgid "Program Name Error"
 msgstr "Błąd nazwy programu"
 
-#: ../src/browser.c:4519 ../src/misc.c:873
+#: ../src/browser.c:4537 ../src/misc.c:873
 #, c-format
 msgid "The program '%s' cannot be found"
 msgstr "Nie można odnaleźć programu \"%s\""
 
-#: ../src/browser.c:4568 ../src/misc.c:919
+#: ../src/browser.c:4586 ../src/misc.c:919
 #, c-format
 msgid "Cannot execute %s (error %d)\n"
 msgstr "Nie można wykonać %s (błąd %d)\n"
 
-#: ../src/browser.c:4587
+#: ../src/browser.c:4605
 msgid "Cannot fork another process\n"
 msgstr "Nie można utworzyć procesu potomnego\n"
 
-#: ../src/browser.c:4622
+#: ../src/browser.c:4640
 #, c-format
 msgid "Executed command: '%s %s'"
 msgstr "Wykonano polecenie: \"%s %s\""
@@ -1279,7 +1283,7 @@ msgstr "Błąd podczas odczytywania odpowiedzi CDDB (%s)"
 msgid "Cannot create file '%s' (%s)"
 msgstr "Nie można utworzyć pliku \"%s\" (%s)"
 
-#: ../src/cddb.c:1838 ../src/setting.c:1264
+#: ../src/cddb.c:1838 ../src/setting.c:1265
 #, c-format
 msgid "Cannot open file '%s' (%s)"
 msgstr "Nie można otworzyć pliku \"%s\" (%s)"
@@ -2362,61 +2366,65 @@ msgid "Select a directory to browse"
 msgstr "Proszę wybrać katalog do przeglądania"
 
 #. Menu items
-#: ../src/easytag.c:4597
+#: ../src/easytag.c:4603
 msgid "Tag selected files with this field"
 msgstr "Wartość z tego pola zostanie wstawiona do zaznaczonych plików"
 
 #. Group: character conversion
-#: ../src/easytag.c:4608 ../src/scan.c:2685
+#: ../src/easytag.c:4614 ../src/scan.c:2685
 msgid "Convert '_' and '%20' to spaces"
 msgstr "Zamiana \"_\" i \"%20\" na spacje"
 
-#: ../src/easytag.c:4615 ../src/scan.c:2686
+#: ../src/easytag.c:4621 ../src/scan.c:2686
 msgid "Convert ' ' to '_'"
 msgstr "Zamiana \" \" na \"_\""
 
 #. Group: capitalize, ...
-#: ../src/easytag.c:4626 ../src/scan.c:2737
+#: ../src/easytag.c:4632 ../src/scan.c:2737
 msgid "All uppercase"
 msgstr "Wszystko wielką literą"
 
-#: ../src/easytag.c:4633 ../src/scan.c:2738
+#: ../src/easytag.c:4639 ../src/scan.c:2738
 msgid "All lowercase"
 msgstr "Wszystko małą literą"
 
-#: ../src/easytag.c:4640 ../src/scan.c:2739
+#: ../src/easytag.c:4646 ../src/scan.c:2739
 msgid "First letter uppercase"
 msgstr "Wielka pierwsza litera"
 
-#: ../src/easytag.c:4647 ../src/scan.c:2740
+#: ../src/easytag.c:4653 ../src/scan.c:2740
 msgid "First letter uppercase of each word"
 msgstr "Wielka pierwsza litera każdego słowa"
 
 #. Group: insert/remove spaces
-#: ../src/easytag.c:4658 ../src/prefs.c:1054 ../src/scan.c:2788
+#: ../src/easytag.c:4664 ../src/prefs.c:1054 ../src/scan.c:2788
 msgid "Remove spaces"
 msgstr "Usuwanie spacji"
 
-#: ../src/easytag.c:4665
+#: ../src/easytag.c:4671
 msgid "Insert space before uppercase letter"
 msgstr "Wstawianie spacji przed wielką literą"
 
-#: ../src/easytag.c:4672
+#: ../src/easytag.c:4678
 msgid "Remove duplicate spaces or underscores"
 msgstr "Usuwanie powtarzających się spacji lub znaków podkreślenia"
 
+#: ../src/easytag.c:4685
+msgid "Remove all text"
+msgstr "Usuwanie całego tekstu"
+
 #. gchar commmand[256];
-#: ../src/easytag.c:4692
+#: ../src/easytag.c:4706
 #, c-format
 msgid "EasyTAG version %s: Abnormal exit (PID: %d)"
 msgstr "EasyTAG %s: nieprawidłowe zakończenie działania (PID: %d)"
 
-#: ../src/easytag.c:4693
+#: ../src/easytag.c:4707
 #, c-format
 msgid "Received signal %s (%d)"
 msgstr "Otrzymano sygnał %s (%d)"
 
-#: ../src/easytag.c:4695 ../src/easytag.c:4705
+#: ../src/easytag.c:4709 ../src/easytag.c:4719
 #, c-format
 msgid ""
 "You have probably found a bug in EasyTAG. Please, file a bug report with a "
@@ -2429,21 +2437,21 @@ msgstr ""
 "angielskim): %s"
 
 #. To send messages to the console...
-#: ../src/easytag.c:4701
+#: ../src/easytag.c:4715
 #, c-format
 msgid "EasyTAG version %s: Abnormal exit (PID: %d)."
 msgstr "EasyTAG %s: nieprawidłowe zakończenie działania (PID: %d)."
 
-#: ../src/easytag.c:4703
+#: ../src/easytag.c:4717
 #, c-format
 msgid "Received signal %s (%d)\a"
 msgstr "Otrzymano sygnał %s (%d)\a"
 
-#: ../src/easytag.c:4832
+#: ../src/easytag.c:4846
 msgid "Unknown signal"
 msgstr "Nieznany sygnał"
 
-#: ../src/easytag.c:4848
+#: ../src/easytag.c:4862
 #, c-format
 msgid ""
 "\n"
@@ -2476,15 +2484,15 @@ msgstr ""
 "ścieżka_do/plików     Używa względnej ścieżki.\n"
 "\n"
 
-#: ../src/easytag.c:4876
+#: ../src/easytag.c:4890
 msgid "EasyTAG: Normal exit."
 msgstr "EasyTAG: prawidłowe zakończenie działania."
 
-#: ../src/easytag.c:4925
+#: ../src/easytag.c:4939
 msgid "Do you want to save them before quitting?"
 msgstr "Zapisać je przed zakończeniem działania?"
 
-#: ../src/easytag.c:4948
+#: ../src/easytag.c:4962
 msgid "Do you really want to quit?"
 msgstr "Na pewno zakończyć działanie?"
 
@@ -4467,7 +4475,7 @@ msgstr "(Przykład: %.*d_-_Nazwa_ścieżki_1.mp3)"
 msgid "Changes applied"
 msgstr "Zastosowano zmiany"
 
-#: ../src/prefs.c:1699 ../src/setting.c:904
+#: ../src/prefs.c:1699 ../src/setting.c:905
 msgid "Configuration saved"
 msgstr "Zapisano konfigurację"
 
@@ -4982,56 +4990,56 @@ msgstr "Przesunięcie w górę: Nie wybrano rzędu"
 msgid "Move Down: No row selected"
 msgstr "Przesunięcie w dół: Nie wybrano rzędu"
 
-#: ../src/setting.c:923
+#: ../src/setting.c:924
 #, c-format
 msgid "Error: Cannot write configuration file: %s (%s)"
 msgstr "Błąd: nie można zapisać pliku konfiguracji: %s (%s)"
 
-#: ../src/setting.c:1066 ../src/setting.c:1102
+#: ../src/setting.c:1067 ../src/setting.c:1103
 #, c-format
 msgid "Cannot open configuration file '%s' (%s)"
 msgstr "Nie można otworzyć pliku konfiguracji \"%s\" (%s)"
 
-#: ../src/setting.c:1068
+#: ../src/setting.c:1069
 msgid "Loading default configuration"
 msgstr "Wczytywanie domyślnej konfiguracji"
 
-#: ../src/setting.c:1163
+#: ../src/setting.c:1164
 #, c-format
 msgid "Cannot create or open file '%s' (%s)"
 msgstr "Nie można utworzyć lub otworzyć pliku \"%s\" (%s)"
 
-#: ../src/setting.c:1223
+#: ../src/setting.c:1224
 #, c-format
 msgid "Error: Cannot write list to file: %s (%s)"
 msgstr "Błąd: nie można zapisać listy do pliku: %s (%s)"
 
 #. Fall back to defaults
-#: ../src/setting.c:1307
+#: ../src/setting.c:1308
 msgid "Loading default 'Fill Tag' masks…"
 msgstr "Wczytywanie domyślnych masek \"Wypełnianie etykiet\"…"
 
 #. Fall back to defaults
-#: ../src/setting.c:1335
+#: ../src/setting.c:1336
 msgid "Loading default 'Rename File' masks…"
 msgstr "Wczytywanie domyślnych masek \"Zmiana nazw plików\"…"
 
 #. Fall back to defaults
-#: ../src/setting.c:1362
+#: ../src/setting.c:1363
 msgid "Loading default 'Rename Directory' masks…"
 msgstr "Wczytywanie domyślnych masek \"Zmiana nazwy katalogu\"…"
 
-#: ../src/setting.c:1573
+#: ../src/setting.c:1574
 #, c-format
 msgid "Migrating configuration from directory '%s' to '%s'"
 msgstr "Przenoszenie konfiguracji z katalogu \"%s\" do \"%s\""
 
-#: ../src/setting.c:1597
+#: ../src/setting.c:1598
 #, c-format
 msgid "Failed to migrate configuration file '%s'"
 msgstr "Przeniesienie pliku konfiguracji \"%s\" się nie powiodło"
 
-#: ../src/setting.c:1633
+#: ../src/setting.c:1634
 #, c-format
 msgid "Error: Cannot create directory '%s' (%s)"
 msgstr "Błąd: nie można utworzyć katalogu \"%s\" (%s)"
