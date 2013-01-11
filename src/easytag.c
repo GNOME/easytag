@@ -2596,6 +2596,7 @@ gint Save_File (ET_File *ETFile, gboolean multiple_files, gboolean force_saving_
                 message_area = gtk_message_dialog_get_message_area(GTK_MESSAGE_DIALOG(msgdialog));
                 msgdialog_check_button = gtk_check_button_new_with_label(_("Repeat action for the remaining files"));
                 gtk_container_add(GTK_CONTAINER(message_area),msgdialog_check_button);
+                gtk_widget_show (msgdialog_check_button);
                 gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_DISCARD,GTK_RESPONSE_NO,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_SAVE,GTK_RESPONSE_YES,NULL);
                 gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(msgdialog_check_button), TRUE); // Checked by default
             }else
@@ -2707,6 +2708,7 @@ gint Save_File (ET_File *ETFile, gboolean multiple_files, gboolean force_saving_
                 message_area = gtk_message_dialog_get_message_area(GTK_MESSAGE_DIALOG(msgdialog));
                 msgdialog_check_button = gtk_check_button_new_with_label(_("Repeat action for the remaining files"));
                 gtk_container_add(GTK_CONTAINER(message_area),msgdialog_check_button);
+                gtk_widget_show (msgdialog_check_button);
                 gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_DISCARD,GTK_RESPONSE_NO,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_SAVE,GTK_RESPONSE_YES,NULL);
                 gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(msgdialog_check_button), TRUE); // Checked by default
             }else
