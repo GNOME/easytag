@@ -823,4 +823,6 @@ gboolean test_conversion_charset (const gchar *from, const gchar *to)
         g_free(temp);
         return TRUE;
     }
+
+    return NULL;
 }
