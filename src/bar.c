@@ -270,10 +270,11 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
     {
         //{ AM_BROWSE_SUBDIR,      GTK_STOCK_INDEX,        _("Browse _Subdirectories"),                         NULL, _("Browse _Sub-directories"),                         NULL,                                    FALSE },
         { AM_BROWSE_SUBDIR,      NULL,                   _("Browse _Subdirectories"),                         NULL, _("Browse subdirectories"),                         NULL,                                    BROWSE_SUBDIR },
-#ifndef WIN32 // No sense here for Win32, "hidden" means : starts with a '.'
-        //{ AM_BROWSER_HIDDEN_DIR, NULL,                   _("Show Hidden Directories"),                         NULL, _("Show Hidden Directories"),                         G_CALLBACK(Browser_Tree_Rebuild),     FALSE },
+#ifndef G_OS_WIN32 /* No sense here for Win32, "hidden" means : starts with a
+                    * '.'
+                    */
         { AM_BROWSER_HIDDEN_DIR, NULL,                   _("Show Hidden Directories"),                         NULL, _("Show hidden directories"),                         G_CALLBACK(Browser_Tree_Rebuild),     BROWSE_HIDDEN_DIR },
-#endif
+#endif /* !G_OS_WIN32 */
         { AM_VIEWMODE_TOGGLE,    "easytag-artist-album", _("Show Tree Browser / Display by Artist and Album"), NULL, _("Show tree browser / display by artist and Album"), G_CALLBACK(Action_Select_Browser_Style), FALSE },
     };
 
@@ -392,9 +393,9 @@ Check_Menu_Item_Toggled_Browse_Hidden_Dir (GtkWidget *checkmenuitem)
 void
 Check_Menu_Item_Update_Browse_Hidden_Dir (void)
 {
-#ifndef WIN32
+#ifndef G_OS_WIN32
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(CheckMenuItemBrowseHiddenDirMainMenu),BROWSE_HIDDEN_DIR);
-#endif
+#endif /* !G_OS_WIN32 */
 }
 
 

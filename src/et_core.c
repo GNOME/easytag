@@ -65,9 +65,9 @@
 #include "setting.h"
 #include "charset.h"
 
-#ifdef WIN32
-#   include "win32/win32dep.h"
-#endif
+#ifdef G_OS_WIN32
+#include "win32/win32dep.h"
+#endif /* G_OS_WIN32 */
 
 
 /***************
@@ -3798,10 +3798,10 @@ gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile)
     // Update properties for the file
     if ( file_set_properties == TRUE )
     {
-#ifndef WIN32
+#ifndef G_OS_WIN32
         chmod(cur_filename,statbuf.st_mode & (S_IRWXU|S_IRWXG|S_IRWXO));
         chown(cur_filename,statbuf.st_uid,statbuf.st_gid);
-#endif
+#endif /* !G_OS_WIN32 */
         if (PRESERVE_MODIFICATION_TIME)
         {
             utimbufbuf.actime  = statbuf.st_atime; // Last access time
@@ -4660,14 +4660,14 @@ gboolean ET_File_Name_Convert_Character (gchar *filename_utf8)
     while ( (character=g_utf8_strchr(filename_utf8, -1, G_DIR_SEPARATOR))!=NULL )
         *character = '-';
 
-#ifdef WIN32
-    // Convert character '\' on WIN32 to '-'.
+#ifdef G_OS_WIN32
+    /* Convert character '\' on WIN32 to '-'. */
     while ( (character=g_utf8_strchr(filename_utf8, -1, '\\'))!=NULL )
         *character = '-';
-    // Convert character '/' on WIN32 to '-'. (May be converted to '\', after...)
+    /* Convert character '/' on WIN32 to '-'. May be converted to '\' after. */
     while ( (character=g_utf8_strchr(filename_utf8, -1, '/'))!=NULL )
         *character = '-';
-#endif
+#endif /* G_OS_WIN32 */
 
     // Convert other illegal characters on FAT32/16 filesystems and ISO9660 and Joliet (CD-ROM filesystems)
     if (REPLACE_ILLEGAL_CHARACTERS_IN_FILENAME)

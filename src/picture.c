@@ -40,9 +40,9 @@
 #include "bar.h"
 #include "charset.h"
 
-#ifdef WIN32
-#   include "win32/win32dep.h"
-#endif
+#ifdef G_OS_WIN32
+#include "win32/win32dep.h"
+#endif /* G_OS_WIN32 */
 
 
 /****************
@@ -1089,34 +1089,38 @@ void Picture_Free (Picture *pic)
 
 
 /*
+ * FIXME: On modern filesystems this is bogus, as GLib assumes that the
+ * encoding is UTF-8 (and that will normally be correct).
+ */
+/*
  * Load the picture represented by the 'filename' (must be passed in
  * file system encoding, not UTF-8)
  */
-#ifdef WIN32
+#ifdef G_OS_WIN32
 static Picture *
 Picture_Load_File_Data (const gchar *filename_utf8)
-#else
+#else /* !G_OS_WIN32 */
 static Picture *
 Picture_Load_File_Data (const gchar *filename)
-#endif
+#endif /* !G_OS_WIN32 */
 {
     Picture *pic;
     gchar *buffer = 0;
     size_t size = 0;
     struct stat st;
 
-#ifdef WIN32
+#ifdef G_OS_WIN32
     // Strange : on Win32, the file seems to be in UTF-8, so we can't load files with accentuated characters...
     // To avoid this problem, we convert the filename to the file system encoding
     gchar *filename = filename_from_display(filename_utf8);
-#endif
+#endif /* G_OS_WIN32 */
 
     if (stat(filename, &st)==-1)
     {
         Log_Print(LOG_ERROR,_("Picture file not loaded (%s)…"),g_strerror(errno));
-#ifdef WIN32
+#ifdef G_OS_WIN32
         g_free(filename);
-#endif
+#endif /* G_OS_WIN32 */
         return NULL;
     }
 
@@ -1144,15 +1148,15 @@ Picture_Load_File_Data (const gchar *filename)
 
         Log_Print(LOG_ERROR,_("Picture file not loaded (%s)…"),g_strerror(errno));
         g_free(filename_utf8);
-#ifdef WIN32
+#ifdef G_OS_WIN32
         g_free(filename);
-#endif
+#endif /* G_OS_WIN32 */
         return FALSE;
     }
 
-#ifdef WIN32
+#ifdef G_OS_WIN32
     g_free(filename);
-#endif
+#endif /* G_OS_WIN32 */
 
     if (fread(buffer, size, 1, fd) != 1)
     {

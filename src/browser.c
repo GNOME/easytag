@@ -53,19 +53,19 @@
 
 #include <assert.h>
 
-#ifdef WIN32
-#   include <windows.h>
-#   include "win32/win32dep.h"
-#endif
+#ifdef G_OS_WIN32
+#include <windows.h>
+#include "win32/win32dep.h"
+#endif /* G_OS_WIN32 */
 
 /* Pixmaps */
 #include "pixmaps/opened_folder.xpm"
 #include "pixmaps/closed_folder.xpm"
 #include "pixmaps/closed_folder_readonly.xpm"
 #include "pixmaps/closed_folder_unreadable.xpm"
-#ifdef WIN32
+#ifdef G_OS_WIN32
 #include "pixmaps/ram_disk.xpm"
-#endif
+#endif /* G_OS_WIN32 */
 
 
 
@@ -75,10 +75,10 @@
 
 // Pixmaps
 static GdkPixbuf *opened_folder_pixmap = NULL, *closed_folder_pixmap, *closed_folder_readonly_pixmap, *closed_folder_unreadable_pixmap;
-#ifdef WIN32
+#ifdef G_OS_WIN32
 // Pixmap used for Win32 only
 static GdkPixbuf *harddrive_pixmap, *removable_pixmap, *cdrom_pixmap, *network_pixmap, *ramdisk_pixmap;
-#endif
+#endif /* G_OS_WIN32 */
 
 GtkWidget    *BrowserTree; // Tree of directories
 GtkTreeStore *directoryTreeModel;
@@ -340,10 +340,10 @@ Browser_Update_Current_Path (const gchar *path)
         g_free(BrowserCurrentPath);
     BrowserCurrentPath = g_strdup(path);
 
-#ifdef WIN32
+#ifdef G_OS_WIN32
     /* On win32 : "c:\path\to\dir" succeed with stat() for example, while "c:\path\to\dir\" fails */
     ET_Win32_Path_Remove_Trailing_Backslash(BrowserCurrentPath);
-#endif
+#endif /* G_OS_WIN32 */
 
     if (strcmp(G_DIR_SEPARATOR_S,BrowserCurrentPath) == 0)
         gtk_widget_set_sensitive(BrowserButton,FALSE);
@@ -696,12 +696,12 @@ void Browser_Tree_Collapse (void)
 
     gtk_tree_view_collapse_all(GTK_TREE_VIEW(BrowserTree));
 
-#ifndef WIN32
+#ifndef G_OS_WIN32
     /* But keep the main directory opened */
     rootPath = gtk_tree_path_new_first();
     gtk_tree_view_expand_to_path(GTK_TREE_VIEW(BrowserTree), rootPath);
     gtk_tree_path_free(rootPath);
-#endif
+#endif /* !G_OS_WIN32 */
 }
 
 
@@ -914,10 +914,10 @@ gboolean Browser_Tree_Select_Dir (const gchar *current_path)
         return TRUE;
     }
 
-#ifdef WIN32
+#ifdef G_OS_WIN32
     /* On win32 : stat("c:\path\to\dir") succeed, while stat("c:\path\to\dir\") fails */
     ET_Win32_Path_Remove_Trailing_Backslash(current_path);
-#endif
+#endif /* G_OS_WIN32 */
 
 
     /* Don't check here if the path is valid. It will be done later when
@@ -928,13 +928,13 @@ gboolean Browser_Tree_Select_Dir (const gchar *current_path)
     parts = g_strsplit(current_path, G_DIR_SEPARATOR_S, 0);
 
     // Expand root node (fill parentNode and rootPath)
-#ifdef WIN32
+#ifdef G_OS_WIN32
     if (!Browser_Win32_Get_Drive_Root(parts[0], &parentNode, &rootPath))
         return FALSE;
-#else
+#else /* !G_OS_WIN32 */
     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(directoryTreeModel), &parentNode);
     rootPath = gtk_tree_path_new_first();
-#endif
+#endif /* !G_OS_WIN32 */
     if (rootPath)
     {
         gtk_tree_view_expand_to_path(GTK_TREE_VIEW(BrowserTree), rootPath);
@@ -959,11 +959,11 @@ gboolean Browser_Tree_Select_Dir (const gchar *current_path)
                                TREE_COLUMN_FULL_PATH, &temp, -1);
             nodeName = g_path_get_basename(temp);
             g_free(temp);
-#ifdef WIN32
+#ifdef G_OS_WIN32
             if (strcasecmp(parts[index],nodeName) == 0)
-#else
+#else /* !G_OS_WIN32 */
             if (strcmp(parts[index],nodeName) == 0)
-#endif
+#endif /* !G_OS_WIN32 */
             {
                 g_free(nodeName);
                 break;
@@ -2396,8 +2396,7 @@ Browser_Tree_Initialize (void)
 
     gtk_tree_store_clear(directoryTreeModel);
 
-#ifdef WIN32
-
+#ifdef G_OS_WIN32
     /* Code strangely familiar with gtkfilesystemwin32.c */
 
     GdkPixbuf *drive_pixmap;
@@ -2474,8 +2473,7 @@ Browser_Tree_Initialize (void)
         drive_slashless[0]++;
     }
 
-#else
-
+#else /* !G_OS_WIN32 */
     gtk_tree_store_append(directoryTreeModel, &parent_iter, NULL);
     gtk_tree_store_set(directoryTreeModel, &parent_iter,
                        TREE_COLUMN_DIR_NAME,    G_DIR_SEPARATOR_S,
@@ -2486,9 +2484,7 @@ Browser_Tree_Initialize (void)
                        -1);
     // insert dummy node
     gtk_tree_store_append(directoryTreeModel, &dummy_iter, &parent_iter);
-
-#endif
-
+#endif /* !G_OS_WIN32 */
 }
 
 /*
@@ -2566,12 +2562,12 @@ Browser_Tree_Rename_Directory (const gchar *last_path, const gchar *new_path)
      */
     textsplit = g_strsplit(last_path, G_DIR_SEPARATOR_S, 0);
 
-#ifdef WIN32
+#ifdef G_OS_WIN32
     if (!Browser_Win32_Get_Drive_Root(textsplit[0], &iter, &parentpath))
         return;
-#else
+#else /* !G_OS_WIN32 */
     parentpath = gtk_tree_path_new_first();
-#endif
+#endif /* !G_OS_WIN32 */
 
     for (i = 1; textsplit[i] != NULL; i++)
     {
@@ -2720,12 +2716,12 @@ static gboolean check_for_subdir (gchar *path)
                  && (g_ascii_strncasecmp(dirent->d_name+1,".", 1) != 0) ))
                )
             {
-#ifdef WIN32
+#ifdef G_OS_WIN32
                 // On win32 : stat("/path/to/dir") succeed, while stat("/path/to/dir/") fails
                 npath = g_strconcat(path,dirent->d_name,NULL);
-#else
+#else /* !G_OS_WIN32 */
                 npath = g_strconcat(path,dirent->d_name,G_DIR_SEPARATOR_S,NULL);
-#endif
+#endif /* !G_OS_WIN32 */
 
                 if (stat(npath,&statbuf) == -1)
                 {
@@ -2923,7 +2919,7 @@ static void expand_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *gtreePat
     gtk_tree_model_iter_children(GTK_TREE_MODEL(directoryTreeModel), &subNodeIter, iter);
     gtk_tree_store_remove(directoryTreeModel, &subNodeIter);
 
-#ifdef WIN32
+#ifdef G_OS_WIN32
     // set open folder pixmap except on drive (depth == 0)
     if (gtk_tree_path_get_depth(gtreePath) > 1)
     {
@@ -2932,12 +2928,12 @@ static void expand_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *gtreePat
                            TREE_COLUMN_SCANNED, TRUE,
                            TREE_COLUMN_PIXBUF, opened_folder_pixmap, -1);
     }
-#else
+#else /* !G_OS_WIN32 */
     // update the icon of the node to opened folder :-)
     gtk_tree_store_set(directoryTreeModel, iter,
                        TREE_COLUMN_SCANNED, TRUE,
                        TREE_COLUMN_PIXBUF, opened_folder_pixmap, -1);
-#endif
+#endif /* !G_OS_WIN32 */
 
     gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(directoryTreeModel),
                                          TREE_COLUMN_DIR_NAME, GTK_SORT_ASCENDING);
@@ -2959,7 +2955,7 @@ static void collapse_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *treePa
         gtk_tree_store_remove(directoryTreeModel, &subNodeIter);
     }
 
-#ifdef WIN32
+#ifdef G_OS_WIN32
     // set closed folder pixmap except on drive (depth == 0)
     if(gtk_tree_path_get_depth(treePath) > 1)
     {
@@ -2968,12 +2964,12 @@ static void collapse_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *treePa
                            TREE_COLUMN_SCANNED, FALSE,
                            TREE_COLUMN_PIXBUF,  closed_folder_pixmap, -1);
     }
-#else
+#else /* !G_OS_WIN32 */
     // update the icon of the node to closed folder :-)
     gtk_tree_store_set(directoryTreeModel, iter,
                        TREE_COLUMN_SCANNED, FALSE,
                        TREE_COLUMN_PIXBUF,  closed_folder_pixmap, -1);
-#endif
+#endif /* !G_OS_WIN32 */
 
     // insert dummy node
     gtk_tree_store_append(directoryTreeModel, &subNodeIter, iter);
@@ -3066,7 +3062,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
         closed_folder_readonly_pixmap   = gdk_pixbuf_new_from_xpm_data(closed_folder_readonly_xpm);
         closed_folder_unreadable_pixmap = gdk_pixbuf_new_from_xpm_data(closed_folder_unreadable_xpm);
 
-#ifdef WIN32
+#ifdef G_OS_WIN32
         /* get GTK's theme harddrive and removable icons and render it in a pixbuf */
         harddrive_pixmap =  gtk_icon_set_render_icon(gtk_style_lookup_icon_set(parent->style, GTK_STOCK_HARDDISK),
                                                      parent->style,
@@ -3097,8 +3093,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                                    parent, NULL);
 
         ramdisk_pixmap = gdk_pixbuf_new_from_xpm_data(ram_disk_xpm);
-
-#endif
+#endif /* G_OS_WIN32 */
     }
 
     /* Browser NoteBook :
@@ -4253,10 +4248,10 @@ void Run_Program_With_Directory (GtkWidget *combobox)
 
     program_name      = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(combobox)))));
     current_directory = g_object_get_data(G_OBJECT(combobox), "Current_Directory");
-#ifdef WIN32
+#ifdef G_OS_WIN32
     /* On win32 : 'winamp.exe "c:\path\to\dir"' succeed, while 'winamp.exe "c:\path\to\dir\"' fails */
     ET_Win32_Path_Remove_Trailing_Backslash(current_directory);
-#endif
+#endif /* G_OS_WIN32 */
 
     // List of parameters (here only one! : the current directory)
     args_list = g_list_append(args_list,current_directory);
@@ -4466,7 +4461,7 @@ Run_Program_With_Selected_Files (GtkWidget *combobox)
 static gboolean
 Run_Program (const gchar *program_name, GList *args_list)
 {
-#ifdef WIN32
+#ifdef G_OS_WIN32
     GList              *filelist;
     gchar             **argv;
     gint                argv_index = 0;
@@ -4474,9 +4469,9 @@ Run_Program (const gchar *program_name, GList *args_list)
     gchar              *full_command;
     STARTUPINFO         siStartupInfo;
     PROCESS_INFORMATION piProcessInfo;
-#else
+#else /* !G_OS_WIN32 */
     pid_t   pid;
-#endif
+#endif /* !G_OS_WIN32 */
     gchar *program_path;
 
 
@@ -4516,8 +4511,7 @@ Run_Program (const gchar *program_name, GList *args_list)
     }
 
 
-#ifdef WIN32
-
+#ifdef G_OS_WIN32
     filelist = args_list;
 
     // See documentation : http://c.developpez.com/faq/vc/?page=ProcessThread and http://www.answers.com/topic/createprocess
@@ -4566,7 +4560,7 @@ Run_Program (const gchar *program_name, GList *args_list)
     g_free(full_command);
     g_free(program_path);
 
-#else
+#else /* !G_OS_WIN32 */
 
     g_free(program_path); // Freed as never used
 
@@ -4618,7 +4612,7 @@ Run_Program (const gchar *program_name, GList *args_list)
         default:
             break;
     }
-    return TRUE;
 
-#endif
+    return TRUE;
+#endif /* !G_OS_WIN32 */
 }

@@ -44,9 +44,9 @@
 #include "log.h"
 #include "charset.h"
 
-#ifdef WIN32
-#   include <windows.h>
-#endif
+#ifdef G_OS_WIN32
+#include <windows.h>
+#endif /* G_OS_WIN32 */
 
 
 /***************
@@ -846,15 +846,15 @@ Run_Audio_Player_Using_File_List (GList *etfilelist_init)
     ET_File *etfile;
     gchar   *filename;
     gchar   *program_path;
-#ifdef WIN32
+#ifdef G_OS_WIN32
     gchar              *argv_join;
     STARTUPINFO         siStartupInfo;
     PROCESS_INFORMATION piProcessInfo;
-#else
+#else /* !G_OS_WIN32 */
     pid_t   pid;
     gchar **argv_user;
     gint    argv_user_number;
-#endif
+#endif /* !G_OS_WIN32 */
 
     // Exit if no program selected...
     if (!AUDIO_FILE_PLAYER || strlen(g_strstrip(AUDIO_FILE_PLAYER))<1)
@@ -885,8 +885,7 @@ Run_Audio_Player_Using_File_List (GList *etfilelist_init)
     // The list of files to play
     etfilelist = etfilelist_init;
 
-#ifdef WIN32
-
+#ifdef G_OS_WIN32
     // See documentation : http://c.developpez.com/faq/vc/?page=ProcessThread and http://www.answers.com/topic/createprocess
     ZeroMemory(&siStartupInfo, sizeof(siStartupInfo));
     siStartupInfo.cb = sizeof(siStartupInfo);
@@ -930,8 +929,7 @@ Run_Audio_Player_Using_File_List (GList *etfilelist_init)
 
     g_free(argv_join);
 
-#else
-
+#else /* !G_OS_WIN32 */
     argv_user = g_strsplit(AUDIO_FILE_PLAYER," ",0); // the string may contains arguments, space is the delimiter
     // Number of arguments into 'argv_user'
     for (argv_user_number=0;argv_user[argv_user_number];argv_user_number++);
@@ -975,8 +973,7 @@ Run_Audio_Player_Using_File_List (GList *etfilelist_init)
         default:
             break;
     }
-
-#endif
+#endif /* !G_OS_WIN32 */
 
     g_free(argv);
 }
@@ -1086,15 +1083,15 @@ gchar *Check_If_Executable_Exists (const gchar *program)
     program_tmp = g_strdup(program);
     g_strstrip(program_tmp);
 
-#ifdef WIN32
+#ifdef G_OS_WIN32
     // Remove arguments if found, after '.exe'
     if ( (tmp=strstr(program_tmp,".exe")) )
         *(tmp + 4) = 0;
-#else
+#else /* !G_OS_WIN32 */
     // Remove arguments if found
     if ( (tmp=strchr(program_tmp,' ')) )
         *tmp = 0;
-#endif
+#endif /* !G_OS_WIN32 */
 
     if (g_path_is_absolute(program_tmp))
     {
@@ -1349,9 +1346,10 @@ void Open_Write_Playlist_Window (void)
 
     // DOS Separator
     playlist_use_dos_separator = gtk_check_button_new_with_label(_("Use DOS directory separator"));
-#ifndef WIN32 // This has no sense under Win32, so we don't display it
+#ifndef G_OS_WIN32
+    /* This makes no sense under Win32, so we do not display it. */
     gtk_box_pack_start(GTK_BOX(vbox),playlist_use_dos_separator,FALSE,FALSE,0);
-#endif
+#endif /* !G_OS_WIN32 */
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_use_dos_separator),PLAYLIST_USE_DOS_SEPARATOR);
     gtk_widget_set_tooltip_text(playlist_use_dos_separator,_("This option replaces the UNIX directory "
         "separator '/' into DOS separator '\\'."));

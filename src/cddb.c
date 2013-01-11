@@ -28,16 +28,16 @@
 #include <string.h>
 #include <stdlib.h>
 #include <sys/types.h>
-#ifdef WIN32
-#   include "win32/win32dep.h"
-#else
-#   include <sys/socket.h>
-// Patch OpenBSD from Jim Geovedi
-#   include <netinet/in.h>
-#   include <arpa/inet.h>
-// End patch
-#   include <netdb.h>
-#endif
+#ifdef G_OS_WIN32
+#include "win32/win32dep.h"
+#else /* !G_OS_WIN32 */
+#include <sys/socket.h>
+/* Patch OpenBSD from Jim Geovedi. */
+#include <netinet/in.h>
+#include <arpa/inet.h>
+/* End patch */
+#include <netdb.h>
+#endif /* !G_OS_WIN32 */
 #include <errno.h>
 
 #include "gtk2_compat.h"
@@ -1657,9 +1657,9 @@ Cddb_Open_Connection (const gchar *host, gint port)
 static void
 Cddb_Close_Connection (gint socket_id)
 {
-#ifndef WIN32
+#ifndef G_OS_WIN32
     shutdown(socket_id,SHUT_RDWR);
-#endif
+#endif /* !G_OS_WIN32 */
     close(socket_id);
 
     if (!CddbWindow)

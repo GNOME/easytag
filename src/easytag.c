@@ -31,10 +31,10 @@
 #include <errno.h>
 #include <signal.h>
 #ifdef ENABLE_MP3
-#   include <id3tag.h>
+#include <id3tag.h>
 #endif
 #if defined ENABLE_MP3 && defined ENABLE_ID3LIB
-#   include <id3.h>
+#include <id3.h>
 #endif
 #include <sys/types.h>
 #include <utime.h>
@@ -56,11 +56,11 @@
 #include "picture.h"
 #include "charset.h"
 
-#ifdef WIN32
+#ifdef G_OS_WIN32
 #include "win32/win32dep.h"
-#else
+#else /* !G_OS_WIN32 */
 #include <sys/wait.h>
-#endif
+#endif /* !G_OS_WIN32 */
 
 
 /****************
@@ -146,7 +146,7 @@ static void Quit_Recursion_Window_Key_Press (GtkWidget *window,
 static void File_Area_Set_Sensitive (gboolean activate);
 static void Tag_Area_Set_Sensitive  (gboolean activate);
 
-#ifndef WIN32
+#ifndef G_OS_WIN32
 static void
 setup_sigbus_fpe_segv (void)
 {
@@ -174,16 +174,16 @@ setup_sigchld (void)
     sa.sa_flags = SA_RESTART;
     sigaction (SIGCHLD, &sa, NULL);
 }
-#endif /* !WIN32 */
+#endif /* !G_OS_WIN32 */
 
 /********
  * Main *
  ********/
-#ifdef WIN32
+#ifdef G_OS_WIN32
 int easytag_main (struct HINSTANCE__ *hInstance, int argc, char *argv[]) /* entry point of DLL */
-#else
+#else /* !G_OS_WIN32 */
 int main (int argc, char *argv[])
-#endif
+#endif /* !G_OS_WIN32 */
 {
     GtkWidget *MainVBox;
     GtkWidget *HBox, *VBox;
@@ -191,15 +191,15 @@ int main (int argc, char *argv[])
     //GError *error = NULL;
 
 
-#ifdef WIN32
+#ifdef G_OS_WIN32
     weasytag_init();
     //ET_Win32_Init(hInstance);
-#else
+#else /* !G_OS_WIN32 */
     /* Signal handling to display a message(SIGSEGV, ...) */
     setup_sigbus_fpe_segv ();
     // Must handle this signal to avoid zombie of applications executed (ex: xmms)
     setup_sigchld ();
-#endif
+#endif /* !G_OS_WIN32 */
 
 #ifdef ENABLE_NLS
     bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
@@ -226,12 +226,12 @@ int main (int argc, char *argv[])
                                                                ID3LIB_PATCH_VERSION);
 #endif
 
-#ifdef WIN32
+#ifdef G_OS_WIN32
     if (g_getenv("EASYTAGLANG"))
         Log_Print(LOG_OK,_("Variable EASYTAGLANG defined. Setting locale: '%s'"),g_getenv("EASYTAGLANG"));
     else
         Log_Print(LOG_OK,_("Setting locale: '%s'"),g_getenv("LANG"));
-#endif
+#endif /* G_OS_WIN32 */
 
     if (get_locale())
         Log_Print(LOG_OK,_("Currently using locale '%s' (and eventually '%s')…"),
@@ -279,9 +279,10 @@ int main (int argc, char *argv[])
                 g_free(curdir);
             }
 
-#ifdef WIN32
+#ifdef G_OS_WIN32
             ET_Win32_Path_Replace_Slashes(path2check);
-#endif
+#endif /* G_OS_WIN32 */
+
             // Check if contains hidden directories
             pathsplit = g_strsplit(path2check,G_DIR_SEPARATOR_S,0);
             g_free(path2check);
@@ -306,12 +307,13 @@ int main (int argc, char *argv[])
                         path2check_tmp = g_strconcat(path2check,G_DIR_SEPARATOR_S,pathsplit[ps_index],NULL);
                     }else
                     {
-#ifdef WIN32
+#ifdef G_OS_WIN32
                         // Build a path starting with the drive letter
                         path2check_tmp = g_strdup(pathsplit[ps_index]);
-#else
+#else /* !G_OS_WIN32 */
                         path2check_tmp = g_strconcat(G_DIR_SEPARATOR_S,pathsplit[ps_index],NULL);
-#endif
+#endif /* !G_OS_WIN32 */
+
                     }
 
                     path2check = g_strdup(path2check_tmp);
@@ -2866,9 +2868,9 @@ Make_Dir (const gchar *dirname_old, const gchar *dirname_new)
 {
     gchar *parent, *temp;
     struct stat dirstat;
-#ifdef WIN32
+#ifdef G_OS_WIN32
     gboolean first = TRUE;
-#endif
+#endif /* G_OS_WIN32 */
 
     // Use same permissions as the old directory
     stat(dirname_old,&dirstat);
@@ -2879,13 +2881,13 @@ Make_Dir (const gchar *dirname_old, const gchar *dirname_new)
         if (*temp!=G_DIR_SEPARATOR)
             continue;
 
-#ifdef WIN32
+#ifdef G_OS_WIN32
         if (first)
         {
             first = FALSE;
             continue;
         }
-#endif
+#endif /* G_OS_WIN32 */
 
         *temp=0; // To truncate temporarly dirname_new
 
@@ -4910,11 +4912,11 @@ static void
 Display_Usage (void)
 {
     // Fix from Steve Ralston for gcc-3.2.2
-#ifdef WIN32
-    #define xPREFIX "c:"
-#else
-    #define xPREFIX ""
-#endif
+#ifdef G_OS_WIN32
+#define xPREFIX "c:"
+#else /* !G_OS_WIN32 */
+#define xPREFIX ""
+#endif /* !G_OS_WIN32 */
 
     g_print(_("\nUsage: easytag [option] "
               "\n   or: easytag [directory]\n"
@@ -4930,7 +4932,7 @@ Display_Usage (void)
               "path_to/files     Use a relative path.\n"
               "\n"),xPREFIX);
 
-    #undef xPREFIX
+#undef xPREFIX
 
     exit(0);
 }
@@ -4947,9 +4949,9 @@ EasyTAG_Exit (void)
     Charset_Insert_Locales_Destroy();
     Log_Print(LOG_OK,_("EasyTAG: Normal exit."));
     gtk_main_quit();
-#ifdef WIN32
+#ifdef G_OS_WIN32
     weasytag_cleanup();
-#endif
+#endif /* G_OS_WIN32 */
     exit(0);
 }
 

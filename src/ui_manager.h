@@ -131,9 +131,9 @@ static const gchar *ui_xml =
 "      <separator />"
 
 "      <menuitem action='BrowseSubdir' />"
-#ifndef WIN32
+#ifndef G_OS_WIN32
 "      <menuitem action='BrowseHiddenDir' />"
-#endif
+#endif /* !G_OS_WIN32 */
 "      <separator />"
 
 "      <menuitem action='CollapseTree' />"
@@ -306,9 +306,9 @@ static const gchar *ui_xml =
 "    <menuitem action='BrowseDir' />"
 "    <separator />"
 "    <menuitem action='BrowseSubdir' />"
-#ifndef WIN32
+#ifndef G_OS_WIN32
 "    <menuitem action='BrowseHiddenDir' />"
-#endif
+#endif /* !G_OS_WIN32 */
 "    <separator />"
 "    <menuitem action='CollapseTree' />"
 "    <menuitem action='RefreshTree' />"

@@ -43,10 +43,10 @@
 #include "setting.h"
 #include "charset.h"
 
-#ifdef WIN32
+#ifdef G_OS_WIN32
 // for mkstemp
-#   include "win32/win32dep.h"
-#endif
+#include "win32/win32dep.h"
+#endif /* G_OS_WIN32 */
 
 
 /***************

@@ -43,9 +43,9 @@
 #include "cddb.h"
 #include "browser.h"
 
-#ifdef WIN32
-#   include "win32/win32dep.h"
-#endif
+#ifdef G_OS_WIN32
+#include "win32/win32dep.h"
+#endif /* G_OS_WIN32 */
 
 
 /***************
@@ -358,11 +358,11 @@ void Init_Config_Variables (void)
     LOAD_ON_STARTUP               = 0;
     DEFAULT_PATH_TO_MP3           = g_strdup(g_get_home_dir ());
     BROWSE_SUBDIR                 = 1;
-#ifdef WIN32
+#ifdef G_OS_WIN32
     BROWSE_HIDDEN_DIR             = 1;
-#else
+#else /* !G_OS_WIN32 */
     BROWSE_HIDDEN_DIR             = 0;
-#endif
+#endif /* !G_OS_WIN32 */
     OPEN_SELECTED_BROWSER_NODE    = 1;
 
     /*
@@ -388,11 +388,11 @@ void Init_Config_Variables (void)
     SET_FOCUS_TO_SAME_TAG_FIELD             = 1;
     SET_FOCUS_TO_FIRST_TAG_FIELD            = 0;
     SORTING_FILE_MODE                       = SORTING_BY_ASCENDING_FILENAME;
-#ifdef WIN32
+#ifdef G_OS_WIN32
     SORTING_FILE_CASE_SENSITIVE             = 1;
-#else
+#else /* !G_OS_WIN32 */
     SORTING_FILE_CASE_SENSITIVE             = 0;
-#endif
+#endif /* !G_OS_WIN32 */
     LOG_MAX_LINES                           = 50;
     SHOW_LOG_VIEW                           = 1;
 
@@ -401,11 +401,11 @@ void Init_Config_Variables (void)
     MESSAGE_BOX_POSITION_MOUSE              = 0;
     MESSAGE_BOX_POSITION_CENTER_ON_PARENT   = 1;
 
-#ifdef WIN32
+#ifdef G_OS_WIN32
     AUDIO_FILE_PLAYER                       = ET_Win32_Get_Audio_File_Player();
-#else
+#else /* !G_OS_WIN32 */
     AUDIO_FILE_PLAYER                       = g_strdup("xmms -p");
-#endif
+#endif /* !G_OS_WIN32 */
 
     /*
      * File Settings
@@ -430,19 +430,19 @@ void Init_Config_Variables (void)
     USE_NON_STANDARD_ID3_READING_CHARACTER_SET      = 0;
     FILE_READING_ID3V1V2_CHARACTER_SET              = g_strdup("UTF-8");
     FILE_WRITING_ID3V2_WRITE_TAG                    = 1;
-#ifdef WIN32
+#ifdef G_OS_WIN32
     FILE_WRITING_ID3V2_VERSION_4                    = 0;
-#else
+#else /* !G_OS_WIN32 */
     FILE_WRITING_ID3V2_VERSION_4                    = 1;
-#endif
+#endif /* !G_OS_WIN32 */
     FILE_WRITING_ID3V2_USE_CRC32                    = 0;
     FILE_WRITING_ID3V2_USE_COMPRESSION              = 0;
     FILE_WRITING_ID3V2_USE_UNICODE_CHARACTER_SET    = 1;
-#ifdef WIN32
+#ifdef G_OS_WIN32
     FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET        = g_strdup("UTF-16");
-#else
+#else /* !G_OS_WIN32 */
     FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET        = g_strdup("UTF-8");
-#endif
+#endif /* !G_OS_WIN32 */
     FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET     = g_strdup("ISO-8859-1");
     FILE_WRITING_ID3V2_ICONV_OPTIONS_NO             = 1;
     FILE_WRITING_ID3V2_ICONV_OPTIONS_TRANSLIT       = 0;
@@ -660,9 +660,11 @@ Apply_Changes_Of_Preferences_Window (void)
         LOAD_ON_STARTUP               = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(LoadOnStartup));
         if (DEFAULT_PATH_TO_MP3) g_free(DEFAULT_PATH_TO_MP3);
         DEFAULT_PATH_TO_MP3           = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3))))); // Saved in UTF-8
-//#ifdef WIN32
-//        ET_Win32_Path_Replace_Backslashes(DEFAULT_PATH_TO_MP3);
-//#endif
+#if 0
+#ifdef G_OS_WIN32
+        ET_Win32_Path_Replace_Backslashes(DEFAULT_PATH_TO_MP3);
+#endif /* G_OS_WIN32 */
+#endif
         BROWSE_SUBDIR                 = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(BrowseSubdir));
         BROWSE_HIDDEN_DIR             = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(BrowseHiddendir));
         OPEN_SELECTED_BROWSER_NODE    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(OpenSelectedBrowserNode));
