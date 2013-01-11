@@ -332,7 +332,7 @@ int main (int argc, char *argv[])
 
     /* Initialization */
     ET_Core_Create();
-    Main_Stop_Button_Pressed = 0;
+    Main_Stop_Button_Pressed = FALSE;
     Init_Custom_Icons();
     Init_Mouse_Cursor();
     Init_OptionsWindow();
@@ -2226,10 +2226,10 @@ gint Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
     File_Area_Set_Sensitive(FALSE);
 
     /* Show msgbox (if needed) to ask confirmation ('SF' for Save File) */
-    SF_HideMsgbox_Write_Tag = 0;
-    SF_HideMsgbox_Rename_File = 0;
+    SF_HideMsgbox_Write_Tag = FALSE;
+    SF_HideMsgbox_Rename_File = FALSE;
 
-    Main_Stop_Button_Pressed = 0;
+    Main_Stop_Button_Pressed = FALSE;
     uiaction = gtk_ui_manager_get_action(UIManager, "/ToolBar/Stop"); // Activate the stop button
     g_object_set(uiaction, "sensitive", FALSE, NULL);
 
@@ -2261,7 +2261,8 @@ gint Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
                 break;
             case GTK_RESPONSE_NO:
             case GTK_RESPONSE_NONE:
-                Main_Stop_Button_Pressed = 1; // To don't enter to following loop
+                /* Skip the following loop. */
+                Main_Stop_Button_Pressed = TRUE;
                 break;
         }
     }
@@ -2311,7 +2312,7 @@ gint Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
         }
 
         etfilelist_tmp = etfilelist_tmp->next;
-        if (Main_Stop_Button_Pressed == 1 )
+        if (Main_Stop_Button_Pressed)
             break;
 
     }
@@ -2324,7 +2325,7 @@ gint Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
     else
         msg = g_strdup(_("All files have been saved…"));
 
-    Main_Stop_Button_Pressed = 0;
+    Main_Stop_Button_Pressed = FALSE;
     uiaction = gtk_ui_manager_get_action(UIManager, "/ToolBar/Stop");
     g_object_set(uiaction, "sensitive", FALSE, NULL);
 
@@ -3552,7 +3553,7 @@ gboolean Read_Directory (gchar *path_real)
         while (gtk_events_pending())
             gtk_main_iteration();
 
-        if ( !FileList->next || (Main_Stop_Button_Pressed==1) ) break;
+        if (!FileList->next || Main_Stop_Button_Pressed) break;
         FileList = FileList->next;
     }
     if (FileList) g_list_free(FileList);
@@ -3560,7 +3561,7 @@ gboolean Read_Directory (gchar *path_real)
 
     /* Close window to quit recursion */
     Destroy_Quit_Recursion_Function_Window();
-    Main_Stop_Button_Pressed = 0;
+    Main_Stop_Button_Pressed = FALSE;
     uiaction = gtk_ui_manager_get_action(UIManager, "/ToolBar/Stop");
     g_object_set(uiaction, "sensitive", FALSE, NULL);
 
@@ -3643,7 +3644,7 @@ GList *Read_Directory_Recursively (GList *file_list, gchar *path_real, gint recu
 
     while ((dirent = readdir(dir)) != NULL)
     {
-        if (Main_Stop_Button_Pressed == 1)
+        if (Main_Stop_Button_Pressed)
         {
             closedir(dir);
             return file_list;
@@ -3761,7 +3762,7 @@ void Quit_Recursion_Window_Key_Press (GtkWidget *window, GdkEvent *event)
 void Action_Main_Stop_Button_Pressed (void)
 {
     GtkAction *uiaction;
-    Main_Stop_Button_Pressed = 1;
+    Main_Stop_Button_Pressed = TRUE;
     uiaction = gtk_ui_manager_get_action(UIManager, "/ToolBar/Stop");
     g_object_set(uiaction, "sensitive", FALSE, NULL);
 }
