@@ -24,6 +24,7 @@
 #include <glib/gi18n-lib.h>
 
 #include "about.h"
+#include "easytag.h"
 
 void Show_About_Window (void)
 {
@@ -108,18 +109,18 @@ void Show_About_Window (void)
         translators = NULL;
     }
 
-    gtk_show_about_dialog(NULL,/* TODO: GTK_WINDOW(MainWindow), */
-                          "artists",artists,
-                          "authors",authors,
-                          "comments",_("View and edit tags in audio files"),
-                          "copyright",copyright,
-                          "documenters",documenters,
-                          "license",license,
-                          "logo-icon-name",PACKAGE_TARNAME,
-                          "program-name",PACKAGE_NAME,
-                          "translator-credits",translators,
-                          "version",PACKAGE_VERSION,
-                          "website",PACKAGE_URL,
-                          "wrap-license",TRUE,
-                          NULL);
+    gtk_show_about_dialog (GTK_WINDOW (MainWindow),
+                           "artists", artists,
+                           "authors", authors,
+                           "comments", _("View and edit tags in audio files"),
+                           "copyright", copyright,
+                           "documenters", documenters,
+                           "license", license,
+                           "logo-icon-name", PACKAGE_TARNAME,
+                           "program-name", PACKAGE_NAME,
+                           "translator-credits", translators,
+                           "version", PACKAGE_VERSION,
+                           "website", PACKAGE_URL,
+                           "wrap-license", TRUE,
+                           NULL);
 }
