@@ -2941,7 +2941,7 @@ gboolean Rename_File (ET_File *ETFile, gboolean hide_msgbox)
     gchar *cur_basename_utf8 = g_path_get_basename(cur_filename_utf8); // Only filename
     gchar *new_basename_utf8 = g_path_get_basename(new_filename_utf8);
     gint   fd_tmp;
-    gchar *msg, *msg1;
+    gchar *msg;
     gchar *dirname_cur;
     gchar *dirname_new;
     gchar *dirname_cur_utf8;
@@ -3253,14 +3253,11 @@ gboolean Rename_File (ET_File *ETFile, gboolean hide_msgbox)
         }
     }else
     {
-        gchar *msg;
         GtkWidget *msgdialog;
 
         /* Renaming file has failed, but we try to set the initial name */
         rename(tmp_filename,cur_filename);
 
-        msg1 = g_strdup_printf(_("Cannot rename file '%s' to '%s'. (%s)"),
-                              cur_basename_utf8,new_basename_utf8,g_strerror(errno));
         if (!hide_msgbox)
         {
             msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
@@ -3277,10 +3274,9 @@ gboolean Rename_File (ET_File *ETFile, gboolean hide_msgbox)
             gtk_widget_destroy(msgdialog);
         }
 
-        msg = g_strdup_printf(_("Cannot rename file '%s'\n to \n'%s': (%s)"),
-                              cur_basename_utf8,new_basename_utf8,g_strerror(errno));
-        Log_Print(LOG_ERROR,"%s", msg);
-        g_free(msg);
+        Log_Print (LOG_ERROR, _("Cannot rename file '%s' to '%s': %s"),
+                              cur_basename_utf8, new_basename_utf8,
+                              g_strerror (errno));
 
         Statusbar_Message(_("File(s) not renamed…"),TRUE);
 
@@ -3495,9 +3491,7 @@ gboolean Read_Directory (gchar *path_real)
         // Message if the directory doesn't exist...
         GtkWidget *msgdialog;
         gchar *path_utf8 = filename_to_display(path_real);
-        gchar *msg;
 
-        msg = g_strdup_printf(_("Can't read directory:\n'%s'\n(%s)"),path_utf8,g_strerror(errno));
         msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
                                            GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                            GTK_MESSAGE_ERROR,
