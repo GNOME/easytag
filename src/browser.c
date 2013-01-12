@@ -187,9 +187,11 @@ void        Browser_Load_Home_Directory    (void);
 void        Browser_Load_Default_Directory (void);
 void        Browser_Reload_Directory       (void);
 
+#ifdef G_OS_WIN32
 static gboolean Browser_Win32_Get_Drive_Root (gchar *drive,
                                               GtkTreeIter *rootNode,
                                               GtkTreePath **rootPath);
+#endif /* G_OS_WIN32 */
 
 static gboolean check_for_subdir   (gchar *path);
 
@@ -855,6 +857,7 @@ Browser_Tree_Node_Selected (GtkTreeSelection *selection, gpointer user_data)
 }
 
 
+#ifdef G_OS_WIN32
 static gboolean
 Browser_Win32_Get_Drive_Root (gchar *drive, GtkTreeIter *rootNode, GtkTreePath **rootPath)
 {
@@ -888,6 +891,7 @@ Browser_Win32_Get_Drive_Root (gchar *drive, GtkTreeIter *rootNode, GtkTreePath *
 
     return TRUE;
 }
+#endif /* G_OS_WIN32 */
 
 
 /*
