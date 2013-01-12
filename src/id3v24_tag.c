@@ -79,7 +79,6 @@ static int    libid3tag_Get_Frame_Str   (const struct id3_frame *frame, unsigned
 static void   Id3tag_delete_frames      (struct id3_tag *tag, const gchar *name, int start);
 static void   Id3tag_delete_txxframes   (struct id3_tag *tag, const gchar *param1, int start);
 static struct id3_frame *Id3tag_find_and_create_frame    (struct id3_tag *tag, const gchar *name);
-static struct id3_frame *Id3tag_find_and_create_txxframe (struct id3_tag *tag, const gchar *param1);
 static int    id3taglib_set_field       (struct id3_frame *frame, const gchar *str, enum id3_field_type type, int num, int clear, int id3v1);
 static int    etag_set_tags             (const gchar *str, const char *frame_name, enum id3_field_type field_type, struct id3_tag *v1tag, struct id3_tag *v2tag, gboolean *strip_tags);
 static int etag_write_tags (const gchar *filename, struct id3_tag const *v1tag,
@@ -1108,46 +1107,6 @@ Id3tag_find_and_create_frame (struct id3_tag *tag, const gchar *name)
     if (!frame)
     {
         if ((frame = id3_frame_new(name)) == NULL)
-            return NULL;
-        id3_tag_attachframe(tag, frame);
-    }
-
-    return frame;
-}
-
-/* Find first "TXX" (user defined text information) frame in tag 'tag'
- * with first string parameter (name) 'param'
- * create new if not found
- */
-static struct id3_frame *
-Id3tag_find_and_create_txxframe (struct id3_tag *tag, const gchar *param1)
-{
-    const id3_ucs4_t *ucs4string;
-    struct id3_frame *frame;
-    union id3_field *field;
-    int i;
-    gchar *str;
-
-    if (!tag || !param1 || !*param1)
-    return NULL;
-
-    for (i = 0; (frame = id3_tag_findframe(tag, "TXXX", i)); i++)
-    if ( (field = id3_frame_field(frame, 1))
-    && (ucs4string = id3_field_getstring(field)) )
-    {
-        str = NULL;
-        if ((str = (gchar *)id3_ucs4_latin1duplicate(ucs4string))
-        && (strncasecmp(str, param1, strlen(param1)) == 0) )
-        {
-            g_free(str);
-            break;
-        }else
-            g_free(str);
-    }
-
-    if (frame == NULL)
-    {
-        if ((frame = id3_frame_new("TXXX")) == NULL)
             return NULL;
         id3_tag_attachframe(tag, frame);
     }
