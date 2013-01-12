@@ -1164,8 +1164,6 @@ void Cddb_Search_String_In_Result (GtkWidget *entry, GtkButton *button)
     gchar *text;
     gchar *temp;
     gint   i;
-    gint  *indices = NULL;
-    gint  toloop;
     gint  rowcount;
     GtkTreeSelection* treeSelection;
     GtkTreeIter iter;
@@ -1235,20 +1233,6 @@ void Cddb_Search_String_In_Result (GtkWidget *entry, GtkButton *button)
                 g_free(temp);
                 g_free(text);
             } while(gtk_tree_model_iter_next(GTK_TREE_MODEL(CddbAlbumListModel), &iter));
-        }
-
-        /* If no results have been found, start the search again from the beginning */
-        /* If we have had an item selected, we need to stop at that one to avoid re-searching the same entries */
-        if(itemselected == TRUE)
-        {
-            rowpath = gtk_tree_model_get_path(GTK_TREE_MODEL(CddbAlbumListModel), &itercopy);
-            if (rowpath)
-                indices = gtk_tree_path_get_indices(rowpath);
-            gtk_tree_path_free(rowpath);
-            toloop = indices[0];
-        } else
-        {
-            toloop = rowcount;
         }
 
         for (i = 0; i < rowcount; i++)
@@ -1747,7 +1731,6 @@ gint Cddb_Write_Result_To_File (gint socket_id, gulong *bytes_read_total)
 {
     gchar *file_path = NULL;
     FILE  *file;
-    gint result;
 
     /* Cache directory was already created by Log_Print(). */
     file_path = g_build_filename (g_get_user_cache_dir (), PACKAGE_TARNAME,
@@ -4255,11 +4238,10 @@ gchar *Cddb_Format_Proxy_Authentification (void)
 
         gchar *tempstr;
         gchar *str_encoded;
-        gint size;
 
         tempstr = g_strconcat(CDDB_PROXY_USER_NAME, ":", CDDB_PROXY_USER_PASSWORD, NULL);
         //str_encoded = base64_encode(tempstr);
-        size = base64_encode(tempstr, strlen(tempstr), &str_encoded);
+        base64_encode (tempstr, strlen(tempstr), &str_encoded);
 
         ret = g_strdup_printf("Proxy-authorization: Basic %s\r\n", str_encoded);
         g_free (str_encoded);

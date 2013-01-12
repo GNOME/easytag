@@ -113,7 +113,6 @@ gboolean Mpeg_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
         guint32 head;
         unsigned char tmp[4];
         struct frame frm;
-        gboolean id3_found = FALSE;
 
         if (fread(tmp, 1, 4, file) != 4)
         {
@@ -157,9 +156,7 @@ gboolean Mpeg_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
         {
             guchar *buf;
             gdouble tpf;
-            gint pos;
             XHEADDATA xing_header;
-            guint32 num_frames;
 
             buf = g_malloc(frm.framesize + 4);
             fseek(file, -4, SEEK_CUR);
@@ -174,28 +171,25 @@ gboolean Mpeg_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
             //if (ETFileInfo->mpeg25) g_print("mpeg_level: MPEG 2.5, layer %d\n",ETFileInfo->layer);
             //else                    g_print("mpeg_level: MPEG %d, layer %d\n",ETFileInfo->version,ETFileInfo->layer);
 
-            pos = ftell(file);
             fseek(file, 0, SEEK_END);
             // Variable bitrate? + bitrate
             if ( (ETFileInfo->variable_bitrate=mpg123_get_xing_header(&xing_header,buf)) )
             {
-                num_frames = xing_header.frames;
                 ETFileInfo->bitrate = (gint) ((xing_header.bytes * 8) / (tpf * xing_header.frames * 1000));
-                //g_print("Bitrate: Variable,\navg. bitrate: %d kb/s\n",ETFileInfo->bitrate);
+                /* g_print ("Bitrate: Variable,\navg. bitrate: %d kb/s\n",ETFileInfo->bitrate); */
             } else
             {
-                num_frames = ((ftell(file) - pos - (id3_found ? 128 : 0)) / mpg123_compute_bpf(&frm)) + 1;
                 ETFileInfo->bitrate = tabsel_123[frm.lsf][frm.lay - 1][frm.bitrate_index];
-                //g_print("Bitrate: %d kb/s\n",ETFileInfo->bitrate);
+                /* g_print ("Bitrate: %d kb/s\n",ETFileInfo->bitrate); */
             }
-            // Samplerate
+            /* Samplerate. */
             ETFileInfo->samplerate = mpg123_freqs[frm.sampling_frequency];
-            // Mode
+            /* Mode. */
             ETFileInfo->mode = frm.mode;
-            //g_print("Samplerate: %ld Hz\n", mpg123_freqs[frm.sampling_frequency]);
-            //g_print("%s\nError protection: %s\nCopyright: %s\nOriginal: %s\nEmphasis: %s\n", channel_mode_name(frm.mode), bool_label[frm.error_protection], bool_label[frm.copyright], bool_label[frm.original], emphasis[frm.emphasis]);
-            //g_print("%d frames\nFilesize: %lu B\n", num_frames, ftell(file));
-            g_free(buf);
+            /* g_print ("Samplerate: %ld Hz\n", mpg123_freqs[frm.sampling_frequency]);
+            g_print ("%s\nError protection: %s\nCopyright: %s\nOriginal: %s\nEmphasis: %s\n", channel_mode_name(frm.mode), bool_label[frm.error_protection], bool_label[frm.copyright], bool_label[frm.original], emphasis[frm.emphasis]);
+            g_print ("Filesize: %lu B\n", ftell(file)); */
+            g_free (buf);
         }
 
         // Duration

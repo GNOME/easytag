@@ -182,7 +182,6 @@ int main (int argc, char *argv[])
     GtkWidget *HBox, *VBox;
     struct stat statbuf;
     //GError *error = NULL;
-    GdkPixbuf *pixbuf;
 
 
 #ifdef WIN32
