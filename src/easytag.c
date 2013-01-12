@@ -134,7 +134,6 @@ static void Display_Usage (void);
 
 static void Init_Load_Default_Dir (void);
 static void EasyTAG_Exit (void);
-void Quit_MainWindow_Ok_Button (void);
 
 static GList *Read_Directory_Recursively (GList *file_list, const gchar *path,
                                           gboolean recurse);
