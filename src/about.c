@@ -67,6 +67,7 @@ void Show_About_Window (void)
         "Julian Taylor <jtaylor@ubuntu.com>",
         "Honore Doktorr <hdfssk@gmail.com>",
         "Guilherme Destefani <gd@helixbrasil.com.br>",
+        "Andreas Winkelmann <ml@awinkelmann.de>",
         NULL
     };
 

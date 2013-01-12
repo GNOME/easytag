@@ -91,16 +91,19 @@ Pierre Dumuid <pierre.dumuid@adelaide.edu.au>
   - Support of Speex files
 
 Nick Lanham <nick@afternight.org>
- - Compilation against newest version of libmp4v2
+  - Compilation against newest version of libmp4v2
 
 Wojciech Wierchola <admin@webcarrot.pl>
- - File save performance improvement
+  - File save performance improvement
 
 Julian Taylor <jtaylor@ubuntu.com>
- - Fix out of bound array access
+  - Fix out of bound array access
 
 Honore Doktorr <hdfssk@gmail.com>
-    - Revised libmp4v2 patch
+  - Revised libmp4v2 patch
 
 Guilherme Destefani <gd@helixbrasil.com.br>
   - Rename directories with scanner
+
+Andreas Winkelmann <ml@awinkelmann.de>
+  - Warning and bug fixes
