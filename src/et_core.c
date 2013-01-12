@@ -2052,7 +2052,10 @@ gboolean ET_Free_File_List_Item (ET_File *ETFile)
             ET_Free_File_Tag_List (ETFile->FileTagListBak);
         }
         /* Frees infos of ETFileInfo */
-        ET_Free_File_Info_Item (ETFile->ETFileInfo);
+        if (ETFile->ETFileInfo)
+        {
+            ET_Free_File_Info_Item (ETFile->ETFileInfo);
+        }
         g_free(ETFile->ETFileExtension);
         g_free(ETFile);
         ETFile = NULL;
