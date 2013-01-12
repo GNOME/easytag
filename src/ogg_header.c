@@ -64,9 +64,7 @@ gboolean Ogg_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
     gint encoder_version = 0;
     gint channels = 0;
     glong rate = 0;
-    glong bitrate_upper = 0;
     glong bitrate_nominal = 0;
-    glong bitrate_lower = 0;
     gdouble duration = 0;
     gulong filesize;
     gint ret;
@@ -91,10 +89,7 @@ gboolean Ogg_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
             encoder_version = vi->version;         // Vorbis encoder version used to create this bitstream.
             channels        = vi->channels;        // Number of channels in bitstream.
             rate            = vi->rate;            // (Hz) Sampling rate of the bitstream.
-            bitrate_upper   = vi->bitrate_upper;   // (b/s) Specifies the upper limit in a VBR bitstream.
             bitrate_nominal = vi->bitrate_nominal; // (b/s) Specifies the average bitrate for a VBR bitstream.
-            //bitrate_nominal = ov_bitrate(&vf,-1);  // (b/s) Specifies the average bitrate for the specified logical bitstream.
-            bitrate_lower   = vi->bitrate_nominal; // (b/s) Specifies the lower limit in a VBR bitstream.
         }else
         {
             Log_Print(LOG_ERROR,_("Ogg Vorbis: The specified bitstream does not exist or the "

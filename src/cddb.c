@@ -2703,7 +2703,7 @@ gboolean Cddb_Search_Album_List_From_String_Gnudb (void)
             && strstr(cddb_out_tmp,end_str) != NULL )
             {
                 gchar *ptr_art_alb, *ptr_end;
-                gchar *copy, *valid;
+                gchar *valid;
                 CddbAlbum *cddbalbum;
 
                 cddbalbum = g_malloc0(sizeof(CddbAlbum));
@@ -2761,7 +2761,6 @@ gboolean Cddb_Search_Album_List_From_String_Gnudb (void)
                 strncpy(buffer,cddb_out_tmp,MAX_STRING_LEN);
                 if ( (ptr_end=strstr(buffer,end_str)) != NULL )
                     *ptr_end = 0;
-                copy = g_strdup(buffer);
                 cddbalbum->artist_album = Try_To_Validate_Utf8_String(buffer);
 
                 CddbAlbumList = g_list_append(CddbAlbumList,cddbalbum);

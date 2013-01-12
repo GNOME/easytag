@@ -800,7 +800,6 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
         if (pic->data)
         {
             gchar *data_encoded = NULL;
-            gint size;
             Picture_Format format = Picture_Format_From_Data(pic);
 
             string = g_strdup_printf("COVERARTMIME=%s",Picture_Mime_Type_String(format));
@@ -821,7 +820,7 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
                 g_free(string);
             }
 
-            size = base64_encode(pic->data, pic->size, &data_encoded);
+            base64_encode (pic->data, pic->size, &data_encoded);
             string = g_strdup_printf("COVERART=%s",data_encoded);
             vorbis_comment_add(vc,string);
             g_free(data_encoded);

@@ -180,7 +180,6 @@ int main (int argc, char *argv[])
 {
     GtkWidget *MainVBox;
     GtkWidget *HBox, *VBox;
-    gboolean created_settings;
     struct stat statbuf;
     //GError *error = NULL;
     GdkPixbuf *pixbuf;
@@ -233,8 +232,12 @@ int main (int argc, char *argv[])
                 get_locale(),get_encoding_from_locale(get_locale()));
 
 
-    /* Create all config files */
-    created_settings = Setting_Create_Files();
+    /* Create all config files. */
+    if (!Setting_Create_Files())
+    {
+        Log_Print (LOG_WARNING, _("Unable to create setting directories"));
+    }
+
     /* Load Config */
     Init_Config_Variables();
     Read_Config();
@@ -3307,10 +3310,10 @@ gint Delete_File (ET_File *ETFile, gboolean multiple_files)
 
     if (!ETFile) return FALSE;
 
-    // Filename of the file to delete
+    /* Filename of the file to delete. */
     cur_filename      = ((File_Name *)(ETFile->FileNameCur)->data)->value;
     cur_filename_utf8 = ((File_Name *)(ETFile->FileNameCur)->data)->value_utf8;
-    basename_utf8 = g_path_get_basename(cur_filename);
+    basename_utf8 = g_path_get_basename (cur_filename_utf8);
 
     /*
      * Remove the file
