@@ -125,7 +125,7 @@ long2ape (unsigned char *p, const unsigned long value)
 
 
 /*
-    PL: funkcja troszczaca sie o odpowiedni± ilosc zalokowanej pamieci dla tablicy 
+    PL: funkcja troszczaca sie o odpowiedniƒÖ ilosc zalokowanej pamieci dla tablicy
     PL: %mTag% przy okazji alokuje z wyprzedzeniem troche wiecej pamieci [mniej %realoc%]
     PL: zwraca %mTag[]%
     :NON_USER:!!!
@@ -179,7 +179,7 @@ libapetag_maloc_cont_int (apetag *mem_cnt, struct tag *mTag)
 
 /*
     PL: alocuje pamiec dla %mTag% przypisuje odpowiednio wartosci 
-    PL: dodaje %\0% do stringÛw [na wszelki wypadek]
+    PL: dodaje %\0% do string√≥w [na wszelki wypadek]
     PL: nie dopisuje takich samych 
     PL: wszystkie sizy maja byc bez \0 (jak bedzie to doliczy jeszcze jeden)
     :NON_USER:!!!
@@ -232,7 +232,7 @@ libapetag_maloc_cont (apetag *mem_cnt, unsigned long flags,
 /*
     PL: jezeli nie istnieje to dodaje taga, pomija ostatnie biale znaki 
     PL: pomija jesli pusty 
-    PL: ! zmienia tekst wej∂ciowy
+    PL: ! zmienia tekst wej≈õciowy
     :NON_USER:!!!
 */
 int
@@ -332,8 +332,8 @@ apefrm_add_noreplace (apetag *mem_cnt, unsigned long flags,
 /*
     PL: wyszukuje taga o nazwie %name% i zwraca structure %struct tag%
     PL: %APE_TAG_LIB_FIRST% i %APE_TAG_LIB_NEXT% to ulatwienie dla 
-    PL: przesukiwania wszystkich istniejacych tagÛw 
-    PL: %APE_TAG_LIB_FIRST% ustawia znacznik na pierwszy tag [0] i zwraca jego warto∂Ê
+    PL: przesukiwania wszystkich istniejacych tag√≥w
+    PL: %APE_TAG_LIB_FIRST% ustawia znacznik na pierwszy tag [0] i zwraca jego warto≈õƒá
     PL: %APE_TAG_LIB_NEXT% podaje nastepny tag i zwieksza znacznik, po ostatnim funkcja zwraca %NULL%
     PL: UWAGA!!! zwraca pointer do wewnetrznej struktury 
     PL: niczego nie zmieniac i nie free()-jowac skopiowac i dopiero 
@@ -466,8 +466,8 @@ apefrm_remove_real (apetag *mem_cnt, char *name)
 }
 /*
     PL: tak jakby frejuje framke oznacza do kasacji jednak tego nie robi
-    PL: mechanizm ten g≥ownie jest wykorzystywany do wczytania innych tagÛw
-    PL: poza wczesniej zkasowanymi aby to usun±c uzyj apefrm_remove_real
+    PL: mechanizm ten g≈Çownie jest wykorzystywany do wczytania innych tag√≥w
+    PL: poza wczesniej zkasowanymi aby to usunƒÖc uzyj apefrm_remove_real
 */
 /**
     \brief set frame to remove
@@ -534,7 +534,7 @@ libapetag_print_mem_cnt (apetag *mem_cnt)
 }
 
 /*
-    PL: alokuje pamiec dla glÛwnej struktury %struct ape_mem_cnt% 
+    PL: alokuje pamiec dla gl√≥wnej struktury %struct ape_mem_cnt%
     PL: i zeruje wszystko co trzeba 
     PL: z jakiegos powodu (mojej niewiedzy) memset nie dziala 
     PL: a w sumie dziala czyszczac troche za duzo 
@@ -564,7 +564,7 @@ apetag_init (void)
 
 /*
     PL: Czysci z sila wodospadu wszystko co zostalo do czyszczenia
-    PL: z %struct ape_mem_cnt% wlacznie, wcze∂niej to nie by≥o jasne
+    PL: z %struct ape_mem_cnt% wlacznie, wcze≈õniej to nie by≈Ço jasne
 */
 /**
     \brief free all work 

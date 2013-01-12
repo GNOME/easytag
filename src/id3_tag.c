@@ -1322,8 +1322,8 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
     ID3Tag_AttachFrame(id3_tag,id3_frame);
     // Use a Chinese character instead of the latin-1 character as in Id3tag_Set_Field()
     // we try to convert the string to ISO-8859-1 even in the Unicode mode.
-    //Id3tag_Set_Field(id3_frame, ID3FN_TEXT, "é"); // This latin-1 character is written in Unicode as 'E9 FF' instead of 'E9 00' if bugged
-    Id3tag_Set_Field(id3_frame, ID3FN_TEXT, "�°"); // This Chinese character is written in Unicode as 'FF FE B0 FF' instead of 'FF FE B0 30' if bugged
+    //Id3tag_Set_Field(id3_frame, ID3FN_TEXT, "\303\251"); // This latin-1 character is written in Unicode as 'E9 FF' instead of 'E9 00' if bugged
+    Id3tag_Set_Field(id3_frame, ID3FN_TEXT, "\343\302\260"); // This Chinese character is written in Unicode as 'FF FE B0 FF' instead of 'FF FE B0 30' if bugged
 
     // Update the tag
     ID3Tag_UpdateByTagType(id3_tag,ID3TT_ID3V2);
@@ -1346,8 +1346,8 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
     g_object_unref (file);
 
     // Same string found? if yes => not bugged
-    //if ( result && strcmp(result,"é")!=0 )
-    if ( result && strcmp(result,"�°")!=0 )
+    //if ( result && strcmp(result,"\303\251")!=0 )
+    if ( result && strcmp(result,"\343\302\260")!=0 )
     {
         return TRUE;
     }
