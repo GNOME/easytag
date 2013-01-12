@@ -45,7 +45,7 @@
  ****************/
 
 #define CHARSET_TRANS_ARRAY_LEN ( sizeof(charset_trans_array) / sizeof((charset_trans_array)[0]) )
-const CharsetInfo charset_trans_array[] = {
+static const CharsetInfo charset_trans_array[] = {
     {N_("Arabic (IBM-864)"),                  "IBM864"        },
     {N_("Arabic (ISO-8859-6)"),               "ISO-8859-6"    },
     {N_("Arabic (Windows-1256)"),             "windows-1256"  },

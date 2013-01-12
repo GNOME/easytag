@@ -73,49 +73,43 @@
  * Declarations *
  ****************/
 
-// Pixmaps
+/* Pixmaps. */
 static GdkPixbuf *opened_folder_pixmap = NULL, *closed_folder_pixmap, *closed_folder_readonly_pixmap, *closed_folder_unreadable_pixmap;
 #ifdef G_OS_WIN32
-// Pixmap used for Win32 only
+/* Pixmap used for Win32 only */
 static GdkPixbuf *harddrive_pixmap, *removable_pixmap, *cdrom_pixmap, *network_pixmap, *ramdisk_pixmap;
 #endif /* G_OS_WIN32 */
 
-GtkWidget    *BrowserTree; // Tree of directories
-GtkTreeStore *directoryTreeModel;
-GtkWidget    *BrowserList;     // List of files
-GtkListStore *fileListModel;
-GtkWidget    *BrowserLabel;
-GtkWidget    *BrowserButton;
-GtkWidget    *BrowserParentButton;
-GtkWidget    *BrowserNoteBook;
-GtkWidget    *BrowserArtistList;
-GtkListStore *artistListModel;
-GtkWidget    *BrowserAlbumList;
-GtkListStore *albumListModel;
-gchar        *BrowserCurrentPath = NULL; // Path selected in the browser area (BrowserEntry or BrowserTree)
+static GtkWidget    *BrowserTree; /* Tree of directories. */
+static GtkTreeStore *directoryTreeModel;
+static GtkListStore *fileListModel;
+static GtkWidget    *BrowserLabel;
+static GtkWidget    *BrowserButton;
+static GtkWidget    *BrowserParentButton;
+static GtkWidget    *BrowserNoteBook;
+static GtkListStore *artistListModel;
+static GtkListStore *albumListModel;
+/* Path selected in the browser area (BrowserEntry or BrowserTree). */
+static gchar        *BrowserCurrentPath = NULL;
 
-GtkListStore *RunProgramModel;
+static GtkListStore *RunProgramModel;
 
-GtkWidget *RunProgramTreeWindow  = NULL;
-GtkWidget *RunProgramListWindow  = NULL;
+static GtkWidget *RunProgramTreeWindow = NULL;
+static GtkWidget *RunProgramListWindow = NULL;
 
-// The Rename Directory window
-GtkWidget    *RenameDirectoryWindow = NULL;
-GtkWidget    *RenameDirectoryCombo;
-GtkWidget    *RenameDirectoryWithMask;
-GtkWidget    *RenameDirectoryMaskCombo;
-GtkListStore *RenameDirectoryMaskModel = NULL;
-GtkWidget    *RenameDirectoryMaskStatusIconBox;
-GtkWidget    *RenameDirectoryPreviewLabel = NULL;
+/* The Rename Directory window. */
+GtkWidget *RenameDirectoryWindow = NULL;
+static GtkWidget *RenameDirectoryCombo;
+static GtkWidget *RenameDirectoryWithMask;
+static GtkListStore *RenameDirectoryMaskModel = NULL;
+static GtkWidget *RenameDirectoryMaskStatusIconBox;
+GtkWidget *RenameDirectoryPreviewLabel = NULL;
 
-guint blrs_idle_handler_id = 0;
-guint blru_idle_handler_id = 0;
-guint bl_row_selected;
-
-ET_File *LastBrowserListETFileSelected; // The last ETFile selected in the BrowserList
+/* The last ETFile selected in the BrowserList. */
+static ET_File *LastBrowserListETFileSelected;
 
 
-gchar *Rename_Directory_Masks [] =
+static gchar *Rename_Directory_Masks [] =
 {
     "%a - %b",
     "%a_-_%b",
@@ -156,9 +150,6 @@ static gint Browser_List_Sort_Func (GtkTreeModel *model, GtkTreeIter *a,
                                     GtkTreeIter *b, gpointer data);
 static void Browser_List_Select_File_By_Iter (GtkTreeIter *iter,
                                               gboolean select_it);
-void        Browser_List_Select_All_Files       (void);
-void        Browser_List_Unselect_All_Files     (void);
-void        Browser_List_Invert_File_Selection  (void);
 
 static void Browser_Entry_Activated (void);
 
@@ -175,11 +166,7 @@ static void Browser_Album_List_Row_Selected (GtkTreeSelection *selection,
                                              gpointer data);
 static void Browser_Album_List_Set_Row_Appearance (GtkTreeIter *row);
 
-gchar      *Browser_Get_Current_Path       (void);
 static void Browser_Update_Current_Path (const gchar *path);
-void        Browser_Load_Home_Directory    (void);
-void        Browser_Load_Default_Directory (void);
-void        Browser_Reload_Directory       (void);
 
 #ifdef G_OS_WIN32
 static gboolean Browser_Win32_Get_Drive_Root (gchar *drive,
@@ -201,7 +188,6 @@ static gboolean Browser_Popup_Menu_Handler (GtkMenu *menu,
                                             GdkEventButton *event);
 
 /* For window to rename a directory */
-void        Browser_Open_Rename_Directory_Window (void);
 static void Destroy_Rename_Directory_Window (void);
 static void Rename_Directory (void);
 static gboolean Rename_Directory_Window_Key_Press (GtkWidget *window,
@@ -209,14 +195,12 @@ static gboolean Rename_Directory_Window_Key_Press (GtkWidget *window,
 static void Rename_Directory_With_Mask_Toggled (void);
 
 /* For window to run a program with the directory */
-void        Browser_Open_Run_Program_Tree_Window (void);
 static void Destroy_Run_Program_Tree_Window (void);
 static gboolean Run_Program_Tree_Window_Key_Press (GtkWidget *window,
                                                    GdkEvent *event);
 static void Run_Program_With_Directory (GtkWidget *combobox);
 
 /* For window to run a program with the file */
-void        Browser_Open_Run_Program_List_Window (void);
 static void Destroy_Run_Program_List_Window (void);
 static gboolean Run_Program_List_Window_Key_Press (GtkWidget *window,
                                                    GdkEvent *event);

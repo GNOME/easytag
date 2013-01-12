@@ -52,29 +52,29 @@
 /***************
  * Declaration *
  ***************/
-// Playlist window defined in misc.h
+/* Playlist window defined in misc.h */
 
-// Search file window
-GtkWidget *SearchFileWindow = NULL;
-GtkWidget *SearchStringCombo;
-GtkListStore *SearchStringModel = NULL;
-GtkWidget *SearchInFilename;
-GtkWidget *SearchInTag;
-GtkWidget *SearchCaseSensitive;
-GtkWidget *SearchResultList;
-GtkListStore *SearchResultListModel;
-GtkWidget *SearchStatusBar;
-guint      SearchStatusBarContext;
+/* Search file window. */
+static GtkWidget *SearchFileWindow = NULL;
+static GtkWidget *SearchStringCombo;
+static GtkListStore *SearchStringModel = NULL;
+static GtkWidget *SearchInFilename;
+static GtkWidget *SearchInTag;
+static GtkWidget *SearchCaseSensitive;
+static GtkWidget *SearchResultList;
+static GtkListStore *SearchResultListModel;
+static GtkWidget *SearchStatusBar;
+static guint SearchStatusBarContext;
 
-// Load filename window
-GtkWidget *LoadFilenameWindow  = NULL;
-GtkWidget *FileToLoadCombo;
-GtkListStore *FileToLoadModel = NULL;
-GtkWidget *LoadFileContentList;
-GtkListStore* LoadFileContentListModel;
-GtkWidget *LoadFileNameList;
-GtkListStore* LoadFileNameListModel;
-
+/* Load filename window. */
+static GtkWidget *LoadFilenameWindow = NULL;
+static GtkWidget *FileToLoadCombo;
+static GtkListStore *FileToLoadModel = NULL;
+static GtkWidget *LoadFileContentList;
+static GtkListStore* LoadFileContentListModel;
+static GtkWidget *LoadFileNameList;
+static GtkListStore* LoadFileNameListModel;
+static GtkWidget *LoadFileRunScanner;
 
 enum
 {

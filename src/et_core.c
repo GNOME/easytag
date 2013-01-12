@@ -92,22 +92,15 @@ GdkColor BLACK      = {0, 0x0000, 0x0000, 0x0000};
  * Prototypes *
  **************/
 
-void ET_Core_Create     (void);
-void ET_Core_Initialize (void);
-void ET_Core_Free       (void);
-void ET_Core_Destroy    (void);
-
 //gboolean ET_File_Is_Supported (gchar *filename);
 static gchar *ET_Get_File_Extension (const gchar *filename);
 static ET_File_Description *ET_Get_File_Description (const gchar *filename);
 static ET_File_Description *ET_Get_File_Description_From_Extension (const gchar *extension);
 
 static gboolean ET_Free_File_List                 (void);
-gboolean ET_Free_File_List_Item            (ET_File *ETFile);
 static gboolean ET_Free_File_Name_List            (GList *FileNameList);
 static gboolean ET_Free_File_Tag_List (GList *FileTagList);
 static gboolean ET_Free_File_Name_Item            (File_Name *FileName);
-gboolean ET_Free_File_Tag_Item             (File_Tag *FileTag);
 static gboolean ET_Free_File_Tag_Item_Other_Field (File_Tag *FileTag);
 static gboolean ET_Free_File_Info_Item (ET_File_Info *ETFileInfo);
 static gboolean ET_Free_History_File_List (void);
@@ -126,9 +119,6 @@ static gboolean ET_Copy_File_Tag_Item_Other_Field (ET_File *ETFile, File_Tag *Fi
 static guint ET_File_Key_New (void);
 static guint ET_Undo_Key_New (void);
 
-GList   *ET_File_List_Remove (GList *item_to_remove);
-
-gboolean ET_Remove_File_From_File_List         (ET_File *ETFile);
 static gboolean ET_Remove_File_From_Artist_Album_List (ET_File *ETFile);
 
 static void ET_Display_File_And_List_Status_To_UI (ET_File *ETFile);
@@ -143,27 +133,17 @@ static gboolean ET_Save_File_Tag_From_UI (File_Tag *FileTag);
 static gboolean ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag);
 
 static void ET_Mark_File_Tag_As_Saved (ET_File *ETFile);
-void     ET_Mark_File_Name_As_Saved            (ET_File *ETFile);
 
-gboolean ET_Manage_Changes_Of_File_Data         (ET_File *ETFile, File_Name *FileName, File_Tag *FileTag);
 static gboolean ET_Detect_Changes_Of_File_Name (File_Name *FileName1,
                                                 File_Name *FileName2);
-gboolean ET_Detect_Changes_Of_File_Tag          (File_Tag  *FileTag1,  File_Tag  *FileTag2);
 static gboolean ET_Add_File_Name_To_List (ET_File *ETFile,
                                           File_Name *FileName);
 static gboolean ET_Add_File_Tag_To_List (ET_File *ETFile, File_Tag  *FileTag);
 static gboolean ET_Add_File_To_History_List (ET_File *ETFile);
 static gboolean ET_Add_File_To_Artist_Album_File_List (ET_File *ETFile);
 
-GList   *ET_Displayed_File_List_First           (void);
-GList   *ET_Displayed_File_List_Previous        (void);
-GList   *ET_Displayed_File_List_Next            (void);
-GList   *ET_Displayed_File_List_Last            (void);
-GList   *ET_Displayed_File_List_By_Etfile       (ET_File *ETFile);
 static guint ET_Displayed_File_List_Get_Length      (void);
 static void ET_Displayed_File_List_Number (void);
-
-gboolean ET_Set_Displayed_File_List (GList *ETFileList);
 
 static gboolean ET_Read_File_Info (const gchar *filename,
                                    ET_File_Info *ETFileInfo);

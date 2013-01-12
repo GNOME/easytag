@@ -66,23 +66,22 @@
 /****************
  * Declarations *
  ****************/
-guint idle_handler_id;
-guint progressbar_index;  /* An integer to set the value of progress bar into the recurse fonction */
+static guint idle_handler_id;
 
-GtkWidget *QuitRecursionWindow = NULL;
+static GtkWidget *QuitRecursionWindow = NULL;
 
 /* Used to force to hide the msgbox when saving tag */
-gboolean SF_HideMsgbox_Write_Tag;
+static gboolean SF_HideMsgbox_Write_Tag;
 /* To remember which button was pressed when saving tag */
-gint     SF_ButtonPressed_Write_Tag;
+static gint SF_ButtonPressed_Write_Tag;
 /* Used to force to hide the msgbox when renaming file */
-gboolean SF_HideMsgbox_Rename_File;
+static gboolean SF_HideMsgbox_Rename_File;
 /* To remember which button was pressed when renaming file */
-gint     SF_ButtonPressed_Rename_File;
+static gint SF_ButtonPressed_Rename_File;
 /* Used to force to hide the msgbox when deleting file */
-gboolean SF_HideMsgbox_Delete_File;
+static gboolean SF_HideMsgbox_Delete_File;
 /* To remember which button was pressed when deleting file */
-gint     SF_ButtonPressed_Delete_File;
+static gint SF_ButtonPressed_Delete_File;
 
 #ifdef ENABLE_FLAC
     #include <FLAC/metadata.h>
@@ -111,9 +110,6 @@ static GtkWidget *Create_Tag_Area     (void);
 static void Menu_Mini_Button_Clicked (GtkEntry *entry);
 static void Mini_Button_Clicked (GObject *object);
 static void Disable_Command_Buttons (void);
-void Clear_Tag_Entry_Fields  (void);
-void Clear_File_Entry_Field  (void);
-void Clear_Header_Fields     (void);
 
 static gboolean Make_Dir (const gchar *dirname_old, const gchar *dirname_new);
 static gboolean Remove_Dir (const gchar *dirname_old,
@@ -123,7 +119,6 @@ static gboolean Rename_File (ET_File *ETFile, gboolean hide_msgbox);
 static gint Save_File (ET_File *ETFile, gboolean multiple_files,
                        gboolean force_saving_files);
 static gint Delete_File (ET_File *ETFile, gboolean multiple_files);
-gint Save_All_Files_With_Answer        (gboolean force_saving_files);
 static gint Save_Selected_Files_With_Answer (gboolean force_saving_files);
 static gint Save_List_Of_Files (GList *etfilelist,
                                 gboolean force_saving_files);

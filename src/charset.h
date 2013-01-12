@@ -34,10 +34,6 @@ typedef struct
     gchar *charset_name;
 } CharsetInfo;
 
-/* translated charset titles */
-extern const CharsetInfo charset_trans_array[];
-
-
 
 /**************
  * Prototypes *

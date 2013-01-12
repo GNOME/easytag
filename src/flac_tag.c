@@ -89,7 +89,6 @@
 /**************
  * Prototypes *
  **************/
-gboolean Flac_Tag_Write_File (FILE *file_in, gchar *filename_in, vcedit_state *state);
 
 static gboolean Flac_Write_Delimetered_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag_name, gchar *values);
 static gboolean Flac_Write_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag_name, gchar *value);

@@ -59,19 +59,23 @@
 /**************
  * Prototypes *
  **************/
-gchar *Id3tag_Get_Error_Message (ID3_Err error);
-void   Id3tag_Prepare_ID3v1     (ID3Tag *id3_tag);
-gchar *Id3tag_Rules_For_ISO_Fields (const gchar *string, const gchar *from_codeset, const gchar *to_codeset);
-gchar *Id3tag_Get_Field         (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid);
-ID3_TextEnc Id3tag_Set_Field    (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid, gchar *string);
+static gchar *Id3tag_Get_Error_Message (ID3_Err error);
+static void Id3tag_Prepare_ID3v1 (ID3Tag *id3_tag);
+static gchar *Id3tag_Rules_For_ISO_Fields (const gchar *string,
+                                           const gchar *from_codeset,
+                                           const gchar *to_codeset);
+static gchar *Id3tag_Get_Field (const ID3Frame *id3_frame,
+                                ID3_FieldID id3_fieldid);
+static ID3_TextEnc Id3tag_Set_Field (const ID3Frame *id3_frame,
+                                     ID3_FieldID id3_fieldid, gchar *string);
 
 ID3_C_EXPORT size_t ID3Tag_Link_1         (ID3Tag *id3tag, const char *filename);
 ID3_C_EXPORT size_t ID3Field_GetASCII_1   (const ID3Field *field, char *buffer,      size_t maxChars, size_t itemNum);
 ID3_C_EXPORT size_t ID3Field_GetUNICODE_1 (const ID3Field *field, unicode_t *buffer, size_t maxChars, size_t itemNum);
 
-gboolean Id3tag_Check_If_File_Is_Corrupted (gchar *filename);
+static gboolean Id3tag_Check_If_File_Is_Corrupted (const gchar *filename);
 
-gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void);
+static gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void);
 
 
 
@@ -1188,7 +1192,7 @@ gchar *Id3tag_Rules_For_ISO_Fields (const gchar *string, const gchar *from_codes
  * Some files which contains only zeroes create an infinite loop in id3lib...
  * To generate a file with zeroes : dd if=/dev/zero bs=1M count=6 of=test-corrupted-mp3-zero-contend.mp3
  */
-gboolean Id3tag_Check_If_File_Is_Corrupted (gchar *filename)
+gboolean Id3tag_Check_If_File_Is_Corrupted (const gchar *filename)
 {
     FILE *file;
     unsigned char tmp[256];

@@ -51,7 +51,7 @@
 /****************
  * Declarations *
  ****************/
-gchar *layer_names[3] =
+static const gchar *layer_names[3] =
 {
     "I",    /* Layer 1 */
     "II",   /* Layer 2 */

@@ -124,10 +124,9 @@ enum
 };
 
 
-GtkWidget *BrowserTree;
 GtkWidget *BrowserList;
-GtkWidget *BrowserArtistList;
 GtkWidget *BrowserAlbumList;
+GtkWidget *BrowserArtistList;
 GtkWidget *BrowserEntryCombo;
 GtkListStore *BrowserEntryModel;
 GtkWidget *BrowserHPaned;
@@ -136,7 +135,6 @@ GtkWidget *ArtistAlbumVPaned;
 GtkWidget *RenameDirectoryWindow;
 GtkWidget *RenameDirectoryMaskCombo;
 GtkWidget *RenameDirectoryPreviewLabel;
-
 
 
 /**************

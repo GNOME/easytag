@@ -49,65 +49,64 @@
 /****************
  * Declarations *
  ****************/
-GtkWidget *DummyEntry = NULL;    /* Used to simulate a gtkentry widget for mask code '%i' */
-GtkWidget *ScanTagMaskCombo           = NULL;
-GtkWidget *RenameFileMaskCombo        = NULL;
-GtkWidget *ScannerOptionCombo         = NULL;
-GtkWidget *RenameFilePrefixPathButton = NULL;
+static GtkWidget *ScanTagMaskCombo = NULL;
+static GtkWidget *RenameFileMaskCombo = NULL;
+static GtkWidget *ScannerOptionCombo = NULL;
+static GtkWidget *RenameFilePrefixPathButton = NULL;
 
-GtkWidget *ScanTagFrame;
-GtkWidget *RenameFileFrame;
-GtkWidget *ProcessFieldsFrame;
-GtkWidget *FillTagPreviewLabel        = NULL;
-GtkWidget *RenameFilePreviewLabel     = NULL;
+static GtkWidget *ScanTagFrame;
+static GtkWidget *RenameFileFrame;
+static GtkWidget *ProcessFieldsFrame;
+static GtkWidget *FillTagPreviewLabel = NULL;
+static GtkWidget *RenameFilePreviewLabel = NULL;
 
-GtkListStore *RenameFileListModel;
-GtkListStore *ScanTagListModel;
+static GtkListStore *RenameFileListModel;
+static GtkListStore *ScanTagListModel;
 
-GtkWidget *ProcessFileNameField;
-GtkWidget *ProcessTitleField;
-GtkWidget *ProcessArtistField;
-GtkWidget *ProcessAlbumArtistField;
-GtkWidget *ProcessAlbumField;
-GtkWidget *ProcessGenreField;
-GtkWidget *ProcessCommentField;
-GtkWidget *ProcessComposerField;
-GtkWidget *ProcessOrigArtistField;
-GtkWidget *ProcessCopyrightField;
-GtkWidget *ProcessURLField;
-GtkWidget *ProcessEncodedByField;
-GtkWidget *ProcessFieldsConvertIntoSpace      = NULL;
-GtkWidget *ProcessFieldsConvertSpace          = NULL;
-GtkWidget *ProcessFieldsConvert               = NULL;
-GtkWidget *ProcessFieldsConvertLabelTo;
-GtkWidget *ProcessFieldsConvertTo             = NULL;
-GtkWidget *ProcessFieldsConvertFrom           = NULL;
-GtkWidget *ProcessFieldsAllUppercase          = NULL;
-GtkWidget *ProcessFieldsAllDowncase           = NULL;
-GtkWidget *ProcessFieldsFirstLetterUppercase  = NULL;
-GtkWidget *ProcessFieldsFirstLettersUppercase = NULL;
-GtkWidget *ProcessFieldsDetectRomanNumerals   = NULL;
-GtkWidget *ProcessFieldsRemoveSpace           = NULL;
-GtkWidget *ProcessFieldsInsertSpace           = NULL;
-GtkWidget *ProcessFieldsOnlyOneSpace          = NULL;
+static GtkWidget *ProcessFileNameField;
+static GtkWidget *ProcessTitleField;
+static GtkWidget *ProcessArtistField;
+static GtkWidget *ProcessAlbumArtistField;
+static GtkWidget *ProcessAlbumField;
+static GtkWidget *ProcessGenreField;
+static GtkWidget *ProcessCommentField;
+static GtkWidget *ProcessComposerField;
+static GtkWidget *ProcessOrigArtistField;
+static GtkWidget *ProcessCopyrightField;
+static GtkWidget *ProcessURLField;
+static GtkWidget *ProcessEncodedByField;
+static GtkWidget *ProcessFieldsConvertIntoSpace = NULL;
+static GtkWidget *ProcessFieldsConvertSpace = NULL;
+static GtkWidget *ProcessFieldsConvert = NULL;
+static GtkWidget *ProcessFieldsConvertLabelTo;
+static GtkWidget *ProcessFieldsConvertTo = NULL;
+static GtkWidget *ProcessFieldsConvertFrom = NULL;
+static GtkWidget *ProcessFieldsAllUppercase = NULL;
+static GtkWidget *ProcessFieldsAllDowncase = NULL;
+static GtkWidget *ProcessFieldsFirstLetterUppercase = NULL;
+static GtkWidget *ProcessFieldsFirstLettersUppercase = NULL;
+static GtkWidget *ProcessFieldsDetectRomanNumerals = NULL;
+static GtkWidget *ProcessFieldsRemoveSpace = NULL;
+static GtkWidget *ProcessFieldsInsertSpace = NULL;
+static GtkWidget *ProcessFieldsOnlyOneSpace = NULL;
 
-GtkWidget *LegendFrame    = NULL;
-GtkWidget *LegendButton   = NULL;
+static GtkWidget *LegendFrame = NULL;
+static GtkWidget *LegendButton = NULL;
 
-GtkWidget *MaskEditorButton = NULL;
-GtkWidget *MaskEditorFrame  = NULL;
-GtkWidget *MaskEditorVBox;
-GtkWidget *MaskEditorHBox;
-GtkWidget *MaskEditorScrollWindow;
-GtkWidget *MaskEditorList;
-GtkWidget *MaskEditorEntry;
-GtkWidget *MaskEditorNewButton;
-GtkWidget *MaskEditorCopyButton;
-GtkWidget *MaskEditorAddButton;
-GtkWidget *MaskEditorRemoveButton;
-GtkWidget *MaskEditorUpButton;
-GtkWidget *MaskEditorDownButton;
-GtkWidget *MaskEditorSaveButton;
+static GtkWidget *MaskEditorButton = NULL;
+static GtkWidget *MaskEditorFrame  = NULL;
+static GtkWidget *MaskEditorVBox;
+static GtkWidget *MaskEditorHBox;
+static GtkWidget *MaskEditorScrollWindow;
+static GtkWidget *MaskEditorList;
+static GtkWidget *MaskEditorEntry;
+static GtkWidget *MaskEditorNewButton;
+static GtkWidget *MaskEditorCopyButton;
+static GtkWidget *MaskEditorAddButton;
+static GtkWidget *MaskEditorRemoveButton;
+static GtkWidget *MaskEditorUpButton;
+static GtkWidget *MaskEditorDownButton;
+static GtkWidget *MaskEditorSaveButton;
 
 /* Some predefined masks -- IMPORTANT: Null-terminate me! */
 gchar *Scan_Masks [] =
@@ -225,22 +224,16 @@ static void ScannerWindow_Quit (void);
 static gboolean ScannerWindow_Key_Press (GtkWidget *window, GdkEvent *event);
 static void Scan_Toggle_Legend_Button (void);
 static void Scan_Toggle_Mask_Editor_Button (void);
-gchar   *Scan_Replace_String (gchar *string, gchar *last, gchar *new);
 static void Scan_Option_Button (void);
 static gboolean Scan_Check_Scan_Tag_Mask (GtkWidget *widget_to_show_hide,
                                           GtkEntry *widget_source);
-gboolean Scan_Check_Rename_File_Mask (GtkWidget *widget_to_show_hide, GtkEntry *widget_source);
 static gboolean Scan_Check_Editor_Mask (GtkWidget *widget_to_show_hide,
                                         GtkEntry *widget_source);
 
-gchar   *Scan_Generate_New_Filename_From_Mask (ET_File *ETFile, gchar *mask, gboolean no_dir_check_or_conversion);
 static GList *Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask);
-void     Scan_Rename_File_Generate_Preview    (void);
 static void Scan_Rename_File_Prefix_Path (void);
-void     Scan_Fill_Tag_Generate_Preview       (void);
 static void Scan_Free_File_Rename_List (GList *list);
 static void Scan_Free_File_Fill_Tag_List (GList *list);
-void     Scan_Rename_Directory_Generate_Preview (void);
 
 static gchar **Scan_Return_File_Tag_Field_From_Mask_Code (File_Tag *FileTag,
                                                           gchar code);
@@ -286,9 +279,7 @@ static void Scan_Set_Scanner_Window_Init_Position (void);
 
 
 /*************
- *           *
  * Functions *
- *           *
  *************/
 
 void Init_ScannerWindow (void)

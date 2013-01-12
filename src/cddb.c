@@ -108,35 +108,35 @@ static const gchar CDDB_RESULT_FILE[] = "cddb_result_file.tmp";
 /****************
  * Declarations *
  ****************/
-GtkWidget *CddbNoteBook;
-GList     *CddbAlbumList = NULL;
+static GtkWidget *CddbNoteBook;
+static GList *CddbAlbumList = NULL;
 
-GtkWidget    *CddbSearchStringCombo = NULL;
-GtkListStore *CddbSearchStringModel = NULL;
+static GtkWidget *CddbSearchStringCombo = NULL;
+static GtkListStore *CddbSearchStringModel = NULL;
 
-GtkWidget    *CddbSearchStringInResultCombo;
-GtkListStore *CddbSearchStringInResultModel = NULL;
+static GtkWidget *CddbSearchStringInResultCombo;
+static GtkListStore *CddbSearchStringInResultModel = NULL;
 
-GtkWidget    *CddbAlbumListView = NULL;
-GtkListStore *CddbAlbumListModel = NULL;
-GtkWidget    *CddbTrackListView = NULL;
-GtkListStore *CddbTrackListModel = NULL;
-GtkWidget *CddbApplyButton = NULL;
-GtkWidget *CddbSearchButton = NULL;
-GtkWidget *CddbSearchAutoButton = NULL;
-GtkWidget *CddbStatusBar;
-guint      CddbStatusBarContext;
+static GtkWidget *CddbAlbumListView = NULL;
+static GtkListStore *CddbAlbumListModel = NULL;
+static GtkWidget *CddbTrackListView = NULL;
+static GtkListStore *CddbTrackListModel = NULL;
+static GtkWidget *CddbApplyButton = NULL;
+static GtkWidget *CddbSearchButton = NULL;
+static GtkWidget *CddbSearchAutoButton = NULL;
+static GtkWidget *CddbStatusBar;
+static guint CddbStatusBarContext;
 
-GtkWidget *CddbStopSearchButton;
-GtkWidget *CddbStopSearchAutoButton;
-GtkWidget *CddbSearchStringInResultNextButton;
-GtkWidget *CddbSearchStringInResultPrevButton;
-GtkWidget *CddbDisplayRedLinesButton;
-GtkWidget *CddbSelectAllInResultButton;
-GtkWidget *CddbUnselectAllInResultButton;
-GtkWidget *CddbInvertSelectionInResultButton;
+static GtkWidget *CddbStopSearchButton;
+static GtkWidget *CddbStopSearchAutoButton;
+static GtkWidget *CddbSearchStringInResultNextButton;
+static GtkWidget *CddbSearchStringInResultPrevButton;
+static GtkWidget *CddbDisplayRedLinesButton;
+static GtkWidget *CddbSelectAllInResultButton;
+static GtkWidget *CddbUnselectAllInResultButton;
+static GtkWidget *CddbInvertSelectionInResultButton;
 
-gboolean   CddbStopSearch = FALSE;
+static gboolean CddbStopSearch = FALSE;
 
 
 /**************

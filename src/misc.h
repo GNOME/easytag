@@ -44,10 +44,6 @@ GtkWidget *PlayListContentMaskCombo;
 GtkListStore *PlayListNameMaskModel;
 GtkListStore *PlayListContentMaskModel;
 
-GtkWidget *LoadFilenameWindow;
-GtkWidget *LoadFileRunScanner;
-
-
 
 /**************
  * Prototypes *

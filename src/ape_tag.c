@@ -38,18 +38,6 @@
 #include "charset.h"
 #include "libapetag/apetaglib.h"
 
-/***************
- * Declaration *
- ***************/
-
-
-
-/**************
- * Prototypes *
- **************/
-gboolean Ape_Tag_Write_File (FILE *file_in, gchar *filename_in);
-
-
 /*************
  * Functions *
  *************/

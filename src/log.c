@@ -44,10 +44,12 @@
  * Declarations *
  ****************/
 
-GtkWidget    *LogList          = NULL;
-GtkListStore *logListModel;
-GList        *LogPrintTmpList  = NULL; // Temporary list to store messages for the LogList when this control wasn't yet created
-gint          LogListNbrRows;
+static GtkWidget *LogList = NULL;
+static GtkListStore *logListModel;
+/* Temporary list to store messages for the LogList when this control was not
+ * yet created. */
+static GList *LogPrintTmpList = NULL;
+static gint LogListNbrRows;
 
 enum
 {

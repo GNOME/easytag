@@ -39,9 +39,9 @@
 /***************
  * Declaration *
  ***************/
-GtkWidget   *StatusBar = NULL;
+static GtkWidget *StatusBar = NULL;
 static guint StatusbarTimerId = 0;
-GList *ActionPairsList = NULL;
+static GList *ActionPairsList = NULL;
 
 /**************
  * Prototypes *
@@ -54,7 +54,7 @@ static void Statusbar_Remove_Timer (void);
 
 
 /*************
- * Functions *
+ * Functions o
  *************/
 
 /*
