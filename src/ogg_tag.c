@@ -463,7 +463,7 @@ gboolean Ogg_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
      * URL *
      *******/
     field_num = 0;
-    while ( (string = vorbis_comment_query(vc,"LICENSE",field_num++)) != NULL )
+    while ((string = vorbis_comment_query (vc, "CONTACT", field_num++)) != NULL)
     {
         string = Try_To_Validate_Utf8_String(string);
 
@@ -562,7 +562,7 @@ gboolean Ogg_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
           && strncasecmp(vc->user_comments[i],"COMPOSER=",         9) != 0
           && strncasecmp(vc->user_comments[i],"PERFORMER=",       10) != 0
           && strncasecmp(vc->user_comments[i],"COPYRIGHT=",       10) != 0
-          && strncasecmp(vc->user_comments[i],"LICENSE=",          8) != 0
+          && strncasecmp(vc->user_comments[i],"CONTACT=",          8) != 0
           && strncasecmp(vc->user_comments[i],"ENCODED-BY=",      11) != 0
           && strncasecmp(vc->user_comments[i],"COVERART=",         9) != 0
           && strncasecmp(vc->user_comments[i],"COVERARTTYPE=",       13) != 0
@@ -765,7 +765,7 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
     /*******
      * URL *
      *******/
-    Ogg_Set_Tag(vc,"LICENSE=",FileTag->url,FALSE);
+    Ogg_Set_Tag (vc, "CONTACT=", FileTag->url, FALSE);
 
     /**************
      * Encoded by *

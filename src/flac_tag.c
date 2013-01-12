@@ -66,6 +66,9 @@
  *  - GENRE        : A short text indication of music genre
  *  - DATE         : Date the track was recorded
  *  - LOCATION     : Location where track was recorded
+ *  - CONTACT      : Contact information for the creators or distributors of
+ *                   the track. This could be a URL, an email address, the
+ *                   physical address of the producing label.
  *  - COPYRIGHT    : Copyright information
  *  - ISRC         : ISRC number for the track; see the ISRC intro page for more information on ISRC numbers.
  *
@@ -553,7 +556,7 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
                  * URL *
                  *******/
                 field_num = 0;
-                while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,field_num,"LICENSE")) >= 0 )
+                while ((field_num = FLAC__metadata_object_vorbiscomment_find_entry_from (block, field_num, "CONTACT")) >= 0)
                 {
                     /* Extract field value */
                     field = &vc->comments[field_num++];
@@ -625,7 +628,7 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
                       && strncasecmp((gchar *)field->entry,"COMPOSER=",    MIN(9,  field->length)) != 0
                       && strncasecmp((gchar *)field->entry,"PERFORMER=",   MIN(10, field->length)) != 0
                       && strncasecmp((gchar *)field->entry,"COPYRIGHT=",   MIN(10, field->length)) != 0
-                      && strncasecmp((gchar *)field->entry,"LICENSE=",     MIN(8,  field->length)) != 0
+                      && strncasecmp((gchar *)field->entry,"CONTACT=",     MIN(8,  field->length)) != 0
                       && strncasecmp((gchar *)field->entry,"ENCODED-BY=",  MIN(11, field->length)) != 0 )
                     {
                         //g_print("custom %*s\n", field->length, field->entry);
@@ -991,7 +994,7 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
         /*******
          * URL *
          *******/
-        Flac_Set_Tag(vc_block,"LICENSE=",FileTag->url,FALSE);
+        Flac_Set_Tag (vc_block, "CONTACT=", FileTag->url, FALSE);
 
         /**************
          * Encoded by *
