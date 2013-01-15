@@ -26,8 +26,8 @@
 #include <glib.h> /* Needed for G_OS_WIN32. */
 
 #ifdef G_OS_WIN32
-#include <shlobj.h>
 #include <winsock2.h>
+#include <shlobj.h>
 #include <process.h>
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
