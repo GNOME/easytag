@@ -60,13 +60,6 @@
 typedef HRESULT (CALLBACK* LPFNSHGETFOLDERPATHA)(HWND, int, HANDLE, DWORD, LPSTR);
 typedef HRESULT (CALLBACK* LPFNSHGETFOLDERPATHW)(HWND, int, HANDLE, DWORD, LPWSTR);
 
-// Defined also in "#include <shlobj.h>"
-typedef enum
-{
-    SHGFP_TYPE_CURRENT  = 0,   // current value for user, verify it exists
-    SHGFP_TYPE_DEFAULT  = 1,   // default value, may not exist
-} SHGFP_TYPE;
-
 /*
  * LOCALS
  */
@@ -75,6 +68,10 @@ static char *app_data_dir = NULL, *install_dir = NULL,
 
 static HINSTANCE libeasytagdll_hInstance = 0;
 
+/* Prototypes. */
+gboolean weasytag_read_reg_dword (HKEY rootkey, const char *subkey,
+                                  const char *valname, LPDWORD result);
+void str_replace_char (gchar *str, gchar in_char, gchar out_char);
 
 
 /*
@@ -463,7 +460,6 @@ char *weasytag_read_reg_string(HKEY rootkey, const char *subkey, const char *val
 void weasytag_init(void) {
     WORD wVersionRequested;
     WSADATA wsaData;
-	char *newenv;
 
     //Log_Print(_("weasytag_init start..."));
     g_print(_("weasytag_init start..."));
@@ -520,7 +516,8 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
 
 
 /* this is used by libmp4v2 : what is it doing here you think ? well...search! */
-int gettimeofday (struct timeval *t, void *foo)
+gint
+gettimeofday (struct timeval *t, void *foo)
 {
     struct _timeb temp;
 
@@ -534,7 +531,8 @@ int gettimeofday (struct timeval *t, void *foo)
 
 
 /* emulate the unix function */
-int mkstemp (char *template)
+gint
+et_w32_mkstemp (gchar *template)
 {
     int fd = -1;
 
@@ -547,7 +545,8 @@ int mkstemp (char *template)
     return fd;
 }
 
-void str_replace_char (gchar *str, gchar in_char, gchar out_char)
+void
+str_replace_char (gchar *str, gchar in_char, gchar out_char)
 {
     while(*str)
     {
@@ -617,4 +616,34 @@ char*  ET_Win32_Get_Audio_File_Player (void)
     return player;
 }
 
+gint
+et_w32_truncate (const gchar *path, off_t length)
+{
+    HANDLE h;
+    gint ret;
 
+    h = CreateFile (path, GENERIC_WRITE, 0, 0, OPEN_EXISTING, 0, 0);
+
+    if (h == INVALID_HANDLE_VALUE)
+    {
+        /* errno = map_errno (GetLastError ()); */
+        return -1;
+    }
+
+    ret = chsize ((gint)h, length);
+    CloseHandle (h);
+
+    return ret;
+}
+
+gint
+et_w32_ftruncate (gint fd, off_t length)
+{
+    HANDLE h;
+
+    h = (HANDLE)_get_osfhandle (fd);
+
+    if (h == (HANDLE) - 1) return -1;
+
+    return chsize ((gint)h, length);
+}

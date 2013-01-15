@@ -229,6 +229,16 @@ dnl Check the pkg-config dependencies
 GIO_DEPS="gio-2.0 >= 2.32.0" dnl For g_file_new_tmp()
 PKG_CHECK_MODULES([EASYTAG], [$GIO_DEPS $GTK_DEPS $OGG_DEPS $SPEEX_DEPS $FLAC_DEPS $ID3TAG_DEPS $TAGLIB_DEPS $WAVPACK_DEPS])
 
+dnl Check for winsock
+AC_SEARCH_LIBS([gethostbyname], [nsl socket], [],
+    [saved_LIBS=$LIBS
+     LIBS="-lws2_32 $LIBS"
+     AC_MSG_CHECKING([for gethostbyname in ws2_32])
+     AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <winsock2.h>]],
+        [[gethostbyname ("");]])],
+        [have_ws2=yes], [have_ws2=no LIBS=$saved_LIBS])
+     AC_MSG_RESULT([$have_ws2])])
+
 dnl Check that the compiler accepts the given warning flags.
 warning_flags="-Wall -Wstrict-prototypes -Wnested-externs -Werror=missing-prototypes -Werror=implicit-function-declaration -Werror=pointer-arith -Werror=init-self -Werror=format-security -Werror=format=2 -Werror=missing-include-dirs"
 
@@ -273,7 +283,7 @@ dnl -------------------------------
 dnl Checks for library functions.
 dnl -------------------------------
 AC_FUNC_FORK
-AC_CHECK_FUNCS(mkdir strstr strtol mkstemp)
+AC_CHECK_FUNCS([ftruncate gettimeofday mkdir mkstemp strstr strtol truncate])
 AC_SEARCH_LIBS([strerror], [cposix])
 
 
