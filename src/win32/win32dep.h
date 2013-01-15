@@ -100,8 +100,11 @@ extern gint et_w32_truncate (const gchar *path, off_t length);
 /*
  *  EasyTAG specific
  */
-#define DATADIR   weasytag_install_dir()
-#define LIBDIR    weasytag_lib_dir()
+#undef DATADIR
+#undef LIBDIR
+#undef LOCALEDIR
+#define DATADIR weasytag_install_dir()
+#define LIBDIR weasytag_lib_dir()
 #define LOCALEDIR weasytag_locale_dir()
 
 G_END_DECLS
