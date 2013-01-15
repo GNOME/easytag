@@ -15,6 +15,9 @@ configure
 doc/easytag.1
 /easytag
 /easytag.desktop
+/easytag-*-setup.exe
+/easytag-win32-installer.nsi
+/easytag.exe
 /easytag.spec
 /INSTALL
 libtool
@@ -40,4 +43,5 @@ src/libmpg123/.deps/
 src/libmpg123/Makefile
 src/libmpg123/Makefile.in
 src/libmpg123/libmpg123.a
+/src/win32/.deps/
 stamp-h1
