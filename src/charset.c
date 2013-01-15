@@ -185,7 +185,7 @@ Charset_Insert_Locales_Init (void)
 
     /* "C" is plain ascii */
     insert_locales (encodings, "ASCII", "C", NULL);
-#if G_OS_WIN32
+#ifdef G_OS_WIN32
     insert_locales (encodings, "windows-1256", "ar", NULL); // 2006.12.31 - For testing with Arabic
 #else /* !G_OS_WIN32 */
     insert_locales (encodings, "ISO-8859-6", "ar", NULL);
@@ -203,19 +203,19 @@ Charset_Insert_Locales_Init (void)
     /*insert_locales (encodings, "GEORGIAN-ACADEMY", NULL);*/
     insert_locales (encodings, "GEORGIAN-PS", "ka", NULL);
     insert_locales (encodings, "ISO-8859-1", "br", "ca", "da", "de", "en", "es", "eu", "fi", "fr", "gl", "it", "nl", "wa", "nb", "nn", "pt", "pt", "sv", NULL);
-#if G_OS_WIN32
+#ifdef G_OS_WIN32
     insert_locales (encodings, "windows-1250", "cs", "hr", "hu", "pl", "ro", "sk", "sl", "sq", "sr", NULL);
 #else /* !G_OS_WIN32 */
     insert_locales (encodings, "ISO-8859-2", "cs", "hr", "hu", "pl", "ro", "sk", "sl", "sq", "sr", NULL);
 #endif /* !G_OS_WIN32 */
     insert_locales (encodings, "ISO-8859-3", "eo", NULL);
     insert_locales (encodings, "ISO-8859-5", "mk", "sp", NULL);
-#if G_OS_WIN32
+#ifdef G_OS_WIN32
     insert_locales (encodings, "windows-1253", "el", NULL);
 #else /* !G_OS_WIN32 */
     insert_locales (encodings, "ISO-8859-7", "el", NULL);
 #endif /* !G_OS_WIN32 */
-#if G_OS_WIN32
+#ifdef G_OS_WIN32
     insert_locales (encodings, "windows-1254", "tr", NULL);
 #else /* !G_OS_WIN32 */
     insert_locales (encodings, "ISO-8859-9", "tr", NULL);
@@ -223,7 +223,7 @@ Charset_Insert_Locales_Init (void)
     insert_locales (encodings, "ISO-8859-13", "lt", "lv", "mi", NULL);
     insert_locales (encodings, "ISO-8859-14", "ga", "cy", NULL);
     insert_locales (encodings, "ISO-8859-15", "et", NULL);
-#if G_OS_WIN32
+#ifdef G_OS_WIN32
     insert_locales (encodings, "windows-1251", "ru", NULL);
 #else /* !G_OS_WIN32 */
     insert_locales (encodings, "KOI8-R", "ru", NULL);
@@ -235,7 +235,7 @@ Charset_Insert_Locales_Init (void)
         insert_locales (encodings, "TCVN", "vi", NULL);
     }
     insert_locales (encodings, "TIS-620", "th", NULL);
-#if G_OS_WIN32
+#ifdef G_OS_WIN32
     insert_locales (encodings, "windows-1255", "he", NULL);
 #endif /* G_OS_WIN32 */
     /*insert_locales (encodings, "VISCII", NULL);*/
