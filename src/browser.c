@@ -54,7 +54,6 @@
 #include <assert.h>
 
 #ifdef G_OS_WIN32
-#include <windows.h>
 #include "win32/win32dep.h"
 #endif /* G_OS_WIN32 */
 
@@ -76,7 +75,7 @@
 /* Pixmaps. */
 static GdkPixbuf *opened_folder_pixmap = NULL, *closed_folder_pixmap, *closed_folder_readonly_pixmap, *closed_folder_unreadable_pixmap;
 #ifdef G_OS_WIN32
-/* Pixmap used for Win32 only */
+/* Pixmap used for Win32 only. */
 static GdkPixbuf *harddrive_pixmap, *removable_pixmap, *cdrom_pixmap, *network_pixmap, *ramdisk_pixmap;
 #endif /* G_OS_WIN32 */
 
@@ -670,7 +669,9 @@ Browser_List_Button_Press (GtkTreeView *treeView, GdkEventButton *event)
  */
 void Browser_Tree_Collapse (void)
 {
+#ifndef G_OS_WIN32
     GtkTreePath *rootPath;
+#endif /* !G_OS_WIN32 */
 
     g_return_if_fail (BrowserTree != NULL);
 
@@ -3039,6 +3040,10 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     /* Create pixmaps */
     if(!opened_folder_pixmap)
     {
+#ifdef G_OS_WIN32
+        GtkStyle *style = gtk_widget_get_style (parent);
+#endif /* G_OS_WIN32 */
+
         opened_folder_pixmap            = gdk_pixbuf_new_from_xpm_data(opened_folder_xpm);
         closed_folder_pixmap            = gdk_pixbuf_new_from_xpm_data(closed_folder_xpm);
         closed_folder_readonly_pixmap   = gdk_pixbuf_new_from_xpm_data(closed_folder_readonly_xpm);
@@ -3046,29 +3051,29 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
 
 #ifdef G_OS_WIN32
         /* get GTK's theme harddrive and removable icons and render it in a pixbuf */
-        harddrive_pixmap =  gtk_icon_set_render_icon(gtk_style_lookup_icon_set(parent->style, GTK_STOCK_HARDDISK),
-                                                     parent->style,
+        harddrive_pixmap = gtk_icon_set_render_icon (gtk_style_lookup_icon_set (style, GTK_STOCK_HARDDISK),
+                                                     style,
                                                      gtk_widget_get_direction(parent),
                                                      GTK_STATE_NORMAL,
                                                      GTK_ICON_SIZE_BUTTON,
                                                      parent, NULL);
 
-        removable_pixmap =  gtk_icon_set_render_icon(gtk_style_lookup_icon_set(parent->style, GTK_STOCK_FLOPPY),
-                                                     parent->style,
+        removable_pixmap = gtk_icon_set_render_icon (gtk_style_lookup_icon_set (style, GTK_STOCK_FLOPPY),
+                                                     style,
                                                      gtk_widget_get_direction(parent),
                                                      GTK_STATE_NORMAL,
                                                      GTK_ICON_SIZE_BUTTON,
                                                      parent, NULL);
 
-        cdrom_pixmap =  gtk_icon_set_render_icon(gtk_style_lookup_icon_set(parent->style, GTK_STOCK_CDROM),
-                                                 parent->style,
+        cdrom_pixmap =  gtk_icon_set_render_icon (gtk_style_lookup_icon_set (style, GTK_STOCK_CDROM),
+                                                 style,
                                                  gtk_widget_get_direction(parent),
                                                  GTK_STATE_NORMAL,
                                                  GTK_ICON_SIZE_BUTTON,
                                                  parent, NULL);
 
-        network_pixmap =  gtk_icon_set_render_icon(gtk_style_lookup_icon_set(parent->style, GTK_STOCK_NETWORK),
-                                                   parent->style,
+        network_pixmap =  gtk_icon_set_render_icon (gtk_style_lookup_icon_set (style, GTK_STOCK_NETWORK),
+                                                   style,
                                                    gtk_widget_get_direction(parent),
                                                    GTK_STATE_NORMAL,
                                                    GTK_ICON_SIZE_BUTTON,
@@ -4594,7 +4599,7 @@ Run_Program (const gchar *program_name, GList *args_list)
         default:
             break;
     }
+#endif /* !G_OS_WIN32 */
 
     return TRUE;
-#endif /* !G_OS_WIN32 */
 }

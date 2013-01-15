@@ -100,8 +100,13 @@ static gint SF_ButtonPressed_Delete_File;
 /**************
  * Prototypes *
  **************/
+#ifdef G_OS_WIN32
+int easytag_main (struct HINSTANCE__ *hInstance, int argc, char *argv[]);
+#endif /* G_OS_WIN32 */
+#ifndef G_OS_WIN32
 static void Handle_Crash (gint signal_id);
 static const gchar *signal_to_string (gint signal);
+#endif /* !G_OS_WIN32 */
 
 static GtkWidget *Create_Browser_Area (void);
 static GtkWidget *Create_File_Area    (void);
@@ -173,11 +178,7 @@ setup_sigchld (void)
 /********
  * Main *
  ********/
-#ifdef G_OS_WIN32
-int easytag_main (struct HINSTANCE__ *hInstance, int argc, char *argv[]) /* entry point of DLL */
-#else /* !G_OS_WIN32 */
 int main (int argc, char *argv[])
-#endif /* !G_OS_WIN32 */
 {
     GtkWidget *MainVBox;
     GtkWidget *HBox, *VBox;
@@ -4749,6 +4750,7 @@ void Attach_Popup_Menu_To_Tag_Entries (GtkEntry *entry)
  * Function to manage the received signals (specially for segfaults)
  * Handle crashs
  */
+#ifndef G_OS_WIN32
 static void
 Handle_Crash (gint signal_id)
 {
@@ -4897,6 +4899,7 @@ signal_to_string (gint signal)
 #endif
     return (_("Unknown signal"));
 }
+#endif /* !G_OS_WIN32 */
 
 
 /*
