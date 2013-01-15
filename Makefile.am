@@ -116,6 +116,14 @@ easytag_LDADD = \
 	$(EASYTAG_LIBS) \
 	$(ID3LIB_LIBS)
 
+# NSIS installer script.
+# TODO: Run script from dist dir.
+easytag-win32-installer.nsi: easytag-win32-installer.nsi.in Makefile
+	$(AM_V_GEN)$(SED) -e "s|\@PACKAGE_NAME\@|$(PACKAGE_NAME)|" \
+		-e "s|\@PACKAGE_TARNAME\@|$(PACKAGE_TARNAME)|" \
+		-e "s|\@PACKAGE_URL\@|$(PACKAGE_URL)|" \
+		-e "s|\@PACKAGE_VERSION\@|$(PACKAGE_VERSION)|" $< > $@
+
 @INTLTOOL_DESKTOP_RULE@
 desktopdir = $(datadir)/applications
 desktop_in_files = easytag.desktop.in
@@ -204,10 +212,10 @@ dist_noinst_DATA = \
 	src/win32/win32dep.c \
 	src/win32/win32dep.h \
 	src/win32/win_easytag.c \
-	src/win32/nsis/easytag-header.bmp \
-	src/win32/nsis/easytag-install.bmp \
-	src/win32/nsis/easytag-install.ico \
-	src/win32/nsis/easytag-uninstall.bmp \
+	data/nsis/easytag-header.bmp \
+	data/nsis/easytag-install.bmp \
+	data/nsis/easytag-install.ico \
+	data/nsis/easytag-uninstall.bmp \
 	$(pixmaps) \
 	\
 	easytag.spec \
@@ -296,7 +304,8 @@ dist_noinst_SCRIPTS = \
 	autogen.sh
 
 CLEANFILES = \
-	$(desktop_DATA)
+	$(desktop_DATA) \
+	easytag-win32-installer.nsi
 
 DISTCLEANFILES = \
 	$(man_MANS) \
