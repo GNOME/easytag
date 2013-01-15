@@ -23,6 +23,9 @@
 #ifndef _WIN32DEP_H_
 #define _WIN32DEP_H_
 
+#include <glib.h> /* Needed for G_OS_WIN32. */
+
+#ifdef G_OS_WIN32
 #include <shlobj.h>
 #include <winsock2.h>
 #include <process.h>
@@ -81,6 +84,8 @@ extern int   mkstemp (char *template);
 #define DATADIR   weasytag_install_dir()
 #define LIBDIR    weasytag_lib_dir()
 #define LOCALEDIR weasytag_locale_dir()
+
+#endif /* G_OS_WIN32 */
 
 #endif /* _WIN32DEP_H_ */
 

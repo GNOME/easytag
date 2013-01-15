@@ -15,6 +15,11 @@ easytag_CFLAGS = \
 	$(WARN_CFLAGS) \
 	$(EASYTAG_CFLAGS)
 
+if WINDOWS_HOST
+win32_sources = \
+	src/win32/win32dep.c
+endif
+
 easytag_SOURCES = \
 	src/id3lib/c_wrapper.cpp \
 	src/libapetag/apetaglib.c \
@@ -59,7 +64,8 @@ easytag_SOURCES = \
 	src/setting.c \
 	src/vcedit.c \
 	src/wavpack_header.c \
-	src/wavpack_tag.c
+	src/wavpack_tag.c \
+	$(win32_sources)
 
 easytag_headers = \
 	src/id3lib/id3_bugfix.h \
@@ -103,7 +109,8 @@ easytag_headers = \
 	src/ui_manager.h \
 	src/vcedit.h \
 	src/wavpack_header.h \
-	src/wavpack_tag.h
+	src/wavpack_tag.h \
+	src/win32/win32dep.h
 
 easytag_LDADD = \
 	$(EASYTAG_LIBS) \
