@@ -198,7 +198,6 @@ dist_doc_DATA = \
 dist_noinst_DATA = \
 	$(desktop_in_files) \
 	$(easytag_headers) \
-	Makefile.mingw \
 	src/id3lib/patch_id3lib_3.8.3_UTF16_writing_bug.diff \
 	src/libapetag/COPYING.LGPL \
 	src/libapetag/README.apetag \
@@ -221,10 +220,7 @@ dist_noinst_DATA = \
 	easytag.spec \
 	easytag-win32-installer.nsi \
 	\
-	config.h.mingw \
-	Makefile.mingw \
 	README_win32.txt \
-	po/Makefile.mingw \
 	\
 	doc/easytag.1.in \
 	doc/EasyTAG_Documentation.html \
