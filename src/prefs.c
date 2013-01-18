@@ -1078,7 +1078,7 @@ void Open_OptionsWindow (void)
     gtk_box_pack_start(GTK_BOX(vbox),PFSDontUpperSomeWords, FALSE, FALSE, 0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(PFSDontUpperSomeWords), PFS_DONT_UPPER_SOME_WORDS);
     gtk_widget_set_tooltip_text(PFSDontUpperSomeWords, _("Don't convert first "
-        "letter of the words like prepositions, articles and words like feat., "
+        "letter of words like prepositions, articles and words like feat., "
         "when using the scanner 'First letter uppercase of each word' (for "
         "example, you will obtain 'Text in an Entry' instead of 'Text In An Entry')."));
 
@@ -1110,7 +1110,7 @@ void Open_OptionsWindow (void)
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
 
     // Overwrite text into tag fields
-    OverwriteTagField = gtk_check_button_new_with_label(_("Overwrite fields when scanning tag"));
+    OverwriteTagField = gtk_check_button_new_with_label(_("Overwrite fields when scanning tags"));
     gtk_box_pack_start(GTK_BOX(vbox),OverwriteTagField,FALSE,FALSE,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(OverwriteTagField),OVERWRITE_TAG_FIELD);
     gtk_widget_set_tooltip_text(OverwriteTagField,_("If activated, the scanner will replace existing text "
@@ -1300,7 +1300,7 @@ void Open_OptionsWindow (void)
     gtk_box_pack_start(GTK_BOX(hbox),CddbLocalPath,FALSE,FALSE,0);
     gtk_widget_set_size_request(GTK_WIDGET(CddbLocalPath), 450, -1);
     gtk_widget_set_tooltip_text(gtk_bin_get_child(GTK_BIN(CddbLocalPath)),_("Specify the directory "
-        "where are located the local CD data base. The local CD data base contains the eleven following "
+        "where the local CD database is located. The local CD data base contains the eleven following "
         "directories 'blues', 'classical', 'country', 'data', 'folk', 'jazz', 'newage', 'reggae', "
         "'rock', 'soundtrack' and 'misc'."));
     g_signal_connect(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbLocalPath)))),"activate",G_CALLBACK(CddbLocalPath_Combo_Add_String),NULL);
