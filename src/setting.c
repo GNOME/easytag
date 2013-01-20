@@ -351,12 +351,12 @@ tConfigVariable Config_Variables[] =
  */
 void Init_Config_Variables (void)
 {
+    const gchar *music_dir;
 
     /*
      * Common
      */
     LOAD_ON_STARTUP               = 0;
-    DEFAULT_PATH_TO_MP3           = g_strdup(g_get_home_dir ());
     BROWSE_SUBDIR                 = 1;
 #ifdef G_OS_WIN32
     BROWSE_HIDDEN_DIR             = 1;
@@ -364,6 +364,10 @@ void Init_Config_Variables (void)
     BROWSE_HIDDEN_DIR             = 0;
 #endif /* !G_OS_WIN32 */
     OPEN_SELECTED_BROWSER_NODE    = 1;
+
+    music_dir = g_get_user_special_dir (G_USER_DIRECTORY_MUSIC);
+    DEFAULT_PATH_TO_MP3 = music_dir ? g_strdup (music_dir)
+                                    : g_strdup (g_get_home_dir ());
 
     /*
      * Misc
