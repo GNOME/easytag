@@ -540,14 +540,14 @@ void Picture_Properties_Button_Clicked (GObject *object)
                 Strip_String(buffer);
                 if (pic->description)
                     g_free(pic->description);
-                if ( g_utf8_strlen(buffer, -1) > 0 )
-                {
-                    pic->description = buffer;
-                }else
-                {
-                    pic->description = 0;
-                    g_free(buffer);
-                }
+
+                /* If the entry was empty, buffer will be the empty string "".
+                 * This can be safely passed to the underlying
+                 * FLAC__metadata_object_picture_set_description(). See
+                 * https://bugs.launchpad.net/ubuntu/+source/easytag/+bug/558804
+                 * and https://bugzilla.redhat.com/show_bug.cgi?id=559828 for
+                 * downstream bugs when 0 was passed instead. */
+                pic->description = buffer;
 
                 // Update value in the PictureEntryView
                 pic_info = Picture_Info(pic);
