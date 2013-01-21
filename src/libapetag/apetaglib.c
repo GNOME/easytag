@@ -896,7 +896,7 @@ apetag_save (char *filename, apetag *mem_cnt, int flag)
     struct tag **mTag;
     size_t tagSSize = 32;
     int n;
-    char temp[4];
+    unsigned char temp[4];
     
     if (mem_cnt==NULL) {
         PRINT_ERR("ERROR->apetaglib>apetag_save::apetag_init()\n");
