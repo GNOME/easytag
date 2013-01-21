@@ -2316,8 +2316,8 @@ static gchar
 /******************
  * Scanner Window *
  ******************/
-#include "../pixmaps/black.xpm"
-#include "../pixmaps/blackwhite.xpm"
+#include "data/pixmaps/black.xpm"
+#include "data/pixmaps/blackwhite.xpm"
 void Open_ScannerWindow (gint scanner_type)
 {
     GtkWidget *ScanVBox;
@@ -3314,7 +3314,7 @@ gboolean Scan_Check_Rename_File_Mask (GtkWidget *widget_to_show_hide, GtkEntry *
     // Not a valid path....
     if ( strstr(mask,"//") != NULL
     ||   strstr(mask,"./") != NULL
-    ||   strstr(mask,"../") != NULL)
+    ||   strstr(mask,"data/") != NULL)
         goto Bad_Mask;
 
     while (mask)

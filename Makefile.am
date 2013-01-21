@@ -135,47 +135,47 @@ dist_text_DATA = ChangeLog
 man_MANS = doc/easytag.1
 
 pixmaps = \
-	pixmaps/add_folder.xpm \
-	pixmaps/album.xpm \
-	pixmaps/all_downcase.xpm \
-	pixmaps/all_uppercase.xpm \
-	pixmaps/artist.xpm \
-	pixmaps/artist_album.xpm \
-	pixmaps/black.xpm \
-	pixmaps/blackwhite.xpm \
-	pixmaps/closed_folder_readonly.xpm \
-	pixmaps/closed_folder_unreadable.xpm \
-	pixmaps/closed_folder.xpm \
-	pixmaps/EasyTAG.ico \
-	pixmaps/EasyTAG2.ico \
-	pixmaps/EasyTAG2.xpm \
-	pixmaps/first_letter_uppercase.xpm \
-	pixmaps/first_letter_uppercase_word.xpm \
-	pixmaps/forbidden.xpm \
-	pixmaps/freedb.xpm \
-	pixmaps/gnudb.xpm \
-	pixmaps/grab.xpm \
-	pixmaps/invert_selection.xpm \
-	pixmaps/mask.xpm \
-	pixmaps/musicbrainz.xpm \
-	pixmaps/opened_folder.xpm \
-	pixmaps/parent_folder.xpm \
-	pixmaps/ram_disk.xpm \
-	pixmaps/read_only.xpm \
-	pixmaps/red_lines.xpm \
-	pixmaps/sequence_track.xpm \
-	pixmaps/sound.xpm \
-	pixmaps/unselect_all.xpm
+	data/pixmaps/add_folder.xpm \
+	data/pixmaps/album.xpm \
+	data/pixmaps/all_downcase.xpm \
+	data/pixmaps/all_uppercase.xpm \
+	data/pixmaps/artist.xpm \
+	data/pixmaps/artist_album.xpm \
+	data/pixmaps/black.xpm \
+	data/pixmaps/blackwhite.xpm \
+	data/pixmaps/closed_folder_readonly.xpm \
+	data/pixmaps/closed_folder_unreadable.xpm \
+	data/pixmaps/closed_folder.xpm \
+	data/pixmaps/EasyTAG.ico \
+	data/pixmaps/EasyTAG2.ico \
+	data/pixmaps/EasyTAG2.xpm \
+	data/pixmaps/first_letter_uppercase.xpm \
+	data/pixmaps/first_letter_uppercase_word.xpm \
+	data/pixmaps/forbidden.xpm \
+	data/pixmaps/freedb.xpm \
+	data/pixmaps/gnudb.xpm \
+	data/pixmaps/grab.xpm \
+	data/pixmaps/invert_selection.xpm \
+	data/pixmaps/mask.xpm \
+	data/pixmaps/musicbrainz.xpm \
+	data/pixmaps/opened_folder.xpm \
+	data/pixmaps/parent_folder.xpm \
+	data/pixmaps/ram_disk.xpm \
+	data/pixmaps/read_only.xpm \
+	data/pixmaps/red_lines.xpm \
+	data/pixmaps/sequence_track.xpm \
+	data/pixmaps/sound.xpm \
+	data/pixmaps/unselect_all.xpm
 
 pixmapdir = $(pkgdatadir)
 dist_pixmap_DATA = \
-	pixmaps/EasyTAG_logo.xpm
+	data/pixmaps/EasyTAG_logo.xpm
 
 iconthemedir = $(datadir)/icons/hicolor
 
 appicondir = $(iconthemedir)/64x64/apps
 dist_appicon_DATA = \
-	pixmaps/easytag.png
+	data/pixmaps/easytag.png
 
 UPDATE_ICON_CACHE = gtk-update-icon-cache --ignore-theme-index --force
 

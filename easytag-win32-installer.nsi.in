@@ -27,7 +27,7 @@ ShowUninstDetails show
 !define MUI_ABORTWARNING
 !define MUI_COMPONENTSPAGE_SMALLDESC
 !define MUI_ICON "data/nsis/easytag-install.ico"
-;!define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico" ;".\pixmaps\EasyTAG.ico"
+;!define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico" ;"data/pixmaps/EasyTAG.ico"
 
 ; Modern UI Configuration
 !define MUI_HEADERIMAGE

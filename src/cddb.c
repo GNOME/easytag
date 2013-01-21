@@ -4128,10 +4128,10 @@ Cddb_Get_Id3_Genre_From_Cddb_Genre (const gchar *cddb_genre)
 }
 
 /* Pixmaps */
-#include "../pixmaps/freedb.xpm"
-#include "../pixmaps/gnudb.xpm"
-#include "../pixmaps/musicbrainz.xpm"
-//#include "../pixmaps/closed_folder.xpm"
+#include "data/pixmaps/freedb.xpm"
+#include "data/pixmaps/gnudb.xpm"
+#include "data/pixmaps/musicbrainz.xpm"
+/*#include "data/pixmaps/closed_folder.xpm"*/
 
 /*
  * Returns the pixmap to display following the server name

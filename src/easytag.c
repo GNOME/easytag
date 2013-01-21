@@ -562,7 +562,7 @@ Create_File_Area (void)
     return FileFrame;
 }
 
-#include "../pixmaps/sequence_track.xpm"
+#include "data/pixmaps/sequence_track.xpm"
 static GtkWidget *
 Create_Tag_Area (void)
 {

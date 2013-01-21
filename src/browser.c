@@ -58,12 +58,12 @@
 #endif /* G_OS_WIN32 */
 
 /* Pixmaps */
-#include "pixmaps/opened_folder.xpm"
-#include "pixmaps/closed_folder.xpm"
-#include "pixmaps/closed_folder_readonly.xpm"
-#include "pixmaps/closed_folder_unreadable.xpm"
+#include "data/pixmaps/opened_folder.xpm"
+#include "data/pixmaps/closed_folder.xpm"
+#include "data/pixmaps/closed_folder_readonly.xpm"
+#include "data/pixmaps/closed_folder_unreadable.xpm"
 #ifdef G_OS_WIN32
-#include "pixmaps/ram_disk.xpm"
+#include "data/pixmaps/ram_disk.xpm"
 #endif /* G_OS_WIN32 */
 
 
