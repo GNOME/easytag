@@ -223,7 +223,6 @@ dist_noinst_DATA = \
 	src/win32/resource.h \
 	src/win32/win_easytag.c \
 	data/icons/win32/easytag.ico \
-	data/icons/win32/easytag2.ico \
 	data/nsis/easytag-header.bmp \
 	data/nsis/easytag-install.bmp \
 	data/nsis/easytag-install.ico \
