@@ -103,11 +103,11 @@ AC_CHECK_LIB([socket], [recv])
 
 
 dnl ################################################
-dnl # Ogg Vorbis libraries (rq : needed also for libFLAC)
+dnl # Ogg Vorbis libraries
 dnl ################################################
 
 OGG_DEPS="ogg >= 1.0 vorbis >= 1.0.1 vorbisfile"
-AS_IF([test "x$enable_ogg" != "xno" -o "x$enable_flac" != "xno"],
+AS_IF([test "x$enable_ogg" != "xno"],
       [PKG_CHECK_EXISTS([$OGG_DEPS], [have_ogg=yes], [have_ogg=no])],
       [have_ogg=no])
 
@@ -121,7 +121,6 @@ dnl ################################################
 dnl # libSpeex library
 dnl ################################################
 dnl check for system libspeex
-dnl Note that libvorbis is required for speex support, even if the user chooses --disable-ogg
 
 SPEEX_DEPS="speex"
 AS_IF([test "x$enable_speex" != "xno"],
@@ -138,9 +137,8 @@ dnl ################################################
 dnl # libFLAC library
 dnl ################################################
 dnl check for system libflac
-dnl Note that libvorbis is required for flac support, even if the user chooses --disable-ogg
 
-FLAC_DEPS="flac >= 1.1.0"
+FLAC_DEPS="flac >= 1.1.4"
 AS_IF([test "x$enable_flac" != "xno"],
       [PKG_CHECK_EXISTS([$FLAC_DEPS], [have_flac=yes], [have_flac=no])],
       [have_flac=no])

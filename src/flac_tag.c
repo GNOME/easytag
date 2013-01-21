@@ -50,15 +50,6 @@
 
 #define MULTIFIELD_SEPARATOR " - "
 
-/* Patch from Josh Coalson
- * FLAC 1.1.3 has FLAC_API_VERSION_CURRENT == 8 *
- * by LEGACY_FLAC we mean pre-FLAC 1.1.3; in FLAC 1.1.3 the FLAC__FileDecoder was merged into the FLAC__StreamDecoder */
-#if !defined(FLAC_API_VERSION_CURRENT) || FLAC_API_VERSION_CURRENT < 8
-#define LEGACY_FLAC // For FLAC version < 1.1.3
-#else
-#undef LEGACY_FLAC
-#endif
-
 
 /* FLAC uses Ogg Vorbis comments
  * Ogg Vorbis fields names :
@@ -110,9 +101,7 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     gchar *string = NULL;
     gchar *filename_utf8 = filename_to_display(filename);
     guint i;
-#ifndef LEGACY_FLAC // For FLAC >= 1.1.3
     Picture *prev_pic = NULL;
-#endif
     //gint j = 1;
 
     
@@ -651,7 +640,6 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
             //
             // Read the PICTURE block (severals can exist)
             //
-#ifndef LEGACY_FLAC // For FLAC >= 1.1.3
             case FLAC__METADATA_TYPE_PICTURE: 
             {
                 
@@ -684,7 +672,6 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
 
                 break;
             }
-#endif
                 
             default:
                 break;
@@ -908,13 +895,11 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
             //
             // Delete all the PICTURE blocks, and convert to padding
             //
-#ifndef LEGACY_FLAC // For FLAC >= 1.1.3
             case FLAC__METADATA_TYPE_PICTURE: 
             {
                 FLAC__metadata_iterator_delete_block(iter,true);
                 break;
             }
-#endif
             
             default:
                 break;
@@ -1039,8 +1024,6 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
     /***********
      * Picture *
      ***********/
-    // For FLAC >= 1.1.3
-    #ifndef LEGACY_FLAC
     {
         Picture *pic = FileTag->picture;
         while (pic)
@@ -1089,7 +1072,6 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
             pic = pic->next;
         }
     }
-    #endif
     
     // Free iter
     FLAC__metadata_iterator_delete(iter);
