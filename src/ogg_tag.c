@@ -38,7 +38,6 @@
 #include "et_core.h"
 #include "log.h"
 #include "misc.h"
-#include "base64.h"
 #include "picture.h"
 #include "setting.h"
 #include "charset.h"
@@ -511,8 +510,6 @@ gboolean Ogg_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     field_num = 0;
     while ( (string = vorbis_comment_query(vc,"COVERART",field_num++)) != NULL )
     {
-        gchar *data;
-        gint size;
         Picture *pic;
             
         pic = Picture_Allocate();
@@ -525,11 +522,7 @@ gboolean Ogg_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
         pic->data = NULL;
         
         // Decode picture data
-        data = g_strdup(string);
-        size = base64_decode(string, data);
-        if ( data && (pic->data = g_memdup(data, size)) )
-            pic->size = size;
-        g_free(data);
+        pic->data = g_base64_decode (string, &pic->size);
 
         if ( (string = vorbis_comment_query(vc,"COVERARTTYPE",field_num-1)) != NULL )
         {
@@ -820,7 +813,7 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
                 g_free(string);
             }
 
-            base64_encode (pic->data, pic->size, &data_encoded);
+            data_encoded = g_base64_encode (pic->data, pic->size);
             string = g_strdup_printf("COVERART=%s",data_encoded);
             vorbis_comment_add(vc,string);
             g_free(data_encoded);

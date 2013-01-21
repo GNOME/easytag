@@ -67,7 +67,6 @@ RC_SRC = win32/easytag.rc
 DLL_C_SRC = about.c \
     ape_tag.c \
     bar.c \
-    base64.c \
     browser.c \
     charset.c \
     cddb.c \
