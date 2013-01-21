@@ -212,7 +212,7 @@ dist_noinst_DATA = \
 	$(pixmaps) \
 	\
 	easytag.spec \
-	easytag-win32-installer.nsi \
+	easytag-win32-installer.nsi.in \
 	\
 	README_win32.txt \
 	\
