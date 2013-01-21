@@ -146,8 +146,6 @@ pixmaps = \
 	data/pixmaps/closed_folder_readonly.xpm \
 	data/pixmaps/closed_folder_unreadable.xpm \
 	data/pixmaps/closed_folder.xpm \
-	data/pixmaps/EasyTAG.ico \
-	data/pixmaps/EasyTAG2.ico \
 	data/pixmaps/first_letter_uppercase.xpm \
 	data/pixmaps/first_letter_uppercase_word.xpm \
 	data/pixmaps/forbidden.xpm \
@@ -205,6 +203,8 @@ dist_noinst_DATA = \
 	src/win32/gtkwin32dep.h \
 	src/win32/resource.h \
 	src/win32/win_easytag.c \
+	data/icons/win32/easytag.ico \
+	data/icons/win32/easytag2.ico \
 	data/nsis/easytag-header.bmp \
 	data/nsis/easytag-install.bmp \
 	data/nsis/easytag-install.ico \
