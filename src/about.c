@@ -30,6 +30,7 @@ void Show_About_Window (void)
 {
     static const gchar * const artists[] =
     {
+        "Waqas Qamar <waqas88@gmail.com>",
         "Der Humph <humph@gmx.de>",
         NULL
     };

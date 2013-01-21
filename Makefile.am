@@ -166,9 +166,28 @@ pixmaps = \
 
 iconthemedir = $(datadir)/icons/hicolor
 
+appicon16dir = $(iconthemedir)/16x16/apps
+appicon32dir = $(iconthemedir)/32x32/apps
+appicon48dir = $(iconthemedir)/48x48/apps
 appicon64dir = $(iconthemedir)/64x64/apps
+appicon128dir = $(iconthemedir)/128x128/apps
+appicon256dir = $(iconthemedir)/256x256/apps
+appiconscalabledir = $(iconthemedir)/scalable/apps
+
+dist_appicon16_DATA = \
+	data/icons/16x16/easytag.png
+dist_appicon32_DATA = \
+	data/icons/32x32/easytag.png
+dist_appicon48_DATA = \
+	data/icons/48x48/easytag.png
 dist_appicon64_DATA = \
 	data/icons/64x64/easytag.png
+dist_appicon128_DATA = \
+	data/icons/128x128/easytag.png
+dist_appicon256_DATA = \
+	data/icons/256x256/easytag.png
+dist_appiconscalable_DATA = \
+	data/icons/scalable/easytag.svg
 
 UPDATE_ICON_CACHE = gtk-update-icon-cache --ignore-theme-index --force
 
