@@ -148,7 +148,6 @@ pixmaps = \
 	data/pixmaps/closed_folder.xpm \
 	data/pixmaps/EasyTAG.ico \
 	data/pixmaps/EasyTAG2.ico \
-	data/pixmaps/EasyTAG2.xpm \
 	data/pixmaps/first_letter_uppercase.xpm \
 	data/pixmaps/first_letter_uppercase_word.xpm \
 	data/pixmaps/forbidden.xpm \
@@ -167,15 +166,11 @@ pixmaps = \
 	data/pixmaps/sound.xpm \
 	data/pixmaps/unselect_all.xpm
 
-pixmapdir = $(pkgdatadir)
-dist_pixmap_DATA = \
-	data/pixmaps/EasyTAG_logo.xpm
-
 iconthemedir = $(datadir)/icons/hicolor
 
-appicondir = $(iconthemedir)/64x64/apps
-dist_appicon_DATA = \
-	data/pixmaps/easytag.png
+appicon64dir = $(iconthemedir)/64x64/apps
+dist_appicon64_DATA = \
+	data/icons/64x64/easytag.png
 
 UPDATE_ICON_CACHE = gtk-update-icon-cache --ignore-theme-index --force
 
@@ -189,6 +184,7 @@ install-update-icon-cache:
 uninstall-update-icon-cache:
 	$(AM_V_at)$(POST_UNINSTALL)
 	test -n "$(DESTDIR)" || $(UPDATE_ICON_CACHE) "$(iconthemedir)"
+
 dist_doc_DATA = \
 	HACKING \
 	THANKS \
@@ -208,8 +204,6 @@ dist_noinst_DATA = \
 	src/win32/gtkwin32dep.c \
 	src/win32/gtkwin32dep.h \
 	src/win32/resource.h \
-	src/win32/win32dep.c \
-	src/win32/win32dep.h \
 	src/win32/win_easytag.c \
 	data/nsis/easytag-header.bmp \
 	data/nsis/easytag-install.bmp \
