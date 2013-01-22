@@ -1258,7 +1258,8 @@ gboolean Id3tag_Check_If_File_Is_Corrupted (const gchar *filename)
 gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
 {
     GFile *file;
-    GFileIOStream *ostream;
+    GFileIOStream *iostream = NULL;
+    GOutputStream *ostream = NULL;
     GError *error = NULL;
     guchar tmp[16] = {0xFF, 0xFB, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
@@ -1270,26 +1271,27 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
 
 
     /* Create a temporary file. */
-    file = g_file_new_tmp ("easytagXXXXXX.mp3", &ostream, &error);
-    if (file)
+    file = g_file_new_tmp ("easytagXXXXXX.mp3", &iostream, &error);
+    if (!file)
     {
-        gchar *filename;
-        gchar *filename_utf8;
-
-        filename = g_file_get_path (file);
-        filename_utf8 = filename_to_display (filename);
-        Log_Print (LOG_ERROR, _("Error while opening file: '%s' (%s)"),
-                   filename_utf8, error->message);
-
-        g_free (filename);
-        g_free (filename_utf8);
-        g_clear_error (&error);
-        g_object_unref (file);
+        if (error)
+        {
+            Log_Print (LOG_ERROR,
+                       _("Error while creating temporary file: '%s'"),
+                       error->message);
+            g_clear_error (&error);
+        }
+        else
+        {
+            Log_Print (LOG_ERROR, "%s",
+                       _("Error while creating temporary file"));
+        }
 
         return FALSE;
     }
 
-    // Set data in the file
+    /* Set data in the file. */
+    ostream = g_io_stream_get_output_stream (G_IO_STREAM (iostream));
     count = g_output_stream_write (G_OUTPUT_STREAM (ostream), tmp,
                                    sizeof (tmp), NULL, &error);
     if (count != sizeof (tmp))
