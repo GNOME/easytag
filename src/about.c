@@ -69,6 +69,7 @@ void Show_About_Window (void)
         "Honore Doktorr <hdfssk@gmail.com>",
         "Guilherme Destefani <gd@helixbrasil.com.br>",
         "Andreas Winkelmann <ml@awinkelmann.de>",
+        "Adrian Bunk <bunk@stusta.de>",
         NULL
     };
 

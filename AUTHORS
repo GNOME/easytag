@@ -107,3 +107,6 @@ Guilherme Destefani <gd@helixbrasil.com.br>
 
 Andreas Winkelmann <ml@awinkelmann.de>
   - Warning and bug fixes
+
+Adrian Bunk <bunk@stusta.de>
+  - Bug diagnosis and several code cleanups
