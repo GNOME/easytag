@@ -166,7 +166,7 @@ struct _Picture
     gchar   *description;
     gint     width;         /* Original width of the picture */
     gint     height;        /* Original height of the picture */
-    gulong   size;          /* Picture size in bytes (like stat) */
+    gsize size; /* Picture size in bytes (like stat) */
     guchar  *data;
     Picture *next;
 };
