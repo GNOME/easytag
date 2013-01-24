@@ -560,7 +560,7 @@ void Open_OptionsWindow (void)
     gtk_table_attach(GTK_TABLE(Table),FilenameCharacterSetDiscard,1,2,3,4,GTK_FILL,GTK_FILL,0,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FilenameCharacterSetDiscard),FILENAME_CHARACTER_SET_DISCARD);
     gtk_widget_set_tooltip_text(FilenameCharacterSetDiscard,_("With this option, when "
-        "a characters cannot be represented in the target character set, it will "
+        "a character cannot be represented in the target character set, it will "
         "be silently discarded."));
 
 
