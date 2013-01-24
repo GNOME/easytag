@@ -881,7 +881,7 @@ void Open_OptionsWindow (void)
     gtk_table_attach(GTK_TABLE(Table),FileWritingId3v2IconvOptionsIgnore,4,5,6,7,GTK_FILL,GTK_FILL,0,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v2IconvOptionsIgnore),FILE_WRITING_ID3V2_ICONV_OPTIONS_IGNORE);
     gtk_widget_set_tooltip_text(FileWritingId3v2IconvOptionsIgnore,_("With this option, when "
-        "a characters cannot be represented in the target character set, it will "
+        "a character cannot be represented in the target character set, it will "
         "be silently discarded."));
 
     // ID3v1 tags
@@ -950,7 +950,7 @@ void Open_OptionsWindow (void)
     gtk_table_attach(GTK_TABLE(Table),FileWritingId3v1IconvOptionsIgnore,3,4,4,5,GTK_FILL,GTK_FILL,0,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v1IconvOptionsIgnore),FILE_WRITING_ID3V1_ICONV_OPTIONS_IGNORE);
     gtk_widget_set_tooltip_text(FileWritingId3v1IconvOptionsIgnore,_("With this option, when "
-        "a characters cannot be represented in the target character set, it will "
+        "a character cannot be represented in the target character set, it will "
         "be silently discarded."));
 
     /* Character Set for reading tag */
