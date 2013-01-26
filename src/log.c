@@ -374,6 +374,7 @@ Log_Print_Tmp_List (void)
         LogPrintTmpList = g_list_first(LogPrintTmpList);
         while (LogPrintTmpList)
         {
+            g_free(((Log_Data *)LogPrintTmpList->data)->string);
             g_free(((Log_Data *)LogPrintTmpList->data)->time);
             g_free(((Log_Data *)LogPrintTmpList->data));
 
