@@ -88,7 +88,7 @@ void Tag_Area_Picture_Drag_Data (GtkWidget *widget, GdkDragContext *dc,
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(PictureEntryView));
     gtk_tree_selection_unselect_all(selection);
 
-    uri = uri_list = g_strsplit(gtk_selection_data_get_data(selection_data), "\r\n", 0);
+    uri = uri_list = g_strsplit((gchar *)gtk_selection_data_get_data(selection_data), "\r\n", 0);
     while (*uri && strlen(*uri))
     {
         //Picture *pic;
