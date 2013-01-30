@@ -127,9 +127,6 @@ desktopdir = $(datadir)/applications
 desktop_in_files = easytag.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
-textdir = $(pkgdatadir)
-dist_text_DATA = ChangeLog
-
 man_MANS = doc/easytag.1
 
 pixmaps = \
