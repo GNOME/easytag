@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: easytag-1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-24 09:39+0000\n"
-"PO-Revision-Date: 2013-01-24 10:42+0100\n"
+"POT-Creation-Date: 2013-01-24 17:53+0000\n"
+"PO-Revision-Date: 2013-02-01 09:57+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -3080,8 +3080,8 @@ msgstr "Buscar un archivo"
 msgid ""
 "Type the word to search into files. Or type nothing to display all files."
 msgstr ""
-"Teclee la palabra que quiere buscar dentro de los archivos. O no teclee nada "
-"para mostrar todos los archivos."
+"Introduzca la palabra que buscar en los archivos. O no introduzca nada para "
+"mostrar todos los archivos."
 
 #. Where...
 #: ../src/misc.c:1996
@@ -3106,7 +3106,7 @@ msgstr "la etiqueta"
 #. Property of the search
 #: ../src/misc.c:2017 ../src/prefs.c:319
 msgid "Case sensitive"
-msgstr "Distinguir capitalización"
+msgstr "Sensible a capitalización"
 
 #: ../src/misc.c:2472
 #, fuzzy, c-format
@@ -3116,7 +3116,7 @@ msgstr "Encontrados: %d archivo(s)"
 
 #: ../src/misc.c:2749
 msgid "Load the filenames from a TXT file"
-msgstr "Leer nombres de archivo desde un archivo TXT"
+msgstr "Cargar los nombres de archivo desde un archivo TXT"
 
 #: ../src/misc.c:2777
 #, fuzzy
@@ -3162,7 +3162,7 @@ msgstr "Bajar la línea seleccionada"
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
 #: ../src/misc.c:2891 ../src/misc.c:2985 ../src/misc.c:3462
 msgid "Reload"
-msgstr "Releer"
+msgstr "Recargar"
 
 #: ../src/misc.c:2912
 msgid "List of files"
@@ -3177,8 +3177,9 @@ msgid ""
 "When activating this option, after loading the filenames, the current "
 "selected scanner will be ran (the scanner window must be opened)."
 msgstr ""
-"Cuando esta opción esté activa, después de cargar los nombres, el procesador "
-"actual se ejecutará (la ventana del procesador debe estar abierta)."
+"Cuando esta opción esté activa, después de cargar los nombres de archivo, el "
+"procesador seleccionado actual se ejecutará (la ventana del procesador debe "
+"estar abierta)."
 
 #: ../src/misc.c:3185
 #, c-format
@@ -3298,7 +3299,7 @@ msgstr "PNG y JPEG"
 #: ../src/picture.c:403
 #, c-format
 msgid "Picture Properties %d/%d"
-msgstr "Propiedades imagen %d/%d"
+msgstr "Propiedades de la imagen %d/%d"
 
 #: ../src/picture.c:433
 msgid "Picture Type"
@@ -3341,11 +3342,11 @@ msgstr "Imagen desconocida"
 
 #: ../src/picture.c:791
 msgid "32x32 pixel PNG file icon"
-msgstr "Archivo PNG de icono de 32x32 píxeles."
+msgstr "Icono de archivo PNG de 32x32 píxeles"
 
 #: ../src/picture.c:793
 msgid "Other file icon"
-msgstr "Otro icono de fichero"
+msgstr "Otro icono de archivo"
 
 #: ../src/picture.c:795
 msgid "Cover (front)"
@@ -3361,7 +3362,7 @@ msgstr "Página del folleto"
 
 #: ../src/picture.c:801
 msgid "Media (e.g. label side of CD)"
-msgstr "Soporte (ej. lateral de la etiqueta del CD)"
+msgstr "Medios (ej. etiqueta lateral del CD)"
 
 #: ../src/picture.c:803
 msgid "Lead artist/lead performer/soloist"
@@ -3381,7 +3382,7 @@ msgstr "Banda/Orquesta"
 
 #: ../src/picture.c:813
 msgid "Lyricist/text writer"
-msgstr "Letrista/escritor"
+msgstr "Escritor de las letras/texto"
 
 #: ../src/picture.c:815
 msgid "Recording location"
@@ -3393,11 +3394,11 @@ msgstr "Durante la grabación"
 
 #: ../src/picture.c:819
 msgid "During performance"
-msgstr "Durante la actuación"
+msgstr "Durante la ejecución"
 
 #: ../src/picture.c:821
 msgid "Movie/video screen capture"
-msgstr "Película/captura de vídeo"
+msgstr "Captura de pantalla de la película/vídeo"
 
 #: ../src/picture.c:823
 #, fuzzy
@@ -3411,11 +3412,11 @@ msgstr "Ilustración"
 
 #: ../src/picture.c:827
 msgid "Band/Artist logotype"
-msgstr "Banda/Logotipo de artista"
+msgstr "Logotipo de banda/artista"
 
 #: ../src/picture.c:829
 msgid "Publisher/studio logotype"
-msgstr "Editor/Logotipo del estudio"
+msgstr "Logotipo del editor/estudio"
 
 #: ../src/picture.c:833
 msgid "Unknown picture type"
@@ -3474,7 +3475,7 @@ msgstr "Archivo de imagen no cargado (%s)…"
 #: ../src/picture.c:1117
 #, c-format
 msgid "Cannot open file: '%s'"
-msgstr "No se puede abrir el archivo «%s»"
+msgstr "No se puede abrir el archivo: «%s»"
 
 #: ../src/picture.c:1120
 msgid "Picture File Error"
@@ -3487,7 +3488,7 @@ msgstr "Archivo de imagen cargado…"
 #: ../src/picture.c:1172 ../src/picture.c:1179
 #, c-format
 msgid "Picture file can't be saved (%s)…"
-msgstr "No se puede guardar la imagen (%s)…"
+msgstr "No se puede guardar el archivo de imagen (%s)…"
 
 #. Title
 #: ../src/prefs.c:115
@@ -3509,8 +3510,8 @@ msgid ""
 "Specify the directory where your files are located. This path will be loaded "
 "when EasyTAG starts without parameter."
 msgstr ""
-"Especifique la carpeta donde se encuentran los archivos. Esta ruta se leerá "
-"al ejecutar EasyTAG sin parámetros."
+"Especificar la carpeta donde se encuentran sus archivos. Esta ruta se "
+"cargará al ejecutar EasyTAG sin parámetros."
 
 #. Load directory on startup
 #: ../src/prefs.c:196
@@ -3525,17 +3526,17 @@ msgid ""
 "(easytag /path_to/mp3_files)."
 msgstr ""
 "Buscar archivos automáticamente, cuando EasyTAG empieza, en la carpeta "
-"predeterminada. Tenga en cuenta que esta ruta puede cambiarse con el "
+"predeterminada. Tenga en cuenta que esta ruta puede alterarse con el "
 "parámetro pasado a easytag (easytag /ruta_a/archivos_mp3)."
 
 #. Browse subdirectories
 #: ../src/prefs.c:204
 msgid "Search subdirectories"
-msgstr "Buscar en subdirectorios"
+msgstr "Buscar subcarpetas"
 
 #: ../src/prefs.c:207
 msgid "Search subdirectories for files when reading a directory into the tree."
-msgstr "Buscar archivos en subdirectorio al leer un directorio en el árbol."
+msgstr "Buscar archivos en subcarpetas al leer una carpeta en el árbol."
 
 #. Open the node to show subdirectories
 #: ../src/prefs.c:211
@@ -3553,7 +3554,7 @@ msgstr ""
 #. Browse hidden directories
 #: ../src/prefs.c:219
 msgid "Search hidden directories"
-msgstr "Buscar en directorios ocultos"
+msgstr "Buscar en carpetas ocultas"
 
 #: ../src/prefs.c:224
 msgid "Search hidden directories for files (directories starting by a '.')."
@@ -3918,9 +3919,6 @@ msgstr ""
 "silenciosamente algunos caracteres"
 
 #: ../src/prefs.c:562 ../src/prefs.c:883 ../src/prefs.c:952
-#| msgid ""
-#| "With this option, when a characters cannot be represented in the target "
-#| "character set, it will be silently discarded."
 msgid ""
 "With this option, when a character cannot be represented in the target "
 "character set, it will be silently discarded."
@@ -5329,7 +5327,6 @@ msgstr ""
 msgid "Audio player: '%s'"
 msgstr "Reproductor de sonido: «%s»"
 
-#, fuzzy
 #~| msgid "ERROR while opening file: '%s' (%s)"
 #~ msgid "Error while opening file: '%s' (%s)"
 #~ msgstr "Error al abrir archivo: «%s» (%s)"
