@@ -14,7 +14,7 @@ AC_CONFIG_MACRO_DIR([m4])
 dnl -------------------------------
 dnl Init automake
 dnl -------------------------------
-AM_INIT_AUTOMAKE([1.11 -Wall no-define dist-xz no-dist-gzip nostdinc subdir-objects])
+AM_INIT_AUTOMAKE([1.11 -Wall check-news no-define dist-xz no-dist-gzip nostdinc subdir-objects])
 AM_MAINTAINER_MODE([enable])
 AM_SILENT_RULES([yes])
 
