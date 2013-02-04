@@ -223,7 +223,6 @@ dist_noinst_DATA = \
 	data/nsis/easytag-uninstall.bmp \
 	$(pixmaps) \
 	\
-	easytag.spec \
 	easytag-win32-installer.nsi.in \
 	\
 	README_win32.txt \

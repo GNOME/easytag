@@ -18,7 +18,6 @@ doc/easytag.1
 /easytag-*-setup.exe
 /easytag-win32-installer.nsi
 /easytag.exe
-/easytag.spec
 /INSTALL
 libtool
 ltmain.sh

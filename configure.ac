@@ -283,7 +283,6 @@ dnl -------------------------------
 AC_CHECK_FUNCS([ftruncate gettimeofday mkstemp truncate])
 
 AC_CONFIG_FILES([ Makefile
-                  easytag.spec
                   doc/easytag.1
                   po/Makefile.in
                ])
