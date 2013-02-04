@@ -200,8 +200,7 @@ uninstall-update-icon-cache:
 dist_doc_DATA = \
 	HACKING \
 	THANKS \
-	TODO \
-	USERS-GUIDE
+	TODO
 
 dist_noinst_DATA = \
 	$(desktop_in_files) \
