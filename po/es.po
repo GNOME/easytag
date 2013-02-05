@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: easytag-1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-24 17:53+0000\n"
-"PO-Revision-Date: 2013-02-01 09:57+0100\n"
+"POT-Creation-Date: 2013-02-01 08:58+0000\n"
+"PO-Revision-Date: 2013-02-05 16:23+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -409,7 +409,7 @@ msgstr "_Explorador"
 
 #: ../src/bar.c:214
 msgid "Go to _Home Directory"
-msgstr "Ir al directorio _personal"
+msgstr "Ir a la carpeta _personal"
 
 #: ../src/bar.c:214
 msgid "Go to home directory"
@@ -457,7 +457,7 @@ msgstr "Ir a la carpeta predeterminada"
 
 #: ../src/bar.c:220
 msgid "Set _Current Path as Default"
-msgstr "Establecer el directorio _actual como predeterminado"
+msgstr "Establecer la carpeta _actual como predeterminada"
 
 #: ../src/bar.c:220
 msgid "Set current path as default"
@@ -616,7 +616,7 @@ msgstr "Acerca de"
 #.
 #: ../src/bar.c:250
 msgid "Stop the current action"
-msgstr "Parar la acción actual"
+msgstr "Detener la acción actual"
 
 #.
 #. * Popup menu's Actions
@@ -805,7 +805,7 @@ msgstr "Artista y Álbum"
 
 #: ../src/browser.c:3658
 msgid "Rename the directory"
-msgstr "Renombrar el directorio"
+msgstr "Renombrar la carpeta"
 
 #: ../src/browser.c:3674
 #, c-format
@@ -820,7 +820,7 @@ msgstr "Usar máscara :"
 
 #: ../src/browser.c:3696
 msgid "If activated, it will use masks to rename directory."
-msgstr "Si está activado, usará máscaras para renombrar el directorio."
+msgstr "Si está activado, usará máscaras para renombrar la carpeta."
 
 #: ../src/browser.c:3714
 msgid ""
@@ -2418,12 +2418,12 @@ msgstr "Archivo: «%s»"
 #: ../src/easytag.c:3610
 #, c-format
 msgid "Found %d file(s) in this directory and subdirectories."
-msgstr "Encontrados %d archivo(s) en este directorio y los subdirectorios."
+msgstr "Encontrados %d archivo(s) en esta carpeta y las subcarpetas."
 
 #: ../src/easytag.c:3612
 #, c-format
 msgid "Found %d file(s) in this directory."
-msgstr "Encontrados %d archivo(s) en este directorio"
+msgstr "Encontrados %d archivo(s) en esta carpeta"
 
 #: ../src/easytag.c:3631
 #, fuzzy
@@ -2445,7 +2445,7 @@ msgstr "Buscando..."
 #. Button to stop...
 #: ../src/easytag.c:3744
 msgid "  STOP the search...  "
-msgstr "  Parar la búsqueda...  "
+msgstr "  Detener la búsqueda…  "
 
 #: ../src/easytag.c:4476
 #, fuzzy
@@ -2469,7 +2469,7 @@ msgstr "Convertir « » a «_»"
 #. Group: capitalize, ...
 #: ../src/easytag.c:4652 ../src/scan.c:2757
 msgid "All uppercase"
-msgstr "TODAS MAYÚSCULAS"
+msgstr "Todas mayúsculas"
 
 #: ../src/easytag.c:4659 ../src/scan.c:2758
 #, fuzzy
@@ -2483,7 +2483,7 @@ msgstr "Primera letra mayúscula"
 
 #: ../src/easytag.c:4673 ../src/scan.c:2760
 msgid "First letter uppercase of each word"
-msgstr "Primera Letra De Cada Palabra Mayúscula"
+msgstr "Primera letra de cada palabra en mayúscula"
 
 #. Group: insert/remove spaces
 #: ../src/easytag.c:4684 ../src/prefs.c:1055 ../src/scan.c:2808
@@ -2492,11 +2492,11 @@ msgstr "Quitar espacios"
 
 #: ../src/easytag.c:4691
 msgid "Insert space before uppercase letter"
-msgstr "Insertar espacios antes de una letra en mayúsculas"
+msgstr "Insertar espacios antes de letra en mayúsculas"
 
 #: ../src/easytag.c:4698
 msgid "Remove duplicate spaces or underscores"
-msgstr "Eliminar espacios o subrayados duplicados"
+msgstr "Quitar espacios o subrayados duplicados"
 
 #: ../src/easytag.c:4705
 #, fuzzy
@@ -2524,8 +2524,8 @@ msgid ""
 "reproduce it at: %s"
 msgstr ""
 "Probablemente ha encontrado un error en EasyTAG. Por favor, envíe un informe "
-"con una traza inversa gdb («gdb easytag core», después «bt» y «l») e "
-"información sobre cómo reproducirlo a %s"
+"de error con una traza inversa GDB («gdb easytag core», después «bt» y «l») e "
+"información sobre cómo reproducirlo en: %s"
 
 #. To send messages to the console...
 #: ../src/easytag.c:4737
@@ -2578,7 +2578,7 @@ msgstr ""
 
 #: ../src/easytag.c:4916
 msgid "EasyTAG: Normal exit."
-msgstr "EasyTAG: Terminación normal."
+msgstr "EasyTAG: salida normal."
 
 #: ../src/easytag.c:4967
 #, fuzzy
@@ -2648,7 +2648,7 @@ msgstr "Archivo MusePack"
 
 #: ../src/et_core.c:2657
 msgid "Monkey's Audio File"
-msgstr "Archivo Monkey's Audio"
+msgstr "Archivo de sonido Monkey"
 
 #: ../src/et_core.c:2662
 msgid "MP4/AAC File"
@@ -2702,7 +2702,7 @@ msgstr "Intente configurar la variable de entorno G_FILENAME_ENCODING."
 
 #: ../src/et_core.c:3146 ../src/scan.c:688
 msgid "Filename translation"
-msgstr "Codificación del nombre del archivo"
+msgstr "Traducción del nombre de archivo"
 
 #. Mode
 #. Mode
@@ -2711,7 +2711,7 @@ msgstr "Codificación del nombre del archivo"
 #: ../src/flac_header.c:250 ../src/mp4_header.c:136 ../src/ogg_header.c:252
 #: ../src/wavpack_header.c:88
 msgid "Channels:"
-msgstr "Canales"
+msgstr "Canales:"
 
 #: ../src/flac_tag.c:130 ../src/flac_tag.c:849 ../src/flac_tag.c:859
 #, fuzzy, c-format
@@ -2740,12 +2740,12 @@ msgstr "Error: fallo al escribir comentarios al archivo «%s» (%s)."
 #: ../src/flac_tag.c:1101 ../src/ogg_tag.c:848
 #, c-format
 msgid "Written tag of '%s'"
-msgstr "Escrita la etiqueta de «%s»"
+msgstr "Etiqueta escrita de «%s»"
 
 #: ../src/id3_tag.c:505
 #, c-format
 msgid "Removed tag of '%s'"
-msgstr "Eliminada la etiqueta de «%s»"
+msgstr "Etiqueta eliminada de «%s»"
 
 #: ../src/id3_tag.c:509 ../src/id3_tag.c:609
 #, c-format
@@ -2796,11 +2796,11 @@ msgstr "Actualizada la etiqueta de «%s»"
 
 #: ../src/id3_tag.c:634
 msgid "No error reported"
-msgstr "No se han producido errores"
+msgstr "No se han reportado errores"
 
 #: ../src/id3_tag.c:636
 msgid "No available memory"
-msgstr "No hay memoria suficiente"
+msgstr "No hay memoria disponible"
 
 #: ../src/id3_tag.c:638
 msgid "No data to parse"
@@ -2808,7 +2808,7 @@ msgstr "No hay datos que analizar"
 
 #: ../src/id3_tag.c:640
 msgid "Improperly formatted data"
-msgstr "Datos incorrectamente formados"
+msgstr "Datos incorrectamente formateados"
 
 #: ../src/id3_tag.c:642
 msgid "No buffer to write to"
@@ -2824,7 +2824,7 @@ msgstr "ID de marco no válido"
 
 #: ../src/id3_tag.c:648
 msgid "Requested field not found"
-msgstr "Campo pedido no encontrado"
+msgstr "Campo solicitado no encontrado"
 
 #: ../src/id3_tag.c:650
 msgid "Unknown field type"
@@ -2832,7 +2832,7 @@ msgstr "Tipo de campo desconocido"
 
 #: ../src/id3_tag.c:652
 msgid "Tag is already attached to a file"
-msgstr "La etiqueta ya está asociada a un archivo"
+msgstr "La etiqueta ya está adjuntada a un archivo"
 
 #: ../src/id3_tag.c:654
 msgid "Invalid tag version"
@@ -2944,19 +2944,19 @@ msgstr "B"
 
 #: ../src/misc.c:1131 ../src/misc.c:1150
 msgid "KB"
-msgstr "KiB"
+msgstr "KB"
 
 #: ../src/misc.c:1131 ../src/misc.c:1150
 msgid "MB"
-msgstr "MiB"
+msgstr "MB"
 
 #: ../src/misc.c:1131 ../src/misc.c:1150
 msgid "GB"
-msgstr "GiB"
+msgstr "GB"
 
 #: ../src/misc.c:1131 ../src/misc.c:1150
 msgid "TB"
-msgstr "TiB"
+msgstr "TB"
 
 #: ../src/misc.c:1242
 msgid "Generate a playlist"
@@ -2964,11 +2964,11 @@ msgstr "Generar una lista de reproducción"
 
 #: ../src/misc.c:1266
 msgid "M3U Playlist Name"
-msgstr "Nombre de la lista M3U"
+msgstr "Nombre de la lista de reproducción M3U"
 
 #: ../src/misc.c:1280
 msgid "Use directory name"
-msgstr "Usar nombre del directorio"
+msgstr "Usar nombre de la carpeta"
 
 #: ../src/misc.c:1304 ../src/misc.c:1403
 msgid "Edit Masks"
@@ -2988,32 +2988,32 @@ msgid ""
 "If activated, only the selected files will be written in the playlist file. "
 "Else, all the files will be written."
 msgstr ""
-"Si está activado, sólo los archivos seleccionados se añadirán a la lista de "
-"reproducción. De lo contrario, se añadirán todos."
+"Si está activado, sólo los archivos seleccionados se escribirán en el "
+"archivo de la lista de reproducción. De lo contrario, se escribirán todos "
+"los archivos."
 
 #: ../src/misc.c:1328
 msgid "Use full path for files in playlist"
-msgstr "Usar ruta completa para los archivos en la lista"
+msgstr "Usar ruta completa para los archivos en la lista de reproducción"
 
 #: ../src/misc.c:1331
 msgid "Use relative path for files in playlist"
-msgstr "Usar ruta relativa para los archivos en la lista"
+msgstr "Usar ruta relativa para los archivos en la lista de reproducción"
 
 #. Create playlist in parent directory
 #: ../src/misc.c:1341
 msgid "Create playlist in the parent directory"
-msgstr "Crear lista de reproducción en directorio superior"
+msgstr "Crear lista de reproducción en la carpeta padre"
 
 #: ../src/misc.c:1344
 msgid "If activated, the playlist will be created in the parent directory."
 msgstr ""
-"Si está seleccionado, la lista de reproducción se creará en la carpeta "
-"superior."
+"Si está activado, la lista de reproducción se creará en la carpeta padre."
 
 #. DOS Separator
 #: ../src/misc.c:1348
 msgid "Use DOS directory separator"
-msgstr "Usar el separador de directorio de DOS"
+msgstr "Usar el separador de carpetas de DOS"
 
 #: ../src/misc.c:1354
 msgid ""
@@ -3033,7 +3033,7 @@ msgstr "Escribir sólo la lista de archivos"
 
 #: ../src/misc.c:1373
 msgid "Write info using filename"
-msgstr "Escribir información utilizando el nombre de archivo"
+msgstr "Escribir información usando el nombre de archivo"
 
 #: ../src/misc.c:1376
 msgid "Write info using:"
@@ -3558,7 +3558,7 @@ msgstr "Buscar en carpetas ocultas"
 
 #: ../src/prefs.c:224
 msgid "Search hidden directories for files (directories starting by a '.')."
-msgstr "Buscar archivos en carpetas ocultas (que empiezan con «.»)."
+msgstr "Buscar archivos en carpetas ocultas (que empiezan con un «.»)."
 
 #.
 #. * Misc
@@ -3742,9 +3742,9 @@ msgid ""
 "Enter the program used to play the files. Some arguments can be passed for "
 "the program (as 'xmms -p') before to receive files as other arguments."
 msgstr ""
-"Introduzca el programa usado para reproducir los archivos. Se le pueden "
-"pasar algunos argumentos (como «xmms -p») antes de recibir archivos como "
-"otros argumentos."
+"Introduzca el programa usado para reproducir los archivos. Se pueden pasar "
+"algunos argumentos al programa (como «xmms -p») antes de recibir archivos "
+"como otros argumentos."
 
 #. Log options
 #: ../src/prefs.c:411
@@ -3990,7 +3990,7 @@ msgid ""
 msgstr ""
 "XMMS no usa la forma correcta para identificar un comentario en archivos Ogg "
 "Vorbis como hacen otras aplicaciones. De hecho, este campo generalmente se "
-"etiqueta con «comment=», donde XMMS usa solo «=». Por favor, no seleccione "
+"etiqueta con «comment=», mientras XMMS usa solo «=». Por favor, no seleccione "
 "esta opción si no quiere que otras aplicaciones se vean afectadas por un "
 "campo desconocido. Sin embargo, los comentarios no se mostraran en XMMS."
 
