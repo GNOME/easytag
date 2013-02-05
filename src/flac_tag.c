@@ -677,8 +677,8 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
                 break;
         }
         
-        // Free block data
-        //FLAC__metadata_object_delete(block);
+        /* Free block data. */
+        FLAC__metadata_object_delete (block);
     }
     
     // Free iter
