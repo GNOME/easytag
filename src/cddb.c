@@ -2943,8 +2943,8 @@ Cddb_Search_Album_From_Selected_Files (void)
             "jazz",  "misc",      "newage",  "reggae", "rock",
             "soundtrack"
         };
-        static const gint CddbDirSize = sizeof(CddbDir)/sizeof(CddbDir[0]) - 1 ;
-        guint i;
+        static const gsize CddbDirSize = G_N_ELEMENTS (CddbDir) - 1;
+        gsize i;
 
         // We check if the file corresponding to the discid exists in each directory
         for (i=0; i<=CddbDirSize; i++)
