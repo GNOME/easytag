@@ -107,7 +107,7 @@ gboolean Wavpack_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
         FileTag->title = Try_To_Validate_Utf8_String(field);
     }
 
-    free(field);
+    g_free (field);
 
     /*
      * Artist
@@ -119,7 +119,7 @@ gboolean Wavpack_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
         FileTag->artist = Try_To_Validate_Utf8_String(field);
     }
 
-    free(field);
+    g_free (field);
 
     /*
      * Album
@@ -131,7 +131,7 @@ gboolean Wavpack_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
         FileTag->album = Try_To_Validate_Utf8_String(field);
     }
 
-    free(field);
+    g_free (field);
 
     /*
      * Discnumber
@@ -143,7 +143,7 @@ gboolean Wavpack_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
         FileTag->disc_number = Try_To_Validate_Utf8_String(field);
     }
 
-    free(field);
+    g_free (field);
 
     /*
      * Year
@@ -155,7 +155,7 @@ gboolean Wavpack_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
         FileTag->year = Try_To_Validate_Utf8_String(field);
     }
 
-    free(field);
+    g_free (field);
 
     /*
      * Tracknumber + tracktotal
@@ -177,7 +177,7 @@ gboolean Wavpack_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
         FileTag->track = Try_To_Validate_Utf8_String(field);
     }
 
-    free(field);
+    g_free (field);
 
     /*
      * Genre
@@ -189,7 +189,7 @@ gboolean Wavpack_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
         FileTag->genre = Try_To_Validate_Utf8_String(field);
     }
 
-    free(field);
+    g_free (field);
 
     /*
      * Comment
@@ -201,7 +201,7 @@ gboolean Wavpack_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
         FileTag->comment = Try_To_Validate_Utf8_String(field);
     }
 
-    free(field);
+    g_free (field);
 
     /*
      * Composer
@@ -213,7 +213,7 @@ gboolean Wavpack_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
         FileTag->composer = Try_To_Validate_Utf8_String(field);
     }
 
-    free(field);
+    g_free (field);
 
     /*
      * Original artist
@@ -225,7 +225,7 @@ gboolean Wavpack_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
         FileTag->orig_artist  = Try_To_Validate_Utf8_String(field);
     }
 
-    free(field);
+    g_free (field);
 
     /*
      * Copyright
@@ -237,7 +237,7 @@ gboolean Wavpack_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
         FileTag->copyright = Try_To_Validate_Utf8_String(field);
     }
 
-    free(field);
+    g_free (field);
 
     /*
      * URL
@@ -249,7 +249,7 @@ gboolean Wavpack_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
         FileTag->url = Try_To_Validate_Utf8_String(field);
     }
 
-    free(field);
+    g_free (field);
 
     /*
      * Encoded by
@@ -261,7 +261,7 @@ gboolean Wavpack_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
         FileTag->encoded_by = Try_To_Validate_Utf8_String(field);
     }
 
-    free(field);
+    g_free (field);
 
     WavpackCloseFile(wpc);
 

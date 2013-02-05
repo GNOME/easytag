@@ -148,7 +148,7 @@ gboolean Id3tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
         {
             /* Determine version if user want to upgrade old tags */
             if (CONVERT_OLD_ID3V2_TAG_VERSION
-            && (string1 = realloc(string1, tagsize))
+            && (string1 = g_realloc (string1, tagsize))
             && (read(tmpfile, &string1[ID3_TAG_QUERYSIZE], tagsize - ID3_TAG_QUERYSIZE) == tagsize - ID3_TAG_QUERYSIZE)
             && (tag = id3_tag_parse((id3_byte_t const *)string1, tagsize))
                )
@@ -700,7 +700,7 @@ libid3tag_Get_Frame_Str(const struct id3_frame *frame, unsigned etag_field_type,
                 if (USE_NON_STANDARD_ID3_READING_CHARACTER_SET)
                 {
                     tmpstr = convert_string(latinstr, FILE_READING_ID3V1V2_CHARACTER_SET, "UTF-8", FALSE);
-                    free(latinstr);
+                    g_free (latinstr);
                 }
                 else
                     tmpstr = latinstr;
@@ -756,7 +756,7 @@ libid3tag_Get_Frame_Str(const struct id3_frame *frame, unsigned etag_field_type,
     if (retstr)
         *retstr = ret;
     else
-        free(ret);
+        g_free (ret);
 
     return retval;
 }
@@ -1167,7 +1167,7 @@ id3taglib_set_field(struct id3_frame *frame,
             }
 
             latinstr = convert_string(str, "UTF-8", encname ? encname : "ISO-8859-1//IGNORE", TRUE);
-            free(encname);
+            g_free (encname);
             buf = id3_latin1_ucs4duplicate((id3_latin1_t const *)latinstr);
         } else
         {
