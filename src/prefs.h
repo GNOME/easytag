@@ -92,7 +92,6 @@ GtkWidget *FileWritingId3v2UseNoUnicodeCharacterSet;
 GtkWidget *UseNonStandardId3ReadingCharacterSet;
 GtkWidget *FileReadingId3v1v2CharacterSetCombo;
 
-GtkWidget *FileReadingId3v1v2CharacterSetCombo;
 GtkWidget *FileWritingId3v2IconvOptionsNo;
 GtkWidget *FileWritingId3v2IconvOptionsTranslit;
 GtkWidget *FileWritingId3v2IconvOptionsIgnore;
