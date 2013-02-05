@@ -3691,7 +3691,7 @@ Load_Filename_Update_Text_Line(GtkWidget *entry, GtkWidget *list)
     GtkTreeIter SelectedRow;
     GtkTreeSelection *selection;
     GtkTreeModel *model;
-    gboolean hasSelectedRows = FALSE;
+    gboolean hasSelectedRows;
 
     g_return_if_fail (entry != NULL || list != NULL);
 

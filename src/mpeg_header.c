@@ -346,7 +346,6 @@ gboolean Mpeg_Header_Display_File_Info_To_UI(gchar *filename_utf8, ET_File_Info 
 
     /* MPEG, Layer versions */
     gtk_label_set_text(GTK_LABEL(VersionLabel),_("MPEG"));
-    ln_num = sizeof(layer_names)/sizeof(layer_names[0]); // Used to avoid problem with layer_names[]
     if (ETFileInfo->mpeg25)
         text = g_strdup_printf("2.5, Layer %s",(ETFileInfo->layer>=1 && ETFileInfo->layer<=ln_num)?layer_names[ETFileInfo->layer-1]:"?");
     else
