@@ -1083,6 +1083,7 @@ Picture_Load_File_Data (const gchar *filename)
     gchar *buffer = 0;
     size_t size = 0;
     struct stat st;
+    FILE *fd;
 
 #ifdef G_OS_WIN32
     // Strange : on Win32, the file seems to be in UTF-8, so we can't load files with accentuated characters...
@@ -1102,7 +1103,7 @@ Picture_Load_File_Data (const gchar *filename)
     size = st.st_size;
     buffer = g_malloc(size);
 
-    FILE *fd = fopen(filename, "rb");
+    fd = fopen(filename, "rb");
     if (!fd)
     {
         gchar *filename_utf8;

@@ -264,6 +264,8 @@ vcedit_open_callbacks(vcedit_state *state, void *in,
     char *buffer;
     int bytes,i;
     int chunks = 0;
+    int headerpackets = 0;
+    oggpack_buffer opb;
     ogg_packet *header;
     ogg_packet  header_main;
     ogg_packet  header_comments;
@@ -326,7 +328,6 @@ vcedit_open_callbacks(vcedit_state *state, void *in,
     memcpy(state->mainbuf, header_main.packet, header_main.bytes);
 
     state->oggtype = VCEDIT_IS_UNKNOWN;
-    int headerpackets = 0;
     if(vorbis_synthesis_headerin(state->vi, state->vc, &header_main) == 0)
     {
         state->oggtype = VCEDIT_IS_OGGVORBIS;
@@ -361,7 +362,6 @@ vcedit_open_callbacks(vcedit_state *state, void *in,
             break;
 #endif
     }
-    oggpack_buffer opb;
     i = 1;
     while(i<headerpackets)
     {
