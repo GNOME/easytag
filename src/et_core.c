@@ -1989,20 +1989,12 @@ gboolean ET_Set_Displayed_File_List (GList *ETFileList)
  */
 gboolean ET_Free_File_List (void)
 {
-    GList *list = NULL;
-
     g_return_val_if_fail (ETCore != NULL || ETCore->ETFileList != NULL, FALSE);
 
-    list = g_list_last(ETCore->ETFileList);
-    while (list)
-    {
-        ET_Free_File_List_Item((ET_File *)list->data);
-        if (!list->prev) break;
-        list = list->prev;
-    }
-
-    g_list_free(list);
+    g_list_free_full (ETCore->ETFileList,
+                      (GDestroyNotify)ET_Free_File_List_Item);
     ETCore->ETFileList = NULL;
+
     return TRUE;
 }
 
