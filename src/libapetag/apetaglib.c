@@ -1025,7 +1025,7 @@ apetag_save (char *filename, apetag *mem_cnt, int flag)
                 return ATL_FWRITE;
             }
             fseek (fp, newFileSize, SEEK_SET);
-            PRINT_D4 (">apetaglib>SAVE>> write:%i == tag:%i file: %i->%i\n",
+            PRINT_D4 (">apetaglib>SAVE>> write:%zu == tag:%zu file: %zu->%zu\n",
                 writedBytes, tagSSize + (saveApe2 ? 32 : 0), fileSize, newFileSize);
         } else {
             newFileSize = (fileSize - skipBytes);
