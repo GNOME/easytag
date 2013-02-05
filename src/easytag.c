@@ -2818,10 +2818,10 @@ Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox)
 #endif
         default:
             msg = g_strdup (g_strerror (errno));
+            msg1 = g_strdup_printf (_("Cannot write tag in file '%s' (%s)"),
+                                    basename_utf8, msg);
     }
 
-    msg1 = g_strdup_printf(_("Cannot write tag in file '%s' (%s)"),
-                           basename_utf8,msg);
     Log_Print(LOG_ERROR,"%s", msg1);
     g_free(msg1);
 
@@ -3078,6 +3078,7 @@ Rename_File (ET_File *ETFile, gboolean hide_msgbox)
 
         Statusbar_Message(_("File(s) not renamed…"),TRUE);
 
+        g_free (tmp_filename);
         g_free(new_basename_utf8);
         g_free(cur_basename_utf8);
         return FALSE;

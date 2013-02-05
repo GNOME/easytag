@@ -1122,6 +1122,7 @@ Picture_Load_File_Data (const gchar *filename)
         gtk_widget_destroy(msgdialog);
 
         Log_Print(LOG_ERROR,_("Picture file not loaded (%s)…"),g_strerror(errno));
+        g_free (buffer);
         g_free(filename_utf8);
 #ifdef G_OS_WIN32
         g_free(filename);

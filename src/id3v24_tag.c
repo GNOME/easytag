@@ -130,6 +130,7 @@ gboolean Id3tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     if (read(tmpfile, string1, ID3_TAG_QUERYSIZE) != ID3_TAG_QUERYSIZE)
     {
         close(tmpfile);
+        g_free (string1);
         return FALSE;
     }
 
