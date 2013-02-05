@@ -3918,9 +3918,9 @@ Cddb_Set_Track_Infos_To_File_List (void)
             /*
              * Tag fields
              */
-            if (cddbsettoallfields || cddbsettotitle      || cddbsettotitle
-            ||  cddbsettoartist    || cddbsettoalbum      || cddbsettoyear
-            ||  cddbsettotrack     || cddbsettotracktotal || cddbsettogenre)
+            if (cddbsettoallfields || cddbsettotitle || cddbsettoartist
+                || cddbsettoalbum || cddbsettoyear || cddbsettotrack
+                || cddbsettotracktotal || cddbsettogenre)
             {
                 // Allocation of a new FileTag
                 FileTag = ET_File_Tag_Item_New();
@@ -4004,9 +4004,9 @@ Cddb_Set_Track_Infos_To_File_List (void)
             /*
              * Tag fields
              */
-            if (cddbsettoallfields || cddbsettotitle      || cddbsettotitle
-            ||  cddbsettoartist    || cddbsettoalbum      || cddbsettoyear
-            ||  cddbsettotrack     || cddbsettotracktotal || cddbsettogenre)
+            if (cddbsettoallfields || cddbsettotitle || cddbsettoartist
+                || cddbsettoalbum || cddbsettoyear || cddbsettotrack
+                || cddbsettotracktotal || cddbsettogenre)
             {
                 // Allocation of a new FileTag
                 FileTag = ET_File_Tag_Item_New();

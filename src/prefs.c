@@ -1544,8 +1544,6 @@ Change_Id3_Settings_Toggled (void)
 #endif
     ||   !FileWritingId3v1WriteTag
     ||   !LabelId3v2Charset
-    ||   !FileWritingId3v2UseUnicodeCharacterSet
-    ||   !FileWritingId3v2UseNoUnicodeCharacterSet
     ||   !FileWritingId3v2UnicodeCharacterSetCombo
     ||   !FileWritingId3v2NoUnicodeCharacterSetCombo
     ||   !LabelAdditionalId3v2IconvOptions
