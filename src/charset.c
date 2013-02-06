@@ -421,9 +421,13 @@ convert_string_1 (const gchar *string, gssize length, const gchar *from_codeset,
         //    g_convert returns null-terminated string only with one \0 at the
         // end. It can cause some garbage at the end of a string for UTF-16.
         // The second \0 should be set manually.
-        output = g_realloc(output, bytes_written + 2);
-        if (output != NULL)
+        gchar *new_output;
+        new_output = g_realloc (output, bytes_written + 2);
+        if (new_output != NULL)
+        {
+            output = new_output;
             output[bytes_written] = output[bytes_written + 1] = 0;
+        }
     }
 
     //g_print("from %s => len: %d, string: '%s'\n     (%x %x %x %x %x %x %x %x)\n",from_codeset,length,string,string[0],string[1],string[2],string[3],string[4],string[5],string[6],string[7]);

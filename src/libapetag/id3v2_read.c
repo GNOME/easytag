@@ -183,10 +183,19 @@ libapetag_convertID3v2toAPE (const ID3Frame * frame,
                         value_len2 = 0;
                         value[0]='\0';
                     } else {
-                        item = (char *) realloc( item, (*item_len) + value_len2 + 3);
-                        item[(*item_len)++]='-'; item[(*item_len)]='\0';
-                        strncpy(item + (*item_len),value_ds ,(value_len2 + 1));
-                        (*item_len)+=value_len2;
+                        char *new_item;
+                        new_item = (char *) realloc( item, (*item_len) + value_len2 + 3);
+                        if (new_item != NULL)
+                        {
+                            item = new_item;
+                            item[(*item_len)++]='-'; item[(*item_len)]='\0';
+                            strncpy(item + (*item_len),value_ds ,(value_len2 + 1));
+                            (*item_len)+=value_len2;
+                        }
+                        else
+                        {
+                            abort ();
+                        }
                     }
                     free(value_ds);
                 }
