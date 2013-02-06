@@ -1264,6 +1264,7 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
     guchar tmp[16] = {0xFF, 0xFB, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
     ID3Tag *id3_tag = NULL;
+    gchar *path;
     gchar *result = NULL;
     ID3Frame *id3_frame;
     gboolean use_unicode;
@@ -1321,7 +1322,8 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
     FILE_WRITING_ID3V2_USE_UNICODE_CHARACTER_SET = TRUE;
 
     id3_tag = ID3Tag_New();
-    ID3Tag_Link_1 (id3_tag, g_file_get_path (file));
+    path = g_file_get_path (file);
+    ID3Tag_Link_1 (id3_tag, path);
 
     // Create a new 'title' field for testing
     id3_frame = ID3Frame_NewID(ID3FID_TITLE);
@@ -1339,7 +1341,7 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
 
 
     id3_tag = ID3Tag_New();
-    ID3Tag_Link_1 (id3_tag, g_file_get_path (file));
+    ID3Tag_Link_1 (id3_tag, path);
     // Read the written field
     if ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_TITLE)) )
     {
@@ -1347,6 +1349,7 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
     }
 
     ID3Tag_Delete(id3_tag);
+    g_free (path);
     g_file_delete (file, NULL, NULL);
 
     g_object_unref (file);
