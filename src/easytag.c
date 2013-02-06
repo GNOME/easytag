@@ -2803,6 +2803,7 @@ Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox)
     if (ET_Save_File_Tag_To_HD(ETFile))
     {
         Statusbar_Message(_("Tag(s) written"),TRUE);
+        g_free (basename_utf8);
         return TRUE;
     }
 
