@@ -96,6 +96,7 @@ AS_IF([test "x$with_gtk3" = "xyes"],
       [AC_MSG_RESULT([no])
        GTK_DEPS="$GTK2_DEPS"])
 PKG_CHECK_MODULES([GTK], [$GTK_DEPS])
+AM_CONDITIONAL([USE_GTK3], [test "x$with_gtk3" = "xyes"])
 
 
 dnl Patch from Ben Taylor to fix a Solaris bug (for CDDB)
