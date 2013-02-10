@@ -1,4 +1,13 @@
 ACLOCAL_AMFLAGS = -I m4
+
+DISTCHECK_CONFIGURE_FLAGS = \
+	--enable-flac \
+	--enable-id3v23 \
+	--enable-mp3 \
+	--enable-ogg \
+	--enable-mp4 \
+	--enable-speex \
+	--enable-wavpack
  
 SUBDIRS = po
 
