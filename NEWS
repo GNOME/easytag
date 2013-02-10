@@ -1,12 +1,24 @@
-2.1.8 - … :
-=========================
+2.1.8 - 2013-02-10 :
+====================
     * Port to and require the most recent GTK+ 2 release (2.24)
     * Allow experimental compilation against GTK+ 3
+    * Many memory leaks fixed
+    * Remove the Debian and RPM packaging
+    * Christoph J. Thompson's change to not install the ChangeLog
+    * Adrian Bunk's FLAC, configure, sign comparison warning and GBase64 fixes
+    * Waqa Qamar's new icons
+    * Small fixes to allow compilation under mingw
+    * Fix overlaid text in scanner legend
+    * Alessio Ababilov's SIGCHLD handling fix
+    * Move configuration files to XDG firectories
+    * Andreas Winkelmann's configuration file, remove all text, disc number
+      column and compiler warning fixes
     * Switch to TagLib for MP4 tag editing and drop libmp4v2 support
     * Fix album artist entry focus chain order
     * Remove Changes tab in about dialog
     * Tidy and internationalize the desktop file
     * Fix many spelling errors and typos
+    * Several translation updates
     * Rewrite build system
     * Use intltool for internationalization
     * Drop dependency on libtool
