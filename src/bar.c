@@ -128,7 +128,6 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
 {
     GtkWidget *menubar;
     GtkWidget *toolbar;
-    GtkWidget *toolbarwidget;
 
     /*
      * Structure :
@@ -318,16 +317,12 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
     gtk_ui_manager_insert_action_group(UIManager, ActionGroup, 0);
     gtk_window_add_accel_group(GTK_WINDOW(MainWindow), gtk_ui_manager_get_accel_group(UIManager));
 
-    /* Menu (not placed in a handlebar) */
     menubar = gtk_ui_manager_get_widget(UIManager, "/MenuBar");
     Init_Menu_Bar();
     gtk_widget_show_all(menubar);
 
-    /* Toolbar is placed in a handlebar */
-    toolbar = gtk_handle_box_new();
-    toolbarwidget = gtk_ui_manager_get_widget(UIManager, "/ToolBar");
-    gtk_container_add(GTK_CONTAINER(toolbar), toolbarwidget);
-    gtk_toolbar_set_style(GTK_TOOLBAR(toolbarwidget), GTK_TOOLBAR_ICONS);
+    toolbar = gtk_ui_manager_get_widget (UIManager, "/ToolBar");
+    gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
     gtk_widget_show_all(toolbar);
 
     *pptoolbar = toolbar;
