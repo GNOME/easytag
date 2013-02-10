@@ -1972,11 +1972,11 @@ void Open_Search_File_Window (void)
     gtk_box_pack_start(GTK_BOX(VBox),Frame,TRUE,TRUE,0);
     gtk_container_set_border_width(GTK_CONTAINER(Frame),2);
 
-    Table = gtk_table_new(3,6,FALSE);
+    Table = et_grid_new (3, 6);
     gtk_container_add(GTK_CONTAINER(Frame),Table);
     gtk_container_set_border_width(GTK_CONTAINER(Table), 2);
-    gtk_table_set_row_spacings(GTK_TABLE(Table),4);
-    gtk_table_set_col_spacings(GTK_TABLE(Table),4);
+    gtk_grid_set_row_spacing (GTK_GRID (Table), 4);
+    gtk_grid_set_column_spacing (GTK_GRID (Table), 4);
 
     // Words to search
     if (!SearchStringModel)
@@ -1986,11 +1986,11 @@ void Open_Search_File_Window (void)
 
     Label = gtk_label_new(_("Search:"));
     gtk_misc_set_alignment(GTK_MISC(Label),1.0,0.5);
-    gtk_table_attach(GTK_TABLE(Table),Label,0,1,0,1,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), Label, 0, 0, 1, 1);
     SearchStringCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(SearchStringModel));
     gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(SearchStringCombo),MISC_COMBO_TEXT);
     gtk_widget_set_size_request(GTK_WIDGET(SearchStringCombo),200,-1);
-    gtk_table_attach(GTK_TABLE(Table),SearchStringCombo,1,5,0,1,GTK_EXPAND|GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), SearchStringCombo, 1, 0, 4, 1);
     // History List
     Load_Search_File_List(SearchStringModel, MISC_COMBO_TEXT);
     gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(SearchStringCombo))),"");
@@ -2003,7 +2003,7 @@ void Open_Search_File_Window (void)
     // Where...
     Label = gtk_label_new(_("In:"));
     gtk_misc_set_alignment(GTK_MISC(Label),1.0,0.5);
-    gtk_table_attach(GTK_TABLE(Table),Label,0,1,1,2,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), Label, 0, 1, 1, 1);
     /* Translators: This option is for the previous 'in' option. For instance,
      * translate this as "Search" "In:" "the Filename". */
     SearchInFilename = gtk_check_button_new_with_label(_("the Filename"));
@@ -2013,24 +2013,27 @@ void Open_Search_File_Window (void)
      * grammatical problem (which uses one word to say "in the tag" like here)
      */
     SearchInTag = gtk_check_button_new_with_label(_("the Tag"));
-    gtk_table_attach(GTK_TABLE(Table),SearchInFilename,1,2,1,2,GTK_FILL,GTK_FILL,0,0);
-    gtk_table_attach(GTK_TABLE(Table),SearchInTag,2,3,1,2,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), SearchInFilename, 1, 1, 1, 1);
+    gtk_grid_attach (GTK_GRID (Table), SearchInTag, 2, 1, 1, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SearchInFilename),SEARCH_IN_FILENAME);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SearchInTag),SEARCH_IN_TAG);
 
     Separator = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
-    gtk_table_attach(GTK_TABLE(Table),Separator,3,4,1,2,GTK_FILL,GTK_FILL,4,0);
+    et_grid_attach_full (GTK_GRID (Table), Separator, 3, 1, 1, 1, FALSE, FALSE,
+                         4, 0);
 
     // Property of the search
     SearchCaseSensitive = gtk_check_button_new_with_label(_("Case sensitive"));
-    gtk_table_attach(GTK_TABLE(Table),SearchCaseSensitive,4,5,1,2,GTK_EXPAND|GTK_FILL,GTK_FILL,0,0);
+    et_grid_attach_full (GTK_GRID (Table), SearchCaseSensitive, 4, 1, 1, 1,
+                         TRUE, FALSE, 0, 0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SearchCaseSensitive),SEARCH_CASE_SENSITIVE);
 
     // Results list
     ScrollWindow = gtk_scrolled_window_new(NULL,NULL);
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(ScrollWindow),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
     gtk_widget_set_size_request(GTK_WIDGET(ScrollWindow), -1, 130);
-    gtk_table_attach(GTK_TABLE(Table),ScrollWindow,0,6,2,3,GTK_EXPAND|GTK_FILL,GTK_EXPAND|GTK_FILL,0,0);
+    et_grid_attach_full (GTK_GRID (Table), ScrollWindow, 0, 2, 5, 1, TRUE,
+                         TRUE, 0, 0);
 
     SearchResultListModel = gtk_list_store_new(SEARCH_COLUMN_COUNT,
                                                G_TYPE_STRING, /* Filename */
@@ -2230,7 +2233,7 @@ void Open_Search_File_Window (void)
 
     // Button to run the search
     Button = gtk_button_new_from_stock(GTK_STOCK_FIND);
-    gtk_table_attach(GTK_TABLE(Table),Button,5,6,0,1,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), Button, 5, 0, 1, 1);
     gtk_widget_set_can_default(Button,TRUE);
     gtk_widget_grab_default(Button);
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(Search_File),NULL);
@@ -2238,12 +2241,12 @@ void Open_Search_File_Window (void)
 
     // Button to cancel
     Button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
-    gtk_table_attach(GTK_TABLE(Table),Button,5,6,1,2,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), Button, 5, 1, 1, 1);
     g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(Destroy_Search_File_Window),NULL);
 
     // Status bar
     SearchStatusBar = gtk_statusbar_new();
-    //gtk_table_attach(GTK_TABLE(Table),SearchStatusBar,0,6,3,4,GTK_FILL,GTK_FILL,0,0);
+    /*gtk_grid_attach (GTK_GRID (Table), SearchStatusBar, 0, 3, 5, 1);*/
     gtk_box_pack_start(GTK_BOX(VBox),SearchStatusBar,FALSE,TRUE,0);
     SearchStatusBarContext = gtk_statusbar_get_context_id(GTK_STATUSBAR(SearchStatusBar),"Messages");
     gtk_statusbar_push(GTK_STATUSBAR(SearchStatusBar),SearchStatusBarContext,_("Ready to search…"));

@@ -428,10 +428,10 @@ void Open_Cddb_Window (void)
     Frame = gtk_frame_new(_("Search In:"));
     gtk_box_pack_start(GTK_BOX(notebookvbox),Frame,FALSE,TRUE,0);
 
-    Table = gtk_table_new(7,4,FALSE);
+    Table = et_grid_new (7,4);
     gtk_container_add(GTK_CONTAINER(Frame),Table);
-    gtk_table_set_row_spacings(GTK_TABLE(Table),1);
-    gtk_table_set_col_spacings(GTK_TABLE(Table),1);
+    gtk_grid_set_row_spacing (GTK_GRID (Table), 1);
+    gtk_grid_set_column_spacing (GTK_GRID (Table), 1);
 
     /* Translators: This option is for the previous 'search in' option. For
      * instance, translate this as "Search in:" "All fields". */
@@ -449,12 +449,12 @@ void Open_Cddb_Window (void)
     /* Translators: This option is for the previous 'search in' option. For
      * instance, translate this as "Search in:" "Other". */
     CddbSearchInOtherField     = gtk_check_button_new_with_label(_("Other"));
-    gtk_table_attach(GTK_TABLE(Table),CddbSearchInAllFields,     0,1,0,1,GTK_FILL,GTK_FILL,0,0);
-    gtk_table_attach(GTK_TABLE(Table),Separator,                 1,2,0,1,GTK_FILL,GTK_FILL,0,0);
-    gtk_table_attach(GTK_TABLE(Table),CddbSearchInArtistField,   2,3,0,1,GTK_FILL,GTK_FILL,0,0);
-    gtk_table_attach(GTK_TABLE(Table),CddbSearchInTitleField,    3,4,0,1,GTK_FILL,GTK_FILL,0,0);
-    gtk_table_attach(GTK_TABLE(Table),CddbSearchInTrackNameField,4,5,0,1,GTK_FILL,GTK_FILL,0,0);
-    gtk_table_attach(GTK_TABLE(Table),CddbSearchInOtherField,    5,6,0,1,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), CddbSearchInAllFields, 0, 0, 1, 1);
+    gtk_grid_attach (GTK_GRID (Table), Separator, 1, 0, 1, 1);
+    gtk_grid_attach (GTK_GRID (Table), CddbSearchInArtistField, 2, 0, 1, 1);
+    gtk_grid_attach (GTK_GRID (Table), CddbSearchInTitleField, 3, 0, 1, 1);
+    gtk_grid_attach (GTK_GRID (Table), CddbSearchInTrackNameField, 4, 0, 1, 1);
+    gtk_grid_attach (GTK_GRID (Table), CddbSearchInOtherField, 5, 0, 1, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbSearchInAllFields), CDDB_SEARCH_IN_ALL_FIELDS);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbSearchInArtistField), CDDB_SEARCH_IN_ARTIST_FIELD);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbSearchInTitleField), CDDB_SEARCH_IN_TITLE_FIELD);
@@ -468,7 +468,7 @@ void Open_Cddb_Window (void)
     g_signal_connect(G_OBJECT(CddbSearchInOtherField), "toggled", G_CALLBACK(Cddb_Set_Search_Button_Sensitivity),NULL);
 
     CddbSeparatorH = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
-    gtk_table_attach(GTK_TABLE(Table),CddbSeparatorH,0,7,1,2,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), CddbSeparatorH, 0, 1, 6, 1);
 
     /* Translators: This option is for the previous 'search in' option. For
      * instance, translate this as "Search in:" "All Categories". */
@@ -504,18 +504,21 @@ void Open_Cddb_Window (void)
     /* Translators: This option is for the previous 'search in' option. For
      * instance, translate this as "Search in:" "Soundtrack". */
     CddbSearchInSoundtrackCategory = gtk_check_button_new_with_label(_("Soundtrack"));
-    gtk_table_attach(GTK_TABLE(Table),CddbSearchInAllCategories,     0,1,2,4,GTK_FILL,GTK_FILL,0,0);
-    gtk_table_attach(GTK_TABLE(Table),CddbSeparatorV,                1,2,2,4,GTK_FILL,GTK_FILL,0,0);
-    gtk_table_attach(GTK_TABLE(Table),CddbSearchInBluesCategory,     2,3,2,3,GTK_FILL,GTK_FILL,0,0);
-    gtk_table_attach(GTK_TABLE(Table),CddbSearchInClassicalCategory, 3,4,2,3,GTK_FILL,GTK_FILL,0,0);
-    gtk_table_attach(GTK_TABLE(Table),CddbSearchInCountryCategory,   4,5,2,3,GTK_FILL,GTK_FILL,0,0);
-    gtk_table_attach(GTK_TABLE(Table),CddbSearchInFolkCategory,      5,6,2,3,GTK_FILL,GTK_FILL,0,0);
-    gtk_table_attach(GTK_TABLE(Table),CddbSearchInJazzCategory,      6,7,2,3,GTK_FILL,GTK_FILL,0,0);
-    gtk_table_attach(GTK_TABLE(Table),CddbSearchInMiscCategory,      2,3,3,4,GTK_FILL,GTK_FILL,0,0);
-    gtk_table_attach(GTK_TABLE(Table),CddbSearchInNewageCategory,    3,4,3,4,GTK_FILL,GTK_FILL,0,0);
-    gtk_table_attach(GTK_TABLE(Table),CddbSearchInReggaeCategory,    4,5,3,4,GTK_FILL,GTK_FILL,0,0);
-    gtk_table_attach(GTK_TABLE(Table),CddbSearchInRockCategory,      5,6,3,4,GTK_FILL,GTK_FILL,0,0);
-    gtk_table_attach(GTK_TABLE(Table),CddbSearchInSoundtrackCategory,6,7,3,4,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), CddbSearchInAllCategories, 0, 2, 1, 2);
+    gtk_grid_attach (GTK_GRID (Table), CddbSeparatorV, 1, 2, 1, 2);
+    gtk_grid_attach (GTK_GRID (Table), CddbSearchInBluesCategory, 2, 2, 1, 1);
+    gtk_grid_attach (GTK_GRID (Table), CddbSearchInClassicalCategory, 3, 2, 1,
+                     1);
+    gtk_grid_attach (GTK_GRID (Table), CddbSearchInCountryCategory, 4, 2, 1,
+                     1);
+    gtk_grid_attach (GTK_GRID (Table), CddbSearchInFolkCategory, 5, 2, 1, 1);
+    gtk_grid_attach (GTK_GRID (Table), CddbSearchInJazzCategory, 6, 2, 1, 1);
+    gtk_grid_attach (GTK_GRID (Table), CddbSearchInMiscCategory, 2, 3, 1, 1);
+    gtk_grid_attach (GTK_GRID (Table), CddbSearchInNewageCategory, 3, 3, 1, 1);
+    gtk_grid_attach (GTK_GRID (Table), CddbSearchInReggaeCategory, 4, 3, 1, 1);
+    gtk_grid_attach (GTK_GRID (Table), CddbSearchInRockCategory, 5, 3, 1, 1);
+    gtk_grid_attach (GTK_GRID (Table), CddbSearchInSoundtrackCategory, 6, 3, 1,
+                     1);
     gtk_label_set_line_wrap(GTK_LABEL(gtk_bin_get_child(GTK_BIN(CddbSearchInAllCategories))),TRUE); // Wrap label of the check button.
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbSearchInAllCategories),     CDDB_SEARCH_IN_ALL_CATEGORIES);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbSearchInBluesCategory),     CDDB_SEARCH_IN_BLUES_CATEGORY);
@@ -546,7 +549,7 @@ void Open_Cddb_Window (void)
 
     // Button to display/hide the categories
     CddbShowCategoriesButton = gtk_toggle_button_new_with_label(_("Categories"));
-    gtk_table_attach(GTK_TABLE(Table),CddbShowCategoriesButton,6,7,0,1,GTK_FILL,GTK_FILL,4,0);
+    gtk_grid_attach (GTK_GRID (Table), CddbShowCategoriesButton, 6, 0, 1, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbShowCategoriesButton),CDDB_SHOW_CATEGORIES);
     g_signal_connect(G_OBJECT(CddbShowCategoriesButton),"toggled", G_CALLBACK(Cddb_Show_Categories_Button_Toggled),NULL);
 

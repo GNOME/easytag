@@ -331,14 +331,14 @@ void Open_OptionsWindow (void)
     /* Message Dialog Position */
     Frame = gtk_frame_new (_("Message Dialog Position"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    Table = gtk_table_new(2,2,FALSE);
+    Table = et_grid_new (2, 2);
     gtk_container_add(GTK_CONTAINER(Frame),Table);
-    //gtk_table_set_row_spacings(GTK_TABLE(Table),2);
-    gtk_table_set_col_spacings(GTK_TABLE(Table),4);
+    /*gtk_grid_set_row_spacing (GTK_GRID (Table), 2);*/
+    gtk_grid_set_column_spacing (GTK_GRID (Table), 4);
 
 
     MessageBoxPositionNone = gtk_radio_button_new_with_label(NULL,_("No particular position"));
-    gtk_table_attach(GTK_TABLE(Table),MessageBoxPositionNone,0,1,0,1,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), MessageBoxPositionNone, 0, 0, 1, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(MessageBoxPositionNone),
         MESSAGE_BOX_POSITION_NONE);
     gtk_widget_set_tooltip_text(MessageBoxPositionNone,_("Let the Window Manager "
@@ -347,7 +347,8 @@ void Open_OptionsWindow (void)
     MessageBoxPositionCenterOnParent = gtk_radio_button_new_with_label(
         gtk_radio_button_get_group(GTK_RADIO_BUTTON(MessageBoxPositionNone)),
         _("Center of the main window"));
-    gtk_table_attach(GTK_TABLE(Table),MessageBoxPositionCenterOnParent,1,2,0,1,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), MessageBoxPositionCenterOnParent, 1, 0,
+                     1, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(MessageBoxPositionCenterOnParent),
         MESSAGE_BOX_POSITION_CENTER_ON_PARENT);
     gtk_widget_set_tooltip_text(MessageBoxPositionCenterOnParent,_("Windows should "
@@ -356,7 +357,7 @@ void Open_OptionsWindow (void)
     MessageBoxPositionCenter = gtk_radio_button_new_with_label(
         gtk_radio_button_get_group(GTK_RADIO_BUTTON(MessageBoxPositionNone)),
         _("Center of the screen"));
-    gtk_table_attach(GTK_TABLE(Table),MessageBoxPositionCenter,0,1,1,2,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), MessageBoxPositionCenter, 0, 1, 1, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(MessageBoxPositionCenter),
         MESSAGE_BOX_POSITION_CENTER);
     gtk_widget_set_tooltip_text(MessageBoxPositionCenter,_("Windows should be placed "
@@ -365,7 +366,7 @@ void Open_OptionsWindow (void)
     MessageBoxPositionMouse = gtk_radio_button_new_with_label(
         gtk_radio_button_get_group(GTK_RADIO_BUTTON(MessageBoxPositionNone)),
         _("Mouse position"));
-    gtk_table_attach(GTK_TABLE(Table),MessageBoxPositionMouse,1,2,1,2,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), MessageBoxPositionMouse, 1, 1, 1, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(MessageBoxPositionMouse),
         MESSAGE_BOX_POSITION_MOUSE);
     gtk_widget_set_tooltip_text(MessageBoxPositionMouse,_("Windows should be placed "
@@ -522,23 +523,23 @@ void Open_OptionsWindow (void)
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);***/
 
-    Table = gtk_table_new(4,2,FALSE);
+    Table = et_grid_new (4, 2);
     gtk_box_pack_start(GTK_BOX(vbox),Table,FALSE,FALSE,0);
-    //gtk_table_set_row_spacings(GTK_TABLE(Table),2);
-    gtk_table_set_col_spacings(GTK_TABLE(Table),2);
+    /*gtk_grid_set_row_spacing (GTK_GRID (Table), 2);*/
+    gtk_grid_set_column_spacing (GTK_GRID (Table), 2);
 
     /* Rules for character set */
     Label = gtk_label_new(_("Rules to apply if some characters can't be converted to "
         "the system character encoding when writing filename:"));
-    gtk_table_attach(GTK_TABLE(Table),Label,0,2,0,1,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), Label, 0, 0, 2, 1);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
 
     Label = gtk_label_new("    ");
-    gtk_table_attach(GTK_TABLE(Table),Label,0,1,1,2,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), Label, 0, 1, 1, 1);
 
     FilenameCharacterSetOther = gtk_radio_button_new_with_label(NULL,_("Try another "
         "character encoding"));
-    gtk_table_attach(GTK_TABLE(Table),FilenameCharacterSetOther,1,2,1,2,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), FilenameCharacterSetOther, 1, 1, 1, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FilenameCharacterSetOther),FILENAME_CHARACTER_SET_OTHER);
     gtk_widget_set_tooltip_text(FilenameCharacterSetOther,_("With this option, it will "
         "try the conversion to the encoding associated to your locale (for example: "
@@ -548,7 +549,8 @@ void Open_OptionsWindow (void)
     FilenameCharacterSetApproximate = gtk_radio_button_new_with_label(
         gtk_radio_button_get_group(GTK_RADIO_BUTTON(FilenameCharacterSetOther)),
         _("Force using the system character encoding and activate the transliteration"));
-    gtk_table_attach(GTK_TABLE(Table),FilenameCharacterSetApproximate,1,2,2,3,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), FilenameCharacterSetApproximate, 1, 2,
+                     1, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FilenameCharacterSetApproximate),FILENAME_CHARACTER_SET_APPROXIMATE);
     gtk_widget_set_tooltip_text(FilenameCharacterSetApproximate,_("With this option, when "
         "a character cannot be represented in the target character set, it can be "
@@ -557,7 +559,8 @@ void Open_OptionsWindow (void)
     FilenameCharacterSetDiscard = gtk_radio_button_new_with_label(
         gtk_radio_button_get_group(GTK_RADIO_BUTTON(FilenameCharacterSetOther)),
         _("Force using the system character encoding and silently discard some characters"));
-    gtk_table_attach(GTK_TABLE(Table),FilenameCharacterSetDiscard,1,2,3,4,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), FilenameCharacterSetDiscard, 1, 3, 1,
+                     1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FilenameCharacterSetDiscard),FILENAME_CHARACTER_SET_DISCARD);
     gtk_widget_set_tooltip_text(FilenameCharacterSetDiscard,_("With this option, when "
         "a character cannot be represented in the target character set, it will "
@@ -625,40 +628,40 @@ void Open_OptionsWindow (void)
     gtk_box_pack_start(GTK_BOX(vbox),Separator,FALSE,FALSE,0);
 
     /* Tag field focus */
-    Table = gtk_table_new(2,3,FALSE);
+    Table = et_grid_new (2, 3);
     gtk_box_pack_start(GTK_BOX(vbox),Table,FALSE,FALSE,0);
-    //gtk_table_set_row_spacings(GTK_TABLE(Table),2);
-    gtk_table_set_col_spacings(GTK_TABLE(Table),2);
+    /*gtk_grid_set_row_spacing (GTK_GRID (Table), 2);*/
+    gtk_grid_set_column_spacing (GTK_GRID (Table), 2);
 
     Label = gtk_label_new(_("Tag field focus when switching files in list with "
         "shortcuts Page Up/Page Down:"));
-    gtk_table_attach(GTK_TABLE(Table),Label,0,2,0,1,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), Label, 0, 0, 2, 1);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
 
     Label = gtk_label_new("    ");
-    gtk_table_attach(GTK_TABLE(Table),Label,0,1,1,2,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), Label, 0, 1, 1, 1);
 
     SetFocusToSameTagField = gtk_radio_button_new_with_label(NULL,
         _("Keep focus to the same tag field"));
-    gtk_table_attach(GTK_TABLE(Table),SetFocusToSameTagField,1,2,1,2,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), SetFocusToSameTagField, 1, 1, 1, 1);
     //gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SetFocusToSameTagField),SET_FOCUS_TO_SAME_TAG_FIELD);
 
     SetFocusToFirstTagField = gtk_radio_button_new_with_label(
         gtk_radio_button_get_group(GTK_RADIO_BUTTON(SetFocusToSameTagField)),
         _("Return focus to the first tag field (i.e. 'Title' field)"));
-    gtk_table_attach(GTK_TABLE(Table),SetFocusToFirstTagField,1,2,2,3,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), SetFocusToFirstTagField, 1, 2, 1, 1);
     //gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SetFocusToFirstTagField),SET_FOCUS_TO_FIRST_TAG_FIELD);
     
     /* Tag Splitting */
     Frame = gtk_frame_new (_("Tag Splitting"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
 
-    Table = gtk_table_new(5,2,FALSE);
+    Table = et_grid_new (5, 2);
     gtk_container_add(GTK_CONTAINER(Frame),Table);
-    gtk_table_set_col_spacings(GTK_TABLE(Table),2);
+    gtk_grid_set_column_spacing (GTK_GRID (Table), 2);
     
     Label = gtk_label_new(_("For Vorbis tags, selected fields will be split at dashes and saved as separate tags"));
-    gtk_table_attach(GTK_TABLE(Table),Label,0,2,0,1,GTK_FILL,GTK_FILL,0,1);
+    gtk_grid_attach (GTK_GRID (Table), Label, 0, 0, 2, 1);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
 
     VorbisSplitFieldTitle = gtk_check_button_new_with_label(_("Title"));
@@ -669,13 +672,13 @@ void Open_OptionsWindow (void)
     VorbisSplitFieldComposer = gtk_check_button_new_with_label(_("Composer"));
     VorbisSplitFieldOrigArtist = gtk_check_button_new_with_label(_("Original artist"));
 
-    gtk_table_attach(GTK_TABLE(Table),VorbisSplitFieldTitle,0,1,1,2,GTK_FILL,GTK_FILL,0,0);
-    gtk_table_attach(GTK_TABLE(Table),VorbisSplitFieldArtist,0,1,2,3,GTK_FILL,GTK_FILL,0,0);
-    gtk_table_attach(GTK_TABLE(Table),VorbisSplitFieldAlbum,0,1,3,4,GTK_FILL,GTK_FILL,0,0);
-    gtk_table_attach(GTK_TABLE(Table),VorbisSplitFieldGenre,0,1,4,5,GTK_FILL,GTK_FILL,0,0);
-    gtk_table_attach(GTK_TABLE(Table),VorbisSplitFieldComment,1,2,1,2,GTK_FILL,GTK_FILL,0,0);
-    gtk_table_attach(GTK_TABLE(Table),VorbisSplitFieldComposer,1,2,2,3,GTK_FILL,GTK_FILL,0,0);
-    gtk_table_attach(GTK_TABLE(Table),VorbisSplitFieldOrigArtist,1,2,3,4,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), VorbisSplitFieldTitle, 0, 1, 1, 1);
+    gtk_grid_attach (GTK_GRID (Table), VorbisSplitFieldArtist, 0, 2, 1, 1);
+    gtk_grid_attach (GTK_GRID (Table), VorbisSplitFieldAlbum, 0, 3, 1, 1);
+    gtk_grid_attach (GTK_GRID (Table), VorbisSplitFieldGenre, 0, 4, 1, 1);
+    gtk_grid_attach (GTK_GRID (Table), VorbisSplitFieldComment, 1, 1, 1, 1);
+    gtk_grid_attach (GTK_GRID (Table), VorbisSplitFieldComposer, 1, 2, 1, 1);
+    gtk_grid_attach (GTK_GRID (Table), VorbisSplitFieldOrigArtist, 1, 3, 1, 1);
 
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(VorbisSplitFieldTitle), VORBIS_SPLIT_FIELD_TITLE);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(VorbisSplitFieldArtist), VORBIS_SPLIT_FIELD_ARTIST);
@@ -707,14 +710,14 @@ void Open_OptionsWindow (void)
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox),2);
 
-    Table = gtk_table_new(3,2,FALSE);
+    Table = et_grid_new (3, 2);
     gtk_box_pack_start(GTK_BOX(vbox),Table,FALSE,FALSE,0);
-    gtk_table_set_row_spacings(GTK_TABLE(Table),2);
-    gtk_table_set_col_spacings(GTK_TABLE(Table),2);
+    gtk_grid_set_row_spacing (GTK_GRID (Table), 2);
+    gtk_grid_set_column_spacing (GTK_GRID (Table), 2);
 
     /* Write ID3 tags in FLAC files */
     WriteId3TagsInFlacFiles = gtk_check_button_new_with_label(_("Write ID3 tags in FLAC files (in addition to FLAC tag)"));
-    gtk_table_attach(GTK_TABLE(Table),WriteId3TagsInFlacFiles,0,1,0,1,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), WriteId3TagsInFlacFiles, 0, 0, 1, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(WriteId3TagsInFlacFiles),WRITE_ID3_TAGS_IN_FLAC_FILE);
     gtk_widget_set_tooltip_text(WriteId3TagsInFlacFiles,_("If activated, ID3 tags will be "
         "also added in the FLAC file (according the two rules above, plus the FLAC tag). "
@@ -722,7 +725,7 @@ void Open_OptionsWindow (void)
 
     /* Strip tag when fields (managed by EasyTAG) are empty */
     StripTagWhenEmptyFields = gtk_check_button_new_with_label(_("Strip tags if all fields are set to blank"));
-    gtk_table_attach(GTK_TABLE(Table),StripTagWhenEmptyFields,0,1,1,2,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), StripTagWhenEmptyFields, 0, 1, 1, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(StripTagWhenEmptyFields),STRIP_TAG_WHEN_EMPTY_FIELDS);
     gtk_widget_set_tooltip_text(StripTagWhenEmptyFields,_("As ID3v2 tags may contain other data than "
         "Title, Artist, Album, Year, Track, Genre or Comment (as an attached picture, lyrics…), "
@@ -731,26 +734,28 @@ void Open_OptionsWindow (void)
 
     /* Convert old ID3v2 tag version */
     ConvertOldId3v2TagVersion = gtk_check_button_new_with_label(_("Automatically convert old ID3v2 tag versions"));
-    gtk_table_attach(GTK_TABLE(Table),ConvertOldId3v2TagVersion,0,1,2,3,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), ConvertOldId3v2TagVersion, 0, 2, 1, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ConvertOldId3v2TagVersion),CONVERT_OLD_ID3V2_TAG_VERSION);
     gtk_widget_set_tooltip_text(ConvertOldId3v2TagVersion,_("If activated, an old ID3v2 tag version (as "
         "ID3v2.2) will be updated to the ID3v2.3 version."));
 
     /* Use CRC32 */
     FileWritingId3v2UseCrc32 = gtk_check_button_new_with_label(_("Use CRC32"));
-    gtk_table_attach(GTK_TABLE(Table),FileWritingId3v2UseCrc32,1,2,0,1,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), FileWritingId3v2UseCrc32, 1, 0, 1, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v2UseCrc32),FILE_WRITING_ID3V2_USE_CRC32);
     gtk_widget_set_tooltip_text(FileWritingId3v2UseCrc32,_("Set CRC32 in the ID3v2 tags"));
 
     /* Use Compression */
     FileWritingId3v2UseCompression = gtk_check_button_new_with_label(_("Use Compression"));
-    gtk_table_attach(GTK_TABLE(Table),FileWritingId3v2UseCompression,1,2,1,2,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), FileWritingId3v2UseCompression, 1, 1, 1,
+                     1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v2UseCompression),FILE_WRITING_ID3V2_USE_COMPRESSION);
     gtk_widget_set_tooltip_text(FileWritingId3v2UseCompression,_("Set Compression in the ID3v2 tags"));
 	
     /* Write Genre in text */
     FileWritingId3v2TextOnlyGenre = gtk_check_button_new_with_label(_("Write Genre in text only"));
-    gtk_table_attach(GTK_TABLE(Table),FileWritingId3v2TextOnlyGenre,1,2,2,3,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), FileWritingId3v2TextOnlyGenre, 1, 2, 1,
+                     1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v2TextOnlyGenre),FILE_WRITING_ID3V2_TEXT_ONLY_GENRE);
     gtk_widget_set_tooltip_text(FileWritingId3v2TextOnlyGenre,_("Don't use ID3v1 number references in genre tag. Enable this if you see numbers as genre in your music player."));	
 
@@ -769,14 +774,14 @@ void Open_OptionsWindow (void)
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox),2);
 
-    Table = gtk_table_new(8,6,FALSE);
+    Table = et_grid_new (8, 6);
     gtk_box_pack_start(GTK_BOX(vbox),Table,FALSE,FALSE,0);
-    gtk_table_set_row_spacings(GTK_TABLE(Table),2);
-    gtk_table_set_col_spacings(GTK_TABLE(Table),2);
+    gtk_grid_set_row_spacing (GTK_GRID (Table), 2);
+    gtk_grid_set_column_spacing (GTK_GRID (Table), 2);
 
     /* Write ID3v2 tag */
     FileWritingId3v2WriteTag = gtk_check_button_new_with_label(_("Write ID3v2 tag"));
-    gtk_table_attach(GTK_TABLE(Table),FileWritingId3v2WriteTag,0,5,0,1,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), FileWritingId3v2WriteTag, 0, 0, 5, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v2WriteTag),FILE_WRITING_ID3V2_WRITE_TAG);
     gtk_widget_set_tooltip_text(FileWritingId3v2WriteTag,_("If activated, an ID3v2.4 tag will be added or "
         "updated at the beginning of the MP3 files. Else it will be stripped."));
@@ -786,7 +791,7 @@ void Open_OptionsWindow (void)
 #ifdef ENABLE_ID3LIB
     /* ID3v2 tag version */
     LabelId3v2Version = gtk_label_new(_("Version:"));
-    gtk_table_attach(GTK_TABLE(Table),LabelId3v2Version,0,2,1,2,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), LabelId3v2Version, 0, 1, 2, 1);
     gtk_misc_set_alignment(GTK_MISC(LabelId3v2Version),0,0.5);
 
     EventBox = gtk_event_box_new();
@@ -799,7 +804,7 @@ void Open_OptionsWindow (void)
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(FileWritingId3v2VersionCombo), "ID3v2.3");
     gtk_combo_box_set_active(GTK_COMBO_BOX(FileWritingId3v2VersionCombo),
         FILE_WRITING_ID3V2_VERSION_4 ? 0 : 1);
-    gtk_table_attach(GTK_TABLE(Table),EventBox,2,4,1,2,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), EventBox, 2, 1, 2, 1);
     g_signal_connect_after(G_OBJECT(FileWritingId3v2VersionCombo),"changed",
         G_CALLBACK(Change_Id3_Settings_Toggled),NULL);
 #endif
@@ -807,17 +812,18 @@ void Open_OptionsWindow (void)
 
     /* Charset */
     LabelId3v2Charset = gtk_label_new(_("Charset:"));
-    gtk_table_attach(GTK_TABLE(Table),LabelId3v2Charset,0,5,2,3,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), LabelId3v2Charset, 0, 2, 5, 1);
     gtk_misc_set_alignment(GTK_MISC(LabelId3v2Charset),0,0.5);
 
     Label = gtk_label_new("        ");
-    gtk_table_attach(GTK_TABLE(Table),Label,0,1,3,4,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), Label, 0, 3, 1, 1);
 
     // Unicode
     FileWritingId3v2UseUnicodeCharacterSet = gtk_radio_button_new_with_label(NULL, _("Unicode "));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v2UseUnicodeCharacterSet),
         FILE_WRITING_ID3V2_USE_UNICODE_CHARACTER_SET);
-    gtk_table_attach(GTK_TABLE(Table),FileWritingId3v2UseUnicodeCharacterSet,1,2,3,4,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), FileWritingId3v2UseUnicodeCharacterSet,
+                     1, 3, 1, 1);
 
     EventBox = gtk_event_box_new();
     FileWritingId3v2UnicodeCharacterSetCombo = gtk_combo_box_text_new();
@@ -830,7 +836,7 @@ void Open_OptionsWindow (void)
     else
         gtk_combo_box_set_active(GTK_COMBO_BOX(FileWritingId3v2UnicodeCharacterSetCombo),
             strcmp(FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET, "UTF-8") ? 1 : 0);
-    gtk_table_attach(GTK_TABLE(Table),EventBox,2,4,3,4,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), EventBox, 2, 3, 2, 1);
     g_signal_connect_after(G_OBJECT(FileWritingId3v2UseUnicodeCharacterSet),"toggled",
         G_CALLBACK(Change_Id3_Settings_Toggled),NULL);
 
@@ -838,7 +844,8 @@ void Open_OptionsWindow (void)
     FileWritingId3v2UseNoUnicodeCharacterSet = gtk_radio_button_new_with_label(
         gtk_radio_button_get_group(GTK_RADIO_BUTTON(FileWritingId3v2UseUnicodeCharacterSet)),
         _("Other"));
-    gtk_table_attach(GTK_TABLE(Table),FileWritingId3v2UseNoUnicodeCharacterSet,1,2,4,5,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table),
+                     FileWritingId3v2UseNoUnicodeCharacterSet, 1, 4, 1, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v2UseNoUnicodeCharacterSet),
         !FILE_WRITING_ID3V2_USE_UNICODE_CHARACTER_SET);
 
@@ -850,18 +857,20 @@ void Open_OptionsWindow (void)
 
     Charset_Populate_Combobox(GTK_COMBO_BOX(FileWritingId3v2NoUnicodeCharacterSetCombo), 
         FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET);
-    gtk_table_attach(GTK_TABLE(Table),EventBox,2,5,4,5,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach(GTK_GRID(Table),EventBox,2,4,3,1);
     g_signal_connect_after(G_OBJECT(FileWritingId3v2UseNoUnicodeCharacterSet),"toggled",
         G_CALLBACK(Change_Id3_Settings_Toggled),NULL);
     
     // ID3v2 Additional iconv() options
     LabelAdditionalId3v2IconvOptions = gtk_label_new(_("Additional settings for iconv():"));
-    gtk_table_attach(GTK_TABLE(Table),LabelAdditionalId3v2IconvOptions,2,5,5,6,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), LabelAdditionalId3v2IconvOptions, 2, 5,
+                     3, 1);
     gtk_misc_set_alignment(GTK_MISC(LabelAdditionalId3v2IconvOptions),0,0.5);
 
     FileWritingId3v2IconvOptionsNo = gtk_radio_button_new_with_label(NULL,
         _("No"));
-    gtk_table_attach(GTK_TABLE(Table),FileWritingId3v2IconvOptionsNo,2,3,6,7,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), FileWritingId3v2IconvOptionsNo, 2, 6, 1,
+                     1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v2IconvOptionsNo),FILE_WRITING_ID3V2_ICONV_OPTIONS_NO);
     gtk_widget_set_tooltip_text(FileWritingId3v2IconvOptionsNo,_("With this option, when "
         "a character cannot be represented in the target character set, it isn't changed. "
@@ -869,7 +878,8 @@ void Open_OptionsWindow (void)
     FileWritingId3v2IconvOptionsTranslit = gtk_radio_button_new_with_label(
         gtk_radio_button_get_group(GTK_RADIO_BUTTON(FileWritingId3v2IconvOptionsNo)),
         _("//TRANSLIT"));
-    gtk_table_attach(GTK_TABLE(Table),FileWritingId3v2IconvOptionsTranslit,3,4,6,7,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), FileWritingId3v2IconvOptionsTranslit, 3,
+                     6, 1, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v2IconvOptionsTranslit),FILE_WRITING_ID3V2_ICONV_OPTIONS_TRANSLIT);
     gtk_widget_set_tooltip_text(FileWritingId3v2IconvOptionsTranslit,_("With this option, when "
         "a character cannot be represented in the target character set, it can be "
@@ -878,7 +888,8 @@ void Open_OptionsWindow (void)
     FileWritingId3v2IconvOptionsIgnore = gtk_radio_button_new_with_label(
         gtk_radio_button_get_group(GTK_RADIO_BUTTON(FileWritingId3v2IconvOptionsNo)),
         _("//IGNORE"));
-    gtk_table_attach(GTK_TABLE(Table),FileWritingId3v2IconvOptionsIgnore,4,5,6,7,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), FileWritingId3v2IconvOptionsIgnore, 4,
+                     6, 1, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v2IconvOptionsIgnore),FILE_WRITING_ID3V2_ICONV_OPTIONS_IGNORE);
     gtk_widget_set_tooltip_text(FileWritingId3v2IconvOptionsIgnore,_("With this option, when "
         "a character cannot be represented in the target character set, it will "
@@ -892,15 +903,15 @@ void Open_OptionsWindow (void)
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox),2);
 
-    Table = gtk_table_new(6,5,FALSE);
+    Table = et_grid_new (6, 5);
     gtk_box_pack_start(GTK_BOX(vbox),Table,FALSE,FALSE,0);
-    gtk_table_set_row_spacings(GTK_TABLE(Table),2);
-    gtk_table_set_col_spacings(GTK_TABLE(Table),2);
+    gtk_grid_set_row_spacing (GTK_GRID (Table), 2);
+    gtk_grid_set_column_spacing (GTK_GRID (Table), 2);
 
 
     /* Write ID3v1 tag */
     FileWritingId3v1WriteTag = gtk_check_button_new_with_label(_("Write ID3v1.x tag"));
-    gtk_table_attach(GTK_TABLE(Table),FileWritingId3v1WriteTag,0,4,0,1,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), FileWritingId3v1WriteTag, 0, 0, 4, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v1WriteTag),FILE_WRITING_ID3V1_WRITE_TAG);
     gtk_widget_set_tooltip_text(FileWritingId3v1WriteTag,_("If activated, an ID3v1 tag will be added or "
         "updated at the end of the MP3 files. Else it will be stripped."));
@@ -909,28 +920,30 @@ void Open_OptionsWindow (void)
 
     /* Id3V1 writing character set */
     LabelId3v1Charset = gtk_label_new(_("Charset:"));
-    gtk_table_attach(GTK_TABLE(Table),LabelId3v1Charset,0,4,1,2,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), LabelId3v1Charset, 0, 1, 4, 1);
     gtk_misc_set_alignment(GTK_MISC(LabelId3v1Charset),0,0.5);
 
     Label = gtk_label_new("        ");
-    gtk_table_attach(GTK_TABLE(Table),Label,0,1,2,3,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), Label, 0, 2, 1, 1);
 
     EventBox = gtk_event_box_new();
     FileWritingId3v1CharacterSetCombo = gtk_combo_box_text_new();
     gtk_container_add(GTK_CONTAINER(EventBox),FileWritingId3v1CharacterSetCombo);
-    gtk_table_attach(GTK_TABLE(Table),EventBox,1,4,2,3,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), EventBox, 1, 2, 3, 1);
     gtk_widget_set_tooltip_text(EventBox,_("Character set used to write ID3v1 tag data "
         "in the file."));
     Charset_Populate_Combobox(GTK_COMBO_BOX(FileWritingId3v1CharacterSetCombo), FILE_WRITING_ID3V1_CHARACTER_SET);
 
     /* ID3V1 Additional iconv() options*/
     LabelAdditionalId3v1IconvOptions = gtk_label_new(_("Additional settings for iconv():"));
-    gtk_table_attach(GTK_TABLE(Table),LabelAdditionalId3v1IconvOptions,1,4,3,4,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), LabelAdditionalId3v1IconvOptions, 1, 3,
+                     3, 1);
     gtk_misc_set_alignment(GTK_MISC(LabelAdditionalId3v1IconvOptions),0,0.5);
 
     FileWritingId3v1IconvOptionsNo = gtk_radio_button_new_with_label(NULL,
         _("No"));
-    gtk_table_attach(GTK_TABLE(Table),FileWritingId3v1IconvOptionsNo,1,2,4,5,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), FileWritingId3v1IconvOptionsNo, 1, 4, 1,
+                     1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v1IconvOptionsNo),FILE_WRITING_ID3V1_ICONV_OPTIONS_NO);
     gtk_widget_set_tooltip_text(FileWritingId3v1IconvOptionsNo,_("With this option, when "
         "a character cannot be represented in the target character set, it isn't changed. "
@@ -938,7 +951,8 @@ void Open_OptionsWindow (void)
     FileWritingId3v1IconvOptionsTranslit = gtk_radio_button_new_with_label(
         gtk_radio_button_get_group(GTK_RADIO_BUTTON(FileWritingId3v1IconvOptionsNo)),
         _("//TRANSLIT"));
-    gtk_table_attach(GTK_TABLE(Table),FileWritingId3v1IconvOptionsTranslit,2,3,4,5,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), FileWritingId3v1IconvOptionsTranslit, 2,
+                     4, 1, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v1IconvOptionsTranslit),FILE_WRITING_ID3V1_ICONV_OPTIONS_TRANSLIT);
     gtk_widget_set_tooltip_text(FileWritingId3v1IconvOptionsTranslit,_("With this option, when "
         "a character cannot be represented in the target character set, it can be "
@@ -947,7 +961,8 @@ void Open_OptionsWindow (void)
     FileWritingId3v1IconvOptionsIgnore = gtk_radio_button_new_with_label(
         gtk_radio_button_get_group(GTK_RADIO_BUTTON(FileWritingId3v1IconvOptionsNo)),
         _("//IGNORE"));
-    gtk_table_attach(GTK_TABLE(Table),FileWritingId3v1IconvOptionsIgnore,3,4,4,5,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), FileWritingId3v1IconvOptionsIgnore, 3,
+                     4, 1, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v1IconvOptionsIgnore),FILE_WRITING_ID3V1_ICONV_OPTIONS_IGNORE);
     gtk_widget_set_tooltip_text(FileWritingId3v1IconvOptionsIgnore,_("With this option, when "
         "a character cannot be represented in the target character set, it will "
@@ -960,18 +975,19 @@ void Open_OptionsWindow (void)
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
 
-    Table = gtk_table_new(4,2,FALSE);
+    Table = et_grid_new(4,2);
     gtk_box_pack_start(GTK_BOX(vbox),Table,FALSE,FALSE,0);
     //gtk_container_set_border_width(GTK_CONTAINER(Table), 2);
-    //gtk_table_set_row_spacings(GTK_TABLE(Table),2);
-    gtk_table_set_col_spacings(GTK_TABLE(Table),2);
+    /*gtk_grid_set_row_spacing (GTK_GRID (Table), 2);*/
+    gtk_grid_set_column_spacing (GTK_GRID (Table), 2);
 
     // "File Reading Charset" Check Button + Combo
     UseNonStandardId3ReadingCharacterSet = gtk_check_button_new_with_label(_(
         "Non-standard:"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(UseNonStandardId3ReadingCharacterSet),
         USE_NON_STANDARD_ID3_READING_CHARACTER_SET);
-    gtk_table_attach(GTK_TABLE(Table),UseNonStandardId3ReadingCharacterSet,0,1,0,1,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), UseNonStandardId3ReadingCharacterSet, 0,
+                     0, 1, 1);
     gtk_widget_set_tooltip_text(UseNonStandardId3ReadingCharacterSet,
         _("This character set will be used when reading the tag data, to convert "
         "each string found in an ISO-8859-1 field in the tag (for ID3v2 or/and ID3v1 tag).\n"
@@ -989,7 +1005,7 @@ void Open_OptionsWindow (void)
     EventBox = gtk_event_box_new();
     FileReadingId3v1v2CharacterSetCombo = gtk_combo_box_text_new();
     gtk_container_add(GTK_CONTAINER(EventBox),FileReadingId3v1v2CharacterSetCombo);
-    gtk_table_attach(GTK_TABLE(Table),EventBox,2,3,0,1,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), EventBox, 2, 0, 1, 1);
 
     gtk_widget_set_tooltip_text(EventBox,_("Character set used to read tag data "
         "in the file."));
@@ -1331,55 +1347,55 @@ void Open_OptionsWindow (void)
     Frame = gtk_frame_new (_("Proxy Settings"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
 
-    Table = gtk_table_new(3,5,FALSE);
+    Table = et_grid_new (3, 5);
     gtk_container_add(GTK_CONTAINER(Frame),Table);
-    gtk_table_set_row_spacings(GTK_TABLE(Table),2);
-    gtk_table_set_col_spacings(GTK_TABLE(Table),4);
+    gtk_grid_set_row_spacing (GTK_GRID (Table), 2);
+    gtk_grid_set_column_spacing (GTK_GRID (Table), 4);
     gtk_container_set_border_width(GTK_CONTAINER(Table), 2);
 
     CddbUseProxy = gtk_check_button_new_with_label(_("Use a proxy"));
-    gtk_table_attach(GTK_TABLE(Table),CddbUseProxy,0,5,0,1,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), CddbUseProxy, 0, 0, 5, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbUseProxy),CDDB_USE_PROXY);
     gtk_widget_set_tooltip_text(CddbUseProxy,_("Set active the settings of the proxy server."));
 
     Label = gtk_label_new("     ");
-    gtk_table_attach(GTK_TABLE(Table),Label,0,1,1,2,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), Label, 0, 1, 1, 1);
 
     Label = gtk_label_new(_("Host Name:"));
-    gtk_table_attach(GTK_TABLE(Table),Label,1,2,1,2,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), Label, 1, 1, 1, 1);
     gtk_misc_set_alignment(GTK_MISC(Label),1,0.5);
     CddbProxyName = gtk_entry_new();
-    gtk_table_attach(GTK_TABLE(Table),CddbProxyName,2,3,1,2,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), CddbProxyName, 2, 1, 1, 1);
     if (CDDB_PROXY_NAME)
         gtk_entry_set_text(GTK_ENTRY(CddbProxyName),CDDB_PROXY_NAME);
     gtk_widget_set_tooltip_text(CddbProxyName,_("Name of the proxy server."));
     Label = gtk_label_new (_("Port:"));
-    gtk_table_attach(GTK_TABLE(Table),Label,3,4,1,2,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), Label, 3, 1, 1, 1);
     gtk_misc_set_alignment(GTK_MISC(Label),1,0.5);
     CddbProxyPort = gtk_entry_new();
     gtk_widget_set_size_request(GTK_WIDGET(CddbProxyPort), 45, -1);
     gtk_entry_set_max_length(GTK_ENTRY(CddbProxyPort),5);
-    gtk_table_attach(GTK_TABLE(Table),CddbProxyPort,4,5,1,2,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), CddbProxyPort, 4, 1, 1, 1);
     gtk_widget_set_tooltip_text(CddbProxyPort,_("Port of the proxy server."));
     sprintf(temp,"%i",CDDB_PROXY_PORT);
     gtk_entry_set_text(GTK_ENTRY(CddbProxyPort),temp);
     g_signal_connect(G_OBJECT(CddbProxyPort),"insert_text",G_CALLBACK(Insert_Only_Digit),NULL);
     g_signal_connect(G_OBJECT(CddbUseProxy),"toggled",G_CALLBACK(Cddb_Use_Proxy_Toggled),NULL);
     Label = gtk_label_new(_("User Name:"));
-    gtk_table_attach(GTK_TABLE(Table),Label,1,2,2,3,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), Label, 1, 2, 1, 1);
     gtk_misc_set_alignment(GTK_MISC(Label),1,0.5);
     CddbProxyUserName = gtk_entry_new();
     if (CDDB_PROXY_USER_NAME)
         gtk_entry_set_text(GTK_ENTRY(CddbProxyUserName),CDDB_PROXY_USER_NAME);
-    gtk_table_attach(GTK_TABLE(Table),CddbProxyUserName,2,3,2,3,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), CddbProxyUserName, 2, 2, 1, 1);
     gtk_widget_set_tooltip_text(CddbProxyUserName,_("Name of user for the the proxy server."));
     Label = gtk_label_new(_("User Password:"));
-    gtk_table_attach(GTK_TABLE(Table),Label,3,4,2,3,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), Label, 3, 2, 1, 1);
     gtk_misc_set_alignment(GTK_MISC(Label),1,0.5);
     CddbProxyUserPassword = gtk_entry_new();
     if (CDDB_PROXY_USER_PASSWORD)
         gtk_entry_set_text(GTK_ENTRY(CddbProxyUserPassword),CDDB_PROXY_USER_PASSWORD);
-    gtk_table_attach(GTK_TABLE(Table),CddbProxyUserPassword,4,5,2,3,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (Table), CddbProxyUserPassword, 4, 2, 1, 1);
     gtk_entry_set_visibility(GTK_ENTRY(CddbProxyUserPassword),FALSE);
     gtk_widget_set_tooltip_text(CddbProxyUserPassword,_("Password of user for the the proxy server."));
     Cddb_Use_Proxy_Toggled();

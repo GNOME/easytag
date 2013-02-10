@@ -493,56 +493,60 @@ Create_File_Area (void)
     /*
      *  File Infos
      */
-    HeaderInfosTable = gtk_table_new(3,5,FALSE);
+    HeaderInfosTable = et_grid_new(3,5);
     gtk_container_add(GTK_CONTAINER(VBox),HeaderInfosTable);
     gtk_container_set_border_width(GTK_CONTAINER(HeaderInfosTable),2);
-    gtk_table_set_row_spacings(GTK_TABLE(HeaderInfosTable),1);
-    gtk_table_set_col_spacings(GTK_TABLE(HeaderInfosTable),2);
+    gtk_grid_set_row_spacing (GTK_GRID (HeaderInfosTable), 1);
+    gtk_grid_set_column_spacing (GTK_GRID (HeaderInfosTable), 2);
 
     VersionLabel = gtk_label_new(_("Encoder:"));
-    gtk_table_attach_defaults(GTK_TABLE(HeaderInfosTable),VersionLabel,0,1,0,1);
+    gtk_grid_attach (GTK_GRID (HeaderInfosTable), VersionLabel, 0, 0, 1, 1);
     VersionValueLabel = gtk_label_new("");
-    gtk_table_attach_defaults(GTK_TABLE(HeaderInfosTable),VersionValueLabel,1,2,0,1);
+    gtk_grid_attach (GTK_GRID (HeaderInfosTable), VersionValueLabel, 1, 0, 1,
+                     1);
     gtk_misc_set_alignment(GTK_MISC(VersionLabel),1,0.5);
     gtk_misc_set_alignment(GTK_MISC(VersionValueLabel),0,0.5);
 
     BitrateLabel = gtk_label_new(_("Bitrate:"));
-    gtk_table_attach_defaults(GTK_TABLE(HeaderInfosTable),BitrateLabel,0,1,1,2);
+    gtk_grid_attach (GTK_GRID (HeaderInfosTable), BitrateLabel, 0, 1, 1, 1);
     BitrateValueLabel = gtk_label_new("");
-    gtk_table_attach_defaults(GTK_TABLE(HeaderInfosTable),BitrateValueLabel,1,2,1,2);
+    gtk_grid_attach (GTK_GRID (HeaderInfosTable), BitrateValueLabel, 1, 1, 1,
+                     1);
     gtk_misc_set_alignment(GTK_MISC(BitrateLabel),1,0.5);
     gtk_misc_set_alignment(GTK_MISC(BitrateValueLabel),0,0.5);
 
     /* Translators: Please try to keep this string as short as possible as it
      * is shown in a narrow column. */
     SampleRateLabel = gtk_label_new(_("Freq.:"));
-    gtk_table_attach_defaults(GTK_TABLE(HeaderInfosTable),SampleRateLabel,0,1,2,3);
+    gtk_grid_attach (GTK_GRID (HeaderInfosTable), SampleRateLabel, 0, 2, 1, 1);
     SampleRateValueLabel = gtk_label_new("");
-    gtk_table_attach_defaults(GTK_TABLE(HeaderInfosTable),SampleRateValueLabel,1,2,2,3);
+    gtk_grid_attach (GTK_GRID (HeaderInfosTable), SampleRateValueLabel, 1, 2,
+                     1, 1);
     gtk_misc_set_alignment(GTK_MISC(SampleRateLabel),1,0.5);
     gtk_misc_set_alignment(GTK_MISC(SampleRateValueLabel),0,0.5);
 
     Separator = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
-    gtk_table_attach(GTK_TABLE(HeaderInfosTable),Separator,2,3,0,4,GTK_FILL,GTK_FILL,0,0);
+    gtk_grid_attach (GTK_GRID (HeaderInfosTable), Separator, 2, 0, 1, 4);
 
     ModeLabel = gtk_label_new(_("Mode:"));
-    gtk_table_attach_defaults(GTK_TABLE(HeaderInfosTable),ModeLabel,3,4,0,1);
+    gtk_grid_attach (GTK_GRID (HeaderInfosTable), ModeLabel, 3, 0, 1, 1);
     ModeValueLabel = gtk_label_new("");
-    gtk_table_attach_defaults(GTK_TABLE(HeaderInfosTable),ModeValueLabel,4,5,0,1);
+    gtk_grid_attach (GTK_GRID (HeaderInfosTable), ModeValueLabel, 4, 0, 1, 1);
     gtk_misc_set_alignment(GTK_MISC(ModeLabel),1,0.5);
     gtk_misc_set_alignment(GTK_MISC(ModeValueLabel),0,0.5);
 
     SizeLabel = gtk_label_new(_("Size:"));
-    gtk_table_attach_defaults(GTK_TABLE(HeaderInfosTable),SizeLabel,3,4,1,2);
+    gtk_grid_attach (GTK_GRID (HeaderInfosTable), SizeLabel, 3, 1, 1, 1);
     SizeValueLabel = gtk_label_new("");
-    gtk_table_attach_defaults(GTK_TABLE(HeaderInfosTable),SizeValueLabel,4,5,1,2);
+    gtk_grid_attach (GTK_GRID (HeaderInfosTable), SizeValueLabel, 4, 1, 1, 1);
     gtk_misc_set_alignment(GTK_MISC(SizeLabel),1,0.5);
     gtk_misc_set_alignment(GTK_MISC(SizeValueLabel),0,0.5);
 
     DurationLabel = gtk_label_new(_("Duration:"));
-    gtk_table_attach_defaults(GTK_TABLE(HeaderInfosTable),DurationLabel,3,4,2,3);
+    gtk_grid_attach (GTK_GRID (HeaderInfosTable), DurationLabel, 3, 2, 1, 1);
     DurationValueLabel = gtk_label_new("");
-    gtk_table_attach_defaults(GTK_TABLE(HeaderInfosTable),DurationValueLabel,4,5,2,3);
+    gtk_grid_attach (GTK_GRID (HeaderInfosTable), DurationValueLabel, 4, 2, 1,
+                     1);
     gtk_misc_set_alignment(GTK_MISC(DurationLabel),1,0.5);
     gtk_misc_set_alignment(GTK_MISC(DurationValueLabel),0,0.5);
 
@@ -611,23 +615,25 @@ Create_Tag_Area (void)
     gtk_frame_set_shadow_type(GTK_FRAME(Frame),GTK_SHADOW_NONE); // Hide the Frame
 
 
-    Table = gtk_table_new(11,11,FALSE);
+    Table = et_grid_new (11, 11);
     gtk_container_add(GTK_CONTAINER(Frame),Table);
     gtk_container_set_border_width(GTK_CONTAINER(Table),2);
 
     /* Title */
     TitleLabel = gtk_label_new(_("Title:"));
-    gtk_table_attach(GTK_TABLE(Table),TitleLabel,0,1,0,1,GTK_FILL,GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), TitleLabel, 0, 0, 1, 1, FALSE,
+                         FALSE, TablePadding, TablePadding);
     gtk_misc_set_alignment(GTK_MISC(TitleLabel),1,0.5);
 
     TitleEntry = gtk_entry_new();
-    gtk_table_attach(GTK_TABLE(Table),TitleEntry,1,10,0,1,
-                     GTK_EXPAND|GTK_FILL,GTK_EXPAND|GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), TitleEntry, 1, 0, 9, 1, TRUE, TRUE,
+                         TablePadding, TablePadding);
     gtk_widget_set_size_request(TitleEntry, 150, -1);
 
     TitleMButton = gtk_button_new();
     gtk_widget_set_size_request(TitleMButton,MButtonSize,MButtonSize);
-    gtk_table_attach(GTK_TABLE(Table),TitleMButton,10,11,0,1,0,0,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), TitleMButton, 10, 0, 1, 1, FALSE,
+                         FALSE, TablePadding, TablePadding);
     g_signal_connect(G_OBJECT(TitleMButton),"clicked", G_CALLBACK(Mini_Button_Clicked),NULL);
     gtk_widget_set_tooltip_text(TitleMButton,_("Tag selected files with this title"));
 
@@ -637,16 +643,18 @@ Create_Tag_Area (void)
 
     /* Artist */
     ArtistLabel = gtk_label_new(_("Artist:"));
-    gtk_table_attach(GTK_TABLE(Table),ArtistLabel,0,1,1,2,GTK_FILL,GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), ArtistLabel, 0, 1, 1, 1, FALSE,
+                         FALSE, TablePadding, TablePadding);
     gtk_misc_set_alignment(GTK_MISC(ArtistLabel),1,0.5);
 
     ArtistEntry = gtk_entry_new();
-    gtk_table_attach(GTK_TABLE(Table),ArtistEntry,1,10,1,2,
-                     GTK_EXPAND|GTK_FILL,GTK_EXPAND|GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), ArtistEntry, 1, 1, 9, 1, TRUE, TRUE,
+                         TablePadding,TablePadding);
 
     ArtistMButton = gtk_button_new();
     gtk_widget_set_size_request(ArtistMButton,MButtonSize,MButtonSize);
-    gtk_table_attach(GTK_TABLE(Table),ArtistMButton,10,11,1,2,0,0,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), ArtistMButton, 10, 1, 1, 1, FALSE,
+                         FALSE, TablePadding, TablePadding);
     g_signal_connect(G_OBJECT(ArtistMButton),"clicked", G_CALLBACK(Mini_Button_Clicked),NULL);
     gtk_widget_set_tooltip_text(ArtistMButton,_("Tag selected files with this artist"));
 
@@ -655,16 +663,18 @@ Create_Tag_Area (void)
 
     /* Album Artist */
     AlbumArtistLabel = gtk_label_new(_("Album artist:"));
-    gtk_table_attach(GTK_TABLE(Table),AlbumArtistLabel,0,1,2,3,GTK_FILL,GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), AlbumArtistLabel, 0, 2, 1, 1, FALSE,
+                         FALSE, TablePadding, TablePadding);
     gtk_misc_set_alignment(GTK_MISC(AlbumArtistLabel),1,0.5);
 
     AlbumArtistEntry = gtk_entry_new();
-    gtk_table_attach(GTK_TABLE(Table),AlbumArtistEntry,1,10,2,3,
-                     GTK_EXPAND|GTK_FILL,GTK_EXPAND|GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), AlbumArtistEntry, 1, 2, 9, 1, TRUE,
+                         TRUE, TablePadding, TablePadding);
 
     AlbumArtistMButton = gtk_button_new();
     gtk_widget_set_size_request(AlbumArtistMButton,MButtonSize,MButtonSize);
-    gtk_table_attach(GTK_TABLE(Table),AlbumArtistMButton,10,11,2,3,0,0,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), AlbumArtistMButton, 10, 2, 1, 1,
+                         FALSE, FALSE, TablePadding, TablePadding);
     g_signal_connect(G_OBJECT(AlbumArtistMButton),"clicked", G_CALLBACK(Mini_Button_Clicked),NULL);
     gtk_widget_set_tooltip_text(AlbumArtistMButton,_("Tag selected files with this album artist"));
 
@@ -673,17 +683,19 @@ Create_Tag_Area (void)
 
     /* Album */
     AlbumLabel = gtk_label_new(_("Album:"));
-    gtk_table_attach(GTK_TABLE(Table),AlbumLabel,0,1,3,4,GTK_FILL,GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), AlbumLabel, 0, 3, 1, 1, FALSE,
+                         FALSE, TablePadding, TablePadding);
     gtk_misc_set_alignment(GTK_MISC(AlbumLabel),1,0.5);
 
     AlbumEntry = gtk_entry_new();
-    gtk_table_attach(GTK_TABLE(Table),AlbumEntry,1,7,3,4,
-                     GTK_EXPAND|GTK_FILL,GTK_EXPAND|GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), AlbumEntry, 1, 3, 6, 1, TRUE, TRUE,
+                         TablePadding,TablePadding);
 
     AlbumMButton = gtk_button_new();
     //gtk_widget_set_size_request(AlbumMButton, 10, 10);
     gtk_widget_set_size_request(AlbumMButton,MButtonSize,MButtonSize);
-    gtk_table_attach(GTK_TABLE(Table),AlbumMButton,7,8,3,4,0,0,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), AlbumMButton, 7, 3, 1, 1, FALSE,
+                         FALSE, TablePadding, TablePadding);
     g_signal_connect(G_OBJECT(AlbumMButton),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
     gtk_widget_set_tooltip_text(AlbumMButton,_("Tag selected files with this album name"));
 
@@ -692,12 +704,13 @@ Create_Tag_Area (void)
 
     /* Disc Number */
     DiscNumberLabel = gtk_label_new(_("CD:"));
-    gtk_table_attach(GTK_TABLE(Table),DiscNumberLabel,8,9,3,4,GTK_FILL,GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), DiscNumberLabel, 8, 3, 1, 1, FALSE,
+                         FALSE, TablePadding, TablePadding);
     gtk_misc_set_alignment(GTK_MISC(DiscNumberLabel),1,0.5);
 
     DiscNumberEntry = gtk_entry_new();
-    gtk_table_attach(GTK_TABLE(Table),DiscNumberEntry,9,10,3,4,
-                     GTK_EXPAND|GTK_FILL,GTK_EXPAND|GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), DiscNumberEntry, 9, 3, 1, 1, TRUE,
+                         TRUE, TablePadding, TablePadding);
     gtk_widget_set_size_request(DiscNumberEntry,30,-1);
     // FIX ME should allow to type only something like : 1/3
     //g_signal_connect(G_OBJECT(GTK_ENTRY(DiscNumberEntry)),"insert_text",G_CALLBACK(Insert_Only_Digit),NULL);
@@ -705,7 +718,8 @@ Create_Tag_Area (void)
     DiscNumberMButton = gtk_button_new();
     //gtk_widget_set_size_request(DiscNumberMButton, 10, 10);
     gtk_widget_set_size_request(DiscNumberMButton,MButtonSize,MButtonSize);
-    gtk_table_attach(GTK_TABLE(Table),DiscNumberMButton,10,11,3,4,0,0,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), DiscNumberMButton, 10, 3, 1, 1,
+                         FALSE, FALSE, TablePadding, TablePadding);
     g_signal_connect(G_OBJECT(DiscNumberMButton),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
     gtk_widget_set_tooltip_text(DiscNumberMButton,_("Tag selected files with this disc number"));
 
@@ -714,13 +728,14 @@ Create_Tag_Area (void)
 
     /* Year */
     YearLabel = gtk_label_new(_("Year:"));
-    gtk_table_attach(GTK_TABLE(Table),YearLabel,0,1,4,5,GTK_FILL,GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), YearLabel, 0, 4, 1, 1, FALSE, FALSE,
+                         TablePadding, TablePadding);
     gtk_misc_set_alignment(GTK_MISC(YearLabel),1,0.5);
 
     YearEntry = gtk_entry_new();
     gtk_entry_set_max_length(GTK_ENTRY(YearEntry), 4);
-    gtk_table_attach(GTK_TABLE(Table),YearEntry,1,2,4,5,
-                     GTK_EXPAND|GTK_FILL,GTK_EXPAND|GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), YearEntry, 1, 4, 1, 1, TRUE, TRUE,
+                         TablePadding, TablePadding);
     gtk_widget_set_size_request(YearEntry,37,-1);
     g_signal_connect(G_OBJECT(YearEntry),"insert_text",G_CALLBACK(Insert_Only_Digit),NULL);
     g_signal_connect(G_OBJECT(YearEntry),"activate",G_CALLBACK(Parse_Date),NULL);
@@ -728,19 +743,22 @@ Create_Tag_Area (void)
 
     YearMButton = gtk_button_new();
     gtk_widget_set_size_request(YearMButton,MButtonSize,MButtonSize);
-    gtk_table_attach(GTK_TABLE(Table),YearMButton,2,3,4,5,0,0,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), YearMButton, 2, 4, 1, 1, FALSE,
+                         FALSE, TablePadding, TablePadding);
     g_signal_connect(G_OBJECT(YearMButton),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
     gtk_widget_set_tooltip_text(YearMButton,_("Tag selected files with this year"));
 
     /* Small vertical separator */
     Separator = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
-    gtk_table_attach(GTK_TABLE(Table),Separator,3,4,4,5,GTK_FILL,GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), Separator, 3, 4, 1, 1, FALSE, FALSE,
+                         TablePadding,TablePadding);
 
 
     /* Track and Track total */
     TrackMButtonSequence = gtk_button_new();
     gtk_widget_set_size_request(TrackMButtonSequence,MButtonSize,MButtonSize);
-    gtk_table_attach(GTK_TABLE(Table),TrackMButtonSequence,4,5,4,5,0,0,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), TrackMButtonSequence, 4, 4, 1, 1,
+                         FALSE, FALSE, TablePadding, TablePadding);
     g_signal_connect(G_OBJECT(TrackMButtonSequence),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
     gtk_widget_set_tooltip_text(TrackMButtonSequence,_("Number selected tracks sequentially. "
                                                      "Starts at 01 in each subdirectory."));
@@ -752,7 +770,8 @@ Create_Tag_Area (void)
     gtk_widget_set_can_focus(TrackMButtonSequence,FALSE);   // To have enough space to display the icon
 
     TrackLabel = gtk_label_new(_("Track #:"));
-    gtk_table_attach(GTK_TABLE(Table),TrackLabel,5,6,4,5,GTK_FILL,GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), TrackLabel, 5, 4, 1, 1, FALSE,
+                         FALSE, TablePadding, TablePadding);
     gtk_misc_set_alignment(GTK_MISC(TrackLabel),1,0.5);
 
     if (TrackEntryComboModel != NULL)
@@ -762,8 +781,8 @@ Create_Tag_Area (void)
 
     TrackEntryCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(TrackEntryComboModel));
     gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(TrackEntryCombo),MISC_COMBO_TEXT);
-    gtk_table_attach(GTK_TABLE(Table),TrackEntryCombo,6,7,4,5,
-                     GTK_EXPAND|GTK_FILL,GTK_EXPAND|GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), TrackEntryCombo, 6, 4, 1, 1, TRUE,
+                         TRUE, TablePadding, TablePadding);
     gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(TrackEntryCombo),3); // Three columns to display track numbers list
 
     gtk_widget_set_size_request(TrackEntryCombo,50,-1);
@@ -771,12 +790,14 @@ Create_Tag_Area (void)
         G_CALLBACK(Insert_Only_Digit),NULL);
 
     Label = gtk_label_new("/");
-    gtk_table_attach(GTK_TABLE(Table),Label,7,8,4,5,GTK_FILL,GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), Label, 7, 4, 1, 1, FALSE, FALSE,
+                         TablePadding, TablePadding);
     gtk_misc_set_alignment(GTK_MISC(Label),0.5,0.5);
 
     TrackMButtonNbrFiles = gtk_button_new();
     gtk_widget_set_size_request(TrackMButtonNbrFiles,MButtonSize,MButtonSize);
-    gtk_table_attach(GTK_TABLE(Table),TrackMButtonNbrFiles,8,9,4,5,0,0,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), TrackMButtonNbrFiles, 8, 4, 1, 1,
+                         FALSE, FALSE, TablePadding, TablePadding);
     g_signal_connect(G_OBJECT(TrackMButtonNbrFiles),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
     gtk_widget_set_tooltip_text(TrackMButtonNbrFiles,_("Set the number of files, in the same directory of the displayed file, to the selected tracks."));
     // Pixmap into TrackMButtonNbrFiles button
@@ -787,15 +808,16 @@ Create_Tag_Area (void)
     gtk_widget_set_can_focus(TrackMButtonNbrFiles,FALSE); // To have enough space to display the icon
 
     TrackTotalEntry = gtk_entry_new();
-    gtk_table_attach(GTK_TABLE(Table),TrackTotalEntry,9,10,4,5,
-                     GTK_EXPAND|GTK_FILL,GTK_EXPAND|GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), TrackTotalEntry, 9, 4, 1, 1, TRUE,
+                         TRUE, TablePadding, TablePadding);
     gtk_widget_set_size_request(TrackTotalEntry,30,-1);
     g_signal_connect(G_OBJECT(GTK_ENTRY(TrackTotalEntry)),"insert_text",
         G_CALLBACK(Insert_Only_Digit),NULL);
 
     TrackMButton = gtk_button_new();
     gtk_widget_set_size_request(TrackMButton,MButtonSize,MButtonSize);
-    gtk_table_attach(GTK_TABLE(Table),TrackMButton,10,11,4,5,0,0,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), TrackMButton, 10, 4, 1, 1, FALSE,
+                         FALSE,TablePadding,TablePadding);
     g_signal_connect(G_OBJECT(TrackMButton),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
     gtk_widget_set_tooltip_text(TrackMButton,_("Tag selected files with this number of tracks"));
 
@@ -804,7 +826,8 @@ Create_Tag_Area (void)
 
     /* Genre */
     GenreLabel = gtk_label_new(_("Genre:"));
-    gtk_table_attach(GTK_TABLE(Table),GenreLabel,0,1,5,6,GTK_FILL,GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), GenreLabel, 0, 5, 1, 1, FALSE,
+                         FALSE, TablePadding, TablePadding);
     gtk_misc_set_alignment(GTK_MISC(GenreLabel),1,0.5);
 
     if (GenreComboModel != NULL)
@@ -820,14 +843,15 @@ Create_Tag_Area (void)
     gtk_entry_completion_set_text_column(completion, 0);
     gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(GenreComboModel), MISC_COMBO_TEXT, Combo_Alphabetic_Sort, NULL, NULL);
     gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(GenreComboModel), MISC_COMBO_TEXT, GTK_SORT_ASCENDING);
-    gtk_table_attach(GTK_TABLE(Table),GenreCombo,1,10,5,6,
-                     GTK_EXPAND|GTK_FILL,GTK_EXPAND|GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), GenreCombo, 1, 5, 9, 1, TRUE, TRUE,
+                         TablePadding, TablePadding);
     Load_Genres_List_To_UI();
     gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(GenreCombo),2); // Two columns to display genres list
 
     GenreMButton = gtk_button_new();
     gtk_widget_set_size_request(GenreMButton,MButtonSize,MButtonSize);
-    gtk_table_attach(GTK_TABLE(Table),GenreMButton,10,11,5,6,0,0,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), GenreMButton, 10, 5, 1, 1, FALSE,
+                         FALSE,TablePadding,TablePadding);
     g_signal_connect(G_OBJECT(GenreMButton),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
     gtk_widget_set_tooltip_text(GenreMButton,_("Tag selected files with this genre"));
 
@@ -836,16 +860,17 @@ Create_Tag_Area (void)
 
     /* Comment */
     CommentLabel = gtk_label_new(_("Comment:"));
-    gtk_table_attach(GTK_TABLE(Table),CommentLabel,0,1,6,7,GTK_FILL,GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), CommentLabel, 0, 6, 1, 1, FALSE,
+                         FALSE, TablePadding, TablePadding);
     gtk_misc_set_alignment(GTK_MISC(CommentLabel),1,0.5);
 
     CommentEntry = gtk_entry_new();
-    gtk_table_attach(GTK_TABLE(Table),CommentEntry,1,10,6,7,
-                     GTK_EXPAND|GTK_FILL,GTK_EXPAND|GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), CommentEntry, 1, 6, 9, 1, TRUE,
+                         TRUE, TablePadding, TablePadding);
 
     // Use of a text view instead of an entry...
     /******ScrollWindow = gtk_scrolled_window_new(NULL,NULL);
-    gtk_table_attach(GTK_TABLE(Table),ScrollWindow,1,10,5,6,GTK_FILL,GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full(GTK_GRID(Table),ScrollWindow,1,5,9,1,FALSE,FALSE,TablePadding,TablePadding);
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(ScrollWindow), GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
     gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(ScrollWindow), GTK_SHADOW_IN);
     gtk_widget_set_size_request(ScrollWindow,-1,52); // Display ~3 lines...
@@ -858,7 +883,8 @@ Create_Tag_Area (void)
 
     CommentMButton = gtk_button_new();
     gtk_widget_set_size_request(CommentMButton,MButtonSize,MButtonSize);
-    gtk_table_attach(GTK_TABLE(Table),CommentMButton,10,11,6,7,0,0,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), CommentMButton, 10, 6, 1, 1, FALSE,
+                         FALSE, TablePadding, TablePadding);
     g_signal_connect(G_OBJECT(CommentMButton),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
     gtk_widget_set_tooltip_text(CommentMButton,_("Tag selected files with this comment"));
 
@@ -870,16 +896,18 @@ Create_Tag_Area (void)
 
     /* Composer (name of the composers) */
     ComposerLabel = gtk_label_new(_("Composer:"));
-    gtk_table_attach(GTK_TABLE(Table),ComposerLabel,0,1,7,8,GTK_FILL,GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), ComposerLabel, 0, 7, 1, 1, FALSE,
+                         FALSE, TablePadding, TablePadding);
     gtk_misc_set_alignment(GTK_MISC(ComposerLabel),1,0.5);
 
     ComposerEntry = gtk_entry_new();
-    gtk_table_attach(GTK_TABLE(Table),ComposerEntry,1,10,7,8,
-                     GTK_EXPAND|GTK_FILL,GTK_EXPAND|GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), ComposerEntry, 1, 7, 9, 1, TRUE,
+                         TRUE, TablePadding, TablePadding);
 
     ComposerMButton = gtk_button_new();
     gtk_widget_set_size_request(ComposerMButton,MButtonSize,MButtonSize);
-    gtk_table_attach(GTK_TABLE(Table),ComposerMButton,10,11,7,8,0,0,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), ComposerMButton, 10, 7, 1, 1, FALSE,
+                         FALSE, TablePadding, TablePadding);
     g_signal_connect(G_OBJECT(ComposerMButton),"clicked", G_CALLBACK(Mini_Button_Clicked),NULL);
     gtk_widget_set_tooltip_text(ComposerMButton,_("Tag selected files with this composer"));
 
@@ -890,16 +918,18 @@ Create_Tag_Area (void)
     /* Translators: Original Artist / Performer. Please try to keep this string
      * as short as possible, as it must fit into a narrow column. */
     OrigArtistLabel = gtk_label_new(_("Orig. artist:"));
-    gtk_table_attach(GTK_TABLE(Table),OrigArtistLabel,0,1,8,9,GTK_FILL,GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), OrigArtistLabel, 0, 8, 1, 1, FALSE,
+                         FALSE, TablePadding, TablePadding);
     gtk_misc_set_alignment(GTK_MISC(OrigArtistLabel),1,0.5);
 
     OrigArtistEntry = gtk_entry_new();
-    gtk_table_attach(GTK_TABLE(Table),OrigArtistEntry,1,10,8,9,
-                     GTK_EXPAND|GTK_FILL,GTK_EXPAND|GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), OrigArtistEntry, 1, 8, 9, 1, TRUE,
+                         TRUE,TablePadding,TablePadding);
 
     OrigArtistMButton = gtk_button_new();
     gtk_widget_set_size_request(OrigArtistMButton,MButtonSize,MButtonSize);
-    gtk_table_attach(GTK_TABLE(Table),OrigArtistMButton,10,11,8,9,0,0,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), OrigArtistMButton, 10, 8, 1, 1,
+                         FALSE, FALSE, TablePadding, TablePadding);
     g_signal_connect(G_OBJECT(OrigArtistMButton),"clicked", G_CALLBACK(Mini_Button_Clicked),NULL);
     gtk_widget_set_tooltip_text(OrigArtistMButton,_("Tag selected files with this original artist"));
 
@@ -909,16 +939,18 @@ Create_Tag_Area (void)
 
     /* Copyright */
     CopyrightLabel = gtk_label_new(_("Copyright:"));
-    gtk_table_attach(GTK_TABLE(Table),CopyrightLabel,0,1,9,10,GTK_FILL,GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), CopyrightLabel, 0, 9, 1, 1, FALSE,
+                         FALSE, TablePadding, TablePadding);
     gtk_misc_set_alignment(GTK_MISC(CopyrightLabel),1,0.5);
 
     CopyrightEntry = gtk_entry_new();
-    gtk_table_attach(GTK_TABLE(Table),CopyrightEntry,1,10,9,10,
-                     GTK_EXPAND|GTK_FILL,GTK_EXPAND|GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), CopyrightEntry, 1, 9, 9, 1, TRUE,
+                         TRUE, TablePadding, TablePadding);
 
     CopyrightMButton = gtk_button_new();
     gtk_widget_set_size_request(CopyrightMButton,MButtonSize,MButtonSize);
-    gtk_table_attach(GTK_TABLE(Table),CopyrightMButton,10,11,9,10,0,0,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), CopyrightMButton, 10, 9, 1, 1,
+                         FALSE, FALSE, TablePadding, TablePadding);
     g_signal_connect(G_OBJECT(CopyrightMButton),"clicked", G_CALLBACK(Mini_Button_Clicked),NULL);
     gtk_widget_set_tooltip_text(CopyrightMButton,_("Tag selected files with this copyright"));
 
@@ -928,16 +960,18 @@ Create_Tag_Area (void)
 
     /* URL */
     URLLabel = gtk_label_new(_("URL:"));
-    gtk_table_attach(GTK_TABLE(Table),URLLabel,0,1,10,11,GTK_FILL,GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), URLLabel, 0, 10, 1, 1, FALSE, FALSE,
+                         TablePadding, TablePadding);
     gtk_misc_set_alignment(GTK_MISC(URLLabel),1,0.5);
 
     URLEntry = gtk_entry_new();
-    gtk_table_attach(GTK_TABLE(Table),URLEntry,1,10,10,11,
-                     GTK_EXPAND|GTK_FILL,GTK_EXPAND|GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), URLEntry, 1, 10, 9, 1, TRUE, TRUE,
+                         TablePadding, TablePadding);
 
     URLMButton = gtk_button_new();
     gtk_widget_set_size_request(URLMButton,MButtonSize,MButtonSize);
-    gtk_table_attach(GTK_TABLE(Table),URLMButton,10,11,10,11,0,0,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), URLMButton, 10, 10, 1, 1, FALSE,
+                         FALSE, TablePadding, TablePadding);
     g_signal_connect(G_OBJECT(URLMButton),"clicked", G_CALLBACK(Mini_Button_Clicked),NULL);
     gtk_widget_set_tooltip_text(URLMButton,_("Tag selected files with this URL"));
 
@@ -947,16 +981,18 @@ Create_Tag_Area (void)
 
     /* Encoded by */
     EncodedByLabel = gtk_label_new(_("Encoded by:"));
-    gtk_table_attach(GTK_TABLE(Table),EncodedByLabel,0,1,11,12,GTK_FILL,GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), EncodedByLabel, 0, 11, 1, 1, FALSE,
+                         FALSE, TablePadding, TablePadding);
     gtk_misc_set_alignment(GTK_MISC(EncodedByLabel),1,0.5);
 
     EncodedByEntry = gtk_entry_new();
-    gtk_table_attach(GTK_TABLE(Table),EncodedByEntry,1,10,11,12,
-                     GTK_EXPAND|GTK_FILL,GTK_EXPAND|GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), EncodedByEntry, 1, 11, 9, 1, TRUE,
+                         TRUE, TablePadding, TablePadding);
 
     EncodedByMButton = gtk_button_new();
     gtk_widget_set_size_request(EncodedByMButton,MButtonSize,MButtonSize);
-    gtk_table_attach(GTK_TABLE(Table),EncodedByMButton,10,11,11,12,0,0,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), EncodedByMButton, 10, 11, 1, 1,
+                         FALSE, FALSE, TablePadding, TablePadding);
     g_signal_connect(G_OBJECT(EncodedByMButton),"clicked", G_CALLBACK(Mini_Button_Clicked),NULL);
     gtk_widget_set_tooltip_text(EncodedByMButton,_("Tag selected files with this encoder name"));
 
@@ -1030,21 +1066,22 @@ Create_Tag_Area (void)
     gtk_container_set_border_width(GTK_CONTAINER(Frame), 0);
     gtk_frame_set_shadow_type(GTK_FRAME(Frame),GTK_SHADOW_NONE); // Hide the Frame
 
-    Table = gtk_table_new(3,5,FALSE);
+    Table = et_grid_new (3, 5);
     gtk_container_add(GTK_CONTAINER(Frame),Table);
     gtk_container_set_border_width(GTK_CONTAINER(Table),2);
 
     /* Picture */
     PictureLabel = gtk_label_new(_("Pictures:"));
-    gtk_table_attach(GTK_TABLE(Table),PictureLabel,0,1,0,1,GTK_FILL,GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), PictureLabel, 0, 0, 1, 1, FALSE,
+                         FALSE, TablePadding, TablePadding);
     gtk_misc_set_alignment(GTK_MISC(PictureLabel),1,0.5);
 
     // Scroll window for PictureEntryView
     PictureScrollWindow = gtk_scrolled_window_new(NULL, NULL);
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(PictureScrollWindow),
                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-    gtk_table_attach(GTK_TABLE(Table), PictureScrollWindow, 1,4,0,1,
-                     GTK_EXPAND|GTK_FILL,GTK_EXPAND|GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), PictureScrollWindow, 1, 0, 3, 1,
+                         TRUE, TRUE, TablePadding, TablePadding);
 
     PictureEntryModel = gtk_list_store_new(PICTURE_COLUMN_COUNT,
                                            GDK_TYPE_PIXBUF,
@@ -1090,14 +1127,16 @@ Create_Tag_Area (void)
 
     // The mini button for picture
     PictureMButton = gtk_button_new();
-    gtk_table_attach(GTK_TABLE(Table),PictureMButton,4,5,0,1,0,0,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), PictureMButton, 4, 0, 1, 1, FALSE,
+                         FALSE, TablePadding, TablePadding);
     gtk_widget_set_size_request(PictureMButton,MButtonSize,MButtonSize);
     g_signal_connect(G_OBJECT(PictureMButton),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
     gtk_widget_set_tooltip_text(PictureMButton,_("Tag selected files with these pictures"));
 
     // Picture action buttons
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 4);
-    gtk_table_attach(GTK_TABLE(Table),hbox,1,4,1,2,GTK_FILL,GTK_FILL,TablePadding,TablePadding);
+    et_grid_attach_full (GTK_GRID (Table), hbox, 1, 1, 3, 1, FALSE, FALSE,
+                         TablePadding, TablePadding);
 
     PictureAddButton = gtk_button_new();
     Icon = gtk_image_new_from_stock(GTK_STOCK_ADD, GTK_ICON_SIZE_SMALL_TOOLBAR);

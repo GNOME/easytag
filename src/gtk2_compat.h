@@ -28,12 +28,30 @@ G_BEGIN_DECLS
 #define GTK_SCROLLABLE(x) GTK_TREE_VIEW(x)
 #define gtk_scrollable_get_vadjustment(x) gtk_tree_view_get_vadjustment(x)
 
+#define GTK_GRID(x) GTK_TABLE(x)
+#define GtkGrid GtkTable
+
+#define et_grid_new(r, c) gtk_table_new((r),(c),FALSE)
+
+#define gtk_grid_set_row_spacing gtk_table_set_row_spacings
+#define gtk_grid_set_column_spacing gtk_table_set_col_spacings
+void gtk_grid_attach (GtkGrid *grid, GtkWidget *child, gint left, gint top,
+                      gint width, gint height);
+
 GtkWidget *gtk_box_new(GtkOrientation orientation, gint padding);
 GtkWidget *gtk_button_box_new(GtkOrientation orientation);
 GtkWidget *gtk_paned_new(GtkOrientation orientation);
 GtkWidget *gtk_separator_new(GtkOrientation orientation);
 
-#endif /* !GTK_CHECK_VERSION(3,0,0) */
+#else /* GTK_CHECK_VERSION(3,0,0) */
+
+#define et_grid_new(r,c) gtk_grid_new()
+
+#endif /* GTK_CHECK_VERSION(3,0,0) */
+
+void et_grid_attach_full (GtkGrid *grid, GtkWidget *child, gint left, gint top,
+                          gint width, gint height, gboolean hexpand,
+                          gboolean vexpand, gint hmargin, gint vmargin);
 
 G_END_DECLS
 

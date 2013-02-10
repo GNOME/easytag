@@ -20,6 +20,33 @@
 
 #if !GTK_CHECK_VERSION(3,0,0)
 
+void et_grid_attach_full (GtkGrid *grid, GtkWidget *child, gint left, gint top,
+                          gint width, gint height, gboolean hexpand,
+                          gboolean vexpand, gint hmargin, gint vmargin)
+{
+    GtkAttachOptions xoptions = GTK_FILL;
+    GtkAttachOptions yoptions = GTK_FILL;
+
+    if (hexpand)
+    {
+        xoptions |= GTK_EXPAND;
+    }
+    if (vexpand)
+    {
+        yoptions |= GTK_EXPAND;
+    }
+
+    gtk_table_attach (grid, child, left, left + width, top, top + height,
+                      xoptions, yoptions, hmargin, vmargin);
+}
+
+void gtk_grid_attach (GtkGrid *grid, GtkWidget *child, gint left, gint top,
+                      gint width, gint height)
+{
+    et_grid_attach_full (grid, child, left, top, width, height, FALSE, FALSE,
+                         0, 0);
+}
+
 GtkWidget *gtk_box_new(GtkOrientation orientation,gint padding)
 {
     if (orientation==GTK_ORIENTATION_HORIZONTAL)
@@ -48,4 +75,21 @@ GtkWidget *gtk_separator_new(GtkOrientation orientation)
     return gtk_vseparator_new();
 }
 
-#endif /* !GTK_CHECK_VERSION(3,0,0) */
+#else /* GTK_CHECK_VERSION(3,0,0) */
+
+void et_grid_attach_full (GtkGrid *grid, GtkWidget *child, gint left, gint top,
+                          gint width, gint height, gboolean hexpand,
+                          gboolean vexpand, gint hmargin, gint vmargin)
+{
+    g_object_set (G_OBJECT(child),
+                  "hexpand", hexpand,
+                  "vexpand", vexpand,
+                  "margin-left", hmargin,
+                  "margin-right", hmargin,
+                  "margin-top", vmargin,
+                  "margin-bottom", vmargin,
+                  NULL);
+    gtk_grid_attach (grid, child, left, top, width, height);
+}
+
+#endif /* GTK_CHECK_VERSION(3,0,0) */
