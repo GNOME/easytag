@@ -2458,7 +2458,7 @@ gboolean ET_Copy_File_Tag_Item (ET_File *ETFile, File_Tag *FileTag)
  */
 gboolean ET_Set_Filename_File_Name_Item (File_Name *FileName, gchar *filename_utf8, gchar *filename)
 {
-    g_return_val_if_fail (FileName != FALSE, FALSE);
+    g_return_val_if_fail (FileName != NULL, FALSE);
 
     if (filename_utf8 && filename)
     {
