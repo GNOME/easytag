@@ -12,7 +12,15 @@ or bring it up on the mailing list:
 
 easytag-list@gnome.org
 
-Patches are best filed on Bugzilla, but a pull request is also fine.
+Patches are best filed on Bugzilla, but a pull request is also fine. For
+patches, please:
+
+* keep the first line of the commit messages at 50 characters or less
+* do not add a prefix to the commit message, for example "build:"
+* provide patches created with "git format-patch"
+* add a link to the bug report or mailing list archives where the patch was
+  discussed, for example "bug 987654" for GNOME Bugzilla or a URL for other
+  services
 
 Coding Style
 ------------
@@ -21,10 +29,10 @@ The original EasyTAG coding style was close to K&R style, with four-space
 indents. This has been changed slightly to the following guidelines:
 
 * BSD/Allman brace style
-* One space before opening bracket, none after opening or closing
-* Four space indent
-* Try to keep to 80 character lines
-* Space after ',', spaces around logical operators
-* Function return values on a line separate from the function name
+* one space before opening bracket, none after opening or closing
+* four space indent
+* try to keep to 80 character lines
+* space after ',', spaces around logical operators
+* function return values on a line separate from the function name
 
 New code should follow this style.
