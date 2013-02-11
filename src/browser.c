@@ -876,7 +876,8 @@ Browser_Win32_Get_Drive_Root (gchar *drive, GtkTreeIter *rootNode, GtkTreePath *
 /*
  * Browser_Tree_Select_Dir: Select the directory corresponding to the 'path' in
  * the tree browser, but it doesn't read it!
- * Check if path is correct before selecting it. And returns 1 on success, else 0.
+ * Check if path is correct before selecting it. And returns TRUE on success,
+ * else FALSE.
  *
  * - "current_path" is in file system encoding (not UTF-8)
  */
