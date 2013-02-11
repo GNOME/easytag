@@ -277,7 +277,10 @@ gboolean Add_String_To_Combo_List (GtkListStore *liststore, const gchar *str)
     gchar *string = g_strdup(str);
 
     if (!string || g_utf8_strlen(string, -1) <= 0)
+    {
+        g_free (string);
         return FALSE;
+    }
 
 #if 0
     // We add the string to the beginning of the list store
@@ -335,6 +338,7 @@ gboolean Add_String_To_Combo_List (GtkListStore *liststore, const gchar *str)
             gtk_tree_model_get(GTK_TREE_MODEL(liststore), &iter, MISC_COMBO_TEXT, &text, -1);
             if (g_utf8_collate(text, string) == 0)
             {
+                g_free (string);
                 g_free(text);
                 return FALSE;
             }
