@@ -576,7 +576,11 @@ Destroy_Mouse_Cursor (void)
 {
     if (MouseCursor)
     {
-        gdk_cursor_unref(MouseCursor);
+#if GTK_CHECK_VERSION (3,0,0)
+        g_object_unref (MouseCursor);
+#else
+        gdk_cursor_unref (MouseCursor);
+#endif
         MouseCursor = NULL;
     }
 }
