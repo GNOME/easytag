@@ -4316,7 +4316,7 @@ ET_File *ET_Undo_History_File_Data (void)
     ET_History_File *ETHistoryFile;
 
     g_return_val_if_fail (ETCore->ETHistoryFileList != NULL ||
-                          !ET_History_File_List_Has_Undo_Data (), NULL);
+                          ET_History_File_List_Has_Undo_Data (), NULL);
 
     ETHistoryFile = (ET_History_File *)ETCore->ETHistoryFileList->data;
     ETFile        = (ET_File *)ETHistoryFile->ETFile;
