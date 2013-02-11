@@ -911,7 +911,7 @@ void PictureEntry_Update (Picture *pic, gboolean select_it)
     GdkPixbufLoader *loader = 0;
     GError *error = NULL;
     
-    g_return_if_fail (pic != NULL && PictureEntryView != NULL);
+    g_return_if_fail (pic != NULL || PictureEntryView != NULL);
 
     if (!pic->data)
     {
