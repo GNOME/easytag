@@ -121,7 +121,7 @@ static gint Save_List_Of_Files (GList *etfilelist,
 static gint Delete_Selected_Files_With_Answer (void);
 static gboolean Copy_File (const gchar *fileold, const gchar *filenew);
 
-static void Display_Usage (void);
+static void Display_Usage (void) G_GNUC_NORETURN;
 
 static void Init_Load_Default_Dir (void);
 static void EasyTAG_Exit (void);
