@@ -308,6 +308,8 @@ int main (int argc, char *argv[])
                 ps_index++;
             }
 
+            g_strfreev (pathsplit);
+
             // Check if file or directory
             resultstat = stat(path2check,&statbuf);
             if (resultstat==0 && S_ISDIR(statbuf.st_mode))       // Directory
@@ -320,6 +322,7 @@ int main (int argc, char *argv[])
             }else
             {
                 g_print(_("Unknown parameter or path '%s'\n"),argv[1]);
+                g_free (path2check);
                 Display_Usage();
             }
             g_free(path2check);
