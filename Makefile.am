@@ -17,13 +17,9 @@ localedir = $(datadir)/locale
 easytag_CPPFLAGS = \
 	-I$(top_srcdir) \
 	-I$(top_builddir) \
+	$(DEPRECATED_CPPFLAGS) \
 	-DLOCALEDIR=\"$(localedir)\" \
 	-DPACKAGE_DATA_DIR=\"$(pkgdatadir)\"
-
-if !USE_GTK3
-easytag_CPPFLAGS += $(DEPRECATED_CPPFLAGS)
-endif
-
 easytag_CFLAGS = \
 	$(WARN_CFLAGS) \
 	$(EASYTAG_CFLAGS)
