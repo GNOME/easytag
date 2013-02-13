@@ -11,7 +11,11 @@
   simple and nice GTK+ interface makes tagging easier under GNU/Linux or
   Windows.</description>
   <homepage rdf:resource="http://projects.gnome.org/easytag/" />
-  <download-page rdf:resource="https://sourceforge.net/projects/easytag/files/" />
+  <old-homepage rdf:resource="http://easytag.sourceforge.net/" />
+  <download-page rdf:resource="http://download.gnome.org/sources/easytag/" />
+  <screenshots rdf:resource="http://projects.gnome.org/easytag/screenshots.html" />
+  <wiki rdf:resource="https://live.gnome.org/EasyTAG" />
+  <programming-language>C</programming-language>
   <mailing-list rdf:resource="https://mail.gnome.org/mailman/listinfo/easytag-list" />
   <bug-database rdf:resource="https://bugzilla.gnome.org/browse.cgi?product=easytag" />
   <category rdf:resource="http://api.gnome.org/doap-extensions#productivity" />
