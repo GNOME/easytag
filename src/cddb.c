@@ -1903,6 +1903,7 @@ Cddb_Free_Album_List (void)
         if (cddbalbum)
         {
             g_free(cddbalbum->server_name);
+            g_free (cddbalbum->server_cgi_path);
             g_object_unref(cddbalbum->bitmap);
 
             g_free(cddbalbum->artist_album);
