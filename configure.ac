@@ -202,7 +202,7 @@ dnl ################################################
 TAGLIB_DEPS="taglib_c >= 1.6.0"
 AS_IF([test "x$enable_mp4" != "xno"],
       [PKG_CHECK_EXISTS([$TAGLIB_DEPS], [have_taglib=yes], [have_taglib=no])],
-      [have_wavpack=no])
+      [have_taglib=no])
 
 AS_IF([test "x$have_taglib" != "xno"],
       [AC_DEFINE([ENABLE_MP4], [], [Define for taglib MP4 support])],
