@@ -206,11 +206,6 @@ uninstall-update-icon-cache:
 	$(AM_V_at)$(POST_UNINSTALL)
 	test -n "$(DESTDIR)" || $(UPDATE_ICON_CACHE) "$(iconthemedir)"
 
-dist_doc_DATA = \
-	HACKING \
-	THANKS \
-	TODO
-
 dist_noinst_DATA = \
 	$(desktop_in_files) \
 	$(easytag_headers) \
@@ -234,6 +229,7 @@ dist_noinst_DATA = \
 	\
 	easytag-win32-installer.nsi.in \
 	\
+	HACKING \
 	README_win32.txt \
 	\
 	doc/easytag.1.in \
