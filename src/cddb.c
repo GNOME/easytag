@@ -1832,10 +1832,13 @@ Cddb_Read_Http_Header (FILE **file, gchar **cddb_out)
     if ( !*cddb_out || strncmp("HTTP",*cddb_out,4)!=0 || strstr(*cddb_out,"200 OK")==NULL )
         return -1;
 
-    // Read until end of the http header up to the next blank line
-    while ( Cddb_Read_Line(file,cddb_out) > 0 && *cddb_out && strlen(*cddb_out) > 0 )
+    /* Read until end of the HTTP header up to the next blank line. */
+    do
     {
+        g_free (*cddb_out);
     }
+    while (Cddb_Read_Line (file, cddb_out) > 0
+           && *cddb_out && strlen (*cddb_out) > 0);
 
     //g_print("Http Header : %s\n",*cddb_out);
     return 1;
@@ -3199,7 +3202,10 @@ Cddb_Search_Album_From_Selected_Files (void)
                  * will be a single '.'
                  */
                 if ( cddb_out_tmp && strlen(cddb_out_tmp)<=3 && strstr(cddb_out_tmp,cddb_end_str)!=NULL )
+                {
+                    g_free (cddb_out);
                     break;
+                }
 
                 // Compatibility for the MusicBrainz CddbGateway
                 if ( cddb_out_tmp && strlen(cddb_out_tmp)>3
