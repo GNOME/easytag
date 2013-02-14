@@ -865,12 +865,14 @@ Cddb_Destroy_Window (GtkWidget *widget, GdkEvent *event, gpointer data)
     {
         Cddb_Window_Apply_Changes();
 
-        // FIX ME : This causes problem with memory !!
-        Cddb_Free_Album_List();
+        if (CddbAlbumList)
+        {
+            Cddb_Free_Album_List ();
+            CddbAlbumList = NULL;
+        }
 
         gtk_widget_destroy(CddbWindow);
         CddbWindow            = NULL;
-        CddbAlbumList         = NULL;
         CddbSearchStringCombo = NULL;
         CddbSearchStringModel = NULL;
         CddbAlbumListView     = NULL;
@@ -1912,8 +1914,11 @@ Cddb_Free_Album_List (void)
             g_free(cddbalbum->artist_album);
             g_free(cddbalbum->category);
             g_free(cddbalbum->id);
-            Cddb_Free_Track_Album_List(cddbalbum->track_list);
-
+            if (cddbalbum->track_list)
+            {
+                Cddb_Free_Track_Album_List(cddbalbum->track_list);
+                cddbalbum->track_list = NULL;
+            }
             g_free(cddbalbum->artist);
             g_free(cddbalbum->album);
             g_free(cddbalbum->genre);
@@ -2254,7 +2259,11 @@ Cddb_Search_Album_List_From_String_Freedb (void)
     // Delete previous album list
     gtk_list_store_clear(CddbAlbumListModel);
     gtk_list_store_clear(CddbTrackListModel);
-    Cddb_Free_Album_List();
+    if (CddbAlbumList)
+    {
+        Cddb_Free_Album_List();
+        CddbAlbumList = NULL;
+    }
     gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchButton),TRUE);
     gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchAutoButton),TRUE);
 
@@ -2510,7 +2519,11 @@ Cddb_Search_Album_List_From_String_Gnudb (void)
     // Delete previous album list
     gtk_list_store_clear(CddbAlbumListModel);
     gtk_list_store_clear(CddbTrackListModel);
-    Cddb_Free_Album_List();
+    if (CddbAlbumList)
+    {
+        Cddb_Free_Album_List();
+        CddbAlbumList = NULL;
+    }
     gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchButton),TRUE);
     gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchAutoButton),TRUE);
 
@@ -2933,7 +2946,11 @@ Cddb_Search_Album_From_Selected_Files (void)
     // Delete previous album list
     gtk_list_store_clear(CddbAlbumListModel);
     gtk_list_store_clear(CddbTrackListModel);
-    Cddb_Free_Album_List();
+    if (CddbAlbumList)
+    {
+        Cddb_Free_Album_List();
+        CddbAlbumList = NULL;
+    }
     gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchButton),TRUE);
     gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchAutoButton),TRUE);
 
