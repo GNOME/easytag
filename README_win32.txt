@@ -157,7 +157,4 @@ by
 9) easytag :
 ------------
 
-make -f Makefile.mingw install
-
-
-all files are in win32-install-dir
+make
