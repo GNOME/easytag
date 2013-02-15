@@ -422,14 +422,16 @@ static gboolean
 Statusbar_Stop_Timer (void)
 {
     gtk_statusbar_pop(GTK_STATUSBAR(StatusBar),StatusBarContext);
-    return FALSE;    /* Stop the timer */
+    return G_SOURCE_REMOVE;
 }
 
 static void
 Statusbar_Start_Timer (void)
 {
     Statusbar_Remove_Timer ();
-    StatusbarTimerId = g_timeout_add(4000,(GSourceFunc)Statusbar_Stop_Timer,NULL);
+    StatusbarTimerId = g_timeout_add_seconds (4,
+                                              (GSourceFunc)Statusbar_Stop_Timer,
+                                              NULL);
 }
 
 static void
@@ -447,17 +449,13 @@ Statusbar_Remove_Timer (void)
  *  - with_timer: if TRUE, the message will be displayed during 4s
  *                if FALSE, the message will be displayed up to the next posted message
  */
-void Statusbar_Message (gchar *message, gint with_timer)
+void
+Statusbar_Message (const gchar *message, gboolean with_timer)
 {
     gchar *msg_temp;
 
     g_return_if_fail (StatusBar != NULL);
 
-    /* Validate UTF8 */
-    /*if (!g_utf8_validate(message, -1, NULL))
-        msg_temp = convert_to_utf8(message);
-    else
-        msg_temp = g_strdup(message);*/
     msg_temp = Try_To_Validate_Utf8_String(message);
     
     /* Remove a running timer */

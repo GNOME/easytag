@@ -160,7 +160,7 @@ struct _Action_Pair {
 
 void       Create_UI           (GtkWidget **menubar, GtkWidget **toolbar);
 GtkWidget *Create_Status_Bar   (void);
-void       Statusbar_Message   (gchar *message, gint with_timer);
+void Statusbar_Message (const gchar *message, gboolean with_timer);
 GtkWidget *Create_Progress_Bar (void);
 
 void Check_Menu_Item_Update_Browse_Subdir  (void);
