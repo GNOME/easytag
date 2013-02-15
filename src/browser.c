@@ -315,7 +315,7 @@ Browser_Update_Current_Path (const gchar *path)
 
     /* Be sure that we aren't passing 'BrowserCurrentPath' as parameter of the
      * function to avoid an invalid read. */
-    if (path != BrowserCurrentPath) return;
+    if (path == BrowserCurrentPath) return;
 
     if (BrowserCurrentPath != NULL)
         g_free(BrowserCurrentPath);
