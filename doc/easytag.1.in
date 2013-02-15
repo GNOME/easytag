@@ -1,6 +1,6 @@
 .TH EasyTAG 1
 .SH NAME
-easytag \- Tag editor for MP3 and Ogg Vorbis files
+easytag \- tag editor for MP3 and Ogg Vorbis files
 .SH SYNOPSIS
 .na
 .nh
@@ -25,38 +25,38 @@ Display some short help
 Display version information
 .TP 
 .B [directory]
-Choose the directory to open at startup.  It can be either 
-an absolute path or a relative path.
+Choose the directory to open at startup. It can be either an absolute or a
+relative path.
 
 .SH AVAILABILITY
-.PP 
-EasyTAG is licensed under the 
-GNU Public License(GPL). A copy of that license should 
-have come with the package in the file COPYING. You are 
-encouraged to distribute copies of the Samba suite, but 
-please obey the terms of this license.
-.PP 
+.PP
+EasyTAG is licensed under the GNU General Public License (GPL) version 2 or
+later. A copy of that license should have come with the package in the file
+COPYING.
+.PP
 The latest version of EasyTAG can be obtained via the project's webpage
-<URL: \fIhttp://projects.gnome.org/easytag/\fR>
+<\fI@PACKAGE_URL@\fR>. You can discuss EasyTAG on the
+mailing list <\fIeasytag-list@gnome.org\fR>.
+.PP
 
 .SH FILES
 .PP 
-EasyTAG will create a directory named .easytag in your home 
+EasyTAG will create a directory named easytag in your \fIXDG_CONFIG_HOME\fR
 directory where it stores its configuration file and history files.
 .br
 \fI@prefix@/bin/easytag\fR: \fBEasyTAG\fR's location.
 .br
-\fI~/.easytag/easytagrc\fR: \fBEasyTAG\fR's configuration file.
+\fI~/.config/easytag/easytagrc\fR: \fBEasyTAG\fR's configuration file.
 .br
 
 .SH VERSION
 .PP 
-This man page is done for the version @PACKAGE_VERSION@ of EasyTAG.
+This man page was written for version @PACKAGE_VERSION@ of EasyTAG.
 
 .SH AUTHOR
 .PP 
-The author of this software is Jerome COUDERC.
-.PP 
-You can mail him about EasyTAG at <\fIeasytag@gmail.com\fR>
+The original author of this software is Jerome COUDERC
+<\fIeasytag@gmail.com\fR>. The current maintainers are David King
+<\fIamigadave@amigadave.com\fR> and Kip Warner <\fIkip@thevertigo.com\fR>.
 .PP 
 This man page was originally written by Pauliuc George <\fIpauliuc@gmx.net\fR>
