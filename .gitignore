@@ -21,6 +21,7 @@ configure
 /doc/easytag.1
 /doc/version.xml
 /doc/easytag.1
+/data/org.gnome.EasyTAG.gschema.valid
 /doc/version.xml
 /easytag
 /easytag-*.tar.xz

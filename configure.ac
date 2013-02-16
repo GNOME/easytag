@@ -393,6 +393,8 @@ dnl Checks for library functions.
 dnl -------------------------------
 AC_CHECK_FUNCS([ftruncate mkstemp truncate])
 
+GLIB_GSETTINGS
+
 AC_CONFIG_FILES([ Makefile
                   doc/version.xml
                   help/Makefile
