@@ -2327,7 +2327,6 @@ void Open_ScannerWindow (gint scanner_type)
     GtkWidget *Button;
     GtkWidget *Separator;
     GtkWidget *Icon;
-    GtkWidget *EventBox;
     GtkWidget *MaskStatusIconBox;
     GList *pf_cb_group1 = NULL;
     GList *pf_cb_group2 = NULL;
@@ -2386,10 +2385,8 @@ void Open_ScannerWindow (gint scanner_type)
     Label = gtk_label_new(_("Scanner:"));
     gtk_box_pack_start(GTK_BOX(HBox1),Label,FALSE,FALSE,0);
 
-    EventBox = gtk_event_box_new();
     ScannerOptionCombo = gtk_combo_box_text_new();
-    gtk_container_add(GTK_CONTAINER(EventBox),ScannerOptionCombo);
-    gtk_box_pack_start(GTK_BOX(HBox1),EventBox,TRUE,TRUE,2);
+    gtk_box_pack_start(GTK_BOX (HBox1), ScannerOptionCombo, TRUE, TRUE, 2);
     gtk_widget_set_size_request(ScannerOptionCombo, 160, -1);
 
     /* Option for Tag */
@@ -2404,8 +2401,9 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(ScannerOptionCombo),
                               _(Scanner_Option_Menu_Items[SCANNER_PROCESS_FIELDS]));
 
-    // Selection of the item made at the end of the function
-    gtk_widget_set_tooltip_text(EventBox, _("Select the type of scanner to use"));
+    /* Selection of the item made at the end of the function. */
+    gtk_widget_set_tooltip_text (ScannerOptionCombo,
+                                 _("Select the type of scanner to use"));
     g_signal_connect(G_OBJECT(ScannerOptionCombo), "changed", G_CALLBACK(Scanner_Option_Menu_Activate_Item), NULL);
 
     /* 'Scan selected files' button */
@@ -2596,12 +2594,12 @@ void Open_ScannerWindow (gint scanner_type)
     /* Group: select entry fields to process */
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
     gtk_box_pack_start(GTK_BOX(VBox),hbox,FALSE,FALSE,2);
-    EventBox = gtk_event_box_new();
     Label = gtk_label_new(_("Select fields:"));
-    gtk_box_pack_start(GTK_BOX(hbox),EventBox,FALSE,FALSE,2);
-    gtk_container_add(GTK_CONTAINER(EventBox),Label);
-    gtk_widget_set_tooltip_text(EventBox,_("The buttons on the right represent the fields which can "
-        "be processed. Select those who interest you."));
+    gtk_box_pack_start (GTK_BOX (hbox), Label, FALSE, FALSE, 2);
+    gtk_widget_set_tooltip_text (Label,
+                                 _("The buttons on the right represent the "
+                                   "fields which can be processed. Select "
+                                   "those which interest you"));
     // Advice for Translators: set the first letter of filename translated
     ProcessFileNameField = gtk_toggle_button_new_with_label(   _("F"));
     gtk_widget_set_tooltip_text(ProcessFileNameField,          _("Process file name field"));

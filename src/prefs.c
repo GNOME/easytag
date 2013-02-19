@@ -285,10 +285,9 @@ void Open_OptionsWindow (void)
     Label = gtk_label_new(_("Sort the file list by:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
 
-    EventBox = gtk_event_box_new();
     SortingFileCombo = gtk_combo_box_text_new();
     gtk_container_add(GTK_CONTAINER(EventBox),SortingFileCombo);
-    gtk_box_pack_start(GTK_BOX(hbox),EventBox,FALSE,FALSE,2);
+    gtk_box_pack_start (GTK_BOX (hbox), SortingFileCombo, FALSE, FALSE, 2);
     gtk_widget_set_size_request(GTK_WIDGET(SortingFileCombo), 260, -1);
     gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(SortingFileCombo),2); // Two columns
 
@@ -794,17 +793,17 @@ void Open_OptionsWindow (void)
     gtk_grid_attach (GTK_GRID (Table), LabelId3v2Version, 0, 1, 2, 1);
     gtk_misc_set_alignment(GTK_MISC(LabelId3v2Version),0,0.5);
 
-    EventBox = gtk_event_box_new();
     FileWritingId3v2VersionCombo = gtk_combo_box_text_new();
-    gtk_container_add(GTK_CONTAINER(EventBox),FileWritingId3v2VersionCombo);
-    gtk_widget_set_tooltip_text(EventBox,_("Select the ID3v2 tag version to write:\n"
-        " - ID3v2.3 is written using id3lib,\n"
-        " - ID3v2.4 is written using libid3tag (recommended)."));
+    gtk_widget_set_tooltip_text (FileWritingId3v2VersionCombo,
+                                 _("Select the ID3v2 tag version to write:\n"
+                                   " - ID3v2.3 is written using id3lib,\n"
+                                   " - ID3v2.4 is written using libid3tag (recommended)."));
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(FileWritingId3v2VersionCombo), "ID3v2.4");
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(FileWritingId3v2VersionCombo), "ID3v2.3");
     gtk_combo_box_set_active(GTK_COMBO_BOX(FileWritingId3v2VersionCombo),
         FILE_WRITING_ID3V2_VERSION_4 ? 0 : 1);
-    gtk_grid_attach (GTK_GRID (Table), EventBox, 2, 1, 2, 1);
+    gtk_grid_attach (GTK_GRID (Table), FileWritingId3v2VersionCombo, 2, 1, 2,
+                     1);
     g_signal_connect_after(G_OBJECT(FileWritingId3v2VersionCombo),"changed",
         G_CALLBACK(Change_Id3_Settings_Toggled),NULL);
 #endif
@@ -825,10 +824,9 @@ void Open_OptionsWindow (void)
     gtk_grid_attach (GTK_GRID (Table), FileWritingId3v2UseUnicodeCharacterSet,
                      1, 3, 1, 1);
 
-    EventBox = gtk_event_box_new();
     FileWritingId3v2UnicodeCharacterSetCombo = gtk_combo_box_text_new();
-    gtk_container_add(GTK_CONTAINER(EventBox),FileWritingId3v2UnicodeCharacterSetCombo);
-    gtk_widget_set_tooltip_text(EventBox,_("Unicode type to use"));
+    gtk_widget_set_tooltip_text(FileWritingId3v2UnicodeCharacterSetCombo,
+                                _("Unicode type to use"));
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(FileWritingId3v2UnicodeCharacterSetCombo), "UTF-8");
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(FileWritingId3v2UnicodeCharacterSetCombo), "UTF-16");
     if ( FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET == NULL )
@@ -836,7 +834,8 @@ void Open_OptionsWindow (void)
     else
         gtk_combo_box_set_active(GTK_COMBO_BOX(FileWritingId3v2UnicodeCharacterSetCombo),
             strcmp(FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET, "UTF-8") ? 1 : 0);
-    gtk_grid_attach (GTK_GRID (Table), EventBox, 2, 3, 2, 1);
+    gtk_grid_attach (GTK_GRID (Table),
+                     FileWritingId3v2UnicodeCharacterSetCombo, 2, 3, 2, 1);
     g_signal_connect_after(G_OBJECT(FileWritingId3v2UseUnicodeCharacterSet),"toggled",
         G_CALLBACK(Change_Id3_Settings_Toggled),NULL);
 
@@ -849,15 +848,14 @@ void Open_OptionsWindow (void)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v2UseNoUnicodeCharacterSet),
         !FILE_WRITING_ID3V2_USE_UNICODE_CHARACTER_SET);
 
-    EventBox = gtk_event_box_new();
     FileWritingId3v2NoUnicodeCharacterSetCombo = gtk_combo_box_text_new();
-    gtk_container_add(GTK_CONTAINER(EventBox),FileWritingId3v2NoUnicodeCharacterSetCombo);
-    gtk_widget_set_tooltip_text(EventBox,_("Character set used to write the tag "
-        "data in the file."));
+    gtk_widget_set_tooltip_text (FileWritingId3v2NoUnicodeCharacterSetCombo,
+                                 _("Character set used to write the tag data in the file."));
 
     Charset_Populate_Combobox(GTK_COMBO_BOX(FileWritingId3v2NoUnicodeCharacterSetCombo), 
         FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET);
-    gtk_grid_attach(GTK_GRID(Table),EventBox,2,4,3,1);
+    gtk_grid_attach (GTK_GRID (Table),
+                     FileWritingId3v2NoUnicodeCharacterSetCombo, 2, 4, 3, 1);
     g_signal_connect_after(G_OBJECT(FileWritingId3v2UseNoUnicodeCharacterSet),"toggled",
         G_CALLBACK(Change_Id3_Settings_Toggled),NULL);
     
@@ -926,12 +924,11 @@ void Open_OptionsWindow (void)
     Label = gtk_label_new("        ");
     gtk_grid_attach (GTK_GRID (Table), Label, 0, 2, 1, 1);
 
-    EventBox = gtk_event_box_new();
     FileWritingId3v1CharacterSetCombo = gtk_combo_box_text_new();
-    gtk_container_add(GTK_CONTAINER(EventBox),FileWritingId3v1CharacterSetCombo);
-    gtk_grid_attach (GTK_GRID (Table), EventBox, 1, 2, 3, 1);
-    gtk_widget_set_tooltip_text(EventBox,_("Character set used to write ID3v1 tag data "
-        "in the file."));
+    gtk_grid_attach (GTK_GRID (Table), FileWritingId3v1CharacterSetCombo, 1, 2,
+                     3, 1);
+    gtk_widget_set_tooltip_text (FileWritingId3v1CharacterSetCombo,
+                                 _("Character set used to write ID3v1 tag data in the file."));
     Charset_Populate_Combobox(GTK_COMBO_BOX(FileWritingId3v1CharacterSetCombo), FILE_WRITING_ID3V1_CHARACTER_SET);
 
     /* ID3V1 Additional iconv() options*/
@@ -1002,13 +999,12 @@ void Open_OptionsWindow (void)
         "'Windows-1251' to load tags written under Windows. And 'KOI8-R' to load tags "
         "written under Unix systems."));
 
-    EventBox = gtk_event_box_new();
     FileReadingId3v1v2CharacterSetCombo = gtk_combo_box_text_new();
-    gtk_container_add(GTK_CONTAINER(EventBox),FileReadingId3v1v2CharacterSetCombo);
-    gtk_grid_attach (GTK_GRID (Table), EventBox, 2, 0, 1, 1);
+    gtk_grid_attach (GTK_GRID (Table), FileReadingId3v1v2CharacterSetCombo, 2,
+                     0, 1, 1);
 
-    gtk_widget_set_tooltip_text(EventBox,_("Character set used to read tag data "
-        "in the file."));
+    gtk_widget_set_tooltip_text (FileReadingId3v1v2CharacterSetCombo,
+                                 _("Character set used to read tag data in the file."));
 
     Charset_Populate_Combobox(GTK_COMBO_BOX(FileReadingId3v1v2CharacterSetCombo), 
         FILE_READING_ID3V1V2_CHARACTER_SET);
