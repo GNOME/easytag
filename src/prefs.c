@@ -92,7 +92,6 @@ void Open_OptionsWindow (void)
     GtkWidget *VBox, *vbox;
     GtkWidget *HBox, *hbox, *id3v1v2hbox;
     GtkWidget *Separator;
-    GtkWidget *EventBox;
     gchar temp[MAX_STRING_LEN];
     gchar *path_utf8;
     gchar *program_path;
@@ -286,7 +285,6 @@ void Open_OptionsWindow (void)
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
 
     SortingFileCombo = gtk_combo_box_text_new();
-    gtk_container_add(GTK_CONTAINER(EventBox),SortingFileCombo);
     gtk_box_pack_start (GTK_BOX (hbox), SortingFileCombo, FALSE, FALSE, 2);
     gtk_widget_set_size_request(GTK_WIDGET(SortingFileCombo), 260, -1);
     gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(SortingFileCombo),2); // Two columns
@@ -312,8 +310,9 @@ void Open_OptionsWindow (void)
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending comment"));
 
     gtk_combo_box_set_active(GTK_COMBO_BOX(SortingFileCombo), SORTING_FILE_MODE);
-    gtk_widget_set_tooltip_text(EventBox,_("Select the type of file sorting "
-        "when loading a directory."));
+    gtk_widget_set_tooltip_text(SortingFileCombo,
+                                _("Select the type of file sorting when "
+                                "loading a directory."));
 
     SortingFileCaseSensitive = gtk_check_button_new_with_label(_("Case sensitive"));
 #ifndef G_OS_WIN32
