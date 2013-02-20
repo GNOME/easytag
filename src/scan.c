@@ -2425,7 +2425,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(HBox1),Button,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text(Button,_("Scanner Options"));
+    gtk_widget_set_tooltip_text(Button,_("Scanner Preferences"));
     g_signal_connect(G_OBJECT(Button),"clicked",G_CALLBACK(Scan_Option_Button),NULL);
 
     /* Mask Editor button */
