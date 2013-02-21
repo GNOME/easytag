@@ -7,6 +7,7 @@ DISTCHECK_CONFIGURE_FLAGS = \
 	--enable-ogg \
 	--enable-mp4 \
 	--enable-speex \
+	--enable-tests \
 	--enable-wavpack
  
 SUBDIRS = po
@@ -308,6 +309,20 @@ dist_noinst_DATA = \
 
 dist_noinst_SCRIPTS = \
 	autogen.sh
+
+if EASYTAG_ENABLE_TESTS
+tests/test-desktop-file-validate.sh: Makefile
+	$(MKDIR_P) $(top_builddir)/tests
+	$(AM_V_GEN)echo "#!/bin/sh -e" > $@; \
+		echo "$(DESKTOP_FILE_VALIDATE) $(top_builddir)/$(desktop_DATA) || exit 1" >> $@; \
+		chmod +x $@
+
+check_SCRIPTS = \
+	tests/test-desktop-file-validate.sh
+
+TESTS = \
+	$(check_SCRIPTS)
+endif
 
 CLEANFILES = \
 	$(desktop_DATA) \

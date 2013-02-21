@@ -35,6 +35,25 @@ AC_PROG_CXXCPP
 AC_PROG_SED
 PKG_PROG_PKG_CONFIG([0.24])
 
+dnl Check for testing utilities.
+AC_ARG_ENABLE([tests],
+              [AS_HELP_STRING([--disable-tests], [Disable support for tests run during make check])])
+
+AS_IF([test "x$enable_tests" != "xno"],
+      [AC_PATH_PROG([DESKTOP_FILE_VALIDATE], [desktop-file-validate])
+       AS_IF([test "x$ac_cv_path_DESKTOP_FILE_VALIDATE" != "xyes"],
+             [have_desktop_file_validate=yes],
+             [have_desktop_file_validate=no])],
+      [have_desktop_file_validate=no])
+
+AS_IF([test "x$have_desktop_file_validate" = "xyes"],
+      [testing_utilities=yes],
+      [testing_utilities=no
+       AS_IF([test "x$enable_tests" = "xyes"],
+             [AC_MSG_ERROR([tests were requested but the required utilities were not found])])])
+
+AM_CONDITIONAL([EASYTAG_ENABLE_TESTS], [test "x$testing_utilities" = "xyes"])
+
 dnl -------------------------------
 dnl Handle cross-compiling with mingw32.
 dnl -------------------------------
@@ -308,6 +327,7 @@ echo FLAC file support .......: $have_flac
 echo MP4 file support ........: $have_taglib
 echo WavPack support .........: $have_wavpack
 echo NLS/gettext .............: $USE_NLS
+echo Tests during make check .: $testing_utilities
 echo Install prefix ..........: $prefix
 echo 
 echo Now type 'make' to build $PACKAGE_NAME $PACKAGE_VERSION,
