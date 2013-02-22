@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: easytag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-20 23:03+0100\n"
-"PO-Revision-Date: 2013-02-20 23:04+0100\n"
+"POT-Creation-Date: 2013-02-22 19:34+0100\n"
+"PO-Revision-Date: 2013-02-22 19:35+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -4527,8 +4527,8 @@ msgid "Open scanner window / Scan selected files"
 msgstr "Wyświetla okno skanera/skanuje zaznaczone pliki"
 
 #: ../src/scan.c:2428
-msgid "Scanner Options"
-msgstr "Opcje skanera"
+msgid "Scanner Preferences"
+msgstr "Preferencje skanera"
 
 #: ../src/scan.c:2437
 msgid "Show / Hide Masks Editor"
