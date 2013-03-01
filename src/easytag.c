@@ -628,7 +628,6 @@ Create_Tag_Area (void)
     TitleEntry = gtk_entry_new();
     et_grid_attach_full (GTK_GRID (Table), TitleEntry, 1, 0, 9, 1, TRUE, TRUE,
                          TablePadding, TablePadding);
-    gtk_widget_set_size_request(TitleEntry, 150, -1);
 
     TitleMButton = gtk_button_new();
     gtk_widget_set_size_request(TitleMButton,MButtonSize,MButtonSize);
@@ -711,7 +710,7 @@ Create_Tag_Area (void)
     DiscNumberEntry = gtk_entry_new();
     et_grid_attach_full (GTK_GRID (Table), DiscNumberEntry, 9, 3, 1, 1, TRUE,
                          TRUE, TablePadding, TablePadding);
-    gtk_widget_set_size_request(DiscNumberEntry,30,-1);
+    gtk_entry_set_width_chars (GTK_ENTRY (DiscNumberEntry), 1);
     // FIX ME should allow to type only something like : 1/3
     //g_signal_connect(G_OBJECT(GTK_ENTRY(DiscNumberEntry)),"insert_text",G_CALLBACK(Insert_Only_Digit),NULL);
 
@@ -736,7 +735,7 @@ Create_Tag_Area (void)
     gtk_entry_set_max_length(GTK_ENTRY(YearEntry), 4);
     et_grid_attach_full (GTK_GRID (Table), YearEntry, 1, 4, 1, 1, TRUE, TRUE,
                          TablePadding, TablePadding);
-    gtk_widget_set_size_request(YearEntry,37,-1);
+    gtk_entry_set_width_chars (GTK_ENTRY (YearEntry), 4);
     g_signal_connect(G_OBJECT(YearEntry),"insert_text",G_CALLBACK(Insert_Only_Digit),NULL);
     g_signal_connect(G_OBJECT(YearEntry),"activate",G_CALLBACK(Parse_Date),NULL);
     g_signal_connect(G_OBJECT(YearEntry),"focus-out-event",G_CALLBACK(Parse_Date),NULL);
@@ -785,7 +784,8 @@ Create_Tag_Area (void)
                          TRUE, TablePadding, TablePadding);
     gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(TrackEntryCombo),3); // Three columns to display track numbers list
 
-    gtk_widget_set_size_request(TrackEntryCombo,50,-1);
+    gtk_entry_set_width_chars (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (TrackEntryCombo))),
+                               2);
     g_signal_connect(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(TrackEntryCombo)))),"insert_text",
         G_CALLBACK(Insert_Only_Digit),NULL);
 
@@ -810,7 +810,7 @@ Create_Tag_Area (void)
     TrackTotalEntry = gtk_entry_new();
     et_grid_attach_full (GTK_GRID (Table), TrackTotalEntry, 9, 4, 1, 1, TRUE,
                          TRUE, TablePadding, TablePadding);
-    gtk_widget_set_size_request(TrackTotalEntry,30,-1);
+    gtk_entry_set_width_chars (GTK_ENTRY (TrackTotalEntry), 2);
     g_signal_connect(G_OBJECT(GTK_ENTRY(TrackTotalEntry)),"insert_text",
         G_CALLBACK(Insert_Only_Digit),NULL);
 
