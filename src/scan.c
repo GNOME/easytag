@@ -2355,7 +2355,6 @@ void Open_ScannerWindow (gint scanner_type)
     /* Config */
     gtk_container_set_border_width(GTK_CONTAINER(ScannerWindow), 5);
     gtk_window_set_resizable(GTK_WINDOW(ScannerWindow), FALSE);
-    gtk_window_set_wmclass(GTK_WINDOW(ScannerWindow),"EasyTag_Scanner","easytag"); // Patch from Nikolai Prokoschenko (Debian)
     gtk_window_set_transient_for (GTK_WINDOW (ScannerWindow),
                                   GTK_WINDOW (MainWindow));
 
