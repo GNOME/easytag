@@ -196,7 +196,6 @@ tConfigVariable Config_Variables[] =
     {"default_comment",                         CV_TYPE_STRING,  &DEFAULT_COMMENT                        },
     {"crc32_comment",                           CV_TYPE_BOOL,    &SET_CRC32_COMMENT                      },
     {"open_scanner_window_on_startup",          CV_TYPE_BOOL,    &OPEN_SCANNER_WINDOW_ON_STARTUP         },
-    {"scanner_window_on_top",                   CV_TYPE_BOOL,    &SCANNER_WINDOW_ON_TOP                  },
     {"set_scanner_window_position",             CV_TYPE_BOOL,    &SET_SCANNER_WINDOW_POSITION            },
     {"scanner_window_x",                        CV_TYPE_INT,     &SCANNER_WINDOW_X                       },
     {"scanner_window_y",                        CV_TYPE_INT,     &SCANNER_WINDOW_Y                       },
@@ -207,6 +206,7 @@ tConfigVariable Config_Variables[] =
     {"confirm_write_playlist",                  CV_TYPE_BOOL,    &CONFIRM_WRITE_PLAYLIST                 },
     {"confirm_delete_file",                     CV_TYPE_BOOL,    &CONFIRM_DELETE_FILE                    },
     {"confirm_when_unsaved_files",              CV_TYPE_BOOL,    &CONFIRM_WHEN_UNSAVED_FILES             },
+
     {"process_filename_field",                  CV_TYPE_BOOL,    &PROCESS_FILENAME_FIELD                 },
     {"process_title_field",                     CV_TYPE_BOOL,    &PROCESS_TITLE_FIELD                    },
     {"process_artist_field",                    CV_TYPE_BOOL,    &PROCESS_ARTIST_FIELD                   },
@@ -470,7 +470,6 @@ void Init_Config_Variables (void)
     DEFAULT_COMMENT                           = g_strdup("Tagged with EasyTAG");
     SET_CRC32_COMMENT                         = 0;
     OPEN_SCANNER_WINDOW_ON_STARTUP            = 0;
-    SCANNER_WINDOW_ON_TOP                     = 1;
     SET_SCANNER_WINDOW_POSITION               = 1; // Set it to '0' if problem with some Windows Manager
     SCANNER_WINDOW_X                          = -1;
     SCANNER_WINDOW_Y                          = -1;
@@ -769,7 +768,6 @@ Apply_Changes_Of_Preferences_Window (void)
         SET_CRC32_COMMENT   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(Crc32Comment));
 
         OPEN_SCANNER_WINDOW_ON_STARTUP = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(OpenScannerWindowOnStartup));
-        SCANNER_WINDOW_ON_TOP          = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ScannerWindowOnTop));
 
         /* CDDB */
         if (CDDB_SERVER_NAME_AUTOMATIC_SEARCH) g_free(CDDB_SERVER_NAME_AUTOMATIC_SEARCH);
@@ -844,12 +842,9 @@ Apply_Changes_Of_Preferences_Window (void)
 
     if (ScannerWindow)
     {
-        if (SCANNER_WINDOW_ON_TOP)
-            gtk_window_set_transient_for(GTK_WINDOW(ScannerWindow),GTK_WINDOW(MainWindow));
-        else
-            gtk_window_set_transient_for(GTK_WINDOW(ScannerWindow),NULL);
+        gtk_window_set_transient_for (GTK_WINDOW (ScannerWindow),
+                                      GTK_WINDOW (MainWindow));
     }
-
 }
 
 /*

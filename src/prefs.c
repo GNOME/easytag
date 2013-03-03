@@ -1065,12 +1065,6 @@ void Open_OptionsWindow (void)
     gtk_widget_set_tooltip_text(OpenScannerWindowOnStartup,_("Activate this option to open automatically "
         "the scanner window when EasyTAG starts."));
 
-    ScannerWindowOnTop = gtk_check_button_new_with_label(_("Scanner window always on top"));
-    gtk_box_pack_start(GTK_BOX(vbox),ScannerWindowOnTop,FALSE,FALSE,0);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ScannerWindowOnTop),SCANNER_WINDOW_ON_TOP);
-    gtk_widget_set_tooltip_text(ScannerWindowOnTop,_("If activated, the window which contains the masks "
-                        "will stay always over the main window."));
-
 
     /* Other options */
     Frame = gtk_frame_new (_("Fields"));
