@@ -294,14 +294,6 @@ void Picture_Add_Button_Clicked (GObject *object)
     // Make this filter the default
     gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(FileSelectionWindow), GTK_FILE_FILTER(filter));
 
-    // Set window position
-    if (MESSAGE_BOX_POSITION_NONE)
-        gtk_window_set_position(GTK_WINDOW(FileSelectionWindow),GTK_WIN_POS_NONE);
-    else if (MESSAGE_BOX_POSITION_CENTER)
-        gtk_window_set_position(GTK_WINDOW(FileSelectionWindow),GTK_WIN_POS_CENTER);
-    else if (MESSAGE_BOX_POSITION_MOUSE)
-        gtk_window_set_position(GTK_WINDOW(FileSelectionWindow),GTK_WIN_POS_MOUSE);
-
     // Behaviour following the tag type...
     switch (ETCore->ETFileDisplayed->ETFileDescription->TagType)
     {
@@ -408,14 +400,6 @@ void Picture_Properties_Button_Clicked (GObject *object)
                                                          GTK_STOCK_OK,     GTK_RESPONSE_OK,
                                                          NULL);
         g_free(title);
-
-        // Set window position
-        if (MESSAGE_BOX_POSITION_NONE)
-            gtk_window_set_position(GTK_WINDOW(PictureTypesWindow),GTK_WIN_POS_NONE);
-        else if (MESSAGE_BOX_POSITION_CENTER)
-            gtk_window_set_position(GTK_WINDOW(PictureTypesWindow),GTK_WIN_POS_CENTER);
-        else if (MESSAGE_BOX_POSITION_MOUSE)
-            gtk_window_set_position(GTK_WINDOW(PictureTypesWindow),GTK_WIN_POS_MOUSE);
 
         gtk_dialog_set_default_response(GTK_DIALOG(PictureTypesWindow), GTK_RESPONSE_OK);
 
@@ -629,14 +613,6 @@ void Picture_Save_Button_Clicked (GObject *object)
         gtk_file_chooser_add_filter(GTK_FILE_CHOOSER (FileSelectionWindow), GTK_FILE_FILTER(filter));
         // Make this filter the default
         gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(FileSelectionWindow),  GTK_FILE_FILTER(filter));
-
-        // Set window position
-        if (MESSAGE_BOX_POSITION_NONE)
-            gtk_window_set_position(GTK_WINDOW(FileSelectionWindow),GTK_WIN_POS_NONE);
-        else if (MESSAGE_BOX_POSITION_CENTER)
-            gtk_window_set_position(GTK_WINDOW(FileSelectionWindow),GTK_WIN_POS_CENTER);
-        else if (MESSAGE_BOX_POSITION_MOUSE)
-            gtk_window_set_position(GTK_WINDOW(FileSelectionWindow),GTK_WIN_POS_MOUSE);
 
         gtk_dialog_set_default_response(GTK_DIALOG(FileSelectionWindow), GTK_RESPONSE_OK);
 

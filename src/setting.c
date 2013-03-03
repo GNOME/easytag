@@ -180,11 +180,6 @@ tConfigVariable Config_Variables[] =
     {"vorbis_split_field_composer",                    CV_TYPE_BOOL,  &VORBIS_SPLIT_FIELD_COMPOSER},
     {"vorbis_split_field_orig_artist",                 CV_TYPE_BOOL,  &VORBIS_SPLIT_FIELD_ORIG_ARTIST},
 
-    {"message_box_position_none",               CV_TYPE_BOOL,  &MESSAGE_BOX_POSITION_NONE                },
-    {"message_box_position_center",             CV_TYPE_BOOL,  &MESSAGE_BOX_POSITION_CENTER              },
-    {"message_box_position_mouse",              CV_TYPE_BOOL,  &MESSAGE_BOX_POSITION_MOUSE               },
-    {"message_box_position_center_on_parent",   CV_TYPE_BOOL,  &MESSAGE_BOX_POSITION_CENTER_ON_PARENT    },
-
     {"audio_file_player",                       CV_TYPE_STRING,&AUDIO_FILE_PLAYER                        },
 
     {"scanner_type",                             CV_TYPE_INT, &SCANNER_TYPE                              },
@@ -399,11 +394,6 @@ void Init_Config_Variables (void)
 #endif /* !G_OS_WIN32 */
     LOG_MAX_LINES                           = 50;
     SHOW_LOG_VIEW                           = 1;
-
-    MESSAGE_BOX_POSITION_NONE               = 0;
-    MESSAGE_BOX_POSITION_CENTER             = 0;
-    MESSAGE_BOX_POSITION_MOUSE              = 0;
-    MESSAGE_BOX_POSITION_CENTER_ON_PARENT   = 1;
 
 #ifdef G_OS_WIN32
     AUDIO_FILE_PLAYER                       = ET_Win32_Get_Audio_File_Player();
@@ -695,11 +685,6 @@ Apply_Changes_Of_Preferences_Window (void)
         SHOW_LOG_VIEW                          = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ShowLogView));
 
         SORTING_FILE_MODE = gtk_combo_box_get_active(GTK_COMBO_BOX(SortingFileCombo));
-
-        MESSAGE_BOX_POSITION_NONE               = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(MessageBoxPositionNone));
-        MESSAGE_BOX_POSITION_CENTER             = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(MessageBoxPositionCenter));
-        MESSAGE_BOX_POSITION_MOUSE              = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(MessageBoxPositionMouse));
-        MESSAGE_BOX_POSITION_CENTER_ON_PARENT   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(MessageBoxPositionCenterOnParent));
 
         if (AUDIO_FILE_PLAYER) g_free(AUDIO_FILE_PLAYER);
         AUDIO_FILE_PLAYER                       = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)))));

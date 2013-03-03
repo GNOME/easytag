@@ -326,50 +326,6 @@ void Open_OptionsWindow (void)
     gtk_widget_set_tooltip_text(SortingFileCaseSensitive,_("If activated, the "
         "sorting of the list will be dependent on the case."));
 
-    /* Message Dialog Position */
-    Frame = gtk_frame_new (_("Message Dialog Position"));
-    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    Table = et_grid_new (2, 2);
-    gtk_container_add(GTK_CONTAINER(Frame),Table);
-    /*gtk_grid_set_row_spacing (GTK_GRID (Table), 2);*/
-    gtk_grid_set_column_spacing (GTK_GRID (Table), 4);
-
-
-    MessageBoxPositionNone = gtk_radio_button_new_with_label(NULL,_("No particular position"));
-    gtk_grid_attach (GTK_GRID (Table), MessageBoxPositionNone, 0, 0, 1, 1);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(MessageBoxPositionNone),
-        MESSAGE_BOX_POSITION_NONE);
-    gtk_widget_set_tooltip_text(MessageBoxPositionNone,_("Let the Window Manager "
-        "to place the windows."));
-
-    MessageBoxPositionCenterOnParent = gtk_radio_button_new_with_label(
-        gtk_radio_button_get_group(GTK_RADIO_BUTTON(MessageBoxPositionNone)),
-        _("Center of the main window"));
-    gtk_grid_attach (GTK_GRID (Table), MessageBoxPositionCenterOnParent, 1, 0,
-                     1, 1);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(MessageBoxPositionCenterOnParent),
-        MESSAGE_BOX_POSITION_CENTER_ON_PARENT);
-    gtk_widget_set_tooltip_text(MessageBoxPositionCenterOnParent,_("Windows should "
-        "be placed in the center of the main window."));
-
-    MessageBoxPositionCenter = gtk_radio_button_new_with_label(
-        gtk_radio_button_get_group(GTK_RADIO_BUTTON(MessageBoxPositionNone)),
-        _("Center of the screen"));
-    gtk_grid_attach (GTK_GRID (Table), MessageBoxPositionCenter, 0, 1, 1, 1);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(MessageBoxPositionCenter),
-        MESSAGE_BOX_POSITION_CENTER);
-    gtk_widget_set_tooltip_text(MessageBoxPositionCenter,_("Windows should be placed "
-        "in the center of the screen."));
-
-    MessageBoxPositionMouse = gtk_radio_button_new_with_label(
-        gtk_radio_button_get_group(GTK_RADIO_BUTTON(MessageBoxPositionNone)),
-        _("Mouse position"));
-    gtk_grid_attach (GTK_GRID (Table), MessageBoxPositionMouse, 1, 1, 1, 1);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(MessageBoxPositionMouse),
-        MESSAGE_BOX_POSITION_MOUSE);
-    gtk_widget_set_tooltip_text(MessageBoxPositionMouse,_("Windows should be placed "
-        "at the current mouse position."));
-
     /* File Player */
     Frame = gtk_frame_new (_("File Audio Player"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
