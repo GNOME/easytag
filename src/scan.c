@@ -2363,7 +2363,8 @@ void Open_ScannerWindow (gint scanner_type)
      * to be able to move it. */
 
     /* Title */
-    gtk_window_set_title(GTK_WINDOW(ScannerWindow),_("Tag and File Name scan"));
+    gtk_window_set_title (GTK_WINDOW (ScannerWindow),
+                          _("Tag and Filename Scan"));
 
     /* Signals connection */
     g_signal_connect(G_OBJECT(ScannerWindow),"destroy",G_CALLBACK(ScannerWindow_Quit),NULL);
