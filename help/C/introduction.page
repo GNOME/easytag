@@ -1,0 +1,26 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="guide"
+      id="introduction">
+
+  <info>
+    <link type="guide" xref="index" group="#first"/>
+    <revision version="0.1" pkgversion="2.1.9" date="2013-02-20" status="draft" />
+
+    <credit type="author">
+      <name>Ekaterina Gerasimova</name>
+      <email>kittykat3756@gmail.com</email>
+    </credit>
+
+    <license>
+      <p>Creative Commons Attribution-ShareAlike 3.0</p>
+    </license>
+
+    <desc></desc>
+  </info>
+
+  <title>Introduction</title>
+
+  <p><app>EasyTAG</app> is a comprehensive tag editor for FLAC, Monkey's Audio,
+  MP2, MP3, MP4/AAC, MusePack, Ogg Vorbis, Speex and WavPack audio files.</p>
+
+</page>

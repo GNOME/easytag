@@ -1,0 +1,38 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:e="http://projectmallard.org/experimental/"
+      type="guide" style="task"
+      id="index">
+  <info>
+    <revision version="0.1" pkgversion="2.1.9" date="2013-02-20" status="review"/>
+
+    <credit type="author">
+      <name>Ekaterina Gerasimova</name>
+      <email>kittykat3756@gmail.com</email>
+    </credit>
+
+    <license>
+      <p>Creative Commons Attribution-ShareAlike 3.0</p>
+    </license>
+
+    <desc></desc>
+
+  </info>
+
+  <title>
+    <media type="image" mime="image/png" src="figures/icon.png"/>
+    EasyTAG
+  </title>
+
+  <section id="main" style="2column">
+    <title>Features</title>
+  </section>
+
+  <section id="preferences" style="2column">
+    <title>Preferences</title>
+  </section>
+
+  <section id="problems">
+    <title>Common problems and questions</title>
+  </section>
+
+</page>
