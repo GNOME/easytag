@@ -1957,7 +1957,7 @@ void Open_Search_File_Window (void)
     }
 
     SearchFileWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW(SearchFileWindow),_("Search a file"));
+    gtk_window_set_title (GTK_WINDOW (SearchFileWindow), _("Find Files"));
     g_signal_connect(G_OBJECT(SearchFileWindow),"destroy", G_CALLBACK(Destroy_Search_File_Window),NULL);
     g_signal_connect(G_OBJECT(SearchFileWindow),"delete_event", G_CALLBACK(Destroy_Search_File_Window),NULL);
     g_signal_connect(G_OBJECT(SearchFileWindow),"key_press_event", G_CALLBACK(Search_File_Window_Key_Press),NULL);
