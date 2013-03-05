@@ -2,17 +2,16 @@
       xmlns:e="http://projectmallard.org/experimental/"
       type="guide" style="task"
       id="index">
+
   <info>
-    <revision version="0.1" pkgversion="2.1.9" date="2013-02-20" status="review"/>
+    <revision version="0.1" pkgversion="2.1.9" date="2013-03-05" status="review"/>
 
     <credit type="author">
       <name>Ekaterina Gerasimova</name>
       <email>kittykat3756@gmail.com</email>
     </credit>
 
-    <license>
-      <p>Creative Commons Attribution-ShareAlike 3.0</p>
-    </license>
+    <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
 
     <desc></desc>
 
