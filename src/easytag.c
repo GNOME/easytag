@@ -240,8 +240,7 @@ int main (int argc, char *argv[])
     {
         if ( (strcmp(argv[1],"--version")==0) || (strcmp(argv[1],"-v")==0) ) // Query version
         {
-            g_print (_("%s %s (compiled %s, %s)\n"), PACKAGE_NAME,
-	             PACKAGE_VERSION, __TIME__, __DATE__);
+            g_print (PACKAGE_NAME " " PACKAGE_VERSION "\n");
             g_print (_("Website: %s"), PACKAGE_URL"\n");
             exit (0);
         }else if ( (strcmp(argv[1],"--help")==0) || (strcmp(argv[1],"-h")==0) ) // Query help
