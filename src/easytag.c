@@ -41,6 +41,7 @@
 
 #include "gtk2_compat.h"
 #include "easytag.h"
+#include "application.h"
 #include "browser.h"
 #include "log.h"
 #include "misc.h"
@@ -121,8 +122,6 @@ static gint Save_List_Of_Files (GList *etfilelist,
 static gint Delete_Selected_Files_With_Answer (void);
 static gboolean Copy_File (const gchar *fileold, const gchar *filenew);
 
-static void Display_Usage (void) G_GNUC_NORETURN;
-
 static void Init_Load_Default_Dir (void);
 static void EasyTAG_Exit (void);
 
@@ -166,14 +165,131 @@ setup_sigchld (void)
 }
 #endif /* !G_OS_WIN32 */
 
+/*
+ * command_line:
+ * @application: the application
+ * @command_line: the command line to process
+ * @user_data: user data set when the signal handler was connected
+ *
+ * Handle the command-line arguments passed to the primary instance. The local
+ * instance arguments are handled in EtApplication.
+ *
+ * Returns: the exit status to be passed to the calling process
+ */
+static gint
+command_line (EtApplication *application,
+              GApplicationCommandLine *command_line, gpointer user_data)
+{
+    gchar **argv;
+    gint argc;
+
+    argv = g_application_command_line_get_arguments (command_line, &argc);
+
+    /* Check given arguments */
+    if (argc > 1)
+    {
+        /* TODO: Replace this mess with GFile. */
+        struct stat statbuf;
+        gchar *path2check = NULL, *path2check_tmp = NULL;
+        gint resultstat;
+        gchar **pathsplit;
+        gint ps_index = 0;
+
+        /* Check if relative or absolute path */
+        if (g_path_is_absolute(argv[1]))
+        {
+            path2check = g_strdup(argv[1]);
+        }
+        else
+        {
+            gchar *curdir = g_get_current_dir();
+            path2check = g_strconcat(g_get_current_dir(),G_DIR_SEPARATOR_S,argv[1],NULL);
+            g_free(curdir);
+        }
+
+#ifdef G_OS_WIN32
+        ET_Win32_Path_Replace_Slashes(path2check);
+#endif /* G_OS_WIN32 */
+
+        /* Check if contains hidden directories. */
+        pathsplit = g_strsplit(path2check,G_DIR_SEPARATOR_S,0);
+        g_free(path2check);
+        path2check = NULL;
+
+        /* Browse the list to build again the path. */
+        /* FIXME: Should manage directory ".." in path. */
+        while (pathsplit[ps_index])
+        {
+            /* Activate hidden directories in browser if path contains a dir
+             * like ".hidden_dir". */
+            if ( (g_ascii_strcasecmp (pathsplit[ps_index],"..")   != 0)
+            &&   (g_ascii_strncasecmp(pathsplit[ps_index],".", 1) == 0)
+            &&   (strlen(pathsplit[ps_index]) > 1) )
+                BROWSE_HIDDEN_DIR = 1;
+                /* If user saves the config for this session, this value will
+                 * be saved to 1. */
+
+            if (pathsplit[ps_index]
+            && g_ascii_strcasecmp(pathsplit[ps_index],".") != 0
+            && g_ascii_strcasecmp(pathsplit[ps_index],"")  != 0)
+            {
+                if (path2check)
+                {
+                    path2check_tmp = g_strconcat(path2check,G_DIR_SEPARATOR_S,pathsplit[ps_index],NULL);
+                }else
+                {
+#ifdef G_OS_WIN32
+                    /* Build a path starting with the drive letter. */
+                    path2check_tmp = g_strdup(pathsplit[ps_index]);
+#else /* !G_OS_WIN32 */
+                    path2check_tmp = g_strconcat(G_DIR_SEPARATOR_S,pathsplit[ps_index],NULL);
+#endif /* !G_OS_WIN32 */
+
+                }
+
+                path2check = g_strdup(path2check_tmp);
+                g_free(path2check_tmp);
+            }
+            ps_index++;
+        }
+
+        g_strfreev (pathsplit);
+
+        /* Check if file or directory. */
+        resultstat = stat(path2check,&statbuf);
+        if (resultstat==0 && S_ISDIR(statbuf.st_mode))
+        {
+            INIT_DIRECTORY = g_strdup(path2check);
+        }else if (resultstat==0 && S_ISREG(statbuf.st_mode))
+        {
+            /* When passing a file, we load only the directory. */
+            INIT_DIRECTORY = g_path_get_dirname(path2check);
+        }else
+        {
+            g_application_command_line_printerr (command_line,
+                                                 _("Unknown parameter or path '%s'\n"),
+                                                 argv[1]);
+            g_free (path2check);
+            g_strfreev (argv);
+            return 1;
+        }
+        g_free(path2check);
+    }
+
+    g_strfreev (argv);
+
+    return 0;
+}
+
 /********
  * Main *
  ********/
 int main (int argc, char *argv[])
 {
+    EtApplication *application;
+    gint status;
     GtkWidget *MainVBox;
     GtkWidget *HBox, *VBox;
-    struct stat statbuf;
     //GError *error = NULL;
 
 
@@ -187,19 +303,23 @@ int main (int argc, char *argv[])
     setup_sigchld ();
 #endif /* !G_OS_WIN32 */
 
-#ifdef ENABLE_NLS
-    bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
-    bind_textdomain_codeset(PACKAGE_TARNAME, "UTF-8");
-    textdomain(GETTEXT_PACKAGE);
-    /* Initialize i18n support */
-    //gtk_set_locale();
-#endif
+    INIT_DIRECTORY = NULL;
+
+    /* FIXME: Move remaining initialisation code into EtApplication. */
+    application = et_application_new ();
+    g_signal_connect (application, "command-line", G_CALLBACK (command_line),
+                      NULL);
+    status = g_application_run (G_APPLICATION (application), argc, argv);
+    g_object_unref (application);
+    if (status != 0)
+    {
+        return status;
+    }
+
     Charset_Insert_Locales_Init();
 
     /* Initialize GTK */
     gtk_init(&argc, &argv);
-
-    INIT_DIRECTORY = NULL;
 
     /* Starting messages */
     Log_Print(LOG_OK,_("Starting EasyTAG version %s (PID: %d)…"),PACKAGE_VERSION,getpid());
@@ -235,98 +355,6 @@ int main (int argc, char *argv[])
     Read_Config();
     /* Display_Config(); // <- for debugging */
 
-    /* Check given arguments */
-    if (argc>1)
-    {
-        if ( (strcmp(argv[1],"--version")==0) || (strcmp(argv[1],"-v")==0) ) // Query version
-        {
-            g_print (PACKAGE_NAME " " PACKAGE_VERSION "\n");
-            g_print (_("Website: %s"), PACKAGE_URL"\n");
-            exit (0);
-        }else if ( (strcmp(argv[1],"--help")==0) || (strcmp(argv[1],"-h")==0) ) // Query help
-        {
-            Display_Usage();
-        }else
-        {
-            gchar *path2check = NULL, *path2check_tmp = NULL;
-            gint resultstat;
-            gchar **pathsplit;
-            gint ps_index = 0;
-
-            // Check if relative or absolute path
-            if (g_path_is_absolute(argv[1])) // Passed an absolute path
-            {
-                path2check = g_strdup(argv[1]);
-            }else                            // Passed a relative path
-            {
-                gchar *curdir = g_get_current_dir();
-                path2check = g_strconcat(g_get_current_dir(),G_DIR_SEPARATOR_S,argv[1],NULL);
-                g_free(curdir);
-            }
-
-#ifdef G_OS_WIN32
-            ET_Win32_Path_Replace_Slashes(path2check);
-#endif /* G_OS_WIN32 */
-
-            // Check if contains hidden directories
-            pathsplit = g_strsplit(path2check,G_DIR_SEPARATOR_S,0);
-            g_free(path2check);
-            path2check = NULL;
-
-            // Browse the list to build again the path
-            //FIX ME : Should manage directory ".." in path
-            while (pathsplit[ps_index])
-            {
-                // Activate hidden directories in browser if path contains a dir like ".hidden_dir"
-                if ( (g_ascii_strcasecmp (pathsplit[ps_index],"..")   != 0)
-                &&   (g_ascii_strncasecmp(pathsplit[ps_index],".", 1) == 0)
-                &&   (strlen(pathsplit[ps_index]) > 1) )
-                    BROWSE_HIDDEN_DIR = 1; // If user saves the config for this session, this value will be saved to 1
-
-                if (pathsplit[ps_index]
-                && g_ascii_strcasecmp(pathsplit[ps_index],".") != 0
-                && g_ascii_strcasecmp(pathsplit[ps_index],"")  != 0)
-                {
-                    if (path2check)
-                    {
-                        path2check_tmp = g_strconcat(path2check,G_DIR_SEPARATOR_S,pathsplit[ps_index],NULL);
-                    }else
-                    {
-#ifdef G_OS_WIN32
-                        // Build a path starting with the drive letter
-                        path2check_tmp = g_strdup(pathsplit[ps_index]);
-#else /* !G_OS_WIN32 */
-                        path2check_tmp = g_strconcat(G_DIR_SEPARATOR_S,pathsplit[ps_index],NULL);
-#endif /* !G_OS_WIN32 */
-
-                    }
-
-                    path2check = g_strdup(path2check_tmp);
-                    g_free(path2check_tmp);
-                }
-                ps_index++;
-            }
-
-            g_strfreev (pathsplit);
-
-            // Check if file or directory
-            resultstat = stat(path2check,&statbuf);
-            if (resultstat==0 && S_ISDIR(statbuf.st_mode))       // Directory
-            {
-                INIT_DIRECTORY = g_strdup(path2check);
-            }else if (resultstat==0 && S_ISREG(statbuf.st_mode)) // File
-            {
-                // When passing a file, we load only the directory
-                INIT_DIRECTORY = g_path_get_dirname(path2check);
-            }else
-            {
-                g_print(_("Unknown parameter or path '%s'\n"),argv[1]);
-                g_free (path2check);
-                Display_Usage();
-            }
-            g_free(path2check);
-        }
-    }
 
 
     /* Initialization */
@@ -426,7 +454,7 @@ int main (int argc, char *argv[])
 
     /* Enter the event loop */
     gtk_main ();
-    return 0;
+    return status;
 }
 
 
@@ -4912,40 +4940,6 @@ signal_to_string (gint signal)
     return (_("Unknown signal"));
 }
 #endif /* !G_OS_WIN32 */
-
-
-/*
- * Display usage information
- */
-static void
-Display_Usage (void)
-{
-    // Fix from Steve Ralston for gcc-3.2.2
-#ifdef G_OS_WIN32
-#define xPREFIX "c:"
-#else /* !G_OS_WIN32 */
-#define xPREFIX ""
-#endif /* !G_OS_WIN32 */
-
-    g_print(_("\nUsage: easytag [option] "
-              "\n   or: easytag [directory]\n"
-              "\n"
-              "Option:\n"
-              "-------\n"
-              "-h, --help        Display this text and exit.\n"
-              "-v, --version     Print basic information and exit.\n"
-              "\n"
-              "Directory:\n"
-              "----------\n"
-              "%s/path_to/files  Use an absolute path to load,\n"
-              "path_to/files     Use a relative path.\n"
-              "\n"),xPREFIX);
-
-#undef xPREFIX
-
-    exit(0);
-}
-
 
 
 /*

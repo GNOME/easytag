@@ -44,6 +44,7 @@ easytag_SOURCES = \
 	src/libmpg123/mpg123.c \
 	src/about.c \
 	src/ape_tag.c \
+	src/application.c \
 	src/bar.c \
 	src/browser.c \
 	src/browser.h \
@@ -89,6 +90,7 @@ easytag_headers = \
 	src/libmpg123/mpg123.h \
 	src/about.h \
 	src/ape_tag.h \
+	src/application.h \
 	src/bar.h \
 	src/cddb.h \
 	src/charset.h \
