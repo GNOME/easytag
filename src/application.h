@@ -20,10 +20,12 @@
 #define ET_APPLICATION_H_
 
 #include <gio/gio.h>
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
 #define ET_TYPE_APPLICATION (et_application_get_type ())
+#define ET_APPLICATION(object) (G_TYPE_CHECK_INSTANCE_CAST ((object), ET_TYPE_APPLICATION, EtApplication))
 
 typedef struct _EtApplication EtApplication;
 typedef struct _EtApplicationClass EtApplicationClass;
@@ -44,6 +46,8 @@ struct _EtApplicationClass
 
 GType et_application_get_type (void);
 EtApplication *et_application_new (void);
+GtkWindow *et_application_get_window (EtApplication *application);
+void et_application_set_window (EtApplication *application, GtkWindow *window);
 
 G_END_DECLS
 

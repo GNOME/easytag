@@ -27,7 +27,7 @@ G_DEFINE_TYPE (EtApplication, et_application, G_TYPE_APPLICATION)
 
 struct _EtApplicationPrivate
 {
-    gpointer *data;
+    GtkWindow *main_window;
 };
 
 static void
@@ -83,11 +83,30 @@ static gboolean
 et_local_command_line (GApplication *application, gchar **arguments[],
                        gint *exit_status)
 {
+    GError *error = NULL;
+    guint n_args;
     gint i;
     gchar **argv;
 
+    /* Try to register. */
+    if (!g_application_register (application, NULL, &error))
+    {
+        g_critical ("Error registering EtApplication: %s", error->message);
+        g_error_free (error);
+        *exit_status = 1;
+        return TRUE;
+    }
+
     argv = *arguments;
+    n_args = g_strv_length (argv);
     *exit_status = 0;
+
+    if (n_args <= 1)
+    {
+        gtk_init (NULL, NULL);
+        g_application_activate (application);
+        return TRUE;
+    }
     i = 1;
 
     while (argv[i])
@@ -129,6 +148,8 @@ et_application_init (EtApplication *application)
     application->priv = G_TYPE_INSTANCE_GET_PRIVATE (application,
                                                      ET_TYPE_APPLICATION,
                                                      EtApplicationPrivate);
+
+    application->priv->main_window = NULL;
 }
 
 static void
@@ -158,4 +179,36 @@ et_application_new ()
     return g_object_new (et_application_get_type (), "application-id",
                          "org.gnome.EasyTAG", "flags",
                          G_APPLICATION_FLAGS_NONE, NULL);
+}
+
+/*
+ * et_application_get_window:
+ * @application: the application
+ *
+ * Get the current application window.
+ *
+ * Returns: the current application window, or %NULL if no window is set
+ */
+GtkWindow *
+et_application_get_window (EtApplication *application)
+{
+    g_return_val_if_fail (ET_APPLICATION (application), NULL);
+
+    return application->priv->main_window;
+}
+
+/*
+ * et_application_set_window:
+ * @application: the application
+ * @window: the window to set
+ *
+ * Set the application window, if none has been set already.
+ */
+void
+et_application_set_window (EtApplication *application, GtkWindow *window)
+{
+    g_return_if_fail (ET_APPLICATION (application) || GTK_WINDOW (window)
+                      || application->priv->main_window != NULL);
+
+    application->priv->main_window = window;
 }

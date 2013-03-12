@@ -177,7 +177,7 @@ setup_sigchld (void)
  * Returns: the exit status to be passed to the calling process
  */
 static gint
-command_line (EtApplication *application,
+command_line (GApplication *application,
               GApplicationCommandLine *command_line, gpointer user_data)
 {
     gchar **argv;
@@ -276,50 +276,34 @@ command_line (EtApplication *application,
         g_free(path2check);
     }
 
+    /* Initialize GTK. */
+    if (et_application_get_window (ET_APPLICATION (application)) == NULL)
+    {
+        gtk_init (&argc, &argv);
+    }
+
     g_strfreev (argv);
+
+    g_application_activate (application);
 
     return 0;
 }
 
-/********
- * Main *
- ********/
-int main (int argc, char *argv[])
+static void
+activate (GApplication *application, gpointer user_data)
 {
-    EtApplication *application;
-    gint status;
+    GtkWindow *main_window;
     GtkWidget *MainVBox;
     GtkWidget *HBox, *VBox;
-    //GError *error = NULL;
 
-
-#ifdef G_OS_WIN32
-    weasytag_init();
-    //ET_Win32_Init(hInstance);
-#else /* !G_OS_WIN32 */
-    /* Signal handling to display a message(SIGSEGV, ...) */
-    setup_sigbus_fpe_segv ();
-    // Must handle this signal to avoid zombie of applications executed (ex: xmms)
-    setup_sigchld ();
-#endif /* !G_OS_WIN32 */
-
-    INIT_DIRECTORY = NULL;
-
-    /* FIXME: Move remaining initialisation code into EtApplication. */
-    application = et_application_new ();
-    g_signal_connect (application, "command-line", G_CALLBACK (command_line),
-                      NULL);
-    status = g_application_run (G_APPLICATION (application), argc, argv);
-    g_object_unref (application);
-    if (status != 0)
+    main_window = et_application_get_window (ET_APPLICATION (application));
+    if (main_window != NULL)
     {
-        return status;
+        gtk_window_present (main_window);
+        return;
     }
 
     Charset_Insert_Locales_Init();
-
-    /* Initialize GTK */
-    gtk_init(&argc, &argv);
 
     /* Starting messages */
     Log_Print(LOG_OK,_("Starting EasyTAG version %s (PID: %d)…"),PACKAGE_VERSION,getpid());
@@ -371,6 +355,8 @@ int main (int argc, char *argv[])
 
     /* The main window */
     MainWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    et_application_set_window (ET_APPLICATION (application),
+                               GTK_WINDOW (MainWindow));
     gtk_window_set_title (GTK_WINDOW (MainWindow),
                           PACKAGE_NAME " " PACKAGE_VERSION);
     // This part is needed to set correctly the position of handle panes
@@ -454,6 +440,37 @@ int main (int argc, char *argv[])
 
     /* Enter the event loop */
     gtk_main ();
+}
+
+/********
+ * Main *
+ ********/
+int main (int argc, char *argv[])
+{
+    EtApplication *application;
+    gint status;
+
+    /* FIXME: Move remaining initialisation code into EtApplication. */
+#ifdef G_OS_WIN32
+    weasytag_init();
+    /* ET_Win32_Init(hInstance); */
+#else /* !G_OS_WIN32 */
+    /* Signal handling to display a message(SIGSEGV, ...) */
+    setup_sigbus_fpe_segv ();
+    /* Must handle this signal to avoid zombies of child processes (e.g. xmms)
+     */
+    setup_sigchld ();
+#endif /* !G_OS_WIN32 */
+
+    INIT_DIRECTORY = NULL;
+
+    application = et_application_new ();
+    g_signal_connect (application, "command-line", G_CALLBACK (command_line),
+                      NULL);
+    g_signal_connect (application, "activate", G_CALLBACK (activate), NULL);
+    status = g_application_run (G_APPLICATION (application), argc, argv);
+    g_object_unref (application);
+
     return status;
 }
 
