@@ -1,13 +1,11 @@
-###############
-#             #
-#  TODO List  #
-#             #
-###############
+TODO List
+=========
 
 General tidying
 ---------------
 
-* Convert user guide to help in Mallard or DocBook XML
+* Convert user guide to help in Mallard
+* Use DocBook XML for man page
 * Avoid using GdkWindow all over the place
 * Use PNG icons and drop the XPM ones
 * Use libproxy for proxy settings
@@ -15,8 +13,7 @@ General tidying
 * Port file I/O to use GFile from GIO
 ** Additionally, make I/O asynchronous
 * Use g_spawn_async() or g_app_info_launch() to spawn processes
-* Check usage and casting away of const
-* Check C-style casts for errors
+* Instantiate windows on first use, not at startup
 
 After GTK+ 3
 ------------
