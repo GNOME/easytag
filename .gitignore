@@ -12,7 +12,8 @@ config.h.in
 config.log
 config.status
 configure
-doc/easytag.1
+/doc/easytag.1
+/doc/version.xml
 /easytag
 /easytag.desktop
 /easytag-*-setup.exe

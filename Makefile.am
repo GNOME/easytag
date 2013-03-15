@@ -3,8 +3,9 @@ ACLOCAL_AMFLAGS = -I m4
 DISTCHECK_CONFIGURE_FLAGS = \
 	--enable-flac \
 	--enable-id3v23 \
-	--enable-mp3 \
 	--enable-ogg \
+	--enable-man \
+	--enable-mp3 \
 	--enable-mp4 \
 	--enable-speex \
 	--enable-tests \
@@ -139,7 +140,14 @@ desktopdir = $(datadir)/applications
 desktop_in_files = easytag.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
-man_MANS = doc/easytag.1
+if ENABLE_MAN
+doc/easytag.1: doc/easytag.xml Makefile
+	$(AM_V_GEN)$(XSLTPROC) --nonet --param man.charmap.use.subset 0 \
+		--path $(builddir)/doc --output $(builddir)/doc/ \
+		http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl $<
+
+nodist_man_MANS = doc/easytag.1
+endif
 
 pixmaps = \
 	data/pixmaps/add_folder.xpm \
@@ -235,7 +243,7 @@ dist_noinst_DATA = \
 	HACKING \
 	README_win32.txt \
 	\
-	doc/easytag.1.in \
+	doc/easytag.xml \
 	doc/EasyTAG_Documentation.html \
 	doc/EasyTAG_Documentation_fr.html \
 	doc/EasyTAG_Documentation_sv.html \
@@ -327,11 +335,12 @@ TESTS = \
 endif
 
 CLEANFILES = \
+	$(check_SCRIPTS) \
 	$(desktop_DATA) \
+	$(nodist_man_MANS) \
 	easytag-win32-installer.nsi
 
 DISTCLEANFILES = \
-	$(man_MANS) \
 	intltool-extract \
 	intltool-merge \
 	intltool-update \

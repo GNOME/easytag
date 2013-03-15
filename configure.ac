@@ -35,6 +35,29 @@ AC_PROG_CXXCPP
 AC_PROG_SED
 PKG_PROG_PKG_CONFIG([0.24])
 
+dnl Man page, generated with xsltproc from DocBook XML.
+AC_ARG_ENABLE([man],
+    [AS_HELP_STRING([--disable-man], [Disable building the man page])])
+
+AS_IF([test "x$enable_man" != "xno"],
+    [AC_PATH_PROG([XSLTPROC], [xsltproc])
+     JH_CHECK_XML_CATALOG([-//OASIS//DTD DocBook XML V4.4//EN],
+         [DocBook XML DTD V4.4], [have_docbookdtd=yes], [have_docbookdtd=no])
+     JH_CHECK_XML_CATALOG(
+         [http://docbook.sourceforge.net/release/xsl/current/html/refentry.xsl],
+         [DocBook XSL Stylesheets], [have_docbookxsl=yes],
+         [have_docbookxsl=no])
+     AS_IF([test "x$ac_cv_path_XSLTPROC" != "x" \
+         -a "x$have_docbookdtd" = "xyes" -a "x$have_docbookxsl" = "xyes"],
+         [have_manutils=yes],
+         [AS_IF([test "x$enable_man" = "xyes"],
+             [AC_MSG_ERROR(
+                 [man page generation requested but required utilities were not found])])
+          have_manutils=no])],
+    [have_manutils=no])
+
+AM_CONDITIONAL([ENABLE_MAN], [test "x$have_manutils" = "xyes"])
+
 dnl Check for testing utilities.
 AC_ARG_ENABLE([tests],
               [AS_HELP_STRING([--disable-tests], [Disable support for tests run during make check])])
@@ -302,7 +325,7 @@ dnl -------------------------------
 AC_CHECK_FUNCS([ftruncate gettimeofday mkstemp truncate])
 
 AC_CONFIG_FILES([ Makefile
-                  doc/easytag.1
+                  doc/version.xml
                   po/Makefile.in
                ])
 AC_OUTPUT
