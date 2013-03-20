@@ -158,9 +158,6 @@ pixmaps = \
 	data/pixmaps/artist_album.xpm \
 	data/pixmaps/black.xpm \
 	data/pixmaps/blackwhite.xpm \
-	data/pixmaps/closed_folder_readonly.xpm \
-	data/pixmaps/closed_folder_unreadable.xpm \
-	data/pixmaps/closed_folder.xpm \
 	data/pixmaps/first_letter_uppercase.xpm \
 	data/pixmaps/first_letter_uppercase_word.xpm \
 	data/pixmaps/forbidden.xpm \
@@ -170,9 +167,7 @@ pixmaps = \
 	data/pixmaps/invert_selection.xpm \
 	data/pixmaps/mask.xpm \
 	data/pixmaps/musicbrainz.xpm \
-	data/pixmaps/opened_folder.xpm \
 	data/pixmaps/parent_folder.xpm \
-	data/pixmaps/ram_disk.xpm \
 	data/pixmaps/read_only.xpm \
 	data/pixmaps/red_lines.xpm \
 	data/pixmaps/sequence_track.xpm \

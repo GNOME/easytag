@@ -57,27 +57,10 @@
 #include "win32/win32dep.h"
 #endif /* G_OS_WIN32 */
 
-/* Pixmaps */
-#include "data/pixmaps/opened_folder.xpm"
-#include "data/pixmaps/closed_folder.xpm"
-#include "data/pixmaps/closed_folder_readonly.xpm"
-#include "data/pixmaps/closed_folder_unreadable.xpm"
-#ifdef G_OS_WIN32
-#include "data/pixmaps/ram_disk.xpm"
-#endif /* G_OS_WIN32 */
-
-
 
 /****************
  * Declarations *
  ****************/
-
-/* Pixmaps. */
-static GdkPixbuf *opened_folder_pixmap = NULL, *closed_folder_pixmap, *closed_folder_readonly_pixmap, *closed_folder_unreadable_pixmap;
-#ifdef G_OS_WIN32
-/* Pixmap used for Win32 only. */
-static GdkPixbuf *harddrive_pixmap, *removable_pixmap, *cdrom_pixmap, *network_pixmap, *ramdisk_pixmap;
-#endif /* G_OS_WIN32 */
 
 static GtkWidget    *BrowserTree; /* Tree of directories. */
 static GtkTreeStore *directoryTreeModel;
@@ -177,7 +160,7 @@ static gboolean check_for_subdir   (gchar *path);
 
 static GtkTreePath *Find_Child_Node(GtkTreeIter *parent, gchar *searchtext);
 
-static GdkPixbuf *Pixmap_From_Directory_Permission (const gchar *path);
+static GIcon *get_gicon_for_path (const gchar *path);
 
 static void expand_cb   (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *path, gpointer data);
 static void collapse_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *treePath, gpointer data);
@@ -2385,7 +2368,7 @@ Browser_Tree_Initialize (void)
 #ifdef G_OS_WIN32
     /* Code strangely familiar with gtkfilesystemwin32.c */
 
-    GdkPixbuf *drive_pixmap;
+    GIcon *drive_icon;
     DWORD drives;
     UINT drive_type;
     gchar drive[4] = "A:/";
@@ -2415,22 +2398,23 @@ Browser_Tree_Initialize (void)
             switch(drive_type)
             {
                 case DRIVE_FIXED:
-                    drive_pixmap = harddrive_pixmap;
+                    drive_icon = g_themed_icon_new ("drive-harddisk");
                     break;
                 case DRIVE_REMOVABLE:
-                    drive_pixmap = removable_pixmap;
+                    drive_icon = g_themed_icon_new ("drive-removable-media");
                     break;
                 case DRIVE_CDROM:
-                    drive_pixmap = cdrom_pixmap;
+                    drive_icon = g_themed_icon_new ("drive-optical");
                     break;
                 case DRIVE_REMOTE:
-                    drive_pixmap = network_pixmap;
+                    drive_icon = g_themed_icon_new ("folder-remote");
                     break;
                 case DRIVE_RAMDISK:
-                    drive_pixmap = ramdisk_pixmap;
+                    /* FIXME: There is no standard RAM icon, so create one. */
+                    drive_icon = g_themed_icon_new ("drive-removable-media");
                     break;
                 default:
-                    drive_pixmap = closed_folder_pixmap;
+                    drive_icon = g_themed_icon_new ("folder");
             }
 
             drive_label[0] = 0;
@@ -2446,7 +2430,7 @@ Browser_Tree_Initialize (void)
                                TREE_COLUMN_FULL_PATH,   drive_backslashed,
                                TREE_COLUMN_HAS_SUBDIR,  TRUE,
                                TREE_COLUMN_SCANNED,     FALSE,
-                               TREE_COLUMN_PIXBUF,      drive_pixmap,
+                               TREE_COLUMN_ICON, drive_icon,
                                -1);
             // Insert dummy node
             gtk_tree_store_append(directoryTreeModel, &dummy_iter, &parent_iter);
@@ -2466,7 +2450,7 @@ Browser_Tree_Initialize (void)
                        TREE_COLUMN_FULL_PATH,   G_DIR_SEPARATOR_S,
                        TREE_COLUMN_HAS_SUBDIR,  TRUE,
                        TREE_COLUMN_SCANNED,     FALSE,
-                       TREE_COLUMN_PIXBUF,      closed_folder_pixmap,
+                       TREE_COLUMN_ICON, g_themed_icon_new ("folder"),
                        -1);
     // insert dummy node
     gtk_tree_store_append(directoryTreeModel, &dummy_iter, &parent_iter);
@@ -2730,14 +2714,22 @@ static gboolean check_for_subdir (gchar *path)
 }
 
 /*
- * Check if you have permissions for directory path (autorized?, readonly? unreadable?).
- * Returns the right pixmap.
+ * get_gicon_for_path:
+ * @path: (type filename): path to create icon for
+ *
+ * Check the permissions for the supplied @path (authorized?, readonly?,
+ * unreadable?) and return an appropriate icon.
+ *
+ * Returns: an icon corresponding to the @path
  */
-static GdkPixbuf *
-Pixmap_From_Directory_Permission (const gchar *path)
+static GIcon *
+get_gicon_for_path (const gchar *path)
 {
+    GIcon *folder_icon;
     DIR *dir;
 
+    folder_icon = g_themed_icon_new ("folder");
+/* FIXME: Use GFile. Implement the read-only check ifdeffed below. */
 #if 0
     // TESTING : to display a different icon for non writable directories
     struct stat statbuf;
@@ -2768,12 +2760,20 @@ Pixmap_From_Directory_Permission (const gchar *path)
     if( (dir=opendir(path)) == NULL )
     {
         if (errno == EACCES)
-            return closed_folder_unreadable_pixmap;
+        {
+            GEmblem *unreadable_emblem;
+            GIcon *unreadable_icon;
+
+            unreadable_icon = g_themed_icon_new ("emblem-unreadable");
+            unreadable_emblem = g_emblem_new_with_origin (unreadable_icon,
+                                                          G_EMBLEM_ORIGIN_LIVEMETADATA);
+            return g_emblemed_icon_new (folder_icon, unreadable_emblem);
+        }
     } else
     {
         closedir(dir);
     }
-    return closed_folder_pixmap;
+    return folder_icon;
 #endif
 }
 
@@ -2825,7 +2825,7 @@ static void expand_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *gtreePat
     gboolean has_subdir = FALSE;
     GtkTreeIter currentIter;
     GtkTreeIter subNodeIter;
-    GdkPixbuf *pixbuf;
+    GIcon *icon;
 
     g_return_if_fail (directoryTreeModel != NULL);
 
@@ -2876,7 +2876,7 @@ static void expand_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *gtreePat
                     has_subdir = FALSE;
 
                 // Select pixmap according permissions for the directory
-                pixbuf = Pixmap_From_Directory_Permission(path);
+                icon = get_gicon_for_path (path);
 
                 gtk_tree_store_append(directoryTreeModel, &currentIter, iter);
                 gtk_tree_store_set(directoryTreeModel, &currentIter,
@@ -2884,7 +2884,7 @@ static void expand_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *gtreePat
                                    TREE_COLUMN_FULL_PATH,  fullpath_file,
                                    TREE_COLUMN_HAS_SUBDIR, !has_subdir,
                                    TREE_COLUMN_SCANNED,    FALSE,
-                                   TREE_COLUMN_PIXBUF,     pixbuf, -1);
+                                   TREE_COLUMN_ICON, icon, -1);
 
                 if (has_subdir)
                 {
@@ -2912,13 +2912,15 @@ static void expand_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *gtreePat
         // update the icon of the node to opened folder :-)
         gtk_tree_store_set(directoryTreeModel, iter,
                            TREE_COLUMN_SCANNED, TRUE,
-                           TREE_COLUMN_PIXBUF, opened_folder_pixmap, -1);
+                           TREE_COLUMN_ICON, g_themed_icon_new ("folder-open"),
+                           -1);
     }
 #else /* !G_OS_WIN32 */
     // update the icon of the node to opened folder :-)
     gtk_tree_store_set(directoryTreeModel, iter,
                        TREE_COLUMN_SCANNED, TRUE,
-                       TREE_COLUMN_PIXBUF, opened_folder_pixmap, -1);
+                       TREE_COLUMN_ICON, g_themed_icon_new ("folder-open"),
+                       -1);
 #endif /* !G_OS_WIN32 */
 
     gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(directoryTreeModel),
@@ -2948,13 +2950,13 @@ static void collapse_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *treePa
         // update the icon of the node to closed folder :-)
         gtk_tree_store_set(directoryTreeModel, iter,
                            TREE_COLUMN_SCANNED, FALSE,
-                           TREE_COLUMN_PIXBUF,  closed_folder_pixmap, -1);
+                           TREE_COLUMN_ICON, g_themed_icon_new ("folder"), -1);
     }
 #else /* !G_OS_WIN32 */
     // update the icon of the node to closed folder :-)
     gtk_tree_store_set(directoryTreeModel, iter,
                        TREE_COLUMN_SCANNED, FALSE,
-                       TREE_COLUMN_PIXBUF,  closed_folder_pixmap, -1);
+                       TREE_COLUMN_ICON, g_themed_icon_new ("folder"), -1);
 #endif /* !G_OS_WIN32 */
 
     // insert dummy node
@@ -3039,53 +3041,6 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     BrowserLabel = gtk_label_new(_("No files"));
     gtk_box_pack_start(GTK_BOX(HBox),BrowserLabel,FALSE,FALSE,2);
 
-
-    /* Create pixmaps */
-    if(!opened_folder_pixmap)
-    {
-#ifdef G_OS_WIN32
-        GtkStyle *style = gtk_widget_get_style (parent);
-#endif /* G_OS_WIN32 */
-
-        opened_folder_pixmap            = gdk_pixbuf_new_from_xpm_data(opened_folder_xpm);
-        closed_folder_pixmap            = gdk_pixbuf_new_from_xpm_data(closed_folder_xpm);
-        closed_folder_readonly_pixmap   = gdk_pixbuf_new_from_xpm_data(closed_folder_readonly_xpm);
-        closed_folder_unreadable_pixmap = gdk_pixbuf_new_from_xpm_data(closed_folder_unreadable_xpm);
-
-#ifdef G_OS_WIN32
-        /* get GTK's theme harddrive and removable icons and render it in a pixbuf */
-        harddrive_pixmap = gtk_icon_set_render_icon (gtk_style_lookup_icon_set (style, GTK_STOCK_HARDDISK),
-                                                     style,
-                                                     gtk_widget_get_direction(parent),
-                                                     GTK_STATE_NORMAL,
-                                                     GTK_ICON_SIZE_BUTTON,
-                                                     parent, NULL);
-
-        removable_pixmap = gtk_icon_set_render_icon (gtk_style_lookup_icon_set (style, GTK_STOCK_FLOPPY),
-                                                     style,
-                                                     gtk_widget_get_direction(parent),
-                                                     GTK_STATE_NORMAL,
-                                                     GTK_ICON_SIZE_BUTTON,
-                                                     parent, NULL);
-
-        cdrom_pixmap =  gtk_icon_set_render_icon (gtk_style_lookup_icon_set (style, GTK_STOCK_CDROM),
-                                                 style,
-                                                 gtk_widget_get_direction(parent),
-                                                 GTK_STATE_NORMAL,
-                                                 GTK_ICON_SIZE_BUTTON,
-                                                 parent, NULL);
-
-        network_pixmap =  gtk_icon_set_render_icon (gtk_style_lookup_icon_set (style, GTK_STOCK_NETWORK),
-                                                   style,
-                                                   gtk_widget_get_direction(parent),
-                                                   GTK_STATE_NORMAL,
-                                                   GTK_ICON_SIZE_BUTTON,
-                                                   parent, NULL);
-
-        ramdisk_pixmap = gdk_pixbuf_new_from_xpm_data(ram_disk_xpm);
-#endif /* G_OS_WIN32 */
-    }
-
     /* Browser NoteBook :
      *  - one tab for the BrowserTree
      *  - one tab for the BrowserArtistList and the BrowserAlbumList
@@ -3107,7 +3062,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                             G_TYPE_STRING,
                                             G_TYPE_BOOLEAN,
                                             G_TYPE_BOOLEAN,
-                                            GDK_TYPE_PIXBUF);
+                                            G_TYPE_ICON);
 
     Label = gtk_label_new(_("Tree"));
     gtk_notebook_append_page(GTK_NOTEBOOK(BrowserNoteBook),ScrollWindowDirectoryTree,Label);
@@ -3125,7 +3080,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     renderer = gtk_cell_renderer_pixbuf_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
     gtk_tree_view_column_set_attributes(column, renderer,
-                                       "pixbuf", TREE_COLUMN_PIXBUF,
+                                       "gicon", TREE_COLUMN_ICON,
                                         NULL);
     // Cell of the column for the text
     renderer = gtk_cell_renderer_text_new();
