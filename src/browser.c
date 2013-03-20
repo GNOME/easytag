@@ -813,8 +813,8 @@ Browser_Tree_Node_Selected (GtkTreeSelection *selection, gpointer user_data)
             {
                 if (gtk_tree_model_iter_parent(GTK_TREE_MODEL(directoryTreeModel),&parentIter,&selectedIter) )
                 {
-                    gtk_tree_selection_select_iter(selection,&parentIter);
                     selectedPath = gtk_tree_model_get_path(GTK_TREE_MODEL(directoryTreeModel), &parentIter);
+                    gtk_tree_selection_select_iter (selection, &parentIter);
                     gtk_tree_view_collapse_row(GTK_TREE_VIEW(BrowserTree),selectedPath);
                     if (OPEN_SELECTED_BROWSER_NODE)
                     {
