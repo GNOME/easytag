@@ -2992,6 +2992,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     GtkWidget *ScrollWindowArtistList;
     GtkWidget *ScrollWindowAlbumList;
     GtkWidget *Label;
+    GIcon *parent_folder;
     GtkWidget *Icon;
     GtkCellRenderer *renderer;
     GtkTreeViewColumn *column;
@@ -3016,7 +3017,11 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
      * The button to go to the parent directory
      */
     BrowserParentButton = gtk_button_new();
-    Icon = gtk_image_new_from_stock("easytag-parent-folder", GTK_ICON_SIZE_SMALL_TOOLBAR); // On Win32, GTK_ICON_SIZE_BUTTON enlarge the combobox...
+    parent_folder = g_themed_icon_new ("go-up");
+    /* TODO: On Win32, GTK_ICON_SIZE_BUTTON enlarge the combobox. */
+    Icon = gtk_image_new_from_gicon (parent_folder,
+                                     GTK_ICON_SIZE_MENU);
+    g_object_unref (parent_folder);
     gtk_container_add(GTK_CONTAINER(BrowserParentButton),Icon);
     gtk_box_pack_start(GTK_BOX(HBox),BrowserParentButton,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(BrowserParentButton),GTK_RELIEF_NONE);

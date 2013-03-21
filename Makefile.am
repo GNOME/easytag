@@ -167,7 +167,6 @@ pixmaps = \
 	data/pixmaps/invert_selection.xpm \
 	data/pixmaps/mask.xpm \
 	data/pixmaps/musicbrainz.xpm \
-	data/pixmaps/parent_folder.xpm \
 	data/pixmaps/read_only.xpm \
 	data/pixmaps/red_lines.xpm \
 	data/pixmaps/sequence_track.xpm \
