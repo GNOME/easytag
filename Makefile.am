@@ -161,13 +161,11 @@ pixmaps = \
 	data/pixmaps/first_letter_uppercase_word.xpm \
 	data/pixmaps/freedb.xpm \
 	data/pixmaps/gnudb.xpm \
-	data/pixmaps/grab.xpm \
 	data/pixmaps/invert_selection.xpm \
 	data/pixmaps/mask.xpm \
 	data/pixmaps/musicbrainz.xpm \
 	data/pixmaps/red_lines.xpm \
 	data/pixmaps/sequence_track.xpm \
-	data/pixmaps/sound.xpm \
 	data/pixmaps/unselect_all.xpm
 
 iconthemedir = $(datadir)/icons/hicolor
