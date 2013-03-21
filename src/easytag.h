@@ -109,22 +109,8 @@ GtkWidget    *URLLabel;
 GtkWidget    *EncodedByLabel;
 GtkWidget    *PictureLabel;
 // Mini buttons
-GtkWidget    *TitleMButton;
-GtkWidget    *ArtistMButton;
-GtkWidget    *AlbumArtistMButton;
-GtkWidget    *AlbumMButton;
-GtkWidget    *DiscNumberMButton;
-GtkWidget    *YearMButton;
-GtkWidget    *TrackMButton;
 GtkWidget    *TrackMButtonSequence;
 GtkWidget    *TrackMButtonNbrFiles;
-GtkWidget    *GenreMButton;
-GtkWidget    *CommentMButton;
-GtkWidget    *ComposerMButton;
-GtkWidget    *OrigArtistMButton;
-GtkWidget    *CopyrightMButton;
-GtkWidget    *URLMButton;
-GtkWidget    *EncodedByMButton;
 GtkWidget    *PictureMButton;
 
 // Other for picture

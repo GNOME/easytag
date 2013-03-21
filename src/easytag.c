@@ -104,7 +104,6 @@ static GtkWidget *Create_Browser_Area (void);
 static GtkWidget *Create_File_Area    (void);
 static GtkWidget *Create_Tag_Area     (void);
 
-static void Menu_Mini_Button_Clicked (GtkEntry *entry);
 static void Mini_Button_Clicked (GObject *object);
 static void Disable_Command_Buttons (void);
 
@@ -662,19 +661,18 @@ Create_Tag_Area (void)
     gtk_misc_set_alignment(GTK_MISC(TitleLabel),1,0.5);
 
     TitleEntry = gtk_entry_new();
+    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (TitleEntry),
+                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
     et_grid_attach_full (GTK_GRID (Table), TitleEntry, 1, 0, 9, 1, TRUE, TRUE,
                          TablePadding, TablePadding);
 
-    TitleMButton = gtk_button_new();
-    gtk_widget_set_size_request(TitleMButton,MButtonSize,MButtonSize);
-    et_grid_attach_full (GTK_GRID (Table), TitleMButton, 10, 0, 1, 1, FALSE,
-                         FALSE, TablePadding, TablePadding);
-    g_signal_connect(G_OBJECT(TitleMButton),"clicked", G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_widget_set_tooltip_text(TitleMButton,_("Tag selected files with this title"));
+    g_signal_connect (G_OBJECT (TitleEntry), "icon-release",
+                      G_CALLBACK (Mini_Button_Clicked), NULL);
+    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (TitleEntry),
+                                     GTK_ENTRY_ICON_SECONDARY,
+                                     _("Tag selected files with this title"));
 
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(TitleEntry));
-    g_object_set_data(G_OBJECT(TitleEntry),"MButtonName",TitleMButton);
-
 
     /* Artist */
     ArtistLabel = gtk_label_new(_("Artist:"));
@@ -683,18 +681,18 @@ Create_Tag_Area (void)
     gtk_misc_set_alignment(GTK_MISC(ArtistLabel),1,0.5);
 
     ArtistEntry = gtk_entry_new();
+    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (ArtistEntry),
+                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
     et_grid_attach_full (GTK_GRID (Table), ArtistEntry, 1, 1, 9, 1, TRUE, TRUE,
                          TablePadding,TablePadding);
 
-    ArtistMButton = gtk_button_new();
-    gtk_widget_set_size_request(ArtistMButton,MButtonSize,MButtonSize);
-    et_grid_attach_full (GTK_GRID (Table), ArtistMButton, 10, 1, 1, 1, FALSE,
-                         FALSE, TablePadding, TablePadding);
-    g_signal_connect(G_OBJECT(ArtistMButton),"clicked", G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_widget_set_tooltip_text(ArtistMButton,_("Tag selected files with this artist"));
+    g_signal_connect (G_OBJECT (ArtistEntry), "icon-release",
+                      G_CALLBACK (Mini_Button_Clicked), NULL);
+    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (ArtistEntry),
+                                     GTK_ENTRY_ICON_SECONDARY,
+                                     _("Tag selected files with this artist"));
 
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(ArtistEntry));
-    g_object_set_data(G_OBJECT(ArtistEntry),"MButtonName",ArtistMButton);
 
     /* Album Artist */
     AlbumArtistLabel = gtk_label_new(_("Album artist:"));
@@ -703,18 +701,18 @@ Create_Tag_Area (void)
     gtk_misc_set_alignment(GTK_MISC(AlbumArtistLabel),1,0.5);
 
     AlbumArtistEntry = gtk_entry_new();
+    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (AlbumArtistEntry),
+                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
     et_grid_attach_full (GTK_GRID (Table), AlbumArtistEntry, 1, 2, 9, 1, TRUE,
                          TRUE, TablePadding, TablePadding);
 
-    AlbumArtistMButton = gtk_button_new();
-    gtk_widget_set_size_request(AlbumArtistMButton,MButtonSize,MButtonSize);
-    et_grid_attach_full (GTK_GRID (Table), AlbumArtistMButton, 10, 2, 1, 1,
-                         FALSE, FALSE, TablePadding, TablePadding);
-    g_signal_connect(G_OBJECT(AlbumArtistMButton),"clicked", G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_widget_set_tooltip_text(AlbumArtistMButton,_("Tag selected files with this album artist"));
+    g_signal_connect (G_OBJECT (AlbumArtistEntry), "icon-release",
+                      G_CALLBACK (Mini_Button_Clicked), NULL);
+    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (AlbumArtistEntry),
+                                     GTK_ENTRY_ICON_SECONDARY,
+                                     _("Tag selected files with this album artist"));
 
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(AlbumArtistEntry));
-    g_object_set_data(G_OBJECT(AlbumArtistEntry),"MButtonName",AlbumArtistMButton);
 
     /* Album */
     AlbumLabel = gtk_label_new(_("Album:"));
@@ -723,19 +721,18 @@ Create_Tag_Area (void)
     gtk_misc_set_alignment(GTK_MISC(AlbumLabel),1,0.5);
 
     AlbumEntry = gtk_entry_new();
+    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (AlbumEntry),
+                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
     et_grid_attach_full (GTK_GRID (Table), AlbumEntry, 1, 3, 6, 1, TRUE, TRUE,
                          TablePadding,TablePadding);
 
-    AlbumMButton = gtk_button_new();
-    //gtk_widget_set_size_request(AlbumMButton, 10, 10);
-    gtk_widget_set_size_request(AlbumMButton,MButtonSize,MButtonSize);
-    et_grid_attach_full (GTK_GRID (Table), AlbumMButton, 7, 3, 1, 1, FALSE,
-                         FALSE, TablePadding, TablePadding);
-    g_signal_connect(G_OBJECT(AlbumMButton),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_widget_set_tooltip_text(AlbumMButton,_("Tag selected files with this album name"));
+    g_signal_connect (G_OBJECT (AlbumEntry), "icon-release",
+                      G_CALLBACK (Mini_Button_Clicked), NULL);
+    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (AlbumEntry),
+                                     GTK_ENTRY_ICON_SECONDARY,
+                                     _("Tag selected files with this album name"));
 
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(AlbumEntry));
-    g_object_set_data(G_OBJECT(AlbumEntry),"MButtonName",AlbumMButton);
 
     /* Disc Number */
     DiscNumberLabel = gtk_label_new(_("CD:"));
@@ -744,22 +741,21 @@ Create_Tag_Area (void)
     gtk_misc_set_alignment(GTK_MISC(DiscNumberLabel),1,0.5);
 
     DiscNumberEntry = gtk_entry_new();
+    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (DiscNumberEntry),
+                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
     et_grid_attach_full (GTK_GRID (Table), DiscNumberEntry, 9, 3, 1, 1, TRUE,
                          TRUE, TablePadding, TablePadding);
-    gtk_entry_set_width_chars (GTK_ENTRY (DiscNumberEntry), 1);
-    // FIX ME should allow to type only something like : 1/3
-    //g_signal_connect(G_OBJECT(GTK_ENTRY(DiscNumberEntry)),"insert_text",G_CALLBACK(Insert_Only_Digit),NULL);
+    gtk_entry_set_width_chars (GTK_ENTRY (DiscNumberEntry), 3);
+    /* FIXME should allow to type only something like : 1/3. */
+    /*g_signal_connect(G_OBJECT(GTK_ENTRY(DiscNumberEntry)),"insert_text",G_CALLBACK(Insert_Only_Digit),NULL); */
 
-    DiscNumberMButton = gtk_button_new();
-    //gtk_widget_set_size_request(DiscNumberMButton, 10, 10);
-    gtk_widget_set_size_request(DiscNumberMButton,MButtonSize,MButtonSize);
-    et_grid_attach_full (GTK_GRID (Table), DiscNumberMButton, 10, 3, 1, 1,
-                         FALSE, FALSE, TablePadding, TablePadding);
-    g_signal_connect(G_OBJECT(DiscNumberMButton),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_widget_set_tooltip_text(DiscNumberMButton,_("Tag selected files with this disc number"));
+    g_signal_connect (G_OBJECT (DiscNumberEntry), "icon-release",
+                      G_CALLBACK(Mini_Button_Clicked), NULL);
+    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (DiscNumberEntry),
+                                     GTK_ENTRY_ICON_SECONDARY,
+                                     _("Tag selected files with this disc number"));
 
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(DiscNumberEntry));
-    g_object_set_data(G_OBJECT(DiscNumberEntry),"MButtonName",DiscNumberMButton);
 
     /* Year */
     YearLabel = gtk_label_new(_("Year:"));
@@ -769,19 +765,21 @@ Create_Tag_Area (void)
 
     YearEntry = gtk_entry_new();
     gtk_entry_set_max_length(GTK_ENTRY(YearEntry), 4);
+    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (YearEntry),
+                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
     et_grid_attach_full (GTK_GRID (Table), YearEntry, 1, 4, 1, 1, TRUE, TRUE,
                          TablePadding, TablePadding);
-    gtk_entry_set_width_chars (GTK_ENTRY (YearEntry), 4);
-    g_signal_connect(G_OBJECT(YearEntry),"insert_text",G_CALLBACK(Insert_Only_Digit),NULL);
+    gtk_entry_set_width_chars (GTK_ENTRY (YearEntry), 5);
+    g_signal_connect (G_OBJECT (YearEntry), "insert-text",
+                      G_CALLBACK (Insert_Only_Digit), NULL);
     g_signal_connect(G_OBJECT(YearEntry),"activate",G_CALLBACK(Parse_Date),NULL);
     g_signal_connect(G_OBJECT(YearEntry),"focus-out-event",G_CALLBACK(Parse_Date),NULL);
 
-    YearMButton = gtk_button_new();
-    gtk_widget_set_size_request(YearMButton,MButtonSize,MButtonSize);
-    et_grid_attach_full (GTK_GRID (Table), YearMButton, 2, 4, 1, 1, FALSE,
-                         FALSE, TablePadding, TablePadding);
-    g_signal_connect(G_OBJECT(YearMButton),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_widget_set_tooltip_text(YearMButton,_("Tag selected files with this year"));
+    g_signal_connect (G_OBJECT (YearEntry), "icon-release",
+                      G_CALLBACK (Mini_Button_Clicked),NULL);
+    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (YearEntry),
+                                     GTK_ENTRY_ICON_SECONDARY,
+                                     _("Tag selected files with this year"));
 
     /* Small vertical separator */
     Separator = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
@@ -844,21 +842,20 @@ Create_Tag_Area (void)
     gtk_widget_set_can_focus(TrackMButtonNbrFiles,FALSE); // To have enough space to display the icon
 
     TrackTotalEntry = gtk_entry_new();
+    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (TrackTotalEntry),
+                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
     et_grid_attach_full (GTK_GRID (Table), TrackTotalEntry, 9, 4, 1, 1, TRUE,
                          TRUE, TablePadding, TablePadding);
-    gtk_entry_set_width_chars (GTK_ENTRY (TrackTotalEntry), 2);
-    g_signal_connect(G_OBJECT(GTK_ENTRY(TrackTotalEntry)),"insert_text",
-        G_CALLBACK(Insert_Only_Digit),NULL);
+    gtk_entry_set_width_chars (GTK_ENTRY (TrackTotalEntry), 3);
+    g_signal_connect (G_OBJECT (GTK_ENTRY (TrackTotalEntry)), "insert-text",
+                      G_CALLBACK (Insert_Only_Digit), NULL);
 
-    TrackMButton = gtk_button_new();
-    gtk_widget_set_size_request(TrackMButton,MButtonSize,MButtonSize);
-    et_grid_attach_full (GTK_GRID (Table), TrackMButton, 10, 4, 1, 1, FALSE,
-                         FALSE,TablePadding,TablePadding);
-    g_signal_connect(G_OBJECT(TrackMButton),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_widget_set_tooltip_text(TrackMButton,_("Tag selected files with this number of tracks"));
+    g_signal_connect (G_OBJECT (TrackTotalEntry), "icon-release",
+                      G_CALLBACK (Mini_Button_Clicked) ,NULL);
+    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (TrackTotalEntry),
+                                     GTK_ENTRY_ICON_SECONDARY,
+                                     _("Tag selected files with this number of tracks"));
 
-    g_object_set_data(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(TrackEntryCombo)))),"MButtonName",TrackMButton);
-    g_object_set_data(G_OBJECT(TrackTotalEntry),"MButtonName",TrackMButton);
 
     /* Genre */
     GenreLabel = gtk_label_new(_("Genre:"));
@@ -873,6 +870,8 @@ Create_Tag_Area (void)
     GenreCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(GenreComboModel));
     gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(GenreCombo),MISC_COMBO_TEXT);
     completion = gtk_entry_completion_new();
+    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (GenreCombo))),
+                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
     gtk_entry_set_completion(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(GenreCombo))), completion);
     g_object_unref(completion);
     gtk_entry_completion_set_model(completion, GTK_TREE_MODEL(GenreComboModel));
@@ -884,15 +883,13 @@ Create_Tag_Area (void)
     Load_Genres_List_To_UI();
     gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(GenreCombo),2); // Two columns to display genres list
 
-    GenreMButton = gtk_button_new();
-    gtk_widget_set_size_request(GenreMButton,MButtonSize,MButtonSize);
-    et_grid_attach_full (GTK_GRID (Table), GenreMButton, 10, 5, 1, 1, FALSE,
-                         FALSE,TablePadding,TablePadding);
-    g_signal_connect(G_OBJECT(GenreMButton),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_widget_set_tooltip_text(GenreMButton,_("Tag selected files with this genre"));
+    g_signal_connect (G_OBJECT (gtk_bin_get_child (GTK_BIN (GenreCombo))),
+                      "icon-release", G_CALLBACK (Mini_Button_Clicked), NULL);
+    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (GenreCombo))),
+                                     GTK_ENTRY_ICON_SECONDARY,
+                                     _("Tag selected files with this genre"));
 
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(GenreCombo))));
-    g_object_set_data(G_OBJECT(gtk_bin_get_child(GTK_BIN(GenreCombo))),"MButtonName",GenreMButton);
 
     /* Comment */
     CommentLabel = gtk_label_new(_("Comment:"));
@@ -901,6 +898,8 @@ Create_Tag_Area (void)
     gtk_misc_set_alignment(GTK_MISC(CommentLabel),1,0.5);
 
     CommentEntry = gtk_entry_new();
+    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (CommentEntry),
+                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
     et_grid_attach_full (GTK_GRID (Table), CommentEntry, 1, 6, 9, 1, TRUE,
                          TRUE, TablePadding, TablePadding);
 
@@ -917,17 +916,14 @@ Create_Tag_Area (void)
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(CommentView));
     *******/
 
-    CommentMButton = gtk_button_new();
-    gtk_widget_set_size_request(CommentMButton,MButtonSize,MButtonSize);
-    et_grid_attach_full (GTK_GRID (Table), CommentMButton, 10, 6, 1, 1, FALSE,
-                         FALSE, TablePadding, TablePadding);
-    g_signal_connect(G_OBJECT(CommentMButton),"clicked",G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_widget_set_tooltip_text(CommentMButton,_("Tag selected files with this comment"));
+    g_signal_connect (G_OBJECT (CommentEntry), "icon-release",
+                      G_CALLBACK (Mini_Button_Clicked), NULL);
+    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (CommentEntry),
+                                     GTK_ENTRY_ICON_SECONDARY,
+                                     _("Tag selected files with this comment"));
 
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(CommentEntry));
-    g_object_set_data(G_OBJECT(CommentEntry),"MButtonName",CommentMButton);
     //Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(CommentView));
-    //g_object_set_data(G_OBJECT(CommentView),"MButtonName",CommentMButton);
 
 
     /* Composer (name of the composers) */
@@ -937,18 +933,18 @@ Create_Tag_Area (void)
     gtk_misc_set_alignment(GTK_MISC(ComposerLabel),1,0.5);
 
     ComposerEntry = gtk_entry_new();
+    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (ComposerEntry),
+                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
     et_grid_attach_full (GTK_GRID (Table), ComposerEntry, 1, 7, 9, 1, TRUE,
                          TRUE, TablePadding, TablePadding);
 
-    ComposerMButton = gtk_button_new();
-    gtk_widget_set_size_request(ComposerMButton,MButtonSize,MButtonSize);
-    et_grid_attach_full (GTK_GRID (Table), ComposerMButton, 10, 7, 1, 1, FALSE,
-                         FALSE, TablePadding, TablePadding);
-    g_signal_connect(G_OBJECT(ComposerMButton),"clicked", G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_widget_set_tooltip_text(ComposerMButton,_("Tag selected files with this composer"));
+    g_signal_connect (G_OBJECT (ComposerEntry), "icon-release",
+                      G_CALLBACK (Mini_Button_Clicked), NULL);
+    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (ComposerEntry),
+                                     GTK_ENTRY_ICON_SECONDARY,
+                                     _("Tag selected files with this composer"));
 
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(ComposerEntry));
-    g_object_set_data(G_OBJECT(ComposerEntry),"MButtonName",ComposerMButton);
 
 
     /* Translators: Original Artist / Performer. Please try to keep this string
@@ -959,18 +955,18 @@ Create_Tag_Area (void)
     gtk_misc_set_alignment(GTK_MISC(OrigArtistLabel),1,0.5);
 
     OrigArtistEntry = gtk_entry_new();
+    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (OrigArtistEntry),
+                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
     et_grid_attach_full (GTK_GRID (Table), OrigArtistEntry, 1, 8, 9, 1, TRUE,
                          TRUE,TablePadding,TablePadding);
 
-    OrigArtistMButton = gtk_button_new();
-    gtk_widget_set_size_request(OrigArtistMButton,MButtonSize,MButtonSize);
-    et_grid_attach_full (GTK_GRID (Table), OrigArtistMButton, 10, 8, 1, 1,
-                         FALSE, FALSE, TablePadding, TablePadding);
-    g_signal_connect(G_OBJECT(OrigArtistMButton),"clicked", G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_widget_set_tooltip_text(OrigArtistMButton,_("Tag selected files with this original artist"));
+    g_signal_connect (G_OBJECT (OrigArtistEntry), "icon-release",
+                      G_CALLBACK (Mini_Button_Clicked), NULL);
+    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (OrigArtistEntry),
+                                     GTK_ENTRY_ICON_SECONDARY,
+                                     _("Tag selected files with this original artist"));
 
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(OrigArtistEntry));
-    g_object_set_data(G_OBJECT(OrigArtistEntry),"MButtonName",OrigArtistMButton);
 
 
     /* Copyright */
@@ -980,18 +976,18 @@ Create_Tag_Area (void)
     gtk_misc_set_alignment(GTK_MISC(CopyrightLabel),1,0.5);
 
     CopyrightEntry = gtk_entry_new();
+    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (CopyrightEntry),
+                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
     et_grid_attach_full (GTK_GRID (Table), CopyrightEntry, 1, 9, 9, 1, TRUE,
                          TRUE, TablePadding, TablePadding);
 
-    CopyrightMButton = gtk_button_new();
-    gtk_widget_set_size_request(CopyrightMButton,MButtonSize,MButtonSize);
-    et_grid_attach_full (GTK_GRID (Table), CopyrightMButton, 10, 9, 1, 1,
-                         FALSE, FALSE, TablePadding, TablePadding);
-    g_signal_connect(G_OBJECT(CopyrightMButton),"clicked", G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_widget_set_tooltip_text(CopyrightMButton,_("Tag selected files with this copyright"));
+    g_signal_connect (G_OBJECT (CopyrightEntry), "icon-release",
+                      G_CALLBACK (Mini_Button_Clicked), NULL);
+    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (CopyrightEntry),
+                                     GTK_ENTRY_ICON_SECONDARY,
+                                     _("Tag selected files with this copyright"));
 
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(CopyrightEntry));
-    g_object_set_data(G_OBJECT(CopyrightEntry),"MButtonName",CopyrightMButton);
 
 
     /* URL */
@@ -1001,18 +997,18 @@ Create_Tag_Area (void)
     gtk_misc_set_alignment(GTK_MISC(URLLabel),1,0.5);
 
     URLEntry = gtk_entry_new();
+    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (URLEntry),
+                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
     et_grid_attach_full (GTK_GRID (Table), URLEntry, 1, 10, 9, 1, TRUE, TRUE,
                          TablePadding, TablePadding);
 
-    URLMButton = gtk_button_new();
-    gtk_widget_set_size_request(URLMButton,MButtonSize,MButtonSize);
-    et_grid_attach_full (GTK_GRID (Table), URLMButton, 10, 10, 1, 1, FALSE,
-                         FALSE, TablePadding, TablePadding);
-    g_signal_connect(G_OBJECT(URLMButton),"clicked", G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_widget_set_tooltip_text(URLMButton,_("Tag selected files with this URL"));
+    g_signal_connect (G_OBJECT (URLEntry), "icon-release",
+                      G_CALLBACK (Mini_Button_Clicked), NULL);
+    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (URLEntry),
+                                     GTK_ENTRY_ICON_SECONDARY,
+                                     _("Tag selected files with this URL"));
 
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(URLEntry));
-    g_object_set_data(G_OBJECT(URLEntry),"MButtonName",URLMButton);
 
 
     /* Encoded by */
@@ -1022,18 +1018,18 @@ Create_Tag_Area (void)
     gtk_misc_set_alignment(GTK_MISC(EncodedByLabel),1,0.5);
 
     EncodedByEntry = gtk_entry_new();
+    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (EncodedByEntry),
+                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
     et_grid_attach_full (GTK_GRID (Table), EncodedByEntry, 1, 11, 9, 1, TRUE,
                          TRUE, TablePadding, TablePadding);
 
-    EncodedByMButton = gtk_button_new();
-    gtk_widget_set_size_request(EncodedByMButton,MButtonSize,MButtonSize);
-    et_grid_attach_full (GTK_GRID (Table), EncodedByMButton, 10, 11, 1, 1,
-                         FALSE, FALSE, TablePadding, TablePadding);
-    g_signal_connect(G_OBJECT(EncodedByMButton),"clicked", G_CALLBACK(Mini_Button_Clicked),NULL);
-    gtk_widget_set_tooltip_text(EncodedByMButton,_("Tag selected files with this encoder name"));
+    g_signal_connect (G_OBJECT (EncodedByEntry), "icon-release",
+                      G_CALLBACK (Mini_Button_Clicked), NULL);
+    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (EncodedByEntry),
+                                     GTK_ENTRY_ICON_SECONDARY,
+                                     _("Tag selected files with this encoder name"));
 
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(EncodedByEntry));
-    g_object_set_data(G_OBJECT(EncodedByEntry),"MButtonName",EncodedByMButton);
 
 
     // Managing of entries when pressing the Enter key
@@ -1055,36 +1051,22 @@ Create_Tag_Area (void)
 
     // Set focus chain
     focusable_widgets_list = g_list_prepend(focusable_widgets_list,TitleEntry);
-    focusable_widgets_list = g_list_prepend(focusable_widgets_list,TitleMButton);
     focusable_widgets_list = g_list_prepend(focusable_widgets_list,ArtistEntry);
-    focusable_widgets_list = g_list_prepend(focusable_widgets_list,ArtistMButton);
     focusable_widgets_list = g_list_prepend(focusable_widgets_list,AlbumArtistEntry);
-    focusable_widgets_list = g_list_prepend(focusable_widgets_list,AlbumArtistMButton);
     focusable_widgets_list = g_list_prepend(focusable_widgets_list,AlbumEntry);
-    focusable_widgets_list = g_list_prepend(focusable_widgets_list,AlbumMButton);
     focusable_widgets_list = g_list_prepend(focusable_widgets_list,DiscNumberEntry);
-    focusable_widgets_list = g_list_prepend(focusable_widgets_list,DiscNumberMButton);
     focusable_widgets_list = g_list_prepend(focusable_widgets_list,YearEntry);
-    focusable_widgets_list = g_list_prepend(focusable_widgets_list,YearMButton);
     //focusable_widgets_list = g_list_prepend(focusable_widgets_list,TrackMButtonSequence); // Doesn't work as focus disabled for this widget to have enought space to display icon
     focusable_widgets_list = g_list_prepend(focusable_widgets_list,TrackEntryCombo);
     //focusable_widgets_list = g_list_prepend(focusable_widgets_list,TrackMButtonNbrFiles);
     focusable_widgets_list = g_list_prepend(focusable_widgets_list,TrackTotalEntry);
-    focusable_widgets_list = g_list_prepend(focusable_widgets_list,TrackMButton);
     focusable_widgets_list = g_list_prepend(focusable_widgets_list,GenreCombo);
-    focusable_widgets_list = g_list_prepend(focusable_widgets_list,GenreMButton);
     focusable_widgets_list = g_list_prepend(focusable_widgets_list,CommentEntry);
-    focusable_widgets_list = g_list_prepend(focusable_widgets_list,CommentMButton);
     focusable_widgets_list = g_list_prepend(focusable_widgets_list,ComposerEntry);
-    focusable_widgets_list = g_list_prepend(focusable_widgets_list,ComposerMButton);
     focusable_widgets_list = g_list_prepend(focusable_widgets_list,OrigArtistEntry);
-    focusable_widgets_list = g_list_prepend(focusable_widgets_list,OrigArtistMButton);
     focusable_widgets_list = g_list_prepend(focusable_widgets_list,CopyrightEntry);
-    focusable_widgets_list = g_list_prepend(focusable_widgets_list,CopyrightMButton);
     focusable_widgets_list = g_list_prepend(focusable_widgets_list,URLEntry);
-    focusable_widgets_list = g_list_prepend(focusable_widgets_list,URLMButton);
     focusable_widgets_list = g_list_prepend(focusable_widgets_list,EncodedByEntry);
-    focusable_widgets_list = g_list_prepend(focusable_widgets_list,EncodedByMButton);
     focusable_widgets_list = g_list_prepend(focusable_widgets_list,TitleEntry); // To loop to the beginning
     /* More efficient than using g_list_append(), which must traverse the
      * whole list. */
@@ -1217,23 +1199,11 @@ Create_Tag_Area (void)
 
 
     //Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(PictureEntryView));
-    g_object_set_data(G_OBJECT(PictureEntryView),"MButtonName",PictureMButton);
 
     gtk_widget_show_all(TagFrame);
     return TagFrame;
 }
 
-
-
-/*
- * Actions when mini buttons are pressed: apply the field to all others files
- */
-static void
-Menu_Mini_Button_Clicked (GtkEntry *entry)
-{
-    if ( g_object_get_data(G_OBJECT(entry),"MButtonName") )
-        Mini_Button_Clicked(G_OBJECT(g_object_get_data(G_OBJECT(entry),"MButtonName")));
-}
 
 static void
 Mini_Button_Clicked (GObject *object)
@@ -1269,7 +1239,7 @@ Mini_Button_Clicked (GObject *object)
     g_list_free(selection_filelist);
 
 
-    if (object==G_OBJECT(TitleMButton))
+    if (object == G_OBJECT (TitleEntry))
     {
         string_to_set = gtk_editable_get_chars(GTK_EDITABLE(TitleEntry),0,-1); // The string to apply to all other files
         while (etfilelist)
@@ -1288,7 +1258,7 @@ Mini_Button_Clicked (GObject *object)
         else
             msg = g_strdup(_("Removed title from selected files."));
     }
-    else if (object==G_OBJECT(ArtistMButton))
+    else if (object == G_OBJECT (ArtistEntry))
     {
         string_to_set = gtk_editable_get_chars(GTK_EDITABLE(ArtistEntry),0,-1);
         while (etfilelist)
@@ -1307,7 +1277,7 @@ Mini_Button_Clicked (GObject *object)
         else
             msg = g_strdup(_("Removed artist from selected files."));
     }
-    else if (object==G_OBJECT(AlbumArtistMButton))
+    else if (object == G_OBJECT (AlbumArtistEntry))
     {
         string_to_set = gtk_editable_get_chars(GTK_EDITABLE(AlbumArtistEntry),0,-1);
         while (etfilelist)
@@ -1326,7 +1296,7 @@ Mini_Button_Clicked (GObject *object)
         else
             msg = g_strdup(_("Removed album artist from selected files."));
     }
-    else if (object==G_OBJECT(AlbumMButton))
+    else if (object == G_OBJECT (AlbumEntry))
     {
         string_to_set = gtk_editable_get_chars(GTK_EDITABLE(AlbumEntry),0,-1);
         while (etfilelist)
@@ -1345,7 +1315,7 @@ Mini_Button_Clicked (GObject *object)
         else
             msg = g_strdup(_("Removed album name from selected files."));
     }
-    else if (object==G_OBJECT(DiscNumberMButton))
+    else if (object == G_OBJECT (DiscNumberEntry))
     {
         string_to_set = gtk_editable_get_chars(GTK_EDITABLE(DiscNumberEntry),0,-1);
         while (etfilelist)
@@ -1364,7 +1334,7 @@ Mini_Button_Clicked (GObject *object)
         else
             msg = g_strdup(_("Removed disc number from selected files."));
     }
-    else if (object==G_OBJECT(YearMButton))
+    else if (object == G_OBJECT (YearEntry))
     {
         string_to_set = gtk_editable_get_chars(GTK_EDITABLE(YearEntry),0,-1);
         while (etfilelist)
@@ -1383,7 +1353,7 @@ Mini_Button_Clicked (GObject *object)
         else
             msg = g_strdup(_("Removed year from selected files."));
     }
-    else if (object==G_OBJECT(TrackMButton))
+    else if (object == G_OBJECT (TrackTotalEntry))
     {
         /* Used of Track and Total Track values */
         string_to_set = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(TrackEntryCombo)))));
@@ -1511,7 +1481,7 @@ Mini_Button_Clicked (GObject *object)
             msg = g_strdup(_("Removed track number from selected files."));
         }
     }
-    else if (object==G_OBJECT(GenreMButton))
+    else if (object == G_OBJECT (gtk_bin_get_child (GTK_BIN (GenreCombo))))
     {
         string_to_set = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(GenreCombo))),0,-1);
         while (etfilelist)
@@ -1530,7 +1500,7 @@ Mini_Button_Clicked (GObject *object)
         else
             msg = g_strdup(_("Removed genre from selected files."));
     }
-    else if (object==G_OBJECT(CommentMButton))
+    else if (object == G_OBJECT (CommentEntry))
     {
         //GtkTextBuffer *textbuffer;
         //GtkTextIter    start_iter;
@@ -1556,7 +1526,7 @@ Mini_Button_Clicked (GObject *object)
         else
             msg = g_strdup(_("Removed comment from selected files."));
     }
-    else if (object==G_OBJECT(ComposerMButton))
+    else if (object == G_OBJECT (ComposerEntry))
     {
         string_to_set = gtk_editable_get_chars(GTK_EDITABLE(ComposerEntry),0,-1);
         while (etfilelist)
@@ -1575,7 +1545,7 @@ Mini_Button_Clicked (GObject *object)
         else
             msg = g_strdup(_("Removed composer from selected files."));
     }
-    else if (object==G_OBJECT(OrigArtistMButton))
+    else if (object == G_OBJECT (OrigArtistEntry))
     {
         string_to_set = gtk_editable_get_chars(GTK_EDITABLE(OrigArtistEntry),0,-1);
         while (etfilelist)
@@ -1594,7 +1564,7 @@ Mini_Button_Clicked (GObject *object)
         else
             msg = g_strdup(_("Removed original artist from selected files."));
     }
-    else if (object==G_OBJECT(CopyrightMButton))
+    else if (object == G_OBJECT (CopyrightEntry))
     {
         string_to_set = gtk_editable_get_chars(GTK_EDITABLE(CopyrightEntry),0,-1);
         while (etfilelist)
@@ -1613,7 +1583,7 @@ Mini_Button_Clicked (GObject *object)
         else
             msg = g_strdup(_("Removed copyright from selected files."));
     }
-    else if (object==G_OBJECT(URLMButton))
+    else if (object == G_OBJECT (URLEntry))
     {
         string_to_set = gtk_editable_get_chars(GTK_EDITABLE(URLEntry),0,-1);
         while (etfilelist)
@@ -1632,7 +1602,7 @@ Mini_Button_Clicked (GObject *object)
         else
             msg = g_strdup(_("Removed URL from selected files."));
     }
-    else if (object==G_OBJECT(EncodedByMButton))
+    else if (object == G_OBJECT (EncodedByEntry))
     {
         string_to_set = gtk_editable_get_chars(GTK_EDITABLE(EncodedByEntry),0,-1);
         while (etfilelist)
@@ -4166,7 +4136,6 @@ Tag_Area_Set_Sensitive (gboolean activate)
     gtk_widget_set_sensitive(GTK_WIDGET(PictureScrollWindow),   activate);
     // Mini buttons
     gtk_widget_set_sensitive(GTK_WIDGET(TitleMButton),          activate);
-    gtk_widget_set_sensitive(GTK_WIDGET(ArtistMButton),         activate);
     gtk_widget_set_sensitive(GTK_WIDGET(DiscNumberMButton),     activate);
     gtk_widget_set_sensitive(GTK_WIDGET(AlbumMButton),          activate);
     gtk_widget_set_sensitive(GTK_WIDGET(YearMButton),           activate);
@@ -4202,30 +4171,23 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
     /* Common controls for all tags. */
     gtk_widget_show(GTK_WIDGET(TitleLabel));
     gtk_widget_show(GTK_WIDGET(TitleEntry));
-    gtk_widget_show(GTK_WIDGET(TitleMButton));
     gtk_widget_show(GTK_WIDGET(ArtistLabel));
     gtk_widget_show(GTK_WIDGET(ArtistEntry));
     gtk_widget_show(GTK_WIDGET(AlbumArtistLabel));
     gtk_widget_show(GTK_WIDGET(AlbumArtistEntry));
-    gtk_widget_show(GTK_WIDGET(ArtistMButton));
     gtk_widget_show(GTK_WIDGET(AlbumLabel));
     gtk_widget_show(GTK_WIDGET(AlbumEntry));
-    gtk_widget_show(GTK_WIDGET(AlbumMButton));
     gtk_widget_show(GTK_WIDGET(YearLabel));
     gtk_widget_show(GTK_WIDGET(YearEntry));
-    gtk_widget_show(GTK_WIDGET(YearMButton));
     gtk_widget_show(GTK_WIDGET(TrackLabel));
     gtk_widget_show(GTK_WIDGET(TrackEntryCombo));
     gtk_widget_show(GTK_WIDGET(TrackTotalEntry));
-    gtk_widget_show(GTK_WIDGET(TrackMButton));
     gtk_widget_show(GTK_WIDGET(TrackMButtonSequence));
     gtk_widget_show(GTK_WIDGET(TrackMButtonNbrFiles));
     gtk_widget_show(GTK_WIDGET(GenreLabel));
     gtk_widget_show(GTK_WIDGET(GenreCombo));
-    gtk_widget_show(GTK_WIDGET(GenreMButton));
     gtk_widget_show(GTK_WIDGET(CommentLabel));
     gtk_widget_show(GTK_WIDGET(CommentEntry));
-    gtk_widget_show(GTK_WIDGET(CommentMButton));
 
     // Special controls to display or not!
     switch (ETFile->ETFileDescription->TagType)
@@ -4236,22 +4198,16 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
                 // ID3v1 : Hide specifics ID3v2 fields if not activated!
                 gtk_widget_hide(GTK_WIDGET(DiscNumberLabel));
                 gtk_widget_hide(GTK_WIDGET(DiscNumberEntry));
-                gtk_widget_hide(GTK_WIDGET(DiscNumberMButton));
                 gtk_widget_hide(GTK_WIDGET(ComposerLabel));
                 gtk_widget_hide(GTK_WIDGET(ComposerEntry));
-                gtk_widget_hide(GTK_WIDGET(ComposerMButton));
                 gtk_widget_hide(GTK_WIDGET(OrigArtistLabel));
                 gtk_widget_hide(GTK_WIDGET(OrigArtistEntry));
-                gtk_widget_hide(GTK_WIDGET(OrigArtistMButton));
                 gtk_widget_hide(GTK_WIDGET(CopyrightLabel));
                 gtk_widget_hide(GTK_WIDGET(CopyrightEntry));
-                gtk_widget_hide(GTK_WIDGET(CopyrightMButton));
                 gtk_widget_hide(GTK_WIDGET(URLLabel));
                 gtk_widget_hide(GTK_WIDGET(URLEntry));
-                gtk_widget_hide(GTK_WIDGET(URLMButton));
                 gtk_widget_hide(GTK_WIDGET(EncodedByLabel));
                 gtk_widget_hide(GTK_WIDGET(EncodedByEntry));
-                gtk_widget_hide(GTK_WIDGET(EncodedByMButton));
                 gtk_widget_hide(GTK_WIDGET(PictureLabel));
                 gtk_widget_hide(GTK_WIDGET(PictureScrollWindow));
                 gtk_widget_hide(GTK_WIDGET(PictureMButton));
@@ -4263,22 +4219,16 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
             {
                 gtk_widget_show(GTK_WIDGET(DiscNumberLabel));
                 gtk_widget_show(GTK_WIDGET(DiscNumberEntry));
-                gtk_widget_show(GTK_WIDGET(DiscNumberMButton));
                 gtk_widget_show(GTK_WIDGET(ComposerLabel));
                 gtk_widget_show(GTK_WIDGET(ComposerEntry));
-                gtk_widget_show(GTK_WIDGET(ComposerMButton));
                 gtk_widget_show(GTK_WIDGET(OrigArtistLabel));
                 gtk_widget_show(GTK_WIDGET(OrigArtistEntry));
-                gtk_widget_show(GTK_WIDGET(OrigArtistMButton));
                 gtk_widget_show(GTK_WIDGET(CopyrightLabel));
                 gtk_widget_show(GTK_WIDGET(CopyrightEntry));
-                gtk_widget_show(GTK_WIDGET(CopyrightMButton));
                 gtk_widget_show(GTK_WIDGET(URLLabel));
                 gtk_widget_show(GTK_WIDGET(URLEntry));
-                gtk_widget_show(GTK_WIDGET(URLMButton));
                 gtk_widget_show(GTK_WIDGET(EncodedByLabel));
                 gtk_widget_show(GTK_WIDGET(EncodedByEntry));
-                gtk_widget_show(GTK_WIDGET(EncodedByMButton));
                 gtk_widget_show(GTK_WIDGET(PictureLabel));
                 gtk_widget_show(GTK_WIDGET(PictureScrollWindow));
                 gtk_widget_show(GTK_WIDGET(PictureMButton));
@@ -4293,22 +4243,16 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
         case OGG_TAG:
             gtk_widget_show(GTK_WIDGET(DiscNumberLabel));
             gtk_widget_show(GTK_WIDGET(DiscNumberEntry));
-            gtk_widget_show(GTK_WIDGET(DiscNumberMButton));
             gtk_widget_show(GTK_WIDGET(ComposerLabel));
             gtk_widget_show(GTK_WIDGET(ComposerEntry));
-            gtk_widget_show(GTK_WIDGET(ComposerMButton));
             gtk_widget_show(GTK_WIDGET(OrigArtistLabel));
             gtk_widget_show(GTK_WIDGET(OrigArtistEntry));
-            gtk_widget_show(GTK_WIDGET(OrigArtistMButton));
             gtk_widget_show(GTK_WIDGET(CopyrightLabel));
             gtk_widget_show(GTK_WIDGET(CopyrightEntry));
-            gtk_widget_show(GTK_WIDGET(CopyrightMButton));
             gtk_widget_show(GTK_WIDGET(URLLabel));
             gtk_widget_show(GTK_WIDGET(URLEntry));
-            gtk_widget_show(GTK_WIDGET(URLMButton));
             gtk_widget_show(GTK_WIDGET(EncodedByLabel));
             gtk_widget_show(GTK_WIDGET(EncodedByEntry));
-            gtk_widget_show(GTK_WIDGET(EncodedByMButton));
             gtk_widget_show(GTK_WIDGET(PictureLabel));
             gtk_widget_show(GTK_WIDGET(PictureScrollWindow));
             gtk_widget_show(GTK_WIDGET(PictureMButton));
@@ -4323,22 +4267,16 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
         case FLAC_TAG:
             gtk_widget_show(GTK_WIDGET(DiscNumberLabel));
             gtk_widget_show(GTK_WIDGET(DiscNumberEntry));
-            gtk_widget_show(GTK_WIDGET(DiscNumberMButton));
             gtk_widget_show(GTK_WIDGET(ComposerLabel));
             gtk_widget_show(GTK_WIDGET(ComposerEntry));
-            gtk_widget_show(GTK_WIDGET(ComposerMButton));
             gtk_widget_show(GTK_WIDGET(OrigArtistLabel));
             gtk_widget_show(GTK_WIDGET(OrigArtistEntry));
-            gtk_widget_show(GTK_WIDGET(OrigArtistMButton));
             gtk_widget_show(GTK_WIDGET(CopyrightLabel));
             gtk_widget_show(GTK_WIDGET(CopyrightEntry));
-            gtk_widget_show(GTK_WIDGET(CopyrightMButton));
             gtk_widget_show(GTK_WIDGET(URLLabel));
             gtk_widget_show(GTK_WIDGET(URLEntry));
-            gtk_widget_show(GTK_WIDGET(URLMButton));
             gtk_widget_show(GTK_WIDGET(EncodedByLabel));
             gtk_widget_show(GTK_WIDGET(EncodedByEntry));
-            gtk_widget_show(GTK_WIDGET(EncodedByMButton));
             gtk_widget_show(GTK_WIDGET(PictureLabel));
             gtk_widget_show(GTK_WIDGET(PictureScrollWindow));
             gtk_widget_show(GTK_WIDGET(PictureMButton));
@@ -4352,22 +4290,16 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
         case APE_TAG:
             gtk_widget_show(GTK_WIDGET(DiscNumberLabel));
             gtk_widget_show(GTK_WIDGET(DiscNumberEntry));
-            gtk_widget_show(GTK_WIDGET(DiscNumberMButton));
             gtk_widget_show(GTK_WIDGET(ComposerLabel));
             gtk_widget_show(GTK_WIDGET(ComposerEntry));
-            gtk_widget_show(GTK_WIDGET(ComposerMButton));
             gtk_widget_show(GTK_WIDGET(OrigArtistLabel));
             gtk_widget_show(GTK_WIDGET(OrigArtistEntry));
-            gtk_widget_show(GTK_WIDGET(OrigArtistMButton));
             gtk_widget_show(GTK_WIDGET(CopyrightLabel));
             gtk_widget_show(GTK_WIDGET(CopyrightEntry));
-            gtk_widget_show(GTK_WIDGET(CopyrightMButton));
             gtk_widget_show(GTK_WIDGET(URLLabel));
             gtk_widget_show(GTK_WIDGET(URLEntry));
-            gtk_widget_show(GTK_WIDGET(URLMButton));
             gtk_widget_show(GTK_WIDGET(EncodedByLabel));
             gtk_widget_show(GTK_WIDGET(EncodedByEntry));
-            gtk_widget_show(GTK_WIDGET(EncodedByMButton));
             gtk_widget_hide(GTK_WIDGET(PictureLabel));
             gtk_widget_hide(GTK_WIDGET(PictureScrollWindow));
             gtk_widget_hide(GTK_WIDGET(PictureMButton));
@@ -4381,22 +4313,16 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
         case MP4_TAG:
             gtk_widget_hide(GTK_WIDGET(DiscNumberLabel));
             gtk_widget_hide(GTK_WIDGET(DiscNumberEntry));
-            gtk_widget_hide(GTK_WIDGET(DiscNumberMButton));
             gtk_widget_hide(GTK_WIDGET(ComposerLabel));
             gtk_widget_hide(GTK_WIDGET(ComposerEntry));
-            gtk_widget_hide(GTK_WIDGET(ComposerMButton));
             gtk_widget_hide(GTK_WIDGET(OrigArtistLabel));
             gtk_widget_hide(GTK_WIDGET(OrigArtistEntry));
-            gtk_widget_hide(GTK_WIDGET(OrigArtistMButton));
             gtk_widget_hide(GTK_WIDGET(CopyrightLabel));
             gtk_widget_hide(GTK_WIDGET(CopyrightEntry));
-            gtk_widget_hide(GTK_WIDGET(CopyrightMButton));
             gtk_widget_hide(GTK_WIDGET(URLLabel));
             gtk_widget_hide(GTK_WIDGET(URLEntry));
-            gtk_widget_hide(GTK_WIDGET(URLMButton));
             gtk_widget_hide(GTK_WIDGET(EncodedByLabel));
             gtk_widget_hide(GTK_WIDGET(EncodedByEntry));
-            gtk_widget_hide(GTK_WIDGET(EncodedByMButton));
             gtk_widget_hide(GTK_WIDGET(PictureLabel));
             gtk_widget_hide(GTK_WIDGET(PictureScrollWindow));
             gtk_widget_hide(GTK_WIDGET(PictureMButton));
@@ -4411,22 +4337,16 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
         case WAVPACK_TAG:
             gtk_widget_show(GTK_WIDGET(DiscNumberLabel));
             gtk_widget_show(GTK_WIDGET(DiscNumberEntry));
-            gtk_widget_show(GTK_WIDGET(DiscNumberMButton));
             gtk_widget_show(GTK_WIDGET(ComposerLabel));
             gtk_widget_show(GTK_WIDGET(ComposerEntry));
-            gtk_widget_show(GTK_WIDGET(ComposerMButton));
             gtk_widget_show(GTK_WIDGET(OrigArtistLabel));
             gtk_widget_show(GTK_WIDGET(OrigArtistEntry));
-            gtk_widget_show(GTK_WIDGET(OrigArtistMButton));
             gtk_widget_show(GTK_WIDGET(CopyrightLabel));
             gtk_widget_show(GTK_WIDGET(CopyrightEntry));
-            gtk_widget_show(GTK_WIDGET(CopyrightMButton));
             gtk_widget_show(GTK_WIDGET(URLLabel));
             gtk_widget_show(GTK_WIDGET(URLEntry));
-            gtk_widget_show(GTK_WIDGET(URLMButton));
             gtk_widget_show(GTK_WIDGET(EncodedByLabel));
             gtk_widget_show(GTK_WIDGET(EncodedByEntry));
-            gtk_widget_show(GTK_WIDGET(EncodedByMButton));
             gtk_widget_hide(GTK_WIDGET(PictureLabel));
             gtk_widget_hide(GTK_WIDGET(PictureScrollWindow));
             gtk_widget_hide(GTK_WIDGET(PictureMButton));
@@ -4441,22 +4361,16 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
         default:
             gtk_widget_hide(GTK_WIDGET(DiscNumberLabel));
             gtk_widget_hide(GTK_WIDGET(DiscNumberEntry));
-            gtk_widget_hide(GTK_WIDGET(DiscNumberMButton));
             gtk_widget_hide(GTK_WIDGET(ComposerLabel));
             gtk_widget_hide(GTK_WIDGET(ComposerEntry));
-            gtk_widget_hide(GTK_WIDGET(ComposerMButton));
             gtk_widget_hide(GTK_WIDGET(OrigArtistLabel));
             gtk_widget_hide(GTK_WIDGET(OrigArtistEntry));
-            gtk_widget_hide(GTK_WIDGET(OrigArtistMButton));
             gtk_widget_hide(GTK_WIDGET(CopyrightLabel));
             gtk_widget_hide(GTK_WIDGET(CopyrightEntry));
-            gtk_widget_hide(GTK_WIDGET(CopyrightMButton));
             gtk_widget_hide(GTK_WIDGET(URLLabel));
             gtk_widget_hide(GTK_WIDGET(URLEntry));
-            gtk_widget_hide(GTK_WIDGET(URLMButton));
             gtk_widget_hide(GTK_WIDGET(EncodedByLabel));
             gtk_widget_hide(GTK_WIDGET(EncodedByEntry));
-            gtk_widget_hide(GTK_WIDGET(EncodedByMButton));
             gtk_widget_hide(GTK_WIDGET(PictureLabel));
             gtk_widget_hide(GTK_WIDGET(PictureScrollWindow));
             gtk_widget_hide(GTK_WIDGET(PictureMButton));
@@ -4704,8 +4618,9 @@ void Attach_Popup_Menu_To_Tag_Entries (GtkEntry *entry)
     Image = gtk_image_new_from_stock(GTK_STOCK_JUMP_TO,GTK_ICON_SIZE_MENU);
     gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
     gtk_menu_shell_append(GTK_MENU_SHELL(PopupMenu),MenuItem);
-    g_signal_connect_swapped(G_OBJECT(MenuItem),"activate",
-                             G_CALLBACK(Menu_Mini_Button_Clicked),G_OBJECT(entry));
+    g_signal_connect_swapped (G_OBJECT (MenuItem), "activate",
+                              G_CALLBACK (Mini_Button_Clicked),
+                              G_OBJECT (entry));
 
     /* Separator */
     MenuItem = gtk_menu_item_new();
