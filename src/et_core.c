@@ -2683,6 +2683,7 @@ void ET_Display_File_Data_To_UI (ET_File *ETFile)
 static void
 ET_Display_File_And_List_Status_To_UI (ET_File *ETFile)
 {
+    /* FIXME: Use GFile. */
     FILE *file;
     gchar *text;
     gchar *cur_filename;
@@ -2694,25 +2695,36 @@ ET_Display_File_And_List_Status_To_UI (ET_File *ETFile)
     /* Show/hide 'AccessStatusIcon' */
     if ( (file=fopen(cur_filename,"r+b"))!=NULL )
     {
-        gtk_widget_hide(ReadOnlyStatusIconBox);
-        gtk_widget_hide(BrokenStatusIconBox);
+        gtk_entry_set_icon_from_gicon (GTK_ENTRY (FileEntry),
+                                       GTK_ENTRY_ICON_SECONDARY, NULL);
         fclose(file);
     }else
     {
+        GIcon *emblem_icon;
+        const gchar *message;
+
         switch(errno)
         {
             case EACCES:    /* Permission denied */
             case EROFS:     /* Read-only file system */
                 /* Read only file */
-                gtk_widget_show_all(ReadOnlyStatusIconBox);
-                gtk_widget_hide(BrokenStatusIconBox);
+                emblem_icon = g_themed_icon_new ("emblem-readonly");
+                message = _("Read-only file");
                 break;
             case ENOENT:    /* No such file or directory */
             default:
                 /* File not found */
-                gtk_widget_show_all(BrokenStatusIconBox);
-                gtk_widget_hide(ReadOnlyStatusIconBox);
+                emblem_icon = g_themed_icon_new ("emblem-unreadable");
+                message = _("File not found");
+                break;
         }
+
+        gtk_entry_set_icon_from_gicon (GTK_ENTRY (FileEntry),
+                                       GTK_ENTRY_ICON_SECONDARY,
+                                       emblem_icon);
+        gtk_entry_set_icon_tooltip_text (GTK_ENTRY (FileEntry),
+                                         GTK_ENTRY_ICON_SECONDARY, message);
+        g_object_unref (emblem_icon);
     }
 
     /* Show position of current file in list */

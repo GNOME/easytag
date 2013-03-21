@@ -48,8 +48,6 @@ GtkWidget *TagArea;
 GtkWidget *StatusArea;
 GtkWidget *ProgressArea;
 GtkWidget *LogArea;
-GtkWidget *ReadOnlyStatusIconBox;
-GtkWidget *BrokenStatusIconBox;
 GtkWidget *MainWindowHPaned;
 GtkWidget *MainWindowVPaned;
 

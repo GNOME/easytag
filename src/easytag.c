@@ -523,14 +523,6 @@ Create_File_Area (void)
     gtk_editable_set_editable(GTK_EDITABLE(FileEntry), TRUE);
     gtk_box_pack_start(GTK_BOX(HBox),FileEntry,TRUE,TRUE,2);
 
-    /* Access status icon */
-    ReadOnlyStatusIconBox = Create_Pixmap_Icon_With_Event_Box("easytag-read-only");
-    gtk_box_pack_start(GTK_BOX(HBox),ReadOnlyStatusIconBox,FALSE,FALSE,0);
-    gtk_widget_set_tooltip_text(ReadOnlyStatusIconBox,_("Read-only File"));
-    BrokenStatusIconBox = Create_Pixmap_Icon_With_Event_Box(GTK_STOCK_MISSING_IMAGE);
-    gtk_box_pack_start(GTK_BOX(HBox),BrokenStatusIconBox,FALSE,FALSE,0);
-    gtk_widget_set_tooltip_text(BrokenStatusIconBox,_("File Link Broken"));
-
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(FileEntry));
 
 

@@ -618,11 +618,9 @@ void Set_Unbusy_Cursor (void)
 //#include "data/pixmaps/blackwhite.xpm"
 #include "data/pixmaps/first_letter_uppercase.xpm"
 #include "data/pixmaps/first_letter_uppercase_word.xpm"
-#include "data/pixmaps/forbidden.xpm"
 #include "data/pixmaps/grab.xpm"
 #include "data/pixmaps/invert_selection.xpm"
 #include "data/pixmaps/mask.xpm"
-#include "data/pixmaps/read_only.xpm"
 #include "data/pixmaps/red_lines.xpm"
 //#include "data/pixmaps/sequence_track.xpm"
 #include "data/pixmaps/sound.xpm"
@@ -636,8 +634,6 @@ void Init_Custom_Icons (void)
     Create_Xpm_Icon_Factory((const char**)grab_xpm,                 "easytag-grab");
     Create_Xpm_Icon_Factory((const char**)mask_xpm,                 "easytag-mask");
     //Create_Xpm_Icon_Factory((const char**)blackwhite_xpm,         "easytag-blackwhite");
-    Create_Xpm_Icon_Factory((const char**)forbidden_xpm,            "easytag-forbidden");
-    Create_Xpm_Icon_Factory((const char**)read_only_xpm,            "easytag-read-only");
     //Create_Xpm_Icon_Factory((const char**)sequence_track_xpm,     "easytag-sequence-track");
     Create_Xpm_Icon_Factory((const char**)red_lines_xpm,            "easytag-red-lines");
     Create_Xpm_Icon_Factory((const char**)artist_album_xpm,     "easytag-artist-album");
