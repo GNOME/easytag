@@ -2316,8 +2316,6 @@ static gchar
 /******************
  * Scanner Window *
  ******************/
-#include "data/pixmaps/black.xpm"
-#include "data/pixmaps/blackwhite.xpm"
 void Open_ScannerWindow (gint scanner_type)
 {
     GtkWidget *ScanVBox;
@@ -2677,27 +2675,20 @@ void Open_ScannerWindow (gint scanner_type)
     g_signal_connect(G_OBJECT(ProcessURLField),        "toggled",G_CALLBACK(Select_Fields_Set_Sensitive),NULL);
     g_signal_connect(G_OBJECT(ProcessEncodedByField),  "toggled",G_CALLBACK(Select_Fields_Set_Sensitive),NULL);
     /* The small buttons */
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
-    gtk_box_pack_start(GTK_BOX(hbox),vbox,FALSE,FALSE,0);
     Button = gtk_button_new();
     g_signal_connect(G_OBJECT(Button),"clicked",G_CALLBACK(Select_Fields_Invert_Selection),NULL);
-    gtk_box_pack_start(GTK_BOX(vbox),Button,FALSE,FALSE,0);
-    gtk_widget_set_size_request(Button, 12, 12);
-    //Icon = gtk_image_new_from_stock("easytag-blackwhite", GTK_ICON_SIZE_BUTTON);
-    Icon = Create_Xpm_Image((const char **)blackwhite_xpm);
-    gtk_widget_set_can_default(Button,FALSE); // To have enough space to display the icon
-    gtk_widget_set_can_focus(Button,FALSE);
+    gtk_box_pack_end (GTK_BOX(hbox), Button, FALSE, FALSE, 0);
+    Icon = gtk_image_new_from_stock ("easytag-invert-selection",
+                                     GTK_ICON_SIZE_BUTTON);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
-    gtk_widget_set_tooltip_text(Button,_("Invert Selection"));
+    gtk_widget_set_tooltip_text (Button, _("Invert selection"));
     Button = gtk_button_new();
     g_signal_connect(G_OBJECT(Button),"clicked",G_CALLBACK(Select_Fields_Select_Unselect_All),NULL);
-    gtk_box_pack_start(GTK_BOX(vbox),Button,FALSE,FALSE,0);
-    gtk_widget_set_size_request(Button, 12, 12);
-    Icon = Create_Xpm_Image((const char **)black_xpm);
-    gtk_widget_set_can_default(Button,FALSE); // To have enough space to display the icon
-    gtk_widget_set_can_focus(Button,FALSE);
+    gtk_box_pack_end (GTK_BOX(hbox), Button, FALSE, FALSE, 0);
+    Icon = gtk_image_new_from_icon_name ("edit-select-all",
+                                         GTK_ICON_SIZE_BUTTON);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
-    gtk_widget_set_tooltip_text(Button,_("Select/Unselect All"));
+    gtk_widget_set_tooltip_text (Button, _("Select/Unselect all"));
 
     /* Separator line */
     Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);

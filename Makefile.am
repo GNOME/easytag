@@ -155,8 +155,6 @@ pixmaps = \
 	data/pixmaps/all_uppercase.xpm \
 	data/pixmaps/artist.xpm \
 	data/pixmaps/artist_album.xpm \
-	data/pixmaps/black.xpm \
-	data/pixmaps/blackwhite.xpm \
 	data/pixmaps/first_letter_uppercase.xpm \
 	data/pixmaps/first_letter_uppercase_word.xpm \
 	data/pixmaps/freedb.xpm \
