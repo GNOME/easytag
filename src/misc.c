@@ -610,7 +610,6 @@ void Set_Unbusy_Cursor (void)
 /*
  * Add easytag specific icons to GTK stock set
  */
-#include "data/pixmaps/add_folder.xpm"
 #include "data/pixmaps/album.xpm"
 #include "data/pixmaps/all_uppercase.xpm"
 #include "data/pixmaps/all_downcase.xpm"
@@ -643,7 +642,6 @@ void Init_Custom_Icons (void)
     Create_Xpm_Icon_Factory((const char**)red_lines_xpm,            "easytag-red-lines");
     Create_Xpm_Icon_Factory((const char**)artist_album_xpm,     "easytag-artist-album");
 ////    Create_Png_Icon_Factory("artist_album.png",                     "easytag-artist-album");
-    Create_Xpm_Icon_Factory((const char**)add_folder_xpm,           "easytag-add-folder");
     Create_Xpm_Icon_Factory((const char**)sound_xpm,                "easytag-sound");
     Create_Xpm_Icon_Factory((const char**)all_uppercase_xpm,        "easytag-all-uppercase");
     Create_Xpm_Icon_Factory((const char**)all_downcase_xpm,         "easytag-all-downcase");

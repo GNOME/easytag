@@ -2326,6 +2326,7 @@ void Open_ScannerWindow (gint scanner_type)
     GtkWidget *Label;
     GtkWidget *Button;
     GtkWidget *Separator;
+    GIcon *new_folder;
     GtkWidget *Icon;
     GtkWidget *MaskStatusIconBox;
     GList *pf_cb_group1 = NULL;
@@ -2530,7 +2531,10 @@ void Open_ScannerWindow (gint scanner_type)
 
     // Button to prefix path
     RenameFilePrefixPathButton = gtk_button_new();
-    Icon = gtk_image_new_from_stock("easytag-add-folder", GTK_ICON_SIZE_SMALL_TOOLBAR); // On Win32, GTK_ICON_SIZE_BUTTON enlarge the combobox...
+    new_folder = g_themed_icon_new ("folder-new");
+    /* TODO: On Win32, GTK_ICON_SIZE_BUTTON enlarges the combobox. */
+    Icon = gtk_image_new_from_gicon (new_folder, GTK_ICON_SIZE_MENU);
+    g_object_unref (new_folder);
     gtk_container_add(GTK_CONTAINER(RenameFilePrefixPathButton),Icon);
     gtk_box_pack_start(GTK_BOX(HBox4),RenameFilePrefixPathButton,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(RenameFilePrefixPathButton),GTK_RELIEF_NONE);

@@ -150,7 +150,6 @@ nodist_man_MANS = doc/easytag.1
 endif
 
 pixmaps = \
-	data/pixmaps/add_folder.xpm \
 	data/pixmaps/album.xpm \
 	data/pixmaps/all_downcase.xpm \
 	data/pixmaps/all_uppercase.xpm \
