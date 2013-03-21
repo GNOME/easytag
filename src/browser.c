@@ -2360,6 +2360,7 @@ Browser_Tree_Initialize (void)
 {
     GtkTreeIter parent_iter;
     GtkTreeIter dummy_iter;
+    GIcon *drive_icon;
 
     g_return_if_fail (directoryTreeModel != NULL);
 
@@ -2368,7 +2369,6 @@ Browser_Tree_Initialize (void)
 #ifdef G_OS_WIN32
     /* Code strangely familiar with gtkfilesystemwin32.c */
 
-    GIcon *drive_icon;
     DWORD drives;
     UINT drive_type;
     gchar drive[4] = "A:/";
@@ -2444,17 +2444,20 @@ Browser_Tree_Initialize (void)
     }
 
 #else /* !G_OS_WIN32 */
+    drive_icon = g_themed_icon_new ("folder");
     gtk_tree_store_append(directoryTreeModel, &parent_iter, NULL);
     gtk_tree_store_set(directoryTreeModel, &parent_iter,
                        TREE_COLUMN_DIR_NAME,    G_DIR_SEPARATOR_S,
                        TREE_COLUMN_FULL_PATH,   G_DIR_SEPARATOR_S,
                        TREE_COLUMN_HAS_SUBDIR,  TRUE,
                        TREE_COLUMN_SCANNED,     FALSE,
-                       TREE_COLUMN_ICON, g_themed_icon_new ("folder"),
+                       TREE_COLUMN_ICON, drive_icon,
                        -1);
     // insert dummy node
     gtk_tree_store_append(directoryTreeModel, &dummy_iter, &parent_iter);
 #endif /* !G_OS_WIN32 */
+
+    g_object_unref (drive_icon);
 }
 
 /*
@@ -2763,11 +2766,18 @@ get_gicon_for_path (const gchar *path)
         {
             GEmblem *unreadable_emblem;
             GIcon *unreadable_icon;
+            GIcon *emblemed_icon;
 
             unreadable_icon = g_themed_icon_new ("emblem-unreadable");
             unreadable_emblem = g_emblem_new_with_origin (unreadable_icon,
                                                           G_EMBLEM_ORIGIN_LIVEMETADATA);
-            return g_emblemed_icon_new (folder_icon, unreadable_emblem);
+            emblemed_icon = g_emblemed_icon_new (folder_icon,
+                                                 unreadable_emblem);
+            g_object_unref (folder_icon);
+            g_object_unref (unreadable_icon);
+            g_object_unref (unreadable_emblem);
+
+            return emblemed_icon;
         }
     } else
     {
@@ -2892,6 +2902,7 @@ static void expand_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *gtreePat
                     gtk_tree_store_append(directoryTreeModel, &subNodeIter, &currentIter);
                 }
 
+                g_object_unref (icon);
                 g_free(fullpath_file);
                 g_free(dirname_utf8);
             }
@@ -2905,6 +2916,7 @@ static void expand_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *gtreePat
     gtk_tree_model_iter_children(GTK_TREE_MODEL(directoryTreeModel), &subNodeIter, iter);
     gtk_tree_store_remove(directoryTreeModel, &subNodeIter);
 
+    icon = g_themed_icon_new ("folder-open");
 #ifdef G_OS_WIN32
     // set open folder pixmap except on drive (depth == 0)
     if (gtk_tree_path_get_depth(gtreePath) > 1)
@@ -2912,26 +2924,28 @@ static void expand_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *gtreePat
         // update the icon of the node to opened folder :-)
         gtk_tree_store_set(directoryTreeModel, iter,
                            TREE_COLUMN_SCANNED, TRUE,
-                           TREE_COLUMN_ICON, g_themed_icon_new ("folder-open"),
+                           TREE_COLUMN_ICON, icon,
                            -1);
     }
 #else /* !G_OS_WIN32 */
     // update the icon of the node to opened folder :-)
     gtk_tree_store_set(directoryTreeModel, iter,
                        TREE_COLUMN_SCANNED, TRUE,
-                       TREE_COLUMN_ICON, g_themed_icon_new ("folder-open"),
+                       TREE_COLUMN_ICON, icon,
                        -1);
 #endif /* !G_OS_WIN32 */
 
     gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(directoryTreeModel),
                                          TREE_COLUMN_DIR_NAME, GTK_SORT_ASCENDING);
 
+    g_object_unref (icon);
     g_free(parentPath);
 }
 
 static void collapse_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *treePath, gpointer data)
 {
     GtkTreeIter subNodeIter;
+    GIcon *icon;
 
     g_return_if_fail (directoryTreeModel != NULL);
 
@@ -2943,6 +2957,7 @@ static void collapse_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *treePa
         gtk_tree_store_remove(directoryTreeModel, &subNodeIter);
     }
 
+    icon = g_themed_icon_new ("folder-open");
 #ifdef G_OS_WIN32
     // set closed folder pixmap except on drive (depth == 0)
     if(gtk_tree_path_get_depth(treePath) > 1)
@@ -2950,17 +2965,19 @@ static void collapse_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *treePa
         // update the icon of the node to closed folder :-)
         gtk_tree_store_set(directoryTreeModel, iter,
                            TREE_COLUMN_SCANNED, FALSE,
-                           TREE_COLUMN_ICON, g_themed_icon_new ("folder"), -1);
+                           TREE_COLUMN_ICON, icon, -1);
     }
 #else /* !G_OS_WIN32 */
     // update the icon of the node to closed folder :-)
     gtk_tree_store_set(directoryTreeModel, iter,
                        TREE_COLUMN_SCANNED, FALSE,
-                       TREE_COLUMN_ICON, g_themed_icon_new ("folder"), -1);
+                       TREE_COLUMN_ICON, icon, -1);
 #endif /* !G_OS_WIN32 */
 
     // insert dummy node
     gtk_tree_store_append(directoryTreeModel, &subNodeIter, iter);
+
+    g_object_unref (icon);
 }
 
 /*
