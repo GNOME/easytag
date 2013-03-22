@@ -10,17 +10,18 @@ msgstr ""
 "Project-Id-Version: easytag master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-03-14 19:02+0000\n"
-"PO-Revision-Date: 2013-03-18 10:41+0100\n"
+"PO-Revision-Date: 2013-03-22 09:48+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
-"%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Generator: Poedit 1.5.4\n"
+"X-Poedit-Language: Slovenian\n"
+"X-Poedit-Country: SLOVENIA\n"
 
 #: ../easytag.desktop.in.h:1
 msgid "Sound File Metadata Editor"
@@ -36,31 +37,17 @@ msgstr "mp3;oznake;tag;zvok;skladbe;"
 
 #: ../src/about.c:91
 msgid ""
-"This program is free software; you can redistribute it and/or modify it "
-"under the terms of the GNU General Public License as published by the Free "
-"Software Foundation; either version 2 of the License, or (at your option) "
-"any later version.\n"
+"This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.\n"
 "\n"
-"This program is distributed in the hope that it will be useful, but WITHOUT "
-"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
-"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
-"more details.\n"
+"This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\n"
 "\n"
-"You should have received a copy of the GNU General Public License along with "
-"this program. If not, see <http://www.gnu.org/licenses/>."
+"You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>."
 msgstr ""
-"Program je prosta programska oprema; lahko jo razširjate in/ali spreminjate "
-"pod pogoji Splošnega javnega dovoljenja GNU (GNU General Public License), "
-"kot ga je objavila ustanova Free Software Foundation; bodisi različice 2 ali "
-"(po vaši izbiri) katerekoli poznejše različice.\n"
+"Program je prosta programska oprema; lahko jo razširjate in/ali spreminjate pod pogoji Splošnega javnega dovoljenja GNU (GNU General Public License), kot ga je objavila ustanova Free Software Foundation; bodisi različice 2 ali (po vaši izbiri) poljubne poznejše različice.\n"
 "\n"
-"Program se razširja v upanju, da bo uporaben, vendar BREZ VSAKRŠNEGA "
-"JAMSTVA; tudi brez posredne zagotovitve CENOVNE VREDNOSTI ali PRIMERNOSTI ZA "
-"DOLOČEN NAMEN.  Za podrobnosti glejte besedilo Javnega dovoljenja GNU.\n"
+"Program se razširja v upanju, da bo uporaben, vendar BREZ VSAKRŠNEGA JAMSTVA; tudi brez posredne zagotovitve CENOVNE VREDNOSTI ali PRIMERNOSTI ZA DOLOČEN NAMEN.  Za podrobnosti glejte besedilo Javnega dovoljenja GNU.\n"
 "\n"
-"Skupaj s programom bi morali prejeti izvod splošne javne licence GNU (GNU "
-"General Public License); če ga niste si oglejte spletno stran <http://www."
-"gnu.org/licenses/>."
+"Skupaj s programom bi morali prejeti izvod splošnega javnega dovoljenja GNU (GNU General Public License); če ga niste si oglejte spletno stran <http://www.gnu.org/licenses/>."
 
 #. Translators: put your own name here to appear in the about dialog.
 #: ../src/about.c:108
@@ -69,15 +56,26 @@ msgstr "Matej Urbančič <matej.urban@svn.gnome.org>"
 
 #: ../src/about.c:118
 msgid "View and edit tags in audio files"
-msgstr "Pregledovanje in urejanje oznak zvočnih datotek"
+msgstr "Oglejte si in urejajte oznake zvočnih datotek"
 
 #. g_print(_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
-#: ../src/ape_tag.c:62 ../src/et_core.c:4496 ../src/flac_header.c:108
-#: ../src/id3_tag.c:150 ../src/id3_tag.c:1210 ../src/misc.c:1787
-#: ../src/mp4_header.c:64 ../src/mp4_header.c:73 ../src/mp4_tag.c:72
-#: ../src/mp4_tag.c:83 ../src/mp4_tag.c:186 ../src/mp4_tag.c:195
-#: ../src/mpeg_header.c:203 ../src/ogg_header.c:70 ../src/ogg_header.c:171
-#: ../src/ogg_tag.c:145 ../src/ogg_tag.c:650
+#: ../src/ape_tag.c:62
+#: ../src/et_core.c:4496
+#: ../src/flac_header.c:108
+#: ../src/id3_tag.c:150
+#: ../src/id3_tag.c:1210
+#: ../src/misc.c:1787
+#: ../src/mp4_header.c:64
+#: ../src/mp4_header.c:73
+#: ../src/mp4_tag.c:72
+#: ../src/mp4_tag.c:83
+#: ../src/mp4_tag.c:186
+#: ../src/mp4_tag.c:195
+#: ../src/mpeg_header.c:203
+#: ../src/ogg_header.c:70
+#: ../src/ogg_header.c:171
+#: ../src/ogg_tag.c:145
+#: ../src/ogg_tag.c:650
 #, c-format
 msgid "Error while opening file: '%s' (%s)."
 msgstr "Napaka med odpiranjem datoteke: '%s' (%s)."
@@ -164,11 +162,11 @@ msgstr "Padajoče po izvajalcu"
 
 #: ../src/bar.c:160
 msgid "Ascending by album artist"
-msgstr "Naraščajoče po albumu izvajalca"
+msgstr "Naraščajoče po izvajalcu albuma"
 
 #: ../src/bar.c:161
 msgid "Descending by album artist"
-msgstr "Padajoče po albumu izvajalca"
+msgstr "Padajoče po izvajalcu albuma"
 
 #: ../src/bar.c:162
 msgid "Ascending by album"
@@ -203,24 +201,20 @@ msgid "Descending by comment"
 msgstr "Padajoče po opombah"
 
 #: ../src/bar.c:170
-#, fuzzy
 msgid "Ascending by composer"
-msgstr "Razvrsti po imenu datoteke (naraščajoče)"
+msgstr "naraščajoče po skladatelju"
 
 #: ../src/bar.c:171
-#, fuzzy
 msgid "Descending by composer"
-msgstr "Razvrsti po imenu datoteke (padajoče)"
+msgstr "padajoče po skladatelju"
 
 #: ../src/bar.c:172
-#, fuzzy
 msgid "Ascending by original artist"
-msgstr "od %(artist)s iz %(album)s"
+msgstr "naraščajoče po izvirnem izvajalcu"
 
 #: ../src/bar.c:173
-#, fuzzy
 msgid "Descending by original artist"
-msgstr "od %(artist)s iz %(album)s"
+msgstr "padajoče po izvirnem izvajalcu"
 
 #: ../src/bar.c:174
 msgid "Ascending by copyright"
@@ -239,14 +233,12 @@ msgid "Descending by URL"
 msgstr "Padajoče po naslovu URL"
 
 #: ../src/bar.c:178
-#, fuzzy
 msgid "Ascending by encoder name"
-msgstr "Ime kodirane vaje:"
+msgstr "naraščajoče po imenu kodirnika"
 
 #: ../src/bar.c:179
-#, fuzzy
 msgid "Descending by encoder name"
-msgstr "Ime kodirane vaje:"
+msgstr "padajoče po imenu kodirnika"
 
 #: ../src/bar.c:180
 msgid "Ascending by file type"
@@ -281,14 +273,12 @@ msgid "Descending by bitrate"
 msgstr "Padajoče po bitni hitrosti"
 
 #: ../src/bar.c:188
-#, fuzzy
 msgid "Ascending by samplerate"
-msgstr "Razvrsti po imenu datoteke (naraščajoče)"
+msgstr "naraščajoče po meri vzorčenja"
 
 #: ../src/bar.c:189
-#, fuzzy
 msgid "Descending by samplerate"
-msgstr "Razvrsti po imenu datoteke (padajoče)"
+msgstr "padajoče po meri vzorčenja"
 
 #: ../src/bar.c:191
 msgid "Open Files With…"
@@ -298,7 +288,8 @@ msgstr "Odpri s programom ..."
 msgid "Open files with…"
 msgstr "Odpri s programom ..."
 
-#: ../src/bar.c:192 ../src/cddb.c:326
+#: ../src/bar.c:192
+#: ../src/cddb.c:326
 msgid "Select All Files"
 msgstr "Izberi vse datoteke"
 
@@ -314,7 +305,8 @@ msgstr "Počisti izbor vseh datotek"
 msgid "Unselect all files"
 msgstr "Počisti izbor vseh datoteke"
 
-#: ../src/bar.c:194 ../src/cddb.c:333
+#: ../src/bar.c:194
+#: ../src/cddb.c:333
 msgid "Invert Files Selection"
 msgstr "Preobrni izbor datotek"
 
@@ -385,22 +377,20 @@ msgstr "Odstrani oznake"
 #: ../src/bar.c:204
 #, fuzzy
 msgid "_Undo Last Files Changes"
-msgstr "Spremljaj spremembe datotek."
+msgstr "_Razveljavi zadnje spremembe datotek"
 
 #: ../src/bar.c:204
-#, fuzzy
 msgid "Undo last Files changes"
-msgstr "Spremljaj spremembe datotek."
+msgstr "Razveljavi zadnje spremembe datotek"
 
 #: ../src/bar.c:205
 #, fuzzy
 msgid "R_edo Last Files Changes"
-msgstr "Spremljaj spremembe datotek."
+msgstr "_Ponovi zadnje spremembe datotek"
 
 #: ../src/bar.c:205
-#, fuzzy
 msgid "Redo last files changes"
-msgstr "Spremljaj spremembe datotek."
+msgstr "Ponovi zadnje spremembe datotek"
 
 #: ../src/bar.c:206
 msgid "_Save Files"
@@ -438,7 +428,9 @@ msgstr "Ponovno uveljavi zadnje spremembe"
 msgid "_Quit"
 msgstr "_Končaj"
 
-#: ../src/bar.c:210 ../src/easytag.c:2350 ../src/easytag.c:5020
+#: ../src/bar.c:210
+#: ../src/easytag.c:2350
+#: ../src/easytag.c:5020
 #: ../src/easytag.c:5046
 msgid "Quit"
 msgstr "Končaj"
@@ -480,12 +472,10 @@ msgid "Go to downloads directory"
 msgstr "Pojdi v mapo prenosov"
 
 #: ../src/bar.c:217
-#, fuzzy
 msgid "Go to Music Directory"
 msgstr "Pojdi v mapo Glasba"
 
 #: ../src/bar.c:217
-#, fuzzy
 msgid "Go to music directory"
 msgstr "Pojdi v mapo z glasbo"
 
@@ -506,17 +496,16 @@ msgid "Set current path as default"
 msgstr "Nastavi trenutno pot kot privzeto"
 
 #: ../src/bar.c:220
-#, fuzzy
 msgid "Tree View | Artist-Album View"
-msgstr "Izvajalec, album ali naslov"
+msgstr "Drevesni pogled | Pogled izvajalec-album"
 
 #: ../src/bar.c:220
-#, fuzzy
 msgid "Toggle between tree view and artist-album view"
-msgstr "Izvajalec, album ali naslov"
+msgstr "Preklopi med drevesnim pogledom in pogledom izvajalec-album"
 
 #. Only directories changed
-#: ../src/bar.c:221 ../src/easytag.c:2781
+#: ../src/bar.c:221
+#: ../src/easytag.c:2781
 msgid "Rename Directory…"
 msgstr "Preimenuj mapo ..."
 
@@ -532,7 +521,8 @@ msgstr "Ponovno naloži mapo"
 msgid "Reload directory"
 msgstr "Ponovno naloži mapo"
 
-#: ../src/bar.c:223 ../src/browser.c:4127
+#: ../src/bar.c:223
+#: ../src/browser.c:4127
 msgid "Browse Directory with…"
 msgstr "Prebrskaj mapo z ..."
 
@@ -543,12 +533,12 @@ msgstr "Prebrskaj mapo z ..."
 #: ../src/bar.c:224
 #, fuzzy
 msgid "_Collapse Tree"
-msgstr "_Uvozi različico"
+msgstr "_Strni drevo"
 
 #: ../src/bar.c:224
 #, fuzzy
 msgid "_Collapse tree"
-msgstr "_Uvozi različico"
+msgstr "_Strni drevo"
 
 #: ../src/bar.c:225
 msgid "_Refresh Tree"
@@ -558,7 +548,8 @@ msgstr "_Osveži drevo"
 msgid "_Refresh tree"
 msgstr "_Osveži drevo"
 
-#: ../src/bar.c:227 ../src/bar.c:256
+#: ../src/bar.c:227
+#: ../src/bar.c:256
 msgid "S_canner"
 msgstr "_Optični bralnik"
 
@@ -582,7 +573,8 @@ msgstr "Preimenuj datoteke in mape"
 msgid "_Process Fields…"
 msgstr "_Obdelaj polja ..."
 
-#: ../src/bar.c:230 ../src/scan.c:181
+#: ../src/bar.c:230
+#: ../src/scan.c:181
 msgid "Process Fields"
 msgstr "Obdelaj polja"
 
@@ -601,22 +593,20 @@ msgstr "Najdi datoteke"
 #: ../src/bar.c:234
 #, fuzzy
 msgid "CD Data_base Search…"
-msgstr "Navidezno zapisovanje podatkovnega CD nosilca"
+msgstr "Iskanje po z_birki podatkov CDDB ..."
 
 #: ../src/bar.c:234
 #, fuzzy
 msgid "CDDB search"
-msgstr "Iskanje vnosa"
+msgstr "Iskanje po CDDB"
 
 #: ../src/bar.c:235
-#, fuzzy
 msgid "Load Filenames From Text File…"
-msgstr "&Naloži izbor iz datoteke ..."
+msgstr "Naloži imena datotek iz besedilne datoteke ..."
 
 #: ../src/bar.c:235
-#, fuzzy
 msgid "Load filenames from text file"
-msgstr "Uvoz podatkov iz besedilne datoteke"
+msgstr "Naloži imena datotek iz besedilne datoteke"
 
 #: ../src/bar.c:236
 msgid "Write Playlist…"
@@ -626,15 +616,19 @@ msgstr "Zapiši seznam predvajanja ..."
 msgid "Write playlist"
 msgstr "Zapiši seznam predvajanja"
 
-#: ../src/bar.c:237 ../src/bar.c:257 ../src/bar.c:258 ../src/bar.c:259
-#, fuzzy
+#: ../src/bar.c:237
+#: ../src/bar.c:257
+#: ../src/bar.c:258
+#: ../src/bar.c:259
 msgid "Run Audio Player"
-msgstr "Digitalni zvočni predvajalnik"
+msgstr "Zaženi zvočni predvajalnik"
 
-#: ../src/bar.c:237 ../src/bar.c:257 ../src/bar.c:258 ../src/bar.c:259
-#, fuzzy
+#: ../src/bar.c:237
+#: ../src/bar.c:257
+#: ../src/bar.c:258
+#: ../src/bar.c:259
 msgid "Run audio player"
-msgstr "Digitalni zvočni predvajalnik"
+msgstr "Zaženi zvočni predvajalnik"
 
 #: ../src/bar.c:239
 msgid "_Settings"
@@ -692,9 +686,8 @@ msgstr "Počisti dnevnik"
 
 #. { AM_BROWSE_SUBDIR,      GTK_STOCK_INDEX,        _("Browse _Subdirectories"),                         NULL, _("Browse _Sub-directories"),                         NULL,                                    FALSE },
 #: ../src/bar.c:271
-#, fuzzy
 msgid "Browse _Subdirectories"
-msgstr "Ne upoštevaj &podmap:"
+msgstr "Prebrskaj _podmape"
 
 #: ../src/bar.c:271
 msgid "Browse subdirectories"
@@ -719,9 +712,7 @@ msgstr ""
 #: ../src/bar.c:314
 #, fuzzy, c-format
 msgid "Could not merge UI, error was: %s\n"
-msgstr ""
-"Ni mogoče določiti vrednosti. Sporočilo napake:\n"
-"%s"
+msgstr "Ni mogoče spojiti up. vmesnika, napaka se glasi: %s\n"
 
 #: ../src/bar.c:415
 msgid "Ready to start…"
@@ -731,7 +722,8 @@ msgstr "Pripravljeno za začetek ..."
 msgid "New default path for files selected"
 msgstr "Nova privzeta pot za izbrane datoteke"
 
-#: ../src/browser.c:770 ../src/easytag.c:5018
+#: ../src/browser.c:770
+#: ../src/easytag.c:5018
 msgid "Some files have been modified but not saved"
 msgstr "Nekatere datoteke so bile spremenjene, ne pa tudi shranjene"
 
@@ -752,38 +744,54 @@ msgstr "<Vsi albumi>"
 msgid "Error: Searching for %s, could not find node %s in tree."
 msgstr "Napaka: iskanje %s, vozlišča %s v drevesu ni mogoče najti"
 
-#: ../src/browser.c:2980 ../src/browser.c:3112
+#: ../src/browser.c:2980
+#: ../src/browser.c:3112
 msgid "Tree"
 msgstr "Drevo"
 
-#: ../src/browser.c:2981 ../src/cddb.c:756 ../src/misc.c:1935
+#: ../src/browser.c:2981
+#: ../src/cddb.c:756
+#: ../src/misc.c:1935
 msgid "File Name"
 msgstr "Ime datoteke"
 
-#: ../src/browser.c:2981 ../src/cddb.c:757 ../src/misc.c:1936
+#: ../src/browser.c:2981
+#: ../src/cddb.c:757
+#: ../src/misc.c:1936
 #: ../src/prefs.c:665
 msgid "Title"
 msgstr "Naslov"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Artist".
-#: ../src/browser.c:2981 ../src/browser.c:2985 ../src/cddb.c:442
-#: ../src/cddb.c:758 ../src/misc.c:1937 ../src/prefs.c:666
+#: ../src/browser.c:2981
+#: ../src/browser.c:2985
+#: ../src/cddb.c:442
+#: ../src/cddb.c:758
+#: ../src/misc.c:1937
+#: ../src/prefs.c:666
 msgid "Artist"
 msgstr "Izvajalec"
 
-#: ../src/browser.c:2981 ../src/misc.c:1938
+#: ../src/browser.c:2981
+#: ../src/misc.c:1938
 msgid "Album Artist"
 msgstr "Izvajalec albuma"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Album".
-#: ../src/browser.c:2981 ../src/browser.c:2986 ../src/cddb.c:445
-#: ../src/cddb.c:759 ../src/misc.c:1939 ../src/prefs.c:667
+#: ../src/browser.c:2981
+#: ../src/browser.c:2986
+#: ../src/cddb.c:445
+#: ../src/cddb.c:759
+#: ../src/misc.c:1939
+#: ../src/prefs.c:667
 msgid "Album"
 msgstr "Album"
 
-#: ../src/browser.c:2982 ../src/cddb.c:760 ../src/misc.c:1941
+#: ../src/browser.c:2982
+#: ../src/cddb.c:760
+#: ../src/misc.c:1941
 msgid "Year"
 msgstr "Leto"
 
@@ -791,38 +799,48 @@ msgstr "Leto"
 msgid "Disc"
 msgstr "Disk"
 
-#: ../src/browser.c:2982 ../src/misc.c:1942
-#, fuzzy
+#: ../src/browser.c:2982
+#: ../src/misc.c:1942
 msgid "Track"
 msgstr "Posnetek"
 
-#: ../src/browser.c:2982 ../src/cddb.c:763 ../src/misc.c:1943
+#: ../src/browser.c:2982
+#: ../src/cddb.c:763
+#: ../src/misc.c:1943
 #: ../src/prefs.c:668
 msgid "Genre"
 msgstr "Zvrst"
 
-#: ../src/browser.c:2982 ../src/misc.c:1944 ../src/prefs.c:669
+#: ../src/browser.c:2982
+#: ../src/misc.c:1944
+#: ../src/prefs.c:669
 msgid "Comment"
 msgstr "Opomba"
 
-#: ../src/browser.c:2983 ../src/misc.c:1945 ../src/picture.c:811
+#: ../src/browser.c:2983
+#: ../src/misc.c:1945
+#: ../src/picture.c:811
 #: ../src/prefs.c:670
 msgid "Composer"
 msgstr "Skladatelj"
 
-#: ../src/browser.c:2983 ../src/misc.c:1946
+#: ../src/browser.c:2983
+#: ../src/misc.c:1946
 msgid "Original Artist"
 msgstr "Izvirni izvajalec"
 
-#: ../src/browser.c:2983 ../src/misc.c:1947
+#: ../src/browser.c:2983
+#: ../src/misc.c:1947
 msgid "Copyright"
 msgstr "Avtorske pravice"
 
-#: ../src/browser.c:2984 ../src/misc.c:1948
+#: ../src/browser.c:2984
+#: ../src/misc.c:1948
 msgid "URL"
 msgstr "Naslov URL"
 
-#: ../src/browser.c:2984 ../src/misc.c:1949
+#: ../src/browser.c:2984
+#: ../src/misc.c:1949
 #, fuzzy
 msgid "Encoded By"
 msgstr "Kodirali"
@@ -831,7 +849,8 @@ msgstr "Kodirali"
 msgid "# Albums"
 msgstr "Št. albumov"
 
-#: ../src/browser.c:2985 ../src/browser.c:2986
+#: ../src/browser.c:2985
+#: ../src/browser.c:2986
 msgid "# Files"
 msgstr "Št. datotek"
 
@@ -851,7 +870,8 @@ msgstr "Izberite mapo za brskanje."
 #. * The label for displaying number of files in path (without subdirs)
 #.
 #. Translators: No files, as in "0 files".
-#: ../src/browser.c:3039 ../src/easytag.c:3715
+#: ../src/browser.c:3039
+#: ../src/easytag.c:3715
 msgid "No files"
 msgstr "Ni datotek"
 
@@ -868,7 +888,8 @@ msgstr "Preimenuj mapo"
 msgid "Rename the directory '%s' to:"
 msgstr "Preimenuj mapo '%s' v:"
 
-#: ../src/browser.c:3696 ../src/misc.c:1280
+#: ../src/browser.c:3696
+#: ../src/misc.c:1280
 msgid "Use mask:"
 msgstr "Uporabi masko:"
 
@@ -877,13 +898,15 @@ msgid "If activated, it will use masks to rename directory."
 msgstr "Če je omogočeno, bo preimenovanje mape izvedeno z maskami."
 
 #: ../src/browser.c:3717
-msgid ""
-"Select or type in a mask using codes (see Legend in Scanner Window) to "
-"rename the directory from tag fields."
+msgid "Select or type in a mask using codes (see Legend in Scanner Window) to rename the directory from tag fields."
 msgstr ""
 
-#: ../src/browser.c:3737 ../src/misc.c:1301 ../src/misc.c:1400
-#: ../src/scan.c:2506 ../src/scan.c:2573 ../src/scan.c:2940
+#: ../src/browser.c:3737
+#: ../src/misc.c:1301
+#: ../src/misc.c:1400
+#: ../src/scan.c:2506
+#: ../src/scan.c:2573
+#: ../src/scan.c:2940
 msgid "Invalid Scanner Mask"
 msgstr "Neveljavna maska optičnega bralnika"
 
@@ -896,7 +919,8 @@ msgstr "Preimenuj predogled mape ..."
 msgid "You must type a directory name"
 msgstr "Vnesti je treba ime mape."
 
-#: ../src/browser.c:3867 ../src/browser.c:3888
+#: ../src/browser.c:3867
+#: ../src/browser.c:3888
 msgid "Directory Name Error"
 msgstr "Napaka imena mape"
 
@@ -914,12 +938,17 @@ msgstr "Uporabite drugo ime."
 msgid "The directory name '%s' already exists"
 msgstr "Ime mape '%s' že obstaja"
 
-#: ../src/browser.c:3958 ../src/easytag.c:3088 ../src/easytag.c:3129
-#: ../src/easytag.c:3156 ../src/easytag.c:3199 ../src/easytag.c:3378
+#: ../src/browser.c:3958
+#: ../src/easytag.c:3088
+#: ../src/easytag.c:3129
+#: ../src/easytag.c:3156
+#: ../src/easytag.c:3199
+#: ../src/easytag.c:3378
 msgid "Rename File Error"
 msgstr "Napaka preimenovanja datoteke"
 
-#: ../src/browser.c:3997 ../src/browser.c:4027
+#: ../src/browser.c:3997
+#: ../src/browser.c:4027
 msgid "Rename Directory Error"
 msgstr "Napaka preimenovanja mape"
 
@@ -927,13 +956,13 @@ msgstr "Napaka preimenovanja mape"
 msgid "Directory renamed"
 msgstr "Mapa je preimenovana"
 
-#: ../src/browser.c:4144 ../src/browser.c:4304
+#: ../src/browser.c:4144
+#: ../src/browser.c:4304
 msgid "Program to run:"
 msgstr "Program za zagon:"
 
 #: ../src/browser.c:4157
-msgid ""
-"Enter the program to run. It will receive the current directory as parameter."
+msgid "Enter the program to run. It will receive the current directory as parameter."
 msgstr ""
 
 #: ../src/browser.c:4287
@@ -941,32 +970,34 @@ msgid "Open File with…"
 msgstr "Odpri datoteko z ..."
 
 #: ../src/browser.c:4317
-msgid ""
-"Enter the program to run. It will receive the current file as parameter."
+msgid "Enter the program to run. It will receive the current file as parameter."
 msgstr ""
 
 #: ../src/browser.c:4478
 msgid "You must type a program name"
-msgstr "Vnesti je treba ime programa"
+msgstr "Vnesti morate ime programa"
 
-#: ../src/browser.c:4479 ../src/browser.c:4496
+#: ../src/browser.c:4479
+#: ../src/browser.c:4496
 msgid "Program Name Error"
 msgstr "Napaka imena programa"
 
-#: ../src/browser.c:4494 ../src/misc.c:886
+#: ../src/browser.c:4494
+#: ../src/misc.c:886
 #, c-format
 msgid "The program '%s' cannot be found"
 msgstr "Programa '%s' ni mogoče najti."
 
-#: ../src/browser.c:4542 ../src/misc.c:931
-#, fuzzy, c-format
+#: ../src/browser.c:4542
+#: ../src/misc.c:931
+#, c-format
 msgid "Cannot execute %s (error %d)\n"
-msgstr "NAPAKA: Ni mogoč dostop do %s\n"
+msgstr "Ni mogoče izvesti %s (napaka %d)\n"
 
 #: ../src/browser.c:4561
 #, fuzzy
 msgid "Cannot fork another process\n"
-msgstr "Ni mogoče razvejiti pomočnika za zaklepanje: %s"
+msgstr "Ni mogoče razvejiti v drug postopek\n"
 
 #: ../src/browser.c:4596
 #, c-format
@@ -984,7 +1015,8 @@ msgstr "Kategorija"
 #. Note: don't set "" instead of NULL else this will cause problem with translation language
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Track Name".
-#: ../src/cddb.c:230 ../src/cddb.c:448
+#: ../src/cddb.c:230
+#: ../src/cddb.c:448
 msgid "Track Name"
 msgstr "Ime posnetka"
 
@@ -993,9 +1025,8 @@ msgid "Duration"
 msgstr "Trajanje"
 
 #: ../src/cddb.c:241
-#, fuzzy
 msgid "CD Database Search"
-msgstr "Podatkovna zbirka XMCD CD"
+msgstr "Iskanje po zbirki podatkov CD"
 
 #.
 #. * 1 - Page for automatic search (generate the CDDBId from files)
@@ -1005,17 +1036,15 @@ msgid "Automatic Search"
 msgstr "Samodejno iskanje"
 
 #: ../src/cddb.c:285
-#, fuzzy
 msgid "Request CD database:"
-msgstr "Zahtevaj podatkovno zbirko CD:"
+msgstr "Zahtevaj zbirko podatkov CD:"
 
 #: ../src/cddb.c:295
-msgid ""
-"Request automatically the CDDB database using the selected files (the order "
-"is important) to generate the CddbID"
+msgid "Request automatically the CDDB database using the selected files (the order is important) to generate the CddbID"
 msgstr ""
 
-#: ../src/cddb.c:305 ../src/cddb.c:416
+#: ../src/cddb.c:305
+#: ../src/cddb.c:416
 msgid "Stop the search…"
 msgstr "Zaustavi iskanje ..."
 
@@ -1024,10 +1053,9 @@ msgstr "Zaustavi iskanje ..."
 msgid "Use local CDDB"
 msgstr "Uporabi krajevni CDDB"
 
-#: ../src/cddb.c:315 ../src/cddb.c:803
-msgid ""
-"When activating this option, after loading the fields, the current selected "
-"scanner will be ran (the scanner window must be opened)."
+#: ../src/cddb.c:315
+#: ../src/cddb.c:803
+msgid "When activating this option, after loading the fields, the current selected scanner will be ran (the scanner window must be opened)."
 msgstr ""
 
 #.
@@ -1061,7 +1089,9 @@ msgstr "Vsa polja"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Other".
-#: ../src/cddb.c:451 ../src/picture.c:789 ../src/prefs.c:844
+#: ../src/cddb.c:451
+#: ../src/picture.c:789
+#: ../src/prefs.c:844
 msgid "Other"
 msgstr "Ostalo"
 
@@ -1156,7 +1186,8 @@ msgstr "Kategorije"
 msgid "Results:"
 msgstr "Rezultati:"
 
-#: ../src/cddb.c:566 ../src/misc.c:1987
+#: ../src/cddb.c:566
+#: ../src/misc.c:1987
 msgid "Search:"
 msgstr "Poišči:"
 
@@ -1174,7 +1205,7 @@ msgstr "Poišči predhodno"
 
 #: ../src/cddb.c:609
 msgid "Show only red lines (or show all lines) in the 'Artist / Album' list"
-msgstr ""
+msgstr "Pokaži le rdeče vrstice (ali pokaži vse vrstice) na seznamu 'Izvajalec / album'"
 
 #: ../src/cddb.c:615
 msgid "Unselect all lines"
@@ -1190,8 +1221,7 @@ msgstr "Izberi vse vrstice"
 
 #: ../src/cddb.c:740
 msgid ""
-"Select lines to 'apply' to your files list. All lines will be processed if "
-"no line is selected.\n"
+"Select lines to 'apply' to your files list. All lines will be processed if no line is selected.\n"
 "You can also reorder lines in this list before using 'apply' button."
 msgstr ""
 
@@ -1216,56 +1246,53 @@ msgid "# Tracks"
 msgstr "# posnetkov"
 
 #. Check box to run the scanner
-#: ../src/cddb.c:800 ../src/misc.c:3033
+#: ../src/cddb.c:800
+#: ../src/misc.c:3033
 msgid "Run the current scanner for each file"
 msgstr ""
 
 #. Check box to use DLM (also used in the preferences window)
 #: ../src/cddb.c:807
+#, fuzzy
 msgid "Match lines with the Levenshtein algorithm"
-msgstr ""
+msgstr "Poišči ujemajoče vrstice z algoritmom Levenshtein"
 
 #. Doesn't activate it by default because if the new user don't pay attention to it,
 #. it will not understand why the cddb results aren't loaded correctly...
 #. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbUseDLM2),CDDB_USE_DLM);
-#: ../src/cddb.c:812 ../src/prefs.c:1420
-msgid ""
-"When activating this option, the Levenshtein algorithm (DLM: Damerau-"
-"Levenshtein Metric) will be used to match the CDDB title against every file "
-"name in the current folder, and to select the best match. This will be used "
-"when selecting the corresponding audio file, or applying CDDB results, "
-"instead of using directly the position order."
+#: ../src/cddb.c:812
+#: ../src/prefs.c:1420
+msgid "When activating this option, the Levenshtein algorithm (DLM: Damerau-Levenshtein Metric) will be used to match the CDDB title against every file name in the current folder, and to select the best match. This will be used when selecting the corresponding audio file, or applying CDDB results, instead of using directly the position order."
 msgstr ""
 
 #: ../src/cddb.c:824
 msgid "Load the selected lines or all lines (if no line selected)."
-msgstr ""
+msgstr "Naloži izbrane vrstice ali vse vrstice (če ni izbrana nobena vrstica)"
 
-#: ../src/cddb.c:833 ../src/misc.c:2252
-#, fuzzy
+#: ../src/cddb.c:833
+#: ../src/misc.c:2252
 msgid "Ready to search…"
 msgstr "Pripravljeno na iskanje ..."
 
 #: ../src/cddb.c:1360
 #, c-format
-msgid ""
-"Album: '%s', artist: '%s', length: '%s', year: '%s', genre: '%s', ID: '%s'"
-msgstr ""
+msgid "Album: '%s', artist: '%s', length: '%s', year: '%s', genre: '%s', ID: '%s'"
+msgstr "Album: '%s', izvajalec: '%s', dolžina: '%s', leto: '%s', zvrst: '%s', ID: '%s'"
 
 #: ../src/cddb.c:1598
-#, fuzzy, c-format
+#, c-format
 msgid "Resolving host '%s'…"
-msgstr "_Ime gostitelja"
+msgstr "Razločevanje gostitelja '%s' ..."
 
 #: ../src/cddb.c:1606
-#, fuzzy, c-format
+#, c-format
 msgid "Can't resolve host '%s' (%s)."
-msgstr "Imena gostitelja ni mogoče razrešiti."
+msgstr "Gostitelja '%s' ni mogoče razločiti (%s)."
 
 #: ../src/cddb.c:1621
 #, fuzzy, c-format
 msgid "Cannot create a new socket (%s)"
-msgstr "Ni mogoče ustvariti novega dogodka"
+msgstr "Nove vtičnice ni mogoče ustvariti (%s)"
 
 #. Open connection to the server
 #: ../src/cddb.c:1635
@@ -1289,16 +1316,17 @@ msgid "Receiving data (%s)…"
 msgstr "Prejemanje podatkov (%s) ..."
 
 #: ../src/cddb.c:1737
-#, fuzzy, c-format
+#, c-format
 msgid "Error when reading CDDB response (%s)"
-msgstr "_Predogled videa"
+msgstr "Napaka pri branju odgovora CDDB (%s)"
 
 #: ../src/cddb.c:1744
 #, c-format
 msgid "Cannot create file '%s' (%s)"
 msgstr "Datoteke '%s' ni mogoče ustvariti (%s)."
 
-#: ../src/cddb.c:1785 ../src/setting.c:1224
+#: ../src/cddb.c:1785
+#: ../src/setting.c:1224
 #, c-format
 msgid "Cannot open file '%s' (%s)"
 msgstr "Datoteke '%s' ni mogoče odpreti (%s)."
@@ -1309,11 +1337,16 @@ msgstr "Datoteke '%s' ni mogoče odpreti (%s)."
 #. Send the request
 #. g_print("Request Cddb_Get_Album_Tracks_List : '%s'\n", cddb_in);
 #. Send the request
-#: ../src/cddb.c:2244 ../src/cddb.c:2573 ../src/cddb.c:3446
+#: ../src/cddb.c:2244
+#: ../src/cddb.c:2573
+#: ../src/cddb.c:3446
 msgid "Sending request…"
 msgstr "Pošiljanje zahteve ..."
 
-#: ../src/cddb.c:2248 ../src/cddb.c:2577 ../src/cddb.c:3146 ../src/cddb.c:3450
+#: ../src/cddb.c:2248
+#: ../src/cddb.c:2577
+#: ../src/cddb.c:3146
+#: ../src/cddb.c:3450
 #, c-format
 msgid "Cannot send the request (%s)"
 msgstr "Zahteve ni mogoče poslati (%s)"
@@ -1322,16 +1355,24 @@ msgstr "Zahteve ni mogoče poslati (%s)"
 #. * Read the answer
 #.
 #. Read the answer
-#: ../src/cddb.c:2274 ../src/cddb.c:3159 ../src/cddb.c:3459
+#: ../src/cddb.c:2274
+#: ../src/cddb.c:3159
+#: ../src/cddb.c:3459
 msgid "Receiving data…"
 msgstr "Prejemanje podatkov ..."
 
-#: ../src/cddb.c:2281 ../src/cddb.c:2606 ../src/cddb.c:3166 ../src/cddb.c:3466
+#: ../src/cddb.c:2281
+#: ../src/cddb.c:2606
+#: ../src/cddb.c:3166
+#: ../src/cddb.c:3466
 #, fuzzy
 msgid "The server returned a bad response"
 msgstr "Strežnik je vrnil izmaličen odgovor."
 
-#: ../src/cddb.c:2295 ../src/cddb.c:2622 ../src/cddb.c:3181 ../src/cddb.c:3483
+#: ../src/cddb.c:2295
+#: ../src/cddb.c:2622
+#: ../src/cddb.c:3181
+#: ../src/cddb.c:3483
 #: ../src/cddb.c:3498
 #, fuzzy, c-format
 msgid "The server returned a bad response: %s"
@@ -1342,19 +1383,20 @@ msgstr "Strežnik je vrnil izmaličen odgovor: %s"
 msgid "Sorry, the web-based search is currently not available"
 msgstr ""
 
-#: ../src/cddb.c:2444 ../src/cddb.c:2793
-#, fuzzy, c-format
+#: ../src/cddb.c:2444
+#: ../src/cddb.c:2793
+#, c-format
 msgid "Found one matching album"
 msgid_plural "Found %d matching albums"
-msgstr[0] "Fotografije, ki se sklada z {0}, ni bilo mogoče najti"
-msgstr[1] "Po istem _albumu"
-msgstr[2] "Po istem _albumu"
-msgstr[3] "Po istem _albumu"
+msgstr[0] "Najdenih %d ustreznih albumov"
+msgstr[1] "Najden %d ustrezen album"
+msgstr[2] "Najdena %d ustrezna albuma"
+msgstr[3] "Najdeni %d ustrezni albumi"
 
 #: ../src/cddb.c:2594
-#, fuzzy, c-format
+#, c-format
 msgid "Receiving data of page %d (album %d/%d)…"
-msgstr "album, ki vsebuje te podatke"
+msgstr "Prejemanje podatkov strani %d (album %d/%d) ..."
 
 #: ../src/cddb.c:2596
 #, c-format
@@ -1400,7 +1442,7 @@ msgstr ""
 #: ../src/cddb.c:2991
 #, fuzzy
 msgid "Local CD search…"
-msgstr "Uvažanje zvočnega CD-ja"
+msgstr "Iskanje krajevnega CD-ja ..."
 
 #. g_print("Request Cddb_Search_Album_From_Selected_Files : '%s'\n", cddb_in);
 #: ../src/cddb.c:3136
@@ -1424,18 +1466,16 @@ msgstr "Datoteke ni mogoče naložiti: '%s' (%s)."
 
 #. Load the track list of the album
 #: ../src/cddb.c:3689
-#, fuzzy
 msgid "Loading album track list…"
-msgstr "Lega sledi v albumu."
+msgstr "Nalaganje seznama posnetkov na albumu ..."
 
 #: ../src/cddb.c:3892
 msgid "The number of CDDB results does not match the number of selected files"
-msgstr ""
+msgstr "Število zadetkov CDDB se ne ujema s številom izbranih datotek"
 
 #: ../src/cddb.c:3895
-#, fuzzy
 msgid "Write Tag from CDDB…"
-msgstr "Odstranitev oznak iz izbora"
+msgstr "Zapiši oznako iz CDDB ..."
 
 #: ../src/charset.c:49
 msgid "Arabic (IBM-864)"
@@ -1623,25 +1663,26 @@ msgstr "Zahodno (Windows-1252)"
 msgid "The filename '%s' couldn't be converted into UTF-8 (%s)."
 msgstr "Imena datoteke '%s' ni mogoče pretvoriti v UTF-8 (%s)."
 
-#: ../src/charset.c:516 ../src/charset.c:615 ../src/charset.c:679
+#: ../src/charset.c:516
+#: ../src/charset.c:615
+#: ../src/charset.c:679
 msgid "Invalid UTF-8"
 msgstr "Neveljavna oznaka UTF-8"
 
 #: ../src/charset.c:614
 #, c-format
-msgid ""
-"The UTF-8 string '%s' couldn't be converted into filename encoding (%s)."
-msgstr ""
+msgid "The UTF-8 string '%s' couldn't be converted into filename encoding (%s)."
+msgstr "Niza UTF-8 '%s' ni mogoče pretvoriti v kodiranje imen datotek (%s)."
 
 #: ../src/charset.c:678
 #, c-format
 msgid "The string '%s' couldn't be converted into UTF-8 (%s)."
-msgstr ""
+msgstr "Niza '%s' ni mogoče pretvoriti v UTF-8 (%s)."
 
 #: ../src/easytag.c:270
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown parameter or path '%s'\n"
-msgstr "Neznan parameter v ukazni vrstici {0}"
+msgstr "Neznan parameter ali pot '%s'\n"
 
 #. Starting messages
 #: ../src/easytag.c:309
@@ -1652,17 +1693,17 @@ msgstr "začenjanje (različica %s), pid %u uporabnik '%s'"
 #: ../src/easytag.c:311
 #, c-format
 msgid "Currently using libid3tag version %s…"
-msgstr ""
+msgstr "Trenutno uporabljate libid3tag različice %s …"
 
 #: ../src/easytag.c:314
 #, c-format
 msgid "Currently using id3lib version %d.%d.%d…"
-msgstr ""
+msgstr "Trenutno uporabljate id3lib različice %d.%d.%d …"
 
 #: ../src/easytag.c:321
 #, c-format
 msgid "Variable EASYTAGLANG defined. Setting locale: '%s'"
-msgstr ""
+msgstr "Spremenljivka EASYTAGLANG določena. Nastavljanje krajevnih nastavitev: '%s'"
 
 #: ../src/easytag.c:323
 #, fuzzy, c-format
@@ -1670,9 +1711,9 @@ msgid "Setting locale: '%s'"
 msgstr "Trenutne jezikovne nastavitve"
 
 #: ../src/easytag.c:327
-#, c-format
+#, fuzzy, c-format
 msgid "Currently using locale '%s' (and eventually '%s')…"
-msgstr ""
+msgstr "Trenutno uporabljate krajevne nastavitve '%s' (in navsezadnje '%s') …"
 
 #: ../src/easytag.c:334
 #, fuzzy
@@ -1682,11 +1723,14 @@ msgstr "Ni mogoče ustvariti poročila o hrošču: %s\n"
 #.
 #. * Browser
 #.
-#: ../src/easytag.c:484 ../src/prefs.c:139 ../src/prefs.c:140
+#: ../src/easytag.c:484
+#: ../src/prefs.c:139
+#: ../src/prefs.c:140
 msgid "Browser"
 msgstr "Brskalnik"
 
-#: ../src/easytag.c:506 ../src/et_core.c:2666
+#: ../src/easytag.c:506
+#: ../src/et_core.c:2666
 msgid "File"
 msgstr "Datoteka"
 
@@ -1706,9 +1750,13 @@ msgstr "Poškodovana simbolna povezava"
 #. gtk_label_set_text(GTK_LABEL(VersionValueLabel),"");
 #. Version changed to encoder version
 #. Encoder version
-#: ../src/easytag.c:546 ../src/easytag.c:4530 ../src/flac_header.c:236
-#: ../src/monkeyaudio_header.c:96 ../src/musepack_header.c:98
-#: ../src/ogg_header.c:230 ../src/wavpack_header.c:72
+#: ../src/easytag.c:546
+#: ../src/easytag.c:4530
+#: ../src/flac_header.c:236
+#: ../src/monkeyaudio_header.c:96
+#: ../src/musepack_header.c:98
+#: ../src/ogg_header.c:230
+#: ../src/wavpack_header.c:72
 #, c-format
 msgid "Encoder:"
 msgstr "Kodirnik:"
@@ -1724,7 +1772,9 @@ msgid "Freq.:"
 msgstr "Frekv.:"
 
 #. Mode
-#: ../src/easytag.c:575 ../src/easytag.c:4534 ../src/mpeg_header.c:370
+#: ../src/easytag.c:575
+#: ../src/easytag.c:4534
+#: ../src/mpeg_header.c:370
 msgid "Mode:"
 msgstr "Način:"
 
@@ -1737,7 +1787,8 @@ msgid "Duration:"
 msgstr "Trajanje:"
 
 #. Main Frame
-#: ../src/easytag.c:633 ../src/et_core.c:2604
+#: ../src/easytag.c:633
+#: ../src/et_core.c:2604
 msgid "Tag"
 msgstr "Oznaka"
 
@@ -1804,7 +1855,7 @@ msgstr "Označi izbrane datoteke s tem letom"
 
 #: ../src/easytag.c:806
 msgid "Number selected tracks sequentially. Starts at 01 in each subdirectory."
-msgstr ""
+msgstr "Številči izbrane posnetke zaporedno. Začne z 01 v vsaki podmapi."
 
 #. To have enough space to display the icon
 #. To have enough space to display the icon
@@ -1813,14 +1864,12 @@ msgid "Track #:"
 msgstr "# posnetka:"
 
 #: ../src/easytag.c:846
-msgid ""
-"Set the number of files, in the same directory of the displayed file, to the "
-"selected tracks."
+msgid "Set the number of files, in the same directory of the displayed file, to the selected tracks."
 msgstr ""
 
 #: ../src/easytag.c:866
 msgid "Tag selected files with this number of tracks"
-msgstr ""
+msgstr "Označi izbrane datoteke s tem številom posnetkov"
 
 #. Genre
 #: ../src/easytag.c:872
@@ -1859,7 +1908,7 @@ msgstr "Izvirni izvajalec:"
 
 #: ../src/easytag.c:978
 msgid "Tag selected files with this original artist"
-msgstr ""
+msgstr "Označi izbrane datoteke s tem izvirnim izvajalcem"
 
 #. Copyright
 #: ../src/easytag.c:985
@@ -1886,7 +1935,7 @@ msgstr "Kodirano z:"
 
 #: ../src/easytag.c:1041
 msgid "Tag selected files with this encoder name"
-msgstr ""
+msgstr "Označi izbrane datoteke z imenom tega kodirnika"
 
 #.
 #. * 2 - Page for extra tag fields
@@ -1911,7 +1960,7 @@ msgstr "Označi izbrane datoteke s temi slikami"
 
 #: ../src/easytag.c:1189
 msgid "Add pictures to the tag (drag and drop is also available)."
-msgstr ""
+msgstr "Oznakam dodaj slike (na voljo je tudi povleci in spusti)."
 
 #: ../src/easytag.c:1195
 msgid "Remove selected pictures, else all pictures."
@@ -1922,9 +1971,8 @@ msgid "Save the selected pictures on the hard disk."
 msgstr "Shrani izbrane slike na trdem disku."
 
 #: ../src/easytag.c:1212
-#, fuzzy
 msgid "Set properties of the selected pictures."
-msgstr "Lastnosti izbranega podatkovnega vira:"
+msgstr "Nastavite lastnosti izbranih slik."
 
 #: ../src/easytag.c:1295
 #, fuzzy, c-format
@@ -1953,7 +2001,7 @@ msgstr "Izbrane datoteke so bile označene z izvajalcem albuma ('%s')."
 
 #: ../src/easytag.c:1335
 msgid "Removed album artist from selected files."
-msgstr ""
+msgstr "Iz izbranih datotek je bil odstranjen izvajalec albuma."
 
 #: ../src/easytag.c:1352
 #, fuzzy, c-format
@@ -1962,7 +2010,7 @@ msgstr "Izbrane datoteke označene z albumom '%s'."
 
 #: ../src/easytag.c:1354
 msgid "Removed album name from selected files."
-msgstr ""
+msgstr "Iz izbranih datotek je bilo odstranjeno ime albuma."
 
 #: ../src/easytag.c:1371
 #, c-format
@@ -1983,7 +2031,8 @@ msgstr "Izbrane datoteke odpri z izbranim programom"
 msgid "Removed year from selected files."
 msgstr "Odstrani izbrane datoteke iz projekta"
 
-#: ../src/easytag.c:1420 ../src/easytag.c:1516
+#: ../src/easytag.c:1420
+#: ../src/easytag.c:1516
 #, c-format
 msgid "Selected files tagged with track like 'xx/%s'."
 msgstr ""
@@ -1993,7 +2042,8 @@ msgstr ""
 msgid "Selected files tagged with track like 'xx'."
 msgstr ""
 
-#: ../src/easytag.c:1427 ../src/easytag.c:1519
+#: ../src/easytag.c:1427
+#: ../src/easytag.c:1519
 msgid "Removed track number from selected files."
 msgstr ""
 
@@ -2072,12 +2122,10 @@ msgid "Removed encoder name from selected files."
 msgstr ""
 
 #: ../src/easytag.c:1695
-#, fuzzy
 msgid "Selected files tagged with pictures."
-msgstr "Izbrane datoteke odpri z izbranim programom"
+msgstr "Izbrane datoteke označene s slikami."
 
 #: ../src/easytag.c:1697
-#, fuzzy
 msgid "Removed pictures from selected files."
 msgstr "Slike odstranjene z vseh izbranih datotek."
 
@@ -2086,7 +2134,6 @@ msgid "Select Mode and Mask, and redo the same action"
 msgstr ""
 
 #: ../src/easytag.c:1992
-#, fuzzy
 msgid "All tags have been scanned"
 msgstr "Vse oznake so bile pregledane."
 
@@ -2107,7 +2154,8 @@ msgstr[3] ""
 msgid "Do you want to continue saving the file?"
 msgstr "Želite nadaljevati s shranjevanjem datoteke?"
 
-#: ../src/easytag.c:2400 ../src/easytag.c:2421
+#: ../src/easytag.c:2400
+#: ../src/easytag.c:2421
 msgid "Saving files was stopped…"
 msgstr "Shranjevanje datotek je bilo ustavljeno ..."
 
@@ -2124,16 +2172,18 @@ msgid "All files have been deleted…"
 msgstr "Vse datoteke niso bile izbrisane ..."
 
 #: ../src/easytag.c:2691
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to write the tag of file '%s'?"
-msgstr "Ali želite odstraniti datoteke?"
+msgstr "Ali želite zapisati oznako datoteke '%s'?"
 
 #: ../src/easytag.c:2693
 #, fuzzy
 msgid "Confirm Tag Writing"
 msgstr "Zapisovanje podatkovne zbirke predstavnih datotek"
 
-#: ../src/easytag.c:2698 ../src/easytag.c:2810 ../src/easytag.c:3437
+#: ../src/easytag.c:2698
+#: ../src/easytag.c:2810
+#: ../src/easytag.c:3437
 msgid "Repeat action for the remaining files"
 msgstr "Ponovi dejanje za ostale datoteke"
 
@@ -2147,9 +2197,9 @@ msgid "File and directory rename confirmation required"
 msgstr ""
 
 #: ../src/easytag.c:2776
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to rename the file and directory '%s' to '%s'?"
-msgstr "Ali želite zavreči spremembe in ponovno naložiti datoteko?"
+msgstr "Ali želite preimenovati datoteko in mapo '%s' v '%s'?"
 
 #: ../src/easytag.c:2782
 #, fuzzy
@@ -2157,9 +2207,9 @@ msgid "Directory rename confirmation required"
 msgstr "Preimenuj datoteko ali mapo"
 
 #: ../src/easytag.c:2783
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to rename the directory '%s' to '%s'?"
-msgstr "Premakni izbrane datoteke iz smeti"
+msgstr "Ali želite preimenovati mapo '%s' v '%s'?"
 
 #. Only filename changed
 #: ../src/easytag.c:2789
@@ -2179,27 +2229,27 @@ msgstr "Ali želite preimenovati datoteko '%s' v '%s'?"
 #: ../src/easytag.c:2885
 #, fuzzy, c-format
 msgid "Writing tag of '%s'"
-msgstr "Oznaka objave:"
+msgstr "Zapisovanje oznake '%s'"
 
 #: ../src/easytag.c:2891
 #, fuzzy
 msgid "Tag(s) written"
-msgstr "Napisali"
+msgstr "Oznake zapisane"
 
-#: ../src/easytag.c:2902 ../src/easytag.c:2908
-#, fuzzy, c-format
+#: ../src/easytag.c:2902
+#: ../src/easytag.c:2908
+#, c-format
 msgid "Cannot write tag in file '%s' (%s)"
-msgstr "Ni mogoče pisati v začasno datoteko %s"
+msgstr "V datoteko '%s' ni mogoče zapisati oznake (%s)"
 
 #: ../src/easytag.c:2921
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot write tag in file '%s'"
-msgstr "Ni mogoče pisati v začasno datoteko %s"
+msgstr "V datoteko '%s' ni mogoče zapisati oznake"
 
 #: ../src/easytag.c:2924
-#, fuzzy
 msgid "Tag Write Error"
-msgstr "Raven napak pisanja"
+msgstr "Napaka zapisovanja oznake"
 
 #: ../src/easytag.c:3056
 #, c-format
@@ -2208,26 +2258,31 @@ msgstr "Poteka preimenovanje datoteke '%s'"
 
 #. Renaming file to the temporary filename has failed
 #: ../src/easytag.c:3076
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot rename file '%s' to '%s' (%s)"
-msgstr "Ni mogoče preimenovati datoteke %s v %s"
+msgstr "Datoteke '%s' ni mogoče preimenovati v '%s' (%s)"
 
-#: ../src/easytag.c:3084 ../src/easytag.c:3125 ../src/easytag.c:3153
+#: ../src/easytag.c:3084
+#: ../src/easytag.c:3125
+#: ../src/easytag.c:3153
 #: ../src/easytag.c:3374
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot rename file '%s' to '%s'"
-msgstr "Ni mogoče preimenovati datoteke %s v %s"
+msgstr "Datoteke '%s' ni mogoče preimenovati v '%s'"
 
-#: ../src/easytag.c:3096 ../src/easytag.c:3140 ../src/easytag.c:3166
+#: ../src/easytag.c:3096
+#: ../src/easytag.c:3140
+#: ../src/easytag.c:3166
 #: ../src/easytag.c:3388
 #, fuzzy
 msgid "File(s) not renamed…"
-msgstr "Datoteke ni mogoče najti"
+msgstr "Datoteke niso bile preimenovane ..."
 
-#: ../src/easytag.c:3135 ../src/easytag.c:3384
-#, fuzzy, c-format
+#: ../src/easytag.c:3135
+#: ../src/easytag.c:3384
+#, c-format
 msgid "Cannot rename file '%s' to '%s': %s"
-msgstr "Ni mogoče preimenovati datoteke %s v %s"
+msgstr "Datoteke '%s' ni mogoče preimenovati v '%s': %s"
 
 #: ../src/easytag.c:3161
 #, c-format
@@ -2235,39 +2290,41 @@ msgid "Cannot rename file '%s' because the following file already exists: '%s'"
 msgstr ""
 
 #: ../src/easytag.c:3196
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot create target directory '%s'"
-msgstr "Ni mogoče ustvariti začasne mape."
+msgstr "Ciljne mape '%s' ni mogoče ustvariti."
 
 #: ../src/easytag.c:3204
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot create target directory '%s': %s"
-msgstr "Ni mogoče ustvariti začasne mape."
+msgstr "Ciljne mape '%s' ni mogoče ustvariti: %s"
 
 #. Renaming file has succeeded
 #: ../src/easytag.c:3223
-#, fuzzy, c-format
+#, c-format
 msgid "Renamed file '%s' to '%s'"
-msgstr "Izvoženo v datoteko:"
+msgstr "Datoteka '%s' preimenovana v '%s'"
 
 #: ../src/easytag.c:3229
 #, fuzzy
 msgid "File(s) renamed…"
-msgstr "Shrani datoteko"
+msgstr "Datoteke so bile preimenovane ..."
 
-#: ../src/easytag.c:3245 ../src/easytag.c:3303
-#, fuzzy, c-format
+#: ../src/easytag.c:3245
+#: ../src/easytag.c:3303
+#, c-format
 msgid "Cannot remove old directory '%s'"
-msgstr "_Izbriši staro domačo mapo"
+msgstr "Stare mape '%s' ni mogoče odstraniti"
 
-#: ../src/easytag.c:3248 ../src/easytag.c:3306
+#: ../src/easytag.c:3248
+#: ../src/easytag.c:3306
 msgid "Remove Directory Error"
 msgstr "Napaka odstranjevanja mape"
 
 #: ../src/easytag.c:3253
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot remove old directory '%s': %s"
-msgstr "_Izbriši staro domačo mapo"
+msgstr "Stare mape '%s' ni mogoče odstraniti: %s"
 
 #. Renaming file has succeeded
 #: ../src/easytag.c:3281
@@ -2278,12 +2335,12 @@ msgstr "Datoteka '%s' premaknjena v '%s'"
 #: ../src/easytag.c:3287
 #, fuzzy
 msgid "File(s) moved…"
-msgstr "Shrani datoteko"
+msgstr "Datoteke so bile premaknjene ..."
 
 #: ../src/easytag.c:3311
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot remove old directory '%s': (%s)"
-msgstr "_Izbriši staro domačo mapo"
+msgstr "Stare mape '%s' ni mogoče odstraniti: (%s)"
 
 #: ../src/easytag.c:3337
 #, fuzzy, c-format
@@ -2291,9 +2348,8 @@ msgid "Cannot move file '%s' to '%s'"
 msgstr "Priprava na premikanje %'d datotek (%S)"
 
 #: ../src/easytag.c:3341
-#, fuzzy
 msgid "File Move Error"
-msgstr "Napaka med branjem datoteke %s: %s"
+msgstr "Napaka pri premikanju datoteke"
 
 #: ../src/easytag.c:3347
 #, fuzzy, c-format
@@ -2303,14 +2359,16 @@ msgstr "Priprava na premikanje %'d datotek (%S)"
 #: ../src/easytag.c:3352
 #, fuzzy
 msgid "File(s) not moved…"
-msgstr "Datoteke ni mogoče najti"
+msgstr "Datoteke niso bile premaknjene ..."
 
-#: ../src/easytag.c:3434 ../src/easytag.c:3448
+#: ../src/easytag.c:3434
+#: ../src/easytag.c:3448
 #, c-format
 msgid "Do you really want to delete the file '%s'?"
 msgstr "Res želite izbrisati datoteko '%s'?"
 
-#: ../src/easytag.c:3440 ../src/easytag.c:3450
+#: ../src/easytag.c:3440
+#: ../src/easytag.c:3450
 msgid "Delete File"
 msgstr "Izbriši datoteko"
 
@@ -2334,7 +2392,8 @@ msgstr "Napaka branja mape"
 msgid "Search in progress…"
 msgstr "Iskanje je v teku ..."
 
-#: ../src/easytag.c:3648 ../src/et_core.c:2673
+#: ../src/easytag.c:3648
+#: ../src/et_core.c:2673
 #, c-format
 msgid "File: '%s'"
 msgstr "Datoteka: '%s'"
@@ -2348,17 +2407,15 @@ msgstr "Najdenih je %d datotek v tej mapi in njenih podrejenih mapah."
 #: ../src/easytag.c:3700
 #, fuzzy, c-format
 msgid "Found %d file(s) in this directory."
-msgstr "Vnesite kodo PIN TPM SRK:"
+msgstr "V tej mapi je %d datotek."
 
 #: ../src/easytag.c:3719
-#, fuzzy
 msgid "No file found in this directory and subdirectories"
-msgstr "Napaka: V mapi podatkov ni mogoče najti fotografij"
+msgstr "V mapi in njenih podmapah ni mogoče najti datotek"
 
 #: ../src/easytag.c:3721
-#, fuzzy
 msgid "No file found in this directory"
-msgstr "Napaka: V mapi podatkov ni mogoče najti fotografij"
+msgstr "V mapi ni mogoče najti datotek"
 
 #: ../src/easytag.c:3812
 msgid "Searching…"
@@ -2380,37 +2437,45 @@ msgid "Tag selected files with this field"
 msgstr "Označi izbrane datoteke s podatki tega polja"
 
 #. Group: character conversion
-#: ../src/easytag.c:4722 ../src/scan.c:2704
+#: ../src/easytag.c:4722
+#: ../src/scan.c:2704
 msgid "Convert '_' and '%20' to spaces"
 msgstr "Pretvori znaka '_' in '%20' v presledke"
 
-#: ../src/easytag.c:4729 ../src/scan.c:2705
+#: ../src/easytag.c:4729
+#: ../src/scan.c:2705
 msgid "Convert ' ' to '_'"
 msgstr "Pretvori ' ' v '_'"
 
 #. Group: capitalize, ...
-#: ../src/easytag.c:4740 ../src/scan.c:2756
+#: ../src/easytag.c:4740
+#: ../src/scan.c:2756
 #, fuzzy
 msgid "All uppercase"
 msgstr "Vse male črke"
 
-#: ../src/easytag.c:4747 ../src/scan.c:2757
+#: ../src/easytag.c:4747
+#: ../src/scan.c:2757
 #, fuzzy
 msgid "All lowercase"
 msgstr "Vse velike črke"
 
-#: ../src/easytag.c:4754 ../src/scan.c:2758
+#: ../src/easytag.c:4754
+#: ../src/scan.c:2758
 #, fuzzy
 msgid "First letter uppercase"
 msgstr "Samodejno popravi prvo črko"
 
-#: ../src/easytag.c:4761 ../src/scan.c:2759
+#: ../src/easytag.c:4761
+#: ../src/scan.c:2759
 #, fuzzy
 msgid "First letter uppercase of each word"
 msgstr "Naj bo prva črka vsake besede velika"
 
 #. Group: insert/remove spaces
-#: ../src/easytag.c:4772 ../src/prefs.c:1066 ../src/scan.c:2807
+#: ../src/easytag.c:4772
+#: ../src/prefs.c:1066
+#: ../src/scan.c:2807
 msgid "Remove spaces"
 msgstr "Odstrani presledke"
 
@@ -2437,12 +2502,10 @@ msgstr ""
 msgid "Received signal %s (%d)"
 msgstr "Prejet signal %s (%d)"
 
-#: ../src/easytag.c:4819 ../src/easytag.c:4829
+#: ../src/easytag.c:4819
+#: ../src/easytag.c:4829
 #, c-format
-msgid ""
-"You have probably found a bug in EasyTAG. Please, file a bug report with a "
-"GDB backtrace ('gdb easytag core' then 'bt' and 'l') and information to "
-"reproduce it at: %s"
+msgid "You have probably found a bug in EasyTAG. Please, file a bug report with a GDB backtrace ('gdb easytag core' then 'bt' and 'l') and information to reproduce it at: %s"
 msgstr ""
 
 #. To send messages to the console...
@@ -2544,10 +2607,10 @@ msgstr "Datoteka WavPack"
 #, c-format
 msgid "One file"
 msgid_plural "%u files"
-msgstr[0] "%u datotek"
-msgstr[1] "%u datoteka"
-msgstr[2] "%u datoteki"
-msgstr[3] "%u datoteke"
+msgstr[0] "%d datotek"
+msgstr[1] "%d datoteka"
+msgstr[2] "%d datoteki"
+msgstr[3] "%d datoteke"
 
 #: ../src/et_core.c:2946
 #, c-format
@@ -2555,33 +2618,43 @@ msgid "Pictures (%d)"
 msgstr "Slike (%d)"
 
 #. Bitrate
-#: ../src/et_core.c:2986 ../src/flac_header.c:240
-#: ../src/monkeyaudio_header.c:86 ../src/mp4_header.c:125
-#: ../src/mpeg_header.c:360 ../src/musepack_header.c:88
-#: ../src/ogg_header.c:242 ../src/wavpack_header.c:78
+#: ../src/et_core.c:2986
+#: ../src/flac_header.c:240
+#: ../src/monkeyaudio_header.c:86
+#: ../src/mp4_header.c:125
+#: ../src/mpeg_header.c:360
+#: ../src/musepack_header.c:88
+#: ../src/ogg_header.c:242
+#: ../src/wavpack_header.c:78
 #, c-format
 msgid "%d kb/s"
 msgstr "%d kb/s"
 
 #. Samplerate
-#: ../src/et_core.c:2991 ../src/flac_header.c:245
-#: ../src/monkeyaudio_header.c:91 ../src/mp4_header.c:130
-#: ../src/mpeg_header.c:365 ../src/musepack_header.c:93
-#: ../src/ogg_header.c:247 ../src/wavpack_header.c:83
+#: ../src/et_core.c:2991
+#: ../src/flac_header.c:245
+#: ../src/monkeyaudio_header.c:91
+#: ../src/mp4_header.c:130
+#: ../src/mpeg_header.c:365
+#: ../src/musepack_header.c:93
+#: ../src/ogg_header.c:247
+#: ../src/wavpack_header.c:83
 #, c-format
 msgid "%d Hz"
 msgstr "%d Hz"
 
-#: ../src/et_core.c:3135 ../src/scan.c:686
+#: ../src/et_core.c:3135
+#: ../src/scan.c:686
 #, c-format
 msgid "Could not convert filename '%s' into system filename encoding"
-msgstr ""
+msgstr "Imena datoteke '%s' ni mogoče pretvoriti v sistemsko kodiranje imen datotek"
 
 #: ../src/et_core.c:3137
 msgid "Try setting the environment variable G_FILENAME_ENCODING."
-msgstr ""
+msgstr "Poskusite nastaviti okoljsko spremenljivko G_FILENAME_ENCODING."
 
-#: ../src/et_core.c:3138 ../src/scan.c:688
+#: ../src/et_core.c:3138
+#: ../src/scan.c:688
 msgid "Filename translation"
 msgstr "Prevod imena datoteke"
 
@@ -2589,21 +2662,24 @@ msgstr "Prevod imena datoteke"
 #. Mode
 #. mpeg4ip library seems to always return -1
 #. Mode
-#: ../src/flac_header.c:250 ../src/mp4_header.c:136 ../src/ogg_header.c:252
+#: ../src/flac_header.c:250
+#: ../src/mp4_header.c:136
+#: ../src/ogg_header.c:252
 #: ../src/wavpack_header.c:88
 msgid "Channels:"
 msgstr "Kanali:"
 
-#: ../src/flac_tag.c:130 ../src/flac_tag.c:849 ../src/flac_tag.c:859
+#: ../src/flac_tag.c:130
+#: ../src/flac_tag.c:849
+#: ../src/flac_tag.c:859
 #, c-format
 msgid "Error while opening file: '%s' as FLAC (%s)."
 msgstr "Napaka pri odpiranju datoteke: '%s' kot FLAC (%s)."
 
-#: ../src/flac_tag.c:317 ../src/ogg_tag.c:297
+#: ../src/flac_tag.c:317
+#: ../src/ogg_tag.c:297
 #, c-format
-msgid ""
-"The year value '%s' seems to be invalid in file '%s'. The information will "
-"be lost while saving tag."
+msgid "The year value '%s' seems to be invalid in file '%s'. The information will be lost while saving tag."
 msgstr ""
 
 #: ../src/flac_tag.c:1063
@@ -2611,50 +2687,48 @@ msgstr ""
 msgid "Picture block isn't valid: '%s'"
 msgstr "Slikovni blok ni veljaven: '%s'"
 
-#: ../src/flac_tag.c:1096 ../src/ogg_tag.c:841
+#: ../src/flac_tag.c:1096
+#: ../src/ogg_tag.c:841
 #, fuzzy, c-format
 msgid "Error: Failed to write comments to file '%s' (%s)."
-msgstr ""
-"Ni mogoče zapisati dodajanja odjemalca v datoteko s shranjenim stanjem: %s"
+msgstr "Ni mogoče zapisati dodajanja odjemalca v datoteko s shranjenim stanjem: %s"
 
-#: ../src/flac_tag.c:1101 ../src/ogg_tag.c:848
-#, fuzzy, c-format
+#: ../src/flac_tag.c:1101
+#: ../src/ogg_tag.c:848
+#, c-format
 msgid "Written tag of '%s'"
-msgstr "Oznaka objave:"
+msgstr "Oznaka za '%s' zapisana"
 
 #: ../src/id3_tag.c:505
-#, fuzzy, c-format
+#, c-format
 msgid "Removed tag of '%s'"
-msgstr "Oznaka je bila uspešno odstranjena"
+msgstr "Oznaka za '%s' odstranjena"
 
-#: ../src/id3_tag.c:509 ../src/id3_tag.c:609
-#, fuzzy, c-format
+#: ../src/id3_tag.c:509
+#: ../src/id3_tag.c:609
+#, c-format
 msgid "Error while removing ID3v1 tag of '%s' (%s)"
-msgstr "Prišlo je do napake med odstranjevanjem skupine"
+msgstr "Napaka pri odstranjevanju oznake ID3v1 '%s' (%s)"
 
-#: ../src/id3_tag.c:511 ../src/id3_tag.c:581
-#, fuzzy, c-format
+#: ../src/id3_tag.c:511
+#: ../src/id3_tag.c:581
+#, c-format
 msgid "Error while removing ID3v2 tag of '%s' (%s)"
-msgstr "Prišlo je do napake med odstranjevanjem skupine"
+msgstr "Napaka pri odstranjevanju oznake ID3v2 '%s' (%s)"
 
 #: ../src/id3_tag.c:530
-#, fuzzy, c-format
+#, c-format
 msgid "Error while updating ID3v2 tag of '%s' (%s)"
-msgstr "Prišlo je do napake med posodabljanjem datotek."
+msgstr "Napaka pri posodabljanju oznake ID3v2 '%s' (%s)"
 
 #: ../src/id3_tag.c:558
-msgid ""
-"You have tried to save this tag to Unicode but it was detected that your "
-"version of id3lib is buggy"
+msgid "You have tried to save this tag to Unicode but it was detected that your version of id3lib is buggy"
 msgstr ""
 
 #: ../src/id3_tag.c:560
 #, c-format
 msgid ""
-"If you reload this file, some characters in the tag may not be displayed "
-"correctly. Please, apply the patch src/id3lib/"
-"patch_id3lib_3.8.3_UTF16_writing_bug.diff to id3lib, which is available in "
-"the EasyTAG package sources.\n"
+"If you reload this file, some characters in the tag may not be displayed correctly. Please, apply the patch src/id3lib/patch_id3lib_3.8.3_UTF16_writing_bug.diff to id3lib, which is available in the EasyTAG package sources.\n"
 "Note that this message will appear only once.\n"
 "\n"
 "File: %s"
@@ -2665,14 +2739,15 @@ msgid "Buggy id3lib"
 msgstr "Hroščat id3lib"
 
 #: ../src/id3_tag.c:601
-#, fuzzy, c-format
+#, c-format
 msgid "Error while updating ID3v1 tag of '%s' (%s)"
-msgstr "Prišlo je do napake med posodabljanjem datotek."
+msgstr "Napaka pri posodabljanju oznake ID3v1 '%s' (%s)"
 
-#: ../src/id3_tag.c:615 ../src/id3v24_tag.c:1035
-#, fuzzy, c-format
+#: ../src/id3_tag.c:615
+#: ../src/id3v24_tag.c:1035
+#, c-format
 msgid "Updated tag of '%s'"
-msgstr "Posodobljena oznaka za '%s'"
+msgstr "Oznaka za '%s' posodobljena"
 
 #: ../src/id3_tag.c:634
 msgid "No error reported"
@@ -2705,9 +2780,8 @@ msgid "Invalid frame ID"
 msgstr "Neveljaven ID posla."
 
 #: ../src/id3_tag.c:648
-#, fuzzy
 msgid "Requested field not found"
-msgstr "Zahtevanega predmeta '%s' ni mogoče najti"
+msgstr "Zahtevanega polja ni mogoče najti"
 
 #: ../src/id3_tag.c:650
 msgid "Unknown field type"
@@ -2718,9 +2792,8 @@ msgid "Tag is already attached to a file"
 msgstr ""
 
 #: ../src/id3_tag.c:654
-#, fuzzy
 msgid "Invalid tag version"
-msgstr "GPS oznaka različice."
+msgstr "Neveljavna različica oznak"
 
 #: ../src/id3_tag.c:656
 msgid "No file to parse"
@@ -2733,7 +2806,7 @@ msgstr ""
 #: ../src/id3_tag.c:660
 #, fuzzy
 msgid "Error in compression/uncompression"
-msgstr "Neznana napaka v modulu %s"
+msgstr "Napaka pri stiskanju/razširanju"
 
 #: ../src/id3_tag.c:662
 msgid "Unknown error message"
@@ -2741,9 +2814,7 @@ msgstr "Neznano sporočilo o napaki"
 
 #: ../src/id3_tag.c:1240
 #, c-format
-msgid ""
-"As the following corrupted file '%s' will cause an error in id3lib, it will "
-"not be processed"
+msgid "As the following corrupted file '%s' will cause an error in id3lib, it will not be processed"
 msgstr ""
 
 #: ../src/id3_tag.c:1242
@@ -2751,31 +2822,31 @@ msgid "Corrupted file"
 msgstr "Okvarjena datoteka"
 
 #: ../src/id3_tag.c:1281
-#, fuzzy, c-format
+#, c-format
 msgid "Error while creating temporary file: '%s'"
-msgstr "Med ustvarjanjem nove datoteke je prišlo do napake"
+msgstr "Med ustvarjanjem nove datoteke je prišlo do napake: '%s'"
 
 #: ../src/id3_tag.c:1288
-#, fuzzy
 msgid "Error while creating temporary file"
-msgstr "Med ustvarjanjem nove datoteke je prišlo do napake"
+msgstr "Pri ustvarjanju začasne datoteke je prišlo do napake"
 
 #: ../src/id3_tag.c:1305
-#, fuzzy, c-format
+#, c-format
 msgid "Error while writing to file: '%s' (%s)"
-msgstr "Napaka med pisanjem v slikovno datoteko: %s"
+msgstr "Napaka pri pisanju v datoteko: '%s' (%s)"
 
 #: ../src/id3v24_tag.c:116
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error while opening file: '%s' (%s).\n"
 "\a"
-msgstr "Napaka med odpiranjem datoteke Paradox."
+msgstr ""
+"Napaka pri odpiranju datoteke: '%s' (%s).\n"
+"\a"
 
 #: ../src/id3v24_tag.c:1478
 #, c-format
-msgid ""
-"Cannot write tag of file '%s' (%d bytes were read but %d bytes were expected)"
+msgid "Cannot write tag of file '%s' (%d bytes were read but %d bytes were expected)"
 msgstr ""
 
 #: ../src/id3v24_tag.c:1497
@@ -2796,14 +2867,12 @@ msgid "Select directory…"
 msgstr "Izberi mapo ..."
 
 #: ../src/misc.c:875
-#, fuzzy
 msgid "No audio player defined"
-msgstr "Ni določenega DSN z imenom '%s'"
+msgstr "Zvočni predvajalnik ni določen"
 
 #: ../src/misc.c:876
-#, fuzzy
 msgid "Audio Player Warning"
-msgstr "Digitalni zvočni predvajalnik"
+msgstr "Opozorilo zvočnega predvajalnika"
 
 #: ../src/misc.c:969
 msgid "Cannot fork another process"
@@ -2815,23 +2884,28 @@ msgid "Cannot execute %s (%s)"
 msgstr "Ni mogoče izvesti ukaza: \"%s\""
 
 #. Units Tab of file size (bytes,kilobytes,...)
-#: ../src/misc.c:1139 ../src/misc.c:1158
+#: ../src/misc.c:1139
+#: ../src/misc.c:1158
 msgid "B"
 msgstr "B"
 
-#: ../src/misc.c:1139 ../src/misc.c:1158
+#: ../src/misc.c:1139
+#: ../src/misc.c:1158
 msgid "KB"
 msgstr "KB"
 
-#: ../src/misc.c:1139 ../src/misc.c:1158
+#: ../src/misc.c:1139
+#: ../src/misc.c:1158
 msgid "MB"
 msgstr "MB"
 
-#: ../src/misc.c:1139 ../src/misc.c:1158
+#: ../src/misc.c:1139
+#: ../src/misc.c:1158
 msgid "GB"
 msgstr "GB"
 
-#: ../src/misc.c:1139 ../src/misc.c:1158
+#: ../src/misc.c:1139
+#: ../src/misc.c:1158
 msgid "TB"
 msgstr "TB"
 
@@ -2847,7 +2921,8 @@ msgstr "Ime seznama predvajanja M3U"
 msgid "Use directory name"
 msgstr "Uporabi ime mape"
 
-#: ../src/misc.c:1312 ../src/misc.c:1411
+#: ../src/misc.c:1312
+#: ../src/misc.c:1411
 msgid "Edit Masks"
 msgstr "Uredi maske"
 
@@ -2861,9 +2936,7 @@ msgid "Include only the selected files"
 msgstr "Vključi le izbrane datoteke"
 
 #: ../src/misc.c:1329
-msgid ""
-"If activated, only the selected files will be written in the playlist file. "
-"Else, all the files will be written."
+msgid "If activated, only the selected files will be written in the playlist file. Else, all the files will be written."
 msgstr ""
 
 #: ../src/misc.c:1336
@@ -2891,9 +2964,7 @@ msgid "Use DOS directory separator"
 msgstr "_Uporabi ločilnik za tisočice"
 
 #: ../src/misc.c:1362
-msgid ""
-"This option replaces the UNIX directory separator '/' into DOS separator "
-"'\\'."
+msgid "This option replaces the UNIX directory separator '/' into DOS separator '\\'."
 msgstr ""
 
 #: ../src/misc.c:1371
@@ -2921,7 +2992,7 @@ msgstr "Datoteka seznama predvajanja '%s' že obstaja."
 
 #: ../src/misc.c:1660
 msgid "Do you want to save the playlist, overwriting the existing file?"
-msgstr ""
+msgstr "Želite shraniti seznam predvajanja in s tem prepisati obstoječo datoteko?"
 
 #: ../src/misc.c:1662
 msgid "Write Playlist"
@@ -2950,9 +3021,9 @@ msgid "Find Files"
 msgstr "Najdi datoteke"
 
 #: ../src/misc.c:1998
-msgid ""
-"Type the word to search into files. Or type nothing to display all files."
-msgstr ""
+#, fuzzy
+msgid "Type the word to search into files. Or type nothing to display all files."
+msgstr "Vnesite besedo, ki jo iščete v datotekah. Ali pa ne vnesite ničesar, da se izpišejo vse datoteke."
 
 #. Where...
 #: ../src/misc.c:2004
@@ -2975,15 +3046,16 @@ msgid "the Tag"
 msgstr "Oznaka"
 
 #. Property of the search
-#: ../src/misc.c:2026 ../src/prefs.c:317
+#: ../src/misc.c:2026
+#: ../src/prefs.c:317
 #, fuzzy
 msgid "Case sensitive"
 msgstr "Razlikovanje velikosti črk"
 
 #: ../src/misc.c:2483
-#, fuzzy, c-format
+#, c-format
 msgid "Found: %d file(s)"
-msgstr "%'d najdenih datotek"
+msgstr "Najdenih: %d datotek"
 
 #: ../src/misc.c:2760
 msgid "Load the filenames from a TXT file"
@@ -3004,32 +3076,40 @@ msgid "Content of TXT file"
 msgstr "Vsebina datoteke TXT"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2851 ../src/misc.c:2945
+#: ../src/misc.c:2851
+#: ../src/misc.c:2945
 msgid "Insert a blank line before the selected line"
-msgstr ""
+msgstr "Vstavi prazno vrstico pred izbrano vrstico"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2860 ../src/misc.c:2954
+#: ../src/misc.c:2860
+#: ../src/misc.c:2954
 msgid "Delete the selected line"
 msgstr "Izbriši izbrano vrstico"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2869 ../src/misc.c:2963 ../src/misc.c:3449
+#: ../src/misc.c:2869
+#: ../src/misc.c:2963
+#: ../src/misc.c:3449
 msgid "Delete all blank lines"
 msgstr "Izbriši vse prazne vrstice"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2881 ../src/misc.c:2975
+#: ../src/misc.c:2881
+#: ../src/misc.c:2975
 msgid "Move up the selected line"
 msgstr "Pomakni izbrano vrstico navzgor"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2890 ../src/misc.c:2984
+#: ../src/misc.c:2890
+#: ../src/misc.c:2984
 msgid "Move down the selected line"
 msgstr "Pomakni izbrano vrstico navzdol"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2902 ../src/misc.c:2996 ../src/misc.c:3473
+#: ../src/misc.c:2902
+#: ../src/misc.c:2996
+#: ../src/misc.c:3473
 msgid "Reload"
 msgstr "Ponovno naloži"
 
@@ -3042,9 +3122,7 @@ msgid "Selected line:"
 msgstr "Izbrana vrstica:"
 
 #: ../src/misc.c:3036
-msgid ""
-"When activating this option, after loading the filenames, the current "
-"selected scanner will be ran (the scanner window must be opened)."
+msgid "When activating this option, after loading the filenames, the current selected scanner will be ran (the scanner window must be opened)."
 msgstr ""
 
 #: ../src/misc.c:3196
@@ -3069,17 +3147,20 @@ msgid "Move down this line"
 msgstr "Premakni to vrstico navzdol"
 
 #. Mode changed to profile name
-#: ../src/monkeyaudio_header.c:78 ../src/musepack_header.c:80
+#: ../src/monkeyaudio_header.c:78
+#: ../src/musepack_header.c:80
 #, c-format
 msgid "Profile:"
 msgstr "Profil:"
 
-#: ../src/mp4_header.c:64 ../src/mp4_tag.c:83 ../src/mp4_tag.c:195
-#, fuzzy
+#: ../src/mp4_header.c:64
+#: ../src/mp4_tag.c:83
+#: ../src/mp4_tag.c:195
 msgid "MP4 format invalid"
-msgstr "Neveljavna oblika vnosa"
+msgstr "Neveljaven zapis MP4"
 
-#: ../src/mp4_header.c:123 ../src/mpeg_header.c:358
+#: ../src/mp4_header.c:123
+#: ../src/mpeg_header.c:358
 #, c-format
 msgid "~%d kb/s"
 msgstr "~%d kb/s"
@@ -3107,9 +3188,7 @@ msgstr "MPEG"
 
 #: ../src/ogg_header.c:85
 #, c-format
-msgid ""
-"Ogg Vorbis: The specified bitstream does not exist or the file has been "
-"initialized improperly (file: '%s')."
+msgid "Ogg Vorbis: The specified bitstream does not exist or the file has been initialized improperly (file: '%s')."
 msgstr ""
 
 #: ../src/ogg_header.c:116
@@ -3134,12 +3213,12 @@ msgstr ""
 
 #: ../src/ogg_header.c:128
 #, c-format
-msgid ""
-"Ogg Vorbis: Internal logic fault, indicates a bug or heap/stack corruption "
-"(file: '%s')."
+msgid "Ogg Vorbis: Internal logic fault, indicates a bug or heap/stack corruption (file: '%s')."
 msgstr ""
 
-#: ../src/ogg_header.c:180 ../src/ogg_tag.c:187 ../src/ogg_tag.c:690
+#: ../src/ogg_header.c:180
+#: ../src/ogg_tag.c:187
+#: ../src/ogg_tag.c:690
 #, fuzzy, c-format
 msgid "Error: Failed to open file: '%s' as Vorbis (%s)."
 msgstr "Odpiranje datoteke uporabniškega vmesnika je spodletelo z napako:"
@@ -3153,11 +3232,13 @@ msgstr ""
 msgid "Add pictures"
 msgstr "Dodaj slike"
 
-#: ../src/picture.c:281 ../src/picture.c:620
+#: ../src/picture.c:281
+#: ../src/picture.c:620
 msgid "All Files"
 msgstr "Vse datoteke"
 
-#: ../src/picture.c:287 ../src/picture.c:626
+#: ../src/picture.c:287
+#: ../src/picture.c:626
 msgid "PNG and JPEG"
 msgstr "PNG in JPEG"
 
@@ -3188,7 +3269,7 @@ msgstr "Naslednja datoteka že obstaja: '%s'"
 #: ../src/picture.c:696
 #, fuzzy
 msgid "Do you want to save anyway, overwriting the file?"
-msgstr "Ali želite datoteko shraniti na varnejše mesto?"
+msgstr "Ali želite datoteko shraniti s prepisovanjem datoteke?"
 
 #: ../src/picture.c:698
 msgid "Save"
@@ -3213,22 +3294,20 @@ msgstr ""
 #: ../src/picture.c:793
 #, fuzzy
 msgid "Other file icon"
-msgstr "Uvozi _drugo vrsto datoteke ..."
+msgstr "Ikona druge vrste datoteke"
 
 #: ../src/picture.c:795
-#, fuzzy
 msgid "Cover (front)"
-msgstr "PREDNJA STRAN OVITKA"
+msgstr "Prednja stran ovitka"
 
 #: ../src/picture.c:797
-#, fuzzy
 msgid "Cover (back)"
-msgstr "ZADNJA STRAN OVITKA"
+msgstr "Hrbtna stran ovitka"
 
 #: ../src/picture.c:799
 #, fuzzy
 msgid "Leaflet page"
-msgstr "zavihek strani"
+msgstr "Stran knjižice"
 
 #: ../src/picture.c:801
 #, fuzzy
@@ -3283,25 +3362,24 @@ msgid "Illustration"
 msgstr "Ilustracija"
 
 #: ../src/picture.c:827
-#, fuzzy
 msgid "Band/Artist logotype"
-msgstr "Začetnice izvajalca albuma"
+msgstr "Logotip skupine/izvajalca"
 
 #: ../src/picture.c:829
-#, fuzzy
 msgid "Publisher/studio logotype"
-msgstr "Slikovna datoteka 3D Studio"
+msgstr "Logotip založbe/studia"
 
 #: ../src/picture.c:833
-#, fuzzy
 msgid "Unknown picture type"
-msgstr "Neznana MIME vrsta"
+msgstr "Neznana vrsta slike"
 
-#: ../src/picture.c:863 ../src/picture.c:874
+#: ../src/picture.c:863
+#: ../src/picture.c:874
 msgid "pixels"
 msgstr "točke"
 
-#: ../src/picture.c:864 ../src/picture.c:875
+#: ../src/picture.c:864
+#: ../src/picture.c:875
 msgid "Type"
 msgstr "Vrsta"
 
@@ -3310,60 +3388,56 @@ msgid "Description"
 msgstr "Opis"
 
 #: ../src/picture.c:932
-#, fuzzy, c-format
+#, c-format
 msgid "Error with 'loader_close': %s"
-msgstr "Napaka POP3: ni mogoče zapreti %s."
+msgstr "Napaka ob 'loader_close': %s"
 
 #: ../src/picture.c:989
-msgid ""
-"Cannot display the picture, as not enough data has been read to determine "
-"how to create the image buffer."
+msgid "Cannot display the picture, as not enough data has been read to determine how to create the image buffer."
 msgstr ""
 
 #: ../src/picture.c:996
-#, fuzzy
 msgid "Cannot display the picture"
-msgstr "Ni mogoče prikazati map."
+msgstr "Slike ni mogoče prikazati."
 
 #: ../src/picture.c:997
-msgid ""
-"Not enough data has been read to determine how to create the image buffer"
+msgid "Not enough data has been read to determine how to create the image buffer"
 msgstr ""
 
 #: ../src/picture.c:998
-#, fuzzy
 msgid "Load Picture File"
-msgstr "Naloži datoteko podnapisa"
+msgstr "Naloži slikovno datoteko"
 
 #: ../src/picture.c:1004
-#, fuzzy, c-format
+#, c-format
 msgid "Error with 'loader_write': %s"
-msgstr "NAPAKA: 'zapis' je spodletel: %s"
+msgstr "Napaka ob 'loader_write': %s"
 
-#: ../src/picture.c:1096 ../src/picture.c:1125 ../src/picture.c:1145
-#, fuzzy, c-format
+#: ../src/picture.c:1096
+#: ../src/picture.c:1125
+#: ../src/picture.c:1145
+#, c-format
 msgid "Picture file not loaded (%s)…"
-msgstr "Uporabniškega vmesnika datoteke \"%s\" ni mogoče naložiti"
+msgstr "Datoteka slike ni naložena (%s) ..."
 
 #: ../src/picture.c:1118
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot open file: '%s'"
-msgstr "Ni mogoče odpreti datoteke \"{0}\"."
+msgstr "Datoteke ni mogoče odpreti: '%s'"
 
 #: ../src/picture.c:1121
-#, fuzzy
 msgid "Picture File Error"
-msgstr "Napaka med branjem datoteke %s: %s"
+msgstr "Napaka slikovne datoteke"
 
 #: ../src/picture.c:1157
-#, fuzzy
 msgid "Picture file loaded…"
-msgstr "Ni mogoče shraniti slike v datoteko"
+msgstr "Slikovna datoteka naložena ..."
 
-#: ../src/picture.c:1174 ../src/picture.c:1181
-#, fuzzy, c-format
+#: ../src/picture.c:1174
+#: ../src/picture.c:1181
+#, c-format
 msgid "Picture file can't be saved (%s)…"
-msgstr "Ni mogoče dodati datotek (%i izbranih)"
+msgstr "Slikovne datoteke ni mogoče shraniti (%s) …"
 
 #. Title
 #: ../src/prefs.c:114
@@ -3381,29 +3455,22 @@ msgid "Default directory:"
 msgstr "Privzeta mapa:"
 
 #: ../src/prefs.c:174
-msgid ""
-"Specify the directory where your files are located. This path will be loaded "
-"when EasyTAG starts without parameter."
+msgid "Specify the directory where your files are located. This path will be loaded when EasyTAG starts without parameter."
 msgstr ""
 
 #. Load directory on startup
 #: ../src/prefs.c:195
-msgid ""
-"Load on startup the default directory or the directory passed as argument"
+msgid "Load on startup the default directory or the directory passed as argument"
 msgstr ""
 
 #: ../src/prefs.c:198
-msgid ""
-"Automatically search files, when EasyTAG starts, into the default directory. "
-"Note that this path may be overridden by the parameter passed to easytag "
-"(easytag /path_to/mp3_files)."
+msgid "Automatically search files, when EasyTAG starts, into the default directory. Note that this path may be overridden by the parameter passed to easytag (easytag /path_to/mp3_files)."
 msgstr ""
 
 #. Browse subdirectories
 #: ../src/prefs.c:203
-#, fuzzy
 msgid "Search subdirectories"
-msgstr "Ne upoštevaj &podmap:"
+msgstr "Preišči podmape"
 
 #: ../src/prefs.c:206
 msgid "Search subdirectories for files when reading a directory into the tree."
@@ -3412,28 +3479,26 @@ msgstr ""
 #. Open the node to show subdirectories
 #: ../src/prefs.c:210
 msgid "Show subdirectories when selecting a directory"
-msgstr ""
+msgstr "Ob izbiranju mape pokaži podmape"
 
 #: ../src/prefs.c:214
-msgid ""
-"This expands the selected node into the file browser to display the sub-"
-"directories."
+msgid "This expands the selected node into the file browser to display the sub-directories."
 msgstr ""
 
 #. Browse hidden directories
 #: ../src/prefs.c:218
-#, fuzzy
 msgid "Search hidden directories"
-msgstr "Preišči le krajevne mape"
+msgstr "Preišči skrite mape"
 
 #: ../src/prefs.c:223
 msgid "Search hidden directories for files (directories starting by a '.')."
-msgstr ""
+msgstr "Datoteke išči v skritih mapah (mape, ki se začenjajo z '.')."
 
 #.
 #. * Misc
 #.
-#: ../src/prefs.c:231 ../src/prefs.c:232
+#: ../src/prefs.c:231
+#: ../src/prefs.c:232
 msgid "Misc"
 msgstr "Razno"
 
@@ -3446,18 +3511,16 @@ msgstr "Uporabniški vmesnik "
 #: ../src/prefs.c:249
 #, fuzzy
 msgid "Show header information of file"
-msgstr "Pokaži podatke o trenutni datoteki"
+msgstr "Pokaži podatke glave iz datoteke"
 
 #: ../src/prefs.c:252
-msgid ""
-"If activated, information about the file as the bitrate, the time, the size, "
-"will be displayed under the filename entry."
+msgid "If activated, information about the file as the bitrate, the time, the size, will be displayed under the filename entry."
 msgstr ""
 
 #: ../src/prefs.c:259
 #, fuzzy
 msgid "Display changed files in list using:"
-msgstr "Prikaže rezultate po datotekah najdenih na seznamu"
+msgstr "Prikaži spremenjene datoteke s seznama z uporabo:"
 
 #: ../src/prefs.c:262
 msgid "Red color"
@@ -3469,107 +3532,87 @@ msgstr "Krepki slog"
 
 #. Sorting List Options
 #: ../src/prefs.c:274
-#, fuzzy
 msgid "Sorting List Options"
-msgstr "Pokaži možnosti seznama"
+msgstr "Možnosti razvrščanja seznama"
 
 #. Sorting method
 #: ../src/prefs.c:284
-#, fuzzy
 msgid "Sort the file list by:"
-msgstr "Razvrsti seznam datotek glede na ime."
+msgstr "Seznam datotek razvrsti:"
 
 #. Two columns
 #. Items of option menu
 #: ../src/prefs.c:293
-#, fuzzy
 msgid "Ascending file name"
-msgstr "Ime datoteke s temo"
+msgstr "naraščajoče po imenu datoteke"
 
 #: ../src/prefs.c:294
-#, fuzzy
 msgid "Descending file name"
-msgstr "Ime datoteke s temo"
+msgstr "padajoče po imenu datoteke"
 
 #: ../src/prefs.c:295
-#, fuzzy
 msgid "Ascending track number"
-msgstr "zaporedna številka skladbe"
+msgstr "naraščajoče po številki posnetka"
 
 #: ../src/prefs.c:296
-#, fuzzy
 msgid "Descending track number"
-msgstr "zaporedna številka skladbe"
+msgstr "padajoče po številki posnetka"
 
 #: ../src/prefs.c:297
-#, fuzzy
 msgid "Ascending creation date"
-msgstr "Datum in čas ustvarjanja"
+msgstr "naraščajoče po datumu nastanka"
 
 #: ../src/prefs.c:298
-#, fuzzy
 msgid "Descending creation date"
-msgstr "Datum in čas ustvarjanja"
+msgstr "padajoče po datumu nastanka"
 
 #: ../src/prefs.c:299
-#, fuzzy
 msgid "Ascending title"
-msgstr "Naslov vstavka:"
+msgstr "naraščajoče po naslovu"
 
 #: ../src/prefs.c:300
-#, fuzzy
 msgid "Descending title"
-msgstr "Naslov vstavka:"
+msgstr "padajoče po naslovu"
 
 #: ../src/prefs.c:301
-#, fuzzy
 msgid "Ascending artist"
-msgstr "Ime izvajalca"
+msgstr "naraščajoče po izvajalcu"
 
 #: ../src/prefs.c:302
-#, fuzzy
 msgid "Descending artist"
-msgstr "Ime izvajalca"
+msgstr "padajoče po izvajalcu"
 
 #: ../src/prefs.c:303
-#, fuzzy
 msgid "Ascending album"
-msgstr "Naslov albuma"
+msgstr "naraščajoče po albumu"
 
 #: ../src/prefs.c:304
-#, fuzzy
 msgid "Descending album"
-msgstr "Naslov albuma"
+msgstr "padajoče po albumu"
 
 #: ../src/prefs.c:305
-#, fuzzy
 msgid "Ascending year"
-msgstr "Velikost; naraščajoče"
+msgstr "naraščajoče po letu"
 
 #: ../src/prefs.c:306
-#, fuzzy
 msgid "Descending year"
-msgstr "Velikost; padajoče"
+msgstr "padajoče po letu"
 
 #: ../src/prefs.c:307
-#, fuzzy
 msgid "Ascending genre"
-msgstr "Zvrst postaje:"
+msgstr "naraščajoče po zvrsti"
 
 #: ../src/prefs.c:308
-#, fuzzy
 msgid "Descending genre"
-msgstr "Zvrst postaje:"
+msgstr "padajoče po zvrsti"
 
 #: ../src/prefs.c:309
-#, fuzzy
 msgid "Ascending comment"
-msgstr "Dodaj/Odstrani opombo"
+msgstr "naraščajoče po komentarju"
 
 #: ../src/prefs.c:310
-#, fuzzy
 msgid "Descending comment"
-msgstr "Dodaj/Odstrani opombo"
+msgstr "padajoče po komentarju"
 
 #: ../src/prefs.c:314
 msgid "Select the type of file sorting when loading a directory."
@@ -3581,60 +3624,59 @@ msgstr ""
 
 #. Message Dialog Position
 #: ../src/prefs.c:330
-#, fuzzy
 msgid "Message Dialog Position"
-msgstr "Osnovno besedilo pogovornega okna sporočila"
+msgstr "Položaj pogovornega okna"
 
 #: ../src/prefs.c:338
 #, fuzzy
 msgid "No particular position"
-msgstr "Iskanje mesta"
+msgstr "Brez nekega posebnega mesta"
 
 #: ../src/prefs.c:342
+#, fuzzy
 msgid "Let the Window Manager to place the windows."
-msgstr ""
+msgstr "Okna naj umešča Upravljalnik oken."
 
 #: ../src/prefs.c:347
-#, fuzzy
 msgid "Center of the main window"
-msgstr "Višina glavnega okna"
+msgstr "Sredina glavnega okna"
 
 #: ../src/prefs.c:352
+#, fuzzy
 msgid "Windows should be placed in the center of the main window."
-msgstr ""
+msgstr "Okna naj bodo postavljena v središče glavnega okna."
 
 #: ../src/prefs.c:357
-#, fuzzy
 msgid "Center of the screen"
-msgstr "_Celozaslonski način"
+msgstr "Sredina zaslona"
 
 #: ../src/prefs.c:361
+#, fuzzy
 msgid "Windows should be placed in the center of the screen."
-msgstr ""
+msgstr "Okna naj bodo postavljena v središče zaslona."
 
 #: ../src/prefs.c:366
 msgid "Mouse position"
 msgstr "Položaj miške"
 
 #: ../src/prefs.c:370
+#, fuzzy
 msgid "Windows should be placed at the current mouse position."
-msgstr ""
+msgstr "Okna naj bodo postavljena na trenutni položaj miškinega kazalca."
 
 #. File Player
 #: ../src/prefs.c:374
 #, fuzzy
 msgid "File Audio Player"
-msgstr "Digitalni zvočni predvajalnik"
+msgstr "Zvočni predvajalnik datotek"
 
 #: ../src/prefs.c:386
 #, fuzzy
 msgid "Player to run:"
-msgstr "_Zaženi na kazalko"
+msgstr "Predvajalnik:"
 
 #: ../src/prefs.c:392
-msgid ""
-"Enter the program used to play the files. Some arguments can be passed for "
-"the program (as 'xmms -p') before to receive files as other arguments."
+msgid "Enter the program used to play the files. Some arguments can be passed for the program (as 'xmms -p') before to receive files as other arguments."
 msgstr ""
 
 #. Log options
@@ -3644,9 +3686,8 @@ msgstr "Možnosti beleženja"
 
 #. Show / hide log view
 #: ../src/prefs.c:417
-#, fuzzy
 msgid "Show log view in main window"
-msgstr "Pokaži seznam _uporabnikov v glavnem oknu"
+msgstr "Pokaži zapisnik v glavnem oknu"
 
 #: ../src/prefs.c:420
 msgid "If activated, the log view would be visible in the main window."
@@ -3665,7 +3706,8 @@ msgstr "Največje število vrstic:"
 #.
 #. * File Settings
 #.
-#: ../src/prefs.c:445 ../src/prefs.c:446
+#: ../src/prefs.c:445
+#: ../src/prefs.c:446
 msgid "File Settings"
 msgstr "Nastavitve datoteke"
 
@@ -3679,11 +3721,7 @@ msgid "Replace illegal characters in filename (for Windows and CD-Rom)"
 msgstr ""
 
 #: ../src/prefs.c:465
-msgid ""
-"Convert illegal characters for FAT32/16 and ISO9660 + Joliet filesystems "
-"('\\', ':', ';', '*', '?', '\"', '<', '>', '|') of the filename to avoid "
-"problem when renaming the file. This is useful when renaming the file from "
-"the tag with the scanner."
+msgid "Convert illegal characters for FAT32/16 and ISO9660 + Joliet filesystems ('\\', ':', ';', '*', '?', '\"', '<', '>', '|') of the filename to avoid problem when renaming the file. This is useful when renaming the file from the tag with the scanner."
 msgstr ""
 
 #. Extension case (lower/upper?)
@@ -3697,7 +3735,7 @@ msgstr "male črke"
 
 #: ../src/prefs.c:480
 msgid "For example, the extension will be converted to '.mp3'"
-msgstr ""
+msgstr "Primer: končnica bo pretvorjena v '.mp3'"
 
 #: ../src/prefs.c:483
 msgid "Upper Case"
@@ -3705,128 +3743,101 @@ msgstr "velike črke"
 
 #: ../src/prefs.c:486
 msgid "For example, the extension will be converted to '.MP3'"
-msgstr ""
+msgstr "Primer: končnica bo pretvorjena v '.MP3'"
 
 #: ../src/prefs.c:489
 msgid "No Change"
 msgstr "Brez spremembe"
 
 #: ../src/prefs.c:492
-#, fuzzy
 msgid "The extension will not be converted"
-msgstr "\"%s\" ni mogoče najti"
+msgstr "Končnica ne bo pretvorjena"
 
 #. Preserve modification time
 #: ../src/prefs.c:495
-#, fuzzy
 msgid "Preserve modification time of the file"
-msgstr "Razvrsti seznam datotek glede na datum spremembe."
+msgstr "Ohrani datum spremembe datoteke"
 
 #: ../src/prefs.c:498
-msgid ""
-"Preserve the modification time (in file properties) when saving the file."
+msgid "Preserve the modification time (in file properties) when saving the file."
 msgstr ""
 
 #. Change directory modification time
 #: ../src/prefs.c:502
-msgid ""
-"Update modification time of the parent directory of the file (recommended "
-"when using Amarok)"
+msgid "Update modification time of the parent directory of the file (recommended when using Amarok)"
 msgstr ""
 
 #: ../src/prefs.c:506
 msgid ""
-"The modification time of the parent directory of the file will be updated "
-"when saving tag the file. At the present time it is automatically done only "
-"when renaming a file.\n"
-"This feature is interesting when using applications like Amarok. For "
-"performance reasons, they refresh file information by detecting changes of "
-"the parent directory."
+"The modification time of the parent directory of the file will be updated when saving tag the file. At the present time it is automatically done only when renaming a file.\n"
+"This feature is interesting when using applications like Amarok. For performance reasons, they refresh file information by detecting changes of the parent directory."
 msgstr ""
 
 #. Character Set for File Name
 #: ../src/prefs.c:514
-#, fuzzy
 msgid "Character Set for File Name"
-msgstr "Znakovni nabor za datoteko %s je bil spremenjen iz \"%s\" v \"%s\"."
+msgstr "Znakovni nabor za ime datoteke"
 
 #. Rules for character set
 #: ../src/prefs.c:530
-msgid ""
-"Rules to apply if some characters can't be converted to the system character "
-"encoding when writing filename:"
+msgid "Rules to apply if some characters can't be converted to the system character encoding when writing filename:"
 msgstr ""
 
 #: ../src/prefs.c:538
-#, fuzzy
 msgid "Try another character encoding"
-msgstr "Kodiranje znakov povezanega vira"
+msgstr "Poskusi drugi kodiranje znakov"
 
 #: ../src/prefs.c:542
-msgid ""
-"With this option, it will try the conversion to the encoding associated to "
-"your locale (for example: ISO-8859-1 for 'fr', KOI8-R for 'ru', ISO-8859-2 "
-"for 'ro'). If it fails, it will try the character encoding ISO-8859-1."
+msgid "With this option, it will try the conversion to the encoding associated to your locale (for example: ISO-8859-1 for 'fr', KOI8-R for 'ru', ISO-8859-2 for 'ro'). If it fails, it will try the character encoding ISO-8859-1."
 msgstr ""
 
 #: ../src/prefs.c:549
-msgid ""
-"Force using the system character encoding and activate the transliteration"
+msgid "Force using the system character encoding and activate the transliteration"
 msgstr ""
 
-#: ../src/prefs.c:553 ../src/prefs.c:881 ../src/prefs.c:953
-msgid ""
-"With this option, when a character cannot be represented in the target "
-"character set, it can be approximated through one or several similarly "
-"looking characters."
+#: ../src/prefs.c:553
+#: ../src/prefs.c:881
+#: ../src/prefs.c:953
+msgid "With this option, when a character cannot be represented in the target character set, it can be approximated through one or several similarly looking characters."
 msgstr ""
 
 #: ../src/prefs.c:559
-msgid ""
-"Force using the system character encoding and silently discard some "
-"characters"
+msgid "Force using the system character encoding and silently discard some characters"
 msgstr ""
 
-#: ../src/prefs.c:563 ../src/prefs.c:891 ../src/prefs.c:963
-msgid ""
-"With this option, when a character cannot be represented in the target "
-"character set, it will be silently discarded."
+#: ../src/prefs.c:563
+#: ../src/prefs.c:891
+#: ../src/prefs.c:963
+msgid "With this option, when a character cannot be represented in the target character set, it will be silently discarded."
 msgstr ""
 
 #.
 #. * Tag Settings
 #.
-#: ../src/prefs.c:572 ../src/prefs.c:573
-#, fuzzy
+#: ../src/prefs.c:572
+#: ../src/prefs.c:573
 msgid "Tag Settings"
-msgstr "Uporabniške nastavitve"
+msgstr "Nastavitve oznak"
 
 #. Tag Options
 #: ../src/prefs.c:582
-#, fuzzy
 msgid "Tag Options"
-msgstr "Možnosti nastavitev:"
+msgstr "Možnosti oznak"
 
 #: ../src/prefs.c:588
 msgid "Auto completion of date if not complete"
-msgstr ""
+msgstr "Samodopolnjevanje, če datum ni popoln"
 
 #: ../src/prefs.c:591
-msgid ""
-"Try to complete the year field if you enter only the last numerals of the "
-"date (for instance, if the current year is 2005: 5 => 2005, 4 => 2004, 6 => "
-"1996, 95 => 1995…)."
+msgid "Try to complete the year field if you enter only the last numerals of the date (for instance, if the current year is 2005: 5 => 2005, 4 => 2004, 6 => 1996, 95 => 1995…)."
 msgstr ""
 
 #: ../src/prefs.c:598
 msgid "Write the track field with the following number of digits:"
-msgstr ""
+msgstr "V polje posnetka zapisuj z naslednjim številom števk:"
 
 #: ../src/prefs.c:601
-msgid ""
-"If activated, the track field is written using the number '0' as padding to "
-"obtain a number with 'n' digits (for example, with two digits: '05', '09', "
-"'10'…). Else it keeps the 'raw' track value."
+msgid "If activated, the track field is written using the number '0' as padding to obtain a number with 'n' digits (for example, with two digits: '05', '09', '10'…). Else it keeps the 'raw' track value."
 msgstr ""
 
 #: ../src/prefs.c:616
@@ -3834,93 +3845,75 @@ msgid "Ogg Vorbis Files: write also the comment in the XMMS format"
 msgstr ""
 
 #: ../src/prefs.c:619
-msgid ""
-"XMMS doesn't make use of the right way to identify a comment in Ogg Vorbis "
-"files as other apps do. In fact, this field is usually labeled with "
-"'comment=', whereas XMMS uses only `='. Please, uncheck this option if you "
-"don't want other apps to complain about an unknown field. Comments won't be "
-"shown in XMMS, though."
+msgid "XMMS doesn't make use of the right way to identify a comment in Ogg Vorbis files as other apps do. In fact, this field is usually labeled with 'comment=', whereas XMMS uses only `='. Please, uncheck this option if you don't want other apps to complain about an unknown field. Comments won't be shown in XMMS, though."
 msgstr ""
 
 #: ../src/prefs.c:634
-msgid ""
-"Tag field focus when switching files in list with shortcuts Page Up/Page "
-"Down:"
+msgid "Tag field focus when switching files in list with shortcuts Page Up/Page Down:"
 msgstr ""
 
 #: ../src/prefs.c:643
 msgid "Keep focus to the same tag field"
-msgstr ""
+msgstr "Obdrži pozornost na istem polju oznak"
 
 #: ../src/prefs.c:649
 msgid "Return focus to the first tag field (i.e. 'Title' field)"
-msgstr ""
+msgstr "Vrni pozornost na prvo polje oznak (t.j. polje 'Naslov')"
 
 #. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SetFocusToFirstTagField),SET_FOCUS_TO_FIRST_TAG_FIELD);
 #. Tag Splitting
 #: ../src/prefs.c:654
-#, fuzzy
 msgid "Tag Splitting"
-msgstr "<b>Razdeljevanje podnapisa</b>"
+msgstr "Deljenje oznak"
 
 #: ../src/prefs.c:661
-msgid ""
-"For Vorbis tags, selected fields will be split at dashes and saved as "
-"separate tags"
+msgid "For Vorbis tags, selected fields will be split at dashes and saved as separate tags"
 msgstr ""
 
 #: ../src/prefs.c:671
-#, fuzzy
 msgid "Original artist"
 msgstr "Izvirni izvajalec"
 
 #.
 #. * ID3 Tag Settings
 #.
-#: ../src/prefs.c:692 ../src/prefs.c:693
-#, fuzzy
+#: ../src/prefs.c:692
+#: ../src/prefs.c:693
 msgid "ID3 Tag Settings"
-msgstr "Prepiši privzete nastavitve"
+msgstr "Nastavitve oznak ID3"
 
 #. Tag Rules frame
 #: ../src/prefs.c:705
-#, fuzzy
 msgid "ID3 Tag Rules"
-msgstr "Valgrind pravila preprečevanja"
+msgstr "Pravila oznak ID3"
 
 #. Write ID3 tags in FLAC files
 #: ../src/prefs.c:717
 msgid "Write ID3 tags in FLAC files (in addition to FLAC tag)"
-msgstr ""
+msgstr "Zapiši oznake ID3 v datoteke FLAC (poleg oznake FLAC)"
 
 #: ../src/prefs.c:720
-msgid ""
-"If activated, ID3 tags will be also added in the FLAC file (according the "
-"two rules above, plus the FLAC tag). Else ID3 tags will be stripped."
+msgid "If activated, ID3 tags will be also added in the FLAC file (according the two rules above, plus the FLAC tag). Else ID3 tags will be stripped."
 msgstr ""
 
 #. Strip tag when fields (managed by EasyTAG) are empty
 #: ../src/prefs.c:725
+#, fuzzy
 msgid "Strip tags if all fields are set to blank"
-msgstr ""
+msgstr "Odstrani oznake, če so vsa polja prazna"
 
 #: ../src/prefs.c:728
-msgid ""
-"As ID3v2 tags may contain other data than Title, Artist, Album, Year, Track, "
-"Genre or Comment (as an attached picture, lyrics…), this option allows you "
-"to strip the whole tag when these seven standard data fields have been set "
-"to blank."
+msgid "As ID3v2 tags may contain other data than Title, Artist, Album, Year, Track, Genre or Comment (as an attached picture, lyrics…), this option allows you to strip the whole tag when these seven standard data fields have been set to blank."
 msgstr ""
 
 #. Convert old ID3v2 tag version
 #: ../src/prefs.c:734
+#, fuzzy
 msgid "Automatically convert old ID3v2 tag versions"
-msgstr ""
+msgstr "Samodejno pretvori stare različice oznak ID3v2"
 
 #: ../src/prefs.c:737
-msgid ""
-"If activated, an old ID3v2 tag version (as ID3v2.2) will be updated to the "
-"ID3v2.3 version."
+msgid "If activated, an old ID3v2 tag version (as ID3v2.2) will be updated to the ID3v2.3 version."
 msgstr ""
 
 #. Use CRC32
@@ -3930,7 +3923,7 @@ msgstr "Uporabi CRC32"
 
 #: ../src/prefs.c:744
 msgid "Set CRC32 in the ID3v2 tags"
-msgstr ""
+msgstr "V oznakah ID3v2 nastavi CRC32"
 
 #. Use Compression
 #: ../src/prefs.c:747
@@ -3939,7 +3932,7 @@ msgstr "Uporabi stiskanje"
 
 #: ../src/prefs.c:751
 msgid "Set Compression in the ID3v2 tags"
-msgstr ""
+msgstr "V oznakah ID3v2 nastavi stiskanje"
 
 #. Write Genre in text
 #: ../src/prefs.c:754
@@ -3947,9 +3940,7 @@ msgid "Write Genre in text only"
 msgstr "Zapiši zvrst v besedilnem načinu"
 
 #: ../src/prefs.c:758
-msgid ""
-"Don't use ID3v1 number references in genre tag. Enable this if you see "
-"numbers as genre in your music player."
+msgid "Don't use ID3v1 number references in genre tag. Enable this if you see numbers as genre in your music player."
 msgstr ""
 
 #. Character Set for writing ID3 tag
@@ -3968,9 +3959,7 @@ msgid "Write ID3v2 tag"
 msgstr "Zapiši oznako ID3v2"
 
 #: ../src/prefs.c:784
-msgid ""
-"If activated, an ID3v2.4 tag will be added or updated at the beginning of "
-"the MP3 files. Else it will be stripped."
+msgid "If activated, an ID3v2.4 tag will be added or updated at the beginning of the MP3 files. Else it will be stripped."
 msgstr ""
 
 #. ID3v2 tag version
@@ -3987,7 +3976,8 @@ msgstr ""
 
 #. Charset
 #. Id3V1 writing character set
-#: ../src/prefs.c:812 ../src/prefs.c:919
+#: ../src/prefs.c:812
+#: ../src/prefs.c:919
 msgid "Charset:"
 msgstr "Znakovni nabor:"
 
@@ -3999,7 +3989,7 @@ msgstr "Unikod"
 #: ../src/prefs.c:828
 #, fuzzy
 msgid "Unicode type to use"
-msgstr "Vrsta tipkovnice za uporabo."
+msgstr "Uporabi vrsto Unicode"
 
 #: ../src/prefs.c:852
 msgid "Character set used to write the tag data in the file."
@@ -4007,30 +3997,31 @@ msgstr ""
 
 #. ID3v2 Additional iconv() options
 #. ID3V1 Additional iconv() options
-#: ../src/prefs.c:862 ../src/prefs.c:934
-#, fuzzy
+#: ../src/prefs.c:862
+#: ../src/prefs.c:934
 msgid "Additional settings for iconv():"
-msgstr "Nastavitve globinske izravnave"
+msgstr "Dodatne nastavitve za iconv():"
 
-#: ../src/prefs.c:868 ../src/prefs.c:940
+#: ../src/prefs.c:868
+#: ../src/prefs.c:940
 msgid "No"
 msgstr "Ne"
 
-#: ../src/prefs.c:872 ../src/prefs.c:944
-msgid ""
-"With this option, when a character cannot be represented in the target "
-"character set, it isn't changed. But note that an error message will be "
-"displayed for information."
+#: ../src/prefs.c:872
+#: ../src/prefs.c:944
+msgid "With this option, when a character cannot be represented in the target character set, it isn't changed. But note that an error message will be displayed for information."
 msgstr ""
 
-#: ../src/prefs.c:877 ../src/prefs.c:949
+#: ../src/prefs.c:877
+#: ../src/prefs.c:949
 msgid "//TRANSLIT"
 msgstr "//TRANSLIT"
 
-#: ../src/prefs.c:887 ../src/prefs.c:959
+#: ../src/prefs.c:887
+#: ../src/prefs.c:959
 #, fuzzy
 msgid "//IGNORE"
-msgstr "_Prezri"
+msgstr "//PREZRI"
 
 #. ID3v1 tags
 #: ../src/prefs.c:896
@@ -4043,9 +4034,7 @@ msgid "Write ID3v1.x tag"
 msgstr "Zapiši oznako ID3v1.x"
 
 #: ../src/prefs.c:913
-msgid ""
-"If activated, an ID3v1 tag will be added or updated at the end of the MP3 "
-"files. Else it will be stripped."
+msgid "If activated, an ID3v1 tag will be added or updated at the end of the MP3 files. Else it will be stripped."
 msgstr ""
 
 #: ../src/prefs.c:930
@@ -4060,33 +4049,26 @@ msgstr "Nabor znakov za branje oznak ID3"
 #: ../src/prefs.c:982
 #, fuzzy
 msgid "Non-standard:"
-msgstr "Običajna primerjava"
+msgstr "Nestandardno:"
 
 #: ../src/prefs.c:988
 msgid ""
-"This character set will be used when reading the tag data, to convert each "
-"string found in an ISO-8859-1 field in the tag (for ID3v2 or/and ID3v1 "
-"tag).\n"
+"This character set will be used when reading the tag data, to convert each string found in an ISO-8859-1 field in the tag (for ID3v2 or/and ID3v1 tag).\n"
 "\n"
 "For example:\n"
-"  - In previous versions of EasyTAG, you could save UTF-8 strings in an "
-"ISO-8859-1 field. This is not correct. To convert these tags to Unicode: "
-"activate this option and select UTF-8. You must also activate above the "
-"option 'Try to save tags to ISO-8859-1. If it isn't possible then use "
-"UNICODE (recommended)' or 'Always save tags to UNICODE character set'.\n"
-"  - If Unicode was not used, Russian people can select the character set "
-"'Windows-1251' to load tags written under Windows. And 'KOI8-R' to load tags "
-"written under Unix systems."
+"  - In previous versions of EasyTAG, you could save UTF-8 strings in an ISO-8859-1 field. This is not correct. To convert these tags to Unicode: activate this option and select UTF-8. You must also activate above the option 'Try to save tags to ISO-8859-1. If it isn't possible then use UNICODE (recommended)' or 'Always save tags to UNICODE character set'.\n"
+"  - If Unicode was not used, Russian people can select the character set 'Windows-1251' to load tags written under Windows. And 'KOI8-R' to load tags written under Unix systems."
 msgstr ""
 
 #: ../src/prefs.c:1006
 msgid "Character set used to read tag data in the file."
-msgstr ""
+msgstr "Nabor znakov, uporabljen za branje podatkov oznak v datoteki."
 
 #.
 #. * Scanner
 #.
-#: ../src/prefs.c:1020 ../src/prefs.c:1021
+#: ../src/prefs.c:1020
+#: ../src/prefs.c:1021
 msgid "Scanner"
 msgstr "Optični bralnik"
 
@@ -4095,19 +4077,19 @@ msgstr "Optični bralnik"
 msgid "Fill Tag Scanner - Character Conversion"
 msgstr ""
 
-#: ../src/prefs.c:1039 ../src/prefs.c:1064
+#: ../src/prefs.c:1039
+#: ../src/prefs.c:1064
 msgid "Convert underscore character '_' and string '%20' to space ' '"
-msgstr ""
+msgstr "Pretvori podčrtaj ('_') in niz '%20' v presledek (' ')"
 
-#: ../src/prefs.c:1041 ../src/prefs.c:1065
-#, fuzzy
+#: ../src/prefs.c:1041
+#: ../src/prefs.c:1065
 msgid "Convert space ' ' to underscore '_'"
-msgstr "Za preklop pritisnite preslednico."
+msgstr "Pretvori presledek (' ') v podčrtaj ('_')"
 
-#: ../src/prefs.c:1053 ../src/prefs.c:1055
-msgid ""
-"If activated, this conversion will be used when applying a mask from the "
-"scanner for tags."
+#: ../src/prefs.c:1053
+#: ../src/prefs.c:1055
+msgid "If activated, this conversion will be used when applying a mask from the scanner for tags."
 msgstr ""
 
 #. Character conversion for the 'Rename File' scanner (=> RFS...)
@@ -4115,10 +4097,10 @@ msgstr ""
 msgid "Rename File Scanner - Character Conversion"
 msgstr ""
 
-#: ../src/prefs.c:1076 ../src/prefs.c:1078 ../src/prefs.c:1080
-msgid ""
-"If activated, this conversion will be used when applying a mask from the "
-"scanner for filenames."
+#: ../src/prefs.c:1076
+#: ../src/prefs.c:1078
+#: ../src/prefs.c:1080
+msgid "If activated, this conversion will be used when applying a mask from the scanner for filenames."
 msgstr ""
 
 #. Character conversion for the 'Process Fields' scanner (=> PFS...)
@@ -4128,44 +4110,35 @@ msgstr ""
 
 #. Don't convert some words like to, feat. first letter uppercase.
 #: ../src/prefs.c:1090
-msgid ""
-"Don't uppercase first letter of words for some prepositions and articles."
+msgid "Don't uppercase first letter of words for some prepositions and articles."
 msgstr ""
 
 #: ../src/prefs.c:1094
-msgid ""
-"Don't convert first letter of words like prepositions, articles and words "
-"like feat., when using the scanner 'First letter uppercase of each "
-"word' (for example, you will obtain 'Text in an Entry' instead of 'Text In "
-"An Entry')."
+msgid "Don't convert first letter of words like prepositions, articles and words like feat., when using the scanner 'First letter uppercase of each word' (for example, you will obtain 'Text in an Entry' instead of 'Text In An Entry')."
 msgstr ""
 
 #. Properties of the scanner window
 #: ../src/prefs.c:1100
 #, fuzzy
 msgid "Scanner Window"
-msgstr "Višina okna"
+msgstr "Okno pregledovalnika"
 
 #: ../src/prefs.c:1106
 #, fuzzy
 msgid "Open the Scanner Window on startup"
-msgstr "Ob zagonu programa odpri upravljalnik katalogov"
+msgstr "Ob zagonu programa odpri okno pregledovalnika"
 
 #: ../src/prefs.c:1109
-msgid ""
-"Activate this option to open automatically the scanner window when EasyTAG "
-"starts."
+msgid "Activate this option to open automatically the scanner window when EasyTAG starts."
 msgstr ""
 
 #: ../src/prefs.c:1112
 #, fuzzy
 msgid "Scanner window always on top"
-msgstr "Postavi okno vedno v ospredje"
+msgstr "Postavi okno pregledovalnika vedno v ospredje"
 
 #: ../src/prefs.c:1115
-msgid ""
-"If activated, the window which contains the masks will stay always over the "
-"main window."
+msgid "If activated, the window which contains the masks will stay always over the main window."
 msgstr ""
 
 #. Other options
@@ -4179,9 +4152,7 @@ msgid "Overwrite fields when scanning tags"
 msgstr ""
 
 #: ../src/prefs.c:1130
-msgid ""
-"If activated, the scanner will replace existing text in fields by the new "
-"one. If deactivated, only blank fields of the tag will be filled."
+msgid "If activated, the scanner will replace existing text in fields by the new one. If deactivated, only blank fields of the tag will be filled."
 msgstr ""
 
 #: ../src/prefs.c:1141
@@ -4190,9 +4161,7 @@ msgid "Set this text as default comment:"
 msgstr "Vpiši besedilo kot privzeto opombo:"
 
 #: ../src/prefs.c:1144
-msgid ""
-"Activate this option if you want to put the following string into the "
-"comment field when using the 'Fill Tag' scanner."
+msgid "Activate this option if you want to put the following string into the comment field when using the 'Fill Tag' scanner."
 msgstr ""
 
 #. CRC32 comment
@@ -4201,44 +4170,45 @@ msgid "Use CRC32 as the default comment (for files with ID3 tags only)."
 msgstr ""
 
 #: ../src/prefs.c:1166
-msgid ""
-"Calculates the CRC-32 value of the file and writes it into the comment field "
-"when using the 'Fill Tag' scanner."
+msgid "Calculates the CRC-32 value of the file and writes it into the comment field when using the 'Fill Tag' scanner."
 msgstr ""
 
 #.
 #. * CDDB
 #.
-#: ../src/prefs.c:1177 ../src/prefs.c:1178
-#, fuzzy
+#: ../src/prefs.c:1177
+#: ../src/prefs.c:1178
 msgid "CD Data Base"
-msgstr "Zapisovanje podatkovnega CD nosilca"
+msgstr "Zbirka podatkov CDDB"
 
 #. CDDB Server Settings (Automatic Search)
 #: ../src/prefs.c:1187
-#, fuzzy
 msgid "Server Settings for Automatic Search"
-msgstr "Iskanje poštnega predala na trenutnem strežniku"
+msgstr "Nastavitve strežnika za samodejno iskanje"
 
-#: ../src/prefs.c:1196 ../src/prefs.c:1235 ../src/prefs.c:1269
+#: ../src/prefs.c:1196
+#: ../src/prefs.c:1235
+#: ../src/prefs.c:1269
 msgid "Name:"
 msgstr "Ime:"
 
-#: ../src/prefs.c:1215 ../src/prefs.c:1243 ../src/prefs.c:1278
+#: ../src/prefs.c:1215
+#: ../src/prefs.c:1243
+#: ../src/prefs.c:1278
 #: ../src/prefs.c:1367
 msgid "Port:"
 msgstr "Vrata:"
 
-#: ../src/prefs.c:1225 ../src/prefs.c:1253 ../src/prefs.c:1288
-#, fuzzy
+#: ../src/prefs.c:1225
+#: ../src/prefs.c:1253
+#: ../src/prefs.c:1288
 msgid "CGI Path:"
 msgstr "Pot CGI:"
 
 #. CDDB Server Settings (Manual Search)
 #: ../src/prefs.c:1261
-#, fuzzy
 msgid "Server Settings for Manual Search"
-msgstr "Iskanje poštnega predala na trenutnem strežniku"
+msgstr "Nastavitve strežnika za ročno iskanje"
 
 #. Local access for CDDB (Automatic Search)
 #: ../src/prefs.c:1296
@@ -4250,11 +4220,7 @@ msgid "Path:"
 msgstr "Pot:"
 
 #: ../src/prefs.c:1316
-msgid ""
-"Specify the directory where the local CD database is located. The local CD "
-"data base contains the eleven following directories 'blues', 'classical', "
-"'country', 'data', 'folk', 'jazz', 'newage', 'reggae', 'rock', 'soundtrack' "
-"and 'misc'."
+msgid "Specify the directory where the local CD database is located. The local CD data base contains the eleven following directories 'blues', 'classical', 'country', 'data', 'folk', 'jazz', 'newage', 'reggae', 'rock', 'soundtrack' and 'misc'."
 msgstr ""
 
 #. CDDB Proxy Settings
@@ -4287,18 +4253,16 @@ msgid "User Name:"
 msgstr "Uporabniško ime:"
 
 #: ../src/prefs.c:1386
-#, fuzzy
 msgid "Name of user for the the proxy server."
-msgstr "Ime gostitelja za gostiteljski strežnik SOCKS."
+msgstr "Ime uporabnika za posredovalni strežnik."
 
 #: ../src/prefs.c:1387
 msgid "User Password:"
 msgstr "Geslo uporabnika:"
 
 #: ../src/prefs.c:1395
-#, fuzzy
 msgid "Password of user for the the proxy server."
-msgstr "Vnesite geslo za uporabnika %s na strežniku %s"
+msgstr "Geslo uporabnika posredovalnega strežnika."
 
 #. Track Name list (CDDB results)
 #: ../src/prefs.c:1400
@@ -4306,61 +4270,49 @@ msgid "Track Name List"
 msgstr "Seznam naslovov posnetkov"
 
 #: ../src/prefs.c:1407
-msgid ""
-"Select corresponding audio file (according position or DLM if activated "
-"below)"
+msgid "Select corresponding audio file (according position or DLM if activated below)"
 msgstr ""
 
 #: ../src/prefs.c:1411
-msgid ""
-"If activated, when selecting a line in the list of tracks name, the "
-"corresponding audio file in the main list will be also selected."
+msgid "If activated, when selecting a line in the list of tracks name, the corresponding audio file in the main list will be also selected."
 msgstr ""
 
 #. Check box to use DLM (also used in the cddb window)
 #: ../src/prefs.c:1416
-msgid ""
-"Use the Levenshtein algorithm (DLM) to match lines (using title) with audio "
-"files (using filename)"
+msgid "Use the Levenshtein algorithm (DLM) to match lines (using title) with audio files (using filename)"
 msgstr ""
 
 #.
 #. * Confirmation
 #.
-#: ../src/prefs.c:1431 ../src/prefs.c:1432
+#: ../src/prefs.c:1431
+#: ../src/prefs.c:1432
 msgid "Confirmation"
 msgstr "Potrditev"
 
 #: ../src/prefs.c:1440
-#, fuzzy
 msgid "Confirm exit from program"
-msgstr "O_dpni od delujočega programa"
+msgstr "Potrdi izhod iz programa"
 
 #: ../src/prefs.c:1443
-msgid ""
-"If activated, opens a dialog box to ask confirmation before exiting the "
-"program."
+msgid "If activated, opens a dialog box to ask confirmation before exiting the program."
 msgstr ""
 
 #: ../src/prefs.c:1446
-#, fuzzy
 msgid "Confirm writing of file tag"
-msgstr "Napaka med pisanjem v datoteko"
+msgstr "Potrdi pisanje oznak v datoteko"
 
 #: ../src/prefs.c:1450
-#, fuzzy
 msgid "Confirm renaming of file"
-msgstr "Napaka med preimenovanjem datoteke: %s"
+msgstr "Potrdite preimenovanje datoteke"
 
 #: ../src/prefs.c:1454
-#, fuzzy
 msgid "Confirm deleting of file"
-msgstr "Napaka med brisanjem datoteke"
+msgstr "Potrdite brisanje datoteke"
 
 #: ../src/prefs.c:1458
-#, fuzzy
 msgid "Confirm writing of playlist"
-msgstr "Išče po temu seznamu predvajanja"
+msgstr "Potrdite zapisovanje seznama predvajanja"
 
 #: ../src/prefs.c:1462
 msgid "Confirm changing directory when there are unsaved changes"
@@ -4384,7 +4336,8 @@ msgstr "Shrani spremembe in zapri to okno"
 msgid "(Example: %.*d_-_Track_name_1.mp3)"
 msgstr ""
 
-#: ../src/prefs.c:1693 ../src/setting.c:916
+#: ../src/prefs.c:1693
+#: ../src/setting.c:916
 msgid "Configuration saved"
 msgstr "Nastavitve so shranjene"
 
@@ -4415,9 +4368,8 @@ msgid "The audio file player '%s' cannot be found"
 msgstr ""
 
 #: ../src/prefs.c:1923
-#, fuzzy
 msgid "Audio Player Error"
-msgstr "Digitalni zvočni predvajalnik"
+msgstr "Napaka zvočnega predvajalnika"
 
 #: ../src/scan.c:179
 #, fuzzy
@@ -4444,7 +4396,8 @@ msgstr "Oznaka je bila uspešno dodana"
 msgid "Tag scanner: strange… the extension '%s' was not found in filename '%s'"
 msgstr ""
 
-#: ../src/scan.c:493 ../src/scan.c:522
+#: ../src/scan.c:493
+#: ../src/scan.c:522
 #, c-format
 msgid "Scan Error: can't find separator '%s' within '%s'"
 msgstr ""
@@ -4472,43 +4425,38 @@ msgstr "Optični bralnik:"
 #: ../src/scan.c:2407
 #, fuzzy
 msgid "Select the type of scanner to use"
-msgstr "Izberite vrsto igre za igranje"
+msgstr "Izberite vrsto optičnega bralnika za uporabo"
 
 #: ../src/scan.c:2416
 msgid "Open scanner window / Scan selected files"
 msgstr ""
 
 #: ../src/scan.c:2429
-#, fuzzy
 msgid "Scanner Preferences"
-msgstr "Možnosti programa"
+msgstr "Možnosti optičnega bralnika"
 
 #: ../src/scan.c:2438
 #, fuzzy
 msgid "Show / Hide Masks Editor"
-msgstr "Pokaži ali skrij orodno vrstico"
+msgstr "Pokaži ali skrij urejevalnik mask"
 
 #: ../src/scan.c:2448
 #, fuzzy
 msgid "Show / Hide Legend"
-msgstr "_Pokaži v legendi"
+msgstr "Pokaži ali skrij legendo"
 
 #: ../src/scan.c:2458
-#, fuzzy
 msgid "Close this window"
-msgstr "Zapri trenutno okno"
+msgstr "Zapri to okno"
 
 #: ../src/scan.c:2486
-msgid ""
-"Select or type in a mask using codes (see Legend) to parse file name and "
-"path. Used to fill in tag fields."
+msgid "Select or type in a mask using codes (see Legend) to parse file name and path. Used to fill in tag fields."
 msgstr ""
 
 #. Preview label
 #: ../src/scan.c:2512
-#, fuzzy
 msgid "Fill tag preview…"
-msgstr "Uporabi predelavo/oznako:"
+msgstr ""
 
 #: ../src/scan.c:2539
 msgid "Prefix mask with current path"
@@ -4516,115 +4464,95 @@ msgstr ""
 
 #: ../src/scan.c:2552
 msgid ""
-"Select or type in a mask using codes (see Legend) to parse tag fields. Used "
-"to rename the file.\n"
-"Use / to make directories. If the first character is /, it's a absolute "
-"path, otherwise is relative to the old path."
+"Select or type in a mask using codes (see Legend) to parse tag fields. Used to rename the file.\n"
+"Use / to make directories. If the first character is /, it's a absolute path, otherwise is relative to the old path."
 msgstr ""
 
 #. Preview label
 #: ../src/scan.c:2579
 #, fuzzy
 msgid "Rename file preview…"
-msgstr "Preimenuje izbrano datoteko"
+msgstr "Preimenuj predogled datoteke ..."
 
 #: ../src/scan.c:2598
 msgid "Select fields:"
 msgstr "Izbor polj:"
 
 #: ../src/scan.c:2601
-msgid ""
-"The buttons on the right represent the fields which can be processed. Select "
-"those which interest you"
+msgid "The buttons on the right represent the fields which can be processed. Select those which interest you"
 msgstr ""
 
 #. Advice for Translators: set the first letter of filename translated
 #: ../src/scan.c:2605
-#, fuzzy
 msgid "F"
-msgstr "F"
+msgstr "D"
 
 #: ../src/scan.c:2606
-#, fuzzy
 msgid "Process file name field"
-msgstr "Ime polja že obstaja"
+msgstr "Obdelaj polje imena datoteke"
 
 #. Advice for Translators: set the first letter of title translated
 #: ../src/scan.c:2608
-#, fuzzy
 msgid "T"
-msgstr "T"
+msgstr "N"
 
 #: ../src/scan.c:2609
-#, fuzzy
 msgid "Process title field"
-msgstr "Uporabi privzet naslov polja:"
+msgstr "Obdelaj polje naslova"
 
 #. Advice for Translators: set the first letter of artist translated
 #: ../src/scan.c:2611
-#, fuzzy
 msgid "Ar"
-msgstr "Ar (.ar)"
+msgstr "I"
 
 #: ../src/scan.c:2612
-#, fuzzy
 msgid "Process file artist field"
-msgstr "Zapiši procesni ID v datoteko"
+msgstr "Obdelaj polje izvajalca"
 
 #. Advice for Translators: set the first letter of album artist translated
 #: ../src/scan.c:2614
-#, fuzzy
 msgid "AA"
-msgstr "Aa"
+msgstr "Ia"
 
 #: ../src/scan.c:2615
-#, fuzzy
 msgid "Process album artist field"
-msgstr "Izvajalec, album ali naslov"
+msgstr "Obdelaj polje izvajalca albuma"
 
 #. Advice for Translators: set the first letter of album translated
 #: ../src/scan.c:2617
-#, fuzzy
 msgid "Al"
-msgstr "%s in ostali"
+msgstr "Al"
 
 #: ../src/scan.c:2618
-#, fuzzy
 msgid "Process album field"
-msgstr "Izpolnite polje: %s"
+msgstr "Obdelaj polje albuma"
 
 #. Advice for Translators: set the first letter of genre translated
 #: ../src/scan.c:2620
-#, fuzzy
 msgid "G"
-msgstr "G"
+msgstr "Z"
 
 #: ../src/scan.c:2621
-#, fuzzy
 msgid "Process genre field"
-msgstr "Izpolnite polje: %s"
+msgstr "Obdelaj polje zvrsti"
 
 #. Advice for Translators: set the first letter of comment translated
 #: ../src/scan.c:2623
-#, fuzzy
 msgid "Cm"
-msgstr "cm"
+msgstr "K"
 
 #: ../src/scan.c:2624
-#, fuzzy
 msgid "Process comment field"
-msgstr "Izpolnite polje: %s"
+msgstr "Obdelaj polje komentarja"
 
 #. Advice for Translators: set the first letter of composer translated
 #: ../src/scan.c:2626
-#, fuzzy
 msgid "Cp"
-msgstr "Rusko (CP-866)"
+msgstr "Sk"
 
 #: ../src/scan.c:2627
-#, fuzzy
 msgid "Process composer field"
-msgstr "Izpolnite polje: %s"
+msgstr "Obdelaj polje skladatelja"
 
 #. Advice for Translators: set the first letter of orig artist translated
 #: ../src/scan.c:2629
@@ -4632,19 +4560,18 @@ msgid "O"
 msgstr "O"
 
 #: ../src/scan.c:2630
+#, fuzzy
 msgid "Process original artist field"
-msgstr ""
+msgstr "Obdelaj polje izvirnega izvajalca"
 
 #. Advice for Translators: set the first letter of copyright translated
 #: ../src/scan.c:2632
-#, fuzzy
 msgid "Cr"
-msgstr "Mac (CR)"
+msgstr "Ap"
 
 #: ../src/scan.c:2633
-#, fuzzy
 msgid "Process copyright field"
-msgstr "Izpolnite polje: %s"
+msgstr "Obdelaj polje avtorske pravice"
 
 #. Advice for Translators: set the first letter of URL translated
 #: ../src/scan.c:2635
@@ -4652,9 +4579,8 @@ msgid "U"
 msgstr "U"
 
 #: ../src/scan.c:2636
-#, fuzzy
 msgid "Process URL field"
-msgstr "Izpolnite polje: %s"
+msgstr "Obdelaj polje URL"
 
 #. Advice for Translators: set the first letter of encoder name translated
 #: ../src/scan.c:2638
@@ -4662,19 +4588,17 @@ msgid "E"
 msgstr "E"
 
 #: ../src/scan.c:2639
-#, fuzzy
 msgid "Process encoder name field"
-msgstr "Ime polja že obstaja"
+msgstr "Obdelaj polje imena kodirnika"
 
 #: ../src/scan.c:2688
-#, fuzzy
 msgid "Invert Selection"
-msgstr "Obrni iz&bor"
+msgstr "Preobrni izbor"
 
 #: ../src/scan.c:2697
 #, fuzzy
 msgid "Select/Unselect All"
-msgstr "Preklic izbora vseh skladb"
+msgstr "Izberi ali prekliči izbor vseh"
 
 #: ../src/scan.c:2710
 msgid "Convert:"
@@ -4685,83 +4609,59 @@ msgid "to: "
 msgstr "v:"
 
 #: ../src/scan.c:2741
-msgid ""
-"The underscore character or the string '%20' are replaced by one space. "
-"Example, before: 'Text%20In%20An_Entry', after: 'Text In An Entry'."
+msgid "The underscore character or the string '%20' are replaced by one space. Example, before: 'Text%20In%20An_Entry', after: 'Text In An Entry'."
 msgstr ""
 
 #: ../src/scan.c:2744
-msgid ""
-"The space character is replaced by one underscore character. Example, "
-"before: 'Text In An Entry', after: 'Text_In_An_Entry'."
+msgid "The space character is replaced by one underscore character. Example, before: 'Text In An Entry', after: 'Text_In_An_Entry'."
 msgstr ""
 
 #: ../src/scan.c:2747
-msgid ""
-"Replace a string by another one. Note that the search is case sensitive."
+msgid "Replace a string by another one. Note that the search is case sensitive."
 msgstr ""
 
 #: ../src/scan.c:2760
-#, fuzzy
 msgid "Detect Roman numerals"
-msgstr "Števniki števnih palic"
+msgstr "Zaznaj rimske številke"
 
 #: ../src/scan.c:2787
-msgid ""
-"Convert all words in all fields to upper case. Example, before: 'Text IN AN "
-"entry', after: 'TEXT IN AN ENTRY'."
+msgid "Convert all words in all fields to upper case. Example, before: 'Text IN AN entry', after: 'TEXT IN AN ENTRY'."
 msgstr ""
 
 #: ../src/scan.c:2790
-msgid ""
-"Convert all words in all fields to lower case. Example, before: 'TEXT IN an "
-"entry', after: 'text in an entry'."
+msgid "Convert all words in all fields to lower case. Example, before: 'TEXT IN an entry', after: 'text in an entry'."
 msgstr ""
 
 #: ../src/scan.c:2793
-msgid ""
-"Convert the initial of the first word in all fields to upper case. Example, "
-"before: 'text IN An ENTRY', after: 'Text in an entry'."
+msgid "Convert the initial of the first word in all fields to upper case. Example, before: 'text IN An ENTRY', after: 'Text in an entry'."
 msgstr ""
 
 #: ../src/scan.c:2796
-msgid ""
-"Convert the initial of each word in all fields to upper case. Example, "
-"before: 'Text in an ENTRY', after: 'Text In An Entry'."
+msgid "Convert the initial of each word in all fields to upper case. Example, before: 'Text in an ENTRY', after: 'Text In An Entry'."
 msgstr ""
 
 #: ../src/scan.c:2799
-msgid ""
-"Force to convert to upper case the Roman numerals. Example, before: 'ix. "
-"text in an entry', after: 'IX. Text In An Entry'."
+msgid "Force to convert to upper case the Roman numerals. Example, before: 'ix. text in an entry', after: 'IX. Text In An Entry'."
 msgstr ""
 
 #: ../src/scan.c:2808
-#, fuzzy
 msgid "Insert a space before an uppercase letter"
 msgstr "Vstavi presledek pred veliko črko"
 
 #: ../src/scan.c:2809
-#, fuzzy
 msgid "Remove duplicates of space or underscore"
 msgstr "Odstrani podvojene presledke ali podčrtaje"
 
 #: ../src/scan.c:2827
-msgid ""
-"All spaces between words are removed. Example, before: 'Text In An Entry', "
-"after: 'TextInAnEntry'."
+msgid "All spaces between words are removed. Example, before: 'Text In An Entry', after: 'TextInAnEntry'."
 msgstr ""
 
 #: ../src/scan.c:2830
-msgid ""
-"A space is inserted before each upper case letter. Example, before: "
-"'TextInAnEntry', after: 'Text In An Entry'."
+msgid "A space is inserted before each upper case letter. Example, before: 'TextInAnEntry', after: 'Text In An Entry'."
 msgstr ""
 
 #: ../src/scan.c:2833
-msgid ""
-"Duplicated spaces or underscores are removed. Example, before: "
-"'Text__In__An   Entry', after: 'Text_In_An Entry'."
+msgid "Duplicated spaces or underscores are removed. Example, before: 'Text__In__An   Entry', after: 'Text_In_An Entry'."
 msgstr ""
 
 #.
@@ -4806,7 +4706,7 @@ msgstr "%d: številka diska"
 #: ../src/scan.c:2867
 #, fuzzy, c-format
 msgid "%e: encoded by"
-msgstr "Kodirali"
+msgstr "%e: kodirali"
 
 #: ../src/scan.c:2870
 #, c-format
@@ -4901,28 +4801,28 @@ msgid "Move Down: No row selected"
 msgstr "Premakni navzdol: izbrana ni nobena vrstica"
 
 #: ../src/setting.c:936
-#, fuzzy, c-format
+#, c-format
 msgid "Error: Cannot write configuration file: %s (%s)"
-msgstr "Ni mogoče pisati v začasno datoteko %s"
+msgstr ""
 
 #: ../src/setting.c:1078
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot open configuration file '%s' (%s)"
-msgstr "Ni mogoče odpreti dovodne datoteke %s"
+msgstr ""
 
 #: ../src/setting.c:1080
 msgid "Loading default configuration"
 msgstr "Nalaganje privzetih nastavitev"
 
 #: ../src/setting.c:1121
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot create or open file '%s' (%s)"
-msgstr "Ustvarjanje ali odpiranje '%s' je spodletelo"
+msgstr "Ustvarjanje ali odpiranje '%s' je spodletelo (%s)"
 
 #: ../src/setting.c:1182
-#, fuzzy, c-format
+#, c-format
 msgid "Error: Cannot write list to file: %s (%s)"
-msgstr "Ni podprtih vrst šifriranje (napaka nastavitvene datoteke?)"
+msgstr ""
 
 #. Fall back to defaults
 #: ../src/setting.c:1267
@@ -4940,14 +4840,14 @@ msgid "Loading default 'Rename Directory' masks…"
 msgstr ""
 
 #: ../src/setting.c:1533
-#, fuzzy, c-format
+#, c-format
 msgid "Migrating configuration from directory '%s' to '%s'"
-msgstr "Ni mape za obnavljanje"
+msgstr ""
 
 #: ../src/setting.c:1557
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to migrate configuration file '%s'"
-msgstr "Shrani nastavitve terminala v datoteko"
+msgstr ""
 
 #: ../src/setting.c:1594
 #, c-format
@@ -4955,17 +4855,17 @@ msgid "Error: Cannot create directory '%s' (%s)"
 msgstr "Napaka: mape '%s' ni mogoče ustvariti (%s)"
 
 #: ../src/vcedit.c:295
-#, fuzzy
 msgid "Input truncated or empty."
-msgstr "Slika je pokvarjena ali prirezana"
+msgstr "Dovod je prirezan ali prazen."
 
 #: ../src/vcedit.c:297
 msgid "Input is not an Ogg bitstream."
 msgstr ""
 
 #: ../src/vcedit.c:315
+#, fuzzy
 msgid "Error reading first page of Ogg bitstream."
-msgstr ""
+msgstr "Napaka pri branju prve strani bitnega toka Ogg."
 
 #: ../src/vcedit.c:321
 msgid "Error reading initial header packet."
@@ -4976,12 +4876,10 @@ msgid "Ogg bitstream contains neither Speex or Vorbis data."
 msgstr ""
 
 #: ../src/vcedit.c:381
-#, fuzzy
 msgid "Corrupt secondary header."
-msgstr "Glava slike je pokvarjena"
+msgstr "Okvarjena je drugotna glava."
 
 #: ../src/vcedit.c:411
-#, fuzzy
 msgid "Need to save extra headers"
 msgstr "Potrebno je shraniti dodatne glave"
 
@@ -4990,13 +4888,11 @@ msgid "EOF before end of Vorbis headers."
 msgstr ""
 
 #: ../src/vcedit.c:590
-#, fuzzy
 msgid "Corrupt or missing data, continuing…"
-msgstr "Pokvarjen ali nepopoln zapis različice"
+msgstr "Podatki so okvarjeni ali manjkajo, se nadaljuje ..."
 
 #: ../src/vcedit.c:627
-msgid ""
-"Error writing stream to output. Output stream may be corrupted or truncated."
+msgid "Error writing stream to output. Output stream may be corrupted or truncated."
 msgstr ""
 
 #. Log_Print(_("DLL '%s' not already loaded. Try loading it..."), dllname);
@@ -5026,9 +4922,9 @@ msgstr "Funkcije '%s' ni mogoče najti v knjižnici DLL '%s'"
 #. ET_Win32_Path_Replace_Backslashes(app_data_dir);
 #. Log_Print(_("EasyTAG settings directory: '%s'"), app_data_dir);
 #: ../src/win32/win32dep.c:277
-#, fuzzy, c-format
+#, c-format
 msgid "EasyTAG settings directory: '%s'"
-msgstr "Izbor mape za izgradnjo"
+msgstr "Mapa nastavitev EasyTAG: '%s'"
 
 #. Log_Print(_("weasytag_init start..."));
 #: ../src/win32/win32dep.c:467
@@ -5056,3 +4952,4 @@ msgstr "Zaključevanje weasytag_init ..."
 #, c-format
 msgid "Audio player: '%s'"
 msgstr "Predvajalnik zvoka: '%s'"
+
