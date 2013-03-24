@@ -3400,7 +3400,8 @@ Load_Filename_Set_Filenames (void)
  * Create and attach a popup menu on the two clist of the LoadFileWindow
  */
 static gboolean
-Load_Filename_Popup_Menu_Handler (GtkMenu *menu, GdkEventButton *event)
+Load_Filename_Popup_Menu_Handler (GtkWidget *treeview, GdkEventButton *event,
+                                  GtkMenu *menu)
 {
     if (event && (event->type==GDK_BUTTON_PRESS) && (event->button==3))
     {
@@ -3419,8 +3420,10 @@ Create_Load_Filename_Popup_Menu (GtkWidget *list)
 
 
     BrowserPopupMenu = gtk_menu_new();
-    g_signal_connect_swapped(G_OBJECT(list), "button_press_event", 
-                             G_CALLBACK(Load_Filename_Popup_Menu_Handler), G_OBJECT(BrowserPopupMenu));
+    gtk_menu_attach_to_widget (GTK_MENU (BrowserPopupMenu), list, NULL);
+    g_signal_connect (G_OBJECT (list), "button-press-event",
+                      G_CALLBACK (Load_Filename_Popup_Menu_Handler),
+                      BrowserPopupMenu);
     
     MenuItem = gtk_image_menu_item_new_with_label(_("Insert a blank line"));
     Image = gtk_image_new_from_stock(GTK_STOCK_ADD,GTK_ICON_SIZE_MENU);

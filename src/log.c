@@ -77,7 +77,8 @@ struct _Log_Data
 /**************
  * Prototypes *
  **************/
-static gboolean Log_Popup_Menu_Handler (GtkMenu *menu, GdkEventButton *event);
+static gboolean Log_Popup_Menu_Handler (GtkWidget *treeview,
+                                        GdkEventButton *event, GtkMenu *menu);
 static void Log_List_Set_Row_Visible (GtkTreeModel *treeModel,
                                       GtkTreeIter *rowIter);
 static void Log_Print_Tmp_List (void);
@@ -154,8 +155,9 @@ GtkWidget *Create_Log_Area (void)
 
     // Create Popup Menu on browser album list
     PopupMenu = gtk_ui_manager_get_widget(UIManager, "/LogPopup");
-    g_signal_connect_swapped(G_OBJECT(LogList),"button_press_event",
-                             G_CALLBACK(Log_Popup_Menu_Handler), G_OBJECT(PopupMenu));
+    gtk_menu_attach_to_widget (GTK_MENU (PopupMenu), LogList, NULL);
+    g_signal_connect (G_OBJECT (LogList), "button-press-event",
+                      G_CALLBACK (Log_Popup_Menu_Handler), PopupMenu);
 
     // Load pending messages in the Log list
     Log_Print_Tmp_List();
@@ -173,7 +175,8 @@ GtkWidget *Create_Log_Area (void)
  * Log_Popup_Menu_Handler : displays the corresponding menu
  */
 static gboolean
-Log_Popup_Menu_Handler (GtkMenu *menu, GdkEventButton *event)
+Log_Popup_Menu_Handler (GtkWidget *treeview, GdkEventButton *event,
+                        GtkMenu *menu)
 {
     if (event && (event->type==GDK_BUTTON_PRESS) && (event->button == 3))
     {
