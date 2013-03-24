@@ -133,7 +133,6 @@ tConfigVariable Config_Variables[] =
     {"date_auto_completion",                 CV_TYPE_BOOL,    &DATE_AUTO_COMPLETION                     },
     {"number_track_formated",                CV_TYPE_BOOL,    &NUMBER_TRACK_FORMATED                    },
     {"number_track_formated_spin_button",    CV_TYPE_INT,     &NUMBER_TRACK_FORMATED_SPIN_BUTTON        },
-    {"ogg_tag_write_xmms_comment",           CV_TYPE_BOOL,    &OGG_TAG_WRITE_XMMS_COMMENT               },
     {"set_focus_to_same_tag_field",          CV_TYPE_BOOL,    &SET_FOCUS_TO_SAME_TAG_FIELD              },
     {"set_focus_to_first_tag_field",         CV_TYPE_BOOL,    &SET_FOCUS_TO_FIRST_TAG_FIELD             },
     {"sorting_file_mode",                    CV_TYPE_INT,     &SORTING_FILE_MODE                        },
@@ -383,7 +382,6 @@ void Init_Config_Variables (void)
     DATE_AUTO_COMPLETION                    = 1;
     NUMBER_TRACK_FORMATED                   = 1;
     NUMBER_TRACK_FORMATED_SPIN_BUTTON       = 2;
-    OGG_TAG_WRITE_XMMS_COMMENT              = 1;
     SET_FOCUS_TO_SAME_TAG_FIELD             = 1;
     SET_FOCUS_TO_FIRST_TAG_FIELD            = 0;
     SORTING_FILE_MODE                       = SORTING_BY_ASCENDING_FILENAME;
@@ -676,7 +674,6 @@ Apply_Changes_Of_Preferences_Window (void)
         DATE_AUTO_COMPLETION                   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(DateAutoCompletion));
         NUMBER_TRACK_FORMATED                  = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(NumberTrackFormated));
         NUMBER_TRACK_FORMATED_SPIN_BUTTON      = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(NumberTrackFormatedSpinButton));
-        OGG_TAG_WRITE_XMMS_COMMENT             = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(OggTagWriteXmmsComment));
         SORTING_FILE_CASE_SENSITIVE            = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(SortingFileCaseSensitive));
         SET_FOCUS_TO_SAME_TAG_FIELD            = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(SetFocusToSameTagField));
         SET_FOCUS_TO_FIRST_TAG_FIELD           = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(SetFocusToFirstTagField));

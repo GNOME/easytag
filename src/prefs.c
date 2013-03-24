@@ -569,14 +569,6 @@ void Open_OptionsWindow (void)
     g_signal_connect_swapped(G_OBJECT(NumberTrackFormatedSpinButton),"changed",G_CALLBACK(Number_Track_Formatted_Spin_Button_Changed),G_OBJECT(Label));
     g_signal_emit_by_name(G_OBJECT(NumberTrackFormatedSpinButton),"changed",NULL);
 
-    OggTagWriteXmmsComment = gtk_check_button_new_with_label(_("Ogg Vorbis Files: write also the comment in the XMMS format"));
-    gtk_box_pack_start(GTK_BOX(vbox),OggTagWriteXmmsComment,FALSE,FALSE,0);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(OggTagWriteXmmsComment),OGG_TAG_WRITE_XMMS_COMMENT);
-    gtk_widget_set_tooltip_text(OggTagWriteXmmsComment,_("XMMS doesn't make use of the right way to "
-        "identify a comment in Ogg Vorbis files as other apps do. In fact, this field is usually labeled "
-        "with 'comment=', whereas XMMS uses only `='. Please, uncheck this option if you don't want "
-        "other apps to complain about an unknown field. Comments won't be shown in XMMS, though."));
-
     // Separator line
     Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
     gtk_box_pack_start(GTK_BOX(vbox),Separator,FALSE,FALSE,0);

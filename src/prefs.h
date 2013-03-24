@@ -108,7 +108,6 @@ GtkWidget *LabelId3v2Version;
 GtkWidget *DateAutoCompletion;
 GtkWidget *NumberTrackFormated;
 GtkWidget *NumberTrackFormatedSpinButton;
-GtkWidget *OggTagWriteXmmsComment;
 GtkWidget *SetFocusToSameTagField;
 GtkWidget *SetFocusToFirstTagField;
 GtkWidget *LogMaxLinesSpinButton;
