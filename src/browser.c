@@ -166,8 +166,9 @@ static void expand_cb   (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *path, 
 static void collapse_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *treePath, gpointer data);
 
 /* Pop up menus */
-static gboolean Browser_Popup_Menu_Handler (GtkMenu *menu,
-                                            GdkEventButton *event);
+static gboolean Browser_Popup_Menu_Handler (GtkWidget *widget,
+                                            GdkEventButton *event,
+                                            GtkMenu *menu);
 
 /* For window to rename a directory */
 static void Destroy_Rename_Directory_Window (void);
@@ -2342,13 +2343,38 @@ void Browser_Area_Set_Sensitive (gboolean activate)
  * Browser_Popup_Menu_Handler : displays the corresponding menu
  */
 static gboolean
-Browser_Popup_Menu_Handler (GtkMenu *menu, GdkEventButton *event)
+Browser_Popup_Menu_Handler (GtkWidget *widget, GdkEventButton *event,
+                            GtkMenu *menu)
 {
-    if (event && (event->type==GDK_BUTTON_PRESS) && (event->button == 3))
+    if (event && (event->type == GDK_BUTTON_PRESS) && (event->button == 3))
     {
-        gtk_menu_popup(menu,NULL,NULL,NULL,NULL,event->button,event->time);
+        if (GTK_IS_TREE_VIEW (widget))
+        {
+            GtkTreeView *browser_tree;
+
+            browser_tree = GTK_TREE_VIEW (widget);
+
+            if (event->window == gtk_tree_view_get_bin_window (browser_tree))
+            {
+                GtkTreePath *tree_path;
+
+                if (gtk_tree_view_get_path_at_pos (browser_tree, event->x,
+                                                   event->y, &tree_path, NULL,
+                                                   NULL,NULL))
+                {
+                    gtk_tree_selection_select_path (gtk_tree_view_get_selection (browser_tree),
+                                                    tree_path);
+                    gtk_tree_path_free (tree_path);
+                }
+            }
+        }
+
+        gtk_menu_popup (menu, NULL, NULL, NULL, NULL, event->button,
+	                event->time);
+
         return TRUE;
     }
+
     return FALSE;
 }
 
@@ -3126,9 +3152,8 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
 
     /* Create Popup Menu on browser tree view */
     PopupMenu = gtk_ui_manager_get_widget(UIManager, "/DirPopup");
-    g_signal_connect_swapped(G_OBJECT(BrowserTree),"button_press_event",
-                             G_CALLBACK(Browser_Popup_Menu_Handler), G_OBJECT(PopupMenu));
-
+    g_signal_connect (G_OBJECT (BrowserTree), "button-press-event",
+                      G_CALLBACK (Browser_Popup_Menu_Handler), PopupMenu);
 
 
     /*
@@ -3216,8 +3241,8 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
 
     // Create Popup Menu on browser artist list
     PopupMenu = gtk_ui_manager_get_widget(UIManager, "/DirArtistPopup");
-    g_signal_connect_swapped(G_OBJECT(BrowserArtistList),"button_press_event",
-                             G_CALLBACK(Browser_Popup_Menu_Handler), G_OBJECT(PopupMenu));
+    g_signal_connect (G_OBJECT (BrowserArtistList), "button-press-event",
+                      G_CALLBACK (Browser_Popup_Menu_Handler), PopupMenu);
     // Not available yet!
     //ui_widget_set_sensitive(MENU_FILE, AM_ARTIST_OPEN_FILE_WITH, FALSE);
 
@@ -3279,8 +3304,8 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
 
     // Create Popup Menu on browser album list
     PopupMenu = gtk_ui_manager_get_widget(UIManager, "/DirAlbumPopup");
-    g_signal_connect_swapped(G_OBJECT(BrowserArtistList),"button_press_event",
-                             G_CALLBACK(Browser_Popup_Menu_Handler), G_OBJECT(PopupMenu));
+    g_signal_connect (G_OBJECT (BrowserArtistList), "button-press-event",
+                      G_CALLBACK (Browser_Popup_Menu_Handler), PopupMenu);
     // Not available yet!
     //ui_widget_set_sensitive(MENU_FILE, AM_ALBUM_OPEN_FILE_WITH, FALSE);
 
@@ -3557,7 +3582,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
      * Create Popup Menu on file list
      */
     PopupMenu = gtk_ui_manager_get_widget(UIManager, "/FilePopup");
-    g_signal_connect_swapped(G_OBJECT(BrowserList),"button_press_event",
+    g_signal_connect(G_OBJECT(BrowserList),"button-press-event",
                              G_CALLBACK(Browser_Popup_Menu_Handler), G_OBJECT(PopupMenu));
 
     /*
