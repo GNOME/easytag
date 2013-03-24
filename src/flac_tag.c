@@ -62,7 +62,7 @@
  *  - ARTIST       : Track performer
  *  - ORGANIZATION : Name of the organization producing the track (i.e. the 'record label')
  *  - DESCRIPTION  : A short text description of the contents
- *  - COMMENT      : same than DESCRIPTION
+ *  - COMMENT      : same as DESCRIPTION
  *  - GENRE        : A short text indication of music genre
  *  - DATE         : Date the track was recorded
  *  - LOCATION     : Location where track was recorded
@@ -971,9 +971,7 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
         /***********
          * Comment *
          ***********/
-        // We write the comment using the "both" format
         Flac_Set_Tag(vc_block,"DESCRIPTION=",FileTag->comment,VORBIS_SPLIT_FIELD_COMMENT);
-        Flac_Set_Tag(vc_block,"COMMENT=",FileTag->comment,VORBIS_SPLIT_FIELD_COMMENT);
 
         /************
          * Composer *

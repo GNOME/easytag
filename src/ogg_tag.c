@@ -744,16 +744,12 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
     /***********
      * Comment *
      ***********/
-    // We write the comment using the two formats "DESCRIPTION" and "COMMENT" to be compatible with old versions
-    // Format of new specification
+    /* Format of new specification. */
     Ogg_Set_Tag(vc,"DESCRIPTION=",FileTag->comment,VORBIS_SPLIT_FIELD_COMMENT);
-
-    // Format used in winamp plugin
-    Ogg_Set_Tag(vc,"COMMENT=",FileTag->comment,VORBIS_SPLIT_FIELD_COMMENT);
 
     if (OGG_TAG_WRITE_XMMS_COMMENT)
     {
-        // Format used into xmms-1.2.5
+        /* Format used with xmms-1.2.5. */
         Ogg_Set_Tag(vc,"=",FileTag->comment,VORBIS_SPLIT_FIELD_COMMENT);
     }
 
