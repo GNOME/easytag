@@ -1772,71 +1772,52 @@ void Scan_Convert_Space_Into_Undescore (gchar *string)
 
 /*
  * Replace something with something else ;)
- * Currently this only works with one character for each
+ * Here use Regular Expression, to search and replace.
  */
 static void
 Scan_Convert_Character (gchar **string)
 {
-    gchar *from = gtk_editable_get_chars(GTK_EDITABLE(ProcessFieldsConvertFrom),0,-1 );
-    gchar *to   = gtk_editable_get_chars(GTK_EDITABLE(ProcessFieldsConvertTo),0,-1 );
-    const gchar *s;
-    const gchar *current;
-    GSList *tokens_list, *list;
-    gchar  *token;
-    gint    n_tokens;
-    gchar **result;
+    gchar *from;
+    gchar *to;
+    GRegex *regex;
+    GError *regex_error = NULL;
+    gchar *new_string;
 
+    from = gtk_editable_get_chars (GTK_EDITABLE (ProcessFieldsConvertFrom), 0,
+                                 -1);
+    to = gtk_editable_get_chars (GTK_EDITABLE (ProcessFieldsConvertTo), 0, -1);
 
-    tokens_list = NULL;
-    n_tokens = 0;
-    s = current = *string;
-
-    // Find tokens
-    if (strlen(from) > 0)
+    regex = g_regex_new (from, 0, 0, &regex_error);
+    if (regex_error != NULL)
     {
-        while (s
-        &&    *s != '\0'
-        &&    (s = g_strstr_len(current,strlen(current),from)) )
-        {
-            token = g_strndup(current, s - current);
-            tokens_list = g_slist_prepend(tokens_list, token);
-            n_tokens++;
-            current = s + strlen(from);
-        }
-        // For the last token
-        if (s == NULL)
-        {
-            token = g_strndup(current,strlen(current));
-            tokens_list = g_slist_prepend(tokens_list, token);
-            n_tokens++;
-        }
-    }else
-    {
-        // We search an empty string... we suppose it exists between each UTF-8 character
-        while (s
-        &&    *s != '\0'
-        &&    (s = g_utf8_find_next_char(current,NULL)) )
-        {
-            token = g_strndup(current, s - current);
-            tokens_list = g_slist_prepend(tokens_list, token);
-            n_tokens++;
-            current = s;
-        }
+        goto handle_error;
     }
 
-    // Load the tokens list in an array for g_strjoinv
-    result = g_new (gchar *, n_tokens + 1);
-    result[n_tokens] = NULL;
-    for (list = tokens_list; list != NULL; list = list->next)
-        result[--n_tokens] = list->data;
-    g_slist_free(tokens_list);
+    new_string = g_regex_replace (regex, *string, -1, 0, to, 0, &regex_error);
+    if (regex_error != NULL)
+    {
+        g_free (new_string);
+        g_regex_unref (regex);
+        goto handle_error;
+    }
 
-    g_free(*string);
+    /* Success. */
+    g_regex_unref (regex);
+    g_free (*string);
+    *string = new_string;
 
-    // Join all the tokens with the 'to' separator
-    *string = g_strjoinv(to,result);
+out:
+    g_free (from);
+    g_free (to);
+    return;
 
-    g_strfreev(result);
+handle_error:
+    Log_Print (LOG_ERROR, _("Error while processing fields: %s"),
+               regex_error->message);
+
+    g_error_free (regex_error);
+
+    goto out;
 }
 
 /*
