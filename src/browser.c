@@ -3152,6 +3152,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
 
     /* Create Popup Menu on browser tree view */
     PopupMenu = gtk_ui_manager_get_widget(UIManager, "/DirPopup");
+    gtk_menu_attach_to_widget (GTK_MENU (PopupMenu), BrowserTree, NULL);
     g_signal_connect (G_OBJECT (BrowserTree), "button-press-event",
                       G_CALLBACK (Browser_Popup_Menu_Handler), PopupMenu);
 
@@ -3241,6 +3242,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
 
     // Create Popup Menu on browser artist list
     PopupMenu = gtk_ui_manager_get_widget(UIManager, "/DirArtistPopup");
+    gtk_menu_attach_to_widget (GTK_MENU (PopupMenu), BrowserArtistList, NULL);
     g_signal_connect (G_OBJECT (BrowserArtistList), "button-press-event",
                       G_CALLBACK (Browser_Popup_Menu_Handler), PopupMenu);
     // Not available yet!
@@ -3304,7 +3306,8 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
 
     // Create Popup Menu on browser album list
     PopupMenu = gtk_ui_manager_get_widget(UIManager, "/DirAlbumPopup");
-    g_signal_connect (G_OBJECT (BrowserArtistList), "button-press-event",
+    gtk_menu_attach_to_widget (GTK_MENU (PopupMenu), BrowserAlbumList, NULL);
+    g_signal_connect (G_OBJECT (BrowserAlbumList), "button-press-event",
                       G_CALLBACK (Browser_Popup_Menu_Handler), PopupMenu);
     // Not available yet!
     //ui_widget_set_sensitive(MENU_FILE, AM_ALBUM_OPEN_FILE_WITH, FALSE);
@@ -3582,8 +3585,9 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
      * Create Popup Menu on file list
      */
     PopupMenu = gtk_ui_manager_get_widget(UIManager, "/FilePopup");
+    gtk_menu_attach_to_widget (GTK_MENU (PopupMenu), BrowserList, NULL);
     g_signal_connect(G_OBJECT(BrowserList),"button-press-event",
-                             G_CALLBACK(Browser_Popup_Menu_Handler), G_OBJECT(PopupMenu));
+                     G_CALLBACK (Browser_Popup_Menu_Handler), PopupMenu);
 
     /*
      * The list store for run program combos
