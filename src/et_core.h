@@ -32,21 +32,6 @@
  * Declaration *
  ***************/
 
-#ifndef MAX
-#    define MAX(a,b)      ((a) > (b) ? (a) : (b))
-#endif
-
-#ifndef MIN
-#    define MIN(a,b)      ((a) < (b) ? (a) : (b))
-#endif
-#ifndef MIN3
-#    define MIN3(x,y,z)   (MIN(x,y) < (z) ? MIN(x,y) : (z))
-#endif
-#ifndef MIN4
-#    define MIN4(x,y,z,w) (MIN3(x,y,z) < (w) ? MIN3(x,y,z) : (w))
-#endif
-
-
 /*
  * Colors Used (see declaration into et_core.c)
  */
