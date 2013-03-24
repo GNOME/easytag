@@ -46,6 +46,13 @@ AC_PROG_CXXCPP
 AC_PROG_SED
 PKG_PROG_PKG_CONFIG([0.24])
 
+AC_MSG_CHECKING([for glib-mkenums script])
+GLIB_MKENUMS=`$PKG_CONFIG --variable=glib_mkenums glib-2.0`
+AS_IF([test "x$GLIB_MKENUMS" = "x"],
+    [AC_MSG_ERROR([glib-mkenums not listed in glib-2.0 pkg-config file])],
+    [AC_SUBST([GLIB_MKENUMS])
+     AC_MSG_RESULT([$GLIB_MKENUMS])])
+
 dnl Man page, generated with xsltproc from DocBook XML.
 AC_ARG_ENABLE([man],
     [AS_HELP_STRING([--disable-man], [Disable building the man page])])

@@ -48,6 +48,8 @@ configure
 /src/libapetag/.deps/
 /src/win32/.deps/
 /src/win32/easytag.rc
+/src/enums.c
+/src/enums.h
 /????-report.html
 /????-report.xml
 /test-suite.log
