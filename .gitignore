@@ -1,6 +1,7 @@
 # ignore file
 *.o
 .dirstamp
+.dstamp
 /build-aux
 m4/*
 Makefile
@@ -12,10 +13,13 @@ config.h.in
 config.log
 config.status
 configure
+/data/easytag.desktop
+/doc/easytag.1
+/doc/version.xml
 /doc/easytag.1
 /doc/version.xml
 /easytag
-/easytag.desktop
+/easytag-*.tar.xz
 /easytag-*-setup.exe
 /easytag-win32-installer.nsi
 /easytag.exe

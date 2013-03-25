@@ -124,9 +124,17 @@ easytag-win32-installer.nsi: easytag-win32-installer.nsi.in Makefile
 		-e "s|\@PACKAGE_URL\@|$(PACKAGE_URL)|" \
 		-e "s|\@PACKAGE_VERSION\@|$(PACKAGE_VERSION)|" $< > $@
 
+# Create a directory stamp in the build dir. Used to workaround the case where
+# a pattern rule is used for a target with a path that does not ordinarily
+# exist in the build dir.
+%/.dstamp:
+	$(AM_V_at)$(MKDIR_P) $(@D)
+	$(AM_V_at)touch $@
+
 @INTLTOOL_DESKTOP_RULE@
 desktopdir = $(datadir)/applications
-desktop_in_files = easytag.desktop.in
+desktop_in_files = data/easytag.desktop.in
+$(desktop_in_files:.desktop.in=.desktop): data/.dstamp
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
 if ENABLE_MAN
@@ -296,8 +304,7 @@ dist_noinst_SCRIPTS = \
 	autogen.sh
 
 if EASYTAG_ENABLE_TESTS
-tests/test-desktop-file-validate.sh: Makefile
-	$(MKDIR_P) $(top_builddir)/tests
+tests/test-desktop-file-validate.sh: Makefile tests/.dstamp
 	$(AM_V_GEN)echo "#!/bin/sh -e" > $@; \
 		echo "$(DESKTOP_FILE_VALIDATE) $(top_builddir)/$(desktop_DATA) || exit 1" >> $@; \
 		chmod +x $@
@@ -316,10 +323,12 @@ CLEANFILES = \
 	easytag-win32-installer.nsi
 
 DISTCLEANFILES = \
-	intltool-extract \
-	intltool-merge \
-	intltool-update \
 	po/.intltool-merge-cache
+
+clean-local: clean-local-dstamp
+clean-local-dstamp:
+	-rm -f data/.dstamp
+	-rm -f tests/.dstamp
 
 git-changelog-hook:
 	$(AM_V_at)if $(top_srcdir)/build-aux/missing --run git \
@@ -331,4 +340,4 @@ git-changelog-hook:
 
 dist-hook: git-changelog-hook
 
-.PHONY: git-changelog-hook
+.PHONY: clean-local-dstamp git-changelog-hook

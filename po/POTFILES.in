@@ -1,4 +1,4 @@
-easytag.desktop.in
+data/easytag.desktop.in
 src/about.c
 src/ape_tag.c
 src/application.c
