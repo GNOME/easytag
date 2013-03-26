@@ -3359,7 +3359,6 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     column = gtk_tree_view_column_new();
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
     gtk_tree_view_column_set_title(column, _(BrowserList_Titles[0]));
     gtk_tree_view_column_set_attributes(column, renderer,
                                         "text",           LIST_FILE_NAME,
@@ -3367,13 +3366,13 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                         "background-gdk", LIST_ROW_BACKGROUND,
                                         "foreground-gdk", LIST_ROW_FOREGROUND,
                                         NULL);
+    gtk_tree_view_column_set_resizable (column, TRUE);
     gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
 
     // Column for Title
     column = gtk_tree_view_column_new();
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
     gtk_tree_view_column_set_title(column, _(BrowserList_Titles[1]));
     gtk_tree_view_column_set_attributes(column, renderer,
                                         "text",           LIST_FILE_TITLE,
@@ -3381,13 +3380,13 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                         "background-gdk", LIST_ROW_BACKGROUND,
                                         "foreground-gdk", LIST_ROW_FOREGROUND,
                                         NULL);
+    gtk_tree_view_column_set_resizable (column, TRUE);
     gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
 
     // Column for Artist
     column = gtk_tree_view_column_new();
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
     gtk_tree_view_column_set_title(column, _(BrowserList_Titles[2]));
     gtk_tree_view_column_set_attributes(column, renderer,
                                         "text",           LIST_FILE_ARTIST,
@@ -3395,13 +3394,13 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                         "background-gdk", LIST_ROW_BACKGROUND,
                                         "foreground-gdk", LIST_ROW_FOREGROUND,
                                         NULL);
+    gtk_tree_view_column_set_resizable (column, TRUE);
     gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
 
     // Column for Album Artist
     column = gtk_tree_view_column_new();
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
     gtk_tree_view_column_set_title(column, _(BrowserList_Titles[3]));
     gtk_tree_view_column_set_attributes(column, renderer,
                                         "text",           LIST_FILE_ALBUM_ARTIST,
@@ -3409,13 +3408,13 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                         "background-gdk", LIST_ROW_BACKGROUND,
                                         "foreground-gdk", LIST_ROW_FOREGROUND,
                                         NULL);
+    gtk_tree_view_column_set_resizable (column, TRUE);
     gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
 	
     // Column for Album
     column = gtk_tree_view_column_new();
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
     gtk_tree_view_column_set_title(column, _(BrowserList_Titles[4]));
     gtk_tree_view_column_set_attributes(column, renderer,
                                         "text",           LIST_FILE_ALBUM,
@@ -3423,13 +3422,13 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                         "background-gdk", LIST_ROW_BACKGROUND,
                                         "foreground-gdk", LIST_ROW_FOREGROUND,
                                         NULL);
+    gtk_tree_view_column_set_resizable(column, TRUE);
     gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
 
     // Column for Year
     column = gtk_tree_view_column_new();
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
     gtk_tree_view_column_set_title(column, _(BrowserList_Titles[5]));
     gtk_tree_view_column_set_attributes(column, renderer,
                                         "text",           LIST_FILE_YEAR,
@@ -3437,13 +3436,13 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                         "background-gdk", LIST_ROW_BACKGROUND,
                                         "foreground-gdk", LIST_ROW_FOREGROUND,
                                         NULL);
+    gtk_tree_view_column_set_resizable (column, TRUE);
     gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
 
     /* Column for disc/CD number. */
     column = gtk_tree_view_column_new ();
     renderer = gtk_cell_renderer_text_new ();
     gtk_tree_view_column_pack_start (column, renderer, FALSE);
-    gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
     gtk_tree_view_column_set_title (column, _(BrowserList_Titles[6]));
     gtk_tree_view_column_set_attributes (column, renderer,
                                          "text", LIST_FILE_DISCNO,
@@ -3451,13 +3450,13 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                          "background-gdk", LIST_ROW_BACKGROUND,
                                          "foreground-gdk", LIST_ROW_FOREGROUND,
                                          NULL);
+    gtk_tree_view_column_set_resizable (column, TRUE);
     gtk_tree_view_append_column (GTK_TREE_VIEW (BrowserList), column);
 
     /* Column for track number. */
     column = gtk_tree_view_column_new ();
     renderer = gtk_cell_renderer_text_new ();
     gtk_tree_view_column_pack_start (column, renderer, FALSE);
-    gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
     gtk_tree_view_column_set_title (column, _(BrowserList_Titles[7]));
     gtk_tree_view_column_set_attributes (column, renderer,
                                          "text", LIST_FILE_TRACK,
@@ -3465,13 +3464,13 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                          "background-gdk", LIST_ROW_BACKGROUND,
                                          "foreground-gdk", LIST_ROW_FOREGROUND,
                                          NULL);
+    gtk_tree_view_column_set_resizable (column, TRUE);
     gtk_tree_view_append_column (GTK_TREE_VIEW (BrowserList), column);
 
     // Column for Genre
     column = gtk_tree_view_column_new();
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
     gtk_tree_view_column_set_title(column, _(BrowserList_Titles[8]));
     gtk_tree_view_column_set_attributes(column, renderer,
                                         "text",           LIST_FILE_GENRE,
@@ -3479,13 +3478,13 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                         "background-gdk", LIST_ROW_BACKGROUND,
                                         "foreground-gdk", LIST_ROW_FOREGROUND,
                                         NULL);
+    gtk_tree_view_column_set_resizable (column, TRUE);
     gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
 
     // Column for Comment
     column = gtk_tree_view_column_new();
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
     gtk_tree_view_column_set_title(column, _(BrowserList_Titles[9]));
     gtk_tree_view_column_set_attributes(column, renderer,
                                         "text",           LIST_FILE_COMMENT,
@@ -3493,13 +3492,13 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                         "background-gdk", LIST_ROW_BACKGROUND,
                                         "foreground-gdk", LIST_ROW_FOREGROUND,
                                         NULL);
+    gtk_tree_view_column_set_resizable (column, TRUE);
     gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
 
     // Column for Composer
     column = gtk_tree_view_column_new();
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
     gtk_tree_view_column_set_title(column, _(BrowserList_Titles[10]));
     gtk_tree_view_column_set_attributes(column, renderer,
                                         "text",           LIST_FILE_COMPOSER,
@@ -3507,13 +3506,13 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                         "background-gdk", LIST_ROW_BACKGROUND,
                                         "foreground-gdk", LIST_ROW_FOREGROUND,
                                         NULL);
+    gtk_tree_view_column_set_resizable (column, TRUE);
     gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
 
     // Column for Original Artist
     column = gtk_tree_view_column_new();
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
     gtk_tree_view_column_set_title(column, _(BrowserList_Titles[11]));
     gtk_tree_view_column_set_attributes(column, renderer,
                                         "text",           LIST_FILE_ORIG_ARTIST,
@@ -3521,13 +3520,13 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                         "background-gdk", LIST_ROW_BACKGROUND,
                                         "foreground-gdk", LIST_ROW_FOREGROUND,
                                         NULL);
+    gtk_tree_view_column_set_resizable (column, TRUE);
     gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
 
     // Column for Copyright
     column = gtk_tree_view_column_new();
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
     gtk_tree_view_column_set_title(column, _(BrowserList_Titles[12]));
     gtk_tree_view_column_set_attributes(column, renderer,
                                         "text",           LIST_FILE_COPYRIGHT,
@@ -3535,13 +3534,13 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                         "background-gdk", LIST_ROW_BACKGROUND,
                                         "foreground-gdk", LIST_ROW_FOREGROUND,
                                         NULL);
+    gtk_tree_view_column_set_resizable (column, TRUE);
     gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
 
     // Column for Url
     column = gtk_tree_view_column_new();
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
     gtk_tree_view_column_set_title(column, _(BrowserList_Titles[13]));
     gtk_tree_view_column_set_attributes(column, renderer,
                                         "text",           LIST_FILE_URL,
@@ -3549,13 +3548,13 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                         "background-gdk", LIST_ROW_BACKGROUND,
                                         "foreground-gdk", LIST_ROW_FOREGROUND,
                                         NULL);
+    gtk_tree_view_column_set_resizable (column, TRUE);
     gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
 
     // Column for Encoded By
     column = gtk_tree_view_column_new();
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
     gtk_tree_view_column_set_title(column, _(BrowserList_Titles[14]));
     gtk_tree_view_column_set_attributes(column, renderer,
                                         "text",           LIST_FILE_ENCODED_BY,
@@ -3563,6 +3562,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                         "background-gdk", LIST_ROW_BACKGROUND,
                                         "foreground-gdk", LIST_ROW_FOREGROUND,
                                         NULL);
+    gtk_tree_view_column_set_resizable (column, TRUE);
     gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserList), column);
 
 
