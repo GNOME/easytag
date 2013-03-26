@@ -36,6 +36,7 @@ configure
 /INSTALL
 /libnautilus-easytag.la
 /libtool
+/org.gnome.EasyTAG.enums.xml
 /nautilus-extension/.deps
 /po/*.gmo
 /po/.intltool-merge-cache

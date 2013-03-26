@@ -243,6 +243,8 @@ desktop_in_files = data/easytag.desktop.in
 $(desktop_in_files:.desktop.in=.desktop): data/.dstamp
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
+gsettings_ENUM_FILES = src/setting.h
+gsettings_ENUM_NAMESPACE = org.gnome.EasyTAG
 gsettings_SCHEMAS = data/org.gnome.EasyTAG.gschema.xml
 data/org.gnome.EasyTAG.gschema.valid: data/.dstamp
 @GSETTINGS_RULES@
