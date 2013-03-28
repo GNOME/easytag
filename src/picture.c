@@ -49,10 +49,10 @@
  * Prototypes *
  **************/
 
-static void Picture_Load_Filename (gchar *filename, gpointer user_data);
+static void Picture_Load_Filename (const gchar *filename, gpointer user_data);
 
 static const gchar *Picture_Format_String (Picture_Format format);
-static const gchar *Picture_Type_String (Picture_Type type);
+static const gchar *Picture_Type_String (EtPictureType type);
 static gchar *Picture_Info (Picture *pic);
 
 static Picture *Picture_Load_File_Data (const gchar *filename);
@@ -62,7 +62,7 @@ static gboolean Picture_Save_File_Data (const Picture *pic,
 /*
  * Note :
  * -> MP4_TAG :
- *      Just has one picture (PICTURE_TYPE_FRONT_COVER).
+ *      Just has one picture (ET_PICTURE_TYPE_FRONT_COVER).
  *      The format's don't matter to the MP4 side.
  *
  */
@@ -173,19 +173,67 @@ void Picture_Clear_Button_Clicked (GObject *object)
 }
 
 /*
+ * et_picture_type_from_filename:
+ * @filename: UTF-8 representation of a filename
+ *
+ * Use some heuristics to provide an estimate of the type of the picture, based
+ * on the filename.
+ *
+ * Returns: the picture type, or %ET_PICTURE_TYPE_FRONT_COVER if the type could
+ * not be estimated
+ */
+static EtPictureType
+et_picture_type_from_filename (const gchar *filename_utf8)
+{
+    EtPictureType picture_type = ET_PICTURE_TYPE_FRONT_COVER;
+    const struct
+    {
+        const gchar *type_str;
+        const EtPictureType pic_type;
+    } type_mappings[] =
+    {
+        { "front", ET_PICTURE_TYPE_FRONT_COVER },
+        { "back", ET_PICTURE_TYPE_BACK_COVER },
+        { "CD", ET_PICTURE_TYPE_MEDIA },
+        { "inside", ET_PICTURE_TYPE_LEAFLET_PAGE },
+        { "inlay", ET_PICTURE_TYPE_LEAFLET_PAGE }
+    };
+    gsize i;
+    gchar *folded_filename;
+
+    g_return_val_if_fail (filename_utf8 != NULL, ET_PICTURE_TYPE_FRONT_COVER);
+
+    folded_filename = g_utf8_casefold (filename_utf8, -1);
+
+    for (i = 0; i < G_N_ELEMENTS (type_mappings); i++)
+    {
+        gchar *folded_type = g_utf8_casefold (type_mappings[i].type_str, -1);
+        if (strstr (folded_filename, folded_type) != NULL)
+        {
+            picture_type = type_mappings[i].pic_type;
+            g_free (folded_type);
+            break;
+        }
+        else
+        {
+            g_free (folded_type);
+        }
+    }
+
+    g_free (folded_filename);
+
+    return picture_type;
+}
+
+/*
  * - 'filename' : path + filename of picture file
  */
 static void
-Picture_Load_Filename (gchar *filename, gpointer user_data)
+Picture_Load_Filename (const gchar *filename, gpointer user_data)
 {
     Picture *pic;
     gchar *filename_utf8;
     gchar *filename_utf8_folded = NULL;
-    gchar *front_folded = NULL;
-    gchar *back_folded = NULL;
-    gchar *cd_folded = NULL;
-    gchar *inside_folded = NULL;
-    //gchar *inlay_folded = NULL;
 
     // Filename must be passed in filesystem encoding!
     pic = Picture_Load_File_Data(filename);
@@ -199,37 +247,22 @@ Picture_Load_Filename (gchar *filename, gpointer user_data)
         {
             // Only one picture supported for MP4
             case MP4_TAG:
-            {
-                pic->type = PICTURE_TYPE_FRONT_COVER;
+                pic->type = ET_PICTURE_TYPE_FRONT_COVER;
                 break;
-            }
 
             // Other tag types
-            default:
-            {
+            case ID3_TAG:
+            case OGG_TAG:
+            case APE_TAG:
+            case FLAC_TAG:
+            case WAVPACK_TAG:
                 // By default, set the filename in the description
                 pic->description = g_path_get_basename(filename_utf8);
-                
-                // Try to identify the type of the picture from the file name
-                filename_utf8_folded = g_utf8_casefold(pic->description, -1);
-                front_folded         = g_utf8_casefold("Front", -1);
-                back_folded          = g_utf8_casefold("Back", -1);
-                cd_folded            = g_utf8_casefold("CD", -1);
-                inside_folded        = g_utf8_casefold("inside", -1);
-                //inlay_folded         = g_utf8_casefold("inlay", -1);
-                if ( strstr(filename_utf8_folded, front_folded) != NULL )
-                    pic->type = PICTURE_TYPE_FRONT_COVER;
-                else if ( strstr(filename_utf8_folded, back_folded) != NULL )
-                    pic->type = PICTURE_TYPE_BACK_COVER;
-                else if ( strstr(filename_utf8_folded, cd_folded) != NULL )
-                    pic->type = PICTURE_TYPE_MEDIA;
-                else if ( strstr(filename_utf8_folded, inside_folded) != NULL )
-                    pic->type = PICTURE_TYPE_LEAFLET_PAGE;
-                //else if ( strstr(filename_utf8_folded, inlay_folded) != NULL )
-                //    pic->type = PICTURE_TYPE_LEAFLET_PAGE;
-
+                pic->type = et_picture_type_from_filename (pic->description);
                 break;
-            }
+
+            default:
+                g_assert_not_reached ();
         }
 
         PictureEntry_Update(pic, TRUE);
@@ -240,11 +273,6 @@ Picture_Load_Filename (gchar *filename, gpointer user_data)
 
     g_free(filename_utf8);
     g_free(filename_utf8_folded);
-    g_free(front_folded);
-    g_free(back_folded);
-    g_free(cd_folded);
-    g_free(inside_folded);
-    //g_free(inlay_folded);
 }
 
 /*
@@ -363,7 +391,7 @@ void Picture_Properties_Button_Clicked (GObject *object)
     GList *selection_list = NULL;
     gint selection_nbr, selection_i = 1;
     gint response;
-    Picture_Type pic_type;
+    EtPictureType pic_type;
 
     g_return_if_fail (PictureEntryView != NULL);
 
@@ -432,8 +460,8 @@ void Picture_Properties_Button_Clicked (GObject *object)
 
                 gtk_list_store_append(store, &itertype);
                 gtk_list_store_set(store, &itertype,
-                                   PICTURE_TYPE_COLUMN_TEXT, _(Picture_Type_String(PICTURE_TYPE_FRONT_COVER)),
-                                   PICTURE_TYPE_COLUMN_TYPE_CODE, PICTURE_TYPE_FRONT_COVER,
+                                   PICTURE_TYPE_COLUMN_TEXT, _(Picture_Type_String(ET_PICTURE_TYPE_FRONT_COVER)),
+                                   PICTURE_TYPE_COLUMN_TYPE_CODE, ET_PICTURE_TYPE_FRONT_COVER,
                                    -1);
                 // Line to select by default
                 type_iter_to_select = itertype;
@@ -444,7 +472,7 @@ void Picture_Properties_Button_Clicked (GObject *object)
             default:
             {
                 // Load pictures types
-                for (pic_type = PICTURE_TYPE_OTHER; pic_type < PICTURE_TYPE_UNDEFINED; pic_type++)
+                for (pic_type = ET_PICTURE_TYPE_OTHER; pic_type < ET_PICTURE_TYPE_UNDEFINED; pic_type++)
                 {
                     GtkTreeIter itertype;
 
@@ -757,54 +785,54 @@ Picture_Format_String (Picture_Format format)
 }
 
 static const gchar *
-Picture_Type_String (Picture_Type type)
+Picture_Type_String (EtPictureType type)
 {
     switch (type)
     {
-        case PICTURE_TYPE_OTHER:
+        case ET_PICTURE_TYPE_OTHER:
             return _("Other");
-        case PICTURE_TYPE_FILE_ICON:
+        case ET_PICTURE_TYPE_FILE_ICON:
             return _("32x32 pixel PNG file icon");
-        case PICTURE_TYPE_OTHER_FILE_ICON:
+        case ET_PICTURE_TYPE_OTHER_FILE_ICON:
             return _("Other file icon");
-        case PICTURE_TYPE_FRONT_COVER:
+        case ET_PICTURE_TYPE_FRONT_COVER:
             return _("Cover (front)");
-        case PICTURE_TYPE_BACK_COVER:
+        case ET_PICTURE_TYPE_BACK_COVER:
             return _("Cover (back)");
-        case PICTURE_TYPE_LEAFLET_PAGE:
+        case ET_PICTURE_TYPE_LEAFLET_PAGE:
             return _("Leaflet page");
-        case PICTURE_TYPE_MEDIA:
+        case ET_PICTURE_TYPE_MEDIA:
             return _("Media (e.g. label side of CD)");
-        case PICTURE_TYPE_LEAD_ARTIST_LEAD_PERFORMER_SOLOIST:
+        case ET_PICTURE_TYPE_LEAD_ARTIST_LEAD_PERFORMER_SOLOIST:
             return _("Lead artist/lead performer/soloist");
-        case PICTURE_TYPE_ARTIST_PERFORMER:
+        case ET_PICTURE_TYPE_ARTIST_PERFORMER:
             return _("Artist/performer");
-        case PICTURE_TYPE_CONDUCTOR:
+        case ET_PICTURE_TYPE_CONDUCTOR:
             return _("Conductor");
-        case PICTURE_TYPE_BAND_ORCHESTRA:
+        case ET_PICTURE_TYPE_BAND_ORCHESTRA:
             return _("Band/Orchestra");
-        case PICTURE_TYPE_COMPOSER:
+        case ET_PICTURE_TYPE_COMPOSER:
             return _("Composer");
-        case PICTURE_TYPE_LYRICIST_TEXT_WRITER:
+        case ET_PICTURE_TYPE_LYRICIST_TEXT_WRITER:
             return _("Lyricist/text writer");
-        case PICTURE_TYPE_RECORDING_LOCATION:
+        case ET_PICTURE_TYPE_RECORDING_LOCATION:
             return _("Recording location");
-        case PICTURE_TYPE_DURING_RECORDING:
+        case ET_PICTURE_TYPE_DURING_RECORDING:
             return _("During recording");
-        case PICTURE_TYPE_DURING_PERFORMANCE:
+        case ET_PICTURE_TYPE_DURING_PERFORMANCE:
             return _("During performance");
-        case PICTURE_TYPE_MOVIDE_VIDEO_SCREEN_CAPTURE:
+        case ET_PICTURE_TYPE_MOVIDE_VIDEO_SCREEN_CAPTURE:
             return _("Movie/video screen capture");
-        case PICTURE_TYPE_A_BRIGHT_COLOURED_FISH:
+        case ET_PICTURE_TYPE_A_BRIGHT_COLOURED_FISH:
             return _("A bright colored fish");
-        case PICTURE_TYPE_ILLUSTRATION:
+        case ET_PICTURE_TYPE_ILLUSTRATION:
             return _("Illustration");
-        case PICTURE_TYPE_BAND_ARTIST_LOGOTYPE:
+        case ET_PICTURE_TYPE_BAND_ARTIST_LOGOTYPE:
             return _("Band/Artist logotype");
-        case PICTURE_TYPE_PUBLISHER_STUDIO_LOGOTYPE:
+        case ET_PICTURE_TYPE_PUBLISHER_STUDIO_LOGOTYPE:
             return _("Publisher/studio logotype");
         
-        case PICTURE_TYPE_UNDEFINED:
+        case ET_PICTURE_TYPE_UNDEFINED:
         default:
             return _("Unknown picture type");
     }
