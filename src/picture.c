@@ -186,7 +186,7 @@ static EtPictureType
 et_picture_type_from_filename (const gchar *filename_utf8)
 {
     EtPictureType picture_type = ET_PICTURE_TYPE_FRONT_COVER;
-    const struct
+    static const struct
     {
         const gchar *type_str;
         const EtPictureType pic_type;
