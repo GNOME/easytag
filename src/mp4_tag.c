@@ -85,8 +85,27 @@ gboolean Mp4tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
         return FALSE;
     }
 
-    /* TODO Add error detection */
-    tag = taglib_file_tag(mp4file);
+    /* Check for audio track */
+    if (!taglib_file_is_valid (mp4file))
+    {
+        gchar *filename_utf8 = filename_to_display (filename);
+        Log_Print (LOG_ERROR, _("File contains no audio track: '%s'"),
+                   filename_utf8);
+        g_free (filename_utf8);
+        taglib_file_free (mp4file);
+        return FALSE;
+    }
+
+    tag = taglib_file_tag (mp4file);
+    if (tag == NULL)
+    {
+        gchar *filename_utf8 = filename_to_display (filename);
+        Log_Print (LOG_ERROR, _("Error reading tags from file: '%s'"),
+                   filename_utf8);
+        g_free (filename_utf8);
+        taglib_file_free (mp4file);
+        return FALSE;
+    }
 
     /*********
      * Title *
@@ -173,8 +192,7 @@ gboolean Mp4tag_Write_File_Tag (ET_File *ETFile)
     TagLib_Tag *tag;
     gint error = 0;
 
-    if (!ETFile || !ETFile->FileTag)
-        return FALSE;
+    g_return_val_if_fail (ETFile != NULL || ETFile->FileTag != NULL, FALSE);
 
     FileTag = (File_Tag *)ETFile->FileTag->data;
     filename      = ((File_Name *)ETFile->FileNameCur->data)->value;
@@ -196,7 +214,16 @@ gboolean Mp4tag_Write_File_Tag (ET_File *ETFile)
         return FALSE;
     }
 
-    tag = taglib_file_tag(mp4file);
+    tag = taglib_file_tag (mp4file);
+    if (tag == NULL)
+    {
+        gchar *filename_utf8 = filename_to_display (filename);
+        Log_Print (LOG_ERROR, _("Error reading tags from file: '%s'"),
+                   filename_utf8);
+        g_free (filename_utf8);
+        taglib_file_free (mp4file);
+        return FALSE;
+    }
 
     /*********
      * Title *

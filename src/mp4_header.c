@@ -70,12 +70,22 @@ gboolean Mp4_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
     if( !taglib_file_is_valid(file) )
     {
         gchar *filename_utf8 = filename_to_display(filename);
-        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,("Contains no audio track"));
+        Log_Print (LOG_ERROR, _("File contains no audio track: '%s'"),
+                   filename_utf8);
         g_free(filename_utf8);
         return FALSE;
     }
 
     properties = taglib_file_audioproperties(file);
+    if (properties == NULL)
+    {
+        gchar *filename_utf8 = filename_to_display (filename);
+        Log_Print (LOG_ERROR, _("Error reading properties from file: '%s'"),
+                   filename_utf8);
+        g_free (filename_utf8);
+        taglib_file_free (file);
+        return FALSE;
+    }
 
     /* Get format/subformat */
     {
