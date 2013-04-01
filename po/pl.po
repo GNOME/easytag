@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: easytag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-24 20:43+0100\n"
-"PO-Revision-Date: 2013-03-24 20:44+0100\n"
+"POT-Creation-Date: 2013-04-01 20:43+0200\n"
+"PO-Revision-Date: 2013-04-01 20:44+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -86,9 +86,9 @@ msgstr "Wyświetlanie i modyfikowanie etykiet w plikach dźwiękowych"
 
 #. g_print(_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
 #: ../src/ape_tag.c:62 ../src/et_core.c:4508 ../src/flac_header.c:108
-#: ../src/id3_tag.c:150 ../src/id3_tag.c:1210 ../src/misc.c:1775
-#: ../src/mp4_header.c:64 ../src/mp4_header.c:73 ../src/mp4_tag.c:72
-#: ../src/mp4_tag.c:83 ../src/mp4_tag.c:186 ../src/mp4_tag.c:195
+#: ../src/id3_tag.c:150 ../src/id3_tag.c:1210 ../src/id3v24_tag.c:115
+#: ../src/misc.c:1775 ../src/mp4_header.c:64 ../src/mp4_tag.c:72
+#: ../src/mp4_tag.c:83 ../src/mp4_tag.c:204 ../src/mp4_tag.c:213
 #: ../src/mpeg_header.c:203 ../src/ogg_header.c:70 ../src/ogg_header.c:171
 #: ../src/ogg_tag.c:145 ../src/ogg_tag.c:650
 #, c-format
@@ -757,14 +757,14 @@ msgid "File Name"
 msgstr "Nazwa pliku"
 
 #: ../src/browser.c:3027 ../src/cddb.c:757 ../src/misc.c:1924
-#: ../src/prefs.c:621
+#: ../src/prefs.c:613
 msgid "Title"
 msgstr "Tytuł"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Artist".
 #: ../src/browser.c:3027 ../src/browser.c:3031 ../src/cddb.c:442
-#: ../src/cddb.c:758 ../src/misc.c:1925 ../src/prefs.c:622
+#: ../src/cddb.c:758 ../src/misc.c:1925 ../src/prefs.c:614
 msgid "Artist"
 msgstr "Wykonawca"
 
@@ -775,7 +775,7 @@ msgstr "Wykonawca albumu"
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Album".
 #: ../src/browser.c:3027 ../src/browser.c:3032 ../src/cddb.c:445
-#: ../src/cddb.c:759 ../src/misc.c:1927 ../src/prefs.c:623
+#: ../src/cddb.c:759 ../src/misc.c:1927 ../src/prefs.c:615
 msgid "Album"
 msgstr "Album"
 
@@ -792,16 +792,16 @@ msgid "Track"
 msgstr "Ścieżka"
 
 #: ../src/browser.c:3028 ../src/cddb.c:763 ../src/misc.c:1931
-#: ../src/prefs.c:624
+#: ../src/prefs.c:616
 msgid "Genre"
 msgstr "Gatunek"
 
-#: ../src/browser.c:3028 ../src/misc.c:1932 ../src/prefs.c:625
+#: ../src/browser.c:3028 ../src/misc.c:1932 ../src/prefs.c:617
 msgid "Comment"
 msgstr "Komentarz"
 
-#: ../src/browser.c:3029 ../src/misc.c:1933 ../src/picture.c:787
-#: ../src/prefs.c:626
+#: ../src/browser.c:3029 ../src/misc.c:1933 ../src/picture.c:815
+#: ../src/prefs.c:618
 msgid "Composer"
 msgstr "Kompozytor"
 
@@ -1060,7 +1060,7 @@ msgstr "Wszystkie pola"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Other".
-#: ../src/cddb.c:451 ../src/picture.c:765 ../src/prefs.c:800
+#: ../src/cddb.c:451 ../src/picture.c:793 ../src/prefs.c:792
 msgid "Other"
 msgstr "Inne"
 
@@ -1231,7 +1231,7 @@ msgstr "Dopasowanie wierszy według algorytmu Levenshteina"
 #. Doesn't activate it by default because if the new user don't pay attention to it,
 #. it will not understand why the cddb results aren't loaded correctly...
 #. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbUseDLM2),CDDB_USE_DLM);
-#: ../src/cddb.c:812 ../src/prefs.c:1370
+#: ../src/cddb.c:812 ../src/prefs.c:1362
 msgid ""
 "When activating this option, the Levenshtein algorithm (DLM: Damerau-"
 "Levenshtein Metric) will be used to match the CDDB title against every file "
@@ -1309,7 +1309,7 @@ msgstr "Błąd podczas odczytywania odpowiedzi CDDB (%s)"
 msgid "Cannot create file '%s' (%s)"
 msgstr "Nie można utworzyć pliku \"%s\" (%s)"
 
-#: ../src/cddb.c:1785 ../src/setting.c:1204
+#: ../src/cddb.c:1785 ../src/setting.c:1201
 #, c-format
 msgid "Cannot open file '%s' (%s)"
 msgstr "Nie można otworzyć pliku \"%s\" (%s)"
@@ -2381,7 +2381,7 @@ msgid "First letter uppercase of each word"
 msgstr "Wielka pierwsza litera każdego słowa"
 
 #. Group: insert/remove spaces
-#: ../src/easytag.c:4679 ../src/prefs.c:1022 ../src/scan.c:2782
+#: ../src/easytag.c:4679 ../src/prefs.c:1014 ../src/scan.c:2782
 msgid "Remove spaces"
 msgstr "Usuwanie spacji"
 
@@ -2536,7 +2536,7 @@ msgstr "Obrazy (%d)"
 
 #. Bitrate
 #: ../src/et_core.c:2998 ../src/flac_header.c:240
-#: ../src/monkeyaudio_header.c:86 ../src/mp4_header.c:125
+#: ../src/monkeyaudio_header.c:86 ../src/mp4_header.c:135
 #: ../src/mpeg_header.c:360 ../src/musepack_header.c:88
 #: ../src/ogg_header.c:242 ../src/wavpack_header.c:78
 #, c-format
@@ -2545,7 +2545,7 @@ msgstr "%d kb/s"
 
 #. Samplerate
 #: ../src/et_core.c:3003 ../src/flac_header.c:245
-#: ../src/monkeyaudio_header.c:91 ../src/mp4_header.c:130
+#: ../src/monkeyaudio_header.c:91 ../src/mp4_header.c:140
 #: ../src/mpeg_header.c:365 ../src/musepack_header.c:93
 #: ../src/ogg_header.c:247 ../src/wavpack_header.c:83
 #, c-format
@@ -2570,17 +2570,17 @@ msgstr "Tłumaczenie nazw plików"
 #. Mode
 #. mpeg4ip library seems to always return -1
 #. Mode
-#: ../src/flac_header.c:250 ../src/mp4_header.c:136 ../src/ogg_header.c:252
+#: ../src/flac_header.c:250 ../src/mp4_header.c:146 ../src/ogg_header.c:252
 #: ../src/wavpack_header.c:88
 msgid "Channels:"
 msgstr "Kanały:"
 
-#: ../src/flac_tag.c:130 ../src/flac_tag.c:849 ../src/flac_tag.c:859
+#: ../src/flac_tag.c:133 ../src/flac_tag.c:852 ../src/flac_tag.c:862
 #, c-format
 msgid "Error while opening file: '%s' as FLAC (%s)."
 msgstr "Błąd podczas otwierania pliku: \"%s\" jako FLAC (%s)."
 
-#: ../src/flac_tag.c:317 ../src/ogg_tag.c:297
+#: ../src/flac_tag.c:320 ../src/ogg_tag.c:297
 #, c-format
 msgid ""
 "The year value '%s' seems to be invalid in file '%s'. The information will "
@@ -2589,17 +2589,17 @@ msgstr ""
 "Wartość roku \"%s\" w pliku \"%s\" jest nieprawidłowa. Informacja zostanie "
 "utracona podczas zapisywania etykiety."
 
-#: ../src/flac_tag.c:1063
+#: ../src/flac_tag.c:1064
 #, c-format
 msgid "Picture block isn't valid: '%s'"
 msgstr "Nieprawidłowy blok obrazu: \"%s\""
 
-#: ../src/flac_tag.c:1096 ../src/ogg_tag.c:841
+#: ../src/flac_tag.c:1097 ../src/ogg_tag.c:830
 #, c-format
 msgid "Error: Failed to write comments to file '%s' (%s)."
 msgstr "Błąd: zapisanie komentarzy do pliku \"%s\" się nie powiodło (%s)."
 
-#: ../src/flac_tag.c:1101 ../src/ogg_tag.c:848
+#: ../src/flac_tag.c:1102 ../src/ogg_tag.c:837
 #, c-format
 msgid "Written tag of '%s'"
 msgstr "Zapisano etykietę pliku \"%s\""
@@ -2751,15 +2751,6 @@ msgstr "Błąd podczas tworzenia pliku tymczasowego"
 #, c-format
 msgid "Error while writing to file: '%s' (%s)"
 msgstr "Błąd podczas zapisywania do pliku: \"%s\" (%s)"
-
-#: ../src/id3v24_tag.c:116
-#, c-format
-msgid ""
-"Error while opening file: '%s' (%s).\n"
-"\a"
-msgstr ""
-"Błąd podczas otwierania pliku: \"%s\" (%s).\n"
-"\a"
 
 #: ../src/id3v24_tag.c:1478
 #, c-format
@@ -3068,14 +3059,29 @@ msgstr "Przesuń ten wiersz w dół"
 msgid "Profile:"
 msgstr "Profil:"
 
-#: ../src/mp4_header.c:64 ../src/mp4_tag.c:83 ../src/mp4_tag.c:195
+#: ../src/mp4_header.c:64 ../src/mp4_tag.c:83 ../src/mp4_tag.c:213
 msgid "MP4 format invalid"
 msgstr "Nieprawidłowy format MP4"
 
-#: ../src/mp4_header.c:123 ../src/mpeg_header.c:358
+#: ../src/mp4_header.c:73 ../src/mp4_tag.c:92
+#, c-format
+msgid "File contains no audio track: '%s'"
+msgstr "Plik nie zawiera ścieżki dźwiękowej: \"%s\""
+
+#: ../src/mp4_header.c:83
+#, c-format
+msgid "Error reading properties from file: '%s'"
+msgstr "Błąd podczas odczytywania właściwości z pliku: \"%s\""
+
+#: ../src/mp4_header.c:133 ../src/mpeg_header.c:358
 #, c-format
 msgid "~%d kb/s"
 msgstr "~%d kb/s"
+
+#: ../src/mp4_tag.c:103 ../src/mp4_tag.c:221
+#, c-format
+msgid "Error reading tags from file: '%s'"
+msgstr "Błąd podczas odczytywania etykiet z pliku: \"%s\""
 
 #: ../src/mpeg_header.c:78
 msgid "Stereo"
@@ -3147,160 +3153,160 @@ msgstr "Błąd: otwarcie pliku się nie powiodło: \"%s\" jako Vorbis (%s)."
 msgid "Warning: The Ogg Vorbis file '%s' contains an ID3v2 tag."
 msgstr "Ostrzeżenie: plik Ogg Vorbis \"%s\" zawiera etykietę ID3v2."
 
-#: ../src/picture.c:271
+#: ../src/picture.c:299
 msgid "Add pictures"
 msgstr "Dodaj obrazy"
 
-#: ../src/picture.c:281 ../src/picture.c:604
+#: ../src/picture.c:309 ../src/picture.c:632
 msgid "All Files"
 msgstr "Wszystkie pliki"
 
-#: ../src/picture.c:287 ../src/picture.c:610
+#: ../src/picture.c:315 ../src/picture.c:638
 msgid "PNG and JPEG"
 msgstr "PNG i JPEG"
 
-#: ../src/picture.c:395
+#: ../src/picture.c:423
 #, c-format
 msgid "Picture Properties %d/%d"
 msgstr "Właściwości obrazu %d/%d"
 
-#: ../src/picture.c:417
+#: ../src/picture.c:445
 msgid "Picture Type"
 msgstr "Typ obrazu"
 
 #. Description of the picture
-#: ../src/picture.c:474
+#: ../src/picture.c:502
 msgid "Picture Description:"
 msgstr "Opis obrazu:"
 
-#: ../src/picture.c:592
+#: ../src/picture.c:620
 #, c-format
 msgid "Save picture %d/%d"
 msgstr "Zapisz obraz %d/%d"
 
-#: ../src/picture.c:670
+#: ../src/picture.c:698
 #, c-format
 msgid "The following file already exists: '%s'"
 msgstr "Poniższy plik już istnieje: \"%s\""
 
-#: ../src/picture.c:672
+#: ../src/picture.c:700
 msgid "Do you want to save anyway, overwriting the file?"
 msgstr "Zapisać mimo to, zastępując plik?"
 
-#: ../src/picture.c:674
+#: ../src/picture.c:702
 msgid "Save"
 msgstr "Zapisz"
 
-#: ../src/picture.c:751
+#: ../src/picture.c:779
 msgid "JPEG image"
 msgstr "Obraz JPEG"
 
-#: ../src/picture.c:753
+#: ../src/picture.c:781
 msgid "PNG image"
 msgstr "Obraz PNG"
 
-#: ../src/picture.c:755
+#: ../src/picture.c:783
 msgid "Unknown image"
 msgstr "Nieznany obraz"
 
-#: ../src/picture.c:767
+#: ../src/picture.c:795
 msgid "32x32 pixel PNG file icon"
 msgstr "Ikona 32x32 piksele w formacie PNG"
 
-#: ../src/picture.c:769
+#: ../src/picture.c:797
 msgid "Other file icon"
 msgstr "Inny plik ikony"
 
-#: ../src/picture.c:771
+#: ../src/picture.c:799
 msgid "Cover (front)"
 msgstr "Okładka (przód)"
 
-#: ../src/picture.c:773
+#: ../src/picture.c:801
 msgid "Cover (back)"
 msgstr "Okładka (tył)"
 
-#: ../src/picture.c:775
+#: ../src/picture.c:803
 msgid "Leaflet page"
 msgstr "Środek okładki"
 
-#: ../src/picture.c:777
+#: ../src/picture.c:805
 msgid "Media (e.g. label side of CD)"
 msgstr "Nośnik (np. strona z nadrukiem na CD)"
 
-#: ../src/picture.c:779
+#: ../src/picture.c:807
 msgid "Lead artist/lead performer/soloist"
 msgstr "Prowadzący wykonawca/solista"
 
-#: ../src/picture.c:781
+#: ../src/picture.c:809
 msgid "Artist/performer"
 msgstr "Wykonawca"
 
-#: ../src/picture.c:783
+#: ../src/picture.c:811
 msgid "Conductor"
 msgstr "Dyrygent"
 
-#: ../src/picture.c:785
+#: ../src/picture.c:813
 msgid "Band/Orchestra"
 msgstr "Zespół/orkiestra"
 
-#: ../src/picture.c:789
+#: ../src/picture.c:817
 msgid "Lyricist/text writer"
 msgstr "Tekściarz/autor tekstów"
 
-#: ../src/picture.c:791
+#: ../src/picture.c:819
 msgid "Recording location"
 msgstr "Miejsce nagrywania"
 
-#: ../src/picture.c:793
+#: ../src/picture.c:821
 msgid "During recording"
 msgstr "Podczas nagrywania"
 
-#: ../src/picture.c:795
+#: ../src/picture.c:823
 msgid "During performance"
 msgstr "Podczas występu"
 
-#: ../src/picture.c:797
+#: ../src/picture.c:825
 msgid "Movie/video screen capture"
 msgstr "Zrzut ekranu z filmu/wideo"
 
-#: ../src/picture.c:799
+#: ../src/picture.c:827
 msgid "A bright colored fish"
 msgstr "Jaskrawo pokolorowana ryba"
 
-#: ../src/picture.c:801
+#: ../src/picture.c:829
 msgid "Illustration"
 msgstr "Ilustracja"
 
-#: ../src/picture.c:803
+#: ../src/picture.c:831
 msgid "Band/Artist logotype"
 msgstr "Logo zespołu/wykonawcy"
 
-#: ../src/picture.c:805
+#: ../src/picture.c:833
 msgid "Publisher/studio logotype"
 msgstr "Logo wydawcy/studia"
 
-#: ../src/picture.c:809
+#: ../src/picture.c:837
 msgid "Unknown picture type"
 msgstr "Nieznany typ obrazu"
 
-#: ../src/picture.c:839 ../src/picture.c:850
+#: ../src/picture.c:867 ../src/picture.c:878
 msgid "pixels"
 msgstr "pikseli"
 
-#: ../src/picture.c:840 ../src/picture.c:851
+#: ../src/picture.c:868 ../src/picture.c:879
 msgid "Type"
 msgstr "Typ"
 
-#: ../src/picture.c:852
+#: ../src/picture.c:880
 msgid "Description"
 msgstr "Opis"
 
-#: ../src/picture.c:908
+#: ../src/picture.c:936
 #, c-format
 msgid "Error with 'loader_close': %s"
 msgstr "Błąd \"loader_close\": %s"
 
-#: ../src/picture.c:965
+#: ../src/picture.c:993
 msgid ""
 "Cannot display the picture, as not enough data has been read to determine "
 "how to create the image buffer."
@@ -3308,45 +3314,45 @@ msgstr ""
 "Nie można wyświetlić obrazu, ponieważ za mała ilość danych została "
 "odczytana, aby ustalić, jak utworzyć bufor obrazu."
 
-#: ../src/picture.c:972
+#: ../src/picture.c:1000
 msgid "Cannot display the picture"
 msgstr "Nie można wyświetlić obrazu"
 
-#: ../src/picture.c:973
+#: ../src/picture.c:1001
 msgid ""
 "Not enough data has been read to determine how to create the image buffer"
 msgstr ""
 "Za mała ilość danych została odczytana, aby ustalić, jak utworzyć bufor "
 "obrazu"
 
-#: ../src/picture.c:974
+#: ../src/picture.c:1002
 msgid "Load Picture File"
 msgstr "Wczytaj plik obrazu"
 
-#: ../src/picture.c:980
+#: ../src/picture.c:1008
 #, c-format
 msgid "Error with 'loader_write': %s"
 msgstr "Błąd \"loader_write\": %s"
 
-#: ../src/picture.c:1072 ../src/picture.c:1101 ../src/picture.c:1121
+#: ../src/picture.c:1100 ../src/picture.c:1129 ../src/picture.c:1149
 #, c-format
 msgid "Picture file not loaded (%s)…"
 msgstr "Plik obrazu nie został wczytany (%s)…"
 
-#: ../src/picture.c:1094
+#: ../src/picture.c:1122
 #, c-format
 msgid "Cannot open file: '%s'"
 msgstr "Nie można otworzyć pliku: \"%s\""
 
-#: ../src/picture.c:1097
+#: ../src/picture.c:1125
 msgid "Picture File Error"
 msgstr "Błąd pliku obrazu"
 
-#: ../src/picture.c:1133
+#: ../src/picture.c:1161
 msgid "Picture file loaded…"
 msgstr "Wczytano plik obrazu…"
 
-#: ../src/picture.c:1150 ../src/picture.c:1157
+#: ../src/picture.c:1178 ../src/picture.c:1185
 #, c-format
 msgid "Picture file can't be saved (%s)…"
 msgstr "Nie można zapisać pliku obrazu (%s)…"
@@ -3725,7 +3731,7 @@ msgid ""
 msgstr ""
 "Wymuszenie używania systemowego kodowania znaków i włączenie transliteracji"
 
-#: ../src/prefs.c:509 ../src/prefs.c:837 ../src/prefs.c:909
+#: ../src/prefs.c:509 ../src/prefs.c:829 ../src/prefs.c:901
 msgid ""
 "With this option, when a character cannot be represented in the target "
 "character set, it can be approximated through one or several similarly "
@@ -3742,7 +3748,7 @@ msgid ""
 msgstr ""
 "Wymuś używanie systemowego kodowania znaków i odrzuć nie pasujące znaki"
 
-#: ../src/prefs.c:519 ../src/prefs.c:847 ../src/prefs.c:919
+#: ../src/prefs.c:519 ../src/prefs.c:839 ../src/prefs.c:911
 msgid ""
 "With this option, when a character cannot be represented in the target "
 "character set, it will be silently discarded."
@@ -3791,26 +3797,7 @@ msgstr ""
 "pomocą dwóch cyfr: \"05\", \"09\", \"10\"…). W przeciwnym przypadku "
 "zatrzymuje \"surową\" wartość ścieżki."
 
-#: ../src/prefs.c:572
-msgid "Ogg Vorbis Files: write also the comment in the XMMS format"
-msgstr ""
-"Pliki Ogg Vorbis: zapisywanie komentarza także w formacie programu XMMS"
-
-#: ../src/prefs.c:575
-msgid ""
-"XMMS doesn't make use of the right way to identify a comment in Ogg Vorbis "
-"files as other apps do. In fact, this field is usually labeled with "
-"'comment=', whereas XMMS uses only `='. Please, uncheck this option if you "
-"don't want other apps to complain about an unknown field. Comments won't be "
-"shown in XMMS, though."
-msgstr ""
-"Program XMMS nie używa poprawnej metody identyfikacji komentarzy w plikach "
-"Ogg Vorbis, tak jak inne programy. Pole to jest zazwyczaj oznaczone jako "
-"\"comment=\", podczas gdy program XMMS używa tylko \"=\". Proszę odznaczyć "
-"tę opcję, jeśli inne programy mają nie narzekać na temat nieznanego pola. "
-"Wtedy jednak komentarze nie będą wyświetlane w programie XMMS."
-
-#: ../src/prefs.c:590
+#: ../src/prefs.c:582
 msgid ""
 "Tag field focus when switching files in list with shortcuts Page Up/Page "
 "Down:"
@@ -3818,21 +3805,21 @@ msgstr ""
 "Aktywacja pola etykiety podczas przełączania plikół na liście używając "
 "skrótów Page Up/Page Down:"
 
-#: ../src/prefs.c:599
+#: ../src/prefs.c:591
 msgid "Keep focus to the same tag field"
 msgstr "Utrzymywanie aktywacji na tym samym polu etykiety"
 
-#: ../src/prefs.c:605
+#: ../src/prefs.c:597
 msgid "Return focus to the first tag field (i.e. 'Title' field)"
 msgstr "Ustawienie aktywacji na pierwsze pole etykiety (tzn. pole \"Tytuł\")"
 
 #. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SetFocusToFirstTagField),SET_FOCUS_TO_FIRST_TAG_FIELD);
 #. Tag Splitting
-#: ../src/prefs.c:610
+#: ../src/prefs.c:602
 msgid "Tag Splitting"
 msgstr "Rozdzielanie etykiet"
 
-#: ../src/prefs.c:617
+#: ../src/prefs.c:609
 msgid ""
 "For Vorbis tags, selected fields will be split at dashes and saved as "
 "separate tags"
@@ -3840,28 +3827,28 @@ msgstr ""
 "W przypadku etykiet plików Vorbis, wybrane pola zostaną rozdzielone "
 "myślnikami i zapisane jako oddzielne etykiety"
 
-#: ../src/prefs.c:627
+#: ../src/prefs.c:619
 msgid "Original artist"
 msgstr "Pierwotny wykonawca"
 
 #.
 #. * ID3 Tag Settings
 #.
-#: ../src/prefs.c:648 ../src/prefs.c:649
+#: ../src/prefs.c:640 ../src/prefs.c:641
 msgid "ID3 Tag Settings"
 msgstr "Ustawienia etykiet ID3"
 
 #. Tag Rules frame
-#: ../src/prefs.c:661
+#: ../src/prefs.c:653
 msgid "ID3 Tag Rules"
 msgstr "Zasady etykiet ID3"
 
 #. Write ID3 tags in FLAC files
-#: ../src/prefs.c:673
+#: ../src/prefs.c:665
 msgid "Write ID3 tags in FLAC files (in addition to FLAC tag)"
 msgstr "Zapisywanie etykiet ID3 w plikach FLAC (oprócz etykiet FLAC)"
 
-#: ../src/prefs.c:676
+#: ../src/prefs.c:668
 msgid ""
 "If activated, ID3 tags will be also added in the FLAC file (according the "
 "two rules above, plus the FLAC tag). Else ID3 tags will be stripped."
@@ -3871,11 +3858,11 @@ msgstr ""
 "ID3 będę usuwane."
 
 #. Strip tag when fields (managed by EasyTAG) are empty
-#: ../src/prefs.c:681
+#: ../src/prefs.c:673
 msgid "Strip tags if all fields are set to blank"
 msgstr "Usuwanie etykiet, jeśli wszystkie pola są puste"
 
-#: ../src/prefs.c:684
+#: ../src/prefs.c:676
 msgid ""
 "As ID3v2 tags may contain other data than Title, Artist, Album, Year, Track, "
 "Genre or Comment (as an attached picture, lyrics…), this option allows you "
@@ -3888,11 +3875,11 @@ msgstr ""
 "standardowych pól zostało ustawionych na puste."
 
 #. Convert old ID3v2 tag version
-#: ../src/prefs.c:690
+#: ../src/prefs.c:682
 msgid "Automatically convert old ID3v2 tag versions"
 msgstr "Automatyczne aktualizowanie poprzednich wersji etykiet ID3v2"
 
-#: ../src/prefs.c:693
+#: ../src/prefs.c:685
 msgid ""
 "If activated, an old ID3v2 tag version (as ID3v2.2) will be updated to the "
 "ID3v2.3 version."
@@ -3901,29 +3888,29 @@ msgstr ""
 "będzie aktualizowana do wersji ID3v2.3."
 
 #. Use CRC32
-#: ../src/prefs.c:697
+#: ../src/prefs.c:689
 msgid "Use CRC32"
 msgstr "Używanie CRC32"
 
-#: ../src/prefs.c:700
+#: ../src/prefs.c:692
 msgid "Set CRC32 in the ID3v2 tags"
 msgstr "Zapisywanie CRC32 w etykietach ID3v2"
 
 #. Use Compression
-#: ../src/prefs.c:703
+#: ../src/prefs.c:695
 msgid "Use Compression"
 msgstr "Używanie kompresji"
 
-#: ../src/prefs.c:707
+#: ../src/prefs.c:699
 msgid "Set Compression in the ID3v2 tags"
 msgstr "Ustawienie kompresji etykiet ID3v2"
 
 #. Write Genre in text
-#: ../src/prefs.c:710
+#: ../src/prefs.c:702
 msgid "Write Genre in text only"
 msgstr "Zapisywanie gatunku jako tekst"
 
-#: ../src/prefs.c:714
+#: ../src/prefs.c:706
 msgid ""
 "Don't use ID3v1 number references in genre tag. Enable this if you see "
 "numbers as genre in your music player."
@@ -3932,21 +3919,21 @@ msgstr ""
 "włączyć, jeśli gatunki są wyświetlane jako liczby w odtwarzaczu muzyki."
 
 #. Character Set for writing ID3 tag
-#: ../src/prefs.c:717
+#: ../src/prefs.c:709
 msgid "Character Set for writing ID3 tags"
 msgstr "Zestaw znaków do zapisywania etykiet ID3"
 
 #. ID3v2 tags
-#: ../src/prefs.c:724
+#: ../src/prefs.c:716
 msgid "ID3v2 tags"
 msgstr "Etykiety ID3v2"
 
 #. Write ID3v2 tag
-#: ../src/prefs.c:737
+#: ../src/prefs.c:729
 msgid "Write ID3v2 tag"
 msgstr "Zapisywanie etykiet ID3v2"
 
-#: ../src/prefs.c:740
+#: ../src/prefs.c:732
 msgid ""
 "If activated, an ID3v2.4 tag will be added or updated at the beginning of "
 "the MP3 files. Else it will be stripped."
@@ -3955,11 +3942,11 @@ msgstr ""
 "aktualizowane na początku pliku MP3. W przeciwnym wypadku zostaną usunięte."
 
 #. ID3v2 tag version
-#: ../src/prefs.c:747
+#: ../src/prefs.c:739
 msgid "Version:"
 msgstr "Wersja:"
 
-#: ../src/prefs.c:753
+#: ../src/prefs.c:745
 msgid ""
 "Select the ID3v2 tag version to write:\n"
 " - ID3v2.3 is written using id3lib,\n"
@@ -3971,34 +3958,34 @@ msgstr ""
 
 #. Charset
 #. Id3V1 writing character set
-#: ../src/prefs.c:768 ../src/prefs.c:875
+#: ../src/prefs.c:760 ../src/prefs.c:867
 msgid "Charset:"
 msgstr "Zestaw znaków:"
 
 #. Unicode
-#: ../src/prefs.c:776
+#: ../src/prefs.c:768
 msgid "Unicode "
 msgstr "Unikod "
 
-#: ../src/prefs.c:784
+#: ../src/prefs.c:776
 msgid "Unicode type to use"
 msgstr "Typ unikodu do używania"
 
-#: ../src/prefs.c:808
+#: ../src/prefs.c:800
 msgid "Character set used to write the tag data in the file."
 msgstr "Zestaw znaków używany do zapisywania etykiet w plikach."
 
 #. ID3v2 Additional iconv() options
 #. ID3V1 Additional iconv() options
-#: ../src/prefs.c:818 ../src/prefs.c:890
+#: ../src/prefs.c:810 ../src/prefs.c:882
 msgid "Additional settings for iconv():"
 msgstr "Dodatkowe ustawienia dla iconv():"
 
-#: ../src/prefs.c:824 ../src/prefs.c:896
+#: ../src/prefs.c:816 ../src/prefs.c:888
 msgid "No"
 msgstr "Nie"
 
-#: ../src/prefs.c:828 ../src/prefs.c:900
+#: ../src/prefs.c:820 ../src/prefs.c:892
 msgid ""
 "With this option, when a character cannot be represented in the target "
 "character set, it isn't changed. But note that an error message will be "
@@ -4008,25 +3995,25 @@ msgstr ""
 "w docelowym zestawie znaków, to nie zostanie on zmieniony. Proszę zauważyć, "
 "że wyświetlony zostanie komunikat błędu."
 
-#: ../src/prefs.c:833 ../src/prefs.c:905
+#: ../src/prefs.c:825 ../src/prefs.c:897
 msgid "//TRANSLIT"
 msgstr "//TRANSLIT"
 
-#: ../src/prefs.c:843 ../src/prefs.c:915
+#: ../src/prefs.c:835 ../src/prefs.c:907
 msgid "//IGNORE"
 msgstr "//IGNORE"
 
 #. ID3v1 tags
-#: ../src/prefs.c:852
+#: ../src/prefs.c:844
 msgid "ID3v1 tags"
 msgstr "Etykiety ID3v1"
 
 #. Write ID3v1 tag
-#: ../src/prefs.c:866
+#: ../src/prefs.c:858
 msgid "Write ID3v1.x tag"
 msgstr "Zapisywanie etykiet ID3v1.x"
 
-#: ../src/prefs.c:869
+#: ../src/prefs.c:861
 msgid ""
 "If activated, an ID3v1 tag will be added or updated at the end of the MP3 "
 "files. Else it will be stripped."
@@ -4034,20 +4021,20 @@ msgstr ""
 "Jeśli ta opcja jest włączona, etykiety ID3v1 będą dodawane lub aktualizowane "
 "na końcu pliku MP3. W przeciwnym wypadku zostaną usunięte."
 
-#: ../src/prefs.c:886
+#: ../src/prefs.c:878
 msgid "Character set used to write ID3v1 tag data in the file."
 msgstr "Zestaw znaków używany do zapisywania etykiet ID3v1 w plikach."
 
 #. Character Set for reading tag
-#: ../src/prefs.c:924
+#: ../src/prefs.c:916
 msgid "Character Set for reading ID3 tags"
 msgstr "Zestawów znaków do odczytywania etykiet ID3"
 
-#: ../src/prefs.c:938
+#: ../src/prefs.c:930
 msgid "Non-standard:"
 msgstr "Niestandardowy:"
 
-#: ../src/prefs.c:944
+#: ../src/prefs.c:936
 msgid ""
 "This character set will be used when reading the tag data, to convert each "
 "string found in an ISO-8859-1 field in the tag (for ID3v2 or/and ID3v1 "
@@ -4078,31 +4065,31 @@ msgstr ""
 "Windows. Jeśli etykiety zostały zapisane pod Uniksem, należy wybrać \"KOI8-R"
 "\"."
 
-#: ../src/prefs.c:962
+#: ../src/prefs.c:954
 msgid "Character set used to read tag data in the file."
 msgstr "Zestaw znaków używany do odczytywania etykiet w plikach."
 
 #.
 #. * Scanner
 #.
-#: ../src/prefs.c:976 ../src/prefs.c:977
+#: ../src/prefs.c:968 ../src/prefs.c:969
 msgid "Scanner"
 msgstr "Skaner"
 
 #. Character conversion for the 'Fill Tag' scanner (=> FTS...)
-#: ../src/prefs.c:989
+#: ../src/prefs.c:981
 msgid "Fill Tag Scanner - Character Conversion"
 msgstr "Wypełnianie etykiet - konwersja znaków"
 
-#: ../src/prefs.c:995 ../src/prefs.c:1020
+#: ../src/prefs.c:987 ../src/prefs.c:1012
 msgid "Convert underscore character '_' and string '%20' to space ' '"
 msgstr "Zmienianie znaków podkreślenia \"_\" i ciągów \"%20\" na spacje \" \""
 
-#: ../src/prefs.c:997 ../src/prefs.c:1021
+#: ../src/prefs.c:989 ../src/prefs.c:1013
 msgid "Convert space ' ' to underscore '_'"
 msgstr "Zmienianie spacji \" \" na podkreślenia \"_\""
 
-#: ../src/prefs.c:1009 ../src/prefs.c:1011
+#: ../src/prefs.c:1001 ../src/prefs.c:1003
 msgid ""
 "If activated, this conversion will be used when applying a mask from the "
 "scanner for tags."
@@ -4111,11 +4098,11 @@ msgstr ""
 "stosowania maski ze skanera dla etykiet."
 
 #. Character conversion for the 'Rename File' scanner (=> RFS...)
-#: ../src/prefs.c:1015
+#: ../src/prefs.c:1007
 msgid "Rename File Scanner - Character Conversion"
 msgstr "Zmiana nazwy pliku - konwersja znaków"
 
-#: ../src/prefs.c:1032 ../src/prefs.c:1034 ../src/prefs.c:1036
+#: ../src/prefs.c:1024 ../src/prefs.c:1026 ../src/prefs.c:1028
 msgid ""
 "If activated, this conversion will be used when applying a mask from the "
 "scanner for filenames."
@@ -4124,17 +4111,17 @@ msgstr ""
 "stosowania maski ze skanera dla nazw plików."
 
 #. Character conversion for the 'Process Fields' scanner (=> PFS...)
-#: ../src/prefs.c:1039
+#: ../src/prefs.c:1031
 msgid "Process Fields Scanner - Character Conversion"
 msgstr "Skaner przetwarzania pól - konwersja znaków"
 
 #. Don't convert some words like to, feat. first letter uppercase.
-#: ../src/prefs.c:1046
+#: ../src/prefs.c:1038
 msgid ""
 "Don't uppercase first letter of words for some prepositions and articles."
 msgstr "Bez zmieniania pierwszych liter słów kluczowych na wielkie."
 
-#: ../src/prefs.c:1050
+#: ../src/prefs.c:1042
 msgid ""
 "Don't convert first letter of words like prepositions, articles and words "
 "like feat., when using the scanner 'First letter uppercase of each "
@@ -4146,15 +4133,15 @@ msgstr ""
 "(np. zamiast \"Tekst W Jakimś Polu\" otrzymasz \"Tekst w Jakimś Polu\")."
 
 #. Properties of the scanner window
-#: ../src/prefs.c:1056
+#: ../src/prefs.c:1048
 msgid "Scanner Window"
 msgstr "Okno Skanera"
 
-#: ../src/prefs.c:1062
+#: ../src/prefs.c:1054
 msgid "Open the Scanner Window on startup"
 msgstr "Otwarcie okna skanera podczas uruchamiania"
 
-#: ../src/prefs.c:1065
+#: ../src/prefs.c:1057
 msgid ""
 "Activate this option to open automatically the scanner window when EasyTAG "
 "starts."
@@ -4162,16 +4149,16 @@ msgstr ""
 "Automatycznie otwiera okno skanera podczas uruchamiania programu EasyTAG."
 
 #. Other options
-#: ../src/prefs.c:1070
+#: ../src/prefs.c:1062
 msgid "Fields"
 msgstr "Pola"
 
 #. Overwrite text into tag fields
-#: ../src/prefs.c:1077
+#: ../src/prefs.c:1069
 msgid "Overwrite fields when scanning tags"
 msgstr "Zastępowanie pól podczas skanowania etykiet"
 
-#: ../src/prefs.c:1080
+#: ../src/prefs.c:1072
 msgid ""
 "If activated, the scanner will replace existing text in fields by the new "
 "one. If deactivated, only blank fields of the tag will be filled."
@@ -4179,11 +4166,11 @@ msgstr ""
 "Skaner zamieni istniejący tekst nowym w polach, które już zawierają jakiś "
 "tekst. Jeśli nie jest włączone, tylko puste pola etykiet zostaną wypełnione."
 
-#: ../src/prefs.c:1091
+#: ../src/prefs.c:1083
 msgid "Set this text as default comment:"
 msgstr "Ustawianie tego tekstu jako domyślny komentarz:"
 
-#: ../src/prefs.c:1094
+#: ../src/prefs.c:1086
 msgid ""
 "Activate this option if you want to put the following string into the "
 "comment field when using the 'Fill Tag' scanner."
@@ -4192,11 +4179,11 @@ msgstr ""
 "używania skanera \"Wypełnianie etykiet\"."
 
 #. CRC32 comment
-#: ../src/prefs.c:1112
+#: ../src/prefs.c:1104
 msgid "Use CRC32 as the default comment (for files with ID3 tags only)."
 msgstr "Ustawianie sumy CRC32 pliku jako domyślny komentarz (tylko ID3)."
 
-#: ../src/prefs.c:1116
+#: ../src/prefs.c:1108
 msgid ""
 "Calculates the CRC-32 value of the file and writes it into the comment field "
 "when using the 'Fill Tag' scanner."
@@ -4207,43 +4194,43 @@ msgstr ""
 #.
 #. * CDDB
 #.
-#: ../src/prefs.c:1127 ../src/prefs.c:1128
+#: ../src/prefs.c:1119 ../src/prefs.c:1120
 msgid "CD Data Base"
 msgstr "Baza danych CD"
 
 #. CDDB Server Settings (Automatic Search)
-#: ../src/prefs.c:1137
+#: ../src/prefs.c:1129
 msgid "Server Settings for Automatic Search"
 msgstr "Ustawienia serwera do automatycznego wyszukiwania"
 
-#: ../src/prefs.c:1146 ../src/prefs.c:1185 ../src/prefs.c:1219
+#: ../src/prefs.c:1138 ../src/prefs.c:1177 ../src/prefs.c:1211
 msgid "Name:"
 msgstr "Nazwa:"
 
-#: ../src/prefs.c:1165 ../src/prefs.c:1193 ../src/prefs.c:1228
-#: ../src/prefs.c:1317
+#: ../src/prefs.c:1157 ../src/prefs.c:1185 ../src/prefs.c:1220
+#: ../src/prefs.c:1309
 msgid "Port:"
 msgstr "Port:"
 
-#: ../src/prefs.c:1175 ../src/prefs.c:1203 ../src/prefs.c:1238
+#: ../src/prefs.c:1167 ../src/prefs.c:1195 ../src/prefs.c:1230
 msgid "CGI Path:"
 msgstr "Ścieżka CGI:"
 
 #. CDDB Server Settings (Manual Search)
-#: ../src/prefs.c:1211
+#: ../src/prefs.c:1203
 msgid "Server Settings for Manual Search"
 msgstr "Ustawienia serwera dla ręcznego wyszukiwania"
 
 #. Local access for CDDB (Automatic Search)
-#: ../src/prefs.c:1246
+#: ../src/prefs.c:1238
 msgid "Local CD Data Base"
 msgstr "Lokalna baza danych CD"
 
-#: ../src/prefs.c:1254
+#: ../src/prefs.c:1246
 msgid "Path:"
 msgstr "Ścieżka:"
 
-#: ../src/prefs.c:1266
+#: ../src/prefs.c:1258
 msgid ""
 "Specify the directory where the local CD database is located. The local CD "
 "data base contains the eleven following directories 'blues', 'classical', "
@@ -4256,52 +4243,52 @@ msgstr ""
 "\"soundtrack\" oraz \"misc\"."
 
 #. CDDB Proxy Settings
-#: ../src/prefs.c:1292
+#: ../src/prefs.c:1284
 msgid "Proxy Settings"
 msgstr "Ustawienia pośrednika"
 
-#: ../src/prefs.c:1301
+#: ../src/prefs.c:1293
 msgid "Use a proxy"
 msgstr "Używanie pośrednika"
 
-#: ../src/prefs.c:1304
+#: ../src/prefs.c:1296
 msgid "Set active the settings of the proxy server."
 msgstr "Włącza ustawienia serwera pośredniczącego."
 
-#: ../src/prefs.c:1309
+#: ../src/prefs.c:1301
 msgid "Host Name:"
 msgstr "Nazwa komputera:"
 
-#: ../src/prefs.c:1316
+#: ../src/prefs.c:1308
 msgid "Name of the proxy server."
 msgstr "Nazwa serwera pośredniczącego."
 
-#: ../src/prefs.c:1324
+#: ../src/prefs.c:1316
 msgid "Port of the proxy server."
 msgstr "Port serwera pośredniczącego."
 
-#: ../src/prefs.c:1329
+#: ../src/prefs.c:1321
 msgid "User Name:"
 msgstr "Nazwa użytkownika:"
 
-#: ../src/prefs.c:1336
+#: ../src/prefs.c:1328
 msgid "Name of user for the the proxy server."
 msgstr "Nazwa użytkownika dla serwera pośredniczącego."
 
-#: ../src/prefs.c:1337
+#: ../src/prefs.c:1329
 msgid "User Password:"
 msgstr "Hasło użytkownika:"
 
-#: ../src/prefs.c:1345
+#: ../src/prefs.c:1337
 msgid "Password of user for the the proxy server."
 msgstr "Hasło użytkownika dla serwera pośredniczącego."
 
 #. Track Name list (CDDB results)
-#: ../src/prefs.c:1350
+#: ../src/prefs.c:1342
 msgid "Track Name List"
 msgstr "Lista ścieżek"
 
-#: ../src/prefs.c:1357
+#: ../src/prefs.c:1349
 msgid ""
 "Select corresponding audio file (according position or DLM if activated "
 "below)"
@@ -4309,7 +4296,7 @@ msgstr ""
 "Proszę zaznaczyć odpowiedni plik dźwiękowy (odnośnie pozycji lub DLM, jeśli "
 "włączono poniżej)"
 
-#: ../src/prefs.c:1361
+#: ../src/prefs.c:1353
 msgid ""
 "If activated, when selecting a line in the list of tracks name, the "
 "corresponding audio file in the main list will be also selected."
@@ -4318,7 +4305,7 @@ msgstr ""
 "ścieżek, odpowiedni plik dźwiękowy zostanie zaznaczony na głównej liście."
 
 #. Check box to use DLM (also used in the cddb window)
-#: ../src/prefs.c:1366
+#: ../src/prefs.c:1358
 msgid ""
 "Use the Levenshtein algorithm (DLM) to match lines (using title) with audio "
 "files (using filename)"
@@ -4329,15 +4316,15 @@ msgstr ""
 #.
 #. * Confirmation
 #.
-#: ../src/prefs.c:1381 ../src/prefs.c:1382
+#: ../src/prefs.c:1373 ../src/prefs.c:1374
 msgid "Confirmation"
 msgstr "Potwierdzenia"
 
-#: ../src/prefs.c:1390
+#: ../src/prefs.c:1382
 msgid "Confirm exit from program"
 msgstr "Potwierdzanie zakończenia programu"
 
-#: ../src/prefs.c:1393
+#: ../src/prefs.c:1385
 msgid ""
 "If activated, opens a dialog box to ask confirmation before exiting the "
 "program."
@@ -4345,57 +4332,57 @@ msgstr ""
 "Jeśli ta opcja jest włączona, to wyświetla okno dialogowe proszące o "
 "potwierdzenie przed zakończeniem programu."
 
-#: ../src/prefs.c:1396
+#: ../src/prefs.c:1388
 msgid "Confirm writing of file tag"
 msgstr "Potwierdzanie zapisania etykiet plików"
 
-#: ../src/prefs.c:1400
+#: ../src/prefs.c:1392
 msgid "Confirm renaming of file"
 msgstr "Potwierdzanie zmiany nazwy plików"
 
-#: ../src/prefs.c:1404
+#: ../src/prefs.c:1396
 msgid "Confirm deleting of file"
 msgstr "Potwierdzanie usuwania plików"
 
-#: ../src/prefs.c:1408
+#: ../src/prefs.c:1400
 msgid "Confirm writing of playlist"
 msgstr "Potwierdzanie zapisania listy odtwarzania"
 
-#: ../src/prefs.c:1412
+#: ../src/prefs.c:1404
 msgid "Confirm changing directory when there are unsaved changes"
 msgstr "Potwierdzanie zmiany katalogu, kiedy są niezapisane zmiany"
 
-#: ../src/prefs.c:1429
+#: ../src/prefs.c:1421
 msgid "Apply changes (but don't save) and close this window"
 msgstr "Zastosuj zmiany (lecz nie zapisuj) i zamknij to okno"
 
-#: ../src/prefs.c:1438
+#: ../src/prefs.c:1430
 msgid "Close this window without saving"
 msgstr "Zamknij to okno bez zapisywania"
 
-#: ../src/prefs.c:1446
+#: ../src/prefs.c:1438
 msgid "Save changes and close this window"
 msgstr "Zapisz zmiany i zamknij to okno"
 
 #. For translators : be aware to NOT translate '%.*d' in this string
-#: ../src/prefs.c:1481
+#: ../src/prefs.c:1473
 #, c-format
 msgid "(Example: %.*d_-_Track_name_1.mp3)"
 msgstr "(Przykład: %.*d_-_Nazwa_ścieżki_1.mp3)"
 
-#: ../src/prefs.c:1643 ../src/setting.c:896
+#: ../src/prefs.c:1635 ../src/setting.c:893
 msgid "Configuration saved"
 msgstr "Zapisano konfigurację"
 
-#: ../src/prefs.c:1651
+#: ../src/prefs.c:1643
 msgid "Configuration unchanged"
 msgstr "Nie zmieniono konfiguracji"
 
-#: ../src/prefs.c:1755
+#: ../src/prefs.c:1747
 msgid "The selected path for 'Default path to files' is invalid"
 msgstr "Wybrana ścieżka dla \"Domyślnej ścieżki do plików\" jest nieprawidłowa"
 
-#: ../src/prefs.c:1756
+#: ../src/prefs.c:1748
 #, c-format
 msgid ""
 "Path: '%s'\n"
@@ -4404,16 +4391,16 @@ msgstr ""
 "Ścieżka: \"%s\"\n"
 "Błąd: %s"
 
-#: ../src/prefs.c:1757
+#: ../src/prefs.c:1749
 msgid "Invalid Path Error"
 msgstr "Błąd nieprawidłowej ścieżki"
 
-#: ../src/prefs.c:1871
+#: ../src/prefs.c:1863
 #, c-format
 msgid "The audio file player '%s' cannot be found"
 msgstr "Nie można odnaleźć odtwarzacza dźwięku \"%s\""
 
-#: ../src/prefs.c:1873
+#: ../src/prefs.c:1865
 msgid "Audio Player Error"
 msgstr "Błąd odtwarzacza dźwięku"
 
@@ -4899,56 +4886,56 @@ msgstr "Przesunięcie w górę: Nie wybrano rzędu"
 msgid "Move Down: No row selected"
 msgstr "Przesunięcie w dół: Nie wybrano rzędu"
 
-#: ../src/setting.c:916
+#: ../src/setting.c:913
 #, c-format
 msgid "Error: Cannot write configuration file: %s (%s)"
 msgstr "Błąd: nie można zapisać pliku konfiguracji: %s (%s)"
 
-#: ../src/setting.c:1058
+#: ../src/setting.c:1055
 #, c-format
 msgid "Cannot open configuration file '%s' (%s)"
 msgstr "Nie można otworzyć pliku konfiguracji \"%s\" (%s)"
 
-#: ../src/setting.c:1060
+#: ../src/setting.c:1057
 msgid "Loading default configuration"
 msgstr "Wczytywanie domyślnej konfiguracji"
 
-#: ../src/setting.c:1101
+#: ../src/setting.c:1098
 #, c-format
 msgid "Cannot create or open file '%s' (%s)"
 msgstr "Nie można utworzyć lub otworzyć pliku \"%s\" (%s)"
 
-#: ../src/setting.c:1162
+#: ../src/setting.c:1159
 #, c-format
 msgid "Error: Cannot write list to file: %s (%s)"
 msgstr "Błąd: nie można zapisać listy do pliku: %s (%s)"
 
 #. Fall back to defaults
-#: ../src/setting.c:1247
+#: ../src/setting.c:1244
 msgid "Loading default 'Fill Tag' masks…"
 msgstr "Wczytywanie domyślnych masek \"Wypełnianie etykiet\"…"
 
 #. Fall back to defaults
-#: ../src/setting.c:1275
+#: ../src/setting.c:1272
 msgid "Loading default 'Rename File' masks…"
 msgstr "Wczytywanie domyślnych masek \"Zmiana nazw plików\"…"
 
 #. Fall back to defaults
-#: ../src/setting.c:1302
+#: ../src/setting.c:1299
 msgid "Loading default 'Rename Directory' masks…"
 msgstr "Wczytywanie domyślnych masek \"Zmiana nazwy katalogu\"…"
 
-#: ../src/setting.c:1513
+#: ../src/setting.c:1510
 #, c-format
 msgid "Migrating configuration from directory '%s' to '%s'"
 msgstr "Przenoszenie konfiguracji z katalogu \"%s\" do \"%s\""
 
-#: ../src/setting.c:1537
+#: ../src/setting.c:1534
 #, c-format
 msgid "Failed to migrate configuration file '%s'"
 msgstr "Przeniesienie pliku konfiguracji \"%s\" się nie powiodło"
 
-#: ../src/setting.c:1574
+#: ../src/setting.c:1571
 #, c-format
 msgid "Error: Cannot create directory '%s' (%s)"
 msgstr "Błąd: nie można utworzyć katalogu \"%s\" (%s)"
