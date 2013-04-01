@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 914hu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-24 19:54+0000\n"
-"PO-Revision-Date: 2013-03-24 21:02+0100\n"
+"POT-Creation-Date: 2013-03-31 22:01+0000\n"
+"PO-Revision-Date: 2013-04-01 09:58+0200\n"
 "Last-Translator: Balázs Úr <urbalazs at gmail dot com>\n"
 "Language-Team: Hungarian <kde-i18n-doc@kde.org>\n"
 "Language: \n"
@@ -75,9 +75,9 @@ msgstr "Hangfájlokban lévő címkék megtekintése és szerkesztése"
 
 #. g_print(_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
 #: ../src/ape_tag.c:62 ../src/et_core.c:4508 ../src/flac_header.c:108
-#: ../src/id3_tag.c:150 ../src/id3_tag.c:1210 ../src/misc.c:1775
-#: ../src/mp4_header.c:64 ../src/mp4_header.c:73 ../src/mp4_tag.c:72
-#: ../src/mp4_tag.c:83 ../src/mp4_tag.c:186 ../src/mp4_tag.c:195
+#: ../src/id3_tag.c:150 ../src/id3_tag.c:1210 ../src/id3v24_tag.c:115
+#: ../src/misc.c:1775 ../src/mp4_header.c:64 ../src/mp4_tag.c:72
+#: ../src/mp4_tag.c:83 ../src/mp4_tag.c:204 ../src/mp4_tag.c:213
 #: ../src/mpeg_header.c:203 ../src/ogg_header.c:70 ../src/ogg_header.c:171
 #: ../src/ogg_tag.c:145 ../src/ogg_tag.c:650
 #, c-format
@@ -815,14 +815,14 @@ msgid "File Name"
 msgstr "Fájlnév"
 
 #: ../src/browser.c:3027 ../src/cddb.c:757 ../src/misc.c:1924
-#: ../src/prefs.c:621
+#: ../src/prefs.c:613
 msgid "Title"
 msgstr "Cím"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Artist".
 #: ../src/browser.c:3027 ../src/browser.c:3031 ../src/cddb.c:442
-#: ../src/cddb.c:758 ../src/misc.c:1925 ../src/prefs.c:622
+#: ../src/cddb.c:758 ../src/misc.c:1925 ../src/prefs.c:614
 msgid "Artist"
 msgstr "Előadó"
 
@@ -833,7 +833,7 @@ msgstr "Album előadója"
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Album".
 #: ../src/browser.c:3027 ../src/browser.c:3032 ../src/cddb.c:445
-#: ../src/cddb.c:759 ../src/misc.c:1927 ../src/prefs.c:623
+#: ../src/cddb.c:759 ../src/misc.c:1927 ../src/prefs.c:615
 msgid "Album"
 msgstr "Album"
 
@@ -850,16 +850,16 @@ msgid "Track"
 msgstr "Szám"
 
 #: ../src/browser.c:3028 ../src/cddb.c:763 ../src/misc.c:1931
-#: ../src/prefs.c:624
+#: ../src/prefs.c:616
 msgid "Genre"
 msgstr "Műfaj"
 
-#: ../src/browser.c:3028 ../src/misc.c:1932 ../src/prefs.c:625
+#: ../src/browser.c:3028 ../src/misc.c:1932 ../src/prefs.c:617
 msgid "Comment"
 msgstr "Megjegyzés"
 
-#: ../src/browser.c:3029 ../src/misc.c:1933 ../src/picture.c:787
-#: ../src/prefs.c:626
+#: ../src/browser.c:3029 ../src/misc.c:1933 ../src/picture.c:815
+#: ../src/prefs.c:618
 msgid "Composer"
 msgstr "Zeneszerző"
 
@@ -1127,7 +1127,7 @@ msgstr "Minden mezőben"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Other".
-#: ../src/cddb.c:451 ../src/picture.c:765 ../src/prefs.c:800
+#: ../src/cddb.c:451 ../src/picture.c:793 ../src/prefs.c:792
 msgid "Other"
 msgstr "Egyéb"
 
@@ -1300,7 +1300,7 @@ msgstr "Sorok megfeleltetése a Levenshtein algoritmussal"
 #. Doesn't activate it by default because if the new user don't pay attention to it,
 #. it will not understand why the cddb results aren't loaded correctly...
 #. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbUseDLM2),CDDB_USE_DLM);
-#: ../src/cddb.c:812 ../src/prefs.c:1370
+#: ../src/cddb.c:812 ../src/prefs.c:1362
 msgid ""
 "When activating this option, the Levenshtein algorithm (DLM: Damerau-"
 "Levenshtein Metric) will be used to match the CDDB title against every file "
@@ -1376,7 +1376,7 @@ msgstr "Hiba történt a CDDB válasz olvasásakor (%s)"
 msgid "Cannot create file '%s' (%s)"
 msgstr "Nem hozható létre a(z) „%s” fájl (%s)"
 
-#: ../src/cddb.c:1785 ../src/setting.c:1204
+#: ../src/cddb.c:1785 ../src/setting.c:1201
 #, c-format
 msgid "Cannot open file '%s' (%s)"
 msgstr "Nem nyitható meg a(z) „%s” fájl (%s)"
@@ -2488,7 +2488,7 @@ msgid "First letter uppercase of each word"
 msgstr "Minden Szó Első Betűje Legyen Nagybetű"
 
 #. Group: insert/remove spaces
-#: ../src/easytag.c:4679 ../src/prefs.c:1022 ../src/scan.c:2782
+#: ../src/easytag.c:4679 ../src/prefs.c:1014 ../src/scan.c:2782
 msgid "Remove spaces"
 msgstr "Szóközök eltávolítása"
 
@@ -2620,12 +2620,10 @@ msgid "Wavpack File"
 msgstr "Wavpack fájl"
 
 #: ../src/et_core.c:2712
-#| msgid "Read-only File"
 msgid "Read-only file"
 msgstr "Csak olvasható fájl"
 
 #: ../src/et_core.c:2718
-#| msgid "File(s) not moved…"
 msgid "File not found"
 msgstr "A fájl nem található"
 
@@ -2644,7 +2642,7 @@ msgstr "Képek (%d)"
 
 #. Bitrate
 #: ../src/et_core.c:2998 ../src/flac_header.c:240
-#: ../src/monkeyaudio_header.c:86 ../src/mp4_header.c:125
+#: ../src/monkeyaudio_header.c:86 ../src/mp4_header.c:135
 #: ../src/mpeg_header.c:360 ../src/musepack_header.c:88
 #: ../src/ogg_header.c:242 ../src/wavpack_header.c:78
 #, c-format
@@ -2653,7 +2651,7 @@ msgstr "%d kb/s"
 
 #. Samplerate
 #: ../src/et_core.c:3003 ../src/flac_header.c:245
-#: ../src/monkeyaudio_header.c:91 ../src/mp4_header.c:130
+#: ../src/monkeyaudio_header.c:91 ../src/mp4_header.c:140
 #: ../src/mpeg_header.c:365 ../src/musepack_header.c:93
 #: ../src/ogg_header.c:247 ../src/wavpack_header.c:83
 #, c-format
@@ -2677,17 +2675,17 @@ msgstr "Fájlnév fordítások"
 #. Mode
 #. mpeg4ip library seems to always return -1
 #. Mode
-#: ../src/flac_header.c:250 ../src/mp4_header.c:136 ../src/ogg_header.c:252
+#: ../src/flac_header.c:250 ../src/mp4_header.c:146 ../src/ogg_header.c:252
 #: ../src/wavpack_header.c:88
 msgid "Channels:"
 msgstr "Csatornák:"
 
-#: ../src/flac_tag.c:130 ../src/flac_tag.c:849 ../src/flac_tag.c:859
+#: ../src/flac_tag.c:133 ../src/flac_tag.c:852 ../src/flac_tag.c:862
 #, c-format
 msgid "Error while opening file: '%s' as FLAC (%s)."
 msgstr "Hiba történt a(z) „%s” fájl mint FLAC megnyitása közben (%s)."
 
-#: ../src/flac_tag.c:317 ../src/ogg_tag.c:297
+#: ../src/flac_tag.c:320 ../src/ogg_tag.c:297
 #, c-format
 msgid ""
 "The year value '%s' seems to be invalid in file '%s'. The information will "
@@ -2696,17 +2694,17 @@ msgstr ""
 "Az év értéke („%s”) érvénytelennek tűnik a(z) „%s” fájlban. Az információk "
 "el fognak veszni a címke mentése során."
 
-#: ../src/flac_tag.c:1063
+#: ../src/flac_tag.c:1064
 #, c-format
 msgid "Picture block isn't valid: '%s'"
 msgstr "A képblokk nem érvényes: „%s”"
 
-#: ../src/flac_tag.c:1096 ../src/ogg_tag.c:841
+#: ../src/flac_tag.c:1097 ../src/ogg_tag.c:830
 #, c-format
 msgid "Error: Failed to write comments to file '%s' (%s)."
 msgstr "Hiba: Nem sikerült a megjegyzések írása a(z) „%s” fájlba (%s)."
 
-#: ../src/flac_tag.c:1101 ../src/ogg_tag.c:848
+#: ../src/flac_tag.c:1102 ../src/ogg_tag.c:837
 #, c-format
 msgid "Written tag of '%s'"
 msgstr "A(z) „%s” címkéje kiírva"
@@ -2847,12 +2845,10 @@ msgstr "Sérült fájl"
 
 #: ../src/id3_tag.c:1281
 #, c-format
-#| msgid "Error while writing to file: '%s' (%s)"
 msgid "Error while creating temporary file: '%s'"
 msgstr "Hiba az átmeneti fájl létrehozása közben: „%s”"
 
 #: ../src/id3_tag.c:1288
-#| msgid "Error while writing to file: '%s' (%s)"
 msgid "Error while creating temporary file"
 msgstr "Hiba az átmeneti fájl létrehozása közben"
 
@@ -2860,15 +2856,6 @@ msgstr "Hiba az átmeneti fájl létrehozása közben"
 #, c-format
 msgid "Error while writing to file: '%s' (%s)"
 msgstr "Hiba a fájl írása közben: „%s” (%s)"
-
-#: ../src/id3v24_tag.c:116
-#, c-format
-msgid ""
-"Error while opening file: '%s' (%s).\n"
-"\a"
-msgstr ""
-"Hiba a fájl megnyitása közben: „%s” (%s).\n"
-"\a"
 
 #: ../src/id3v24_tag.c:1478
 #, c-format
@@ -3045,7 +3032,6 @@ msgid "CD"
 msgstr "CD"
 
 #: ../src/misc.c:1948
-#| msgid "Find files"
 msgid "Find Files"
 msgstr "Fájlok keresése"
 
@@ -3180,14 +3166,29 @@ msgstr "Aktuális sor mozgatása le"
 msgid "Profile:"
 msgstr "Profil:"
 
-#: ../src/mp4_header.c:64 ../src/mp4_tag.c:83 ../src/mp4_tag.c:195
+#: ../src/mp4_header.c:64 ../src/mp4_tag.c:83 ../src/mp4_tag.c:213
 msgid "MP4 format invalid"
 msgstr "Érvénytelen MP4 formátum"
 
-#: ../src/mp4_header.c:123 ../src/mpeg_header.c:358
+#: ../src/mp4_header.c:73 ../src/mp4_tag.c:92
+#, c-format
+msgid "File contains no audio track: '%s'"
+msgstr "A fájl nem tartalmaz hangszámot: „%s”"
+
+#: ../src/mp4_header.c:83
+#, c-format
+msgid "Error reading properties from file: '%s'"
+msgstr "Hiba a tulajdonságok fájlból olvasása közben: „%s”"
+
+#: ../src/mp4_header.c:133 ../src/mpeg_header.c:358
 #, c-format
 msgid "~%d kb/s"
 msgstr "~%d kb/s"
+
+#: ../src/mp4_tag.c:103 ../src/mp4_tag.c:221
+#, c-format
+msgid "Error reading tags from file: '%s'"
+msgstr "Hiba a címkék fájlból olvasása közben: „%s”"
 
 #: ../src/mpeg_header.c:78
 msgid "Stereo"
@@ -3258,160 +3259,160 @@ msgstr "Hiba: Nem sikerült a(z) „%s” fájl Vorbisként való megnyitása (%
 msgid "Warning: The Ogg Vorbis file '%s' contains an ID3v2 tag."
 msgstr "Figyelem: Az Ogg Vorbis fájl „%s” ID3v2 címkét tartalmaz."
 
-#: ../src/picture.c:271
+#: ../src/picture.c:299
 msgid "Add pictures"
 msgstr "Képek hozzáadása"
 
-#: ../src/picture.c:281 ../src/picture.c:604
+#: ../src/picture.c:309 ../src/picture.c:632
 msgid "All Files"
 msgstr "Minden fájl"
 
-#: ../src/picture.c:287 ../src/picture.c:610
+#: ../src/picture.c:315 ../src/picture.c:638
 msgid "PNG and JPEG"
 msgstr "PNG és JPEG"
 
-#: ../src/picture.c:395
+#: ../src/picture.c:423
 #, c-format
 msgid "Picture Properties %d/%d"
 msgstr "Kép tulajdonságai %d/%d"
 
-#: ../src/picture.c:417
+#: ../src/picture.c:445
 msgid "Picture Type"
 msgstr "Kép típusa"
 
 #. Description of the picture
-#: ../src/picture.c:474
+#: ../src/picture.c:502
 msgid "Picture Description:"
 msgstr "Képek leírása:"
 
-#: ../src/picture.c:592
+#: ../src/picture.c:620
 #, c-format
 msgid "Save picture %d/%d"
 msgstr "Kép mentése %d/%d"
 
-#: ../src/picture.c:670
+#: ../src/picture.c:698
 #, c-format
 msgid "The following file already exists: '%s'"
 msgstr "A következő fájl már létezik: „%s”"
 
-#: ../src/picture.c:672
+#: ../src/picture.c:700
 msgid "Do you want to save anyway, overwriting the file?"
 msgstr "Mindenképp szeretné menteni a fájl felülírásával?"
 
-#: ../src/picture.c:674
+#: ../src/picture.c:702
 msgid "Save"
 msgstr "Mentés"
 
-#: ../src/picture.c:751
+#: ../src/picture.c:779
 msgid "JPEG image"
 msgstr "JPEG-kép"
 
-#: ../src/picture.c:753
+#: ../src/picture.c:781
 msgid "PNG image"
 msgstr "PNG-kép"
 
-#: ../src/picture.c:755
+#: ../src/picture.c:783
 msgid "Unknown image"
 msgstr "Ismeretlen kép"
 
-#: ../src/picture.c:767
+#: ../src/picture.c:795
 msgid "32x32 pixel PNG file icon"
 msgstr "32x32 képpontos PNG fájl ikon"
 
-#: ../src/picture.c:769
+#: ../src/picture.c:797
 msgid "Other file icon"
 msgstr "Egyéb fájl ikon"
 
-#: ../src/picture.c:771
+#: ../src/picture.c:799
 msgid "Cover (front)"
 msgstr "Borító (első)"
 
-#: ../src/picture.c:773
+#: ../src/picture.c:801
 msgid "Cover (back)"
 msgstr "Borító (hátsó)"
 
-#: ../src/picture.c:775
+#: ../src/picture.c:803
 msgid "Leaflet page"
 msgstr "Szórólap oldal"
 
-#: ../src/picture.c:777
+#: ../src/picture.c:805
 msgid "Media (e.g. label side of CD)"
 msgstr "Média (például a CD címke oldala)"
 
-#: ../src/picture.c:779
+#: ../src/picture.c:807
 msgid "Lead artist/lead performer/soloist"
 msgstr "Vezető szerző / vezető előadó / szólista"
 
-#: ../src/picture.c:781
+#: ../src/picture.c:809
 msgid "Artist/performer"
 msgstr "Szerző / előadó"
 
-#: ../src/picture.c:783
+#: ../src/picture.c:811
 msgid "Conductor"
 msgstr "Karmester"
 
-#: ../src/picture.c:785
+#: ../src/picture.c:813
 msgid "Band/Orchestra"
 msgstr "Banda / Zenekar"
 
-#: ../src/picture.c:789
+#: ../src/picture.c:817
 msgid "Lyricist/text writer"
 msgstr "Dalszövegíró / szövegíró"
 
-#: ../src/picture.c:791
+#: ../src/picture.c:819
 msgid "Recording location"
 msgstr "Felvétel helyszíne"
 
-#: ../src/picture.c:793
+#: ../src/picture.c:821
 msgid "During recording"
 msgstr "Felvétel közben"
 
-#: ../src/picture.c:795
+#: ../src/picture.c:823
 msgid "During performance"
 msgstr "Előadás közben"
 
-#: ../src/picture.c:797
+#: ../src/picture.c:825
 msgid "Movie/video screen capture"
 msgstr "Film / videófelvétel"
 
-#: ../src/picture.c:799
+#: ../src/picture.c:827
 msgid "A bright colored fish"
 msgstr "Egy világos színes hal"
 
-#: ../src/picture.c:801
+#: ../src/picture.c:829
 msgid "Illustration"
 msgstr "Illusztráció"
 
-#: ../src/picture.c:803
+#: ../src/picture.c:831
 msgid "Band/Artist logotype"
 msgstr "Banda / Előadó logója"
 
-#: ../src/picture.c:805
+#: ../src/picture.c:833
 msgid "Publisher/studio logotype"
 msgstr "Kiadó / stúdió logója"
 
-#: ../src/picture.c:809
+#: ../src/picture.c:837
 msgid "Unknown picture type"
 msgstr "Ismeretlen kép típus"
 
-#: ../src/picture.c:839 ../src/picture.c:850
+#: ../src/picture.c:867 ../src/picture.c:878
 msgid "pixels"
 msgstr "képpont"
 
-#: ../src/picture.c:840 ../src/picture.c:851
+#: ../src/picture.c:868 ../src/picture.c:879
 msgid "Type"
 msgstr "Típus"
 
-#: ../src/picture.c:852
+#: ../src/picture.c:880
 msgid "Description"
 msgstr "Leírás"
 
-#: ../src/picture.c:908
+#: ../src/picture.c:936
 #, c-format
 msgid "Error with 'loader_close': %s"
 msgstr "Hiba a „loader_close” közben: %s"
 
-#: ../src/picture.c:965
+#: ../src/picture.c:993
 msgid ""
 "Cannot display the picture, as not enough data has been read to determine "
 "how to create the image buffer."
@@ -3419,45 +3420,45 @@ msgstr ""
 "Nem jeleníthető meg a kép, mert nem lett elegendő adat beolvasva annak "
 "meghatározásához, hogy hogyan jöjjön létre a képpuffer."
 
-#: ../src/picture.c:972
+#: ../src/picture.c:1000
 msgid "Cannot display the picture"
 msgstr "Nem jeleníthető meg a kép"
 
-#: ../src/picture.c:973
+#: ../src/picture.c:1001
 msgid ""
 "Not enough data has been read to determine how to create the image buffer"
 msgstr ""
 "Nem lett elegendő adat beolvasva annak meghatározásához, hogy hogyan jöjjön "
 "létre a képpuffer"
 
-#: ../src/picture.c:974
+#: ../src/picture.c:1002
 msgid "Load Picture File"
 msgstr "Képfájl betöltése"
 
-#: ../src/picture.c:980
+#: ../src/picture.c:1008
 #, c-format
 msgid "Error with 'loader_write': %s"
 msgstr "Hiba a „loader_write” közben: %s"
 
-#: ../src/picture.c:1072 ../src/picture.c:1101 ../src/picture.c:1121
+#: ../src/picture.c:1100 ../src/picture.c:1129 ../src/picture.c:1149
 #, c-format
 msgid "Picture file not loaded (%s)…"
 msgstr "A képfájl nincs betöltve (%s)…"
 
-#: ../src/picture.c:1094
+#: ../src/picture.c:1122
 #, c-format
 msgid "Cannot open file: '%s'"
 msgstr "Nem nyitható meg a fájl: „%s”"
 
-#: ../src/picture.c:1097
+#: ../src/picture.c:1125
 msgid "Picture File Error"
 msgstr "Képfájl hiba"
 
-#: ../src/picture.c:1133
+#: ../src/picture.c:1161
 msgid "Picture file loaded…"
 msgstr "A képfájl betöltve…"
 
-#: ../src/picture.c:1150 ../src/picture.c:1157
+#: ../src/picture.c:1178 ../src/picture.c:1185
 #, c-format
 msgid "Picture file can't be saved (%s)…"
 msgstr "A képfájl nem menthető (%s)…"
@@ -3852,7 +3853,7 @@ msgid ""
 msgstr ""
 "A rendszer karakterkódolásának erőltetett használata és az átírás aktiválása"
 
-#: ../src/prefs.c:509 ../src/prefs.c:837 ../src/prefs.c:909
+#: ../src/prefs.c:509 ../src/prefs.c:829 ../src/prefs.c:901
 msgid ""
 "With this option, when a character cannot be represented in the target "
 "character set, it can be approximated through one or several similarly "
@@ -3870,10 +3871,7 @@ msgstr ""
 "A rendszer karakterkódolásának erőltetett használata és csendben néhány "
 "karakter elvetése"
 
-#: ../src/prefs.c:519 ../src/prefs.c:847 ../src/prefs.c:919
-#| msgid ""
-#| "With this option, when a characters cannot be represented in the target "
-#| "character set, it will be silently discarded."
+#: ../src/prefs.c:519 ../src/prefs.c:839 ../src/prefs.c:911
 msgid ""
 "With this option, when a character cannot be represented in the target "
 "character set, it will be silently discarded."
@@ -3923,27 +3921,7 @@ msgstr ""
 "a megadott szám „n” számjegye (például két számjeggyel: „05”, „09”, „10”…). "
 "Egyébként megtartja a „nyers” szám értéket."
 
-#: ../src/prefs.c:572
-msgid "Ogg Vorbis Files: write also the comment in the XMMS format"
-msgstr "Ogg Vorbis fájlok: az XMMS formátumba is írjon megjegyzést"
-
-# bubble help
-#: ../src/prefs.c:575
-msgid ""
-"XMMS doesn't make use of the right way to identify a comment in Ogg Vorbis "
-"files as other apps do. In fact, this field is usually labeled with "
-"'comment=', whereas XMMS uses only `='. Please, uncheck this option if you "
-"don't want other apps to complain about an unknown field. Comments won't be "
-"shown in XMMS, though."
-msgstr ""
-"Az XMMS nem a megfelelő mód használatával azonosítja a megjegyzést az Ogg "
-"Vorbis fájlokban - más alkalmazásokkal ellentétben. Tény, hogy ez a mező "
-"általában a „comment=” címkével van jelölve, míg az XMMS csak „=”-t használ. "
-"Kapcsolja ki ezt a beállítást, ha nem szeretné, hogy más programok "
-"panaszkodjanak egy ismeretlen mező miatt. A megjegyzések nem fognak "
-"megjelenni az XMMS-ben."
-
-#: ../src/prefs.c:590
+#: ../src/prefs.c:582
 msgid ""
 "Tag field focus when switching files in list with shortcuts Page Up/Page "
 "Down:"
@@ -3951,21 +3929,21 @@ msgstr ""
 "Címkemező fókusz a listában lévő fájlok váltásakor a Page Up/Page Down "
 "gyorsbillentyűkkel:"
 
-#: ../src/prefs.c:599
+#: ../src/prefs.c:591
 msgid "Keep focus to the same tag field"
 msgstr "A fókusz megtartása ugyanazon a címkemezőn"
 
-#: ../src/prefs.c:605
+#: ../src/prefs.c:597
 msgid "Return focus to the first tag field (i.e. 'Title' field)"
 msgstr "A fókusz visszatérése az első címkemezőre (azaz a „Cím” mező)"
 
 #. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SetFocusToFirstTagField),SET_FOCUS_TO_FIRST_TAG_FIELD);
 #. Tag Splitting
-#: ../src/prefs.c:610
+#: ../src/prefs.c:602
 msgid "Tag Splitting"
 msgstr "Címke felosztása"
 
-#: ../src/prefs.c:617
+#: ../src/prefs.c:609
 msgid ""
 "For Vorbis tags, selected fields will be split at dashes and saved as "
 "separate tags"
@@ -3973,29 +3951,29 @@ msgstr ""
 "A Vorbis címkéknél a kiválasztott mezők felosztásra kerülnek a kötőjeleknél "
 "és különálló címkékként lesznek elmentve"
 
-#: ../src/prefs.c:627
+#: ../src/prefs.c:619
 msgid "Original artist"
 msgstr "Eredeti előadó"
 
 #.
 #. * ID3 Tag Settings
 #.
-#: ../src/prefs.c:648 ../src/prefs.c:649
+#: ../src/prefs.c:640 ../src/prefs.c:641
 msgid "ID3 Tag Settings"
 msgstr "ID3 címke beállítások"
 
 #. Tag Rules frame
-#: ../src/prefs.c:661
+#: ../src/prefs.c:653
 msgid "ID3 Tag Rules"
 msgstr "ID3 címke szabályok"
 
 #. Write ID3 tags in FLAC files
-#: ../src/prefs.c:673
+#: ../src/prefs.c:665
 msgid "Write ID3 tags in FLAC files (in addition to FLAC tag)"
 msgstr "ID3 címkék írása a FLAC fájlokba (ezenkívül a FLAC címkébe)"
 
 # bubble help
-#: ../src/prefs.c:676
+#: ../src/prefs.c:668
 msgid ""
 "If activated, ID3 tags will be also added in the FLAC file (according the "
 "two rules above, plus the FLAC tag). Else ID3 tags will be stripped."
@@ -4005,12 +3983,12 @@ msgstr ""
 "lesznek."
 
 #. Strip tag when fields (managed by EasyTAG) are empty
-#: ../src/prefs.c:681
+#: ../src/prefs.c:673
 msgid "Strip tags if all fields are set to blank"
 msgstr "Címkék törlése, ha minden mező üresre van állítva"
 
 # bubble help
-#: ../src/prefs.c:684
+#: ../src/prefs.c:676
 msgid ""
 "As ID3v2 tags may contain other data than Title, Artist, Album, Year, Track, "
 "Genre or Comment (as an attached picture, lyrics…), this option allows you "
@@ -4023,12 +4001,12 @@ msgstr ""
 "törlését, amikor ez a hét szabványos adatmező üresre van állítva."
 
 #. Convert old ID3v2 tag version
-#: ../src/prefs.c:690
+#: ../src/prefs.c:682
 msgid "Automatically convert old ID3v2 tag versions"
 msgstr "A régi ID3v2 címkeverziók automatikus átalakítása"
 
 # bubble help
-#: ../src/prefs.c:693
+#: ../src/prefs.c:685
 msgid ""
 "If activated, an old ID3v2 tag version (as ID3v2.2) will be updated to the "
 "ID3v2.3 version."
@@ -4037,29 +4015,29 @@ msgstr ""
 "ID3v2.3 verzióra."
 
 #. Use CRC32
-#: ../src/prefs.c:697
+#: ../src/prefs.c:689
 msgid "Use CRC32"
 msgstr "CRC32 használata"
 
-#: ../src/prefs.c:700
+#: ../src/prefs.c:692
 msgid "Set CRC32 in the ID3v2 tags"
 msgstr "CRC32 beállítása az ID3v2 címkékben"
 
 #. Use Compression
-#: ../src/prefs.c:703
+#: ../src/prefs.c:695
 msgid "Use Compression"
 msgstr "Tömörítés használata"
 
-#: ../src/prefs.c:707
+#: ../src/prefs.c:699
 msgid "Set Compression in the ID3v2 tags"
 msgstr "Tömörítés beállítása az ID3v2 címkékben"
 
 #. Write Genre in text
-#: ../src/prefs.c:710
+#: ../src/prefs.c:702
 msgid "Write Genre in text only"
 msgstr "Műfaj írása csak szövegben"
 
-#: ../src/prefs.c:714
+#: ../src/prefs.c:706
 msgid ""
 "Don't use ID3v1 number references in genre tag. Enable this if you see "
 "numbers as genre in your music player."
@@ -4068,22 +4046,22 @@ msgstr ""
 "engedélyezze ezt, ha műfajként látja a számokat a zenelejátszójában."
 
 #. Character Set for writing ID3 tag
-#: ../src/prefs.c:717
+#: ../src/prefs.c:709
 msgid "Character Set for writing ID3 tags"
 msgstr "Karakterkészlet az ID3 címkék írásához"
 
 #. ID3v2 tags
-#: ../src/prefs.c:724
+#: ../src/prefs.c:716
 msgid "ID3v2 tags"
 msgstr "ID3v2 címkék"
 
 #. Write ID3v2 tag
-#: ../src/prefs.c:737
+#: ../src/prefs.c:729
 msgid "Write ID3v2 tag"
 msgstr "ID3v2 címke írása"
 
 # bubble help
-#: ../src/prefs.c:740
+#: ../src/prefs.c:732
 msgid ""
 "If activated, an ID3v2.4 tag will be added or updated at the beginning of "
 "the MP3 files. Else it will be stripped."
@@ -4092,11 +4070,11 @@ msgstr ""
 "fájlok kezdeténél. Egyébként törlésre kerül."
 
 #. ID3v2 tag version
-#: ../src/prefs.c:747
+#: ../src/prefs.c:739
 msgid "Version:"
 msgstr "Verzió:"
 
-#: ../src/prefs.c:753
+#: ../src/prefs.c:745
 msgid ""
 "Select the ID3v2 tag version to write:\n"
 " - ID3v2.3 is written using id3lib,\n"
@@ -4108,36 +4086,36 @@ msgstr ""
 
 #. Charset
 #. Id3V1 writing character set
-#: ../src/prefs.c:768 ../src/prefs.c:875
+#: ../src/prefs.c:760 ../src/prefs.c:867
 msgid "Charset:"
 msgstr "Karakterkészlet:"
 
 # src/trans.h:267
 #. Unicode
-#: ../src/prefs.c:776
+#: ../src/prefs.c:768
 msgid "Unicode "
 msgstr "Unicode "
 
-#: ../src/prefs.c:784
+#: ../src/prefs.c:776
 msgid "Unicode type to use"
 msgstr "A használandó Unicode típus"
 
 # bubble help
-#: ../src/prefs.c:808
+#: ../src/prefs.c:800
 msgid "Character set used to write the tag data in the file."
 msgstr "A címkeadatok fájlba írására használt karakterkészlet."
 
 #. ID3v2 Additional iconv() options
 #. ID3V1 Additional iconv() options
-#: ../src/prefs.c:818 ../src/prefs.c:890
+#: ../src/prefs.c:810 ../src/prefs.c:882
 msgid "Additional settings for iconv():"
 msgstr "További beállítások az iconv() programhoz:"
 
-#: ../src/prefs.c:824 ../src/prefs.c:896
+#: ../src/prefs.c:816 ../src/prefs.c:888
 msgid "No"
 msgstr "Nem"
 
-#: ../src/prefs.c:828 ../src/prefs.c:900
+#: ../src/prefs.c:820 ../src/prefs.c:892
 msgid ""
 "With this option, when a character cannot be represented in the target "
 "character set, it isn't changed. But note that an error message will be "
@@ -4147,26 +4125,26 @@ msgstr ""
 "karakterkészletben, akkor az nem lesz módosítva. De figyeljen arra, hogy egy "
 "hibaüzenet fog megjelenítésre kerülni az információhoz."
 
-#: ../src/prefs.c:833 ../src/prefs.c:905
+#: ../src/prefs.c:825 ../src/prefs.c:897
 msgid "//TRANSLIT"
 msgstr "//ÁTÍR"
 
-#: ../src/prefs.c:843 ../src/prefs.c:915
+#: ../src/prefs.c:835 ../src/prefs.c:907
 msgid "//IGNORE"
 msgstr "//KIHAGY"
 
 #. ID3v1 tags
-#: ../src/prefs.c:852
+#: ../src/prefs.c:844
 msgid "ID3v1 tags"
 msgstr "ID3v1 címkék"
 
 #. Write ID3v1 tag
-#: ../src/prefs.c:866
+#: ../src/prefs.c:858
 msgid "Write ID3v1.x tag"
 msgstr "ID3v1.x címke írása"
 
 # bubble help
-#: ../src/prefs.c:869
+#: ../src/prefs.c:861
 msgid ""
 "If activated, an ID3v1 tag will be added or updated at the end of the MP3 "
 "files. Else it will be stripped."
@@ -4175,21 +4153,21 @@ msgstr ""
 "fájlok végén. Egyébként törlésre kerül."
 
 # bubble help
-#: ../src/prefs.c:886
+#: ../src/prefs.c:878
 msgid "Character set used to write ID3v1 tag data in the file."
 msgstr "Az ID3v1 címkeadatok fájlba írására használt karakterkészlet."
 
 #. Character Set for reading tag
-#: ../src/prefs.c:924
+#: ../src/prefs.c:916
 msgid "Character Set for reading ID3 tags"
 msgstr "Karakterkészlet az ID3 címkék olvasásához"
 
 # Jerome - this is not standard?
-#: ../src/prefs.c:938
+#: ../src/prefs.c:930
 msgid "Non-standard:"
 msgstr "Nem szabványos:"
 
-#: ../src/prefs.c:944
+#: ../src/prefs.c:936
 msgid ""
 "This character set will be used when reading the tag data, to convert each "
 "string found in an ISO-8859-1 field in the tag (for ID3v2 or/and ID3v1 "
@@ -4221,33 +4199,33 @@ msgstr ""
 "a „KOI8-R” használható a Unix rendszerek alatt írt címkék betöltéséhez."
 
 # bubble help
-#: ../src/prefs.c:962
+#: ../src/prefs.c:954
 msgid "Character set used to read tag data in the file."
 msgstr "A címkeadatok fájlból olvasására használt karakterkészlet."
 
 #.
 #. * Scanner
 #.
-#: ../src/prefs.c:976 ../src/prefs.c:977
+#: ../src/prefs.c:968 ../src/prefs.c:969
 msgid "Scanner"
 msgstr "Feldolgozó"
 
 #. Character conversion for the 'Fill Tag' scanner (=> FTS...)
-#: ../src/prefs.c:989
+#: ../src/prefs.c:981
 msgid "Fill Tag Scanner - Character Conversion"
 msgstr "Címke kitöltése feldolgozó - Karakterátalakítás"
 
-#: ../src/prefs.c:995 ../src/prefs.c:1020
+#: ../src/prefs.c:987 ../src/prefs.c:1012
 msgid "Convert underscore character '_' and string '%20' to space ' '"
 msgstr ""
 "Az alsóvonás karakter „_” és a „%20” karakterlánc átalakítása szóközre „ ”"
 
-#: ../src/prefs.c:997 ../src/prefs.c:1021
+#: ../src/prefs.c:989 ../src/prefs.c:1013
 msgid "Convert space ' ' to underscore '_'"
 msgstr "Szóköz „ ” átalakítása alsóvonásra „_”"
 
 # bubble help
-#: ../src/prefs.c:1009 ../src/prefs.c:1011
+#: ../src/prefs.c:1001 ../src/prefs.c:1003
 msgid ""
 "If activated, this conversion will be used when applying a mask from the "
 "scanner for tags."
@@ -4256,12 +4234,12 @@ msgstr ""
 "alkalmazva lesz egy maszk a címkékhez."
 
 #. Character conversion for the 'Rename File' scanner (=> RFS...)
-#: ../src/prefs.c:1015
+#: ../src/prefs.c:1007
 msgid "Rename File Scanner - Character Conversion"
 msgstr "Fájl átnevezés feldolgozó - Karakterátalakítás"
 
 # bubble help
-#: ../src/prefs.c:1032 ../src/prefs.c:1034 ../src/prefs.c:1036
+#: ../src/prefs.c:1024 ../src/prefs.c:1026 ../src/prefs.c:1028
 msgid ""
 "If activated, this conversion will be used when applying a mask from the "
 "scanner for filenames."
@@ -4270,24 +4248,19 @@ msgstr ""
 "alkalmazva lesz egy maszk a fájlnevekhez."
 
 #. Character conversion for the 'Process Fields' scanner (=> PFS...)
-#: ../src/prefs.c:1039
+#: ../src/prefs.c:1031
 msgid "Process Fields Scanner - Character Conversion"
 msgstr "Mezők feldolgozása feldolgozó  - Karakterátalakítás"
 
 #. Don't convert some words like to, feat. first letter uppercase.
-#: ../src/prefs.c:1046
+#: ../src/prefs.c:1038
 msgid ""
 "Don't uppercase first letter of words for some prepositions and articles."
 msgstr ""
 "Ne kezdje nagybetűvel a szavak első betűjét elöljárószók és névelők esetén."
 
 # bubble help
-#: ../src/prefs.c:1050
-#| msgid ""
-#| "Don't convert first letter of the words like prepositions, articles and "
-#| "words like feat., when using the scanner 'First letter uppercase of each "
-#| "word' (for example, you will obtain 'Text in an Entry' instead of 'Text "
-#| "In An Entry')."
+#: ../src/prefs.c:1042
 msgid ""
 "Don't convert first letter of words like prepositions, articles and words "
 "like feat., when using the scanner 'First letter uppercase of each "
@@ -4300,16 +4273,16 @@ msgstr ""
 "„Szöveg Egy Bejegyzésben” helyett)."
 
 #. Properties of the scanner window
-#: ../src/prefs.c:1056
+#: ../src/prefs.c:1048
 msgid "Scanner Window"
 msgstr "Feldolgozóablak"
 
-#: ../src/prefs.c:1062
+#: ../src/prefs.c:1054
 msgid "Open the Scanner Window on startup"
 msgstr "Feldolgozóablak megnyitása indításkor"
 
 # bubble help
-#: ../src/prefs.c:1065
+#: ../src/prefs.c:1057
 msgid ""
 "Activate this option to open automatically the scanner window when EasyTAG "
 "starts."
@@ -4318,18 +4291,17 @@ msgstr ""
 "EasyTAG indításkor."
 
 #. Other options
-#: ../src/prefs.c:1070
+#: ../src/prefs.c:1062
 msgid "Fields"
 msgstr "Mezők"
 
 #. Overwrite text into tag fields
-#: ../src/prefs.c:1077
-#| msgid "Overwrite fields when scanning tag"
+#: ../src/prefs.c:1069
 msgid "Overwrite fields when scanning tags"
 msgstr "Mezők felülírása a címkék feldolgozásakor"
 
 # bubble help
-#: ../src/prefs.c:1080
+#: ../src/prefs.c:1072
 msgid ""
 "If activated, the scanner will replace existing text in fields by the new "
 "one. If deactivated, only blank fields of the tag will be filled."
@@ -4337,12 +4309,12 @@ msgstr ""
 "Ha aktivált, a feldolgozó ki fogja cserélni a mezőkben már létező szöveget "
 "az újra. Ha nem aktivált, csak a címke üres mezői lesznek kitöltve."
 
-#: ../src/prefs.c:1091
+#: ../src/prefs.c:1083
 msgid "Set this text as default comment:"
 msgstr "Ezen szöveg beállítása alapértelmezett megjegyzésként:"
 
 # bubble help
-#: ../src/prefs.c:1094
+#: ../src/prefs.c:1086
 msgid ""
 "Activate this option if you want to put the following string into the "
 "comment field when using the 'Fill Tag' scanner."
@@ -4351,13 +4323,13 @@ msgstr ""
 "megjegyzés mezőbe a „Címke kitöltése” feldolgozó használatakor."
 
 #. CRC32 comment
-#: ../src/prefs.c:1112
+#: ../src/prefs.c:1104
 msgid "Use CRC32 as the default comment (for files with ID3 tags only)."
 msgstr ""
 "CRC32 használata alapértelmezett megjegyzésként (csak ID3 címkékkel "
 "rendelkező fájloknál)."
 
-#: ../src/prefs.c:1116
+#: ../src/prefs.c:1108
 msgid ""
 "Calculates the CRC-32 value of the file and writes it into the comment field "
 "when using the 'Fill Tag' scanner."
@@ -4368,48 +4340,43 @@ msgstr ""
 #.
 #. * CDDB
 #.
-#: ../src/prefs.c:1127 ../src/prefs.c:1128
+#: ../src/prefs.c:1119 ../src/prefs.c:1120
 msgid "CD Data Base"
 msgstr "CD adatbázis"
 
 #. CDDB Server Settings (Automatic Search)
-#: ../src/prefs.c:1137
+#: ../src/prefs.c:1129
 msgid "Server Settings for Automatic Search"
 msgstr "Kiszolgáló beállítások az automatikus kereséshez"
 
-#: ../src/prefs.c:1146 ../src/prefs.c:1185 ../src/prefs.c:1219
+#: ../src/prefs.c:1138 ../src/prefs.c:1177 ../src/prefs.c:1211
 msgid "Name:"
 msgstr "Név:"
 
-#: ../src/prefs.c:1165 ../src/prefs.c:1193 ../src/prefs.c:1228
-#: ../src/prefs.c:1317
+#: ../src/prefs.c:1157 ../src/prefs.c:1185 ../src/prefs.c:1220
+#: ../src/prefs.c:1309
 msgid "Port:"
 msgstr "Port:"
 
-#: ../src/prefs.c:1175 ../src/prefs.c:1203 ../src/prefs.c:1238
+#: ../src/prefs.c:1167 ../src/prefs.c:1195 ../src/prefs.c:1230
 msgid "CGI Path:"
 msgstr "CGI útvonal:"
 
 #. CDDB Server Settings (Manual Search)
-#: ../src/prefs.c:1211
+#: ../src/prefs.c:1203
 msgid "Server Settings for Manual Search"
 msgstr "Kiszolgáló beállítások a kézi kereséshez"
 
 #. Local access for CDDB (Automatic Search)
-#: ../src/prefs.c:1246
+#: ../src/prefs.c:1238
 msgid "Local CD Data Base"
 msgstr "Helyi CD adatbázis"
 
-#: ../src/prefs.c:1254
+#: ../src/prefs.c:1246
 msgid "Path:"
 msgstr "Útvonal:"
 
-#: ../src/prefs.c:1266
-#| msgid ""
-#| "Specify the directory where are located the local CD data base. The local "
-#| "CD data base contains the eleven following directories 'blues', "
-#| "'classical', 'country', 'data', 'folk', 'jazz', 'newage', 'reggae', "
-#| "'rock', 'soundtrack' and 'misc'."
+#: ../src/prefs.c:1258
 msgid ""
 "Specify the directory where the local CD database is located. The local CD "
 "data base contains the eleven following directories 'blues', 'classical', "
@@ -4422,56 +4389,56 @@ msgstr ""
 "és „misc”."
 
 #. CDDB Proxy Settings
-#: ../src/prefs.c:1292
+#: ../src/prefs.c:1284
 msgid "Proxy Settings"
 msgstr "Proxy beállítások"
 
-#: ../src/prefs.c:1301
+#: ../src/prefs.c:1293
 msgid "Use a proxy"
 msgstr "Proxy használata"
 
 # bubble help
-#: ../src/prefs.c:1304
+#: ../src/prefs.c:1296
 msgid "Set active the settings of the proxy server."
 msgstr "A proxy-kiszolgáló beállításainak aktiválása."
 
-#: ../src/prefs.c:1309
+#: ../src/prefs.c:1301
 msgid "Host Name:"
 msgstr "Gépnév:"
 
-#: ../src/prefs.c:1316
+#: ../src/prefs.c:1308
 msgid "Name of the proxy server."
 msgstr "Proxy-kiszolgáló neve."
 
 # bubble help
-#: ../src/prefs.c:1324
+#: ../src/prefs.c:1316
 msgid "Port of the proxy server."
 msgstr "Proxy-kiszolgáló portja."
 
-#: ../src/prefs.c:1329
+#: ../src/prefs.c:1321
 msgid "User Name:"
 msgstr "Felhasználónév:"
 
 # bubble help
-#: ../src/prefs.c:1336
+#: ../src/prefs.c:1328
 msgid "Name of user for the the proxy server."
 msgstr "A felhasználó neve a proxy-kiszolgálóhoz."
 
-#: ../src/prefs.c:1337
+#: ../src/prefs.c:1329
 msgid "User Password:"
 msgstr "Felhasználói jelszó:"
 
 # bubble help
-#: ../src/prefs.c:1345
+#: ../src/prefs.c:1337
 msgid "Password of user for the the proxy server."
 msgstr "A felhasználó jelszava a proxy-kiszolgálóhoz."
 
 #. Track Name list (CDDB results)
-#: ../src/prefs.c:1350
+#: ../src/prefs.c:1342
 msgid "Track Name List"
 msgstr "Számnév lista"
 
-#: ../src/prefs.c:1357
+#: ../src/prefs.c:1349
 msgid ""
 "Select corresponding audio file (according position or DLM if activated "
 "below)"
@@ -4479,7 +4446,7 @@ msgstr ""
 "A megfelelő hangfájl kiválasztása (pozíció vagy DLM szerint, ha lent "
 "aktiválva van)"
 
-#: ../src/prefs.c:1361
+#: ../src/prefs.c:1353
 msgid ""
 "If activated, when selecting a line in the list of tracks name, the "
 "corresponding audio file in the main list will be also selected."
@@ -4488,7 +4455,7 @@ msgstr ""
 "megfelelő hangfájl is kiválasztásra kerül."
 
 #. Check box to use DLM (also used in the cddb window)
-#: ../src/prefs.c:1366
+#: ../src/prefs.c:1358
 msgid ""
 "Use the Levenshtein algorithm (DLM) to match lines (using title) with audio "
 "files (using filename)"
@@ -4499,16 +4466,16 @@ msgstr ""
 #.
 #. * Confirmation
 #.
-#: ../src/prefs.c:1381 ../src/prefs.c:1382
+#: ../src/prefs.c:1373 ../src/prefs.c:1374
 msgid "Confirmation"
 msgstr "Megerősítés"
 
-#: ../src/prefs.c:1390
+#: ../src/prefs.c:1382
 msgid "Confirm exit from program"
 msgstr "Programból való kilépés megerősítése"
 
 # bubble help
-#: ../src/prefs.c:1393
+#: ../src/prefs.c:1385
 msgid ""
 "If activated, opens a dialog box to ask confirmation before exiting the "
 "program."
@@ -4516,61 +4483,61 @@ msgstr ""
 "Ha aktivált, megnyit egy párbeszéddobozt a programból való kilépés "
 "megerősítéséhez."
 
-#: ../src/prefs.c:1396
+#: ../src/prefs.c:1388
 msgid "Confirm writing of file tag"
 msgstr "Fájlcímke írásának megerősítése"
 
-#: ../src/prefs.c:1400
+#: ../src/prefs.c:1392
 msgid "Confirm renaming of file"
 msgstr "Fájl átnevezésének megerősítése"
 
-#: ../src/prefs.c:1404
+#: ../src/prefs.c:1396
 msgid "Confirm deleting of file"
 msgstr "Fájl törlésének megerősítése"
 
-#: ../src/prefs.c:1408
+#: ../src/prefs.c:1400
 msgid "Confirm writing of playlist"
 msgstr "Lejátszólista írásának megerősítése"
 
-#: ../src/prefs.c:1412
+#: ../src/prefs.c:1404
 msgid "Confirm changing directory when there are unsaved changes"
 msgstr "Könyvtár váltásának megerősítése, ha el nem mentett módosítások vannak"
 
-#: ../src/prefs.c:1429
+#: ../src/prefs.c:1421
 msgid "Apply changes (but don't save) and close this window"
 msgstr "Változtatások alkalmazása (de nem mentése) és az ablak bezárása"
 
-#: ../src/prefs.c:1438
+#: ../src/prefs.c:1430
 msgid "Close this window without saving"
 msgstr "Ablak bezárása mentés nélkül"
 
 # bubble help
-#: ../src/prefs.c:1446
+#: ../src/prefs.c:1438
 msgid "Save changes and close this window"
 msgstr "Változtatások mentése és az ablak bezárása"
 
 # not necessary hungarian. I do not understand.
 #. For translators : be aware to NOT translate '%.*d' in this string
-#: ../src/prefs.c:1481
+#: ../src/prefs.c:1473
 #, c-format
 msgid "(Example: %.*d_-_Track_name_1.mp3)"
 msgstr "(Például: %.*d_-_Szam_neve_1.mp3)"
 
-#: ../src/prefs.c:1643 ../src/setting.c:896
+#: ../src/prefs.c:1635 ../src/setting.c:893
 msgid "Configuration saved"
 msgstr "A beállítások elmentve"
 
-#: ../src/prefs.c:1651
+#: ../src/prefs.c:1643
 msgid "Configuration unchanged"
 msgstr "A beállítások nem változtak"
 
-#: ../src/prefs.c:1755
+#: ../src/prefs.c:1747
 msgid "The selected path for 'Default path to files' is invalid"
 msgstr ""
 "A kiválasztott útvonal az „Alapértelmezett útvonal a fájlokhoz” esetén "
 "érvénytelen"
 
-#: ../src/prefs.c:1756
+#: ../src/prefs.c:1748
 #, c-format
 msgid ""
 "Path: '%s'\n"
@@ -4579,17 +4546,17 @@ msgstr ""
 "Útvonal: „%s”\n"
 "Hiba: %s"
 
-#: ../src/prefs.c:1757
+#: ../src/prefs.c:1749
 msgid "Invalid Path Error"
 msgstr "Érvénytelen útvonal hiba"
 
-#: ../src/prefs.c:1871
+#: ../src/prefs.c:1863
 #, c-format
 msgid "The audio file player '%s' cannot be found"
 msgstr "A(z) „%s” zenelejátszó nem található"
 
 # egyéb menü
-#: ../src/prefs.c:1873
+#: ../src/prefs.c:1865
 msgid "Audio Player Error"
 msgstr "Zenelejátszó hiba"
 
@@ -4633,12 +4600,10 @@ msgstr "Az új fájlnév sikeresen feldolgozva…(%s)"
 
 #: ../src/scan.c:1815
 #, c-format
-#| msgid "Error while opening file: '%s' (%s)"
 msgid "Error while processing fields: %s"
 msgstr "Hiba a mezők feldolgozása közben: %s"
 
 #: ../src/scan.c:2346
-#| msgid "Tag and File Name scan"
 msgid "Tag and Filename Scan"
 msgstr "Címke és fájlnév feldolgozás"
 
@@ -4657,7 +4622,6 @@ msgid "Open scanner window / Scan selected files"
 msgstr "Feldolgozó ablak megnyitása / Kijelölt fájlok feldolgozása"
 
 #: ../src/scan.c:2408
-#| msgid "Preferences"
 msgid "Scanner Preferences"
 msgstr "Feldolgozó beállítások"
 
@@ -4716,9 +4680,6 @@ msgstr "Mezők kijelölése:"
 
 # bubble help
 #: ../src/scan.c:2583
-#| msgid ""
-#| "The buttons on the right represent the fields which can be processed. "
-#| "Select those who interest you."
 msgid ""
 "The buttons on the right represent the fields which can be processed. Select "
 "those which interest you"
@@ -4851,7 +4812,6 @@ msgid "Invert selection"
 msgstr "Kijelölés megfordítása"
 
 #: ../src/scan.c:2672
-#| msgid "Select/Unselect All"
 msgid "Select/Unselect all"
 msgstr "Összes kijelölése / Kijelölés megszüntetése"
 
@@ -5109,56 +5069,56 @@ msgstr "Felfelé mozgatás: Nincs kijelölt sor"
 msgid "Move Down: No row selected"
 msgstr "Lefelé mozgatás: Nincs kijelölt sor"
 
-#: ../src/setting.c:916
+#: ../src/setting.c:913
 #, c-format
 msgid "Error: Cannot write configuration file: %s (%s)"
 msgstr "Hiba: A beállító fájl nem írható: %s (%s)"
 
-#: ../src/setting.c:1058
+#: ../src/setting.c:1055
 #, c-format
 msgid "Cannot open configuration file '%s' (%s)"
 msgstr "A(z) „%s” beállító fájl nem nyitható meg (%s)"
 
-#: ../src/setting.c:1060
+#: ../src/setting.c:1057
 msgid "Loading default configuration"
 msgstr "Alapértelmezett beállítások betöltése"
 
-#: ../src/setting.c:1101
+#: ../src/setting.c:1098
 #, c-format
 msgid "Cannot create or open file '%s' (%s)"
 msgstr "Nem hozható létre vagy nem nyitható meg a fájl: „%s” (%s)"
 
-#: ../src/setting.c:1162
+#: ../src/setting.c:1159
 #, c-format
 msgid "Error: Cannot write list to file: %s (%s)"
 msgstr "Hiba: A lista nem írható fájlba: %s (%s)"
 
 #. Fall back to defaults
-#: ../src/setting.c:1247
+#: ../src/setting.c:1244
 msgid "Loading default 'Fill Tag' masks…"
 msgstr "Alapértelmezett „Címke kitöltése” maszkok betöltése…"
 
 #. Fall back to defaults
-#: ../src/setting.c:1275
+#: ../src/setting.c:1272
 msgid "Loading default 'Rename File' masks…"
 msgstr "Alapértelmezett „Fájl átnevezése” maszkok betöltése…"
 
 #. Fall back to defaults
-#: ../src/setting.c:1302
+#: ../src/setting.c:1299
 msgid "Loading default 'Rename Directory' masks…"
 msgstr "Alapértelmezett „Könyvtár átnevezése” maszkok betöltése…"
 
-#: ../src/setting.c:1513
+#: ../src/setting.c:1510
 #, c-format
 msgid "Migrating configuration from directory '%s' to '%s'"
 msgstr "A beállítások költöztetése a(z) „%s” könyvtárból ide: „%s”"
 
-#: ../src/setting.c:1537
+#: ../src/setting.c:1534
 #, c-format
 msgid "Failed to migrate configuration file '%s'"
 msgstr "A(z) „%s” beállítófájl költöztetése nem sikerült"
 
-#: ../src/setting.c:1574
+#: ../src/setting.c:1571
 #, c-format
 msgid "Error: Cannot create directory '%s' (%s)"
 msgstr "Hiba: Nem lehet létrehozni a könyvtárat: „%s” (%s)"
@@ -5264,6 +5224,31 @@ msgstr "weasytag_init vége…"
 #, c-format
 msgid "Audio player: '%s'"
 msgstr "Zenelejátszó: „%s”"
+
+#~ msgid ""
+#~ "Error while opening file: '%s' (%s).\n"
+#~ "\a"
+#~ msgstr ""
+#~ "Hiba a fájl megnyitása közben: „%s” (%s).\n"
+#~ "\a"
+
+#~ msgid "Ogg Vorbis Files: write also the comment in the XMMS format"
+#~ msgstr "Ogg Vorbis fájlok: az XMMS formátumba is írjon megjegyzést"
+
+# bubble help
+#~ msgid ""
+#~ "XMMS doesn't make use of the right way to identify a comment in Ogg "
+#~ "Vorbis files as other apps do. In fact, this field is usually labeled "
+#~ "with 'comment=', whereas XMMS uses only `='. Please, uncheck this option "
+#~ "if you don't want other apps to complain about an unknown field. Comments "
+#~ "won't be shown in XMMS, though."
+#~ msgstr ""
+#~ "Az XMMS nem a megfelelő mód használatával azonosítja a megjegyzést az Ogg "
+#~ "Vorbis fájlokban - más alkalmazásokkal ellentétben. Tény, hogy ez a mező "
+#~ "általában a „comment=” címkével van jelölve, míg az XMMS csak „=”-t "
+#~ "használ. Kapcsolja ki ezt a beállítást, ha nem szeretné, hogy más "
+#~ "programok panaszkodjanak egy ismeretlen mező miatt. A megjegyzések nem "
+#~ "fognak megjelenni az XMMS-ben."
 
 #~| msgid "%s %s by %s (compiled %s, %s)\n"
 #~ msgid "%s %s (compiled %s, %s)\n"
@@ -5632,10 +5617,6 @@ msgstr "Zenelejátszó: „%s”"
 
 #~ msgid "Unknown"
 #~ msgstr "Ismeretlen"
-
-#, fuzzy
-#~ msgid "ERROR reading tags from file: '%s' (%s)."
-#~ msgstr "Hiba a '%s' (%s) fájl megnyitása közben."
 
 #~ msgid "Changes applied"
 #~ msgstr "A változások életbe léptek"
