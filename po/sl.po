@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: easytag master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-03-24 23:17+0000\n"
-"PO-Revision-Date: 2013-03-28 09:00+0100\n"
+"PO-Revision-Date: 2013-04-01 02:13+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -693,11 +693,11 @@ msgstr "Pokaži skrite mape"
 
 #: ../src/bar.c:277
 msgid "Show Tree Browser / Display by Artist and Album"
-msgstr ""
+msgstr "Pokaži drevesni brskalnik / prikaz po izvajalcih in albumih"
 
 #: ../src/bar.c:277
 msgid "Show tree browser / display by artist and Album"
-msgstr ""
+msgstr "Pokaži drevesni brskalnik / prikaz po izvajalcih in albumih"
 
 #: ../src/bar.c:314
 #, c-format
@@ -952,7 +952,7 @@ msgstr "Program za zagon:"
 
 #: ../src/browser.c:4163
 msgid "Enter the program to run. It will receive the current directory as parameter."
-msgstr ""
+msgstr "Vnesite program, ki naj bo zagnan. Kot parameter bo prejel trenutno mapo."
 
 #: ../src/browser.c:4293
 msgid "Open File with…"
@@ -960,7 +960,7 @@ msgstr "Odpri datoteko z ..."
 
 #: ../src/browser.c:4323
 msgid "Enter the program to run. It will receive the current file as parameter."
-msgstr ""
+msgstr "Vnesite program, ki naj bo zagnan. Kot parameter bo prejel trenutno datoteko."
 
 #: ../src/browser.c:4484
 msgid "You must type a program name"
@@ -1836,7 +1836,7 @@ msgstr "# posnetka:"
 
 #: ../src/easytag.c:836
 msgid "Set the number of files, in the same directory of the displayed file, to the selected tracks."
-msgstr ""
+msgstr "Izbranim posnetkom določite število datotek v isti mapi prikazane datoteke."
 
 #: ../src/easytag.c:857
 msgid "Tag selected files with this number of tracks"
@@ -2001,17 +2001,17 @@ msgstr "Leto odstranjeno iz izbranih datotek."
 #: ../src/easytag.c:1478
 #, c-format
 msgid "Selected files tagged with track like 'xx/%s'."
-msgstr ""
+msgstr "Izbrane datoteke označene s posnetkom, kot je 'xx/%s'."
 
 #: ../src/easytag.c:1385
 #, c-format
 msgid "Selected files tagged with track like 'xx'."
-msgstr ""
+msgstr "Izbrane datoteke označene s posnetkom, kot je 'xx'."
 
 #: ../src/easytag.c:1389
 #: ../src/easytag.c:1481
 msgid "Removed track number from selected files."
-msgstr ""
+msgstr "Številka posnetka odstranjena iz izbranih datotek."
 
 #. msg = g_strdup_printf(_("All %d tracks numbered sequentially."), ETCore->ETFileSelectionList_Length);
 #: ../src/easytag.c:1447
@@ -2053,7 +2053,7 @@ msgstr ""
 
 #: ../src/easytag.c:1565
 msgid "Removed original artist from selected files."
-msgstr ""
+msgstr "Izvirni izvajalec je odstranjen iz izbranih datotek."
 
 #: ../src/easytag.c:1582
 #, c-format
@@ -2080,7 +2080,7 @@ msgstr ""
 
 #: ../src/easytag.c:1622
 msgid "Removed encoder name from selected files."
-msgstr ""
+msgstr "Ime kodirnika je odstranjeno iz izbranih datotek."
 
 #: ../src/easytag.c:1657
 msgid "Selected files tagged with pictures."
@@ -2243,7 +2243,7 @@ msgstr "Datoteke '%s' ni mogoče preimenovati v '%s': %s"
 #: ../src/easytag.c:3123
 #, c-format
 msgid "Cannot rename file '%s' because the following file already exists: '%s'"
-msgstr ""
+msgstr "Datoteke '%s' ni mogoče preimenovati, ker naslednja datoteka že obstaja: '%s'"
 
 #: ../src/easytag.c:3158
 #, c-format
@@ -2484,7 +2484,7 @@ msgid "Do you really want to quit?"
 msgstr "Ali res želite končati?"
 
 #: ../src/et_core.c:621
-#, fuzzy, c-format
+#, c-format
 msgid "Automatic corrections applied for file '%s'."
 msgstr "Datoteka '%s' je bila samodejno popravljena."
 
@@ -2741,7 +2741,7 @@ msgstr "Neznana vrsta polja."
 
 #: ../src/id3_tag.c:652
 msgid "Tag is already attached to a file"
-msgstr ""
+msgstr "Oznaka je datoteki že pripeta"
 
 #: ../src/id3_tag.c:654
 msgid "Invalid tag version"
@@ -2753,7 +2753,7 @@ msgstr "Ni datoteke za razčlenjevanje"
 
 #: ../src/id3_tag.c:658
 msgid "Attempting to write to a read-only file"
-msgstr ""
+msgstr "Poskus pisanja v datoteko, namenjeno branju"
 
 #: ../src/id3_tag.c:660
 msgid "Error in compression/uncompression"
@@ -2905,7 +2905,7 @@ msgstr "Ustvari seznam predvajanja v nadrejeni mapi"
 
 #: ../src/misc.c:1340
 msgid "If activated, the playlist will be created in the parent directory."
-msgstr ""
+msgstr "Izbrana možnost določa, da bo seznam predvajanja ustvarjen v nadrejeni mapi."
 
 #. DOS Separator
 #: ../src/misc.c:1344
@@ -2914,7 +2914,7 @@ msgstr "Uporabi ločilo map za DOS"
 
 #: ../src/misc.c:1350
 msgid "This option replaces the UNIX directory separator '/' into DOS separator '\\'."
-msgstr ""
+msgstr "Ta možnost zamenja ločilo map za UNIX '/' v ločilo za DOS '\\'."
 
 #: ../src/misc.c:1359
 msgid "Playlist Content"
@@ -3171,7 +3171,7 @@ msgstr "Napaka: odpiranje datoteke '%s' kot Vorbis je spodletelo (%s)."
 #: ../src/ogg_tag.c:169
 #, c-format
 msgid "Warning: The Ogg Vorbis file '%s' contains an ID3v2 tag."
-msgstr ""
+msgstr "Opozorilo: datoteka Ogg Vorbis '%s' vsebuje oznako ID3v2."
 
 #: ../src/picture.c:271
 msgid "Add pictures"
@@ -3874,7 +3874,7 @@ msgstr "Uporabljena vrsta Unikod"
 
 #: ../src/prefs.c:800
 msgid "Character set used to write the tag data in the file."
-msgstr ""
+msgstr "Nabor znakov, uporabljen za zapis podatkov oznake v datoteko."
 
 #. ID3v2 Additional iconv() options
 #. ID3V1 Additional iconv() options
@@ -3919,7 +3919,7 @@ msgstr ""
 
 #: ../src/prefs.c:878
 msgid "Character set used to write ID3v1 tag data in the file."
-msgstr ""
+msgstr "Nabor znakov, uporabljen za zapisovanje oznak ID3v1 v datoteko."
 
 #. Character Set for reading tag
 #: ../src/prefs.c:916
@@ -4034,7 +4034,7 @@ msgstr ""
 #. CRC32 comment
 #: ../src/prefs.c:1104
 msgid "Use CRC32 as the default comment (for files with ID3 tags only)."
-msgstr ""
+msgstr "Uporabi CRC32 kot privzeto opombo (za datoteke zgolj z oznakami ID3)."
 
 #: ../src/prefs.c:1108
 msgid "Calculates the CRC-32 value of the file and writes it into the comment field when using the 'Fill Tag' scanner."
@@ -4101,7 +4101,7 @@ msgstr "Uporabi posredniški strežnik"
 
 #: ../src/prefs.c:1296
 msgid "Set active the settings of the proxy server."
-msgstr ""
+msgstr "Omogoči nastavitve posredovalnega strežnika."
 
 #: ../src/prefs.c:1301
 msgid "Host Name:"
@@ -4183,11 +4183,11 @@ msgstr "Potrdite zapisovanje seznama predvajanja"
 
 #: ../src/prefs.c:1404
 msgid "Confirm changing directory when there are unsaved changes"
-msgstr ""
+msgstr "Potrdi spremembo mape, ko obstajajo neshranjene spremembe"
 
 #: ../src/prefs.c:1421
 msgid "Apply changes (but don't save) and close this window"
-msgstr ""
+msgstr "Uveljavi spremembe (vendar jih ne shrani) in zapre to okno"
 
 #: ../src/prefs.c:1430
 msgid "Close this window without saving"
@@ -4201,7 +4201,7 @@ msgstr "Shrani spremembe in zapri to okno"
 #: ../src/prefs.c:1473
 #, c-format
 msgid "(Example: %.*d_-_Track_name_1.mp3)"
-msgstr ""
+msgstr "(Primer: %.*d_-_Ime_posnetka_1.mp3)"
 
 #: ../src/prefs.c:1635
 #: ../src/setting.c:893
@@ -4232,7 +4232,7 @@ msgstr "Napaka neveljavne poti"
 #: ../src/prefs.c:1863
 #, c-format
 msgid "The audio file player '%s' cannot be found"
-msgstr ""
+msgstr "Predvajalnika zvočnih datotek '%s' ni mogoče najti"
 
 #: ../src/prefs.c:1865
 msgid "Audio Player Error"
@@ -4244,14 +4244,14 @@ msgstr "Zapolni oznako"
 
 #: ../src/scan.c:180
 msgid "Rename File and Directory"
-msgstr "Preimenuj datoteke ali mape"
+msgstr "Preimenuj datoteko ali mapo"
 
 #: ../src/scan.c:368
 msgid "Tag successfully scanned…"
 msgstr "Oznaka je uspešno preiskana ..."
 
 #: ../src/scan.c:370
-#, fuzzy, c-format
+#, c-format
 msgid "Tag successfully scanned…(%s)"
 msgstr "Oznaka je uspešno preiskana ... (%s)"
 
@@ -4267,12 +4267,11 @@ msgid "Scan Error: can't find separator '%s' within '%s'"
 msgstr ""
 
 #: ../src/scan.c:710
-#, fuzzy
 msgid "New file name successfully scanned…"
 msgstr "Ime nove datoteke je uspešno preiskano ..."
 
 #: ../src/scan.c:713
-#, fuzzy, c-format
+#, c-format
 msgid "New file name successfully scanned…(%s)"
 msgstr "Ime nove datoteke je uspešno preiskano ... (%s)"
 
@@ -4326,7 +4325,7 @@ msgstr "Predogled zapolnjenja oznak ..."
 
 #: ../src/scan.c:2521
 msgid "Prefix mask with current path"
-msgstr ""
+msgstr "Maska predpone s trenutno potjo"
 
 #: ../src/scan.c:2534
 msgid ""
@@ -4460,7 +4459,6 @@ msgid "Invert selection"
 msgstr "Preobrni izbor"
 
 #: ../src/scan.c:2672
-#, fuzzy
 msgid "Select/Unselect all"
 msgstr "Izberi ali prekliči izbor vseh"
 
@@ -4568,7 +4566,7 @@ msgid "%d: disc number"
 msgstr "%d: številka diska"
 
 #: ../src/scan.c:2842
-#, fuzzy, c-format
+#, c-format
 msgid "%e: encoded by"
 msgstr "%e: kodirali"
 
@@ -4686,7 +4684,7 @@ msgstr "Ustvarjanje ali odpiranje '%s' je spodletelo (%s)"
 #: ../src/setting.c:1159
 #, c-format
 msgid "Error: Cannot write list to file: %s (%s)"
-msgstr ""
+msgstr "Napaka: seznama ni mogoče zapisati v datoteko: %s (%s)"
 
 #. Fall back to defaults
 #: ../src/setting.c:1244
@@ -4696,12 +4694,12 @@ msgstr ""
 #. Fall back to defaults
 #: ../src/setting.c:1272
 msgid "Loading default 'Rename File' masks…"
-msgstr ""
+msgstr "Nalaganje privzetih mask 'Preimenuj datoteko' …"
 
 #. Fall back to defaults
 #: ../src/setting.c:1299
 msgid "Loading default 'Rename Directory' masks…"
-msgstr ""
+msgstr "Nalaganje privzetih mask 'Preimenuj mapo' …"
 
 #: ../src/setting.c:1510
 #, c-format
@@ -4711,7 +4709,7 @@ msgstr ""
 #: ../src/setting.c:1534
 #, c-format
 msgid "Failed to migrate configuration file '%s'"
-msgstr ""
+msgstr "Preselitev nastavitvene datoteke '%s' je spodletela"
 
 #: ../src/setting.c:1571
 #, c-format
@@ -4732,7 +4730,7 @@ msgstr "Napaka pri branju prve strani bitnega toka Ogg."
 
 #: ../src/vcedit.c:321
 msgid "Error reading initial header packet."
-msgstr ""
+msgstr "Napaka med branjem začetnega paketa glave."
 
 #: ../src/vcedit.c:348
 msgid "Ogg bitstream contains neither Speex or Vorbis data."
@@ -4747,7 +4745,6 @@ msgid "Need to save extra headers"
 msgstr "Potrebno je shraniti dodatne glave"
 
 #: ../src/vcedit.c:425
-#, fuzzy
 msgid "EOF before end of Vorbis headers."
 msgstr "EOF pred koncem glav Vorbis."
 
@@ -4816,3 +4813,4 @@ msgstr "Zaključevanje weasytag_init ..."
 #, c-format
 msgid "Audio player: '%s'"
 msgstr "Predvajalnik zvoka: '%s'"
+
