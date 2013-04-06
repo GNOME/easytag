@@ -296,7 +296,7 @@ void Picture_Add_Button_Clicked (GObject *object)
     }
 
 
-    FileSelectionWindow = gtk_file_chooser_dialog_new(_("Add pictures"),
+    FileSelectionWindow = gtk_file_chooser_dialog_new(_("Add images"),
                                                       parent_window,
                                                       GTK_FILE_CHOOSER_ACTION_OPEN,
                                                       GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
@@ -420,7 +420,8 @@ void Picture_Properties_Button_Clicked (GObject *object)
         if (valid)
             gtk_tree_model_get(GTK_TREE_MODEL(model), &iter, PICTURE_COLUMN_DATA, &pic, -1);
 
-        title = g_strdup_printf(_("Picture Properties %d/%d"),selection_i++,selection_nbr);
+        title = g_strdup_printf (_("Image Properties %d/%d"), selection_i++,
+                                 selection_nbr);
         PictureTypesWindow = gtk_dialog_new_with_buttons(title,
                                                          parent_window,
                                                          GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -442,7 +443,7 @@ void Picture_Properties_Button_Clicked (GObject *object)
         renderer = gtk_cell_renderer_text_new();
         column = gtk_tree_view_column_new();
         gtk_tree_view_column_pack_start(column, renderer, FALSE);
-        gtk_tree_view_column_set_title(column, _("Picture Type"));
+        gtk_tree_view_column_set_title (column, _("Image Type"));
         gtk_tree_view_column_set_attributes(column, renderer,
                                             "text", PICTURE_TYPE_COLUMN_TEXT,
                                             NULL);
@@ -499,7 +500,7 @@ void Picture_Properties_Button_Clicked (GObject *object)
         gtk_tree_path_free(rowPath);
 
         // Description of the picture
-        label = gtk_label_new(_("Picture Description:"));
+        label = gtk_label_new (_("Image Description:"));
         gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(PictureTypesWindow))),label,FALSE,FALSE,4);
 
         // Entry for the description
@@ -617,7 +618,8 @@ void Picture_Save_Button_Clicked (GObject *object)
         if (valid)
             gtk_tree_model_get(GTK_TREE_MODEL(model), &iter, PICTURE_COLUMN_DATA, &pic, -1);
 
-        title = g_strdup_printf(_("Save picture %d/%d"),selection_i++,selection_nbr);
+        title = g_strdup_printf (_("Save image %d/%d"), selection_i++,
+                                 selection_nbr);
         FileSelectionWindow = gtk_file_chooser_dialog_new(title,
                                                           parent_window,
                                                           GTK_FILE_CHOOSER_ACTION_SAVE,
@@ -834,7 +836,7 @@ Picture_Type_String (EtPictureType type)
         
         case ET_PICTURE_TYPE_UNDEFINED:
         default:
-            return _("Unknown picture type");
+            return _("Unknown image type");
     }
 }
 
@@ -990,16 +992,19 @@ void PictureEntry_Update (Picture *pic, gboolean select_it)
                 
                 g_object_unref(loader);
                 
-                Log_Print(LOG_ERROR,"%s",_("Cannot display the picture, as not enough data has been read to determine how to create the image buffer."));
+                Log_Print (LOG_ERROR, "%s",
+                           _("Cannot display the image because not enough data has been read to determine how to create the image buffer."));
 
                 msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
                                                    GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                                    GTK_MESSAGE_ERROR,
                                                    GTK_BUTTONS_CLOSE,
                                                    "%s",
-                                                   _("Cannot display the picture"));
-                gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),_("Not enough data has been read to determine how to create the image buffer"));
-                gtk_window_set_title(GTK_WINDOW(msgdialog),_("Load Picture File"));
+                                                   _("Cannot display the image"));
+                gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (msgdialog),
+                                                          _("Not enough data has been read to determine how to create the image buffer."));
+                gtk_window_set_title (GTK_WINDOW (msgdialog),
+                                      _("Load Image File"));
                 gtk_dialog_run(GTK_DIALOG(msgdialog));
                 gtk_widget_destroy(msgdialog);
             }
@@ -1097,7 +1102,8 @@ Picture_Load_File_Data (const gchar *filename)
 
     if (stat(filename, &st)==-1)
     {
-        Log_Print(LOG_ERROR,_("Picture file not loaded (%s)…"),g_strerror(errno));
+        Log_Print (LOG_ERROR, _("Image file not loaded (%s)…"),
+                   g_strerror(errno));
 #ifdef G_OS_WIN32
         g_free(filename);
 #endif /* G_OS_WIN32 */
@@ -1122,11 +1128,12 @@ Picture_Load_File_Data (const gchar *filename)
                                            _("Cannot open file: '%s'"),
                                            filename_utf8);
         gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),"%s",g_strerror(errno));
-        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Picture File Error"));
+        gtk_window_set_title (GTK_WINDOW (msgdialog), _("Image File Error"));
         gtk_dialog_run(GTK_DIALOG(msgdialog));
         gtk_widget_destroy(msgdialog);
 
-        Log_Print(LOG_ERROR,_("Picture file not loaded (%s)…"),g_strerror(errno));
+        Log_Print (LOG_ERROR, _("Image file not loaded (%s)…"),
+                   g_strerror(errno));
         g_free (buffer);
         g_free(filename_utf8);
 #ifdef G_OS_WIN32
@@ -1146,7 +1153,8 @@ Picture_Load_File_Data (const gchar *filename)
         if (buffer)
             g_free(buffer);
         
-        Log_Print(LOG_ERROR,_("Picture file not loaded (%s)…"),g_strerror(errno));
+        Log_Print (LOG_ERROR, _("Image file not loaded (%s)…"),
+                   g_strerror(errno));
 
         return NULL;
     }else
@@ -1158,7 +1166,7 @@ Picture_Load_File_Data (const gchar *filename)
         pic->size = size;
         pic->data = (guchar *)buffer;
 
-        Log_Print(LOG_OK,_("Picture file loaded…"));
+        Log_Print (LOG_OK, _("Image file loaded…"));
 
         return pic;
     }
@@ -1175,14 +1183,16 @@ Picture_Save_File_Data (const Picture *pic, const gchar *filename)
     fd = open(filename, O_WRONLY|O_CREAT|O_TRUNC, 0666);
     if (fd == -1)
     {
-        Log_Print(LOG_ERROR,_("Picture file can't be saved (%s)…"),g_strerror(errno));
+        Log_Print (LOG_ERROR, _("Image file cannot be saved (%s)…"),
+                   g_strerror(errno));
         return FALSE;
     }
 
     if (write(fd, pic->data, pic->size) != pic->size)
     {
         close(fd);
-        Log_Print(LOG_ERROR,_("Picture file can't be saved (%s)…"),g_strerror(errno));
+        Log_Print (LOG_ERROR, _("Image file cannot be saved (%s)…"),
+                   g_strerror(errno));
         return FALSE;
     }
 

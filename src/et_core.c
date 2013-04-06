@@ -2953,9 +2953,9 @@ ET_Display_File_Tag_To_UI (ET_File *ETFile)
             pic = pic->next;
         }
 
-        // Get page "Pictures" of the notebook
+        // Get page "Images" of the notebook
         page = gtk_notebook_get_nth_page(GTK_NOTEBOOK(TagNoteBook),1);
-        string = g_strdup_printf(_("Pictures (%d)"),nbr_pic);
+        string = g_strdup_printf (_("Images (%d)"), nbr_pic);
         // Update the notebook tab
         gtk_notebook_set_tab_label_text(GTK_NOTEBOOK(TagNoteBook),page,string);
         // Update the notebook menu
@@ -2965,12 +2965,12 @@ ET_Display_File_Tag_To_UI (ET_File *ETFile)
     }else
     {
         GtkWidget *page;
-        // Get page "Pictures" of the notebook
+        // Get page "Images" of the notebook
         page = gtk_notebook_get_nth_page(GTK_NOTEBOOK(TagNoteBook),1);
         // Update the notebook tab
-        gtk_notebook_set_tab_label_text(GTK_NOTEBOOK(TagNoteBook),page,"Pictures");
+        gtk_notebook_set_tab_label_text(GTK_NOTEBOOK(TagNoteBook),page,"Images");
         // Update the notebook menu
-        gtk_notebook_set_menu_label_text(GTK_NOTEBOOK(TagNoteBook),page,"Pictures");
+        gtk_notebook_set_menu_label_text(GTK_NOTEBOOK(TagNoteBook),page,"Images");
     }
 
     return TRUE;

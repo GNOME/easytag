@@ -670,7 +670,7 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
                 //pic->height = p->height;
                 //pic->width  = p->width;
 
-                //g_print("Picture type : %s\n",FLAC__StreamMetadata_Picture_TypeString[p->type]);
+                //g_print("Image type : %s\n",FLAC__StreamMetadata_Picture_TypeString[p->type]);
                 //g_print("Mime    type : %s\n",p->mime_type);
 
                 break;

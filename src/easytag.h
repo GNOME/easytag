@@ -107,7 +107,6 @@ GtkWidget    *OrigArtistLabel;
 GtkWidget    *CopyrightLabel;
 GtkWidget    *URLLabel;
 GtkWidget    *EncodedByLabel;
-GtkWidget    *PictureLabel;
 // Mini buttons
 GtkWidget    *TrackMButtonSequence;
 GtkWidget    *TrackMButtonNbrFiles;

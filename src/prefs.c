@@ -674,7 +674,7 @@ void Open_OptionsWindow (void)
     gtk_grid_attach (GTK_GRID (Table), StripTagWhenEmptyFields, 0, 1, 1, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(StripTagWhenEmptyFields),STRIP_TAG_WHEN_EMPTY_FIELDS);
     gtk_widget_set_tooltip_text(StripTagWhenEmptyFields,_("As ID3v2 tags may contain other data than "
-        "Title, Artist, Album, Year, Track, Genre or Comment (as an attached picture, lyrics…), "
+        "Title, Artist, Album, Year, Track, Genre or Comment (as an attached image, lyrics…), "
         "this option allows you to strip the whole tag when these seven standard data fields have "
         "been set to blank."));
 
