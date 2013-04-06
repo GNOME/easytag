@@ -600,7 +600,6 @@ static GtkWidget *
 Create_Tag_Area (void)
 {
     GtkWidget *Separator;
-    GtkWidget *Frame;
     GtkWidget *Table;
     GtkWidget *Label;
     GtkWidget *Icon;
@@ -644,14 +643,9 @@ Create_Tag_Area (void)
      * 1 - Page for common tag fields
      */
     Label = gtk_label_new(_("Common"));
-    Frame = gtk_frame_new(NULL);
-    gtk_notebook_append_page(GTK_NOTEBOOK(TagNoteBook),Frame,Label);
-    gtk_container_set_border_width(GTK_CONTAINER(Frame), 0);
-    gtk_frame_set_shadow_type(GTK_FRAME(Frame),GTK_SHADOW_NONE); // Hide the Frame
-
 
     Table = et_grid_new (11, 11);
-    gtk_container_add(GTK_CONTAINER(Frame),Table);
+    gtk_notebook_append_page (GTK_NOTEBOOK (TagNoteBook), Table, Label);
     gtk_container_set_border_width(GTK_CONTAINER(Table),2);
 
     /* Title */
@@ -1079,13 +1073,9 @@ Create_Tag_Area (void)
      * 2 - Page for extra tag fields
      */
     Label = gtk_label_new (_("Images")); // As there is only the picture field... - also used in ET_Display_File_Tag_To_UI
-    Frame = gtk_frame_new(NULL);
-    gtk_notebook_append_page(GTK_NOTEBOOK(TagNoteBook),Frame,Label);
-    gtk_container_set_border_width(GTK_CONTAINER(Frame), 0);
-    gtk_frame_set_shadow_type(GTK_FRAME(Frame),GTK_SHADOW_NONE); // Hide the Frame
 
     Table = et_grid_new (1, 2);
-    gtk_container_add(GTK_CONTAINER(Frame),Table);
+    gtk_notebook_append_page (GTK_NOTEBOOK (TagNoteBook), Table, Label);
     gtk_container_set_border_width(GTK_CONTAINER(Table),2);
 
     // Scroll window for PictureEntryView
