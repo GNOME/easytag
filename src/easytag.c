@@ -1695,13 +1695,31 @@ Mini_Button_Clicked (GObject *object)
 /*
  * Action when selecting all files
  */
-void Action_Select_All_Files (void)
+void
+et_on_action_select_all (void)
 {
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
+    GtkWidget *focused;
 
-    Browser_List_Select_All_Files();
-    Update_Command_Buttons_Sensivity();
+    /* Use the currently-focused widget and "select all" as appropriate.
+     * https://bugzilla.gnome.org/show_bug.cgi?id=697515 */
+    focused = gtk_window_get_focus (GTK_WINDOW (MainWindow));
+    if (GTK_IS_EDITABLE (focused))
+    {
+        gtk_editable_select_region (GTK_EDITABLE (focused), 0, -1);
+    }
+    else if (focused == PictureEntryView)
+    {
+        GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (focused));
+        gtk_tree_selection_select_all (selection);
+    }
+    else /* Assume that other widgets should select all in the file view. */
+    {
+        /* Save the current displayed data */
+        ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+
+        Browser_List_Select_All_Files ();
+        Update_Command_Buttons_Sensivity ();
+    }
 }
 
 
@@ -3894,7 +3912,7 @@ void Update_Command_Buttons_Sensivity (void)
 
         /* Menu commands */
         ui_widget_set_sensitive(MENU_FILE, AM_OPEN_FILE_WITH, FALSE);
-        ui_widget_set_sensitive(MENU_FILE, AM_SELECT_ALL_FILES, FALSE);
+        ui_widget_set_sensitive (MENU_FILE, AM_SELECT_ALL, FALSE);
         ui_widget_set_sensitive(MENU_FILE, AM_UNSELECT_ALL_FILES, FALSE);
         ui_widget_set_sensitive(MENU_FILE, AM_INVERT_SELECTION, FALSE);
         ui_widget_set_sensitive(MENU_FILE, AM_DELETE_FILE, FALSE);
@@ -3969,7 +3987,7 @@ void Update_Command_Buttons_Sensivity (void)
 
         /* Commands into menu */
         ui_widget_set_sensitive(MENU_FILE, AM_OPEN_FILE_WITH,TRUE);
-        ui_widget_set_sensitive(MENU_FILE, AM_SELECT_ALL_FILES,TRUE);
+        ui_widget_set_sensitive (MENU_FILE, AM_SELECT_ALL, TRUE);
         ui_widget_set_sensitive(MENU_FILE, AM_UNSELECT_ALL_FILES,TRUE);
         ui_widget_set_sensitive(MENU_FILE, AM_INVERT_SELECTION,TRUE);
         ui_widget_set_sensitive(MENU_FILE, AM_DELETE_FILE,TRUE);
@@ -4096,7 +4114,7 @@ Disable_Command_Buttons (void)
 
     /* "File" menu commands */
     ui_widget_set_sensitive(MENU_FILE,AM_OPEN_FILE_WITH,FALSE);
-    ui_widget_set_sensitive(MENU_FILE,AM_SELECT_ALL_FILES,FALSE);
+    ui_widget_set_sensitive (MENU_FILE, AM_SELECT_ALL, FALSE);
     ui_widget_set_sensitive(MENU_FILE,AM_UNSELECT_ALL_FILES,FALSE);
     ui_widget_set_sensitive(MENU_FILE,AM_INVERT_SELECTION,FALSE);
     ui_widget_set_sensitive(MENU_FILE,AM_DELETE_FILE,FALSE);

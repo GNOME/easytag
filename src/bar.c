@@ -189,7 +189,8 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { AM_SORT_DESCENDING_FILE_SAMPLERATE, GTK_STOCK_SORT_DESCENDING, _("Descending by samplerate"),      NULL, _("Descending by samplerate"),      G_CALLBACK(Menu_Sort_Action) },
 
         { AM_OPEN_FILE_WITH,     GTK_STOCK_OPEN,             _("Open Files With…"),      NULL,                _("Open files with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window) },
-        { AM_SELECT_ALL_FILES,   GTK_STOCK_SELECT_ALL,       _("Select All Files"),           "<Control>A",        _("Select all files"),          G_CALLBACK(Action_Select_All_Files) },
+        { AM_SELECT_ALL, GTK_STOCK_SELECT_ALL, NULL, "<Control>A",
+          _("Select all"), G_CALLBACK (et_on_action_select_all) },
         { AM_UNSELECT_ALL_FILES, "easytag-unselect-all",     _("Unselect All Files"),         "<Shift><Control>A", _("Unselect all files"),        G_CALLBACK(Action_Unselect_All_Files) },
         { AM_INVERT_SELECTION,   "easytag-invert-selection", _("Invert Files Selection"),     "<Control>I",        _("Invert files selection"),    G_CALLBACK(Action_Invert_Files_Selection) },
         { AM_DELETE_FILE,        GTK_STOCK_DELETE,           _("Delete Files"),             NULL,                _("Delete files"),            G_CALLBACK(Action_Delete_Selected_Files) },

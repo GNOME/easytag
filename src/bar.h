@@ -64,7 +64,7 @@ GtkWidget *CheckMenuItemBrowseHiddenDirMainMenu;
 #define AM_REDO_HISTORY             "Redo"
 #define AM_SAVE                     "SaveFile"
 #define AM_SAVE_FORCED              "SaveFileForced"
-#define AM_SELECT_ALL_FILES         "SelAll"
+#define AM_SELECT_ALL "SelAll"
 #define AM_UNSELECT_ALL_FILES       "UnselAll"
 #define AM_INVERT_SELECTION         "SelInv"
 #define AM_DELETE_FILE              "DeleteFile"

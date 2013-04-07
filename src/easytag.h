@@ -134,7 +134,7 @@ gboolean ReadingDirectory;
 /**************
  * Prototypes *
  **************/
-void Action_Select_All_Files            (void);
+void et_on_action_select_all (void);
 void Action_Unselect_All_Files          (void);
 void Action_Invert_Files_Selection      (void);
 void Action_Select_Prev_File            (void);

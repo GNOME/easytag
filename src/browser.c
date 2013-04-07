@@ -643,9 +643,8 @@ Browser_List_Button_Press (GtkTreeView *treeView, GdkEventButton *event)
             gtk_tree_path_free(currentPath);
     }else if (event->type==GDK_3BUTTON_PRESS && event->button==1)
     {
-        /* Triple left mouse click */
-        // Select all files of the list
-        Action_Select_All_Files();
+        /* Triple left mouse click, select all files of the list. */
+        et_on_action_select_all ();
     }
     return FALSE;
 }

@@ -319,34 +319,6 @@ void Open_Cddb_Window (void)
     Separator = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
     gtk_box_pack_start(GTK_BOX(hbox),Separator,FALSE,FALSE,0);
 
-    // Button to select all files in list
-    Button = Create_Button_With_Icon_And_Label("easytag-select-all",NULL);
-    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text(Button,_("Select All Files"));
-    g_signal_connect(G_OBJECT(Button),"clicked",G_CALLBACK(Action_Select_All_Files),NULL);
-
-    // Button to invert selection of files in list
-    Button = Create_Button_With_Icon_And_Label("easytag-invert-selection",NULL);
-    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text(Button,_("Invert Files Selection"));
-    g_signal_connect(G_OBJECT(Button),"clicked",G_CALLBACK(Action_Invert_Files_Selection),NULL);
-
-/*    // Button to sort by ascending filename
-    Button = Create_Button_With_Icon_And_Label(GTK_STOCK_SORT_ASCENDING,NULL);
-    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,Button,_("Sort list ascending by filename"),NULL);
-    g_signal_connect(G_OBJECT(Button),"clicked",G_CALLBACK(ET_Sort_Displayed_File_List_And_Update_UI),GINT_TO_POINTER(SORTING_BY_ASCENDING_FILENAME));
-
-    // Button to sort by ascending track number
-    Button = Create_Button_With_Icon_And_Label(GTK_STOCK_SORT_ASCENDING,NULL);
-    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_tooltips_set_tip(Tips,Button,_("Sort list ascending by track number"),NULL);
-    g_signal_connect(G_OBJECT(Button),"clicked",G_CALLBACK(ET_Sort_Displayed_File_List_And_Update_UI),GINT_TO_POINTER(SORTING_BY_ASCENDING_TRACK_NUMBER));
-*/
     // Button to quit
     Button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
     gtk_box_pack_end(GTK_BOX(hbox),Button,FALSE,FALSE,0);
