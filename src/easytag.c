@@ -603,8 +603,11 @@ Create_Tag_Area (void)
     GtkWidget *Table;
     GtkWidget *Label;
     GtkWidget *Icon;
+    GtkWidget *toolbar;
+    GtkToolItem *toolitem;
+    GIcon *icon;
+    GtkWidget *image;
     GtkWidget *VBox;
-    GtkWidget *hbox;
     GList *focusable_widgets_list = NULL;
     //GtkWidget *ScrollWindow;
     //GtkTextBuffer *TextBuffer;
@@ -1118,7 +1121,7 @@ Create_Tag_Area (void)
     gtk_tree_view_append_column(GTK_TREE_VIEW(PictureEntryView), column);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 
-    // Activate Drag'n'Drop for the PictureEntryView (and PictureAddButton)
+    /* Activate Drag'n'Drop for the PictureEntryView. */
     gtk_drag_dest_set(GTK_WIDGET(PictureEntryView),
                       GTK_DEST_DEFAULT_HIGHLIGHT | GTK_DEST_DEFAULT_MOTION | GTK_DEST_DEFAULT_DROP,
                       drops, sizeof(drops) / sizeof(GtkTargetEntry),
@@ -1128,64 +1131,80 @@ Create_Tag_Area (void)
     g_signal_connect(G_OBJECT(PictureEntryView), "button_press_event",G_CALLBACK(Picture_Entry_View_Button_Pressed),NULL);
     g_signal_connect(G_OBJECT(PictureEntryView),"key_press_event", G_CALLBACK(Picture_Entry_View_Key_Pressed),NULL);
 
-    // Picture action buttons
-    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 4);
-    et_grid_attach_full (GTK_GRID (Table), hbox, 0, 1, 1, 1, FALSE, FALSE,
-                         TablePadding, TablePadding);
+    /* Picture action toolbar. */
+    toolbar = gtk_toolbar_new ();
+    gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
+    gtk_toolbar_set_icon_size (GTK_TOOLBAR (toolbar), GTK_ICON_SIZE_MENU);
+    et_grid_attach_full (GTK_GRID (Table), toolbar, 0, 1, 1, 1, FALSE, FALSE,
+                        TablePadding, TablePadding);
 
-    PictureAddButton = gtk_button_new();
-    Icon = gtk_image_new_from_stock(GTK_STOCK_ADD, GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_container_add(GTK_CONTAINER(PictureAddButton),Icon);
-    gtk_box_pack_start(GTK_BOX(hbox),PictureAddButton,FALSE,FALSE,0);
-    gtk_widget_set_tooltip_text (PictureAddButton,
+    /* TODO: Make the icons use the symbolic variants. */
+    icon = g_themed_icon_new_with_default_fallbacks ("list-add");
+    image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_MENU);
+    add_image_toolitem = gtk_tool_button_new (image, NULL);
+    g_object_unref (icon);
+    gtk_toolbar_insert (GTK_TOOLBAR (toolbar), add_image_toolitem, -1);
+    gtk_widget_set_tooltip_text (GTK_WIDGET (add_image_toolitem),
                                  _("Add images to the tag"));
+    g_signal_connect (G_OBJECT (add_image_toolitem), "clicked",
+                      G_CALLBACK (Picture_Add_Button_Clicked), NULL);
 
-    PictureClearButton = gtk_button_new();
-    Icon = gtk_image_new_from_stock(GTK_STOCK_REMOVE, GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_container_add(GTK_CONTAINER(PictureClearButton),Icon);
-    gtk_box_pack_start(GTK_BOX(hbox),PictureClearButton,FALSE,FALSE,0);
-    gtk_widget_set_tooltip_text (PictureClearButton,
-                                 _("Remove selected images"));
+    /* Activate Drag'n'Drop for the add_image_toolitem. */
+    gtk_drag_dest_set (GTK_WIDGET (add_image_toolitem),
+                       GTK_DEST_DEFAULT_HIGHLIGHT | GTK_DEST_DEFAULT_MOTION | GTK_DEST_DEFAULT_DROP,
+                       drops, sizeof(drops) / sizeof(GtkTargetEntry),
+                       GDK_ACTION_COPY);
+    g_signal_connect (G_OBJECT (add_image_toolitem), "drag-data-received",
+                      G_CALLBACK (Tag_Area_Picture_Drag_Data), 0);
 
-    PictureSaveButton = gtk_button_new();
-    Icon = gtk_image_new_from_stock(GTK_STOCK_SAVE, GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_container_add(GTK_CONTAINER(PictureSaveButton),Icon);
-    gtk_box_pack_start(GTK_BOX(hbox),PictureSaveButton,FALSE,FALSE,0);
-    gtk_widget_set_sensitive(GTK_WIDGET(PictureSaveButton), FALSE);
-    gtk_widget_set_tooltip_text (PictureSaveButton,
+    icon = g_themed_icon_new_with_default_fallbacks ("list-remove");
+    image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_MENU);
+    remove_image_toolitem = gtk_tool_button_new (image, NULL);
+    g_object_unref (icon);
+    gtk_toolbar_insert (GTK_TOOLBAR (toolbar), remove_image_toolitem, -1);
+    gtk_widget_set_tooltip_text (GTK_WIDGET (remove_image_toolitem),
+                                 _("Remove selected images from the tag"));
+    gtk_widget_set_sensitive (GTK_WIDGET (remove_image_toolitem), FALSE);
+    g_signal_connect (G_OBJECT (remove_image_toolitem), "clicked",
+                      G_CALLBACK (Picture_Clear_Button_Clicked), NULL);
+
+    toolitem = gtk_separator_tool_item_new ();
+    gtk_toolbar_insert (GTK_TOOLBAR (toolbar), toolitem, -1);
+
+    icon = g_themed_icon_new_with_default_fallbacks ("document-save");
+    image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_MENU);
+    save_image_toolitem = gtk_tool_button_new (image, NULL);
+    g_object_unref (icon);
+    gtk_toolbar_insert (GTK_TOOLBAR (toolbar), save_image_toolitem, -1);
+    gtk_widget_set_tooltip_text (GTK_WIDGET (save_image_toolitem),
                                  _("Save the selected images to files"));
+    gtk_widget_set_sensitive (GTK_WIDGET (save_image_toolitem), FALSE);
+    g_signal_connect (G_OBJECT (save_image_toolitem), "clicked",
+                      G_CALLBACK (Picture_Save_Button_Clicked), NULL);
 
-    PicturePropertiesButton = gtk_button_new();
-    Icon = gtk_image_new_from_stock(GTK_STOCK_PROPERTIES, GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_container_add(GTK_CONTAINER(PicturePropertiesButton),Icon);
-    gtk_box_pack_start(GTK_BOX(hbox),PicturePropertiesButton,FALSE,FALSE,0);
-    gtk_widget_set_sensitive(GTK_WIDGET(PicturePropertiesButton), FALSE);
-    gtk_widget_set_tooltip_text (PicturePropertiesButton,
+    icon = g_themed_icon_new_with_default_fallbacks ("document-properties");
+    image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_MENU);
+    image_properties_toolitem = gtk_tool_button_new (image, NULL);
+    g_object_unref (icon);
+    gtk_toolbar_insert (GTK_TOOLBAR (toolbar), image_properties_toolitem, -1);
+    gtk_widget_set_tooltip_text (GTK_WIDGET (image_properties_toolitem),
                                  _("Edit image properties"));
+    gtk_widget_set_sensitive (GTK_WIDGET (image_properties_toolitem), FALSE);
+    g_signal_connect (G_OBJECT (image_properties_toolitem), "clicked",
+                      G_CALLBACK (Picture_Properties_Button_Clicked), NULL);
 
-    PictureMButton = gtk_button_new ();
-    Icon = gtk_image_new_from_icon_name ("insert-image",
-                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_container_add (GTK_CONTAINER (PictureMButton), Icon);
-    gtk_box_pack_start (GTK_BOX (hbox), PictureMButton, FALSE, FALSE,
-                        0);
-    gtk_widget_set_tooltip_text (PictureMButton,
+    toolitem = gtk_separator_tool_item_new ();
+    gtk_toolbar_insert (GTK_TOOLBAR (toolbar), toolitem, -1);
+
+    icon = g_themed_icon_new_with_default_fallbacks ("insert-image");
+    image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_MENU);
+    apply_image_toolitem = gtk_tool_button_new (image, NULL);
+    g_object_unref (icon);
+    gtk_toolbar_insert (GTK_TOOLBAR (toolbar), apply_image_toolitem, -1);
+    gtk_widget_set_tooltip_text (GTK_WIDGET (apply_image_toolitem),
                                  _("Tag selected files with these images"));
-
-    g_signal_connect(G_OBJECT(PictureClearButton),      "clicked", G_CALLBACK(Picture_Clear_Button_Clicked), NULL);
-    g_signal_connect(G_OBJECT(PictureAddButton),        "clicked", G_CALLBACK(Picture_Add_Button_Clicked), NULL);
-    g_signal_connect(G_OBJECT(PictureSaveButton),       "clicked", G_CALLBACK(Picture_Save_Button_Clicked), NULL);
-    g_signal_connect(G_OBJECT(PicturePropertiesButton), "clicked", G_CALLBACK(Picture_Properties_Button_Clicked), NULL);
-    g_signal_connect (G_OBJECT (PictureMButton), "clicked",
+    g_signal_connect (G_OBJECT (apply_image_toolitem), "clicked",
                       G_CALLBACK (Mini_Button_Clicked), NULL);
-
-    // Activate Drag'n'Drop for the PictureAddButton (and PictureEntryView)
-    gtk_drag_dest_set(GTK_WIDGET(PictureAddButton),
-                    GTK_DEST_DEFAULT_HIGHLIGHT | GTK_DEST_DEFAULT_MOTION | GTK_DEST_DEFAULT_DROP,
-                    drops, sizeof(drops) / sizeof(GtkTargetEntry),
-                    GDK_ACTION_COPY);
-    g_signal_connect(G_OBJECT(PictureAddButton),"drag_data_received", G_CALLBACK(Tag_Area_Picture_Drag_Data), 0);
-
 
     //Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(PictureEntryView));
 
@@ -1610,7 +1629,7 @@ Mini_Button_Clicked (GObject *object)
         else
             msg = g_strdup(_("Removed encoder name from selected files."));
     }
-    else if (object==G_OBJECT(PictureMButton))
+    else if (object==G_OBJECT(apply_image_toolitem))
     {
         Picture *res = NULL, *pic, *prev_pic = NULL;
         GtkTreeModel *model;
@@ -4111,29 +4130,6 @@ Tag_Area_Set_Sensitive (gboolean activate)
 
     /* TAG Area (entries + buttons). */
     gtk_widget_set_sensitive(gtk_bin_get_child(GTK_BIN(TagArea)),activate);
-
-    /*// TAG Area
-    gtk_widget_set_sensitive(GTK_WIDGET(TitleEntry),            activate);
-    gtk_widget_set_sensitive(GTK_WIDGET(ArtistEntry),           activate);
-    gtk_widget_set_sensitive(GTK_WIDGET(AlbumEntry),            activate);
-    gtk_widget_set_sensitive(GTK_WIDGET(DiscNumberEntry),       activate);
-    gtk_widget_set_sensitive(GTK_WIDGET(YearEntry),             activate);
-    gtk_widget_set_sensitive(GTK_WIDGET(TrackEntryCombo),       activate);
-    gtk_widget_set_sensitive(GTK_WIDGET(TrackTotalEntry),       activate);
-    gtk_widget_set_sensitive(GTK_WIDGET(CommentEntry),          activate);
-    gtk_widget_set_sensitive(GTK_WIDGET(GenreCombo),            activate);
-    gtk_widget_set_sensitive(GTK_WIDGET(PictureScrollWindow),   activate);
-    // Mini buttons
-    gtk_widget_set_sensitive(GTK_WIDGET(TitleMButton),          activate);
-    gtk_widget_set_sensitive(GTK_WIDGET(DiscNumberMButton),     activate);
-    gtk_widget_set_sensitive(GTK_WIDGET(AlbumMButton),          activate);
-    gtk_widget_set_sensitive(GTK_WIDGET(YearMButton),           activate);
-    gtk_widget_set_sensitive(GTK_WIDGET(TrackMButton),          activate);
-    gtk_widget_set_sensitive(GTK_WIDGET(TrackMButtonSequence),  activate);
-    gtk_widget_set_sensitive(GTK_WIDGET(TrackMButtonNbrFiles),  activate);
-    gtk_widget_set_sensitive(GTK_WIDGET(CommentMButton),        activate);
-    gtk_widget_set_sensitive(GTK_WIDGET(GenreMButton),          activate);
-    gtk_widget_set_sensitive(GTK_WIDGET(PictureMButton),        activate);*/
 }
 
 /*
@@ -4198,11 +4194,11 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
                 gtk_widget_hide(GTK_WIDGET(EncodedByLabel));
                 gtk_widget_hide(GTK_WIDGET(EncodedByEntry));
                 gtk_widget_hide(GTK_WIDGET(PictureScrollWindow));
-                gtk_widget_hide(GTK_WIDGET(PictureMButton));
-                gtk_widget_hide(GTK_WIDGET(PictureClearButton));
-                gtk_widget_hide(GTK_WIDGET(PictureAddButton));
-                gtk_widget_hide(GTK_WIDGET(PictureSaveButton));
-                gtk_widget_hide(GTK_WIDGET(PicturePropertiesButton));
+                gtk_widget_hide (GTK_WIDGET (apply_image_toolitem));
+                gtk_widget_hide (GTK_WIDGET (remove_image_toolitem));
+                gtk_widget_hide (GTK_WIDGET (add_image_toolitem));
+                gtk_widget_hide (GTK_WIDGET (save_image_toolitem));
+                gtk_widget_hide (GTK_WIDGET (image_properties_toolitem));
             }else
             {
                 gtk_widget_show(GTK_WIDGET(DiscNumberLabel));
@@ -4218,11 +4214,11 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
                 gtk_widget_show(GTK_WIDGET(EncodedByLabel));
                 gtk_widget_show(GTK_WIDGET(EncodedByEntry));
                 gtk_widget_show(GTK_WIDGET(PictureScrollWindow));
-                gtk_widget_show(GTK_WIDGET(PictureMButton));
-                gtk_widget_show(GTK_WIDGET(PictureClearButton));
-                gtk_widget_show(GTK_WIDGET(PictureAddButton));
-                gtk_widget_show(GTK_WIDGET(PictureSaveButton));
-                gtk_widget_show(GTK_WIDGET(PicturePropertiesButton));
+                gtk_widget_show (GTK_WIDGET (apply_image_toolitem));
+                gtk_widget_show (GTK_WIDGET (remove_image_toolitem));
+                gtk_widget_show (GTK_WIDGET (add_image_toolitem));
+                gtk_widget_show (GTK_WIDGET (save_image_toolitem));
+                gtk_widget_show (GTK_WIDGET (image_properties_toolitem));
             }
             break;
 
@@ -4241,11 +4237,11 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
             gtk_widget_show(GTK_WIDGET(EncodedByLabel));
             gtk_widget_show(GTK_WIDGET(EncodedByEntry));
             gtk_widget_show(GTK_WIDGET(PictureScrollWindow));
-            gtk_widget_show(GTK_WIDGET(PictureMButton));
-            gtk_widget_show(GTK_WIDGET(PictureClearButton));
-            gtk_widget_show(GTK_WIDGET(PictureAddButton));
-            gtk_widget_show(GTK_WIDGET(PictureSaveButton));
-            gtk_widget_show(GTK_WIDGET(PicturePropertiesButton));
+            gtk_widget_show (GTK_WIDGET (apply_image_toolitem));
+            gtk_widget_show (GTK_WIDGET (remove_image_toolitem));
+            gtk_widget_show (GTK_WIDGET (add_image_toolitem));
+            gtk_widget_show (GTK_WIDGET (save_image_toolitem));
+            gtk_widget_show (GTK_WIDGET (image_properties_toolitem));
             break;
 #endif
 
@@ -4264,11 +4260,11 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
             gtk_widget_show(GTK_WIDGET(EncodedByLabel));
             gtk_widget_show(GTK_WIDGET(EncodedByEntry));
             gtk_widget_show(GTK_WIDGET(PictureScrollWindow));
-            gtk_widget_show(GTK_WIDGET(PictureMButton));
-            gtk_widget_show(GTK_WIDGET(PictureClearButton));
-            gtk_widget_show(GTK_WIDGET(PictureAddButton));
-            gtk_widget_show(GTK_WIDGET(PictureSaveButton));
-            gtk_widget_show(GTK_WIDGET(PicturePropertiesButton));
+            gtk_widget_show (GTK_WIDGET (apply_image_toolitem));
+            gtk_widget_show (GTK_WIDGET (remove_image_toolitem));
+            gtk_widget_show (GTK_WIDGET (add_image_toolitem));
+            gtk_widget_show (GTK_WIDGET (save_image_toolitem));
+            gtk_widget_show (GTK_WIDGET (image_properties_toolitem));
             break;
 #endif
 
@@ -4286,11 +4282,11 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
             gtk_widget_show(GTK_WIDGET(EncodedByLabel));
             gtk_widget_show(GTK_WIDGET(EncodedByEntry));
             gtk_widget_hide(GTK_WIDGET(PictureScrollWindow));
-            gtk_widget_hide(GTK_WIDGET(PictureMButton));
-            gtk_widget_hide(GTK_WIDGET(PictureClearButton));
-            gtk_widget_hide(GTK_WIDGET(PictureAddButton));
-            gtk_widget_hide(GTK_WIDGET(PictureSaveButton));
-            gtk_widget_hide(GTK_WIDGET(PicturePropertiesButton));
+            gtk_widget_hide (GTK_WIDGET (apply_image_toolitem));
+            gtk_widget_hide (GTK_WIDGET (remove_image_toolitem));
+            gtk_widget_hide (GTK_WIDGET (add_image_toolitem));
+            gtk_widget_hide (GTK_WIDGET (save_image_toolitem));
+            gtk_widget_hide (GTK_WIDGET (image_properties_toolitem));
             break;
 
 #ifdef ENABLE_MP4
@@ -4308,11 +4304,11 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
             gtk_widget_hide(GTK_WIDGET(EncodedByLabel));
             gtk_widget_hide(GTK_WIDGET(EncodedByEntry));
             gtk_widget_hide(GTK_WIDGET(PictureScrollWindow));
-            gtk_widget_hide(GTK_WIDGET(PictureMButton));
-            gtk_widget_hide(GTK_WIDGET(PictureClearButton));
-            gtk_widget_hide(GTK_WIDGET(PictureAddButton));
-            gtk_widget_hide(GTK_WIDGET(PictureSaveButton));
-            gtk_widget_hide(GTK_WIDGET(PicturePropertiesButton));
+            gtk_widget_hide (GTK_WIDGET (apply_image_toolitem));
+            gtk_widget_hide (GTK_WIDGET (remove_image_toolitem));
+            gtk_widget_hide (GTK_WIDGET (add_image_toolitem));
+            gtk_widget_hide (GTK_WIDGET (save_image_toolitem));
+            gtk_widget_hide (GTK_WIDGET (image_properties_toolitem));
             break;
 #endif
 
@@ -4331,11 +4327,11 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
             gtk_widget_show(GTK_WIDGET(EncodedByLabel));
             gtk_widget_show(GTK_WIDGET(EncodedByEntry));
             gtk_widget_hide(GTK_WIDGET(PictureScrollWindow));
-            gtk_widget_hide(GTK_WIDGET(PictureMButton));
-            gtk_widget_hide(GTK_WIDGET(PictureClearButton));
-            gtk_widget_hide(GTK_WIDGET(PictureAddButton));
-            gtk_widget_hide(GTK_WIDGET(PictureSaveButton));
-            gtk_widget_hide(GTK_WIDGET(PicturePropertiesButton));
+            gtk_widget_hide (GTK_WIDGET (apply_image_toolitem));
+            gtk_widget_hide (GTK_WIDGET (remove_image_toolitem));
+            gtk_widget_hide (GTK_WIDGET (add_image_toolitem));
+            gtk_widget_hide (GTK_WIDGET (save_image_toolitem));
+            gtk_widget_hide (GTK_WIDGET (image_properties_toolitem));
             break;
 #endif /* ENABLE_WAVPACK */
 
@@ -4354,11 +4350,11 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
             gtk_widget_hide(GTK_WIDGET(EncodedByLabel));
             gtk_widget_hide(GTK_WIDGET(EncodedByEntry));
             gtk_widget_hide(GTK_WIDGET(PictureScrollWindow));
-            gtk_widget_hide(GTK_WIDGET(PictureMButton));
-            gtk_widget_hide(GTK_WIDGET(PictureClearButton));
-            gtk_widget_hide(GTK_WIDGET(PictureAddButton));
-            gtk_widget_hide(GTK_WIDGET(PictureSaveButton));
-            gtk_widget_hide(GTK_WIDGET(PicturePropertiesButton));
+            gtk_widget_hide (GTK_WIDGET (apply_image_toolitem));
+            gtk_widget_hide (GTK_WIDGET (remove_image_toolitem));
+            gtk_widget_hide (GTK_WIDGET (add_image_toolitem));
+            gtk_widget_hide (GTK_WIDGET (save_image_toolitem));
+            gtk_widget_hide (GTK_WIDGET (image_properties_toolitem));
             break;
     }
 }

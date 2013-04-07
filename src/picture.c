@@ -108,17 +108,23 @@ void Tag_Area_Picture_Drag_Data (GtkWidget *widget, GdkDragContext *dc,
     g_strfreev(uri_list);
 }
 
-void Picture_Selection_Changed_cb (GtkTreeSelection *selection, gpointer data)
+void
+Picture_Selection_Changed_cb (GtkTreeSelection *selection, gpointer data)
 {
-    //if (gtk_tree_selection_count_selected_rows(GTK_TREE_SELECTION(selection)) == 1)
-    //{
-        gtk_widget_set_sensitive(GTK_WIDGET(PictureSaveButton), TRUE);
-        gtk_widget_set_sensitive(GTK_WIDGET(PicturePropertiesButton), TRUE);
-    //}else
-    //{
-    //    gtk_widget_set_sensitive(GTK_WIDGET(PictureSaveButton), FALSE);
-    //    gtk_widget_set_sensitive(GTK_WIDGET(PicturePropertiesButton), FALSE);
-    //}
+    if (gtk_tree_selection_count_selected_rows (GTK_TREE_SELECTION (selection)) >= 1)
+    {
+        gtk_widget_set_sensitive (GTK_WIDGET (remove_image_toolitem), TRUE);
+        gtk_widget_set_sensitive (GTK_WIDGET (save_image_toolitem), TRUE);
+        gtk_widget_set_sensitive (GTK_WIDGET (image_properties_toolitem),
+                                  TRUE);
+    }
+    else
+    {
+        gtk_widget_set_sensitive (GTK_WIDGET (remove_image_toolitem), FALSE);
+        gtk_widget_set_sensitive (GTK_WIDGET (save_image_toolitem), FALSE);
+        gtk_widget_set_sensitive (GTK_WIDGET (image_properties_toolitem),
+                                  FALSE);
+    }
 }
 
 void Picture_Clear_Button_Clicked (GObject *object)
@@ -166,10 +172,6 @@ void Picture_Clear_Button_Clicked (GObject *object)
         n++;
     }
     g_list_free(refs);
-
-    if (!n)
-        // Delete all if no one was selected.
-        PictureEntry_Clear();
 }
 
 /*
@@ -1211,10 +1213,10 @@ gboolean Picture_Entry_View_Button_Pressed (GtkTreeView *treeview, GdkEventButto
     {
         GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(PictureEntryView));
 
-        if (gtk_tree_selection_count_selected_rows(GTK_TREE_SELECTION(selection)) != 0)
-            Picture_Properties_Button_Clicked(G_OBJECT(PicturePropertiesButton));
+        if (gtk_tree_selection_count_selected_rows (GTK_TREE_SELECTION (selection)) >= 1)
+            Picture_Properties_Button_Clicked (G_OBJECT (image_properties_toolitem));
         else
-            Picture_Add_Button_Clicked(G_OBJECT(PictureAddButton));
+            Picture_Add_Button_Clicked (G_OBJECT (add_image_toolitem));
 
         return TRUE;
     }
