@@ -1118,43 +1118,49 @@ gchar *Check_If_Executable_Exists (const gchar *program)
 
 
 /*
- * The returned string must be freed after used
+ * The returned string must be freed after use
  */
-gchar *Convert_Size (gfloat size)
+gchar *
+Convert_Size (gsize size)
 {
-    gchar *data = NULL;
-    /* Units Tab of file size (bytes,kilobytes,...) */
-    gchar *Units_Tab[] = { N_("B"), N_("KB"), N_("MB"), N_("GB"), N_("TB")};
-    gint i = 0;
+    /* Translators: file size (bytes, kilobytes, megabytes, gigabytes,
+     * terabytes). */
+    const gchar *units_tab[] = { N_("B"), N_("kB"), N_("MB"), N_("GB"), N_("TB")};
+    gsize i;
 
-    while ( (gint)size/1024 && i<(gint)(sizeof(Units_Tab)/sizeof(Units_Tab[0])-1) )
+    for (i = 0; size / 1024 && i < G_N_ELEMENTS (units_tab); i++)
     {
-        size = size/1024;
-        i++;
+        size /= 1024;
     }
-    return data = g_strdup_printf("%.1f %s",size,_(Units_Tab[i]));
+
+    return g_strdup_printf ("%.1" G_GSIZE_FORMAT " %s", size, _(units_tab[i]));
 }
 
 /*
- * Same that before except that if value in MB, we display 3 numbers after the coma
- * The returned string must be freed after used
+ * Same as before except that if value in MB, we display 3 numbers after the
+ * comma. The returned string must be freed after use.
  */
-gchar *Convert_Size_1 (gfloat size)
+gchar *
+Convert_Size_1 (gsize size)
 {
-    gchar *data = NULL;
-    /* Units Tab of file size (bytes,kilobytes,...) */
-    gchar *Units_Tab[] = { N_("B"), N_("KB"), N_("MB"), N_("GB"), N_("TB")};
-    guint i = 0;
+    /* Translators: file size (bytes, kilobytes, megabytes, gigabytes,
+     * terabytes). */
+    const gchar *units_tab[] = { N_("B"), N_("kB"), N_("MB"), N_("GB"), N_("TB")};
+    guint i;
 
-    while ( (gint)size/1024 && i<(sizeof(Units_Tab)/sizeof(Units_Tab[0])-1) )
+    for (i = 0; size / 1024 && i < G_N_ELEMENTS (units_tab); i++)
     {
-        size = size/1024;
-        i++;
+        size /= 1024;
     }
-    if (i >= 2) // For big values : display 3 number afer the separator (coma or point)
-        return data = g_strdup_printf("%.3f %s",size,_(Units_Tab[i]));
+
+    /* FIXME: Separator should be taken from the locale. */
+    /* For large values : display 3 number afer the separator. */
+    if (i >= 2)
+        return g_strdup_printf ("%.3" G_GSIZE_FORMAT " %s", size,
+                                _(units_tab[i]));
     else
-        return data = g_strdup_printf("%.1f %s",size,_(Units_Tab[i]));
+        return g_strdup_printf ("%.1" G_GSIZE_FORMAT " %s", size,
+                                _(units_tab[i]));
 }
 
 /*
@@ -1186,7 +1192,7 @@ gchar *Convert_Duration (gulong duration)
 /*
  * Returns the size of a file in bytes
  */
-gulong
+off_t
 Get_File_Size (const gchar *filename)
 {
     struct stat statbuf;

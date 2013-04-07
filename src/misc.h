@@ -87,11 +87,11 @@ void Run_Audio_Player_Using_Selection (void);
 void Run_Audio_Player_Using_Browser_Artist_List (void);
 void Run_Audio_Player_Using_Browser_Album_List  (void);
 
-gchar *Convert_Size     (gfloat size);
-gchar *Convert_Size_1   (gfloat size);
+gchar *Convert_Size (gsize size);
+gchar *Convert_Size_1 (gsize size);
 gchar *Convert_Duration (gulong duration);
 
-gulong Get_File_Size (const gchar *filename);
+off_t Get_File_Size (const gchar *filename);
 
 void Strip_String (gchar *string);
 gint Combo_Alphabetic_Sort (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, gpointer data);
