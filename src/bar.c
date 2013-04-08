@@ -69,7 +69,6 @@ static void Statusbar_Remove_Timer (void);
 static void
 Menu_Sort_Action (GtkAction *item, gpointer data)
 {
-    GtkWidget *TBViewMode;
     const gchar *action = gtk_action_get_name(item);
     GQuark quark = g_quark_from_string(action);
 
@@ -114,14 +113,6 @@ Menu_Sort_Action (GtkAction *item, gpointer data)
     QCASE_DATA(AM_SORT_ASCENDING_FILE_SAMPLERATE,  ET_Sort_Displayed_File_List_And_Update_UI, SORTING_BY_ASCENDING_FILE_SAMPLERATE);
     QCASE_DATA(AM_SORT_DESCENDING_FILE_SAMPLERATE, ET_Sort_Displayed_File_List_And_Update_UI, SORTING_BY_DESCENDING_FILE_SAMPLERATE);
     QCASE_DATA(AM_INITIALIZE_TREE,                 Browser_Tree_Rebuild,                      NULL);
-
-    if (quark == g_quark_from_string(AM_TREE_OR_ARTISTALBUM_VIEW))
-    {
-        // Toggle button to switch between Browser view and Artist / Album view
-        TBViewMode = gtk_ui_manager_get_widget(UIManager, "/ToolBar/ViewModeToggle");
-        gtk_toggle_tool_button_set_active(GTK_TOGGLE_TOOL_BUTTON(TBViewMode),
-                                          !gtk_toggle_tool_button_get_active(GTK_TOGGLE_TOOL_BUTTON(TBViewMode)));
-    }
 }
 
 void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
@@ -218,7 +209,6 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { AM_LOAD_MUSIC_DIR,           "folder-music",      _("Go to Music Directory"),         NULL,         		_("Go to music directory"),         G_CALLBACK(Browser_Load_Music_Directory) },
         { AM_LOAD_DEFAULT_DIR,         GTK_STOCK_JUMP_TO,      _("Go to _Default Directory"),      "<Control>D",        _("Go to default directory"),       G_CALLBACK(Browser_Load_Default_Directory) },
         { AM_SET_PATH_AS_DEFAULT,      GTK_STOCK_DIRECTORY,    _("Set _Current Path as Default"),  NULL,                _("Set current path as default"),   G_CALLBACK(Set_Current_Path_As_Default) },
-        { AM_TREE_OR_ARTISTALBUM_VIEW, "easytag-artist-album", _("Tree View | Artist-Album View"), NULL,                _("Toggle between tree view and artist-album view"), G_CALLBACK(Menu_Sort_Action) },
         { AM_RENAME_DIR,               GTK_STOCK_INDEX,        _("Rename Directory…"),          "F2",                _("Rename directory"),          G_CALLBACK(Browser_Open_Rename_Directory_Window) },
         { AM_RELOAD_DIRECTORY,         GTK_STOCK_REFRESH,      _("Reload Directory"),              "F5",                _("Reload directory"),              G_CALLBACK(Browser_Reload_Directory) },
         { AM_BROWSE_DIRECTORY_WITH,    GTK_STOCK_EXECUTE,      _("Browse Directory with…"),     NULL,                _("Browse directory with…"),     G_CALLBACK(Browser_Open_Run_Program_Tree_Window) },
@@ -275,17 +265,27 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
                     */
         { AM_BROWSER_HIDDEN_DIR, NULL,                   _("Show Hidden Directories"),                         NULL, _("Show hidden directories"),                         G_CALLBACK(Browser_Tree_Rebuild),     BROWSE_HIDDEN_DIR },
 #endif /* !G_OS_WIN32 */
-        { AM_VIEWMODE_TOGGLE,    "easytag-artist-album", _("Show Tree Browser / Display by Artist and Album"), NULL, _("Show tree browser / display by artist and Album"), G_CALLBACK(Action_Select_Browser_Style), FALSE },
+    };
+
+    GtkRadioActionEntry view_mode_entries[] =
+    {
+        { AM_TREE_VIEW_MODE, "audio-x-generic", _("Tree Browser View"), NULL,
+          _("View by directory tree"), 0 },
+        { AM_ARTIST_VIEW_MODE, "easytag-artist-album",
+          _("Artist and Album View"), NULL,
+          _("View by artist and album"), 1 }
     };
 
     GError *error = NULL;
     guint num_menu_entries;
     guint num_toggle_entries;
+    guint n_view_mode_entries;
     guint i;
 
     /* Calculate number of items into the menu */
     num_menu_entries = G_N_ELEMENTS(ActionEntries);
     num_toggle_entries = G_N_ELEMENTS(ToggleActionEntries);
+    n_view_mode_entries = G_N_ELEMENTS (view_mode_entries);
 
     /* Populate quarks list with the entries */
     for(i = 0; i < num_menu_entries; i++)
@@ -308,6 +308,9 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
     ActionGroup = gtk_action_group_new("actions");
     gtk_action_group_add_actions(ActionGroup, ActionEntries, num_menu_entries, NULL);
     gtk_action_group_add_toggle_actions(ActionGroup, ToggleActionEntries, num_toggle_entries, NULL);
+    gtk_action_group_add_radio_actions (ActionGroup, view_mode_entries,
+                                        n_view_mode_entries, 0,
+                                        Action_Select_Browser_Style, NULL);
 
     UIManager = gtk_ui_manager_new();
     if (!gtk_ui_manager_add_ui_from_string(UIManager, ui_xml, -1, &error))

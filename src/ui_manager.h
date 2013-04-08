@@ -124,7 +124,10 @@ static const gchar *ui_xml =
 "      <menuitem action='SetDefaultPath' />"
 "      <separator />"
 
-"      <menuitem action='ViewMode' />"
+"      <menuitem action='TreeViewMode'/>"
+"      <menuitem action='ArtistViewMode'/>"
+"      <separator />"
+
 "      <menuitem action='RenameDir' />"
 "      <menuitem action='ReloadDir' />"
 "      <menuitem action='BrowseDir' />"
@@ -184,7 +187,10 @@ static const gchar *ui_xml =
 "    <toolitem action='SaveFile'/>"
 "    <separator />"
 
-"    <toolitem action='ViewModeToggle'/>"
+"    <toolitem action='TreeViewMode'/>"
+"    <toolitem action='ArtistViewMode'/>"
+"    <separator />"
+
 "    <toolitem action='SelAll'/>"
 "    <toolitem action='SelInv'/>"
 "    <separator />"

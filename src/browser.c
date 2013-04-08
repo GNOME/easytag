@@ -1105,7 +1105,7 @@ void Browser_List_Refresh_Whole_List (void)
     gchar *current_basename_utf8;
     gchar *track;
     gboolean valid;
-    GtkWidget *TBViewMode;
+    GtkWidget *artist_radio;
 
     if (!ETCore->ETFileDisplayedList || !BrowserList
     ||  gtk_tree_model_iter_n_children(GTK_TREE_MODEL(fileListModel), NULL) == 0)
@@ -1113,7 +1113,8 @@ void Browser_List_Refresh_Whole_List (void)
         return;
     }
 
-    TBViewMode = gtk_ui_manager_get_widget(UIManager, "/ToolBar/ViewModeToggle");
+    artist_radio = gtk_ui_manager_get_widget (UIManager,
+                                              "/ToolBar/ArtistViewMode");
 
     // Browse the full list for changes
     //gtk_tree_model_get_iter_first(GTK_TREE_MODEL(fileListModel), &iter);
@@ -1161,7 +1162,7 @@ void Browser_List_Refresh_Whole_List (void)
     gtk_tree_path_free(currentPath);
 
     // When displaying Artist + Album lists => refresh also rows color
-    if ( gtk_toggle_tool_button_get_active(GTK_TOGGLE_TOOL_BUTTON(TBViewMode)) )
+    if (gtk_toggle_tool_button_get_active (GTK_TOGGLE_TOOL_BUTTON (artist_radio)))
     {
 
         for (row=0; row < gtk_tree_model_iter_n_children(GTK_TREE_MODEL(artistListModel), NULL); row++)
@@ -1200,7 +1201,7 @@ void Browser_List_Refresh_Whole_List (void)
 void Browser_List_Refresh_File_In_List (ET_File *ETFile)
 {
     GList *selectedRow = NULL;
-    GtkWidget *TBViewMode;
+    GtkWidget *artist_radio;
     GtkTreeSelection *selection;
     GtkTreeIter selectedIter;
     GtkTreePath *currentPath = NULL;
@@ -1220,7 +1221,8 @@ void Browser_List_Refresh_File_In_List (ET_File *ETFile)
         return;
     }
 
-    TBViewMode = gtk_ui_manager_get_widget(UIManager, "/ToolBar/ViewModeToggle");
+    artist_radio = gtk_ui_manager_get_widget (UIManager,
+                                              "/ToolBar/ArtistViewMode");
 
     // Search the row of the modified file to update it (when found: row_found=TRUE)
     // 1/3. Get position of ETFile in ETFileList
@@ -1315,7 +1317,7 @@ void Browser_List_Refresh_File_In_List (ET_File *ETFile)
     Browser_List_Set_Row_Appearance(&selectedIter);
 
     // When displaying Artist + Album lists => refresh also rows color
-    if ( gtk_toggle_tool_button_get_active(GTK_TOGGLE_TOOL_BUTTON(TBViewMode)) )
+    if (gtk_toggle_tool_button_get_active (GTK_TOGGLE_TOOL_BUTTON (artist_radio)))
     {
         gchar *current_artist = ((File_Tag *)ETFile->FileTag->data)->artist;
         gchar *current_album  = ((File_Tag *)ETFile->FileTag->data)->album;
@@ -2286,16 +2288,17 @@ Browser_Album_List_Set_Row_Appearance (GtkTreeIter *iter)
 void Browser_Display_Tree_Or_Artist_Album_List (void)
 {
     ET_File *etfile = ETCore->ETFileDisplayed; // ETFile to display again after changing browser view
-    GtkWidget *TBViewMode;
+    GtkWidget *artist_radio;
 
     // Save the current displayed data
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
 
     // Toggle button to switch view
-    TBViewMode = gtk_ui_manager_get_widget(UIManager, "/ToolBar/ViewModeToggle");
+    artist_radio = gtk_ui_manager_get_widget (UIManager,
+                                              "/ToolBar/ArtistViewMode");
 
     // Button pressed in the toolbar
-    if ( gtk_toggle_tool_button_get_active(GTK_TOGGLE_TOOL_BUTTON(TBViewMode)) )
+    if (gtk_toggle_tool_button_get_active (GTK_TOGGLE_TOOL_BUTTON (artist_radio)))
     {
         /*
          * Artist + Album view

@@ -3555,7 +3555,7 @@ gboolean Read_Directory (gchar *path_real)
     GList *FileList = NULL;
     gint   progress_bar_index = 0;
     GtkAction *uiaction;
-    GtkWidget *TBViewMode;
+    GtkWidget *artist_radio;
 
     g_return_val_if_fail (path_real != NULL, FALSE);
 
@@ -3575,8 +3575,9 @@ gboolean Read_Directory (gchar *path_real)
     Clear_Tag_Entry_Fields();
     gtk_label_set_text(GTK_LABEL(FileIndex),"0/0:");
 
-    TBViewMode = gtk_ui_manager_get_widget(UIManager, "/ToolBar/ViewModeToggle");
-    gtk_toggle_tool_button_set_active(GTK_TOGGLE_TOOL_BUTTON(TBViewMode),FALSE);
+    artist_radio = gtk_ui_manager_get_widget (UIManager, "/ToolBar/ArtistViewMode");
+    gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (artist_radio),
+                                       FALSE);
     //Browser_Display_Tree_Or_Artist_Album_List(); // To show the corresponding lists...
 
     // Set to unsensitive the Browser Area, to avoid to select another file while loading the first one

@@ -81,7 +81,8 @@ GtkWidget *CheckMenuItemBrowseHiddenDirMainMenu;
 #define AM_COLLAPSE_TREE            "CollapseTree"
 #define AM_INITIALIZE_TREE          "RefreshTree"
 #define AM_RELOAD_DIRECTORY         "ReloadDir"
-#define AM_TREE_OR_ARTISTALBUM_VIEW "ViewMode"
+#define AM_TREE_VIEW_MODE "TreeViewMode"
+#define AM_ARTIST_VIEW_MODE "ArtistViewMode"
 #define AM_BROWSE_DIRECTORY_WITH    "BrowseDir"
 #define AM_OPEN_FILE_WITH           "OpenFile"
 #define AM_OPEN_OPTIONS_WINDOW      "Preferences"
@@ -105,7 +106,6 @@ GtkWidget *CheckMenuItemBrowseHiddenDirMainMenu;
 #define AM_LOG_CLEAN                "CleanLog"
 
 #define AM_STOP                     "Stop"
-#define AM_VIEWMODE_TOGGLE          "ViewModeToggle"
 
 #define AM_SORT_ASCENDING_FILENAME          "SortFilenameAsc"
 #define AM_SORT_DESCENDING_FILENAME         "SortFilenameDesc"
