@@ -593,7 +593,10 @@ void Open_Cddb_Window (void)
     gtk_widget_set_tooltip_text(CddbInvertSelectionInResultButton,_("Invert lines selection"));
     g_signal_connect(G_OBJECT(CddbInvertSelectionInResultButton),"clicked",G_CALLBACK(Cddb_Track_List_Invert_Selection),NULL);
 
-    CddbSelectAllInResultButton = Create_Button_With_Icon_And_Label("easytag-select-all",NULL);
+    CddbSelectAllInResultButton = gtk_button_new ();
+    gtk_container_add (GTK_CONTAINER (CddbSelectAllInResultButton),
+                       gtk_image_new_from_stock (GTK_STOCK_SELECT_ALL,
+                                                 GTK_ICON_SIZE_BUTTON));
     gtk_box_pack_end(GTK_BOX(hbox),CddbSelectAllInResultButton,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(CddbSelectAllInResultButton),GTK_RELIEF_NONE);
     gtk_widget_set_tooltip_text(CddbSelectAllInResultButton,_("Select all lines"));
