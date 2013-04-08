@@ -51,10 +51,6 @@ typedef enum
 {
     SORTING_BY_ASCENDING_FILENAME,
     SORTING_BY_DESCENDING_FILENAME,
-    SORTING_BY_ASCENDING_TRACK_NUMBER,
-    SORTING_BY_DESCENDING_TRACK_NUMBER,
-    SORTING_BY_ASCENDING_CREATION_DATE,
-    SORTING_BY_DESCENDING_CREATION_DATE,
     SORTING_BY_ASCENDING_TITLE,
     SORTING_BY_DESCENDING_TITLE,
     SORTING_BY_ASCENDING_ARTIST,
@@ -65,6 +61,10 @@ typedef enum
     SORTING_BY_DESCENDING_ALBUM,
     SORTING_BY_ASCENDING_YEAR,
     SORTING_BY_DESCENDING_YEAR,
+    SORTING_BY_ASCENDING_DISC_NUMBER,
+    SORTING_BY_DESCENDING_DISC_NUMBER,
+    SORTING_BY_ASCENDING_TRACK_NUMBER,
+    SORTING_BY_DESCENDING_TRACK_NUMBER,
     SORTING_BY_ASCENDING_GENRE,
     SORTING_BY_DESCENDING_GENRE,
     SORTING_BY_ASCENDING_COMMENT,
@@ -79,6 +79,8 @@ typedef enum
     SORTING_BY_DESCENDING_URL,
     SORTING_BY_ASCENDING_ENCODED_BY,
     SORTING_BY_DESCENDING_ENCODED_BY,
+    SORTING_BY_ASCENDING_CREATION_DATE,
+    SORTING_BY_DESCENDING_CREATION_DATE,
     SORTING_BY_ASCENDING_FILE_TYPE,
     SORTING_BY_DESCENDING_FILE_TYPE,
     SORTING_BY_ASCENDING_FILE_SIZE,
@@ -401,6 +403,10 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Filename         (ET_File *ETFile1, ET_
 gint ET_Comp_Func_Sort_File_By_Descending_Filename        (ET_File *ETFile1, ET_File *ETFile2);
 gint ET_Comp_Func_Sort_File_By_Ascending_Creation_Date    (ET_File *ETFile1, ET_File *ETFile2);
 gint ET_Comp_Func_Sort_File_By_Descending_Creation_Date   (ET_File *ETFile1, ET_File *ETFile2);
+gint et_comp_func_sort_file_by_ascending_disc_number (ET_File *ETFile1,
+                                                      ET_File *ETFile2);
+gint et_comp_func_sort_file_by_descending_disc_number (ET_File *ETFile1,
+                                                       ET_File *ETFile2);
 gint ET_Comp_Func_Sort_File_By_Ascending_Track_Number     (ET_File *ETFile1, ET_File *ETFile2);
 gint ET_Comp_Func_Sort_File_By_Descending_Track_Number    (ET_File *ETFile1, ET_File *ETFile2);
 gint ET_Comp_Func_Sort_File_By_Ascending_Title            (ET_File *ETFile1, ET_File *ETFile2);

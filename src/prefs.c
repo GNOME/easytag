@@ -292,22 +292,54 @@ void Open_OptionsWindow (void)
     // Items of option menu
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending file name"));
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending file name"));
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending track number"));
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending track number"));
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending creation date"));
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending creation date"));
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending title"));
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending title"));
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending artist"));
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending artist"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
+                                    _("Ascending album artist"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
+                                    _("Descending album artist"));
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending album"));
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending album"));
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending year"));
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending year"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
+                                    _("Ascending disc number"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
+                                    _("Descending disc number"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
+                                    _("Ascending track number"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
+                                    _("Descending track number"));
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending genre"));
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending genre"));
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending comment"));
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending comment"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
+                                    _("Ascending composer"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
+                                    _("Descending composer"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
+                                    _("Ascending original artist"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
+                                    _("Descending original artist"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
+                                    _("Ascending copyright"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
+                                    _("Descending copyright"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
+                                    _("Ascending URL"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
+                                    _("Descending URL"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
+                                    _("Ascending encoded by"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
+                                    _("Descending encoded by"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
+                                    _("Ascending creation date"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
+                                    _("Descending creation date"));
 
     gtk_combo_box_set_active(GTK_COMBO_BOX(SortingFileCombo), SORTING_FILE_MODE);
     gtk_widget_set_tooltip_text(SortingFileCombo,

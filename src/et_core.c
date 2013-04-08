@@ -912,18 +912,6 @@ GList *ET_Sort_File_List (GList *ETFileList, ET_Sorting_Type Sorting_Type)
         case SORTING_BY_DESCENDING_FILENAME:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_Filename);
             break;
-        case SORTING_BY_ASCENDING_TRACK_NUMBER:
-            etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_Track_Number);
-            break;
-        case SORTING_BY_DESCENDING_TRACK_NUMBER:
-            etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_Track_Number);
-            break;
-        case SORTING_BY_ASCENDING_CREATION_DATE:
-            etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_Creation_Date);
-            break;
-        case SORTING_BY_DESCENDING_CREATION_DATE:
-            etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_Creation_Date);
-            break;
         case SORTING_BY_ASCENDING_TITLE:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_Title);
             break;
@@ -953,6 +941,22 @@ GList *ET_Sort_File_List (GList *ETFileList, ET_Sorting_Type Sorting_Type)
             break;
         case SORTING_BY_DESCENDING_YEAR:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_Year);
+            break;
+        case SORTING_BY_ASCENDING_DISC_NUMBER:
+            etfilelist = g_list_sort (etfilelist,
+                                      (GCompareFunc)et_comp_func_sort_file_by_ascending_disc_number);
+            break;
+        case SORTING_BY_DESCENDING_DISC_NUMBER:
+            etfilelist = g_list_sort (etfilelist,
+                                      (GCompareFunc)et_comp_func_sort_file_by_descending_disc_number);
+            break;
+        case SORTING_BY_ASCENDING_TRACK_NUMBER:
+            etfilelist = g_list_sort (etfilelist,
+                                      (GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_Track_Number);
+            break;
+        case SORTING_BY_DESCENDING_TRACK_NUMBER:
+            etfilelist = g_list_sort (etfilelist,
+                                      (GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_Track_Number);
             break;
         case SORTING_BY_ASCENDING_GENRE:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_Genre);
@@ -995,6 +999,14 @@ GList *ET_Sort_File_List (GList *ETFileList, ET_Sorting_Type Sorting_Type)
             break;
         case SORTING_BY_DESCENDING_ENCODED_BY:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_Encoded_By);
+            break;
+        case SORTING_BY_ASCENDING_CREATION_DATE:
+            etfilelist = g_list_sort (etfilelist,
+                                      (GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_Creation_Date);
+            break;
+        case SORTING_BY_DESCENDING_CREATION_DATE:
+            etfilelist = g_list_sort (etfilelist,
+                                      (GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_Creation_Date);
             break;
         case SORTING_BY_ASCENDING_FILE_TYPE:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_File_Type);
@@ -1075,6 +1087,56 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Filename (ET_File *ETFile1, ET_File *ET
 gint ET_Comp_Func_Sort_File_By_Descending_Filename (ET_File *ETFile1, ET_File *ETFile2)
 {
     return ET_Comp_Func_Sort_File_By_Ascending_Filename(ETFile2,ETFile1);
+}
+
+
+/*
+ * Comparison function for sorting by ascending disc number.
+ */
+gint
+et_comp_func_sort_file_by_ascending_disc_number (ET_File *ETFile1,
+                                                 ET_File *ETFile2)
+{
+    gint track1, track2;
+
+    if (!ETFile1->FileTag->data
+        || !((File_Tag *)ETFile1->FileTag->data)->disc_number)
+    {
+        track1 = 0;
+    }
+    else
+    {
+        track1 = atoi (((File_Tag *)ETFile1->FileTag->data)->disc_number);
+    }
+
+    if (!ETFile2->FileTag->data
+        || !((File_Tag *)ETFile2->FileTag->data)->disc_number)
+    {
+        track2 = 0;
+    }
+    else
+    {
+        track2 = atoi (((File_Tag *)ETFile2->FileTag->data)->disc_number);
+    }
+
+    /* Second criterion. */
+    if (track1 == track2)
+    {
+        return ET_Comp_Func_Sort_File_By_Ascending_Filename (ETFile1, ETFile2);
+    }
+
+    /* First criterion. */
+    return (track1 - track2);
+}
+
+/*
+ * Comparison function for sorting by descending disc number.
+ */
+gint
+et_comp_func_sort_file_by_descending_disc_number (ET_File *ETFile1,
+                                                  ET_File *ETFile2)
+{
+    return et_comp_func_sort_file_by_ascending_disc_number (ETFile2, ETFile1);
 }
 
 

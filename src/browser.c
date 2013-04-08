@@ -1750,18 +1750,6 @@ Browser_List_Sort_Func (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b,
         case SORTING_BY_DESCENDING_FILENAME:
             result = ET_Comp_Func_Sort_File_By_Descending_Filename(ETFile1, ETFile2);
             break;
-        case SORTING_BY_ASCENDING_TRACK_NUMBER:
-            result = ET_Comp_Func_Sort_File_By_Ascending_Track_Number(ETFile1, ETFile2);
-            break;
-        case SORTING_BY_DESCENDING_TRACK_NUMBER:
-            result = ET_Comp_Func_Sort_File_By_Descending_Track_Number(ETFile1, ETFile2);
-            break;
-        case SORTING_BY_ASCENDING_CREATION_DATE:
-            result = ET_Comp_Func_Sort_File_By_Ascending_Creation_Date(ETFile1, ETFile2);
-            break;
-        case SORTING_BY_DESCENDING_CREATION_DATE:
-            result = ET_Comp_Func_Sort_File_By_Descending_Creation_Date(ETFile1, ETFile2);
-            break;
         case SORTING_BY_ASCENDING_TITLE:
             result = ET_Comp_Func_Sort_File_By_Ascending_Title(ETFile1, ETFile2);
             break;
@@ -1791,6 +1779,20 @@ Browser_List_Sort_Func (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b,
             break;
         case SORTING_BY_DESCENDING_YEAR:
             result = ET_Comp_Func_Sort_File_By_Descending_Year(ETFile1, ETFile2);
+            break;
+        case SORTING_BY_ASCENDING_DISC_NUMBER:
+            result = et_comp_func_sort_file_by_ascending_disc_number (ETFile1,
+                                                                      ETFile2);
+            break;
+        case SORTING_BY_DESCENDING_DISC_NUMBER:
+            result = et_comp_func_sort_file_by_descending_disc_number (ETFile1,
+                                                                       ETFile2);
+            break;
+        case SORTING_BY_ASCENDING_TRACK_NUMBER:
+            result = ET_Comp_Func_Sort_File_By_Ascending_Track_Number (ETFile1, ETFile2);
+            break;
+        case SORTING_BY_DESCENDING_TRACK_NUMBER:
+            result = ET_Comp_Func_Sort_File_By_Descending_Track_Number (ETFile1, ETFile2);
             break;
         case SORTING_BY_ASCENDING_GENRE:
             result = ET_Comp_Func_Sort_File_By_Ascending_Genre(ETFile1, ETFile2);
@@ -1833,6 +1835,13 @@ Browser_List_Sort_Func (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b,
             break;
         case SORTING_BY_DESCENDING_ENCODED_BY:
             result = ET_Comp_Func_Sort_File_By_Descending_Encoded_By(ETFile1, ETFile2);
+            break;
+        case SORTING_BY_ASCENDING_CREATION_DATE:
+            result = ET_Comp_Func_Sort_File_By_Ascending_Creation_Date (ETFile1,                                                                        ETFile2);
+            break;
+        case SORTING_BY_DESCENDING_CREATION_DATE:
+            result = ET_Comp_Func_Sort_File_By_Descending_Creation_Date (ETFile1,
+                                                                         ETFile2);
             break;
         case SORTING_BY_ASCENDING_FILE_TYPE:
             result = ET_Comp_Func_Sort_File_By_Ascending_File_Type(ETFile1, ETFile2);
