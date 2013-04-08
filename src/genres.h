@@ -25,7 +25,6 @@
 
 /* GENRE_MAX is the last genre number that can be used */
 #define GENRE_MAX ( sizeof(id3_genres)/sizeof(id3_genres[0]) - 1 )
-#define ID3_INVALID_GENRE 255
 
 /**
     \def genre_no(IndeX) 

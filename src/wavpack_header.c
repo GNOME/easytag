@@ -111,4 +111,4 @@ gboolean Wavpack_Header_Display_File_Info_To_UI(gchar *filename_utf8, ET_File_In
     return TRUE;
 }
 
-#endif /* ENABLE_FLAC */
+#endif /* ENABLE_WAVPACK */

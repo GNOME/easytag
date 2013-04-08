@@ -18,7 +18,7 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <gtk/gtk.h>
 #include <glib/gi18n-lib.h>
@@ -1379,7 +1379,7 @@ gboolean Id3tag_Write_File_Tag (ET_File *ETFile)
         return Id3tag_Write_File_v23Tag(ETFile);
 #else
     return Id3tag_Write_File_v24Tag(ETFile);
-#endif
+#endif /* !ENABLE_ID3LIB */
 }
 
 #endif /* ENABLE_MP3 */

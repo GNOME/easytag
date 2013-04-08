@@ -526,7 +526,7 @@ GList *ET_Add_File_To_File_List (gchar *filename)
 
     switch (ETFileDescription->FileType)
     {
-#ifdef ENABLE_MP3
+#if defined ENABLE_MP3 && defined ENABLE_ID3LIB
         case MP3_FILE:
         case MP2_FILE:
             Mpeg_Header_Read_File_Info(filename,ETFileInfo);
@@ -2613,7 +2613,7 @@ void ET_Display_File_Data_To_UI (ET_File *ETFile)
     /* Display file data, header data and file type */
     switch (ETFileDescription->FileType)
     {
-#ifdef ENABLE_MP3
+#if defined ENABLE_MP3 && defined ENABLE_ID3LIB
         case MP3_FILE:
             gtk_frame_set_label(GTK_FRAME(FileFrame),_("MP3 File"));
             Mpeg_Header_Display_File_Info_To_UI(cur_filename,ETFile->ETFileInfo);

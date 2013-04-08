@@ -28,12 +28,8 @@ ltmain.sh
 /po/POTFILES
 /po/easytag.pot
 /po/stamp-it
-src/.deps/
-src/id3lib/.deps/
-src/id3lib/libid3bugfix.a
-src/libapetag/.deps/
-src/libapetag/libapetag.a
-src/libmpg123/.deps/
-src/libmpg123/libmpg123.a
+/src/.deps/
+/src/id3lib/.deps/
+/src/libapetag/.deps/
 /src/win32/.deps/
 stamp-h1

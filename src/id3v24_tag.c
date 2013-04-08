@@ -36,7 +36,6 @@
 #include "picture.h"
 #include "easytag.h"
 #include "browser.h"
-#include "genres.h"
 #include "setting.h"
 #include "misc.h"
 #include "log.h"
