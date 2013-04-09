@@ -3561,7 +3561,7 @@ void Browser_Open_Rename_Directory_Window (void)
         G_CALLBACK(Scan_Check_Rename_File_Mask),G_OBJECT(RenameDirectoryMaskStatusIconBox));
 
     // Preview label
-    RenameDirectoryPreviewLabel = gtk_label_new(_("Rename directory preview…"));
+    RenameDirectoryPreviewLabel = gtk_label_new (_("Rename directory preview"));
     gtk_label_set_line_wrap(GTK_LABEL(RenameDirectoryPreviewLabel),TRUE);
     ////gtk_widget_show(FillTagPreviewLabel);
     gtk_box_pack_start(GTK_BOX(VBox),RenameDirectoryPreviewLabel,TRUE,TRUE,0);
@@ -3744,7 +3744,7 @@ Rename_Directory (void)
     //        // The same directory already exists. So we ask if we want to move the files
     //        msg = g_strdup_printf(_("The directory already exists!\n(%s)\nDo you want "
     //            "to move the files?"),new_path_utf8);
-    //        msgbox = msg_box_new(_("Confirm…"),
+    //        msgbox = msg_box_new(_("Confirm"),
     //                             GTK_WINDOW(MainWindow),
     //                             NULL,
     //                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -4414,7 +4414,7 @@ Run_Program (const gchar *program_name, GList *args_list)
             // Execution ...
             execvp(argv[0],argv);
 
-            msg = g_strdup_printf(_("Executed command: '%s %s'"),program_name,"…");
+            msg = g_strdup_printf (_("Executed command: %s"), program_name);
             Statusbar_Message(msg,TRUE);
             g_free(msg);
             //_exit(-1);

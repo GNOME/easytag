@@ -111,7 +111,7 @@ void Open_OptionsWindow (void)
     gtk_container_set_border_width(GTK_CONTAINER(OptionsWindow), 5);
     gtk_window_set_default_size(GTK_WINDOW(OptionsWindow),OPTIONS_WINDOW_WIDTH,OPTIONS_WINDOW_HEIGHT);
     /* Title */
-    gtk_window_set_title(GTK_WINDOW(OptionsWindow),_("Preferences…"));
+    gtk_window_set_title (GTK_WINDOW (OptionsWindow), _("Preferences"));
 
     /* Signals connection */
     g_signal_connect(G_OBJECT(OptionsWindow),"destroy", G_CALLBACK(OptionsWindow_Quit),NULL);

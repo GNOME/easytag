@@ -185,8 +185,4 @@ void Init_OptionsWindow (void);
 void Open_OptionsWindow (void);
 void OptionsWindow_Apply_Changes (void);
 
-void File_Selection_Window_For_File      (GtkWidget *widget);
-void File_Selection_Window_For_Directory (GtkWidget *widget);
-
-
 #endif /* __PREFS_H__ */

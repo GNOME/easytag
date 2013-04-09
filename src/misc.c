@@ -775,12 +775,14 @@ gint Combo_Alphabetic_Sort (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b,
  *************************/
 void File_Selection_Window_For_File (GtkWidget *entry)
 {
-    Open_File_Selection_Window(entry, _("Select file…"), GTK_FILE_CHOOSER_ACTION_OPEN);
+    Open_File_Selection_Window (entry, _("Select File"),
+                                GTK_FILE_CHOOSER_ACTION_OPEN);
 }
 
 void File_Selection_Window_For_Directory (GtkWidget *entry)
 {
-    Open_File_Selection_Window(entry, _("Select directory…"), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
+    Open_File_Selection_Window (entry, _("Select Directory"),
+                                GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
 }
 
 /*
@@ -1682,7 +1684,7 @@ Playlist_Write_Button_Pressed (void)
         {
             gchar *msg;
             msg = g_strdup_printf(_("Written playlist file '%s'"),playlist_name_utf8);
-            /*msgbox = msg_box_new(_("Information…"),
+            /*msgbox = msg_box_new(_("Information"),
                                    GTK_WINDOW(WritePlaylistWindow),
                                    NULL,
                                    GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,

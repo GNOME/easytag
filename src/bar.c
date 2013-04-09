@@ -416,7 +416,7 @@ GtkWidget *Create_Status_Bar (void)
     /* Create serie */
     StatusBarContext = gtk_statusbar_get_context_id(GTK_STATUSBAR(StatusBar),"Messages");
 
-    Statusbar_Message(_("Ready to start…"),TRUE);
+    Statusbar_Message (_("Ready to start"), TRUE);
 
     gtk_widget_show(StatusBar);
     return StatusBar;

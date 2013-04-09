@@ -307,12 +307,11 @@ activate (GApplication *application, gpointer user_data)
     /* Starting messages */
     Log_Print(LOG_OK,_("Starting EasyTAG version %s (PID: %d)…"),PACKAGE_VERSION,getpid());
 #ifdef ENABLE_MP3
-    Log_Print(LOG_OK,_("Currently using libid3tag version %s…"), ID3_VERSION);
+    Log_Print(LOG_OK,_("Using libid3tag version %s"), ID3_VERSION);
 #endif
 #if defined ENABLE_MP3 && defined ENABLE_ID3LIB
-    Log_Print(LOG_OK,_("Currently using id3lib version %d.%d.%d…"),ID3LIB_MAJOR_VERSION,
-                                                               ID3LIB_MINOR_VERSION,
-                                                               ID3LIB_PATCH_VERSION);
+    Log_Print (LOG_OK, _("Using id3lib version %d.%d.%d"), ID3LIB_MAJOR_VERSION,
+               ID3LIB_MINOR_VERSION, ID3LIB_PATCH_VERSION);
 #endif
 
 #ifdef G_OS_WIN32
@@ -323,8 +322,9 @@ activate (GApplication *application, gpointer user_data)
 #endif /* G_OS_WIN32 */
 
     if (get_locale())
-        Log_Print(LOG_OK,_("Currently using locale '%s' (and eventually '%s')…"),
-                get_locale(),get_encoding_from_locale(get_locale()));
+        Log_Print (LOG_OK,
+                   _("Currently using locale '%s' (and eventually '%s')"),
+                   get_locale (), get_encoding_from_locale (get_locale ()));
 
 
     /* Create all config files. */
@@ -2385,7 +2385,7 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
                 /* Stop saving files + reinit progress bar */
                 gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), "");
                 gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), 0.0);
-                Statusbar_Message(_("Saving files was stopped…"),TRUE);
+                Statusbar_Message (_("Saving files was stopped"), TRUE);
                 /* To update state of command buttons */
                 Update_Command_Buttons_Sensivity();
                 Browser_Area_Set_Sensitive(TRUE);
@@ -2406,9 +2406,9 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
         gtk_tree_path_free(currentPath);
 
     if (Main_Stop_Button_Pressed)
-        msg = g_strdup(_("Saving files was stopped…"));
+        msg = g_strdup (_("Saving files was stopped"));
     else
-        msg = g_strdup(_("All files have been saved…"));
+        msg = g_strdup (_("All files have been saved"));
 
     Main_Stop_Button_Pressed = FALSE;
     uiaction = gtk_ui_manager_get_action(UIManager, "/ToolBar/Stop");
@@ -2559,9 +2559,9 @@ Delete_Selected_Files_With_Answer (void)
     g_list_free(rowreflist);
 
     if (nb_files_deleted < nb_files_to_delete)
-        msg = g_strdup(_("Files have been partially deleted…"));
+        msg = g_strdup (_("Files have been partially deleted"));
     else
-        msg = g_strdup(_("All files have been deleted…"));
+        msg = g_strdup (_("All files have been deleted"));
 
     // It's important to displayed the new item, as it'll check the changes in Browser_Display_Tree_Or_Artist_Album_List
     if (ETCore->ETFileDisplayed)
@@ -2631,7 +2631,7 @@ Save_File (ET_File *ETFile, gboolean multiple_files,
         gint response;
 
         msg = g_strdup_printf(_("The file '%s' was changed by an external program.\nDo you want to continue?"),basename_cur_utf8);
-        msgbox = msg_box_new(_("Write File…"),
+        msgbox = msg_box_new(_("Write File"),
                              GTK_WINDOW(MainWindow),
                              NULL,
                              GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -2760,14 +2760,14 @@ Save_File (ET_File *ETFile, gboolean multiple_files,
                 if (g_utf8_collate(basename_cur_utf8,basename_new_utf8) != 0)
                 {
                     // Directories and filename changed
-                    msgdialog_title = g_strdup(_("Rename File and Directory…"));
+                    msgdialog_title = g_strdup (_("Rename File and Directory"));
                     msg = g_strdup(_("File and directory rename confirmation required"));
                     msg1 = g_strdup_printf(_("Do you want to rename the file and directory '%s' to '%s'?"),
                                            filename_cur_utf8, filename_new_utf8);
                 }else
                 {
                     // Only directories changed
-                    msgdialog_title = g_strdup(_("Rename Directory…"));
+                    msgdialog_title = g_strdup (_("Rename Directory"));
                     msg = g_strdup(_("Directory rename confirmation required"));
                     msg1 = g_strdup_printf(_("Do you want to rename the directory '%s' to '%s'?"),
                                            dirname_cur_utf8, dirname_new_utf8);
@@ -2775,7 +2775,7 @@ Save_File (ET_File *ETFile, gboolean multiple_files,
             }else
             {
                 // Only filename changed
-                msgdialog_title = g_strdup(_("Rename File…"));
+                msgdialog_title = g_strdup (_("Rename File"));
                 msg = g_strdup(_("File rename confirmation required"));
                 msg1 = g_strdup_printf(_("Do you want to rename the file '%s' to '%s'?"),
                                        basename_cur_utf8, basename_new_utf8);
@@ -3082,7 +3082,7 @@ Rename_File (ET_File *ETFile, gboolean hide_msgbox)
         Log_Print(LOG_ERROR,"%s", msg);
         g_free(msg);
 
-        Statusbar_Message(_("File(s) not renamed…"),TRUE);
+        Statusbar_Message (_("File(s) not renamed"), TRUE);
         g_free(tmp_filename);
         g_free(cur_basename_utf8);
         g_free(new_basename_utf8);
@@ -3126,7 +3126,7 @@ Rename_File (ET_File *ETFile, gboolean hide_msgbox)
             Log_Print(LOG_ERROR,"%s", msg);
             g_free(msg);
 
-            Statusbar_Message(_("File(s) not renamed…"),TRUE);
+            Statusbar_Message (_("File(s) not renamed"), TRUE);
             g_free(tmp_filename);
             g_free(cur_basename_utf8);
             g_free(new_basename_utf8);
@@ -3152,7 +3152,7 @@ Rename_File (ET_File *ETFile, gboolean hide_msgbox)
         Log_Print(LOG_ERROR,"%s", msg);
         g_free(msg);
 
-        Statusbar_Message(_("File(s) not renamed…"),TRUE);
+        Statusbar_Message (_("File(s) not renamed"), TRUE);
 
         g_free (tmp_filename);
         g_free(new_basename_utf8);
@@ -3215,7 +3215,7 @@ Rename_File (ET_File *ETFile, gboolean hide_msgbox)
         /* Now the file was renamed, so mark his state */
         ET_Mark_File_Name_As_Saved(ETFile);
 
-        Statusbar_Message(_("File(s) renamed…"),TRUE);
+        Statusbar_Message (_("File(s) renamed"), TRUE);
 
         /* Remove the of directory (check automatically if it is empty) */
         if (!Remove_Dir(dirname_cur,dirname_new))
@@ -3273,7 +3273,7 @@ Rename_File (ET_File *ETFile, gboolean hide_msgbox)
             /* Now the file was renamed, so mark his state */
             ET_Mark_File_Name_As_Saved(ETFile);
 
-            Statusbar_Message(_("File(s) moved…"),TRUE);
+            Statusbar_Message (_("File(s) moved"), TRUE);
 
             /* Remove the of directory (check automatically if it is empty) */
             if (!Remove_Dir(dirname_cur,dirname_new))
@@ -3338,7 +3338,7 @@ Rename_File (ET_File *ETFile, gboolean hide_msgbox)
             Log_Print(LOG_ERROR,"%s", msg);
             g_free(msg);
 
-            Statusbar_Message(_("File(s) not moved…"),TRUE);
+            Statusbar_Message (_("File(s) not moved"), TRUE);
 
             g_free(tmp_filename);
             g_free(cur_basename_utf8);
@@ -3374,7 +3374,7 @@ Rename_File (ET_File *ETFile, gboolean hide_msgbox)
                               cur_basename_utf8, new_basename_utf8,
                               g_strerror (errno));
 
-        Statusbar_Message(_("File(s) not renamed…"),TRUE);
+        Statusbar_Message (_("File(s) not renamed"), TRUE);
 
         g_free(tmp_filename);
         g_free(cur_basename_utf8);

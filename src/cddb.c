@@ -302,7 +302,8 @@ void Open_Cddb_Window (void)
     gtk_button_set_relief(GTK_BUTTON(CddbStopSearchAutoButton),GTK_RELIEF_NONE);
     gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchAutoButton),FALSE);
     g_signal_connect(G_OBJECT(CddbStopSearchAutoButton), "clicked", G_CALLBACK(Cddb_Stop_Search), NULL);
-    gtk_widget_set_tooltip_text(CddbStopSearchAutoButton,_("Stop the search…"));
+    gtk_widget_set_tooltip_text (CddbStopSearchAutoButton,
+                                 _("Stop the search"));
 
     // Separator line
     Separator = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
@@ -385,7 +386,7 @@ void Open_Cddb_Window (void)
     gtk_button_set_relief(GTK_BUTTON(CddbStopSearchButton),GTK_RELIEF_NONE);
     gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchButton),FALSE);
     g_signal_connect(G_OBJECT(CddbStopSearchButton), "clicked", G_CALLBACK(Cddb_Stop_Search), NULL);
-    gtk_widget_set_tooltip_text(CddbStopSearchButton,_("Stop the search…"));
+    gtk_widget_set_tooltip_text (CddbStopSearchButton, _("Stop the search"));
 
     // Button to quit
     Button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
@@ -805,7 +806,8 @@ void Open_Cddb_Window (void)
     gtk_box_pack_start(GTK_BOX(MainVBox),CddbStatusBar,FALSE,TRUE,0);
     gtk_widget_set_size_request(CddbStatusBar, 300, -1);
     CddbStatusBarContext = gtk_statusbar_get_context_id(GTK_STATUSBAR(CddbStatusBar),"Messages");
-    gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,_("Ready to search…"));
+    gtk_statusbar_push (GTK_STATUSBAR (CddbStatusBar), CddbStatusBarContext,
+                        _("Ready to search"));
 
 
     g_signal_emit_by_name(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbSearchStringCombo)))),"changed");
@@ -2963,7 +2965,8 @@ Cddb_Search_Album_From_Selected_Files (void)
                 /* Translators: 'it' in this sentence refers to the local CD
                  * database path. */
                 gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog), "%s", _("Enter it in the preferences window before using this search."));
-                gtk_window_set_title(GTK_WINDOW(msgdialog),_("Local CD search…"));
+                gtk_window_set_title (GTK_WINDOW (msgdialog),
+                                      _("Local CD search"));
 
                 gtk_dialog_run(GTK_DIALOG(msgdialog));
                 gtk_widget_destroy(msgdialog);
@@ -3867,7 +3870,8 @@ Cddb_Set_Track_Infos_To_File_List (void)
                                            _("The number of CDDB results does not match the number of selected files"));
         gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_APPLY,GTK_RESPONSE_APPLY, NULL);
         gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),"%s","Do you want to continue?");
-        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Write Tag from CDDB…"));
+        gtk_window_set_title (GTK_WINDOW (msgdialog),
+                              _("Write Tag from CDDB"));
         response = gtk_dialog_run(GTK_DIALOG(msgdialog));
         gtk_widget_destroy(msgdialog);
 

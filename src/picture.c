@@ -1104,7 +1104,7 @@ Picture_Load_File_Data (const gchar *filename)
 
     if (stat(filename, &st)==-1)
     {
-        Log_Print (LOG_ERROR, _("Image file not loaded (%s)…"),
+        Log_Print (LOG_ERROR, _("Image file not loaded: %s"),
                    g_strerror(errno));
 #ifdef G_OS_WIN32
         g_free(filename);
@@ -1134,7 +1134,7 @@ Picture_Load_File_Data (const gchar *filename)
         gtk_dialog_run(GTK_DIALOG(msgdialog));
         gtk_widget_destroy(msgdialog);
 
-        Log_Print (LOG_ERROR, _("Image file not loaded (%s)…"),
+        Log_Print (LOG_ERROR, _("Image file not loaded: %s"),
                    g_strerror(errno));
         g_free (buffer);
         g_free(filename_utf8);
@@ -1155,7 +1155,7 @@ Picture_Load_File_Data (const gchar *filename)
         if (buffer)
             g_free(buffer);
         
-        Log_Print (LOG_ERROR, _("Image file not loaded (%s)…"),
+        Log_Print (LOG_ERROR, _("Image file not loaded: %s"),
                    g_strerror(errno));
 
         return NULL;
@@ -1168,7 +1168,7 @@ Picture_Load_File_Data (const gchar *filename)
         pic->size = size;
         pic->data = (guchar *)buffer;
 
-        Log_Print (LOG_OK, _("Image file loaded…"));
+        Log_Print (LOG_OK, _("Image file loaded"));
 
         return pic;
     }
@@ -1185,7 +1185,7 @@ Picture_Save_File_Data (const Picture *pic, const gchar *filename)
     fd = open(filename, O_WRONLY|O_CREAT|O_TRUNC, 0666);
     if (fd == -1)
     {
-        Log_Print (LOG_ERROR, _("Image file cannot be saved (%s)…"),
+        Log_Print (LOG_ERROR, _("Image file cannot be saved: %s"),
                    g_strerror(errno));
         return FALSE;
     }
@@ -1193,7 +1193,7 @@ Picture_Save_File_Data (const Picture *pic, const gchar *filename)
     if (write(fd, pic->data, pic->size) != pic->size)
     {
         close(fd);
-        Log_Print (LOG_ERROR, _("Image file cannot be saved (%s)…"),
+        Log_Print (LOG_ERROR, _("Image file cannot be saved: %s"),
                    g_strerror(errno));
         return FALSE;
     }
