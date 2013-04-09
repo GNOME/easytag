@@ -2255,7 +2255,7 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
     File_Name *FileNameNew;
     double     fraction;
     GtkAction *uiaction;
-    GtkWidget *TBViewMode;
+    GtkWidget *toggle_radio;
     GtkWidget *widget_focused;
     GtkTreePath *currentPath = NULL;
 
@@ -2419,8 +2419,9 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
     Browser_List_Select_File_By_Etfile(etfile_save_position,TRUE);
 
     /* Browser is on mode : Artist + Album list */
-    TBViewMode = gtk_ui_manager_get_widget(UIManager, "/ToolBar/ViewModeToggle");
-    if ( gtk_toggle_tool_button_get_active(GTK_TOGGLE_TOOL_BUTTON(TBViewMode)) )
+    toggle_radio = gtk_ui_manager_get_widget (UIManager,
+                                              "/ToolBar/ArtistViewMode");
+    if (gtk_toggle_tool_button_get_active (GTK_TOGGLE_TOOL_BUTTON (toggle_radio)))
         Browser_Display_Tree_Or_Artist_Album_List();
 
     /* To update state of command buttons */
