@@ -74,13 +74,7 @@ enum
 enum
 {
     LIST_FILE_NAME,
-    LIST_FILE_POINTER,
-    LIST_FILE_KEY,
-    LIST_FILE_OTHERDIR, // To change color for other directories
-    LIST_FONT_WEIGHT,
-    LIST_ROW_BACKGROUND,
-    LIST_ROW_FOREGROUND,
-    // Tag fields
+    /* Tag fields. */
     LIST_FILE_TITLE,
     LIST_FILE_ARTIST,
     LIST_FILE_ALBUM_ARTIST,
@@ -95,6 +89,13 @@ enum
     LIST_FILE_COPYRIGHT,
     LIST_FILE_URL,
     LIST_FILE_ENCODED_BY,
+    /* End of columns with associated UI columns. */
+    LIST_FILE_POINTER,
+    LIST_FILE_KEY,
+    LIST_FILE_OTHERDIR, /* To change color for alternate directories. */
+    LIST_FONT_WEIGHT,
+    LIST_ROW_BACKGROUND,
+    LIST_ROW_FOREGROUND,
     LIST_COLUMN_COUNT
 };
 
