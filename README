@@ -34,7 +34,7 @@ Currently EasyTAG supports the following:
 * read file header information (bitrate, time, …) and display them
 * auto completion of the date if a partial is entered
 * undo and redo last changes
-* ability to process fields of tag and file name (convert letters into
+* ability to process fields of tag and filename (convert letters into
   upper case, lower case, …)
 * ability to open a directory or a file with an external program
 * remote and local CDDB support for manual or automatic search

@@ -707,10 +707,11 @@ Scan_Rename_File_With_Mask (ET_File *ETFile)
     ET_Manage_Changes_Of_File_Data(ETFile,FileName,NULL);
     g_free(filename_new_utf8);
 
-    Statusbar_Message(_("New file name successfully scanned…"),TRUE);
+    Statusbar_Message (_("New filename successfully scanned"),TRUE);
 
     filename_new_utf8 = g_path_get_basename(((File_Name *)ETFile->FileNameNew->data)->value_utf8);
-    Log_Print(LOG_OK,_("New file name successfully scanned…(%s)"),filename_new_utf8);
+    Log_Print (LOG_OK, _("New filename successfully scanned: %s"),
+               filename_new_utf8);
     g_free(filename_new_utf8);
 
     return;
@@ -1115,7 +1116,7 @@ Scan_Process_Fields (ET_File *ETFile)
     /* Process the filename */
     if (st_filename != NULL)
     {
-        if (st_filename->value_utf8 && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFileNameField))) // File name field
+        if (st_filename->value_utf8 && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFileNameField)))
         {
             gchar *string_utf8;
             gchar *pos;
@@ -2462,8 +2463,8 @@ void Open_ScannerWindow (gint scanner_type)
 
     gtk_box_pack_start(GTK_BOX(HBox2),ScanTagMaskCombo,TRUE,TRUE,2);
     gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(ScanTagMaskCombo)))),
-        _("Select or type in a mask using codes (see Legend) to parse file name and "
-        "path. Used to fill in tag fields."));
+        _("Select or type in a mask using codes (see Legend) to parse "
+        "filename and path. Used to fill in tag fields"));
     // Signal to generate preview (preview of the new tag values)
     g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(ScanTagMaskCombo)))),"changed",
         G_CALLBACK(Scan_Fill_Tag_Generate_Preview),NULL);
@@ -2585,7 +2586,8 @@ void Open_ScannerWindow (gint scanner_type)
                                    "those which interest you"));
     // Advice for Translators: set the first letter of filename translated
     ProcessFileNameField = gtk_toggle_button_new_with_label(   _("F"));
-    gtk_widget_set_tooltip_text(ProcessFileNameField,          _("Process file name field"));
+    gtk_widget_set_tooltip_text (ProcessFileNameField,
+                                 _("Process filename field"));
     // Advice for Translators: set the first letter of title translated
     ProcessTitleField = gtk_toggle_button_new_with_label(      _("T"));
     gtk_widget_set_tooltip_text(ProcessTitleField,             _("Process title field"));

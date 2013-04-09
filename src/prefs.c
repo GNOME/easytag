@@ -290,8 +290,10 @@ void Open_OptionsWindow (void)
     gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(SortingFileCombo),2); // Two columns
 
     // Items of option menu
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending file name"));
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending file name"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
+                                    _("Ascending filename"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
+                                    _("Descending filename"));
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending title"));
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending title"));
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending artist"));
@@ -498,8 +500,8 @@ void Open_OptionsWindow (void)
         "file information by detecting changes of the parent directory."));
 
 
-    /* Character Set for File Name */
-    Frame = gtk_frame_new (_("Character Set for File Name"));
+    /* Character Set for Filename */
+    Frame = gtk_frame_new (_("Character Set for Filename"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
     vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
@@ -1393,7 +1395,7 @@ void Open_OptionsWindow (void)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbUseDLM),CDDB_USE_DLM);
     gtk_widget_set_tooltip_text(CddbUseDLM,_("When activating this option, the "
         "Levenshtein algorithm (DLM: Damerau-Levenshtein Metric) will be used "
-        "to match the CDDB title against every file name in the current folder, "
+        "to match the CDDB title against every filename in the current folder, "
         "and to select the best match. This will be used when selecting the "
         "corresponding audio file, or applying CDDB results, instead of using "
         "directly the position order."));

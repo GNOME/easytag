@@ -3027,13 +3027,18 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     GtkCellRenderer *renderer;
     GtkTreeViewColumn *column;
     GtkWidget *PopupMenu;
-    gchar *BrowserTree_Titles[] = {N_("Tree")};
-    gchar *BrowserList_Titles[] = {N_("File Name"),N_("Title"),N_("Artist"),N_("Album Artist"),N_("Album"),
-                                   N_("Year"),N_("Disc"),N_("Track"),N_("Genre"),N_("Comment"),
-                                   N_("Composer"),N_("Original Artist"),N_("Copyright"),
-                                   N_("URL"),N_("Encoded By")};
-    gchar *ArtistList_Titles[]  = {N_("Artist"),N_("# Albums"),N_("# Files")};
-    gchar *AlbumList_Titles[]   = {N_("Album"),N_("# Files")};
+    const gchar *BrowserTree_Titles[] = { N_("Tree") };
+    const gchar *BrowserList_Titles[] = { N_("Filename"), N_("Title"),
+                                          N_("Artist"), N_("Album Artist"),
+                                          N_("Album"), N_("Year"), N_("Disc"),
+                                          N_("Track"), N_("Genre"),
+                                          N_("Comment"), N_("Composer"),
+                                          N_("Original Artist"),
+                                          N_("Copyright"), N_("URL"),
+                                          N_("Encoded By") };
+    const gchar *ArtistList_Titles[] = { N_("Artist"), N_("# Albums"),
+                                         N_("# Files") };
+    const gchar *AlbumList_Titles[] = { N_("Album"), N_("# Files") };
 
     VerticalBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
     gtk_container_set_border_width(GTK_CONTAINER(VerticalBox),2);
@@ -3330,7 +3335,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
 
     /* The file list */
     fileListModel = gtk_list_store_new (LIST_COLUMN_COUNT,
-                                        G_TYPE_STRING, /* File name. */
+                                        G_TYPE_STRING, /* Filename. */
                                         G_TYPE_STRING, /* Title tag. */
                                         G_TYPE_STRING, /* Artist tag. */
                                         G_TYPE_STRING, /* Album artist tag. */

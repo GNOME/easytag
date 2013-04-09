@@ -1562,7 +1562,7 @@ Playlist_Write_Button_Pressed (void)
     // Path of the playlist file (may be truncated later if PLAYLIST_CREATE_IN_PARENT_DIR is TRUE)
     playlist_path_utf8 = filename_to_display(Browser_Get_Current_Path());
 
-    // Build the playlist file name
+    /* Build the playlist filename. */
     if (PLAYLIST_USE_MASK_NAME)
     {
 
@@ -1612,7 +1612,7 @@ Playlist_Write_Button_Pressed (void)
 
     }
 
-    // Must be placed after "Build the playlist file name", as we can truncate the path!
+    // Must be placed after "Build the playlist filename", as we can truncate the path!
     if (PLAYLIST_CREATE_IN_PARENT_DIR)
     {
         if ( (strcmp(playlist_path_utf8,G_DIR_SEPARATOR_S) != 0) )
@@ -1926,7 +1926,7 @@ void Open_Search_File_Window (void)
     GtkWidget *ScrollWindow;
     GtkTreeViewColumn* column;
     GtkCellRenderer* renderer;
-    gchar *SearchResultList_Titles[] = { N_("File Name"),
+    gchar *SearchResultList_Titles[] = { N_("Filename"),
                                          N_("Title"),
                                          N_("Artist"),
                                          N_("Album Artist"),
@@ -3325,7 +3325,7 @@ Load_Filename_Select_Row_In_Other_List (GtkWidget* treeview_target, gpointer ori
 }
 
 /*
- * Set the new file name of each file.
+ * Set the new filename of each file.
  * Associate lines from LoadFileContentList with LoadFileNameList
  */
 static void

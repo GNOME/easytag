@@ -728,7 +728,7 @@ void Open_Cddb_Window (void)
 
     CddbSetToAllFields  = gtk_check_button_new_with_label(_("All"));
     Separator           = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
-    CddbSetToFileName   = gtk_check_button_new_with_label(_("File Name"));
+    CddbSetToFileName   = gtk_check_button_new_with_label(_("Filename"));
     CddbSetToTitle      = gtk_check_button_new_with_label(_("Title"));
     CddbSetToArtist     = gtk_check_button_new_with_label(_("Artist"));
     CddbSetToAlbum      = gtk_check_button_new_with_label(_("Album"));
@@ -786,7 +786,7 @@ void Open_Cddb_Window (void)
     //gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbUseDLM2),CDDB_USE_DLM);
     gtk_widget_set_tooltip_text(CddbUseDLM2,_("When activating this option, the "
         "Levenshtein algorithm (DLM: Damerau-Levenshtein Metric) will be used "
-        "to match the CDDB title against every file name in the current folder, "
+        "to match the CDDB title against every filename in the current folder, "
         "and to select the best match. This will be used when selecting the "
         "corresponding audio file, or applying CDDB results, instead of using "
         "directly the position order."));
@@ -2984,7 +2984,7 @@ Cddb_Search_Album_From_Selected_Files (void)
                 // Parameters of the server used (Local acces => specific!)
                 cddbalbum->server_name     = NULL;                // No server name
                 cddbalbum->server_port     = 0;                   // No server port
-                cddbalbum->server_cgi_path = g_strdup(file_path); // File name
+                cddbalbum->server_cgi_path = g_strdup(file_path); /* Filename. */
                 cddbalbum->bitmap          = Cddb_Get_Pixbuf_From_Server_Name(file_path);
 
                 // Get album category

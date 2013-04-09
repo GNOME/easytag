@@ -1070,7 +1070,7 @@ void ET_Sort_Displayed_File_List_And_Update_UI (ET_Sorting_Type Sorting_Type)
 
 
 /*
- * Comparison function for sorting by ascending file name.
+ * Comparison function for sorting by ascending filename.
  */
 gint ET_Comp_Func_Sort_File_By_Ascending_Filename (ET_File *ETFile1, ET_File *ETFile2)
 {
@@ -1082,7 +1082,7 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Filename (ET_File *ETFile1, ET_File *ET
 }
 
 /*
- * Comparison function for sorting by descending file name.
+ * Comparison function for sorting by descending filename.
  */
 gint ET_Comp_Func_Sort_File_By_Descending_Filename (ET_File *ETFile1, ET_File *ETFile2)
 {
@@ -3255,9 +3255,9 @@ ET_Save_File_Name_From_UI (ET_File *ETFile, File_Name *FileName)
     // Convert the illegal characters
     ET_File_Name_Convert_Character(filename_new); // FIX ME : should be in UTF8?
 
-    // Set the new file name (in file system encoding)
+    /* Set the new filename (in file system encoding). */
     FileName->value = g_strconcat(dirname,G_DIR_SEPARATOR_S,filename_new,NULL);
-    // Set the new file name (in UTF-8 encoding)
+    /* Set the new filename (in UTF-8 encoding). */
     FileName->value_utf8 = filename_to_display(FileName->value);
     // Calculates collate key
     FileName->value_ck = g_utf8_collate_key_for_filename(FileName->value_utf8, -1);
@@ -3312,9 +3312,9 @@ ET_Save_File_Name_Internal (ET_File *ETFile, File_Name *FileName)
         // Convert the illegal characters
         ET_File_Name_Convert_Character(filename_new);
 
-        // Set the new file name (in file system encoding)
+        /* Set the new filename (in file system encoding). */
         FileName->value = g_strconcat(dirname,G_DIR_SEPARATOR_S,filename_new,NULL);
-        // Set the new file name (in UTF-8 encoding)
+        /* Set the new filename (in UTF-8 encoding). */
         FileName->value_utf8 = filename_to_display(FileName->value);
         // Calculate collate key
         FileName->value_ck = g_utf8_collate_key_for_filename(FileName->value_utf8, -1);
@@ -3928,10 +3928,10 @@ void ET_Update_Directory_Name_Into_File_List (gchar* last_path, gchar *new_path)
                                                    (new_path[strlen(new_path)-1]==G_DIR_SEPARATOR) ? "" : G_DIR_SEPARATOR_S,
                                                    &filename[strlen(last_path_tmp)],NULL);
 
-                        // Replace the file name (in file system encoding)
+                        /* Replace the filename (in file system encoding). */
                         g_free(FileName->value);
                         FileName->value = filename_tmp;
-                        // Replace the file name (in file system encoding)
+                        /* Replace the filename (in file system encoding). */
                         g_free(FileName->value_utf8);
                         FileName->value_utf8 = filename_to_display(FileName->value);
                         // Recalculate the collate key
@@ -4585,7 +4585,8 @@ ET_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
 
 
 /*
- * This function generates a new file name using path of the old file and the new name
+ * This function generates a new filename using path of the old file and the
+ * new name.
  * - ETFile -> old_file_name : "/path_to_file/old_name.ext"
  * - new_file_name_utf8      : "new_name.ext"
  * Returns "/path_to_file/new_name.ext" into allocated data (in UTF-8)!

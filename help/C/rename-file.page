@@ -36,7 +36,7 @@
       <p>Using the <gui>Legend</gui>, type in the structure<!--find better
       word--> that you would like to use for the file naming. For example, if
       you wish your files to be named
-      <file>[artist] - [title].[extention]</file>, enter <gui>%a - %t</gui> into
+      <file>[artist] - [title].[extension]</file>, enter <gui>%a - %t</gui> into
       the renaming field.</p>
     </item>
     <item>
@@ -45,7 +45,7 @@
       <gui style="menuitem">Scan Files…</gui></guiseq>.</p>
     </item>
     <item>
-      <p>Close the <gui style="dialog">Tag and File Name scan</gui> dialog.</p>
+      <p>Close the <gui style="dialog">Tag and Filename scan</gui> dialog.</p>
     </item>
     <item>
       <p>To save the applied changes, select

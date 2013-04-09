@@ -517,7 +517,7 @@ Create_File_Area (void)
     FileIndex = gtk_label_new("0/0:");
     gtk_box_pack_start(GTK_BOX(HBox),FileIndex,FALSE,FALSE,0);
 
-    /* File name */
+    /* Filename. */
     FileEntry = gtk_entry_new();
     gtk_editable_set_editable(GTK_EDITABLE(FileEntry), TRUE);
     gtk_box_pack_start(GTK_BOX(HBox),FileEntry,TRUE,TRUE,2);
@@ -3089,7 +3089,7 @@ Rename_File (ET_File *ETFile, gboolean hide_msgbox)
         return FALSE;
     }
 
-    /* Check if the new file name already exists. Must be done after changing
+    /* Check if the new filename already exists. Must be done after changing
      * filename to the temporary name, else we can't detect the problem under
      * Linux when renaming a file 'aa.mp3' to 'AA.mp3' and if the last one
      * already exists */

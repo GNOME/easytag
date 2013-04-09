@@ -281,7 +281,7 @@ struct _ET_File
 
     GList *FileNameCur;       /* Points to item of FileNameList that represents the current value of filename state (i.e. file on hard disk) */
     GList *FileNameNew;       /* Points to item of FileNameList that represents the new value of filename state */
-    GList *FileNameList;      /* Contains the history of changes about the file name */
+    GList *FileNameList; /* Contains the history of changes about the filename. */
     GList *FileNameListBak;   /* Contains items of FileNameList removed by 'undo' procedure but have data currently saved (for example, when you save your last changes, make some 'undo', then make new changes) */
     
     GList *FileTag;           /* Points to the current item used of FileTagList */

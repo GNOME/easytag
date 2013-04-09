@@ -524,7 +524,7 @@ WinMain (struct HINSTANCE__ *hInstance, struct HINSTANCE__ *hPrevInstance,
 		if (prev) {
 			prev[0] = '\0';
 
-			/* prev++ will now point to the executable file name */
+			/* prev++ will now point to the executable filename. */
 			strcpy(exe_name, prev + 1);
 
 			strcat(easytag_dir, "\\exchndl.dll");

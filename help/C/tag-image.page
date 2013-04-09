@@ -52,7 +52,7 @@
 
   <p>If the file if already tagged with an image, you can export the image by
   selecting it and pressing <gui style="button">Save the selected images to
-  files</gui> button. The default file name will be the image description.</p>
+  files</gui> button. The default filename will be the image description.</p>
 
   <note>
     <p>Not all files support the image field. <sys>mp4</sys> files are one
