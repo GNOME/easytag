@@ -681,6 +681,7 @@ Apply_Changes_Of_Preferences_Window (void)
         SHOW_LOG_VIEW                          = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ShowLogView));
 
         SORTING_FILE_MODE = gtk_combo_box_get_active(GTK_COMBO_BOX(SortingFileCombo));
+        Browser_List_Refresh_Sort ();
 
         if (AUDIO_FILE_PLAYER) g_free(AUDIO_FILE_PLAYER);
         AUDIO_FILE_PLAYER                       = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)))));
