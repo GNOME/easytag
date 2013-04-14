@@ -790,26 +790,25 @@ gchar *Scan_Generate_New_Filename_From_Mask (ET_File *ETFile, gchar *mask, gbool
             mask_item->string = g_strdup(*source);
 
             // Replace invalid characters for this field
-            // Note : shouldn't be done always as for the content of a playlist, we don't need to replace...
+            /* Do not replace characters in a playlist information field. */
             if (!no_dir_check_or_conversion)
             {
                 ET_File_Name_Convert_Character(mask_item->string);
-            }
 
-            // Replace characters (rules) (!! don't convert in directory path_utf8_cur)
-            if (RFS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE)
-            {
-                Scan_Convert_Underscore_Into_Space(mask_item->string);
-                Scan_Convert_P20_Into_Space(mask_item->string);
+                if (RFS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE)
+                {
+                    Scan_Convert_Underscore_Into_Space(mask_item->string);
+                    Scan_Convert_P20_Into_Space(mask_item->string);
+                }
+                if (RFS_CONVERT_SPACE_INTO_UNDERSCORE)
+                {
+                    Scan_Convert_Space_Into_Undescore(mask_item->string);
+                }
+                if (RFS_REMOVE_SPACES)
+                {
+                    Scan_Remove_Spaces(mask_item->string);
+                }
             }
-            if (RFS_CONVERT_SPACE_INTO_UNDERSCORE)
-						 {
-                Scan_Convert_Space_Into_Undescore(mask_item->string);
-						 }
-						 if (RFS_REMOVE_SPACES)
-						 {
-						    Scan_Remove_Spaces(mask_item->string);
-						 }
         }else
         {
             mask_item->type = EMPTY_FIELD;
