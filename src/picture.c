@@ -1209,6 +1209,18 @@ Picture_Save_File_Data (const Picture *pic, const gchar *filename)
  */
 gboolean Picture_Entry_View_Button_Pressed (GtkTreeView *treeview, GdkEventButton *event, gpointer data)
 {
+    if (event->type == GDK_BUTTON_PRESS && event->button == 1)
+    {
+        if (event->window == gtk_tree_view_get_bin_window (treeview))
+        {
+            if (!gtk_tree_view_get_path_at_pos (treeview, event->x, event->y,
+                                                NULL, NULL, NULL, NULL))
+            {
+                gtk_tree_selection_unselect_all (gtk_tree_view_get_selection (treeview));
+            }
+        }
+    }
+
     if (event->type==GDK_2BUTTON_PRESS && event->button==1)
     {
         GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(PictureEntryView));
