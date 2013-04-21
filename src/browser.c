@@ -156,7 +156,7 @@ static gboolean Browser_Win32_Get_Drive_Root (gchar *drive,
                                               GtkTreePath **rootPath);
 #endif /* G_OS_WIN32 */
 
-static gboolean check_for_subdir   (gchar *path);
+static gboolean check_for_subdir (const gchar *path);
 
 static GtkTreePath *Find_Child_Node(GtkTreeIter *parent, gchar *searchtext);
 
@@ -2691,11 +2691,15 @@ GtkTreePath *Find_Child_Node (GtkTreeIter *parentnode, gchar *childtext)
 }
 
 /*
- * Check if path has any subdirectories
- * Returns true if subdirectories exist.
- * path should be in raw filename format (non-UTF8)
+ * check_for_subdir:
+ * @path: (type filename): the path to test
+ *
+ * Check if @path has any subdirectories.
+ *
+ * Returns: %TRUE if subdirectories exist, %FALSE otherwise
  */
-static gboolean check_for_subdir (gchar *path)
+static gboolean
+check_for_subdir (const gchar *path)
 {
     DIR *dir;
     struct dirent *dirent;
