@@ -113,6 +113,7 @@ Menu_Sort_Action (GtkAction *item, gpointer data)
     QCASE_DATA(AM_SORT_ASCENDING_FILE_SAMPLERATE,  ET_Sort_Displayed_File_List_And_Update_UI, SORTING_BY_ASCENDING_FILE_SAMPLERATE);
     QCASE_DATA(AM_SORT_DESCENDING_FILE_SAMPLERATE, ET_Sort_Displayed_File_List_And_Update_UI, SORTING_BY_DESCENDING_FILE_SAMPLERATE);
     QCASE_DATA(AM_INITIALIZE_TREE,                 Browser_Tree_Rebuild,                      NULL);
+    Browser_List_Refresh_Sort ();
 }
 
 void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
