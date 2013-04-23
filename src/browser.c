@@ -102,6 +102,19 @@ static gchar *Rename_Directory_Masks [] =
     NULL
 };
 
+/*
+ * EtPathState:
+ * @ET_PATH_STATE_OPEN: the path is open or has been read
+ * @ET_PATH_STATE_CLOSED: the path is closed or could not be read
+ *
+ * Whether to generate an icon with an indicaton that the directory is open
+ * (being viewed) or closed (not yet viewed or read).
+ */
+typedef enum
+{
+    ET_PATH_STATE_OPEN,
+    ET_PATH_STATE_CLOSED
+} EtPathState;
 
 /**************
  * Prototypes *
@@ -160,7 +173,7 @@ static gboolean check_for_subdir (const gchar *path);
 
 static GtkTreePath *Find_Child_Node(GtkTreeIter *parent, gchar *searchtext);
 
-static GIcon *get_gicon_for_path (const gchar *path);
+static GIcon *get_gicon_for_path (const gchar *path, EtPathState path_state);
 
 static void expand_cb   (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *path, gpointer data);
 static void collapse_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *treePath, gpointer data);
@@ -2473,7 +2486,7 @@ Browser_Tree_Initialize (void)
     }
 
 #else /* !G_OS_WIN32 */
-    drive_icon = g_themed_icon_new ("folder");
+    drive_icon = get_gicon_for_path (G_DIR_SEPARATOR_S, ET_PATH_STATE_CLOSED);
     gtk_tree_store_append(directoryTreeModel, &parent_iter, NULL);
     gtk_tree_store_set(directoryTreeModel, &parent_iter,
                        TREE_COLUMN_DIR_NAME,    G_DIR_SEPARATOR_S,
@@ -2752,6 +2765,7 @@ check_for_subdir (const gchar *path)
 /*
  * get_gicon_for_path:
  * @path: (type filename): path to create icon for
+ * @path_state: whether the icon should be shown open or closed
  *
  * Check the permissions for the supplied @path (authorized?, readonly?,
  * unreadable?) and return an appropriate icon.
@@ -2759,65 +2773,74 @@ check_for_subdir (const gchar *path)
  * Returns: an icon corresponding to the @path
  */
 static GIcon *
-get_gicon_for_path (const gchar *path)
+get_gicon_for_path (const gchar *path, EtPathState path_state)
 {
     GIcon *folder_icon;
-    DIR *dir;
+    GIcon *emblem_icon;
+    GIcon *emblemed_icon;
+    GEmblem *emblem;
+    GFile *file;
+    GFileInfo *info;
+    GError *error = NULL;
 
-    folder_icon = g_themed_icon_new ("folder");
-/* FIXME: Use GFile. Implement the read-only check ifdeffed below. */
-#if 0
-    // TESTING : to display a different icon for non writable directories
-    struct stat statbuf;
-    if (stat(path,&statbuf) == 0)
+    switch (path_state)
     {
-        //aaaaaaaaaaaaaaaaaaaaaaaaa
-        //g_print(">>%04X %x %x %s\n",statbuf.st_mode,S_IRUSR|S_IRGRP,S_IWUSR|S_IWGRP,path);
-        g_print(">>%04X %x %x %s\n",statbuf.st_mode,S_IRUSR,S_IWUSR,path);
-        if ( (statbuf.st_mode & ~S_IRUSR)==0 )
-        {
-            return closed_folder_unreadable_pixmap;
-
-        }else if ( (statbuf.st_mode & ~S_IWUSR)==0 )
-        {
-            return closed_folder_readonly_pixmap;
-
-        }else
-        {
-            return closed_folder_pixmap;
-        }
-    }else
-    {
-            return closed_folder_pixmap;
+        case ET_PATH_STATE_OPEN:
+            folder_icon = g_themed_icon_new ("folder-open");
+            break;
+        case ET_PATH_STATE_CLOSED:
+            folder_icon = g_themed_icon_new ("folder");
+            break;
+        default:
+            g_assert_not_reached ();
     }
 
-#else
+    file = g_file_new_for_path (path);
+    info = g_file_query_info (file, G_FILE_ATTRIBUTE_ACCESS_CAN_READ ","
+                              G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE,
+                              G_FILE_QUERY_INFO_NONE, NULL, &error);
 
-    if( (dir=opendir(path)) == NULL )
+    if (info == NULL)
     {
-        if (errno == EACCES)
-        {
-            GEmblem *unreadable_emblem;
-            GIcon *unreadable_icon;
-            GIcon *emblemed_icon;
-
-            unreadable_icon = g_themed_icon_new ("emblem-unreadable");
-            unreadable_emblem = g_emblem_new_with_origin (unreadable_icon,
-                                                          G_EMBLEM_ORIGIN_LIVEMETADATA);
-            emblemed_icon = g_emblemed_icon_new (folder_icon,
-                                                 unreadable_emblem);
-            g_object_unref (folder_icon);
-            g_object_unref (unreadable_icon);
-            g_object_unref (unreadable_emblem);
-
-            return emblemed_icon;
-        }
-    } else
-    {
-        closedir(dir);
+        g_warning ("Error while querying path information: %s",
+                   error->message);
+        g_clear_error (&error);
+        info = g_file_info_new ();
+        g_file_info_set_attribute_boolean (info,
+                                           G_FILE_ATTRIBUTE_ACCESS_CAN_READ,
+                                           FALSE);
     }
+
+    if (!g_file_info_get_attribute_boolean (info,
+                                            G_FILE_ATTRIBUTE_ACCESS_CAN_READ))
+    {
+        emblem_icon = g_themed_icon_new ("emblem-unreadable");
+        emblem = g_emblem_new_with_origin (emblem_icon,
+                                           G_EMBLEM_ORIGIN_LIVEMETADATA);
+        emblemed_icon = g_emblemed_icon_new (folder_icon, emblem);
+        g_object_unref (folder_icon);
+        g_object_unref (emblem_icon);
+        g_object_unref (emblem);
+
+        folder_icon = emblemed_icon;
+    }
+    else if (!g_file_info_get_attribute_boolean (info, G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE))
+    {
+        emblem_icon = g_themed_icon_new ("emblem-readonly");
+        emblem = g_emblem_new_with_origin (emblem_icon,
+                                           G_EMBLEM_ORIGIN_LIVEMETADATA);
+        emblemed_icon = g_emblemed_icon_new (folder_icon, emblem);
+        g_object_unref (folder_icon);
+        g_object_unref (emblem_icon);
+        g_object_unref (emblem);
+
+        folder_icon = emblemed_icon;
+    }
+
+    g_object_unref (file);
+    g_object_unref (info);
+
     return folder_icon;
-#endif
 }
 
 
@@ -2919,7 +2942,8 @@ static void expand_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *gtreePat
                     has_subdir = FALSE;
 
                 // Select pixmap according permissions for the directory
-                icon = get_gicon_for_path (path);
+                icon = get_gicon_for_path (fullpath_file,
+                                           ET_PATH_STATE_CLOSED);
 
                 gtk_tree_store_append(directoryTreeModel, &currentIter, iter);
                 gtk_tree_store_set(directoryTreeModel, &currentIter,
@@ -2949,7 +2973,7 @@ static void expand_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *gtreePat
     gtk_tree_model_iter_children(GTK_TREE_MODEL(directoryTreeModel), &subNodeIter, iter);
     gtk_tree_store_remove(directoryTreeModel, &subNodeIter);
 
-    icon = g_themed_icon_new ("folder-open");
+    icon = get_gicon_for_path (parentPath, ET_PATH_STATE_OPEN);
 #ifdef G_OS_WIN32
     // set open folder pixmap except on drive (depth == 0)
     if (gtk_tree_path_get_depth(gtreePath) > 1)
@@ -2978,6 +3002,7 @@ static void expand_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *gtreePat
 static void collapse_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *treePath, gpointer data)
 {
     GtkTreeIter subNodeIter;
+    gchar *path;
     GIcon *icon;
 
     g_return_if_fail (directoryTreeModel != NULL);
@@ -2990,7 +3015,10 @@ static void collapse_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *treePa
         gtk_tree_store_remove(directoryTreeModel, &subNodeIter);
     }
 
-    icon = g_themed_icon_new ("folder-open");
+    gtk_tree_model_get (GTK_TREE_MODEL (directoryTreeModel), iter,
+                        TREE_COLUMN_FULL_PATH, &path, -1);
+    icon = get_gicon_for_path (path, ET_PATH_STATE_OPEN);
+    g_free (path);
 #ifdef G_OS_WIN32
     // set closed folder pixmap except on drive (depth == 0)
     if(gtk_tree_path_get_depth(treePath) > 1)
