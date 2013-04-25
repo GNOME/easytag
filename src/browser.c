@@ -807,17 +807,30 @@ Browser_Tree_Node_Selected (GtkTreeSelection *selection, gpointer user_data)
         {
             if (gtk_tree_selection_get_selected(selection, NULL, &selectedIter))
             {
+                GFile *file = g_file_new_for_path (pathName);
+
+                /* If the path could not be read, then it is possible that it
+                 * has a subdirectory with readable permissions. In that case
+                 * do not refresh the children. */
                 if (gtk_tree_model_iter_parent(GTK_TREE_MODEL(directoryTreeModel),&parentIter,&selectedIter) )
                 {
                     selectedPath = gtk_tree_model_get_path(GTK_TREE_MODEL(directoryTreeModel), &parentIter);
                     gtk_tree_selection_select_iter (selection, &parentIter);
-                    gtk_tree_view_collapse_row(GTK_TREE_VIEW(BrowserTree),selectedPath);
-                    if (OPEN_SELECTED_BROWSER_NODE)
+                    if (gtk_tree_model_iter_has_child (GTK_TREE_MODEL (directoryTreeModel),
+                                                       &selectedIter) == FALSE
+                                                       && !g_file_query_exists (file, NULL))
                     {
-                        gtk_tree_view_expand_row(GTK_TREE_VIEW(BrowserTree),selectedPath,FALSE);
+                        gtk_tree_view_collapse_row (GTK_TREE_VIEW (BrowserTree),
+                                                    selectedPath);
+                        if (OPEN_SELECTED_BROWSER_NODE)
+                        {
+                            gtk_tree_view_expand_row (GTK_TREE_VIEW (BrowserTree),
+                                                      selectedPath, FALSE);
+                        }
+                        gtk_tree_path_free (selectedPath);
                     }
-                    gtk_tree_path_free(selectedPath);
                 }
+                g_object_unref (file);
             }
         }
 
@@ -933,7 +946,50 @@ gboolean Browser_Tree_Select_Dir (const gchar *current_path)
 
         if (!gtk_tree_model_iter_children(GTK_TREE_MODEL(directoryTreeModel), &currentNode, &parentNode))
         {
-            break;
+            gchar *current_path, *parent_path;
+            GFile *file;
+
+            gtk_tree_model_get (GTK_TREE_MODEL (directoryTreeModel),
+                                &parentNode, TREE_COLUMN_FULL_PATH,
+                                &parent_path, -1);
+            current_path = g_build_path (G_DIR_SEPARATOR_S, parent_path,
+                                         parts[index], NULL);
+            g_free (parent_path);
+
+            file = g_file_new_for_path (current_path);
+
+            /* As dir name was not found in any node, check whether it exists
+             * or not. */
+            if (g_file_query_file_type (file, G_FILE_QUERY_INFO_NONE, NULL)
+                == G_FILE_TYPE_DIRECTORY)
+            {
+                /* It exists and is readable permission of parent directory is executable */
+                GIcon *icon;
+                GtkTreeIter iter;
+
+                /* Create a new node for this directory name. */
+                icon = get_gicon_for_path (current_path, ET_PATH_STATE_CLOSED);
+
+                gtk_tree_store_insert_with_values (GTK_TREE_STORE (directoryTreeModel),
+                                                   &iter, &parentNode, 0,
+                                                   TREE_COLUMN_DIR_NAME, parts[index],
+                                                   TREE_COLUMN_FULL_PATH, current_path,
+                                                   TREE_COLUMN_HAS_SUBDIR, check_for_subdir (current_path),
+                                                   TREE_COLUMN_SCANNED, TRUE,
+                                                   TREE_COLUMN_ICON, icon, -1);
+
+                currentNode = iter;
+                g_object_unref (icon);
+            }
+            else
+            {
+                g_object_unref (file);
+                g_free (current_path);
+                break;
+            }
+
+            g_object_unref (file);
+            g_free (current_path);
         }
         do
         {
@@ -2967,13 +3023,14 @@ static void expand_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *gtreePat
 
         }
         closedir(dir);
+        /* Remove dummy node. */
+        gtk_tree_model_iter_children (GTK_TREE_MODEL (directoryTreeModel),
+                                      &subNodeIter, iter);
+        gtk_tree_store_remove (directoryTreeModel, &subNodeIter);
     }
 
-    // remove dummy node
-    gtk_tree_model_iter_children(GTK_TREE_MODEL(directoryTreeModel), &subNodeIter, iter);
-    gtk_tree_store_remove(directoryTreeModel, &subNodeIter);
-
     icon = get_gicon_for_path (parentPath, ET_PATH_STATE_OPEN);
+
 #ifdef G_OS_WIN32
     // set open folder pixmap except on drive (depth == 0)
     if (gtk_tree_path_get_depth(gtreePath) > 1)
@@ -3004,8 +3061,30 @@ static void collapse_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *treePa
     GtkTreeIter subNodeIter;
     gchar *path;
     GIcon *icon;
+    GFile *file;
+    GFileInfo *fileinfo;
 
     g_return_if_fail (directoryTreeModel != NULL);
+
+    gtk_tree_model_get (GTK_TREE_MODEL (directoryTreeModel), iter,
+                        TREE_COLUMN_FULL_PATH, &path, -1);
+
+    /* If the directory is not readable, do not delete its children. */
+    file = g_file_new_for_path (path);
+    g_free (path);
+    fileinfo = g_file_query_info (file, G_FILE_ATTRIBUTE_ACCESS_CAN_READ,
+                                  G_FILE_QUERY_INFO_NONE, NULL, NULL);
+
+    if (fileinfo
+        && !g_file_info_get_attribute_boolean (fileinfo,
+                                               G_FILE_ATTRIBUTE_ACCESS_CAN_READ))
+    {
+        g_object_unref (file);
+        g_object_unref (fileinfo);
+        return;
+    }
+    g_object_unref (file);
+    g_object_unref (fileinfo);
 
     gtk_tree_model_iter_children(GTK_TREE_MODEL(directoryTreeModel),
                                  &subNodeIter, iter);
