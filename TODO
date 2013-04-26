@@ -5,10 +5,9 @@ General tidying
 ---------------
 
 * Convert user guide to help in Mallard
-* Use DocBook XML for man page
 * Avoid using GdkWindow all over the place
 * Use PNG icons and drop the XPM ones
-* Use libproxy for proxy settings
+* Use GProxyResolver for proxy settings
 * Port configuration settings to use GSettings
 * Port file I/O to use GFile from GIO
 ** Additionally, make I/O asynchronous
