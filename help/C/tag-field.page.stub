@@ -1,0 +1,49 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:its="http://www.w3.org/2005/11/its"
+      type="topic" style="task"
+      id="tag-field">
+
+  <info>
+    <link type="guide" xref="index#main" group="#first"/>
+    <link type="guide" xref="tag" group="#first"/>
+    <revision version="0.1" pkgversion="2.1.9" date="2013-04-13" status="stub"/>
+
+    <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
+
+    <credit type="author">
+      <name>Ekaterina Gerasimova</name>
+      <email>kittykat3756@googlemail.com</email>
+    </credit>
+
+    <desc></desc>
+
+  </info>
+
+  <title>Tag a file</title>
+
+  <p>Audio files can support a number of different tag <em>fields</em> which
+  depend on the file format.</p>
+
+  <steps>
+    <item>
+      <p>Select the file that you wish to tag.</p>
+    </item>
+    <item>
+      <p>Update the field that you want to change.</p>
+    </item>
+    <item>
+      <p>Select
+      <guiseq><gui style="menu">File</gui><gui style="menuitem">Save files</gui></guiseq>.</p>
+    </item>
+    <item>
+      <p>When you are asked to <gui>Confirm Tag Writing</gui>, press
+      <gui style="button">Save</gui> to save the changes.</p>
+    </item>
+  </steps>
+
+  <p>You can tag multiple files with the same field by selecting them in the
+  list of files and pressing the <gui style="button">Tag selected files with
+  this […]</gui> button. You will need to save these changes to write them to
+  the files.</p>
+
+</page>
