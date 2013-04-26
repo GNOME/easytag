@@ -292,13 +292,7 @@ dist_noinst_DATA = \
 	doc/users_guide_german/images/playlist.png \
 	doc/users_guide_german/images/search.png \
 	doc/users_guide_german/images/t_easytag.jpg \
-	doc/users_guide_german/images/treeview.png \
-	doc/id3/easy.html \
-	doc/id3/id3v2.3.0.html \
-	doc/id3/id3v2_blocks.gif \
-	doc/id3/mpeghdr-19991222.htm \
-	doc/vorbis/v-comment.html \
-	doc/vorbis/white-ogg.png
+	doc/users_guide_german/images/treeview.png
 
 dist_noinst_SCRIPTS = \
 	autogen.sh
