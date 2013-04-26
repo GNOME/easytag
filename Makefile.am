@@ -166,6 +166,8 @@ pixmaps = \
 iconthemedir = $(datadir)/icons/hicolor
 
 appicon16dir = $(iconthemedir)/16x16/apps
+appicon22dir = $(iconthemedir)/22x22/apps
+appicon24dir = $(iconthemedir)/24x24/apps
 appicon32dir = $(iconthemedir)/32x32/apps
 appicon48dir = $(iconthemedir)/48x48/apps
 appicon64dir = $(iconthemedir)/64x64/apps
@@ -175,6 +177,10 @@ appiconscalabledir = $(iconthemedir)/scalable/apps
 
 dist_appicon16_DATA = \
 	data/icons/16x16/easytag.png
+dist_appicon22_DATA = \
+	data/icons/22x22/easytag.png
+dist_appicon24_DATA = \
+	data/icons/24x24/easytag.png
 dist_appicon32_DATA = \
 	data/icons/32x32/easytag.png
 dist_appicon48_DATA = \
