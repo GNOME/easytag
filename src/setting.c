@@ -396,7 +396,7 @@ void Init_Config_Variables (void)
 #ifdef G_OS_WIN32
     AUDIO_FILE_PLAYER                       = ET_Win32_Get_Audio_File_Player();
 #else /* !G_OS_WIN32 */
-    AUDIO_FILE_PLAYER                       = g_strdup("xmms -p");
+    AUDIO_FILE_PLAYER                       = g_strdup("xdg-open");
 #endif /* !G_OS_WIN32 */
 
     /*
