@@ -445,13 +445,13 @@ void Init_Config_Variables (void)
     FILE_WRITING_ID3V1_ICONV_OPTIONS_TRANSLIT       = 1;
     FILE_WRITING_ID3V1_ICONV_OPTIONS_IGNORE         = 0;
 
-    VORBIS_SPLIT_FIELD_TITLE                          = 1;
-    VORBIS_SPLIT_FIELD_ARTIST                         = 1;
-    VORBIS_SPLIT_FIELD_ALBUM                          = 1;
-    VORBIS_SPLIT_FIELD_GENRE                          = 1;
-    VORBIS_SPLIT_FIELD_COMMENT                        = 1;
-    VORBIS_SPLIT_FIELD_COMPOSER                       = 1;
-    VORBIS_SPLIT_FIELD_ORIG_ARTIST                    = 1;
+    VORBIS_SPLIT_FIELD_TITLE                          = 0;
+    VORBIS_SPLIT_FIELD_ARTIST                         = 0;
+    VORBIS_SPLIT_FIELD_ALBUM                          = 0;
+    VORBIS_SPLIT_FIELD_GENRE                          = 0;
+    VORBIS_SPLIT_FIELD_COMMENT                        = 0;
+    VORBIS_SPLIT_FIELD_COMPOSER                       = 0;
+    VORBIS_SPLIT_FIELD_ORIG_ARTIST                    = 0;
     /*
      * Scanner
      */
