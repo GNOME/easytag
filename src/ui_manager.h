@@ -191,7 +191,6 @@ static const gchar *ui_xml =
 "    <toolitem action='ArtistViewMode'/>"
 "    <separator />"
 
-"    <toolitem action='SelAll'/>"
 "    <toolitem action='SelInv'/>"
 "    <separator />"
 
