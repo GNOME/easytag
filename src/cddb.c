@@ -2793,7 +2793,7 @@ Cddb_Search_Album_From_Selected_Files (void)
     gulong bytes_read_total = 0;
     FILE  *file = NULL;
 
-    gchar *cddb_in;               /* For the request to send */
+    gchar *cddb_in = NULL; /* For the request to send. */
     gchar *cddb_out = NULL;       /* Answer received */
     gchar *cddb_out_tmp;
     gchar *msg;
@@ -3129,6 +3129,7 @@ Cddb_Search_Album_From_Selected_Files (void)
                 return FALSE;
             }
             g_free(cddb_in);
+            cddb_in = NULL;
 
 
             /*
