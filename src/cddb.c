@@ -28,9 +28,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <sys/types.h>
-#ifdef G_OS_WIN32
 #include "win32/win32dep.h"
-#else /* !G_OS_WIN32 */
+#ifndef G_OS_WIN32
 #include <sys/socket.h>
 /* Patch OpenBSD from Jim Geovedi. */
 #include <netinet/in.h>

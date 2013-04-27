@@ -57,9 +57,8 @@
 #include "picture.h"
 #include "charset.h"
 
-#ifdef G_OS_WIN32
 #include "win32/win32dep.h"
-#else /* !G_OS_WIN32 */
+#ifndef G_OS_WIN32
 #include <sys/wait.h>
 #endif /* !G_OS_WIN32 */
 

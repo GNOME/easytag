@@ -35,9 +35,7 @@
 #include "setting.h"
 #include "log.h"
 
-#ifdef G_OS_WIN32
 #include "win32/win32dep.h"
-#endif /* G_OS_WIN32 */
 
 
 /****************

@@ -26,11 +26,6 @@ easytag_CFLAGS = \
 	$(WARN_CFLAGS) \
 	$(EASYTAG_CFLAGS)
 
-if WINDOWS_HOST
-win32_sources = \
-	src/win32/win32dep.c
-endif
-
 easytag_SOURCES = \
 	src/id3lib/c_wrapper.cpp \
 	src/libapetag/apetaglib.c \
@@ -70,7 +65,7 @@ easytag_SOURCES = \
 	src/vcedit.c \
 	src/wavpack_header.c \
 	src/wavpack_tag.c \
-	$(win32_sources)
+	src/win32/win32dep.c
 
 easytag_headers = \
 	src/id3lib/id3_bugfix.h \

@@ -24,6 +24,11 @@
  *
  */
 
+/* Needed for G_OS_WIN32. */
+#include <glib.h>
+
+#ifdef G_OS_WIN32
+
 #include <winsock2.h>
 #include <windows.h>
 #include <io.h>
@@ -649,3 +654,5 @@ et_w32_ftruncate (gint fd, off_t length)
 
     return chsize ((gint)h, length);
 }
+
+#endif /* G_OS_WIN32 */
