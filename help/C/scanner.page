@@ -1,0 +1,81 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:its="http://www.w3.org/2005/11/its"
+      type="guide" style="task"
+      id="scanner">
+
+  <info>
+    <link type="guide" xref="index#main"/>
+    <revision pkgversion="2.1.9" date="2013-04-29" status="stub"/>
+
+    <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
+
+    <credit type="author">
+      <name>Ekaterina Gerasimova</name>
+      <email its:translate="no">kittykat3756@googlemail.com</email>
+    </credit>
+
+    <desc>Update tags automatically.</desc>
+
+  </info>
+
+  <title>The <gui>Scanner</gui></title>
+
+  <p>The scanner can be used to fill in fields based on the filename, rename a
+  file and create a new directory based on the filled fields, and process the
+  text in fields and the filename.</p>
+
+<section id="fill-tag">
+  <title>Fill fields from a filename</title>
+  <!-- TODO: use better title that makes it clear that the parent directories
+  can also be used for the tags -->
+
+  <p><gui>Fill Tag</gui> can be used to fill in tag fields based on the
+  filename and its parent directories.</p>
+
+  <p>Use <em>format specifiers</em> and <em>separators</em> to split the
+  filename and parent directories into different tag fields. The <em>format
+  specifiers</em>, such as <input>%t</input> for track title, which are used to
+  indicate the different tag fields, are listed in the <gui>Legend</gui>.
+  <em>Separators</em> can be any part of the filename or the parent
+  directories. Use <key>/</key> to add the <em>separator</em> for a parent
+  directory.</p>
+
+  <p>For example, if you keep your audio files using the <file>artist/album/01
+  track title.flac</file> directory structure and filenames, use the
+  <input>%a/%b/%t %n</input> <em>format string</em> to extract the track number
+  and title from the filename, the album title from the parent directory and
+  the artist from the grandparent directory.</p>
+
+  <p>Fill the tag fields for the selected files using the
+  <gui style="button">Scan Files</gui> button.</p>
+
+</section>
+
+<section id="rename">
+  <title>Rename files and create new directories</title>
+
+  <p><gui>Rename File and Directory</gui> can be used to create a directory
+  hierarchy and update filenames using the filled tag fields. If a new
+  directory hierarchy is specified, it will be created inside the directory
+  where the file is currently located.</p>
+
+  <p>For example, if you have a tagged file inside the <file>Music</file>
+  directory, you can use the <input>%a/%b/%t %n</input> <em>format string</em>,
+  it will create the <file>Music/artist/album/01 track title.flac</file> file
+  structure and filename.</p>
+
+  <!-- TODO: explain pending change
+  <p> the
+  <gui style="button">Scan Files</gui> button.</p>
+  -->
+
+</section>
+
+<section id="process">
+  <title></title>
+
+  <p></p>
+
+</section>
+
+</page>
