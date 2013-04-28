@@ -2454,6 +2454,14 @@ Browser_Popup_Menu_Handler (GtkWidget *widget, GdkEventButton *event,
 static void
 Browser_Tree_Initialize (void)
 {
+#ifdef G_OS_WIN32
+    DWORD drives;
+    UINT drive_type;
+    gchar drive[] = "A:/";
+    gchar drive_backslashed[] = "A:\\";
+    gchar drive_slashless[] = "A:";
+    gchar drive_label[256];
+#endif
     GtkTreeIter parent_iter;
     GtkTreeIter dummy_iter;
     GIcon *drive_icon;
@@ -2464,13 +2472,6 @@ Browser_Tree_Initialize (void)
 
 #ifdef G_OS_WIN32
     /* Code strangely familiar with gtkfilesystemwin32.c */
-
-    DWORD drives;
-    UINT drive_type;
-    gchar drive[4] = "A:/";
-    gchar drive_backslashed[5] = "A:\\";
-    gchar drive_slashless[3] = "A:";
-    gchar drive_label[256];
 
     drives = GetLogicalDrives();
     if (!drives)
