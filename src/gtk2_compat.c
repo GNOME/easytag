@@ -93,3 +93,11 @@ void et_grid_attach_full (GtkGrid *grid, GtkWidget *child, gint left, gint top,
 }
 
 #endif /* GTK_CHECK_VERSION(3,0,0) */
+
+void et_grid_attach_margins (GtkGrid *grid, GtkWidget *child, gint left,
+                              gint top, gint width, gint height, gint hmargin,
+                              gint vmargin)
+{
+    et_grid_attach_full (grid, child, left, top, width, height, FALSE, FALSE,
+                         hmargin, vmargin);
+}
