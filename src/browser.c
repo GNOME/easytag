@@ -2475,7 +2475,10 @@ Browser_Tree_Initialize (void)
 
     drives = GetLogicalDrives();
     if (!drives)
-        g_warning ("GetLogicalDrives failed.");
+    {
+        g_warning ("GetLogicalDrives failed");
+        drive_icon = g_themed_icon_new ("folder");
+    }
 
     while (drives && drive[0] <= 'Z')
     {
