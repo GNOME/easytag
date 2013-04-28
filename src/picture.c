@@ -169,6 +169,13 @@ void Picture_Clear_Button_Clicked (GObject *object)
         gtk_tree_row_reference_free(node->data);
         n++;
     }
+
+    if (ETCore->ETFileDisplayed)
+    {
+        ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+        ET_Display_File_Data_To_UI (ETCore->ETFileDisplayed);
+    }
+
     g_list_free(refs);
 }
 
@@ -370,6 +377,13 @@ void Picture_Add_Button_Clicked (GObject *object)
         g_free(init_dir);
         init_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(FileSelectionWindow));
     }
+
+    if (ETCore->ETFileDisplayed)
+    {
+        ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+        ET_Display_File_Data_To_UI (ETCore->ETFileDisplayed);
+    }
+
     gtk_widget_destroy(FileSelectionWindow);
 }
 
