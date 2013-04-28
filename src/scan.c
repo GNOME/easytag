@@ -221,7 +221,6 @@ struct _Scan_Mask_Item
  **************/
 static void Scan_Tag_With_Mask (ET_File *ETFile);
 static void ScannerWindow_Quit (void);
-static gboolean ScannerWindow_Key_Press (GtkWidget *window, GdkEvent *event);
 static void Scan_Toggle_Legend_Button (void);
 static void Scan_Toggle_Mask_Editor_Button (void);
 static void Scan_Option_Button (void);
@@ -276,6 +275,8 @@ static void Scan_Convert_Character (gchar **string);
 static GList *Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask);
 static void Scan_Set_Scanner_Window_Init_Position (void);
 
+static void et_scan_on_response (GtkDialog *dialog, gint response_id,
+                                 gpointer user_data);
 
 
 /*************
@@ -2332,29 +2333,32 @@ void Open_ScannerWindow (gint scanner_type)
         scanner_type = SCANNER_FILL_TAG;
 
     /* The window */
-    ScannerWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    /* Config */
-    gtk_container_set_border_width(GTK_CONTAINER(ScannerWindow), 5);
-    gtk_window_set_resizable(GTK_WINDOW(ScannerWindow), FALSE);
-    gtk_window_set_transient_for (GTK_WINDOW (ScannerWindow),
-                                  GTK_WINDOW (MainWindow));
+    ScannerWindow = gtk_dialog_new_with_buttons (_("Tag and Filename Scan"),
+                                                 GTK_WINDOW (MainWindow),
+                                                 GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                 GTK_STOCK_CLOSE,
+                                                 GTK_RESPONSE_CLOSE, NULL);
 
-    /* The init position is define below, cause the scanner window must be showed before
-     * to be able to move it. */
+    /* 'Scan selected files' button */
+    SWScanButton = gtk_button_new_from_stock (GTK_STOCK_APPLY);
+    /* TODO: Set related action to match AM_SCAN_FILES. */
+    gtk_button_set_label (GTK_BUTTON (SWScanButton), _("Scan Files"));
+    gtk_dialog_add_action_widget (GTK_DIALOG (ScannerWindow), SWScanButton,
+                                  GTK_RESPONSE_APPLY);
+    gtk_widget_show (SWScanButton);
+    gtk_widget_set_tooltip_text (SWScanButton, _("Scan selected files"));
 
-    /* Title */
-    gtk_window_set_title (GTK_WINDOW (ScannerWindow),
-                          _("Tag and Filename Scan"));
+    /* The response signal handles close, scan and the delete event. */
+    g_signal_connect (G_OBJECT (ScannerWindow), "response",
+                      G_CALLBACK (et_scan_on_response), NULL);
 
-    /* Signals connection */
-    g_signal_connect(G_OBJECT(ScannerWindow),"destroy",G_CALLBACK(ScannerWindow_Quit),NULL);
-    g_signal_connect(G_OBJECT(ScannerWindow),"delete_event",G_CALLBACK(ScannerWindow_Quit),NULL);
-    g_signal_connect(G_OBJECT(ScannerWindow),"key_press_event",G_CALLBACK(ScannerWindow_Key_Press),NULL);
+    /* The init position is defined below, because the scanner window must be
+     * shown before it can be moved. */
 
     /* The main vbox */
-    ScanVBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
-    gtk_container_add(GTK_CONTAINER(ScannerWindow),ScanVBox);
-
+    ScanVBox = gtk_dialog_get_content_area (GTK_DIALOG (ScannerWindow));
+    gtk_container_set_border_width (GTK_CONTAINER (ScannerWindow), 6);
+    gtk_box_set_spacing (GTK_BOX (ScanVBox), 12);
 
     /*
      * The hbox for mode buttons + buttons + what to scan
@@ -2387,19 +2391,6 @@ void Open_ScannerWindow (gint scanner_type)
                                  _("Select the type of scanner to use"));
     g_signal_connect(G_OBJECT(ScannerOptionCombo), "changed", G_CALLBACK(Scanner_Option_Menu_Activate_Item), NULL);
 
-    /* 'Scan selected files' button */
-    SWScanButton = gtk_button_new();
-    Icon = gtk_image_new_from_icon_name ("document-properties", GTK_ICON_SIZE_BUTTON);
-    gtk_container_add(GTK_CONTAINER(SWScanButton),Icon);
-    gtk_box_pack_start(GTK_BOX(HBox1),SWScanButton,FALSE,FALSE,0);
-    gtk_button_set_relief(GTK_BUTTON(SWScanButton),GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text(SWScanButton,_("Scan selected files"));
-    g_signal_connect(G_OBJECT(SWScanButton),"clicked",G_CALLBACK(Action_Scan_Selected_Files),NULL);
-
-    /* Separator line */
-    Separator = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
-    gtk_box_pack_start(GTK_BOX(HBox1),Separator,FALSE,FALSE,2);
-
     /* Options button */
     Button = gtk_button_new();
     Icon = gtk_image_new_from_stock(GTK_STOCK_PREFERENCES, GTK_ICON_SIZE_BUTTON);
@@ -2428,15 +2419,6 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_widget_set_tooltip_text(LegendButton,_("Show / Hide Legend"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(LegendButton),SCAN_LEGEND_BUTTON);
     g_signal_connect(G_OBJECT(LegendButton),"toggled",G_CALLBACK(Scan_Toggle_Legend_Button),NULL);
-
-    /* Close button */
-    Button = gtk_button_new();
-    Icon = gtk_image_new_from_stock (GTK_STOCK_CLOSE, GTK_ICON_SIZE_BUTTON);
-    gtk_container_add(GTK_CONTAINER(Button),Icon);
-    gtk_box_pack_start(GTK_BOX(HBox1),Button,FALSE,FALSE,0);
-    gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text(Button,_("Close this window"));
-    g_signal_connect(G_OBJECT(Button),"clicked",G_CALLBACK(ScannerWindow_Quit),NULL);
 
     /*
      * Frame for Scan Tag
@@ -3020,24 +3002,6 @@ void Open_ScannerWindow (gint scanner_type)
     {
         gtk_toggle_action_set_active (toggle_action, TRUE);
     }
-}
-
-static gboolean
-ScannerWindow_Key_Press (GtkWidget *window, GdkEvent *event)
-{
-    GdkEventKey *kevent;
-
-    if (event && event->type == GDK_KEY_PRESS)
-    {
-        kevent = (GdkEventKey *)event;
-        switch(kevent->keyval)
-        {
-            case GDK_KEY_Escape:
-                ScannerWindow_Quit();
-                break;
-        }
-    }
-    return FALSE;
 }
 
 /*
@@ -4128,5 +4092,31 @@ Scan_Set_Scanner_Window_Init_Position (void)
     {
         gtk_widget_realize(ScannerWindow);
         gtk_window_move(GTK_WINDOW(ScannerWindow),SCANNER_WINDOW_X,SCANNER_WINDOW_Y);
+    }
+}
+
+/*
+ * et_scan_on_response:
+ * @dialog: the scanner window
+ * @response_id: the #GtkResponseType corresponding to the dialog event
+ * @user_data: user data set when the signal was connected
+ *
+ * Handle the response signal of the scanner dialog.
+ */
+static void
+et_scan_on_response (GtkDialog *dialog, gint response_id, gpointer user_data)
+{
+    switch (response_id)
+    {
+        case GTK_RESPONSE_APPLY:
+            Action_Scan_Selected_Files ();
+            break;
+        case GTK_RESPONSE_DELETE_EVENT:
+        case GTK_RESPONSE_CLOSE:
+            ScannerWindow_Quit ();
+            break;
+        default:
+            g_assert_not_reached ();
+            break;
     }
 }
