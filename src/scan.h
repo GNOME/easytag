@@ -57,9 +57,7 @@ void   Scan_Rename_File_Generate_Preview      (void);
 void   Scan_Fill_Tag_Generate_Preview         (void);
 void   Scan_Rename_Directory_Generate_Preview (void);
 
-void   Scan_Use_Fill_Tag_Scanner            (void);
-void   Scan_Use_Rename_File_Scanner         (void);
-void   Scan_Use_Process_Fields_Scanner      (void);
+void et_scan_show (GtkAction *action, gpointer user_data);
 
 gboolean Scan_Check_Rename_File_Mask (GtkWidget *widget_to_show_hide, GtkEntry *widget_source);
 

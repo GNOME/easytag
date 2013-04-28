@@ -159,6 +159,9 @@ gint Save_All_Files_With_Answer         (gboolean force_saving_files);
 
 void Action_Main_Stop_Button_Pressed    (void);
 void Action_Select_Browser_Style        (void);
+void et_on_action_select_scan_mode (GtkRadioAction *action,
+                                    GtkRadioAction *current,
+                                    gpointer user_data);
 
 void Tag_Area_Display_Controls (ET_File *ETFile);
 

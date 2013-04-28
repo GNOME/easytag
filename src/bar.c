@@ -194,9 +194,8 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { AM_PREV,               GTK_STOCK_GO_BACK,          _("_Previous File"),             "Page_Up",           _("Previous file"),             G_CALLBACK(Action_Select_Prev_File) },
         { AM_NEXT,               GTK_STOCK_GO_FORWARD,       _("_Next File"),                 "Page_Down",         _("Next file"),                 G_CALLBACK(Action_Select_Next_File) },
         { AM_LAST,               GTK_STOCK_GOTO_LAST,        _("_Last File"),                 "<Control>End",      _("Last file"),                 G_CALLBACK(Action_Select_Last_File) },
-        // XXX GTK1 version uses Ctrl+C for scanner, this doesnt work in GTK1 as its copy! in gtk2, behaviour is different
-        // and binding Ctrl+C effectively stops the user copying text..
-        { AM_SCAN,               "document-properties",             _("S_can Files…"),              NULL,                _("Scan files"),              G_CALLBACK(Action_Scan_Selected_Files) },
+        { AM_SCAN_FILES, GTK_STOCK_APPLY, _("S_can Files"), NULL,
+          _("Scan selected files"), G_CALLBACK (Action_Scan_Selected_Files) },
         { AM_REMOVE,             GTK_STOCK_CLEAR,            _("_Remove Tags"),             "<Control>R",        _("Remove tags"),             G_CALLBACK(Action_Remove_Selected_Tags) },
         { AM_UNDO,               GTK_STOCK_UNDO,             _("_Undo Last Files Changes"), "<Control>Z",        _("Undo last Files changes"), G_CALLBACK(Action_Undo_Selected_Files) },
         { AM_REDO,               GTK_STOCK_REDO,             _("R_edo Last Files Changes"), "<Shift><Control>Z", _("Redo last files changes"), G_CALLBACK(Action_Redo_Selected_File) },
@@ -221,9 +220,6 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { AM_INITIALIZE_TREE,          GTK_STOCK_REFRESH,      _("_Refresh Tree"),                 "<Control><Shift>R", _("_Refresh tree"),                 G_CALLBACK(Browser_Tree_Rebuild) },
 
         { MENU_SCANNER,              NULL,                  _("S_canner"),                          NULL,         NULL,                                 NULL },
-        { AM_SCANNER_FILL_TAG,       "document-properties",        _("_Fill Tags…"),                  NULL,         _("Fill tags"),                 G_CALLBACK(Scan_Use_Fill_Tag_Scanner) },
-        { AM_SCANNER_RENAME_FILE,    "document-properties",        _("_Rename Files and Directories…"), NULL,         _("Rename files and directories"),G_CALLBACK(Scan_Use_Rename_File_Scanner) },
-        { AM_SCANNER_PROCESS_FIELDS, "document-properties",        _("_Process Fields…"),             NULL,         _("Process Fields"),           G_CALLBACK(Scan_Use_Process_Fields_Scanner) },
 
         { MENU_MISC,                NULL,                   _("_Miscellaneous"),                             NULL,         NULL,                                 NULL },
         { AM_SEARCH_FILE,           GTK_STOCK_FIND,         _("Find _Files…"),               "<Control>F", _("Find files"),               G_CALLBACK(Open_Search_File_Window) },
@@ -270,6 +266,9 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
                     */
         { AM_BROWSER_HIDDEN_DIR, NULL,                   _("Show Hidden Directories"),                         NULL, _("Show hidden directories"),                         G_CALLBACK(Browser_Tree_Rebuild),     BROWSE_HIDDEN_DIR },
 #endif /* !G_OS_WIN32 */
+        { AM_SCANNER_SHOW, "document-properties", _("_Show Scanner"), NULL,
+          _("Show scanner"), G_CALLBACK (et_scan_show),
+          OPEN_SCANNER_WINDOW_ON_STARTUP },
     };
 
     GtkRadioActionEntry view_mode_entries[] =
@@ -281,16 +280,30 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
           _("View by artist and album"), 1 }
     };
 
+    GtkRadioActionEntry scanner_mode_entries[] =
+    {
+        { AM_SCANNER_FILL_TAG, "document-properties", _("_Fill Tags…"), NULL,
+          _("Fill tags"), SCANNER_FILL_TAG },
+        { AM_SCANNER_RENAME_FILE, "document-properties",
+          _("_Rename Files and Directories…"), NULL,
+          _("Rename files and directories"), SCANNER_RENAME_FILE },
+        { AM_SCANNER_PROCESS_FIELDS, "document-properties",
+          _("_Process Fields…"), NULL, _("Process Fields"),
+          SCANNER_PROCESS_FIELDS }
+    };
+
     GError *error = NULL;
     guint num_menu_entries;
     guint num_toggle_entries;
     guint n_view_mode_entries;
+    guint n_scanner_mode_entries;
     guint i;
 
     /* Calculate number of items into the menu */
     num_menu_entries = G_N_ELEMENTS(ActionEntries);
     num_toggle_entries = G_N_ELEMENTS(ToggleActionEntries);
     n_view_mode_entries = G_N_ELEMENTS (view_mode_entries);
+    n_scanner_mode_entries = G_N_ELEMENTS (scanner_mode_entries);
 
     /* Populate quarks list with the entries */
     for(i = 0; i < num_menu_entries; i++)
@@ -316,6 +329,10 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
     gtk_action_group_add_radio_actions (ActionGroup, view_mode_entries,
                                         n_view_mode_entries, 0,
                                         Action_Select_Browser_Style, NULL);
+    gtk_action_group_add_radio_actions (ActionGroup, scanner_mode_entries,
+                                        n_scanner_mode_entries, 0,
+                                        G_CALLBACK (et_on_action_select_scan_mode),
+                                        NULL);
 
     UIManager = gtk_ui_manager_new();
     if (!gtk_ui_manager_add_ui_from_string(UIManager, ui_xml, -1, &error))

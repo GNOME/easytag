@@ -97,7 +97,6 @@ static const gchar *ui_xml =
 "      <menuitem action='LastFile' />"
 "      <separator />"
 
-"      <menuitem action='ScanFile' />"
 "      <menuitem action='RemoveTag' />"
 "      <menuitem action='UndoFile' />"
 "      <menuitem action='RedoFile' />"
@@ -147,6 +146,8 @@ static const gchar *ui_xml =
 "      <menuitem action='FillTag' />"
 "      <menuitem action='RenameFile' />"
 "      <menuitem action='ProcessFields' />"
+"      <separator />"
+"      <menuitem action='ShowScanner' />"
 "    </menu>"
 
 "    <menu action='MiscMenu'>"
@@ -180,7 +181,7 @@ static const gchar *ui_xml =
 "    <toolitem action='LastFile'/>"
 "    <separator />"
 
-"    <toolitem action='ScanFile'/>"
+"    <toolitem action='ShowScanner'/>"
 "    <toolitem action='RemoveTag'/>"
 "    <toolitem action='UndoFile'/>"
 "    <toolitem action='RedoFile'/>"
@@ -218,9 +219,7 @@ static const gchar *ui_xml =
 "    <menuitem action='RunAudio' />"
 "    <separator />"
 "    <menu action='ScannerSubpopup'>"
-"      <menuitem action='FillTag' />"
-"      <menuitem action='RenameFile' />"
-"      <menuitem action='ProcessFields' />"
+"      <menuitem action='ShowScanner' />"
 "    </menu>"
 "    <menuitem action='CDDBSearchFile' />"
 "    <menuitem action='SearchFile' />"

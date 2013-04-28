@@ -3532,8 +3532,29 @@ Action_Select_Browser_Style (void)
     Update_Command_Buttons_Sensivity();
 }
 
+/*
+ * et_on_action_select_scan_mode:
+ * @action: the action on which the signal was emitted
+ * @current: the member of the action group which has just been activated
+ * @user_data: user data set when the signal handler was connected
+ *
+ * Select the current scanner mode and open the scanner window.
+ */
+void
+et_on_action_select_scan_mode (GtkRadioAction *action, GtkRadioAction *current,
+                               gpointer user_data)
+{
+    gint active_value;
 
+    active_value = gtk_radio_action_get_current_value (action);
 
+    if (SCANNER_TYPE != active_value)
+    {
+        SCANNER_TYPE = active_value;
+    }
+
+    Open_ScannerWindow (SCANNER_TYPE);
+}
 
 
 /*
@@ -3949,7 +3970,7 @@ void Update_Command_Buttons_Sensivity (void)
         ui_widget_set_sensitive(MENU_FILE, AM_NEXT, FALSE);
         ui_widget_set_sensitive(MENU_FILE, AM_FIRST, FALSE);
         ui_widget_set_sensitive(MENU_FILE, AM_LAST, FALSE);
-        ui_widget_set_sensitive(MENU_FILE, AM_SCAN, FALSE);
+        ui_widget_set_sensitive (MENU_FILE, AM_SCAN_FILES, FALSE);
         ui_widget_set_sensitive(MENU_FILE, AM_REMOVE, FALSE);
         ui_widget_set_sensitive(MENU_FILE, AM_UNDO, FALSE);
         ui_widget_set_sensitive(MENU_FILE, AM_REDO, FALSE);
@@ -4020,7 +4041,7 @@ void Update_Command_Buttons_Sensivity (void)
         ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_FILE_BITRATE,TRUE);
         ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_ASCENDING_FILE_SAMPLERATE,TRUE);
         ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_FILE_SAMPLERATE,TRUE);
-        ui_widget_set_sensitive(MENU_FILE,AM_SCAN,TRUE);
+        ui_widget_set_sensitive (MENU_FILE, AM_SCAN_FILES, TRUE);
         ui_widget_set_sensitive(MENU_FILE,AM_REMOVE,TRUE);
         ui_widget_set_sensitive(MENU_MISC,AM_SEARCH_FILE,TRUE);
         ui_widget_set_sensitive(MENU_MISC,AM_FILENAME_FROM_TXT,TRUE);
@@ -4123,7 +4144,7 @@ Disable_Command_Buttons (void)
     ui_widget_set_sensitive(MENU_FILE,AM_PREV,FALSE);
     ui_widget_set_sensitive(MENU_FILE,AM_NEXT,FALSE);
     ui_widget_set_sensitive(MENU_FILE,AM_LAST,FALSE);
-    ui_widget_set_sensitive(MENU_FILE,AM_SCAN,FALSE);
+    ui_widget_set_sensitive (MENU_FILE, AM_SCAN_FILES, FALSE);
     ui_widget_set_sensitive(MENU_FILE,AM_REMOVE,FALSE);
     ui_widget_set_sensitive(MENU_FILE,AM_UNDO,FALSE);
     ui_widget_set_sensitive(MENU_FILE,AM_REDO,FALSE);

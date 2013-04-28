@@ -2313,6 +2313,7 @@ void Open_ScannerWindow (gint scanner_type)
     GList *pf_cb_group3 = NULL;
     GtkTreeViewColumn * column;
     GtkCellRenderer *renderer;
+    GtkToggleAction *toggle_action;
 
     /* Check if already opened */
     if (ScannerWindow)
@@ -2392,7 +2393,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_container_add(GTK_CONTAINER(SWScanButton),Icon);
     gtk_box_pack_start(GTK_BOX(HBox1),SWScanButton,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(SWScanButton),GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text(SWScanButton,_("Open scanner window / Scan selected files"));
+    gtk_widget_set_tooltip_text(SWScanButton,_("Scan selected files"));
     g_signal_connect(G_OBJECT(SWScanButton),"clicked",G_CALLBACK(Action_Scan_Selected_Files),NULL);
 
     /* Separator line */
@@ -3012,6 +3013,13 @@ void Open_ScannerWindow (gint scanner_type)
 
     // Activate the current menu in the option menu
     gtk_combo_box_set_active(GTK_COMBO_BOX(ScannerOptionCombo), scanner_type);
+
+    toggle_action = GTK_TOGGLE_ACTION (gtk_ui_manager_get_action (UIManager,
+                                                                  "/ToolBar/ShowScanner"));
+    if (!gtk_toggle_action_get_active (toggle_action))
+    {
+        gtk_toggle_action_set_active (toggle_action, TRUE);
+    }
 }
 
 static gboolean
@@ -3054,29 +3062,33 @@ void Scan_Select_Mode_And_Run_Scanner (ET_File *ETFile)
     }
 }
 
-void Scan_Use_Fill_Tag_Scanner (void)
+/*
+ * et_scan_show:
+ * @action: the #GtkToggleAction that was activated
+ * @user_data: user data set when the signal handler was connected
+ *
+ * Show the scanner window.
+ */
+void
+et_scan_show (GtkAction *action, gpointer user_data)
 {
-    if (!ScannerWindow || gtk_combo_box_get_active(GTK_COMBO_BOX(ScannerOptionCombo)) != SCANNER_FILL_TAG)
-        Open_ScannerWindow(SCANNER_FILL_TAG);
-    else
-        Action_Scan_Selected_Files();
-}
+    gboolean active = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
 
-
-void Scan_Use_Rename_File_Scanner (void)
-{
-    if (!ScannerWindow || gtk_combo_box_get_active(GTK_COMBO_BOX(ScannerOptionCombo)) != SCANNER_RENAME_FILE)
-        Open_ScannerWindow(SCANNER_RENAME_FILE);
+    if (active)
+    {
+        if (!ScannerWindow)
+        {
+            Open_ScannerWindow (SCANNER_TYPE);
+        }
+        else
+        {
+            gtk_window_present (GTK_WINDOW (ScannerWindow));
+        }
+    }
     else
-        Action_Scan_Selected_Files();
-}
-
-void Scan_Use_Process_Fields_Scanner (void)
-{
-    if (!ScannerWindow || gtk_combo_box_get_active(GTK_COMBO_BOX(ScannerOptionCombo)) != SCANNER_PROCESS_FIELDS)
-        Open_ScannerWindow(SCANNER_PROCESS_FIELDS);
-    else
-        Action_Scan_Selected_Files();
+    {
+        ScannerWindow_Quit ();
+    }
 }
 
 
@@ -3084,6 +3096,16 @@ void Scan_Use_Process_Fields_Scanner (void)
 static void
 ScannerWindow_Quit (void)
 {
+    GtkToggleAction *toggle_action;
+
+    toggle_action = GTK_TOGGLE_ACTION (gtk_ui_manager_get_action (UIManager,
+                                                                  "/ToolBar/ShowScanner"));
+
+    if (gtk_toggle_action_get_active (toggle_action))
+    {
+        gtk_toggle_action_set_active (toggle_action, FALSE);
+    }
+
     if (ScannerWindow)
     {
         ScannerWindow_Apply_Changes();
@@ -4048,7 +4070,14 @@ Mask_Editor_List_Key_Press (GtkWidget *widget, GdkEvent *event)
 static void
 Scanner_Option_Menu_Activate_Item (GtkWidget *combo, gpointer data)
 {
-    switch (gtk_combo_box_get_active(GTK_COMBO_BOX(combo)))
+    GtkRadioAction *radio_action;
+
+    radio_action = GTK_RADIO_ACTION (gtk_ui_manager_get_action (UIManager,
+                                                                "/MenuBar/ScannerMenu/FillTag"));
+    SCANNER_TYPE = gtk_combo_box_get_active (GTK_COMBO_BOX (combo));
+    gtk_radio_action_set_current_value (radio_action, SCANNER_TYPE);
+
+    switch (SCANNER_TYPE)
     {
         case SCANNER_FILL_TAG:
             gtk_widget_show(MaskEditorButton);
