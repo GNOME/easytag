@@ -29,7 +29,6 @@
  * Declarations *
  ****************/
 GtkWidget *ScannerWindow;
-GtkWidget *SWScanButton;    // To enable/disable it in easytag.c
 
 
 enum

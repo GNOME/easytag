@@ -287,7 +287,6 @@ void Init_ScannerWindow (void)
 {
     ScannerWindow     = NULL;
     ScannerOptionCombo= NULL;
-    SWScanButton      = NULL;
 }
 
 
@@ -2300,6 +2299,7 @@ static gchar
  ******************/
 void Open_ScannerWindow (gint scanner_type)
 {
+    GtkWidget *scan_button;
     GtkWidget *ScanVBox;
     GtkWidget *HBox1, *HBox2, *HBox4, *VBox, *hbox, *vbox;
     GtkWidget *Table;
@@ -2340,13 +2340,13 @@ void Open_ScannerWindow (gint scanner_type)
                                                  GTK_RESPONSE_CLOSE, NULL);
 
     /* 'Scan selected files' button */
-    SWScanButton = gtk_button_new_from_stock (GTK_STOCK_APPLY);
+    scan_button = gtk_button_new_from_stock (GTK_STOCK_APPLY);
     /* TODO: Set related action to match AM_SCAN_FILES. */
-    gtk_button_set_label (GTK_BUTTON (SWScanButton), _("Scan Files"));
-    gtk_dialog_add_action_widget (GTK_DIALOG (ScannerWindow), SWScanButton,
+    gtk_button_set_label (GTK_BUTTON (scan_button), _("Scan Files"));
+    gtk_dialog_add_action_widget (GTK_DIALOG (ScannerWindow), scan_button,
                                   GTK_RESPONSE_APPLY);
-    gtk_widget_show (SWScanButton);
-    gtk_widget_set_tooltip_text (SWScanButton, _("Scan selected files"));
+    gtk_widget_show (scan_button);
+    gtk_widget_set_tooltip_text (scan_button, _("Scan selected files"));
 
     /* The response signal handles close, scan and the delete event. */
     g_signal_connect (G_OBJECT (ScannerWindow), "response",
@@ -3079,7 +3079,6 @@ ScannerWindow_Quit (void)
         gtk_list_store_clear(RenameFileListModel);
         ScannerWindow     = NULL;
         ScannerOptionCombo= NULL;
-        SWScanButton      = NULL;
 
         // To avoid crashs after tests
         ScanTagMaskCombo              = NULL;

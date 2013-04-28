@@ -3929,8 +3929,11 @@ void Update_Command_Buttons_Sensivity (void)
         g_object_set(uiaction, "sensitive", FALSE, NULL);
 
         /* Scanner Window */
-        if (SWScanButton)
-            gtk_widget_set_sensitive(GTK_WIDGET(SWScanButton),FALSE);
+        if (ScannerWindow)
+        {
+            gtk_dialog_set_response_sensitive (GTK_DIALOG (ScannerWindow),
+                                               GTK_RESPONSE_APPLY, FALSE);
+        }
 
         /* Menu commands */
         ui_widget_set_sensitive(MENU_FILE, AM_OPEN_FILE_WITH, FALSE);
@@ -4005,7 +4008,11 @@ void Update_Command_Buttons_Sensivity (void)
         g_object_set(uiaction, "sensitive", FALSE, NULL);
 
         /* Scanner Window */
-        if (SWScanButton)    gtk_widget_set_sensitive(GTK_WIDGET(SWScanButton),TRUE);
+        if (ScannerWindow)
+        {
+            gtk_dialog_set_response_sensitive (GTK_DIALOG (ScannerWindow),
+                                               GTK_RESPONSE_APPLY, TRUE);
+        }
 
         /* Commands into menu */
         ui_widget_set_sensitive(MENU_FILE, AM_OPEN_FILE_WITH,TRUE);
@@ -4131,8 +4138,11 @@ static void
 Disable_Command_Buttons (void)
 {
     /* Scanner Window */
-    if (SWScanButton)
-        gtk_widget_set_sensitive(SWScanButton,FALSE);
+    if (ScannerWindow)
+    {
+        gtk_dialog_set_response_sensitive (GTK_DIALOG (ScannerWindow),
+                                           GTK_RESPONSE_APPLY, FALSE);
+    }
 
     /* "File" menu commands */
     ui_widget_set_sensitive(MENU_FILE,AM_OPEN_FILE_WITH,FALSE);
