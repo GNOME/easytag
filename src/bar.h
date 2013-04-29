@@ -35,10 +35,10 @@ GtkWidget *CheckMenuItemBrowseSubdirMainMenu;
 GtkWidget *CheckMenuItemBrowseHiddenDirMainMenu;
 
 #define MENU_FILE       "FileMenu"
+#define MENU_EDIT "EditMenu"
 #define MENU_BROWSER    "BrowserMenu"
 #define MENU_SCANNER    "ScannerMenu"
 #define MENU_MISC       "MiscMenu"
-#define MENU_SETTINGS   "SettingsMenu"
 #define MENU_HELP       "HelpMenu"
 
 #define MENU_FILE_SORT_TAG      "SortTagMenu"

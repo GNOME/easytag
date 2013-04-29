@@ -228,7 +228,7 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { AM_WRITE_PLAYLIST,        GTK_STOCK_SAVE_AS,      _("Write Playlist…"),                "<Alt>W",     _("Write playlist"),              G_CALLBACK(Open_Write_Playlist_Window) },
         { AM_RUN_AUDIO_PLAYER,      GTK_STOCK_MEDIA_PLAY,        _("Run Audio Player"),                  "<Alt>X",     _("Run audio player"),                G_CALLBACK(Run_Audio_Player_Using_Selection) },
 
-        { MENU_SETTINGS,            NULL,                   _("_Settings"),                         NULL,         NULL,                                 NULL },
+        { MENU_EDIT, NULL, _("_Edit"), NULL, NULL, NULL },
         { AM_OPEN_OPTIONS_WINDOW,   GTK_STOCK_PREFERENCES,  _("_Preferences"),                  "<Alt>P",     _("Preferences"),                 G_CALLBACK(Open_OptionsWindow) },
 
         { MENU_HELP,                NULL,                   _("_Help"),                             NULL,         NULL,                                 NULL },
