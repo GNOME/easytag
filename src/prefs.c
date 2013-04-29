@@ -1346,13 +1346,9 @@ void Open_OptionsWindow (void)
      * Confirmation
      */
     Label = gtk_label_new (_("Confirmation"));
-    Frame = gtk_frame_new (_("Confirmation"));
-    gtk_notebook_append_page (GTK_NOTEBOOK(OptionsNoteBook),Frame,Label);
-    gtk_container_set_border_width(GTK_CONTAINER(Frame), 5);
-
-    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
-    gtk_container_add(GTK_CONTAINER(Frame),VBox);
-    gtk_container_set_border_width(GTK_CONTAINER(VBox), 2);
+    VBox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
+    gtk_notebook_append_page (GTK_NOTEBOOK(OptionsNoteBook), VBox, Label);
+    gtk_container_set_border_width (GTK_CONTAINER (VBox), BOX_SPACING);
 
     ConfirmBeforeExit = gtk_check_button_new_with_label(_("Confirm exit from program"));
     gtk_box_pack_start(GTK_BOX(VBox),ConfirmBeforeExit,FALSE,FALSE,0);
