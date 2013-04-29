@@ -1099,23 +1099,19 @@ void Open_OptionsWindow (void)
      * CDDB
      */
     Label = gtk_label_new (_("CD Data Base"));
-    Frame = gtk_frame_new (_("CD Data Base"));
-    gtk_notebook_append_page (GTK_NOTEBOOK(OptionsNoteBook),Frame,Label);
-    gtk_container_set_border_width(GTK_CONTAINER(Frame), 5);
-
-    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
-    gtk_container_add(GTK_CONTAINER(Frame),VBox);
-    gtk_container_set_border_width(GTK_CONTAINER(VBox), 4);
+    VBox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
+    gtk_notebook_append_page (GTK_NOTEBOOK (OptionsNoteBook), VBox, Label);
+    gtk_container_set_border_width (GTK_CONTAINER (VBox), BOX_SPACING);
 
     // CDDB Server Settings (Automatic Search)
     Frame = gtk_frame_new (_("Server Settings for Automatic Search"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE, 0);
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox), 4);
+    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
 
     // 1rst automatic search server
-    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(vbox),hbox);
     Label = gtk_label_new(_("Name:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
@@ -1154,7 +1150,7 @@ void Open_OptionsWindow (void)
         gtk_entry_set_text(GTK_ENTRY(CddbServerCgiPathAutomaticSearch),CDDB_SERVER_CGI_PATH_AUTOMATIC_SEARCH);
 
     // 2sd automatic search server
-    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(vbox),hbox);
     Label = gtk_label_new(_("Name:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
@@ -1184,11 +1180,11 @@ void Open_OptionsWindow (void)
     // CDDB Server Settings (Manual Search)
     Frame = gtk_frame_new (_("Server Settings for Manual Search"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 4);
 
-    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(vbox),hbox);
     Label = gtk_label_new(_("Name:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
@@ -1219,11 +1215,11 @@ void Open_OptionsWindow (void)
     // Local access for CDDB (Automatic Search)
     Frame = gtk_frame_new (_("Local CD Data Base"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox), 4);
+    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
 
-    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(vbox),hbox);
     Label = gtk_label_new(_("Path:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
@@ -1268,17 +1264,14 @@ void Open_OptionsWindow (void)
 
     Table = et_grid_new (3, 5);
     gtk_container_add(GTK_CONTAINER(Frame),Table);
-    gtk_grid_set_row_spacing (GTK_GRID (Table), 2);
-    gtk_grid_set_column_spacing (GTK_GRID (Table), 4);
-    gtk_container_set_border_width(GTK_CONTAINER(Table), 2);
+    gtk_grid_set_row_spacing (GTK_GRID (Table), BOX_SPACING);
+    gtk_grid_set_column_spacing (GTK_GRID (Table), BOX_SPACING);
+    gtk_container_set_border_width(GTK_CONTAINER(Table), BOX_SPACING);
 
     CddbUseProxy = gtk_check_button_new_with_label(_("Use a proxy"));
     gtk_grid_attach (GTK_GRID (Table), CddbUseProxy, 0, 0, 5, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbUseProxy),CDDB_USE_PROXY);
     gtk_widget_set_tooltip_text(CddbUseProxy,_("Set active the settings of the proxy server."));
-
-    Label = gtk_label_new("     ");
-    gtk_grid_attach (GTK_GRID (Table), Label, 0, 1, 1, 1);
 
     Label = gtk_label_new(_("Host Name:"));
     gtk_grid_attach (GTK_GRID (Table), Label, 1, 1, 1, 1);
@@ -1324,9 +1317,9 @@ void Open_OptionsWindow (void)
     Frame = gtk_frame_new (_("Track Name List"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
 
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
+    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
 
     CddbFollowFile = gtk_check_button_new_with_label(_("Select corresponding audio "
         "file (according position or DLM if activated below)"));
