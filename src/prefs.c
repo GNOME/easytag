@@ -43,6 +43,8 @@
 #include "charset.h"
 #include "win32/win32dep.h"
 
+static const guint BOX_SPACING = 6;
+
 /**************
  * Prototypes *
  **************/
@@ -133,24 +135,12 @@ void Open_OptionsWindow (void)
      * Browser
      */
     Label = gtk_label_new(_("Browser"));
-    Frame = gtk_frame_new(_("Browser"));
-    gtk_notebook_append_page(GTK_NOTEBOOK(OptionsNoteBook),Frame,Label);
-    gtk_container_set_border_width(GTK_CONTAINER(Frame), 5);
-
-    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,4);
-    gtk_container_add(GTK_CONTAINER(Frame),VBox);
-    gtk_container_set_border_width(GTK_CONTAINER(VBox), 4);
-
-
-    /* File Browser frame */
-    Frame = gtk_frame_new(_("File Browser"));
-    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
-    gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
+    gtk_notebook_append_page (GTK_NOTEBOOK (OptionsNoteBook), vbox, Label);
+    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
 
     /* Default directory */
-    HBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
+    HBox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_box_pack_start(GTK_BOX(vbox),HBox,FALSE,FALSE,0);
 
     // Label
