@@ -215,21 +215,16 @@ void Open_OptionsWindow (void)
      * Misc
      */
     Label = gtk_label_new (_("Misc"));
-    Frame = gtk_frame_new (_("Misc"));
-    gtk_notebook_append_page (GTK_NOTEBOOK(OptionsNoteBook),Frame,Label);
-    gtk_container_set_border_width(GTK_CONTAINER(Frame), 5);
-
-    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,4);
-    gtk_container_add(GTK_CONTAINER(Frame),VBox);
-    gtk_container_set_border_width(GTK_CONTAINER(VBox), 4);
-
+    VBox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
+    gtk_notebook_append_page (GTK_NOTEBOOK (OptionsNoteBook), VBox, Label);
+    gtk_container_set_border_width (GTK_CONTAINER (VBox), BOX_SPACING);
 
     /* User interface */
     Frame = gtk_frame_new (_("User Interface"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
+    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
 
     // Show header infos
     ShowHeaderInfos = gtk_check_button_new_with_label(_("Show header information of file"));
@@ -239,9 +234,8 @@ void Open_OptionsWindow (void)
         "the bitrate, the time, the size, will be displayed under the filename entry."));
 
     // Display color mode for changed files in list
-    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
-    gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
     Label = gtk_label_new(_("Display changed files in list using:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
 
@@ -259,13 +253,12 @@ void Open_OptionsWindow (void)
     /* Sorting List Options */
     Frame = gtk_frame_new (_("Sorting List Options"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
+    gtk_container_set_border_width (GTK_CONTAINER(vbox), BOX_SPACING);
 
-    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
-    gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
     /* Sorting method */
     Label = gtk_label_new(_("Sort the file list by:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
@@ -356,9 +349,9 @@ void Open_OptionsWindow (void)
     else
         gtk_list_store_clear(FilePlayerModel);
 
-    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),hbox);
-    gtk_container_set_border_width(GTK_CONTAINER(hbox), 4);
+    gtk_container_set_border_width (GTK_CONTAINER (hbox), BOX_SPACING);
     Label = gtk_label_new (_("Player to run:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
     FilePlayerCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(FilePlayerModel));
@@ -385,9 +378,9 @@ void Open_OptionsWindow (void)
     /* Log options */
     Frame = gtk_frame_new (_("Log Options"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
+    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
 
     // Show / hide log view
     ShowLogView = gtk_check_button_new_with_label(_("Show log view in main window"));
@@ -397,9 +390,8 @@ void Open_OptionsWindow (void)
                                             "visible in the main window."));
    
     // Max number of lines
-    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
-    gtk_container_set_border_width(GTK_CONTAINER(hbox), 4);
     Label = gtk_label_new (_("Max number of lines:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
     
