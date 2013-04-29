@@ -633,28 +633,24 @@ void Open_OptionsWindow (void)
      * ID3 Tag Settings
      */
     Label = gtk_label_new (_("ID3 Tag Settings"));
-    Frame = gtk_frame_new (_("ID3 Tag Settings"));
+    VBox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
 #ifdef ENABLE_MP3
-    gtk_notebook_append_page (GTK_NOTEBOOK(OptionsNoteBook),Frame,Label);
+    gtk_notebook_append_page (GTK_NOTEBOOK (OptionsNoteBook), VBox, Label);
 #endif
-    gtk_container_set_border_width(GTK_CONTAINER(Frame),5);
-
-    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
-    gtk_container_add(GTK_CONTAINER(Frame),VBox);
-    gtk_container_set_border_width(GTK_CONTAINER(VBox),4);
+    gtk_container_set_border_width (GTK_CONTAINER (VBox), BOX_SPACING);
 
 
     /* Tag Rules frame */
     Frame = gtk_frame_new (_("ID3 Tag Rules"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox),2);
+    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
 
     Table = et_grid_new (3, 2);
     gtk_box_pack_start(GTK_BOX(vbox),Table,FALSE,FALSE,0);
-    gtk_grid_set_row_spacing (GTK_GRID (Table), 2);
-    gtk_grid_set_column_spacing (GTK_GRID (Table), 2);
+    gtk_grid_set_row_spacing (GTK_GRID (Table), BOX_SPACING);
+    gtk_grid_set_column_spacing (GTK_GRID (Table), BOX_SPACING);
 
     /* Write ID3 tags in FLAC files */
     WriteId3TagsInFlacFiles = gtk_check_button_new_with_label(_("Write ID3 tags in FLAC files (in addition to FLAC tag)"));
@@ -703,22 +699,22 @@ void Open_OptionsWindow (void)
     /* Character Set for writing ID3 tag */
     Frame = gtk_frame_new (_("Character Set for writing ID3 tags"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    id3v1v2hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,3);
+    id3v1v2hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),id3v1v2hbox);
-    gtk_container_set_border_width(GTK_CONTAINER(id3v1v2hbox), 2);
+    gtk_container_set_border_width (GTK_CONTAINER (id3v1v2hbox), BOX_SPACING);
 
     // ID3v2 tags
     Frame = gtk_frame_new (_("ID3v2 tags"));
     gtk_box_pack_start(GTK_BOX(id3v1v2hbox),Frame,FALSE,FALSE,2);
 
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox),2);
+    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
 
     Table = et_grid_new (8, 6);
     gtk_box_pack_start(GTK_BOX(vbox),Table,FALSE,FALSE,0);
-    gtk_grid_set_row_spacing (GTK_GRID (Table), 2);
-    gtk_grid_set_column_spacing (GTK_GRID (Table), 2);
+    gtk_grid_set_row_spacing (GTK_GRID (Table), BOX_SPACING);
+    gtk_grid_set_column_spacing (GTK_GRID (Table), BOX_SPACING);
 
     /* Write ID3v2 tag */
     FileWritingId3v2WriteTag = gtk_check_button_new_with_label(_("Write ID3v2 tag"));
@@ -755,9 +751,6 @@ void Open_OptionsWindow (void)
     LabelId3v2Charset = gtk_label_new(_("Charset:"));
     gtk_grid_attach (GTK_GRID (Table), LabelId3v2Charset, 0, 2, 5, 1);
     gtk_misc_set_alignment(GTK_MISC(LabelId3v2Charset),0,0.5);
-
-    Label = gtk_label_new("        ");
-    gtk_grid_attach (GTK_GRID (Table), Label, 0, 3, 1, 1);
 
     // Unicode
     FileWritingId3v2UseUnicodeCharacterSet = gtk_radio_button_new_with_label(NULL, _("Unicode "));
@@ -839,14 +832,14 @@ void Open_OptionsWindow (void)
     Frame = gtk_frame_new (_("ID3v1 tags"));
     gtk_box_pack_start(GTK_BOX(id3v1v2hbox),Frame,FALSE,FALSE,2);
 
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox),2);
+    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
 
     Table = et_grid_new (6, 5);
     gtk_box_pack_start(GTK_BOX(vbox),Table,FALSE,FALSE,0);
-    gtk_grid_set_row_spacing (GTK_GRID (Table), 2);
-    gtk_grid_set_column_spacing (GTK_GRID (Table), 2);
+    gtk_grid_set_row_spacing (GTK_GRID (Table), BOX_SPACING);
+    gtk_grid_set_column_spacing (GTK_GRID (Table), BOX_SPACING);
 
 
     /* Write ID3v1 tag */
@@ -862,9 +855,6 @@ void Open_OptionsWindow (void)
     LabelId3v1Charset = gtk_label_new(_("Charset:"));
     gtk_grid_attach (GTK_GRID (Table), LabelId3v1Charset, 0, 1, 4, 1);
     gtk_misc_set_alignment(GTK_MISC(LabelId3v1Charset),0,0.5);
-
-    Label = gtk_label_new("        ");
-    gtk_grid_attach (GTK_GRID (Table), Label, 0, 2, 1, 1);
 
     FileWritingId3v1CharacterSetCombo = gtk_combo_box_text_new();
     gtk_grid_attach (GTK_GRID (Table), FileWritingId3v1CharacterSetCombo, 1, 2,
@@ -910,15 +900,15 @@ void Open_OptionsWindow (void)
     /* Character Set for reading tag */
     Frame = gtk_frame_new (_("Character Set for reading ID3 tags"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
+    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
 
     Table = et_grid_new(4,2);
     gtk_box_pack_start(GTK_BOX(vbox),Table,FALSE,FALSE,0);
     //gtk_container_set_border_width(GTK_CONTAINER(Table), 2);
     /*gtk_grid_set_row_spacing (GTK_GRID (Table), 2);*/
-    gtk_grid_set_column_spacing (GTK_GRID (Table), 2);
+    gtk_grid_set_column_spacing (GTK_GRID (Table), BOX_SPACING);
 
     // "File Reading Charset" Check Button + Combo
     UseNonStandardId3ReadingCharacterSet = gtk_check_button_new_with_label(_(
