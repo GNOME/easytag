@@ -127,9 +127,8 @@ static GList *Read_Directory_Recursively (GList *file_list, const gchar *path,
                                           gboolean recurse);
 static void Open_Quit_Recursion_Function_Window (void);
 static void Destroy_Quit_Recursion_Function_Window (void);
-static void Quit_Recursion_Function_Button_Pressed (void);
-static void Quit_Recursion_Window_Key_Press (GtkWidget *window,
-                                             GdkEvent *event);
+static void et_on_quit_recursion_response (GtkDialog *dialog, gint response_id,
+                                           gpointer user_data);
 static void File_Area_Set_Sensitive (gboolean activate);
 static void Tag_Area_Set_Sensitive  (gboolean activate);
 
@@ -3813,36 +3812,20 @@ Read_Directory_Recursively (GList *file_list, const gchar *path_real,
 static void
 Open_Quit_Recursion_Function_Window (void)
 {
-    GtkWidget *button;
-    GtkWidget *frame;
-
     if (QuitRecursionWindow != NULL)
         return;
-    QuitRecursionWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW(QuitRecursionWindow),_("Searching…"));
-    gtk_window_set_transient_for(GTK_WINDOW(QuitRecursionWindow),GTK_WINDOW(MainWindow));
-    //gtk_window_set_policy(GTK_WINDOW(QuitRecursionWindow),FALSE,FALSE,TRUE);
+    QuitRecursionWindow = gtk_message_dialog_new (GTK_WINDOW (MainWindow),
+                                                  GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                  GTK_MESSAGE_OTHER,
+                                                  GTK_BUTTONS_NONE,
+                                                  "%s",
+                                                  _("Searching for audio files…"));
+    gtk_window_set_title (GTK_WINDOW (QuitRecursionWindow), _("Searching"));
+    gtk_dialog_add_button (GTK_DIALOG (QuitRecursionWindow), GTK_STOCK_STOP,
+                                       GTK_RESPONSE_CANCEL);
 
-    // Just center on mainwindow
-    gtk_window_set_position(GTK_WINDOW(QuitRecursionWindow), GTK_WIN_POS_CENTER_ON_PARENT);
-
-    g_signal_connect(G_OBJECT(QuitRecursionWindow),"destroy",
-                     G_CALLBACK(Quit_Recursion_Function_Button_Pressed),NULL);
-    g_signal_connect(G_OBJECT(QuitRecursionWindow),"delete_event",
-                     G_CALLBACK(Quit_Recursion_Function_Button_Pressed),NULL);
-    g_signal_connect(G_OBJECT(QuitRecursionWindow),"key_press_event",
-                     G_CALLBACK(Quit_Recursion_Window_Key_Press),NULL);
-
-    frame = gtk_frame_new(NULL);
-    gtk_frame_set_shadow_type(GTK_FRAME(frame),GTK_SHADOW_IN);
-    gtk_container_add(GTK_CONTAINER(QuitRecursionWindow),frame);
-    gtk_container_set_border_width(GTK_CONTAINER(frame),2);
-
-    // Button to stop...
-    button = Create_Button_With_Icon_And_Label(GTK_STOCK_STOP,_("  STOP the search...  "));
-    gtk_container_set_border_width(GTK_CONTAINER(button),8);
-    gtk_container_add(GTK_CONTAINER(frame),button);
-    g_signal_connect(G_OBJECT(button),"clicked",G_CALLBACK(Quit_Recursion_Function_Button_Pressed),NULL);
+    g_signal_connect (G_OBJECT (QuitRecursionWindow),"response",
+                      G_CALLBACK (et_on_quit_recursion_response), NULL);
 
     gtk_widget_show_all(QuitRecursionWindow);
 }
@@ -3859,29 +3842,23 @@ Destroy_Quit_Recursion_Function_Window (void)
 }
 
 static void
-Quit_Recursion_Function_Button_Pressed (void)
+et_on_quit_recursion_response (GtkDialog *dialog, gint response_id,
+                               gpointer user_data)
 {
-    Action_Main_Stop_Button_Pressed();
-    Destroy_Quit_Recursion_Function_Window();
-}
-
-static void
-Quit_Recursion_Window_Key_Press (GtkWidget *window, GdkEvent *event)
-{
-    GdkEventKey *kevent;
-
-    if (event && event->type == GDK_KEY_PRESS)
+    switch (response_id)
     {
-        kevent = (GdkEventKey *)event;
-        switch(kevent->keyval)
-        {
-            case GDK_KEY_Escape:
-                Destroy_Quit_Recursion_Function_Window();
-                break;
-        }
+        case GTK_RESPONSE_CANCEL:
+            Action_Main_Stop_Button_Pressed ();
+            Destroy_Quit_Recursion_Function_Window ();
+            break;
+        case GTK_RESPONSE_DELETE_EVENT:
+            Destroy_Quit_Recursion_Function_Window ();
+            break;
+        default:
+            g_assert_not_reached ();
+            break;
     }
 }
-
 
 /*
  * To stop the recursive search within directories or saving files
