@@ -951,23 +951,20 @@ void Open_OptionsWindow (void)
      * Scanner
      */
     Label = gtk_label_new (_("Scanner"));
-    Frame = gtk_frame_new (_("Scanner"));
-    gtk_notebook_append_page (GTK_NOTEBOOK(OptionsNoteBook),Frame,Label);
-    gtk_container_set_border_width(GTK_CONTAINER(Frame), 5);
+    VBox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
+    gtk_notebook_append_page (GTK_NOTEBOOK(OptionsNoteBook), VBox, Label);
+    gtk_container_set_border_width (GTK_CONTAINER (VBox), BOX_SPACING);
 
     /* Save the number of the page. Asked in Scanner window */
-    OptionsNoteBook_Scanner_Page_Num = gtk_notebook_page_num(GTK_NOTEBOOK(OptionsNoteBook),Frame);
-
-    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
-    gtk_container_add(GTK_CONTAINER(Frame),VBox);
-    gtk_container_set_border_width(GTK_CONTAINER(VBox), 4);
+    OptionsNoteBook_Scanner_Page_Num = gtk_notebook_page_num (GTK_NOTEBOOK (OptionsNoteBook),
+                                                              VBox);
 
     /* Character conversion for the 'Fill Tag' scanner (=> FTS...) */
     Frame = gtk_frame_new (_("Fill Tag Scanner - Character Conversion"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
+    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
 
     FTSConvertUnderscoreAndP20IntoSpace = gtk_check_button_new_with_label(_("Convert underscore "
         "character '_' and string '%20' to space ' '"));
@@ -991,15 +988,15 @@ void Open_OptionsWindow (void)
     /* Character conversion for the 'Rename File' scanner (=> RFS...) */
     Frame = gtk_frame_new (_("Rename File Scanner - Character Conversion"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox),2);
+    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
     RFSConvertUnderscoreAndP20IntoSpace = gtk_radio_button_new_with_label(NULL, _("Convert underscore " "character '_' and string '%20' to space ' '"));
     RFSConvertSpaceIntoUnderscore = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(RFSConvertUnderscoreAndP20IntoSpace), _("Convert space ' ' to underscore '_'"));
 		RFSRemoveSpaces = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(RFSConvertUnderscoreAndP20IntoSpace), _("Remove spaces"));
     gtk_box_pack_start(GTK_BOX(vbox),RFSConvertUnderscoreAndP20IntoSpace,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(vbox),RFSConvertSpaceIntoUnderscore,      FALSE,FALSE,0);
-		 gtk_box_pack_start(GTK_BOX(vbox),RFSRemoveSpaces,                    FALSE,FALSE,0);
+    gtk_box_pack_start (GTK_BOX (vbox), RFSRemoveSpaces, FALSE, FALSE, 0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(RFSConvertUnderscoreAndP20IntoSpace),
         RFS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(RFSConvertSpaceIntoUnderscore),
@@ -1015,9 +1012,9 @@ void Open_OptionsWindow (void)
     /* Character conversion for the 'Process Fields' scanner (=> PFS...) */
     Frame = gtk_frame_new (_("Process Fields Scanner - Character Conversion"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox),2);
+    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
 
     // Don't convert some words like to, feat. first letter uppercase.
     PFSDontUpperSomeWords = gtk_check_button_new_with_label(_("Don't uppercase "
@@ -1032,9 +1029,9 @@ void Open_OptionsWindow (void)
     /* Properties of the scanner window */
     Frame = gtk_frame_new (_("Scanner Window"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
+    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
 
     OpenScannerWindowOnStartup = gtk_check_button_new_with_label(_("Open the Scanner Window on startup"));
     gtk_box_pack_start(GTK_BOX(vbox),OpenScannerWindowOnStartup,FALSE,FALSE,0);
@@ -1046,9 +1043,9 @@ void Open_OptionsWindow (void)
     /* Other options */
     Frame = gtk_frame_new (_("Fields"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
+    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
 
     // Overwrite text into tag fields
     OverwriteTagField = gtk_check_button_new_with_label(_("Overwrite fields when scanning tags"));
@@ -1063,7 +1060,7 @@ void Open_OptionsWindow (void)
     else
         gtk_list_store_clear(DefaultCommentModel);
 
-    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     SetDefaultComment = gtk_check_button_new_with_label(_("Set this text as default comment:"));
     gtk_box_pack_start(GTK_BOX(hbox),SetDefaultComment,FALSE,FALSE,0);
