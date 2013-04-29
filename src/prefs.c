@@ -50,7 +50,6 @@
 static void OptionsWindow_Quit (void);
 static void OptionsWindow_Save_Button (void);
 static void OptionsWindow_Cancel_Button (void);
-static gboolean OptionsWindow_Key_Press (GtkWidget *window, GdkEvent *event);
 static gboolean Check_Config (void);
 
 static void Set_Default_Comment_Check_Button_Toggled (void);
@@ -66,6 +65,8 @@ static void Cddb_Use_Proxy_Toggled (void);
 static void DefaultPathToMp3_Combo_Add_String (void);
 static void CddbLocalPath_Combo_Add_String (void);
 
+static void et_preferences_on_response (GtkDialog *dialog, gint response_id,
+                                        gpointer user_data);
 
 
 /*************
@@ -82,7 +83,6 @@ void Init_OptionsWindow (void)
 void Open_OptionsWindow (void)
 {
     GtkWidget *OptionsVBox;
-    GtkWidget *ButtonBox;
     GtkWidget *Button;
     GtkWidget *Label;
     GtkWidget *Frame;
@@ -102,26 +102,24 @@ void Open_OptionsWindow (void)
     }
 
     /* The window */
-    OptionsWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    /* Config */
-    gtk_window_set_position(GTK_WINDOW(OptionsWindow),GTK_WIN_POS_CENTER);
-    gtk_window_set_transient_for(GTK_WINDOW(OptionsWindow),GTK_WINDOW(MainWindow));
-    gtk_container_set_border_width(GTK_CONTAINER(OptionsWindow), 5);
-    gtk_window_set_default_size(GTK_WINDOW(OptionsWindow),OPTIONS_WINDOW_WIDTH,OPTIONS_WINDOW_HEIGHT);
-    /* Title */
-    gtk_window_set_title (GTK_WINDOW (OptionsWindow), _("Preferences"));
+    OptionsWindow = gtk_dialog_new_with_buttons (_("Preferences"),
+                                                 GTK_WINDOW (MainWindow),
+                                                 GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                 GTK_STOCK_CANCEL,
+                                                 GTK_RESPONSE_REJECT,
+                                                 GTK_STOCK_OK,
+                                                 GTK_RESPONSE_ACCEPT, NULL);
+
+    gtk_container_set_border_width (GTK_CONTAINER (OptionsWindow), 6);
 
     /* Signals connection */
-    g_signal_connect(G_OBJECT(OptionsWindow),"destroy", G_CALLBACK(OptionsWindow_Quit),NULL);
-    g_signal_connect(G_OBJECT(OptionsWindow),"delete_event",G_CALLBACK(OptionsWindow_Quit),NULL);
-    g_signal_connect(G_OBJECT(OptionsWindow),"key_press_event",
-                     G_CALLBACK(OptionsWindow_Key_Press),NULL);
+    g_signal_connect (OptionsWindow, "response",
+                      G_CALLBACK (et_preferences_on_response), NULL);
 
      /* Options */
      /* The vbox */
-    OptionsVBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
-    gtk_box_set_spacing (GTK_BOX(OptionsVBox),5);
-    gtk_container_add(GTK_CONTAINER(OptionsWindow),OptionsVBox);
+    OptionsVBox = gtk_dialog_get_content_area (GTK_DIALOG (OptionsWindow));
+    gtk_box_set_spacing (GTK_BOX (OptionsVBox), 12);
 
      /* Options NoteBook */
     OptionsNoteBook = gtk_notebook_new();
@@ -1438,37 +1436,6 @@ void Open_OptionsWindow (void)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ConfirmWhenUnsavedFiles),CONFIRM_WHEN_UNSAVED_FILES);
 
 
-    /*
-     * Buttons box of Option Window
-     */
-    ButtonBox = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
-    gtk_box_pack_start(GTK_BOX(OptionsVBox), ButtonBox, FALSE, FALSE, 4);
-
-    gtk_button_box_set_layout (GTK_BUTTON_BOX (ButtonBox), GTK_BUTTONBOX_END);
-    gtk_box_set_spacing (GTK_BOX(ButtonBox), 15);
-
-
-    /* Apply Button */
-    Button = gtk_button_new_from_stock(GTK_STOCK_APPLY);
-    gtk_widget_set_tooltip_text(Button,_("Apply changes (but don't save) and close this window"));
-
-
-    /* Cancel Button */
-    Button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
-    gtk_container_add(GTK_CONTAINER(ButtonBox), Button);
-    g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(OptionsWindow_Cancel_Button),NULL);
-    gtk_widget_set_can_default(Button,TRUE);
-    gtk_widget_grab_default(Button);
-    gtk_widget_set_tooltip_text(Button,_("Close this window without saving"));
-
-
-    /* Save Button */
-    Button = gtk_button_new_from_stock(GTK_STOCK_OK);
-    gtk_container_add(GTK_CONTAINER(ButtonBox), Button);
-    g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(OptionsWindow_Save_Button),NULL);
-    gtk_widget_set_can_default(Button,TRUE);
-    gtk_widget_set_tooltip_text(Button,_("Save changes and close this window"));
-
     /* Show all in the options window */
     gtk_widget_show_all(OptionsWindow);
 
@@ -1624,27 +1591,6 @@ Cddb_Use_Proxy_Toggled (void)
     gtk_widget_set_sensitive(CddbProxyPort,active);
     gtk_widget_set_sensitive(CddbProxyUserName,active);
     gtk_widget_set_sensitive(CddbProxyUserPassword,active);
-}
-
-/* Callback from Open_OptionsWindow */
-static gboolean
-OptionsWindow_Key_Press (GtkWidget *window, GdkEvent *event)
-{
-    GdkEventKey *kevent;
-
-    if (event && event->type == GDK_KEY_PRESS)
-    {
-        kevent = (GdkEventKey *)event;
-        switch(kevent->keyval)
-        {
-            case GDK_KEY_Escape:
-            {
-                OptionsWindow_Quit();
-                break;
-            }
-        }
-    }
-    return FALSE;
 }
 
 /* Callback from Open_OptionsWindow */
@@ -1954,4 +1900,30 @@ CddbLocalPath_Combo_Add_String (void)
     Add_String_To_Combo_List(GTK_LIST_STORE(CddbLocalPath), path);
 }
 
-
+/*
+ * et_preferences_on_response:
+ * @dialog: the dialog which trigerred the response signal
+ * @response_id: the response which was triggered
+ * @user_data: user data set when the signal was connected
+ *
+ * Signal handler for the response signal, to check whether the OK or cancel
+ * button was clicked, or if a delete event was received.
+ */
+static void
+et_preferences_on_response (GtkDialog *dialog, gint response_id,
+                            gpointer user_data)
+{
+    switch (response_id)
+    {
+        case GTK_RESPONSE_ACCEPT:
+            OptionsWindow_Save_Button ();
+            break;
+        case GTK_RESPONSE_DELETE_EVENT:
+            OptionsWindow_Quit ();
+        case GTK_RESPONSE_REJECT:
+            OptionsWindow_Cancel_Button ();
+            break;
+        default:
+            g_assert_not_reached ();
+    }
+}
