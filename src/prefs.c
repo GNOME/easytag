@@ -411,21 +411,16 @@ void Open_OptionsWindow (void)
      * File Settings
      */
     Label = gtk_label_new (_("File Settings"));
-    Frame = gtk_frame_new (_("File Settings"));
-    gtk_notebook_append_page (GTK_NOTEBOOK(OptionsNoteBook),Frame,Label);
-    gtk_container_set_border_width(GTK_CONTAINER(Frame),5);
-
-    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
-    gtk_container_add(GTK_CONTAINER(Frame),VBox);
-    gtk_container_set_border_width(GTK_CONTAINER(VBox),4);
-
+    VBox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
+    gtk_notebook_append_page (GTK_NOTEBOOK (OptionsNoteBook), VBox, Label);
+    gtk_container_set_border_width (GTK_CONTAINER (VBox), BOX_SPACING);
 
     /* File (name) Options */
     Frame = gtk_frame_new (_("File Options"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
+    gtk_container_set_border_width (GTK_CONTAINER(vbox), BOX_SPACING);
 
     ReplaceIllegalCharactersInFilename = gtk_check_button_new_with_label(_("Replace illegal characters in filename (for Windows and CD-Rom)"));
     gtk_box_pack_start(GTK_BOX(vbox),ReplaceIllegalCharactersInFilename,FALSE,FALSE,0);
@@ -435,9 +430,8 @@ void Open_OptionsWindow (void)
         "of the filename to avoid problem when renaming the file. This is useful when renaming the "
         "file from the tag with the scanner."));
 
-    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
-    gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
     /* Extension case (lower/upper?) */
     Label = gtk_label_new(_("Convert filename extension to:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
@@ -481,18 +475,14 @@ void Open_OptionsWindow (void)
     /* Character Set for Filename */
     Frame = gtk_frame_new (_("Character Set for Filename"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
-
-    /****hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
-    gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
-    gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);***/
+    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
 
     Table = et_grid_new (4, 2);
     gtk_box_pack_start(GTK_BOX(vbox),Table,FALSE,FALSE,0);
     /*gtk_grid_set_row_spacing (GTK_GRID (Table), 2);*/
-    gtk_grid_set_column_spacing (GTK_GRID (Table), 2);
+    gtk_grid_set_column_spacing (GTK_GRID (Table), 2 * BOX_SPACING);
 
     /* Rules for character set */
     Label = gtk_label_new(_("Rules to apply if some characters can't be converted to "
@@ -500,8 +490,6 @@ void Open_OptionsWindow (void)
     gtk_grid_attach (GTK_GRID (Table), Label, 0, 0, 2, 1);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
 
-    Label = gtk_label_new("    ");
-    gtk_grid_attach (GTK_GRID (Table), Label, 0, 1, 1, 1);
 
     FilenameCharacterSetOther = gtk_radio_button_new_with_label(NULL,_("Try another "
         "character encoding"));
