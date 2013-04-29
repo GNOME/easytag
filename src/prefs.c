@@ -526,20 +526,16 @@ void Open_OptionsWindow (void)
      * Tag Settings
      */
     Label = gtk_label_new (_("Tag Settings"));
-    Frame = gtk_frame_new (_("Tag Settings"));
-    gtk_notebook_append_page (GTK_NOTEBOOK(OptionsNoteBook),Frame,Label);
-    gtk_container_set_border_width(GTK_CONTAINER(Frame),5);
-
-    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
-    gtk_container_add(GTK_CONTAINER(Frame),VBox);
-    gtk_container_set_border_width(GTK_CONTAINER(VBox),4);
+    VBox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
+    gtk_notebook_append_page (GTK_NOTEBOOK (OptionsNoteBook), VBox, Label);
+    gtk_container_set_border_width (GTK_CONTAINER (VBox), BOX_SPACING);
 
     /* Tag Options */
     Frame = gtk_frame_new (_("Tag Options"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox), 2);
+    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
 
     DateAutoCompletion = gtk_check_button_new_with_label(_("Auto completion of date if not complete"));
     gtk_box_pack_start(GTK_BOX(vbox),DateAutoCompletion,FALSE,FALSE,0);
@@ -548,7 +544,7 @@ void Open_OptionsWindow (void)
         "only the last numerals of the date (for instance, if the current year is 2005: "
         "5 => 2005, 4 => 2004, 6 => 1996, 95 => 1995…)."));
 
-    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
 
     NumberTrackFormated = gtk_check_button_new_with_label(_("Write the track field with the following number of digits:"));
@@ -577,15 +573,12 @@ void Open_OptionsWindow (void)
     Table = et_grid_new (2, 3);
     gtk_box_pack_start(GTK_BOX(vbox),Table,FALSE,FALSE,0);
     /*gtk_grid_set_row_spacing (GTK_GRID (Table), 2);*/
-    gtk_grid_set_column_spacing (GTK_GRID (Table), 2);
+    gtk_grid_set_column_spacing (GTK_GRID (Table), 2 * BOX_SPACING);
 
     Label = gtk_label_new(_("Tag field focus when switching files in list with "
         "shortcuts Page Up/Page Down:"));
     gtk_grid_attach (GTK_GRID (Table), Label, 0, 0, 2, 1);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
-
-    Label = gtk_label_new("    ");
-    gtk_grid_attach (GTK_GRID (Table), Label, 0, 1, 1, 1);
 
     SetFocusToSameTagField = gtk_radio_button_new_with_label(NULL,
         _("Keep focus to the same tag field"));
@@ -604,7 +597,9 @@ void Open_OptionsWindow (void)
 
     Table = et_grid_new (5, 2);
     gtk_container_add(GTK_CONTAINER(Frame),Table);
-    gtk_grid_set_column_spacing (GTK_GRID (Table), 2);
+    gtk_container_set_border_width (GTK_CONTAINER (Table), BOX_SPACING);
+    gtk_grid_set_column_spacing (GTK_GRID (Table), BOX_SPACING);
+    gtk_grid_set_row_spacing (GTK_GRID (Table), BOX_SPACING);
     
     Label = gtk_label_new(_("For Vorbis tags, selected fields will be split at dashes and saved as separate tags"));
     gtk_grid_attach (GTK_GRID (Table), Label, 0, 0, 2, 1);
