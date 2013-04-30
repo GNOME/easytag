@@ -54,6 +54,8 @@
  ***************/
 /* Playlist window defined in misc.h */
 
+static const guint BOX_SPACING = 6;
+
 /* Search file window. */
 static GtkWidget *SearchFileWindow = NULL;
 static GtkWidget *SearchStringCombo;
@@ -150,8 +152,6 @@ enum
  * Prototypes *
  **************/
 void     Open_Write_Playlist_Window      (void);
-static gboolean Write_Playlist_Window_Key_Press (GtkWidget *window,
-                                                 GdkEvent *event);
 static void Destroy_Write_Playlist_Window (void);
 static void Playlist_Write_Button_Pressed (void);
 static gboolean Write_Playlist (const gchar *play_list_name);
@@ -200,6 +200,8 @@ static void Open_File_Selection_Window (GtkWidget *entry, gchar *title, GtkFileC
 void        File_Selection_Window_For_File      (GtkWidget *entry);
 void        File_Selection_Window_For_Directory (GtkWidget *entry);
 
+static void et_playlist_on_response (GtkDialog *dialog, gint response_id,
+                                     gpointer user_data);
 
 /*************
  * Functions *
@@ -1230,9 +1232,7 @@ void Open_Write_Playlist_Window (void)
     GtkWidget *Frame;
     GtkWidget *VBox;
     GtkWidget *vbox, *hbox;
-    GtkWidget *ButtonBox;
     GtkWidget *Button;
-    GtkWidget *Separator;
     GtkWidget *Icon;
     GtkWidget *MaskStatusIconBox, *MaskStatusIconBox1;
 
@@ -1242,24 +1242,21 @@ void Open_Write_Playlist_Window (void)
         return;
     }
 
-    WritePlaylistWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW(WritePlaylistWindow),_("Generate a playlist"));
-    gtk_window_set_transient_for(GTK_WINDOW(WritePlaylistWindow),GTK_WINDOW(MainWindow));
-    g_signal_connect(G_OBJECT(WritePlaylistWindow),"destroy", G_CALLBACK(Destroy_Write_Playlist_Window),NULL);
-    g_signal_connect(G_OBJECT(WritePlaylistWindow),"delete_event", G_CALLBACK(Destroy_Write_Playlist_Window),NULL);
-    g_signal_connect(G_OBJECT(WritePlaylistWindow),"key_press_event", G_CALLBACK(Write_Playlist_Window_Key_Press),NULL);
+    WritePlaylistWindow = gtk_dialog_new_with_buttons (_("Generate a Playlist"),
+                                                       GTK_WINDOW (MainWindow),
+                                                       GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                       GTK_STOCK_CANCEL,
+                                                       GTK_RESPONSE_CANCEL,
+                                                       GTK_STOCK_SAVE,
+                                                       GTK_RESPONSE_OK, NULL);
 
-    // Just center on mainwindow
-    gtk_window_set_position(GTK_WINDOW(WritePlaylistWindow), GTK_WIN_POS_CENTER_ON_PARENT);
-    gtk_window_set_default_size(GTK_WINDOW(WritePlaylistWindow),PLAYLIST_WINDOW_WIDTH,PLAYLIST_WINDOW_HEIGHT);
+    g_signal_connect (WritePlaylistWindow, "response",
+                      G_CALLBACK (et_playlist_on_response), NULL);
 
-    Frame = gtk_frame_new(NULL);
-    gtk_container_add(GTK_CONTAINER(WritePlaylistWindow),Frame);
-    gtk_container_set_border_width(GTK_CONTAINER(Frame),4);
+    VBox = gtk_dialog_get_content_area (GTK_DIALOG (WritePlaylistWindow));
+    gtk_box_set_spacing (GTK_BOX (VBox), BOX_SPACING);
+    gtk_container_set_border_width (GTK_CONTAINER (VBox), BOX_SPACING);
 
-    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
-    gtk_container_add(GTK_CONTAINER(Frame),VBox);
-    gtk_container_set_border_width(GTK_CONTAINER(VBox), 4);
 
     /* Playlist name */
     if (!PlayListNameMaskModel)
@@ -1269,17 +1266,18 @@ void Open_Write_Playlist_Window (void)
 
     Frame = gtk_frame_new(_("M3U Playlist Name"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,TRUE,TRUE,0);
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 4);
 
     playlist_use_mask_name = gtk_radio_button_new_with_label(NULL, _("Use mask:"));
-    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),playlist_use_mask_name,FALSE,FALSE,0);
     PlayListNameMaskCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(PlayListNameMaskModel));
     gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(PlayListNameMaskCombo),MISC_COMBO_TEXT);
-    gtk_box_pack_start(GTK_BOX(hbox),PlayListNameMaskCombo,FALSE,FALSE,4);
+    gtk_box_pack_start (GTK_BOX (hbox), PlayListNameMaskCombo, FALSE, FALSE,
+                        0);
     playlist_use_dir_name = gtk_radio_button_new_with_label_from_widget(
         GTK_RADIO_BUTTON(playlist_use_mask_name),_("Use directory name"));
     gtk_box_pack_start(GTK_BOX(vbox),playlist_use_dir_name,FALSE,FALSE,0);
@@ -1315,19 +1313,15 @@ void Open_Write_Playlist_Window (void)
     /* Playlist options */
     Frame = gtk_frame_new(_("Playlist Options"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,TRUE,TRUE,0);
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox), 4);
+    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
 
     playlist_only_selected_files = gtk_check_button_new_with_label(_("Include only the selected files"));
     gtk_box_pack_start(GTK_BOX(vbox),playlist_only_selected_files,FALSE,FALSE,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_only_selected_files),PLAYLIST_ONLY_SELECTED_FILES);
     gtk_widget_set_tooltip_text(playlist_only_selected_files,_("If activated, only the selected files will be "
         "written in the playlist file. Else, all the files will be written."));
-
-    // Separator line
-    Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
-    gtk_box_pack_start(GTK_BOX(vbox),Separator,FALSE,FALSE,0);
 
     playlist_full_path = gtk_radio_button_new_with_label(NULL,_("Use full path for files in playlist"));
     gtk_box_pack_start(GTK_BOX(vbox),playlist_full_path,FALSE,FALSE,0);
@@ -1336,10 +1330,6 @@ void Open_Write_Playlist_Window (void)
     gtk_box_pack_start(GTK_BOX(vbox),playlist_relative_path,FALSE,FALSE,0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_full_path),PLAYLIST_FULL_PATH);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_relative_path),PLAYLIST_RELATIVE_PATH);
-
-    // Separator line
-    Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
-    gtk_box_pack_start(GTK_BOX(vbox),Separator,FALSE,FALSE,0);
 
     // Create playlist in parent directory
     playlist_create_in_parent_dir = gtk_check_button_new_with_label(_("Create playlist in the parent directory"));
@@ -1366,9 +1356,9 @@ void Open_Write_Playlist_Window (void)
 
     Frame = gtk_frame_new(_("Playlist Content"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,TRUE,TRUE,0);
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox), 4);
+    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
 
     playlist_content_none = gtk_radio_button_new_with_label(NULL,_("Write only list of files"));
     gtk_box_pack_start(GTK_BOX(vbox),playlist_content_none,FALSE,FALSE,0);
@@ -1378,7 +1368,7 @@ void Open_Write_Playlist_Window (void)
     gtk_box_pack_start(GTK_BOX(vbox),playlist_content_filename,FALSE,FALSE,0);
 
     playlist_content_mask = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(playlist_content_none), _("Write info using:"));
-    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),playlist_content_mask,FALSE,FALSE,0);
     // Set a label, a combobox and un editor button in the 3rd radio button
@@ -1414,28 +1404,6 @@ void Open_Write_Playlist_Window (void)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_content_filename),PLAYLIST_CONTENT_FILENAME);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_content_mask),    PLAYLIST_CONTENT_MASK);
 
-
-    /* Separator line */
-    Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
-    gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
-
-    ButtonBox = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
-    gtk_box_pack_start(GTK_BOX(VBox),ButtonBox,FALSE,FALSE,0);
-    gtk_button_box_set_layout(GTK_BUTTON_BOX(ButtonBox),GTK_BUTTONBOX_END);
-    gtk_box_set_spacing(GTK_BOX(ButtonBox), 10);
-
-    /* Button to Cancel */
-    Button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
-    gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
-    gtk_widget_set_can_default(Button,TRUE);
-    gtk_widget_grab_default(Button);
-    g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(Destroy_Write_Playlist_Window),NULL);
-
-    /* Button to Write the playlist */
-    Button = gtk_button_new_from_stock(GTK_STOCK_SAVE);
-    gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
-    gtk_widget_set_can_default(Button,TRUE);
-    g_signal_connect_swapped(G_OBJECT(Button),"clicked",G_CALLBACK(Playlist_Write_Button_Pressed),NULL);
 
     gtk_widget_show_all(WritePlaylistWindow);
     if (PLAYLIST_WINDOW_X > 0 && PLAYLIST_WINDOW_Y > 0)
@@ -1505,23 +1473,6 @@ void Write_Playlist_Window_Apply_Changes (void)
         Save_Play_List_Name_List(PlayListNameMaskModel, MISC_COMBO_TEXT);
         Save_Playlist_Content_Mask_List(PlayListContentMaskModel, MISC_COMBO_TEXT);
     }
-}
-
-gboolean Write_Playlist_Window_Key_Press (GtkWidget *window, GdkEvent *event)
-{
-    GdkEventKey *kevent;
-
-    if (event && event->type == GDK_KEY_PRESS)
-    {
-        kevent = (GdkEventKey *)event;
-        switch(kevent->keyval)
-        {
-            case GDK_KEY_Escape:
-                Destroy_Write_Playlist_Window();
-                break;
-        }
-    }
-    return FALSE;
 }
 
 static void
@@ -3740,4 +3691,30 @@ Load_Filename_Edit_Text_Line(GtkTreeSelection *selection, gpointer data)
         gtk_entry_set_text(entry, "");
 
     g_signal_handler_unblock(entry, handler);
+}
+
+/*
+ * et_playlist_on_response:
+ * @dialog: the dialog which emitted the response signal
+ * @response_id: the response ID
+ * @user_data: user data set when the signal was connected
+ *
+ * Signal handler for the write playlist dialog.
+ */
+static void
+et_playlist_on_response (GtkDialog *dialog, gint response_id,
+                         gpointer user_data)
+{
+    switch (response_id)
+    {
+        case GTK_RESPONSE_OK:
+            Playlist_Write_Button_Pressed ();
+            break;
+        case GTK_RESPONSE_CANCEL:
+        case GTK_RESPONSE_DELETE_EVENT:
+            Destroy_Write_Playlist_Window ();
+            break;
+        default:
+            g_assert_not_reached ();
+    }
 }
