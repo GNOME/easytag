@@ -203,8 +203,6 @@ gchar  *PLAYLIST_CONTENT_MASK_VALUE;
 
 gint    PLAYLIST_WINDOW_X;
 gint    PLAYLIST_WINDOW_Y;
-gint    PLAYLIST_WINDOW_WIDTH;
-gint    PLAYLIST_WINDOW_HEIGHT;
 
 /* "Load filenames from txt" window */
 gint    LOAD_FILE_RUN_SCANNER;
