@@ -1433,21 +1433,17 @@ void Write_Playlist_Window_Apply_Changes (void)
 {
     if (WritePlaylistWindow)
     {
-        gint x, y, width, height;
+        gint x, y;
         GdkWindow *window;
 
         window = gtk_widget_get_window (WritePlaylistWindow);
 
         if ( window && gdk_window_is_visible(window) && gdk_window_get_state(window)!=GDK_WINDOW_STATE_MAXIMIZED )
         {
-            // Position and Origin of the window
+            /* Origin of the window. */
             gdk_window_get_root_origin(window,&x,&y);
             PLAYLIST_WINDOW_X = x;
             PLAYLIST_WINDOW_Y = y;
-            width = gdk_window_get_width(window);
-            height = gdk_window_get_height(window);
-            PLAYLIST_WINDOW_WIDTH  = width;
-            PLAYLIST_WINDOW_HEIGHT = height;
         }
 
         /* List of variables also set in the function 'Playlist_Write_Button_Pressed' */

@@ -245,8 +245,6 @@ tConfigVariable Config_Variables[] =
     {"playlist_content_mask_value",             CV_TYPE_STRING,  &PLAYLIST_CONTENT_MASK_VALUE            },
     {"playlist_window_x",                       CV_TYPE_INT,     &PLAYLIST_WINDOW_X                      },
     {"playlist_window_y",                       CV_TYPE_INT,     &PLAYLIST_WINDOW_Y                      },
-    {"playlist_window_width",                   CV_TYPE_INT,     &PLAYLIST_WINDOW_WIDTH                  },
-    {"playlist_window_height",                  CV_TYPE_INT,     &PLAYLIST_WINDOW_HEIGHT                 },
 
     {"load_file_run_scanner",                   CV_TYPE_BOOL,    &LOAD_FILE_RUN_SCANNER                  },
     {"load_file_window_x",                      CV_TYPE_INT,     &LOAD_FILE_WINDOW_X                     },
@@ -528,8 +526,6 @@ void Init_Config_Variables (void)
 
     PLAYLIST_WINDOW_X               = -1;
     PLAYLIST_WINDOW_Y               = -1;
-    PLAYLIST_WINDOW_WIDTH           = -1;
-    PLAYLIST_WINDOW_HEIGHT          = -1;
 
     /*
      * Load File window
