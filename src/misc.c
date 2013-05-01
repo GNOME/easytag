@@ -171,8 +171,6 @@ static void Search_Result_List_Row_Selected (GtkTreeSelection* selection,
 
 void Open_Load_Filename_Window      (void);
 static void Destroy_Load_Filename_Window (void);
-static gboolean Load_Filename_Window_Key_Press (GtkWidget *window,
-                                                GdkEvent *event);
 static void Load_Filename_List_Key_Press (GtkWidget *clist, GdkEvent *event);
 static void Load_File_Content (GtkWidget *file_entry);
 static void Load_File_List (void);
@@ -200,6 +198,8 @@ static void Open_File_Selection_Window (GtkWidget *entry, gchar *title, GtkFileC
 void        File_Selection_Window_For_File      (GtkWidget *entry);
 void        File_Selection_Window_For_Directory (GtkWidget *entry);
 
+static void et_load_text_file_on_response (GtkDialog *dialog, gint response_id,
+                                           gpointer user_data);
 static void et_playlist_on_response (GtkDialog *dialog, gint response_id,
                                      gpointer user_data);
 
@@ -2677,9 +2677,7 @@ Search_Result_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
 void Open_Load_Filename_Window (void)
 {
     GtkWidget *VBox, *hbox;
-    GtkWidget *Frame;
     GtkWidget *Label;
-    GtkWidget *ButtonBox;
     GtkWidget *Button;
     GtkWidget *Icon;
     GtkWidget *Entry;
@@ -2699,27 +2697,25 @@ void Open_Load_Filename_Window (void)
         return;
     }
 
-    LoadFilenameWindow  = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW(LoadFilenameWindow),_("Load the filenames from a TXT file"));
-    gtk_window_set_transient_for(GTK_WINDOW(LoadFilenameWindow),GTK_WINDOW(MainWindow));
-    g_signal_connect(G_OBJECT(LoadFilenameWindow),"destroy",G_CALLBACK(Destroy_Load_Filename_Window),NULL);
-    g_signal_connect(G_OBJECT(LoadFilenameWindow),"delete_event", G_CALLBACK(Destroy_Load_Filename_Window),NULL);
-    g_signal_connect(G_OBJECT(LoadFilenameWindow),"key_press_event", G_CALLBACK(Load_Filename_Window_Key_Press),NULL);
+    LoadFilenameWindow = gtk_dialog_new_with_buttons (_("Load Filenames From a Text File"),
+                                                      GTK_WINDOW (MainWindow),
+                                                      GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                      GTK_STOCK_CLOSE,
+                                                      GTK_RESPONSE_CANCEL,
+                                                      GTK_STOCK_APPLY,
+                                                      GTK_RESPONSE_ACCEPT,
+                                                      NULL);
+    g_signal_connect (LoadFilenameWindow, "response",
+                      G_CALLBACK (et_load_text_file_on_response), NULL);
 
-    // Just center on mainwindow
-    gtk_window_set_position(GTK_WINDOW(LoadFilenameWindow), GTK_WIN_POS_CENTER_ON_PARENT);
     gtk_window_set_default_size(GTK_WINDOW(LoadFilenameWindow),LOAD_FILE_WINDOW_WIDTH,LOAD_FILE_WINDOW_HEIGHT);
 
-    Frame = gtk_frame_new(NULL);
-    gtk_container_add(GTK_CONTAINER(LoadFilenameWindow),Frame);
-    gtk_container_set_border_width(GTK_CONTAINER(Frame),2);
-
-    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,4);
-    gtk_container_add(GTK_CONTAINER(Frame),VBox);
-    gtk_container_set_border_width(GTK_CONTAINER(VBox), 2);
+    VBox = gtk_dialog_get_content_area (GTK_DIALOG (LoadFilenameWindow));
+    gtk_container_set_border_width (GTK_CONTAINER (LoadFilenameWindow), BOX_SPACING);
+    gtk_box_set_spacing (GTK_BOX (VBox), BOX_SPACING);
 
     // Hbox for file entry and browser/load buttons
-    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,4);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_box_pack_start(GTK_BOX(VBox),hbox,FALSE,TRUE,0);
 
     // File to load
@@ -2752,14 +2748,8 @@ void Open_Load_Filename_Window (void)
     gtk_box_pack_start(GTK_BOX(hbox),ButtonLoad,FALSE,FALSE,0);
     g_signal_connect_swapped(G_OBJECT(gtk_bin_get_child(GTK_BIN(FileToLoadCombo))),"changed", G_CALLBACK(Button_Load_Set_Sensivity), G_OBJECT(ButtonLoad));
 
-    // Separator line
-    Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
-    gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
-
-    //
     // Vbox for loaded files
-    //
-    loadedvbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
+    loadedvbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
 
     // Content of the loaded file
     ScrollWindow = gtk_scrolled_window_new(NULL,NULL);
@@ -2783,7 +2773,7 @@ void Open_Load_Filename_Window (void)
     g_signal_connect(G_OBJECT(LoadFileContentList),"key-press-event", G_CALLBACK(Load_Filename_List_Key_Press),NULL);
 
     // Commands (like the popup menu)
-    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,4);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_box_pack_start(GTK_BOX(loadedvbox),hbox,FALSE,FALSE,0);
 
     Button = gtk_button_new();
@@ -2852,7 +2842,7 @@ void Open_Load_Filename_Window (void)
     //
     // Vbox for file list files
     //
-    filelistvbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
+    filelistvbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
 
     // List of current filenames
     ScrollWindow = gtk_scrolled_window_new(NULL,NULL);
@@ -2877,7 +2867,7 @@ void Open_Load_Filename_Window (void)
     g_signal_connect_swapped(G_OBJECT(gtk_tree_view_get_selection(GTK_TREE_VIEW(LoadFileNameList))),"changed", G_CALLBACK(Load_Filename_Select_Row_In_Other_List), G_OBJECT(LoadFileContentList));
 
     // Commands (like the popup menu)
-    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,4);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_box_pack_start(GTK_BOX(filelistvbox),hbox,FALSE,FALSE,0);
 
     Button = gtk_button_new();
@@ -2955,7 +2945,7 @@ void Open_Load_Filename_Window (void)
     Create_Load_Filename_Popup_Menu(LoadFileContentList);
     Create_Load_Filename_Popup_Menu(LoadFileNameList);
 
-    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,4);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_box_pack_start(GTK_BOX(VBox),hbox,FALSE,TRUE,0);
 
     Label = gtk_label_new(_("Selected line:"));
@@ -2978,29 +2968,6 @@ void Open_Load_Filename_Window (void)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(LoadFileRunScanner),LOAD_FILE_RUN_SCANNER);
     gtk_widget_set_tooltip_text(LoadFileRunScanner,_("When activating this option, after loading the "
         "filenames, the current selected scanner will be ran (the scanner window must be opened)."));
-
-    // Separator line
-    Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
-    gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
-
-    ButtonBox = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
-    gtk_box_pack_start(GTK_BOX(VBox),ButtonBox,FALSE,FALSE,0);
-    gtk_button_box_set_layout(GTK_BUTTON_BOX(ButtonBox),GTK_BUTTONBOX_END);
-    gtk_box_set_spacing(GTK_BOX(ButtonBox), 10);
-
-    // Button to cancel
-    Button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
-    gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
-    gtk_widget_set_can_default(Button,TRUE);
-    gtk_widget_grab_default(Button);
-    g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(Destroy_Load_Filename_Window),NULL);
-
-    // Button to load filenames
-    Button = gtk_button_new_from_stock(GTK_STOCK_APPLY);
-    gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
-    gtk_widget_set_can_default(Button,TRUE);
-    g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(Load_Filename_Set_Filenames),NULL);
-
 
     // To initialize 'ButtonLoad' sensivity
     g_signal_emit_by_name(G_OBJECT(gtk_bin_get_child(GTK_BIN(FileToLoadCombo))),"changed");
@@ -3051,24 +3018,6 @@ void Load_Filename_Window_Apply_Changes (void)
 
         LOAD_FILE_RUN_SCANNER = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(LoadFileRunScanner));
     }
-}
-
-static gboolean
-Load_Filename_Window_Key_Press (GtkWidget *window, GdkEvent *event)
-{
-    GdkEventKey *kevent;
-
-    if (event && event->type == GDK_KEY_PRESS)
-    {
-        kevent = (GdkEventKey *)event;
-        switch(kevent->keyval)
-        {
-            case GDK_KEY_Escape:
-                Destroy_Load_Filename_Window();
-                break;
-        }
-    }
-    return FALSE;
 }
 
 /*
@@ -3687,6 +3636,32 @@ Load_Filename_Edit_Text_Line(GtkTreeSelection *selection, gpointer data)
         gtk_entry_set_text(entry, "");
 
     g_signal_handler_unblock(entry, handler);
+}
+
+/*
+ * et_load_text_file_on_response:
+ * @dialog: the dialog which emitted the response signal
+ * @response_id: the response ID
+ * @user_data: user data set when the signal was connected
+ *
+ * Signal handler for the load filenames from text file dialog.
+ */
+static void
+et_load_text_file_on_response (GtkDialog *dialog, gint response_id,
+                               gpointer user_data)
+{
+    switch (response_id)
+    {
+        case GTK_RESPONSE_APPLY:
+            Load_Filename_Set_Filenames ();
+            break;
+        case GTK_RESPONSE_CANCEL:
+        case GTK_RESPONSE_DELETE_EVENT:
+            Destroy_Load_Filename_Window ();
+            break;
+        default:
+            g_assert_not_reached ();
+    }
 }
 
 /*
