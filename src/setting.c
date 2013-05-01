@@ -323,10 +323,7 @@ tConfigVariable Config_Variables[] =
     {"rename_directory_default_mask",           CV_TYPE_STRING,  &RENAME_DIRECTORY_DEFAULT_MASK          },
     {"rename_directory_with_mask",              CV_TYPE_BOOL,    &RENAME_DIRECTORY_WITH_MASK             },
 
-    {"options_notebook_page",                   CV_TYPE_INT,     &OPTIONS_NOTEBOOK_PAGE                  },
-    {"options_window_height",                   CV_TYPE_INT,     &OPTIONS_WINDOW_HEIGHT                  },
-    {"options_window_width",                    CV_TYPE_INT,     &OPTIONS_WINDOW_WIDTH                   }
-
+    { "options_notebook_page", CV_TYPE_INT, &OPTIONS_NOTEBOOK_PAGE }
 };
 
 
@@ -621,9 +618,6 @@ void Init_Config_Variables (void)
      * Other parameters
      */
     OPTIONS_NOTEBOOK_PAGE = 0;
-    OPTIONS_WINDOW_HEIGHT = 300;
-    OPTIONS_WINDOW_WIDTH  = 400;
-
 }
 
 

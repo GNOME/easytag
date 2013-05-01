@@ -292,8 +292,6 @@ gint    RENAME_DIRECTORY_WITH_MASK;
 
 /* Other parameters */
 gint    OPTIONS_NOTEBOOK_PAGE;
-gint    OPTIONS_WINDOW_HEIGHT;
-gint    OPTIONS_WINDOW_WIDTH;
 
 
 

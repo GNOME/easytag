@@ -1584,24 +1584,6 @@ void OptionsWindow_Apply_Changes (void)
 {
     if (OptionsWindow)
     {
-        //gint x, y;
-        gint width, height;
-        GdkWindow *window;
-
-        window = gtk_widget_get_window(OptionsWindow);
-
-        if ( window && gdk_window_is_visible(window) && gdk_window_get_state(window)!=GDK_WINDOW_STATE_MAXIMIZED )
-        {
-            // Position and Origin of the preferences window
-            //gdk_window_get_root_origin(OptionsWindow->window,&x,&y);
-            //OPTIONS_WINDOW_X = x;
-            //OPTIONS_WINDOW_Y = y;
-            width = gdk_window_get_width(window);
-            height = gdk_window_get_height(window);
-            OPTIONS_WINDOW_WIDTH  = width;
-            OPTIONS_WINDOW_HEIGHT = height;
-        }
-
         /* Get the last visible notebook page */
         OPTIONS_NOTEBOOK_PAGE = gtk_notebook_get_current_page(GTK_NOTEBOOK(OptionsNoteBook));
 
