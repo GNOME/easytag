@@ -88,6 +88,7 @@ GtkWidget *RenameDirectoryPreviewLabel = NULL;
 /* The last ETFile selected in the BrowserList. */
 static ET_File *LastBrowserListETFileSelected;
 
+static const guint BOX_SPACING = 6;
 
 static gchar *Rename_Directory_Masks [] =
 {
@@ -184,8 +185,6 @@ static gboolean Browser_Popup_Menu_Handler (GtkWidget *widget,
 /* For window to rename a directory */
 static void Destroy_Rename_Directory_Window (void);
 static void Rename_Directory (void);
-static gboolean Rename_Directory_Window_Key_Press (GtkWidget *window,
-                                                   GdkEvent *event);
 static void Rename_Directory_With_Mask_Toggled (void);
 
 /* For window to run a program with the directory */
@@ -202,6 +201,9 @@ static void Run_Program_With_Selected_Files (GtkWidget *combobox);
 
 static gboolean Run_Program (const gchar *program_name, GList *args_list);
 
+static void et_rename_directory_on_response (GtkDialog *dialog,
+                                             gint response_id,
+                                             gpointer user_data);
 
 
 /*************
@@ -3546,13 +3548,10 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
  */
 void Browser_Open_Rename_Directory_Window (void)
 {
-    GtkWidget *Frame;
     GtkWidget *VBox;
     GtkWidget *HBox;
     GtkWidget *Label;
-    GtkWidget *ButtonBox;
     GtkWidget *Button;
-    GtkWidget *Separator;
     gchar *directory_parent = NULL;
     gchar *directory_name = NULL;
     gchar *directory_name_utf8 = NULL;
@@ -3591,25 +3590,27 @@ void Browser_Open_Rename_Directory_Window (void)
 
     directory_name_utf8 = filename_to_display(directory_name);
 
-    RenameDirectoryWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW(RenameDirectoryWindow),_("Rename the directory"));
-    gtk_window_set_transient_for(GTK_WINDOW(RenameDirectoryWindow),GTK_WINDOW(MainWindow));
-    gtk_window_set_position(GTK_WINDOW(RenameDirectoryWindow),GTK_WIN_POS_CENTER_ON_PARENT);
+    RenameDirectoryWindow = gtk_dialog_new_with_buttons (_("Rename Directory"),
+                                                         GTK_WINDOW (MainWindow),
+                                                         GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                         GTK_STOCK_CANCEL,
+                                                         GTK_RESPONSE_CANCEL,
+                                                         GTK_STOCK_APPLY,
+                                                         GTK_RESPONSE_APPLY,
+                                                         NULL);
 
     /* We attach useful data to the combobox */
     g_object_set_data(G_OBJECT(RenameDirectoryWindow), "Parent_Directory", directory_parent);
     g_object_set_data(G_OBJECT(RenameDirectoryWindow), "Current_Directory", directory_name);
+    g_signal_connect (RenameDirectoryWindow, "response",
+                      G_CALLBACK (et_rename_directory_on_response), NULL);
 
-    Frame = gtk_frame_new(NULL);
-    gtk_container_add(GTK_CONTAINER(RenameDirectoryWindow),Frame);
-    gtk_container_set_border_width(GTK_CONTAINER(Frame),2);
-
-    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,4);
-    gtk_container_add(GTK_CONTAINER(Frame),VBox);
-    gtk_container_set_border_width(GTK_CONTAINER(VBox), 4);
+    VBox = gtk_dialog_get_content_area (GTK_DIALOG (RenameDirectoryWindow));
+    gtk_container_set_border_width (GTK_CONTAINER (RenameDirectoryWindow),
+                                    BOX_SPACING);
 
     string = g_strdup_printf(_("Rename the directory '%s' to:"),directory_name_utf8);
-    Label = gtk_label_new(_(string));
+    Label = gtk_label_new (string);
     g_free(string);
     gtk_box_pack_start(GTK_BOX(VBox),Label,FALSE,TRUE,0);
     gtk_label_set_line_wrap(GTK_LABEL(Label),TRUE);
@@ -3679,41 +3680,12 @@ void Browser_Open_Rename_Directory_Window (void)
     ////gtk_widget_show(FillTagPreviewLabel);
     gtk_box_pack_start(GTK_BOX(VBox),RenameDirectoryPreviewLabel,TRUE,TRUE,0);
 
-    /* Separator line */
-    Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
-    gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
-
-    ButtonBox = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
-    gtk_box_pack_start(GTK_BOX(VBox),ButtonBox,FALSE,FALSE,0);
-    gtk_button_box_set_layout(GTK_BUTTON_BOX(ButtonBox),GTK_BUTTONBOX_END);
-    gtk_box_set_spacing(GTK_BOX(ButtonBox),10);
-
-    /* Button to cancel */
-    Button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
-    gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
-    gtk_widget_set_can_default(Button,TRUE);
-    gtk_widget_grab_default(Button);
-    g_signal_connect_swapped(G_OBJECT(Button),"clicked",G_CALLBACK(Destroy_Rename_Directory_Window), G_OBJECT(RenameDirectoryCombo));
-
     /* Button to save: to rename directory */
-    Button = gtk_button_new_from_stock(GTK_STOCK_APPLY);
-    gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
-    gtk_widget_set_can_default(Button,TRUE);
-    g_signal_connect_swapped(G_OBJECT(Button),"clicked", G_CALLBACK(Rename_Directory),NULL);
+    Button = gtk_dialog_get_widget_for_response (GTK_DIALOG (RenameDirectoryWindow),
+                                                 GTK_RESPONSE_APPLY);
     g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameDirectoryCombo)))),"changed",
         G_CALLBACK(Entry_Changed_Disable_Object),G_OBJECT(Button));
 
-    g_signal_connect_swapped(G_OBJECT(RenameDirectoryWindow),"destroy", G_CALLBACK(Destroy_Rename_Directory_Window), NULL);
-    g_signal_connect_swapped(G_OBJECT(RenameDirectoryWindow),"delete_event", G_CALLBACK(Destroy_Rename_Directory_Window), NULL);
-    g_signal_connect(G_OBJECT(RenameDirectoryWindow),"key_press_event", G_CALLBACK(Rename_Directory_Window_Key_Press),NULL);
-    gtk_widget_show(RenameDirectoryWindow);
-
-    // Just center it over the main window
-    gtk_window_set_position(GTK_WINDOW(RenameDirectoryWindow), GTK_WIN_POS_CENTER_ON_PARENT);
-    gtk_window_set_resizable(GTK_WINDOW(RenameDirectoryWindow),FALSE);
-    gtk_widget_set_size_request(GTK_WIDGET(RenameDirectoryWindow), 350, -1);
-
-    // To avoid/minimize 'flicker'
     gtk_widget_show_all(RenameDirectoryWindow);
 
     // To initialize the 'Use mask' check button state
@@ -3732,10 +3704,6 @@ Destroy_Rename_Directory_Window (void)
     {
         g_free(g_object_get_data(G_OBJECT(RenameDirectoryWindow),"Parent_Directory"));
         g_free(g_object_get_data(G_OBJECT(RenameDirectoryWindow),"Current_Directory"));
-
-        // Prevent recursion (double-freeing)
-        // We can't unblock after the destroy is complete, it must be done automatically
-        g_signal_handlers_block_by_func(RenameDirectoryWindow, Destroy_Rename_Directory_Window, NULL);
 
         if (RENAME_DIRECTORY_DEFAULT_MASK) g_free(RENAME_DIRECTORY_DEFAULT_MASK);
         RENAME_DIRECTORY_DEFAULT_MASK = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameDirectoryMaskCombo)))));
@@ -3999,25 +3967,6 @@ Rename_Directory (void)
     g_free(directory_new_name);
     g_free(directory_new_name_file);
     Statusbar_Message(_("Directory renamed"),TRUE);
-}
-
-static gboolean
-Rename_Directory_Window_Key_Press (GtkWidget *window, GdkEvent *event)
-{
-    GdkEventKey *kevent;
-
-    if (event && event->type == GDK_KEY_PRESS)
-    {
-        kevent = (GdkEventKey *)event;
-        switch(kevent->keyval)
-        {
-            case GDK_KEY_Escape:
-                // Destroy_Rename_Directory_Window();
-                g_signal_emit_by_name(window, "destroy");
-                break;
-        }
-    }
-    return FALSE;
 }
 
 static void
@@ -4539,4 +4488,30 @@ Run_Program (const gchar *program_name, GList *args_list)
 #endif /* !G_OS_WIN32 */
 
     return TRUE;
+}
+
+/*
+ * et_rename_directory_on_response:
+ * @dialog: the dialog which emitted the response signal
+ * @response_id: the response ID
+ * @user_data: user data set when the signal was connected
+ *
+ * Signal handler for the rename directory dialog.
+ */
+static void
+et_rename_directory_on_response (GtkDialog *dialog, gint response_id,
+                                 gpointer user_data)
+{
+    switch (response_id)
+    {
+        case GTK_RESPONSE_APPLY:
+            Rename_Directory ();
+            break;
+        case GTK_RESPONSE_CANCEL:
+        case GTK_RESPONSE_DELETE_EVENT:
+            Destroy_Rename_Directory_Window ();
+            break;
+        default:
+            g_assert_not_reached ();
+    }
 }
