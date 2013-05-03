@@ -193,8 +193,6 @@ static void Run_Program_With_Directory (GtkWidget *combobox);
 
 /* For window to run a program with the file */
 static void Destroy_Run_Program_List_Window (void);
-static gboolean Run_Program_List_Window_Key_Press (GtkWidget *window,
-                                                   GdkEvent *event);
 static void Run_Program_With_Selected_Files (GtkWidget *combobox);
 
 static gboolean Run_Program (const gchar *program_name, GList *args_list);
@@ -203,6 +201,9 @@ static void et_rename_directory_on_response (GtkDialog *dialog,
                                              gint response_id,
                                              gpointer user_data);
 static void et_run_program_tree_on_response (GtkDialog *dialog,
+                                             gint response_id,
+                                             gpointer user_data);
+static void et_run_program_list_on_response (GtkDialog *dialog,
                                              gint response_id,
                                              gpointer user_data);
 
@@ -4109,14 +4110,11 @@ void Run_Program_With_Directory (GtkWidget *combobox)
  */
 void Browser_Open_Run_Program_List_Window (void)
 {
-    GtkWidget *Frame;
     GtkWidget *VBox;
     GtkWidget *HBox;
     GtkWidget *Label;
     GtkWidget *RunProgramComboBox;
-    GtkWidget *ButtonBox;
     GtkWidget *Button;
-    GtkWidget *Separator;
 
     if (RunProgramListWindow != NULL)
     {
@@ -4124,31 +4122,30 @@ void Browser_Open_Run_Program_List_Window (void)
         return;
     }
 
-    RunProgramListWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW(RunProgramListWindow),_("Open File with…"));
-    gtk_window_set_transient_for(GTK_WINDOW(RunProgramListWindow),GTK_WINDOW(MainWindow));
-    g_signal_connect(G_OBJECT(RunProgramListWindow),"destroy", G_CALLBACK(Destroy_Run_Program_List_Window),NULL);
-    g_signal_connect(G_OBJECT(RunProgramListWindow),"delete_event", G_CALLBACK(Destroy_Run_Program_List_Window),NULL);
-    g_signal_connect(G_OBJECT(RunProgramListWindow),"key_press_event", G_CALLBACK(Run_Program_List_Window_Key_Press),NULL);
+    RunProgramListWindow = gtk_dialog_new_with_buttons (_("Open File with…"),
+                                                        GTK_WINDOW (MainWindow),
+                                                        GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                        GTK_STOCK_CANCEL,
+                                                        GTK_RESPONSE_CANCEL,
+                                                        GTK_STOCK_EXECUTE,
+                                                        GTK_RESPONSE_OK,
+                                                        NULL);
 
-    // Just center over mainwindow
-    gtk_window_set_position(GTK_WINDOW(RunProgramListWindow),GTK_WIN_POS_CENTER_ON_PARENT);
+    g_signal_connect ((RunProgramListWindow), "response",
+                      G_CALLBACK (et_run_program_list_on_response), NULL);
 
-    Frame = gtk_frame_new(NULL);
-    gtk_container_add(GTK_CONTAINER(RunProgramListWindow),Frame);
-    gtk_container_set_border_width(GTK_CONTAINER(Frame),2);
+    gtk_container_set_border_width (GTK_CONTAINER (RunProgramListWindow),
+                                    BOX_SPACING);
 
-    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,4);
-    gtk_container_add(GTK_CONTAINER(Frame),VBox);
-    gtk_container_set_border_width(GTK_CONTAINER(VBox), 4);
+    VBox = gtk_dialog_get_content_area (GTK_DIALOG (RunProgramListWindow));
+    gtk_container_set_border_width (GTK_CONTAINER(VBox), BOX_SPACING);
 
     Label = gtk_label_new(_("Program to run:"));
     gtk_box_pack_start(GTK_BOX(VBox),Label,TRUE,TRUE,0);
     gtk_label_set_line_wrap(GTK_LABEL(Label),TRUE);
 
-    HBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,4);
-    gtk_box_pack_start(GTK_BOX(VBox),HBox,FALSE,FALSE,2);
-    gtk_container_set_border_width(GTK_CONTAINER(HBox), 2);
+    HBox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
+    gtk_box_pack_start(GTK_BOX(VBox),HBox,FALSE,FALSE,0);
 
     /* The combobox to enter the program to run */
     RunProgramComboBox = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(RunProgramModel));
@@ -4170,29 +4167,9 @@ void Browser_Open_Run_Program_List_Window (void)
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
                              G_CALLBACK(File_Selection_Window_For_File),G_OBJECT(gtk_bin_get_child(GTK_BIN(RunProgramComboBox))));
 
-    /* We attach useful data to the combobox (into Run_Program_With_Directory) */
-    //g_object_set_data(G_OBJECT(Combo), "Current_File", current_file);
-
-    /* Separator line */
-    Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
-    gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
-
-    ButtonBox = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
-    gtk_box_pack_start(GTK_BOX(VBox),ButtonBox,FALSE,FALSE,0);
-    gtk_button_box_set_layout(GTK_BUTTON_BOX(ButtonBox),GTK_BUTTONBOX_END);
-    gtk_box_set_spacing(GTK_BOX(ButtonBox), 10);
-
-    /* Button to cancel */
-    Button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
-    gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
-    gtk_widget_set_can_default(Button,TRUE);
-    gtk_widget_grab_default(Button);
-    g_signal_connect(G_OBJECT(Button),"clicked", G_CALLBACK(Destroy_Run_Program_List_Window),NULL);
-
     /* Button to execute */
-    Button = gtk_button_new_from_stock(GTK_STOCK_EXECUTE);
-    gtk_container_add(GTK_CONTAINER(ButtonBox),Button);
-    gtk_widget_set_can_default(Button,TRUE);
+    Button = gtk_dialog_get_widget_for_response (GTK_DIALOG (RunProgramListWindow),
+                                                 GTK_RESPONSE_OK);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked", G_CALLBACK(Run_Program_With_Selected_Files),G_OBJECT(RunProgramComboBox));
     g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RunProgramComboBox)))),"changed", G_CALLBACK(Entry_Changed_Disable_Object),G_OBJECT(Button));
     g_signal_emit_by_name(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RunProgramComboBox)))),"changed",NULL);
@@ -4208,24 +4185,6 @@ Destroy_Run_Program_List_Window (void)
         gtk_widget_destroy(RunProgramListWindow);
         RunProgramListWindow = NULL;
     }
-}
-
-static gboolean
-Run_Program_List_Window_Key_Press (GtkWidget *window, GdkEvent *event)
-{
-    GdkEventKey *kevent;
-
-    if (event && event->type == GDK_KEY_PRESS)
-    {
-        kevent = (GdkEventKey *)event;
-        switch(kevent->keyval)
-        {
-            case GDK_KEY_Escape:
-                Destroy_Run_Program_List_Window();
-                break;
-        }
-    }
-    return FALSE;
 }
 
 static void
@@ -4494,6 +4453,31 @@ et_run_program_tree_on_response (GtkDialog *dialog, gint response_id,
         case GTK_RESPONSE_CANCEL:
         case GTK_RESPONSE_DELETE_EVENT:
             Destroy_Run_Program_Tree_Window ();
+            break;
+        default:
+            g_assert_not_reached ();
+    }
+}
+/*
+ * et_run_program_list_on_response:
+ * @dialog: the dialog which emitted the response signal
+ * @response_id: the response ID
+ * @user_data: user data set when the signal was connected
+ *
+ * Signal handler for the run program on selected file dialog.
+ */
+static void
+et_run_program_list_on_response (GtkDialog *dialog, gint response_id,
+                                 gpointer user_data)
+{
+    switch (response_id)
+    {
+        case GTK_RESPONSE_OK:
+            /* FIXME: Ignored for now. */
+            break;
+        case GTK_RESPONSE_CANCEL:
+        case GTK_RESPONSE_DELETE_EVENT:
+            Destroy_Run_Program_List_Window ();
             break;
         default:
             g_assert_not_reached ();
