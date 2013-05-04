@@ -1238,19 +1238,6 @@ void Open_Write_Playlist_Window (void)
     g_signal_connect_swapped(G_OBJECT(gtk_bin_get_child(GTK_BIN(PlayListNameMaskCombo))),"changed",
         G_CALLBACK(Playlist_Check_Content_Mask),G_OBJECT(MaskStatusIconBox));
 
-    // Button for Mask editor
-    Button = gtk_button_new();
-    Icon = gtk_image_new_from_stock("easytag-mask", GTK_ICON_SIZE_BUTTON);
-    gtk_container_add(GTK_CONTAINER(Button),Icon);
-    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text(Button,_("Edit Masks"));
-    // The masks will be edited into a tab of the preferences window. In the future...
-    //g_signal_connect(G_OBJECT(Button),"clicked",(GtkSignalFunc)???,NULL);
-    // FIX ME : edit the masks
-    gtk_widget_set_sensitive(GTK_WIDGET(Button),FALSE);
-
-
     /* Playlist options */
     Frame = gtk_frame_new(_("Playlist Options"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,TRUE,TRUE,0);
@@ -1328,18 +1315,6 @@ void Open_Write_Playlist_Window (void)
     // Signal connection to check if mask is correct into the mask entry
     g_signal_connect_swapped(G_OBJECT(gtk_bin_get_child(GTK_BIN(PlayListContentMaskCombo))),"changed",
         G_CALLBACK(Playlist_Check_Content_Mask),G_OBJECT(MaskStatusIconBox1));
-
-    // Button for Mask editor
-    Button = gtk_button_new();
-    Icon = gtk_image_new_from_stock("easytag-mask", GTK_ICON_SIZE_BUTTON);
-    gtk_container_add(GTK_CONTAINER(Button),Icon);
-    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text(Button,_("Edit Masks"));
-    // The masks will be edited into a tab of the preferences window. In the future...
-    //g_signal_connect(G_OBJECT(Button),"clicked",(GtkSignalFunc)???,NULL);
-    // FIX ME : edit the masks
-    gtk_widget_set_sensitive(GTK_WIDGET(Button),FALSE);
 
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_content_none),    PLAYLIST_CONTENT_NONE);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_content_filename),PLAYLIST_CONTENT_FILENAME);
