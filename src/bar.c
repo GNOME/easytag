@@ -223,7 +223,8 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
 
         { MENU_MISC,                NULL,                   _("_Miscellaneous"),                             NULL,         NULL,                                 NULL },
         { AM_SEARCH_FILE,           GTK_STOCK_FIND,         _("Find _Files…"),               "<Control>F", _("Find files"),               G_CALLBACK(Open_Search_File_Window) },
-        { AM_CDDB_SEARCH,           GTK_STOCK_CDROM,        _("CD Data_base Search…"),          "<Control>B", _("CDDB search"),                 G_CALLBACK(Open_Cddb_Window) },
+        { AM_CDDB_SEARCH, GTK_STOCK_CDROM, _("CDD_B Search…"), "<Control>B",
+          _("CDDB search"), G_CALLBACK (Open_Cddb_Window) },
         { AM_FILENAME_FROM_TXT,     GTK_STOCK_OPEN,         _("Load Filenames From Text File…"),       "<Alt>T",     _("Load filenames from text file"),     G_CALLBACK(Open_Load_Filename_Window) },
         { AM_WRITE_PLAYLIST,        GTK_STOCK_SAVE_AS,      _("Write Playlist…"),                "<Alt>W",     _("Write playlist"),              G_CALLBACK(Open_Write_Playlist_Window) },
         { AM_RUN_AUDIO_PLAYER,      GTK_STOCK_MEDIA_PLAY,        _("Run Audio Player"),                  "<Alt>X",     _("Run audio player"),                G_CALLBACK(Run_Audio_Player_Using_Selection) },

@@ -1098,7 +1098,7 @@ void Open_OptionsWindow (void)
     /*
      * CDDB
      */
-    Label = gtk_label_new (_("CD Data Base"));
+    Label = gtk_label_new (_("CDDB"));
     VBox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_notebook_append_page (GTK_NOTEBOOK (OptionsNoteBook), VBox, Label);
     gtk_container_set_border_width (GTK_CONTAINER (VBox), BOX_SPACING);
@@ -1213,7 +1213,7 @@ void Open_OptionsWindow (void)
         gtk_entry_set_text(GTK_ENTRY(CddbServerCgiPathManualSearch) ,CDDB_SERVER_CGI_PATH_MANUAL_SEARCH);
 
     // Local access for CDDB (Automatic Search)
-    Frame = gtk_frame_new (_("Local CD Data Base"));
+    Frame = gtk_frame_new (_("Local CDDB"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
     vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
@@ -1234,7 +1234,7 @@ void Open_OptionsWindow (void)
     gtk_box_pack_start(GTK_BOX(hbox),CddbLocalPath,FALSE,FALSE,0);
     gtk_widget_set_size_request(GTK_WIDGET(CddbLocalPath), 450, -1);
     gtk_widget_set_tooltip_text(gtk_bin_get_child(GTK_BIN(CddbLocalPath)),_("Specify the directory "
-        "where the local CD database is located. The local CD data base contains the eleven following "
+        "where the local CD database is located. The local CD database contains the eleven following "
         "directories 'blues', 'classical', 'country', 'data', 'folk', 'jazz', 'newage', 'reggae', "
         "'rock', 'soundtrack' and 'misc'."));
     g_signal_connect(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbLocalPath)))),"activate",G_CALLBACK(CddbLocalPath_Combo_Add_String),NULL);

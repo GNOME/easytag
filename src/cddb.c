@@ -102,6 +102,7 @@ static char *cddb_genre_vs_id3_genre [][2] =
 // File for result of the Cddb/Freedb request (on remote access)
 static const gchar CDDB_RESULT_FILE[] = "cddb_result_file.tmp";
 
+static const guint BOX_SPACING = 6;
 
 /****************
  * Declarations *
@@ -175,8 +176,6 @@ static void Cddb_Search_In_All_Fields_Check_Button_Toggled (void);
 static void Cddb_Search_In_All_Categories_Check_Button_Toggled (void);
 static void Cddb_Set_To_All_Fields_Check_Button_Toggled (void);
 static void Cddb_Stop_Search (void);
-static void Cddb_Notebook_Switch_Page (GtkNotebook *notebook, gpointer page,
-                                       guint page_num, gpointer user_data);
 static void Cddb_Search_String_In_Result (GtkWidget *entry, GtkButton *button);
 static void Cddb_Display_Red_Lines_In_Result (void);
 
@@ -217,7 +216,7 @@ void Init_CddbWindow (void)
 
 void Open_Cddb_Window (void)
 {
-    GtkWidget *MainVBox, *VBox, *vbox, *hbox, *notebookvbox;
+    GtkWidget *VBox, *vbox, *hbox, *notebookvbox;
     GtkWidget *Frame;
     GtkWidget *Table;
     GtkWidget *Label;
@@ -236,9 +235,8 @@ void Open_Cddb_Window (void)
         gtk_window_present(GTK_WINDOW(CddbWindow));
         return;
     }
-    CddbWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW(CddbWindow),_("CD Database Search"));
-    gtk_window_set_position(GTK_WINDOW(CddbWindow),GTK_WIN_POS_CENTER);
+    CddbWindow = gtk_dialog_new ();
+    gtk_window_set_title (GTK_WINDOW (CddbWindow), _("CDDB Search"));
 
     // This part is needed to set correctly the position of handle panes
     gtk_window_set_default_size(GTK_WINDOW(CddbWindow),CDDB_WINDOW_WIDTH,CDDB_WINDOW_HEIGHT);
@@ -246,18 +244,8 @@ void Open_Cddb_Window (void)
     g_signal_connect(G_OBJECT(CddbWindow),"delete_event", G_CALLBACK(Cddb_Destroy_Window),NULL);
     g_signal_connect(G_OBJECT(CddbWindow),"key_press_event", G_CALLBACK(Cddb_Window_Key_Press),NULL);
 
-    MainVBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
-    gtk_container_add(GTK_CONTAINER(CddbWindow),MainVBox);
-    gtk_container_set_border_width(GTK_CONTAINER(MainVBox),1);
-
-    Frame = gtk_frame_new(NULL);
-    gtk_box_pack_start(GTK_BOX(MainVBox),Frame,TRUE,TRUE,0);
-    gtk_container_set_border_width(GTK_CONTAINER(Frame),2);
-
-    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,4);
-    gtk_container_add(GTK_CONTAINER(Frame),VBox);
-    gtk_container_set_border_width(GTK_CONTAINER(VBox),2);
-
+    VBox = gtk_dialog_get_content_area (GTK_DIALOG (CddbWindow));
+    gtk_container_set_border_width (GTK_CONTAINER (CddbWindow), BOX_SPACING);
 
      /*
       * Cddb NoteBook
@@ -270,18 +258,16 @@ void Open_Cddb_Window (void)
      * 1 - Page for automatic search (generate the CDDBId from files)
      */
     Label = gtk_label_new(_("Automatic Search"));
-    Frame = gtk_frame_new(NULL);
-    gtk_notebook_append_page(GTK_NOTEBOOK(CddbNoteBook),Frame,Label);
-    gtk_container_set_border_width(GTK_CONTAINER(Frame),2);
 
-    notebookvbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,4);
-    gtk_container_add(GTK_CONTAINER(Frame),notebookvbox);
-    gtk_container_set_border_width(GTK_CONTAINER(notebookvbox),2);
+    notebookvbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
+    gtk_container_set_border_width (GTK_CONTAINER (notebookvbox), BOX_SPACING);
+    gtk_notebook_append_page (GTK_NOTEBOOK (CddbNoteBook), notebookvbox,
+                              Label);
 
-    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,4);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_box_pack_start(GTK_BOX(notebookvbox),hbox,FALSE,FALSE,0);
 
-    Label = gtk_label_new(_("Request CD database:"));
+    Label = gtk_label_new(_("Request CDDB"));
     gtk_misc_set_alignment(GTK_MISC(Label),1.0,0.5);
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
 
@@ -292,7 +278,7 @@ void Open_Cddb_Window (void)
     gtk_widget_grab_default(CddbSearchAutoButton);
     g_signal_connect(G_OBJECT(CddbSearchAutoButton),"clicked",G_CALLBACK(Cddb_Search_Album_From_Selected_Files),NULL);
     gtk_widget_set_tooltip_text(CddbSearchAutoButton,_("Request automatically the "
-        "CDDB database using the selected files (the order is important) to "
+        "CDDB using the selected files (the order is important) to "
         "generate the CddbID"));
 
     // Button to stop the search
@@ -330,18 +316,15 @@ void Open_Cddb_Window (void)
      * 2 - Page for manual search
      */
     Label = gtk_label_new(_("Manual Search"));
-    Frame = gtk_frame_new(NULL);
-    gtk_notebook_append_page(GTK_NOTEBOOK(CddbNoteBook),Frame,Label);
-    gtk_container_set_border_width(GTK_CONTAINER(Frame),2);
-
-    notebookvbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,4);
-    gtk_container_add(GTK_CONTAINER(Frame),notebookvbox);
-    gtk_container_set_border_width(GTK_CONTAINER(notebookvbox),2);
+    notebookvbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
+    gtk_notebook_append_page (GTK_NOTEBOOK (CddbNoteBook), notebookvbox,
+                              Label);
+    gtk_container_set_border_width (GTK_CONTAINER (notebookvbox), BOX_SPACING);
 
     /*
      * Words to search
      */
-    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,4);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_box_pack_start(GTK_BOX(notebookvbox),hbox,FALSE,FALSE,0);
 
     Label = gtk_label_new(_("Words:"));
@@ -531,8 +514,7 @@ void Open_Cddb_Window (void)
     Frame = gtk_frame_new(_("Results:"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,TRUE,0);
 
-    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,4);
-    gtk_container_set_border_width(GTK_CONTAINER(hbox),2);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),hbox);
 
     Label = gtk_label_new(_("Search:"));
@@ -571,7 +553,7 @@ void Open_Cddb_Window (void)
 
     // Separator line
     Separator = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
-    gtk_box_pack_start(GTK_BOX(hbox),Separator,FALSE,FALSE,2);
+    gtk_box_pack_start(GTK_BOX(hbox),Separator,FALSE,FALSE,0);
 
     CddbDisplayRedLinesButton = gtk_toggle_button_new();
     Icon = gtk_image_new_from_stock("easytag-red-lines", GTK_ICON_SIZE_BUTTON);
@@ -722,8 +704,7 @@ void Open_Cddb_Window (void)
     Frame = gtk_frame_new(_("Set Into:"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,TRUE,0);
 
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,2);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox),2);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
 
     CddbSetToAllFields  = gtk_check_button_new_with_label(_("All"));
@@ -736,7 +717,7 @@ void Open_Cddb_Window (void)
     CddbSetToTrack      = gtk_check_button_new_with_label(_("Track #"));
     CddbSetToTrackTotal = gtk_check_button_new_with_label(_("# Tracks"));
     CddbSetToGenre      = gtk_check_button_new_with_label(_("Genre"));
-    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),CddbSetToAllFields, FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),Separator,          FALSE,FALSE,2);
@@ -768,7 +749,7 @@ void Open_Cddb_Window (void)
     g_signal_connect(G_OBJECT(CddbSetToGenre),     "toggled",G_CALLBACK(Cddb_Set_Apply_Button_Sensitivity),NULL);
     g_signal_connect(G_OBJECT(CddbSetToFileName),  "toggled",G_CALLBACK(Cddb_Set_Apply_Button_Sensitivity),NULL);
 
-    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
 
     // Check box to run the scanner
@@ -780,7 +761,7 @@ void Open_Cddb_Window (void)
 
     // Check box to use DLM (also used in the preferences window)
     CddbUseDLM2 = gtk_check_button_new_with_label(_("Match lines with the Levenshtein algorithm"));
-    gtk_box_pack_start(GTK_BOX(hbox),CddbUseDLM2,FALSE,FALSE,2);
+    gtk_box_pack_start(GTK_BOX(hbox),CddbUseDLM2,FALSE,FALSE,0);
     // Doesn't activate it by default because if the new user don't pay attention to it,
     // it will not understand why the cddb results aren't loaded correctly...
     //gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbUseDLM2),CDDB_USE_DLM);
@@ -794,7 +775,7 @@ void Open_Cddb_Window (void)
 
     // Button to apply
     CddbApplyButton = gtk_button_new_from_stock(GTK_STOCK_APPLY);
-    gtk_box_pack_end(GTK_BOX(hbox),CddbApplyButton,FALSE,FALSE,2);
+    gtk_box_pack_end(GTK_BOX(hbox),CddbApplyButton,FALSE,FALSE,0);
     g_signal_connect(G_OBJECT(CddbApplyButton),"clicked", G_CALLBACK(Cddb_Set_Track_Infos_To_File_List),NULL);
     gtk_widget_set_tooltip_text(CddbApplyButton,_("Load the selected lines or all lines (if no line selected)."));
 
@@ -802,7 +783,7 @@ void Open_Cddb_Window (void)
      * Status bar
      */
     CddbStatusBar = gtk_statusbar_new();
-    gtk_box_pack_start(GTK_BOX(MainVBox),CddbStatusBar,FALSE,TRUE,0);
+    gtk_box_pack_start(GTK_BOX(VBox),CddbStatusBar,FALSE,TRUE,0);
     gtk_widget_set_size_request(CddbStatusBar, 300, -1);
     CddbStatusBarContext = gtk_statusbar_get_context_id(GTK_STATUSBAR(CddbStatusBar),"Messages");
     gtk_statusbar_push (GTK_STATUSBAR (CddbStatusBar), CddbStatusBarContext,
@@ -825,11 +806,6 @@ void Open_Cddb_Window (void)
     gtk_widget_get_allocation(GTK_WIDGET(CddbSearchInAllCategories), &allocation);
     gtk_widget_set_size_request(GTK_WIDGET(CddbSearchInAllFields), allocation.width, -1);
     g_signal_emit_by_name(G_OBJECT(CddbShowCategoriesButton),"toggled");
-
-    g_signal_connect(G_OBJECT(CddbNoteBook),"switch-page",G_CALLBACK(Cddb_Notebook_Switch_Page),NULL);
-    //g_signal_emit_by_name(G_OBJECT(CddbNoteBook),"switch-page"); // Cause crash... => the 2 following lines to fix
-    gtk_notebook_set_current_page(GTK_NOTEBOOK(CddbNoteBook),1);
-    gtk_notebook_set_current_page(GTK_NOTEBOOK(CddbNoteBook),0);
 }
 
 static gboolean
@@ -1116,39 +1092,6 @@ Cddb_Stop_Search (void)
 {
     CddbStopSearch = TRUE;
 }
-
-static void
-Cddb_Notebook_Switch_Page (GtkNotebook *notebook, gpointer page,
-                           guint page_num, gpointer user_data)
-{
-    gint page_total;
-    guint page_tmp;
-
-    // For size reasons, we display children of the current tab, and hide those
-    // of others tabs => better display of notebook
-    page_total = gtk_notebook_get_n_pages(GTK_NOTEBOOK(notebook));
-    for (page_tmp = 0; page_tmp < page_total; page_tmp++)
-    {
-        GtkWidget *frame = gtk_notebook_get_nth_page(GTK_NOTEBOOK(notebook), page_tmp); // Child of the page
-        if (frame)
-        {
-            GtkWidget *box = gtk_bin_get_child(GTK_BIN(frame));
-            if (box)
-            {
-                if (page_tmp == page_num)
-                {
-                    // Display children of page_tmp
-                    gtk_widget_show(GTK_WIDGET(box));
-                }else
-                {
-                    // Hide children of page_tmp
-                    gtk_widget_hide(GTK_WIDGET(box));
-                }
-            }
-        }
-    }
-}
-
 
 /*
  * Searches the Cddb Album List for specific terms
