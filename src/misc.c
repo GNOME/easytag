@@ -191,7 +191,6 @@ static void Load_Filename_Edit_Text_Line (GtkTreeSelection *selection,
 
 static void Create_Xpm_Icon_Factory (const char **xpm_data,
                                      const char *name_in_factory);
-void Create_Png_Icon_Factory (const char *png_file, const char *name_in_factory);
 
 /* Browser */
 static void Open_File_Selection_Window (GtkWidget *entry, gchar *title, GtkFileChooserAction action);
@@ -616,7 +615,6 @@ void Init_Custom_Icons (void)
     //Create_Xpm_Icon_Factory((const char**)sequence_track_xpm,     "easytag-sequence-track");
     Create_Xpm_Icon_Factory((const char**)red_lines_xpm,            "easytag-red-lines");
     Create_Xpm_Icon_Factory((const char**)artist_album_xpm,     "easytag-artist-album");
-////    Create_Png_Icon_Factory("artist_album.png",                     "easytag-artist-album");
     Create_Xpm_Icon_Factory((const char**)all_uppercase_xpm,        "easytag-all-uppercase");
     Create_Xpm_Icon_Factory((const char**)all_downcase_xpm,         "easytag-all-downcase");
     Create_Xpm_Icon_Factory((const char**)first_letter_uppercase_xpm,       "easytag-first-letter-uppercase");
@@ -651,43 +649,6 @@ Create_Xpm_Icon_Factory (const char **xpm_data, const char *name_in_factory)
         gtk_icon_factory_add_default(factory);
     }
 }
-
-/*
- * Create an icon factory from the specified png file
- * Also add it to the GTK stock images
- */
-/*
-void Create_Png_Icon_Factory (const char *png_file, const char *name_in_factory)
-{
-    GdkPixbuf       *pixbuf;
-    GtkIconSet      *icon;
-    GtkIconFactory  *factory;
-    gchar           *path;
-    GError          *error = NULL;
-    
-    if (!*png_file || !name_in_factory)
-        return;
-
-    path = g_strconcat(PACKAGE_DATA_DIR,"/",png_file,NULL);
-    pixbuf = gdk_pixbuf_new_from_file(path,&error);
-    g_free(path);
-    
-    if (pixbuf)
-    {
-        icon = gtk_icon_set_new_from_pixbuf(pixbuf);
-        g_object_unref(G_OBJECT(pixbuf));
-
-        factory = gtk_icon_factory_new();
-        gtk_icon_factory_add(factory, name_in_factory, icon);
-        gtk_icon_set_unref(icon);
-        gtk_icon_factory_add_default(factory);
-    }else
-    {
-        Log_Print(LOG_ERROR,error->message);
-        g_error_free(error);
-    }
-}
-*/
 
 /*
  * Return a widget with a pixmap
