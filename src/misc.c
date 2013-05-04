@@ -390,26 +390,6 @@ gchar *Get_Active_Combo_Box_Item (GtkComboBox *combo)
 }
 
 /*
- * Event attached to an entry to disable another widget (for example: a button)
- * when the entry is empty
- */
-void
-Entry_Changed_Disable_Object (GtkWidget *widget_to_disable,
-                              GtkEditable *source_widget)
-{
-    const gchar *text;
-
-    g_return_if_fail (widget_to_disable != NULL || source_widget != NULL);
-
-    text = gtk_entry_get_text (GTK_ENTRY (source_widget));
-
-    if (!text || strlen(text)<1)
-        gtk_widget_set_sensitive(widget_to_disable,FALSE);
-    else
-        gtk_widget_set_sensitive(widget_to_disable,TRUE);
-}
-
-/*
  * To insert only digits in an entry. If the text contains only digits: returns it,
  * else only first digits.
  */

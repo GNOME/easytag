@@ -197,6 +197,8 @@ static void Run_Program_With_Selected_Files (GtkWidget *combobox);
 
 static gboolean Run_Program (const gchar *program_name, GList *args_list);
 
+static void empty_entry_disable_widget (GtkWidget *widget, GtkEntry *entry);
+
 static void et_rename_directory_on_response (GtkDialog *dialog,
                                              gint response_id,
                                              gpointer user_data);
@@ -3685,8 +3687,10 @@ void Browser_Open_Rename_Directory_Window (void)
     /* Button to save: to rename directory */
     Button = gtk_dialog_get_widget_for_response (GTK_DIALOG (RenameDirectoryWindow),
                                                  GTK_RESPONSE_APPLY);
-    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameDirectoryCombo)))),"changed",
-        G_CALLBACK(Entry_Changed_Disable_Object),G_OBJECT(Button));
+    g_signal_connect_swapped (gtk_bin_get_child (GTK_BIN (RenameDirectoryCombo)),
+                              "changed",
+                              G_CALLBACK (empty_entry_disable_widget),
+                              G_OBJECT (Button));
 
     gtk_widget_show_all(RenameDirectoryWindow);
 
@@ -4053,7 +4057,10 @@ void Browser_Open_Run_Program_Tree_Window (void)
     Button = gtk_dialog_get_widget_for_response (GTK_DIALOG (RunProgramTreeWindow),
                                                  GTK_RESPONSE_OK);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked", G_CALLBACK(Run_Program_With_Directory),G_OBJECT(RunProgramComboBox));
-    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RunProgramComboBox)))),"changed", G_CALLBACK(Entry_Changed_Disable_Object),G_OBJECT(Button));
+    g_signal_connect_swapped (gtk_bin_get_child (GTK_BIN (RunProgramComboBox)),
+                              "changed",
+                              G_CALLBACK (empty_entry_disable_widget),
+                              G_OBJECT (Button));
     g_signal_emit_by_name(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RunProgramComboBox)))),"changed",NULL);
 
     gtk_widget_show_all(RunProgramTreeWindow);
@@ -4171,7 +4178,10 @@ void Browser_Open_Run_Program_List_Window (void)
     Button = gtk_dialog_get_widget_for_response (GTK_DIALOG (RunProgramListWindow),
                                                  GTK_RESPONSE_OK);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked", G_CALLBACK(Run_Program_With_Selected_Files),G_OBJECT(RunProgramComboBox));
-    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RunProgramComboBox)))),"changed", G_CALLBACK(Entry_Changed_Disable_Object),G_OBJECT(Button));
+    g_signal_connect_swapped (gtk_bin_get_child (GTK_BIN (RunProgramComboBox)),
+                              "changed",
+                              G_CALLBACK (empty_entry_disable_widget),
+                              G_OBJECT (Button));
     g_signal_emit_by_name(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RunProgramComboBox)))),"changed",NULL);
 
     gtk_widget_show_all(RunProgramListWindow);
@@ -4405,6 +4415,25 @@ Run_Program (const gchar *program_name, GList *args_list)
 #endif /* !G_OS_WIN32 */
 
     return TRUE;
+}
+
+/*
+ * empty_entry_disable_widget:
+ * @widget: a widget to set sensitive if @entry contains text
+ * @entry: the entry for which to test the text
+ *
+ * Make @widget insensitive if @entry contains no text, or sensitive otherwise.
+ */
+static void
+empty_entry_disable_widget (GtkWidget *widget, GtkEntry *entry)
+{
+    const gchar *text;
+
+    g_return_if_fail (widget != NULL && entry != NULL);
+
+    text = gtk_entry_get_text (GTK_ENTRY (entry));
+
+    gtk_widget_set_sensitive (widget, text && *text);
 }
 
 /*
