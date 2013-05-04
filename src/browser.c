@@ -3481,7 +3481,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
 
 
     /* Add columns to tree view. See ET_FILE_LIST_COLUMN. */
-    for (i = 0; i < LIST_FILE_ENCODED_BY; i++)
+    for (i = 0; i <= LIST_FILE_ENCODED_BY; i++)
     {
         column = gtk_tree_view_column_new ();
         renderer = gtk_cell_renderer_text_new ();
