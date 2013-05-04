@@ -58,7 +58,7 @@ void   Scan_Rename_Directory_Generate_Preview (void);
 
 void et_scan_show (GtkAction *action, gpointer user_data);
 
-gboolean Scan_Check_Rename_File_Mask (GtkWidget *widget_to_show_hide, GtkEntry *widget_source);
+void entry_check_rename_file_mask (GtkEntry *entry, gpointer user_data);
 
 void Scan_Process_Fields_All_Uppercase           (gchar *string);
 void Scan_Process_Fields_All_Downcase            (gchar *string);

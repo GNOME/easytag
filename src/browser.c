@@ -82,7 +82,6 @@ GtkWidget *RenameDirectoryWindow = NULL;
 static GtkWidget *RenameDirectoryCombo;
 static GtkWidget *RenameDirectoryWithMask;
 static GtkListStore *RenameDirectoryMaskModel = NULL;
-static GtkWidget *RenameDirectoryMaskStatusIconBox;
 GtkWidget *RenameDirectoryPreviewLabel = NULL;
 
 /* The last ETFile selected in the BrowserList. */
@@ -3733,12 +3732,10 @@ void Browser_Open_Rename_Directory_Window (void)
     }
 
     // Mask status icon
-    RenameDirectoryMaskStatusIconBox = Create_Pixmap_Icon_With_Event_Box("easytag-forbidden");
-    gtk_box_pack_start(GTK_BOX(HBox),RenameDirectoryMaskStatusIconBox,FALSE,FALSE,0);
-    gtk_widget_set_tooltip_text(RenameDirectoryMaskStatusIconBox,_("Invalid Scanner Mask"));
     // Signal connection to check if mask is correct into the mask entry
-    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameDirectoryMaskCombo)))),"changed",
-        G_CALLBACK(Scan_Check_Rename_File_Mask),G_OBJECT(RenameDirectoryMaskStatusIconBox));
+    g_signal_connect (gtk_bin_get_child (GTK_BIN (RenameDirectoryMaskCombo)),
+                      "changed", G_CALLBACK (entry_check_rename_file_mask),
+                      NULL);
 
     // Preview label
     RenameDirectoryPreviewLabel = gtk_label_new (_("Rename directory preview"));
@@ -4043,7 +4040,6 @@ Rename_Directory_With_Mask_Toggled (void)
 {
     gtk_widget_set_sensitive(GTK_WIDGET(RenameDirectoryCombo),            !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(RenameDirectoryWithMask)));
     gtk_widget_set_sensitive(GTK_WIDGET(RenameDirectoryMaskCombo),         gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(RenameDirectoryWithMask)));
-    gtk_widget_set_sensitive(GTK_WIDGET(RenameDirectoryMaskStatusIconBox), gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(RenameDirectoryWithMask)));
     gtk_widget_set_sensitive(GTK_WIDGET(RenameDirectoryPreviewLabel),      gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(RenameDirectoryWithMask)));
 }
 

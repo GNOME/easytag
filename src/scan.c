@@ -224,10 +224,7 @@ static void ScannerWindow_Quit (void);
 static void Scan_Toggle_Legend_Button (void);
 static void Scan_Toggle_Mask_Editor_Button (void);
 static void Scan_Option_Button (void);
-static gboolean Scan_Check_Scan_Tag_Mask (GtkWidget *widget_to_show_hide,
-                                          GtkEntry *widget_source);
-static gboolean Scan_Check_Editor_Mask (GtkWidget *widget_to_show_hide,
-                                        GtkEntry *widget_source);
+static void entry_check_scan_tag_mask (GtkEntry *entry, gpointer user_data);
 
 static GList *Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask);
 static void Scan_Rename_File_Prefix_Path (void);
@@ -2308,7 +2305,6 @@ void Open_ScannerWindow (gint scanner_type)
     GtkWidget *Separator;
     GIcon *new_folder;
     GtkWidget *Icon;
-    GtkWidget *MaskStatusIconBox;
     GList *pf_cb_group1 = NULL;
     GList *pf_cb_group2 = NULL;
     GList *pf_cb_group3 = NULL;
@@ -2463,12 +2459,10 @@ void Open_ScannerWindow (gint scanner_type)
     }
 
     // Mask status icon
-    MaskStatusIconBox = Create_Pixmap_Icon_With_Event_Box("easytag-forbidden");
-    gtk_box_pack_start(GTK_BOX(HBox2),MaskStatusIconBox,FALSE,FALSE,0);
-    gtk_widget_set_tooltip_text(MaskStatusIconBox,_("Invalid Scanner Mask"));
     // Signal connection to check if mask is correct into the mask entry
-    g_signal_connect_swapped(G_OBJECT(gtk_bin_get_child(GTK_BIN(ScanTagMaskCombo))),"changed",
-        G_CALLBACK(Scan_Check_Scan_Tag_Mask),G_OBJECT(MaskStatusIconBox));
+    g_signal_connect (gtk_bin_get_child (GTK_BIN (ScanTagMaskCombo)),
+                      "changed", G_CALLBACK (entry_check_scan_tag_mask),
+                      NULL);
 
     // Preview label
     FillTagPreviewLabel = gtk_label_new (_("Fill tag preview"));
@@ -2533,12 +2527,10 @@ void Open_ScannerWindow (gint scanner_type)
     }
 
     // Mask status icon
-    MaskStatusIconBox = Create_Pixmap_Icon_With_Event_Box("easytag-forbidden");
-    gtk_box_pack_start(GTK_BOX(HBox4),MaskStatusIconBox,FALSE,FALSE,0);
-    gtk_widget_set_tooltip_text(MaskStatusIconBox,_("Invalid Scanner Mask"));
     // Signal connection to check if mask is correct into the mask entry
-    g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameFileMaskCombo)))),"changed",
-        G_CALLBACK(Scan_Check_Rename_File_Mask),G_OBJECT(MaskStatusIconBox));
+    g_signal_connect (gtk_bin_get_child (GTK_BIN (RenameFileMaskCombo)),
+                      "changed", G_CALLBACK (entry_check_rename_file_mask),
+                      NULL);
 
     /* Preview label */
     RenameFilePreviewLabel = gtk_label_new (_("Rename file preview"));
@@ -2894,12 +2886,9 @@ void Open_ScannerWindow (gint scanner_type)
     g_signal_connect(G_OBJECT(MaskEditorEntry),"changed",
         G_CALLBACK(Mask_Editor_Entry_Changed),NULL);
     // Mask status icon
-    MaskStatusIconBox = Create_Pixmap_Icon_With_Event_Box("easytag-forbidden");
-    gtk_box_pack_start(GTK_BOX(hbox),MaskStatusIconBox,FALSE,FALSE,0);
-    gtk_widget_set_tooltip_text(MaskStatusIconBox,_("Invalid Scanner Mask"));
     // Signal connection to check if mask is correct into the mask entry
-    g_signal_connect_swapped(G_OBJECT(MaskEditorEntry),"changed",
-        G_CALLBACK(Scan_Check_Editor_Mask),G_OBJECT(MaskStatusIconBox));
+    g_signal_connect (MaskEditorEntry,"changed",
+                      G_CALLBACK (entry_check_scan_tag_mask), NULL);
 
     /* The buttons part */
     MaskEditorVBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
@@ -3182,21 +3171,24 @@ Scan_Option_Button (void)
 }
 
 
-
 /*
- * Check if mask of the "Scan Tag" is valid. Return TRUE if valid, else FALSE.
+ * entry_check_rename_file_mask:
+ * @entry: the entry for which to check the mask
+ * @user_data: user data set when the signal was connected
+ *
+ * Display an icon in the entry if the current text contains an invalid mask
+ * for scanning tags.
  */
-gboolean Scan_Check_Scan_Tag_Mask (GtkWidget *widget_to_show_hide, GtkEntry *widget_source)
+static void
+entry_check_scan_tag_mask (GtkEntry *entry, gpointer user_data)
 {
     gchar *tmp  = NULL;
     gchar *mask = NULL;
     gint loop = 0;
 
+    g_return_if_fail (entry != NULL);
 
-    if (!widget_to_show_hide || !widget_source)
-        goto Bad_Mask;
-
-    mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(widget_source)));
+    mask = g_strdup (gtk_entry_get_text (entry));
     if (!mask || strlen(mask)<1)
         goto Bad_Mask;
 
@@ -3244,33 +3236,38 @@ gboolean Scan_Check_Scan_Tag_Mask (GtkWidget *widget_to_show_hide, GtkEntry *wid
 
     Bad_Mask:
         g_free(mask);
-        gtk_widget_show(GTK_WIDGET(widget_to_show_hide));
-        return FALSE;
+        gtk_entry_set_icon_from_icon_name (entry, GTK_ENTRY_ICON_SECONDARY,
+                                           "emblem-unreadable");
+        gtk_entry_set_icon_tooltip_text (entry, GTK_ENTRY_ICON_SECONDARY,
+                                         _("Invalid scanner mask"));
+        return;
 
     Good_Mask:
         g_free(mask);
-        gtk_widget_hide(GTK_WIDGET(widget_to_show_hide));
-        return TRUE;
+        gtk_entry_set_icon_from_icon_name (entry, GTK_ENTRY_ICON_SECONDARY,
+                                           NULL);
 }
+
 /*
- * Check if mask of the "Rename File" is valid. Return TRUE if valid, else FALSE.
+ * entry_check_rename_file_mask:
+ * @entry: the entry for which to check the mask
+ * @user_data: user data set when the signal was connected
+ *
+ * Display an icon in the entry if the current text contains an invalid mask
+ * for renaming files.
  */
-gboolean Scan_Check_Rename_File_Mask (GtkWidget *widget_to_show_hide, GtkEntry *widget_source)
+void
+entry_check_rename_file_mask (GtkEntry *entry, gpointer user_data)
 {
     gchar *tmp = NULL;
     gchar *mask = NULL;
 
+    g_return_if_fail (entry != NULL);
 
-    if (!widget_to_show_hide || !widget_source)
-        goto Bad_Mask;
-
-    mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(widget_source)));
+    mask = g_strdup (gtk_entry_get_text (entry));
     if (!mask || strlen(mask)<1)
         goto Bad_Mask;
 
-    // Since version 1.99.4, it is available! => OK
-    /*if ( strchr(mask,G_DIR_SEPARATOR)!=NULL ) // Renaming directory is not yet available
-        goto Bad_Mask;*/
     // Not a valid path....
     if ( strstr(mask,"//") != NULL
     ||   strstr(mask,"./") != NULL
@@ -3301,32 +3298,16 @@ gboolean Scan_Check_Rename_File_Mask (GtkWidget *widget_to_show_hide, GtkEntry *
 
     Bad_Mask:
         g_free(mask);
-        gtk_widget_show(GTK_WIDGET(widget_to_show_hide));
-        return FALSE;
+        gtk_entry_set_icon_from_icon_name (entry, GTK_ENTRY_ICON_SECONDARY,
+                                           "emblem-unreadable");
+        gtk_entry_set_icon_tooltip_text (entry, GTK_ENTRY_ICON_SECONDARY,
+                                         _("Invalid scanner mask"));
+        return;
 
     Good_Mask:
         g_free(mask);
-        gtk_widget_hide(GTK_WIDGET(widget_to_show_hide));
-        return TRUE;
-}
-
-
-/*
- * Check if the selected mask in the Mask Editor is valid, else display the mask status icon.
- */
-static gboolean
-Scan_Check_Editor_Mask (GtkWidget *widget_to_show_hide,
-                        GtkEntry *widget_source)
-{
-    /* Select and get result of check scanner */
-    if (gtk_combo_box_get_active(GTK_COMBO_BOX(ScannerOptionCombo)) == SCANNER_FILL_TAG)
-    {
-        return Scan_Check_Scan_Tag_Mask(widget_to_show_hide,widget_source);
-    } else if (gtk_combo_box_get_active(GTK_COMBO_BOX(ScannerOptionCombo)) == SCANNER_RENAME_FILE)
-    {
-        return Scan_Check_Rename_File_Mask(widget_to_show_hide,widget_source);
-    } else
-        return FALSE;
+        gtk_entry_set_icon_from_icon_name (entry, GTK_ENTRY_ICON_SECONDARY,
+                                           NULL);
 }
 
 
