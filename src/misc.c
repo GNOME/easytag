@@ -1183,7 +1183,7 @@ void Open_Write_Playlist_Window (void)
         return;
     }
 
-    WritePlaylistWindow = gtk_dialog_new_with_buttons (_("Generate a Playlist"),
+    WritePlaylistWindow = gtk_dialog_new_with_buttons (_("Generate Playlist"),
                                                        GTK_WINDOW (MainWindow),
                                                        GTK_DIALOG_DESTROY_WITH_PARENT,
                                                        GTK_STOCK_CANCEL,
