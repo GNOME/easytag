@@ -209,6 +209,9 @@ static void et_run_program_list_on_response (GtkDialog *dialog,
                                              gint response_id,
                                              gpointer user_data);
 
+static void et_browser_set_sorting_file_mode (GtkTreeViewColumn *column,
+                                              gpointer data);
+
 
 /*************
  * Functions *
@@ -3485,6 +3488,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     /* Add columns to tree view. See ET_FILE_LIST_COLUMN. */
     for (i = 0; i <= LIST_FILE_ENCODED_BY; i++)
     {
+        guint ascending_sort = 2 * i;
         column = gtk_tree_view_column_new ();
         renderer = gtk_cell_renderer_text_new ();
 
@@ -3498,6 +3502,10 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                             LIST_ROW_FOREGROUND, NULL);
         gtk_tree_view_column_set_resizable (column, TRUE);
         gtk_tree_view_append_column (GTK_TREE_VIEW (BrowserList), column);
+        gtk_tree_view_column_set_clickable (column, TRUE);
+        g_signal_connect (column, "clicked",
+                          G_CALLBACK (et_browser_set_sorting_file_mode),
+                          GINT_TO_POINTER (ascending_sort));
     }
 
     gtk_tree_view_set_reorderable(GTK_TREE_VIEW(BrowserList), FALSE);
@@ -3505,7 +3513,8 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     // When selecting a line
     gtk_tree_selection_set_select_function(gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList)), Browser_List_Select_Func, NULL, NULL);
     // To sort list
-    //gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(fileListModel), 0, Browser_List_Sort_Func, NULL, NULL);
+    gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE (fileListModel), 0,
+                                      Browser_List_Sort_Func, NULL, NULL);
     Browser_List_Refresh_Sort();
     gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(fileListModel), 0, GTK_SORT_ASCENDING);
 
@@ -3545,6 +3554,59 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     return VerticalBox;
 }
 
+/*
+ * et_browser_set_sorting_file_mode:
+ * @column: the tree view column to sort
+ * @data: the (required) #ET_Sorting_Type, converted to a pointer with
+ * #GINT_TO_POINTER
+ *
+ * Set the #SORTING_FILE_MODE and display appropriate sort indicator when
+ * column is clicked.
+ */
+static void
+et_browser_set_sorting_file_mode (GtkTreeViewColumn *column, gpointer data)
+{
+    gint column_id = SORTING_FILE_MODE / 2;
+
+    if (gtk_tree_view_column_get_sort_indicator (column) == FALSE
+        && SORTING_FILE_MODE < SORTING_BY_ASCENDING_CREATION_DATE)
+    {
+        if (get_sort_order_for_column_id (SORTING_FILE_MODE / 2) == GTK_SORT_DESCENDING)
+        {
+            gtk_tree_view_column_set_sort_order (get_column_for_column_id (column_id),
+                                                 GTK_SORT_ASCENDING);
+        }
+        gtk_tree_view_column_set_sort_indicator (get_column_for_column_id (column_id),
+                                                 FALSE);
+    }
+    else if (gtk_tree_view_column_get_sort_order (column) == GTK_SORT_ASCENDING)
+    {
+        gtk_tree_view_column_set_sort_order (column, GTK_SORT_DESCENDING);
+    }
+    else
+    {
+        gtk_tree_view_column_set_sort_order (column, GTK_SORT_ASCENDING);
+    }
+
+    if (SORTING_FILE_MODE > SORTING_BY_DESCENDING_ENCODED_BY)
+    {
+        gtk_tree_view_column_set_sort_indicator (column, TRUE);
+        gtk_tree_view_column_set_sort_order (column, GTK_SORT_ASCENDING);
+    }
+
+    if (gtk_tree_view_column_get_sort_order (column) == GTK_SORT_ASCENDING)
+    {
+        SORTING_FILE_MODE = GPOINTER_TO_INT (data);
+    }
+    else
+    {
+        SORTING_FILE_MODE = GPOINTER_TO_INT (data) + 1;
+    }
+
+    gtk_tree_view_column_set_sort_indicator (column, TRUE);
+
+    Browser_List_Refresh_Sort ();
+}
 
 
 /*
@@ -4512,4 +4574,33 @@ et_run_program_list_on_response (GtkDialog *dialog, gint response_id,
         default:
             g_assert_not_reached ();
     }
+}
+
+/*
+ * get_sort_order_for_column_id:
+ * @column_id: the column ID for which to set the sort order
+ *
+ * Gets the sort order for the given column ID from the browser list treeview
+ * column.
+ *
+ * Returns: the sort order for @column_id
+ */
+GtkSortType
+get_sort_order_for_column_id (gint column_id)
+{
+    return gtk_tree_view_column_get_sort_order (get_column_for_column_id (column_id));
+}
+
+/*
+ * get_column_for_column_id:
+ * @column_id: the column ID of the #GtkTreeViewColumn to fetch
+ *
+ * Gets the browser list treeview column for the given column ID.
+ *
+ * Returns: (transfer none): the tree view column corresponding to @column_id
+ */
+GtkTreeViewColumn *
+get_column_for_column_id (gint column_id)
+{
+    return gtk_tree_view_get_column (GTK_TREE_VIEW (BrowserList), column_id);
 }

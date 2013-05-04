@@ -42,6 +42,7 @@
 #include "misc.h"
 #include "cddb.h"
 #include "browser.h"
+#include "et_core.h"
 
 #include "win32/win32dep.h"
 
@@ -99,6 +100,9 @@ static const gchar CDDB_LOCAL_PATH_HISTORY_FILE[] = "cddb_local_path.history";
 
 static void Save_Config_To_File (void);
 static gboolean Create_Easytag_Directory (void);
+static void set_sorting_indicator_for_column_id (gint column_id,
+                                                 ET_Sorting_Type temp_sort,
+                                                 GtkTreeViewColumn *column);
 
 
 
@@ -632,6 +636,9 @@ Apply_Changes_Of_Preferences_Window (void)
 {
     gchar *temp;
     int active;
+    ET_Sorting_Type temp_sort;
+    gint column_id;
+    GtkTreeViewColumn * column;
 
     if (OptionsWindow)
     {
@@ -668,7 +675,19 @@ Apply_Changes_Of_Preferences_Window (void)
         LOG_MAX_LINES                          = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(LogMaxLinesSpinButton));
         SHOW_LOG_VIEW                          = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ShowLogView));
 
-        SORTING_FILE_MODE = gtk_combo_box_get_active(GTK_COMBO_BOX(SortingFileCombo));
+        temp_sort = gtk_combo_box_get_active (GTK_COMBO_BOX (SortingFileCombo));
+        column_id = temp_sort / 2;
+        if (SORTING_FILE_MODE < SORTING_BY_ASCENDING_CREATION_DATE)
+        {
+            gtk_tree_view_column_set_sort_indicator (get_column_for_column_id (SORTING_FILE_MODE / 2),
+                                                     FALSE);
+        }
+        if (temp_sort < SORTING_BY_ASCENDING_CREATION_DATE)
+        {
+            column = get_column_for_column_id (column_id);
+            set_sorting_indicator_for_column_id (column_id, temp_sort, column);
+        }
+        SORTING_FILE_MODE = temp_sort;
         Browser_List_Refresh_Sort ();
 
         if (AUDIO_FILE_PLAYER) g_free(AUDIO_FILE_PLAYER);
@@ -1576,5 +1595,25 @@ Create_Easytag_Directory (void)
         g_free (easytag_path);
 
         return TRUE;
+    }
+}
+
+static void
+set_sorting_indicator_for_column_id (gint column_id,
+                                     ET_Sorting_Type temp_sort,
+                                     GtkTreeViewColumn *column)
+{
+    GtkSortType current_sort;
+    GtkSortType sort_type;
+
+    gtk_tree_view_column_clicked (column);
+
+    current_sort = get_sort_order_for_column_id (column_id);
+
+    sort_type = temp_sort % 2 == 0 ? GTK_SORT_ASCENDING : GTK_SORT_DESCENDING;
+
+    if (sort_type != current_sort)
+    {
+        gtk_tree_view_column_clicked (column);
     }
 }

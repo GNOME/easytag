@@ -185,5 +185,7 @@ void         Browser_Open_Rename_Directory_Window (void);
 void         Browser_Open_Run_Program_Tree_Window (void);
 void         Browser_Open_Run_Program_List_Window (void);
 
+GtkTreeViewColumn *get_column_for_column_id (gint column_id);
+GtkSortType get_sort_order_for_column_id (gint column_id);
 
 #endif /* __BROWSER_H__ */

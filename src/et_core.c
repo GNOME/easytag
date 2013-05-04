@@ -154,6 +154,10 @@ static gint ET_Comp_Func_Sort_Etfile_Item_By_Ascending_Filename (ET_File *ETFile
                                                                  ET_File *ETFile2);
 static gchar *ET_File_Name_Format_Extension (ET_File *ETFile);
 
+static void set_sort_order_for_column_id (gint column_id,
+                                          GtkTreeViewColumn *column,
+                                          ET_Sorting_Type sort_type);
+
 
 /*******************
  * Basic functions *
@@ -894,11 +898,14 @@ ET_Sort_Displayed_File_List (ET_Sorting_Type Sorting_Type)
  */
 GList *ET_Sort_File_List (GList *ETFileList, ET_Sorting_Type Sorting_Type)
 {
+    gint column_id = Sorting_Type / 2;
+
+    GtkTreeViewColumn *column = get_column_for_column_id (column_id);
+
     // Important to rewind before
     GList *etfilelist = g_list_first(ETFileList);
 
-    // Save sorting mode (note: needed when called from UI)
-    SORTING_FILE_MODE = Sorting_Type;
+    set_sort_order_for_column_id (column_id, column, Sorting_Type);
 
     // Sort...
     switch (Sorting_Type)
@@ -1037,6 +1044,9 @@ GList *ET_Sort_File_List (GList *ETFileList, ET_Sorting_Type Sorting_Type)
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_File_Samplerate);
             break;
     }
+    /* Save sorting mode (note: needed when called from UI). */
+    SORTING_FILE_MODE = Sorting_Type;
+
     //ETFileList = g_list_first(etfilelist);
     return g_list_first(etfilelist);
 }
@@ -4772,4 +4782,44 @@ ET_Get_Number_Of_Files_In_Directory (const gchar *path_utf8)
     }
 
     return count;
+}
+
+/*
+ * Set appropriate sort order for the given column_id
+ */
+static void
+set_sort_order_for_column_id (gint column_id, GtkTreeViewColumn *column,
+                              ET_Sorting_Type sort_type)
+{
+    /* Removing the sort indicator for the currently selected treeview
+     * column. */
+    if (SORTING_FILE_MODE < SORTING_BY_ASCENDING_CREATION_DATE)
+    {
+        gtk_tree_view_column_set_sort_indicator (get_column_for_column_id (SORTING_FILE_MODE / 2),
+                                                 FALSE);
+    }
+
+    if (sort_type < SORTING_BY_ASCENDING_CREATION_DATE)
+    {
+        gtk_tree_view_column_clicked (get_column_for_column_id (column_id));
+
+        if (sort_type % 2 == 0)
+        {
+            /* GTK_SORT_ASCENDING */
+            if (get_sort_order_for_column_id (column_id) == GTK_SORT_DESCENDING)
+            {
+                gtk_tree_view_column_set_sort_order (column,
+                                                     GTK_SORT_ASCENDING);
+            }
+        }
+        else
+        {
+            /* GTK_SORT_DESCENDING */
+            if (get_sort_order_for_column_id (column_id) == GTK_SORT_ASCENDING)
+            {
+                gtk_tree_view_column_set_sort_order (column,
+                                                     GTK_SORT_DESCENDING);
+            }
+        }
+    }
 }
