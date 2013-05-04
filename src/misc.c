@@ -1543,7 +1543,8 @@ Playlist_Write_Button_Pressed (void)
                                                playlist_basename_utf8);
             gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),"%s",_("Do you want to save the playlist, overwriting the existing file?"));
             gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_SAVE,GTK_RESPONSE_YES,NULL);
-            gtk_window_set_title(GTK_WINDOW(msgdialog),_("Write Playlist"));
+            gtk_window_set_title (GTK_WINDOW (msgdialog),
+                                  _("Playlist File Error"));
 
             response = gtk_dialog_run(GTK_DIALOG(msgdialog));
             gtk_widget_destroy(msgdialog);
