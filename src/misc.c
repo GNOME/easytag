@@ -1867,7 +1867,6 @@ Write_Playlist (const gchar *playlist_name)
 void Open_Search_File_Window (void)
 {
     GtkWidget *VBox;
-    GtkWidget *Frame;
     GtkWidget *Table;
     GtkWidget *Label;
     GtkWidget *Button;
@@ -1899,27 +1898,24 @@ void Open_Search_File_Window (void)
         return;
     }
 
-    SearchFileWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    SearchFileWindow = gtk_dialog_new ();
+    gtk_window_set_transient_for (GTK_WINDOW (SearchFileWindow),
+                                  GTK_WINDOW (MainWindow));
     gtk_window_set_title (GTK_WINDOW (SearchFileWindow), _("Find Files"));
     g_signal_connect(G_OBJECT(SearchFileWindow),"destroy", G_CALLBACK(Destroy_Search_File_Window),NULL);
     g_signal_connect(G_OBJECT(SearchFileWindow),"delete_event", G_CALLBACK(Destroy_Search_File_Window),NULL);
     g_signal_connect(G_OBJECT(SearchFileWindow),"key_press_event", G_CALLBACK(Search_File_Window_Key_Press),NULL);
     gtk_window_set_default_size(GTK_WINDOW(SearchFileWindow),SEARCH_WINDOW_WIDTH,SEARCH_WINDOW_HEIGHT);
 
-    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
-    gtk_container_add(GTK_CONTAINER(SearchFileWindow),VBox);
-    gtk_container_set_border_width(GTK_CONTAINER(VBox), 1);
-
-    Frame = gtk_frame_new(NULL);
-    //gtk_container_add(GTK_CONTAINER(SearchFileWindow),Frame);
-    gtk_box_pack_start(GTK_BOX(VBox),Frame,TRUE,TRUE,0);
-    gtk_container_set_border_width(GTK_CONTAINER(Frame),2);
+    VBox = gtk_dialog_get_content_area (GTK_DIALOG (SearchFileWindow));
+    gtk_box_set_spacing (GTK_BOX (VBox), BOX_SPACING);
+    gtk_container_set_border_width (GTK_CONTAINER (SearchFileWindow),
+                                    BOX_SPACING);
 
     Table = et_grid_new (3, 6);
-    gtk_container_add(GTK_CONTAINER(Frame),Table);
-    gtk_container_set_border_width(GTK_CONTAINER(Table), 2);
-    gtk_grid_set_row_spacing (GTK_GRID (Table), 4);
-    gtk_grid_set_column_spacing (GTK_GRID (Table), 4);
+    gtk_container_add (GTK_CONTAINER (VBox), Table);
+    gtk_grid_set_row_spacing (GTK_GRID (Table), BOX_SPACING);
+    gtk_grid_set_column_spacing (GTK_GRID (Table), BOX_SPACING);
 
     // Words to search
     if (!SearchStringModel)
@@ -1975,7 +1971,7 @@ void Open_Search_File_Window (void)
     ScrollWindow = gtk_scrolled_window_new(NULL,NULL);
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(ScrollWindow),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
     gtk_widget_set_size_request(GTK_WIDGET(ScrollWindow), -1, 130);
-    et_grid_attach_full (GTK_GRID (Table), ScrollWindow, 0, 2, 5, 1, TRUE,
+    et_grid_attach_full (GTK_GRID (Table), ScrollWindow, 0, 2, 6, 1, TRUE,
                          TRUE, 0, 0);
 
     SearchResultListModel = gtk_list_store_new(SEARCH_COLUMN_COUNT,
@@ -2198,8 +2194,6 @@ void Open_Search_File_Window (void)
 
     if (SET_SEARCH_WINDOW_POSITION)
         gtk_window_move(GTK_WINDOW(SearchFileWindow), SEARCH_WINDOW_X, SEARCH_WINDOW_Y);
-    //else
-    //    gtk_window_set_position(GTK_WINDOW(SearchFileWindow), GTK_WIN_POS_CENTER_ON_PARENT); // Must use gtk_window_set_transient_for to work
 }
 
 static void
