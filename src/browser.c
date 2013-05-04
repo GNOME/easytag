@@ -3721,6 +3721,7 @@ Destroy_Rename_Directory_Window (void)
         gtk_list_store_clear(RenameDirectoryMaskModel);
 
         gtk_widget_destroy(RenameDirectoryWindow);
+        RenameDirectoryPreviewLabel = NULL;
         RenameDirectoryWindow = NULL;
     }
 }
