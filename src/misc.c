@@ -155,8 +155,7 @@ void     Open_Write_Playlist_Window      (void);
 static void Destroy_Write_Playlist_Window (void);
 static void Playlist_Write_Button_Pressed (void);
 static gboolean Write_Playlist (const gchar *play_list_name);
-static gboolean Playlist_Check_Content_Mask (GtkWidget *widget_to_show_hide,
-                                             GtkEntry *widget_source);
+static void entry_check_content_mask (GtkEntry *entry, gpointer user_data);
 static void Playlist_Convert_Forwardslash_Into_Backslash (const gchar *string);
 
 void Open_Search_File_Window          (void);
@@ -1173,9 +1172,6 @@ void Open_Write_Playlist_Window (void)
     GtkWidget *Frame;
     GtkWidget *VBox;
     GtkWidget *vbox, *hbox;
-    GtkWidget *Button;
-    GtkWidget *Icon;
-    GtkWidget *MaskStatusIconBox, *MaskStatusIconBox1;
 
     if (WritePlaylistWindow != NULL)
     {
@@ -1231,12 +1227,10 @@ void Open_Write_Playlist_Window (void)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_use_dir_name),PLAYLIST_USE_DIR_NAME);
 
     // Mask status icon
-    MaskStatusIconBox = Create_Pixmap_Icon_With_Event_Box("easytag-forbidden");
-    gtk_box_pack_start(GTK_BOX(hbox),MaskStatusIconBox,FALSE,FALSE,0);
-    gtk_widget_set_tooltip_text(MaskStatusIconBox,_("Invalid Scanner Mask"));
     // Signal connection to check if mask is correct into the mask entry
-    g_signal_connect_swapped(G_OBJECT(gtk_bin_get_child(GTK_BIN(PlayListNameMaskCombo))),"changed",
-        G_CALLBACK(Playlist_Check_Content_Mask),G_OBJECT(MaskStatusIconBox));
+    g_signal_connect (gtk_bin_get_child (GTK_BIN (PlayListNameMaskCombo)),
+                      "changed", G_CALLBACK (entry_check_content_mask),
+                      NULL);
 
     /* Playlist options */
     Frame = gtk_frame_new(_("Playlist Options"));
@@ -1309,12 +1303,10 @@ void Open_Write_Playlist_Window (void)
     gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(PlayListContentMaskCombo))), PLAYLIST_CONTENT_MASK_VALUE);
 
     // Mask status icon
-    MaskStatusIconBox1 = Create_Pixmap_Icon_With_Event_Box("easytag-forbidden");
-    gtk_box_pack_start(GTK_BOX(hbox),MaskStatusIconBox1,FALSE,FALSE,0);
-    gtk_widget_set_tooltip_text(MaskStatusIconBox1,_("Invalid Scanner Mask"));
     // Signal connection to check if mask is correct into the mask entry
-    g_signal_connect_swapped(G_OBJECT(gtk_bin_get_child(GTK_BIN(PlayListContentMaskCombo))),"changed",
-        G_CALLBACK(Playlist_Check_Content_Mask),G_OBJECT(MaskStatusIconBox1));
+    g_signal_connect (gtk_bin_get_child (GTK_BIN (PlayListContentMaskCombo)),
+                      "changed", G_CALLBACK (entry_check_content_mask),
+                      NULL);
 
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_content_none),    PLAYLIST_CONTENT_NONE);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_content_filename),PLAYLIST_CONTENT_FILENAME);
@@ -1567,18 +1559,22 @@ Playlist_Write_Button_Pressed (void)
     g_free(playlist_name);
 }
 
-static gboolean
-Playlist_Check_Content_Mask (GtkWidget *widget_to_show_hide,
-                             GtkEntry *widget_source)
+/*
+ * entry_check_content_mask:
+ * @entry: the entry for which to check the mask
+ * @user_data: user data set when the signal was connected
+ *
+ * Display an icon in the entry if the current text contains an invalid mask.
+ */
+static void
+entry_check_content_mask (GtkEntry *entry, gpointer user_data)
 {
     gchar *tmp  = NULL;
     gchar *mask = NULL;
 
+    g_return_if_fail (entry != NULL);
 
-    if (!widget_to_show_hide || !widget_source)
-        goto Bad_Mask;
-
-    mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(widget_source)));
+    mask = g_strdup (gtk_entry_get_text (entry));
     if (!mask || strlen(mask)<1)
         goto Bad_Mask;
 
@@ -1604,13 +1600,16 @@ Playlist_Check_Content_Mask (GtkWidget *widget_to_show_hide,
 
     Bad_Mask:
         g_free(mask);
-        gtk_widget_show(GTK_WIDGET(widget_to_show_hide));
-        return FALSE;
+        gtk_entry_set_icon_from_icon_name (entry, GTK_ENTRY_ICON_SECONDARY,
+                                           "emblem-unreadable");
+        gtk_entry_set_icon_tooltip_text (entry, GTK_ENTRY_ICON_SECONDARY,
+                                         _("Invalid scanner mask"));
+        return;
 
     Good_Mask:
         g_free(mask);
-        gtk_widget_hide(GTK_WIDGET(widget_to_show_hide));
-        return TRUE;
+        gtk_entry_set_icon_from_stock (entry, GTK_ENTRY_ICON_SECONDARY, NULL);
+        return;
 }
 
 /*
