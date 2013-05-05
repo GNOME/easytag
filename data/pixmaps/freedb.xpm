@@ -1,5 +1,5 @@
 /* XPM */
-const char * freedb_xpm[] = {
+static const char * freedb_xpm[] = {
 "16 16 67 1",
 " 	c None",
 ".	c #C8D4E6",

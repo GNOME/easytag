@@ -1,5 +1,5 @@
 /* XPM */
-const char * musicbrainz_xpm[] = {
+static const char * musicbrainz_xpm[] = {
 "16 16 17 1",
 " 	c None",
 ".	c #736CAE",

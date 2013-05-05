@@ -1,5 +1,5 @@
 /* XPM */
-const char * gnudb_xpm[] = {
+static const char * gnudb_xpm[] = {
 "16 16 72 1",
 " 	c None",
 ".	c #F9FAFF",
