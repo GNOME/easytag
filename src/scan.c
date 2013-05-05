@@ -109,7 +109,7 @@ static GtkWidget *MaskEditorDownButton;
 static GtkWidget *MaskEditorSaveButton;
 
 /* Some predefined masks -- IMPORTANT: Null-terminate me! */
-gchar *Scan_Masks [] =
+static const gchar *Scan_Masks [] =
 {
     "%a - %b"G_DIR_SEPARATOR_S"%n - %t",
     "%a_-_%b"G_DIR_SEPARATOR_S"%n_-_%t",
@@ -136,7 +136,7 @@ gchar *Scan_Masks [] =
     NULL
 };
 
-gchar *Rename_File_Masks [] =
+static const gchar *Rename_File_Masks [] =
 {
     "%n - %a - %t",
     "%n_-_%a_-_%t",

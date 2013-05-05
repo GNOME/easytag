@@ -309,11 +309,13 @@ gboolean Setting_Create_Files     (void);
 
 
 /* MasksList */
-void Load_Scan_Tag_Masks_List (GtkListStore *liststore, gint colnum, gchar **fallback);
+void Load_Scan_Tag_Masks_List (GtkListStore *liststore, gint colnum,
+                               const gchar * const *fallback);
 void Save_Scan_Tag_Masks_List (GtkListStore *liststore, gint colnum);
 
 /* RenameFileMasksList */
-void Load_Rename_File_Masks_List (GtkListStore *liststore, gint colnum, gchar **fallback);
+void Load_Rename_File_Masks_List (GtkListStore *liststore, gint colnum,
+                                  const gchar * const *fallback);
 void Save_Rename_File_Masks_List (GtkListStore *liststore, gint colnum);
 
 /* RenameDirectoryMasksList 'RenameDirectoryMaskCombo' combobox */

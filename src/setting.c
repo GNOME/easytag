@@ -1241,9 +1241,11 @@ Populate_List_Store_From_File (const gchar *filename, GtkListStore *liststore, g
 /*
  * Functions for writing and reading list of 'Fill Tag' masks
  */
-void Load_Scan_Tag_Masks_List (GtkListStore *liststore, gint colnum, gchar **fallback)
+void
+Load_Scan_Tag_Masks_List (GtkListStore *liststore, gint colnum,
+                          const gchar * const *fallback)
 {
-    gint i = 0;
+    gsize i = 0;
     GtkTreeIter iter;
 
     if (!Populate_List_Store_From_File(SCAN_TAG_MASKS_FILE, liststore, colnum))
@@ -1253,8 +1255,8 @@ void Load_Scan_Tag_Masks_List (GtkListStore *liststore, gint colnum, gchar **fal
 
         while(fallback[i])
         {
-            gtk_list_store_append(liststore, &iter);
-            gtk_list_store_set(liststore, &iter, colnum, fallback[i], -1);
+            gtk_list_store_insert_with_values (liststore, &iter, G_MAXINT,
+                                               colnum, fallback[i], -1);
             i++;
         }
     }
@@ -1269,9 +1271,11 @@ void Save_Scan_Tag_Masks_List (GtkListStore *liststore, gint colnum)
 /*
  * Functions for writing and reading list of 'Rename File' masks
  */
-void Load_Rename_File_Masks_List (GtkListStore *liststore, gint colnum, gchar **fallback)
+void
+Load_Rename_File_Masks_List (GtkListStore *liststore, gint colnum,
+                             const gchar * const *fallback)
 {
-    gint i = 0;
+    gsize i = 0;
     GtkTreeIter iter;
 
     if (!Populate_List_Store_From_File(RENAME_FILE_MASKS_FILE, liststore, colnum))
@@ -1281,8 +1285,8 @@ void Load_Rename_File_Masks_List (GtkListStore *liststore, gint colnum, gchar **
 
         while(fallback[i])
         {
-            gtk_list_store_append(liststore, &iter);
-            gtk_list_store_set(liststore, &iter, colnum, fallback[i], -1);
+            gtk_list_store_insert_with_values (liststore, &iter, G_MAXINT,
+                                               colnum, fallback[i], -1);
             i++;
         }
     }
