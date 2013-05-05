@@ -174,7 +174,7 @@ static const gchar *Rename_File_Masks [] =
 };**/
 
 
-gchar *Scanner_Option_Menu_Items [] =
+static const gchar *Scanner_Option_Menu_Items [] =
 {
     N_("Fill Tag"),
     N_("Rename File and Directory"),
