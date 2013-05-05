@@ -210,24 +210,6 @@ static void et_playlist_on_response (GtkDialog *dialog, gint response_id,
  ******************************/
 
 /*
- * Create an icon into an event box to allow some events (as to display tooltips).
- */
-GtkWidget *Create_Pixmap_Icon_With_Event_Box (const gchar *pixmap_name)
-{
-    GtkWidget *icon;
-    GtkWidget *EventBox;
-
-    EventBox = gtk_event_box_new();
-    if (pixmap_name)
-    {
-        icon = gtk_image_new_from_stock(pixmap_name, GTK_ICON_SIZE_BUTTON);
-        gtk_container_add(GTK_CONTAINER(EventBox),icon);
-    }
-
-    return EventBox;
-}
-
-/*
  * Return a button with an icon and a label
  */
 GtkWidget *Create_Button_With_Icon_And_Label (const gchar *pixmap_name, gchar *label)

@@ -52,7 +52,6 @@ GtkListStore *PlayListContentMaskModel;
 /*
  * Create Pixmaps, buttons...
  */
-GtkWidget *Create_Pixmap_Icon_With_Event_Box (const gchar *pixmap_name);
 GtkWidget *Create_Button_With_Icon_And_Label (const gchar *pixmap_name, gchar *label);
 GtkWidget *Create_Xpm_Image                  (const char **xpm_name);
 
