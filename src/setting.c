@@ -109,7 +109,7 @@ static void set_sorting_indicator_for_column_id (gint column_id,
 /********************
  * Config Variables *
  ********************/
-tConfigVariable Config_Variables[] =
+static const tConfigVariable Config_Variables[] =
 {
     {"load_on_startup",                     CV_TYPE_BOOL,    &LOAD_ON_STARTUP                   },
     {"default_path_to_mp3",                 CV_TYPE_STRING,  &DEFAULT_PATH_TO_MP3               },
