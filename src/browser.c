@@ -4068,7 +4068,7 @@ void Browser_Open_Run_Program_Tree_Window (void)
     if (!current_directory || strlen(current_directory)==0)
         return;
 
-    RunProgramTreeWindow = gtk_dialog_new_with_buttons (_("Browse Directory with…"),
+    RunProgramTreeWindow = gtk_dialog_new_with_buttons (_("Browse Directory With"),
                                                         GTK_WINDOW (MainWindow),
                                                         GTK_DIALOG_DESTROY_WITH_PARENT,
                                                         GTK_STOCK_CANCEL,
@@ -4188,7 +4188,7 @@ void Browser_Open_Run_Program_List_Window (void)
         return;
     }
 
-    RunProgramListWindow = gtk_dialog_new_with_buttons (_("Open File with…"),
+    RunProgramListWindow = gtk_dialog_new_with_buttons (_("Open Files With"),
                                                         GTK_WINDOW (MainWindow),
                                                         GTK_DIALOG_DESTROY_WITH_PARENT,
                                                         GTK_STOCK_CANCEL,

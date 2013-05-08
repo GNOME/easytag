@@ -36,6 +36,8 @@ GtkWidget *CheckMenuItemBrowseHiddenDirMainMenu;
 
 #define MENU_FILE       "FileMenu"
 #define MENU_EDIT "EditMenu"
+#define MENU_VIEW "ViewMenu"
+#define MENU_GO "GoMenu"
 #define MENU_BROWSER    "BrowserMenu"
 #define MENU_SCANNER    "ScannerMenu"
 #define MENU_MISC       "MiscMenu"

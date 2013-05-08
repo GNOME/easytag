@@ -12,6 +12,55 @@ static const gchar *ui_xml =
 "  <menubar name='MenuBar'>"
 "    <menu action='FileMenu'>"
 
+"      <menuitem action='OpenFile' />"
+"      <menuitem action='RunAudio' />"
+"      <separator />"
+
+"      <menuitem action='UnselAll' />"
+"      <menuitem action='SelInv' />"
+"      <separator />"
+
+"      <menuitem action='DeleteFile' />"
+"      <separator />"
+
+"      <menuitem action='UndoFile' />"
+"      <menuitem action='RedoFile' />"
+"      <menuitem action='SaveFile' />"
+"      <menuitem action='SaveFileForced' />"
+"      <separator />"
+
+"      <menuitem action='Quit' />"
+"    </menu>"
+
+
+"    <menu action='EditMenu'>"
+"      <menuitem action='SearchFile' />"
+"      <menuitem action='SelAll' />"
+"      <separator />"
+
+"      <menuitem action='Undo' />"
+"      <menuitem action='Redo' />"
+"      <separator />"
+
+"      <menuitem action='RemoveTag' />"
+"      <separator />"
+
+"      <menuitem action='Preferences' />"
+"    </menu>"
+
+"    <menu action='ViewMenu'>"
+"      <menuitem action='ShowScanner' />"
+"      <menu action='ScannerMenu'>"
+"        <menuitem action='FillTag' />"
+"        <menuitem action='RenameFile' />"
+"        <menuitem action='ProcessFields' />"
+"      </menu>"
+"      <separator />"
+
+"      <menuitem action='TreeViewMode'/>"
+"      <menuitem action='ArtistViewMode'/>"
+"      <separator />"
+
 "      <menu action='SortTagMenu'>"
 "        <menuitem action='SortTrackNumAsc' />"
 "        <menuitem action='SortTrackNumDesc' />"
@@ -54,7 +103,6 @@ static const gchar *ui_xml =
 "        <separator />"
 "        <menuitem action='SortEncodedByAsc' />"
 "        <menuitem action='SortEncodedByDesc' />"
-"        <separator />"
 "      </menu>"
 
 "      <menu action='SortPropMenu'>"
@@ -79,89 +127,52 @@ static const gchar *ui_xml =
 "        <menuitem action='SortSamplerateAsc' />"
 "        <menuitem action='SortSamplerateDesc' />"
 "      </menu>"
-
-"      <menuitem action='OpenFile' />"
 "      <separator />"
 
-"      <menuitem action='SelAll' />"
-"      <menuitem action='UnselAll' />"
-"      <menuitem action='SelInv' />"
+"      <menuitem action='CollapseTree' />"
+"      <menuitem action='RefreshTree' />"
 "      <separator />"
 
-"      <menuitem action='DeleteFile' />"
+"      <menuitem action='ReloadDir' />"
+"      <separator />"
+
+#ifndef G_OS_WIN32
+"      <menuitem action='BrowseHiddenDir' />"
+#endif /* !G_OS_WIN32 */
+"    </menu>"
+
+"    <menu action='BrowserMenu'>"
+"      <menuitem action='SetDefaultPath' />"
+"      <separator />"
+
+"      <menuitem action='RenameDir' />"
+"      <menuitem action='BrowseDir' />"
+"      <separator />"
+
+"      <menuitem action='BrowseSubdir' />"
+"    </menu>"
+
+"    <menu action='MiscMenu'>"
+"      <menuitem action='CDDBSearch' />"
+"      <separator />"
+
+"      <menuitem action='LoadFilenames' />"
+"      <menuitem action='WritePlaylist' />"
+"    </menu>"
+
+"    <menu action='GoMenu'>"
+"      <menuitem action='GoToHome' />"
+"      <menuitem action='GoToDesktop' />"
+"      <menuitem action='GoToDocument' />"
+"      <menuitem action='GoToDownload' />"
+"      <menuitem action='GoToMusic' />"
+"      <menuitem action='GoToDefaultPath' />"
 "      <separator />"
 
 "      <menuitem action='FirstFile' />"
 "      <menuitem action='PreviousFile' />"
 "      <menuitem action='NextFile' />"
 "      <menuitem action='LastFile' />"
-"      <separator />"
-
-"      <menuitem action='RemoveTag' />"
-"      <menuitem action='UndoFile' />"
-"      <menuitem action='RedoFile' />"
-"      <menuitem action='SaveFile' />"
-"      <menuitem action='SaveFileForced' />"
-"      <separator />"
-
-"      <menuitem action='Undo' />"
-"      <menuitem action='Redo' />"
-"      <separator />"
-
-"      <menuitem action='Quit' />"
-"    </menu>"
-
-
-"    <menu action='EditMenu'>"
-"      <menuitem action='Preferences' />"
-"    </menu>"
-
-"    <menu action='BrowserMenu'>"
-"      <menuitem action='GoToHome' />"
-"      <menuitem action='GoToDesktop' />"
-"      <menuitem action='GoToDocument' />"
-"      <menuitem action='GoToDownload' />"
-"      <menuitem action='GoToMusic' />"
-"      <separator />"
-"      <menuitem action='GoToDefaultPath' />"
-"      <menuitem action='SetDefaultPath' />"
-"      <separator />"
-
-"      <menuitem action='TreeViewMode'/>"
-"      <menuitem action='ArtistViewMode'/>"
-"      <separator />"
-
-"      <menuitem action='RenameDir' />"
-"      <menuitem action='ReloadDir' />"
-"      <menuitem action='BrowseDir' />"
-"      <separator />"
-
-"      <menuitem action='BrowseSubdir' />"
-#ifndef G_OS_WIN32
-"      <menuitem action='BrowseHiddenDir' />"
-#endif /* !G_OS_WIN32 */
-"      <separator />"
-
-"      <menuitem action='CollapseTree' />"
-"      <menuitem action='RefreshTree' />"
-"    </menu>"
-
-"    <menu action='ScannerMenu'>"
-"      <menuitem action='FillTag' />"
-"      <menuitem action='RenameFile' />"
-"      <menuitem action='ProcessFields' />"
-"      <separator />"
-"      <menuitem action='ShowScanner' />"
-"    </menu>"
-
-"    <menu action='MiscMenu'>"
-"      <menuitem action='SearchFile' />"
-"      <menuitem action='CDDBSearch' />"
-"      <separator />"
-
-"      <menuitem action='LoadFilenames' />"
-"      <menuitem action='WritePlaylist' />"
-"      <menuitem action='RunAudio' />"
 "    </menu>"
 
 "    <menu action='HelpMenu'>"

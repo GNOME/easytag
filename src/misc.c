@@ -2652,7 +2652,7 @@ void Open_Load_Filename_Window (void)
     LoadFileContentList = gtk_tree_view_new_with_model(GTK_TREE_MODEL(LoadFileContentListModel));
     
     renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes(_("Content of TXT file"),
+    column = gtk_tree_view_column_new_with_attributes (_("Content of Text File"),
                                                       renderer, "text", LOAD_FILE_CONTENT_TEXT, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(LoadFileContentList), column);
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(LoadFileContentList), TRUE);
@@ -2745,7 +2745,7 @@ void Open_Load_Filename_Window (void)
     LoadFileNameList = gtk_tree_view_new_with_model(GTK_TREE_MODEL(LoadFileNameListModel));
     
     renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes(_("List of files"), 
+    column = gtk_tree_view_column_new_with_attributes(_("List of Files"),
                                                       renderer, "text", LOAD_FILE_NAME_TEXT, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(LoadFileNameList), column);
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(LoadFileNameList), TRUE);

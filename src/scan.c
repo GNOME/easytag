@@ -4017,7 +4017,7 @@ Scanner_Option_Menu_Activate_Item (GtkWidget *combo, gpointer data)
     GtkRadioAction *radio_action;
 
     radio_action = GTK_RADIO_ACTION (gtk_ui_manager_get_action (UIManager,
-                                                                "/MenuBar/ScannerMenu/FillTag"));
+                                                                "/MenuBar/ViewMenu/ScannerMenu/FillTag"));
     SCANNER_TYPE = gtk_combo_box_get_active (GTK_COMBO_BOX (combo));
     gtk_radio_action_set_current_value (radio_action, SCANNER_TYPE);
 
