@@ -2689,7 +2689,10 @@ Save_File (ET_File *ETFile, gboolean multiple_files,
                 gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(msgdialog_check_button), TRUE); // Checked by default
             }else
             {
-                gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_DISCARD,GTK_RESPONSE_NO,GTK_STOCK_SAVE,GTK_RESPONSE_YES,NULL);
+                gtk_dialog_add_buttons (GTK_DIALOG (msgdialog),
+                                        GTK_STOCK_CANCEL, GTK_RESPONSE_NO,
+                                        GTK_STOCK_SAVE, GTK_RESPONSE_YES,
+                                        NULL);
             }
 
             SF_ButtonPressed_Write_Tag = response = gtk_dialog_run(GTK_DIALOG(msgdialog));
