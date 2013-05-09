@@ -3504,7 +3504,14 @@ Copy_File (const gchar *fileold, const gchar *filenew)
 
     while ( (NbRead=fread(buffer, 1, 512, fOld)) != 0 )
     {
-        fwrite(buffer, 1, NbRead, fNew);
+        if (fwrite (buffer, 1, NbRead, fNew) != NbRead)
+        {
+            Log_Print (LOG_ERROR, _("Error copying file '%s' to '%s'"),
+                       fileold, filenew);
+            fclose (fNew);
+            fclose (fOld);
+            return FALSE;
+        }
     }
 
     fclose(fNew);
@@ -3513,7 +3520,14 @@ Copy_File (const gchar *fileold, const gchar *filenew)
     // Copy properties of the old file to the new one.
     stat(fileold,&statbuf);
     chmod(filenew,statbuf.st_mode & (S_IRWXU|S_IRWXG|S_IRWXO));
-    chown(filenew,statbuf.st_uid,statbuf.st_gid);
+    if (chown (filenew, statbuf.st_uid, statbuf.st_gid) == -1)
+    {
+        Log_Print (LOG_ERROR, _("Cannot change permissions of file '%s' (%s)"),
+                   filenew, g_strerror (errno));
+        /* Return TRUE as the file was successfully copied, even though the
+         * permissions were not preserved. */
+        return TRUE;
+    }
     utimbufbuf.actime  = statbuf.st_atime; // Last access time
     utimbufbuf.modtime = statbuf.st_mtime; // Last modification time
     utime(filenew,&utimbufbuf);
