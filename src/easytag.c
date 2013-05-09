@@ -132,6 +132,11 @@ static void et_on_quit_recursion_response (GtkDialog *dialog, gint response_id,
 static void File_Area_Set_Sensitive (gboolean activate);
 static void Tag_Area_Set_Sensitive  (gboolean activate);
 
+static void et_tag_field_connect_signals (GtkEntry *entry);
+static void et_tag_field_on_key_press_event (GtkEntry *entry,
+                                             GdkEventKey *event,
+                                             gpointer user_data);
+
 #ifndef G_OS_WIN32
 static void
 setup_sigbus_fpe_segv (void)
@@ -661,8 +666,7 @@ Create_Tag_Area (void)
     et_grid_attach_full (GTK_GRID (Table), TitleEntry, 1, 0, 9, 1, TRUE, TRUE,
                          TablePadding, TablePadding);
 
-    g_signal_connect (G_OBJECT (TitleEntry), "icon-release",
-                      G_CALLBACK (Mini_Button_Clicked), NULL);
+    et_tag_field_connect_signals (GTK_ENTRY (TitleEntry));
     gtk_entry_set_icon_tooltip_text (GTK_ENTRY (TitleEntry),
                                      GTK_ENTRY_ICON_SECONDARY,
                                      _("Tag selected files with this title"));
@@ -681,8 +685,7 @@ Create_Tag_Area (void)
     et_grid_attach_full (GTK_GRID (Table), ArtistEntry, 1, 1, 9, 1, TRUE, TRUE,
                          TablePadding,TablePadding);
 
-    g_signal_connect (G_OBJECT (ArtistEntry), "icon-release",
-                      G_CALLBACK (Mini_Button_Clicked), NULL);
+    et_tag_field_connect_signals (GTK_ENTRY (ArtistEntry));
     gtk_entry_set_icon_tooltip_text (GTK_ENTRY (ArtistEntry),
                                      GTK_ENTRY_ICON_SECONDARY,
                                      _("Tag selected files with this artist"));
@@ -701,8 +704,7 @@ Create_Tag_Area (void)
     et_grid_attach_full (GTK_GRID (Table), AlbumArtistEntry, 1, 2, 9, 1, TRUE,
                          TRUE, TablePadding, TablePadding);
 
-    g_signal_connect (G_OBJECT (AlbumArtistEntry), "icon-release",
-                      G_CALLBACK (Mini_Button_Clicked), NULL);
+    et_tag_field_connect_signals (GTK_ENTRY (AlbumArtistEntry));
     gtk_entry_set_icon_tooltip_text (GTK_ENTRY (AlbumArtistEntry),
                                      GTK_ENTRY_ICON_SECONDARY,
                                      _("Tag selected files with this album artist"));
@@ -721,8 +723,7 @@ Create_Tag_Area (void)
     et_grid_attach_full (GTK_GRID (Table), AlbumEntry, 1, 3, 6, 1, TRUE, TRUE,
                          TablePadding,TablePadding);
 
-    g_signal_connect (G_OBJECT (AlbumEntry), "icon-release",
-                      G_CALLBACK (Mini_Button_Clicked), NULL);
+    et_tag_field_connect_signals (GTK_ENTRY (AlbumEntry));
     gtk_entry_set_icon_tooltip_text (GTK_ENTRY (AlbumEntry),
                                      GTK_ENTRY_ICON_SECONDARY,
                                      _("Tag selected files with this album name"));
@@ -744,8 +745,7 @@ Create_Tag_Area (void)
     /* FIXME should allow to type only something like : 1/3. */
     /*g_signal_connect(G_OBJECT(GTK_ENTRY(DiscNumberEntry)),"insert_text",G_CALLBACK(Insert_Only_Digit),NULL); */
 
-    g_signal_connect (G_OBJECT (DiscNumberEntry), "icon-release",
-                      G_CALLBACK(Mini_Button_Clicked), NULL);
+    et_tag_field_connect_signals (GTK_ENTRY (DiscNumberEntry));
     gtk_entry_set_icon_tooltip_text (GTK_ENTRY (DiscNumberEntry),
                                      GTK_ENTRY_ICON_SECONDARY,
                                      _("Tag selected files with this disc number"));
@@ -770,8 +770,7 @@ Create_Tag_Area (void)
     g_signal_connect(G_OBJECT(YearEntry),"activate",G_CALLBACK(Parse_Date),NULL);
     g_signal_connect(G_OBJECT(YearEntry),"focus-out-event",G_CALLBACK(Parse_Date),NULL);
 
-    g_signal_connect (G_OBJECT (YearEntry), "icon-release",
-                      G_CALLBACK (Mini_Button_Clicked),NULL);
+    et_tag_field_connect_signals (GTK_ENTRY (YearEntry));
     gtk_entry_set_icon_tooltip_text (GTK_ENTRY (YearEntry),
                                      GTK_ENTRY_ICON_SECONDARY,
                                      _("Tag selected files with this year"));
@@ -845,8 +844,7 @@ Create_Tag_Area (void)
     g_signal_connect (G_OBJECT (GTK_ENTRY (TrackTotalEntry)), "insert-text",
                       G_CALLBACK (Insert_Only_Digit), NULL);
 
-    g_signal_connect (G_OBJECT (TrackTotalEntry), "icon-release",
-                      G_CALLBACK (Mini_Button_Clicked) ,NULL);
+    et_tag_field_connect_signals (GTK_ENTRY (TrackTotalEntry));
     gtk_entry_set_icon_tooltip_text (GTK_ENTRY (TrackTotalEntry),
                                      GTK_ENTRY_ICON_SECONDARY,
                                      _("Tag selected files with this number of tracks"));
@@ -878,8 +876,7 @@ Create_Tag_Area (void)
     Load_Genres_List_To_UI();
     gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(GenreCombo),2); // Two columns to display genres list
 
-    g_signal_connect (G_OBJECT (gtk_bin_get_child (GTK_BIN (GenreCombo))),
-                      "icon-release", G_CALLBACK (Mini_Button_Clicked), NULL);
+    et_tag_field_connect_signals (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (GenreCombo))));
     gtk_entry_set_icon_tooltip_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (GenreCombo))),
                                      GTK_ENTRY_ICON_SECONDARY,
                                      _("Tag selected files with this genre"));
@@ -911,8 +908,7 @@ Create_Tag_Area (void)
     Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(CommentView));
     *******/
 
-    g_signal_connect (G_OBJECT (CommentEntry), "icon-release",
-                      G_CALLBACK (Mini_Button_Clicked), NULL);
+    et_tag_field_connect_signals (GTK_ENTRY (CommentEntry));
     gtk_entry_set_icon_tooltip_text (GTK_ENTRY (CommentEntry),
                                      GTK_ENTRY_ICON_SECONDARY,
                                      _("Tag selected files with this comment"));
@@ -933,8 +929,7 @@ Create_Tag_Area (void)
     et_grid_attach_full (GTK_GRID (Table), ComposerEntry, 1, 7, 9, 1, TRUE,
                          TRUE, TablePadding, TablePadding);
 
-    g_signal_connect (G_OBJECT (ComposerEntry), "icon-release",
-                      G_CALLBACK (Mini_Button_Clicked), NULL);
+    et_tag_field_connect_signals (GTK_ENTRY (ComposerEntry));
     gtk_entry_set_icon_tooltip_text (GTK_ENTRY (ComposerEntry),
                                      GTK_ENTRY_ICON_SECONDARY,
                                      _("Tag selected files with this composer"));
@@ -955,8 +950,7 @@ Create_Tag_Area (void)
     et_grid_attach_full (GTK_GRID (Table), OrigArtistEntry, 1, 8, 9, 1, TRUE,
                          TRUE,TablePadding,TablePadding);
 
-    g_signal_connect (G_OBJECT (OrigArtistEntry), "icon-release",
-                      G_CALLBACK (Mini_Button_Clicked), NULL);
+    et_tag_field_connect_signals (GTK_ENTRY (OrigArtistEntry));
     gtk_entry_set_icon_tooltip_text (GTK_ENTRY (OrigArtistEntry),
                                      GTK_ENTRY_ICON_SECONDARY,
                                      _("Tag selected files with this original artist"));
@@ -976,8 +970,7 @@ Create_Tag_Area (void)
     et_grid_attach_full (GTK_GRID (Table), CopyrightEntry, 1, 9, 9, 1, TRUE,
                          TRUE, TablePadding, TablePadding);
 
-    g_signal_connect (G_OBJECT (CopyrightEntry), "icon-release",
-                      G_CALLBACK (Mini_Button_Clicked), NULL);
+    et_tag_field_connect_signals (GTK_ENTRY (CopyrightEntry));
     gtk_entry_set_icon_tooltip_text (GTK_ENTRY (CopyrightEntry),
                                      GTK_ENTRY_ICON_SECONDARY,
                                      _("Tag selected files with this copyright"));
@@ -997,8 +990,7 @@ Create_Tag_Area (void)
     et_grid_attach_full (GTK_GRID (Table), URLEntry, 1, 10, 9, 1, TRUE, TRUE,
                          TablePadding, TablePadding);
 
-    g_signal_connect (G_OBJECT (URLEntry), "icon-release",
-                      G_CALLBACK (Mini_Button_Clicked), NULL);
+    et_tag_field_connect_signals (GTK_ENTRY (URLEntry));
     gtk_entry_set_icon_tooltip_text (GTK_ENTRY (URLEntry),
                                      GTK_ENTRY_ICON_SECONDARY,
                                      _("Tag selected files with this URL"));
@@ -1018,8 +1010,7 @@ Create_Tag_Area (void)
     et_grid_attach_full (GTK_GRID (Table), EncodedByEntry, 1, 11, 9, 1, TRUE,
                          TRUE, TablePadding, TablePadding);
 
-    g_signal_connect (G_OBJECT (EncodedByEntry), "icon-release",
-                      G_CALLBACK (Mini_Button_Clicked), NULL);
+    et_tag_field_connect_signals (GTK_ENTRY (EncodedByEntry));
     gtk_entry_set_icon_tooltip_text (GTK_ENTRY (EncodedByEntry),
                                      GTK_ENTRY_ICON_SECONDARY,
                                      _("Tag selected files with this encoder name"));
@@ -5005,4 +4996,48 @@ void MainWindow_Apply_Changes (void)
         PANE_HANDLE_POSITION4 = gtk_paned_get_position(GTK_PANED(MainWindowVPaned));
     }
 
+}
+
+/*
+ * et_tag_field_connect_signals:
+ * @entry: the entry for which to connect signals
+ *
+ * Connect the GtkWidget::key-press-event and GtkEntry::icon-release signals
+ * of @entry to appropriate handlers for tag entry fields.
+ */
+static void
+et_tag_field_connect_signals (GtkEntry *entry)
+{
+    g_signal_connect_after (entry, "key-press-event",
+                            G_CALLBACK (et_tag_field_on_key_press_event),
+                            NULL);
+    g_signal_connect (entry, "icon-release", G_CALLBACK (Mini_Button_Clicked),
+                      NULL);
+}
+
+/*
+ * et_tag_field_on_key_press_event:
+ * @entry: the tag entry field on which the event was generated
+ * @event: the generated event
+ * @user_data: user data set when the signal was connected
+ *
+ * Handle the Ctrl+Return combination being pressed in the tag field GtkEntrys
+ * and apply the tag to selected files.
+ */
+static void
+et_tag_field_on_key_press_event (GtkEntry *entry, GdkEventKey *event,
+                                 gpointer user_data)
+{
+    switch (event->keyval)
+    {
+        case GDK_KEY_Return:
+        case GDK_KEY_KP_Enter:
+        case GDK_KEY_ISO_Enter:
+            if (event->state == GDK_CONTROL_MASK)
+            {
+                Mini_Button_Clicked (G_OBJECT (entry));
+            }
+        default:
+            break;
+    }
 }
