@@ -3857,7 +3857,12 @@ gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile)
     {
 #ifndef G_OS_WIN32
         chmod(cur_filename,statbuf.st_mode & (S_IRWXU|S_IRWXG|S_IRWXO));
-        chown(cur_filename,statbuf.st_uid,statbuf.st_gid);
+        if (chown (cur_filename, statbuf.st_uid, statbuf.st_gid) == -1)
+        {
+            Log_Print (LOG_ERROR,
+                       _("Cannot change the permissions of file '%s' (%s)"),
+                       cur_filename, g_strerror (errno));
+        }
 #endif /* !G_OS_WIN32 */
         if (PRESERVE_MODIFICATION_TIME)
         {

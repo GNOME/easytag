@@ -330,7 +330,7 @@ void Log_Print (Log_Error_Type error_type, gchar const *format, ...)
         gchar *data = g_strdup_printf("%s %s\n",time,string);
         if (fwrite (data, strlen (data), 1, file) != 1)
         {
-            //To avoid recursion of Log_Print, using g_critical
+            /* To avoid recursion of Log_Print. */
             g_critical ("Error writing to the log file '%s'", file_path);
             g_free (data);
             g_free (time);
