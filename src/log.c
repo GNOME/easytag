@@ -328,7 +328,16 @@ void Log_Print (Log_Error_Type error_type, gchar const *format, ...)
     {
         gchar *time = Log_Format_Date();
         gchar *data = g_strdup_printf("%s %s\n",time,string);
-        fwrite(data,strlen(data),1,file);
+        if (fwrite (data, strlen (data), 1, file) != 1)
+        {
+            //To avoid recursion of Log_Print, using g_critical
+            g_critical ("Error writing to the log file '%s'", file_path);
+            g_free (data);
+            g_free (time);
+            fclose (file);
+            g_free (string);
+            return;
+        }
         g_free(data);
         g_free(time);
 
