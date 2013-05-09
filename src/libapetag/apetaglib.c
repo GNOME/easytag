@@ -916,7 +916,13 @@ apetag_save (char *filename, apetag *mem_cnt, int flag)
     
     if (id3v1) {
         fseek (fp, -128, SEEK_END);
-        fread (&id3v1_tag, 1, sizeof (struct _id3v1Tag), fp);
+        if (fread (&id3v1_tag, 1, sizeof (struct _id3v1Tag), fp)
+            != sizeof (struct _id3v1Tag))
+        {
+            PRINT_ERR ("ERROR->apetaglib->apetag_save::fread");
+            fclose (fp);
+            return ATL_FREAD;
+        }
         skipBytes += id3v1;
     }
     skipBytes += apeTag;
@@ -1033,7 +1039,10 @@ apetag_save (char *filename, apetag *mem_cnt, int flag)
         fflush (fp);
         fclose (fp);
         /* ftruncate don't work */ 
-        truncate (filename, newFileSize);
+        if (truncate (filename, newFileSize) == -1)
+        {
+            PRINT_ERR ("FATAL_ERROR->libapetag->apetag_save::fwrite [file not truncated]");
+        }
     } else { /* !!SAVE_FAKE_SAVE */
         libapetag_print_mem_cnt (mem_cnt);
     }

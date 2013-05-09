@@ -58,7 +58,11 @@ is_id3v1 (FILE * fp)
         n++;
         memset (buf, 0, sizeof (buf));
         fseek (fp, ((-128)*n) - 3 , SEEK_END);
-        fread (&buf, 1, sizeof (buf), fp);
+        if (fread (&buf, 1, sizeof (buf), fp) != sizeof (buf))
+        {
+            fseek (fp, savedFilePosition, SEEK_SET);
+            return 0;
+        }
         if (memcmp (buf, "APETAGEX",8) == 0) /*APE.TAG.EX*/
         break;
     } while (memcmp (buf+3, "TAG", 3) == 0);
@@ -87,7 +91,11 @@ is_id3v2 (FILE * fp)
     do {    
         memset (buf, 0, sizeof (buf));
         fseek (fp, id3v2size, SEEK_SET);
-        fread (&buf, 1, sizeof (buf), fp);
+        if (fread (&buf, 1, sizeof (buf), fp) != sizeof (buf))
+        {
+            fseek (fp, savedFilePosition, SEEK_SET);
+            return 0;
+        }
         if (memcmp (buf, "ID3", 3) != 0) {
         break;
         }
@@ -117,7 +125,11 @@ is_ape_ver (FILE * fp)
     memset (buf, 0, sizeof (buf));
         
     fseek (fp, (is_id3v1 (fp) ? -32 - 128 : -32), SEEK_END);
-    fread (&buf, 1, sizeof (buf), fp);
+    if (fread (&buf, 1, sizeof (buf), fp) != sizeof (buf))
+    {
+        fseek (fp, savedFilePosition, SEEK_SET);
+        return 0;
+    }
     if (memcmp (buf, "APETAGEX", 8) != 0) {
         fseek (fp, savedFilePosition, SEEK_SET);
         return 0;
@@ -145,7 +157,11 @@ is_ape (FILE * fp)
     memset (buf, 0, sizeof (buf));
         
     fseek (fp, (is_id3v1 (fp) ? -32 - 128 : -32), SEEK_END);
-    fread (&buf, 1, sizeof (buf), fp);
+    if (fread (&buf, 1, sizeof (buf), fp) != sizeof (buf))
+    {
+        fseek (fp, savedFilePosition, SEEK_SET);
+        return 0;
+    }
     if (memcmp (buf, "APETAGEX", 8) != 0) {
         fseek (fp, savedFilePosition, SEEK_SET);
         return 0;

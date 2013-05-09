@@ -77,7 +77,11 @@ info_mpc_read(const char *fn, StreamInfoMpc * Info)
     // skip id3v2 
     SkipSizeID3=is_id3v2(tmpFile);
     fseek(tmpFile,SkipSizeID3 , SEEK_SET);
-    fread((void *) HeaderData, sizeof (int), 16, tmpFile);
+    if (fread ((void *) HeaderData, sizeof (int), 16, tmpFile) != 16)
+    {
+        fclose (tmpFile);
+        return 1;
+    }
     fseek(tmpFile, 0, SEEK_END);
     Info->FileSize=ftell(tmpFile);
     // stream size 
