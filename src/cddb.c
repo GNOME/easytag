@@ -1633,7 +1633,13 @@ Cddb_Write_Result_To_File (gint socket_id, gulong *bytes_read_total)
 
             // Write to file
             cddb_out[bytes_read] = 0;
-            fwrite(&cddb_out,bytes_read,1,file);
+            if (fwrite (&cddb_out, bytes_read, 1, file) != 1)
+            {
+                 Log_Print (LOG_ERROR,
+                            _("Error while writing CDDB results to file '%s'"),
+                            file_path);
+                 break;
+            }
 
             *bytes_read_total += bytes_read;
 
