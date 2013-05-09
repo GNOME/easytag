@@ -1487,6 +1487,7 @@ etag_write_tags (const gchar *filename,
         {
             if (write (fd, v2buf, v2size) != v2size)
             {
+                gchar *filename_utf8 = filename_to_display (filename);
                 gchar *basename_utf8 = g_path_get_basename (filename_utf8);
                 Log_Print (LOG_ERROR, _("Cannot save tag of file '%s'"),
                            basename_utf8);

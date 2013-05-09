@@ -935,8 +935,15 @@ Save_Config_To_File (void)
                 {
                     data = g_strdup_printf("%s=%i\n",Config_Variables[i].name,
                                                      *(int *)Config_Variables[i].pointer);
-                    fwrite(data,strlen(data),1,file);
-                    //g_print("# (type:%d) %s",Config_Variables[i].type,data);
+                    if (fwrite (data, strlen (data), 1, file) != 1)
+                    {
+                        Log_Print (LOG_ERROR,
+                                   _("Error while writing configuration file: %s"),
+                                   file_path);
+                        fclose (file);
+                        g_free (file_path);
+                        return;
+                    }
                     g_free(data);
                     break;
                 }
@@ -944,8 +951,15 @@ Save_Config_To_File (void)
                 {
                     data = g_strdup_printf("%s=%i\n",Config_Variables[i].name,
                                                      ( *(int *)Config_Variables[i].pointer ? 1 : 0 ));
-                    fwrite(data,strlen(data),1,file);
-                    //g_print("# (type:%d) %s",Config_Variables[i].type,data);
+                    if (fwrite (data, strlen (data), 1, file) != 1)
+                    {
+                        Log_Print (LOG_ERROR,
+                                   _("Error while writing configuration file: %s"),
+                                   file_path);
+                        fclose (file);
+                        g_free (file_path);
+                        return;
+                    }
                     g_free(data);
                     break;
                 }
@@ -956,8 +970,15 @@ Save_Config_To_File (void)
 
                     data = g_strdup_printf("%s=%s\n",Config_Variables[i].name,
                                                      *(char **)Config_Variables[i].pointer);
-                    fwrite(data,strlen(data),1,file);
-                    //g_print("# (type:%d) %s",Config_Variables[i].type,data);
+                    if (fwrite (data, strlen (data), 1, file) != 1)
+                    {
+                        Log_Print (LOG_ERROR,
+                                   _("Error while writing configuration file: %s"),
+                                   file_path);
+                        fclose (file);
+                        g_free (file_path);
+                        return;
+                    }
                     g_free(data);
                     break;
                 }
@@ -1176,7 +1197,14 @@ Save_List_Store_To_File (const gchar *filename, GtkListStore *liststore, gint co
 
             if (data)
             {
-                fwrite(data,strlen(data),1,file);
+                if (fwrite (data, strlen (data), 1, file))
+                {
+                    Log_Print (LOG_ERROR, _("Error while writing list file: %s"),
+                               file_path);
+                    fclose (file);
+                    g_free (file_path);
+                    return;
+                }
                 g_free(data);
             }
         } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(liststore), &iter));
