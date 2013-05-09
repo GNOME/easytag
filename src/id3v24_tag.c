@@ -1484,8 +1484,16 @@ etag_write_tags (const gchar *filename,
             
         // Write the ID3v2 tag
         if (v2buf)
-            write(fd, v2buf, v2size);
-        
+        {
+            if (write (fd, v2buf, v2size) != v2size)
+            {
+                gchar *basename_utf8 = g_path_get_basename (filename_utf8);
+                Log_Print (LOG_ERROR, _("Cannot save tag of file '%s'"),
+                           basename_utf8);
+                g_free (basename_utf8);
+                goto out;
+            }
+        }
         // Write audio data
         if (write(fd, ctx, ctxsize) != ctxsize)
         {
