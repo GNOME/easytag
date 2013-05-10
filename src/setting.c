@@ -1172,7 +1172,6 @@ Save_List_Store_To_File (const gchar *filename, GtkListStore *liststore, gint co
 {
     gchar *file_path = NULL;
     FILE *file;
-    gchar *data = NULL;
     gchar *text;
     GtkTreeIter iter;
 
@@ -1191,22 +1190,27 @@ Save_List_Store_To_File (const gchar *filename, GtkListStore *liststore, gint co
     {
         do
         {
-            gtk_tree_model_get(GTK_TREE_MODEL(liststore), &iter, colnum, &text, -1);
-            data = g_strdup_printf("%s\n",text);
-            g_free(text);
+            GString *data;
 
-            if (data)
+            gtk_tree_model_get (GTK_TREE_MODEL (liststore), &iter, colnum,
+                                &text, -1);
+            data = g_string_new (text);
+            g_free (text);
+            g_string_append_c (data, '\n');
+
+            if (*data->str != '\n')
             {
-                if (fwrite (data, strlen (data), 1, file))
+                if (fwrite (data->str, data->len, 1, file) != 1)
                 {
                     Log_Print (LOG_ERROR, _("Error while writing list file: %s"),
                                file_path);
                     fclose (file);
+                    g_string_free (data, TRUE);
                     g_free (file_path);
                     return;
                 }
-                g_free(data);
             }
+            g_string_free (data, TRUE);
         } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(liststore), &iter));
         fclose(file);
     }
