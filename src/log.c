@@ -455,7 +455,7 @@ Log_Get_Stock_Id_From_Error_Type (Log_Error_Type error_type)
     switch (error_type)
     {
         case LOG_OK:
-            stock_id = GTK_STOCK_APPLY;
+            stock_id = GTK_STOCK_OK;
             break;
 
         case LOG_INFO:
@@ -467,13 +467,14 @@ Log_Get_Stock_Id_From_Error_Type (Log_Error_Type error_type)
             break;
 
         case LOG_ERROR:
-            stock_id = GTK_STOCK_CANCEL;
+            stock_id = GTK_STOCK_DIALOG_ERROR;
             break;
 
         case LOG_UNKNOWN:
-        default:
             stock_id = NULL;
             break;
+        default:
+            g_assert_not_reached ();
     }
 
     return stock_id;
