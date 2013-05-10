@@ -252,8 +252,9 @@ void Log_Print (Log_Error_Type error_type, gchar const *format, ...)
     GtkTreeIter iter;
     static gboolean first_time = TRUE;
     static gchar *file_path = NULL;
-    FILE *file = NULL;
-
+    GFile *file;
+    GFileOutputStream *file_ostream;
+    GError *error = NULL;
 
     va_start (args, format);
     string = g_strdup_vprintf(format, args);
@@ -308,6 +309,7 @@ void Log_Print (Log_Error_Type error_type, gchar const *format, ...)
             {
                 g_printerr ("%s", "Unable to create cache directory");
                 g_free (cache_path);
+                g_free (string);
 
                 return;
             }
@@ -317,35 +319,81 @@ void Log_Print (Log_Error_Type error_type, gchar const *format, ...)
         g_free (cache_path);
     }
 
-    // The first time, the whole file is deleted. Else, text is appended.
+    file = g_file_new_for_path (file_path);
+
+    /* On startup, the log is cleared. The log is then appended to for the
+     * remainder of the application lifetime. */
     if (first_time)
-        file = fopen(file_path,"w+");
-    else
-        file = fopen(file_path,"a+");
-    //g_free(file_path);
-
-    if (file)
     {
-        gchar *time = Log_Format_Date();
-        gchar *data = g_strdup_printf("%s %s\n",time,string);
-        if (fwrite (data, strlen (data), 1, file) != 1)
-        {
-            /* To avoid recursion of Log_Print. */
-            g_critical ("Error writing to the log file '%s'", file_path);
-            g_free (data);
-            g_free (time);
-            fclose (file);
-            g_free (string);
-            return;
-        }
-        g_free(data);
-        g_free(time);
-
-        first_time = FALSE;
-        fclose(file);
+        file_ostream = g_file_replace (file, NULL, FALSE, G_FILE_CREATE_NONE,
+                                       NULL, &error);
+    }
+    else
+    {
+        file_ostream = g_file_append_to (file, G_FILE_CREATE_NONE, NULL,
+                                         &error);
     }
 
-    g_free(string);
+    if (file_ostream)
+    {
+        gchar *time;
+        GString *data;
+
+        time = Log_Format_Date ();
+        data = g_string_new (time);
+        g_free (time);
+
+        data = g_string_append_c (data, ' ');
+        data = g_string_append (data, string);
+        g_free (string);
+
+        data = g_string_append_c (data, '\n');
+
+        if (g_output_stream_write (G_OUTPUT_STREAM (file_ostream), data->str,
+                                   data->len, NULL, &error) != data->len)
+        {
+            /* To avoid recursion of Log_Print. */
+            g_warning ("Error writing to the log file '%s' ('%s')", file_path,
+                       error->message);
+
+            g_error_free (error);
+
+            if (!g_output_stream_close (G_OUTPUT_STREAM (file_ostream), NULL,
+                                        &error))
+            {
+                g_warning ("Error closing output stream of file '%s' ('%s')",
+                           file_path, error->message);
+                g_error_free (error);
+            }
+
+            g_string_free (data, TRUE);
+            g_object_unref (file_ostream);
+            g_object_unref (file);
+
+            return;
+        }
+
+        first_time = FALSE;
+
+        if (!g_output_stream_close (G_OUTPUT_STREAM (file_ostream), NULL,
+                                    &error))
+        {
+            g_warning ("Error closing output stream of file '%s' ('%s')",
+                       file_path, error->message);
+            g_error_free (error);
+        }
+
+        g_string_free (data, TRUE);
+    }
+    else
+    {
+        g_warning ("Error opening output stream of file '%s' ('%s')",
+                   file_path, error->message);
+        g_error_free (error);
+    }
+
+    g_object_unref (file_ostream);
+    g_object_unref (file);
 }
 
 /*
