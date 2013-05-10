@@ -16,7 +16,6 @@ static const gchar *ui_xml =
 "      <menuitem action='RunAudio' />"
 "      <separator />"
 
-"      <menuitem action='UnselAll' />"
 "      <menuitem action='SelInv' />"
 "      <separator />"
 
@@ -36,6 +35,7 @@ static const gchar *ui_xml =
 "    <menu action='EditMenu'>"
 "      <menuitem action='SearchFile' />"
 "      <menuitem action='SelAll' />"
+"      <menuitem action='UnselAll' />"
 "      <separator />"
 
 "      <menuitem action='Undo' />"

@@ -67,7 +67,7 @@ GtkWidget *CheckMenuItemBrowseHiddenDirMainMenu;
 #define AM_SAVE                     "SaveFile"
 #define AM_SAVE_FORCED              "SaveFileForced"
 #define AM_SELECT_ALL "SelAll"
-#define AM_UNSELECT_ALL_FILES       "UnselAll"
+#define AM_UNSELECT_ALL "UnselAll"
 #define AM_INVERT_SELECTION         "SelInv"
 #define AM_DELETE_FILE              "DeleteFile"
 #define AM_LOAD_HOME_DIR            "GoToHome"
