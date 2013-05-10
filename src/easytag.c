@@ -133,9 +133,9 @@ static void File_Area_Set_Sensitive (gboolean activate);
 static void Tag_Area_Set_Sensitive  (gboolean activate);
 
 static void et_tag_field_connect_signals (GtkEntry *entry);
-static void et_tag_field_on_key_press_event (GtkEntry *entry,
-                                             GdkEventKey *event,
-                                             gpointer user_data);
+static gboolean et_tag_field_on_key_press_event (GtkEntry *entry,
+                                                 GdkEventKey *event,
+                                                 gpointer user_data);
 
 #ifndef G_OS_WIN32
 static void
@@ -5023,8 +5023,11 @@ et_tag_field_connect_signals (GtkEntry *entry)
  *
  * Handle the Ctrl+Return combination being pressed in the tag field GtkEntrys
  * and apply the tag to selected files.
+ *
+ * Returns: %TRUE if the event was handled, %FALSE if the event should
+ * propagate further
  */
-static void
+static gboolean
 et_tag_field_on_key_press_event (GtkEntry *entry, GdkEventKey *event,
                                  gpointer user_data)
 {
@@ -5037,7 +5040,8 @@ et_tag_field_on_key_press_event (GtkEntry *entry, GdkEventKey *event,
             {
                 Mini_Button_Clicked (G_OBJECT (entry));
             }
+            return TRUE;
         default:
-            break;
+            return FALSE;
     }
 }
