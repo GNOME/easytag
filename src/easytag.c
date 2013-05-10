@@ -5031,12 +5031,14 @@ static gboolean
 et_tag_field_on_key_press_event (GtkEntry *entry, GdkEventKey *event,
                                  gpointer user_data)
 {
+    GdkModifierType modifiers = gtk_accelerator_get_default_mod_mask ();
+
     switch (event->keyval)
     {
         case GDK_KEY_Return:
         case GDK_KEY_KP_Enter:
         case GDK_KEY_ISO_Enter:
-            if (event->state == GDK_CONTROL_MASK)
+            if ((event->state & modifiers) == GDK_CONTROL_MASK)
             {
                 Mini_Button_Clicked (G_OBJECT (entry));
             }
