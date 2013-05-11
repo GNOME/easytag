@@ -358,9 +358,6 @@ void Log_Print (Log_Error_Type error_type, gchar const *format, ...)
 
             g_error_free (error);
 
-            /* Ignore errors. */
-            g_output_stream_close (G_OUTPUT_STREAM (file_ostream), NULL, NULL);
-
             g_string_free (data, TRUE);
             g_object_unref (file_ostream);
             g_object_unref (file);
@@ -369,14 +366,6 @@ void Log_Print (Log_Error_Type error_type, gchar const *format, ...)
         }
 
         first_time = FALSE;
-
-        if (!g_output_stream_close (G_OUTPUT_STREAM (file_ostream), NULL,
-                                    &error))
-        {
-            g_warning ("Error closing output stream of file '%s' ('%s')",
-                       file_path, error->message);
-            g_error_free (error);
-        }
 
         g_string_free (data, TRUE);
     }
