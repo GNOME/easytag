@@ -47,13 +47,13 @@
  * Prototypes *
  **************/
 
-static void Picture_Load_Filename (const gchar *filename, gpointer user_data);
+static void et_picture_load_file (GFile *file, gpointer user_data);
 
 static const gchar *Picture_Format_String (Picture_Format format);
 static const gchar *Picture_Type_String (EtPictureType type);
 static gchar *Picture_Info (Picture *pic);
 
-static Picture *Picture_Load_File_Data (const gchar *filename);
+static Picture *et_picture_load_file_data (GFile *file);
 static gboolean Picture_Save_File_Data (const Picture *pic,
                                         const gchar *filename);
 
@@ -89,18 +89,11 @@ void Tag_Area_Picture_Drag_Data (GtkWidget *widget, GdkDragContext *dc,
     uri = uri_list = g_strsplit((gchar *)gtk_selection_data_get_data(selection_data), "\r\n", 0);
     while (*uri && strlen(*uri))
     {
-        //Picture *pic;
-        gchar *filename;
+        GFile *file = g_file_new_for_uri (*uri);
 
-        filename = g_filename_from_uri(*uri, 0, 0);
-        if (filename)
-        {
-            Picture_Load_Filename(filename,NULL);
-            /*pic = Picture_Load_File_Data(filename);
-            g_free(filename);
-            if (pic)
-                PictureEntry_Update(pic, TRUE);*/
-        }
+        et_picture_load_file (file, NULL);
+
+        g_object_unref (file);
         uri++;
     }
     g_strfreev(uri_list);
@@ -233,19 +226,32 @@ et_picture_type_from_filename (const gchar *filename_utf8)
 }
 
 /*
- * - 'filename' : path + filename of picture file
+ * et_picture_load_file:
+ * @file: the image file to load
+ * @user_data: (unused) user data
+ *
+ * Load the image file @file and update the images tree model.
  */
 static void
-Picture_Load_Filename (const gchar *filename, gpointer user_data)
+et_picture_load_file (GFile *file, gpointer user_data)
 {
     Picture *pic;
-    gchar *filename_utf8;
-    gchar *filename_utf8_folded = NULL;
+    const gchar *filename_utf8;
+    GFileInfo *info;
+    GError *error = NULL;
 
-    // Filename must be passed in filesystem encoding!
-    pic = Picture_Load_File_Data(filename);
+    info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
+                              G_FILE_QUERY_INFO_NONE, NULL, &error);
 
-    filename_utf8 = filename_to_display(filename);
+    if (!info)
+    {
+        Log_Print (LOG_ERROR, _("Image file not loaded: %s"), error->message);
+        g_error_free (error);
+        return;
+    }
+
+    filename_utf8 = g_file_info_get_display_name (info);
+    pic = et_picture_load_file_data (file);
 
     if (pic && filename_utf8)
     {
@@ -264,7 +270,7 @@ Picture_Load_Filename (const gchar *filename, gpointer user_data)
             case FLAC_TAG:
             case WAVPACK_TAG:
                 // By default, set the filename in the description
-                pic->description = g_path_get_basename(filename_utf8);
+                pic->description = g_strdup (filename_utf8);
                 pic->type = et_picture_type_from_filename (pic->description);
                 break;
 
@@ -278,8 +284,7 @@ Picture_Load_Filename (const gchar *filename, gpointer user_data)
         //Picture_Free(pic);
     }
 
-    g_free(filename_utf8);
-    g_free(filename_utf8_folded);
+    g_object_unref (info);
 }
 
 /*
@@ -369,9 +374,9 @@ void Picture_Add_Button_Clicked (GObject *object)
         selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(PictureEntryView));
         gtk_tree_selection_unselect_all(selection);
 
-        list = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(FileSelectionWindow));
-        g_slist_foreach(list, (GFunc) Picture_Load_Filename, 0);
-        g_slist_free(list);
+        list = gtk_file_chooser_get_files (GTK_FILE_CHOOSER (FileSelectionWindow));
+        g_slist_foreach (list, (GFunc) et_picture_load_file, NULL);
+        g_slist_free_full (list, g_object_unref);
 
         // Save the directory selected for initialize next time
         g_free(init_dir);
@@ -1094,33 +1099,31 @@ void Picture_Free (Picture *pic)
  * Load the picture represented by the 'filename' (must be passed in
  * file system encoding, not UTF-8)
  */
-#ifdef G_OS_WIN32
+/*
+ * et_picture_load_file_data:
+ * @file: the GFile from which to load an image
+ *
+ * Load an image from the supplied @file.
+ *
+ * Returns: an image on success, %NULL otherwise
+ */
 static Picture *
-Picture_Load_File_Data (const gchar *filename_utf8)
-#else /* !G_OS_WIN32 */
-static Picture *
-Picture_Load_File_Data (const gchar *filename)
-#endif /* !G_OS_WIN32 */
+et_picture_load_file_data (GFile *file)
 {
+    gchar *filename;
     Picture *pic;
     gchar *buffer = 0;
     size_t size = 0;
     struct stat st;
     FILE *fd;
 
-#ifdef G_OS_WIN32
-    // Strange : on Win32, the file seems to be in UTF-8, so we can't load files with accentuated characters...
-    // To avoid this problem, we convert the filename to the file system encoding
-    gchar *filename = filename_from_display(filename_utf8);
-#endif /* G_OS_WIN32 */
+    filename = g_file_get_path (file);
 
     if (stat(filename, &st)==-1)
     {
         Log_Print (LOG_ERROR, _("Image file not loaded: %s"),
                    g_strerror(errno));
-#ifdef G_OS_WIN32
         g_free(filename);
-#endif /* G_OS_WIN32 */
         return NULL;
     }
 
@@ -1150,15 +1153,11 @@ Picture_Load_File_Data (const gchar *filename)
                    g_strerror(errno));
         g_free (buffer);
         g_free(filename_utf8);
-#ifdef G_OS_WIN32
         g_free(filename);
-#endif /* G_OS_WIN32 */
-        return FALSE;
+        return NULL;
     }
 
-#ifdef G_OS_WIN32
     g_free(filename);
-#endif /* G_OS_WIN32 */
 
     if (fread(buffer, size, 1, fd) != 1)
     {
