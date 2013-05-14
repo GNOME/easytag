@@ -335,7 +335,7 @@ void Picture_Add_Button_Clicked (GObject *object)
     }
 
 
-    FileSelectionWindow = gtk_file_chooser_dialog_new(_("Add images"),
+    FileSelectionWindow = gtk_file_chooser_dialog_new(_("Add Images"),
                                                       parent_window,
                                                       GTK_FILE_CHOOSER_ACTION_OPEN,
                                                       GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
@@ -379,7 +379,8 @@ void Picture_Add_Button_Clicked (GObject *object)
         }
     }
 
-    gtk_dialog_set_default_response(GTK_DIALOG(FileSelectionWindow), GTK_RESPONSE_OK);
+    gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (FileSelectionWindow),
+                                     FALSE);
 
     // Starting directory (the same of the current file)
     if (ETCore->ETFileDisplayed)
@@ -664,7 +665,7 @@ void Picture_Save_Button_Clicked (GObject *object)
         if (valid)
             gtk_tree_model_get(GTK_TREE_MODEL(model), &iter, PICTURE_COLUMN_DATA, &pic, -1);
 
-        title = g_strdup_printf (_("Save image %d/%d"), selection_i++,
+        title = g_strdup_printf (_("Save Image %d/%d"), selection_i++,
                                  selection_nbr);
         FileSelectionWindow = gtk_file_chooser_dialog_new(title,
                                                           parent_window,
@@ -689,8 +690,6 @@ void Picture_Save_Button_Clicked (GObject *object)
         gtk_file_chooser_add_filter(GTK_FILE_CHOOSER (FileSelectionWindow), GTK_FILE_FILTER(filter));
         // Make this filter the default
         gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(FileSelectionWindow),  GTK_FILE_FILTER(filter));
-
-        gtk_dialog_set_default_response(GTK_DIALOG(FileSelectionWindow), GTK_RESPONSE_OK);
 
         // Set the default folder if defined
         if (init_dir)
@@ -718,6 +717,11 @@ void Picture_Save_Button_Clicked (GObject *object)
             gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(FileSelectionWindow), image_name); //filename in UTF8
             g_free(image_name);
         }
+
+        gtk_file_chooser_set_do_overwrite_confirmation (GTK_FILE_CHOOSER (FileSelectionWindow),
+                                                        TRUE);
+        gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (FileSelectionWindow),
+                                         FALSE);
 
         response = gtk_dialog_run(GTK_DIALOG(FileSelectionWindow));
         if (response == GTK_RESPONSE_OK)
@@ -1097,14 +1101,6 @@ void Picture_Free (Picture *pic)
 
 
 /*
- * FIXME: On modern filesystems this is bogus, as GLib assumes that the
- * encoding is UTF-8 (and that will normally be correct).
- */
-/*
- * Load the picture represented by the 'filename' (must be passed in
- * file system encoding, not UTF-8)
- */
-/*
  * et_picture_load_file_data:
  * @file: the GFile from which to load an image
  *
@@ -1117,7 +1113,8 @@ et_picture_load_file_data (GFile *file, GError **error)
 {
     Picture *pic;
     gchar *buffer = 0;
-    gsize size = 0;
+    gsize size;
+    gssize read_size;
     GFileInfo *info;
     GFileInputStream *file_istream;
 
@@ -1142,16 +1139,29 @@ et_picture_load_file_data (GFile *file, GError **error)
     size = g_file_info_get_size (info);
     buffer = g_malloc(size);
 
-    if (g_input_stream_read (G_INPUT_STREAM (file_istream), buffer, size,
-                             NULL, error) == -1)
+    read_size = g_input_stream_read (G_INPUT_STREAM (file_istream), buffer,
+                                     size, NULL, error);
+    if (read_size == -1)
     {
         /* Error on reading*/
         if (buffer)
-            g_free(buffer);
+            g_free (buffer);
 
         g_object_unref (info);
         g_object_unref (file_istream);
         g_assert (error == NULL || *error != NULL);
+        return NULL;
+    }
+    else if (read_size != size)
+    {
+        /* Did not read whole file. */
+        if (buffer)
+            g_free (buffer);
+
+        g_object_unref (info);
+        g_object_unref (file_istream);
+        g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_PARTIAL_INPUT,
+                             _("The whole image file could not be read"));
         return NULL;
     }
     else
@@ -1169,7 +1179,14 @@ et_picture_load_file_data (GFile *file, GError **error)
 }
 
 /*
- * Save picture data to a file (jpeg, png)
+ * et_picture_save_file_data:
+ * @pic: the #Picture from which to take an image
+ * @file: the #GFile for which to save an image
+ * @error: a #GError to provide information on erros, or %NULL to ignore
+ *
+ * Saves an image from @pic to the supplied @file.
+ *
+ * Returns: %TRUE on success, %FALSE otherwise
  */
 static gboolean
 et_picture_save_file_data (const Picture *pic, GFile *file, GError **error)
@@ -1178,68 +1195,13 @@ et_picture_save_file_data (const Picture *pic, GFile *file, GError **error)
 
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-    file_ostream = g_file_create (file, G_FILE_CREATE_NONE, NULL, error);
+    file_ostream = g_file_replace (file, NULL, FALSE, G_FILE_CREATE_NONE, NULL,
+                                   error);
 
-    // Warn user if the file already exists, else saves directly
     if (!file_ostream)
     {
-        if (g_error_matches (*error, G_IO_ERROR, G_IO_ERROR_EXISTS))
-        {
-            GFileInfo *info;
-            const gchar *filename_utf8;
-            GtkWidget *msgdialog;
-
-            g_error_free (*error);
-            info = g_file_query_info (file,
-                                      G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
-                                      G_FILE_QUERY_INFO_NONE, NULL, error);
-
-            if (!info)
-            {
-                g_assert (error == NULL || *error != NULL);
-                return FALSE;
-            }
-
-            filename_utf8 = g_file_info_get_display_name (info);
-
-            msgdialog = gtk_message_dialog_new (GTK_WINDOW (MainWindow),
-                                                GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                GTK_MESSAGE_QUESTION,
-                                                GTK_BUTTONS_NONE,
-                                                _("The following file already exists: '%s'"),
-                                                filename_utf8);
-            gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (msgdialog),
-                                                      "%s",
-                                                      _("Do you want to save anyway, overwriting the file?"));
-            gtk_dialog_add_buttons (GTK_DIALOG (msgdialog), GTK_STOCK_CANCEL,
-                                    GTK_RESPONSE_CANCEL, GTK_STOCK_SAVE,
-                                    GTK_RESPONSE_YES, NULL);
-            gtk_window_set_title (GTK_WINDOW (msgdialog), _("Save"));
-
-            if (gtk_dialog_run (GTK_DIALOG (msgdialog)) == GTK_RESPONSE_YES)
-            {
-                file_ostream = g_file_replace (file, NULL, FALSE,
-                                               G_FILE_CREATE_NONE, NULL,
-                                               error);
-            }
-            else
-            {
-                g_set_error (error, G_IO_ERROR, G_IO_ERROR_CANCELLED,
-                             _("User selected not to overwrite file '%s'"),
-                             filename_utf8);
-                g_object_unref (info);
-                g_assert (error == NULL || *error != NULL);
-                return FALSE;
-            }
-
-            g_object_unref (info);
-            gtk_widget_destroy (msgdialog);
-        }
-        else
-        {
-            g_assert (error == NULL || *error != NULL);
-            return FALSE;
-        }
+        g_assert (error == NULL || *error != NULL);
+        return FALSE;
     }
 
     if (g_output_stream_write (G_OUTPUT_STREAM (file_ostream), pic->data,
