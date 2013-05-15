@@ -3894,7 +3894,13 @@ ui_widget_set_sensitive (const gchar *menu, const gchar *action, gboolean sensit
 
     uiaction = gtk_ui_manager_get_action(UIManager, path);
     if (uiaction)
-        g_object_set(uiaction, "sensitive", sensitive, NULL);
+    {
+        gtk_action_set_sensitive (uiaction, sensitive);
+    }
+    else
+    {
+        g_warning ("Action not found for path '%s'", path);
+    }
     g_free(path);
 }
 
@@ -3927,8 +3933,6 @@ void Update_Command_Buttons_Sensivity (void)
 
         /* Menu commands */
         ui_widget_set_sensitive(MENU_FILE, AM_OPEN_FILE_WITH, FALSE);
-        ui_widget_set_sensitive (MENU_FILE, AM_SELECT_ALL, FALSE);
-        ui_widget_set_sensitive (MENU_FILE, AM_UNSELECT_ALL, FALSE);
         ui_widget_set_sensitive(MENU_FILE, AM_INVERT_SELECTION, FALSE);
         ui_widget_set_sensitive(MENU_FILE, AM_DELETE_FILE, FALSE);
         ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_ASCENDING_FILENAME, FALSE);
@@ -3959,25 +3963,27 @@ void Update_Command_Buttons_Sensivity (void)
         ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_DESCENDING_FILE_BITRATE,FALSE);
         ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_ASCENDING_FILE_SAMPLERATE,FALSE);
         ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_DESCENDING_FILE_SAMPLERATE,FALSE);
-        ui_widget_set_sensitive(MENU_FILE, AM_PREV, FALSE);
-        ui_widget_set_sensitive(MENU_FILE, AM_NEXT, FALSE);
-        ui_widget_set_sensitive(MENU_FILE, AM_FIRST, FALSE);
-        ui_widget_set_sensitive(MENU_FILE, AM_LAST, FALSE);
-        ui_widget_set_sensitive (MENU_FILE, AM_SCAN_FILES, FALSE);
-        ui_widget_set_sensitive(MENU_FILE, AM_REMOVE, FALSE);
+        ui_widget_set_sensitive (MENU_GO, AM_PREV, FALSE);
+        ui_widget_set_sensitive (MENU_GO, AM_NEXT, FALSE);
+        ui_widget_set_sensitive (MENU_GO, AM_FIRST, FALSE);
+        ui_widget_set_sensitive (MENU_GO, AM_LAST, FALSE);
+        ui_widget_set_sensitive (MENU_EDIT, AM_REMOVE, FALSE);
         ui_widget_set_sensitive(MENU_FILE, AM_UNDO, FALSE);
         ui_widget_set_sensitive(MENU_FILE, AM_REDO, FALSE);
         ui_widget_set_sensitive(MENU_FILE, AM_SAVE, FALSE);
         ui_widget_set_sensitive(MENU_FILE, AM_SAVE_FORCED, FALSE);
-        ui_widget_set_sensitive(MENU_FILE, AM_UNDO_HISTORY, FALSE);
-        ui_widget_set_sensitive(MENU_FILE, AM_REDO_HISTORY, FALSE);
-        ui_widget_set_sensitive(MENU_MISC, AM_SEARCH_FILE, FALSE);
+        ui_widget_set_sensitive (MENU_EDIT, AM_UNDO_HISTORY, FALSE);
+        ui_widget_set_sensitive (MENU_EDIT, AM_REDO_HISTORY, FALSE);
+        ui_widget_set_sensitive (MENU_EDIT, AM_SEARCH_FILE, FALSE);
         ui_widget_set_sensitive(MENU_MISC, AM_FILENAME_FROM_TXT, FALSE);
         ui_widget_set_sensitive(MENU_MISC, AM_WRITE_PLAYLIST, FALSE);
-        ui_widget_set_sensitive(MENU_MISC, AM_RUN_AUDIO_PLAYER, FALSE);
-        ui_widget_set_sensitive(MENU_SCANNER, AM_SCANNER_FILL_TAG, FALSE);
-        ui_widget_set_sensitive(MENU_SCANNER, AM_SCANNER_RENAME_FILE, FALSE);
-        ui_widget_set_sensitive(MENU_SCANNER, AM_SCANNER_PROCESS_FIELDS, FALSE);
+        ui_widget_set_sensitive (MENU_FILE, AM_RUN_AUDIO_PLAYER, FALSE);
+        ui_widget_set_sensitive (MENU_SCANNER_PATH,
+                                 AM_SCANNER_FILL_TAG, FALSE);
+        ui_widget_set_sensitive (MENU_SCANNER_PATH,
+                                 AM_SCANNER_RENAME_FILE, FALSE);
+        ui_widget_set_sensitive (MENU_SCANNER_PATH,
+                                 AM_SCANNER_PROCESS_FIELDS, FALSE);
 
         return;
     }else
@@ -4006,8 +4012,6 @@ void Update_Command_Buttons_Sensivity (void)
 
         /* Commands into menu */
         ui_widget_set_sensitive(MENU_FILE, AM_OPEN_FILE_WITH,TRUE);
-        ui_widget_set_sensitive (MENU_FILE, AM_SELECT_ALL, TRUE);
-        ui_widget_set_sensitive (MENU_FILE, AM_UNSELECT_ALL, TRUE);
         ui_widget_set_sensitive(MENU_FILE, AM_INVERT_SELECTION,TRUE);
         ui_widget_set_sensitive(MENU_FILE, AM_DELETE_FILE,TRUE);
         ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_ASCENDING_FILENAME,TRUE);
@@ -4038,15 +4042,17 @@ void Update_Command_Buttons_Sensivity (void)
         ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_FILE_BITRATE,TRUE);
         ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_ASCENDING_FILE_SAMPLERATE,TRUE);
         ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_FILE_SAMPLERATE,TRUE);
-        ui_widget_set_sensitive (MENU_FILE, AM_SCAN_FILES, TRUE);
-        ui_widget_set_sensitive(MENU_FILE,AM_REMOVE,TRUE);
-        ui_widget_set_sensitive(MENU_MISC,AM_SEARCH_FILE,TRUE);
+        ui_widget_set_sensitive (MENU_EDIT, AM_REMOVE, TRUE);
+        ui_widget_set_sensitive (MENU_EDIT, AM_SEARCH_FILE, TRUE);
         ui_widget_set_sensitive(MENU_MISC,AM_FILENAME_FROM_TXT,TRUE);
         ui_widget_set_sensitive(MENU_MISC,AM_WRITE_PLAYLIST,TRUE);
-        ui_widget_set_sensitive(MENU_MISC,AM_RUN_AUDIO_PLAYER,TRUE);
-        ui_widget_set_sensitive(MENU_SCANNER,AM_SCANNER_FILL_TAG,TRUE);
-        ui_widget_set_sensitive(MENU_SCANNER,AM_SCANNER_RENAME_FILE,TRUE);
-        ui_widget_set_sensitive(MENU_SCANNER,AM_SCANNER_PROCESS_FIELDS,TRUE);
+        ui_widget_set_sensitive (MENU_FILE, AM_RUN_AUDIO_PLAYER, TRUE);
+        ui_widget_set_sensitive (MENU_SCANNER_PATH,
+                                 AM_SCANNER_FILL_TAG,TRUE);
+        ui_widget_set_sensitive (MENU_SCANNER_PATH,
+                                 AM_SCANNER_RENAME_FILE, TRUE);
+        ui_widget_set_sensitive (MENU_SCANNER_PATH,
+                                 AM_SCANNER_PROCESS_FIELDS, TRUE);
 
         /* Check if one of the selected files has undo or redo data */
         if (BrowserList)
@@ -4090,34 +4096,34 @@ void Update_Command_Buttons_Sensivity (void)
 
         /* Enable undo command if there are data into main undo list (history list) */
         if (ET_History_File_List_Has_Undo_Data())
-            ui_widget_set_sensitive(MENU_FILE, AM_UNDO_HISTORY, TRUE);
+            ui_widget_set_sensitive (MENU_EDIT, AM_UNDO_HISTORY, TRUE);
         else
-            ui_widget_set_sensitive(MENU_FILE, AM_UNDO_HISTORY, FALSE);
+            ui_widget_set_sensitive (MENU_EDIT, AM_UNDO_HISTORY, FALSE);
 
         /* Enable redo commands if there are data into main redo list (history list) */
         if (ET_History_File_List_Has_Redo_Data())
-            ui_widget_set_sensitive(MENU_FILE, AM_REDO_HISTORY, TRUE);
+            ui_widget_set_sensitive (MENU_EDIT, AM_REDO_HISTORY, TRUE);
         else
-            ui_widget_set_sensitive(MENU_FILE, AM_REDO_HISTORY, FALSE);
+            ui_widget_set_sensitive (MENU_EDIT, AM_REDO_HISTORY, FALSE);
     }
 
     if (!ETCore->ETFileDisplayedList->prev)    /* Is it the 1st item ? */
     {
-        ui_widget_set_sensitive(MENU_FILE, AM_PREV,FALSE);
-        ui_widget_set_sensitive(MENU_FILE, AM_FIRST,FALSE);
+        ui_widget_set_sensitive (MENU_GO, AM_PREV, FALSE);
+        ui_widget_set_sensitive (MENU_GO, AM_FIRST, FALSE);
     }else
     {
-        ui_widget_set_sensitive(MENU_FILE, AM_PREV,TRUE);
-        ui_widget_set_sensitive(MENU_FILE, AM_FIRST,TRUE);
+        ui_widget_set_sensitive (MENU_GO, AM_PREV, TRUE);
+        ui_widget_set_sensitive (MENU_GO, AM_FIRST, TRUE);
     }
     if (!ETCore->ETFileDisplayedList->next)    /* Is it the last item ? */
     {
-        ui_widget_set_sensitive(MENU_FILE, AM_NEXT,FALSE);
-        ui_widget_set_sensitive(MENU_FILE, AM_LAST,FALSE);
+        ui_widget_set_sensitive (MENU_GO, AM_NEXT, FALSE);
+        ui_widget_set_sensitive (MENU_GO, AM_LAST, FALSE);
     }else
     {
-        ui_widget_set_sensitive(MENU_FILE, AM_NEXT,TRUE);
-        ui_widget_set_sensitive(MENU_FILE, AM_LAST,TRUE);
+        ui_widget_set_sensitive (MENU_GO, AM_NEXT, TRUE);
+        ui_widget_set_sensitive (MENU_GO, AM_LAST, TRUE);
     }
 }
 
@@ -4136,27 +4142,27 @@ Disable_Command_Buttons (void)
 
     /* "File" menu commands */
     ui_widget_set_sensitive(MENU_FILE,AM_OPEN_FILE_WITH,FALSE);
-    ui_widget_set_sensitive (MENU_FILE, AM_SELECT_ALL, FALSE);
-    ui_widget_set_sensitive (MENU_FILE, AM_UNSELECT_ALL, FALSE);
     ui_widget_set_sensitive(MENU_FILE,AM_INVERT_SELECTION,FALSE);
     ui_widget_set_sensitive(MENU_FILE,AM_DELETE_FILE,FALSE);
-    ui_widget_set_sensitive(MENU_FILE,AM_FIRST,FALSE);
-    ui_widget_set_sensitive(MENU_FILE,AM_PREV,FALSE);
-    ui_widget_set_sensitive(MENU_FILE,AM_NEXT,FALSE);
-    ui_widget_set_sensitive(MENU_FILE,AM_LAST,FALSE);
-    ui_widget_set_sensitive (MENU_FILE, AM_SCAN_FILES, FALSE);
-    ui_widget_set_sensitive(MENU_FILE,AM_REMOVE,FALSE);
+    ui_widget_set_sensitive (MENU_GO, AM_FIRST, FALSE);
+    ui_widget_set_sensitive (MENU_GO, AM_PREV, FALSE);
+    ui_widget_set_sensitive (MENU_GO, AM_NEXT, FALSE);
+    ui_widget_set_sensitive (MENU_GO, AM_LAST, FALSE);
+    ui_widget_set_sensitive (MENU_EDIT, AM_REMOVE, FALSE);
     ui_widget_set_sensitive(MENU_FILE,AM_UNDO,FALSE);
     ui_widget_set_sensitive(MENU_FILE,AM_REDO,FALSE);
     ui_widget_set_sensitive(MENU_FILE,AM_SAVE,FALSE);
     ui_widget_set_sensitive(MENU_FILE,AM_SAVE_FORCED,FALSE);
-    ui_widget_set_sensitive(MENU_FILE,AM_UNDO_HISTORY,FALSE);
-    ui_widget_set_sensitive(MENU_FILE,AM_REDO_HISTORY,FALSE);
+    ui_widget_set_sensitive (MENU_EDIT, AM_UNDO_HISTORY, FALSE);
+    ui_widget_set_sensitive (MENU_EDIT, AM_REDO_HISTORY, FALSE);
 
     /* "Scanner" menu commands */
-    ui_widget_set_sensitive(MENU_SCANNER,AM_SCANNER_FILL_TAG,FALSE);
-    ui_widget_set_sensitive(MENU_SCANNER,AM_SCANNER_RENAME_FILE,FALSE);
-    ui_widget_set_sensitive(MENU_SCANNER,AM_SCANNER_PROCESS_FIELDS,FALSE);
+    ui_widget_set_sensitive (MENU_SCANNER_PATH, AM_SCANNER_FILL_TAG,
+                             FALSE);
+    ui_widget_set_sensitive (MENU_SCANNER_PATH,
+                             AM_SCANNER_RENAME_FILE, FALSE);
+    ui_widget_set_sensitive (MENU_SCANNER_PATH,
+                             AM_SCANNER_PROCESS_FIELDS, FALSE);
 
 }
 

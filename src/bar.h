@@ -44,9 +44,10 @@ GtkWidget *CheckMenuItemBrowseHiddenDirMainMenu;
 
 #define MENU_FILE_SORT_TAG      "SortTagMenu"
 #define MENU_FILE_SORT_PROP     "SortPropMenu"
-#define MENU_SORT_TAG_PATH      "FileMenu/SortTagMenu"
-#define MENU_SORT_PROP_PATH     "FileMenu/SortPropMenu"
+#define MENU_SORT_TAG_PATH "ViewMenu/SortTagMenu"
+#define MENU_SORT_PROP_PATH "ViewMenu/SortPropMenu"
 
+#define MENU_SCANNER_PATH MENU_VIEW "/" MENU_SCANNER
 #define POPUP_FILE              "FilePopup"
 #define POPUP_DIR               "DirPopup"
 #define POPUP_SUBMENU_SCANNER   "ScannerSubpopup"
