@@ -202,7 +202,7 @@ struct _ET_File_Info
     gboolean variable_bitrate;  /* Is a VBR file? */
     gint samplerate;            /* Samplerate (Hz) */
     gint mode;                  /* Stereo, ... or channels for ogg */
-    gint size;                  /* The size of file (in bytes) */
+    goffset size;               /* The size of file (in bytes) */
     gint duration;              /* The duration of file (in seconds) */
     gchar *mpc_profile;         /* MPC data */
     gchar *mpc_version;         /* MPC data : encoder version  (also for Speex) */

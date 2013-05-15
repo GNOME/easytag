@@ -143,8 +143,9 @@ static gboolean ET_Add_File_To_Artist_Album_File_List (ET_File *ETFile);
 static guint ET_Displayed_File_List_Get_Length      (void);
 static void ET_Displayed_File_List_Number (void);
 
-static gboolean ET_Read_File_Info (const gchar *filename,
-                                   ET_File_Info *ETFileInfo);
+static gboolean et_core_read_file_info (const gchar *filename,
+                                        ET_File_Info *ETFileInfo,
+                                        GError **error);
 
 static gint ET_Comp_Func_Sort_Artist_Item_By_Ascending_Artist (GList *AlbumList1,
                                                                GList *AlbumList2);
@@ -454,6 +455,7 @@ GList *ET_Add_File_To_File_List (gchar *filename)
     struct stat   statbuf;
     gchar        *filename_utf8 = filename_to_display(filename);
     const gchar  *locale_lc_ctype = getenv("LC_CTYPE");
+    GError *error = NULL;
 
     if (!filename)
         return ETCore->ETFileList;
@@ -568,7 +570,14 @@ GList *ET_Add_File_To_File_List (gchar *filename)
         case UNKNOWN_FILE:
         default:
             Log_Print(LOG_ERROR,"ETFileInfo: Undefined file type (%d) for file %s",ETFileDescription->FileType,filename_utf8);
-            ET_Read_File_Info(filename,ETFileInfo); // To get at least the file size
+            /* To get at least the file size. */
+            if (!et_core_read_file_info (filename, ETFileInfo, &error))
+            {
+                Log_Print (LOG_ERROR, _("Error while querying information for file: '%s' (%s)"),
+                           filename_utf8, error->message);
+                g_error_free (error);
+            }
+
             break;
     }
 
@@ -2753,53 +2762,102 @@ void ET_Display_File_Data_To_UI (ET_File *ETFile)
 static void
 ET_Display_File_And_List_Status_To_UI (ET_File *ETFile)
 {
-    /* FIXME: Use GFile. */
-    FILE *file;
+    GFile *file;
     gchar *text;
     gchar *cur_filename;
+    GFileInfo *info;
+    GError *error = NULL;
 
     g_return_if_fail (ETFile != NULL);
 
     cur_filename = ((File_Name *)((GList *)ETFile->FileNameCur)->data)->value;
 
+    file = g_file_new_for_path (cur_filename);
+
+    info = g_file_query_info (file, G_FILE_ATTRIBUTE_ACCESS_CAN_READ ","
+                              G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE,
+                              G_FILE_QUERY_INFO_NONE, NULL, &error);
+
     /* Show/hide 'AccessStatusIcon' */
-    if ( (file=fopen(cur_filename,"r+b"))!=NULL )
+    if (!info)
     {
-        gtk_entry_set_icon_from_gicon (GTK_ENTRY (FileEntry),
-                                       GTK_ENTRY_ICON_SECONDARY, NULL);
-        fclose(file);
-    }else
-    {
-        GIcon *emblem_icon;
-        const gchar *message;
-
-        switch(errno)
+        if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND))
         {
-            case EACCES:    /* Permission denied */
-            case EROFS:     /* Read-only file system */
-                /* Read only file */
-                emblem_icon = g_themed_icon_new ("emblem-readonly");
-                message = _("Read-only file");
-                break;
-            case ENOENT:    /* No such file or directory */
-            default:
-                /* File not found */
-                emblem_icon = g_themed_icon_new ("emblem-unreadable");
-                message = _("File not found");
-                break;
-        }
+            /* No such file or directory. */
+            GIcon *emblem_icon;
 
-        gtk_entry_set_icon_from_gicon (GTK_ENTRY (FileEntry),
-                                       GTK_ENTRY_ICON_SECONDARY,
-                                       emblem_icon);
-        gtk_entry_set_icon_tooltip_text (GTK_ENTRY (FileEntry),
-                                         GTK_ENTRY_ICON_SECONDARY, message);
-        g_object_unref (emblem_icon);
+            emblem_icon = g_themed_icon_new ("emblem-unreadable");
+
+            gtk_entry_set_icon_from_gicon (GTK_ENTRY (FileEntry),
+                                           GTK_ENTRY_ICON_SECONDARY,
+                                           emblem_icon);
+            gtk_entry_set_icon_tooltip_text (GTK_ENTRY (FileEntry),
+                                             GTK_ENTRY_ICON_SECONDARY,
+                                             _("File not found"));
+            g_object_unref (emblem_icon);
+        }
+        else
+        {
+            Log_Print (LOG_ERROR, _("Cannot query file information (%s)"),
+                       error->message);
+            g_error_free (error);
+            g_object_unref (file);
+            return;
+        }
+    }
+    else
+    {
+        gboolean readable, writable;
+
+        readable = g_file_info_get_attribute_boolean (info,
+                                                      G_FILE_ATTRIBUTE_ACCESS_CAN_READ);
+        writable = g_file_info_get_attribute_boolean (info,
+                                                      G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE);
+
+        if (readable && writable)
+        {
+            /* User has all necessary permissions. */
+            gtk_entry_set_icon_from_gicon (GTK_ENTRY (FileEntry),
+                                           GTK_ENTRY_ICON_SECONDARY, NULL);
+        }
+        else if (!writable)
+        {
+            /* Read only file or permission denied. */
+            GIcon *emblem_icon;
+
+            emblem_icon = g_themed_icon_new ("emblem-readonly");
+
+            gtk_entry_set_icon_from_gicon (GTK_ENTRY (FileEntry),
+                                           GTK_ENTRY_ICON_SECONDARY,
+                                           emblem_icon);
+            gtk_entry_set_icon_tooltip_text (GTK_ENTRY (FileEntry),
+                                             GTK_ENTRY_ICON_SECONDARY,
+                                             _("Read-only file"));
+            g_object_unref (emblem_icon);
+
+        }
+        else
+        {
+            /* Otherwise unreadable. */
+            GIcon *emblem_icon;
+
+            emblem_icon = g_themed_icon_new ("emblem-unreadable");
+
+            gtk_entry_set_icon_from_gicon (GTK_ENTRY (FileEntry),
+                                           GTK_ENTRY_ICON_SECONDARY,
+                                           emblem_icon);
+            gtk_entry_set_icon_tooltip_text (GTK_ENTRY (FileEntry),
+                                             GTK_ENTRY_ICON_SECONDARY,
+                                             _("File not found"));
+            g_object_unref (emblem_icon);
+        }
     }
 
     /* Show position of current file in list */
     text = g_strdup_printf("%d/%d:",ETFile->IndexKey,ETCore->ETFileDisplayedList_Length);
     gtk_label_set_text(GTK_LABEL(FileIndex),text);
+    g_object_unref (file);
+    g_object_unref (info);
     g_free(text);
 }
 
@@ -4570,32 +4628,39 @@ void ET_Mark_File_Name_As_Saved (ET_File *ETFile)
  * Currently, it's a way by default to fill file size into ET_File_Info structure
  */
 static gboolean
-ET_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
+et_core_read_file_info (const gchar *filename, ET_File_Info *ETFileInfo,
+                        GError **error)
 {
-    FILE *file;
+    GFile *file;
+    GFileInfo *info;
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     if (!filename || !ETFileInfo)
         return FALSE;
 
-    if ( (file=fopen(filename,"r"))==NULL )
+    file = g_file_new_for_path (filename);
+    info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_SIZE,
+                              G_FILE_QUERY_INFO_NONE, NULL, error);
+
+    if (!info)
     {
-        gchar *filename_utf8 = filename_to_display(filename);
-        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
-        g_free(filename_utf8);
+        g_assert (error == NULL || *error != NULL);
+        g_object_unref (file);
         return FALSE;
     }
-    fclose(file);
 
     ETFileInfo->version    = 0;
     ETFileInfo->bitrate    = 0;
     ETFileInfo->samplerate = 0;
     ETFileInfo->mode       = 0;
-    ETFileInfo->size       = Get_File_Size(filename);
+    ETFileInfo->size = g_file_info_get_size (info);
     ETFileInfo->duration   = 0;
 
+    g_assert (error == NULL || *error == NULL);
+    g_object_unref (info);
+    g_object_unref (file);
     return TRUE;
 }
-
 
 /*
  * This function generates a new filename using path of the old file and the
