@@ -29,7 +29,6 @@ GtkWidget      *MenuBar;
 GtkWidget      *ProgressBar;
 GtkUIManager   *UIManager;
 GtkActionGroup *ActionGroup;
-guint           StatusBarContext;
 
 GtkWidget *CheckMenuItemBrowseSubdirMainMenu;
 GtkWidget *CheckMenuItemBrowseHiddenDirMainMenu;

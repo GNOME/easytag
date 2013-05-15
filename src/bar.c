@@ -40,6 +40,7 @@
  * Declaration *
  ***************/
 static GtkWidget *StatusBar = NULL;
+static guint StatusBarContext;
 static guint StatusbarTimerId = 0;
 static GList *ActionPairsList = NULL;
 
