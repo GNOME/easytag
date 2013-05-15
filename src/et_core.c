@@ -4625,7 +4625,15 @@ void ET_Mark_File_Name_As_Saved (ET_File *ETFile)
 
 
 /*
- * Currently, it's a way by default to fill file size into ET_File_Info structure
+ * et_core_read_file_info:
+ * @filename: (type filename): a file from which to read information
+ * @ETFileInfo: (out caller-allocates): a file information structure
+ * @error: a #GError to provide information on erros, or %NULL to ignore
+ *
+ * Fille @ETFileInfo with information about the file. Currently, this only
+ * fills the file size.
+ *
+ * Returns: %TRUE on success, %FALSE otherwise
  */
 static gboolean
 et_core_read_file_info (const gchar *filename, ET_File_Info *ETFileInfo,
@@ -4633,10 +4641,9 @@ et_core_read_file_info (const gchar *filename, ET_File_Info *ETFileInfo,
 {
     GFile *file;
     GFileInfo *info;
-    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-    if (!filename || !ETFileInfo)
-        return FALSE;
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+    g_return_val_if_fail (filename != NULL && ETFileInfo != NULL, FALSE);
 
     file = g_file_new_for_path (filename);
     info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_SIZE,
