@@ -623,8 +623,7 @@ gboolean Browser_List_Key_Press (GtkWidget *list, GdkEvent *event, gpointer data
 static gboolean
 Browser_List_Button_Press (GtkTreeView *treeView, GdkEventButton *event)
 {
-    if (!event)
-        return FALSE;
+    g_return_val_if_fail (event != NULL, FALSE);
 
     if (event->type==GDK_2BUTTON_PRESS && event->button==1)
     {

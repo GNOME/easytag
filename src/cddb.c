@@ -1424,8 +1424,7 @@ Cddb_Track_List_Invert_Selection ()
 static gboolean
 Cddb_Track_List_Button_Press (GtkTreeView *treeView, GdkEventButton *event)
 {
-    if (!event)
-        return FALSE;
+    g_return_val_if_fail (event != NULL, FALSE);
 
     if (event->type==GDK_2BUTTON_PRESS && event->button==1)
     {
@@ -3285,8 +3284,7 @@ Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
     gboolean   read_track_offset = FALSE;
     GtkTreeIter row;
 
-    if (!CddbWindow)
-        return FALSE;
+    g_return_val_if_fail (CddbWindow != NULL, FALSE);
 
     gtk_list_store_clear(CddbTrackListModel);
     Cddb_Set_Apply_Button_Sensitivity();
@@ -3725,8 +3723,8 @@ Cddb_Set_Track_Infos_To_File_List (void)
     GtkTreeIter *fileIter;
     gpointer iterptr;
 
-    if (!CddbWindow || !BrowserList || !ETCore->ETFileDisplayedList)
-        return FALSE;
+    g_return_val_if_fail (CddbWindow != NULL && BrowserList != NULL
+                          && ETCore->ETFileDisplayedList != NULL, FALSE);
 
     // Save the current displayed data
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);

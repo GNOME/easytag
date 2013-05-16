@@ -3258,8 +3258,7 @@ ET_Save_File_Name_From_UI (ET_File *ETFile, File_Name *FileName)
     const gchar *filename_utf8;
     gchar *extension;
 
-    if (!ETFile || !FileName)
-        return FALSE;
+    g_return_val_if_fail (ETFile != NULL && FileName != NULL, FALSE);
 
     filename_utf8 = gtk_entry_get_text(GTK_ENTRY(FileEntry));
     filename = filename_from_display(filename_utf8);
@@ -3347,9 +3346,7 @@ ET_Save_File_Name_Internal (ET_File *ETFile, File_Name *FileName)
     gchar *extension;
     gchar *pos;
 
-
-    if (!ETFile || !FileName)
-        return FALSE;
+    g_return_val_if_fail (ETFile != NULL && FileName != NULL, FALSE);
 
     // Get the current path to the file
     dirname = g_path_get_dirname( ((File_Name *)ETFile->FileNameNew->data)->value );
@@ -3412,8 +3409,7 @@ ET_Save_File_Tag_From_UI (File_Tag *FileTag)
     //GtkTextIter    start_iter;
     //GtkTextIter    end_iter;
 
-    if (!FileTag)
-        return FALSE;
+    g_return_val_if_fail (FileTag != NULL, FALSE);
 
     /* Title */
     buffer = g_strdup(gtk_entry_get_text(GTK_ENTRY(TitleEntry)));
@@ -3650,8 +3646,8 @@ ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
     File_Tag *FileTagCur;
 
 
-    if (!ETFile || !ETFile->FileTag || !FileTag)
-        return FALSE;
+    g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL
+                          && FileTag != NULL, FALSE);
 
     FileTagCur = (File_Tag *)ETFile->FileTag->data;
 
@@ -4251,8 +4247,7 @@ ET_Add_File_Name_To_List (ET_File *ETFile, File_Name *FileName)
 {
     GList *cut_list = NULL;
 
-    if (!ETFile || !FileName)
-        return FALSE;
+    g_return_val_if_fail (ETFile != NULL && FileName != NULL, FALSE);
 
     /* How it works : Cut the FileNameList list after the current item,
      * and appends it to the FileNameListBak list for saving the data.
@@ -4284,8 +4279,7 @@ ET_Add_File_Tag_To_List (ET_File *ETFile, File_Tag *FileTag)
 {
     GList *cut_list = NULL;
 
-    if (!ETFile || !FileTag)
-        return FALSE;
+    g_return_val_if_fail (ETFile != NULL && FileTag != NULL, FALSE);
 
     if (ETFile->FileTag)
     {
@@ -4788,8 +4782,7 @@ gboolean ET_File_Name_Convert_Character (gchar *filename_utf8)
 {
     gchar *character;
 
-    if (!filename_utf8)
-        return FALSE;
+    g_return_val_if_fail (filename_utf8 != NULL, FALSE);
 
     // Convert automatically the directory separator ('/' on LINUX and '\' on WIN32) to '-'.
     while ( (character=g_utf8_strchr(filename_utf8, -1, G_DIR_SEPARATOR))!=NULL )
