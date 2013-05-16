@@ -47,13 +47,6 @@
 /****************
  * Declarations *
  ****************/
-/* Taken in "xmms/plugin.h" */
-typedef enum
-{
-    FMT_U8, FMT_S8, FMT_U16_LE, FMT_U16_BE, FMT_U16_NE, FMT_S16_LE, FMT_S16_BE, FMT_S16_NE
-}
-AFormat;
-
 typedef struct {
     FLAC__bool abort_flag;
     FLAC__bool is_playing;
@@ -64,7 +57,6 @@ typedef struct {
     unsigned channels;
     unsigned sample_rate;
     unsigned length_in_msec;
-    AFormat sample_format; // Note : defined in XMMS devel
     int seek_to_in_sec;
 } file_info_struct;
 
@@ -93,7 +85,7 @@ static void error_callback_   (const FLAC__StreamDecoder *decoder, FLAC__StreamD
 gboolean Flac_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
 {
     FILE *file;
-    gdouble duration = 0;
+    gint duration = 0;
     gulong filesize;
     FLAC__StreamDecoder *tmp_decoder;
 
@@ -195,17 +187,6 @@ void metadata_callback_(const FLAC__StreamDecoder *decoder, const FLAC__StreamMe
         file_info->channels = metadata->data.stream_info.channels;
         file_info->sample_rate = metadata->data.stream_info.sample_rate;
 
-        if (file_info->bits_per_sample == 8)
-        {
-            file_info->sample_format = FMT_S8;
-        } else if (file_info->bits_per_sample == 16)
-        {
-            file_info->sample_format = FMT_S16_NE;
-        } else
-        {
-            file_info->abort_flag = true;
-            return;
-        }
         if (file_info->sample_rate != 0 && (file_info->sample_rate / 100) != 0) // To prevent crash...
             file_info->length_in_msec = file_info->total_samples * 10 / (file_info->sample_rate / 100);
     }
