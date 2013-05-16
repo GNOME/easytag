@@ -1100,7 +1100,7 @@ gchar *Convert_Duration (gulong duration)
     guint second=0;
     gchar *data = NULL;
 
-    if (duration<=0)
+    if (duration == 0)
         return g_strdup_printf("%d:%.2d",minute,second);
 
     hour   = duration/3600;
