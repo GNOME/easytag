@@ -73,7 +73,8 @@ ID3_C_EXPORT size_t ID3Tag_Link_1         (ID3Tag *id3tag, const char *filename)
 ID3_C_EXPORT size_t ID3Field_GetASCII_1   (const ID3Field *field, char *buffer,      size_t maxChars, size_t itemNum);
 ID3_C_EXPORT size_t ID3Field_GetUNICODE_1 (const ID3Field *field, unicode_t *buffer, size_t maxChars, size_t itemNum);
 
-static gboolean Id3tag_Check_If_File_Is_Corrupted (const gchar *filename);
+static gboolean et_id3tag_check_if_file_is_corrupted (GFile *file,
+                                                      GError **error);
 
 static gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void);
 
@@ -93,8 +94,8 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
     gchar    *filename;
     gchar    *filename_utf8;
     gchar    *basename_utf8;
-    //gchar    *temp;
-    FILE     *file;
+    GFile *file;
+    GError *gerror = NULL;
     ID3Tag   *id3_tag = NULL;
     ID3_Err   error_strip_id3v1  = ID3E_NoError;
     ID3_Err   error_strip_id3v2  = ID3E_NoError;
@@ -144,18 +145,42 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
     filename      = ((File_Name *)ETFile->FileNameCur->data)->value;
     filename_utf8 = ((File_Name *)ETFile->FileNameCur->data)->value_utf8;
 
-    /* Test to know if we can write into the file */
-    if ( (file=fopen(filename,"r+"))==NULL )
+    file = g_file_new_for_path (filename);
+
+    /* This is a protection against a bug in id3lib that enters an infinite
+     * loop with corrupted MP3 files (files containing only zeroes) */
+    if (et_id3tag_check_if_file_is_corrupted (file, &gerror))
     {
-        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
+        GtkWidget *msgdialog;
+        gchar *basename;
+        gchar *basename_utf8;
+
+        if (gerror)
+        {
+            Log_Print (LOG_ERROR, _("Error while reading file: '%s' (%s)"),
+                       filename_utf8, gerror->message);
+            g_error_free (gerror);
+        }
+
+        basename = g_file_get_basename (file);
+        basename_utf8 = filename_to_display (basename);
+
+        msgdialog = gtk_message_dialog_new (GTK_WINDOW (MainWindow),
+                                            GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                            GTK_MESSAGE_ERROR,
+                                            GTK_BUTTONS_CLOSE,
+                                            _("As the following corrupted file '%s' will cause an error in id3lib, it will not be processed"),
+                                            basename_utf8);
+        gtk_window_set_title (GTK_WINDOW (msgdialog), _("Corrupted file"));
+
+        gtk_dialog_run (GTK_DIALOG (msgdialog));
+        gtk_widget_destroy (msgdialog);
+        g_free (basename);
+        g_free (basename_utf8);
+        g_object_unref (file);
         return FALSE;
     }
-    fclose(file);
-
-    /* This is a protection against a bug in id3lib that generate an infinite
-     * loop with corrupted MP3 files (files containing only zeroes) */
-    if (Id3tag_Check_If_File_Is_Corrupted(filename))
-        return FALSE;
+    g_object_unref (file);
 
     /* We get again the tag from the file to keep also unused data (by EasyTAG), then
      * we replace the changed data */
@@ -1192,60 +1217,46 @@ gchar *Id3tag_Rules_For_ISO_Fields (const gchar *string, const gchar *from_codes
  * Some files which contains only zeroes create an infinite loop in id3lib...
  * To generate a file with zeroes : dd if=/dev/zero bs=1M count=6 of=test-corrupted-mp3-zero-contend.mp3
  */
-gboolean Id3tag_Check_If_File_Is_Corrupted (const gchar *filename)
+static gboolean
+et_id3tag_check_if_file_is_corrupted (GFile *file, GError **error)
 {
-    FILE *file;
     unsigned char tmp[256];
     unsigned char tmp0[256];
-    gint bytes_read;
+    gssize bytes_read;
     gboolean result = TRUE;
-    gint cmp;
+    GFileInputStream *file_istream;
 
-    if (!filename)
-        return FALSE;
+    g_return_val_if_fail (file != NULL, FALSE);
 
-    if ( (file=fopen(filename,"rb"))==NULL )
+    file_istream = g_file_read (file, NULL, error);
+
+    if (!file_istream)
     {
-        gchar *filename_utf8 = filename_to_display(filename);
-        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
-        g_free(filename_utf8);
-        return FALSE;
+        g_assert (error == NULL || *error != NULL);
+        return result;
     }
 
     memset(&tmp0,0,256);
-    while (!feof(file))
+    while ((bytes_read = g_input_stream_read (G_INPUT_STREAM (file_istream),
+                                              tmp, 256, NULL, error)) != 0)
     {
-        bytes_read = fread(tmp, 1, 256, file);
-        if ( (cmp=memcmp(tmp,tmp0,bytes_read)) != 0)
+        if (bytes_read == -1)
+        {
+            /* Error in reading file. */
+            g_assert (error == NULL || *error != NULL);
+            g_object_unref (file_istream);
+            return result;
+        }
+
+        if (memcmp (tmp, tmp0, bytes_read) != 0)
         {
             result = FALSE;
             break;
         }
     }
-    fclose(file);
 
-    if (result)
-    {
-        GtkWidget *msgdialog;
-        gchar *basename;
-        gchar *basename_utf8;
-
-        basename = g_path_get_basename(filename);
-        basename_utf8 = filename_to_display(basename);
-
-        msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
-                                           GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                           GTK_MESSAGE_ERROR,
-                                           GTK_BUTTONS_CLOSE,
-                                           _("As the following corrupted file '%s' will cause an error in id3lib, it will not be processed"),
-                                           basename_utf8);
-        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Corrupted file"));
-
-        gtk_dialog_run(GTK_DIALOG(msgdialog));
-        gtk_widget_destroy(msgdialog);
-        g_free(basename);
-        g_free(basename_utf8);
-    }
+    g_assert (error == NULL || *error == NULL);
+    g_object_unref (file_istream);
 
     return result;
 }
@@ -1420,4 +1431,3 @@ gchar *Id3tag_Genre_To_String (unsigned char genre_code)
     else                                  /* known tag */
         return id3_genres[genre_code];
 }
-
