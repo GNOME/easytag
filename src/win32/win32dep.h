@@ -36,7 +36,7 @@ G_BEGIN_DECLS
 
 #define lstat stat
 #define mkdir(a,b) mkdir(a)
-#define chown(a,b,c)
+#define chown(a,b,c) 0
 #define chmod(a,b)
 
 
