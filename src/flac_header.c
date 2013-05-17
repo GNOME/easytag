@@ -91,8 +91,7 @@ gboolean Flac_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
 
     file_info_struct tmp_file_info;
 
-    if (!filename || !ETFileInfo)
-        return FALSE;
+    g_return_val_if_fail (filename != NULL && ETFileInfo != NULL, FALSE);
 
     if ( (file=fopen(filename,"r"))==NULL )
     {

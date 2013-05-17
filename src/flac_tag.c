@@ -107,9 +107,7 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     Picture *prev_pic = NULL;
     //gint j = 1;
 
-    
-    if (!filename || !FileTag)
-        return FALSE;
+    g_return_val_if_fail (filename != NULL && FileTag != NULL, FALSE);
 
     flac_error_msg = NULL;
 
@@ -821,9 +819,7 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
     FLAC__StreamMetadata_VorbisComment_Entry vce_field_vendor_string; // To save vendor string
     gboolean vce_field_vendor_string_found = FALSE;
 
-    
-    if (!ETFile || !ETFile->FileTag)
-        return FALSE;
+    g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL, FALSE);
 
     FileTag       = (File_Tag *)ETFile->FileTag->data;
     filename      = ((File_Name *)ETFile->FileNameCur->data)->value;

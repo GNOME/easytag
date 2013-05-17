@@ -128,6 +128,7 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
     gchar *string1;
     Picture *pic;
 
+    g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL, FALSE);
 
     // When writing the first MP3 file, we check if the version of id3lib of the
     // system doesn't contain a bug when writting Unicode tags
@@ -137,9 +138,6 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
         flag_first_check = FALSE;
         flag_id3lib_bugged = Id3tag_Check_If_Id3lib_Is_Bugged();
     }
-
-    if (!ETFile || !ETFile->FileTag)
-        return FALSE;
 
     FileTag  = (File_Tag *)ETFile->FileTag->data;
     filename      = ((File_Name *)ETFile->FileNameCur->data)->value;

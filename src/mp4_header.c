@@ -51,8 +51,7 @@ gboolean Mp4_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
     TagLib_File *file;
     const TagLib_AudioProperties *properties;
 
-    if (!filename || !ETFileInfo)
-        return FALSE;
+    g_return_val_if_fail (filename != NULL && ETFileInfo != NULL, FALSE);
 
     /* Get size of file */
     ETFileInfo->size = Get_File_Size(filename);

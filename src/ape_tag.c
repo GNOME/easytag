@@ -53,8 +53,7 @@ gboolean Ape_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     gchar *string1 = NULL;
     apetag *ape_cnt;
 
-    if (!filename || !FileTag)
-        return FALSE;
+    g_return_val_if_fail (filename != NULL && FileTag != NULL, FALSE);
 
     if ((file = fopen(filename, "rb")) == NULL)
     {
@@ -202,7 +201,7 @@ gboolean Ape_Tag_Write_File_Tag (ET_File *ETFile)
     apetag   *ape_mem;
 
     if (!ETFile || !ETFile->FileTag)
-        return FALSE;
+    g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL, FALSE);
 
     FileTag     = (File_Tag *)ETFile->FileTag->data;
     filename_in = ((File_Name *)ETFile->FileNameCur->data)->value;

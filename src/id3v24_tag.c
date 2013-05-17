@@ -777,9 +777,7 @@ gboolean Id3tag_Write_File_v24Tag (ET_File *ETFile)
     gboolean strip_tags = TRUE;
     guchar genre_value = ID3_INVALID_GENRE;
 
-
-    if (!ETFile && !ETFile->FileTag)
-        return FALSE;
+    g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL, FALSE);
 
     FileTag       = (File_Tag *)ETFile->FileTag->data;
     filename      = ((File_Name *)ETFile->FileNameCur->data)->value;

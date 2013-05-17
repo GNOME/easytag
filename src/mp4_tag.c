@@ -63,8 +63,7 @@ gboolean Mp4tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     TagLib_Tag *tag;
     guint track;
 
-    if (!filename || !FileTag)
-        return FALSE;
+    g_return_val_if_fail (filename != NULL && FileTag != NULL, FALSE);
 
     if ( (file=fopen(filename,"r"))==NULL )
     {

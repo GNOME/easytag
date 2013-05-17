@@ -88,8 +88,7 @@ gboolean Wavpack_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
 
     int open_flags = OPEN_TAGS;
 
-    if (!filename || !FileTag)
-        return FALSE;
+    g_return_val_if_fail (filename != NULL && FileTag != NULL, FALSE);
 
     wpc = WavpackOpenFileInput(filename, NULL, open_flags, 0);
 
@@ -279,8 +278,7 @@ gboolean Wavpack_Tag_Write_File_Tag (ET_File *ETFile)
 
     int open_flags = OPEN_EDIT_TAGS;
 
-    if (!ETFile || !ETFile->FileTag)
-        return FALSE;
+    g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL, FALSE);
 
     wpc = WavpackOpenFileInput(filename, NULL, open_flags, 0);
 

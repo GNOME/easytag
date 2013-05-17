@@ -60,8 +60,7 @@ gboolean Ogg_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
     gint ret;
     gchar *filename_utf8;
 
-    if (!filename || !ETFileInfo)
-        return FALSE;
+    g_return_val_if_fail (filename != NULL && ETFileInfo != NULL, FALSE);
 
     filename_utf8 = filename_to_display(filename);
 
@@ -161,8 +160,7 @@ gboolean Speex_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
     gulong filesize;
     gchar *filename_utf8;
 
-    if (!filename || !ETFileInfo)
-        return FALSE;
+    g_return_val_if_fail (filename != NULL && ETFileInfo != NULL, FALSE);
 
     filename_utf8 = filename_to_display(filename);
 

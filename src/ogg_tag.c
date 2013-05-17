@@ -132,9 +132,7 @@ gboolean Ogg_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     guint           field_num, i;
     Picture        *prev_pic = NULL;
 
-
-    if (!filename || !FileTag)
-        return FALSE;
+    g_return_val_if_fail (filename != NULL && FileTag != NULL, FALSE);
 
     ogg_error_msg = NULL;
 
@@ -634,8 +632,7 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
     GList          *list;
     Picture        *pic;
 
-    if (!ETFile || !ETFile->FileTag)
-        return FALSE;
+    g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL, FALSE);
 
     FileTag       = (File_Tag *)ETFile->FileTag->data;
     filename      = ((File_Name *)ETFile->FileNameCur->data)->value;
