@@ -2870,6 +2870,10 @@ Save_File (ET_File *ETFile, gboolean multiple_files,
                     stop_loop = -1;
                     return stop_loop;
                 }
+
+                /* Mark after renaming files. */
+                ETFile->FileNameCur = ETFile->FileNameNew;
+                ET_Mark_File_Name_As_Saved (ETFile);
                 break;
             }
             case GTK_RESPONSE_NO:
