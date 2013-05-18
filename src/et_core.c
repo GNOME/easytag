@@ -2851,13 +2851,13 @@ ET_Display_File_And_List_Status_To_UI (ET_File *ETFile)
                                              _("File not found"));
             g_object_unref (emblem_icon);
         }
+        g_object_unref (info);
     }
 
     /* Show position of current file in list */
     text = g_strdup_printf("%d/%d:",ETFile->IndexKey,ETCore->ETFileDisplayedList_Length);
     gtk_label_set_text(GTK_LABEL(FileIndex),text);
     g_object_unref (file);
-    g_object_unref (info);
     g_free(text);
 }
 
