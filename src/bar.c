@@ -247,7 +247,7 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { AM_LOAD_MUSIC_DIR, "folder-music", _("Music Directory"), NULL,
           _("Go to music directory"),
           G_CALLBACK (Browser_Load_Music_Directory) },
-        { AM_LOAD_PARENT_DIR, GTK_STOCK_JUMP_TO, _("_Parent Directory"),
+        { AM_LOAD_PARENT_DIR, GTK_STOCK_GO_UP, _("_Parent Directory"),
           "<Alt>Up", _("Go to parent directory"),
           G_CALLBACK (et_browser_on_action_parent_directory) },
         { AM_LOAD_DEFAULT_DIR, GTK_STOCK_JUMP_TO, _("_Default Directory"),
