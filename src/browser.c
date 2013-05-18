@@ -65,7 +65,6 @@ static GtkTreeStore *directoryTreeModel;
 static GtkListStore *fileListModel;
 static GtkWidget    *BrowserLabel;
 static GtkWidget    *BrowserButton;
-static GtkWidget    *BrowserParentButton;
 static GtkWidget    *BrowserNoteBook;
 static GtkListStore *artistListModel;
 static GtkListStore *albumListModel;
@@ -145,8 +144,6 @@ static void Browser_List_Select_File_By_Iter (GtkTreeIter *iter,
                                               gboolean select_it);
 
 static void Browser_Entry_Activated (void);
-
-static void Browser_Parent_Button_Clicked (void);
 
 static void Browser_Artist_List_Load_Files (ET_File *etfile_to_select);
 static void Browser_Artist_List_Row_Selected (GtkTreeSelection *selection,
@@ -404,8 +401,8 @@ void Browser_Entry_Set_Text (gchar *text)
 /*
  * Button to go to parent directory
  */
-static void
-Browser_Parent_Button_Clicked (void)
+void
+et_browser_on_action_parent_directory (void)
 {
     gchar *parent_dir, *path;
 
@@ -3140,8 +3137,6 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     GtkWidget *ScrollWindowArtistList;
     GtkWidget *ScrollWindowAlbumList;
     GtkWidget *Label;
-    GIcon *parent_folder;
-    GtkWidget *Icon;
     gsize i;
     GtkCellRenderer *renderer;
     GtkTreeViewColumn *column;
@@ -3166,21 +3161,6 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     // HBox for BrowserEntry + BrowserLabel
     HBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
     gtk_box_pack_start(GTK_BOX(VerticalBox),HBox,FALSE,TRUE,0);
-
-    /*
-     * The button to go to the parent directory
-     */
-    BrowserParentButton = gtk_button_new();
-    parent_folder = g_themed_icon_new ("go-up");
-    /* TODO: On Win32, GTK_ICON_SIZE_BUTTON enlarge the combobox. */
-    Icon = gtk_image_new_from_gicon (parent_folder,
-                                     GTK_ICON_SIZE_MENU);
-    g_object_unref (parent_folder);
-    gtk_container_add(GTK_CONTAINER(BrowserParentButton),Icon);
-    gtk_box_pack_start(GTK_BOX(HBox),BrowserParentButton,FALSE,FALSE,0);
-    gtk_button_set_relief(GTK_BUTTON(BrowserParentButton),GTK_RELIEF_NONE);
-    g_signal_connect(G_OBJECT(BrowserParentButton),"clicked",G_CALLBACK(Browser_Parent_Button_Clicked),NULL);
-    gtk_widget_set_tooltip_text(BrowserParentButton,_("Go to parent directory"));
 
     /*
      * The entry box for displaying path

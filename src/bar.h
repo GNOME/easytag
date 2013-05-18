@@ -75,6 +75,7 @@ GtkWidget *CheckMenuItemBrowseHiddenDirMainMenu;
 #define AM_LOAD_DOCUMENTS_DIR       "GoToDocument"
 #define AM_LOAD_DOWNLOADS_DIR       "GoToDownload"
 #define AM_LOAD_MUSIC_DIR           "GoToMusic"
+#define AM_LOAD_PARENT_DIR "GoToParent"
 #define AM_LOAD_DEFAULT_DIR         "GoToDefaultPath"
 #define AM_SET_PATH_AS_DEFAULT      "SetDefaultPath"
 #define AM_RENAME_DIR               "RenameDir"

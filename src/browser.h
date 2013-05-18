@@ -175,6 +175,7 @@ void		 Browser_Load_Desktop_Directory 		(void);
 void		 Browser_Load_Documents_Directory 		(void);
 void		 Browser_Load_Downloads_Directory 		(void);
 void 		 Browser_Load_Music_Directory 			(void);
+void et_browser_on_action_parent_directory (void);
 
 void         Browser_Load_Default_Directory         (void);
 void         Browser_Reload_Directory               (void);
