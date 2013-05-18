@@ -1939,11 +1939,8 @@ int2roman_r (int num, char * str, size_t len)
    unsigned u;
    unsigned dividend;
 
-   // checks arguments
-   if (!str)
-   {
-      return NULL;
-   };
+   g_return_val_if_fail (str != NULL, NULL);
+
    // verify that number is withing boundaries
    if ((num > 5000) || (num < 0))
    {

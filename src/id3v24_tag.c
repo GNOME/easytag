@@ -1096,8 +1096,7 @@ Id3tag_find_and_create_frame (struct id3_tag *tag, const gchar *name)
 {
     struct id3_frame *frame;
 
-    if (!tag || !name || !*name)
-        return NULL;
+    g_return_val_if_fail (tag != NULL && name != NULL && *name != 0, NULL);
 
     frame = id3_tag_findframe(tag, name, 0);
     if (!frame)

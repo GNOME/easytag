@@ -358,8 +358,7 @@ gchar *Get_Active_Combo_Box_Item (GtkComboBox *combo)
     GtkTreeIter iter;
     GtkTreeModel *model;
 
-    if (!combo)
-        return NULL;
+    g_return_val_if_fail (combo != NULL, NULL);
 
     model = gtk_combo_box_get_model(combo);
     if (!gtk_combo_box_get_active_iter(combo, &iter))
@@ -640,8 +639,7 @@ GtkWidget *Create_Xpm_Image (const char **xpm_name)
     GdkPixbuf *pixbuf;
     GtkWidget *image;
 
-    if (!*xpm_name)
-        return NULL;
+    g_return_val_if_fail (*xpm_name != NULL, NULL);
 
     pixbuf = gdk_pixbuf_new_from_xpm_data(xpm_name);
     image = gtk_image_new_from_pixbuf(GDK_PIXBUF(pixbuf));
@@ -999,8 +997,7 @@ gchar *Check_If_Executable_Exists (const gchar *program)
     gchar *program_tmp;
     gchar *tmp;
 
-    if (!program)
-        return NULL;
+    g_return_val_if_fail (program != NULL, NULL);
 
     program_tmp = g_strdup(program);
     g_strstrip(program_tmp);

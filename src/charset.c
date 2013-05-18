@@ -252,8 +252,7 @@ get_encoding_from_locale (const char *locale)
     char lang[3];
     const char *encoding;
 
-    if (locale == NULL)
-        return NULL;
+    g_return_val_if_fail (locale != NULL, NULL);
 
     /* if locale includes encoding, use it *//*
     encoding = strchr (locale, '.');
@@ -443,8 +442,7 @@ gchar *convert_to_utf8 (const gchar *string)
     gchar *output;
     GError *error = NULL;
 
-    if (!string)
-        return NULL;
+    g_return_val_if_fail (string != NULL, NULL);
 
     output = g_locale_to_utf8(string, -1, NULL, NULL, &error);
 
@@ -643,8 +641,7 @@ gchar *Try_To_Validate_Utf8_String (const gchar *string)
     gchar *ret = NULL;
     GError *error = NULL;
 
-    if (!string)
-        return NULL;
+    g_return_val_if_fail (string != NULL, NULL);
 
     if (g_utf8_validate(string, -1, NULL))
     {

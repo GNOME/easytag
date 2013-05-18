@@ -1627,8 +1627,7 @@ GtkTreePath *Browser_List_Select_File_By_Etfile2 (ET_File *searchETFile, gboolea
     ET_File *currentETFile;
     gboolean valid;
 
-     if (searchETFile == NULL)
-         return NULL;
+     g_return_val_if_fail (searchETFile != NULL, NULL);
 
     // If the path is used, we try the next item (to increase speed), as it is correct in many cases...
     if (startPath)

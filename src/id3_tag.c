@@ -1179,8 +1179,8 @@ gchar *Id3tag_Rules_For_ISO_Fields (const gchar *string, const gchar *from_codes
 {
     gchar *string_converted = NULL;
 
-    if (!string || !from_codeset || !to_codeset)
-        return NULL;
+    g_return_val_if_fail (string != NULL && from_codeset != NULL
+                          && to_codeset != NULL, NULL);
 
     if (FILE_WRITING_ID3V1_ICONV_OPTIONS_NO)
     {
