@@ -3320,10 +3320,19 @@ gboolean Read_Directory (gchar *path_real)
 
         /* Prepare message for the status bar */
         if (BROWSE_SUBDIR)
-            msg = g_strdup_printf(_("Found %d file(s) in this directory and subdirectories."),ETCore->ETFileDisplayedList_Length);
+        {
+            msg = g_strdup_printf (ngettext ("Found one file in this directory and subdirectories",
+                                             "Found %d files in this directory and subdirectories",
+                                             ETCore->ETFileDisplayedList_Length),
+                                   ETCore->ETFileDisplayedList_Length);
+        }
         else
-            msg = g_strdup_printf(_("Found %d file(s) in this directory."),ETCore->ETFileDisplayedList_Length);
-
+        {
+            msg = g_strdup_printf (ngettext ("Found one file in this directory",
+                                             "Found %d files in this directory",
+                                             ETCore->ETFileDisplayedList_Length),
+                                   ETCore->ETFileDisplayedList_Length);
+        }
     }else
     {
         /* Clear entry boxes */
