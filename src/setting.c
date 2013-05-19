@@ -942,6 +942,7 @@ Save_Config_To_File (void)
                                    file_path);
                         fclose (file);
                         g_free (file_path);
+                        g_free (data);
                         return;
                     }
                     g_free(data);
@@ -958,6 +959,7 @@ Save_Config_To_File (void)
                                    file_path);
                         fclose (file);
                         g_free (file_path);
+                        g_free (data);
                         return;
                     }
                     g_free(data);
@@ -977,6 +979,7 @@ Save_Config_To_File (void)
                                    file_path);
                         fclose (file);
                         g_free (file_path);
+                        g_free (data);
                         return;
                     }
                     g_free(data);
