@@ -125,7 +125,7 @@ crc32_file_with_ID3_tag (gchar *filename, guint32 *crc32)
 
     if ((fd = fopen (filename, "r")) == NULL)
     {
-        goto error;
+        return FALSE;
     }
 
     /* Check if there is an ID3v1 tag. */
@@ -187,11 +187,16 @@ crc32_file_with_ID3_tag (gchar *filename, guint32 *crc32)
         }
     }
 
+    if (!feof (fd))
+    {
+        goto error;
+    }
+
 out:
     fclose (fd);
     *crc32 = ~crc;
 
-    return nr < 0;
+    return nr == 0;
 
 error:
     nr = -1;
