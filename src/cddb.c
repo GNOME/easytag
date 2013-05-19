@@ -1506,12 +1506,8 @@ Cddb_Open_Connection (const gchar *host, gint port)
     gint               optval = 1;
     gchar             *msg;
 
-
-    if (!CddbWindow)
-        return 0;
-
-    if (!host || port <= 0)
-        return 0;
+    g_return_val_if_fail (CddbWindow != NULL, 0);
+    g_return_val_if_fail (host != NULL && port > 0, 0);
 
     msg = g_strdup_printf(_("Resolving host '%s'…"),host);
     gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
@@ -4091,17 +4087,14 @@ Cddb_Get_Id3_Genre_From_Cddb_Genre (const gchar *cddb_genre)
 static GdkPixbuf *
 Cddb_Get_Pixbuf_From_Server_Name (const gchar *server_name)
 {
-    if (!server_name)
-        return NULL;
-    else if (strstr(server_name,"freedb.org"))
+    g_return_val_if_fail (server_name != NULL, NULL);
+
+    if (strstr (server_name, "freedb.org"))
         return gdk_pixbuf_new_from_xpm_data(freedb_xpm);
     else if (strstr(server_name,"gnudb.org"))
         return gdk_pixbuf_new_from_xpm_data(gnudb_xpm);
     else if (strstr(server_name,"musicbrainz.org"))
         return gdk_pixbuf_new_from_xpm_data(musicbrainz_xpm);
-    else if (strstr(server_name,"/"))
-        //return gdk_pixbuf_new_from_xpm_data(closed_folder_xpm);
-        return NULL;
     else
         return NULL;
 }

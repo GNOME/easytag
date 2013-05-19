@@ -1061,8 +1061,8 @@ Picture *Picture_Copy_One (const Picture *pic)
 {
     Picture *pic2;
 
-    if (!pic)
-        return 0;
+    g_return_val_if_fail (pic != NULL, NULL);
+
     pic2 = Picture_Allocate();
     pic2->type = pic->type;
     pic2->width  = pic->width;
