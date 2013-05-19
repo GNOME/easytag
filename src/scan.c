@@ -335,6 +335,7 @@ Scan_Tag_With_Mask (ET_File *ETFile)
     // Set CRC-32 value as default comment (for files with ID3 tag only ;-)
     if (SET_CRC32_COMMENT && (OVERWRITE_TAG_FIELD || FileTag->comment==NULL || strlen(FileTag->comment)==0 ) )
     {
+        GError *error = NULL;
         guint32 crc32_value;
         gchar *buffer;
         ET_File_Description *ETFileDescription;
@@ -344,12 +345,19 @@ Scan_Tag_With_Mask (ET_File *ETFile)
         {
             case ID3_TAG:
                 if (crc32_file_with_ID3_tag (((File_Name *)((GList *)ETFile->FileNameNew)->data)->value,
-                                             &crc32_value))
+                                             &crc32_value, &error))
                 {
                     buffer = g_strdup_printf ("%.8" G_GUINT32_FORMAT,
                                               crc32_value);
                     ET_Set_Field_File_Tag_Item((void *)&FileTag->comment,buffer);
                     g_free(buffer);
+                }
+                else
+                {
+                    Log_Print (LOG_ERROR,
+                               _("Cannot calculate CRC value of file (%s)"),
+                               error->message);
+                    g_error_free (error);
                 }
                 break;
             default:

@@ -22,7 +22,8 @@
 #define __CRC32_H__
 
 
-gboolean crc32_file_with_ID3_tag (gchar *filename, guint32 *crc32);
+gboolean crc32_file_with_ID3_tag (const gchar *filename, guint32 *crc32,
+                                  GError **err);
 
 
 #endif /* __CRC32_H__ */

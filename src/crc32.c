@@ -17,11 +17,9 @@
    along with this program; if not, write to the Free Software
    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA. */
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
 #include <stdio.h>
 #include <glib.h>
+#include <gio/gio.h>
 #include "crc32.h"
 
 #define BUFFERSIZE 16384   /* (16k) buffer size for reading from the file */
@@ -103,77 +101,125 @@ static const guint32 crc32table[] = {
  *
  * Calculate the CRC32 value of audio data (skips the ID3v2 and ID3v1 tags).
  *
- * Returns: %TRUE if the CRC calculation was sucessful, %FALSE otherwise
+ * Returns: %TRUE if the CRC calculation was successful, %FALSE otherwise
  */
 gboolean
-crc32_file_with_ID3_tag (gchar *filename, guint32 *crc32)
+crc32_file_with_ID3_tag (const gchar *filename, guint32 *crc32, GError **err)
 {
     gchar buf[BUFFERSIZE], *p;
     gint nr;
     guint32 crc = ~0, crc32_total = ~0;
-    FILE *fd;
+    GFile *file;
     guchar tmp_id3[4];
     glong id3v2size = 0;
-    struct stat statbuf;
-    off_t size;
+    GFileInfo *info;
+    GFileInputStream *istream;
+    goffset size;
     gboolean has_id3v1 = FALSE;
 
     g_return_val_if_fail (filename != NULL, FALSE);
+    g_return_val_if_fail (err == NULL || *err == NULL, FALSE);
 
-    stat (filename, &statbuf);
-    size = statbuf.st_size;
+    file = g_file_new_for_path (filename);
+    info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_SIZE,
+                              G_FILE_QUERY_INFO_NONE, NULL, err);
 
-    if ((fd = fopen (filename, "r")) == NULL)
+    if (!info)
     {
+        g_object_unref (file);
+        g_assert (err == NULL || *err != NULL);
+        return FALSE;
+    }
+
+    size = g_file_info_get_size (info);
+    istream = g_file_read (file, NULL, err);
+
+    if (!istream)
+    {
+        g_object_unref (info);
+        g_object_unref (file);
+        g_assert (err == NULL || *err != NULL);
         return FALSE;
     }
 
     /* Check if there is an ID3v1 tag. */
-    fseek (fd, -128, SEEK_END);
-    if (fread (tmp_id3, 1, 3, fd) != 3)
+    if (!g_seekable_seek (G_SEEKABLE (istream), -128, G_SEEK_END, NULL, err))
     {
         goto error;
     }
+
+    if (g_input_stream_read (G_INPUT_STREAM (istream), tmp_id3, 3,
+                             NULL, err) != 3)
+    {
+        goto error;
+    }
+
     if (tmp_id3[0] == 'T' && tmp_id3[1] == 'A' && tmp_id3[2] == 'G')
     {
         has_id3v1 = TRUE;
     }
 
     /* Check if there is an ID3v2 tag. */
-    fseek (fd, 0L, SEEK_SET);
-    if (fread (tmp_id3, 1, 4, fd) != 4)
+    if (!g_seekable_seek (G_SEEKABLE (istream), 0L, G_SEEK_SET, NULL, err))
     {
         goto error;
     }
+
+    if (g_input_stream_read (G_INPUT_STREAM (istream), tmp_id3, 4,
+                             NULL, err) != 4)
+    {
+        goto error;
+    }
+
     /* Calculate ID3v2 length. */
     if (tmp_id3[0] == 'I' && tmp_id3[1] == 'D' && tmp_id3[2] == '3'
         && tmp_id3[3] < 0xFF)
     {
         /* ID3v2 tag skipper $49 44 33 yy yy xx zz zz zz zz [zz size]. */
-        fseek (fd, 2, SEEK_CUR); /* Size is 6-9 position. */
-        if (fread (tmp_id3, 1, 4, fd) != 4)
+        /* Size is 6-9 position. */
+        if (!g_seekable_seek (G_SEEKABLE (istream), 2, G_SEEK_CUR,
+                              NULL, err))
+        {
+
+            goto error;
+        }
+
+        if (g_input_stream_read (G_INPUT_STREAM (istream), tmp_id3, 4,
+                                 NULL, err) != 4)
         {
             goto error;
         }
+
         id3v2size = 10 +
                     ((glong)(tmp_id3[3]) | ((glong)(tmp_id3[2]) << 7) |
                     ((glong)(tmp_id3[1]) << 14) | ((glong)(tmp_id3[0]) << 21));
 
-        fseek (fd, id3v2size, SEEK_SET);
+        if (!g_seekable_seek (G_SEEKABLE (istream), id3v2size, G_SEEK_SET,
+                              NULL, err))
+        {
+            goto error;
+        }
+
         size = size - id3v2size;
     }
     else
     {
-        fseek (fd, id3v2size, SEEK_SET);
+        if (!g_seekable_seek (G_SEEKABLE (istream), id3v2size, G_SEEK_SET,
+                              NULL, err))
+        {
+            goto error;
+        }
     }
 
-    while ((nr = fread (buf, sizeof (gchar), sizeof (buf), fd)) > 0)
+    while ((nr = g_input_stream_read (G_INPUT_STREAM (istream), buf,
+                                      sizeof (buf), NULL, err)) > 0)
     {
         if (has_id3v1 && nr <= 128)
         /* Reading the end of an ID3v1 tag. */
         {
             break;
         }
+
         if (has_id3v1 && ((size = size - nr) < 128))
         {
             /* ID3v1 tag is in the current buf. */
@@ -187,18 +233,22 @@ crc32_file_with_ID3_tag (gchar *filename, guint32 *crc32)
         }
     }
 
-    if (!feof (fd))
+    if (nr == -1)
     {
         goto error;
     }
 
+    g_assert (err == NULL || *err == NULL);
 out:
-    fclose (fd);
+    g_object_unref (info);
+    g_object_unref (istream);
+    g_object_unref (file);
     *crc32 = ~crc;
 
     return nr == 0;
 
 error:
+    g_assert (err == NULL || *err != NULL);
     nr = -1;
     goto out;
 }
