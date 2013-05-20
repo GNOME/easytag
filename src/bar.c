@@ -435,7 +435,8 @@ Init_Menu_Bar (void)
             G_CALLBACK(Check_Menu_Item_Toggled_Browse_Subdir),NULL);
     }
 
-    CheckMenuItemBrowseHiddenDirMainMenu = gtk_ui_manager_get_widget(UIManager, "/MenuBar/BrowserMenu/BrowseHiddenDir");
+    CheckMenuItemBrowseHiddenDirMainMenu = gtk_ui_manager_get_widget (UIManager,
+                                                                      "/MenuBar/ViewMenu/BrowseHiddenDir");
     if (CheckMenuItemBrowseHiddenDirMainMenu)
     {
         // Link to update BROWSE_HIDDEN_DIR when changed
