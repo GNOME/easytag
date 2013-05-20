@@ -189,16 +189,17 @@ command_line (GApplication *application,
     if (argc > 1)
     {
         GFile *arg;
-        GFile *file;
+        GFile *file = NULL;
         GFile *parent;
         GFileInfo *info;
         GError *err = NULL;
         GFileType type;
 
         arg = g_file_new_for_commandline_arg (argv[1]);
-        file = g_file_dup (arg);
+        /* Not really the parent of arg. */
+        parent = g_file_dup (arg);
 
-        while ((parent = g_file_get_parent (file)) != NULL)
+        do
         {
             info = g_file_query_info (parent,
                                       G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN,
@@ -209,7 +210,10 @@ command_line (GApplication *application,
                 g_warning ("Error querying file information (%s)",
                            err->message);
                 g_error_free (err);
-                g_object_unref (file);
+                if (file)
+                {
+                    g_clear_object (&file);
+                }
                 g_object_unref (parent);
                 break;
             }
@@ -219,14 +223,19 @@ command_line (GApplication *application,
                 {
                     /* If the user saves the configuration for this session,
                      * this value will be saved. */
+                    /* FIXME: Avoid this being overridden in activate(). */
                     BROWSE_HIDDEN_DIR = 1;
                 }
             }
 
             g_object_unref (info);
-            g_object_unref (file);
+            if (file)
+            {
+                g_clear_object (&file);
+            }
             file = parent;
         }
+        while ((parent = g_file_get_parent (file)) != NULL);
 
         info = g_file_query_info (arg, G_FILE_ATTRIBUTE_STANDARD_TYPE,
                                   G_FILE_QUERY_INFO_NONE, NULL, &err);
