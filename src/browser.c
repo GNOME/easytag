@@ -948,17 +948,17 @@ gboolean Browser_Tree_Select_Dir (const gchar *current_path)
 
         if (!gtk_tree_model_iter_children(GTK_TREE_MODEL(directoryTreeModel), &currentNode, &parentNode))
         {
-            gchar *current_path, *parent_path;
+            gchar *path, *parent_path;
             GFile *file;
 
             gtk_tree_model_get (GTK_TREE_MODEL (directoryTreeModel),
                                 &parentNode, TREE_COLUMN_FULL_PATH,
                                 &parent_path, -1);
-            current_path = g_build_path (G_DIR_SEPARATOR_S, parent_path,
-                                         parts[index], NULL);
+            path = g_build_path (G_DIR_SEPARATOR_S, parent_path, parts[index],
+                                 NULL);
             g_free (parent_path);
 
-            file = g_file_new_for_path (current_path);
+            file = g_file_new_for_path (path);
 
             /* As dir name was not found in any node, check whether it exists
              * or not. */
@@ -970,12 +970,12 @@ gboolean Browser_Tree_Select_Dir (const gchar *current_path)
                 GtkTreeIter iter;
 
                 /* Create a new node for this directory name. */
-                icon = get_gicon_for_path (current_path, ET_PATH_STATE_CLOSED);
+                icon = get_gicon_for_path (path, ET_PATH_STATE_CLOSED);
 
                 gtk_tree_store_insert_with_values (GTK_TREE_STORE (directoryTreeModel),
                                                    &iter, &parentNode, 0,
                                                    TREE_COLUMN_DIR_NAME, parts[index],
-                                                   TREE_COLUMN_FULL_PATH, current_path,
+                                                   TREE_COLUMN_FULL_PATH, path,
                                                    TREE_COLUMN_HAS_SUBDIR, check_for_subdir (current_path),
                                                    TREE_COLUMN_SCANNED, TRUE,
                                                    TREE_COLUMN_ICON, icon, -1);
@@ -986,12 +986,12 @@ gboolean Browser_Tree_Select_Dir (const gchar *current_path)
             else
             {
                 g_object_unref (file);
-                g_free (current_path);
+                g_free (path);
                 break;
             }
 
             g_object_unref (file);
-            g_free (current_path);
+            g_free (path);
         }
         do
         {
