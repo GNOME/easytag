@@ -188,92 +188,75 @@ command_line (GApplication *application,
     /* Check given arguments */
     if (argc > 1)
     {
-        /* TODO: Replace this mess with GFile. */
-        struct stat statbuf;
-        gchar *path2check = NULL, *path2check_tmp = NULL;
-        gint resultstat;
-        gchar **pathsplit;
-        gint ps_index = 0;
+        GFile *arg;
+        GFile *file;
+        GFile *parent;
+        GFileInfo *info;
+        GError *err = NULL;
+        GFileType type;
 
-        /* Check if relative or absolute path */
-        if (g_path_is_absolute(argv[1]))
+        arg = g_file_new_for_commandline_arg (argv[1]);
+        file = g_file_dup (arg);
+
+        while ((parent = g_file_get_parent (file)) != NULL)
         {
-            path2check = g_strdup(argv[1]);
-        }
-        else
-        {
-            gchar *curdir = g_get_current_dir();
-            path2check = g_strconcat(g_get_current_dir(),G_DIR_SEPARATOR_S,argv[1],NULL);
-            g_free(curdir);
-        }
+            info = g_file_query_info (parent,
+                                      G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN,
+                                      G_FILE_QUERY_INFO_NONE, NULL, &err);
 
-#ifdef G_OS_WIN32
-        ET_Win32_Path_Replace_Slashes(path2check);
-#endif /* G_OS_WIN32 */
-
-        /* Check if contains hidden directories. */
-        pathsplit = g_strsplit(path2check,G_DIR_SEPARATOR_S,0);
-        g_free(path2check);
-        path2check = NULL;
-
-        /* Browse the list to build again the path. */
-        /* FIXME: Should manage directory ".." in path. */
-        while (pathsplit[ps_index])
-        {
-            /* Activate hidden directories in browser if path contains a dir
-             * like ".hidden_dir". */
-            if ( (g_ascii_strcasecmp (pathsplit[ps_index],"..")   != 0)
-            &&   (g_ascii_strncasecmp(pathsplit[ps_index],".", 1) == 0)
-            &&   (strlen(pathsplit[ps_index]) > 1) )
-                BROWSE_HIDDEN_DIR = 1;
-                /* If user saves the config for this session, this value will
-                 * be saved to 1. */
-
-            if (pathsplit[ps_index]
-            && g_ascii_strcasecmp(pathsplit[ps_index],".") != 0
-            && g_ascii_strcasecmp(pathsplit[ps_index],"")  != 0)
+            if (info == NULL)
             {
-                if (path2check)
-                {
-                    path2check_tmp = g_strconcat(path2check,G_DIR_SEPARATOR_S,pathsplit[ps_index],NULL);
-                }else
-                {
-#ifdef G_OS_WIN32
-                    /* Build a path starting with the drive letter. */
-                    path2check_tmp = g_strdup(pathsplit[ps_index]);
-#else /* !G_OS_WIN32 */
-                    path2check_tmp = g_strconcat(G_DIR_SEPARATOR_S,pathsplit[ps_index],NULL);
-#endif /* !G_OS_WIN32 */
-
-                }
-
-                path2check = g_strdup(path2check_tmp);
-                g_free(path2check_tmp);
+                g_warning ("Error querying file information (%s)",
+                           err->message);
+                g_error_free (err);
+                g_object_unref (file);
+                g_object_unref (parent);
+                break;
             }
-            ps_index++;
+            else
+            {
+                if (g_file_info_get_is_hidden (info))
+                {
+                    /* If the user saves the configuration for this session,
+                     * this value will be saved. */
+                    BROWSE_HIDDEN_DIR = 1;
+                }
+            }
+
+            g_object_unref (info);
+            g_object_unref (file);
+            file = parent;
         }
 
-        g_strfreev (pathsplit);
+        info = g_file_query_info (arg, G_FILE_ATTRIBUTE_STANDARD_TYPE,
+                                  G_FILE_QUERY_INFO_NONE, NULL, &err);
+        type = g_file_info_get_file_type (info);
 
-        /* Check if file or directory. */
-        resultstat = stat(path2check,&statbuf);
-        if (resultstat==0 && S_ISDIR(statbuf.st_mode))
+        switch (type)
         {
-            INIT_DIRECTORY = g_strdup(path2check);
-        }else if (resultstat==0 && S_ISREG(statbuf.st_mode))
-        {
-            /* When passing a file, we load only the directory. */
-            INIT_DIRECTORY = g_path_get_dirname(path2check);
-        }else
-        {
-            g_application_command_line_printerr (command_line,
-                                                 _("Unknown parameter or path '%s'\n"),
-                                                 argv[1]);
-            g_free (path2check);
-            g_strfreev (argv);
-            return 1;
+            case G_FILE_TYPE_DIRECTORY:
+                INIT_DIRECTORY = g_file_get_path (arg);
+                g_object_unref (arg);
+                break;
+            case G_FILE_TYPE_REGULAR:
+                /* When passing a file, only load the directory. */
+                parent = g_file_get_parent (arg);
+                g_object_unref (arg);
+
+                if (parent)
+                {
+                    INIT_DIRECTORY = g_file_get_path (parent);
+                    g_object_unref (parent);
+                    break;
+                }
+                /* Fall through on error. */
+            default:
+                g_application_command_line_printerr (command_line,
+                                                     _("Unknown parameter or path '%s'\n"),
+                                                     argv[1]);
+                return 1;
+                break;
         }
-        g_free(path2check);
     }
 
     /* Initialize GTK. */
