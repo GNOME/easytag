@@ -4398,8 +4398,9 @@ Handle_Crash (gint signal_id)
     // To send messages to the console...
     g_print(_("EasyTAG version %s: Abnormal exit (PID: %d)."),PACKAGE_VERSION,getpid());
     g_print("\n");
-    g_print(_("Received signal %s (%d)\a"),signal_to_string(signal_id),signal_id);
-    g_print("\n");
+    g_print (_("Received signal %s (%d)"),
+             signal_to_string (signal_id), signal_id);
+    g_print ("\a\n");
     g_print(_("You have probably found a bug in EasyTAG. Please, file a bug "
             "report with a GDB backtrace ('gdb easytag core' then 'bt' and "
             "'l') and information to reproduce it at: %s"),PACKAGE_BUGREPORT);
