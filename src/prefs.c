@@ -652,17 +652,9 @@ void Open_OptionsWindow (void)
     gtk_grid_set_row_spacing (GTK_GRID (Table), BOX_SPACING);
     gtk_grid_set_column_spacing (GTK_GRID (Table), BOX_SPACING);
 
-    /* Write ID3 tags in FLAC files */
-    WriteId3TagsInFlacFiles = gtk_check_button_new_with_label(_("Write ID3 tags in FLAC files (in addition to FLAC tag)"));
-    gtk_grid_attach (GTK_GRID (Table), WriteId3TagsInFlacFiles, 0, 0, 1, 1);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(WriteId3TagsInFlacFiles),WRITE_ID3_TAGS_IN_FLAC_FILE);
-    gtk_widget_set_tooltip_text(WriteId3TagsInFlacFiles,_("If activated, ID3 tags will be "
-        "also added in the FLAC file (according the two rules above, plus the FLAC tag). "
-        "Else ID3 tags will be stripped."));
-
     /* Strip tag when fields (managed by EasyTAG) are empty */
     StripTagWhenEmptyFields = gtk_check_button_new_with_label(_("Strip tags if all fields are set to blank"));
-    gtk_grid_attach (GTK_GRID (Table), StripTagWhenEmptyFields, 0, 1, 1, 1);
+    gtk_grid_attach (GTK_GRID (Table), StripTagWhenEmptyFields, 0, 0, 1, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(StripTagWhenEmptyFields),STRIP_TAG_WHEN_EMPTY_FIELDS);
     gtk_widget_set_tooltip_text(StripTagWhenEmptyFields,_("As ID3v2 tags may contain other data than "
         "Title, Artist, Album, Year, Track, Genre or Comment (as an attached image, lyrics…), "
@@ -671,7 +663,7 @@ void Open_OptionsWindow (void)
 
     /* Convert old ID3v2 tag version */
     ConvertOldId3v2TagVersion = gtk_check_button_new_with_label(_("Automatically convert old ID3v2 tag versions"));
-    gtk_grid_attach (GTK_GRID (Table), ConvertOldId3v2TagVersion, 0, 2, 1, 1);
+    gtk_grid_attach (GTK_GRID (Table), ConvertOldId3v2TagVersion, 0, 1, 1, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ConvertOldId3v2TagVersion),CONVERT_OLD_ID3V2_TAG_VERSION);
     gtk_widget_set_tooltip_text(ConvertOldId3v2TagVersion,_("If activated, an old ID3v2 tag version (as "
         "ID3v2.2) will be updated to the ID3v2.3 version."));
@@ -691,7 +683,7 @@ void Open_OptionsWindow (void)
 	
     /* Write Genre in text */
     FileWritingId3v2TextOnlyGenre = gtk_check_button_new_with_label(_("Write Genre in text only"));
-    gtk_grid_attach (GTK_GRID (Table), FileWritingId3v2TextOnlyGenre, 1, 2, 1,
+    gtk_grid_attach (GTK_GRID (Table), FileWritingId3v2TextOnlyGenre, 0, 2, 1,
                      1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v2TextOnlyGenre),FILE_WRITING_ID3V2_TEXT_ONLY_GENRE);
     gtk_widget_set_tooltip_text(FileWritingId3v2TextOnlyGenre,_("Don't use ID3v1 number references in genre tag. Enable this if you see numbers as genre in your music player."));	

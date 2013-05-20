@@ -733,26 +733,6 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
         g_free(filename_utf8);
         return rc;
     }
-
-    /* Part to get cover artist :
-     * If we have read the ID3 tag previously we don't arrive here (and we have
-     * the picture if it exists).
-     * Else the ID3 tag wasn't read (as there was data in FLAC tag) so we try
-     * to read it only to get the picture (not supported by the FLAC tag). */
-    /***if (WRITE_ID3_TAGS_IN_FLAC_FILE && FileTag->picture == NULL)
-    {
-        File_Tag *FileTag_tmp = ET_File_Tag_Item_New();
-        gint rc = Id3tag_Read_File_Tag(filename,FileTag_tmp);
-        if (rc && FileTag_tmp->picture)
-        {
-            // Copy picture to FileTag
-            FileTag->picture = Picture_Copy(FileTag_tmp->picture);
-        }
-
-        ET_Free_File_Tag_Item(FileTag_tmp);
-
-        return rc;
-    }***/
 #endif
 
     g_free(filename_utf8);
@@ -1103,13 +1083,6 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
 
     
 #ifdef ENABLE_MP3
-    /*
-     * Write also the ID3 tags (ID3v1 and/or ID3v2) if wanted (as needed by some players)
-     */
-    if (WRITE_ID3_TAGS_IN_FLAC_FILE)
-    {
-        Id3tag_Write_File_Tag(ETFile);
-    }else
     {
         // Delete the ID3 tags (create a dummy ETFile for the Id3tag_... function)
         ET_File   *ETFile_tmp    = ET_File_Item_New();

@@ -152,7 +152,6 @@ static const tConfigVariable Config_Variables[] =
     {"filename_character_set_approximate",             CV_TYPE_BOOL,    &FILENAME_CHARACTER_SET_APPROXIMATE       },
     {"filename_character_set_discard",                 CV_TYPE_BOOL,    &FILENAME_CHARACTER_SET_DISCARD           },
 
-    {"write_id3_tags_in_flac_file",                    CV_TYPE_BOOL,  &WRITE_ID3_TAGS_IN_FLAC_FILE                     },
     {"strip_tag_when_empty_fields",                    CV_TYPE_BOOL,  &STRIP_TAG_WHEN_EMPTY_FIELDS                     },
     {"convert_old_id3v2_tag_version",                  CV_TYPE_BOOL,  &CONVERT_OLD_ID3V2_TAG_VERSION                   },
     {"use_non_standard_id3_reading_character_set",     CV_TYPE_BOOL,  &USE_NON_STANDARD_ID3_READING_CHARACTER_SET},
@@ -413,7 +412,6 @@ void Init_Config_Variables (void)
     /*
      * Tag Settings
      */
-    WRITE_ID3_TAGS_IN_FLAC_FILE                     = 0;
     STRIP_TAG_WHEN_EMPTY_FIELDS                     = 1;
     CONVERT_OLD_ID3V2_TAG_VERSION                   = 1;
     USE_NON_STANDARD_ID3_READING_CHARACTER_SET      = 0;
@@ -706,7 +704,6 @@ Apply_Changes_Of_Preferences_Window (void)
         FILENAME_CHARACTER_SET_DISCARD            = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FilenameCharacterSetDiscard));
 
         /* Tag Settings */
-        WRITE_ID3_TAGS_IN_FLAC_FILE                = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(WriteId3TagsInFlacFiles));
         STRIP_TAG_WHEN_EMPTY_FIELDS                = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(StripTagWhenEmptyFields));
         CONVERT_OLD_ID3V2_TAG_VERSION              = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ConvertOldId3v2TagVersion));
         USE_NON_STANDARD_ID3_READING_CHARACTER_SET = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(UseNonStandardId3ReadingCharacterSet));
