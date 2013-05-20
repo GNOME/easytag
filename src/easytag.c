@@ -553,7 +553,7 @@ Create_File_Area (void)
 
     /* Translators: Please try to keep this string as short as possible as it
      * is shown in a narrow column. */
-    SampleRateLabel = gtk_label_new(_("Freq.:"));
+    SampleRateLabel = gtk_label_new (_("Frequency:"));
     gtk_grid_attach (GTK_GRID (HeaderInfosTable), SampleRateLabel, 0, 2, 1, 1);
     SampleRateValueLabel = gtk_label_new("");
     gtk_grid_attach (GTK_GRID (HeaderInfosTable), SampleRateValueLabel, 1, 2,
