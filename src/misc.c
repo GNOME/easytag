@@ -18,17 +18,13 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 #include <glib/gi18n-lib.h>
 #include <ctype.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <sys/stat.h>
-#include <unistd.h>
 #include <errno.h>
 
 #include "gtk2_compat.h"
@@ -154,7 +150,7 @@ enum
 void     Open_Write_Playlist_Window      (void);
 static void Destroy_Write_Playlist_Window (void);
 static void Playlist_Write_Button_Pressed (void);
-static gboolean Write_Playlist (const gchar *play_list_name);
+static gboolean write_playlist (GFile *file, GError **error);
 static void entry_check_content_mask (GtkEntry *entry, gpointer user_data);
 static void Playlist_Convert_Forwardslash_Into_Backslash (const gchar *string);
 
@@ -1366,7 +1362,6 @@ Playlist_Write_Button_Pressed (void)
     gchar *playlist_basename_utf8;  // Filename
     gchar *playlist_name_utf8;      // Path + filename
     gchar *temp;
-    FILE  *file;
     GtkWidget *msgdialog;
     gint response = 0;
 
@@ -1475,33 +1470,14 @@ Playlist_Write_Button_Pressed (void)
     playlist_name = filename_from_display(playlist_name_utf8);
     playlist_basename_utf8 = g_path_get_basename(playlist_name_utf8);
 
-    // Check if file exists
-    if (CONFIRM_WRITE_PLAYLIST)
-    {
-        if ( (file=fopen(playlist_name,"r")) != NULL )
-        {
-            fclose(file);
-            msgdialog = gtk_message_dialog_new(GTK_WINDOW(WritePlaylistWindow),
-                                               GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                               GTK_MESSAGE_QUESTION,
-                                               GTK_BUTTONS_NONE,
-                                               _("Playlist file '%s' already exists"),
-                                               playlist_basename_utf8);
-            gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),"%s",_("Do you want to save the playlist, overwriting the existing file?"));
-            gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_SAVE,GTK_RESPONSE_YES,NULL);
-            gtk_window_set_title (GTK_WINDOW (msgdialog),
-                                  _("Playlist File Error"));
-
-            response = gtk_dialog_run(GTK_DIALOG(msgdialog));
-            gtk_widget_destroy(msgdialog);
-        }
-    }
-
     // Writing playlist if ok
     if (response == 0
     ||  response == GTK_RESPONSE_YES )
     {
-        if ( Write_Playlist(playlist_name) == FALSE )
+        GFile *file = g_file_new_for_path (playlist_name);
+        GError *error = NULL;
+
+        if (!write_playlist (file, &error))
         {
             // Writing fails...
             msgdialog = gtk_message_dialog_new(GTK_WINDOW(WritePlaylistWindow),
@@ -1510,11 +1486,13 @@ Playlist_Write_Button_Pressed (void)
                                                GTK_BUTTONS_CLOSE,
                                                _("Cannot write playlist file '%s'"),
                                                playlist_name_utf8);
-            gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),"%s",g_strerror(errno));
+            gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (msgdialog),
+                                                      "%s", error->message);
             gtk_window_set_title(GTK_WINDOW(msgdialog),_("Playlist File Error"));
 
             gtk_dialog_run(GTK_DIALOG(msgdialog));
             gtk_widget_destroy(msgdialog);
+            g_error_free (error);
         }else
         {
             gchar *msg;
@@ -1532,6 +1510,7 @@ Playlist_Write_Button_Pressed (void)
             Statusbar_Message(msg,TRUE);
             g_free(msg);
         }
+        g_object_unref (file);
     }
     g_free(playlist_name_utf8);
     g_free(playlist_basename_utf8);
@@ -1609,33 +1588,50 @@ Playlist_Convert_Forwardslash_Into_Backslash (const gchar *string)
  *  - 'playlist_name' in file system encoding (not UTF-8)
  */
 static gboolean
-Write_Playlist (const gchar *playlist_name)
+write_playlist (GFile *file, GError **error)
 {
-    FILE  *file;
+    GFile *parent;
+    GFileOutputStream *ostream;
+    GString *to_write;
     ET_File *etfile;
     GList *etfilelist = NULL;
     gchar *filename;
-    gchar *playlist_name_utf8 = filename_to_display(playlist_name);
     gchar *basedir;
     gchar *temp;
     gint   duration;
 
-    if ((file = fopen(playlist_name,"wb")) == NULL)
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+    ostream = g_file_replace (file, NULL, FALSE, G_FILE_CREATE_NONE, NULL, error);
+
+    if (!ostream)
     {
-        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),playlist_name_utf8,g_strerror(errno));
-        g_free(playlist_name_utf8);
+        g_assert (error == NULL || *error != NULL);
         return FALSE;
     }
 
     /* 'base directory' where is located the playlist. Used also to write file with a
      * relative path for file located in this directory and sub-directories
      */
-    basedir = g_path_get_dirname(playlist_name);
+    parent = g_file_get_parent (file);
+    basedir = g_file_get_path (parent);
+    g_object_unref (parent);
 
     // 1) First line of the file (if playlist content is not set to "write only list of files")
     if (!PLAYLIST_CONTENT_NONE)
     {
-        fprintf(file,"#EXTM3U\r\n");
+        to_write = g_string_new ("#EXTM3U\r\n");
+
+        if (g_output_stream_write (G_OUTPUT_STREAM (ostream), to_write->str,
+                                   to_write->len, NULL, error)
+            != to_write->len)
+        {
+            g_assert (error == NULL || *error != NULL);
+            g_string_free (to_write, TRUE);
+            g_object_unref (ostream);
+            return FALSE;
+        }
+        g_string_free (to_write, TRUE);
     }
 
     if (PLAYLIST_ONLY_SELECTED_FILES)
@@ -1678,7 +1674,21 @@ Write_Playlist (const gchar *playlist_name)
                 {
                     // Header uses only filename
                     temp = g_path_get_basename(filename);
-                    fprintf(file,"#EXTINF:%d,%s\r\n",duration,temp); // Must be written in system encoding (not UTF-8)
+                    to_write = g_string_new ("#EXTINF:");
+                    /* Must be written in system encoding (not UTF-8)*/
+                    g_string_append_printf (to_write, "%d,%s\r\n", duration,
+                                            temp);
+
+                    if (g_output_stream_write (G_OUTPUT_STREAM (ostream),
+                                               to_write->str, to_write->len,
+                                               NULL, error) != to_write->len)
+                    {
+                        g_assert (error == NULL || *error != NULL);
+                        g_string_free (to_write, TRUE);
+                        g_object_unref (ostream);
+                        return FALSE;
+                    }
+                    g_string_free (to_write, TRUE);
                     g_free(temp);
                 }else if (PLAYLIST_CONTENT_MASK)
                 {
@@ -1687,7 +1697,22 @@ Write_Playlist (const gchar *playlist_name)
                     // Special case : we don't replace illegal characters and don't check if there is a directory separator in the mask.
                     gchar *filename_generated_utf8 = Scan_Generate_New_Filename_From_Mask(etfile,mask,TRUE);
                     gchar *filename_generated = filename_from_display(filename_generated_utf8);
-                    fprintf(file,"#EXTINF:%d,%s\r\n",duration,filename_generated); // Must be written in system encoding (not UTF-8)
+
+                    to_write = g_string_new ("#EXTINF:");
+                    /* Must be written in system encoding (not UTF-8)*/
+                    g_string_append_printf (to_write, "%d,%s\r\n", duration,
+                                            filename_generated);
+
+                    if (g_output_stream_write (G_OUTPUT_STREAM (ostream),
+                                               to_write->str, to_write->len,
+                                               NULL, error) != to_write->len)
+                    {
+                        g_assert (error == NULL || *error != NULL);
+                        g_string_free (to_write, TRUE);
+                        g_object_unref (ostream);
+                        return FALSE;
+                    }
+                    g_string_free (to_write, TRUE);
                     g_free(mask);
                     g_free(filename_generated_utf8);
                 }
@@ -1697,11 +1722,38 @@ Write_Playlist (const gchar *playlist_name)
                 {
                     gchar *filename_conv = g_strdup(filename+strlen(basedir)+1);
                     Playlist_Convert_Forwardslash_Into_Backslash(filename_conv);
-                    fprintf(file,"%s\r\n",filename_conv); // Must be written in system encoding (not UTF-8)
+
+                    to_write = g_string_new (filename_conv);
+                    /* Must be written in system encoding (not UTF-8)*/
+                    to_write = g_string_append (to_write, "\r\n");
+
+                    if (g_output_stream_write (G_OUTPUT_STREAM (ostream),
+                                               to_write->str, to_write->len,
+                                               NULL, error) != to_write->len)
+                    {
+                        g_assert (error == NULL || *error != NULL);
+                        g_string_free (to_write, TRUE);
+                        g_object_unref (ostream);
+                        return FALSE;
+                    }
+                    g_string_free (to_write, TRUE);
                     g_free(filename_conv);
                 }else
                 {
-                    fprintf(file,"%s\r\n",filename+strlen(basedir)+1); // Must be written in system encoding (not UTF-8)
+                    to_write = g_string_new (filename+strlen(basedir)+1);
+                    /* Must be written in system encoding (not UTF-8)*/
+                    to_write = g_string_append (to_write, "\r\n");
+
+                    if (g_output_stream_write (G_OUTPUT_STREAM (ostream),
+                                               to_write->str, to_write->len,
+                                               NULL, error) != to_write->len)
+                    {
+                        g_assert (error == NULL || *error != NULL);
+                        g_string_free (to_write, TRUE);
+                        g_object_unref (ostream);
+                        return FALSE;
+                    }
+                    g_string_free (to_write, TRUE);
                 }
             }
         }else // PLAYLIST_FULL_PATH
@@ -1714,7 +1766,21 @@ Write_Playlist (const gchar *playlist_name)
             {
                 // Header uses only filename
                 temp = g_path_get_basename(filename);
-                fprintf(file,"#EXTINF:%d,%s\r\n",duration,temp); // Must be written in system encoding (not UTF-8)
+                to_write = g_string_new ("#EXTINF:");
+                /* Must be written in system encoding (not UTF-8)*/
+                g_string_append_printf (to_write, "%d,%s\r\n", duration,
+                                        temp);
+
+                if (g_output_stream_write (G_OUTPUT_STREAM (ostream),
+                                           to_write->str, to_write->len,
+                                           NULL, error) != to_write->len)
+                {
+                    g_assert (error == NULL || *error != NULL);
+                    g_string_free (to_write, TRUE);
+                    g_object_unref (ostream);
+                    return FALSE;
+                }
+                g_string_free (to_write, TRUE);
                 g_free(temp);
             }else if (PLAYLIST_CONTENT_MASK)
             {
@@ -1722,7 +1788,22 @@ Write_Playlist (const gchar *playlist_name)
                 gchar *mask = filename_from_display(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(PlayListContentMaskCombo)))));
                 gchar *filename_generated_utf8 = Scan_Generate_New_Filename_From_Mask(etfile,mask,TRUE);
                 gchar *filename_generated = filename_from_display(filename_generated_utf8);
-                fprintf(file,"#EXTINF:%d,%s\r\n",duration,filename_generated); // Must be written in system encoding (not UTF-8)
+
+                to_write = g_string_new ("#EXTINF:");
+                /* Must be written in system encoding (not UTF-8)*/
+                g_string_append_printf (to_write, "%d,%s\r\n", duration,
+                                        filename_generated);
+
+                if (g_output_stream_write (G_OUTPUT_STREAM (ostream),
+                                           to_write->str, to_write->len,
+                                           NULL, error) != to_write->len)
+                {
+                    g_assert (error == NULL || *error != NULL);
+                    g_string_free (to_write, TRUE);
+                    g_object_unref (ostream);
+                    return FALSE;
+                }
+                g_string_free (to_write, TRUE);
                 g_free(mask);
                 g_free(filename_generated_utf8);
             }
@@ -1732,20 +1813,48 @@ Write_Playlist (const gchar *playlist_name)
             {
                 gchar *filename_conv = g_strdup(filename);
                 Playlist_Convert_Forwardslash_Into_Backslash(filename_conv);
-                fprintf(file,"%s\r\n",filename_conv); // Must be written in system encoding (not UTF-8)
+
+                to_write = g_string_new (filename_conv);
+                /* Must be written in system encoding (not UTF-8)*/
+                to_write = g_string_append (to_write, "\r\n");
+
+                if (g_output_stream_write (G_OUTPUT_STREAM (ostream),
+                                           to_write->str, to_write->len,
+                                           NULL, error) != to_write->len)
+                {
+                    g_assert (error == NULL || *error != NULL);
+                    g_string_free (to_write, TRUE);
+                    g_object_unref (ostream);
+                    return FALSE;
+                }
+                g_string_free (to_write, TRUE);
                 g_free(filename_conv);
             }else
             {
-                fprintf(file,"%s\r\n",filename); // Must be written in system encoding (not UTF-8)
+                to_write = g_string_new (filename);
+                /* Must be written in system encoding (not UTF-8)*/
+                to_write = g_string_append (to_write, "\r\n");
+
+                if (g_output_stream_write (G_OUTPUT_STREAM (ostream),
+                                           to_write->str, to_write->len,
+                                           NULL, error) != to_write->len)
+                {
+                    g_assert (error == NULL || *error != NULL);
+                    g_string_free (to_write, TRUE);
+                    g_object_unref (ostream);
+                    return FALSE;
+                }
+                g_string_free (to_write, TRUE);
             }
         }
         etfilelist = etfilelist->next;
     }
-    fclose(file);
 
     if (PLAYLIST_ONLY_SELECTED_FILES)
         g_list_free(etfilelist);
-    g_free(playlist_name_utf8);
+
+    g_assert (error == NULL || *error == NULL);
+    g_object_unref (ostream);
     g_free(basedir);
     return TRUE;
 }
@@ -2915,18 +3024,44 @@ void Load_Filename_Window_Apply_Changes (void)
 static void
 Button_Load_Set_Sensivity (GtkWidget *button, GtkWidget *entry)
 {
-    struct stat statbuf;
     gchar *path;
+    GFile *file;
+    GFileInfo *info;
+    GError *error = NULL;
 
     if (!entry || !button)
         return;
 
     path = filename_from_display(gtk_entry_get_text(GTK_ENTRY(entry)));
-    if ( path && stat(path,&statbuf)==0 && S_ISREG(statbuf.st_mode))
+
+    if (!path)
+    {
+        gtk_widget_set_sensitive(GTK_WIDGET(button),FALSE);
+        return;
+    }
+
+    file = g_file_new_for_path (path);
+    info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_TYPE,
+                              G_FILE_QUERY_INFO_NONE, NULL, &error);
+
+    if (info && G_FILE_TYPE_REGULAR == g_file_info_get_file_type (info))
         gtk_widget_set_sensitive(GTK_WIDGET(button),TRUE);
     else
+    {
         gtk_widget_set_sensitive(GTK_WIDGET(button),FALSE);
+        if (!info)
+        {
+            Log_Print (LOG_ERROR, _("Cannot retrieve file info (%s)"),
+                       error->message);
+            g_error_free (error);
+            g_object_unref (file);
+            g_free (path);
+            return;
+        }
+    }
 
+    g_object_unref (info);
+    g_object_unref (file);
     g_free(path);
 }
 
@@ -2956,7 +3091,10 @@ Load_Filename_List_Key_Press (GtkWidget *treeview, GdkEvent *event)
 static void
 Load_File_Content (GtkWidget *entry)
 {
-    FILE *file;
+    GFile *file;
+    GFileInputStream *istream;
+    GError *error = NULL;
+    gssize size_read;
     gchar *filename;
     const gchar *filename_utf8;
     gchar buffer[MAX_STRING_LEN];
@@ -2972,15 +3110,23 @@ Load_File_Content (GtkWidget *entry)
     Add_String_To_Combo_List(FileToLoadModel, filename_utf8);
     filename = filename_from_display(filename_utf8);
 
-    if ( (file=fopen(filename,"r"))==0 )
+    file = g_file_new_for_path (filename);
+    istream = g_file_read (file, NULL, &error);
+
+    if (!istream)
     {
-        Log_Print(LOG_ERROR,_("Can't open file '%s' (%s)"),filename_utf8,g_strerror(errno));
+        Log_Print (LOG_ERROR, _("Can't open file '%s' (%s)"), filename_utf8,
+                   error->message);
+        g_error_free (error);
+        g_object_unref (file);
         g_free(filename);
         return;
     }
 
     gtk_list_store_clear(LoadFileContentListModel);
-    while (fgets(buffer, sizeof(buffer), file))
+    while ((size_read = g_input_stream_read (G_INPUT_STREAM (istream),
+                                             buffer, sizeof(buffer),
+                                             NULL, &error) > 0))
     {
         if (buffer[strlen(buffer)-1]=='\n')
             buffer[strlen(buffer)-1]='\0';
@@ -3004,7 +3150,13 @@ Load_File_Content (GtkWidget *entry)
         g_free(valid);
     }
 
-    fclose(file);
+    if (size_read == -1)
+    {
+        Log_Print (LOG_ERROR, _("Error reading file (%s)"), error->message);
+        g_error_free (error);
+    }
+    g_object_unref (file);
+    g_object_unref (istream);
     g_free(filename);
 }
 
