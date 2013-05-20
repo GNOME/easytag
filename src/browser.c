@@ -486,41 +486,17 @@ Browser_Tree_Key_Press (GtkWidget *tree, GdkEvent *event, gpointer data)
 }
 
 /*
- * Key Press events into browser list
- */
-static gboolean
-Browser_List_Stop_Timer (guint *flag)
-{
-    *flag = FALSE;
-    return FALSE;
-}
-
-/*
  * Key press into browser list
  *   - Delete = delete file
  * Also tries to capture text input and relate it to files
  */
 gboolean Browser_List_Key_Press (GtkWidget *list, GdkEvent *event, gpointer data)
 {
-    gchar *string, *current_filename = NULL, *current_filename_copy = NULL, *temp;
-    static gchar *key_string = NULL;
-    gint key_string_length;
-    static guint BrowserListTimerId = 0;
-    static gboolean timer_is_running = FALSE;
-    gint row;
-    gboolean valid;
     GdkEventKey *kevent;
-
-    GtkTreePath *currentPath = NULL;
-    GtkTreeIter  currentIter;
-    ET_File     *currentETFile;
-
-    GtkTreeModel     *fileListModel;
     GtkTreeSelection *fileSelection;
 
     g_return_val_if_fail (list != NULL, FALSE);
 
-    fileListModel = gtk_tree_view_get_model(GTK_TREE_VIEW(list));
     fileSelection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list));
 
     kevent = (GdkEventKey *)event;
@@ -537,80 +513,6 @@ gboolean Browser_List_Key_Press (GtkWidget *list, GdkEvent *event, gpointer data
         }
     }
 
-    /*
-     * Tries to select file corresponding to the character sequence entered
-     */
-    if ( strlen(kevent->string)>0 ) // Alphanumeric key?
-    {
-        // If the timer is running: concatenate the character of the pressed key, else starts a new string
-        string = key_string;
-        if (timer_is_running)
-            key_string = g_strconcat(key_string,kevent->string,NULL);
-        else
-            key_string = g_strdup(kevent->string);
-        g_free(string);
-
-        // Remove the current timer
-        if (BrowserListTimerId)
-        {
-            g_source_remove(BrowserListTimerId);
-            BrowserListTimerId = 0;
-        }
-        // Start a new timer of 500ms
-        BrowserListTimerId = g_timeout_add(500,(GSourceFunc)Browser_List_Stop_Timer,&timer_is_running);
-        timer_is_running = TRUE;
-
-        // Browse the list keeping the current classification
-        for (row=0; row < gtk_tree_model_iter_n_children(fileListModel, NULL); row++)
-        {
-            if (row == 0)
-                currentPath = gtk_tree_path_new_first();
-            else
-                gtk_tree_path_next(currentPath);
-
-            valid = gtk_tree_model_get_iter(GTK_TREE_MODEL(fileListModel), &currentIter, currentPath);
-            if (valid)
-            {
-                gtk_tree_model_get(GTK_TREE_MODEL(fileListModel), &currentIter,
-                                   LIST_FILE_POINTER, &currentETFile,
-                                   LIST_FILE_NAME,    &current_filename,
-                                   -1);
-
-                /* UTF-8 comparison */
-                //key_string = Try_To_Validate_Utf8_String(key_string);
-                if (g_utf8_validate(key_string, -1, NULL) == FALSE)
-                {
-                    temp = convert_to_utf8(key_string);
-                    g_free(key_string);
-                    key_string = temp;
-                }
-
-                key_string_length = g_utf8_strlen(key_string, -1);
-                current_filename_copy = g_malloc(strlen(current_filename) + 1);
-                g_utf8_strncpy(current_filename_copy, current_filename, key_string_length);
-
-                temp = g_utf8_casefold(current_filename_copy, -1);
-                g_free(current_filename_copy);
-                current_filename_copy = temp;
-
-                temp = g_utf8_casefold(key_string, -1);
-                g_free(key_string);
-                key_string = temp;
-
-                if (g_utf8_collate(current_filename_copy,key_string)==0 )
-                {
-                    if (!gtk_tree_selection_iter_is_selected(fileSelection,&currentIter))
-                        gtk_tree_selection_select_iter(fileSelection,&currentIter);
-
-                    g_free(current_filename);
-                    break;
-                }
-                g_free(current_filename);
-            }
-        }
-        g_free(current_filename_copy);
-        gtk_tree_path_free(currentPath);
-    }
     return FALSE;
 }
 
