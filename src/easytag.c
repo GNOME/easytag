@@ -3100,7 +3100,7 @@ delete_file (ET_File *ETFile, gboolean multiple_files, GError **error)
         case GTK_RESPONSE_NO:
             break;
         case GTK_RESPONSE_CANCEL:
-        case GTK_RESPONSE_NONE:
+        case GTK_RESPONSE_DELETE_EVENT:
             stop_loop = -1;
             g_free(basename_utf8);
             return stop_loop;
