@@ -20,19 +20,12 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-/* Portions of this code was borrowed from the MPEG4IP tools project */
 #include "config.h" // For definition of ENABLE_MP4
 
 #ifdef ENABLE_MP4
 
 #include <gtk/gtk.h>
 #include <glib/gi18n-lib.h>
-#include <stdio.h>
-#include <errno.h>
-#include <string.h>
-#include <ctype.h>
-#include <unistd.h>
-#include <string.h>
 #include <stdlib.h>
 
 #include "mp4_tag.h"
@@ -58,21 +51,11 @@
  */
 gboolean Mp4tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
 {
-    FILE   *file;
     TagLib_File *mp4file;
     TagLib_Tag *tag;
     guint track;
 
     g_return_val_if_fail (filename != NULL && FileTag != NULL, FALSE);
-
-    if ( (file=fopen(filename,"r"))==NULL )
-    {
-        gchar *filename_utf8 = filename_to_display(filename);
-        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
-        g_free(filename_utf8);
-        return FALSE;
-    }
-    fclose(file); // We close it cause mp4 opens/closes file itself
 
     /* Get data from tag */
     mp4file = taglib_file_new_type(filename,TagLib_File_MP4);
@@ -186,24 +169,15 @@ gboolean Mp4tag_Write_File_Tag (ET_File *ETFile)
     File_Tag *FileTag;
     gchar    *filename;
     gchar    *filename_utf8;
-    FILE     *file;
     TagLib_File *mp4file = NULL;
     TagLib_Tag *tag;
-    gint error = 0;
+    gboolean success;
 
     g_return_val_if_fail (ETFile != NULL || ETFile->FileTag != NULL, FALSE);
 
     FileTag = (File_Tag *)ETFile->FileTag->data;
     filename      = ((File_Name *)ETFile->FileNameCur->data)->value;
     filename_utf8 = ((File_Name *)ETFile->FileNameCur->data)->value_utf8;
-
-    /* Test to know if we can write into the file */
-    if ( (file=fopen(filename,"r+"))==NULL )
-    {
-        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
-        return FALSE;
-    }
-    fclose(file);
 
     /* Open file for writing */
     mp4file = taglib_file_new_type(filename, TagLib_File_MP4);
@@ -314,11 +288,10 @@ gboolean Mp4tag_Write_File_Tag (ET_File *ETFile)
      * Picture *
      ***********/
 
-    taglib_file_save(mp4file);
+    success = taglib_file_save (mp4file) ? TRUE : FALSE;
     taglib_file_free(mp4file);
 
-    if (error) return FALSE;
-    else       return TRUE;
+    return success;
 }
 
 
