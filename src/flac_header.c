@@ -25,23 +25,18 @@
  *
  */
 
-#include <config.h> // For definition of ENABLE_FLAC
+#include "config.h" /* For definition of ENABLE_FLAC. */
 
 #ifdef ENABLE_FLAC
 
 #include <gtk/gtk.h>
 #include <glib/gi18n-lib.h>
-#include <stdio.h>
-#include <errno.h>
-#include <string.h>    // 20030519 <tmancill@debian.org> for compiliation on ia64 arch
 #include <FLAC/all.h>
 
 #include "easytag.h"
 #include "et_core.h"
 #include "flac_header.h"
-#include "log.h"
 #include "misc.h"
-#include "charset.h"
 
 
 /****************
@@ -84,7 +79,6 @@ static void error_callback_   (const FLAC__StreamDecoder *decoder, FLAC__StreamD
 
 gboolean Flac_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
 {
-    FILE *file;
     gint duration = 0;
     gulong filesize;
     FLAC__StreamDecoder *tmp_decoder;
@@ -93,18 +87,9 @@ gboolean Flac_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
 
     g_return_val_if_fail (filename != NULL && ETFileInfo != NULL, FALSE);
 
-    if ( (file=fopen(filename,"r"))==NULL )
-    {
-        gchar *filename_utf8 = filename_to_display(filename);
-        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
-        g_free(filename_utf8);
-        return FALSE;
-    }
-    fclose(file);
-
     /* Decoding FLAC file */
     tmp_decoder = FLAC__stream_decoder_new();
-    if (tmp_decoder == 0)
+    if (tmp_decoder == NULL)
     {
         return FALSE;
     }
