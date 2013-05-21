@@ -2421,7 +2421,8 @@ Search_File (GtkWidget *search_button)
 
     // Display the number of files in the statusbar
     resultCount = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(SearchResultListModel), NULL);
-    msg = g_strdup_printf(_("Found: %d file(s)"), resultCount);
+    msg = g_strdup_printf (ngettext ("Found one file", "Found %d files",
+                           resultCount), resultCount);
     gtk_statusbar_push(GTK_STATUSBAR(SearchStatusBar),SearchStatusBarContext,msg);
     g_free(msg);
 
