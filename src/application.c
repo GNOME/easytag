@@ -76,8 +76,8 @@ display_usage (void)
  *
  * Parse the local instance command-line arguments.
  *
- * Returns: %FALSE to indicate that the command-line arguments were not
- *          completely handled in the local instance, or does not return
+ * Returns: %TRUE to indicate that the command-line arguments were completely
+ * handled in the local instance
  */
 static gboolean
 et_local_command_line (GApplication *application, gchar **arguments[],
@@ -85,7 +85,6 @@ et_local_command_line (GApplication *application, gchar **arguments[],
 {
     GError *error = NULL;
     guint n_args;
-    gint i;
     gchar **argv;
 
     /* Try to register. */
@@ -101,16 +100,17 @@ et_local_command_line (GApplication *application, gchar **arguments[],
     n_args = g_strv_length (argv);
     *exit_status = 0;
 
+    g_debug ("Received %d commandline arguments", n_args);
+
     if (n_args <= 1)
     {
-        gtk_init (NULL, NULL);
         g_application_activate (application);
         return TRUE;
     }
-    i = 1;
-
-    while (argv[i])
+    else
     {
+        const gsize i = 1;
+
         /* Exit the local instance for --help and --version. */
         if ((strcmp (argv[i], "--version") == 0)
             || (strcmp (argv[i], "-v") == 0))
@@ -129,11 +129,30 @@ et_local_command_line (GApplication *application, gchar **arguments[],
         {
             /* Assume a filename otherwise, and allow the primary instance to
              * handle it. */
-            i++;
+            GFile **files;
+            gsize n_files;
+            gsize j;
+
+            n_files = n_args - 1;
+            files = g_new (GFile *, n_files);
+
+            for (j = 0; j < n_files; j++)
+            {
+                files[j] = g_file_new_for_commandline_arg (argv[j + 1]);
+            }
+
+            g_application_open (application, files, n_files, "");
+
+            for (j = 0; j < n_files; j++)
+            {
+                g_object_unref (files[j]);
+            }
+
+            g_free (files);
         }
     }
 
-    return FALSE;
+    return TRUE;
 }
 
 static void
@@ -178,7 +197,7 @@ et_application_new ()
 
     return g_object_new (et_application_get_type (), "application-id",
                          "org.gnome.EasyTAG", "flags",
-                         G_APPLICATION_FLAGS_NONE, NULL);
+                         G_APPLICATION_HANDLES_OPEN, NULL);
 }
 
 /*

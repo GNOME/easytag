@@ -165,123 +165,200 @@ setup_sigchld (void)
 #endif /* !G_OS_WIN32 */
 
 /*
- * command_line:
- * @application: the application
- * @command_line: the command line to process
- * @user_data: user data set when the signal handler was connected
+ * check_for_hidden_path_in_tree:
+ * @arg: the path to check
  *
- * Handle the command-line arguments passed to the primary instance. The local
- * instance arguments are handled in EtApplication.
- *
- * Returns: the exit status to be passed to the calling process
+ * Recursively check for a hidden path in the directory tree given by @arg. If
+ * a hidden path is found, set BROWSE_HIDDEN to 1.
  */
-static gint
-command_line (GApplication *application,
-              GApplicationCommandLine *command_line, gpointer user_data)
+static void
+check_for_hidden_path_in_tree (GFile *arg)
 {
-    gchar **argv;
-    gint argc;
+    GFile *file = NULL;
+    GFile *parent;
+    GFileInfo *info;
+    GError *err = NULL;
 
-    argv = g_application_command_line_get_arguments (command_line, &argc);
+    /* Not really the parent until an iteration through the loop below. */
+    parent = g_file_dup (arg);
 
-    /* Check given arguments */
-    if (argc > 1)
+    do
     {
-        GFile *arg;
-        GFile *file = NULL;
-        GFile *parent;
-        GFileInfo *info;
-        GError *err = NULL;
-        GFileType type;
+        info = g_file_query_info (parent,
+                                  G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN,
+                                  G_FILE_QUERY_INFO_NONE, NULL, &err);
 
-        arg = g_file_new_for_commandline_arg (argv[1]);
-        /* Not really the parent of arg. */
-        parent = g_file_dup (arg);
-
-        do
+        if (info == NULL)
         {
-            info = g_file_query_info (parent,
-                                      G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN,
-                                      G_FILE_QUERY_INFO_NONE, NULL, &err);
+            g_message ("Error querying file information (%s)", err->message);
+            g_clear_error (&err);
 
-            if (info == NULL)
-            {
-                g_warning ("Error querying file information (%s)",
-                           err->message);
-                g_error_free (err);
-                if (file)
-                {
-                    g_clear_object (&file);
-                }
-                g_object_unref (parent);
-                break;
-            }
-            else
-            {
-                if (g_file_info_get_is_hidden (info))
-                {
-                    /* If the user saves the configuration for this session,
-                     * this value will be saved. */
-                    /* FIXME: Avoid this being overridden in activate(). */
-                    BROWSE_HIDDEN_DIR = 1;
-                }
-            }
-
-            g_object_unref (info);
             if (file)
             {
                 g_clear_object (&file);
             }
-            file = parent;
+            g_object_unref (parent);
+            break;
         }
-        while ((parent = g_file_get_parent (file)) != NULL);
-
-        info = g_file_query_info (arg, G_FILE_ATTRIBUTE_STANDARD_TYPE,
-                                  G_FILE_QUERY_INFO_NONE, NULL, &err);
-        type = g_file_info_get_file_type (info);
-
-        switch (type)
+        else
         {
-            case G_FILE_TYPE_DIRECTORY:
-                INIT_DIRECTORY = g_file_get_path (arg);
-                g_object_unref (arg);
-                break;
-            case G_FILE_TYPE_REGULAR:
-                /* When passing a file, only load the directory. */
-                parent = g_file_get_parent (arg);
-                g_object_unref (arg);
-
-                if (parent)
-                {
-                    INIT_DIRECTORY = g_file_get_path (parent);
-                    g_object_unref (parent);
-                    break;
-                }
-                /* Fall through on error. */
-            default:
-                g_application_command_line_printerr (command_line,
-                                                     _("Unknown parameter or path '%s'\n"),
-                                                     argv[1]);
-                return 1;
-                break;
+            if (g_file_info_get_is_hidden (info))
+            {
+                /* If the user saves the configuration for this session,
+                 * this value will be saved. */
+                BROWSE_HIDDEN_DIR = 1;
+            }
         }
-    }
 
-    /* Initialize GTK. */
-    if (et_application_get_window (ET_APPLICATION (application)) == NULL)
+        g_object_unref (info);
+
+        if (file)
+        {
+            g_clear_object (&file);
+        }
+
+        file = parent;
+    }
+    while ((parent = g_file_get_parent (file)) != NULL);
+
+    if (file)
     {
-        gtk_init (&argc, &argv);
+        g_clear_object (&file);
     }
-
-    g_strfreev (argv);
-
-    g_application_activate (application);
-
-    return 0;
 }
 
+/*
+ * on_application_open:
+ * @application: the application
+ * @files: array of files to open
+ * @n_files: the number of files
+ * @hint: hint of method to open files, currently empty
+ * @user_data: user data set when the signal handler was connected
+ *
+ * Handle the files passed to the primary instance. The local instance
+ * arguments are handled in EtApplication.
+ *
+ * Returns: the exit status to be passed to the calling process
+ */
 static void
-activate (GApplication *application, gpointer user_data)
+on_application_open (GApplication *application, GFile **files, gint n_files,
+                     gchar *hint, gpointer user_data)
+{
+    GtkWindow *main_window;
+    gboolean activated;
+    GFile *arg;
+    GFile *parent;
+    GFileInfo *info;
+    GError *err = NULL;
+    GFileType type;
+    gchar *path;
+    gchar *path_utf8;
+
+    main_window = et_application_get_window (ET_APPLICATION (application));
+    activated = main_window ? TRUE : FALSE;
+
+    /* Only take the first file; ignore the rest. */
+    arg = files[0];
+
+    check_for_hidden_path_in_tree (arg);
+
+    path = g_file_get_path (arg);
+    path_utf8 = filename_to_display (path);
+    info = g_file_query_info (arg, G_FILE_ATTRIBUTE_STANDARD_TYPE,
+                              G_FILE_QUERY_INFO_NONE, NULL, &err);
+
+    if (info == NULL)
+    {
+        if (activated)
+        {
+            Log_Print (LOG_ERROR, _("Error while querying information for file: '%s' (%s)"),
+                       path_utf8, err->message);
+
+        }
+        else
+        {
+            g_warning ("Error while querying information for file: '%s' (%s)",
+                       path_utf8, err->message);
+        }
+
+        g_free (path);
+        g_free (path_utf8);
+        g_error_free (err);
+        return;
+    }
+
+    type = g_file_info_get_file_type (info);
+
+    switch (type)
+    {
+        case G_FILE_TYPE_DIRECTORY:
+            if (activated)
+            {
+                Browser_Tree_Select_Dir (path);
+                g_free (path);
+            }
+            else
+            {
+                INIT_DIRECTORY = path;
+            }
+
+            g_free (path_utf8);
+            g_object_unref (info);
+            break;
+        case G_FILE_TYPE_REGULAR:
+            /* When given a file, load the parent directory. */
+            parent = g_file_get_parent (arg);
+            g_object_unref (arg);
+
+            if (parent)
+            {
+                g_free (path_utf8);
+                g_free (path);
+
+                if (activated)
+                {
+                    gchar *parent_path;
+
+                    parent_path = g_file_get_path (arg);
+                    Browser_Tree_Select_Dir (parent_path);
+
+                    g_free (parent_path);
+                    g_free (path_utf8);
+                }
+                else
+                {
+                    INIT_DIRECTORY = g_file_get_path (parent);
+                }
+
+                g_object_unref (parent);
+                g_object_unref (info);
+                break;
+            }
+            /* Fall through on error. */
+        default:
+            Log_Print (LOG_WARNING, _("Cannot open path '%s'"), path_utf8);
+            g_free (path);
+            g_free (path_utf8);
+            return;
+            break;
+    }
+
+    if (!activated)
+    {
+        g_application_activate (application);
+    }
+}
+
+/*
+ * on_application_activate:
+ * @application: the application
+ * @user_data: user data set when the signal handler was connected
+ *
+ * Handle the application being activated, which occurs on startup or when
+ * opening a second instance.
+ */
+static void
+on_application_activate (GApplication *application, gpointer user_data)
 {
     GtkWindow *main_window;
     GtkWidget *MainVBox;
@@ -293,6 +370,9 @@ activate (GApplication *application, gpointer user_data)
         gtk_window_present (main_window);
         return;
     }
+
+    /* FIXME: Find a way to pass the arguments in. */
+    gtk_init (NULL, NULL);
 
     Charset_Insert_Locales_Init();
 
@@ -456,9 +536,10 @@ int main (int argc, char *argv[])
     INIT_DIRECTORY = NULL;
 
     application = et_application_new ();
-    g_signal_connect (application, "command-line", G_CALLBACK (command_line),
+    g_signal_connect (application, "open", G_CALLBACK (on_application_open),
                       NULL);
-    g_signal_connect (application, "activate", G_CALLBACK (activate), NULL);
+    g_signal_connect (application, "activate",
+                      G_CALLBACK (on_application_activate), NULL);
     status = g_application_run (G_APPLICATION (application), argc, argv);
     g_object_unref (application);
 
