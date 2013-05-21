@@ -96,7 +96,6 @@ int easytag_main (struct HINSTANCE__ *hInstance, int argc, char *argv[]);
 #endif /* G_OS_WIN32 */
 #ifndef G_OS_WIN32
 static void Handle_Crash (gint signal_id);
-static const gchar *signal_to_string (gint signal);
 #endif /* !G_OS_WIN32 */
 
 static GtkWidget *Create_Browser_Area (void);
@@ -4380,7 +4379,8 @@ Handle_Crash (gint signal_id)
     //gchar commmand[256];
 
     Log_Print(LOG_ERROR,_("EasyTAG version %s: Abnormal exit (PID: %d)"),PACKAGE_VERSION,getpid());
-    Log_Print(LOG_ERROR,_("Received signal %s (%d)"),signal_to_string(signal_id),signal_id);
+    Log_Print (LOG_ERROR, _("Received signal '%s' (%d)"),
+               g_strsignal (signal_id), signal_id);
 
     Log_Print(LOG_ERROR,_("You have probably found a bug in EasyTAG. Please, "
                           "file a bug report with a GDB backtrace ('gdb "
@@ -4390,8 +4390,8 @@ Handle_Crash (gint signal_id)
     // To send messages to the console...
     g_print(_("EasyTAG version %s: Abnormal exit (PID: %d)."),PACKAGE_VERSION,getpid());
     g_print("\n");
-    g_print (_("Received signal %s (%d)"),
-             signal_to_string (signal_id), signal_id);
+    g_print (_("Received signal '%s' (%d)"), g_strsignal (signal_id),
+             signal_id);
     g_print ("\a\n");
     g_print(_("You have probably found a bug in EasyTAG. Please, file a bug "
             "report with a GDB backtrace ('gdb easytag core' then 'bt' and "
@@ -4402,126 +4402,6 @@ Handle_Crash (gint signal_id)
     //signal(SIGTSTP, exit);
     //snprintf(commmand,sizeof(commmand),"gdb -x /root/core.txt easytag %d", getpid());
     //system(commmand);
-}
-
-static const gchar *
-signal_to_string (gint signal)
-{
-#ifdef SIGHUP
-    if (signal == SIGHUP)     return ("SIGHUP");
-#endif
-#ifdef SIGINT
-    if (signal == SIGINT)     return ("SIGINT");
-#endif
-#ifdef SIGQUIT
-    if (signal == SIGQUIT)    return ("SIGQUIT");
-#endif
-#ifdef SIGILL
-    if (signal == SIGILL)     return ("SIGILL");
-#endif
-#ifdef SIGTRAP
-    if (signal == SIGTRAP)    return ("SIGTRAP");
-#endif
-#ifdef SIGABRT
-    if (signal == SIGABRT)    return ("SIGABRT");
-#endif
-#ifdef SIGIOT
-    if (signal == SIGIOT)     return ("SIGIOT");
-#endif
-#ifdef SIGEMT
-    if (signal == SIGEMT)     return ("SIGEMT");
-#endif
-#ifdef SIGFPE
-    if (signal == SIGFPE)     return ("SIGFPE");
-#endif
-#ifdef SIGKILL
-    if (signal == SIGKILL)    return ("SIGKILL");
-#endif
-#ifdef SIGBUS
-    if (signal == SIGBUS)     return ("SIGBUS");
-#endif
-#ifdef SIGSEGV
-    if (signal == SIGSEGV)    return ("SIGSEGV");
-#endif
-#ifdef SIGSYS
-    if (signal == SIGSYS)     return ("SIGSYS");
-#endif
-#ifdef SIGPIPE
-    if (signal == SIGPIPE)    return ("SIGPIPE");
-#endif
-#ifdef SIGALRM
-    if (signal == SIGALRM)    return ("SIGALRM");
-#endif
-#ifdef SIGTERM
-    if (signal == SIGTERM)    return ("SIGTERM");
-#endif
-#ifdef SIGUSR1
-    if (signal == SIGUSR1)    return ("SIGUSR1");
-#endif
-#ifdef SIGUSR2
-    if (signal == SIGUSR2)    return ("SIGUSR2");
-#endif
-#ifdef SIGCHLD
-    if (signal == SIGCHLD)    return ("SIGCHLD");
-#endif
-#ifdef SIGCLD
-    if (signal == SIGCLD)     return ("SIGCLD");
-#endif
-#ifdef SIGPWR
-    if (signal == SIGPWR)     return ("SIGPWR");
-#endif
-#ifdef SIGVTALRM
-    if (signal == SIGVTALRM)  return ("SIGVTALRM");
-#endif
-#ifdef SIGPROF
-    if (signal == SIGPROF)    return ("SIGPROF");
-#endif
-#ifdef SIGIO
-    if (signal == SIGIO)      return ("SIGIO");
-#endif
-#ifdef SIGPOLL
-    if (signal == SIGPOLL)    return ("SIGPOLL");
-#endif
-#ifdef SIGWINCH
-    if (signal == SIGWINCH)   return ("SIGWINCH");
-#endif
-#ifdef SIGWINDOW
-    if (signal == SIGWINDOW)  return ("SIGWINDOW");
-#endif
-#ifdef SIGSTOP
-    if (signal == SIGSTOP)    return ("SIGSTOP");
-#endif
-#ifdef SIGTSTP
-    if (signal == SIGTSTP)    return ("SIGTSTP");
-#endif
-#ifdef SIGCONT
-    if (signal == SIGCONT)    return ("SIGCONT");
-#endif
-#ifdef SIGTTIN
-    if (signal == SIGTTIN)    return ("SIGTTIN");
-#endif
-#ifdef SIGTTOU
-    if (signal == SIGTTOU)    return ("SIGTTOU");
-#endif
-#ifdef SIGURG
-    if (signal == SIGURG)     return ("SIGURG");
-#endif
-#ifdef SIGLOST
-    if (signal == SIGLOST)    return ("SIGLOST");
-#endif
-#ifdef SIGRESERVE
-    if (signal == SIGRESERVE) return ("SIGRESERVE");
-#endif
-#ifdef SIGDIL
-    if (signal == SIGDIL)     return ("SIGDIL");
-#endif
-#ifdef SIGXCPU
-    if (signal == SIGXCPU)    return ("SIGXCPU");
-#endif
-#ifdef SIGXFSZ
-    if (signal == SIGXFSZ)    return ("SIGXFSZ");
-#endif
-    return (_("Unknown signal"));
 }
 #endif /* !G_OS_WIN32 */
 
