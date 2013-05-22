@@ -754,11 +754,11 @@ static void Open_File_Selection_Window (GtkWidget *entry, gchar *title, GtkFileC
  * Run the audio player and load files of the current dir
  */
 static void
-Run_Audio_Player_Using_File_List (GList *etfilelist_init)
+Run_Audio_Player_Using_File_List (GList *etfilelist)
 {
     gchar  **argv;
     gint     argv_index = 0;
-    GList   *etfilelist;
+    GList *l;
     ET_File *etfile;
     gchar   *filename;
     gchar   *program_path;
@@ -798,9 +798,6 @@ Run_Audio_Player_Using_File_List (GList *etfilelist_init)
     }
     g_free(program_path);
 
-    // The list of files to play
-    etfilelist = etfilelist_init;
-
 #ifdef G_OS_WIN32
     // See documentation : http://c.developpez.com/faq/vc/?page=ProcessThread and http://www.answers.com/topic/createprocess
     ZeroMemory(&siStartupInfo, sizeof(siStartupInfo));
@@ -811,14 +808,14 @@ Run_Audio_Player_Using_File_List (GList *etfilelist_init)
     argv[argv_index++] = "foo";
 
     // Load files as arguments
-    while (etfilelist)
+    for (l = etfilelist; l != NULL; l = g_list_next (l))
     {
-        etfile   = (ET_File *)etfilelist->data;
+        etfile = (ET_File *)l->data;
         filename = ((File_Name *)etfile->FileNameCur->data)->value;
         //filename_utf8 = ((File_Name *)etfile->FileNameCur->data)->value_utf8;
+        /* TODO: Use g_shell_quote() instead. */
         // We must enclose filename between quotes, because of possible (probable!) spaces in filenames"
         argv[argv_index++] = g_strconcat("\"", filename, "\"", NULL);
-        etfilelist = etfilelist->next;
     }
     argv[argv_index] = NULL; // Ends the list of arguments
 
@@ -850,7 +847,9 @@ Run_Audio_Player_Using_File_List (GList *etfilelist_init)
     // Number of arguments into 'argv_user'
     for (argv_user_number=0;argv_user[argv_user_number];argv_user_number++);
 
-    argv = g_new0(gchar *,argv_user_number + g_list_length(etfilelist) + 1); // +1 for NULL
+    /* +1 for NULL. */
+    argv = g_new0 (gchar *,
+                   argv_user_number + g_list_length (etfilelist) + 1);
 
     // Load 'user' arguments (program name and more...)
     while (argv_user[argv_index])
@@ -860,13 +859,12 @@ Run_Audio_Player_Using_File_List (GList *etfilelist_init)
     }
 
     // Load files as arguments
-    while (etfilelist)
+    for (l = etfilelist; l != NULL; l = g_list_next (l))
     {
-        etfile   = (ET_File *)etfilelist->data;
+        etfile = (ET_File *)l->data;
         filename = ((File_Name *)etfile->FileNameCur->data)->value;
         //filename_utf8 = ((File_Name *)etfile->FileNameCur->data)->value_utf8;
         argv[argv_index++] = filename;
-        etfilelist = etfilelist->next;
     }
     argv[argv_index] = NULL; // Ends the list of arguments
 
@@ -905,6 +903,7 @@ void Run_Audio_Player_Using_Selection (void)
 {
     GList *etfilelist = NULL;
     GList *selfilelist = NULL;
+    GList *l;
     ET_File *etfile;
     GtkTreeSelection *selection;
 
@@ -912,17 +911,15 @@ void Run_Audio_Player_Using_Selection (void)
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
     selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
-    while (selfilelist)
+
+    for (l = selfilelist; l != NULL; l = g_list_next (l))
     {
         etfile = Browser_List_Get_ETFile_From_Path(selfilelist->data);
-        etfilelist = g_list_append(etfilelist, etfile);
-
-        if (!selfilelist->next) break;
-        selfilelist = selfilelist->next;
+        etfilelist = g_list_prepend (etfilelist, etfile);
     }
 
-    g_list_foreach(selfilelist, (GFunc) gtk_tree_path_free, NULL);
-    g_list_free(selfilelist);
+    etfilelist = g_list_reverse (etfilelist);
+    g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
 
     Run_Audio_Player_Using_File_List(etfilelist);
 
@@ -947,14 +944,12 @@ void Run_Audio_Player_Using_Browser_Artist_List (void)
                        ARTIST_ALBUM_LIST_POINTER, &AlbumList,
                        -1);
 
-    while (AlbumList)
+    for (; AlbumList != NULL; AlbumList = g_list_next (AlbumList))
     {
         etfilelist = g_list_copy((GList *)AlbumList->data);
-        if (!concatenated_list)
-            concatenated_list = etfilelist;
-        else
-            concatenated_list = g_list_concat(concatenated_list,etfilelist);
-        AlbumList = AlbumList->next;
+        concatenated_list = concatenated_list ? g_list_concat (concatenated_list,
+                                                               etfilelist)
+                                              : etfilelist;
     }
 
     Run_Audio_Player_Using_File_List(concatenated_list);
@@ -1594,6 +1589,7 @@ write_playlist (GFile *file, GError **error)
     GFileOutputStream *ostream;
     GString *to_write;
     ET_File *etfile;
+    GList *l;
     GList *etfilelist = NULL;
     gchar *filename;
     gchar *basedir;
@@ -1640,24 +1636,24 @@ write_playlist (GFile *file, GError **error)
         GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
 
         selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
-        while (selfilelist)
-        {
-            etfile = Browser_List_Get_ETFile_From_Path(selfilelist->data);
-            etfilelist = g_list_append(etfilelist, etfile);
 
-            if (!selfilelist->next) break;
-            selfilelist = selfilelist->next;
+        for (l = selfilelist; l != NULL; l = g_list_next (l))
+        {
+            etfile = Browser_List_Get_ETFile_From_Path (l->data);
+            etfilelist = g_list_prepend (etfilelist, etfile);
         }
 
-        g_list_foreach(selfilelist, (GFunc) gtk_tree_path_free, NULL);
-        g_list_free(selfilelist);
+        etfilelist = g_list_reverse (etfilelist);
+
+        g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
     }else
     {
         etfilelist = g_list_first(ETCore->ETFileList);
     }
-    while (etfilelist)
+
+    for (l = etfilelist; l != NULL; l = g_list_next (l))
     {
-        etfile   = (ET_File *)etfilelist->data;
+        etfile = (ET_File *)l->data;
         filename = ((File_Name *)etfile->FileNameCur->data)->value;
         duration = ((ET_File_Info *)etfile->ETFileInfo)->duration;
 
@@ -1847,7 +1843,6 @@ write_playlist (GFile *file, GError **error)
                 g_string_free (to_write, TRUE);
             }
         }
-        etfilelist = etfilelist->next;
     }
 
     if (PLAYLIST_ONLY_SELECTED_FILES)
@@ -2271,7 +2266,7 @@ static void
 Search_File (GtkWidget *search_button)
 {
     const gchar *string_to_search = NULL;
-    GList *etfilelist;
+    GList *l;
     ET_File *ETFile;
     gchar *msg;
     gchar *temp = NULL;
@@ -2294,10 +2289,9 @@ Search_File (GtkWidget *search_button)
     gtk_list_store_clear(SearchResultListModel);
     gtk_statusbar_push(GTK_STATUSBAR(SearchStatusBar),SearchStatusBarContext,"");
 
-    etfilelist = g_list_first(ETCore->ETFileList);
-    while (etfilelist)
+    for (l = g_list_first (ETCore->ETFileList); l != NULL; l = g_list_next (l))
     {
-        ETFile = (ET_File *)etfilelist->data;
+        ETFile = (ET_File *)l->data;
 
         // Search in the filename
         if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(SearchInFilename)))
@@ -2321,7 +2315,6 @@ Search_File (GtkWidget *search_button)
             if ( basename_utf8 && strstr(basename_utf8,string_to_search2) )
             {
                 Add_Row_To_Search_Result_List(ETFile, string_to_search2);
-                etfilelist = etfilelist->next;
                 g_free(basename_utf8);
                 g_free(string_to_search2);
                 continue;
@@ -2414,7 +2407,6 @@ Search_File (GtkWidget *search_button)
             g_free(encoded_by2);
             g_free(string_to_search2);
         }
-        etfilelist = etfilelist->next;
     }
 
     gtk_widget_set_sensitive(GTK_WIDGET(search_button),TRUE);
@@ -2627,29 +2619,25 @@ static void
 Search_Result_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
 {
     GList       *selectedRows;
-    GList       *selectedRowsCopy;
+    GList *l;
     ET_File     *ETFile;
     GtkTreeIter  currentFile;
-    gboolean     found;
 
     selectedRows = gtk_tree_selection_get_selected_rows(selection, NULL);
-    selectedRowsCopy = selectedRows;
 
     /* We might be called with no rows selected */
-    if (g_list_length(selectedRows) == 0)
+    if (!selectedRows)
     {
-        g_list_foreach(selectedRowsCopy, (GFunc) gtk_tree_path_free, NULL);
-        g_list_free(selectedRowsCopy);
         return;
     }
 
     // Unselect files in the main list before re-selecting them...
     Browser_List_Unselect_All_Files();
 
-    while (selectedRows)
+    for (l = selectedRows; l != NULL; l = g_list_next (l))
     {
-        found = gtk_tree_model_get_iter(GTK_TREE_MODEL(SearchResultListModel), &currentFile, (GtkTreePath*)selectedRows->data);
-        if (found)
+        if (gtk_tree_model_get_iter (GTK_TREE_MODEL (SearchResultListModel),
+                                     &currentFile, (GtkTreePath *)l->data))
         {
             gtk_tree_model_get(GTK_TREE_MODEL(SearchResultListModel), &currentFile, 
                                SEARCH_RESULT_POINTER, &ETFile, -1);
@@ -2659,11 +2647,9 @@ Search_Result_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
             if (!selectedRows->next)
                 Action_Select_Nth_File_By_Etfile(ETFile);
         }
-        selectedRows = selectedRows->next;
     }
 
-    g_list_foreach(selectedRowsCopy, (GFunc) gtk_tree_path_free, NULL);
-    g_list_free(selectedRowsCopy);
+    g_list_free_full (selectedRows, (GDestroyNotify)gtk_tree_path_free);
 }
 
 
@@ -3167,17 +3153,17 @@ Load_File_Content (GtkWidget *entry)
 static void
 Load_File_List (void)
 {
-    GList *etfilelist;
+    GList *l;
     ET_File *etfile;
     gchar *filename_utf8;
     gchar *pos;
     GtkTreeIter iter;
 
     gtk_list_store_clear(LoadFileNameListModel);
-    etfilelist = g_list_first(ETCore->ETFileList);
-    while (etfilelist)
+
+    for (l = g_list_first (ETCore->ETFileList); l != NULL; l = g_list_next (l))
     {
-        etfile   = (ET_File *)etfilelist->data;
+        etfile = (ET_File *)l->data;
         filename_utf8 = g_path_get_basename(((File_Name *)etfile->FileNameNew->data)->value_utf8);
         // Remove the extension ('filename' must be allocated to don't affect the initial value)
         if ((pos=strrchr(filename_utf8,'.'))!=NULL)
@@ -3185,10 +3171,9 @@ Load_File_List (void)
         gtk_list_store_append(LoadFileNameListModel, &iter);
         gtk_list_store_set(LoadFileNameListModel, &iter,
                            LOAD_FILE_NAME_TEXT, filename_utf8,
-                           LOAD_FILE_NAME_POINTER, etfilelist->data,
+                           LOAD_FILE_NAME_POINTER, l->data,
                            -1);
         g_free(filename_utf8);
-        etfilelist = etfilelist->next;
     }
 }
 /*
@@ -3514,12 +3499,11 @@ Load_Filename_List_Move_Up (GtkWidget *treeview)
 {
     GtkTreeSelection *selection;
     GList *selectedRows;
-    GList *selectedRowsCopy;
+    GList *l;
     GtkTreeIter currentFile;
     GtkTreeIter nextFile;
     GtkTreePath *currentPath;
     GtkTreeModel *treemodel;
-    gboolean valid;
 
     g_return_if_fail (treeview != NULL);
 
@@ -3527,20 +3511,16 @@ Load_Filename_List_Move_Up (GtkWidget *treeview)
     treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview));
     selectedRows = gtk_tree_selection_get_selected_rows(selection, NULL);
 
-    if (g_list_length(selectedRows) == 0)
+    if (!selectedRows)
     {
-        g_list_foreach(selectedRows, (GFunc)gtk_tree_path_free, NULL);
-        g_list_free(selectedRows);
         return;
     }
 
-    selectedRowsCopy = selectedRows;
-
-    while (selectedRows)
+    for (l = selectedRows; l != NULL; l = g_list_next (l))
     {
-        currentPath = (GtkTreePath*) selectedRows->data;
-        valid = gtk_tree_model_get_iter(treemodel, &currentFile, currentPath);
-        if (valid)
+        currentPath = (GtkTreePath *)l->data;
+
+        if (gtk_tree_model_get_iter (treemodel, &currentFile, currentPath))
         {
             // Find the entry above the node...
             if (gtk_tree_path_prev(currentPath))
@@ -3550,14 +3530,9 @@ Load_Filename_List_Move_Up (GtkWidget *treeview)
                 gtk_list_store_swap(GTK_LIST_STORE(treemodel), &currentFile, &nextFile);
             }
         }
-
-        selectedRows = selectedRows->next;
-        if (!selectedRows) break;
     }
 
-    g_list_foreach(selectedRowsCopy, (GFunc)gtk_tree_path_free, NULL);
-    g_list_free(selectedRowsCopy);
-    
+    g_list_free_full (selectedRows, (GDestroyNotify)gtk_tree_path_free);
 }
 
 /*
@@ -3568,12 +3543,11 @@ Load_Filename_List_Move_Down (GtkWidget *treeview)
 {
     GtkTreeSelection *selection;
     GList *selectedRows;
-    GList *selectedRowsCopy;
+    GList *l;
     GtkTreeIter currentFile;
     GtkTreeIter nextFile;
     GtkTreePath *currentPath;
     GtkTreeModel *treemodel;
-    gboolean valid;
 
     g_return_if_fail (treeview != NULL);
 
@@ -3581,34 +3555,25 @@ Load_Filename_List_Move_Down (GtkWidget *treeview)
     treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview));
     selectedRows = gtk_tree_selection_get_selected_rows(selection, NULL);
 
-    if (g_list_length(selectedRows) == 0)
+    if (!selectedRows)
     {
-        g_list_foreach(selectedRows, (GFunc)gtk_tree_path_free, NULL);
-        g_list_free(selectedRows);
         return;
     }
 
-    selectedRowsCopy = selectedRows;
-
-    while (selectedRows)
+    for (l = selectedRows; l != NULL; l = g_list_next (l))
     {
-        currentPath = (GtkTreePath*) selectedRows->data;
-        valid = gtk_tree_model_get_iter(treemodel, &currentFile, currentPath);
-        if (valid)
+        currentPath = (GtkTreePath *)l->data;
+
+        if (gtk_tree_model_get_iter (treemodel, &currentFile, currentPath))
         {
             // Find the entry below the node and swap the two nodes by iter
             gtk_tree_path_next(currentPath);
             if (gtk_tree_model_get_iter(treemodel, &nextFile, currentPath))
                 gtk_list_store_swap(GTK_LIST_STORE(treemodel), &currentFile, &nextFile);
         }
-
-        if (!selectedRows->next) break;
-        selectedRows = selectedRows->next;
     }
 
-    g_list_foreach(selectedRowsCopy, (GFunc)gtk_tree_path_free, NULL);
-    g_list_free(selectedRowsCopy);
-    
+    g_list_free_full (selectedRows, (GDestroyNotify)gtk_tree_path_free);
 }
 
 /*
