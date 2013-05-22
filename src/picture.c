@@ -120,36 +120,33 @@ Picture_Selection_Changed_cb (GtkTreeSelection *selection, gpointer data)
 
 void Picture_Clear_Button_Clicked (GObject *object)
 {
-    GList *paths, *refs = NULL, *node = NULL;
+    GList *paths, *refs = NULL;
+    GList *l;
     GtkTreeSelection *selection;
     GtkTreeModel *model;
     GtkTreeIter iter;
-    gpointer proxy;
-    gint n = 0;
 
     g_return_if_fail (PictureEntryView != NULL);
 
     model = gtk_tree_view_get_model(GTK_TREE_VIEW(PictureEntryView));
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(PictureEntryView));
-    paths = gtk_tree_selection_get_selected_rows(selection, 0);
-    proxy = g_object_newv(G_TYPE_OBJECT, 0, NULL);
+    paths = gtk_tree_selection_get_selected_rows (selection, NULL);
 
-    // List of items to delete
-    for (node = paths; node; node = node->next)
+    /* List of items to delete. */
+    for (l = paths; l != NULL; l = g_list_next (l))
     {
-        refs = g_list_append(refs, gtk_tree_row_reference_new_proxy(proxy, model, node->data));
-        gtk_tree_path_free(node->data);
+        refs = g_list_prepend (refs, gtk_tree_row_reference_new (model,
+                                                                 l->data));
     }
-    g_list_free(paths);
 
-    for (node = refs; node; node = node->next)
+    g_list_free_full (paths, (GDestroyNotify)gtk_tree_path_free);
+
+    for (l = refs; l != NULL; l = g_list_next (l))
     {
-        GtkTreePath *path = gtk_tree_row_reference_get_path(node->data);
+        GtkTreePath *path = gtk_tree_row_reference_get_path (l->data);
         Picture *pic;
-        gboolean valid;
 
-        valid = gtk_tree_model_get_iter(model, &iter, path);
-        if (valid)
+        if (gtk_tree_model_get_iter (model, &iter, path))
         {
             gtk_tree_model_get(model, &iter, PICTURE_COLUMN_DATA, &pic,-1);
             Picture_Free(pic);
@@ -157,10 +154,8 @@ void Picture_Clear_Button_Clicked (GObject *object)
             gtk_list_store_remove(GTK_LIST_STORE(model), &iter);
         }
 
-        gtk_tree_row_reference_deleted(proxy, path);
         gtk_tree_path_free(path);
-        gtk_tree_row_reference_free(node->data);
-        n++;
+        gtk_tree_row_reference_free (l->data);
     }
 
     if (ETCore->ETFileDisplayed)
@@ -436,6 +431,7 @@ void Picture_Properties_Button_Clicked (GObject *object)
     GtkTreeModel *model;
     GtkWindow *parent_window = NULL;
     GList *selection_list = NULL;
+    GList *l;
     gint selection_nbr, selection_i = 1;
     gint response;
     EtPictureType pic_type;
@@ -453,9 +449,10 @@ void Picture_Properties_Button_Clicked (GObject *object)
     selection      = gtk_tree_view_get_selection(GTK_TREE_VIEW(PictureEntryView));
     selection_list = gtk_tree_selection_get_selected_rows(selection, NULL);
     selection_nbr  = gtk_tree_selection_count_selected_rows(GTK_TREE_SELECTION(selection));
-    while (selection_list)
+
+    for (l = selection_list; l != NULL; l = g_list_next (l))
     {
-        GtkTreePath *path = selection_list->data;
+        GtkTreePath *path = l->data;
         Picture *pic = NULL;
         GtkTreeSelection *selectiontype;
         gchar *title;
@@ -618,10 +615,9 @@ void Picture_Properties_Button_Clicked (GObject *object)
             }
         }
         gtk_widget_destroy(PictureTypesWindow);
-
-        if (!selection_list->next) break;
-        selection_list = selection_list->next;
     }
+
+    g_list_free_full (selection_list, (GDestroyNotify)gtk_tree_path_free);
 }
 
 
@@ -634,6 +630,7 @@ void Picture_Save_Button_Clicked (GObject *object)
 
     GtkTreeSelection *selection;
     GList *selection_list = NULL;
+    GList *l;
     GtkTreeModel *model;
     gint selection_nbr, selection_i = 1;
 
@@ -651,9 +648,9 @@ void Picture_Save_Button_Clicked (GObject *object)
     selection_list = gtk_tree_selection_get_selected_rows(selection, NULL);
     selection_nbr  = gtk_tree_selection_count_selected_rows(GTK_TREE_SELECTION(selection));
 
-    while (selection_list)
+    for (l = selection_list; l != NULL; l = g_list_next (l))
     {
-        GtkTreePath *path = selection_list->data;
+        GtkTreePath *path = l->data;
         GtkTreeIter iter;
         Picture *pic;
         gchar *title;
@@ -745,10 +742,9 @@ void Picture_Save_Button_Clicked (GObject *object)
             g_object_unref (file);
         }
         gtk_widget_destroy(FileSelectionWindow);
-
-        if (!selection_list->next) break;
-        selection_list = selection_list->next;
     }
+
+    g_list_free_full (selection_list, (GDestroyNotify)gtk_tree_path_free);
 }
 
 
