@@ -228,6 +228,7 @@ void Open_Cddb_Window (void)
     gchar *CddbTrackList_Titles[] = { "#", N_("Track Name"), N_("Duration")};
     GtkCellRenderer* renderer;
     GtkTreeViewColumn* column;
+    GtkTreePath *path;
     GtkAllocation allocation = { 0,0,0,0 };
 
     if (CddbWindow != NULL)
@@ -640,7 +641,10 @@ void Open_Cddb_Window (void)
 
     gtk_container_add(GTK_CONTAINER(ScrollWindow), CddbAlbumListView);
 
-    gtk_tree_view_set_cursor(GTK_TREE_VIEW(CddbAlbumListView), gtk_tree_path_new_first(), NULL, FALSE);
+    path = gtk_tree_path_new_first ();
+    gtk_tree_view_set_cursor (GTK_TREE_VIEW (CddbAlbumListView), path, NULL,
+                              FALSE);
+    gtk_tree_path_free (path);
     g_signal_connect(G_OBJECT(gtk_tree_view_get_selection(GTK_TREE_VIEW(CddbAlbumListView))),
             "changed", G_CALLBACK(Cddb_Show_Album_Info), NULL);
     g_signal_connect(G_OBJECT(gtk_tree_view_get_selection(GTK_TREE_VIEW(CddbAlbumListView))),
