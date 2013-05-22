@@ -1305,6 +1305,7 @@ static void
 Cddb_Track_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
 {
     GList       *selectedRows;
+    GList *l;
     GtkTreeIter  currentFile;
     gchar       *text_path;
     ET_File    **etfile;
@@ -1316,21 +1317,21 @@ Cddb_Track_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
     selectedRows = gtk_tree_selection_get_selected_rows(selection, NULL);
 
     // We might be called with no rows selected
-    if (g_list_length(selectedRows) == 0)
+    if (!selectedRows)
     {
-        g_list_foreach(selectedRows, (GFunc) gtk_tree_path_free, NULL);
-        g_list_free(selectedRows);
         return;
     }
 
     // Unselect files in the main list before re-selecting them...
     Browser_List_Unselect_All_Files();
 
-    while (selectedRows)
+    for (l = selectedRows; l != NULL; l = g_list_next (l))
     {
         gboolean found;
 
-        found = gtk_tree_model_get_iter(GTK_TREE_MODEL(CddbTrackListModel), &currentFile, (GtkTreePath*)selectedRows->data);
+        found = gtk_tree_model_get_iter (GTK_TREE_MODEL (CddbTrackListModel),
+                                         &currentFile, (GtkTreePath*)l->data);
+
         if (found)
         {
             if (CDDB_USE_DLM)
@@ -1346,13 +1347,9 @@ Cddb_Track_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
             }
             g_free(text_path);
         }
-
-        if (!selectedRows->next) break;
-        selectedRows = selectedRows->next;
     }
 
-    g_list_foreach(selectedRows, (GFunc) gtk_tree_path_free, NULL);
-    g_list_free(selectedRows);
+    g_list_free_full (selectedRows, (GDestroyNotify)gtk_tree_path_free);
 }
 
 /*
@@ -1822,12 +1819,15 @@ Cddb_Read_Cddb_Header (FILE **file, gchar **cddb_out)
 static gboolean
 Cddb_Free_Album_List (void)
 {
+    GList *l;
+
     g_return_val_if_fail (CddbAlbumList != NULL, FALSE);
 
-    CddbAlbumList = g_list_last(CddbAlbumList);
-    while (CddbAlbumList)
+    CddbAlbumList = g_list_first (CddbAlbumList);
+
+    for (l = CddbAlbumList; l != NULL; l = g_list_next (l))
     {
-        CddbAlbum *cddbalbum = CddbAlbumList->data;
+        CddbAlbum *cddbalbum = l->data;
 
         if (cddbalbum)
         {
@@ -1851,37 +1851,35 @@ Cddb_Free_Album_List (void)
             g_free(cddbalbum);
             cddbalbum = NULL;
         }
-        if (!CddbAlbumList->prev) break;
-        CddbAlbumList = CddbAlbumList->prev;
     }
 
     g_list_free(CddbAlbumList);
-    CddbAlbumList = NULL;
+
     return TRUE;
 }
 
 static gboolean
 Cddb_Free_Track_Album_List (GList *track_list)
 {
-    GList *CddbTrackAlbumList;
+    GList *l;
 
     g_return_val_if_fail (track_list != NULL, FALSE);
 
-    CddbTrackAlbumList = g_list_last(track_list);
-    while (CddbTrackAlbumList)
+    track_list = g_list_first (track_list);
+
+    for (l = track_list; l != NULL; l = g_list_next (l))
     {
-        CddbTrackAlbum *cddbtrackalbum = CddbTrackAlbumList->data;
+        CddbTrackAlbum *cddbtrackalbum = l->data;
         if (cddbtrackalbum)
         {
             g_free(cddbtrackalbum->track_name);
             g_free(cddbtrackalbum);
             cddbtrackalbum = NULL;
         }
-        if (!CddbTrackAlbumList->prev) break;
-        CddbTrackAlbumList = CddbTrackAlbumList->prev;
     }
-    g_list_free(CddbTrackAlbumList);
-    CddbTrackAlbumList = NULL;
+
+    g_list_free (track_list);
+
     return TRUE;
 }
 
@@ -1896,7 +1894,7 @@ Cddb_Load_Album_List (gboolean only_red_lines)
     if (CddbWindow && CddbAlbumList && CddbAlbumListView)
     {
         GtkTreeIter iter;
-        GList *cddbalbumlist;
+        GList *l;
 
         GtkTreeSelection *selection;
         GList            *selectedRows = NULL;
@@ -1917,10 +1915,9 @@ Cddb_Load_Album_List (gboolean only_red_lines)
         gtk_list_store_clear(CddbAlbumListModel);
 
         // Reload list following parameter 'only_red_lines'
-        cddbalbumlist = g_list_first(CddbAlbumList);
-        while (cddbalbumlist)
+        for (l = g_list_first (CddbAlbumList); l != NULL; l = g_list_next (l))
         {
-            CddbAlbum *cddbalbum = cddbalbumlist->data;
+            CddbAlbum *cddbalbum = l->data;
 
             if ( (only_red_lines && cddbalbum->track_list) || !only_red_lines)
             {
@@ -1938,7 +1935,6 @@ Cddb_Load_Album_List (gboolean only_red_lines)
                 if (cddbalbum == cddbalbumSelected)
                     gtk_tree_selection_select_iter(gtk_tree_view_get_selection(GTK_TREE_VIEW(CddbAlbumListView)), &iter);
             }
-            cddbalbumlist = cddbalbumlist->next;
         }
     }
 }
@@ -1954,14 +1950,15 @@ Cddb_Load_Track_Album_List (GList *track_list)
 
     if (CddbWindow && track_list && CddbTrackListView)
     {
-        GList *tracklist = g_list_first(track_list);
+        GList *l;
 
         // Must block the select signal of the target to avoid looping
         gtk_list_store_clear(CddbTrackListModel);
-        while (tracklist)
+
+        for (l = g_list_first (track_list); l != NULL; l = g_list_next (l))
         {
             gchar *row_text[1];
-            CddbTrackAlbum *cddbtrackalbum = tracklist->data;
+            CddbTrackAlbum *cddbtrackalbum = l->data;
             ET_File **etfile;
             etfile = g_malloc0(sizeof(ET_File *));
 
@@ -1977,9 +1974,9 @@ Cddb_Load_Track_Album_List (GList *track_list)
                                CDDB_TRACK_LIST_ETFILE, etfile,
                                -1);
 
-            tracklist = tracklist->next;
             g_free(row_text[0]);
         }
+
         Cddb_Set_Apply_Button_Sensitivity();
     }
 }
@@ -2768,6 +2765,7 @@ Cddb_Search_Album_From_Selected_Files (void)
     GtkListStore *fileListModel;
     GtkTreeIter *fileIter;
     GList *file_iterlist = NULL;
+    GList *l;
 
     g_return_val_if_fail (BrowserList != NULL, FALSE);
 
@@ -2781,19 +2779,18 @@ Cddb_Search_Album_From_Selected_Files (void)
     {
         GList* file_selectedrows = gtk_tree_selection_get_selected_rows(file_selection, NULL);
 
-        while (file_selectedrows)
+        for (l = file_selectedrows; l != NULL; l = g_list_next (l))
         {
             iterptr = g_malloc0(sizeof(GtkTreeIter));
             if (gtk_tree_model_get_iter(GTK_TREE_MODEL(fileListModel),
-                                    (GtkTreeIter*) iterptr,
-                                    (GtkTreePath*) file_selectedrows->data))
-                file_iterlist = g_list_append(file_iterlist, iterptr);
-
-            if (!file_selectedrows->next) break;
-            file_selectedrows = file_selectedrows->next;
+                                        (GtkTreeIter*) iterptr,
+                                        (GtkTreePath*) l->data))
+            {
+                file_iterlist = g_list_prepend (file_iterlist, iterptr);
+            }
         }
-        g_list_foreach(file_selectedrows, (GFunc)gtk_tree_path_free, NULL);
-        g_list_free(file_selectedrows);
+        g_list_free_full (file_selectedrows,
+                          (GDestroyNotify)gtk_tree_path_free);
 
     } else /* No rows selected, use the whole list */
     {
@@ -2802,7 +2799,7 @@ Cddb_Search_Album_From_Selected_Files (void)
         do
         {
             iterptr = g_memdup(&currentIter, sizeof(GtkTreeIter));
-            file_iterlist = g_list_append(file_iterlist, iterptr);
+            file_iterlist = g_list_prepend (file_iterlist, iterptr);
         } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(fileListModel), &currentIter));
 
         file_selectedcount = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(fileListModel), NULL);
@@ -2833,12 +2830,13 @@ Cddb_Search_Album_From_Selected_Files (void)
     total_id = 0;
     num_tracks = file_selectedcount;
     query_string = g_strdup("");
-    while (file_iterlist)
+
+    for (l = g_list_reverse (file_iterlist); l != NULL; l = g_list_next (l))
     {
         ET_File *etfile;
         gulong secs = 0;
 
-        fileIter = (GtkTreeIter *)file_iterlist->data;
+        fileIter = (GtkTreeIter *)l->data;
         etfile = Browser_List_Get_ETFile_From_Iter(fileIter);
 
         tmp = query_string;
@@ -2856,11 +2854,9 @@ Cddb_Search_Album_From_Selected_Files (void)
             total_id = total_id + (secs % 10);
             secs = secs / 10;
         }
-        if (!file_iterlist->next) break;
-        file_iterlist = file_iterlist->next;
     }
-    g_list_foreach(file_iterlist, (GFunc)g_free, NULL);
-    g_list_free(file_iterlist);
+
+    g_list_free_full (file_iterlist, (GDestroyNotify)g_free);
 
     // Compute CddbId
     cddb_discid = g_strdup_printf("%08x",(guint)(((total_id % 0xFF) << 24) |
@@ -3618,14 +3614,7 @@ Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
     Cddb_Show_Album_Info(gtk_tree_view_get_selection(GTK_TREE_VIEW(CddbAlbumListView)),NULL);
 
     // Frees 'TrackOffsetList'
-    TrackOffsetList = g_list_last(TrackOffsetList);
-    while (TrackOffsetList)
-    {
-        g_free(TrackOffsetList->data);
-        if (!TrackOffsetList->prev) break;
-        TrackOffsetList = TrackOffsetList->prev;
-    }
-    g_list_free(TrackOffsetList);
+    g_list_free_full (TrackOffsetList, (GDestroyNotify)g_free);
     TrackOffsetList = NULL;
     return TRUE;
 }
@@ -3770,25 +3759,28 @@ Cddb_Set_Track_Infos_To_File_List (void)
 
     if (file_selectedcount > 0)
     {
+        GList *l;
+
         /* Rows are selected in the file list, apply tags to them only */
         file_selectedrows = gtk_tree_selection_get_selected_rows(file_selection, NULL);
 
-        while (file_selectedrows)
+        for (l = file_selectedrows; l != NULL; l = g_list_next (l))
         {
             counter++;
             iterptr = g_malloc0(sizeof(GtkTreeIter));
-            if (gtk_tree_model_get_iter(GTK_TREE_MODEL(fileListModel),
-                                   (GtkTreeIter *)iterptr,
-                                   (GtkTreePath *)file_selectedrows->data))
-                file_iterlist = g_list_append(file_iterlist, iterptr);
+            if (gtk_tree_model_get_iter (GTK_TREE_MODEL (fileListModel),
+                                         (GtkTreeIter *)iterptr,
+                                         (GtkTreePath *)l->data))
+            {
+                file_iterlist = g_list_prepend (file_iterlist, iterptr);
+            }
 
-            if(!file_selectedrows->next || counter == rows_to_loop) break;
-            file_selectedrows = file_selectedrows->next;
+            if (counter == rows_to_loop) break;
         }
 
         /* Free the useless bit */
-        g_list_foreach(file_selectedrows, (GFunc)gtk_tree_path_free, NULL);
-        g_list_free(file_selectedrows);
+        g_list_free_full (file_selectedrows,
+                          (GDestroyNotify)gtk_tree_path_free);
 
     } else /* No rows selected, use the first x items in the list */
     {
@@ -3798,7 +3790,7 @@ Cddb_Set_Track_Infos_To_File_List (void)
         {
             counter++;
             iterptr = g_memdup(&currentIter, sizeof(GtkTreeIter));
-            file_iterlist = g_list_append(file_iterlist, iterptr);
+            file_iterlist = g_list_prepend (file_iterlist, iterptr);
         } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(fileListModel), &currentIter));
 
         file_selectedcount = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(fileListModel), NULL);
@@ -3824,13 +3816,13 @@ Cddb_Set_Track_Infos_To_File_List (void)
 
         if (response != GTK_RESPONSE_APPLY)
         {
-            g_list_foreach(file_iterlist, (GFunc)g_free, NULL);
-            g_list_free(file_iterlist);
+            g_list_free_full (file_iterlist, (GDestroyNotify)g_free);
             //gdk_window_raise(CddbWindow->window);
             return FALSE;
         }
     }
 
+    file_iterlist = g_list_reverse (file_iterlist);
     //ET_Debug_Print_File_List (NULL, __FILE__, __LINE__, __FUNCTION__);
 
     for (row=0; row < rows_to_loop; row++)
@@ -4036,8 +4028,7 @@ Cddb_Set_Track_Infos_To_File_List (void)
         file_iterlist = file_iterlist->next;
     }
 
-    g_list_foreach(file_iterlist, (GFunc)g_free, NULL);
-    g_list_free(file_iterlist);
+    g_list_free_full (file_iterlist, (GDestroyNotify)g_free);
 
     Browser_List_Refresh_Whole_List();
     ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
