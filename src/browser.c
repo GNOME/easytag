@@ -955,10 +955,8 @@ Browser_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
      * After a file is deleted, this function is called :
      * So we must handle the situation if no rows are selected
      */
-    if (g_list_length(selectedRows) == 0)
+    if (!selectedRows)
     {
-        g_list_foreach(selectedRows, (GFunc) gtk_tree_path_free, NULL);
-        g_list_free(selectedRows);
         return;
     }
 
@@ -977,8 +975,7 @@ Browser_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
         Action_Select_Nth_File_By_Etfile(LastBrowserListETFileSelected);
     }
 
-    g_list_foreach(selectedRows, (GFunc) gtk_tree_path_free, NULL);
-    g_list_free(selectedRows);
+    g_list_free_full (selectedRows, (GDestroyNotify)gtk_tree_path_free);
 }
 
 /*
@@ -988,19 +985,20 @@ Browser_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
  */
 void Browser_List_Load_File_List (GList *etfilelist, ET_File *etfile_to_select)
 {
+    GList *l;
     gboolean activate_bg_color = 0;
     GtkTreeIter rowIter;
 
     g_return_if_fail (BrowserList != NULL);
 
     gtk_list_store_clear(fileListModel);
-    etfilelist = g_list_first(etfilelist);
-    while (etfilelist)
+
+    for (l = g_list_first (etfilelist); l != NULL; l = g_list_next (l))
     {
-        guint fileKey                = ((ET_File *)etfilelist->data)->ETFileKey;
-        gchar *current_filename_utf8 = ((File_Name *)((ET_File *)etfilelist->data)->FileNameCur->data)->value_utf8;
+        guint fileKey = ((ET_File *)l->data)->ETFileKey;
+        gchar *current_filename_utf8 = ((File_Name *)((ET_File *)l->data)->FileNameCur->data)->value_utf8;
         gchar *basename_utf8         = g_path_get_basename(current_filename_utf8);
-        File_Tag *FileTag            = ((File_Tag *)((ET_File *)etfilelist->data)->FileTag->data);
+        File_Tag *FileTag = ((File_Tag *)((ET_File *)l->data)->FileTag->data);
         gchar *track;
 
         // Change background color when changing directory (the first row must not be changed)
@@ -1008,7 +1006,7 @@ void Browser_List_Load_File_List (GList *etfilelist, ET_File *etfile_to_select)
         {
             gchar *dir1_utf8;
             gchar *dir2_utf8;
-            gchar *previous_filename_utf8 = ((File_Name *)((ET_File *)etfilelist->prev->data)->FileNameCur->data)->value_utf8;
+            gchar *previous_filename_utf8 = ((File_Name *)((ET_File *)l->prev->data)->FileNameCur->data)->value_utf8;
 
             dir1_utf8 = g_path_get_dirname(previous_filename_utf8);
             dir2_utf8 = g_path_get_dirname(current_filename_utf8);
@@ -1026,7 +1024,7 @@ void Browser_List_Load_File_List (GList *etfilelist, ET_File *etfile_to_select)
 		
         gtk_list_store_set(fileListModel, &rowIter,
                            LIST_FILE_NAME,          basename_utf8,
-                           LIST_FILE_POINTER,       etfilelist->data,
+                           LIST_FILE_POINTER, l->data,
                            LIST_FILE_KEY,           fileKey,
                            LIST_FILE_OTHERDIR,      activate_bg_color,
                            LIST_FILE_TITLE,         FileTag->title,
@@ -1047,16 +1045,14 @@ void Browser_List_Load_File_List (GList *etfilelist, ET_File *etfile_to_select)
         g_free(basename_utf8);
         g_free(track);
 
-        if (etfile_to_select == etfilelist->data)
+        if (etfile_to_select == l->data)
         {
             Browser_List_Select_File_By_Iter(&rowIter, TRUE);
-            //ET_Display_File_Data_To_UI(etfilelist->data);
+            //ET_Display_File_Data_To_UI (l->data);
         }
 
         // Set appearance of the row
         Browser_List_Set_Row_Appearance(&rowIter);
-
-        etfilelist = g_list_next(etfilelist);
     }
 }
 
@@ -1232,8 +1228,8 @@ void Browser_List_Refresh_File_In_List (ET_File *ETFile)
                 }
             }
         }
-        g_list_foreach(selectedRow, (GFunc) gtk_tree_path_free, NULL);
-        g_list_free(selectedRow);
+
+        g_list_free_full (selectedRow, (GDestroyNotify)gtk_tree_path_free);
     }
 
     // 3/3. Fails, now we browse the full list to find it
@@ -1917,11 +1913,11 @@ void Browser_List_Invert_File_Selection (void)
 
 void Browser_Artist_List_Load_Files (ET_File *etfile_to_select)
 {
-    GList *ArtistList;
     GList *AlbumList;
     GList *etfilelist;
     ET_File *etfile;
-    GList *list;
+    GList *l;
+    GList *m;
     GtkTreeIter iter;
     GtkTreeSelection *selection;
     gchar *artistname, *artist_to_select = NULL;
@@ -1934,23 +1930,20 @@ void Browser_Artist_List_Load_Files (ET_File *etfile_to_select)
     gtk_list_store_clear(artistListModel);
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserArtistList));
 
-    ArtistList = ETCore->ETArtistAlbumFileList;
-    while (ArtistList)
+    for (l = ETCore->ETArtistAlbumFileList; l != NULL; l = g_list_next (l))
     {
         gint   nbr_files = 0;
 
         // Insert a line for each artist
-        AlbumList  = (GList *)ArtistList->data;
+        AlbumList = (GList *)l->data;
         etfilelist = (GList *)AlbumList->data;
         etfile     = (ET_File *)etfilelist->data;
         artistname = ((File_Tag *)etfile->FileTag->data)->artist;
 
         // Third column text : number of files
-        list = g_list_first(AlbumList);
-        while (list)
+        for (m = g_list_first (AlbumList); m != NULL; m = g_list_next (m))
         {
-            nbr_files += g_list_length(g_list_first((GList *)list->data));
-            list = list->next;
+            nbr_files += g_list_length (g_list_first ((GList *)m->data));
         }
 
         // Add the new row
@@ -1984,8 +1977,6 @@ void Browser_Artist_List_Load_Files (ET_File *etfile_to_select)
 
         // Set color of the row
         Browser_Artist_List_Set_Row_Appearance(&iter);
-
-        ArtistList = ArtistList->next;
     }
 
     // Select the first line if we weren't asked to select anything
@@ -2027,20 +2018,19 @@ Browser_Artist_List_Row_Selected (GtkTreeSelection* selection, gpointer data)
 static void
 Browser_Artist_List_Set_Row_Appearance (GtkTreeIter *iter)
 {
-    GList *AlbumList;
-    GList *etfilelist;
+    GList *l;
+    GList *m;
     gboolean not_all_saved = FALSE;
 
-    gtk_tree_model_get(GTK_TREE_MODEL(artistListModel), iter,
-                       ARTIST_ALBUM_LIST_POINTER, &AlbumList, -1);
 
     // Change the style (red/bold) of the row if one of the files was changed
-    while (AlbumList)
+    for (gtk_tree_model_get (GTK_TREE_MODEL (artistListModel), iter,
+                             ARTIST_ALBUM_LIST_POINTER, &l, -1);
+         l != NULL; l = g_list_next (l))
     {
-        etfilelist = (GList *)AlbumList->data;
-        while (etfilelist)
+        for (m = (GList *)l->data; m != NULL; m = g_list_next (m))
         {
-            if ( ET_Check_If_File_Is_Saved((ET_File *)etfilelist->data) == FALSE )
+            if (ET_Check_If_File_Is_Saved ((ET_File *)m->data) == FALSE)
             {
                 if (CHANGED_FILES_DISPLAYED_TO_BOLD)
                 {
@@ -2057,9 +2047,7 @@ Browser_Artist_List_Set_Row_Appearance (GtkTreeIter *iter)
                 not_all_saved = TRUE;
                 break;
             }
-            etfilelist = etfilelist->next;
         }
-        AlbumList = AlbumList->next;
     }
 
     // Reset style if all files saved
@@ -2069,7 +2057,6 @@ Browser_Artist_List_Set_Row_Appearance (GtkTreeIter *iter)
                            ARTIST_FONT_WEIGHT,    PANGO_WEIGHT_NORMAL,
                            ARTIST_ROW_FOREGROUND, NULL, -1);
     }
-
 }
 
 
@@ -2080,7 +2067,7 @@ Browser_Artist_List_Set_Row_Appearance (GtkTreeIter *iter)
 static void
 Browser_Album_List_Load_Files (GList *albumlist, ET_File *etfile_to_select)
 {
-    GList *AlbumList;
+    GList *l;
     GList *etfilelist = NULL;
     ET_File *etfile;
     GtkTreeIter iter;
@@ -2097,17 +2084,16 @@ Browser_Album_List_Load_Files (GList *albumlist, ET_File *etfile_to_select)
 
     // Create a first row to select all albums of the artist
     // FIX ME : the attached list must be freed!
-    AlbumList = albumlist;
-    while (AlbumList)
+    for (l = albumlist; l != NULL; l = g_list_next (l))
     {
         GList *etfilelist_tmp;
-        etfilelist_tmp = (GList *)AlbumList->data;
+
+        etfilelist_tmp = (GList *)l->data;
         // We must make a copy to not "alter" the initial list by appending another list
         etfilelist_tmp = g_list_copy(etfilelist_tmp);
         etfilelist = g_list_concat(etfilelist, etfilelist_tmp);
-
-        AlbumList = AlbumList->next;
     }
+
     gtk_list_store_append(albumListModel, &iter);
     gtk_list_store_set(albumListModel, &iter,
                        ALBUM_NAME,                _("<All albums>"),
@@ -2116,11 +2102,10 @@ Browser_Album_List_Load_Files (GList *albumlist, ET_File *etfile_to_select)
                        -1);
 
     // Create a line for each album of the artist
-    AlbumList = albumlist;
-    while (AlbumList)
+    for (l = albumlist; l != NULL; l = g_list_next (l))
     {
         // Insert a line for each album
-        etfilelist = (GList *)AlbumList->data;
+        etfilelist = (GList *)l->data;
         etfile     = (ET_File *)etfilelist->data;
         albumname  = ((File_Tag *)etfile->FileTag->data)->album;
 
@@ -2154,8 +2139,6 @@ Browser_Album_List_Load_Files (GList *albumlist, ET_File *etfile_to_select)
 
         // Set color of the row
         Browser_Album_List_Set_Row_Appearance(&iter);
-
-        AlbumList = AlbumList->next;
     }
 
     // Select the first line if we werent asked to select anything
@@ -2211,16 +2194,16 @@ Browser_Album_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
 static void
 Browser_Album_List_Set_Row_Appearance (GtkTreeIter *iter)
 {
-    GList *etfilelist;
+    GList *l;
     gboolean not_all_saved = FALSE;
 
-    gtk_tree_model_get(GTK_TREE_MODEL(albumListModel), iter,
-                       ALBUM_ETFILE_LIST_POINTER, &etfilelist, -1);
 
     // Change the style (red/bold) of the row if one of the files was changed
-    while (etfilelist)
+    for (gtk_tree_model_get (GTK_TREE_MODEL (albumListModel), iter,
+                             ALBUM_ETFILE_LIST_POINTER, &l, -1);
+         l != NULL; l = g_list_next (l))
     {
-        if ( ET_Check_If_File_Is_Saved((ET_File *)etfilelist->data) == FALSE )
+        if (ET_Check_If_File_Is_Saved ((ET_File *)l->data) == FALSE)
         {
             if (CHANGED_FILES_DISPLAYED_TO_BOLD)
             {
@@ -2237,7 +2220,6 @@ Browser_Album_List_Set_Row_Appearance (GtkTreeIter *iter)
             not_all_saved = TRUE;
             break;
         }
-        etfilelist = etfilelist->next;
     }
 
     // Reset style if all files saved
@@ -4142,10 +4124,10 @@ Run_Program_With_Selected_Files (GtkWidget *combobox)
     gchar   *program_name;
     ET_File *ETFile;
     GList   *selected_paths;
+    GList *l;
     GList   *args_list = NULL;
     GtkTreeIter iter;
     gboolean program_ran;
-    gboolean valid;
 
     if (!GTK_IS_COMBO_BOX(combobox) || !ETCore->ETFileDisplayedList)
         return;
@@ -4155,27 +4137,26 @@ Run_Program_With_Selected_Files (GtkWidget *combobox)
 
     // List of files to pass as parameters
     selected_paths = gtk_tree_selection_get_selected_rows(gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList)), NULL);
-    while (selected_paths)
+
+    for (l = selected_paths; l != NULL; l = g_list_next (l))
     {
-        valid = gtk_tree_model_get_iter(GTK_TREE_MODEL(fileListModel), &iter, (GtkTreePath*)selected_paths->data);
-        if (valid)
+        if (gtk_tree_model_get_iter (GTK_TREE_MODEL (fileListModel), &iter,
+                                     (GtkTreePath *)l->data))
         {
             gtk_tree_model_get(GTK_TREE_MODEL(fileListModel), &iter,
                                LIST_FILE_POINTER, &ETFile,
                                -1);
 
-            args_list = g_list_append(args_list,((File_Name *)ETFile->FileNameCur->data)->value);
+            args_list = g_list_prepend (args_list,
+                                        ((File_Name *)ETFile->FileNameCur->data)->value);
             //args_list = g_list_append(args_list,((File_Name *)ETFile->FileNameCur->data)->value_utf8);
         }
-
-        if (!selected_paths->next) break;
-        selected_paths = selected_paths->next;
     }
 
+    args_list = g_list_reverse (args_list);
     program_ran = Run_Program(program_name,args_list);
 
-    g_list_foreach(selected_paths, (GFunc)gtk_tree_path_free, NULL);
-    g_list_free(selected_paths);
+    g_list_free_full (selected_paths, (GDestroyNotify)gtk_tree_path_free);
     g_list_free(args_list);
 
     if (program_ran)
@@ -4211,6 +4192,7 @@ Run_Program (const gchar *program_name, GList *args_list)
 #else /* !G_OS_WIN32 */
     pid_t   pid;
 #endif /* !G_OS_WIN32 */
+    GList *l;
     gchar *program_path;
 
 
@@ -4262,11 +4244,11 @@ Run_Program (const gchar *program_name, GList *args_list)
     //argv[argv_index++] = "foo";
 
     // Load files as arguments
-    while (filelist)
+    for (l = filelist; l != NULL; l = g_list_next (l))
     {
+        /* TODO: Use g_shell_quote() instead. */
         // We must enclose filename between " because of possible (probable!) spaces in filenames"
-        argv[argv_index++] = g_strconcat("\"", (gchar *)filelist->data, "\"", NULL);
-        filelist = filelist->next;
+        argv[argv_index++] = g_strconcat ("\"", (gchar *)l->data, "\"", NULL);
     }
     argv[argv_index] = NULL; // Ends the list of arguments
 
@@ -4331,11 +4313,10 @@ Run_Program (const gchar *program_name, GList *args_list)
                 argv_index++;
             }
             // Load arguments from 'args_list'
-            while (args_list)
+            for (l = args_list; l != NULL; l = g_list_next (l))
             {
-                argv[argv_index] = (gchar *)args_list->data;
+                argv[argv_index] = (gchar *)l->data;
                 argv_index++;
-                args_list = args_list->next;
             }
             argv[argv_index] = NULL;
 
