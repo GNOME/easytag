@@ -295,6 +295,7 @@ static void
 Scan_Tag_With_Mask (ET_File *ETFile)
 {
     GList *fill_tag_list = NULL;
+    GList *l;
     gchar **dest = NULL;
     gchar *mask; // The 'mask' in the entry
     gchar *filename_utf8;
@@ -312,9 +313,10 @@ Scan_Tag_With_Mask (ET_File *ETFile)
 
     // Process this mask with file
     fill_tag_list = Scan_Generate_New_Tag_From_Mask(ETFile,mask);
-    while (fill_tag_list)
+
+    for (l = fill_tag_list; l != NULL; l = g_list_next (l))
     {
-        Scan_Mask_Item *mask_item = fill_tag_list->data;
+        Scan_Mask_Item *mask_item = l->data;
 
         // Get the target entry for this code
         dest = Scan_Return_File_Tag_Field_From_Mask_Code(FileTag,mask_item->code);
@@ -323,9 +325,8 @@ Scan_Tag_With_Mask (ET_File *ETFile)
         if ( dest && ( OVERWRITE_TAG_FIELD || *dest==NULL || strlen(*dest)==0 ) )
             ET_Set_Field_File_Tag_Item(dest,mask_item->string);
 
-        if (!fill_tag_list->next) break;
-            fill_tag_list = fill_tag_list->next;
     }
+
     Scan_Free_File_Fill_Tag_List(fill_tag_list);
 
     // Set the default text to comment
@@ -569,6 +570,7 @@ void Scan_Fill_Tag_Generate_Preview (void)
     gchar *mask = NULL;
     gchar *preview_text = NULL;
     GList *fill_tag_list = NULL;
+    GList *l;
 
     if (!ETCore->ETFileDisplayedList
     ||  !ScannerWindow || !RenameFileMaskCombo || !FillTagPreviewLabel
@@ -581,9 +583,9 @@ void Scan_Fill_Tag_Generate_Preview (void)
 
     preview_text = g_strdup("");
     fill_tag_list = Scan_Generate_New_Tag_From_Mask(ETCore->ETFileDisplayed,mask);
-    while (fill_tag_list)
+    for (l = fill_tag_list; l != NULL; l = g_list_next (l))
     {
-        Scan_Mask_Item *mask_item = fill_tag_list->data;
+        Scan_Mask_Item *mask_item = l->data;
         gchar *tmp_code   = g_strdup_printf("%c",mask_item->code);
         gchar *tmp_string = g_markup_printf_escaped("%s",mask_item->string); // To avoid problem with strings containing characters like '&'
         gchar *tmp_preview_text = preview_text;
@@ -594,13 +596,11 @@ void Scan_Fill_Tag_Generate_Preview (void)
         g_free(tmp_string);
         g_free(tmp_preview_text);
 
-        if (!fill_tag_list->next) break;
-        fill_tag_list = fill_tag_list->next;
-
         tmp_preview_text = preview_text;
         preview_text = g_strconcat(tmp_preview_text,"  ||  ",NULL);
         g_free(tmp_preview_text);
     }
+
     Scan_Free_File_Fill_Tag_List(fill_tag_list);
 
     if (GTK_IS_LABEL(FillTagPreviewLabel))
@@ -625,20 +625,20 @@ void Scan_Fill_Tag_Generate_Preview (void)
 static void
 Scan_Free_File_Fill_Tag_List (GList *list)
 {
-    // Free the list
-    list = g_list_first(list);
-    while (list)
+    GList *l;
+
+    list = g_list_first (list);
+
+    for (l = list; l != NULL; l = g_list_next (l))
     {
-        if (list->data)
+        if (l->data)
         {
-            g_free(((Scan_Mask_Item *)list->data)->string);
-            g_free( (Scan_Mask_Item *)list->data );
+            g_free (((Scan_Mask_Item *)l->data)->string);
+            g_free ((Scan_Mask_Item *)l->data);
         }
-        if (!list->next) break;
-        list = list->next;
     }
-    g_list_free(list);
-    list = NULL;
+
+    g_list_free (list);
 }
 
 
@@ -740,6 +740,7 @@ gchar *Scan_Generate_New_Filename_From_Mask (ET_File *ETFile, gchar *mask, gbool
     gchar *filename_new_utf8 = NULL;
     gchar *filename_tmp = NULL;
     GList *rename_file_list = NULL;
+    GList *l;
     File_Mask_Item *mask_item;
     File_Mask_Item *mask_item_prev;
     File_Mask_Item *mask_item_next;
@@ -862,17 +863,18 @@ gchar *Scan_Generate_New_Filename_From_Mask (ET_File *ETFile, gchar *mask, gbool
      * Build the new filename with items placed into the list
      * (read the list from the end to the beginning)
      */
-    rename_file_list = g_list_last(rename_file_list);
     filename_new_utf8 = g_strdup("");
 
-    while (rename_file_list)
+    for (l = g_list_last (rename_file_list); l != NULL;
+         l = g_list_previous (l))
     {
-        File_Mask_Item *mask_item = rename_file_list->data;
+        File_Mask_Item *mask_item = l->data;
 
         if ( mask_item->type==TRAILING_SEPARATOR ) // Trailing characters of mask
         {
             // Doesn't write it if previous field is empty
-            if (rename_file_list->prev && ((File_Mask_Item *)rename_file_list->prev->data)->type!=EMPTY_FIELD)
+            if (l->prev
+                && ((File_Mask_Item *)l->prev->data)->type != EMPTY_FIELD)
             {
                 filename_tmp = filename_new_utf8;
                 filename_new_utf8 = g_strconcat(mask_item->string,filename_new_utf8,NULL);
@@ -885,23 +887,24 @@ gchar *Scan_Generate_New_Filename_From_Mask (ET_File *ETFile, gchar *mask, gbool
         // If the empty field is the 'first', we don't concatenate it, and the
         // next separator too.
         {
-            if (rename_file_list->prev)
+            if (l->prev)
             {
                 // The empty field isn't the first.
                 // If previous string is a separator, we don't use it, except if the next
                 // string is a FIELD (not empty)
-                mask_item_prev = rename_file_list->prev->data;
+                mask_item_prev = l->prev->data;
                 if ( mask_item_prev->type==SEPARATOR )
                 {
-                    if ( !(rename_file_list->next && (mask_item_next=rename_file_list->next->data)
-                    &&  mask_item_next->type==FIELD) )
+                    if (!(l->next
+                        && (mask_item_next = rename_file_list->next->data)
+                        && mask_item_next->type == FIELD))
                     {
-                        rename_file_list = rename_file_list->prev;
+                        l = l->prev;
                     }
                 }
             }else
-            if (rename_file_list->next && (mask_item_next=rename_file_list->next->data)
-            &&  mask_item_next->type==SEPARATOR)
+            if (l->next && (mask_item_next = l->next->data)
+                && mask_item_next->type == SEPARATOR)
             // We are at the 'beginning' of the mask (so empty field is the first)
             // and next field is a separator. As the separator may have been already added, we remove it
             {
@@ -919,9 +922,6 @@ gchar *Scan_Generate_New_Filename_From_Mask (ET_File *ETFile, gchar *mask, gbool
             filename_new_utf8 = g_strconcat(mask_item->string,filename_new_utf8,NULL);
             g_free(filename_tmp);
         }
-
-        if (!rename_file_list->prev) break;
-        rename_file_list = rename_file_list->prev;
     }
 
     // Free the list
@@ -985,20 +985,18 @@ void Scan_Rename_File_Generate_Preview (void)
 static void
 Scan_Free_File_Rename_List (GList *list)
 {
-    // Free the list
-    list = g_list_last(list);
-    while (list)
+    GList *l;
+
+    for (l = list; l != NULL; l = g_list_next (l))
     {
-        if (list->data)
+        if (l->data)
         {
-            g_free(((File_Mask_Item *)list->data)->string);
-            g_free( (File_Mask_Item *)list->data );
+            g_free (((File_Mask_Item *)l->data)->string);
+            g_free ((File_Mask_Item *)l->data);
         }
-        if (!list->prev) break;
-        list = list->prev;
     }
-    g_list_free(list);
-    list = NULL;
+
+    g_list_free (list);
 }
 
 /*
@@ -3371,13 +3369,11 @@ Process_Fields_Check_Button_Toggled (GtkWidget *object, GList *list)
 
     if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(object)) )
     {
-        while (list)
+        for (; list != NULL; list = g_list_next (list))
         {
             if ( list->data!=NULL && list->data!=object )
                 gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(list->data),FALSE);
             i++;
-            if (!list->next) break;
-            list = list->next;
         }
     }
 }
@@ -3534,10 +3530,8 @@ Mask_Editor_List_Row_Selected (GtkTreeSelection* selection, gpointer data)
     /*
      * At some point, we might get called when no rows are selected?
      */
-    if (g_list_length(selectedRows) == 0)
+    if (!selectedRows)
     {
-        g_list_foreach(selectedRows, (GFunc) gtk_tree_path_free, NULL);
-        g_list_free(selectedRows);
         g_signal_handlers_unblock_by_func(G_OBJECT(MaskEditorEntry),
                                           G_CALLBACK(Mask_Editor_Entry_Changed),NULL);
         return;
@@ -3560,6 +3554,8 @@ Mask_Editor_List_Row_Selected (GtkTreeSelection* selection, gpointer data)
 
     g_signal_handlers_unblock_by_func(G_OBJECT(MaskEditorEntry),
                                       G_CALLBACK(Mask_Editor_Entry_Changed),NULL);
+
+    g_list_free_full (selectedRows, (GDestroyNotify)gtk_tree_path_free);
 }
 
 
@@ -3594,11 +3590,11 @@ Mask_Editor_List_Duplicate (void)
 {
     gchar *text = NULL;
     GList *selectedRows;
+    GList *l;
     GList *toInsert = NULL;
     GtkTreeSelection *selection;
     GtkTreeIter rowIter;
     GtkTreeModel *treeModel;
-    gboolean valid;
 
     g_return_if_fail (MaskEditorList != NULL);
 
@@ -3606,53 +3602,39 @@ Mask_Editor_List_Duplicate (void)
     selectedRows = gtk_tree_selection_get_selected_rows(selection, NULL);
     treeModel = gtk_tree_view_get_model(GTK_TREE_VIEW(MaskEditorList));
 
-    if (g_list_length(selectedRows) == 0)
+    if (!selectedRows)
     {
         Log_Print(LOG_ERROR,_("Copy: No row selected"));
-        g_list_foreach(selectedRows, (GFunc) gtk_tree_path_free, NULL);
-        g_list_free(selectedRows);
         return;
     }
 
     /* Loop through selected rows, duplicating them into a GList
      * We cannot directly insert because the paths in selectedRows
      * get out of date after an insertion */
-    while (selectedRows)
+    for (l = selectedRows; l != NULL; l = g_list_next (l))
     {
-        valid = gtk_tree_model_get_iter(treeModel, &rowIter, (GtkTreePath*) selectedRows->data);
-        if (valid)
+        if (gtk_tree_model_get_iter (treeModel, &rowIter,
+                                     (GtkTreePath*)l->data))
         {
             gtk_tree_model_get(treeModel, &rowIter, MASK_EDITOR_TEXT, &text, -1);
-            toInsert = g_list_append(toInsert, text);
+            toInsert = g_list_prepend (toInsert, text);
         }
-
-        selectedRows = selectedRows->next;
-        if (!selectedRows) break;
     }
 
-    /* Duplicate the relevant entries, by looping through the list backwards
-     * (to preserve original order) */
-    toInsert = g_list_last(toInsert);
-    while (toInsert)
+    for (l = toInsert; l != NULL; l = g_list_next (l))
     {
-        gtk_list_store_insert(GTK_LIST_STORE(treeModel), &rowIter, 0);
-        gtk_list_store_set(GTK_LIST_STORE(treeModel), &rowIter, MASK_EDITOR_TEXT, (gchar*) toInsert->data, -1);
-        g_free(toInsert->data);
-
-        toInsert = toInsert->prev;
-        if (!toInsert) break;
+        gtk_list_store_insert_with_values (GTK_LIST_STORE(treeModel), &rowIter,
+                                           0, MASK_EDITOR_TEXT,
+                                           (gchar *)l->data, -1);
     }
+
     // Set focus to the last inserted line
     if (toInsert)
         Mask_Editor_List_Set_Row_Visible(treeModel,&rowIter);
 
     /* Free data no longer needed */
-    selectedRows = g_list_first(selectedRows);
-    toInsert = g_list_first(toInsert);
-    g_list_foreach(selectedRows, (GFunc) gtk_tree_path_free, NULL);
-    g_list_free(selectedRows);
-    g_list_foreach(toInsert, (GFunc) g_free, NULL);
-    g_list_free(toInsert);
+    g_list_free_full (selectedRows, (GDestroyNotify)gtk_tree_path_free);
+    g_list_free_full (toInsert, (GDestroyNotify)g_free);
 }
 
 static void
@@ -3749,12 +3731,11 @@ Mask_Editor_List_Move_Up (void)
 {
     GtkTreeSelection *selection;
     GList *selectedRows;
-    GList *selectedRowsCopy;
+    GList *l;
     GtkTreeIter currentFile;
     GtkTreeIter nextFile;
     GtkTreePath *currentPath;
     GtkTreeModel *treemodel;
-    gboolean valid;
 
     g_return_if_fail (MaskEditorList != NULL);
 
@@ -3762,21 +3743,16 @@ Mask_Editor_List_Move_Up (void)
     treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(MaskEditorList));
     selectedRows = gtk_tree_selection_get_selected_rows(selection, NULL);
 
-    if (g_list_length(selectedRows) == 0)
+    if (!selectedRows)
     {
         Log_Print(LOG_ERROR,_("Move Up: No row selected"));
-        g_list_foreach(selectedRows, (GFunc)gtk_tree_path_free, NULL);
-        g_list_free(selectedRows);
         return;
     }
 
-    selectedRowsCopy = selectedRows;
-
-    while (selectedRows)
+    for (l = selectedRows; l != NULL; l = g_list_next (l))
     {
-        currentPath = (GtkTreePath*) selectedRows->data;
-        valid = gtk_tree_model_get_iter(treemodel, &currentFile, currentPath);
-        if (valid)
+        currentPath = (GtkTreePath *)l->data;
+        if (gtk_tree_model_get_iter(treemodel, &currentFile, currentPath))
         {
             /* Find the entry above the node... */
             if (gtk_tree_path_prev(currentPath))
@@ -3786,13 +3762,9 @@ Mask_Editor_List_Move_Up (void)
                 gtk_list_store_swap(GTK_LIST_STORE(treemodel), &currentFile, &nextFile);
             }
         }
-
-        selectedRows = selectedRows->next;
-        if (!selectedRows) break;
     }
 
-    g_list_foreach(selectedRowsCopy, (GFunc)gtk_tree_path_free, NULL);
-    g_list_free(selectedRowsCopy);
+    g_list_free_full (selectedRows, (GDestroyNotify)gtk_tree_path_free);
 }
 
 /*
@@ -3803,12 +3775,11 @@ Mask_Editor_List_Move_Down (void)
 {
     GtkTreeSelection *selection;
     GList *selectedRows;
-    GList *selectedRowsCopy;
+    GList *l;
     GtkTreeIter currentFile;
     GtkTreeIter nextFile;
     GtkTreePath *currentPath;
     GtkTreeModel *treemodel;
-    gboolean valid;
 
     g_return_if_fail (MaskEditorList != NULL);
 
@@ -3816,34 +3787,26 @@ Mask_Editor_List_Move_Down (void)
     treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(MaskEditorList));
     selectedRows = gtk_tree_selection_get_selected_rows(selection, NULL);
 
-    if (g_list_length(selectedRows) == 0)
+    if (!selectedRows)
     {
         Log_Print(LOG_ERROR,_("Move Down: No row selected"));
-        g_list_foreach(selectedRows, (GFunc)gtk_tree_path_free, NULL);
-        g_list_free(selectedRows);
         return;
     }
 
-    selectedRowsCopy = selectedRows;
-
-    while (selectedRows)
+    for (l = selectedRows; l != NULL; l = g_list_next (l))
     {
-        currentPath = (GtkTreePath*) selectedRows->data;
-        valid = gtk_tree_model_get_iter(treemodel, &currentFile, currentPath);
-        if (valid)
+        currentPath = (GtkTreePath *)l->data;
+
+        if (gtk_tree_model_get_iter(treemodel, &currentFile, currentPath))
         {
             /* Find the entry below the node and swap the two nodes by iter */
             gtk_tree_path_next(currentPath);
             if (gtk_tree_model_get_iter(treemodel, &nextFile, currentPath))
                 gtk_list_store_swap(GTK_LIST_STORE(treemodel), &currentFile, &nextFile);
         }
-
-        if (!selectedRows->next) break;
-        selectedRows = selectedRows->next;
     }
 
-    g_list_foreach(selectedRowsCopy, (GFunc)gtk_tree_path_free, NULL);
-    g_list_free(selectedRowsCopy);
+    g_list_free_full (selectedRows, (GDestroyNotify)gtk_tree_path_free);
 }
 
 /*
@@ -3962,7 +3925,6 @@ Mask_Editor_Entry_Changed (void)
     GList *selectedRows;
     GtkTreeIter row;
     const gchar* text;
-    gboolean valid;
 
     g_return_if_fail (MaskEditorList != NULL);
 
@@ -3970,22 +3932,20 @@ Mask_Editor_Entry_Changed (void)
     treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(MaskEditorList));
     selectedRows = gtk_tree_selection_get_selected_rows(selection, NULL);
 
-    if (g_list_length(selectedRows) == 0)
+    if (!selectedRows)
     {
-        g_list_foreach(selectedRows, (GFunc) gtk_tree_path_free, NULL);
-        g_list_free(selectedRows);
         return;
     }
 
     firstSelected = (GtkTreePath *)g_list_first(selectedRows)->data;
     text = gtk_entry_get_text(GTK_ENTRY(MaskEditorEntry));
 
-    valid = gtk_tree_model_get_iter(treemodel, &row, firstSelected);
-    if (valid)
+    if (gtk_tree_model_get_iter (treemodel, &row, firstSelected))
+    {
         gtk_list_store_set(GTK_LIST_STORE(treemodel), &row, MASK_EDITOR_TEXT, text, -1);
+    }
 
-    g_list_foreach(selectedRows, (GFunc) gtk_tree_path_free, NULL);
-    g_list_free(selectedRows);
+    g_list_free_full (selectedRows, (GDestroyNotify)gtk_tree_path_free);
 }
 
 /*
