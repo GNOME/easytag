@@ -647,17 +647,15 @@ GList *ET_Add_File_To_File_List (gchar *filename)
 
 gboolean ET_Create_Artist_Album_File_List (void)
 {
-    GList *ETFileList;
+    GList *l;
 
     if (ETCore->ETArtistAlbumFileList)
         ET_Free_Artist_Album_File_List();
 
-    ETFileList = g_list_first(ETCore->ETFileList);
-    while (ETFileList)
+    for (l = g_list_first (ETCore->ETFileList); l != NULL; l = g_list_next (l))
     {
-        ET_File *ETFile = (ET_File *)ETFileList->data;
+        ET_File *ETFile = (ET_File *)l->data;
         ET_Add_File_To_Artist_Album_File_List(ETFile);
-        ETFileList = ETFileList->next;
     }
     //ET_Debug_Print_Artist_Album_List(__FILE__,__LINE__,__FUNCTION__);
     return TRUE;
@@ -2006,14 +2004,13 @@ GList *ET_Displayed_File_List_By_Etfile (ET_File *ETFile)
 static void
 ET_Displayed_File_List_Number (void)
 {
-    GList *list = NULL;
+    GList *l = NULL;
     guint i = 1;
 
-    list = g_list_first(ETCore->ETFileDisplayedList);
-    while (list)
+    for (l = g_list_first (ETCore->ETFileDisplayedList); l != NULL;
+         l = g_list_next (l))
     {
-        ((ET_File *)list->data)->IndexKey = i++;
-        list = list->next;
+        ((ET_File *)l->data)->IndexKey = i++;
     }
 }
 
@@ -2036,7 +2033,7 @@ ET_Displayed_File_List_Get_Length (void)
  */
 gboolean ET_Set_Displayed_File_List (GList *ETFileList)
 {
-    GList *list = NULL;
+    GList *l = NULL;
 
     ETCore->ETFileDisplayedList = g_list_first(ETFileList);
 
@@ -2046,12 +2043,10 @@ gboolean ET_Set_Displayed_File_List (GList *ETFileList)
     ETCore->ETFileDisplayedList_TotalDuration = 0;
 
     // Get size and duration of files in the list
-    list = ETCore->ETFileDisplayedList;
-    while (list)
+    for (l = ETCore->ETFileDisplayedList; l != NULL; l = g_list_next (l))
     {
-        ETCore->ETFileDisplayedList_TotalSize     += ((ET_File_Info *)((ET_File *)list->data)->ETFileInfo)->size;
-        ETCore->ETFileDisplayedList_TotalDuration += ((ET_File_Info *)((ET_File *)list->data)->ETFileInfo)->duration;
-        list = list->next;
+        ETCore->ETFileDisplayedList_TotalSize += ((ET_File_Info *)((ET_File *)l->data)->ETFileInfo)->size;
+        ETCore->ETFileDisplayedList_TotalDuration += ((ET_File_Info *)((ET_File *)l->data)->ETFileInfo)->duration;
     }
 
     // Sort the file list
@@ -2074,7 +2069,7 @@ gboolean ET_Set_Displayed_File_List (GList *ETFileList)
  */
 gboolean ET_Free_File_List (void)
 {
-    g_return_val_if_fail (ETCore != NULL || ETCore->ETFileList != NULL, FALSE);
+    g_return_val_if_fail (ETCore != NULL && ETCore->ETFileList != NULL, FALSE);
 
     g_list_free_full (ETCore->ETFileList,
                       (GDestroyNotify)ET_Free_File_List_Item);
@@ -2115,8 +2110,8 @@ gboolean ET_Free_File_List_Item (ET_File *ETFile)
         }
         g_free(ETFile->ETFileExtension);
         g_free(ETFile);
-        ETFile = NULL;
     }
+
     return TRUE;
 }
 
@@ -2126,21 +2121,12 @@ gboolean ET_Free_File_List_Item (ET_File *ETFile)
  */
 gboolean ET_Free_File_Name_List (GList *FileNameList)
 {
-    GList *list;
-
     g_return_val_if_fail (FileNameList != NULL, FALSE);
 
-    list = g_list_last(FileNameList);
-    while (list)
-    {
-        if ( (File_Name *)list->data )
-            ET_Free_File_Name_Item( (File_Name *)list->data );
+    FileNameList = g_list_first (FileNameList);
 
-        if (!list->prev) break;
-        list = list->prev;
-    }
-    g_list_free(list);
-    FileNameList = NULL;
+    g_list_free_full (FileNameList, (GDestroyNotify)ET_Free_File_Name_Item);
+
     return TRUE;
 }
 
@@ -2156,7 +2142,7 @@ gboolean ET_Free_File_Name_Item (File_Name *FileName)
     g_free(FileName->value_utf8);
     g_free(FileName->value_ck);
     g_free(FileName);
-    FileName = NULL;
+
     return TRUE;
 }
 
@@ -2167,21 +2153,20 @@ gboolean ET_Free_File_Name_Item (File_Name *FileName)
 static gboolean
 ET_Free_File_Tag_List (GList *FileTagList)
 {
-    GList *list;
+    GList *l;
 
     g_return_val_if_fail (FileTagList != NULL, FALSE);
 
-    list = g_list_last(FileTagList);
-    while (list)
-    {
-        if ( (File_Tag *)list->data )
-            ET_Free_File_Tag_Item( (File_Tag *)list->data );
+    FileTagList = g_list_first (FileTagList);
 
-        if (!list->prev) break;
-        list = list->prev;
+    for (l = FileTagList; l != NULL; l = g_list_next (l))
+    {
+        if ((File_Tag *)l->data)
+            ET_Free_File_Tag_Item ((File_Tag *)l->data);
     }
-    g_list_free(list);
-    FileTagList = NULL;
+
+    g_list_free (FileTagList);
+
     return TRUE;
 }
 
@@ -2192,16 +2177,7 @@ ET_Free_File_Tag_List (GList *FileTagList)
 static gboolean
 ET_Free_File_Tag_Item_Other_Field (File_Tag *FileTag)
 {
-    GList *other = FileTag->other;
-
-    while (other)
-    {
-        g_free(other->data);
-
-        if (!other->next) break;
-        other = other->next;
-    }
-    g_list_free(FileTag->other);
+    g_list_free_full (FileTag->other, g_free);
 
     return TRUE;
 }
@@ -2262,22 +2238,15 @@ ET_Free_File_Info_Item (ET_File_Info *ETFileInfo)
 static gboolean
 ET_Free_History_File_List (void)
 {
-    GList *list;
-
-    g_return_val_if_fail (ETCore != NULL || ETCore->ETHistoryFileList != NULL,
+    g_return_val_if_fail (ETCore != NULL && ETCore->ETHistoryFileList != NULL,
                           FALSE);
 
-    ETCore->ETHistoryFileList = g_list_first(ETCore->ETHistoryFileList);
-    list = ETCore->ETHistoryFileList;
-    while (list)
-    {
-        g_free( (ET_History_File *)list->data );
+    ETCore->ETHistoryFileList = g_list_first (ETCore->ETHistoryFileList);
 
-        if (!list->next) break;
-        list = list->next;
-    }
-    g_list_free(ETCore->ETHistoryFileList);
+    g_list_free_full (ETCore->ETHistoryFileList, g_free);
+
     ETCore->ETHistoryFileList = NULL;
+
     return TRUE;
 }
 
@@ -2287,10 +2256,9 @@ ET_Free_History_File_List (void)
 static gboolean
 ET_Free_Displayed_File_List (void)
 {
-    g_return_val_if_fail (ETCore != NULL ||
-                          ETCore->ETFileDisplayedList != NULL, FALSE);
+    g_return_val_if_fail (ETCore != NULL
+                          && ETCore->ETFileDisplayedList != NULL, FALSE);
 
-    ETCore->ETFileDisplayedList = g_list_first(ETCore->ETFileDisplayedList);
     ETCore->ETFileDisplayedList = NULL;
 
     return TRUE;
@@ -2303,29 +2271,26 @@ ET_Free_Displayed_File_List (void)
 static gboolean
 ET_Free_Artist_Album_File_List (void)
 {
-    GList *ArtistList;
-    GList *AlbumList;
-    GList *etfilelist;
+    GList *l;
 
-    g_return_val_if_fail (ETCore != NULL ||
-                          ETCore->ETArtistAlbumFileList != NULL, FALSE);
+    g_return_val_if_fail (ETCore != NULL
+                          && ETCore->ETArtistAlbumFileList != NULL, FALSE);
 
-    ArtistList = ETCore->ETArtistAlbumFileList;
-    while (ArtistList)
+    for (l = ETCore->ETArtistAlbumFileList; l != NULL; l = g_list_next (l))
     {
-        AlbumList = (GList *)ArtistList->data;
-        while (AlbumList)
-        {
-            etfilelist = (GList *)AlbumList->data;
-            if (etfilelist)
-                g_list_free(etfilelist);
-            AlbumList = AlbumList->next;
-        }
-        if (ArtistList->data) // Free AlbumList list
-            g_list_free((GList *)ArtistList->data);
+        GList *m;
 
-        ArtistList = ArtistList->next;
+	for (m = (GList *)l->data; m != NULL; m = g_list_next (m))
+        {
+            GList *n = (GList *)m->data;
+            if (n)
+                g_list_free (n);
+        }
+
+        if (l->data) /* Free AlbumList list. */
+            g_list_free ((GList *)l->data);
     }
+
     if (ETCore->ETArtistAlbumFileList)
         g_list_free(ETCore->ETArtistAlbumFileList);
 
@@ -2348,15 +2313,16 @@ static gboolean
 ET_Copy_File_Tag_Item_Other_Field (ET_File *ETFile, File_Tag *FileTag)
 {
     File_Tag *FileTagCur;
-    GList *list = NULL;
+    GList *l;
 
     FileTagCur = (File_Tag *)(ETFile->FileTag)->data;
-    list = FileTagCur->other;
-    while (list)
+
+    for (l = FileTagCur->other; l != NULL; l = g_list_next (l))
     {
-        FileTag->other = g_list_append(FileTag->other,g_strdup((gchar *)list->data));
-        list = list->next;
+        FileTag->other = g_list_append (FileTag->other,
+                                        g_strdup ((gchar *)l->data));
     }
+
     return TRUE;
 }
 
@@ -4580,14 +4546,13 @@ gboolean ET_Check_If_All_Files_Are_Saved (void)
         return TRUE;
     }else
     {
-        GList *tmplist = g_list_first(ETCore->ETFileList);
-        while (tmplist)
-        {
-            if ( ET_Check_If_File_Is_Saved((ET_File *)tmplist->data) == FALSE )
-                return FALSE;
+        GList *l;
 
-            if (!tmplist->next) break;
-            tmplist = g_list_next(tmplist);
+        for (l = g_list_first (ETCore->ETFileList); l != NULL;
+             l = g_list_next (l))
+        {
+            if (ET_Check_If_File_Is_Saved ((ET_File *)l->data) == FALSE)
+                return FALSE;
         }
         return TRUE;
     }
@@ -4849,15 +4814,14 @@ gboolean ET_File_Name_Convert_Character (gchar *filename_utf8)
 guint
 ET_Get_Number_Of_Files_In_Directory (const gchar *path_utf8)
 {
-    GList *etfilelist;
+    GList *l;
     guint  count = 0;
 
     g_return_val_if_fail (path_utf8 != NULL, count);
 
-    etfilelist = g_list_first(ETCore->ETFileList);
-    while (etfilelist)
+    for (l = g_list_first (ETCore->ETFileList); l != NULL; l = g_list_next (l))
     {
-        ET_File *ETFile = (ET_File *)etfilelist->data;
+        ET_File *ETFile = (ET_File *)l->data;
         gchar *cur_filename_utf8 = ((File_Name *)((GList *)ETFile->FileNameCur)->data)->value_utf8;
         gchar *dirname_utf8      = g_path_get_dirname(cur_filename_utf8);
 
@@ -4865,8 +4829,6 @@ ET_Get_Number_Of_Files_In_Directory (const gchar *path_utf8)
             count++;
 
         g_free(dirname_utf8 );
-
-        etfilelist = etfilelist->next;
     }
 
     return count;
