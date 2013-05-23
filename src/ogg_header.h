@@ -30,6 +30,47 @@
  * Declarations *
  ****************/
 
+/*
+ * Error domain and codes for errors while reading/writing OGG files
+ */
+GQuark et_ogg_error_quark (void);
+
+#define ET_OGG_ERROR et_ogg_error_quark ()
+
+/*
+ * EtOGGError:
+ * @ET_OGG_ERROR_EOS: reached end of logical bitstream
+ * @ET_OGG_ERROR_EOF: reached end of file
+ * @ET_OGG_ERROR_SN: page and state's serial number are unequal
+ * @ET_OGG_ERROR_TRUNC: input truncated or empty
+ * @ET_OGG_ERROR_NOTOGG: input is not ogg bitstream
+ * @ET_OGG_ERROR_PAGE: cannot read first page of ogg bitstream
+ * @ET_OGG_ERROR_HEADER: error reading initial header packet
+ * @ET_OGG_ERROR_INVALID: ogg bitstream doesnot contains Speex or Vorbis data
+ * @ET_OGG_ERROR_CORRUPT: corrupt secondary header
+ * @ET_OGG_ERROR_EXTRA: need to save extra headers
+ * @ET_OGG_ERROR_VORBIS: eof before end of Vorbis headers
+ * @ET_OGG_ERROR_FAILED: corrupt or missing data
+ * @ET_OGG_ERROR_OUTPUT: error writing stream to output
+ *
+ * Errors that can occur when reading OGG files.
+ */
+typedef enum
+{
+    ET_OGG_ERROR_EOS,
+    ET_OGG_ERROR_EOF,
+    ET_OGG_ERROR_SN,
+    ET_OGG_ERROR_TRUNC,
+    ET_OGG_ERROR_NOTOGG,
+    ET_OGG_ERROR_PAGE,
+    ET_OGG_ERROR_HEADER,
+    ET_OGG_ERROR_INVALID,
+    ET_OGG_ERROR_CORRUPT,
+    ET_OGG_ERROR_EXTRA,
+    ET_OGG_ERROR_VORBIS,
+    ET_OGG_ERROR_FAILED,
+    ET_OGG_ERROR_OUTPUT
+} EtOGGError;
 
 /**************
  * Prototypes *

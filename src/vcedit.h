@@ -28,9 +28,6 @@ extern "C" {
 #define VCEDIT_IS_SPEEX     1
 #define VCEDIT_IS_OGGVORBIS 2
 
-typedef size_t (*vcedit_read_func)(void *, size_t, size_t, void *);
-typedef size_t (*vcedit_write_func)(const void *, size_t, size_t, void *);
-
 typedef struct {
     ogg_sync_state      *oy;
     ogg_stream_state    *os;
@@ -42,16 +39,12 @@ typedef struct {
     SpeexHeader         *si;
 #endif
 
-    vcedit_read_func read;
-    vcedit_write_func write;
-
-    void        *in;
+    GDataInputStream    *in;
     long        serial;
     unsigned char   *mainbuf;
     unsigned char   *bookbuf;
     int     mainlen;
     int     booklen;
-    char   *lasterror;
     char   *vendor;
     int prevW;
     int extrapage;
@@ -61,13 +54,11 @@ typedef struct {
 extern vcedit_state    *vcedit_new_state(void);
 extern void             vcedit_clear(vcedit_state *state);
 extern vorbis_comment  *vcedit_comments(vcedit_state *state);
-extern int              vcedit_open(vcedit_state *state, FILE *in);
-extern int              vcedit_write(vcedit_state *state, void *out);
-extern char            *vcedit_error(vcedit_state *state);
+extern int              vcedit_open(vcedit_state *state, GFile *in, GError **error);
+extern int              vcedit_write(vcedit_state *state, GFile *file, GError **error);
 
 #ifdef __cplusplus
 }
 #endif 
 
 #endif /* __VCEDIT_H */
-

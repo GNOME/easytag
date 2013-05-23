@@ -18,7 +18,7 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h> // For definition of ENABLE_OGG
+#include "config.h" // For definition of ENABLE_OGG
 
 #ifdef ENABLE_OGG
 
@@ -105,7 +105,8 @@
 /**************
  * Prototypes *
  **************/
-static gboolean Ogg_Tag_Write_File (FILE *file_in, gchar *filename_in, vcedit_state *state);
+static gboolean Ogg_Tag_Write_File (GFile *file_in, gchar *filename_in,
+                                    vcedit_state *state, GError **error);
 
 static gboolean Ogg_Write_Delimetered_Tag (vorbis_comment *vc, const gchar *tag_name, gchar *values);
 static gboolean Ogg_Write_Tag (vorbis_comment *vc, const gchar *tag_name, gchar *value);
@@ -123,6 +124,8 @@ static void Ogg_Set_Tag (vorbis_comment *vc, const gchar *tag_name, gchar *value
 gboolean Ogg_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
 {
     FILE           *file;
+    GFile *gfile;
+    GError *error = NULL;
     vcedit_state   *state;
     vorbis_comment *vc;
     gchar          *string = NULL;
@@ -177,12 +180,18 @@ gboolean Ogg_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     }
     }
 
+    fclose(file);
+
     state = vcedit_new_state();    // Allocate memory for 'state'
-    if ( vcedit_open(state,file) < 0 )
+    gfile = g_file_new_for_path (filename);
+
+    if (!vcedit_open (state, gfile, &error))
     {
-        Log_Print(LOG_ERROR,_("Error: Failed to open file: '%s' as Vorbis (%s)."),filename_utf8,vcedit_error(state));
-        ogg_error_msg = vcedit_error(state);
-        fclose(file);
+        Log_Print (LOG_ERROR,
+                   _("Error: Failed to open file: '%s' as Vorbis (%s)."),
+                   filename_utf8, error->message);
+        g_error_free (error);
+        g_object_unref (gfile);
         g_free(filename_utf8);
         vcedit_clear(state);
         return FALSE;
@@ -572,7 +581,7 @@ gboolean Ogg_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     }
 
     vcedit_clear(state);
-    fclose(file);
+    g_object_unref (gfile);
     g_free(filename_utf8);
 
     return TRUE;
@@ -631,6 +640,8 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
     gchar          *string;
     GList          *list;
     Picture        *pic;
+    GFile *gfile_in;
+    GError *error = NULL;
 
     g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL, FALSE);
 
@@ -679,12 +690,17 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
     }
     }
 
+    fclose (file_in);
+
     state = vcedit_new_state();    // Allocate memory for 'state'
-    if ( vcedit_open(state,file_in) < 0 )
+    gfile_in = g_file_new_for_path (filename);
+    if (!vcedit_open (state, gfile_in, &error))
     {
-        Log_Print(LOG_ERROR,_("Error: Failed to open file: '%s' as Vorbis (%s)."),filename_utf8,vcedit_error(state));
-        ogg_error_msg = vcedit_error(state);
-        fclose(file_in);
+        Log_Print (LOG_ERROR,
+                   _("Error: Failed to open file: '%s' as Vorbis (%s)."),
+                   filename_utf8, error->message);
+        g_object_unref (gfile_in);
+        g_error_free (error);
         vcedit_clear(state);
         return FALSE;
     }
@@ -818,12 +834,14 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
         list = list->next;
     }
 
-    /* Write tag, and close also 'file_in' in all cases */
-    if ( Ogg_Tag_Write_File(file_in,filename,state) == FALSE )
+    /* Write tag to 'gfile_in' in all cases */
+    if (Ogg_Tag_Write_File (gfile_in, filename, state, &error) == FALSE)
     {
-        ogg_error_msg = vcedit_error(state);
-        Log_Print(LOG_ERROR,_("Error: Failed to write comments to file '%s' (%s)."),filename_utf8,ogg_error_msg == NULL ? "" : ogg_error_msg);
-
+        Log_Print (LOG_ERROR,
+                   _("Error: Failed to write comments to file '%s' (%s)."),
+                   filename_utf8, error->message);
+        g_error_free (error);
+        g_object_unref (gfile_in);
         vcedit_clear(state);
         return FALSE;
     }else
@@ -834,6 +852,7 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
         vcedit_clear(state);
     }
 
+    g_object_unref (gfile_in);
     return TRUE;
 }
 
@@ -843,44 +862,37 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
  * Write tag information to a new temporary file, and rename it the the initial name.
  */
 static gboolean
-Ogg_Tag_Write_File (FILE *file_in, gchar *filename_in, vcedit_state *state)
+Ogg_Tag_Write_File (GFile *file_in, gchar *filename_in, vcedit_state *state,
+                    GError **error)
 {
     gchar *filename_out;
-    gint   file_mkstemp;
-    FILE  *file_out;
+    GFile  *file_out;
+    GFileIOStream *iostream;
     gboolean return_code = TRUE;
 
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     filename_out = g_strdup_printf("%s.XXXXXX",filename_in);
-    
-    // Function mkstemp() opens also the file!
-    if ((file_mkstemp = mkstemp(filename_out)) < 0)
+    file_out = g_file_new_tmp (filename_out, &iostream, error);
+    if (!file_out)
     {
-        fclose(file_in);
-        close(file_mkstemp);
         g_free(filename_out);
         return FALSE;
     }
-    close(file_mkstemp);
+
+    g_object_unref (iostream);
     
-    if ( (file_out=fopen(filename_out,"wb")) == NULL )
+    if (vcedit_write (state, file_out, error) < 0)
     {
-        fclose(file_in);
-        remove(filename_out);
+        g_assert (error == NULL || *error != NULL);
+        g_file_delete (file_out, NULL, error);
+        g_object_unref (file_out);
         g_free(filename_out);
         return FALSE;
     }
-    
-    if (vcedit_write(state,file_out) < 0)
-    {
-        fclose(file_in);
-        fclose(file_out);
-        remove(filename_out);
-        g_free(filename_out);
-        return FALSE;
-    }
-    fclose(file_in);
-    fclose(file_out);
+
+    g_assert (error == NULL || *error == NULL);
+    g_object_unref (file_out);
 
     // Some platforms fail to rename a file if the new name already
     // exists, so we need to remove, then rename...

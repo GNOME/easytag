@@ -9,10 +9,10 @@
  * last modified: $Id: vcedit.c,v 1.23 2003/09/03 07:58:05 calc Exp $
  */
 
-#include <config.h> // For definition of ENABLE_OGG
+#include "config.h" /* For definition of ENABLE_OGG. */
 
 #ifdef ENABLE_OGG
-
+#include <gtk/gtk.h>
 #include <glib/gi18n-lib.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,13 +22,9 @@
 #include <vorbis/codec.h>
 
 #include "vcedit.h"
-
+#include "ogg_header.h"
 
 #define CHUNKSIZE 4096
-
-static int vcedit_open_callbacks(vcedit_state *state, void *in,
-                                 vcedit_read_func read_func,
-                                 vcedit_write_func write_func);
 
 vcedit_state *vcedit_new_state(void)
 {
@@ -39,11 +35,6 @@ vcedit_state *vcedit_new_state(void)
     return state;
 }
 
-char *vcedit_error(vcedit_state *state)
-{
-    return state->lasterror;
-}
-
 vorbis_comment *vcedit_comments(vcedit_state *state)
 {
     return state->vc;
@@ -51,7 +42,6 @@ vorbis_comment *vcedit_comments(vcedit_state *state)
 
 static void vcedit_clear_internals(vcedit_state *state)
 {
-    char *tmp;
     if(state->vc)
     {
         vorbis_comment_clear(state->vc);
@@ -77,10 +67,8 @@ static void vcedit_clear_internals(vcedit_state *state)
         vorbis_info_clear(state->vi);
         free(state->vi);
     }
-
-    tmp = state->lasterror;
+    g_object_unref (state->in);
     memset(state, 0, sizeof(*state));
-    state->lasterror = tmp;
 }
 
 void vcedit_clear(vcedit_state *state)
@@ -170,11 +158,14 @@ static int _blocksize(vcedit_state *s, ogg_packet *p)
 }
 
 static gboolean
-_fetch_next_packet (vcedit_state *s, ogg_packet *p, ogg_page *page)
+_fetch_next_packet (vcedit_state *s, ogg_packet *p, ogg_page *page,
+                    GError **error)
 {
     int result;
     char *buffer;
-    int bytes;
+    gssize bytes;
+
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     result = ogg_stream_packetout(s->os, p);
 
@@ -183,26 +174,45 @@ _fetch_next_packet (vcedit_state *s, ogg_packet *p, ogg_page *page)
     else
     {
         if(s->eosin)
+        {
+            g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_EOS,
+                         "Page reached end of logical bitstream");
+            g_assert (error == NULL || *error != NULL);
             return FALSE;
+        }
         while(ogg_sync_pageout(s->oy, page) <= 0)
         {
             buffer = ogg_sync_buffer(s->oy, CHUNKSIZE);
-            bytes = s->read(buffer,1, CHUNKSIZE, s->in);
+            bytes = g_input_stream_read (G_INPUT_STREAM (s->in), buffer,
+                                         CHUNKSIZE, NULL, error);
             ogg_sync_wrote(s->oy, bytes);
             if(bytes == 0)
+            {
+                g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_EOF,
+                             "Reached end of file");
+                g_assert (error == NULL || *error != NULL);
                 return FALSE;
+            }
+            else if (bytes == -1)
+            {
+                g_assert (error == NULL || *error != NULL);
+                return FALSE;
+            }
         }
         if(ogg_page_eos(page))
             s->eosin = 1;
         else if(ogg_page_serialno(page) != s->serial)
         {
+            g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_SN,
+                         "Page serial number and state serial number doesn't match");
             s->eosin = 1;
             s->extrapage = 1;
+            g_assert (error == NULL || *error != NULL);
             return FALSE;
         }
-
+        g_assert (error == NULL || *error == NULL);
         ogg_stream_pagein(s->os, page);
-        return _fetch_next_packet(s, p, page);
+        return _fetch_next_packet(s, p, page, error);
     }
 }
 
@@ -250,19 +260,12 @@ err_out:
     return(1);
 }
 
-int vcedit_open(vcedit_state *state, FILE *in)
+gboolean
+vcedit_open(vcedit_state *state, GFile *file, GError **error)
 {
-    return vcedit_open_callbacks(state, (void *)in,
-            (vcedit_read_func)fread, (vcedit_write_func)fwrite);
-}
-
-static int
-vcedit_open_callbacks(vcedit_state *state, void *in,
-                      vcedit_read_func read_func, vcedit_write_func write_func)
-{
-
     char *buffer;
-    int bytes,i;
+    gssize bytes;
+    int i;
     int chunks = 0;
     int headerpackets = 0;
     oggpack_buffer opb;
@@ -271,10 +274,18 @@ vcedit_open_callbacks(vcedit_state *state, void *in,
     ogg_packet  header_comments;
     ogg_packet  header_codebooks;
     ogg_page    og;
+    GFileInputStream *istream;
 
-    state->in = in;
-    state->read = read_func;
-    state->write = write_func;
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+    istream = g_file_read (file, NULL, error);
+    if (!istream)
+    {
+        g_assert (error == NULL || *error != NULL);
+        return FALSE;
+    }
+
+    state->in = g_data_input_stream_new (G_INPUT_STREAM (istream));
 
     state->oy = malloc(sizeof(ogg_sync_state));
     ogg_sync_init(state->oy);
@@ -282,7 +293,12 @@ vcedit_open_callbacks(vcedit_state *state, void *in,
     while(1)
     {
         buffer = ogg_sync_buffer(state->oy, CHUNKSIZE);
-        bytes = state->read(buffer, 1, CHUNKSIZE, state->in);
+        bytes = g_input_stream_read (G_INPUT_STREAM (state->in), buffer,
+                                     CHUNKSIZE, NULL, error);
+        if (bytes == -1)
+        {
+            goto err;
+        }
 
         ogg_sync_wrote(state->oy, bytes);
 
@@ -292,9 +308,11 @@ vcedit_open_callbacks(vcedit_state *state, void *in,
         if(chunks++ >= 10) /* Bail if we don't find data in the first 40 kB */
         {
             if(bytes<CHUNKSIZE)
-                state->lasterror = _("Input truncated or empty.");
+                g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_TRUNC,
+                             "Input truncated or empty");
             else
-                state->lasterror = _("Input is not an Ogg bitstream.");
+                g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_NOTOGG,
+                             "Input is not an OGG bitstream");
             goto err;
         }
     }
@@ -312,13 +330,15 @@ vcedit_open_callbacks(vcedit_state *state, void *in,
 
     if(ogg_stream_pagein(state->os, &og) < 0)
     {
-        state->lasterror = _("Error reading first page of Ogg bitstream.");
+        g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_PAGE,
+                     "Error reading first page of OGG bitstream");
         goto err;
     }
 
     if(ogg_stream_packetout(state->os, &header_main) != 1)
     {
-        state->lasterror = _("Error reading initial header packet.");
+        g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_HEADER,
+                     "Error reading initial header packet");
         goto err;
     }
 
@@ -345,7 +365,8 @@ vcedit_open_callbacks(vcedit_state *state, void *in,
 
     if (state->oggtype == VCEDIT_IS_UNKNOWN)
     {
-        state->lasterror = _("Ogg bitstream contains neither Speex or Vorbis data.");
+        g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_INVALID,
+                     "OGG bitstream contains neither Speex nor Vorbis data");
         goto err;
     }
 
@@ -378,7 +399,8 @@ vcedit_open_callbacks(vcedit_state *state, void *in,
                     if(result == 0) break;
                     if(result == -1)
                     {
-                        state->lasterror = _("Corrupt secondary header.");
+                        g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_CORRUPT,
+                                     "Corrupt secondary header");
                         goto err;
                     }
                     switch (state->oggtype)
@@ -407,8 +429,9 @@ vcedit_open_callbacks(vcedit_state *state, void *in,
                                     oggpack_readinit(&opb,header->packet,header->bytes);
                                     _speex_unpack_comment(state->vc,&opb);
                                     break;
-                                default:
-                                    state->lasterror = _("Need to save extra headers"); /* FIXME. */
+                                default: /* FIXME. */
+                                    g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_EXTRA,
+                                                 "Need to save extra headers");
                                     goto err;
                                     break;
                             }
@@ -419,10 +442,17 @@ vcedit_open_callbacks(vcedit_state *state, void *in,
         }
 
         buffer = ogg_sync_buffer(state->oy, CHUNKSIZE);
-        bytes = state->read(buffer, 1, CHUNKSIZE, state->in);
+        bytes = g_input_stream_read (G_INPUT_STREAM (state->in), buffer,
+                                     CHUNKSIZE, NULL, error);
+        if (bytes == -1)
+        {
+            goto err;
+        }
+
         if(bytes == 0 && i < 2)
         {
-            state->lasterror = _("EOF before end of Vorbis headers.");
+            g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_VORBIS,
+                         "EOF before end of Vorbis headers");
             goto err;
         }
         ogg_sync_wrote(state->oy, bytes);
@@ -433,14 +463,20 @@ vcedit_open_callbacks(vcedit_state *state, void *in,
     strcpy(state->vendor, state->vc->vendor);
 
     /* Headers are done! */
-    return 0;
+    g_assert (error == NULL || *error == NULL);
+
+    g_object_unref (istream);
+    return TRUE;
 
 err:
+    g_assert (error == NULL || *error != NULL);
+    g_object_unref (istream);
     vcedit_clear_internals(state);
-    return -1;
+    return FALSE;
 }
 
-int vcedit_write(vcedit_state *state, void *out)
+gboolean
+vcedit_write(vcedit_state *state, GFile *file, GError **error)
 {
     ogg_stream_state streamout;
     ogg_packet header_main;
@@ -454,6 +490,21 @@ int vcedit_write(vcedit_state *state, void *out)
     char *buffer;
     int bytes;
     int needflush=0, needout=0;
+    GFileOutputStream *ostream;
+    GDataOutputStream *dostream;
+
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+    ostream = g_file_replace (file, NULL, FALSE, G_FILE_CREATE_NONE,
+                              NULL, error);
+
+    if (!ostream)
+    {
+        g_assert (error == NULL || *error != NULL);
+        return FALSE;
+    }
+
+    dostream = g_data_output_stream_new (G_OUTPUT_STREAM (ostream));
 
     state->eosin = 0;
     state->extrapage = 0;
@@ -482,38 +533,62 @@ int vcedit_write(vcedit_state *state, void *out)
 
     while((result = ogg_stream_flush(&streamout, &ogout)))
     {
-        if(state->write(ogout.header,1,ogout.header_len, out) !=
-                (size_t) ogout.header_len)
+        if (g_output_stream_write (G_OUTPUT_STREAM (dostream), ogout.header,
+                                   ogout.header_len, NULL, error)
+            != (gssize) ogout.header_len)
+        {
+            g_assert (error == NULL || *error != NULL);
             goto cleanup;
-        if(state->write(ogout.body,1,ogout.body_len, out) !=
-                (size_t) ogout.body_len)
+        }
+
+        if (g_output_stream_write (G_OUTPUT_STREAM (dostream), ogout.body,
+                                   ogout.body_len, NULL, error)
+            != (gssize) ogout.body_len)
+        {
+            g_assert (error == NULL || *error != NULL);
             goto cleanup;
+        }
     }
 
-    while(_fetch_next_packet(state, &op, &ogin))
+    while (_fetch_next_packet (state, &op, &ogin, error))
     {
         if(needflush)
         {
-            if(ogg_stream_flush(&streamout, &ogout))
+            if (g_output_stream_write (G_OUTPUT_STREAM (dostream), ogout.header,
+                                       ogout.header_len, NULL, error)
+                != (gssize) ogout.header_len)
             {
-                if(state->write(ogout.header,1,ogout.header_len,
-                            out) != (size_t) ogout.header_len)
-                    goto cleanup;
-                if(state->write(ogout.body,1,ogout.body_len,
-                            out) != (size_t) ogout.body_len)
-                    goto cleanup;
+                g_assert (error == NULL || *error != NULL);
+                goto cleanup;
+            }
+
+            if (g_output_stream_write (G_OUTPUT_STREAM (dostream), ogout.body,
+                                       ogout.body_len, NULL, error)
+                != (gssize) ogout.body_len)
+            {
+                g_assert (error == NULL || *error != NULL);
+                goto cleanup;
             }
         }
         else if(needout)
         {
             if(ogg_stream_pageout(&streamout, &ogout))
             {
-                if(state->write(ogout.header,1,ogout.header_len,
-                            out) != (size_t) ogout.header_len)
+                if (g_output_stream_write (G_OUTPUT_STREAM (dostream), ogout.header,
+                                           ogout.header_len, NULL, error)
+                    != (gssize) ogout.header_len)
+                {
+                    g_assert (error == NULL || *error != NULL);
                     goto cleanup;
-                if(state->write(ogout.body,1,ogout.body_len,
-                            out) != (size_t) ogout.body_len)
+                }
+
+                if (g_output_stream_write (G_OUTPUT_STREAM (dostream), ogout.body,
+                                           ogout.body_len, NULL, error)
+                    != (gssize) ogout.body_len)
+                {
+                    g_assert (error == NULL || *error != NULL);
                     goto cleanup;
+                }
             }
         }
 
@@ -555,25 +630,48 @@ int vcedit_write(vcedit_state *state, void *out)
         }
     }
 
+    if (error == NULL || *error != NULL)
+    {
+        goto cleanup;
+    }
+
     streamout.e_o_s = 1;
     while(ogg_stream_flush(&streamout, &ogout))
     {
-        if(state->write(ogout.header,1,ogout.header_len,
-                    out) != (size_t) ogout.header_len)
+        if (g_output_stream_write (G_OUTPUT_STREAM (dostream), ogout.header,
+                                   ogout.header_len, NULL, error)
+            != (gssize) ogout.header_len)
+        {
+            g_assert (error == NULL || *error != NULL);
             goto cleanup;
-        if(state->write(ogout.body,1,ogout.body_len,
-                    out) != (size_t) ogout.body_len)
+        }
+
+        if (g_output_stream_write (G_OUTPUT_STREAM (dostream), ogout.body,
+                                   ogout.body_len, NULL, error)
+            != (gssize) ogout.body_len)
+        {
+            g_assert (error == NULL || *error != NULL);
             goto cleanup;
+        }
     }
 
     if (state->extrapage)
     {
-        if(state->write(ogin.header,1,ogin.header_len,
-                        out) != (size_t) ogin.header_len)
+        if (g_output_stream_write (G_OUTPUT_STREAM (dostream), ogout.header,
+                                   ogout.header_len, NULL, error)
+            != (gssize) ogout.header_len)
+        {
+            g_assert (error == NULL || *error != NULL);
             goto cleanup;
-        if (state->write(ogin.body,1,ogin.body_len, out) !=
-                (size_t) ogin.body_len)
+        }
+
+        if (g_output_stream_write (G_OUTPUT_STREAM (dostream), ogout.body,
+                                   ogout.body_len, NULL, error)
+            != (gssize) ogout.body_len)
+        {
+            g_assert (error == NULL || *error != NULL);
             goto cleanup;
+        }
     }
 
     state->eosin=0; /* clear it, because not all paths to here do */
@@ -587,23 +685,43 @@ int vcedit_write(vcedit_state *state, void *out)
             if(result==0)
                 break;
             if(result<0)
-                state->lasterror = _("Corrupt or missing data, continuing…");
+            {
+                g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_FAILED,
+                             "Corrupt or missing data, continuing…");
+                goto cleanup;
+            }
             else
             {
                 /* Don't bother going through the rest, we can just
                  * write the page out now */
-                if(state->write(ogout.header,1,ogout.header_len,
-                        out) != (size_t) ogout.header_len) {
+                if (g_output_stream_write (G_OUTPUT_STREAM (dostream), ogout.header,
+                                           ogout.header_len, NULL, error)
+                    != (gssize) ogout.header_len)
+                {
+                    g_assert (error == NULL || *error != NULL);
                     goto cleanup;
                 }
-                if(state->write(ogout.body,1,ogout.body_len, out) !=
-                        (size_t) ogout.body_len) {
+
+                if (g_output_stream_write (G_OUTPUT_STREAM (dostream), ogout.body,
+                                           ogout.body_len, NULL, error)
+                    != (gssize) ogout.body_len)
+                {
+                    g_assert (error == NULL || *error != NULL);
                     goto cleanup;
                 }
             }
         }
         buffer = ogg_sync_buffer(state->oy, CHUNKSIZE);
-        bytes = state->read(buffer,1, CHUNKSIZE, state->in);
+
+        bytes = g_input_stream_read (G_INPUT_STREAM (state->in), buffer,
+                                     CHUNKSIZE, NULL, error);
+
+        if (bytes == -1)
+        {
+            g_assert (error == NULL || *error != NULL);
+            goto cleanup;
+        }
+
         ogg_sync_wrote(state->oy, bytes);
         if(bytes == 0)
         {
@@ -621,14 +739,19 @@ cleanup:
     free(state->bookbuf);
     state->mainbuf = state->bookbuf = NULL;
 
-    if(!state->eosin)
+    if (!state->eosin)
     {
-        state->lasterror =
-            _("Error writing stream to output. "
-            "Output stream may be corrupted or truncated.");
-        return -1;
+        g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_OUTPUT,
+                     "Error writing stream to output. Output stream may be corrupted or truncated");
     }
 
+    g_object_unref (ostream);
+    g_object_unref (dostream);
+
+    if (error == NULL || *error != NULL)
+        return FALSE;
+
+    g_assert (error == NULL || *error == NULL);
     return 0;
 }
 

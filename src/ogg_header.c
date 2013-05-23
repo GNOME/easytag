@@ -18,7 +18,7 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h> // For definition of ENABLE_OGG
+#include "config.h" /* For definition of ENABLE_OGG. */
 
 #ifdef ENABLE_OGG
 
@@ -45,6 +45,19 @@
 /*************
  * Functions *
  *************/
+
+/*
+ * et_ogg_error_quark:
+ *
+ * To get EtOGGError domain.
+ *
+ * Returns: GQuark for EtOGGError domain
+ */
+GQuark
+et_ogg_error_quark (void)
+{
+    return g_quark_from_static_string ("et-ogg-error-quark");
+}
 
 gboolean Ogg_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
 {
@@ -149,7 +162,6 @@ gboolean Ogg_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
 
 gboolean Speex_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
 {
-    FILE *file;
     vcedit_state *state;
     SpeexHeader  *si;
     gchar *encoder_version = NULL;
@@ -159,24 +171,22 @@ gboolean Speex_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
     gdouble duration = 0;
     gulong filesize;
     gchar *filename_utf8;
+    GFile *gfile;
+    GError *error = NULL;
 
     g_return_val_if_fail (filename != NULL && ETFileInfo != NULL, FALSE);
 
     filename_utf8 = filename_to_display(filename);
 
-    if ( (file=fopen(filename,"rb"))==NULL ) // Warning : it is important to open the file in binary mode! (to get header information under Win32)
-    {
-        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
-        g_free(filename_utf8);
-        return FALSE;
-    }
-
-
     state = vcedit_new_state();    // Allocate memory for 'state'
-    if ( vcedit_open(state,file) < 0 )
+    gfile = g_file_new_for_path (filename);
+    if (!vcedit_open (state, gfile, &error))
     {
-        Log_Print(LOG_ERROR,_("Error: Failed to open file: '%s' as Vorbis (%s)."),filename_utf8,vcedit_error(state));
-        fclose(file);
+        Log_Print (LOG_ERROR,
+                   _("Error: Failed to open file: '%s' as Vorbis (%s)."),
+                   filename_utf8, error->message);
+        g_error_free (error);
+        g_object_unref (gfile);
         g_free(filename_utf8);
         vcedit_clear(state);
         return FALSE;
@@ -210,7 +220,7 @@ gboolean Speex_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
         ETFileInfo->duration   = duration;
 
     vcedit_clear(state);
-    fclose(file);
+    g_object_unref (gfile);
     g_free(filename_utf8);
     return TRUE;
 }
