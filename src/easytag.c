@@ -1260,6 +1260,7 @@ Mini_Button_Clicked (GObject *object)
 {
     GList *etfilelist = NULL;
     GList *selection_filelist = NULL;
+    GList *l;
     gchar *string_to_set = NULL;
     gchar *string_to_set1 = NULL;
     gchar *msg = NULL;
@@ -1276,32 +1277,29 @@ Mini_Button_Clicked (GObject *object)
     // Warning : 'selection_filelist' is not a list of 'ETFile' items!
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
     selection_filelist = gtk_tree_selection_get_selected_rows(selection, NULL);
-    // Create an 'ETFile' list from 'selection_filelist'
-    while (selection_filelist)
-    {
-        etfile = Browser_List_Get_ETFile_From_Path(selection_filelist->data);
-        etfilelist = g_list_append(etfilelist,etfile);
 
-        if (!selection_filelist->next) break;
-        selection_filelist = g_list_next(selection_filelist);
+    // Create an 'ETFile' list from 'selection_filelist'
+    for (l = selection_filelist; l != NULL; l = g_list_next (l))
+    {
+        etfile = Browser_List_Get_ETFile_From_Path (l->data);
+        etfilelist = g_list_prepend (etfilelist, etfile);
     }
-    g_list_foreach(selection_filelist, (GFunc)gtk_tree_path_free, NULL);
-    g_list_free(selection_filelist);
+
+    etfilelist = g_list_reverse (etfilelist);
+    g_list_free_full (selection_filelist, (GDestroyNotify)gtk_tree_path_free);
 
 
     if (object == G_OBJECT (TitleEntry))
     {
         string_to_set = gtk_editable_get_chars(GTK_EDITABLE(TitleEntry),0,-1); // The string to apply to all other files
-        while (etfilelist)
+
+        for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
-            etfile = (ET_File *)etfilelist->data;
+            etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
             ET_Set_Field_File_Tag_Item(&FileTag->title,string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
-
-            if (!etfilelist->next) break;
-            etfilelist = g_list_next(etfilelist);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
             msg = g_strdup_printf(_("Selected files tagged with title '%s'."),string_to_set);
@@ -1311,16 +1309,14 @@ Mini_Button_Clicked (GObject *object)
     else if (object == G_OBJECT (ArtistEntry))
     {
         string_to_set = gtk_editable_get_chars(GTK_EDITABLE(ArtistEntry),0,-1);
-        while (etfilelist)
+
+        for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
-            etfile = (ET_File *)etfilelist->data;
+            etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
             ET_Set_Field_File_Tag_Item(&FileTag->artist,string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
-
-            if (!etfilelist->next) break;
-            etfilelist = g_list_next(etfilelist);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
             msg = g_strdup_printf(_("Selected files tagged with artist '%s'."),string_to_set);
@@ -1330,16 +1326,13 @@ Mini_Button_Clicked (GObject *object)
     else if (object == G_OBJECT (AlbumArtistEntry))
     {
         string_to_set = gtk_editable_get_chars(GTK_EDITABLE(AlbumArtistEntry),0,-1);
-        while (etfilelist)
+        for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
-            etfile = (ET_File *)etfilelist->data;
+            etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
             ET_Set_Field_File_Tag_Item(&FileTag->album_artist,string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
-
-            if (!etfilelist->next) break;
-            etfilelist = g_list_next(etfilelist);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
             msg = g_strdup_printf(_("Selected files tagged with album artist '%s'."),string_to_set);
@@ -1349,16 +1342,14 @@ Mini_Button_Clicked (GObject *object)
     else if (object == G_OBJECT (AlbumEntry))
     {
         string_to_set = gtk_editable_get_chars(GTK_EDITABLE(AlbumEntry),0,-1);
-        while (etfilelist)
+
+        for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
-            etfile = (ET_File *)etfilelist->data;
+            etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
             ET_Set_Field_File_Tag_Item(&FileTag->album,string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
-
-            if (!etfilelist->next) break;
-            etfilelist = g_list_next(etfilelist);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
             msg = g_strdup_printf(_("Selected files tagged with album '%s'."),string_to_set);
@@ -1368,16 +1359,14 @@ Mini_Button_Clicked (GObject *object)
     else if (object == G_OBJECT (DiscNumberEntry))
     {
         string_to_set = gtk_editable_get_chars(GTK_EDITABLE(DiscNumberEntry),0,-1);
-        while (etfilelist)
+
+        for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
             etfile = (ET_File *)etfilelist->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
             ET_Set_Field_File_Tag_Item(&FileTag->disc_number,string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
-
-            if (!etfilelist->next) break;
-            etfilelist = g_list_next(etfilelist);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
             msg = g_strdup_printf(_("Selected files tagged with disc number '%s'."),string_to_set);
@@ -1387,16 +1376,14 @@ Mini_Button_Clicked (GObject *object)
     else if (object == G_OBJECT (YearEntry))
     {
         string_to_set = gtk_editable_get_chars(GTK_EDITABLE(YearEntry),0,-1);
-        while (etfilelist)
+
+        for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
-            etfile = (ET_File *)etfilelist->data;
+            etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
             ET_Set_Field_File_Tag_Item(&FileTag->year,string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
-
-            if (!etfilelist->next) break;
-            etfilelist = g_list_next(etfilelist);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
             msg = g_strdup_printf(_("Selected files tagged with year '%s'."),string_to_set);
@@ -1408,9 +1395,10 @@ Mini_Button_Clicked (GObject *object)
         /* Used of Track and Total Track values */
         string_to_set = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(TrackEntryCombo)))));
         string_to_set1 = gtk_editable_get_chars(GTK_EDITABLE(TrackTotalEntry),0,-1);
-        while (etfilelist)
+
+        for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
-            etfile = (ET_File *)etfilelist->data;
+            etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
 
@@ -1420,9 +1408,6 @@ Mini_Button_Clicked (GObject *object)
                 ET_Set_Field_File_Tag_Item(&FileTag->track,string_to_set);
             ET_Set_Field_File_Tag_Item(&FileTag->track_total,string_to_set1);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
-
-            if (!etfilelist->next) break;
-            etfilelist = g_list_next(etfilelist);
         }
 
         if ( string_to_set && g_utf8_strlen(string_to_set, -1) > 0 ) //&& atoi(string_to_set)>0 )
@@ -1499,11 +1484,11 @@ Mini_Button_Clicked (GObject *object)
     else if (object==G_OBJECT(TrackMButtonNbrFiles))
     {
         /* Used of Track and Total Track values */
-        while (etfilelist)
+        for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
             gchar *path_utf8, *filename_utf8;
 
-            etfile        = (ET_File *)etfilelist->data;
+            etfile        = (ET_File *)l->data;
             filename_utf8 = ((File_Name *)etfile->FileNameNew->data)->value_utf8;
             path_utf8     = g_path_get_dirname(filename_utf8);
             if (NUMBER_TRACK_FORMATED)
@@ -1518,9 +1503,6 @@ Mini_Button_Clicked (GObject *object)
             ET_Copy_File_Tag_Item(etfile,FileTag);
             ET_Set_Field_File_Tag_Item(&FileTag->track_total,string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
-
-            if (!etfilelist->next) break;
-            etfilelist = g_list_next(etfilelist);
         }
 
         if ( string_to_set1 != NULL && g_utf8_strlen(string_to_set1, -1)>0 ) //&& atoi(string_to_set1)>0 )
@@ -1534,16 +1516,14 @@ Mini_Button_Clicked (GObject *object)
     else if (object == G_OBJECT (gtk_bin_get_child (GTK_BIN (GenreCombo))))
     {
         string_to_set = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(GenreCombo))),0,-1);
-        while (etfilelist)
+
+        for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
-            etfile = (ET_File *)etfilelist->data;
+            etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
             ET_Set_Field_File_Tag_Item(&FileTag->genre,string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
-
-            if (!etfilelist->next) break;
-            etfilelist = g_list_next(etfilelist);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
             msg = g_strdup_printf(_("Selected files tagged with genre '%s'."),string_to_set);
@@ -1560,16 +1540,14 @@ Mini_Button_Clicked (GObject *object)
         //string_to_set = gtk_text_buffer_get_text(GTK_TEXT_BUFFER(textbuffer),&start_iter,&end_iter,TRUE);
 
         string_to_set = gtk_editable_get_chars(GTK_EDITABLE(CommentEntry),0,-1);
-        while (etfilelist)
+
+        for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
-            etfile = (ET_File *)etfilelist->data;
+            etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
             ET_Set_Field_File_Tag_Item(&FileTag->comment,string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
-
-            if (!etfilelist->next) break;
-            etfilelist = g_list_next(etfilelist);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
             msg = g_strdup_printf(_("Selected files tagged with comment '%s'."),string_to_set);
@@ -1579,16 +1557,13 @@ Mini_Button_Clicked (GObject *object)
     else if (object == G_OBJECT (ComposerEntry))
     {
         string_to_set = gtk_editable_get_chars(GTK_EDITABLE(ComposerEntry),0,-1);
-        while (etfilelist)
+        for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
-            etfile = (ET_File *)etfilelist->data;
+            etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
             ET_Set_Field_File_Tag_Item(&FileTag->composer,string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
-
-            if (!etfilelist->next) break;
-            etfilelist = g_list_next(etfilelist);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
             msg = g_strdup_printf(_("Selected files tagged with composer '%s'."),string_to_set);
@@ -1598,16 +1573,14 @@ Mini_Button_Clicked (GObject *object)
     else if (object == G_OBJECT (OrigArtistEntry))
     {
         string_to_set = gtk_editable_get_chars(GTK_EDITABLE(OrigArtistEntry),0,-1);
-        while (etfilelist)
+
+        for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
-            etfile = (ET_File *)etfilelist->data;
+            etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
             ET_Set_Field_File_Tag_Item(&FileTag->orig_artist,string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
-
-            if (!etfilelist->next) break;
-            etfilelist = g_list_next(etfilelist);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
             msg = g_strdup_printf(_("Selected files tagged with original artist '%s'."),string_to_set);
@@ -1617,16 +1590,14 @@ Mini_Button_Clicked (GObject *object)
     else if (object == G_OBJECT (CopyrightEntry))
     {
         string_to_set = gtk_editable_get_chars(GTK_EDITABLE(CopyrightEntry),0,-1);
-        while (etfilelist)
+
+        for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
-            etfile = (ET_File *)etfilelist->data;
+            etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
             ET_Set_Field_File_Tag_Item(&FileTag->copyright,string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
-
-            if (!etfilelist->next) break;
-            etfilelist = g_list_next(etfilelist);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
             msg = g_strdup_printf(_("Selected files tagged with copyright '%s'."),string_to_set);
@@ -1636,16 +1607,14 @@ Mini_Button_Clicked (GObject *object)
     else if (object == G_OBJECT (URLEntry))
     {
         string_to_set = gtk_editable_get_chars(GTK_EDITABLE(URLEntry),0,-1);
-        while (etfilelist)
+
+        for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
-            etfile = (ET_File *)etfilelist->data;
+            etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
             ET_Set_Field_File_Tag_Item(&FileTag->url,string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
-
-            if (!etfilelist->next) break;
-            etfilelist = g_list_next(etfilelist);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
             msg = g_strdup_printf(_("Selected files tagged with URL '%s'."),string_to_set);
@@ -1655,16 +1624,14 @@ Mini_Button_Clicked (GObject *object)
     else if (object == G_OBJECT (EncodedByEntry))
     {
         string_to_set = gtk_editable_get_chars(GTK_EDITABLE(EncodedByEntry),0,-1);
-        while (etfilelist)
+
+        for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
-            etfile = (ET_File *)etfilelist->data;
+            etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
             ET_Set_Field_File_Tag_Item(&FileTag->encoded_by,string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
-
-            if (!etfilelist->next) break;
-            etfilelist = g_list_next(etfilelist);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
             msg = g_strdup_printf(_("Selected files tagged with encoder name '%s'."),string_to_set);
@@ -1692,16 +1659,13 @@ Mini_Button_Clicked (GObject *object)
             } while (gtk_tree_model_iter_next(model, &iter));
         }
 
-        while (etfilelist)
+        for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
-            etfile = (ET_File *)etfilelist->data;
+            etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
             ET_Set_Field_File_Tag_Picture((Picture **)&FileTag->picture, res);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
-
-            if (!etfilelist->next) break;
-            etfilelist = g_list_next(etfilelist);
         }
         if (res)
             msg = g_strdup (_("Selected files tagged with images."));
@@ -1976,6 +1940,7 @@ void Action_Scan_Selected_Files (void)
     gchar progress_bar_text[30];
     double fraction;
     GList *selfilelist = NULL;
+    GList *l;
     ET_File *etfile;
     GtkTreeSelection *selection;
 
@@ -2007,9 +1972,10 @@ void Action_Scan_Selected_Files (void)
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
     selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
-    while (selfilelist)
+
+    for (l = selfilelist; l != NULL; l = g_list_next (l))
     {
-        etfile = Browser_List_Get_ETFile_From_Path(selfilelist->data);
+        etfile = Browser_List_Get_ETFile_From_Path (l->data);
 
         // Run the current scanner
         Scan_Select_Mode_And_Run_Scanner(etfile);
@@ -2022,13 +1988,9 @@ void Action_Scan_Selected_Files (void)
         /* Needed to refresh status bar */
         while (gtk_events_pending())
             gtk_main_iteration();
-
-        if (!selfilelist->next) break;
-        selfilelist = g_list_next(selfilelist);
     }
 
-    g_list_foreach(selfilelist, (GFunc) gtk_tree_path_free, NULL);
-    g_list_free(selfilelist);
+    g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
 
     // Refresh the whole list (faster than file by file) to show changes
     Browser_List_Refresh_Whole_List();
@@ -2052,6 +2014,7 @@ void Action_Scan_Selected_Files (void)
 void Action_Remove_Selected_Tags (void)
 {
     GList *selfilelist = NULL;
+    GList *l;
     ET_File *etfile;
     File_Tag *FileTag;
     gint progress_bar_index;
@@ -2072,9 +2035,10 @@ void Action_Remove_Selected_Tags (void)
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
     selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
-    while (selfilelist)
+
+    for (l = selfilelist; l != NULL; l = g_list_next (l))
     {
-        etfile = Browser_List_Get_ETFile_From_Path(selfilelist->data);
+        etfile = Browser_List_Get_ETFile_From_Path (l->data);
         FileTag = ET_File_Tag_Item_New();
         ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
 
@@ -2083,13 +2047,9 @@ void Action_Remove_Selected_Tags (void)
         /* Needed to refresh status bar */
         while (gtk_events_pending())
             gtk_main_iteration();
-
-        if (!selfilelist->next) break;
-        selfilelist = g_list_next(selfilelist);
     }
 
-    g_list_foreach(selfilelist, (GFunc) gtk_tree_path_free, NULL);
-    g_list_free(selfilelist);
+    g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
 
     // Refresh the whole list (faster than file by file) to show changes
     Browser_List_Refresh_Whole_List();
@@ -2112,6 +2072,7 @@ void Action_Remove_Selected_Tags (void)
 gint Action_Undo_Selected_Files (void)
 {
     GList *selfilelist = NULL;
+    GList *l;
     gboolean state = FALSE;
     ET_File *etfile;
     GtkTreeSelection *selection;
@@ -2124,17 +2085,14 @@ gint Action_Undo_Selected_Files (void)
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
     selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
-    while (selfilelist)
-    {
-        etfile = Browser_List_Get_ETFile_From_Path(selfilelist->data);
-        state |= ET_Undo_File_Data(etfile);
 
-        if (!selfilelist->next) break;
-        selfilelist = g_list_next(selfilelist);
+    for (l = selfilelist; l != NULL; l = g_list_next (l))
+    {
+        etfile = Browser_List_Get_ETFile_From_Path (l->data);
+        state |= ET_Undo_File_Data(etfile);
     }
 
-    g_list_foreach(selfilelist, (GFunc) gtk_tree_path_free, NULL);
-    g_list_free(selfilelist);
+    g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
 
     // Refresh the whole list (faster than file by file) to show changes
     Browser_List_Refresh_Whole_List();
@@ -2179,6 +2137,7 @@ void Action_Undo_From_History_List (void)
 gint Action_Redo_Selected_File (void)
 {
     GList *selfilelist = NULL;
+    GList *l;
     gboolean state = FALSE;
     ET_File *etfile;
     GtkTreeSelection *selection;
@@ -2191,17 +2150,14 @@ gint Action_Redo_Selected_File (void)
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
     selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
-    while (selfilelist)
-    {
-        etfile = Browser_List_Get_ETFile_From_Path(selfilelist->data);
-        state |= ET_Redo_File_Data(etfile);
 
-        if (!selfilelist->next) break;
-        selfilelist = g_list_next(selfilelist);
+    for (l = selfilelist; l != NULL; l = g_list_next (l))
+    {
+        etfile = Browser_List_Get_ETFile_From_Path (l->data);
+        state |= ET_Redo_File_Data(etfile);
     }
 
-    g_list_foreach(selfilelist, (GFunc) gtk_tree_path_free, NULL);
-    g_list_free(selfilelist);
+    g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
 
     // Refresh the whole list (faster than file by file) to show changes
     Browser_List_Refresh_Whole_List();
@@ -2276,6 +2232,7 @@ Save_Selected_Files_With_Answer (gboolean force_saving_files)
     gint toreturn;
     GList *etfilelist = NULL;
     GList *selfilelist = NULL;
+    GList *l;
     ET_File *etfile;
     GtkTreeSelection *selection;
 
@@ -2283,17 +2240,16 @@ Save_Selected_Files_With_Answer (gboolean force_saving_files)
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
     selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
-    while (selfilelist)
+
+    for (l = selfilelist; l != NULL; l = g_list_next (l))
     {
-        etfile = Browser_List_Get_ETFile_From_Path(selfilelist->data);
-        etfilelist = g_list_append(etfilelist, etfile);
-
-        if (!selfilelist->next) break;
-        selfilelist = selfilelist->next;
+        etfile = Browser_List_Get_ETFile_From_Path (l->data);
+        etfilelist = g_list_prepend (etfilelist, etfile);
     }
-    g_list_foreach(selfilelist, (GFunc) gtk_tree_path_free, NULL);
-    g_list_free(selfilelist);
 
+    g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
+
+    etfilelist = g_list_reverse (etfilelist);
     toreturn = Save_List_Of_Files(etfilelist, force_saving_files);
     g_list_free(etfilelist);
     return toreturn;
@@ -2313,7 +2269,7 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
     gint       nb_files_changed_by_ext_program;
     gchar     *msg;
     gchar      progress_bar_text[30];
-    GList     *etfilelist_tmp;
+    GList *l;
     ET_File   *etfile_save_position = NULL;
     File_Tag  *FileTag;
     File_Name *FileNameNew;
@@ -2338,11 +2294,11 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
     /* Count the number of files changed by an external program */
     nb_files_to_save = 0;
     nb_files_changed_by_ext_program = 0;
-    etfilelist_tmp = etfilelist;
-    while (etfilelist_tmp)
+
+    for (l = etfilelist; l != NULL; l = g_list_next (l))
     {
         struct stat   statbuf;
-        ET_File   *ETFile   = (ET_File *)etfilelist_tmp->data;
+        ET_File *ETFile = (ET_File *)l->data;
         File_Tag  *FileTag  = (File_Tag *)ETFile->FileTag->data;
         File_Name *FileName = (File_Name *)ETFile->FileNameNew->data;
         gchar *filename_cur = ((File_Name *)ETFile->FileNameCur->data)->value;
@@ -2358,8 +2314,6 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
         if (ETFile->FileModificationTime != statbuf.st_mtime)
             nb_files_changed_by_ext_program++;
         g_free(basename_cur_utf8);
-
-        etfilelist_tmp = etfilelist_tmp->next;
     }
 
     /* Initialize status bar */
@@ -2416,21 +2370,23 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
         }
     }
 
-    etfilelist_tmp = etfilelist;
-    while (etfilelist_tmp && !Main_Stop_Button_Pressed)
+    for (l = etfilelist; l != NULL && !Main_Stop_Button_Pressed;
+         l = g_list_next (l))
     {
-        FileTag     = ((ET_File *)etfilelist_tmp->data)->FileTag->data;
-        FileNameNew = ((ET_File *)etfilelist_tmp->data)->FileNameNew->data;
+        FileTag = ((ET_File *)l->data)->FileTag->data;
+        FileNameNew = ((ET_File *)l->data)->FileNameNew->data;
 
         /* We process only the files changed and not saved, or we force to save all
          * files if force_saving_files==TRUE */
         if ( force_saving_files
         || FileTag->saved == FALSE || FileNameNew->saved == FALSE )
         {
-            // ET_Display_File_Data_To_UI((ET_File *)etfilelist_tmp->data);
-            // Use of 'currentPath' to try to increase speed. Indeed, in many
-            // cases, the next file to select, is the next in the list
-            currentPath = Browser_List_Select_File_By_Etfile2((ET_File *)etfilelist_tmp->data,FALSE,currentPath);
+            /* ET_Display_File_Data_To_UI ((ET_File *)l->data);
+             * Use of 'currentPath' to try to increase speed. Indeed, in many
+             * cases, the next file to select, is the next in the list. */
+            currentPath = Browser_List_Select_File_By_Etfile2 ((ET_File *)l->data,
+                                                               FALSE,
+                                                               currentPath);
 
             fraction = (++progress_bar_index) / (double) nb_files_to_save;
             gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), fraction);
@@ -2442,7 +2398,9 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
                 gtk_main_iteration();
 
             // Save tag and rename file
-            saving_answer = Save_File((ET_File *)etfilelist_tmp->data, (nb_files_to_save>1) ? TRUE : FALSE, force_saving_files);
+            saving_answer = Save_File ((ET_File *)l->data,
+                                       nb_files_to_save > 1 ? TRUE : FALSE,
+                                       force_saving_files);
 
             if (saving_answer == -1)
             {
@@ -2463,11 +2421,6 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
                 return -1; /* We stop all actions */
             }
         }
-
-        etfilelist_tmp = etfilelist_tmp->next;
-        if (Main_Stop_Button_Pressed)
-            break;
-
     }
 
     if (currentPath)
@@ -2525,6 +2478,7 @@ Delete_Selected_Files_With_Answer (void)
 {
     GList *selfilelist;
     GList *rowreflist = NULL;
+    GList *l;
     gint   progress_bar_index;
     gint   saving_answer;
     gint   nb_files_to_delete;
@@ -2563,21 +2517,22 @@ Delete_Selected_Files_With_Answer (void)
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
     selfilelist = gtk_tree_selection_get_selected_rows(selection, &treemodel);
-    while (selfilelist)
-    {
-        rowref = gtk_tree_row_reference_new(treemodel, selfilelist->data);
-        rowreflist = g_list_append(rowreflist, rowref);
 
-        if (!selfilelist->next) break;
-        selfilelist = selfilelist->next;
+    for (l = selfilelist; l != NULL; l = g_list_next (l))
+    {
+        rowref = gtk_tree_row_reference_new (treemodel, l->data);
+        rowreflist = g_list_prepend (rowreflist, rowref);
     }
 
-    while (rowreflist)
+    g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
+    rowreflist = g_list_reverse (rowreflist);
+
+    for (l = rowreflist; l != NULL; l = g_list_next (l))
     {
         GtkTreePath *path;
         ET_File *ETFile;
 
-        path = gtk_tree_row_reference_get_path(rowreflist->data);
+        path = gtk_tree_row_reference_get_path (l->data);
         ETFile = Browser_List_Get_ETFile_From_Path(path);
         gtk_tree_path_free(path);
 
@@ -2618,19 +2573,11 @@ Delete_Selected_Files_With_Answer (void)
                 Tag_Area_Set_Sensitive(TRUE);
                 File_Area_Set_Sensitive(TRUE);
 
-                g_list_foreach(selfilelist, (GFunc) gtk_tree_path_free, NULL);
-                g_list_free(selfilelist);
                 return -1; // We stop all actions
         }
-
-        if (!rowreflist->next) break;
-        rowreflist = rowreflist->next;
     }
 
-    g_list_foreach(selfilelist, (GFunc) gtk_tree_path_free, NULL);
-    g_list_free(selfilelist);
-    g_list_foreach(rowreflist, (GFunc) gtk_tree_row_reference_free, NULL);
-    g_list_free(rowreflist);
+    g_list_free_full (rowreflist, (GDestroyNotify)gtk_tree_row_reference_free);
 
     if (nb_files_deleted < nb_files_to_delete)
         msg = g_strdup (_("Files have been partially deleted"));
@@ -3251,6 +3198,7 @@ gboolean Read_Directory (gchar *path_real)
     guint  nbrfile = 0;
     double fraction;
     GList *FileList = NULL;
+    GList *l;
     gint   progress_bar_index = 0;
     GtkAction *uiaction;
     GtkWidget *artist_radio;
@@ -3341,9 +3289,10 @@ gboolean Read_Directory (gchar *path_real)
     gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), progress_bar_text);
 
     // Load the supported files (Extension recognized)
-    while (FileList)
+    for (l = FileList; l != NULL && !Main_Stop_Button_Pressed;
+         l = g_list_next (l))
     {
-        gchar *filename_real = FileList->data; // Contains real filenames
+        gchar *filename_real = l->data; /* Contains real filenames. */
         gchar *filename_utf8 = filename_to_display(filename_real);
 
         msg = g_strdup_printf(_("File: '%s'"),filename_utf8);
@@ -3361,11 +3310,10 @@ gboolean Read_Directory (gchar *path_real)
         gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), progress_bar_text);
         while (gtk_events_pending())
             gtk_main_iteration();
-
-        if (!FileList->next || Main_Stop_Button_Pressed) break;
-        FileList = FileList->next;
     }
-    if (FileList) g_list_free(FileList);
+
+    /* Just free the list, not the data. */
+    g_list_free (FileList);
     gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), "");
 
     /* Close window to quit recursion */
@@ -3777,20 +3725,22 @@ void Update_Command_Buttons_Sensivity (void)
         /* Check if one of the selected files has undo or redo data */
         if (BrowserList)
         {
+            GList *l;
+
             selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
             selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
-            while (selfilelist)
+
+            for (l = selfilelist; l != NULL; l = g_list_next (l))
             {
-                etfile = Browser_List_Get_ETFile_From_Path(selfilelist->data);
+                etfile = Browser_List_Get_ETFile_From_Path (l->data);
                 has_undo    |= ET_File_Data_Has_Undo_Data(etfile);
                 has_redo    |= ET_File_Data_Has_Redo_Data(etfile);
                 //has_to_save |= ET_Check_If_File_Is_Saved(etfile);
-                if ((has_undo && has_redo /*&& has_to_save*/) || !selfilelist->next) // Useless to check the other files
+                if ((has_undo && has_redo /*&& has_to_save*/) || !l->next) // Useless to check the other files
                     break;
-                selfilelist = g_list_next(selfilelist);
             }
-            g_list_foreach(selfilelist, (GFunc) gtk_tree_path_free, NULL);
-            g_list_free(selfilelist);
+
+            g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
         }
 
         /* Enable undo commands if there are undo data */
