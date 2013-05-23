@@ -4704,6 +4704,7 @@ gchar *ET_File_Name_Generate (ET_File *ETFile, gchar *new_file_name_utf8)
                 new_file_name_path_utf8 = g_strconcat(dirname_utf8,G_DIR_SEPARATOR_S,new_file_name_utf8,extension,NULL);
         }
 
+        g_free (dirname_utf8);
         g_free(extension);
         return new_file_name_path_utf8; // in UTF-8
     }else
