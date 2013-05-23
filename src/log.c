@@ -386,48 +386,42 @@ void Log_Print (Log_Error_Type error_type, gchar const *format, ...)
 static void
 Log_Print_Tmp_List (void)
 {
+    GList *l;
     GtkTreeIter iter;
 
-    LogPrintTmpList = g_list_first(LogPrintTmpList);
-    while (LogPrintTmpList)
+    LogPrintTmpList = g_list_first (LogPrintTmpList);
+    for (l = LogPrintTmpList; l != NULL; l = g_list_next (l))
     {
-
         if (LogList && logListModel)
         {
             LogListNbrRows++;
             gtk_list_store_append(logListModel, &iter);
             gtk_list_store_set(logListModel, &iter,
-                               LOG_PIXBUF,    Log_Get_Stock_Id_From_Error_Type( ((Log_Data *)LogPrintTmpList->data)->error_type ),
-                               LOG_TIME_TEXT, ((Log_Data *)LogPrintTmpList->data)->time,
-                               LOG_TEXT,      ((Log_Data *)LogPrintTmpList->data)->string,
+                               LOG_PIXBUF, Log_Get_Stock_Id_From_Error_Type (((Log_Data *)l->data)->error_type),
+                               LOG_TIME_TEXT, ((Log_Data *)l->data)->time,
+                               LOG_TEXT, ((Log_Data *)l->data)->string,
                                LOG_ROW_BACKGROUND, NULL,
                                LOG_ROW_FOREGROUND, NULL,
                                -1);
             Log_List_Set_Row_Visible(GTK_TREE_MODEL(logListModel), &iter);
         }
-
-        if (!LogPrintTmpList->next) break;
-        LogPrintTmpList = LogPrintTmpList->next;
     }
 
     // Free the list...
     if (LogPrintTmpList)
     {
-        LogPrintTmpList = g_list_first(LogPrintTmpList);
-        while (LogPrintTmpList)
-        {
-            g_free(((Log_Data *)LogPrintTmpList->data)->string);
-            g_free(((Log_Data *)LogPrintTmpList->data)->time);
-            g_free(((Log_Data *)LogPrintTmpList->data));
+        GList *l;
 
-            if (!LogPrintTmpList->next) break;
-            LogPrintTmpList = LogPrintTmpList->next;
+        for (l = LogPrintTmpList; l != NULL; l = g_list_next (l))
+        {
+            g_free (((Log_Data *)l->data)->string);
+            g_free (((Log_Data *)l->data)->time);
+            g_free (((Log_Data *)l->data));
         }
 
-        g_list_free(LogPrintTmpList);
+        g_list_free (LogPrintTmpList);
         LogPrintTmpList = NULL;
     }
-
 }
 
 
