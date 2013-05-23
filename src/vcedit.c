@@ -12,12 +12,11 @@
 #include "config.h" /* For definition of ENABLE_OGG. */
 
 #ifdef ENABLE_OGG
-#include <gtk/gtk.h>
+#include <gio/gio.h>
 #include <glib/gi18n-lib.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <errno.h>
 #include <ogg/ogg.h>
 #include <vorbis/codec.h>
 
