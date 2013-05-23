@@ -371,7 +371,7 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         Action_Pair* ActionPair = g_malloc0(sizeof(Action_Pair));
         ActionPair->action = ActionEntries[i].name;
         ActionPair->quark  = g_quark_from_string(ActionPair->action);
-        ActionPairsList    = g_list_append(ActionPairsList, ActionPair);
+        ActionPairsList = g_list_prepend (ActionPairsList, ActionPair);
     }
 
     for(i = 0; i < num_toggle_entries; i++)
@@ -379,8 +379,10 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         Action_Pair* ActionPair = g_malloc0(sizeof(Action_Pair));
         ActionPair->action = ToggleActionEntries[i].name;
         ActionPair->quark  = g_quark_from_string(ActionPair->action);
-        ActionPairsList    = g_list_append(ActionPairsList, ActionPair);
+        ActionPairsList = g_list_prepend (ActionPairsList, ActionPair);
     }
+
+    ActionPairsList = g_list_reverse (ActionPairsList);
 
     /* UI Management */
     ActionGroup = gtk_action_group_new("actions");
