@@ -2456,6 +2456,10 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
                 Tag_Area_Set_Sensitive(TRUE);
                 File_Area_Set_Sensitive(TRUE);
 
+                if (currentPath)
+                {
+                    gtk_tree_path_free (currentPath);
+                }
                 return -1; /* We stop all actions */
             }
         }
