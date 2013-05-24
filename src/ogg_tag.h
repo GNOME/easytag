@@ -35,8 +35,9 @@ gchar *ogg_error_msg;
 /**************
  * Prototypes *
  **************/
-gboolean Ogg_Tag_Read_File_Tag  (gchar *filename, File_Tag *FileTag);
-gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile);
+gboolean ogg_tag_read_file_tag (gchar *filename, File_Tag *FileTag,
+                                GError **error);
+gboolean ogg_tag_write_file_tag (ET_File *ETFile, GError **error);
 
 
 #endif /* __OGG_TAG_H__ */

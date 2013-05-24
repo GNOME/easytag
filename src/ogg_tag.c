@@ -105,8 +105,6 @@
 /**************
  * Prototypes *
  **************/
-static gboolean Ogg_Tag_Write_File (GFile *file_in, gchar *filename_in,
-                                    vcedit_state *state, GError **error);
 
 static gboolean Ogg_Write_Delimetered_Tag (vorbis_comment *vc, const gchar *tag_name, gchar *values);
 static gboolean Ogg_Write_Tag (vorbis_comment *vc, const gchar *tag_name, gchar *value);
@@ -121,11 +119,12 @@ static void Ogg_Set_Tag (vorbis_comment *vc, const gchar *tag_name, gchar *value
  * Note:
  *  - if field is found but contains no info (strlen(str)==0), we don't read it
  */
-gboolean Ogg_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
+gboolean
+ogg_tag_read_file_tag (gchar *filename, File_Tag *FileTag, GError **error)
 {
-    FILE           *file;
-    GFile *gfile;
-    GError *error = NULL;
+    GFile *file;
+    GFileInputStream *istream;
+    GDataInputStream *distream;
     vcedit_state   *state;
     vorbis_comment *vc;
     gchar          *string = NULL;
@@ -136,15 +135,20 @@ gboolean Ogg_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     Picture        *prev_pic = NULL;
 
     g_return_val_if_fail (filename != NULL && FileTag != NULL, FALSE);
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     ogg_error_msg = NULL;
+    file = g_file_new_for_path (filename);
+    istream = g_file_read (file, NULL, error);
 
-    if ( (file=fopen(filename,"rb")) == NULL )
+    if (!istream)
     {
-        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
-        g_free(filename_utf8);
+        g_object_unref (file);
+        g_assert (error == NULL || *error != NULL);
         return FALSE;
     }
+
+    distream = g_data_input_stream_new (G_INPUT_STREAM (istream));
 
     {
     // Skip the id3v2 tag
@@ -152,51 +156,77 @@ gboolean Ogg_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     gulong id3v2size;
 
     // Check if there is an ID3v2 tag...
-    fseek(file, 0L, SEEK_SET);
-    if (fread(tmp_id3, 1, 4, file) == 4)
+    if (!g_seekable_seek (G_SEEKABLE (distream), 0L, G_SEEK_SET, NULL, error))
+    {
+        goto err;
+    }
+
+    if (g_input_stream_read (G_INPUT_STREAM (distream), tmp_id3, 4, NULL,
+                             error) == 4)
     {
         // Calculate ID3v2 length
         if (tmp_id3[0] == 'I' && tmp_id3[1] == 'D' && tmp_id3[2] == '3' && tmp_id3[3] < 0xFF)
         {
             // id3v2 tag skipeer $49 44 33 yy yy xx zz zz zz zz [zz size]
-            fseek(file, 2, SEEK_CUR); // Size is 6-9 position
-            if (fread(tmp_id3, 1, 4, file) == 4)
+            /* Size is 6-9 position */
+            if (!g_seekable_seek (G_SEEKABLE (distream), 2, G_SEEK_CUR,
+                                  NULL, error))
+            {
+                goto err;
+            }
+
+            if (g_input_stream_read (G_INPUT_STREAM (distream), tmp_id3, 4,
+                                     NULL, error) == 4)
             {
                 id3v2size = 10 + ( (long)(tmp_id3[3])        | ((long)(tmp_id3[2]) << 7)
                                 | ((long)(tmp_id3[1]) << 14) | ((long)(tmp_id3[0]) << 21) );
-                fseek(file, id3v2size, SEEK_SET);
+
+                if (!g_seekable_seek (G_SEEKABLE (distream), id3v2size,
+                                      G_SEEK_SET, NULL, error))
+                {
+                    goto err;
+                }
+
                 Log_Print(LOG_ERROR,_("Warning: The Ogg Vorbis file '%s' contains an ID3v2 tag."),filename_utf8);
-            }else
-            {
-                fseek(file, 0L, SEEK_SET);
             }
-        }else
-        {
-            fseek(file, 0L, SEEK_SET);
+            else if (!g_seekable_seek (G_SEEKABLE (distream), 0L, G_SEEK_SET,
+                                       NULL, error))
+            {
+                goto err;
+            }
+
         }
-    }else
-    {
-        fseek(file, 0L, SEEK_SET);
+        else if (!g_seekable_seek (G_SEEKABLE (distream), 0L, G_SEEK_SET,
+                                   NULL, error))
+        {
+            goto err;
+        }
+
     }
+    else if (!g_seekable_seek (G_SEEKABLE (distream), 0L, G_SEEK_SET,
+                               NULL, error))
+    {
+        goto err;
     }
 
-    fclose(file);
+    }
+
+    g_assert (error == NULL || *error == NULL);
+
+    g_object_unref (distream);
+    g_object_unref (istream);
 
     state = vcedit_new_state();    // Allocate memory for 'state'
-    gfile = g_file_new_for_path (filename);
 
-    if (!vcedit_open (state, gfile, &error))
+    if (!vcedit_open (state, file, error))
     {
-        Log_Print (LOG_ERROR,
-                   _("Error: Failed to open file: '%s' as Vorbis (%s)."),
-                   filename_utf8, error->message);
-        g_error_free (error);
-        g_object_unref (gfile);
-        g_free(filename_utf8);
+        g_assert (error == NULL || *error != NULL);
+        g_object_unref (file);
         vcedit_clear(state);
         return FALSE;
     }
 
+    g_assert (error == NULL || *error == NULL);
 
     /* Get data from tag */
     vc = vcedit_comments(state);
@@ -581,10 +611,18 @@ gboolean Ogg_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     }
 
     vcedit_clear(state);
-    g_object_unref (gfile);
+    g_object_unref (file);
     g_free(filename_utf8);
 
     return TRUE;
+
+err:
+    g_assert (error == NULL || *error != NULL);
+    g_object_unref (distream);
+    g_object_unref (istream);
+    g_object_unref (file);
+    g_free(filename_utf8);
+    return FALSE;
 }
 
 
@@ -628,34 +666,39 @@ static void Ogg_Set_Tag (vorbis_comment *vc, const gchar *tag_name, gchar *value
     }
 }
 
-gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
+gboolean
+ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
 {
     File_Tag       *FileTag;
     gchar          *filename;
     gchar          *filename_utf8;
     gchar          *basename_utf8;
-    FILE           *file_in;
+    GFile           *file;
+    GFileInputStream *istream;
+    GDataInputStream *distream;
     vcedit_state   *state;
     vorbis_comment *vc;
     gchar          *string;
     GList          *list;
     Picture        *pic;
-    GFile *gfile_in;
-    GError *error = NULL;
 
     g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL, FALSE);
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     FileTag       = (File_Tag *)ETFile->FileTag->data;
     filename      = ((File_Name *)ETFile->FileNameCur->data)->value;
     filename_utf8 = ((File_Name *)ETFile->FileNameCur->data)->value_utf8;
-    ogg_error_msg = NULL;
 
-    /* Test to know if we can write into the file */
-    if ( (file_in=fopen(filename,"rb"))==NULL )
+    file = g_file_new_for_path (filename);
+    istream = g_file_read (file, NULL, error);
+
+    if (!istream)
     {
-        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
+        g_object_unref (file);
         return FALSE;
     }
+
+    distream = g_data_input_stream_new (G_INPUT_STREAM (istream));
 
     {
     // Skip the id3v2 tag
@@ -663,47 +706,77 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
     gulong id3v2size;
 
     // Check if there is an ID3v2 tag...
-    fseek(file_in, 0L, SEEK_SET);
-    if (fread(tmp_id3, 1, 4, file_in) == 4)
+    if (!g_seekable_seek (G_SEEKABLE (distream), 0L, G_SEEK_SET, NULL, error))
+    {
+        goto err;
+    }
+
+    if (g_input_stream_read (G_INPUT_STREAM (distream), tmp_id3, 4, NULL,
+                             error) == 4)
     {
         // Calculate ID3v2 length
         if (tmp_id3[0] == 'I' && tmp_id3[1] == 'D' && tmp_id3[2] == '3' && tmp_id3[3] < 0xFF)
         {
             // id3v2 tag skipeer $49 44 33 yy yy xx zz zz zz zz [zz size]
-            fseek(file_in, 2, SEEK_CUR); // Size is 6-9 position
-            if (fread(tmp_id3, 1, 4, file_in) == 4)
+            /* Size is 6-9 position */
+            if (!g_seekable_seek (G_SEEKABLE (distream), 2, G_SEEK_CUR,
+                                  NULL, error))
+            {
+                goto err;
+            }
+
+            if (g_input_stream_read (G_INPUT_STREAM (distream), tmp_id3, 4,
+                                     NULL, error) == 4)
             {
                 id3v2size = 10 + ( (long)(tmp_id3[3])        | ((long)(tmp_id3[2]) << 7)
                                 | ((long)(tmp_id3[1]) << 14) | ((long)(tmp_id3[0]) << 21) );
-                fseek(file_in, id3v2size, SEEK_SET);
-            }else
-            {
-                fseek(file_in, 0L, SEEK_SET);
+
+                if (!g_seekable_seek (G_SEEKABLE (distream), id3v2size,
+                                      G_SEEK_SET, NULL, error))
+                {
+                    goto err;
+                }
+
+                Log_Print(LOG_ERROR,_("Warning: The Ogg Vorbis file '%s' contains an ID3v2 tag."),filename_utf8);
             }
-        }else
-        {
-            fseek(file_in, 0L, SEEK_SET);
+            else if (!g_seekable_seek (G_SEEKABLE (distream), 0L, G_SEEK_SET,
+                                       NULL, error))
+            {
+                goto err;
+            }
+
         }
-    }else
-    {
-        fseek(file_in, 0L, SEEK_SET);
+        else if (!g_seekable_seek (G_SEEKABLE (distream), 0L, G_SEEK_SET,
+                                   NULL, error))
+        {
+            goto err;
+        }
+
     }
+    else if (!g_seekable_seek (G_SEEKABLE (distream), 0L, G_SEEK_SET,
+                               NULL, error))
+    {
+        goto err;
     }
 
-    fclose (file_in);
+    }
+
+    g_assert (error == NULL || *error == NULL);
+
+    g_object_unref (istream);
+    g_object_unref (distream);
 
     state = vcedit_new_state();    // Allocate memory for 'state'
-    gfile_in = g_file_new_for_path (filename);
-    if (!vcedit_open (state, gfile_in, &error))
+
+    if (!vcedit_open (state, file, error))
     {
-        Log_Print (LOG_ERROR,
-                   _("Error: Failed to open file: '%s' as Vorbis (%s)."),
-                   filename_utf8, error->message);
-        g_object_unref (gfile_in);
-        g_error_free (error);
+        g_assert (error == NULL || *error != NULL);
+        g_object_unref (file);
         vcedit_clear(state);
         return FALSE;
     }
+
+    g_assert (error == NULL || *error == NULL);
 
     /* Get data from tag */
     vc = vcedit_comments(state);
@@ -834,17 +907,15 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
         list = list->next;
     }
 
-    /* Write tag to 'gfile_in' in all cases */
-    if (Ogg_Tag_Write_File (gfile_in, filename, state, &error) == FALSE)
+    /* Write tag to 'file' in all cases */
+    if (!vcedit_write (state, file, error))
     {
-        Log_Print (LOG_ERROR,
-                   _("Error: Failed to write comments to file '%s' (%s)."),
-                   filename_utf8, error->message);
-        g_error_free (error);
-        g_object_unref (gfile_in);
+        g_assert (error == NULL || *error != NULL);
+        g_object_unref (file);
         vcedit_clear(state);
         return FALSE;
-    }else
+    }
+    else
     {
         basename_utf8 = g_path_get_basename(filename_utf8);
         Log_Print(LOG_OK,_("Written tag of '%s'"),basename_utf8);
@@ -852,71 +923,14 @@ gboolean Ogg_Tag_Write_File_Tag (ET_File *ETFile)
         vcedit_clear(state);
     }
 
-    g_object_unref (gfile_in);
-    return TRUE;
-}
-
-
-
-/* 
- * Write tag information to a new temporary file, and rename it the the initial name.
- */
-static gboolean
-Ogg_Tag_Write_File (GFile *file_in, gchar *filename_in, vcedit_state *state,
-                    GError **error)
-{
-    gchar *filename_out;
-    GFile  *file_out;
-    GFileIOStream *iostream;
-    gboolean return_code = TRUE;
-
-    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
-
-    filename_out = g_strdup_printf("%s.XXXXXX",filename_in);
-    file_out = g_file_new_tmp (filename_out, &iostream, error);
-    if (!file_out)
-    {
-        g_free(filename_out);
-        return FALSE;
-    }
-
-    g_object_unref (iostream);
-    
-    if (vcedit_write (state, file_out, error) < 0)
-    {
-        g_assert (error == NULL || *error != NULL);
-        g_file_delete (file_out, NULL, error);
-        g_object_unref (file_out);
-        g_free(filename_out);
-        return FALSE;
-    }
-
     g_assert (error == NULL || *error == NULL);
-    g_object_unref (file_out);
-
-    // Some platforms fail to rename a file if the new name already
-    // exists, so we need to remove, then rename...
-    if (rename(filename_out,filename_in))
-    {
-        // Can't rename directly
-        if (remove(filename_in))
-        {
-            // Can't remove file
-            remove(filename_out);
-            return_code = FALSE;
-
-        }else if (rename(filename_out,filename_in)) 
-        {
-            // Can't rename after removing file
-            remove(filename_out);
-            return_code = FALSE;
-        }
-    }
-
-    g_free(filename_out);
-
-    return return_code;
+    return TRUE;
+    
+err:
+    g_assert (error == NULL || *error != NULL);
+    g_object_unref (distream);
+    g_object_unref (istream);
+    g_object_unref (file);
+    return FALSE;
 }
-
-
 #endif /* ENABLE_OGG */

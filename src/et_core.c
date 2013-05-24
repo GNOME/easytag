@@ -498,7 +498,13 @@ GList *ET_Add_File_To_File_List (gchar *filename)
 #endif
 #ifdef ENABLE_OGG
         case OGG_TAG:
-            Ogg_Tag_Read_File_Tag(filename,FileTag);
+            if (!ogg_tag_read_file_tag (filename, FileTag, &error))
+            {
+                Log_Print (LOG_ERROR,
+                           _("Error reading tag from ogg file (%s)"),
+                           error->message);
+                g_clear_error (&error);
+            }
             break;
 #endif
 #ifdef ENABLE_FLAC
@@ -3854,6 +3860,7 @@ gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile)
     struct stat    statbuf;
     struct utimbuf utimbufbuf;
     gboolean file_set_properties;
+    GError *error = NULL;
 
     g_return_val_if_fail (ETFile != NULL, FALSE);
 
@@ -3877,7 +3884,7 @@ gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile)
 #endif
 #ifdef ENABLE_OGG
         case OGG_TAG:
-            state = Ogg_Tag_Write_File_Tag(ETFile);
+            state = ogg_tag_write_file_tag (ETFile, &error);
             break;
 #endif
 #ifdef ENABLE_FLAC
@@ -3946,8 +3953,18 @@ gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile)
 
         ET_Mark_File_Tag_As_Saved(ETFile);
         return TRUE;
-    }else
+    }
+    else
     {
+        if (error)
+        {
+                Log_Print (LOG_ERROR,
+                           _("Error writing tag type %s to file %s (%s)"),
+                           ETFileDescription->TagType, cur_filename_utf8,
+                           error->message);
+                g_error_free (error);
+        }
+
         return FALSE;
     }
 }
