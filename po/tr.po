@@ -1,0 +1,5245 @@
+# Turkish translation for easytag.
+# Copyright (C) 2013 easytag's COPYRIGHT HOLDER
+# This file is distributed under the same license as the easytag package.
+# Osman Karagöz <osmank3@gmail.com>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: easytag\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-05-24 08:32+0000\n"
+"PO-Revision-Date: 2013-04-12 17:25+0300\n"
+"Last-Translator: Osman Karagöz <osmank3@gmail.com>\n"
+"Language-Team: Turkish <gnome-turk@gnome.org>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Gtranslator 2.91.6\n"
+
+#: ../data/easytag.desktop.in.h:1
+msgid "Sound File Metadata Editor"
+msgstr "Düzenleyici Ses Dosyası Etiketi"
+
+#: ../data/easytag.desktop.in.h:2
+msgid "Edit sound file metadata"
+msgstr "Ses dosyası etiketi düzenle"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: ../data/easytag.desktop.in.h:4
+msgid "mp3;tag;audio;"
+msgstr "mp3;etiket;ses;"
+
+#: ../src/about.c:91
+msgid ""
+"This program is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along with "
+"this program. If not, see <http://www.gnu.org/licenses/>."
+msgstr ""
+"Bu program özgür bir yazılımdır, onu Özgür Yazılım Vakfı'nın yayınladığı GNU "
+"Genel Kamu Lisansı'nın 2. sürümü veya (tercihinize bağlı) daha sonraki "
+"sürümleri altında dağıtabilir ve/veya değiştirebilirsiniz.\n"
+"\n"
+"Bu program kullanışlı olması amacıyla dağıtılmıştır, ancak HİÇBİR GARANTİSİ "
+"YOKTUR; hatta SATILABİLİRLİK ya da BİR AMACA HİZMET gibi garantisi de "
+"yoktur. Daha fazla ayrıntı için GNU Genel Kamu Lisansı'na bakın.\n"
+"\n"
+"Bu yazılımla birlikte GNU Genel Kamu Lisansının bir kopyasına sahip "
+"olmalısınız. Eğer yoksa, <http://www.gnu.org/licenses/> adresine "
+"bakabilirsiniz."
+
+#. Translators: put your own name here to appear in the about dialog.
+#: ../src/about.c:108
+msgid "translator-credits"
+msgstr "Osman Karagöz <osmank3@gmail.com>"
+
+#: ../src/about.c:118
+msgid "View and edit tags in audio files"
+msgstr "Ses dosyalarının etiketlerini görüntüle ve düzenle"
+
+#. g_print(_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
+#: ../src/ape_tag.c:61 ../src/id3v24_tag.c:112 ../src/mp4_header.c:63
+#: ../src/mp4_tag.c:65 ../src/mp4_tag.c:186 ../src/ogg_header.c:82
+#: ../src/ogg_tag.c:144 ../src/ogg_tag.c:656
+#, c-format
+msgid "Error while opening file: '%s' (%s)."
+msgstr "Dosya açılamadı: '%s' (%s)."
+
+#. FIXME: Translators should not have to deal with this!
+#: ../src/application.c:54
+#, c-format
+msgid ""
+"\n"
+"Usage: easytag [option] \n"
+"   or: easytag [directory]\n"
+"\n"
+"Option:\n"
+"-------\n"
+"-h, --help        Display this text and exit.\n"
+"-v, --version     Print basic information and exit.\n"
+"\n"
+"Directory:\n"
+"----------\n"
+"%s/path_to/files  Use an absolute path to load,\n"
+"path_to/files     Use a relative path.\n"
+"\n"
+msgstr ""
+"\n"
+"Kullanım: easytag [seçenek]\n"
+"    veya: easytag [dizin]\n"
+"\n"
+"Seçenek:\n"
+"--------\n"
+"-h, --help          Bu yardım metnini göster ve çık.\n"
+"-v, --version       Yazılım sürümünü göster ve çık.\n"
+"\n"
+"Dizin:\n"
+"%s/dosyalara/adres  Kesin adres kullan,\n"
+"dosyalara/adres     Göreceli adres kullan.\n"
+"\n"
+
+#: ../src/application.c:119
+#, c-format
+msgid "Website: %s"
+msgstr "Website: %s"
+
+#.
+#. * Main Menu Actions
+#.
+#: ../src/bar.c:154
+msgid "_File"
+msgstr "_Dosya"
+
+#: ../src/bar.c:155
+#, fuzzy
+#| msgid "Sort list by tag"
+msgid "Sort List by Tag"
+msgstr "Etikete göre sırala"
+
+#: ../src/bar.c:158
+#, fuzzy
+#| msgid "Sort list by property"
+msgid "Sort List by Property"
+msgstr "Özelliğe göre sırala"
+
+#: ../src/bar.c:159
+msgid "Ascending by filename"
+msgstr "Dosya adına göre artan"
+
+#: ../src/bar.c:160
+msgid "Descending by filename"
+msgstr "Dosya adına göre azalan"
+
+#: ../src/bar.c:161
+msgid "Ascending by creation date"
+msgstr "Oluşturma tarihine göre artan"
+
+#: ../src/bar.c:162
+msgid "Descending by creation date"
+msgstr "Oluşturma tarihine göre azalan"
+
+#: ../src/bar.c:163
+msgid "Ascending by track number"
+msgstr "Parça numarasına göre artan"
+
+#: ../src/bar.c:164
+msgid "Descending by track number"
+msgstr "Parça numarasına göre azalan"
+
+#: ../src/bar.c:165
+msgid "Ascending by title"
+msgstr "Başlığa göre artan"
+
+#: ../src/bar.c:166
+msgid "Descending by title"
+msgstr "Başlığa göre azalan"
+
+#: ../src/bar.c:167
+msgid "Ascending by artist"
+msgstr "Sanatçıya göre artan"
+
+#: ../src/bar.c:168
+msgid "Descending by artist"
+msgstr "Sanatçıya göre azalan"
+
+#: ../src/bar.c:169
+msgid "Ascending by album artist"
+msgstr "Albüm sanatçısına göre artan"
+
+#: ../src/bar.c:170
+msgid "Descending by album artist"
+msgstr "Albüm sanatçısına göre azalan"
+
+#: ../src/bar.c:171
+msgid "Ascending by album"
+msgstr "Albüme göre artan"
+
+#: ../src/bar.c:172
+msgid "Descending by album"
+msgstr "Albüme göre azalan"
+
+#: ../src/bar.c:173
+msgid "Ascending by year"
+msgstr "Yıla göre artan"
+
+#: ../src/bar.c:174
+msgid "Descending by year"
+msgstr "Yıla göre azalan"
+
+#: ../src/bar.c:175
+msgid "Ascending by genre"
+msgstr "Türe göre artan"
+
+#: ../src/bar.c:176
+msgid "Descending by genre"
+msgstr "Türe göre azalan"
+
+#: ../src/bar.c:177
+msgid "Ascending by comment"
+msgstr "Yoruma göre artan"
+
+#: ../src/bar.c:178
+msgid "Descending by comment"
+msgstr "Yoruma göre azalan"
+
+#: ../src/bar.c:179
+msgid "Ascending by composer"
+msgstr "Besteciye göre artan"
+
+#: ../src/bar.c:180
+msgid "Descending by composer"
+msgstr "Besteciye göre azalan"
+
+#: ../src/bar.c:181
+msgid "Ascending by original artist"
+msgstr "Asıl sanatçıya göre artan"
+
+#: ../src/bar.c:182
+msgid "Descending by original artist"
+msgstr "Asıl sanatçıya göre azalan"
+
+#: ../src/bar.c:183
+msgid "Ascending by copyright"
+msgstr "Telif hakkına göre artan"
+
+#: ../src/bar.c:184
+msgid "Descending by copyright"
+msgstr "Telif hakkına göre azalan"
+
+#: ../src/bar.c:185
+msgid "Ascending by URL"
+msgstr "Bağlantıya göre artan"
+
+#: ../src/bar.c:186
+msgid "Descending by URL"
+msgstr "Bağlantıya göre azalan"
+
+#. Translators: the encoder name is supposed to be the name of a person
+#. * or organisation, but can sometimes be the name of an application.
+#: ../src/bar.c:189
+msgid "Ascending by encoder name"
+msgstr "Kodlayıcıya göre artan"
+
+#. Translators: the encoder name is supposed to be the name of a person
+#. * or organisation, but can sometimes be the name of an application.
+#: ../src/bar.c:192
+msgid "Descending by encoder name"
+msgstr "Kodlayıcıya göre azalan"
+
+#: ../src/bar.c:193
+msgid "Ascending by file type"
+msgstr "Dosya türüne göre artan"
+
+#: ../src/bar.c:194
+msgid "Descending by file type"
+msgstr "Dosya türüne göre azalan"
+
+#: ../src/bar.c:195
+msgid "Ascending by file size"
+msgstr "Dosya boyutuna göre artan"
+
+#: ../src/bar.c:196
+msgid "Descending by file size"
+msgstr "Dosya boyutuna göre azalan"
+
+#: ../src/bar.c:197
+msgid "Ascending by duration"
+msgstr "Süreye göre artan"
+
+#: ../src/bar.c:198
+msgid "Descending by duration"
+msgstr "Süreye göre azalan"
+
+#: ../src/bar.c:199
+msgid "Ascending by bitrate"
+msgstr "Bit oranına göre artan"
+
+#: ../src/bar.c:200
+msgid "Descending by bitrate"
+msgstr "Bit oranına göre azalan"
+
+#: ../src/bar.c:201
+msgid "Ascending by samplerate"
+msgstr "Örnek oranına göre artan"
+
+#: ../src/bar.c:202
+msgid "Descending by samplerate"
+msgstr "örnek oranına göre azalan"
+
+#: ../src/bar.c:204
+msgid "Open Files With…"
+msgstr "Dosyaları Birlikte Aç…"
+
+#: ../src/bar.c:205
+#, fuzzy
+#| msgid "Include only the selected files"
+msgid "Run a command on the selected files"
+msgstr "Sadece seçilen dosyaları içer"
+
+#: ../src/bar.c:208
+msgid "Select all"
+msgstr "Hepsini seç"
+
+#: ../src/bar.c:209
+#, fuzzy
+#| msgid "Unselect All Files"
+msgid "Unselect All"
+msgstr "Hiçbirini Seçme"
+
+#: ../src/bar.c:210
+#, fuzzy
+#| msgid "Stop the current action"
+msgid "Clear the current selection"
+msgstr "Geçerli işlemi durdur"
+
+#: ../src/bar.c:213
+#, fuzzy
+#| msgid "Invert Files Selection"
+msgid "Invert File Selection"
+msgstr "Seçimi Tersine Çevir"
+
+#: ../src/bar.c:214
+#, fuzzy
+#| msgid "Invert files selection"
+msgid "Invert file selection"
+msgstr "Seçimi tersine çevir"
+
+#: ../src/bar.c:216
+msgid "Delete Files"
+msgstr "Dosyaları Sil"
+
+#: ../src/bar.c:216
+msgid "Delete files"
+msgstr "Dosyaları sil"
+
+#: ../src/bar.c:217
+msgid "_First File"
+msgstr "_İlk Dosya"
+
+#: ../src/bar.c:217
+msgid "First file"
+msgstr "İlk dosya"
+
+#: ../src/bar.c:218
+msgid "_Previous File"
+msgstr "_Önceki Dosya"
+
+#: ../src/bar.c:218
+msgid "Previous file"
+msgstr "Önceki dosya"
+
+#: ../src/bar.c:219
+msgid "_Next File"
+msgstr "So_nraki Dosya"
+
+#: ../src/bar.c:219
+msgid "Next file"
+msgstr "Sonraki dosya"
+
+#: ../src/bar.c:220
+msgid "_Last File"
+msgstr "_Son Dosya"
+
+#: ../src/bar.c:220
+msgid "Last file"
+msgstr "Son dosya"
+
+#: ../src/bar.c:221
+#, fuzzy
+#| msgid "S_can Files…"
+msgid "S_can Files"
+msgstr "Dosyaları _Tara…"
+
+#: ../src/bar.c:222 ../src/scan.c:2350
+#, fuzzy
+#| msgid "Delete files"
+msgid "Scan selected files"
+msgstr "Dosyaları sil"
+
+#: ../src/bar.c:223
+msgid "_Remove Tags"
+msgstr "Etiketle_ri Sil"
+
+#: ../src/bar.c:223
+msgid "Remove tags"
+msgstr "Etiketleri sil"
+
+#: ../src/bar.c:224
+msgid "_Undo Last Files Changes"
+msgstr "Son Dosya Değişikliğini _Geri Al"
+
+#: ../src/bar.c:224
+msgid "Undo last Files changes"
+msgstr "Son dosya değişikliğini geri al"
+
+#: ../src/bar.c:225
+msgid "R_edo Last Files Changes"
+msgstr "Son Dosya Değişikliğini Yin_ele"
+
+#: ../src/bar.c:225
+msgid "Redo last files changes"
+msgstr "Son dosya değişikliğini yinele"
+
+#: ../src/bar.c:226
+msgid "_Save Files"
+msgstr "Do_syaları Kaydet"
+
+#: ../src/bar.c:227
+#, fuzzy
+#| msgid "Delete files"
+msgid "Save changes to selected files"
+msgstr "Dosyaları sil"
+
+#: ../src/bar.c:229
+#, fuzzy
+#| msgid "_Force Saving Files"
+msgid "_Force Save Files"
+msgstr "Dosyaları Kaydetmeye _Zorla"
+
+#: ../src/bar.c:230
+msgid "Force saving files"
+msgstr "Dosyaları kaydetmeye zorla"
+
+#: ../src/bar.c:232
+msgid "Undo Last Changes"
+msgstr "Son Değişiklikleri Geri Al"
+
+#: ../src/bar.c:232
+msgid "Undo last changes"
+msgstr "Son değişiklikleri geri al"
+
+#: ../src/bar.c:233
+msgid "Redo Last Changes"
+msgstr "Son Değişiklikleri Yinele"
+
+#: ../src/bar.c:233
+msgid "Redo last changes"
+msgstr "Son değişiklikleri yinele"
+
+#: ../src/bar.c:234
+msgid "_Quit"
+msgstr "_Çıkış"
+
+#: ../src/bar.c:234 ../src/easytag.c:2402 ../src/easytag.c:4552
+#: ../src/easytag.c:4578
+msgid "Quit"
+msgstr "Çıkış"
+
+#: ../src/bar.c:236
+msgid "_Browser"
+msgstr "_Gezgin"
+
+#: ../src/bar.c:237
+#, fuzzy
+#| msgid "Go to _Home Directory"
+msgid "_Home Directory"
+msgstr "_Ev Dizinine Git"
+
+#: ../src/bar.c:238
+msgid "Go to home directory"
+msgstr "Ev dizinine git"
+
+#: ../src/bar.c:240
+#, fuzzy
+#| msgid "Go to Desktop Directory"
+msgid "Desktop Directory"
+msgstr "Masaüstü Dizinine Git"
+
+#: ../src/bar.c:241
+msgid "Go to desktop directory"
+msgstr "Masaüstü dizinine git"
+
+#: ../src/bar.c:243
+#, fuzzy
+#| msgid "Go to Documents Directory"
+msgid "Documents Directory"
+msgstr "Belgeler Dizinine Git"
+
+#: ../src/bar.c:244
+msgid "Go to documents directory"
+msgstr "Belgeler dizinine git"
+
+#: ../src/bar.c:246
+#, fuzzy
+#| msgid "Go to Downloads Directory"
+msgid "Downloads Directory"
+msgstr "İndirilenler Dizinine Git"
+
+#: ../src/bar.c:247
+msgid "Go to downloads directory"
+msgstr "İndirilenler dizinine git"
+
+#: ../src/bar.c:249
+#, fuzzy
+#| msgid "Go to Music Directory"
+msgid "Music Directory"
+msgstr "Müzik Dizinine Git"
+
+#: ../src/bar.c:250
+msgid "Go to music directory"
+msgstr "Müzik dizinine git"
+
+#: ../src/bar.c:252
+#, fuzzy
+#| msgid "Go to _Home Directory"
+msgid "_Parent Directory"
+msgstr "_Ev Dizinine Git"
+
+#: ../src/bar.c:253
+msgid "Go to parent directory"
+msgstr "Üst dizine git"
+
+#: ../src/bar.c:255
+#, fuzzy
+#| msgid "Default directory:"
+msgid "_Default Directory"
+msgstr "Öntanımlı dizin:"
+
+#: ../src/bar.c:256
+msgid "Go to default directory"
+msgstr "Öntanımlı dizine git"
+
+#: ../src/bar.c:258
+msgid "Set _Current Path as Default"
+msgstr "Bulunulan Dizini Öntan_ımlı Olarak Ayarla"
+
+#: ../src/bar.c:258
+msgid "Set current path as default"
+msgstr "Bulunulan dizini öntanımlı olarak ayarla"
+
+#: ../src/bar.c:259
+msgid "Rename Directory…"
+msgstr "Dizini Yeniden Adlandır…"
+
+#: ../src/bar.c:259
+msgid "Rename directory"
+msgstr "Dizini yeniden adlandır"
+
+#: ../src/bar.c:260
+msgid "Reload Directory"
+msgstr "Dizini Tekrar Yükle"
+
+#: ../src/bar.c:260
+msgid "Reload directory"
+msgstr "Dizini tekrar yükle"
+
+#: ../src/bar.c:262
+#, fuzzy
+#| msgid "Browse Directory with…"
+msgid "Browse Directory With…"
+msgstr "Dizini Gözat…"
+
+#: ../src/bar.c:263
+#, fuzzy
+#| msgid "Rename the directory"
+msgid "Run a command on the directory"
+msgstr "Dizini yeniden adlandır"
+
+#: ../src/bar.c:265
+msgid "_Collapse Tree"
+msgstr "A_ğacı Genişlet"
+
+#: ../src/bar.c:265
+msgid "_Collapse tree"
+msgstr "A_ğacı genişlet"
+
+#: ../src/bar.c:266
+#, fuzzy
+#| msgid "Reload"
+msgid "_Reload Tree"
+msgstr "Yenile"
+
+#: ../src/bar.c:267
+#, fuzzy
+#| msgid "Reload directory"
+msgid "_Reload directory tree"
+msgstr "Dizini tekrar yükle"
+
+#: ../src/bar.c:270
+#, fuzzy
+#| msgid "S_canner"
+msgid "S_canner Mode"
+msgstr "_Tarayıcı"
+
+#: ../src/bar.c:272
+msgid "_Miscellaneous"
+msgstr "_Çeşitli"
+
+#: ../src/bar.c:273
+#, fuzzy
+#| msgid "Find _Files…"
+msgid "_Find…"
+msgstr "Dosyaları _Bul…"
+
+#: ../src/bar.c:274
+msgid "Search filenames and tags"
+msgstr ""
+
+#: ../src/bar.c:276
+#, fuzzy
+#| msgid "CDDB Search Files…"
+msgid "CDD_B Search…"
+msgstr "Dosyaları CDDB'de Ara…"
+
+#: ../src/bar.c:277
+msgid "CDDB search"
+msgstr "CDDB ara"
+
+#: ../src/bar.c:279
+#, fuzzy
+#| msgid "Load Filenames From Text File…"
+msgid "Load Filenames From a Text File…"
+msgstr "Dosya Adlarını Metin Dosyasından Yükle…"
+
+#: ../src/bar.c:280
+#, fuzzy
+#| msgid "Load filenames from text file"
+msgid "Load filenames from a text file"
+msgstr "Dosya adlarını metin dosyasından yükle"
+
+#: ../src/bar.c:282
+#, fuzzy
+#| msgid "Generate a playlist"
+msgid "Generate Playlist…"
+msgstr "Çalma listesi oluştur"
+
+#: ../src/bar.c:283
+msgid "Generate a playlist"
+msgstr "Çalma listesi oluştur"
+
+#: ../src/bar.c:285 ../src/bar.c:309 ../src/bar.c:310 ../src/bar.c:311
+msgid "Run Audio Player"
+msgstr "Müzik Çaları Çalıştır"
+
+#: ../src/bar.c:285 ../src/bar.c:309 ../src/bar.c:310 ../src/bar.c:311
+msgid "Run audio player"
+msgstr "Müzik çaları çalıştır"
+
+#: ../src/bar.c:287
+msgid "_Edit"
+msgstr ""
+
+#: ../src/bar.c:288
+msgid "_Preferences"
+msgstr "_Tercihler"
+
+#. The window
+#: ../src/bar.c:289 ../src/prefs.c:107
+msgid "Preferences"
+msgstr "Tercihler"
+
+#: ../src/bar.c:291
+msgid "_View"
+msgstr ""
+
+#: ../src/bar.c:292
+msgid "_Go"
+msgstr ""
+
+#: ../src/bar.c:294
+msgid "_Help"
+msgstr "_Yardım"
+
+#: ../src/bar.c:295
+msgid "_About"
+msgstr "_Hakkında"
+
+#: ../src/bar.c:295
+msgid "About"
+msgstr "Hakkında"
+
+#.
+#. * Following items are on toolbar but not on menu
+#.
+#: ../src/bar.c:301
+msgid "Stop the current action"
+msgstr "Geçerli işlemi durdur"
+
+#.
+#. * Popup menu's Actions
+#.
+#: ../src/bar.c:307
+msgid "_File Operations"
+msgstr "_Dosya işlemleri"
+
+#: ../src/bar.c:308
+msgid "S_canner"
+msgstr "_Tarayıcı"
+
+#: ../src/bar.c:312
+msgid "CDDB Search Files…"
+msgstr "Dosyaları CDDB'de Ara…"
+
+#: ../src/bar.c:312
+msgid "CDDB search files…"
+msgstr "Dosyaları CDDB'de ara…"
+
+#. { AM_ARTIST_OPEN_FILE_WITH,     GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
+#. { AM_ALBUM_OPEN_FILE_WITH,      GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
+#: ../src/bar.c:316
+msgid "Clear log"
+msgstr "Raporu temizle"
+
+#. { AM_BROWSE_SUBDIR,      GTK_STOCK_INDEX,        _("Browse _Subdirectories"),                         NULL, _("Browse _Sub-directories"),                         NULL,                                    FALSE },
+#: ../src/bar.c:323
+msgid "Browse _Subdirectories"
+msgstr "A_lt Dizinleride Tara"
+
+#: ../src/bar.c:323
+msgid "Browse subdirectories"
+msgstr "Alt dizinleride tara"
+
+#: ../src/bar.c:327
+msgid "Show Hidden Directories"
+msgstr "Gizli Dosyaları Göster"
+
+#: ../src/bar.c:327
+msgid "Show hidden directories"
+msgstr "Gizli dosyaları göster"
+
+#: ../src/bar.c:329
+#, fuzzy
+#| msgid "Scanner"
+msgid "_Show Scanner"
+msgstr "Tarayıcı"
+
+#: ../src/bar.c:330
+#, fuzzy
+#| msgid "Scanner"
+msgid "Show scanner"
+msgstr "Tarayıcı"
+
+#: ../src/bar.c:336
+#, fuzzy
+#| msgid "Tree Browser View"
+msgid "Tree Browser"
+msgstr "Ağaç Gezgini Görünümü"
+
+#: ../src/bar.c:337
+msgid "View by directory tree"
+msgstr "Dizin ağacına göre göster"
+
+#: ../src/bar.c:339
+#, fuzzy
+#| msgid "Artist & Album"
+msgid "Artist and Album"
+msgstr "Sanatçı & Albüm"
+
+#: ../src/bar.c:340
+msgid "View by artist and album"
+msgstr "Sanatçı ve albüme göre göster"
+
+#: ../src/bar.c:345
+msgid "_Fill Tags…"
+msgstr "Etiketleri _Doldur…"
+
+#: ../src/bar.c:346
+msgid "Fill tags"
+msgstr "Etiketleri doldur"
+
+#: ../src/bar.c:348
+msgid "_Rename Files and Directories…"
+msgstr "Dosya ve Dizinleri Yeniden _Adlandır…"
+
+#: ../src/bar.c:349
+msgid "Rename files and directories"
+msgstr "Dosya ve dizinleri yeniden adlandır"
+
+#: ../src/bar.c:351
+msgid "_Process Fields…"
+msgstr "_Alanları İşle…"
+
+#: ../src/bar.c:351 ../src/scan.c:181
+msgid "Process Fields"
+msgstr "Alanları işle"
+
+#: ../src/bar.c:406
+#, c-format
+msgid "Could not merge UI, error was: %s\n"
+msgstr "UI birleştirilemedi, hata: %s\n"
+
+#: ../src/bar.c:512
+msgid "Ready to start"
+msgstr "Başlamaya hazır"
+
+#: ../src/browser.c:369
+msgid "New default path for files selected"
+msgstr "Seçilen dosyalar için yeni öntanımlı konum"
+
+#: ../src/browser.c:670 ../src/easytag.c:4550
+msgid "Some files have been modified but not saved"
+msgstr "Bazı dosyalar değiştirildi ama kaydedilmedi"
+
+#: ../src/browser.c:671
+msgid "Do you want to save them before changing the directory?"
+msgstr "Dizini değiştirmeden önce değişiklikleri kaydetmek istiyor musunuz?"
+
+#: ../src/browser.c:673
+msgid "Confirm Directory Change"
+msgstr "Dizin Değişimini Doğrula"
+
+#: ../src/browser.c:2113
+msgid "<All albums>"
+msgstr "<Bütün Albümler>"
+
+#: ../src/browser.c:2558
+#, c-format
+msgid "Error: Searching for %s, could not find node %s in tree."
+msgstr "Hata: %s aranıyor, ağaçta %s dalı bulunamadı."
+
+#: ../src/browser.c:3046 ../src/browser.c:3125
+msgid "Tree"
+msgstr "Ağaç"
+
+#: ../src/browser.c:3047 ../src/cddb.c:716 ../src/misc.c:1881
+msgid "Filename"
+msgstr "Dosya adı"
+
+#: ../src/browser.c:3047 ../src/cddb.c:717 ../src/misc.c:1882
+#: ../src/prefs.c:608
+msgid "Title"
+msgstr "Başlık"
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "Artist".
+#: ../src/browser.c:3048 ../src/browser.c:3055 ../src/cddb.c:398
+#: ../src/cddb.c:718 ../src/misc.c:1883 ../src/prefs.c:609
+msgid "Artist"
+msgstr "Sanatçı"
+
+#: ../src/browser.c:3048 ../src/misc.c:1884
+msgid "Album Artist"
+msgstr "Albüm Sanatçısı"
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "Album".
+#: ../src/browser.c:3049 ../src/browser.c:3057 ../src/cddb.c:401
+#: ../src/cddb.c:719 ../src/misc.c:1885 ../src/prefs.c:610
+msgid "Album"
+msgstr "Albüm"
+
+#: ../src/browser.c:3049 ../src/cddb.c:720 ../src/misc.c:1887
+msgid "Year"
+msgstr "Yıl"
+
+#: ../src/browser.c:3049
+msgid "Disc"
+msgstr "Disk"
+
+#: ../src/browser.c:3050 ../src/misc.c:1888
+msgid "Track"
+msgstr "Parça"
+
+#: ../src/browser.c:3050 ../src/cddb.c:723 ../src/misc.c:1889
+#: ../src/prefs.c:611
+msgid "Genre"
+msgstr "Tür"
+
+#: ../src/browser.c:3051 ../src/misc.c:1890 ../src/prefs.c:612
+msgid "Comment"
+msgstr "Yorum"
+
+#: ../src/browser.c:3051 ../src/misc.c:1891 ../src/picture.c:845
+#: ../src/prefs.c:613
+msgid "Composer"
+msgstr "Besteci"
+
+#: ../src/browser.c:3052 ../src/misc.c:1892
+msgid "Original Artist"
+msgstr "Asıl Sanatçı"
+
+#: ../src/browser.c:3053 ../src/misc.c:1893
+msgid "Copyright"
+msgstr "Telif Hakkı"
+
+#: ../src/browser.c:3053 ../src/misc.c:1894
+msgid "URL"
+msgstr "Bağlantı"
+
+#: ../src/browser.c:3054 ../src/misc.c:1895
+msgid "Encoded By"
+msgstr "Kodlayıcı"
+
+#: ../src/browser.c:3055
+msgid "# Albums"
+msgstr "# Albümler"
+
+#: ../src/browser.c:3056 ../src/browser.c:3057
+msgid "# Files"
+msgstr "# Dosyalar"
+
+#: ../src/browser.c:3083
+msgid "Enter a directory to browse."
+msgstr "Gezinmek için dizin girin."
+
+#: ../src/browser.c:3092
+msgid "Select a directory to browse."
+msgstr "Gezinmek için dizin seçin."
+
+#.
+#. * The label for displaying number of files in path (without subdirs)
+#.
+#. Translators: No files, as in "0 files".
+#: ../src/browser.c:3099 ../src/easytag.c:3425
+msgid "No files"
+msgstr "Dosya yok"
+
+#: ../src/browser.c:3176
+msgid "Artist & Album"
+msgstr "Sanatçı & Albüm"
+
+#. Only directories changed
+#: ../src/browser.c:3538 ../src/easytag.c:2847
+msgid "Rename Directory"
+msgstr "Dizini Yeniden Adlandır"
+
+#: ../src/browser.c:3557
+#, c-format
+msgid "Rename the directory '%s' to:"
+msgstr "Dizini '%s' adından:"
+
+#: ../src/browser.c:3576 ../src/misc.c:1185
+msgid "Use mask:"
+msgstr "Maske Kullan:"
+
+#: ../src/browser.c:3579
+msgid "If activated, it will use masks to rename directory."
+msgstr "Eğer etkinse dizini yeniden adlandırırken maskeyi kullanır."
+
+#: ../src/browser.c:3597
+msgid ""
+"Select or type in a mask using codes (see Legend in Scanner Window) to "
+"rename the directory from tag fields."
+msgstr ""
+"Dizini yeniden adlandırmak için etiket alanlarından maske kodunu (Tarayıcı "
+"Penceresinden Maske Biçilerine bakın) seçin veya yazın"
+
+#. Preview label
+#: ../src/browser.c:3621
+msgid "Rename directory preview"
+msgstr "Dizin yeniden adlandırma önizlemesix"
+
+#: ../src/browser.c:3714
+msgid "You must type a directory name"
+msgstr "Bir dizin adı yazmalısınız"
+
+#: ../src/browser.c:3715 ../src/browser.c:3736
+msgid "Directory Name Error"
+msgstr "Dizin Adı Hatası"
+
+#: ../src/browser.c:3733
+#, c-format
+msgid "Could not convert '%s' into filename encoding."
+msgstr "Dosya kodlanırken '%s' dönüştürülemedi."
+
+#: ../src/browser.c:3735
+msgid "Please use another name"
+msgstr "Lütfen başka bir ad kullanın"
+
+#: ../src/browser.c:3805
+#, c-format
+msgid "The directory name '%s' already exists"
+msgstr "\"%s\" adında bir dizin zaten var"
+
+#: ../src/browser.c:3806 ../src/easytag.c:2928
+msgid "Rename File Error"
+msgstr "Dosya Yeniden Adlandırma Hatası"
+
+#: ../src/browser.c:3845 ../src/browser.c:3875
+msgid "Rename Directory Error"
+msgstr "Dizin Yeniden Adlandırma Hatası"
+
+#: ../src/browser.c:3915
+msgid "Directory renamed"
+msgstr "Dizin yeniden adlandırıldı"
+
+#: ../src/browser.c:3951
+#, fuzzy
+#| msgid "Browse Directory with…"
+msgid "Browse Directory With"
+msgstr "Dizini Gözat…"
+
+#: ../src/browser.c:3965 ../src/browser.c:4089
+msgid "Program to run:"
+msgstr "Çalıştırmak için program:"
+
+#: ../src/browser.c:3977
+msgid ""
+"Enter the program to run. It will receive the current directory as parameter."
+msgstr ""
+"Çalıştırmak için program adı girin. Program bulunulan dizini parametre "
+"olarak alır."
+
+#: ../src/browser.c:4071
+#, fuzzy
+#| msgid "Open Files With…"
+msgid "Open Files With"
+msgstr "Dosyaları Birlikte Aç…"
+
+#: ../src/browser.c:4101
+msgid ""
+"Enter the program to run. It will receive the current file as parameter."
+msgstr ""
+"Çalıştırmak için program adı girin. Program şuanki dosyayı parametre olarak "
+"alır."
+
+#: ../src/browser.c:4227
+msgid "You must type a program name"
+msgstr "Bir program adı yazmalısınız."
+
+#: ../src/browser.c:4228 ../src/browser.c:4245
+msgid "Program Name Error"
+msgstr "Program Adı Hatası"
+
+#: ../src/browser.c:4243 ../src/misc.c:794
+#, c-format
+msgid "The program '%s' cannot be found"
+msgstr "'%s' programı bulunamadı"
+
+#: ../src/browser.c:4291 ../src/misc.c:839
+#, c-format
+msgid "Cannot execute %s (error %d)\n"
+msgstr "%s çalıştırılamıyor (hata %d)\n"
+
+#: ../src/browser.c:4310
+msgid "Cannot fork another process\n"
+msgstr "Başka bir süreç çalıştırılamıyor\n"
+
+#: ../src/browser.c:4345
+#, c-format
+msgid "Executed command: %s"
+msgstr "Komutu çalıştır: %s"
+
+#: ../src/cddb.c:227
+msgid "Artist / Album"
+msgstr "Sanatçı / Albüm"
+
+#: ../src/cddb.c:227
+msgid "Category"
+msgstr "Kategori"
+
+#. Note: don't set "" instead of NULL else this will cause problem with translation language
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "Track Name".
+#: ../src/cddb.c:228 ../src/cddb.c:404
+msgid "Track Name"
+msgstr "Parça Adı"
+
+#: ../src/cddb.c:228
+msgid "Duration"
+msgstr "Süre"
+
+#: ../src/cddb.c:240
+#, fuzzy
+#| msgid "CDDB search"
+msgid "CDDB Search"
+msgstr "CDDB ara"
+
+#.
+#. * 1 - Page for automatic search (generate the CDDBId from files)
+#.
+#: ../src/cddb.c:261
+msgid "Automatic Search"
+msgstr "Otomatik Ara"
+
+#: ../src/cddb.c:271
+#, fuzzy
+#| msgid "Request CD database:"
+msgid "Request CDDB"
+msgstr "CD veritabanı isteği:"
+
+#: ../src/cddb.c:281
+#, fuzzy
+#| msgid ""
+#| "Request automatically the CDDB database using the selected files (the "
+#| "order is important) to generate the CddbID"
+msgid ""
+"Request automatically the CDDB using the selected files (the order is "
+"important) to generate the CddbID"
+msgstr ""
+"CddbID oluşturmak için seçilen dosyalar (sıralama önemli) için CDDB "
+"veritabanı isteğini otomatik olarak yap."
+
+#: ../src/cddb.c:292 ../src/cddb.c:372
+msgid "Stop the search"
+msgstr "Aramayı durdur"
+
+#. Check box to run the scanner
+#: ../src/cddb.c:299
+msgid "Use local CDDB"
+msgstr "Yerel CDDB kullan"
+
+#: ../src/cddb.c:302 ../src/cddb.c:763
+msgid ""
+"When activating this option, after loading the fields, the current selected "
+"scanner will be ran (the scanner window must be opened)."
+msgstr ""
+"Bu seçeneği etkinleştirirken alanlar yüklendikten sonra şuan seçilen "
+"tarayıcı çalıştırılır (Tarayıcı penceresi açık olmalıdır.)."
+
+#.
+#. * 2 - Page for manual search
+#.
+#: ../src/cddb.c:319
+msgid "Manual Search"
+msgstr "Elle Arama"
+
+#: ../src/cddb.c:331
+msgid "Words:"
+msgstr "Kelimeler:"
+
+#: ../src/cddb.c:344
+msgid "Enter the words to search (separated by a space or '+')"
+msgstr "Aramak için kelimeleri girin (boşluk veya '+' ile ayrılır)"
+
+#.
+#. * Search options
+#.
+#: ../src/cddb.c:384
+msgid "Search In:"
+msgstr "İçinde Ara:"
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "All fields".
+#: ../src/cddb.c:394
+msgid "All Fields"
+msgstr "Tüm Alanlar"
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "Other".
+#: ../src/cddb.c:407 ../src/picture.c:823 ../src/prefs.c:772
+msgid "Other"
+msgstr "Diğer"
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "All Categories".
+#: ../src/cddb.c:431
+msgid "All Categories"
+msgstr "Tüm Kategoriler"
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "Blues".
+#: ../src/cddb.c:435
+msgid "Blues"
+msgstr "Blues"
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "Classical".
+#: ../src/cddb.c:438
+msgid "Classical"
+msgstr "Classical"
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "Country".
+#: ../src/cddb.c:441
+msgid "Country"
+msgstr "Country"
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "Folk".
+#: ../src/cddb.c:444
+msgid "Folk"
+msgstr "Folk"
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "Jazz".
+#: ../src/cddb.c:447
+msgid "Jazz"
+msgstr "Jazz"
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "Misc".
+#: ../src/cddb.c:450
+msgid "Misc."
+msgstr "Misc."
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "New age".
+#: ../src/cddb.c:453
+msgid "New Age"
+msgstr "New Age"
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "Reggae".
+#: ../src/cddb.c:456
+msgid "Reggae"
+msgstr "Reggae"
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "Rock".
+#: ../src/cddb.c:459
+msgid "Rock"
+msgstr "Rock"
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "Soundtrack".
+#: ../src/cddb.c:462
+msgid "Soundtrack"
+msgstr "Soundtrack"
+
+#: ../src/cddb.c:502
+msgid "included: funk, soul, rap, pop, industrial, metal, etc."
+msgstr "funk, soul, rap, pop, industrial, metal, vs dahil"
+
+#: ../src/cddb.c:503
+msgid "movies, shows"
+msgstr "videolar, gösteriler"
+
+#: ../src/cddb.c:504
+msgid "others that do not fit in the above categories"
+msgstr "yukarıdaki kategorilere uymayan diğerleri"
+
+#. Button to display/hide the categories
+#: ../src/cddb.c:507
+msgid "Categories"
+msgstr "Kategoriler"
+
+#.
+#. * Results command
+#.
+#: ../src/cddb.c:515
+msgid "Results:"
+msgstr "Sonuçlar:"
+
+#: ../src/cddb.c:521 ../src/misc.c:1930
+msgid "Search:"
+msgstr "Ara:"
+
+#: ../src/cddb.c:535
+msgid "Enter the words to search in the list below"
+msgstr "Liste boyunca aramak için kelime girin"
+
+#: ../src/cddb.c:547
+msgid "Search Next"
+msgstr "Sonrakini Ara"
+
+#: ../src/cddb.c:553
+msgid "Search Previous"
+msgstr "Öncekini Ara"
+
+#: ../src/cddb.c:564
+msgid "Show only red lines (or show all lines) in the 'Artist / Album' list"
+msgstr ""
+"Sanatçı / Albüm listesinde sadece kırmızı satırları (veya tüm satırları) "
+"göster"
+
+#: ../src/cddb.c:570
+msgid "Unselect all lines"
+msgstr "Hiçbir satırı seçme"
+
+#: ../src/cddb.c:576
+msgid "Invert lines selection"
+msgstr "Satır seçimini tersine çevir"
+
+#: ../src/cddb.c:585
+msgid "Select all lines"
+msgstr "Tüm satırları seç"
+
+#: ../src/cddb.c:701
+msgid ""
+"Select lines to 'apply' to your files list. All lines will be processed if "
+"no line is selected.\n"
+"You can also reorder lines in this list before using 'apply' button."
+msgstr ""
+"Dosya listenize uygulamak için satır seçin. Seçim yapılmazsa tüm satırlar "
+"işlenir.\n"
+"'Uygula' düğmesine basmadan önce tekrar sıralayabilirsiniz."
+
+#.
+#. * Apply results to fields...
+#.
+#: ../src/cddb.c:708
+msgid "Set Into:"
+msgstr "Uygulanacak Alanlar:"
+
+#: ../src/cddb.c:714
+msgid "All"
+msgstr "Tümü"
+
+#: ../src/cddb.c:721
+msgid "Track #"
+msgstr "Parça #"
+
+#: ../src/cddb.c:722
+msgid "# Tracks"
+msgstr "# Parçalar"
+
+#. Check box to run the scanner
+#: ../src/cddb.c:760 ../src/misc.c:2965
+msgid "Run the current scanner for each file"
+msgstr "Şuanki tarayıcıyı tüm dosyalar için çalıştır"
+
+#. Check box to use DLM (also used in the preferences window)
+#: ../src/cddb.c:767
+msgid "Match lines with the Levenshtein algorithm"
+msgstr "Satırları Levenshtein algoritmasıyla eşleştir"
+
+#. Doesn't activate it by default because if the new user don't pay attention to it,
+#. it will not understand why the cddb results aren't loaded correctly...
+#. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbUseDLM2),CDDB_USE_DLM);
+#: ../src/cddb.c:772 ../src/prefs.c:1329
+msgid ""
+"When activating this option, the Levenshtein algorithm (DLM: Damerau-"
+"Levenshtein Metric) will be used to match the CDDB title against every "
+"filename in the current folder, and to select the best match. This will be "
+"used when selecting the corresponding audio file, or applying CDDB results, "
+"instead of using directly the position order."
+msgstr ""
+"Bu seçeneği etkinleştirince CDDB başlığı dizindeki her dosya adı için "
+"Levenshtein algoritması (DLM: Damerau-Levenshtein Metric) ile eşleştirmeye "
+"çalışır ve en iyi eşleşeni seçer. Doğrudan konum sıralaması kullanmak yerine "
+"uygun ses dosyasını seçmekte ve CDDB sonuçlarını uygulamakta kullanılır."
+
+#: ../src/cddb.c:784
+msgid "Load the selected lines or all lines (if no line selected)."
+msgstr "Seçilen satırları veya tüm satırları (hiçbir satır seçilmemişse) yükle"
+
+#: ../src/cddb.c:794
+msgid "Ready to search"
+msgstr "Aramaya hazır"
+
+#: ../src/cddb.c:1283
+#, c-format
+msgid ""
+"Album: '%s', artist: '%s', length: '%s', year: '%s', genre: '%s', ID: '%s'"
+msgstr ""
+"Albüm: '%s', sanatçı: '%s', uzunluk: '%s', yıl: '%s', tür: '%s', ID: '%s'"
+
+#: ../src/cddb.c:1516
+#, c-format
+msgid "Resolving host '%s'…"
+msgstr "Sunucu '%s' çözülüyor…"
+
+#: ../src/cddb.c:1524
+#, c-format
+msgid "Can't resolve host '%s' (%s)."
+msgstr "'%s' sunucusu çözülemiyor (%s)."
+
+#: ../src/cddb.c:1539
+#, c-format
+msgid "Cannot create a new socket (%s)"
+msgstr "Yeni soket oluşturulamıyor (%s)"
+
+#. Open connection to the server
+#: ../src/cddb.c:1553
+#, c-format
+msgid "Connecting to host '%s', port '%d'…"
+msgstr "'%s' sunucusuna '%d' portundan bağlanılıyor…"
+
+#: ../src/cddb.c:1560
+#, c-format
+msgid "Cannot connect to host '%s' (%s)"
+msgstr "'%s' sunucusuna bağlanılamıyor (%s)"
+
+#: ../src/cddb.c:1566
+#, c-format
+msgid "Connected to host '%s'"
+msgstr "'%s' sunucusuna bağlanıldı"
+
+#: ../src/cddb.c:1638
+#, fuzzy, c-format
+#| msgid "Error while writing to file: '%s' (%s)"
+msgid "Error while writing CDDB results to file '%s'"
+msgstr "Dosyaya yazılamadı: '%s' (%s)"
+
+#: ../src/cddb.c:1649
+#, c-format
+msgid "Receiving data (%s)…"
+msgstr "Veri alınıyor (%s)…"
+
+#: ../src/cddb.c:1661
+#, c-format
+msgid "Error when reading CDDB response (%s)"
+msgstr "CDDB cevabı okunamıyor (%s)"
+
+#: ../src/cddb.c:1668
+#, c-format
+msgid "Cannot create file '%s' (%s)"
+msgstr "'%s' dosyası oluşturulamıyor (%s)"
+
+#: ../src/cddb.c:1709 ../src/setting.c:1241
+#, c-format
+msgid "Cannot open file '%s' (%s)"
+msgstr "'%s' dosyası açılamadı (%s)"
+
+#. g_print("Request Cddb_Search_Album_List_From_String_Freedb : '%s'\n", cddb_in);
+#. Send the request
+#. g_print("Request Cddb_Search_Album_List_From_String_Gnudb : '%s'\n", cddb_in);
+#. Send the request
+#. g_print("Request Cddb_Get_Album_Tracks_List : '%s'\n", cddb_in);
+#. Send the request
+#: ../src/cddb.c:2168 ../src/cddb.c:2497 ../src/cddb.c:3371
+msgid "Sending request…"
+msgstr "İstek gönderiliyor…"
+
+#: ../src/cddb.c:2172 ../src/cddb.c:2501 ../src/cddb.c:3071 ../src/cddb.c:3375
+#, c-format
+msgid "Cannot send the request (%s)"
+msgstr "İstek gönderilemiyor (%s)"
+
+#.
+#. * Read the answer
+#.
+#. Read the answer
+#: ../src/cddb.c:2198 ../src/cddb.c:3085 ../src/cddb.c:3384
+msgid "Receiving data…"
+msgstr "Veri alınıyor…"
+
+#: ../src/cddb.c:2205 ../src/cddb.c:2530 ../src/cddb.c:3092 ../src/cddb.c:3391
+msgid "The server returned a bad response"
+msgstr "Sunucu bozuk bir yanıt döndürdü"
+
+#: ../src/cddb.c:2219 ../src/cddb.c:2546 ../src/cddb.c:3107 ../src/cddb.c:3408
+#: ../src/cddb.c:3423
+#, c-format
+msgid "The server returned a bad response: %s"
+msgstr "Sunucu bozuk bir yanıt döndürdü: %s"
+
+#: ../src/cddb.c:2366
+#, c-format
+msgid "Sorry, the web-based search is currently not available"
+msgstr "Üzgünüm, Web tabanlı arama henüz desteklenmiyor"
+
+#: ../src/cddb.c:2368 ../src/cddb.c:2717
+#, c-format
+msgid "Found one matching album"
+msgid_plural "Found %d matching albums"
+msgstr[0] "%d eşleşen albüm bulundu"
+
+#: ../src/cddb.c:2518
+#, c-format
+msgid "Receiving data of page %d (album %d/%d)…"
+msgstr "Verinin %d sayfası alınıyor (albüm %d/%d)…"
+
+#: ../src/cddb.c:2520
+#, c-format
+msgid "Receiving data of page %d…"
+msgstr "Verinin %d sayfası alınıyor…"
+
+#: ../src/cddb.c:2684
+#, c-format
+msgid "More results to load…"
+msgstr "Daha fazla sonuç yükleniyor…"
+
+#: ../src/cddb.c:2813
+#, c-format
+msgid "No file selected"
+msgstr "Hiç dosya seçilmedi"
+
+#. The CD redbook standard defines the maximum number of tracks as 99, any
+#. queries with more than 99 tracks will never return a result.
+#: ../src/cddb.c:2821
+#, c-format
+msgid "More than 99 files selected. Cannot send request"
+msgstr "99 dosyadan fazlası seçildi. İstek gönderilemiyor"
+
+#: ../src/cddb.c:2827
+#, c-format
+msgid "One file selected"
+msgid_plural "%d files selected"
+msgstr[0] "%d dosya seçildi"
+
+#: ../src/cddb.c:2911
+msgid "The path for 'Local CD Database' was not defined"
+msgstr "'Yerel CD Veritabanı' konumu belirtilmemiş"
+
+#. Translators: 'it' in this sentence refers to the local CD
+#. * database path.
+#: ../src/cddb.c:2914
+msgid "Enter it in the preferences window before using this search."
+msgstr "Bu aramayı yapmadan önce tercihlerden bu bilgiyi girin."
+
+#: ../src/cddb.c:2916
+msgid "Local CD search"
+msgstr "Yerel CD arama"
+
+#. g_print("Request Cddb_Search_Album_From_Selected_Files : '%s'\n", cddb_in);
+#: ../src/cddb.c:3061
+#, c-format
+msgid "Sending request (CddbId: %s, #tracks: %d, Disc length: %d)…"
+msgstr "İstek gönderiliyor (CddbId: %s, #parçalar: %d, Disk uzunluğu: %d)…"
+
+#: ../src/cddb.c:3218
+#, c-format
+msgid "DiscID '%s' gave one matching album"
+msgid_plural "DiscID '%s' gave %d matching albums"
+msgstr[0] "'%s' DiskID için %d albüm eşleşiyor"
+
+#: ../src/cddb.c:3315
+#, c-format
+msgid "Can't load file: '%s' (%s)."
+msgstr "Dosya yüklenemiyor: '%s' (%s)."
+
+#. Load the track list of the album
+#: ../src/cddb.c:3614
+msgid "Loading album track list…"
+msgstr "Albüm parça listesi yükleniyor…"
+
+#: ../src/cddb.c:3817
+msgid "The number of CDDB results does not match the number of selected files"
+msgstr "CDDB sonuç sayısı seçilen parça sayısıyla eşleşmiyor"
+
+#: ../src/cddb.c:3821
+msgid "Write Tag from CDDB"
+msgstr "Etiketleri CDDB'den Yaz"
+
+#: ../src/charset.c:47
+msgid "Arabic (IBM-864)"
+msgstr "Arapça (IBM-864)"
+
+#: ../src/charset.c:48
+msgid "Arabic (ISO-8859-6)"
+msgstr "Arapça (ISO-8859-6)"
+
+#: ../src/charset.c:49
+msgid "Arabic (Windows-1256)"
+msgstr "Arapça (Windows-1256)"
+
+#: ../src/charset.c:50
+msgid "Baltic (ISO-8859-13)"
+msgstr "Baltık (ISO-8859-13)"
+
+#: ../src/charset.c:51
+msgid "Baltic (ISO-8859-4)"
+msgstr "Baltık (ISO-8859-4)"
+
+#: ../src/charset.c:52
+msgid "Baltic (Windows-1257)"
+msgstr "Baltık (Windows-1257)"
+
+#: ../src/charset.c:53
+msgid "Celtic (ISO-8859-14)"
+msgstr "Keltçe (ISO-8859-14)"
+
+#: ../src/charset.c:54
+msgid "Central European (IBM-852)"
+msgstr "Merkez Avrupa (IBM-852)"
+
+#: ../src/charset.c:55
+msgid "Central European (ISO-8859-2)"
+msgstr "Merkez Avrupa (ISO-8859-2)"
+
+#: ../src/charset.c:56
+msgid "Central European (Windows-1250)"
+msgstr "Merkez Avrupa (Windows-1250)"
+
+#: ../src/charset.c:57
+msgid "Chinese Simplified (GB18030)"
+msgstr "Basitleştirilmiş Çince (GB18030)"
+
+#: ../src/charset.c:58
+msgid "Chinese Simplified (GB2312)"
+msgstr "Basitleştirilmiş Çince (GB2312)"
+
+#: ../src/charset.c:59
+msgid "Chinese Traditional (Big5)"
+msgstr "Geleneksel Çince (Big5)"
+
+#: ../src/charset.c:60
+msgid "Chinese Traditional (Big5-HKSCS)"
+msgstr "Geleneksel Çince (Big5-HKSCS)"
+
+#: ../src/charset.c:61
+msgid "Cyrillic (IBM-855)"
+msgstr "Kiril (IBM-855)"
+
+#: ../src/charset.c:62
+msgid "Cyrillic (ISO-8859-5)"
+msgstr "Kiril (ISO-8859-5)"
+
+#: ../src/charset.c:63
+msgid "Cyrillic (ISO-IR-111)"
+msgstr "Kiril (ISO-IR-111)"
+
+#: ../src/charset.c:64
+msgid "Cyrillic (KOI8-R)"
+msgstr "Kiril (KOI8-R)"
+
+#: ../src/charset.c:65
+msgid "Cyrillic (Windows-1251)"
+msgstr "Kiril (Windows-1251)"
+
+#: ../src/charset.c:66
+msgid "Cyrillic/Russian (CP-866)"
+msgstr "Kiril/Rusça (IBM-866)"
+
+#: ../src/charset.c:67
+msgid "Cyrillic/Ukrainian (KOI8-U)"
+msgstr "Kiril/Ukraynaca (KOI8-U)"
+
+#: ../src/charset.c:68
+msgid "English (US-ASCII)"
+msgstr "İngilizce (US-ASCII)"
+
+#: ../src/charset.c:69
+msgid "Greek (ISO-8859-7)"
+msgstr "Yunanca (ISO-8859-7)"
+
+#: ../src/charset.c:70
+msgid "Greek (Windows-1253)"
+msgstr "Yunanca (Windows-1253)"
+
+#: ../src/charset.c:71
+msgid "Hebrew (IBM-862)"
+msgstr "İbranice (IBM-862)"
+
+#: ../src/charset.c:72
+msgid "Hebrew (Windows-1255)"
+msgstr "İbranice (Windows-1255)"
+
+#: ../src/charset.c:73
+msgid "Japanese (EUC-JP)"
+msgstr "Japonca (EUC-JP)"
+
+#: ../src/charset.c:74
+msgid "Japanese (ISO-2022-JP)"
+msgstr "Japonca (ISO-2022-JP)"
+
+#: ../src/charset.c:75
+msgid "Japanese (Shift_JIS)"
+msgstr "Japonca (Shift_JIS)"
+
+#: ../src/charset.c:76
+msgid "Korean (EUC-KR)"
+msgstr "Korece (EUC-KR)"
+
+#: ../src/charset.c:77
+msgid "Nordic (ISO-8859-10)"
+msgstr "İskandinavca (ISO-8859-10)"
+
+#: ../src/charset.c:78
+msgid "South European (ISO-8859-3)"
+msgstr "Güney Avrupa (ISO-8859-3)"
+
+#: ../src/charset.c:79
+msgid "Thai (TIS-620)"
+msgstr "Tai (TIS-620)"
+
+#: ../src/charset.c:80
+msgid "Turkish (IBM-857)"
+msgstr "Türkçe (IBM-857)"
+
+#: ../src/charset.c:81
+msgid "Turkish (ISO-8859-9)"
+msgstr "Türkçe (ISO-8859-9)"
+
+#: ../src/charset.c:82
+msgid "Turkish (Windows-1254)"
+msgstr "Türkçe (Windows-1254)"
+
+#. {N_("Unicode (UTF-7)"),                   "UTF-7"         },
+#: ../src/charset.c:84
+msgid "Unicode (UTF-8)"
+msgstr "Unikod (UTF-8)"
+
+#. {N_("Unicode (UTF-16BE)"),                "UTF-16BE"      },
+#. {N_("Unicode (UTF-16LE)"),                "UTF-16LE"      },
+#. {N_("Unicode (UTF-32BE)"),                "UTF-32BE"      },
+#. {N_("Unicode (UTF-32LE)"),                "UTF-32LE"      },
+#: ../src/charset.c:91
+msgid "Vietnamese (VISCII)"
+msgstr "Vietnamca (VISCII)"
+
+#: ../src/charset.c:92
+msgid "Vietnamese (Windows-1258)"
+msgstr "Vietnamca (Windows-1258)"
+
+#: ../src/charset.c:93
+msgid "Visual Hebrew (ISO-8859-8)"
+msgstr "Görsel İbranice (ISO-8859-8)"
+
+#: ../src/charset.c:94
+msgid "Western (IBM-850)"
+msgstr "Batı (IBM-850)"
+
+#: ../src/charset.c:95
+msgid "Western (ISO-8859-1)"
+msgstr "Batı (ISO-8859-1)"
+
+#: ../src/charset.c:96
+msgid "Western (ISO-8859-15)"
+msgstr "Batı (ISO-8859-15)"
+
+#: ../src/charset.c:97
+msgid "Western (Windows-1252)"
+msgstr "Batı (Windows-1252)"
+
+#: ../src/charset.c:511
+#, c-format
+msgid "The filename '%s' couldn't be converted into UTF-8 (%s)."
+msgstr "Dosya adı '%s' UTF-8'e dönüştürülemiyor (%s)."
+
+#: ../src/charset.c:512 ../src/charset.c:611 ../src/charset.c:674
+msgid "Invalid UTF-8"
+msgstr "Geçersiz UTF-8"
+
+#: ../src/charset.c:610
+#, c-format
+msgid ""
+"The UTF-8 string '%s' couldn't be converted into filename encoding (%s)."
+msgstr "'%s' UTF-8 metni dosya adı kodlamasına dönüştürülemiyor (%s)."
+
+#: ../src/charset.c:673
+#, c-format
+msgid "The string '%s' couldn't be converted into UTF-8 (%s)."
+msgstr "'%s' metni UTF-8'e dönüştürülemiyor (%s)."
+
+#: ../src/easytag.c:274 ../src/et_core.c:576
+#, fuzzy, c-format
+#| msgid "Error while writing to file: '%s' (%s)"
+msgid "Error while querying information for file: '%s' (%s)"
+msgstr "Dosyaya yazılamadı: '%s' (%s)"
+
+#: ../src/easytag.c:339
+#, fuzzy, c-format
+#| msgid "Cannot open file: '%s'"
+msgid "Cannot open path '%s'"
+msgstr "'%s' dosyası açılamıyor"
+
+#. Starting messages
+#: ../src/easytag.c:380
+#, c-format
+msgid "Starting EasyTAG version %s (PID: %d)…"
+msgstr "EasyTAG %s sürümü başlatılıyor (PID: %d)…"
+
+#: ../src/easytag.c:382
+#, c-format
+msgid "Using libid3tag version %s"
+msgstr "libid3tag sürüm %s kullanılıyor"
+
+#: ../src/easytag.c:385
+#, c-format
+msgid "Using id3lib version %d.%d.%d"
+msgstr "id3lib sürüm %d.%d.%d kullanılıyor"
+
+#: ../src/easytag.c:391
+#, c-format
+msgid "Variable EASYTAGLANG defined. Setting locale: '%s'"
+msgstr "EASYTAGLANG değişkeni ayarlanmış. Dil ayarı: '%s'"
+
+#: ../src/easytag.c:393
+#, c-format
+msgid "Setting locale: '%s'"
+msgstr "Dil Ayarı: '%s'"
+
+#: ../src/easytag.c:398
+#, c-format
+msgid "Currently using locale '%s' (and eventually '%s')"
+msgstr "Şuan kullanılan dil '%s' (ve neticede '%s')"
+
+#: ../src/easytag.c:405
+msgid "Unable to create setting directories"
+msgstr "Ayar dizin, oluşturulamadı"
+
+#.
+#. * Browser
+#.
+#: ../src/easytag.c:556 ../src/prefs.c:137
+msgid "Browser"
+msgstr "Gezgin"
+
+#: ../src/easytag.c:578 ../src/et_core.c:2745
+msgid "File"
+msgstr "Dosya"
+
+#. Default values are MPs data
+#. Nothing to display
+#. gtk_label_set_text(GTK_LABEL(VersionLabel),"");
+#. gtk_label_set_text(GTK_LABEL(VersionValueLabel),"");
+#. Version changed to encoder version
+#. Encoder version
+#: ../src/easytag.c:610 ../src/easytag.c:4179 ../src/flac_header.c:201
+#: ../src/monkeyaudio_header.c:96 ../src/musepack_header.c:98
+#: ../src/ogg_header.c:238 ../src/wavpack_header.c:72
+#, c-format
+msgid "Encoder:"
+msgstr "Kodlayıcı:"
+
+#: ../src/easytag.c:618
+msgid "Bitrate:"
+msgstr "Bit oranı:"
+
+#. Translators: Please try to keep this string as short as possible as it
+#. * is shown in a narrow column.
+#: ../src/easytag.c:628
+#, fuzzy
+#| msgid "Freq.:"
+msgid "Frequency:"
+msgstr "Örnek oranı:"
+
+#. Mode
+#: ../src/easytag.c:639 ../src/easytag.c:4183 ../src/mpeg_header.c:216
+msgid "Mode:"
+msgstr "Kip:"
+
+#: ../src/easytag.c:646
+msgid "Size:"
+msgstr "Boyut:"
+
+#: ../src/easytag.c:653
+msgid "Duration:"
+msgstr "Süre:"
+
+#. Main Frame
+#: ../src/easytag.c:699 ../src/et_core.c:2683
+msgid "Tag"
+msgstr "Etiket"
+
+#.
+#. * 1 - Page for common tag fields
+#.
+#: ../src/easytag.c:721
+msgid "Common"
+msgstr "Genel"
+
+#. Title
+#: ../src/easytag.c:728
+msgid "Title:"
+msgstr "Başlık:"
+
+#: ../src/easytag.c:742
+msgid "Tag selected files with this title"
+msgstr "Seçilen dosyalara bu başlığı etiketle"
+
+#. Artist
+#: ../src/easytag.c:747
+msgid "Artist:"
+msgstr "Sanatçı:"
+
+#: ../src/easytag.c:761
+msgid "Tag selected files with this artist"
+msgstr "Seçilen dosyalara bu sanatçıyı etiketle"
+
+#. Album Artist
+#: ../src/easytag.c:766
+msgid "Album artist:"
+msgstr "Albüm Sanatçısı:"
+
+#: ../src/easytag.c:780
+msgid "Tag selected files with this album artist"
+msgstr "Seçilen dosyalara bu albüm sanatçısını etiketle"
+
+#. Album
+#: ../src/easytag.c:785
+msgid "Album:"
+msgstr "Albüm:"
+
+#: ../src/easytag.c:799
+msgid "Tag selected files with this album name"
+msgstr "Seçilen dosyalara bu albümü etiketle"
+
+#. Disc Number
+#: ../src/easytag.c:804
+msgid "CD:"
+msgstr "CD:"
+
+#: ../src/easytag.c:821
+msgid "Tag selected files with this disc number"
+msgstr "Seçilen dosyalara bu disk numarasını etiketle"
+
+#. Year
+#: ../src/easytag.c:826
+msgid "Year:"
+msgstr "Yıl:"
+
+#: ../src/easytag.c:846
+msgid "Tag selected files with this year"
+msgstr "Seçilen dosyalara bu yılı etiketle"
+
+#: ../src/easytag.c:860
+msgid "Number selected tracks sequentially. Starts at 01 in each subdirectory."
+msgstr "Parça numarasını otomatik doldur. Her alt dizin için 01'den başlar."
+
+#. To have enough space to display the icon
+#. To have enough space to display the icon
+#: ../src/easytag.c:869
+msgid "Track #:"
+msgstr "Parça #:"
+
+#: ../src/easytag.c:900
+msgid ""
+"Set the number of files, in the same directory of the displayed file, to the "
+"selected tracks."
+msgstr ""
+"Toplam parça sayısını otomatik doldur, her alt dizini kendi içinde sayar."
+
+#: ../src/easytag.c:920
+msgid "Tag selected files with this number of tracks"
+msgstr "Seçilen dosyalara bu parça numarasını etiketle"
+
+#. Genre
+#: ../src/easytag.c:924
+msgid "Genre:"
+msgstr "Tür:"
+
+#: ../src/easytag.c:952
+msgid "Tag selected files with this genre"
+msgstr "Seçilen dosyalara bu türü etiketle"
+
+#. Comment
+#: ../src/easytag.c:957
+msgid "Comment:"
+msgstr "Yorum:"
+
+#: ../src/easytag.c:984
+msgid "Tag selected files with this comment"
+msgstr "Seçilen dosyalara bu yorumu etiketle"
+
+#. Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(CommentView));
+#. Composer (name of the composers)
+#: ../src/easytag.c:991
+msgid "Composer:"
+msgstr "Besteci:"
+
+#: ../src/easytag.c:1005
+msgid "Tag selected files with this composer"
+msgstr "Seçilen dosyalara bu besteciyi etiketle"
+
+#. Translators: Original Artist / Performer. Please try to keep this string
+#. * as short as possible, as it must fit into a narrow column.
+#: ../src/easytag.c:1012
+msgid "Orig. artist:"
+msgstr "Asıl sanatçı:"
+
+#: ../src/easytag.c:1026
+msgid "Tag selected files with this original artist"
+msgstr "Seçilen dosyalara bu asıl sanatçıyı etiketle"
+
+#. Copyright
+#: ../src/easytag.c:1032
+msgid "Copyright:"
+msgstr "Telif Hakkı:"
+
+#: ../src/easytag.c:1046
+msgid "Tag selected files with this copyright"
+msgstr "Seçilen dosyalara bu telif hakkını etiketle"
+
+#. URL
+#: ../src/easytag.c:1052
+msgid "URL:"
+msgstr "Bağlantı:"
+
+#: ../src/easytag.c:1066
+msgid "Tag selected files with this URL"
+msgstr "Seçilen dosyalara bu bağlantıyı etiketle"
+
+#. Encoded by
+#: ../src/easytag.c:1072
+msgid "Encoded by:"
+msgstr "Kodlayıcı:"
+
+#: ../src/easytag.c:1086
+msgid "Tag selected files with this encoder name"
+msgstr "Seçilen dosyalara bu kodlayıcıyı etiketle"
+
+#.
+#. * 2 - Page for extra tag fields
+#.
+#: ../src/easytag.c:1120
+msgid "Images"
+msgstr "Görüntüler"
+
+#: ../src/easytag.c:1143
+msgid "You can use drag and drop to add an image"
+msgstr "Tut çek bırak yöntemiyle görüntüleri bırakabilirsiniz."
+
+#: ../src/easytag.c:1190
+msgid "Add images to the tag"
+msgstr "Etikete görüntü ekle"
+
+#: ../src/easytag.c:1208
+msgid "Remove selected images from the tag"
+msgstr "Seçilen görüntüleri etiketten sil"
+
+#: ../src/easytag.c:1222
+msgid "Save the selected images to files"
+msgstr "Seçilen görüntüleri dosya olarak kaydet"
+
+#: ../src/easytag.c:1233
+msgid "Edit image properties"
+msgstr "Görüntü özelliklerini düzenle"
+
+#: ../src/easytag.c:1247
+msgid "Tag selected files with these images"
+msgstr "Seçilen dosyalara bu görüntüleri etiketle"
+
+#: ../src/easytag.c:1307
+#, c-format
+msgid "Selected files tagged with title '%s'."
+msgstr "Seçilen dosyalar '%s' başlığı ile etiketlendi."
+
+#: ../src/easytag.c:1309
+msgid "Removed title from selected files."
+msgstr "Seçilen dosyalardan başlık silindi."
+
+#: ../src/easytag.c:1326
+#, c-format
+msgid "Selected files tagged with artist '%s'."
+msgstr "Seçilen dosyalar '%s' sanatçısı ile etiketlendi."
+
+#: ../src/easytag.c:1328
+msgid "Removed artist from selected files."
+msgstr "Seçilen dosyalardan sanatçı silindi"
+
+#: ../src/easytag.c:1345
+#, c-format
+msgid "Selected files tagged with album artist '%s'."
+msgstr "Seçilen dosyalar '%s' albüm sanatçısı ile etiketlendi."
+
+#: ../src/easytag.c:1347
+msgid "Removed album artist from selected files."
+msgstr "Seçilen dosyalardan albüm sanatçısı silindi"
+
+#: ../src/easytag.c:1364
+#, c-format
+msgid "Selected files tagged with album '%s'."
+msgstr "Seçilen dosyalar '%s' albümü ile etiketlendi."
+
+#: ../src/easytag.c:1366
+msgid "Removed album name from selected files."
+msgstr "Seçilen dosyalardan albümü silindi"
+
+#: ../src/easytag.c:1383
+#, c-format
+msgid "Selected files tagged with disc number '%s'."
+msgstr "Seçilen dosyalar '%s' disk numarası ile etiketlendi."
+
+#: ../src/easytag.c:1385
+msgid "Removed disc number from selected files."
+msgstr "Seçilen dosyalardan disk numarası silindi"
+
+#: ../src/easytag.c:1402
+#, c-format
+msgid "Selected files tagged with year '%s'."
+msgstr "Seçilen dosyalar '%s' yılı ile etiketlendi."
+
+#: ../src/easytag.c:1404
+msgid "Removed year from selected files."
+msgstr "Seçilen dosyalardan yıl silindi"
+
+#: ../src/easytag.c:1432 ../src/easytag.c:1528
+#, c-format
+msgid "Selected files tagged with track like 'xx/%s'."
+msgstr "Seçilen dosyaların parça numarası 'xx/%s' şeklinde etiketlendi."
+
+#: ../src/easytag.c:1435
+#, c-format
+msgid "Selected files tagged with track like 'xx'."
+msgstr "Seçilen dosyaların parça numarası 'xx' şeklinde etiketlendi."
+
+#: ../src/easytag.c:1439 ../src/easytag.c:1531
+msgid "Removed track number from selected files."
+msgstr "Seçilen dosyalardan parça numarası silindi"
+
+#. msg = g_strdup_printf(_("All %d tracks numbered sequentially."), ETCore->ETFileSelectionList_Length);
+#: ../src/easytag.c:1497
+#, c-format
+msgid "Selected tracks numbered sequentially."
+msgstr "Seçilen parçalar ardışık olarak numaralandı."
+
+#: ../src/easytag.c:1549
+#, c-format
+msgid "Selected files tagged with genre '%s'."
+msgstr "Seçilen dosyalar '%s' türü ile etiketlendi."
+
+#: ../src/easytag.c:1551
+msgid "Removed genre from selected files."
+msgstr "Seçilen dosyalardan türü silindi"
+
+#: ../src/easytag.c:1575
+#, c-format
+msgid "Selected files tagged with comment '%s'."
+msgstr "Seçilen dosyalar '%s' yorumu ile etiketlendi."
+
+#: ../src/easytag.c:1577
+msgid "Removed comment from selected files."
+msgstr "Seçilen dosyalardan yorum silindi"
+
+#: ../src/easytag.c:1594
+#, c-format
+msgid "Selected files tagged with composer '%s'."
+msgstr "Seçilen dosyalar '%s' besteci ile etiketlendi."
+
+#: ../src/easytag.c:1596
+msgid "Removed composer from selected files."
+msgstr "Seçilen dosyalardan besteci silindi"
+
+#: ../src/easytag.c:1613
+#, c-format
+msgid "Selected files tagged with original artist '%s'."
+msgstr "Seçilen dosyalar '%s' asıl sanatçısı ile etiketlendi."
+
+#: ../src/easytag.c:1615
+msgid "Removed original artist from selected files."
+msgstr "Seçilen dosyalardan asıl sanatçı silindi"
+
+#: ../src/easytag.c:1632
+#, c-format
+msgid "Selected files tagged with copyright '%s'."
+msgstr "Seçilen dosyalar '%s' telif hakkı ile etiketlendi."
+
+#: ../src/easytag.c:1634
+msgid "Removed copyright from selected files."
+msgstr "Seçilen dosyalardan telif hakkı silindi"
+
+#: ../src/easytag.c:1651
+#, c-format
+msgid "Selected files tagged with URL '%s'."
+msgstr "Seçilen dosyalar '%s' bağlantısı ile etiketlendi."
+
+#: ../src/easytag.c:1653
+msgid "Removed URL from selected files."
+msgstr "Seçilen dosyalardan bağlantı silindi"
+
+#: ../src/easytag.c:1670
+#, c-format
+msgid "Selected files tagged with encoder name '%s'."
+msgstr "Seçilen dosyalar '%s' kodlayıcısı ile etiketlendi."
+
+#: ../src/easytag.c:1672
+msgid "Removed encoder name from selected files."
+msgstr "Seçilen dosyalardan kodlayıcı silindi"
+
+#: ../src/easytag.c:1707
+msgid "Selected files tagged with images."
+msgstr "Seçilen dosyalar görüntülerle ile etiketlendi."
+
+#: ../src/easytag.c:1709
+msgid "Removed images from selected files."
+msgstr "Seçilen dosyalardan görüntüler silindi"
+
+#: ../src/easytag.c:1989
+msgid "Select Mode and Mask, and redo the same action"
+msgstr "Türü ve maskeyi seçin, aynı işlemi tekrar uygulayın"
+
+#: ../src/easytag.c:2044
+msgid "All tags have been scanned"
+msgstr "Bütün etiketler tarandı"
+
+#: ../src/easytag.c:2102
+msgid "All tags have been removed"
+msgstr "Bütün etiketler silindi"
+
+#: ../src/easytag.c:2398
+#, c-format
+msgid "A file was changed by an external program"
+msgid_plural "%d files were changed by an external program."
+msgstr[0] "%d dosya harici bir program tarafından değiştirilmiş."
+
+#: ../src/easytag.c:2401
+msgid "Do you want to continue saving the file?"
+msgstr "Dosyayı kaydetmeye devam etmek istiyor musunuz?"
+
+#: ../src/easytag.c:2452 ../src/easytag.c:2477
+msgid "Saving files was stopped"
+msgstr "Dosya kaydetme durduruldu"
+
+#: ../src/easytag.c:2479
+msgid "All files have been saved"
+msgstr "Tüm dosyalar kaydedildi."
+
+#: ../src/easytag.c:2608
+#, fuzzy, c-format
+#| msgid "Cannot create file '%s' (%s)"
+msgid "Cannot delete file (%s)"
+msgstr "'%s' dosyası oluşturulamıyor (%s)"
+
+#: ../src/easytag.c:2636
+msgid "Files have been partially deleted"
+msgstr "Dosyalar kısmen silindi"
+
+#: ../src/easytag.c:2638
+msgid "All files have been deleted"
+msgstr "Bütün dosyalar silindi"
+
+#: ../src/easytag.c:2754
+#, c-format
+msgid "Do you want to write the tag of file '%s'?"
+msgstr "'%s' dosyasına etiketleri yazmak istiyor musunuz?"
+
+#: ../src/easytag.c:2756
+msgid "Confirm Tag Writing"
+msgstr "Etiket Yazmayı Doğrula"
+
+#: ../src/easytag.c:2761 ../src/easytag.c:2876 ../src/easytag.c:3135
+msgid "Repeat action for the remaining files"
+msgstr "Kalan dosyalar için eylemi tekrarla"
+
+#. Directories and filename changed
+#: ../src/easytag.c:2840 ../src/scan.c:180
+msgid "Rename File and Directory"
+msgstr "Dosya ve Dizini Yeniden Adlandır"
+
+#: ../src/easytag.c:2841
+msgid "File and directory rename confirmation required"
+msgstr "Dosya ve dizin yeniden adlandırma doğrulaması gerekiyor"
+
+#: ../src/easytag.c:2842
+#, c-format
+msgid "Do you want to rename the file and directory '%s' to '%s'?"
+msgstr "'%s' dosya ve dizinin adı '%s' şeklinde yeniden adlandırsın mı?"
+
+#: ../src/easytag.c:2848
+msgid "Directory rename confirmation required"
+msgstr "Dizin yeniden adlandırma doğrulaması gerekiyor"
+
+#: ../src/easytag.c:2849
+#, c-format
+msgid "Do you want to rename the directory '%s' to '%s'?"
+msgstr "'%s' dizinin adı '%s' ile yeniden adlandırılsın mı?"
+
+#. Only filename changed
+#: ../src/easytag.c:2855
+msgid "Rename File"
+msgstr "Dosyayı Yeniden Adlandır"
+
+#: ../src/easytag.c:2856
+msgid "File rename confirmation required"
+msgstr "Dosya yeniden adlandırma doğrulaması gerekiyor"
+
+#: ../src/easytag.c:2857
+#, c-format
+msgid "Do you want to rename the file '%s' to '%s'?"
+msgstr "'%s' dosyasının adı '%s' ile yeniden adlandırılsın mı?"
+
+#: ../src/easytag.c:2921
+#, c-format
+msgid "Cannot rename file '%s' to '%s'"
+msgstr "'%s' dosyası '%s' olarak yeniden adlandırılamıyor"
+
+#: ../src/easytag.c:2935
+#, c-format
+msgid "Cannot rename file '%s' to '%s': %s"
+msgstr "'%s' dosyası '%s' olarak yeniden adlandırılamıyor: %s"
+
+#: ../src/easytag.c:2939
+msgid "File(s) not renamed"
+msgstr "Dosya(lar) yeniden adlandırılamadı"
+
+#: ../src/easytag.c:3048
+#, c-format
+msgid "Writing tag of '%s'"
+msgstr "'%s' etiketi yazılıyor"
+
+#: ../src/easytag.c:3054
+msgid "Tag(s) written"
+msgstr "Etiket(ler) yazıldı"
+
+#: ../src/easytag.c:3065 ../src/easytag.c:3071
+#, c-format
+msgid "Cannot write tag in file '%s' (%s)"
+msgstr "'%s' dosyasına etiket yazılamıyor (%s)"
+
+#: ../src/easytag.c:3084
+#, c-format
+msgid "Cannot write tag in file '%s'"
+msgstr "'%s' dosyasına etiket yazılamıyor"
+
+#: ../src/easytag.c:3087
+msgid "Tag Write Error"
+msgstr "Etiket Yazma Hatası"
+
+#: ../src/easytag.c:3132 ../src/easytag.c:3146
+#, c-format
+msgid "Do you really want to delete the file '%s'?"
+msgstr "'%s' dosyasını silmek istediğinize emin misiniz?"
+
+#: ../src/easytag.c:3138 ../src/easytag.c:3148
+msgid "Delete File"
+msgstr "Dosya Sil"
+
+#: ../src/easytag.c:3171
+#, c-format
+msgid "File '%s' deleted"
+msgstr "'%s' silindi"
+
+#: ../src/easytag.c:3302
+#, c-format
+msgid "Cannot read directory '%s'"
+msgstr "'%s' dizini okunamıyor"
+
+#: ../src/easytag.c:3306
+msgid "Directory Read Error"
+msgstr "Dizin Okuma Hatası"
+
+#. Read the directory recursively
+#: ../src/easytag.c:3327
+#, c-format
+msgid "Search in progress…"
+msgstr "Arama sürüyor…"
+
+#: ../src/easytag.c:3349 ../src/et_core.c:2752
+#, c-format
+msgid "File: '%s'"
+msgstr "Dosya: '%s'"
+
+#: ../src/easytag.c:3400
+#, fuzzy, c-format
+#| msgid "Found %d file(s) in this directory and subdirectories."
+msgid "Found one file in this directory and subdirectories"
+msgid_plural "Found %d files in this directory and subdirectories"
+msgstr[0] "Bu dizin ve alt dizinlerinde %d dosya bulundu."
+
+#: ../src/easytag.c:3407
+#, fuzzy, c-format
+#| msgid "Found %d file(s) in this directory."
+msgid "Found one file in this directory"
+msgid_plural "Found %d files in this directory"
+msgstr[0] "Bu dizinde %d dosya bulundu."
+
+#: ../src/easytag.c:3429
+msgid "No file found in this directory and subdirectories"
+msgstr "Bu dizin ve alt dizinlerinde dosya bulunamadı"
+
+#: ../src/easytag.c:3431
+msgid "No file found in this directory"
+msgstr "Bu dizinde dosya bulunamadı"
+
+#: ../src/easytag.c:3499
+#, fuzzy, c-format
+#| msgid "Error: Cannot create directory '%s' (%s)"
+msgid "Error opening directory '%s' (%s)"
+msgstr "Hata: '%s' dizini oluşturulamıyor (%s)"
+
+#: ../src/easytag.c:3535
+#, fuzzy, c-format
+#| msgid "Cannot read directory '%s'"
+msgid "Cannot read directory (%s)"
+msgstr "'%s' dizini okunamıyor"
+
+#: ../src/easytag.c:3555
+#, fuzzy
+#| msgid "Search in progress…"
+msgid "Searching for audio files…"
+msgstr "Arama sürüyor…"
+
+#: ../src/easytag.c:3556
+#, fuzzy
+#| msgid "Searching…"
+msgid "Searching"
+msgstr "Aranıyor…"
+
+#: ../src/easytag.c:4213
+msgid "Select a directory to browse"
+msgstr "Gezinmek için dizin seçin"
+
+#. Menu items
+#: ../src/easytag.c:4360
+msgid "Tag selected files with this field"
+msgstr "Seçilen dosyaları bu alanda etiketle"
+
+#. Group: character conversion
+#: ../src/easytag.c:4372 ../src/scan.c:2660
+msgid "Convert '_' and '%20' to spaces"
+msgstr "'_' ve '%20' metinlerini boşluğa çevir"
+
+#: ../src/easytag.c:4379 ../src/scan.c:2661
+msgid "Convert ' ' to '_'"
+msgstr "Boşlukları '_' karakterine çevir"
+
+#. Group: capitalize, ...
+#: ../src/easytag.c:4390 ../src/scan.c:2712
+msgid "All uppercase"
+msgstr "Tümü büyük harf"
+
+#: ../src/easytag.c:4397 ../src/scan.c:2713
+msgid "All lowercase"
+msgstr "Tümü küçük harf"
+
+#: ../src/easytag.c:4404 ../src/scan.c:2714
+msgid "First letter uppercase"
+msgstr "İlk harf büyük"
+
+#: ../src/easytag.c:4411 ../src/scan.c:2715
+msgid "First letter uppercase of each word"
+msgstr "Her kelimenin ilk harfi büyük"
+
+#. Group: insert/remove spaces
+#: ../src/easytag.c:4422 ../src/prefs.c:988 ../src/scan.c:2763
+msgid "Remove spaces"
+msgstr "Boşlukları sil"
+
+#: ../src/easytag.c:4429
+msgid "Insert space before uppercase letter"
+msgstr "Büyük harften önce boşluk ekle"
+
+#: ../src/easytag.c:4436
+msgid "Remove duplicate spaces or underscores"
+msgstr "Çift boşluk ve alt çizgileri sil"
+
+#: ../src/easytag.c:4443
+msgid "Remove all text"
+msgstr "Tüm metni sil"
+
+#. gchar commmand[256];
+#: ../src/easytag.c:4466
+#, c-format
+msgid "EasyTAG version %s: Abnormal exit (PID: %d)"
+msgstr "EasyTAG sürüm %s: Olağan dışı çıkış (PID: %d)"
+
+#: ../src/easytag.c:4467 ../src/easytag.c:4478
+#, fuzzy, c-format
+#| msgid "Received signal %s (%d)"
+msgid "Received signal '%s' (%d)"
+msgstr "%s sinyali alındı (%d)"
+
+#: ../src/easytag.c:4470 ../src/easytag.c:4481
+#, c-format
+msgid ""
+"You have probably found a bug in EasyTAG. Please, file a bug report with a "
+"GDB backtrace ('gdb easytag core' then 'bt' and 'l') and information to "
+"reproduce it at: %s"
+msgstr ""
+"EasyTAG'da bir hata bulundu. Lütfen GDB geri izleme ('gdb easytag core' "
+"sonra 'bt' ve 'l') ile hata kaydedip bilgileri bize gönderin: %s"
+
+#. To send messages to the console...
+#: ../src/easytag.c:4476
+#, c-format
+msgid "EasyTAG version %s: Abnormal exit (PID: %d)."
+msgstr "EasyTAG sürüm %s: Olağan dışı çıkış (PID: %d)."
+
+#: ../src/easytag.c:4502
+msgid "EasyTAG: Normal exit."
+msgstr "EasyTAG: Normal çıkış."
+
+#: ../src/easytag.c:4553
+msgid "Do you want to save them before quitting?"
+msgstr "Çıkmadan önce kaydedilsin mi?"
+
+#: ../src/easytag.c:4576
+msgid "Do you really want to quit?"
+msgstr "Gerçekten çıkmak istiyor musunuz?"
+
+#: ../src/et_core.c:632
+#, c-format
+msgid "Automatic corrections applied for file '%s'."
+msgstr "'%s' için otomatik doğrulama uygulandı."
+
+#: ../src/et_core.c:2649
+msgid "ID3 Tag"
+msgstr "ID3 Etiketi"
+
+#: ../src/et_core.c:2655
+msgid "Ogg Vorbis Tag"
+msgstr "Ogg Vorbis Etiketi"
+
+#: ../src/et_core.c:2661
+msgid "FLAC Vorbis Tag"
+msgstr "FLAC Vorbis Etiketi"
+
+#: ../src/et_core.c:2666
+msgid "APE Tag"
+msgstr "APE Etiketi"
+
+#: ../src/et_core.c:2671
+msgid "MP4/M4A/AAC Tag"
+msgstr "MP4/M4A/AAC Etiketi"
+
+#: ../src/et_core.c:2677
+msgid "Wavpack Tag"
+msgstr "Wavpack Etiketi"
+
+#: ../src/et_core.c:2697
+msgid "MP3 File"
+msgstr "MP3 Dosyası"
+
+#: ../src/et_core.c:2701
+msgid "MP2 File"
+msgstr "MP2 Dosyası"
+
+#: ../src/et_core.c:2707
+msgid "Ogg Vorbis File"
+msgstr "Ogg Vorbis Dosyası"
+
+#: ../src/et_core.c:2713
+msgid "Speex File"
+msgstr "Speex Dosyası"
+
+#: ../src/et_core.c:2719
+msgid "FLAC File"
+msgstr "FLAC Dosyası"
+
+#: ../src/et_core.c:2724
+msgid "MusePack File"
+msgstr "MusePack Dosyası"
+
+#: ../src/et_core.c:2728
+msgid "Monkey's Audio File"
+msgstr "Monkey's Audio Dosyası"
+
+#: ../src/et_core.c:2733
+msgid "MP4/AAC File"
+msgstr "MP4/AAC Dosyası"
+
+#: ../src/et_core.c:2739
+msgid "Wavpack File"
+msgstr "Wavpack Dosyası"
+
+#: ../src/et_core.c:2796 ../src/et_core.c:2851
+msgid "File not found"
+msgstr "Dosya bulunamadı"
+
+#: ../src/et_core.c:2801
+#, fuzzy, c-format
+#| msgid "Cannot open file '%s' (%s)"
+msgid "Cannot query file information (%s)"
+msgstr "'%s' dosyası açılamadı (%s)"
+
+#: ../src/et_core.c:2835
+msgid "Read-only file"
+msgstr "Salt okunur dosya"
+
+#. And refresh the number of files in this directory
+#: ../src/et_core.c:2899
+#, c-format
+msgid "One file"
+msgid_plural "%u files"
+msgstr[0] "%u dosya"
+
+#: ../src/et_core.c:3086
+#, c-format
+msgid "Images (%d)"
+msgstr "Görüntüler (%d)"
+
+#. Bitrate
+#: ../src/et_core.c:3126 ../src/flac_header.c:205
+#: ../src/monkeyaudio_header.c:86 ../src/mp4_header.c:134
+#: ../src/mpeg_header.c:206 ../src/musepack_header.c:88
+#: ../src/ogg_header.c:250 ../src/wavpack_header.c:78
+#, c-format
+msgid "%d kb/s"
+msgstr "%d kb/s"
+
+#. Samplerate
+#: ../src/et_core.c:3131 ../src/flac_header.c:210
+#: ../src/monkeyaudio_header.c:91 ../src/mp4_header.c:139
+#: ../src/mpeg_header.c:211 ../src/musepack_header.c:93
+#: ../src/ogg_header.c:255 ../src/wavpack_header.c:83
+#, c-format
+msgid "%d Hz"
+msgstr "%d Hz"
+
+#: ../src/et_core.c:3274 ../src/scan.c:691
+#, c-format
+msgid "Could not convert filename '%s' into system filename encoding"
+msgstr "'%s' dosya adı sistem dosya adı kodlamasına dönüştürülemiyor"
+
+#: ../src/et_core.c:3276
+msgid "Try setting the environment variable G_FILENAME_ENCODING."
+msgstr "G_FILENAME_ENCODING ortam değişkenini ayarlamayı deneyin."
+
+#: ../src/et_core.c:3277 ../src/scan.c:693
+msgid "Filename translation"
+msgstr "Dosya adı dönüştürme"
+
+#: ../src/et_core.c:3917
+#, fuzzy, c-format
+#| msgid "Cannot create or open file '%s' (%s)"
+msgid "Cannot change the permissions of file '%s' (%s)"
+msgstr "'%s' dosyası oluşturulamıyor veya okunamıyor (%s)"
+
+#. Mode
+#. Mode
+#. mpeg4ip library seems to always return -1
+#. Mode
+#: ../src/flac_header.c:215 ../src/mp4_header.c:145 ../src/ogg_header.c:260
+#: ../src/wavpack_header.c:88
+msgid "Channels:"
+msgstr "Kanallar:"
+
+#: ../src/flac_tag.c:131 ../src/flac_tag.c:828 ../src/flac_tag.c:838
+#, c-format
+msgid "Error while opening file: '%s' as FLAC (%s)."
+msgstr "Dosya açılamadı: '%s' FLAC (%s)."
+
+#: ../src/flac_tag.c:318 ../src/ogg_tag.c:302
+#, c-format
+msgid ""
+"The year value '%s' seems to be invalid in file '%s'. The information will "
+"be lost while saving tag."
+msgstr ""
+"'%1s' dosyasındaki '%2s' yıl değeri geçersiz gibi görünüyor. Bu bilgi etiket "
+"kaydedilirken kaybolacak."
+
+#: ../src/flac_tag.c:1040
+#, c-format
+msgid "Picture block isn't valid: '%s'"
+msgstr "Görüntü bloğu geçersiz: '%s'"
+
+#: ../src/flac_tag.c:1073 ../src/ogg_tag.c:841
+#, c-format
+msgid "Error: Failed to write comments to file '%s' (%s)."
+msgstr "Hata: '%s' dosyasına yorum yazılamadı (%s)."
+
+#: ../src/flac_tag.c:1078 ../src/ogg_tag.c:850
+#, c-format
+msgid "Written tag of '%s'"
+msgstr "'%s' etiketi yazıldı"
+
+#: ../src/id3_tag.c:158
+#, fuzzy, c-format
+#| msgid "Error while opening file: '%s' (%s)."
+msgid "Error while reading file: '%s' (%s)"
+msgstr "Dosya açılamadı: '%s' (%s)."
+
+#: ../src/id3_tag.c:170
+#, c-format
+msgid ""
+"As the following corrupted file '%s' will cause an error in id3lib, it will "
+"not be processed"
+msgstr "'%s' dosyası id3lib ile ilgili hata verdi, işlenmeyecek"
+
+#: ../src/id3_tag.c:172
+msgid "Corrupted file"
+msgstr "Bozuk Dosya"
+
+#: ../src/id3_tag.c:528
+#, c-format
+msgid "Removed tag of '%s'"
+msgstr "'%s' etiketi silindi"
+
+#: ../src/id3_tag.c:532 ../src/id3_tag.c:632
+#, c-format
+msgid "Error while removing ID3v1 tag of '%s' (%s)"
+msgstr "'%s' dosyasının ID3v1 etiketi silinemiyor (%s)"
+
+#: ../src/id3_tag.c:534 ../src/id3_tag.c:604
+#, c-format
+msgid "Error while removing ID3v2 tag of '%s' (%s)"
+msgstr "'%s' dosyasının ID3v2 etiketi silinemiyor (%s)"
+
+#: ../src/id3_tag.c:553
+#, c-format
+msgid "Error while updating ID3v2 tag of '%s' (%s)"
+msgstr "'%s' dosyasının ID3v2 etiketi güncellenemiyor (%s)"
+
+#: ../src/id3_tag.c:581
+msgid ""
+"You have tried to save this tag to Unicode but it was detected that your "
+"version of id3lib is buggy"
+msgstr ""
+"Etiketi Unicode olarak yazmayı denediniz ama id3lib'in hatalı olduğu tespit "
+"edildi."
+
+#: ../src/id3_tag.c:583
+#, c-format
+msgid ""
+"If you reload this file, some characters in the tag may not be displayed "
+"correctly. Please, apply the patch src/id3lib/"
+"patch_id3lib_3.8.3_UTF16_writing_bug.diff to id3lib, which is available in "
+"the EasyTAG package sources.\n"
+"Note that this message will appear only once.\n"
+"\n"
+"File: %s"
+msgstr ""
+"Bu dosyayı tekrar yüklerseniz etiketteki bazı karakterler  doğru "
+"görünmeyebilir. Lütfen EasyTAG kaynak dosyalarında bulunan src/id3lib/"
+"patch_id3lib_3.8.3_UTF16_writing_bug.diff yamasını id3lib'e uygulayın.\n"
+"Bu mesaj sadece bir kere görüntülenir.\n"
+"\n"
+"Dosya: %s"
+
+#: ../src/id3_tag.c:590
+msgid "Buggy id3lib"
+msgstr "Hatalı id3lib"
+
+#: ../src/id3_tag.c:624
+#, c-format
+msgid "Error while updating ID3v1 tag of '%s' (%s)"
+msgstr "'%s' dosyasının ID3v1 etiketi güncellenemiyor (%s)"
+
+#: ../src/id3_tag.c:638 ../src/id3v24_tag.c:1030
+#, c-format
+msgid "Updated tag of '%s'"
+msgstr "'%s' etiketi güncellendi"
+
+#: ../src/id3_tag.c:657
+msgid "No error reported"
+msgstr "Hata iletisi yok"
+
+#: ../src/id3_tag.c:659
+msgid "No available memory"
+msgstr "Erişilebilir hafıza yok"
+
+#: ../src/id3_tag.c:661
+msgid "No data to parse"
+msgstr "Ayrıştırılacak veri yok"
+
+#: ../src/id3_tag.c:663
+msgid "Improperly formatted data"
+msgstr "Yanlış biçimlendirilmiş veri"
+
+#: ../src/id3_tag.c:665
+msgid "No buffer to write to"
+msgstr "Yazmak için tampon yok"
+
+#: ../src/id3_tag.c:667
+msgid "Buffer is too small"
+msgstr "Tampon çok küçük"
+
+#: ../src/id3_tag.c:669
+msgid "Invalid frame ID"
+msgstr "Geçersiz katman ID"
+
+#: ../src/id3_tag.c:671
+msgid "Requested field not found"
+msgstr "İstenen alan bulunamadı"
+
+#: ../src/id3_tag.c:673
+msgid "Unknown field type"
+msgstr "Bilinmeyen alan tipi"
+
+#: ../src/id3_tag.c:675
+msgid "Tag is already attached to a file"
+msgstr "Etiket zaten bir dosyaya eklendi"
+
+#: ../src/id3_tag.c:677
+msgid "Invalid tag version"
+msgstr "Geçersiz etiket sürümü"
+
+#: ../src/id3_tag.c:679
+msgid "No file to parse"
+msgstr "Ayrıştırılacak dosya yok"
+
+#: ../src/id3_tag.c:681
+msgid "Attempting to write to a read-only file"
+msgstr "Salt okunur dosyaya yazmaya çalışıyor"
+
+#: ../src/id3_tag.c:683
+msgid "Error in compression/uncompression"
+msgstr "Sıkıştırmada/açmada hata"
+
+#: ../src/id3_tag.c:685
+msgid "Unknown error message"
+msgstr "Bilinmeyen hata iletisi"
+
+#: ../src/id3_tag.c:1290
+#, c-format
+msgid "Error while creating temporary file: '%s'"
+msgstr "Geçici dosya oluşturulamadı: '%s'"
+
+#: ../src/id3_tag.c:1297
+msgid "Error while creating temporary file"
+msgstr "Geçici dosya oluşturulamadı"
+
+#: ../src/id3_tag.c:1314
+#, c-format
+msgid "Error while writing to file: '%s' (%s)"
+msgstr "Dosyaya yazılamadı: '%s' (%s)"
+
+#: ../src/id3v24_tag.c:1472
+#, c-format
+msgid ""
+"Cannot write tag of file '%s' (%d bytes were read but %d bytes were expected)"
+msgstr ""
+"'%s' dosyasına etiket yazılamıyor (%d bayt okundu ama %d bayt bekleniyordu)"
+
+#: ../src/id3v24_tag.c:1489
+#, fuzzy, c-format
+#| msgid "Cannot write tag in file '%s'"
+msgid "Cannot save tag of file '%s'"
+msgstr "'%s' dosyasına etiket yazılamıyor"
+
+#: ../src/id3v24_tag.c:1500
+#, c-format
+msgid "Size error while saving tag of '%s'"
+msgstr "'%s' etiketi yazılırken boyut hatası oluştu"
+
+#: ../src/log.c:101
+msgid "Log"
+msgstr "Günlük"
+
+#: ../src/misc.c:696
+msgid "Select File"
+msgstr "Dosya Seç"
+
+#: ../src/misc.c:702
+msgid "Select Directory"
+msgstr "Dizin Seç"
+
+#: ../src/misc.c:783
+msgid "No audio player defined"
+msgstr "Müzik oynatıcı tanımlanmadı"
+
+#: ../src/misc.c:784
+msgid "Audio Player Warning"
+msgstr "Müzik Oynatıcı Uyarısı"
+
+#: ../src/misc.c:877
+msgid "Cannot fork another process"
+msgstr "Başka bir süreç çatallanamıyor"
+
+#: ../src/misc.c:883
+#, c-format
+msgid "Cannot execute %s (%s)"
+msgstr "Çalıştırılamıyor %s (%s)"
+
+#. Translators: file size (bytes, kilobytes, megabytes, gigabytes,
+#. * terabytes).
+#: ../src/misc.c:1047 ../src/misc.c:1067
+msgid "B"
+msgstr "B"
+
+#: ../src/misc.c:1047 ../src/misc.c:1067
+msgid "kB"
+msgstr "kB"
+
+#: ../src/misc.c:1047 ../src/misc.c:1067
+msgid "MB"
+msgstr "MB"
+
+#: ../src/misc.c:1047 ../src/misc.c:1067
+msgid "GB"
+msgstr "GB"
+
+#: ../src/misc.c:1047 ../src/misc.c:1067
+msgid "TB"
+msgstr "TB"
+
+#: ../src/misc.c:1157
+#, fuzzy
+#| msgid "Generate a playlist"
+msgid "Generate Playlist"
+msgstr "Çalma listesi oluştur"
+
+#: ../src/misc.c:1179
+msgid "M3U Playlist Name"
+msgstr "M3U Çalma Listesi Adı"
+
+#: ../src/misc.c:1194
+msgid "Use directory name"
+msgstr "Dizin adı kullan"
+
+#. Playlist options
+#: ../src/misc.c:1211
+msgid "Playlist Options"
+msgstr "Çalma Listesi"
+
+#: ../src/misc.c:1217
+msgid "Include only the selected files"
+msgstr "Sadece seçilen dosyaları içer"
+
+#: ../src/misc.c:1220
+msgid ""
+"If activated, only the selected files will be written in the playlist file. "
+"Else, all the files will be written."
+msgstr ""
+"Eğer işaretliyse sadece seçilen dosyalardan çalma listesi oluşturulur. "
+"Değilse tüm dosyalardan oluşturulur."
+
+#: ../src/misc.c:1223
+msgid "Use full path for files in playlist"
+msgstr "Çalma listesinde dosyalar için gerçek konum kullan"
+
+#: ../src/misc.c:1226
+msgid "Use relative path for files in playlist"
+msgstr "Çalma listesinde dosyalar için göreceli konum kullan"
+
+#. Create playlist in parent directory
+#: ../src/misc.c:1232
+msgid "Create playlist in the parent directory"
+msgstr "Çalma listesini üst dizinde oluştur"
+
+#: ../src/misc.c:1235
+msgid "If activated, the playlist will be created in the parent directory."
+msgstr "Eğer işaretlenmişse çalma listesini üst dizinde oluşturur."
+
+#. DOS Separator
+#: ../src/misc.c:1239
+msgid "Use DOS directory separator"
+msgstr "DOS dizin ayıracını kullan"
+
+#: ../src/misc.c:1245
+msgid ""
+"This option replaces the UNIX directory separator '/' into DOS separator "
+"'\\'."
+msgstr "Bu seçenek UNIX dizin ayıracı '/' yerine DOS ayıracı '\\' kullanır."
+
+#: ../src/misc.c:1254
+msgid "Playlist Content"
+msgstr "Çalma Listesi İçeriği"
+
+#: ../src/misc.c:1260
+msgid "Write only list of files"
+msgstr "Sadece dosyaların listesini yaz"
+
+#: ../src/misc.c:1264
+msgid "Write info using filename"
+msgstr "Bilgi olarak dosya adını yaz"
+
+#: ../src/misc.c:1267
+msgid "Write info using:"
+msgstr "Bilgi olarak bunu yaz:"
+
+#: ../src/misc.c:1487
+#, c-format
+msgid "Cannot write playlist file '%s'"
+msgstr "'%s' çalma listesi oluşturulamıyor"
+
+#: ../src/misc.c:1491
+msgid "Playlist File Error"
+msgstr "Çalma Listesi Dosyası Hatası"
+
+#: ../src/misc.c:1499
+#, c-format
+msgid "Written playlist file '%s'"
+msgstr "'%s' dosyasına çalma listesi yazıldı"
+
+#: ../src/misc.c:1564 ../src/scan.c:3247 ../src/scan.c:3309
+#, fuzzy
+#| msgid "Invalid Scanner Mask"
+msgid "Invalid scanner mask"
+msgstr "Geçersiz Tarayıcı Maskesi"
+
+#: ../src/misc.c:1886
+msgid "CD"
+msgstr "CD"
+
+#: ../src/misc.c:1908
+msgid "Find Files"
+msgstr "Dosyaları Bul"
+
+#: ../src/misc.c:1941
+msgid ""
+"Type the word to search into files. Or type nothing to display all files."
+msgstr ""
+"Dosyalarda aramak için bir şeyler girin veya bir şey yazmayın tüm dosyalar "
+"görünsün."
+
+#. Where...
+#: ../src/misc.c:1947
+msgid "In:"
+msgstr "Nerede:"
+
+#. Translators: This option is for the previous 'in' option. For instance,
+#. * translate this as "Search" "In:" "the Filename".
+#: ../src/misc.c:1952
+msgid "the Filename"
+msgstr "Dosya adında"
+
+#. Translators: This option is for the previous 'in' option. For instance,
+#. * translate this as "Search" "In:" "the Tag".
+#. * Note: label changed to "the Tag" (to be the only one) to fix a Hungarian
+#. * grammatical problem (which uses one word to say "in the tag" like here)
+#.
+#: ../src/misc.c:1958
+msgid "the Tag"
+msgstr "Etiketlerde"
+
+#. Property of the search
+#: ../src/misc.c:1969 ../src/prefs.c:330
+msgid "Case sensitive"
+msgstr "Büyük küçük harf duyarlı"
+
+#: ../src/misc.c:2195
+msgid "Ready to search…"
+msgstr "Aramaya hazır…"
+
+#: ../src/misc.c:2424
+#, fuzzy, c-format
+#| msgid "Found: %d file(s)"
+msgid "Found one file"
+msgid_plural "Found %d files"
+msgstr[0] "Bulunan: %d dosya"
+
+#: ../src/misc.c:2699
+#, fuzzy
+#| msgid "Load Filenames From Text File…"
+msgid "Load Filenames From a Text File"
+msgstr "Dosya Adlarını Metin Dosyasından Yükle…"
+
+#: ../src/misc.c:2726
+msgid "File:"
+msgstr "Dosya:"
+
+#. Button 'load'
+#. the signal attached to this button, to load the file, is placed after the LoadFileContentList definition
+#: ../src/misc.c:2745
+msgid " Load "
+msgstr " Yükle "
+
+#: ../src/misc.c:2762
+#, fuzzy
+#| msgid "Content of TXT file"
+msgid "Content of Text File"
+msgstr "Metin dosyası içeriği"
+
+#. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+#: ../src/misc.c:2783 ../src/misc.c:2877
+msgid "Insert a blank line before the selected line"
+msgstr "Seçilen satırdan önce boş satır bırak"
+
+#. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+#: ../src/misc.c:2792 ../src/misc.c:2886
+msgid "Delete the selected line"
+msgstr "Seçilen satırı sil"
+
+#. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+#: ../src/misc.c:2801 ../src/misc.c:2895 ../src/misc.c:3386
+msgid "Delete all blank lines"
+msgstr "Tüm boş satırları sil"
+
+#. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+#: ../src/misc.c:2813 ../src/misc.c:2907
+msgid "Move up the selected line"
+msgstr "Seçilen satırı yukarı taşı"
+
+#. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+#: ../src/misc.c:2822 ../src/misc.c:2916
+msgid "Move down the selected line"
+msgstr "Seçilen satırı aşağı taşı"
+
+#. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+#: ../src/misc.c:2834 ../src/misc.c:2928 ../src/misc.c:3410
+msgid "Reload"
+msgstr "Yenile"
+
+#: ../src/misc.c:2855
+#, fuzzy
+#| msgid "List of files"
+msgid "List of Files"
+msgstr "Dosya listesi"
+
+#: ../src/misc.c:2950
+msgid "Selected line:"
+msgstr "Seçilen satır:"
+
+#: ../src/misc.c:2968
+msgid ""
+"When activating this option, after loading the filenames, the current "
+"selected scanner will be ran (the scanner window must be opened)."
+msgstr ""
+"Bu seçenek işaretlenirse dosya adları yüklendikten sonra seçilen tarayıcı "
+"çalıştırılır (tarayıcı penceresi açık olmalı)."
+
+#: ../src/misc.c:3055
+#, fuzzy, c-format
+#| msgid "Cannot create file '%s' (%s)"
+msgid "Cannot retrieve file info (%s)"
+msgstr "'%s' dosyası oluşturulamıyor (%s)"
+
+#: ../src/misc.c:3119
+#, c-format
+msgid "Can't open file '%s' (%s)"
+msgstr "'%s' dosyası açılamıyor (%s)"
+
+#: ../src/misc.c:3156
+#, fuzzy, c-format
+#| msgid "Error while opening file: '%s' (%s)."
+msgid "Error reading file (%s)"
+msgstr "Dosya açılamadı: '%s' (%s)."
+
+#: ../src/misc.c:3374
+msgid "Insert a blank line"
+msgstr "Boş satır ekle"
+
+#: ../src/misc.c:3380
+msgid "Delete this line"
+msgstr "Satırı sil"
+
+#: ../src/misc.c:3395
+msgid "Move up this line"
+msgstr "Satırı yukarı taşı"
+
+#: ../src/misc.c:3401
+msgid "Move down this line"
+msgstr "Satırı aşağı taşı"
+
+#. Mode changed to profile name
+#: ../src/monkeyaudio_header.c:78 ../src/musepack_header.c:80
+#, c-format
+msgid "Profile:"
+msgstr "Profil:"
+
+#: ../src/mp4_header.c:63 ../src/mp4_tag.c:65 ../src/mp4_tag.c:186
+msgid "MP4 format invalid"
+msgstr "Geçersiz MP4 biçimi"
+
+#: ../src/mp4_header.c:72 ../src/mp4_tag.c:74
+#, c-format
+msgid "File contains no audio track: '%s'"
+msgstr "Dosya içeriği ses parçası içermiyor: '%s'"
+
+#: ../src/mp4_header.c:82
+#, c-format
+msgid "Error reading properties from file: '%s'"
+msgstr "'%s' dosyasından özellikler okunamadı"
+
+#: ../src/mp4_header.c:132 ../src/mpeg_header.c:204
+#, c-format
+msgid "~%d kb/s"
+msgstr "~%d kb/s"
+
+#: ../src/mp4_tag.c:85 ../src/mp4_tag.c:194
+#, c-format
+msgid "Error reading tags from file: '%s'"
+msgstr "'%s' dosyasından etiketler okunamadı"
+
+#: ../src/mpeg_header.c:64
+msgid "Stereo"
+msgstr "Stereo"
+
+#: ../src/mpeg_header.c:65
+msgid "Joint stereo"
+msgstr "Ortak stereo"
+
+#: ../src/mpeg_header.c:66
+msgid "Dual channel"
+msgstr "Çift kanal"
+
+#: ../src/mpeg_header.c:67
+msgid "Single channel"
+msgstr "Tek kanal"
+
+#. MPEG, Layer versions
+#: ../src/mpeg_header.c:194
+msgid "MPEG"
+msgstr "MPEG"
+
+#: ../src/ogg_header.c:97
+#, c-format
+msgid ""
+"Ogg Vorbis: The specified bitstream does not exist or the file has been "
+"initialized improperly (file: '%s')."
+msgstr ""
+"Ogg Vorbis: Belirtilen veri akışı yok veya dosya yanlış başlatıldı. (dosya: "
+"'%s')."
+
+#: ../src/ogg_header.c:128
+#, c-format
+msgid "Ogg Vorbis: Read from media returned an error (file: '%s')."
+msgstr "Ogg Vorbis: Ortamdan okunamadı (dosya: '%s')."
+
+#: ../src/ogg_header.c:131
+#, c-format
+msgid "Ogg Vorbis: Bitstream is not Vorbis data (file: '%s')."
+msgstr "Ogg Vorbis: Veri akışı Vorbis verisi değil (file: '%s')."
+
+#: ../src/ogg_header.c:134
+#, c-format
+msgid "Ogg Vorbis: Vorbis version mismatch (file: '%s')."
+msgstr "Ogg Vorbis: Vorbis sürümü eşleşmiyor (file: '%s')."
+
+#: ../src/ogg_header.c:137
+#, c-format
+msgid "Ogg Vorbis: Invalid Vorbis bitstream header (file: '%s')."
+msgstr "Ogg Vorbis: Geçersiz Vorbis veri akışı başlığı (dosya: '%s')."
+
+#: ../src/ogg_header.c:140
+#, c-format
+msgid ""
+"Ogg Vorbis: Internal logic fault, indicates a bug or heap/stack corruption "
+"(file: '%s')."
+msgstr ""
+"Ogg Vorbis: İçsel Mantık hatası, hata veya yığın bozulmasını gösterir "
+"(dosya: '%s')."
+
+#: ../src/ogg_header.c:186 ../src/ogg_tag.c:191 ../src/ogg_tag.c:700
+#, c-format
+msgid "Error: Failed to open file: '%s' as Vorbis (%s)."
+msgstr "Hata: '%s' dosyası Vorbis olarak açılamadı (%s)."
+
+#: ../src/ogg_tag.c:168
+#, c-format
+msgid "Warning: The Ogg Vorbis file '%s' contains an ID3v2 tag."
+msgstr "Uyarı: '%s' Ogg Vorbis dosyası ID3v2 etiketi içeriyor."
+
+#: ../src/picture.c:248 ../src/picture.c:273
+#, c-format
+msgid "Image file not loaded: %s"
+msgstr "'%s' görüntü dosyası yüklenemiyor"
+
+#: ../src/picture.c:265
+#, c-format
+msgid "Cannot open file: '%s'"
+msgstr "'%s' dosyası açılamıyor"
+
+#: ../src/picture.c:269
+msgid "Image File Error"
+msgstr "Görüntü Dosyası Hatası"
+
+#: ../src/picture.c:280
+msgid "Image file loaded"
+msgstr "Görüntü dosyası yüklendi"
+
+#: ../src/picture.c:338
+#, fuzzy
+#| msgid "Add images"
+msgid "Add Images"
+msgstr "Görüntü ekle"
+
+#: ../src/picture.c:348 ../src/picture.c:681
+msgid "All Files"
+msgstr "Tüm Dosyalar"
+
+#: ../src/picture.c:354 ../src/picture.c:687
+msgid "PNG and JPEG"
+msgstr "PNG ve JPEG"
+
+#: ../src/picture.c:470
+#, c-format
+msgid "Image Properties %d/%d"
+msgstr "Görüntü özellikleri %d/%d"
+
+#: ../src/picture.c:493
+msgid "Image Type"
+msgstr "Görüntü Biçimi"
+
+#. Description of the picture
+#: ../src/picture.c:550
+msgid "Image Description:"
+msgstr "Görüntü açıklaması:"
+
+#: ../src/picture.c:668
+#, fuzzy, c-format
+#| msgid "Save image %d/%d"
+msgid "Save Image %d/%d"
+msgstr "Görüntüyü kaydet %d/%d"
+
+#: ../src/picture.c:740
+#, fuzzy, c-format
+#| msgid "Image file not loaded: %s"
+msgid "Image file not saved: %s"
+msgstr "'%s' görüntü dosyası yüklenemiyor"
+
+#: ../src/picture.c:809
+msgid "JPEG image"
+msgstr "JPEG görüntüsü"
+
+#: ../src/picture.c:811
+msgid "PNG image"
+msgstr "PNG görüntüsü"
+
+#: ../src/picture.c:813
+msgid "Unknown image"
+msgstr "Bilinmeyen görüntü"
+
+#: ../src/picture.c:825
+msgid "32x32 pixel PNG file icon"
+msgstr "32x32 piksel PNG dosya simgesi"
+
+#: ../src/picture.c:827
+msgid "Other file icon"
+msgstr "Diğer dosya simgesi"
+
+#: ../src/picture.c:829
+msgid "Cover (front)"
+msgstr "Kapak (ön)"
+
+#: ../src/picture.c:831
+msgid "Cover (back)"
+msgstr "Kapak (arka)"
+
+#: ../src/picture.c:833
+msgid "Leaflet page"
+msgstr "Kitapçık sayfası"
+
+#: ../src/picture.c:835
+msgid "Media (e.g. label side of CD)"
+msgstr "Ortam (örn. CD'nin üzeri)"
+
+#: ../src/picture.c:837
+msgid "Lead artist/lead performer/soloist"
+msgstr "lider sanatçı/solist"
+
+#: ../src/picture.c:839
+msgid "Artist/performer"
+msgstr "Sanatçı"
+
+#: ../src/picture.c:841
+msgid "Conductor"
+msgstr "Yapımcı"
+
+#: ../src/picture.c:843
+msgid "Band/Orchestra"
+msgstr "Orkestra"
+
+#: ../src/picture.c:847
+msgid "Lyricist/text writer"
+msgstr "Şarkı sözleri"
+
+#: ../src/picture.c:849
+msgid "Recording location"
+msgstr "Kayıt yeri"
+
+#: ../src/picture.c:851
+msgid "During recording"
+msgstr "Kayıt sırasında"
+
+#: ../src/picture.c:853
+msgid "During performance"
+msgstr "Performans sırasında"
+
+#: ../src/picture.c:855
+msgid "Movie/video screen capture"
+msgstr "Ekran kaydı videosu"
+
+#: ../src/picture.c:857
+msgid "A bright colored fish"
+msgstr "Parlak renkli balık"
+
+#: ../src/picture.c:859
+msgid "Illustration"
+msgstr "İlizyon"
+
+#: ../src/picture.c:861
+msgid "Band/Artist logotype"
+msgstr "Sanatçı logosu"
+
+#: ../src/picture.c:863
+msgid "Publisher/studio logotype"
+msgstr "Stüdyo logosu"
+
+#: ../src/picture.c:867
+msgid "Unknown image type"
+msgstr "Bilinmeyen görüntü biçimi"
+
+#: ../src/picture.c:897 ../src/picture.c:908
+msgid "pixels"
+msgstr "piksel"
+
+#: ../src/picture.c:898 ../src/picture.c:909
+msgid "Type"
+msgstr "Biçim"
+
+#: ../src/picture.c:910
+msgid "Description"
+msgstr "Açıklama"
+
+#: ../src/picture.c:966
+#, c-format
+msgid "Error with 'loader_close': %s"
+msgstr "'loader_close' ile hata: %s"
+
+#: ../src/picture.c:1024
+msgid ""
+"Cannot display the image because not enough data has been read to determine "
+"how to create the image buffer."
+msgstr ""
+"Görüntü gösterilemiyor çünkü görüntü arabelleği belirlemek için yeterli veri "
+"yok"
+
+#: ../src/picture.c:1031
+msgid "Cannot display the image"
+msgstr "Görüntü gösterilemiyor"
+
+#: ../src/picture.c:1033
+msgid ""
+"Not enough data has been read to determine how to create the image buffer."
+msgstr "Görüntü arabelleği belirlemek için yeterli veri yok"
+
+#: ../src/picture.c:1035
+msgid "Load Image File"
+msgstr "Görüntü Dosyası Yükle"
+
+#: ../src/picture.c:1041
+#, c-format
+msgid "Error with 'loader_write': %s"
+msgstr "'loader_write' ile hata: %s"
+
+#: ../src/picture.c:1164
+msgid "The whole image file could not be read"
+msgstr ""
+
+#. Label
+#: ../src/prefs.c:147
+msgid "Default directory:"
+msgstr "Öntanımlı dizin:"
+
+#: ../src/prefs.c:160
+msgid ""
+"Specify the directory where your files are located. This path will be loaded "
+"when EasyTAG starts without parameter."
+msgstr ""
+"Dosyalarınızın bulunduğu dizini belirtir. Bu dizin EasyTAG parametresiz "
+"çalıştırıldığında otomatik yüklenir."
+
+#. Load directory on startup
+#: ../src/prefs.c:181
+msgid ""
+"Load on startup the default directory or the directory passed as argument"
+msgstr "Bu dizini veya parametre olarak girilmiş dizini açılışta yükle"
+
+#: ../src/prefs.c:184
+msgid ""
+"Automatically search files, when EasyTAG starts, into the default directory. "
+"Note that this path may be overridden by the parameter passed to easytag "
+"(easytag /path_to/mp3_files)."
+msgstr ""
+"EasyTAG başlatıldığında öntanımlı dizindeki dosyaları otomatik arar. Bu "
+"durum programı parametre girerek çalıştırdığınızda geçersiz olabilir "
+"(easytag /mp3_dosyaların/konumu)."
+
+#. Browse subdirectories
+#: ../src/prefs.c:189
+msgid "Search subdirectories"
+msgstr "Alt dizinleride ara"
+
+#: ../src/prefs.c:192
+msgid "Search subdirectories for files when reading a directory into the tree."
+msgstr "Dizini okurken alt dizinleri de arar."
+
+#. Open the node to show subdirectories
+#: ../src/prefs.c:196
+msgid "Show subdirectories when selecting a directory"
+msgstr "Dizin seçildiğinde alt dizinleri göster"
+
+#: ../src/prefs.c:200
+msgid ""
+"This expands the selected node into the file browser to display the sub-"
+"directories."
+msgstr ""
+"Bu seçenek dizin seçildiğinde ağacın açılıp içindeki dizinleri görünür kılar."
+
+#. Browse hidden directories
+#: ../src/prefs.c:204
+msgid "Search hidden directories"
+msgstr "Gizli dizinleri ara"
+
+#: ../src/prefs.c:209
+msgid "Search hidden directories for files (directories starting by a '.')."
+msgstr "Dosyalar için gizli dizinleri de arar (dizin adı '.' ile başlayanlar)"
+
+#.
+#. * Misc
+#.
+#: ../src/prefs.c:217
+msgid "Misc"
+msgstr "Çeşitli"
+
+#. User interface
+#: ../src/prefs.c:223
+msgid "User Interface"
+msgstr "Kullanıcı Arabirimi"
+
+#. Show header infos
+#: ../src/prefs.c:230
+msgid "Show header information of file"
+msgstr "Dosyanın bilgilerini göster"
+
+#: ../src/prefs.c:233
+msgid ""
+"If activated, information about the file as the bitrate, the time, the size, "
+"will be displayed under the filename entry."
+msgstr ""
+"Eğer işaretlenirse dosyanın bit oranı, süresi, boyutu vb değerler dosya "
+"isminin altında görünür."
+
+#: ../src/prefs.c:239
+msgid "Display changed files in list using:"
+msgstr "Listedeki değişmiş dosyaların görünümü:"
+
+#: ../src/prefs.c:242
+msgid "Red color"
+msgstr "Kırmızı renkli"
+
+#: ../src/prefs.c:248
+msgid "Bold style"
+msgstr "Kalın yazılı"
+
+#. Sorting List Options
+#: ../src/prefs.c:254
+msgid "Sorting List Options"
+msgstr "Liste Sıralama Seçenekleri"
+
+#. Sorting method
+#: ../src/prefs.c:263
+msgid "Sort the file list by:"
+msgstr "Sıralama biçimi:"
+
+#: ../src/prefs.c:273
+msgid "Ascending filename"
+msgstr "Dosya adına göre artan"
+
+#: ../src/prefs.c:275
+msgid "Descending filename"
+msgstr "Dosya adına göre azalan"
+
+#: ../src/prefs.c:276
+msgid "Ascending title"
+msgstr "Başlığa göre artan"
+
+#: ../src/prefs.c:277
+msgid "Descending title"
+msgstr "Başlığa göre azalan"
+
+#: ../src/prefs.c:278
+msgid "Ascending artist"
+msgstr "Sanatçıya göre artan"
+
+#: ../src/prefs.c:279
+msgid "Descending artist"
+msgstr "Sanatçıya göre azalan"
+
+#: ../src/prefs.c:281
+msgid "Ascending album artist"
+msgstr "Albüm sanatçısına göre artan"
+
+#: ../src/prefs.c:283
+msgid "Descending album artist"
+msgstr "Albüm sanatçısına göre azalan"
+
+#: ../src/prefs.c:284
+msgid "Ascending album"
+msgstr "Albüme böre artan"
+
+#: ../src/prefs.c:285
+msgid "Descending album"
+msgstr "Albüme göre azalan"
+
+#: ../src/prefs.c:286
+msgid "Ascending year"
+msgstr "Yıla göre artan"
+
+#: ../src/prefs.c:287
+msgid "Descending year"
+msgstr "Yıla göre azalan"
+
+#: ../src/prefs.c:289
+msgid "Ascending disc number"
+msgstr "Disk numarasına göre artan"
+
+#: ../src/prefs.c:291
+msgid "Descending disc number"
+msgstr "Disk numarasına göre azalan"
+
+#: ../src/prefs.c:293
+msgid "Ascending track number"
+msgstr "Parça numarasına göre artan"
+
+#: ../src/prefs.c:295
+msgid "Descending track number"
+msgstr "Parça numarasına göre azalan"
+
+#: ../src/prefs.c:296
+msgid "Ascending genre"
+msgstr "Türe göre artan"
+
+#: ../src/prefs.c:297
+msgid "Descending genre"
+msgstr "Türe göre azalan"
+
+#: ../src/prefs.c:298
+msgid "Ascending comment"
+msgstr "Yoruma göre artan"
+
+#: ../src/prefs.c:299
+msgid "Descending comment"
+msgstr "Yoruma göre azalan"
+
+#: ../src/prefs.c:301
+msgid "Ascending composer"
+msgstr "Besteciye göre artan"
+
+#: ../src/prefs.c:303
+msgid "Descending composer"
+msgstr "Besteciye göre azalan"
+
+#: ../src/prefs.c:305
+msgid "Ascending original artist"
+msgstr "Asıl sanatçıya göre artan"
+
+#: ../src/prefs.c:307
+msgid "Descending original artist"
+msgstr "Asıl sanatçıya göre azalan"
+
+#: ../src/prefs.c:309
+msgid "Ascending copyright"
+msgstr "Telif hakkında göre artan"
+
+#: ../src/prefs.c:311
+msgid "Descending copyright"
+msgstr "Telif hakkına göre azalan"
+
+#: ../src/prefs.c:313
+msgid "Ascending URL"
+msgstr "Bağlantıya göre artan"
+
+#: ../src/prefs.c:315
+msgid "Descending URL"
+msgstr "Bağlantıya göre azalan"
+
+#: ../src/prefs.c:317
+msgid "Ascending encoded by"
+msgstr "Kodlayıcıya göre artan"
+
+#: ../src/prefs.c:319
+msgid "Descending encoded by"
+msgstr "Kodlayıcıya göre azalan"
+
+#: ../src/prefs.c:321
+msgid "Ascending creation date"
+msgstr "Oluşturma tarihine göre artan"
+
+#: ../src/prefs.c:323
+msgid "Descending creation date"
+msgstr "Oluşturma tarihine göre azalan"
+
+#: ../src/prefs.c:327
+msgid "Select the type of file sorting when loading a directory."
+msgstr "Dizini yüklerken dosya sıralaması biçimini seçin."
+
+#: ../src/prefs.c:339
+msgid "If activated, the sorting of the list will be dependent on the case."
+msgstr "Eğer işaretliyse büyük küçük harfe duyarlı olarak sıralanır."
+
+#. File Player
+#: ../src/prefs.c:343
+msgid "File Audio Player"
+msgstr "Dosya Müzik Oynatıcı"
+
+#: ../src/prefs.c:355
+msgid "Player to run:"
+msgstr "Çalıştırmak için oynatıcı"
+
+#: ../src/prefs.c:361
+msgid ""
+"Enter the program used to play the files. Some arguments can be passed for "
+"the program (as 'xmms -p') before to receive files as other arguments."
+msgstr ""
+"Dosyaları oynatmak için program girin. Dosya adından önce parametre vermek "
+"gerekiyor olabilir ('xmmp -p' gibi)."
+
+#. Log options
+#: ../src/prefs.c:379
+msgid "Log Options"
+msgstr "Günlük Seçenekleri"
+
+#. Show / hide log view
+#: ../src/prefs.c:386
+msgid "Show log view in main window"
+msgstr "Günlük görünümünü ana pencerede göster"
+
+#: ../src/prefs.c:389
+msgid "If activated, the log view would be visible in the main window."
+msgstr "Eğer işaretlenirse ana pencerede günlük görünümü görünür olur."
+
+#: ../src/prefs.c:395
+msgid "Max number of lines:"
+msgstr "En fazla satır sayısı:"
+
+#. g_signal_connect(G_OBJECT(NumberTrackFormated),"toggled",G_CALLBACK(Number_Track_Formatted_Toggled),NULL);
+#. * g_signal_emit_by_name(G_OBJECT(NumberTrackFormated),"toggled");
+#. gtk_tooltips_set_tip(Tips,GTK_BIN(FilePlayerCombo)->child,_("Enter the program used to "
+#. "play the files. Some arguments can be passed for the program (as 'xmms -p') before "
+#. "to receive files as other arguments."),NULL);
+#.
+#.
+#. * File Settings
+#.
+#: ../src/prefs.c:413
+msgid "File Settings"
+msgstr "Dosya Ayarları"
+
+#. File (name) Options
+#: ../src/prefs.c:419
+msgid "File Options"
+msgstr "Dosya Seçenekleri"
+
+#: ../src/prefs.c:425
+msgid "Replace illegal characters in filename (for Windows and CD-Rom)"
+msgstr "Dosya adında geçersiz karakterler değiştirin (Windows ve CD-Rom için)"
+
+#: ../src/prefs.c:428
+msgid ""
+"Convert illegal characters for FAT32/16 and ISO9660 + Joliet filesystems "
+"('\\', ':', ';', '*', '?', '\"', '<', '>', '|') of the filename to avoid "
+"problem when renaming the file. This is useful when renaming the file from "
+"the tag with the scanner."
+msgstr ""
+"FAT32/16 ve ISO9660 + Joliet dosya sistemi için geçersiz karakterler "
+"değiştirin ('\\', ':', ';', '*', '?', '\"', '<', '>', '|') karakterleri "
+"dosya adlandırırken problem oluştururlar. Bu etiketlerden dosya "
+"isimlediriken kullanışlıdır."
+
+#. Extension case (lower/upper?)
+#: ../src/prefs.c:436
+msgid "Convert filename extension to:"
+msgstr "Dosya uzantısını dönüşütür:"
+
+#: ../src/prefs.c:439
+msgid "Lower Case"
+msgstr "Küçük Harf"
+
+#: ../src/prefs.c:442
+msgid "For example, the extension will be converted to '.mp3'"
+msgstr "Örneğin uzantı '.mp3'e dönüştürülür"
+
+#: ../src/prefs.c:445
+msgid "Upper Case"
+msgstr "Büyük Harf"
+
+#: ../src/prefs.c:448
+msgid "For example, the extension will be converted to '.MP3'"
+msgstr "Örneğin uzantı '.MP3'e dönüştürülür"
+
+#: ../src/prefs.c:451
+msgid "No Change"
+msgstr "Değiştirme"
+
+#: ../src/prefs.c:454
+msgid "The extension will not be converted"
+msgstr "Uzantı değiştirilmez"
+
+#. Preserve modification time
+#: ../src/prefs.c:457
+msgid "Preserve modification time of the file"
+msgstr "Dosyanın değiştirilme zamanını koru"
+
+#: ../src/prefs.c:460
+msgid ""
+"Preserve the modification time (in file properties) when saving the file."
+msgstr ""
+"Dosya kaydedilirken değiştirilme zamanını koru (dosya özellikleri içinde)"
+
+#. Change directory modification time
+#: ../src/prefs.c:464
+msgid ""
+"Update modification time of the parent directory of the file (recommended "
+"when using Amarok)"
+msgstr ""
+"Dosyanın üst dizininin değiştirilme tarihini güncelle (Amarok kullanırken "
+"gerekli)"
+
+#: ../src/prefs.c:468
+msgid ""
+"The modification time of the parent directory of the file will be updated "
+"when saving tag the file. At the present time it is automatically done only "
+"when renaming a file.\n"
+"This feature is interesting when using applications like Amarok. For "
+"performance reasons, they refresh file information by detecting changes of "
+"the parent directory."
+msgstr ""
+"Dosyanın üst dizininin değiştirme tarihi etiketler dosyaya yazılırken "
+"güncellenir. Aynı zamanda dosyanın ismi değiştirildiğinde otomatik olarak "
+"yapılır.\n"
+"Amarok benzeri uygulamalar kullanıyorsanız ilginizi çekebilir. Bu tip "
+"uygulamalar performans nedeniyle dosya bilgileri güncellenirken üst dizinin "
+"değiştirilme tarihine bakar."
+
+#. Character Set for Filename
+#: ../src/prefs.c:476
+msgid "Character Set for Filename"
+msgstr "Dosya Adı İçin Karakter Seti"
+
+#. Rules for character set
+#: ../src/prefs.c:488
+msgid ""
+"Rules to apply if some characters can't be converted to the system character "
+"encoding when writing filename:"
+msgstr ""
+"Bazı nedenlerden dolayı dosya adı yazılırken sistem karakterlerine "
+"dönüştürülemezse yapılacak işlem:"
+
+#: ../src/prefs.c:494
+msgid "Try another character encoding"
+msgstr "Başka bir karakter kodlaması kullan"
+
+#: ../src/prefs.c:498
+msgid ""
+"With this option, it will try the conversion to the encoding associated to "
+"your locale (for example: ISO-8859-1 for 'fr', KOI8-R for 'ru', ISO-8859-2 "
+"for 'ro'). If it fails, it will try the character encoding ISO-8859-1."
+msgstr ""
+"Bu seçenekle sizin yerel dilinize göre kodlamayı deneyecek (örneğin: 'tr' "
+"için ISO-8859-9, 'ru' için KOI8-R gibi). Eğer başarısız olursa ISO-8859-1 "
+"karakter kodlamasını deneyecek."
+
+#: ../src/prefs.c:505
+msgid ""
+"Force using the system character encoding and activate the transliteration"
+msgstr "Sistem karakter kodlamasına zorla ve başka dil kullanmayı etkinleştir"
+
+#: ../src/prefs.c:509 ../src/prefs.c:809 ../src/prefs.c:878
+msgid ""
+"With this option, when a character cannot be represented in the target "
+"character set, it can be approximated through one or several similarly "
+"looking characters."
+msgstr ""
+"Bu seçenek ile yazılamayan karakterler karaktere en çok benzeyen bir-iki "
+"karaktere dünüştürülür."
+
+#: ../src/prefs.c:515
+msgid ""
+"Force using the system character encoding and silently discard some "
+"characters"
+msgstr "Sistem karakter kodlamasına zorla ve bazı karakterleri esgeç"
+
+#: ../src/prefs.c:519 ../src/prefs.c:819 ../src/prefs.c:888
+msgid ""
+"With this option, when a character cannot be represented in the target "
+"character set, it will be silently discarded."
+msgstr "Bu seçenek ile dönüştürülemeyen karakterler yazılmadan geçilir."
+
+#.
+#. * Tag Settings
+#.
+#: ../src/prefs.c:528
+msgid "Tag Settings"
+msgstr "Etiket Ayarları"
+
+#. Tag Options
+#: ../src/prefs.c:534
+msgid "Tag Options"
+msgstr "Etiket Seçenekleri"
+
+#: ../src/prefs.c:540
+msgid "Auto completion of date if not complete"
+msgstr "Tarih eksikse otomatik tamamla"
+
+#: ../src/prefs.c:543
+msgid ""
+"Try to complete the year field if you enter only the last numerals of the "
+"date (for instance, if the current year is 2005: 5 => 2005, 4 => 2004, 6 => "
+"1996, 95 => 1995…)."
+msgstr ""
+"Tarihin sadece son karakterleri mevcutsa yıl alanın otomatik tamamlamayı "
+"dener (örnek olay, 2005 yılındaysak: 5 => 2005, 4 => 2005, 6 => 1996, 95 => "
+"1995…)."
+
+#: ../src/prefs.c:550
+msgid "Write the track field with the following number of digits:"
+msgstr "Parça numarası için kullanılacak basamak sayısı:"
+
+#: ../src/prefs.c:553
+msgid ""
+"If activated, the track field is written using the number '0' as padding to "
+"obtain a number with 'n' digits (for example, with two digits: '05', '09', "
+"'10'…). Else it keeps the 'raw' track value."
+msgstr ""
+"Eğer işaretlenirse parça numarası belirlenen basamağa tamamlanan kadar "
+"başına '0' eklenir. (örnek, 2 basamak: '05', '09', '10'…). İşaretlenmemişse "
+"geçerli parça numarası korunur"
+
+#: ../src/prefs.c:578
+msgid ""
+"Tag field focus when switching files in list with shortcuts Page Up/Page "
+"Down:"
+msgstr ""
+"Page Up/Down tuşlarıyla listedeki dosyalara arasında geçildiğinde etiket "
+"alanı odağı:"
+
+#: ../src/prefs.c:584
+msgid "Keep focus to the same tag field"
+msgstr "Odağı aynı etikette tut"
+
+#: ../src/prefs.c:590
+msgid "Return focus to the first tag field (i.e. 'Title' field)"
+msgstr "Odağı ilk etiket alanına al (örn. 'Başlık' alanı)"
+
+#. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SetFocusToFirstTagField),SET_FOCUS_TO_FIRST_TAG_FIELD);
+#. Tag Splitting
+#: ../src/prefs.c:595
+msgid "Tag Splitting"
+msgstr "Etiket bölme"
+
+#: ../src/prefs.c:604
+msgid ""
+"For Vorbis tags, selected fields will be split at dashes and saved as "
+"separate tags"
+msgstr ""
+"Vorbis etiketleri için seçilen alanlar tire ile bölünüp ayrı etiketler "
+"olarak kaydedilir."
+
+#: ../src/prefs.c:614
+msgid "Original artist"
+msgstr "Asıl sanatçı"
+
+#.
+#. * ID3 Tag Settings
+#.
+#: ../src/prefs.c:635
+msgid "ID3 Tag Settings"
+msgstr "ID3 Etiket Ayarları"
+
+#. Tag Rules frame
+#: ../src/prefs.c:644
+msgid "ID3 Tag Rules"
+msgstr "ID3 etiket rolleri"
+
+#. Strip tag when fields (managed by EasyTAG) are empty
+#: ../src/prefs.c:656
+msgid "Strip tags if all fields are set to blank"
+msgstr "Eğer tüm etiket alanları boşsa etiketi kaldır"
+
+#: ../src/prefs.c:659
+msgid ""
+"As ID3v2 tags may contain other data than Title, Artist, Album, Year, Track, "
+"Genre or Comment (as an attached image, lyrics…), this option allows you to "
+"strip the whole tag when these seven standard data fields have been set to "
+"blank."
+msgstr ""
+"ID3v2 etiketleri Başlık, Artist, Albüm, Yıl, Parça, Tür ve Yorum'dan farklı "
+"verilerde içerebilir (eklenmiş görüntü ve şarkı sözü gibi), bu seçenek "
+"standart alanlar boşsa diğer verileri de silmenizi sağlayabilir."
+
+#. Convert old ID3v2 tag version
+#: ../src/prefs.c:665
+msgid "Automatically convert old ID3v2 tag versions"
+msgstr "Eski ID3v2 etiketleri otomatik dönüştür"
+
+#: ../src/prefs.c:668
+msgid ""
+"If activated, an old ID3v2 tag version (as ID3v2.2) will be updated to the "
+"ID3v2.3 version."
+msgstr ""
+"Eğer işaretlenirse eski ID3v2 etiketleri (ID3v2.2 gibi) yeni sürüme "
+"yükseltilir."
+
+#. Use CRC32
+#: ../src/prefs.c:672
+msgid "Use CRC32"
+msgstr "CRC32 kullan"
+
+#: ../src/prefs.c:675
+msgid "Set CRC32 in the ID3v2 tags"
+msgstr "ID3v2 etiketlerini CRC32 olarak ayarla"
+
+#. Use Compression
+#: ../src/prefs.c:678
+msgid "Use Compression"
+msgstr "Sıkıştırma kullan"
+
+#: ../src/prefs.c:682
+msgid "Set Compression in the ID3v2 tags"
+msgstr "ID3v2 etiketlerine sıkıltırma uygıla"
+
+#. Write Genre in text
+#: ../src/prefs.c:685
+msgid "Write Genre in text only"
+msgstr "Türü sadece metin olarak yaz"
+
+#: ../src/prefs.c:689
+msgid ""
+"Don't use ID3v1 number references in genre tag. Enable this if you see "
+"numbers as genre in your music player."
+msgstr ""
+"Tür etiketi için ID3v1 numara referansı kullanma. Eğer müzik oynatıcınızda "
+"tür kısmında numara görüyorsanız etkinleştirin."
+
+#. Character Set for writing ID3 tag
+#: ../src/prefs.c:692
+msgid "Character Set for writing ID3 tags"
+msgstr "ID3 Etiketleri için Karakter Seti"
+
+#. ID3v2 tags
+#: ../src/prefs.c:699
+msgid "ID3v2 tags"
+msgstr "ID3v2 etiketleri"
+
+#. Write ID3v2 tag
+#: ../src/prefs.c:712
+msgid "Write ID3v2 tag"
+msgstr "ID3v2 etiketi yaz"
+
+#: ../src/prefs.c:715
+msgid ""
+"If activated, an ID3v2.4 tag will be added or updated at the beginning of "
+"the MP3 files. Else it will be stripped."
+msgstr ""
+"Eğer etkinse MP3 dosyasının başına ID3v2.4 etiketi eklenir veya güncellenir. "
+"Değilse bu etiket yazılmaz."
+
+#. ID3v2 tag version
+#: ../src/prefs.c:722
+msgid "Version:"
+msgstr "Sürüm:"
+
+#: ../src/prefs.c:728
+msgid ""
+"Select the ID3v2 tag version to write:\n"
+" - ID3v2.3 is written using id3lib,\n"
+" - ID3v2.4 is written using libid3tag (recommended)."
+msgstr ""
+"Yazmak için ID3v2 etiket sürümü seçin:\n"
+" - ID3v2.3 id3lib ile yazılır,\n"
+" - ID3v2.4 libid3tag ile yazılır (gerekli)."
+
+#. Charset
+#. Id3V1 writing character set
+#: ../src/prefs.c:743 ../src/prefs.c:847
+msgid "Charset:"
+msgstr "Karakter seti:"
+
+#. Unicode
+#: ../src/prefs.c:748
+msgid "Unicode "
+msgstr "Unicode "
+
+#: ../src/prefs.c:756
+msgid "Unicode type to use"
+msgstr "Kullanmak için unicode biçimi"
+
+#: ../src/prefs.c:780
+msgid "Character set used to write the tag data in the file."
+msgstr "Dosyaya etiket verilerini yazmak için karakter seti"
+
+#. ID3v2 Additional iconv() options
+#. ID3V1 Additional iconv() options
+#: ../src/prefs.c:790 ../src/prefs.c:859
+msgid "Additional settings for iconv():"
+msgstr "iconv() için ek ayarlar:"
+
+#: ../src/prefs.c:796 ../src/prefs.c:865
+msgid "No"
+msgstr "Hayır"
+
+#: ../src/prefs.c:800 ../src/prefs.c:869
+msgid ""
+"With this option, when a character cannot be represented in the target "
+"character set, it isn't changed. But note that an error message will be "
+"displayed for information."
+msgstr ""
+"Bu seçenekle karakter hedef karakter setine dönüştürülemiyorsa "
+"dönüştürülmez. Ama bu durum sonucu bir hata mesajı gösterilmez."
+
+#: ../src/prefs.c:805 ../src/prefs.c:874
+msgid "//TRANSLIT"
+msgstr "//BaşkaAlfabe"
+
+#: ../src/prefs.c:815 ../src/prefs.c:884
+msgid "//IGNORE"
+msgstr "//İhmal"
+
+#. ID3v1 tags
+#: ../src/prefs.c:824
+msgid "ID3v1 tags"
+msgstr "ID3v1 etiketler"
+
+#. Write ID3v1 tag
+#: ../src/prefs.c:838
+msgid "Write ID3v1.x tag"
+msgstr "ID3v1.x etiketleri yaz"
+
+#: ../src/prefs.c:841
+msgid ""
+"If activated, an ID3v1 tag will be added or updated at the end of the MP3 "
+"files. Else it will be stripped."
+msgstr ""
+"Eğer etkinse MP3 dosyasının sonuna ID3v1 etiketi eklenir veya güncellenir. "
+"Değilse bu etiket yazılmaz."
+
+#: ../src/prefs.c:855
+msgid "Character set used to write ID3v1 tag data in the file."
+msgstr "Dosyaya ID3v1 etiketlerini yazmak için karakter seti."
+
+#. Character Set for reading tag
+#: ../src/prefs.c:893
+msgid "Character Set for reading ID3 tags"
+msgstr "ID3 etiketleri okumak için karakter seti"
+
+#: ../src/prefs.c:907
+msgid "Non-standard:"
+msgstr "Standart dışı:"
+
+#: ../src/prefs.c:913
+msgid ""
+"This character set will be used when reading the tag data, to convert each "
+"string found in an ISO-8859-1 field in the tag (for ID3v2 or/and ID3v1 "
+"tag).\n"
+"\n"
+"For example:\n"
+"  - In previous versions of EasyTAG, you could save UTF-8 strings in an "
+"ISO-8859-1 field. This is not correct. To convert these tags to Unicode: "
+"activate this option and select UTF-8. You must also activate above the "
+"option 'Try to save tags to ISO-8859-1. If it isn't possible then use "
+"UNICODE (recommended)' or 'Always save tags to UNICODE character set'.\n"
+"  - If Unicode was not used, Russian people can select the character set "
+"'Windows-1251' to load tags written under Windows. And 'KOI8-R' to load tags "
+"written under Unix systems."
+msgstr ""
+"Bu karakter seti etiketleri okurken kullanılacak, etiketteki ISO-8859-1 "
+"alanlardaki her metni dönüştürmek için (ID3v2 ve/veya ID3v1 etiketleri "
+"için).\n"
+"\n"
+"Örneğin:\n"
+"  - EasyTAG'in eski sürümlerinde ISO-8859-1 alana UTF-8 ile yazıp "
+"kaydettiniz, Bu doğru değil. Bu etiketleri Unicode'a dönüştürmek için bu "
+"seçeneği etkinleştirin ve UTF-8'i seçin. Eğer bu olmuyorsa 'UNICODE "
+"(gerekli)' veya 'Daima etiketleri UNICODE olarak kaydet' şeklinde kullanın.\n"
+"  - Eğer Unicode kullanılmamışsa, Ruslar 'Windows-1251' kodlamasını "
+"kullanarak windowsta yazılan etiketleri okuyup yükleyebilirler. Unix "
+"sistemler içinse 'KOI8-R' kodlamasını kullanabilirler."
+
+#: ../src/prefs.c:931
+msgid "Character set used to read tag data in the file."
+msgstr "Dosyadaki etiketleri okumak için karakter seti"
+
+#.
+#. * Scanner
+#.
+#: ../src/prefs.c:945
+msgid "Scanner"
+msgstr "Tarayıcı"
+
+#. Character conversion for the 'Fill Tag' scanner (=> FTS...)
+#: ../src/prefs.c:955
+msgid "Fill Tag Scanner - Character Conversion"
+msgstr "Etiket Doldurma Tarayıcısı - Karakter Dönüşümü"
+
+#: ../src/prefs.c:961 ../src/prefs.c:986
+msgid "Convert underscore character '_' and string '%20' to space ' '"
+msgstr "Alt çizgi '_' ve '%20' metinlerini boşluğa ' ' dönüştür"
+
+#: ../src/prefs.c:963 ../src/prefs.c:987
+msgid "Convert space ' ' to underscore '_'"
+msgstr "Boşlukları ' ' alt çizgiye '_' dönüştür"
+
+#: ../src/prefs.c:975 ../src/prefs.c:977
+msgid ""
+"If activated, this conversion will be used when applying a mask from the "
+"scanner for tags."
+msgstr ""
+"Eğer işaretlenirse tarayıcı etiketleri doldururken bu dönüşümleri kullanır."
+
+#. Character conversion for the 'Rename File' scanner (=> RFS...)
+#: ../src/prefs.c:981
+msgid "Rename File Scanner - Character Conversion"
+msgstr "Dosya Yeniden Adlandırma Tarayıcısı - Karakter Dönüşümü"
+
+#: ../src/prefs.c:998 ../src/prefs.c:1000 ../src/prefs.c:1002
+msgid ""
+"If activated, this conversion will be used when applying a mask from the "
+"scanner for filenames."
+msgstr ""
+"Eğer işaretlenirse tarayıcı dosya adlarını doldururken bu dönüşümleri "
+"kullanır."
+
+#. Character conversion for the 'Process Fields' scanner (=> PFS...)
+#: ../src/prefs.c:1005
+msgid "Process Fields Scanner - Character Conversion"
+msgstr "Alanları İşleme Tarayıcısı - Karakter Dönüşümü"
+
+#. Don't convert some words like to, feat. first letter uppercase.
+#: ../src/prefs.c:1012
+msgid ""
+"Don't uppercase first letter of words for some prepositions and articles."
+msgstr "Bazı edatlar ve yazılar için kelimelerin ilk harfini büyük harf yapma."
+
+#: ../src/prefs.c:1016
+msgid ""
+"Don't convert first letter of words like prepositions, articles and words "
+"like feat., when using the scanner 'First letter uppercase of each "
+"word' (for example, you will obtain 'Text in an Entry' instead of 'Text In "
+"An Entry')."
+msgstr ""
+"Tarayıcıyla 'Her kelimenin ilk harfi büyük' kullanırken edat ve 'feat.' gibi "
+"bazı yazıların ilk harfini büyütme (Örneğin 'Leyla İle Mecnun' yerine 'Leyla "
+"ile Mecnun' elde edersiniz.)."
+
+#. Properties of the scanner window
+#: ../src/prefs.c:1022
+msgid "Scanner Window"
+msgstr "Tarayıcı Penceresi"
+
+#: ../src/prefs.c:1028
+msgid "Open the Scanner Window on startup"
+msgstr "Tarayıcı penceresini başlangıçta aç"
+
+#: ../src/prefs.c:1031
+msgid ""
+"Activate this option to open automatically the scanner window when EasyTAG "
+"starts."
+msgstr ""
+"EasyTAG açılırken tarayıcı penceresinin açılması için bu seçeneği "
+"etkinleştirin."
+
+#. Other options
+#: ../src/prefs.c:1036
+msgid "Fields"
+msgstr "Alanlar"
+
+#. Overwrite text into tag fields
+#: ../src/prefs.c:1043
+msgid "Overwrite fields when scanning tags"
+msgstr "Etiketleri tararken alanların üzerine yaz"
+
+#: ../src/prefs.c:1046
+msgid ""
+"If activated, the scanner will replace existing text in fields by the new "
+"one. If deactivated, only blank fields of the tag will be filled."
+msgstr ""
+"Etkinse tarayıcı alandaki mevcut metin yerine yenisini yazar. Etkin değilse "
+"sadece boş alanlar doldurulur."
+
+#: ../src/prefs.c:1057
+msgid "Set this text as default comment:"
+msgstr "Öntanımlı yorum olarak bu yazıyı ayarla:"
+
+#: ../src/prefs.c:1060
+msgid ""
+"Activate this option if you want to put the following string into the "
+"comment field when using the 'Fill Tag' scanner."
+msgstr ""
+"'Etiketleri Doldur' tarayıcısını kullanırken yorum alanına yandaki metni "
+"eklemek için bu seçeneği etkinleştirin"
+
+#. CRC32 comment
+#: ../src/prefs.c:1078
+msgid "Use CRC32 as the default comment (for files with ID3 tags only)."
+msgstr ""
+"Öntanımlı yorum olarak CRC32 kullan (sadece ID3 etiketli dosyalar için)."
+
+#: ../src/prefs.c:1082
+msgid ""
+"Calculates the CRC-32 value of the file and writes it into the comment field "
+"when using the 'Fill Tag' scanner."
+msgstr ""
+"'Etiketleri Doldur' tarayıcısını kullanırken dosyanın CRC-32 değerini "
+"hesaplar ve yorum alanına yazar."
+
+#.
+#. * CDDB
+#.
+#: ../src/prefs.c:1093
+msgid "CDDB"
+msgstr ""
+
+#. CDDB Server Settings (Automatic Search)
+#: ../src/prefs.c:1099
+msgid "Server Settings for Automatic Search"
+msgstr "Otomatik Arama için Sunucu Ayarları"
+
+#: ../src/prefs.c:1108 ../src/prefs.c:1147 ../src/prefs.c:1181
+msgid "Name:"
+msgstr "İsim:"
+
+#: ../src/prefs.c:1127 ../src/prefs.c:1155 ../src/prefs.c:1190
+#: ../src/prefs.c:1276
+msgid "Port:"
+msgstr "Port:"
+
+#: ../src/prefs.c:1137 ../src/prefs.c:1165 ../src/prefs.c:1200
+msgid "CGI Path:"
+msgstr "CGI Konumu:"
+
+#. CDDB Server Settings (Manual Search)
+#: ../src/prefs.c:1173
+msgid "Server Settings for Manual Search"
+msgstr "Elle Arama için Sunucu Ayarları"
+
+#. Local access for CDDB (Automatic Search)
+#: ../src/prefs.c:1208
+#, fuzzy
+#| msgid "Use local CDDB"
+msgid "Local CDDB"
+msgstr "Yerel CDDB kullan"
+
+#: ../src/prefs.c:1216
+msgid "Path:"
+msgstr "Konum:"
+
+#: ../src/prefs.c:1228
+#, fuzzy
+#| msgid ""
+#| "Specify the directory where the local CD database is located. The local "
+#| "CD data base contains the eleven following directories 'blues', "
+#| "'classical', 'country', 'data', 'folk', 'jazz', 'newage', 'reggae', "
+#| "'rock', 'soundtrack' and 'misc'."
+msgid ""
+"Specify the directory where the local CD database is located. The local CD "
+"database contains the eleven following directories 'blues', 'classical', "
+"'country', 'data', 'folk', 'jazz', 'newage', 'reggae', 'rock', 'soundtrack' "
+"and 'misc'."
+msgstr ""
+"Yerel CD veritabanının bulunduğu dizini belirtin. Yerel CD veritabanı "
+"aşağıdaki 11 dizini içerir: 'blues', 'classical', 'country', 'data', 'folk', "
+"'jazz', 'newage', 'reggae', 'rock', 'soundtrack' ve 'misc'."
+
+#. CDDB Proxy Settings
+#: ../src/prefs.c:1254
+msgid "Proxy Settings"
+msgstr "Vekil Ayarları"
+
+#: ../src/prefs.c:1263
+msgid "Use a proxy"
+msgstr "Vekil kullan"
+
+#: ../src/prefs.c:1266
+msgid "Set active the settings of the proxy server."
+msgstr "Vekil sunucu kullanmak için etkinleştir."
+
+#: ../src/prefs.c:1268
+msgid "Host Name:"
+msgstr "Sunucu Adı:"
+
+#: ../src/prefs.c:1275
+msgid "Name of the proxy server."
+msgstr "Vekil sunucunun adı."
+
+#: ../src/prefs.c:1283
+msgid "Port of the proxy server."
+msgstr "Vekil sunucunun portu."
+
+#: ../src/prefs.c:1288
+msgid "User Name:"
+msgstr "Kullanıcı Adı:"
+
+#: ../src/prefs.c:1295
+msgid "Name of user for the the proxy server."
+msgstr "Vekil sunucu için kullanıcı adı."
+
+#: ../src/prefs.c:1296
+msgid "User Password:"
+msgstr "Kullanıcı Parolası:"
+
+#: ../src/prefs.c:1304
+msgid "Password of user for the the proxy server."
+msgstr "Vekil sunucu için kullanıcı parolası."
+
+#. Track Name list (CDDB results)
+#: ../src/prefs.c:1309
+msgid "Track Name List"
+msgstr "Parça Adı Listesi"
+
+#: ../src/prefs.c:1316
+msgid ""
+"Select corresponding audio file (according position or DLM if activated "
+"below)"
+msgstr "Eşleşen ses dosyasını seç (Eğer aktifse uygun konum veya DLM)"
+
+#: ../src/prefs.c:1320
+msgid ""
+"If activated, when selecting a line in the list of tracks name, the "
+"corresponding audio file in the main list will be also selected."
+msgstr ""
+"Etkinleştirilmişse parça adı listesinden satır seçerken ana listedeki "
+"eşleşen ses dosyası seçilir."
+
+#. Check box to use DLM (also used in the cddb window)
+#: ../src/prefs.c:1325
+msgid ""
+"Use the Levenshtein algorithm (DLM) to match lines (using title) with audio "
+"files (using filename)"
+msgstr ""
+"Satırları (başlığı kullanır) ses dosyalarıyle (dosya adını kullanır) "
+"eşleştirmek için Levenshtein algoritması (DLM) kullan"
+
+#.
+#. * Confirmation
+#.
+#: ../src/prefs.c:1340
+msgid "Confirmation"
+msgstr "Doğrulama"
+
+#: ../src/prefs.c:1345
+msgid "Confirm exit from program"
+msgstr "Programdan çıkarken doğrulama iste"
+
+#: ../src/prefs.c:1348
+msgid ""
+"If activated, opens a dialog box to ask confirmation before exiting the "
+"program."
+msgstr ""
+"Eğer işaretlenmişse, bir diyalog penceresi açılıp çıkmadan önce doğrulama "
+"sorar."
+
+#: ../src/prefs.c:1351
+msgid "Confirm writing of file tag"
+msgstr "Dosya etiketi yazarken doğrulama iste"
+
+#: ../src/prefs.c:1355
+msgid "Confirm renaming of file"
+msgstr "Dosya yeniden adlendırırken doğrulama iste"
+
+#: ../src/prefs.c:1359
+msgid "Confirm deleting of file"
+msgstr "Dosya silerken doğrulama iste"
+
+#: ../src/prefs.c:1363
+msgid "Confirm writing of playlist"
+msgstr "Çalma listesi oluşturulurken doğrulama iste"
+
+#: ../src/prefs.c:1367
+msgid "Confirm changing directory when there are unsaved changes"
+msgstr ""
+"Kaydedilmemiş değişiklikler varken dizin değiştirmek istenirse doğrulama iste"
+
+#. For translators : be aware to NOT translate '%.*d' in this string
+#: ../src/prefs.c:1405
+#, c-format
+msgid "(Example: %.*d_-_Track_name_1.mp3)"
+msgstr "(Örnek: %.*d_-_Parça_adı_1.mp3)"
+
+#: ../src/prefs.c:1546 ../src/setting.c:898
+msgid "Configuration saved"
+msgstr "Yapılandırma kaydedildi"
+
+#: ../src/prefs.c:1554
+msgid "Configuration unchanged"
+msgstr "Yapılandırma değiştirilmedi"
+
+#: ../src/prefs.c:1640
+msgid "The selected path for 'Default path to files' is invalid"
+msgstr "'Dosyalar için öntanımlı konum' için seçilen konum geçersiz"
+
+#: ../src/prefs.c:1641
+#, c-format
+msgid ""
+"Path: '%s'\n"
+"Error: %s"
+msgstr ""
+"Konum: '%s'\n"
+"Hata: %s"
+
+#: ../src/prefs.c:1642
+msgid "Invalid Path Error"
+msgstr "Geçersiz Konum Hatası"
+
+#: ../src/prefs.c:1756
+#, c-format
+msgid "The audio file player '%s' cannot be found"
+msgstr "'%s' müzik çalar bulunamadı"
+
+#: ../src/prefs.c:1758
+msgid "Audio Player Error"
+msgstr "Müzik Çalar Hatası"
+
+#: ../src/scan.c:179
+msgid "Fill Tag"
+msgstr "Etiketi Doldur"
+
+#: ../src/scan.c:358
+#, fuzzy, c-format
+#| msgid "Cannot write tag in file '%s'"
+msgid "Cannot calculate CRC value of file (%s)"
+msgstr "'%s' dosyasına etiket yazılamıyor"
+
+#: ../src/scan.c:373
+msgid "Tag successfully scanned"
+msgstr "Etiket başarıyla tarandı"
+
+#: ../src/scan.c:375
+#, c-format
+msgid "Tag successfully scanned: %s"
+msgstr "Etiket başarıyla tarandı: %s"
+
+#: ../src/scan.c:416
+#, c-format
+msgid "Tag scanner: strange… the extension '%s' was not found in filename '%s'"
+msgstr "Etiket tarayıcı:yabancı… '%s' eklentisi '%s' dosyasında bulunamadı"
+
+#: ../src/scan.c:498 ../src/scan.c:527
+#, c-format
+msgid "Scan Error: can't find separator '%s' within '%s'"
+msgstr "Tarama Hatası: '%s' ile '%s' arasına ayırıcı bulunamadı"
+
+#: ../src/scan.c:715
+msgid "New filename successfully scanned"
+msgstr "Yeni dosya adı başarıyla tarandı"
+
+#: ../src/scan.c:718
+#, c-format
+msgid "New filename successfully scanned: %s"
+msgstr "Yeni dosya adı başarıyla tarandı: %s"
+
+#: ../src/scan.c:1820
+#, c-format
+msgid "Error while processing fields: %s"
+msgstr "Alanlar işlenemiyor: %s"
+
+#. The window
+#: ../src/scan.c:2337
+msgid "Tag and Filename Scan"
+msgstr "Etiket ve Dosya Adı Tarayıcı"
+
+#. TODO: Set related action to match AM_SCAN_FILES.
+#: ../src/scan.c:2346
+#, fuzzy
+#| msgid "Scan files"
+msgid "Scan Files"
+msgstr "Dosyaları tara"
+
+#. Option Menu
+#: ../src/scan.c:2371
+msgid "Scanner:"
+msgstr "Tarayıcı:"
+
+#: ../src/scan.c:2392
+msgid "Select the type of scanner to use"
+msgstr "Kullanmak için tarayıcı tipi seçin"
+
+#: ../src/scan.c:2401
+msgid "Scanner Preferences"
+msgstr "Tarayıcı Tercihleri"
+
+#: ../src/scan.c:2410
+msgid "Show / Hide Masks Editor"
+msgstr "Maske Düzenleyiciyi Göster / Gizle"
+
+#: ../src/scan.c:2420
+msgid "Show / Hide Legend"
+msgstr "Maske Biçimlerini Göster / Gizle"
+
+#: ../src/scan.c:2449
+msgid ""
+"Select or type in a mask using codes (see Legend) to parse filename and "
+"path. Used to fill in tag fields"
+msgstr ""
+"Dosya ve dizin adı ayrıştırmak için maske biçimi yazın veya seçin. Etiket "
+"alanları doldurmak için kullanılacak"
+
+#. Preview label
+#: ../src/scan.c:2473
+msgid "Fill tag preview"
+msgstr "Etiket önizlemesini doldur"
+
+#: ../src/scan.c:2503
+msgid "Prefix mask with current path"
+msgstr "Şuanki dizin için maske öncülü"
+
+#: ../src/scan.c:2516
+msgid ""
+"Select or type in a mask using codes (see Legend) to parse tag fields. Used "
+"to rename the file.\n"
+"Use / to make directories. If the first character is /, it's a absolute "
+"path, otherwise is relative to the old path."
+msgstr ""
+"Etiket alanlarını ayrıştırmak için maske biçimi yazın veya seçin. Dosyayı "
+"yeniden anlandırmak için kullanılacak.\n"
+"Dizin oluşturmak için / karakterini kullanın. İlk karakter / olursa kesin "
+"konum, değilse eski konuma göre göreceli konum olur."
+
+#. Preview label
+#: ../src/scan.c:2541
+msgid "Rename file preview"
+msgstr "Dosya adı değiştirme önizlemesi"
+
+#: ../src/scan.c:2560
+msgid "Select fields:"
+msgstr "Alanları Seçin:"
+
+#: ../src/scan.c:2563
+msgid ""
+"The buttons on the right represent the fields which can be processed. Select "
+"those which interest you"
+msgstr ""
+"İşlenebilecek alanlar için sağda düğmeler bulunuyor. İlgilendiklerinizi "
+"işaretleyin"
+
+#. Advice for Translators: set the first letter of filename translated
+#: ../src/scan.c:2567
+msgid "F"
+msgstr "D"
+
+#: ../src/scan.c:2569
+msgid "Process filename field"
+msgstr "Dosya adı alanını işle"
+
+#. Advice for Translators: set the first letter of title translated
+#: ../src/scan.c:2571
+msgid "T"
+msgstr "B"
+
+#: ../src/scan.c:2572
+msgid "Process title field"
+msgstr "Başlık alanını işle"
+
+#. Advice for Translators: set the first letter of artist translated
+#: ../src/scan.c:2574
+msgid "Ar"
+msgstr "S"
+
+#: ../src/scan.c:2575
+msgid "Process file artist field"
+msgstr "Sanatçi alanını işle"
+
+#. Advice for Translators: set the first letter of album artist translated
+#: ../src/scan.c:2577
+msgid "AA"
+msgstr "AS"
+
+#: ../src/scan.c:2578
+msgid "Process album artist field"
+msgstr "Albüm sanatçısı alanını işle"
+
+#. Advice for Translators: set the first letter of album translated
+#: ../src/scan.c:2580
+msgid "Al"
+msgstr "A"
+
+#: ../src/scan.c:2581
+msgid "Process album field"
+msgstr "Albüm alanını işle"
+
+#. Advice for Translators: set the first letter of genre translated
+#: ../src/scan.c:2583
+msgid "G"
+msgstr "T"
+
+#: ../src/scan.c:2584
+msgid "Process genre field"
+msgstr "Tür alanını işle"
+
+#. Advice for Translators: set the first letter of comment translated
+#: ../src/scan.c:2586
+msgid "Cm"
+msgstr "Yo"
+
+#: ../src/scan.c:2587
+msgid "Process comment field"
+msgstr "Yorum alanını işle"
+
+#. Advice for Translators: set the first letter of composer translated
+#: ../src/scan.c:2589
+msgid "Cp"
+msgstr "Be"
+
+#: ../src/scan.c:2590
+msgid "Process composer field"
+msgstr "Besteci alanını işle"
+
+#. Advice for Translators: set the first letter of orig artist translated
+#: ../src/scan.c:2592
+msgid "O"
+msgstr "Sa"
+
+#: ../src/scan.c:2593
+msgid "Process original artist field"
+msgstr "Asıl Sanatçı alanını işle"
+
+#. Advice for Translators: set the first letter of copyright translated
+#: ../src/scan.c:2595
+msgid "Cr"
+msgstr "Th"
+
+#: ../src/scan.c:2596
+msgid "Process copyright field"
+msgstr "Telif hakkı alanını işle"
+
+#. Advice for Translators: set the first letter of URL translated
+#: ../src/scan.c:2598
+msgid "U"
+msgstr "Ba"
+
+#: ../src/scan.c:2599
+msgid "Process URL field"
+msgstr "Bağlantı alanını işle"
+
+#. Advice for Translators: set the first letter of encoder name translated
+#: ../src/scan.c:2601
+msgid "E"
+msgstr "K"
+
+#: ../src/scan.c:2602
+msgid "Process encoder name field"
+msgstr "Kodlayıcı alanını işle"
+
+#: ../src/scan.c:2646
+msgid "Invert selection"
+msgstr "Seçimi ters çevir"
+
+#: ../src/scan.c:2653
+msgid "Select/Unselect all"
+msgstr "Tümünü seç/Hiçbirini seçme"
+
+#: ../src/scan.c:2666
+msgid "Convert:"
+msgstr "Dönüştür:"
+
+#: ../src/scan.c:2668
+msgid "to: "
+msgstr "->:"
+
+#: ../src/scan.c:2697
+msgid ""
+"The underscore character or the string '%20' are replaced by one space. "
+"Example, before: 'Text%20In%20An_Entry', after: 'Text In An Entry'."
+msgstr ""
+"'%20' metnini ve altçizgiyi boşlukla değiştir. Örnek, önce: 'Bir"
+"%20Güzel_Yazı', sonra: 'Bir Güzel Yazı'"
+
+#: ../src/scan.c:2700
+msgid ""
+"The space character is replaced by one underscore character. Example, "
+"before: 'Text In An Entry', after: 'Text_In_An_Entry'."
+msgstr ""
+"Boşluk karakterini alt çizgi ile değiştir. Örnek, önce: 'Bir Güzel Yazı', "
+"sonra: 'Bir_Güzel_Yazı'"
+
+#: ../src/scan.c:2703
+msgid ""
+"Replace a string by another one. Note that the search is case sensitive."
+msgstr ""
+"Yazıyı başka biriyle yer değiştir. Bu arama büyük küçük harf duyarlıdır."
+
+#: ../src/scan.c:2716
+msgid "Detect Roman numerals"
+msgstr "Romen rakamları algıla"
+
+#: ../src/scan.c:2743
+msgid ""
+"Convert all words in all fields to upper case. Example, before: 'Text IN AN "
+"entry', after: 'TEXT IN AN ENTRY'."
+msgstr ""
+"Tüm kelimelerin tüm harflerini büyüt. Örnek, önce: 'Bir güzel Yazı', sonra: "
+"'BİR GÜZEL YAZI'"
+
+#: ../src/scan.c:2746
+msgid ""
+"Convert all words in all fields to lower case. Example, before: 'TEXT IN an "
+"entry', after: 'text in an entry'."
+msgstr ""
+"Tüm kelimelerdeki harfleri küçült. Örnek, önce: 'BİR Güzel Yazı', sonra: "
+"'bir güzel yazı'"
+
+#: ../src/scan.c:2749
+msgid ""
+"Convert the initial of the first word in all fields to upper case. Example, "
+"before: 'text IN An ENTRY', after: 'Text in an entry'."
+msgstr ""
+"Sadece ilk kelimenin ilk harfini büyüt. Örnek, önce: 'bir Güzel YAZI', "
+"sonra: 'Bir güzel yazı'"
+
+#: ../src/scan.c:2752
+msgid ""
+"Convert the initial of each word in all fields to upper case. Example, "
+"before: 'Text in an ENTRY', after: 'Text In An Entry'."
+msgstr ""
+"Her kelimenin ilk harfini büyüt. Örnek, önce: 'Bir güzel YAZI', sonra: 'Bir "
+"Güzel Yazı'"
+
+#: ../src/scan.c:2755
+msgid ""
+"Force to convert to upper case the Roman numerals. Example, before: 'ix. "
+"text in an entry', after: 'IX. Text In An Entry'."
+msgstr ""
+"Romen rakamlarını büyük harfe zorla. Örnek, önce: 'ix. bir güzel yazı', "
+"sonra: 'IX. Bir Güzel Yazı'"
+
+#: ../src/scan.c:2764
+msgid "Insert a space before an uppercase letter"
+msgstr "Büyük harflerin önüne boşluk oluştur"
+
+#: ../src/scan.c:2765
+msgid "Remove duplicates of space or underscore"
+msgstr "Çift boşluk ve alt çizgileri sil"
+
+#: ../src/scan.c:2783
+msgid ""
+"All spaces between words are removed. Example, before: 'Text In An Entry', "
+"after: 'TextInAnEntry'."
+msgstr ""
+"Kelime aralarındaki boşluklar silindi. Örnek, önce: 'Bir Güzel Yazı', sonra "
+"'BirGüzelYazı'"
+
+#: ../src/scan.c:2786
+msgid ""
+"A space is inserted before each upper case letter. Example, before: "
+"'TextInAnEntry', after: 'Text In An Entry'."
+msgstr ""
+"Büyük harflerden önce boşluk oluşturuldu. Örnek, önce: 'BirGüzelYazı', "
+"sonra: 'Bir Güzel Yazı'"
+
+#: ../src/scan.c:2789
+msgid ""
+"Duplicated spaces or underscores are removed. Example, before: "
+"'Text__In__An   Entry', after: 'Text_In_An Entry'."
+msgstr ""
+"Çift Boşluk ve alt çizgiler silindi. Örnek, önce: 'Bir  Güzel__Yazı', sonra "
+"'Bir Güzel_Yazı'"
+
+#.
+#. * Frame to display codes legend
+#.
+#: ../src/scan.c:2796
+msgid "Legend"
+msgstr "Maske Biçimleri"
+
+#: ../src/scan.c:2802
+#, c-format
+msgid "%a: artist"
+msgstr "%a: sanatçı"
+
+#: ../src/scan.c:2805
+msgid "%z: album artist"
+msgstr "%z: albüm sanatçısı"
+
+#: ../src/scan.c:2808
+msgid "%b: album"
+msgstr "%b: albüm"
+
+#: ../src/scan.c:2811
+#, c-format
+msgid "%c: comment"
+msgstr "%c: yorum"
+
+#: ../src/scan.c:2814
+#, c-format
+msgid "%p: composer"
+msgstr "%p: besteci"
+
+#: ../src/scan.c:2817
+msgid "%r: copyright"
+msgstr "%r: telif hakkı"
+
+#: ../src/scan.c:2820
+#, c-format
+msgid "%d: disc number"
+msgstr "%d: disk numarası"
+
+#: ../src/scan.c:2823
+#, c-format
+msgid "%e: encoded by"
+msgstr "%e: kodlayıcı"
+
+#: ../src/scan.c:2826
+#, c-format
+msgid "%g: genre"
+msgstr "%g: tür"
+
+#: ../src/scan.c:2829
+#, c-format
+msgid "%i: ignored"
+msgstr "%i: ihmal"
+
+#: ../src/scan.c:2832
+msgid "%l: number of tracks"
+msgstr "%l: parça sayısı"
+
+#: ../src/scan.c:2835
+#, c-format
+msgid "%o: orig. artist"
+msgstr "%o: asıl sanatçı"
+
+#: ../src/scan.c:2838
+#, c-format
+msgid "%n: track"
+msgstr "%n: parça numarası"
+
+#: ../src/scan.c:2841
+msgid "%t: title"
+msgstr "%t: başlık"
+
+#: ../src/scan.c:2844
+#, c-format
+msgid "%u: URL"
+msgstr "%u: bağlantı"
+
+#: ../src/scan.c:2847
+msgid "%y: year"
+msgstr "%y: yıl"
+
+#.
+#. * Masks Editor
+#.
+#: ../src/scan.c:2854
+msgid "Mask Editor"
+msgstr "Maske Düzenleyici"
+
+#: ../src/scan.c:2908
+msgid "Create New Mask"
+msgstr "Yeni Maske Oluştur"
+
+#: ../src/scan.c:2918
+msgid "Move Up this Mask"
+msgstr "Bu Maskeyi Yukarı Taşı"
+
+#: ../src/scan.c:2928
+msgid "Move Down this Mask"
+msgstr "Bu Maskeyi Aşağı Taşı"
+
+#: ../src/scan.c:2938
+msgid "Duplicate Mask"
+msgstr "Maskeyi Çoğalt"
+
+#: ../src/scan.c:2948
+msgid "Add Default Masks"
+msgstr "Öntanımlı Maskelere Ekle"
+
+#: ../src/scan.c:2958
+msgid "Remove Mask"
+msgstr "Maskeyi Sil"
+
+#: ../src/scan.c:2968
+msgid "Save Masks"
+msgstr "Maskeleri Kaydet"
+
+#: ../src/scan.c:3572
+msgid "New_mask"
+msgstr "Yeni_make"
+
+#: ../src/scan.c:3611
+msgid "Copy: No row selected"
+msgstr "Kopyala: Satır seçilmedi"
+
+#: ../src/scan.c:3719
+msgid "Remove: No row selected"
+msgstr "Sil: Satır seçilmesi"
+
+#: ../src/scan.c:3767
+msgid "Move Up: No row selected"
+msgstr "Yukarı Taşı: Satır seçilmedi"
+
+#: ../src/scan.c:3821
+msgid "Move Down: No row selected"
+msgstr "Aşağı Taşı: Satır seçilmedi"
+
+#: ../src/setting.c:918
+#, c-format
+msgid "Error: Cannot write configuration file: %s (%s)"
+msgstr "Hata: Yapılandırma dosyası %s yazılamıyor (%s)"
+
+#: ../src/setting.c:938 ../src/setting.c:955 ../src/setting.c:975
+#, fuzzy, c-format
+#| msgid "Error while writing to file: '%s' (%s)"
+msgid "Error while writing configuration file: %s"
+msgstr "Dosyaya yazılamadı: '%s' (%s)"
+
+#: ../src/setting.c:1084
+#, c-format
+msgid "Cannot open configuration file '%s' (%s)"
+msgstr "'%s' yapılandırma dosyası açılamıyor (%s)"
+
+#: ../src/setting.c:1086
+msgid "Loading default configuration"
+msgstr "Öntanımlı yapılandırma yükleniyor"
+
+#: ../src/setting.c:1127
+#, c-format
+msgid "Cannot create or open file '%s' (%s)"
+msgstr "'%s' dosyası oluşturulamıyor veya okunamıyor (%s)"
+
+#: ../src/setting.c:1187
+#, c-format
+msgid "Error: Cannot write list to file: %s (%s)"
+msgstr "Hata: Liste dosyaya yazılamıyor: %s (%s)"
+
+#: ../src/setting.c:1205
+#, fuzzy, c-format
+#| msgid "Error while writing to file: '%s' (%s)"
+msgid "Error while writing list file: %s"
+msgstr "Dosyaya yazılamadı: '%s' (%s)"
+
+#. Fall back to defaults
+#: ../src/setting.c:1286
+msgid "Loading default 'Fill Tag' masks…"
+msgstr "Öntanımlı 'Etiketleri Doldur' maskesi yükleniyor…"
+
+#. Fall back to defaults
+#: ../src/setting.c:1316
+msgid "Loading default 'Rename File' masks…"
+msgstr "Öntanımlı 'Dosya Yeniden Adlandırma' maskesi yükleniyor…"
+
+#. Fall back to defaults
+#: ../src/setting.c:1343
+msgid "Loading default 'Rename Directory' masks…"
+msgstr "Öntanımlı 'Dizin Yeniden Adlandırma' maskesi yükleniyor…"
+
+#: ../src/setting.c:1554
+#, c-format
+msgid "Migrating configuration from directory '%s' to '%s'"
+msgstr "Yapılandırma '%s' dizininden '%s' dizinine taşınıyor."
+
+#: ../src/setting.c:1578
+#, c-format
+msgid "Failed to migrate configuration file '%s'"
+msgstr "'%s' yapılandırma dosyası taşınamadı"
+
+#: ../src/setting.c:1615
+#, c-format
+msgid "Error: Cannot create directory '%s' (%s)"
+msgstr "Hata: '%s' dizini oluşturulamıyor (%s)"
+
+#. Log_Print(_("DLL '%s' not already loaded. Try loading it..."), dllname);
+#: ../src/win32/win32dep.c:126
+#, c-format
+msgid "DLL '%s' not already loaded. Try loading it..."
+msgstr "'%s' DLL'si henüz yüklenmedi. Yüklemeye çalışıyor..."
+
+#. Log_Print(_("DLL '%s' could not be loaded"), dllname);
+#: ../src/win32/win32dep.c:130
+#, c-format
+msgid "DLL '%s' could not be loaded"
+msgstr "'%s' DLL'si yüklenemedi"
+
+#. Log_Print(_("This version of '%s' contains '%s'"), dllname, procedure);
+#: ../src/win32/win32dep.c:140
+#, c-format
+msgid "This version of '%s' contains '%s'"
+msgstr "Bu sürüm '%s' '%s' içeriyor"
+
+#. Log_Print(_("Function '%s' not found in dll '%s'"), procedure, dllname);
+#: ../src/win32/win32dep.c:146
+#, c-format
+msgid "Function '%s' not found in DLL '%s'"
+msgstr "'%s' işlevi '%s' DLL'de bulunamadı"
+
+#. ET_Win32_Path_Replace_Backslashes(app_data_dir);
+#. Log_Print(_("EasyTAG settings directory: '%s'"), app_data_dir);
+#: ../src/win32/win32dep.c:282
+#, c-format
+msgid "EasyTAG settings directory: '%s'"
+msgstr "EasyTAG ayarlar dizini: '%s'"
+
+#. Log_Print(_("weasytag_init start..."));
+#: ../src/win32/win32dep.c:472
+#, c-format
+msgid "weasytag_init start..."
+msgstr "weasytag_init başladı..."
+
+#. Log_Print(_("EasyTAG version: %s"),VERSION);
+#. g_print(_("EasyTAG version: %s"),VERSION);
+#. g_print("\n");
+#: ../src/win32/win32dep.c:478
+#, c-format
+msgid "GLib version: %u.%u.%u\n"
+msgstr "GLib sürüm: %u.%u.%u\n"
+
+#. Set Environmental Variables
+#. Log_Print(_("weasytag_init end..."));
+#: ../src/win32/win32dep.c:496
+#, c-format
+msgid "weasytag_init end..."
+msgstr "weasytag_init bitti..."
+
+#. Log_Print(_("Audio player: '%s'"), player);
+#: ../src/win32/win32dep.c:620
+#, c-format
+msgid "Audio player: '%s'"
+msgstr "Ses Çalıcısı: '%s'"
+
+#~ msgid "Save files"
+#~ msgstr "Dosyaları kaydet"
+
+#~ msgid "Unknown parameter or path '%s'\n"
+#~ msgstr "Bilinmeyen parametre veya konum '%s'\n"
+
+#~ msgid "Renaming file '%s'"
+#~ msgstr "'%s' dosyası yeniden adlandırılıyor"
+
+#~ msgid "Cannot rename file '%s' to '%s' (%s)"
+#~ msgstr "'%s' dosyası '%s' olarak yeniden adlandırılamıyor (%s)"
+
+#~ msgid ""
+#~ "Cannot rename file '%s' because the following file already exists: '%s'"
+#~ msgstr ""
+#~ "'%s' dosyası yeniden adlandırılamıyor çünkü '%s' adında dosya mevcut"
+
+#~ msgid "Cannot create target directory '%s'"
+#~ msgstr "'%s' hedef dizini oluşturulamıyor"
+
+#~ msgid "Cannot create target directory '%s': %s"
+#~ msgstr "'%s' hedef dizini oluşturulamıyor: %s"
+
+#~ msgid "Renamed file '%s' to '%s'"
+#~ msgstr "'%s' dosyası '%s' olarak yeniden adlandırıldı"
+
+#~ msgid "File(s) renamed"
+#~ msgstr "Dosya(lar) yeniden adlandırıldı"
+
+#~ msgid "Cannot remove old directory '%s'"
+#~ msgstr "Eski '%s' dizini silinemiyor"
+
+#~ msgid "Remove Directory Error"
+#~ msgstr "Dizin Silme Hatası"
+
+#~ msgid "Cannot remove old directory '%s': %s"
+#~ msgstr "Eski '%s' dizini silinemiyor: %s"
+
+#~ msgid "Moved file '%s' to '%s'"
+#~ msgstr "'%s' dosyası '%s' şeklinde taşındı"
+
+#~ msgid "File(s) moved"
+#~ msgstr "Dosya(lar) taşındı"
+
+#~ msgid "Cannot remove old directory '%s': (%s)"
+#~ msgstr "Eski '%s' dizini silinemiyor: (%s)"
+
+#~ msgid "Cannot move file '%s' to '%s'"
+#~ msgstr "'%s' dosyası '%s' şeklinde taşınamıyor"
+
+#~ msgid "File Move Error"
+#~ msgstr "Dosya Taşıma Hatası"
+
+#~ msgid "Cannot move file '%s' to '%s': (%s)"
+#~ msgstr "'%s' dosyası '%s' şeklinde taşınamıyor: (%s)"
+
+#~ msgid "File(s) not moved"
+#~ msgstr "Dosya(lar) taşınamadı"
+
+#, fuzzy
+#~| msgid "Error while opening file: '%s' (%s)."
+#~ msgid "Error copying file '%s' to '%s'"
+#~ msgstr "Dosya açılamadı: '%s' (%s)."
+
+#, fuzzy
+#~| msgid "Cannot create or open file '%s' (%s)"
+#~ msgid "Cannot change permissions of file '%s' (%s)"
+#~ msgstr "'%s' dosyası oluşturulamıyor veya okunamıyor (%s)"
+
+#~ msgid "Received signal %s (%d)\a"
+#~ msgstr "%s sinyali alındı (%d)\a"
+
+#~ msgid "Unknown signal"
+#~ msgstr "Bilinmeyen sinyal"
+
+#~ msgid "Playlist file '%s' already exists"
+#~ msgstr "'%s' çalma listesi zaten mevcut"
+
+#~ msgid "Do you want to save the playlist, overwriting the existing file?"
+#~ msgstr "Mevcut dosyanın üzerine yazılmasını ister misiniz?"
+
+#~ msgid "Write ID3 tags in FLAC files (in addition to FLAC tag)"
+#~ msgstr "ID3 etiketlerini FLAC dosyalarına yaz(FLAC etiketine ilave olarak)"
+
+#~ msgid ""
+#~ "If activated, ID3 tags will be also added in the FLAC file (according the "
+#~ "two rules above, plus the FLAC tag). Else ID3 tags will be stripped."
+#~ msgstr ""
+#~ "Eğer işaretlenirse ID3 etiketleri de FLAC dosyasına eklenir. Değilse ID3 "
+#~ "etiketleri eklenmez"
+
+#~ msgid "Input truncated or empty."
+#~ msgstr "Giriş kesildi veya boş."
+
+#~ msgid "Input is not an Ogg bitstream."
+#~ msgstr "Giriş Ogg veri akışı değil."
+
+#~ msgid "Error reading first page of Ogg bitstream."
+#~ msgstr "Ogg veri akışının ilk sayfası okunamadı."
+
+#~ msgid "Error reading initial header packet."
+#~ msgstr "İlk başlık paket okunamadı"
+
+#~ msgid "Ogg bitstream contains neither Speex or Vorbis data."
+#~ msgstr "Ogg veri akışı ne Speex ne de Vorbis verisi içermiyor."
+
+#~ msgid "Corrupt secondary header."
+#~ msgstr "Bozuk ikincil başlık"
+
+#~ msgid "Need to save extra headers"
+#~ msgstr "Ek başlıkları kaydetmek gerekiyor"
+
+#~ msgid "EOF before end of Vorbis headers."
+#~ msgstr "Vorbis başlığın bitmeden önce dosya sonu geldi."
+
+#~ msgid "Corrupt or missing data, continuing…"
+#~ msgstr "Bozuk veya eksik veri, devam ediliyor…"
+
+#~ msgid ""
+#~ "Error writing stream to output. Output stream may be corrupted or "
+#~ "truncated."
+#~ msgstr ""
+#~ "Çıkış akışına yazılamıyor. Çıkış akışı bozuk veya kesilmiş olabilir."
+
+#~ msgid "Open files with…"
+#~ msgstr "Dosyaları birlikte aç…"
+
+#~ msgid "Unselect all files"
+#~ msgstr "Hiçbirini seçme"
+
+#~ msgid "Go to _Default Directory"
+#~ msgstr "_Öntanımlı Dizine Git"
+
+#~ msgid "Browse directory with…"
+#~ msgstr "Dizine gözat…"
+
+#~ msgid "_Refresh Tree"
+#~ msgstr "Ağacı _Yenile"
+
+#~ msgid "_Refresh tree"
+#~ msgstr "Ağacı _yenile"
+
+#~ msgid "Find files"
+#~ msgstr "Dosyaları bul"
+
+#~ msgid "CD Data_base Search…"
+#~ msgstr "CD Verita_banı Ara…"
+
+#~ msgid "Write Playlist…"
+#~ msgstr "Çalma Listesini Kaydet…"
+
+#~ msgid "Write playlist"
+#~ msgstr "Çalma listesini kaydet"
+
+#~ msgid "_Settings"
+#~ msgstr "_Ayarlar"
+
+#~ msgid "Artist and Album View"
+#~ msgstr "Sanatçı ve Albüm Görünümü"
+
+#~ msgid "Open File with…"
+#~ msgstr "Dosyayı Birlikte aç…"
+
+#~ msgid "CD Database Search"
+#~ msgstr "CD Veritabanı Ara"
+
+#~ msgid "  STOP the search...  "
+#~ msgstr "  Aramayı durdur...  "
+
+#~ msgid "Edit Masks"
+#~ msgstr "Maskeleri Düzenle"
+
+#~ msgid "Write Playlist"
+#~ msgstr "Çalma Listesi Oluştur"
+
+#~ msgid "Load the filenames from a TXT file"
+#~ msgstr "Dosya adlarını metin dosyasından yükle"
+
+#~ msgid "The following file already exists: '%s'"
+#~ msgstr "'%s' dosyası zaten mevcut"
+
+#~ msgid "Do you want to save anyway, overwriting the file?"
+#~ msgstr "Dosyanın üzerine yazılacak, yinede kaydetmek istiyor musunuz?"
+
+#~ msgid "Save"
+#~ msgstr "Kaydet"
+
+#~ msgid "Image file cannot be saved: %s"
+#~ msgstr "%s görüntü dosyası kaydedilemiyor"
+
+#~ msgid "File Browser"
+#~ msgstr "Dosya Gezgini"
+
+#~ msgid "CD Data Base"
+#~ msgstr "CD Veri Tabanı"
+
+#~ msgid "Local CD Data Base"
+#~ msgstr "Yerel CD Veri Tabanı"
+
+#~ msgid "Apply changes (but don't save) and close this window"
+#~ msgstr "Değişiklikleri uygula (ama kaydetme) ve pencereyi kapat"
+
+#~ msgid "Close this window without saving"
+#~ msgstr "Değişiklikleri kaydetmeden bu pencereyi kapat"
+
+#~ msgid "Save changes and close this window"
+#~ msgstr "Değişiklikleri kaydet ve pencereyi kapat"
+
+#~ msgid "Open scanner window / Scan selected files"
+#~ msgstr "Tarayıcı penceresini aç / Seçilen dosyaları tara"
+
+#~ msgid "Close this window"
+#~ msgstr "Bu pencereyi kapat"
