@@ -891,7 +891,7 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
     //
     {
         FLAC__StreamMetadata *vc_block; // For vorbis comments
-        GList *list;
+        GList *l;
         
         // Allocate a block for Vorbis comments
         vc_block = FLAC__metadata_object_new(FLAC__METADATA_TYPE_VORBIS_COMMENT);
@@ -981,11 +981,9 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
         /**************************
          * Set unsupported fields *
          **************************/
-        list = FileTag->other;
-        while (list)
+        for (l = FileTag->other; l != NULL; l = g_list_next (l))
         {
-            Flac_Set_Tag(vc_block, "", (gchar*)list->data, FALSE);
-            list = list->next;
+            Flac_Set_Tag (vc_block, "", (gchar *)l->data, FALSE);
         }
 
         // Add the block to the the chain (so we don't need to free the block)
