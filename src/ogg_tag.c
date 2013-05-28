@@ -124,7 +124,6 @@ ogg_tag_read_file_tag (gchar *filename, File_Tag *FileTag, GError **error)
 {
     GFile *file;
     GFileInputStream *istream;
-    GDataInputStream *distream;
     vcedit_state   *state;
     vorbis_comment *vc;
     gchar          *string = NULL;
@@ -148,20 +147,18 @@ ogg_tag_read_file_tag (gchar *filename, File_Tag *FileTag, GError **error)
         return FALSE;
     }
 
-    distream = g_data_input_stream_new (G_INPUT_STREAM (istream));
-
     {
     // Skip the id3v2 tag
     guchar tmp_id3[4];
     gulong id3v2size;
 
     // Check if there is an ID3v2 tag...
-    if (!g_seekable_seek (G_SEEKABLE (distream), 0L, G_SEEK_SET, NULL, error))
+    if (!g_seekable_seek (G_SEEKABLE (istream), 0L, G_SEEK_SET, NULL, error))
     {
         goto err;
     }
 
-    if (g_input_stream_read (G_INPUT_STREAM (distream), tmp_id3, 4, NULL,
+    if (g_input_stream_read (G_INPUT_STREAM (istream), tmp_id3, 4, NULL,
                              error) == 4)
     {
         // Calculate ID3v2 length
@@ -169,19 +166,19 @@ ogg_tag_read_file_tag (gchar *filename, File_Tag *FileTag, GError **error)
         {
             // id3v2 tag skipeer $49 44 33 yy yy xx zz zz zz zz [zz size]
             /* Size is 6-9 position */
-            if (!g_seekable_seek (G_SEEKABLE (distream), 2, G_SEEK_CUR,
+            if (!g_seekable_seek (G_SEEKABLE (istream), 2, G_SEEK_CUR,
                                   NULL, error))
             {
                 goto err;
             }
 
-            if (g_input_stream_read (G_INPUT_STREAM (distream), tmp_id3, 4,
+            if (g_input_stream_read (G_INPUT_STREAM (istream), tmp_id3, 4,
                                      NULL, error) == 4)
             {
                 id3v2size = 10 + ( (long)(tmp_id3[3])        | ((long)(tmp_id3[2]) << 7)
                                 | ((long)(tmp_id3[1]) << 14) | ((long)(tmp_id3[0]) << 21) );
 
-                if (!g_seekable_seek (G_SEEKABLE (distream), id3v2size,
+                if (!g_seekable_seek (G_SEEKABLE (istream), id3v2size,
                                       G_SEEK_SET, NULL, error))
                 {
                     goto err;
@@ -189,21 +186,21 @@ ogg_tag_read_file_tag (gchar *filename, File_Tag *FileTag, GError **error)
 
                 Log_Print(LOG_ERROR,_("Warning: The Ogg Vorbis file '%s' contains an ID3v2 tag."),filename_utf8);
             }
-            else if (!g_seekable_seek (G_SEEKABLE (distream), 0L, G_SEEK_SET,
+            else if (!g_seekable_seek (G_SEEKABLE (istream), 0L, G_SEEK_SET,
                                        NULL, error))
             {
                 goto err;
             }
 
         }
-        else if (!g_seekable_seek (G_SEEKABLE (distream), 0L, G_SEEK_SET,
+        else if (!g_seekable_seek (G_SEEKABLE (istream), 0L, G_SEEK_SET,
                                    NULL, error))
         {
             goto err;
         }
 
     }
-    else if (!g_seekable_seek (G_SEEKABLE (distream), 0L, G_SEEK_SET,
+    else if (!g_seekable_seek (G_SEEKABLE (istream), 0L, G_SEEK_SET,
                                NULL, error))
     {
         goto err;
@@ -213,7 +210,6 @@ ogg_tag_read_file_tag (gchar *filename, File_Tag *FileTag, GError **error)
 
     g_assert (error == NULL || *error == NULL);
 
-    g_object_unref (distream);
     g_object_unref (istream);
 
     state = vcedit_new_state();    // Allocate memory for 'state'
@@ -618,7 +614,7 @@ ogg_tag_read_file_tag (gchar *filename, File_Tag *FileTag, GError **error)
 
 err:
     g_assert (error == NULL || *error != NULL);
-    g_object_unref (distream);
+    g_object_unref (istream);
     g_object_unref (istream);
     g_object_unref (file);
     g_free(filename_utf8);
@@ -675,7 +671,6 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
     gchar          *basename_utf8;
     GFile           *file;
     GFileInputStream *istream;
-    GDataInputStream *distream;
     vcedit_state   *state;
     vorbis_comment *vc;
     gchar          *string;
@@ -698,20 +693,18 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
         return FALSE;
     }
 
-    distream = g_data_input_stream_new (G_INPUT_STREAM (istream));
-
     {
     // Skip the id3v2 tag
     guchar tmp_id3[4];
     gulong id3v2size;
 
     // Check if there is an ID3v2 tag...
-    if (!g_seekable_seek (G_SEEKABLE (distream), 0L, G_SEEK_SET, NULL, error))
+    if (!g_seekable_seek (G_SEEKABLE (istream), 0L, G_SEEK_SET, NULL, error))
     {
         goto err;
     }
 
-    if (g_input_stream_read (G_INPUT_STREAM (distream), tmp_id3, 4, NULL,
+    if (g_input_stream_read (G_INPUT_STREAM (istream), tmp_id3, 4, NULL,
                              error) == 4)
     {
         // Calculate ID3v2 length
@@ -719,19 +712,19 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
         {
             // id3v2 tag skipeer $49 44 33 yy yy xx zz zz zz zz [zz size]
             /* Size is 6-9 position */
-            if (!g_seekable_seek (G_SEEKABLE (distream), 2, G_SEEK_CUR,
+            if (!g_seekable_seek (G_SEEKABLE (istream), 2, G_SEEK_CUR,
                                   NULL, error))
             {
                 goto err;
             }
 
-            if (g_input_stream_read (G_INPUT_STREAM (distream), tmp_id3, 4,
+            if (g_input_stream_read (G_INPUT_STREAM (istream), tmp_id3, 4,
                                      NULL, error) == 4)
             {
                 id3v2size = 10 + ( (long)(tmp_id3[3])        | ((long)(tmp_id3[2]) << 7)
                                 | ((long)(tmp_id3[1]) << 14) | ((long)(tmp_id3[0]) << 21) );
 
-                if (!g_seekable_seek (G_SEEKABLE (distream), id3v2size,
+                if (!g_seekable_seek (G_SEEKABLE (istream), id3v2size,
                                       G_SEEK_SET, NULL, error))
                 {
                     goto err;
@@ -739,21 +732,21 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
 
                 Log_Print(LOG_ERROR,_("Warning: The Ogg Vorbis file '%s' contains an ID3v2 tag."),filename_utf8);
             }
-            else if (!g_seekable_seek (G_SEEKABLE (distream), 0L, G_SEEK_SET,
+            else if (!g_seekable_seek (G_SEEKABLE (istream), 0L, G_SEEK_SET,
                                        NULL, error))
             {
                 goto err;
             }
 
         }
-        else if (!g_seekable_seek (G_SEEKABLE (distream), 0L, G_SEEK_SET,
+        else if (!g_seekable_seek (G_SEEKABLE (istream), 0L, G_SEEK_SET,
                                    NULL, error))
         {
             goto err;
         }
 
     }
-    else if (!g_seekable_seek (G_SEEKABLE (distream), 0L, G_SEEK_SET,
+    else if (!g_seekable_seek (G_SEEKABLE (istream), 0L, G_SEEK_SET,
                                NULL, error))
     {
         goto err;
@@ -764,7 +757,6 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
     g_assert (error == NULL || *error == NULL);
 
     g_object_unref (istream);
-    g_object_unref (distream);
 
     state = vcedit_new_state();    // Allocate memory for 'state'
 
@@ -928,7 +920,6 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
     
 err:
     g_assert (error == NULL || *error != NULL);
-    g_object_unref (distream);
     g_object_unref (istream);
     g_object_unref (file);
     return FALSE;

@@ -284,7 +284,7 @@ vcedit_open(vcedit_state *state, GFile *file, GError **error)
         return FALSE;
     }
 
-    state->in = g_data_input_stream_new (G_INPUT_STREAM (istream));
+    state->in = istream;
 
     state->oy = malloc(sizeof(ogg_sync_state));
     ogg_sync_init(state->oy);
@@ -464,12 +464,10 @@ vcedit_open(vcedit_state *state, GFile *file, GError **error)
     /* Headers are done! */
     g_assert (error == NULL || *error == NULL);
 
-    g_object_unref (istream);
     return TRUE;
 
 err:
     g_assert (error == NULL || *error != NULL);
-    g_object_unref (istream);
     vcedit_clear_internals(state);
     return FALSE;
 }
@@ -490,7 +488,6 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
     int bytes;
     int needflush=0, needout=0;
     GFileOutputStream *ostream;
-    GDataOutputStream *dostream;
 
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
@@ -502,8 +499,6 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
         g_assert (error == NULL || *error != NULL);
         return FALSE;
     }
-
-    dostream = g_data_output_stream_new (G_OUTPUT_STREAM (ostream));
 
     state->eosin = 0;
     state->extrapage = 0;
@@ -532,7 +527,7 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
 
     while((result = ogg_stream_flush(&streamout, &ogout)))
     {
-        if (g_output_stream_write (G_OUTPUT_STREAM (dostream), ogout.header,
+        if (g_output_stream_write (G_OUTPUT_STREAM (ostream), ogout.header,
                                    ogout.header_len, NULL, error)
             != (gssize) ogout.header_len)
         {
@@ -540,7 +535,7 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
             goto cleanup;
         }
 
-        if (g_output_stream_write (G_OUTPUT_STREAM (dostream), ogout.body,
+        if (g_output_stream_write (G_OUTPUT_STREAM (ostream), ogout.body,
                                    ogout.body_len, NULL, error)
             != (gssize) ogout.body_len)
         {
@@ -553,7 +548,7 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
     {
         if(needflush)
         {
-            if (g_output_stream_write (G_OUTPUT_STREAM (dostream), ogout.header,
+            if (g_output_stream_write (G_OUTPUT_STREAM (ostream), ogout.header,
                                        ogout.header_len, NULL, error)
                 != (gssize) ogout.header_len)
             {
@@ -561,7 +556,7 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
                 goto cleanup;
             }
 
-            if (g_output_stream_write (G_OUTPUT_STREAM (dostream), ogout.body,
+            if (g_output_stream_write (G_OUTPUT_STREAM (ostream), ogout.body,
                                        ogout.body_len, NULL, error)
                 != (gssize) ogout.body_len)
             {
@@ -573,16 +568,18 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
         {
             if(ogg_stream_pageout(&streamout, &ogout))
             {
-                if (g_output_stream_write (G_OUTPUT_STREAM (dostream), ogout.header,
-                                           ogout.header_len, NULL, error)
+                if (g_output_stream_write (G_OUTPUT_STREAM (ostream),
+                                           ogout.header, ogout.header_len,
+                                           NULL, error)
                     != (gssize) ogout.header_len)
                 {
                     g_assert (error == NULL || *error != NULL);
                     goto cleanup;
                 }
 
-                if (g_output_stream_write (G_OUTPUT_STREAM (dostream), ogout.body,
-                                           ogout.body_len, NULL, error)
+                if (g_output_stream_write (G_OUTPUT_STREAM (ostream),
+                                           ogout.body, ogout.body_len, NULL,
+                                           error)
                     != (gssize) ogout.body_len)
                 {
                     g_assert (error == NULL || *error != NULL);
@@ -637,7 +634,7 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
     streamout.e_o_s = 1;
     while(ogg_stream_flush(&streamout, &ogout))
     {
-        if (g_output_stream_write (G_OUTPUT_STREAM (dostream), ogout.header,
+        if (g_output_stream_write (G_OUTPUT_STREAM (ostream), ogout.header,
                                    ogout.header_len, NULL, error)
             != (gssize) ogout.header_len)
         {
@@ -645,7 +642,7 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
             goto cleanup;
         }
 
-        if (g_output_stream_write (G_OUTPUT_STREAM (dostream), ogout.body,
+        if (g_output_stream_write (G_OUTPUT_STREAM (ostream), ogout.body,
                                    ogout.body_len, NULL, error)
             != (gssize) ogout.body_len)
         {
@@ -656,7 +653,7 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
 
     if (state->extrapage)
     {
-        if (g_output_stream_write (G_OUTPUT_STREAM (dostream), ogout.header,
+        if (g_output_stream_write (G_OUTPUT_STREAM (ostream), ogout.header,
                                    ogout.header_len, NULL, error)
             != (gssize) ogout.header_len)
         {
@@ -664,7 +661,7 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
             goto cleanup;
         }
 
-        if (g_output_stream_write (G_OUTPUT_STREAM (dostream), ogout.body,
+        if (g_output_stream_write (G_OUTPUT_STREAM (ostream), ogout.body,
                                    ogout.body_len, NULL, error)
             != (gssize) ogout.body_len)
         {
@@ -693,16 +690,18 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
             {
                 /* Don't bother going through the rest, we can just
                  * write the page out now */
-                if (g_output_stream_write (G_OUTPUT_STREAM (dostream), ogout.header,
-                                           ogout.header_len, NULL, error)
+                if (g_output_stream_write (G_OUTPUT_STREAM (ostream),
+                                           ogout.header, ogout.header_len,
+                                           NULL, error)
                     != (gssize) ogout.header_len)
                 {
                     g_assert (error == NULL || *error != NULL);
                     goto cleanup;
                 }
 
-                if (g_output_stream_write (G_OUTPUT_STREAM (dostream), ogout.body,
-                                           ogout.body_len, NULL, error)
+                if (g_output_stream_write (G_OUTPUT_STREAM (ostream),
+                                           ogout.body, ogout.body_len, NULL,
+                                           error)
                     != (gssize) ogout.body_len)
                 {
                     g_assert (error == NULL || *error != NULL);
@@ -740,12 +739,14 @@ cleanup:
 
     if (!state->eosin)
     {
-        g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_OUTPUT,
-                     "Error writing stream to output. Output stream may be corrupted or truncated");
+        if (!error)
+        {
+            g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_OUTPUT,
+                         "Error writing stream to output. Output stream may be corrupted or truncated");
+        }
     }
 
     g_object_unref (ostream);
-    g_object_unref (dostream);
 
     if (error == NULL || *error != NULL)
         return FALSE;

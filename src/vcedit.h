@@ -39,7 +39,7 @@ typedef struct {
     SpeexHeader         *si;
 #endif
 
-    GDataInputStream    *in;
+    GFileInputStream    *in;
     long        serial;
     unsigned char   *mainbuf;
     unsigned char   *bookbuf;
