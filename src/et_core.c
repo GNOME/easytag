@@ -3925,7 +3925,7 @@ gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile)
         if (error)
         {
                 Log_Print (LOG_ERROR,
-                           _("Error writing tag type %s to file %s (%s)"),
+                           _("Error writing tag type %d to file %s (%s)"),
                            ETFileDescription->TagType, cur_filename_utf8,
                            error->message);
                 g_error_free (error);
