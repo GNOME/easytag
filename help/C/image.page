@@ -4,9 +4,9 @@
       id="image">
 
   <info>
-    <link type="guide" xref="index#main"/>
+    <link type="guide" xref="index#image"/>
     <link type="guide" xref="tag"/>
-    <revision version="0.1" pkgversion="2.1.9" date="2013-04-08" status="stub"/>
+    <revision pkgversion="2.1.9" date="2013-05-20" status="stub"/>
 
     <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
 
@@ -15,7 +15,7 @@
       <email its:translate="no">kittykat3756@googlemail.com</email>
     </credit>
 
-    <desc></desc>
+    <desc>Add images, such as cover art to the tag</desc>
 
   </info>
 
@@ -40,20 +40,13 @@
     <p>Your changes will not be saved automatically.</p>
   </note>
 
-  <p>To tag other files with the same image, select the files that you want to
-  tag, select the image and press <gui style="button">Tag selected files with
-  these images</gui> button.</p>
+  <p>You can tag multiple files with the same image by selecting them in the
+  list of files, then selecting the image and pressing the
+  <gui style="button">Tag selected files with these images</gui> button. You
+  will need to save these changes to write them to the files.</p>
 
   <p>You can work with more than one image at a time by selecting those images
   before you edit, apply, save to file or delete them.</p>
-
-  <!-- TODO: move to a sub page.-->
-  <p>To delete an image, select it and press the <gui style="button">Remove
-  selected images from the tag</gui> button.</p>
-
-  <p>If the file if already tagged with an image, you can export the image by
-  selecting it and pressing <gui style="button">Save the selected images to
-  files</gui> button. The default filename will be the image description.</p>
 
   <note>
     <p>Not all files support the image field. <sys>mp4</sys> files are one
