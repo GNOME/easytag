@@ -4,8 +4,8 @@
       id="tag">
 
   <info>
-    <link type="guide" xref="index#main" group="#first"/>
-    <revision version="0.1" pkgversion="2.1.9" date="2013-03-13" status="stub"/>
+    <link type="guide" xref="index#tag" group="#first"/>
+    <revision pkgversion="2.1.9" date="2013-03-13" status="stub"/>
 
     <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
 
@@ -25,12 +25,5 @@
   as <gui>Title</gui> or <gui>Artist</gui>. You can edit some of these fields
   using <app>EasyTAG</app>. The editable fields depend on the format of the
   file that you want to tag.</p>
-
-  <!--
-  <p>Select the file that you want to tag and edit the field that you want to
-  update. Save the changes by selecting
-  <guiseq><gui style="menu">File</gui><gui style="menuitem">Save Files</gui></guiseq>
-  and confirming by pressing <gui style="button">Save</gui>.</p>
-  -->
 
 </page>
