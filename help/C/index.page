@@ -1,4 +1,5 @@
 <page xmlns="http://projectmallard.org/1.0/"
+      xmlns:its="http://www.w3.org/2005/11/its"
       xmlns:e="http://projectmallard.org/experimental/"
       type="guide" style="task"
       id="index">
@@ -8,22 +9,31 @@
 
     <credit type="author">
       <name>Ekaterina Gerasimova</name>
-      <email>kittykat3756@gmail.com</email>
+      <email its:translate="no">kittykat3756@gmail.com</email>
     </credit>
 
     <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
 
-    <desc></desc>
+    <title type='link'>EasyTAG</title>
+    <title type='text'>EasyTAG</title>
 
   </info>
 
   <title>
-    <media type="image" mime="image/png" src="figures/icon.png"/>
+    <media its:translate="no" type="image" mime="image/png" src="figures/icon.png"/>
     EasyTAG
   </title>
 
   <section id="main" style="2column">
     <title>Features</title>
+  </section>
+
+  <section id="tag" style="2column">
+    <title>Tags</title>
+  </section>
+
+  <section id="image" style="2column">
+    <title>The image tag field</title>
   </section>
 
   <section id="preferences" style="2column">
