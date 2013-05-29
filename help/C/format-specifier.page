@@ -1,0 +1,176 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:its="http://www.w3.org/2005/11/its"
+      type="topic" style="task"
+      id="format-specifier">
+
+  <info>
+    <link type="guide" xref="index#main"/>
+    <revision pkgversion="2.1.9" date="2013-05-27" status="stub"/>
+
+    <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
+
+    <credit type="author">
+      <name>Ekaterina Gerasimova</name>
+      <email its:translate="no">kittykat3756@googlemail.com</email>
+    </credit>
+
+    <desc>What is a format-specifier and which ones can I use?</desc>
+
+  </info>
+
+  <title>Format specifiers</title>
+
+  <p><em>Format specifiers</em> can be used to split a file name into tags and
+  to name a file or playlist based on existing tags.</p>
+
+  <table rules="rows" frame="top bottom">
+    <thead>
+      <tr>
+        <td>
+          <p>Format specifier</p>
+        </td>
+        <td>
+          <p>Corresponding tag field</p>
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <p>%a</p>
+        </td>
+        <td>
+          <p>Artist: this is the artist or artists who created the track, this
+	  field may contact a featured artist as well as the album artist</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>%z</p>
+        </td>
+        <td>
+          <p>Album artist</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>%b</p>
+        </td>
+        <td>
+          <p>Album title</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>%c</p>
+        </td>
+        <td>
+          <p>Comment: this is the free-form comment field</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>%p</p>
+        </td>
+        <td>
+          <p>Composer: this is the creator of the track</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>%r</p>
+        </td>
+        <td>
+          <p>Copyright holder: this is usually the record label or the
+	  artist</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>%d</p>
+        </td>
+        <td>
+          <p>Disc number</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>%e</p>
+        </td>
+        <td>
+          <p>Encoded by: this is usually the person who encoded the file, but
+	  the field is also used for the application that was used to encode
+	  the file</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>%g</p>
+        </td>
+        <td>
+          <p>Genre</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>%i</p>
+        </td>
+        <td>
+          <p>Ignored: this format specifier can only be used in <gui>Fill
+	  Tag</gui>, it can be used to specify parts of the file name which
+	  should be ignored</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>%l</p>
+        </td>
+        <td>
+          <p>Number of tracks: the total number of tracks on the medium</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>%o</p>
+        </td>
+        <td>
+          <p>Original artist</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>%n</p>
+        </td>
+        <td>
+          <p>Track number</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>%t</p>
+        </td>
+        <td>
+          <p>Track title</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>%u</p>
+        </td>
+        <td>
+          <p>URL</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>%y</p>
+        </td>
+        <td>
+          <p>Year of recording, sometimes the date of release is used
+          instead</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</page>
