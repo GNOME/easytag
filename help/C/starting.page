@@ -4,7 +4,7 @@
 
   <info>
     <link type="guide" xref="index"/>
-    <revision version="0.1" pkgversion="2.1.9" date="2013-03-05" status="draft" />
+    <revision pkgversion="2.1.9" date="2013-03-05" status="draft" />
 
     <credit type="author">
       <name>Ekaterina Gerasimova</name>
@@ -13,20 +13,19 @@
 
     <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
 
-    <desc>Using <app>EasyTAG</app> for the first time.</desc>
+    <desc>Using <app>EasyTAG</app> for the first time</desc>
   </info>
 
-  <title>Starting</title>
+  <title>Start using <app>EasyTAG</app></title>
 
   <p>When you start <app>EasyTAG</app> for the first time, it will search your
   <file>Music</file> directory or your home directory for music files. If you
-  wish to skip the search, press the <gui style="button">STOP the
-  search…</gui>.</p>
+  wish to skip the search, press the <gui style="button">Stop</gui> button.</p>
 
-  <p>Once the search is complete, <app>EasyTAG</app> may apply some automatic
-  corrections to some of your music files which will be displayed in red or
-  bold. These are normally updates to the tag metadata containers and will not
-  be applied until you save the changes.</p>
+  <p><app>EasyTAG</app> may apply some automatic corrections to some of your
+  music files. These files will be highlighted in bold. These are normally
+  updates to the tag metadata containers and will not be applied until you save
+  the changes.</p>
 
   <p>To save these changes, select all the files that have been affected and
   press <keyseq><key>Ctrl</key><key>S</key></keyseq>. It is not possible to
