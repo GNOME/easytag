@@ -1,0 +1,71 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:its="http://www.w3.org/2005/11/its"
+      type="topic" style="guide"
+      id="keyboard-shortcuts">
+
+  <info>
+    <link type="guide" xref="index#main"/>
+    <revision pkgversion="2.1.9" date="2013-03-20" status="draft" />
+
+    <credit type="author">
+      <name>Ekaterina Gerasimova</name>
+      <email its:translate="no">kittykat3756@gmail.com</email>
+    </credit>
+
+    <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
+
+    <desc></desc>
+  </info>
+
+  <title>Keyboard shortcuts</title>
+
+  <p><app>EasyTAG</app> has a number of keyboard shortcuts.</p>
+
+  <table rules="rows" frame="top bottom">
+    <thead>
+      <tr>
+        <td>
+          <p>Action</p>
+        </td>
+        <td>
+          <p>Shortcut</p>
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <p>Apply tag to selected files</p>
+        </td>
+        <td>
+          <p><keyseq><key>Ctrl</key><key>Return</key></keyseq></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Select all</p>
+        </td>
+        <td>
+          <p><keyseq><key>Ctrl</key><key>A</key></keyseq></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Deselect all</p>
+        </td>
+        <td>
+          <p><keyseq><key>Shift</key><key>Ctrl</key><key>A</key></keyseq></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Search all files, including filenames and tags</p>
+        </td>
+        <td>
+          <p><keyseq><key>Ctrl</key><key>F</key></keyseq></p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</page>
