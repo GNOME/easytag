@@ -32,13 +32,13 @@
   <p><gui>Fill Tag</gui> can be used to fill in tag fields based on the
   filename and its parent directories.</p>
 
-  <p>Use <em>format specifiers</em> and <em>separators</em> to split the
-  filename and parent directories into different tag fields. The <em>format
-  specifiers</em>, such as <input>%t</input> for track title, which are used to
-  indicate the different tag fields, are listed in the <gui>Legend</gui>.
-  <em>Separators</em> can be any part of the filename or the parent
-  directories. Use <key>/</key> to add the <em>separator</em> for a parent
-  directory.</p>
+  <p>Use <em xref="format-specifier">format specifiers</em> and
+  <em>separators</em> to split the filename and parent directories into
+  different tag fields. The <em>format specifiers</em>, such as
+  <input>%t</input> for track title, which are used to indicate the different
+  tag fields, are listed in the <gui>Legend</gui>.  <em>Separators</em> can be
+  any part of the filename or the parent directories. Use <key>/</key> to add
+  the <em>separator</em> for a parent directory.</p>
 
   <p>For example, if you keep your audio files using the <file>artist/album/01
   track title.flac</file> directory structure and filenames, use the
