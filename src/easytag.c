@@ -2986,7 +2986,7 @@ static gboolean
 Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox)
 {
     gchar *cur_filename_utf8 = ((File_Name *)ETFile->FileNameCur->data)->value_utf8;
-    gchar *msg;
+    gchar *msg = NULL;
     gchar *msg1;
     gchar *basename_utf8;
     GtkWidget *msgdialog;
@@ -3007,20 +3007,18 @@ Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox)
     {
 #ifdef ENABLE_OGG
         case OGG_TAG:
-            // Special for Ogg Vorbis because the error is defined into 'vcedit_error(state)'
-            msg = ogg_error_msg;
-            msg1 = g_strdup_printf(_("Cannot write tag in file '%s' (%s)"),
-                                  basename_utf8,ogg_error_msg);
+            /* Special for Ogg Vorbis because the error was already reported in
+             * ET_Save_File_Tag_To_HD. */
             break;
 #endif
         default:
             msg = g_strdup (g_strerror (errno));
             msg1 = g_strdup_printf (_("Cannot write tag in file '%s' (%s)"),
                                     basename_utf8, msg);
+            Log_Print (LOG_ERROR, "%s", msg1);
+            g_free (msg1);
     }
 
-    Log_Print(LOG_ERROR,"%s", msg1);
-    g_free(msg1);
 
     if (!hide_msgbox)
     {

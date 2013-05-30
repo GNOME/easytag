@@ -136,7 +136,6 @@ ogg_tag_read_file_tag (gchar *filename, File_Tag *FileTag, GError **error)
     g_return_val_if_fail (filename != NULL && FileTag != NULL, FALSE);
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-    ogg_error_msg = NULL;
     file = g_file_new_for_path (filename);
     istream = g_file_read (file, NULL, error);
 

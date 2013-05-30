@@ -26,12 +26,6 @@
 #include <glib.h>
 #include "et_core.h"
 
-/***************
- * Declaration *
- ***************/
-gchar *ogg_error_msg;
-
-
 /**************
  * Prototypes *
  **************/
