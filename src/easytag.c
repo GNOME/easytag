@@ -2995,6 +2995,7 @@ Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox)
     msg = g_strdup_printf(_("Writing tag of '%s'"),basename_utf8);
     Statusbar_Message(msg,TRUE);
     g_free(msg);
+    msg = NULL;
 
     if (ET_Save_File_Tag_To_HD(ETFile))
     {

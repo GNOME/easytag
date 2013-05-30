@@ -626,9 +626,19 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
         }
     }
 
-    if (error == NULL || *error != NULL)
+    if (error != NULL)
     {
-        goto cleanup;
+        if (g_error_matches (*error, ET_OGG_ERROR, ET_OGG_ERROR_EOF)
+            || g_error_matches (*error, ET_OGG_ERROR, ET_OGG_ERROR_EOS))
+        {
+            /* While nominally errors, these are expected and can be safely
+             * ignored. */
+            g_clear_error (error);
+        }
+        else
+        {
+            goto cleanup;
+        }
     }
 
     streamout.e_o_s = 1;

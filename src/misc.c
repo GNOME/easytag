@@ -3108,7 +3108,7 @@ Load_File_Content (GtkWidget *entry)
     gtk_list_store_clear(LoadFileContentListModel);
     while ((size_read = g_input_stream_read (G_INPUT_STREAM (istream),
                                              buffer, sizeof(buffer),
-                                             NULL, &error) > 0))
+                                             NULL, &error)) > 0)
     {
         if (buffer[strlen(buffer)-1]=='\n')
             buffer[strlen(buffer)-1]='\0';
