@@ -2210,7 +2210,6 @@ gboolean ET_Free_File_Tag_Item (File_Tag *FileTag)
     ET_Free_File_Tag_Item_Other_Field(FileTag);
 
     g_free(FileTag);
-    FileTag = NULL;
     return TRUE;
 }
 
@@ -2227,7 +2226,6 @@ ET_Free_File_Info_Item (ET_File_Info *ETFileInfo)
     g_free(ETFileInfo->mpc_version);
 
     g_free(ETFileInfo);
-    ETFileInfo = NULL;
     return TRUE;
 }
 
