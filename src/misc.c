@@ -1462,7 +1462,6 @@ Playlist_Write_Button_Pressed (void)
     g_free(playlist_basename_utf8);
 
     playlist_name = filename_from_display(playlist_name_utf8);
-    playlist_basename_utf8 = g_path_get_basename(playlist_name_utf8);
 
     // Writing playlist if ok
     if (response == 0
@@ -1507,7 +1506,6 @@ Playlist_Write_Button_Pressed (void)
         g_object_unref (file);
     }
     g_free(playlist_name_utf8);
-    g_free(playlist_basename_utf8);
     g_free(playlist_name);
 }
 
