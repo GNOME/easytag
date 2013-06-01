@@ -274,14 +274,12 @@ void Log_Print (Log_Error_Type error_type, gchar const *format, ...)
         }
 
         LogListNbrRows++;
-        gtk_list_store_append(logListModel, &iter);
-        gtk_list_store_set(logListModel, &iter,
-                           LOG_PIXBUF,         Log_Get_Stock_Id_From_Error_Type(error_type),
-                           LOG_TIME_TEXT,      time,
-                           LOG_TEXT,           string,
-                           LOG_ROW_BACKGROUND, NULL,
-                           LOG_ROW_FOREGROUND, NULL,
-                           -1);
+        gtk_list_store_insert_with_values (logListModel, &iter, G_MAXINT,
+                                           LOG_PIXBUF,
+                                           Log_Get_Stock_Id_From_Error_Type (error_type),
+                                           LOG_TIME_TEXT, time, LOG_TEXT,
+                                           string, LOG_ROW_BACKGROUND, NULL,
+                                           LOG_ROW_FOREGROUND, NULL, -1);
         Log_List_Set_Row_Visible(GTK_TREE_MODEL(logListModel), &iter);
         g_free(time);
     }else
@@ -395,14 +393,15 @@ Log_Print_Tmp_List (void)
         if (LogList && logListModel)
         {
             LogListNbrRows++;
-            gtk_list_store_append(logListModel, &iter);
-            gtk_list_store_set(logListModel, &iter,
-                               LOG_PIXBUF, Log_Get_Stock_Id_From_Error_Type (((Log_Data *)l->data)->error_type),
-                               LOG_TIME_TEXT, ((Log_Data *)l->data)->time,
-                               LOG_TEXT, ((Log_Data *)l->data)->string,
-                               LOG_ROW_BACKGROUND, NULL,
-                               LOG_ROW_FOREGROUND, NULL,
-                               -1);
+            gtk_list_store_insert_with_values (logListModel, &iter, G_MAXINT,
+                                               LOG_PIXBUF,
+                                               Log_Get_Stock_Id_From_Error_Type (((Log_Data *)l->data)->error_type),
+                                               LOG_TIME_TEXT,
+                                               ((Log_Data *)l->data)->time,
+                                               LOG_TEXT,
+                                               ((Log_Data *)l->data)->string,
+                                               LOG_ROW_BACKGROUND, NULL,
+                                               LOG_ROW_FOREGROUND, NULL, -1);
             Log_List_Set_Row_Visible(GTK_TREE_MODEL(logListModel), &iter);
         }
     }

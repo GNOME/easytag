@@ -3641,7 +3641,6 @@ static void
 Mask_Editor_List_Add (void)
 {
     gint i = 0;
-    GtkTreeIter iter;
     GtkTreeModel *treemodel;
     gchar *temp;
 
@@ -3657,9 +3656,9 @@ Mask_Editor_List_Add (void)
                 temp = g_strdup(Scan_Masks[i]);*/
             temp = Try_To_Validate_Utf8_String(Scan_Masks[i]);
 
-            gtk_list_store_append(GTK_LIST_STORE(treemodel), &iter);
-            gtk_list_store_set(GTK_LIST_STORE(treemodel), &iter,
-                               MASK_EDITOR_TEXT, temp, -1);
+            gtk_list_store_insert_with_values (GTK_LIST_STORE (treemodel),
+                                               NULL, G_MAXINT,
+                                               MASK_EDITOR_TEXT, temp, -1);
             g_free(temp);
             i++;
         }
@@ -3673,9 +3672,9 @@ Mask_Editor_List_Add (void)
                 temp = g_strdup(Rename_File_Masks[i]);*/
             temp = Try_To_Validate_Utf8_String(Rename_File_Masks[i]);
 
-            gtk_list_store_append(GTK_LIST_STORE(treemodel), &iter);
-            gtk_list_store_set(GTK_LIST_STORE(treemodel), &iter,
-                               MASK_EDITOR_TEXT, temp, -1);
+            gtk_list_store_insert_with_values (GTK_LIST_STORE (treemodel),
+                                               NULL, G_MAXINT,
+                                               MASK_EDITOR_TEXT, temp, -1);
             g_free(temp);
             i++;
         }

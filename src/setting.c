@@ -1227,7 +1227,6 @@ Populate_List_Store_From_File (const gchar *filename, GtkListStore *liststore, g
     gchar *file_path = NULL;
     FILE *file;
     gchar buffer[MAX_STRING_LEN];
-    GtkTreeIter iter;
     gboolean entries_set = FALSE;
 
     /* The file to write */
@@ -1257,8 +1256,8 @@ Populate_List_Store_From_File (const gchar *filename, GtkListStore *liststore, g
 
             if (data && g_utf8_strlen(data, -1) > 0)
             {
-                gtk_list_store_append(liststore, &iter);
-                gtk_list_store_set(liststore, &iter, text_column, data, -1);
+                gtk_list_store_insert_with_values (liststore, NULL, G_MAXINT,
+                                                   text_column, data, -1);
                 entries_set = TRUE;
             }
             g_free(data);
@@ -1335,7 +1334,6 @@ void Save_Rename_File_Masks_List (GtkListStore *liststore, gint colnum)
 void Load_Rename_Directory_Masks_List (GtkListStore *liststore, gint colnum, gchar **fallback)
 {
     gint i = 0;
-    GtkTreeIter iter;
 
     if (!Populate_List_Store_From_File(RENAME_DIRECTORY_MASKS_FILE, liststore, colnum))
     {
@@ -1344,8 +1342,8 @@ void Load_Rename_Directory_Masks_List (GtkListStore *liststore, gint colnum, gch
 
         while(fallback[i])
         {
-            gtk_list_store_append(liststore, &iter);
-            gtk_list_store_set(liststore, &iter, colnum, fallback[i], -1);
+            gtk_list_store_insert_with_values (liststore, NULL, G_MAXINT,
+                                               colnum, fallback[i], -1);
             i++;
         }
     }

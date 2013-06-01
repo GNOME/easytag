@@ -1018,30 +1018,35 @@ void Browser_List_Load_File_List (GList *etfilelist, ET_File *etfile_to_select)
             g_free(dir2_utf8);
         }
 
-        // File list displays the current filename (name on HardDisk) and tag fields
-        gtk_list_store_append(fileListModel, &rowIter);
+        /* File list displays the current filename (name on disc) and tag
+         * fields. */
         track = g_strconcat(FileTag->track ? FileTag->track : "",FileTag->track_total ? "/" : NULL,FileTag->track_total,NULL);
-		
-        gtk_list_store_set(fileListModel, &rowIter,
-                           LIST_FILE_NAME,          basename_utf8,
-                           LIST_FILE_POINTER, l->data,
-                           LIST_FILE_KEY,           fileKey,
-                           LIST_FILE_OTHERDIR,      activate_bg_color,
-                           LIST_FILE_TITLE,         FileTag->title,
-                           LIST_FILE_ARTIST,        FileTag->artist,
-                           LIST_FILE_ALBUM_ARTIST,  FileTag->album_artist,
-						   LIST_FILE_ALBUM,         FileTag->album,
-                           LIST_FILE_YEAR,          FileTag->year,
-                           LIST_FILE_DISCNO,        FileTag->disc_number,
-                           LIST_FILE_TRACK,         track,
-                           LIST_FILE_GENRE,         FileTag->genre,
-                           LIST_FILE_COMMENT,       FileTag->comment,
-                           LIST_FILE_COMPOSER,      FileTag->composer,
-                           LIST_FILE_ORIG_ARTIST,   FileTag->orig_artist,
-                           LIST_FILE_COPYRIGHT,     FileTag->copyright,
-                           LIST_FILE_URL,           FileTag->url,
-                           LIST_FILE_ENCODED_BY,    FileTag->encoded_by,
-                           -1);
+        gtk_list_store_insert_with_values (fileListModel, &rowIter, G_MAXINT,
+                                           LIST_FILE_NAME, basename_utf8,
+                                           LIST_FILE_POINTER, l->data,
+                                           LIST_FILE_KEY, fileKey,
+                                           LIST_FILE_OTHERDIR,
+                                           activate_bg_color,
+                                           LIST_FILE_TITLE, FileTag->title,
+                                           LIST_FILE_ARTIST, FileTag->artist,
+                                           LIST_FILE_ALBUM_ARTIST,
+                                           FileTag->album_artist,
+                                           LIST_FILE_ALBUM, FileTag->album,
+                                           LIST_FILE_YEAR, FileTag->year,
+                                           LIST_FILE_DISCNO,
+                                           FileTag->disc_number,
+                                           LIST_FILE_TRACK, track,
+                                           LIST_FILE_GENRE, FileTag->genre,
+                                           LIST_FILE_COMMENT, FileTag->comment,
+                                           LIST_FILE_COMPOSER,
+                                           FileTag->composer,
+                                           LIST_FILE_ORIG_ARTIST,
+                                           FileTag->orig_artist,
+                                           LIST_FILE_COPYRIGHT,
+                                           FileTag->copyright,
+                                           LIST_FILE_URL, FileTag->url,
+                                           LIST_FILE_ENCODED_BY,
+                                           FileTag->encoded_by, -1);
         g_free(basename_utf8);
         g_free(track);
 
@@ -1946,15 +1951,15 @@ void Browser_Artist_List_Load_Files (ET_File *etfile_to_select)
             nbr_files += g_list_length (g_list_first ((GList *)m->data));
         }
 
-        // Add the new row
-        gtk_list_store_append(artistListModel, &iter);
-        gtk_list_store_set(artistListModel, &iter,
-                           ARTIST_PIXBUF,             "easytag-artist",
-                           ARTIST_NAME,               artistname,
-                           ARTIST_NUM_ALBUMS,         g_list_length(g_list_first(AlbumList)),
-                           ARTIST_NUM_FILES,          nbr_files,
-                           ARTIST_ALBUM_LIST_POINTER, AlbumList,
-                           -1);
+        /* Add the new row. */
+        gtk_list_store_insert_with_values (artistListModel, &iter, G_MAXINT,
+                                           ARTIST_PIXBUF, "easytag-artist",
+                                           ARTIST_NAME, artistname,
+                                           ARTIST_NUM_ALBUMS,
+                                           g_list_length (g_list_first (AlbumList)),
+                                           ARTIST_NUM_FILES, nbr_files,
+                                           ARTIST_ALBUM_LIST_POINTER,
+                                           AlbumList, -1);
 
         // Todo: Use something better than string comparison
         if ( (!artistname && !artist_to_select)
@@ -2094,12 +2099,12 @@ Browser_Album_List_Load_Files (GList *albumlist, ET_File *etfile_to_select)
         etfilelist = g_list_concat(etfilelist, etfilelist_tmp);
     }
 
-    gtk_list_store_append(albumListModel, &iter);
-    gtk_list_store_set(albumListModel, &iter,
-                       ALBUM_NAME,                _("<All albums>"),
-                       ALBUM_NUM_FILES,           g_list_length(g_list_first(etfilelist)),
-                       ALBUM_ETFILE_LIST_POINTER, etfilelist,
-                       -1);
+    gtk_list_store_insert_with_values (albumListModel, &iter, G_MAXINT,
+                                       ALBUM_NAME, _("<All albums>"),
+                                       ALBUM_NUM_FILES,
+                                       g_list_length (g_list_first (etfilelist)),
+                                       ALBUM_ETFILE_LIST_POINTER, etfilelist,
+                                       -1);
 
     // Create a line for each album of the artist
     for (l = albumlist; l != NULL; l = g_list_next (l))
@@ -2110,13 +2115,13 @@ Browser_Album_List_Load_Files (GList *albumlist, ET_File *etfile_to_select)
         albumname  = ((File_Tag *)etfile->FileTag->data)->album;
 
         // Add the new row
-        gtk_list_store_append(albumListModel, &iter);
-        gtk_list_store_set(albumListModel, &iter,
-                           ALBUM_PIXBUF,              "easytag-album",
-                           ALBUM_NAME,                albumname,
-                           ALBUM_NUM_FILES,           g_list_length(g_list_first(etfilelist)),
-                           ALBUM_ETFILE_LIST_POINTER, etfilelist,
-                           -1);
+        gtk_list_store_insert_with_values (albumListModel, &iter, G_MAXINT,
+                                           ALBUM_PIXBUF, "easytag-album",
+                                           ALBUM_NAME, albumname,
+                                           ALBUM_NUM_FILES,
+                                           g_list_length (g_list_first (etfilelist)),
+                                           ALBUM_ETFILE_LIST_POINTER,
+                                           etfilelist, -1);
 
         if ( (!albumname && !album_to_select)
         ||   (albumname &&  album_to_select && strcmp(albumname,album_to_select) == 0) )
@@ -2411,16 +2416,19 @@ Browser_Tree_Initialize (void)
             /* Drive letter first so alphabetical drive list order works */
             drive_dir_name = g_strconcat("(", drive_slashless, ") ", drive_label, NULL);
 
-            gtk_tree_store_append(directoryTreeModel, &parent_iter, NULL);
-            gtk_tree_store_set(directoryTreeModel,      &parent_iter,
-                               TREE_COLUMN_DIR_NAME,    drive_dir_name,
-                               TREE_COLUMN_FULL_PATH,   drive_backslashed,
-                               TREE_COLUMN_HAS_SUBDIR,  TRUE,
-                               TREE_COLUMN_SCANNED,     FALSE,
-                               TREE_COLUMN_ICON, drive_icon,
-                               -1);
-            // Insert dummy node
-            gtk_tree_store_append(directoryTreeModel, &dummy_iter, &parent_iter);
+            gtk_tree_store_insert_with_values (directoryTreeModel,
+                                               &parent_iter, NULL, G_MAXINT,
+                                               TREE_COLUMN_DIR_NAME,
+                                               drive_dir_name,
+                                               TREE_COLUMN_FULL_PATH,
+                                               drive_backslashed,
+                                               TREE_COLUMN_HAS_SUBDIR, TRUE,
+                                               TREE_COLUMN_SCANNED, FALSE,
+                                               TREE_COLUMN_ICON, drive_icon,
+                                               -1);
+            /* Insert dummy node. */
+            gtk_tree_store_append (directoryTreeModel, &dummy_iter,
+                                   &parent_iter);
 
             g_free(drive_dir_name);
         }
@@ -2432,16 +2440,16 @@ Browser_Tree_Initialize (void)
 
 #else /* !G_OS_WIN32 */
     drive_icon = get_gicon_for_path (G_DIR_SEPARATOR_S, ET_PATH_STATE_CLOSED);
-    gtk_tree_store_append(directoryTreeModel, &parent_iter, NULL);
-    gtk_tree_store_set(directoryTreeModel, &parent_iter,
-                       TREE_COLUMN_DIR_NAME,    G_DIR_SEPARATOR_S,
-                       TREE_COLUMN_FULL_PATH,   G_DIR_SEPARATOR_S,
-                       TREE_COLUMN_HAS_SUBDIR,  TRUE,
-                       TREE_COLUMN_SCANNED,     FALSE,
-                       TREE_COLUMN_ICON, drive_icon,
-                       -1);
-    // insert dummy node
-    gtk_tree_store_append(directoryTreeModel, &dummy_iter, &parent_iter);
+    gtk_tree_store_insert_with_values (directoryTreeModel, &parent_iter, NULL,
+                                       G_MAXINT, TREE_COLUMN_DIR_NAME,
+                                       G_DIR_SEPARATOR_S,
+                                       TREE_COLUMN_FULL_PATH,
+                                       G_DIR_SEPARATOR_S,
+                                       TREE_COLUMN_HAS_SUBDIR, TRUE,
+                                       TREE_COLUMN_SCANNED, FALSE,
+                                       TREE_COLUMN_ICON, drive_icon, -1);
+    /* Insert dummy node. */
+    gtk_tree_store_append (directoryTreeModel, &dummy_iter, &parent_iter);
 #endif /* !G_OS_WIN32 */
 
     g_object_unref (drive_icon);
@@ -2890,17 +2898,21 @@ static void expand_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *gtreePat
                 icon = get_gicon_for_path (fullpath_file,
                                            ET_PATH_STATE_CLOSED);
 
-                gtk_tree_store_append(directoryTreeModel, &currentIter, iter);
-                gtk_tree_store_set(directoryTreeModel, &currentIter,
-                                   TREE_COLUMN_DIR_NAME,   dirname_utf8,
-                                   TREE_COLUMN_FULL_PATH,  fullpath_file,
-                                   TREE_COLUMN_HAS_SUBDIR, !has_subdir,
-                                   TREE_COLUMN_SCANNED,    FALSE,
-                                   TREE_COLUMN_ICON, icon, -1);
+                gtk_tree_store_insert_with_values (directoryTreeModel,
+                                                   &currentIter, iter,
+                                                   G_MAXINT,
+                                                   TREE_COLUMN_DIR_NAME,
+                                                   dirname_utf8,
+                                                   TREE_COLUMN_FULL_PATH,
+                                                   fullpath_file,
+                                                   TREE_COLUMN_HAS_SUBDIR,
+                                                   !has_subdir,
+                                                   TREE_COLUMN_SCANNED, FALSE,
+                                                   TREE_COLUMN_ICON, icon, -1);
 
                 if (has_subdir)
                 {
-                    // Insert a dummy node
+                    /* Insert a dummy node. */
                     gtk_tree_store_append(directoryTreeModel, &subNodeIter, &currentIter);
                 }
 
@@ -3003,8 +3015,8 @@ static void collapse_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *treePa
                        TREE_COLUMN_ICON, icon, -1);
 #endif /* !G_OS_WIN32 */
 
-    // insert dummy node
-    gtk_tree_store_append(directoryTreeModel, &subNodeIter, iter);
+    /* Insert dummy node. */
+    gtk_tree_store_append (directoryTreeModel, &subNodeIter, iter);
 
     g_object_unref (icon);
 }

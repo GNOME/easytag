@@ -1921,13 +1921,17 @@ Cddb_Load_Album_List (gboolean only_red_lines)
 
             if ( (only_red_lines && cddbalbum->track_list) || !only_red_lines)
             {
-                // Load the row in the list
-                gtk_list_store_append(CddbAlbumListModel, &iter);
-                gtk_list_store_set(CddbAlbumListModel, &iter,
-                                   CDDB_ALBUM_LIST_PIXBUF,   cddbalbum->bitmap,
-                                   CDDB_ALBUM_LIST_ALBUM,    cddbalbum->artist_album,
-                                   CDDB_ALBUM_LIST_CATEGORY, cddbalbum->category,
-                                   CDDB_ALBUM_LIST_DATA,     cddbalbum, -1);
+                /* Load the row in the list. */
+                gtk_list_store_insert_with_values (CddbAlbumListModel, &iter,
+                                                   G_MAXINT,
+                                                   CDDB_ALBUM_LIST_PIXBUF,
+                                                   cddbalbum->bitmap,
+                                                   CDDB_ALBUM_LIST_ALBUM,
+                                                   cddbalbum->artist_album,
+                                                   CDDB_ALBUM_LIST_CATEGORY,
+                                                   cddbalbum->category,
+                                                   CDDB_ALBUM_LIST_DATA,
+                                                   cddbalbum, -1);
 
                 Cddb_Album_List_Set_Row_Appearance(&iter);
 
@@ -1946,8 +1950,6 @@ Cddb_Load_Album_List (gboolean only_red_lines)
 static void
 Cddb_Load_Track_Album_List (GList *track_list)
 {
-    GtkTreeIter iter;
-
     if (CddbWindow && track_list && CddbTrackListView)
     {
         GList *l;
@@ -1964,15 +1966,19 @@ Cddb_Load_Track_Album_List (GList *track_list)
 
             row_text[0] = Convert_Duration((gulong)cddbtrackalbum->duration);
 
-            // Load the row in the list
-            gtk_list_store_append(CddbTrackListModel, &iter);
-            gtk_list_store_set(CddbTrackListModel, &iter,
-                               CDDB_TRACK_LIST_NUMBER, cddbtrackalbum->track_number,
-                               CDDB_TRACK_LIST_NAME,   cddbtrackalbum->track_name,
-                               CDDB_TRACK_LIST_TIME,   row_text[0],
-                               CDDB_TRACK_LIST_DATA,   cddbtrackalbum,
-                               CDDB_TRACK_LIST_ETFILE, etfile,
-                               -1);
+            /* Load the row in the list. */
+            gtk_list_store_insert_with_values (CddbTrackListModel, NULL,
+                                               G_MAXINT,
+                                               CDDB_TRACK_LIST_NUMBER,
+                                               cddbtrackalbum->track_number,
+                                               CDDB_TRACK_LIST_NAME,
+                                               cddbtrackalbum->track_name,
+                                               CDDB_TRACK_LIST_TIME,
+                                               row_text[0],
+                                               CDDB_TRACK_LIST_DATA,
+                                               cddbtrackalbum,
+                                               CDDB_TRACK_LIST_ETFILE, etfile,
+                                               -1);
 
             g_free(row_text[0]);
         }

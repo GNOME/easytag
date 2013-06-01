@@ -325,9 +325,9 @@ gboolean Add_String_To_Combo_List (GtkListStore *liststore, const gchar *str)
         } while(gtk_tree_model_iter_next(GTK_TREE_MODEL(liststore), &iter));
     }
 
-    // We add the string to the beginning of the list store
-    gtk_list_store_prepend(liststore, &iter);
-    gtk_list_store_set(liststore, &iter, MISC_COMBO_TEXT, string, -1);
+    /* We add the string to the beginning of the list store. */
+    gtk_list_store_insert_with_values (liststore, &iter, -1, MISC_COMBO_TEXT,
+                                       string, -1);
 
     // Limit list size to HISTORY_MAX_LENGTH
     while (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(liststore),NULL) > HISTORY_MAX_LENGTH)
@@ -468,21 +468,21 @@ gboolean Parse_Date (void)
  */
 void Load_Genres_List_To_UI (void)
 {
-    guint i;
-    GtkTreeIter iter;
+    gsize i;
 
     g_return_if_fail (GenreComboModel != NULL);
 
-    gtk_list_store_append(GTK_LIST_STORE(GenreComboModel), &iter);
-    gtk_list_store_set(GTK_LIST_STORE(GenreComboModel), &iter, MISC_COMBO_TEXT, "", -1);
+    gtk_list_store_insert_with_values (GTK_LIST_STORE (GenreComboModel), NULL,
+                                       G_MAXINT, MISC_COMBO_TEXT, "", -1);
+    gtk_list_store_insert_with_values (GTK_LIST_STORE (GenreComboModel), NULL,
+                                       G_MAXINT, MISC_COMBO_TEXT, "Unknown",
+                                       -1);
 
-    gtk_list_store_append(GTK_LIST_STORE(GenreComboModel), &iter);
-    gtk_list_store_set(GTK_LIST_STORE(GenreComboModel), &iter, MISC_COMBO_TEXT, "Unknown", -1);
-
-    for (i=0; i<=GENRE_MAX; i++)
+    for (i = 0; i <= GENRE_MAX; i++)
     {
-        gtk_list_store_append(GTK_LIST_STORE(GenreComboModel), &iter);
-        gtk_list_store_set(GTK_LIST_STORE(GenreComboModel), &iter, MISC_COMBO_TEXT, id3_genres[i], -1);
+        gtk_list_store_insert_with_values (GTK_LIST_STORE (GenreComboModel),
+                                           NULL, G_MAXINT, MISC_COMBO_TEXT,
+                                           id3_genres[i], -1);
     }
 }
 
@@ -492,33 +492,32 @@ void Load_Genres_List_To_UI (void)
  */
 void Load_Track_List_To_UI (void)
 {
-    guint len;
-    guint i;
-    GtkTreeIter iter;
+    /* Number mini of items
+     *if ((len=ETCore->ETFileDisplayedList_Length) < 30)
+     * Length limited to 30 (instead to the number of files)! */
+    const gsize len = 30;
+    gsize i;
     gchar *text;
 
     g_return_if_fail (ETCore->ETFileDisplayedList != NULL ||
                       TrackEntryComboModel != NULL);
 
-    // Number mini of items
-    //if ((len=ETCore->ETFileDisplayedList_Length) < 30)
-    // Length limited to 30 (instead to the number of files)!
-    len = 30;
-
-    // Create list of tracks
-    for (i=1; i<=len; i++)
+    /* Create list of tracks. */
+    for (i = 1; i <= len; i++)
     {
 
         if (NUMBER_TRACK_FORMATED)
         {
-            text = g_strdup_printf("%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,i);
+            text = g_strdup_printf ("%.*" G_GSIZE_FORMAT,
+                                    NUMBER_TRACK_FORMATED_SPIN_BUTTON, i);
         } else
         {
-            text = g_strdup_printf("%.2d",i);
+            text = g_strdup_printf ("%.2" G_GSIZE_FORMAT, i);
         }
 
-        gtk_list_store_append(GTK_LIST_STORE(TrackEntryComboModel), &iter);
-        gtk_list_store_set(GTK_LIST_STORE(TrackEntryComboModel), &iter, MISC_COMBO_TEXT, text, -1);
+        gtk_list_store_insert_with_values (GTK_LIST_STORE (TrackEntryComboModel),
+                                           NULL, G_MAXINT, MISC_COMBO_TEXT,
+                                           text, -1);
         g_free(text);
     }
 
@@ -2446,7 +2445,6 @@ Add_Row_To_Search_Result_List (ET_File *ETFile, const gchar *string_to_search)
     gchar *track, *track_total;
     gboolean case_sensitive;
     gint column;
-    GtkTreeIter iter;
 
     if (!ETFile || !string_to_search)
         return;
@@ -2540,8 +2538,7 @@ Add_Row_To_Search_Result_List (ET_File *ETFile, const gchar *string_to_search)
     }
 
     // Load the row in the list
-    gtk_list_store_append(SearchResultListModel, &iter);
-    gtk_list_store_set(SearchResultListModel, &iter,
+    gtk_list_store_insert_with_values (SearchResultListModel, NULL, G_MAXINT,
                        SEARCH_RESULT_FILENAME,    SearchResultList_Text[SEARCH_RESULT_FILENAME],
                        SEARCH_RESULT_TITLE,       SearchResultList_Text[SEARCH_RESULT_TITLE],
                        SEARCH_RESULT_ARTIST,      SearchResultList_Text[SEARCH_RESULT_ARTIST],
@@ -3087,10 +3084,8 @@ Load_File_Content (GtkWidget *entry)
     gchar buffer[MAX_STRING_LEN];
     gchar *text;
     gchar *valid;
-    GtkTreeIter iter;
 
-    if (!entry)
-        return;
+    g_return_if_fail (entry != NULL);
 
     // The file to read
     filename_utf8 = gtk_entry_get_text(GTK_ENTRY(entry)); // Don't free me!
@@ -3130,10 +3125,9 @@ Load_File_Content (GtkWidget *entry)
         }*/
         valid = Try_To_Validate_Utf8_String(text);
 
-        gtk_list_store_append(LoadFileContentListModel, &iter);
-        gtk_list_store_set(LoadFileContentListModel, &iter,
-                           LOAD_FILE_CONTENT_TEXT, valid,
-                           -1);
+        gtk_list_store_insert_with_values (LoadFileContentListModel, NULL,
+                                           G_MAXINT, LOAD_FILE_CONTENT_TEXT,
+                                           valid, -1);
         g_free(valid);
     }
 
@@ -3157,7 +3151,6 @@ Load_File_List (void)
     ET_File *etfile;
     gchar *filename_utf8;
     gchar *pos;
-    GtkTreeIter iter;
 
     gtk_list_store_clear(LoadFileNameListModel);
 
@@ -3168,11 +3161,11 @@ Load_File_List (void)
         // Remove the extension ('filename' must be allocated to don't affect the initial value)
         if ((pos=strrchr(filename_utf8,'.'))!=NULL)
             *pos = 0;
-        gtk_list_store_append(LoadFileNameListModel, &iter);
-        gtk_list_store_set(LoadFileNameListModel, &iter,
-                           LOAD_FILE_NAME_TEXT, filename_utf8,
-                           LOAD_FILE_NAME_POINTER, l->data,
-                           -1);
+        gtk_list_store_insert_with_values (LoadFileNameListModel, NULL,
+                                           G_MAXINT, LOAD_FILE_NAME_TEXT,
+                                           filename_utf8,
+                                           LOAD_FILE_NAME_POINTER, l->data,
+                                           -1);
         g_free(filename_utf8);
     }
 }

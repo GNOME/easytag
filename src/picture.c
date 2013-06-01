@@ -500,15 +500,16 @@ void Picture_Properties_Button_Clicked (GObject *object)
         {
             case MP4_TAG:
             {
-                // Load picture type (only Front Cover!)
+                /* Load picture type (only Front Cover!). */
                 GtkTreeIter itertype;
 
-                gtk_list_store_append(store, &itertype);
-                gtk_list_store_set(store, &itertype,
-                                   PICTURE_TYPE_COLUMN_TEXT, _(Picture_Type_String(ET_PICTURE_TYPE_FRONT_COVER)),
-                                   PICTURE_TYPE_COLUMN_TYPE_CODE, ET_PICTURE_TYPE_FRONT_COVER,
-                                   -1);
-                // Line to select by default
+                gtk_list_store_insert_with_values (store, &itertype, G_MAXINT,
+                                                   PICTURE_TYPE_COLUMN_TEXT,
+                                                   _(Picture_Type_String (ET_PICTURE_TYPE_FRONT_COVER)),
+                                                   PICTURE_TYPE_COLUMN_TYPE_CODE,
+                                                   ET_PICTURE_TYPE_FRONT_COVER,
+                                                   -1);
+                /* Line to select by default. */
                 type_iter_to_select = itertype;
                 break;
             }
@@ -521,12 +522,13 @@ void Picture_Properties_Button_Clicked (GObject *object)
                 {
                     GtkTreeIter itertype;
 
-                    gtk_list_store_append(store, &itertype);
-                    gtk_list_store_set(store, &itertype,
-                                       PICTURE_TYPE_COLUMN_TEXT,      _(Picture_Type_String(pic_type)),
-                                       PICTURE_TYPE_COLUMN_TYPE_CODE, pic_type,
-                                       -1);
-                    // Line to select by default
+                    gtk_list_store_insert_with_values (store, &itertype,
+                                                       G_MAXINT,
+                                                       PICTURE_TYPE_COLUMN_TEXT,
+                                                       _(Picture_Type_String (pic_type)),
+                                                       PICTURE_TYPE_COLUMN_TYPE_CODE,
+                                                       pic_type, -1);
+                    /* Line to select by default. */
                     if (pic->type == pic_type)
                         type_iter_to_select = itertype;
                 }
@@ -998,13 +1000,15 @@ void PictureEntry_Update (Picture *pic, gboolean select_it)
                 g_object_unref(pixbuf);
 
                 picture_store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(PictureEntryView)));
-                gtk_list_store_append(picture_store, &iter1);
                 pic_info = Picture_Info(pic);
-                gtk_list_store_set(picture_store, &iter1,
-                                   PICTURE_COLUMN_PIC,  scaled_pixbuf,
-                                   PICTURE_COLUMN_TEXT, pic_info,
-                                   PICTURE_COLUMN_DATA, Picture_Copy_One(pic),
-                                   -1);
+                gtk_list_store_insert_with_values (picture_store, &iter1,
+                                                   G_MAXINT,
+                                                   PICTURE_COLUMN_PIC,
+                                                   scaled_pixbuf,
+                                                   PICTURE_COLUMN_TEXT,
+                                                   pic_info,
+                                                   PICTURE_COLUMN_DATA,
+                                                   Picture_Copy_One (pic), -1);
                 g_free(pic_info);
 
                 if (select_it)
