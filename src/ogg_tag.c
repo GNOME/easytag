@@ -910,6 +910,7 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
     {
         basename_utf8 = g_path_get_basename(filename_utf8);
         Log_Print(LOG_OK,_("Written tag of '%s'"),basename_utf8);
+        g_free (basename_utf8);
 
         vcedit_clear(state);
     }
