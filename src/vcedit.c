@@ -762,7 +762,7 @@ cleanup:
         return FALSE;
 
     g_assert (error == NULL || *error == NULL);
-    return 0;
+    return TRUE;
 }
 
 #endif /* ENABLE_OGG */
