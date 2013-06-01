@@ -694,6 +694,7 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
 
     {
     // Skip the id3v2 tag
+    gsize bytes_read;
     guchar tmp_id3[4];
     gulong id3v2size;
 
@@ -703,8 +704,8 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
         goto err;
     }
 
-    if (g_input_stream_read (G_INPUT_STREAM (istream), tmp_id3, 4, NULL,
-                             error) == 4)
+    if (g_input_stream_read_all (G_INPUT_STREAM (istream), tmp_id3, 4,
+                                 &bytes_read, NULL, error))
     {
         // Calculate ID3v2 length
         if (tmp_id3[0] == 'I' && tmp_id3[1] == 'D' && tmp_id3[2] == '3' && tmp_id3[3] < 0xFF)
@@ -717,8 +718,8 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
                 goto err;
             }
 
-            if (g_input_stream_read (G_INPUT_STREAM (istream), tmp_id3, 4,
-                                     NULL, error) == 4)
+            if (g_input_stream_read_all (G_INPUT_STREAM (istream), tmp_id3, 4,
+                                         &bytes_read, NULL, error))
             {
                 id3v2size = 10 + ( (long)(tmp_id3[3])        | ((long)(tmp_id3[2]) << 7)
                                 | ((long)(tmp_id3[1]) << 14) | ((long)(tmp_id3[0]) << 21) );
@@ -731,9 +732,10 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
 
                 Log_Print(LOG_ERROR,_("Warning: The Ogg Vorbis file '%s' contains an ID3v2 tag."),filename_utf8);
             }
-            else if (!g_seekable_seek (G_SEEKABLE (istream), 0L, G_SEEK_SET,
-                                       NULL, error))
+            else
             {
+                g_debug ("Only %" G_GSIZE_FORMAT " bytes out of 4 bytes of "
+                         "data were read", bytes_read);
                 goto err;
             }
 
@@ -745,9 +747,10 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
         }
 
     }
-    else if (!g_seekable_seek (G_SEEKABLE (istream), 0L, G_SEEK_SET,
-                               NULL, error))
+    else
     {
+        g_debug ("Only %" G_GSIZE_FORMAT " bytes out of 4 bytes of data were "
+                 "read", bytes_read);
         goto err;
     }
 

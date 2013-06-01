@@ -115,6 +115,7 @@ crc32_file_with_ID3_tag (const gchar *filename, guint32 *crc32, GError **err)
     GFileInfo *info;
     GFileInputStream *istream;
     goffset size;
+    gsize bytes_read;
     gboolean has_id3v1 = FALSE;
 
     g_return_val_if_fail (filename != NULL, FALSE);
@@ -148,9 +149,11 @@ crc32_file_with_ID3_tag (const gchar *filename, guint32 *crc32, GError **err)
         goto error;
     }
 
-    if (g_input_stream_read (G_INPUT_STREAM (istream), tmp_id3, 3,
-                             NULL, err) != 3)
+    if (!g_input_stream_read_all (G_INPUT_STREAM (istream), tmp_id3, 3,
+                                  &bytes_read, NULL, err))
     {
+        g_debug ("Only %" G_GSIZE_FORMAT " bytes out of 3 bytes of data were "
+                 "read", bytes_read);
         goto error;
     }
 
@@ -165,9 +168,11 @@ crc32_file_with_ID3_tag (const gchar *filename, guint32 *crc32, GError **err)
         goto error;
     }
 
-    if (g_input_stream_read (G_INPUT_STREAM (istream), tmp_id3, 4,
-                             NULL, err) != 4)
+    if (!g_input_stream_read_all (G_INPUT_STREAM (istream), tmp_id3, 4,
+                                  &bytes_read, NULL, err))
     {
+        g_debug ("Only %" G_GSIZE_FORMAT " bytes out of 4 bytes of data were "
+                 "read", bytes_read);
         goto error;
     }
 
@@ -184,9 +189,11 @@ crc32_file_with_ID3_tag (const gchar *filename, guint32 *crc32, GError **err)
             goto error;
         }
 
-        if (g_input_stream_read (G_INPUT_STREAM (istream), tmp_id3, 4,
-                                 NULL, err) != 4)
+        if (!g_input_stream_read_all (G_INPUT_STREAM (istream), tmp_id3, 4,
+                                      &bytes_read, NULL, err))
         {
+            g_debug ("Only %" G_GSIZE_FORMAT " bytes out of 4 bytes of data "
+                     "were read", bytes_read);
             goto error;
         }
 

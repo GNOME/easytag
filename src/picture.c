@@ -1103,6 +1103,7 @@ void Picture_Free (Picture *pic)
 /*
  * et_picture_load_file_data:
  * @file: the GFile from which to load an image
+ * @error: a #GError to provide information on errors, or %NULL to ignore
  *
  * Load an image from the supplied @file.
  *
@@ -1112,9 +1113,9 @@ static Picture *
 et_picture_load_file_data (GFile *file, GError **error)
 {
     Picture *pic;
-    gchar *buffer = 0;
+    gchar *buffer = NULL;
     gsize size;
-    gssize read_size;
+    gsize bytes_read;
     GFileInfo *info;
     GFileInputStream *file_istream;
 
@@ -1131,37 +1132,24 @@ et_picture_load_file_data (GFile *file, GError **error)
 
     if (!file_istream)
     {
-        g_free (buffer);
         g_assert (error == NULL || *error != NULL);
         return NULL;
     }
 
     size = g_file_info_get_size (info);
-    buffer = g_malloc(size);
+    buffer = g_malloc (size);
+    g_object_unref (info);
 
-    read_size = g_input_stream_read (G_INPUT_STREAM (file_istream), buffer,
-                                     size, NULL, error);
-    if (read_size == -1)
+    if (!g_input_stream_read_all (G_INPUT_STREAM (file_istream), buffer, size,
+                                  &bytes_read, NULL, error))
     {
-        /* Error on reading*/
-        if (buffer)
-            g_free (buffer);
+        g_free (buffer);
 
-        g_object_unref (info);
+        g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %" G_GSIZE_FORMAT
+                 " bytes of picture data were read", bytes_read, size);
+
         g_object_unref (file_istream);
         g_assert (error == NULL || *error != NULL);
-        return NULL;
-    }
-    else if (read_size != size)
-    {
-        /* Did not read whole file. */
-        if (buffer)
-            g_free (buffer);
-
-        g_object_unref (info);
-        g_object_unref (file_istream);
-        g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_PARTIAL_INPUT,
-                             _("The whole image file could not be read"));
         return NULL;
     }
     else
@@ -1171,7 +1159,6 @@ et_picture_load_file_data (GFile *file, GError **error)
         pic->size = size;
         pic->data = (guchar *)buffer;
 
-        g_object_unref (info);
         g_object_unref (file_istream);
         g_assert (error == NULL || *error == NULL);
         return pic;
@@ -1182,7 +1169,7 @@ et_picture_load_file_data (GFile *file, GError **error)
  * et_picture_save_file_data:
  * @pic: the #Picture from which to take an image
  * @file: the #GFile for which to save an image
- * @error: a #GError to provide information on erros, or %NULL to ignore
+ * @error: a #GError to provide information on errors, or %NULL to ignore
  *
  * Saves an image from @pic to the supplied @file.
  *
@@ -1192,6 +1179,7 @@ static gboolean
 et_picture_save_file_data (const Picture *pic, GFile *file, GError **error)
 {
     GFileOutputStream *file_ostream;
+    gsize bytes_written;
 
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
@@ -1204,9 +1192,12 @@ et_picture_save_file_data (const Picture *pic, GFile *file, GError **error)
         return FALSE;
     }
 
-    if (g_output_stream_write (G_OUTPUT_STREAM (file_ostream), pic->data,
-                               pic->size, NULL, error) != pic->size)
+    if (!g_output_stream_write_all (G_OUTPUT_STREAM (file_ostream), pic->data,
+                                    pic->size, &bytes_written, NULL, error))
     {
+        g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %" G_GSIZE_FORMAT
+                 " bytes of picture data were written", bytes_written,
+                 pic->size);
         g_object_unref (file_ostream);
         g_assert (error == NULL || *error != NULL);
         return FALSE;
