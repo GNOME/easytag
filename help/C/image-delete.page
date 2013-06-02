@@ -5,7 +5,7 @@
 
   <info>
     <link type="guide" xref="index#image"/>
-    <revision pkgversion="2.1.9" date="2013-05-20" status="stub"/>
+    <revision pkgversion="2.1.9" date="2013-06-02" status="review"/>
 
     <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
 
@@ -18,9 +18,15 @@
 
   <title>Delete an image</title>
 
-  <p>To delete an image, select it and press the <gui style="button">Remove
-  selected images from the tag</gui> button.</p>
+  <p>To delete an image from a tag, select it and press the
+  <gui style="button">Remove selected images from the tag</gui> button.</p>
 
-  <!-- TODO delete multiple images, delete images from multiple files -->
+  <p>To delete more than one image, select those images, before deleting
+  them.</p>
+
+  <p>It is also possible to delete all images from more than one file. To do
+  this, select the files from which you want to delete the images, delete all
+  images from the <gui style="tab">Image</gui> tab, then press the
+  <gui style="button">Tag selected files with these images</gui> button.</p>
 
 </page>
