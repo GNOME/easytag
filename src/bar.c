@@ -262,9 +262,10 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
           _("Browse Directory With…"), NULL,
           _("Run a command on the directory"),
           G_CALLBACK (Browser_Open_Run_Program_Tree_Window) },
-        { AM_COLLAPSE_TREE,            NULL,                   _("_Collapse Tree"),                "<Control><Shift>C", _("_Collapse tree"),                G_CALLBACK(Browser_Tree_Collapse) },
+        { AM_COLLAPSE_TREE, NULL, _("_Collapse Tree"), "<Control><Shift>C",
+          _("Collapse directory tree"), G_CALLBACK (Browser_Tree_Collapse) },
         { AM_INITIALIZE_TREE, GTK_STOCK_REFRESH, _("_Reload Tree"),
-          "<Control><Shift>R", _("_Reload directory tree"),
+          "<Control><Shift>R", _("Reload directory tree"),
           G_CALLBACK (Browser_Tree_Rebuild) },
 
         { MENU_SCANNER, NULL, _("S_canner Mode"), NULL, NULL, NULL },
