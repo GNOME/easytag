@@ -1277,8 +1277,7 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
     gchar *result = NULL;
     ID3Frame *id3_frame;
     gboolean use_unicode;
-    gssize count;
-
+    gsize bytes_written;
 
     /* Create a temporary file. */
     file = g_file_new_tmp ("easytagXXXXXX.mp3", &iostream, &error);
@@ -1302,12 +1301,15 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
 
     /* Set data in the file. */
     ostream = g_io_stream_get_output_stream (G_IO_STREAM (iostream));
-    count = g_output_stream_write (G_OUTPUT_STREAM (ostream), tmp,
-                                   sizeof (tmp), NULL, &error);
-    if (count != sizeof (tmp))
+    if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream), tmp,
+                                    sizeof (tmp), &bytes_written, NULL,
+                                    &error))
     {
         gchar *filename;
         gchar *filename_utf8;
+
+        g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %" G_GSIZE_FORMAT
+                 " bytes of data were written", bytes_written, sizeof (tmp));
 
         filename = g_file_get_path (file);
         filename_utf8 = filename_to_display (filename);

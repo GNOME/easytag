@@ -1613,12 +1613,17 @@ write_playlist (GFile *file, GError **error)
     // 1) First line of the file (if playlist content is not set to "write only list of files")
     if (!PLAYLIST_CONTENT_NONE)
     {
+        gsize bytes_written;
+
         to_write = g_string_new ("#EXTM3U\r\n");
 
-        if (g_output_stream_write (G_OUTPUT_STREAM (ostream), to_write->str,
-                                   to_write->len, NULL, error)
-            != to_write->len)
+        if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
+                                        to_write->str, to_write->len,
+                                        &bytes_written, NULL, error))
         {
+            g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %" G_GSIZE_FORMAT
+                     "bytes of data were written", bytes_written,
+                     to_write->len);
             g_assert (error == NULL || *error != NULL);
             g_string_free (to_write, TRUE);
             g_object_unref (ostream);
@@ -1659,12 +1664,15 @@ write_playlist (GFile *file, GError **error)
             // Keep only files in this directory and sub-dirs
             if ( strncmp(filename,basedir,strlen(basedir))==0 )
             {
+                gsize bytes_written;
+
                 // 2) Write the header
                 if (PLAYLIST_CONTENT_NONE)
                 {
                     // No header written
                 }else if (PLAYLIST_CONTENT_FILENAME)
                 {
+
                     // Header uses only filename
                     temp = g_path_get_basename(filename);
                     to_write = g_string_new ("#EXTINF:");
@@ -1672,10 +1680,15 @@ write_playlist (GFile *file, GError **error)
                     g_string_append_printf (to_write, "%d,%s\r\n", duration,
                                             temp);
 
-                    if (g_output_stream_write (G_OUTPUT_STREAM (ostream),
-                                               to_write->str, to_write->len,
-                                               NULL, error) != to_write->len)
+                    if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
+                                                    to_write->str,
+                                                    to_write->len,
+                                                    &bytes_written, NULL,
+                                                    error))
                     {
+                        g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %"
+                                 G_GSIZE_FORMAT "bytes of data were written",
+                                 bytes_written, to_write->len);
                         g_assert (error == NULL || *error != NULL);
                         g_string_free (to_write, TRUE);
                         g_object_unref (ostream);
@@ -1696,10 +1709,15 @@ write_playlist (GFile *file, GError **error)
                     g_string_append_printf (to_write, "%d,%s\r\n", duration,
                                             filename_generated);
 
-                    if (g_output_stream_write (G_OUTPUT_STREAM (ostream),
-                                               to_write->str, to_write->len,
-                                               NULL, error) != to_write->len)
+                    if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
+                                                    to_write->str,
+                                                    to_write->len,
+                                                    &bytes_written, NULL,
+                                                    error))
                     {
+                        g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %"
+                                 G_GSIZE_FORMAT "bytes of data were written",
+                                 bytes_written, to_write->len);
                         g_assert (error == NULL || *error != NULL);
                         g_string_free (to_write, TRUE);
                         g_object_unref (ostream);
@@ -1720,10 +1738,15 @@ write_playlist (GFile *file, GError **error)
                     /* Must be written in system encoding (not UTF-8)*/
                     to_write = g_string_append (to_write, "\r\n");
 
-                    if (g_output_stream_write (G_OUTPUT_STREAM (ostream),
-                                               to_write->str, to_write->len,
-                                               NULL, error) != to_write->len)
+                    if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
+                                                    to_write->str,
+                                                    to_write->len,
+                                                    &bytes_written, NULL,
+                                                    error))
                     {
+                        g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %"
+                                 G_GSIZE_FORMAT "bytes of data were written",
+                                 bytes_written, to_write->len);
                         g_assert (error == NULL || *error != NULL);
                         g_string_free (to_write, TRUE);
                         g_object_unref (ostream);
@@ -1737,10 +1760,15 @@ write_playlist (GFile *file, GError **error)
                     /* Must be written in system encoding (not UTF-8)*/
                     to_write = g_string_append (to_write, "\r\n");
 
-                    if (g_output_stream_write (G_OUTPUT_STREAM (ostream),
-                                               to_write->str, to_write->len,
-                                               NULL, error) != to_write->len)
+                    if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
+                                                    to_write->str,
+                                                    to_write->len,
+                                                    &bytes_written, NULL,
+                                                    error))
                     {
+                        g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %"
+                                 G_GSIZE_FORMAT "bytes of data were written",
+                                 bytes_written, to_write->len);
                         g_assert (error == NULL || *error != NULL);
                         g_string_free (to_write, TRUE);
                         g_object_unref (ostream);
@@ -1751,6 +1779,8 @@ write_playlist (GFile *file, GError **error)
             }
         }else // PLAYLIST_FULL_PATH
         {
+            gsize bytes_written;
+
             // 2) Write the header
             if (PLAYLIST_CONTENT_NONE)
             {
@@ -1764,10 +1794,13 @@ write_playlist (GFile *file, GError **error)
                 g_string_append_printf (to_write, "%d,%s\r\n", duration,
                                         temp);
 
-                if (g_output_stream_write (G_OUTPUT_STREAM (ostream),
-                                           to_write->str, to_write->len,
-                                           NULL, error) != to_write->len)
+                if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
+                                                to_write->str, to_write->len,
+                                                &bytes_written, NULL, error))
                 {
+                    g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %"
+                             G_GSIZE_FORMAT" bytes of data were written",
+                             bytes_written, to_write->len);
                     g_assert (error == NULL || *error != NULL);
                     g_string_free (to_write, TRUE);
                     g_object_unref (ostream);
@@ -1787,10 +1820,13 @@ write_playlist (GFile *file, GError **error)
                 g_string_append_printf (to_write, "%d,%s\r\n", duration,
                                         filename_generated);
 
-                if (g_output_stream_write (G_OUTPUT_STREAM (ostream),
-                                           to_write->str, to_write->len,
-                                           NULL, error) != to_write->len)
+                if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
+                                                to_write->str, to_write->len,
+                                                &bytes_written, NULL, error))
                 {
+                    g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %"
+                             G_GSIZE_FORMAT" bytes of data were written",
+                             bytes_written, to_write->len);
                     g_assert (error == NULL || *error != NULL);
                     g_string_free (to_write, TRUE);
                     g_object_unref (ostream);
@@ -1811,10 +1847,13 @@ write_playlist (GFile *file, GError **error)
                 /* Must be written in system encoding (not UTF-8)*/
                 to_write = g_string_append (to_write, "\r\n");
 
-                if (g_output_stream_write (G_OUTPUT_STREAM (ostream),
-                                           to_write->str, to_write->len,
-                                           NULL, error) != to_write->len)
+                if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
+                                                to_write->str, to_write->len,
+                                                &bytes_written, NULL, error))
                 {
+                    g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %"
+                             G_GSIZE_FORMAT" bytes of data were written",
+                             bytes_written, to_write->len);
                     g_assert (error == NULL || *error != NULL);
                     g_string_free (to_write, TRUE);
                     g_object_unref (ostream);
@@ -1828,10 +1867,13 @@ write_playlist (GFile *file, GError **error)
                 /* Must be written in system encoding (not UTF-8)*/
                 to_write = g_string_append (to_write, "\r\n");
 
-                if (g_output_stream_write (G_OUTPUT_STREAM (ostream),
-                                           to_write->str, to_write->len,
-                                           NULL, error) != to_write->len)
+                if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
+                                                to_write->str, to_write->len,
+                                                &bytes_written, NULL, error))
                 {
+                    g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %"
+                             G_GSIZE_FORMAT" bytes of data were written",
+                             bytes_written, to_write->len);
                     g_assert (error == NULL || *error != NULL);
                     g_string_free (to_write, TRUE);
                     g_object_unref (ostream);

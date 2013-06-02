@@ -336,6 +336,7 @@ void Log_Print (Log_Error_Type error_type, gchar const *format, ...)
     {
         gchar *time;
         GString *data;
+        gsize bytes_written;
 
         time = Log_Format_Date ();
         data = g_string_new (time);
@@ -347,9 +348,13 @@ void Log_Print (Log_Error_Type error_type, gchar const *format, ...)
 
         data = g_string_append_c (data, '\n');
 
-        if (g_output_stream_write (G_OUTPUT_STREAM (file_ostream), data->str,
-                                   data->len, NULL, &error) != data->len)
+        if (!g_output_stream_write_all (G_OUTPUT_STREAM (file_ostream),
+                                        data->str, data->len, &bytes_written,
+                                        NULL, &error))
         {
+            g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %" G_GSIZE_FORMAT
+                     "bytes of data were written", bytes_written, data->len);
+
             /* To avoid recursion of Log_Print. */
             g_warning ("Error writing to the log file '%s' ('%s')", file_path,
                        error->message);
