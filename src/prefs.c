@@ -92,7 +92,6 @@ void Open_OptionsWindow (void)
     GtkWidget *VBox, *vbox;
     GtkWidget *HBox, *hbox, *id3v1v2hbox;
     GtkWidget *Separator;
-    gchar temp[MAX_STRING_LEN];
     gchar *path_utf8;
     gchar *program_path;
 
@@ -1126,13 +1125,13 @@ void Open_OptionsWindow (void)
 
     Label = gtk_label_new (_("Port:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
-    CddbServerPortAutomaticSearch = gtk_entry_new();
+    CddbServerPortAutomaticSearch = gtk_spin_button_new_with_range (0.0,
+                                                                    65535.0,
+                                                                    1.0);
     gtk_widget_set_size_request(GTK_WIDGET(CddbServerPortAutomaticSearch), 45, -1);
-    gtk_entry_set_max_length(GTK_ENTRY(CddbServerPortAutomaticSearch),5);
     gtk_box_pack_start(GTK_BOX(hbox),CddbServerPortAutomaticSearch,FALSE,FALSE,0);
-    sprintf(temp,"%i",CDDB_SERVER_PORT_AUTOMATIC_SEARCH);
-    gtk_entry_set_text(GTK_ENTRY(CddbServerPortAutomaticSearch),temp);
-    g_signal_connect(G_OBJECT(CddbServerPortAutomaticSearch),"insert_text",G_CALLBACK(Insert_Only_Digit),NULL);
+    gtk_spin_button_set_value (GTK_SPIN_BUTTON (CddbServerPortAutomaticSearch),
+                               CDDB_SERVER_PORT_AUTOMATIC_SEARCH);
 
     Label = gtk_label_new (_("CGI Path:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
@@ -1154,13 +1153,13 @@ void Open_OptionsWindow (void)
 
     Label = gtk_label_new (_("Port:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
-    CddbServerPortAutomaticSearch2 = gtk_entry_new();
+    CddbServerPortAutomaticSearch2 = gtk_spin_button_new_with_range (0.0,
+                                                                     65535.0,
+                                                                     1.0);
     gtk_widget_set_size_request(GTK_WIDGET(CddbServerPortAutomaticSearch2), 45, -1);
-    gtk_entry_set_max_length(GTK_ENTRY(CddbServerPortAutomaticSearch2),5);
     gtk_box_pack_start(GTK_BOX(hbox),CddbServerPortAutomaticSearch2,FALSE,FALSE,0);
-    sprintf(temp,"%i",CDDB_SERVER_PORT_AUTOMATIC_SEARCH2);
-    gtk_entry_set_text(GTK_ENTRY(CddbServerPortAutomaticSearch2),temp);
-    g_signal_connect(G_OBJECT(CddbServerPortAutomaticSearch2),"insert_text",G_CALLBACK(Insert_Only_Digit),NULL);
+    gtk_spin_button_set_value (GTK_SPIN_BUTTON (CddbServerPortAutomaticSearch2),
+                               CDDB_SERVER_PORT_AUTOMATIC_SEARCH2);
 
     Label = gtk_label_new (_("CGI Path:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
@@ -1189,13 +1188,12 @@ void Open_OptionsWindow (void)
 
     Label = gtk_label_new (_("Port:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
-    CddbServerPortManualSearch = gtk_entry_new();
+    CddbServerPortManualSearch = gtk_spin_button_new_with_range (0.0, 65535.0,
+                                                                 1.0);
     gtk_widget_set_size_request(GTK_WIDGET(CddbServerPortManualSearch), 45, -1);
-    gtk_entry_set_max_length(GTK_ENTRY(CddbServerPortManualSearch),5);
     gtk_box_pack_start(GTK_BOX(hbox),CddbServerPortManualSearch,FALSE,FALSE,0);
-    sprintf(temp,"%i",CDDB_SERVER_PORT_MANUAL_SEARCH);
-    gtk_entry_set_text(GTK_ENTRY(CddbServerPortManualSearch),temp);
-    g_signal_connect(G_OBJECT(CddbServerPortManualSearch),"insert_text",G_CALLBACK(Insert_Only_Digit),NULL);
+    gtk_spin_button_set_value (GTK_SPIN_BUTTON (CddbServerPortManualSearch),
+                               CDDB_SERVER_PORT_MANUAL_SEARCH);
 
     Label = gtk_label_new (_("CGI Path:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
@@ -1277,13 +1275,12 @@ void Open_OptionsWindow (void)
     gtk_grid_attach (GTK_GRID (Table), Label, 3, 1, 1, 1);
     gtk_misc_set_alignment(GTK_MISC(Label),1,0.5);
     CddbProxyPort = gtk_entry_new();
+    CddbProxyPort = gtk_spin_button_new_with_range (0.0, 65535.0, 1.0);
     gtk_widget_set_size_request(GTK_WIDGET(CddbProxyPort), 45, -1);
-    gtk_entry_set_max_length(GTK_ENTRY(CddbProxyPort),5);
     gtk_grid_attach (GTK_GRID (Table), CddbProxyPort, 4, 1, 1, 1);
     gtk_widget_set_tooltip_text(CddbProxyPort,_("Port of the proxy server."));
-    sprintf(temp,"%i",CDDB_PROXY_PORT);
-    gtk_entry_set_text(GTK_ENTRY(CddbProxyPort),temp);
-    g_signal_connect(G_OBJECT(CddbProxyPort),"insert_text",G_CALLBACK(Insert_Only_Digit),NULL);
+    gtk_spin_button_set_value (GTK_SPIN_BUTTON (CddbProxyPort),
+                               CDDB_PROXY_PORT);
     g_signal_connect(G_OBJECT(CddbUseProxy),"toggled",G_CALLBACK(Cddb_Use_Proxy_Toggled),NULL);
     Label = gtk_label_new(_("User Name:"));
     gtk_grid_attach (GTK_GRID (Table), Label, 1, 2, 1, 1);
