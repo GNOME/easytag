@@ -76,7 +76,8 @@ typedef enum
  * Prototypes *
  **************/
 
-gboolean Ogg_Header_Read_File_Info          (gchar *filename, ET_File_Info *ETFileInfo);
+gboolean Ogg_Header_Read_File_Info (const gchar *filename,
+                                    ET_File_Info *ETFileInfo);
 gboolean Ogg_Header_Display_File_Info_To_UI (gchar *filename, ET_File_Info *ETFileInfo);
 
 gboolean Speex_Header_Read_File_Info        (gchar *filename, ET_File_Info *ETFileInfo);

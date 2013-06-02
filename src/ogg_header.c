@@ -24,7 +24,6 @@
 
 #include <gtk/gtk.h>
 #include <glib/gi18n-lib.h>
-#include <stdio.h>
 #include <errno.h>
 #include <vorbis/codec.h>
 #include <vorbis/vorbisfile.h>
@@ -59,9 +58,146 @@ et_ogg_error_quark (void)
     return g_quark_from_static_string ("et-ogg-error-quark");
 }
 
-gboolean Ogg_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
+/*
+ * EtOggState:
+ * @file: the Ogg file which is currently being parsed
+ * @istream: an input stream for the current Ogg file
+ * @error: either the most recent error, or %NULL
+ *
+ * The current state of the Ogg parser, for passing between the callbacks used
+ * in ov_open_callbacks().
+ */
+typedef struct
 {
-    FILE *file;
+    GFile *file;
+    GInputStream *istream;
+    GError *error;
+} EtOggState;
+
+/*
+ * et_ogg_read_func:
+ * @ptr: the buffer to fill with data
+ * @size: the size of individual reads
+ * @nmemb: the number of members to read
+ * @datasource: the Ogg parser state
+ *
+ * Read a number of bytes from the Ogg file.
+ *
+ * Returns: the number of bytes read from the stream. Returns 0 on end-of-file.
+ * Sets errno and returns 0 on error
+ */
+static size_t
+et_ogg_read_func (void *ptr, size_t size, size_t nmemb, void *datasource)
+{
+    EtOggState *state = (EtOggState *)datasource;
+    gssize bytes_read;
+
+    bytes_read = g_input_stream_read (state->istream, ptr, size * nmemb, NULL,
+                                      &state->error);
+
+    if (bytes_read == -1)
+    {
+        /* FIXME: Convert state->error to errno. */
+        errno = EIO;
+        return 0;
+    }
+    else
+    {
+        return bytes_read;
+    }
+}
+
+/*
+ * et_ogg_seek_func:
+ * @datasource: the Ogg parser state
+ * @offset: the number of bytes to seek
+ * @whence: either %SEEK_SET, %SEEK_CUR or %SEEK_END
+ *
+ * Seek in the currently-open Ogg file.
+ *
+ * Returns: 0 on success, -1 and sets errno on error
+ */
+static int
+et_ogg_seek_func (void *datasource, ogg_int64_t offset, int whence)
+{
+    EtOggState *state = (EtOggState *)datasource;
+    GSeekType seektype;
+
+    if (!g_seekable_can_seek (G_SEEKABLE (state->istream)))
+    {
+        return -1;
+    }
+    else
+    {
+        switch (whence)
+        {
+            case SEEK_SET:
+                seektype = G_SEEK_SET;
+                break;
+            case SEEK_CUR:
+                seektype = G_SEEK_CUR;
+                break;
+            case SEEK_END:
+                seektype = G_SEEK_END;
+                break;
+            default:
+                errno = EINVAL;
+                return -1;
+        }
+
+        if (g_seekable_seek (G_SEEKABLE (state->istream), offset, seektype,
+                             NULL, &state->error))
+        {
+            return 0;
+        }
+        else
+        {
+            errno = EBADF;
+            return -1;
+        }
+    }
+}
+
+/*
+ * et_ogg_close_func:
+ * @datasource: the Ogg parser state
+ *
+ * Close the Ogg stream and invalidate the parser state given by @datasource.
+ * Be sure to check the error field before invaidating the state.
+ *
+ * Returns: 0
+ */
+static int
+et_ogg_close_func (void *datasource)
+{
+    EtOggState *state = (EtOggState *)datasource;
+
+    g_clear_object (&state->file);
+    g_clear_object (&state->istream);
+    g_clear_error (&state->error);
+
+    return 0;
+}
+
+/*
+ * et_ogg_tell_func:
+ * @datasource: the Ogg parser state
+ *
+ * Tell the current position of the stream from the beginning of the Ogg file.
+ *
+ * Returns: the current position in the Ogg file
+ */
+static long
+et_ogg_tell_func (void *datasource)
+{
+    EtOggState *state = (EtOggState *)datasource;
+
+    return g_seekable_tell (G_SEEKABLE (state->istream));
+}
+
+gboolean
+Ogg_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
+{
     OggVorbis_File vf;
     vorbis_info *vi;
     gint encoder_version = 0;
@@ -70,21 +206,31 @@ gboolean Ogg_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
     glong bitrate_nominal = 0;
     gdouble duration = 0;
     gulong filesize;
-    gint ret;
+    gint res;
+    ov_callbacks callbacks = { et_ogg_read_func, et_ogg_seek_func,
+                               et_ogg_close_func, et_ogg_tell_func };
+    EtOggState state;
     gchar *filename_utf8;
 
     g_return_val_if_fail (filename != NULL && ETFileInfo != NULL, FALSE);
 
-    filename_utf8 = filename_to_display(filename);
+    state.file = g_file_new_for_path (filename);
+    state.error = NULL;
+    state.istream = G_INPUT_STREAM (g_file_read (state.file, NULL,
+                                                 &state.error));
 
-    if ( (file=fopen(filename,"rb"))==NULL ) // Warning : it is important to open the file in binary mode! (to get header information under Win32)
+    filename_utf8 = filename_to_display (filename);
+
+    if (!state.istream)
     {
-        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
-        g_free(filename_utf8);
+        /* FIXME: Pass error back to calling function. */
+        Log_Print (LOG_ERROR, _("Error while opening file: '%s' (%s)"),
+                   filename_utf8, state.error->message);
+        g_free (filename_utf8);
         return FALSE;
     }
 
-    if ( (ret=ov_open(file,&vf,NULL,0)) == 0)
+    if ((res = ov_open_callbacks (&state, &vf, NULL, 0, callbacks)) == 0)
     {
         if ( (vi=ov_info(&vf,0)) != NULL )
         {
@@ -118,11 +264,16 @@ gboolean Ogg_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
         ov_clear(&vf); // This close also the file
     }else
     {
-        // Because not closed by ov_clear()
-        fclose(file);
+        /* On error. */
+        if (state.error)
+        {
+            g_debug ("Ogg Vorbis: error reading header information (%s)",
+                     state.error->message);
+        }
 
-        // On error...
-        switch (ret)
+        et_ogg_close_func (&state);
+
+        switch (res)
         {
             case OV_EREAD:
                 Log_Print(LOG_ERROR,_("Ogg Vorbis: Read from media returned an error (file: '%s')."),filename_utf8);
