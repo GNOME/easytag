@@ -1362,7 +1362,7 @@ Mini_Button_Clicked (GObject *object)
 
         for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
-            etfile = (ET_File *)etfilelist->data;
+            etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
             ET_Set_Field_File_Tag_Item(&FileTag->disc_number,string_to_set);
