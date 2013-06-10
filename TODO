@@ -6,24 +6,46 @@ General tidying
 
 * Convert user guide to help in Mallard
 * Avoid using GdkWindow all over the place
+** Drop the window moving and size restoring code
 * Use PNG icons and drop the XPM ones
 * Use GProxyResolver for proxy settings
 * Port configuration settings to use GSettings
 * Port file I/O to use GFile from GIO
 ** Additionally, make I/O asynchronous
+** Always use the GLib encoding for filenames (convert for display)
 * Use g_spawn_async() or g_app_info_launch() to spawn processes
 * Instantiate windows on first use, not at startup
+* GObjectification
+* Avoid using gtk_events_pending(), use asynchronous operations instead
+* Add a test suite
 
 After GTK+ 3
 ------------
 
 * Port to GtkApplication
 * Add an application menu with gtk_application_set_app_menu()
+* Use GtkAppChooserDialog for selecting applications
+
+Tagging features
+----------------
+
+* Drop TagLib dependency and find an alternative MP4 tagging solution
+* Add MusicBrainz search
+** Release-level search for applying to a collection of files
+** Retrieve cover art from the Cover Art Archive
+** Submit DiscIDs
+* Handle more complex tagging schemes
+** All specified ID3v2 tags
+** All specified Vorbis tags, plus MusicBrainz extensions, plus others
+** Ability to remove tag fields from the file
 
 UI work
 -------
 
 * Use more of the standard GTK+ widgets, for example GtkAboutDialog
+* Use a Nautilus-like path bar for directory selection
+* Detect when the main window is too large to fit on the screen
+** Reflow tagging UI in order to fit on screen
 * Try to follow a style guide, for example the GNOME HIG
 ** Remove GtkFrame from most places
 ** Add a bit more padding
