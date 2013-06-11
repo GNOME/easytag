@@ -3066,9 +3066,11 @@ ET_Display_File_Tag_To_UI (ET_File *ETFile)
         // Get page "Images" of the notebook
         page = gtk_notebook_get_nth_page(GTK_NOTEBOOK(TagNoteBook),1);
         // Update the notebook tab
-        gtk_notebook_set_tab_label_text(GTK_NOTEBOOK(TagNoteBook),page,"Images");
+        gtk_notebook_set_tab_label_text (GTK_NOTEBOOK (TagNoteBook), page,
+                                         _("Images"));
         // Update the notebook menu
-        gtk_notebook_set_menu_label_text(GTK_NOTEBOOK(TagNoteBook),page,"Images");
+        gtk_notebook_set_menu_label_text (GTK_NOTEBOOK (TagNoteBook), page,
+                                          _("Images"));
     }
 
     return TRUE;
