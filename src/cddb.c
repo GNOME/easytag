@@ -330,12 +330,12 @@ void Open_Cddb_Window (void)
     gtk_misc_set_alignment(GTK_MISC(Label),1.0,0.5);
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
 
-    if(CddbSearchStringModel == NULL)
-        CddbSearchStringModel = gtk_list_store_new(MISC_COMBO_COUNT, G_TYPE_STRING);
-    else
-        gtk_list_store_clear(CddbSearchStringModel);
+    g_assert (CddbSearchStringModel == NULL);
+    CddbSearchStringModel = gtk_list_store_new (MISC_COMBO_COUNT,
+                                                G_TYPE_STRING);
 
     CddbSearchStringCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(CddbSearchStringModel));
+    g_object_unref (CddbSearchStringModel);
     gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(CddbSearchStringCombo),MISC_COMBO_TEXT);
     gtk_widget_set_size_request(GTK_WIDGET(CddbSearchStringCombo),220,-1);
     gtk_box_pack_start(GTK_BOX(hbox),CddbSearchStringCombo,FALSE,TRUE,0);
@@ -520,12 +520,12 @@ void Open_Cddb_Window (void)
     gtk_misc_set_alignment(GTK_MISC(Label),1.0,0.5);
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
 
-    if(CddbSearchStringInResultModel == NULL)
-        CddbSearchStringInResultModel = gtk_list_store_new(MISC_COMBO_COUNT, G_TYPE_STRING);
-    else
-        gtk_list_store_clear(CddbSearchStringInResultModel);
+    g_assert (CddbSearchStringInResultModel == NULL);
+    CddbSearchStringInResultModel = gtk_list_store_new (MISC_COMBO_COUNT,
+                                                        G_TYPE_STRING);
 
     CddbSearchStringInResultCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(CddbSearchStringInResultModel));
+    g_object_unref (CddbSearchStringInResultModel);
     gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(CddbSearchStringInResultCombo),MISC_COMBO_TEXT);
     gtk_box_pack_start(GTK_BOX(hbox),CddbSearchStringInResultCombo,FALSE,FALSE,0);
     g_signal_connect_swapped(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbSearchStringInResultCombo)))),"activate",
@@ -605,6 +605,7 @@ void Open_Cddb_Window (void)
                                             G_TYPE_INT,
                                             GDK_TYPE_COLOR);
     CddbAlbumListView = gtk_tree_view_new_with_model(GTK_TREE_MODEL(CddbAlbumListModel));
+    g_object_unref (CddbAlbumListModel);
 
     renderer = gtk_cell_renderer_pixbuf_new();
     column = gtk_tree_view_column_new_with_attributes(_(CddbAlbumList_Titles[0]), renderer,
@@ -663,6 +664,7 @@ void Open_Cddb_Window (void)
                                             G_TYPE_POINTER,
                                             G_TYPE_POINTER);
     CddbTrackListView = gtk_tree_view_new_with_model(GTK_TREE_MODEL(CddbTrackListModel));
+    g_object_unref (CddbTrackListModel);
     renderer = gtk_cell_renderer_text_new();
     g_object_set(G_OBJECT(renderer), "xalign", 1.0, NULL); // Align to the right
     column = gtk_tree_view_column_new_with_attributes(_(CddbTrackList_Titles[0]), renderer,
@@ -829,6 +831,7 @@ Cddb_Destroy_Window (GtkWidget *widget, GdkEvent *event, gpointer data)
         CddbWindow            = NULL;
         CddbSearchStringCombo = NULL;
         CddbSearchStringModel = NULL;
+        CddbSearchStringInResultModel = NULL;
         CddbAlbumListView     = NULL;
         CddbAlbumListModel    = NULL;
         CddbTrackListView     = NULL;

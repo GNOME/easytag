@@ -117,6 +117,7 @@ GtkWidget *Create_Log_Area (void)
                                       GDK_TYPE_COLOR);
 
     LogList = gtk_tree_view_new_with_model(GTK_TREE_MODEL(logListModel));
+    g_object_unref (logListModel);
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(LogList), FALSE);
     gtk_container_add(GTK_CONTAINER(ScrollWindowLogList), LogList);
     gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(LogList), FALSE);

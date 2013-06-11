@@ -2440,6 +2440,7 @@ void Open_ScannerWindow (gint scanner_type)
     // The combo box to select the mask to apply
     ScanTagMaskCombo = gtk_combo_box_new_with_entry();
     gtk_combo_box_set_model(GTK_COMBO_BOX(ScanTagMaskCombo), GTK_TREE_MODEL(ScanTagListModel));
+    g_object_unref (ScanTagListModel);
     gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(ScanTagMaskCombo), MASK_EDITOR_TEXT);
 
     gtk_box_pack_start(GTK_BOX(HBox2),ScanTagMaskCombo,TRUE,TRUE,2);
@@ -2506,6 +2507,7 @@ void Open_ScannerWindow (gint scanner_type)
     // The combo box to select the mask to apply
     RenameFileMaskCombo = gtk_combo_box_new_with_entry();
     gtk_combo_box_set_model(GTK_COMBO_BOX(RenameFileMaskCombo), GTK_TREE_MODEL(RenameFileListModel));
+    g_object_unref (RenameFileListModel);
     gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(RenameFileMaskCombo), MASK_EDITOR_TEXT);
 
     gtk_box_pack_start(GTK_BOX(HBox4),RenameFileMaskCombo,TRUE,TRUE,2);

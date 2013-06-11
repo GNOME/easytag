@@ -3061,12 +3061,11 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     /*
      * The entry box for displaying path
      */
-    if (BrowserEntryModel != NULL)
-        gtk_list_store_clear(BrowserEntryModel);
-    else
-        BrowserEntryModel = gtk_list_store_new(MISC_COMBO_COUNT, G_TYPE_STRING);
+    g_assert (BrowserEntryModel == NULL);
+    BrowserEntryModel = gtk_list_store_new (MISC_COMBO_COUNT, G_TYPE_STRING);
 
     BrowserEntryCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(BrowserEntryModel));
+    g_object_unref (BrowserEntryModel);
     gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(BrowserEntryCombo), MISC_COMBO_TEXT);
     /* History list */
     Load_Path_Entry_List(BrowserEntryModel, MISC_COMBO_TEXT);
@@ -3121,6 +3120,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
 
     /* The tree view */
     BrowserTree = gtk_tree_view_new_with_model(GTK_TREE_MODEL(directoryTreeModel));
+    g_object_unref (directoryTreeModel);
     gtk_container_add(GTK_CONTAINER(ScrollWindowDirectoryTree),BrowserTree);
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(BrowserTree), TRUE);
 
@@ -3185,6 +3185,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                          GDK_TYPE_COLOR);
 
     BrowserArtistList = gtk_tree_view_new_with_model(GTK_TREE_MODEL(artistListModel));
+    g_object_unref (artistListModel);
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(BrowserArtistList), TRUE);
     gtk_tree_selection_set_mode(gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserArtistList)),GTK_SELECTION_SINGLE);
 
@@ -3265,6 +3266,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                         GDK_TYPE_COLOR);
 
     BrowserAlbumList = gtk_tree_view_new_with_model(GTK_TREE_MODEL(albumListModel));
+    g_object_unref (albumListModel);
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(BrowserAlbumList), TRUE);
     gtk_tree_view_set_reorderable(GTK_TREE_VIEW(BrowserAlbumList), FALSE);
     gtk_tree_selection_set_mode(gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserAlbumList)), GTK_SELECTION_SINGLE);
@@ -3353,6 +3355,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                         GDK_TYPE_COLOR); /* Row foreground. */
 
     BrowserList = gtk_tree_view_new_with_model(GTK_TREE_MODEL(fileListModel));
+    g_object_unref (fileListModel);
     gtk_container_add(GTK_CONTAINER(ScrollWindowFileList), BrowserList);
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(BrowserList), TRUE);
     gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(BrowserList), FALSE);

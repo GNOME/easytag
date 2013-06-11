@@ -2060,6 +2060,7 @@ void Open_Search_File_Window (void)
 
                                                G_TYPE_POINTER);
     SearchResultList = gtk_tree_view_new_with_model(GTK_TREE_MODEL(SearchResultListModel));
+    g_object_unref (SearchResultListModel);
 
     renderer = gtk_cell_renderer_text_new(); /* Filename */
     column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[0]), renderer,
@@ -2759,6 +2760,7 @@ void Open_Load_Filename_Window (void)
     gtk_box_pack_start(GTK_BOX(loadedvbox), ScrollWindow, TRUE, TRUE, 0);
     LoadFileContentListModel = gtk_list_store_new(LOAD_FILE_CONTENT_COUNT, G_TYPE_STRING);
     LoadFileContentList = gtk_tree_view_new_with_model(GTK_TREE_MODEL(LoadFileContentListModel));
+    g_object_unref (LoadFileContentListModel);
     
     renderer = gtk_cell_renderer_text_new();
     column = gtk_tree_view_column_new_with_attributes (_("Content of Text File"),
@@ -2852,6 +2854,7 @@ void Open_Load_Filename_Window (void)
     gtk_box_pack_start(GTK_BOX(filelistvbox), ScrollWindow, TRUE, TRUE, 0);
     LoadFileNameListModel = gtk_list_store_new(LOAD_FILE_NAME_COUNT, G_TYPE_STRING,G_TYPE_POINTER);
     LoadFileNameList = gtk_tree_view_new_with_model(GTK_TREE_MODEL(LoadFileNameListModel));
+    g_object_unref (LoadFileNameListModel);
     
     renderer = gtk_cell_renderer_text_new();
     column = gtk_tree_view_column_new_with_attributes(_("List of Files"),

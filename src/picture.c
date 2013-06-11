@@ -482,6 +482,7 @@ void Picture_Properties_Button_Clicked (GObject *object)
                                        GTK_POLICY_AUTOMATIC);
         store = gtk_list_store_new(PICTURE_TYPE_COLUMN_COUNT, G_TYPE_STRING, G_TYPE_INT);
         type = gtk_tree_view_new_with_model(GTK_TREE_MODEL(store));
+        g_object_unref (store);
         gtk_container_add(GTK_CONTAINER(ScrollWindowPictureTypes), type);
 
         renderer = gtk_cell_renderer_text_new();
