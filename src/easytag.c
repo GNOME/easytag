@@ -513,6 +513,24 @@ on_application_activate (GApplication *application, gpointer user_data)
     gtk_main ();
 }
 
+/*
+ * on_application_shutdown:
+ * @application: the application
+ * @user_data: user data set when the signal handler was connected
+ *
+ * Handle the application being shutdown, which occurs after the main loop has
+ * exited and before returning from g_application_run().
+ */
+static void
+on_application_shutdown (GApplication *application, gpointer user_data)
+{
+    ET_Core_Destroy ();
+    Charset_Insert_Locales_Destroy ();
+#ifdef G_OS_WIN32
+    weasytag_cleanup();
+#endif /* G_OS_WIN32 */
+}
+
 /********
  * Main *
  ********/
@@ -540,6 +558,8 @@ int main (int argc, char *argv[])
                       NULL);
     g_signal_connect (application, "activate",
                       G_CALLBACK (on_application_activate), NULL);
+    g_signal_connect (application, "shutdown",
+                      G_CALLBACK (on_application_shutdown), NULL);
     status = g_application_run (G_APPLICATION (application), argc, argv);
     g_object_unref (application);
 
@@ -4446,14 +4466,11 @@ Handle_Crash (gint signal_id)
 static void
 EasyTAG_Exit (void)
 {
-    ET_Core_Destroy();
-    Charset_Insert_Locales_Destroy();
     Log_Print(LOG_OK,_("EasyTAG: Normal exit."));
     gtk_main_quit();
-#ifdef G_OS_WIN32
-    weasytag_cleanup();
-#endif /* G_OS_WIN32 */
-    exit(0);
+
+    /* TODO: Get the application from elsewhere. */
+    g_application_quit (g_application_get_default ());
 }
 
 static void
