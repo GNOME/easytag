@@ -143,7 +143,6 @@ static gboolean CddbStopSearch = FALSE;
  **************/
 static gboolean Cddb_Destroy_Window (GtkWidget *widget, GdkEvent *event,
                                      gpointer data);
-static gboolean Cddb_Window_Key_Press (GtkWidget *window, GdkEvent *event);
 static void Cddb_Show_Album_Info (GtkTreeSelection *selection, gpointer data);
 
 static gboolean Cddb_Free_Album_List (void);
@@ -243,7 +242,6 @@ void Open_Cddb_Window (void)
     gtk_window_set_default_size(GTK_WINDOW(CddbWindow),CDDB_WINDOW_WIDTH,CDDB_WINDOW_HEIGHT);
 
     g_signal_connect(G_OBJECT(CddbWindow),"delete_event", G_CALLBACK(Cddb_Destroy_Window),NULL);
-    g_signal_connect(G_OBJECT(CddbWindow),"key_press_event", G_CALLBACK(Cddb_Window_Key_Press),NULL);
 
     VBox = gtk_dialog_get_content_area (GTK_DIALOG (CddbWindow));
     gtk_container_set_border_width (GTK_CONTAINER (CddbWindow), BOX_SPACING);
@@ -906,25 +904,6 @@ void Cddb_Window_Apply_Changes (void)
         Save_Cddb_Search_String_List(CddbSearchStringModel, MISC_COMBO_TEXT);
         Save_Cddb_Search_String_In_Result_List(CddbSearchStringInResultModel, MISC_COMBO_TEXT);
     }
-}
-
-
-static gboolean
-Cddb_Window_Key_Press (GtkWidget *window, GdkEvent *event)
-{
-    GdkEventKey *kevent;
-
-    if (event && event->type == GDK_KEY_PRESS)
-    {
-        kevent = (GdkEventKey *)event;
-        switch(kevent->keyval)
-        {
-            case GDK_KEY_Escape:
-                Cddb_Destroy_Window(window, event, NULL);
-                break;
-        }
-    }
-    return FALSE;
 }
 
 

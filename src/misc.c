@@ -156,8 +156,6 @@ static void Playlist_Convert_Forwardslash_Into_Backslash (const gchar *string);
 
 void Open_Search_File_Window          (void);
 static void Destroy_Search_File_Window (void);
-static gboolean Search_File_Window_Key_Press (GtkWidget *window,
-                                              GdkEvent *event);
 static void Search_File (GtkWidget *search_button);
 static void Add_Row_To_Search_Result_List (ET_File *ETFile,
                                            const gchar *string_to_search);
@@ -1942,7 +1940,6 @@ void Open_Search_File_Window (void)
     gtk_window_set_title (GTK_WINDOW (SearchFileWindow), _("Find Files"));
     g_signal_connect(G_OBJECT(SearchFileWindow),"destroy", G_CALLBACK(Destroy_Search_File_Window),NULL);
     g_signal_connect(G_OBJECT(SearchFileWindow),"delete_event", G_CALLBACK(Destroy_Search_File_Window),NULL);
-    g_signal_connect(G_OBJECT(SearchFileWindow),"key_press_event", G_CALLBACK(Search_File_Window_Key_Press),NULL);
     gtk_window_set_default_size(GTK_WINDOW(SearchFileWindow),SEARCH_WINDOW_WIDTH,SEARCH_WINDOW_HEIGHT);
 
     VBox = gtk_dialog_get_content_area (GTK_DIALOG (SearchFileWindow));
@@ -2277,24 +2274,6 @@ void Search_File_Window_Apply_Changes (void)
         SEARCH_IN_TAG         = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(SearchInTag));
         SEARCH_CASE_SENSITIVE = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(SearchCaseSensitive));
     }
-}
-
-static gboolean
-Search_File_Window_Key_Press (GtkWidget *window, GdkEvent *event)
-{
-    GdkEventKey *kevent;
-
-    if (event && event->type == GDK_KEY_PRESS)
-    {
-        kevent = (GdkEventKey *)event;
-        switch(kevent->keyval)
-        {
-            case GDK_KEY_Escape:
-                Destroy_Search_File_Window();
-                break;
-        }
-    }
-    return FALSE;
 }
 
 /*
