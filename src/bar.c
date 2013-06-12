@@ -24,6 +24,7 @@
 #include <glib/gi18n-lib.h>
 
 #include "bar.h"
+#include "discid.h"
 #include "easytag.h"
 #include "about.h"
 #include "prefs.h"
@@ -67,6 +68,8 @@ static void et_ui_manager_on_disconnect_proxy (GtkUIManager *manager,
                                                gpointer user_data);
 static void on_menu_item_select (GtkMenuItem *item, gpointer user_data);
 static void on_menu_item_deselect (GtkMenuItem *item, gpointer user_data);
+
+static void open_cd_info_dialog (void);
 
 /*************
  * Functions o
@@ -279,6 +282,8 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
           G_CALLBACK (Open_Search_File_Window) },
         { AM_CDDB_SEARCH, GTK_STOCK_CDROM, _("CDD_B Search…"), "<Control>B",
           _("CDDB search"), G_CALLBACK (Open_Cddb_Window) },
+        { AM_READ_CD_INFO, GTK_STOCK_CDROM, _("Read CD Information…"), NULL,
+          _("Read information from a CD"), G_CALLBACK (open_cd_info_dialog) },
         { AM_FILENAME_FROM_TXT, GTK_STOCK_OPEN,
           _("Load Filenames From a Text File…"), "<Control>T",
           _("Load filenames from a text file"),
@@ -715,4 +720,12 @@ static void
 on_menu_item_deselect (GtkMenuItem *item, gpointer user_data)
 {
     et_statusbar_pop_tooltip ();
+}
+
+static void
+open_cd_info_dialog (void)
+{
+    EtCDInfoDialog *dialog = et_cd_info_dialog_new (GTK_WINDOW (MainWindow));
+
+    gtk_widget_show (GTK_WIDGET (dialog));
 }

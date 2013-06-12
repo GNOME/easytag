@@ -41,6 +41,7 @@ easytag_SOURCES = \
 	src/cddb.c \
 	src/charset.c \
 	src/crc32.c \
+	src/discid.c \
 	src/dlm.c \
 	src/easytag.c \
 	src/et_core.c \
@@ -80,6 +81,7 @@ easytag_headers = \
 	src/cddb.h \
 	src/charset.h \
 	src/crc32.h \
+	src/discid.h \
 	src/dlm.h \
 	src/easytag.h \
 	src/et_core.h \

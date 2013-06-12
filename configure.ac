@@ -266,9 +266,12 @@ AS_IF([test "x$have_wavpack" != "xno"],
        AS_IF([test "x$enable_wavpack" = "xyes"],
              [AC_MSG_ERROR([Wavpack support requested but required dependencies ($WAVPACK_DEPS) not found])])])
 
+dnl Check for libdiscid
+LIBDISCID_DEPS="libdiscid >= 0.3.0"
+
 dnl Check the pkg-config dependencies
 GIO_DEPS="gio-2.0 >= 2.32.0" dnl For g_file_new_tmp()
-PKG_CHECK_MODULES([EASYTAG], [$GIO_DEPS $GTK_DEPS $OGG_DEPS $SPEEX_DEPS $FLAC_DEPS $ID3TAG_DEPS $TAGLIB_DEPS $WAVPACK_DEPS])
+PKG_CHECK_MODULES([EASYTAG], [$GIO_DEPS $GTK_DEPS $OGG_DEPS $SPEEX_DEPS $FLAC_DEPS $ID3TAG_DEPS $TAGLIB_DEPS $WAVPACK_DEPS $LIBDISCID_DEPS])
 
 dnl Check for winsock
 AC_SEARCH_LIBS([gethostbyname], [nsl socket], [],

@@ -6,6 +6,7 @@ src/bar.c
 src/browser.c
 src/cddb.c
 src/charset.c
+src/discid.c
 src/easytag.c
 src/et_core.c
 src/flac_header.c

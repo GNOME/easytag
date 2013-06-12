@@ -154,6 +154,7 @@ static const gchar *ui_xml =
 
 "    <menu action='MiscMenu'>"
 "      <menuitem action='CDDBSearch' />"
+"      <menuitem action='ReadCDInfo' />"
 "      <separator />"
 
 "      <menuitem action='LoadFilenames' />"
