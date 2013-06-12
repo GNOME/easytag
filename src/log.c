@@ -47,7 +47,6 @@ static GtkListStore *logListModel;
 /* Temporary list to store messages for the LogList when this control was not
  * yet created. */
 static GList *LogPrintTmpList = NULL;
-static gint LogListNbrRows;
 
 enum
 {
@@ -214,7 +213,6 @@ void Log_Clean_Log_List (void)
     if (logListModel)
     {
         gtk_list_store_clear(logListModel);
-        LogListNbrRows = 0;
     }
 }
 
@@ -264,16 +262,19 @@ void Log_Print (Log_Error_Type error_type, gchar const *format, ...)
     // the messages are stored in a temporary list.
     if (LogList && logListModel)
     {
+        gint n_items;
         gchar *time = Log_Format_Date();
 
-        // Remove lines that exceed the limit
-        if (LogListNbrRows > LOG_MAX_LINES - 1
+        /* Remove lines that exceed the limit. */
+        n_items = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (logListModel),
+                                                  NULL);
+
+        if (n_items > LOG_MAX_LINES - 1
         &&  gtk_tree_model_get_iter_first(GTK_TREE_MODEL(logListModel), &iter))
         {
             gtk_list_store_remove(GTK_LIST_STORE(logListModel), &iter);
         }
 
-        LogListNbrRows++;
         gtk_list_store_insert_with_values (logListModel, &iter, G_MAXINT,
                                            LOG_PIXBUF,
                                            Log_Get_Stock_Id_From_Error_Type (error_type),
@@ -397,7 +398,6 @@ Log_Print_Tmp_List (void)
     {
         if (LogList && logListModel)
         {
-            LogListNbrRows++;
             gtk_list_store_insert_with_values (logListModel, &iter, G_MAXINT,
                                                LOG_PIXBUF,
                                                Log_Get_Stock_Id_From_Error_Type (((Log_Data *)l->data)->error_type),
