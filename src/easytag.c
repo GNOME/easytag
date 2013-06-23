@@ -165,6 +165,21 @@ setup_sigchld (void)
 #endif /* !G_OS_WIN32 */
 
 /*
+ * run_mainloop:
+ * @application: the application
+ *
+ * Set the main window created in on_application_startup() on @application and
+ * start the GTK+ main loop.
+ */
+static void
+run_mainloop (GApplication *application)
+{
+    et_application_set_window (ET_APPLICATION (application),
+                               GTK_WINDOW (MainWindow));
+    gtk_main ();
+}
+
+/*
  * check_for_hidden_path_in_tree:
  * @arg: the path to check
  *
@@ -345,31 +360,23 @@ on_application_open (GApplication *application, GFile **files, gint n_files,
 
     if (!activated)
     {
-        g_application_activate (application);
+        run_mainloop (application);
     }
 }
 
 /*
- * on_application_activate:
+ * on_application_startup:
  * @application: the application
  * @user_data: user data set when the signal handler was connected
  *
- * Handle the application being activated, which occurs on startup or when
- * opening a second instance.
+ * Handle the application being started, which occurs after registration of the
+ * primary instance.
  */
 static void
-on_application_activate (GApplication *application, gpointer user_data)
+on_application_startup (GApplication *application, gpointer user_data)
 {
-    GtkWindow *main_window;
     GtkWidget *MainVBox;
     GtkWidget *HBox, *VBox;
-
-    main_window = et_application_get_window (ET_APPLICATION (application));
-    if (main_window != NULL)
-    {
-        gtk_window_present (main_window);
-        return;
-    }
 
     /* FIXME: Find a way to pass the arguments in. */
     gtk_init (NULL, NULL);
@@ -426,8 +433,6 @@ on_application_activate (GApplication *application, gpointer user_data)
 
     /* The main window */
     MainWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    et_application_set_window (ET_APPLICATION (application),
-                               GTK_WINDOW (MainWindow));
     gtk_window_set_title (GTK_WINDOW (MainWindow),
                           PACKAGE_NAME " " PACKAGE_VERSION);
     // This part is needed to set correctly the position of handle panes
@@ -508,9 +513,30 @@ on_application_activate (GApplication *application, gpointer user_data)
     /* Load the default dir when the UI is created and displayed
      * to the screen and open also the scanner window */
     idle_handler_id = g_idle_add((GSourceFunc)Init_Load_Default_Dir,NULL);
+}
 
-    /* Enter the event loop */
-    gtk_main ();
+/*
+ * on_application_activate:
+ * @application: the application
+ * @user_data: user data set when the signal handler was connected
+ *
+ * Handle the application being activated, which occurs after startup and if
+ * no files are opened.
+ */
+static void
+on_application_activate (GApplication *application, gpointer user_data)
+{
+    GtkWindow *main_window;
+
+    main_window = et_application_get_window (ET_APPLICATION (application));
+    if (main_window != NULL)
+    {
+        gtk_window_present (main_window);
+    }
+    else
+    {
+        run_mainloop (application);
+    }
 }
 
 /*
@@ -554,6 +580,8 @@ int main (int argc, char *argv[])
     INIT_DIRECTORY = NULL;
 
     application = et_application_new ();
+    g_signal_connect (application, "startup",
+                      G_CALLBACK (on_application_startup), NULL);
     g_signal_connect (application, "open", G_CALLBACK (on_application_open),
                       NULL);
     g_signal_connect (application, "activate",
