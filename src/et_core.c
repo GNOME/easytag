@@ -2594,7 +2594,7 @@ void ET_Display_File_Data_To_UI (ET_File *ETFile)
     gchar *cur_filename_utf8;
     gchar *msg;
 
-    g_return_if_fail (ETFile != NULL ||
+    g_return_if_fail (ETFile != NULL &&
                       ((GList *)ETFile->FileNameCur)->data != NULL);
                       /* For the case where ETFile is an "empty" structure. */
 
