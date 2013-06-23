@@ -3069,8 +3069,6 @@ ScannerWindow_Quit (void)
         ScannerWindow_Apply_Changes();
 
         gtk_widget_destroy(ScannerWindow);
-        gtk_list_store_clear(ScanTagListModel);
-        gtk_list_store_clear(RenameFileListModel);
         ScannerWindow     = NULL;
         ScannerOptionCombo= NULL;
 
