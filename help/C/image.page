@@ -6,7 +6,7 @@
   <info>
     <link type="guide" xref="index#image"/>
     <link type="guide" xref="tag"/>
-    <revision pkgversion="2.1.9" date="2013-05-20" status="stub"/>
+    <revision pkgversion="2.1.9" date="2013-05-20" status="review"/>
 
     <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
 
@@ -22,8 +22,7 @@
   <title>Add an image to a file</title>
 
   <p>Most audio file formats support an <sys>image</sys> tag field which can
-  be used to add cover art and other images that are related to the audio
-  file.</p>
+  be used to add cover art and other related images to the audio file.</p>
 
   <p>To add an image to the file, select the file, open the
   <gui style="tab">Images</gui> tab and press the <gui style="button">Add

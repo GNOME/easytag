@@ -5,7 +5,7 @@
 
   <info>
     <link type="guide" xref="index#image"/>
-    <revision pkgversion="2.1.9" date="2013-06-02" status="review"/>
+    <revision pkgversion="2.1.9" date="2013-06-02" status="candidate"/>
 
     <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
 
@@ -18,7 +18,7 @@
 
   <title>Save an image</title>
 
-  <p>If the file already tagged with an image, you can export the image from
+  <p>If the file is already tagged with an image, you can export the image from
   the tag by selecting it and pressing <gui style="button">Save the selected
   images to files</gui> button. The default filename will be the image
   description.</p>
