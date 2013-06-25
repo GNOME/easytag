@@ -4,7 +4,7 @@
 
   <info>
     <link type="guide" xref="index"/>
-    <revision pkgversion="2.1.9" date="2013-03-05" status="draft" />
+    <revision pkgversion="2.1.9" date="2013-06-25" status="candidate" />
 
     <credit type="author">
       <name>Ekaterina Gerasimova</name>
@@ -19,7 +19,7 @@
   <title>Start using <app>EasyTAG</app></title>
 
   <p>When you start <app>EasyTAG</app> for the first time, it will search your
-  <file>Music</file> directory or your home directory for music files. If you
+  <file>Music</file> directory or your home directory for audio files. If you
   wish to skip the search, press the <gui style="button">Stop</gui> button.</p>
 
   <p><app>EasyTAG</app> may apply some automatic corrections to some of your
