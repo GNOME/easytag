@@ -43,26 +43,26 @@
       </tr>
       <tr>
         <td>
-          <p>Select all</p>
-        </td>
-        <td>
-          <p><keyseq><key>Ctrl</key><key>A</key></keyseq></p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p>Deselect all</p>
-        </td>
-        <td>
-          <p><keyseq><key>Shift</key><key>Ctrl</key><key>A</key></keyseq></p>
-        </td>
-      </tr>
-      <tr>
-        <td>
           <p>Search all files, including filenames and tags</p>
         </td>
         <td>
           <p><keyseq><key>Ctrl</key><key>F</key></keyseq></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Go to previous file while keeping focus on the same tag field</p>
+        </td>
+        <td>
+          <p><key>Page Up</key></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Go to next file while keeping focus on the same tag field</p>
+        </td>
+        <td>
+          <p><key>Page Down</key></p>
         </td>
       </tr>
     </tbody>
