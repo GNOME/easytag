@@ -5,7 +5,7 @@
 
   <info>
     <link type="guide" xref="index#main"/>
-    <revision pkgversion="2.1.9" date="2013-05-27" status="stub"/>
+    <revision pkgversion="2.1.9" date="2013-05-27" status="candidate"/>
 
     <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
 
@@ -21,7 +21,8 @@
   <title>Format specifiers</title>
 
   <p><em>Format specifiers</em> can be used to split a file name into tags and
-  to name a file or playlist based on existing tags.</p>
+  to name a file or playlist based on existing tags using
+  <link xref="scanner">the scanner</link>.</p>
 
   <table rules="rows" frame="top bottom">
     <thead>
@@ -41,7 +42,7 @@
         </td>
         <td>
           <p>Artist: this is the artist or artists who created the track, this
-	  field may contact a featured artist as well as the album artist</p>
+	        field may contact a featured artist as well as the album artist</p>
         </td>
       </tr>
       <tr>
@@ -81,8 +82,8 @@
           <p>%r</p>
         </td>
         <td>
-          <p>Copyright holder: this is usually the record label or the
-	  artist</p>
+          <p>Copyright holder: this is usually the artist, but it can also be
+          the record label</p>
         </td>
       </tr>
       <tr>
@@ -99,8 +100,8 @@
         </td>
         <td>
           <p>Encoded by: this is usually the person who encoded the file, but
-	  the field is also used for the application that was used to encode
-	  the file</p>
+          the field is also used for the application that was used to encode
+          the file</p>
         </td>
       </tr>
       <tr>
@@ -117,8 +118,8 @@
         </td>
         <td>
           <p>Ignored: this format specifier can only be used in <gui>Fill
-	  Tag</gui>, it can be used to specify parts of the file name which
-	  should be ignored</p>
+          Tag</gui> to specify parts of the file name which should be
+          ignored</p>
         </td>
       </tr>
       <tr>
