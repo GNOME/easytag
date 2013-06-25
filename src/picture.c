@@ -190,6 +190,7 @@ et_picture_type_from_filename (const gchar *filename_utf8)
         { "front", ET_PICTURE_TYPE_FRONT_COVER },
         { "back", ET_PICTURE_TYPE_BACK_COVER },
         { "CD", ET_PICTURE_TYPE_MEDIA },
+        { "illustration", ET_PICTURE_TYPE_ILLUSTRATION },
         { "inside", ET_PICTURE_TYPE_LEAFLET_PAGE },
         { "inlay", ET_PICTURE_TYPE_LEAFLET_PAGE }
     };
