@@ -114,6 +114,8 @@ void Open_OptionsWindow (void)
     gtk_container_set_border_width (GTK_CONTAINER (OptionsWindow), 6);
 
     /* Signals connection */
+    gtk_dialog_set_default_response (GTK_DIALOG (OptionsWindow),
+                                     GTK_RESPONSE_ACCEPT);
     g_signal_connect (OptionsWindow, "response",
                       G_CALLBACK (et_preferences_on_response), NULL);
 

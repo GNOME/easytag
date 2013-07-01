@@ -2344,6 +2344,8 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_button_set_label (GTK_BUTTON (scan_button), _("Scan Files"));
     gtk_dialog_add_action_widget (GTK_DIALOG (ScannerWindow), scan_button,
                                   GTK_RESPONSE_APPLY);
+    gtk_dialog_set_default_response (GTK_DIALOG (ScannerWindow),
+                                     GTK_RESPONSE_APPLY);
     gtk_widget_show (scan_button);
     gtk_widget_set_tooltip_text (scan_button, _("Scan selected files"));
 

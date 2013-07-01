@@ -2401,6 +2401,8 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
                                            ngettext("A file was changed by an external program","%d files were changed by an external program.",nb_files_changed_by_ext_program),
                                            nb_files_changed_by_ext_program);
         gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_DISCARD,GTK_RESPONSE_NO,GTK_STOCK_SAVE,GTK_RESPONSE_YES,NULL);
+        gtk_dialog_set_default_response (GTK_DIALOG (msgdialog),
+                                         GTK_RESPONSE_YES);
         gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),"%s",_("Do you want to continue saving the file?"));
         gtk_window_set_title(GTK_WINDOW(msgdialog),_("Quit"));
 
@@ -2767,6 +2769,8 @@ Save_File (ET_File *ETFile, gboolean multiple_files,
                                         NULL);
             }
 
+            gtk_dialog_set_default_response (GTK_DIALOG (msgdialog),
+                                             GTK_RESPONSE_YES);
             SF_ButtonPressed_Write_Tag = response = gtk_dialog_run(GTK_DIALOG(msgdialog));
             // When check button in msgbox was activated : do not display the message again
             if (msgdialog_check_button && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(msgdialog_check_button)))
@@ -2881,6 +2885,8 @@ Save_File (ET_File *ETFile, gboolean multiple_files,
             g_free(msg);
             g_free(msg1);
             g_free(msgdialog_title);
+            gtk_dialog_set_default_response (GTK_DIALOG (msgdialog),
+                                             GTK_RESPONSE_YES);
             SF_ButtonPressed_Rename_File = response = gtk_dialog_run(GTK_DIALOG(msgdialog));
             if (msgdialog_check_button && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(msgdialog_check_button)))
                 SF_HideMsgbox_Rename_File = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(msgdialog_check_button));
@@ -3143,6 +3149,8 @@ delete_file (ET_File *ETFile, gboolean multiple_files, GError **error)
             gtk_window_set_title(GTK_WINDOW(msgdialog),_("Delete File"));
             gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_CANCEL,GTK_RESPONSE_NO,GTK_STOCK_DELETE,GTK_RESPONSE_YES,NULL);
         }
+        gtk_dialog_set_default_response (GTK_DIALOG (msgdialog),
+                                         GTK_RESPONSE_YES);
         SF_ButtonPressed_Delete_File = response = gtk_dialog_run(GTK_DIALOG(msgdialog));
         if (msgdialog_check_button && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(msgdialog_check_button)))
             SF_HideMsgbox_Delete_File = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(msgdialog_check_button));
@@ -4544,6 +4552,8 @@ void Quit_MainWindow (void)
                                         "%s",
                                         _("Some files have been modified but not saved"));
         gtk_dialog_add_buttons(GTK_DIALOG(msgbox),GTK_STOCK_DISCARD,GTK_RESPONSE_NO,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_SAVE,GTK_RESPONSE_YES,NULL);
+        gtk_dialog_set_default_response (GTK_DIALOG (msgbox),
+                                         GTK_RESPONSE_YES);
         gtk_window_set_title(GTK_WINDOW(msgbox),_("Quit"));
         gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgbox),"%s",_("Do you want to save them before quitting?"));
         response = gtk_dialog_run(GTK_DIALOG(msgbox));
@@ -4570,6 +4580,8 @@ void Quit_MainWindow (void)
                                          "%s",
                                          _("Do you really want to quit?"));
          gtk_dialog_add_buttons(GTK_DIALOG(msgbox),GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_QUIT,GTK_RESPONSE_CLOSE,NULL);
+        gtk_dialog_set_default_response (GTK_DIALOG (msgbox),
+                                         GTK_RESPONSE_YES);
         gtk_window_set_title(GTK_WINDOW(msgbox),_("Quit"));
         response = gtk_dialog_run(GTK_DIALOG(msgbox));
         gtk_widget_destroy(msgbox);

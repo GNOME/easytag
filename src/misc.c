@@ -1154,6 +1154,8 @@ void Open_Write_Playlist_Window (void)
                                                        GTK_STOCK_SAVE,
                                                        GTK_RESPONSE_OK, NULL);
 
+    gtk_dialog_set_default_response (GTK_DIALOG (WritePlaylistWindow),
+                                     GTK_RESPONSE_OK);
     g_signal_connect (WritePlaylistWindow, "response",
                       G_CALLBACK (et_playlist_on_response), NULL);
 
@@ -2707,6 +2709,8 @@ void Open_Load_Filename_Window (void)
                                                       GTK_STOCK_APPLY,
                                                       GTK_RESPONSE_ACCEPT,
                                                       NULL);
+    gtk_dialog_set_default_response (GTK_DIALOG (LoadFilenameWindow),
+                                     GTK_RESPONSE_ACCEPT);
     g_signal_connect (LoadFilenameWindow, "response",
                       G_CALLBACK (et_load_text_file_on_response), NULL);
 

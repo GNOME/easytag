@@ -670,6 +670,8 @@ Browser_Tree_Node_Selected (GtkTreeSelection *selection, gpointer user_data)
                                            _("Some files have been modified but not saved"));
         gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),"%s",_("Do you want to save them before changing the directory?"));
         gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_DISCARD,GTK_RESPONSE_NO,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_SAVE,GTK_RESPONSE_YES,NULL);
+        gtk_dialog_set_default_response (GTK_DIALOG (msgdialog),
+                                         GTK_RESPONSE_YES);
         gtk_window_set_title(GTK_WINDOW(msgdialog),_("Confirm Directory Change"));
 
         response = gtk_dialog_run(GTK_DIALOG(msgdialog));
@@ -3541,6 +3543,9 @@ void Browser_Open_Rename_Directory_Window (void)
                                                          GTK_RESPONSE_APPLY,
                                                          NULL);
 
+    gtk_dialog_set_default_response (GTK_DIALOG (RenameDirectoryWindow),
+                                     GTK_RESPONSE_APPLY);
+
     /* We attach useful data to the combobox */
     g_object_set_data(G_OBJECT(RenameDirectoryWindow), "Parent_Directory", directory_parent);
     g_object_set_data(G_OBJECT(RenameDirectoryWindow), "Current_Directory", directory_name);
@@ -3953,6 +3958,8 @@ void Browser_Open_Run_Program_Tree_Window (void)
                                                         GTK_STOCK_EXECUTE,
                                                         GTK_RESPONSE_OK, NULL);
 
+    gtk_dialog_set_default_response (GTK_DIALOG (RunProgramTreeWindow),
+                                     GTK_RESPONSE_OK);
     g_signal_connect (RunProgramTreeWindow, "response",
                       G_CALLBACK (et_run_program_tree_on_response), NULL);
     VBox = gtk_dialog_get_content_area (GTK_DIALOG (RunProgramTreeWindow));
@@ -4074,6 +4081,8 @@ void Browser_Open_Run_Program_List_Window (void)
                                                         GTK_RESPONSE_OK,
                                                         NULL);
 
+    gtk_dialog_set_default_response (GTK_DIALOG (RunProgramListWindow),
+                                     GTK_RESPONSE_OK);
     g_signal_connect ((RunProgramListWindow), "response",
                       G_CALLBACK (et_run_program_list_on_response), NULL);
 
