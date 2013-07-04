@@ -19,6 +19,7 @@
 #include "config.h"
 
 #include "application.h"
+#include "charset.h"
 
 #include <glib/gi18n.h>
 #include <stdlib.h>
@@ -36,16 +37,6 @@ static const GOptionEntry entries[] =
       N_("Print the version and exit"), NULL },
     { NULL }
 };
-
-static void
-init_i18n (void)
-{
-#if ENABLE_NLS
-    bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
-    bind_textdomain_codeset (PACKAGE_TARNAME, "UTF-8");
-    textdomain (GETTEXT_PACKAGE);
-#endif /* ENABLE_NLS */
-}
 
 /*
  * et_local_command_line:
@@ -142,6 +133,17 @@ et_local_command_line (GApplication *application, gchar **arguments[],
 }
 
 static void
+et_application_startup (GApplication *application)
+{
+    Charset_Insert_Locales_Init ();
+
+    /* TODO: Remove gtk_init() when porting to GtkApplication. */
+    gtk_init (NULL, NULL);
+
+    G_APPLICATION_CLASS (et_application_parent_class)->startup (application);
+}
+
+static void
 et_application_finalize (GObject *object)
 {
     G_OBJECT_CLASS (et_application_parent_class)->finalize (object);
@@ -162,6 +164,7 @@ et_application_class_init (EtApplicationClass *klass)
 {
     G_OBJECT_CLASS (klass)->finalize = et_application_finalize;
     G_APPLICATION_CLASS (klass)->local_command_line = et_local_command_line;
+    G_APPLICATION_CLASS (klass)->startup = et_application_startup;
 
     g_type_class_add_private (klass, sizeof (EtApplicationPrivate));
 }
@@ -176,11 +179,6 @@ et_application_class_init (EtApplicationClass *klass)
 EtApplication *
 et_application_new ()
 {
-    init_i18n ();
-#if !GLIB_CHECK_VERSION (2, 35, 1)
-    g_type_init ();
-#endif /* !GLIB_CHECK_VERSION (2, 35, 1) */
-
     return g_object_new (et_application_get_type (), "application-id",
                          "org.gnome.EasyTAG", "flags",
                          G_APPLICATION_HANDLES_OPEN, NULL);

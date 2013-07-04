@@ -165,17 +165,151 @@ setup_sigchld (void)
 #endif /* !G_OS_WIN32 */
 
 /*
- * run_mainloop:
+ * common_init:
  * @application: the application
  *
- * Set the main window created in on_application_startup() on @application and
- * start the GTK+ main loop.
+ * Create and show the main window. Common to all actions which may occur after
+ * startup, such as "activate" and "open".
  */
 static void
-run_mainloop (GApplication *application)
+common_init (GApplication *application)
 {
+    GtkWidget *MainVBox;
+    GtkWidget *HBox, *VBox;
+
+    /* Starting messages */
+    Log_Print(LOG_OK,_("Starting EasyTAG version %s (PID: %d)…"),PACKAGE_VERSION,getpid());
+#ifdef ENABLE_MP3
+    Log_Print(LOG_OK,_("Using libid3tag version %s"), ID3_VERSION);
+#endif
+#if defined ENABLE_MP3 && defined ENABLE_ID3LIB
+    Log_Print (LOG_OK, _("Using id3lib version %d.%d.%d"), ID3LIB_MAJOR_VERSION,
+               ID3LIB_MINOR_VERSION, ID3LIB_PATCH_VERSION);
+#endif
+
+#ifdef G_OS_WIN32
+    if (g_getenv("EASYTAGLANG"))
+        Log_Print(LOG_OK,_("Variable EASYTAGLANG defined. Setting locale: '%s'"),g_getenv("EASYTAGLANG"));
+    else
+        Log_Print(LOG_OK,_("Setting locale: '%s'"),g_getenv("LANG"));
+#endif /* G_OS_WIN32 */
+
+    if (get_locale())
+        Log_Print (LOG_OK,
+                   _("Currently using locale '%s' (and eventually '%s')"),
+                   get_locale (), get_encoding_from_locale (get_locale ()));
+
+
+    /* Create all config files. */
+    if (!Setting_Create_Files())
+    {
+        Log_Print (LOG_WARNING, _("Unable to create setting directories"));
+    }
+
+    /* Load Config */
+    Init_Config_Variables();
+    Read_Config();
+    /* Display_Config(); // <- for debugging */
+
+
+
+    /* Initialization */
+    ET_Core_Create();
+    Main_Stop_Button_Pressed = FALSE;
+    Init_Custom_Icons();
+    Init_Mouse_Cursor();
+    Init_OptionsWindow();
+    Init_ScannerWindow();
+    Init_CddbWindow();
+    BrowserEntryModel    = NULL;
+    TrackEntryComboModel = NULL;
+    GenreComboModel      = NULL;
+
+    /* The main window */
+    MainWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     et_application_set_window (ET_APPLICATION (application),
                                GTK_WINDOW (MainWindow));
+    gtk_window_set_title (GTK_WINDOW (MainWindow),
+                          PACKAGE_NAME " " PACKAGE_VERSION);
+    // This part is needed to set correctly the position of handle panes
+    gtk_window_set_default_size(GTK_WINDOW(MainWindow),MAIN_WINDOW_WIDTH,MAIN_WINDOW_HEIGHT);
+
+    g_signal_connect(G_OBJECT(MainWindow),"delete_event",G_CALLBACK(Quit_MainWindow),NULL);
+    g_signal_connect(G_OBJECT(MainWindow),"destroy",G_CALLBACK(Quit_MainWindow),NULL);
+
+    /* Minimised window icon */
+    gtk_widget_realize(MainWindow);
+
+    gtk_window_set_icon_name (GTK_WINDOW (MainWindow), PACKAGE_TARNAME);
+
+    /* MainVBox for Menu bar + Tool bar + "Browser Area & FileArea & TagArea" + Log Area + "Status bar & Progress bar" */
+    MainVBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
+    gtk_container_add (GTK_CONTAINER(MainWindow),MainVBox);
+    gtk_widget_show(MainVBox);
+
+    /* Menu bar and tool bar */
+    Create_UI(&MenuArea, &ToolArea);
+    gtk_box_pack_start(GTK_BOX(MainVBox),MenuArea,FALSE,FALSE,0);
+    gtk_box_pack_start(GTK_BOX(MainVBox),ToolArea,FALSE,FALSE,0);
+
+
+    /* The two panes: BrowserArea on the left, FileArea+TagArea on the right */
+    MainWindowHPaned = gtk_paned_new(GTK_ORIENTATION_HORIZONTAL);
+    //gtk_box_pack_start(GTK_BOX(MainVBox),MainWindowHPaned,TRUE,TRUE,0);
+    gtk_paned_set_position(GTK_PANED(MainWindowHPaned),PANE_HANDLE_POSITION1);
+    gtk_widget_show(MainWindowHPaned);
+
+    /* Browser (Tree + File list + Entry) */
+    BrowseArea = Create_Browser_Area();
+    gtk_paned_pack1(GTK_PANED(MainWindowHPaned),BrowseArea,TRUE,TRUE);
+
+    /* Vertical box for FileArea + TagArea */
+    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
+    gtk_paned_pack2(GTK_PANED(MainWindowHPaned),VBox,FALSE,FALSE);
+    gtk_widget_show(VBox);
+
+    /* File */
+    FileArea = Create_File_Area();
+    gtk_box_pack_start(GTK_BOX(VBox),FileArea,FALSE,FALSE,0);
+
+    /* Tag */
+    TagArea = Create_Tag_Area();
+    gtk_box_pack_start(GTK_BOX(VBox),TagArea,FALSE,FALSE,0);
+
+    /* Vertical pane for Browser Area + FileArea + TagArea */
+    MainWindowVPaned = gtk_paned_new(GTK_ORIENTATION_VERTICAL);
+    gtk_box_pack_start(GTK_BOX(MainVBox),MainWindowVPaned,TRUE,TRUE,0);
+    gtk_paned_pack1(GTK_PANED(MainWindowVPaned),MainWindowHPaned,TRUE,FALSE);
+    gtk_paned_set_position(GTK_PANED(MainWindowVPaned),PANE_HANDLE_POSITION4);
+    gtk_widget_show(MainWindowVPaned);
+
+
+    /* Log */
+    LogArea = Create_Log_Area();
+    gtk_paned_pack2(GTK_PANED(MainWindowVPaned),LogArea,FALSE,TRUE);
+
+    /* Horizontal box for Status bar + Progress bar */
+    HBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
+    gtk_box_pack_start(GTK_BOX(MainVBox),HBox,FALSE,FALSE,0);
+    gtk_widget_show(HBox);
+
+    /* Status bar */
+    StatusArea = Create_Status_Bar();
+    gtk_box_pack_start(GTK_BOX(HBox),StatusArea,TRUE,TRUE,0);
+
+    /* Progress bar */
+    ProgressArea = Create_Progress_Bar();
+    gtk_box_pack_end(GTK_BOX(HBox),ProgressArea,FALSE,FALSE,0);
+
+    gtk_widget_show(MainWindow);
+
+    if (SET_MAIN_WINDOW_POSITION)
+        gtk_window_move(GTK_WINDOW(MainWindow), MAIN_WINDOW_X, MAIN_WINDOW_Y);
+
+    /* Load the default dir when the UI is created and displayed
+     * to the screen and open also the scanner window */
+    idle_handler_id = g_idle_add((GSourceFunc)Init_Load_Default_Dir,NULL);
+
     gtk_main ();
 }
 
@@ -360,159 +494,8 @@ on_application_open (GApplication *application, GFile **files, gint n_files,
 
     if (!activated)
     {
-        run_mainloop (application);
+        common_init (application);
     }
-}
-
-/*
- * on_application_startup:
- * @application: the application
- * @user_data: user data set when the signal handler was connected
- *
- * Handle the application being started, which occurs after registration of the
- * primary instance.
- */
-static void
-on_application_startup (GApplication *application, gpointer user_data)
-{
-    GtkWidget *MainVBox;
-    GtkWidget *HBox, *VBox;
-
-    /* FIXME: Find a way to pass the arguments in. */
-    gtk_init (NULL, NULL);
-
-    Charset_Insert_Locales_Init();
-
-    /* Starting messages */
-    Log_Print(LOG_OK,_("Starting EasyTAG version %s (PID: %d)…"),PACKAGE_VERSION,getpid());
-#ifdef ENABLE_MP3
-    Log_Print(LOG_OK,_("Using libid3tag version %s"), ID3_VERSION);
-#endif
-#if defined ENABLE_MP3 && defined ENABLE_ID3LIB
-    Log_Print (LOG_OK, _("Using id3lib version %d.%d.%d"), ID3LIB_MAJOR_VERSION,
-               ID3LIB_MINOR_VERSION, ID3LIB_PATCH_VERSION);
-#endif
-
-#ifdef G_OS_WIN32
-    if (g_getenv("EASYTAGLANG"))
-        Log_Print(LOG_OK,_("Variable EASYTAGLANG defined. Setting locale: '%s'"),g_getenv("EASYTAGLANG"));
-    else
-        Log_Print(LOG_OK,_("Setting locale: '%s'"),g_getenv("LANG"));
-#endif /* G_OS_WIN32 */
-
-    if (get_locale())
-        Log_Print (LOG_OK,
-                   _("Currently using locale '%s' (and eventually '%s')"),
-                   get_locale (), get_encoding_from_locale (get_locale ()));
-
-
-    /* Create all config files. */
-    if (!Setting_Create_Files())
-    {
-        Log_Print (LOG_WARNING, _("Unable to create setting directories"));
-    }
-
-    /* Load Config */
-    Init_Config_Variables();
-    Read_Config();
-    /* Display_Config(); // <- for debugging */
-
-
-
-    /* Initialization */
-    ET_Core_Create();
-    Main_Stop_Button_Pressed = FALSE;
-    Init_Custom_Icons();
-    Init_Mouse_Cursor();
-    Init_OptionsWindow();
-    Init_ScannerWindow();
-    Init_CddbWindow();
-    BrowserEntryModel    = NULL;
-    TrackEntryComboModel = NULL;
-    GenreComboModel      = NULL;
-
-    /* The main window */
-    MainWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title (GTK_WINDOW (MainWindow),
-                          PACKAGE_NAME " " PACKAGE_VERSION);
-    // This part is needed to set correctly the position of handle panes
-    gtk_window_set_default_size(GTK_WINDOW(MainWindow),MAIN_WINDOW_WIDTH,MAIN_WINDOW_HEIGHT);
-
-    g_signal_connect(G_OBJECT(MainWindow),"delete_event",G_CALLBACK(Quit_MainWindow),NULL);
-    g_signal_connect(G_OBJECT(MainWindow),"destroy",G_CALLBACK(Quit_MainWindow),NULL);
-
-    /* Minimised window icon */
-    gtk_widget_realize(MainWindow);
-
-    gtk_window_set_icon_name (GTK_WINDOW (MainWindow), PACKAGE_TARNAME);
-
-    /* MainVBox for Menu bar + Tool bar + "Browser Area & FileArea & TagArea" + Log Area + "Status bar & Progress bar" */
-    MainVBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
-    gtk_container_add (GTK_CONTAINER(MainWindow),MainVBox);
-    gtk_widget_show(MainVBox);
-
-    /* Menu bar and tool bar */
-    Create_UI(&MenuArea, &ToolArea);
-    gtk_box_pack_start(GTK_BOX(MainVBox),MenuArea,FALSE,FALSE,0);
-    gtk_box_pack_start(GTK_BOX(MainVBox),ToolArea,FALSE,FALSE,0);
-
-
-    /* The two panes: BrowserArea on the left, FileArea+TagArea on the right */
-    MainWindowHPaned = gtk_paned_new(GTK_ORIENTATION_HORIZONTAL);
-    //gtk_box_pack_start(GTK_BOX(MainVBox),MainWindowHPaned,TRUE,TRUE,0);
-    gtk_paned_set_position(GTK_PANED(MainWindowHPaned),PANE_HANDLE_POSITION1);
-    gtk_widget_show(MainWindowHPaned);
-
-    /* Browser (Tree + File list + Entry) */
-    BrowseArea = Create_Browser_Area();
-    gtk_paned_pack1(GTK_PANED(MainWindowHPaned),BrowseArea,TRUE,TRUE);
-
-    /* Vertical box for FileArea + TagArea */
-    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
-    gtk_paned_pack2(GTK_PANED(MainWindowHPaned),VBox,FALSE,FALSE);
-    gtk_widget_show(VBox);
-
-    /* File */
-    FileArea = Create_File_Area();
-    gtk_box_pack_start(GTK_BOX(VBox),FileArea,FALSE,FALSE,0);
-
-    /* Tag */
-    TagArea = Create_Tag_Area();
-    gtk_box_pack_start(GTK_BOX(VBox),TagArea,FALSE,FALSE,0);
-
-    /* Vertical pane for Browser Area + FileArea + TagArea */
-    MainWindowVPaned = gtk_paned_new(GTK_ORIENTATION_VERTICAL);
-    gtk_box_pack_start(GTK_BOX(MainVBox),MainWindowVPaned,TRUE,TRUE,0);
-    gtk_paned_pack1(GTK_PANED(MainWindowVPaned),MainWindowHPaned,TRUE,FALSE);
-    gtk_paned_set_position(GTK_PANED(MainWindowVPaned),PANE_HANDLE_POSITION4);
-    gtk_widget_show(MainWindowVPaned);
-
-
-    /* Log */
-    LogArea = Create_Log_Area();
-    gtk_paned_pack2(GTK_PANED(MainWindowVPaned),LogArea,FALSE,TRUE);
-
-    /* Horizontal box for Status bar + Progress bar */
-    HBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
-    gtk_box_pack_start(GTK_BOX(MainVBox),HBox,FALSE,FALSE,0);
-    gtk_widget_show(HBox);
-
-    /* Status bar */
-    StatusArea = Create_Status_Bar();
-    gtk_box_pack_start(GTK_BOX(HBox),StatusArea,TRUE,TRUE,0);
-
-    /* Progress bar */
-    ProgressArea = Create_Progress_Bar();
-    gtk_box_pack_end(GTK_BOX(HBox),ProgressArea,FALSE,FALSE,0);
-
-    gtk_widget_show(MainWindow);
-
-    if (SET_MAIN_WINDOW_POSITION)
-        gtk_window_move(GTK_WINDOW(MainWindow), MAIN_WINDOW_X, MAIN_WINDOW_Y);
-
-    /* Load the default dir when the UI is created and displayed
-     * to the screen and open also the scanner window */
-    idle_handler_id = g_idle_add((GSourceFunc)Init_Load_Default_Dir,NULL);
 }
 
 /*
@@ -535,7 +518,7 @@ on_application_activate (GApplication *application, gpointer user_data)
     }
     else
     {
-        run_mainloop (application);
+        common_init (application);
     }
 }
 
@@ -565,7 +548,12 @@ int main (int argc, char *argv[])
     EtApplication *application;
     gint status;
 
-    /* FIXME: Move remaining initialisation code into EtApplication. */
+#if ENABLE_NLS
+    bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
+    bind_textdomain_codeset (PACKAGE_TARNAME, "UTF-8");
+    textdomain (GETTEXT_PACKAGE);
+#endif /* ENABLE_NLS */
+
 #ifdef G_OS_WIN32
     weasytag_init();
     /* ET_Win32_Init(hInstance); */
@@ -579,9 +567,11 @@ int main (int argc, char *argv[])
 
     INIT_DIRECTORY = NULL;
 
+#if !GLIB_CHECK_VERSION (2, 35, 1)
+    g_type_init ();
+#endif /* !GLIB_CHECK_VERSION (2, 35, 1) */
+
     application = et_application_new ();
-    g_signal_connect (application, "startup",
-                      G_CALLBACK (on_application_startup), NULL);
     g_signal_connect (application, "open", G_CALLBACK (on_application_open),
                       NULL);
     g_signal_connect (application, "activate",
