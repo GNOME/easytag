@@ -30,6 +30,13 @@ struct _EtApplicationPrivate
     GtkWindow *main_window;
 };
 
+static const GOptionEntry entries[] =
+{
+    { "version", 'v', 0, G_OPTION_ARG_NONE, NULL,
+      N_("Print the version and exit"), NULL },
+    { NULL }
+};
+
 static void
 init_i18n (void)
 {
@@ -38,34 +45,6 @@ init_i18n (void)
     bind_textdomain_codeset (PACKAGE_TARNAME, "UTF-8");
     textdomain (GETTEXT_PACKAGE);
 #endif /* ENABLE_NLS */
-}
-
-static void
-display_usage (void)
-{
-/* Fix from Steve Ralston for gcc-3.2.2 */
-#ifdef G_OS_WIN32
-#define xPREFIX "c:"
-#else /* !G_OS_WIN32 */
-#define xPREFIX ""
-#endif /* !G_OS_WIN32 */
-
-    /* FIXME: Translators should not have to deal with this! */
-    g_print (_("\nUsage: easytag [option] "
-               "\n   or: easytag [directory]\n"
-               "\n"
-               "Option:\n"
-               "-------\n"
-               "-h, --help        Display this text and exit.\n"
-               "-v, --version     Print basic information and exit.\n"
-               "\n"
-               "Directory:\n"
-               "----------\n"
-               "%s/path_to/files  Use an absolute path to load,\n"
-               "path_to/files     Use a relative path.\n"
-               "\n"), xPREFIX);
-
-#undef xPREFIX
 }
 
 /*
@@ -122,7 +101,14 @@ et_local_command_line (GApplication *application, gchar **arguments[],
         else if ((strcmp (argv[i], "--help") == 0)
                  || (strcmp (argv[i], "-h") == 0))
         {
-            display_usage ();
+            GOptionContext *context;
+            gchar *help;
+
+            context = g_option_context_new (_("- Tag and rename audio files"));
+            g_option_context_add_main_entries (context, entries,
+                                               GETTEXT_PACKAGE);
+            help = g_option_context_get_help (context, TRUE, NULL);
+            g_print ("%s", help);
             exit (0);
         }
         else
