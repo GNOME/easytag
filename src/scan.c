@@ -3456,7 +3456,7 @@ Select_Fields_Set_Sensitive (void)
         gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsAllDowncase),          TRUE);
         gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsFirstLetterUppercase), TRUE);
         gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsFirstLettersUppercase),TRUE);
-        gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsDetectRomanNumerals),  TRUE);
+        Process_Fields_First_Letters_Check_Button_Toggled (ProcessFieldsFirstLettersUppercase);
         gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsRemoveSpace),          TRUE);
         gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsInsertSpace),          TRUE);
         gtk_widget_set_sensitive(GTK_WIDGET(ProcessFieldsOnlyOneSpace),         TRUE);
