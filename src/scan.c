@@ -2340,6 +2340,7 @@ void Open_ScannerWindow (gint scanner_type)
     scan_button = gtk_button_new_from_stock (GTK_STOCK_APPLY);
     /* TODO: Set related action to match AM_SCAN_FILES. */
     gtk_button_set_label (GTK_BUTTON (scan_button), _("Scan Files"));
+    gtk_widget_set_can_default (scan_button, TRUE);
     gtk_dialog_add_action_widget (GTK_DIALOG (ScannerWindow), scan_button,
                                   GTK_RESPONSE_APPLY);
     gtk_dialog_set_default_response (GTK_DIALOG (ScannerWindow),
