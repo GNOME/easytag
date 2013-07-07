@@ -108,6 +108,8 @@ static GtkWidget *MaskEditorUpButton;
 static GtkWidget *MaskEditorDownButton;
 static GtkWidget *MaskEditorSaveButton;
 
+static const guint BOX_SPACING = 6;
+
 /* Some predefined masks -- IMPORTANT: Null-terminate me! */
 static const gchar *Scan_Masks [] =
 {
@@ -2303,9 +2305,9 @@ void Open_ScannerWindow (gint scanner_type)
     GtkWidget *Table;
     GtkWidget *Label;
     GtkWidget *Button;
-    GtkWidget *Separator;
     GIcon *new_folder;
     GtkWidget *Icon;
+    GtkWidget *group;
     GtkWidget *process_fields_convert_none;
     GtkWidget *process_fields_case_none;
     GtkWidget *radio_space_none;
@@ -2426,13 +2428,13 @@ void Open_ScannerWindow (gint scanner_type)
     ScanTagFrame = gtk_frame_new (_(Scanner_Option_Menu_Items[0]));
     gtk_box_pack_start(GTK_BOX(ScanVBox),ScanTagFrame,FALSE,FALSE,0);
 
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,4);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(ScanTagFrame),vbox);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 4);
     gtk_widget_show(vbox);
 
     /* The combo box + Status icon */
-    HBox2 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
+    HBox2 = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_box_pack_start(GTK_BOX(vbox),HBox2,TRUE,TRUE,0);
 
     // Set up list model which is used both by the combobox and the editor
@@ -2550,7 +2552,7 @@ void Open_ScannerWindow (gint scanner_type)
     ProcessFieldsFrame = gtk_frame_new (_(Scanner_Option_Menu_Items[2]));
     gtk_box_pack_start(GTK_BOX(ScanVBox),ProcessFieldsFrame,FALSE,FALSE,0);
 
-    VBox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
+    VBox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(ProcessFieldsFrame),VBox);
     gtk_container_set_border_width(GTK_CONTAINER(VBox), 4);
     gtk_widget_show(VBox);
@@ -2653,18 +2655,18 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_widget_set_tooltip_text (Button, _("Select/Unselect all"));
 
-    /* Separator line */
-    Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
-    gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
-
     /* Group: character conversion */
+    group = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
+    gtk_box_pack_start (GTK_BOX (VBox), group, FALSE, FALSE, 0);
     ProcessFieldsConvertIntoSpace = gtk_radio_button_new_with_label_from_widget (NULL, _("Convert '_' and '%20' to spaces"));
     ProcessFieldsConvertSpace = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (ProcessFieldsConvertIntoSpace),
                                                                              _("Convert ' ' to '_'"));
-    gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsConvertIntoSpace,FALSE,FALSE,0);
-    gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsConvertSpace,    FALSE,FALSE,0);
+    gtk_box_pack_start (GTK_BOX (group), ProcessFieldsConvertIntoSpace, FALSE,
+                        FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (group), ProcessFieldsConvertSpace, FALSE,
+                        FALSE, 0);
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
-    gtk_box_pack_start(GTK_BOX(VBox),hbox,FALSE,FALSE,0);
+    gtk_box_pack_start (GTK_BOX (group), hbox, FALSE, FALSE, 0);
     ProcessFieldsConvert = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (ProcessFieldsConvertIntoSpace),
                                                                         _("Convert:"));
     ProcessFieldsConvertTo        = gtk_entry_new();
@@ -2680,7 +2682,7 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_box_pack_start(GTK_BOX(hbox),ProcessFieldsConvertFrom,   FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),ProcessFieldsConvertLabelTo,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),ProcessFieldsConvertTo,     FALSE,FALSE,0);
-    gtk_box_pack_start (GTK_BOX (VBox), process_fields_convert_none, FALSE,
+    gtk_box_pack_start (GTK_BOX (group), process_fields_convert_none, FALSE,
                         FALSE, 0);
     if (PROCESS_FIELDS_CONVERT_FROM)
         gtk_entry_set_text(GTK_ENTRY(ProcessFieldsConvertFrom),PROCESS_FIELDS_CONVERT_FROM);
@@ -2702,13 +2704,11 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_widget_set_tooltip_text(ProcessFieldsConvert,
         _("Replace a string by another one. Note that the search is case sensitive."));
 
-    /* Separator line */
-    Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
-    gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
-
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
     
     /* Group: capitalize, ... */
+    group = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
+    gtk_box_pack_start (GTK_BOX (VBox), group, FALSE, FALSE, 0);
     ProcessFieldsAllUppercase = gtk_radio_button_new_with_label_from_widget (NULL, _("Capitalize all"));
     ProcessFieldsAllDowncase  = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (ProcessFieldsAllUppercase),
                                                                              _("Lowercase all"));
@@ -2719,14 +2719,17 @@ void Open_ScannerWindow (gint scanner_type)
     ProcessFieldsDetectRomanNumerals = gtk_check_button_new_with_label(_("Detect Roman numerals"));
     process_fields_case_none = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (ProcessFieldsAllUppercase),
                                                                             _("Do not change capitalization"));
-    gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsAllUppercase,         FALSE,FALSE,0);
-    gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsAllDowncase,          FALSE,FALSE,0);
-    gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsFirstLetterUppercase, FALSE,FALSE,0);
-    gtk_box_pack_start(GTK_BOX(VBox),hbox,FALSE,FALSE,0);
+    gtk_box_pack_start (GTK_BOX (group), ProcessFieldsAllUppercase, FALSE,
+                        FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (group),ProcessFieldsAllDowncase, FALSE, FALSE,
+                        0);
+    gtk_box_pack_start (GTK_BOX (group),ProcessFieldsFirstLetterUppercase,
+                        FALSE, FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (group), hbox, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(hbox),ProcessFieldsFirstLettersUppercase,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),ProcessFieldsDetectRomanNumerals,FALSE,FALSE,0);
-    gtk_box_pack_start (GTK_BOX (VBox), process_fields_case_none, FALSE, FALSE,
-                        0);
+    gtk_box_pack_start (GTK_BOX (group), process_fields_case_none, FALSE,
+                        FALSE, 0);
     /* Toggled signals */
     g_signal_connect(G_OBJECT(ProcessFieldsFirstLettersUppercase),"toggled",G_CALLBACK(Process_Fields_First_Letters_Check_Button_Toggled),NULL);
     /* Set check buttons to init value */
@@ -2752,11 +2755,9 @@ void Open_ScannerWindow (gint scanner_type)
         _("Force to convert to upper case the Roman numerals. "
           "Example, before: 'ix. text in an entry', after: 'IX. Text In An Entry'."));
 
-    /* Separator line */
-    Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
-    gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
-
     /* Group: insert/remove spaces */
+    group = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
+    gtk_box_pack_start (GTK_BOX (VBox), group, FALSE, FALSE, 0);
     ProcessFieldsRemoveSpace = gtk_radio_button_new_with_label_from_widget (NULL, _("Remove spaces"));
     ProcessFieldsInsertSpace = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (ProcessFieldsRemoveSpace),
                                                                             _("Insert a space before uppercase letters"));
@@ -2764,10 +2765,13 @@ void Open_ScannerWindow (gint scanner_type)
                                                                              _("Remove duplicate spaces and underscores"));
     radio_space_none = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (ProcessFieldsRemoveSpace),
                                                                     _("Do not change word separators"));
-    gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsRemoveSpace,FALSE,FALSE,0);
-    gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsInsertSpace,FALSE,FALSE,0);
-    gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsOnlyOneSpace,FALSE,FALSE,0);
-    gtk_box_pack_start (GTK_BOX (VBox), radio_space_none, FALSE, FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (group), ProcessFieldsRemoveSpace, FALSE,
+                        FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (group), ProcessFieldsInsertSpace, FALSE,
+                        FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (group), ProcessFieldsOnlyOneSpace, FALSE,
+                        FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (group), radio_space_none, FALSE, FALSE, 0);
     /* Set check buttons to init value */
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsRemoveSpace),PF_REMOVE_SPACE);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsInsertSpace),PF_INSERT_SPACE);
