@@ -237,8 +237,6 @@ static void Scan_Process_Fields_Functions (gchar **string);
 
 static gint Scan_Word_Is_Roman_Numeral (const gchar *text);
 
-static void Process_Fields_Check_Button_Toggled (GtkWidget *object,
-                                                 GList *list);
 static void Process_Fields_Convert_Check_Button_Toggled (GtkWidget *object);
 static void Process_Fields_First_Letters_Check_Button_Toggled (GtkWidget *object);
 static void Select_Fields_Invert_Selection (void);
@@ -2311,9 +2309,6 @@ void Open_ScannerWindow (gint scanner_type)
     GtkWidget *process_fields_convert_none;
     GtkWidget *process_fields_case_none;
     GtkWidget *radio_space_none;
-    GList *pf_cb_group1 = NULL;
-    GList *pf_cb_group2 = NULL;
-    GList *pf_cb_group3 = NULL;
     GtkTreeViewColumn * column;
     GtkCellRenderer *renderer;
     GtkToggleAction *toggle_action;
@@ -2690,14 +2685,7 @@ void Open_ScannerWindow (gint scanner_type)
         gtk_entry_set_text(GTK_ENTRY(ProcessFieldsConvertFrom),PROCESS_FIELDS_CONVERT_FROM);
     if (PROCESS_FIELDS_CONVERT_TO)
         gtk_entry_set_text(GTK_ENTRY(ProcessFieldsConvertTo),PROCESS_FIELDS_CONVERT_TO);
-    /* List creation for check buttons in group */
-    pf_cb_group1 = g_list_append (pf_cb_group1,ProcessFieldsConvertIntoSpace);
-    pf_cb_group1 = g_list_append (pf_cb_group1,ProcessFieldsConvertSpace);
-    pf_cb_group1 = g_list_append (pf_cb_group1,ProcessFieldsConvert);
     /* Toggled signals */
-    g_signal_connect(G_OBJECT(ProcessFieldsConvertIntoSpace),"toggled",G_CALLBACK(Process_Fields_Check_Button_Toggled),pf_cb_group1);
-    g_signal_connect(G_OBJECT(ProcessFieldsConvertSpace),    "toggled",G_CALLBACK(Process_Fields_Check_Button_Toggled),pf_cb_group1);
-    g_signal_connect(G_OBJECT(ProcessFieldsConvert),         "toggled",G_CALLBACK(Process_Fields_Check_Button_Toggled),pf_cb_group1);
     g_signal_connect(G_OBJECT(ProcessFieldsConvert),         "toggled",G_CALLBACK(Process_Fields_Convert_Check_Button_Toggled),NULL);
     /* Set check buttons to init value */
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsConvertIntoSpace),PF_CONVERT_INTO_SPACE);
@@ -2738,18 +2726,8 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_box_pack_start(GTK_BOX(hbox),ProcessFieldsDetectRomanNumerals,FALSE,FALSE,0);
     gtk_box_pack_start (GTK_BOX (VBox), process_fields_case_none, FALSE, FALSE,
                         0);
-    /* List creation for check buttons in group */
-    pf_cb_group2 = g_list_append(pf_cb_group2,ProcessFieldsAllUppercase);
-    pf_cb_group2 = g_list_append(pf_cb_group2,ProcessFieldsAllDowncase);
-    pf_cb_group2 = g_list_append(pf_cb_group2,ProcessFieldsFirstLetterUppercase);
-    pf_cb_group2 = g_list_append(pf_cb_group2,ProcessFieldsFirstLettersUppercase);
     /* Toggled signals */
-    g_signal_connect(G_OBJECT(ProcessFieldsAllUppercase),"toggled",G_CALLBACK(Process_Fields_Check_Button_Toggled),pf_cb_group2);
-    g_signal_connect(G_OBJECT(ProcessFieldsAllDowncase), "toggled",G_CALLBACK(Process_Fields_Check_Button_Toggled),pf_cb_group2);
-    g_signal_connect(G_OBJECT(ProcessFieldsFirstLetterUppercase),"toggled",G_CALLBACK(Process_Fields_Check_Button_Toggled),pf_cb_group2);
-    g_signal_connect(G_OBJECT(ProcessFieldsFirstLettersUppercase),"toggled",G_CALLBACK(Process_Fields_Check_Button_Toggled),pf_cb_group2);
     g_signal_connect(G_OBJECT(ProcessFieldsFirstLettersUppercase),"toggled",G_CALLBACK(Process_Fields_First_Letters_Check_Button_Toggled),NULL);
-    g_signal_connect(G_OBJECT(ProcessFieldsDetectRomanNumerals),"toggled",G_CALLBACK(Process_Fields_Check_Button_Toggled),NULL);
     /* Set check buttons to init value */
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsAllUppercase),PF_CONVERT_ALL_UPPERCASE);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsAllDowncase),PF_CONVERT_ALL_DOWNCASE);
@@ -2789,14 +2767,6 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsInsertSpace,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsOnlyOneSpace,FALSE,FALSE,0);
     gtk_box_pack_start (GTK_BOX (VBox), radio_space_none, FALSE, FALSE, 0);
-    /* List creation for check buttons in group */
-    pf_cb_group3 = g_list_append(pf_cb_group3,ProcessFieldsRemoveSpace);
-    pf_cb_group3 = g_list_append(pf_cb_group3,ProcessFieldsInsertSpace);
-    pf_cb_group3 = g_list_append(pf_cb_group3,ProcessFieldsOnlyOneSpace);
-    /* Toggled signals */
-    g_signal_connect(G_OBJECT(ProcessFieldsRemoveSpace), "toggled",G_CALLBACK(Process_Fields_Check_Button_Toggled),pf_cb_group3);
-    g_signal_connect(G_OBJECT(ProcessFieldsInsertSpace), "toggled",G_CALLBACK(Process_Fields_Check_Button_Toggled),pf_cb_group3);
-    g_signal_connect(G_OBJECT(ProcessFieldsOnlyOneSpace),"toggled",G_CALLBACK(Process_Fields_Check_Button_Toggled),pf_cb_group3);
     /* Set check buttons to init value */
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsRemoveSpace),PF_REMOVE_SPACE);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsInsertSpace),PF_INSERT_SPACE);
@@ -3380,26 +3350,6 @@ Scan_Toggle_Mask_Editor_Button (void)
     }
 }
 
-
-
-/*
- * Manage/Toggle check buttons into 'Process Fields' frame
- */
-static void
-Process_Fields_Check_Button_Toggled (GtkWidget *object, GList *list)
-{
-    gint i = 0;
-
-    if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(object)) )
-    {
-        for (; list != NULL; list = g_list_next (list))
-        {
-            if ( list->data!=NULL && list->data!=object )
-                gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(list->data),FALSE);
-            i++;
-        }
-    }
-}
 
 
 static void
