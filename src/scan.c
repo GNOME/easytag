@@ -2308,6 +2308,9 @@ void Open_ScannerWindow (gint scanner_type)
     GtkWidget *Separator;
     GIcon *new_folder;
     GtkWidget *Icon;
+    GtkWidget *process_fields_convert_none;
+    GtkWidget *process_fields_case_none;
+    GtkWidget *radio_space_none;
     GList *pf_cb_group1 = NULL;
     GList *pf_cb_group2 = NULL;
     GList *pf_cb_group3 = NULL;
@@ -2659,13 +2662,15 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
 
     /* Group: character conversion */
-    ProcessFieldsConvertIntoSpace = gtk_check_button_new_with_label(_("Convert '_' and '%20' to spaces"));
-    ProcessFieldsConvertSpace     = gtk_check_button_new_with_label(_("Convert ' ' to '_'"));
+    ProcessFieldsConvertIntoSpace = gtk_radio_button_new_with_label_from_widget (NULL, _("Convert '_' and '%20' to spaces"));
+    ProcessFieldsConvertSpace = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (ProcessFieldsConvertIntoSpace),
+                                                                             _("Convert ' ' to '_'"));
     gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsConvertIntoSpace,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsConvertSpace,    FALSE,FALSE,0);
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,2);
     gtk_box_pack_start(GTK_BOX(VBox),hbox,FALSE,FALSE,0);
-    ProcessFieldsConvert          = gtk_check_button_new_with_label(_("Convert:"));  // Patch from Ben Hearsum, Oct. 3, 2003
+    ProcessFieldsConvert = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (ProcessFieldsConvertIntoSpace),
+                                                                        _("Convert:"));
     ProcessFieldsConvertTo        = gtk_entry_new();
     ProcessFieldsConvertLabelTo   = gtk_label_new(_("to: ")); // A "space" at the end to allow another translation for "to :" (needed in French!)
     ProcessFieldsConvertFrom      = gtk_entry_new();
@@ -2673,10 +2678,14 @@ void Open_ScannerWindow (gint scanner_type)
     //gtk_entry_set_max_length(GTK_ENTRY(ProcessFieldsConvertFrom), 1);
     gtk_widget_set_size_request(ProcessFieldsConvertTo,120,-1);
     gtk_widget_set_size_request(ProcessFieldsConvertFrom,120,-1);
+    process_fields_convert_none = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (ProcessFieldsConvertIntoSpace),
+                                                                               _("Do not convert"));
     gtk_box_pack_start(GTK_BOX(hbox),ProcessFieldsConvert,       FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),ProcessFieldsConvertFrom,   FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),ProcessFieldsConvertLabelTo,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),ProcessFieldsConvertTo,     FALSE,FALSE,0);
+    gtk_box_pack_start (GTK_BOX (VBox), process_fields_convert_none, FALSE,
+                        FALSE, 0);
     if (PROCESS_FIELDS_CONVERT_FROM)
         gtk_entry_set_text(GTK_ENTRY(ProcessFieldsConvertFrom),PROCESS_FIELDS_CONVERT_FROM);
     if (PROCESS_FIELDS_CONVERT_TO)
@@ -2711,17 +2720,24 @@ void Open_ScannerWindow (gint scanner_type)
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
     
     /* Group: capitalize, ... */
-    ProcessFieldsAllUppercase = gtk_check_button_new_with_label         (_("All uppercase"));
-    ProcessFieldsAllDowncase  = gtk_check_button_new_with_label         (_("All lowercase"));
-    ProcessFieldsFirstLetterUppercase  = gtk_check_button_new_with_label(_("First letter uppercase"));
-    ProcessFieldsFirstLettersUppercase = gtk_check_button_new_with_label(_("First letter uppercase of each word"));
+    ProcessFieldsAllUppercase = gtk_radio_button_new_with_label_from_widget (NULL, _("Capitalize all"));
+    ProcessFieldsAllDowncase  = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (ProcessFieldsAllUppercase),
+                                                                             _("Lowercase all"));
+    ProcessFieldsFirstLetterUppercase  = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (ProcessFieldsAllUppercase),
+                                                                                      _("Capitalize first letter"));
+    ProcessFieldsFirstLettersUppercase = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (ProcessFieldsAllUppercase),
+                                                                                      _("Capitalize the first letter of each word"));
     ProcessFieldsDetectRomanNumerals = gtk_check_button_new_with_label(_("Detect Roman numerals"));
+    process_fields_case_none = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (ProcessFieldsAllUppercase),
+                                                                            _("Do not change capitalization"));
     gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsAllUppercase,         FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsAllDowncase,          FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsFirstLetterUppercase, FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(VBox),hbox,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),ProcessFieldsFirstLettersUppercase,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),ProcessFieldsDetectRomanNumerals,FALSE,FALSE,0);
+    gtk_box_pack_start (GTK_BOX (VBox), process_fields_case_none, FALSE, FALSE,
+                        0);
     /* List creation for check buttons in group */
     pf_cb_group2 = g_list_append(pf_cb_group2,ProcessFieldsAllUppercase);
     pf_cb_group2 = g_list_append(pf_cb_group2,ProcessFieldsAllDowncase);
@@ -2762,12 +2778,17 @@ void Open_ScannerWindow (gint scanner_type)
     gtk_box_pack_start(GTK_BOX(VBox),Separator,FALSE,FALSE,0);
 
     /* Group: insert/remove spaces */
-    ProcessFieldsRemoveSpace  = gtk_check_button_new_with_label(_("Remove spaces"));
-    ProcessFieldsInsertSpace  = gtk_check_button_new_with_label(_("Insert a space before an uppercase letter"));
-    ProcessFieldsOnlyOneSpace = gtk_check_button_new_with_label(_("Remove duplicates of space or underscore"));
+    ProcessFieldsRemoveSpace = gtk_radio_button_new_with_label_from_widget (NULL, _("Remove spaces"));
+    ProcessFieldsInsertSpace = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (ProcessFieldsRemoveSpace),
+                                                                            _("Insert a space before uppercase letters"));
+    ProcessFieldsOnlyOneSpace = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (ProcessFieldsRemoveSpace),
+                                                                             _("Remove duplicate spaces and underscores"));
+    radio_space_none = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (ProcessFieldsRemoveSpace),
+                                                                    _("Do not change word separators"));
     gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsRemoveSpace,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsInsertSpace,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(VBox),ProcessFieldsOnlyOneSpace,FALSE,FALSE,0);
+    gtk_box_pack_start (GTK_BOX (VBox), radio_space_none, FALSE, FALSE, 0);
     /* List creation for check buttons in group */
     pf_cb_group3 = g_list_append(pf_cb_group3,ProcessFieldsRemoveSpace);
     pf_cb_group3 = g_list_append(pf_cb_group3,ProcessFieldsInsertSpace);
@@ -2788,7 +2809,7 @@ void Open_ScannerWindow (gint scanner_type)
         _("A space is inserted before each upper case letter. "
           "Example, before: 'TextInAnEntry', after: 'Text In An Entry'."));
     gtk_widget_set_tooltip_text(ProcessFieldsOnlyOneSpace,
-        _("Duplicated spaces or underscores are removed. "
+        _("Duplicate spaces and underscores are removed. "
           "Example, before: 'Text__In__An   Entry', after: 'Text_In_An Entry'."));
     Select_Fields_Set_Sensitive();
 
