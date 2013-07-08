@@ -309,12 +309,32 @@ ogg_tag_read_file_tag (gchar *filename, File_Tag *FileTag, GError **error)
         g_free(string);
     }
 
-    /*******************************
-     * Disc Number (Part of a Set) *
-     *******************************/
-    if ( (string = vorbis_comment_query(vc,"DISCNUMBER",0)) != NULL && g_utf8_strlen(string, -1) > 0 )
+    /**********************************************
+     * Disc Number (Part of a Set) and Disc Total *
+     **********************************************/
+    if ((string = vorbis_comment_query (vc, "DISCNUMBER", 0)) != NULL
+        && g_utf8_strlen (string, -1) > 0)
     {
-        FileTag->disc_number = g_strdup(string);
+        FileTag->disc_number = g_strdup (string);
+    }
+
+    if ((string = vorbis_comment_query (vc, "DISCNUMBER", 0)) != NULL
+        && g_utf8_strlen (string, -1) > 0)
+    {
+        /* Check if DISCTOTAL used, else takes it in DISCNUMBER. */
+        if ((string1 = vorbis_comment_query (vc, "DISCTOTAL", 0)) != NULL
+            && g_utf8_strlen (string1, -1) > 0)
+        {
+            FileTag->disc_total = et_disc_number_to_string (atoi (string1));
+        }
+        else if ((string1 = g_utf8_strchr (string, -1, '/')))
+        {
+            FileTag->disc_total = et_disc_number_to_string (atoi (string1
+                                                                  + 1));
+            *string1 = '\0';
+        }
+
+        FileTag->disc_number = et_disc_number_to_string (atoi (string));
     }
 
     /********
@@ -787,6 +807,7 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
      * Disc Number *
      ***************/
     Ogg_Set_Tag(vc,"DISCNUMBER=",FileTag->disc_number,FALSE);
+    Ogg_Set_Tag (vc, "DISCTOTAL=", FileTag->disc_total, FALSE);
 
     /********
      * Year *
