@@ -506,15 +506,7 @@ void Load_Track_List_To_UI (void)
     /* Create list of tracks. */
     for (i = 1; i <= len; i++)
     {
-
-        if (NUMBER_TRACK_FORMATED)
-        {
-            text = g_strdup_printf ("%.*" G_GSIZE_FORMAT,
-                                    NUMBER_TRACK_FORMATED_SPIN_BUTTON, i);
-        } else
-        {
-            text = g_strdup_printf ("%.2" G_GSIZE_FORMAT, i);
-        }
+        text = et_track_number_to_string (i);
 
         gtk_list_store_insert_with_values (GTK_LIST_STORE (TrackEntryComboModel),
                                            NULL, G_MAXINT, MISC_COMBO_TEXT,
@@ -3717,4 +3709,13 @@ et_playlist_on_response (GtkDialog *dialog, gint response_id,
         default:
             g_assert_not_reached ();
     }
+}
+
+gchar *
+et_track_number_to_string (const guint track_number)
+{
+    return NUMBER_TRACK_FORMATED ? g_strdup_printf ("%.*d",
+                                                    NUMBER_TRACK_FORMATED_SPIN_BUTTON,
+                                                    track_number)
+                                 : g_strdup_printf ("%d", track_number);
 }

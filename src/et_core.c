@@ -3461,11 +3461,8 @@ ET_Save_File_Tag_From_UI (File_Tag *FileTag)
 
     if ( g_utf8_strlen(buffer, -1) > 0  )
     {
-        if (NUMBER_TRACK_FORMATED) {
-            FileTag->track = g_strdup_printf("%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,atoi(buffer));
-            g_free(buffer);
-        } else
-            FileTag->track = buffer;
+        FileTag->track = et_track_number_to_string (atoi (buffer));
+        g_free (buffer);
     } else
     {
         FileTag->track = NULL;
@@ -3478,12 +3475,8 @@ ET_Save_File_Tag_From_UI (File_Tag *FileTag)
 
     if ( g_utf8_strlen(buffer, -1) > 0  )
     {
-        if (NUMBER_TRACK_FORMATED)
-        {
-            FileTag->track_total = g_strdup_printf("%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,atoi(buffer));
-            g_free(buffer);
-        } else
-            FileTag->track_total = buffer;
+        FileTag->track_total = et_track_number_to_string (atoi (buffer));
+        g_free (buffer);
     } else
     {
         FileTag->track_total = NULL;
@@ -3692,10 +3685,8 @@ ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
     {
         gchar *tmp_str;
 
-        if (NUMBER_TRACK_FORMATED)
-            FileTag->track = g_strdup_printf("%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,atoi(FileTagCur->track));
-        else
-            FileTag->track = g_strdup(FileTagCur->track);
+        FileTag->track = et_track_number_to_string (atoi (FileTagCur->track));
+
         // This field must contain only digits
         tmp_str = FileTag->track;
         while (isdigit((guchar)*tmp_str)) tmp_str++;
@@ -3710,10 +3701,7 @@ ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
     /* Track Total */
     if ( FileTagCur->track_total && g_utf8_strlen(FileTagCur->track_total, -1)>0 )
     {
-        if (NUMBER_TRACK_FORMATED)
-            FileTag->track_total = g_strdup_printf("%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,atoi(FileTagCur->track_total));
-        else
-            FileTag->track_total = g_strdup(FileTagCur->track_total);
+        FileTag->track_total = et_track_number_to_string (atoi (FileTagCur->track_total));
         Strip_String(FileTag->track_total);
     } else
     {

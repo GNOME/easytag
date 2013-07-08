@@ -258,23 +258,13 @@ gboolean Id3tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
         {
             string2 = g_utf8_strchr(string1,-1,'/');
 
-            if (NUMBER_TRACK_FORMATED)
+            if (string2)
             {
-                if (string2)
-                {
-                    FileTag->track_total = g_strdup_printf("%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,atoi(string2+1)); // Just to have numbers like this : '01', '05', '12', ...
-                    *string2 = '\0'; // To cut string1
-                }
-                FileTag->track = g_strdup_printf("%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,atoi(string1)); // Just to have numbers like this : '01', '05', '12', ...
-            }else
-            {
-                if (string2)
-                {
-                    FileTag->track_total = g_strdup(string2+1);
-                    *string2 = '\0'; // To cut string1
-                }
-                FileTag->track = g_strdup(string1);
+                FileTag->track_total = et_track_number_to_string (atoi (string2 + 1));
+                *string2 = '\0'; // To cut string1
             }
+            FileTag->track = et_track_number_to_string (atoi (string1));
+
             g_free(string1);
 
         }

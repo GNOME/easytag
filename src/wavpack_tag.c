@@ -37,6 +37,7 @@
 #include "picture.h"
 //#include "setting.h"
 #include "charset.h"
+#include "misc.h"
 #include "wavpack_tag.h"
 
 
@@ -169,11 +170,13 @@ gboolean Wavpack_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
         field2++;
     }
 
-    if ( field2 && FileTag->track_total == NULL ) {
-        FileTag->track_total = Try_To_Validate_Utf8_String(field2);
+    if (field2 && FileTag->track_total == NULL)
+    {
+        FileTag->track_total = et_track_number_to_string (atoi (Try_To_Validate_Utf8_String (field2)));
     }
-    if ( length > 0 && FileTag->track == NULL ) {
-        FileTag->track = Try_To_Validate_Utf8_String(field);
+    if (length > 0 && FileTag->track == NULL)
+    {
+        FileTag->track = et_track_number_to_string (atoi (Try_To_Validate_Utf8_String (field)));
     }
 
     g_free (field);

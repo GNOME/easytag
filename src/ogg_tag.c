@@ -332,33 +332,19 @@ ogg_tag_read_file_tag (gchar *filename, File_Tag *FileTag, GError **error)
      *************************/
     if ( (string = vorbis_comment_query(vc,"TRACKNUMBER",0)) != NULL && g_utf8_strlen(string, -1) > 0 )
     {
-        if (NUMBER_TRACK_FORMATED)
+        /* Check if TRACKTOTAL used, else takes it in TRACKNUMBER. */
+        if ((string1 = vorbis_comment_query (vc, "TRACKTOTAL", 0)) != NULL
+            && g_utf8_strlen (string1, -1) > 0)
         {
-            // Ckeck if TRACKTOTAL used, else takes it in TRACKNUMBER
-            if ( (string1 = vorbis_comment_query(vc,"TRACKTOTAL",0)) != NULL && g_utf8_strlen(string1, -1) > 0 )
-            {
-                FileTag->track_total = g_strdup_printf("%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,atoi(string1));
-            }else
-            if ( (string1 = g_utf8_strchr(string, -1, '/')) )
-            {
-                FileTag->track_total = g_strdup_printf("%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,atoi(string1+1));
-                *string1 = '\0';
-            }
-            FileTag->track = g_strdup_printf("%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,atoi(string));
-        }else
-        {
-            // Ckeck if TRACKTOTAL used, else takes it in TRACKNUMBER
-            if ( (string1 = vorbis_comment_query(vc,"TRACKTOTAL",0)) != NULL && g_utf8_strlen(string1, -1) > 0 )
-            {
-                FileTag->track_total = g_strdup_printf("%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,atoi(string1));
-            }else
-            if ( (string1 = g_utf8_strchr(string, -1, '/')) )
-            {
-                FileTag->track_total = g_strdup(string1+1);
-                *string1 = '\0';
-            }
-            FileTag->track = g_strdup(string);
+            FileTag->track_total = et_track_number_to_string (atoi (string1));
         }
+        else if ((string1 = g_utf8_strchr (string, -1, '/')))
+        {
+            FileTag->track_total = et_track_number_to_string (atoi (string1
+                                                                    + 1));
+            *string1 = '\0';
+        }
+        FileTag->track = g_strdup (string);
     }
 
     /*********

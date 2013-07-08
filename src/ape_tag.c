@@ -110,23 +110,15 @@ gboolean Ape_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
         string = Try_To_Validate_Utf8_String(string);
 
         string1 = g_utf8_strchr(string, -1, '/');    // strchr don't like NULL string
-        if (NUMBER_TRACK_FORMATED)
+
+        if (string1)
         {
-            if (string1)
-            {
-                FileTag->track_total = g_strdup_printf("%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON, atoi(string1 + 1));
-                *string1 = '\0';
-            }
-            FileTag->track = g_strdup_printf("%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON, atoi(string));
-        } else
-        {
-            if (string1)
-            {
-                FileTag->track_total = g_strdup(string1 + 1);
-                *string1 = '\0';
-            }
-            FileTag->track = g_strdup(string);
+            FileTag->track_total = et_track_number_to_string (atoi (string1
+                                                                    + 1));
+            *string1 = '\0';
         }
+        FileTag->track = et_track_number_to_string (atoi (string));
+
         g_free(string);
     } else
     {
@@ -260,7 +252,7 @@ gboolean Ape_Tag_Write_File_Tag (ET_File *ETFile)
             string = g_strconcat(FileTag->track,NULL);
         apefrm_add(ape_mem, 0, APE_TAG_FIELD_TRACK, string);
         g_free(string);
-    }else
+    } else
         apefrm_remove(ape_mem,APE_TAG_FIELD_TRACK);
 
     /*********

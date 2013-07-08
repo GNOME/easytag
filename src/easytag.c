@@ -1492,10 +1492,8 @@ Mini_Button_Clicked (GObject *object)
             path1 = g_path_get_dirname(FileNameCur->value);
             if ( path && path1 && strcmp(path,path1)!=0 )
                 i = 0;
-            if (NUMBER_TRACK_FORMATED)
-                string_to_set = g_strdup_printf("%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,++i);
-            else
-                string_to_set = g_strdup_printf("%d",++i);
+
+            string_to_set = et_track_number_to_string (++i);
 
             // The file is in the selection?
             if ( (ET_File *)etfilelistfull->data == etfile )
@@ -1530,10 +1528,9 @@ Mini_Button_Clicked (GObject *object)
             etfile        = (ET_File *)l->data;
             filename_utf8 = ((File_Name *)etfile->FileNameNew->data)->value_utf8;
             path_utf8     = g_path_get_dirname(filename_utf8);
-            if (NUMBER_TRACK_FORMATED)
-                string_to_set = g_strdup_printf("%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,ET_Get_Number_Of_Files_In_Directory(path_utf8));
-            else
-                string_to_set = g_strdup_printf("%d",ET_Get_Number_Of_Files_In_Directory(path_utf8));
+
+            string_to_set = et_track_number_to_string (ET_Get_Number_Of_Files_In_Directory (path_utf8));
+
             g_free(path_utf8);
             if (!string_to_set1)
                 string_to_set1 = g_strdup(string_to_set); // Just for the message below...

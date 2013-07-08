@@ -338,13 +338,8 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
                             field_value_tmp = g_strndup(field_value, field_len);
                             field_value = Try_To_Validate_Utf8_String(field_value_tmp);
                             g_free(field_value_tmp);
-                            if (NUMBER_TRACK_FORMATED)
-                            {
-                                FileTag->track_total = g_strdup_printf("%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,atoi(field_value));
-                            }else
-                            {
-                                FileTag->track_total = g_strdup(field_value);
-                            }
+
+                            FileTag->track_total = et_track_number_to_string (atoi (field_value));
                             g_free(field_value);
                         }
                     }
@@ -367,24 +362,14 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
                             field_value = Try_To_Validate_Utf8_String(field_value_tmp);
                             g_free(field_value_tmp);
                             string = g_utf8_strchr(field_value, -1, '/');
-                            if (NUMBER_TRACK_FORMATED)
+
+                            if (string && !FileTag->track_total)
                             {
-                                // If track_total not filled before, try now...
-                                if (string && !FileTag->track_total)
-                                {
-                                    FileTag->track_total = g_strdup_printf("%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,atoi(string+1));
-                                    *string = '\0';
-                                }
-                                FileTag->track = g_strdup_printf("%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,atoi(field_value));
-                            }else
-                            {
-                                if (string && !FileTag->track_total)
-                                {
-                                    FileTag->track_total = g_strdup(string+1);
-                                    *string = '\0';
-                                }
-                                FileTag->track = g_strdup(field_value);
+                                FileTag->track_total = et_track_number_to_string (atoi (string + 1));
+                                *string = '\0';
                             }
+                            FileTag->track = et_track_number_to_string (atoi (field_value));
+
                             g_free(field_value);
                         }
                     }

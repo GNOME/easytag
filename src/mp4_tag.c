@@ -120,7 +120,7 @@ gboolean Mp4tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     track = taglib_tag_track(tag);
 
     if (track != 0)
-        FileTag->track = NUMBER_TRACK_FORMATED ? g_strdup_printf("%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,(gint)track) : g_strdup_printf("%d",(gint)track);
+        FileTag->track = et_track_number_to_string (track);
     /* TODO: No total track support in the TagLib C API! */
 
     /*********
