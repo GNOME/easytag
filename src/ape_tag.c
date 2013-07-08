@@ -88,12 +88,32 @@ gboolean Ape_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     if (FileTag->album == NULL)
         FileTag->album = Try_To_Validate_Utf8_String(string);
 
-    /***************
-     * Disc Number *
-     ***************/
+    /******************************
+     * Disc Number and Disc Total *
+     ******************************/
     string = apefrm_getstr (ape_cnt, APE_TAG_FIELD_PART);
-    if (FileTag->disc_number == NULL)
-        FileTag->disc_number = Try_To_Validate_Utf8_String(string);
+    if (string)
+    {
+        string = Try_To_Validate_Utf8_String (string);
+
+        /* strchr does not like NULL string. */
+        string1 = g_utf8_strchr (string, -1, '/');
+
+        if (string1)
+        {
+            FileTag->disc_total = et_disc_number_to_string (atoi (string1
+                                                                  + 1));
+            *string1 = '\0';
+        }
+
+        FileTag->disc_number = et_disc_number_to_string (atoi (string));
+
+        g_free (string);
+    }
+    else
+    {
+        FileTag->disc_number = FileTag->disc_total = NULL;
+    }
 
     /********
      * Year *
@@ -225,13 +245,28 @@ gboolean Ape_Tag_Write_File_Tag (ET_File *ETFile)
     else
         apefrm_remove(ape_mem,APE_TAG_FIELD_ALBUM);
 
-    /***************
-     * Disc Number *
-     ***************/
-    if ( FileTag->disc_number && g_utf8_strlen(FileTag->disc_number, -1) > 0)
-        apefrm_add (ape_mem, 0, APE_TAG_FIELD_PART, FileTag->disc_number);
+    /******************************
+     * Disc Number and Disc Total *
+     ******************************/
+    if (FileTag->disc_number && g_utf8_strlen (FileTag->disc_number, -1) > 0)
+    {
+        if (FileTag->disc_total && g_utf8_strlen (FileTag->disc_total, -1) > 0)
+        {
+            string = g_strconcat (FileTag->disc_number, "/",
+                                  FileTag->disc_total, NULL);
+        }
+        else
+        {
+            string = g_strconcat (FileTag->disc_number, NULL);
+        }
+
+        apefrm_add (ape_mem, 0, APE_TAG_FIELD_PART, string);
+        g_free (string);
+    }
     else
+    {
         apefrm_remove (ape_mem, APE_TAG_FIELD_PART);
+    }
 
     /********
      * Year *
