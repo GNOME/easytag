@@ -173,6 +173,7 @@ struct _File_Tag
     gchar *album_artist;   /* Album Artist */
     gchar *album;          /* Album name */
     gchar *disc_number;    /* Disc number */
+    gchar *disc_total; /* The total number of discs of the album (ex: 1/2). */
     gchar *year;           /* Year of track */
     gchar *track;          /* Position of track in the album */
     gchar *track_total;    /* The number of tracks for the album (ex: 12/20) */

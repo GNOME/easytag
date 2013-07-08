@@ -513,6 +513,7 @@ void Load_Track_List_To_UI (void)
 
 }
 
+
 /*
  * Change mouse cursor
  */
@@ -2272,9 +2273,10 @@ Search_File (GtkWidget *search_button)
     ET_File *ETFile;
     gchar *msg;
     gchar *temp = NULL;
-    gchar *title2, *artist2, *album_artist2, *album2, *disc_number2, *year2, *track2,
-          *track_total2, *genre2, *comment2, *composer2, *orig_artist2,
-          *copyright2, *url2, *encoded_by2, *string_to_search2;
+    gchar *title2, *artist2, *album_artist2, *album2, *disc_number2,
+          *disc_total2, *year2, *track2, *track_total2, *genre2, *comment2,
+          *composer2, *orig_artist2, *copyright2, *url2, *encoded_by2,
+          *string_to_search2;
     gint resultCount = 0;
 
 
@@ -2340,6 +2342,14 @@ Search_File (GtkWidget *search_button)
                 if (FileTag->album_artist) album_artist2 = g_utf8_casefold(FileTag->album_artist, -1); else album_artist2= NULL;
                 if (FileTag->album)       album2       = g_utf8_casefold(FileTag->album, -1);        else album2       = NULL;
                 if (FileTag->disc_number) disc_number2 = g_utf8_casefold(FileTag->disc_number, -1);  else disc_number2 = NULL;
+                if (FileTag->disc_total)
+                {
+                    disc_total2 = g_utf8_casefold (FileTag->disc_total, -1);
+                }
+                else
+                {
+                    disc_total2 = NULL;
+                }
                 if (FileTag->year)        year2        = g_utf8_casefold(FileTag->year, -1);         else year2        = NULL;
                 if (FileTag->track)       track2       = g_utf8_casefold(FileTag->track, -1);        else track2       = NULL;
                 if (FileTag->track_total) track_total2 = g_utf8_casefold(FileTag->track_total, -1);  else track_total2 = NULL;
@@ -2357,9 +2367,10 @@ Search_File (GtkWidget *search_button)
                 // Duplicate and convert the strings into UTF-8
                 title2       = g_strdup(FileTag->title);
                 artist2      = g_strdup(FileTag->artist);
-				album_artist2= g_strdup(FileTag->album_artist);
+                album_artist2= g_strdup(FileTag->album_artist);
                 album2       = g_strdup(FileTag->album);
                 disc_number2 = g_strdup(FileTag->disc_number);
+                disc_total2 = g_strdup (FileTag->disc_total);
                 year2        = g_strdup(FileTag->year);
                 track2       = g_strdup(FileTag->track);
                 track_total2 = g_strdup(FileTag->track_total);
@@ -2379,6 +2390,7 @@ Search_File (GtkWidget *search_button)
              ||  (album_artist2 && strstr(album_artist2,string_to_search2) )
              ||  (album2       && strstr(album2,       string_to_search2) )
              ||  (disc_number2 && strstr(disc_number2, string_to_search2) )
+             ||  (disc_total2 && strstr (disc_total2, string_to_search2))
              ||  (year2        && strstr(year2,        string_to_search2) )
              ||  (track2       && strstr(track2,       string_to_search2) )
              ||  (track_total2 && strstr(track_total2, string_to_search2) )
@@ -2397,6 +2409,7 @@ Search_File (GtkWidget *search_button)
             g_free(album_artist2);
             g_free(album2);
             g_free(disc_number2);
+            g_free (disc_total2);
             g_free(year2);
             g_free(track2);
             g_free(track_total2);
@@ -2446,6 +2459,7 @@ Add_Row_To_Search_Result_List (ET_File *ETFile, const gchar *string_to_search)
                                             NULL, NULL, NULL, NULL, NULL, NULL, NULL,
                                             NULL};
     gchar *track, *track_total;
+    gchar *disc_number, *disc_total;
     gboolean case_sensitive;
     gint column;
 
@@ -2462,10 +2476,8 @@ Add_Row_To_Search_Result_List (ET_File *ETFile, const gchar *string_to_search)
     SearchResultList_Text[SEARCH_RESULT_ARTIST]      = g_strdup(((File_Tag *)ETFile->FileTag->data)->artist);
     // Album Artist
     SearchResultList_Text[SEARCH_RESULT_ALBUM_ARTIST]= g_strdup(((File_Tag *)ETFile->FileTag->data)->album_artist);
-	// Album
+    // Album
     SearchResultList_Text[SEARCH_RESULT_ALBUM]       = g_strdup(((File_Tag *)ETFile->FileTag->data)->album);
-    // Disc Number
-    SearchResultList_Text[SEARCH_RESULT_DISC_NUMBER] = g_strdup(((File_Tag *)ETFile->FileTag->data)->disc_number);
     // Year
     SearchResultList_Text[SEARCH_RESULT_YEAR]        = g_strdup(((File_Tag *)ETFile->FileTag->data)->year);
     //Genre
@@ -2483,6 +2495,29 @@ Add_Row_To_Search_Result_List (ET_File *ETFile, const gchar *string_to_search)
     // Encoded by
     SearchResultList_Text[SEARCH_RESULT_ENCODED_BY]  = g_strdup(((File_Tag *)ETFile->FileTag->data)->encoded_by);
 
+    /* Disc Number. */
+    disc_number = ((File_Tag *)ETFile->FileTag->data)->disc_number;
+    disc_total = ((File_Tag *)ETFile->FileTag->data)->disc_total;
+
+    if (disc_number)
+    {
+        if (disc_total)
+        {
+            SearchResultList_Text[SEARCH_RESULT_DISC_NUMBER] = g_strconcat (disc_number, "/", disc_total, NULL);
+        }
+        else
+        {
+            SearchResultList_Text[SEARCH_RESULT_DISC_NUMBER] = g_strdup (disc_number);
+        }
+    }
+    else
+    {
+        SearchResultList_Text[SEARCH_RESULT_DISC_NUMBER] = NULL;
+    }
+
+    g_free (disc_number);
+    g_free (disc_total);
+
     // Track
     track       = ((File_Tag *)ETFile->FileTag->data)->track;
     track_total = ((File_Tag *)ETFile->FileTag->data)->track_total;
@@ -2497,6 +2532,8 @@ Add_Row_To_Search_Result_List (ET_File *ETFile, const gchar *string_to_search)
         SearchResultList_Text[SEARCH_RESULT_TRACK] = NULL;
     }
 
+    g_free (track);
+    g_free (track_total);
 
 
     // Highlight the keywords in the result list

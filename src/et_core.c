@@ -368,6 +368,7 @@ ET_Initialize_File_Tag_Item (File_Tag *FileTag)
         FileTag->album_artist= NULL;
         FileTag->album       = NULL;
         FileTag->disc_number = NULL;
+        FileTag->disc_total = NULL;
         FileTag->track       = NULL;
         FileTag->track_total = NULL;
         FileTag->year        = NULL;
@@ -2195,6 +2196,7 @@ gboolean ET_Free_File_Tag_Item (File_Tag *FileTag)
     g_free(FileTag->album_artist);
     g_free(FileTag->album);
     g_free(FileTag->disc_number);
+    g_free (FileTag->disc_total);
     g_free(FileTag->year);
     g_free(FileTag->track);
     g_free(FileTag->track_total);
@@ -2385,6 +2387,16 @@ gboolean ET_Copy_File_Tag_Item (ET_File *ETFile, File_Tag *FileTag)
     {
         g_free(FileTag->disc_number);
         FileTag->disc_number = NULL;
+    }
+
+    if (FileTagCur->disc_total)
+    {
+        FileTag->disc_total = g_strdup (FileTagCur->disc_total);
+    }
+    else
+    {
+        g_free (FileTag->disc_total);
+        FileTag->disc_total = NULL;
     }
 
     if (FileTagCur->year)
@@ -2932,13 +2944,31 @@ ET_Display_File_Tag_To_UI (ET_File *ETFile)
         gtk_entry_set_text(GTK_ENTRY(AlbumEntry),"");
 
     /* Show disc_number */
+    /* FIXME: Combine disc number and disc total into a single string. */
     if (FileTag && FileTag->disc_number)
     {
         gchar *tmp = Try_To_Validate_Utf8_String(FileTag->disc_number);
-        gtk_entry_set_text(GTK_ENTRY(DiscNumberEntry), tmp);
-        g_free(tmp);
-    }else
-        gtk_entry_set_text(GTK_ENTRY(DiscNumberEntry),"");
+        gtk_entry_set_text (GTK_ENTRY (DiscNumberEntry), tmp);
+        g_free (tmp);
+    }
+    else
+    {
+        gtk_entry_set_text (GTK_ENTRY (DiscNumberEntry), "");
+    }
+
+    /* Show number of discs of the album. */
+#if 0
+    if (FileTag && FileTag->disc_total)
+    {
+        gchar *tmp = Try_To_Validate_Utf8_String (FileTag->disc_total);
+        gtk_entry_set_text (GTK_ENTRY (DiscNumberEntry), tmp);
+        g_free (tmp);
+    }
+    else
+    {
+        gtk_entry_set_text (GTK_ENTRY (DiscNumberEntry), "");
+    }
+#endif
 
     /* Show year */
     if (FileTag && FileTag->year)
@@ -3432,7 +3462,8 @@ ET_Save_File_Tag_From_UI (File_Tag *FileTag)
     }
 
     /* Disc Number */
-    buffer = g_strdup(gtk_entry_get_text(GTK_ENTRY(DiscNumberEntry)));
+    /* FIXME: Take single disc string and split into disc number and disc total. */
+    buffer = g_strdup (gtk_entry_get_text (GTK_ENTRY (DiscNumberEntry)));
     g_strstrip (buffer);
 
     if ( g_utf8_strlen(buffer, -1) > 0 )
@@ -3442,6 +3473,23 @@ ET_Save_File_Tag_From_UI (File_Tag *FileTag)
         FileTag->disc_number = NULL;
         g_free(buffer);
     }
+
+    /* Discs Total */
+#if 0
+    buffer = g_strdup (gtk_entry_get_text (GTK_ENTRY (DiscNumberEntry)));
+    g_strstrip (buffer);
+
+    if (g_utf8_strlen (buffer, -1) > 0)
+    {
+        FileTag->disc_total = et_disc_number_to_string (atoi (buffer));
+        g_free (buffer);
+    }
+    else
+    {
+        FileTag->disc_total = NULL;
+        g_free (buffer);
+    }
+#endif
 
     /* Year */
     buffer = g_strdup(gtk_entry_get_text(GTK_ENTRY(YearEntry)));
@@ -3666,6 +3714,19 @@ ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
     } else
     {
         FileTag->disc_number = NULL;
+    }
+
+
+    /* Discs Total */
+    if (FileTagCur->disc_total
+        && g_utf8_strlen (FileTagCur->disc_total, -1) > 0)
+    {
+        FileTag->disc_total = et_disc_number_to_string (atoi (FileTagCur->disc_total));
+        g_strstrip (FileTag->disc_total);
+    }
+    else
+    {
+        FileTag->disc_total = NULL;
     }
 
 
@@ -4119,6 +4180,25 @@ gboolean ET_Detect_Changes_Of_File_Tag (File_Tag *FileTag1, File_Tag *FileTag2)
     if ( FileTag1->disc_number && !FileTag2->disc_number && g_utf8_strlen(FileTag1->disc_number, -1)>0 ) return TRUE;
     if (!FileTag1->disc_number &&  FileTag2->disc_number && g_utf8_strlen(FileTag2->disc_number, -1)>0 ) return TRUE;
     if ( FileTag1->disc_number &&  FileTag2->disc_number && g_utf8_collate(FileTag1->disc_number,FileTag2->disc_number)!=0 ) return TRUE;
+
+    /* Discs Total */
+    if (FileTag1->disc_total && !FileTag2->disc_total
+        && g_utf8_strlen (FileTag1->disc_total, -1) > 0)
+    {
+        return TRUE;
+    }
+
+    if (!FileTag1->disc_total &&  FileTag2->disc_total
+        && g_utf8_strlen (FileTag2->disc_total, -1) > 0)
+    {
+        return TRUE;
+    }
+
+    if (FileTag1->disc_total &&  FileTag2->disc_total
+        && g_utf8_collate (FileTag1->disc_total, FileTag2->disc_total) != 0)
+    {
+        return TRUE;
+    }
 
     /* Year */
     if ( FileTag1->year && !FileTag2->year && g_utf8_strlen(FileTag1->year, -1)>0 ) return TRUE;

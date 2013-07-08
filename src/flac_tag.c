@@ -679,6 +679,7 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
       && FileTag->album_artist == NULL
       && FileTag->album       == NULL
       && FileTag->disc_number == NULL
+      && FileTag->disc_total == NULL
       && FileTag->year        == NULL
       && FileTag->track       == NULL
       && FileTag->track_total == NULL
@@ -700,6 +701,7 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
           || FileTag->album_artist != NULL
           || FileTag->album       != NULL
           || FileTag->disc_number != NULL
+          || FileTag->disc_total != NULL
           || FileTag->year        != NULL
           || FileTag->track       != NULL
           || FileTag->track_total != NULL

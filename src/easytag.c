@@ -1397,20 +1397,37 @@ Mini_Button_Clicked (GObject *object)
     }
     else if (object == G_OBJECT (DiscNumberEntry))
     {
-        string_to_set = gtk_editable_get_chars(GTK_EDITABLE(DiscNumberEntry),0,-1);
+        /* FIXME: Split discs field into disc number and disc total. */
+        string_to_set = g_strdup (gtk_entry_get_text (GTK_ENTRY (DiscNumberEntry)));
+        string_to_set1 = NULL;
 
         for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
             etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
-            ET_Set_Field_File_Tag_Item(&FileTag->disc_number,string_to_set);
+            ET_Set_Field_File_Tag_Item (&FileTag->disc_number, string_to_set);
+            ET_Set_Field_File_Tag_Item (&FileTag->disc_total, string_to_set1);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
-        if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
-            msg = g_strdup_printf(_("Selected files tagged with disc number '%s'."),string_to_set);
+
+        if (string_to_set != NULL && g_utf8_strlen (string_to_set, -1) > 0)
+        {
+            if (string_to_set1 != NULL
+                && g_utf8_strlen (string_to_set1, -1) > 0)
+            {
+                msg = g_strdup_printf (_("Selected files tagged with disc number '%s/%s'."),
+                                       string_to_set, string_to_set1);
+            }
+            else
+            {
+                msg = g_strdup_printf (_("Selected files tagged with disc number like 'xx'."));
+            }
+        }
         else
-            msg = g_strdup(_("Removed disc number from selected files."));
+        {
+            msg = g_strdup (_("Removed disc number from selected files."));
+        }
     }
     else if (object == G_OBJECT (YearEntry))
     {

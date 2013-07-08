@@ -1002,6 +1002,7 @@ void Browser_List_Load_File_List (GList *etfilelist, ET_File *etfile_to_select)
         gchar *basename_utf8         = g_path_get_basename(current_filename_utf8);
         File_Tag *FileTag = ((File_Tag *)((ET_File *)l->data)->FileTag->data);
         gchar *track;
+        gchar *disc;
 
         // Change background color when changing directory (the first row must not be changed)
         if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(fileListModel), NULL) > 0)
@@ -1023,6 +1024,11 @@ void Browser_List_Load_File_List (GList *etfilelist, ET_File *etfile_to_select)
         /* File list displays the current filename (name on disc) and tag
          * fields. */
         track = g_strconcat(FileTag->track ? FileTag->track : "",FileTag->track_total ? "/" : NULL,FileTag->track_total,NULL);
+        disc  = g_strconcat (FileTag->disc_number ? FileTag->disc_number : "",
+                             FileTag->disc_total ? "/"
+                                                 : NULL, FileTag->disc_total,
+                             NULL);
+
         gtk_list_store_insert_with_values (fileListModel, &rowIter, G_MAXINT,
                                            LIST_FILE_NAME, basename_utf8,
                                            LIST_FILE_POINTER, l->data,
@@ -1035,8 +1041,7 @@ void Browser_List_Load_File_List (GList *etfilelist, ET_File *etfile_to_select)
                                            FileTag->album_artist,
                                            LIST_FILE_ALBUM, FileTag->album,
                                            LIST_FILE_YEAR, FileTag->year,
-                                           LIST_FILE_DISCNO,
-                                           FileTag->disc_number,
+                                           LIST_FILE_DISCNO, disc,
                                            LIST_FILE_TRACK, track,
                                            LIST_FILE_GENRE, FileTag->genre,
                                            LIST_FILE_COMMENT, FileTag->comment,
@@ -1051,6 +1056,7 @@ void Browser_List_Load_File_List (GList *etfilelist, ET_File *etfile_to_select)
                                            FileTag->encoded_by, -1);
         g_free(basename_utf8);
         g_free(track);
+        g_free (disc);
 
         if (etfile_to_select == l->data)
         {
@@ -1080,6 +1086,7 @@ void Browser_List_Refresh_Whole_List (void)
     gint row;
     gchar *current_basename_utf8;
     gchar *track;
+    gchar *disc;
     gboolean valid;
     GtkWidget *artist_radio;
 
@@ -1110,6 +1117,9 @@ void Browser_List_Refresh_Whole_List (void)
 
         current_basename_utf8 = g_path_get_basename(FileName->value_utf8);
         track = g_strconcat(FileTag->track ? FileTag->track : "",FileTag->track_total ? "/" : NULL,FileTag->track_total,NULL);
+        disc  = g_strconcat (FileTag->disc_number ? FileTag->disc_number : "",
+                             FileTag->disc_total ? "/" : NULL,
+                             FileTag->disc_total, NULL);
 
         gtk_list_store_set(fileListModel, &iter,
                            LIST_FILE_NAME,          current_basename_utf8,
@@ -1118,7 +1128,7 @@ void Browser_List_Refresh_Whole_List (void)
                            LIST_FILE_ALBUM_ARTIST,  FileTag->album_artist,
 						   LIST_FILE_ALBUM,         FileTag->album,
                            LIST_FILE_YEAR,          FileTag->year,
-                           LIST_FILE_DISCNO,        FileTag->disc_number,
+                           LIST_FILE_DISCNO, disc,
                            LIST_FILE_TRACK,         track,
                            LIST_FILE_GENRE,         FileTag->genre,
                            LIST_FILE_COMMENT,       FileTag->comment,
@@ -1130,6 +1140,7 @@ void Browser_List_Refresh_Whole_List (void)
                            -1);
         g_free(current_basename_utf8);
         g_free(track);
+        g_free (disc);
 
         Browser_List_Set_Row_Appearance(&iter);
 
@@ -1187,6 +1198,7 @@ void Browser_List_Refresh_File_In_List (ET_File *ETFile)
     gboolean row_found = FALSE;
     gchar *current_basename_utf8;
     gchar *track;
+    gchar *disc;
     gboolean valid;
     gint row;
     gchar *artist, *album;
@@ -1268,6 +1280,9 @@ void Browser_List_Refresh_File_In_List (ET_File *ETFile)
 
     current_basename_utf8 = g_path_get_basename(FileName->value_utf8);
     track = g_strconcat(FileTag->track ? FileTag->track : "",FileTag->track_total ? "/" : NULL,FileTag->track_total,NULL);
+    disc  = g_strconcat (FileTag->disc_number ? FileTag->disc_number : "",
+                         FileTag->disc_total ? "/" : NULL, FileTag->disc_total,
+                         NULL);
 
     gtk_list_store_set(fileListModel, &selectedIter,
                        LIST_FILE_NAME,          current_basename_utf8,
@@ -1276,7 +1291,7 @@ void Browser_List_Refresh_File_In_List (ET_File *ETFile)
                        LIST_FILE_ALBUM_ARTIST,  FileTag->album_artist,
 					   LIST_FILE_ALBUM,         FileTag->album,
                        LIST_FILE_YEAR,          FileTag->year,
-                       LIST_FILE_DISCNO,        FileTag->disc_number,
+                       LIST_FILE_DISCNO, disc,
                        LIST_FILE_TRACK,         track,
                        LIST_FILE_GENRE,         FileTag->genre,
                        LIST_FILE_COMMENT,       FileTag->comment,
@@ -1288,6 +1303,7 @@ void Browser_List_Refresh_File_In_List (ET_File *ETFile)
                        -1);
     g_free(current_basename_utf8);
     g_free(track);
+    g_free (disc);
 
     // Change appearance (line to red) if filename changed
     Browser_List_Set_Row_Appearance(&selectedIter);
