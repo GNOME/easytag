@@ -272,9 +272,33 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
                     }
                 }
 
-                /***************
-                 * Disc Number *
-                 ***************/
+                /******************************
+                 * Disc Number and Disc Total *
+                 ******************************/
+                if ((field_num = FLAC__metadata_object_vorbiscomment_find_entry_from (block, 0, "DISCTOTAL")) >= 0)
+                {
+                    /* Extract field value. */
+                    field = &vc->comments[field_num];
+                    field_value = memchr (field->entry, '=', field->length);
+
+                    if (field_value)
+                    {
+                        field_value++;
+                        if (field_value && g_utf8_strlen (field_value, -1) > 0)
+                        {
+                            field_len = field->length - (field_value - (gchar*) field->entry);
+                            field_value_tmp = g_strndup (field_value,
+                                                         field_len);
+                            field_value = Try_To_Validate_Utf8_String (field_value_tmp);
+                            g_free (field_value_tmp);
+
+                            FileTag->disc_total = et_disc_number_to_string (atoi (field_value));
+                            g_free (field_value);
+                        }
+                    }
+                    /* Discs is also filled below, if not done here. */
+                }
+
                 if ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,0,"DISCNUMBER")) >= 0 )
                 {
                     /* Extract field value */
@@ -290,7 +314,17 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
                             field_value_tmp = g_strndup(field_value, field_len);
                             field_value = Try_To_Validate_Utf8_String(field_value_tmp);
                             g_free(field_value_tmp);
-                            FileTag->disc_number = field_value;
+                            string = g_utf8_strchr (field_value, -1, '/');
+
+                            if (string && !FileTag->disc_total)
+                            {
+                                FileTag->disc_total = et_disc_number_to_string (atoi (string + 1));
+                                *string = '\0';
+                            }
+
+                            FileTag->disc_number = et_disc_number_to_string (atoi (field_value));
+
+                            g_free (field_value);
                         }
                     }
                 }
@@ -602,6 +636,7 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
                       && strncasecmp((gchar *)field->entry,"ALBUMARTIST=", MIN(12, field->length)) != 0
                       && strncasecmp((gchar *)field->entry,"ALBUM=",       MIN(6,  field->length)) != 0
                       && strncasecmp((gchar *)field->entry,"DISCNUMBER=",  MIN(11, field->length)) != 0
+                      && strncasecmp((gchar *)field->entry,"DISCTOTAL=",   MIN(10, field->length)) != 0
                       && strncasecmp((gchar *)field->entry,"DATE=",        MIN(5,  field->length)) != 0
                       && strncasecmp((gchar *)field->entry,"TRACKNUMBER=", MIN(12, field->length)) != 0
                       && strncasecmp((gchar *)field->entry,"TRACKTOTAL=",  MIN(11, field->length)) != 0
@@ -913,10 +948,11 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
          *********/
         Flac_Set_Tag(vc_block,"ALBUM=",FileTag->album,VORBIS_SPLIT_FIELD_ALBUM);
 
-        /***************
-         * Disc Number *
-         ***************/
-        Flac_Set_Tag(vc_block,"DISCNUMBER=",FileTag->disc_number,FALSE);
+        /******************************
+         * Disc Number and Disc Total *
+         ******************************/
+        Flac_Set_Tag (vc_block, "DISCNUMBER=", FileTag->disc_number, FALSE);
+        Flac_Set_Tag (vc_block, "DISCTOTAL=", FileTag->disc_total, FALSE);
 
         /********
          * Year *
