@@ -107,6 +107,8 @@ GtkWidget *LabelId3v2Version;
 GtkWidget *DateAutoCompletion;
 GtkWidget *NumberTrackFormated;
 GtkWidget *NumberTrackFormatedSpinButton;
+GtkWidget *pad_disc_number;
+GtkWidget *pad_disc_number_spinbutton;
 GtkWidget *SetFocusToSameTagField;
 GtkWidget *SetFocusToFirstTagField;
 GtkWidget *LogMaxLinesSpinButton;

@@ -3698,6 +3698,17 @@ et_playlist_on_response (GtkDialog *dialog, gint response_id,
 }
 
 gchar *
+et_disc_number_to_string (const guint disc_number)
+{
+    if (PAD_DISC_NUMBER)
+    {
+        return g_strdup_printf ("%.*d", PAD_DISC_NUMBER_DIGITS, disc_number);
+    }
+
+    return g_strdup_printf ("%d", disc_number);
+}
+
+gchar *
 et_track_number_to_string (const guint track_number)
 {
     return NUMBER_TRACK_FORMATED ? g_strdup_printf ("%.*d",

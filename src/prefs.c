@@ -58,6 +58,10 @@ static void Set_Default_Comment_Check_Button_Toggled (void);
 static void Number_Track_Formatted_Toggled (void);
 static void Number_Track_Formatted_Spin_Button_Changed (GtkWidget *Label,
                                                         GtkWidget *SpinButton);
+static void et_prefs_on_pad_disc_number_toggled (void);
+static void et_prefs_on_pad_disc_number_spinbutton_changed (GtkWidget *label,
+                                                            GtkWidget *spinbutton);
+
 static void Change_Id3_Settings_Toggled (void);
 static void Use_Non_Standard_Id3_Reading_Character_Set_Toggled (void);
 static void Scanner_Convert_Check_Button_Toggled_1 (GtkWidget *object_rec,
@@ -545,6 +549,7 @@ void Open_OptionsWindow (void)
         "only the last numerals of the date (for instance, if the current year is 2005: "
         "5 => 2005, 4 => 2004, 6 => 1996, 95 => 1995…)."));
 
+    /* Track formatting. */
     hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
 
@@ -565,6 +570,35 @@ void Open_OptionsWindow (void)
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,4);
     g_signal_connect_swapped(G_OBJECT(NumberTrackFormatedSpinButton),"changed",G_CALLBACK(Number_Track_Formatted_Spin_Button_Changed),G_OBJECT(Label));
     g_signal_emit_by_name(G_OBJECT(NumberTrackFormatedSpinButton),"changed",NULL);
+
+    /* Disc formatting. */
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
+    gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
+
+    pad_disc_number = gtk_check_button_new_with_label (_("Write the disc field with the following number of digits:"));
+    gtk_box_pack_start (GTK_BOX (hbox), pad_disc_number, FALSE, FALSE, 0);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (pad_disc_number),
+                                  PAD_DISC_NUMBER);
+    gtk_widget_set_tooltip_text (pad_disc_number,
+                                 _("Whether to pad the disc field with leading zeroes"));
+
+    pad_disc_number_spinbutton = gtk_spin_button_new_with_range (1.0, 6.0,
+                                                                 1.0);
+    gtk_box_pack_start (GTK_BOX (hbox), pad_disc_number_spinbutton, FALSE,
+                        FALSE, 0);
+    gtk_spin_button_set_value (GTK_SPIN_BUTTON (pad_disc_number_spinbutton),
+                               (gfloat)PAD_DISC_NUMBER_DIGITS);
+    g_signal_connect (G_OBJECT (pad_disc_number), "toggled",
+                      G_CALLBACK (et_prefs_on_pad_disc_number_toggled), NULL);
+    g_signal_emit_by_name (G_OBJECT (pad_disc_number), "toggled");
+
+    /* Label to show the example. */
+    Label = gtk_label_new ("");
+    gtk_box_pack_start (GTK_BOX (hbox), Label, FALSE, FALSE, BOX_SPACING);
+    g_signal_connect_swapped (G_OBJECT (pad_disc_number_spinbutton), "changed",
+                              G_CALLBACK (et_prefs_on_pad_disc_number_spinbutton_changed),
+                              Label);
+    g_signal_emit_by_name (G_OBJECT (pad_disc_number_spinbutton), "changed");
 
     // Separator line
     Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
@@ -1405,6 +1439,40 @@ Number_Track_Formatted_Spin_Button_Changed (GtkWidget *Label,
 
     gtk_label_set_text(GTK_LABEL(Label),tmp);
     g_free(tmp);
+}
+
+static void
+et_prefs_on_pad_disc_number_toggled (void)
+{
+    gtk_widget_set_sensitive (pad_disc_number_spinbutton,
+                              gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pad_disc_number)));
+    /* Update the example. */
+    g_signal_emit_by_name (G_OBJECT (pad_disc_number_spinbutton), "changed",
+                           NULL);
+}
+
+static void
+et_prefs_on_pad_disc_number_spinbutton_changed (GtkWidget *label,
+                                                GtkWidget *spinbutton)
+{
+    gchar *tmp;
+    guint val;
+
+    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pad_disc_number)))
+    {
+        val = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spinbutton));
+    }
+    else
+    {
+        val = 1;
+    }
+
+    /* Translators: please do NOT translate '%.*d' in this string. */
+    tmp = g_strdup_printf (_("(Example: disc_%.*d_of_10/Track_name_1.mp3)"),
+                           val, 1);
+
+    gtk_label_set_text (GTK_LABEL (label), tmp);
+    g_free (tmp);
 }
 
 static void
