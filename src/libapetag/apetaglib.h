@@ -85,6 +85,7 @@
 #define APE_TAG_FIELD_SUBTITLE          "Subtitle"
 #define APE_TAG_FIELD_ARTIST            "Artist"
 #define APE_TAG_FIELD_ALBUM             "Album"
+#define APE_TAG_FIELD_PART "Part"
 #define APE_TAG_FIELD_DEBUTALBUM        "Debut Album"
 #define APE_TAG_FIELD_PUBLISHER         "Publisher"
 #define APE_TAG_FIELD_CONDUCTOR         "Conductor"

@@ -91,7 +91,7 @@ gboolean Ape_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     /***************
      * Disc Number *
      ***************/
-    string = apefrm_getstr(ape_cnt, "Part");
+    string = apefrm_getstr (ape_cnt, APE_TAG_FIELD_PART);
     if (FileTag->disc_number == NULL)
         FileTag->disc_number = Try_To_Validate_Utf8_String(string);
 
@@ -229,9 +229,9 @@ gboolean Ape_Tag_Write_File_Tag (ET_File *ETFile)
      * Disc Number *
      ***************/
     if ( FileTag->disc_number && g_utf8_strlen(FileTag->disc_number, -1) > 0)
-        apefrm_add(ape_mem, 0, "Part", FileTag->disc_number);
+        apefrm_add (ape_mem, 0, APE_TAG_FIELD_PART, FileTag->disc_number);
     else
-        apefrm_remove(ape_mem,"Part");
+        apefrm_remove (ape_mem, APE_TAG_FIELD_PART);
 
     /********
      * Year *

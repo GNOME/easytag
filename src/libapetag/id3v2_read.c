@@ -78,7 +78,7 @@ struct id3vtwo2ape convert[] = {
     {ID3FID_ORIGFILENAME,      ID3FN_TEXT, "Original Filename",0},
     {ID3FID_ORIGLYRICIST,      ID3FN_TEXT, "Original Lyricist",0},
     {ID3FID_ORIGYEAR,          ID3FN_TEXT, "Original Artist",0},
-    {ID3FID_PARTINSET,         ID3FN_TEXT, "Part",0},
+    {ID3FID_PARTINSET, ID3FN_TEXT, APE_TAG_FIELD_PART, 0},
     {ID3FID_PLAYLISTDELAY,     ID3FN_TEXT, "Playlist Delay",0},
     {ID3FID_PUBLISHER,         ID3FN_TEXT, APE_TAG_FIELD_PUBLISHER,0},
     {ID3FID_RECORDINGDATES,    ID3FN_TEXT, APE_TAG_FIELD_RECORDDATE,0},
