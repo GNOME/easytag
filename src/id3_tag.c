@@ -249,16 +249,28 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
     }
 
 
-    /***************
-     * Part of set *
-     ***************/
+    /*****************************
+     * Part of set and Set Total *
+     *****************************/
     while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_PARTINSET)) )
         ID3Tag_RemoveFrame(id3_tag,id3_frame);
     if (FileTag->disc_number && g_utf8_strlen(FileTag->disc_number, -1) > 0)
     {
-        id3_frame = ID3Frame_NewID(ID3FID_PARTINSET);
-        ID3Tag_AttachFrame(id3_tag,id3_frame);
-        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, FileTag->disc_number);
+        id3_frame = ID3Frame_NewID (ID3FID_PARTINSET);
+        ID3Tag_AttachFrame (id3_tag, id3_frame);
+
+		if (FileTag->disc_total && g_utf8_strlen (FileTag->disc_total, -1) > 0)
+        {
+            string1 = g_strconcat (FileTag->disc_number, "/",
+                                   FileTag->disc_total, NULL);
+        }
+        else
+        {
+            string1 = g_strdup (FileTag->disc_number);
+        }
+
+        Id3tag_Set_Field (id3_frame, ID3FN_TEXT, string1);
+        g_free (string1);
         has_disc_number = TRUE;
     }
 
