@@ -2262,6 +2262,8 @@ static gchar
             return &FileTag->album;
         case 'd':    /* Disc Number */
             return &FileTag->disc_number;
+        case 'x': /* Total number of discs. */
+            return &FileTag->disc_total;
         case 'y':    /* Year */
             return &FileTag->year;
         case 'n':    /* Track */
@@ -2842,8 +2844,11 @@ void Open_ScannerWindow (gint scanner_type)
     Label = gtk_label_new(_("%u: URL"));
     et_grid_attach_margins (GTK_GRID (Table), Label, 2, 2, 1, 1, 6, 0);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
-    Label = gtk_label_new(_("%y: year"));
+    Label = gtk_label_new (_("%x: number of discs"));
     et_grid_attach_margins (GTK_GRID (Table), Label, 2, 3, 1, 1, 6, 0);
+    gtk_misc_set_alignment (GTK_MISC (Label), 0, 0.5);
+    Label = gtk_label_new(_("%y: year"));
+    et_grid_attach_margins (GTK_GRID (Table), Label, 2, 4, 1, 1, 6, 0);
     gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
 
     /*
