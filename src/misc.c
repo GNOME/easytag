@@ -500,6 +500,9 @@ void Load_Track_List_To_UI (void)
     g_return_if_fail (ETCore->ETFileDisplayedList != NULL ||
                       TrackEntryComboModel != NULL);
 
+    /* Remove the entries in the list to avoid duplicates. */
+    gtk_list_store_clear (TrackEntryComboModel);
+
     /* Create list of tracks. */
     for (i = 1; i <= len; i++)
     {
