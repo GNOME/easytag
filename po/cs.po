@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: EasyTAG 2.1.2\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=easytag&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-07-04 21:05+0000\n"
-"PO-Revision-Date: 2013-07-06 13:21+0200\n"
+"POT-Creation-Date: 2013-07-07 15:03+0000\n"
+"PO-Revision-Date: 2013-07-09 22:18+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -90,7 +90,6 @@ msgid "Website: %s"
 msgstr "Webové stránky: %s"
 
 #: ../src/application.c:98
-#| msgid "View and edit tags in audio files"
 msgid "- Tag and rename audio files"
 msgstr "– upravovat štítky a názvy zvukových souborů"
 
@@ -345,7 +344,7 @@ msgstr "Poslední soubor"
 msgid "S_can Files"
 msgstr "Prozkoumat _soubory"
 
-#: ../src/bar.c:222 ../src/scan.c:2350
+#: ../src/bar.c:222 ../src/scan.c:2351
 msgid "Scan selected files"
 msgstr "Prozkoumat vybrané soubory"
 
@@ -696,7 +695,7 @@ msgstr "Přejmenovat soubory a složky"
 msgid "_Process Fields…"
 msgstr "Z_pracovat pole…"
 
-#: ../src/bar.c:359 ../src/scan.c:181
+#: ../src/bar.c:359 ../src/scan.c:183
 msgid "Process Fields"
 msgstr "Zpracovat pole"
 
@@ -2106,7 +2105,7 @@ msgid "Repeat action for the remaining files"
 msgstr "Opakovat akci pro zbytek souborů"
 
 #. Directories and filename changed
-#: ../src/easytag.c:2830 ../src/scan.c:180
+#: ../src/easytag.c:2830 ../src/scan.c:182
 msgid "Rename File and Directory"
 msgstr "Přejmenovat soubor a složku"
 
@@ -2264,8 +2263,7 @@ msgstr "Vyberte složku, kterou chcete procházet"
 msgid "Tag selected files with this field"
 msgstr "Nastavit vybraným souborům toto pole"
 
-#. Group: character conversion
-#: ../src/easytag.c:4368 ../src/scan.c:2662
+#: ../src/easytag.c:4368 ../src/scan.c:2661
 msgid "Convert '_' and '%20' to spaces"
 msgstr "Převést „_“ a „%20“ na mezery"
 
@@ -2273,25 +2271,23 @@ msgstr "Převést „_“ a „%20“ na mezery"
 msgid "Convert ' ' to '_'"
 msgstr "Převést „ “ na „_“"
 
-#. Group: capitalize, ...
-#: ../src/easytag.c:4386 ../src/scan.c:2714
+#: ../src/easytag.c:4386
 msgid "All uppercase"
 msgstr "Vše velkými písmeny"
 
-#: ../src/easytag.c:4393 ../src/scan.c:2715
+#: ../src/easytag.c:4393
 msgid "All lowercase"
 msgstr "Vše malými písmeny"
 
-#: ../src/easytag.c:4400 ../src/scan.c:2716
+#: ../src/easytag.c:4400
 msgid "First letter uppercase"
 msgstr "První písmeno velké"
 
-#: ../src/easytag.c:4407 ../src/scan.c:2717
+#: ../src/easytag.c:4407
 msgid "First letter uppercase of each word"
 msgstr "První písmeno každého slova velké"
 
-#. Group: insert/remove spaces
-#: ../src/easytag.c:4418 ../src/prefs.c:989 ../src/scan.c:2765
+#: ../src/easytag.c:4418 ../src/prefs.c:989 ../src/scan.c:2761
 msgid "Remove spaces"
 msgstr "Odstranit mezery"
 
@@ -2834,7 +2830,7 @@ msgstr "Chyba souboru se seznamem skladeb"
 msgid "Written playlist file '%s'"
 msgstr "Zapsán soubor se seznamem skladeb „%s“"
 
-#: ../src/misc.c:1556 ../src/scan.c:3247 ../src/scan.c:3309
+#: ../src/misc.c:1556 ../src/scan.c:3243 ../src/scan.c:3305
 msgid "Invalid scanner mask"
 msgstr "Neplatná maska průzkumníka"
 
@@ -4336,7 +4332,7 @@ msgstr "Hudební přehrávač „%s“ nebyl nalezen"
 msgid "Audio Player Error"
 msgstr "Chyba hudebního přehrávače"
 
-#: ../src/scan.c:179
+#: ../src/scan.c:181
 msgid "Fill Tag"
 msgstr "Vyplnit štítek"
 
@@ -4391,27 +4387,27 @@ msgid "Scan Files"
 msgstr "Prozkoumat soubory"
 
 #. Option Menu
-#: ../src/scan.c:2371
+#: ../src/scan.c:2372
 msgid "Scanner:"
 msgstr "Průzkumník:"
 
-#: ../src/scan.c:2392
+#: ../src/scan.c:2393
 msgid "Select the type of scanner to use"
 msgstr "Vyberte druh průzkumníka, které se má použít"
 
-#: ../src/scan.c:2401
+#: ../src/scan.c:2402
 msgid "Scanner Preferences"
 msgstr "Předvolby průzkumníka"
 
-#: ../src/scan.c:2410
+#: ../src/scan.c:2411
 msgid "Show / Hide Masks Editor"
 msgstr "Zobrazit/skrýt editor masky"
 
-#: ../src/scan.c:2420
+#: ../src/scan.c:2421
 msgid "Show / Hide Legend"
 msgstr "Zobrazit/skrýt legendu"
 
-#: ../src/scan.c:2450
+#: ../src/scan.c:2451
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse filename and "
 "path. Used to fill in tag fields"
@@ -4420,15 +4416,15 @@ msgstr ""
 "zpracovávat název souboru a cesta. Použije se k vyplnění polí štítku."
 
 #. Preview label
-#: ../src/scan.c:2474
+#: ../src/scan.c:2475
 msgid "Fill tag preview"
 msgstr "Náhled vyplnění štítku"
 
-#: ../src/scan.c:2504
+#: ../src/scan.c:2505
 msgid "Prefix mask with current path"
 msgstr "Úvodní maska s aktuální cestou"
 
-#: ../src/scan.c:2518
+#: ../src/scan.c:2519
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse tag fields. Used "
 "to rename the file.\n"
@@ -4441,15 +4437,15 @@ msgstr ""
 "považováno za absolutní cestu, jinak za relativní ke staré cestě."
 
 #. Preview label
-#: ../src/scan.c:2543
+#: ../src/scan.c:2544
 msgid "Rename file preview"
 msgstr "Náhled přejmenování souboru"
 
-#: ../src/scan.c:2562
+#: ../src/scan.c:2563
 msgid "Select fields:"
 msgstr "Vyberte pole:"
 
-#: ../src/scan.c:2565
+#: ../src/scan.c:2566
 msgid ""
 "The buttons on the right represent the fields which can be processed. Select "
 "those which interest you"
@@ -4458,128 +4454,132 @@ msgstr ""
 "která chcete upravit."
 
 #. Advice for Translators: set the first letter of filename translated
-#: ../src/scan.c:2569
+#: ../src/scan.c:2570
 msgid "F"
 msgstr "F"
 
-#: ../src/scan.c:2571
+#: ../src/scan.c:2572
 msgid "Process filename field"
 msgstr "Upravit pole názvu souboru"
 
 #. Advice for Translators: set the first letter of title translated
-#: ../src/scan.c:2573
+#: ../src/scan.c:2574
 msgid "T"
 msgstr "T"
 
-#: ../src/scan.c:2574
+#: ../src/scan.c:2575
 msgid "Process title field"
 msgstr "Upravit pole s názvem"
 
 #. Advice for Translators: set the first letter of artist translated
-#: ../src/scan.c:2576
+#: ../src/scan.c:2577
 msgid "Ar"
 msgstr "Ar"
 
-#: ../src/scan.c:2577
+#: ../src/scan.c:2578
 msgid "Process file artist field"
 msgstr "Upravit pole s autorem"
 
 #. Advice for Translators: set the first letter of album artist translated
-#: ../src/scan.c:2579
+#: ../src/scan.c:2580
 msgid "AA"
 msgstr "AA"
 
-#: ../src/scan.c:2580
+#: ../src/scan.c:2581
 msgid "Process album artist field"
 msgstr "Upravit pole s autorem alba"
 
 #. Advice for Translators: set the first letter of album translated
-#: ../src/scan.c:2582
+#: ../src/scan.c:2583
 msgid "Al"
 msgstr "Al"
 
-#: ../src/scan.c:2583
+#: ../src/scan.c:2584
 msgid "Process album field"
 msgstr "Upravit pole s albem"
 
 #. Advice for Translators: set the first letter of genre translated
-#: ../src/scan.c:2585
+#: ../src/scan.c:2586
 msgid "G"
 msgstr "G"
 
-#: ../src/scan.c:2586
+#: ../src/scan.c:2587
 msgid "Process genre field"
 msgstr "Upravit pole se žánrem"
 
 #. Advice for Translators: set the first letter of comment translated
-#: ../src/scan.c:2588
+#: ../src/scan.c:2589
 msgid "Cm"
 msgstr "Cm"
 
-#: ../src/scan.c:2589
+#: ../src/scan.c:2590
 msgid "Process comment field"
 msgstr "Upravit pole s poznámkou"
 
 #. Advice for Translators: set the first letter of composer translated
-#: ../src/scan.c:2591
+#: ../src/scan.c:2592
 msgid "Cp"
 msgstr "Cp"
 
-#: ../src/scan.c:2592
+#: ../src/scan.c:2593
 msgid "Process composer field"
 msgstr "Upravit pole se skladatelem"
 
 #. Advice for Translators: set the first letter of orig artist translated
-#: ../src/scan.c:2594
+#: ../src/scan.c:2595
 msgid "O"
 msgstr "O"
 
-#: ../src/scan.c:2595
+#: ../src/scan.c:2596
 msgid "Process original artist field"
 msgstr "Upravit pole s původním umělcem"
 
 #. Advice for Translators: set the first letter of copyright translated
-#: ../src/scan.c:2597
+#: ../src/scan.c:2598
 msgid "Cr"
 msgstr "Cr"
 
-#: ../src/scan.c:2598
+#: ../src/scan.c:2599
 msgid "Process copyright field"
 msgstr "Upravit pole s copyrightem"
 
 #. Advice for Translators: set the first letter of URL translated
-#: ../src/scan.c:2600
+#: ../src/scan.c:2601
 msgid "U"
 msgstr "U"
 
-#: ../src/scan.c:2601
+#: ../src/scan.c:2602
 msgid "Process URL field"
 msgstr "Upravit pole s adresou URL"
 
 #. Advice for Translators: set the first letter of encoder name translated
-#: ../src/scan.c:2603
+#: ../src/scan.c:2604
 msgid "E"
 msgstr "E"
 
-#: ../src/scan.c:2604
+#: ../src/scan.c:2605
 msgid "Process encoder name field"
 msgstr "Upravit pole s názvem kodéru"
 
-#: ../src/scan.c:2648
+#: ../src/scan.c:2649
 msgid "Invert selection"
 msgstr "Invertovat výběr"
 
-#: ../src/scan.c:2655
+#: ../src/scan.c:2656
 msgid "Select/Unselect all"
 msgstr "Vybrat vše/zrušit výběr všeho"
 
-#: ../src/scan.c:2668
+#: ../src/scan.c:2671
 msgid "Convert:"
 msgstr "Převést:"
 
-#: ../src/scan.c:2670
+#: ../src/scan.c:2673
 msgid "to: "
 msgstr "na : "
+
+#: ../src/scan.c:2680
+msgid "Do not convert"
+msgstr "Nepřevádět"
 
 #: ../src/scan.c:2699
 msgid ""
@@ -4604,11 +4604,31 @@ msgstr ""
 "Nahradit jeden řetězec jiným řetězcem. Upozorňujeme, že se při hledání "
 "rozlišuje velikost písmen."
 
+#: ../src/scan.c:2712
+msgid "Capitalize all"
+msgstr "Vše na velká písmena"
+
+#: ../src/scan.c:2714
+msgid "Lowercase all"
+msgstr "Vše na malá písmena"
+
+#: ../src/scan.c:2716
+msgid "Capitalize first letter"
+msgstr "První písmeno na velké"
+
 #: ../src/scan.c:2718
+msgid "Capitalize the first letter of each word"
+msgstr "První písmeno každého slova na velké"
+
+#: ../src/scan.c:2719
 msgid "Detect Roman numerals"
 msgstr "Zjištěny římské číslice"
 
-#: ../src/scan.c:2745
+#: ../src/scan.c:2721
+msgid "Do not change capitalization"
+msgstr "Neměnit velikost písmen"
+
+#: ../src/scan.c:2743
 msgid ""
 "Convert all words in all fields to upper case. Example, before: 'Text IN AN "
 "entry', after: 'TEXT IN AN ENTRY'."
@@ -4616,7 +4636,7 @@ msgstr ""
 "Převést všechna slova ve všech polích na velká písmena. Příklad před: „Text "
 "V NĚJAKÉM poli“ a po: „TEXT V NĚJAKÉM POLI“."
 
-#: ../src/scan.c:2748
+#: ../src/scan.c:2746
 msgid ""
 "Convert all words in all fields to lower case. Example, before: 'TEXT IN an "
 "entry', after: 'text in an entry'."
@@ -4624,7 +4644,7 @@ msgstr ""
 "Převést všechna slova ve všech polích na malá písmena. Příklad před: „TEXT V "
 "nějakém poli“ a po: „text v nějakém poli“."
 
-#: ../src/scan.c:2751
+#: ../src/scan.c:2749
 msgid ""
 "Convert the initial of the first word in all fields to upper case. Example, "
 "before: 'text IN An ENTRY', after: 'Text in an entry'."
@@ -4632,7 +4652,7 @@ msgstr ""
 "Převést první písmeno u prvních slov ve všech polích na velké písmeno. "
 "Příklad před: „text V Nějakém POLI“ a po: „Text v nějakém poli“."
 
-#: ../src/scan.c:2754
+#: ../src/scan.c:2752
 msgid ""
 "Convert the initial of each word in all fields to upper case. Example, "
 "before: 'Text in an ENTRY', after: 'Text In An Entry'."
@@ -4640,7 +4660,7 @@ msgstr ""
 "Převést první písmeno u každého slova ve všech polích na velké písmeno. "
 "Příklad před: „Text v nějakém POLI“ a po: „Text V Nějakém Poli“."
 
-#: ../src/scan.c:2757
+#: ../src/scan.c:2755
 msgid ""
 "Force to convert to upper case the Roman numerals. Example, before: 'ix. "
 "text in an entry', after: 'IX. Text In An Entry'."
@@ -4648,15 +4668,19 @@ msgstr ""
 "Vynutit převod na velká písmena u římských číslic. Příklad před: „ix. text v "
 "nějakém poli“ a po: „IX. text v nějakém poli“."
 
-#: ../src/scan.c:2766
-msgid "Insert a space before an uppercase letter"
-msgstr "Vkládat mezeru před velká písmena"
+#: ../src/scan.c:2763
+msgid "Insert a space before uppercase letters"
+msgstr "Vložit mezeru před velká písmena"
+
+#: ../src/scan.c:2765
+msgid "Remove duplicate spaces and underscores"
+msgstr "Odstranit zdvojené mezery a podtržítka"
 
 #: ../src/scan.c:2767
-msgid "Remove duplicates of space or underscore"
-msgstr "Odstranit dvojité mezery nebo podtržítka"
+msgid "Do not change word separators"
+msgstr "Neměnit oddělovače slov"
 
-#: ../src/scan.c:2785
+#: ../src/scan.c:2781
 msgid ""
 "All spaces between words are removed. Example, before: 'Text In An Entry', "
 "after: 'TextInAnEntry'."
@@ -4664,7 +4688,7 @@ msgstr ""
 "Odstranit všechny mezery mezi slovy. Příklad před: „Text v nějakém poli“ a "
 "po: „TextVNějakémPoli“."
 
-#: ../src/scan.c:2788
+#: ../src/scan.c:2784
 msgid ""
 "A space is inserted before each upper case letter. Example, before: "
 "'TextInAnEntry', after: 'Text In An Entry'."
@@ -4672,147 +4696,150 @@ msgstr ""
 "Před každé velké písmeno vložit mezeru. Příklad před: „TextVNějakémPoli“ a "
 "po: „Text V Nějakém Poli“."
 
-#: ../src/scan.c:2791
+#: ../src/scan.c:2787
+#| msgid ""
+#| "Duplicated spaces or underscores are removed. Example, before: "
+#| "'Text__In__An   Entry', after: 'Text_In_An Entry'."
 msgid ""
-"Duplicated spaces or underscores are removed. Example, before: "
+"Duplicate spaces and underscores are removed. Example, before: "
 "'Text__In__An   Entry', after: 'Text_In_An Entry'."
 msgstr ""
-"Odstranit zdvojené mezery nebo podtržítka. Příklad před: „Text__V__Nějakém   "
-"Poli“ a po: „Text_V_Nějakém Poli“."
+"Zdvojené mezery nebo podtržítka se odstraní. Příklad před: "
+"„Text__V__Nějakém   Poli“ a po: „Text_V_Nějakém Poli“."
 
 #.
 #. * Frame to display codes legend
 #.
-#: ../src/scan.c:2798
+#: ../src/scan.c:2794
 msgid "Legend"
 msgstr "Legenda"
 
-#: ../src/scan.c:2804
+#: ../src/scan.c:2800
 #, c-format
 msgid "%a: artist"
 msgstr "%a: umělec"
 
-#: ../src/scan.c:2807
+#: ../src/scan.c:2803
 msgid "%z: album artist"
 msgstr "%a: umělec alba"
 
-#: ../src/scan.c:2810
+#: ../src/scan.c:2806
 msgid "%b: album"
 msgstr "%b: album"
 
-#: ../src/scan.c:2813
+#: ../src/scan.c:2809
 #, c-format
 msgid "%c: comment"
 msgstr "%c: poznámka"
 
-#: ../src/scan.c:2816
+#: ../src/scan.c:2812
 #, c-format
 msgid "%p: composer"
 msgstr "%p: skladatel"
 
-#: ../src/scan.c:2819
+#: ../src/scan.c:2815
 msgid "%r: copyright"
 msgstr "%r: copyright"
 
-#: ../src/scan.c:2822
+#: ../src/scan.c:2818
 #, c-format
 msgid "%d: disc number"
 msgstr "%d: číslo disku"
 
-#: ../src/scan.c:2825
+#: ../src/scan.c:2821
 #, c-format
 msgid "%e: encoded by"
 msgstr "%e: kódováno pomocí"
 
-#: ../src/scan.c:2828
+#: ../src/scan.c:2824
 #, c-format
 msgid "%g: genre"
 msgstr "%g: žánr"
 
-#: ../src/scan.c:2831
+#: ../src/scan.c:2827
 #, c-format
 msgid "%i: ignored"
 msgstr "%i: ignorováno"
 
-#: ../src/scan.c:2834
+#: ../src/scan.c:2830
 msgid "%l: number of tracks"
 msgstr "%l: počet skladeb"
 
-#: ../src/scan.c:2837
+#: ../src/scan.c:2833
 #, c-format
 msgid "%o: orig. artist"
 msgstr "%o: původní umělec"
 
-#: ../src/scan.c:2840
+#: ../src/scan.c:2836
 #, c-format
 msgid "%n: track"
 msgstr "%n: pořadí"
 
-#: ../src/scan.c:2843
+#: ../src/scan.c:2839
 msgid "%t: title"
 msgstr "%t: název"
 
-#: ../src/scan.c:2846
+#: ../src/scan.c:2842
 #, c-format
 msgid "%u: URL"
 msgstr "%u: adresa URL"
 
-#: ../src/scan.c:2849
+#: ../src/scan.c:2845
 msgid "%y: year"
 msgstr "%y: rok"
 
 #.
 #. * Masks Editor
 #.
-#: ../src/scan.c:2856
+#: ../src/scan.c:2852
 msgid "Mask Editor"
 msgstr "Editor masky"
 
-#: ../src/scan.c:2910
+#: ../src/scan.c:2906
 msgid "Create New Mask"
 msgstr "Vytvořit novou masku"
 
-#: ../src/scan.c:2920
+#: ../src/scan.c:2916
 msgid "Move Up this Mask"
 msgstr "Posunout masku nahoru"
 
-#: ../src/scan.c:2930
+#: ../src/scan.c:2926
 msgid "Move Down this Mask"
 msgstr "Posunout masku dolů"
 
-#: ../src/scan.c:2940
+#: ../src/scan.c:2936
 msgid "Duplicate Mask"
 msgstr "Duplikovat masku"
 
-#: ../src/scan.c:2950
+#: ../src/scan.c:2946
 msgid "Add Default Masks"
 msgstr "Přidat výchozí masky"
 
-#: ../src/scan.c:2960
+#: ../src/scan.c:2956
 msgid "Remove Mask"
 msgstr "Odebrat masku"
 
-#: ../src/scan.c:2970
+#: ../src/scan.c:2966
 msgid "Save Masks"
 msgstr "Uložit masky"
 
-#: ../src/scan.c:3570
+#: ../src/scan.c:3546
 msgid "New_mask"
 msgstr "Nová _maska"
 
-#: ../src/scan.c:3609
+#: ../src/scan.c:3585
 msgid "Copy: No row selected"
 msgstr "Kopírování: Není vybrán žádný řádek"
 
-#: ../src/scan.c:3702
+#: ../src/scan.c:3678
 msgid "Remove: No row selected"
 msgstr "Odebírání: Není vybrán žádný řádek"
 
-#: ../src/scan.c:3749
+#: ../src/scan.c:3725
 msgid "Move Up: No row selected"
 msgstr "Posun výš: Není vybrán žádný řádek"
 
-#: ../src/scan.c:3793
+#: ../src/scan.c:3769
 msgid "Move Down: No row selected"
 msgstr "Posun níž: Není vybrán žádný řádek"
 
@@ -4937,34 +4964,3 @@ msgstr "Končí weasytag_init…"
 #, c-format
 msgid "Audio player: '%s'"
 msgstr "Hudební přehrávač: „%s“"
-
-#~ msgid ""
-#~ "\n"
-#~ "Usage: easytag [option] \n"
-#~ "   or: easytag [directory]\n"
-#~ "\n"
-#~ "Option:\n"
-#~ "-------\n"
-#~ "-h, --help        Display this text and exit.\n"
-#~ "-v, --version     Print basic information and exit.\n"
-#~ "\n"
-#~ "Directory:\n"
-#~ "----------\n"
-#~ "%s/path_to/files  Use an absolute path to load,\n"
-#~ "path_to/files     Use a relative path.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Použití: easytag [volba] \n"
-#~ "   nebo: easytag [složka]\n"
-#~ "\n"
-#~ "Volby:\n"
-#~ "------\n"
-#~ "-h, --help           Zobrazí tento text a skončí.\n"
-#~ "-v, --version        Vypíše základní informace a skončí.\n"
-#~ "\n"
-#~ "Složka:\n"
-#~ "----------\n"
-#~ "%s/cesta_k/souborům  K načtení se použije absolutní cesta.\n"
-#~ "cesta_k/souborům     Použije se relativní cesta.\n"
-#~ "\n"
