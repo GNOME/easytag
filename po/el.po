@@ -3,14 +3,14 @@
 # Copyright (C) 2005 Free Software Foundation, Inc.
 # This file is distributed under the same license as the EasyTAG package.
 # Apollon Oikonomopoulos <apoikos@mail.ntua.gr>, 2005.
-# keratea <dmtrs32@gmail.com>, 2013.
 # Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: EasyTAG 1.99.11\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-20 07:06+0000\n"
-"PO-Revision-Date: 2013-05-20 12:54+0300\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=easyta"
+"g&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2013-07-07 15:03+0000\n"
+"PO-Revision-Date: 2013-07-12 12:07+0300\n"
 "Last-Translator: Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>\n"
 "Language-Team: team@gnome.gr\n"
 "Language: el\n"
@@ -22,6 +22,7 @@ msgstr ""
 "X-Poedit-Language: Greek\n"
 "X-Poedit-Country: GREECE\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Project-Style: gnome\n"
 
 #: ../data/easytag.desktop.in.h:1
 msgid "Sound File Metadata Editor"
@@ -76,52 +77,25 @@ msgid "View and edit tags in audio files"
 msgstr "Προβολή και επεξεργασία ετικετών σε αρχεία ήχου"
 
 #. g_print(_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
-#: ../src/ape_tag.c:61 ../src/flac_header.c:99 ../src/id3v24_tag.c:112
-#: ../src/mp4_header.c:63 ../src/mp4_tag.c:71 ../src/mp4_tag.c:82
-#: ../src/mp4_tag.c:203 ../src/mp4_tag.c:212 ../src/ogg_header.c:69
-#: ../src/ogg_header.c:169 ../src/ogg_tag.c:141 ../src/ogg_tag.c:645
+#: ../src/ape_tag.c:61 ../src/id3v24_tag.c:112 ../src/mp4_header.c:63
+#: ../src/mp4_tag.c:65 ../src/mp4_tag.c:186
 #, c-format
 msgid "Error while opening file: '%s' (%s)."
 msgstr "Σφάλμα κατά το άνοιγμα του αρχείου: '%s' (%s)."
 
-#. FIXME: Translators should not have to deal with this!
-#: ../src/application.c:54
-#, c-format
-msgid ""
-"\n"
-"Usage: easytag [option] \n"
-"   or: easytag [directory]\n"
-"\n"
-"Option:\n"
-"-------\n"
-"-h, --help        Display this text and exit.\n"
-"-v, --version     Print basic information and exit.\n"
-"\n"
-"Directory:\n"
-"----------\n"
-"%s/path_to/files  Use an absolute path to load,\n"
-"path_to/files     Use a relative path.\n"
-"\n"
-msgstr ""
-"\n"
-"Χρήση: easytag [επιλογή] \n"
-"    ή: easytag [κατάλογος]\n"
-"\n"
-"Επιλογές:\n"
-"---------\n"
-"-h, --help     Εμφάνιση αυτού του κειμένου και έξοδος.\n"
-"-v, --version  Εμφάνιση βασικών πληροφοριών και έξοδος.\n"
-"\n"
-"Κατάλογος:\n"
-"----------\n"
-"%s/διαδρομή_για/αρχεία   Χρήση απόλυτης διαδρομής για φόρτωση,\n"
-"διαδρομή_για/αρχεία      Χρήση σχετικής διαδρομής.\n"
-"\n"
+#: ../src/application.c:37
+msgid "Print the version and exit"
+msgstr "Εμφάνιση της έκδοσης και έξοδος"
 
-#: ../src/application.c:119
+#: ../src/application.c:89
 #, c-format
 msgid "Website: %s"
 msgstr "Ιστοσελίδα: %s"
+
+#: ../src/application.c:98
+#| msgid "View and edit tags in audio files"
+msgid "- Tag and rename audio files"
+msgstr "- Ετικέτα και μετονομασία αρχείων ήχου"
 
 #.
 #. * Main Menu Actions
@@ -374,7 +348,7 @@ msgstr "Τελευταίο αρχείο"
 msgid "S_can Files"
 msgstr "_Σάρωση αρχείων"
 
-#: ../src/bar.c:222 ../src/scan.c:2350
+#: ../src/bar.c:222 ../src/scan.c:2351
 msgid "Scan selected files"
 msgstr "Σάρωση των επιλεγμένων αρχείων"
 
@@ -382,360 +356,363 @@ msgstr "Σάρωση των επιλεγμένων αρχείων"
 msgid "_Remove Tags"
 msgstr "Α_φαίρεση ετικετών"
 
-#: ../src/bar.c:223
+#: ../src/bar.c:224
 msgid "Remove tags"
 msgstr "Αφαίρεση ετικετών"
 
-#: ../src/bar.c:224
+#: ../src/bar.c:225
 msgid "_Undo Last Files Changes"
 msgstr "Α_ναίρεση τελευταίων αλλαγών αρχείων"
 
-#: ../src/bar.c:224
-msgid "Undo last Files changes"
-msgstr "Αναίρεση τελευταίων αλλαγών αρχείων"
+#: ../src/bar.c:226
+#| msgid "Undo last Files changes"
+msgid "Undo last files changes"
+msgstr "Αναίρεση των τελευταίων αλλαγών αρχείων"
 
-#: ../src/bar.c:225
+#: ../src/bar.c:228
 msgid "R_edo Last Files Changes"
 msgstr "Ε_πανάληψη τελευταίων αλλαγών αρχείων"
 
-#: ../src/bar.c:225
+#: ../src/bar.c:228
 msgid "Redo last files changes"
 msgstr "Επανάληψη τελευταίων αλλαγών αρχείων"
 
-#: ../src/bar.c:226
+#: ../src/bar.c:229
 msgid "_Save Files"
 msgstr "Απο_θήκευση αρχείων"
 
-#: ../src/bar.c:226
-msgid "Save files"
-msgstr "Αποθήκευση αρχείων"
+#: ../src/bar.c:230
+#| msgid "Scan selected files"
+msgid "Save changes to selected files"
+msgstr "Αποθήκευση αλλαγών στα επιλεγμένα αρχεία"
 
-#: ../src/bar.c:227
+#: ../src/bar.c:232
 msgid "_Force Save Files"
 msgstr "_Αναγκαστική αποθήκευση αρχείων"
 
-#: ../src/bar.c:228
+#: ../src/bar.c:233
 msgid "Force saving files"
 msgstr "Αναγκαστική αποθήκευση αρχείων"
 
-#: ../src/bar.c:230
+#: ../src/bar.c:235
 msgid "Undo Last Changes"
 msgstr "Αναίρεση τελευταίων αλλαγών"
 
-#: ../src/bar.c:230
+#: ../src/bar.c:235
 msgid "Undo last changes"
 msgstr "Αναίρεση τελευταίων αλλαγών"
 
-#: ../src/bar.c:231
+#: ../src/bar.c:236
 msgid "Redo Last Changes"
 msgstr "Επανάληψη τελευταίων αλλαγών"
 
-#: ../src/bar.c:231
+#: ../src/bar.c:236
 msgid "Redo last changes"
 msgstr "Επανάληψη τελευταίων αλλαγών"
 
-#: ../src/bar.c:232
+#: ../src/bar.c:237
 msgid "_Quit"
 msgstr "Έ_ξοδος"
 
-#: ../src/bar.c:232 ../src/easytag.c:2330 ../src/easytag.c:4594
-#: ../src/easytag.c:4620
+#: ../src/bar.c:237 ../src/easytag.c:2397 ../src/easytag.c:4547
+#: ../src/easytag.c:4575
 msgid "Quit"
 msgstr "Έξοδος"
 
-#: ../src/bar.c:234
+#: ../src/bar.c:239
 msgid "_Browser"
 msgstr "_Περιηγητής"
 
-#: ../src/bar.c:235
+#: ../src/bar.c:240
 msgid "_Home Directory"
 msgstr "_Προσωπικός κατάλογος"
 
-#: ../src/bar.c:236
+#: ../src/bar.c:241
 msgid "Go to home directory"
 msgstr "Μετάβαση στον προσωπικό κατάλογο"
 
-#: ../src/bar.c:238
+#: ../src/bar.c:243
 msgid "Desktop Directory"
 msgstr "Κατάλογος επιφάνειας εργασίας"
 
-#: ../src/bar.c:239
+#: ../src/bar.c:244
 msgid "Go to desktop directory"
 msgstr "Μετάβαση στον κατάλογο επιφάνειας εργασίας"
 
-#: ../src/bar.c:241
+#: ../src/bar.c:246
 msgid "Documents Directory"
 msgstr "Κατάλογος εγγράφων"
 
-#: ../src/bar.c:242
+#: ../src/bar.c:247
 msgid "Go to documents directory"
 msgstr "Μετάβαση στον κατάλογο εγγράφων"
 
-#: ../src/bar.c:244
+#: ../src/bar.c:249
 msgid "Downloads Directory"
 msgstr "Μεταφορτώσεις καταλόγου"
 
-#: ../src/bar.c:245
+#: ../src/bar.c:250
 msgid "Go to downloads directory"
 msgstr "Μετάβαση στον κατάλογο μεταφορτώσεων"
 
-#: ../src/bar.c:247
+#: ../src/bar.c:252
 msgid "Music Directory"
 msgstr "Κατάλογος μουσικής"
 
-#: ../src/bar.c:248
+#: ../src/bar.c:253
 msgid "Go to music directory"
 msgstr "Μετάβαση στον κατάλογο μουσικής"
 
-#: ../src/bar.c:250
-#| msgid "_Home Directory"
+#: ../src/bar.c:255
 msgid "_Parent Directory"
 msgstr "_Γονικός κατάλογος"
 
-#: ../src/bar.c:251
+#: ../src/bar.c:256
 msgid "Go to parent directory"
 msgstr "Μετάβαση στο γονικό κατάλογο"
 
-#: ../src/bar.c:253
+#: ../src/bar.c:258
 msgid "_Default Directory"
 msgstr "_Προεπιλεγμένος κατάλογος"
 
-#: ../src/bar.c:254
+#: ../src/bar.c:259
 msgid "Go to default directory"
 msgstr "Μετάβαση στον προεπιλεγμένο κατάλογο"
 
-#: ../src/bar.c:256
+#: ../src/bar.c:261
 msgid "Set _Current Path as Default"
 msgstr "Ορισμός της _τρέχουσας διαδρομής ως προεπιλογής"
 
-#: ../src/bar.c:256
+#: ../src/bar.c:261
 msgid "Set current path as default"
 msgstr "Ορισμός της τρέχουσας διαδρομής ως προεπιλογής"
 
-#: ../src/bar.c:257
+#: ../src/bar.c:262
 msgid "Rename Directory…"
 msgstr "Μετονομασία καταλόγου…"
 
-#: ../src/bar.c:257
+#: ../src/bar.c:262
 msgid "Rename directory"
 msgstr "Μετονομασία καταλόγου"
 
-#: ../src/bar.c:258
+#: ../src/bar.c:263
 msgid "Reload Directory"
 msgstr "Επαναφόρτωση καταλόγου"
 
-#: ../src/bar.c:258
+#: ../src/bar.c:264
 msgid "Reload directory"
 msgstr "Επαναφόρτωση καταλόγου"
 
-#: ../src/bar.c:260
+#: ../src/bar.c:267
 msgid "Browse Directory With…"
 msgstr "Περιήγηση καταλόγου με…"
 
-#: ../src/bar.c:261
+#: ../src/bar.c:268
 msgid "Run a command on the directory"
 msgstr "Εκτέλεση μιας εντολής στον κατάλογο"
 
-#: ../src/bar.c:263
+#: ../src/bar.c:270
 msgid "_Collapse Tree"
 msgstr "_Σύμπτυξη δένδρου"
 
-#: ../src/bar.c:263
-msgid "_Collapse tree"
-msgstr "_Σύμπτυξη δένδρου"
+#: ../src/bar.c:271
+#| msgid "_Reload directory tree"
+msgid "Collapse directory tree"
+msgstr "Σύμπτυξη δένδρου καταλόγου"
 
-#: ../src/bar.c:264
+#: ../src/bar.c:272
 msgid "_Reload Tree"
 msgstr "Ε_παναφόρτωση δένδρου"
 
-#: ../src/bar.c:265
-msgid "_Reload directory tree"
-msgstr "Ε_παναφόρτωση δένδρου καταλόγου"
+#: ../src/bar.c:273
+#| msgid "_Reload directory tree"
+msgid "Reload directory tree"
+msgstr "Επαναφόρτωση δένδρου καταλόγου"
 
-#: ../src/bar.c:268
+#: ../src/bar.c:276
 msgid "S_canner Mode"
 msgstr "Κατάσταση _σαρωτή"
 
-#: ../src/bar.c:270
+#: ../src/bar.c:278
 msgid "_Miscellaneous"
 msgstr "_Διάφορα"
 
-#: ../src/bar.c:271
+#: ../src/bar.c:279
 msgid "_Find…"
 msgstr "_Εύρεση…"
 
-#: ../src/bar.c:272
+#: ../src/bar.c:280
 msgid "Search filenames and tags"
 msgstr "Αναζήτηση ονομάτων αρχείων και ετικετών"
 
-#: ../src/bar.c:274
+#: ../src/bar.c:282
 msgid "CDD_B Search…"
 msgstr "Αναζήτηση CDD_B…"
 
-#: ../src/bar.c:275
+#: ../src/bar.c:283
 msgid "CDDB search"
 msgstr "Αναζήτηση CDDB"
 
-#: ../src/bar.c:277
+#: ../src/bar.c:285
 msgid "Load Filenames From a Text File…"
 msgstr "Φόρτωση ονομάτων αρχείων από αρχείο κειμένου…"
 
-#: ../src/bar.c:278
+#: ../src/bar.c:286
 msgid "Load filenames from a text file"
 msgstr "Φόρτωση ονομάτων αρχείων από ένα αρχείο κειμένου"
 
-#: ../src/bar.c:280
+#: ../src/bar.c:288
 msgid "Generate Playlist…"
 msgstr "Δημιουργία λίστας αναπαραγωγής…"
 
-#: ../src/bar.c:281
+#: ../src/bar.c:289
 msgid "Generate a playlist"
 msgstr "Δημιουργία λίστας αναπαραγωγής"
 
-#: ../src/bar.c:283 ../src/bar.c:307 ../src/bar.c:308 ../src/bar.c:309
+#: ../src/bar.c:291 ../src/bar.c:317 ../src/bar.c:318 ../src/bar.c:319
 msgid "Run Audio Player"
 msgstr "Εκτέλεση αναπαραγωγέα μουσικής"
 
-#: ../src/bar.c:283 ../src/bar.c:307 ../src/bar.c:308 ../src/bar.c:309
+#: ../src/bar.c:292 ../src/bar.c:317 ../src/bar.c:318 ../src/bar.c:319
 msgid "Run audio player"
 msgstr "Εκτέλεση αναπαραγωγέα μουσικής"
 
-#: ../src/bar.c:285
+#: ../src/bar.c:295
 msgid "_Edit"
 msgstr "_Επεξεργασία"
 
-#: ../src/bar.c:286
+#: ../src/bar.c:296
 msgid "_Preferences"
 msgstr "_Προτιμήσεις"
 
 #. The window
-#: ../src/bar.c:287 ../src/prefs.c:107
+#: ../src/bar.c:297 ../src/prefs.c:106
 msgid "Preferences"
 msgstr "Προτιμήσεις"
 
-#: ../src/bar.c:289
+#: ../src/bar.c:299
 msgid "_View"
 msgstr "_Προβολή"
 
-#: ../src/bar.c:290
+#: ../src/bar.c:300
 msgid "_Go"
 msgstr "_Μετάβαση"
 
-#: ../src/bar.c:292
+#: ../src/bar.c:302
 msgid "_Help"
 msgstr "_Βοήθεια"
 
-#: ../src/bar.c:293
+#: ../src/bar.c:303
 msgid "_About"
 msgstr "_Περί"
 
-#: ../src/bar.c:293
+#: ../src/bar.c:303
 msgid "About"
 msgstr "Περί"
 
 #.
 #. * Following items are on toolbar but not on menu
 #.
-#: ../src/bar.c:299
+#: ../src/bar.c:309
 msgid "Stop the current action"
 msgstr "Τερματισμός της τρέχουσας ενέργειας"
 
 #.
 #. * Popup menu's Actions
 #.
-#: ../src/bar.c:305
+#: ../src/bar.c:315
 msgid "_File Operations"
-msgstr "Ενέργειες σε αρχεία"
+msgstr "Λειτουργίες σε _αρχεία"
 
-#: ../src/bar.c:306
+#: ../src/bar.c:316
 msgid "S_canner"
 msgstr "_Σαρωτής"
 
-#: ../src/bar.c:310
+#: ../src/bar.c:320
 msgid "CDDB Search Files…"
 msgstr "Αναζήτηση αρχείων στη CDDB…"
 
-#: ../src/bar.c:310
+#: ../src/bar.c:320
 msgid "CDDB search files…"
 msgstr "Αναζήτηση αρχείων στη CDDB…"
 
 #. { AM_ARTIST_OPEN_FILE_WITH,     GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
 #. { AM_ALBUM_OPEN_FILE_WITH,      GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
-#: ../src/bar.c:314
+#: ../src/bar.c:324
 msgid "Clear log"
 msgstr "Καθαρισμός ημερολογίου"
 
 #. { AM_BROWSE_SUBDIR,      GTK_STOCK_INDEX,        _("Browse _Subdirectories"),                         NULL, _("Browse _Sub-directories"),                         NULL,                                    FALSE },
-#: ../src/bar.c:321
+#: ../src/bar.c:331
 msgid "Browse _Subdirectories"
 msgstr "Περιήγηση στους _υποκαταλόγους"
 
-#: ../src/bar.c:321
+#: ../src/bar.c:331
 msgid "Browse subdirectories"
 msgstr "Περιήγηση στους υποκαταλόγους"
 
-#: ../src/bar.c:325
+#: ../src/bar.c:335
 msgid "Show Hidden Directories"
 msgstr "Εμφάνιση των κρυφών καταλόγων"
 
-#: ../src/bar.c:325
+#: ../src/bar.c:335
 msgid "Show hidden directories"
 msgstr "Εμφάνιση των κρυφών καταλόγων"
 
-#: ../src/bar.c:327
+#: ../src/bar.c:337
 msgid "_Show Scanner"
 msgstr "_Εμφάνιση σαρωτή"
 
-#: ../src/bar.c:328
+#: ../src/bar.c:338
 msgid "Show scanner"
 msgstr "Εμφάνιση σαρωτή"
 
-#: ../src/bar.c:334
+#: ../src/bar.c:344
 msgid "Tree Browser"
 msgstr "Περιηγητής δένδρου"
 
-#: ../src/bar.c:335
+#: ../src/bar.c:345
 msgid "View by directory tree"
 msgstr "Προβολή κατά δένδρο καταλόγου"
 
-#: ../src/bar.c:337
+#: ../src/bar.c:347
 msgid "Artist and Album"
 msgstr "Καλλιτέχνης και δίσκος"
 
-#: ../src/bar.c:338
+#: ../src/bar.c:348
 msgid "View by artist and album"
 msgstr "Προβολή κατά καλλιτέχνη και δίσκο"
 
-#: ../src/bar.c:343
+#: ../src/bar.c:353
 msgid "_Fill Tags…"
 msgstr "Σ_υμπλήρωση ετικετών…"
 
-#: ../src/bar.c:344
+#: ../src/bar.c:354
 msgid "Fill tags"
 msgstr "Συμπλήρωση ετικετών"
 
-#: ../src/bar.c:346
+#: ../src/bar.c:356
 msgid "_Rename Files and Directories…"
 msgstr "_Μετονομασία αρχείων και καταλόγων…"
 
-#: ../src/bar.c:347
+#: ../src/bar.c:357
 msgid "Rename files and directories"
 msgstr "Μετονομασία αρχείων και καταλόγων"
 
-#: ../src/bar.c:349
+#: ../src/bar.c:359
 msgid "_Process Fields…"
 msgstr "_Επεξεργασία πεδίων…"
 
-#: ../src/bar.c:349 ../src/scan.c:181
+#: ../src/bar.c:359 ../src/scan.c:183
 msgid "Process Fields"
 msgstr "Επεξεργασία πεδίων"
 
-#: ../src/bar.c:404
+#: ../src/bar.c:416
 #, c-format
 msgid "Could not merge UI, error was: %s\n"
 msgstr "Could not merge UI, error was: %s\n"
 
-#: ../src/bar.c:509
+#: ../src/bar.c:522
 msgid "Ready to start"
 msgstr "Έτοιμο για εκκίνηση"
 
@@ -743,113 +720,113 @@ msgstr "Έτοιμο για εκκίνηση"
 msgid "New default path for files selected"
 msgstr "Επιλέχθηκε νέα ερήμην διαδρομή για τα αρχεία"
 
-#: ../src/browser.c:768 ../src/easytag.c:4592
+#: ../src/browser.c:670 ../src/easytag.c:4543
 msgid "Some files have been modified but not saved"
 msgstr "Μερικά αρχεία έχουν τροποποιηθεί αλλά δεν αποθηκεύτηκαν"
 
-#: ../src/browser.c:769
+#: ../src/browser.c:671
 msgid "Do you want to save them before changing the directory?"
 msgstr "Θέλετε να τα αποθηκεύσετε πριν την αλλαγή καταλόγου;"
 
-#: ../src/browser.c:771
+#: ../src/browser.c:675
 msgid "Confirm Directory Change"
 msgstr "Επιβεβαίωση αλλαγής καταλόγου"
 
-#: ../src/browser.c:2211
+#: ../src/browser.c:2105
 msgid "<All albums>"
 msgstr "<Όλοι οι δίσκοι>"
 
-#: ../src/browser.c:2656
+#: ../src/browser.c:2550
 #, c-format
 msgid "Error: Searching for %s, could not find node %s in tree."
 msgstr "Σφάλμα κατά την αναζήτηση για %s: Δε βρέθηκε κόμβος %s στο δένδρο."
 
-#: ../src/browser.c:3144 ../src/browser.c:3223
+#: ../src/browser.c:3042 ../src/browser.c:3120
 msgid "Tree"
 msgstr "Δένδρο"
 
-#: ../src/browser.c:3145 ../src/cddb.c:712 ../src/misc.c:1881
+#: ../src/browser.c:3043 ../src/cddb.c:716 ../src/misc.c:1915
 msgid "Filename"
 msgstr "Όνομα αρχείου"
 
-#: ../src/browser.c:3145 ../src/cddb.c:713 ../src/misc.c:1882
-#: ../src/prefs.c:608
+#: ../src/browser.c:3043 ../src/cddb.c:717 ../src/misc.c:1916
+#: ../src/prefs.c:609
 msgid "Title"
 msgstr "Τίτλο"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Artist".
-#: ../src/browser.c:3146 ../src/browser.c:3153 ../src/cddb.c:397
-#: ../src/cddb.c:714 ../src/misc.c:1883 ../src/prefs.c:609
+#: ../src/browser.c:3044 ../src/browser.c:3051 ../src/cddb.c:396
+#: ../src/cddb.c:718 ../src/misc.c:1917 ../src/prefs.c:610
 msgid "Artist"
 msgstr "Καλλιτέχνης"
 
-#: ../src/browser.c:3146 ../src/misc.c:1884
+#: ../src/browser.c:3044 ../src/misc.c:1918
 msgid "Album Artist"
 msgstr "Καλλιτέχνης δίσκου"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Album".
-#: ../src/browser.c:3147 ../src/browser.c:3155 ../src/cddb.c:400
-#: ../src/cddb.c:715 ../src/misc.c:1885 ../src/prefs.c:610
+#: ../src/browser.c:3045 ../src/browser.c:3053 ../src/cddb.c:399
+#: ../src/cddb.c:719 ../src/misc.c:1919 ../src/prefs.c:611
 msgid "Album"
 msgstr "Δίσκος"
 
-#: ../src/browser.c:3147 ../src/cddb.c:716 ../src/misc.c:1887
+#: ../src/browser.c:3045 ../src/cddb.c:720 ../src/misc.c:1921
 msgid "Year"
 msgstr "Χρονιά"
 
-#: ../src/browser.c:3147
+#: ../src/browser.c:3045
 msgid "Disc"
 msgstr "Δίσκος"
 
-#: ../src/browser.c:3148 ../src/misc.c:1888
+#: ../src/browser.c:3046 ../src/misc.c:1922
 msgid "Track"
 msgstr "Τίτλος κομματιού"
 
-#: ../src/browser.c:3148 ../src/cddb.c:719 ../src/misc.c:1889
-#: ../src/prefs.c:611
+#: ../src/browser.c:3046 ../src/cddb.c:723 ../src/misc.c:1923
+#: ../src/prefs.c:612
 msgid "Genre"
 msgstr "Είδος"
 
-#: ../src/browser.c:3149 ../src/misc.c:1890 ../src/prefs.c:612
+#: ../src/browser.c:3047 ../src/misc.c:1924 ../src/prefs.c:613
 msgid "Comment"
 msgstr "Σχόλιο"
 
-#: ../src/browser.c:3149 ../src/misc.c:1891 ../src/picture.c:845
-#: ../src/prefs.c:613
+#: ../src/browser.c:3047 ../src/misc.c:1925 ../src/picture.c:845
+#: ../src/prefs.c:614
 msgid "Composer"
 msgstr "Συνθέτης"
 
-#: ../src/browser.c:3150 ../src/misc.c:1892
+#: ../src/browser.c:3048 ../src/misc.c:1926
 msgid "Original Artist"
 msgstr "Αρχικός καλλιτέχνης"
 
-#: ../src/browser.c:3151 ../src/misc.c:1893
+#: ../src/browser.c:3049 ../src/misc.c:1927
 msgid "Copyright"
 msgstr "Copyright"
 
-#: ../src/browser.c:3151 ../src/misc.c:1894
+#: ../src/browser.c:3049 ../src/misc.c:1928
 msgid "URL"
 msgstr "Ιστοσελίδα"
 
-#: ../src/browser.c:3152 ../src/misc.c:1895
+#: ../src/browser.c:3050 ../src/misc.c:1929
 msgid "Encoded By"
 msgstr "Κωδικοποιήθηκε από"
 
-#: ../src/browser.c:3153
+#: ../src/browser.c:3051
 msgid "# Albums"
 msgstr "# Δίσκων"
 
-#: ../src/browser.c:3154 ../src/browser.c:3155
+#: ../src/browser.c:3052 ../src/browser.c:3053
 msgid "# Files"
 msgstr "# Αρχείων"
 
-#: ../src/browser.c:3181
+#: ../src/browser.c:3078
 msgid "Enter a directory to browse."
 msgstr "Εισάγετε έναν κατάλογο για περιήγηση."
 
-#: ../src/browser.c:3190
+#: ../src/browser.c:3087
 msgid "Select a directory to browse."
 msgstr "Επιλέξτε έναν κατάλογο για περιήγηση."
 
@@ -857,35 +834,35 @@ msgstr "Επιλέξτε έναν κατάλογο για περιήγηση."
 #. * The label for displaying number of files in path (without subdirs)
 #.
 #. Translators: No files, as in "0 files".
-#: ../src/browser.c:3197 ../src/easytag.c:3349
+#: ../src/browser.c:3094 ../src/easytag.c:3419
 msgid "No files"
 msgstr "Δεν υπάρχουν αρχεία"
 
-#: ../src/browser.c:3274
+#: ../src/browser.c:3172
 msgid "Artist & Album"
 msgstr "Καλλιτέχης & Δίσκος"
 
 #. Only directories changed
-#: ../src/browser.c:3636 ../src/easytag.c:2771
+#: ../src/browser.c:3537 ../src/easytag.c:2837
 msgid "Rename Directory"
 msgstr "Μετονομασία καταλόγου"
 
-#: ../src/browser.c:3655
+#: ../src/browser.c:3559
 #, c-format
 msgid "Rename the directory '%s' to:"
 msgstr "Μετονομασία του καταλόγου '%s' σε:"
 
-#: ../src/browser.c:3674 ../src/misc.c:1185
+#: ../src/browser.c:3578 ../src/misc.c:1179
 msgid "Use mask:"
 msgstr "Χρήση μάσκας:"
 
-#: ../src/browser.c:3677
+#: ../src/browser.c:3581
 msgid "If activated, it will use masks to rename directory."
 msgstr ""
 "Αν ενεργοποιηθεί η επιλογή αυτή, τότε οι μάσκες θα χρησιμοποιηθούν για τη "
 "μετονομασία του καταλόγου."
 
-#: ../src/browser.c:3695
+#: ../src/browser.c:3599
 msgid ""
 "Select or type in a mask using codes (see Legend in Scanner Window) to "
 "rename the directory from tag fields."
@@ -894,113 +871,113 @@ msgstr ""
 "υπόμνημα) για να μετονομαστεί ο κατάλογος βάσει των πεδίων της ετικέτας."
 
 #. Preview label
-#: ../src/browser.c:3719
+#: ../src/browser.c:3623
 msgid "Rename directory preview"
 msgstr "Μετονομασία προεπισκόπησης καταλόγου"
 
-#: ../src/browser.c:3812
+#: ../src/browser.c:3716
 msgid "You must type a directory name"
 msgstr "Πρέπει να πληκτρολογήσετε ένα όνομα καταλόγου"
 
-#: ../src/browser.c:3813 ../src/browser.c:3834
+#: ../src/browser.c:3717 ../src/browser.c:3738
 msgid "Directory Name Error"
 msgstr "Σφάλμα ονόματος καταλόγου"
 
-#: ../src/browser.c:3831
+#: ../src/browser.c:3735
 #, c-format
 msgid "Could not convert '%s' into filename encoding."
 msgstr "Αδύνατη η μετατροπή του '%s' στην κωδικοποίηση του ονόματος αρχείου."
 
-#: ../src/browser.c:3833
+#: ../src/browser.c:3737
 msgid "Please use another name"
 msgstr "Παρακαλούμε χρησιμοποιήστε ένα άλλο όνομα"
 
-#: ../src/browser.c:3903
+#: ../src/browser.c:3807
 #, c-format
 msgid "The directory name '%s' already exists"
 msgstr "Το όνομα καταλόγου '%s' υπάρχει ήδη"
 
-#: ../src/browser.c:3904 ../src/easytag.c:2852
+#: ../src/browser.c:3808 ../src/easytag.c:2920
 msgid "Rename File Error"
 msgstr "Σφάλμα κατά τη μετονομασία αρχείου"
 
-#: ../src/browser.c:3943 ../src/browser.c:3973
+#: ../src/browser.c:3847 ../src/browser.c:3877
 msgid "Rename Directory Error"
 msgstr "Σφάλμα κατά τη μετονομασία καταλόγου"
 
-#: ../src/browser.c:4013
+#: ../src/browser.c:3917
 msgid "Directory renamed"
 msgstr "Ο κατάλογος μετονομάστηκε"
 
-#: ../src/browser.c:4049
+#: ../src/browser.c:3953
 msgid "Browse Directory With"
 msgstr "Περιήγηση καταλόγου με"
 
-#: ../src/browser.c:4063 ../src/browser.c:4187
+#: ../src/browser.c:3969 ../src/browser.c:4095
 msgid "Program to run:"
 msgstr "Πρόγραμμα προς εκτέλεση:"
 
-#: ../src/browser.c:4075
+#: ../src/browser.c:3981
 msgid ""
 "Enter the program to run. It will receive the current directory as parameter."
 msgstr ""
 "Πληκτρολογήστε το όνομα του προς εκτέλεση προγράμματος. Θα λάβει το όνομα "
 "του τρέχοντος καταλόγου ως παράμετρο."
 
-#: ../src/browser.c:4169
+#: ../src/browser.c:4075
 msgid "Open Files With"
 msgstr "Άνοιγμα αρχείων με"
 
-#: ../src/browser.c:4199
+#: ../src/browser.c:4107
 msgid ""
 "Enter the program to run. It will receive the current file as parameter."
 msgstr ""
 "Πληκτρολογήστε το όνομα του προς εκτέλεση προγράμματος. Θα λάβει το όνομα "
 "του τρέχοντος αρχείου ως παράμετρο."
 
-#: ../src/browser.c:4325
+#: ../src/browser.c:4233
 msgid "You must type a program name"
 msgstr "Πρέπει να πληκτρολογήσετε ένα όνομα προγράμματος"
 
-#: ../src/browser.c:4326 ../src/browser.c:4343
+#: ../src/browser.c:4234 ../src/browser.c:4251
 msgid "Program Name Error"
 msgstr "Σφάλμα ονόματος προγράμματος"
 
-#: ../src/browser.c:4341 ../src/misc.c:794
+#: ../src/browser.c:4249 ../src/misc.c:791
 #, c-format
 msgid "The program '%s' cannot be found"
 msgstr "Το πρόγραμμα '%s' δε βρέθηκε"
 
-#: ../src/browser.c:4389 ../src/misc.c:839
+#: ../src/browser.c:4297 ../src/misc.c:833
 #, c-format
 msgid "Cannot execute %s (error %d)\n"
 msgstr "Αδύνατη η εκτέλεση του %s (σφάλμα %d)\n"
 
-#: ../src/browser.c:4408
+#: ../src/browser.c:4316
 msgid "Cannot fork another process\n"
 msgstr "Αδύνατη η διακλάδωση μιας άλλης διεργασίας\n"
 
-#: ../src/browser.c:4443
+#: ../src/browser.c:4350
 #, c-format
 msgid "Executed command: %s"
 msgstr "Εκτελέστηκε η εντολή: %s"
 
-#: ../src/cddb.c:227
+#: ../src/cddb.c:226
 msgid "Artist / Album"
 msgstr "Καλλιτέχνης / Δίσκος"
 
-#: ../src/cddb.c:227
+#: ../src/cddb.c:226
 msgid "Category"
 msgstr "Κατηγορία"
 
 #. Note: don't set "" instead of NULL else this will cause problem with translation language
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Track Name".
-#: ../src/cddb.c:228 ../src/cddb.c:403
+#: ../src/cddb.c:227 ../src/cddb.c:402
 msgid "Track Name"
 msgstr "Τίτλος κομματιού"
 
-#: ../src/cddb.c:228
+#: ../src/cddb.c:227
 msgid "Duration"
 msgstr "Διάρκεια"
 
@@ -1011,15 +988,15 @@ msgstr "Αναζήτηση CDDB"
 #.
 #. * 1 - Page for automatic search (generate the CDDBId from files)
 #.
-#: ../src/cddb.c:260
+#: ../src/cddb.c:259
 msgid "Automatic Search"
 msgstr "Αυτόματη αναζήτηση"
 
-#: ../src/cddb.c:270
+#: ../src/cddb.c:269
 msgid "Request CDDB"
 msgstr "Αίτημα στη CDDB"
 
-#: ../src/cddb.c:280
+#: ../src/cddb.c:279
 msgid ""
 "Request automatically the CDDB using the selected files (the order is "
 "important) to generate the CddbID"
@@ -1027,16 +1004,16 @@ msgstr ""
 "Αυτόματο αίτημα στη CDDB, χρησιμοποιώντας τα επιλεγμένα αρχεία (η σειρά "
 "είναι σημαντική) για τη δημιουργία του CddbID"
 
-#: ../src/cddb.c:291 ../src/cddb.c:371
+#: ../src/cddb.c:290 ../src/cddb.c:370
 msgid "Stop the search"
 msgstr "Τερματισμός αναζήτησης"
 
 #. Check box to run the scanner
-#: ../src/cddb.c:298
+#: ../src/cddb.c:297
 msgid "Use local CDDB"
 msgstr "Χρήση τοπικής CDDB"
 
-#: ../src/cddb.c:301 ../src/cddb.c:759
+#: ../src/cddb.c:300 ../src/cddb.c:763
 msgid ""
 "When activating this option, after loading the fields, the current selected "
 "scanner will be ran (the scanner window must be opened)."
@@ -1048,162 +1025,162 @@ msgstr ""
 #.
 #. * 2 - Page for manual search
 #.
-#: ../src/cddb.c:318
+#: ../src/cddb.c:317
 msgid "Manual Search"
 msgstr "Χειροκίνητη αναζήτηση"
 
-#: ../src/cddb.c:330
+#: ../src/cddb.c:329
 msgid "Words:"
 msgstr "Λέξεις:"
 
-#: ../src/cddb.c:343
+#: ../src/cddb.c:342
 msgid "Enter the words to search (separated by a space or '+')"
 msgstr "Πληκτρολογήστε τις λέξεις για αναζήτηση (χωρισμένες με κενά ή '+')"
 
 #.
 #. * Search options
 #.
-#: ../src/cddb.c:383
+#: ../src/cddb.c:382
 msgid "Search In:"
 msgstr "Αναζήτηση σε:"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "All fields".
-#: ../src/cddb.c:393
+#: ../src/cddb.c:392
 msgid "All Fields"
 msgstr "Όλα τα πεδία"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Other".
-#: ../src/cddb.c:406 ../src/picture.c:823 ../src/prefs.c:780
+#: ../src/cddb.c:405 ../src/picture.c:823 ../src/prefs.c:773
 msgid "Other"
 msgstr "Άλλο"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "All Categories".
-#: ../src/cddb.c:430
+#: ../src/cddb.c:429
 msgid "All Categories"
 msgstr "Όλες οι κατηγορίες"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Blues".
-#: ../src/cddb.c:434
+#: ../src/cddb.c:433
 msgid "Blues"
 msgstr "Blues"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Classical".
-#: ../src/cddb.c:437
+#: ../src/cddb.c:436
 msgid "Classical"
 msgstr "Κλασική"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Country".
-#: ../src/cddb.c:440
+#: ../src/cddb.c:439
 msgid "Country"
 msgstr "Country"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Folk".
-#: ../src/cddb.c:443
+#: ../src/cddb.c:442
 msgid "Folk"
 msgstr "Folk"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Jazz".
-#: ../src/cddb.c:446
+#: ../src/cddb.c:445
 msgid "Jazz"
 msgstr "Jazz"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Misc".
-#: ../src/cddb.c:449
+#: ../src/cddb.c:448
 msgid "Misc."
 msgstr "Ποικίλα"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "New age".
-#: ../src/cddb.c:452
+#: ../src/cddb.c:451
 msgid "New Age"
 msgstr "Νέα εποχή"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Reggae".
-#: ../src/cddb.c:455
+#: ../src/cddb.c:454
 msgid "Reggae"
 msgstr "Reggae"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Rock".
-#: ../src/cddb.c:458
+#: ../src/cddb.c:457
 msgid "Rock"
 msgstr "Rock"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Soundtrack".
-#: ../src/cddb.c:461
+#: ../src/cddb.c:460
 msgid "Soundtrack"
 msgstr "Soundtrack"
 
-#: ../src/cddb.c:501
+#: ../src/cddb.c:500
 msgid "included: funk, soul, rap, pop, industrial, metal, etc."
 msgstr "περιλαμβάνει: funk, soul, rap, pop, industrial, metal, κλπ."
 
-#: ../src/cddb.c:502
+#: ../src/cddb.c:501
 msgid "movies, shows"
 msgstr "ταινίες, εκπομπές"
 
-#: ../src/cddb.c:503
+#: ../src/cddb.c:502
 msgid "others that do not fit in the above categories"
 msgstr "άλλα, που δεν εμπίπτουν στις παραπάνω κατηγορίες"
 
 #. Button to display/hide the categories
-#: ../src/cddb.c:506
+#: ../src/cddb.c:505
 msgid "Categories"
 msgstr "Κατηγορίες"
 
 #.
 #. * Results command
 #.
-#: ../src/cddb.c:514
+#: ../src/cddb.c:513
 msgid "Results:"
 msgstr "Αποτελέσματα:"
 
-#: ../src/cddb.c:520 ../src/misc.c:1930
+#: ../src/cddb.c:519 ../src/misc.c:1963
 msgid "Search:"
 msgstr "Αναζήτηση:"
 
-#: ../src/cddb.c:534
+#: ../src/cddb.c:533
 msgid "Enter the words to search in the list below"
 msgstr "Πληκτρολογήστε όρους για αναζήτηση μεταξύ των αποτελεσμάτων"
 
-#: ../src/cddb.c:546
+#: ../src/cddb.c:545
 msgid "Search Next"
 msgstr "Αναζήτηση επόμενου"
 
-#: ../src/cddb.c:552
+#: ../src/cddb.c:551
 msgid "Search Previous"
 msgstr "Αναζήτηση προηγούμενου"
 
-#: ../src/cddb.c:563
+#: ../src/cddb.c:562
 msgid "Show only red lines (or show all lines) in the 'Artist / Album' list"
 msgstr ""
 "Εμφάνιση μόνο των κόκκινων γραμμών (ή εμφάνιση όλων των γραμμών) στη λίστα "
 "'Καλλιτέχνης / Δίσκος'"
 
-#: ../src/cddb.c:569
+#: ../src/cddb.c:568
 msgid "Unselect all lines"
 msgstr "Αποεπιλογή όλων των γραμμών"
 
-#: ../src/cddb.c:575
+#: ../src/cddb.c:574
 msgid "Invert lines selection"
 msgstr "Αντιστροφή επιλογής"
 
-#: ../src/cddb.c:584
+#: ../src/cddb.c:583
 msgid "Select all lines"
 msgstr "Επιλογή όλων των γραμμών"
 
-#: ../src/cddb.c:697
+#: ../src/cddb.c:701
 msgid ""
 "Select lines to 'apply' to your files list. All lines will be processed if "
 "no line is selected.\n"
@@ -1217,36 +1194,36 @@ msgstr ""
 #.
 #. * Apply results to fields...
 #.
-#: ../src/cddb.c:704
+#: ../src/cddb.c:708
 msgid "Set Into:"
 msgstr "Εφαρμογή στα:"
 
-#: ../src/cddb.c:710
+#: ../src/cddb.c:714
 msgid "All"
 msgstr "Όλα"
 
-#: ../src/cddb.c:717
+#: ../src/cddb.c:721
 msgid "Track #"
 msgstr "Α/Α κομματιού"
 
-#: ../src/cddb.c:718
+#: ../src/cddb.c:722
 msgid "# Tracks"
 msgstr "Αρ. κομματιών"
 
 #. Check box to run the scanner
-#: ../src/cddb.c:756 ../src/misc.c:2964
+#: ../src/cddb.c:760 ../src/misc.c:2974
 msgid "Run the current scanner for each file"
 msgstr "Σάρωση κάθε αρχείου με τις τρέχουσες ρυθμίσεις σάρωσης"
 
 #. Check box to use DLM (also used in the preferences window)
-#: ../src/cddb.c:763
+#: ../src/cddb.c:767
 msgid "Match lines with the Levenshtein algorithm"
 msgstr "Συμφωνία γραμμών με τον αλγόριθμο Levenshtein"
 
 #. Doesn't activate it by default because if the new user don't pay attention to it,
 #. it will not understand why the cddb results aren't loaded correctly...
 #. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbUseDLM2),CDDB_USE_DLM);
-#: ../src/cddb.c:768 ../src/prefs.c:1337
+#: ../src/cddb.c:772 ../src/prefs.c:1328
 msgid ""
 "When activating this option, the Levenshtein algorithm (DLM: Damerau-"
 "Levenshtein Metric) will be used to match the CDDB title against every "
@@ -1261,17 +1238,17 @@ msgstr ""
 "ήχου, ή εφαρμόζοντας αποτελέσματα CDDB, αντί για άμεση χρήση της σειράς "
 "θέσης."
 
-#: ../src/cddb.c:780
+#: ../src/cddb.c:784
 msgid "Load the selected lines or all lines (if no line selected)."
 msgstr ""
 "Φόρτωση των επιλεγμένων ή όλων των γραμμών (αν δεν έχει επιλεγεί κάποια "
 "γραμμή)."
 
-#: ../src/cddb.c:790
+#: ../src/cddb.c:794
 msgid "Ready to search"
 msgstr "Έτοιμο για αναζήτηση"
 
-#: ../src/cddb.c:1279
+#: ../src/cddb.c:1265
 #, c-format
 msgid ""
 "Album: '%s', artist: '%s', length: '%s', year: '%s', genre: '%s', ID: '%s'"
@@ -1279,58 +1256,58 @@ msgstr ""
 "Δίσκος: '%s', καλλιτέχνης: '%s', διάρκεια: '%s', χρονιά: '%s', είδος: '%s', "
 "ID: '%s'"
 
-#: ../src/cddb.c:1512
+#: ../src/cddb.c:1495
 #, c-format
 msgid "Resolving host '%s'…"
 msgstr "Εύρεση του οικοδεσπότη '%s'…"
 
-#: ../src/cddb.c:1520
+#: ../src/cddb.c:1503
 #, c-format
 msgid "Can't resolve host '%s' (%s)."
 msgstr "Αδύνατη η εύρεση του οικοδεσπότη '%s' (%s)."
 
-#: ../src/cddb.c:1535
+#: ../src/cddb.c:1518
 #, c-format
 msgid "Cannot create a new socket (%s)"
 msgstr "Αδύνατη η δημιουργία νέας υποδοχής (%s)"
 
 #. Open connection to the server
-#: ../src/cddb.c:1549
+#: ../src/cddb.c:1532
 #, c-format
 msgid "Connecting to host '%s', port '%d'…"
 msgstr "Σύνδεση με τον οικοδεσπότη '%s', θύρα '%d'…"
 
-#: ../src/cddb.c:1556
+#: ../src/cddb.c:1539
 #, c-format
 msgid "Cannot connect to host '%s' (%s)"
 msgstr "Αδύνατη η σύνδεση με τον οικοδεσπότη '%s' (%s)"
 
-#: ../src/cddb.c:1562
+#: ../src/cddb.c:1545
 #, c-format
 msgid "Connected to host '%s'"
 msgstr "Σύνδεση με τον οικοδεσπότη '%s'."
 
-#: ../src/cddb.c:1634
+#: ../src/cddb.c:1617
 #, c-format
 msgid "Error while writing CDDB results to file '%s'"
 msgstr "Σφάλμα κατά την εγγραφή αποτελεσμάτων CDDB στο αρχείο '%s'"
 
-#: ../src/cddb.c:1645
+#: ../src/cddb.c:1628
 #, c-format
 msgid "Receiving data (%s)…"
 msgstr "Λήψη δεδομένων (%s)…"
 
-#: ../src/cddb.c:1657
+#: ../src/cddb.c:1640
 #, c-format
 msgid "Error when reading CDDB response (%s)"
 msgstr "Σφάλμα κατά την ανάγνωση της απόκρισης CDDB (%s)"
 
-#: ../src/cddb.c:1664
+#: ../src/cddb.c:1647
 #, c-format
 msgid "Cannot create file '%s' (%s)"
 msgstr "Αδύνατη η δημιουργία αρχείου '%s' (%s)"
 
-#: ../src/cddb.c:1705 ../src/setting.c:1244
+#: ../src/cddb.c:1688 ../src/setting.c:1240
 #, c-format
 msgid "Cannot open file '%s' (%s)"
 msgstr "Αδύνατο το άνοιγμα του αρχείου '%s' (%s)"
@@ -1341,11 +1318,11 @@ msgstr "Αδύνατο το άνοιγμα του αρχείου '%s' (%s)"
 #. Send the request
 #. g_print("Request Cddb_Get_Album_Tracks_List : '%s'\n", cddb_in);
 #. Send the request
-#: ../src/cddb.c:2164 ../src/cddb.c:2493 ../src/cddb.c:3367
+#: ../src/cddb.c:2153 ../src/cddb.c:2482 ../src/cddb.c:3355
 msgid "Sending request…"
 msgstr "Αποστολή αιτήματος…"
 
-#: ../src/cddb.c:2168 ../src/cddb.c:2497 ../src/cddb.c:3067 ../src/cddb.c:3371
+#: ../src/cddb.c:2157 ../src/cddb.c:2486 ../src/cddb.c:3055 ../src/cddb.c:3359
 #, c-format
 msgid "Cannot send the request (%s)"
 msgstr "Αδύνατη η αποστολή αιτήματος (%s)"
@@ -1354,112 +1331,112 @@ msgstr "Αδύνατη η αποστολή αιτήματος (%s)"
 #. * Read the answer
 #.
 #. Read the answer
-#: ../src/cddb.c:2194 ../src/cddb.c:3081 ../src/cddb.c:3380
+#: ../src/cddb.c:2183 ../src/cddb.c:3069 ../src/cddb.c:3368
 msgid "Receiving data…"
 msgstr "Λήψη δεδομένων…"
 
-#: ../src/cddb.c:2201 ../src/cddb.c:2526 ../src/cddb.c:3088 ../src/cddb.c:3387
+#: ../src/cddb.c:2190 ../src/cddb.c:2515 ../src/cddb.c:3076 ../src/cddb.c:3375
 msgid "The server returned a bad response"
 msgstr "Ο διακομιστής επέστρεψε μια λανθασμένη απάντηση"
 
-#: ../src/cddb.c:2215 ../src/cddb.c:2542 ../src/cddb.c:3103 ../src/cddb.c:3404
-#: ../src/cddb.c:3419
+#: ../src/cddb.c:2204 ../src/cddb.c:2531 ../src/cddb.c:3091 ../src/cddb.c:3392
+#: ../src/cddb.c:3407
 #, c-format
 msgid "The server returned a bad response: %s"
 msgstr "Ο διακομιστής επέστρεψε μια λανθασμένη απάντηση: %s"
 
-#: ../src/cddb.c:2362
+#: ../src/cddb.c:2351
 #, c-format
 msgid "Sorry, the web-based search is currently not available"
 msgstr ""
 "Συγγνώμη, η αναζήτηση με βάση τον ιστό είναι προς το παρόν μη διαθέσιμη"
 
-#: ../src/cddb.c:2364 ../src/cddb.c:2713
+#: ../src/cddb.c:2353 ../src/cddb.c:2702
 #, c-format
 msgid "Found one matching album"
 msgid_plural "Found %d matching albums"
 msgstr[0] "Βρέθηκε ένας δίσκος που ταιριάζει"
 msgstr[1] "Βρέθηκαν %d δίσκοι που ταιριάζουν"
 
-#: ../src/cddb.c:2514
+#: ../src/cddb.c:2503
 #, c-format
 msgid "Receiving data of page %d (album %d/%d)…"
 msgstr "Λήψη δεδομένων της σελίδας %d (δίσκος %d/%d)…"
 
-#: ../src/cddb.c:2516
+#: ../src/cddb.c:2505
 #, c-format
 msgid "Receiving data of page %d…"
 msgstr "Λήψη δεδομένων της σελίδας %d…"
 
-#: ../src/cddb.c:2680
+#: ../src/cddb.c:2669
 #, c-format
 msgid "More results to load…"
 msgstr "Περισσότερα αποτελέσματα για φόρτωση…"
 
-#: ../src/cddb.c:2809
+#: ../src/cddb.c:2798
 #, c-format
 msgid "No file selected"
 msgstr "Δεν έχει επιλεγεί κανένα αρχείο"
 
 #. The CD redbook standard defines the maximum number of tracks as 99, any
 #. queries with more than 99 tracks will never return a result.
-#: ../src/cddb.c:2817
+#: ../src/cddb.c:2806
 #, c-format
 msgid "More than 99 files selected. Cannot send request"
 msgstr "Επιλέχτηκαν περισσότερα από 99 αρχεία. Αδύνατη η αποστολή αιτήματος"
 
-#: ../src/cddb.c:2823
+#: ../src/cddb.c:2812
 #, c-format
 msgid "One file selected"
 msgid_plural "%d files selected"
 msgstr[0] "Έχει επιλεγεί ένα αρχείο"
 msgstr[1] "Έχουν επιλεγεί %d αρχεία"
 
-#: ../src/cddb.c:2907
+#: ../src/cddb.c:2895
 msgid "The path for 'Local CD Database' was not defined"
 msgstr "Η διαδρομή για την 'Τοπική βάση δεδομένων CD' δεν ορίστηκε"
 
 #. Translators: 'it' in this sentence refers to the local CD
 #. * database path.
-#: ../src/cddb.c:2910
+#: ../src/cddb.c:2898
 msgid "Enter it in the preferences window before using this search."
 msgstr ""
 "Εισάγετε την στο παράθυρο προτιμήσεων πριν τη χρησιμοποιήσετε για αναζήτηση."
 
-#: ../src/cddb.c:2912
+#: ../src/cddb.c:2900
 msgid "Local CD search"
 msgstr "Αναζήτηση τοπικού CD"
 
 #. g_print("Request Cddb_Search_Album_From_Selected_Files : '%s'\n", cddb_in);
-#: ../src/cddb.c:3057
+#: ../src/cddb.c:3045
 #, c-format
 msgid "Sending request (CddbId: %s, #tracks: %d, Disc length: %d)…"
 msgstr "Αποστολή αιτήματος (CddbId: %s, #κομμάτια: %d, διάρκεια δίσκου: %d)…"
 
-#: ../src/cddb.c:3214
+#: ../src/cddb.c:3202
 #, c-format
 msgid "DiscID '%s' gave one matching album"
 msgid_plural "DiscID '%s' gave %d matching albums"
 msgstr[0] "Το DiscID '%s' έδωσε έναν δίσκο που ταιριάζει"
 msgstr[1] "Το DiscID '%s' έδωσε %d δίσκους που ταιριάζουν"
 
-#: ../src/cddb.c:3311
+#: ../src/cddb.c:3299
 #, c-format
 msgid "Can't load file: '%s' (%s)."
 msgstr "Αδύνατη η φόρτωση του αρχείου: '%s' (%s)."
 
 #. Load the track list of the album
-#: ../src/cddb.c:3610
+#: ../src/cddb.c:3598
 msgid "Loading album track list…"
 msgstr "Φόρτωση λίστας κομματιών δίσκου…"
 
-#: ../src/cddb.c:3813
+#: ../src/cddb.c:3797
 msgid "The number of CDDB results does not match the number of selected files"
 msgstr ""
 "Ο αριθμός των αποτελεσμάτων CDDB δεν ταιριάζει με τον αριθμό των επιλεγμένων "
 "αρχείων"
 
-#: ../src/cddb.c:3817
+#: ../src/cddb.c:3801
 msgid "Write Tag from CDDB"
 msgstr "Εγγραφή ετικέτας από τη CDDB"
 
@@ -1666,54 +1643,60 @@ msgstr ""
 msgid "The string '%s' couldn't be converted into UTF-8 (%s)."
 msgstr "Αδύνατη η μετατροπή της συμβολοσειράς '%s' σε UTF-8 (%s)."
 
-#: ../src/easytag.c:270
-#, c-format
-msgid "Unknown parameter or path '%s'\n"
-msgstr "Άγνωστη παράμετρος ή διαδρομή '%s'\n"
-
 #. Starting messages
-#: ../src/easytag.c:309
+#: ../src/easytag.c:181
 #, c-format
 msgid "Starting EasyTAG version %s (PID: %d)…"
 msgstr "Εκκίνηση της έκδοσης %s του EasyTAG (PID: %d)…"
 
-#: ../src/easytag.c:311
+#: ../src/easytag.c:183
 #, c-format
 msgid "Using libid3tag version %s"
 msgstr "Χρήση της έκδοσης %s libid3tag"
 
-#: ../src/easytag.c:314
+#: ../src/easytag.c:186
 #, c-format
 msgid "Using id3lib version %d.%d.%d"
 msgstr "Χρήση της έκδοσης %d.%d.%d id3lib"
 
-#: ../src/easytag.c:320
+#: ../src/easytag.c:192
 #, c-format
 msgid "Variable EASYTAGLANG defined. Setting locale: '%s'"
 msgstr "Ορίστηκε μεταβλητή EASYTAGLANG. Ορισμός τοπικής: '%s'"
 
-#: ../src/easytag.c:322
+#: ../src/easytag.c:194
 #, c-format
 msgid "Setting locale: '%s'"
 msgstr "Ορισμός τοπικής: '%s'"
 
-#: ../src/easytag.c:327
+#: ../src/easytag.c:199
 #, c-format
 msgid "Currently using locale '%s' (and eventually '%s')"
 msgstr "Προς το παρόν χρησιμοποιείται η τοπική '%s' (και τελικά '%s')"
 
-#: ../src/easytag.c:334
+#: ../src/easytag.c:206
 msgid "Unable to create setting directories"
 msgstr "Αδύνατη η δημιουργία καταλόγων ορισμού"
+
+#: ../src/easytag.c:423 ../src/et_core.c:582
+#, c-format
+msgid "Error while querying information for file: '%s' (%s)"
+msgstr "Σφάλμα κατά το ερώτημα πληροφοριών για το αρχείο: '%s' (%s)"
+
+#: ../src/easytag.c:488
+#, c-format
+#| msgid "Cannot open file: '%s'"
+msgid "Cannot open path '%s'"
+msgstr "Αδύνατο το άνοιγμα διαδρομής '%s'"
 
 #.
 #. * Browser
 #.
-#: ../src/easytag.c:484 ../src/prefs.c:137
+#: ../src/easytag.c:594 ../src/prefs.c:138
 msgid "Browser"
 msgstr "Περιηγητής"
 
-#: ../src/easytag.c:506 ../src/et_core.c:2745
+#: ../src/easytag.c:616 ../src/et_core.c:2715
 msgid "File"
 msgstr "Αρχείο"
 
@@ -1723,113 +1706,114 @@ msgstr "Αρχείο"
 #. gtk_label_set_text(GTK_LABEL(VersionValueLabel),"");
 #. Version changed to encoder version
 #. Encoder version
-#: ../src/easytag.c:538 ../src/easytag.c:4103 ../src/flac_header.c:216
+#: ../src/easytag.c:648 ../src/easytag.c:4175 ../src/flac_header.c:201
 #: ../src/monkeyaudio_header.c:96 ../src/musepack_header.c:98
-#: ../src/ogg_header.c:228 ../src/wavpack_header.c:72
+#: ../src/ogg_header.c:389 ../src/wavpack_header.c:72
 #, c-format
 msgid "Encoder:"
 msgstr "Κωδικοποιητής:"
 
-#: ../src/easytag.c:546
+#: ../src/easytag.c:656
 msgid "Bitrate:"
 msgstr "Ρυθμός δυαδικών:"
 
 #. Translators: Please try to keep this string as short as possible as it
 #. * is shown in a narrow column.
-#: ../src/easytag.c:556
-msgid "Freq.:"
-msgstr "Συχν.:"
+#: ../src/easytag.c:666
+#| msgid "Freq.:"
+msgid "Frequency:"
+msgstr "Συχνότητα:"
 
 #. Mode
-#: ../src/easytag.c:567 ../src/easytag.c:4107 ../src/mpeg_header.c:216
+#: ../src/easytag.c:677 ../src/easytag.c:4179 ../src/mpeg_header.c:216
 msgid "Mode:"
 msgstr "Κατάσταση:"
 
-#: ../src/easytag.c:574
+#: ../src/easytag.c:684
 msgid "Size:"
 msgstr "Μέγεθος:"
 
-#: ../src/easytag.c:581
+#: ../src/easytag.c:691
 msgid "Duration:"
 msgstr "Διάρκεια:"
 
 #. Main Frame
-#: ../src/easytag.c:627 ../src/et_core.c:2683
+#: ../src/easytag.c:737 ../src/et_core.c:2653
 msgid "Tag"
 msgstr "Ετικέτα"
 
 #.
 #. * 1 - Page for common tag fields
 #.
-#: ../src/easytag.c:649
+#: ../src/easytag.c:759
 msgid "Common"
 msgstr "Κοινά πεδία"
 
 #. Title
-#: ../src/easytag.c:656
+#: ../src/easytag.c:766
 msgid "Title:"
 msgstr "Τίτλος:"
 
-#: ../src/easytag.c:670
+#: ../src/easytag.c:780
 msgid "Tag selected files with this title"
 msgstr "Ονομασία επιλεγμένων αρχείων με αυτόν τον τίτλο"
 
 #. Artist
-#: ../src/easytag.c:675
+#: ../src/easytag.c:785
 msgid "Artist:"
 msgstr "Καλλιτέχνης:"
 
-#: ../src/easytag.c:689
+#: ../src/easytag.c:799
 msgid "Tag selected files with this artist"
 msgstr "Ονομασία των επιλεγμένων αρχείων με αυτό το όνομα καλλιτέχνη"
 
 #. Album Artist
-#: ../src/easytag.c:694
+#: ../src/easytag.c:804
 msgid "Album artist:"
 msgstr "Καλλιτέχνης δίσκου:"
 
-#: ../src/easytag.c:708
+#: ../src/easytag.c:818
 msgid "Tag selected files with this album artist"
 msgstr "Ονομασία των επιλεγμένων αρχείων με αυτό το όνομα καλλιτέχνη"
 
 #. Album
-#: ../src/easytag.c:713
+#: ../src/easytag.c:823
 msgid "Album:"
 msgstr "Δίσκος:"
 
-#: ../src/easytag.c:727
+#: ../src/easytag.c:837
 msgid "Tag selected files with this album name"
 msgstr "Ονομασία των επιλεγμένων αρχείων με αυτό το όνομα δίσκου"
 
 #. Disc Number
-#: ../src/easytag.c:732
+#: ../src/easytag.c:842
 msgid "CD:"
 msgstr "CD:"
 
-#: ../src/easytag.c:749
+#: ../src/easytag.c:859
 msgid "Tag selected files with this disc number"
 msgstr "Ονομασία των επιλεγμένων αρχείων με αυτόν τον αριθμό δίσκου"
 
 #. Year
-#: ../src/easytag.c:754
+#: ../src/easytag.c:864
 msgid "Year:"
 msgstr "Έτος:"
 
-#: ../src/easytag.c:774
+#: ../src/easytag.c:884
 msgid "Tag selected files with this year"
 msgstr "Συμπλήρωση των ετικετών των επιλεγμένων αρχείων με αυτή τη χρονιά"
 
-#: ../src/easytag.c:788
+#: ../src/easytag.c:898
 msgid "Number selected tracks sequentially. Starts at 01 in each subdirectory."
 msgstr "Διαδοχική αρίθμηση των επιλεγμένων . Ξεκινά με 01 σε κάθε υποκατάλογο."
 
 #. To have enough space to display the icon
 #. To have enough space to display the icon
-#: ../src/easytag.c:797
+#: ../src/easytag.c:907
 msgid "Track #:"
 msgstr "Α/Α κομματιού:"
 
-#: ../src/easytag.c:828
+#: ../src/easytag.c:938
 msgid ""
 "Set the number of files, in the same directory of the displayed file, to the "
 "selected tracks."
@@ -1837,74 +1821,74 @@ msgstr ""
 "Συμπλήρωση του αριθμού των αρχείων, στον ίδιο κατάλογο του εμφανιζόμενου "
 "αρχείου στα επιλεγμένα κομμάτια."
 
-#: ../src/easytag.c:848
+#: ../src/easytag.c:958
 msgid "Tag selected files with this number of tracks"
 msgstr "Ονομασία των επιλεγμένων αρχείων με αυτόν τον αριθμό κομματιών"
 
 #. Genre
-#: ../src/easytag.c:852
+#: ../src/easytag.c:962
 msgid "Genre:"
 msgstr "Είδος:"
 
-#: ../src/easytag.c:880
+#: ../src/easytag.c:990
 msgid "Tag selected files with this genre"
 msgstr "Ονομασία των επιλεγμένων αρχείων με αυτό το είδος"
 
 #. Comment
-#: ../src/easytag.c:885
+#: ../src/easytag.c:995
 msgid "Comment:"
 msgstr "Σχόλιο:"
 
-#: ../src/easytag.c:912
+#: ../src/easytag.c:1022
 msgid "Tag selected files with this comment"
 msgstr "Ονομασία των επιλεγμένων αρχείων με αυτό το σχόλιο"
 
 #. Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(CommentView));
 #. Composer (name of the composers)
-#: ../src/easytag.c:919
+#: ../src/easytag.c:1029
 msgid "Composer:"
 msgstr "Συνθέτης:"
 
-#: ../src/easytag.c:933
+#: ../src/easytag.c:1043
 msgid "Tag selected files with this composer"
 msgstr "Συμπλήρωση των επιλεγμένων αρχείων με αυτό το όνομα συνθέτη"
 
 #. Translators: Original Artist / Performer. Please try to keep this string
 #. * as short as possible, as it must fit into a narrow column.
-#: ../src/easytag.c:940
+#: ../src/easytag.c:1050
 msgid "Orig. artist:"
 msgstr "Αρχ. καλλιτέχνης:"
 
-#: ../src/easytag.c:954
+#: ../src/easytag.c:1064
 msgid "Tag selected files with this original artist"
 msgstr "Συμπλήρωση των επιλεγμένων αρχείων με αυτό το όνομα αρχικού καλλιτέχνη"
 
 #. Copyright
-#: ../src/easytag.c:960
+#: ../src/easytag.c:1070
 msgid "Copyright:"
 msgstr "Πνευματικά δικαιώματα:"
 
-#: ../src/easytag.c:974
+#: ../src/easytag.c:1084
 msgid "Tag selected files with this copyright"
 msgstr ""
 "Συμπλήρωση των ετικετών των επιλεγμένων αρχείων με αυτά τα πνευματικά "
 "δικαιώματα"
 
 #. URL
-#: ../src/easytag.c:980
+#: ../src/easytag.c:1090
 msgid "URL:"
 msgstr "URL:"
 
-#: ../src/easytag.c:994
+#: ../src/easytag.c:1104
 msgid "Tag selected files with this URL"
 msgstr "Συμπλήρωση των ετικετών των επιλεγμένων αρχείων με αυτό το URL"
 
 #. Encoded by
-#: ../src/easytag.c:1000
+#: ../src/easytag.c:1110
 msgid "Encoded by:"
 msgstr "Κωδικοποιήθηκε από:"
 
-#: ../src/easytag.c:1014
+#: ../src/easytag.c:1124
 msgid "Tag selected files with this encoder name"
 msgstr ""
 "Συμπλήρωση των ετικετών των επιλεγμένων αρχείων με αυτό το όνομα κωδικοποιητή"
@@ -1912,467 +1896,460 @@ msgstr ""
 #.
 #. * 2 - Page for extra tag fields
 #.
-#: ../src/easytag.c:1048
+#: ../src/easytag.c:1158 ../src/et_core.c:3070 ../src/et_core.c:3073
 msgid "Images"
 msgstr "Εικόνες"
 
-#: ../src/easytag.c:1071
+#: ../src/easytag.c:1182
 msgid "You can use drag and drop to add an image"
 msgstr "Μπορείτε να προσθέσετε μια εικόνα με μεταφορά και απόθεση"
 
-#: ../src/easytag.c:1118
+#: ../src/easytag.c:1229
 msgid "Add images to the tag"
 msgstr "Προσθήκη εικόνων στην ετικέτα"
 
-#: ../src/easytag.c:1136
+#: ../src/easytag.c:1247
 msgid "Remove selected images from the tag"
 msgstr "Αφαίρεση των επιλεγμένων εικόνων από την ετικέτα"
 
-#: ../src/easytag.c:1150
+#: ../src/easytag.c:1261
 msgid "Save the selected images to files"
 msgstr "Αποθήκευση των επιλεγμένων εικόνων στα αρχεία"
 
-#: ../src/easytag.c:1161
+#: ../src/easytag.c:1272
 msgid "Edit image properties"
 msgstr "Επεξεργασία ιδιοτήτων εικόνας"
 
-#: ../src/easytag.c:1175
+#: ../src/easytag.c:1286
 msgid "Tag selected files with these images"
 msgstr "Συμπλήρωση των επιλεγμένων αρχείων με αυτές τις εικόνες"
 
-#: ../src/easytag.c:1235
+#: ../src/easytag.c:1344
 #, c-format
 msgid "Selected files tagged with title '%s'."
 msgstr "Η ετικέτα των επιλεγμένων αρχείων συμπληρώθηκε με τον τίτλο '%s'."
 
-#: ../src/easytag.c:1237
+#: ../src/easytag.c:1346
 msgid "Removed title from selected files."
 msgstr "Αφαιρέθηκε ο τίτλος από τα επιλεγμένα αρχεία."
 
-#: ../src/easytag.c:1254
+#: ../src/easytag.c:1361
 #, c-format
 msgid "Selected files tagged with artist '%s'."
 msgstr "Η ετικέτα των επιλεγμένων αρχείων συμπληρώθηκε με τον καλλιτέχνη '%s'."
 
-#: ../src/easytag.c:1256
+#: ../src/easytag.c:1363
 msgid "Removed artist from selected files."
 msgstr ""
 "Αφαιρέθηκε το όνομα καλλιτέχνη από τις ετικέτες των επιλεγμένων αρχείων."
 
-#: ../src/easytag.c:1273
+#: ../src/easytag.c:1377
 #, c-format
 msgid "Selected files tagged with album artist '%s'."
 msgstr "Η ετικέτα των επιλεγμένων αρχείων συμπληρώθηκε με τον καλλιτέχνη '%s'."
 
-#: ../src/easytag.c:1275
+#: ../src/easytag.c:1379
 msgid "Removed album artist from selected files."
 msgstr ""
 "Αφαιρέθηκε ο καλλιτέχνης του δίσκου από τις ετικέτες των επιλεγμένων αρχείων."
 
-#: ../src/easytag.c:1292
+#: ../src/easytag.c:1394
 #, c-format
 msgid "Selected files tagged with album '%s'."
 msgstr ""
 "Η ετικέτα των επιλεγμένων αρχείων συμπληρώθηκε με τον τίτλο του δίσκου '%s'."
 
-#: ../src/easytag.c:1294
+#: ../src/easytag.c:1396
 msgid "Removed album name from selected files."
 msgstr "Αφαιρέθηκε ο τίτλος δίσκου από τα επιλεγμένα αρχεία."
 
-#: ../src/easytag.c:1311
+#: ../src/easytag.c:1411
 #, c-format
 msgid "Selected files tagged with disc number '%s'."
 msgstr ""
 "Η ετικέτα των επιλεγμένων αρχείων συμπληρώθηκε με τον αριθμό δίσκου '%s'."
 
-#: ../src/easytag.c:1313
+#: ../src/easytag.c:1413
 msgid "Removed disc number from selected files."
 msgstr "Αφαιρέθηκε ο αριθμός δίσκου από τα επιλεγμένα αρχεία."
 
-#: ../src/easytag.c:1330
+#: ../src/easytag.c:1428
 #, c-format
 msgid "Selected files tagged with year '%s'."
 msgstr "Η ετικέτα των επιλεγμένων αρχείων συμπληρώθηκε με χρονιά '%s'."
 
-#: ../src/easytag.c:1332
+#: ../src/easytag.c:1430
 msgid "Removed year from selected files."
 msgstr "Αφαιρέθηκε η χρονιά από τις ετικέτες των επιλεγμένων αρχείων."
 
-#: ../src/easytag.c:1360 ../src/easytag.c:1456
+#: ../src/easytag.c:1456 ../src/easytag.c:1549
 #, c-format
 msgid "Selected files tagged with track like 'xx/%s'."
 msgstr ""
 "Η ετικέτα των επιλεγμένων αρχείων συμπληρώθηκε με α/α κομματιού της μορφής "
 "'xx/%s'."
 
-#: ../src/easytag.c:1363
+#: ../src/easytag.c:1459
 #, c-format
 msgid "Selected files tagged with track like 'xx'."
 msgstr ""
 "Η ετικέτα των επιλεγμένων αρχείων συμπληρώθηκε με α/α κομματιού της μορφής "
 "'xx'."
 
-#: ../src/easytag.c:1367 ../src/easytag.c:1459
+#: ../src/easytag.c:1463 ../src/easytag.c:1552
 msgid "Removed track number from selected files."
 msgstr "Αφαιρέθηκε ο α/α κομματιού από τις ετικέτες των επιλεγμένων αρχείων."
 
 #. msg = g_strdup_printf(_("All %d tracks numbered sequentially."), ETCore->ETFileSelectionList_Length);
-#: ../src/easytag.c:1425
+#: ../src/easytag.c:1521
 #, c-format
 msgid "Selected tracks numbered sequentially."
 msgstr "Τα επιλεγμένα κομμάτια αριθμήθηκαν διαδοχικά."
 
-#: ../src/easytag.c:1477
+#: ../src/easytag.c:1568
 #, c-format
 msgid "Selected files tagged with genre '%s'."
 msgstr "Η ετικέτα των επιλεγμένων αρχείων συμπληρώθηκε με είδος '%s'."
 
-#: ../src/easytag.c:1479
+#: ../src/easytag.c:1570
 msgid "Removed genre from selected files."
 msgstr "Αφαιρέθηκε το είδος από τις ετικέτες των επιλεγμένων αρχείων."
 
-#: ../src/easytag.c:1503
+#: ../src/easytag.c:1592
 #, c-format
 msgid "Selected files tagged with comment '%s'."
 msgstr "Η ετικέτα των επιλεγμένων αρχείων συμπληρώθηκε με σχόλιο '%s'."
 
-#: ../src/easytag.c:1505
+#: ../src/easytag.c:1594
 msgid "Removed comment from selected files."
 msgstr "Αφαιρέθηκε το σχόλιο από τις ετικέτες των επιλεγμένων αρχείων."
 
-#: ../src/easytag.c:1522
+#: ../src/easytag.c:1608
 #, c-format
 msgid "Selected files tagged with composer '%s'."
 msgstr "Η ετικέτα των επιλεγμένων αρχείων συμπληρώθηκε με όνομα συνθέτη '%s'."
 
-#: ../src/easytag.c:1524
+#: ../src/easytag.c:1610
 msgid "Removed composer from selected files."
 msgstr "Αφαιρέθηκε το όνομα συνθέτη από τις ετικέτες των επιλεγμένων αρχείων."
 
-#: ../src/easytag.c:1541
+#: ../src/easytag.c:1625
 #, c-format
 msgid "Selected files tagged with original artist '%s'."
 msgstr ""
 "Η ετικέτα των επιλεγμένων αρχείων συμπληρώθηκε με όνομα αρχικού καλλιτέχνη "
 "'%s'."
 
-#: ../src/easytag.c:1543
+#: ../src/easytag.c:1627
 msgid "Removed original artist from selected files."
 msgstr ""
 "Αφαιρέθηκε το όνομα του αρχικού καλλιτέχνη από τις ετικέτες των επιλεγμένων "
 "αρχείων."
 
-#: ../src/easytag.c:1560
+#: ../src/easytag.c:1642
 #, c-format
 msgid "Selected files tagged with copyright '%s'."
 msgstr ""
 "Η ετικέτα των επιλεγμένων αρχείων συμπληρώθηκε με πνευματικά δικαιώματα '%s'."
 
-#: ../src/easytag.c:1562
+#: ../src/easytag.c:1644
 msgid "Removed copyright from selected files."
 msgstr "Αφαιρέθηκαν τα πνευματικά δικαιώματα από τα επιλεγμένα αρχεία."
 
-#: ../src/easytag.c:1579
+#: ../src/easytag.c:1659
 #, c-format
 msgid "Selected files tagged with URL '%s'."
 msgstr "Η ετικέτα των επιλεγμένων αρχείων συμπληρώθηκε με URL '%s'."
 
-#: ../src/easytag.c:1581
+#: ../src/easytag.c:1661
 msgid "Removed URL from selected files."
 msgstr "Αφαιρέθηκε το URL από τα επιλεγμένα αρχεία."
 
-#: ../src/easytag.c:1598
+#: ../src/easytag.c:1676
 #, c-format
 msgid "Selected files tagged with encoder name '%s'."
 msgstr ""
 "Η ετικέτα των επιλεγμένων αρχείων συμπληρώθηκε με όνομα κωδικοποιητή '%s'."
 
-#: ../src/easytag.c:1600
+#: ../src/easytag.c:1678
 msgid "Removed encoder name from selected files."
 msgstr "Αφαιρέθηκε το όνομα του κωδικοποιητή από τα επιλεγμένα αρχεία."
 
-#: ../src/easytag.c:1635
+#: ../src/easytag.c:1710
 msgid "Selected files tagged with images."
 msgstr "Προστέθηκαν εικόνες στην ετικέτα των επιλεγμένων αρχείων."
 
-#: ../src/easytag.c:1637
+#: ../src/easytag.c:1712
 msgid "Removed images from selected files."
 msgstr "Αφαιρέθηκαν εικόνες από τα επιλεγμένα αρχεία."
 
-#: ../src/easytag.c:1917
+#: ../src/easytag.c:1993
 msgid "Select Mode and Mask, and redo the same action"
 msgstr "Επιλέξτε τρόπο λειτουργίας και μάσκα και επαναλάβατε την ίδια ενέργεια"
 
-#: ../src/easytag.c:1972
+#: ../src/easytag.c:2045
 msgid "All tags have been scanned"
 msgstr "Σαρώθηκαν όλες οι ετικέτες"
 
-#: ../src/easytag.c:2030
+#: ../src/easytag.c:2101
 msgid "All tags have been removed"
 msgstr "Αφαιρέθηκαν όλες οι ετικέτες"
 
-#: ../src/easytag.c:2326
+#: ../src/easytag.c:2391
 #, c-format
 msgid "A file was changed by an external program"
 msgid_plural "%d files were changed by an external program."
 msgstr[0] "Ένα αρχείο αλλάχτηκε από ένα εξωτερικό πρόγραμμα."
 msgstr[1] "%d αρχεία αλλάχτηκαν από ένα εξωτερικό πρόγραμμα."
 
-#: ../src/easytag.c:2329
+#: ../src/easytag.c:2396
 msgid "Do you want to continue saving the file?"
 msgstr "Θέλετε να συνεχίσετε την αποθήκευση του αρχείου;"
 
-#: ../src/easytag.c:2380 ../src/easytag.c:2401
+#: ../src/easytag.c:2451 ../src/easytag.c:2471
 msgid "Saving files was stopped"
 msgstr "Η αποθήκευση των αρχείων σταμάτησε"
 
-#: ../src/easytag.c:2403
+#: ../src/easytag.c:2473
 msgid "All files have been saved"
 msgstr "Αποθηκεύτηκαν όλα τα αρχεία"
 
-#: ../src/easytag.c:2532
+#: ../src/easytag.c:2604
 #, c-format
-#| msgid "Cannot create file '%s' (%s)"
 msgid "Cannot delete file (%s)"
 msgstr "Αδύνατη η διαγραφή αρχείου (%s)"
 
-#: ../src/easytag.c:2560
+#: ../src/easytag.c:2624
 msgid "Files have been partially deleted"
 msgstr "Τα αρχεία διαγράφηκαν εν μέρει"
 
-#: ../src/easytag.c:2562
+#: ../src/easytag.c:2626
 msgid "All files have been deleted"
 msgstr "Διαγράφηκαν όλα τα αρχεία"
 
-#: ../src/easytag.c:2678
+#: ../src/easytag.c:2742
 #, c-format
 msgid "Do you want to write the tag of file '%s'?"
 msgstr "Θέλετε να γράψετε την ετικέτα του αρχείου'%s';"
 
-#: ../src/easytag.c:2680
+#: ../src/easytag.c:2744
 msgid "Confirm Tag Writing"
 msgstr "Επιβεβαίωση εγγραφής ετικέτας"
 
-#: ../src/easytag.c:2685 ../src/easytag.c:2800 ../src/easytag.c:3059
+#: ../src/easytag.c:2749 ../src/easytag.c:2866 ../src/easytag.c:3126
 msgid "Repeat action for the remaining files"
 msgstr "Επανάληψη της ίδιας ενέργειας για τα υπόλοιπα αρχεία"
 
 #. Directories and filename changed
-#: ../src/easytag.c:2764 ../src/scan.c:180
+#: ../src/easytag.c:2830 ../src/scan.c:182
 msgid "Rename File and Directory"
 msgstr "Μετονομασία αρχείου και καταλόγου"
 
-#: ../src/easytag.c:2765
+#: ../src/easytag.c:2831
 msgid "File and directory rename confirmation required"
 msgstr "Απαιτείται επιβεβαίωση μετονομασίας αρχείου και καταλόγου"
 
-#: ../src/easytag.c:2766
+#: ../src/easytag.c:2832
 #, c-format
 msgid "Do you want to rename the file and directory '%s' to '%s'?"
 msgstr "Θέλετε να μετονομάσετε το αρχείο και τον κατάλογο '%s' σε '%s';"
 
-#: ../src/easytag.c:2772
+#: ../src/easytag.c:2838
 msgid "Directory rename confirmation required"
 msgstr "Απαιτείται επιβεβαίωση μετονομασίας καταλόγου"
 
-#: ../src/easytag.c:2773
+#: ../src/easytag.c:2839
 #, c-format
 msgid "Do you want to rename the directory '%s' to '%s'?"
 msgstr "Θέλετε να μετονομάσετε τον κατάλογο '%s' σε '%s';"
 
 #. Only filename changed
-#: ../src/easytag.c:2779
+#: ../src/easytag.c:2845
 msgid "Rename File"
 msgstr "Μετονομασία αρχείου"
 
-#: ../src/easytag.c:2780
+#: ../src/easytag.c:2846
 msgid "File rename confirmation required"
 msgstr "Απαιτείται επιβεβαίωση μετονομασίας αρχείου"
 
-#: ../src/easytag.c:2781
+#: ../src/easytag.c:2847
 #, c-format
 msgid "Do you want to rename the file '%s' to '%s'?"
 msgstr "Θέλετε να μετονομάσετε το αρχείο '%s' σε '%s';"
 
-#: ../src/easytag.c:2845
+#: ../src/easytag.c:2913
 #, c-format
 msgid "Cannot rename file '%s' to '%s'"
 msgstr "Αδύνατη η μετονομασία του αρχείου '%s' σε '%s'"
 
-#: ../src/easytag.c:2859
+#: ../src/easytag.c:2927
 #, c-format
 msgid "Cannot rename file '%s' to '%s': %s"
 msgstr "Αδύνατη η μετονομασία του αρχείου '%s' σε '%s': %s"
 
-#: ../src/easytag.c:2863
+#: ../src/easytag.c:2931
 msgid "File(s) not renamed"
 msgstr "Τα αρχεία δεν μετονομάστηκαν"
 
-#: ../src/easytag.c:2972
+#: ../src/easytag.c:3040
 #, c-format
 msgid "Writing tag of '%s'"
 msgstr "Εγγραφή της ετικέτας του '%s'"
 
-#: ../src/easytag.c:2978
+#: ../src/easytag.c:3047
 msgid "Tag(s) written"
 msgstr "Οι ετικέτες γράφτηκαν"
 
-#: ../src/easytag.c:2989 ../src/easytag.c:2995
+#: ../src/easytag.c:3062
 #, c-format
 msgid "Cannot write tag in file '%s' (%s)"
 msgstr "Αδύνατη η εγγραφή της ετικέτας στο αρχείο '%s' (%s)"
 
-#: ../src/easytag.c:3008
+#: ../src/easytag.c:3075
 #, c-format
 msgid "Cannot write tag in file '%s'"
 msgstr "Αδύνατη η εγγραφή ετικέτας στο αρχείο '%s'"
 
-#: ../src/easytag.c:3011
+#: ../src/easytag.c:3078
 msgid "Tag Write Error"
 msgstr "Σφάλμα εγγραφής ετικέτας"
 
-#: ../src/easytag.c:3056 ../src/easytag.c:3070
+#: ../src/easytag.c:3123 ../src/easytag.c:3137
 #, c-format
 msgid "Do you really want to delete the file '%s'?"
 msgstr "Θέλετε πράγματι να διαγράψετε το αρχείο '%s';"
 
-#: ../src/easytag.c:3062 ../src/easytag.c:3072
+#: ../src/easytag.c:3129 ../src/easytag.c:3139
 msgid "Delete File"
 msgstr "Διαγραφή αρχείων"
 
-#: ../src/easytag.c:3095
+#: ../src/easytag.c:3164
 #, c-format
 msgid "File '%s' deleted"
 msgstr "Το αρχείο '%s' διαγράφηκε."
 
-#: ../src/easytag.c:3226
+#: ../src/easytag.c:3296
 #, c-format
 msgid "Cannot read directory '%s'"
 msgstr "Αδύνατη η ανάγνωση του καταλόγου '%s'"
 
-#: ../src/easytag.c:3230
+#: ../src/easytag.c:3300
 msgid "Directory Read Error"
 msgstr "Σφάλμα ανάγνωσης καταλόγου"
 
 #. Read the directory recursively
-#: ../src/easytag.c:3251
+#: ../src/easytag.c:3321
 #, c-format
 msgid "Search in progress…"
 msgstr "Αναζήτηση σε εξέλιξη…"
 
-#: ../src/easytag.c:3273 ../src/et_core.c:2752
+#: ../src/easytag.c:3344 ../src/et_core.c:2722
 #, c-format
 msgid "File: '%s'"
 msgstr "Αρχείο: '%s'"
 
-#: ../src/easytag.c:3324
+#: ../src/easytag.c:3394
 #, c-format
-#| msgid "Found %d file(s) in this directory and subdirectories."
 msgid "Found one file in this directory and subdirectories"
 msgid_plural "Found %d files in this directory and subdirectories"
 msgstr[0] "Βρέθηκε ένα αρχείο σε αυτόν τον κατάλογο και τους υποκαταλόγους του."
 msgstr[1] "Βρέθηκαν %d αρχεία σε αυτόν τον κατάλογο και τους υποκαταλόγους του."
 
-#: ../src/easytag.c:3331
+#: ../src/easytag.c:3401
 #, c-format
-#| msgid "Found %d file(s) in this directory."
 msgid "Found one file in this directory"
 msgid_plural "Found %d files in this directory"
 msgstr[0] "Βρέθηκε ένα αρχείο σε αυτόν τον κατάλογο."
 msgstr[1] "Βρέθηκαν %d αρχεία σε αυτόν τον κατάλογο."
 
-#: ../src/easytag.c:3353
+#: ../src/easytag.c:3423
 msgid "No file found in this directory and subdirectories"
 msgstr "Δε βρέθηκε κανένα αρχείο σε αυτόν τον κατάλογο και τους υποκαταλόγους"
 
-#: ../src/easytag.c:3355
+#: ../src/easytag.c:3425
 msgid "No file found in this directory"
 msgstr "Δε βρέθηκε κανένα αρχείο σε αυτόν τον κατάλογο"
 
-#: ../src/easytag.c:3423
+#: ../src/easytag.c:3493
 #, c-format
-#| msgid "Error: Cannot create directory '%s' (%s)"
 msgid "Error opening directory '%s' (%s)"
 msgstr "Σφάλμα ανοίγματος καταλόγου '%s' (%s)"
 
-#: ../src/easytag.c:3459
+#: ../src/easytag.c:3529
 #, c-format
-#| msgid "Cannot read directory '%s'"
 msgid "Cannot read directory (%s)"
 msgstr "Αδύνατη η ανάγνωση του καταλόγου (%s)"
 
-#: ../src/easytag.c:3479
+#: ../src/easytag.c:3549
 msgid "Searching for audio files…"
 msgstr "Αναζήτηση για αρχεία ήχου…"
 
-#: ../src/easytag.c:3480
+#: ../src/easytag.c:3550
 msgid "Searching"
 msgstr "Αναζήτηση"
 
-#: ../src/easytag.c:4137
+#: ../src/easytag.c:4209
 msgid "Select a directory to browse"
 msgstr "Επιλέξτε έναν κατάλογο για περιήγηση"
 
 #. Menu items
-#: ../src/easytag.c:4284
+#: ../src/easytag.c:4356
 msgid "Tag selected files with this field"
 msgstr "Συμπλήρωση αυτού του πεδίου των ετικετών των επιλεγμένων αρχείων"
 
-#. Group: character conversion
-#: ../src/easytag.c:4296 ../src/scan.c:2660
+#: ../src/easytag.c:4368 ../src/scan.c:2661
 msgid "Convert '_' and '%20' to spaces"
 msgstr "Μετατροπή του '_' και του '%20' σε κενά"
 
-#: ../src/easytag.c:4303 ../src/scan.c:2661
+#: ../src/easytag.c:4375 ../src/scan.c:2663
 msgid "Convert ' ' to '_'"
 msgstr "Μετατροπή του ' ' σε '_'"
 
-#. Group: capitalize, ...
-#: ../src/easytag.c:4314 ../src/scan.c:2712
+#: ../src/easytag.c:4386
 msgid "All uppercase"
 msgstr "Όλα κεφαλαία"
 
-#: ../src/easytag.c:4321 ../src/scan.c:2713
+#: ../src/easytag.c:4393
 msgid "All lowercase"
 msgstr "Όλα πεζά"
 
-#: ../src/easytag.c:4328 ../src/scan.c:2714
+#: ../src/easytag.c:4400
 msgid "First letter uppercase"
 msgstr "Πρώτο γράμμα κεφαλαίο"
 
-#: ../src/easytag.c:4335 ../src/scan.c:2715
+#: ../src/easytag.c:4407
 msgid "First letter uppercase of each word"
 msgstr "Πρώτο γράμμα κάθε λέξης κεφαλαίο"
 
-#. Group: insert/remove spaces
-#: ../src/easytag.c:4346 ../src/prefs.c:996 ../src/scan.c:2763
+#: ../src/easytag.c:4418 ../src/prefs.c:989 ../src/scan.c:2761
 msgid "Remove spaces"
 msgstr "Αφαίρεση κενών"
 
-#: ../src/easytag.c:4353
+#: ../src/easytag.c:4425
 msgid "Insert space before uppercase letter"
 msgstr "Εισαγωγή κενού πριν από κάθε κεφαλαίο γράμμα"
 
-#: ../src/easytag.c:4360
+#: ../src/easytag.c:4432
 msgid "Remove duplicate spaces or underscores"
 msgstr "Αφαίρεση διπλών κενών ή '_'"
 
-#: ../src/easytag.c:4367
+#: ../src/easytag.c:4439
 msgid "Remove all text"
 msgstr "Αφαίρεση όλου του κειμένου"
 
 #. gchar commmand[256];
-#: ../src/easytag.c:4390
+#: ../src/easytag.c:4462
 #, c-format
 msgid "EasyTAG version %s: Abnormal exit (PID: %d)"
 msgstr "EasyTAG έκδοση %s: Ανώμαλη έξοδος (PID: %d)"
 
-#: ../src/easytag.c:4391
+#: ../src/easytag.c:4463 ../src/easytag.c:4474
 #, c-format
-msgid "Received signal %s (%d)"
-msgstr "Ελήφθη το σήμα %s (%d)"
+#| msgid "Received signal %s (%d)"
+msgid "Received signal '%s' (%d)"
+msgstr "Ελήφθη το σήμα '%s' (%d)"
 
-#: ../src/easytag.c:4393 ../src/easytag.c:4403
+#: ../src/easytag.c:4466 ../src/easytag.c:4477
 #, c-format
 msgid ""
 "You have probably found a bug in EasyTAG. Please, file a bug report with a "
@@ -2384,181 +2361,179 @@ msgstr ""
 "'bt' και 'l') και οδηγίες για την αναπαραγωγή του προβλήματος στο: %s"
 
 #. To send messages to the console...
-#: ../src/easytag.c:4399
+#: ../src/easytag.c:4472
 #, c-format
 msgid "EasyTAG version %s: Abnormal exit (PID: %d)."
 msgstr "EasyTAG έκδοση %s: Ανώμαλη έξοδος (PID: %d)."
 
-#: ../src/easytag.c:4401
-#, c-format
-msgid "Received signal %s (%d)\a"
-msgstr "Ελήφθη το σήμα %s (%d)\\a"
-
-#: ../src/easytag.c:4531
-msgid "Unknown signal"
-msgstr "Άγνωστο σήμα"
-
-#: ../src/easytag.c:4544
+#: ../src/easytag.c:4496
 msgid "EasyTAG: Normal exit."
 msgstr "EasyTAG: Κανονική έξοδος."
 
-#: ../src/easytag.c:4595
+#: ../src/easytag.c:4548
 msgid "Do you want to save them before quitting?"
 msgstr "Θέλετε να τα αποθηκεύσετε πριν την έξοδο;"
 
-#: ../src/easytag.c:4618
+#: ../src/easytag.c:4571
 msgid "Do you really want to quit?"
 msgstr "Επιθυμείτε όντως να εξέλθετε από το πρόγραμμα;"
 
-#: ../src/et_core.c:576
+#: ../src/et_core.c:504
 #, c-format
-msgid "Error while querying information for file: '%s' (%s)"
-msgstr "Σφάλμα κατά το ερώτημα πληροφοριών για το αρχείο: '%s' (%s)"
+#| msgid "Error reading tags from file: '%s'"
+msgid "Error reading tag from ogg file (%s)"
+msgstr "Σφάλμα κατά την ανάγνωση ετικετών από το αρχείο ogg (%s)"
 
-#: ../src/et_core.c:632
+#: ../src/et_core.c:638
 #, c-format
 msgid "Automatic corrections applied for file '%s'."
 msgstr "Αυτόματες διορθώσεις εφαρμόστηκαν για το αρχείο '%s'."
 
-#: ../src/et_core.c:2649
+#: ../src/et_core.c:2619
 msgid "ID3 Tag"
 msgstr "Ετικέτα ID3"
 
-#: ../src/et_core.c:2655
+#: ../src/et_core.c:2625
 msgid "Ogg Vorbis Tag"
 msgstr "Ετικέτα Ogg Vorbis"
 
-#: ../src/et_core.c:2661
+#: ../src/et_core.c:2631
 msgid "FLAC Vorbis Tag"
 msgstr "Ετικέτα FLAC Vorbis"
 
-#: ../src/et_core.c:2666
+#: ../src/et_core.c:2636
 msgid "APE Tag"
 msgstr "Ετικέτα APE"
 
-#: ../src/et_core.c:2671
+#: ../src/et_core.c:2641
 msgid "MP4/M4A/AAC Tag"
 msgstr "Ετικέτα MP4/M4A/AAC"
 
-#: ../src/et_core.c:2677
+#: ../src/et_core.c:2647
 msgid "Wavpack Tag"
 msgstr "Ετικέτα Wavpack"
 
-#: ../src/et_core.c:2697
+#: ../src/et_core.c:2667
 msgid "MP3 File"
 msgstr "Αρχείο MP3"
 
-#: ../src/et_core.c:2701
+#: ../src/et_core.c:2671
 msgid "MP2 File"
 msgstr "Αρχείο MP2"
 
-#: ../src/et_core.c:2707
+#: ../src/et_core.c:2677
 msgid "Ogg Vorbis File"
 msgstr "Αρχείο Ogg Vorbis"
 
-#: ../src/et_core.c:2713
+#: ../src/et_core.c:2683
 msgid "Speex File"
 msgstr "Αρχείο Speex"
 
-#: ../src/et_core.c:2719
+#: ../src/et_core.c:2689
 msgid "FLAC File"
 msgstr "Αρχείο FLAC"
 
-#: ../src/et_core.c:2724
+#: ../src/et_core.c:2694
 msgid "MusePack File"
 msgstr "Αρχείο MusePack"
 
-#: ../src/et_core.c:2728
+#: ../src/et_core.c:2698
 msgid "Monkey's Audio File"
 msgstr "Αρχείο ήχου Monkey"
 
-#: ../src/et_core.c:2733
+#: ../src/et_core.c:2703
 msgid "MP4/AAC File"
 msgstr "Αρχείο MP4/AAC"
 
-#: ../src/et_core.c:2739
+#: ../src/et_core.c:2709
 msgid "Wavpack File"
 msgstr "Αρχείο Wavpack"
 
-#: ../src/et_core.c:2796 ../src/et_core.c:2851
+#: ../src/et_core.c:2766 ../src/et_core.c:2821
 msgid "File not found"
 msgstr "Δεν βρέθηκε αρχείο"
 
-#: ../src/et_core.c:2801
+#: ../src/et_core.c:2771
 #, c-format
 msgid "Cannot query file information (%s)"
 msgstr "Αδύνατο το ερώτημα πληροφοριών του αρχείου (%s)"
 
-#: ../src/et_core.c:2835
+#: ../src/et_core.c:2805
 msgid "Read-only file"
 msgstr "Αρχείο μόνο για ανάγνωση"
 
 #. And refresh the number of files in this directory
-#: ../src/et_core.c:2899
+#: ../src/et_core.c:2869
 #, c-format
 msgid "One file"
 msgid_plural "%u files"
 msgstr[0] "Ένα αρχείο"
 msgstr[1] "%u αρχεία"
 
-#: ../src/et_core.c:3086
+#: ../src/et_core.c:3056
 #, c-format
 msgid "Images (%d)"
 msgstr "Εικόνες (%d)"
 
 #. Bitrate
-#: ../src/et_core.c:3126 ../src/flac_header.c:220
+#: ../src/et_core.c:3098 ../src/flac_header.c:205
 #: ../src/monkeyaudio_header.c:86 ../src/mp4_header.c:134
 #: ../src/mpeg_header.c:206 ../src/musepack_header.c:88
-#: ../src/ogg_header.c:240 ../src/wavpack_header.c:78
+#: ../src/ogg_header.c:401 ../src/wavpack_header.c:78
 #, c-format
 msgid "%d kb/s"
 msgstr "%d kb/s"
 
 #. Samplerate
-#: ../src/et_core.c:3131 ../src/flac_header.c:225
+#: ../src/et_core.c:3103 ../src/flac_header.c:210
 #: ../src/monkeyaudio_header.c:91 ../src/mp4_header.c:139
 #: ../src/mpeg_header.c:211 ../src/musepack_header.c:93
-#: ../src/ogg_header.c:245 ../src/wavpack_header.c:83
+#: ../src/ogg_header.c:406 ../src/wavpack_header.c:83
 #, c-format
 msgid "%d Hz"
 msgstr "%d Hz"
 
-#: ../src/et_core.c:3274 ../src/scan.c:691
+#: ../src/et_core.c:3246 ../src/scan.c:691
 #, c-format
 msgid "Could not convert filename '%s' into system filename encoding"
 msgstr ""
 "Αδύνατη η μετατροπή του ονόματος αρχείου '%s' στην κωδικοποίηση ονόματος "
 "αρχείου του συστήματος"
 
-#: ../src/et_core.c:3276
+#: ../src/et_core.c:3248
 msgid "Try setting the environment variable G_FILENAME_ENCODING."
 msgstr "Προσπάθεια ορισμού της μεταβλητής περιβάλλοντος G_FILENAME_ENCODING."
 
-#: ../src/et_core.c:3277 ../src/scan.c:693
+#: ../src/et_core.c:3249 ../src/scan.c:693
 msgid "Filename translation"
 msgstr "Μετάφραση ονόματος αρχείου"
 
-#: ../src/et_core.c:3917
+#: ../src/et_core.c:3890
 #, c-format
 msgid "Cannot change the permissions of file '%s' (%s)"
 msgstr "Αδύνατη η αλλαγή δικαιωμάτων του αρχείου '%s' (%s)"
+
+#: ../src/et_core.c:3928
+#, c-format
+#| msgid "Error while writing to file: '%s' (%s)"
+msgid "Error writing tag type %d to file %s (%s)"
+msgstr "Σφάλμα κατά την εγγραφή τύπου ετικέτας %d στο αρχείο %s (%s)"
 
 #. Mode
 #. Mode
 #. mpeg4ip library seems to always return -1
 #. Mode
-#: ../src/flac_header.c:230 ../src/mp4_header.c:145 ../src/ogg_header.c:250
+#: ../src/flac_header.c:215 ../src/mp4_header.c:145 ../src/ogg_header.c:411
 #: ../src/wavpack_header.c:88
 msgid "Channels:"
 msgstr "Κανάλια:"
 
-#: ../src/flac_tag.c:131 ../src/flac_tag.c:848 ../src/flac_tag.c:858
+#: ../src/flac_tag.c:131 ../src/flac_tag.c:828 ../src/flac_tag.c:838
 #, c-format
 msgid "Error while opening file: '%s' as FLAC (%s)."
 msgstr "ΣΦΑΛΜΑ κατά το άνοιγμα του αρχείου: '%s' ως FLAC (%s)."
 
-#: ../src/flac_tag.c:318 ../src/ogg_tag.c:293
+#: ../src/flac_tag.c:318 ../src/ogg_tag.c:327
 #, c-format
 msgid ""
 "The year value '%s' seems to be invalid in file '%s'. The information will "
@@ -2567,17 +2542,17 @@ msgstr ""
 "Η τιμή έτους '%s' φαίνεται να είναι άκυρη στο αρχείο '%s'. Οι πληροφορίες θα "
 "χαθούν κατά την αποθήκευση της ετικέτας."
 
-#: ../src/flac_tag.c:1060
+#: ../src/flac_tag.c:1038
 #, c-format
 msgid "Picture block isn't valid: '%s'"
 msgstr "Η ομάδα εικόνας δεν είναι έγκυρη: '%s'"
 
-#: ../src/flac_tag.c:1093 ../src/ogg_tag.c:825
+#: ../src/flac_tag.c:1071
 #, c-format
 msgid "Error: Failed to write comments to file '%s' (%s)."
 msgstr "Σφάλμα: Αποτυχία εγγραφής σχολίων στο αρχείο '%s' (%s)."
 
-#: ../src/flac_tag.c:1098 ../src/ogg_tag.c:832
+#: ../src/flac_tag.c:1076 ../src/ogg_tag.c:915
 #, c-format
 msgid "Written tag of '%s'"
 msgstr "Γράφτηκε η ετικέτα του '%s'"
@@ -2721,16 +2696,16 @@ msgstr "Σφάλμα κατά τη συμπίεση/αποσυμπίεση"
 msgid "Unknown error message"
 msgstr "Άγνωστο μήνυμα σφάλματος"
 
-#: ../src/id3_tag.c:1290
+#: ../src/id3_tag.c:1289
 #, c-format
 msgid "Error while creating temporary file: '%s'"
 msgstr "Σφάλμα κατά την δημιουργία προσωρινού αρχείου: '%s'"
 
-#: ../src/id3_tag.c:1297
+#: ../src/id3_tag.c:1296
 msgid "Error while creating temporary file"
 msgstr "Σφάλμα κατά την δημιουργία προσωρινού αρχείου"
 
-#: ../src/id3_tag.c:1314
+#: ../src/id3_tag.c:1316
 #, c-format
 msgid "Error while writing to file: '%s' (%s)"
 msgstr "Σφάλμα κατά την εγγραφή στο αρχείο: '%s' (%s)"
@@ -2753,79 +2728,79 @@ msgstr "Αδύνατη η αποθήκευση ετικέτας του αρχε�
 msgid "Size error while saving tag of '%s'"
 msgstr "Σφάλμα μεγέθους κατά την αποθήκευση ετικέτας του '%s'"
 
-#: ../src/log.c:101
+#: ../src/log.c:100
 msgid "Log"
 msgstr "Ημερολόγιο"
 
-#: ../src/misc.c:696
+#: ../src/misc.c:693
 msgid "Select File"
 msgstr "Επιλογή αρχείου"
 
-#: ../src/misc.c:702
+#: ../src/misc.c:699
 msgid "Select Directory"
 msgstr "Επιλογή καταλόγου"
 
-#: ../src/misc.c:783
+#: ../src/misc.c:780
 msgid "No audio player defined"
 msgstr "Δεν ορίστηκε αναπαραγωγός ήχου"
 
-#: ../src/misc.c:784
+#: ../src/misc.c:781
 msgid "Audio Player Warning"
 msgstr "Προειδοποίηση αναπαραγωγού ήχου"
 
-#: ../src/misc.c:877
+#: ../src/misc.c:872
 msgid "Cannot fork another process"
 msgstr "Αδυναμία διακλάδωσης νέας διεργασίας"
 
-#: ../src/misc.c:883
+#: ../src/misc.c:878
 #, c-format
 msgid "Cannot execute %s (%s)"
 msgstr "Αδύνατη η εκτέλεση του %s (%s)"
 
 #. Translators: file size (bytes, kilobytes, megabytes, gigabytes,
 #. * terabytes).
-#: ../src/misc.c:1047 ../src/misc.c:1067
+#: ../src/misc.c:1039 ../src/misc.c:1059
 msgid "B"
 msgstr "B"
 
-#: ../src/misc.c:1047 ../src/misc.c:1067
+#: ../src/misc.c:1039 ../src/misc.c:1059
 msgid "kB"
 msgstr "kB"
 
-#: ../src/misc.c:1047 ../src/misc.c:1067
+#: ../src/misc.c:1039 ../src/misc.c:1059
 msgid "MB"
 msgstr "MB"
 
-#: ../src/misc.c:1047 ../src/misc.c:1067
+#: ../src/misc.c:1039 ../src/misc.c:1059
 msgid "GB"
 msgstr "GB"
 
-#: ../src/misc.c:1047 ../src/misc.c:1067
+#: ../src/misc.c:1039 ../src/misc.c:1059
 msgid "TB"
 msgstr "TB"
 
-#: ../src/misc.c:1157
+#: ../src/misc.c:1149
 msgid "Generate Playlist"
 msgstr "Δημιουργία λίστας αναπαραγωγής"
 
-#: ../src/misc.c:1179
+#: ../src/misc.c:1173
 msgid "M3U Playlist Name"
 msgstr "Όνομα λίστας αναπαραγωγής M3U"
 
-#: ../src/misc.c:1194
+#: ../src/misc.c:1188
 msgid "Use directory name"
 msgstr "Χρήση ονόματος καταλόγου"
 
 #. Playlist options
-#: ../src/misc.c:1211
+#: ../src/misc.c:1205
 msgid "Playlist Options"
 msgstr "Επιλογές λίστας αναπαραγωγής"
 
-#: ../src/misc.c:1217
+#: ../src/misc.c:1211
 msgid "Include only the selected files"
 msgstr "Να περιλαμβάνει μόνο τα επιλεγμένα αρχεία"
 
-#: ../src/misc.c:1220
+#: ../src/misc.c:1214
 msgid ""
 "If activated, only the selected files will be written in the playlist file. "
 "Else, all the files will be written."
@@ -2833,31 +2808,31 @@ msgstr ""
 "Αν ενεργοποιηθεί η επιλογή αυτή, τότε μόνο τα επιλεγμένα αρχεία θα γραφτούν "
 "στη λίστα αναπαραγωγής. Αλλιώς, θα γραφτούν όλα τα αρχεία."
 
-#: ../src/misc.c:1223
+#: ../src/misc.c:1217
 msgid "Use full path for files in playlist"
 msgstr "Χρήση πλήρους διαδρομής για τα αρχεία στη λίστα αναπαραγωγής"
 
-#: ../src/misc.c:1226
+#: ../src/misc.c:1220
 msgid "Use relative path for files in playlist"
 msgstr "Χρήση σχετικής διαδρομής για τα αρχεία στη λίστα αναπαραγωγής"
 
 #. Create playlist in parent directory
-#: ../src/misc.c:1232
+#: ../src/misc.c:1226
 msgid "Create playlist in the parent directory"
 msgstr "Δημιουργία λίστας αναπαραγωγής στο γονικό κατάλογο"
 
-#: ../src/misc.c:1235
+#: ../src/misc.c:1229
 msgid "If activated, the playlist will be created in the parent directory."
 msgstr ""
 "Αν ενεργοποιηθεί η επιλογή αυτή, τότε η λίστα αναπαραγωγής θα δημιουργηθεί "
 "στον γονικό κατάλογο."
 
 #. DOS Separator
-#: ../src/misc.c:1239
+#: ../src/misc.c:1233
 msgid "Use DOS directory separator"
 msgstr "Χρήση διαχωριστικού καταλόγων DOS"
 
-#: ../src/misc.c:1245
+#: ../src/misc.c:1239
 msgid ""
 "This option replaces the UNIX directory separator '/' into DOS separator "
 "'\\'."
@@ -2865,49 +2840,49 @@ msgstr ""
 "Η επιλογή αυτή αντικαθιστά το διαχωριστικό καταλόγων του UNIX '/' με το "
 "διαχωριστικό του DOS '\\'."
 
-#: ../src/misc.c:1254
+#: ../src/misc.c:1248
 msgid "Playlist Content"
 msgstr "Περιεχόμενα λίστας αναπαραγωγής"
 
-#: ../src/misc.c:1260
+#: ../src/misc.c:1254
 msgid "Write only list of files"
 msgstr "Εγγραφή μόνο της λίστας των αρχείων"
 
-#: ../src/misc.c:1264
+#: ../src/misc.c:1258
 msgid "Write info using filename"
 msgstr "Εγγραφή πληροφοριών με χρήση του ονόματος αρχείου"
 
-#: ../src/misc.c:1267
+#: ../src/misc.c:1261
 msgid "Write info using:"
 msgstr "Εγγραφή πληροφοριών με χρήση:"
 
-#: ../src/misc.c:1487
+#: ../src/misc.c:1480
 #, c-format
 msgid "Cannot write playlist file '%s'"
 msgstr "Αδύνατη η εγγραφή αρχείου λίστας αναπαραγωγής '%s'"
 
-#: ../src/misc.c:1491
+#: ../src/misc.c:1484
 msgid "Playlist File Error"
 msgstr "Σφάλμα αρχείου λίστας αναπαραγωγής"
 
-#: ../src/misc.c:1499
+#: ../src/misc.c:1492
 #, c-format
 msgid "Written playlist file '%s'"
 msgstr "Γράφτηκε το αρχείο λίστας αναπαραγωγής '%s'"
 
-#: ../src/misc.c:1564 ../src/scan.c:3247 ../src/scan.c:3309
+#: ../src/misc.c:1556 ../src/scan.c:3243 ../src/scan.c:3305
 msgid "Invalid scanner mask"
 msgstr "Ακατάλληλη μάσκα σάρωσης"
 
-#: ../src/misc.c:1886
+#: ../src/misc.c:1920
 msgid "CD"
 msgstr "CD"
 
-#: ../src/misc.c:1908
+#: ../src/misc.c:1942
 msgid "Find Files"
 msgstr "Εύρεση αρχείων"
 
-#: ../src/misc.c:1941
+#: ../src/misc.c:1974
 msgid ""
 "Type the word to search into files. Or type nothing to display all files."
 msgstr ""
@@ -2915,13 +2890,13 @@ msgstr ""
 "για να εμφανιστούν όλα τα αρχεία."
 
 #. Where...
-#: ../src/misc.c:1947
+#: ../src/misc.c:1980
 msgid "In:"
 msgstr "Σε:"
 
 #. Translators: This option is for the previous 'in' option. For instance,
 #. * translate this as "Search" "In:" "the Filename".
-#: ../src/misc.c:1952
+#: ../src/misc.c:1985
 msgid "the Filename"
 msgstr "το όνομα του αρχείου"
 
@@ -2930,81 +2905,84 @@ msgstr "το όνομα του αρχείου"
 #. * Note: label changed to "the Tag" (to be the only one) to fix a Hungarian
 #. * grammatical problem (which uses one word to say "in the tag" like here)
 #.
-#: ../src/misc.c:1958
+#: ../src/misc.c:1991
 msgid "the Tag"
 msgstr "η ετικέτα"
 
 #. Property of the search
-#: ../src/misc.c:1969 ../src/prefs.c:330
+#: ../src/misc.c:2002 ../src/prefs.c:331
 msgid "Case sensitive"
 msgstr "Ταίριασμα πεζών/κεφαλαίων"
 
-#: ../src/misc.c:2195
+#: ../src/misc.c:2229
 msgid "Ready to search…"
 msgstr "Έτοιμο για αναζήτηση…"
 
-#: ../src/misc.c:2424
+#: ../src/misc.c:2437
 #, c-format
-msgid "Found: %d file(s)"
-msgstr "Βρέθηκαν: %d αρχεία"
+#| msgid "Found: %d file(s)"
+msgid "Found one file"
+msgid_plural "Found %d files"
+msgstr[0] "Βρέθηκε ένα αρχείο"
+msgstr[1] "Βρέθηκαν %d αρχεία"
 
-#: ../src/misc.c:2698
+#: ../src/misc.c:2704
 msgid "Load Filenames From a Text File"
 msgstr "Φόρτωση ονομάτων αρχείων από ένα αρχείο κειμένου"
 
-#: ../src/misc.c:2725
+#: ../src/misc.c:2733
 msgid "File:"
 msgstr "Αρχείο:"
 
 #. Button 'load'
 #. the signal attached to this button, to load the file, is placed after the LoadFileContentList definition
-#: ../src/misc.c:2744
+#: ../src/misc.c:2752
 msgid " Load "
 msgstr " Φόρτωση "
 
-#: ../src/misc.c:2761
+#: ../src/misc.c:2770
 msgid "Content of Text File"
 msgstr "Περιεχόμενο του αρχείου κειμένου"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2782 ../src/misc.c:2876
+#: ../src/misc.c:2791 ../src/misc.c:2886
 msgid "Insert a blank line before the selected line"
 msgstr "Εισαγωγή μιας κενής γραμμής πριν από την επιλεγμένη γραμμή"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2791 ../src/misc.c:2885
+#: ../src/misc.c:2800 ../src/misc.c:2895
 msgid "Delete the selected line"
 msgstr "Διαγραφή της επιλεγμένης γραμμής"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2800 ../src/misc.c:2894 ../src/misc.c:3385
+#: ../src/misc.c:2809 ../src/misc.c:2904 ../src/misc.c:3390
 msgid "Delete all blank lines"
 msgstr "Διαγραφή όλων των κενών γραμμών"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2812 ../src/misc.c:2906
+#: ../src/misc.c:2821 ../src/misc.c:2916
 msgid "Move up the selected line"
 msgstr "Μετακίνηση προς τα πάνω της επιλεγμένης γραμμής"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2821 ../src/misc.c:2915
+#: ../src/misc.c:2830 ../src/misc.c:2925
 msgid "Move down the selected line"
 msgstr "Μετακίνηση προς τα κάτω της επιλεγμένης γραμμής"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2833 ../src/misc.c:2927 ../src/misc.c:3409
+#: ../src/misc.c:2842 ../src/misc.c:2937 ../src/misc.c:3414
 msgid "Reload"
 msgstr "Επαναφόρτωση"
 
-#: ../src/misc.c:2854
+#: ../src/misc.c:2864
 msgid "List of Files"
 msgstr "Λίστα των αρχείων"
 
-#: ../src/misc.c:2949
+#: ../src/misc.c:2959
 msgid "Selected line:"
 msgstr "Επιλεγμένη γραμμή:"
 
-#: ../src/misc.c:2967
+#: ../src/misc.c:2977
 msgid ""
 "When activating this option, after loading the filenames, the current "
 "selected scanner will be ran (the scanner window must be opened)."
@@ -3013,36 +2991,34 @@ msgstr ""
 "χρησιμοποιηθεί ο τρέχον επιλεγμένος σαρωτής (το παράθυρο του σαρωτή πρέπει "
 "να είναι ανοιχτό)."
 
-#: ../src/misc.c:3054
+#: ../src/misc.c:3064
 #, c-format
-#| msgid "Cannot create file '%s' (%s)"
 msgid "Cannot retrieve file info (%s)"
 msgstr "Αδύνατη η ανάκτηση πληροφοριών αρχείου (%s)"
 
-#: ../src/misc.c:3118
+#: ../src/misc.c:3126
 #, c-format
 msgid "Can't open file '%s' (%s)"
 msgstr "Αδύνατο το άνοιγμα του αρχείου '%s' (%s)"
 
-#: ../src/misc.c:3155
+#: ../src/misc.c:3162
 #, c-format
-#| msgid "Error while reading file: '%s' (%s)"
 msgid "Error reading file (%s)"
 msgstr "Σφάλμα κατά την ανάγνωση του αρχείου (%s)"
 
-#: ../src/misc.c:3373
+#: ../src/misc.c:3378
 msgid "Insert a blank line"
 msgstr "Εισαγωγή μίας κενής γραμμής"
 
-#: ../src/misc.c:3379
+#: ../src/misc.c:3384
 msgid "Delete this line"
 msgstr "Διαγραφή αυτής της γραμμής"
 
-#: ../src/misc.c:3394
+#: ../src/misc.c:3399
 msgid "Move up this line"
 msgstr "Μετακίνηση προς τα πάνω αυτής της γραμμής"
 
-#: ../src/misc.c:3400
+#: ../src/misc.c:3405
 msgid "Move down this line"
 msgstr "Μετακίνηση προς τα κάτω αυτής της γραμμής"
 
@@ -3052,11 +3028,11 @@ msgstr "Μετακίνηση προς τα κάτω αυτής της γραμμ
 msgid "Profile:"
 msgstr "Κατατομή:"
 
-#: ../src/mp4_header.c:63 ../src/mp4_tag.c:82 ../src/mp4_tag.c:212
+#: ../src/mp4_header.c:63 ../src/mp4_tag.c:65 ../src/mp4_tag.c:186
 msgid "MP4 format invalid"
 msgstr "Άκυρη μορφή MP4"
 
-#: ../src/mp4_header.c:72 ../src/mp4_tag.c:91
+#: ../src/mp4_header.c:72 ../src/mp4_tag.c:74
 #, c-format
 msgid "File contains no audio track: '%s'"
 msgstr "Το αρχείο δεν περιέχει κομμάτι ήχου: '%s'"
@@ -3071,7 +3047,7 @@ msgstr "Σφάλμα κατά την ανάγνωση ιδιοτήτων από 
 msgid "~%d kb/s"
 msgstr "~%d kb/s"
 
-#: ../src/mp4_tag.c:102 ../src/mp4_tag.c:220
+#: ../src/mp4_tag.c:85 ../src/mp4_tag.c:194
 #, c-format
 msgid "Error reading tags from file: '%s'"
 msgstr "Σφάλμα κατά την ανάγνωση ετικετών από το αρχείο: '%s'"
@@ -3097,7 +3073,14 @@ msgstr "Μονό κανάλι"
 msgid "MPEG"
 msgstr "MPEG"
 
-#: ../src/ogg_header.c:84
+#. FIXME: Pass error back to calling function.
+#: ../src/ogg_header.c:227
+#, c-format
+#| msgid "Error while opening file: '%s' (%s)."
+msgid "Error while opening file: '%s' (%s)"
+msgstr "Σφάλμα κατά το άνοιγμα του αρχείου: '%s' (%s)"
+
+#: ../src/ogg_header.c:243
 #, c-format
 msgid ""
 "Ogg Vorbis: The specified bitstream does not exist or the file has been "
@@ -3106,28 +3089,28 @@ msgstr ""
 "Ogg Vorbis: Ο συγκεκριμένη ροή δυαδικών δεν υπάρχει ή το αρχείο έχει "
 "αρχικοποιηθεί λαθεμένα (αρχείο: '%s')."
 
-#: ../src/ogg_header.c:115
+#: ../src/ogg_header.c:279
 #, c-format
 msgid "Ogg Vorbis: Read from media returned an error (file: '%s')."
 msgstr ""
 "Ogg Vorbis: Η ανάγνωση από τα μέσα επέστρεψε ένα σφάλμα (αρχείο: '%s')."
 
-#: ../src/ogg_header.c:118
+#: ../src/ogg_header.c:282
 #, c-format
 msgid "Ogg Vorbis: Bitstream is not Vorbis data (file: '%s')."
 msgstr "Ogg Vorbis: Η ροή δυαδικών δεν είναι δεδομένα Vorbis (αρχείο: '%s')."
 
-#: ../src/ogg_header.c:121
+#: ../src/ogg_header.c:285
 #, c-format
 msgid "Ogg Vorbis: Vorbis version mismatch (file: '%s')."
 msgstr "Ogg Vorbis: Ασυμφωνία έκδοσης του Vorbis (αρχείο: '%s')."
 
-#: ../src/ogg_header.c:124
+#: ../src/ogg_header.c:288
 #, c-format
 msgid "Ogg Vorbis: Invalid Vorbis bitstream header (file: '%s')."
 msgstr "Ogg Vorbis: Άκυρη κεφαλίδα ροής δυαδικών Vorbis (αρχείο: '%s')."
 
-#: ../src/ogg_header.c:127
+#: ../src/ogg_header.c:291
 #, c-format
 msgid ""
 "Ogg Vorbis: Internal logic fault, indicates a bug or heap/stack corruption "
@@ -3136,66 +3119,66 @@ msgstr ""
 "Ogg Vorbis: Εσωτερικό λογικό λάθος, δείχνει ένα σφάλμα ή φθορά σωρού/στοίβας "
 "(αρχείο: '%s')."
 
-#: ../src/ogg_header.c:178 ../src/ogg_tag.c:183 ../src/ogg_tag.c:685
+#: ../src/ogg_header.c:337
 #, c-format
 msgid "Error: Failed to open file: '%s' as Vorbis (%s)."
 msgstr "Σφάλμα: Αποτυχία ανοίγματος του αρχείου: '%s' ως Vorbis (%s)."
 
-#: ../src/ogg_tag.c:165
+#: ../src/ogg_tag.c:186 ../src/ogg_tag.c:733
 #, c-format
 msgid "Warning: The Ogg Vorbis file '%s' contains an ID3v2 tag."
 msgstr "Προσοχή: Το αρχείο Ogg Vorbis '%s' περιέχει ετικέτα ID3v2."
 
-#: ../src/picture.c:248 ../src/picture.c:273
+#: ../src/picture.c:244 ../src/picture.c:269
 #, c-format
 msgid "Image file not loaded: %s"
 msgstr "Το αρχείο εικόνας δε φορτώθηκε: %s"
 
-#: ../src/picture.c:265
+#: ../src/picture.c:261
 #, c-format
 msgid "Cannot open file: '%s'"
 msgstr "Αδύνατο το άνοιγμα του αρχείου: '%s'"
 
-#: ../src/picture.c:269
+#: ../src/picture.c:265
 msgid "Image File Error"
 msgstr "Σφάλμα αρχείου εικόνας"
 
-#: ../src/picture.c:280
+#: ../src/picture.c:276
 msgid "Image file loaded"
 msgstr "Το αρχείο εικόνας φορτώθηκε"
 
-#: ../src/picture.c:338
+#: ../src/picture.c:334
 msgid "Add Images"
 msgstr "Προσθήκη εικόνων"
 
-#: ../src/picture.c:348 ../src/picture.c:681
+#: ../src/picture.c:344 ../src/picture.c:682
 msgid "All Files"
 msgstr "Όλα τα αρχεία"
 
-#: ../src/picture.c:354 ../src/picture.c:687
+#: ../src/picture.c:350 ../src/picture.c:688
 msgid "PNG and JPEG"
 msgstr "Αρχεία PNG και JPEG"
 
-#: ../src/picture.c:470
+#: ../src/picture.c:468
 #, c-format
 msgid "Image Properties %d/%d"
 msgstr "Ιδιότητες εικόνας %d/%d"
 
-#: ../src/picture.c:493
+#: ../src/picture.c:492
 msgid "Image Type"
 msgstr "Τύπος εικόνας"
 
 #. Description of the picture
-#: ../src/picture.c:550
+#: ../src/picture.c:551
 msgid "Image Description:"
 msgstr "Περιγραφή εικόνας:"
 
-#: ../src/picture.c:668
+#: ../src/picture.c:669
 #, c-format
 msgid "Save Image %d/%d"
 msgstr "Αποθήκευση εικόνας %d/%d"
 
-#: ../src/picture.c:740
+#: ../src/picture.c:741
 #, c-format
 msgid "Image file not saved: %s"
 msgstr "Το αρχείο εικόνας δεν αποθηκεύτηκε: %s"
@@ -3309,7 +3292,7 @@ msgstr "Περιγραφή"
 msgid "Error with 'loader_close': %s"
 msgstr "Σφάλμα με το 'κλείσιμο_φορτωτή': %s"
 
-#: ../src/picture.c:1024
+#: ../src/picture.c:1026
 msgid ""
 "Cannot display the image because not enough data has been read to determine "
 "how to create the image buffer."
@@ -3317,36 +3300,32 @@ msgstr ""
 "Αδύνατη η εμφάνιση της εικόνας επειδή δεν έχουν διαβαστεί αρκετά δεδομένα "
 "για τον προσδιορισμό της δημιουργίας της ενδιάμεσης μνήμης της εικόνας."
 
-#: ../src/picture.c:1031
+#: ../src/picture.c:1033
 msgid "Cannot display the image"
 msgstr "Αδύνατη η εμφάνιση της εικόνας"
 
-#: ../src/picture.c:1033
+#: ../src/picture.c:1035
 msgid ""
 "Not enough data has been read to determine how to create the image buffer."
 msgstr ""
 "Δεν διαβάστηκαν αρκετά δεδομένα για τη δημιουργία της ενδιάμεσης μνήμης της "
 "εικόνας."
 
-#: ../src/picture.c:1035
+#: ../src/picture.c:1037
 msgid "Load Image File"
 msgstr "Φόρτωση αρχείου εικόνας"
 
-#: ../src/picture.c:1041
+#: ../src/picture.c:1043
 #, c-format
 msgid "Error with 'loader_write': %s"
 msgstr "Σφάλμα με την 'εγγραφή_φορτωτή': %s"
 
-#: ../src/picture.c:1164
-msgid "The whole image file could not be read"
-msgstr "Το συνολικό αρχείο της εικόνας δεν μπόρεσε να διαβαστεί"
-
 #. Label
-#: ../src/prefs.c:147
+#: ../src/prefs.c:148
 msgid "Default directory:"
 msgstr "Προεπιλεγμένος κατάλογος:"
 
-#: ../src/prefs.c:160
+#: ../src/prefs.c:161
 msgid ""
 "Specify the directory where your files are located. This path will be loaded "
 "when EasyTAG starts without parameter."
@@ -3355,14 +3334,14 @@ msgstr ""
 "θα φορτώνεται όταν το EasyTAG ξεκινά χωρίς παράμετρο."
 
 #. Load directory on startup
-#: ../src/prefs.c:181
+#: ../src/prefs.c:182
 msgid ""
 "Load on startup the default directory or the directory passed as argument"
 msgstr ""
 "Να φορτώνεται στην εκκίνηση ο προεπιλεγμένος κατάλογος ή ο κατάλογος που "
 "πέρασε ως όρισμα"
 
-#: ../src/prefs.c:184
+#: ../src/prefs.c:185
 msgid ""
 "Automatically search files, when EasyTAG starts, into the default directory. "
 "Note that this path may be overridden by the parameter passed to easytag "
@@ -3374,22 +3353,22 @@ msgstr ""
 "διαδρομή_για/αρχεία_mp3)."
 
 #. Browse subdirectories
-#: ../src/prefs.c:189
+#: ../src/prefs.c:190
 msgid "Search subdirectories"
 msgstr "Αναζήτηση στους υποκαταλόγους"
 
-#: ../src/prefs.c:192
+#: ../src/prefs.c:193
 msgid "Search subdirectories for files when reading a directory into the tree."
 msgstr ""
 "Αναζήτηση για αρχεία ήχου στους υποκαταλόγους, κατά την ανάγνωση ενός "
 "καταλόγου στο δένδρο."
 
 #. Open the node to show subdirectories
-#: ../src/prefs.c:196
+#: ../src/prefs.c:197
 msgid "Show subdirectories when selecting a directory"
 msgstr "Εμφάνιση των υποκαταλόγων όταν επιλέγεται ένας κατάλογος"
 
-#: ../src/prefs.c:200
+#: ../src/prefs.c:201
 msgid ""
 "This expands the selected node into the file browser to display the sub-"
 "directories."
@@ -3398,11 +3377,11 @@ msgstr ""
 "τους υποκαταλόγους."
 
 #. Browse hidden directories
-#: ../src/prefs.c:204
+#: ../src/prefs.c:205
 msgid "Search hidden directories"
 msgstr "Αναζήτηση σε κρυφούς καταλόγους"
 
-#: ../src/prefs.c:209
+#: ../src/prefs.c:210
 msgid "Search hidden directories for files (directories starting by a '.')."
 msgstr ""
 "Αναζήτηση για αρχεία μέσα σε κρυφούς καταλόγους (καταλόγους που αρχίζουν με "
@@ -3411,21 +3390,21 @@ msgstr ""
 #.
 #. * Misc
 #.
-#: ../src/prefs.c:217
+#: ../src/prefs.c:218
 msgid "Misc"
 msgstr "Ποικίλα"
 
 #. User interface
-#: ../src/prefs.c:223
+#: ../src/prefs.c:224
 msgid "User Interface"
 msgstr "Διεπαφή χρήστη"
 
 #. Show header infos
-#: ../src/prefs.c:230
+#: ../src/prefs.c:231
 msgid "Show header information of file"
 msgstr "Εμφάνιση των πληροφοριών κεφαλίδας του αρχείου"
 
-#: ../src/prefs.c:233
+#: ../src/prefs.c:234
 msgid ""
 "If activated, information about the file as the bitrate, the time, the size, "
 "will be displayed under the filename entry."
@@ -3434,177 +3413,177 @@ msgstr ""
 "χρόνος, το μέγεθος, θα εμφανίζονται κάτω από την καταχώριση του ονόματος "
 "αρχείου."
 
-#: ../src/prefs.c:239
+#: ../src/prefs.c:240
 msgid "Display changed files in list using:"
 msgstr "Εμφάνιση των αλλαγμένων αρχείων στη λίστα χρησιμοποιώντας:"
 
-#: ../src/prefs.c:242
+#: ../src/prefs.c:243
 msgid "Red color"
 msgstr "Κόκκινο χρώμα"
 
-#: ../src/prefs.c:248
+#: ../src/prefs.c:249
 msgid "Bold style"
 msgstr "Έντονα γράμματα"
 
 #. Sorting List Options
-#: ../src/prefs.c:254
+#: ../src/prefs.c:255
 msgid "Sorting List Options"
 msgstr "Επιλογές λίστας ταξινόμησης"
 
 #. Sorting method
-#: ../src/prefs.c:263
+#: ../src/prefs.c:264
 msgid "Sort the file list by:"
 msgstr "Ταξινόμηση της λίστας αρχείων κατά:"
 
-#: ../src/prefs.c:273
+#: ../src/prefs.c:274
 msgid "Ascending filename"
 msgstr "Ανερχόμενο όνομα αρχείου"
 
-#: ../src/prefs.c:275
+#: ../src/prefs.c:276
 msgid "Descending filename"
 msgstr "Κατερχόμενο όνομα αρχείου"
 
-#: ../src/prefs.c:276
+#: ../src/prefs.c:277
 msgid "Ascending title"
 msgstr "Ανερχόμενο τίτλο"
 
-#: ../src/prefs.c:277
+#: ../src/prefs.c:278
 msgid "Descending title"
 msgstr "Κατερχόμενο τίτλο"
 
-#: ../src/prefs.c:278
+#: ../src/prefs.c:279
 msgid "Ascending artist"
 msgstr "Ανερχόμενο όνομα καλλιτέχνη"
 
-#: ../src/prefs.c:279
+#: ../src/prefs.c:280
 msgid "Descending artist"
 msgstr "Κατερχόμενο όνομα καλλιτέχνη"
 
-#: ../src/prefs.c:281
+#: ../src/prefs.c:282
 msgid "Ascending album artist"
 msgstr "Ανερχόμενο δίσκο καλλιτέχνη"
 
-#: ../src/prefs.c:283
+#: ../src/prefs.c:284
 msgid "Descending album artist"
 msgstr "Κατερχόμενο δίσκο καλλιτέχνη"
 
-#: ../src/prefs.c:284
+#: ../src/prefs.c:285
 msgid "Ascending album"
 msgstr "Ανερχόμενο δίσκο"
 
-#: ../src/prefs.c:285
+#: ../src/prefs.c:286
 msgid "Descending album"
 msgstr "Κατερχόμενο δίσκο"
 
-#: ../src/prefs.c:286
+#: ../src/prefs.c:287
 msgid "Ascending year"
 msgstr "Ανερχόμενη χρονιά"
 
-#: ../src/prefs.c:287
+#: ../src/prefs.c:288
 msgid "Descending year"
 msgstr "Κατερχόμενη χρονιά"
 
-#: ../src/prefs.c:289
+#: ../src/prefs.c:290
 msgid "Ascending disc number"
 msgstr "Ανερχόμενο αριθμό δίσκου"
 
-#: ../src/prefs.c:291
+#: ../src/prefs.c:292
 msgid "Descending disc number"
 msgstr "Κατερχόμενο αριθμό δίσκου"
 
-#: ../src/prefs.c:293
+#: ../src/prefs.c:294
 msgid "Ascending track number"
 msgstr "Ανερχόμενο αριθμό κομματιού"
 
-#: ../src/prefs.c:295
+#: ../src/prefs.c:296
 msgid "Descending track number"
 msgstr "Κατερχόμενο αριθμό κομματιού"
 
-#: ../src/prefs.c:296
+#: ../src/prefs.c:297
 msgid "Ascending genre"
 msgstr "Ανερχόμενο είδος"
 
-#: ../src/prefs.c:297
+#: ../src/prefs.c:298
 msgid "Descending genre"
 msgstr "Κατερχόμενο είδος"
 
-#: ../src/prefs.c:298
+#: ../src/prefs.c:299
 msgid "Ascending comment"
 msgstr "Ανερχόμενο σχόλιο"
 
-#: ../src/prefs.c:299
+#: ../src/prefs.c:300
 msgid "Descending comment"
 msgstr "Κατερχόμενο σχόλιο"
 
-#: ../src/prefs.c:301
+#: ../src/prefs.c:302
 msgid "Ascending composer"
 msgstr "Ανερχόμενο όνομα συνθέτη"
 
-#: ../src/prefs.c:303
+#: ../src/prefs.c:304
 msgid "Descending composer"
 msgstr "Κατερχόμενο όνομα συνθέτη"
 
-#: ../src/prefs.c:305
+#: ../src/prefs.c:306
 msgid "Ascending original artist"
 msgstr "Ανερχόμενο όνομα αρχικού καλλιτέχνη"
 
-#: ../src/prefs.c:307
+#: ../src/prefs.c:308
 msgid "Descending original artist"
 msgstr "Κατερχόμενο όνομα αρχικού καλλιτέχνη"
 
-#: ../src/prefs.c:309
+#: ../src/prefs.c:310
 msgid "Ascending copyright"
 msgstr "Ανερχόμενα πνευματικά δικαιώματα"
 
-#: ../src/prefs.c:311
+#: ../src/prefs.c:312
 msgid "Descending copyright"
 msgstr "Κατερχόμενα πνευματικά δικαιώματα"
 
-#: ../src/prefs.c:313
+#: ../src/prefs.c:314
 msgid "Ascending URL"
 msgstr "Ανερχόμενο URL"
 
-#: ../src/prefs.c:315
+#: ../src/prefs.c:316
 msgid "Descending URL"
 msgstr "Κατερχόμενο URL"
 
-#: ../src/prefs.c:317
+#: ../src/prefs.c:318
 msgid "Ascending encoded by"
 msgstr "Ανερχόμενη κωδικοποίηση"
 
-#: ../src/prefs.c:319
+#: ../src/prefs.c:320
 msgid "Descending encoded by"
 msgstr "Κατερχόμενη κωδικοποίηση"
 
-#: ../src/prefs.c:321
+#: ../src/prefs.c:322
 msgid "Ascending creation date"
 msgstr "Ανερχόμενη ημερομηνία δημιουργίας"
 
-#: ../src/prefs.c:323
+#: ../src/prefs.c:324
 msgid "Descending creation date"
 msgstr "Κατερχόμενη ημερομηνία δημιουργίας"
 
-#: ../src/prefs.c:327
+#: ../src/prefs.c:328
 msgid "Select the type of file sorting when loading a directory."
 msgstr ""
 "Επιλέξτε τον τύπο του αρχείου ταξινόμησης κατά τη φόρτωση ενός καταλόγου."
 
-#: ../src/prefs.c:339
+#: ../src/prefs.c:340
 msgid "If activated, the sorting of the list will be dependent on the case."
 msgstr ""
 "Αν ενεργοποιηθεί, τότε η ταξινόμηση της λίστας θα γίνεται με διάκριση πεζών/"
 "κεφαλαίων."
 
 #. File Player
-#: ../src/prefs.c:343
+#: ../src/prefs.c:344
 msgid "File Audio Player"
 msgstr "Αναπαραγωγός αρχείου ήχου"
 
-#: ../src/prefs.c:355
+#: ../src/prefs.c:356
 msgid "Player to run:"
 msgstr "Αναπαραγωγός για εκτέλεση:"
 
-#: ../src/prefs.c:361
+#: ../src/prefs.c:362
 msgid ""
 "Enter the program used to play the files. Some arguments can be passed for "
 "the program (as 'xmms -p') before to receive files as other arguments."
@@ -3614,22 +3593,22 @@ msgstr ""
 "p') πριν την λήψη αρχείων ως άλλων ορισμάτων."
 
 #. Log options
-#: ../src/prefs.c:379
+#: ../src/prefs.c:380
 msgid "Log Options"
 msgstr "Επιλογές ημερολογίου"
 
 #. Show / hide log view
-#: ../src/prefs.c:386
+#: ../src/prefs.c:387
 msgid "Show log view in main window"
 msgstr "Εμφάνιση προβολής ημερολογίου στο κύριο παράθυρο"
 
-#: ../src/prefs.c:389
+#: ../src/prefs.c:390
 msgid "If activated, the log view would be visible in the main window."
 msgstr ""
 "Αν ενεργοποιηθεί, τότε η προβολή ημερολογίου θα είναι ορατή στο κύριο "
 "παράθυρο."
 
-#: ../src/prefs.c:395
+#: ../src/prefs.c:396
 msgid "Max number of lines:"
 msgstr "Μέγιστος αριθμός γραμμών:"
 
@@ -3642,22 +3621,22 @@ msgstr "Μέγιστος αριθμός γραμμών:"
 #.
 #. * File Settings
 #.
-#: ../src/prefs.c:413
+#: ../src/prefs.c:414
 msgid "File Settings"
 msgstr "Ρυθμίσεις αρχείων"
 
 #. File (name) Options
-#: ../src/prefs.c:419
+#: ../src/prefs.c:420
 msgid "File Options"
 msgstr "Επιλογές αρχείων"
 
-#: ../src/prefs.c:425
+#: ../src/prefs.c:426
 msgid "Replace illegal characters in filename (for Windows and CD-Rom)"
 msgstr ""
 "Αντικατάσταση απαράδεκτων χαρακτήρων στο όνομα του αρχείου (για Windows και "
 "σε CD-ROM)"
 
-#: ../src/prefs.c:428
+#: ../src/prefs.c:429
 msgid ""
 "Convert illegal characters for FAT32/16 and ISO9660 + Joliet filesystems "
 "('\\', ':', ';', '*', '?', '\"', '<', '>', '|') of the filename to avoid "
@@ -3670,40 +3649,40 @@ msgstr ""
 "είναι χρήσιμη κατά τη μετονομασία του αρχείου από την ετικέτας με τον σαρωτή."
 
 #. Extension case (lower/upper?)
-#: ../src/prefs.c:436
+#: ../src/prefs.c:437
 msgid "Convert filename extension to:"
 msgstr "Μετατροπή της επέκτασης του ονόματος αρχείου σε:"
 
-#: ../src/prefs.c:439
+#: ../src/prefs.c:440
 msgid "Lower Case"
 msgstr "Πεζά"
 
-#: ../src/prefs.c:442
+#: ../src/prefs.c:443
 msgid "For example, the extension will be converted to '.mp3'"
 msgstr "Π.χ., η επέκταση θα μετατραπεί σε '.mp3'"
 
-#: ../src/prefs.c:445
+#: ../src/prefs.c:446
 msgid "Upper Case"
 msgstr "Κεφαλαία"
 
-#: ../src/prefs.c:448
+#: ../src/prefs.c:449
 msgid "For example, the extension will be converted to '.MP3'"
 msgstr "Π.χ., η επέκταση θα μετατραπεί σε '.MP3'"
 
-#: ../src/prefs.c:451
+#: ../src/prefs.c:452
 msgid "No Change"
 msgstr "Καμία αλλαγή"
 
-#: ../src/prefs.c:454
+#: ../src/prefs.c:455
 msgid "The extension will not be converted"
 msgstr "Η επέκταση δε θα μετατραπεί"
 
 #. Preserve modification time
-#: ../src/prefs.c:457
+#: ../src/prefs.c:458
 msgid "Preserve modification time of the file"
 msgstr "Διατήρηση του χρόνου τροποποίησης του αρχείου"
 
-#: ../src/prefs.c:460
+#: ../src/prefs.c:461
 msgid ""
 "Preserve the modification time (in file properties) when saving the file."
 msgstr ""
@@ -3711,7 +3690,7 @@ msgstr ""
 "αποθήκευση του αρχείου."
 
 #. Change directory modification time
-#: ../src/prefs.c:464
+#: ../src/prefs.c:465
 msgid ""
 "Update modification time of the parent directory of the file (recommended "
 "when using Amarok)"
@@ -3719,7 +3698,7 @@ msgstr ""
 "Ο χρόνος τροποποίησης της ενημέρωσης του γονικού καταλόγου του αρχείου "
 "(συνιστάται κατά τη χρήση του Amarok)"
 
-#: ../src/prefs.c:468
+#: ../src/prefs.c:469
 msgid ""
 "The modification time of the parent directory of the file will be updated "
 "when saving tag the file. At the present time it is automatically done only "
@@ -3736,12 +3715,12 @@ msgstr ""
 "αλλαγές στον γονικό κατάλογο."
 
 #. Character Set for Filename
-#: ../src/prefs.c:476
+#: ../src/prefs.c:477
 msgid "Character Set for Filename"
 msgstr "Σύνολο χαρακτήρων για τα ονόματα αρχείων"
 
 #. Rules for character set
-#: ../src/prefs.c:488
+#: ../src/prefs.c:489
 msgid ""
 "Rules to apply if some characters can't be converted to the system character "
 "encoding when writing filename:"
@@ -3750,11 +3729,11 @@ msgstr ""
 "δεν μπορούν να μετατραπούν στη κωδικοποίηση χαρακτήρων του συστήματος κατά "
 "την εγγραφή ονόματος αρχείου:"
 
-#: ../src/prefs.c:494
+#: ../src/prefs.c:495
 msgid "Try another character encoding"
 msgstr "Δοκιμάστε μίας άλλη κωδικοποίηση χαρακτήρων"
 
-#: ../src/prefs.c:498
+#: ../src/prefs.c:499
 msgid ""
 "With this option, it will try the conversion to the encoding associated to "
 "your locale (for example: ISO-8859-1 for 'fr', KOI8-R for 'ru', ISO-8859-2 "
@@ -3765,14 +3744,14 @@ msgstr ""
 "'ro'). Αν η μετατροπή αποτύχει, τότε θα δοκιμαστεί η κωδικοποίηση χαρακτήρων "
 "ISO-8859-1."
 
-#: ../src/prefs.c:505
+#: ../src/prefs.c:506
 msgid ""
 "Force using the system character encoding and activate the transliteration"
 msgstr ""
 "Αναγκαστική χρήση της κωδικοποίησης χαρακτήρων του συστήματος και "
 "ενεργοποίηση της μεταγραφής"
 
-#: ../src/prefs.c:509 ../src/prefs.c:817 ../src/prefs.c:886
+#: ../src/prefs.c:510 ../src/prefs.c:810 ../src/prefs.c:879
 msgid ""
 "With this option, when a character cannot be represented in the target "
 "character set, it can be approximated through one or several similarly "
@@ -3782,7 +3761,7 @@ msgstr ""
 "σύνολο χαρακτήρων προορισμού, μπορεί να προσεγγιστεί μέσα από ένα ή αρκετούς "
 "παρόμοιους εμφανισιακά χαρακτήρες."
 
-#: ../src/prefs.c:515
+#: ../src/prefs.c:516
 msgid ""
 "Force using the system character encoding and silently discard some "
 "characters"
@@ -3790,7 +3769,7 @@ msgstr ""
 "Αναγκαστική χρήση της κωδικοποίησης χαρακτήρων του συστήματος και σιωπηρή "
 "απόρριψη μερικών χαρακτήρων"
 
-#: ../src/prefs.c:519 ../src/prefs.c:827 ../src/prefs.c:896
+#: ../src/prefs.c:520 ../src/prefs.c:820 ../src/prefs.c:889
 msgid ""
 "With this option, when a character cannot be represented in the target "
 "character set, it will be silently discarded."
@@ -3801,20 +3780,20 @@ msgstr ""
 #.
 #. * Tag Settings
 #.
-#: ../src/prefs.c:528
+#: ../src/prefs.c:529
 msgid "Tag Settings"
 msgstr "Ρυθμίσεις ετικετών"
 
 #. Tag Options
-#: ../src/prefs.c:534
+#: ../src/prefs.c:535
 msgid "Tag Options"
 msgstr "Επιλογές ετικετών"
 
-#: ../src/prefs.c:540
+#: ../src/prefs.c:541
 msgid "Auto completion of date if not complete"
 msgstr "Αυτόματη συμπλήρωση της ημερομηνίας, αν δεν είναι πλήρης"
 
-#: ../src/prefs.c:543
+#: ../src/prefs.c:544
 msgid ""
 "Try to complete the year field if you enter only the last numerals of the "
 "date (for instance, if the current year is 2005: 5 => 2005, 4 => 2004, 6 => "
@@ -3824,11 +3803,11 @@ msgstr ""
 "ψηφία της χρονιάς (π.χ., αν η τρέχουσα χρονιά είναι 2005: 5 => 2005, 4 => "
 "2004, 6 => 1996, 95 => 1995…)."
 
-#: ../src/prefs.c:550
+#: ../src/prefs.c:551
 msgid "Write the track field with the following number of digits:"
 msgstr "Εγγραφή του πεδίου κομματιού με τον ακόλουθο αριθμό ψηφίων:"
 
-#: ../src/prefs.c:553
+#: ../src/prefs.c:554
 msgid ""
 "If activated, the track field is written using the number '0' as padding to "
 "obtain a number with 'n' digits (for example, with two digits: '05', '09', "
@@ -3839,7 +3818,7 @@ msgstr ""
 "ψηφία: '05', '09', '10'…). Διαφορετικά κρατά την 'ακατέργαστη' τιμή του "
 "κομματιού."
 
-#: ../src/prefs.c:578
+#: ../src/prefs.c:579
 msgid ""
 "Tag field focus when switching files in list with shortcuts Page Up/Page "
 "Down:"
@@ -3847,21 +3826,21 @@ msgstr ""
 "Εστίαση πεδίου ετικέτας κατά την εναλλαγή αρχείων σε λίστα με συντομεύσεις "
 "Page Up/Page Down:"
 
-#: ../src/prefs.c:584
+#: ../src/prefs.c:585
 msgid "Keep focus to the same tag field"
 msgstr "Διατήρηση εστίασης στο ίδιο πεδίο της ετικέτας."
 
-#: ../src/prefs.c:590
+#: ../src/prefs.c:591
 msgid "Return focus to the first tag field (i.e. 'Title' field)"
 msgstr "Επιστροφή εστίασης στο πρώτο πεδίο ετικέτας (δηλ. πεδίο 'Τίτλος')"
 
 #. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SetFocusToFirstTagField),SET_FOCUS_TO_FIRST_TAG_FIELD);
 #. Tag Splitting
-#: ../src/prefs.c:595
+#: ../src/prefs.c:596
 msgid "Tag Splitting"
 msgstr "Διαίρεση ετικετών"
 
-#: ../src/prefs.c:604
+#: ../src/prefs.c:605
 msgid ""
 "For Vorbis tags, selected fields will be split at dashes and saved as "
 "separate tags"
@@ -3869,42 +3848,28 @@ msgstr ""
 "Για τις ετικέτες Vorbis, τα επιλεγμένα πεδία θα διαιρεθούν στις παύλες και "
 "θα αποθηκευτούν ως ξεχωριστές ετικέτες"
 
-#: ../src/prefs.c:614
+#: ../src/prefs.c:615
 msgid "Original artist"
 msgstr "Αρχικός καλλιτέχνης"
 
 #.
 #. * ID3 Tag Settings
 #.
-#: ../src/prefs.c:635
+#: ../src/prefs.c:636
 msgid "ID3 Tag Settings"
 msgstr "Ρυθμίσεις ετικετών ID3"
 
 #. Tag Rules frame
-#: ../src/prefs.c:644
+#: ../src/prefs.c:645
 msgid "ID3 Tag Rules"
 msgstr "Κανόνες συμπλήρωσης ετικετών ID3"
 
-#. Write ID3 tags in FLAC files
-#: ../src/prefs.c:656
-msgid "Write ID3 tags in FLAC files (in addition to FLAC tag)"
-msgstr "Εγγραφή ετικετών ID3 στα αρχεία FLAC (πέρα από την ετικέτα FLAC)"
-
-#: ../src/prefs.c:659
-msgid ""
-"If activated, ID3 tags will be also added in the FLAC file (according the "
-"two rules above, plus the FLAC tag). Else ID3 tags will be stripped."
-msgstr ""
-"Αν ενεργοποιηθεί, τότε στα αρχεία FLAC θα προστίθεται επίσης μία ετικέτα ID3 "
-"(σύμφωνα με τους δύο παραπάνω κανόνες, επιπλέον της ετικέτας FLAC). "
-"Διαφορετικά οι ετικέτες ID3 θα απομακρύνονται."
-
 #. Strip tag when fields (managed by EasyTAG) are empty
-#: ../src/prefs.c:664
+#: ../src/prefs.c:657
 msgid "Strip tags if all fields are set to blank"
 msgstr "Αφαίρεση των ετικετών αν όλα τα πεδία είναι κενά"
 
-#: ../src/prefs.c:667
+#: ../src/prefs.c:660
 msgid ""
 "As ID3v2 tags may contain other data than Title, Artist, Album, Year, Track, "
 "Genre or Comment (as an attached image, lyrics…), this option allows you to "
@@ -3917,11 +3882,11 @@ msgstr ""
 "σε περίπτωση που και τα 7 τυπικά πεδία δεδομένων είναι κενά."
 
 #. Convert old ID3v2 tag version
-#: ../src/prefs.c:673
+#: ../src/prefs.c:666
 msgid "Automatically convert old ID3v2 tag versions"
 msgstr "Αυτόματη μετατροπή των παλαιών εκδόσεων ετικετών ID3v2"
 
-#: ../src/prefs.c:676
+#: ../src/prefs.c:669
 msgid ""
 "If activated, an old ID3v2 tag version (as ID3v2.2) will be updated to the "
 "ID3v2.3 version."
@@ -3930,29 +3895,29 @@ msgstr ""
 "αναβαθμιστεί σε ID3v2.3."
 
 #. Use CRC32
-#: ../src/prefs.c:680
+#: ../src/prefs.c:673
 msgid "Use CRC32"
 msgstr "Χρήση CRC32"
 
-#: ../src/prefs.c:683
+#: ../src/prefs.c:676
 msgid "Set CRC32 in the ID3v2 tags"
 msgstr "Ορισμός CRC32 στις ετικέτες ID3v2"
 
 #. Use Compression
-#: ../src/prefs.c:686
+#: ../src/prefs.c:679
 msgid "Use Compression"
 msgstr "Χρήση συμπίεσης"
 
-#: ../src/prefs.c:690
+#: ../src/prefs.c:683
 msgid "Set Compression in the ID3v2 tags"
 msgstr "Ορισμός συμπίεσης στις ετικέτες ID3v2"
 
 #. Write Genre in text
-#: ../src/prefs.c:693
+#: ../src/prefs.c:686
 msgid "Write Genre in text only"
 msgstr "Εγγραφή είδους μόνο σε κείμενο"
 
-#: ../src/prefs.c:697
+#: ../src/prefs.c:690
 msgid ""
 "Don't use ID3v1 number references in genre tag. Enable this if you see "
 "numbers as genre in your music player."
@@ -3961,21 +3926,21 @@ msgstr ""
 "αυτό αν βλέπετε αριθμούς ως είδος στον αναπαραγωγό μουσικής."
 
 #. Character Set for writing ID3 tag
-#: ../src/prefs.c:700
+#: ../src/prefs.c:693
 msgid "Character Set for writing ID3 tags"
 msgstr "Σύνολο χαρακτήρων για εγγραφή ετικετών ID3"
 
 #. ID3v2 tags
-#: ../src/prefs.c:707
+#: ../src/prefs.c:700
 msgid "ID3v2 tags"
 msgstr "Ετικέτες ID3v2"
 
 #. Write ID3v2 tag
-#: ../src/prefs.c:720
+#: ../src/prefs.c:713
 msgid "Write ID3v2 tag"
 msgstr "Δημιουργία ετικέτας ID3v2"
 
-#: ../src/prefs.c:723
+#: ../src/prefs.c:716
 msgid ""
 "If activated, an ID3v2.4 tag will be added or updated at the beginning of "
 "the MP3 files. Else it will be stripped."
@@ -3984,11 +3949,11 @@ msgstr ""
 "αρχή των αρχείων MP3. Διαφορετικά θα αφαιρείται."
 
 #. ID3v2 tag version
-#: ../src/prefs.c:730
+#: ../src/prefs.c:723
 msgid "Version:"
 msgstr "Έκδοση:"
 
-#: ../src/prefs.c:736
+#: ../src/prefs.c:729
 msgid ""
 "Select the ID3v2 tag version to write:\n"
 " - ID3v2.3 is written using id3lib,\n"
@@ -4000,34 +3965,34 @@ msgstr ""
 
 #. Charset
 #. Id3V1 writing character set
-#: ../src/prefs.c:751 ../src/prefs.c:855
+#: ../src/prefs.c:744 ../src/prefs.c:848
 msgid "Charset:"
 msgstr "Σύνολο χαρακτήρων:"
 
 #. Unicode
-#: ../src/prefs.c:756
+#: ../src/prefs.c:749
 msgid "Unicode "
 msgstr "Unicode "
 
-#: ../src/prefs.c:764
+#: ../src/prefs.c:757
 msgid "Unicode type to use"
 msgstr "Τύπος Unicode για χρήση"
 
-#: ../src/prefs.c:788
+#: ../src/prefs.c:781
 msgid "Character set used to write the tag data in the file."
 msgstr "Σύνολο χαρακτήρων με το οποίο θα αποθηκεύεται η ετικέτα στο αρχείο."
 
 #. ID3v2 Additional iconv() options
 #. ID3V1 Additional iconv() options
-#: ../src/prefs.c:798 ../src/prefs.c:867
+#: ../src/prefs.c:791 ../src/prefs.c:860
 msgid "Additional settings for iconv():"
 msgstr "Πρόσθετες ρυθμίσεις για iconv():"
 
-#: ../src/prefs.c:804 ../src/prefs.c:873
+#: ../src/prefs.c:797 ../src/prefs.c:866
 msgid "No"
 msgstr "Όχι"
 
-#: ../src/prefs.c:808 ../src/prefs.c:877
+#: ../src/prefs.c:801 ../src/prefs.c:870
 msgid ""
 "With this option, when a character cannot be represented in the target "
 "character set, it isn't changed. But note that an error message will be "
@@ -4037,25 +4002,25 @@ msgstr ""
 "σύνολο χαρακτήρων προορισμού, δεν αλλάζεται. Αλλά σημειώστε ότι ένα μήνυμα "
 "σφάλματος θα εμφανιστεί ως πληροφορία."
 
-#: ../src/prefs.c:813 ../src/prefs.c:882
+#: ../src/prefs.c:806 ../src/prefs.c:875
 msgid "//TRANSLIT"
 msgstr "//TRANSLIT"
 
-#: ../src/prefs.c:823 ../src/prefs.c:892
+#: ../src/prefs.c:816 ../src/prefs.c:885
 msgid "//IGNORE"
 msgstr "//IGNORE"
 
 #. ID3v1 tags
-#: ../src/prefs.c:832
+#: ../src/prefs.c:825
 msgid "ID3v1 tags"
 msgstr "Ετικέτες ID3v1"
 
 #. Write ID3v1 tag
-#: ../src/prefs.c:846
+#: ../src/prefs.c:839
 msgid "Write ID3v1.x tag"
 msgstr "Εγγραφή ετικέτας ID3v1.x"
 
-#: ../src/prefs.c:849
+#: ../src/prefs.c:842
 msgid ""
 "If activated, an ID3v1 tag will be added or updated at the end of the MP3 "
 "files. Else it will be stripped."
@@ -4063,22 +4028,22 @@ msgstr ""
 "Αν ενεργοποιηθεί, μια ετικέτα ID3v1 θα προστίθεται ή θα ενημερώνεται στο "
 "τέλος των αρχείων MP3. Αλλιώς θα αφαιρείται."
 
-#: ../src/prefs.c:863
+#: ../src/prefs.c:856
 msgid "Character set used to write ID3v1 tag data in the file."
 msgstr ""
 "Σύνολο χαρακτήρων που χρησιμοποιούνται για εγγραφή δεδομένων ετικέτας ID3v1 "
 "στο αρχείο."
 
 #. Character Set for reading tag
-#: ../src/prefs.c:901
+#: ../src/prefs.c:894
 msgid "Character Set for reading ID3 tags"
 msgstr "Σύνολο χαρακτήρων για ανάγνωση ετικετών ID3"
 
-#: ../src/prefs.c:915
+#: ../src/prefs.c:908
 msgid "Non-standard:"
 msgstr "Μη τυπικές:"
 
-#: ../src/prefs.c:921
+#: ../src/prefs.c:914
 msgid ""
 "This character set will be used when reading the tag data, to convert each "
 "string found in an ISO-8859-1 field in the tag (for ID3v2 or/and ID3v1 "
@@ -4111,7 +4076,7 @@ msgstr ""
 "Ελληνικά σε Windows ή 'ISO-8859-7' για ετικέτες που γράφτηκαν στα Ελληνικά "
 "σε Unix."
 
-#: ../src/prefs.c:939
+#: ../src/prefs.c:932
 msgid "Character set used to read tag data in the file."
 msgstr ""
 "Σύνολο χαρακτήρων που χρησιμοποιείται για ανάγνωση δεδομένων ετικέτας στο "
@@ -4120,26 +4085,26 @@ msgstr ""
 #.
 #. * Scanner
 #.
-#: ../src/prefs.c:953
+#: ../src/prefs.c:946
 msgid "Scanner"
 msgstr "Σαρωτής"
 
 #. Character conversion for the 'Fill Tag' scanner (=> FTS...)
-#: ../src/prefs.c:963
+#: ../src/prefs.c:956
 msgid "Fill Tag Scanner - Character Conversion"
 msgstr "Σαρωτής συμπλήρωσης ετικέτας - μετατροπή χαρακτήρων"
 
-#: ../src/prefs.c:969 ../src/prefs.c:994
+#: ../src/prefs.c:962 ../src/prefs.c:987
 msgid "Convert underscore character '_' and string '%20' to space ' '"
 msgstr ""
 "Μετατροπή του χαρακτήρα υπογράμμισης '_' και της συμβολοσειράς '%20' σε κενό "
 "' '"
 
-#: ../src/prefs.c:971 ../src/prefs.c:995
+#: ../src/prefs.c:964 ../src/prefs.c:988
 msgid "Convert space ' ' to underscore '_'"
 msgstr "Μετατροπή του κενού ' ' σε υπογράμμιση '_'"
 
-#: ../src/prefs.c:983 ../src/prefs.c:985
+#: ../src/prefs.c:976 ../src/prefs.c:978
 msgid ""
 "If activated, this conversion will be used when applying a mask from the "
 "scanner for tags."
@@ -4148,11 +4113,11 @@ msgstr ""
 "μίας μάσκας από τον σαρωτή για ετικέτες."
 
 #. Character conversion for the 'Rename File' scanner (=> RFS...)
-#: ../src/prefs.c:989
+#: ../src/prefs.c:982
 msgid "Rename File Scanner - Character Conversion"
 msgstr "Σαρωτής μετονομασίας αρχείων - μετατροπή χαρακτήρων"
 
-#: ../src/prefs.c:1006 ../src/prefs.c:1008 ../src/prefs.c:1010
+#: ../src/prefs.c:999 ../src/prefs.c:1001 ../src/prefs.c:1003
 msgid ""
 "If activated, this conversion will be used when applying a mask from the "
 "scanner for filenames."
@@ -4161,19 +4126,19 @@ msgstr ""
 "μίας μάσκας από τον σαρωτή για τα ονόματα αρχείων."
 
 #. Character conversion for the 'Process Fields' scanner (=> PFS...)
-#: ../src/prefs.c:1013
+#: ../src/prefs.c:1006
 msgid "Process Fields Scanner - Character Conversion"
 msgstr "Σαρωτής επεξεργασίας πεδίων - μετατροπή χαρακτήρων"
 
 #. Don't convert some words like to, feat. first letter uppercase.
-#: ../src/prefs.c:1020
+#: ../src/prefs.c:1013
 msgid ""
 "Don't uppercase first letter of words for some prepositions and articles."
 msgstr ""
 "Μην βάζετε κεφαλαίο το πρώτο γράμμα των λέξεων για μερικές προθέσεις και "
 "άρθρα."
 
-#: ../src/prefs.c:1024
+#: ../src/prefs.c:1017
 msgid ""
 "Don't convert first letter of words like prepositions, articles and words "
 "like feat., when using the scanner 'First letter uppercase of each "
@@ -4186,15 +4151,15 @@ msgstr ""
 "Καταχώρισης')."
 
 #. Properties of the scanner window
-#: ../src/prefs.c:1030
+#: ../src/prefs.c:1023
 msgid "Scanner Window"
 msgstr "Παράθυρο σαρωτή"
 
-#: ../src/prefs.c:1036
+#: ../src/prefs.c:1029
 msgid "Open the Scanner Window on startup"
 msgstr "Άνοιγμα του παραθύρου σαρωτή κατά την εκκίνηση"
 
-#: ../src/prefs.c:1039
+#: ../src/prefs.c:1032
 msgid ""
 "Activate this option to open automatically the scanner window when EasyTAG "
 "starts."
@@ -4203,16 +4168,16 @@ msgstr ""
 "σαρωτή όταν ξεκινά το EasyTAG."
 
 #. Other options
-#: ../src/prefs.c:1044
+#: ../src/prefs.c:1037
 msgid "Fields"
 msgstr "Πεδία"
 
 #. Overwrite text into tag fields
-#: ../src/prefs.c:1051
+#: ../src/prefs.c:1044
 msgid "Overwrite fields when scanning tags"
 msgstr "Αντικατάσταση πεδίων κατά τη σάρωση ετικετών"
 
-#: ../src/prefs.c:1054
+#: ../src/prefs.c:1047
 msgid ""
 "If activated, the scanner will replace existing text in fields by the new "
 "one. If deactivated, only blank fields of the tag will be filled."
@@ -4220,11 +4185,11 @@ msgstr ""
 "Αν ενεργοποιηθεί, τότε ο σαρωτής θα αντικαθιστά το υπάρχον κείμενο στα πεδία "
 "με νέο. Αν απενεργοποιηθεί, τότε θα συμπληρώνονται μόνο στα κενά πεδία."
 
-#: ../src/prefs.c:1065
+#: ../src/prefs.c:1058
 msgid "Set this text as default comment:"
 msgstr "Ορισμός αυτού του κειμένου ως προεπιλεγμένου:"
 
-#: ../src/prefs.c:1068
+#: ../src/prefs.c:1061
 msgid ""
 "Activate this option if you want to put the following string into the "
 "comment field when using the 'Fill Tag' scanner."
@@ -4234,13 +4199,13 @@ msgstr ""
 "ετικέτας'."
 
 #. CRC32 comment
-#: ../src/prefs.c:1086
+#: ../src/prefs.c:1079
 msgid "Use CRC32 as the default comment (for files with ID3 tags only)."
 msgstr ""
 "Χρήση του CRC32 ως του προεπιλεγμένου σχολίου (για αρχεία με ετικέτες ID3 "
 "μόνο)."
 
-#: ../src/prefs.c:1090
+#: ../src/prefs.c:1083
 msgid ""
 "Calculates the CRC-32 value of the file and writes it into the comment field "
 "when using the 'Fill Tag' scanner."
@@ -4251,43 +4216,43 @@ msgstr ""
 #.
 #. * CDDB
 #.
-#: ../src/prefs.c:1101
+#: ../src/prefs.c:1094
 msgid "CDDB"
 msgstr "CDDB"
 
 #. CDDB Server Settings (Automatic Search)
-#: ../src/prefs.c:1107
+#: ../src/prefs.c:1100
 msgid "Server Settings for Automatic Search"
 msgstr "Ρυθμίσεις διακομιστή για αυτόματη αναζήτηση"
 
-#: ../src/prefs.c:1116 ../src/prefs.c:1155 ../src/prefs.c:1189
+#: ../src/prefs.c:1109 ../src/prefs.c:1148 ../src/prefs.c:1182
 msgid "Name:"
 msgstr "Όνομα:"
 
-#: ../src/prefs.c:1135 ../src/prefs.c:1163 ../src/prefs.c:1198
-#: ../src/prefs.c:1284
+#: ../src/prefs.c:1128 ../src/prefs.c:1156 ../src/prefs.c:1191
+#: ../src/prefs.c:1276
 msgid "Port:"
 msgstr "Θύρα:"
 
-#: ../src/prefs.c:1145 ../src/prefs.c:1173 ../src/prefs.c:1208
+#: ../src/prefs.c:1138 ../src/prefs.c:1166 ../src/prefs.c:1200
 msgid "CGI Path:"
 msgstr "Διαδρομή CGI:"
 
 #. CDDB Server Settings (Manual Search)
-#: ../src/prefs.c:1181
+#: ../src/prefs.c:1174
 msgid "Server Settings for Manual Search"
 msgstr "Ρυθμίσεις εξυπηρετητή για χειροκίνητη αναζήτηση"
 
 #. Local access for CDDB (Automatic Search)
-#: ../src/prefs.c:1216
+#: ../src/prefs.c:1208
 msgid "Local CDDB"
 msgstr "Τοπικό CDDB"
 
-#: ../src/prefs.c:1224
+#: ../src/prefs.c:1216
 msgid "Path:"
 msgstr "Διαδρομή:"
 
-#: ../src/prefs.c:1236
+#: ../src/prefs.c:1228
 msgid ""
 "Specify the directory where the local CD database is located. The local CD "
 "database contains the eleven following directories 'blues', 'classical', "
@@ -4300,52 +4265,52 @@ msgstr ""
 "'ροκ', 'μουσική ταινιών' και 'ποικίλα'."
 
 #. CDDB Proxy Settings
-#: ../src/prefs.c:1262
+#: ../src/prefs.c:1254
 msgid "Proxy Settings"
 msgstr "Ρυθμίσεις μεσολαβητή δικτύου"
 
-#: ../src/prefs.c:1271
+#: ../src/prefs.c:1263
 msgid "Use a proxy"
 msgstr "Χρήση μεσολαβητή δικτύου"
 
-#: ../src/prefs.c:1274
+#: ../src/prefs.c:1266
 msgid "Set active the settings of the proxy server."
 msgstr "Ενεργοποίηση των ρυθμίσεων ενός διακομιστή μεσολάβησης."
 
-#: ../src/prefs.c:1276
+#: ../src/prefs.c:1268
 msgid "Host Name:"
 msgstr "Όνομα οικοδεσπότη:"
 
-#: ../src/prefs.c:1283
+#: ../src/prefs.c:1275
 msgid "Name of the proxy server."
 msgstr "Όνομα του διακομιστή μεσολάβησης."
 
-#: ../src/prefs.c:1291
+#: ../src/prefs.c:1283
 msgid "Port of the proxy server."
 msgstr "Θύρα του διακομιστή μεσολάβησης."
 
-#: ../src/prefs.c:1296
+#: ../src/prefs.c:1287
 msgid "User Name:"
 msgstr "Όνομα χρήστη:"
 
-#: ../src/prefs.c:1303
+#: ../src/prefs.c:1294
 msgid "Name of user for the the proxy server."
 msgstr "Όνομα χρήστη για τον διακομιστή μεσολάβησης."
 
-#: ../src/prefs.c:1304
+#: ../src/prefs.c:1295
 msgid "User Password:"
 msgstr "Κωδικός χρήστη:"
 
-#: ../src/prefs.c:1312
+#: ../src/prefs.c:1303
 msgid "Password of user for the the proxy server."
 msgstr "Κωδικός χρήστη για τον διακομιστή μεσολάβησης."
 
 #. Track Name list (CDDB results)
-#: ../src/prefs.c:1317
+#: ../src/prefs.c:1308
 msgid "Track Name List"
 msgstr "Λίστα ονομάτων κομματιών"
 
-#: ../src/prefs.c:1324
+#: ../src/prefs.c:1315
 msgid ""
 "Select corresponding audio file (according position or DLM if activated "
 "below)"
@@ -4353,7 +4318,7 @@ msgstr ""
 "Επιλογή του αντίστοιχου αρχείου ήχου (ανάλογα με τη θέση ή το DLM, αν αυτό "
 "είναι ενεργοποιημένο)"
 
-#: ../src/prefs.c:1328
+#: ../src/prefs.c:1319
 msgid ""
 "If activated, when selecting a line in the list of tracks name, the "
 "corresponding audio file in the main list will be also selected."
@@ -4362,7 +4327,7 @@ msgstr ""
 "κομματιών, το αντίστοιχο αρχείο ήχου στην κύρια λίστα θα επιλεγεί επίσης."
 
 #. Check box to use DLM (also used in the cddb window)
-#: ../src/prefs.c:1333
+#: ../src/prefs.c:1324
 msgid ""
 "Use the Levenshtein algorithm (DLM) to match lines (using title) with audio "
 "files (using filename)"
@@ -4373,15 +4338,15 @@ msgstr ""
 #.
 #. * Confirmation
 #.
-#: ../src/prefs.c:1348
+#: ../src/prefs.c:1339
 msgid "Confirmation"
 msgstr "Επιβεβαίωση"
 
-#: ../src/prefs.c:1353
+#: ../src/prefs.c:1344
 msgid "Confirm exit from program"
 msgstr "Επιβεβαίωση εξόδου από το πρόγραμμα"
 
-#: ../src/prefs.c:1356
+#: ../src/prefs.c:1347
 msgid ""
 "If activated, opens a dialog box to ask confirmation before exiting the "
 "program."
@@ -4389,46 +4354,46 @@ msgstr ""
 "Αν ενεργοποιηθεί, ανοίγει ένα πλαίσιο διαλόγου που ζητά επιβεβαίωση πριν την "
 "έξοδο από το πρόγραμμα."
 
-#: ../src/prefs.c:1359
+#: ../src/prefs.c:1350
 msgid "Confirm writing of file tag"
 msgstr "Επιβεβαίωση εγγραφής της ετικέτας του αρχείου"
 
-#: ../src/prefs.c:1363
+#: ../src/prefs.c:1354
 msgid "Confirm renaming of file"
 msgstr "Επιβεβαίωση μετονομασίας του αρχείου"
 
-#: ../src/prefs.c:1367
+#: ../src/prefs.c:1358
 msgid "Confirm deleting of file"
 msgstr "Επιβεβαίωση διαγραφής του αρχείου"
 
-#: ../src/prefs.c:1371
+#: ../src/prefs.c:1362
 msgid "Confirm writing of playlist"
 msgstr "Επιβεβαίωση εγγραφής της λίστας αναπαραγωγής"
 
-#: ../src/prefs.c:1375
+#: ../src/prefs.c:1366
 msgid "Confirm changing directory when there are unsaved changes"
 msgstr "Επιβεβαίωση αλλαγής καταλόγου όταν υπάρχουν αναποθήκευτες αλλαγές"
 
 #. For translators : be aware to NOT translate '%.*d' in this string
-#: ../src/prefs.c:1413
+#: ../src/prefs.c:1404
 #, c-format
 msgid "(Example: %.*d_-_Track_name_1.mp3)"
-msgstr "(Π.χ.: %.*d_-_Όνομα_αρχείου_1.mp3)"
+msgstr "(Π.χ.: %.*d_-Ό_νομα_αρχείου_1.mp3)"
 
-#: ../src/prefs.c:1554 ../src/setting.c:901
+#: ../src/prefs.c:1545 ../src/setting.c:898
 msgid "Configuration saved"
 msgstr "Οι ρυθμίσεις αποθηκεύτηκαν"
 
-#: ../src/prefs.c:1562
+#: ../src/prefs.c:1553
 msgid "Configuration unchanged"
 msgstr "Οι ρυθμίσεις έμειναν αμετάβλητες"
 
-#: ../src/prefs.c:1648
+#: ../src/prefs.c:1639
 msgid "The selected path for 'Default path to files' is invalid"
 msgstr ""
 "Η επιλεγμένη διαδρομή για 'προεπιλεγμένη διαδρομή στα αρχεία' είναι άκυρη"
 
-#: ../src/prefs.c:1649
+#: ../src/prefs.c:1640
 #, c-format
 msgid ""
 "Path: '%s'\n"
@@ -4437,45 +4402,44 @@ msgstr ""
 "Διαδρομή: '%s'\n"
 "Σφάλμα: %s"
 
-#: ../src/prefs.c:1650
+#: ../src/prefs.c:1641
 msgid "Invalid Path Error"
 msgstr "Σφάλμα άκυρης διαδρομής"
 
-#: ../src/prefs.c:1764
+#: ../src/prefs.c:1755
 #, c-format
 msgid "The audio file player '%s' cannot be found"
 msgstr "Ο αναπαραγωγός αρχείου ήχου '%s' δε βρέθηκε"
 
-#: ../src/prefs.c:1766
+#: ../src/prefs.c:1757
 msgid "Audio Player Error"
 msgstr "Σφάλμα αναπαραγωγού ήχου"
 
-#: ../src/scan.c:179
+#: ../src/scan.c:181
 msgid "Fill Tag"
 msgstr "Συμπλήρωση ετικέτας"
 
-#: ../src/scan.c:358
+#: ../src/scan.c:359
 #, c-format
-#| msgid "Cannot save tag of file '%s'"
 msgid "Cannot calculate CRC value of file (%s)"
 msgstr "Αδύνατος ο υπολογισμός της τιμής CRC του αρχείου (%s)"
 
-#: ../src/scan.c:373
+#: ../src/scan.c:374
 msgid "Tag successfully scanned"
 msgstr "Η ετικέτα σαρώθηκε επιτυχώς"
 
-#: ../src/scan.c:375
+#: ../src/scan.c:376
 #, c-format
 msgid "Tag successfully scanned: %s"
 msgstr "Η ετικέτα σαρώθηκε επιτυχώς: %s"
 
-#: ../src/scan.c:416
+#: ../src/scan.c:417
 #, c-format
 msgid "Tag scanner: strange… the extension '%s' was not found in filename '%s'"
 msgstr ""
 "Σαρωτής ετικέτας: περίεργο… η επέκταση '%s' δε βρέθηκε στο όνομα αρχείου '%s'"
 
-#: ../src/scan.c:498 ../src/scan.c:527
+#: ../src/scan.c:499 ../src/scan.c:528
 #, c-format
 msgid "Scan Error: can't find separator '%s' within '%s'"
 msgstr "Σφάλμα σάρωσης: αδύνατη η εύρεση του διαχωριστικού '%s' στο '%s'"
@@ -4489,43 +4453,43 @@ msgstr "Το νέο όνομα αρχείου σαρώθηκε με επιτυχ
 msgid "New filename successfully scanned: %s"
 msgstr "Το νέο όνομα αρχείου σαρώθηκε με επιτυχία: %s"
 
-#: ../src/scan.c:1820
+#: ../src/scan.c:1818
 #, c-format
 msgid "Error while processing fields: %s"
 msgstr "Σφάλμα κατά την επεξεργασία πεδίων: %s"
 
 #. The window
-#: ../src/scan.c:2337
+#: ../src/scan.c:2335
 msgid "Tag and Filename Scan"
 msgstr "Σάρωση ετικέτας και ονόματος αρχείου"
 
 #. TODO: Set related action to match AM_SCAN_FILES.
-#: ../src/scan.c:2346
+#: ../src/scan.c:2344
 msgid "Scan Files"
 msgstr "Σάρωση αρχείων"
 
 #. Option Menu
-#: ../src/scan.c:2371
+#: ../src/scan.c:2372
 msgid "Scanner:"
 msgstr "Σαρωτής:"
 
-#: ../src/scan.c:2392
+#: ../src/scan.c:2393
 msgid "Select the type of scanner to use"
 msgstr "Επιλέξτε τον τύπο σαρωτή που επιθυμείτε"
 
-#: ../src/scan.c:2401
+#: ../src/scan.c:2402
 msgid "Scanner Preferences"
 msgstr "Προτιμήσεις σαρωτή"
 
-#: ../src/scan.c:2410
+#: ../src/scan.c:2411
 msgid "Show / Hide Masks Editor"
 msgstr "Εμφάνιση / Απόκρυψη επεξεργαστή μασκών"
 
-#: ../src/scan.c:2420
+#: ../src/scan.c:2421
 msgid "Show / Hide Legend"
 msgstr "Εμφάνιση / Απόκρυψη υπομνήματος"
 
-#: ../src/scan.c:2449
+#: ../src/scan.c:2451
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse filename and "
 "path. Used to fill in tag fields"
@@ -4535,15 +4499,15 @@ msgstr ""
 "Χρησιμοποιείται για τη συμπλήρωση στα πεδία ετικέτας."
 
 #. Preview label
-#: ../src/scan.c:2473
+#: ../src/scan.c:2475
 msgid "Fill tag preview"
 msgstr "Προεπισκόπηση συμπλήρωσης ετικετών"
 
-#: ../src/scan.c:2503
+#: ../src/scan.c:2505
 msgid "Prefix mask with current path"
 msgstr "Μάσκα προθέματος με την τρέχουσα διαδρομή"
 
-#: ../src/scan.c:2516
+#: ../src/scan.c:2519
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse tag fields. Used "
 "to rename the file.\n"
@@ -4558,15 +4522,15 @@ msgstr ""
 "παλιά διαδρομή."
 
 #. Preview label
-#: ../src/scan.c:2541
+#: ../src/scan.c:2544
 msgid "Rename file preview"
 msgstr "Προεπισκόπηση μετονομασίας αρχείου"
 
-#: ../src/scan.c:2560
+#: ../src/scan.c:2563
 msgid "Select fields:"
 msgstr "Επιλέξτε πεδία:"
 
-#: ../src/scan.c:2563
+#: ../src/scan.c:2566
 msgid ""
 "The buttons on the right represent the fields which can be processed. Select "
 "those which interest you"
@@ -4575,130 +4539,134 @@ msgstr ""
 "Επιλέξτε αυτά που σας ενδιαφέρουν."
 
 #. Advice for Translators: set the first letter of filename translated
-#: ../src/scan.c:2567
+#: ../src/scan.c:2570
 msgid "F"
 msgstr "Α"
 
-#: ../src/scan.c:2569
+#: ../src/scan.c:2572
 msgid "Process filename field"
 msgstr "Επεξεργασία πεδίου ονόματος αρχείου"
 
 #. Advice for Translators: set the first letter of title translated
-#: ../src/scan.c:2571
+#: ../src/scan.c:2574
 msgid "T"
 msgstr "Τ"
 
-#: ../src/scan.c:2572
+#: ../src/scan.c:2575
 msgid "Process title field"
 msgstr "Επεξεργασία πεδίου τίτλου"
 
 #. Advice for Translators: set the first letter of artist translated
-#: ../src/scan.c:2574
+#: ../src/scan.c:2577
 msgid "Ar"
 msgstr "Κ"
 
-#: ../src/scan.c:2575
+#: ../src/scan.c:2578
 msgid "Process file artist field"
 msgstr "Επεξεργασία του πεδίου καλλιτέχνη"
 
 #. Advice for Translators: set the first letter of album artist translated
-#: ../src/scan.c:2577
+#: ../src/scan.c:2580
 msgid "AA"
 msgstr "ΔΚ"
 
-#: ../src/scan.c:2578
+#: ../src/scan.c:2581
 msgid "Process album artist field"
 msgstr "Επεξεργασία πεδίου δίσκου καλλιτέχνη"
 
 #. Advice for Translators: set the first letter of album translated
-#: ../src/scan.c:2580
+#: ../src/scan.c:2583
 msgid "Al"
 msgstr "ΠΔ"
 
-#: ../src/scan.c:2581
+#: ../src/scan.c:2584
 msgid "Process album field"
 msgstr "Επεξεργασία πεδίου δίσκου"
 
 #. Advice for Translators: set the first letter of genre translated
-#: ../src/scan.c:2583
+#: ../src/scan.c:2586
 msgid "G"
 msgstr "Ε"
 
-#: ../src/scan.c:2584
+#: ../src/scan.c:2587
 msgid "Process genre field"
 msgstr "Επεξεργασία πεδίου είδους"
 
 #. Advice for Translators: set the first letter of comment translated
-#: ../src/scan.c:2586
+#: ../src/scan.c:2589
 msgid "Cm"
 msgstr "Σχ"
 
-#: ../src/scan.c:2587
+#: ../src/scan.c:2590
 msgid "Process comment field"
 msgstr "Επεξεργασία πεδίου σχολίου"
 
 #. Advice for Translators: set the first letter of composer translated
-#: ../src/scan.c:2589
+#: ../src/scan.c:2592
 msgid "Cp"
 msgstr "Συ"
 
-#: ../src/scan.c:2590
+#: ../src/scan.c:2593
 msgid "Process composer field"
 msgstr "Επεξεργασία πεδίου συνθέτη"
 
 #. Advice for Translators: set the first letter of orig artist translated
-#: ../src/scan.c:2592
+#: ../src/scan.c:2595
 msgid "O"
 msgstr "ΑΚ"
 
-#: ../src/scan.c:2593
+#: ../src/scan.c:2596
 msgid "Process original artist field"
 msgstr "Επεξεργασία πεδίου αρχικού καλλιτέχνη"
 
 #. Advice for Translators: set the first letter of copyright translated
-#: ../src/scan.c:2595
+#: ../src/scan.c:2598
 msgid "Cr"
 msgstr "ΠΔ"
 
-#: ../src/scan.c:2596
+#: ../src/scan.c:2599
 msgid "Process copyright field"
 msgstr "Επεξεργασία πεδίου πνευματικών δικαιωμάτων"
 
 #. Advice for Translators: set the first letter of URL translated
-#: ../src/scan.c:2598
+#: ../src/scan.c:2601
 msgid "U"
 msgstr "U"
 
-#: ../src/scan.c:2599
+#: ../src/scan.c:2602
 msgid "Process URL field"
 msgstr "Επεξεργασία πεδίου URL"
 
 #. Advice for Translators: set the first letter of encoder name translated
-#: ../src/scan.c:2601
+#: ../src/scan.c:2604
 msgid "E"
 msgstr "Κω"
 
-#: ../src/scan.c:2602
+#: ../src/scan.c:2605
 msgid "Process encoder name field"
 msgstr "Επεξεργασία πεδίου ονόματος κωδικοποιητή"
 
-#: ../src/scan.c:2646
+#: ../src/scan.c:2649
 msgid "Invert selection"
 msgstr "Αντιστροφή επιλογής"
 
-#: ../src/scan.c:2653
+#: ../src/scan.c:2656
 msgid "Select/Unselect all"
 msgstr "Επιλογή/αποεπιλογή όλων"
 
-#: ../src/scan.c:2666
+#: ../src/scan.c:2671
 msgid "Convert:"
 msgstr "Μετατροπή:"
 
-#: ../src/scan.c:2668
+#: ../src/scan.c:2673
 msgid "to: "
 msgstr "σε: "
 
-#: ../src/scan.c:2697
+#: ../src/scan.c:2680
+msgid "Do not convert"
+msgstr "Να μην μετατραπεί"
+
+#: ../src/scan.c:2699
 msgid ""
 "The underscore character or the string '%20' are replaced by one space. "
 "Example, before: 'Text%20In%20An_Entry', after: 'Text In An Entry'."
@@ -4707,7 +4675,7 @@ msgstr ""
 "κενό. Π.χ., το 'Κείμενο%20σε%20μια_καταχώριση' γίνεται 'Κείμενο σε μία "
 "καταχώριση'."
 
-#: ../src/scan.c:2700
+#: ../src/scan.c:2702
 msgid ""
 "The space character is replaced by one underscore character. Example, "
 "before: 'Text In An Entry', after: 'Text_In_An_Entry'."
@@ -4715,16 +4683,38 @@ msgstr ""
 "Ο χαρακτήρας κενού αντικαθίσταται από έναν υπογραμμισμένο χαρακτήρα. Π.χ., "
 "το 'Κείμενο σε μια καταχώριση' γίνεται 'Κείμενο_σε_μία_καταχώριση'."
 
-#: ../src/scan.c:2703
+#: ../src/scan.c:2705
 msgid ""
 "Replace a string by another one. Note that the search is case sensitive."
 msgstr ""
 "Αντικατάσταση μιας συμβολοσειράς από μία άλλη. Σημειώστε ότι η αναζήτηση "
 "εξαρτάται από πεζά/κεφαλαία."
 
+#: ../src/scan.c:2712
+msgid "Capitalize all"
+msgstr "Όλα κεφαλαία"
+
+#: ../src/scan.c:2714
+#| msgid "Lower Case"
+msgid "Lowercase all"
+msgstr "Όλα πεζά"
+
 #: ../src/scan.c:2716
+msgid "Capitalize first letter"
+msgstr "Κεφαλαίο το πρώτο γράμμα"
+
+#: ../src/scan.c:2718
+#| msgid "First letter uppercase of each word"
+msgid "Capitalize the first letter of each word"
+msgstr "Κεφαλαίο το πρώτο γράμμα κάθε λέξης"
+
+#: ../src/scan.c:2719
 msgid "Detect Roman numerals"
 msgstr "Ανίχνευση ρωμαϊκών αριθμών"
+
+#: ../src/scan.c:2721
+msgid "Do not change capitalization"
+msgstr "Να μην αλλαχτεί η κεφαλαιοποίηση"
 
 #: ../src/scan.c:2743
 msgid ""
@@ -4766,23 +4756,29 @@ msgstr ""
 "Αναγκαστική μετατροπή σε κεφαλαία των ρωμαϊκών αριθμών. αριθμοί. Π.χ., το "
 "'ix. κείμενο σε μια καταχώριση' γίνεται 'IX. Κείμενο Σε Μία Καταχώριση'."
 
-#: ../src/scan.c:2764
-msgid "Insert a space before an uppercase letter"
-msgstr "Εισαγωγή ενός κενού πριν από κάθε κεφαλαίο γράμμα"
+#: ../src/scan.c:2763
+#| msgid "Insert space before uppercase letter"
+msgid "Insert a space before uppercase letters"
+msgstr "Εισαγωγή κενού πριν από κάθε κεφαλαίο γράμμα"
 
 #: ../src/scan.c:2765
-msgid "Remove duplicates of space or underscore"
-msgstr "Αφαίρεση διπλών κενών ή κάτω παυλών"
+#| msgid "Remove duplicate spaces or underscores"
+msgid "Remove duplicate spaces and underscores"
+msgstr "Αφαίρεση διπλών κενών και υπογραμμίσεων"
 
-#: ../src/scan.c:2783
+#: ../src/scan.c:2767
+msgid "Do not change word separators"
+msgstr "Να μην αλλαχτούν τα διαχωριστικά λέξεων"
+
+#: ../src/scan.c:2781
 msgid ""
 "All spaces between words are removed. Example, before: 'Text In An Entry', "
 "after: 'TextInAnEntry'."
 msgstr ""
-"Αφαιρούνται όλα τα κενά ανάμεσα στις λέξεις. Π.χ., το 'Κείμενο Σε Μία "
-"Καταχώριση' γίνεται 'ΚείμενοΣεΜίαΚαταχώριση'."
+"Αφαιρούνται όλα τα κενά ανάμεσα στις λέξεις. Παράδειγμα, πριν 'Κείμενο Σε "
+"Μία Καταχώριση' γίνεται 'ΚείμενοΣεΜίαΚαταχώριση'."
 
-#: ../src/scan.c:2786
+#: ../src/scan.c:2784
 msgid ""
 "A space is inserted before each upper case letter. Example, before: "
 "'TextInAnEntry', after: 'Text In An Entry'."
@@ -4790,256 +4786,216 @@ msgstr ""
 "Εισάγεται ένα κενό πριν από κάθε κεφαλαίο γράμμα. Π.χ., το "
 "'ΚείμενοΣεΜιαΚαταχώριση' γίνεται 'Κείμενο Σε Μία Καταχώριση'."
 
-#: ../src/scan.c:2789
+#: ../src/scan.c:2787
+#| msgid ""
+#| "Duplicated spaces or underscores are removed. Example, before: "
+#| "'Text__In__An   Entry', after: 'Text_In_An Entry'."
 msgid ""
-"Duplicated spaces or underscores are removed. Example, before: "
+"Duplicate spaces and underscores are removed. Example, before: "
 "'Text__In__An   Entry', after: 'Text_In_An Entry'."
 msgstr ""
-"Αφαιρούνται τα διπλά κενά και οι διπλές κάτω παύλες. Π.χ., το "
-"'Κείμενο__Σε__Μία  Καταχώριση' γίνεται 'Κείμενο_Σε_Μία Καταχώριση'."
+"Αφαιρούνται τα διπλά κενά και οι υπογραμμίσεις. Παράδειγμα, πριν "
+"'Κείμενο__Σε__Μία  Καταχώριση', μετά 'Κείμενο_Σε_Μία Καταχώριση'."
 
 #.
 #. * Frame to display codes legend
 #.
-#: ../src/scan.c:2796
+#: ../src/scan.c:2794
 msgid "Legend"
 msgstr "Υπόμνημα"
 
-#: ../src/scan.c:2802
+#: ../src/scan.c:2800
 #, c-format
 msgid "%a: artist"
 msgstr "%a: όνομα καλλιτέχνη"
 
-#: ../src/scan.c:2805
+#: ../src/scan.c:2803
 msgid "%z: album artist"
 msgstr "%z: δίσκος καλλιτέχνη"
 
-#: ../src/scan.c:2808
+#: ../src/scan.c:2806
 msgid "%b: album"
 msgstr "%b: τίτλος δίσκου"
 
-#: ../src/scan.c:2811
+#: ../src/scan.c:2809
 #, c-format
 msgid "%c: comment"
 msgstr "%c: σχόλιο"
 
-#: ../src/scan.c:2814
+#: ../src/scan.c:2812
 #, c-format
 msgid "%p: composer"
 msgstr "%p: όνομα συνθέτη"
 
-#: ../src/scan.c:2817
+#: ../src/scan.c:2815
 msgid "%r: copyright"
 msgstr "%r: πνευματικά δικαιώματα"
 
-#: ../src/scan.c:2820
+#: ../src/scan.c:2818
 #, c-format
 msgid "%d: disc number"
 msgstr "%d: αριθμός δίσκου"
 
-#: ../src/scan.c:2823
+#: ../src/scan.c:2821
 #, c-format
 msgid "%e: encoded by"
 msgstr "%e: κωδικοποιήθηκε από"
 
-#: ../src/scan.c:2826
+#: ../src/scan.c:2824
 #, c-format
 msgid "%g: genre"
 msgstr "%g: μουσικό είδος"
 
-#: ../src/scan.c:2829
+#: ../src/scan.c:2827
 #, c-format
 msgid "%i: ignored"
 msgstr "%i: να αγνοηθεί"
 
-#: ../src/scan.c:2832
+#: ../src/scan.c:2830
 msgid "%l: number of tracks"
 msgstr "%l: αριθμός κομματιών"
 
-#: ../src/scan.c:2835
+#: ../src/scan.c:2833
 #, c-format
 msgid "%o: orig. artist"
 msgstr "%o: όνομα αρχικού καλλιτέχνη"
 
-#: ../src/scan.c:2838
+#: ../src/scan.c:2836
 #, c-format
 msgid "%n: track"
 msgstr "%n: κομμάτι"
 
-#: ../src/scan.c:2841
+#: ../src/scan.c:2839
 msgid "%t: title"
 msgstr "%t: τίτλος"
 
-#: ../src/scan.c:2844
+#: ../src/scan.c:2842
 #, c-format
 msgid "%u: URL"
 msgstr "%u: URL"
 
-#: ../src/scan.c:2847
+#: ../src/scan.c:2845
 msgid "%y: year"
 msgstr "%y: χρονιά"
 
 #.
 #. * Masks Editor
 #.
-#: ../src/scan.c:2854
+#: ../src/scan.c:2852
 msgid "Mask Editor"
 msgstr "Επεξεργαστής μάσκας"
 
-#: ../src/scan.c:2908
+#: ../src/scan.c:2906
 msgid "Create New Mask"
 msgstr "Δημιουργία νέας μάσκας"
 
-#: ../src/scan.c:2918
+#: ../src/scan.c:2916
 msgid "Move Up this Mask"
 msgstr "Μετακίνηση αυτής της μάσκας προς τα πάνω"
 
-#: ../src/scan.c:2928
+#: ../src/scan.c:2926
 msgid "Move Down this Mask"
 msgstr "Μετακίνηση αυτής της μάσκας προς τα κάτω"
 
-#: ../src/scan.c:2938
+#: ../src/scan.c:2936
 msgid "Duplicate Mask"
 msgstr "Διπλασιασμός της μάσκας"
 
-#: ../src/scan.c:2948
+#: ../src/scan.c:2946
 msgid "Add Default Masks"
 msgstr "Προσθήκη προεπιλεγμένων μασκών"
 
-#: ../src/scan.c:2958
+#: ../src/scan.c:2956
 msgid "Remove Mask"
 msgstr "Αφαίρεση μάσκας"
 
-#: ../src/scan.c:2968
+#: ../src/scan.c:2966
 msgid "Save Masks"
 msgstr "Αποθήκευση μασκών"
 
-#: ../src/scan.c:3572
+#: ../src/scan.c:3546
 msgid "New_mask"
 msgstr "Νέα_μάσκα"
 
-#: ../src/scan.c:3611
+#: ../src/scan.c:3585
 msgid "Copy: No row selected"
 msgstr "Αντιγραφή: Δεν επιλέχτηκε καμία σειρά"
 
-#: ../src/scan.c:3719
+#: ../src/scan.c:3678
 msgid "Remove: No row selected"
 msgstr "Αφαίρεση: Δεν επιλέχτηκε καμία σειρά"
 
-#: ../src/scan.c:3767
+#: ../src/scan.c:3725
 msgid "Move Up: No row selected"
 msgstr "Μετακίνηση προς τα πάνω: Δεν επιλέχτηκε καμία σειρά"
 
-#: ../src/scan.c:3821
+#: ../src/scan.c:3769
 msgid "Move Down: No row selected"
 msgstr "Μετακίνηση προς τα κάτω: Δεν επιλέχτηκε καμία σειρά"
 
-#: ../src/setting.c:921
+#: ../src/setting.c:918
 #, c-format
 msgid "Error: Cannot write configuration file: %s (%s)"
 msgstr "Σφάλμα: Αδύνατη η εγγραφή του αρχείου ρυθμίσεων: %s (%s)"
 
-#: ../src/setting.c:941 ../src/setting.c:958 ../src/setting.c:978
+#: ../src/setting.c:938 ../src/setting.c:955 ../src/setting.c:975
 #, c-format
 msgid "Error while writing configuration file: %s"
 msgstr "Σφάλμα κατά την εγγραφή του αρχείου ρυθμίσεων: %s"
 
-#: ../src/setting.c:1087
+#: ../src/setting.c:1084
 #, c-format
 msgid "Cannot open configuration file '%s' (%s)"
 msgstr "Αδύνατο το άνοιγμα του αρχείου ρυθμίσεων '%s' (%s)"
 
-#: ../src/setting.c:1089
+#: ../src/setting.c:1086
 msgid "Loading default configuration"
 msgstr "Φόρτωση προεπιλεγμένων ρυθμίσεων"
 
-#: ../src/setting.c:1130
+#: ../src/setting.c:1127
 #, c-format
 msgid "Cannot create or open file '%s' (%s)"
 msgstr "Αδυναμία δημιουργίας ή ανοίγματος του αρχείου '%s' (%s)"
 
-#: ../src/setting.c:1190
+#: ../src/setting.c:1187
 #, c-format
 msgid "Error: Cannot write list to file: %s (%s)"
 msgstr "Σφάλμα: Αδυναμία εγγραφής της λίστας στο αρχείο: %s (%s)"
 
-#: ../src/setting.c:1208
+#: ../src/setting.c:1205
 #, c-format
 msgid "Error while writing list file: %s"
 msgstr "Σφάλμα κατά την εγγραφή του αρχείου λίστας: %s"
 
 #. Fall back to defaults
-#: ../src/setting.c:1289
+#: ../src/setting.c:1285
 msgid "Loading default 'Fill Tag' masks…"
 msgstr "Φόρτωση των προεπιλεγμένων μασκών 'συμπλήρωσης ετικέτας'…"
 
 #. Fall back to defaults
-#: ../src/setting.c:1319
+#: ../src/setting.c:1315
 msgid "Loading default 'Rename File' masks…"
 msgstr "Φόρτωση των προεπιλεγμένων μασκών 'μετονομασίας αρχείου'…"
 
 #. Fall back to defaults
-#: ../src/setting.c:1346
+#: ../src/setting.c:1341
 msgid "Loading default 'Rename Directory' masks…"
 msgstr "Φόρτωση των προκαθορισμένων μασκών 'μετονομασίας καταλόγου'…"
 
-#: ../src/setting.c:1557
+#: ../src/setting.c:1552
 #, c-format
 msgid "Migrating configuration from directory '%s' to '%s'"
 msgstr "Μεταφορά διαμόρφωσης από τον κατάλογο '%s' στο '%s'"
 
-#: ../src/setting.c:1581
+#: ../src/setting.c:1576
 #, c-format
 msgid "Failed to migrate configuration file '%s'"
 msgstr "Αποτυχία μεταφοράς του αρχείου διαμόρφωσης '%s'"
 
-#: ../src/setting.c:1618
+#: ../src/setting.c:1613
 #, c-format
 msgid "Error: Cannot create directory '%s' (%s)"
 msgstr "Σφάλμα: Αδυναμία δημιουργίας του καταλόγου '%s' (%s)"
-
-#: ../src/vcedit.c:295
-msgid "Input truncated or empty."
-msgstr "Ελλιπής ή κενή είσοδος."
-
-#: ../src/vcedit.c:297
-msgid "Input is not an Ogg bitstream."
-msgstr "Η είσοδος δεν είναι μια ροή δυαδικών Ogg."
-
-#: ../src/vcedit.c:315
-msgid "Error reading first page of Ogg bitstream."
-msgstr "Σφάλμα ανάγνωσης της πρώτης σελίδας της ροής δυαδικών Ogg."
-
-#: ../src/vcedit.c:321
-msgid "Error reading initial header packet."
-msgstr "Σφάλμα ανάγνωσης του πακέτου αρχικής κεφαλίδας."
-
-#: ../src/vcedit.c:348
-msgid "Ogg bitstream contains neither Speex or Vorbis data."
-msgstr "Η ροή δυαδικών Ogg δεν περιέχει δεδομένα Speex ή Vorbis."
-
-#: ../src/vcedit.c:381
-msgid "Corrupt secondary header."
-msgstr "Αλλοιωμένη δευτερεύουσα κεφαλίδα."
-
-#: ../src/vcedit.c:411
-msgid "Need to save extra headers"
-msgstr "Χρειάζεται αποθήκευση πρόσθετων κεφαλίδων"
-
-#: ../src/vcedit.c:425
-msgid "EOF before end of Vorbis headers."
-msgstr "Τέλος αρχείου πριν το τέλος των κεφαλίδων Vorbis."
-
-#: ../src/vcedit.c:590
-msgid "Corrupt or missing data, continuing…"
-msgstr "Ελλειπή ή αλλοιωμένα δεδομένα, συνέχεια…"
-
-#: ../src/vcedit.c:627
-msgid ""
-"Error writing stream to output. Output stream may be corrupted or truncated."
-msgstr ""
-"Σφάλμα εγγραφής ροής στην έξοδο. Η ροή εξόδου μπορεί να είναι αλλοιωμένη ή "
-"κολοβή."
 
 #. Log_Print(_("DLL '%s' not already loaded. Try loading it..."), dllname);
 #: ../src/win32/win32dep.c:126
@@ -5098,6 +5054,106 @@ msgstr "τέλος weasytag_init..."
 #, c-format
 msgid "Audio player: '%s'"
 msgstr "Αναπαραγωγός ήχου: '%s'"
+
+#~ msgid ""
+#~ "\n"
+#~ "Usage: easytag [option] \n"
+#~ "   or: easytag [directory]\n"
+#~ "\n"
+#~ "Option:\n"
+#~ "-------\n"
+#~ "-h, --help        Display this text and exit.\n"
+#~ "-v, --version     Print basic information and exit.\n"
+#~ "\n"
+#~ "Directory:\n"
+#~ "----------\n"
+#~ "%s/path_to/files  Use an absolute path to load,\n"
+#~ "path_to/files     Use a relative path.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Χρήση: easytag [επιλογή] \n"
+#~ "    ή: easytag [κατάλογος]\n"
+#~ "\n"
+#~ "Επιλογές:\n"
+#~ "---------\n"
+#~ "-h, --help     Εμφάνιση αυτού του κειμένου και έξοδος.\n"
+#~ "-v, --version  Εμφάνιση βασικών πληροφοριών και έξοδος.\n"
+#~ "\n"
+#~ "Κατάλογος:\n"
+#~ "----------\n"
+#~ "%s/διαδρομή_για/αρχεία   Χρήση απόλυτης διαδρομής για φόρτωση,\n"
+#~ "διαδρομή_για/αρχεία      Χρήση σχετικής διαδρομής.\n"
+#~ "\n"
+
+#~ msgid "Save files"
+#~ msgstr "Αποθήκευση αρχείων"
+
+#~ msgid "_Collapse tree"
+#~ msgstr "_Σύμπτυξη δένδρου"
+
+#~ msgid "Unknown parameter or path '%s'\n"
+#~ msgstr "Άγνωστη παράμετρος ή διαδρομή '%s'\n"
+
+#~ msgid "Received signal %s (%d)\a"
+#~ msgstr "Ελήφθη το σήμα %s (%d)\\a"
+
+#~ msgid "Unknown signal"
+#~ msgstr "Άγνωστο σήμα"
+
+#~ msgid "The whole image file could not be read"
+#~ msgstr "Το συνολικό αρχείο της εικόνας δεν μπόρεσε να διαβαστεί"
+
+#~ msgid "Write ID3 tags in FLAC files (in addition to FLAC tag)"
+#~ msgstr "Εγγραφή ετικετών ID3 στα αρχεία FLAC (πέρα από την ετικέτα FLAC)"
+
+#~ msgid ""
+#~ "If activated, ID3 tags will be also added in the FLAC file (according the "
+#~ "two rules above, plus the FLAC tag). Else ID3 tags will be stripped."
+#~ msgstr ""
+#~ "Αν ενεργοποιηθεί, τότε στα αρχεία FLAC θα προστίθεται επίσης μία ετικέτα "
+#~ "ID3 (σύμφωνα με τους δύο παραπάνω κανόνες, επιπλέον της ετικέτας FLAC). "
+#~ "Διαφορετικά οι ετικέτες ID3 θα απομακρύνονται."
+
+#~ msgid "Insert a space before an uppercase letter"
+#~ msgstr "Εισαγωγή ενός κενού πριν από κάθε κεφαλαίο γράμμα"
+
+#~ msgid "Remove duplicates of space or underscore"
+#~ msgstr "Αφαίρεση διπλών κενών ή κάτω παυλών"
+
+#~ msgid "Input truncated or empty."
+#~ msgstr "Ελλιπής ή κενή είσοδος."
+
+#~ msgid "Input is not an Ogg bitstream."
+#~ msgstr "Η είσοδος δεν είναι μια ροή δυαδικών Ogg."
+
+#~ msgid "Error reading first page of Ogg bitstream."
+#~ msgstr "Σφάλμα ανάγνωσης της πρώτης σελίδας της ροής δυαδικών Ogg."
+
+#~ msgid "Error reading initial header packet."
+#~ msgstr "Σφάλμα ανάγνωσης του πακέτου αρχικής κεφαλίδας."
+
+#~ msgid "Ogg bitstream contains neither Speex or Vorbis data."
+#~ msgstr "Η ροή δυαδικών Ogg δεν περιέχει δεδομένα Speex ή Vorbis."
+
+#~ msgid "Corrupt secondary header."
+#~ msgstr "Αλλοιωμένη δευτερεύουσα κεφαλίδα."
+
+#~ msgid "Need to save extra headers"
+#~ msgstr "Χρειάζεται αποθήκευση πρόσθετων κεφαλίδων"
+
+#~ msgid "EOF before end of Vorbis headers."
+#~ msgstr "Τέλος αρχείου πριν το τέλος των κεφαλίδων Vorbis."
+
+#~ msgid "Corrupt or missing data, continuing…"
+#~ msgstr "Ελλειπή ή αλλοιωμένα δεδομένα, συνέχεια…"
+
+#~ msgid ""
+#~ "Error writing stream to output. Output stream may be corrupted or "
+#~ "truncated."
+#~ msgstr ""
+#~ "Σφάλμα εγγραφής ροής στην έξοδο. Η ροή εξόδου μπορεί να είναι αλλοιωμένη "
+#~ "ή κολοβή."
 
 #~ msgid "Renaming file '%s'"
 #~ msgstr "Μετονομασία αρχείου '%s'"
