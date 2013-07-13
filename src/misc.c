@@ -2515,9 +2515,6 @@ Add_Row_To_Search_Result_List (ET_File *ETFile, const gchar *string_to_search)
         SearchResultList_Text[SEARCH_RESULT_DISC_NUMBER] = NULL;
     }
 
-    g_free (disc_number);
-    g_free (disc_total);
-
     // Track
     track       = ((File_Tag *)ETFile->FileTag->data)->track;
     track_total = ((File_Tag *)ETFile->FileTag->data)->track_total;
@@ -2531,9 +2528,6 @@ Add_Row_To_Search_Result_List (ET_File *ETFile, const gchar *string_to_search)
     {
         SearchResultList_Text[SEARCH_RESULT_TRACK] = NULL;
     }
-
-    g_free (track);
-    g_free (track_total);
 
 
     // Highlight the keywords in the result list
