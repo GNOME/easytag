@@ -4568,7 +4568,7 @@ void Quit_MainWindow (void)
                                          _("Do you really want to quit?"));
          gtk_dialog_add_buttons(GTK_DIALOG(msgbox),GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_QUIT,GTK_RESPONSE_CLOSE,NULL);
         gtk_dialog_set_default_response (GTK_DIALOG (msgbox),
-                                         GTK_RESPONSE_YES);
+                                         GTK_RESPONSE_CLOSE);
         gtk_window_set_title(GTK_WINDOW(msgbox),_("Quit"));
         response = gtk_dialog_run(GTK_DIALOG(msgbox));
         gtk_widget_destroy(msgbox);
