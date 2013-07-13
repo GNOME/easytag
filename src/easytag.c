@@ -1397,9 +1397,23 @@ Mini_Button_Clicked (GObject *object)
     }
     else if (object == G_OBJECT (DiscNumberEntry))
     {
-        /* FIXME: Split discs field into disc number and disc total. */
-        string_to_set = g_strdup (gtk_entry_get_text (GTK_ENTRY (DiscNumberEntry)));
-        string_to_set1 = NULL;
+        const gchar *entry_text;
+        gchar *separator;
+
+        entry_text = gtk_entry_get_text (GTK_ENTRY (DiscNumberEntry));
+        separator = g_utf8_strchr (entry_text, -1, '/');
+
+        if (separator)
+        {
+            string_to_set1 = g_strdup (separator + 1);
+            string_to_set = g_strndup (entry_text,
+                                       separator - entry_text);
+        }
+        else
+        {
+            string_to_set = g_strdup (entry_text);
+            string_to_set1 = NULL;
+        }
 
         for (l = etfilelist; l != NULL; l = g_list_next (l))
         {

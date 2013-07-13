@@ -2943,24 +2943,25 @@ ET_Display_File_Tag_To_UI (ET_File *ETFile)
     }else
         gtk_entry_set_text(GTK_ENTRY(AlbumEntry),"");
 
-    /* Show disc_number */
-    /* FIXME: Combine disc number and disc total into a single string. */
+    /* Show disc number and number of discs. */
     if (FileTag && FileTag->disc_number)
     {
-        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->disc_number);
-        gtk_entry_set_text (GTK_ENTRY (DiscNumberEntry), tmp);
-        g_free (tmp);
-    }
-    else
-    {
-        gtk_entry_set_text (GTK_ENTRY (DiscNumberEntry), "");
-    }
+        gchar *tmp;
 
-    /* Show number of discs of the album. */
-#if 0
-    if (FileTag && FileTag->disc_total)
-    {
-        gchar *tmp = Try_To_Validate_Utf8_String (FileTag->disc_total);
+        if (FileTag->disc_total)
+        {
+            gchar *total;
+
+            total = g_strjoin ("/", FileTag->disc_number, FileTag->disc_total,
+                               NULL);
+            tmp = Try_To_Validate_Utf8_String (total);
+            g_free (total);
+        }
+        else
+        {
+            tmp = Try_To_Validate_Utf8_String (FileTag->disc_number);
+        }
+
         gtk_entry_set_text (GTK_ENTRY (DiscNumberEntry), tmp);
         g_free (tmp);
     }
@@ -2968,7 +2969,6 @@ ET_Display_File_Tag_To_UI (ET_File *ETFile)
     {
         gtk_entry_set_text (GTK_ENTRY (DiscNumberEntry), "");
     }
-#endif
 
     /* Show year */
     if (FileTag && FileTag->year)
@@ -3461,35 +3461,36 @@ ET_Save_File_Tag_From_UI (File_Tag *FileTag)
         g_free(buffer);
     }
 
-    /* Disc Number */
-    /* FIXME: Take single disc string and split into disc number and disc total. */
-    buffer = g_strdup (gtk_entry_get_text (GTK_ENTRY (DiscNumberEntry)));
-    g_strstrip (buffer);
-
-    if ( g_utf8_strlen(buffer, -1) > 0 )
-        FileTag->disc_number = buffer;
-    else
-    {
-        FileTag->disc_number = NULL;
-        g_free(buffer);
-    }
-
-    /* Discs Total */
-#if 0
+    /* Disc number and total number of discs. */
     buffer = g_strdup (gtk_entry_get_text (GTK_ENTRY (DiscNumberEntry)));
     g_strstrip (buffer);
 
     if (g_utf8_strlen (buffer, -1) > 0)
     {
-        FileTag->disc_total = et_disc_number_to_string (atoi (buffer));
-        g_free (buffer);
+        gchar *separator;
+
+        separator = g_utf8_strchr (buffer, -1, '/');
+
+        if (separator != NULL && g_utf8_strlen (separator + 1, -1) > 0)
+        {
+            /* Copy before the separator for the disc number, beyond the
+             * separator for the total number of discs. */
+            FileTag->disc_number = g_strndup (buffer, separator - buffer);
+            FileTag->disc_total = g_strdup (separator + 1);
+            g_free (buffer);
+        }
+        else
+        {
+            FileTag->disc_number = buffer;
+            FileTag->disc_total = NULL;
+        }
     }
     else
     {
+        FileTag->disc_number = NULL;
         FileTag->disc_total = NULL;
         g_free (buffer);
     }
-#endif
 
     /* Year */
     buffer = g_strdup(gtk_entry_get_text(GTK_ENTRY(YearEntry)));
