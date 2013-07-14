@@ -7,9 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: EasyTAG 2.1.2\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-09 21:25+0000\n"
-"PO-Revision-Date: 2013-04-27 23:27+0300\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=easytag&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2013-07-07 15:03+0000\n"
+"PO-Revision-Date: 2013-07-14 22:30+0300\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: \n"
@@ -20,15 +21,16 @@ msgstr ""
 "%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Gtranslator 2.91.6\n"
 
-#: ../easytag.desktop.in.h:1
+#: ../data/easytag.desktop.in.h:1
 msgid "Sound File Metadata Editor"
 msgstr "Garso failo metaduomenų redaktorius"
 
-#: ../easytag.desktop.in.h:2
+#: ../data/easytag.desktop.in.h:2
 msgid "Edit sound file metadata"
 msgstr "Keiskite garso failo metaduomenis"
 
-#: ../easytag.desktop.in.h:3
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: ../data/easytag.desktop.in.h:4
 msgid "mp3;tag;audio;"
 msgstr "mp3;žymos;garsas;"
 
@@ -71,761 +73,786 @@ msgid "View and edit tags in audio files"
 msgstr "Žiūrėti ir keisti žymas garso failuose"
 
 #. g_print(_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
-#: ../src/ape_tag.c:62 ../src/et_core.c:4570 ../src/flac_header.c:108
-#: ../src/id3_tag.c:150 ../src/id3_tag.c:1210 ../src/id3v24_tag.c:114
-#: ../src/misc.c:1783 ../src/mp4_header.c:64 ../src/mp4_tag.c:72
-#: ../src/mp4_tag.c:83 ../src/mp4_tag.c:204 ../src/mp4_tag.c:213
-#: ../src/ogg_header.c:70 ../src/ogg_header.c:171 ../src/ogg_tag.c:145
-#: ../src/ogg_tag.c:650
+#: ../src/ape_tag.c:61 ../src/id3v24_tag.c:112 ../src/mp4_header.c:63
+#: ../src/mp4_tag.c:65 ../src/mp4_tag.c:186
 #, c-format
 msgid "Error while opening file: '%s' (%s)."
 msgstr "Klaida atveriant failą: „%s“ (%s)."
 
-#. FIXME: Translators should not have to deal with this!
-#: ../src/application.c:54
-#, c-format
-msgid ""
-"\n"
-"Usage: easytag [option] \n"
-"   or: easytag [directory]\n"
-"\n"
-"Option:\n"
-"-------\n"
-"-h, --help        Display this text and exit.\n"
-"-v, --version     Print basic information and exit.\n"
-"\n"
-"Directory:\n"
-"----------\n"
-"%s/path_to/files  Use an absolute path to load,\n"
-"path_to/files     Use a relative path.\n"
-"\n"
-msgstr ""
-"\n"
-"Naudojimas: easytag [parinktis] \n"
-"   ar: easytag [aplankas]\n"
-"\n"
-"Parinktis:\n"
-"-------\n"
-"-h, --help        Parodo šį tekstą ir išeina.\n"
-"-v, --version     Parodo pagrindinę informaciją ir išeina.\n"
-"\n"
-"Aplankas:\n"
-"----------\n"
-"%s/path_to/files  Naudokite absoliutų kelią norėdami įkrauti,\n"
-"path_to/files     Naudokite reliatyvų kelią.\n"
-"\n"
+#: ../src/application.c:37
+msgid "Print the version and exit"
+msgstr "Atspausdinti versiją ir išeiti"
 
-#: ../src/application.c:119
+#: ../src/application.c:89
 #, c-format
 msgid "Website: %s"
 msgstr "Tinklapis: %s"
 
+#: ../src/application.c:98
+#| msgid "View and edit tags in audio files"
+msgid "- Tag and rename audio files"
+msgstr "- žymėkite ir keiskite garso failus"
+
 #.
 #. * Main Menu Actions
 #.
-#: ../src/bar.c:138
+#: ../src/bar.c:154
 msgid "_File"
 msgstr "_Failas"
 
-#: ../src/bar.c:139
-msgid "Sort list by tag"
+#: ../src/bar.c:155
+#| msgid "Sort list by tag"
+msgid "Sort List by Tag"
 msgstr "Rikiuoti sąrašą pagal žymę"
 
-#: ../src/bar.c:140
-msgid "Sort list by property"
-msgstr "Rikiuoti sąrašą pagal savybes"
+#: ../src/bar.c:158
+#| msgid "Sort list by property"
+msgid "Sort List by Property"
+msgstr "Rikiuoti sąrašą pagal savybę"
 
-#: ../src/bar.c:141
+#: ../src/bar.c:159
 msgid "Ascending by filename"
 msgstr "Pagal failo vardą didėjimo tvarka"
 
-#: ../src/bar.c:142
+#: ../src/bar.c:160
 msgid "Descending by filename"
 msgstr "Pagal failo vardą mažėjimo tvarka"
 
-#: ../src/bar.c:143
+#: ../src/bar.c:161
 msgid "Ascending by creation date"
 msgstr "Pagal sukūrimo datą didėjimo tvarka"
 
-#: ../src/bar.c:144
+#: ../src/bar.c:162
 msgid "Descending by creation date"
 msgstr "Pagal sukūrimo datą mažėjimo tvarka"
 
-#: ../src/bar.c:145
+#: ../src/bar.c:163
 msgid "Ascending by track number"
 msgstr "Pagal takelio numerį didėjimo tvarka"
 
-#: ../src/bar.c:146
+#: ../src/bar.c:164
 msgid "Descending by track number"
 msgstr "Pagal takelio numerį mažėjimo tvarka"
 
-#: ../src/bar.c:147
+#: ../src/bar.c:165
 msgid "Ascending by title"
 msgstr "Pagal pavadinimą didėjimo tvarka"
 
-#: ../src/bar.c:148
+#: ../src/bar.c:166
 msgid "Descending by title"
 msgstr "Pagal pavadinimą mažėjimo tvarka"
 
-#: ../src/bar.c:149
+#: ../src/bar.c:167
 msgid "Ascending by artist"
 msgstr "Pagal atlikėją didėjimo tvarka"
 
-#: ../src/bar.c:150
+#: ../src/bar.c:168
 msgid "Descending by artist"
 msgstr "Pagal atlikėją mažėjimo tvarka"
 
-#: ../src/bar.c:151
+#: ../src/bar.c:169
 msgid "Ascending by album artist"
 msgstr "Pagal albumo atlikėją didėjimo tvarka"
 
-#: ../src/bar.c:152
+#: ../src/bar.c:170
 msgid "Descending by album artist"
 msgstr "Pagal albumo atlikėją mažėjimo tvarka"
 
-#: ../src/bar.c:153
+#: ../src/bar.c:171
 msgid "Ascending by album"
 msgstr "Pagal albumą didėjimo tvarka"
 
-#: ../src/bar.c:154
+#: ../src/bar.c:172
 msgid "Descending by album"
 msgstr "Pagal albumą mažėjimo tvarka"
 
-#: ../src/bar.c:155
+#: ../src/bar.c:173
 msgid "Ascending by year"
 msgstr "Pagal metus didėjimo tvarka"
 
-#: ../src/bar.c:156
+#: ../src/bar.c:174
 msgid "Descending by year"
 msgstr "Pagal metus mažėjimo tvarka"
 
-#: ../src/bar.c:157
+#: ../src/bar.c:175
 msgid "Ascending by genre"
 msgstr "Pagal žanrą didėjimo tvarka"
 
-#: ../src/bar.c:158
+#: ../src/bar.c:176
 msgid "Descending by genre"
 msgstr "Pagal žanrą mažėjimo tvarka"
 
-#: ../src/bar.c:159
+#: ../src/bar.c:177
 msgid "Ascending by comment"
 msgstr "Pagal komentarą didėjimo tvarka"
 
-#: ../src/bar.c:160
+#: ../src/bar.c:178
 msgid "Descending by comment"
 msgstr "Pagal komentarą mažėjimo tvarka"
 
-#: ../src/bar.c:161
+#: ../src/bar.c:179
 msgid "Ascending by composer"
 msgstr "Pagal kompozitorių didėjimo tvarka"
 
-#: ../src/bar.c:162
+#: ../src/bar.c:180
 msgid "Descending by composer"
 msgstr "Pagal kompozitorių mažėjimo tvarka"
 
-#: ../src/bar.c:163
+#: ../src/bar.c:181
 msgid "Ascending by original artist"
 msgstr "Pagal originalų atlikėją didėjimo tvarka"
 
-#: ../src/bar.c:164
+#: ../src/bar.c:182
 msgid "Descending by original artist"
 msgstr "Pagal originalų atlikėją mažėjimo tvarka"
 
-#: ../src/bar.c:165
+#: ../src/bar.c:183
 msgid "Ascending by copyright"
 msgstr "Pagal autorines teises didėjimo tvarka"
 
-#: ../src/bar.c:166
+#: ../src/bar.c:184
 msgid "Descending by copyright"
 msgstr "Pagal autorines teises mažėjimo tvarka"
 
-#: ../src/bar.c:167
+#: ../src/bar.c:185
 msgid "Ascending by URL"
 msgstr "Pagal URL didėjimo tvarka"
 
-#: ../src/bar.c:168
+#: ../src/bar.c:186
 msgid "Descending by URL"
 msgstr "Pagal URL mažėjimo tvarka"
 
-#: ../src/bar.c:169
+#. Translators: the encoder name is supposed to be the name of a person
+#. * or organisation, but can sometimes be the name of an application.
+#: ../src/bar.c:189
 msgid "Ascending by encoder name"
 msgstr "Pagal kodavimą didėjimo tvarka"
 
-#: ../src/bar.c:170
+#. Translators: the encoder name is supposed to be the name of a person
+#. * or organisation, but can sometimes be the name of an application.
+#: ../src/bar.c:192
 msgid "Descending by encoder name"
 msgstr "Pagal kodavimą mažėjimo tvarka"
 
-#: ../src/bar.c:171
+#: ../src/bar.c:193
 msgid "Ascending by file type"
 msgstr "Pagal failo tipą didėjimo tvarka"
 
-#: ../src/bar.c:172
+#: ../src/bar.c:194
 msgid "Descending by file type"
 msgstr "Pagal failo tipą mažėjimo tvarka"
 
-#: ../src/bar.c:173
+#: ../src/bar.c:195
 msgid "Ascending by file size"
 msgstr "Pagal failo dydį didėjimo tvarka"
 
-#: ../src/bar.c:174
+#: ../src/bar.c:196
 msgid "Descending by file size"
 msgstr "Pagal failo dydį mažėjimo tvarka"
 
-#: ../src/bar.c:175
+#: ../src/bar.c:197
 msgid "Ascending by duration"
 msgstr "Pagal trukmę didėjimo tvarka"
 
-#: ../src/bar.c:176
+#: ../src/bar.c:198
 msgid "Descending by duration"
 msgstr "Pagal trukmę mažėjimo tvarka"
 
-#: ../src/bar.c:177
+#: ../src/bar.c:199
 msgid "Ascending by bitrate"
 msgstr "Pagal bitų dažnį didėjimo tvarka"
 
-#: ../src/bar.c:178
+#: ../src/bar.c:200
 msgid "Descending by bitrate"
 msgstr "Pagal bitų dažnį mažėjimo tvarka"
 
-#: ../src/bar.c:179
+#: ../src/bar.c:201
 msgid "Ascending by samplerate"
 msgstr "Pagal diskretizacijos dažnį didėjimo tvarka"
 
-#: ../src/bar.c:180
+#: ../src/bar.c:202
 msgid "Descending by samplerate"
 msgstr "Pagal diskretizacijos dažnį mažėjimo tvarka"
 
-#: ../src/bar.c:182
+#: ../src/bar.c:204
 msgid "Open Files With…"
 msgstr "Atverti failus su…"
 
-#: ../src/bar.c:182
-msgid "Open files with…"
-msgstr "Atverti failus su…"
+#: ../src/bar.c:205
+#| msgid "Include only the selected files"
+msgid "Run a command on the selected files"
+msgstr "Vykdyti komandą su pasirinktais failais"
 
-#: ../src/bar.c:184
-#| msgid "Select all files"
+#: ../src/bar.c:208
 msgid "Select all"
 msgstr "Pasirinkti visus"
 
-#: ../src/bar.c:185
-msgid "Unselect All Files"
+#: ../src/bar.c:209
+#| msgid "Unselect All Files"
+msgid "Unselect All"
 msgstr "Nepasirinkti nieko"
 
-#: ../src/bar.c:185
-msgid "Unselect all files"
-msgstr "Nepasirinkti jokių failų"
+#: ../src/bar.c:210
+#| msgid "Stop the current action"
+msgid "Clear the current selection"
+msgstr "Išvalyti dabartinį žymėjimą"
 
-#: ../src/bar.c:186
-msgid "Invert Files Selection"
-msgstr "Invertuoti pasirinkimą"
-
-#: ../src/bar.c:186
-msgid "Invert files selection"
+#: ../src/bar.c:213
+#| msgid "Invert Files Selection"
+msgid "Invert File Selection"
 msgstr "Invertuoti failų pasirinkimą"
 
-#: ../src/bar.c:187
+#: ../src/bar.c:214
+#| msgid "Invert files selection"
+msgid "Invert file selection"
+msgstr "Invertuoti failų pasirinkimą"
+
+#: ../src/bar.c:216
 msgid "Delete Files"
 msgstr "Ištrinti failus"
 
-#: ../src/bar.c:187
+#: ../src/bar.c:216
 msgid "Delete files"
 msgstr "Ištrinti failus"
 
-#: ../src/bar.c:188
+#: ../src/bar.c:217
 msgid "_First File"
 msgstr "_Pirmas failas"
 
-#: ../src/bar.c:188
+#: ../src/bar.c:217
 msgid "First file"
 msgstr "Pirmas failas"
 
-#: ../src/bar.c:189
+#: ../src/bar.c:218
 msgid "_Previous File"
 msgstr "_Ankstesnis failas"
 
-#: ../src/bar.c:189
+#: ../src/bar.c:218
 msgid "Previous file"
 msgstr "Ankstesnis failas"
 
-#: ../src/bar.c:190
+#: ../src/bar.c:219
 msgid "_Next File"
 msgstr "_Sekantis failas"
 
-#: ../src/bar.c:190
+#: ../src/bar.c:219
 msgid "Next file"
 msgstr "Kitas failas"
 
-#: ../src/bar.c:191
+#: ../src/bar.c:220
 msgid "_Last File"
 msgstr "_Paskutinis failas"
 
-#: ../src/bar.c:191
+#: ../src/bar.c:220
 msgid "Last file"
 msgstr "Paskutinis failas"
 
-#. XXX GTK1 version uses Ctrl+C for scanner, this doesnt work in GTK1 as its copy! in gtk2, behaviour is different
-#. and binding Ctrl+C effectively stops the user copying text..
-#: ../src/bar.c:194
-msgid "S_can Files…"
-msgstr "S_kaityti failus…"
+#: ../src/bar.c:221
+#| msgid "S_can Files…"
+msgid "S_can Files"
+msgstr "S_kaityti failus"
 
-#: ../src/bar.c:194
-msgid "Scan files"
-msgstr "Skaityti failus"
+#: ../src/bar.c:222 ../src/scan.c:2351
+#| msgid "Delete files"
+msgid "Scan selected files"
+msgstr "Skaityti pasirinktus failus"
 
-#: ../src/bar.c:195
+#: ../src/bar.c:223
 msgid "_Remove Tags"
 msgstr "_Pašalinti žymas"
 
-#: ../src/bar.c:195
+#: ../src/bar.c:224
 msgid "Remove tags"
 msgstr "Pašalinti žymas"
 
-#: ../src/bar.c:196
+#: ../src/bar.c:225
 msgid "_Undo Last Files Changes"
 msgstr "_Atšaukti paskutinius failų pakeitimus"
 
-#: ../src/bar.c:196
-msgid "Undo last Files changes"
+#: ../src/bar.c:226
+#| msgid "Undo last Files changes"
+msgid "Undo last files changes"
 msgstr "Atšaukti paskutinius failų pakeitimus"
 
-#: ../src/bar.c:197
+#: ../src/bar.c:228
 msgid "R_edo Last Files Changes"
 msgstr "_Pakartoti paskutinius failų pakeitimus"
 
-#: ../src/bar.c:197
+#: ../src/bar.c:228
 msgid "Redo last files changes"
 msgstr "Pakartoti paskutinius failų pakeitimus"
 
-#: ../src/bar.c:198
+#: ../src/bar.c:229
 msgid "_Save Files"
 msgstr "_Įrašyti failus"
 
-#: ../src/bar.c:198
-msgid "Save files"
-msgstr "Įrašyti failus"
+#: ../src/bar.c:230
+#| msgid "Removed images from selected files."
+msgid "Save changes to selected files"
+msgstr "Įrašyti pasirinktų failų pakeitimus"
 
-#: ../src/bar.c:199
-msgid "_Force Saving Files"
+#: ../src/bar.c:232
+#| msgid "_Force Saving Files"
+msgid "_Force Save Files"
 msgstr "_Priverstinai įrašyti failus"
 
-#: ../src/bar.c:199
+#: ../src/bar.c:233
 msgid "Force saving files"
 msgstr "Priverstinai įrašyti failus"
 
-#: ../src/bar.c:200
+#: ../src/bar.c:235
 msgid "Undo Last Changes"
 msgstr "Atšaukti paskutinius keitimus"
 
-#: ../src/bar.c:200
+#: ../src/bar.c:235
 msgid "Undo last changes"
 msgstr "Atšaukti paskutinius pakeitimus"
 
-#: ../src/bar.c:201
+#: ../src/bar.c:236
 msgid "Redo Last Changes"
 msgstr "Pakartoti paskutinius keitimus"
 
-#: ../src/bar.c:201
+#: ../src/bar.c:236
 msgid "Redo last changes"
 msgstr "Pakartoti paskutinius pakeitimus"
 
-#: ../src/bar.c:202
+#: ../src/bar.c:237
 msgid "_Quit"
 msgstr "I_šeiti"
 
-#: ../src/bar.c:202 ../src/easytag.c:2338 ../src/easytag.c:4924
-#: ../src/easytag.c:4950
+#: ../src/bar.c:237 ../src/easytag.c:2397 ../src/easytag.c:4547
+#: ../src/easytag.c:4575
 msgid "Quit"
 msgstr "Išeiti"
 
-#: ../src/bar.c:204
+#: ../src/bar.c:239
 msgid "_Browser"
 msgstr "Naršyklė"
 
-#: ../src/bar.c:205
-msgid "Go to _Home Directory"
-msgstr "Eiti į _namų aplanką"
+#: ../src/bar.c:240
+#| msgid "Go to _Home Directory"
+msgid "_Home Directory"
+msgstr "_Namų aplankas"
 
-#: ../src/bar.c:205
+#: ../src/bar.c:241
 msgid "Go to home directory"
 msgstr "Eiti į namų aplanką"
 
-#: ../src/bar.c:206
-msgid "Go to Desktop Directory"
-msgstr "Eiti į darbastalio aplanką"
+#: ../src/bar.c:243
+#| msgid "Go to Desktop Directory"
+msgid "Desktop Directory"
+msgstr "Darbastalio aplankas"
 
-#: ../src/bar.c:206
+#: ../src/bar.c:244
 msgid "Go to desktop directory"
 msgstr "Eiti į darbastalio aplanką"
 
-#: ../src/bar.c:207
-msgid "Go to Documents Directory"
-msgstr "Eiti į dokumentų aplanką"
+#: ../src/bar.c:246
+#| msgid "Go to Documents Directory"
+msgid "Documents Directory"
+msgstr "Dokumentų aplankas"
 
-#: ../src/bar.c:207
+#: ../src/bar.c:247
 msgid "Go to documents directory"
 msgstr "Eiti į dokumentų aplanką"
 
-#: ../src/bar.c:208
-msgid "Go to Downloads Directory"
-msgstr "Eiti į atsiuntimų aplanką"
+#: ../src/bar.c:249
+#| msgid "Go to Downloads Directory"
+msgid "Downloads Directory"
+msgstr "Parsiuntimų aplankas"
 
-#: ../src/bar.c:208
+#: ../src/bar.c:250
 msgid "Go to downloads directory"
 msgstr "Eiti į parsiuntimų aplanką"
 
-#: ../src/bar.c:209
-msgid "Go to Music Directory"
-msgstr "Eiti į muzikos aplanką"
+#: ../src/bar.c:252
+#| msgid "Go to Music Directory"
+msgid "Music Directory"
+msgstr "Muzikos aplankas"
 
-#: ../src/bar.c:209
+#: ../src/bar.c:253
 msgid "Go to music directory"
 msgstr "Eiti į muzikos aplanką"
 
-#: ../src/bar.c:210
-msgid "Go to _Default Directory"
-msgstr "Eiti į _numatytąjį aplanką"
+#: ../src/bar.c:255
+#| msgid "Select Directory"
+msgid "_Parent Directory"
+msgstr "_Tėvinis aplankas"
 
-#: ../src/bar.c:210
+#: ../src/bar.c:256
+msgid "Go to parent directory"
+msgstr "Eiti į aukštesnį aplanką"
+
+#: ../src/bar.c:258
+#| msgid "Default directory:"
+msgid "_Default Directory"
+msgstr "_Numatytasis aplankas"
+
+#: ../src/bar.c:259
 msgid "Go to default directory"
 msgstr "Eiti į numatytąjį aplanką"
 
-#: ../src/bar.c:211
+#: ../src/bar.c:261
 msgid "Set _Current Path as Default"
 msgstr "Nustatyti _dabartinį kelią numatytuoju"
 
-#: ../src/bar.c:211
+#: ../src/bar.c:261
 msgid "Set current path as default"
 msgstr "Nustatyti dabartinį kelią numatytuoju"
 
-#: ../src/bar.c:212
+#: ../src/bar.c:262
 msgid "Rename Directory…"
 msgstr "Pervadinti aplanką…"
 
-#: ../src/bar.c:212
+#: ../src/bar.c:262
 msgid "Rename directory"
 msgstr "Pervadinti aplanką"
 
-#: ../src/bar.c:213
+#: ../src/bar.c:263
 msgid "Reload Directory"
 msgstr "Įkelti aplanką iš naujo"
 
-#: ../src/bar.c:213
+#: ../src/bar.c:264
 msgid "Reload directory"
 msgstr "Įkelti aplanką iš naujo"
 
-#: ../src/bar.c:214 ../src/browser.c:3948
-msgid "Browse Directory with…"
+#: ../src/bar.c:267
+#| msgid "Browse Directory with…"
+msgid "Browse Directory With…"
 msgstr "Naršyti aplanką su…"
 
-#: ../src/bar.c:214
-msgid "Browse directory with…"
-msgstr "Naršyti aplanką su…"
+#: ../src/bar.c:268
+#| msgid "Rename the directory"
+msgid "Run a command on the directory"
+msgstr "Įvykdyti komandą aplankui"
 
-#: ../src/bar.c:215
+#: ../src/bar.c:270
 msgid "_Collapse Tree"
 msgstr "_Suskleisti medį"
 
-#: ../src/bar.c:215
-msgid "_Collapse tree"
-msgstr "_Suskleisti medį"
+#: ../src/bar.c:271
+#| msgid "View by directory tree"
+msgid "Collapse directory tree"
+msgstr "Sutraukti aplankų medį"
 
-#: ../src/bar.c:216
-msgid "_Refresh Tree"
-msgstr "_Atnaujinti medį"
+#: ../src/bar.c:272
+#| msgid "Reload"
+msgid "_Reload Tree"
+msgstr "Į_kelti medį iš naujo"
 
-#: ../src/bar.c:216
-msgid "_Refresh tree"
-msgstr "_Atnaujinti medį"
+#: ../src/bar.c:273
+#| msgid "Reload directory"
+msgid "Reload directory tree"
+msgstr "Įkelti aplankų medį iš naujo"
 
-#: ../src/bar.c:218 ../src/bar.c:247
-msgid "S_canner"
-msgstr "_Skeneris"
+#: ../src/bar.c:276
+#| msgid "S_canner"
+msgid "S_canner Mode"
+msgstr "_Skenerio veiksena"
 
-#: ../src/bar.c:219
-msgid "_Fill Tags…"
-msgstr "_Užpildyti žymas…"
-
-#: ../src/bar.c:219
-msgid "Fill tags"
-msgstr "Užpildyti žymas"
-
-#: ../src/bar.c:220
-msgid "_Rename Files and Directories…"
-msgstr "_Pervadinti failus ir aplankus…"
-
-#: ../src/bar.c:220
-msgid "Rename files and directories"
-msgstr "Pervadinti failus ir aplankus"
-
-#: ../src/bar.c:221
-msgid "_Process Fields…"
-msgstr "_Apdoroti laukus…"
-
-#: ../src/bar.c:221 ../src/scan.c:181
-msgid "Process Fields"
-msgstr "Apdoroti laukelius"
-
-#: ../src/bar.c:223
+#: ../src/bar.c:278
 msgid "_Miscellaneous"
 msgstr "Į_vairūs"
 
-#: ../src/bar.c:224
-msgid "Find _Files…"
-msgstr "Rasti failus…"
+#: ../src/bar.c:279
+#| msgid "Find _Files…"
+msgid "_Find…"
+msgstr "_Rasti…"
 
-#: ../src/bar.c:224
-msgid "Find files"
-msgstr "Rasti failus"
+#: ../src/bar.c:280
+msgid "Search filenames and tags"
+msgstr "Ieškoti failų pavadinimų ir žymų"
 
-#: ../src/bar.c:225
-msgid "CD Data_base Search…"
-msgstr "CD duomenų bazės paieška…"
+#: ../src/bar.c:282
+#| msgid "CDDB Search Files…"
+msgid "CDD_B Search…"
+msgstr "CDD_B paieška…"
 
-#: ../src/bar.c:225
+#: ../src/bar.c:283
 msgid "CDDB search"
 msgstr "CDDB paieška"
 
-#: ../src/bar.c:226
-msgid "Load Filenames From Text File…"
+#: ../src/bar.c:285
+#| msgid "Load Filenames From Text File…"
+msgid "Load Filenames From a Text File…"
 msgstr "Įkelti failų pavadinimus iš tekstinio failo…"
 
-#: ../src/bar.c:226
-msgid "Load filenames from text file"
+#: ../src/bar.c:286
+#| msgid "Load filenames from text file"
+msgid "Load filenames from a text file"
 msgstr "Įkelti failų pavadinimus iš tekstinio failo"
 
-#: ../src/bar.c:227
-msgid "Write Playlist…"
-msgstr "Įrašyti grojaraštį…"
+#: ../src/bar.c:288
+#| msgid "Generate a playlist"
+msgid "Generate Playlist…"
+msgstr "Generuoti grojaraštį…"
 
-#: ../src/bar.c:227
-msgid "Write playlist"
-msgstr "Įrašyti grojaraštį…"
+#: ../src/bar.c:289
+msgid "Generate a playlist"
+msgstr "Generuoti grojaraštį"
 
-#: ../src/bar.c:228 ../src/bar.c:248 ../src/bar.c:249 ../src/bar.c:250
+#: ../src/bar.c:291 ../src/bar.c:317 ../src/bar.c:318 ../src/bar.c:319
 msgid "Run Audio Player"
 msgstr "Paleisti audio grotuvą"
 
-#: ../src/bar.c:228 ../src/bar.c:248 ../src/bar.c:249 ../src/bar.c:250
+#: ../src/bar.c:292 ../src/bar.c:317 ../src/bar.c:318 ../src/bar.c:319
 msgid "Run audio player"
 msgstr "Paleisti muzikos grotuvą"
 
-#: ../src/bar.c:230
-msgid "_Settings"
-msgstr "_Nustatymai"
+#: ../src/bar.c:295
+msgid "_Edit"
+msgstr "_Keisti"
 
-#: ../src/bar.c:231
+#: ../src/bar.c:296
 msgid "_Preferences"
 msgstr "_Nustatymai"
 
-#. Title
-#: ../src/bar.c:231 ../src/prefs.c:114
+#. The window
+#: ../src/bar.c:297 ../src/prefs.c:106
 msgid "Preferences"
 msgstr "Nustatymai"
 
-#: ../src/bar.c:233
+#: ../src/bar.c:299
+msgid "_View"
+msgstr "_Rodymas"
+
+#: ../src/bar.c:300
+msgid "_Go"
+msgstr "_Eiti"
+
+#: ../src/bar.c:302
 msgid "_Help"
 msgstr "Ž_inynas"
 
-#: ../src/bar.c:234
+#: ../src/bar.c:303
 msgid "_About"
 msgstr "_Apie"
 
-#: ../src/bar.c:234
+#: ../src/bar.c:303
 msgid "About"
 msgstr "Apie"
 
 #.
 #. * Following items are on toolbar but not on menu
 #.
-#: ../src/bar.c:240
+#: ../src/bar.c:309
 msgid "Stop the current action"
 msgstr "Sustabdyti dabartinį veiksmą"
 
 #.
 #. * Popup menu's Actions
 #.
-#: ../src/bar.c:246
+#: ../src/bar.c:315
 msgid "_File Operations"
 msgstr "_Failų operacijos"
 
-#: ../src/bar.c:251
+#: ../src/bar.c:316
+msgid "S_canner"
+msgstr "_Skeneris"
+
+#: ../src/bar.c:320
 msgid "CDDB Search Files…"
 msgstr "CDDB failų paieška…"
 
-#: ../src/bar.c:251
+#: ../src/bar.c:320
 msgid "CDDB search files…"
 msgstr "CDDB failų paieška…"
 
 #. { AM_ARTIST_OPEN_FILE_WITH,     GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
 #. { AM_ALBUM_OPEN_FILE_WITH,      GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
-#: ../src/bar.c:255
+#: ../src/bar.c:324
 msgid "Clear log"
 msgstr "Išvalyti žurnalą"
 
 #. { AM_BROWSE_SUBDIR,      GTK_STOCK_INDEX,        _("Browse _Subdirectories"),                         NULL, _("Browse _Sub-directories"),                         NULL,                                    FALSE },
-#: ../src/bar.c:262
+#: ../src/bar.c:331
 msgid "Browse _Subdirectories"
 msgstr "Naršyti _poaplankius"
 
-#: ../src/bar.c:262
+#: ../src/bar.c:331
 msgid "Browse subdirectories"
 msgstr "Naršyti poaplankius"
 
-#: ../src/bar.c:266
+#: ../src/bar.c:335
 msgid "Show Hidden Directories"
 msgstr "Rodyti paslėptus aplankus"
 
-#: ../src/bar.c:266
+#: ../src/bar.c:335
 msgid "Show hidden directories"
 msgstr "Rodyti paslėptus aplankus"
 
-#: ../src/bar.c:272
-#| msgid "File Browser"
-msgid "Tree Browser View"
-msgstr "Naršyklės medžio vaizdas"
+#: ../src/bar.c:337
+#| msgid "Scanner"
+msgid "_Show Scanner"
+msgstr "_Rodyti skenerį"
 
-#: ../src/bar.c:273
-#| msgid "Use directory name"
+#: ../src/bar.c:338
+#| msgid "Scanner"
+msgid "Show scanner"
+msgstr "Rodyti skenerį"
+
+#: ../src/bar.c:344
+#| msgid "Tree Browser View"
+msgid "Tree Browser"
+msgstr "Medžio naršyklė"
+
+#: ../src/bar.c:345
 msgid "View by directory tree"
 msgstr "Rodyti katalogų medį"
 
-#: ../src/bar.c:275
+#: ../src/bar.c:347
 #| msgid "Artist & Album"
-msgid "Artist and Album View"
-msgstr "Atlikėjo ir albumo vaizdas"
+msgid "Artist and Album"
+msgstr "Atlikėjas ir albumas"
 
-#: ../src/bar.c:276
+#: ../src/bar.c:348
 msgid "View by artist and album"
 msgstr "Rodyti pagal atlikėją ir albumą"
 
-#: ../src/bar.c:318
+#: ../src/bar.c:353
+msgid "_Fill Tags…"
+msgstr "_Užpildyti žymas…"
+
+#: ../src/bar.c:354
+msgid "Fill tags"
+msgstr "Užpildyti žymas"
+
+#: ../src/bar.c:356
+msgid "_Rename Files and Directories…"
+msgstr "_Pervadinti failus ir aplankus…"
+
+#: ../src/bar.c:357
+msgid "Rename files and directories"
+msgstr "Pervadinti failus ir aplankus"
+
+#: ../src/bar.c:359
+msgid "_Process Fields…"
+msgstr "_Apdoroti laukus…"
+
+#: ../src/bar.c:359 ../src/scan.c:183
+msgid "Process Fields"
+msgstr "Apdoroti laukelius"
+
+#: ../src/bar.c:416
 #, c-format
 msgid "Could not merge UI, error was: %s\n"
 msgstr "Sulieti UI nepavyko, įvyko klaida: %s\n"
 
-#: ../src/bar.c:419
-#| msgid "Ready to start…"
+#: ../src/bar.c:522
 msgid "Ready to start"
 msgstr "Pasiruošęs paleidimui"
 
-#: ../src/browser.c:353
+#: ../src/browser.c:369
 msgid "New default path for files selected"
 msgstr "Naujas numatytasis kelias pasirinktiems failams"
 
-#: ../src/browser.c:753 ../src/easytag.c:4922
+#: ../src/browser.c:670 ../src/easytag.c:4543
 msgid "Some files have been modified but not saved"
 msgstr "Kai kurie failai buvo pakeisti bet neįrašyti"
 
-#: ../src/browser.c:754
+#: ../src/browser.c:671
 msgid "Do you want to save them before changing the directory?"
 msgstr "Ar norite juos įrašyti prieš pakeisdami aplanką?"
 
-#: ../src/browser.c:756
+#: ../src/browser.c:675
 msgid "Confirm Directory Change"
 msgstr "Patvirtinkite aplanko pakeitimą"
 
-#: ../src/browser.c:2141
+#: ../src/browser.c:2105
 msgid "<All albums>"
 msgstr "<Visi albumai>"
 
-#: ../src/browser.c:2582
+#: ../src/browser.c:2550
 #, c-format
 msgid "Error: Searching for %s, could not find node %s in tree."
 msgstr "Klaida: ieškant „%s“ medyje nerastas %s"
 
-#: ../src/browser.c:3030 ../src/browser.c:3124
+#: ../src/browser.c:3042 ../src/browser.c:3120
 msgid "Tree"
 msgstr "Medis"
 
-#: ../src/browser.c:3031 ../src/cddb.c:732 ../src/misc.c:1931
-#| msgid "File Name"
+#: ../src/browser.c:3043 ../src/cddb.c:716 ../src/misc.c:1915
 msgid "Filename"
 msgstr "Failo pavadinimas"
 
-#: ../src/browser.c:3031 ../src/cddb.c:733 ../src/misc.c:1932
-#: ../src/prefs.c:647
+#: ../src/browser.c:3043 ../src/cddb.c:717 ../src/misc.c:1916
+#: ../src/prefs.c:609
 msgid "Title"
 msgstr "Pavadinimas"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Artist".
-#: ../src/browser.c:3032 ../src/browser.c:3039 ../src/cddb.c:415
-#: ../src/cddb.c:734 ../src/misc.c:1933 ../src/prefs.c:648
+#: ../src/browser.c:3044 ../src/browser.c:3051 ../src/cddb.c:396
+#: ../src/cddb.c:718 ../src/misc.c:1917 ../src/prefs.c:610
 msgid "Artist"
 msgstr "Atlikėjas"
 
-#: ../src/browser.c:3032 ../src/misc.c:1934
+#: ../src/browser.c:3044 ../src/misc.c:1918
 msgid "Album Artist"
 msgstr "Albumo atlikėjas"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Album".
-#: ../src/browser.c:3033 ../src/browser.c:3041 ../src/cddb.c:418
-#: ../src/cddb.c:735 ../src/misc.c:1935 ../src/prefs.c:649
+#: ../src/browser.c:3045 ../src/browser.c:3053 ../src/cddb.c:399
+#: ../src/cddb.c:719 ../src/misc.c:1919 ../src/prefs.c:611
 msgid "Album"
 msgstr "Albumas"
 
-#: ../src/browser.c:3033 ../src/cddb.c:736 ../src/misc.c:1937
+#: ../src/browser.c:3045 ../src/cddb.c:720 ../src/misc.c:1921
 msgid "Year"
 msgstr "Metai"
 
-#: ../src/browser.c:3033
+#: ../src/browser.c:3045
 msgid "Disc"
 msgstr "Diskas"
 
-#: ../src/browser.c:3034 ../src/misc.c:1938
+#: ../src/browser.c:3046 ../src/misc.c:1922
 msgid "Track"
 msgstr "Takelis"
 
-#: ../src/browser.c:3034 ../src/cddb.c:739 ../src/misc.c:1939
-#: ../src/prefs.c:650
+#: ../src/browser.c:3046 ../src/cddb.c:723 ../src/misc.c:1923
+#: ../src/prefs.c:612
 msgid "Genre"
 msgstr "Žanras"
 
-#: ../src/browser.c:3035 ../src/misc.c:1940 ../src/prefs.c:651
+#: ../src/browser.c:3047 ../src/misc.c:1924 ../src/prefs.c:613
 msgid "Comment"
 msgstr "Komentaras"
 
-#: ../src/browser.c:3035 ../src/misc.c:1941 ../src/picture.c:819
-#: ../src/prefs.c:652
+#: ../src/browser.c:3047 ../src/misc.c:1925 ../src/picture.c:845
+#: ../src/prefs.c:614
 msgid "Composer"
 msgstr "Kompozitorius"
 
-#: ../src/browser.c:3036 ../src/misc.c:1942
+#: ../src/browser.c:3048 ../src/misc.c:1926
 msgid "Original Artist"
 msgstr "Originalus atlikėjas"
 
-#: ../src/browser.c:3037 ../src/misc.c:1943
+#: ../src/browser.c:3049 ../src/misc.c:1927
 msgid "Copyright"
 msgstr "Autorinės teisės"
 
-#: ../src/browser.c:3037 ../src/misc.c:1944
+#: ../src/browser.c:3049 ../src/misc.c:1928
 msgid "URL"
 msgstr "URL"
 
-#: ../src/browser.c:3038 ../src/misc.c:1945
+#: ../src/browser.c:3050 ../src/misc.c:1929
 msgid "Encoded By"
 msgstr "Kodavo"
 
-#: ../src/browser.c:3039
+#: ../src/browser.c:3051
 msgid "# Albums"
 msgstr "# Albumai"
 
-#: ../src/browser.c:3040 ../src/browser.c:3041
+#: ../src/browser.c:3052 ../src/browser.c:3053
 msgid "# Files"
 msgstr "# Failai"
 
-#: ../src/browser.c:3064
-msgid "Go to parent directory"
-msgstr "Eiti į aukštesnį aplanką"
-
-#: ../src/browser.c:3082
+#: ../src/browser.c:3078
 msgid "Enter a directory to browse."
 msgstr "Įveskite kurį aplanką naršyti."
 
-#: ../src/browser.c:3091
+#: ../src/browser.c:3087
 msgid "Select a directory to browse."
 msgstr "Pasirinkite kurį aplanką naršyti."
 
@@ -833,32 +860,33 @@ msgstr "Pasirinkite kurį aplanką naršyti."
 #. * The label for displaying number of files in path (without subdirs)
 #.
 #. Translators: No files, as in "0 files".
-#: ../src/browser.c:3098 ../src/easytag.c:3705
+#: ../src/browser.c:3094 ../src/easytag.c:3419
 msgid "No files"
 msgstr "Nėra failų"
 
-#: ../src/browser.c:3175
+#: ../src/browser.c:3172
 msgid "Artist & Album"
 msgstr "Atlikėjas ir albumas"
 
-#: ../src/browser.c:3482
-msgid "Rename the directory"
+#. Only directories changed
+#: ../src/browser.c:3537 ../src/easytag.c:2837
+msgid "Rename Directory"
 msgstr "Pervadinti aplanką"
 
-#: ../src/browser.c:3498
+#: ../src/browser.c:3559
 #, c-format
 msgid "Rename the directory '%s' to:"
 msgstr "Pervadinti aplanką „%s“ į:"
 
-#: ../src/browser.c:3517 ../src/misc.c:1276
+#: ../src/browser.c:3578 ../src/misc.c:1179
 msgid "Use mask:"
 msgstr "Naudoti kaukę:"
 
-#: ../src/browser.c:3520
+#: ../src/browser.c:3581
 msgid "If activated, it will use masks to rename directory."
 msgstr "Jei aktyvuota, aplanko pervadinimui bus naudojami šablonai...."
 
-#: ../src/browser.c:3538
+#: ../src/browser.c:3599
 msgid ""
 "Select or type in a mask using codes (see Legend in Scanner Window) to "
 "rename the directory from tag fields."
@@ -866,153 +894,155 @@ msgstr ""
 "Norėdami pervadinti aplanką naudodami informaciją iš žymių laukelių "
 "pasirinkite arba įveskite šablono kodą (žiūrėkite legendą skenerio lange)."
 
-#: ../src/browser.c:3558 ../src/misc.c:1297 ../src/misc.c:1396
-#: ../src/scan.c:2486 ../src/scan.c:2556 ../src/scan.c:2917
-msgid "Invalid Scanner Mask"
-msgstr "Netinkamas skenerio šablonas"
-
 #. Preview label
-#: ../src/browser.c:3564
-#| msgid "Rename directory preview…"
+#: ../src/browser.c:3623
 msgid "Rename directory preview"
 msgstr "Pervadinamo aplanko peržiūra"
 
-#: ../src/browser.c:3687
+#: ../src/browser.c:3716
 msgid "You must type a directory name"
 msgstr "Turite nurodyti aplanko pavadinimą"
 
-#: ../src/browser.c:3688 ../src/browser.c:3709
+#: ../src/browser.c:3717 ../src/browser.c:3738
 msgid "Directory Name Error"
 msgstr "Aplanko pavadinimo klaida"
 
-#: ../src/browser.c:3706
+#: ../src/browser.c:3735
 #, c-format
 msgid "Could not convert '%s' into filename encoding."
 msgstr "Nepavyko konvertuoti „%s“ į failo pavadinimo koduotę."
 
-#: ../src/browser.c:3708
+#: ../src/browser.c:3737
 msgid "Please use another name"
 msgstr "Naudokite kitą pavadinimą"
 
-#: ../src/browser.c:3778
+#: ../src/browser.c:3807
 #, c-format
 msgid "The directory name '%s' already exists"
 msgstr "Aplankas „%s“ jau yra"
 
-#: ../src/browser.c:3779 ../src/easytag.c:3077 ../src/easytag.c:3118
-#: ../src/easytag.c:3145 ../src/easytag.c:3188 ../src/easytag.c:3367
+#: ../src/browser.c:3808 ../src/easytag.c:2920
 msgid "Rename File Error"
 msgstr "Failo pervadinimo klaida"
 
-#: ../src/browser.c:3818 ../src/browser.c:3848
+#: ../src/browser.c:3847 ../src/browser.c:3877
 msgid "Rename Directory Error"
 msgstr "Aplanko pervadinimo klaida"
 
-#: ../src/browser.c:3888
+#: ../src/browser.c:3917
 msgid "Directory renamed"
 msgstr "Aplankas pervadintas"
 
-#: ../src/browser.c:3965 ../src/browser.c:4125
+#: ../src/browser.c:3953
+#| msgid "Browse Directory with…"
+msgid "Browse Directory With"
+msgstr "Naršyti aplanką su"
+
+#: ../src/browser.c:3969 ../src/browser.c:4095
 msgid "Program to run:"
 msgstr "Paleisti programą:"
 
-#: ../src/browser.c:3978
+#: ../src/browser.c:3981
 msgid ""
 "Enter the program to run. It will receive the current directory as parameter."
 msgstr ""
 "Pasirinkite kurią programą vykdyti. JI kaip parametrą gaus esamą aplanką."
 
-#: ../src/browser.c:4108
-msgid "Open File with…"
-msgstr "Atverti failą su…"
+#: ../src/browser.c:4075
+#| msgid "Open Files With…"
+msgid "Open Files With"
+msgstr "Atverti failus su"
 
-#: ../src/browser.c:4138
+#: ../src/browser.c:4107
 msgid ""
 "Enter the program to run. It will receive the current file as parameter."
 msgstr ""
 "Pasirinkite kurią programą vykdyti. JI kaip parametrą gaus esamą failą."
 
-#: ../src/browser.c:4299
+#: ../src/browser.c:4233
 msgid "You must type a program name"
 msgstr "Turite nurodyti programą"
 
-#: ../src/browser.c:4300 ../src/browser.c:4317
+#: ../src/browser.c:4234 ../src/browser.c:4251
 msgid "Program Name Error"
 msgstr "Programos pavadinimo klaida"
 
-#: ../src/browser.c:4315 ../src/misc.c:876
+#: ../src/browser.c:4249 ../src/misc.c:791
 #, c-format
 msgid "The program '%s' cannot be found"
 msgstr "Programa „%s“ nerasta"
 
-#: ../src/browser.c:4363 ../src/misc.c:921
+#: ../src/browser.c:4297 ../src/misc.c:833
 #, c-format
 msgid "Cannot execute %s (error %d)\n"
 msgstr "Įvykdyti %s nepavyko (klaida %d)!\n"
 
-#: ../src/browser.c:4382
+#: ../src/browser.c:4316
 msgid "Cannot fork another process\n"
 msgstr "Nepavyko paleisti kito proceso\n"
 
-#: ../src/browser.c:4417
+#: ../src/browser.c:4350
 #, c-format
-#| msgid "Executed command: '%s %s'"
 msgid "Executed command: %s"
 msgstr "Vykdyta komanda: %s"
 
-#: ../src/cddb.c:229
+#: ../src/cddb.c:226
 msgid "Artist / Album"
 msgstr "Atlikėjas / Albumas"
 
-#: ../src/cddb.c:229
+#: ../src/cddb.c:226
 msgid "Category"
 msgstr "Kategorija"
 
 #. Note: don't set "" instead of NULL else this will cause problem with translation language
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Track Name".
-#: ../src/cddb.c:230 ../src/cddb.c:421
+#: ../src/cddb.c:227 ../src/cddb.c:402
 msgid "Track Name"
 msgstr "Takelio pavadinimas"
 
-#: ../src/cddb.c:230
+#: ../src/cddb.c:227
 msgid "Duration"
 msgstr "Trukmė"
 
-#: ../src/cddb.c:241
-msgid "CD Database Search"
-msgstr "CD duomenų bazės paieška"
+#: ../src/cddb.c:239
+#| msgid "CDDB search"
+msgid "CDDB Search"
+msgstr "CDDB paieška"
 
 #.
 #. * 1 - Page for automatic search (generate the CDDBId from files)
 #.
-#: ../src/cddb.c:273
+#: ../src/cddb.c:259
 msgid "Automatic Search"
 msgstr "Automatinė paieška"
 
-#: ../src/cddb.c:285
-msgid "Request CD database:"
-msgstr "CD duomenų bazės užklausa:"
+#: ../src/cddb.c:269
+#| msgid "Request CD database:"
+msgid "Request CDDB"
+msgstr "CDDB užklausa"
 
-#: ../src/cddb.c:295
+#: ../src/cddb.c:279
+#| msgid ""
+#| "Request automatically the CDDB database using the selected files (the "
+#| "order is important) to generate the CddbID"
 msgid ""
-"Request automatically the CDDB database using the selected files (the order "
-"is important) to generate the CddbID"
+"Request automatically the CDDB using the selected files (the order is "
+"important) to generate the CddbID"
 msgstr ""
 "Automatiškai užklausti CDDB naudojant pasirinktus failus (eiliškumas "
 "svarbus) ir sugeneruoti CddbID"
 
-#: ../src/cddb.c:306 ../src/cddb.c:389
-#| msgid "Stop the search…"
+#: ../src/cddb.c:290 ../src/cddb.c:370
 msgid "Stop the search"
 msgstr "Stabdyti paiešką"
 
 #. Check box to run the scanner
-#: ../src/cddb.c:313
+#: ../src/cddb.c:297
 msgid "Use local CDDB"
 msgstr "Naudoti vietinę CDDB"
 
-#: ../src/cddb.c:316 ../src/cddb.c:779
+#: ../src/cddb.c:300 ../src/cddb.c:763
 msgid ""
 "When activating this option, after loading the fields, the current selected "
 "scanner will be ran (the scanner window must be opened)."
@@ -1023,162 +1053,162 @@ msgstr ""
 #.
 #. * 2 - Page for manual search
 #.
-#: ../src/cddb.c:333
+#: ../src/cddb.c:317
 msgid "Manual Search"
 msgstr "Rankinė paieška"
 
-#: ../src/cddb.c:348
+#: ../src/cddb.c:329
 msgid "Words:"
 msgstr "Žodžiai:"
 
-#: ../src/cddb.c:361
+#: ../src/cddb.c:342
 msgid "Enter the words to search (separated by a space or '+')"
 msgstr "Įveskite paieškos žodžius (atskirtus tarpu arba „+“)"
 
 #.
 #. * Search options
 #.
-#: ../src/cddb.c:401
+#: ../src/cddb.c:382
 msgid "Search In:"
 msgstr "Kur ieškoti:"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "All fields".
-#: ../src/cddb.c:411
+#: ../src/cddb.c:392
 msgid "All Fields"
 msgstr "Visi laukai"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Other".
-#: ../src/cddb.c:424 ../src/picture.c:797 ../src/prefs.c:826
+#: ../src/cddb.c:405 ../src/picture.c:823 ../src/prefs.c:773
 msgid "Other"
 msgstr "Kita"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "All Categories".
-#: ../src/cddb.c:448
+#: ../src/cddb.c:429
 msgid "All Categories"
 msgstr "Visos kategorijos"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Blues".
-#: ../src/cddb.c:452
+#: ../src/cddb.c:433
 msgid "Blues"
 msgstr "Bliuzas"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Classical".
-#: ../src/cddb.c:455
+#: ../src/cddb.c:436
 msgid "Classical"
 msgstr "Klasika"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Country".
-#: ../src/cddb.c:458
+#: ../src/cddb.c:439
 msgid "Country"
 msgstr "Kantri"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Folk".
-#: ../src/cddb.c:461
+#: ../src/cddb.c:442
 msgid "Folk"
 msgstr "Liaudies"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Jazz".
-#: ../src/cddb.c:464
+#: ../src/cddb.c:445
 msgid "Jazz"
 msgstr "Džiazas"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Misc".
-#: ../src/cddb.c:467
+#: ../src/cddb.c:448
 msgid "Misc."
 msgstr "Kita."
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "New age".
-#: ../src/cddb.c:470
+#: ../src/cddb.c:451
 msgid "New Age"
 msgstr "New Age"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Reggae".
-#: ../src/cddb.c:473
+#: ../src/cddb.c:454
 msgid "Reggae"
 msgstr "Regis"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Rock".
-#: ../src/cddb.c:476
+#: ../src/cddb.c:457
 msgid "Rock"
 msgstr "Rokas"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Soundtrack".
-#: ../src/cddb.c:479
+#: ../src/cddb.c:460
 msgid "Soundtrack"
 msgstr "Garso takelis"
 
-#: ../src/cddb.c:519
+#: ../src/cddb.c:500
 msgid "included: funk, soul, rap, pop, industrial, metal, etc."
 msgstr "įeina: funk, soul, rap, pop, industrial, metal, ir t.t."
 
-#: ../src/cddb.c:520
+#: ../src/cddb.c:501
 msgid "movies, shows"
 msgstr "filmai, laidos"
 
-#: ../src/cddb.c:521
+#: ../src/cddb.c:502
 msgid "others that do not fit in the above categories"
 msgstr "kiti, kurie nepatenka į kitas kategorijas"
 
 #. Button to display/hide the categories
-#: ../src/cddb.c:524
+#: ../src/cddb.c:505
 msgid "Categories"
 msgstr "Kategorijos"
 
 #.
 #. * Results command
 #.
-#: ../src/cddb.c:532
+#: ../src/cddb.c:513
 msgid "Results:"
 msgstr "Rezultatai:"
 
-#: ../src/cddb.c:539 ../src/misc.c:1983
+#: ../src/cddb.c:519 ../src/misc.c:1963
 msgid "Search:"
 msgstr "Ieškoti:"
 
-#: ../src/cddb.c:553
+#: ../src/cddb.c:533
 msgid "Enter the words to search in the list below"
 msgstr "Įveskite paieškos frazę"
 
-#: ../src/cddb.c:565
+#: ../src/cddb.c:545
 msgid "Search Next"
 msgstr "Ieškoti kito"
 
-#: ../src/cddb.c:571
+#: ../src/cddb.c:551
 msgid "Search Previous"
 msgstr "Ieškoti ankstesnio"
 
-#: ../src/cddb.c:582
+#: ../src/cddb.c:562
 msgid "Show only red lines (or show all lines) in the 'Artist / Album' list"
 msgstr ""
 "„Atlikėjų/Albumų“ sąraše rodyti tik raudonas eilutes (arba rodyti visas "
 "eilutes)"
 
-#: ../src/cddb.c:588
+#: ../src/cddb.c:568
 msgid "Unselect all lines"
 msgstr "Nepasirinkti jokių eilučių"
 
-#: ../src/cddb.c:594
+#: ../src/cddb.c:574
 msgid "Invert lines selection"
 msgstr "Invertuoti eilučių pasirinkimą"
 
-#: ../src/cddb.c:603
+#: ../src/cddb.c:583
 msgid "Select all lines"
 msgstr "Pasirinkti visas eilutes"
 
-#: ../src/cddb.c:716
+#: ../src/cddb.c:701
 msgid ""
 "Select lines to 'apply' to your files list. All lines will be processed if "
 "no line is selected.\n"
@@ -1191,42 +1221,36 @@ msgstr ""
 #.
 #. * Apply results to fields...
 #.
-#: ../src/cddb.c:723
+#: ../src/cddb.c:708
 msgid "Set Into:"
 msgstr "Nustatyti į:"
 
-#: ../src/cddb.c:730
+#: ../src/cddb.c:714
 msgid "All"
 msgstr "Visas"
 
-#: ../src/cddb.c:737
+#: ../src/cddb.c:721
 msgid "Track #"
 msgstr "Takelio nr."
 
-#: ../src/cddb.c:738
+#: ../src/cddb.c:722
 msgid "# Tracks"
 msgstr "Takelių nr."
 
 #. Check box to run the scanner
-#: ../src/cddb.c:776 ../src/misc.c:3029
+#: ../src/cddb.c:760 ../src/misc.c:2974
 msgid "Run the current scanner for each file"
 msgstr "Dabartinį skenerį vykdyti kiekvienam failui"
 
 #. Check box to use DLM (also used in the preferences window)
-#: ../src/cddb.c:783
+#: ../src/cddb.c:767
 msgid "Match lines with the Levenshtein algorithm"
 msgstr "Atitikti eilutes su Levenšteino(Levenshtein) algoritmu"
 
 #. Doesn't activate it by default because if the new user don't pay attention to it,
 #. it will not understand why the cddb results aren't loaded correctly...
 #. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbUseDLM2),CDDB_USE_DLM);
-#: ../src/cddb.c:788 ../src/prefs.c:1396
-#| msgid ""
-#| "When activating this option, the Levenshtein algorithm (DLM: Damerau-"
-#| "Levenshtein Metric) will be used to match the CDDB title against every "
-#| "file name in the current folder, and to select the best match. This will "
-#| "be used when selecting the corresponding audio file, or applying CDDB "
-#| "results, instead of using directly the position order."
+#: ../src/cddb.c:772 ../src/prefs.c:1328
 msgid ""
 "When activating this option, the Levenshtein algorithm (DLM: Damerau-"
 "Levenshtein Metric) will be used to match the CDDB title against every "
@@ -1240,18 +1264,17 @@ msgstr ""
 "naudojama pasirenkant atitinkamą garso failą ar pritaikant CDDB rezultatus "
 "užuot tiesiogiai naudojant padėties tvarką."
 
-#: ../src/cddb.c:800
+#: ../src/cddb.c:784
 msgid "Load the selected lines or all lines (if no line selected)."
 msgstr ""
 "Įkelti pasirinktas eilutes arba visas eilutes (jei nepasirinkta jokia "
 "eilutė)."
 
-#: ../src/cddb.c:810
-#| msgid "Ready to search…"
+#: ../src/cddb.c:794
 msgid "Ready to search"
 msgstr "Paieškai pasirengta"
 
-#: ../src/cddb.c:1337
+#: ../src/cddb.c:1265
 #, c-format
 msgid ""
 "Album: '%s', artist: '%s', length: '%s', year: '%s', genre: '%s', ID: '%s'"
@@ -1259,53 +1282,59 @@ msgstr ""
 "Albumas: „%s“, atlikėjas: „%s“, trukmė: „%s“, metai: „%s“, žanras: „%s“, ID: "
 "„%s“"
 
-#: ../src/cddb.c:1575
+#: ../src/cddb.c:1495
 #, c-format
 msgid "Resolving host '%s'…"
 msgstr "Atpažįstamas kompiuterio vardas „%s“…"
 
-#: ../src/cddb.c:1583
+#: ../src/cddb.c:1503
 #, c-format
 msgid "Can't resolve host '%s' (%s)."
 msgstr "Atpažinti kompiuterio vardo nepavyko „%s“ (%s)."
 
-#: ../src/cddb.c:1598
+#: ../src/cddb.c:1518
 #, c-format
 msgid "Cannot create a new socket (%s)"
 msgstr "Sukurti naujos jungties nepavyko (%s)"
 
 #. Open connection to the server
-#: ../src/cddb.c:1612
+#: ../src/cddb.c:1532
 #, c-format
 msgid "Connecting to host '%s', port '%d'…"
 msgstr "Jungiamasi prie kompiuterio „%s“, prievadu „%d“…"
 
-#: ../src/cddb.c:1619
+#: ../src/cddb.c:1539
 #, c-format
 msgid "Cannot connect to host '%s' (%s)"
 msgstr "Prisijungti prie kompiuterio „%s“ nepavyko (%s)"
 
-#: ../src/cddb.c:1625
+#: ../src/cddb.c:1545
 #, c-format
 msgid "Connected to host '%s'"
 msgstr "Prisijungta prie „%s“"
 
-#: ../src/cddb.c:1702
+#: ../src/cddb.c:1617
+#, c-format
+#| msgid "Error while writing to file: '%s' (%s)"
+msgid "Error while writing CDDB results to file '%s'"
+msgstr "Klaida rašant CDDB rezultatus į failą „%s“"
+
+#: ../src/cddb.c:1628
 #, c-format
 msgid "Receiving data (%s)…"
 msgstr "Gaunami duomenys (%s)…"
 
-#: ../src/cddb.c:1714
+#: ../src/cddb.c:1640
 #, c-format
 msgid "Error when reading CDDB response (%s)"
 msgstr "Klaida skaitant CDDB atsakymą (%s)"
 
-#: ../src/cddb.c:1721
+#: ../src/cddb.c:1647
 #, c-format
 msgid "Cannot create file '%s' (%s)"
 msgstr "Sukurti failo „%s“ nepavyko (%s)"
 
-#: ../src/cddb.c:1762 ../src/setting.c:1202
+#: ../src/cddb.c:1688 ../src/setting.c:1240
 #, c-format
 msgid "Cannot open file '%s' (%s)"
 msgstr "Atverti failo „%s“ nepavyko (%s)"
@@ -1316,11 +1345,11 @@ msgstr "Atverti failo „%s“ nepavyko (%s)"
 #. Send the request
 #. g_print("Request Cddb_Get_Album_Tracks_List : '%s'\n", cddb_in);
 #. Send the request
-#: ../src/cddb.c:2221 ../src/cddb.c:2550 ../src/cddb.c:3424
+#: ../src/cddb.c:2153 ../src/cddb.c:2482 ../src/cddb.c:3355
 msgid "Sending request…"
 msgstr "Siunčiama užklausa…"
 
-#: ../src/cddb.c:2225 ../src/cddb.c:2554 ../src/cddb.c:3124 ../src/cddb.c:3428
+#: ../src/cddb.c:2157 ../src/cddb.c:2486 ../src/cddb.c:3055 ../src/cddb.c:3359
 #, c-format
 msgid "Cannot send the request (%s)"
 msgstr "Išsiųsti užklausos nepavyko (%s)"
@@ -1329,26 +1358,26 @@ msgstr "Išsiųsti užklausos nepavyko (%s)"
 #. * Read the answer
 #.
 #. Read the answer
-#: ../src/cddb.c:2251 ../src/cddb.c:3137 ../src/cddb.c:3437
+#: ../src/cddb.c:2183 ../src/cddb.c:3069 ../src/cddb.c:3368
 msgid "Receiving data…"
 msgstr "Gaunami duomenys…"
 
-#: ../src/cddb.c:2258 ../src/cddb.c:2583 ../src/cddb.c:3144 ../src/cddb.c:3444
+#: ../src/cddb.c:2190 ../src/cddb.c:2515 ../src/cddb.c:3076 ../src/cddb.c:3375
 msgid "The server returned a bad response"
 msgstr "Serveris atsiuntė blogą atsakymą"
 
-#: ../src/cddb.c:2272 ../src/cddb.c:2599 ../src/cddb.c:3159 ../src/cddb.c:3461
-#: ../src/cddb.c:3476
+#: ../src/cddb.c:2204 ../src/cddb.c:2531 ../src/cddb.c:3091 ../src/cddb.c:3392
+#: ../src/cddb.c:3407
 #, c-format
 msgid "The server returned a bad response: %s"
 msgstr "Serveris atsiuntė blogą atsakymą: %s"
 
-#: ../src/cddb.c:2419
+#: ../src/cddb.c:2351
 #, c-format
 msgid "Sorry, the web-based search is currently not available"
 msgstr "Atsiprašome, tinklo paieška šiuo metu neveikia"
 
-#: ../src/cddb.c:2421 ../src/cddb.c:2770
+#: ../src/cddb.c:2353 ../src/cddb.c:2702
 #, c-format
 msgid "Found one matching album"
 msgid_plural "Found %d matching albums"
@@ -1356,34 +1385,34 @@ msgstr[0] "Rastas %d atitinkantis albumas"
 msgstr[1] "Rasta %d atitinkantys albumai"
 msgstr[2] "Rasta %d atitinkančių albumų"
 
-#: ../src/cddb.c:2571
+#: ../src/cddb.c:2503
 #, c-format
 msgid "Receiving data of page %d (album %d/%d)…"
 msgstr "Gaunami puslapio %d duomenys (albumas %d/%d)…"
 
-#: ../src/cddb.c:2573
+#: ../src/cddb.c:2505
 #, c-format
 msgid "Receiving data of page %d…"
 msgstr "Gaunami puslapio %d duomenys…"
 
-#: ../src/cddb.c:2737
+#: ../src/cddb.c:2669
 #, c-format
 msgid "More results to load…"
 msgstr "Daugiau rezultatų įkėlimui…"
 
-#: ../src/cddb.c:2866
+#: ../src/cddb.c:2798
 #, c-format
 msgid "No file selected"
 msgstr "Nepasirinktas failas"
 
 #. The CD redbook standard defines the maximum number of tracks as 99, any
 #. queries with more than 99 tracks will never return a result.
-#: ../src/cddb.c:2874
+#: ../src/cddb.c:2806
 #, c-format
 msgid "More than 99 files selected. Cannot send request"
 msgstr "Pasirinkti daugiau nei 99 failai. Neįmanoma išsiųsti užklausos"
 
-#: ../src/cddb.c:2880
+#: ../src/cddb.c:2812
 #, c-format
 msgid "One file selected"
 msgid_plural "%d files selected"
@@ -1391,28 +1420,27 @@ msgstr[0] "Pasirinktas %d failas"
 msgstr[1] "Pasirinkti %d failai"
 msgstr[2] "Pasirinkta %d failų"
 
-#: ../src/cddb.c:2964
+#: ../src/cddb.c:2895
 msgid "The path for 'Local CD Database' was not defined"
 msgstr "Nenurodytas kelias iki vietinės CD duomenų bazės"
 
 #. Translators: 'it' in this sentence refers to the local CD
 #. * database path.
-#: ../src/cddb.c:2967
+#: ../src/cddb.c:2898
 msgid "Enter it in the preferences window before using this search."
 msgstr "Prieš pradedant paiešką nustatymuose nustatykite šį kelią."
 
-#: ../src/cddb.c:2969
-#| msgid "Local CD search…"
+#: ../src/cddb.c:2900
 msgid "Local CD search"
 msgstr "Vietinių CD paieška"
 
 #. g_print("Request Cddb_Search_Album_From_Selected_Files : '%s'\n", cddb_in);
-#: ../src/cddb.c:3114
+#: ../src/cddb.c:3045
 #, c-format
 msgid "Sending request (CddbId: %s, #tracks: %d, Disc length: %d)…"
 msgstr "Siunčiama užklausa (CddbId: %s, #tracks: %d, Disc length: %d)…"
 
-#: ../src/cddb.c:3270
+#: ../src/cddb.c:3202
 #, c-format
 msgid "DiscID '%s' gave one matching album"
 msgid_plural "DiscID '%s' gave %d matching albums"
@@ -1420,171 +1448,170 @@ msgstr[0] "DiscID „%s“ grąžino %d atitinkantį albumą"
 msgstr[1] "DiscID „%s“ grąžino %d atitinkančius albumus"
 msgstr[2] "DiscID „%s“ grąžino %d atitinkančių albumų"
 
-#: ../src/cddb.c:3368
+#: ../src/cddb.c:3299
 #, c-format
 msgid "Can't load file: '%s' (%s)."
 msgstr "Įkelti failo nepavyko: „%s“ (%s)."
 
 #. Load the track list of the album
-#: ../src/cddb.c:3667
+#: ../src/cddb.c:3598
 msgid "Loading album track list…"
 msgstr "Įkeliamas albumo takelių sąrašas…"
 
-#: ../src/cddb.c:3870
+#: ../src/cddb.c:3797
 msgid "The number of CDDB results does not match the number of selected files"
 msgstr "CDDB rezultatų skaičius neatitinka pasirinktų failų skaičiaus"
 
-#: ../src/cddb.c:3874
-#| msgid "Write Tag from CDDB…"
+#: ../src/cddb.c:3801
 msgid "Write Tag from CDDB"
 msgstr "Įrašyti žymą iš CDDB"
 
-#: ../src/charset.c:49
+#: ../src/charset.c:47
 msgid "Arabic (IBM-864)"
 msgstr "Arabų (IBM-864)"
 
-#: ../src/charset.c:50
+#: ../src/charset.c:48
 msgid "Arabic (ISO-8859-6)"
 msgstr "Arabų (ISO-8859-6)"
 
-#: ../src/charset.c:51
+#: ../src/charset.c:49
 msgid "Arabic (Windows-1256)"
 msgstr "Arabų (Windows-1256)"
 
-#: ../src/charset.c:52
+#: ../src/charset.c:50
 msgid "Baltic (ISO-8859-13)"
 msgstr "Baltų (ISO-8859-13)"
 
-#: ../src/charset.c:53
+#: ../src/charset.c:51
 msgid "Baltic (ISO-8859-4)"
 msgstr "Baltų (ISO-8859-4)"
 
-#: ../src/charset.c:54
+#: ../src/charset.c:52
 msgid "Baltic (Windows-1257)"
 msgstr "Baltų (Windows-1257)"
 
-#: ../src/charset.c:55
+#: ../src/charset.c:53
 msgid "Celtic (ISO-8859-14)"
 msgstr "Keltų (ISO-8859-14)"
 
-#: ../src/charset.c:56
+#: ../src/charset.c:54
 msgid "Central European (IBM-852)"
 msgstr "Centrinės Europos (IBM-852)"
 
-#: ../src/charset.c:57
+#: ../src/charset.c:55
 msgid "Central European (ISO-8859-2)"
 msgstr "Centrinės Europos (ISO-8859-2)"
 
-#: ../src/charset.c:58
+#: ../src/charset.c:56
 msgid "Central European (Windows-1250)"
 msgstr "Centrinės Europos (Windows-1250)"
 
-#: ../src/charset.c:59
+#: ../src/charset.c:57
 msgid "Chinese Simplified (GB18030)"
 msgstr "Kinų supaprastinta (GB18030)"
 
-#: ../src/charset.c:60
+#: ../src/charset.c:58
 msgid "Chinese Simplified (GB2312)"
 msgstr "Kinų supaprastinta (GB2312)"
 
-#: ../src/charset.c:61
+#: ../src/charset.c:59
 msgid "Chinese Traditional (Big5)"
 msgstr "Kinų tradicinė (Big5)"
 
-#: ../src/charset.c:62
+#: ../src/charset.c:60
 msgid "Chinese Traditional (Big5-HKSCS)"
 msgstr "Kinų tradicinė (Big5-HKSCS)"
 
-#: ../src/charset.c:63
+#: ../src/charset.c:61
 msgid "Cyrillic (IBM-855)"
 msgstr "Kirilica (IBM-855)"
 
-#: ../src/charset.c:64
+#: ../src/charset.c:62
 msgid "Cyrillic (ISO-8859-5)"
 msgstr "Kirilica (ISO-8859-5)"
 
-#: ../src/charset.c:65
+#: ../src/charset.c:63
 msgid "Cyrillic (ISO-IR-111)"
 msgstr "Kirilica (ISO-IR-111)"
 
-#: ../src/charset.c:66
+#: ../src/charset.c:64
 msgid "Cyrillic (KOI8-R)"
 msgstr "Kirilica (KOI8-R)"
 
-#: ../src/charset.c:67
+#: ../src/charset.c:65
 msgid "Cyrillic (Windows-1251)"
 msgstr "Kirilica (Windows-1251)"
 
-#: ../src/charset.c:68
+#: ../src/charset.c:66
 msgid "Cyrillic/Russian (CP-866)"
 msgstr "Kirilica/Rusų (CP-866)"
 
-#: ../src/charset.c:69
+#: ../src/charset.c:67
 msgid "Cyrillic/Ukrainian (KOI8-U)"
 msgstr "Kirilica/Ukrainiečių (KOI8-U)"
 
-#: ../src/charset.c:70
+#: ../src/charset.c:68
 msgid "English (US-ASCII)"
 msgstr "Anglų (US-ASCII)"
 
-#: ../src/charset.c:71
+#: ../src/charset.c:69
 msgid "Greek (ISO-8859-7)"
 msgstr "Graikų (ISO-8859-7)"
 
-#: ../src/charset.c:72
+#: ../src/charset.c:70
 msgid "Greek (Windows-1253)"
 msgstr "Graikų (Windows-1253)"
 
-#: ../src/charset.c:73
+#: ../src/charset.c:71
 msgid "Hebrew (IBM-862)"
 msgstr "Hebrajų (IBM-862)"
 
-#: ../src/charset.c:74
+#: ../src/charset.c:72
 msgid "Hebrew (Windows-1255)"
 msgstr "Hebrajų (Windows-1255)"
 
-#: ../src/charset.c:75
+#: ../src/charset.c:73
 msgid "Japanese (EUC-JP)"
 msgstr "Japonų (EUC-JP)"
 
-#: ../src/charset.c:76
+#: ../src/charset.c:74
 msgid "Japanese (ISO-2022-JP)"
 msgstr "Japonų (ISO-2022-JP)"
 
-#: ../src/charset.c:77
+#: ../src/charset.c:75
 msgid "Japanese (Shift_JIS)"
 msgstr "Japonų (Shift_JIS)"
 
-#: ../src/charset.c:78
+#: ../src/charset.c:76
 msgid "Korean (EUC-KR)"
 msgstr "Korėjiečių (EUC-KR)"
 
-#: ../src/charset.c:79
+#: ../src/charset.c:77
 msgid "Nordic (ISO-8859-10)"
 msgstr "Šiaurės Europos (ISO-8859-10)"
 
-#: ../src/charset.c:80
+#: ../src/charset.c:78
 msgid "South European (ISO-8859-3)"
 msgstr "Pietų Europos (ISO-8859-3)"
 
-#: ../src/charset.c:81
+#: ../src/charset.c:79
 msgid "Thai (TIS-620)"
 msgstr "Tajų (TIS-620)"
 
-#: ../src/charset.c:82
+#: ../src/charset.c:80
 msgid "Turkish (IBM-857)"
 msgstr "Turkų (IBM-857)"
 
-#: ../src/charset.c:83
+#: ../src/charset.c:81
 msgid "Turkish (ISO-8859-9)"
 msgstr "Turkų (ISO-8859-9)"
 
-#: ../src/charset.c:84
+#: ../src/charset.c:82
 msgid "Turkish (Windows-1254)"
 msgstr "Turkų (Windows-1254)"
 
 #. {N_("Unicode (UTF-7)"),                   "UTF-7"         },
-#: ../src/charset.c:86
+#: ../src/charset.c:84
 msgid "Unicode (UTF-8)"
 msgstr "Unikodas (UTF-8)"
 
@@ -1592,105 +1619,109 @@ msgstr "Unikodas (UTF-8)"
 #. {N_("Unicode (UTF-16LE)"),                "UTF-16LE"      },
 #. {N_("Unicode (UTF-32BE)"),                "UTF-32BE"      },
 #. {N_("Unicode (UTF-32LE)"),                "UTF-32LE"      },
-#: ../src/charset.c:93
+#: ../src/charset.c:91
 msgid "Vietnamese (VISCII)"
 msgstr "Vietnamiečių (VISCII)"
 
-#: ../src/charset.c:94
+#: ../src/charset.c:92
 msgid "Vietnamese (Windows-1258)"
 msgstr "Vietnamiečių (Windows-1258)"
 
-#: ../src/charset.c:95
+#: ../src/charset.c:93
 msgid "Visual Hebrew (ISO-8859-8)"
 msgstr "Vizualioji hebrajų (ISO-8859-8)"
 
-#: ../src/charset.c:96
+#: ../src/charset.c:94
 msgid "Western (IBM-850)"
 msgstr "Vakarų (IBM-850)"
 
-#: ../src/charset.c:97
+#: ../src/charset.c:95
 msgid "Western (ISO-8859-1)"
 msgstr "Vakarų (ISO-8859-1)"
 
-#: ../src/charset.c:98
+#: ../src/charset.c:96
 msgid "Western (ISO-8859-15)"
 msgstr "Vakarų (ISO-8859-15)"
 
-#: ../src/charset.c:99
+#: ../src/charset.c:97
 msgid "Western (Windows-1252)"
 msgstr "Vakarų (Windows-1252)"
 
-#: ../src/charset.c:515
+#: ../src/charset.c:511
 #, c-format
 msgid "The filename '%s' couldn't be converted into UTF-8 (%s)."
 msgstr "Failo vardo „%s“ konvertuoti į UTF-8 nepavyko (%s)."
 
-#: ../src/charset.c:516 ../src/charset.c:615 ../src/charset.c:679
+#: ../src/charset.c:512 ../src/charset.c:611 ../src/charset.c:674
 msgid "Invalid UTF-8"
 msgstr "Netinkamas UTF-8"
 
-#: ../src/charset.c:614
+#: ../src/charset.c:610
 #, c-format
 msgid ""
 "The UTF-8 string '%s' couldn't be converted into filename encoding (%s)."
 msgstr "Konvertuoti UTF-8 eilutę „%s“ į failo vardo koduotę nepavyko (%s)."
 
-#: ../src/charset.c:678
+#: ../src/charset.c:673
 #, c-format
 msgid "The string '%s' couldn't be converted into UTF-8 (%s)."
 msgstr "Eilutės „%s“ konvertuoti į UTF-8 nepavyko (%s)."
 
-#: ../src/easytag.c:269
-#, c-format
-msgid "Unknown parameter or path '%s'\n"
-msgstr "Nežinomas parametras arba kelias „%s“\n"
-
 #. Starting messages
-#: ../src/easytag.c:308
+#: ../src/easytag.c:181
 #, c-format
 msgid "Starting EasyTAG version %s (PID: %d)…"
 msgstr "Paleidžiama EasyTAG versija %s (Pid: %d)…"
 
-#: ../src/easytag.c:310
+#: ../src/easytag.c:183
 #, c-format
-#| msgid "Currently using libid3tag version %s…"
 msgid "Using libid3tag version %s"
 msgstr "Naudojama libid3tag versija %s"
 
-#: ../src/easytag.c:313
+#: ../src/easytag.c:186
 #, c-format
-#| msgid "Currently using id3lib version %d.%d.%d…"
 msgid "Using id3lib version %d.%d.%d"
 msgstr "Naudojama id3lib versija %d.%d.%d"
 
-#: ../src/easytag.c:319
+#: ../src/easytag.c:192
 #, c-format
 msgid "Variable EASYTAGLANG defined. Setting locale: '%s'"
 msgstr "Kintamasis EASYTAGLANG nustatytas. Nustatoma kalba: „%s“"
 
-#: ../src/easytag.c:321
+#: ../src/easytag.c:194
 #, c-format
 msgid "Setting locale: '%s'"
 msgstr "Nustatoma lokalė: „%s“"
 
-#: ../src/easytag.c:326
+#: ../src/easytag.c:199
 #, c-format
-#| msgid "Currently using locale '%s' (and eventually '%s')…"
 msgid "Currently using locale '%s' (and eventually '%s')"
 msgstr "Naudojama lokalė „%s“ (ir galiausiai „%s“)"
 
-#: ../src/easytag.c:333
+#: ../src/easytag.c:206
 msgid "Unable to create setting directories"
 msgstr "Nepavyko paskirties aplankų sukurti"
+
+#: ../src/easytag.c:423 ../src/et_core.c:582
+#, c-format
+#| msgid "Error while writing to file: '%s' (%s)"
+msgid "Error while querying information for file: '%s' (%s)"
+msgstr "Klaida užklausiant failo informacijos: „%s“ (%s)"
+
+#: ../src/easytag.c:488
+#, c-format
+#| msgid "Cannot open file: '%s'"
+msgid "Cannot open path '%s'"
+msgstr "Nepavyko atverti kelio „%s“"
 
 #.
 #. * Browser
 #.
-#: ../src/easytag.c:483 ../src/prefs.c:139 ../src/prefs.c:140
+#: ../src/easytag.c:594 ../src/prefs.c:138
 msgid "Browser"
 msgstr "Naršyklė"
 
-#: ../src/easytag.c:505 ../src/et_core.c:2728
+#: ../src/easytag.c:616 ../src/et_core.c:2715
 msgid "File"
 msgstr "Failas"
 
@@ -1700,381 +1731,377 @@ msgstr "Failas"
 #. gtk_label_set_text(GTK_LABEL(VersionValueLabel),"");
 #. Version changed to encoder version
 #. Encoder version
-#: ../src/easytag.c:537 ../src/easytag.c:4433 ../src/flac_header.c:236
+#: ../src/easytag.c:648 ../src/easytag.c:4175 ../src/flac_header.c:201
 #: ../src/monkeyaudio_header.c:96 ../src/musepack_header.c:98
-#: ../src/ogg_header.c:230 ../src/wavpack_header.c:72
+#: ../src/ogg_header.c:389 ../src/wavpack_header.c:72
 #, c-format
 msgid "Encoder:"
 msgstr "Kodavimas:"
 
-#: ../src/easytag.c:545
+#: ../src/easytag.c:656
 msgid "Bitrate:"
 msgstr "Bitų dažnis:"
 
 #. Translators: Please try to keep this string as short as possible as it
 #. * is shown in a narrow column.
-#: ../src/easytag.c:555
-msgid "Freq.:"
+#: ../src/easytag.c:666
+#| msgid "Freq.:"
+msgid "Frequency:"
 msgstr "Dažnis:"
 
 #. Mode
-#: ../src/easytag.c:566 ../src/easytag.c:4437 ../src/mpeg_header.c:216
+#: ../src/easytag.c:677 ../src/easytag.c:4179 ../src/mpeg_header.c:216
 msgid "Mode:"
 msgstr "Režimas:"
 
-#: ../src/easytag.c:573
+#: ../src/easytag.c:684
 msgid "Size:"
 msgstr "Dydis:"
 
-#: ../src/easytag.c:580
+#: ../src/easytag.c:691
 msgid "Duration:"
 msgstr "Trukmė:"
 
 #. Main Frame
-#: ../src/easytag.c:626 ../src/et_core.c:2666
+#: ../src/easytag.c:737 ../src/et_core.c:2653
 msgid "Tag"
 msgstr "Žyma"
 
 #.
 #. * 1 - Page for common tag fields
 #.
-#: ../src/easytag.c:648
+#: ../src/easytag.c:759
 msgid "Common"
 msgstr "Bendra"
 
 #. Title
-#: ../src/easytag.c:655
+#: ../src/easytag.c:766
 msgid "Title:"
 msgstr "Pavadinimas:"
 
-#: ../src/easytag.c:670
+#: ../src/easytag.c:780
 msgid "Tag selected files with this title"
 msgstr "Žymėti pasirinktus failus su šiuo pavadinimu"
 
 #. Artist
-#: ../src/easytag.c:675
+#: ../src/easytag.c:785
 msgid "Artist:"
 msgstr "Atlikėjas:"
 
-#: ../src/easytag.c:690
+#: ../src/easytag.c:799
 msgid "Tag selected files with this artist"
 msgstr "Žymėti pasirinktus failus su šiuo atlikėju"
 
 #. Album Artist
-#: ../src/easytag.c:695
+#: ../src/easytag.c:804
 msgid "Album artist:"
 msgstr "Albumo atlikėjas:"
 
-#: ../src/easytag.c:710
+#: ../src/easytag.c:818
 msgid "Tag selected files with this album artist"
 msgstr "Žymėti pasirinktus failus su šiuo albumo atlikėju"
 
 #. Album
-#: ../src/easytag.c:715
+#: ../src/easytag.c:823
 msgid "Album:"
 msgstr "Albumas:"
 
-#: ../src/easytag.c:730
+#: ../src/easytag.c:837
 msgid "Tag selected files with this album name"
 msgstr "Žymėti pasirinktus failus su šiuo albumo pavadinimu"
 
 #. Disc Number
-#: ../src/easytag.c:735
+#: ../src/easytag.c:842
 msgid "CD:"
 msgstr "CD:"
 
-#: ../src/easytag.c:753
+#: ../src/easytag.c:859
 msgid "Tag selected files with this disc number"
 msgstr "Žymėti pasirinktus failus su šiuo disko numeriu"
 
 #. Year
-#: ../src/easytag.c:758
+#: ../src/easytag.c:864
 msgid "Year:"
 msgstr "Metai:"
 
-#: ../src/easytag.c:779
+#: ../src/easytag.c:884
 msgid "Tag selected files with this year"
 msgstr "Žymėti pasirinktus failus su šiais metais"
 
-#: ../src/easytag.c:793
+#: ../src/easytag.c:898
 msgid "Number selected tracks sequentially. Starts at 01 in each subdirectory."
 msgstr "Sunumeruoti pasirinktus takelius. Prasideda 01 kiekviename aplanke."
 
 #. To have enough space to display the icon
 #. To have enough space to display the icon
-#: ../src/easytag.c:802
+#: ../src/easytag.c:907
 msgid "Track #:"
 msgstr "Takelio nr.:"
 
-#: ../src/easytag.c:833
+#: ../src/easytag.c:938
 msgid ""
 "Set the number of files, in the same directory of the displayed file, to the "
 "selected tracks."
 msgstr "Nustatykite failų skaičių tame pačiame aplanke kaip ir rodomas failas."
 
-#: ../src/easytag.c:854
+#: ../src/easytag.c:958
 msgid "Tag selected files with this number of tracks"
 msgstr "Žymėti pasirinktus failus su šiuo takelių numeriu"
 
 #. Genre
-#: ../src/easytag.c:858
+#: ../src/easytag.c:962
 msgid "Genre:"
 msgstr "Žanras:"
 
-#: ../src/easytag.c:887
+#: ../src/easytag.c:990
 msgid "Tag selected files with this genre"
 msgstr "Žymėti pasirinktus failus su šiuo žanru"
 
 #. Comment
-#: ../src/easytag.c:892
+#: ../src/easytag.c:995
 msgid "Comment:"
 msgstr "Komentaras:"
 
-#: ../src/easytag.c:920
+#: ../src/easytag.c:1022
 msgid "Tag selected files with this comment"
 msgstr "Žymėti pasirinktus failus su šiuo komentaru"
 
 #. Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(CommentView));
 #. Composer (name of the composers)
-#: ../src/easytag.c:927
+#: ../src/easytag.c:1029
 msgid "Composer:"
 msgstr "Kompozitorius:"
 
-#: ../src/easytag.c:942
+#: ../src/easytag.c:1043
 msgid "Tag selected files with this composer"
 msgstr "Žymėti pasirinktus failus su šiuo kompozitoriumi"
 
 #. Translators: Original Artist / Performer. Please try to keep this string
 #. * as short as possible, as it must fit into a narrow column.
-#: ../src/easytag.c:949
+#: ../src/easytag.c:1050
 msgid "Orig. artist:"
 msgstr "Orig. atlikėjas:"
 
-#: ../src/easytag.c:964
+#: ../src/easytag.c:1064
 msgid "Tag selected files with this original artist"
 msgstr "Žymėti pasirinktus failus su šiuo originaliu atlikėju"
 
 #. Copyright
-#: ../src/easytag.c:970
+#: ../src/easytag.c:1070
 msgid "Copyright:"
 msgstr "Autorinės teisės:"
 
-#: ../src/easytag.c:985
+#: ../src/easytag.c:1084
 msgid "Tag selected files with this copyright"
 msgstr "Žymėti pasirinktus failus su šiomis autorinėmis teisėmis"
 
 #. URL
-#: ../src/easytag.c:991
+#: ../src/easytag.c:1090
 msgid "URL:"
 msgstr "URL:"
 
-#: ../src/easytag.c:1006
+#: ../src/easytag.c:1104
 msgid "Tag selected files with this URL"
 msgstr "Žymėti pasirinktus failus su šiuo URL"
 
 #. Encoded by
-#: ../src/easytag.c:1012
+#: ../src/easytag.c:1110
 msgid "Encoded by:"
 msgstr "Kodavimas:"
 
-#: ../src/easytag.c:1027
+#: ../src/easytag.c:1124
 msgid "Tag selected files with this encoder name"
 msgstr "Žymėti pasirinktus failus su šiuo kodavimu"
 
 #.
 #. * 2 - Page for extra tag fields
 #.
-#: ../src/easytag.c:1078
+#: ../src/easytag.c:1158 ../src/et_core.c:3070 ../src/et_core.c:3073
 msgid "Images"
 msgstr "Paveikslėliai"
 
-#: ../src/easytag.c:1101
-#| msgid "You can use drag and drop to add picture."
+#: ../src/easytag.c:1182
 msgid "You can use drag and drop to add an image"
 msgstr "Norėdami pridėti paveikslėlį galite atvilkti ir numesti jį"
 
-#: ../src/easytag.c:1148
+#: ../src/easytag.c:1229
 msgid "Add images to the tag"
 msgstr "Pridėti paveikslėlius žymai"
 
-#: ../src/easytag.c:1166
+#: ../src/easytag.c:1247
 msgid "Remove selected images from the tag"
 msgstr "Pašalinti pasirinktus paveikslėlius iš žymos"
 
-#: ../src/easytag.c:1180
-#| msgid "Save the selected pictures on the hard disk."
+#: ../src/easytag.c:1261
 msgid "Save the selected images to files"
 msgstr "Įrašyti pasirinktus paveikslėlius į failus"
 
-#: ../src/easytag.c:1191
+#: ../src/easytag.c:1272
 msgid "Edit image properties"
 msgstr "Keisti paveikslėlio savybes"
 
-#: ../src/easytag.c:1205
-#| msgid "Tag selected files with these pictures"
+#: ../src/easytag.c:1286
 msgid "Tag selected files with these images"
 msgstr "Žymėti pasirinktus failus su šiais paveikslėliais"
 
-#: ../src/easytag.c:1265
+#: ../src/easytag.c:1344
 #, c-format
 msgid "Selected files tagged with title '%s'."
 msgstr "Pasirinkti failai sužymėti su pavadinimu „%s“."
 
-#: ../src/easytag.c:1267
+#: ../src/easytag.c:1346
 msgid "Removed title from selected files."
 msgstr "Iš pasirinktų failų pašalintas pavadinimas."
 
-#: ../src/easytag.c:1284
+#: ../src/easytag.c:1361
 #, c-format
 msgid "Selected files tagged with artist '%s'."
 msgstr "Pasirinkti failai sužymėti su atlikėju „%s“."
 
-#: ../src/easytag.c:1286
+#: ../src/easytag.c:1363
 msgid "Removed artist from selected files."
 msgstr "Iš pasirinktų failų pašalintas atlikėjas."
 
-#: ../src/easytag.c:1303
+#: ../src/easytag.c:1377
 #, c-format
 msgid "Selected files tagged with album artist '%s'."
 msgstr "Pasirinkti failai sužymėti su albumo atlikėju „%s“."
 
-#: ../src/easytag.c:1305
+#: ../src/easytag.c:1379
 msgid "Removed album artist from selected files."
 msgstr "Iš pasirinktų failų pašalintas albumo atlikėjas."
 
-#: ../src/easytag.c:1322
+#: ../src/easytag.c:1394
 #, c-format
 msgid "Selected files tagged with album '%s'."
 msgstr "Pasirinkti failai sužymėti su albumu „%s“."
 
-#: ../src/easytag.c:1324
+#: ../src/easytag.c:1396
 msgid "Removed album name from selected files."
 msgstr "Iš pasirinktų failų pašalintas albumas."
 
-#: ../src/easytag.c:1341
+#: ../src/easytag.c:1411
 #, c-format
 msgid "Selected files tagged with disc number '%s'."
 msgstr "Pasirinkti failai sužymėti su disko numeriu „%s“."
 
-#: ../src/easytag.c:1343
+#: ../src/easytag.c:1413
 msgid "Removed disc number from selected files."
 msgstr "Iš pasirinktų failų pašalintas disko numeris."
 
-#: ../src/easytag.c:1360
+#: ../src/easytag.c:1428
 #, c-format
 msgid "Selected files tagged with year '%s'."
 msgstr "Pasirinkti failai sužymėti su metais „%s“."
 
-#: ../src/easytag.c:1362
+#: ../src/easytag.c:1430
 msgid "Removed year from selected files."
 msgstr "Iš pasirinktų failų pašalinti metai."
 
-#: ../src/easytag.c:1390 ../src/easytag.c:1486
+#: ../src/easytag.c:1456 ../src/easytag.c:1549
 #, c-format
 msgid "Selected files tagged with track like 'xx/%s'."
 msgstr "Pasirinkti failai sužymėti su takeliu „xx/%s“."
 
-#: ../src/easytag.c:1393
+#: ../src/easytag.c:1459
 #, c-format
 msgid "Selected files tagged with track like 'xx'."
 msgstr "Pasirinkti failai sužymėti su takeliu „xx“."
 
-#: ../src/easytag.c:1397 ../src/easytag.c:1489
+#: ../src/easytag.c:1463 ../src/easytag.c:1552
 msgid "Removed track number from selected files."
 msgstr "Iš pasirinktų failų pašalintas takelio numeris."
 
 #. msg = g_strdup_printf(_("All %d tracks numbered sequentially."), ETCore->ETFileSelectionList_Length);
-#: ../src/easytag.c:1455
+#: ../src/easytag.c:1521
 #, c-format
 msgid "Selected tracks numbered sequentially."
 msgstr "Pasirinkti failai sunumeruoti iš eilės."
 
-#: ../src/easytag.c:1507
+#: ../src/easytag.c:1568
 #, c-format
 msgid "Selected files tagged with genre '%s'."
 msgstr "Pasirinkti failai sužymėti su žanru „%s“."
 
-#: ../src/easytag.c:1509
+#: ../src/easytag.c:1570
 msgid "Removed genre from selected files."
 msgstr "Iš pasirinktų failų pašalintas žanras."
 
-#: ../src/easytag.c:1533
+#: ../src/easytag.c:1592
 #, c-format
 msgid "Selected files tagged with comment '%s'."
 msgstr "Pasirinkti failai sužymėti su komentaru „%s“."
 
-#: ../src/easytag.c:1535
+#: ../src/easytag.c:1594
 msgid "Removed comment from selected files."
 msgstr "Iš pasirinktų failų pašalintas komentaras."
 
-#: ../src/easytag.c:1552
+#: ../src/easytag.c:1608
 #, c-format
 msgid "Selected files tagged with composer '%s'."
 msgstr "Pasirinkti failai sužymėti su kompozitoriumi „%s“."
 
-#: ../src/easytag.c:1554
+#: ../src/easytag.c:1610
 msgid "Removed composer from selected files."
 msgstr "Iš pasirinktų failų pašalintas kompozitorius."
 
-#: ../src/easytag.c:1571
+#: ../src/easytag.c:1625
 #, c-format
 msgid "Selected files tagged with original artist '%s'."
 msgstr "Pasirinkti failai sužymėti su originaliu atlikėju „%s“."
 
-#: ../src/easytag.c:1573
+#: ../src/easytag.c:1627
 msgid "Removed original artist from selected files."
 msgstr "Iš pasirinktų failų pašalintas originalus atlikėjas."
 
-#: ../src/easytag.c:1590
+#: ../src/easytag.c:1642
 #, c-format
 msgid "Selected files tagged with copyright '%s'."
 msgstr "Pasirinkti failai sužymėti su autorinėmis teisėmis „%s“."
 
-#: ../src/easytag.c:1592
+#: ../src/easytag.c:1644
 msgid "Removed copyright from selected files."
 msgstr "Iš pasirinktų failų pašalintos autorinės teisės."
 
-#: ../src/easytag.c:1609
+#: ../src/easytag.c:1659
 #, c-format
 msgid "Selected files tagged with URL '%s'."
 msgstr "Pasirinkti failai sužymėti su URL „%s“."
 
-#: ../src/easytag.c:1611
+#: ../src/easytag.c:1661
 msgid "Removed URL from selected files."
 msgstr "Iš pasirinktų failų pašalintas URL."
 
-#: ../src/easytag.c:1628
+#: ../src/easytag.c:1676
 #, c-format
 msgid "Selected files tagged with encoder name '%s'."
 msgstr "Pasirinkti failai sužymėti su kodavimu „%s“."
 
-#: ../src/easytag.c:1630
+#: ../src/easytag.c:1678
 msgid "Removed encoder name from selected files."
 msgstr "Iš pasirinktų failų pašalintas kodavimas."
 
-#: ../src/easytag.c:1665
-#| msgid "Selected files tagged with pictures."
+#: ../src/easytag.c:1710
 msgid "Selected files tagged with images."
 msgstr "Pasirinkti failai sužymėti su paveikslėliais."
 
-#: ../src/easytag.c:1667
-#| msgid "Removed title from selected files."
+#: ../src/easytag.c:1712
 msgid "Removed images from selected files."
 msgstr "Iš pasirinktų failų pašalinti paveikslėliai."
 
-#: ../src/easytag.c:1925
+#: ../src/easytag.c:1993
 msgid "Select Mode and Mask, and redo the same action"
 msgstr "Pasirinkite režimą ir šabloną ir pakartokite tą patį veiksmą"
 
-#: ../src/easytag.c:1980
+#: ../src/easytag.c:2045
 msgid "All tags have been scanned"
 msgstr "Visos žymos nuskaitytos"
 
-#: ../src/easytag.c:2038
+#: ../src/easytag.c:2101
 msgid "All tags have been removed"
 msgstr "Visos žymos pašalintos"
 
-#: ../src/easytag.c:2334
+#: ../src/easytag.c:2391
 #, c-format
 msgid "A file was changed by an external program"
 msgid_plural "%d files were changed by an external program."
@@ -2082,338 +2109,263 @@ msgstr[0] "%d failas buvo pakeistas išorinės programos."
 msgstr[1] "%d failai buvo pakeisti išorinės programos."
 msgstr[2] "%d failų buvo pakeista išorinės programos."
 
-#: ../src/easytag.c:2337
+#: ../src/easytag.c:2396
 msgid "Do you want to continue saving the file?"
 msgstr "Ar norite tęsti failo įrašymą?"
 
-#: ../src/easytag.c:2388 ../src/easytag.c:2409
-#| msgid "Saving files was stopped…"
+#: ../src/easytag.c:2451 ../src/easytag.c:2471
 msgid "Saving files was stopped"
 msgstr "Failų įrašymas sustabdytas"
 
-#: ../src/easytag.c:2411
-#| msgid "All files have been saved…"
+#: ../src/easytag.c:2473
 msgid "All files have been saved"
 msgstr "Visi failai įrašyti"
 
-#: ../src/easytag.c:2562
-#| msgid "Files have been partially deleted…"
+#: ../src/easytag.c:2604
+#, c-format
+#| msgid "Cannot create file '%s' (%s)"
+msgid "Cannot delete file (%s)"
+msgstr "Nepavyko ištrinti failo (%s)"
+
+#: ../src/easytag.c:2624
 msgid "Files have been partially deleted"
 msgstr "Failai buvo iš dalies ištrinti"
 
-#: ../src/easytag.c:2564
-#| msgid "All files have been deleted…"
+#: ../src/easytag.c:2626
 msgid "All files have been deleted"
 msgstr "Visi failai pašalinti"
 
-#: ../src/easytag.c:2680
+#: ../src/easytag.c:2742
 #, c-format
 msgid "Do you want to write the tag of file '%s'?"
 msgstr "Ar norite įrašyti failo „%s“ žymą?"
 
-#: ../src/easytag.c:2682
+#: ../src/easytag.c:2744
 msgid "Confirm Tag Writing"
 msgstr "Patvirtinkite žymos įrašymą"
 
-#: ../src/easytag.c:2687 ../src/easytag.c:2799 ../src/easytag.c:3426
+#: ../src/easytag.c:2749 ../src/easytag.c:2866 ../src/easytag.c:3126
 msgid "Repeat action for the remaining files"
 msgstr "Kartoti veiksmą ir likusiems failams"
 
 #. Directories and filename changed
-#: ../src/easytag.c:2763 ../src/scan.c:180
+#: ../src/easytag.c:2830 ../src/scan.c:182
 msgid "Rename File and Directory"
 msgstr "Pervadinti failą ir aplanką"
 
-#: ../src/easytag.c:2764
+#: ../src/easytag.c:2831
 msgid "File and directory rename confirmation required"
 msgstr "Reikia patvirtinti failo ir aplanko pervadinimą"
 
-#: ../src/easytag.c:2765
+#: ../src/easytag.c:2832
 #, c-format
 msgid "Do you want to rename the file and directory '%s' to '%s'?"
 msgstr "Ar norite pervadinti failą ir aplanką „%s“ į „%s“?"
 
-#. Only directories changed
-#: ../src/easytag.c:2770
-#| msgid "Rename directory"
-msgid "Rename Directory"
-msgstr "Pervadinti aplanką"
-
-#: ../src/easytag.c:2771
+#: ../src/easytag.c:2838
 msgid "Directory rename confirmation required"
 msgstr "Reikia patvirtinti aplanko pervadinimą"
 
-#: ../src/easytag.c:2772
+#: ../src/easytag.c:2839
 #, c-format
 msgid "Do you want to rename the directory '%s' to '%s'?"
 msgstr "Ar norite pervadinti aplanką „%s“ į „%s“?"
 
 #. Only filename changed
-#: ../src/easytag.c:2778
-#| msgid "Rename File…"
+#: ../src/easytag.c:2845
 msgid "Rename File"
 msgstr "Pervadinti failą"
 
-#: ../src/easytag.c:2779
+#: ../src/easytag.c:2846
 msgid "File rename confirmation required"
 msgstr "Reikia patvirtinti failo pervadinimą"
 
-#: ../src/easytag.c:2780
+#: ../src/easytag.c:2847
 #, c-format
 msgid "Do you want to rename the file '%s' to '%s'?"
 msgstr "Ar norite pervadinti failą „%s“ į „%s“?"
 
-#: ../src/easytag.c:2874
-#, c-format
-msgid "Writing tag of '%s'"
-msgstr "Įrašoma „%s“ žyma"
-
-#: ../src/easytag.c:2880
-msgid "Tag(s) written"
-msgstr "Žyma(-os) įrašyta"
-
-#: ../src/easytag.c:2891 ../src/easytag.c:2897
-#, c-format
-msgid "Cannot write tag in file '%s' (%s)"
-msgstr "Faile „%s“ įrašyti žymos nepavyko (%s)"
-
-#: ../src/easytag.c:2910
-#, c-format
-msgid "Cannot write tag in file '%s'"
-msgstr "Įrašyti žymų faile „%s“ nepavyko"
-
 #: ../src/easytag.c:2913
-msgid "Tag Write Error"
-msgstr "Žymų rašymo klaida"
-
-#: ../src/easytag.c:3045
-#, c-format
-msgid "Renaming file '%s'"
-msgstr "Pervadinamas failas „%s“"
-
-#. Renaming file to the temporary filename has failed
-#: ../src/easytag.c:3065
-#, c-format
-msgid "Cannot rename file '%s' to '%s' (%s)"
-msgstr "Nepavyko pervadinti failo „%s“ į „%s“ (%s)"
-
-#: ../src/easytag.c:3073 ../src/easytag.c:3114 ../src/easytag.c:3142
-#: ../src/easytag.c:3363
 #, c-format
 msgid "Cannot rename file '%s' to '%s'"
 msgstr "Nepavyko pervadinti failo „%s“ į „%s“"
 
-#: ../src/easytag.c:3085 ../src/easytag.c:3129 ../src/easytag.c:3155
-#: ../src/easytag.c:3377
-#| msgid "File(s) not renamed…"
-msgid "File(s) not renamed"
-msgstr "Failas(-ai) nepervadinti"
-
-#: ../src/easytag.c:3124 ../src/easytag.c:3373
+#: ../src/easytag.c:2927
 #, c-format
 msgid "Cannot rename file '%s' to '%s': %s"
 msgstr "Nepavyko pervadinti failo „%s“ į „%s“: %s"
 
-#: ../src/easytag.c:3150
+#: ../src/easytag.c:2931
+msgid "File(s) not renamed"
+msgstr "Failas(-ai) nepervadinti"
+
+#: ../src/easytag.c:3040
 #, c-format
-msgid "Cannot rename file '%s' because the following file already exists: '%s'"
-msgstr "Nepavyko pervadinti failo „%s“, nes toks failas jau yra: „%s“"
+msgid "Writing tag of '%s'"
+msgstr "Įrašoma „%s“ žyma"
 
-#: ../src/easytag.c:3185
+#: ../src/easytag.c:3047
+msgid "Tag(s) written"
+msgstr "Žyma(-os) įrašyta"
+
+#: ../src/easytag.c:3062
 #, c-format
-msgid "Cannot create target directory '%s'"
-msgstr "Paskirties aplanko sukurti nepavyko „%s“"
+msgid "Cannot write tag in file '%s' (%s)"
+msgstr "Faile „%s“ įrašyti žymos nepavyko (%s)"
 
-#: ../src/easytag.c:3193
+#: ../src/easytag.c:3075
 #, c-format
-msgid "Cannot create target directory '%s': %s"
-msgstr "Paskirties aplanko sukurti nepavyko „%s“: %s"
+msgid "Cannot write tag in file '%s'"
+msgstr "Įrašyti žymų faile „%s“ nepavyko"
 
-#. Renaming file has succeeded
-#: ../src/easytag.c:3212
-#, c-format
-msgid "Renamed file '%s' to '%s'"
-msgstr "Failas „%s“ pervadintas į „%s“"
+#: ../src/easytag.c:3078
+msgid "Tag Write Error"
+msgstr "Žymų rašymo klaida"
 
-#: ../src/easytag.c:3218
-#| msgid "File(s) renamed…"
-msgid "File(s) renamed"
-msgstr "Failas(-ai) pervadinti"
-
-#: ../src/easytag.c:3234 ../src/easytag.c:3292
-#, c-format
-msgid "Cannot remove old directory '%s'"
-msgstr "Pašalinti seno aplanko nepavyko „%s“"
-
-#: ../src/easytag.c:3237 ../src/easytag.c:3295
-msgid "Remove Directory Error"
-msgstr "Aplanką šalinimo klaida"
-
-#: ../src/easytag.c:3242
-#, c-format
-msgid "Cannot remove old directory '%s': %s"
-msgstr "Pašalinti seno aplanko nepavyko „%s“: %s"
-
-#. Renaming file has succeeded
-#: ../src/easytag.c:3270
-#, c-format
-msgid "Moved file '%s' to '%s'"
-msgstr "Failas „%s“ perkeltas į „%s“"
-
-#: ../src/easytag.c:3276
-#| msgid "File(s) moved…"
-msgid "File(s) moved"
-msgstr "Failas(-ai) perkeltas"
-
-#: ../src/easytag.c:3300
-#, c-format
-msgid "Cannot remove old directory '%s': (%s)"
-msgstr "Pašalinti seno aplanko nepavyko „%s“: (%s)"
-
-#: ../src/easytag.c:3326
-#, c-format
-msgid "Cannot move file '%s' to '%s'"
-msgstr "Nepavyko perkelti failo „%s“ į „%s“"
-
-#: ../src/easytag.c:3330
-msgid "File Move Error"
-msgstr "Failo perkėlimo klaida"
-
-#: ../src/easytag.c:3336
-#, c-format
-msgid "Cannot move file '%s' to '%s': (%s)"
-msgstr "Neįmanoma perkelti failo „%s“ į „%s“: (%s)"
-
-#: ../src/easytag.c:3341
-#| msgid "File(s) not moved…"
-msgid "File(s) not moved"
-msgstr "Failas(-ai) neperkelti"
-
-#: ../src/easytag.c:3423 ../src/easytag.c:3437
+#: ../src/easytag.c:3123 ../src/easytag.c:3137
 #, c-format
 msgid "Do you really want to delete the file '%s'?"
 msgstr "Ar tikrai norite ištrinti failą „%s“?"
 
-#: ../src/easytag.c:3429 ../src/easytag.c:3439
+#: ../src/easytag.c:3129 ../src/easytag.c:3139
 msgid "Delete File"
 msgstr "Ištrinti failą"
 
-#: ../src/easytag.c:3459
+#: ../src/easytag.c:3164
 #, c-format
 msgid "File '%s' deleted"
 msgstr "Failas „%s“ pašalintas"
 
-#: ../src/easytag.c:3598
+#: ../src/easytag.c:3296
 #, c-format
 msgid "Cannot read directory '%s'"
 msgstr "Nepavyko perskaityti aplanko „%s“"
 
-#: ../src/easytag.c:3601
+#: ../src/easytag.c:3300
 msgid "Directory Read Error"
 msgstr "Aplanko skaitymo klaida"
 
 #. Read the directory recursively
-#: ../src/easytag.c:3621
+#: ../src/easytag.c:3321
 #, c-format
 msgid "Search in progress…"
 msgstr "Ieškoma…"
 
-#: ../src/easytag.c:3638 ../src/et_core.c:2735
+#: ../src/easytag.c:3344 ../src/et_core.c:2722
 #, c-format
 msgid "File: '%s'"
 msgstr "Failas: „%s“"
 
-#: ../src/easytag.c:3688
+#: ../src/easytag.c:3394
 #, c-format
-msgid "Found %d file(s) in this directory and subdirectories."
-msgstr "Šiame aplanke ir poaplankiuose rastas %d failas(-ai)."
+#| msgid "Found %d file(s) in this directory and subdirectories."
+msgid "Found one file in this directory and subdirectories"
+msgid_plural "Found %d files in this directory and subdirectories"
+msgstr[0] "Šiame aplanke ir poaplankiuose rastas %d failas."
+msgstr[1] "Šiame aplanke ir poaplankiuose rasti %d failai."
+msgstr[2] "Šiame aplanke ir poaplankiuose rasta %d failų."
 
-#: ../src/easytag.c:3690
+#: ../src/easytag.c:3401
 #, c-format
-msgid "Found %d file(s) in this directory."
-msgstr "Šiame aplanke rastas %d failas(-ai)."
+#| msgid "Found %d file(s) in this directory."
+msgid "Found one file in this directory"
+msgid_plural "Found %d files in this directory"
+msgstr[0] "Šiame aplanke rastas %d failas."
+msgstr[1] "Šiame aplanke rasti %d failai."
+msgstr[2] "Šiame aplanke rasta %d failų."
 
-#: ../src/easytag.c:3709
+#: ../src/easytag.c:3423
 msgid "No file found in this directory and subdirectories"
 msgstr "Šiame aplanke ir poaplankiuose failų nerasta"
 
-#: ../src/easytag.c:3711
+#: ../src/easytag.c:3425
 msgid "No file found in this directory"
 msgstr "Šiame aplanke failų nerasta"
 
-#: ../src/easytag.c:3802
-msgid "Searching…"
-msgstr "Ieškoma…"
+#: ../src/easytag.c:3493
+#, c-format
+#| msgid "Error: Cannot create directory '%s' (%s)"
+msgid "Error opening directory '%s' (%s)"
+msgstr "Klaida atveriant aplanką „%s“ (%s)"
 
-#. Button to stop...
-#: ../src/easytag.c:3822
-msgid "  STOP the search...  "
-msgstr "  Stabdyti paiešką...  "
+#: ../src/easytag.c:3529
+#, c-format
+#| msgid "Cannot read directory '%s'"
+msgid "Cannot read directory (%s)"
+msgstr "Nepavyko perskaityti aplanko (%s)"
 
-#: ../src/easytag.c:4467
+#: ../src/easytag.c:3549
+#| msgid "Search in progress…"
+msgid "Searching for audio files…"
+msgstr "Ieškoma garso failų…"
+
+#: ../src/easytag.c:3550
+#| msgid "Searching…"
+msgid "Searching"
+msgstr "Ieškoma"
+
+#: ../src/easytag.c:4209
 msgid "Select a directory to browse"
 msgstr "Pasirinkite, kurį aplanką naršyti"
 
 #. Menu items
-#: ../src/easytag.c:4614
+#: ../src/easytag.c:4356
 msgid "Tag selected files with this field"
 msgstr "Pažymėti pasirinktus failus su šiuo laukeliu"
 
-#. Group: character conversion
-#: ../src/easytag.c:4626 ../src/scan.c:2681
+#: ../src/easytag.c:4368 ../src/scan.c:2661
 msgid "Convert '_' and '%20' to spaces"
 msgstr "Konvertuoti „_“ ir „%20“ į tarpus"
 
-#: ../src/easytag.c:4633 ../src/scan.c:2682
+#: ../src/easytag.c:4375 ../src/scan.c:2663
 msgid "Convert ' ' to '_'"
 msgstr "Konvertuoti „ “ į „_“"
 
-#. Group: capitalize, ...
-#: ../src/easytag.c:4644 ../src/scan.c:2733
+#: ../src/easytag.c:4386
 msgid "All uppercase"
 msgstr "Visos didžiosios"
 
-#: ../src/easytag.c:4651 ../src/scan.c:2734
+#: ../src/easytag.c:4393
 msgid "All lowercase"
 msgstr "Visos mažosios"
 
-#: ../src/easytag.c:4658 ../src/scan.c:2735
+#: ../src/easytag.c:4400
 msgid "First letter uppercase"
 msgstr "Pirma raidė – didžioji"
 
-#: ../src/easytag.c:4665 ../src/scan.c:2736
+#: ../src/easytag.c:4407
 msgid "First letter uppercase of each word"
 msgstr "Kiekvieno žodžio pirma raidė – didžioji"
 
-#. Group: insert/remove spaces
-#: ../src/easytag.c:4676 ../src/prefs.c:1048 ../src/scan.c:2784
+#: ../src/easytag.c:4418 ../src/prefs.c:989 ../src/scan.c:2761
 msgid "Remove spaces"
 msgstr "Pašalinti tarpus"
 
-#: ../src/easytag.c:4683
+#: ../src/easytag.c:4425
 msgid "Insert space before uppercase letter"
 msgstr "Prieš didžiąją raidę įterpti tarpą"
 
-#: ../src/easytag.c:4690
+#: ../src/easytag.c:4432
 msgid "Remove duplicate spaces or underscores"
 msgstr "Pašalinti dvigubus tarpus ar pabraukimo simbolius"
 
-#: ../src/easytag.c:4697
+#: ../src/easytag.c:4439
 msgid "Remove all text"
 msgstr "Pašalinti visą tekstą"
 
 #. gchar commmand[256];
-#: ../src/easytag.c:4720
+#: ../src/easytag.c:4462
 #, c-format
 msgid "EasyTAG version %s: Abnormal exit (PID: %d)"
 msgstr "EasyTAG versija %s: nenormalus išėjimas (PId: %d)"
 
-#: ../src/easytag.c:4721
+#: ../src/easytag.c:4463 ../src/easytag.c:4474
 #, c-format
-msgid "Received signal %s (%d)"
-msgstr "Gautas signalas %s (%d)"
+#| msgid "Received signal %s (%d)"
+msgid "Received signal '%s' (%d)"
+msgstr "Gautas signalas „%s“ (%d)"
 
-#: ../src/easytag.c:4723 ../src/easytag.c:4733
+#: ../src/easytag.c:4466 ../src/easytag.c:4477
 #, c-format
 msgid ""
 "You have probably found a bug in EasyTAG. Please, file a bug report with a "
@@ -2425,107 +2377,110 @@ msgstr ""
 "tą klaidą adresu: %s"
 
 #. To send messages to the console...
-#: ../src/easytag.c:4729
+#: ../src/easytag.c:4472
 #, c-format
 msgid "EasyTAG version %s: Abnormal exit (PID: %d)."
 msgstr "EasyTAG %s: nenormalus išėjimas (PId: %d)."
 
-#: ../src/easytag.c:4731
-#, c-format
-msgid "Received signal %s (%d)\a"
-msgstr "Gautas signalas %s (%d)\a"
-
-#: ../src/easytag.c:4861
-msgid "Unknown signal"
-msgstr "Nežinomas signalas"
-
-#: ../src/easytag.c:4874
+#: ../src/easytag.c:4496
 msgid "EasyTAG: Normal exit."
 msgstr "EasyTAG: Normalus išėjimas."
 
-#: ../src/easytag.c:4925
+#: ../src/easytag.c:4548
 msgid "Do you want to save them before quitting?"
 msgstr "Ar norite juos įrašyti prieš išeidami?"
 
-#: ../src/easytag.c:4948
+#: ../src/easytag.c:4571
 msgid "Do you really want to quit?"
 msgstr "Ar tikrai norite palikti programą?"
 
-#: ../src/et_core.c:621
+#: ../src/et_core.c:504
+#, c-format
+#| msgid "Error reading tags from file: '%s'"
+msgid "Error reading tag from ogg file (%s)"
+msgstr "Klaida skaitant žymą iš ogg failo (%s)"
+
+#: ../src/et_core.c:638
 #, c-format
 msgid "Automatic corrections applied for file '%s'."
 msgstr "Failui „%s“ pritaikyti automatiniai pataisymai."
 
-#: ../src/et_core.c:2632
+#: ../src/et_core.c:2619
 msgid "ID3 Tag"
 msgstr "ID3 žyma"
 
-#: ../src/et_core.c:2638
+#: ../src/et_core.c:2625
 msgid "Ogg Vorbis Tag"
 msgstr "Ogg Vorbis žyma"
 
-#: ../src/et_core.c:2644
+#: ../src/et_core.c:2631
 msgid "FLAC Vorbis Tag"
 msgstr "FLAC Vorbis žyma"
 
-#: ../src/et_core.c:2649
+#: ../src/et_core.c:2636
 msgid "APE Tag"
 msgstr "APE žyma"
 
-#: ../src/et_core.c:2654
+#: ../src/et_core.c:2641
 msgid "MP4/M4A/AAC Tag"
 msgstr "MP4/M4A/AAC žyma"
 
-#: ../src/et_core.c:2660
+#: ../src/et_core.c:2647
 msgid "Wavpack Tag"
 msgstr "Wavpack žyma"
 
-#: ../src/et_core.c:2680
+#: ../src/et_core.c:2667
 msgid "MP3 File"
 msgstr "MP3 failas"
 
-#: ../src/et_core.c:2684
+#: ../src/et_core.c:2671
 msgid "MP2 File"
 msgstr "MP2 failas"
 
-#: ../src/et_core.c:2690
+#: ../src/et_core.c:2677
 msgid "Ogg Vorbis File"
 msgstr "Ogg Vorbis failas"
 
-#: ../src/et_core.c:2696
+#: ../src/et_core.c:2683
 msgid "Speex File"
 msgstr "Speex failas"
 
-#: ../src/et_core.c:2702
+#: ../src/et_core.c:2689
 msgid "FLAC File"
 msgstr "FLAC failas"
 
-#: ../src/et_core.c:2707
+#: ../src/et_core.c:2694
 msgid "MusePack File"
 msgstr "MusePack failas"
 
-#: ../src/et_core.c:2711
+#: ../src/et_core.c:2698
 msgid "Monkey's Audio File"
 msgstr "Monkey's Audio failas"
 
-#: ../src/et_core.c:2716
+#: ../src/et_core.c:2703
 msgid "MP4/AAC File"
 msgstr "MP4/AAC failas"
 
-#: ../src/et_core.c:2722
+#: ../src/et_core.c:2709
 msgid "Wavpack File"
 msgstr "Wavpack failas"
 
-#: ../src/et_core.c:2774
-msgid "Read-only file"
-msgstr "Failas tik skaitymui"
-
-#: ../src/et_core.c:2780
+#: ../src/et_core.c:2766 ../src/et_core.c:2821
 msgid "File not found"
 msgstr "Failas nerastas"
 
+#: ../src/et_core.c:2771
+#, c-format
+#| msgid "Cannot open file '%s' (%s)"
+msgid "Cannot query file information (%s)"
+msgstr "Nepavyko užklausti failo informacijos (%s)"
+
+#: ../src/et_core.c:2805
+msgid "Read-only file"
+msgstr "Failas tik skaitymui"
+
 #. And refresh the number of files in this directory
-#: ../src/et_core.c:2833
+#: ../src/et_core.c:2869
 #, c-format
 msgid "One file"
 msgid_plural "%u files"
@@ -2533,59 +2488,71 @@ msgstr[0] "%u failas"
 msgstr[1] "%u failai"
 msgstr[2] "%u failų"
 
-#: ../src/et_core.c:3020
+#: ../src/et_core.c:3056
 #, c-format
 msgid "Images (%d)"
 msgstr "Paveikslėliai (%d)"
 
 #. Bitrate
-#: ../src/et_core.c:3060 ../src/flac_header.c:240
-#: ../src/monkeyaudio_header.c:86 ../src/mp4_header.c:135
+#: ../src/et_core.c:3098 ../src/flac_header.c:205
+#: ../src/monkeyaudio_header.c:86 ../src/mp4_header.c:134
 #: ../src/mpeg_header.c:206 ../src/musepack_header.c:88
-#: ../src/ogg_header.c:242 ../src/wavpack_header.c:78
+#: ../src/ogg_header.c:401 ../src/wavpack_header.c:78
 #, c-format
 msgid "%d kb/s"
 msgstr "%d kb/s"
 
 #. Samplerate
-#: ../src/et_core.c:3065 ../src/flac_header.c:245
-#: ../src/monkeyaudio_header.c:91 ../src/mp4_header.c:140
+#: ../src/et_core.c:3103 ../src/flac_header.c:210
+#: ../src/monkeyaudio_header.c:91 ../src/mp4_header.c:139
 #: ../src/mpeg_header.c:211 ../src/musepack_header.c:93
-#: ../src/ogg_header.c:247 ../src/wavpack_header.c:83
+#: ../src/ogg_header.c:406 ../src/wavpack_header.c:83
 #, c-format
 msgid "%d Hz"
 msgstr "%d Hz"
 
-#: ../src/et_core.c:3209 ../src/scan.c:686
+#: ../src/et_core.c:3246 ../src/scan.c:691
 #, c-format
 msgid "Could not convert filename '%s' into system filename encoding"
 msgstr ""
 "Nepavyko konvertuoti failo pavadinimo „%s“ į sistemos failų pavadinimų "
 "koduotę"
 
-#: ../src/et_core.c:3211
+#: ../src/et_core.c:3248
 msgid "Try setting the environment variable G_FILENAME_ENCODING."
 msgstr "Pabandykite nustatyti aplinkos kintamąjį G_FILENAME_ENCODING."
 
-#: ../src/et_core.c:3212 ../src/scan.c:688
+#: ../src/et_core.c:3249 ../src/scan.c:693
 msgid "Filename translation"
 msgstr "Failo vardo vertimas"
+
+#: ../src/et_core.c:3890
+#, c-format
+#| msgid "Cannot create or open file '%s' (%s)"
+msgid "Cannot change the permissions of file '%s' (%s)"
+msgstr "Nepavyko pakeisti failo „%s“ leidimų (%s)"
+
+#: ../src/et_core.c:3928
+#, c-format
+#| msgid "Error while writing to file: '%s' (%s)"
+msgid "Error writing tag type %d to file %s (%s)"
+msgstr "Klaida rašant %d tipo žymą į failą %s (%s)"
 
 #. Mode
 #. Mode
 #. mpeg4ip library seems to always return -1
 #. Mode
-#: ../src/flac_header.c:250 ../src/mp4_header.c:146 ../src/ogg_header.c:252
+#: ../src/flac_header.c:215 ../src/mp4_header.c:145 ../src/ogg_header.c:411
 #: ../src/wavpack_header.c:88
 msgid "Channels:"
 msgstr "Kanalai:"
 
-#: ../src/flac_tag.c:133 ../src/flac_tag.c:852 ../src/flac_tag.c:862
+#: ../src/flac_tag.c:131 ../src/flac_tag.c:828 ../src/flac_tag.c:838
 #, c-format
 msgid "Error while opening file: '%s' as FLAC (%s)."
 msgstr "Klaida atveriant failą: „%s“ kaip FLAC (%s)."
 
-#: ../src/flac_tag.c:320 ../src/ogg_tag.c:297
+#: ../src/flac_tag.c:318 ../src/ogg_tag.c:327
 #, c-format
 msgid ""
 "The year value '%s' seems to be invalid in file '%s'. The information will "
@@ -2594,42 +2561,61 @@ msgstr ""
 "Metų reikšmė „%s“ faile „%s“ yra netinkama. Išsaugant žymę informacija bus "
 "prarasta."
 
-#: ../src/flac_tag.c:1064
+#: ../src/flac_tag.c:1038
 #, c-format
 msgid "Picture block isn't valid: '%s'"
 msgstr "Paveikslėlio blokas netinkamas: „%s“"
 
-#: ../src/flac_tag.c:1097 ../src/ogg_tag.c:830
+#: ../src/flac_tag.c:1071
 #, c-format
 msgid "Error: Failed to write comments to file '%s' (%s)."
 msgstr "Klaida: į failą „%s“ nepavyko įrašyti komentarų(%s)."
 
-#: ../src/flac_tag.c:1102 ../src/ogg_tag.c:837
+#: ../src/flac_tag.c:1076 ../src/ogg_tag.c:915
 #, c-format
 msgid "Written tag of '%s'"
 msgstr "Žyma „%s“ įrašyta"
 
-#: ../src/id3_tag.c:505
+#: ../src/id3_tag.c:158
+#, c-format
+#| msgid "Error while opening file: '%s' (%s)."
+msgid "Error while reading file: '%s' (%s)"
+msgstr "Klaida skaitant failą: „%s“ (%s)"
+
+#: ../src/id3_tag.c:170
+#, c-format
+msgid ""
+"As the following corrupted file '%s' will cause an error in id3lib, it will "
+"not be processed"
+msgstr ""
+"Kadangi failas „%s“ yra sugadintas, tai sukels id3lib klaidą, programa jo "
+"neapdoros"
+
+#: ../src/id3_tag.c:172
+msgid "Corrupted file"
+msgstr "Sugadintas failas"
+
+#: ../src/id3_tag.c:528
 #, c-format
 msgid "Removed tag of '%s'"
 msgstr "„%s“ žyma pašalinta"
 
-#: ../src/id3_tag.c:509 ../src/id3_tag.c:609
+#: ../src/id3_tag.c:532 ../src/id3_tag.c:632
 #, c-format
 msgid "Error while removing ID3v1 tag of '%s' (%s)"
 msgstr "Klaida šalinant „%s“ ID3v1 žymę (%s)"
 
-#: ../src/id3_tag.c:511 ../src/id3_tag.c:581
+#: ../src/id3_tag.c:534 ../src/id3_tag.c:604
 #, c-format
 msgid "Error while removing ID3v2 tag of '%s' (%s)"
 msgstr "Klaida šalinant „%s“ ID3v2 žymę (%s)"
 
-#: ../src/id3_tag.c:530
+#: ../src/id3_tag.c:553
 #, c-format
 msgid "Error while updating ID3v2 tag of '%s' (%s)"
 msgstr "Klaida atnaujinat „%s“ ID3v2 žymę (%s)"
 
-#: ../src/id3_tag.c:558
+#: ../src/id3_tag.c:581
 msgid ""
 "You have tried to save this tag to Unicode but it was detected that your "
 "version of id3lib is buggy"
@@ -2637,7 +2623,7 @@ msgstr ""
 "Bandėte įrašyti šią žymą kaip unikodą, bet buvo aptikta, kad jūsų id3lib "
 "versija yra su klaidomis"
 
-#: ../src/id3_tag.c:560
+#: ../src/id3_tag.c:583
 #, c-format
 msgid ""
 "If you reload this file, some characters in the tag may not be displayed "
@@ -2656,108 +2642,95 @@ msgstr ""
 "\n"
 "Failas: %s"
 
-#: ../src/id3_tag.c:567
+#: ../src/id3_tag.c:590
 msgid "Buggy id3lib"
 msgstr "Klaidinga id3lib"
 
-#: ../src/id3_tag.c:601
+#: ../src/id3_tag.c:624
 #, c-format
 msgid "Error while updating ID3v1 tag of '%s' (%s)"
 msgstr "Klaida atnaujinant ID3v1 „%s“ žymę (%s)"
 
-#: ../src/id3_tag.c:615 ../src/id3v24_tag.c:1034
+#: ../src/id3_tag.c:638 ../src/id3v24_tag.c:1030
 #, c-format
 msgid "Updated tag of '%s'"
 msgstr "Atnaujinta „%s“ žyma"
 
-#: ../src/id3_tag.c:634
+#: ../src/id3_tag.c:657
 msgid "No error reported"
 msgstr "Neaptikta jokių klaidų"
 
-#: ../src/id3_tag.c:636
+#: ../src/id3_tag.c:659
 msgid "No available memory"
 msgstr "Nėra prieinamos atminties"
 
-#: ../src/id3_tag.c:638
+#: ../src/id3_tag.c:661
 msgid "No data to parse"
 msgstr "Nėra duomenų apdrojimui"
 
-#: ../src/id3_tag.c:640
+#: ../src/id3_tag.c:663
 msgid "Improperly formatted data"
 msgstr "Netinkamai suformuoti duomenys"
 
-#: ../src/id3_tag.c:642
+#: ../src/id3_tag.c:665
 msgid "No buffer to write to"
 msgstr "Nėra buferio rašymui"
 
-#: ../src/id3_tag.c:644
+#: ../src/id3_tag.c:667
 msgid "Buffer is too small"
 msgstr "Buferis per mažas"
 
-#: ../src/id3_tag.c:646
+#: ../src/id3_tag.c:669
 msgid "Invalid frame ID"
 msgstr "Netinkamas kadro ID"
 
-#: ../src/id3_tag.c:648
+#: ../src/id3_tag.c:671
 msgid "Requested field not found"
 msgstr "Pageidaujamas laukelis nerastas"
 
-#: ../src/id3_tag.c:650
+#: ../src/id3_tag.c:673
 msgid "Unknown field type"
 msgstr "Nežinomas laukelio tipas"
 
-#: ../src/id3_tag.c:652
+#: ../src/id3_tag.c:675
 msgid "Tag is already attached to a file"
 msgstr "Žyma jau susieta su failu"
 
-#: ../src/id3_tag.c:654
+#: ../src/id3_tag.c:677
 msgid "Invalid tag version"
 msgstr "Netinkama žymos versija"
 
-#: ../src/id3_tag.c:656
+#: ../src/id3_tag.c:679
 msgid "No file to parse"
 msgstr "Nėra failo apdorojimui"
 
-#: ../src/id3_tag.c:658
+#: ../src/id3_tag.c:681
 msgid "Attempting to write to a read-only file"
 msgstr "Bandoma rašyti į tik skaitomą failą"
 
-#: ../src/id3_tag.c:660
+#: ../src/id3_tag.c:683
 msgid "Error in compression/uncompression"
 msgstr "Klaida suspaudime/išskleidime"
 
-#: ../src/id3_tag.c:662
+#: ../src/id3_tag.c:685
 msgid "Unknown error message"
 msgstr "Nežinomas klaidos pranešimas"
 
-#: ../src/id3_tag.c:1240
-#, c-format
-msgid ""
-"As the following corrupted file '%s' will cause an error in id3lib, it will "
-"not be processed"
-msgstr ""
-"Kadangi failas „%s“ yra sugadintas, tai sukels id3lib klaidą, programa jo "
-"neapdoros"
-
-#: ../src/id3_tag.c:1242
-msgid "Corrupted file"
-msgstr "Sugadintas failas"
-
-#: ../src/id3_tag.c:1281
+#: ../src/id3_tag.c:1289
 #, c-format
 msgid "Error while creating temporary file: '%s'"
 msgstr "Klaida kuriant laikiną failą: „%s“"
 
-#: ../src/id3_tag.c:1288
+#: ../src/id3_tag.c:1296
 msgid "Error while creating temporary file"
 msgstr "Klaida kuriant laikiną failą"
 
-#: ../src/id3_tag.c:1305
+#: ../src/id3_tag.c:1316
 #, c-format
 msgid "Error while writing to file: '%s' (%s)"
 msgstr "Klaida rašant į failą: „%s“ (%s)"
 
-#: ../src/id3v24_tag.c:1477
+#: ../src/id3v24_tag.c:1472
 #, c-format
 msgid ""
 "Cannot write tag of file '%s' (%d bytes were read but %d bytes were expected)"
@@ -2765,91 +2738,91 @@ msgstr ""
 "Nepavyko įrašyti failo „%s“ žymos (buvo nuskaityta %d baitų, bet tikėtasi %d "
 "baitų)"
 
-#: ../src/id3v24_tag.c:1496
+#: ../src/id3v24_tag.c:1489
+#, c-format
+#| msgid "Cannot write tag in file '%s'"
+msgid "Cannot save tag of file '%s'"
+msgstr "Nepavyko įrašyti failo „%s“ žymos"
+
+#: ../src/id3v24_tag.c:1500
 #, c-format
 msgid "Size error while saving tag of '%s'"
 msgstr "Dydžio klaida įrašant „%s“ žymą"
 
-#: ../src/log.c:103
+#: ../src/log.c:100
 msgid "Log"
 msgstr "Žurnalas"
 
-#: ../src/misc.c:778
-#| msgid "Delete File"
+#: ../src/misc.c:693
 msgid "Select File"
 msgstr "Pasirinkite failą"
 
-#: ../src/misc.c:784
-#| msgid "Select directory…"
+#: ../src/misc.c:699
 msgid "Select Directory"
 msgstr "Parinkite aplanką"
 
-#: ../src/misc.c:865
+#: ../src/misc.c:780
 msgid "No audio player defined"
 msgstr "Nenurodytas garso grotuvas"
 
-#: ../src/misc.c:866
+#: ../src/misc.c:781
 msgid "Audio Player Warning"
 msgstr "Garso grotuvo klaida"
 
-#: ../src/misc.c:959
+#: ../src/misc.c:872
 msgid "Cannot fork another process"
 msgstr "Nepavyko pakeisti kito proceso"
 
-#: ../src/misc.c:965
+#: ../src/misc.c:878
 #, c-format
 msgid "Cannot execute %s (%s)"
 msgstr "Nepavyko įvykdyti %s (%s)"
 
 #. Translators: file size (bytes, kilobytes, megabytes, gigabytes,
 #. * terabytes).
-#: ../src/misc.c:1130 ../src/misc.c:1150
+#: ../src/misc.c:1039 ../src/misc.c:1059
 msgid "B"
 msgstr "B"
 
-#: ../src/misc.c:1130 ../src/misc.c:1150
-#| msgid "B"
+#: ../src/misc.c:1039 ../src/misc.c:1059
 msgid "kB"
 msgstr "kB"
 
-#: ../src/misc.c:1130 ../src/misc.c:1150
+#: ../src/misc.c:1039 ../src/misc.c:1059
 msgid "MB"
 msgstr "MB"
 
-#: ../src/misc.c:1130 ../src/misc.c:1150
+#: ../src/misc.c:1039 ../src/misc.c:1059
 msgid "GB"
 msgstr "GB"
 
-#: ../src/misc.c:1130 ../src/misc.c:1150
+#: ../src/misc.c:1039 ../src/misc.c:1059
 msgid "TB"
 msgstr "TB"
 
-#: ../src/misc.c:1246
-msgid "Generate a playlist"
+#: ../src/misc.c:1149
+#| msgid "Generate a playlist"
+msgid "Generate Playlist"
 msgstr "Generuoti grojaraštį"
 
-#: ../src/misc.c:1270
+#: ../src/misc.c:1173
 msgid "M3U Playlist Name"
 msgstr "M3U grojaraščio vardas"
 
-#: ../src/misc.c:1284
+#: ../src/misc.c:1188
 msgid "Use directory name"
 msgstr "Naudoti aplanko vardą"
 
-#: ../src/misc.c:1308 ../src/misc.c:1407
-msgid "Edit Masks"
-msgstr "Redaguoti šablonus"
-
 #. Playlist options
-#: ../src/misc.c:1316
+#: ../src/misc.c:1205
 msgid "Playlist Options"
 msgstr "Grojaraščio nustatymai"
 
-#: ../src/misc.c:1322
+#: ../src/misc.c:1211
 msgid "Include only the selected files"
 msgstr "Įtraukti tik pasirinktus failus"
 
-#: ../src/misc.c:1325
+#: ../src/misc.c:1214
 msgid ""
 "If activated, only the selected files will be written in the playlist file. "
 "Else, all the files will be written."
@@ -2857,86 +2830,78 @@ msgstr ""
 "Jei aktyvuota, į grojaraščio failą bus įrašyti tik pasirinkti failai. Kitu "
 "atveju bus įrašyti visi failai."
 
-#: ../src/misc.c:1332
+#: ../src/misc.c:1217
 msgid "Use full path for files in playlist"
 msgstr "Grojaraštyje naudoti pilnus kelius"
 
-#: ../src/misc.c:1335
+#: ../src/misc.c:1220
 msgid "Use relative path for files in playlist"
 msgstr "Grojaraštyje naudoti reliatyvius kelius"
 
 #. Create playlist in parent directory
-#: ../src/misc.c:1345
+#: ../src/misc.c:1226
 msgid "Create playlist in the parent directory"
 msgstr "Grojraštį sukurti esamame aplanke"
 
-#: ../src/misc.c:1348
+#: ../src/misc.c:1229
 msgid "If activated, the playlist will be created in the parent directory."
 msgstr "Jei aktyvuota, grojaraštis bus sukurtas aukštesniame aplanke."
 
 #. DOS Separator
-#: ../src/misc.c:1352
+#: ../src/misc.c:1233
 msgid "Use DOS directory separator"
 msgstr "Naudoti DOS aplankų skirtuką"
 
-#: ../src/misc.c:1358
+#: ../src/misc.c:1239
 msgid ""
 "This option replaces the UNIX directory separator '/' into DOS separator "
 "'\\'."
 msgstr "Ši parinktis pakeičia UNIX aplanko skirtuką „/“ į DOS skirtuką „\\“."
 
-#: ../src/misc.c:1367
+#: ../src/misc.c:1248
 msgid "Playlist Content"
 msgstr "Grojaraščio turinys"
 
-#: ../src/misc.c:1373
+#: ../src/misc.c:1254
 msgid "Write only list of files"
 msgstr "Rašyti tik failų sąrašą"
 
-#: ../src/misc.c:1377
+#: ../src/misc.c:1258
 msgid "Write info using filename"
 msgstr "Informaciją rašyti naudojant failo vardą"
 
-#: ../src/misc.c:1380
+#: ../src/misc.c:1261
 msgid "Write info using:"
 msgstr "Rašyti informaciją naudojant:"
 
-#: ../src/misc.c:1654
-#, c-format
-msgid "Playlist file '%s' already exists"
-msgstr "Grojaraščio failas „%s“ jau yra"
-
-#: ../src/misc.c:1656
-msgid "Do you want to save the playlist, overwriting the existing file?"
-msgstr "Ar norite įrašyti grojaraštį perrašydami esamą failą?"
-
-#: ../src/misc.c:1658
-msgid "Write Playlist"
-msgstr "Rašyti grojaraštį"
-
-#: ../src/misc.c:1676
+#: ../src/misc.c:1480
 #, c-format
 msgid "Cannot write playlist file '%s'"
 msgstr "Įrašyti grojaraščio failo „%s“ nepavyko"
 
-#: ../src/misc.c:1679
+#: ../src/misc.c:1484
 msgid "Playlist File Error"
 msgstr "Grojaraščio failo klaida"
 
-#: ../src/misc.c:1686
+#: ../src/misc.c:1492
 #, c-format
 msgid "Written playlist file '%s'"
 msgstr "Grojaraščio failas „%s“ įrašytas"
 
-#: ../src/misc.c:1936
+#: ../src/misc.c:1556 ../src/scan.c:3243 ../src/scan.c:3305
+#| msgid "Invalid Scanner Mask"
+msgid "Invalid scanner mask"
+msgstr "Netinkama skenerio kaukė"
+
+#: ../src/misc.c:1920
 msgid "CD"
 msgstr "CD"
 
-#: ../src/misc.c:1956
+#: ../src/misc.c:1942
 msgid "Find Files"
 msgstr "Rasti failus"
 
-#: ../src/misc.c:1994
+#: ../src/misc.c:1974
 msgid ""
 "Type the word to search into files. Or type nothing to display all files."
 msgstr ""
@@ -2944,13 +2909,13 @@ msgstr ""
 "rodomi visi failai."
 
 #. Where...
-#: ../src/misc.c:2000
+#: ../src/misc.c:1980
 msgid "In:"
 msgstr "Kur:"
 
 #. Translators: This option is for the previous 'in' option. For instance,
 #. * translate this as "Search" "In:" "the Filename".
-#: ../src/misc.c:2005
+#: ../src/misc.c:1985
 msgid "the Filename"
 msgstr "failo pavadinime"
 
@@ -2959,81 +2924,88 @@ msgstr "failo pavadinime"
 #. * Note: label changed to "the Tag" (to be the only one) to fix a Hungarian
 #. * grammatical problem (which uses one word to say "in the tag" like here)
 #.
-#: ../src/misc.c:2011
+#: ../src/misc.c:1991
 msgid "the Tag"
 msgstr "žymoje"
 
 #. Property of the search
-#: ../src/misc.c:2022 ../src/prefs.c:351
+#: ../src/misc.c:2002 ../src/prefs.c:331
 msgid "Case sensitive"
 msgstr "Skirti mažąsias ir didžiąsias raides"
 
-#: ../src/misc.c:2248
+#: ../src/misc.c:2229
 msgid "Ready to search…"
 msgstr "Paieškai pasirengta…"
 
-#: ../src/misc.c:2479
+#: ../src/misc.c:2437
 #, c-format
-msgid "Found: %d file(s)"
-msgstr "Rasta: %d failas(-ai)"
+#| msgid "Found: %d file(s)"
+msgid "Found one file"
+msgid_plural "Found %d files"
+msgstr[0] "Rastas %d failas"
+msgstr[1] "Rasti %d failai"
+msgstr[2] "Rasta %d failų"
 
-#: ../src/misc.c:2756
-msgid "Load the filenames from a TXT file"
-msgstr "Įkelti failų vardus iš TXT failo"
+#: ../src/misc.c:2704
+#| msgid "Load Filenames From Text File…"
+msgid "Load Filenames From a Text File"
+msgstr "Įkelti failų pavadinimus iš tekstinio failo"
 
-#: ../src/misc.c:2784
+#: ../src/misc.c:2733
 msgid "File:"
 msgstr "Failas:"
 
 #. Button 'load'
 #. the signal attached to this button, to load the file, is placed after the LoadFileContentList definition
-#: ../src/misc.c:2803
+#: ../src/misc.c:2752
 msgid " Load "
 msgstr " Įkelti "
 
-#: ../src/misc.c:2826
-msgid "Content of TXT file"
-msgstr "TXT failo turinys"
+#: ../src/misc.c:2770
+#| msgid "Content of TXT file"
+msgid "Content of Text File"
+msgstr "Tekstinio failo turinys"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2847 ../src/misc.c:2941
+#: ../src/misc.c:2791 ../src/misc.c:2886
 msgid "Insert a blank line before the selected line"
 msgstr "Prieš pasirinktą eilutę įterpti tuščią eilutę"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2856 ../src/misc.c:2950
+#: ../src/misc.c:2800 ../src/misc.c:2895
 msgid "Delete the selected line"
 msgstr "Pašalinti pasirinktą eilutę"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2865 ../src/misc.c:2959 ../src/misc.c:3448
+#: ../src/misc.c:2809 ../src/misc.c:2904 ../src/misc.c:3390
 msgid "Delete all blank lines"
 msgstr "Pašalinti visas tuščias eilutes"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2877 ../src/misc.c:2971
+#: ../src/misc.c:2821 ../src/misc.c:2916
 msgid "Move up the selected line"
 msgstr "Pasirinktą eilutę perkelti aukštyn"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2886 ../src/misc.c:2980
+#: ../src/misc.c:2830 ../src/misc.c:2925
 msgid "Move down the selected line"
 msgstr "Pasirinktą eilutę perkelti žemyn"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2898 ../src/misc.c:2992 ../src/misc.c:3472
+#: ../src/misc.c:2842 ../src/misc.c:2937 ../src/misc.c:3414
 msgid "Reload"
 msgstr "Įkelti iš naujo"
 
-#: ../src/misc.c:2919
-msgid "List of files"
+#: ../src/misc.c:2864
+#| msgid "List of files"
+msgid "List of Files"
 msgstr "Failų sąrašas"
 
-#: ../src/misc.c:3014
+#: ../src/misc.c:2959
 msgid "Selected line:"
 msgstr "Pasirinkta eilutė:"
 
-#: ../src/misc.c:3032
+#: ../src/misc.c:2977
 msgid ""
 "When activating this option, after loading the filenames, the current "
 "selected scanner will be ran (the scanner window must be opened)."
@@ -3041,24 +3013,36 @@ msgstr ""
 "Aktyvavus šią parinkty, įkėlus failus, bus paleistas pasirinktas skeneris "
 "(skenerio langas turi būt atvertas)."
 
-#: ../src/misc.c:3192
+#: ../src/misc.c:3064
+#, c-format
+#| msgid "Cannot create file '%s' (%s)"
+msgid "Cannot retrieve file info (%s)"
+msgstr "Nepavyko gauti failo informacijos (%s)"
+
+#: ../src/misc.c:3126
 #, c-format
 msgid "Can't open file '%s' (%s)"
 msgstr "Atverti failo „%s“ nepavyko (%s)"
 
-#: ../src/misc.c:3436
+#: ../src/misc.c:3162
+#, c-format
+#| msgid "Error reading tags from file: '%s'"
+msgid "Error reading file (%s)"
+msgstr "Klaida skaitant failą (%s)"
+
+#: ../src/misc.c:3378
 msgid "Insert a blank line"
 msgstr "Įterpti tuščią eilutę"
 
-#: ../src/misc.c:3442
+#: ../src/misc.c:3384
 msgid "Delete this line"
 msgstr "Pašalinti šią eilutę"
 
-#: ../src/misc.c:3457
+#: ../src/misc.c:3399
 msgid "Move up this line"
 msgstr "Perkelti eilutę aukštyn"
 
-#: ../src/misc.c:3463
+#: ../src/misc.c:3405
 msgid "Move down this line"
 msgstr "Perkelti eilutę žemyn"
 
@@ -3068,26 +3052,26 @@ msgstr "Perkelti eilutę žemyn"
 msgid "Profile:"
 msgstr "Profilis:"
 
-#: ../src/mp4_header.c:64 ../src/mp4_tag.c:83 ../src/mp4_tag.c:213
+#: ../src/mp4_header.c:63 ../src/mp4_tag.c:65 ../src/mp4_tag.c:186
 msgid "MP4 format invalid"
 msgstr "Netinkamas MP4 formatas"
 
-#: ../src/mp4_header.c:73 ../src/mp4_tag.c:92
+#: ../src/mp4_header.c:72 ../src/mp4_tag.c:74
 #, c-format
 msgid "File contains no audio track: '%s'"
 msgstr "Failas neturi garso takelio: „%s“"
 
-#: ../src/mp4_header.c:83
+#: ../src/mp4_header.c:82
 #, c-format
 msgid "Error reading properties from file: '%s'"
 msgstr "Klaida skaitant savybes iš failo: „%s“"
 
-#: ../src/mp4_header.c:133 ../src/mpeg_header.c:204
+#: ../src/mp4_header.c:132 ../src/mpeg_header.c:204
 #, c-format
 msgid "~%d kb/s"
 msgstr "~%d kb/s"
 
-#: ../src/mp4_tag.c:103 ../src/mp4_tag.c:221
+#: ../src/mp4_tag.c:85 ../src/mp4_tag.c:194
 #, c-format
 msgid "Error reading tags from file: '%s'"
 msgstr "Klaida skaitant žymas iš failo: „%s“"
@@ -3113,7 +3097,14 @@ msgstr "Viengubas kanalas"
 msgid "MPEG"
 msgstr "MPEG"
 
-#: ../src/ogg_header.c:85
+#. FIXME: Pass error back to calling function.
+#: ../src/ogg_header.c:227
+#, c-format
+#| msgid "Error while opening file: '%s' (%s)."
+msgid "Error while opening file: '%s' (%s)"
+msgstr "Klaida atveriant failą: „%s“ (%s)"
+
+#: ../src/ogg_header.c:243
 #, c-format
 msgid ""
 "Ogg Vorbis: The specified bitstream does not exist or the file has been "
@@ -3122,27 +3113,27 @@ msgstr ""
 "Ogg Vorbis: Nurodytas srautas neegzistuoja arba failas nebuvo tinkamai "
 "inicijuotas (failas: „%s“)."
 
-#: ../src/ogg_header.c:116
+#: ../src/ogg_header.c:279
 #, c-format
 msgid "Ogg Vorbis: Read from media returned an error (file: '%s')."
 msgstr "Ogg Vorbis: Skaitant failą gauta klaida (failas: „%s“)."
 
-#: ../src/ogg_header.c:119
+#: ../src/ogg_header.c:282
 #, c-format
 msgid "Ogg Vorbis: Bitstream is not Vorbis data (file: '%s')."
 msgstr "Ogg Vorbis: Srautas nėra Vorbis duomenų failas (failas: „%s“)."
 
-#: ../src/ogg_header.c:122
+#: ../src/ogg_header.c:285
 #, c-format
 msgid "Ogg Vorbis: Vorbis version mismatch (file: '%s')."
 msgstr "Ogg Vorbis: Vorbis versija nesutampa (failas: „%s“)."
 
-#: ../src/ogg_header.c:125
+#: ../src/ogg_header.c:288
 #, c-format
 msgid "Ogg Vorbis: Invalid Vorbis bitstream header (file: '%s')."
 msgstr "Ogg Vorbis: Netinkama Vorbis srauto antraštė (failas: „%s“)."
 
-#: ../src/ogg_header.c:128
+#: ../src/ogg_header.c:291
 #, c-format
 msgid ""
 "Ogg Vorbis: Internal logic fault, indicates a bug or heap/stack corruption "
@@ -3151,178 +3142,183 @@ msgstr ""
 "Ogg Vorbis: Vidinė loginė klaida, tai reiškia programos klaidą arba dėklo "
 "pažeidimą (failas: „%s“)."
 
-#: ../src/ogg_header.c:180 ../src/ogg_tag.c:187 ../src/ogg_tag.c:690
+#: ../src/ogg_header.c:337
 #, c-format
 msgid "Error: Failed to open file: '%s' as Vorbis (%s)."
 msgstr "Klaida: nepavyko atverti failo: „%s“ kaip vorbis (%s)."
 
-#: ../src/ogg_tag.c:169
+#: ../src/ogg_tag.c:186 ../src/ogg_tag.c:733
 #, c-format
 msgid "Warning: The Ogg Vorbis file '%s' contains an ID3v2 tag."
 msgstr "Įspėjimas: Ogg Vorbis failas „%s“ turi ID3v2 žymę."
 
-#: ../src/picture.c:301
-#| msgid "Add pictures"
-msgid "Add images"
+#: ../src/picture.c:244 ../src/picture.c:269
+#, c-format
+msgid "Image file not loaded: %s"
+msgstr "Paveikslėlio failas neįkeltas: %s"
+
+#: ../src/picture.c:261
+#, c-format
+msgid "Cannot open file: '%s'"
+msgstr "Nepavyko atverti failo: „%s“"
+
+#: ../src/picture.c:265
+msgid "Image File Error"
+msgstr "Failo pervadinimo klaida"
+
+#: ../src/picture.c:276
+msgid "Image file loaded"
+msgstr "Paveikslėlio failas įkeltas"
+
+#: ../src/picture.c:334
+#| msgid "Add images"
+msgid "Add Images"
 msgstr "Pridėti paveikslėlius"
 
-#: ../src/picture.c:311 ../src/picture.c:636
+#: ../src/picture.c:344 ../src/picture.c:682
 msgid "All Files"
 msgstr "Visi failai"
 
-#: ../src/picture.c:317 ../src/picture.c:642
+#: ../src/picture.c:350 ../src/picture.c:688
 msgid "PNG and JPEG"
 msgstr "PNG ir JPEG"
 
-#: ../src/picture.c:425
+#: ../src/picture.c:468
 #, c-format
-#| msgid "Picture Properties %d/%d"
 msgid "Image Properties %d/%d"
 msgstr "Paveikslėlio savybės %d/%d"
 
-#: ../src/picture.c:448
+#: ../src/picture.c:492
 msgid "Image Type"
 msgstr "Paveikslėlio tipas"
 
 #. Description of the picture
-#: ../src/picture.c:505
-#| msgid "Description"
+#: ../src/picture.c:551
 msgid "Image Description:"
 msgstr "Paveikslėlio aprašymas:"
 
-#: ../src/picture.c:623
+#: ../src/picture.c:669
 #, c-format
-#| msgid "Save picture %d/%d"
-msgid "Save image %d/%d"
+#| msgid "Save image %d/%d"
+msgid "Save Image %d/%d"
 msgstr "Įrašyti paveikslėlį %d/%d"
 
-#: ../src/picture.c:702
+#: ../src/picture.c:741
 #, c-format
-msgid "The following file already exists: '%s'"
-msgstr "Toks failas jau yra: „%s“"
+#| msgid "Image file not loaded: %s"
+msgid "Image file not saved: %s"
+msgstr "Paveikslėlio failas neįrašytas: %s"
 
-#: ../src/picture.c:704
-msgid "Do you want to save anyway, overwriting the file?"
-msgstr "Ar norite vistiek jį įrašyti, perrašydami failą?"
-
-#: ../src/picture.c:706
-msgid "Save"
-msgstr "Įrašyti"
-
-#: ../src/picture.c:783
+#: ../src/picture.c:809
 msgid "JPEG image"
 msgstr "JPEG paveikslėlis"
 
-#: ../src/picture.c:785
+#: ../src/picture.c:811
 msgid "PNG image"
 msgstr "PNG paveikslėlis"
 
-#: ../src/picture.c:787
+#: ../src/picture.c:813
 msgid "Unknown image"
 msgstr "Nežinomas paveikslėlis"
 
-#: ../src/picture.c:799
+#: ../src/picture.c:825
 msgid "32x32 pixel PNG file icon"
 msgstr "32x32 pikselių PNG failo piktograma"
 
-#: ../src/picture.c:801
+#: ../src/picture.c:827
 msgid "Other file icon"
 msgstr "Kita failo piktograma"
 
-#: ../src/picture.c:803
+#: ../src/picture.c:829
 msgid "Cover (front)"
 msgstr "Viršelis (priekis)"
 
-#: ../src/picture.c:805
+#: ../src/picture.c:831
 msgid "Cover (back)"
 msgstr "Viršelis (galas)"
 
-#: ../src/picture.c:807
+#: ../src/picture.c:833
 msgid "Leaflet page"
 msgstr "Leaflet puslapis"
 
-#: ../src/picture.c:809
+#: ../src/picture.c:835
 msgid "Media (e.g. label side of CD)"
 msgstr "Laikmena (pvz. CD užrašo pusė)"
 
-#: ../src/picture.c:811
+#: ../src/picture.c:837
 msgid "Lead artist/lead performer/soloist"
 msgstr "Pagrindinis atlikėjas/solistas"
 
-#: ../src/picture.c:813
+#: ../src/picture.c:839
 msgid "Artist/performer"
 msgstr "Atlikėjas"
 
-#: ../src/picture.c:815
+#: ../src/picture.c:841
 msgid "Conductor"
 msgstr "Dirigentas"
 
-#: ../src/picture.c:817
+#: ../src/picture.c:843
 msgid "Band/Orchestra"
 msgstr "Grupė/orkestras"
 
-#: ../src/picture.c:821
+#: ../src/picture.c:847
 msgid "Lyricist/text writer"
 msgstr "Žodžių autorius"
 
-#: ../src/picture.c:823
+#: ../src/picture.c:849
 msgid "Recording location"
 msgstr "Įrašo vieta"
 
-#: ../src/picture.c:825
+#: ../src/picture.c:851
 msgid "During recording"
 msgstr "Įrašymo metu"
 
-#: ../src/picture.c:827
+#: ../src/picture.c:853
 msgid "During performance"
 msgstr "Atlikimo metu"
 
-#: ../src/picture.c:829
+#: ../src/picture.c:855
 msgid "Movie/video screen capture"
 msgstr "Filmo/video ekrano įrašas"
 
-#: ../src/picture.c:831
+#: ../src/picture.c:857
 msgid "A bright colored fish"
 msgstr "Ryški spalvota žuvis"
 
-#: ../src/picture.c:833
+#: ../src/picture.c:859
 msgid "Illustration"
 msgstr "Iliustracija"
 
-#: ../src/picture.c:835
+#: ../src/picture.c:861
 msgid "Band/Artist logotype"
 msgstr "Grupės/Atlikėjo logotipas"
 
-#: ../src/picture.c:837
+#: ../src/picture.c:863
 msgid "Publisher/studio logotype"
 msgstr "Leidėjo/studijos logotipas"
 
-#: ../src/picture.c:841
-#| msgid "Unknown image"
+#: ../src/picture.c:867
 msgid "Unknown image type"
 msgstr "Nežinomas paveikslėlio tipas"
 
-#: ../src/picture.c:871 ../src/picture.c:882
+#: ../src/picture.c:897 ../src/picture.c:908
 msgid "pixels"
 msgstr "pikseliai"
 
-#: ../src/picture.c:872 ../src/picture.c:883
+#: ../src/picture.c:898 ../src/picture.c:909
 msgid "Type"
 msgstr "Tipas"
 
-#: ../src/picture.c:884
+#: ../src/picture.c:910
 msgid "Description"
 msgstr "Aprašymas"
 
-#: ../src/picture.c:940
+#: ../src/picture.c:966
 #, c-format
 msgid "Error with 'loader_close': %s"
 msgstr "Klaida su „loader_close“: %s"
 
-#: ../src/picture.c:998
-#| msgid ""
-#| "Cannot display the picture, as not enough data has been read to determine "
-#| "how to create the image buffer."
+#: ../src/picture.c:1026
 msgid ""
 "Cannot display the image because not enough data has been read to determine "
 "how to create the image buffer."
@@ -3330,67 +3326,31 @@ msgstr ""
 "Parodyti paveikslėlio neįmanoma, nes nenuskaityta pakankamai duomenų, kad "
 "būtų galima sukurti paveikslėlio buferį."
 
-#: ../src/picture.c:1005
-#| msgid "Cannot display the picture"
+#: ../src/picture.c:1033
 msgid "Cannot display the image"
 msgstr "Nepavyko parodyti paveikslėlio"
 
-#: ../src/picture.c:1007
-#| msgid ""
-#| "Not enough data has been read to determine how to create the image buffer"
+#: ../src/picture.c:1035
 msgid ""
 "Not enough data has been read to determine how to create the image buffer."
 msgstr ""
 "Nenuskaityta pakankamai duomenų, kad būtų galima sukurti paveikslėlio buferį."
 
-#: ../src/picture.c:1009
-#| msgid "Load Picture File"
+#: ../src/picture.c:1037
 msgid "Load Image File"
 msgstr "Įkelti paveikslėlio failą"
 
-#: ../src/picture.c:1015
+#: ../src/picture.c:1043
 #, c-format
 msgid "Error with 'loader_write': %s"
 msgstr "Klaida su „loader_write“: %s"
 
-#: ../src/picture.c:1107 ../src/picture.c:1137 ../src/picture.c:1158
-#, c-format
-#| msgid "Picture file not loaded (%s)…"
-msgid "Image file not loaded: %s"
-msgstr "Paveikslėlio failas neįkeltas: %s"
-
-#: ../src/picture.c:1130
-#, c-format
-msgid "Cannot open file: '%s'"
-msgstr "Nepavyko atverti failo: „%s“"
-
-#: ../src/picture.c:1133
-#| msgid "Rename File Error"
-msgid "Image File Error"
-msgstr "Failo pervadinimo klaida"
-
-#: ../src/picture.c:1171
-#| msgid "Picture file loaded…"
-msgid "Image file loaded"
-msgstr "Paveikslėlio failas įkeltas"
-
-#: ../src/picture.c:1188 ../src/picture.c:1196
-#, c-format
-#| msgid "Picture file can't be saved (%s)…"
-msgid "Image file cannot be saved: %s"
-msgstr "Nepavyko įrašyti paveikslėlio failo: %s"
-
-#. File Browser frame
-#: ../src/prefs.c:150
-msgid "File Browser"
-msgstr "Failų naršyklė"
-
 #. Label
-#: ../src/prefs.c:161
+#: ../src/prefs.c:148
 msgid "Default directory:"
 msgstr "Numatytasis aplankas:"
 
-#: ../src/prefs.c:174
+#: ../src/prefs.c:161
 msgid ""
 "Specify the directory where your files are located. This path will be loaded "
 "when EasyTAG starts without parameter."
@@ -3399,14 +3359,14 @@ msgstr ""
 "EasyTAG paleidžiamas be parametrų."
 
 #. Load directory on startup
-#: ../src/prefs.c:195
+#: ../src/prefs.c:182
 msgid ""
 "Load on startup the default directory or the directory passed as argument"
 msgstr ""
 "Paleidžiant įkelti numatytąjį aplanką arba aplanką kuris duotas kaip "
 "argumentas"
 
-#: ../src/prefs.c:198
+#: ../src/prefs.c:185
 msgid ""
 "Automatically search files, when EasyTAG starts, into the default directory. "
 "Note that this path may be overridden by the parameter passed to easytag "
@@ -3417,52 +3377,52 @@ msgstr ""
 "kelias_iki/mp3_failų)."
 
 #. Browse subdirectories
-#: ../src/prefs.c:203
+#: ../src/prefs.c:190
 msgid "Search subdirectories"
 msgstr "Ieškoti poaplankių"
 
-#: ../src/prefs.c:206
+#: ../src/prefs.c:193
 msgid "Search subdirectories for files when reading a directory into the tree."
 msgstr "Skaitant aplanką į medį ieškoti poaplankių."
 
 #. Open the node to show subdirectories
-#: ../src/prefs.c:210
+#: ../src/prefs.c:197
 msgid "Show subdirectories when selecting a directory"
 msgstr "Pasirenkant aplanką rodyti poaplankius"
 
-#: ../src/prefs.c:214
+#: ../src/prefs.c:201
 msgid ""
 "This expands the selected node into the file browser to display the sub-"
 "directories."
 msgstr "Tai išskleidžia pasirinktą mazgą į failų naršyklę ir rodo poaplankius."
 
 #. Browse hidden directories
-#: ../src/prefs.c:218
+#: ../src/prefs.c:205
 msgid "Search hidden directories"
 msgstr "Ieškoti paslėptus aplankus"
 
-#: ../src/prefs.c:223
+#: ../src/prefs.c:210
 msgid "Search hidden directories for files (directories starting by a '.')."
 msgstr "Paslėptuose(aplankai kurie prasideda „.“) aplankuose ieškoti failų"
 
 #.
 #. * Misc
 #.
-#: ../src/prefs.c:231 ../src/prefs.c:232
+#: ../src/prefs.c:218
 msgid "Misc"
 msgstr "Kita"
 
 #. User interface
-#: ../src/prefs.c:242
+#: ../src/prefs.c:224
 msgid "User Interface"
 msgstr "Naudotojo sąsaja"
 
 #. Show header infos
-#: ../src/prefs.c:249
+#: ../src/prefs.c:231
 msgid "Show header information of file"
 msgstr "Rodyti failo antraštės informaciją"
 
-#: ../src/prefs.c:252
+#: ../src/prefs.c:234
 msgid ""
 "If activated, information about the file as the bitrate, the time, the size, "
 "will be displayed under the filename entry."
@@ -3470,192 +3430,176 @@ msgstr ""
 "Jei aktyvuota, informacija apie bitų dažnį, laiką ir dydį bus rodoma prie "
 "failo įrašo."
 
-#: ../src/prefs.c:259
+#: ../src/prefs.c:240
 msgid "Display changed files in list using:"
 msgstr "Pakeistus failus rodyti sąraše naudojant:"
 
-#: ../src/prefs.c:262
+#: ../src/prefs.c:243
 msgid "Red color"
 msgstr "Raudoną spalvą"
 
-#: ../src/prefs.c:268
+#: ../src/prefs.c:249
 msgid "Bold style"
 msgstr "Paryškintai"
 
 #. Sorting List Options
-#: ../src/prefs.c:274
+#: ../src/prefs.c:255
 msgid "Sorting List Options"
 msgstr "Rikiavimo sąrašo parinktys"
 
 #. Sorting method
-#: ../src/prefs.c:284
+#: ../src/prefs.c:264
 msgid "Sort the file list by:"
 msgstr "Failų sąrašą rikiuoti pagal:"
 
-#: ../src/prefs.c:294
-#| msgid "Ascending file name"
+#: ../src/prefs.c:274
 msgid "Ascending filename"
 msgstr "Failo pavadinimą didėjimo tvarka"
 
-#: ../src/prefs.c:296
-#| msgid "Descending file name"
+#: ../src/prefs.c:276
 msgid "Descending filename"
 msgstr "Failo pavadinimą mažėjimo tvarka"
 
-#: ../src/prefs.c:297
+#: ../src/prefs.c:277
 msgid "Ascending title"
 msgstr "Pavadinimą didėjimo tvarka"
 
-#: ../src/prefs.c:298
+#: ../src/prefs.c:278
 msgid "Descending title"
 msgstr "Pavadinimą mažėjimo tvarka"
 
-#: ../src/prefs.c:299
+#: ../src/prefs.c:279
 msgid "Ascending artist"
 msgstr "Pagal atlikėją didėjimo tvarka"
 
-#: ../src/prefs.c:300
+#: ../src/prefs.c:280
 msgid "Descending artist"
 msgstr "Pagal atlikėją mažėjimo tvarka"
 
-#: ../src/prefs.c:302
-#| msgid "Ascending by album artist"
+#: ../src/prefs.c:282
 msgid "Ascending album artist"
 msgstr "Pagal albumo atlikėją didėjimo tvarka"
 
-#: ../src/prefs.c:304
-#| msgid "Descending by album artist"
+#: ../src/prefs.c:284
 msgid "Descending album artist"
 msgstr "Pagal albumo atlikėją mažėjimo tvarka"
 
-#: ../src/prefs.c:305
+#: ../src/prefs.c:285
 msgid "Ascending album"
 msgstr "Albumą didėjimo tvarka"
 
-#: ../src/prefs.c:306
+#: ../src/prefs.c:286
 msgid "Descending album"
 msgstr "Albumą mažėjimo tvarka"
 
-#: ../src/prefs.c:307
+#: ../src/prefs.c:287
 msgid "Ascending year"
 msgstr "Metus didėjimo tvarka"
 
-#: ../src/prefs.c:308
+#: ../src/prefs.c:288
 msgid "Descending year"
 msgstr "Metus mažėjimo tvarka"
 
-#: ../src/prefs.c:310
-#| msgid "Ascending track number"
+#: ../src/prefs.c:290
 msgid "Ascending disc number"
 msgstr "Pagal takelio numerį didėjimo tvarka"
 
-#: ../src/prefs.c:312
-#| msgid "Descending track number"
+#: ../src/prefs.c:292
 msgid "Descending disc number"
 msgstr "Pagal takelio numerį mažėjimo tvarka"
 
-#: ../src/prefs.c:314
+#: ../src/prefs.c:294
 msgid "Ascending track number"
 msgstr "Takelio numerį didėjimo tvarka"
 
-#: ../src/prefs.c:316
+#: ../src/prefs.c:296
 msgid "Descending track number"
 msgstr "Takelio numerį mažėjimo tvarka"
 
-#: ../src/prefs.c:317
+#: ../src/prefs.c:297
 msgid "Ascending genre"
 msgstr "Žanrą didėjimo tvarka"
 
-#: ../src/prefs.c:318
+#: ../src/prefs.c:298
 msgid "Descending genre"
 msgstr "Žanrą mažėjimo tvarka"
 
-#: ../src/prefs.c:319
+#: ../src/prefs.c:299
 msgid "Ascending comment"
 msgstr "Komentarą didėjimo tvarka"
 
-#: ../src/prefs.c:320
+#: ../src/prefs.c:300
 msgid "Descending comment"
 msgstr "Komentarą mažėjimo tvarka"
 
-#: ../src/prefs.c:322
-#| msgid "Ascending by composer"
+#: ../src/prefs.c:302
 msgid "Ascending composer"
 msgstr "Pagal kompozitorių didėjimo tvarka"
 
-#: ../src/prefs.c:324
-#| msgid "Descending by composer"
+#: ../src/prefs.c:304
 msgid "Descending composer"
 msgstr "Pagal kompozitorių mažėjimo tvarka"
 
-#: ../src/prefs.c:326
-#| msgid "Ascending by original artist"
+#: ../src/prefs.c:306
 msgid "Ascending original artist"
 msgstr "Pagal originalų atlikėją didėjimo tvarka"
 
-#: ../src/prefs.c:328
-#| msgid "Descending by original artist"
+#: ../src/prefs.c:308
 msgid "Descending original artist"
 msgstr "Pagal originalų atlikėją mažėjimo tvarka"
 
-#: ../src/prefs.c:330
-#| msgid "Ascending by copyright"
+#: ../src/prefs.c:310
 msgid "Ascending copyright"
 msgstr "Pagal autorines teises didėjimo tvarka"
 
-#: ../src/prefs.c:332
-#| msgid "Descending by copyright"
+#: ../src/prefs.c:312
 msgid "Descending copyright"
 msgstr "Pagal autorines teises mažėjimo tvarka"
 
-#: ../src/prefs.c:334
-#| msgid "Ascending by URL"
+#: ../src/prefs.c:314
 msgid "Ascending URL"
 msgstr "Pagal URL didėjimo tvarka"
 
-#: ../src/prefs.c:336
-#| msgid "Descending by URL"
+#: ../src/prefs.c:316
 msgid "Descending URL"
 msgstr "Pagal URL mažėjimo tvarka"
 
-#: ../src/prefs.c:338
-#| msgid "Ascending by encoder name"
+#: ../src/prefs.c:318
 msgid "Ascending encoded by"
 msgstr "Pagal kodavimą didėjimo tvarka"
 
-#: ../src/prefs.c:340
-#| msgid "Descending by encoder name"
+#: ../src/prefs.c:320
 msgid "Descending encoded by"
 msgstr "Pagal kodavimą mažėjimo tvarka"
 
-#: ../src/prefs.c:342
+#: ../src/prefs.c:322
 msgid "Ascending creation date"
 msgstr "Sukūrimo datą didėjimo tvarka"
 
-#: ../src/prefs.c:344
+#: ../src/prefs.c:324
 msgid "Descending creation date"
 msgstr "Sukūrimo datą mažėjimo tvarka"
 
-#: ../src/prefs.c:348
+#: ../src/prefs.c:328
 msgid "Select the type of file sorting when loading a directory."
 msgstr ""
 "Pasirinkite failų rikiavimo tipą, kuris bus naudojamas įkeliant aplanką."
 
-#: ../src/prefs.c:360
+#: ../src/prefs.c:340
 msgid "If activated, the sorting of the list will be dependent on the case."
 msgstr ""
 "Jei aktyvuota, sąrašas bus rikiuojamas atsižvelgiant į raidžių registrą."
 
 #. File Player
-#: ../src/prefs.c:364
+#: ../src/prefs.c:344
 msgid "File Audio Player"
 msgstr "Garso failų grotuvas"
 
-#: ../src/prefs.c:376
+#: ../src/prefs.c:356
 msgid "Player to run:"
 msgstr "Naudoti grotuvą:"
 
-#: ../src/prefs.c:382
+#: ../src/prefs.c:362
 msgid ""
 "Enter the program used to play the files. Some arguments can be passed for "
 "the program (as 'xmms -p') before to receive files as other arguments."
@@ -3665,20 +3609,20 @@ msgstr ""
 "(kaip „xmms -p“)"
 
 #. Log options
-#: ../src/prefs.c:400
+#: ../src/prefs.c:380
 msgid "Log Options"
 msgstr "Žurnalo parinktys"
 
 #. Show / hide log view
-#: ../src/prefs.c:407
+#: ../src/prefs.c:387
 msgid "Show log view in main window"
 msgstr "Pagrindiniame lange rodyti žurnalą"
 
-#: ../src/prefs.c:410
+#: ../src/prefs.c:390
 msgid "If activated, the log view would be visible in the main window."
 msgstr "Jei aktyvuota, pagrindiniame lange bus matomas žurnalas."
 
-#: ../src/prefs.c:417
+#: ../src/prefs.c:396
 msgid "Max number of lines:"
 msgstr "Daugiausia eilučių:"
 
@@ -3691,20 +3635,20 @@ msgstr "Daugiausia eilučių:"
 #.
 #. * File Settings
 #.
-#: ../src/prefs.c:435 ../src/prefs.c:436
+#: ../src/prefs.c:414
 msgid "File Settings"
 msgstr "Failo nustatymai"
 
 #. File (name) Options
-#: ../src/prefs.c:446
+#: ../src/prefs.c:420
 msgid "File Options"
 msgstr "Failo parinktys"
 
-#: ../src/prefs.c:452
+#: ../src/prefs.c:426
 msgid "Replace illegal characters in filename (for Windows and CD-Rom)"
 msgstr "Failo varde pakeisti netinkamus simbolius (Windows ir CD-Rom)"
 
-#: ../src/prefs.c:455
+#: ../src/prefs.c:429
 msgid ""
 "Convert illegal characters for FAT32/16 and ISO9660 + Joliet filesystems "
 "('\\', ':', ';', '*', '?', '\"', '<', '>', '|') of the filename to avoid "
@@ -3716,53 +3660,53 @@ msgstr ""
 "'\"', '<', '>', '|'). Tai naudinga pervadinant failą iš žymos su skaitytuvu."
 
 #. Extension case (lower/upper?)
-#: ../src/prefs.c:464
+#: ../src/prefs.c:437
 msgid "Convert filename extension to:"
 msgstr "Konvertuoti failo vardo plėtinį į:"
 
-#: ../src/prefs.c:467
+#: ../src/prefs.c:440
 msgid "Lower Case"
 msgstr "Mažąsias raides"
 
-#: ../src/prefs.c:470
+#: ../src/prefs.c:443
 msgid "For example, the extension will be converted to '.mp3'"
 msgstr "Pavyzdžiui, plėtinys bus konvertuotas į „.mp3“"
 
-#: ../src/prefs.c:473
+#: ../src/prefs.c:446
 msgid "Upper Case"
 msgstr "Didžiąsias raides"
 
-#: ../src/prefs.c:476
+#: ../src/prefs.c:449
 msgid "For example, the extension will be converted to '.MP3'"
 msgstr "Pavyzdžiui, plėtinys bus konvertuotas į „.MP3“"
 
-#: ../src/prefs.c:479
+#: ../src/prefs.c:452
 msgid "No Change"
 msgstr "Nieko nekeisti"
 
-#: ../src/prefs.c:482
+#: ../src/prefs.c:455
 msgid "The extension will not be converted"
 msgstr "Plėtinys nebus konvertuotas"
 
 #. Preserve modification time
-#: ../src/prefs.c:485
+#: ../src/prefs.c:458
 msgid "Preserve modification time of the file"
 msgstr "Nepakeisti failo keitimo laiko"
 
-#: ../src/prefs.c:488
+#: ../src/prefs.c:461
 msgid ""
 "Preserve the modification time (in file properties) when saving the file."
 msgstr "Išsaugant failą nepakeisti failo keitimo laiko (failo savybėse)."
 
 #. Change directory modification time
-#: ../src/prefs.c:492
+#: ../src/prefs.c:465
 msgid ""
 "Update modification time of the parent directory of the file (recommended "
 "when using Amarok)"
 msgstr ""
 "Atnaujinti aukštesnio aplanko keitimo laiką (rekomenduojama naudojant Amarok)"
 
-#: ../src/prefs.c:496
+#: ../src/prefs.c:469
 msgid ""
 "The modification time of the parent directory of the file will be updated "
 "when saving tag the file. At the present time it is automatically done only "
@@ -3778,13 +3722,12 @@ msgstr ""
 "keitimus."
 
 #. Character Set for Filename
-#: ../src/prefs.c:504
-#| msgid "Character Set for File Name"
+#: ../src/prefs.c:477
 msgid "Character Set for Filename"
 msgstr "Failo pavadinimo simbolių rinkinys"
 
 #. Rules for character set
-#: ../src/prefs.c:520
+#: ../src/prefs.c:489
 msgid ""
 "Rules to apply if some characters can't be converted to the system character "
 "encoding when writing filename:"
@@ -3792,11 +3735,11 @@ msgstr ""
 "Taisyklės kurios bus pritaikomos jei pervadinant failą neįmanoma konvertuoti "
 "nekurių simbolių:"
 
-#: ../src/prefs.c:528
+#: ../src/prefs.c:495
 msgid "Try another character encoding"
 msgstr "Pabandyti kitą simbolių koduotę"
 
-#: ../src/prefs.c:532
+#: ../src/prefs.c:499
 msgid ""
 "With this option, it will try the conversion to the encoding associated to "
 "your locale (for example: ISO-8859-1 for 'fr', KOI8-R for 'ru', ISO-8859-2 "
@@ -3806,13 +3749,13 @@ msgstr ""
 "naudojama kalba (pvz. ISO-8859-1 -> 'fr', KOI8-R -> 'ru', ISO-8859-2 -> "
 "'ro'). Jei nepavyks, bus bandoma ISO-8859-1 koduotė."
 
-#: ../src/prefs.c:539
+#: ../src/prefs.c:506
 msgid ""
 "Force using the system character encoding and activate the transliteration"
 msgstr ""
 "Priverstinai naudoti sistemos simbolių koduotę ir aktyvuoti transliteraciją"
 
-#: ../src/prefs.c:543 ../src/prefs.c:863 ../src/prefs.c:935
+#: ../src/prefs.c:510 ../src/prefs.c:810 ../src/prefs.c:879
 msgid ""
 "With this option, when a character cannot be represented in the target "
 "character set, it can be approximated through one or several similarly "
@@ -3821,7 +3764,7 @@ msgstr ""
 "Su šia parinktimi, kai simbolis negali būti atvaizduotas paskirties simbolių "
 "rinkinyje, bus naudojamas vienas ar keli panašūs simboliai."
 
-#: ../src/prefs.c:549
+#: ../src/prefs.c:516
 msgid ""
 "Force using the system character encoding and silently discard some "
 "characters"
@@ -3829,7 +3772,7 @@ msgstr ""
 "Priverstinai naudoti sistemos simbolių koduotę ir tyliai pašalinti kai "
 "kuriuos simbolius"
 
-#: ../src/prefs.c:553 ../src/prefs.c:873 ../src/prefs.c:945
+#: ../src/prefs.c:520 ../src/prefs.c:820 ../src/prefs.c:889
 msgid ""
 "With this option, when a character cannot be represented in the target "
 "character set, it will be silently discarded."
@@ -3840,20 +3783,20 @@ msgstr ""
 #.
 #. * Tag Settings
 #.
-#: ../src/prefs.c:562 ../src/prefs.c:563
+#: ../src/prefs.c:529
 msgid "Tag Settings"
 msgstr "Žymos nustatymai"
 
 #. Tag Options
-#: ../src/prefs.c:572
+#: ../src/prefs.c:535
 msgid "Tag Options"
 msgstr "Žymos parinktys"
 
-#: ../src/prefs.c:578
+#: ../src/prefs.c:541
 msgid "Auto completion of date if not complete"
 msgstr "Jei nebaigta, užbaigti datą"
 
-#: ../src/prefs.c:581
+#: ../src/prefs.c:544
 msgid ""
 "Try to complete the year field if you enter only the last numerals of the "
 "date (for instance, if the current year is 2005: 5 => 2005, 4 => 2004, 6 => "
@@ -3862,11 +3805,11 @@ msgstr ""
 "Įvedus paskutinius metų skaičius, pabandyti užpildyti likusius (pavyzdžiui "
 "jei dabar yra 2005 metai: 5=>2005, 4 => 2004, 6 => 1996, 95 => 1995…)."
 
-#: ../src/prefs.c:588
+#: ../src/prefs.c:551
 msgid "Write the track field with the following number of digits:"
 msgstr "Įrašyti takelio lauke tiek skaitmenų:"
 
-#: ../src/prefs.c:591
+#: ../src/prefs.c:554
 msgid ""
 "If activated, the track field is written using the number '0' as padding to "
 "obtain a number with 'n' digits (for example, with two digits: '05', '09', "
@@ -3876,28 +3819,28 @@ msgstr ""
 "skaičių kiekį (pvz. norint matyti du skaičius: „05“, „09“, „10“…). Kitu "
 "atveju paliekamas „grynas“ takelio numeris."
 
-#: ../src/prefs.c:616
+#: ../src/prefs.c:579
 msgid ""
 "Tag field focus when switching files in list with shortcuts Page Up/Page "
 "Down:"
 msgstr ""
 "Sąraše naudojant susiejimus „Page up/Page down“ žymos laukelis gauna fokusą:"
 
-#: ../src/prefs.c:625
+#: ../src/prefs.c:585
 msgid "Keep focus to the same tag field"
 msgstr "Palikti fokusą tam pačiam žymos laukeliui"
 
-#: ../src/prefs.c:631
+#: ../src/prefs.c:591
 msgid "Return focus to the first tag field (i.e. 'Title' field)"
 msgstr "Grąžinti fokusą pirmam žymos laukeliui (t.y. „Pavadinimo“ laukeliui)"
 
 #. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SetFocusToFirstTagField),SET_FOCUS_TO_FIRST_TAG_FIELD);
 #. Tag Splitting
-#: ../src/prefs.c:636
+#: ../src/prefs.c:596
 msgid "Tag Splitting"
 msgstr "Žymių skaidymas"
 
-#: ../src/prefs.c:643
+#: ../src/prefs.c:605
 msgid ""
 "For Vorbis tags, selected fields will be split at dashes and saved as "
 "separate tags"
@@ -3905,46 +3848,28 @@ msgstr ""
 "Vorbis žymoms, pasirinkti laukeliai bus perskirti pagal taškus ir išsaugoti "
 "kaip atskiros žymos"
 
-#: ../src/prefs.c:653
+#: ../src/prefs.c:615
 msgid "Original artist"
 msgstr "Originalus atlikėjas"
 
 #.
 #. * ID3 Tag Settings
 #.
-#: ../src/prefs.c:674 ../src/prefs.c:675
+#: ../src/prefs.c:636
 msgid "ID3 Tag Settings"
 msgstr "ID3 žymių nustatymai"
 
 #. Tag Rules frame
-#: ../src/prefs.c:687
+#: ../src/prefs.c:645
 msgid "ID3 Tag Rules"
 msgstr "ID3 žymių taisyklės"
 
-#. Write ID3 tags in FLAC files
-#: ../src/prefs.c:699
-msgid "Write ID3 tags in FLAC files (in addition to FLAC tag)"
-msgstr "FLAC failuose rašyti ID3 žymes (kaip papildymą FLAC žymoms)"
-
-#: ../src/prefs.c:702
-msgid ""
-"If activated, ID3 tags will be also added in the FLAC file (according the "
-"two rules above, plus the FLAC tag). Else ID3 tags will be stripped."
-msgstr ""
-"Jei aktyvuota, FLAC faile bus pridėtos ir ID3 žymos (pagal dvi ankstesnes "
-"taisykles, plius FLAC žyma). Kitu atveju ID3 žymos bus pašalintos."
-
 #. Strip tag when fields (managed by EasyTAG) are empty
-#: ../src/prefs.c:707
+#: ../src/prefs.c:657
 msgid "Strip tags if all fields are set to blank"
 msgstr "Pašalinti žymes jei visi laukeliai tušti"
 
-#: ../src/prefs.c:710
-#| msgid ""
-#| "As ID3v2 tags may contain other data than Title, Artist, Album, Year, "
-#| "Track, Genre or Comment (as an attached picture, lyrics…), this option "
-#| "allows you to strip the whole tag when these seven standard data fields "
-#| "have been set to blank."
+#: ../src/prefs.c:660
 msgid ""
 "As ID3v2 tags may contain other data than Title, Artist, Album, Year, Track, "
 "Genre or Comment (as an attached image, lyrics…), this option allows you to "
@@ -3957,11 +3882,11 @@ msgstr ""
 "septyni laukeliai tušti."
 
 #. Convert old ID3v2 tag version
-#: ../src/prefs.c:716
+#: ../src/prefs.c:666
 msgid "Automatically convert old ID3v2 tag versions"
 msgstr "Automatiškai konvertuoti senas ID3v2 žymių versijas"
 
-#: ../src/prefs.c:719
+#: ../src/prefs.c:669
 msgid ""
 "If activated, an old ID3v2 tag version (as ID3v2.2) will be updated to the "
 "ID3v2.3 version."
@@ -3970,29 +3895,29 @@ msgstr ""
 "atnaujintos iki ID3v2.3 versijos."
 
 #. Use CRC32
-#: ../src/prefs.c:723
+#: ../src/prefs.c:673
 msgid "Use CRC32"
 msgstr "Naudoti CRC32"
 
-#: ../src/prefs.c:726
+#: ../src/prefs.c:676
 msgid "Set CRC32 in the ID3v2 tags"
 msgstr "ID3v2 žymose nustatyti CRC32"
 
 #. Use Compression
-#: ../src/prefs.c:729
+#: ../src/prefs.c:679
 msgid "Use Compression"
 msgstr "Naudoti glaudinimą"
 
-#: ../src/prefs.c:733
+#: ../src/prefs.c:683
 msgid "Set Compression in the ID3v2 tags"
 msgstr "ID3v2 žymose nustatyti suspaudimą"
 
 #. Write Genre in text
-#: ../src/prefs.c:736
+#: ../src/prefs.c:686
 msgid "Write Genre in text only"
 msgstr "Žanrą rašyti tekstu"
 
-#: ../src/prefs.c:740
+#: ../src/prefs.c:690
 msgid ""
 "Don't use ID3v1 number references in genre tag. Enable this if you see "
 "numbers as genre in your music player."
@@ -4001,21 +3926,21 @@ msgstr ""
 "muzikos grotuve prie žanro matote skaičius."
 
 #. Character Set for writing ID3 tag
-#: ../src/prefs.c:743
+#: ../src/prefs.c:693
 msgid "Character Set for writing ID3 tags"
 msgstr "ID3 žymių simbolių rinkinys"
 
 #. ID3v2 tags
-#: ../src/prefs.c:750
+#: ../src/prefs.c:700
 msgid "ID3v2 tags"
 msgstr "ID3v2 žymos"
 
 #. Write ID3v2 tag
-#: ../src/prefs.c:763
+#: ../src/prefs.c:713
 msgid "Write ID3v2 tag"
 msgstr "Rašyti ID3v2 žymes"
 
-#: ../src/prefs.c:766
+#: ../src/prefs.c:716
 msgid ""
 "If activated, an ID3v2.4 tag will be added or updated at the beginning of "
 "the MP3 files. Else it will be stripped."
@@ -4024,11 +3949,11 @@ msgstr ""
 "Kitu atveju bus pašalinta."
 
 #. ID3v2 tag version
-#: ../src/prefs.c:773
+#: ../src/prefs.c:723
 msgid "Version:"
 msgstr "Versija:"
 
-#: ../src/prefs.c:779
+#: ../src/prefs.c:729
 msgid ""
 "Select the ID3v2 tag version to write:\n"
 " - ID3v2.3 is written using id3lib,\n"
@@ -4040,34 +3965,34 @@ msgstr ""
 
 #. Charset
 #. Id3V1 writing character set
-#: ../src/prefs.c:794 ../src/prefs.c:901
+#: ../src/prefs.c:744 ../src/prefs.c:848
 msgid "Charset:"
 msgstr "Koduotė:"
 
 #. Unicode
-#: ../src/prefs.c:802
+#: ../src/prefs.c:749
 msgid "Unicode "
 msgstr "Unikodas"
 
-#: ../src/prefs.c:810
+#: ../src/prefs.c:757
 msgid "Unicode type to use"
 msgstr "Kurį unikodo tipą naudoti"
 
-#: ../src/prefs.c:834
+#: ../src/prefs.c:781
 msgid "Character set used to write the tag data in the file."
 msgstr "Kuris simbolių rinkinys bus naudojamas rašant žymos duomenis į failą."
 
 #. ID3v2 Additional iconv() options
 #. ID3V1 Additional iconv() options
-#: ../src/prefs.c:844 ../src/prefs.c:916
+#: ../src/prefs.c:791 ../src/prefs.c:860
 msgid "Additional settings for iconv():"
 msgstr "Papildomi iconv() nustatymai:"
 
-#: ../src/prefs.c:850 ../src/prefs.c:922
+#: ../src/prefs.c:797 ../src/prefs.c:866
 msgid "No"
 msgstr "Ne"
 
-#: ../src/prefs.c:854 ../src/prefs.c:926
+#: ../src/prefs.c:801 ../src/prefs.c:870
 msgid ""
 "With this option, when a character cannot be represented in the target "
 "character set, it isn't changed. But note that an error message will be "
@@ -4076,25 +4001,25 @@ msgstr ""
 "Su šia parinktimi, jei simbolis negali būti atvaizduotas jis nebus "
 "pakeistas. Bus rodomas klaidos pranešimas."
 
-#: ../src/prefs.c:859 ../src/prefs.c:931
+#: ../src/prefs.c:806 ../src/prefs.c:875
 msgid "//TRANSLIT"
 msgstr "//TRANSLIT"
 
-#: ../src/prefs.c:869 ../src/prefs.c:941
+#: ../src/prefs.c:816 ../src/prefs.c:885
 msgid "//IGNORE"
 msgstr "//IGNORE"
 
 #. ID3v1 tags
-#: ../src/prefs.c:878
+#: ../src/prefs.c:825
 msgid "ID3v1 tags"
 msgstr "ID3v1 žymos"
 
 #. Write ID3v1 tag
-#: ../src/prefs.c:892
+#: ../src/prefs.c:839
 msgid "Write ID3v1.x tag"
 msgstr "Rašyti ID3v1.x žymę"
 
-#: ../src/prefs.c:895
+#: ../src/prefs.c:842
 msgid ""
 "If activated, an ID3v1 tag will be added or updated at the end of the MP3 "
 "files. Else it will be stripped."
@@ -4102,21 +4027,21 @@ msgstr ""
 "Jei aktyvuota, MP3 failo pradžioje bus pridėta arba atnaujinta ID3v1 žyma. "
 "Kitu atveju bus pašalinta."
 
-#: ../src/prefs.c:912
+#: ../src/prefs.c:856
 msgid "Character set used to write ID3v1 tag data in the file."
 msgstr ""
 "Simbolių rinkinys kuris bus naudojamas rašant ID3v1 žymos duomenis į failą."
 
 #. Character Set for reading tag
-#: ../src/prefs.c:950
+#: ../src/prefs.c:894
 msgid "Character Set for reading ID3 tags"
 msgstr "Simbolių rinkinys ID3 žymių skaitymui"
 
-#: ../src/prefs.c:964
+#: ../src/prefs.c:908
 msgid "Non-standard:"
 msgstr "Nestandartinis:"
 
-#: ../src/prefs.c:970
+#: ../src/prefs.c:914
 msgid ""
 "This character set will be used when reading the tag data, to convert each "
 "string found in an ISO-8859-1 field in the tag (for ID3v2 or/and ID3v1 "
@@ -4145,31 +4070,31 @@ msgstr ""
 "„Windows-1251“ ir bus įkeltos žymos parašytos Windows. Ir „KOi8-R“ norėdami "
 "įkelti žymes parašytas Unix sistemose."
 
-#: ../src/prefs.c:988
+#: ../src/prefs.c:932
 msgid "Character set used to read tag data in the file."
 msgstr "Simbolių rinkinys naudojamas perskaityti failo žymes."
 
 #.
 #. * Scanner
 #.
-#: ../src/prefs.c:1002 ../src/prefs.c:1003
+#: ../src/prefs.c:946
 msgid "Scanner"
 msgstr "Skeneris"
 
 #. Character conversion for the 'Fill Tag' scanner (=> FTS...)
-#: ../src/prefs.c:1015
+#: ../src/prefs.c:956
 msgid "Fill Tag Scanner - Character Conversion"
 msgstr "Žymių užpildymo skeneris - Simbolių konvertavimas"
 
-#: ../src/prefs.c:1021 ../src/prefs.c:1046
+#: ../src/prefs.c:962 ../src/prefs.c:987
 msgid "Convert underscore character '_' and string '%20' to space ' '"
 msgstr "Konvertuoti pabraukimo simbolį „_“ ir „%20“ į tarpą „ “"
 
-#: ../src/prefs.c:1023 ../src/prefs.c:1047
+#: ../src/prefs.c:964 ../src/prefs.c:988
 msgid "Convert space ' ' to underscore '_'"
 msgstr "Konvertuoti tarpą „ “ į „_“"
 
-#: ../src/prefs.c:1035 ../src/prefs.c:1037
+#: ../src/prefs.c:976 ../src/prefs.c:978
 msgid ""
 "If activated, this conversion will be used when applying a mask from the "
 "scanner for tags."
@@ -4178,11 +4103,11 @@ msgstr ""
 "skaityklės."
 
 #. Character conversion for the 'Rename File' scanner (=> RFS...)
-#: ../src/prefs.c:1041
+#: ../src/prefs.c:982
 msgid "Rename File Scanner - Character Conversion"
 msgstr "Pervadinimo failų skeneris - simbolių konvertavimas"
 
-#: ../src/prefs.c:1058 ../src/prefs.c:1060 ../src/prefs.c:1062
+#: ../src/prefs.c:999 ../src/prefs.c:1001 ../src/prefs.c:1003
 msgid ""
 "If activated, this conversion will be used when applying a mask from the "
 "scanner for filenames."
@@ -4191,17 +4116,17 @@ msgstr ""
 "skaityklės."
 
 #. Character conversion for the 'Process Fields' scanner (=> PFS...)
-#: ../src/prefs.c:1065
+#: ../src/prefs.c:1006
 msgid "Process Fields Scanner - Character Conversion"
 msgstr "Laukelių apdorojimo skeneris “ simbolių konvertavimas"
 
 #. Don't convert some words like to, feat. first letter uppercase.
-#: ../src/prefs.c:1072
+#: ../src/prefs.c:1013
 msgid ""
 "Don't uppercase first letter of words for some prepositions and articles."
 msgstr "Nekeisti raidžių į pirmą didžiąją."
 
-#: ../src/prefs.c:1076
+#: ../src/prefs.c:1017
 msgid ""
 "Don't convert first letter of words like prepositions, articles and words "
 "like feat., when using the scanner 'First letter uppercase of each "
@@ -4213,15 +4138,15 @@ msgstr ""
 "didžioji“ (pvz. jūs gausite „Text in an Entry“ vietoj „Text In An Entry“)."
 
 #. Properties of the scanner window
-#: ../src/prefs.c:1082
+#: ../src/prefs.c:1023
 msgid "Scanner Window"
 msgstr "Skenerio langas"
 
-#: ../src/prefs.c:1088
+#: ../src/prefs.c:1029
 msgid "Open the Scanner Window on startup"
 msgstr "Paleidžiant atverti skenerio langą"
 
-#: ../src/prefs.c:1091
+#: ../src/prefs.c:1032
 msgid ""
 "Activate this option to open automatically the scanner window when EasyTAG "
 "starts."
@@ -4230,16 +4155,16 @@ msgstr ""
 "paleidžiant EasyTAG."
 
 #. Other options
-#: ../src/prefs.c:1096
+#: ../src/prefs.c:1037
 msgid "Fields"
 msgstr "Laukeliai"
 
 #. Overwrite text into tag fields
-#: ../src/prefs.c:1103
+#: ../src/prefs.c:1044
 msgid "Overwrite fields when scanning tags"
 msgstr "Skaitant žymas perrašyti laukelius"
 
-#: ../src/prefs.c:1106
+#: ../src/prefs.c:1047
 msgid ""
 "If activated, the scanner will replace existing text in fields by the new "
 "one. If deactivated, only blank fields of the tag will be filled."
@@ -4247,11 +4172,11 @@ msgstr ""
 "Jei aktyvuota, skeneris pakeis esamą tekstą nauju. Jei išjungta, bus "
 "užpildyti tik tušti laukeliai."
 
-#: ../src/prefs.c:1117
+#: ../src/prefs.c:1058
 msgid "Set this text as default comment:"
 msgstr "Nustatyti šį tekstą kaip numatytąjį komentarą:"
 
-#: ../src/prefs.c:1120
+#: ../src/prefs.c:1061
 msgid ""
 "Activate this option if you want to put the following string into the "
 "comment field when using the 'Fill Tag' scanner."
@@ -4260,11 +4185,11 @@ msgstr ""
 "naudojant „Užpildyti žymes“ skenerį."
 
 #. CRC32 comment
-#: ../src/prefs.c:1138
+#: ../src/prefs.c:1079
 msgid "Use CRC32 as the default comment (for files with ID3 tags only)."
 msgstr "Kaip numatytąjį komentarą naudoti CRC32 (failam tik su ID3 žymomis)."
 
-#: ../src/prefs.c:1142
+#: ../src/prefs.c:1083
 msgid ""
 "Calculates the CRC-32 value of the file and writes it into the comment field "
 "when using the 'Fill Tag' scanner."
@@ -4273,107 +4198,113 @@ msgstr "Suskaičiuoja failo CRC-32 reikšmę ir įrašo į komentaro laukelį."
 #.
 #. * CDDB
 #.
-#: ../src/prefs.c:1153 ../src/prefs.c:1154
-msgid "CD Data Base"
-msgstr "CD duomenų bazė"
+#: ../src/prefs.c:1094
+msgid "CDDB"
+msgstr "CDDB"
 
 #. CDDB Server Settings (Automatic Search)
-#: ../src/prefs.c:1163
+#: ../src/prefs.c:1100
 msgid "Server Settings for Automatic Search"
 msgstr "Automatinės paieškos serverio nustatymai"
 
-#: ../src/prefs.c:1172 ../src/prefs.c:1211 ../src/prefs.c:1245
+#: ../src/prefs.c:1109 ../src/prefs.c:1148 ../src/prefs.c:1182
 msgid "Name:"
 msgstr "Pavadinimas:"
 
-#: ../src/prefs.c:1191 ../src/prefs.c:1219 ../src/prefs.c:1254
-#: ../src/prefs.c:1343
+#: ../src/prefs.c:1128 ../src/prefs.c:1156 ../src/prefs.c:1191
+#: ../src/prefs.c:1276
 msgid "Port:"
 msgstr "Prievadas:"
 
-#: ../src/prefs.c:1201 ../src/prefs.c:1229 ../src/prefs.c:1264
+#: ../src/prefs.c:1138 ../src/prefs.c:1166 ../src/prefs.c:1200
 msgid "CGI Path:"
 msgstr "CGI kelias:"
 
 #. CDDB Server Settings (Manual Search)
-#: ../src/prefs.c:1237
+#: ../src/prefs.c:1174
 msgid "Server Settings for Manual Search"
 msgstr "Rankinės paieškos serverio nustatymai"
 
 #. Local access for CDDB (Automatic Search)
-#: ../src/prefs.c:1272
-msgid "Local CD Data Base"
-msgstr "Vietinė CD duomenų bazė"
+#: ../src/prefs.c:1208
+#| msgid "Use local CDDB"
+msgid "Local CDDB"
+msgstr "Vietinė CDDB"
 
-#: ../src/prefs.c:1280
+#: ../src/prefs.c:1216
 msgid "Path:"
 msgstr "Kelias:"
 
-#: ../src/prefs.c:1292
+#: ../src/prefs.c:1228
+#| msgid ""
+#| "Specify the directory where the local CD database is located. The local "
+#| "CD data base contains the eleven following directories 'blues', "
+#| "'classical', 'country', 'data', 'folk', 'jazz', 'newage', 'reggae', "
+#| "'rock', 'soundtrack' and 'misc'."
 msgid ""
 "Specify the directory where the local CD database is located. The local CD "
-"data base contains the eleven following directories 'blues', 'classical', "
+"database contains the eleven following directories 'blues', 'classical', "
 "'country', 'data', 'folk', 'jazz', 'newage', 'reggae', 'rock', 'soundtrack' "
 "and 'misc'."
 msgstr ""
 "Nurodykite kelią, kur yra vietinė CD duomenų bazė. Vietinė CD duomenų bazė "
-"turi vienuoliką aplankų: „blues“, „classical“, „classical“, „data“, „folk“, "
+"turi vienuoliką aplankų: „blues“, „classical“, „country“ „data“, „folk“, "
 "„jazz“, „newage“, „reggae“, „rock“, „soundtrack“ ir „misc“."
 
 #. CDDB Proxy Settings
-#: ../src/prefs.c:1318
+#: ../src/prefs.c:1254
 msgid "Proxy Settings"
 msgstr "Tarpinio serverio nustatymai"
 
-#: ../src/prefs.c:1327
+#: ../src/prefs.c:1263
 msgid "Use a proxy"
 msgstr "Naudoti tarpinį serverį"
 
-#: ../src/prefs.c:1330
+#: ../src/prefs.c:1266
 msgid "Set active the settings of the proxy server."
 msgstr "Nustatyti aktyvius tarpinio serverio nustatymus"
 
-#: ../src/prefs.c:1335
+#: ../src/prefs.c:1268
 msgid "Host Name:"
 msgstr "Kompiuterio pavadinimas:"
 
-#: ../src/prefs.c:1342
+#: ../src/prefs.c:1275
 msgid "Name of the proxy server."
 msgstr "Tarpinio serverio vardas."
 
-#: ../src/prefs.c:1350
+#: ../src/prefs.c:1283
 msgid "Port of the proxy server."
 msgstr "Tarpinio serverio prievadas."
 
-#: ../src/prefs.c:1355
+#: ../src/prefs.c:1287
 msgid "User Name:"
 msgstr "Naudotojo vardas:"
 
-#: ../src/prefs.c:1362
+#: ../src/prefs.c:1294
 msgid "Name of user for the the proxy server."
 msgstr "Tarpinio serverio naudotojo vardas."
 
-#: ../src/prefs.c:1363
+#: ../src/prefs.c:1295
 msgid "User Password:"
 msgstr "Naudotojo slaptažodis:"
 
-#: ../src/prefs.c:1371
+#: ../src/prefs.c:1303
 msgid "Password of user for the the proxy server."
 msgstr "Tarpinio serverio naudotojo slaptažodis."
 
 #. Track Name list (CDDB results)
-#: ../src/prefs.c:1376
+#: ../src/prefs.c:1308
 msgid "Track Name List"
 msgstr "Takelių pavadinimų sąrašas"
 
-#: ../src/prefs.c:1383
+#: ../src/prefs.c:1315
 msgid ""
 "Select corresponding audio file (according position or DLM if activated "
 "below)"
 msgstr ""
 "Pasirinkite atitinkamą audio failą (pagal poziciją arba DLM, jei aktyvuota)"
 
-#: ../src/prefs.c:1387
+#: ../src/prefs.c:1319
 msgid ""
 "If activated, when selecting a line in the list of tracks name, the "
 "corresponding audio file in the main list will be also selected."
@@ -4382,7 +4313,7 @@ msgstr ""
 "failas pagrindiniame sąraše."
 
 #. Check box to use DLM (also used in the cddb window)
-#: ../src/prefs.c:1392
+#: ../src/prefs.c:1324
 msgid ""
 "Use the Levenshtein algorithm (DLM) to match lines (using title) with audio "
 "files (using filename)"
@@ -4393,15 +4324,15 @@ msgstr ""
 #.
 #. * Confirmation
 #.
-#: ../src/prefs.c:1407 ../src/prefs.c:1408
+#: ../src/prefs.c:1339
 msgid "Confirmation"
 msgstr "Patvirtinimas"
 
-#: ../src/prefs.c:1416
+#: ../src/prefs.c:1344
 msgid "Confirm exit from program"
 msgstr "Patvirtinti išėjimą iš programos"
 
-#: ../src/prefs.c:1419
+#: ../src/prefs.c:1347
 msgid ""
 "If activated, opens a dialog box to ask confirmation before exiting the "
 "program."
@@ -4409,57 +4340,45 @@ msgstr ""
 "Jei aktyvuota, prieš išeinant iš programos bus parodytas dialogas su "
 "patvirtinimu."
 
-#: ../src/prefs.c:1422
+#: ../src/prefs.c:1350
 msgid "Confirm writing of file tag"
 msgstr "Patvirtinti failo žymos rašymą"
 
-#: ../src/prefs.c:1426
+#: ../src/prefs.c:1354
 msgid "Confirm renaming of file"
 msgstr "Patvirtinti failo pervadinimą"
 
-#: ../src/prefs.c:1430
+#: ../src/prefs.c:1358
 msgid "Confirm deleting of file"
 msgstr "Patvirtinti failo šalinimą"
 
-#: ../src/prefs.c:1434
+#: ../src/prefs.c:1362
 msgid "Confirm writing of playlist"
 msgstr "Patvirtinti grojaraščio įrašymą"
 
-#: ../src/prefs.c:1438
+#: ../src/prefs.c:1366
 msgid "Confirm changing directory when there are unsaved changes"
 msgstr "Patvirtinti aplanko keitimą, kai yra neišsaugotų keitimų"
 
-#: ../src/prefs.c:1455
-msgid "Apply changes (but don't save) and close this window"
-msgstr "Pritaikyti keitimus (bet nesaugoti) ir užverti šį langą"
-
-#: ../src/prefs.c:1464
-msgid "Close this window without saving"
-msgstr "Užverti šį langą nesaugant"
-
-#: ../src/prefs.c:1472
-msgid "Save changes and close this window"
-msgstr "Išsaugoti pakeitimus ir užverti šį langą"
-
 #. For translators : be aware to NOT translate '%.*d' in this string
-#: ../src/prefs.c:1507
+#: ../src/prefs.c:1404
 #, c-format
 msgid "(Example: %.*d_-_Track_name_1.mp3)"
 msgstr "(Pavyzdžiui: %.*d_-_Track_name_1.mp3)"
 
-#: ../src/prefs.c:1669 ../src/setting.c:894
+#: ../src/prefs.c:1545 ../src/setting.c:898
 msgid "Configuration saved"
 msgstr "Konfigūraciją išsaugota"
 
-#: ../src/prefs.c:1677
+#: ../src/prefs.c:1553
 msgid "Configuration unchanged"
 msgstr "Konfigūracija nepakeista"
 
-#: ../src/prefs.c:1781
+#: ../src/prefs.c:1639
 msgid "The selected path for 'Default path to files' is invalid"
 msgstr "Pasirinktas kelias „Numatytasis kelias iki failų“ nėra tinkamas"
 
-#: ../src/prefs.c:1782
+#: ../src/prefs.c:1640
 #, c-format
 msgid ""
 "Path: '%s'\n"
@@ -4468,97 +4387,95 @@ msgstr ""
 "Kelias: „%s“\n"
 "Klaida: %s"
 
-#: ../src/prefs.c:1783
+#: ../src/prefs.c:1641
 msgid "Invalid Path Error"
 msgstr "Netinkamo kelio klaida"
 
-#: ../src/prefs.c:1897
+#: ../src/prefs.c:1755
 #, c-format
 msgid "The audio file player '%s' cannot be found"
 msgstr "Garso failų grotuvas „%s“ nerastas"
 
-#: ../src/prefs.c:1899
+#: ../src/prefs.c:1757
 msgid "Audio Player Error"
 msgstr "Garso grotuvo klaida"
 
-#: ../src/scan.c:179
+#: ../src/scan.c:181
 msgid "Fill Tag"
 msgstr "Užpildyti žymę"
 
-#: ../src/scan.c:368
-#| msgid "Tag successfully scanned…"
+#: ../src/scan.c:359
+#, c-format
+#| msgid "Cannot create or open file '%s' (%s)"
+msgid "Cannot calculate CRC value of file (%s)"
+msgstr "Nepavyko failo CRC vertės (%s)"
+
+#: ../src/scan.c:374
 msgid "Tag successfully scanned"
 msgstr "Žymos sėkmingai nuskaitytos"
 
-#: ../src/scan.c:370
+#: ../src/scan.c:376
 #, c-format
-#| msgid "Tag successfully scanned…(%s)"
 msgid "Tag successfully scanned: %s"
 msgstr "Žyma sėkmingai nuskaityta %s"
 
-#: ../src/scan.c:411
+#: ../src/scan.c:417
 #, c-format
 msgid "Tag scanner: strange… the extension '%s' was not found in filename '%s'"
 msgstr "Žymių skaityklė: keista…, plėtinys „%s“ failo pavadinime „%s“ nerastas"
 
-#: ../src/scan.c:493 ../src/scan.c:522
+#: ../src/scan.c:499 ../src/scan.c:528
 #, c-format
 msgid "Scan Error: can't find separator '%s' within '%s'"
 msgstr "Skenavimo klaida: nepavyko rasti skirtuko „%s“ faile „%s“"
 
-#: ../src/scan.c:710
-#| msgid "New file name successfully scanned…"
+#: ../src/scan.c:715
 msgid "New filename successfully scanned"
 msgstr "Naujo failo pavadinimas sėkmingai nuskaitytas"
 
-#: ../src/scan.c:713
+#: ../src/scan.c:718
 #, c-format
-#| msgid "New file name successfully scanned…(%s)"
 msgid "New filename successfully scanned: %s"
 msgstr "Naujo failo pavadinimas sėkmingai nuskaitytas: %s"
 
-#: ../src/scan.c:1816
+#: ../src/scan.c:1818
 #, c-format
 msgid "Error while processing fields: %s"
 msgstr "Klaida apdorojant laukus: %s."
 
-#: ../src/scan.c:2347
+#. The window
+#: ../src/scan.c:2335
 msgid "Tag and Filename Scan"
 msgstr "Žymos ir failo pavadinimo skaitymas"
 
+#. TODO: Set related action to match AM_SCAN_FILES.
+#: ../src/scan.c:2344
+#| msgid "Scan files"
+msgid "Scan Files"
+msgstr "Skaityti failus"
+
 #. Option Menu
-#: ../src/scan.c:2366
+#: ../src/scan.c:2372
 msgid "Scanner:"
 msgstr "Skeneris:"
 
-#: ../src/scan.c:2387
+#: ../src/scan.c:2393
 msgid "Select the type of scanner to use"
 msgstr "Pasirinkite skenerio tipą"
 
-#: ../src/scan.c:2396
-msgid "Open scanner window / Scan selected files"
-msgstr "Atverkite skenerio langą/Skenuokite pasirinktus failus"
-
-#: ../src/scan.c:2409
+#: ../src/scan.c:2402
 msgid "Scanner Preferences"
 msgstr "Skaityklės nustatymai"
 
-#: ../src/scan.c:2418
+#: ../src/scan.c:2411
 msgid "Show / Hide Masks Editor"
 msgstr "Rodyti/Slėpti šablonų redaktorių"
 
-#: ../src/scan.c:2428
+#: ../src/scan.c:2421
 msgid "Show / Hide Legend"
 msgstr "Rodyti/Slėpti legendą"
 
-#: ../src/scan.c:2438
-msgid "Close this window"
-msgstr "Užverti šį langą"
-
-#: ../src/scan.c:2466
-#| msgid ""
-#| "Select or type in a mask using codes (see Legend) to parse file name and "
-#| "path. Used to fill in tag fields."
+#: ../src/scan.c:2451
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse filename and "
 "path. Used to fill in tag fields"
@@ -4567,16 +4484,15 @@ msgstr ""
 "šabloną naudojant kodus (žiūrėkite legendą). Naudota žymių užpildymui"
 
 #. Preview label
-#: ../src/scan.c:2492
-#| msgid "Fill tag preview…"
+#: ../src/scan.c:2475
 msgid "Fill tag preview"
 msgstr "Užpildytų žymų peržiūra"
 
-#: ../src/scan.c:2522
+#: ../src/scan.c:2505
 msgid "Prefix mask with current path"
 msgstr "Priešdėlio šablonas su esamu keliu"
 
-#: ../src/scan.c:2535
+#: ../src/scan.c:2519
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse tag fields. Used "
 "to rename the file.\n"
@@ -4589,16 +4505,15 @@ msgstr ""
 "absoliutus kelias, kitu atveju tai reliatyvus kelias(senam keliui)."
 
 #. Preview label
-#: ../src/scan.c:2562
-#| msgid "Rename file preview…"
+#: ../src/scan.c:2544
 msgid "Rename file preview"
 msgstr "Pervadinto failo peržiūra"
 
-#: ../src/scan.c:2581
+#: ../src/scan.c:2563
 msgid "Select fields:"
 msgstr "Pasirinkite laukelius:"
 
-#: ../src/scan.c:2584
+#: ../src/scan.c:2566
 msgid ""
 "The buttons on the right represent the fields which can be processed. Select "
 "those which interest you"
@@ -4607,131 +4522,134 @@ msgstr ""
 "dominančius."
 
 #. Advice for Translators: set the first letter of filename translated
-#: ../src/scan.c:2588
+#: ../src/scan.c:2570
 msgid "F"
 msgstr "F"
 
-#: ../src/scan.c:2590
-#| msgid "Process file name field"
+#: ../src/scan.c:2572
 msgid "Process filename field"
 msgstr "Apdoroti failo pavadinimo laukelį"
 
 #. Advice for Translators: set the first letter of title translated
-#: ../src/scan.c:2592
+#: ../src/scan.c:2574
 msgid "T"
 msgstr "P"
 
-#: ../src/scan.c:2593
+#: ../src/scan.c:2575
 msgid "Process title field"
 msgstr "Apdoroti pavadinimo laukelį"
 
 #. Advice for Translators: set the first letter of artist translated
-#: ../src/scan.c:2595
+#: ../src/scan.c:2577
 msgid "Ar"
 msgstr "A"
 
-#: ../src/scan.c:2596
+#: ../src/scan.c:2578
 msgid "Process file artist field"
 msgstr "Apdoroti failo atlikėjo laukelį"
 
 #. Advice for Translators: set the first letter of album artist translated
-#: ../src/scan.c:2598
+#: ../src/scan.c:2580
 msgid "AA"
 msgstr "AA"
 
-#: ../src/scan.c:2599
+#: ../src/scan.c:2581
 msgid "Process album artist field"
 msgstr "Apdoroti albumo atlikėjo laukelį"
 
 #. Advice for Translators: set the first letter of album translated
-#: ../src/scan.c:2601
+#: ../src/scan.c:2583
 msgid "Al"
 msgstr "Al"
 
-#: ../src/scan.c:2602
+#: ../src/scan.c:2584
 msgid "Process album field"
 msgstr "Apdoroti albumo laukelį"
 
 #. Advice for Translators: set the first letter of genre translated
-#: ../src/scan.c:2604
+#: ../src/scan.c:2586
 msgid "G"
 msgstr "Ž"
 
-#: ../src/scan.c:2605
+#: ../src/scan.c:2587
 msgid "Process genre field"
 msgstr "Apdoroti žanro laukelį"
 
 #. Advice for Translators: set the first letter of comment translated
-#: ../src/scan.c:2607
+#: ../src/scan.c:2589
 msgid "Cm"
 msgstr "K"
 
-#: ../src/scan.c:2608
+#: ../src/scan.c:2590
 msgid "Process comment field"
 msgstr "Apdoroti komentaro laukelį"
 
 #. Advice for Translators: set the first letter of composer translated
-#: ../src/scan.c:2610
+#: ../src/scan.c:2592
 msgid "Cp"
 msgstr "Km"
 
-#: ../src/scan.c:2611
+#: ../src/scan.c:2593
 msgid "Process composer field"
 msgstr "Apdoroti kompozitoriaus laukelį"
 
 #. Advice for Translators: set the first letter of orig artist translated
-#: ../src/scan.c:2613
+#: ../src/scan.c:2595
 msgid "O"
 msgstr "O"
 
-#: ../src/scan.c:2614
+#: ../src/scan.c:2596
 msgid "Process original artist field"
 msgstr "Apdoroti originalaus atlikėjo laukelį"
 
 #. Advice for Translators: set the first letter of copyright translated
-#: ../src/scan.c:2616
+#: ../src/scan.c:2598
 msgid "Cr"
 msgstr "At"
 
-#: ../src/scan.c:2617
+#: ../src/scan.c:2599
 msgid "Process copyright field"
 msgstr "Apdoroti autorinių teisių laukelį"
 
 #. Advice for Translators: set the first letter of URL translated
-#: ../src/scan.c:2619
+#: ../src/scan.c:2601
 msgid "U"
 msgstr "U"
 
-#: ../src/scan.c:2620
+#: ../src/scan.c:2602
 msgid "Process URL field"
 msgstr "Apdoroti URL kanalą laukelį"
 
 #. Advice for Translators: set the first letter of encoder name translated
-#: ../src/scan.c:2622
+#: ../src/scan.c:2604
 msgid "E"
 msgstr "Kd"
 
-#: ../src/scan.c:2623
+#: ../src/scan.c:2605
 msgid "Process encoder name field"
 msgstr "Apdoroti kodavimo pavadinimo laukelį"
 
-#: ../src/scan.c:2667
+#: ../src/scan.c:2649
 msgid "Invert selection"
 msgstr "Apversti pasirinkimą"
 
-#: ../src/scan.c:2674
+#: ../src/scan.c:2656
 msgid "Select/Unselect all"
 msgstr "Pasirinkti/Nepasirinkti visus"
 
-#: ../src/scan.c:2687
+#: ../src/scan.c:2671
 msgid "Convert:"
 msgstr "Konvertuoti:"
 
-#: ../src/scan.c:2689
+#: ../src/scan.c:2673
 msgid "to: "
 msgstr "į:"
 
-#: ../src/scan.c:2718
+#: ../src/scan.c:2680
+msgid "Do not convert"
+msgstr "Nekonvertuoti"
+
+#: ../src/scan.c:2699
 msgid ""
 "The underscore character or the string '%20' are replaced by one space. "
 "Example, before: 'Text%20In%20An_Entry', after: 'Text In An Entry'."
@@ -4739,7 +4657,7 @@ msgstr ""
 "Pabraukimo simbolis ar eilutė „%20“ pakeičiami tarpu. Pavyzdžiui, prieš: "
 "„Tekstas%20įraše“, po: „Tekstas įraše“."
 
-#: ../src/scan.c:2721
+#: ../src/scan.c:2702
 msgid ""
 "The space character is replaced by one underscore character. Example, "
 "before: 'Text In An Entry', after: 'Text_In_An_Entry'."
@@ -4747,16 +4665,38 @@ msgstr ""
 "Tarpo simbolis pakeičiamas pabraukimo simboliu. Pavyzdžiui, prieš: „Tekstas "
 "įraše“, po: „Tekstas_įraše“."
 
-#: ../src/scan.c:2724
+#: ../src/scan.c:2705
 msgid ""
 "Replace a string by another one. Note that the search is case sensitive."
 msgstr "Pakeisti eilutę kita. Paieška skiria didžiąsias ir mažąsias raides."
 
-#: ../src/scan.c:2737
+#: ../src/scan.c:2712
+msgid "Capitalize all"
+msgstr "Viską didžiosiomis"
+
+#: ../src/scan.c:2714
+#| msgid "Lower Case"
+msgid "Lowercase all"
+msgstr "Viską mažosiomis"
+
+#: ../src/scan.c:2716
+msgid "Capitalize first letter"
+msgstr "Pirma raidė didžioji"
+
+#: ../src/scan.c:2718
+#| msgid "First letter uppercase of each word"
+msgid "Capitalize the first letter of each word"
+msgstr "Kiekvieno žodžio pirma raidė – didžioji"
+
+#: ../src/scan.c:2719
 msgid "Detect Roman numerals"
 msgstr "Aptikti romėniškus skaičius"
 
-#: ../src/scan.c:2764
+#: ../src/scan.c:2721
+msgid "Do not change capitalization"
+msgstr "Nekeisti raidžių registro"
+
+#: ../src/scan.c:2743
 msgid ""
 "Convert all words in all fields to upper case. Example, before: 'Text IN AN "
 "entry', after: 'TEXT IN AN ENTRY'."
@@ -4764,7 +4704,7 @@ msgstr ""
 "Konvertuoti visus žodžius laukeliuose į didžiąsias raides. Pavyzdžiui, "
 "prieš: „TekstaS įRašE“, po: „TEKSTAS ĮRAŠE“."
 
-#: ../src/scan.c:2767
+#: ../src/scan.c:2746
 msgid ""
 "Convert all words in all fields to lower case. Example, before: 'TEXT IN an "
 "entry', after: 'text in an entry'."
@@ -4772,7 +4712,7 @@ msgstr ""
 "Konvertuoti visus žodžius laukeliuose į mažąsias raides. Pavyzdžiui, prieš: "
 "„TekstaS įRašE“, po: „tekstas įraše“."
 
-#: ../src/scan.c:2770
+#: ../src/scan.c:2749
 msgid ""
 "Convert the initial of the first word in all fields to upper case. Example, "
 "before: 'text IN An ENTRY', after: 'Text in an entry'."
@@ -4780,7 +4720,7 @@ msgstr ""
 "Konvertuoti pirmo žodžio pirmą raidę visuose laukeliuose į didžiąją raidę. "
 "Pavyzdžiui, prieš: „TekstaS įRašE“, po: „Tekstas įraše“."
 
-#: ../src/scan.c:2773
+#: ../src/scan.c:2752
 msgid ""
 "Convert the initial of each word in all fields to upper case. Example, "
 "before: 'Text in an ENTRY', after: 'Text In An Entry'."
@@ -4788,7 +4728,7 @@ msgstr ""
 "Konvertuoti kiekvieno žodžio pirmą raidę visuose laukeliuose į didžiąją "
 "raidę. Pavyzdžiui, prieš: „TekstaS įRašE“, po: „Tekstas Įraše“."
 
-#: ../src/scan.c:2776
+#: ../src/scan.c:2755
 msgid ""
 "Force to convert to upper case the Roman numerals. Example, before: 'ix. "
 "text in an entry', after: 'IX. Text In An Entry'."
@@ -4796,15 +4736,21 @@ msgstr ""
 "Romėniškuose skaičiuose priverstinai konvertuoti į didžiąsias raides. "
 "Pavyzdžiui, prieš: „ix. tekstas įraše“, po: „IX. Tekstas Įraše.“"
 
-#: ../src/scan.c:2785
-msgid "Insert a space before an uppercase letter"
+#: ../src/scan.c:2763
+#| msgid "Insert space before uppercase letter"
+msgid "Insert a space before uppercase letters"
 msgstr "Prieš didžiąją raidę įterpti tarpą"
 
-#: ../src/scan.c:2786
-msgid "Remove duplicates of space or underscore"
-msgstr "Pašalinti kelis tarpus ar pabraukimo simbolius"
+#: ../src/scan.c:2765
+#| msgid "Remove duplicate spaces or underscores"
+msgid "Remove duplicate spaces and underscores"
+msgstr "Pašalinti dvigubus tarpus ar pabraukimo simbolius"
 
-#: ../src/scan.c:2804
+#: ../src/scan.c:2767
+msgid "Do not change word separators"
+msgstr "Nekeisti žodžių skirtukų"
+
+#: ../src/scan.c:2781
 msgid ""
 "All spaces between words are removed. Example, before: 'Text In An Entry', "
 "after: 'TextInAnEntry'."
@@ -4812,7 +4758,7 @@ msgstr ""
 "Visi tarpai tarp žodžių pašalinami. Pavyzdžiui, prieš: „Tekstas Įraše“, po: "
 "„TekstasĮraše“."
 
-#: ../src/scan.c:2807
+#: ../src/scan.c:2784
 msgid ""
 "A space is inserted before each upper case letter. Example, before: "
 "'TextInAnEntry', after: 'Text In An Entry'."
@@ -4820,280 +4766,252 @@ msgstr ""
 "Prieš kiekvieną didžiąją raidę įterpiamas tarpas. Pavyzdžiui, prieš: "
 "„TekstasĮraše“, po: „Tekstas Įraše“."
 
-#: ../src/scan.c:2810
+#: ../src/scan.c:2787
+#| msgid ""
+#| "Duplicated spaces or underscores are removed. Example, before: "
+#| "'Text__In__An   Entry', after: 'Text_In_An Entry'."
 msgid ""
-"Duplicated spaces or underscores are removed. Example, before: "
+"Duplicate spaces and underscores are removed. Example, before: "
 "'Text__In__An   Entry', after: 'Text_In_An Entry'."
 msgstr ""
 "Keli tarpai ir pabraukimo simboliai pašalinami. Pavyzdžiui, prieš: "
-"„  Tekstas__Įraše   “, po: „Tekstas_Įraše“."
+"„Tekstas__Įraše   Toks“, po: „Tekstas_Įraše Toks“."
 
 #.
 #. * Frame to display codes legend
 #.
-#: ../src/scan.c:2817
+#: ../src/scan.c:2794
 msgid "Legend"
 msgstr "Legenda"
 
-#: ../src/scan.c:2823
+#: ../src/scan.c:2800
 #, c-format
 msgid "%a: artist"
 msgstr "%a: atlikėjas"
 
-#: ../src/scan.c:2826
+#: ../src/scan.c:2803
 msgid "%z: album artist"
 msgstr "%z: albumo atlikėjas"
 
-#: ../src/scan.c:2829
+#: ../src/scan.c:2806
 msgid "%b: album"
 msgstr "%b: albumas"
 
-#: ../src/scan.c:2832
+#: ../src/scan.c:2809
 #, c-format
 msgid "%c: comment"
 msgstr "%c: komentaras"
 
-#: ../src/scan.c:2835
+#: ../src/scan.c:2812
 #, c-format
 msgid "%p: composer"
 msgstr "%p: kompozitorius"
 
-#: ../src/scan.c:2838
+#: ../src/scan.c:2815
 msgid "%r: copyright"
 msgstr "%r: autorinės teisės"
 
-#: ../src/scan.c:2841
+#: ../src/scan.c:2818
 #, c-format
 msgid "%d: disc number"
 msgstr "%d: disko numeris"
 
-#: ../src/scan.c:2844
+#: ../src/scan.c:2821
 #, c-format
 msgid "%e: encoded by"
 msgstr "%e: kodavo"
 
-#: ../src/scan.c:2847
+#: ../src/scan.c:2824
 #, c-format
 msgid "%g: genre"
 msgstr "%g: žanras"
 
-#: ../src/scan.c:2850
+#: ../src/scan.c:2827
 #, c-format
 msgid "%i: ignored"
 msgstr "%i: nepaisoma"
 
-#: ../src/scan.c:2853
+#: ../src/scan.c:2830
 msgid "%l: number of tracks"
 msgstr "%l: takelių skaičius"
 
-#: ../src/scan.c:2856
+#: ../src/scan.c:2833
 #, c-format
 msgid "%o: orig. artist"
 msgstr "%o: orig. atlikėjas"
 
-#: ../src/scan.c:2859
+#: ../src/scan.c:2836
 #, c-format
 msgid "%n: track"
 msgstr "%n: takelis"
 
-#: ../src/scan.c:2862
+#: ../src/scan.c:2839
 msgid "%t: title"
 msgstr "%t: pavadinimas"
 
-#: ../src/scan.c:2865
+#: ../src/scan.c:2842
 #, c-format
 msgid "%u: URL"
 msgstr "%u: URL"
 
-#: ../src/scan.c:2868
+#: ../src/scan.c:2845
 msgid "%y: year"
 msgstr "%y: metai"
 
 #.
 #. * Masks Editor
 #.
-#: ../src/scan.c:2875
+#: ../src/scan.c:2852
 msgid "Mask Editor"
 msgstr "Šablonų redaktorius"
 
-#: ../src/scan.c:2932
+#: ../src/scan.c:2906
 msgid "Create New Mask"
 msgstr "Sukurti naują šabloną"
 
-#: ../src/scan.c:2942
+#: ../src/scan.c:2916
 msgid "Move Up this Mask"
 msgstr "Šį šabloną perkelti aukštyn"
 
-#: ../src/scan.c:2952
+#: ../src/scan.c:2926
 msgid "Move Down this Mask"
 msgstr "Šį šabloną perkelti žemyn"
 
-#: ../src/scan.c:2962
+#: ../src/scan.c:2936
 msgid "Duplicate Mask"
 msgstr "Dubliuoti šabloną"
 
-#: ../src/scan.c:2972
+#: ../src/scan.c:2946
 msgid "Add Default Masks"
 msgstr "Pridėti numatytąjį šabloną"
 
-#: ../src/scan.c:2982
+#: ../src/scan.c:2956
 msgid "Remove Mask"
 msgstr "Pašalinti šabloną"
 
-#: ../src/scan.c:2992
+#: ../src/scan.c:2966
 msgid "Save Masks"
 msgstr "Išsaugoti šablonus"
 
-#: ../src/scan.c:3602
+#: ../src/scan.c:3546
 msgid "New_mask"
 msgstr "Naujas _šablonas"
 
-#: ../src/scan.c:3641
+#: ../src/scan.c:3585
 msgid "Copy: No row selected"
 msgstr "Kopijuoti: nepasirinkta eilutė"
 
-#: ../src/scan.c:3749
+#: ../src/scan.c:3678
 msgid "Remove: No row selected"
 msgstr "Pašalinti: nepasirinkta eilutė"
 
-#: ../src/scan.c:3797
+#: ../src/scan.c:3725
 msgid "Move Up: No row selected"
 msgstr "Perkelti aukštyn: nepasirinkta eilutė"
 
-#: ../src/scan.c:3851
+#: ../src/scan.c:3769
 msgid "Move Down: No row selected"
 msgstr "Perkelti žemyn: nepasirinkta eilutė"
 
-#: ../src/setting.c:914
+#: ../src/setting.c:918
 #, c-format
 msgid "Error: Cannot write configuration file: %s (%s)"
 msgstr "Klaida: įrašyti konfigūracijos failo nepavyko: %s (%s)"
 
-#: ../src/setting.c:1056
+#: ../src/setting.c:938 ../src/setting.c:955 ../src/setting.c:975
+#, c-format
+#| msgid "Error while writing to file: '%s' (%s)"
+msgid "Error while writing configuration file: %s"
+msgstr "Klaida įrašant konfigūracijos failą: %s"
+
+#: ../src/setting.c:1084
 #, c-format
 msgid "Cannot open configuration file '%s' (%s)"
 msgstr "Nepavyko atverti konfigūracijos failo „%s“ (%s)"
 
-#: ../src/setting.c:1058
+#: ../src/setting.c:1086
 msgid "Loading default configuration"
 msgstr "Įkeliama numatytoji konfigūracija"
 
-#: ../src/setting.c:1099
+#: ../src/setting.c:1127
 #, c-format
 msgid "Cannot create or open file '%s' (%s)"
 msgstr "Nepavyko sukurti arba atverti failo „%s“ (%s)"
 
-#: ../src/setting.c:1160
+#: ../src/setting.c:1187
 #, c-format
 msgid "Error: Cannot write list to file: %s (%s)"
 msgstr "Klaida: nepavyko sąrašo įrašyti į failą: %s (%s)"
 
+#: ../src/setting.c:1205
+#, c-format
+#| msgid "Error while writing to file: '%s' (%s)"
+msgid "Error while writing list file: %s"
+msgstr "Klaida įrašant sąrašo failą: %s"
+
 #. Fall back to defaults
-#: ../src/setting.c:1245
+#: ../src/setting.c:1285
 msgid "Loading default 'Fill Tag' masks…"
 msgstr "Įkeliami numatytieji „Užpildyti žymes“ šablonai…"
 
 #. Fall back to defaults
-#: ../src/setting.c:1273
+#: ../src/setting.c:1315
 msgid "Loading default 'Rename File' masks…"
 msgstr "Įkeliami numatytieji „Pervadinti failą “ šablonai…"
 
 #. Fall back to defaults
-#: ../src/setting.c:1300
+#: ../src/setting.c:1341
 msgid "Loading default 'Rename Directory' masks…"
 msgstr "Įkeliami numatytieji „Pervadinti aplanką“ šablonai…"
 
-#: ../src/setting.c:1511
+#: ../src/setting.c:1552
 #, c-format
 msgid "Migrating configuration from directory '%s' to '%s'"
 msgstr "Migruojama konfigūracija iš aplanko „%s“ į „%s“"
 
-#: ../src/setting.c:1535
+#: ../src/setting.c:1576
 #, c-format
 msgid "Failed to migrate configuration file '%s'"
 msgstr "Nepavyko migruoti konfigūracijos failo „%s“"
 
-#: ../src/setting.c:1572
+#: ../src/setting.c:1613
 #, c-format
 msgid "Error: Cannot create directory '%s' (%s)"
 msgstr "Klaida: Nepavyko sukurti aplanko „%s“ (%s)"
 
-#: ../src/vcedit.c:295
-msgid "Input truncated or empty."
-msgstr "Įvestis nukirpta arba tuščia."
-
-#: ../src/vcedit.c:297
-msgid "Input is not an Ogg bitstream."
-msgstr "Įvestis nėra Ogg bitų srautas."
-
-#: ../src/vcedit.c:315
-msgid "Error reading first page of Ogg bitstream."
-msgstr "Klaida skaitant pirmą Ogg bitų srauto puslapį."
-
-#: ../src/vcedit.c:321
-msgid "Error reading initial header packet."
-msgstr "Klaida skaitant pradinį antraštės paketą."
-
-#: ../src/vcedit.c:348
-msgid "Ogg bitstream contains neither Speex or Vorbis data."
-msgstr "Ogg bitų sraute yra ne vorbis ir ne speex duomenys."
-
-#: ../src/vcedit.c:381
-msgid "Corrupt secondary header."
-msgstr "Sugadinta antra antraštė."
-
-#: ../src/vcedit.c:411
-msgid "Need to save extra headers"
-msgstr "Reikia įrašyti papildomas antraštes"
-
-#: ../src/vcedit.c:425
-msgid "EOF before end of Vorbis headers."
-msgstr "EOF prieš vorbis antraščių pabaigą."
-
-#: ../src/vcedit.c:590
-msgid "Corrupt or missing data, continuing…"
-msgstr "Sugadinti arba trūkstami duomenys, tęsiama…"
-
-#: ../src/vcedit.c:627
-msgid ""
-"Error writing stream to output. Output stream may be corrupted or truncated."
-msgstr ""
-"Klaida rašant srautą į išvestį. Išvesties srautas gali būti sugadintas arba "
-"nepilnas."
-
 #. Log_Print(_("DLL '%s' not already loaded. Try loading it..."), dllname);
-#: ../src/win32/win32dep.c:121
+#: ../src/win32/win32dep.c:126
 #, c-format
 msgid "DLL '%s' not already loaded. Try loading it..."
 msgstr "DLL „%s“ dar neįkelta. Bandoma įkelti..."
 
 #. Log_Print(_("DLL '%s' could not be loaded"), dllname);
-#: ../src/win32/win32dep.c:125
+#: ../src/win32/win32dep.c:130
 #, c-format
 msgid "DLL '%s' could not be loaded"
 msgstr "Įkelti DLL „%s“ nepavyko"
 
 #. Log_Print(_("This version of '%s' contains '%s'"), dllname, procedure);
-#: ../src/win32/win32dep.c:135
+#: ../src/win32/win32dep.c:140
 #, c-format
 msgid "This version of '%s' contains '%s'"
 msgstr "Ši „%s“ versija turi „%s“"
 
 #. Log_Print(_("Function '%s' not found in dll '%s'"), procedure, dllname);
-#: ../src/win32/win32dep.c:141
+#: ../src/win32/win32dep.c:146
 #, c-format
 msgid "Function '%s' not found in DLL '%s'"
 msgstr "Funkcija „%s“ nerasta DLL „%s“"
 
 #. ET_Win32_Path_Replace_Backslashes(app_data_dir);
 #. Log_Print(_("EasyTAG settings directory: '%s'"), app_data_dir);
-#: ../src/win32/win32dep.c:277
+#: ../src/win32/win32dep.c:282
 #, c-format
 msgid "EasyTAG settings directory: '%s'"
 msgstr "EasyTAG nustatymų aplankas: „%s“"
 
 #. Log_Print(_("weasytag_init start..."));
-#: ../src/win32/win32dep.c:467
+#: ../src/win32/win32dep.c:472
 #, c-format
 msgid "weasytag_init start..."
 msgstr "weasytag_init pradžia..."
@@ -5101,20 +5019,20 @@ msgstr "weasytag_init pradžia..."
 #. Log_Print(_("EasyTAG version: %s"),VERSION);
 #. g_print(_("EasyTAG version: %s"),VERSION);
 #. g_print("\n");
-#: ../src/win32/win32dep.c:473
+#: ../src/win32/win32dep.c:478
 #, c-format
 msgid "GLib version: %u.%u.%u\n"
 msgstr "GLib versija: %u.%u.%u\n"
 
 #. Set Environmental Variables
 #. Log_Print(_("weasytag_init end..."));
-#: ../src/win32/win32dep.c:491
+#: ../src/win32/win32dep.c:496
 #, c-format
 msgid "weasytag_init end..."
 msgstr "weasytag_init pabaiga..."
 
 #. Log_Print(_("Audio player: '%s'"), player);
-#: ../src/win32/win32dep.c:615
+#: ../src/win32/win32dep.c:620
 #, c-format
 msgid "Audio player: '%s'"
 msgstr "Garso grotuvas: „%s“"
