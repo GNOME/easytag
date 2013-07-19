@@ -1110,17 +1110,6 @@ Get_File_Size (const gchar *filename)
     return statbuf.st_size;
 }
 
-/*
- * Delete spaces at the end and the beginning of the string
- */
-void
-Strip_String (gchar *string)
-{
-    g_return_if_fail (string != NULL);
-
-    string = g_strstrip (string);
-}
-
 
 
 /*******************************

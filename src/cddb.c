@@ -2094,7 +2094,7 @@ Cddb_Search_Album_List_From_String_Freedb (void)
         return FALSE;
 
     /* Format the string of words */
-    Strip_String(string);
+    g_strstrip (string);
     /* Remove the duplicated spaces */
     while ((tmp=strstr(string,"  "))!=NULL) // Search 2 spaces
     {
@@ -2408,7 +2408,7 @@ Cddb_Search_Album_List_From_String_Gnudb (void)
         return FALSE;
 
     /* Format the string of words */
-    Strip_String(string);
+    g_strstrip (string);
     /* Remove the duplicated spaces */
     while ((tmp=strstr(string,"  "))!=NULL) // Search 2 spaces
     {

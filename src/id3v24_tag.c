@@ -243,7 +243,7 @@ gboolean Id3tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
         update |= libid3tag_Get_Frame_Str(frame, ~0, &string1);
         if ( string1 )
         {
-            Strip_String(string1);
+            g_strstrip (string1);
             FileTag->year = string1;
         }
     }

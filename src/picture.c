@@ -598,7 +598,7 @@ void Picture_Properties_Button_Clicked (GObject *object)
                 pic->type = t;
 
                 buffer = g_strdup(gtk_entry_get_text(GTK_ENTRY(desc)));
-                Strip_String(buffer);
+                g_strstrip (buffer);
                 if (pic->description)
                     g_free(pic->description);
 

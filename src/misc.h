@@ -91,7 +91,6 @@ gchar *Convert_Duration (gulong duration);
 
 off_t Get_File_Size (const gchar *filename);
 
-void Strip_String (gchar *string);
 gint Combo_Alphabetic_Sort (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, gpointer data);
 
 void File_Selection_Window_For_File      (GtkWidget *entry);
