@@ -224,19 +224,14 @@ void Log_Clean_Log_List (void)
 static gchar *
 Log_Format_Date (void)
 {
-    struct tm *tms;
-    time_t nowtime;
-    gchar *current_date, *current_work = g_malloc0(21);
+    GDateTime *dt;
+    gchar *time;
 
-    // Get current time and date
-    nowtime = time(NULL);
-    tms = localtime(&nowtime);
-    strftime(current_work,20,"%X",tms); // Time without date in current locale
-    //strftime(current_work,20,"%x",ptr); // Date without time in current locale
-    current_date = Try_To_Validate_Utf8_String(current_work);
-    g_free(current_work);
+    dt = g_date_time_new_now_local ();
+    /* Time without date in current locale. */
+    time = g_date_time_format (dt, "%X");
 
-    return current_date;
+    return time;
 }
 
 

@@ -416,15 +416,13 @@ void Insert_Only_Digit (GtkEditable *editable, const gchar *inserted_text, gint 
 /*
  * Parse and auto complete date entry if you don't type the 4 digits.
  */
-#include <time.h>
 #include <stdlib.h>
 gboolean Parse_Date (void)
 {
     const gchar *year;
     gchar *tmp, *tmp1;
-    gchar current_year[5];
-    time_t t;
-    struct tm t0;
+    gchar *current_year;
+    GDateTime *dt;
 
     /* Early return. */
     if (!DATE_AUTO_COMPLETION) return FALSE;
@@ -434,11 +432,8 @@ gboolean Parse_Date (void)
 
     if ( strcmp(year,"")!=0 && strlen(year)<4 )
     {
-        t = time(NULL);
-        /* Get the current date */
-        memcpy(&t0, localtime(&t), sizeof(struct tm));
-        /* Put the current year in 'current_year' tab */
-        sprintf(current_year,"%04d",1900+t0.tm_year);
+        dt = g_date_time_new_now_local ();
+        current_year = g_date_time_format (dt, "%Y");
 
         tmp = &current_year[4-strlen(year)];
         if ( atoi(year) <= atoi(tmp) )
@@ -457,6 +452,8 @@ gboolean Parse_Date (void)
             gtk_entry_set_text(GTK_ENTRY(YearEntry),tmp1);
             g_free(tmp1);
         }
+
+        g_free (current_year);
     }
     return FALSE;
 }
