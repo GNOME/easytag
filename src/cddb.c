@@ -1474,20 +1474,26 @@ Cddb_Track_List_Sort_Func (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b,
 }
 
 /*
- * Open a connection to "server_name" and retun the socket_id
- * On error, returns 0.
+ * Cddb_Open_Connection:
+ * @host: a hostname
+ * @port: a port number
  *
- * Some help on : http://shoe.bocks.com/net/
- *                http://www.zone-h.org/files/4/socket.txt
+ * Open a connection to @hostname, performing a DNS lookup as necessary.
+ *
+ * Returns: the socket fd, or 0 upon failure
  */
+/* TODO: Propagate the GError to the caller. */
 static gint
 Cddb_Open_Connection (const gchar *host, gint port)
 {
-    gint               socket_id = 0;
-    struct hostent    *hostent;
-    struct sockaddr_in sockaddr;
-    gint               optval = 1;
-    gchar             *msg;
+    GSocketConnectable *address;
+    GSocketAddressEnumerator *enumerator;
+    GCancellable *cancellable;
+    GSocketAddress *sockaddress;
+    GError *error = NULL;
+    GError *sock_error = NULL;
+    gint socket_id = 0;
+    gchar *msg;
 
     g_return_val_if_fail (CddbWindow != NULL, 0);
     g_return_val_if_fail (host != NULL && port > 0, 0);
@@ -1495,60 +1501,129 @@ Cddb_Open_Connection (const gchar *host, gint port)
     msg = g_strdup_printf(_("Resolving host '%s'…"),host);
     gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
     g_free(msg);
-    while (gtk_events_pending())
-        gtk_main_iteration();
 
-    if ( (hostent=gethostbyname(host)) == NULL )
+    while (gtk_events_pending ())
     {
-        msg = g_strdup_printf(_("Can't resolve host '%s' (%s)."),host,g_strerror(errno));
-        gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
-        Log_Print(LOG_ERROR,"%s",msg);
-        g_free(msg);
-        return 0;
+        gtk_main_iteration ();
     }
 
-    memset((void *)&sockaddr,0,sizeof(sockaddr)); // Initialize with zero
-    memcpy(&sockaddr.sin_addr.s_addr,*(hostent->h_addr_list),sizeof(sockaddr.sin_addr.s_addr));
-    sockaddr.sin_family = AF_INET;
-    sockaddr.sin_port   = htons(port);
+    address = g_network_address_new (host, port);
+    enumerator = g_socket_connectable_enumerate (address);
+    g_object_unref (address);
 
-    // Create socket
-    if( (socket_id = socket(AF_INET,SOCK_STREAM,0)) < 0 )
+    cancellable = g_cancellable_new ();
+
+    while (socket_id == 0
+           && (sockaddress = g_socket_address_enumerator_next (enumerator,
+                                                               cancellable,
+                                                               &error)))
     {
-        msg = g_strdup_printf(_("Cannot create a new socket (%s)"),g_strerror(errno));
-        gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
-        Log_Print(LOG_ERROR,"%s",msg);
-        g_free(msg);
-        return 0;
+        struct sockaddr sockaddr_in;
+        gint optval = 1;
+
+        if (!g_socket_address_to_native (sockaddress, &sockaddr_in,
+                                         sizeof (sockaddr_in),
+                                         sock_error ? NULL : &sock_error))
+        {
+            g_object_unref (sockaddress);
+            continue;
+        }
+
+        g_object_unref (sockaddress);
+
+        while (gtk_events_pending ())
+        {
+            gtk_main_iteration ();
+        }
+
+        /* Create socket. */
+        if ((socket_id = socket (AF_INET, SOCK_STREAM, 0)) < 0)
+        {
+            msg = g_strdup_printf (_("Cannot create a new socket (%s)"),
+                                   g_strerror (errno));
+            gtk_statusbar_push (GTK_STATUSBAR (CddbStatusBar),
+                                CddbStatusBarContext, msg);
+            Log_Print (LOG_ERROR, "%s", msg);
+            g_free (msg);
+            goto err;
+        }
+
+        /* FIXME : must catch SIGPIPE? */
+        if (setsockopt (socket_id, SOL_SOCKET, SO_KEEPALIVE, (void *)&optval,
+            sizeof (optval)) < 0)
+        {
+            Log_Print (LOG_WARNING,
+                       _("Cannot set options on the newly-created socket"));
+        }
+
+        /* Open connection to the server. */
+        msg = g_strdup_printf (_("Connecting to host '%s', port '%d'…"), host,
+                               port);
+        gtk_statusbar_push (GTK_STATUSBAR (CddbStatusBar),
+                            CddbStatusBarContext, msg);
+        g_free (msg);
+
+        while (gtk_events_pending ())
+        {
+            gtk_main_iteration ();
+        }
+
+        if (connect (socket_id, &sockaddr_in, sizeof (struct sockaddr)) < 0)
+        {
+            msg = g_strdup_printf (_("Cannot connect to host '%s' (%s)"), host,
+                                   g_strerror (errno));
+            gtk_statusbar_push (GTK_STATUSBAR (CddbStatusBar),
+                                CddbStatusBarContext, msg);
+            Log_Print (LOG_ERROR, "%s", msg);
+            g_free (msg);
+
+            goto err;
+        }
     }
 
-    // FIX ME : must catch SIGPIPE?
-    if ( setsockopt(socket_id,SOL_SOCKET,SO_KEEPALIVE,(gchar *)&optval,sizeof(optval)) < 0 )
+    if (socket_id != 0)
     {
-        Log_Print(LOG_ERROR,"Cannot set options on the newly-created socket");
+        /* First address failed, but a later address succeeded. */
+        if (sock_error)
+        {
+            g_debug ("Failure while looking up address: %s",
+                     sock_error->message);
+            g_error_free (sock_error);
+        }
     }
 
-    // Open connection to the server
-    msg = g_strdup_printf(_("Connecting to host '%s', port '%d'…"),host,port);
-    gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
-    g_free(msg);
-    while (gtk_events_pending())
-        gtk_main_iteration();
-    if ( connect(socket_id,(struct sockaddr *)&sockaddr,sizeof(struct sockaddr_in)) < 0 )
+    if (error)
     {
-        msg = g_strdup_printf(_("Cannot connect to host '%s' (%s)"),host,g_strerror(errno));
-        gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
-        Log_Print(LOG_ERROR,"%s",msg);
-        g_free(msg);
-        return 0;
+        msg = g_strdup_printf (_("Cannot resolve host '%s' (%s)"), host,
+                               error->message);
+        gtk_statusbar_push (GTK_STATUSBAR (CddbStatusBar),
+                            CddbStatusBarContext, msg);
+        Log_Print (LOG_ERROR, "%s", msg);
+        g_free (msg);
+        g_error_free (error);
+        goto err;
     }
-    msg = g_strdup_printf(_("Connected to host '%s'"),host);
-    gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
-    g_free(msg);
-    while (gtk_events_pending())
-        gtk_main_iteration();
+
+    g_object_unref (enumerator);
+    g_object_unref (cancellable);
+
+    msg = g_strdup_printf (_("Connected to host '%s'"), host);
+    gtk_statusbar_push (GTK_STATUSBAR (CddbStatusBar), CddbStatusBarContext,
+                        msg);
+    g_free (msg);
+
+    while (gtk_events_pending ())
+    {
+        gtk_main_iteration ();
+    }
 
     return socket_id;
+
+err:
+    g_object_unref (enumerator);
+    g_object_unref (cancellable);
+
+    return 0;
 }
 
 
