@@ -225,7 +225,6 @@ dist_noinst_DATA = \
 	easytag-win32-installer.nsi.in \
 	\
 	HACKING \
-	README_win32.txt \
 	\
 	doc/easytag.xml \
 	doc/EasyTAG_Documentation.html \
