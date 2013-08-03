@@ -229,8 +229,7 @@ common_init (GApplication *application)
     MainWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     et_application_set_window (ET_APPLICATION (application),
                                GTK_WINDOW (MainWindow));
-    gtk_window_set_title (GTK_WINDOW (MainWindow),
-                          PACKAGE_NAME " " PACKAGE_VERSION);
+    gtk_window_set_title (GTK_WINDOW (MainWindow), PACKAGE_NAME);
     // This part is needed to set correctly the position of handle panes
     gtk_window_set_default_size(GTK_WINDOW(MainWindow),MAIN_WINDOW_WIDTH,MAIN_WINDOW_HEIGHT);
 
