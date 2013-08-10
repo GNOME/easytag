@@ -36,7 +36,7 @@
 /**************
  * Prototypes *
  **************/
-gboolean Id3tag_Read_File_Tag     (gchar *filename, File_Tag *FileTag);
+gboolean Id3tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag);
 gboolean Id3tag_Write_File_v24Tag (ET_File *ETFile);
 gboolean Id3tag_Write_File_Tag    (ET_File *ETFile);
 

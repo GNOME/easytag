@@ -90,7 +90,7 @@ static int etag_write_tags (const gchar *filename, struct id3_tag const *v1tag,
  * Returns TRUE on success, else FALSE.
  * If a tag entry exists (ex: title), we allocate memory, else value stays to NULL
  */
-gboolean Id3tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
+gboolean Id3tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag)
 {
     int tmpfile;
     struct id3_file *file;
