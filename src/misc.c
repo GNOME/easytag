@@ -3326,7 +3326,7 @@ Load_Filename_Set_Filenames (void)
             gtk_tree_model_get(GTK_TREE_MODEL(LoadFileContentListModel), &iter_content, 
                                LOAD_FILE_CONTENT_TEXT, &list_text, -1);
 
-        if (ETFile && list_text && g_utf8_strlen(list_text, -1)>0)
+        if (ETFile && list_text && (g_utf8_strlen (list_text, -1) > 0))
         {
             gchar *list_text_tmp;
             gchar *filename_new_utf8;
