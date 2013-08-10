@@ -762,6 +762,8 @@ Run_Audio_Player_Using_File_List (GList *etfilelist)
     gint    argv_user_number;
 #endif /* !G_OS_WIN32 */
 
+    g_return_if_fail (etfilelist != NULL);
+
     // Exit if no program selected...
     if (!AUDIO_FILE_PLAYER || strlen(g_strstrip(AUDIO_FILE_PLAYER))<1)
     {

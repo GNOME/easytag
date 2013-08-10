@@ -1014,6 +1014,8 @@ Set_Config (gchar *line)
     gint ConfigVarListLen;
     gint i;
 
+    g_return_if_fail (line != NULL);
+
     if (*line=='\n' || *line=='#') return;
 
     /* Cut string */

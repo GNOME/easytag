@@ -3700,8 +3700,7 @@ Rename_Directory (void)
     gint   fd_tmp;
 
 
-    if (!RenameDirectoryWindow)
-        return;
+    g_return_if_fail (RenameDirectoryWindow != NULL);
 
     directory_parent    = g_object_get_data(G_OBJECT(RenameDirectoryWindow),"Parent_Directory");
     directory_last_name = g_object_get_data(G_OBJECT(RenameDirectoryWindow),"Current_Directory");
@@ -4235,6 +4234,7 @@ Run_Program (const gchar *program_name, GList *args_list)
     GList *l;
     gchar *program_path;
 
+    g_return_val_if_fail (program_name != NULL && args_list != NULL, FALSE);
 
     /* Check if a name for the program have been supplied */
     if (!program_name || strlen(program_name)<1)
