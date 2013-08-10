@@ -3290,9 +3290,9 @@ static void
 Load_Filename_Set_Filenames (void)
 {
     gint row;
-    ET_File   *ETFile;
+    ET_File *ETFile = NULL;
     File_Name *FileName;
-    gchar *list_text;
+    gchar *list_text = NULL;
     gint rowcount;
     gboolean found;
 
