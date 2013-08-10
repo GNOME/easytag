@@ -1641,7 +1641,6 @@ Cddb_Close_Connection (gint socket_id)
     if (!CddbWindow)
         return;
 
-    socket_id = 0;
     CddbStopSearch = FALSE;
 }
 
