@@ -330,8 +330,7 @@ gboolean Wavpack_Tag_Write_File_Tag (ET_File *ETFile)
         buffer = g_strdup_printf ("%s/%s", FileTag->disc_number,
                                   FileTag->disc_total);
 
-        if (FileTag->track && WavpackAppendTagItem (wpc, "part", buffer,
-                                                    strlen (buffer)) == 0)
+        if (WavpackAppendTagItem (wpc, "part", buffer, strlen (buffer)) == 0)
         {
             g_free (buffer);
             return FALSE;
@@ -343,9 +342,9 @@ gboolean Wavpack_Tag_Write_File_Tag (ET_File *ETFile)
     }
     else
     {
-        if (FileTag->track && WavpackAppendTagItem (wpc, "part",
-                                                    FileTag->disc_number,
-                                                    strlen (FileTag->disc_number)) == 0)
+        if (FileTag->disc_number && WavpackAppendTagItem (wpc, "part",
+                                                          FileTag->disc_number,
+                                                          strlen (FileTag->disc_number)) == 0)
         {
             return FALSE;
         }
