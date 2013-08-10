@@ -301,8 +301,8 @@ Scan_Tag_With_Mask (ET_File *ETFile)
     gchar *filename_utf8;
     File_Tag *FileTag;
 
-    g_return_if_fail (ScannerWindow != NULL || ScanTagMaskCombo != NULL ||
-                      ETFile != NULL);
+    g_return_if_fail (ScannerWindow != NULL && ScanTagMaskCombo != NULL);
+    g_return_if_fail (ETFile != NULL);
 
     mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(ScanTagMaskCombo)))));
     if (!mask) return;
@@ -395,7 +395,7 @@ Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask)
     guint file_splitted_index;
     Scan_Mask_Item *mask_item;
 
-    g_return_val_if_fail (ETFile != NULL || mask != NULL, NULL);
+    g_return_val_if_fail (ETFile != NULL && mask != NULL, NULL);
 
     filename_utf8 = g_strdup(((File_Name *)((GList *)ETFile->FileNameNew)->data)->value_utf8);
     if (!filename_utf8) return NULL;
@@ -746,7 +746,7 @@ gchar *Scan_Generate_New_Filename_From_Mask (ET_File *ETFile, gchar *mask, gbool
     File_Mask_Item *mask_item_next;
     gint counter = 0;
 
-    g_return_val_if_fail (ETFile != NULL || mask != NULL, NULL);
+    g_return_val_if_fail (ETFile != NULL && mask != NULL, NULL);
 
     /*
      * Check for a directory in the mask

@@ -104,7 +104,7 @@ gboolean Id3tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     long tagsize;
 
 
-    g_return_val_if_fail (filename != NULL || FileTag != NULL, FALSE);
+    g_return_val_if_fail (filename != NULL && FileTag != NULL, FALSE);
 
     if ( (tmpfile=open(filename,O_RDONLY)) < 0 )
     {

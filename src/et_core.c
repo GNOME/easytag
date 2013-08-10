@@ -2335,9 +2335,9 @@ gboolean ET_Copy_File_Tag_Item (ET_File *ETFile, File_Tag *FileTag)
 {
     File_Tag *FileTagCur;
 
-    g_return_val_if_fail (ETFile != NULL || ETFile->FileTag != NULL ||
-                          (File_Tag *)(ETFile->FileTag)->data != NULL ||
-                          FileTag != NULL, FALSE);
+    g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL &&
+                          (File_Tag *)(ETFile->FileTag)->data != NULL, FALSE);
+    g_return_val_if_fail (FileTag != NULL, FALSE);
 
     /* The data to duplicate to FileTag */
     FileTagCur = (File_Tag *)(ETFile->FileTag)->data;

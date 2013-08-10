@@ -173,7 +173,7 @@ gboolean Mp4tag_Write_File_Tag (ET_File *ETFile)
     TagLib_Tag *tag;
     gboolean success;
 
-    g_return_val_if_fail (ETFile != NULL || ETFile->FileTag != NULL, FALSE);
+    g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL, FALSE);
 
     FileTag = (File_Tag *)ETFile->FileTag->data;
     filename      = ((File_Name *)ETFile->FileNameCur->data)->value;

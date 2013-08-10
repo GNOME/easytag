@@ -2282,7 +2282,7 @@ gint Save_All_Files_With_Answer (gboolean force_saving_files)
 {
     GList *etfilelist;
 
-    g_return_val_if_fail (ETCore != NULL || ETCore->ETFileList != NULL, FALSE);
+    g_return_val_if_fail (ETCore != NULL && ETCore->ETFileList != NULL, FALSE);
 
     etfilelist = g_list_first (ETCore->ETFileList);
 
@@ -3939,8 +3939,8 @@ File_Area_Set_Sensitive (gboolean activate)
  */
 void Tag_Area_Display_Controls (ET_File *ETFile)
 {
-    g_return_if_fail (ETFile != NULL || ETFile->ETFileDescription != NULL ||
-                      TitleLabel != NULL);
+    g_return_if_fail (ETFile != NULL && ETFile->ETFileDescription != NULL);
+    g_return_if_fail (TitleLabel != NULL);
 
     /* Common controls for all tags. */
     gtk_widget_show(GTK_WIDGET(TitleLabel));
