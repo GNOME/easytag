@@ -3754,16 +3754,16 @@ Rename_Directory (void)
 
         gtk_dialog_run(GTK_DIALOG(msgdialog));
         gtk_widget_destroy(msgdialog);
-        g_free(directory_new_name);
         g_free(directory_new_name_file);
     }
+
+    g_free (directory_new_name);
 
     /* If the directory name haven't been changed, we do nothing! */
     if (directory_last_name && directory_new_name_file
     && strcmp(directory_last_name,directory_new_name_file)==0)
     {
         Destroy_Rename_Directory_Window();
-        g_free(directory_new_name);
         g_free(directory_new_name_file);
         return;
     }
@@ -3825,7 +3825,6 @@ Rename_Directory (void)
             gtk_dialog_run(GTK_DIALOG(msgdialog));
             gtk_widget_destroy(msgdialog);
 
-            g_free(directory_new_name);
             g_free(directory_new_name_file);
             g_free(last_path);
             g_free(last_path_utf8);
