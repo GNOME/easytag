@@ -4113,30 +4113,30 @@ gboolean ET_Manage_Changes_Of_File_Data (ET_File *ETFile, File_Name *FileName, F
 static gboolean
 ET_Detect_Changes_Of_File_Name (File_Name *FileName1, File_Name *FileName2)
 {
-    gchar *filename1_ck;
-    gchar *filename2_ck;
+    const gchar *filename1_ck;
+    const gchar *filename2_ck;
 
-    if ( (!FileName1 && !FileName2)
-      || (!FileName1->value && !FileName2->value) )
-        return FALSE;
+    if (!FileName1 && !FileName2) return FALSE;
+    if (FileName1 && !FileName2) return TRUE;
+    if (!FileName1 && FileName2) return TRUE;
 
-    if ( ( FileName1 && !FileName2)
-      || (!FileName1 &&  FileName2)
-      || ( FileName1->value && !FileName2->value)
-      || (!FileName1->value &&  FileName2->value) )
-        return TRUE;
+    /* Both FileName1 and FileName2 are != NULL. */
+    if (!FileName1->value && !FileName2->value) return FALSE;
+    if (FileName1->value && !FileName2->value) return TRUE;
+    if (!FileName1->value && FileName2->value) return TRUE;
 
-    // Compare collate keys (with FileName->value converted to UTF-8 as it contains raw data)
+    /* Compare collate keys (with FileName->value converted to UTF-8 as it
+     * contains raw data). */
     filename1_ck = FileName1->value_ck;
     filename2_ck = FileName2->value_ck;
 
-    // Filename changed ? (we check path + file)
-    if ( strcmp(filename1_ck,filename2_ck) != 0 )
+    /* Filename changed ? (we check path + file). */
+    if (strcmp (filename1_ck, filename2_ck) != 0)
     {
         return TRUE;
-    }else
+    }
+    else
     {
-        // No changes
         return FALSE;
     }
 }
