@@ -48,7 +48,8 @@ GtkWidget *Create_Log_Area      (void);
 
 void       Log_Clean_Log_List   (void);
 
-void       Log_Print            (Log_Error_Type error_type, gchar const *format, ...);
+void Log_Print (Log_Error_Type error_type,
+                gchar const *format, ...) G_GNUC_PRINTF (2, 3);
 
 
 #endif /* __LOG_H__ */
