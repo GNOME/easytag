@@ -138,8 +138,7 @@ libapetag_maloc_cont_int (apetag *mem_cnt, struct tag *mTag)
     struct tag **tag_tmp = mem_cnt->tag;
 
     if (mem_cnt->memTagAlloc == 0) {    /* init */
-        mem_cnt->tag = (struct tag **)
-            malloc (((sizeof (struct tag **)) * (LIBAPETAG_MEM_ALLOC_AHEAD)));
+        mem_cnt->tag = (struct tag **) malloc ((sizeof (struct tag *) * LIBAPETAG_MEM_ALLOC_AHEAD));
         mem_cnt->memTagAlloc = LIBAPETAG_MEM_ALLOC_AHEAD;
         mem_cnt->countTag = 0;
         if (mem_cnt->tag == NULL) {
@@ -150,7 +149,7 @@ libapetag_maloc_cont_int (apetag *mem_cnt, struct tag *mTag)
     }
     
     if ((mem_cnt->memTagAlloc) <= (mem_cnt->countTag + 1)) {
-        mem_cnt->tag = (struct tag **) realloc (mem_cnt->tag, ((sizeof (struct tag **)) *
+        mem_cnt->tag = (struct tag **) realloc (mem_cnt->tag, (sizeof (struct tag *) *
                         (mem_cnt->memTagAlloc + LIBAPETAG_MEM_ALLOC_AHEAD)));
         mem_cnt->memTagAlloc += LIBAPETAG_MEM_ALLOC_AHEAD;
     }
