@@ -784,7 +784,7 @@ Run_Audio_Player_Using_File_List (GList *etfilelist)
     if ( !(program_path = Check_If_Executable_Exists(AUDIO_FILE_PLAYER)) )
     {
         gchar *msg = g_strdup_printf(_("The program '%s' cannot be found"),AUDIO_FILE_PLAYER);
-        Log_Print(LOG_ERROR,msg);
+        Log_Print (LOG_ERROR, "%s", msg);
         g_free(msg);
         return;
     }

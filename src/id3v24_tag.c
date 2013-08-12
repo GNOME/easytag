@@ -1336,10 +1336,11 @@ etag_write_tags (const gchar *filename,
     char tmp[ID3_TAG_QUERYSIZE];
     int fd;
     int curpos;
-    long filev2size, ctxsize;
+    long filev2size;
+    gsize ctxsize;
     char *ctx = NULL;
     int err = 0;
-    long size_read = 0;
+    gssize size_read = 0;
 
     v1buf = v2buf = NULL;
     if ( !strip_tags )
@@ -1488,7 +1489,11 @@ etag_write_tags (const gchar *filename,
             gchar *filename_utf8 = filename_to_display(filename);
             gchar *basename_utf8 = g_path_get_basename(filename_utf8);
 
-            Log_Print(LOG_ERROR,_("Cannot write tag of file '%s' (%d bytes were read but %d bytes were expected)"),basename_utf8,size_read,ctxsize);
+            Log_Print (LOG_ERROR,
+                       _("Cannot write tag of file '%s' (%" G_GSSIZE_FORMAT
+                       " bytes were read but %" G_GSIZE_FORMAT
+                       " bytes were expected)"),
+                       basename_utf8, size_read, ctxsize);
             g_free(filename_utf8);
             g_free(basename_utf8);
             goto out;
