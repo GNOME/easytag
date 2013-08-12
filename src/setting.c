@@ -1009,8 +1009,8 @@ Save_Config_To_File (void)
 static void
 Set_Config (gchar *line)
 {
-    gchar *var_descriptor;
-    gchar *var_value;
+    const gchar *var_descriptor;
+    const gchar *var_value;
     gint ConfigVarListLen;
     gint i;
 
@@ -1019,9 +1019,21 @@ Set_Config (gchar *line)
     if (*line=='\n' || *line=='#') return;
 
     /* Cut string */
-    var_descriptor = strtok(line,"=");
-    var_value      = strtok(NULL,"=");
-    //g_print("\nstr1:'%s',\t str2:'%s'",var_descriptor,var_value);
+    var_descriptor = strtok (line, "=");
+
+    if (!var_descriptor)
+    {
+        g_message ("Invalid configuration file line ‘%s’", line);
+        return;
+    }
+
+    var_value = strtok (NULL, "=");
+
+    if (!var_value)
+    {
+        g_message ("No value for configuration key ‘%s’", var_descriptor);
+        return;
+    }
 
     ConfigVarListLen = sizeof(Config_Variables)/sizeof(tConfigVariable);
     for (i=0; i<ConfigVarListLen; i++)
