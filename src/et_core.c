@@ -4252,10 +4252,8 @@ gboolean ET_Detect_Changes_Of_File_Tag (File_Tag *FileTag1, File_Tag *FileTag2)
     if ( FileTag1->encoded_by &&  FileTag2->encoded_by && g_utf8_collate(FileTag1->encoded_by,FileTag2->encoded_by)!=0 ) return TRUE;
 
     /* Picture */
-    pic1 = FileTag1->picture;
-    pic2 = FileTag2->picture;
-
-    for(;;)
+    for (pic1 = FileTag1->picture, pic2 = FileTag2->picture; ;
+         pic1 = pic1->next, pic2 = pic2->next)
     {
         if( (pic1 && !pic2) || (!pic1 && pic2) )
             return TRUE;
@@ -4264,6 +4262,8 @@ gboolean ET_Detect_Changes_Of_File_Tag (File_Tag *FileTag1, File_Tag *FileTag2)
         //if (!pic1->data || !pic2->data)
         //    break; // => no changes
 
+        if (!pic1->data && !pic2->data)
+            return FALSE;
         if (pic1->data && !pic2->data)
             return TRUE;
         if (!pic1->data && pic2->data)
@@ -4282,9 +4282,6 @@ gboolean ET_Detect_Changes_Of_File_Tag (File_Tag *FileTag1, File_Tag *FileTag2)
         if (pic1->description && pic2->description
         &&  g_utf8_collate(pic1->description, pic2->description)!=0 )
             return TRUE;
-
-        pic1 = pic1->next;
-        pic2 = pic2->next;
     }
 
     return FALSE; /* No changes */
