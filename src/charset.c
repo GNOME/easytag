@@ -157,7 +157,7 @@ check_locale (const char *locale)
 }
 
 /* stolen from gnome-desktop-item.c */
-static void
+G_GNUC_NULL_TERMINATED static void
 insert_locales (GHashTable *encodings, char *enc, ...)
 {
     va_list args;
