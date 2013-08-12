@@ -3908,8 +3908,17 @@ Cddb_Set_Track_Infos_To_File_List (void)
             }
         }
 
-        if (gtk_tree_model_get_iter(GTK_TREE_MODEL(CddbTrackListModel), &currentIter, currentPath))
-            gtk_tree_model_get(GTK_TREE_MODEL(CddbTrackListModel), &currentIter, CDDB_TRACK_LIST_DATA, &cddbtrackalbum, -1);
+        if (gtk_tree_model_get_iter (GTK_TREE_MODEL (CddbTrackListModel),
+                                     &currentIter, currentPath))
+        {
+            gtk_tree_model_get (GTK_TREE_MODEL (CddbTrackListModel),
+                                &currentIter, CDDB_TRACK_LIST_DATA,
+                                &cddbtrackalbum, -1);
+        }
+        else
+        {
+            g_warning ("Iter not found matching path in CDDB track list model");
+        }
 
         // Set values in the ETFile
         if (CDDB_USE_DLM)

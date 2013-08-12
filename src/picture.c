@@ -462,8 +462,17 @@ void Picture_Properties_Button_Clicked (GObject *object)
 
         // Get corresponding picture
         valid = gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &iter, path);
+
         if (valid)
-            gtk_tree_model_get(GTK_TREE_MODEL(model), &iter, PICTURE_COLUMN_DATA, &pic, -1);
+        {
+            gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
+                                PICTURE_COLUMN_DATA, &pic, -1);
+        }
+        else
+        {
+            g_warning ("Iter not found in picture model");
+            break;
+        }
 
         title = g_strdup_printf (_("Image Properties %d/%d"), selection_i++,
                                  selection_nbr);
@@ -663,8 +672,17 @@ void Picture_Save_Button_Clicked (GObject *object)
 
         // Get corresponding picture
         valid = gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &iter, path);
+
         if (valid)
-            gtk_tree_model_get(GTK_TREE_MODEL(model), &iter, PICTURE_COLUMN_DATA, &pic, -1);
+        {
+            gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
+                                PICTURE_COLUMN_DATA, &pic, -1);
+        }
+        else
+        {
+            g_warning ("Iter not found in picture model");
+            break;
+        }
 
         title = g_strdup_printf (_("Save Image %d/%d"), selection_i++,
                                  selection_nbr);
