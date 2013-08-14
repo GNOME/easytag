@@ -1488,14 +1488,26 @@ etag_write_tags (const gchar *filename,
         {
             gchar *filename_utf8 = filename_to_display(filename);
             gchar *basename_utf8 = g_path_get_basename(filename_utf8);
+            gchar *bytes_missing = g_strdup_printf ("%" G_GSIZE_FORMAT,
+                                                    ctxsize - size_read);
 
+            /* Construct the string in this awkward way as xgettext does not
+             * support macros in extracted strings.
+             * https://bugzilla.gnome.org/show_bug.cgi?id=705952
+             */
             Log_Print (LOG_ERROR,
-                       _("Cannot write tag of file '%s' (%" G_GSSIZE_FORMAT
-                       " bytes were read but %" G_GSIZE_FORMAT
-                       " bytes were expected)"),
-                       basename_utf8, size_read, ctxsize);
+                       /* Translators: The first string is a filename, the
+                        * second string is the number of bytes that were
+                        * missing (not read for some reason) while reading from
+                        * the file.
+                        */
+                       ngettext ("Cannot write tag of file '%s' (a byte was missing)",
+                                 "Cannot write tag of file ‘%s’ (%s bytes were missing)",
+                                 ctxsize - size_read),
+                       basename_utf8, bytes_missing);
             g_free(filename_utf8);
             g_free(basename_utf8);
+            g_free (bytes_missing);
             goto out;
         }
         
