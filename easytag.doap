@@ -4,7 +4,7 @@
          xmlns:gnome="http://api.gnome.org/doap-extensions#"
          xmlns="http://usefulinc.com/ns/doap#">
 
-  <name xml:lang="en">EasyTAG</name>
+  <name xml:lang="en">easytag</name>
   <shortdesc xml:lang="en">View and edit tags for MP3, MP2, MP4/AAC, FLAC, Ogg Vorbis, MusePack, Monkey's Audio and WavPack files</shortdesc>
   <description>EasyTAG is a utility for viewing and editing tags for MP3, MP2,
   MP4/AAC, FLAC, Ogg Vorbis, MusePack, Monkey's Audio and WavPack files. Its
