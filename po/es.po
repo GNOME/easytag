@@ -5,23 +5,23 @@
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org> 2005.
 # Francisco Javier F. Serrador <serrador@tecknolabs.com> 2005.
 # Nicolás Satragno <nsatragno@gnome.org>, 2012, 2013.
-# Milagros Alessandra Infante Montero <maim92@gmail.com>, 2012, 2013.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2012, 2013.
+# Milagros Alessandra Infante Montero <maim92@gmail.com>, 2012, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag-1.99.11\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=easytag&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-12 17:49+0000\n"
-"PO-Revision-Date: 2013-08-13 11:19+0200\n"
-"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
-"Language-Team: Español <gnome-es-list@gnome.org>\n"
+"POT-Creation-Date: 2013-08-15 17:58+0000\n"
+"PO-Revision-Date: 2013-08-15 15:12-0500\n"
+"Last-Translator: Milagros Alessandra Infante Montero <maim92@gmail.com>\n"
+"Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Gtranslator 2.91.6\n"
 
 #: ../data/easytag.desktop.in.h:1
@@ -1666,7 +1666,8 @@ msgstr "Configuración regional: «%s»"
 #: ../src/easytag.c:199
 #, c-format
 msgid "Currently using locale '%s' (and eventually '%s')"
-msgstr "Usando actualmente la configuración regional «%s» (y eventualmente «%s»)"
+msgstr ""
+"Usando actualmente la configuración regional «%s» (y eventualmente «%s»)"
 
 #: ../src/easytag.c:206
 msgid "Unable to create setting directories"
@@ -2338,8 +2339,8 @@ msgid ""
 "reproduce it at: %s"
 msgstr ""
 "Probablemente ha encontrado un error en EasyTAG. Por favor, envíe un informe "
-"de error con una traza inversa GDB («gdb easytag core», después «bt» y «l») e "
-"información sobre cómo reproducirlo en: %s"
+"de error con una traza inversa GDB («gdb easytag core», después «bt» y «l») "
+"e información sobre cómo reproducirlo en: %s"
 
 #. To send messages to the console...
 #: ../src/easytag.c:4499
@@ -2689,17 +2690,26 @@ msgstr "Error al crear archivo temporal"
 msgid "Error while writing to file: '%s' (%s)"
 msgstr "Error al escribir al archivo: «%s» (%s)"
 
-#: ../src/id3v24_tag.c:1493
-#| msgid "Cannot write tag in file '%s' (%s)"
-msgid "Cannot write tag of file '%s' (%"
-msgstr "No se puede escribir la etiqueta en el archivo «%s» (%"
+#. Translators: The first string is a filename, the
+#. * second string is the number of bytes that were
+#. * missing (not read for some reason) while reading from
+#. * the file.
+#.
+#: ../src/id3v24_tag.c:1504
+#, c-format
+msgid "Cannot write tag of file '%s' (a byte was missing)"
+msgid_plural "Cannot write tag of file ‘%s’ (%s bytes were missing)"
+msgstr[0] ""
+"No se puede escribir la etiqueta del archivo «%s» (%s faltaba un byte)"
+msgstr[1] ""
+"No se puede escribir la etiqueta del archivo «%s» (%s faltaban bytes)"
 
-#: ../src/id3v24_tag.c:1513
+#: ../src/id3v24_tag.c:1525
 #, c-format
 msgid "Cannot save tag of file '%s'"
 msgstr "No se puede guardar etiqueta del archivo «%s»"
 
-#: ../src/id3v24_tag.c:1524
+#: ../src/id3v24_tag.c:1536
 #, c-format
 msgid "Size error while saving tag of '%s'"
 msgstr "Error de tamaño al guardar etiqueta de «%s»"
@@ -3608,9 +3618,9 @@ msgid ""
 "the tag with the scanner."
 msgstr ""
 "Convertir caracteres ilegales para sistemas de archivos FAT32/16 e ISO9660 + "
-"Joliet («\\», «:», «;», «*», «?», «\"», «<», «>», «|») del nombre de archivo para "
-"evitar problemas al renombrarlo. Esto es útil al renombrar el archivo desde "
-"la etiqueta con el analizador."
+"Joliet («\\», «:», «;», «*», «?», «\"», «<», «>», «|») del nombre de archivo "
+"para evitar problemas al renombrarlo. Esto es útil al renombrar el archivo "
+"desde la etiqueta con el analizador."
 
 #. Extension case (lower/upper?)
 #: ../src/prefs.c:441
@@ -3703,8 +3713,8 @@ msgid ""
 "for 'ro'). If it fails, it will try the character encoding ISO-8859-1."
 msgstr ""
 "Con esta opción, se intentará la conversión a la codificación asociada a su "
-"configuración regional (por ejemplo : ISO-8859-1 para «fr», KOI8-R para «ru», "
-"ISO8859-2 para «ro»). Si falla, se intentará con la codificación de "
+"configuración regional (por ejemplo : ISO-8859-1 para «fr», KOI8-R para "
+"«ru», ISO8859-2 para «ro»). Si falla, se intentará con la codificación de "
 "caracteres ISO-8859-1."
 
 #: ../src/prefs.c:510
@@ -3777,8 +3787,9 @@ msgid ""
 "'10'…). Else it keeps the 'raw' track value."
 msgstr ""
 "Si está activada, el campo de pista se escribirá usando el número «0» como "
-"relleno para obtener un número con «n» dígitos (por ejemplo, con dos dígitos: "
-"«05», «09», «10»…). De lo contrario, guarda el valor «bruto» de la pista."
+"relleno para obtener un número con «n» dígitos (por ejemplo, con dos "
+"dígitos: «05», «09», «10»…). De lo contrario, guarda el valor «bruto» de la "
+"pista."
 
 #: ../src/prefs.c:578
 msgid "Write the disc field with the following number of digits:"
@@ -4024,8 +4035,8 @@ msgid ""
 "tag).\n"
 "\n"
 "For example:\n"
-"  - In previous versions of EasyTAG, you could save UTF-8 strings in an ISO-"
-"8859-1 field. This is not correct. To convert these tags to Unicode: "
+"  - In previous versions of EasyTAG, you could save UTF-8 strings in an "
+"ISO-8859-1 field. This is not correct. To convert these tags to Unicode: "
 "activate this option and select UTF-8. You must also activate above the "
 "option 'Try to save tags to ISO-8859-1. If it isn't possible then use "
 "UNICODE (recommended)' or 'Always save tags to UNICODE character set'.\n"
@@ -4045,8 +4056,8 @@ msgstr ""
 "entonces use UNICODE (recomendado)» o «Siempre guardar etiquetas en el "
 "conjunto de caracteres UNICODE».\n"
 "  - Si no se usó unicode, la gente de Rusia puede seleccionar el conjunto de "
-"caracteres «Windows-1251» para cargar etiquetas escritas bajo Windows. Y «KOI8-"
-"R» para cargar etiquetas escritas bajo sistemas Unix."
+"caracteres «Windows-1251» para cargar etiquetas escritas bajo Windows. Y "
+"«KOI8-R» para cargar etiquetas escritas bajo sistemas Unix."
 
 #: ../src/prefs.c:966
 msgid "Character set used to read tag data in the file."
@@ -4230,8 +4241,8 @@ msgid ""
 msgstr ""
 "Especificar la carpeta donde la base de datos de CD local está ubicada. La "
 "base de datos de CD local contiene las once carpetas siguientes «blues», "
-"«clásico», «country», «datos», «folk», «jazz», «new age», «reggae», «rock», «banda "
-"sonora» y «varios»."
+"«clásico», «country», «datos», «folk», «jazz», «new age», «reggae», «rock», "
+"«banda sonora» y «varios»."
 
 #. CDDB Proxy Settings
 #: ../src/prefs.c:1288
@@ -4366,7 +4377,8 @@ msgstr "Configuración sin cambios"
 
 #: ../src/prefs.c:1707
 msgid "The selected path for 'Default path to files' is invalid"
-msgstr "La ruta seleccionada para «Ruta a archivos predeterminada» no es válida"
+msgstr ""
+"La ruta seleccionada para «Ruta a archivos predeterminada» no es válida"
 
 #: ../src/prefs.c:1708
 #, c-format
@@ -5091,8 +5103,8 @@ msgstr "Reproductor de sonido: «%s»"
 #~ msgid ""
 #~ "Cannot rename file '%s' because the following file already exists: '%s'"
 #~ msgstr ""
-#~ "No se puede renombrar archivo «%s» porque el siguiente archivo ya existe: «%"
-#~ "s»"
+#~ "No se puede renombrar archivo «%s» porque el siguiente archivo ya existe: "
+#~ "«%s»"
 
 #~ msgid "Cannot create target directory '%s'"
 #~ msgstr "No se puede crear la carpeta de destino «%s»"
