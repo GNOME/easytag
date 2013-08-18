@@ -119,8 +119,8 @@ dnl Checks for libraries.
 dnl -------------------------------
 
 dnl GTK+ libraries
-GTK2_DEPS="gtk+-2.0 >= 2.24.0"
-GTK3_DEPS="gtk+-3.0 >= 3.0.0"
+GTK2_DEPS="gtk+-2.0 >= 2.24.7"
+GTK3_DEPS="gtk+-3.0 >= 3.2.1"
 PKG_CHECK_EXISTS([$GTK2_DEPS], [have_gtk2=yes], [have_gtk2=no])
 PKG_CHECK_EXISTS([$GTK3_DEPS], [have_gtk3=yes], [have_gtk3=no])
 
