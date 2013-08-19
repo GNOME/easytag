@@ -1501,7 +1501,7 @@ etag_write_tags (const gchar *filename,
                         * missing (not read for some reason) while reading from
                         * the file.
                         */
-                       ngettext ("Cannot write tag of file '%s' (a byte was missing)",
+                       ngettext ("Cannot write tag of file ‘%s’ (a byte was missing)",
                                  "Cannot write tag of file ‘%s’ (%s bytes were missing)",
                                  ctxsize - size_read),
                        basename_utf8, bytes_missing);
