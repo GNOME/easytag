@@ -19,6 +19,13 @@
   <mailing-list rdf:resource="https://mail.gnome.org/mailman/listinfo/easytag-list" />
   <bug-database rdf:resource="https://bugzilla.gnome.org/browse.cgi?product=easytag" />
   <category rdf:resource="http://api.gnome.org/doap-extensions#productivity" />
+  <repository>
+    <GitRepository>
+      <location rdf:resource="git://git.gnome.org/easytag" />
+      <browse rdf:resource="https://git.gnome.org/browse/easytag/" />
+    </GitRepository>
+  </repository>
+  <license rdf:resource="http://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html" />
 
   <maintainer>
     <foaf:Person>
