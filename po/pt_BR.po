@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: easytag\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=easytag&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-14 09:53+0000\n"
-"PO-Revision-Date: 2013-08-14 09:18-0300\n"
+"POT-Creation-Date: 2013-08-20 11:41+0000\n"
+"PO-Revision-Date: 2013-08-20 16:32-0300\n"
 "Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -312,400 +312,400 @@ msgstr "Exclui arquivos"
 msgid "_First File"
 msgstr "_Primeiro arquivo"
 
-#: ../src/bar.c:217
+#: ../src/bar.c:218
 msgid "First file"
 msgstr "Primeiro arquivo"
 
-#: ../src/bar.c:218
+#: ../src/bar.c:219
 msgid "_Previous File"
 msgstr "Arquivo _anterior"
 
-#: ../src/bar.c:218
+#: ../src/bar.c:219
 msgid "Previous file"
 msgstr "Arquivo anterior"
 
-#: ../src/bar.c:219
+#: ../src/bar.c:220
 msgid "_Next File"
 msgstr "P_róximo arquivo"
 
-#: ../src/bar.c:219
+#: ../src/bar.c:220
 msgid "Next file"
 msgstr "Próximo arquivo"
 
-#: ../src/bar.c:220
+#: ../src/bar.c:221
 msgid "_Last File"
 msgstr "Úl_timo arquivo"
 
-#: ../src/bar.c:220
+#: ../src/bar.c:222
 msgid "Last file"
 msgstr "Último arquivo"
 
-#: ../src/bar.c:221
+#: ../src/bar.c:223
 msgid "S_can Files"
 msgstr "V_erificar arquivos"
 
-#: ../src/bar.c:222 ../src/scan.c:2353
+#: ../src/bar.c:224 ../src/scan.c:2353
 msgid "Scan selected files"
 msgstr "Verificar os arquivos selecionados"
 
-#: ../src/bar.c:223
+#: ../src/bar.c:225
 msgid "_Remove Tags"
 msgstr "_Remover etiquetas"
 
-#: ../src/bar.c:224
+#: ../src/bar.c:226
 msgid "Remove tags"
 msgstr "Remove etiquetas"
 
-#: ../src/bar.c:225
+#: ../src/bar.c:227
 msgid "_Undo Last Files Changes"
 msgstr "_Desfazer a última modificação nos arquivos"
 
-#: ../src/bar.c:226
+#: ../src/bar.c:228
 msgid "Undo last files changes"
 msgstr "Desfaz a última modificação nos arquivos"
 
-#: ../src/bar.c:228
+#: ../src/bar.c:230
 msgid "R_edo Last Files Changes"
 msgstr "Re_fazer a última modificação nos arquivos"
 
-#: ../src/bar.c:228
+#: ../src/bar.c:231
 msgid "Redo last files changes"
 msgstr "Refaz a última modificação nos arquivos"
 
-#: ../src/bar.c:229
+#: ../src/bar.c:233
 msgid "_Save Files"
 msgstr "_Salvar arquivos"
 
-#: ../src/bar.c:230
+#: ../src/bar.c:234
 msgid "Save changes to selected files"
 msgstr "Salva alterações nos arquivos selecionados"
 
-#: ../src/bar.c:232
+#: ../src/bar.c:236
 msgid "_Force Save Files"
 msgstr "_Forçar salvamento de arquivos"
 
-#: ../src/bar.c:233
+#: ../src/bar.c:237
 msgid "Force saving files"
 msgstr "Força o salvamento dos arquivos"
 
-#: ../src/bar.c:235
+#: ../src/bar.c:239
 msgid "Undo Last Changes"
 msgstr "Desfazer últimas modificações"
 
-#: ../src/bar.c:235
+#: ../src/bar.c:239
 msgid "Undo last changes"
 msgstr "Desfaz as últimas modificações"
 
-#: ../src/bar.c:236
+#: ../src/bar.c:240
 msgid "Redo Last Changes"
 msgstr "Refazer últimas modificações"
 
-#: ../src/bar.c:236
+#: ../src/bar.c:240
 msgid "Redo last changes"
 msgstr "Refaz as últimas modificações"
 
-#: ../src/bar.c:237
+#: ../src/bar.c:241
 msgid "_Quit"
 msgstr "Sa_ir"
 
-#: ../src/bar.c:237 ../src/easytag.c:2424 ../src/easytag.c:4574
+#: ../src/bar.c:241 ../src/easytag.c:2424 ../src/easytag.c:4574
 #: ../src/easytag.c:4602
 msgid "Quit"
 msgstr "Sair"
 
-#: ../src/bar.c:239
+#: ../src/bar.c:244
 msgid "_Browser"
 msgstr "_Navegador"
 
-#: ../src/bar.c:240
+#: ../src/bar.c:245
 msgid "_Home Directory"
 msgstr "_Pasta pessoal"
 
-#: ../src/bar.c:241
+#: ../src/bar.c:246
 msgid "Go to home directory"
 msgstr "Ir para a pasta pessoal"
 
-#: ../src/bar.c:243
+#: ../src/bar.c:248
 msgid "Desktop Directory"
 msgstr "Área de trabalho"
 
-#: ../src/bar.c:244
+#: ../src/bar.c:249
 msgid "Go to desktop directory"
 msgstr "Ir para o diretório da área de trabalho"
 
-#: ../src/bar.c:246
+#: ../src/bar.c:251
 msgid "Documents Directory"
 msgstr "Documentos"
 
 # Nome do diretório é maiúsculo, motivo pelo qual mantive assim no meio da mensagem
-#: ../src/bar.c:247
+#: ../src/bar.c:252
 msgid "Go to documents directory"
 msgstr "Ir para o diretório de documentos"
 
-#: ../src/bar.c:249
+#: ../src/bar.c:254
 msgid "Downloads Directory"
 msgstr "Downloads"
 
-#: ../src/bar.c:250
+#: ../src/bar.c:255
 msgid "Go to downloads directory"
 msgstr "Ir para o diretório de downloads"
 
-#: ../src/bar.c:252
+#: ../src/bar.c:257
 msgid "Music Directory"
 msgstr "Músicas"
 
-#: ../src/bar.c:253
+#: ../src/bar.c:258
 msgid "Go to music directory"
 msgstr "Ir para o diretório de músicas"
 
-#: ../src/bar.c:255
+#: ../src/bar.c:260
 msgid "_Parent Directory"
 msgstr "Diretório su_perior"
 
-#: ../src/bar.c:256
+#: ../src/bar.c:261
 msgid "Go to parent directory"
 msgstr "Ir para o diretório superior"
 
-#: ../src/bar.c:258
+#: ../src/bar.c:263
 msgid "_Default Directory"
 msgstr "Diretório pa_drão"
 
-#: ../src/bar.c:259
+#: ../src/bar.c:264
 msgid "Go to default directory"
 msgstr "Ir para o diretório padrão"
 
-#: ../src/bar.c:261
+#: ../src/bar.c:266
 msgid "Set _Current Path as Default"
 msgstr "Definir o _caminho atual como padrão"
 
-#: ../src/bar.c:261
+#: ../src/bar.c:266
 msgid "Set current path as default"
 msgstr "Define o caminho atual como padrão"
 
-#: ../src/bar.c:262
+#: ../src/bar.c:267
 msgid "Rename Directory…"
 msgstr "Renomear diretório…"
 
-#: ../src/bar.c:262
+#: ../src/bar.c:267
 msgid "Rename directory"
 msgstr "Renomeia um diretório"
 
-#: ../src/bar.c:263
+#: ../src/bar.c:268
 msgid "Reload Directory"
 msgstr "Recarregar diretório"
 
-#: ../src/bar.c:264
+#: ../src/bar.c:269
 msgid "Reload directory"
 msgstr "Recarrega um diretório"
 
-#: ../src/bar.c:267
+#: ../src/bar.c:272
 msgid "Browse Directory With…"
 msgstr "Navegar no pasta com…"
 
-#: ../src/bar.c:268
+#: ../src/bar.c:273
 msgid "Run a command on the directory"
 msgstr "Executa um comando neste diretório"
 
-#: ../src/bar.c:270
+#: ../src/bar.c:275
 msgid "_Collapse Tree"
 msgstr "Re_colher árvore"
 
-#: ../src/bar.c:271
+#: ../src/bar.c:276
 msgid "Collapse directory tree"
 msgstr "Recolhe uma árvore de diretórios"
 
-#: ../src/bar.c:272
+#: ../src/bar.c:277
 msgid "_Reload Tree"
 msgstr "_Recarregar árvore"
 
-#: ../src/bar.c:273
+#: ../src/bar.c:278
 msgid "Reload directory tree"
 msgstr "Recarrega uma árvore de diretórios"
 
-#: ../src/bar.c:276
+#: ../src/bar.c:281
 msgid "S_canner Mode"
 msgstr "Modo v_erificador"
 
-#: ../src/bar.c:278
+#: ../src/bar.c:283
 msgid "_Miscellaneous"
 msgstr "_Miscelânea"
 
-#: ../src/bar.c:279
+#: ../src/bar.c:284
 msgid "_Find…"
 msgstr "_Localizar…"
 
-#: ../src/bar.c:280
+#: ../src/bar.c:285
 msgid "Search filenames and tags"
 msgstr "Pesquisa nomes de arquivos e etiquetas"
 
-#: ../src/bar.c:282
+#: ../src/bar.c:287
 msgid "CDD_B Search…"
 msgstr "Pesquisar no CDD_B…"
 
-#: ../src/bar.c:283
+#: ../src/bar.c:288
 msgid "CDDB search"
 msgstr "Pesquisa no CDDB"
 
-#: ../src/bar.c:285
+#: ../src/bar.c:290
 msgid "Load Filenames From a Text File…"
 msgstr "Carregar nomes dos arquivos de um arquivo texto…"
 
-#: ../src/bar.c:286
+#: ../src/bar.c:291
 msgid "Load filenames from a text file"
 msgstr "Carrega os nomes dos arquivos de um arquivo texto"
 
-#: ../src/bar.c:288
+#: ../src/bar.c:293
 msgid "Generate Playlist…"
 msgstr "Gerar uma lista de reprodução…"
 
-#: ../src/bar.c:289
+#: ../src/bar.c:294
 msgid "Generate a playlist"
 msgstr "Gera uma lista de reprodução"
 
-#: ../src/bar.c:291 ../src/bar.c:317 ../src/bar.c:318 ../src/bar.c:319
+#: ../src/bar.c:296 ../src/bar.c:322 ../src/bar.c:323 ../src/bar.c:324
 msgid "Run Audio Player"
 msgstr "Executar reprodutor de áudio"
 
-#: ../src/bar.c:292 ../src/bar.c:317 ../src/bar.c:318 ../src/bar.c:319
+#: ../src/bar.c:297 ../src/bar.c:322 ../src/bar.c:323 ../src/bar.c:324
 msgid "Run audio player"
 msgstr "Executa um reprodutor de áudio"
 
-#: ../src/bar.c:295
+#: ../src/bar.c:300
 msgid "_Edit"
 msgstr "_Editar"
 
-#: ../src/bar.c:296
+#: ../src/bar.c:301
 msgid "_Preferences"
 msgstr "_Preferências"
 
 #. The window
-#: ../src/bar.c:297 ../src/prefs.c:110
+#: ../src/bar.c:302 ../src/prefs.c:110
 msgid "Preferences"
 msgstr "Preferências"
 
-#: ../src/bar.c:299
+#: ../src/bar.c:304
 msgid "_View"
 msgstr "_Ver"
 
-#: ../src/bar.c:300
+#: ../src/bar.c:305
 msgid "_Go"
 msgstr "_Ir"
 
-#: ../src/bar.c:302
+#: ../src/bar.c:307
 msgid "_Help"
 msgstr "Aj_uda"
 
-#: ../src/bar.c:303
+#: ../src/bar.c:308
 msgid "_About"
 msgstr "_Sobre"
 
-#: ../src/bar.c:303
+#: ../src/bar.c:308
 msgid "About"
 msgstr "Sobre"
 
 #.
 #. * Following items are on toolbar but not on menu
 #.
-#: ../src/bar.c:309
+#: ../src/bar.c:314
 msgid "Stop the current action"
 msgstr "Para a ação atual"
 
 #.
 #. * Popup menu's Actions
 #.
-#: ../src/bar.c:315
+#: ../src/bar.c:320
 msgid "_File Operations"
 msgstr "_Operação em arquivos"
 
-#: ../src/bar.c:316
+#: ../src/bar.c:321
 msgid "S_canner"
 msgstr "V_erificador"
 
-#: ../src/bar.c:320
+#: ../src/bar.c:325
 msgid "CDDB Search Files…"
 msgstr "Pesquisar no CDDB pelos arquivos…"
 
-#: ../src/bar.c:320
+#: ../src/bar.c:325
 msgid "CDDB search files…"
 msgstr "Pesquisar no CDDB pelos arquivos…"
 
 #. { AM_ARTIST_OPEN_FILE_WITH,     GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
 #. { AM_ALBUM_OPEN_FILE_WITH,      GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
-#: ../src/bar.c:324
+#: ../src/bar.c:329
 msgid "Clear log"
 msgstr "Limpar log"
 
 #. { AM_BROWSE_SUBDIR,      GTK_STOCK_INDEX,        _("Browse _Subdirectories"),                         NULL, _("Browse _Sub-directories"),                         NULL,                                    FALSE },
-#: ../src/bar.c:331
+#: ../src/bar.c:336
 msgid "Browse _Subdirectories"
 msgstr "Navegar nos _subdiretórios"
 
-#: ../src/bar.c:331
+#: ../src/bar.c:336
 msgid "Browse subdirectories"
 msgstr "Navega nos subdiretórios"
 
-#: ../src/bar.c:335
+#: ../src/bar.c:340
 msgid "Show Hidden Directories"
 msgstr "Mostrar diretórios ocultos"
 
-#: ../src/bar.c:335
+#: ../src/bar.c:340
 msgid "Show hidden directories"
 msgstr "Mostra os diretórios ocultos"
 
-#: ../src/bar.c:337
+#: ../src/bar.c:342
 msgid "_Show Scanner"
 msgstr "Mo_strar o verificador"
 
-#: ../src/bar.c:338
+#: ../src/bar.c:343
 msgid "Show scanner"
 msgstr "Mostra o verificador"
 
-#: ../src/bar.c:344
+#: ../src/bar.c:349
 msgid "Tree Browser"
 msgstr "Navegador de árvore"
 
-#: ../src/bar.c:345
+#: ../src/bar.c:350
 msgid "View by directory tree"
 msgstr "Vê por árvore de diretórios"
 
-#: ../src/bar.c:347
+#: ../src/bar.c:352
 msgid "Artist and Album"
 msgstr "Artista e álbum"
 
-#: ../src/bar.c:348
+#: ../src/bar.c:353
 msgid "View by artist and album"
 msgstr "Vê por artista e álbum"
 
-#: ../src/bar.c:353
+#: ../src/bar.c:358
 msgid "_Fill Tags…"
 msgstr "Pr_eencher etiquetas…"
 
-#: ../src/bar.c:354
+#: ../src/bar.c:359
 msgid "Fill tags"
 msgstr "Preenche etiquetas"
 
-#: ../src/bar.c:356
+#: ../src/bar.c:361
 msgid "_Rename Files and Directories…"
 msgstr "_Renomear arquivos e diretórios…"
 
-#: ../src/bar.c:357
+#: ../src/bar.c:362
 msgid "Rename files and directories"
 msgstr "Renomeia arquivos e diretórios"
 
-#: ../src/bar.c:359
+#: ../src/bar.c:364
 msgid "_Process Fields…"
 msgstr "_Processar campos…"
 
-#: ../src/bar.c:359 ../src/scan.c:183
+#: ../src/bar.c:364 ../src/scan.c:183
 msgid "Process Fields"
 msgstr "Processa campos"
 
-#: ../src/bar.c:416
+#: ../src/bar.c:421
 #, c-format
 msgid "Could not merge UI, error was: %s\n"
 msgstr "Não foi possível unir a interface gráfica, o erro foi: %s\n"
 
-#: ../src/bar.c:522
+#: ../src/bar.c:527
 msgid "Ready to start"
 msgstr "Pronto para começar"
 
@@ -2698,12 +2698,11 @@ msgstr "Erro ao gravar no arquivo: \"%s\" (%s)"
 #.
 #: ../src/id3v24_tag.c:1504
 #, c-format
-msgid "Cannot write tag of file '%s' (a byte was missing)"
+msgid "Cannot write tag of file ‘%s’ (a byte was missing)"
 msgid_plural "Cannot write tag of file ‘%s’ (%s bytes were missing)"
-msgstr[0] ""
-"Não foi possível gravar a etiqueta do arquivo \"%s\" (faltando um byte)"
+msgstr[0] "Não foi possível gravar etiqueta do arquivo ‘%s’ (um byte em falta)"
 msgstr[1] ""
-"Não foi possível gravar a etiqueta do arquivo \"%s\" (faltando %s bytes)"
+"Não foi possível gravar etiqueta do arquivo ‘%s’ (%s bytes em falta)"
 
 #: ../src/id3v24_tag.c:1525
 #, c-format
