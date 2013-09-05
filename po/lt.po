@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: EasyTAG 2.1.2\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=easytag&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-14 08:05+0000\n"
-"PO-Revision-Date: 2013-08-15 20:57+0300\n"
+"POT-Creation-Date: 2013-08-19 22:43+0000\n"
+"PO-Revision-Date: 2013-09-05 21:03+0300\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: \n"
@@ -311,399 +311,399 @@ msgstr "Ištrinti failus"
 msgid "_First File"
 msgstr "_Pirmas failas"
 
-#: ../src/bar.c:217
+#: ../src/bar.c:218
 msgid "First file"
 msgstr "Pirmas failas"
 
-#: ../src/bar.c:218
+#: ../src/bar.c:219
 msgid "_Previous File"
 msgstr "_Ankstesnis failas"
 
-#: ../src/bar.c:218
+#: ../src/bar.c:219
 msgid "Previous file"
 msgstr "Ankstesnis failas"
 
-#: ../src/bar.c:219
+#: ../src/bar.c:220
 msgid "_Next File"
 msgstr "_Sekantis failas"
 
-#: ../src/bar.c:219
+#: ../src/bar.c:220
 msgid "Next file"
 msgstr "Kitas failas"
 
-#: ../src/bar.c:220
+#: ../src/bar.c:221
 msgid "_Last File"
 msgstr "_Paskutinis failas"
 
-#: ../src/bar.c:220
+#: ../src/bar.c:222
 msgid "Last file"
 msgstr "Paskutinis failas"
 
-#: ../src/bar.c:221
+#: ../src/bar.c:223
 msgid "S_can Files"
 msgstr "S_kaityti failus"
 
-#: ../src/bar.c:222 ../src/scan.c:2353
+#: ../src/bar.c:224 ../src/scan.c:2353
 msgid "Scan selected files"
 msgstr "Skaityti pasirinktus failus"
 
-#: ../src/bar.c:223
+#: ../src/bar.c:225
 msgid "_Remove Tags"
 msgstr "_Pašalinti žymas"
 
-#: ../src/bar.c:224
+#: ../src/bar.c:226
 msgid "Remove tags"
 msgstr "Pašalinti žymas"
 
-#: ../src/bar.c:225
+#: ../src/bar.c:227
 msgid "_Undo Last Files Changes"
 msgstr "_Atšaukti paskutinius failų pakeitimus"
 
-#: ../src/bar.c:226
+#: ../src/bar.c:228
 msgid "Undo last files changes"
 msgstr "Atšaukti paskutinius failų pakeitimus"
 
-#: ../src/bar.c:228
+#: ../src/bar.c:230
 msgid "R_edo Last Files Changes"
 msgstr "_Pakartoti paskutinius failų pakeitimus"
 
-#: ../src/bar.c:228
+#: ../src/bar.c:231
 msgid "Redo last files changes"
 msgstr "Pakartoti paskutinius failų pakeitimus"
 
-#: ../src/bar.c:229
+#: ../src/bar.c:233
 msgid "_Save Files"
 msgstr "_Įrašyti failus"
 
-#: ../src/bar.c:230
+#: ../src/bar.c:234
 msgid "Save changes to selected files"
 msgstr "Įrašyti pasirinktų failų pakeitimus"
 
-#: ../src/bar.c:232
+#: ../src/bar.c:236
 msgid "_Force Save Files"
 msgstr "_Priverstinai įrašyti failus"
 
-#: ../src/bar.c:233
+#: ../src/bar.c:237
 msgid "Force saving files"
 msgstr "Priverstinai įrašyti failus"
 
-#: ../src/bar.c:235
+#: ../src/bar.c:239
 msgid "Undo Last Changes"
 msgstr "Atšaukti paskutinius keitimus"
 
-#: ../src/bar.c:235
+#: ../src/bar.c:239
 msgid "Undo last changes"
 msgstr "Atšaukti paskutinius pakeitimus"
 
-#: ../src/bar.c:236
+#: ../src/bar.c:240
 msgid "Redo Last Changes"
 msgstr "Pakartoti paskutinius keitimus"
 
-#: ../src/bar.c:236
+#: ../src/bar.c:240
 msgid "Redo last changes"
 msgstr "Pakartoti paskutinius pakeitimus"
 
-#: ../src/bar.c:237
+#: ../src/bar.c:241
 msgid "_Quit"
 msgstr "I_šeiti"
 
-#: ../src/bar.c:237 ../src/easytag.c:2424 ../src/easytag.c:4574
+#: ../src/bar.c:241 ../src/easytag.c:2424 ../src/easytag.c:4574
 #: ../src/easytag.c:4602
 msgid "Quit"
 msgstr "Išeiti"
 
-#: ../src/bar.c:239
+#: ../src/bar.c:244
 msgid "_Browser"
 msgstr "Naršyklė"
 
-#: ../src/bar.c:240
+#: ../src/bar.c:245
 msgid "_Home Directory"
 msgstr "_Namų aplankas"
 
-#: ../src/bar.c:241
+#: ../src/bar.c:246
 msgid "Go to home directory"
 msgstr "Eiti į namų aplanką"
 
-#: ../src/bar.c:243
+#: ../src/bar.c:248
 msgid "Desktop Directory"
 msgstr "Darbastalio aplankas"
 
-#: ../src/bar.c:244
+#: ../src/bar.c:249
 msgid "Go to desktop directory"
 msgstr "Eiti į darbastalio aplanką"
 
-#: ../src/bar.c:246
+#: ../src/bar.c:251
 msgid "Documents Directory"
 msgstr "Dokumentų aplankas"
 
-#: ../src/bar.c:247
+#: ../src/bar.c:252
 msgid "Go to documents directory"
 msgstr "Eiti į dokumentų aplanką"
 
-#: ../src/bar.c:249
+#: ../src/bar.c:254
 msgid "Downloads Directory"
 msgstr "Parsiuntimų aplankas"
 
-#: ../src/bar.c:250
+#: ../src/bar.c:255
 msgid "Go to downloads directory"
 msgstr "Eiti į parsiuntimų aplanką"
 
-#: ../src/bar.c:252
+#: ../src/bar.c:257
 msgid "Music Directory"
 msgstr "Muzikos aplankas"
 
-#: ../src/bar.c:253
+#: ../src/bar.c:258
 msgid "Go to music directory"
 msgstr "Eiti į muzikos aplanką"
 
-#: ../src/bar.c:255
+#: ../src/bar.c:260
 msgid "_Parent Directory"
 msgstr "_Tėvinis aplankas"
 
-#: ../src/bar.c:256
+#: ../src/bar.c:261
 msgid "Go to parent directory"
 msgstr "Eiti į aukštesnį aplanką"
 
-#: ../src/bar.c:258
+#: ../src/bar.c:263
 msgid "_Default Directory"
 msgstr "_Numatytasis aplankas"
 
-#: ../src/bar.c:259
+#: ../src/bar.c:264
 msgid "Go to default directory"
 msgstr "Eiti į numatytąjį aplanką"
 
-#: ../src/bar.c:261
+#: ../src/bar.c:266
 msgid "Set _Current Path as Default"
 msgstr "Nustatyti _dabartinį kelią numatytuoju"
 
-#: ../src/bar.c:261
+#: ../src/bar.c:266
 msgid "Set current path as default"
 msgstr "Nustatyti dabartinį kelią numatytuoju"
 
-#: ../src/bar.c:262
+#: ../src/bar.c:267
 msgid "Rename Directory…"
 msgstr "Pervadinti aplanką…"
 
-#: ../src/bar.c:262
+#: ../src/bar.c:267
 msgid "Rename directory"
 msgstr "Pervadinti aplanką"
 
-#: ../src/bar.c:263
+#: ../src/bar.c:268
 msgid "Reload Directory"
 msgstr "Įkelti aplanką iš naujo"
 
-#: ../src/bar.c:264
+#: ../src/bar.c:269
 msgid "Reload directory"
 msgstr "Įkelti aplanką iš naujo"
 
-#: ../src/bar.c:267
+#: ../src/bar.c:272
 msgid "Browse Directory With…"
 msgstr "Naršyti aplanką su…"
 
-#: ../src/bar.c:268
+#: ../src/bar.c:273
 msgid "Run a command on the directory"
 msgstr "Įvykdyti komandą aplankui"
 
-#: ../src/bar.c:270
+#: ../src/bar.c:275
 msgid "_Collapse Tree"
 msgstr "_Suskleisti medį"
 
-#: ../src/bar.c:271
+#: ../src/bar.c:276
 msgid "Collapse directory tree"
 msgstr "Sutraukti aplankų medį"
 
-#: ../src/bar.c:272
+#: ../src/bar.c:277
 msgid "_Reload Tree"
 msgstr "Į_kelti medį iš naujo"
 
-#: ../src/bar.c:273
+#: ../src/bar.c:278
 msgid "Reload directory tree"
 msgstr "Įkelti aplankų medį iš naujo"
 
-#: ../src/bar.c:276
+#: ../src/bar.c:281
 msgid "S_canner Mode"
 msgstr "_Skenerio veiksena"
 
-#: ../src/bar.c:278
+#: ../src/bar.c:283
 msgid "_Miscellaneous"
 msgstr "Į_vairūs"
 
-#: ../src/bar.c:279
+#: ../src/bar.c:284
 msgid "_Find…"
 msgstr "_Rasti…"
 
-#: ../src/bar.c:280
+#: ../src/bar.c:285
 msgid "Search filenames and tags"
 msgstr "Ieškoti failų pavadinimų ir žymų"
 
-#: ../src/bar.c:282
+#: ../src/bar.c:287
 msgid "CDD_B Search…"
 msgstr "CDD_B paieška…"
 
-#: ../src/bar.c:283
+#: ../src/bar.c:288
 msgid "CDDB search"
 msgstr "CDDB paieška"
 
-#: ../src/bar.c:285
+#: ../src/bar.c:290
 msgid "Load Filenames From a Text File…"
 msgstr "Įkelti failų pavadinimus iš tekstinio failo…"
 
-#: ../src/bar.c:286
+#: ../src/bar.c:291
 msgid "Load filenames from a text file"
 msgstr "Įkelti failų pavadinimus iš tekstinio failo"
 
-#: ../src/bar.c:288
+#: ../src/bar.c:293
 msgid "Generate Playlist…"
 msgstr "Generuoti grojaraštį…"
 
-#: ../src/bar.c:289
+#: ../src/bar.c:294
 msgid "Generate a playlist"
 msgstr "Generuoti grojaraštį"
 
-#: ../src/bar.c:291 ../src/bar.c:317 ../src/bar.c:318 ../src/bar.c:319
+#: ../src/bar.c:296 ../src/bar.c:322 ../src/bar.c:323 ../src/bar.c:324
 msgid "Run Audio Player"
 msgstr "Paleisti audio grotuvą"
 
-#: ../src/bar.c:292 ../src/bar.c:317 ../src/bar.c:318 ../src/bar.c:319
+#: ../src/bar.c:297 ../src/bar.c:322 ../src/bar.c:323 ../src/bar.c:324
 msgid "Run audio player"
 msgstr "Paleisti muzikos grotuvą"
 
-#: ../src/bar.c:295
+#: ../src/bar.c:300
 msgid "_Edit"
 msgstr "_Keisti"
 
-#: ../src/bar.c:296
+#: ../src/bar.c:301
 msgid "_Preferences"
 msgstr "_Nustatymai"
 
 #. The window
-#: ../src/bar.c:297 ../src/prefs.c:110
+#: ../src/bar.c:302 ../src/prefs.c:110
 msgid "Preferences"
 msgstr "Nustatymai"
 
-#: ../src/bar.c:299
+#: ../src/bar.c:304
 msgid "_View"
 msgstr "_Rodymas"
 
-#: ../src/bar.c:300
+#: ../src/bar.c:305
 msgid "_Go"
 msgstr "_Eiti"
 
-#: ../src/bar.c:302
+#: ../src/bar.c:307
 msgid "_Help"
 msgstr "Ž_inynas"
 
-#: ../src/bar.c:303
+#: ../src/bar.c:308
 msgid "_About"
 msgstr "_Apie"
 
-#: ../src/bar.c:303
+#: ../src/bar.c:308
 msgid "About"
 msgstr "Apie"
 
 #.
 #. * Following items are on toolbar but not on menu
 #.
-#: ../src/bar.c:309
+#: ../src/bar.c:314
 msgid "Stop the current action"
 msgstr "Sustabdyti dabartinį veiksmą"
 
 #.
 #. * Popup menu's Actions
 #.
-#: ../src/bar.c:315
+#: ../src/bar.c:320
 msgid "_File Operations"
 msgstr "_Failų operacijos"
 
-#: ../src/bar.c:316
+#: ../src/bar.c:321
 msgid "S_canner"
 msgstr "_Skeneris"
 
-#: ../src/bar.c:320
+#: ../src/bar.c:325
 msgid "CDDB Search Files…"
 msgstr "CDDB failų paieška…"
 
-#: ../src/bar.c:320
+#: ../src/bar.c:325
 msgid "CDDB search files…"
 msgstr "CDDB failų paieška…"
 
 #. { AM_ARTIST_OPEN_FILE_WITH,     GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
 #. { AM_ALBUM_OPEN_FILE_WITH,      GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
-#: ../src/bar.c:324
+#: ../src/bar.c:329
 msgid "Clear log"
 msgstr "Išvalyti žurnalą"
 
 #. { AM_BROWSE_SUBDIR,      GTK_STOCK_INDEX,        _("Browse _Subdirectories"),                         NULL, _("Browse _Sub-directories"),                         NULL,                                    FALSE },
-#: ../src/bar.c:331
+#: ../src/bar.c:336
 msgid "Browse _Subdirectories"
 msgstr "Naršyti _poaplankius"
 
-#: ../src/bar.c:331
+#: ../src/bar.c:336
 msgid "Browse subdirectories"
 msgstr "Naršyti poaplankius"
 
-#: ../src/bar.c:335
+#: ../src/bar.c:340
 msgid "Show Hidden Directories"
 msgstr "Rodyti paslėptus aplankus"
 
-#: ../src/bar.c:335
+#: ../src/bar.c:340
 msgid "Show hidden directories"
 msgstr "Rodyti paslėptus aplankus"
 
-#: ../src/bar.c:337
+#: ../src/bar.c:342
 msgid "_Show Scanner"
 msgstr "_Rodyti skenerį"
 
-#: ../src/bar.c:338
+#: ../src/bar.c:343
 msgid "Show scanner"
 msgstr "Rodyti skenerį"
 
-#: ../src/bar.c:344
+#: ../src/bar.c:349
 msgid "Tree Browser"
 msgstr "Medžio naršyklė"
 
-#: ../src/bar.c:345
+#: ../src/bar.c:350
 msgid "View by directory tree"
 msgstr "Rodyti katalogų medį"
 
-#: ../src/bar.c:347
+#: ../src/bar.c:352
 msgid "Artist and Album"
 msgstr "Atlikėjas ir albumas"
 
-#: ../src/bar.c:348
+#: ../src/bar.c:353
 msgid "View by artist and album"
 msgstr "Rodyti pagal atlikėją ir albumą"
 
-#: ../src/bar.c:353
+#: ../src/bar.c:358
 msgid "_Fill Tags…"
 msgstr "_Užpildyti žymas…"
 
-#: ../src/bar.c:354
+#: ../src/bar.c:359
 msgid "Fill tags"
 msgstr "Užpildyti žymas"
 
-#: ../src/bar.c:356
+#: ../src/bar.c:361
 msgid "_Rename Files and Directories…"
 msgstr "_Pervadinti failus ir aplankus…"
 
-#: ../src/bar.c:357
+#: ../src/bar.c:362
 msgid "Rename files and directories"
 msgstr "Pervadinti failus ir aplankus"
 
-#: ../src/bar.c:359
+#: ../src/bar.c:364
 msgid "_Process Fields…"
 msgstr "_Apdoroti laukus…"
 
-#: ../src/bar.c:359 ../src/scan.c:183
+#: ../src/bar.c:364 ../src/scan.c:183
 msgid "Process Fields"
 msgstr "Apdoroti laukelius"
 
-#: ../src/bar.c:416
+#: ../src/bar.c:421
 #, c-format
 msgid "Could not merge UI, error was: %s\n"
 msgstr "Sulieti UI nepavyko, įvyko klaida: %s\n"
 
-#: ../src/bar.c:522
+#: ../src/bar.c:527
 msgid "Ready to start"
 msgstr "Pasiruošęs paleidimui"
 
@@ -1267,7 +1267,6 @@ msgstr "Prisijungti prie kompiuterio „%s“ nepavyko (%s)"
 
 #: ../src/cddb.c:1597
 #, c-format
-#| msgid "Can't resolve host '%s' (%s)."
 msgid "Cannot resolve host '%s' (%s)"
 msgstr "Nepavyko rasti kompiuterio vardu „%s“ (%s)"
 
@@ -1941,13 +1940,11 @@ msgstr "Iš pasirinktų failų pašalintas albumas."
 
 #: ../src/easytag.c:1432
 #, c-format
-#| msgid "Selected files tagged with disc number '%s'."
 msgid "Selected files tagged with disc number '%s/%s'."
 msgstr "Pasirinkti failai sužymėti su disko numeriu „%s/%s“."
 
 #: ../src/easytag.c:1437
 #, c-format
-#| msgid "Selected files tagged with disc number '%s'."
 msgid "Selected files tagged with disc number like 'xx'."
 msgstr "Pasirinkti failai sužymėti su disko numeriu „xx“."
 
@@ -2690,8 +2687,9 @@ msgstr "Klaida rašant į failą: „%s“ (%s)"
 #.
 #: ../src/id3v24_tag.c:1504
 #, c-format
-#| msgid "Cannot write tag in file '%s' (%s)"
-msgid "Cannot write tag of file '%s' (a byte was missing)"
+#| msgid "Cannot write tag of file '%s' (a byte was missing)"
+#| msgid_plural "Cannot write tag of file ‘%s’ (%s bytes were missing)"
+msgid "Cannot write tag of file ‘%s’ (a byte was missing)"
 msgid_plural "Cannot write tag of file ‘%s’ (%s bytes were missing)"
 msgstr[0] "Faile „%s“ įrašyti žymos nepavyko (trūksta %s baito)"
 msgstr[1] "Faile „%s“ įrašyti žymos nepavyko (trūksta %s baitų)"
@@ -3766,7 +3764,6 @@ msgstr ""
 "atveju paliekamas „grynas“ takelio numeris."
 
 #: ../src/prefs.c:578
-#| msgid "Write the track field with the following number of digits:"
 msgid "Write the disc field with the following number of digits:"
 msgstr "Įrašyti takelio lauke tiek skaitmenų:"
 
@@ -4318,7 +4315,6 @@ msgstr "(Pavyzdžiui: %.*d_-_Track_name_1.mp3)"
 #. Translators: please do NOT translate '%.*d' in this string.
 #: ../src/prefs.c:1471
 #, c-format
-#| msgid "(Example: %.*d_-_Track_name_1.mp3)"
 msgid "(Example: disc_%.*d_of_10/Track_name_1.mp3)"
 msgstr "(Pavyzdžiui: %.*d_iš_10/Takelio_pavadinimas_1.mp3)"
 
@@ -4803,7 +4799,6 @@ msgstr "%u: URL"
 
 #: ../src/scan.c:2847
 #, c-format
-#| msgid "%l: number of tracks"
 msgid "%x: number of discs"
 msgstr "%x: diskų skaičius"
 
@@ -4987,4 +4982,3 @@ msgstr "weasytag_init pabaiga..."
 #, c-format
 msgid "Audio player: '%s'"
 msgstr "Garso grotuvas: „%s“"
-
