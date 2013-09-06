@@ -729,10 +729,11 @@ static void Open_File_Selection_Window (GtkWidget *entry, gchar *title, GtkFileC
         filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(FileSelectionWindow));
         filename_utf8 = filename_to_display(filename);
         gtk_entry_set_text(GTK_ENTRY(entry),filename_utf8);
-		g_free(filename);
+        g_free (filename);
         g_free(filename_utf8);
-		// Gives the focus to the entry (useful for the button on the main window)
-		gtk_widget_grab_focus(GTK_WIDGET(entry));
+        /* Useful for the button on the main window. */
+        gtk_widget_grab_focus (GTK_WIDGET (entry));
+	g_signal_emit_by_name (entry, "activate");
     }
 	
     gtk_widget_destroy(FileSelectionWindow);
