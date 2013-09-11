@@ -3863,7 +3863,6 @@ Rename_Directory (void)
         gtk_dialog_run(GTK_DIALOG(msgdialog));
         gtk_widget_destroy(msgdialog);
 
-        g_free(directory_new_name);
         g_free(directory_new_name_file);
         g_free(last_path);
         g_free(last_path_utf8);
@@ -3893,7 +3892,6 @@ Rename_Directory (void)
         gtk_dialog_run(GTK_DIALOG(msgdialog));
         gtk_widget_destroy(msgdialog);
 
-        g_free(directory_new_name);
         g_free(directory_new_name_file);
         g_free(last_path);
         g_free(last_path_utf8);
@@ -3926,7 +3924,6 @@ Rename_Directory (void)
     g_free(new_path_utf8);
     g_free(tmp_path);
     g_free(tmp_path_utf8);
-    g_free(directory_new_name);
     g_free(directory_new_name_file);
     Statusbar_Message(_("Directory renamed"),TRUE);
 }
