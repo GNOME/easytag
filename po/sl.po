@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=easytag&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2013-09-28 15:22+0000\n"
-"PO-Revision-Date: 2013-09-29 13:57+0100\n"
+"PO-Revision-Date: 2013-10-01 23:56+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -2002,7 +2002,7 @@ msgstr "Skladatelj odstranjen iz izbranih datotek."
 #: ../src/easytag.c:1652
 #, c-format
 msgid "Selected files tagged with original artist '%s'."
-msgstr ""
+msgstr "Izbrane datoteke so označene z izvornim avtorjem '%s'."
 
 #: ../src/easytag.c:1654
 msgid "Removed original artist from selected files."
@@ -2029,7 +2029,7 @@ msgstr "URL odstranjen iz izbranih datotek."
 #: ../src/easytag.c:1703
 #, c-format
 msgid "Selected files tagged with encoder name '%s'."
-msgstr ""
+msgstr "Izbrane datoteke so označene z imenom kodirnika '%s'."
 
 #: ../src/easytag.c:1705
 msgid "Removed encoder name from selected files."
@@ -2045,7 +2045,7 @@ msgstr "Slike odstranjene iz izbranih datotek."
 
 #: ../src/easytag.c:2020
 msgid "Select Mode and Mask, and redo the same action"
-msgstr ""
+msgstr "Izberi način in masko in ponovno izvedi enako dejanje"
 
 #: ../src/easytag.c:2072
 msgid "All tags have been scanned"
@@ -2308,7 +2308,7 @@ msgstr "Odstrani vse besedilo"
 #: ../src/easytag.c:4489
 #, c-format
 msgid "EasyTAG version %s: Abnormal exit (PID: %d)"
-msgstr ""
+msgstr "Program EasyTAG različice %s: nenormalen konec (PID: %d)"
 
 #: ../src/easytag.c:4490 ../src/easytag.c:4501
 #, c-format
@@ -4547,6 +4547,8 @@ msgid ""
 "Force to convert to upper case the Roman numerals. Example, before: 'ix. "
 "text in an entry', after: 'IX. Text In An Entry'."
 msgstr ""
+"Vsili pretvorbo v rimske številke in zapis z velikimi črkami. Na primer: "
+"vrednost 'ix. besedilo vnosa' se pretvori v : 'IX. Besedilo Vnosa'."
 
 #: ../src/scan.c:2765
 msgid "Insert a space before uppercase letters"
