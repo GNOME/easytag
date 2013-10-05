@@ -4230,8 +4230,8 @@ Init_Load_Default_Dir (void)
     if (INIT_DIRECTORY)
     {
         Browser_Tree_Select_Dir(INIT_DIRECTORY);
-        Browser_Reload_Directory();
-    }else
+    }
+    else
     {
         Statusbar_Message(_("Select a directory to browse"),FALSE);
         Browser_Load_Default_Directory();
