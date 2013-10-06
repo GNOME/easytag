@@ -52,7 +52,7 @@
 <section id="rename">
   <title>Rename files and create new directories</title>
 
-  <p><gui xref="rename-file">Rename File and Directory</gui> can be used to
+  <p><gui xref="file-rename">Rename File and Directory</gui> can be used to
   create a directory hierarchy and update filenames using the filled tag
   fields. If a new directory hierarchy is specified, it will be created inside
   the directory where the file is currently located.</p>

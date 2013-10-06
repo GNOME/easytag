@@ -1,10 +1,10 @@
 <page xmlns="http://projectmallard.org/1.0/"
       type="topic" style="guide"
-      id="rename-file">
+      id="file-rename">
 
   <info>
     <link type="guide" xref="index#main"/>
-    <revision version="0.1" pkgversion="2.1.9" date="2013-03-05" status="draft" />
+    <revision pkgversion="2.1.9" date="2013-08-18" status="draft" />
 
     <credit type="author">
       <name>Ekaterina Gerasimova</name>
@@ -13,15 +13,17 @@
 
     <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
 
-    <desc>Change the file names</desc>
+    <desc>Change the file names using tags</desc>
   </info>
 
   <title>Rename files</title>
 
-  <p>Rename your music files:</p>
+  <p>You can rename your music files using the tags from within
+  <app>EasyTAG</app>:</p>
 
   <steps>
     <item>
+      <!-- TODO: split off the selection instructions -->
       <p>Select the files that you wish to rename in the file view. To select
       multiple files, you can either hold down <key>Ctrl</key> while you click
       on the files that you wish to select or you can select a file then hold
@@ -33,11 +35,11 @@
       <gui style="menuitem">Rename Files and Directories…</gui></guiseq>.</p>
     </item>
     <item>
-      <p>Using the <gui>Legend</gui>, type in the structure<!--find better
-      word--> that you would like to use for the file naming. For example, if
-      you wish your files to be named
-      <file>[artist] - [title].[extension]</file>, enter <gui>%a - %t</gui> into
-      the renaming field.</p>
+      <p>Using the <gui xref="format-specifier">Legend</gui>, type in the
+      structure<!--find better word--> that you would like to use for the file
+      naming. For example, if you wish your files to be named
+      <file>[artist] - [title].[extension]</file>, enter <input>%a - %t</input>
+      into the renaming field.</p>
     </item>
     <item>
       <p>To apply the changes to all files, select
