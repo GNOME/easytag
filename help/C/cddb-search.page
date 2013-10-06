@@ -1,0 +1,72 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:its="http://www.w3.org/2005/11/its"
+      type="topic" style="guide"
+      id="cddb-search">
+
+  <info>
+    <link type="guide" style="2column" xref="index#main"/>
+    <revision pkgversion="2.1.9" date="2013-10-07" status="review" />
+
+    <credit type="author">
+      <name>Ekaterina Gerasimova</name>
+      <email its:translate="no">kittykat3756@gmail.com</email>
+    </credit>
+
+    <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
+
+    <desc>Fill tags using information from a CD database</desc>
+  </info>
+
+  <title>Search CDDB</title>
+
+  <p>If your music is organized by album, <app>EasyTAG</app> can search online
+  databases using the <sys>CDDB</sys> protocol and automatically fill in
+  several tag fields.</p>
+
+  <steps>
+    <item>
+      <p><link xref="file-select">Select all the files</link> in the album that
+      you want to search for. The ordering of the files must match the track
+      order on the album.</p>
+    </item>
+    <item>
+      <p>Select <guiseq><gui style="menu">Miscellaneous</gui>
+      <gui style="menuitem">CDDB Search…</gui></guiseq>.</p>
+    </item>
+    <item>
+      <p>Press <gui style="button">Find</gui> and wait for the search to
+      finish.</p>
+    </item>
+    <item>
+      <!-- TODO Split Manual search into a tip? -->
+      <!-- TODO Search within the results. -->
+      <p>Select an album from the list of results, and the track information
+      will be shown to the right. If the album is not the one that you wanted,
+      try selecting another result in the list.</p>
+      <p>If there are no results which match the tracks that you selected,
+      select <gui style="tab">Manual Search</gui> and enter the name of the
+      album in the search field. Press <gui style="button">Find</gui> and wait
+      for the search to finish, and check the results again to see if you can
+      find an album which matches the tracks that you selected.</p>
+    </item>
+    <item>
+      <p>Choose the tag fields to fill in by selecting either
+      <gui style="checkbox">All</gui> or a combination of
+      <gui style="checkbox">Filename</gui>, <gui style="checkbox">Title</gui>,
+      <gui style="checkbox">Artist</gui>, <gui style="checkbox">Album</gui>,
+      <gui style="checkbox">Year</gui>, <gui style="checkbox">Track #</gui>,
+      <gui style="checkbox"># Tracks</gui> and
+      <gui style="checkbox">Genre</gui>.</p>
+    </item>
+    <!-- TODO Run the scanner for each file -->
+    <!-- TODO Levenshtein matching -->
+    <item>
+      <p>To fill in the tags of the selected files using the details in the
+      search result, press <gui style="button">Apply</gui>.</p>
+    </item>
+  </steps>
+
+  <p>If you wish to tag only specific files, you can change your selection
+  after the search is complete.</p>
+
+</page>

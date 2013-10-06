@@ -3,6 +3,7 @@
 HELP_ID = easytag
 
 HELP_FILES = \
+	cddb-search.page \
 	file-rename.page \
 	file-select.page \
 	format-specifier.page \
