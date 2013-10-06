@@ -23,12 +23,8 @@
 
   <steps>
     <item>
-      <!-- TODO: split off the selection instructions -->
-      <p>Select the files that you wish to rename in the file view. To select
-      multiple files, you can either hold down <key>Ctrl</key> while you click
-      on the files that you wish to select or you can select a file then hold
-      down <key>Shift</key> and click another file to select all the files
-      between the two, including the first and last file.</p>
+      <p><link xref="file-select">Select the files</link> that you wish to
+      rename in the file view.</p>
     </item>
     <item>
       <p>Select <guiseq><gui style="menu">Scanner</gui>

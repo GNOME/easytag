@@ -4,6 +4,7 @@ HELP_ID = easytag
 
 HELP_FILES = \
 	file-rename.page \
+	file-select.page \
 	format-specifier.page \
 	image-delete.page \
 	image-export.page \
