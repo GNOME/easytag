@@ -5,7 +5,7 @@
       id="index">
 
   <info>
-    <revision version="0.1" pkgversion="2.1.9" date="2013-03-05" status="review"/>
+    <revision pkgversion="2.1.9" date="2013-03-05" status="review"/>
 
     <credit type="author">
       <name>Ekaterina Gerasimova</name>
@@ -36,12 +36,12 @@
     <title>The image tag field</title>
   </section>
 
-  <section id="preferences" style="2column">
+<!--  <section id="preferences" style="2column">
     <title>Preferences</title>
   </section>
 
   <section id="problems">
     <title>Common problems and questions</title>
-  </section>
+  </section>-->
 
 </page>
