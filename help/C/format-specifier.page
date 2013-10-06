@@ -5,14 +5,14 @@
 
   <info>
     <link type="guide" xref="index#main"/>
-    <revision pkgversion="2.1.9" date="2013-05-27" status="candidate"/>
-
-    <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
+    <revision pkgversion="2.1.9" date="2013-08-18" status="candidate"/>
 
     <credit type="author">
       <name>Ekaterina Gerasimova</name>
       <email its:translate="no">kittykat3756@googlemail.com</email>
     </credit>
+
+    <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
 
     <desc>What is a format-specifier and which ones can I use?</desc>
 
@@ -160,6 +160,14 @@
         </td>
         <td>
           <p>URL</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>%x</p>
+        </td>
+        <td>
+          <p>Number of discs</p>
         </td>
       </tr>
       <tr>
