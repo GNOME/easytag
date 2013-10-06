@@ -20,7 +20,7 @@
   </info>
 
   <title>
-    <media its:translate="no" type="image" mime="image/png" src="figures/icon.png"/>
+    <media its:translate="no" type="image" mime="image/png" src="media/icon.png"/>
     EasyTAG
   </title>
 
