@@ -13,6 +13,7 @@ HELP_FILES = \
 	introduction.page \
 	keyboard-shortcuts.page \
 	legal.xml \
+	playlist-generate.page \
 	scanner.page \
 	starting.page \
 	tag-field.page \

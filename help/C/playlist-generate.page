@@ -1,0 +1,81 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:its="http://www.w3.org/2005/11/its"
+      type="topic" style="guide"
+      id="playlist-generate">
+
+  <info>
+    <link type="guide" xref="index#main"/>
+    <revision pkgversion="2.1.9" date="2013-10-06" status="draft" />
+
+    <credit type="author">
+      <name>Ekaterina Gerasimova</name>
+      <email>kittykat3756@gmail.com</email>
+    </credit>
+
+    <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
+
+    <desc>Generate a playlist from the file list</desc>
+  </info>
+
+  <title>Create a playlist</title>
+
+  <p>You can create a M3U playlist for use with a music player based on the
+  list of files shown in <app>EasyTAG</app>:</p>
+
+  <steps>
+    <item>
+      <p><link xref="file-select">Select the files</link> that you wish to be
+      in the playlist in the file list.</p>
+    </item>
+    <item>
+      <p>Select <guiseq><gui style="menu">Miscellaneous</gui>
+      <gui style="menuitem">Generate Playlist…</gui></guiseq>.</p>
+    </item>
+    <item>
+      <p>Select <gui style="radiobutton">Use mask</gui> and enter a mask, using
+      <link xref="format-specifier">format specifiers</link>, or select
+      <gui style="radiobutton">Use directory name</gui> to name the playlist
+      after the directory which is selected in the
+      <gui style="group">Browser</gui>.</p>
+    </item>
+    <item>
+      <p>Select <gui style="checkbox">Include only the selected files</gui> to
+      use the files which are selected in the file list when generating the
+      playlist. Deselect it to include all the displayed files in the
+      playlist.</p>
+    </item>
+    <item>
+      <p>Select
+      <gui style="radiobutton">Use relative path for files in playlist</gui>
+      unless you only plan to use the playlist on the same computer and you do
+      not plan to move the audio files, in which case you can select
+      <gui style="radiobutton">Use full path for files in playlist</gui>.</p>
+    </item>
+    <item>
+      <p>Select
+      <gui style="checkbox">Create playlist in the parent directory</gui> if
+      you want to save the playlist in the parent of the directory selected in
+      the <gui style="group">Browser</gui>. Otherwise, the playlist will be
+      saved in the directory selected in the
+      <gui style="group">Browser</gui>.</p>
+    </item>
+    <item>
+      <p>If you are creating a playlist for use on a Windows computer, or on a
+      <sys>NTFS</sys> or <sys>FAT</sys> file system, select
+      <gui style="checkbox">Use DOS directory separator</gui>.</p>
+    </item>
+    <item>
+      <p>Select <gui style="radiobutton">Write only list of files</gui> to
+      create a playlist which only contains a list of files. Select
+      <gui style="radiobutton">Write info using filename</gui> to also write
+      extended information, including the duration of the audio file, to the
+      playlist. Select <gui style="radiobutton">Write info using</gui> and
+      enter a mask, using format specifiers, to write custom extended
+      information to the playlist.</p>
+    </item>
+    <item>
+      <p>To generate the playlist, select <gui style="button">Save</gui>.</p>
+    </item>
+  </steps>
+
+</page>
