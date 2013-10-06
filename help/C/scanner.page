@@ -4,15 +4,15 @@
       id="scanner">
 
   <info>
-    <link type="guide" xref="index#main"/>
-    <revision pkgversion="2.1.9" date="2013-04-29" status="stub"/>
-
-    <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
+    <link type="guide" xref="index#main" group="#first"/>
+    <revision pkgversion="2.1.9" date="2013-10-06" status="review"/>
 
     <credit type="author">
       <name>Ekaterina Gerasimova</name>
       <email its:translate="no">kittykat3756@googlemail.com</email>
     </credit>
+
+    <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
 
     <desc>Update tags automatically.</desc>
 
@@ -25,9 +25,7 @@
   text in fields and the filename.</p>
 
 <section id="fill-tag">
-  <title>Fill fields from a filename</title>
-  <!-- TODO: use better title that makes it clear that the parent directories
-  can also be used for the tags -->
+  <title>Fill fields from a filename and directory structure</title>
 
   <p><gui>Fill Tag</gui> can be used to fill in tag fields based on the
   filename and its parent directories.</p>
@@ -40,11 +38,11 @@
   any part of the filename or the parent directories. Use <key>/</key> to add
   the <em>separator</em> for a parent directory.</p>
 
-  <p>For example, if you keep your audio files using the <file>artist/album/01
-  track title.flac</file> directory structure and filenames, use the
-  <input>%a/%b/%t %n</input> <em>format string</em> to extract the track number
-  and title from the filename, the album title from the parent directory and
-  the artist from the grandparent directory.</p>
+  <p>For example, if you keep your audio files using the
+  <file>artist/album/01 track title.flac</file> directory structure and
+  filenames, use the <input>%a/%b/%t %n</input> <em>format string</em> to
+  extract the track number and title from the filename, the album title from
+  the parent directory and the artist from the grandparent directory.</p>
 
   <p>Fill the tag fields for the selected files using the
   <gui style="button">Scan Files</gui> button.</p>
@@ -54,27 +52,35 @@
 <section id="rename">
   <title>Rename files and create new directories</title>
 
-  <p><gui>Rename File and Directory</gui> can be used to create a directory
-  hierarchy and update filenames using the filled tag fields. If a new
-  directory hierarchy is specified, it will be created inside the directory
-  where the file is currently located.</p>
+  <p><gui xref="rename-file">Rename File and Directory</gui> can be used to
+  create a directory hierarchy and update filenames using the filled tag
+  fields. If a new directory hierarchy is specified, it will be created inside
+  the directory where the file is currently located.</p>
 
   <p>For example, if you have a tagged file inside the <file>Music</file>
   directory, you can use the <input>%a/%b/%t %n</input> <em>format string</em>,
   it will create the <file>Music/artist/album/01 track title.flac</file> file
-  structure and filename.</p>
+  structure and filename. You will see a preview of the naming scheme below
+  your specified format string.</p>
 
-  <!-- TODO: explain pending change
-  <p> the
+  <p>To prepare the files for moving and renaming, press the
   <gui style="button">Scan Files</gui> button.</p>
-  -->
 
 </section>
 
 <section id="process">
-  <title></title>
+  <title>Bulk process tag fields and filename</title>
 
-  <p></p>
+  <p><gui>Process Fields</gui> is a sophisticated find and replace feature
+  which allows you to select which tag fields to process. It also allows for
+  the filename to be processed as well.</p>
+
+  <p>You can <gui>Convert</gui> characters for a simple find and replace,
+  change capitalization and add or remove spaces.</p>
+
+  <p>Use the <gui>Select fields</gui> buttons to specify which fields to
+  change. You can also select or deselect all fields and invert your
+  selection.</p>
 
 </section>
 
