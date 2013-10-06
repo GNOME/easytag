@@ -116,8 +116,6 @@ GtkToolItem *remove_image_toolitem;
 GtkToolItem *add_image_toolitem;
 GtkToolItem *save_image_toolitem;
 GtkToolItem *image_properties_toolitem;
-GtkToolItem *apply_image_toolitem;
-GtkWidget *PictureScrollWindow;
 
 GdkCursor *MouseCursor;
 

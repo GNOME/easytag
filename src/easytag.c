@@ -67,6 +67,8 @@
  ****************/
 static guint idle_handler_id;
 
+static GtkWidget *images_tab = NULL;
+static GtkToolItem *apply_image_toolitem = NULL;
 static GtkWidget *QuitRecursionWindow = NULL;
 
 /* Used to force to hide the msgbox when saving tag */
@@ -712,6 +714,7 @@ Create_Tag_Area (void)
     GtkWidget *Table;
     GtkWidget *Label;
     GtkWidget *Icon;
+    GtkWidget *PictureScrollWindow;
     GtkWidget *toolbar;
     GtkToolItem *toolitem;
     GIcon *icon;
@@ -1155,7 +1158,7 @@ Create_Tag_Area (void)
      */
     Label = gtk_label_new (_("Images")); // As there is only the picture field... - also used in ET_Display_File_Tag_To_UI
 
-    Table = et_grid_new (1, 2);
+    images_tab = Table = et_grid_new (1, 2);
     gtk_notebook_append_page (GTK_NOTEBOOK (TagNoteBook), Table, Label);
     gtk_container_set_border_width(GTK_CONTAINER(Table),2);
 
@@ -3933,6 +3936,18 @@ File_Area_Set_Sensitive (gboolean activate)
     /*gtk_widget_set_sensitive(GTK_WIDGET(FileEntry),activate);*/
 }
 
+static void
+et_tag_notebook_hide_images_tab (GtkWidget *tag_notebook)
+{
+    gtk_widget_hide (images_tab);
+}
+
+static void
+et_tag_notebook_show_images_tab (GtkWidget *tag_notebook)
+{
+    gtk_widget_show (images_tab);
+}
+
 /*
  * Display controls according the kind of tag... (Hide some controls if not available for a tag type)
  */
@@ -3981,12 +3996,7 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
                 gtk_widget_hide(GTK_WIDGET(URLEntry));
                 gtk_widget_hide(GTK_WIDGET(EncodedByLabel));
                 gtk_widget_hide(GTK_WIDGET(EncodedByEntry));
-                gtk_widget_hide(GTK_WIDGET(PictureScrollWindow));
-                gtk_widget_hide (GTK_WIDGET (apply_image_toolitem));
-                gtk_widget_hide (GTK_WIDGET (remove_image_toolitem));
-                gtk_widget_hide (GTK_WIDGET (add_image_toolitem));
-                gtk_widget_hide (GTK_WIDGET (save_image_toolitem));
-                gtk_widget_hide (GTK_WIDGET (image_properties_toolitem));
+                et_tag_notebook_hide_images_tab (TagNoteBook);
             }else
             {
                 gtk_widget_show(GTK_WIDGET(DiscNumberLabel));
@@ -4001,12 +4011,7 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
                 gtk_widget_show(GTK_WIDGET(URLEntry));
                 gtk_widget_show(GTK_WIDGET(EncodedByLabel));
                 gtk_widget_show(GTK_WIDGET(EncodedByEntry));
-                gtk_widget_show(GTK_WIDGET(PictureScrollWindow));
-                gtk_widget_show (GTK_WIDGET (apply_image_toolitem));
-                gtk_widget_show (GTK_WIDGET (remove_image_toolitem));
-                gtk_widget_show (GTK_WIDGET (add_image_toolitem));
-                gtk_widget_show (GTK_WIDGET (save_image_toolitem));
-                gtk_widget_show (GTK_WIDGET (image_properties_toolitem));
+                et_tag_notebook_show_images_tab (TagNoteBook);
             }
             break;
 
@@ -4024,12 +4029,7 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
             gtk_widget_show(GTK_WIDGET(URLEntry));
             gtk_widget_show(GTK_WIDGET(EncodedByLabel));
             gtk_widget_show(GTK_WIDGET(EncodedByEntry));
-            gtk_widget_show(GTK_WIDGET(PictureScrollWindow));
-            gtk_widget_show (GTK_WIDGET (apply_image_toolitem));
-            gtk_widget_show (GTK_WIDGET (remove_image_toolitem));
-            gtk_widget_show (GTK_WIDGET (add_image_toolitem));
-            gtk_widget_show (GTK_WIDGET (save_image_toolitem));
-            gtk_widget_show (GTK_WIDGET (image_properties_toolitem));
+            et_tag_notebook_show_images_tab (TagNoteBook);
             break;
 #endif
 
@@ -4047,12 +4047,7 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
             gtk_widget_show(GTK_WIDGET(URLEntry));
             gtk_widget_show(GTK_WIDGET(EncodedByLabel));
             gtk_widget_show(GTK_WIDGET(EncodedByEntry));
-            gtk_widget_show(GTK_WIDGET(PictureScrollWindow));
-            gtk_widget_show (GTK_WIDGET (apply_image_toolitem));
-            gtk_widget_show (GTK_WIDGET (remove_image_toolitem));
-            gtk_widget_show (GTK_WIDGET (add_image_toolitem));
-            gtk_widget_show (GTK_WIDGET (save_image_toolitem));
-            gtk_widget_show (GTK_WIDGET (image_properties_toolitem));
+            et_tag_notebook_show_images_tab (TagNoteBook);
             break;
 #endif
 
@@ -4069,12 +4064,7 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
             gtk_widget_show(GTK_WIDGET(URLEntry));
             gtk_widget_show(GTK_WIDGET(EncodedByLabel));
             gtk_widget_show(GTK_WIDGET(EncodedByEntry));
-            gtk_widget_hide(GTK_WIDGET(PictureScrollWindow));
-            gtk_widget_hide (GTK_WIDGET (apply_image_toolitem));
-            gtk_widget_hide (GTK_WIDGET (remove_image_toolitem));
-            gtk_widget_hide (GTK_WIDGET (add_image_toolitem));
-            gtk_widget_hide (GTK_WIDGET (save_image_toolitem));
-            gtk_widget_hide (GTK_WIDGET (image_properties_toolitem));
+            et_tag_notebook_show_images_tab (TagNoteBook);
             break;
 
 #ifdef ENABLE_MP4
@@ -4091,12 +4081,7 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
             gtk_widget_hide(GTK_WIDGET(URLEntry));
             gtk_widget_hide(GTK_WIDGET(EncodedByLabel));
             gtk_widget_hide(GTK_WIDGET(EncodedByEntry));
-            gtk_widget_hide(GTK_WIDGET(PictureScrollWindow));
-            gtk_widget_hide (GTK_WIDGET (apply_image_toolitem));
-            gtk_widget_hide (GTK_WIDGET (remove_image_toolitem));
-            gtk_widget_hide (GTK_WIDGET (add_image_toolitem));
-            gtk_widget_hide (GTK_WIDGET (save_image_toolitem));
-            gtk_widget_hide (GTK_WIDGET (image_properties_toolitem));
+            et_tag_notebook_hide_images_tab (TagNoteBook);
             break;
 #endif
 
@@ -4114,12 +4099,7 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
             gtk_widget_show(GTK_WIDGET(URLEntry));
             gtk_widget_show(GTK_WIDGET(EncodedByLabel));
             gtk_widget_show(GTK_WIDGET(EncodedByEntry));
-            gtk_widget_hide(GTK_WIDGET(PictureScrollWindow));
-            gtk_widget_hide (GTK_WIDGET (apply_image_toolitem));
-            gtk_widget_hide (GTK_WIDGET (remove_image_toolitem));
-            gtk_widget_hide (GTK_WIDGET (add_image_toolitem));
-            gtk_widget_hide (GTK_WIDGET (save_image_toolitem));
-            gtk_widget_hide (GTK_WIDGET (image_properties_toolitem));
+            et_tag_notebook_hide_images_tab (TagNoteBook);
             break;
 #endif /* ENABLE_WAVPACK */
 
@@ -4137,12 +4117,7 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
             gtk_widget_hide(GTK_WIDGET(URLEntry));
             gtk_widget_hide(GTK_WIDGET(EncodedByLabel));
             gtk_widget_hide(GTK_WIDGET(EncodedByEntry));
-            gtk_widget_hide(GTK_WIDGET(PictureScrollWindow));
-            gtk_widget_hide (GTK_WIDGET (apply_image_toolitem));
-            gtk_widget_hide (GTK_WIDGET (remove_image_toolitem));
-            gtk_widget_hide (GTK_WIDGET (add_image_toolitem));
-            gtk_widget_hide (GTK_WIDGET (save_image_toolitem));
-            gtk_widget_hide (GTK_WIDGET (image_properties_toolitem));
+            et_tag_notebook_hide_images_tab (TagNoteBook);
             break;
     }
 }
