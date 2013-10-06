@@ -1,9 +1,9 @@
 <page xmlns="http://projectmallard.org/1.0/"
       type="topic" style="task"
-      id="">
+      id="tag-edit">
 
   <info>
-    <revision version="0.1" pkgversion="2.1.9" date="2013-03-05" status="stub"/>
+    <revision pkgversion="2.1.9" date="2013-03-05" status="stub"/>
 
     <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
 
