@@ -1505,7 +1505,7 @@ void Scan_Process_Fields_First_Letters_Uppercase (gchar *string)
     gboolean set_to_upper_case, set_to_upper_case_tmp;
     // There have to be space at the end of words to seperate them from prefix
     // Chicago Manual of Style "Heading caps" Capitalization Rules (CMS 1993, 282) (http://www.docstyles.com/cmscrib.htm#Note2)
-    gchar *exempt[] =
+    const gchar * exempt[] =
     {
         "a ",       "a_",
         "against ", "against_",
