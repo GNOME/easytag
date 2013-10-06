@@ -37,7 +37,6 @@
 #include <id3.h>
 #endif
 #include <sys/types.h>
-#include <utime.h>
 
 #include "gtk2_compat.h"
 #include "easytag.h"
