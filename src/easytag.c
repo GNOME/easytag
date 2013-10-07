@@ -67,6 +67,38 @@
  ****************/
 static guint idle_handler_id;
 
+static GtkWidget *MenuArea;
+static GtkWidget *ToolArea;
+static GtkWidget *BrowseArea;
+static GtkWidget *FileArea;
+static GtkWidget *TagArea;
+static GtkWidget *StatusArea;
+static GtkWidget *ProgressArea;
+static GtkWidget *MainWindowHPaned;
+static GtkWidget *MainWindowVPaned;
+
+/* Labels. */
+static GtkWidget *TitleLabel;
+static GtkWidget *ArtistLabel;
+static GtkWidget *AlbumArtistLabel;
+static GtkWidget *AlbumLabel;
+static GtkWidget *DiscNumberLabel;
+static GtkWidget *YearLabel;
+static GtkWidget *TrackLabel;
+static GtkWidget *GenreLabel;
+static GtkWidget *CommentLabel;
+static GtkWidget *ComposerLabel;
+static GtkWidget *OrigArtistLabel;
+static GtkWidget *CopyrightLabel;
+static GtkWidget *URLLabel;
+static GtkWidget *EncodedByLabel;
+
+/* Mini buttons. */
+static GtkWidget *TrackMButtonSequence;
+static GtkWidget *TrackMButtonNbrFiles;
+
+static GtkListStore *PictureEntryModel;
+
 static GtkWidget *images_tab = NULL;
 static GtkToolItem *apply_image_toolitem = NULL;
 static GtkWidget *QuitRecursionWindow = NULL;

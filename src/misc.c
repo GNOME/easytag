@@ -52,6 +52,8 @@
 
 static const guint BOX_SPACING = 6;
 
+static GdkCursor *MouseCursor;
+
 /* Search file window. */
 static GtkWidget *SearchFileWindow = NULL;
 static GtkWidget *SearchStringCombo;

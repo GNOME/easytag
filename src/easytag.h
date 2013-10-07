@@ -40,16 +40,7 @@
 gboolean Main_Stop_Button_Pressed;
 
 GtkWidget *MainWindow;
-GtkWidget *MenuArea;
-GtkWidget *ToolArea;
-GtkWidget *BrowseArea;
-GtkWidget *FileArea;
-GtkWidget *TagArea;
-GtkWidget *StatusArea;
-GtkWidget *ProgressArea;
 GtkWidget *LogArea;
-GtkWidget *MainWindowHPaned;
-GtkWidget *MainWindowVPaned;
 
 /* File Area */
 GtkWidget *FileFrame;
@@ -91,33 +82,12 @@ GtkWidget    *CopyrightEntry;
 GtkWidget    *URLEntry;
 GtkWidget    *EncodedByEntry;
 GtkWidget    *PictureEntryView;
-GtkListStore *PictureEntryModel;
-// Labels
-GtkWidget    *TitleLabel;
-GtkWidget    *ArtistLabel;
-GtkWidget    *AlbumArtistLabel;
-GtkWidget    *AlbumLabel;
-GtkWidget    *DiscNumberLabel;
-GtkWidget    *YearLabel;
-GtkWidget    *TrackLabel;
-GtkWidget    *GenreLabel;
-GtkWidget    *CommentLabel;
-GtkWidget    *ComposerLabel;
-GtkWidget    *OrigArtistLabel;
-GtkWidget    *CopyrightLabel;
-GtkWidget    *URLLabel;
-GtkWidget    *EncodedByLabel;
-// Mini buttons
-GtkWidget    *TrackMButtonSequence;
-GtkWidget    *TrackMButtonNbrFiles;
 
 /* Other for picture. */
 GtkToolItem *remove_image_toolitem;
 GtkToolItem *add_image_toolitem;
 GtkToolItem *save_image_toolitem;
 GtkToolItem *image_properties_toolitem;
-
-GdkCursor *MouseCursor;
 
 gchar *INIT_DIRECTORY;
 
