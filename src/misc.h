@@ -28,9 +28,7 @@
  * Declaration *
  ***************/
 
-GtkWidget *WritePlaylistWindow;
 GtkWidget *playlist_use_mask_name;
-GtkWidget *PlayListNameMaskCombo;
 GtkWidget *playlist_use_dir_name;
 GtkWidget *playlist_only_selected_files;
 GtkWidget *playlist_full_path;
@@ -40,9 +38,6 @@ GtkWidget *playlist_use_dos_separator;
 GtkWidget *playlist_content_none;
 GtkWidget *playlist_content_filename;
 GtkWidget *playlist_content_mask;
-GtkWidget *PlayListContentMaskCombo;
-GtkListStore *PlayListNameMaskModel;
-GtkListStore *PlayListContentMaskModel;
 
 
 /**************

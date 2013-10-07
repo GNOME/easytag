@@ -48,7 +48,12 @@
 /***************
  * Declaration *
  ***************/
-/* Playlist window defined in misc.h */
+/* Playlist window. */
+static GtkWidget *WritePlaylistWindow;
+static GtkWidget *PlayListNameMaskCombo;
+static GtkWidget *PlayListContentMaskCombo;
+static GtkListStore *PlayListNameMaskModel;
+static GtkListStore *PlayListContentMaskModel;
 
 static const guint BOX_SPACING = 6;
 
