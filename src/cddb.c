@@ -52,6 +52,53 @@
 #include "setting.h"
 #include "charset.h"
 
+/*
+ * Structure used for each item of the album list. Aslo attached to each row of
+ * the album list
+ */
+typedef struct
+{
+    gchar *server_name; /* Remote access: server name. Local access : NULL */
+    guint server_port; /* Remote access: server port. Local access: 0 */
+    gchar *server_cgi_path; /* Remote access: server CGI path.
+                             * Local access: discid file path */
+
+    GdkPixbuf *bitmap; /* Pixmap logo for the server. */
+
+    gchar *artist_album; /* CDDB artist+album (allocated) */
+    gchar *category; /* CDDB genre (allocated) */
+    gchar *id; /* example : 8d0de30c (allocated) */
+    GList *track_list; /* List of CddbTrackAlbum items. */
+    gboolean other_version; /* TRUE if this album is another version of the
+                             * previous one. */
+
+    /* Filled when loading the track list. */
+    gchar *artist; /* (allocated) */
+    gchar *album; /* (allocated) */
+    gchar *genre; /* (allocated) */
+    gchar *year; /* (allocated) */
+    guint duration;
+} CddbAlbum;
+
+
+/*
+ * Structure used for each item of the track_list of the CddbAlbum structure.
+ */
+typedef struct
+{
+    guint track_number;
+    gchar *track_name; /* (allocated) */
+    guint duration;
+    CddbAlbum *cddbalbum; /* Pointer to the parent CddbAlbum structure (to
+                           * quickly access album properties). */
+} CddbTrackAlbum;
+
+
+typedef struct
+{
+    gulong offset;
+} CddbTrackFrameOffset;
+
 enum
 {
     CDDB_ALBUM_LIST_PIXBUF,
@@ -107,6 +154,9 @@ static const guint BOX_SPACING = 6;
 /****************
  * Declarations *
  ****************/
+static GtkWidget *CddbWindow;
+static GtkWidget *CddbWindowHPaned;
+
 static GtkWidget *CddbNoteBook;
 static GList *CddbAlbumList = NULL;
 
@@ -134,6 +184,43 @@ static GtkWidget *CddbDisplayRedLinesButton;
 static GtkWidget *CddbSelectAllInResultButton;
 static GtkWidget *CddbUnselectAllInResultButton;
 static GtkWidget *CddbInvertSelectionInResultButton;
+
+static GtkWidget *CddbShowCategoriesButton;
+
+static GtkWidget *CddbSeparatorH;
+static GtkWidget *CddbSeparatorV;
+
+static GtkWidget *CddbSearchInAllFields;
+static GtkWidget *CddbSearchInArtistField;
+static GtkWidget *CddbSearchInTitleField;
+static GtkWidget *CddbSearchInTrackNameField;
+static GtkWidget *CddbSearchInOtherField;
+
+static GtkWidget *CddbSetToAllFields;
+static GtkWidget *CddbSetToTitle;
+static GtkWidget *CddbSetToArtist;
+static GtkWidget *CddbSetToAlbum;
+static GtkWidget *CddbSetToYear;
+static GtkWidget *CddbSetToTrack;
+static GtkWidget *CddbSetToTrackTotal;
+static GtkWidget *CddbSetToGenre;
+static GtkWidget *CddbSetToFileName;
+
+static GtkWidget *CddbRunScanner;
+static GtkWidget *CddbUseDLM2; /* '2' as also used in prefs.c */
+static GtkWidget *CddbUseLocalAccess;
+
+static GtkWidget *CddbSearchInAllCategories;
+static GtkWidget *CddbSearchInBluesCategory;
+static GtkWidget *CddbSearchInClassicalCategory;
+static GtkWidget *CddbSearchInCountryCategory;
+static GtkWidget *CddbSearchInFolkCategory;
+static GtkWidget *CddbSearchInJazzCategory;
+static GtkWidget *CddbSearchInMiscCategory;
+static GtkWidget *CddbSearchInNewageCategory;
+static GtkWidget *CddbSearchInReggaeCategory;
+static GtkWidget *CddbSearchInRockCategory;
+static GtkWidget *CddbSearchInSoundtrackCategory;
 
 static gboolean CddbStopSearch = FALSE;
 
