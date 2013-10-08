@@ -111,6 +111,11 @@ easytag_LDADD = \
 	$(EASYTAG_LIBS) \
 	$(ID3LIB_LIBS)
 
+if WINDOWS_HOST
+easytag_LDFLAGS = \
+	-Wl,--subsystem,windows
+endif
+
 # NSIS installer script.
 # TODO: Run script from dist dir.
 easytag-win32-installer.nsi: easytag-win32-installer.nsi.in Makefile
