@@ -11,7 +11,7 @@ DISTCHECK_CONFIGURE_FLAGS = \
 	--enable-tests \
 	--enable-wavpack
  
-SUBDIRS = po
+SUBDIRS = help po
 
 bin_PROGRAMS = easytag
 

@@ -61,6 +61,7 @@ Installation
 * flac (http://flac.sourceforge.net) (if not deactivated by './configure --disable-flac')
 * taglib (http://taglib.github.com/) (if not deactivated by './configure --disable-mp4')
 * wavpack (http://www.wavpack.com/) (if not deactivated by './configure --disable-wavpack')
+* yelp-tools (https://git.gnome.org/browse/yelp-tools)
 * libc 6 (glibc 2.1) or greater
 * intltool (if not deactivated by './configure --disable-nls')
 
@@ -74,7 +75,7 @@ Segfault occurs when running EasyTAG?
 
 The best way to allow us to fix the problem, is to send a backtrace:
 
-#### Be sure that core files are availables
+#### Be sure that core files are available
 
 If `ulimit -c` returns 0, then run the command `ulimit -c unlimited`
 

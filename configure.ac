@@ -77,6 +77,9 @@ AS_IF([test "x$have_desktop_file_validate" = "xyes"],
 
 AM_CONDITIONAL([EASYTAG_ENABLE_TESTS], [test "x$testing_utilities" = "xyes"])
 
+dnl Help.
+YELP_HELP_INIT
+
 dnl -------------------------------
 dnl Handle cross-compiling with mingw32.
 dnl -------------------------------
@@ -326,6 +329,7 @@ AC_CHECK_FUNCS([ftruncate gettimeofday mkstemp truncate])
 
 AC_CONFIG_FILES([ Makefile
                   doc/version.xml
+                  help/Makefile
                   po/Makefile.in
                ])
 AC_OUTPUT
