@@ -1,3 +1,8 @@
+2.1.9alpha1 - 2013-10-09 :
+==========================
+
+    * Preview release for Windows
+
 2.1.8 - 2013-02-10 :
 ====================
     * Port to and require the most recent GTK+ 2 release (2.24)
