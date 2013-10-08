@@ -4306,7 +4306,8 @@ Run_Program (const gchar *program_name, GList *args_list)
                       &siStartupInfo,
                       &piProcessInfo) == FALSE)
     {
-        Log_Print(LOG_ERROR,_("Cannot execute %s (error %d)\n"), program_name, GetLastError());
+        Log_Print (LOG_ERROR, _("Cannot execute %s (error %d)\n"),
+                   program_name, (guint32)GetLastError ());
     }
 
     // Free allocated parameters (for each filename)

@@ -833,7 +833,8 @@ Run_Audio_Player_Using_File_List (GList *etfilelist)
                       &siStartupInfo,
                       &piProcessInfo) == FALSE)
     {
-        Log_Print(LOG_ERROR,_("Cannot execute %s (error %d)\n"), AUDIO_FILE_PLAYER, GetLastError());
+        Log_Print (LOG_ERROR, _("Cannot execute %s (error %d)\n"),
+                   AUDIO_FILE_PLAYER, (guint32)GetLastError ());
     }
 
     // Free allocated parameters (for each filename)
