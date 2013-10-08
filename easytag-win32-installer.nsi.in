@@ -5,6 +5,7 @@
 ;       necessary to quit other applications before installing).
 ; TODO: Calculate installed size of files for Add/Remove Programs.
 
+!define PREFIX @PREFIX@
 !define PRODUCT_NAME @PACKAGE_NAME@
 !define PRODUCT_EXE_NAME @PACKAGE_TARNAME@.exe
 !define PRODUCT_VERSION @PACKAGE_VERSION@
@@ -75,7 +76,7 @@ var ICONS_GROUP
 !insertmacro MUI_PAGE_INSTFILES
 
 ; Finish page
-!define MUI_FINISHPAGE_RUN "$INSTDIR\${PRODUCT_EXE_NAME}"
+!define MUI_FINISHPAGE_RUN "$INSTDIR\bin\${PRODUCT_EXE_NAME}"
 !define MUI_FINISHPAGE_RUN_NOTCHECKED
 !define MUI_FINISHPAGE_SHOWREADME "$INSTDIR\README.txt"
 !define MUI_FINISHPAGE_LINK "${PRODUCT_NAME} Web site"
@@ -168,47 +169,69 @@ Section "Core ${PRODUCT_NAME} Files" SecProgram
   SectionIn 1 RO ; User cannot unselect it!
 
   ; Fedora mingw paths. FIXME: Find these automatically.
-  SetOutPath "$INSTDIR\usr\i686-w64-mingw32\sys-root\mingw\bin"
-  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/iconv.dll"
-  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libatk-1.0-0.dll"
-  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libcairo-2.dll"
-  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libffi-6.dll"
-  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libgcc_s_sjlj-1.dll"
-  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libgdk-win32-2.0-0.dll"
-  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libgdk_pixbuf-2.0-0.dll"
-  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libgio-2.0-0.dll"
-  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libglib-2.0-0.dll"
-  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libgmodule-2.0-0.dll"
-  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libgobject-2.0-0.dll"
-  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libgtk-win32-2.0-0.dll"
-  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libintl-8.dll"
-  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libogg-0.dll"
-  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libpango-1.0-0.dll"
-  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libpangocairo-1.0-0.dll"
-  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libpangowin32-1.0-0.dll"
-  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libpixman-1-0.dll"
-  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libpng15-15.dll"
-  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libvorbis-0.dll"
-  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libvorbisfile-3.dll"
-  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/pango-querymodules.exe"
-  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/zlib1.dll"
+  SetOutPath "$INSTDIR\bin"
+  File "${PREFIX}/bin/iconv.dll"
+  File "${PREFIX}/bin/libatk-1.0-0.dll"
+  File "${PREFIX}/bin/libcairo-2.dll"
+  File "${PREFIX}/bin/libFLAC-8.dll"
+  File "${PREFIX}/bin/libffi-6.dll"
+  File "${PREFIX}/bin/libgcc_s_sjlj-1.dll"
+  File "${PREFIX}/bin/libgdk-win32-2.0-0.dll"
+  File "${PREFIX}/bin/libgdk_pixbuf-2.0-0.dll"
+  File "${PREFIX}/bin/libgio-2.0-0.dll"
+  File "${PREFIX}/bin/libglib-2.0-0.dll"
+  File "${PREFIX}/bin/libgmodule-2.0-0.dll"
+  File "${PREFIX}/bin/libgobject-2.0-0.dll"
+  File "${PREFIX}/bin/libgtk-win32-2.0-0.dll"
+  File "${PREFIX}/bin/libintl-8.dll"
+  File "${PREFIX}/bin/libogg-0.dll"
+  File "${PREFIX}/bin/libpango-1.0-0.dll"
+  File "${PREFIX}/bin/libpangocairo-1.0-0.dll"
+  File "${PREFIX}/bin/libpangowin32-1.0-0.dll"
+  File "${PREFIX}/bin/libpixman-1-0.dll"
+  File "${PREFIX}/bin/libpng16-16.dll"
+  File "${PREFIX}/bin/libstdc++-6.dll"
+  File "${PREFIX}/bin/libspeex-1.dll"
+  File "${PREFIX}/bin/libtag.dll"
+  File "${PREFIX}/bin/libtag_c.dll"
+  File "${PREFIX}/bin/libvorbis-0.dll"
+  File "${PREFIX}/bin/libvorbisfile-3.dll"
+  File "${PREFIX}/bin/libwavpack-1.dll"
+  File "${PREFIX}/bin/pango-querymodules.exe"
+  File "${PREFIX}/bin/zlib1.dll"
 
   SetOutPath "$INSTDIR\etc"
-  File /r "/usr/i686-w64-mingw32/sys-root/mingw/etc/fonts"
-  File /r "/usr/i686-w64-mingw32/sys-root/mingw/etc/gtk-2.0"
+  File /r "${PREFIX}/etc/fonts"
+  File /r "${PREFIX}/etc/gtk-2.0"
   CreateDirectory "$INSTDIR\etc\pango"
 
   SetOutPath "$INSTDIR\lib"
-  File /r "/usr/i686-w64-mingw32/sys-root/mingw/lib/gdk-pixbuf-2.0"
-  File /r "/usr/i686-w64-mingw32/sys-root/mingw/lib/gtk-2.0"
-  File /r "/usr/i686-w64-mingw32/sys-root/mingw/lib/pango"
+  File /r "${PREFIX}/lib/gdk-pixbuf-2.0"
+  File /r "${PREFIX}/lib/gtk-2.0"
+  File /r "${PREFIX}/lib/pango"
 
-  SetOutPath "$INSTDIR"
-  File "${PRODUCT_EXE_NAME}"
+  SetOutPath "$INSTDIR\share\themes\MS-Windows\gtk-2.0"
+  File "${PREFIX}/share/themes/MS-Windows/gtk-2.0/gtkrc"
+
+  SetOutPath "$INSTDIR\etc\gtk-2.0"
+  FileOpen $0 gtkrc w
+  FileWrite $0 "gtk-theme-name = $\"MS-Windows$\" $\n"
+  FileWrite $0 "gtk-icon-theme-name = $\"hicolor$\" $\n"
+  FileClose $0
+
+  SetOutPath "$INSTDIR\share\icons\hicolor"
+  File "/usr/share/icons/hicolor/index.theme"
+
+  SetOutPath "$INSTDIR\share\icons\hicolor"
+  File "${DESTDIR}${PREFIX}/share/icons/hicolor/32x32/apps/easytag.png"
+  File "${DESTDIR}${PREFIX}/share/icons/hicolor/48x48/apps/easytag.png"
+
+  SetOutPath "$INSTDIR\bin"
+  File "${DESTDIR}${PREFIX}/bin/${PRODUCT_EXE_NAME}"
 
   ReadEnvStr $0 COMSPEC
   SetOutPath "$INSTDIR"
-  nsExec::ExecToLog '$0 /C \usr\i686-w64-mingw32\sys-root\mingw\bin\pango-querymodules.exe > etc\pango\pango.modules'
+  nsExec::ExecToLog '$0 /C \bin\pango-querymodules.exe > etc\pango\pango.modules'
 
   ; FIXME: ChangeLog should come from the dist dir, otherwise it does not
   ; contain the generated changelog.
@@ -229,7 +252,7 @@ SectionEnd
 SectionGroup /e "Shortcuts" SecShortcuts
   Section /o "Desktop" SecDesktopShortcut
     SetOverwrite on
-    CreateShortCut "$DESKTOP\${PRODUCT_NAME} ${PRODUCT_VERSION}.lnk" "$INSTDIR\${PRODUCT_EXE_NAME}"
+    CreateShortCut "$DESKTOP\${PRODUCT_NAME} ${PRODUCT_VERSION}.lnk" "$INSTDIR\bin\${PRODUCT_EXE_NAME}"
     SetOverwrite off
   SectionEnd
 
@@ -237,7 +260,7 @@ SectionGroup /e "Shortcuts" SecShortcuts
     SetOverwrite on
     !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
     CreateDirectory "$SMPROGRAMS\$ICONS_GROUP"
-    CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\${PRODUCT_NAME} ${PRODUCT_VERSION}.lnk" "$INSTDIR\${PRODUCT_EXE_NAME}"
+    CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\${PRODUCT_NAME} ${PRODUCT_VERSION}.lnk" "$INSTDIR\bin\${PRODUCT_EXE_NAME}"
     !insertmacro MUI_STARTMENU_WRITE_END
     SetOverwrite off
   SectionEnd
@@ -245,36 +268,68 @@ SectionGroup /e "Shortcuts" SecShortcuts
   Section "Context Menu" SecContextMenuShortcut
     SetOverwrite on
     WriteRegStr HKCR "Directory\shell\${PRODUCT_NAME}" "" "Browse with EasyTAG"
-    WriteRegStr HKCR "Directory\shell\${PRODUCT_NAME}\command" "" '"$INSTDIR\${PRODUCT_EXE_NAME}" "%1"'
+    WriteRegStr HKCR "Directory\shell\${PRODUCT_NAME}\command" "" '"$INSTDIRbin\\${PRODUCT_EXE_NAME}" "%1"'
     SetOverwrite off
   SectionEnd
 SectionGroupEnd
 
 
 ;------------------------------------
-; Documentation install Section
-;------------------------------------
-Section "Documentation" SecDocumentation
-  SetOutPath "$INSTDIR\documentation"
-  SetOverwrite on
-  File "doc\EasyTAG_Documentation*.html"
-  File /r "doc\users_guide_*"
-
-  ; Shortcuts
-  !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
-  CreateDirectory "$SMPROGRAMS\$ICONS_GROUP"
-  CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\${PRODUCT_NAME} Documentation.lnk" "$INSTDIR\documentation\EasyTAG_Documentation.html"
-  !insertmacro MUI_STARTMENU_WRITE_END
-SectionEnd
-
-;------------------------------------
 ; Translation install Section
 ;------------------------------------
 Section "Translations" SecTranslations
-  SetOutPath "$INSTDIR\locale"
-  SetOverwrite on
-;  FIXME: Install translations, probably from dist dir.
-;  File /r "win32-install-dir\locale\"
+  SetOutPath "$INSTDIR\lib\locale\bg"
+  File "${DESTDIR}${PREFIX}/lib/locale/bg/LC_MESSAGES/easytag.*"
+  SetOutPath "$INSTDIR\lib\locale\ca"
+  File "${DESTDIR}${PREFIX}/lib/locale/ca/LC_MESSAGES/easytag.*"
+  SetOutPath "$INSTDIR\lib\locale\cs"
+  File "${DESTDIR}${PREFIX}/lib/locale/cs/LC_MESSAGES/easytag.*"
+  SetOutPath "$INSTDIR\lib\locale\da"
+  File "${DESTDIR}${PREFIX}/lib/locale/da/LC_MESSAGES/easytag.*"
+  SetOutPath "$INSTDIR\lib\locale\de"
+  File "${DESTDIR}${PREFIX}/lib/locale/de/LC_MESSAGES/easytag.*"
+  SetOutPath "$INSTDIR\lib\locale\el"
+  File "${DESTDIR}${PREFIX}/lib/locale/el/LC_MESSAGES/easytag.*"
+  SetOutPath "$INSTDIR\lib\locale\es"
+  File "${DESTDIR}${PREFIX}/lib/locale/es/LC_MESSAGES/easytag.*"
+  SetOutPath "$INSTDIR\lib\locale\fr"
+  File "${DESTDIR}${PREFIX}/lib/locale/fr/LC_MESSAGES/easytag.*"
+  SetOutPath "$INSTDIR\lib\locale\he"
+  File "${DESTDIR}${PREFIX}/lib/locale/he/LC_MESSAGES/easytag.*"
+  SetOutPath "$INSTDIR\lib\locale\hu"
+  File "${DESTDIR}${PREFIX}/lib/locale/hu/LC_MESSAGES/easytag.*"
+  SetOutPath "$INSTDIR\lib\locale\it"
+  File "${DESTDIR}${PREFIX}/lib/locale/it/LC_MESSAGES/easytag.*"
+  SetOutPath "$INSTDIR\lib\locale\ja"
+  File "${DESTDIR}${PREFIX}/lib/locale/ja/LC_MESSAGES/easytag.*"
+  SetOutPath "$INSTDIR\lib\locale\lt"
+  File "${DESTDIR}${PREFIX}/lib/locale/lt/LC_MESSAGES/easytag.*"
+  SetOutPath "$INSTDIR\lib\locale\nl"
+  File "${DESTDIR}${PREFIX}/lib/locale/nl/LC_MESSAGES/easytag.*"
+  SetOutPath "$INSTDIR\lib\locale\pl"
+  File "${DESTDIR}${PREFIX}/lib/locale/pl/LC_MESSAGES/easytag.*"
+  SetOutPath "$INSTDIR\lib\locale\pt_BR"
+  File "${DESTDIR}${PREFIX}/lib/locale/pt_BR/LC_MESSAGES/easytag.*"
+  SetOutPath "$INSTDIR\lib\locale\ro"
+  File "${DESTDIR}${PREFIX}/lib/locale/ro/LC_MESSAGES/easytag.*"
+  SetOutPath "$INSTDIR\lib\locale\ru"
+  File "${DESTDIR}${PREFIX}/lib/locale/ru/LC_MESSAGES/easytag.*"
+  SetOutPath "$INSTDIR\lib\locale\sl"
+  File "${DESTDIR}${PREFIX}/lib/locale/sl/LC_MESSAGES/easytag.*"
+  SetOutPath "$INSTDIR\lib\locale\sr"
+  File "${DESTDIR}${PREFIX}/lib/locale/sr/LC_MESSAGES/easytag.*"
+  SetOutPath "$INSTDIR\lib\locale\sr@latin"
+  File "${DESTDIR}${PREFIX}/lib/locale/sr@latin/LC_MESSAGES/easytag.*"
+  SetOutPath "$INSTDIR\lib\locale\sv"
+  File "${DESTDIR}${PREFIX}/lib/locale/sv/LC_MESSAGES/easytag.*"
+  SetOutPath "$INSTDIR\lib\locale\tr"
+  File "${DESTDIR}${PREFIX}/lib/locale/tr/LC_MESSAGES/easytag.*"
+  SetOutPath "$INSTDIR\lib\locale\uk"
+  File "${DESTDIR}${PREFIX}/lib/locale/uk/LC_MESSAGES/easytag.*"
+  SetOutPath "$INSTDIR\lib\locale\zh_CN"
+  File "${DESTDIR}${PREFIX}/lib/locale/zh_CN/LC_MESSAGES/easytag.*"
+  SetOutPath "$INSTDIR\lib\locale\zh_TW"
+  File "${DESTDIR}${PREFIX}/lib/locale/zh_TW/LC_MESSAGES/easytag.*"
 
   ; Shortcuts
   !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
@@ -296,7 +351,7 @@ Section -Post
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName" "$(^Name)"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString" "$INSTDIR\Uninstall ${PRODUCT_NAME}.exe"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "QuietUninstallString" "$\"$INSTDIR\Uninstall ${PRODUCT_NAME}.exe$\" /S"
-  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\${PRODUCT_EXE_NAME}"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\bin\${PRODUCT_EXE_NAME}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "URLInfoAbout" "${PRODUCT_WEB_SITE}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher" "${PRODUCT_PUBLISHER}"
@@ -307,7 +362,6 @@ SectionEnd
 ; Section descriptions
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
   !insertmacro MUI_DESCRIPTION_TEXT ${SecProgram} "The ${PRODUCT_NAME} program and associated core files"
-  !insertmacro MUI_DESCRIPTION_TEXT ${SecDocumentation} "Some documentation on how to use the program"
   !insertmacro MUI_DESCRIPTION_TEXT ${SecTranslations} "Translation catalogs. You can skip installing these if you only want to see the UI in US English"
   !insertmacro MUI_DESCRIPTION_TEXT ${SecShortcuts} "Application shortcuts"
   !insertmacro MUI_DESCRIPTION_TEXT ${SecDesktopShortcut} "Create a shortcut to the program on the desktop"
@@ -326,7 +380,7 @@ Section Uninstall
   Delete /rebootok "$SMPROGRAMS\${PRODUCT_NAME}\Uninstall ${PRODUCT_NAME}.lnk"
   RMDir "$SMPROGRAMS\${PRODUCT_NAME}"
 
-  Delete /rebootok "$INSTDIR\${PRODUCT_EXE_NAME}"
+  Delete /rebootok "$INSTDIR\bin\${PRODUCT_EXE_NAME}"
 
   RMDir /r "$INSTDIR\lib\pango"
   RMDir /r "$INSTDIR\lib\gtk-2.0"
@@ -335,40 +389,46 @@ Section Uninstall
   RMDir /r "$INSTDIR\etc\gtk-2.0"
   RMDir /r "$INSTDIR\etc\fonts"
 
-  Delete /rebootok "$INSTDIR\usr\i686-w64-mingw32\sys-root\mingw\bin\zlib1.dll"
-  Delete /rebootok "$INSTDIR\usr\i686-w64-mingw32\sys-root\mingw\bin\pango-querymodules.exe"
-  Delete /rebootok "$INSTDIR\usr\i686-w64-mingw32\sys-root\mingw\bin\libvorbisfile-3.dll"
-  Delete /rebootok "$INSTDIR\usr\i686-w64-mingw32\sys-root\mingw\bin\libvorbis-0.dll"
-  Delete /rebootok "$INSTDIR\usr\i686-w64-mingw32\sys-root\mingw\bin\libpng15-15.dll"
-  Delete /rebootok "$INSTDIR\usr\i686-w64-mingw32\sys-root\mingw\bin\libpixman-1-0.dll"
-  Delete /rebootok "$INSTDIR\usr\i686-w64-mingw32\sys-root\mingw\bin\libpangowin32-1.0-0.dll"
-  Delete /rebootok "$INSTDIR\usr\i686-w64-mingw32\sys-root\mingw\bin\libpangocairo-1.0-0.dll"
-  Delete /rebootok "$INSTDIR\usr\i686-w64-mingw32\sys-root\mingw\bin\libpango-1.0-0.dll"
-  Delete /rebootok "$INSTDIR\usr\i686-w64-mingw32\sys-root\mingw\bin\libogg-0.dll"
-  Delete /rebootok "$INSTDIR\usr\i686-w64-mingw32\sys-root\mingw\bin\libintl-8.dll"
-  Delete /rebootok "$INSTDIR\usr\i686-w64-mingw32\sys-root\mingw\bin\libgtk-win32-2.0-0.dll"
-  Delete /rebootok "$INSTDIR\usr\i686-w64-mingw32\sys-root\mingw\bin\libgobject-2.0-0.dll"
-  Delete /rebootok "$INSTDIR\usr\i686-w64-mingw32\sys-root\mingw\bin\libgmodule-2.0-0.dll"
-  Delete /rebootok "$INSTDIR\usr\i686-w64-mingw32\sys-root\mingw\bin\libglib-2.0-0.dll"
-  Delete /rebootok "$INSTDIR\usr\i686-w64-mingw32\sys-root\mingw\bin\libgio-2.0-0.dll"
-  Delete /rebootok "$INSTDIR\usr\i686-w64-mingw32\sys-root\mingw\bin\libgdk_pixbuf-2.0-0.dll"
-  Delete /rebootok "$INSTDIR\usr\i686-w64-mingw32\sys-root\mingw\bin\libgdk-win32-2.0-0.dll"
-  Delete /rebootok "$INSTDIR\usr\i686-w64-mingw32\sys-root\mingw\bin\libgcc_s_sjlj-1.dll"
-  Delete /rebootok "$INSTDIR\usr\i686-w64-mingw32\sys-root\mingw\bin\libffi-6.dll"
-  Delete /rebootok "$INSTDIR\usr\i686-w64-mingw32\sys-root\mingw\bin\libcairo-2.dll"
-  Delete /rebootok "$INSTDIR\usr\i686-w64-mingw32\sys-root\mingw\bin\libatk-1.0-0.dll"
-  Delete /rebootok "$INSTDIR\usr\i686-w64-mingw32\sys-root\mingw\bin\iconv.dll"
+  Delete /rebootok "$INSTDIR\bin\zlib1.dll"
+  Delete /rebootok "$INSTDIR\bin\pango-querymodules.exe"
+  Delete /rebootok "$INSTDIR\bin\libwavpack-1.dll"
+  Delete /rebootok "$INSTDIR\bin\libvorbisfile-3.dll"
+  Delete /rebootok "$INSTDIR\bin\libvorbis-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libtag_c.dll"
+  Delete /rebootok "$INSTDIR\bin\libtag.dll"
+  Delete /rebootok "$INSTDIR\bin\libstdc++-6.dll"
+  Delete /rebootok "$INSTDIR\bin\libspeex-1.dll"
+  Delete /rebootok "$INSTDIR\bin\libpng16-16.dll"
+  Delete /rebootok "$INSTDIR\bin\libpixman-1-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libpangowin32-1.0-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libpangocairo-1.0-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libpango-1.0-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libogg-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libintl-8.dll"
+  Delete /rebootok "$INSTDIR\bin\libgtk-win32-2.0-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libgobject-2.0-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libgmodule-2.0-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libglib-2.0-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libgio-2.0-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libgdk_pixbuf-2.0-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libgdk-win32-2.0-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libgcc_s_sjlj-1.dll"
+  Delete /rebootok "$INSTDIR\bin\libffi-6.dll"
+  Delete /rebootok "$INSTDIR\bin\libFLAC-8.dll"
+  Delete /rebootok "$INSTDIR\bin\libcairo-2.dll"
+  Delete /rebootok "$INSTDIR\bin\libatk-1.0-0.dll"
+  Delete /rebootok "$INSTDIR\bin\iconv.dll"
   RMDir /r "$INSTDIR\usr"
+  RMDir /r "$INSTDIR\share"
   RMDir /r "$INSTDIR\lib"
   RMDir /r "$INSTDIR\etc"
   Delete "$INSTDIR\${PRODUCT_NAME}.url"
   Delete "$INSTDIR\Uninstall ${PRODUCT_NAME}.exe"
   Delete "$INSTDIR\ChangeLog.txt"
   Delete "$INSTDIR\COPYING.txt"
-  Delete "$INSTDIR\${PRODUCT_EXE_NAME}"
+  Delete "$INSTDIR\bin\${PRODUCT_EXE_NAME}"
   Delete "$INSTDIR\README.txt"
-  RMDir /r "$INSTDIR\Documentation\"
-  RMDir /r "$INSTDIR\locale\"
+  RMDir /r "$INSTDIR\lib\locale\"
 
   Delete "$SMPROGRAMS\$ICONS_GROUP\Uninstall ${PRODUCT_NAME}.lnk"
   Delete "$SMPROGRAMS\$ICONS_GROUP\${PRODUCT_NAME} Website.lnk"

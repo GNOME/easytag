@@ -117,7 +117,14 @@ easytag-win32-installer.nsi: easytag-win32-installer.nsi.in Makefile
 	$(AM_V_GEN)$(SED) -e "s|\@PACKAGE_NAME\@|$(PACKAGE_NAME)|" \
 		-e "s|\@PACKAGE_TARNAME\@|$(PACKAGE_TARNAME)|" \
 		-e "s|\@PACKAGE_URL\@|$(PACKAGE_URL)|" \
-		-e "s|\@PACKAGE_VERSION\@|$(PACKAGE_VERSION)|" $< > $@
+		-e "s|\@PACKAGE_VERSION\@|$(PACKAGE_VERSION)|" \
+		-e "s|\@PREFIX\@|$(prefix)|" $< > $@
+
+easytag-$(PACKAGE_VERSION)-setup.exe: easytag-win32-installer.nsi easytag.exe Makefile
+	$(AM_V_GEN) DESTDIR=`mktemp -d` && \
+		make -C $(top_builddir) install DESTDIR=$$DESTDIR >/dev/null && \
+		makensis -NOCD -DDESTDIR=$$DESTDIR $< >/dev/null && \
+		rm -rf $$DESTDIR
 
 # Create a directory stamp in the build dir. Used to workaround the case where
 # a pattern rule is used for a target with a path that does not ordinarily

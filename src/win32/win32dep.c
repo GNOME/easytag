@@ -237,7 +237,7 @@ const char *weasytag_lib_dir(void) {
 	if (!initialized) {
 		const char *inst_dir = weasytag_install_dir();
 		if (inst_dir != NULL) {
-			lib_dir = g_strdup_printf("%s" G_DIR_SEPARATOR_S "library", inst_dir);
+			lib_dir = g_strdup (inst_dir);
 			initialized = TRUE;
 		} else {
 			return NULL;
