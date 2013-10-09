@@ -231,11 +231,7 @@ dist_noinst_DATA = \
 	src/libapetag/README.apetag \
 	src/libapetag/id3v2_read.c \
 	src/libapetag/id3v2_read.h \
-	src/win32/easytag.rc \
-	src/win32/gtkwin32dep.c \
-	src/win32/gtkwin32dep.h \
 	src/win32/resource.h \
-	src/win32/win_easytag.c \
 	data/icons/win32/easytag.ico \
 	data/nsis/easytag-header.bmp \
 	data/nsis/easytag-install.bmp \

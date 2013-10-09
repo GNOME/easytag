@@ -124,9 +124,6 @@ static gint SF_ButtonPressed_Delete_File;
 /**************
  * Prototypes *
  **************/
-#ifdef G_OS_WIN32
-int easytag_main (struct HINSTANCE__ *hInstance, int argc, char *argv[]);
-#endif /* G_OS_WIN32 */
 #ifndef G_OS_WIN32
 static void Handle_Crash (gint signal_id);
 #endif /* !G_OS_WIN32 */
@@ -568,9 +565,6 @@ on_application_shutdown (GApplication *application, gpointer user_data)
 {
     ET_Core_Destroy ();
     Charset_Insert_Locales_Destroy ();
-#ifdef G_OS_WIN32
-    weasytag_cleanup();
-#endif /* G_OS_WIN32 */
 }
 
 /********
@@ -587,10 +581,7 @@ int main (int argc, char *argv[])
     textdomain (GETTEXT_PACKAGE);
 #endif /* ENABLE_NLS */
 
-#ifdef G_OS_WIN32
-    weasytag_init();
-    /* ET_Win32_Init(hInstance); */
-#else /* !G_OS_WIN32 */
+#ifndef G_OS_WIN32
     /* Signal handling to display a message(SIGSEGV, ...) */
     setup_sigbus_fpe_segv ();
     /* Must handle this signal to avoid zombies of child processes (e.g. xmms)
