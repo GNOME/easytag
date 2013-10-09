@@ -215,8 +215,8 @@ Section "Core ${PRODUCT_NAME} Files" SecProgram
 
   SetOutPath "$INSTDIR\etc\gtk-2.0"
   FileOpen $0 gtkrc w
-  FileWrite $0 "gtk-theme-name = $\"MS-Windows$\" $\n"
-  FileWrite $0 "gtk-icon-theme-name = $\"hicolor$\" $\n"
+  FileWrite $0 "gtk-theme-name = $\"MS-Windows$\" $\r$\n"
+  FileWrite $0 "gtk-icon-theme-name = $\"hicolor$\" $\r$\n"
   FileClose $0
 
   SetOutPath "$INSTDIR\share\icons\hicolor"
