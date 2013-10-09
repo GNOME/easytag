@@ -109,11 +109,27 @@ easytag_headers = \
 
 easytag_LDADD = \
 	$(EASYTAG_LIBS) \
-	$(ID3LIB_LIBS)
+	$(ID3LIB_LIBS) \
+	$(easytag_rc)
 
 if WINDOWS_HOST
+ICONDIR = $(srcdir)/data/icons/win32
+MANIFESTDIR = $(srcdir)/src/win32
+
+easytag_rc.$(OBJEXT): src/win32/easytag.rc src/win32/easytag.manifest data/icons/win32/easytag.ico
+	$(AM_V_GEN)$(WINDRES) -DICONDIR='\"$(ICONDIR)\"' \
+		-DMANIFESTDIR='\"$(MANIFESTDIR)\"' -i $< -o $@
+
+easytag_rc = easytag_rc.$(OBJEXT)
+
 easytag_LDFLAGS = \
 	-Wl,--subsystem,windows
+
+easytag-$(PACKAGE_VERSION)-setup.exe: easytag-win32-installer.nsi easytag.exe Makefile
+	$(AM_V_GEN) DESTDIR=`mktemp -d` && \
+		make -C $(top_builddir) install DESTDIR=$$DESTDIR >/dev/null && \
+		makensis -NOCD -DDESTDIR=$$DESTDIR $< >/dev/null && \
+		rm -rf $$DESTDIR
 endif
 
 # NSIS installer script.
@@ -124,12 +140,6 @@ easytag-win32-installer.nsi: easytag-win32-installer.nsi.in Makefile
 		-e "s|\@PACKAGE_URL\@|$(PACKAGE_URL)|" \
 		-e "s|\@PACKAGE_VERSION\@|$(PACKAGE_VERSION)|" \
 		-e "s|\@PREFIX\@|$(prefix)|" $< > $@
-
-easytag-$(PACKAGE_VERSION)-setup.exe: easytag-win32-installer.nsi easytag.exe Makefile
-	$(AM_V_GEN) DESTDIR=`mktemp -d` && \
-		make -C $(top_builddir) install DESTDIR=$$DESTDIR >/dev/null && \
-		makensis -NOCD -DDESTDIR=$$DESTDIR $< >/dev/null && \
-		rm -rf $$DESTDIR
 
 # Create a directory stamp in the build dir. Used to workaround the case where
 # a pattern rule is used for a target with a path that does not ordinarily
@@ -259,7 +269,9 @@ endif
 CLEANFILES = \
 	$(check_SCRIPTS) \
 	$(desktop_DATA) \
+	$(easytag_rc) \
 	$(nodist_man_MANS) \
+	easytag-$(PACKAGE_VERSION)-setup.exe \
 	easytag-win32-installer.nsi
 
 DISTCLEANFILES = \

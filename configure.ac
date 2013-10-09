@@ -92,6 +92,11 @@ AC_MSG_RESULT([$windows_host])
 
 AM_CONDITIONAL([WINDOWS_HOST], [test "x$windows_host" = "xyes"])
 
+AS_IF([test "x$windows_host" = "xyes"],
+      [AC_CHECK_TOOL([WINDRES], [windres])
+       AS_IF([test -z "$WINDRES"],
+             [AC_MSG_ERROR([windres is required when building for a Windows host])])])
+
 dnl -------------------------------
 dnl Configure switches.
 dnl -------------------------------
@@ -331,6 +336,7 @@ AC_CONFIG_FILES([ Makefile
                   doc/version.xml
                   help/Makefile
                   po/Makefile.in
+                  src/win32/easytag.rc
                ])
 AC_OUTPUT
 
