@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: easytag master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=easytag&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-09-28 15:22+0000\n"
-"PO-Revision-Date: 2013-10-01 23:56+0100\n"
+"POT-Creation-Date: 2013-10-01 22:02+0000\n"
+"PO-Revision-Date: 2013-10-06 20:06+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -20,8 +20,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
-"X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.5.7\n"
 
 #: ../data/easytag.desktop.in.h:1
 msgid "Sound File Metadata Editor"
@@ -618,7 +618,7 @@ msgstr "Opravila _datotek"
 
 #: ../src/bar.c:321
 msgid "S_canner"
-msgstr "_Optični bralnik"
+msgstr "_Preiskovalnik"
 
 #: ../src/bar.c:325
 msgid "CDDB Search Files…"
@@ -677,7 +677,7 @@ msgstr "Pokaži po izvajalcih in albumih"
 
 #: ../src/bar.c:358
 msgid "_Fill Tags…"
-msgstr "_Zapolni oznake ..."
+msgstr "_Zapolni oznake …"
 
 #: ../src/bar.c:359
 msgid "Fill tags"
@@ -1190,7 +1190,7 @@ msgstr "# posnetkov"
 #. Check box to run the scanner
 #: ../src/cddb.c:760 ../src/misc.c:2989
 msgid "Run the current scanner for each file"
-msgstr ""
+msgstr "Zaženi trenutni preiskovalnik za vsako datoteko"
 
 #. Check box to use DLM (also used in the preferences window)
 #: ../src/cddb.c:767
@@ -3268,6 +3268,8 @@ msgid ""
 "Specify the directory where your files are located. This path will be loaded "
 "when EasyTAG starts without parameter."
 msgstr ""
+"Navedite mapo, kjer se nahajajo datoteke. Ta pot bo privzeto naložena, ko je "
+"program EasyTAG zagnan brez parametra."
 
 #. Load directory on startup
 #: ../src/prefs.c:186
@@ -3627,6 +3629,8 @@ msgid ""
 "Rules to apply if some characters can't be converted to the system character "
 "encoding when writing filename:"
 msgstr ""
+"Pravila, ki naj veljajo, če nekaterih znakov ni mogoče pretvoriti v "
+"sistemsko kodiranje znakov ob zapisovanju imena datoteke:"
 
 #: ../src/prefs.c:499
 msgid "Try another character encoding"
@@ -4040,6 +4044,8 @@ msgid ""
 "Calculates the CRC-32 value of the file and writes it into the comment field "
 "when using the 'Fill Tag' scanner."
 msgstr ""
+"Izračuna vrednost CRC-32 datoteke in ga zapiše v polje komentarja, pri "
+"uporabi možnosti preiskovalnika 'Zapolni oznake'."
 
 #.
 #. * CDDB
@@ -4169,6 +4175,8 @@ msgid ""
 "If activated, opens a dialog box to ask confirmation before exiting the "
 "program."
 msgstr ""
+"Izbrana možnost omogoči prikaz pogovornega okna, ki zahteva potrditev pred "
+"končanjem programa."
 
 #: ../src/prefs.c:1384
 msgid "Confirm writing of file tag"
@@ -4212,7 +4220,7 @@ msgstr "Nastavitve niso spremenjene"
 
 #: ../src/prefs.c:1707
 msgid "The selected path for 'Default path to files' is invalid"
-msgstr ""
+msgstr "Izbrana pot za 'Privzeta pot do datotek' je neveljavna"
 
 #: ../src/prefs.c:1708
 #, c-format
@@ -4262,7 +4270,7 @@ msgstr ""
 #: ../src/scan.c:499 ../src/scan.c:528
 #, c-format
 msgid "Scan Error: can't find separator '%s' within '%s'"
-msgstr ""
+msgstr "Napaka preiskovanja: ločila '%s' v '%s' ni mogoče najti"
 
 #: ../src/scan.c:715
 msgid "New filename successfully scanned"
@@ -4346,6 +4354,8 @@ msgid ""
 "The buttons on the right represent the fields which can be processed. Select "
 "those which interest you"
 msgstr ""
+"Gumbi na desni predstavljajo polja, ki jih je mogoče obdelati. Izberite "
+"tista, ki so za vas zanimiva."
 
 #. Advice for Translators: set the first letter of filename translated
 #: ../src/scan.c:2572
@@ -4480,12 +4490,16 @@ msgid ""
 "The underscore character or the string '%20' are replaced by one space. "
 "Example, before: 'Text%20In%20An_Entry', after: 'Text In An Entry'."
 msgstr ""
+"Podčrtaj ali niz '%20' zamenja en presledek. Primer: prej 'Besedilo"
+"%20Vnosa', poslej 'Besedilo Vnosa'."
 
 #: ../src/scan.c:2704
 msgid ""
 "The space character is replaced by one underscore character. Example, "
 "before: 'Text In An Entry', after: 'Text_In_An_Entry'."
 msgstr ""
+"Znak za presledek nadomesti z znakom za podčrtaj. Primer: prej 'Besedilo "
+"Vnosa', poslej 'Besedilo_Vnosa'."
 
 #: ../src/scan.c:2707
 msgid ""
@@ -4523,24 +4537,32 @@ msgid ""
 "Convert all words in all fields to upper case. Example, before: 'Text IN AN "
 "entry', after: 'TEXT IN AN ENTRY'."
 msgstr ""
+"Pretvori vse besede v vseh poljih v velike črke. Primer: prej 'BESEDILO "
+"vnosa', poslej 'BESEDILO VNOSA'."
 
 #: ../src/scan.c:2748
 msgid ""
 "Convert all words in all fields to lower case. Example, before: 'TEXT IN an "
 "entry', after: 'text in an entry'."
 msgstr ""
+"Pretvori vse besede v vseh poljih v male črke. Primer: prej 'BESEDILO "
+"vnosa', poslej 'besedilo vnosa'."
 
 #: ../src/scan.c:2751
 msgid ""
 "Convert the initial of the first word in all fields to upper case. Example, "
 "before: 'text IN An ENTRY', after: 'Text in an entry'."
 msgstr ""
+"Pretvori začetnico prve besede v vseh poljih v veliko začetnico. Primer: "
+"prej 'Besedilo VNOSA', poslej 'Besedilo vnosa'."
 
 #: ../src/scan.c:2754
 msgid ""
 "Convert the initial of each word in all fields to upper case. Example, "
 "before: 'Text in an ENTRY', after: 'Text In An Entry'."
 msgstr ""
+"Pretvori začetnico vsake besede v vseh poljih v veliko začetnico. Primer: "
+"prej 'Besedilo VNOSA', poslej 'Besedilo Vnosa'."
 
 #: ../src/scan.c:2757
 msgid ""
