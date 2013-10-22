@@ -544,6 +544,7 @@ Statusbar_Start_Timer (void)
     StatusbarTimerId = g_timeout_add_seconds (4,
                                               (GSourceFunc)Statusbar_Stop_Timer,
                                               NULL);
+    g_source_set_name_by_id (StatusbarTimerId, "Statusbar stop timer");
 }
 
 static void
