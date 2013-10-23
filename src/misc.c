@@ -831,8 +831,12 @@ Run_Audio_Player_Using_File_List (GList *etfilelist)
                       &siStartupInfo,
                       &piProcessInfo) == FALSE)
     {
-        Log_Print (LOG_ERROR, _("Cannot execute %s (error %d)\n"),
-                   AUDIO_FILE_PLAYER, (guint32)GetLastError ());
+        gchar *error;
+
+        error = g_win32_error_message (GetLastError ());
+        Log_Print (LOG_ERROR, _("Cannot execute ‘%s’ (%s)"), AUDIO_FILE_PLAYER,
+                   error);
+        g_free (error);
     }
 
     // Free allocated parameters (for each filename)
@@ -877,7 +881,8 @@ Run_Audio_Player_Using_File_List (GList *etfilelist)
         {
             if (execvp(argv[0],argv) == -1)
             {
-                Log_Print(LOG_ERROR,_("Cannot execute %s (%s)"),argv[0],g_strerror(errno));
+                Log_Print (LOG_ERROR, _("Cannot execute ‘%s’ (%s)"), argv[0],
+                           g_strerror (errno));
             }
             g_strfreev(argv_user);
             _exit(1);
