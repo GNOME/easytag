@@ -4,6 +4,7 @@ nautilus-extension/nautilus-easytag.c
 src/about.c
 src/ape_tag.c
 src/application.c
+src/application_window.c
 src/bar.c
 src/browser.c
 src/cddb.c

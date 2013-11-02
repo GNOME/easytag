@@ -3478,7 +3478,6 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
 
     gtk_paned_pack1(GTK_PANED(ArtistAlbumVPaned),ScrollWindowArtistList,TRUE,TRUE); // Top side
     gtk_paned_pack2(GTK_PANED(ArtistAlbumVPaned),ScrollWindowAlbumList,TRUE,TRUE);   // Bottom side
-    gtk_paned_set_position(GTK_PANED(ArtistAlbumVPaned),PANE_HANDLE_POSITION3);
 
 
     /*
@@ -3578,7 +3577,6 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     gtk_box_pack_start(GTK_BOX(VerticalBox),BrowserHPaned,TRUE,TRUE,0);
     gtk_paned_pack1(GTK_PANED(BrowserHPaned),BrowserNoteBook,TRUE,TRUE);   // Left side
     gtk_paned_pack2(GTK_PANED(BrowserHPaned),ScrollWindowFileList,TRUE,TRUE); // Right side
-    gtk_paned_set_position(GTK_PANED(BrowserHPaned),PANE_HANDLE_POSITION2);
 
     gtk_widget_show_all(VerticalBox);
 
@@ -3725,7 +3723,6 @@ void Browser_Open_Rename_Directory_Window (void)
     gtk_combo_box_text_prepend_text(GTK_COMBO_BOX_TEXT(RenameDirectoryCombo), directory_name_utf8);
     gtk_combo_box_text_prepend_text(GTK_COMBO_BOX_TEXT(RenameDirectoryCombo), "");
     gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameDirectoryCombo))),directory_name_utf8);
-    Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameDirectoryCombo))));
 
     /* Rename directory : check box + combo box + Status icon */
     HBox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);

@@ -32,6 +32,7 @@
 #include <locale.h>
 #include "errno.h"
 
+#include "application_window.h"
 #include "easytag.h"
 #include "et_core.h"
 #include "mpeg_header.h"
@@ -2797,7 +2798,8 @@ void ET_Display_File_Data_To_UI (ET_File *ETFile)
     }
 
     /* Display controls in tag area */
-    Tag_Area_Display_Controls(ETFile);
+    et_application_window_tag_area_display_controls (ET_APPLICATION_WINDOW (MainWindow),
+                                                     ETFile);
 
     /* Display file data, header data and file type */
     switch (ETFileDescription->FileType)

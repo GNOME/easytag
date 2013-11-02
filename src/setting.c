@@ -33,6 +33,7 @@
 #include <errno.h>
 
 #include "setting.h"
+#include "application_window.h"
 #include "prefs.h"
 #include "bar.h"
 #include "easytag.h"
@@ -119,15 +120,6 @@ static const tConfigVariable Config_Variables[] =
     {"browse_hidden_dir",                   CV_TYPE_BOOL,    &BROWSE_HIDDEN_DIR                 },
     {"open_selected_browser_node",          CV_TYPE_BOOL,    &OPEN_SELECTED_BROWSER_NODE        },
 
-    {"set_main_window_position",            CV_TYPE_BOOL,    &SET_MAIN_WINDOW_POSITION          },
-    {"main_window_x",                       CV_TYPE_INT,     &MAIN_WINDOW_X                     },
-    {"main_window_y",                       CV_TYPE_INT,     &MAIN_WINDOW_Y                     },
-    {"main_window_height",                  CV_TYPE_INT,     &MAIN_WINDOW_HEIGHT                },
-    {"main_window_width",                   CV_TYPE_INT,     &MAIN_WINDOW_WIDTH                 },
-    {"pane_handle_position1",               CV_TYPE_INT,     &PANE_HANDLE_POSITION1             },
-    {"pane_handle_position2",               CV_TYPE_INT,     &PANE_HANDLE_POSITION2             },
-    {"pane_handle_position3",               CV_TYPE_INT,     &PANE_HANDLE_POSITION3             },
-    {"pane_handle_position4",               CV_TYPE_INT,     &PANE_HANDLE_POSITION4             },
     {"show_header_infos",                   CV_TYPE_BOOL,    &SHOW_HEADER_INFO                  },
     {"changed_files_displayed_to_red",      CV_TYPE_BOOL,    &CHANGED_FILES_DISPLAYED_TO_RED    },
     {"changed_files_displayed_to_bold",     CV_TYPE_BOOL,    &CHANGED_FILES_DISPLAYED_TO_BOLD   },
@@ -364,15 +356,6 @@ void Init_Config_Variables (void)
     /*
      * Misc
      */
-    SET_MAIN_WINDOW_POSITION        = 1; // Set it to '0' if problem with some Windows Manager
-    MAIN_WINDOW_X                   = -1; // '-1' lets the Windows Manager to place the window
-    MAIN_WINDOW_Y                   = -1;
-    MAIN_WINDOW_WIDTH               = 1040;
-    MAIN_WINDOW_HEIGHT              = -1;
-    PANE_HANDLE_POSITION1           = 660;
-    PANE_HANDLE_POSITION2           = 360;
-    PANE_HANDLE_POSITION3           = 300;
-    PANE_HANDLE_POSITION4           = 300;
     SHOW_HEADER_INFO                = 1;
     CHANGED_FILES_DISPLAYED_TO_RED  = 0;
     CHANGED_FILES_DISPLAYED_TO_BOLD = 1;
@@ -831,8 +814,14 @@ Apply_Changes_Of_Preferences_Window (void)
         if (SHOW_HEADER_INFO) gtk_widget_show_all(HeaderInfosTable);
         else                  gtk_widget_hide(HeaderInfosTable);
 
-        if (SHOW_LOG_VIEW)  gtk_widget_show_all(LogArea);
-        else                gtk_widget_hide(LogArea);
+        if (SHOW_LOG_VIEW)
+        {
+            et_application_window_show_log_area (ET_APPLICATION_WINDOW (MainWindow));
+        }
+        else
+        {
+            et_application_window_hide_log_area (ET_APPLICATION_WINDOW (MainWindow));
+        }
 
         /* Update state of check-menu-item into main/popup menu to browse subdirs */
         Check_Menu_Item_Update_Browse_Subdir();
@@ -866,9 +855,6 @@ Apply_Changes_Of_UI (void)
     /*
      * Changes in user interface
      */
-
-    // Configuration of the main window (see easytag.c) - Function also called when destroying the window
-    MainWindow_Apply_Changes();
 
     // Configuration of the preference window (see prefs.c) - Function also called when destroying the window
     OptionsWindow_Apply_Changes();

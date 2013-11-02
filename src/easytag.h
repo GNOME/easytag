@@ -40,7 +40,6 @@
 gboolean Main_Stop_Button_Pressed;
 
 GtkWidget *MainWindow;
-GtkWidget *LogArea;
 
 /* File Area */
 GtkWidget *FileFrame;
@@ -131,13 +130,9 @@ void et_on_action_select_scan_mode (GtkRadioAction *action,
                                     GtkRadioAction *current,
                                     gpointer user_data);
 
-void Tag_Area_Display_Controls (ET_File *ETFile);
-
 gboolean Read_Directory               (gchar *path);
 void Quit_MainWindow                  (void);
-void MainWindow_Apply_Changes         (void);
 void Update_Command_Buttons_Sensivity (void);
-void Attach_Popup_Menu_To_Tag_Entries (GtkEntry *entry);
 
 void Clear_File_Entry_Field (void);
 void Clear_Tag_Entry_Fields (void);

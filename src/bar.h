@@ -163,7 +163,7 @@ struct _Action_Pair {
  * Prototypes *
  **************/
 
-void       Create_UI           (GtkWidget **menubar, GtkWidget **toolbar);
+void Create_UI (GtkWindow *window, GtkWidget **menubar, GtkWidget **toolbar);
 GtkWidget *Create_Status_Bar   (void);
 void Statusbar_Message (const gchar *message, gboolean with_timer);
 GtkWidget *Create_Progress_Bar (void);

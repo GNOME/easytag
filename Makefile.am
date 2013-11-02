@@ -42,6 +42,7 @@ easytag_SOURCES = \
 	src/about.c \
 	src/ape_tag.c \
 	src/application.c \
+	src/application_window.c \
 	src/bar.c \
 	src/browser.c \
 	src/browser.h \
@@ -86,6 +87,7 @@ easytag_headers = \
 	src/about.h \
 	src/ape_tag.h \
 	src/application.h \
+	src/application_window.h \
 	src/bar.h \
 	src/cddb.h \
 	src/charset.h \

@@ -132,7 +132,8 @@ Menu_Sort_Action (GtkAction *item, gpointer data)
     Browser_List_Refresh_Sort ();
 }
 
-void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
+void
+Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
 {
     GtkWidget *menubar;
     GtkWidget *toolbar;
@@ -429,7 +430,8 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         g_error_free(error);
     }
     gtk_ui_manager_insert_action_group(UIManager, ActionGroup, 0);
-    gtk_window_add_accel_group(GTK_WINDOW(MainWindow), gtk_ui_manager_get_accel_group(UIManager));
+    gtk_window_add_accel_group (window,
+                                gtk_ui_manager_get_accel_group (UIManager));
 
     menubar = gtk_ui_manager_get_widget(UIManager, "/MenuBar");
     Init_Menu_Bar();
