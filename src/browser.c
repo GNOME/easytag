@@ -2127,19 +2127,26 @@ Browser_Album_List_Load_Files (GList *albumlist, ET_File *etfile_to_select)
     // Create a line for each album of the artist
     for (l = albumlist; l != NULL; l = g_list_next (l))
     {
+        GIcon *icon;
+
         // Insert a line for each album
         etfilelist = (GList *)l->data;
         etfile     = (ET_File *)etfilelist->data;
         albumname  = ((File_Tag *)etfile->FileTag->data)->album;
 
-        // Add the new row
+        /* TODO: Make the icon use the symbolic variant. */
+        icon = g_themed_icon_new_with_default_fallbacks ("media-optical-cd-audio");
+
+        /* Add the new row. */
         gtk_list_store_insert_with_values (albumListModel, &iter, G_MAXINT,
-                                           ALBUM_PIXBUF, "easytag-album",
+                                           ALBUM_GICON, icon,
                                            ALBUM_NAME, albumname,
                                            ALBUM_NUM_FILES,
                                            g_list_length (g_list_first (etfilelist)),
                                            ALBUM_ETFILE_LIST_POINTER,
                                            etfilelist, -1);
+
+        g_object_unref (icon);
 
         if ( (!albumname && !album_to_select)
         ||   (albumname &&  album_to_select && strcmp(albumname,album_to_select) == 0) )
@@ -3274,14 +3281,14 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(ScrollWindowAlbumList),
                                    GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 
-    albumListModel = gtk_list_store_new(ALBUM_COLUMN_COUNT,
-                                        G_TYPE_STRING, // Stock-id
-                                        G_TYPE_STRING,
-                                        G_TYPE_UINT,
-                                        G_TYPE_POINTER,
-                                        PANGO_TYPE_STYLE,
-                                        G_TYPE_INT,
-                                        GDK_TYPE_COLOR);
+    albumListModel = gtk_list_store_new (ALBUM_COLUMN_COUNT,
+                                         G_TYPE_ICON,
+                                         G_TYPE_STRING,
+                                         G_TYPE_UINT,
+                                         G_TYPE_POINTER,
+                                         PANGO_TYPE_STYLE,
+                                         G_TYPE_INT,
+                                         GDK_TYPE_COLOR);
 
     BrowserAlbumList = gtk_tree_view_new_with_model(GTK_TREE_MODEL(albumListModel));
     g_object_unref (albumListModel);
@@ -3295,9 +3302,8 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
 
     renderer = gtk_cell_renderer_pixbuf_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_attributes(column, renderer,
-                                       "stock-id",        ALBUM_PIXBUF,
-                                        NULL);
+    gtk_tree_view_column_set_attributes (column, renderer, "gicon",
+                                         ALBUM_GICON, NULL);
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
     gtk_tree_view_column_set_attributes(column, renderer,
