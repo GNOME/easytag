@@ -78,7 +78,8 @@ AS_IF([test "x$have_desktop_file_validate" = "xyes"],
 AM_CONDITIONAL([EASYTAG_ENABLE_TESTS], [test "x$testing_utilities" = "xyes"])
 
 dnl Help.
-YELP_HELP_INIT
+m4_ifdef([YELP_HELP_INIT], [YELP_HELP_INIT],
+         [AC_MSG_ERROR([yelp-tools is required to build EasyTAG help])])
 
 dnl -------------------------------
 dnl Handle cross-compiling with mingw32.
