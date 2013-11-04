@@ -18,38 +18,56 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-
-#ifndef __LOG_H__
-#define __LOG_H__
+#ifndef ET_LOG_AREA_H_
+#define ET_LOG_AREA_H_
 
 #include <gtk/gtk.h>
 
 G_BEGIN_DECLS
+
+#define ET_TYPE_LOG_AREA (et_log_area_get_type ())
+#define ET_LOG_AREA(object) (G_TYPE_CHECK_INSTANCE_CAST ((object), ET_TYPE_LOG_AREA, EtLogArea))
+
+typedef struct _EtLogArea EtLogArea;
+typedef struct _EtLogAreaClass EtLogAreaClass;
+typedef struct _EtLogAreaPrivate EtLogAreaPrivate;
+
+struct _EtLogArea
+{
+    /*< private >*/
+    GtkFrame parent_instance;
+    EtLogAreaPrivate *priv;
+};
+
+struct _EtLogAreaClass
+{
+    /*< private >*/
+    GtkFrameClass parent_class;
+};
 
 /*
  * Types of errors
  */
 typedef enum
 {                  
-    LOG_UNKNOWN = 0,
+    LOG_UNKNOWN,
     LOG_OK,
     LOG_INFO,
     LOG_WARNING,
     LOG_ERROR
-} Log_Error_Type;
+} EtLogAreaKind;
 
 
 /**************
  * Prototypes *
  **************/
 
-GtkWidget *Create_Log_Area      (void);
-
-void       Log_Clean_Log_List   (void);
-
-void Log_Print (Log_Error_Type error_type,
-                gchar const *format, ...) G_GNUC_PRINTF (2, 3);
+GType et_log_area_get_type (void);
+GtkWidget * et_log_area_new (void);
+void et_log_area_clear (GtkAction *action, gpointer user_data);
+void Log_Print (EtLogAreaKind error_type,
+                const gchar * const format, ...) G_GNUC_PRINTF (2, 3);
 
 G_END_DECLS
 
-#endif /* __LOG_H__ */
+#endif /* ET_LOG_AREA_H_ */

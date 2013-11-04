@@ -120,7 +120,32 @@ static void et_on_quit_recursion_response (GtkDialog *dialog, gint response_id,
 static void
 common_init (GApplication *application)
 {
+    gboolean settings_warning;
     EtApplicationWindow *window;
+
+    /* Create all config files. */
+    settings_warning = !Setting_Create_Files ();
+
+    /* Load Config */
+    Init_Config_Variables();
+    Read_Config();
+    /* Display_Config(); // <- for debugging */
+
+    /* Initialization */
+    ET_Core_Create();
+    Main_Stop_Button_Pressed = FALSE;
+    Init_Custom_Icons();
+    Init_Mouse_Cursor();
+    Init_OptionsWindow();
+    Init_ScannerWindow();
+    Init_CddbWindow();
+    BrowserEntryModel    = NULL;
+    TrackEntryComboModel = NULL;
+    GenreComboModel      = NULL;
+
+    /* The main window */
+    window = et_application_window_new (GTK_APPLICATION (application));
+    MainWindow = GTK_WIDGET (window);
 
     /* Starting messages */
     Log_Print(LOG_OK,_("Starting EasyTAG version %s (PID: %d)…"),PACKAGE_VERSION,getpid());
@@ -144,33 +169,10 @@ common_init (GApplication *application)
                    _("Currently using locale '%s' (and eventually '%s')"),
                    get_locale (), get_encoding_from_locale (get_locale ()));
 
-
-    /* Create all config files. */
-    if (!Setting_Create_Files())
+    if (settings_warning)
     {
         Log_Print (LOG_WARNING, _("Unable to create setting directories"));
     }
-
-    /* Load Config */
-    Init_Config_Variables();
-    Read_Config();
-    /* Display_Config(); // <- for debugging */
-
-    /* Initialization */
-    ET_Core_Create();
-    Main_Stop_Button_Pressed = FALSE;
-    Init_Custom_Icons();
-    Init_Mouse_Cursor();
-    Init_OptionsWindow();
-    Init_ScannerWindow();
-    Init_CddbWindow();
-    BrowserEntryModel    = NULL;
-    TrackEntryComboModel = NULL;
-    GenreComboModel      = NULL;
-
-    /* The main window */
-    window = et_application_window_new (GTK_APPLICATION (application));
-    MainWindow = GTK_WIDGET (window);
 
     /* Minimised window icon */
     gtk_widget_realize(MainWindow);

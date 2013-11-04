@@ -1698,7 +1698,7 @@ et_application_window_init (EtApplicationWindow *self)
 
 
     /* Log */
-    priv->log_area = Create_Log_Area ();
+    priv->log_area = et_log_area_new ();
     gtk_paned_pack2 (GTK_PANED (priv->vpaned), priv->log_area, FALSE, TRUE);
 
     /* Horizontal box for Status bar + Progress bar */
@@ -1763,6 +1763,18 @@ et_application_window_show_log_area (EtApplicationWindow *self)
     priv = et_application_window_get_instance_private (self);
 
     gtk_widget_hide (priv->log_area);
+}
+
+GtkWidget *
+et_application_window_get_log_area (EtApplicationWindow *self)
+{
+    EtApplicationWindowPrivate *priv;
+
+    g_return_val_if_fail (self != NULL, NULL);
+
+    priv = et_application_window_get_instance_private (self);
+
+    return priv->log_area;
 }
 
 /*
