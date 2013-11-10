@@ -225,6 +225,7 @@ Section "Core ${PRODUCT_NAME} Files" SecProgram
   SetOutPath "$INSTDIR\share\icons\hicolor\16x16\actions"
   File "/usr/share/icons/gnome/16x16/actions/insert-image.png"
   File "/usr/share/icons/gnome/16x16/actions/insert-text.png"
+  File "/usr/share/icons/gnome/16x16/devices/media-optical-cd-audio.png"
   SetOutPath "$INSTDIR\share\icons\hicolor\16x16\mimetypes"
   File "/usr/share/icons/gnome/16x16/mimetypes/audio-x-generic.png"
   SetOutPath "$INSTDIR\share\icons\hicolor\32x32\apps"
