@@ -1,0 +1,36 @@
+Source: https://git.gnome.org/browse/easytag/tag/?id=easytag-2.1.9
+
+This binary was generated with GCC/MinGW on Fedora 20.
+
+DLLs from the following Fedora binary packages are included:
+
+* mingw32-atk
+* mingw32-cairo
+* mingw32-gcc
+* mingw32-gcc-c++
+* mingw32-gdk-pixbuf
+* mingw32-glib2
+* mingw32-gtk2
+* mingw32-libffi
+* mingw32-libogg
+* mingw32-libpng
+* mingw32-pango
+* mingw32-pixman
+* mingw32-win-iconv
+* mingw32-zlib
+
+Additional icons were taken from the gnome-icon-themes-standard package.
+
+DLLs from Additional libraries, not packaged in Fedora but available as .spec
+files, are included:
+
+* mingw32-flac
+* mingw32-speex
+* mingw32-taglib
+* mingw32-wavpack
+
+The .spec files for the additional libraries are available at:
+
+https://github.com/amigadave/easytag-dlls-specs
+
+The installer was created with the ming32-nsis package.
