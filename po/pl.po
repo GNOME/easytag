@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: easytag\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-11 02:39+0100\n"
-"PO-Revision-Date: 2013-11-11 02:40+0100\n"
+"PO-Revision-Date: 2013-11-11 02:45+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -4897,11 +4897,11 @@ msgstr "Usuwanie: nie wybrano rzędu"
 
 #: ../src/scan.c:3729
 msgid "Move Up: No row selected"
-msgstr "Przesunięcie w górę: Nie wybrano rzędu"
+msgstr "Przesunięcie w górę: nie wybrano rzędu"
 
 #: ../src/scan.c:3773
 msgid "Move Down: No row selected"
-msgstr "Przesunięcie w dół: Nie wybrano rzędu"
+msgstr "Przesunięcie w dół: nie wybrano rzędu"
 
 #: ../src/setting.c:924
 #, c-format
