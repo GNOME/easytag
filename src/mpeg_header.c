@@ -23,7 +23,7 @@
 #if defined ENABLE_MP3 && defined ENABLE_ID3LIB
 
 #include <gtk/gtk.h>
-#include <glib/gi18n-lib.h>
+#include <glib/gi18n.h>
 
 #include "mpeg_header.h"
 #include "easytag.h"

@@ -23,7 +23,7 @@
 #ifdef ENABLE_OGG
 
 #include <gtk/gtk.h>
-#include <glib/gi18n-lib.h>
+#include <glib/gi18n.h>
 #include <errno.h>
 #include <vorbis/codec.h>
 #include <vorbis/vorbisfile.h>

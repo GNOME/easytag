@@ -23,7 +23,7 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 #include <gdk/gdk.h>
-#include <glib/gi18n-lib.h>
+#include <glib/gi18n.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>

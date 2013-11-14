@@ -30,7 +30,7 @@
 #ifdef ENABLE_FLAC
 
 #include <gtk/gtk.h>
-#include <glib/gi18n-lib.h>
+#include <glib/gi18n.h>
 #include <FLAC/all.h>
 
 #include "easytag.h"

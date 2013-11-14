@@ -13,7 +13,7 @@
 
 #ifdef ENABLE_OGG
 #include <gio/gio.h>
-#include <glib/gi18n-lib.h>
+#include <glib/gi18n.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

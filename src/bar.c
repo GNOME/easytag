@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <gtk/gtk.h>
-#include <glib/gi18n-lib.h>
+#include <glib/gi18n.h>
 
 #include "bar.h"
 #include "easytag.h"
@@ -399,6 +399,7 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
 
     /* UI Management */
     ActionGroup = gtk_action_group_new("actions");
+    gtk_action_group_set_translation_domain (ActionGroup, GETTEXT_PACKAGE);
     gtk_action_group_add_actions(ActionGroup, ActionEntries, num_menu_entries, NULL);
     gtk_action_group_add_toggle_actions(ActionGroup, ToggleActionEntries, num_toggle_entries, NULL);
     gtk_action_group_add_radio_actions (ActionGroup, view_mode_entries,

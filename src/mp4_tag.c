@@ -25,7 +25,7 @@
 #ifdef ENABLE_MP4
 
 #include <gtk/gtk.h>
-#include <glib/gi18n-lib.h>
+#include <glib/gi18n.h>
 #include <stdlib.h>
 
 #include "mp4_tag.h"

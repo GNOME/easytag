@@ -25,7 +25,7 @@
 #include <glib.h>
 #include <string.h>
 #include <errno.h>
-#include <glib/gi18n-lib.h>
+#include <glib/gi18n.h>
 
 #ifdef HAVE_LANGINFO_CODESET
 #include <langinfo.h>

@@ -25,7 +25,7 @@
 #include <stdlib.h>
 #include <gdk/gdkkeysyms.h>
 #include <gdk/gdk.h>
-#include <glib/gi18n-lib.h>
+#include <glib/gi18n.h>
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>

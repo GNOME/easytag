@@ -25,7 +25,7 @@
 #include <stdlib.h>
 #include <gdk/gdkkeysyms.h>
 #include <config.h>
-#include <glib/gi18n-lib.h>
+#include <glib/gi18n.h>
 
 #include "gtk2_compat.h"
 #include "scan.h"
