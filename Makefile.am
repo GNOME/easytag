@@ -15,7 +15,7 @@ SUBDIRS = help po
 
 bin_PROGRAMS = easytag
 
-localedir = $(datadir)/locale
+localedir = $(prefix)/$(DATADIRNAME)/locale
 easytag_CPPFLAGS = \
 	-I$(top_srcdir) \
 	-I$(top_builddir) \
