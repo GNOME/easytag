@@ -1456,7 +1456,7 @@ msgstr "リクエストの要求中 (CddbId: %s, トラック番号: %d, サイ�
 #: ../src/cddb.c:3301
 #, fuzzy, c-format
 msgid "Found %d matching album(s) for DiscID '%s'"
-msgstr "DiscID '%s' に一致するアルバムが %d 個見つかりました"
+msgstr "DiscID '%2$s' に一致するアルバムが %1$d 個見つかりました"
 
 #: ../src/cddb.c:3397
 #, c-format
