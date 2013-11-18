@@ -253,7 +253,7 @@ const char *weasytag_locale_dir(void) {
 	if (!initialized) {
 		const char *inst_dir = weasytag_install_dir();
 		if (inst_dir != NULL) {
-			locale_dir = g_strdup_printf("%s" G_DIR_SEPARATOR_S "locale", inst_dir);
+			locale_dir = g_build_filename (inst_dir, "..", "lib", "locale", NULL);
 			initialized = TRUE;
 		} else {
 			return NULL;

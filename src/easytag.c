@@ -576,9 +576,9 @@ int main (int argc, char *argv[])
     gint status;
 
 #if ENABLE_NLS
+    textdomain (GETTEXT_PACKAGE);
     bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
     bind_textdomain_codeset (PACKAGE_TARNAME, "UTF-8");
-    textdomain (GETTEXT_PACKAGE);
 #endif /* ENABLE_NLS */
 
 #ifndef G_OS_WIN32
