@@ -20,8 +20,8 @@ easytag_CPPFLAGS = \
 	-I$(top_srcdir) \
 	-I$(top_builddir) \
 	$(DEPRECATED_CPPFLAGS) \
-	-DLOCALEDIR=\"$(localedir)\" \
-	-DPACKAGE_DATA_DIR=\"$(pkgdatadir)\"
+	-DLOCALEDIR=\"$(localedir)\"
+
 easytag_CFLAGS = \
 	$(WARN_CFLAGS) \
 	$(EASYTAG_CFLAGS)
