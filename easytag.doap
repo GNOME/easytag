@@ -14,7 +14,7 @@
   <old-homepage rdf:resource="http://easytag.sourceforge.net/" />
   <download-page rdf:resource="http://download.gnome.org/sources/easytag/" />
   <screenshots rdf:resource="http://projects.gnome.org/easytag/screenshots.html" />
-  <wiki rdf:resource="https://live.gnome.org/EasyTAG" />
+  <wiki rdf:resource="https://wiki.gnome.org/Apps/EasyTAG" />
   <programming-language>C</programming-language>
   <mailing-list rdf:resource="https://mail.gnome.org/mailman/listinfo/easytag-list" />
   <bug-database rdf:resource="https://bugzilla.gnome.org/browse.cgi?product=easytag" />
