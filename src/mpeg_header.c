@@ -110,8 +110,8 @@ Mpeg_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
                 ETFileInfo->mpeg25 = FALSE;
                 break;
             case MPEGVERSION_2_5:
+                ETFileInfo->version = 2;
                 ETFileInfo->mpeg25 = TRUE;
-                ETFileInfo->mpeg25 = FALSE;
                 break;
             default:
                 break;
