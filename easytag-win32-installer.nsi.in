@@ -27,16 +27,16 @@ ShowUninstDetails show
 ; MUI Settings
 !define MUI_ABORTWARNING
 !define MUI_COMPONENTSPAGE_SMALLDESC
-!define MUI_ICON "data/nsis/easytag-install.ico"
+!define MUI_ICON "data/icons/win32/easytag.ico"
 ;!define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico" ;"data/pixmaps/EasyTAG.ico"
 
 ; Modern UI Configuration
 !define MUI_HEADERIMAGE
 !define MUI_HEADERIMAGE_BITMAP_NOSTRETCH
 !define MUI_HEADERIMAGE_BITMAP "data/nsis/easytag-header.bmp"
-!define MUI_WELCOMEFINISHPAGE_BITMAP "data/nsis/easytag-install.bmp"
+!define MUI_WELCOMEFINISHPAGE_BITMAP "data/nsis/easytag-sidebar.bmp"
 !define MUI_UNWELCOMEFINISHPAGE_BITMAP_NOSTRETCH
-!define MUI_UNWELCOMEFINISHPAGE_BITMAP "data/nsis/easytag-uninstall.bmp"
+!define MUI_UNWELCOMEFINISHPAGE_BITMAP "data/nsis/easytag-sidebar.bmp"
 
 ; Language Selection Dialog Settings
 !define MUI_LANGDLL_REGISTRY_ROOT "${PRODUCT_UNINST_ROOT_KEY}"

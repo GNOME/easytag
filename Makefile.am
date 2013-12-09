@@ -234,9 +234,7 @@ dist_noinst_DATA = \
 	src/win32/resource.h \
 	data/icons/win32/easytag.ico \
 	data/nsis/easytag-header.bmp \
-	data/nsis/easytag-install.bmp \
-	data/nsis/easytag-install.ico \
-	data/nsis/easytag-uninstall.bmp \
+	data/nsis/easytag-sidebar.bmp \
 	$(pixmaps) \
 	\
 	easytag-win32-installer.nsi.in \
