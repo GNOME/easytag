@@ -10,10 +10,10 @@
   MP4/AAC, FLAC, Ogg Vorbis, MusePack, Monkey's Audio and WavPack files. Its
   simple and nice GTK+ interface makes tagging easier under GNU/Linux or
   Windows.</description>
-  <homepage rdf:resource="http://projects.gnome.org/easytag/" />
+  <homepage rdf:resource="https://wiki.gnome.org/Apps/EasyTAG/" />
   <old-homepage rdf:resource="http://easytag.sourceforge.net/" />
   <download-page rdf:resource="http://download.gnome.org/sources/easytag/" />
-  <screenshots rdf:resource="http://projects.gnome.org/easytag/screenshots.html" />
+  <screenshots rdf:resource="https://wiki.gnome.org/Apps/EasyTAG/Screenshots" />
   <wiki rdf:resource="https://wiki.gnome.org/Apps/EasyTAG" />
   <programming-language>C</programming-language>
   <mailing-list rdf:resource="https://mail.gnome.org/mailman/listinfo/easytag-list" />

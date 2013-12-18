@@ -11,7 +11,7 @@ BEGIN
   BEGIN
     BLOCK "040904E4"
     BEGIN
-      VALUE "CompanyName", "projects.gnome.org/easytag"
+      VALUE "CompanyName", "wiki.gnome.org/Apps/EasyTAG"
       VALUE "FileDescription", "Audio file tag editor"
       VALUE "FileVersion", "@PACKAGE_VERSION@"
       VALUE "InternalName", "@PACKAGE_STRING@"
