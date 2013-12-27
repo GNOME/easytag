@@ -192,9 +192,6 @@ gint    PLAYLIST_CONTENT_FILENAME;
 gint    PLAYLIST_CONTENT_MASK;
 gchar  *PLAYLIST_CONTENT_MASK_VALUE;
 
-gint    PLAYLIST_WINDOW_X;
-gint    PLAYLIST_WINDOW_Y;
-
 /* "Load filenames from txt" window */
 gint    LOAD_FILE_RUN_SCANNER;
 

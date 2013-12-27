@@ -23,6 +23,7 @@
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 
+#include "application_window.h"
 #include "bar.h"
 #include "easytag.h"
 #include "about.h"
@@ -294,7 +295,7 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
           G_CALLBACK (Open_Load_Filename_Window) },
         { AM_WRITE_PLAYLIST, GTK_STOCK_SAVE_AS, _("Generate Playlist…"),
           "<Primary>W", _("Generate a playlist"),
-          G_CALLBACK (Open_Write_Playlist_Window) },
+          G_CALLBACK (et_application_window_show_playlist_dialog) },
         { AM_RUN_AUDIO_PLAYER, GTK_STOCK_MEDIA_PLAY, _("Run Audio Player"),
           "<Primary>M", _("Run audio player"),
           G_CALLBACK (Run_Audio_Player_Using_Selection) },

@@ -30,6 +30,7 @@
 #include "log.h"
 #include "misc.h"
 #include "picture.h"
+#include "playlist_dialog.h"
 #include "scan.h"
 #include "scan_dialog.h"
 #include "setting.h"
@@ -44,6 +45,7 @@ struct _EtApplicationWindowPrivate
     GtkWidget *file_area;
     GtkWidget *log_area;
     GtkWidget *tag_area;
+    GtkWidget *playlist_dialog;
 
     /* Tag area labels. */
     GtkWidget *title_label;
@@ -1631,9 +1633,21 @@ create_tag_area (EtApplicationWindow *self)
 
 
 static void
-et_application_window_finalize (GObject *object)
+et_application_window_dispose (GObject *object)
 {
-    G_OBJECT_CLASS (et_application_window_parent_class)->finalize (object);
+    EtApplicationWindow *self;
+    EtApplicationWindowPrivate *priv;
+
+    self = ET_APPLICATION_WINDOW (object);
+    priv = et_application_window_get_instance_private (self);
+
+    if (priv->playlist_dialog)
+    {
+        gtk_widget_destroy (priv->playlist_dialog);
+        priv->playlist_dialog = NULL;
+    }
+
+    G_OBJECT_CLASS (et_application_window_parent_class)->dispose (object);
 }
 
 static void
@@ -1648,6 +1662,8 @@ et_application_window_init (EtApplicationWindow *self)
     priv = self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self,
                                                      ET_TYPE_APPLICATION_WINDOW,
                                                      EtApplicationWindowPrivate);
+
+    priv->playlist_dialog = NULL;
 
     window = GTK_WINDOW (self);
 
@@ -1720,7 +1736,7 @@ et_application_window_init (EtApplicationWindow *self)
 static void
 et_application_window_class_init (EtApplicationWindowClass *klass)
 {
-    G_OBJECT_CLASS (klass)->finalize = et_application_window_finalize;
+    G_OBJECT_CLASS (klass)->dispose = et_application_window_dispose;
 
     g_type_class_add_private (klass, sizeof (EtApplicationWindowPrivate));
 }
@@ -1775,6 +1791,38 @@ et_application_window_get_log_area (EtApplicationWindow *self)
     priv = et_application_window_get_instance_private (self);
 
     return priv->log_area;
+}
+
+GtkWidget *
+et_application_window_get_playlist_dialog (EtApplicationWindow *self)
+{
+    EtApplicationWindowPrivate *priv;
+
+    g_return_val_if_fail (self != NULL, NULL);
+
+    priv = et_application_window_get_instance_private (self);
+
+    return priv->playlist_dialog;
+}
+
+void
+et_application_window_show_playlist_dialog (G_GNUC_UNUSED GtkAction *action,
+                                            gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    if (priv->playlist_dialog)
+    {
+        gtk_widget_show (priv->playlist_dialog);
+    }
+    else
+    {
+        priv->playlist_dialog = GTK_WIDGET (et_playlist_dialog_new ());
+        gtk_widget_show_all (priv->playlist_dialog);
+    }
 }
 
 /*

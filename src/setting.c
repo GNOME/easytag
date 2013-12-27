@@ -34,6 +34,7 @@
 
 #include "setting.h"
 #include "application_window.h"
+#include "playlist_dialog.h"
 #include "prefs.h"
 #include "bar.h"
 #include "easytag.h"
@@ -240,8 +241,6 @@ static const tConfigVariable Config_Variables[] =
     {"playlist_content_filename",               CV_TYPE_BOOL,    &PLAYLIST_CONTENT_FILENAME              },
     {"playlist_content_mask",                   CV_TYPE_BOOL,    &PLAYLIST_CONTENT_MASK                  },
     {"playlist_content_mask_value",             CV_TYPE_STRING,  &PLAYLIST_CONTENT_MASK_VALUE            },
-    {"playlist_window_x",                       CV_TYPE_INT,     &PLAYLIST_WINDOW_X                      },
-    {"playlist_window_y",                       CV_TYPE_INT,     &PLAYLIST_WINDOW_Y                      },
 
     {"load_file_run_scanner",                   CV_TYPE_BOOL,    &LOAD_FILE_RUN_SCANNER                  },
     {"load_file_window_x",                      CV_TYPE_INT,     &LOAD_FILE_WINDOW_X                     },
@@ -509,9 +508,6 @@ void Init_Config_Variables (void)
     PLAYLIST_CONTENT_FILENAME       = 1;
     PLAYLIST_CONTENT_MASK           = 0;
     PLAYLIST_CONTENT_MASK_VALUE     = g_strdup("%n/%l - %a - %b - %t");
-
-    PLAYLIST_WINDOW_X               = -1;
-    PLAYLIST_WINDOW_Y               = -1;
 
     /*
      * Load File window
@@ -865,8 +861,9 @@ Apply_Changes_Of_UI (void)
     // Configuration of the cddb window (see cddb.c) - Function also called when destroying the window
     Cddb_Window_Apply_Changes();
 
-    // Configuration of the playlist window (see misc.c) - Function also called when destroying the window
-    Write_Playlist_Window_Apply_Changes();
+    /* Configuration of the playlist window (see playlist_dialog.c).
+     * Function also called when destroying the window. */
+    et_playlist_dialog_apply_changes (ET_PLAYLIST_DIALOG (et_application_window_get_playlist_dialog (ET_APPLICATION_WINDOW (MainWindow))));
 
     // Configuration of the search_file window (see misc.c) - Function also called when destroying the window
     Search_File_Window_Apply_Changes();
