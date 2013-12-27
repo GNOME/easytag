@@ -58,6 +58,7 @@ easytag_SOURCES = \
 	src/gtk2_compat.c \
 	src/id3_tag.c \
 	src/id3v24_tag.c \
+	src/load_files_dialog.c \
 	src/log.c \
 	src/misc.c \
 	src/monkeyaudio_header.c \
@@ -102,6 +103,7 @@ easytag_headers = \
 	src/gio_wrapper.h \
 	src/gtk2_compat.h \
 	src/id3_tag.h \
+	src/load_files_dialog.h \
 	src/log.h \
 	src/misc.h \
 	src/monkeyaudio_header.h \

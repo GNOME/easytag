@@ -83,10 +83,6 @@ void File_Selection_Window_For_Directory (GtkWidget *entry);
 void Open_Search_File_Window (void);
 void Search_File_Window_Apply_Changes (void);
 
-// Load filenames window
-void Open_Load_Filename_Window          (void);
-void Load_Filename_Window_Apply_Changes (void);
-
 gchar * et_disc_number_to_string (const guint disc_number);
 gchar * et_track_number_to_string (const guint track_number);
 

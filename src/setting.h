@@ -195,11 +195,6 @@ gchar  *PLAYLIST_CONTENT_MASK_VALUE;
 /* "Load filenames from txt" window */
 gint    LOAD_FILE_RUN_SCANNER;
 
-gint    LOAD_FILE_WINDOW_X;
-gint    LOAD_FILE_WINDOW_Y;
-gint    LOAD_FILE_WINDOW_WIDTH;
-gint    LOAD_FILE_WINDOW_HEIGHT;
-
 /* CDDB in preferences window */
 gchar  *CDDB_SERVER_NAME_AUTOMATIC_SEARCH;
 gint    CDDB_SERVER_PORT_AUTOMATIC_SEARCH;

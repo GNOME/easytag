@@ -292,7 +292,7 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { AM_FILENAME_FROM_TXT, GTK_STOCK_OPEN,
           _("Load Filenames From a Text File…"), "<Primary>T",
           _("Load filenames from a text file"),
-          G_CALLBACK (Open_Load_Filename_Window) },
+          G_CALLBACK (et_application_window_show_load_files_dialog) },
         { AM_WRITE_PLAYLIST, GTK_STOCK_SAVE_AS, _("Generate Playlist…"),
           "<Primary>W", _("Generate a playlist"),
           G_CALLBACK (et_application_window_show_playlist_dialog) },

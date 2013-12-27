@@ -27,6 +27,7 @@
 #include "browser.h"
 #include "easytag.h"
 #include "gtk2_compat.h"
+#include "load_files_dialog.h"
 #include "log.h"
 #include "misc.h"
 #include "picture.h"
@@ -45,6 +46,7 @@ struct _EtApplicationWindowPrivate
     GtkWidget *file_area;
     GtkWidget *log_area;
     GtkWidget *tag_area;
+    GtkWidget *load_files_dialog;
     GtkWidget *playlist_dialog;
 
     /* Tag area labels. */
@@ -1641,6 +1643,12 @@ et_application_window_dispose (GObject *object)
     self = ET_APPLICATION_WINDOW (object);
     priv = et_application_window_get_instance_private (self);
 
+    if (priv->load_files_dialog)
+    {
+        gtk_widget_destroy (priv->load_files_dialog);
+        priv->load_files_dialog = NULL;
+    }
+
     if (priv->playlist_dialog)
     {
         gtk_widget_destroy (priv->playlist_dialog);
@@ -1663,6 +1671,7 @@ et_application_window_init (EtApplicationWindow *self)
                                                      ET_TYPE_APPLICATION_WINDOW,
                                                      EtApplicationWindowPrivate);
 
+    priv->load_files_dialog = NULL;
     priv->playlist_dialog = NULL;
 
     window = GTK_WINDOW (self);
@@ -1822,6 +1831,38 @@ et_application_window_show_playlist_dialog (G_GNUC_UNUSED GtkAction *action,
     {
         priv->playlist_dialog = GTK_WIDGET (et_playlist_dialog_new ());
         gtk_widget_show_all (priv->playlist_dialog);
+    }
+}
+
+GtkWidget *
+et_application_window_get_load_files_dialog (EtApplicationWindow *self)
+{
+    EtApplicationWindowPrivate *priv;
+
+    g_return_val_if_fail (self != NULL, NULL);
+
+    priv = et_application_window_get_instance_private (self);
+
+    return priv->load_files_dialog;
+}
+
+void
+et_application_window_show_load_files_dialog (G_GNUC_UNUSED GtkAction *action,
+                                              gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    if (priv->load_files_dialog)
+    {
+        gtk_widget_show (priv->load_files_dialog);
+    }
+    else
+    {
+        priv->load_files_dialog = GTK_WIDGET (et_load_files_dialog_new ());
+        gtk_widget_show_all (priv->load_files_dialog);
     }
 }
 
