@@ -407,15 +407,15 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
     /* UI Management */
     ActionGroup = gtk_action_group_new("actions");
     gtk_action_group_set_translation_domain (ActionGroup, GETTEXT_PACKAGE);
-    gtk_action_group_add_actions(ActionGroup, ActionEntries, num_menu_entries, NULL);
-    gtk_action_group_add_toggle_actions(ActionGroup, ToggleActionEntries, num_toggle_entries, NULL);
+    gtk_action_group_add_actions(ActionGroup, ActionEntries, num_menu_entries, window);
+    gtk_action_group_add_toggle_actions(ActionGroup, ToggleActionEntries, num_toggle_entries, window);
     gtk_action_group_add_radio_actions (ActionGroup, view_mode_entries,
                                         n_view_mode_entries, 0,
-                                        Action_Select_Browser_Style, NULL);
+                                        Action_Select_Browser_Style, window);
     gtk_action_group_add_radio_actions (ActionGroup, scanner_mode_entries,
                                         n_scanner_mode_entries, 0,
                                         G_CALLBACK (et_on_action_select_scan_mode),
-                                        NULL);
+                                        window);
 
     UIManager = gtk_ui_manager_new();
 
