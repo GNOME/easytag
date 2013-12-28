@@ -27,7 +27,7 @@
 #include "bar.h"
 #include "easytag.h"
 #include "about.h"
-#include "prefs.h"
+#include "preferences_dialog.h"
 #include "setting.h"
 #include "browser.h"
 #include "scan_dialog.h"
@@ -302,7 +302,8 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
 
         { MENU_EDIT, NULL, _("_Edit"), NULL, NULL, NULL },
         { AM_OPEN_OPTIONS_WINDOW, GTK_STOCK_PREFERENCES, _("_Preferences"),
-          NULL, _("Preferences"), G_CALLBACK (Open_OptionsWindow) },
+          NULL, _("Preferences"),
+          G_CALLBACK (et_application_window_show_preferences_dialog) },
 
         { MENU_VIEW, NULL, _("_View"), NULL, NULL, NULL },
         { MENU_GO, NULL, _("_Go"), NULL, NULL, NULL },

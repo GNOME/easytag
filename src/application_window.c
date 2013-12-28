@@ -32,6 +32,7 @@
 #include "misc.h"
 #include "picture.h"
 #include "playlist_dialog.h"
+#include "preferences_dialog.h"
 #include "search_dialog.h"
 #include "scan.h"
 #include "scan_dialog.h"
@@ -49,6 +50,7 @@ struct _EtApplicationWindowPrivate
     GtkWidget *tag_area;
     GtkWidget *load_files_dialog;
     GtkWidget *playlist_dialog;
+    GtkWidget *preferences_dialog;
     GtkWidget *search_dialog;
 
     /* Tag area labels. */
@@ -1657,6 +1659,12 @@ et_application_window_dispose (GObject *object)
         priv->playlist_dialog = NULL;
     }
 
+    if (priv->preferences_dialog)
+    {
+        gtk_widget_destroy (priv->preferences_dialog);
+        priv->preferences_dialog = NULL;
+    }
+
     if (priv->search_dialog)
     {
         gtk_widget_destroy (priv->search_dialog);
@@ -1681,6 +1689,7 @@ et_application_window_init (EtApplicationWindow *self)
 
     priv->load_files_dialog = NULL;
     priv->playlist_dialog = NULL;
+    priv->preferences_dialog = NULL;
     priv->search_dialog = NULL;
 
     window = GTK_WINDOW (self);
@@ -1905,6 +1914,55 @@ et_application_window_show_search_dialog (G_GNUC_UNUSED GtkAction *action,
         priv->search_dialog = GTK_WIDGET (et_search_dialog_new ());
         gtk_widget_show_all (priv->search_dialog);
     }
+}
+
+GtkWidget *
+et_application_window_get_preferences_dialog (EtApplicationWindow *self)
+{
+    EtApplicationWindowPrivate *priv;
+
+    g_return_val_if_fail (self != NULL, NULL);
+
+    priv = et_application_window_get_instance_private (self);
+
+    return priv->preferences_dialog;
+}
+
+void
+et_application_window_show_preferences_dialog (G_GNUC_UNUSED GtkAction *action,
+                                               gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    if (priv->preferences_dialog)
+    {
+        gtk_widget_show (priv->preferences_dialog);
+    }
+    else
+    {
+        priv->preferences_dialog = GTK_WIDGET (et_preferences_dialog_new ());
+        gtk_widget_show_all (priv->preferences_dialog);
+    }
+}
+
+void
+et_application_window_show_preferences_dialog_scanner (G_GNUC_UNUSED GtkAction *action,
+                                                       gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    if (!priv->preferences_dialog)
+    {
+        priv->preferences_dialog = GTK_WIDGET (et_preferences_dialog_new ());
+    }
+
+    et_preferences_dialog_show_scanner (ET_PREFERENCES_DIALOG (priv->preferences_dialog));
 }
 
 /*

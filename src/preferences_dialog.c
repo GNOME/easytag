@@ -1,30 +1,30 @@
-/* prefs.c - 2000/05/06 */
 /*
- *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
- *  Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
+ * EasyTAG - Tag editor for audio files
+ * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
+ * Copyright (C) 2013  David King <amigadave@amigadave.com>
  *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option)
+ * any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 51
+ * Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
+#include "config.h"
 
-#include <gtk/gtk.h>
+#include "preferences_dialog.h"
+
 #include <errno.h>
 #include <stdlib.h>
 #include <gdk/gdkkeysyms.h>
-#include <gdk/gdk.h>
 #include <glib/gi18n.h>
 #include <stdio.h>
 #include <string.h>
@@ -32,7 +32,6 @@
 #include <unistd.h>
 
 #include "gtk2_compat.h"
-#include "prefs.h"
 #include "setting.h"
 #include "bar.h"
 #include "misc.h"
@@ -43,17 +42,28 @@
 #include "charset.h"
 #include "win32/win32dep.h"
 
+/* TODO: Use G_DEFINE_TYPE_WITH_PRIVATE. */
+G_DEFINE_TYPE (EtPreferencesDialog, et_preferences_dialog, GTK_TYPE_DIALOG)
+
+#define et_preferences_dialog_get_instance_private(dialog) (dialog->priv)
+
 static const guint BOX_SPACING = 6;
+
+struct _EtPreferencesDialogPrivate
+{
+    GtkListStore *cddb_local_path_model;
+    GtkListStore *default_comment_model;
+    GtkListStore *default_path_model;
+    GtkListStore *file_player_model;
+
+    GtkWidget *options_notebook;
+    gint options_notebook_scanner;
+};
 
 /**************
  * Prototypes *
  **************/
 /* Options window */
-static void OptionsWindow_Quit (void);
-static void OptionsWindow_Save_Button (void);
-static void OptionsWindow_Cancel_Button (void);
-static gboolean Check_Config (void);
-
 static void Set_Default_Comment_Check_Button_Toggled (void);
 static void Number_Track_Formatted_Toggled (void);
 static void Number_Track_Formatted_Spin_Button_Changed (GtkWidget *Label,
@@ -68,7 +78,6 @@ static void Scanner_Convert_Check_Button_Toggled_1 (GtkWidget *object_rec,
                                                     GtkWidget *object_emi);
 static void Cddb_Use_Proxy_Toggled (void);
 
-static void DefaultPathToMp3_Combo_Add_String (void);
 static void CddbLocalPath_Combo_Add_String (void);
 
 static void et_preferences_on_response (GtkDialog *dialog, gint response_id,
@@ -78,16 +87,25 @@ static void et_preferences_on_response (GtkDialog *dialog, gint response_id,
 /*************
  * Functions *
  *************/
-void Init_OptionsWindow (void)
+static void
+DefaultPathToMp3_Combo_Add_String (EtPreferencesDialog *self)
 {
-    OptionsWindow = NULL;
+    EtPreferencesDialogPrivate *priv;
+    const gchar *path;
+
+    priv = et_preferences_dialog_get_instance_private (self);
+
+    path = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3))));
+    Add_String_To_Combo_List(GTK_LIST_STORE(priv->default_path_model), path);
 }
 
 /*
  * The window for options
  */
-void Open_OptionsWindow (void)
+static void
+create_preferences_dialog (EtPreferencesDialog *self)
 {
+    EtPreferencesDialogPrivate *priv;
     GtkWidget *OptionsVBox;
     GtkWidget *Button;
     GtkWidget *Label;
@@ -99,40 +117,33 @@ void Open_OptionsWindow (void)
     gchar *path_utf8;
     gchar *program_path;
 
-    /* Check if already opened */
-    if (OptionsWindow)
-    {
-        gtk_window_present(GTK_WINDOW(OptionsWindow));
-        return;
-    }
+    priv = et_preferences_dialog_get_instance_private (self);
 
     /* The window */
-    OptionsWindow = gtk_dialog_new_with_buttons (_("Preferences"),
-                                                 GTK_WINDOW (MainWindow),
-                                                 GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                 GTK_STOCK_CANCEL,
-                                                 GTK_RESPONSE_REJECT,
-                                                 GTK_STOCK_OK,
-                                                 GTK_RESPONSE_ACCEPT, NULL);
-
-    gtk_container_set_border_width (GTK_CONTAINER (OptionsWindow), 6);
-
-    /* Signals connection */
-    gtk_dialog_set_default_response (GTK_DIALOG (OptionsWindow),
-                                     GTK_RESPONSE_ACCEPT);
-    g_signal_connect (OptionsWindow, "response",
+    gtk_window_set_title (GTK_WINDOW (self), _("Preferences"));
+    gtk_window_set_transient_for (GTK_WINDOW (self), GTK_WINDOW (MainWindow));
+    gtk_window_set_destroy_with_parent (GTK_WINDOW (self), TRUE);
+    gtk_dialog_add_buttons (GTK_DIALOG (self), GTK_STOCK_CANCEL,
+                            GTK_RESPONSE_REJECT, GTK_STOCK_OK,
+                            GTK_RESPONSE_ACCEPT, NULL);
+    gtk_dialog_set_default_response (GTK_DIALOG (self), GTK_RESPONSE_ACCEPT);
+    g_signal_connect (self, "response",
                       G_CALLBACK (et_preferences_on_response), NULL);
+    g_signal_connect (self, "delete-event",
+                      G_CALLBACK (gtk_widget_hide_on_delete), NULL);
+
+    gtk_container_set_border_width (GTK_CONTAINER (self), BOX_SPACING);
 
      /* Options */
      /* The vbox */
-    OptionsVBox = gtk_dialog_get_content_area (GTK_DIALOG (OptionsWindow));
-    gtk_box_set_spacing (GTK_BOX (OptionsVBox), 12);
+    OptionsVBox = gtk_dialog_get_content_area (GTK_DIALOG (self));
+    gtk_box_set_spacing (GTK_BOX (OptionsVBox), BOX_SPACING);
 
      /* Options NoteBook */
-    OptionsNoteBook = gtk_notebook_new();
-    gtk_notebook_popup_enable(GTK_NOTEBOOK(OptionsNoteBook));
-    gtk_notebook_set_scrollable(GTK_NOTEBOOK(OptionsNoteBook),TRUE);
-    gtk_box_pack_start(GTK_BOX(OptionsVBox),OptionsNoteBook,TRUE,TRUE,0);
+    priv->options_notebook = gtk_notebook_new();
+    gtk_notebook_popup_enable(GTK_NOTEBOOK(priv->options_notebook));
+    gtk_notebook_set_scrollable(GTK_NOTEBOOK(priv->options_notebook),TRUE);
+    gtk_box_pack_start(GTK_BOX(OptionsVBox),priv->options_notebook,TRUE,TRUE,0);
 
 
 
@@ -141,7 +152,7 @@ void Open_OptionsWindow (void)
      */
     Label = gtk_label_new(_("Browser"));
     vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_notebook_append_page (GTK_NOTEBOOK (OptionsNoteBook), vbox, Label);
+    gtk_notebook_append_page (GTK_NOTEBOOK (priv->options_notebook), vbox, Label);
     gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
 
     /* Default directory */
@@ -152,26 +163,28 @@ void Open_OptionsWindow (void)
     Label = gtk_label_new(_("Default directory:"));
     gtk_box_pack_start(GTK_BOX(HBox),Label,FALSE,FALSE,0);
 
-    // Combo
-    if (DefaultPathModel != NULL)
-        gtk_list_store_clear(DefaultPathModel);
-    else
-        DefaultPathModel = gtk_list_store_new(MISC_COMBO_COUNT, G_TYPE_STRING);
+    /* Combo. */
+    priv->default_path_model = gtk_list_store_new (MISC_COMBO_COUNT,
+                                                   G_TYPE_STRING);
 
-    DefaultPathToMp3 = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(DefaultPathModel));
+    DefaultPathToMp3 = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(priv->default_path_model));
+    g_object_unref (priv->default_path_model);
     gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(DefaultPathToMp3), MISC_COMBO_TEXT);
     gtk_box_pack_start(GTK_BOX(HBox),DefaultPathToMp3,TRUE,TRUE,0);
     gtk_widget_set_size_request(DefaultPathToMp3, 400, -1);
     gtk_widget_set_tooltip_text(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3)),_("Specify the directory where "
         "your files are located. This path will be loaded when EasyTAG starts without parameter."));
-    g_signal_connect(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3)))),"activate",G_CALLBACK(DefaultPathToMp3_Combo_Add_String),NULL);
+    g_signal_connect_swapped (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (DefaultPathToMp3))),
+                              "activate",
+                              G_CALLBACK (DefaultPathToMp3_Combo_Add_String),
+                              self);
     //g_signal_connect(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3)))),"focus_out_event",G_CALLBACK(DefaultPathToMp3_Combo_Add_String),NULL);
 
     // History list
-    Load_Default_Path_To_MP3_List(DefaultPathModel, MISC_COMBO_TEXT);
+    Load_Default_Path_To_MP3_List(priv->default_path_model, MISC_COMBO_TEXT);
     // If default path hasn't been added already, add it now..
     path_utf8 = filename_to_display(DEFAULT_PATH_TO_MP3);
-    Add_String_To_Combo_List(DefaultPathModel, path_utf8);
+    Add_String_To_Combo_List(priv->default_path_model, path_utf8);
     if (path_utf8)
         gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3))), path_utf8);
     g_free(path_utf8);
@@ -221,7 +234,7 @@ void Open_OptionsWindow (void)
      */
     Label = gtk_label_new (_("Misc"));
     VBox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_notebook_append_page (GTK_NOTEBOOK (OptionsNoteBook), VBox, Label);
+    gtk_notebook_append_page (GTK_NOTEBOOK (priv->options_notebook), VBox, Label);
     gtk_container_set_border_width (GTK_CONTAINER (VBox), BOX_SPACING);
 
     /* User interface */
@@ -348,18 +361,17 @@ void Open_OptionsWindow (void)
     Frame = gtk_frame_new (_("File Audio Player"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
 
-    // Player name with params
-    if (FilePlayerModel == NULL)
-        FilePlayerModel = gtk_list_store_new(MISC_COMBO_COUNT, G_TYPE_STRING);
-    else
-        gtk_list_store_clear(FilePlayerModel);
+    /* Player name with params. */
+    priv->file_player_model = gtk_list_store_new (MISC_COMBO_COUNT,
+                                                  G_TYPE_STRING);
 
     hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),hbox);
     gtk_container_set_border_width (GTK_CONTAINER (hbox), BOX_SPACING);
     Label = gtk_label_new (_("Player to run:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
-    FilePlayerCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(FilePlayerModel));
+    FilePlayerCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(priv->file_player_model));
+    g_object_unref (priv->file_player_model);
     gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(FilePlayerCombo),MISC_COMBO_TEXT);
     gtk_widget_set_size_request(GTK_WIDGET(FilePlayerCombo), 300, -1);
     gtk_box_pack_start(GTK_BOX(hbox),FilePlayerCombo,FALSE,FALSE,0);
@@ -367,8 +379,8 @@ void Open_OptionsWindow (void)
         "play the files. Some arguments can be passed for the program (as 'xmms -p') before "
         "to receive files as other arguments."));
     // History List
-    Load_Audio_File_Player_List(FilePlayerModel, MISC_COMBO_TEXT);
-    Add_String_To_Combo_List(FilePlayerModel, AUDIO_FILE_PLAYER);
+    Load_Audio_File_Player_List(priv->file_player_model, MISC_COMBO_TEXT);
+    Add_String_To_Combo_List(priv->file_player_model, AUDIO_FILE_PLAYER);
     // Don't load the parameter if XMMS not found, else user can't save the preference
     if ( (program_path=Check_If_Executable_Exists(AUDIO_FILE_PLAYER)))
         gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo))), AUDIO_FILE_PLAYER);
@@ -417,7 +429,7 @@ void Open_OptionsWindow (void)
      */
     Label = gtk_label_new (_("File Settings"));
     VBox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_notebook_append_page (GTK_NOTEBOOK (OptionsNoteBook), VBox, Label);
+    gtk_notebook_append_page (GTK_NOTEBOOK (priv->options_notebook), VBox, Label);
     gtk_container_set_border_width (GTK_CONTAINER (VBox), BOX_SPACING);
 
     /* File (name) Options */
@@ -532,7 +544,7 @@ void Open_OptionsWindow (void)
      */
     Label = gtk_label_new (_("Tag Settings"));
     VBox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_notebook_append_page (GTK_NOTEBOOK (OptionsNoteBook), VBox, Label);
+    gtk_notebook_append_page (GTK_NOTEBOOK (priv->options_notebook), VBox, Label);
     gtk_container_set_border_width (GTK_CONTAINER (VBox), BOX_SPACING);
 
     /* Tag Options */
@@ -670,7 +682,7 @@ void Open_OptionsWindow (void)
     Label = gtk_label_new (_("ID3 Tag Settings"));
     VBox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
 #ifdef ENABLE_MP3
-    gtk_notebook_append_page (GTK_NOTEBOOK (OptionsNoteBook), VBox, Label);
+    gtk_notebook_append_page (GTK_NOTEBOOK (priv->options_notebook), VBox, Label);
 #endif
     gtk_container_set_border_width (GTK_CONTAINER (VBox), BOX_SPACING);
 
@@ -979,12 +991,12 @@ void Open_OptionsWindow (void)
      */
     Label = gtk_label_new (_("Scanner"));
     VBox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_notebook_append_page (GTK_NOTEBOOK(OptionsNoteBook), VBox, Label);
+    gtk_notebook_append_page (GTK_NOTEBOOK(priv->options_notebook), VBox, Label);
     gtk_container_set_border_width (GTK_CONTAINER (VBox), BOX_SPACING);
 
     /* Save the number of the page. Asked in Scanner window */
-    OptionsNoteBook_Scanner_Page_Num = gtk_notebook_page_num (GTK_NOTEBOOK (OptionsNoteBook),
-                                                              VBox);
+    priv->options_notebook_scanner = gtk_notebook_page_num (GTK_NOTEBOOK (priv->options_notebook),
+                                                            VBox);
 
     /* Character conversion for the 'Fill Tag' scanner (=> FTS...) */
     Frame = gtk_frame_new (_("Fill Tag Scanner - Character Conversion"));
@@ -1081,11 +1093,9 @@ void Open_OptionsWindow (void)
     gtk_widget_set_tooltip_text(OverwriteTagField,_("If activated, the scanner will replace existing text "
         "in fields by the new one. If deactivated, only blank fields of the tag will be filled."));
 
-    // Set a default comment text or CRC-32 checksum
-    if (!DefaultCommentModel)
-        DefaultCommentModel = gtk_list_store_new(MISC_COMBO_COUNT, G_TYPE_STRING);
-    else
-        gtk_list_store_clear(DefaultCommentModel);
+    /* Set a default comment text or CRC-32 checksum. */
+    priv->default_comment_model = gtk_list_store_new (MISC_COMBO_COUNT,
+                                                      G_TYPE_STRING);
 
     hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
@@ -1094,7 +1104,8 @@ void Open_OptionsWindow (void)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SetDefaultComment),SET_DEFAULT_COMMENT);
     gtk_widget_set_tooltip_text(SetDefaultComment,_("Activate this option if you want to put the "
         "following string into the comment field when using the 'Fill Tag' scanner."));
-    DefaultComment = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(DefaultCommentModel));
+    DefaultComment = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(priv->default_comment_model));
+    g_object_unref (priv->default_comment_model);
     gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(DefaultComment),MISC_COMBO_TEXT);
     gtk_box_pack_start(GTK_BOX(hbox),DefaultComment,FALSE,FALSE,0);
     gtk_widget_set_size_request(GTK_WIDGET(DefaultComment), 250, -1);
@@ -1104,8 +1115,8 @@ void Open_OptionsWindow (void)
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SetDefaultComment),FALSE);
     Set_Default_Comment_Check_Button_Toggled();
     /* History list */
-    Load_Default_Tag_Comment_Text_List(DefaultCommentModel, MISC_COMBO_TEXT);
-    Add_String_To_Combo_List(DefaultCommentModel, DEFAULT_COMMENT);
+    Load_Default_Tag_Comment_Text_List(priv->default_comment_model, MISC_COMBO_TEXT);
+    Add_String_To_Combo_List(priv->default_comment_model, DEFAULT_COMMENT);
     if (DEFAULT_COMMENT)
         gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultComment))), DEFAULT_COMMENT);
 
@@ -1127,7 +1138,7 @@ void Open_OptionsWindow (void)
      */
     Label = gtk_label_new (_("CDDB"));
     VBox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_notebook_append_page (GTK_NOTEBOOK (OptionsNoteBook), VBox, Label);
+    gtk_notebook_append_page (GTK_NOTEBOOK (priv->options_notebook), VBox, Label);
     gtk_container_set_border_width (GTK_CONTAINER (VBox), BOX_SPACING);
 
     // CDDB Server Settings (Automatic Search)
@@ -1238,7 +1249,7 @@ void Open_OptionsWindow (void)
     if (CDDB_SERVER_CGI_PATH_MANUAL_SEARCH)
         gtk_entry_set_text(GTK_ENTRY(CddbServerCgiPathManualSearch) ,CDDB_SERVER_CGI_PATH_MANUAL_SEARCH);
 
-    // Local access for CDDB (Automatic Search)
+    /* Local access for CDDB (Automatic Search). */
     Frame = gtk_frame_new (_("Local CDDB"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
     vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
@@ -1250,12 +1261,11 @@ void Open_OptionsWindow (void)
     Label = gtk_label_new(_("Path:"));
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
 
-    if (CddbLocalPathModel != NULL)
-        gtk_list_store_clear(CddbLocalPathModel);
-    else
-        CddbLocalPathModel = gtk_list_store_new(MISC_COMBO_COUNT, G_TYPE_STRING);
+    priv->cddb_local_path_model = gtk_list_store_new (MISC_COMBO_COUNT,
+                                                      G_TYPE_STRING);
 
-    CddbLocalPath = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(CddbLocalPathModel));
+    CddbLocalPath = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(priv->cddb_local_path_model));
+    g_object_unref (priv->cddb_local_path_model);
     gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(CddbLocalPath),MISC_COMBO_TEXT);
     gtk_box_pack_start(GTK_BOX(hbox),CddbLocalPath,FALSE,FALSE,0);
     gtk_widget_set_size_request(GTK_WIDGET(CddbLocalPath), 450, -1);
@@ -1267,13 +1277,13 @@ void Open_OptionsWindow (void)
     //g_signal_connect(G_OBJECT(GTK_ENTRY(GTK_BIN(CddbLocalPath)->child)),"focus_out_event",G_CALLBACK(CddbLocalPath_Combo_Add_String),NULL);
 
     // History list
-    Load_Cddb_Local_Path_List(CddbLocalPathModel, MISC_COMBO_TEXT);
+    Load_Cddb_Local_Path_List(priv->cddb_local_path_model, MISC_COMBO_TEXT);
 
     // If default path hasn't been added already, add it now..
     if (CDDB_LOCAL_PATH)
     {
         path_utf8 = filename_to_display(CDDB_LOCAL_PATH);
-        Add_String_To_Combo_List(CddbLocalPathModel, path_utf8);
+        Add_String_To_Combo_List(priv->cddb_local_path_model, path_utf8);
         if (path_utf8)
             gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbLocalPath))), path_utf8);
         g_free(path_utf8);
@@ -1373,7 +1383,7 @@ void Open_OptionsWindow (void)
      */
     Label = gtk_label_new (_("Confirmation"));
     VBox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_notebook_append_page (GTK_NOTEBOOK(OptionsNoteBook), VBox, Label);
+    gtk_notebook_append_page (GTK_NOTEBOOK(priv->options_notebook), VBox, Label);
     gtk_container_set_border_width (GTK_CONTAINER (VBox), BOX_SPACING);
 
     ConfirmBeforeExit = gtk_check_button_new_with_label(_("Confirm exit from program"));
@@ -1403,11 +1413,8 @@ void Open_OptionsWindow (void)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ConfirmWhenUnsavedFiles),CONFIRM_WHEN_UNSAVED_FILES);
 
 
-    /* Show all in the options window */
-    gtk_widget_show_all(OptionsWindow);
-
     /* Load the default page */
-    gtk_notebook_set_current_page(GTK_NOTEBOOK(OptionsNoteBook), OPTIONS_NOTEBOOK_PAGE);
+    gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->options_notebook), OPTIONS_NOTEBOOK_PAGE);
 }
 
 
@@ -1594,68 +1601,12 @@ Cddb_Use_Proxy_Toggled (void)
     gtk_widget_set_sensitive(CddbProxyUserPassword,active);
 }
 
-/* Callback from Open_OptionsWindow */
+/* Callback from et_preferences_dialog_on_response. */
 static void
-OptionsWindow_Save_Button (void)
+OptionsWindow_Quit (EtPreferencesDialog *self)
 {
-    if (!Check_Config()) return;
-
-#ifndef G_OS_WIN32
-    /* FIXME : make gtk crash on win32 */
-    Add_String_To_Combo_List(DefaultPathModel,      gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3)))));
-    Add_String_To_Combo_List(FilePlayerModel,       gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)))));
-    Add_String_To_Combo_List(DefaultCommentModel,   gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultComment)))));
-    Add_String_To_Combo_List(CddbLocalPathModel,    gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbLocalPath)))));
-#endif /* !G_OS_WIN32 */
-
-    Save_Changes_Of_Preferences_Window();
-
-    OptionsWindow_Quit();
-    Statusbar_Message(_("Configuration saved"),TRUE);
+    et_preferences_dialog_apply_changes (self);
 }
-
-/* Callback from Open_OptionsWindow */
-static void
-OptionsWindow_Cancel_Button (void)
-{
-    OptionsWindow_Quit();
-    Statusbar_Message(_("Configuration unchanged"),TRUE);
-}
-
-/* Callback from Open_OptionsWindow */
-static void
-OptionsWindow_Quit (void)
-{
-    if (OptionsWindow)
-    {
-        OptionsWindow_Apply_Changes();
-
-        /* Now quit */
-        gtk_widget_destroy(OptionsWindow);
-        OptionsWindow = NULL;
-        gtk_widget_set_sensitive(MainWindow, TRUE);
-    }
-}
-
-/*
- * For the configuration file...
- */
-void OptionsWindow_Apply_Changes (void)
-{
-    if (OptionsWindow)
-    {
-        /* Get the last visible notebook page */
-        OPTIONS_NOTEBOOK_PAGE = gtk_notebook_get_current_page(GTK_NOTEBOOK(OptionsNoteBook));
-
-        /* Save combobox history lists before exit */
-        Save_Default_Path_To_MP3_List     (DefaultPathModel, MISC_COMBO_TEXT);
-        Save_Default_Tag_Comment_Text_List(DefaultCommentModel, MISC_COMBO_TEXT);
-        Save_Audio_File_Player_List       (FilePlayerModel, MISC_COMBO_TEXT);
-        Save_Cddb_Local_Path_List         (CddbLocalPathModel, MISC_COMBO_TEXT);
-    }
-}
-
-
 
 /*
  * Check_Config: Check if config information are correct
@@ -1671,7 +1622,7 @@ void OptionsWindow_Apply_Changes (void)
  *  - try to convert to system encoding (path_real) : ?????
  */
 static gboolean
-Check_DefaultPathToMp3 (void)
+Check_DefaultPathToMp3 (EtPreferencesDialog *self)
 {
     gchar *path_utf8;
     gchar *path_real;
@@ -1705,7 +1656,7 @@ Check_DefaultPathToMp3 (void)
         g_object_unref (fileinfo);
     }
 
-    msgdialog = gtk_message_dialog_new (GTK_WINDOW (OptionsWindow),
+    msgdialog = gtk_message_dialog_new (GTK_WINDOW (self),
                                         GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                         GTK_MESSAGE_ERROR,
                                         GTK_BUTTONS_CLOSE,
@@ -1790,7 +1741,7 @@ gint Check_CharacterSetTranslation (void)
 *************/
 
 static gboolean
-Check_DefaultComment (void)
+Check_DefaultComment (EtPreferencesDialog *self)
 {
     const gchar *file;
 
@@ -1805,7 +1756,7 @@ Check_DefaultComment (void)
  * Check if player binary is found
  */
 static gboolean
-Check_FilePlayerCombo (void)
+Check_FilePlayerCombo (EtPreferencesDialog *self)
 {
     gchar *program_path = NULL;
     gchar *program_path_validated = NULL;
@@ -1824,7 +1775,7 @@ Check_FilePlayerCombo (void)
 
     if ( program_path && strlen(program_path)>0 && !program_path_validated ) // A file is typed but it is invalid!
     {
-        GtkWidget *msgdialog = gtk_message_dialog_new(GTK_WINDOW(OptionsWindow),
+        GtkWidget *msgdialog = gtk_message_dialog_new (GTK_WINDOW (self),
                                                       GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                                       GTK_MESSAGE_ERROR,
                                                       GTK_BUTTONS_CLOSE,
@@ -1843,20 +1794,85 @@ Check_FilePlayerCombo (void)
         g_free(program_path_validated);
         return TRUE;
     }
-}
-
-static gboolean
-Check_Config (void)
+}static gboolean
+Check_Config (EtPreferencesDialog *self)
 {
-    if (Check_DefaultPathToMp3 ()
-        && Check_DefaultComment ()
-        && Check_FilePlayerCombo ())
+    if (Check_DefaultPathToMp3 (self)
+        && Check_DefaultComment (self)
+        && Check_FilePlayerCombo (self))
         return TRUE; /* No problem detected */
     else
         return FALSE; /* Oops! */
 }
 
+/* Callback from et_preferences_dialog_on_response. */
+static void
+OptionsWindow_Save_Button (EtPreferencesDialog *self)
+{
+    EtPreferencesDialogPrivate *priv;
 
+    priv = et_preferences_dialog_get_instance_private (self);
+
+    if (!Check_Config (self)) return;
+
+#ifndef G_OS_WIN32
+    /* FIXME : make gtk crash on win32 */
+    Add_String_To_Combo_List(priv->default_path_model,      gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3)))));
+    Add_String_To_Combo_List(priv->file_player_model,       gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)))));
+    Add_String_To_Combo_List(priv->default_comment_model,   gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultComment)))));
+    Add_String_To_Combo_List(priv->cddb_local_path_model,    gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbLocalPath)))));
+#endif /* !G_OS_WIN32 */
+
+    Save_Changes_Of_Preferences_Window();
+
+    OptionsWindow_Quit (self);
+    Statusbar_Message(_("Configuration saved"),TRUE);
+}
+
+/* Callback from et_preferences_dialog_on_response. */
+static void
+OptionsWindow_Cancel_Button (EtPreferencesDialog *self)
+{
+    OptionsWindow_Quit (self);
+    Statusbar_Message(_("Configuration unchanged"),TRUE);
+}
+
+/*
+ * For the configuration file...
+ */
+void
+et_preferences_dialog_apply_changes (EtPreferencesDialog *self)
+{
+    EtPreferencesDialogPrivate *priv;
+
+    g_return_if_fail (ET_PREFERENCES_DIALOG (self));
+
+    priv = et_preferences_dialog_get_instance_private (self);
+
+    /* Get the last visible notebook page */
+    OPTIONS_NOTEBOOK_PAGE = gtk_notebook_get_current_page (GTK_NOTEBOOK (priv->options_notebook));
+
+    /* Save combobox history lists before exit */
+    Save_Default_Path_To_MP3_List (priv->default_path_model, MISC_COMBO_TEXT);
+    Save_Default_Tag_Comment_Text_List (priv->default_comment_model,
+                                        MISC_COMBO_TEXT);
+    Save_Audio_File_Player_List (priv->file_player_model, MISC_COMBO_TEXT);
+    Save_Cddb_Local_Path_List (priv->cddb_local_path_model, MISC_COMBO_TEXT);
+}
+
+void
+et_preferences_dialog_show_scanner (EtPreferencesDialog *self)
+{
+    EtPreferencesDialogPrivate *priv;
+
+    g_return_if_fail (ET_PREFERENCES_DIALOG (self));
+
+    priv = et_preferences_dialog_get_instance_private (self);
+
+    gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->options_notebook),
+                                   priv->options_notebook_scanner);
+    gtk_window_present (GTK_WINDOW (self));
+}
 
 /*
  * Manage Check buttons into Scanner tab: conversion group
@@ -1870,15 +1886,6 @@ Scanner_Convert_Check_Button_Toggled_1 (GtkWidget *object_rec,
 
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(object_emi)) == TRUE)
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(object_rec),!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(object_emi)));
-}
-
-static void
-DefaultPathToMp3_Combo_Add_String (void)
-{
-    const gchar *path;
-
-    path = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3))));
-    Add_String_To_Combo_List(GTK_LIST_STORE(DefaultPathModel), path);
 }
 
 static void
@@ -1906,15 +1913,52 @@ et_preferences_on_response (GtkDialog *dialog, gint response_id,
     switch (response_id)
     {
         case GTK_RESPONSE_ACCEPT:
-            OptionsWindow_Save_Button ();
+            OptionsWindow_Save_Button (ET_PREFERENCES_DIALOG (dialog));
             break;
         case GTK_RESPONSE_DELETE_EVENT:
-            OptionsWindow_Quit ();
+            OptionsWindow_Quit (ET_PREFERENCES_DIALOG (dialog));
             break;
         case GTK_RESPONSE_REJECT:
-            OptionsWindow_Cancel_Button ();
+            OptionsWindow_Cancel_Button (ET_PREFERENCES_DIALOG (dialog));
+            gtk_widget_hide (GTK_WIDGET (dialog));
             break;
         default:
             g_assert_not_reached ();
     }
+}
+
+static void
+et_preferences_dialog_finalize (GObject *object)
+{
+    G_OBJECT_CLASS (et_preferences_dialog_parent_class)->finalize (object);
+}
+
+static void
+et_preferences_dialog_init (EtPreferencesDialog *self)
+{
+    self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, ET_TYPE_PREFERENCES_DIALOG,
+                                              EtPreferencesDialogPrivate);
+
+    create_preferences_dialog (self);
+}
+
+static void
+et_preferences_dialog_class_init (EtPreferencesDialogClass *klass)
+{
+    G_OBJECT_CLASS (klass)->finalize = et_preferences_dialog_finalize;
+
+    g_type_class_add_private (klass, sizeof (EtPreferencesDialogPrivate));
+}
+
+/*
+ * et_preferences_dialog_new:
+ *
+ * Create a new EtPreferencesDialog instance.
+ *
+ * Returns: a new #EtPreferencesDialog
+ */
+EtPreferencesDialog *
+et_preferences_dialog_new (void)
+{
+    return g_object_new (ET_TYPE_PREFERENCES_DIALOG, NULL);
 }

@@ -1,37 +1,58 @@
-/* prefs.h - 2000/05/06 */
 /*
- *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
- *  Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
+ * EasyTAG - Tag editor for audio files
+ * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
+ * Copyright (C) 2013  David King <amigadave@amigadave.com>
  *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option)
+ * any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 51
+ * Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
+#ifndef ET_PREFERENCES_DIALOG_H_
+#define ET_PREFERENCES_DIALOG_H_
 
-#ifndef __PREFS_H__
-#define __PREFS_H__
+#include <gtk/gtk.h>
 
+G_BEGIN_DECLS
 
-/***************
- * Declaration *
- ***************/
+#define ET_TYPE_PREFERENCES_DIALOG (et_preferences_dialog_get_type ())
+#define ET_PREFERENCES_DIALOG(object) (G_TYPE_CHECK_INSTANCE_CAST ((object), ET_TYPE_PREFERENCES_DIALOG, EtPreferencesDialog))
 
-GtkWidget *OptionsWindow;
-GtkWidget *OptionsNoteBook;
-gint OptionsNoteBook_Scanner_Page_Num;    /* Contains the number of the page "Scanner Option" */
+typedef struct _EtPreferencesDialog EtPreferencesDialog;
+typedef struct _EtPreferencesDialogClass EtPreferencesDialogClass;
+typedef struct _EtPreferencesDialogPrivate EtPreferencesDialogPrivate;
 
+struct _EtPreferencesDialog
+{
+    /*< private >*/
+    GtkDialog parent_instance;
+    EtPreferencesDialogPrivate *priv;
+};
 
+struct _EtPreferencesDialogClass
+{
+    /*< private >*/
+    GtkDialogClass parent_class;
+};
+
+GType et_preferences_dialog_get_type (void);
+EtPreferencesDialog *et_preferences_dialog_new (void);
+void et_preferences_dialog_apply_changes (EtPreferencesDialog *self);
+void et_preferences_dialog_show_scanner (EtPreferencesDialog *self);
+
+G_END_DECLS
+
+/* FIXME: Remove widget declarations when switching to GSettings. */
 /* Widgets included in config */
 /* Common */
 GtkWidget *LoadOnStartup;
@@ -41,8 +62,6 @@ GtkWidget *BrowserExpanderStyleOptionMenu;
 GtkWidget *BrowseSubdir;
 GtkWidget *BrowseHiddendir;
 GtkWidget *OpenSelectedBrowserNode;
-
-GtkListStore *DefaultPathModel;
 
 /* User interface */
 GtkWidget *ShowHeaderInfos;
@@ -59,7 +78,6 @@ GtkWidget *MessageBoxPositionMouse;
 GtkWidget *MessageBoxPositionCenterOnParent;
 
 GtkWidget *FilePlayerCombo;
-GtkListStore *FilePlayerModel;
 
 /* File Settings */
 GtkWidget *ReplaceIllegalCharactersInFilename;
@@ -131,12 +149,10 @@ GtkWidget *RFSRemoveSpaces;
 GtkWidget *PFSDontUpperSomeWords;
 GtkWidget *OverwriteTagField;
 GtkWidget *OpenScannerWindowOnStartup;
-GtkWidget *ScannerWindowOnTop;
 
 GtkWidget *SetDefaultComment;
 GtkWidget *DefaultComment;
 GtkWidget *Crc32Comment;
-GtkListStore *DefaultCommentModel;
 
 /* CDDB */
 GtkWidget *CddbServerNameAutomaticSearch;
@@ -155,7 +171,6 @@ GtkWidget *CddbProxyUserName;
 GtkWidget *CddbProxyUserPassword;
 
 GtkWidget *CddbLocalPath;
-GtkListStore *CddbLocalPathModel;
 
 GtkWidget *SetCddbWindowSize;
 GtkWidget *CddbWindowWidth;
@@ -177,13 +192,4 @@ GtkWidget *ConfirmDeleteFile;
 GtkWidget *ConfirmWritePlayList;
 GtkWidget *ConfirmWhenUnsavedFiles;
 
-
-/**************
- * Prototypes *
- **************/
-
-void Init_OptionsWindow (void);
-void Open_OptionsWindow (void);
-void OptionsWindow_Apply_Changes (void);
-
-#endif /* __PREFS_H__ */
+#endif /* ET_PREFERENCES_DIALOG_H_ */

@@ -1,4 +1,3 @@
-/* misc.c - 2000/06/28 */
 /*
  *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
  *  Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
@@ -34,7 +33,7 @@
 #include "browser.h"
 #include "setting.h"
 #include "bar.h"
-#include "prefs.h"
+#include "preferences_dialog.h"
 #include "scan.h"
 #include "scan_dialog.h"
 #include "genres.h"

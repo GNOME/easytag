@@ -1,4 +1,3 @@
-/* config.c - 2000/06/21 */
 /*
  *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
  *  Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
@@ -18,7 +17,7 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
@@ -36,7 +35,7 @@
 #include "application_window.h"
 #include "load_files_dialog.h"
 #include "playlist_dialog.h"
-#include "prefs.h"
+#include "preferences_dialog.h"
 #include "search_dialog.h"
 #include "bar.h"
 #include "easytag.h"
@@ -599,13 +598,16 @@ void Init_Config_Variables (void)
 static void
 Apply_Changes_Of_Preferences_Window (void)
 {
+    GtkWidget *dialog;
     gchar *temp;
     int active;
     ET_Sorting_Type temp_sort;
     gint column_id;
     GtkTreeViewColumn * column;
 
-    if (OptionsWindow)
+    dialog = et_application_window_get_preferences_dialog (ET_APPLICATION_WINDOW (MainWindow));
+
+    if (dialog)
     {
         /* Common */
         LOAD_ON_STARTUP               = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(LoadOnStartup));
@@ -836,8 +838,9 @@ Apply_Changes_Of_UI (void)
      * Changes in user interface
      */
 
-    // Configuration of the preference window (see prefs.c) - Function also called when destroying the window
-    OptionsWindow_Apply_Changes();
+    /* Configuration of the preference window (see preferences_dialog.c).
+     * Function also called when destroying the window. */
+    et_preferences_dialog_apply_changes (ET_PREFERENCES_DIALOG (et_application_window_get_preferences_dialog (ET_APPLICATION_WINDOW (MainWindow))));
 
     // Configuration of the scanner window (see scan.c) - Function also called when destroying the window
     ScannerWindow_Apply_Changes();

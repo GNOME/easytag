@@ -27,8 +27,8 @@ src/ogg_header.c
 src/ogg_tag.c
 src/opus_header.c
 src/picture.c
-src/prefs.c
 src/playlist_dialog.c
+src/preferences_dialog.c
 src/scan_dialog.c
 src/search_dialog.c
 src/setting.c

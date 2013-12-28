@@ -1,4 +1,3 @@
-/* easytag.c - 2000/04/28 */
 /*
  *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
  *  Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
@@ -44,7 +43,7 @@
 #include "log.h"
 #include "misc.h"
 #include "bar.h"
-#include "prefs.h"
+#include "preferences_dialog.h"
 #include "setting.h"
 #include "scan.h"
 #include "scan_dialog.h"
@@ -136,7 +135,6 @@ common_init (GApplication *application)
     Main_Stop_Button_Pressed = FALSE;
     Init_Custom_Icons();
     Init_Mouse_Cursor();
-    Init_OptionsWindow();
     Init_ScannerWindow();
     Init_CddbWindow();
     BrowserEntryModel    = NULL;

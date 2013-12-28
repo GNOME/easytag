@@ -71,7 +71,7 @@ easytag_SOURCES = \
 	src/opus_tag.c \
 	src/picture.c \
 	src/playlist_dialog.c \
-	src/prefs.c \
+	src/preferences_dialog.c \
 	src/scan.c \
 	src/scan_dialog.c \
 	src/search_dialog.c \
@@ -118,7 +118,7 @@ easytag_headers = \
 	src/opus_tag.h \
 	src/picture.h \
 	src/playlist_dialog.h \
-	src/prefs.h \
+	src/preferences_dialog.h \
 	src/scan.h \
 	src/scan_dialog.h \
 	src/search_dialog.h \

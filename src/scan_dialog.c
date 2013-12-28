@@ -32,7 +32,7 @@
 #include "gtk2_compat.h"
 #include "scan.h"
 #include "easytag.h"
-#include "prefs.h"
+#include "preferences_dialog.h"
 #include "setting.h"
 #include "id3_tag.h"
 #include "bar.h"
