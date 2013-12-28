@@ -30,6 +30,7 @@ src/picture.c
 src/prefs.c
 src/playlist_dialog.c
 src/scan_dialog.c
+src/search_dialog.c
 src/setting.c
 src/vcedit.c
 src/wavpack_header.c

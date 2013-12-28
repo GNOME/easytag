@@ -37,6 +37,7 @@
 #include "load_files_dialog.h"
 #include "playlist_dialog.h"
 #include "prefs.h"
+#include "search_dialog.h"
 #include "bar.h"
 #include "easytag.h"
 #include "charset.h"
@@ -302,11 +303,6 @@ static const tConfigVariable Config_Variables[] =
 
     {"cddb_run_scanner",                        CV_TYPE_BOOL,    &CDDB_RUN_SCANNER                       },
 
-    {"set_search_window_position",              CV_TYPE_BOOL,    &SET_SEARCH_WINDOW_POSITION             },
-    {"search_window_x",                         CV_TYPE_INT,     &SEARCH_WINDOW_X                        },
-    {"search_window_y",                         CV_TYPE_INT,     &SEARCH_WINDOW_Y                        },
-    {"search_window_height",                    CV_TYPE_INT,     &SEARCH_WINDOW_HEIGHT                   },
-    {"search_window_width",                     CV_TYPE_INT,     &SEARCH_WINDOW_WIDTH                    },
     {"search_in_filename",                      CV_TYPE_BOOL,    &SEARCH_IN_FILENAME                     },
     {"search_in_tag",                           CV_TYPE_BOOL,    &SEARCH_IN_TAG                          },
     {"search_case_sensitive",                   CV_TYPE_BOOL,    &SEARCH_CASE_SENSITIVE                  },
@@ -575,11 +571,6 @@ void Init_Config_Variables (void)
     /*
      * Search window
      */
-    SET_SEARCH_WINDOW_POSITION  = 1; // Set it to '0' if problem with some Windows Manager
-    SEARCH_WINDOW_X             = -1;
-    SEARCH_WINDOW_Y             = -1;
-    SEARCH_WINDOW_HEIGHT        = 350;
-    SEARCH_WINDOW_WIDTH         = 650;
     SEARCH_IN_FILENAME          = 1;
     SEARCH_IN_TAG               = 1;
     SEARCH_CASE_SENSITIVE       = 0;
@@ -858,8 +849,9 @@ Apply_Changes_Of_UI (void)
      * Function also called when destroying the window. */
     et_playlist_dialog_apply_changes (ET_PLAYLIST_DIALOG (et_application_window_get_playlist_dialog (ET_APPLICATION_WINDOW (MainWindow))));
 
-    // Configuration of the search_file window (see misc.c) - Function also called when destroying the window
-    Search_File_Window_Apply_Changes();
+    /* Configuration of the search_file window (see search_dialog.c).
+     * Function also called when destroying the window. */
+    et_search_dialog_apply_changes (ET_SEARCH_DIALOG (et_application_window_get_search_dialog (ET_APPLICATION_WINDOW (MainWindow))));
 
     /* Configuration of the load_filename window (see load_files_dialog.c).
      * Function also called when destroying the window. */

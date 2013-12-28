@@ -286,7 +286,7 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { MENU_MISC,                NULL,                   _("_Miscellaneous"),                             NULL,         NULL,                                 NULL },
         { AM_SEARCH_FILE, GTK_STOCK_FIND, _("_Find…"), "<Primary>F",
           _("Search filenames and tags"),
-          G_CALLBACK (Open_Search_File_Window) },
+          G_CALLBACK (et_application_window_show_search_dialog) },
         { AM_CDDB_SEARCH, GTK_STOCK_CDROM, _("CDD_B Search…"), "<Primary>B",
           _("CDDB search"), G_CALLBACK (Open_Cddb_Window) },
         { AM_FILENAME_FROM_TXT, GTK_STOCK_OPEN,

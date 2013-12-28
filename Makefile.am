@@ -74,6 +74,7 @@ easytag_SOURCES = \
 	src/prefs.c \
 	src/scan.c \
 	src/scan_dialog.c \
+	src/search_dialog.c \
 	src/setting.c \
 	src/vcedit.c \
 	src/wavpack_header.c \
@@ -120,6 +121,7 @@ easytag_headers = \
 	src/prefs.h \
 	src/scan.h \
 	src/scan_dialog.h \
+	src/search_dialog.h \
 	src/setting.h \
 	src/ui_manager.h \
 	src/vcedit.h \

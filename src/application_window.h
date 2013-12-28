@@ -55,6 +55,8 @@ GtkWidget * et_application_window_get_playlist_dialog (EtApplicationWindow *self
 void et_application_window_show_playlist_dialog (GtkAction *action, gpointer user_data);
 GtkWidget * et_application_window_get_load_files_dialog (EtApplicationWindow *self);
 void et_application_window_show_load_files_dialog (GtkAction *action, gpointer user_data);
+GtkWidget * et_application_window_get_search_dialog (EtApplicationWindow *self);
+void et_application_window_show_search_dialog (GtkAction *action, gpointer user_data);
 void et_application_window_hide_log_area (EtApplicationWindow *self);
 void et_application_window_show_log_area (EtApplicationWindow *self);
 
