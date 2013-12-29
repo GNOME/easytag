@@ -25,6 +25,7 @@
 
 #include "bar.h"
 #include "browser.h"
+#include "cddb_dialog.h"
 #include "easytag.h"
 #include "gtk2_compat.h"
 #include "load_files_dialog.h"
@@ -48,6 +49,7 @@ struct _EtApplicationWindowPrivate
     GtkWidget *file_area;
     GtkWidget *log_area;
     GtkWidget *tag_area;
+    GtkWidget *cddb_dialog;
     GtkWidget *load_files_dialog;
     GtkWidget *playlist_dialog;
     GtkWidget *preferences_dialog;
@@ -1647,6 +1649,12 @@ et_application_window_dispose (GObject *object)
     self = ET_APPLICATION_WINDOW (object);
     priv = et_application_window_get_instance_private (self);
 
+    if (priv->cddb_dialog)
+    {
+        gtk_widget_destroy (priv->cddb_dialog);
+        priv->cddb_dialog = NULL;
+    }
+
     if (priv->load_files_dialog)
     {
         gtk_widget_destroy (priv->load_files_dialog);
@@ -1687,6 +1695,7 @@ et_application_window_init (EtApplicationWindow *self)
                                                      ET_TYPE_APPLICATION_WINDOW,
                                                      EtApplicationWindowPrivate);
 
+    priv->cddb_dialog = NULL;
     priv->load_files_dialog = NULL;
     priv->playlist_dialog = NULL;
     priv->preferences_dialog = NULL;
@@ -1963,6 +1972,51 @@ et_application_window_show_preferences_dialog_scanner (G_GNUC_UNUSED GtkAction *
     }
 
     et_preferences_dialog_show_scanner (ET_PREFERENCES_DIALOG (priv->preferences_dialog));
+}
+
+GtkWidget *
+et_application_window_get_cddb_dialog (EtApplicationWindow *self)
+{
+    EtApplicationWindowPrivate *priv;
+
+    g_return_val_if_fail (self != NULL, NULL);
+
+    priv = et_application_window_get_instance_private (self);
+
+    return priv->cddb_dialog;
+}
+
+void
+et_application_window_show_cddb_dialog (G_GNUC_UNUSED GtkAction *action,
+                                        gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    if (priv->cddb_dialog)
+    {
+        gtk_widget_show (priv->cddb_dialog);
+    }
+    else
+    {
+        priv->cddb_dialog = GTK_WIDGET (et_cddb_dialog_new ());
+        gtk_widget_show_all (priv->cddb_dialog);
+    }
+}
+
+void
+et_application_window_search_cddb_for_selection (G_GNUC_UNUSED GtkAction *action,
+                                                 gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_application_window_show_cddb_dialog (action, user_data);
+    et_cddb_dialog_search_from_selection (ET_CDDB_DIALOG (priv->cddb_dialog));
 }
 
 /*

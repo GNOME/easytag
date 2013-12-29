@@ -38,7 +38,7 @@
 #include "scan.h"
 #include "easytag.h"
 #include "browser.h"
-#include "cddb.h"
+#include "cddb_dialog.h"
 #include "charset.h"
 #include "win32/win32dep.h"
 

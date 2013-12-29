@@ -46,7 +46,7 @@ easytag_SOURCES = \
 	src/bar.c \
 	src/browser.c \
 	src/browser.h \
-	src/cddb.c \
+	src/cddb_dialog.c \
 	src/charset.c \
 	src/crc32.c \
 	src/dlm.c \
@@ -92,7 +92,7 @@ easytag_headers = \
 	src/application.h \
 	src/application_window.h \
 	src/bar.h \
-	src/cddb.h \
+	src/cddb_dialog.h \
 	src/charset.h \
 	src/crc32.h \
 	src/dlm.h \

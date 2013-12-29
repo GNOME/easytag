@@ -43,6 +43,7 @@
 #include "log.h"
 #include "misc.h"
 #include "bar.h"
+#include "cddb_dialog.h"
 #include "preferences_dialog.h"
 #include "setting.h"
 #include "scan.h"
@@ -51,7 +52,6 @@
 #include "id3_tag.h"
 #include "ogg_tag.h"
 #include "et_core.h"
-#include "cddb.h"
 #include "picture.h"
 #include "charset.h"
 
@@ -136,7 +136,6 @@ common_init (GApplication *application)
     Init_Custom_Icons();
     Init_Mouse_Cursor();
     Init_ScannerWindow();
-    Init_CddbWindow();
     BrowserEntryModel    = NULL;
     TrackEntryComboModel = NULL;
     GenreComboModel      = NULL;

@@ -33,6 +33,7 @@
 
 #include "setting.h"
 #include "application_window.h"
+#include "cddb_dialog.h"
 #include "load_files_dialog.h"
 #include "playlist_dialog.h"
 #include "preferences_dialog.h"
@@ -43,7 +44,6 @@
 #include "scan_dialog.h"
 #include "log.h"
 #include "misc.h"
-#include "cddb.h"
 #include "browser.h"
 #include "et_core.h"
 
@@ -260,12 +260,6 @@ static const tConfigVariable Config_Variables[] =
     {"cddb_proxy_port",                         CV_TYPE_INT,     &CDDB_PROXY_PORT                        },
     {"cddb_proxy_user_name",                    CV_TYPE_STRING,  &CDDB_PROXY_USER_NAME                   },
     {"cddb_proxy_user_password",                CV_TYPE_STRING,  &CDDB_PROXY_USER_PASSWORD               },
-    {"set_cddb_window_position",                CV_TYPE_BOOL,    &SET_CDDB_WINDOW_POSITION               },
-    {"cddb_window_x",                           CV_TYPE_INT,     &CDDB_WINDOW_X                          },
-    {"cddb_window_y",                           CV_TYPE_INT,     &CDDB_WINDOW_Y                          },
-    {"cddb_window_height",                      CV_TYPE_INT,     &CDDB_WINDOW_HEIGHT                     },
-    {"cddb_window_width",                       CV_TYPE_INT,     &CDDB_WINDOW_WIDTH                      },
-    {"cddb_pane_handle_position",               CV_TYPE_INT,     &CDDB_PANE_HANDLE_POSITION              },
 
     {"cddb_follow_file",                        CV_TYPE_BOOL,    &CDDB_FOLLOW_FILE                       },
     {"cddb_use_dlm",                            CV_TYPE_BOOL,    &CDDB_USE_DLM                           },
@@ -524,13 +518,6 @@ void Init_Config_Variables (void)
     CDDB_PROXY_PORT                         = 8080;
     CDDB_PROXY_USER_NAME                    = NULL;
     CDDB_PROXY_USER_PASSWORD                = NULL;
-
-    SET_CDDB_WINDOW_POSITION      = 1; // Set it to '0' if problem with some Windows Manager
-    CDDB_WINDOW_X                 = -1;
-    CDDB_WINDOW_Y                 = -1;
-    CDDB_WINDOW_WIDTH             = 660;
-    CDDB_WINDOW_HEIGHT            = 470;
-    CDDB_PANE_HANDLE_POSITION     = 350;
 
     CDDB_FOLLOW_FILE              = 1;
     CDDB_USE_DLM                  = 0;
@@ -845,8 +832,9 @@ Apply_Changes_Of_UI (void)
     // Configuration of the scanner window (see scan.c) - Function also called when destroying the window
     ScannerWindow_Apply_Changes();
 
-    // Configuration of the cddb window (see cddb.c) - Function also called when destroying the window
-    Cddb_Window_Apply_Changes();
+    /* Configuration of the cddb window (see cddb_dialog.c).
+     * Function also called when destroying the window. */
+    et_cddb_dialog_apply_changes (ET_CDDB_DIALOG (et_application_window_get_cddb_dialog (ET_APPLICATION_WINDOW (MainWindow))));
 
     /* Configuration of the playlist window (see playlist_dialog.c).
      * Function also called when destroying the window. */

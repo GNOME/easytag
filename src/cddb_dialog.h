@@ -1,4 +1,3 @@
-/* cddb.h - 2002/09/15 */
 /*
  *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
  *  Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
@@ -18,15 +17,37 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef ET_CDDB_H_
-#define ET_CDDB_H_
+#ifndef ET_CDDB_DIALOG_H_
+#define ET_CDDB_DIALOG_H_
+
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
-void Init_CddbWindow (void);
-void Open_Cddb_Window (void);
-void Cddb_Popup_Menu_Search_Selected_File (void);
-void Cddb_Window_Apply_Changes (void);
+#define ET_TYPE_CDDB_DIALOG (et_cddb_dialog_get_type ())
+#define ET_CDDB_DIALOG(object) (G_TYPE_CHECK_INSTANCE_CAST ((object), ET_TYPE_CDDB_DIALOG, EtCDDBDialog))
+
+typedef struct _EtCDDBDialog EtCDDBDialog;
+typedef struct _EtCDDBDialogClass EtCDDBDialogClass;
+typedef struct _EtCDDBDialogPrivate EtCDDBDialogPrivate;
+
+struct _EtCDDBDialog
+{
+    /*< private >*/
+    GtkDialog parent_instance;
+    EtCDDBDialogPrivate *priv;
+};
+
+struct _EtCDDBDialogClass
+{
+    /*< private >*/
+    GtkDialogClass parent_class;
+};
+
+GType et_cddb_dialog_get_type (void);
+EtCDDBDialog *et_cddb_dialog_new (void);
+void et_cddb_dialog_apply_changes (EtCDDBDialog *self);
+gboolean et_cddb_dialog_search_from_selection (EtCDDBDialog *self);
 
 G_END_DECLS
 

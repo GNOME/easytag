@@ -31,7 +31,7 @@
 #include "setting.h"
 #include "browser.h"
 #include "scan_dialog.h"
-#include "cddb.h"
+#include "cddb_dialog.h"
 #include "log.h"
 #include "misc.h"
 #include "charset.h"
@@ -288,7 +288,8 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
           _("Search filenames and tags"),
           G_CALLBACK (et_application_window_show_search_dialog) },
         { AM_CDDB_SEARCH, GTK_STOCK_CDROM, _("CDD_B Search…"), "<Primary>B",
-          _("CDDB search"), G_CALLBACK (Open_Cddb_Window) },
+          _("CDDB search"),
+          G_CALLBACK (et_application_window_show_cddb_dialog) },
         { AM_FILENAME_FROM_TXT, GTK_STOCK_OPEN,
           _("Load Filenames From a Text File…"), "<Primary>T",
           _("Load filenames from a text file"),
@@ -331,7 +332,9 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { POPUP_DIR_RUN_AUDIO,          GTK_STOCK_MEDIA_PLAY,   _("Run Audio Player"),          NULL, _("Run audio player"),        G_CALLBACK(Run_Audio_Player_Using_Directory) },
         { AM_ARTIST_RUN_AUDIO_PLAYER,   GTK_STOCK_MEDIA_PLAY,   _("Run Audio Player"),          NULL, _("Run audio player"),        G_CALLBACK(Run_Audio_Player_Using_Browser_Artist_List) },
         { AM_ALBUM_RUN_AUDIO_PLAYER,    GTK_STOCK_MEDIA_PLAY,   _("Run Audio Player"),          NULL, _("Run audio player"),        G_CALLBACK(Run_Audio_Player_Using_Browser_Album_List)  },
-        { AM_CDDB_SEARCH_FILE,          GTK_STOCK_CDROM,   _("CDDB Search Files…"),    NULL, _("CDDB search files…"),  G_CALLBACK(Cddb_Popup_Menu_Search_Selected_File) },
+        { AM_CDDB_SEARCH_FILE, GTK_STOCK_CDROM, _("CDDB Search Files…"), NULL,
+          _("CDDB search files…"),
+          G_CALLBACK (et_application_window_search_cddb_for_selection) },
         //{ AM_ARTIST_OPEN_FILE_WITH,     GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
         //{ AM_ALBUM_OPEN_FILE_WITH,      GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
 
