@@ -53,6 +53,7 @@ struct _EtApplicationWindowPrivate
     GtkWidget *load_files_dialog;
     GtkWidget *playlist_dialog;
     GtkWidget *preferences_dialog;
+    GtkWidget *scan_dialog;
     GtkWidget *search_dialog;
 
     /* Tag area labels. */
@@ -162,9 +163,13 @@ Convert_Letter_Uppercase (GtkWidget *entry)
 static void
 Convert_First_Letters_Uppercase (GtkWidget *entry)
 {
-    gchar *string = g_strdup (gtk_entry_get_text (GTK_ENTRY (entry)));
+    EtScanDialog *dialog;
+    gchar *string;
 
-    Scan_Process_Fields_First_Letters_Uppercase (&string);
+    string = g_strdup (gtk_entry_get_text (GTK_ENTRY (entry)));
+    dialog = ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (MainWindow)));
+
+    Scan_Process_Fields_First_Letters_Uppercase (dialog, &string);
     gtk_entry_set_text (GTK_ENTRY (entry), string);
     g_free (string);
 }
@@ -1673,6 +1678,12 @@ et_application_window_dispose (GObject *object)
         priv->preferences_dialog = NULL;
     }
 
+    if (priv->scan_dialog)
+    {
+        gtk_widget_destroy (priv->scan_dialog);
+        priv->scan_dialog = NULL;
+    }
+
     if (priv->search_dialog)
     {
         gtk_widget_destroy (priv->search_dialog);
@@ -1699,6 +1710,7 @@ et_application_window_init (EtApplicationWindow *self)
     priv->load_files_dialog = NULL;
     priv->playlist_dialog = NULL;
     priv->preferences_dialog = NULL;
+    priv->scan_dialog = NULL;
     priv->search_dialog = NULL;
 
     window = GTK_WINDOW (self);
@@ -2017,6 +2029,96 @@ et_application_window_search_cddb_for_selection (G_GNUC_UNUSED GtkAction *action
 
     et_application_window_show_cddb_dialog (action, user_data);
     et_cddb_dialog_search_from_selection (ET_CDDB_DIALOG (priv->cddb_dialog));
+}
+
+GtkWidget *
+et_application_window_get_scan_dialog (EtApplicationWindow *self)
+{
+    EtApplicationWindowPrivate *priv;
+
+    g_return_val_if_fail (self != NULL, NULL);
+
+    priv = et_application_window_get_instance_private (self);
+
+    return priv->scan_dialog;
+}
+
+void
+et_application_window_show_scan_dialog (GtkAction *action, gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    gboolean active;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+    active = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
+
+    if (!active)
+    {
+        if (priv->scan_dialog)
+        {
+            gtk_widget_hide (priv->scan_dialog);
+        }
+        else
+        {
+            return;
+        }
+    }
+    else
+    {
+        if (priv->scan_dialog)
+        {
+            gtk_widget_show (priv->scan_dialog);
+        }
+        else
+        {
+            priv->scan_dialog = GTK_WIDGET (et_scan_dialog_new ());
+            gtk_widget_show (priv->scan_dialog);
+        }
+    }
+}
+
+/*
+ * Action when Scan button is pressed
+ */
+void
+et_application_window_scan_selected_files (G_GNUC_UNUSED GtkAction *action,
+                                           gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_scan_dialog_scan_selected_files (ET_SCAN_DIALOG (priv->scan_dialog));
+}
+
+/*
+ * et_on_action_select_scan_mode:
+ * @action: the action on which the signal was emitted
+ * @current: the member of the action group which has just been activated
+ * @user_data: user data set when the signal handler was connected
+ *
+ * Select the current scanner mode and open the scanner window.
+ */
+void
+et_on_action_select_scan_mode (GtkRadioAction *action, GtkRadioAction *current,
+                               gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+    gint active_value;
+
+    priv = et_application_window_get_instance_private (self);
+
+    active_value = gtk_radio_action_get_current_value (action);
+
+    if (SCANNER_TYPE != active_value)
+    {
+        SCANNER_TYPE = active_value;
+    }
+
+    et_scan_dialog_open (ET_SCAN_DIALOG (priv->scan_dialog), SCANNER_TYPE);
 }
 
 /*

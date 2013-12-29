@@ -63,6 +63,10 @@ void et_application_window_show_preferences_dialog_scanner (GtkAction *action, g
 GtkWidget * et_application_window_get_cddb_dialog (EtApplicationWindow *self);
 void et_application_window_show_cddb_dialog (GtkAction *action, gpointer user_data);
 void et_application_window_search_cddb_for_selection (GtkAction *action, gpointer user_data);
+GtkWidget * et_application_window_get_scan_dialog (EtApplicationWindow *self);
+void et_application_window_show_scan_dialog (GtkAction *action, gpointer user_data);
+void et_application_window_scan_selected_files (GtkAction *action, gpointer user_data);
+void et_on_action_select_scan_mode (GtkRadioAction *action, GtkRadioAction *current, gpointer user_data);
 void et_application_window_hide_log_area (EtApplicationWindow *self);
 void et_application_window_show_log_area (EtApplicationWindow *self);
 

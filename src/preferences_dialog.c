@@ -35,7 +35,7 @@
 #include "setting.h"
 #include "bar.h"
 #include "misc.h"
-#include "scan.h"
+#include "scan_dialog.h"
 #include "easytag.h"
 #include "browser.h"
 #include "cddb_dialog.h"

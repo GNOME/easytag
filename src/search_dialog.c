@@ -30,7 +30,7 @@
 #include "log.h"
 #include "misc.h"
 #include "picture.h"
-#include "scan.h"
+#include "scan_dialog.h"
 #include "setting.h"
 
 /* TODO: Use G_DEFINE_TYPE_WITH_PRIVATE. */

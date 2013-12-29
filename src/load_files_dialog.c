@@ -23,6 +23,7 @@
 #include <gdk/gdkkeysyms.h>
 #include <glib/gi18n.h>
 
+#include "application_window.h"
 #include "bar.h"
 #include "browser.h"
 #include "charset.h"
@@ -136,9 +137,18 @@ Load_Filename_Set_Filenames (EtLoadFilesDialog *self)
 
             g_free(filename_new_utf8);
 
-            // Then run current scanner if asked...
-            if (ScannerWindow && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->load_file_run_scanner)) )
-                Scan_Select_Mode_And_Run_Scanner(ETFile);
+            /* Then run current scanner if requested. */
+            if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->load_file_run_scanner)))
+            {
+                EtScanDialog *dialog;
+
+                dialog = ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (MainWindow)));
+
+                if (dialog)
+                {
+                    Scan_Select_Mode_And_Run_Scanner (dialog, ETFile);
+                }
+            }
         }
         g_free(list_text);
     }

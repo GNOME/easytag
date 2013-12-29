@@ -192,9 +192,6 @@ static const tConfigVariable Config_Variables[] =
     {"default_comment",                         CV_TYPE_STRING,  &DEFAULT_COMMENT                        },
     {"crc32_comment",                           CV_TYPE_BOOL,    &SET_CRC32_COMMENT                      },
     {"open_scanner_window_on_startup",          CV_TYPE_BOOL,    &OPEN_SCANNER_WINDOW_ON_STARTUP         },
-    {"set_scanner_window_position",             CV_TYPE_BOOL,    &SET_SCANNER_WINDOW_POSITION            },
-    {"scanner_window_x",                        CV_TYPE_INT,     &SCANNER_WINDOW_X                       },
-    {"scanner_window_y",                        CV_TYPE_INT,     &SCANNER_WINDOW_Y                       },
 
     {"confirm_before_exit",                     CV_TYPE_BOOL,    &CONFIRM_BEFORE_EXIT                    },
     {"confirm_write_tag",                       CV_TYPE_BOOL,    &CONFIRM_WRITE_TAG                      },
@@ -422,7 +419,7 @@ void Init_Config_Variables (void)
     /*
      * Scanner
      */
-    SCANNER_TYPE                              = SCANNER_FILL_TAG;
+    SCANNER_TYPE                              = ET_SCAN_TYPE_FILL_TAG;
     SCAN_MASK_EDITOR_BUTTON                   = 0;
     SCAN_LEGEND_BUTTON                        = 0;
     FTS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE = 1;
@@ -435,9 +432,6 @@ void Init_Config_Variables (void)
     DEFAULT_COMMENT                           = g_strdup("Tagged with EasyTAG");
     SET_CRC32_COMMENT                         = 0;
     OPEN_SCANNER_WINDOW_ON_STARTUP            = 0;
-    SET_SCANNER_WINDOW_POSITION               = 1; // Set it to '0' if problem with some Windows Manager
-    SCANNER_WINDOW_X                          = -1;
-    SCANNER_WINDOW_Y                          = -1;
 
     /*
      * Confirmation
@@ -805,12 +799,6 @@ Apply_Changes_Of_Preferences_Window (void)
         // FIX ME : commented as it reloads files...
         //Browser_Tree_Rebuild(NULL);
     }
-
-    if (ScannerWindow)
-    {
-        gtk_window_set_transient_for (GTK_WINDOW (ScannerWindow),
-                                      GTK_WINDOW (MainWindow));
-    }
 }
 
 /*
@@ -829,8 +817,9 @@ Apply_Changes_Of_UI (void)
      * Function also called when destroying the window. */
     et_preferences_dialog_apply_changes (ET_PREFERENCES_DIALOG (et_application_window_get_preferences_dialog (ET_APPLICATION_WINDOW (MainWindow))));
 
-    // Configuration of the scanner window (see scan.c) - Function also called when destroying the window
-    ScannerWindow_Apply_Changes();
+    /* Configuration of the scanner window (see scan_dialog.c).
+     * Function also called when destroying the window. */
+    et_scan_dialog_apply_changes (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (MainWindow))));
 
     /* Configuration of the cddb window (see cddb_dialog.c).
      * Function also called when destroying the window. */

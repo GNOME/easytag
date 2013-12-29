@@ -4,16 +4,12 @@ TODO List
 General tidying
 ---------------
 
-* Convert user guide to help in Mallard
-* Avoid using GdkWindow all over the place
-** Drop the window moving and size restoring code
 * Use PNG icons and drop the XPM ones
 * Use GProxyResolver for proxy settings
 * Port configuration settings to use GSettings
 * Port file I/O to use GFile from GIO
 ** Additionally, make I/O asynchronous
 ** Always use the GLib encoding for filenames (convert for display)
-* Instantiate windows on first use, not at startup
 * GObjectification
 * Avoid using gtk_events_pending(), use asynchronous operations instead
 

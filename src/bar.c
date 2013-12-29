@@ -224,7 +224,8 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { AM_LAST, GTK_STOCK_GOTO_LAST, _("_Last File"), "<Primary>End",
           _("Last file"), G_CALLBACK (Action_Select_Last_File) },
         { AM_SCAN_FILES, GTK_STOCK_APPLY, _("S_can Files"), NULL,
-          _("Scan selected files"), G_CALLBACK (Action_Scan_Selected_Files) },
+          _("Scan selected files"),
+          G_CALLBACK (et_application_window_scan_selected_files) },
         { AM_REMOVE, GTK_STOCK_CLEAR, _("_Remove Tags"), "<Primary>E",
           _("Remove tags"), G_CALLBACK (Action_Remove_Selected_Tags) },
         { AM_UNDO, GTK_STOCK_UNDO, _("_Undo Last Files Changes"), "<Primary>Z",
@@ -353,7 +354,8 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { AM_BROWSER_HIDDEN_DIR, NULL,                   _("Show Hidden Directories"),                         NULL, _("Show hidden directories"),                         G_CALLBACK(Browser_Tree_Rebuild),     BROWSE_HIDDEN_DIR },
 #endif /* !G_OS_WIN32 */
         { AM_SCANNER_SHOW, "document-properties", _("_Show Scanner"), NULL,
-          _("Show scanner"), G_CALLBACK (et_scan_show),
+          _("Show scanner"),
+          G_CALLBACK (et_application_window_show_scan_dialog),
           OPEN_SCANNER_WINDOW_ON_STARTUP },
     };
 
@@ -369,13 +371,13 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
     GtkRadioActionEntry scanner_mode_entries[] =
     {
         { AM_SCANNER_FILL_TAG, "document-properties", _("_Fill Tags…"), NULL,
-          _("Fill tags"), SCANNER_FILL_TAG },
+          _("Fill tags"), ET_SCAN_TYPE_FILL_TAG },
         { AM_SCANNER_RENAME_FILE, "document-properties",
           _("_Rename Files and Directories…"), NULL,
-          _("Rename files and directories"), SCANNER_RENAME_FILE },
+          _("Rename files and directories"), ET_SCAN_TYPE_RENAME_FILE },
         { AM_SCANNER_PROCESS_FIELDS, "document-properties",
           _("_Process Fields…"), NULL, _("Process Fields"),
-          SCANNER_PROCESS_FIELDS }
+          ET_SCAN_TYPE_PROCESS_FIELDS }
     };
 
     GError *error = NULL;

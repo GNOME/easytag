@@ -1,4 +1,3 @@
-/* scan.h - 2000/06/16 */
 /*
  *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
  *  Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
@@ -19,51 +18,67 @@
  */
 
 
-#ifndef __SCAN_H__
-#define __SCAN_H__
-
+#ifndef ET_SCAN_DIALOG_H_
+#define ET_SCAN_DIALOG_H_
 
 #include "et_core.h"
 
-/****************
- * Declarations *
- ****************/
-GtkWidget *ScannerWindow;
+#include <gtk/gtk.h>
 
+G_BEGIN_DECLS
 
-enum
+#define ET_TYPE_SCAN_DIALOG (et_scan_dialog_get_type ())
+#define ET_SCAN_DIALOG(object) (G_TYPE_CHECK_INSTANCE_CAST ((object), ET_TYPE_SCAN_DIALOG, EtScanDialog))
+
+typedef struct _EtScanDialog EtScanDialog;
+typedef struct _EtScanDialogClass EtScanDialogClass;
+typedef struct _EtScanDialogPrivate EtScanDialogPrivate;
+
+struct _EtScanDialog
 {
-    SCANNER_FILL_TAG = 0,
-    SCANNER_RENAME_FILE,
-    SCANNER_PROCESS_FIELDS
-}; // Add a new item : Min and Max values used in Open_ScannerWindow
+    /*< private >*/
+    GtkDialog parent_instance;
+    EtScanDialogPrivate *priv;
+};
+
+struct _EtScanDialogClass
+{
+    /*< private >*/
+    GtkDialogClass parent_class;
+};
+
+/*
+ * The mode for the scanner window.
+ */
+typedef enum
+{
+    ET_SCAN_TYPE_FILL_TAG,
+    ET_SCAN_TYPE_RENAME_FILE,
+    ET_SCAN_TYPE_PROCESS_FIELDS
+} EtScanType;
+
+GType et_scan_dialog_get_type (void);
+EtScanDialog *et_scan_dialog_new (void);
+void et_scan_dialog_apply_changes (EtScanDialog *self);
+void et_scan_dialog_open (EtScanDialog *self, EtScanType scanner_type);
+void et_scan_dialog_scan_selected_files (EtScanDialog *self);
+void et_scan_dialog_update_previews (EtScanDialog *self);
+
+G_END_DECLS
+
 
 enum {
     MASK_EDITOR_TEXT,
     MASK_EDITOR_COUNT
 };
 
-
-
-/**************
- * Prototypes *
- **************/
-
-void   Scan_Select_Mode_And_Run_Scanner     (ET_File *ETFile);
+void Scan_Select_Mode_And_Run_Scanner (EtScanDialog *self, ET_File *ETFile);
 gchar *Scan_Generate_New_Filename_From_Mask       (ET_File *ETFile, gchar *mask, gboolean no_dir_check_or_conversion);
 gchar *Scan_Generate_New_Directory_Name_From_Mask (ET_File *ETFile, gchar *mask, gboolean no_dir_check_or_conversion);
-void   Scan_Rename_File_Generate_Preview      (void);
-void   Scan_Fill_Tag_Generate_Preview         (void);
 void   Scan_Rename_Directory_Generate_Preview (void);
-
-void et_scan_show (GtkAction *action, gpointer user_data);
 
 void entry_check_rename_file_mask (GtkEntry *entry, gpointer user_data);
 
-void Scan_Process_Fields_First_Letters_Uppercase (gchar **str);
+void Scan_Process_Fields_First_Letters_Uppercase (EtScanDialog *self, gchar **str);
 
-void Init_ScannerWindow (void);
-void Open_ScannerWindow (gint scanner_type);
-void ScannerWindow_Apply_Changes (void);
-
-#endif /* __SCAN_H__ */
+#endif /* ET_SCAN_DIALOG_H_ */

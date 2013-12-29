@@ -21,6 +21,8 @@
 
 #include <glib.h>
 
+G_BEGIN_DECLS
+
 void Scan_Convert_Underscore_Into_Space (gchar *string);
 void Scan_Convert_P20_Into_Space (gchar *string);
 void Scan_Convert_Space_Into_Underscore (gchar *string);
@@ -31,5 +33,7 @@ void Scan_Remove_Spaces (gchar *string);
 gchar* Scan_Process_Fields_All_Uppercase (const gchar *string);
 gchar* Scan_Process_Fields_All_Downcase (const gchar *string);
 gchar* Scan_Process_Fields_Letter_Uppercase (const gchar *string);
+
+G_END_DECLS
 
 #endif /* !ET_SCAN_H_ */

@@ -39,6 +39,7 @@
 #include <errno.h>
 
 #include "gtk2_compat.h"
+#include "application_window.h"
 #include "cddb_dialog.h"
 #include "easytag.h"
 #include "et_core.h"
@@ -2648,9 +2649,16 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
             ET_Manage_Changes_Of_File_Data(*etfile,FileName,FileTag);
 
             /* Then run current scanner if requested. */
-            if (ScannerWindow && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->run_scanner_toggle)))
+            if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->run_scanner_toggle)))
             {
-                Scan_Select_Mode_And_Run_Scanner (*etfile);
+                EtScanDialog *dialog;
+
+                dialog = ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (MainWindow)));
+
+                if (dialog)
+                {
+                    Scan_Select_Mode_And_Run_Scanner (dialog, *etfile);
+                }
             }
         }
         else if (cddbtrackalbum && file_iterlist && file_iterlist->data)
@@ -2738,9 +2746,16 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
             ET_Manage_Changes_Of_File_Data(etfile,FileName,FileTag);
 
             /* Then run current scanner if requested. */
-            if (ScannerWindow && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->run_scanner_toggle)))
+            if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->run_scanner_toggle)))
             {
-                Scan_Select_Mode_And_Run_Scanner (etfile);
+                EtScanDialog *dialog;
+
+                dialog = ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (MainWindow)));
+
+                if (dialog)
+                {
+                    Scan_Select_Mode_And_Run_Scanner (dialog, etfile);
+                }
             }
         }
 

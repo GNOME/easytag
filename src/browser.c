@@ -1,4 +1,3 @@
-/* browser.c - 2000/04/28 */
 /*
  *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
  *  Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>

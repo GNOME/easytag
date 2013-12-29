@@ -101,6 +101,7 @@ gboolean ReadingDirectory;
 /**************
  * Prototypes *
  **************/
+void Disable_Command_Buttons (void);
 void et_on_action_select_all (void);
 void et_on_action_unselect_all (void);
 void Action_Invert_Files_Selection      (void);
@@ -111,7 +112,6 @@ void Action_Select_Last_File            (void);
 void Action_Select_Nth_File_By_Position (gulong num_item);
 void Action_Select_Nth_File_By_Etfile   (ET_File *ETFile);
 
-void Action_Scan_Selected_Files         (void);
 void Action_Remove_Selected_Tags        (void);
 gint Action_Undo_Selected_Files         (void);
 gint Action_Redo_Selected_File          (void);

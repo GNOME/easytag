@@ -446,7 +446,7 @@ write_button_clicked (EtPlaylistDialog *self)
         }
         if (RFS_CONVERT_SPACE_INTO_UNDERSCORE)
         {
-            Scan_Convert_Space_Into_Underscore(playlist_basename_utf8);
+            Scan_Convert_Space_Into_Underscore (playlist_basename_utf8);
         }
         if (RFS_REMOVE_SPACES)
 				 {

@@ -39,6 +39,7 @@
 #include "gtk2_compat.h"
 #include "easytag.h"
 #include "application.h"
+#include "application_window.h"
 #include "browser.h"
 #include "log.h"
 #include "misc.h"
@@ -46,7 +47,6 @@
 #include "cddb_dialog.h"
 #include "preferences_dialog.h"
 #include "setting.h"
-#include "scan.h"
 #include "scan_dialog.h"
 #include "mpeg_header.h"
 #include "id3_tag.h"
@@ -86,7 +86,6 @@ static gint SF_ButtonPressed_Delete_File;
 /**************
  * Prototypes *
  **************/
-static void Disable_Command_Buttons (void);
 static gboolean Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox);
 static gint Save_File (ET_File *ETFile, gboolean multiple_files,
                        gboolean force_saving_files);
@@ -135,7 +134,6 @@ common_init (GApplication *application)
     Main_Stop_Button_Pressed = FALSE;
     Init_Custom_Icons();
     Init_Mouse_Cursor();
-    Init_ScannerWindow();
     BrowserEntryModel    = NULL;
     TrackEntryComboModel = NULL;
     GenreComboModel      = NULL;
@@ -538,8 +536,7 @@ void Action_Select_First_File (void)
     }
 
     Update_Command_Buttons_Sensivity();
-    Scan_Rename_File_Generate_Preview();
-    Scan_Fill_Tag_Generate_Preview();
+    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (MainWindow))));
 
     if (SET_FOCUS_TO_FIRST_TAG_FIELD)
         gtk_widget_grab_focus(GTK_WIDGET(TitleEntry));
@@ -572,8 +569,7 @@ void Action_Select_Prev_File (void)
 //        gdk_beep(); // Warm the user
 
     Update_Command_Buttons_Sensivity();
-    Scan_Rename_File_Generate_Preview();
-    Scan_Fill_Tag_Generate_Preview();
+    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (MainWindow))));
 
     if (SET_FOCUS_TO_FIRST_TAG_FIELD)
         gtk_widget_grab_focus(GTK_WIDGET(TitleEntry));
@@ -606,8 +602,7 @@ void Action_Select_Next_File (void)
 //        gdk_beep(); // Warm the user
 
     Update_Command_Buttons_Sensivity();
-    Scan_Rename_File_Generate_Preview();
-    Scan_Fill_Tag_Generate_Preview();
+    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (MainWindow))));
 
     if (SET_FOCUS_TO_FIRST_TAG_FIELD)
         gtk_widget_grab_focus(GTK_WIDGET(TitleEntry));
@@ -637,8 +632,7 @@ void Action_Select_Last_File (void)
     }
 
     Update_Command_Buttons_Sensivity();
-    Scan_Rename_File_Generate_Preview();
-    Scan_Fill_Tag_Generate_Preview();
+    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (MainWindow))));
 
     if (SET_FOCUS_TO_FIRST_TAG_FIELD)
         gtk_widget_grab_focus(GTK_WIDGET(TitleEntry));
@@ -662,88 +656,8 @@ void Action_Select_Nth_File_By_Etfile (ET_File *ETFile)
     ET_Display_File_Data_To_UI(ETFile);
 
     Update_Command_Buttons_Sensivity();
-    Scan_Rename_File_Generate_Preview();
-    Scan_Fill_Tag_Generate_Preview();
+    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (MainWindow))));
 }
-
-
-/*
- * Action when Scan button is pressed
- */
-void Action_Scan_Selected_Files (void)
-{
-    gint progress_bar_index;
-    gint selectcount;
-    gchar progress_bar_text[30];
-    double fraction;
-    GList *selfilelist = NULL;
-    GList *l;
-    ET_File *etfile;
-    GtkTreeSelection *selection;
-
-    g_return_if_fail (ETCore->ETFileDisplayedList != NULL ||
-                      BrowserList != NULL);
-
-    /* Check if scanner window is opened */
-    if (!ScannerWindow)
-    {
-        Open_ScannerWindow(SCANNER_TYPE);
-        Statusbar_Message(_("Select Mode and Mask, and redo the same action"),TRUE);
-        return;
-    }
-
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
-
-    /* Initialize status bar */
-    selectcount = gtk_tree_selection_count_selected_rows(gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList)));
-    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar),0);
-    progress_bar_index = 0;
-    g_snprintf(progress_bar_text, 30, "%d/%d", progress_bar_index, selectcount);
-    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), progress_bar_text);
-
-    /* Set to unsensitive all command buttons (except Quit button) */
-    Disable_Command_Buttons();
-
-    progress_bar_index = 0;
-
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
-    selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
-
-    for (l = selfilelist; l != NULL; l = g_list_next (l))
-    {
-        etfile = Browser_List_Get_ETFile_From_Path (l->data);
-
-        // Run the current scanner
-        Scan_Select_Mode_And_Run_Scanner(etfile);
-
-        fraction = (++progress_bar_index) / (double) selectcount;
-        gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), fraction);
-        g_snprintf(progress_bar_text, 30, "%d/%d", progress_bar_index, selectcount);
-        gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), progress_bar_text);
-
-        /* Needed to refresh status bar */
-        while (gtk_events_pending())
-            gtk_main_iteration();
-    }
-
-    g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
-
-    // Refresh the whole list (faster than file by file) to show changes
-    Browser_List_Refresh_Whole_List();
-
-    /* Display the current file */
-    ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
-
-    /* To update state of command buttons */
-    Update_Command_Buttons_Sensivity();
-
-    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), "");
-    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), 0);
-    Statusbar_Message(_("All tags have been scanned"),TRUE);
-}
-
-
 
 /*
  * Action when Remove button is pressed
@@ -1925,31 +1839,6 @@ Action_Select_Browser_Style (void)
 }
 
 /*
- * et_on_action_select_scan_mode:
- * @action: the action on which the signal was emitted
- * @current: the member of the action group which has just been activated
- * @user_data: user data set when the signal handler was connected
- *
- * Select the current scanner mode and open the scanner window.
- */
-void
-et_on_action_select_scan_mode (GtkRadioAction *action, GtkRadioAction *current,
-                               gpointer user_data)
-{
-    gint active_value;
-
-    active_value = gtk_radio_action_get_current_value (action);
-
-    if (SCANNER_TYPE != active_value)
-    {
-        SCANNER_TYPE = active_value;
-    }
-
-    Open_ScannerWindow (SCANNER_TYPE);
-}
-
-
-/*
  * Scans the specified directory: and load files into a list.
  * If the path doesn't exist, we free the previous loaded list of files.
  */
@@ -2345,12 +2234,15 @@ ui_widget_set_sensitive (const gchar *menu, const gchar *action, gboolean sensit
  * Update_Command_Buttons_Sensivity: Set to sensitive/unsensitive the state of each button into
  * the commands area and menu items in function of state of the "main list".
  */
-void Update_Command_Buttons_Sensivity (void)
+void
+Update_Command_Buttons_Sensivity (void)
 {
     EtApplicationWindow *window;
+    GtkDialog *dialog;
     GtkAction *uiaction;
 
     window = ET_APPLICATION_WINDOW (MainWindow);
+    dialog = GTK_DIALOG (et_application_window_get_scan_dialog (window));
 
     if (!ETCore->ETFileDisplayedList)
     {
@@ -2365,10 +2257,10 @@ void Update_Command_Buttons_Sensivity (void)
         g_object_set(uiaction, "sensitive", FALSE, NULL);
 
         /* Scanner Window */
-        if (ScannerWindow)
+        if (dialog)
         {
-            gtk_dialog_set_response_sensitive (GTK_DIALOG (ScannerWindow),
-                                               GTK_RESPONSE_APPLY, FALSE);
+            gtk_dialog_set_response_sensitive (dialog, GTK_RESPONSE_APPLY,
+                                               FALSE);
         }
 
         /* Menu commands */
@@ -2446,10 +2338,10 @@ void Update_Command_Buttons_Sensivity (void)
         g_object_set(uiaction, "sensitive", FALSE, NULL);
 
         /* Scanner Window */
-        if (ScannerWindow)
+        if (dialog)
         {
-            gtk_dialog_set_response_sensitive (GTK_DIALOG (ScannerWindow),
-                                               GTK_RESPONSE_APPLY, TRUE);
+            gtk_dialog_set_response_sensitive (dialog, GTK_RESPONSE_APPLY,
+                                               TRUE);
         }
 
         /* Commands into menu */
@@ -2589,14 +2481,17 @@ void Update_Command_Buttons_Sensivity (void)
 /*
  * Just to disable buttons when we are saving files (do not disable Quit button)
  */
-static void
+void
 Disable_Command_Buttons (void)
 {
+    GtkDialog *dialog;
+
+    dialog = GTK_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (MainWindow)));
+
     /* Scanner Window */
-    if (ScannerWindow)
+    if (dialog)
     {
-        gtk_dialog_set_response_sensitive (GTK_DIALOG (ScannerWindow),
-                                           GTK_RESPONSE_APPLY, FALSE);
+        gtk_dialog_set_response_sensitive (dialog, GTK_RESPONSE_APPLY, FALSE);
     }
 
     /* "File" menu commands */
@@ -2637,9 +2532,13 @@ Init_Load_Default_Dir (void)
     ET_Core_Free();
     ET_Core_Initialize();
 
-    // Open the scanner window
+    /* FIXME: Open the scanner window. */
+    /*
     if (OPEN_SCANNER_WINDOW_ON_STARTUP)
-        Open_ScannerWindow(SCANNER_TYPE); // Open the last selected scanner
+    {
+        et_application_window_show_scan_dialog (ET_APPLICATION_WINDOW (MainWindow));
+    }
+    */
 
     if (INIT_DIRECTORY)
     {

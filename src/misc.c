@@ -34,8 +34,6 @@
 #include "setting.h"
 #include "bar.h"
 #include "preferences_dialog.h"
-#include "scan.h"
-#include "scan_dialog.h"
 #include "genres.h"
 #include "log.h"
 #include "charset.h"
