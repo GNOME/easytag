@@ -245,6 +245,7 @@ Section "Core ${PRODUCT_NAME} Files" SecProgram
   File /oname=ChangeLog.txt ChangeLog
   File /oname=COPYING.txt COPYING
   File /oname=README.txt README
+  File /oname=SOURCES.txt SOURCES
 
   ; Shortcuts
   ;!insertmacro MUI_STARTMENU_WRITE_BEGIN Application
