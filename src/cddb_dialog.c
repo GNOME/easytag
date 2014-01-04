@@ -1640,7 +1640,7 @@ static gchar *
 Cddb_Generate_Request_String_With_Fields_And_Categories_Options (EtCDDBDialog *self)
 {
     EtCDDBDialogPrivate *priv;
-    gchar string[256];
+    GString *string;
     gboolean cddbinallfields, cddbinartistfield, cddbintitlefield, cddbintracknamefield, cddbinotherfield;
     gboolean cddbinallcategories, cddbinbluescategory, cddbinclassicalcategory, cddbincountrycategory,
              cddbinfolkcategory, cddbinjazzcategory, cddbinmisccategory, cddbinnewagecategory,
@@ -1649,7 +1649,7 @@ Cddb_Generate_Request_String_With_Fields_And_Categories_Options (EtCDDBDialog *s
     priv = et_cddb_dialog_get_instance_private (self);
 
     /* Init. */
-    string[0] = 0;
+    string = g_string_sized_new (256);
 
     /* Fields. */
     cddbinallfields = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->search_all_toggle));
@@ -1658,13 +1658,19 @@ Cddb_Generate_Request_String_With_Fields_And_Categories_Options (EtCDDBDialog *s
     cddbintracknamefield = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->search_track_toggle));
     cddbinotherfield = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->search_other_toggle));
 
-    if (cddbinallfields)      strncat(string,"&allfields=YES",14);
-    else                      strncat(string,"&allfields=NO",13);
+    if (cddbinallfields)
+    {
+        g_string_append (string, "&allfields=YES");
+    }
+    else
+    {
+        g_string_append (string, "&allfields=NO");
+    }
 
-    if (cddbinartistfield)    strncat(string,"&fields=artist",14);
-    if (cddbintitlefield)     strncat(string,"&fields=title",13);
-    if (cddbintracknamefield) strncat(string,"&fields=track",13);
-    if (cddbinotherfield)     strncat(string,"&fields=rest",12);
+    if (cddbinartistfield) g_string_append (string, "&fields=artist");
+    if (cddbintitlefield) g_string_append (string, "&fields=title");
+    if (cddbintracknamefield) g_string_append (string, "&fields=track");
+    if (cddbinotherfield) g_string_append (string, "&fields=rest");
 
 
     // Categories (warning : there is one other CDDB catogories not used here ("data"))
@@ -1680,27 +1686,30 @@ Cddb_Generate_Request_String_With_Fields_And_Categories_Options (EtCDDBDialog *s
     cddbinrockcategory       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_rock_toggle));
     cddbinsoundtrackcategory = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_soundtrack_toggle));
 
-    strncat(string,"&allcats=NO",11);
+    g_string_append (string, "&allcats=NO");
+
     if (cddbinallcategories)
     {
-        // All categories except "data"
-        strncat(string,"&cats=blues&cats=classical&cats=country&cats=folk&cats=jazz"
-                       "&cats=misc&cats=newage&cats=reggae&cats=rock&cats=soundtrack",119);
-    }else
+        /* All categories except "data". */
+        g_string_append (string,
+                         "&cats=blues&cats=classical&cats=country&cats=folk&cats=jazz"
+                         "&cats=misc&cats=newage&cats=reggae&cats=rock&cats=soundtrack");
+    }
+    else
     {
-        if (cddbinbluescategory)      strncat(string,"&cats=blues",11);
-        if (cddbinclassicalcategory)  strncat(string,"&cats=classical",15);
-        if (cddbincountrycategory)    strncat(string,"&cats=country",13);
-        if (cddbinfolkcategory)       strncat(string,"&cats=folk",10);
-        if (cddbinjazzcategory)       strncat(string,"&cats=jazz",10);
-        if (cddbinmisccategory)       strncat(string,"&cats=misc",10);
-        if (cddbinnewagecategory)     strncat(string,"&cats=newage",12);
-        if (cddbinreggaecategory)     strncat(string,"&cats=reggae",12);
-        if (cddbinrockcategory)       strncat(string,"&cats=rock",10);
-        if (cddbinsoundtrackcategory) strncat(string,"&cats=soundtrack",16);
+        if (cddbinbluescategory) g_string_append (string, "&cats=blues");
+        if (cddbinclassicalcategory) g_string_append (string, "&cats=classical");
+        if (cddbincountrycategory) g_string_append (string, "&cats=country");
+        if (cddbinfolkcategory) g_string_append (string, "&cats=folk");
+        if (cddbinjazzcategory) g_string_append (string, "&cats=jazz");
+        if (cddbinmisccategory) g_string_append (string, "&cats=misc");
+        if (cddbinnewagecategory) g_string_append (string, "&cats=newage");
+        if (cddbinreggaecategory) g_string_append (string, "&cats=reggae");
+        if (cddbinrockcategory) g_string_append (string, "&cats=rock");
+        if (cddbinsoundtrackcategory) g_string_append (string, "&cats=soundtrack");
     }
 
-    return g_strdup(string);
+    return g_string_free (string, FALSE);
 }
 
 
