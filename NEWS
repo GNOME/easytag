@@ -1,7 +1,45 @@
-2.1.9alpha1 - 2013-10-09 :
-==========================
+2.1.9 - 2014-01-04 :
+====================
 
-    * Preview release for Windows
+    * Lots of general refactoring and stability improvements
+    * Replace most mini buttons with GtkEntry icons
+    * Many memory leak and invalid read fixes, found with Valgrind, cppcheck
+      and the CLang static analyzer
+    * Fix crash when the MusicBrainz CDDB search fails
+    * Remove ancient libmpg123 code and use id3lib for reading the MPEG header
+    * Use GtkDialog for child windows
+    * Many fixes when building for MinGW
+    * Rearrange menus and adjust keyboard accelerators to better fit with the
+      GNOME HIG
+    * Abhinav Jangda’s numerous bug fixes and porting to GIO/GFile
+    * Darshan’s column resizing and reordering patches
+    * Use GApplication for application life cycle
+    * Remove several custom icons and instead use the themed equivalents
+    * Do not split FLAC and Ogg tags by default
+    * Drop old Vorbis comment compatibility (XMMS and COMMENT fields)
+    * Mathias Reineke’s total tracks support, and several other fixes
+    * Adrian Bunk’s FLAC ID3 tag and obsolete translation improvements
+    * Do not set a custom wmclass on the scanner window
+    * Stop installing TODO, HACKING and THANKS files
+    * DocBook XML man page
+    * Marius Gavrilescu’s improvement for illustration image filenames
+    * Dominique Leuenberger’s licence and build improvements
+    * Florian Müllner’s GTK+ 3 deprecation fixes
+    * Ekaterina Gerasimova’s Mallard help, and removal of the outdated user
+      guide
+    * Enrico Nicoletto, Rafael Ferreira and Antonio Fernandes C. Neto’s
+      Brazilian Portuguese translation updates
+    * Marek Černocký’s Czech translation update
+    * Osman Karagöz’s Turkish translation
+    * Gil Forcada’s Catalan translation
+    * Balázs Úr’s Hungarian translation update
+    * Christian Kirbach’s German translation update
+    * Aurimas Černius’s Lithuanian translation update
+    * Stas Solovey’s Russian translation update
+    * Matej Urbančič and Martin Srebotnjak’s Slovenian translation updates
+    * Мирослав Николић’s Serbian translation update
+    * Piotr Drąg’s Polish translation update
+    * Milagros Infante Montero’s Spanish translation update
 
 2.1.8 - 2013-02-10 :
 ====================
