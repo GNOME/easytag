@@ -81,7 +81,7 @@ void Show_About_Window (void)
         NULL
     };
 
-    static const gchar copyright[] = "Copyright © 2012–2013 David King\n"
+    static const gchar copyright[] = "Copyright © 2012–2014 David King\n"
                                      "Copyright © 2009–2012 Kip Warner\n"
                                      "Copyright © 2000–2008 Jérôme Couderc";
 
