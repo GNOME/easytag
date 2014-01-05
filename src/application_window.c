@@ -2446,3 +2446,132 @@ et_application_window_unselect_all (GtkAction *action, gpointer user_data)
         ETCore->ETFileDisplayed = NULL;
     }
 }
+
+/*
+ * Action when First button is selected
+ */
+void
+et_application_window_select_first_file (GtkAction *action, gpointer user_data)
+{
+    GList *etfilelist;
+
+    if (!ETCore->ETFileDisplayedList)
+        return;
+
+    /* Save the current displayed data */
+    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
+
+    /* Go to the first item of the list */
+    etfilelist = ET_Displayed_File_List_First();
+    if (etfilelist)
+    {
+        Browser_List_Unselect_All_Files(); // To avoid the last line still selected
+        Browser_List_Select_File_By_Etfile((ET_File *)etfilelist->data,TRUE);
+        ET_Display_File_Data_To_UI((ET_File *)etfilelist->data);
+    }
+
+    Update_Command_Buttons_Sensivity();
+    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (user_data))));
+
+    if (SET_FOCUS_TO_FIRST_TAG_FIELD)
+        gtk_widget_grab_focus(GTK_WIDGET(TitleEntry));
+}
+
+
+/*
+ * Action when Prev button is selected
+ */
+void
+et_application_window_select_prev_file (GtkAction *action, gpointer user_data)
+{
+    GList *etfilelist;
+
+    if (!ETCore->ETFileDisplayedList || !ETCore->ETFileDisplayedList->prev)
+        return;
+
+    /* Save the current displayed data */
+    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
+
+    /* Go to the prev item of the list */
+    etfilelist = ET_Displayed_File_List_Previous();
+    if (etfilelist)
+    {
+        Browser_List_Unselect_All_Files();
+        Browser_List_Select_File_By_Etfile((ET_File *)etfilelist->data,TRUE);
+        ET_Display_File_Data_To_UI((ET_File *)etfilelist->data);
+    }
+
+//    if (!ETFileList->prev)
+//        gdk_beep(); // Warm the user
+
+    Update_Command_Buttons_Sensivity();
+    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (user_data))));
+
+    if (SET_FOCUS_TO_FIRST_TAG_FIELD)
+        gtk_widget_grab_focus(GTK_WIDGET(TitleEntry));
+}
+
+
+/*
+ * Action when Next button is selected
+ */
+void
+et_application_window_select_next_file (GtkAction *acton, gpointer user_data)
+{
+    GList *etfilelist;
+
+    if (!ETCore->ETFileDisplayedList || !ETCore->ETFileDisplayedList->next)
+        return;
+
+    /* Save the current displayed data */
+    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
+
+    /* Go to the next item of the list */
+    etfilelist = ET_Displayed_File_List_Next();
+    if (etfilelist)
+    {
+        Browser_List_Unselect_All_Files();
+        Browser_List_Select_File_By_Etfile((ET_File *)etfilelist->data,TRUE);
+        ET_Display_File_Data_To_UI((ET_File *)etfilelist->data);
+    }
+
+//    if (!ETFileList->next)
+//        gdk_beep(); // Warm the user
+
+    Update_Command_Buttons_Sensivity();
+    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (user_data))));
+
+    if (SET_FOCUS_TO_FIRST_TAG_FIELD)
+        gtk_widget_grab_focus(GTK_WIDGET(TitleEntry));
+}
+
+
+/*
+ * Action when Last button is selected
+ */
+void
+et_application_window_select_last_file (GtkAction *action, gpointer user_data)
+{
+    GList *etfilelist;
+
+    if (!ETCore->ETFileDisplayedList || !ETCore->ETFileDisplayedList->next)
+        return;
+
+    /* Save the current displayed data */
+    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
+
+    /* Go to the last item of the list */
+    etfilelist = ET_Displayed_File_List_Last();
+    if (etfilelist)
+    {
+        Browser_List_Unselect_All_Files();
+        Browser_List_Select_File_By_Etfile((ET_File *)etfilelist->data,TRUE);
+        ET_Display_File_Data_To_UI((ET_File *)etfilelist->data);
+    }
+
+    Update_Command_Buttons_Sensivity();
+    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (user_data))));
+
+    if (SET_FOCUS_TO_FIRST_TAG_FIELD)
+        gtk_widget_grab_focus(GTK_WIDGET(TitleEntry));
+}

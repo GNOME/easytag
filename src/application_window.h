@@ -69,6 +69,10 @@ void et_application_window_scan_selected_files (GtkAction *action, gpointer user
 void et_on_action_select_scan_mode (GtkRadioAction *action, GtkRadioAction *current, gpointer user_data);
 void et_application_window_select_all (GtkAction *action, gpointer user_data);
 void et_application_window_unselect_all (GtkAction *action, gpointer user_data);
+void et_application_window_select_prev_file (GtkAction *action, gpointer user_data);
+void et_application_window_select_next_file (GtkAction *action, gpointer user_data);
+void et_application_window_select_first_file (GtkAction *action, gpointer user_data);
+void et_application_window_select_last_file (GtkAction *action, gpointer user_data);
 void et_application_window_hide_log_area (EtApplicationWindow *self);
 void et_application_window_show_log_area (EtApplicationWindow *self);
 
