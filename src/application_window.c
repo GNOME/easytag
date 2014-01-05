@@ -2380,3 +2380,69 @@ et_application_window_tag_area_display_controls (EtApplicationWindow *self,
             break;
     }
 }
+
+/*
+ * Action when selecting all files
+ */
+void
+et_application_window_select_all (GtkAction *action, gpointer user_data)
+{
+    GtkWidget *focused;
+
+    /* Use the currently-focused widget and "select all" as appropriate.
+     * https://bugzilla.gnome.org/show_bug.cgi?id=697515 */
+    focused = gtk_window_get_focus (GTK_WINDOW (user_data));
+
+    if (GTK_IS_EDITABLE (focused))
+    {
+        gtk_editable_select_region (GTK_EDITABLE (focused), 0, -1);
+    }
+    else if (focused == PictureEntryView)
+    {
+        GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (focused));
+        gtk_tree_selection_select_all (selection);
+    }
+    else /* Assume that other widgets should select all in the file view. */
+    {
+        /* Save the current displayed data */
+        ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+
+        Browser_List_Select_All_Files ();
+        Update_Command_Buttons_Sensivity ();
+    }
+}
+
+/*
+ * Action when unselecting all
+ */
+void
+et_application_window_unselect_all (GtkAction *action, gpointer user_data)
+{
+    GtkWidget *focused;
+
+    focused = gtk_window_get_focus (GTK_WINDOW (user_data));
+
+    if (GTK_IS_EDITABLE (focused))
+    {
+        GtkEditable *editable;
+        gint pos;
+
+        editable = GTK_EDITABLE (focused);
+        pos = gtk_editable_get_position (editable);
+        gtk_editable_select_region (editable, 0, 0);
+        gtk_editable_set_position (editable, pos);
+    }
+    else if (focused == PictureEntryView)
+    {
+        GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (focused));
+        gtk_tree_selection_unselect_all (selection);
+    }
+    else /* Assume that other widgets should select all in the file view. */
+    {
+        /* Save the current displayed data */
+        ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+
+        Browser_List_Unselect_All_Files ();
+        ETCore->ETFileDisplayed = NULL;
+    }
+}

@@ -102,8 +102,6 @@ gboolean ReadingDirectory;
  * Prototypes *
  **************/
 void Disable_Command_Buttons (void);
-void et_on_action_select_all (void);
-void et_on_action_unselect_all (void);
 void Action_Invert_Files_Selection      (void);
 void Action_Select_Prev_File            (void);
 void Action_Select_Next_File            (void);

@@ -38,6 +38,7 @@
 #include <stdio.h>
 #include <errno.h>
 
+#include "application_window.h"
 #include "gtk2_compat.h"
 #include "easytag.h"
 #include "browser.h"
@@ -568,7 +569,7 @@ Browser_List_Button_Press (GtkTreeView *treeView, GdkEventButton *event)
     }else if (event->type==GDK_3BUTTON_PRESS && event->button==1)
     {
         /* Triple left mouse click, select all files of the list. */
-        et_on_action_select_all ();
+        et_application_window_select_all (NULL, MainWindow);
     }
     return FALSE;
 }
