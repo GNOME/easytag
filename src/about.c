@@ -39,7 +39,7 @@ void Show_About_Window (void)
     {
         "David King <amigadave@amigadave.com>",
         "Kip Warner <kip@thevertigo.com>",
-        "Santtu Lakkala <inzane@ircing.org>",
+        "Santtu Lakkala <inz@inz.fi>",
         "Jérôme Couderc <easytag@gmail.com>",
         "Daniel Drake <dsd@gentoo.org>",
         "Mihael Vrbanec <miqster@gmx.net>",
