@@ -3000,17 +3000,19 @@ static void collapse_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *treePa
     g_free (path);
     fileinfo = g_file_query_info (file, G_FILE_ATTRIBUTE_ACCESS_CAN_READ,
                                   G_FILE_QUERY_INFO_NONE, NULL, NULL);
-
-    if (fileinfo
-        && !g_file_info_get_attribute_boolean (fileinfo,
-                                               G_FILE_ATTRIBUTE_ACCESS_CAN_READ))
-    {
-        g_object_unref (file);
-        g_object_unref (fileinfo);
-        return;
-    }
     g_object_unref (file);
-    g_object_unref (fileinfo);
+
+    if (fileinfo)
+    {
+        if (!g_file_info_get_attribute_boolean (fileinfo,
+                                                G_FILE_ATTRIBUTE_ACCESS_CAN_READ))
+        {
+            g_object_unref (fileinfo);
+            return;
+        }
+
+        g_object_unref (fileinfo);
+    }
 
     gtk_tree_model_iter_children(GTK_TREE_MODEL(directoryTreeModel),
                                  &subNodeIter, iter);
