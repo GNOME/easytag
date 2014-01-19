@@ -566,9 +566,9 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
                 goto cleanup;
             }
 
-            if (g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
-                                           ogout.body, ogout.body_len,
-                                           &bytes_written, NULL, error))
+            if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
+                                            ogout.body, ogout.body_len,
+                                            &bytes_written, NULL, error))
             {
                 g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %ld bytes of "
                          "data were written", bytes_written, ogout.body_len);
