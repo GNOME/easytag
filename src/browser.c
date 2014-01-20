@@ -3578,6 +3578,8 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
     gtk_paned_pack1(GTK_PANED(BrowserHPaned),BrowserNoteBook,TRUE,TRUE);   // Left side
     gtk_paned_pack2(GTK_PANED(BrowserHPaned),ScrollWindowFileList,TRUE,TRUE); // Right side
 
+    /* TODO: Give the browser area a sensible default size. */
+    gtk_paned_set_position (GTK_PANED (BrowserHPaned), 250);
     gtk_widget_show_all(VerticalBox);
 
     /* Set home variable as current path */

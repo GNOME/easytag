@@ -1715,6 +1715,7 @@ et_application_window_init (EtApplicationWindow *self)
 
     window = GTK_WINDOW (self);
 
+    gtk_window_set_default_size (window, 1024, 768);
     gtk_window_set_icon_name (window, PACKAGE_TARNAME);
     gtk_window_set_title (window, PACKAGE_NAME);
 
@@ -1745,6 +1746,9 @@ et_application_window_init (EtApplicationWindow *self)
     /* Vertical box for FileArea + TagArea */
     vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
     gtk_paned_pack2 (GTK_PANED (priv->hpaned), vbox, FALSE, FALSE);
+
+    /* TODO: Set a sensible default size for both widgets in the paned. */
+    gtk_paned_set_position (GTK_PANED (priv->hpaned), 600);
 
     /* File */
     priv->file_area = create_file_area ();
