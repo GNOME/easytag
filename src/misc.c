@@ -763,9 +763,10 @@ Run_Audio_Player_Using_File_List (GList *etfilelist)
     STARTUPINFO         siStartupInfo;
     PROCESS_INFORMATION piProcessInfo;
 #else /* !G_OS_WIN32 */
-    pid_t   pid;
+    GPid pid;
     gchar **argv_user;
     gint    argv_user_number;
+    GError *error = NULL;
 #endif /* !G_OS_WIN32 */
 
     g_return_if_fail (etfilelist != NULL);
@@ -796,6 +797,7 @@ Run_Audio_Player_Using_File_List (GList *etfilelist)
     }
     g_free(program_path);
 
+    /* TODO: Replace with g_spawn_async()? */
 #ifdef G_OS_WIN32
     // See documentation : http://c.developpez.com/faq/vc/?page=ProcessThread and http://www.answers.com/topic/createprocess
     ZeroMemory(&siStartupInfo, sizeof(siStartupInfo));
@@ -871,26 +873,26 @@ Run_Audio_Player_Using_File_List (GList *etfilelist)
     }
     argv[argv_index] = NULL; // Ends the list of arguments
 
-    pid = fork();
-    switch (pid)
+    if (g_spawn_async (NULL, argv, NULL,
+                       G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
+                       NULL, NULL, &pid, &error))
     {
-        case -1:
-            Log_Print(LOG_ERROR,_("Cannot fork another process"));
-            break;
-        case 0:
-        {
-            if (execvp(argv[0],argv) == -1)
-            {
-                Log_Print (LOG_ERROR, _("Cannot execute ‘%s’ (%s)"), argv[0],
-                           g_strerror (errno));
-            }
-            g_strfreev(argv_user);
-            _exit(1);
-            break;
-        }
-        default:
-            break;
+        gchar *msg;
+
+        g_child_watch_add (pid, et_on_child_exited, NULL);
+
+        msg = g_strdup_printf (_("Executed command: %s"), argv[0]);
+        Statusbar_Message (msg, TRUE);
+        g_free (msg);
     }
+    else
+    {
+        Log_Print (LOG_ERROR, _("Failed to launch program: %s"),
+                   error->message);
+        g_clear_error (&error);
+    }
+
+    g_strfreev (argv_user);
 #endif /* !G_OS_WIN32 */
 
     g_free(argv);
