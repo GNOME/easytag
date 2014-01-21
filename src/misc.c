@@ -3761,3 +3761,9 @@ et_track_number_to_string (const guint track_number)
                                                     track_number)
                                  : g_strdup_printf ("%d", track_number);
 }
+
+void
+et_on_child_exited (GPid pid, gint status, gpointer user_data)
+{
+    g_spawn_close_pid (pid);
+}

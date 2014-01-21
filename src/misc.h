@@ -106,4 +106,6 @@ void Load_Filename_Window_Apply_Changes (void);
 gchar * et_disc_number_to_string (const guint disc_number);
 gchar * et_track_number_to_string (const guint track_number);
 
+void et_on_child_exited (GPid pid, gint status, gpointer user_data);
+
 #endif /* __MISC_H__ */

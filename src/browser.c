@@ -4226,15 +4226,19 @@ Run_Program (const gchar *program_name, GList *args_list)
 {
 #ifdef G_OS_WIN32
     GList              *filelist;
-    gchar             **argv;
-    gint                argv_index = 0;
     gchar              *argv_join;
     gchar              *full_command;
     STARTUPINFO         siStartupInfo;
     PROCESS_INFORMATION piProcessInfo;
 #else /* !G_OS_WIN32 */
-    pid_t   pid;
+    gchar **argv_user;
+    gint    argv_user_number;
+    gchar  *msg;
+    GPid pid;
+    GError *error = NULL;
 #endif /* !G_OS_WIN32 */
+    gchar **argv;
+    gint    argv_index = 0;
     GList *l;
     gchar *program_path;
 
@@ -4276,6 +4280,7 @@ Run_Program (const gchar *program_name, GList *args_list)
     }
 
 
+    /* TODO: Replace with g_spawn_async()? */
 #ifdef G_OS_WIN32
     filelist = args_list;
 
@@ -4334,53 +4339,45 @@ Run_Program (const gchar *program_name, GList *args_list)
 
     g_free(program_path); // Freed as never used
 
-    pid = fork();
-    switch (pid)
+    argv_user = g_strsplit(program_name," ",0); // the string may contains arguments, space is the delimiter
+    // Number of arguments into 'argv_user'
+    for (argv_user_number=0;argv_user[argv_user_number];argv_user_number++);
+
+    argv = g_new0(gchar *,argv_user_number + g_list_length(args_list) + 1); // +1 for NULL
+
+    // Load 'user' arguments (program name and more...)
+    while (argv_user[argv_index])
     {
-        case -1:
-            Log_Print(LOG_ERROR,_("Cannot fork another process\n"));
-            //exit(-1);
-            break;
-        case 0:
-        {
-            gchar **argv;
-            gint    argv_index = 0;
-            gchar **argv_user;
-            gint    argv_user_number;
-            gchar  *msg;
-
-            argv_user = g_strsplit(program_name," ",0); // the string may contains arguments, space is the delimiter
-            // Number of arguments into 'argv_user'
-            for (argv_user_number=0;argv_user[argv_user_number];argv_user_number++);
-
-            argv = g_new0(gchar *,argv_user_number + g_list_length(args_list) + 1); // +1 for NULL
-
-            // Load 'user' arguments (program name and more...)
-            while (argv_user[argv_index])
-            {
-                argv[argv_index] = argv_user[argv_index];
-                argv_index++;
-            }
-            // Load arguments from 'args_list'
-            for (l = args_list; l != NULL; l = g_list_next (l))
-            {
-                argv[argv_index] = (gchar *)l->data;
-                argv_index++;
-            }
-            argv[argv_index] = NULL;
-
-            // Execution ...
-            execvp(argv[0],argv);
-
-            msg = g_strdup_printf (_("Executed command: %s"), program_name);
-            Statusbar_Message(msg,TRUE);
-            g_free(msg);
-            //_exit(-1);
-            break;
-        }
-        default:
-            break;
+        argv[argv_index] = argv_user[argv_index];
+        argv_index++;
     }
+    // Load arguments from 'args_list'
+    for (l = args_list; l != NULL; l = g_list_next (l))
+    {
+        argv[argv_index] = (gchar *)l->data;
+        argv_index++;
+    }
+    argv[argv_index] = NULL;
+
+    /* Execution ... */
+    if (g_spawn_async (NULL, argv, NULL,
+                       G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
+                       NULL, NULL, &pid, &error))
+    {
+        g_child_watch_add (pid, et_on_child_exited, NULL);
+
+        msg = g_strdup_printf (_("Executed command: %s"), program_name);
+        Statusbar_Message (msg, TRUE);
+        g_free (msg);
+    }
+    else
+    {
+        Log_Print (LOG_ERROR, _("Failed to launch program: %s"),
+                   error->message);
+        g_clear_error (&error);
+    }
+
+    g_strfreev (argv_user);
 #endif /* !G_OS_WIN32 */
 
     return TRUE;
