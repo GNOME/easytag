@@ -29,7 +29,6 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <errno.h>
-#include <signal.h>
 #ifdef ENABLE_MP3
 #include <id3tag.h>
 #endif
@@ -57,9 +56,6 @@
 #include "charset.h"
 
 #include "win32/win32dep.h"
-#ifndef G_OS_WIN32
-#include <sys/wait.h>
-#endif /* !G_OS_WIN32 */
 
 
 /****************
@@ -124,10 +120,6 @@ static gint SF_ButtonPressed_Delete_File;
 /**************
  * Prototypes *
  **************/
-#ifndef G_OS_WIN32
-static void Handle_Crash (gint signal_id);
-#endif /* !G_OS_WIN32 */
-
 static GtkWidget *Create_Browser_Area (void);
 static GtkWidget *Create_File_Area    (void);
 static GtkWidget *Create_Tag_Area     (void);
@@ -163,36 +155,6 @@ static void et_tag_field_connect_signals (GtkEntry *entry);
 static gboolean et_tag_field_on_key_press_event (GtkEntry *entry,
                                                  GdkEventKey *event,
                                                  gpointer user_data);
-
-#ifndef G_OS_WIN32
-static void
-setup_sigbus_fpe_segv (void)
-{
-    struct sigaction sa;
-    memset (&sa, 0, sizeof (struct sigaction));
-    sa.sa_handler = Handle_Crash;
-    sigaction (SIGBUS, &sa, NULL);
-    sigaction (SIGFPE, &sa, NULL);
-    sigaction (SIGSEGV, &sa, NULL);
-}
-
-static void
-sigchld_handler (int signum)
-{
-    wait (NULL);
-}
-
-static void
-setup_sigchld (void)
-{
-    struct sigaction sa;
-    memset (&sa, 0, sizeof (struct sigaction));
-    sa.sa_handler = sigchld_handler;
-    sigemptyset (&sa.sa_mask);
-    sa.sa_flags = SA_RESTART;
-    sigaction (SIGCHLD, &sa, NULL);
-}
-#endif /* !G_OS_WIN32 */
 
 /*
  * common_init:
@@ -580,14 +542,6 @@ int main (int argc, char *argv[])
     bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
     bind_textdomain_codeset (PACKAGE_TARNAME, "UTF-8");
 #endif /* ENABLE_NLS */
-
-#ifndef G_OS_WIN32
-    /* Signal handling to display a message(SIGSEGV, ...) */
-    setup_sigbus_fpe_segv ();
-    /* Must handle this signal to avoid zombies of child processes (e.g. xmms)
-     */
-    setup_sigchld ();
-#endif /* !G_OS_WIN32 */
 
     INIT_DIRECTORY = NULL;
 
@@ -4472,44 +4426,6 @@ void Attach_Popup_Menu_To_Tag_Entries (GtkEntry *entry)
     gtk_widget_show_all(PopupMenu);
 }
 
-
-
-/*
- * Function to manage the received signals (specially for segfaults)
- * Handle crashs
- */
-#ifndef G_OS_WIN32
-static void
-Handle_Crash (gint signal_id)
-{
-    //gchar commmand[256];
-
-    Log_Print(LOG_ERROR,_("EasyTAG version %s: Abnormal exit (PID: %d)"),PACKAGE_VERSION,getpid());
-    Log_Print (LOG_ERROR, _("Received signal '%s' (%d)"),
-               g_strsignal (signal_id), signal_id);
-
-    Log_Print(LOG_ERROR,_("You have probably found a bug in EasyTAG. Please, "
-                          "file a bug report with a GDB backtrace ('gdb "
-			  "easytag core' then 'bt' and 'l') and information "
-			  "to reproduce it at: %s"),PACKAGE_BUGREPORT);
-
-    // To send messages to the console...
-    g_print(_("EasyTAG version %s: Abnormal exit (PID: %d)."),PACKAGE_VERSION,getpid());
-    g_print("\n");
-    g_print (_("Received signal '%s' (%d)"), g_strsignal (signal_id),
-             signal_id);
-    g_print ("\a\n");
-    g_print(_("You have probably found a bug in EasyTAG. Please, file a bug "
-            "report with a GDB backtrace ('gdb easytag core' then 'bt' and "
-            "'l') and information to reproduce it at: %s"),PACKAGE_BUGREPORT);
-    g_print("\n");
-
-    signal(signal_id,SIG_DFL); // Let the OS handle recursive seg faults
-    //signal(SIGTSTP, exit);
-    //snprintf(commmand,sizeof(commmand),"gdb -x /root/core.txt easytag %d", getpid());
-    //system(commmand);
-}
-#endif /* !G_OS_WIN32 */
 
 
 /*
