@@ -231,6 +231,8 @@ Log_Format_Date (void)
     /* Time without date in current locale. */
     time = g_date_time_format (dt, "%X");
 
+    g_date_time_unref (dt);
+
     return time;
 }
 
