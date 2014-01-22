@@ -27,6 +27,9 @@ AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Package name for ge
 AS_IF([test "x$USE_NLS" != "xno"],
       [AC_DEFINE([ENABLE_NLS], [1], [Native Language support is enabled])])
 
+dnl AppData
+APPDATA_XML
+
 dnl -------------------------------
 dnl Checks for programs.
 dnl -------------------------------

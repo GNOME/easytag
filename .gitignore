@@ -13,6 +13,7 @@ config.h.in
 config.log
 config.status
 configure
+/data/easytag.appdata.xml
 /data/easytag.desktop
 /doc/easytag.1
 /doc/version.xml

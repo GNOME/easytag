@@ -1,6 +1,7 @@
 ACLOCAL_AMFLAGS = -I m4
 
 DISTCHECK_CONFIGURE_FLAGS = \
+	--enable-appdata-check \
 	--enable-flac \
 	--enable-id3v23 \
 	--enable-ogg \
@@ -148,6 +149,11 @@ easytag-win32-installer.nsi: easytag-win32-installer.nsi.in Makefile
 	$(AM_V_at)$(MKDIR_P) $(@D)
 	$(AM_V_at)touch $@
 
+@APPDATA_XML_RULES@
+@INTLTOOL_XML_RULE@
+appdata_in_files = data/easytag.appdata.xml.in
+appdata_XML = $(appdata_in_files:.appdata.xml.in=.appdata.xml)
+
 @INTLTOOL_DESKTOP_RULE@
 desktopdir = $(datadir)/applications
 desktop_in_files = data/easytag.desktop.in
@@ -224,6 +230,7 @@ uninstall-update-icon-cache:
 	test -n "$(DESTDIR)" || $(UPDATE_ICON_CACHE) "$(iconthemedir)"
 
 dist_noinst_DATA = \
+	$(appdata_in_files) \
 	$(desktop_in_files) \
 	$(easytag_headers) \
 	src/id3lib/patch_id3lib_3.8.3_UTF16_writing_bug.diff \
@@ -260,6 +267,7 @@ TESTS = \
 endif
 
 CLEANFILES = \
+	$(appdata_XML) \
 	$(check_SCRIPTS) \
 	$(desktop_DATA) \
 	$(easytag_rc) \

@@ -63,6 +63,7 @@ Installation
 * wavpack (http://www.wavpack.com/) (if not deactivated by './configure --disable-wavpack')
 * yelp-tools (https://git.gnome.org/browse/yelp-tools)
 * libc 6 (glibc 2.1) or greater
+* appdata-tools (https://github.com/hughsie/appdata-tools)
 * intltool (if not deactivated by './configure --disable-nls')
 
 ### Compilation instructions
