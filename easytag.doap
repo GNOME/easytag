@@ -26,6 +26,7 @@
     </GitRepository>
   </repository>
   <license rdf:resource="http://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html" />
+  <programming-language>C</programming-language>
 
   <maintainer>
     <foaf:Person>
