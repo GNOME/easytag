@@ -191,6 +191,7 @@ gboolean Id3tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag)
 
     g_free(string1);
 
+    /* Takes ownership of the file descriptor on success. */
     if ((file = id3_file_fdopen(tmpfile, ID3_FILE_MODE_READONLY)) == NULL)
     {
         close(tmpfile);
