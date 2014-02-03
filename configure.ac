@@ -328,14 +328,13 @@ AC_HEADER_DIRENT
 dnl -------------------------------
 dnl Checks for typedefs, structures, and compiler characteristics.
 dnl -------------------------------
-AC_TYPE_PID_T
 AC_TYPE_SIZE_T
 
 
 dnl -------------------------------
 dnl Checks for library functions.
 dnl -------------------------------
-AC_CHECK_FUNCS([ftruncate gettimeofday mkstemp truncate])
+AC_CHECK_FUNCS([ftruncate mkstemp truncate])
 
 AC_CONFIG_FILES([ Makefile
                   doc/version.xml
