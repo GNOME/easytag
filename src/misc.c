@@ -441,6 +441,7 @@ gboolean Parse_Date (void)
     {
         dt = g_date_time_new_now_local ();
         current_year = g_date_time_format (dt, "%Y");
+        g_date_time_unref (dt);
 
         tmp = &current_year[4-strlen(year)];
         if ( atoi(year) <= atoi(tmp) )
