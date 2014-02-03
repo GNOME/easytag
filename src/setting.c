@@ -1060,17 +1060,13 @@ Set_Config (gchar *line)
 
                 case CV_TYPE_STRING:
                 {
-                    if (!var_value)
+
+                    if (*(char **)Config_Variables[i].pointer != NULL)
                     {
-                        *(char **)Config_Variables[i].pointer = NULL;
-                        //g_print("\nConfig File Warning: Field of '%s' has no value!\n",var_descriptor);
-                    } else
-                    {
-                        if ( *(char **)Config_Variables[i].pointer != NULL )
-                            g_free(*(char **)Config_Variables[i].pointer);
-                        *(char **)Config_Variables[i].pointer = g_malloc(strlen(var_value)+1);
-                        strcpy( *(char **)Config_Variables[i].pointer,var_value );
+                        g_free (*(char **)Config_Variables[i].pointer);
                     }
+
+                    *(char **)Config_Variables[i].pointer = g_strdup (var_value);
                     break;
                 }
 
