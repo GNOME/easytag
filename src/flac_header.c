@@ -110,7 +110,7 @@ gboolean Flac_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
     /* End of decoding FLAC file */
 
 
-    filesize = Get_File_Size(filename);
+    filesize = et_get_file_size (filename);
     duration = (gint)tmp_file_info.length_in_msec/1000;
 
     ETFileInfo->version     = 0; // Not defined in FLAC file

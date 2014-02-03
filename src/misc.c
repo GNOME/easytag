@@ -1111,18 +1111,34 @@ gchar *Convert_Duration (gulong duration)
 }
 
 /*
- * Returns the size of a file in bytes
+ * @filename: (type filename): the path to a file
+ *
+ * Gets the size of a file in bytes.
+ *
+ * Returns: the size of a file, in bytes
  */
-off_t
-Get_File_Size (const gchar *filename)
+goffset
+et_get_file_size (const gchar *filename)
 {
-    struct stat statbuf;
+    GFile *file;
+    GFileInfo *info;
+    /* TODO: Take a GError from the caller. */
+    GError *error = NULL;
 
-    g_return_val_if_fail (filename != NULL, 0);
+    g_return_if_fail (filename != NULL);
 
-    stat (filename, &statbuf);
+    file = g_file_new_for_path (filename);
+    info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_SIZE,
+                              G_FILE_QUERY_INFO_NONE, NULL, &error);
 
-    return statbuf.st_size;
+    if (!info)
+    {
+        g_object_unref (file);
+        g_error_free (error);
+        return FALSE;
+    }
+
+    return g_file_info_get_size (info);
 }
 
 

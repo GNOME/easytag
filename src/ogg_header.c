@@ -295,7 +295,7 @@ Ogg_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
         }
     }
 
-    filesize = Get_File_Size(filename);
+    filesize = et_get_file_size (filename);
 
     ETFileInfo->version    = encoder_version;
     ETFileInfo->bitrate    = bitrate_nominal/1000;
@@ -358,7 +358,7 @@ gboolean Speex_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
         //g_print("compressed length: %ld bytes\n",(long)(ov_raw_total(&vf,-1)));
     }
 
-    filesize = Get_File_Size(filename);
+    filesize = et_get_file_size (filename);
 
     ETFileInfo->mpc_version = g_strdup(encoder_version);
     ETFileInfo->bitrate     = bitrate/1000;

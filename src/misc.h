@@ -84,7 +84,7 @@ gchar *Convert_Size (gsize size);
 gchar *Convert_Size_1 (gsize size);
 gchar *Convert_Duration (gulong duration);
 
-off_t Get_File_Size (const gchar *filename);
+goffset et_get_file_size (const gchar *filename);
 
 gint Combo_Alphabetic_Sort (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, gpointer data);
 

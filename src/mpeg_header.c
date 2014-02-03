@@ -88,7 +88,7 @@ Mpeg_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
     g_return_val_if_fail (filename != NULL || ETFileInfo != NULL, FALSE);
 
     /* Get size of file */
-    ETFileInfo->size = Get_File_Size (filename);
+    ETFileInfo->size = et_get_file_size (filename);
 
     /* Get data from tag */
     if ( (id3_tag = ID3Tag_New()) == NULL )
