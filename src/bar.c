@@ -539,12 +539,19 @@ Statusbar_Stop_Timer (void)
 }
 
 static void
+et_statusbar_reset_timer (void)
+{
+    StatusbarTimerId = 0;
+}
+
+static void
 Statusbar_Start_Timer (void)
 {
     Statusbar_Remove_Timer ();
-    StatusbarTimerId = g_timeout_add_seconds (4,
-                                              (GSourceFunc)Statusbar_Stop_Timer,
-                                              NULL);
+    StatusbarTimerId = g_timeout_add_seconds_full (G_PRIORITY_DEFAULT, 4,
+                                                   (GSourceFunc)Statusbar_Stop_Timer,
+                                                   NULL,
+                                                   (GDestroyNotify)et_statusbar_reset_timer);
     g_source_set_name_by_id (StatusbarTimerId, "Statusbar stop timer");
 }
 
@@ -555,7 +562,7 @@ Statusbar_Remove_Timer (void)
     {
         Statusbar_Stop_Timer ();
         g_source_remove(StatusbarTimerId);
-        StatusbarTimerId = 0;
+        et_statusbar_reset_timer ();
     }
 }
 
