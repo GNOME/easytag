@@ -269,14 +269,15 @@ void ET_Core_Free (void)
     ET_Core_Initialize();
 }
 
-void ET_Core_Destroy (void)
+void
+ET_Core_Destroy (void)
 {
-    // Free attached data
-    ET_Core_Free();
-
-    // Unallocate
-    g_free(ETCore);
-    ETCore = NULL;
+    if (ETCore)
+    {
+        ET_Core_Free ();
+        g_free (ETCore);
+        ETCore = NULL;
+    }
 }
 
 
