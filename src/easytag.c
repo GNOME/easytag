@@ -449,7 +449,6 @@ on_application_open (GApplication *application, GFile **files, gint n_files,
         case G_FILE_TYPE_REGULAR:
             /* When given a file, load the parent directory. */
             parent = g_file_get_parent (arg);
-            g_object_unref (arg);
 
             if (parent)
             {
