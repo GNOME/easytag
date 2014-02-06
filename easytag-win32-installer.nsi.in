@@ -183,6 +183,8 @@ Section "Core ${PRODUCT_NAME} Files" SecProgram
   File "${PREFIX}/bin/libgmodule-2.0-0.dll"
   File "${PREFIX}/bin/libgobject-2.0-0.dll"
   File "${PREFIX}/bin/libgtk-win32-2.0-0.dll"
+  File "${PREFIX}/bin/libid3-3-8-3.dll"
+  File "${PREFIX}/bin/libid3tag-0.dll"
   File "${PREFIX}/bin/libintl-8.dll"
   File "${PREFIX}/bin/libogg-0.dll"
   File "${PREFIX}/bin/libpango-1.0-0.dll"
