@@ -278,7 +278,7 @@ SectionGroup /e "Shortcuts" SecShortcuts
   Section "Context Menu" SecContextMenuShortcut
     SetOverwrite on
     WriteRegStr HKCR "Directory\shell\${PRODUCT_NAME}" "" "Browse with EasyTAG"
-    WriteRegStr HKCR "Directory\shell\${PRODUCT_NAME}\command" "" '"$INSTDIRbin\\${PRODUCT_EXE_NAME}" "%1"'
+    WriteRegStr HKCR "Directory\shell\${PRODUCT_NAME}\command" "" '"$INSTDIR\bin\${PRODUCT_EXE_NAME}" "%1"'
     SetOverwrite off
   SectionEnd
 SectionGroupEnd
