@@ -759,16 +759,10 @@ Run_Audio_Player_Using_File_List (GList *etfilelist)
     ET_File *etfile;
     gchar   *filename;
     gchar   *program_path;
-#ifdef G_OS_WIN32
-    gchar              *argv_join;
-    STARTUPINFO         siStartupInfo;
-    PROCESS_INFORMATION piProcessInfo;
-#else /* !G_OS_WIN32 */
     GPid pid;
     gchar **argv_user;
     gint    argv_user_number;
     GError *error = NULL;
-#endif /* !G_OS_WIN32 */
 
     g_return_if_fail (etfilelist != NULL);
 
@@ -798,57 +792,6 @@ Run_Audio_Player_Using_File_List (GList *etfilelist)
     }
     g_free(program_path);
 
-    /* TODO: Replace with g_spawn_async()? */
-#ifdef G_OS_WIN32
-    // See documentation : http://c.developpez.com/faq/vc/?page=ProcessThread and http://www.answers.com/topic/createprocess
-    ZeroMemory(&siStartupInfo, sizeof(siStartupInfo));
-    siStartupInfo.cb = sizeof(siStartupInfo);
-    ZeroMemory(&piProcessInfo, sizeof(piProcessInfo));
-
-    argv = g_new0(gchar *,g_list_length(etfilelist) + 2); // "+2" for 1rst arg 'foo' and last arg 'NULL'
-    argv[argv_index++] = "foo";
-
-    // Load files as arguments
-    for (l = etfilelist; l != NULL; l = g_list_next (l))
-    {
-        etfile = (ET_File *)l->data;
-        filename = ((File_Name *)etfile->FileNameCur->data)->value;
-        //filename_utf8 = ((File_Name *)etfile->FileNameCur->data)->value_utf8;
-        /* TODO: Use g_shell_quote() instead. */
-        // We must enclose filename between quotes, because of possible (probable!) spaces in filenames"
-        argv[argv_index++] = g_strconcat("\"", filename, "\"", NULL);
-    }
-    argv[argv_index] = NULL; // Ends the list of arguments
-
-    // Make a command line with all arguments (joins strings together to form one long string separated by a space)
-    argv_join = g_strjoinv(" ", argv);
-
-    if (CreateProcess(AUDIO_FILE_PLAYER,
-                      argv_join,
-                      NULL,
-                      NULL,
-                      FALSE,
-                      CREATE_DEFAULT_ERROR_MODE,
-                      NULL,
-                      NULL,
-                      &siStartupInfo,
-                      &piProcessInfo) == FALSE)
-    {
-        gchar *error;
-
-        error = g_win32_error_message (GetLastError ());
-        Log_Print (LOG_ERROR, _("Cannot execute ‘%s’ (%s)"), AUDIO_FILE_PLAYER,
-                   error);
-        g_free (error);
-    }
-
-    // Free allocated parameters (for each filename)
-    for (argv_index = 1; argv[argv_index]; argv_index++)
-        g_free(argv[argv_index]);
-
-    g_free(argv_join);
-
-#else /* !G_OS_WIN32 */
     argv_user = g_strsplit(AUDIO_FILE_PLAYER," ",0); // the string may contains arguments, space is the delimiter
     // Number of arguments into 'argv_user'
     for (argv_user_number=0;argv_user[argv_user_number];argv_user_number++);
@@ -894,7 +837,6 @@ Run_Audio_Player_Using_File_List (GList *etfilelist)
     }
 
     g_strfreev (argv_user);
-#endif /* !G_OS_WIN32 */
 
     g_free(argv);
 }

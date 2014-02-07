@@ -13,7 +13,6 @@ General tidying
 * Port file I/O to use GFile from GIO
 ** Additionally, make I/O asynchronous
 ** Always use the GLib encoding for filenames (convert for display)
-* Use g_spawn_async() or g_app_info_launch() to spawn processes
 * Instantiate windows on first use, not at startup
 * GObjectification
 * Avoid using gtk_events_pending(), use asynchronous operations instead

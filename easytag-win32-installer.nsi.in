@@ -195,6 +195,7 @@ Section "Core ${PRODUCT_NAME} Files" SecProgram
   File "${PREFIX}/bin/libvorbis-0.dll"
   File "${PREFIX}/bin/libvorbisfile-3.dll"
   File "${PREFIX}/bin/libwavpack-1.dll"
+  File "${PREFIX}/bin/gspawn-win32-helper.exe"
   File "${PREFIX}/bin/pango-querymodules.exe"
   File "${PREFIX}/bin/zlib1.dll"
 

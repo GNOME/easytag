@@ -4286,19 +4286,11 @@ Run_Program_With_Selected_Files (GtkWidget *combobox)
 static gboolean
 Run_Program (const gchar *program_name, GList *args_list)
 {
-#ifdef G_OS_WIN32
-    GList              *filelist;
-    gchar              *argv_join;
-    gchar              *full_command;
-    STARTUPINFO         siStartupInfo;
-    PROCESS_INFORMATION piProcessInfo;
-#else /* !G_OS_WIN32 */
     gchar **argv_user;
     gint    argv_user_number;
     gchar  *msg;
     GPid pid;
     GError *error = NULL;
-#endif /* !G_OS_WIN32 */
     gchar **argv;
     gint    argv_index = 0;
     GList *l;
@@ -4341,64 +4333,6 @@ Run_Program (const gchar *program_name, GList *args_list)
         return FALSE;
     }
 
-
-    /* TODO: Replace with g_spawn_async()? */
-#ifdef G_OS_WIN32
-    filelist = args_list;
-
-    // See documentation : http://c.developpez.com/faq/vc/?page=ProcessThread and http://www.answers.com/topic/createprocess
-    ZeroMemory(&siStartupInfo, sizeof(siStartupInfo));
-    siStartupInfo.cb = sizeof(siStartupInfo);
-    ZeroMemory(&piProcessInfo, sizeof(piProcessInfo));
-
-    argv = g_new0(gchar *,g_list_length(filelist) + 2); // "+2" for 1rst arg 'foo' and last arg 'NULL'
-    //argv[argv_index++] = "foo";
-
-    // Load files as arguments
-    for (l = filelist; l != NULL; l = g_list_next (l))
-    {
-        /* TODO: Use g_shell_quote() instead. */
-        // We must enclose filename between " because of possible (probable!) spaces in filenames"
-        argv[argv_index++] = g_strconcat ("\"", (gchar *)l->data, "\"", NULL);
-    }
-    argv[argv_index] = NULL; // Ends the list of arguments
-
-    // Make a command line with all arguments (joins strings together to form one long string separated by a space)
-    argv_join = g_strjoinv(" ", argv);
-    // Build the full command to pass to CreateProcess (FIX ME : it will ignore args of program)
-    full_command = g_strconcat("\"",program_path,"\" ",argv_join,NULL);
-
-    //if (CreateProcess(program_path, // Here it doesn't seem to load all the selected files
-    //                  argv_join,
-    if (CreateProcess(NULL,
-                      full_command,
-                      NULL,
-                      NULL,
-                      FALSE,
-                      CREATE_DEFAULT_ERROR_MODE,
-                      NULL,
-                      NULL,
-                      &siStartupInfo,
-                      &piProcessInfo) == FALSE)
-    {
-        gchar *error;
-
-        error = g_win32_error_message (GetLastError ());
-        Log_Print (LOG_ERROR, _("Cannot execute ‘%s’ (%s)"), program_name,
-                   error);
-        g_free (error);
-    }
-
-    // Free allocated parameters (for each filename)
-    for (argv_index = 1; argv[argv_index]; argv_index++)
-        g_free(argv[argv_index]);
-
-    g_free(argv_join);
-    g_free(full_command);
-    g_free(program_path);
-
-#else /* !G_OS_WIN32 */
-
     g_free(program_path); // Freed as never used
 
     argv_user = g_strsplit(program_name," ",0); // the string may contains arguments, space is the delimiter
@@ -4440,7 +4374,6 @@ Run_Program (const gchar *program_name, GList *args_list)
     }
 
     g_strfreev (argv_user);
-#endif /* !G_OS_WIN32 */
 
     return TRUE;
 }
