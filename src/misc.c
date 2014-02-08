@@ -1125,7 +1125,7 @@ et_get_file_size (const gchar *filename)
     /* TODO: Take a GError from the caller. */
     GError *error = NULL;
 
-    g_return_if_fail (filename != NULL);
+    g_return_val_if_fail (filename != NULL, 0);
 
     file = g_file_new_for_path (filename);
     info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_SIZE,
