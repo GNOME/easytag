@@ -430,7 +430,6 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
     gtk_widget_show_all(menubar);
 
     toolbar = gtk_ui_manager_get_widget (UIManager, "/ToolBar");
-    gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
     gtk_widget_show_all(toolbar);
 
     *pptoolbar = toolbar;
