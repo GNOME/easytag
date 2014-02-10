@@ -833,7 +833,13 @@ gboolean Browser_Tree_Select_Dir (const gchar *current_path)
     if (!Browser_Win32_Get_Drive_Root(parts[0], &parentNode, &rootPath))
         return FALSE;
 #else /* !G_OS_WIN32 */
-    gtk_tree_model_get_iter_first(GTK_TREE_MODEL(directoryTreeModel), &parentNode);
+    if (!gtk_tree_model_get_iter_first (GTK_TREE_MODEL (directoryTreeModel),
+                                        &parentNode))
+    {
+        g_message ("%s", "directoryTreeModel is empty");
+        return FALSE;
+    }
+
     rootPath = gtk_tree_path_new_first();
 #endif /* !G_OS_WIN32 */
     if (rootPath)
