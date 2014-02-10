@@ -213,9 +213,6 @@ static const gchar *ui_xml =
 "    <separator />"
 
 "    <toolitem action='Stop'/>"
-"    <separator />"
-
-"    <toolitem action='Quit'/>"
 "  </toolbar>"
 
 
