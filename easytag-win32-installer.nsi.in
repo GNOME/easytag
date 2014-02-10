@@ -1,9 +1,7 @@
 ; NSIS script for EasyTAG mingw
 ;
-; TODO: Test on a real Windows system.
 ; TODO: Write better introductory text (do not _need_ to agree to the GPL, not
 ;       necessary to quit other applications before installing).
-; TODO: Calculate installed size of files for Add/Remove Programs.
 
 !define PREFIX @PREFIX@
 !define PRODUCT_NAME @PACKAGE_NAME@
@@ -21,8 +19,8 @@ ShowInstDetails show
 ShowUninstDetails show
 
 ; Modern UI
-!include "MUI.nsh"
-!include "Sections.nsh"
+!include "MUI2.nsh"
+!include "FileFunc.nsh"
 
 ; MUI Settings
 !define MUI_ABORTWARNING
@@ -32,10 +30,8 @@ ShowUninstDetails show
 
 ; Modern UI Configuration
 !define MUI_HEADERIMAGE
-!define MUI_HEADERIMAGE_BITMAP_NOSTRETCH
 !define MUI_HEADERIMAGE_BITMAP "data/nsis/easytag-header.bmp"
 !define MUI_WELCOMEFINISHPAGE_BITMAP "data/nsis/easytag-sidebar.bmp"
-!define MUI_UNWELCOMEFINISHPAGE_BITMAP_NOSTRETCH
 !define MUI_UNWELCOMEFINISHPAGE_BITMAP "data/nsis/easytag-sidebar.bmp"
 
 ; Language Selection Dialog Settings
@@ -347,8 +343,14 @@ Section -Post
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "URLInfoAbout" "${PRODUCT_WEB_SITE}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher" "${PRODUCT_PUBLISHER}"
-  WriteRegDword ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "NoModify" "$1"
-  WriteRegDword ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "NoRepair" "$1"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Readme" "$INSTDIR\README.txt"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "InstallSource" "$EXEDIR"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "InstallLocation" "$INSTDIR"
+  ${GetSize} "$INSTDIR" "/S=0K" $0 $1 $2
+  IntFmt $0 "0x%08X" $0
+  WriteRegDword ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "EstimatedSize" "$0"
+  WriteRegDword ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "NoModify" 1
+  WriteRegDword ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "NoRepair" 1
 SectionEnd
 
 ; Section descriptions
