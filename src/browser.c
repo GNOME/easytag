@@ -2570,8 +2570,17 @@ Browser_Tree_Rename_Directory (const gchar *last_path, const gchar *new_path)
 
     for (i = 1; textsplit[i] != NULL; i++)
     {
-        gtk_tree_model_get_iter(GTK_TREE_MODEL(directoryTreeModel), &iter, parentpath);
-        childpath = Find_Child_Node(&iter, textsplit[i]);
+        gboolean valid = gtk_tree_model_get_iter (GTK_TREE_MODEL (directoryTreeModel),
+                                                  &iter, parentpath);
+        if (valid)
+        {
+            childpath = Find_Child_Node (&iter, textsplit[i]);
+        }
+        else
+        {
+            childpath = NULL;
+        }
+
         if (childpath == NULL)
         {
             // ERROR! Could not find it!
