@@ -1378,8 +1378,6 @@ Playlist_Write_Button_Pressed (void)
     gchar *playlist_name_utf8;      // Path + filename
     gchar *temp;
     GtkWidget *msgdialog;
-    gint response = 0;
-
 
     // Check if playlist name was filled
     if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_use_mask_name))
@@ -1484,9 +1482,6 @@ Playlist_Write_Button_Pressed (void)
 
     playlist_name = filename_from_display(playlist_name_utf8);
 
-    // Writing playlist if ok
-    if (response == 0
-    ||  response == GTK_RESPONSE_YES )
     {
         GFile *file = g_file_new_for_path (playlist_name);
         GError *error = NULL;
