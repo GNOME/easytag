@@ -1785,7 +1785,7 @@ Cddb_Write_Result_To_File (gint socket_id, gulong *bytes_read_total)
             //g_print("\nLine : %lu : %s\n",bytes_read,cddb_out);
 
             // Display message
-            size_str = Convert_Size_1(*bytes_read_total);
+            size_str =  g_format_size (*bytes_read_total);
             msg = g_strdup_printf(_("Receiving data (%s)…"),size_str);
             gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
             g_free(msg);

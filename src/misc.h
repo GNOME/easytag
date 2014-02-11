@@ -80,8 +80,6 @@ void Run_Audio_Player_Using_Selection (void);
 void Run_Audio_Player_Using_Browser_Artist_List (void);
 void Run_Audio_Player_Using_Browser_Album_List  (void);
 
-gchar *Convert_Size (gsize size);
-gchar *Convert_Size_1 (gsize size);
 gchar *Convert_Duration (gulong duration);
 
 goffset et_get_file_size (const gchar *filename);

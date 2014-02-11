@@ -414,8 +414,8 @@ gboolean Ogg_Header_Display_File_Info_To_UI (gchar *filename, ET_File_Info *ETFi
     g_free(text);
 
     /* Size */
-    size  = Convert_Size(ETFileInfo->size);
-    size1 = Convert_Size(ETCore->ETFileDisplayedList_TotalSize);
+    size  = g_format_size (ETFileInfo->size);
+    size1 = g_format_size (ETCore->ETFileDisplayedList_TotalSize);
     text  = g_strdup_printf("%s (%s)",size,size1);
     gtk_label_set_text(GTK_LABEL(SizeValueLabel),text);
     g_free(size);

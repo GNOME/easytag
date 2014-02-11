@@ -1036,54 +1036,6 @@ gchar *Check_If_Executable_Exists (const gchar *program)
 
 }
 
-
-
-/*
- * The returned string must be freed after use
- */
-gchar *
-Convert_Size (gsize size)
-{
-    /* Translators: file size (bytes, kilobytes, megabytes, gigabytes,
-     * terabytes). */
-    const gchar *units_tab[] = { N_("B"), N_("kB"), N_("MB"), N_("GB"), N_("TB")};
-    gsize i;
-
-    for (i = 0; size / 1024 && i < G_N_ELEMENTS (units_tab); i++)
-    {
-        size /= 1024;
-    }
-
-    return g_strdup_printf ("%.1" G_GSIZE_FORMAT " %s", size, _(units_tab[i]));
-}
-
-/*
- * Same as before except that if value in MB, we display 3 numbers after the
- * comma. The returned string must be freed after use.
- */
-gchar *
-Convert_Size_1 (gsize size)
-{
-    /* Translators: file size (bytes, kilobytes, megabytes, gigabytes,
-     * terabytes). */
-    const gchar *units_tab[] = { N_("B"), N_("kB"), N_("MB"), N_("GB"), N_("TB")};
-    guint i;
-
-    for (i = 0; size / 1024 && i < G_N_ELEMENTS (units_tab); i++)
-    {
-        size /= 1024;
-    }
-
-    /* FIXME: Separator should be taken from the locale. */
-    /* For large values : display 3 number afer the separator. */
-    if (i >= 2)
-        return g_strdup_printf ("%.3" G_GSIZE_FORMAT " %s", size,
-                                _(units_tab[i]));
-    else
-        return g_strdup_printf ("%.1" G_GSIZE_FORMAT " %s", size,
-                                _(units_tab[i]));
-}
-
 /*
  * Convert a series of seconds into a readable duration
  * Remember to free the string that is returned

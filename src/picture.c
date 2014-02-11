@@ -901,7 +901,7 @@ Picture_Info (Picture *pic)
         desc = "";
 
     type = Picture_Type_String(pic->type);
-    size_str = Convert_Size_1((gfloat)pic->size);
+    size_str = g_format_size (pic->size);
 
     s = g_string_new(0);
     // Behaviour following the tag type...
