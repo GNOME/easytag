@@ -1968,18 +1968,6 @@ int2roman_r (int num, char * str, size_t len)
       return str;
    };
 
-   // calculates sign
-   if (num < 0)
-   {
-      num *= -1;
-      if (1 > len)
-      {
-         return NULL;
-      };
-      str[pos] = '-';
-      pos++;
-   };
-
    // calculates thousands
    dividend = num/1000;
    if (dividend > (len-1))
