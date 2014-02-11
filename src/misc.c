@@ -1124,6 +1124,7 @@ et_get_file_size (const gchar *filename)
     GFileInfo *info;
     /* TODO: Take a GError from the caller. */
     GError *error = NULL;
+    goffset size;
 
     g_return_val_if_fail (filename != NULL, 0);
 
@@ -1138,7 +1139,12 @@ et_get_file_size (const gchar *filename)
         return FALSE;
     }
 
-    return g_file_info_get_size (info);
+    g_object_unref (file);
+
+    size = g_file_info_get_size (info);
+    g_object_unref (info);
+
+    return size;
 }
 
 
