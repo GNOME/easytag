@@ -1185,7 +1185,7 @@ Cddb_Search_String_In_Result (GtkWidget *entry, GtkButton *button)
     GtkTreePath *rowpath;
     gboolean result;
     gboolean itemselected = FALSE;
-    GtkTreeIter itercopy = iter;
+    GtkTreeIter itercopy;
 
     if (!CddbWindow || !CddbAlbumListView)
         return;
