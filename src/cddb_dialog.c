@@ -612,8 +612,8 @@ Cddb_Track_List_Row_Selected (EtCDDBDialog *self, GtkTreeSelection *selection)
         return;
     }
 
-    // Unselect files in the main list before re-selecting them...
-    Browser_List_Unselect_All_Files();
+    /* Unselect files in the main list before re-selecting them... */
+    et_application_window_browser_unselect_all (ET_APPLICATION_WINDOW (MainWindow));
 
     for (l = selectedRows; l != NULL; l = g_list_next (l))
     {
@@ -629,11 +629,15 @@ Cddb_Track_List_Row_Selected (EtCDDBDialog *self, GtkTreeSelection *selection)
                 gtk_tree_model_get(GTK_TREE_MODEL(priv->track_list_model), &currentFile,
                                    CDDB_TRACK_LIST_NAME, &text_path,
                                    CDDB_TRACK_LIST_ETFILE, &etfile, -1);
-                *etfile = Browser_List_Select_File_By_DLM(text_path, TRUE);
+                *etfile = et_application_window_browser_select_file_by_dlm (ET_APPLICATION_WINDOW (MainWindow),
+                                                                            text_path,
+                                                                            TRUE);
             } else
             {
                 text_path = gtk_tree_model_get_string_from_iter(GTK_TREE_MODEL(priv->track_list_model), &currentFile);
-                Browser_List_Select_File_By_Iter_String(text_path, TRUE);
+                et_application_window_browser_select_file_by_iter_string (ET_APPLICATION_WINDOW (MainWindow),
+                                                                          text_path,
+                                                                          TRUE);
             }
             g_free(text_path);
         }
@@ -2423,8 +2427,7 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
     GtkTreeIter *fileIter;
     gpointer iterptr;
 
-    g_return_val_if_fail (BrowserList != NULL
-                          && ETCore->ETFileDisplayedList != NULL, FALSE);
+    g_return_val_if_fail (ETCore->ETFileDisplayedList != NULL, FALSE);
 
     priv = et_cddb_dialog_get_instance_private (self);
 
@@ -2441,7 +2444,9 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
     cddbsettogenre      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_genre_toggle));
     cddbsettofilename   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_filename_toggle));
 
-    fileListModel = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(BrowserList)));
+    /* FIXME: Hack! */
+    file_selection = et_application_window_browser_get_selection (ET_APPLICATION_WINDOW (MainWindow));
+    fileListModel = GTK_LIST_STORE (gtk_tree_view_get_model (gtk_tree_selection_get_tree_view (file_selection)));
     list_length = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(priv->track_list_model), NULL);
 
     // Take the selected files in the cddb track list, else the full list
@@ -2467,8 +2472,7 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
         rows_to_loop = list_length;
     }
 
-    file_selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
-    file_selectedcount = gtk_tree_selection_count_selected_rows(file_selection);
+    file_selectedcount = gtk_tree_selection_count_selected_rows (file_selection);
 
     if (file_selectedcount > 0)
     {
@@ -2677,7 +2681,8 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
             File_Tag  *FileTag  = NULL;
 
             fileIter = (GtkTreeIter*) file_iterlist->data;
-            etfile = Browser_List_Get_ETFile_From_Iter(fileIter);
+            etfile = et_application_window_browser_get_et_file_from_iter (ET_APPLICATION_WINDOW (MainWindow),
+                                                                          fileIter);
 
             /*
              * Tag fields
@@ -2774,7 +2779,7 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
 
     g_list_free_full (file_iterlist, (GDestroyNotify)g_free);
 
-    Browser_List_Refresh_Whole_List();
+    et_application_window_browser_refresh_list (ET_APPLICATION_WINDOW (MainWindow));
     ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
 
     return TRUE;
@@ -3907,13 +3912,12 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
     GList *file_iterlist = NULL;
     GList *l;
 
-    g_return_val_if_fail (BrowserList != NULL, FALSE);
-
     priv = et_cddb_dialog_get_instance_private (self);
 
-    // Number of selected files
-    fileListModel = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(BrowserList)));
-    file_selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
+    /* Number of selected files. */
+    /* FIXME: Hack! */
+    file_selection = et_application_window_browser_get_selection (ET_APPLICATION_WINDOW (MainWindow));
+    fileListModel = GTK_LIST_STORE (gtk_tree_view_get_model (gtk_tree_selection_get_tree_view (file_selection)));
     file_selectedcount = gtk_tree_selection_count_selected_rows(file_selection);
 
     // Create the list 'file_iterlist' of selected files (no selected files => all files selected)
@@ -3979,7 +3983,8 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
         gulong secs = 0;
 
         fileIter = (GtkTreeIter *)l->data;
-        etfile = Browser_List_Get_ETFile_From_Iter(fileIter);
+        etfile = et_application_window_browser_get_et_file_from_iter (ET_APPLICATION_WINDOW (MainWindow),
+                                                                      fileIter);
 
         tmp = query_string;
         if (strlen(query_string)>0)

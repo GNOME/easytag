@@ -62,9 +62,6 @@ void Set_Unbusy_Cursor    (void);
 
 // Run Audio Player
 void Run_Audio_Player_Using_Directory (void);
-void Run_Audio_Player_Using_Selection (void);
-void Run_Audio_Player_Using_Browser_Artist_List (void);
-void Run_Audio_Player_Using_Browser_Album_List  (void);
 
 gchar *Convert_Duration (gulong duration);
 

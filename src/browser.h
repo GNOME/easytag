@@ -1,4 +1,3 @@
-/* browser.h - 2000/04/28 */
 /*
  *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
  *  Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
@@ -19,37 +18,40 @@
  */
 
 
-#ifndef __BROWSER_H__
-#define __BROWSER_H__
+#ifndef ET_BROWSER_H_
+#define ET_BROWSER_H_
 
 #include "et_core.h"
 
+#include <gtk/gtk.h>
 
-/****************
- * Declarations *
- ****************/
+G_BEGIN_DECLS
 
-/*
- * Data attached to each row of the artist list
- */
-#if 0
-typedef struct _ArtistRow ArtistRow;
-struct _ArtistRow
+#define ET_TYPE_BROWSER (et_browser_get_type ())
+#define ET_BROWSER(object) (G_TYPE_CHECK_INSTANCE_CAST ((object), ET_TYPE_BROWSER, EtBrowser))
+
+typedef struct _EtBrowser EtBrowser;
+typedef struct _EtBrowserClass EtBrowserClass;
+typedef struct _EtBrowserPrivate EtBrowserPrivate;
+
+struct _EtBrowser
 {
-    GList *AlbumList; // It's a list of AlbumList items...
+    /*< private >*/
+    GtkBox parent_instance;
+    EtBrowserPrivate *priv;
 };
-#endif
 
-/*
- * Data attached to each row of the artist list
- */
-#if 0
-typedef struct _AlbumRow AlbumRow;
-struct _AlbumRow
+struct _EtBrowserClass
 {
-    GList *ETFileList; // It's a list of ETFile items...
+    /*< private >*/
+    GtkBoxClass parent_class;
 };
-#endif
+
+GType et_browser_get_type (void);
+EtBrowser *et_browser_new (void);
+void et_browser_show_open_directory_with_dialog (EtBrowser *self);
+void et_browser_show_open_files_with_dialog (EtBrowser *self);
+void et_browser_show_rename_directory_dialog (EtBrowser *self);
 
 /*
  * To number columns of ComboBox
@@ -60,139 +62,56 @@ enum
     MISC_COMBO_COUNT // = 1 (Number of columns in ComboBox)
 };
 
+void et_browser_clear_album_model (EtBrowser *self);
+void et_browser_clear_artist_model (EtBrowser *self);
 
-enum
-{
-    TREE_COLUMN_DIR_NAME,
-    TREE_COLUMN_FULL_PATH,
-    TREE_COLUMN_SCANNED,
-    TREE_COLUMN_HAS_SUBDIR,
-    TREE_COLUMN_ICON,
-    TREE_COLUMN_COUNT
-};
+void et_browser_select_dir (EtBrowser *self, const gchar *current_path);
+void et_browser_reload (EtBrowser *self);
+void et_browser_collapse (EtBrowser *self);
+void et_browser_set_sensitive (EtBrowser *self, gboolean sensitive);
 
-enum
-{
-    LIST_FILE_NAME,
-    /* Tag fields. */
-    LIST_FILE_TITLE,
-    LIST_FILE_ARTIST,
-    LIST_FILE_ALBUM_ARTIST,
-    LIST_FILE_ALBUM,
-    LIST_FILE_YEAR,
-    LIST_FILE_DISCNO,
-    LIST_FILE_TRACK,
-    LIST_FILE_GENRE,
-    LIST_FILE_COMMENT,
-    LIST_FILE_COMPOSER,
-    LIST_FILE_ORIG_ARTIST,
-    LIST_FILE_COPYRIGHT,
-    LIST_FILE_URL,
-    LIST_FILE_ENCODED_BY,
-    /* End of columns with associated UI columns. */
-    LIST_FILE_POINTER,
-    LIST_FILE_KEY,
-    LIST_FILE_OTHERDIR, /* To change color for alternate directories. */
-    LIST_FONT_WEIGHT,
-    LIST_ROW_BACKGROUND,
-    LIST_ROW_FOREGROUND,
-    LIST_COLUMN_COUNT
-};
+void et_browser_load_file_list (EtBrowser *self, GList *etfilelist, ET_File *etfile_to_select);
+void et_browser_refresh_list (EtBrowser *self);
+void et_browser_refresh_file_in_list (EtBrowser *self, ET_File *ETFile);
+void et_browser_clear (EtBrowser *self);
+void et_browser_select_file_by_et_file (EtBrowser *self, ET_File *ETFile, gboolean select_it);
+GtkTreePath * et_browser_select_file_by_et_file2 (EtBrowser *self, ET_File *searchETFile, gboolean select_it, GtkTreePath *startPath);
+void et_browser_select_file_by_iter_string (EtBrowser *self, const gchar* stringiter, gboolean select_it);
+ET_File *et_browser_select_file_by_dlm (EtBrowser *self, const gchar* string, gboolean select_it);
+void et_browser_refresh_sort (EtBrowser *self);
+void et_browser_select_all (EtBrowser *self);
+void et_browser_unselect_all (EtBrowser *self);
+void et_browser_invert_selection (EtBrowser *self);
+void et_browser_remove_file (EtBrowser *self, ET_File *ETFile);
+ET_File * et_browser_get_et_file_from_path (EtBrowser *self, GtkTreePath *path);
+ET_File * et_browser_get_et_file_from_iter (EtBrowser *self, GtkTreeIter *iter);
 
-enum
-{
-    ARTIST_PIXBUF,
-    ARTIST_NAME,
-    ARTIST_NUM_ALBUMS,
-    ARTIST_NUM_FILES,
-    ARTIST_ALBUM_LIST_POINTER,
-    ARTIST_FONT_STYLE,
-    ARTIST_FONT_WEIGHT,
-    ARTIST_ROW_FOREGROUND,
-    ARTIST_COLUMN_COUNT
-};
+void et_browser_entry_set_text (EtBrowser *self, const gchar *text);
+void et_browser_label_set_text (EtBrowser *self, const gchar *text);
 
-enum
-{
-    ALBUM_GICON,
-    ALBUM_NAME,
-    ALBUM_NUM_FILES,
-    ALBUM_ETFILE_LIST_POINTER,
-    ALBUM_FONT_STYLE,
-    ALBUM_FONT_WEIGHT,
-    ALBUM_ROW_FOREGROUND,
-    ALBUM_ALL_ALBUMS_ROW,
-    ALBUM_COLUMN_COUNT
-};
+void et_browser_toggle_display_mode (EtBrowser *self);
 
+void et_browser_go_home (EtBrowser *self);
+void et_browser_go_desktop (EtBrowser *self);
+void et_browser_go_documents (EtBrowser *self);
+void et_browser_go_download (EtBrowser *self);
+void et_browser_go_music (EtBrowser *self);
+void et_browser_go_parent (EtBrowser *self);
 
-GtkWidget *BrowserList;
-GtkWidget *BrowserAlbumList;
-GtkWidget *BrowserArtistList;
-GtkWidget *BrowserEntryCombo;
-GtkListStore *BrowserEntryModel;
-GtkWidget *BrowserHPaned;
-GtkWidget *ArtistAlbumVPaned;
+void et_browser_run_player_for_album_list (EtBrowser *self);
+void et_browser_run_player_for_artist_list (EtBrowser *self);
+void et_browser_run_player_for_selection (EtBrowser *self);
 
-GtkWidget *RenameDirectoryWindow;
-GtkWidget *RenameDirectoryMaskCombo;
-GtkWidget *RenameDirectoryPreviewLabel;
+void et_browser_load_default_dir (EtBrowser *self);
+void et_browser_reload_directory (EtBrowser *self);
+void et_browser_set_current_path_default (EtBrowser *self);
+const gchar * et_browser_get_current_path (EtBrowser *self);
 
+GtkTreeSelection * et_browser_get_selection (EtBrowser *self);
 
-/**************
- * Prototypes *
- **************/
+GtkTreeViewColumn * et_browser_get_column_for_column_id (EtBrowser *self, gint column_id);
+GtkSortType et_browser_get_sort_order_for_column_id (EtBrowser *self, gint column_id);
 
-GtkWidget   *Create_Browser_Items    (GtkWidget *parent);
+G_END_DECLS
 
-void browser_album_model_clear (void);
-void browser_artist_model_clear (void);
-void browser_file_model_clear (void);
-
-gboolean     Browser_Tree_Select_Dir (const gchar *current_path);
-void         Browser_Tree_Rebuild    (gchar *path_to_load);
-void         Browser_Tree_Collapse   (void);
-
-void         Browser_List_Load_File_List            (GList *etfilelist, ET_File *etfile_to_select);
-void         Browser_List_Refresh_Whole_List        (void);
-void         Browser_List_Refresh_File_In_List      (ET_File *ETFile);
-void         Browser_List_Clear                     (void);
-void         Browser_List_Select_File_By_Etfile     (ET_File *ETFile, gboolean select_it);
-GtkTreePath *Browser_List_Select_File_By_Etfile2    (ET_File *searchETFile, gboolean select_it, GtkTreePath *startPath);
-ET_File     *Browser_List_Select_File_By_Iter_String(const gchar* stringiter, gboolean select_it);
-ET_File     *Browser_List_Select_File_By_DLM        (const gchar* string, gboolean select_it);
-void         Browser_List_Refresh_Sort            (void);
-void         Browser_List_Select_All_Files        (void);
-void         Browser_List_Unselect_All_Files      (void);
-void         Browser_List_Invert_File_Selection   (void);
-void         Browser_List_Remove_File             (ET_File *ETFile);
-ET_File     *Browser_List_Get_ETFile_From_Path    (GtkTreePath *path);
-ET_File     *Browser_List_Get_ETFile_From_Iter    (GtkTreeIter *iter);
-
-void         Browser_Entry_Set_Text      (gchar *text);
-void         Browser_Label_Set_Text      (gchar *text);
-
-void         Browser_Display_Tree_Or_Artist_Album_List (void);
-
-void         Browser_Area_Set_Sensitive  (gboolean activate);
-
-void         Browser_Load_Home_Directory            (void);
-void		 Browser_Load_Desktop_Directory 		(void);
-void		 Browser_Load_Documents_Directory 		(void);
-void		 Browser_Load_Downloads_Directory 		(void);
-void 		 Browser_Load_Music_Directory 			(void);
-void et_browser_on_action_parent_directory (void);
-
-void         Browser_Load_Default_Directory         (void);
-void         Browser_Reload_Directory               (void);
-void         Set_Current_Path_As_Default            (void);
-gchar       *Browser_Get_Current_Path               (void);
-
-void         Browser_Open_Rename_Directory_Window (void);
-void         Browser_Open_Run_Program_Tree_Window (void);
-void         Browser_Open_Run_Program_List_Window (void);
-
-GtkTreeViewColumn *get_column_for_column_id (gint column_id);
-GtkSortType get_sort_order_for_column_id (gint column_id);
-
-#endif /* __BROWSER_H__ */
+#endif /* ET_BROWSER_H_ */

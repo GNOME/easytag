@@ -73,10 +73,6 @@ static gint SF_ButtonPressed_Write_Tag;
 static gboolean SF_HideMsgbox_Rename_File;
 /* To remember which button was pressed when renaming file */
 static gint SF_ButtonPressed_Rename_File;
-/* Used to force to hide the msgbox when deleting file */
-static gboolean SF_HideMsgbox_Delete_File;
-/* To remember which button was pressed when deleting file */
-static gint SF_ButtonPressed_Delete_File;
 
 #ifdef ENABLE_FLAC
     #include <FLAC/metadata.h>
@@ -89,12 +85,9 @@ static gint SF_ButtonPressed_Delete_File;
 static gboolean Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox);
 static gint Save_File (ET_File *ETFile, gboolean multiple_files,
                        gboolean force_saving_files);
-static gint delete_file (ET_File *ETFile, gboolean multiple_files,
-                         GError **error);
 static gint Save_Selected_Files_With_Answer (gboolean force_saving_files);
 static gint Save_List_Of_Files (GList *etfilelist,
                                 gboolean force_saving_files);
-static gint Delete_Selected_Files_With_Answer (void);
 
 static gboolean Init_Load_Default_Dir (void);
 static void EasyTAG_Exit (void);
@@ -134,7 +127,6 @@ common_init (GApplication *application)
     Main_Stop_Button_Pressed = FALSE;
     Init_Custom_Icons();
     Init_Mouse_Cursor();
-    BrowserEntryModel    = NULL;
     TrackEntryComboModel = NULL;
     GenreComboModel      = NULL;
 
@@ -307,7 +299,7 @@ on_application_open (GApplication *application, GFile **files, gint n_files,
         case G_FILE_TYPE_DIRECTORY:
             if (activated)
             {
-                Browser_Tree_Select_Dir (path);
+                et_application_window_select_dir (windows->data, path);
                 g_free (path);
             }
             else
@@ -332,7 +324,8 @@ on_application_open (GApplication *application, GFile **files, gint n_files,
                     gchar *parent_path;
 
                     parent_path = g_file_get_path (arg);
-                    Browser_Tree_Select_Dir (parent_path);
+                    et_application_window_select_dir (windows->data,
+                                                      parent_path);
 
                     g_free (parent_path);
                 }
@@ -434,18 +427,6 @@ int main (int argc, char *argv[])
 }
 
 /*
- * Action when inverting files selection
- */
-void Action_Invert_Files_Selection (void)
-{
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
-
-    Browser_List_Invert_File_Selection();
-    Update_Command_Buttons_Sensivity();
-}
-
-/*
  * Select a file in the "main list" using the ETFile adress of each item.
  */
 void Action_Select_Nth_File_By_Etfile (ET_File *ETFile)
@@ -457,112 +438,14 @@ void Action_Select_Nth_File_By_Etfile (ET_File *ETFile)
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
 
     /* Display the item */
-    Browser_List_Select_File_By_Etfile(ETFile,TRUE);
+    et_application_window_browser_select_file_by_et_file (ET_APPLICATION_WINDOW (MainWindow),
+                                                          ETFile, TRUE);
     ET_Displayed_File_List_By_Etfile(ETFile); // Just to update 'ETFileDisplayedList'
     ET_Display_File_Data_To_UI(ETFile);
 
     Update_Command_Buttons_Sensivity();
     et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (MainWindow))));
 }
-
-/*
- * Action when Remove button is pressed
- */
-void Action_Remove_Selected_Tags (void)
-{
-    GList *selfilelist = NULL;
-    GList *l;
-    ET_File *etfile;
-    File_Tag *FileTag;
-    gint progress_bar_index;
-    gint selectcount;
-    double fraction;
-    GtkTreeSelection *selection;
-
-    g_return_if_fail (ETCore->ETFileDisplayedList != NULL ||
-                      BrowserList != NULL);
-
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
-
-    /* Initialize status bar */
-    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), 0.0);
-    selectcount = gtk_tree_selection_count_selected_rows(gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList)));
-    progress_bar_index = 0;
-
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
-    selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
-
-    for (l = selfilelist; l != NULL; l = g_list_next (l))
-    {
-        etfile = Browser_List_Get_ETFile_From_Path (l->data);
-        FileTag = ET_File_Tag_Item_New();
-        ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
-
-        fraction = (++progress_bar_index) / (double) selectcount;
-        gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), fraction);
-        /* Needed to refresh status bar */
-        while (gtk_events_pending())
-            gtk_main_iteration();
-    }
-
-    g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
-
-    // Refresh the whole list (faster than file by file) to show changes
-    Browser_List_Refresh_Whole_List();
-
-    /* Display the current file */
-    ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
-    Update_Command_Buttons_Sensivity();
-
-    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), 0.0);
-    Statusbar_Message(_("All tags have been removed"),TRUE);
-}
-
-
-
-/*
- * Action when Undo button is pressed.
- * Action_Undo_Selected_Files: Undo the last changes for the selected files.
- * Action_Undo_From_History_List: Undo the changes of the last modified file of the list.
- */
-gint Action_Undo_Selected_Files (void)
-{
-    GList *selfilelist = NULL;
-    GList *l;
-    gboolean state = FALSE;
-    ET_File *etfile;
-    GtkTreeSelection *selection;
-
-    g_return_val_if_fail (ETCore->ETFileDisplayedList != NULL ||
-                          BrowserList != NULL, FALSE);
-
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
-
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
-    selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
-
-    for (l = selfilelist; l != NULL; l = g_list_next (l))
-    {
-        etfile = Browser_List_Get_ETFile_From_Path (l->data);
-        state |= ET_Undo_File_Data(etfile);
-    }
-
-    g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
-
-    // Refresh the whole list (faster than file by file) to show changes
-    Browser_List_Refresh_Whole_List();
-
-    /* Display the current file */
-    ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
-    Update_Command_Buttons_Sensivity();
-
-    //ET_Debug_Print_File_List(ETCore->ETFileList,__FILE__,__LINE__,__FUNCTION__);
-
-    return state;
-}
-
 
 void Action_Undo_From_History_List (void)
 {
@@ -577,54 +460,15 @@ void Action_Undo_From_History_List (void)
     if (ETFile)
     {
         ET_Display_File_Data_To_UI(ETFile);
-        Browser_List_Select_File_By_Etfile(ETFile,TRUE);
-        Browser_List_Refresh_File_In_List(ETFile);
+        et_application_window_browser_select_file_by_et_file (ET_APPLICATION_WINDOW (MainWindow),
+                                                              ETFile, TRUE);
+        et_application_window_browser_refresh_file_in_list (ET_APPLICATION_WINDOW (MainWindow),
+                                                            ETFile);
     }
 
     Update_Command_Buttons_Sensivity();
 }
 
-
-
-/*
- * Action when Redo button is pressed.
- * Action_Redo_Selected_Files: Redo the last changes for the selected files.
- * Action_Redo_From_History_List: Redo the changes of the last modified file of the list.
- */
-gint Action_Redo_Selected_File (void)
-{
-    GList *selfilelist = NULL;
-    GList *l;
-    gboolean state = FALSE;
-    ET_File *etfile;
-    GtkTreeSelection *selection;
-
-    g_return_val_if_fail (ETCore->ETFileDisplayedList != NULL ||
-                          BrowserList != NULL, FALSE);
-
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
-
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
-    selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
-
-    for (l = selfilelist; l != NULL; l = g_list_next (l))
-    {
-        etfile = Browser_List_Get_ETFile_From_Path (l->data);
-        state |= ET_Redo_File_Data(etfile);
-    }
-
-    g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
-
-    // Refresh the whole list (faster than file by file) to show changes
-    Browser_List_Refresh_Whole_List();
-
-    /* Display the current file */
-    ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
-    Update_Command_Buttons_Sensivity();
-
-    return state;
-}
 
 
 void Action_Redo_From_History_List (void)
@@ -640,14 +484,14 @@ void Action_Redo_From_History_List (void)
     if (ETFile)
     {
         ET_Display_File_Data_To_UI(ETFile);
-        Browser_List_Select_File_By_Etfile(ETFile,TRUE);
-        Browser_List_Refresh_File_In_List(ETFile);
+        et_application_window_browser_select_file_by_et_file (ET_APPLICATION_WINDOW (MainWindow),
+                                                              ETFile, TRUE);
+        et_application_window_browser_refresh_file_in_list (ET_APPLICATION_WINDOW (MainWindow),
+                                                            ETFile);
     }
 
     Update_Command_Buttons_Sensivity();
 }
-
-
 
 
 /*
@@ -693,14 +537,13 @@ Save_Selected_Files_With_Answer (gboolean force_saving_files)
     ET_File *etfile;
     GtkTreeSelection *selection;
 
-    g_return_val_if_fail (BrowserList != NULL, FALSE);
-
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
+    selection = et_application_window_browser_get_selection (ET_APPLICATION_WINDOW (MainWindow));
     selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
 
     for (l = selfilelist; l != NULL; l = g_list_next (l))
     {
-        etfile = Browser_List_Get_ETFile_From_Path (l->data);
+        etfile = et_application_window_browser_get_et_file_from_path (ET_APPLICATION_WINDOW (MainWindow),
+                                                                      l->data);
         etfilelist = g_list_prepend (etfilelist, etfile);
     }
 
@@ -799,7 +642,7 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
 
     /* Set to unsensitive all command buttons (except Quit button) */
     Disable_Command_Buttons();
-    Browser_Area_Set_Sensitive(FALSE);
+    et_application_window_browser_set_sensitive (window, FALSE);
     et_application_window_tag_area_set_sensitive (window, FALSE);
     et_application_window_file_area_set_sensitive (window, FALSE);
 
@@ -864,9 +707,10 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
             /* ET_Display_File_Data_To_UI ((ET_File *)l->data);
              * Use of 'currentPath' to try to increase speed. Indeed, in many
              * cases, the next file to select, is the next in the list. */
-            currentPath = Browser_List_Select_File_By_Etfile2 ((ET_File *)l->data,
-                                                               FALSE,
-                                                               currentPath);
+            et_application_window_browser_select_file_by_et_file2 (ET_APPLICATION_WINDOW (MainWindow),
+                                                                   (ET_File *)l->data,
+                                                                   FALSE,
+                                                                   currentPath);
 
             fraction = (++progress_bar_index) / (double) nb_files_to_save;
             gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), fraction);
@@ -890,7 +734,7 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
                 Statusbar_Message (_("Saving files was stopped"), TRUE);
                 /* To update state of command buttons */
                 Update_Command_Buttons_Sensivity();
-                Browser_Area_Set_Sensitive(TRUE);
+                et_application_window_browser_set_sensitive (window, TRUE);
                 et_application_window_tag_area_set_sensitive (window, TRUE);
                 et_application_window_file_area_set_sensitive (window, TRUE);
 
@@ -917,17 +761,19 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
 
     /* Return to the saved position in the list */
     ET_Display_File_Data_To_UI(etfile_save_position);
-    Browser_List_Select_File_By_Etfile(etfile_save_position,TRUE);
+    et_application_window_browser_select_file_by_et_file (ET_APPLICATION_WINDOW (MainWindow),
+                                                          etfile_save_position,
+                                                          TRUE);
 
     /* Browser is on mode : Artist + Album list */
     toggle_radio = gtk_ui_manager_get_widget (UIManager,
                                               "/ToolBar/ArtistViewMode");
     if (gtk_toggle_tool_button_get_active (GTK_TOGGLE_TOOL_BUTTON (toggle_radio)))
-        Browser_Display_Tree_Or_Artist_Album_List();
+        et_application_window_browser_toggle_display_mode (window);
 
     /* To update state of command buttons */
     Update_Command_Buttons_Sensivity();
-    Browser_Area_Set_Sensitive(TRUE);
+    et_application_window_browser_set_sensitive (window, TRUE);
     et_application_window_tag_area_set_sensitive (window, TRUE);
     et_application_window_file_area_set_sensitive (window, TRUE);
 
@@ -938,162 +784,7 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
     gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), 0);
     Statusbar_Message(msg,TRUE);
     g_free(msg);
-    Browser_List_Refresh_Whole_List();
-    return TRUE;
-}
-
-
-
-/*
- * Delete a file on the hard disk
- */
-void Action_Delete_Selected_Files (void)
-{
-    Delete_Selected_Files_With_Answer();
-}
-
-
-static gint
-Delete_Selected_Files_With_Answer (void)
-{
-    EtApplicationWindow *window;
-    GList *selfilelist;
-    GList *rowreflist = NULL;
-    GList *l;
-    gint   progress_bar_index;
-    gint   saving_answer;
-    gint   nb_files_to_delete;
-    gint   nb_files_deleted = 0;
-    gchar *msg;
-    gchar progress_bar_text[30];
-    double fraction;
-    GtkTreeModel *treemodel;
-    GtkTreeRowReference *rowref;
-    GtkTreeSelection *selection;
-    GError *error = NULL;
-
-    g_return_val_if_fail (ETCore->ETFileDisplayedList != NULL
-                          && BrowserList != NULL, FALSE);
-
-    window = ET_APPLICATION_WINDOW (MainWindow);
-
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
-
-    /* Number of files to save */
-    nb_files_to_delete = gtk_tree_selection_count_selected_rows(gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList)));
-
-    /* Initialize status bar */
-    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar),0);
-    progress_bar_index = 0;
-    g_snprintf(progress_bar_text, 30, "%d/%d", progress_bar_index, nb_files_to_delete);
-    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), progress_bar_text);
-
-    /* Set to unsensitive all command buttons (except Quit button) */
-    Disable_Command_Buttons();
-    Browser_Area_Set_Sensitive(FALSE);
-    et_application_window_tag_area_set_sensitive (window, FALSE);
-    et_application_window_file_area_set_sensitive (window, FALSE);
-
-    /* Show msgbox (if needed) to ask confirmation */
-    SF_HideMsgbox_Delete_File = 0;
-
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
-    selfilelist = gtk_tree_selection_get_selected_rows(selection, &treemodel);
-
-    for (l = selfilelist; l != NULL; l = g_list_next (l))
-    {
-        rowref = gtk_tree_row_reference_new (treemodel, l->data);
-        rowreflist = g_list_prepend (rowreflist, rowref);
-    }
-
-    g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
-    rowreflist = g_list_reverse (rowreflist);
-
-    for (l = rowreflist; l != NULL; l = g_list_next (l))
-    {
-        GtkTreePath *path;
-        ET_File *ETFile;
-
-        path = gtk_tree_row_reference_get_path (l->data);
-        ETFile = Browser_List_Get_ETFile_From_Path(path);
-        gtk_tree_path_free(path);
-
-        ET_Display_File_Data_To_UI(ETFile);
-        Browser_List_Select_File_By_Etfile(ETFile,FALSE);
-        fraction = (++progress_bar_index) / (double) nb_files_to_delete;
-        gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), fraction);
-        g_snprintf(progress_bar_text, 30, "%d/%d", progress_bar_index, nb_files_to_delete);
-        gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), progress_bar_text);
-         /* Needed to refresh status bar */
-        while (gtk_events_pending())
-            gtk_main_iteration();
-
-        saving_answer = delete_file (ETFile,
-                                     nb_files_to_delete > 1 ? TRUE : FALSE,
-                                     &error);
-
-        switch (saving_answer)
-        {
-            case 1:
-                nb_files_deleted += saving_answer;
-                // Remove file in the browser (corresponding line in the clist)
-                Browser_List_Remove_File(ETFile);
-                // Remove file from file list
-                ET_Remove_File_From_File_List(ETFile);
-                break;
-            case 0:
-                /* Distinguish between the file being skipped, and there being
-                 * an error during deletion. */
-                if (error)
-                {
-                    Log_Print (LOG_ERROR, _("Cannot delete file (%s)"),
-                               error->message);
-                    g_clear_error (&error);
-                }
-                break;
-            case -1:
-                // Stop deleting files + reinit progress bar
-                gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar),0.0);
-                // To update state of command buttons
-                Update_Command_Buttons_Sensivity();
-                Browser_Area_Set_Sensitive(TRUE);
-                et_application_window_tag_area_set_sensitive (window, TRUE);
-                et_application_window_file_area_set_sensitive (window, TRUE);
-
-                return -1; // We stop all actions
-        }
-    }
-
-    g_list_free_full (rowreflist, (GDestroyNotify)gtk_tree_row_reference_free);
-
-    if (nb_files_deleted < nb_files_to_delete)
-        msg = g_strdup (_("Files have been partially deleted"));
-    else
-        msg = g_strdup (_("All files have been deleted"));
-
-    // It's important to displayed the new item, as it'll check the changes in Browser_Display_Tree_Or_Artist_Album_List
-    if (ETCore->ETFileDisplayed)
-        ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
-    /*else if (ET_Displayed_File_List_Current())
-        ET_Display_File_Data_To_UI((ET_File *)ET_Displayed_File_List_Current()->data);*/
-
-    // Load list...
-    Browser_List_Load_File_List(ETCore->ETFileDisplayedList, NULL);
-    // Rebuild the list...
-    Browser_Display_Tree_Or_Artist_Album_List();
-
-    /* To update state of command buttons */
-    Update_Command_Buttons_Sensivity();
-    Browser_Area_Set_Sensitive(TRUE);
-    et_application_window_tag_area_set_sensitive (window, TRUE);
-    et_application_window_file_area_set_sensitive (window, TRUE);
-
-    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), "");
-    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), 0);
-    Statusbar_Message(msg,TRUE);
-    g_free(msg);
-
+    et_application_window_browser_refresh_list (ET_APPLICATION_WINDOW (MainWindow));
     return TRUE;
 }
 
@@ -1527,124 +1218,6 @@ Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox)
 }
 
 /*
- * Delete the file ETFile
- */
-static gint
-delete_file (ET_File *ETFile, gboolean multiple_files, GError **error)
-{
-    GtkWidget *msgdialog;
-    GtkWidget *msgdialog_check_button = NULL;
-    gchar *cur_filename;
-    gchar *cur_filename_utf8;
-    gchar *basename_utf8;
-    gint response;
-    gint stop_loop;
-
-    g_return_val_if_fail (ETFile != NULL, FALSE);
-    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
-
-    /* Filename of the file to delete. */
-    cur_filename      = ((File_Name *)(ETFile->FileNameCur)->data)->value;
-    cur_filename_utf8 = ((File_Name *)(ETFile->FileNameCur)->data)->value_utf8;
-    basename_utf8 = g_path_get_basename (cur_filename_utf8);
-
-    /*
-     * Remove the file
-     */
-    if (CONFIRM_DELETE_FILE && !SF_HideMsgbox_Delete_File)
-    {
-        if (multiple_files)
-        {
-            GtkWidget *message_area;
-            msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
-                                               GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                               GTK_MESSAGE_QUESTION,
-                                               GTK_BUTTONS_NONE,
-                                               _("Do you really want to delete the file '%s'?"),
-                                               basename_utf8);
-            message_area = gtk_message_dialog_get_message_area(GTK_MESSAGE_DIALOG(msgdialog));
-            msgdialog_check_button = gtk_check_button_new_with_label(_("Repeat action for the remaining files"));
-            gtk_container_add(GTK_CONTAINER(message_area),msgdialog_check_button);
-            gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_NO,GTK_RESPONSE_NO,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_DELETE,GTK_RESPONSE_YES,NULL);
-            gtk_window_set_title(GTK_WINDOW(msgdialog),_("Delete File"));
-            //GTK_TOGGLE_BUTTON(msgbox_check_button)->active = TRUE; // Checked by default
-        }else
-        {
-            msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
-                                               GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                               GTK_MESSAGE_QUESTION,
-                                               GTK_BUTTONS_NONE,
-                                               _("Do you really want to delete the file '%s'?"),
-                                               basename_utf8);
-            gtk_window_set_title(GTK_WINDOW(msgdialog),_("Delete File"));
-            gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_CANCEL,GTK_RESPONSE_NO,GTK_STOCK_DELETE,GTK_RESPONSE_YES,NULL);
-        }
-        gtk_dialog_set_default_response (GTK_DIALOG (msgdialog),
-                                         GTK_RESPONSE_YES);
-        SF_ButtonPressed_Delete_File = response = gtk_dialog_run(GTK_DIALOG(msgdialog));
-        if (msgdialog_check_button && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(msgdialog_check_button)))
-            SF_HideMsgbox_Delete_File = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(msgdialog_check_button));
-        gtk_widget_destroy(msgdialog);
-    }else
-    {
-        if (SF_HideMsgbox_Delete_File)
-            response = SF_ButtonPressed_Delete_File;
-        else
-            response = GTK_RESPONSE_YES;
-    }
-
-    switch (response)
-    {
-        case GTK_RESPONSE_YES:
-        {
-            GFile *cur_file = g_file_new_for_path (cur_filename);
-
-            if (g_file_delete (cur_file, NULL, error))
-            {
-                gchar *msg = g_strdup_printf(_("File '%s' deleted"), basename_utf8);
-                Statusbar_Message(msg,FALSE);
-                g_free(msg);
-                g_free(basename_utf8);
-                g_object_unref (cur_file);
-                g_assert (error == NULL || *error == NULL);
-                return 1;
-            }
-
-            /* Error in deleting file. */
-            g_assert (error == NULL || *error != NULL);
-            break;
-        }
-        case GTK_RESPONSE_NO:
-            break;
-        case GTK_RESPONSE_CANCEL:
-        case GTK_RESPONSE_DELETE_EVENT:
-            stop_loop = -1;
-            g_free(basename_utf8);
-            return stop_loop;
-            break;
-        default:
-            g_assert_not_reached ();
-            break;
-    }
-
-    g_free(basename_utf8);
-    return 0;
-}
-
-void
-Action_Select_Browser_Style (void)
-{
-    g_return_if_fail (ETCore->ETFileDisplayedList != NULL);
-
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
-
-    Browser_Display_Tree_Or_Artist_Album_List();
-
-    Update_Command_Buttons_Sensivity();
-}
-
-/*
  * Scans the specified directory: and load files into a list.
  * If the path doesn't exist, we free the previous loaded list of files.
  */
@@ -1666,6 +1239,7 @@ gboolean Read_Directory (gchar *path_real)
     gint   progress_bar_index = 0;
     GtkAction *uiaction;
     GtkWidget *artist_radio;
+    EtApplicationWindow *window;
 
     g_return_val_if_fail (path_real != NULL, FALSE);
 
@@ -1676,8 +1250,10 @@ gboolean Read_Directory (gchar *path_real)
     ET_Core_Initialize();
     Update_Command_Buttons_Sensivity();
 
+    window = ET_APPLICATION_WINDOW (MainWindow);
+
     /* Initialize browser list */
-    Browser_List_Clear();
+    et_application_window_browser_clear (window);
 
     /* Clear entry boxes  */
     Clear_File_Entry_Field();
@@ -1688,10 +1264,9 @@ gboolean Read_Directory (gchar *path_real)
     artist_radio = gtk_ui_manager_get_widget (UIManager, "/ToolBar/ArtistViewMode");
     gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (artist_radio),
                                        FALSE);
-    //Browser_Display_Tree_Or_Artist_Album_List(); // To show the corresponding lists...
 
     // Set to unsensitive the Browser Area, to avoid to select another file while loading the first one
-    Browser_Area_Set_Sensitive(FALSE);
+    et_application_window_browser_set_sensitive (window, FALSE);
 
     /* Placed only here, to empty the previous list of files */
     dir = g_file_new_for_path (path_real);
@@ -1722,7 +1297,7 @@ gboolean Read_Directory (gchar *path_real)
         g_free(path_utf8);
 
         ReadingDirectory = FALSE; //Allow a new reading
-        Browser_Area_Set_Sensitive(TRUE);
+        et_application_window_browser_set_sensitive (window, TRUE);
         g_object_unref (dir);
         g_error_free (error);
         return FALSE;
@@ -1792,7 +1367,7 @@ gboolean Read_Directory (gchar *path_real)
     {
         //GList *etfilelist;
         /* Load the list of file into the browser list widget */
-        Browser_Display_Tree_Or_Artist_Album_List();
+        et_application_window_browser_toggle_display_mode (window);
 
         /* Load the list attached to the TrackEntry */
         Load_Track_List_To_UI();
@@ -1834,7 +1409,8 @@ gboolean Read_Directory (gchar *path_real)
 
 
 	/* Translators: No files, as in "0 files". */
-        Browser_Label_Set_Text(_("No files")); /* See in ET_Display_Filename_To_UI */
+        et_application_window_browser_label_set_text (ET_APPLICATION_WINDOW (MainWindow),
+                                                      _("No files")); /* See in ET_Display_Filename_To_UI */
 
         /* Prepare message for the status bar */
         if (BROWSE_SUBDIR)
@@ -1846,7 +1422,7 @@ gboolean Read_Directory (gchar *path_real)
     /* Update sensitivity of buttons and menus */
     Update_Command_Buttons_Sensivity();
 
-    Browser_Area_Set_Sensitive(TRUE);
+    et_application_window_browser_set_sensitive (window, TRUE);
 
     gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), 0.0);
     Statusbar_Message(msg,FALSE);
@@ -2196,16 +1772,16 @@ Update_Command_Buttons_Sensivity (void)
         ui_widget_set_sensitive (MENU_VIEW, AM_ARTIST_VIEW_MODE, TRUE);
 
         /* Check if one of the selected files has undo or redo data */
-        if (BrowserList)
         {
             GList *l;
 
-            selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
+            selection = et_application_window_browser_get_selection (window);
             selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
 
             for (l = selfilelist; l != NULL; l = g_list_next (l))
             {
-                etfile = Browser_List_Get_ETFile_From_Path (l->data);
+                etfile = et_application_window_browser_get_et_file_from_path (ET_APPLICATION_WINDOW (MainWindow),
+                                                                              l->data);
                 has_undo    |= ET_File_Data_Has_Undo_Data(etfile);
                 has_redo    |= ET_File_Data_Has_Redo_Data(etfile);
                 //has_to_save |= ET_Check_If_File_Is_Saved(etfile);
@@ -2348,12 +1924,14 @@ Init_Load_Default_Dir (void)
 
     if (INIT_DIRECTORY)
     {
-        Browser_Tree_Select_Dir(INIT_DIRECTORY);
+        et_application_window_select_dir (ET_APPLICATION_WINDOW (MainWindow),
+                                          INIT_DIRECTORY);
     }
     else
     {
         Statusbar_Message(_("Select a directory to browse"),FALSE);
-        Browser_Load_Default_Directory();
+        et_application_window_load_default_dir (NULL,
+	                                        ET_APPLICATION_WINDOW (MainWindow));
     }
 
     // To set sensivity of buttons in the case if the default directory is invalid
@@ -2402,9 +1980,6 @@ void Quit_MainWindow (void)
     /* If you change the displayed data and quit immediately */
     if (ETCore->ETFileList)
         ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed); // To detect change before exiting
-
-    /* Save combobox history list before exit */
-    Save_Path_Entry_List(BrowserEntryModel, MISC_COMBO_TEXT);
 
     /* Check if all files have been saved before exit */
     if (CONFIRM_WHEN_UNSAVED_FILES && ET_Check_If_All_Files_Are_Saved() != TRUE)

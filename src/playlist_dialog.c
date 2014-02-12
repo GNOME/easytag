@@ -22,6 +22,7 @@
 
 #include <glib/gi18n.h>
 
+#include "application_window.h"
 #include "bar.h"
 #include "browser.h"
 #include "charset.h"
@@ -126,13 +127,14 @@ write_playlist (EtPlaylistDialog *self, GFile *file, GError **error)
     if (PLAYLIST_ONLY_SELECTED_FILES)
     {
         GList *selfilelist = NULL;
-        GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
+        GtkTreeSelection *selection = et_application_window_browser_get_selection (ET_APPLICATION_WINDOW (MainWindow));
 
         selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
 
         for (l = selfilelist; l != NULL; l = g_list_next (l))
         {
-            etfile = Browser_List_Get_ETFile_From_Path (l->data);
+            etfile = et_application_window_browser_get_et_file_from_path (ET_APPLICATION_WINDOW (MainWindow),
+                                                                          l->data);
             etfilelist = g_list_prepend (etfilelist, etfile);
         }
 
@@ -422,7 +424,7 @@ write_button_clicked (EtPlaylistDialog *self)
     et_playlist_dialog_apply_changes (self);
 
     // Path of the playlist file (may be truncated later if PLAYLIST_CREATE_IN_PARENT_DIR is TRUE)
-    playlist_path_utf8 = filename_to_display (Browser_Get_Current_Path ());
+    playlist_path_utf8 = filename_to_display (et_application_window_get_current_path (ET_APPLICATION_WINDOW (MainWindow)));
 
     /* Build the playlist filename. */
     if (PLAYLIST_USE_MASK_NAME)

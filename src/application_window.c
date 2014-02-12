@@ -46,6 +46,8 @@ G_DEFINE_TYPE (EtApplicationWindow, et_application_window, GTK_TYPE_APPLICATION_
 
 struct _EtApplicationWindowPrivate
 {
+    GtkWidget *browser;
+
     GtkWidget *file_area;
     GtkWidget *log_area;
     GtkWidget *tag_area;
@@ -88,6 +90,11 @@ struct _EtApplicationWindowPrivate
     GtkWidget *track_number_button;
     GtkToolItem *apply_image_toolitem;
 };
+
+/* Used to force to hide the msgbox when deleting file */
+static gboolean SF_HideMsgbox_Delete_File;
+/* To remember which button was pressed when deleting file */
+static gint SF_ButtonPressed_Delete_File;
 
 static gboolean et_tag_field_on_key_press_event (GtkEntry *entry,
                                                  GdkEventKey *event,
@@ -428,8 +435,7 @@ Mini_Button_Clicked (GObject *object)
     File_Tag *FileTag;
     GtkTreeSelection *selection;
 
-    g_return_if_fail (ETCore->ETFileDisplayedList != NULL ||
-                      BrowserList != NULL);
+    g_return_if_fail (ETCore->ETFileDisplayedList != NULL);
 
     /* FIXME: hack! */
     toplevel = gtk_widget_get_toplevel (GTK_WIDGET (object));
@@ -446,14 +452,15 @@ Mini_Button_Clicked (GObject *object)
     /* Save the current displayed data. */
     ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
 
-    // Warning : 'selection_filelist' is not a list of 'ETFile' items!
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
-    selection_filelist = gtk_tree_selection_get_selected_rows(selection, NULL);
+    /* Warning : 'selection_filelist' is not a list of 'ETFile' items! */
+    selection = et_application_window_browser_get_selection (ET_APPLICATION_WINDOW (toplevel));
+    selection_filelist = gtk_tree_selection_get_selected_rows (selection, NULL);
 
     // Create an 'ETFile' list from 'selection_filelist'
     for (l = selection_filelist; l != NULL; l = g_list_next (l))
     {
-        etfile = Browser_List_Get_ETFile_From_Path (l->data);
+        etfile = et_browser_get_et_file_from_path (ET_BROWSER (priv->browser),
+                                                   l->data);
         etfilelist = g_list_prepend (etfilelist, etfile);
     }
 
@@ -876,8 +883,8 @@ Mini_Button_Clicked (GObject *object)
 
     g_list_free(etfilelist);
 
-    // Refresh the whole list (faster than file by file) to show changes
-    Browser_List_Refresh_Whole_List();
+    /* Refresh the whole list (faster than file by file) to show changes. */
+    et_application_window_browser_refresh_list (ET_APPLICATION_WINDOW (toplevel));
 
     /* Display the current file (Needed when sequencing tracks) */
     ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
@@ -895,6 +902,47 @@ Mini_Button_Clicked (GObject *object)
     Update_Command_Buttons_Sensivity();
 }
 
+/*
+ * Action when Redo button is pressed.
+ * Action_Redo_Selected_Files: Redo the last changes for the selected files.
+ * Action_Redo_From_History_List: Redo the changes of the last modified file of the list.
+ */
+void
+et_application_window_redo_selected_files (GtkAction *action,
+                                           gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    GList *selfilelist = NULL;
+    GList *l;
+    gboolean state = FALSE;
+    ET_File *etfile;
+    GtkTreeSelection *selection;
+
+    g_return_val_if_fail (ETCore->ETFileDisplayedList != NULL, FALSE);
+
+    priv = et_application_window_get_instance_private (ET_APPLICATION_WINDOW (user_data));
+    /* Save the current displayed data */
+    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
+
+    selection = et_application_window_browser_get_selection (ET_APPLICATION_WINDOW (user_data));
+    selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
+
+    for (l = selfilelist; l != NULL; l = g_list_next (l))
+    {
+        etfile = et_browser_get_et_file_from_path (ET_BROWSER (priv->browser),
+                                                   l->data);
+        state |= ET_Redo_File_Data(etfile);
+    }
+
+    g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
+
+    /* Refresh the whole list (faster than file by file) to show changes. */
+    et_application_window_browser_refresh_list (ET_APPLICATION_WINDOW (user_data));
+
+    /* Display the current file */
+    ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
+    Update_Command_Buttons_Sensivity();
+}
 
 /*
  * et_tag_field_connect_signals:
@@ -947,16 +995,18 @@ et_tag_field_on_key_press_event (GtkEntry *entry, GdkEventKey *event,
 }
 
 static GtkWidget *
-create_browser_area (void)
+create_browser_area (EtApplicationWindow *self)
 {
+    EtApplicationWindowPrivate *priv;
     GtkWidget *frame;
-    GtkWidget *tree;
+
+    priv = et_application_window_get_instance_private (self);
 
     frame = gtk_frame_new (_("Browser"));
     gtk_container_set_border_width (GTK_CONTAINER (frame), 2);
 
-    tree = Create_Browser_Items (MainWindow);
-    gtk_container_add (GTK_CONTAINER (frame), tree);
+    priv->browser = GTK_WIDGET (et_browser_new ());
+    gtk_container_add (GTK_CONTAINER (frame), priv->browser);
 
     /* Don't load init dir here because Tag area hasn't been yet created!.
      * It will be load at the end of the main function */
@@ -1740,7 +1790,7 @@ et_application_window_init (EtApplicationWindow *self)
     priv->hpaned = gtk_paned_new (GTK_ORIENTATION_HORIZONTAL);
 
     /* Browser (Tree + File list + Entry) */
-    widget = create_browser_area ();
+    widget = create_browser_area (self);
     gtk_paned_pack1 (GTK_PANED (priv->hpaned), widget, TRUE, TRUE);
 
     /* Vertical box for FileArea + TagArea */
@@ -2035,6 +2085,300 @@ et_application_window_search_cddb_for_selection (G_GNUC_UNUSED GtkAction *action
     et_cddb_dialog_search_from_selection (ET_CDDB_DIALOG (priv->cddb_dialog));
 }
 
+void
+et_application_window_browser_collapse (G_GNUC_UNUSED GtkAction *action,
+                                        gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_collapse (ET_BROWSER (priv->browser));
+}
+
+void
+et_application_window_browser_reload (G_GNUC_UNUSED GtkAction *action,
+                                      gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_reload (ET_BROWSER (priv->browser));
+}
+
+void
+et_application_window_browser_toggle_display_mode (EtApplicationWindow *self)
+{
+    EtApplicationWindowPrivate *priv;
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_toggle_display_mode (ET_BROWSER (priv->browser));
+}
+
+void
+et_application_window_browser_set_sensitive (EtApplicationWindow *self,
+                                             gboolean sensitive)
+{
+    EtApplicationWindowPrivate *priv;
+
+    g_return_if_fail (ET_APPLICATION_WINDOW (self));
+
+    priv = et_application_window_get_instance_private (self);
+
+    g_return_if_fail (priv->browser != NULL);
+
+    et_browser_set_sensitive (ET_BROWSER (priv->browser), sensitive);
+}
+
+void
+et_application_window_browser_clear (EtApplicationWindow *self)
+{
+    EtApplicationWindowPrivate *priv;
+
+    g_return_if_fail (ET_APPLICATION_WINDOW (self));
+
+    priv = et_application_window_get_instance_private (self);
+
+    g_return_if_fail (priv->browser != NULL);
+
+    et_browser_clear (ET_BROWSER (priv->browser));
+}
+
+void
+et_application_window_browser_clear_album_model (EtApplicationWindow *self)
+{
+    EtApplicationWindowPrivate *priv;
+
+    g_return_if_fail (ET_APPLICATION_WINDOW (self));
+
+    priv = et_application_window_get_instance_private (self);
+
+    g_return_if_fail (priv->browser != NULL);
+
+    et_browser_clear_album_model (ET_BROWSER (priv->browser));
+}
+
+void
+et_application_window_browser_clear_artist_model (EtApplicationWindow *self)
+{
+    EtApplicationWindowPrivate *priv;
+
+    g_return_if_fail (ET_APPLICATION_WINDOW (self));
+
+    priv = et_application_window_get_instance_private (self);
+
+    g_return_if_fail (priv->browser != NULL);
+
+    et_browser_clear_artist_model (ET_BROWSER (priv->browser));
+}
+
+void
+et_application_window_go_home (G_GNUC_UNUSED GtkAction *action,
+                               gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_go_home (ET_BROWSER (priv->browser));
+}
+
+void
+et_application_window_go_desktop (G_GNUC_UNUSED GtkAction *action,
+                                  gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_go_desktop (ET_BROWSER (priv->browser));
+}
+
+void
+et_application_window_go_documents (G_GNUC_UNUSED GtkAction *action,
+                                    gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_go_documents (ET_BROWSER (priv->browser));
+}
+
+void
+et_application_window_go_download (G_GNUC_UNUSED GtkAction *action,
+                                   gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_go_download (ET_BROWSER (priv->browser));
+}
+
+void
+et_application_window_go_music (G_GNUC_UNUSED GtkAction *action,
+                                gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_go_music (ET_BROWSER (priv->browser));
+}
+
+void
+et_application_window_go_parent (G_GNUC_UNUSED GtkAction *action,
+                                 gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_go_parent (ET_BROWSER (priv->browser));
+}
+
+void
+et_application_window_run_player_for_album_list (G_GNUC_UNUSED GtkAction *action,
+                                                 gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_run_player_for_album_list (ET_BROWSER (priv->browser));
+}
+
+void
+et_application_window_run_player_for_artist_list (G_GNUC_UNUSED GtkAction *action,
+                                                  gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_run_player_for_artist_list (ET_BROWSER (priv->browser));
+}
+
+void
+et_application_window_run_player_for_selection (G_GNUC_UNUSED GtkAction *action,
+                                                gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_run_player_for_selection (ET_BROWSER (priv->browser));
+}
+
+void
+et_application_window_reload_directory (G_GNUC_UNUSED GtkAction *action,
+                                        gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_reload_directory (ET_BROWSER (priv->browser));
+}
+
+void
+et_application_window_select_dir (EtApplicationWindow *self, const gchar *path)
+{
+    EtApplicationWindowPrivate *priv;
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_select_dir (ET_BROWSER (priv->browser), path);
+}
+
+void
+et_application_window_load_default_dir (G_GNUC_UNUSED GtkAction *action,
+                                        gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_load_default_dir (ET_BROWSER (priv->browser));
+}
+
+
+void
+et_application_window_set_current_path_default (G_GNUC_UNUSED GtkAction *action,
+                                                gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_set_current_path_default (ET_BROWSER (priv->browser));
+}
+
+const gchar *
+et_application_window_get_current_path (EtApplicationWindow *self)
+{
+    EtApplicationWindowPrivate *priv;
+
+    g_return_val_if_fail (ET_APPLICATION_WINDOW (self), NULL);
+
+    priv = et_application_window_get_instance_private (self);
+
+    return et_browser_get_current_path (ET_BROWSER (priv->browser));
+}
+
+void
+et_application_window_show_open_directory_with_dialog (G_GNUC_UNUSED GtkAction *action,
+                                                       gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_show_open_directory_with_dialog (ET_BROWSER (priv->browser));
+}
+
+void
+et_application_window_show_open_files_with_dialog (G_GNUC_UNUSED GtkAction *action,
+                                                   gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_show_open_files_with_dialog (ET_BROWSER (priv->browser));
+}
+
+void
+et_application_window_show_rename_directory_dialog (G_GNUC_UNUSED GtkAction *action,
+                                                    gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_show_rename_directory_dialog (ET_BROWSER (priv->browser));
+}
+
 GtkWidget *
 et_application_window_get_scan_dialog (EtApplicationWindow *self)
 {
@@ -2123,6 +2467,21 @@ et_on_action_select_scan_mode (GtkRadioAction *action, GtkRadioAction *current,
     }
 
     et_scan_dialog_open (ET_SCAN_DIALOG (priv->scan_dialog), SCANNER_TYPE);
+}
+
+void
+et_on_action_select_browser_mode (G_GNUC_UNUSED GtkRadioAction *action,
+                                  G_GNUC_UNUSED GtkRadioAction *current,
+                                  gpointer user_data)
+{
+    g_return_if_fail (ETCore->ETFileDisplayedList != NULL);
+
+    /* Save the current displayed data */
+    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
+
+    et_application_window_browser_toggle_display_mode (ET_APPLICATION_WINDOW (user_data));
+
+    Update_Command_Buttons_Sensivity();
 }
 
 /*
@@ -2408,12 +2767,199 @@ et_application_window_select_all (GtkAction *action, gpointer user_data)
     }
     else /* Assume that other widgets should select all in the file view. */
     {
+        EtApplicationWindowPrivate *priv;
+        EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+        priv = et_application_window_get_instance_private (self);
+
         /* Save the current displayed data */
         ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
 
-        Browser_List_Select_All_Files ();
+        et_browser_select_all (ET_BROWSER (priv->browser));
         Update_Command_Buttons_Sensivity ();
     }
+}
+
+void
+et_application_window_browser_entry_set_text (EtApplicationWindow *self,
+                                              const gchar *text)
+{
+    EtApplicationWindowPrivate *priv;
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_entry_set_text (ET_BROWSER (priv->browser), text);
+}
+
+void
+et_application_window_browser_label_set_text (EtApplicationWindow *self,
+                                              const gchar *text)
+{
+    EtApplicationWindowPrivate *priv;
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_label_set_text (ET_BROWSER (priv->browser), text);
+}
+
+ET_File *
+et_application_window_browser_get_et_file_from_path (EtApplicationWindow *self,
+                                                     GtkTreePath *path)
+{
+    EtApplicationWindowPrivate *priv;
+
+    priv = et_application_window_get_instance_private (self);
+
+    return et_browser_get_et_file_from_path (ET_BROWSER (priv->browser), path);
+}
+
+ET_File *
+et_application_window_browser_get_et_file_from_iter (EtApplicationWindow *self,
+                                                     GtkTreeIter *iter)
+{
+    EtApplicationWindowPrivate *priv;
+
+    priv = et_application_window_get_instance_private (self);
+
+    return et_browser_get_et_file_from_iter (ET_BROWSER (priv->browser), iter);
+}
+
+GtkTreeSelection *
+et_application_window_browser_get_selection (EtApplicationWindow *self)
+{
+    EtApplicationWindowPrivate *priv;
+
+    priv = et_application_window_get_instance_private (self);
+
+    return et_browser_get_selection (ET_BROWSER (priv->browser));
+}
+
+GtkTreeViewColumn *
+et_application_window_browser_get_column_for_column_id (EtApplicationWindow *self,
+                                                        gint column_id)
+{
+    EtApplicationWindowPrivate *priv;
+
+    priv = et_application_window_get_instance_private (self);
+
+    return et_browser_get_column_for_column_id (ET_BROWSER (priv->browser),
+                                                column_id);
+}
+
+GtkSortType
+et_application_window_browser_get_sort_order_for_column_id (EtApplicationWindow *self,
+                                                            gint column_id)
+{
+    EtApplicationWindowPrivate *priv;
+
+    priv = et_application_window_get_instance_private (self);
+
+    return et_browser_get_sort_order_for_column_id (ET_BROWSER (priv->browser),
+                                                    column_id);
+}
+
+void
+et_application_window_browser_select_file_by_iter_string (EtApplicationWindow *self,
+                                                          const gchar *iter_string,
+                                                          gboolean select)
+{
+    EtApplicationWindowPrivate *priv;
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_select_file_by_iter_string (ET_BROWSER (priv->browser),
+                                           iter_string, select);
+}
+
+void
+et_application_window_browser_select_file_by_et_file (EtApplicationWindow *self,
+                                                      ET_File *file,
+                                                      gboolean select)
+{
+    EtApplicationWindowPrivate *priv;
+
+    priv = et_application_window_get_instance_private (self);
+
+    return et_browser_select_file_by_et_file (ET_BROWSER (priv->browser), file,
+                                              select);
+}
+
+GtkTreePath *
+et_application_window_browser_select_file_by_et_file2 (EtApplicationWindow *self,
+                                                       ET_File *file,
+                                                       gboolean select,
+                                                       GtkTreePath *start_path)
+{
+    EtApplicationWindowPrivate *priv;
+
+    priv = et_application_window_get_instance_private (self);
+
+    return et_browser_select_file_by_et_file2 (ET_BROWSER (priv->browser),
+                                               file, select, start_path);
+}
+
+ET_File *
+et_application_window_browser_select_file_by_dlm (EtApplicationWindow *self,
+                                                  const gchar *string,
+                                                  gboolean select)
+{
+    EtApplicationWindowPrivate *priv;
+
+    priv = et_application_window_get_instance_private (self);
+
+    return et_browser_select_file_by_dlm (ET_BROWSER (priv->browser), string,
+                                          select);
+}
+
+void
+et_application_window_browser_unselect_all (EtApplicationWindow *self)
+{
+    EtApplicationWindowPrivate *priv;
+
+    priv = et_application_window_get_instance_private (self);
+
+    /* Save the current displayed data */
+    ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+
+    et_browser_unselect_all (ET_BROWSER (priv->browser));
+    ETCore->ETFileDisplayed = NULL;
+}
+
+void
+et_application_window_browser_refresh_list (EtApplicationWindow *self)
+{
+    EtApplicationWindowPrivate *priv;
+
+    g_return_if_fail (ET_APPLICATION_WINDOW (self));
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_refresh_list (ET_BROWSER (priv->browser));
+}
+
+void
+et_application_window_browser_refresh_file_in_list (EtApplicationWindow *self,
+                                                    ET_File *file)
+{
+    EtApplicationWindowPrivate *priv;
+
+    g_return_if_fail (ET_APPLICATION_WINDOW (self));
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_refresh_file_in_list (ET_BROWSER (priv->browser), file);
+}
+
+void
+et_application_window_browser_refresh_sort (EtApplicationWindow *self)
+{
+    EtApplicationWindowPrivate *priv;
+
+    g_return_if_fail (ET_APPLICATION_WINDOW (self));
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_refresh_sort (ET_BROWSER (priv->browser));
 }
 
 /*
@@ -2441,14 +2987,28 @@ et_application_window_unselect_all (GtkAction *action, gpointer user_data)
         GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (focused));
         gtk_tree_selection_unselect_all (selection);
     }
-    else /* Assume that other widgets should select all in the file view. */
+    else /* Assume that other widgets should unselect all in the file view. */
     {
-        /* Save the current displayed data */
-        ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
-
-        Browser_List_Unselect_All_Files ();
-        ETCore->ETFileDisplayed = NULL;
+        et_application_window_browser_unselect_all (ET_APPLICATION_WINDOW (user_data));
     }
+}
+
+/*
+ * Action when inverting files selection
+ */
+void
+et_application_window_invert_selection (GtkAction *action, gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    /* Save the current displayed data */
+    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
+
+    et_browser_invert_selection (ET_BROWSER (priv->browser));
+    Update_Command_Buttons_Sensivity();
 }
 
 /*
@@ -2457,10 +3017,13 @@ et_application_window_unselect_all (GtkAction *action, gpointer user_data)
 void
 et_application_window_select_first_file (GtkAction *action, gpointer user_data)
 {
+    EtApplicationWindow *self;
     GList *etfilelist;
 
     if (!ETCore->ETFileDisplayedList)
         return;
+
+    self = ET_APPLICATION_WINDOW (user_data);
 
     /* Save the current displayed data */
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
@@ -2469,13 +3032,20 @@ et_application_window_select_first_file (GtkAction *action, gpointer user_data)
     etfilelist = ET_Displayed_File_List_First();
     if (etfilelist)
     {
-        Browser_List_Unselect_All_Files(); // To avoid the last line still selected
-        Browser_List_Select_File_By_Etfile((ET_File *)etfilelist->data,TRUE);
+        EtApplicationWindowPrivate *priv;
+
+        priv = et_application_window_get_instance_private (self);
+
+        /* To avoid the last line still selected. */
+        et_browser_unselect_all (ET_BROWSER (priv->browser));
+        et_application_window_browser_select_file_by_et_file (self,
+                                                              (ET_File *)etfilelist->data,
+                                                              TRUE);
         ET_Display_File_Data_To_UI((ET_File *)etfilelist->data);
     }
 
     Update_Command_Buttons_Sensivity();
-    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (user_data))));
+    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (self)));
 
     if (SET_FOCUS_TO_FIRST_TAG_FIELD)
         gtk_widget_grab_focus(GTK_WIDGET(TitleEntry));
@@ -2488,10 +3058,13 @@ et_application_window_select_first_file (GtkAction *action, gpointer user_data)
 void
 et_application_window_select_prev_file (GtkAction *action, gpointer user_data)
 {
+    EtApplicationWindow *self;
     GList *etfilelist;
 
     if (!ETCore->ETFileDisplayedList || !ETCore->ETFileDisplayedList->prev)
         return;
+
+    self = ET_APPLICATION_WINDOW (user_data);
 
     /* Save the current displayed data */
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
@@ -2500,8 +3073,14 @@ et_application_window_select_prev_file (GtkAction *action, gpointer user_data)
     etfilelist = ET_Displayed_File_List_Previous();
     if (etfilelist)
     {
-        Browser_List_Unselect_All_Files();
-        Browser_List_Select_File_By_Etfile((ET_File *)etfilelist->data,TRUE);
+        EtApplicationWindowPrivate *priv;
+
+        priv = et_application_window_get_instance_private (self);
+
+        et_browser_unselect_all (ET_BROWSER (priv->browser));
+        et_application_window_browser_select_file_by_et_file (self,
+                                                              (ET_File *)etfilelist->data,
+                                                              TRUE);
         ET_Display_File_Data_To_UI((ET_File *)etfilelist->data);
     }
 
@@ -2509,7 +3088,7 @@ et_application_window_select_prev_file (GtkAction *action, gpointer user_data)
 //        gdk_beep(); // Warm the user
 
     Update_Command_Buttons_Sensivity();
-    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (user_data))));
+    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (self)));
 
     if (SET_FOCUS_TO_FIRST_TAG_FIELD)
         gtk_widget_grab_focus(GTK_WIDGET(TitleEntry));
@@ -2522,10 +3101,13 @@ et_application_window_select_prev_file (GtkAction *action, gpointer user_data)
 void
 et_application_window_select_next_file (GtkAction *acton, gpointer user_data)
 {
+    EtApplicationWindow *self;
     GList *etfilelist;
 
     if (!ETCore->ETFileDisplayedList || !ETCore->ETFileDisplayedList->next)
         return;
+
+    self = ET_APPLICATION_WINDOW (user_data);
 
     /* Save the current displayed data */
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
@@ -2534,8 +3116,14 @@ et_application_window_select_next_file (GtkAction *acton, gpointer user_data)
     etfilelist = ET_Displayed_File_List_Next();
     if (etfilelist)
     {
-        Browser_List_Unselect_All_Files();
-        Browser_List_Select_File_By_Etfile((ET_File *)etfilelist->data,TRUE);
+        EtApplicationWindowPrivate *priv;
+
+        priv = et_application_window_get_instance_private (self);
+
+        et_browser_unselect_all (ET_BROWSER (priv->browser));
+        et_application_window_browser_select_file_by_et_file (self,
+                                                              (ET_File *)etfilelist->data,
+                                                              TRUE);
         ET_Display_File_Data_To_UI((ET_File *)etfilelist->data);
     }
 
@@ -2543,7 +3131,7 @@ et_application_window_select_next_file (GtkAction *acton, gpointer user_data)
 //        gdk_beep(); // Warm the user
 
     Update_Command_Buttons_Sensivity();
-    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (user_data))));
+    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (self)));
 
     if (SET_FOCUS_TO_FIRST_TAG_FIELD)
         gtk_widget_grab_focus(GTK_WIDGET(TitleEntry));
@@ -2556,10 +3144,13 @@ et_application_window_select_next_file (GtkAction *acton, gpointer user_data)
 void
 et_application_window_select_last_file (GtkAction *action, gpointer user_data)
 {
+    EtApplicationWindow *self;
     GList *etfilelist;
 
     if (!ETCore->ETFileDisplayedList || !ETCore->ETFileDisplayedList->next)
         return;
+
+    self = ET_APPLICATION_WINDOW (user_data);
 
     /* Save the current displayed data */
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
@@ -2568,14 +3159,383 @@ et_application_window_select_last_file (GtkAction *action, gpointer user_data)
     etfilelist = ET_Displayed_File_List_Last();
     if (etfilelist)
     {
-        Browser_List_Unselect_All_Files();
-        Browser_List_Select_File_By_Etfile((ET_File *)etfilelist->data,TRUE);
+        EtApplicationWindowPrivate *priv;
+
+        priv = et_application_window_get_instance_private (self);
+
+        et_browser_unselect_all (ET_BROWSER (priv->browser));
+        et_application_window_browser_select_file_by_et_file (self,
+                                                              (ET_File *)etfilelist->data,
+                                                              TRUE);
         ET_Display_File_Data_To_UI((ET_File *)etfilelist->data);
     }
 
     Update_Command_Buttons_Sensivity();
-    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (user_data))));
+    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (self)));
 
     if (SET_FOCUS_TO_FIRST_TAG_FIELD)
         gtk_widget_grab_focus(GTK_WIDGET(TitleEntry));
+}
+
+/*
+ * Action when Remove button is pressed
+ */
+void
+et_application_window_remove_selected_tags (GtkAction *action,
+                                            gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    GList *selfilelist = NULL;
+    GList *l;
+    ET_File *etfile;
+    File_Tag *FileTag;
+    gint progress_bar_index;
+    gint selectcount;
+    double fraction;
+    GtkTreeSelection *selection;
+
+    g_return_if_fail (ETCore->ETFileDisplayedList != NULL);
+
+    priv = et_application_window_get_instance_private (ET_APPLICATION_WINDOW (user_data));
+
+    /* Save the current displayed data */
+    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
+
+    /* Initialize status bar */
+    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), 0.0);
+    selection = et_application_window_browser_get_selection (ET_APPLICATION_WINDOW (user_data));
+    selectcount = gtk_tree_selection_count_selected_rows (selection);
+    progress_bar_index = 0;
+
+    selfilelist = gtk_tree_selection_get_selected_rows (selection, NULL);
+
+    for (l = selfilelist; l != NULL; l = g_list_next (l))
+    {
+        etfile = et_browser_get_et_file_from_path (ET_BROWSER (priv->browser),
+                                                   l->data);
+        FileTag = ET_File_Tag_Item_New();
+        ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
+
+        fraction = (++progress_bar_index) / (double) selectcount;
+        gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), fraction);
+        /* Needed to refresh status bar */
+        while (gtk_events_pending())
+            gtk_main_iteration();
+    }
+
+    g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
+
+    /* Refresh the whole list (faster than file by file) to show changes. */
+    et_application_window_browser_refresh_list (ET_APPLICATION_WINDOW (user_data));
+
+    /* Display the current file */
+    ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
+    Update_Command_Buttons_Sensivity();
+
+    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), 0.0);
+    Statusbar_Message(_("All tags have been removed"),TRUE);
+}
+
+
+
+/*
+ * Action when Undo button is pressed.
+ * Action_Undo_Selected_Files: Undo the last changes for the selected files.
+ * Action_Undo_From_History_List: Undo the changes of the last modified file of the list.
+ */
+void
+et_application_window_undo_selected_files (GtkAction *action,
+                                           gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    GList *selfilelist = NULL;
+    GList *l;
+    gboolean state = FALSE;
+    ET_File *etfile;
+    GtkTreeSelection *selection;
+
+    g_return_val_if_fail (ETCore->ETFileDisplayedList != NULL, FALSE);
+
+    priv = et_application_window_get_instance_private (ET_APPLICATION_WINDOW (user_data));
+
+    /* Save the current displayed data */
+    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
+
+    selection = et_application_window_browser_get_selection (ET_APPLICATION_WINDOW (user_data));
+    selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
+
+    for (l = selfilelist; l != NULL; l = g_list_next (l))
+    {
+        etfile = et_browser_get_et_file_from_path (ET_BROWSER (priv->browser),
+                                                   l->data);
+        state |= ET_Undo_File_Data(etfile);
+    }
+
+    g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
+
+    /* Refresh the whole list (faster than file by file) to show changes. */
+    et_application_window_browser_refresh_list (ET_APPLICATION_WINDOW (user_data));
+
+    /* Display the current file */
+    ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
+    Update_Command_Buttons_Sensivity();
+
+    //ET_Debug_Print_File_List(ETCore->ETFileList,__FILE__,__LINE__,__FUNCTION__);
+}
+
+/*
+ * Delete the file ETFile
+ */
+static gint
+delete_file (ET_File *ETFile, gboolean multiple_files, GError **error)
+{
+    GtkWidget *msgdialog;
+    GtkWidget *msgdialog_check_button = NULL;
+    gchar *cur_filename;
+    gchar *cur_filename_utf8;
+    gchar *basename_utf8;
+    gint response;
+    gint stop_loop;
+
+    g_return_val_if_fail (ETFile != NULL, FALSE);
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+    /* Filename of the file to delete. */
+    cur_filename      = ((File_Name *)(ETFile->FileNameCur)->data)->value;
+    cur_filename_utf8 = ((File_Name *)(ETFile->FileNameCur)->data)->value_utf8;
+    basename_utf8 = g_path_get_basename (cur_filename_utf8);
+
+    /*
+     * Remove the file
+     */
+    if (CONFIRM_DELETE_FILE && !SF_HideMsgbox_Delete_File)
+    {
+        if (multiple_files)
+        {
+            GtkWidget *message_area;
+            msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
+                                               GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                               GTK_MESSAGE_QUESTION,
+                                               GTK_BUTTONS_NONE,
+                                               _("Do you really want to delete the file '%s'?"),
+                                               basename_utf8);
+            message_area = gtk_message_dialog_get_message_area(GTK_MESSAGE_DIALOG(msgdialog));
+            msgdialog_check_button = gtk_check_button_new_with_label(_("Repeat action for the remaining files"));
+            gtk_container_add(GTK_CONTAINER(message_area),msgdialog_check_button);
+            gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_NO,GTK_RESPONSE_NO,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_DELETE,GTK_RESPONSE_YES,NULL);
+            gtk_window_set_title(GTK_WINDOW(msgdialog),_("Delete File"));
+            //GTK_TOGGLE_BUTTON(msgbox_check_button)->active = TRUE; // Checked by default
+        }else
+        {
+            msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
+                                               GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                               GTK_MESSAGE_QUESTION,
+                                               GTK_BUTTONS_NONE,
+                                               _("Do you really want to delete the file '%s'?"),
+                                               basename_utf8);
+            gtk_window_set_title(GTK_WINDOW(msgdialog),_("Delete File"));
+            gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_CANCEL,GTK_RESPONSE_NO,GTK_STOCK_DELETE,GTK_RESPONSE_YES,NULL);
+        }
+        gtk_dialog_set_default_response (GTK_DIALOG (msgdialog),
+                                         GTK_RESPONSE_YES);
+        SF_ButtonPressed_Delete_File = response = gtk_dialog_run(GTK_DIALOG(msgdialog));
+        if (msgdialog_check_button && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(msgdialog_check_button)))
+            SF_HideMsgbox_Delete_File = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(msgdialog_check_button));
+        gtk_widget_destroy(msgdialog);
+    }else
+    {
+        if (SF_HideMsgbox_Delete_File)
+            response = SF_ButtonPressed_Delete_File;
+        else
+            response = GTK_RESPONSE_YES;
+    }
+
+    switch (response)
+    {
+        case GTK_RESPONSE_YES:
+        {
+            GFile *cur_file = g_file_new_for_path (cur_filename);
+
+            if (g_file_delete (cur_file, NULL, error))
+            {
+                gchar *msg = g_strdup_printf(_("File '%s' deleted"), basename_utf8);
+                Statusbar_Message(msg,FALSE);
+                g_free(msg);
+                g_free(basename_utf8);
+                g_object_unref (cur_file);
+                g_assert (error == NULL || *error == NULL);
+                return 1;
+            }
+
+            /* Error in deleting file. */
+            g_assert (error == NULL || *error != NULL);
+            break;
+        }
+        case GTK_RESPONSE_NO:
+            break;
+        case GTK_RESPONSE_CANCEL:
+        case GTK_RESPONSE_DELETE_EVENT:
+            stop_loop = -1;
+            g_free(basename_utf8);
+            return stop_loop;
+            break;
+        default:
+            g_assert_not_reached ();
+            break;
+    }
+
+    g_free(basename_utf8);
+    return 0;
+}
+
+/*
+ * Delete a file on the hard disk
+ */
+void
+et_application_window_delete_selected_files (GtkAction *action,
+                                             gpointer user_data)
+{
+    EtApplicationWindow *self;
+    EtApplicationWindowPrivate *priv;
+    GList *selfilelist;
+    GList *rowreflist = NULL;
+    GList *l;
+    gint   progress_bar_index;
+    gint   saving_answer;
+    gint   nb_files_to_delete;
+    gint   nb_files_deleted = 0;
+    gchar *msg;
+    gchar progress_bar_text[30];
+    double fraction;
+    GtkTreeModel *treemodel;
+    GtkTreeRowReference *rowref;
+    GtkTreeSelection *selection;
+    GError *error = NULL;
+
+    g_return_if_fail (ETCore->ETFileDisplayedList != NULL);
+
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
+
+    /* Save the current displayed data */
+    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
+
+    /* Number of files to save */
+    selection = et_application_window_browser_get_selection (self);
+    nb_files_to_delete = gtk_tree_selection_count_selected_rows (selection);
+
+    /* Initialize status bar */
+    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar),0);
+    progress_bar_index = 0;
+    g_snprintf(progress_bar_text, 30, "%d/%d", progress_bar_index, nb_files_to_delete);
+    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), progress_bar_text);
+
+    /* Set to unsensitive all command buttons (except Quit button) */
+    Disable_Command_Buttons();
+    et_application_window_browser_set_sensitive (self, FALSE);
+    et_application_window_tag_area_set_sensitive (self, FALSE);
+    et_application_window_file_area_set_sensitive (self, FALSE);
+
+    /* Show msgbox (if needed) to ask confirmation */
+    SF_HideMsgbox_Delete_File = 0;
+
+    selfilelist = gtk_tree_selection_get_selected_rows (selection, &treemodel);
+
+    for (l = selfilelist; l != NULL; l = g_list_next (l))
+    {
+        rowref = gtk_tree_row_reference_new (treemodel, l->data);
+        rowreflist = g_list_prepend (rowreflist, rowref);
+    }
+
+    g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
+    rowreflist = g_list_reverse (rowreflist);
+
+    for (l = rowreflist; l != NULL; l = g_list_next (l))
+    {
+        GtkTreePath *path;
+        ET_File *ETFile;
+
+        path = gtk_tree_row_reference_get_path (l->data);
+        ETFile = et_browser_get_et_file_from_path (ET_BROWSER (priv->browser),
+                                                   path);
+        gtk_tree_path_free(path);
+
+        ET_Display_File_Data_To_UI(ETFile);
+        et_application_window_browser_select_file_by_et_file (self, ETFile,
+                                                              FALSE);
+        fraction = (++progress_bar_index) / (double) nb_files_to_delete;
+        gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), fraction);
+        g_snprintf(progress_bar_text, 30, "%d/%d", progress_bar_index, nb_files_to_delete);
+        gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), progress_bar_text);
+         /* Needed to refresh status bar */
+        while (gtk_events_pending())
+            gtk_main_iteration();
+
+        saving_answer = delete_file (ETFile,
+                                     nb_files_to_delete > 1 ? TRUE : FALSE,
+                                     &error);
+
+        switch (saving_answer)
+        {
+            case 1:
+                nb_files_deleted += saving_answer;
+                // Remove file in the browser (corresponding line in the clist)
+                et_browser_remove_file (ET_BROWSER (priv->browser), ETFile);
+                // Remove file from file list
+                ET_Remove_File_From_File_List(ETFile);
+                break;
+            case 0:
+                /* Distinguish between the file being skipped, and there being
+                 * an error during deletion. */
+                if (error)
+                {
+                    Log_Print (LOG_ERROR, _("Cannot delete file (%s)"),
+                               error->message);
+                    g_clear_error (&error);
+                }
+                break;
+            case -1:
+                // Stop deleting files + reinit progress bar
+                gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar),0.0);
+                // To update state of command buttons
+                Update_Command_Buttons_Sensivity();
+                et_application_window_browser_set_sensitive (self, TRUE);
+                et_application_window_tag_area_set_sensitive (self, TRUE);
+                et_application_window_file_area_set_sensitive (self, TRUE);
+
+                return; /*We stop all actions. */
+        }
+    }
+
+    g_list_free_full (rowreflist, (GDestroyNotify)gtk_tree_row_reference_free);
+
+    if (nb_files_deleted < nb_files_to_delete)
+        msg = g_strdup (_("Files have been partially deleted"));
+    else
+        msg = g_strdup (_("All files have been deleted"));
+
+    /* It's important to displayed the new item, as it'll check the changes in et_browser_toggle_display_mode. */
+    if (ETCore->ETFileDisplayed)
+        ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
+    /*else if (ET_Displayed_File_List_Current())
+        ET_Display_File_Data_To_UI((ET_File *)ET_Displayed_File_List_Current()->data);*/
+
+    /* Load list... */
+    et_browser_load_file_list (ET_BROWSER (priv->browser),
+                               ETCore->ETFileDisplayedList, NULL);
+    /* Rebuild the list... */
+    et_browser_toggle_display_mode (ET_BROWSER (priv->browser));
+
+    /* To update state of command buttons */
+    Update_Command_Buttons_Sensivity();
+    et_application_window_browser_set_sensitive (self, TRUE);
+    et_application_window_tag_area_set_sensitive (self, TRUE);
+    et_application_window_file_area_set_sensitive (self, TRUE);
+
+    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), "");
+    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), 0);
+    Statusbar_Message(msg,TRUE);
+    g_free(msg);
+
+    return;
 }

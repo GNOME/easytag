@@ -103,7 +103,8 @@ static const gchar CDDB_LOCAL_PATH_HISTORY_FILE[] = "cddb_local_path.history";
 
 static void Save_Config_To_File (void);
 static gboolean Create_Easytag_Directory (void);
-static void set_sorting_indicator_for_column_id (gint column_id,
+static void set_sorting_indicator_for_column_id (EtApplicationWindow *self,
+                                                 gint column_id,
                                                  ET_Sorting_Type temp_sort,
                                                  GtkTreeViewColumn *column);
 
@@ -579,6 +580,7 @@ void Init_Config_Variables (void)
 static void
 Apply_Changes_Of_Preferences_Window (void)
 {
+    EtApplicationWindow *window;
     GtkWidget *dialog;
     gchar *temp;
     int active;
@@ -586,7 +588,8 @@ Apply_Changes_Of_Preferences_Window (void)
     gint column_id;
     GtkTreeViewColumn * column;
 
-    dialog = et_application_window_get_preferences_dialog (ET_APPLICATION_WINDOW (MainWindow));
+    window = ET_APPLICATION_WINDOW (MainWindow);
+    dialog = et_application_window_get_preferences_dialog (window);
 
     if (dialog)
     {
@@ -610,7 +613,7 @@ Apply_Changes_Of_Preferences_Window (void)
         {
             CHANGED_FILES_DISPLAYED_TO_RED  = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ChangedFilesDisplayedToRed));
             CHANGED_FILES_DISPLAYED_TO_BOLD = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ChangedFilesDisplayedToBold));
-            Browser_List_Refresh_Whole_List();
+            et_application_window_browser_refresh_list (ET_APPLICATION_WINDOW (MainWindow));
         }
 
         /* Misc */
@@ -629,16 +632,17 @@ Apply_Changes_Of_Preferences_Window (void)
         column_id = temp_sort / 2;
         if (SORTING_FILE_MODE < SORTING_BY_ASCENDING_CREATION_DATE)
         {
-            gtk_tree_view_column_set_sort_indicator (get_column_for_column_id (SORTING_FILE_MODE / 2),
+            gtk_tree_view_column_set_sort_indicator (et_application_window_browser_get_column_for_column_id (window, SORTING_FILE_MODE / 2),
                                                      FALSE);
         }
         if (temp_sort < SORTING_BY_ASCENDING_CREATION_DATE)
         {
-            column = get_column_for_column_id (column_id);
-            set_sorting_indicator_for_column_id (column_id, temp_sort, column);
+            column = et_application_window_browser_get_column_for_column_id (window, column_id);
+            set_sorting_indicator_for_column_id (window, column_id, temp_sort,
+                                                 column);
         }
         SORTING_FILE_MODE = temp_sort;
-        Browser_List_Refresh_Sort ();
+        et_application_window_browser_refresh_sort (ET_APPLICATION_WINDOW (MainWindow));
 
         if (AUDIO_FILE_PLAYER) g_free(AUDIO_FILE_PLAYER);
         AUDIO_FILE_PLAYER                       = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)))));
@@ -1598,7 +1602,8 @@ Create_Easytag_Directory (void)
 }
 
 static void
-set_sorting_indicator_for_column_id (gint column_id,
+set_sorting_indicator_for_column_id (EtApplicationWindow *window,
+                                     gint column_id,
                                      ET_Sorting_Type temp_sort,
                                      GtkTreeViewColumn *column)
 {
@@ -1607,7 +1612,8 @@ set_sorting_indicator_for_column_id (gint column_id,
 
     gtk_tree_view_column_clicked (column);
 
-    current_sort = get_sort_order_for_column_id (column_id);
+    current_sort = et_application_window_browser_get_sort_order_for_column_id (window,
+                                                                               column_id);
 
     sort_type = temp_sort % 2 == 0 ? GTK_SORT_ASCENDING : GTK_SORT_DESCENDING;
 

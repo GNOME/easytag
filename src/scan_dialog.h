@@ -75,7 +75,6 @@ enum {
 void Scan_Select_Mode_And_Run_Scanner (EtScanDialog *self, ET_File *ETFile);
 gchar *Scan_Generate_New_Filename_From_Mask       (ET_File *ETFile, gchar *mask, gboolean no_dir_check_or_conversion);
 gchar *Scan_Generate_New_Directory_Name_From_Mask (ET_File *ETFile, gchar *mask, gboolean no_dir_check_or_conversion);
-void   Scan_Rename_Directory_Generate_Preview (void);
 
 void entry_check_rename_file_mask (GtkEntry *entry, gpointer user_data);
 

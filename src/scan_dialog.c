@@ -1024,47 +1024,6 @@ Scan_Rename_File_Prefix_Path (EtScanDialog *self)
 }
 
 
-/*******************************
- * Scanner To Rename Directory *
- *******************************/
-void Scan_Rename_Directory_Generate_Preview (void)
-{
-    gchar *preview_text = NULL;
-    gchar *mask = NULL;
-
-    if (!ETCore->ETFileDisplayed
-    ||  !RenameDirectoryWindow || !RenameDirectoryMaskCombo || !RenameDirectoryPreviewLabel)
-        return;
-
-    mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(RenameDirectoryMaskCombo)))));
-    if (!mask)
-        return;
-
-    preview_text = Scan_Generate_New_Filename_From_Mask(ETCore->ETFileDisplayed,mask,FALSE);
-
-    if (GTK_IS_LABEL(RenameDirectoryPreviewLabel))
-    {
-        if (preview_text)
-        {
-            //gtk_label_set_text(GTK_LABEL(priv->rename_file_preview_label),preview_text);
-            gchar *tmp_string = g_markup_printf_escaped("%s",preview_text); // To avoid problem with strings containing characters like '&'
-            gchar *str = g_strdup_printf("<i>%s</i>",tmp_string);
-            gtk_label_set_markup(GTK_LABEL(RenameDirectoryPreviewLabel),str);
-            g_free(tmp_string);
-            g_free(str);
-        } else
-        {
-            gtk_label_set_text(GTK_LABEL(RenameDirectoryPreviewLabel),"");
-        }
-
-        // Force the window to be redrawed else the preview label may be not placed correctly
-        gtk_widget_queue_resize(RenameDirectoryWindow);
-    }
-
-    g_free(mask);
-    g_free(preview_text);
-}
-
 gchar *Scan_Generate_New_Directory_Name_From_Mask (ET_File *ETFile, gchar *mask, gboolean no_dir_check_or_conversion)
 {
     return Scan_Generate_New_Filename_From_Mask(ETFile,mask,no_dir_check_or_conversion);
@@ -3516,14 +3475,14 @@ et_scan_dialog_scan_selected_files (EtScanDialog *self)
     ET_File *etfile;
     GtkTreeSelection *selection;
 
-    g_return_if_fail (ETCore->ETFileDisplayedList != NULL ||
-                      BrowserList != NULL);
+    g_return_if_fail (ETCore->ETFileDisplayedList != NULL);
 
     /* Save the current displayed data */
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
 
     /* Initialize status bar */
-    selectcount = gtk_tree_selection_count_selected_rows(gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList)));
+    selection = et_application_window_browser_get_selection (ET_APPLICATION_WINDOW (MainWindow));
+    selectcount = gtk_tree_selection_count_selected_rows (selection);
     gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar),0);
     progress_bar_index = 0;
     g_snprintf(progress_bar_text, 30, "%d/%d", progress_bar_index, selectcount);
@@ -3534,12 +3493,12 @@ et_scan_dialog_scan_selected_files (EtScanDialog *self)
 
     progress_bar_index = 0;
 
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
     selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
 
     for (l = selfilelist; l != NULL; l = g_list_next (l))
     {
-        etfile = Browser_List_Get_ETFile_From_Path (l->data);
+        etfile = et_application_window_browser_get_et_file_from_path (ET_APPLICATION_WINDOW (MainWindow),
+                                                                      l->data);
 
         /* Run the current scanner. */
         Scan_Select_Mode_And_Run_Scanner (self, etfile);
@@ -3556,8 +3515,8 @@ et_scan_dialog_scan_selected_files (EtScanDialog *self)
 
     g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
 
-    // Refresh the whole list (faster than file by file) to show changes
-    Browser_List_Refresh_Whole_List();
+    /* Refresh the whole list (faster than file by file) to show changes. */
+    et_application_window_browser_refresh_list (ET_APPLICATION_WINDOW (MainWindow));
 
     /* Display the current file */
     ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);

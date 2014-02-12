@@ -997,12 +997,17 @@ ET_Sort_Displayed_File_List (ET_Sorting_Type Sorting_Type)
  */
 GList *ET_Sort_File_List (GList *ETFileList, ET_Sorting_Type Sorting_Type)
 {
+    EtApplicationWindow *window;
+    GtkTreeViewColumn *column;
+    GList *etfilelist;
     gint column_id = Sorting_Type / 2;
 
-    GtkTreeViewColumn *column = get_column_for_column_id (column_id);
+    window = ET_APPLICATION_WINDOW (MainWindow);
+    column = et_application_window_browser_get_column_for_column_id (window,
+                                                                     column_id);
 
-    // Important to rewind before
-    GList *etfilelist = g_list_first(ETFileList);
+    /* Important to rewind before. */
+    etfilelist = g_list_first (ETFileList);
 
     set_sort_order_for_column_id (column_id, column, Sorting_Type);
 
@@ -1168,10 +1173,12 @@ void ET_Sort_Displayed_File_List_And_Update_UI (ET_Sorting_Type Sorting_Type)
 
     /* Reload files in browser list */
     ET_Displayed_File_List_By_Etfile(ETCore->ETFileDisplayed);  // Just to update 'ETFileDisplayedList'
-    Browser_List_Select_File_By_Etfile(ETCore->ETFileDisplayed,TRUE);
+    et_application_window_browser_select_file_by_et_file (ET_APPLICATION_WINDOW (MainWindow),
+                                                          ETCore->ETFileDisplayed,
+                                                          TRUE);
     ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
 
-    Browser_List_Refresh_Sort();
+    et_application_window_browser_refresh_sort (ET_APPLICATION_WINDOW (MainWindow));
     Update_Command_Buttons_Sensivity();
 }
 
@@ -2393,8 +2400,8 @@ ET_Free_Artist_Album_File_List (void)
 
     /* Pointers are stored inside the artist/album list-stores, so free them
      * first. */
-    browser_artist_model_clear ();
-    browser_album_model_clear ();
+    et_application_window_browser_clear_artist_model (ET_APPLICATION_WINDOW (MainWindow));
+    et_application_window_browser_clear_album_model (ET_APPLICATION_WINDOW (MainWindow));
 
     for (l = ETCore->ETArtistAlbumFileList; l != NULL; l = g_list_next (l))
     {
@@ -3013,11 +3020,13 @@ ET_Display_Filename_To_UI (ET_File *ETFile)
      * Set the path to the file into BrowserEntry (dirbrowser)
      */
     dirname_utf8 = g_path_get_dirname(new_filename_utf8);
-    Browser_Entry_Set_Text(dirname_utf8);
+    et_application_window_browser_entry_set_text (ET_APPLICATION_WINDOW (MainWindow),
+                                                  dirname_utf8);
 
     // And refresh the number of files in this directory
     text = g_strdup_printf(ngettext("One file","%u files",ET_Get_Number_Of_Files_In_Directory(dirname_utf8)),ET_Get_Number_Of_Files_In_Directory(dirname_utf8));
-    Browser_Label_Set_Text(text);
+    et_application_window_browser_label_set_text (ET_APPLICATION_WINDOW (MainWindow),
+                                                  text);
     g_free(dirname_utf8);
     g_free(text);
 }
@@ -3379,7 +3388,8 @@ void ET_Save_File_Data_From_UI (ET_File *ETFile)
     ET_Manage_Changes_Of_File_Data(ETFile,FileName,FileTag);
 
     /* Refresh file into browser list */
-    Browser_List_Refresh_File_In_List(ETFile);
+    et_application_window_browser_refresh_file_in_list (ET_APPLICATION_WINDOW (MainWindow),
+                                                        ETFile);
 }
 
 
@@ -5052,22 +5062,27 @@ static void
 set_sort_order_for_column_id (gint column_id, GtkTreeViewColumn *column,
                               ET_Sorting_Type sort_type)
 {
+    EtApplicationWindow *window;
+
+    window = ET_APPLICATION_WINDOW (MainWindow);
+
     /* Removing the sort indicator for the currently selected treeview
      * column. */
     if (SORTING_FILE_MODE < SORTING_BY_ASCENDING_CREATION_DATE)
     {
-        gtk_tree_view_column_set_sort_indicator (get_column_for_column_id (SORTING_FILE_MODE / 2),
+        gtk_tree_view_column_set_sort_indicator (et_application_window_browser_get_column_for_column_id (window, SORTING_FILE_MODE / 2),
                                                  FALSE);
     }
 
     if (sort_type < SORTING_BY_ASCENDING_CREATION_DATE)
     {
-        gtk_tree_view_column_clicked (get_column_for_column_id (column_id));
+        gtk_tree_view_column_clicked (et_application_window_browser_get_column_for_column_id (window, column_id));
 
         if (sort_type % 2 == 0)
         {
             /* GTK_SORT_ASCENDING */
-            if (get_sort_order_for_column_id (column_id) == GTK_SORT_DESCENDING)
+            if (et_application_window_browser_get_sort_order_for_column_id (window, column_id)
+                == GTK_SORT_DESCENDING)
             {
                 gtk_tree_view_column_set_sort_order (column,
                                                      GTK_SORT_ASCENDING);
@@ -5076,7 +5091,8 @@ set_sort_order_for_column_id (gint column_id, GtkTreeViewColumn *column,
         else
         {
             /* GTK_SORT_DESCENDING */
-            if (get_sort_order_for_column_id (column_id) == GTK_SORT_ASCENDING)
+            if (et_application_window_browser_get_sort_order_for_column_id (window, column_id)
+                == GTK_SORT_ASCENDING)
             {
                 gtk_tree_view_column_set_sort_order (column,
                                                      GTK_SORT_DESCENDING);

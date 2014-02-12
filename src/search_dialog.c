@@ -22,6 +22,7 @@
 
 #include <glib/gi18n.h>
 
+#include "application_window.h"
 #include "bar.h"
 #include "browser.h"
 #include "charset.h"
@@ -134,8 +135,8 @@ Search_Result_List_Row_Selected (GtkTreeSelection *selection,
         return;
     }
 
-    // Unselect files in the main list before re-selecting them...
-    Browser_List_Unselect_All_Files();
+    /* Unselect files in the main list before re-selecting them... */
+    et_application_window_browser_unselect_all (ET_APPLICATION_WINDOW (MainWindow));
 
     for (l = selectedRows; l != NULL; l = g_list_next (l))
     {
@@ -144,9 +145,11 @@ Search_Result_List_Row_Selected (GtkTreeSelection *selection,
         {
             gtk_tree_model_get(GTK_TREE_MODEL(priv->search_results_model), &currentFile, 
                                SEARCH_RESULT_POINTER, &ETFile, -1);
-            // Select the files (but don't display them to increase speed)
-            Browser_List_Select_File_By_Etfile(ETFile, TRUE);
-            // Display only the last file (to increase speed)
+            /* Select the files (but don't display them to increase speed). */
+            et_application_window_browser_select_file_by_et_file (ET_APPLICATION_WINDOW (MainWindow),
+                                                                  ETFile,
+                                                                  TRUE);
+            /* Display only the last file (to increase speed). */
             if (!selectedRows->next)
                 Action_Select_Nth_File_By_Etfile(ETFile);
         }

@@ -80,6 +80,16 @@ static void on_menu_item_deselect (GtkMenuItem *item, gpointer user_data);
 #define QCASE(string,callback) if (quark == g_quark_from_string((string))) { (callback)(); }
 #define QCASE_DATA(string,callback,data) if (quark == g_quark_from_string((string))) { (callback)((data)); }
 
+static void
+reload_browser (gpointer data)
+{
+    EtApplicationWindow *window;
+
+    window = ET_APPLICATION_WINDOW (data);
+
+    et_application_window_browser_reload (NULL, window);
+}
+
 /*
  * Menu bar
  */
@@ -129,8 +139,8 @@ Menu_Sort_Action (GtkAction *item, gpointer data)
     QCASE_DATA(AM_SORT_DESCENDING_FILE_BITRATE,    ET_Sort_Displayed_File_List_And_Update_UI, SORTING_BY_DESCENDING_FILE_BITRATE);
     QCASE_DATA(AM_SORT_ASCENDING_FILE_SAMPLERATE,  ET_Sort_Displayed_File_List_And_Update_UI, SORTING_BY_ASCENDING_FILE_SAMPLERATE);
     QCASE_DATA(AM_SORT_DESCENDING_FILE_SAMPLERATE, ET_Sort_Displayed_File_List_And_Update_UI, SORTING_BY_DESCENDING_FILE_SAMPLERATE);
-    QCASE_DATA(AM_INITIALIZE_TREE,                 Browser_Tree_Rebuild,                      NULL);
-    Browser_List_Refresh_Sort ();
+    QCASE_DATA(AM_INITIALIZE_TREE, reload_browser, data);
+    et_application_window_browser_refresh_sort (ET_APPLICATION_WINDOW (data));
 }
 
 void
@@ -206,17 +216,18 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
 
         { AM_OPEN_FILE_WITH, GTK_STOCK_OPEN, _("Open Files With…"),
           "<Primary><Shift>O", _("Run a command on the selected files"),
-          G_CALLBACK (Browser_Open_Run_Program_List_Window) },
+          G_CALLBACK (et_application_window_show_open_files_with_dialog) },
         { AM_SELECT_ALL, GTK_STOCK_SELECT_ALL, NULL, "<Primary>A",
           _("Select all"), G_CALLBACK (et_application_window_select_all) },
         { AM_UNSELECT_ALL, "easytag-unselect-all", _("Unselect All"),
           "<Primary><Shift>A", _("Clear the current selection"),
           G_CALLBACK (et_application_window_unselect_all) },
         { AM_INVERT_SELECTION, "easytag-invert-selection",
-          _("Invert File Selection"), "<Primary>I",
-          _("Invert file selection"),
-          G_CALLBACK (Action_Invert_Files_Selection) },
-        { AM_DELETE_FILE,        GTK_STOCK_DELETE,           _("Delete Files"),             NULL,                _("Delete files"),            G_CALLBACK(Action_Delete_Selected_Files) },
+          _("Invert File Selection"), "<Primary>I", _("Invert file selection"),
+          G_CALLBACK (et_application_window_invert_selection) },
+        { AM_DELETE_FILE, GTK_STOCK_DELETE, _("Delete Files"), NULL,
+          _("Delete files"),
+          G_CALLBACK (et_application_window_delete_selected_files) },
         { AM_FIRST, GTK_STOCK_GOTO_FIRST, _("_First File"), "<Primary>Home",
           _("First file"),
           G_CALLBACK (et_application_window_select_first_file) },
@@ -233,13 +244,14 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
           _("Scan selected files"),
           G_CALLBACK (et_application_window_scan_selected_files) },
         { AM_REMOVE, GTK_STOCK_CLEAR, _("_Remove Tags"), "<Primary>E",
-          _("Remove tags"), G_CALLBACK (Action_Remove_Selected_Tags) },
+          _("Remove tags"),
+          G_CALLBACK (et_application_window_remove_selected_tags) },
         { AM_UNDO, GTK_STOCK_UNDO, _("_Undo Last Files Changes"), "<Primary>Z",
           _("Undo last files changes"),
-          G_CALLBACK(Action_Undo_Selected_Files) },
+          G_CALLBACK (et_application_window_undo_selected_files) },
         { AM_REDO, GTK_STOCK_REDO, _("R_edo Last Files Changes"),
           "<Primary><Shift>Z", _("Redo last files changes"),
-          G_CALLBACK (Action_Redo_Selected_File) },
+          G_CALLBACK (et_application_window_redo_selected_files) },
         { AM_SAVE, GTK_STOCK_SAVE, _("_Save Files"), "<Primary>S",
           _("Save changes to selected files"),
           G_CALLBACK(Action_Save_Selected_Files) },
@@ -254,39 +266,45 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { MENU_BROWSER,                NULL,                   _("_Browser"),                      NULL,                NULL,                               NULL },
         { AM_LOAD_HOME_DIR, GTK_STOCK_HOME, _("_Home Directory"), "<Alt>Home",
           _("Go to home directory"),
-          G_CALLBACK (Browser_Load_Home_Directory) },
+          G_CALLBACK (et_application_window_go_home) },
         { AM_LOAD_DESKTOP_DIR, "user-desktop", _("Desktop Directory"), NULL,
           _("Go to desktop directory"),
-          G_CALLBACK (Browser_Load_Desktop_Directory) },
+          G_CALLBACK (et_application_window_go_desktop) },
         { AM_LOAD_DOCUMENTS_DIR, "folder-documents", _("Documents Directory"),
           NULL, _("Go to documents directory"),
-          G_CALLBACK (Browser_Load_Documents_Directory) },
+          G_CALLBACK (et_application_window_go_documents) },
         { AM_LOAD_DOWNLOADS_DIR, "folder-download", _("Downloads Directory"),
           NULL, _("Go to downloads directory"),
-          G_CALLBACK (Browser_Load_Downloads_Directory) },
+          G_CALLBACK (et_application_window_go_download) },
         { AM_LOAD_MUSIC_DIR, "folder-music", _("Music Directory"), NULL,
           _("Go to music directory"),
-          G_CALLBACK (Browser_Load_Music_Directory) },
+          G_CALLBACK (et_application_window_go_music) },
         { AM_LOAD_PARENT_DIR, GTK_STOCK_GO_UP, _("_Parent Directory"),
           "<Alt>Up", _("Go to parent directory"),
-          G_CALLBACK (et_browser_on_action_parent_directory) },
+          G_CALLBACK (et_application_window_go_parent) },
         { AM_LOAD_DEFAULT_DIR, GTK_STOCK_JUMP_TO, _("_Default Directory"),
           "<Primary>D", _("Go to default directory"),
-          G_CALLBACK (Browser_Load_Default_Directory) },
-        { AM_SET_PATH_AS_DEFAULT,      GTK_STOCK_DIRECTORY,    _("Set _Current Path as Default"),  NULL,                _("Set current path as default"),   G_CALLBACK(Set_Current_Path_As_Default) },
-        { AM_RENAME_DIR,               GTK_STOCK_INDEX,        _("Rename Directory…"),          "F2",                _("Rename directory"),          G_CALLBACK(Browser_Open_Rename_Directory_Window) },
+          G_CALLBACK (et_application_window_load_default_dir) },
+        { AM_SET_PATH_AS_DEFAULT, GTK_STOCK_DIRECTORY,
+          _("Set _Current Path as Default"), NULL,
+          _("Set current path as default"),
+          G_CALLBACK (et_application_window_set_current_path_default) },
+        { AM_RENAME_DIR, GTK_STOCK_INDEX, _("Rename Directory…"), "F2",
+          _("Rename directory"),
+          G_CALLBACK (et_application_window_show_rename_directory_dialog) },
         { AM_RELOAD_DIRECTORY, GTK_STOCK_REFRESH, _("Reload Directory"),
           "<Primary>R", _("Reload directory"),
-          G_CALLBACK (Browser_Reload_Directory) },
+          G_CALLBACK (et_application_window_reload_directory) },
         { AM_BROWSE_DIRECTORY_WITH, GTK_STOCK_EXECUTE,
           _("Browse Directory With…"), NULL,
           _("Run a command on the directory"),
-          G_CALLBACK (Browser_Open_Run_Program_Tree_Window) },
+          G_CALLBACK (et_application_window_show_open_directory_with_dialog) },
         { AM_COLLAPSE_TREE, NULL, _("_Collapse Tree"), "<Primary><Shift>C",
-          _("Collapse directory tree"), G_CALLBACK (Browser_Tree_Collapse) },
+          _("Collapse directory tree"),
+          G_CALLBACK (et_application_window_browser_collapse) },
         { AM_INITIALIZE_TREE, GTK_STOCK_REFRESH, _("_Reload Tree"),
           "<Primary><Shift>R", _("Reload directory tree"),
-          G_CALLBACK (Browser_Tree_Rebuild) },
+          G_CALLBACK (et_application_window_browser_reload) },
 
         { MENU_SCANNER, NULL, _("S_canner Mode"), NULL, NULL, NULL },
 
@@ -306,7 +324,7 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
           G_CALLBACK (et_application_window_show_playlist_dialog) },
         { AM_RUN_AUDIO_PLAYER, GTK_STOCK_MEDIA_PLAY, _("Run Audio Player"),
           "<Primary>M", _("Run audio player"),
-          G_CALLBACK (Run_Audio_Player_Using_Selection) },
+          G_CALLBACK (et_application_window_run_player_for_selection) },
 
         { MENU_EDIT, NULL, _("_Edit"), NULL, NULL, NULL },
         { AM_OPEN_OPTIONS_WINDOW, GTK_STOCK_PREFERENCES, _("_Preferences"),
@@ -337,8 +355,12 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { POPUP_FILE,                   NULL,              _("_File Operations"),          NULL, NULL,                         NULL },
         { POPUP_SUBMENU_SCANNER,        "document-properties",    _("S_canner"),                  NULL, NULL,                         NULL },
         { POPUP_DIR_RUN_AUDIO,          GTK_STOCK_MEDIA_PLAY,   _("Run Audio Player"),          NULL, _("Run audio player"),        G_CALLBACK(Run_Audio_Player_Using_Directory) },
-        { AM_ARTIST_RUN_AUDIO_PLAYER,   GTK_STOCK_MEDIA_PLAY,   _("Run Audio Player"),          NULL, _("Run audio player"),        G_CALLBACK(Run_Audio_Player_Using_Browser_Artist_List) },
-        { AM_ALBUM_RUN_AUDIO_PLAYER,    GTK_STOCK_MEDIA_PLAY,   _("Run Audio Player"),          NULL, _("Run audio player"),        G_CALLBACK(Run_Audio_Player_Using_Browser_Album_List)  },
+        { AM_ARTIST_RUN_AUDIO_PLAYER, GTK_STOCK_MEDIA_PLAY,
+          _("Run Audio Player"), NULL, _("Run audio player"),
+          G_CALLBACK (et_application_window_run_player_for_artist_list) },
+        { AM_ALBUM_RUN_AUDIO_PLAYER, GTK_STOCK_MEDIA_PLAY,
+          _("Run Audio Player"), NULL, _("Run audio player"),
+          G_CALLBACK (et_application_window_run_player_for_album_list) },
         { AM_CDDB_SEARCH_FILE, GTK_STOCK_CDROM, _("CDDB Search Files…"), NULL,
           _("CDDB search files…"),
           G_CALLBACK (et_application_window_search_cddb_for_selection) },
@@ -357,7 +379,7 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
 #ifndef G_OS_WIN32 /* No sense here for Win32, "hidden" means : starts with a
                     * '.'
                     */
-        { AM_BROWSER_HIDDEN_DIR, NULL,                   _("Show Hidden Directories"),                         NULL, _("Show hidden directories"),                         G_CALLBACK(Browser_Tree_Rebuild),     BROWSE_HIDDEN_DIR },
+        { AM_BROWSER_HIDDEN_DIR, NULL,                   _("Show Hidden Directories"),                         NULL, _("Show hidden directories"),                         G_CALLBACK(et_application_window_browser_reload),     BROWSE_HIDDEN_DIR },
 #endif /* !G_OS_WIN32 */
         { AM_SCANNER_SHOW, "document-properties", _("_Show Scanner"), NULL,
           _("Show scanner"),
@@ -425,7 +447,8 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
     gtk_action_group_add_toggle_actions(ActionGroup, ToggleActionEntries, num_toggle_entries, window);
     gtk_action_group_add_radio_actions (ActionGroup, view_mode_entries,
                                         n_view_mode_entries, 0,
-                                        Action_Select_Browser_Style, window);
+                                        G_CALLBACK (et_on_action_select_browser_mode),
+                                        window);
     gtk_action_group_add_radio_actions (ActionGroup, scanner_mode_entries,
                                         n_scanner_mode_entries, 0,
                                         G_CALLBACK (et_on_action_select_scan_mode),
@@ -514,7 +537,7 @@ Check_Menu_Item_Toggled_Browse_Hidden_Dir (GtkWidget *checkmenuitem)
     Check_Menu_Item_Update_Browse_Hidden_Dir();
 
     // Reload directory, in case we have changed BROWSE_HIDDEN_DIR
-    //Browser_Tree_Rebuild(NULL); // Commented, as already done in GtkToggleActionEntry for AM_BROWSER_HIDDEN_DIR
+    //et_application_window_browser_reload(NULL); // Commented, as already done in GtkToggleActionEntry for AM_BROWSER_HIDDEN_DIR
 }
 
 void

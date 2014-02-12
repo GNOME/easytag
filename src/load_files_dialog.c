@@ -155,7 +155,7 @@ Load_Filename_Set_Filenames (EtLoadFilesDialog *self)
 
     gtk_tree_path_free(currentPath);
 
-    Browser_List_Refresh_Whole_List();
+    et_application_window_browser_refresh_list (ET_APPLICATION_WINDOW (MainWindow));
     ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
 }
 
@@ -829,7 +829,7 @@ create_load_files_dialog (EtLoadFilesDialog *self)
     GtkWidget *loadedvbox;
     GtkWidget *filelistvbox;
     GtkWidget *vboxpaned;
-    gchar *path;
+    const gchar *path;
     GtkCellRenderer* renderer;
     GtkTreeViewColumn* column;
 
@@ -870,7 +870,7 @@ create_load_files_dialog (EtLoadFilesDialog *self)
     // History List
     Load_File_To_Load_List(priv->file_to_load_model, MISC_COMBO_TEXT);
     // Initial value
-    if ((path=Browser_Get_Current_Path())!=NULL)
+    if ((path = et_application_window_get_current_path (ET_APPLICATION_WINDOW (MainWindow))) != NULL)
         gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->file_to_load_combo))),path);
     // the 'changed' signal is attached below to enable/disable the button to load
     // Button 'browse'
