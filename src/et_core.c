@@ -1202,21 +1202,46 @@ gint ET_Comp_Func_Sort_File_By_Descending_Track_Number (ET_File *ETFile1, ET_Fil
  */
 gint ET_Comp_Func_Sort_File_By_Ascending_Creation_Date (ET_File *ETFile1, ET_File *ETFile2)
 {
-    struct stat statbuf1;
-    struct stat statbuf2;
-    gchar *filename1 = ((File_Name *)ETFile1->FileNameCur->data)->value;
-    gchar *filename2 = ((File_Name *)ETFile2->FileNameCur->data)->value;
+    GFile *file;
+    GFileInfo *info;
+    guint64 time1 = 0;
+    guint64 time2 = 0;
 
-    stat(filename1, &statbuf1);
-    stat(filename2, &statbuf2);
+    /* TODO: Report errors? */
+    file = g_file_new_for_path (((File_Name *)ETFile1->FileNameCur->data)->value);
+    info = g_file_query_info (file, G_FILE_ATTRIBUTE_TIME_CHANGED,
+                              G_FILE_QUERY_INFO_NONE, NULL, NULL);
 
-    // Second criterion
-    if (statbuf1.st_ctime == statbuf2.st_ctime)
-        return ET_Comp_Func_Sort_File_By_Ascending_Filename(ETFile1,ETFile2);
+    g_object_unref (file);
 
-    // First criterion
-    return (statbuf1.st_ctime - statbuf2.st_ctime); // Creation date
-    //return (statbuf1.st_mtime - statbuf2.st_mtime); // Modification date
+    if (info)
+    {
+        time1 = g_file_info_get_attribute_uint64 (info,
+                                                  G_FILE_ATTRIBUTE_TIME_CHANGED);
+        g_object_unref (info);
+    }
+
+    file = g_file_new_for_path (((File_Name *)ETFile2->FileNameCur->data)->value);
+    info = g_file_query_info (file, G_FILE_ATTRIBUTE_TIME_CHANGED,
+                              G_FILE_QUERY_INFO_NONE, NULL, NULL);
+
+    g_object_unref (file);
+
+    if (info)
+    {
+        time2 = g_file_info_get_attribute_uint64 (info,
+                                                  G_FILE_ATTRIBUTE_TIME_CHANGED);
+        g_object_unref (info);
+    }
+
+    /* Second criterion. */
+    if (time1 == time2)
+    {
+        return ET_Comp_Func_Sort_File_By_Ascending_Filename (ETFile1, ETFile2);
+    }
+
+    /* First criterion. */
+    return (gint64)(time1 - time2);
 }
 
 /*
