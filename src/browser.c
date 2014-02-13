@@ -3004,6 +3004,7 @@ static void collapse_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *treePa
     GIcon *icon;
     GFile *file;
     GFileInfo *fileinfo;
+    GError *error = NULL;
 
     g_return_if_fail (directoryTreeModel != NULL);
 
@@ -3014,7 +3015,7 @@ static void collapse_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *treePa
     file = g_file_new_for_path (path);
     g_free (path);
     fileinfo = g_file_query_info (file, G_FILE_ATTRIBUTE_ACCESS_CAN_READ,
-                                  G_FILE_QUERY_INFO_NONE, NULL, NULL);
+                                  G_FILE_QUERY_INFO_NONE, NULL, &error);
     g_object_unref (file);
 
     if (fileinfo)
@@ -3057,8 +3058,21 @@ static void collapse_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *treePa
                        TREE_COLUMN_ICON, icon, -1);
 #endif /* !G_OS_WIN32 */
 
-    /* Insert dummy node. */
-    gtk_tree_store_append (directoryTreeModel, &subNodeIter, iter);
+    /* Insert dummy node only if directory exists. */
+    if (error)
+    {
+        /* Remove the parent (missing) directory from the tree. */
+        if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND))
+        {
+            gtk_tree_store_remove (directoryTreeModel, iter);
+        }
+
+        g_error_free (error);
+    }
+    else
+    {
+        gtk_tree_store_append (directoryTreeModel, &subNodeIter, iter);
+    }
 
     g_object_unref (icon);
 }
