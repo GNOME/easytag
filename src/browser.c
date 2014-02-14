@@ -2709,7 +2709,6 @@ check_for_subdir (const gchar *path)
 {
     DIR *dir;
     struct dirent *dirent;
-    struct stat statbuf;
     gchar *npath;
 
     if( (dir=opendir(path)) )
@@ -2728,6 +2727,8 @@ check_for_subdir (const gchar *path)
                  && (g_ascii_strncasecmp(dirent->d_name+1,".", 1) != 0) ))
                )
             {
+                GFile *file;
+                GFileInfo *fileinfo;
 #ifdef G_OS_WIN32
                 // On win32 : stat("/path/to/dir") succeed, while stat("/path/to/dir/") fails
                 npath = g_strconcat(path,dirent->d_name,NULL);
@@ -2735,19 +2736,28 @@ check_for_subdir (const gchar *path)
                 npath = g_strconcat(path,dirent->d_name,G_DIR_SEPARATOR_S,NULL);
 #endif /* !G_OS_WIN32 */
 
-                if (stat(npath,&statbuf) == -1)
+                file = g_file_new_for_path (npath);
+                fileinfo = g_file_query_info (file,
+                                              G_FILE_ATTRIBUTE_STANDARD_TYPE,
+                                              G_FILE_QUERY_INFO_NONE, NULL,
+                                              NULL);
+                g_free (npath);
+                g_object_unref (file);
+
+                if (!fileinfo)
                 {
-                    g_free(npath);
                     continue;
                 }
 
-                g_free(npath);
-
-                if (S_ISDIR(statbuf.st_mode))
+                if (g_file_info_get_file_type (fileinfo)
+                    == G_FILE_TYPE_DIRECTORY)
                 {
+                    g_object_unref (fileinfo);
                     closedir(dir);
                     return TRUE;
                 }
+
+                g_object_unref (fileinfo);
             }
         }
         closedir(dir);
@@ -2877,7 +2887,6 @@ static void expand_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *gtreePat
     struct dirent *dirent;
     gchar *path;
     gchar *dirname_utf8;
-    struct stat statbuf;
     gchar *fullpath_file;
     gchar *parentPath;
     gboolean treeScanned;
@@ -2899,13 +2908,28 @@ static void expand_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *gtreePat
     {
         while ( (dirent=readdir(dir)) )
         {
+            GFile *file;
+            GFileInfo *fileinfo;
+            gboolean isdir = FALSE;
+
             path = g_strconcat(parentPath, dirent->d_name, NULL);
-            stat(path, &statbuf);
+            file = g_file_new_for_path (path);
+            fileinfo = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_TYPE,
+                                          G_FILE_QUERY_INFO_NONE, NULL, NULL);
+            g_object_unref (file);
+
+            if (fileinfo)
+            {
+                isdir = g_file_info_get_file_type (fileinfo)
+                        == G_FILE_TYPE_DIRECTORY;
+
+                g_object_unref (fileinfo);
+            }
 
             // We don't read the directories '.' and '..', but may read hidden directories
             // like '.mydir' (note that '..mydir' or '...mydir' aren't hidden directories)
             // See also the rule into 'check_for_subdir' function
-            if (S_ISDIR(statbuf.st_mode)
+            if (isdir
             && (g_ascii_strcasecmp(dirent->d_name,".")  != 0)
             && (g_ascii_strcasecmp(dirent->d_name,"..") != 0)
             // Display hidden directories is needed, or keep only the not hidden directories
