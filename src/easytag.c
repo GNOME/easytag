@@ -2342,7 +2342,9 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
 
     for (l = etfilelist; l != NULL; l = g_list_next (l))
     {
-        struct stat   statbuf;
+        GFile *file;
+        GFileInfo *fileinfo;
+
         ET_File *ETFile = (ET_File *)l->data;
         File_Tag  *FileTag  = (File_Tag *)ETFile->FileTag->data;
         File_Name *FileName = (File_Name *)ETFile->FileNameNew->data;
@@ -2355,9 +2357,22 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
         || (FileName && FileName->saved==FALSE) || (FileTag && FileTag->saved==FALSE) )
             nb_files_to_save++;
 
-        stat(filename_cur,&statbuf);
-        if (ETFile->FileModificationTime != statbuf.st_mtime)
-            nb_files_changed_by_ext_program++;
+        file = g_file_new_for_path (filename_cur);
+        fileinfo = g_file_query_info (file, G_FILE_ATTRIBUTE_TIME_MODIFIED,
+                                      G_FILE_QUERY_INFO_NONE, NULL, NULL);
+        g_object_unref (file);
+
+        if (fileinfo)
+        {
+            if (ETFile->FileModificationTime
+                != g_file_info_get_attribute_uint64 (fileinfo,
+                                                     G_FILE_ATTRIBUTE_TIME_MODIFIED))
+            {
+                nb_files_changed_by_ext_program++;
+            }
+
+            g_object_unref (fileinfo);
+        }
         g_free(basename_cur_utf8);
     }
 
