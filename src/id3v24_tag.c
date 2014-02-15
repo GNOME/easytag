@@ -307,7 +307,7 @@ gboolean Id3tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag)
             unsigned genre = 0;
             FileTag->genre = NULL;
 
-            if ( (string1[0]=='(') && (tmp=strchr(string1,')')) && (tmp+1) && (strlen((tmp+1))>0) )
+            if ((string1[0] == '(') && (tmp = strchr (string1,')')) && *(tmp+1))
                 /* Convert a genre written as '(3)EuroDance' into 'EuroDance' */
             {
                 FileTag->genre = g_strdup(tmp+1);
