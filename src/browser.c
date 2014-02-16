@@ -258,6 +258,7 @@ void Browser_Load_Music_Directory (void)
  */
 void Browser_Load_Default_Directory (void)
 {
+    GFile **files;
     gchar *path_utf8;
     gchar *path;
 
@@ -268,12 +269,20 @@ void Browser_Load_Default_Directory (void)
         path_utf8 = g_strdup (g_get_home_dir ());
     }
 
-    // 'DEFAULT_PATH_TO_MP3' is stored in UTF-8, we must convert it to the file system encoding before...
+    /* FIXME: only in UTF-8 if coming from the config file, when it should be
+     * in GLib filename encoding in all cases. */
+    /* 'DEFAULT_PATH_TO_MP3' is stored in UTF-8, we must convert it to the file
+     * system encoding before... */
     path = filename_from_display(path_utf8);
-    Browser_Tree_Select_Dir(path);
 
+    files = g_new (GFile *, 1);
+    files[0] = g_file_new_for_path (path);
+    g_application_open (g_application_get_default (), files, 1, "");
+
+    g_object_unref (files[0]);
     g_free(path);
     g_free(path_utf8);
+    g_free (files);
 }
 
 
