@@ -1127,7 +1127,7 @@ Create_Tag_Area (void)
      * whole list. */
     focusable_widgets_list = g_list_reverse(focusable_widgets_list);
     gtk_container_set_focus_chain(GTK_CONTAINER(Table),focusable_widgets_list);
-
+    g_list_free (focusable_widgets_list);
 
 
     /*
