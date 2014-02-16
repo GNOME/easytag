@@ -454,7 +454,8 @@ GList *ET_Add_File_To_File_List (gchar *filename)
     gchar        *ETFileExtension;
     guint         ETFileKey;
     guint         undo_key;
-    struct stat   statbuf;
+    GFile *file;
+    GFileInfo *fileinfo;
     gchar        *filename_utf8 = filename_to_display(filename);
     const gchar  *locale_lc_ctype = getenv("LC_CTYPE");
     GError *error = NULL;
@@ -470,9 +471,6 @@ GList *ET_Add_File_To_File_List (gchar *filename)
 
     /* Get real extension of the file (keeping the case) */
     ETFileExtension = g_strdup(ET_Get_File_Extension(filename));
-
-    /* Store the modification time of the file to check if the file was changed before saving */
-    stat(filename,&statbuf);
 
     /* Fill the File_Name structure for FileNameList */
     FileName = ET_File_Name_Item_New();
@@ -592,11 +590,29 @@ GList *ET_Add_File_To_File_List (gchar *filename)
     /* Restore previous value */
     setlocale(LC_CTYPE, locale_lc_ctype ? locale_lc_ctype : "");
 
+    /* Store the modification time of the file to check if the file was changed
+     * before saving */
+    file = g_file_new_for_path (filename);
+    fileinfo = g_file_query_info (file, G_FILE_ATTRIBUTE_TIME_MODIFIED,
+                                  G_FILE_QUERY_INFO_NONE, NULL, NULL);
+    g_object_unref (file);
+
     /* Attach all data defined above to this ETFile item */
     ETFile = ET_File_Item_New();
+
+    if (fileinfo)
+    {
+        ETFile->FileModificationTime = g_file_info_get_attribute_uint64 (fileinfo,
+                                                                         G_FILE_ATTRIBUTE_TIME_MODIFIED);
+        g_object_unref (fileinfo);
+    }
+    else
+    {
+        ETFile->FileModificationTime = 0;
+    }
+
     ETFile->IndexKey             = 0; // Will be renumered after...
     ETFile->ETFileKey            = ETFileKey;
-    ETFile->FileModificationTime = statbuf.st_mtime;
     ETFile->ETFileDescription    = ETFileDescription;
     ETFile->ETFileExtension      = ETFileExtension;
     ETFile->FileNameList         = g_list_append(NULL,FileName);
@@ -3899,9 +3915,8 @@ gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile)
     gchar *cur_filename;
     gchar *cur_filename_utf8;
     gboolean state;
-    struct stat    statbuf;
-    struct utimbuf utimbufbuf;
-    gboolean file_set_properties;
+    GFile *file;
+    GFileInfo *fileinfo;
     GError *error = NULL;
 
     g_return_val_if_fail (ETFile != NULL, FALSE);
@@ -3911,11 +3926,10 @@ gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile)
 
     ETFileDescription = ETFile->ETFileDescription;
 
-    // Save permissions and dates of the file (cause they may change with files on NFS)
-    if ( stat(cur_filename,&statbuf)!=-1 )
-        file_set_properties = TRUE;
-    else
-        file_set_properties = FALSE;
+    /* Store the file timestamps (in case they are to be preserved) */
+    file = g_file_new_for_path (cur_filename);
+    fileinfo = g_file_query_info (file, "time::*", G_FILE_QUERY_INFO_NONE,
+                                  NULL, NULL);
 
     switch (ETFileDescription->TagType)
     {
@@ -3955,30 +3969,33 @@ gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile)
             break;
     }
 
-    // Update properties for the file
-    if ( file_set_properties == TRUE )
+    /* Update properties for the file. */
+    if (fileinfo)
     {
-#ifndef G_OS_WIN32
-        chmod(cur_filename,statbuf.st_mode & (S_IRWXU|S_IRWXG|S_IRWXO));
-        if (chown (cur_filename, statbuf.st_uid, statbuf.st_gid) == -1)
-        {
-            Log_Print (LOG_ERROR,
-                       _("Cannot change the permissions of file '%s' (%s)"),
-                       cur_filename, g_strerror (errno));
-        }
-#endif /* !G_OS_WIN32 */
         if (PRESERVE_MODIFICATION_TIME)
         {
-            utimbufbuf.actime  = statbuf.st_atime; // Last access time
-            utimbufbuf.modtime = statbuf.st_mtime; // Last modification time
-            utime(cur_filename,&utimbufbuf);
+            g_file_set_attributes_from_info (file, fileinfo,
+                                             G_FILE_QUERY_INFO_NONE,
+                                             NULL, NULL);
         }
+
+        g_object_unref (fileinfo);
     }
 
-    // update the stored file modification time to prevent easytag
-    // from warning that an external program has changed the file
-    if ( stat(cur_filename,&statbuf)!=-1 )
-        ETFile->FileModificationTime = statbuf.st_mtime;
+    /* Update the stored file modification time to prevent EasyTAG from warning
+     * that an external program has changed the file. */
+    fileinfo = g_file_query_info (file,
+                                  G_FILE_ATTRIBUTE_TIME_MODIFIED,
+                                  G_FILE_QUERY_INFO_NONE, NULL, NULL);
+
+    if (fileinfo)
+    {
+        ETFile->FileModificationTime = g_file_info_get_attribute_uint64 (fileinfo,
+                                                                         G_FILE_ATTRIBUTE_TIME_MODIFIED);
+        g_object_unref (fileinfo);
+    }
+
+    g_object_unref (file);
 
     if (state==TRUE)
     {
