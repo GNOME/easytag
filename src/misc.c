@@ -684,6 +684,137 @@ gint Combo_Alphabetic_Sort (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b,
 }
 
 
+/*
+ * Run a program with a list of parameters
+ *  - args_list : list of filename (with path)
+ */
+gboolean
+et_run_program (const gchar *program_name, GList *args_list)
+{
+    gchar *program_tmp;
+    const gchar *program_args;
+    gchar **program_args_argv = NULL;
+    guint n_program_args = 0;
+    gsize i;
+    gchar  *msg;
+    GPid pid;
+    GError *error = NULL;
+    gchar **argv;
+    GList *l;
+    gchar *program_path;
+    gboolean res = FALSE;
+
+    g_return_val_if_fail (program_name != NULL && args_list != NULL, FALSE);
+
+    /* Check if a name for the program have been supplied */
+    if (!program_name && *program_name)
+    {
+        GtkWidget *msgdialog;
+
+        msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
+                                           GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                           GTK_MESSAGE_ERROR,
+                                           GTK_BUTTONS_OK,
+                                           "%s",
+                                           _("You must type a program name"));
+        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Program Name Error"));
+
+        gtk_dialog_run(GTK_DIALOG(msgdialog));
+        gtk_widget_destroy(msgdialog);
+        return res;
+    }
+
+    /* If user arguments are included, try to skip them. FIXME: This works
+     * poorly when there are spaces in the absolute path to the binary. */
+    program_tmp = g_strdup (program_name);
+
+    /* Skip the binary name and a delimiter. Same logic in
+     * Check_If_Executable_Exists()*/
+#ifdef G_OS_WIN32
+    /* FIXME: Should also consider .com, .bat, .sys. See
+     * g_find_program_in_path(). */
+    if ((program_args = strstr (program_tmp, ".exe")))
+    {
+        /* Skip ".exe". */
+        program_args += 4;
+    }
+#else /* !G_OS_WIN32 */
+    /* Remove arguments if found. */
+    program_args = strchr (program_tmp, ' ');
+#endif /* !G_OS_WIN32 */
+
+    if (program_args && *program_args)
+    {
+        size_t len;
+
+        len = program_args - program_tmp;
+        program_path = g_strndup (program_name, len);
+
+        /* FIXME: Splitting arguments based on a delimiting space is bogus
+         * if the arguments have been quoted. */
+        program_args_argv = g_strsplit (program_args, " ", 0);
+        n_program_args = g_strv_length (program_args_argv);
+    }
+    else
+    {
+        n_program_args = 1;
+        program_path = g_strdup (program_name);
+    }
+
+    g_free (program_tmp);
+
+    /* +1 for NULL, program_name is already included in n_program_args. */
+    argv = g_new0 (gchar *, n_program_args + g_list_length (args_list) + 1);
+
+    argv[0] = program_path;
+
+    if (program_args_argv)
+    {
+        /* Skip program_args_argv[0], which is " ". */
+        for (i = 1; program_args_argv[i] != NULL; i++)
+        {
+            argv[i] = program_args_argv[i];
+        }
+    }
+    else
+    {
+        i = 1;
+    }
+
+    /* Load arguments from 'args_list'. */
+    for (l = args_list; l != NULL; l = g_list_next (l), i++)
+    {
+        argv[i] = (gchar *)l->data;
+    }
+
+    argv[i] = NULL;
+
+    /* Execution ... */
+    if (g_spawn_async (NULL, argv, NULL,
+                       G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
+                       NULL, NULL, &pid, &error))
+    {
+        g_child_watch_add (pid, et_on_child_exited, NULL);
+
+        msg = g_strdup_printf (_("Executed command: %s"), program_name);
+        Statusbar_Message (msg, TRUE);
+        g_free (msg);
+        res = TRUE;
+    }
+    else
+    {
+        Log_Print (LOG_ERROR, _("Failed to launch program: %s"),
+                   error->message);
+        g_clear_error (&error);
+    }
+
+    g_strfreev (program_args_argv);
+    g_free (program_path);
+    g_free (argv);
+
+    return res;
+}
+
 /*************************
  * File selection window *
  *************************/
@@ -747,113 +878,29 @@ static void Open_File_Selection_Window (GtkWidget *entry, gchar *title, GtkFileC
 
 
 
-/*
- * Run the audio player and load files of the current dir
- */
-static void
-Run_Audio_Player_Using_File_List (GList *etfilelist)
-{
-    gchar  **argv;
-    gint     argv_index = 0;
-    GList *l;
-    ET_File *etfile;
-    gchar   *filename;
-    gchar   *program_path;
-    GPid pid;
-    gchar **argv_user;
-    gint    argv_user_number;
-    GError *error = NULL;
-
-    g_return_if_fail (etfilelist != NULL);
-
-    // Exit if no program selected...
-    if (!AUDIO_FILE_PLAYER || strlen(g_strstrip(AUDIO_FILE_PLAYER))<1)
-    {
-        GtkWidget *msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
-                                                      GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                      GTK_MESSAGE_WARNING,
-                                                      GTK_BUTTONS_CLOSE,
-                                                      "%s",
-                                                      _("No audio player defined"));
-        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Audio Player Warning"));
-
-        gtk_dialog_run(GTK_DIALOG(msgdialog));
-        gtk_widget_destroy(msgdialog);
-        
-        return;
-    }
-
-    if ( !(program_path = Check_If_Executable_Exists(AUDIO_FILE_PLAYER)) )
-    {
-        gchar *msg = g_strdup_printf(_("The program '%s' cannot be found"),AUDIO_FILE_PLAYER);
-        Log_Print (LOG_ERROR, "%s", msg);
-        g_free(msg);
-        return;
-    }
-    g_free(program_path);
-
-    argv_user = g_strsplit(AUDIO_FILE_PLAYER," ",0); // the string may contains arguments, space is the delimiter
-    // Number of arguments into 'argv_user'
-    for (argv_user_number=0;argv_user[argv_user_number];argv_user_number++);
-
-    /* +1 for NULL. */
-    argv = g_new0 (gchar *,
-                   argv_user_number + g_list_length (etfilelist) + 1);
-
-    // Load 'user' arguments (program name and more...)
-    while (argv_user[argv_index])
-    {
-        argv[argv_index] = argv_user[argv_index];
-        argv_index++;
-    }
-
-    // Load files as arguments
-    for (l = etfilelist; l != NULL; l = g_list_next (l))
-    {
-        etfile = (ET_File *)l->data;
-        filename = ((File_Name *)etfile->FileNameCur->data)->value;
-        //filename_utf8 = ((File_Name *)etfile->FileNameCur->data)->value_utf8;
-        argv[argv_index++] = filename;
-    }
-    argv[argv_index] = NULL; // Ends the list of arguments
-
-    if (g_spawn_async (NULL, argv, NULL,
-                       G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
-                       NULL, NULL, &pid, &error))
-    {
-        gchar *msg;
-
-        g_child_watch_add (pid, et_on_child_exited, NULL);
-
-        msg = g_strdup_printf (_("Executed command: %s"), argv[0]);
-        Statusbar_Message (msg, TRUE);
-        g_free (msg);
-    }
-    else
-    {
-        Log_Print (LOG_ERROR, _("Failed to launch program: %s"),
-                   error->message);
-        g_clear_error (&error);
-    }
-
-    g_strfreev (argv_user);
-
-    g_free(argv);
-}
-
 void Run_Audio_Player_Using_Directory (void)
 {
-    GList *etfilelist = g_list_first(ETCore->ETFileList);
+    GList *l;
+    GList *path_list = NULL;
 
-    Run_Audio_Player_Using_File_List(etfilelist);
+    for (l = g_list_first (ETCore->ETFileList); l != NULL; l = g_list_next (l))
+    {
+        ET_File *etfile = (ET_File *)l->data;
+        gchar *path = ((File_Name *)etfile->FileNameCur->data)->value;
+        path_list = g_list_prepend (path_list, path);
+    }
+
+    path_list = g_list_reverse (path_list);
+
+    et_run_program (AUDIO_FILE_PLAYER, path_list);
+    g_list_free (path_list);
 }
 
 void Run_Audio_Player_Using_Selection (void)
 {
-    GList *etfilelist = NULL;
     GList *selfilelist = NULL;
     GList *l;
-    ET_File *etfile;
+    GList *path_list = NULL;
     GtkTreeSelection *selection;
 
     g_return_if_fail (BrowserList != NULL);
@@ -863,16 +910,16 @@ void Run_Audio_Player_Using_Selection (void)
 
     for (l = selfilelist; l != NULL; l = g_list_next (l))
     {
-        etfile = Browser_List_Get_ETFile_From_Path(selfilelist->data);
-        etfilelist = g_list_prepend (etfilelist, etfile);
+        ET_File *etfile = Browser_List_Get_ETFile_From_Path (l->data);
+        gchar *path = ((File_Name *)etfile->FileNameCur->data)->value;
+        path_list = g_list_prepend (path_list, path);
     }
 
-    etfilelist = g_list_reverse (etfilelist);
+    path_list = g_list_reverse (path_list);
+
+    et_run_program (AUDIO_FILE_PLAYER, path_list);
+    g_list_free (path_list);
     g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
-
-    Run_Audio_Player_Using_File_List(etfilelist);
-
-    g_list_free(etfilelist);
 }
 
 void Run_Audio_Player_Using_Browser_Artist_List (void)
@@ -880,8 +927,8 @@ void Run_Audio_Player_Using_Browser_Artist_List (void)
     GtkTreeIter iter;
     GtkTreeSelection *selection;
     GtkTreeModel *artistListModel;
-    GList *AlbumList, *etfilelist;
-    GList *concatenated_list = NULL;
+    GList *l, *m;
+    GList *path_list = NULL;
 
     g_return_if_fail (BrowserArtistList != NULL);
 
@@ -889,22 +936,23 @@ void Run_Audio_Player_Using_Browser_Artist_List (void)
     if (!gtk_tree_selection_get_selected(selection, &artistListModel, &iter))
         return;
 
-    gtk_tree_model_get(artistListModel, &iter,
-                       ARTIST_ALBUM_LIST_POINTER, &AlbumList,
-                       -1);
+    gtk_tree_model_get (artistListModel, &iter, ARTIST_ALBUM_LIST_POINTER, &l,
+                        -1);
 
-    for (; AlbumList != NULL; AlbumList = g_list_next (AlbumList))
+    for (; l != NULL; l = g_list_next (l))
     {
-        etfilelist = g_list_copy((GList *)AlbumList->data);
-        concatenated_list = concatenated_list ? g_list_concat (concatenated_list,
-                                                               etfilelist)
-                                              : etfilelist;
+        for (m = l->data; m != NULL; m = g_list_next (m))
+        {
+            ET_File *etfile = (ET_File *)m->data;
+            gchar *path = ((File_Name *)etfile->FileNameCur->data)->value;
+            path_list = g_list_prepend (path_list, path);
+        }
     }
 
-    Run_Audio_Player_Using_File_List(concatenated_list);
+    path_list = g_list_reverse (path_list);
 
-    if (concatenated_list)
-        g_list_free(concatenated_list);
+    et_run_program (AUDIO_FILE_PLAYER, path_list);
+    g_list_free (path_list);
 }
 
 void Run_Audio_Player_Using_Browser_Album_List (void)
@@ -912,7 +960,8 @@ void Run_Audio_Player_Using_Browser_Album_List (void)
     GtkTreeIter iter;
     GtkTreeSelection *selection;
     GtkTreeModel *albumListModel;
-    GList *etfilelist;
+    GList *l;
+    GList *path_list = NULL;
 
     g_return_if_fail (BrowserAlbumList != NULL);
 
@@ -920,11 +969,20 @@ void Run_Audio_Player_Using_Browser_Album_List (void)
     if (!gtk_tree_selection_get_selected(selection, &albumListModel, &iter))
         return;
 
-    gtk_tree_model_get(albumListModel, &iter,
-                       ALBUM_ETFILE_LIST_POINTER, &etfilelist,
-                       -1);
+    gtk_tree_model_get (albumListModel, &iter, ALBUM_ETFILE_LIST_POINTER, &l,
+                        -1);
 
-    Run_Audio_Player_Using_File_List(etfilelist);
+    for (; l != NULL; l = g_list_next (l))
+    {
+        ET_File *etfile = (ET_File *)l->data;
+        gchar *path = ((File_Name *)etfile->FileNameCur->data)->value;
+        path_list = g_list_prepend (path_list, path);
+    }
+
+    path_list = g_list_reverse (path_list);
+
+    et_run_program (AUDIO_FILE_PLAYER, path_list);
+    g_list_free (path_list);
 }
 
 

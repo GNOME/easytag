@@ -191,8 +191,6 @@ static void Run_Program_With_Directory (GtkWidget *combobox);
 static void Destroy_Run_Program_List_Window (void);
 static void Run_Program_With_Selected_Files (GtkWidget *combobox);
 
-static gboolean Run_Program (const gchar *program_name, GList *args_list);
-
 static void empty_entry_disable_widget (GtkWidget *widget, GtkEntry *entry);
 
 static void et_rename_directory_on_response (GtkDialog *dialog,
@@ -4119,7 +4117,7 @@ void Run_Program_With_Directory (GtkWidget *combobox)
     // List of parameters (here only one! : the current directory)
     args_list = g_list_append(args_list,current_directory);
 
-    program_ran = Run_Program(program_name,args_list);
+    program_ran = et_run_program (program_name, args_list);
     g_list_free(args_list);
 
     if (program_ran)
@@ -4259,7 +4257,7 @@ Run_Program_With_Selected_Files (GtkWidget *combobox)
     }
 
     args_list = g_list_reverse (args_list);
-    program_ran = Run_Program(program_name,args_list);
+    program_ran = et_run_program (program_name, args_list);
 
     g_list_free_full (selected_paths, (GDestroyNotify)gtk_tree_path_free);
     g_list_free(args_list);
@@ -4277,105 +4275,6 @@ Run_Program_With_Selected_Files (GtkWidget *combobox)
         Destroy_Run_Program_List_Window();
     }
     g_free(program_name);
-}
-
-/*
- * Run a program with a list of parameters
- *  - args_list : list of filename (with path)
- */
-static gboolean
-Run_Program (const gchar *program_name, GList *args_list)
-{
-    gchar **argv_user;
-    gint    argv_user_number;
-    gchar  *msg;
-    GPid pid;
-    GError *error = NULL;
-    gchar **argv;
-    gint    argv_index = 0;
-    GList *l;
-    gchar *program_path;
-
-    g_return_val_if_fail (program_name != NULL && args_list != NULL, FALSE);
-
-    /* Check if a name for the program have been supplied */
-    if (!program_name || strlen(program_name)<1)
-    {
-        GtkWidget *msgdialog;
-
-        msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
-                                           GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                           GTK_MESSAGE_ERROR,
-                                           GTK_BUTTONS_OK,
-                                           "%s",
-                                           _("You must type a program name"));
-        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Program Name Error"));
-
-        gtk_dialog_run(GTK_DIALOG(msgdialog));
-        gtk_widget_destroy(msgdialog);
-        return FALSE;
-    }
-
-    if ( !(program_path = Check_If_Executable_Exists(program_name)) )
-    {
-        GtkWidget *msgdialog;
-
-        msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
-                                           GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                           GTK_MESSAGE_ERROR,
-                                           GTK_BUTTONS_CLOSE,
-                                           _("The program '%s' cannot be found"),
-                                           program_name);
-        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Program Name Error"));
-
-        gtk_dialog_run(GTK_DIALOG(msgdialog));
-        gtk_widget_destroy(msgdialog);
-        return FALSE;
-    }
-
-    g_free(program_path); // Freed as never used
-
-    argv_user = g_strsplit(program_name," ",0); // the string may contains arguments, space is the delimiter
-    // Number of arguments into 'argv_user'
-    for (argv_user_number=0;argv_user[argv_user_number];argv_user_number++);
-
-    argv = g_new0(gchar *,argv_user_number + g_list_length(args_list) + 1); // +1 for NULL
-
-    // Load 'user' arguments (program name and more...)
-    while (argv_user[argv_index])
-    {
-        argv[argv_index] = argv_user[argv_index];
-        argv_index++;
-    }
-    // Load arguments from 'args_list'
-    for (l = args_list; l != NULL; l = g_list_next (l))
-    {
-        argv[argv_index] = (gchar *)l->data;
-        argv_index++;
-    }
-    argv[argv_index] = NULL;
-
-    /* Execution ... */
-    if (g_spawn_async (NULL, argv, NULL,
-                       G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
-                       NULL, NULL, &pid, &error))
-    {
-        g_child_watch_add (pid, et_on_child_exited, NULL);
-
-        msg = g_strdup_printf (_("Executed command: %s"), program_name);
-        Statusbar_Message (msg, TRUE);
-        g_free (msg);
-    }
-    else
-    {
-        Log_Print (LOG_ERROR, _("Failed to launch program: %s"),
-                   error->message);
-        g_clear_error (&error);
-    }
-
-    g_strfreev (argv_user);
-
-    return TRUE;
 }
 
 /*
