@@ -1674,7 +1674,9 @@ Check_DefaultPathToMp3 (void)
 {
     gchar *path_utf8;
     gchar *path_real;
-    struct stat stbuf;
+    GFile *file;
+    GFileInfo *fileinfo;
+    GtkWidget *msgdialog;
 
     path_utf8 = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3)))));
     if (!path_utf8 || g_utf8_strlen(path_utf8, -1) < 1)
@@ -1683,37 +1685,42 @@ Check_DefaultPathToMp3 (void)
         return TRUE;
     }
 
-    path_real = filename_from_display(path_utf8);
+    path_real = filename_from_display (path_utf8);
+    file = g_file_new_for_path (path_real);
+    fileinfo = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_TYPE,
+                                  G_FILE_QUERY_INFO_NONE, NULL, NULL);
+    g_object_unref (file);
 
-#ifdef G_OS_WIN32
-    /* On win32 : stat("c:\path\to\dir") succeed, while stat("c:\path\to\dir\")
-     * fails.
-     */
-    ET_Win32_Path_Remove_Trailing_Backslash(path_real);
-#endif /* G_OS_WIN32 */
-
-    if ( stat(path_real,&stbuf)==0 && S_ISDIR(stbuf.st_mode) )
+    if (fileinfo)
     {
-        g_free(path_real);
-        g_free(path_utf8);
-        return TRUE; /* Path is good */
-    }else
-    {
-        GtkWidget *msgdialog = gtk_message_dialog_new(GTK_WINDOW(OptionsWindow),
-                                                      GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                      GTK_MESSAGE_ERROR,
-                                                      GTK_BUTTONS_CLOSE,
-                                                      "%s",
-                                                      _("The selected path for 'Default path to files' is invalid"));
-        gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),_("Path: '%s'\nError: %s"),path_utf8,g_strerror(errno));
-        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Invalid Path Error"));
+        if (g_file_info_get_file_type (fileinfo) == G_FILE_TYPE_DIRECTORY)
+        {
+            g_free (path_real);
+            g_free (path_utf8);
+            g_object_unref (fileinfo);
+            return TRUE; /* Path is good */
+        }
 
-        gtk_dialog_run(GTK_DIALOG(msgdialog));
-        gtk_widget_destroy(msgdialog);
-        g_free(path_real);
-        g_free(path_utf8);
-        return FALSE;
+        g_object_unref (fileinfo);
     }
+
+    msgdialog = gtk_message_dialog_new (GTK_WINDOW (OptionsWindow),
+                                        GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                        GTK_MESSAGE_ERROR,
+                                        GTK_BUTTONS_CLOSE,
+                                        "%s",
+                                        _("The selected path for 'Default path to files' is invalid"));
+    gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (msgdialog),
+                                              _("Path: '%s'\nError: %s"),
+                                              path_utf8, g_strerror (errno));
+    gtk_window_set_title (GTK_WINDOW (msgdialog), _("Invalid Path Error"));
+
+    gtk_dialog_run (GTK_DIALOG (msgdialog));
+    gtk_widget_destroy (msgdialog);
+    g_free (path_real);
+    g_free (path_utf8);
+
+    return FALSE;
 }
 
 /*
