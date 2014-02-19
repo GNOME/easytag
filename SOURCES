@@ -1,4 +1,4 @@
-Source: https://git.gnome.org/browse/easytag/tag/?id=easytag-2.1.9
+Source: https://git.gnome.org/browse/easytag/tag/?id=easytag-2.1.10
 
 This binary was generated with GCC/MinGW on Fedora 20.
 
@@ -17,6 +17,8 @@ DLLs from the following Fedora binary packages are included:
 * mingw32-libpng
 * mingw32-pango
 * mingw32-pixman
+* mingw32-speex
+* mingw32-wavpack
 * mingw32-win-iconv
 * mingw32-zlib
 
@@ -27,12 +29,10 @@ files, are included:
 
 * mingw32-id3lib
 * mingw32-libid3tag
-* mingw32-speex
 * mingw32-taglib
-* mingw32-wavpack
 
 The .spec files for the additional libraries are available at:
 
-https://github.com/amigadave/easytag-dlls-specs
+http://fedorapeople.org/cgit/amigadave/public_git/easytag-dlls-specs.git/
 
 The installer was created with the ming32-nsis package.

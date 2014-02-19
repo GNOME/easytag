@@ -1,3 +1,22 @@
+2.1.10 - 2014-02-19 :
+=====================
+
+    * Several memory leak and crash fixes, found with the Fedora retrace
+      server, Coverity and Valgrind
+    * Abhinav Jangda’s GFileInfo porting and dummy browser row fixes
+    * Add a Contents item to the Help menu, for viewing the Mallard help
+    * Use g_spawn_async() to spawn child processes
+    * Reinstate ID3 tag support on Windows
+    * Remove the Quit button from the toolbar
+    * Santtu Lakkala’s scanner memory leak fix
+    * Add AppData XML
+    * Aurimas Černius’s Lithuanian translation update
+    * Rafael Ferreira’s Brazilian Portuguese translation update
+    * Мирослав Николић’s Serbian translation update
+    * Marek Černocký’s Czech translation updates
+    * Piotr Drag’s Polish translation updates
+    * Wolfgang Stöggl’s German translation update
+
 2.1.9 - 2014-01-04 :
 ====================
 

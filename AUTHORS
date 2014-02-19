@@ -23,9 +23,14 @@ Mihael Vrbanec <miqster@gmx.net>
 Michael Pujos <pujos.michael@laposte.net>
   - Port of EasyTAG 1.99.9 to Win32
 
-Adrian Bunk <bunk@fs.tum.de>:
+Adrian Bunk <bunk@stusta.de>
+  - Bug diagnosis and several code cleanups
   - Debian packager
   - German translation
+
+Abhinav Jangda <abhijangda@hotmail.com>
+  - GIO porting
+  - Several bugfixes
 
 Goetz Waschk <waschk@informatik.uni-rostock.de>
   - autoconf/automake
@@ -81,6 +86,9 @@ Alexey Illarionov <littlesavage@rambler.ru>
   - Support of Unicode in MP3 tag with id3lib
   - Support of ID3v2.4 tags with libid3tag
 
+Mathias Reineke <saihtam@gmx.net>
+  - Total discs support
+
 FutureFog <futurefog@katamail.com>
   - Wrote EasyTAG.Win32.Setup.iss script
 
@@ -107,6 +115,3 @@ Guilherme Destefani <gd@helixbrasil.com.br>
 
 Andreas Winkelmann <ml@awinkelmann.de>
   - Warning and bug fixes
-
-Adrian Bunk <bunk@stusta.de>
-  - Bug diagnosis and several code cleanups
