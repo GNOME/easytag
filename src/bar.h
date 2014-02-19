@@ -100,6 +100,7 @@ GtkWidget *CheckMenuItemBrowseHiddenDirMainMenu;
 #define AM_WRITE_PLAYLIST           "WritePlaylist"
 #define AM_RUN_AUDIO_PLAYER         "RunAudio"
 #define AM_OPEN_ABOUT_WINDOW        "About"
+#define AM_OPEN_HELP_CONTENTS "HelpContents"
 #define AM_QUIT                     "Quit"
 
 #define AM_ARTIST_RUN_AUDIO_PLAYER  "ArtistRunAudio"

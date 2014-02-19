@@ -177,6 +177,7 @@ static const gchar *ui_xml =
 "    </menu>"
 
 "    <menu action='HelpMenu'>"
+"      <menuitem action='HelpContents' />"
 "      <menuitem action='About' />"
 "    </menu>"
 
