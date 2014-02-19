@@ -216,6 +216,7 @@ Section "Core ${PRODUCT_NAME} Files" SecProgram
   FileOpen $0 gtkrc w
   FileWrite $0 "gtk-theme-name = $\"MS-Windows$\" $\r$\n"
   FileWrite $0 "gtk-icon-theme-name = $\"hicolor$\" $\r$\n"
+  FileWrite $0 "gtk-toolbar-style = GTK_TOOLBAR_ICONS$\r$\n"
   FileClose $0
 
   SetOutPath "$INSTDIR\share\icons\hicolor"
