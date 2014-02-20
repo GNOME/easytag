@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: EasyTAG 2.1.2\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=easytag&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-02-08 11:25+0000\n"
-"PO-Revision-Date: 2014-02-09 09:22+0100\n"
+"POT-Creation-Date: 2014-02-19 19:53+0000\n"
+"PO-Revision-Date: 2014-02-20 23:17+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -368,7 +368,7 @@ msgstr "Poslední soubor"
 msgid "S_can Files"
 msgstr "Prozkoumat _soubory"
 
-#: ../src/bar.c:224 ../src/scan.c:2352
+#: ../src/bar.c:224 ../src/scan.c:2344
 msgid "Scan selected files"
 msgstr "Prozkoumat vybrané soubory"
 
@@ -432,8 +432,8 @@ msgstr "Zopakovat poslední změny"
 msgid "_Quit"
 msgstr "U_končit"
 
-#: ../src/bar.c:241 ../src/easytag.c:2403 ../src/easytag.c:4487
-#: ../src/easytag.c:4515
+#: ../src/bar.c:241 ../src/easytag.c:2418 ../src/easytag.c:4502
+#: ../src/easytag.c:4530
 msgid "Quit"
 msgstr "Ukončit"
 
@@ -585,11 +585,11 @@ msgstr "Vygenerovat seznam skladeb…"
 msgid "Generate a playlist"
 msgstr "Vygenerovat seznam skladeb"
 
-#: ../src/bar.c:296 ../src/bar.c:322 ../src/bar.c:323 ../src/bar.c:324
+#: ../src/bar.c:296 ../src/bar.c:327 ../src/bar.c:328 ../src/bar.c:329
 msgid "Run Audio Player"
 msgstr "Spustit přehrávač"
 
-#: ../src/bar.c:297 ../src/bar.c:322 ../src/bar.c:323 ../src/bar.c:324
+#: ../src/bar.c:297 ../src/bar.c:327 ../src/bar.c:328 ../src/bar.c:329
 msgid "Run audio player"
 msgstr "Spustit hudební přehrávač"
 
@@ -618,231 +618,239 @@ msgstr "_Přejít"
 msgid "_Help"
 msgstr "_Nápověda"
 
-#: ../src/bar.c:308
+#: ../src/bar.c:310
+msgid "_Contents"
+msgstr "O_bsah"
+
+#: ../src/bar.c:311
+msgid "Show help"
+msgstr "Zobrazit nápovědu"
+
+#: ../src/bar.c:313
 msgid "_About"
 msgstr "O _aplikaci"
 
-#: ../src/bar.c:308
+#: ../src/bar.c:313
 msgid "About"
 msgstr "O aplikaci"
 
 #.
 #. * Following items are on toolbar but not on menu
 #.
-#: ../src/bar.c:314
+#: ../src/bar.c:319
 msgid "Stop the current action"
 msgstr "Zastavit probíhající činnost"
 
 #.
 #. * Popup menu's Actions
 #.
-#: ../src/bar.c:320
+#: ../src/bar.c:325
 msgid "_File Operations"
 msgstr "_Souborové operace"
 
-#: ../src/bar.c:321
+#: ../src/bar.c:326
 msgid "S_canner"
 msgstr "Průz_kumník"
 
-#: ../src/bar.c:325
+#: ../src/bar.c:330
 msgid "CDDB Search Files…"
 msgstr "Hledat soubory v CDDB…"
 
-#: ../src/bar.c:325
+#: ../src/bar.c:330
 msgid "CDDB search files…"
 msgstr "Hledat soubory v CDDB…"
 
 #. { AM_ARTIST_OPEN_FILE_WITH,     GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
 #. { AM_ALBUM_OPEN_FILE_WITH,      GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
-#: ../src/bar.c:329
+#: ../src/bar.c:334
 msgid "Clear log"
 msgstr "Vymazat záznam"
 
 #. { AM_BROWSE_SUBDIR,      GTK_STOCK_INDEX,        _("Browse _Subdirectories"),                         NULL, _("Browse _Sub-directories"),                         NULL,                                    FALSE },
-#: ../src/bar.c:336
+#: ../src/bar.c:341
 msgid "Browse _Subdirectories"
 msgstr "Procházet _podsložky"
 
-#: ../src/bar.c:336
+#: ../src/bar.c:341
 msgid "Browse subdirectories"
 msgstr "Procházet podsložky"
 
-#: ../src/bar.c:340
+#: ../src/bar.c:345
 msgid "Show Hidden Directories"
 msgstr "Zobrazit skryté složky"
 
-#: ../src/bar.c:340
+#: ../src/bar.c:345
 msgid "Show hidden directories"
 msgstr "Zobrazit skryté složky"
 
-#: ../src/bar.c:342
+#: ../src/bar.c:347
 msgid "_Show Scanner"
 msgstr "_Zobrazit průzkumníka"
 
-#: ../src/bar.c:343
+#: ../src/bar.c:348
 msgid "Show scanner"
 msgstr "Zobrazit průzkumníka"
 
-#: ../src/bar.c:349
+#: ../src/bar.c:354
 msgid "Tree Browser"
 msgstr "Strom složek"
 
-#: ../src/bar.c:350
+#: ../src/bar.c:355
 msgid "View by directory tree"
 msgstr "Zobrazit podle stromu složek"
 
-#: ../src/bar.c:352
+#: ../src/bar.c:357
 msgid "Artist and Album"
 msgstr "Umělec a album"
 
-#: ../src/bar.c:353
+#: ../src/bar.c:358
 msgid "View by artist and album"
 msgstr "Zobrazit podle umělce a alba"
 
-#: ../src/bar.c:358
+#: ../src/bar.c:363
 msgid "_Fill Tags…"
 msgstr "_Vyplnit štítky…"
 
-#: ../src/bar.c:359
+#: ../src/bar.c:364
 msgid "Fill tags"
 msgstr "Vyplnit štítky"
 
-#: ../src/bar.c:361
+#: ../src/bar.c:366
 msgid "_Rename Files and Directories…"
 msgstr "Přejmenovat soubo_ry a složky…"
 
-#: ../src/bar.c:362
+#: ../src/bar.c:367
 msgid "Rename files and directories"
 msgstr "Přejmenovat soubory a složky"
 
-#: ../src/bar.c:364
+#: ../src/bar.c:369
 msgid "_Process Fields…"
 msgstr "Z_pracovat pole…"
 
-#: ../src/bar.c:364 ../src/scan.c:182
+#: ../src/bar.c:369 ../src/scan.c:182
 msgid "Process Fields"
 msgstr "Zpracovat pole"
 
-#: ../src/bar.c:422
+#: ../src/bar.c:427
 #, c-format
 msgid "Could not merge UI, error was: %s\n"
 msgstr "Nelze sloučit uživatelské rozhraní, chyba: %s\n"
 
-#: ../src/bar.c:528
+#: ../src/bar.c:532
 msgid "Ready to start"
 msgstr "Připraveno ke spuštění"
 
-#: ../src/browser.c:369
+#: ../src/browser.c:376
 msgid "New default path for files selected"
 msgstr "Vybrána nová výchozí cesta k souborům"
 
-#: ../src/browser.c:670 ../src/easytag.c:4483
+#: ../src/browser.c:677 ../src/easytag.c:4498
 msgid "Some files have been modified but not saved"
 msgstr "Některé soubory byly změněny, ale neuloženy"
 
-#: ../src/browser.c:671
+#: ../src/browser.c:678
 msgid "Do you want to save them before changing the directory?"
 msgstr "Chcete je před tím, než se změní složka, uložit?"
 
-#: ../src/browser.c:675
+#: ../src/browser.c:682
 msgid "Confirm Directory Change"
 msgstr "Potvrzení změny složky"
 
-#: ../src/browser.c:2121
+#: ../src/browser.c:2134
 msgid "<All albums>"
 msgstr "<všechna alba>"
 
-#: ../src/browser.c:2573
+#: ../src/browser.c:2595
 #, c-format
 msgid "Error: Searching for %s, could not find node %s in tree."
 msgstr "Chyba: Hledá se %s, nelze najít uzel %s ve stromu."
 
-#: ../src/browser.c:3067 ../src/browser.c:3145
+#: ../src/browser.c:3127 ../src/browser.c:3205
 msgid "Tree"
 msgstr "Strom"
 
-#: ../src/browser.c:3068 ../src/cddb.c:803 ../src/misc.c:1930
+#: ../src/browser.c:3128 ../src/cddb.c:803 ../src/misc.c:1902
 msgid "Filename"
 msgstr "Název souboru"
 
-#: ../src/browser.c:3068 ../src/cddb.c:804 ../src/misc.c:1931
+#: ../src/browser.c:3128 ../src/cddb.c:804 ../src/misc.c:1903
 #: ../src/prefs.c:643
 msgid "Title"
 msgstr "Název"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Artist".
-#: ../src/browser.c:3069 ../src/browser.c:3076 ../src/cddb.c:483
-#: ../src/cddb.c:805 ../src/misc.c:1932 ../src/prefs.c:644
+#: ../src/browser.c:3129 ../src/browser.c:3136 ../src/cddb.c:483
+#: ../src/cddb.c:805 ../src/misc.c:1904 ../src/prefs.c:644
 msgid "Artist"
 msgstr "Umělec"
 
-#: ../src/browser.c:3069 ../src/misc.c:1933
+#: ../src/browser.c:3129 ../src/misc.c:1905
 msgid "Album Artist"
 msgstr "Umělec alba"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Album".
-#: ../src/browser.c:3070 ../src/browser.c:3078 ../src/cddb.c:486
-#: ../src/cddb.c:806 ../src/misc.c:1934 ../src/prefs.c:645
+#: ../src/browser.c:3130 ../src/browser.c:3138 ../src/cddb.c:486
+#: ../src/cddb.c:806 ../src/misc.c:1906 ../src/prefs.c:645
 msgid "Album"
 msgstr "Album"
 
-#: ../src/browser.c:3070 ../src/cddb.c:807 ../src/misc.c:1936
+#: ../src/browser.c:3130 ../src/cddb.c:807 ../src/misc.c:1908
 msgid "Year"
 msgstr "Rok"
 
-#: ../src/browser.c:3070
+#: ../src/browser.c:3130
 msgid "Disc"
 msgstr "Disk"
 
-#: ../src/browser.c:3071 ../src/misc.c:1937
+#: ../src/browser.c:3131 ../src/misc.c:1909
 msgid "Track"
 msgstr "Skladba"
 
-#: ../src/browser.c:3071 ../src/cddb.c:810 ../src/misc.c:1938
+#: ../src/browser.c:3131 ../src/cddb.c:810 ../src/misc.c:1910
 #: ../src/prefs.c:646
 msgid "Genre"
 msgstr "Žánr"
 
-#: ../src/browser.c:3072 ../src/misc.c:1939 ../src/prefs.c:647
+#: ../src/browser.c:3132 ../src/misc.c:1911 ../src/prefs.c:647
 msgid "Comment"
 msgstr "Poznámka"
 
-#: ../src/browser.c:3072 ../src/misc.c:1940 ../src/picture.c:863
+#: ../src/browser.c:3132 ../src/misc.c:1912 ../src/picture.c:863
 #: ../src/prefs.c:648
 msgid "Composer"
 msgstr "Skladatel"
 
-#: ../src/browser.c:3073 ../src/misc.c:1941
+#: ../src/browser.c:3133 ../src/misc.c:1913
 msgid "Original Artist"
 msgstr "Původní umělec"
 
-#: ../src/browser.c:3074 ../src/misc.c:1942
+#: ../src/browser.c:3134 ../src/misc.c:1914
 msgid "Copyright"
 msgstr "Copyright"
 
-#: ../src/browser.c:3074 ../src/misc.c:1943
+#: ../src/browser.c:3134 ../src/misc.c:1915
 msgid "URL"
 msgstr "Adresa URL"
 
-#: ../src/browser.c:3075 ../src/misc.c:1944
+#: ../src/browser.c:3135 ../src/misc.c:1916
 msgid "Encoded By"
 msgstr "Kódováno pomocí"
 
-#: ../src/browser.c:3076
+#: ../src/browser.c:3136
 msgid "# Albums"
 msgstr "Počet alb"
 
-#: ../src/browser.c:3077 ../src/browser.c:3078
+#: ../src/browser.c:3137 ../src/browser.c:3138
 msgid "# Files"
 msgstr "Počet souborů"
 
-#: ../src/browser.c:3103
+#: ../src/browser.c:3163
 msgid "Enter a directory to browse."
 msgstr "Zadejte název složky, kterou chcete procházet."
 
-#: ../src/browser.c:3112
+#: ../src/browser.c:3172
 msgid "Select a directory to browse."
 msgstr "Vybrat složku pro procházení."
 
@@ -850,33 +858,33 @@ msgstr "Vybrat složku pro procházení."
 #. * The label for displaying number of files in path (without subdirs)
 #.
 #. Translators: No files, as in "0 files".
-#: ../src/browser.c:3119 ../src/easytag.c:3425
+#: ../src/browser.c:3179 ../src/easytag.c:3440
 msgid "No files"
 msgstr "žádný soubor"
 
-#: ../src/browser.c:3197
+#: ../src/browser.c:3257
 msgid "Artist & Album"
 msgstr "Umělec a album"
 
 #. Only directories changed
-#: ../src/browser.c:3561 ../src/easytag.c:2843
+#: ../src/browser.c:3621 ../src/easytag.c:2858
 msgid "Rename Directory"
 msgstr "Přejmenování složky"
 
-#: ../src/browser.c:3583
+#: ../src/browser.c:3643
 #, c-format
 msgid "Rename the directory '%s' to:"
 msgstr "Přejmenovat složku „%s“ na:"
 
-#: ../src/browser.c:3602 ../src/misc.c:1194
+#: ../src/browser.c:3662 ../src/misc.c:1171
 msgid "Use mask:"
 msgstr "Použít masku:"
 
-#: ../src/browser.c:3605
+#: ../src/browser.c:3665
 msgid "If activated, it will use masks to rename directory."
 msgstr "Pokud je zapnuto, použijí se k přejmenování složky masky."
 
-#: ../src/browser.c:3623
+#: ../src/browser.c:3683
 msgid ""
 "Select or type in a mask using codes (see Legend in Scanner Window) to "
 "rename the directory from tag fields."
@@ -885,97 +893,69 @@ msgstr ""
 "použitím polí štítků."
 
 #. Preview label
-#: ../src/browser.c:3647
+#: ../src/browser.c:3707
 msgid "Rename directory preview"
 msgstr "Náhled přejmenování složky"
 
-#: ../src/browser.c:3739
+#: ../src/browser.c:3799
 msgid "You must type a directory name"
 msgstr "Musíte vyplnit název složky"
 
-#: ../src/browser.c:3740 ../src/browser.c:3761
+#: ../src/browser.c:3800 ../src/browser.c:3821
 msgid "Directory Name Error"
 msgstr "Chyba v názvu složky"
 
-#: ../src/browser.c:3758
+#: ../src/browser.c:3818
 #, c-format
 msgid "Could not convert '%s' into filename encoding."
 msgstr "Nelze převést „%s“ do kódování názvů souborů"
 
-#: ../src/browser.c:3760
+#: ../src/browser.c:3820
 msgid "Please use another name"
 msgstr "Použijte prosím jiný název"
 
-#: ../src/browser.c:3830
+#: ../src/browser.c:3890
 #, c-format
 msgid "The directory name '%s' already exists"
 msgstr "Složka s názvem „%s“ již existuje"
 
-#: ../src/browser.c:3831 ../src/easytag.c:2926
+#: ../src/browser.c:3891 ../src/easytag.c:2941
 msgid "Rename File Error"
 msgstr "Chyba při přejmenování souboru"
 
-#: ../src/browser.c:3869 ../src/browser.c:3898
+#: ../src/browser.c:3929 ../src/browser.c:3958
 msgid "Rename Directory Error"
 msgstr "Chyba při přejmenování složky"
 
-#: ../src/browser.c:3936
+#: ../src/browser.c:3996
 msgid "Directory renamed"
 msgstr "Složka přejmenována"
 
-#: ../src/browser.c:3972
+#: ../src/browser.c:4032
 msgid "Browse Directory With"
 msgstr "Procházet složku pomocí"
 
-#: ../src/browser.c:3988 ../src/browser.c:4114
+#: ../src/browser.c:4048 ../src/browser.c:4174
 msgid "Program to run:"
 msgstr "Program, který se má spustit:"
 
-#: ../src/browser.c:4000
+#: ../src/browser.c:4060
 msgid ""
 "Enter the program to run. It will receive the current directory as parameter."
 msgstr ""
 "Napište název programu, který se má spustit. Tomuto programu se předá "
 "aktuální složka jako parametr."
 
-#: ../src/browser.c:4094
+#: ../src/browser.c:4154
 msgid "Open Files With"
 msgstr "Otevřít soubory pomocí"
 
-#: ../src/browser.c:4126
+#: ../src/browser.c:4186
 msgid ""
 "Enter the program to run. It will receive the current file as parameter."
 msgstr ""
 "Napište název programu, který se má spustit. Tomuto programu se předá "
 "aktuální soubor jako parametr."
-
-#: ../src/browser.c:4257
-msgid "You must type a program name"
-msgstr "Musíte vyplnit název programu"
-
-#: ../src/browser.c:4258 ../src/browser.c:4275
-msgid "Program Name Error"
-msgstr "Chyba v názvu programu"
-
-#: ../src/browser.c:4273 ../src/misc.c:794
-#, c-format
-msgid "The program '%s' cannot be found"
-msgstr "Nelze najít program „%s“"
-
-#: ../src/browser.c:4325 ../src/misc.c:840
-#, c-format
-msgid "Cannot execute ‘%s’ (%s)"
-msgstr "Nelze spustit „%s“ (%s)"
-
-#: ../src/browser.c:4369 ../src/misc.c:885
-#, c-format
-msgid "Executed command: %s"
-msgstr "Proveden příkaz: %s"
-
-#: ../src/browser.c:4375 ../src/misc.c:891
-#, c-format
-msgid "Failed to launch program: %s"
-msgstr "Selhalo spuštění programu: %s"
 
 #: ../src/cddb.c:313
 msgid "Artist / Album"
@@ -1160,7 +1140,7 @@ msgstr "Kategorie"
 msgid "Results:"
 msgstr "Výsledky:"
 
-#: ../src/cddb.c:606 ../src/misc.c:1978
+#: ../src/cddb.c:606 ../src/misc.c:1950
 msgid "Search:"
 msgstr "Hledat:"
 
@@ -1224,7 +1204,7 @@ msgid "# Tracks"
 msgstr "Počet skladeb"
 
 #. Check box to run the scanner
-#: ../src/cddb.c:847 ../src/misc.c:3019
+#: ../src/cddb.c:847 ../src/misc.c:2991
 msgid "Run the current scanner for each file"
 msgstr "Spustí aktuálního průzkumníka pro každý soubor"
 
@@ -1689,7 +1669,7 @@ msgstr "Momentálně se používá národní prostředí „%s“ (a případně
 msgid "Unable to create setting directories"
 msgstr "Nelze vytvořit složky s nastavením"
 
-#: ../src/easytag.c:415 ../src/et_core.c:584
+#: ../src/easytag.c:415 ../src/et_core.c:582
 #, c-format
 msgid "Error while querying information for file: '%s' (%s)"
 msgstr "Chyba při dotazování na informace o souboru: „%s“ (%s)"
@@ -1706,7 +1686,7 @@ msgstr "Nelze otevřít cestu „%s“"
 msgid "Browser"
 msgstr "Prohlížeč"
 
-#: ../src/easytag.c:593 ../src/et_core.c:2728
+#: ../src/easytag.c:593 ../src/et_core.c:2769
 msgid "File"
 msgstr "Soubor"
 
@@ -1716,7 +1696,7 @@ msgstr "Soubor"
 #. gtk_label_set_text(GTK_LABEL(VersionValueLabel),"");
 #. Version changed to encoder version
 #. Encoder version
-#: ../src/easytag.c:625 ../src/easytag.c:4153 ../src/flac_header.c:201
+#: ../src/easytag.c:625 ../src/easytag.c:4168 ../src/flac_header.c:201
 #: ../src/monkeyaudio_header.c:96 ../src/musepack_header.c:98
 #: ../src/ogg_header.c:389 ../src/wavpack_header.c:72
 #, c-format
@@ -1734,7 +1714,7 @@ msgid "Frequency:"
 msgstr "Vzorkování:"
 
 #. Mode
-#: ../src/easytag.c:654 ../src/easytag.c:4157 ../src/mpeg_header.c:216
+#: ../src/easytag.c:654 ../src/easytag.c:4172 ../src/mpeg_header.c:216
 msgid "Mode:"
 msgstr "Režim:"
 
@@ -1747,7 +1727,7 @@ msgid "Duration:"
 msgstr "Délka:"
 
 #. Main Frame
-#: ../src/easytag.c:715 ../src/et_core.c:2666
+#: ../src/easytag.c:715 ../src/et_core.c:2707
 msgid "Tag"
 msgstr "Štítek"
 
@@ -1902,7 +1882,7 @@ msgstr "Nastavit vybraným souborům tento název kodéru"
 #.
 #. * 2 - Page for extra tag fields
 #.
-#: ../src/easytag.c:1136 ../src/et_core.c:3101 ../src/et_core.c:3104
+#: ../src/easytag.c:1136 ../src/et_core.c:3142 ../src/et_core.c:3145
 msgid "Images"
 msgstr "Obrázky"
 
@@ -2092,7 +2072,7 @@ msgstr "Všechny štítky byly prozkoumány"
 msgid "All tags have been removed"
 msgstr "Všechny štítky byly odmazány"
 
-#: ../src/easytag.c:2397
+#: ../src/easytag.c:2412
 #, c-format
 msgid "A file was changed by an external program"
 msgid_plural "%d files were changed by an external program."
@@ -2100,153 +2080,153 @@ msgstr[0] "Soubor byl změněn externím programem."
 msgstr[1] "%d soubory byly změněny externím programem."
 msgstr[2] "%d souborů bylo změněno externím programem."
 
-#: ../src/easytag.c:2402
+#: ../src/easytag.c:2417
 msgid "Do you want to continue saving the file?"
 msgstr "Chcete pokračovat v ukládání souboru?"
 
-#: ../src/easytag.c:2457 ../src/easytag.c:2477
+#: ../src/easytag.c:2472 ../src/easytag.c:2492
 msgid "Saving files was stopped"
 msgstr "Ukládání souborů bylo zastaveno"
 
-#: ../src/easytag.c:2479
+#: ../src/easytag.c:2494
 msgid "All files have been saved"
 msgstr "Všechny soubory byly uloženy"
 
-#: ../src/easytag.c:2610
+#: ../src/easytag.c:2625
 #, c-format
 msgid "Cannot delete file (%s)"
 msgstr "Nelze smazat soubor (%s)"
 
-#: ../src/easytag.c:2630
+#: ../src/easytag.c:2645
 msgid "Files have been partially deleted"
 msgstr "Byly smazány jen některé soubory"
 
-#: ../src/easytag.c:2632
+#: ../src/easytag.c:2647
 msgid "All files have been deleted"
 msgstr "Všechny soubory byly smazány"
 
-#: ../src/easytag.c:2748
+#: ../src/easytag.c:2763
 #, c-format
 msgid "Do you want to write the tag of file '%s'?"
 msgstr "Chcete zapsat štítek do souboru „%s“ ?"
 
-#: ../src/easytag.c:2750
+#: ../src/easytag.c:2765
 msgid "Confirm Tag Writing"
 msgstr "Potvrzení zápisu štítku"
 
-#: ../src/easytag.c:2755 ../src/easytag.c:2872 ../src/easytag.c:3132
+#: ../src/easytag.c:2770 ../src/easytag.c:2887 ../src/easytag.c:3147
 msgid "Repeat action for the remaining files"
 msgstr "Opakovat akci pro zbytek souborů"
 
 #. Directories and filename changed
-#: ../src/easytag.c:2836 ../src/scan.c:181
+#: ../src/easytag.c:2851 ../src/scan.c:181
 msgid "Rename File and Directory"
 msgstr "Přejmenovat soubor a složku"
 
-#: ../src/easytag.c:2837
+#: ../src/easytag.c:2852
 msgid "File and directory rename confirmation required"
 msgstr "Je požadováno schválení přejmenování souboru a složky"
 
-#: ../src/easytag.c:2838
+#: ../src/easytag.c:2853
 #, c-format
 msgid "Do you want to rename the file and directory '%s' to '%s'?"
 msgstr "Chcete přejmenovat soubor a složku „%s“ na „%s“?"
 
-#: ../src/easytag.c:2844
+#: ../src/easytag.c:2859
 msgid "Directory rename confirmation required"
 msgstr "Je požadováno schválení přejmenování složky"
 
-#: ../src/easytag.c:2845
+#: ../src/easytag.c:2860
 #, c-format
 msgid "Do you want to rename the directory '%s' to '%s'?"
 msgstr "Chcete přejmenovat složku „%s“ na „%s“?"
 
 #. Only filename changed
-#: ../src/easytag.c:2851
+#: ../src/easytag.c:2866
 msgid "Rename File"
 msgstr "Přejmenování souboru"
 
-#: ../src/easytag.c:2852
+#: ../src/easytag.c:2867
 msgid "File rename confirmation required"
 msgstr "Je požadováno schválení přejmenování souboru"
 
-#: ../src/easytag.c:2853
+#: ../src/easytag.c:2868
 #, c-format
 msgid "Do you want to rename the file '%s' to '%s'?"
 msgstr "Chcete přejmenovat soubor „%s“ na „%s“?"
 
-#: ../src/easytag.c:2919
+#: ../src/easytag.c:2934
 #, c-format
 msgid "Cannot rename file '%s' to '%s'"
 msgstr "Nelze přejmenovat soubor „%s“ na „%s“"
 
-#: ../src/easytag.c:2933
+#: ../src/easytag.c:2948
 #, c-format
 msgid "Cannot rename file '%s' to '%s': %s"
 msgstr "Nelze přejmenovat soubor „%s“ na „%s“: %s"
 
-#: ../src/easytag.c:2937
+#: ../src/easytag.c:2952
 msgid "File(s) not renamed"
 msgstr "Soubor či soubory nebyly přejmenovány"
 
-#: ../src/easytag.c:3046
+#: ../src/easytag.c:3061
 #, c-format
 msgid "Writing tag of '%s'"
 msgstr "Zapisuje se štítek do „%s“"
 
-#: ../src/easytag.c:3053
+#: ../src/easytag.c:3068
 msgid "Tag(s) written"
 msgstr "Štítek zapsán"
 
-#: ../src/easytag.c:3068
+#: ../src/easytag.c:3083
 #, c-format
 msgid "Cannot write tag in file '%s' (%s)"
 msgstr "Nelze zapsat štítek do souboru „%s“ (%s)"
 
-#: ../src/easytag.c:3081
+#: ../src/easytag.c:3096
 #, c-format
 msgid "Cannot write tag in file '%s'"
 msgstr "Nelze zapsat štítek do souboru „%s“"
 
-#: ../src/easytag.c:3084
+#: ../src/easytag.c:3099
 msgid "Tag Write Error"
 msgstr "Chyba při zápisu štítku"
 
-#: ../src/easytag.c:3129 ../src/easytag.c:3143
+#: ../src/easytag.c:3144 ../src/easytag.c:3158
 #, c-format
 msgid "Do you really want to delete the file '%s'?"
 msgstr "Opravdu chcete smazat soubor „%s“?"
 
-#: ../src/easytag.c:3135 ../src/easytag.c:3145
+#: ../src/easytag.c:3150 ../src/easytag.c:3160
 msgid "Delete File"
 msgstr "Vymazání souboru"
 
-#: ../src/easytag.c:3170
+#: ../src/easytag.c:3185
 #, c-format
 msgid "File '%s' deleted"
 msgstr "Soubor „%s“ byl vymazán"
 
-#: ../src/easytag.c:3302
+#: ../src/easytag.c:3317
 #, c-format
 msgid "Cannot read directory '%s'"
 msgstr "Nelze číst složku „%s“"
 
-#: ../src/easytag.c:3306
+#: ../src/easytag.c:3321
 msgid "Directory Read Error"
 msgstr "Chyba při čtení složky"
 
 #. Read the directory recursively
-#: ../src/easytag.c:3327
+#: ../src/easytag.c:3342
 #, c-format
 msgid "Search in progress…"
 msgstr "Probíhá hledání…"
 
-#: ../src/easytag.c:3350 ../src/et_core.c:2735
+#: ../src/easytag.c:3365 ../src/et_core.c:2776
 #, c-format
 msgid "File: '%s'"
 msgstr "Soubor: „%s“"
 
-#: ../src/easytag.c:3400
+#: ../src/easytag.c:3415
 #, c-format
 msgid "Found one file in this directory and subdirectories"
 msgid_plural "Found %d files in this directory and subdirectories"
@@ -2254,7 +2234,7 @@ msgstr[0] "Nalezen jeden soubor v této složce a jejích podsložkách"
 msgstr[1] "Nalezeny %d soubory v této složce a jejích podsložkách"
 msgstr[2] "Nalezeno %d souborů v této složce a jejích podsložkách"
 
-#: ../src/easytag.c:3407
+#: ../src/easytag.c:3422
 #, c-format
 msgid "Found one file in this directory"
 msgid_plural "Found %d files in this directory"
@@ -2262,178 +2242,178 @@ msgstr[0] "Nalezen jeden soubor v této složce"
 msgstr[1] "Nalezeny %d soubory v této složce"
 msgstr[2] "Nalezeno %d souborů v této složce"
 
-#: ../src/easytag.c:3429
+#: ../src/easytag.c:3444
 msgid "No file found in this directory and subdirectories"
 msgstr "V této složce ani jejích podsložkách nebyl nalezen žádný soubor"
 
-#: ../src/easytag.c:3431
+#: ../src/easytag.c:3446
 msgid "No file found in this directory"
 msgstr "V této složce nebyl nalezen žádný soubor"
 
-#: ../src/easytag.c:3499
+#: ../src/easytag.c:3514
 #, c-format
 msgid "Error opening directory '%s' (%s)"
 msgstr "Chyba otevírání složky „%s“ (%s)"
 
-#: ../src/easytag.c:3535
+#: ../src/easytag.c:3550
 #, c-format
 msgid "Cannot read directory (%s)"
 msgstr "Nelze číst složku (%s)"
 
-#: ../src/easytag.c:3555
+#: ../src/easytag.c:3570
 msgid "Searching for audio files…"
 msgstr "Vyhledávají se zvukové soubory…"
 
-#: ../src/easytag.c:3556
+#: ../src/easytag.c:3571
 msgid "Searching"
 msgstr "Hledání"
 
-#: ../src/easytag.c:4187
+#: ../src/easytag.c:4202
 msgid "Select a directory to browse"
 msgstr "Vyberte složku, kterou chcete procházet"
 
 #. Menu items
-#: ../src/easytag.c:4334
+#: ../src/easytag.c:4349
 msgid "Tag selected files with this field"
 msgstr "Nastavit vybraným souborům toto pole"
 
-#: ../src/easytag.c:4346 ../src/scan.c:2662
+#: ../src/easytag.c:4361 ../src/scan.c:2654
 msgid "Convert '_' and '%20' to spaces"
 msgstr "Převést „_“ a „%20“ na mezery"
 
-#: ../src/easytag.c:4353 ../src/scan.c:2664
+#: ../src/easytag.c:4368 ../src/scan.c:2656
 msgid "Convert ' ' to '_'"
 msgstr "Převést „ “ na „_“"
 
-#: ../src/easytag.c:4364
+#: ../src/easytag.c:4379
 msgid "All uppercase"
 msgstr "Vše velkými písmeny"
 
-#: ../src/easytag.c:4371
+#: ../src/easytag.c:4386
 msgid "All lowercase"
 msgstr "Vše malými písmeny"
 
-#: ../src/easytag.c:4378
+#: ../src/easytag.c:4393
 msgid "First letter uppercase"
 msgstr "První písmeno velké"
 
-#: ../src/easytag.c:4385
+#: ../src/easytag.c:4400
 msgid "First letter uppercase of each word"
 msgstr "První písmeno každého slova velké"
 
-#: ../src/easytag.c:4396 ../src/prefs.c:1023 ../src/scan.c:2762
+#: ../src/easytag.c:4411 ../src/prefs.c:1023 ../src/scan.c:2754
 msgid "Remove spaces"
 msgstr "Odstranit mezery"
 
-#: ../src/easytag.c:4403
+#: ../src/easytag.c:4418
 msgid "Insert space before uppercase letter"
 msgstr "Vložit mezeru před velká písmena"
 
-#: ../src/easytag.c:4410
+#: ../src/easytag.c:4425
 msgid "Remove duplicate spaces or underscores"
 msgstr "Odstranit zdvojené mezery nebo podtržítka"
 
-#: ../src/easytag.c:4417
+#: ../src/easytag.c:4432
 msgid "Remove all text"
 msgstr "Odstranit všechen text"
 
-#: ../src/easytag.c:4436
+#: ../src/easytag.c:4451
 msgid "EasyTAG: Normal exit."
 msgstr "EasyTAG: Standardní ukončení"
 
-#: ../src/easytag.c:4488
+#: ../src/easytag.c:4503
 msgid "Do you want to save them before quitting?"
 msgstr "Chcete je uložit, než skončíte?"
 
-#: ../src/easytag.c:4511
+#: ../src/easytag.c:4526
 msgid "Do you really want to quit?"
 msgstr "Opravdu chcete skončit?"
 
-#: ../src/et_core.c:506
+#: ../src/et_core.c:504
 #, c-format
 msgid "Error reading tag from ogg file (%s)"
 msgstr "Chyba při čtení štítku ze souboru ogg (%s)"
 
-#: ../src/et_core.c:640
+#: ../src/et_core.c:656
 #, c-format
 msgid "Automatic corrections applied for file '%s'."
 msgstr "Pro soubor „%s“ byly použity automatické korekce."
 
-#: ../src/et_core.c:2632
+#: ../src/et_core.c:2673
 msgid "ID3 Tag"
 msgstr "Štítek ID3"
 
-#: ../src/et_core.c:2638
+#: ../src/et_core.c:2679
 msgid "Ogg Vorbis Tag"
 msgstr "Štítek Ogg Vorbis"
 
-#: ../src/et_core.c:2644
+#: ../src/et_core.c:2685
 msgid "FLAC Vorbis Tag"
 msgstr "Štítek FLAC"
 
-#: ../src/et_core.c:2649
+#: ../src/et_core.c:2690
 msgid "APE Tag"
 msgstr "Štítek APE"
 
-#: ../src/et_core.c:2654
+#: ../src/et_core.c:2695
 msgid "MP4/M4A/AAC Tag"
 msgstr "Štítek MP4/M4A/AAC"
 
-#: ../src/et_core.c:2660
+#: ../src/et_core.c:2701
 msgid "Wavpack Tag"
 msgstr "Štítek Wavpack"
 
-#: ../src/et_core.c:2680
+#: ../src/et_core.c:2721
 msgid "MP3 File"
 msgstr "Soubor MP3"
 
-#: ../src/et_core.c:2684
+#: ../src/et_core.c:2725
 msgid "MP2 File"
 msgstr "Soubor MP2"
 
-#: ../src/et_core.c:2690
+#: ../src/et_core.c:2731
 msgid "Ogg Vorbis File"
 msgstr "Soubor Ogg Vorbis"
 
-#: ../src/et_core.c:2696
+#: ../src/et_core.c:2737
 msgid "Speex File"
 msgstr "Soubor Speex"
 
-#: ../src/et_core.c:2702
+#: ../src/et_core.c:2743
 msgid "FLAC File"
 msgstr "Soubor FLAC"
 
-#: ../src/et_core.c:2707
+#: ../src/et_core.c:2748
 msgid "MusePack File"
 msgstr "Soubor MusePack"
 
-#: ../src/et_core.c:2711
+#: ../src/et_core.c:2752
 msgid "Monkey's Audio File"
 msgstr "Zvukový soubor Monkey"
 
-#: ../src/et_core.c:2716
+#: ../src/et_core.c:2757
 msgid "MP4/AAC File"
 msgstr "Soubor MP4/AAC"
 
-#: ../src/et_core.c:2722
+#: ../src/et_core.c:2763
 msgid "Wavpack File"
 msgstr "Soubor Wavpack"
 
-#: ../src/et_core.c:2779 ../src/et_core.c:2834
+#: ../src/et_core.c:2820 ../src/et_core.c:2875
 msgid "File not found"
 msgstr "Soubor nebyl nalezen"
 
-#: ../src/et_core.c:2784
+#: ../src/et_core.c:2825
 #, c-format
 msgid "Cannot query file information (%s)"
 msgstr "Nelze se dotázat na informace o souboru (%s)"
 
-#: ../src/et_core.c:2818
+#: ../src/et_core.c:2859
 msgid "Read-only file"
 msgstr "Soubor jen ke čtení"
 
 #. And refresh the number of files in this directory
-#: ../src/et_core.c:2882
+#: ../src/et_core.c:2923
 #, c-format
 msgid "One file"
 msgid_plural "%u files"
@@ -2441,13 +2421,13 @@ msgstr[0] "jeden soubor"
 msgstr[1] "%u soubory"
 msgstr[2] "%u souborů"
 
-#: ../src/et_core.c:3087
+#: ../src/et_core.c:3128
 #, c-format
 msgid "Images (%d)"
 msgstr "Obrázky (%d)"
 
 #. Bitrate
-#: ../src/et_core.c:3129 ../src/flac_header.c:205
+#: ../src/et_core.c:3170 ../src/flac_header.c:205
 #: ../src/monkeyaudio_header.c:86 ../src/mp4_header.c:134
 #: ../src/mpeg_header.c:206 ../src/musepack_header.c:88
 #: ../src/ogg_header.c:401 ../src/wavpack_header.c:78
@@ -2456,7 +2436,7 @@ msgid "%d kb/s"
 msgstr "%d kb/s"
 
 #. Samplerate
-#: ../src/et_core.c:3134 ../src/flac_header.c:210
+#: ../src/et_core.c:3175 ../src/flac_header.c:210
 #: ../src/monkeyaudio_header.c:91 ../src/mp4_header.c:139
 #: ../src/mpeg_header.c:211 ../src/musepack_header.c:93
 #: ../src/ogg_header.c:406 ../src/wavpack_header.c:83
@@ -2464,25 +2444,20 @@ msgstr "%d kb/s"
 msgid "%d Hz"
 msgstr "%d Hz"
 
-#: ../src/et_core.c:3277 ../src/scan.c:690
+#: ../src/et_core.c:3318 ../src/scan.c:690
 #, c-format
 msgid "Could not convert filename '%s' into system filename encoding"
 msgstr "Nelze převést název souboru „%s“ do systémového kódování názvů soborů"
 
-#: ../src/et_core.c:3279
+#: ../src/et_core.c:3320
 msgid "Try setting the environment variable G_FILENAME_ENCODING."
 msgstr "Zkuste nastavit proměnnou prostředí G_FILENAME_ENCODING"
 
-#: ../src/et_core.c:3280 ../src/scan.c:692
+#: ../src/et_core.c:3321 ../src/scan.c:692
 msgid "Filename translation"
 msgstr "Překlad názvu souboru"
 
-#: ../src/et_core.c:3941
-#, c-format
-msgid "Cannot change the permissions of file '%s' (%s)"
-msgstr "Nelze změnit oprávnění souboru „%s“ (%s)"
-
-#: ../src/et_core.c:3979
+#: ../src/et_core.c:4021
 #, c-format
 msgid "Error writing tag type %d to file %s (%s)"
 msgstr "Chyba při zápisu štítku typu %d do souboru %s (%s)"
@@ -2705,66 +2680,54 @@ msgstr "Chyba velikosti při ukládání štítku „%s“"
 msgid "Log"
 msgstr "Záznam"
 
-#: ../src/misc.c:692
+#: ../src/misc.c:719
+msgid "You must type a program name"
+msgstr "Musíte vyplnit název programu"
+
+#: ../src/misc.c:720
+msgid "Program Name Error"
+msgstr "Chyba v názvu programu"
+
+#: ../src/misc.c:799
+#, c-format
+msgid "Executed command: %s"
+msgstr "Proveden příkaz: %s"
+
+#: ../src/misc.c:806
+#, c-format
+msgid "Failed to launch program: %s"
+msgstr "Selhalo spuštění programu: %s"
+
+#: ../src/misc.c:823
 msgid "Select File"
 msgstr "Výběr souboru"
 
-#: ../src/misc.c:698
+#: ../src/misc.c:829
 msgid "Select Directory"
 msgstr "Výběr složky"
 
-#: ../src/misc.c:783
-msgid "No audio player defined"
-msgstr "Není nastaven žádný hudební přehrávač"
-
-#: ../src/misc.c:784
-msgid "Audio Player Warning"
-msgstr "Varování hudebního přehrávače"
-
-#. Translators: file size (bytes, kilobytes, megabytes, gigabytes,
-#. * terabytes).
-#: ../src/misc.c:1049 ../src/misc.c:1069
-msgid "B"
-msgstr "B"
-
-#: ../src/misc.c:1049 ../src/misc.c:1069
-msgid "kB"
-msgstr "kB"
-
-#: ../src/misc.c:1049 ../src/misc.c:1069
-msgid "MB"
-msgstr "MB"
-
-#: ../src/misc.c:1049 ../src/misc.c:1069
-msgid "GB"
-msgstr "GB"
-
-#: ../src/misc.c:1049 ../src/misc.c:1069
-msgid "TB"
-msgstr "TB"
-
-#: ../src/misc.c:1164
+#: ../src/misc.c:1141
 msgid "Generate Playlist"
 msgstr "Generování seznamu skladeb"
 
-#: ../src/misc.c:1188
+#: ../src/misc.c:1165
 msgid "M3U Playlist Name"
 msgstr "Název seznamu M3U"
 
-#: ../src/misc.c:1203
+#: ../src/misc.c:1180
 msgid "Use directory name"
 msgstr "Použít název složky"
 
 #. Playlist options
-#: ../src/misc.c:1220
+#: ../src/misc.c:1197
 msgid "Playlist Options"
 msgstr "Volby seznamu skladeb"
 
-#: ../src/misc.c:1226
+#: ../src/misc.c:1203
 msgid "Include only the selected files"
 msgstr "Zahrnout pouze vybrané soubory"
 
-#: ../src/misc.c:1229
+#: ../src/misc.c:1206
 msgid ""
 "If activated, only the selected files will be written in the playlist file. "
 "Else, all the files will be written."
@@ -2772,29 +2735,29 @@ msgstr ""
 "Pokud je zapnuto, budou do seznamu skladeb zapsány pouze vybrané soubory. "
 "Jinak budou zapsány všechny soubory."
 
-#: ../src/misc.c:1232
+#: ../src/misc.c:1209
 msgid "Use full path for files in playlist"
 msgstr "K souborům v seznamu použít celou cestu"
 
-#: ../src/misc.c:1235
+#: ../src/misc.c:1212
 msgid "Use relative path for files in playlist"
 msgstr "K souborům v seznamu použít relativní cestu"
 
 #. Create playlist in parent directory
-#: ../src/misc.c:1241
+#: ../src/misc.c:1218
 msgid "Create playlist in the parent directory"
 msgstr "Vytvořit seznam skladeb v nadřazené složce"
 
-#: ../src/misc.c:1244
+#: ../src/misc.c:1221
 msgid "If activated, the playlist will be created in the parent directory."
 msgstr "Pokud je zapnuto, bude se seznam skladeb vytvářet v nadřazené složce."
 
 #. DOS Separator
-#: ../src/misc.c:1248
+#: ../src/misc.c:1225
 msgid "Use DOS directory separator"
 msgstr "Používat oddělovač složek jako v systému DOS"
 
-#: ../src/misc.c:1254
+#: ../src/misc.c:1231
 msgid ""
 "This option replaces the UNIX directory separator '/' into DOS separator "
 "'\\'."
@@ -2802,49 +2765,49 @@ msgstr ""
 "Tato volba nahrazuje oddělovač složek „/“ ze systému UNIX oddělovačem „\\“ "
 "ze systému DOS."
 
-#: ../src/misc.c:1263
+#: ../src/misc.c:1240
 msgid "Playlist Content"
 msgstr "Obsah seznamu skladeb"
 
-#: ../src/misc.c:1269
+#: ../src/misc.c:1246
 msgid "Write only list of files"
 msgstr "Zapsat jen seznam souborů"
 
-#: ../src/misc.c:1273
+#: ../src/misc.c:1250
 msgid "Write info using filename"
 msgstr "Zapsat informace za použití názvu souboru"
 
-#: ../src/misc.c:1276
+#: ../src/misc.c:1253
 msgid "Write info using:"
 msgstr "Zapsat informace za použití:"
 
-#: ../src/misc.c:1495
+#: ../src/misc.c:1467
 #, c-format
 msgid "Cannot write playlist file '%s'"
 msgstr "Nelze zapsat do souboru se seznamem skladeb „%s“"
 
-#: ../src/misc.c:1499
+#: ../src/misc.c:1471
 msgid "Playlist File Error"
 msgstr "Chyba souboru se seznamem skladeb"
 
-#: ../src/misc.c:1507
+#: ../src/misc.c:1479
 #, c-format
 msgid "Written playlist file '%s'"
 msgstr "Zapsán soubor se seznamem skladeb „%s“"
 
-#: ../src/misc.c:1571 ../src/scan.c:3247 ../src/scan.c:3309
+#: ../src/misc.c:1543 ../src/scan.c:3239 ../src/scan.c:3301
 msgid "Invalid scanner mask"
 msgstr "Neplatná maska průzkumníka"
 
-#: ../src/misc.c:1935
+#: ../src/misc.c:1907
 msgid "CD"
 msgstr "CD"
 
-#: ../src/misc.c:1957
+#: ../src/misc.c:1929
 msgid "Find Files"
 msgstr "Hledání souborů"
 
-#: ../src/misc.c:1989
+#: ../src/misc.c:1961
 msgid ""
 "Type the word to search into files. Or type nothing to display all files."
 msgstr ""
@@ -2852,13 +2815,13 @@ msgstr ""
 "zobrazení všech souborů."
 
 #. Where...
-#: ../src/misc.c:1995
+#: ../src/misc.c:1967
 msgid "In:"
 msgstr "V:"
 
 #. Translators: This option is for the previous 'in' option. For instance,
 #. * translate this as "Search" "In:" "the Filename".
-#: ../src/misc.c:2000
+#: ../src/misc.c:1972
 msgid "the Filename"
 msgstr "názvu souboru"
 
@@ -2867,20 +2830,20 @@ msgstr "názvu souboru"
 #. * Note: label changed to "the Tag" (to be the only one) to fix a Hungarian
 #. * grammatical problem (which uses one word to say "in the tag" like here)
 #.
-#: ../src/misc.c:2006
+#: ../src/misc.c:1978
 msgid "the Tag"
 msgstr "štítku"
 
 #. Property of the search
-#: ../src/misc.c:2017 ../src/prefs.c:335
+#: ../src/misc.c:1989 ../src/prefs.c:335
 msgid "Case sensitive"
 msgstr "Rozlišovat velikost písmen"
 
-#: ../src/misc.c:2244
+#: ../src/misc.c:2216
 msgid "Ready to search…"
 msgstr "Připraveno k hledání…"
 
-#: ../src/misc.c:2464
+#: ../src/misc.c:2436
 #, c-format
 msgid "Found one file"
 msgid_plural "Found %d files"
@@ -2888,63 +2851,63 @@ msgstr[0] "Nalezen jeden soubor"
 msgstr[1] "Nalezeny %d soubory"
 msgstr[2] "Nalezeno %d souborů"
 
-#: ../src/misc.c:2749
+#: ../src/misc.c:2721
 msgid "Load Filenames From a Text File"
 msgstr "Načtení názvů souborů z textového souboru"
 
-#: ../src/misc.c:2778
+#: ../src/misc.c:2750
 msgid "File:"
 msgstr "Soubor:"
 
 #. Button 'load'
 #. the signal attached to this button, to load the file, is placed after the LoadFileContentList definition
-#: ../src/misc.c:2797
+#: ../src/misc.c:2769
 msgid " Load "
 msgstr "Načíst"
 
-#: ../src/misc.c:2815
+#: ../src/misc.c:2787
 msgid "Content of Text File"
 msgstr "Obsah textového souboru"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2836 ../src/misc.c:2931
+#: ../src/misc.c:2808 ../src/misc.c:2903
 msgid "Insert a blank line before the selected line"
 msgstr "Vložit prázdný řádek před vybraný řádek"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2845 ../src/misc.c:2940
+#: ../src/misc.c:2817 ../src/misc.c:2912
 msgid "Delete the selected line"
 msgstr "Smazat vybraný řádek"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2854 ../src/misc.c:2949 ../src/misc.c:3435
+#: ../src/misc.c:2826 ../src/misc.c:2921 ../src/misc.c:3407
 msgid "Delete all blank lines"
 msgstr "Smazat všechny prázdné řádky"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2866 ../src/misc.c:2961
+#: ../src/misc.c:2838 ../src/misc.c:2933
 msgid "Move up the selected line"
 msgstr "Posunout vybraný řádek výš"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2875 ../src/misc.c:2970
+#: ../src/misc.c:2847 ../src/misc.c:2942
 msgid "Move down the selected line"
 msgstr "Posunout vybraný řádek níž"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2887 ../src/misc.c:2982 ../src/misc.c:3459
+#: ../src/misc.c:2859 ../src/misc.c:2954 ../src/misc.c:3431
 msgid "Reload"
 msgstr "Znovu načíst"
 
-#: ../src/misc.c:2909
+#: ../src/misc.c:2881
 msgid "List of Files"
 msgstr "Seznam souborů"
 
-#: ../src/misc.c:3004
+#: ../src/misc.c:2976
 msgid "Selected line:"
 msgstr "Vybraný řádek:"
 
-#: ../src/misc.c:3022
+#: ../src/misc.c:2994
 msgid ""
 "When activating this option, after loading the filenames, the current "
 "selected scanner will be ran (the scanner window must be opened)."
@@ -2952,34 +2915,34 @@ msgstr ""
 "Když je tato volba zapnuta, bude po načtení názvů souborů spuštěn aktuální "
 "průzkumník (okno průzkumníka musí být otevřeno)."
 
-#: ../src/misc.c:3109
+#: ../src/misc.c:3081
 #, c-format
 msgid "Cannot retrieve file info (%s)"
 msgstr "Nelze získat informace o souboru (%s)"
 
-#: ../src/misc.c:3171
+#: ../src/misc.c:3143
 #, c-format
 msgid "Can't open file '%s' (%s)"
 msgstr "Nelze otevřít soubor „%s“ (%s)"
 
-#: ../src/misc.c:3207
+#: ../src/misc.c:3179
 #, c-format
 msgid "Error reading file (%s)"
 msgstr "Chyba při čtení souboru (%s)"
 
-#: ../src/misc.c:3423
+#: ../src/misc.c:3395
 msgid "Insert a blank line"
 msgstr "Vložit prázdný řádek"
 
-#: ../src/misc.c:3429
+#: ../src/misc.c:3401
 msgid "Delete this line"
 msgstr "Smazat tento řádek"
 
-#: ../src/misc.c:3444
+#: ../src/misc.c:3416
 msgid "Move up this line"
 msgstr "Posunout tento řádek výš"
 
-#: ../src/misc.c:3450
+#: ../src/misc.c:3422
 msgid "Move down this line"
 msgstr "Posunout tento řádek níž"
 
@@ -4322,11 +4285,11 @@ msgstr "Nastavení uloženo"
 msgid "Configuration unchanged"
 msgstr "Nastavení nezměněno"
 
-#: ../src/prefs.c:1707
+#: ../src/prefs.c:1712
 msgid "The selected path for 'Default path to files' is invalid"
 msgstr "Cesta vybraná jako „Výchozí cesta k souborům“ není platná"
 
-#: ../src/prefs.c:1708
+#: ../src/prefs.c:1714
 #, c-format
 msgid ""
 "Path: '%s'\n"
@@ -4335,16 +4298,16 @@ msgstr ""
 "Cesta: „%s“\n"
 "Chyba: %s"
 
-#: ../src/prefs.c:1709
+#: ../src/prefs.c:1716
 msgid "Invalid Path Error"
 msgstr "Chyba způsobená neplatnou cestou"
 
-#: ../src/prefs.c:1823
+#: ../src/prefs.c:1830
 #, c-format
 msgid "The audio file player '%s' cannot be found"
 msgstr "Hudební přehrávač „%s“ nebyl nalezen"
 
-#: ../src/prefs.c:1825
+#: ../src/prefs.c:1832
 msgid "Audio Player Error"
 msgstr "Chyba hudebního přehrávače"
 
@@ -4387,43 +4350,43 @@ msgstr "Nový název souboru byl úspěšně prozkoumán"
 msgid "New filename successfully scanned: %s"
 msgstr "Nový název souboru byl úspěšně prozkoumán: %s"
 
-#: ../src/scan.c:1817
+#: ../src/scan.c:1821
 #, c-format
 msgid "Error while processing fields: %s"
 msgstr "Chyba při zpracování polí: %s"
 
 #. The window
-#: ../src/scan.c:2336
+#: ../src/scan.c:2328
 msgid "Tag and Filename Scan"
 msgstr "Průzkum štítků a názvů souborů"
 
 #. TODO: Set related action to match AM_SCAN_FILES.
-#: ../src/scan.c:2345
+#: ../src/scan.c:2337
 msgid "Scan Files"
 msgstr "Prozkoumat soubory"
 
 #. Option Menu
-#: ../src/scan.c:2373
+#: ../src/scan.c:2365
 msgid "Scanner:"
 msgstr "Průzkumník:"
 
-#: ../src/scan.c:2394
+#: ../src/scan.c:2386
 msgid "Select the type of scanner to use"
 msgstr "Vyberte druh průzkumníka, které se má použít"
 
-#: ../src/scan.c:2403
+#: ../src/scan.c:2395
 msgid "Scanner Preferences"
 msgstr "Předvolby průzkumníka"
 
-#: ../src/scan.c:2412
+#: ../src/scan.c:2404
 msgid "Show / Hide Masks Editor"
 msgstr "Zobrazit/skrýt editor masky"
 
-#: ../src/scan.c:2422
+#: ../src/scan.c:2414
 msgid "Show / Hide Legend"
 msgstr "Zobrazit/skrýt legendu"
 
-#: ../src/scan.c:2452
+#: ../src/scan.c:2444
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse filename and "
 "path. Used to fill in tag fields"
@@ -4432,15 +4395,15 @@ msgstr ""
 "zpracovávat název souboru a cesta. Použije se k vyplnění polí štítku."
 
 #. Preview label
-#: ../src/scan.c:2476
+#: ../src/scan.c:2468
 msgid "Fill tag preview"
 msgstr "Náhled vyplnění štítku"
 
-#: ../src/scan.c:2506
+#: ../src/scan.c:2498
 msgid "Prefix mask with current path"
 msgstr "Úvodní maska s aktuální cestou"
 
-#: ../src/scan.c:2520
+#: ../src/scan.c:2512
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse tag fields. Used "
 "to rename the file.\n"
@@ -4453,15 +4416,15 @@ msgstr ""
 "považováno za absolutní cestu, jinak za relativní ke staré cestě."
 
 #. Preview label
-#: ../src/scan.c:2545
+#: ../src/scan.c:2537
 msgid "Rename file preview"
 msgstr "Náhled přejmenování souboru"
 
-#: ../src/scan.c:2564
+#: ../src/scan.c:2556
 msgid "Select fields:"
 msgstr "Vyberte pole:"
 
-#: ../src/scan.c:2567
+#: ../src/scan.c:2559
 msgid ""
 "The buttons on the right represent the fields which can be processed. Select "
 "those which interest you"
@@ -4470,134 +4433,134 @@ msgstr ""
 "která chcete upravit."
 
 #. Advice for Translators: set the first letter of filename translated
-#: ../src/scan.c:2571
+#: ../src/scan.c:2563
 msgid "F"
 msgstr "F"
 
-#: ../src/scan.c:2573
+#: ../src/scan.c:2565
 msgid "Process filename field"
 msgstr "Upravit pole názvu souboru"
 
 #. Advice for Translators: set the first letter of title translated
-#: ../src/scan.c:2575
+#: ../src/scan.c:2567
 msgid "T"
 msgstr "T"
 
-#: ../src/scan.c:2576
+#: ../src/scan.c:2568
 msgid "Process title field"
 msgstr "Upravit pole s názvem"
 
 #. Advice for Translators: set the first letter of artist translated
-#: ../src/scan.c:2578
+#: ../src/scan.c:2570
 msgid "Ar"
 msgstr "Ar"
 
-#: ../src/scan.c:2579
+#: ../src/scan.c:2571
 msgid "Process file artist field"
 msgstr "Upravit pole s autorem"
 
 #. Advice for Translators: set the first letter of album artist translated
-#: ../src/scan.c:2581
+#: ../src/scan.c:2573
 msgid "AA"
 msgstr "AA"
 
-#: ../src/scan.c:2582
+#: ../src/scan.c:2574
 msgid "Process album artist field"
 msgstr "Upravit pole s autorem alba"
 
 #. Advice for Translators: set the first letter of album translated
-#: ../src/scan.c:2584
+#: ../src/scan.c:2576
 msgid "Al"
 msgstr "Al"
 
-#: ../src/scan.c:2585
+#: ../src/scan.c:2577
 msgid "Process album field"
 msgstr "Upravit pole s albem"
 
 #. Advice for Translators: set the first letter of genre translated
-#: ../src/scan.c:2587
+#: ../src/scan.c:2579
 msgid "G"
 msgstr "G"
 
-#: ../src/scan.c:2588
+#: ../src/scan.c:2580
 msgid "Process genre field"
 msgstr "Upravit pole se žánrem"
 
 #. Advice for Translators: set the first letter of comment translated
-#: ../src/scan.c:2590
+#: ../src/scan.c:2582
 msgid "Cm"
 msgstr "Cm"
 
-#: ../src/scan.c:2591
+#: ../src/scan.c:2583
 msgid "Process comment field"
 msgstr "Upravit pole s poznámkou"
 
 #. Advice for Translators: set the first letter of composer translated
-#: ../src/scan.c:2593
+#: ../src/scan.c:2585
 msgid "Cp"
 msgstr "Cp"
 
-#: ../src/scan.c:2594
+#: ../src/scan.c:2586
 msgid "Process composer field"
 msgstr "Upravit pole se skladatelem"
 
 #. Advice for Translators: set the first letter of orig artist translated
-#: ../src/scan.c:2596
+#: ../src/scan.c:2588
 msgid "O"
 msgstr "O"
 
-#: ../src/scan.c:2597
+#: ../src/scan.c:2589
 msgid "Process original artist field"
 msgstr "Upravit pole s původním umělcem"
 
 #. Advice for Translators: set the first letter of copyright translated
-#: ../src/scan.c:2599
+#: ../src/scan.c:2591
 msgid "Cr"
 msgstr "Cr"
 
-#: ../src/scan.c:2600
+#: ../src/scan.c:2592
 msgid "Process copyright field"
 msgstr "Upravit pole s copyrightem"
 
 #. Advice for Translators: set the first letter of URL translated
-#: ../src/scan.c:2602
+#: ../src/scan.c:2594
 msgid "U"
 msgstr "U"
 
-#: ../src/scan.c:2603
+#: ../src/scan.c:2595
 msgid "Process URL field"
 msgstr "Upravit pole s adresou URL"
 
 #. Advice for Translators: set the first letter of encoder name translated
-#: ../src/scan.c:2605
+#: ../src/scan.c:2597
 msgid "E"
 msgstr "E"
 
-#: ../src/scan.c:2606
+#: ../src/scan.c:2598
 msgid "Process encoder name field"
 msgstr "Upravit pole s názvem kodéru"
 
-#: ../src/scan.c:2650
+#: ../src/scan.c:2642
 msgid "Invert selection"
 msgstr "Invertovat výběr"
 
-#: ../src/scan.c:2657
+#: ../src/scan.c:2649
 msgid "Select/Unselect all"
 msgstr "Vybrat vše/zrušit výběr všeho"
 
-#: ../src/scan.c:2672
+#: ../src/scan.c:2664
 msgid "Convert:"
 msgstr "Převést:"
 
-#: ../src/scan.c:2674
+#: ../src/scan.c:2666
 msgid "to: "
 msgstr "na : "
 
-#: ../src/scan.c:2681
+#: ../src/scan.c:2673
 msgid "Do not convert"
 msgstr "Nepřevádět"
 
-#: ../src/scan.c:2700
+#: ../src/scan.c:2692
 msgid ""
 "The underscore character or the string '%20' are replaced by one space. "
 "Example, before: 'Text%20In%20An_Entry', after: 'Text In An Entry'."
@@ -4605,7 +4568,7 @@ msgstr ""
 "Podtržítka nebo řetězec „%20“ budou nahrazovány jednou mezerou. Příklad "
 "před: „Text%20v%20nějaké_položce“ a po: „Text v nějaké položce“."
 
-#: ../src/scan.c:2703
+#: ../src/scan.c:2695
 msgid ""
 "The space character is replaced by one underscore character. Example, "
 "before: 'Text In An Entry', after: 'Text_In_An_Entry'."
@@ -4613,38 +4576,38 @@ msgstr ""
 "Mezera bude nahrazována jedním podtržítkem. Příklad před: „Text v nějaké "
 "položce“ a po: „Text_v_nějaké_položce“."
 
-#: ../src/scan.c:2706
+#: ../src/scan.c:2698
 msgid ""
 "Replace a string by another one. Note that the search is case sensitive."
 msgstr ""
 "Nahradit jeden řetězec jiným řetězcem. Upozorňujeme, že se při hledání "
 "rozlišuje velikost písmen."
 
-#: ../src/scan.c:2713
+#: ../src/scan.c:2705
 msgid "Capitalize all"
 msgstr "Vše na velká písmena"
 
-#: ../src/scan.c:2715
+#: ../src/scan.c:2707
 msgid "Lowercase all"
 msgstr "Vše na malá písmena"
 
-#: ../src/scan.c:2717
+#: ../src/scan.c:2709
 msgid "Capitalize first letter"
 msgstr "První písmeno na velké"
 
-#: ../src/scan.c:2719
+#: ../src/scan.c:2711
 msgid "Capitalize the first letter of each word"
 msgstr "První písmeno každého slova na velké"
 
-#: ../src/scan.c:2720
+#: ../src/scan.c:2712
 msgid "Detect Roman numerals"
 msgstr "Zjištěny římské číslice"
 
-#: ../src/scan.c:2722
+#: ../src/scan.c:2714
 msgid "Do not change capitalization"
 msgstr "Neměnit velikost písmen"
 
-#: ../src/scan.c:2744
+#: ../src/scan.c:2736
 msgid ""
 "Convert all words in all fields to upper case. Example, before: 'Text IN AN "
 "entry', after: 'TEXT IN AN ENTRY'."
@@ -4652,7 +4615,7 @@ msgstr ""
 "Převést všechna slova ve všech polích na velká písmena. Příklad před: „Text "
 "V NĚJAKÉM poli“ a po: „TEXT V NĚJAKÉM POLI“."
 
-#: ../src/scan.c:2747
+#: ../src/scan.c:2739
 msgid ""
 "Convert all words in all fields to lower case. Example, before: 'TEXT IN an "
 "entry', after: 'text in an entry'."
@@ -4660,7 +4623,7 @@ msgstr ""
 "Převést všechna slova ve všech polích na malá písmena. Příklad před: „TEXT V "
 "nějakém poli“ a po: „text v nějakém poli“."
 
-#: ../src/scan.c:2750
+#: ../src/scan.c:2742
 msgid ""
 "Convert the initial of the first word in all fields to upper case. Example, "
 "before: 'text IN An ENTRY', after: 'Text in an entry'."
@@ -4668,7 +4631,7 @@ msgstr ""
 "Převést první písmeno u prvních slov ve všech polích na velké písmeno. "
 "Příklad před: „text V Nějakém POLI“ a po: „Text v nějakém poli“."
 
-#: ../src/scan.c:2753
+#: ../src/scan.c:2745
 msgid ""
 "Convert the initial of each word in all fields to upper case. Example, "
 "before: 'Text in an ENTRY', after: 'Text In An Entry'."
@@ -4676,7 +4639,7 @@ msgstr ""
 "Převést první písmeno u každého slova ve všech polích na velké písmeno. "
 "Příklad před: „Text v nějakém POLI“ a po: „Text V Nějakém Poli“."
 
-#: ../src/scan.c:2756
+#: ../src/scan.c:2748
 msgid ""
 "Force to convert to upper case the Roman numerals. Example, before: 'ix. "
 "text in an entry', after: 'IX. Text In An Entry'."
@@ -4684,19 +4647,19 @@ msgstr ""
 "Vynutit převod na velká písmena u římských číslic. Příklad před: „ix. text v "
 "nějakém poli“ a po: „IX. text v nějakém poli“."
 
-#: ../src/scan.c:2764
+#: ../src/scan.c:2756
 msgid "Insert a space before uppercase letters"
 msgstr "Vložit mezeru před velká písmena"
 
-#: ../src/scan.c:2766
+#: ../src/scan.c:2758
 msgid "Remove duplicate spaces and underscores"
 msgstr "Odstranit zdvojené mezery a podtržítka"
 
-#: ../src/scan.c:2768
+#: ../src/scan.c:2760
 msgid "Do not change word separators"
 msgstr "Neměnit oddělovače slov"
 
-#: ../src/scan.c:2782
+#: ../src/scan.c:2774
 msgid ""
 "All spaces between words are removed. Example, before: 'Text In An Entry', "
 "after: 'TextInAnEntry'."
@@ -4704,7 +4667,7 @@ msgstr ""
 "Odstranit všechny mezery mezi slovy. Příklad před: „Text v nějakém poli“ a "
 "po: „TextVNějakémPoli“."
 
-#: ../src/scan.c:2785
+#: ../src/scan.c:2777
 msgid ""
 "A space is inserted before each upper case letter. Example, before: "
 "'TextInAnEntry', after: 'Text In An Entry'."
@@ -4712,7 +4675,7 @@ msgstr ""
 "Před každé velké písmeno vložit mezeru. Příklad před: „TextVNějakémPoli“ a "
 "po: „Text V Nějakém Poli“."
 
-#: ../src/scan.c:2788
+#: ../src/scan.c:2780
 msgid ""
 "Duplicate spaces and underscores are removed. Example, before: "
 "'Text__In__An   Entry', after: 'Text_In_An Entry'."
@@ -4723,141 +4686,141 @@ msgstr ""
 #.
 #. * Frame to display codes legend
 #.
-#: ../src/scan.c:2795
+#: ../src/scan.c:2787
 msgid "Legend"
 msgstr "Legenda"
 
-#: ../src/scan.c:2801
+#: ../src/scan.c:2793
 #, c-format
 msgid "%a: artist"
 msgstr "%a: umělec"
 
-#: ../src/scan.c:2804
+#: ../src/scan.c:2796
 msgid "%z: album artist"
 msgstr "%a: umělec alba"
 
-#: ../src/scan.c:2807
+#: ../src/scan.c:2799
 msgid "%b: album"
 msgstr "%b: album"
 
-#: ../src/scan.c:2810
+#: ../src/scan.c:2802
 #, c-format
 msgid "%c: comment"
 msgstr "%c: poznámka"
 
-#: ../src/scan.c:2813
+#: ../src/scan.c:2805
 #, c-format
 msgid "%p: composer"
 msgstr "%p: skladatel"
 
-#: ../src/scan.c:2816
+#: ../src/scan.c:2808
 msgid "%r: copyright"
 msgstr "%r: copyright"
 
-#: ../src/scan.c:2819
+#: ../src/scan.c:2811
 #, c-format
 msgid "%d: disc number"
 msgstr "%d: číslo disku"
 
-#: ../src/scan.c:2822
+#: ../src/scan.c:2814
 #, c-format
 msgid "%e: encoded by"
 msgstr "%e: kódováno pomocí"
 
-#: ../src/scan.c:2825
+#: ../src/scan.c:2817
 #, c-format
 msgid "%g: genre"
 msgstr "%g: žánr"
 
-#: ../src/scan.c:2828
+#: ../src/scan.c:2820
 #, c-format
 msgid "%i: ignored"
 msgstr "%i: ignorováno"
 
-#: ../src/scan.c:2831
+#: ../src/scan.c:2823
 msgid "%l: number of tracks"
 msgstr "%l: počet skladeb"
 
-#: ../src/scan.c:2834
+#: ../src/scan.c:2826
 #, c-format
 msgid "%o: orig. artist"
 msgstr "%o: původní umělec"
 
-#: ../src/scan.c:2837
+#: ../src/scan.c:2829
 #, c-format
 msgid "%n: track"
 msgstr "%n: pořadí"
 
-#: ../src/scan.c:2840
+#: ../src/scan.c:2832
 msgid "%t: title"
 msgstr "%t: název"
 
-#: ../src/scan.c:2843
+#: ../src/scan.c:2835
 #, c-format
 msgid "%u: URL"
 msgstr "%u: adresa URL"
 
-#: ../src/scan.c:2846
+#: ../src/scan.c:2838
 #, c-format
 msgid "%x: number of discs"
 msgstr "%x: počet disků"
 
-#: ../src/scan.c:2849
+#: ../src/scan.c:2841
 msgid "%y: year"
 msgstr "%y: rok"
 
 #.
 #. * Masks Editor
 #.
-#: ../src/scan.c:2856
+#: ../src/scan.c:2848
 msgid "Mask Editor"
 msgstr "Editor masky"
 
-#: ../src/scan.c:2910
+#: ../src/scan.c:2902
 msgid "Create New Mask"
 msgstr "Vytvořit novou masku"
 
-#: ../src/scan.c:2920
+#: ../src/scan.c:2912
 msgid "Move Up this Mask"
 msgstr "Posunout masku nahoru"
 
-#: ../src/scan.c:2930
+#: ../src/scan.c:2922
 msgid "Move Down this Mask"
 msgstr "Posunout masku dolů"
 
-#: ../src/scan.c:2940
+#: ../src/scan.c:2932
 msgid "Duplicate Mask"
 msgstr "Duplikovat masku"
 
-#: ../src/scan.c:2950
+#: ../src/scan.c:2942
 msgid "Add Default Masks"
 msgstr "Přidat výchozí masky"
 
-#: ../src/scan.c:2960
+#: ../src/scan.c:2952
 msgid "Remove Mask"
 msgstr "Odebrat masku"
 
-#: ../src/scan.c:2970
+#: ../src/scan.c:2962
 msgid "Save Masks"
 msgstr "Uložit masky"
 
-#: ../src/scan.c:3550
+#: ../src/scan.c:3542
 msgid "New_mask"
 msgstr "Nová _maska"
 
-#: ../src/scan.c:3589
+#: ../src/scan.c:3581
 msgid "Copy: No row selected"
 msgstr "Kopírování: Není vybrán žádný řádek"
 
-#: ../src/scan.c:3682
+#: ../src/scan.c:3674
 msgid "Remove: No row selected"
 msgstr "Odebírání: Není vybrán žádný řádek"
 
-#: ../src/scan.c:3729
+#: ../src/scan.c:3721
 msgid "Move Up: No row selected"
 msgstr "Posun výš: Není vybrán žádný řádek"
 
-#: ../src/scan.c:3773
+#: ../src/scan.c:3765
 msgid "Move Down: No row selected"
 msgstr "Posun níž: Není vybrán žádný řádek"
 
@@ -4982,27 +4945,3 @@ msgstr "Končí weasytag_init…"
 #, c-format
 msgid "Audio player: '%s'"
 msgstr "Hudební přehrávač: „%s“"
-
-#~ msgid "Cannot fork another process\n"
-#~ msgstr "Nelze rozvětvit do dalšího procesu\n"
-
-#~ msgid "EasyTAG version %s: Abnormal exit (PID: %d)"
-#~ msgstr "EasyTAG verze %s: Nestandardní ukončení (PID: %d)"
-
-#~ msgid "Received signal '%s' (%d)"
-#~ msgstr "Obdržen signál „%s“ (%d)"
-
-#~ msgid ""
-#~ "You have probably found a bug in EasyTAG. Please, file a bug report with "
-#~ "a GDB backtrace ('gdb easytag core' then 'bt' and 'l') and information to "
-#~ "reproduce it at: %s"
-#~ msgstr ""
-#~ "Nejspíše jste v aplikaci EasyTAG nalezli chybu. Nahlaste prosím chybu "
-#~ "spolu s výpisem zásobníku z GDB (spustit „gdb easytag core“ a pak "
-#~ "zmáčknout „bt“ a „l“) a popisem, jak ji reprodukovat, na: %s"
-
-#~ msgid "EasyTAG version %s: Abnormal exit (PID: %d)."
-#~ msgstr "EasyTAG verze %s: Nestandardní ukončení (PID: %d)"
-
-#~ msgid "Cannot fork another process"
-#~ msgstr "Nelze rozvětvit do dalšího procesu"
