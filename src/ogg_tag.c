@@ -115,6 +115,28 @@ static void Ogg_Set_Tag (vorbis_comment *vc, const gchar *tag_name, gchar *value
  *************/
 
 /*
+ * read_guint_from_byte:
+ * @str: the byte string
+ * @start: position to start with
+ *
+ * Reads and returns an integer from given byte string starting from start.
+ * Returns: Integer which is read
+ */
+static guint32
+read_guint32_from_byte (guchar *str, gsize start)
+{
+    gsize i;
+    guint32 read = 0;
+
+    for (i = start; i < start + 4; i++)
+    {
+        read = (read << 8) + str[i];
+    }
+
+    return read;
+}
+
+/*
  * Read tag data into an Ogg Vorbis file.
  * Note:
  *  - if field is found but contains no info (strlen(str)==0), we don't read it
@@ -577,6 +599,70 @@ ogg_tag_read_file_tag (gchar *filename, File_Tag *FileTag, GError **error)
 
     }
 
+    /* METADATA_BLOCK_PICTURE tag used for picture information */
+    field_num = 0;
+    while ((string = vorbis_comment_query (vc, "METADATA_BLOCK_PICTURE",
+                                           field_num++)) != NULL)
+    {
+        Picture *pic;
+        gsize bytes_pos, mimelen, desclen;
+        guchar *decoded_ustr;
+        gsize decoded_len;
+
+        pic = Picture_Allocate();
+
+        if (!prev_pic)
+        {
+            FileTag->picture = pic;
+        }
+        else
+        {
+            prev_pic->next = pic;
+        }
+
+        prev_pic = pic;
+
+        pic->data = NULL;
+
+        /* Decode picture data. */
+        decoded_ustr = g_base64_decode (string, &decoded_len);
+
+        /* Reading picture type. */
+        pic->type = read_guint32_from_byte (decoded_ustr, 0);
+        bytes_pos = 4;
+
+        /* Reading MIME data. */
+        mimelen = read_guint32_from_byte (decoded_ustr, bytes_pos);
+        bytes_pos = 8 + mimelen;
+
+        /* Reading description */
+        desclen = read_guint32_from_byte (decoded_ustr, bytes_pos);
+        bytes_pos += 4;
+
+        pic->description = g_malloc (desclen + 1);
+
+        for (i = 0; i < desclen; i++)
+        {
+            pic->description [i] = decoded_ustr [i + bytes_pos];
+        }
+
+        pic->description [desclen] = '\0';
+        bytes_pos += desclen + 16;
+
+        /* Reading picture size */
+        pic->size = read_guint32_from_byte (decoded_ustr, bytes_pos);
+        bytes_pos += 4;
+
+        /* Reading decoded picture */
+        pic->data = g_malloc (pic->size);
+
+        for (i = 0; i < pic->size; i++)
+        {
+            pic->data [i] = decoded_ustr [i + bytes_pos];
+        }
+
+        g_free (decoded_ustr);
+    }
 
     /***************************
      * Save unsupported fields *
