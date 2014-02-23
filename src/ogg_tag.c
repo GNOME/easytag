@@ -812,7 +812,7 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
     vcedit_state   *state;
     vorbis_comment *vc;
     gchar          *string;
-    GList          *list;
+    GList *l;
     Picture        *pic;
 
     g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL, FALSE);
@@ -1061,12 +1061,12 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
     /**************************
      * Set unsupported fields *
      **************************/
-    list = FileTag->other;
-    while (list)
+    for (l = FileTag->other; l != NULL; l = g_list_next (l))
     {
-        if (list->data)
-            vorbis_comment_add(vc,(gchar *)list->data);
-        list = list->next;
+        if (l->data)
+        {
+            vorbis_comment_add (vc, (gchar *)l->data);
+        }
     }
 
     /* Write tag to 'file' in all cases */
