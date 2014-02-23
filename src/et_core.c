@@ -863,53 +863,61 @@ ET_Remove_File_From_Artist_Album_List (ET_File *ETFile)
     GList *ArtistList;
     GList *AlbumList;
     GList *etfilelist;
-    ET_File *etfile;
 
+    g_return_val_if_fail (ETFile != NULL, FALSE);
 
-    // Search the ETFile in the list...
-    ArtistList = ETCore->ETArtistAlbumFileList;
-    while (ArtistList && ETFile)
+    /* Search for the ETFile in the list. */
+    for (ArtistList = ETCore->ETArtistAlbumFileList; ArtistList != NULL;
+         ArtistList = g_list_next (ArtistList))
     {
-        AlbumList = g_list_first((GList *)ArtistList->data);
-        while (AlbumList)
+        for (AlbumList = g_list_first ((GList *)ArtistList->data);
+             AlbumList != NULL; AlbumList = g_list_next (AlbumList))
         {
-            etfilelist = g_list_first((GList *)AlbumList->data);
-            while (etfilelist)
+            for (etfilelist = g_list_first ((GList *)AlbumList->data);
+                 etfilelist != NULL; etfilelist = g_list_next (etfilelist))
             {
-                etfile = (ET_File *)etfilelist->data;
-                if (ETFile == etfile) // The ETFile to delete was found!
+                ET_File *etfile = (ET_File *)etfilelist->data;
+
+                if (ETFile == etfile) /* The ETFile to delete was found! */
                 {
-                    etfilelist = g_list_remove(etfilelist,ETFile);
-                    if (etfilelist) // Delete from AlbumList
+                    etfilelist = g_list_remove (etfilelist, ETFile);
+
+                    if (etfilelist) /* Delete from AlbumList. */
                     {
-                        AlbumList->data = (gpointer) g_list_first(etfilelist);
-                    }else
+                        AlbumList->data = (gpointer) g_list_first (etfilelist);
+                    }
+                    else
                     {
-                        AlbumList = g_list_remove(AlbumList,AlbumList->data);
-                        if (AlbumList) // Delete from ArtistList
+                        AlbumList = g_list_remove (AlbumList, AlbumList->data);
+
+                        if (AlbumList) /* Delete from ArtistList. */
                         {
-                            ArtistList->data = (gpointer) g_list_first(AlbumList);
-                        }else
+                            ArtistList->data = (gpointer) g_list_first (AlbumList);
+                        }
+                        else
                         {
-                            ETCore->ETArtistAlbumFileList = g_list_remove(ArtistList,ArtistList->data); // Delete from the main list
+                            /* Delete from the main list. */
+                            ETCore->ETArtistAlbumFileList = g_list_remove (ArtistList,ArtistList->data);
+
                             if (ETCore->ETArtistAlbumFileList)
-                                ETCore->ETArtistAlbumFileList = g_list_first(ETCore->ETArtistAlbumFileList);
+                            {
+                                ETCore->ETArtistAlbumFileList = g_list_first (ETCore->ETArtistAlbumFileList);
+                            }
+
                             return TRUE;
                         }
+
                         return TRUE;
                     }
+
                     return TRUE;
                 }
-                etfilelist = etfilelist->next;
             }
-            AlbumList = AlbumList->next;
         }
-        ArtistList = ArtistList->next;
     }
-    return FALSE; // ETFile is NUL, or not found in the list
+
+    return FALSE; /* ETFile is NUL, or not found in the list. */
 }
-
-
 
 /**************************
  * File sorting functions *
