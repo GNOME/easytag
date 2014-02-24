@@ -4005,9 +4005,9 @@ gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile)
         // parent directory is automatically updated.
         if (UPDATE_PARENT_DIRECTORY_MODIFICATION_TIME)
         {
-            gchar *path = g_path_get_dirname(cur_filename);
-            utime(g_path_get_dirname(cur_filename),NULL);
-            g_free(path);
+            gchar *path = g_path_get_dirname (cur_filename);
+            utime (path, NULL);
+            g_free (path);
         }
 
         ET_Mark_File_Tag_As_Saved(ETFile);
