@@ -609,6 +609,10 @@ ogg_tag_read_file_tag (gchar *filename, File_Tag *FileTag, GError **error)
     {
         Picture *pic;
             
+        /* Force marking the file as modified, so that the deprecated cover art
+         * field in converted in a METADATA_PICTURE_BLOCK field. */
+        FileTag->saved = FALSE;
+
         pic = Picture_Allocate();
         if (!prev_pic)
             FileTag->picture = pic;
