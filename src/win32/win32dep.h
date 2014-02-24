@@ -50,8 +50,8 @@ G_BEGIN_DECLS
 /* Windows helper functions */
 
 /* Determine EasyTAG paths */
-const char *weasytag_install_dir(void);
-const char *weasytag_locale_dir(void);
+const gchar * weasytag_install_dir (void);
+const gchar * weasytag_locale_dir (void);
 
 /* Misc */
 extern char *ET_Win32_Get_Audio_File_Player (void);

@@ -72,58 +72,55 @@ void str_replace_char (gchar *str, gchar in_char, gchar out_char);
  */
 
 /* Determine Easytag Paths during Runtime */
-const char *weasytag_install_dir(void) {
-	static gboolean initialized = FALSE;
+const gchar *
+weasytag_install_dir (void)
+{
+    static gboolean initialized = FALSE;
 
-	if (!initialized) {
-		char *tmp = NULL;
-		if (G_WIN32_HAVE_WIDECHAR_API()) {
-			wchar_t winstall_dir[MAXPATHLEN];
-			if (GetModuleFileNameW(NULL, winstall_dir,
-					MAXPATHLEN) > 0) {
-				tmp = g_utf16_to_utf8(winstall_dir, -1,
-					NULL, NULL, NULL);
-			}
-		} else {
-			gchar cpinstall_dir[MAXPATHLEN];
-			if (GetModuleFileNameA(NULL, cpinstall_dir,
-					MAXPATHLEN) > 0) {
-				tmp = g_locale_to_utf8(cpinstall_dir,
-					-1, NULL, NULL, NULL);
-			}
-		}
+    if (!initialized)
+    {
+        gchar *tmp;
 
-		if (tmp == NULL) {
-			tmp = g_win32_error_message(GetLastError());
-            //Log_Print("GetModuleFileName error: %s", tmp);
-            g_print("GetModuleFileName error: %s", tmp);
-            g_print("\n");
-			g_free(tmp);
-			return NULL;
-		} else {
-			install_dir = g_path_get_dirname(tmp);
-			g_free(tmp);
-			initialized = TRUE;
-		}
-	}
+        tmp = g_win32_get_package_installation_directory_of_module (NULL);
 
-	return install_dir;
+        if (tmp == NULL)
+        {
+            tmp = g_win32_error_message (GetLastError ());
+            g_debug ("GetModuleFileName error: %s", tmp);
+            g_free (tmp);
+            return NULL;
+        }
+        else
+        {
+            install_dir = tmp;
+            initialized = TRUE;
+        }
+    }
+
+    return install_dir;
 }
 
-const char *weasytag_locale_dir(void) {
-	static gboolean initialized = FALSE;
+const gchar *
+weasytag_locale_dir (void)
+{
+    static gboolean initialized = FALSE;
 
-	if (!initialized) {
-		const char *inst_dir = weasytag_install_dir();
-		if (inst_dir != NULL) {
-			locale_dir = g_build_filename (inst_dir, "..", "lib", "locale", NULL);
-			initialized = TRUE;
-		} else {
-			return NULL;
-		}
-	}
+    if (!initialized)
+    {
+        const gchar *inst_dir = weasytag_install_dir ();
 
-	return locale_dir;
+        if (inst_dir != NULL)
+        {
+            locale_dir = g_build_filename (inst_dir, "lib", "locale", NULL);
+            initialized = TRUE;
+        }
+        else
+        {
+            return NULL;
+        }
+    }
+
+    return locale_dir;
 }
 
 /* Miscellaneous */
