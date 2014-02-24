@@ -115,6 +115,45 @@ static void Ogg_Set_Tag (vorbis_comment *vc, const gchar *tag_name, gchar *value
  *************/
 
 /*
+ * convert_to_byte_array:
+ * @n: Integer to convert
+ * @array: Destination byte array
+ *
+ * Converts an integer to byte array.
+ */
+static void
+convert_to_byte_array (guint32 n, guchar *array)
+{
+    array [0] = (n >> 24) & 0xFF;
+    array [1] = (n >> 16) & 0xFF;
+    array [2] = (n >> 8) & 0xFF;
+    array [3] = n & 0xFF;
+}
+
+/*
+ * add_to_guchar_str:
+ * @ustr: Destination string
+ * @ustr_len: Pointer to length of destination string
+ * @str: String to append
+ * @str_len: Length of str
+ *
+ * Append a guchar string to given guchar string.
+ */
+
+static void
+add_to_guchar_str (guchar *ustr, gsize *ustr_len, guchar *str, gsize str_len)
+{
+    gsize i;
+
+    for (i = *ustr_len; i < *ustr_len + str_len; i++)
+    {
+        ustr [i] = str [i - *ustr_len];
+    }
+
+    *ustr_len += str_len;
+}
+
+/*
  * read_guint_from_byte:
  * @str: the byte string
  * @start: position to start with
@@ -690,6 +729,7 @@ ogg_tag_read_file_tag (gchar *filename, File_Tag *FileTag, GError **error)
           && strncasecmp(vc->user_comments[i],"COVERARTTYPE=",       13) != 0
           && strncasecmp(vc->user_comments[i],"COVERARTMIME=",       13) != 0
           && strncasecmp(vc->user_comments[i],"COVERARTDESCRIPTION=",20) != 0
+          && strncasecmp (vc->user_comments[i], "METADATA_BLOCK_PICTURE=", 23) != 0
            )
         {
             FileTag->other = g_list_append(FileTag->other,
@@ -947,40 +987,68 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
     /***********
      * Picture *
      ***********/
-    pic = FileTag->picture;
-    while (pic)
+    for (pic = FileTag->picture; pic != NULL; pic = pic->next)
     {
         if (pic->data)
         {
-            gchar *data_encoded = NULL;
-            Picture_Format format = Picture_Format_From_Data(pic);
+            const gchar *mime;
+            guchar array[4];
+            guchar *ustring = NULL;
+            gsize ustring_len = 0;
+            gchar *base64_string;
+            Picture_Format format = Picture_Format_From_Data (pic);
 
-            string = g_strdup_printf("COVERARTMIME=%s",Picture_Mime_Type_String(format));
-            vorbis_comment_add(vc,string);
-            g_free(string);
-        
-            if (pic->type)
-            {
-                string = g_strdup_printf("COVERARTTYPE=%d",pic->type);
-                vorbis_comment_add(vc,string);
-                g_free(string);
-            }
+            mime = Picture_Mime_Type_String (format);
 
-            if (pic->description)
-            {
-                string = g_strdup_printf("COVERARTDESCRIPTION=%s",pic->description);
-                vorbis_comment_add(vc,string);
-                g_free(string);
-            }
+            /* Calculating full length of byte string and allocating. */
+            ustring = g_malloc (4 * 8 + strlen (mime)
+                                + strlen (pic->description) + pic->size);
 
-            data_encoded = g_base64_encode (pic->data, pic->size);
-            string = g_strdup_printf("COVERART=%s",data_encoded);
-            vorbis_comment_add(vc,string);
-            g_free(data_encoded);
-            g_free(string);
+            /* Adding picture type. */
+            convert_to_byte_array (pic->type, array);
+            add_to_guchar_str (ustring, &ustring_len, array, 4);
+
+            /* Adding MIME string and its length. */
+            convert_to_byte_array (strlen (mime), array);
+            add_to_guchar_str (ustring, &ustring_len, array, 4);
+            add_to_guchar_str (ustring, &ustring_len, (guchar *)mime,
+                               strlen (mime));
+
+            /* Adding picture description. */
+            convert_to_byte_array (strlen (pic->description), array);
+            add_to_guchar_str (ustring, &ustring_len, array, 4);
+            add_to_guchar_str (ustring, &ustring_len,
+                               (guchar *)pic->description,
+                               strlen (pic->description));
+
+            /* Adding width, height, color depth, indexed colors. */
+            convert_to_byte_array (pic->width, array);
+            add_to_guchar_str (ustring, &ustring_len, array, 4);
+
+            convert_to_byte_array (pic->height, array);
+            add_to_guchar_str (ustring, &ustring_len, array, 4);
+
+            convert_to_byte_array (0, array);
+            add_to_guchar_str (ustring, &ustring_len, array, 4);
+
+            convert_to_byte_array (0, array);
+            add_to_guchar_str (ustring, &ustring_len, array, 4);
+
+            /* Adding picture data and its size. */
+            convert_to_byte_array (pic->size, array);
+            add_to_guchar_str (ustring, &ustring_len, array, 4);
+
+            add_to_guchar_str (ustring, &ustring_len, pic->data, pic->size);
+
+            base64_string = g_base64_encode (ustring, ustring_len);
+            string = g_strconcat ("METADATA_BLOCK_PICTURE=", base64_string,
+                                  NULL);
+            vorbis_comment_add (vc, string);
+
+            g_free (base64_string);
+            g_free (ustring);
+            g_free (string);
         }
-
-        pic = pic->next;
     }
 
     /**************************
