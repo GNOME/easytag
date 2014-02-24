@@ -48,21 +48,10 @@ G_BEGIN_DECLS
  ** win32dep.c
  **/
 /* Windows helper functions */
-FARPROC weasytag_find_and_loadproc(const char *dllname, const char *procedure);
-char *weasytag_read_reg_string(HKEY rootkey, const char *subkey, const char *valname); /* needs to be g_free'd */
-gboolean weasytag_write_reg_string(HKEY rootkey, const char *subkey, const char *valname, const char *value);
-char *weasytag_escape_dirsep(const char *filename); /* needs to be g_free'd */
 
 /* Determine EasyTAG paths */
-char *weasytag_get_special_folder(int folder_type);
 const char *weasytag_install_dir(void);
-const char *weasytag_lib_dir(void);
 const char *weasytag_locale_dir(void);
-const char *weasytag_data_dir(void);
-
-/* init / cleanup */
-void weasytag_init(void);
-void weasytag_cleanup(void);
 
 /* Misc */
 extern char *ET_Win32_Get_Audio_File_Player (void);
@@ -76,12 +65,6 @@ extern void  ET_Win32_Path_Replace_Slashes           (gchar *path);
 #define et_w32_mkstemp mkstemp
 extern gint et_w32_mkstemp (char *template);
 #endif /* HAVE_MKSTEMP */
-
-#ifndef HAVE_GETTIMEOFDAY
-#define et_w32_gettimeofday gettimeofday
-extern gint et_w32_gettimeofday (struct timeval *tv,
-                                 /*struct timezone */ void *tz);
-#endif /* !HAVE_GETTIMEOFDAY */
 
 #ifndef HAVE_FTRUNCATE
 #define et_w32_ftruncate ftruncate
@@ -101,10 +84,8 @@ extern gint et_w32_truncate (const gchar *path, off_t length);
  *  EasyTAG specific
  */
 #undef DATADIR
-#undef LIBDIR
 #undef LOCALEDIR
 #define DATADIR weasytag_install_dir()
-#define LIBDIR weasytag_lib_dir()
 #define LOCALEDIR weasytag_locale_dir()
 
 G_END_DECLS
