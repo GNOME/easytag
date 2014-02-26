@@ -190,7 +190,7 @@ ogg_tag_read_file_tag (gchar *filename, File_Tag *FileTag, GError **error)
     gchar          *string = NULL;
     gchar          *string1 = NULL;
     gchar          *string2 = NULL;
-    gchar          *filename_utf8 = filename_to_display(filename);
+    gchar *filename_utf8;
     guint           field_num, i;
     Picture        *prev_pic = NULL;
 
@@ -206,6 +206,8 @@ ogg_tag_read_file_tag (gchar *filename, File_Tag *FileTag, GError **error)
         g_assert (error == NULL || *error != NULL);
         return FALSE;
     }
+
+    filename_utf8 = filename_to_display (filename);
 
     {
     // Skip the id3v2 tag
