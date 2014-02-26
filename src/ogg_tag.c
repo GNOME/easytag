@@ -281,6 +281,7 @@ ogg_tag_read_file_tag (gchar *filename, File_Tag *FileTag, GError **error)
         g_assert (error == NULL || *error != NULL);
         g_object_unref (file);
         vcedit_clear(state);
+        g_free (filename_utf8);
         return FALSE;
     }
 
