@@ -2714,61 +2714,41 @@ GtkTreePath *Find_Child_Node (GtkTreeIter *parentnode, gchar *childtext)
 static gboolean
 check_for_subdir (const gchar *path)
 {
-    DIR *dir;
-    struct dirent *dirent;
-    gchar *npath;
+    GFile *dir;
+    GFileEnumerator *enumerator;
 
-    if( (dir=opendir(path)) )
+    dir = g_file_new_for_path (path);
+    enumerator = g_file_enumerate_children (dir,
+                                            G_FILE_ATTRIBUTE_STANDARD_TYPE ","
+                                            G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN,
+                                            G_FILE_QUERY_INFO_NONE,
+                                            NULL, NULL);
+    g_object_unref (dir);
+
+    if (enumerator)
     {
-        while( (dirent=readdir(dir)) )
+        GFileInfo *childinfo;
+
+        while ((childinfo = g_file_enumerator_next_file (enumerator,
+                                                         NULL, NULL)))
         {
-            // We don't read the directories '.' and '..', but may read hidden directories
-            // like '.mydir' (note that '..mydir' or '...mydir' aren't hidden directories)
-            // See also the rule into 'expand_cb' function
-            if ((g_ascii_strcasecmp(dirent->d_name,".")  != 0)
-            && (g_ascii_strcasecmp(dirent->d_name,"..") != 0)
-            // Display hidden directories is needed, or keep only the not hidden directories
-            && (BROWSE_HIDDEN_DIR
-              || !( (g_ascii_strncasecmp(dirent->d_name,".", 1) == 0)
-                 && (strlen(dirent->d_name) > 1)
-                 && (g_ascii_strncasecmp(dirent->d_name+1,".", 1) != 0) ))
-               )
+            if ((g_file_info_get_file_type (childinfo) ==
+                 G_FILE_TYPE_DIRECTORY) &&
+                (BROWSE_HIDDEN_DIR || !g_file_info_get_is_hidden (childinfo)))
             {
-                GFile *file;
-                GFileInfo *fileinfo;
-#ifdef G_OS_WIN32
-                // On win32 : stat("/path/to/dir") succeed, while stat("/path/to/dir/") fails
-                npath = g_strconcat(path,dirent->d_name,NULL);
-#else /* !G_OS_WIN32 */
-                npath = g_strconcat(path,dirent->d_name,G_DIR_SEPARATOR_S,NULL);
-#endif /* !G_OS_WIN32 */
-
-                file = g_file_new_for_path (npath);
-                fileinfo = g_file_query_info (file,
-                                              G_FILE_ATTRIBUTE_STANDARD_TYPE,
-                                              G_FILE_QUERY_INFO_NONE, NULL,
-                                              NULL);
-                g_free (npath);
-                g_object_unref (file);
-
-                if (!fileinfo)
-                {
-                    continue;
-                }
-
-                if (g_file_info_get_file_type (fileinfo)
-                    == G_FILE_TYPE_DIRECTORY)
-                {
-                    g_object_unref (fileinfo);
-                    closedir(dir);
-                    return TRUE;
-                }
-
-                g_object_unref (fileinfo);
+                g_object_unref (childinfo);
+                g_file_enumerator_close (enumerator, NULL, NULL);
+                g_object_unref (enumerator);
+                return TRUE;
             }
+
+            g_object_unref (childinfo);
         }
-        closedir(dir);
+
+        g_file_enumerator_close (enumerator, NULL, NULL);
+        g_object_unref (enumerator);
     }
+
     return FALSE;
 }
 
@@ -2890,10 +2870,8 @@ Browser_List_Select_Func (GtkTreeSelection *selection, GtkTreeModel *model, GtkT
  */
 static void expand_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *gtreePath, gpointer data)
 {
-    DIR *dir;
-    struct dirent *dirent;
-    gchar *path;
-    gchar *dirname_utf8;
+    GFile *dir;
+    GFileEnumerator *enumerator;
     gchar *fullpath_file;
     gchar *parentPath;
     gboolean treeScanned;
@@ -2911,61 +2889,41 @@ static void expand_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *gtreePat
     if (treeScanned)
         return;
 
-    if ( (dir=opendir(parentPath)) )
+    dir = g_file_new_for_path (parentPath);
+    enumerator = g_file_enumerate_children (dir,
+                                            G_FILE_ATTRIBUTE_STANDARD_TYPE ","
+                                            G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME ","
+                                            G_FILE_ATTRIBUTE_STANDARD_NAME ","
+                                            G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN,
+                                            G_FILE_QUERY_INFO_NONE,
+                                            NULL, NULL);
+
+    if (enumerator)
     {
-        while ( (dirent=readdir(dir)) )
+        GFileInfo *childinfo;
+
+        while ((childinfo = g_file_enumerator_next_file (enumerator,
+                                                         NULL, NULL))
+               != NULL)
         {
-            GFile *file;
-            GFileInfo *fileinfo;
+            const gchar *name;
+            GFile *child;
             gboolean isdir = FALSE;
 
-            path = g_strconcat(parentPath, dirent->d_name, NULL);
-            file = g_file_new_for_path (path);
-            fileinfo = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_TYPE,
-                                          G_FILE_QUERY_INFO_NONE, NULL, NULL);
-            g_object_unref (file);
+            name = g_file_info_get_name (childinfo);
+            child = g_file_get_child (dir, name);
+            fullpath_file = g_file_get_path (child);
+            isdir = g_file_info_get_file_type (childinfo) == G_FILE_TYPE_DIRECTORY;
 
-            if (fileinfo)
+            if (isdir &&
+                (BROWSE_HIDDEN_DIR || !g_file_info_get_is_hidden (childinfo)))
             {
-                isdir = g_file_info_get_file_type (fileinfo)
-                        == G_FILE_TYPE_DIRECTORY;
+                const gchar *dirname_utf8;
+                dirname_utf8 = g_file_info_get_display_name (childinfo);
 
-                g_object_unref (fileinfo);
-            }
+                has_subdir = check_for_subdir (fullpath_file);
 
-            // We don't read the directories '.' and '..', but may read hidden directories
-            // like '.mydir' (note that '..mydir' or '...mydir' aren't hidden directories)
-            // See also the rule into 'check_for_subdir' function
-            if (isdir
-            && (g_ascii_strcasecmp(dirent->d_name,".")  != 0)
-            && (g_ascii_strcasecmp(dirent->d_name,"..") != 0)
-            // Display hidden directories is needed, or keep only the not hidden directories
-            && (BROWSE_HIDDEN_DIR
-              || !( (g_ascii_strncasecmp(dirent->d_name,".", 1) == 0)
-                 && (strlen(dirent->d_name) > 1)
-                 && (g_ascii_strncasecmp(dirent->d_name+1,".", 1) != 0) ))
-               )
-            {
-
-                if (path[strlen(path)-1]!=G_DIR_SEPARATOR)
-                    fullpath_file = g_strconcat(path,G_DIR_SEPARATOR_S,NULL);
-                else
-                    fullpath_file = g_strdup(path);
-
-                dirname_utf8 = filename_to_display(dirent->d_name);
-
-                //if (!dirname_utf8)
-                //{
-                //    gchar *escaped_temp = g_strescape(dirent->d_name, NULL);
-                //    g_free(escaped_temp);
-                //}
-
-                if (check_for_subdir(fullpath_file))
-                    has_subdir = TRUE;
-                else
-                    has_subdir = FALSE;
-
-                // Select pixmap according permissions for the directory
+                /* Select pixmap according permissions for the directory. */
                 icon = get_gicon_for_path (fullpath_file,
                                            ET_PATH_STATE_CLOSED);
 
@@ -2988,19 +2946,23 @@ static void expand_cb (GtkWidget *tree, GtkTreeIter *iter, GtkTreePath *gtreePat
                 }
 
                 g_object_unref (icon);
-                g_free(fullpath_file);
-                g_free(dirname_utf8);
             }
-            g_free(path);
 
+            g_free (fullpath_file);
+            g_object_unref (childinfo);
+            g_object_unref (child);
         }
-        closedir(dir);
+
+        g_file_enumerator_close (enumerator, NULL, NULL);
+        g_object_unref (enumerator);
+
         /* Remove dummy node. */
         gtk_tree_model_iter_children (GTK_TREE_MODEL (directoryTreeModel),
                                       &subNodeIter, iter);
         gtk_tree_store_remove (directoryTreeModel, &subNodeIter);
     }
 
+    g_object_unref (dir);
     icon = get_gicon_for_path (parentPath, ET_PATH_STATE_OPEN);
 
 #ifdef G_OS_WIN32
