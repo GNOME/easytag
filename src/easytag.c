@@ -156,6 +156,17 @@ static gboolean et_tag_field_on_key_press_event (GtkEntry *entry,
                                                  GdkEventKey *event,
                                                  gpointer user_data);
 
+static gboolean
+on_main_window_delete_event (GtkWidget *window,
+                             GdkEvent *event,
+                             gpointer user_data)
+{
+    Quit_MainWindow ();
+
+    /* Handled the event, so stop propagation. */
+    return TRUE;
+}
+
 /*
  * common_init:
  * @application: the application
@@ -225,8 +236,8 @@ common_init (GApplication *application)
     // This part is needed to set correctly the position of handle panes
     gtk_window_set_default_size(GTK_WINDOW(MainWindow),MAIN_WINDOW_WIDTH,MAIN_WINDOW_HEIGHT);
 
-    g_signal_connect(G_OBJECT(MainWindow),"delete_event",G_CALLBACK(Quit_MainWindow),NULL);
-    g_signal_connect(G_OBJECT(MainWindow),"destroy",G_CALLBACK(Quit_MainWindow),NULL);
+    g_signal_connect (MainWindow, "delete-event",
+                      G_CALLBACK (on_main_window_delete_event), NULL);
 
     /* Minimised window icon */
     gtk_widget_realize(MainWindow);
