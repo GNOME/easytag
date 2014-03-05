@@ -42,13 +42,26 @@
 
 #include "win32/win32dep.h"
 
+/* Data passed to et_picture_not_opened_callback */
+typedef struct
+{
+    GError *error;
+    const gchar *filename;
+} ErrorDialogData;
+
+/* Data passed to et_picture_save_file_data_thread_func */
+typedef struct
+{
+    GFile *file;
+    Picture *pic;
+    GError *error;
+} PictureSaveData;
 
 /**************
  * Prototypes *
  **************/
 
 static void et_picture_load_file (GFile *file, gpointer user_data);
-
 static const gchar *Picture_Format_String (Picture_Format format);
 static const gchar *Picture_Type_String (EtPictureType type);
 static gchar *Picture_Info (Picture *pic);
@@ -69,12 +82,169 @@ static gboolean et_picture_save_file_data (const Picture *pic, GFile *file,
  * Functions *
  *************/
 
+/*
+ * et_picture_save_file_data_callback:
+ * @object: Source object of GAsyncResult
+ * @res: GAsyncResult for which callback is called
+ * @user_data: User data associated with GAsyncResult
+ *
+ * The callback function which is called when GSimpleAsyncResult of
+ * Picture_Save_Button_Clicked completes its operation.
+ */
+static void
+et_picture_save_file_data_callback (GObject *object, GAsyncResult *res,
+                                    gpointer user_data)
+{
+    PictureSaveData *data;
+    data = g_async_result_get_user_data (G_ASYNC_RESULT (res));
+    if (data->error)
+    {
+        Log_Print (LOG_ERROR, _("Image file not saved: %s"),
+                   data->error->message);
+        g_error_free (data->error);
+    }
+    gtk_widget_set_sensitive (MainWindow, TRUE);
+}
+
+/*
+ * et_picture_save_file_data_thread_func:
+ * @res: GSimpleAsyncResult associated with this function.
+ * @obj: Source object of GAsyncResult.
+ * @canc: Object to cancel the operation.
+ *
+ * Thread function of GSimpleAsyncResult of Picture_Save_Button_Clicked.
+ * This function will load pictures.
+ */
+static void
+et_picture_save_file_data_thread_func (GSimpleAsyncResult *res, GObject *obj,
+                                       GCancellable *cancellable)
+{
+    PictureSaveData *data;
+    data = g_async_result_get_user_data (G_ASYNC_RESULT (res));
+    et_picture_save_file_data (data->pic, data->file, &data->error);
+    g_object_unref (data->file);
+}
+
+/*
+ * et_picture_not_opened_callback:
+ * @object: Source object of GAsyncResult
+ * @res: GAsyncResult for which callback is called
+ * @user_data: User data associated with GAsyncResult
+ *
+ * The callback function which is called when et_picture_load_file
+ * reports an error.
+ */
+static void
+et_picture_not_opened_callback (GObject *object, GAsyncResult *res,
+                                gpointer user_data)
+{
+    GtkWidget *msgdialog;
+    ErrorDialogData *data = user_data;
+    /* Picture file not opened */
+    msgdialog = gtk_message_dialog_new (GTK_WINDOW (MainWindow),
+                                        GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                        GTK_MESSAGE_ERROR,
+                                        GTK_BUTTONS_CLOSE,
+                                        _("Cannot open file: '%s'"),
+                                        data->filename);
+    gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG(msgdialog),
+                                              "%s", data->error->message);
+    gtk_window_set_title (GTK_WINDOW (msgdialog), _("Image File Error"));
+    gtk_dialog_run (GTK_DIALOG (msgdialog));
+    gtk_widget_destroy (msgdialog);
+
+    Log_Print (LOG_ERROR, _("Image file not loaded: %s"),
+               data->error->message);
+    g_error_free (data->error);
+    g_free (data);
+}
+
+/*
+ * et_load_pictures_callback:
+ * @object: Source object of GAsyncResult
+ * @res: GAsyncResult for which callback is called
+ * @user_data: User data associated with GAsyncResult
+ *
+ * The callback function which is called when GSimpleAsyncResult of
+ * Picture_Add_Button_Clicked completes its operation.
+ */
+static void
+et_load_pictures_callback (GObject *object, GAsyncResult *res,
+                           gpointer user_data)
+{
+    GSList *list = g_async_result_get_user_data (res);
+    g_slist_free_full (list, g_object_unref);
+    gtk_widget_set_sensitive (MainWindow, TRUE);
+    g_object_unref (res);
+}
+
+/*
+ * et_load_pictures_thread_func:
+ * @res: GSimpleAsyncResult associated with this function.
+ * @obj: Source object of GAsyncResult.
+ * @canc: Object to cancel the operation.
+ *
+ * Thread function of GSimpleAsyncResult of Picture_Add_Button_Clicked.
+ * This function will load pictures.
+ */
+static void
+et_load_pictures_thread_func (GSimpleAsyncResult *res, GObject *obj,
+                              GCancellable *canc)
+{
+    GSList *list = g_async_result_get_user_data (G_ASYNC_RESULT (res));
+    g_slist_foreach (list, (GFunc) et_picture_load_file, NULL);
+}
+
+/*
+ * et_picture_load_file_callback:
+ * @source: Source object of GAsyncResult
+ * @res: GAsyncResult for which callback is called
+ * @user_data: User data associated with GAsyncResult
+ *
+ * The callback function which is called when simpleasync in
+ * Tag_Area_Picture_Drag_Data completes its operation.
+ */
+static void
+et_picture_load_file_callback (GObject *source, GAsyncResult *res,
+                               gpointer user_data)
+{
+    gtk_widget_set_sensitive (MainWindow, TRUE);
+    g_object_unref (res);
+}
+
+/*
+ * et_picture_load_file_thread_func:
+ * @res: GSimpleAsyncResult associated with this function.
+ * @obj: Source object of GAsyncResult.
+ * @cancellable: Object to cancel the operation.
+ *
+ * Thread function of simpleasync in Tag_Area_Picture_Drag_Data.
+ * This function will load pictures.
+ */
+static void
+et_picture_load_file_thread_func (GSimpleAsyncResult *res, GObject *obj,
+                                  GCancellable *cancellable)
+{
+    gchar **uri_list = g_async_result_get_user_data (G_ASYNC_RESULT (res));
+    gchar **uri = uri_list;
+    while (*uri && strlen(*uri))
+    {
+        GFile *file = g_file_new_for_uri (*uri);
+        et_picture_load_file (file, NULL);
+        g_object_unref (file);
+        uri++;
+    }
+
+    g_strfreev(uri_list);
+}
+
 void Tag_Area_Picture_Drag_Data (GtkWidget *widget, GdkDragContext *dc,
                                  gint x, gint y, GtkSelectionData *selection_data,
                                  guint info, guint t, gpointer data)
 {
     GtkTreeSelection *selection;
-    gchar **uri_list, **uri;
+    gchar **uri_list;
+    GSimpleAsyncResult *simpleasync;
 
     gtk_drag_finish(dc, TRUE, FALSE, t);
 
@@ -86,17 +256,15 @@ void Tag_Area_Picture_Drag_Data (GtkWidget *widget, GdkDragContext *dc,
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(PictureEntryView));
     gtk_tree_selection_unselect_all(selection);
 
-    uri = uri_list = g_strsplit((gchar *)gtk_selection_data_get_data(selection_data), "\r\n", 0);
-    while (*uri && strlen(*uri))
-    {
-        GFile *file = g_file_new_for_uri (*uri);
-
-        et_picture_load_file (file, NULL);
-
-        g_object_unref (file);
-        uri++;
-    }
-    g_strfreev(uri_list);
+    uri_list = g_strsplit((gchar *)gtk_selection_data_get_data(selection_data), "\r\n", 0);
+    simpleasync = g_simple_async_result_new (NULL,
+                                             et_picture_load_file_callback,
+                                             uri_list,
+                                             Tag_Area_Picture_Drag_Data);
+    gtk_widget_set_sensitive (MainWindow, FALSE);
+    g_simple_async_result_run_in_thread (simpleasync,
+                                         et_picture_load_file_thread_func,
+                                         G_PRIORITY_DEFAULT, NULL);
 }
 
 void
@@ -251,24 +419,13 @@ et_picture_load_file (GFile *file, gpointer user_data)
 
     if (!pic)
     {
-        GtkWidget *msgdialog;
-
-        /* Picture file not opened */
-        msgdialog = gtk_message_dialog_new (GTK_WINDOW (MainWindow),
-                                            GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                            GTK_MESSAGE_ERROR,
-                                            GTK_BUTTONS_CLOSE,
-                                            _("Cannot open file: '%s'"),
-                                            filename_utf8);
-        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG(msgdialog),
-                                                  "%s", error->message);
-        gtk_window_set_title (GTK_WINDOW (msgdialog), _("Image File Error"));
-        gtk_dialog_run (GTK_DIALOG (msgdialog));
-        gtk_widget_destroy (msgdialog);
-
-        Log_Print (LOG_ERROR, _("Image file not loaded: %s"),
-                   error->message);
-        g_error_free (error);
+        GSimpleAsyncResult *simple;
+        ErrorDialogData *data = g_malloc (sizeof (ErrorDialogData));
+        data->error = error;
+        data->filename = filename_utf8;
+        simple = g_simple_async_result_new (NULL, et_picture_not_opened_callback,
+                                            data, NULL);
+        g_simple_async_result_complete_in_idle (simple);
         return;
     }
     else
@@ -393,14 +550,18 @@ void Picture_Add_Button_Clicked (GObject *object)
     {
         GtkTreeSelection *selection;
         GSList *list;
+        GSimpleAsyncResult *res;
 
         selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(PictureEntryView));
         gtk_tree_selection_unselect_all(selection);
 
         list = gtk_file_chooser_get_files (GTK_FILE_CHOOSER (FileSelectionWindow));
-        g_slist_foreach (list, (GFunc) et_picture_load_file, NULL);
-        g_slist_free_full (list, g_object_unref);
-
+        res = g_simple_async_result_new (NULL, et_load_pictures_callback,
+                                         list, Picture_Add_Button_Clicked);
+        gtk_widget_set_sensitive (MainWindow, FALSE);
+        g_simple_async_result_run_in_thread (res,
+                                             et_load_pictures_thread_func,
+                                             G_PRIORITY_DEFAULT, NULL);
         // Save the directory selected for initialize next time
         g_free(init_dir);
         init_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(FileSelectionWindow));
@@ -745,22 +906,24 @@ void Picture_Save_Button_Clicked (GObject *object)
         if (response == GTK_RESPONSE_OK)
         {
             GFile *file;
-            GError *error = NULL;
+            GSimpleAsyncResult *res;
+            PictureSaveData *data = g_malloc (sizeof (PictureSaveData));
 
             // Save the directory selected for initialize next time
             g_free(init_dir);
             init_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(FileSelectionWindow));
 
             file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (FileSelectionWindow));
-
-            if (!et_picture_save_file_data (pic, file, &error))
-            {
-                 Log_Print (LOG_ERROR, _("Image file not saved: %s"),
-                            error->message);
-                 g_error_free (error);
-            }
-
-            g_object_unref (file);
+            gtk_widget_set_sensitive (MainWindow, FALSE);
+            data->file = file;
+            data->pic = pic;
+            data->error = NULL;
+            res = g_simple_async_result_new (NULL,
+                                             et_picture_save_file_data_callback,
+                                             data, NULL);
+            g_simple_async_result_run_in_thread (res,
+                                                 et_picture_save_file_data_thread_func,
+                                                 G_PRIORITY_DEFAULT, NULL);
         }
         gtk_widget_destroy(FileSelectionWindow);
     }
