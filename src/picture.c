@@ -301,10 +301,9 @@ et_picture_load_file (GFile *file, gpointer user_data)
                 g_assert_not_reached ();
         }
 
-        PictureEntry_Update(pic, TRUE);
+        PictureEntry_Update (pic, TRUE);
 
-        // FIXME: Call Picture_Free(pic) here? It seems PictureEntry_Update makes copies of pic.
-        //Picture_Free(pic);
+        Picture_Free (pic);
     }
 
     g_object_unref (info);
