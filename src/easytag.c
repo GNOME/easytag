@@ -2437,9 +2437,12 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
             case GTK_RESPONSE_YES:
                 break;
             case GTK_RESPONSE_NO:
-            case GTK_RESPONSE_NONE:
+            case GTK_RESPONSE_DELETE_EVENT:
                 /* Skip the following loop. */
                 Main_Stop_Button_Pressed = TRUE;
+                break;
+            default:
+                g_assert_not_reached ();
                 break;
         }
     }
@@ -2826,9 +2829,12 @@ Save_File (ET_File *ETFile, gboolean multiple_files,
             case GTK_RESPONSE_NO:
                 break;
             case GTK_RESPONSE_CANCEL:
-            case GTK_RESPONSE_NONE:
+            case GTK_RESPONSE_DELETE_EVENT:
                 stop_loop = -1;
                 return stop_loop;
+                break;
+            default:
+                g_assert_not_reached ();
                 break;
         }
     }
@@ -2980,9 +2986,12 @@ Save_File (ET_File *ETFile, gboolean multiple_files,
             case GTK_RESPONSE_NO:
                 break;
             case GTK_RESPONSE_CANCEL:
-            case GTK_RESPONSE_NONE:
+            case GTK_RESPONSE_DELETE_EVENT:
                 stop_loop = -1;
                 return stop_loop;
+                break;
+            default:
+                g_assert_not_reached ();
                 break;
         }
     }
@@ -3214,6 +3223,9 @@ delete_file (ET_File *ETFile, gboolean multiple_files, GError **error)
             stop_loop = -1;
             g_free(basename_utf8);
             return stop_loop;
+            break;
+        default:
+            g_assert_not_reached ();
             break;
     }
 
@@ -4524,8 +4536,12 @@ void Quit_MainWindow (void)
                 Quit_MainWindow_Confirmed();
                 break;
             case GTK_RESPONSE_CANCEL:
-            case GTK_RESPONSE_NONE:
+            case GTK_RESPONSE_DELETE_EVENT:
                 return;
+                break;
+            default:
+                g_assert_not_reached ();
+                break;
         }
 
     } else if (CONFIRM_BEFORE_EXIT)
@@ -4548,8 +4564,11 @@ void Quit_MainWindow (void)
                 Quit_MainWindow_Confirmed();
                 break;
             case GTK_RESPONSE_CANCEL:
-            case GTK_RESPONSE_NONE:
+            case GTK_RESPONSE_DELETE_EVENT:
                 return;
+                break;
+            default:
+                g_assert_not_reached ();
                 break;
         }
     }else

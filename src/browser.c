@@ -693,8 +693,12 @@ Browser_Tree_Node_Selected (GtkTreeSelection *selection, gpointer user_data)
             case GTK_RESPONSE_NO:
                 break;
             case GTK_RESPONSE_CANCEL:
-            case GTK_RESPONSE_NONE:
+            case GTK_RESPONSE_DELETE_EVENT:
                 return TRUE;
+                break;
+            default:
+                g_assert_not_reached ();
+                break;
         }
     }
 
