@@ -535,7 +535,7 @@ Browser_List_Button_Press (GtkTreeView *treeView, GdkEventButton *event)
     {
         /* Double left mouse click */
         // Select files of the same directory (useful when browsing sub-directories)
-        GList *etfilelist = NULL;
+        GList *l;
         gchar *path_ref = NULL;
         gchar *patch_check = NULL;
         GtkTreePath *currentPath = NULL;
@@ -547,19 +547,20 @@ Browser_List_Button_Press (GtkTreeView *treeView, GdkEventButton *event)
         path_ref = g_path_get_dirname( ((File_Name *)ETCore->ETFileDisplayed->FileNameCur->data)->value );
 
         // Search and select files of the same directory
-        etfilelist = g_list_first(ETCore->ETFileDisplayedList);
-        while (etfilelist)
+        for (l = g_list_first (ETCore->ETFileDisplayedList); l != NULL;
+             l = g_list_next (l))
         {
             // Path of the file to check if it is in the same directory
-            patch_check = g_path_get_dirname( ((File_Name *)((ET_File *)etfilelist->data)->FileNameCur->data)->value );
+            patch_check = g_path_get_dirname (((File_Name *)((ET_File *)l->data)->FileNameCur->data)->value);
 
             if ( path_ref && patch_check && strcmp(path_ref,patch_check)==0 )
             {
                 // Use of 'currentPath' to try to increase speed. Indeed, in many
                 // cases, the next file to select, is the next in the list
-                currentPath = Browser_List_Select_File_By_Etfile2((ET_File *)etfilelist->data,TRUE,currentPath);
+                currentPath = Browser_List_Select_File_By_Etfile2 ((ET_File *)l->data,
+                                                                   TRUE,
+                                                                   currentPath);
             }
-            etfilelist = g_list_next(etfilelist);
             g_free(patch_check);
         }
         g_free(path_ref);

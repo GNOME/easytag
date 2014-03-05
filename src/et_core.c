@@ -694,14 +694,13 @@ ET_Add_File_To_Artist_Album_File_List (ET_File *ETFile)
         gchar *ETFile_Album  = ((File_Tag *)ETFile->FileTag->data)->album;  // Album  value of the ETFile passed in parameter
         gchar *etfile_artist = NULL;
         gchar *etfile_album  = NULL;
-        GList *ArtistList    = NULL;
+        GList *ArtistList;
         GList *AlbumList     = NULL;
         GList *etfilelist    = NULL;
         ET_File *etfile      = NULL;
 
-
-        ArtistList = ETCore->ETArtistAlbumFileList;
-        while (ArtistList)
+        for (ArtistList = ETCore->ETArtistAlbumFileList; ArtistList != NULL;
+             ArtistList = g_list_next (ArtistList))
         {
             AlbumList = (GList *)ArtistList->data;  /* Take the first item */
             if (AlbumList
@@ -741,7 +740,7 @@ ET_Add_File_To_Artist_Album_File_List (ET_File *ETFile)
                         AlbumList->data = (gpointer) g_list_sort((GList *)AlbumList->data,(GCompareFunc)ET_Comp_Func_Sort_Etfile_Item_By_Ascending_Filename);
                         return TRUE;
                     }
-                    AlbumList = AlbumList->next;
+                    AlbumList = g_list_next (AlbumList);
                 }
                 // The "AlbumList" item was NOT found! => Add a new "AlbumList" item (+...) item to the "ArtistList" list
                 etfilelist = g_list_append(NULL,ETFile);
@@ -750,7 +749,6 @@ ET_Add_File_To_Artist_Album_File_List (ET_File *ETFile)
                 ArtistList->data = (gpointer) g_list_sort((GList *)ArtistList->data,(GCompareFunc)ET_Comp_Func_Sort_Album_Item_By_Ascending_Album);
                 return TRUE;
             }
-            ArtistList = ArtistList->next;
         }
         // The "ArtistList" item was NOT found! => Add a new "ArtistList" to the main list (=ETArtistAlbumFileList)
         etfilelist = g_list_append(NULL,ETFile);
@@ -2029,12 +2027,11 @@ GList *ET_Displayed_File_List_By_Etfile (ET_File *ETFile)
 {
     GList *etfilelist;
 
-    etfilelist = ET_Displayed_File_List_First();
-    while (ETFile && etfilelist)
+    for (etfilelist = ET_Displayed_File_List_First (); etfilelist != NULL;
+         etfilelist = ET_Displayed_File_List_Next ())
     {
-        if ( ETFile == (ET_File *)etfilelist->data )
+        if (ETFile == (ET_File *)etfilelist->data)
             break;
-        etfilelist = ET_Displayed_File_List_Next();
     }
     ETCore->ETFileDisplayedList = etfilelist; // To "save" the position like in ET_File_List_Next... (not very good - FIX ME)
     return etfilelist;
@@ -3125,10 +3122,9 @@ ET_Display_File_Tag_To_UI (ET_File *ETFile)
         PictureEntry_Update(FileTag->picture, FALSE);
 
         // Count the number of items
-        while (pic)
+        for (pic = FileTag->picture; pic != NULL; pic = pic->next)
         {
             nbr_pic++;
-            pic = pic->next;
         }
 
         // Get page "Images" of the notebook
@@ -4058,12 +4054,13 @@ void ET_Update_Directory_Name_Into_File_List (gchar* last_path, gchar *new_path)
     else
         last_path_tmp = g_strconcat(last_path,G_DIR_SEPARATOR_S,NULL);
 
-    filelist = g_list_first(ETCore->ETFileList);
-    while (filelist)
+    for (filelist = g_list_first (ETCore->ETFileList); filelist != NULL;
+         filelist = g_list_next (filelist))
     {
-        if ( (file=filelist->data) && (filenamelist=file->FileNameList) )
+        if ((file = filelist->data))
         {
-            while (filenamelist)
+            for (filenamelist = file->FileNameList; filenamelist != NULL;
+                 filenamelist = g_list_next (filenamelist))
             {
                 File_Name *FileName = (File_Name *)filenamelist->data;
 
@@ -4090,10 +4087,8 @@ void ET_Update_Directory_Name_Into_File_List (gchar* last_path, gchar *new_path)
                         FileName->value_ck = g_utf8_collate_key_for_filename(FileName->value_utf8, -1);
                     }
                 }
-                filenamelist = g_list_next(filenamelist);
              }
         }
-        filelist = g_list_next(filelist);
     }
 
     g_free(last_path_tmp);

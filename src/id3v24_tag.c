@@ -991,8 +991,7 @@ gboolean Id3tag_Write_File_v24Tag (ET_File *ETFile)
 
     if (v2tag)
     {
-        pic = FileTag->picture;
-        while (pic)
+        for (pic = FileTag->picture; pic != NULL; pic = pic->next)
         {
             gint i;
 
@@ -1025,7 +1024,6 @@ gboolean Id3tag_Write_File_v24Tag (ET_File *ETFile)
                 id3taglib_set_field(frame, pic->description, ID3_FIELD_TYPE_STRING, 0, 0, 0);
 
             strip_tags = FALSE;
-            pic = pic->next;
         }
     }
 

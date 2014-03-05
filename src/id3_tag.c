@@ -433,10 +433,10 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
      ***********/
     while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_PICTURE)) )
         ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    pic = FileTag->picture;
-    if (!pic)
-        has_picture = 0;
-    while (pic)
+
+    has_picture = FALSE;
+
+    for (pic = FileTag->picture; pic != NULL; pic = pic->next)
     {
         Picture_Format format = Picture_Format_From_Data(pic);
 
@@ -471,7 +471,6 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
         if ((id3_field = ID3Frame_GetField(id3_frame,ID3FN_DATA)))
             ID3Field_SetBINARY(id3_field, pic->data, pic->size);
 
-        pic = pic->next;
         has_picture = TRUE;
     }
 
