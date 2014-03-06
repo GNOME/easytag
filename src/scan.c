@@ -1590,8 +1590,8 @@ void Scan_Process_Fields_First_Letters_Uppercase (gchar *string)
         // If the word is a roman numeral, capitalize all of it
         if ((len = Scan_Word_Is_Roman_Numeral(word)))
         {
-            gchar *tmp = g_utf8_strup (temp, len);
-            strncpy (string, tmp, len);
+            gchar *tmp = g_utf8_strup (word, len);
+            strncpy (word, tmp, len);
             g_free (tmp);
         } else
         {
