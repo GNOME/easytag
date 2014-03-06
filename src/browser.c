@@ -1512,6 +1512,8 @@ void Browser_List_Remove_File (ET_File *searchETFile)
             }
         }
     }
+
+    gtk_tree_path_free (currentPath);
 }
 
 /*
