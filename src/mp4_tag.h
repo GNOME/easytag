@@ -1,6 +1,6 @@
-/* mp4_tag.h - 2005/08/06 */
 /*
  *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
+ *  Copyright (C) 2012-1014  David King <amigadave@amigadave.com>
  *  Copyright (C) 2001-2005  Jerome Couderc <easytag@gmail.com>
  *  Copyright (C) 2005  Michael Ihde <mike.ihde@randomwalking.com>
  *
@@ -19,21 +19,16 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-
-#ifndef __MP4_TAG_H__
-#define __MP4_TAG_H__
-
+#ifndef ET_MP4_TAG_H_
+#define ET_MP4_TAG_H_
 
 #include "et_core.h"
 
 G_BEGIN_DECLS
 
-/**************
- * Prototypes *
- **************/
-gboolean Mp4tag_Read_File_Tag  (gchar *filename, File_Tag *FileTag);
+gboolean Mp4tag_Read_File_Tag (gchar *filename, File_Tag *FileTag);
 gboolean Mp4tag_Write_File_Tag (ET_File *ETFile);
 
 G_END_DECLS
 
-#endif /* __MP4_TAG_H__ */
+#endif /* ET_MP4_TAG_H_ */

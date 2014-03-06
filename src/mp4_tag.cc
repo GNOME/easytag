@@ -1,6 +1,6 @@
-/* mp4_tag.c - 2005/08/06 */
 /*
  *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
+ *  Copyright (C) 2012-1014  David King <amigadave@amigadave.com>
  *  Copyright (C) 2001-2005  Jerome Couderc <easytag@gmail.com>
  *  Copyright (C) 2005  Michael Ihde <mike.ihde@randomwalking.com>
  *  Copyright (C) 2005  Stewart Whitman <swhitman@cox.net>
@@ -37,8 +37,7 @@
 #include "et_core.h"
 #include "charset.h"
 
-#include <tag_c.h>
-
+#include <mp4file.h>
 
 /*
  * Mp4_Tag_Read_File_Tag:
@@ -51,58 +50,47 @@
  */
 gboolean Mp4tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
 {
-    TagLib_File *mp4file;
-    TagLib_Tag *tag;
+    TagLib::MP4::Tag *tag;
+    guint year;
     guint track;
 
     g_return_val_if_fail (filename != NULL && FileTag != NULL, FALSE);
 
-    /* Get data from tag */
-    mp4file = taglib_file_new_type(filename,TagLib_File_MP4);
-    if (mp4file == NULL)
-    {
-        gchar *filename_utf8 = filename_to_display(filename);
-        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,_("MP4 format invalid"));
-        g_free(filename_utf8);
-        return FALSE;
-    }
+    /* Get data from tag. */
+    TagLib::MP4::File mp4file (filename);
 
-    /* Check for audio track */
-    if (!taglib_file_is_valid (mp4file))
+    if (!mp4file.isOpen ())
     {
         gchar *filename_utf8 = filename_to_display (filename);
-        Log_Print (LOG_ERROR, _("File contains no audio track: '%s'"),
-                   filename_utf8);
+        Log_Print (LOG_ERROR, _("Error while opening file: '%s' (%s)."),
+                   filename_utf8, _("MP4 format invalid"));
         g_free (filename_utf8);
-        taglib_file_free (mp4file);
         return FALSE;
     }
 
-    tag = taglib_file_tag (mp4file);
-    if (tag == NULL)
+    if (!(tag = mp4file.tag ()))
     {
         gchar *filename_utf8 = filename_to_display (filename);
         Log_Print (LOG_ERROR, _("Error reading tags from file: '%s'"),
                    filename_utf8);
         g_free (filename_utf8);
-        taglib_file_free (mp4file);
         return FALSE;
     }
 
     /*********
      * Title *
      *********/
-    FileTag->title = g_strdup(taglib_tag_title(tag));
+    FileTag->title = g_strdup (tag->title ().toCString (true));
 
     /**********
      * Artist *
      **********/
-    FileTag->artist = g_strdup(taglib_tag_artist(tag));
+    FileTag->artist = g_strdup (tag->artist ().toCString (true));
 
     /*********
      * Album *
      *********/
-    FileTag->album = g_strdup(taglib_tag_album(tag));
+    FileTag->album = g_strdup (tag->album ().toCString (true));
 
     /****************
      * Album Artist *
@@ -112,12 +100,17 @@ gboolean Mp4tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     /********
      * Year *
      ********/
-    FileTag->year = g_strdup_printf("%u", taglib_tag_year(tag));
+    year = tag->year ();
+
+    if (year != 0)
+    {
+        FileTag->year = g_strdup_printf ("%u", year);
+    }
 
     /*************************
      * Track and Total Track *
      *************************/
-    track = taglib_tag_track(tag);
+    track = tag->track ();
 
     if (track != 0)
         FileTag->track = et_track_number_to_string (track);
@@ -126,12 +119,12 @@ gboolean Mp4tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     /*********
      * Genre *
      *********/
-    FileTag->genre = g_strdup(taglib_tag_genre(tag));
+    FileTag->genre = g_strdup (tag->genre ().toCString (true));
 
     /***********
      * Comment *
      ***********/
-    FileTag->comment = g_strdup(taglib_tag_comment(tag));
+    FileTag->comment = g_strdup (tag->comment ().toCString (true));
 
     /**********************
      * Composer or Writer *
@@ -147,10 +140,6 @@ gboolean Mp4tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
      * Picture *
      ***********/
     /* TODO: No encode_by support in the TagLib C API! */
-
-    /* Free allocated data */
-    taglib_tag_free_strings();
-    taglib_file_free(mp4file);
 
     return TRUE;
 }
@@ -169,8 +158,7 @@ gboolean Mp4tag_Write_File_Tag (ET_File *ETFile)
     File_Tag *FileTag;
     gchar    *filename;
     gchar    *filename_utf8;
-    TagLib_File *mp4file = NULL;
-    TagLib_Tag *tag;
+    TagLib::Tag *tag;
     gboolean success;
 
     g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL, FALSE);
@@ -180,100 +168,83 @@ gboolean Mp4tag_Write_File_Tag (ET_File *ETFile)
     filename_utf8 = ((File_Name *)ETFile->FileNameCur->data)->value_utf8;
 
     /* Open file for writing */
-    mp4file = taglib_file_new_type(filename, TagLib_File_MP4);
-    if (mp4file == NULL)
+    TagLib::MP4::File mp4file (filename);
+
+    if (!mp4file.isOpen ())
     {
-        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,_("MP4 format invalid"));
+        Log_Print (LOG_ERROR, _("Error while opening file: '%s' (%s)."),
+                   filename_utf8, _("MP4 format invalid"));
         return FALSE;
     }
 
-    tag = taglib_file_tag (mp4file);
-    if (tag == NULL)
+    if (!(tag = mp4file.tag ()))
     {
         gchar *filename_utf8 = filename_to_display (filename);
         Log_Print (LOG_ERROR, _("Error reading tags from file: '%s'"),
                    filename_utf8);
         g_free (filename_utf8);
-        taglib_file_free (mp4file);
         return FALSE;
     }
 
     /*********
      * Title *
      *********/
-    if (FileTag->title && g_utf8_strlen(FileTag->title, -1) > 0)
+    if (FileTag->title && *(FileTag->title))
     {
-        taglib_tag_set_title(tag, FileTag->title);
-    }else
-    {
-        taglib_tag_set_title(tag,"");
+        TagLib::String string (FileTag->title, TagLib::String::UTF8);
+        tag->setTitle (string);
     }
 
     /**********
      * Artist *
      **********/
-    if (FileTag->artist && g_utf8_strlen(FileTag->artist, -1) > 0)
+    if (FileTag->artist && *(FileTag->artist))
     {
-        taglib_tag_set_artist(tag,FileTag->artist);
-    }else
-    {
-        taglib_tag_set_artist(tag,"");
+        TagLib::String string (FileTag->artist, TagLib::String::UTF8);
+        tag->setArtist (string);
     }
 
     /*********
      * Album *
      *********/
-    if (FileTag->album && g_utf8_strlen(FileTag->album, -1) > 0)
+    if (FileTag->album && *(FileTag->album))
     {
-        taglib_tag_set_album(tag,FileTag->album);
-    }else
-    {
-        taglib_tag_set_album(tag,"");
+        TagLib::String string (FileTag->album, TagLib::String::UTF8);
+        tag->setAlbum (string);
     }
-
 
     /********
      * Year *
      ********/
-    if (FileTag->year && g_utf8_strlen(FileTag->year, -1) > 0)
+    if (FileTag->year)
     {
-        taglib_tag_set_year(tag,atoi(FileTag->year));
-    }else
-    {
-        taglib_tag_set_year(tag,0);
+        tag->setYear (atoi (FileTag->year));
     }
 
     /*************************
      * Track and Total Track *
      *************************/
-    if ( FileTag->track && g_utf8_strlen(FileTag->track, -1) > 0 )
+    if (FileTag->track)
     {
-        taglib_tag_set_track(tag,atoi(FileTag->track));
-    }else
-    {
-        taglib_tag_set_track(tag,0);
+        tag->setTrack (atoi (FileTag->track));
     }
 
     /*********
      * Genre *
      *********/
-    if (FileTag->genre && g_utf8_strlen(FileTag->genre, -1) > 0 )
+    if (FileTag->genre && *(FileTag->genre))
     {
-        taglib_tag_set_genre(tag,FileTag->genre);
-    }else
-    {
-        taglib_tag_set_genre(tag,"");
+        TagLib::String string (FileTag->genre, TagLib::String::UTF8);
+        tag->setGenre (string);
     }
 
     /***********
      * Comment *
      ***********/
-    if (FileTag->comment && g_utf8_strlen(FileTag->comment, -1) > 0)
+    if (FileTag->comment && *(FileTag->comment))
     {
-        taglib_tag_set_comment(tag,FileTag->comment);
-    }else
-    {
-        taglib_tag_set_comment(tag,"");
+        TagLib::String string (FileTag->comment, TagLib::String::UTF8);
+        tag->setComment (string);
     }
 
     /**********************
@@ -288,11 +259,9 @@ gboolean Mp4tag_Write_File_Tag (ET_File *ETFile)
      * Picture *
      ***********/
 
-    success = taglib_file_save (mp4file) ? TRUE : FALSE;
-    taglib_file_free(mp4file);
+    success = mp4file.save () ? TRUE : FALSE;
 
     return success;
 }
-
 
 #endif /* ENABLE_MP4 */

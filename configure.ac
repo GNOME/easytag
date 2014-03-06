@@ -283,7 +283,7 @@ dnl ################################################
 dnl # taglib library
 dnl ################################################
 
-TAGLIB_DEPS="taglib_c >= 1.6.0"
+TAGLIB_DEPS="taglib_c taglib >= 1.6.0"
 AS_IF([test "x$enable_mp4" != "xno"],
       [PKG_CHECK_EXISTS([$TAGLIB_DEPS], [have_taglib=yes], [have_taglib=no])],
       [have_taglib=no])

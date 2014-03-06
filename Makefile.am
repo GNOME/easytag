@@ -28,6 +28,10 @@ easytag_CFLAGS = \
 	$(WARN_CFLAGS) \
 	$(EASYTAG_CFLAGS)
 
+easytag_CXXFLAGS = \
+	$(WARN_CFLAGS) \
+	$(EASYTAG_CFLAGS)
+
 easytag_SOURCES = \
 	src/id3lib/c_wrapper.cpp \
 	src/libapetag/apetaglib.c \
@@ -56,7 +60,7 @@ easytag_SOURCES = \
 	src/monkeyaudio_header.c \
 	src/mpeg_header.c \
 	src/mp4_header.c \
-	src/mp4_tag.c \
+	src/mp4_tag.cc \
 	src/musepack_header.c \
 	src/ogg_header.c \
 	src/ogg_tag.c \
