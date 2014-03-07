@@ -2637,9 +2637,14 @@ Delete_Selected_Files_With_Answer (void)
                 ET_Remove_File_From_File_List(ETFile);
                 break;
             case 0:
-                Log_Print (LOG_ERROR, _("Cannot delete file (%s)"),
-                           error->message);
-                g_error_free (error);
+                /* Distinguish between the file being skipped, and there being
+                 * an error during deletion. */
+                if (error)
+                {
+                    Log_Print (LOG_ERROR, _("Cannot delete file (%s)"),
+                               error->message);
+                    g_clear_error (&error);
+                }
                 break;
             case -1:
                 // Stop deleting files + reinit progress bar
