@@ -74,6 +74,7 @@ typedef enum
 {
     PICTURE_FORMAT_JPEG,
     PICTURE_FORMAT_PNG,
+    PICTURE_FORMAT_GIF,
     PICTURE_FORMAT_UNKNOWN
 } Picture_Format;
 

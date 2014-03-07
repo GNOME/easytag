@@ -902,6 +902,9 @@ void Picture_Save_Button_Clicked (GObject *object)
                 case PICTURE_FORMAT_PNG :
                     image_name = g_strdup("image_name.png");
                     break;
+                case PICTURE_FORMAT_GIF:
+                    image_name = g_strdup ("image_name.gif");
+                    break;
                 case PICTURE_FORMAT_UNKNOWN :
                     image_name = g_strdup("image_name.ext");
                     break;
@@ -966,7 +969,7 @@ Picture_Format Picture_Format_From_Data (Picture *pic)
     &&  pic->data[7] == 0x0a)
         return PICTURE_FORMAT_PNG;
     
-    /*// GIF : "GIF87a"
+    /* GIF: "GIF87a" */
     if (pic->data && pic->size > 6
     &&  pic->data[0] == 0x47
     &&  pic->data[1] == 0x49
@@ -974,7 +977,19 @@ Picture_Format Picture_Format_From_Data (Picture *pic)
     &&  pic->data[3] == 0x38
     &&  pic->data[4] == 0x37
     &&  pic->data[5] == 0x61)
-        return PICTURE_FORMAT_GIF;*/
+        return PICTURE_FORMAT_GIF;
+
+    /* GIF: "GIF89a" */
+    if (pic->data && pic->size > 6
+        &&  pic->data[0] == 0x47
+        &&  pic->data[1] == 0x49
+        &&  pic->data[2] == 0x46
+        &&  pic->data[3] == 0x38
+        &&  pic->data[4] == 0x39
+        &&  pic->data[5] == 0x61)
+    {
+        return PICTURE_FORMAT_GIF;
+    }
     
     return PICTURE_FORMAT_UNKNOWN;
 }
@@ -987,6 +1002,8 @@ const gchar *Picture_Mime_Type_String (Picture_Format format)
             return "image/jpeg";
         case PICTURE_FORMAT_PNG:
             return "image/png";
+        case PICTURE_FORMAT_GIF:
+            return "image/gif";
         default:
             g_debug ("%s", "Unrecognised image MIME type");
             return "application/octet-stream";
@@ -1003,6 +1020,8 @@ Picture_Format_String (Picture_Format format)
             return _("JPEG image");
         case PICTURE_FORMAT_PNG:
             return _("PNG image");
+        case PICTURE_FORMAT_GIF:
+            return _("GIF image");
         default:
             return _("Unknown image");
     }

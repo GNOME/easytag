@@ -458,6 +458,22 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
                 if ((id3_field = ID3Frame_GetField(id3_frame,ID3FN_IMAGEFORMAT)))
                     ID3Field_SetASCII(id3_field, "PNG");
                 break;
+            case PICTURE_FORMAT_GIF:
+                if ((id3_field = ID3Frame_GetField (id3_frame,
+                                                    ID3FN_MIMETYPE)))
+                {
+                    ID3Field_SetASCII (id3_field,
+                                       Picture_Mime_Type_String (format));
+                }
+
+                if ((id3_field = ID3Frame_GetField (id3_frame,
+                                                    ID3FN_IMAGEFORMAT)))
+                {
+                    /* I could find no reference for what ID3FN_IMAGEFORMAT
+                     * should contain, so this is a guess. */
+                    ID3Field_SetASCII (id3_field, "GIF");
+                }
+                break;
             default:
                 break;
         }
