@@ -1005,6 +1005,74 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
             gchar *base64_string;
             Picture_Format format = Picture_Format_From_Data (pic);
 
+            /* According to the specification, only PNG and JPEG images should
+             * be added to Vorbis comments. */
+            if (format != PICTURE_FORMAT_PNG && format != PICTURE_FORMAT_JPEG)
+            {
+                GdkPixbufLoader *loader;
+                GError *error = NULL;
+
+                loader = gdk_pixbuf_loader_new ();
+
+                if (!gdk_pixbuf_loader_write (loader, pic->data, pic->size,
+                                              &error))
+                {
+                    Log_Print (LOG_ERROR, _("Error with 'loader_write': %s"),
+                               error->message);
+                    g_error_free (error);
+                    g_object_unref (loader);
+                    continue;
+                }
+                else
+                {
+                    GdkPixbuf *pixbuf;
+                    gchar *buffer;
+                    gsize buffer_size;
+
+                    if (!gdk_pixbuf_loader_close (loader, &error))
+                    {
+                        Log_Print (LOG_ERROR,
+                                   _("Error with 'loader_close': %s"),
+                                   error->message);
+                        g_error_free (error);
+                        g_object_unref (loader);
+                        continue;
+                    }
+
+                    pixbuf = gdk_pixbuf_loader_get_pixbuf (loader);
+
+                    if (!pixbuf)
+                    {
+                        g_object_unref (loader);
+                        continue;
+                    }
+
+                    g_object_ref (pixbuf);
+                    g_object_unref (loader);
+
+                    /* Always convert to PNG. */
+                    if (!gdk_pixbuf_save_to_buffer (pixbuf, &buffer,
+                                                    &buffer_size, "png",
+                                                    &error, NULL))
+                    {
+                        g_debug ("Error while converting image to PNG: %s",
+                                 error->message);
+                        g_error_free (error);
+                        g_object_unref (pixbuf);
+                        continue;
+                    }
+
+                    g_object_unref (pixbuf);
+
+                    g_free (pic->data);
+                    pic->data = (guchar *)buffer;
+                    pic->size = buffer_size;
+
+                    /* Set the picture format to reflect the new data. */
+                    format = Picture_Format_From_Data (pic);
+                }
+            }
+
             mime = Picture_Mime_Type_String (format);
 
             /* Calculating full length of byte string and allocating. */
