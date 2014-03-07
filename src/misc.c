@@ -2724,7 +2724,7 @@ void Open_Load_Filename_Window (void)
                                                       GTK_STOCK_CLOSE,
                                                       GTK_RESPONSE_CANCEL,
                                                       GTK_STOCK_APPLY,
-                                                      GTK_RESPONSE_ACCEPT,
+                                                      GTK_RESPONSE_APPLY,
                                                       NULL);
     gtk_dialog_set_default_response (GTK_DIALOG (LoadFilenameWindow),
                                      GTK_RESPONSE_ACCEPT);
