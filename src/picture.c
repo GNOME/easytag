@@ -988,7 +988,8 @@ const gchar *Picture_Mime_Type_String (Picture_Format format)
         case PICTURE_FORMAT_PNG:
             return "image/png";
         default:
-            return NULL;
+            g_debug ("%s", "Unrecognised image MIME type");
+            return "application/octet-stream";
     }
 }
 
