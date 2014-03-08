@@ -11,15 +11,15 @@ msgstr ""
 "Project-Id-Version: 914hu\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=easytag&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-02-19 19:53+0000\n"
-"PO-Revision-Date: 2014-02-23 16:40+0100\n"
-"Last-Translator: Balázs Úr <urbalazs at gmail dot com>\n"
+"POT-Creation-Date: 2014-03-07 22:43+0000\n"
+"PO-Revision-Date: 2014-03-08 07:07+0100\n"
+"Last-Translator: \n"
 "Language-Team: Hungarian <kde-i18n-doc@kde.org>\n"
-"Language: \n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Poedit 1.5.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../data/easytag.appdata.xml.in.h:1
@@ -466,8 +466,8 @@ msgid "_Quit"
 msgstr "_Kilépés"
 
 # ikon megjegyzés
-#: ../src/bar.c:241 ../src/easytag.c:2418 ../src/easytag.c:4502
-#: ../src/easytag.c:4530
+#: ../src/bar.c:241 ../src/easytag.c:2430 ../src/easytag.c:4531
+#: ../src/easytag.c:4563
 msgid "Quit"
 msgstr "Kilépés"
 
@@ -810,113 +810,113 @@ msgstr "Indításra kész"
 msgid "New default path for files selected"
 msgstr "Új alapértelmezett útvonal kiválasztva a fájlokhoz"
 
-#: ../src/browser.c:677 ../src/easytag.c:4498
+#: ../src/browser.c:678 ../src/easytag.c:4527
 msgid "Some files have been modified but not saved"
 msgstr "Néhány fájl módosult de nincs elmentve"
 
-#: ../src/browser.c:678
+#: ../src/browser.c:679
 msgid "Do you want to save them before changing the directory?"
 msgstr "El szeretné menteni azokat, mielőtt könyvtárat vált?"
 
-#: ../src/browser.c:682
+#: ../src/browser.c:683
 msgid "Confirm Directory Change"
 msgstr "Könyvtárváltás megerősítése"
 
-#: ../src/browser.c:2134
+#: ../src/browser.c:2141
 msgid "<All albums>"
 msgstr "<Minden album>"
 
-#: ../src/browser.c:2595
+#: ../src/browser.c:2602
 #, c-format
 msgid "Error: Searching for %s, could not find node %s in tree."
 msgstr "Hiba: %s kereséskor nem található %s csomópont a fában."
 
-#: ../src/browser.c:3127 ../src/browser.c:3205
+#: ../src/browser.c:3096 ../src/browser.c:3174
 msgid "Tree"
 msgstr "Fa"
 
-#: ../src/browser.c:3128 ../src/cddb.c:803 ../src/misc.c:1902
+#: ../src/browser.c:3097 ../src/cddb.c:803 ../src/misc.c:1902
 msgid "Filename"
 msgstr "Fájlnév"
 
-#: ../src/browser.c:3128 ../src/cddb.c:804 ../src/misc.c:1903
+#: ../src/browser.c:3097 ../src/cddb.c:804 ../src/misc.c:1903
 #: ../src/prefs.c:643
 msgid "Title"
 msgstr "Cím"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Artist".
-#: ../src/browser.c:3129 ../src/browser.c:3136 ../src/cddb.c:483
+#: ../src/browser.c:3098 ../src/browser.c:3105 ../src/cddb.c:483
 #: ../src/cddb.c:805 ../src/misc.c:1904 ../src/prefs.c:644
 msgid "Artist"
 msgstr "Előadó"
 
-#: ../src/browser.c:3129 ../src/misc.c:1905
+#: ../src/browser.c:3098 ../src/misc.c:1905
 msgid "Album Artist"
 msgstr "Album előadója"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Album".
-#: ../src/browser.c:3130 ../src/browser.c:3138 ../src/cddb.c:486
+#: ../src/browser.c:3099 ../src/browser.c:3107 ../src/cddb.c:486
 #: ../src/cddb.c:806 ../src/misc.c:1906 ../src/prefs.c:645
 msgid "Album"
 msgstr "Album"
 
-#: ../src/browser.c:3130 ../src/cddb.c:807 ../src/misc.c:1908
+#: ../src/browser.c:3099 ../src/cddb.c:807 ../src/misc.c:1908
 msgid "Year"
 msgstr "Év"
 
-#: ../src/browser.c:3130
+#: ../src/browser.c:3099
 msgid "Disc"
 msgstr "Lemez"
 
-#: ../src/browser.c:3131 ../src/misc.c:1909
+#: ../src/browser.c:3100 ../src/misc.c:1909
 msgid "Track"
 msgstr "Szám"
 
-#: ../src/browser.c:3131 ../src/cddb.c:810 ../src/misc.c:1910
+#: ../src/browser.c:3100 ../src/cddb.c:810 ../src/misc.c:1910
 #: ../src/prefs.c:646
 msgid "Genre"
 msgstr "Műfaj"
 
-#: ../src/browser.c:3132 ../src/misc.c:1911 ../src/prefs.c:647
+#: ../src/browser.c:3101 ../src/misc.c:1911 ../src/prefs.c:647
 msgid "Comment"
 msgstr "Megjegyzés"
 
-#: ../src/browser.c:3132 ../src/misc.c:1912 ../src/picture.c:863
+#: ../src/browser.c:3101 ../src/misc.c:1912 ../src/picture.c:1058
 #: ../src/prefs.c:648
 msgid "Composer"
 msgstr "Zeneszerző"
 
-#: ../src/browser.c:3133 ../src/misc.c:1913
+#: ../src/browser.c:3102 ../src/misc.c:1913
 msgid "Original Artist"
 msgstr "Eredeti előadó"
 
-#: ../src/browser.c:3134 ../src/misc.c:1914
+#: ../src/browser.c:3103 ../src/misc.c:1914
 msgid "Copyright"
 msgstr "Szerzői jog"
 
-#: ../src/browser.c:3134 ../src/misc.c:1915
+#: ../src/browser.c:3103 ../src/misc.c:1915
 msgid "URL"
 msgstr "URL"
 
-#: ../src/browser.c:3135 ../src/misc.c:1916
+#: ../src/browser.c:3104 ../src/misc.c:1916
 msgid "Encoded By"
 msgstr "Kódolta"
 
-#: ../src/browser.c:3136
+#: ../src/browser.c:3105
 msgid "# Albums"
 msgstr "# Albumok"
 
-#: ../src/browser.c:3137 ../src/browser.c:3138
+#: ../src/browser.c:3106 ../src/browser.c:3107
 msgid "# Files"
 msgstr "# Fájlok"
 
-#: ../src/browser.c:3163
+#: ../src/browser.c:3132
 msgid "Enter a directory to browse."
 msgstr "Adja meg az átvizsgálandó könyvtárat."
 
-#: ../src/browser.c:3172
+#: ../src/browser.c:3141
 msgid "Select a directory to browse."
 msgstr "Válassza ki az átvizsgálandó könyvtárat."
 
@@ -924,35 +924,35 @@ msgstr "Válassza ki az átvizsgálandó könyvtárat."
 #. * The label for displaying number of files in path (without subdirs)
 #.
 #. Translators: No files, as in "0 files".
-#: ../src/browser.c:3179 ../src/easytag.c:3440
+#: ../src/browser.c:3148 ../src/easytag.c:3469
 msgid "No files"
 msgstr "Nincsenek fájlok"
 
-#: ../src/browser.c:3257
+#: ../src/browser.c:3226
 msgid "Artist & Album"
 msgstr "Előadó és album"
 
 #. Only directories changed
-#: ../src/browser.c:3621 ../src/easytag.c:2858
+#: ../src/browser.c:3590 ../src/easytag.c:2881
 msgid "Rename Directory"
 msgstr "Könyvtár átnevezése"
 
-#: ../src/browser.c:3643
+#: ../src/browser.c:3612
 #, c-format
 msgid "Rename the directory '%s' to:"
 msgstr "A(z) „%s” könyvtár átnevezése erre:"
 
-#: ../src/browser.c:3662 ../src/misc.c:1171
+#: ../src/browser.c:3631 ../src/misc.c:1171
 msgid "Use mask:"
 msgstr "Használandó maszk:"
 
 # bubblehelp
-#: ../src/browser.c:3665
+#: ../src/browser.c:3634
 msgid "If activated, it will use masks to rename directory."
 msgstr "Ha aktivált, maszkokat fog használni a könyvtár átnevezéséhez."
 
 # bubblehelp
-#: ../src/browser.c:3683
+#: ../src/browser.c:3652
 msgid ""
 "Select or type in a mask using codes (see Legend in Scanner Window) to "
 "rename the directory from tag fields."
@@ -962,67 +962,67 @@ msgstr ""
 "címkemezőkből."
 
 #. Preview label
-#: ../src/browser.c:3707
+#: ../src/browser.c:3676
 msgid "Rename directory preview"
 msgstr "Könyvtár átnevezés előnézet"
 
-#: ../src/browser.c:3799
+#: ../src/browser.c:3768
 msgid "You must type a directory name"
 msgstr "Meg kell adnia egy könyvtárnevet"
 
-#: ../src/browser.c:3800 ../src/browser.c:3821
+#: ../src/browser.c:3769 ../src/browser.c:3790
 msgid "Directory Name Error"
 msgstr "Könyvtárnév hiba"
 
-#: ../src/browser.c:3818
+#: ../src/browser.c:3787
 #, c-format
 msgid "Could not convert '%s' into filename encoding."
 msgstr "„%s” nem alakítható át fájlnév kódolássá."
 
-#: ../src/browser.c:3820
+#: ../src/browser.c:3789
 msgid "Please use another name"
 msgstr "Kérem használjon egy másik nevet"
 
-#: ../src/browser.c:3890
+#: ../src/browser.c:3859
 #, c-format
 msgid "The directory name '%s' already exists"
 msgstr "Már létezik „%s” nevű könyvtár"
 
-#: ../src/browser.c:3891 ../src/easytag.c:2941
+#: ../src/browser.c:3860 ../src/easytag.c:2964
 msgid "Rename File Error"
 msgstr "Fájl átnevezési hiba"
 
 # böngésző menü
-#: ../src/browser.c:3929 ../src/browser.c:3958
+#: ../src/browser.c:3898 ../src/browser.c:3927
 msgid "Rename Directory Error"
 msgstr "Könyvtár átnevezési hiba"
 
-#: ../src/browser.c:3996
+#: ../src/browser.c:3965
 msgid "Directory renamed"
 msgstr "Könyvtár átnevezve"
 
 # böngésző menü
-#: ../src/browser.c:4032
+#: ../src/browser.c:4001
 msgid "Browse Directory With"
 msgstr "Könyvtár böngészése ezzel"
 
-#: ../src/browser.c:4048 ../src/browser.c:4174
+#: ../src/browser.c:4017 ../src/browser.c:4143
 msgid "Program to run:"
 msgstr "Futtatandó program:"
 
 # bubble help?
-#: ../src/browser.c:4060
+#: ../src/browser.c:4029
 msgid ""
 "Enter the program to run. It will receive the current directory as parameter."
 msgstr ""
 "Adja meg a futtatandó programot. Az aktuális könyvtárat fogja megkapni "
 "paraméterként."
 
-#: ../src/browser.c:4154
+#: ../src/browser.c:4123
 msgid "Open Files With"
 msgstr "Fájlok megnyitás ezzel"
 
-#: ../src/browser.c:4186
+#: ../src/browser.c:4155
 msgid ""
 "Enter the program to run. It will receive the current file as parameter."
 msgstr ""
@@ -1122,7 +1122,7 @@ msgstr "Minden mezőben"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Other".
-#: ../src/cddb.c:492 ../src/picture.c:841 ../src/prefs.c:807
+#: ../src/cddb.c:492 ../src/picture.c:1036 ../src/prefs.c:807
 msgid "Other"
 msgstr "Egyéb"
 
@@ -1757,47 +1757,47 @@ msgid "The string '%s' couldn't be converted into UTF-8 (%s)."
 msgstr "A karatterlánc („%s”) nem alakítható át UTF-8 kódolásra (%s)."
 
 #. Starting messages
-#: ../src/easytag.c:173
+#: ../src/easytag.c:184
 #, c-format
 msgid "Starting EasyTAG version %s (PID: %d)…"
 msgstr "Az EasyTAG %s verziójának indítása (PID: %d)…"
 
-#: ../src/easytag.c:175
+#: ../src/easytag.c:186
 #, c-format
 msgid "Using libid3tag version %s"
 msgstr "A(z) %s verziójú libid3tag használata"
 
-#: ../src/easytag.c:178
+#: ../src/easytag.c:189
 #, c-format
 msgid "Using id3lib version %d.%d.%d"
 msgstr "A(z) %d.%d.%d verziójú id3lib használata"
 
-#: ../src/easytag.c:184
+#: ../src/easytag.c:195
 #, c-format
 msgid "Variable EASYTAGLANG defined. Setting locale: '%s'"
 msgstr ""
 "Az EASYTAGLANG változó meghatározva. Területi beállítás beállítása: „%s”"
 
-#: ../src/easytag.c:186
+#: ../src/easytag.c:197
 #, c-format
 msgid "Setting locale: '%s'"
 msgstr "Területi beállítás beállítása: „%s”"
 
-#: ../src/easytag.c:191
+#: ../src/easytag.c:202
 #, c-format
 msgid "Currently using locale '%s' (and eventually '%s')"
 msgstr "A jelenleg használt területi beállítások: „%s” (és végül „%s”)"
 
-#: ../src/easytag.c:198
+#: ../src/easytag.c:209
 msgid "Unable to create setting directories"
 msgstr "Nem lehet létrehozni a beállítás könyvtárakat"
 
-#: ../src/easytag.c:415 ../src/et_core.c:582
+#: ../src/easytag.c:426 ../src/et_core.c:582
 #, c-format
 msgid "Error while querying information for file: '%s' (%s)"
 msgstr "Hiba a fájl információinak lekérése közben: „%s” (%s)"
 
-#: ../src/easytag.c:479
+#: ../src/easytag.c:490
 #, c-format
 msgid "Cannot open path '%s'"
 msgstr "Nem nyitható meg az útvonal: „%s”"
@@ -1805,11 +1805,11 @@ msgstr "Nem nyitható meg az útvonal: „%s”"
 #.
 #. * Browser
 #.
-#: ../src/easytag.c:571 ../src/prefs.c:142
+#: ../src/easytag.c:582 ../src/prefs.c:142
 msgid "Browser"
 msgstr "Böngésző"
 
-#: ../src/easytag.c:593 ../src/et_core.c:2769
+#: ../src/easytag.c:604 ../src/et_core.c:2774
 msgid "File"
 msgstr "Fájl"
 
@@ -1819,117 +1819,117 @@ msgstr "Fájl"
 #. gtk_label_set_text(GTK_LABEL(VersionValueLabel),"");
 #. Version changed to encoder version
 #. Encoder version
-#: ../src/easytag.c:625 ../src/easytag.c:4168 ../src/flac_header.c:201
+#: ../src/easytag.c:636 ../src/easytag.c:4197 ../src/flac_header.c:201
 #: ../src/monkeyaudio_header.c:96 ../src/musepack_header.c:98
 #: ../src/ogg_header.c:389 ../src/wavpack_header.c:72
 #, c-format
 msgid "Encoder:"
 msgstr "Kódoló:"
 
-#: ../src/easytag.c:633
+#: ../src/easytag.c:644
 msgid "Bitrate:"
 msgstr "Bitsebesség:"
 
 #. Translators: Please try to keep this string as short as possible as it
 #. * is shown in a narrow column.
-#: ../src/easytag.c:643
+#: ../src/easytag.c:654
 msgid "Frequency:"
 msgstr "Frekvencia:"
 
 #. Mode
-#: ../src/easytag.c:654 ../src/easytag.c:4172 ../src/mpeg_header.c:216
+#: ../src/easytag.c:665 ../src/easytag.c:4201 ../src/mpeg_header.c:216
 msgid "Mode:"
 msgstr "Mód:"
 
-#: ../src/easytag.c:661
+#: ../src/easytag.c:672
 msgid "Size:"
 msgstr "Méret:"
 
-#: ../src/easytag.c:668
+#: ../src/easytag.c:679
 msgid "Duration:"
 msgstr "Időtartam:"
 
 #. Main Frame
-#: ../src/easytag.c:715 ../src/et_core.c:2707
+#: ../src/easytag.c:726 ../src/et_core.c:2712
 msgid "Tag"
 msgstr "Címke"
 
 #.
 #. * 1 - Page for common tag fields
 #.
-#: ../src/easytag.c:737
+#: ../src/easytag.c:748
 msgid "Common"
 msgstr "Közös"
 
 #. Title
-#: ../src/easytag.c:744
+#: ../src/easytag.c:755
 msgid "Title:"
 msgstr "Cím:"
 
 # bubble help
-#: ../src/easytag.c:758
+#: ../src/easytag.c:769
 msgid "Tag selected files with this title"
 msgstr "A kijelölt fájlok címkézése ezzel a címmel"
 
 #. Artist
-#: ../src/easytag.c:763
+#: ../src/easytag.c:774
 msgid "Artist:"
 msgstr "Előadó:"
 
 # bubble help
-#: ../src/easytag.c:777
+#: ../src/easytag.c:788
 msgid "Tag selected files with this artist"
 msgstr "A kijelölt fájlok címkézése ezzel az előadóval"
 
 #. Album Artist
-#: ../src/easytag.c:782
+#: ../src/easytag.c:793
 msgid "Album artist:"
 msgstr "Album előadója:"
 
 # bubble help
-#: ../src/easytag.c:796
+#: ../src/easytag.c:807
 msgid "Tag selected files with this album artist"
 msgstr "A kijelölt fájlok címkézése ezzel az album előadóval"
 
 #. Album
-#: ../src/easytag.c:801
+#: ../src/easytag.c:812
 msgid "Album:"
 msgstr "Album:"
 
-#: ../src/easytag.c:815
+#: ../src/easytag.c:826
 msgid "Tag selected files with this album name"
 msgstr "A kijelölt fájlok címkézése ezzel az albumnévvel"
 
 #. Disc Number
-#: ../src/easytag.c:820
+#: ../src/easytag.c:831
 msgid "CD:"
 msgstr "CD:"
 
-#: ../src/easytag.c:837
+#: ../src/easytag.c:848
 msgid "Tag selected files with this disc number"
 msgstr "A kijelölt fájlok címkézése ezzel a lemezszámmal"
 
 #. Year
-#: ../src/easytag.c:842
+#: ../src/easytag.c:853
 msgid "Year:"
 msgstr "Év:"
 
-#: ../src/easytag.c:862
+#: ../src/easytag.c:873
 msgid "Tag selected files with this year"
 msgstr "A kijelölt fájlok címkézése ezzel az évszámmal"
 
-#: ../src/easytag.c:876
+#: ../src/easytag.c:887
 msgid "Number selected tracks sequentially. Starts at 01 in each subdirectory."
 msgstr ""
 "A kijelölt számok számozása egymás után. 01-től kezdi minden alkönyvtárban."
 
 #. To have enough space to display the icon
 #. To have enough space to display the icon
-#: ../src/easytag.c:885
+#: ../src/easytag.c:896
 msgid "Track #:"
 msgstr "Szám #:"
 
-#: ../src/easytag.c:916
+#: ../src/easytag.c:927
 msgid ""
 "Set the number of files, in the same directory of the displayed file, to the "
 "selected tracks."
@@ -1937,520 +1937,520 @@ msgstr ""
 "A fájlok számának beállítása a megjelenített fájl könyvtárában a kijelölt "
 "számokhoz."
 
-#: ../src/easytag.c:936
+#: ../src/easytag.c:947
 msgid "Tag selected files with this number of tracks"
 msgstr "A kijelölt fájlok címkézése a számok számával"
 
 #. Genre
-#: ../src/easytag.c:940
+#: ../src/easytag.c:951
 msgid "Genre:"
 msgstr "Műfaj:"
 
-#: ../src/easytag.c:968
+#: ../src/easytag.c:979
 msgid "Tag selected files with this genre"
 msgstr "A kijelölt fájlok címkézése ezzel a műfajjal"
 
 #. Comment
-#: ../src/easytag.c:973
+#: ../src/easytag.c:984
 msgid "Comment:"
 msgstr "Megjegyzés:"
 
-#: ../src/easytag.c:1000
+#: ../src/easytag.c:1011
 msgid "Tag selected files with this comment"
 msgstr "A kijelölt fájlok címkézése ezzel a megjegyzéssel"
 
 #. Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(CommentView));
 #. Composer (name of the composers)
-#: ../src/easytag.c:1007
+#: ../src/easytag.c:1018
 msgid "Composer:"
 msgstr "Zeneszerző:"
 
-#: ../src/easytag.c:1021
+#: ../src/easytag.c:1032
 msgid "Tag selected files with this composer"
 msgstr "A kijelölt fájlok címkézése ezzel a zeneszerzővel "
 
 #. Translators: Original Artist / Performer. Please try to keep this string
 #. * as short as possible, as it must fit into a narrow column.
-#: ../src/easytag.c:1028
+#: ../src/easytag.c:1039
 msgid "Orig. artist:"
 msgstr "Eredeti előadó:"
 
-#: ../src/easytag.c:1042
+#: ../src/easytag.c:1053
 msgid "Tag selected files with this original artist"
 msgstr "A kijelölt fájlok címkézése ezzel az eredeti előadóval"
 
 #. Copyright
-#: ../src/easytag.c:1048
+#: ../src/easytag.c:1059
 msgid "Copyright:"
 msgstr "Szerzői jog:"
 
-#: ../src/easytag.c:1062
+#: ../src/easytag.c:1073
 msgid "Tag selected files with this copyright"
 msgstr "A kijelölt fájlok címkézése ezzel a szerzői joggal"
 
 #. URL
-#: ../src/easytag.c:1068
+#: ../src/easytag.c:1079
 msgid "URL:"
 msgstr "URL:"
 
-#: ../src/easytag.c:1082
+#: ../src/easytag.c:1093
 msgid "Tag selected files with this URL"
 msgstr "A kijelölt fájlok címkézése ezzel az URL-lel"
 
 #. Encoded by
-#: ../src/easytag.c:1088
+#: ../src/easytag.c:1099
 msgid "Encoded by:"
 msgstr "Kódolta:"
 
-#: ../src/easytag.c:1102
+#: ../src/easytag.c:1113
 msgid "Tag selected files with this encoder name"
 msgstr "A kijelölt fájlok címkézése a kódoló nevével"
 
 #.
 #. * 2 - Page for extra tag fields
 #.
-#: ../src/easytag.c:1136 ../src/et_core.c:3142 ../src/et_core.c:3145
+#: ../src/easytag.c:1147 ../src/et_core.c:3146 ../src/et_core.c:3149
 msgid "Images"
 msgstr "Képek"
 
-#: ../src/easytag.c:1160
+#: ../src/easytag.c:1171
 msgid "You can use drag and drop to add an image"
 msgstr "Fogja meg és húzza ide a képet a hozzáadáshoz"
 
-#: ../src/easytag.c:1207
+#: ../src/easytag.c:1218
 msgid "Add images to the tag"
 msgstr "Képek hozzáadása a címkéhez"
 
-#: ../src/easytag.c:1225
+#: ../src/easytag.c:1236
 msgid "Remove selected images from the tag"
 msgstr "A kijelölt képek eltávolítása a címkéből"
 
-#: ../src/easytag.c:1239
+#: ../src/easytag.c:1250
 msgid "Save the selected images to files"
 msgstr "A kijelölt képek mentése fájlokba"
 
-#: ../src/easytag.c:1250
+#: ../src/easytag.c:1261
 msgid "Edit image properties"
 msgstr "Képtulajdonságok szerkesztése"
 
-#: ../src/easytag.c:1264
+#: ../src/easytag.c:1275
 msgid "Tag selected files with these images"
 msgstr "A kijelölt fájlok címkézése ezekkel a képekkel"
 
-#: ../src/easytag.c:1322
+#: ../src/easytag.c:1333
 #, c-format
 msgid "Selected files tagged with title '%s'."
 msgstr "A kijelölt fájlok megcímkézve a címmel: „%s”."
 
-#: ../src/easytag.c:1324
+#: ../src/easytag.c:1335
 msgid "Removed title from selected files."
 msgstr "A cím eltávolítva a kijelölt fájlokból."
 
-#: ../src/easytag.c:1339
+#: ../src/easytag.c:1350
 #, c-format
 msgid "Selected files tagged with artist '%s'."
 msgstr "A kijelölt fájlok megcímkézve az előadóval: „%s”."
 
-#: ../src/easytag.c:1341
+#: ../src/easytag.c:1352
 msgid "Removed artist from selected files."
 msgstr "Az előadó eltávolítva a kijelölt fájlokból."
 
-#: ../src/easytag.c:1355
+#: ../src/easytag.c:1366
 #, c-format
 msgid "Selected files tagged with album artist '%s'."
 msgstr "A kijelölt fájlok megcímkézve az album előadóval: „%s”."
 
-#: ../src/easytag.c:1357
+#: ../src/easytag.c:1368
 msgid "Removed album artist from selected files."
 msgstr "Az album előadó eltávolítva a kijelölt fájlokból."
 
-#: ../src/easytag.c:1372
+#: ../src/easytag.c:1383
 #, c-format
 msgid "Selected files tagged with album '%s'."
 msgstr "A kijelölt fájlok megcímkézve az albummal: „%s”."
 
-#: ../src/easytag.c:1374
+#: ../src/easytag.c:1385
 msgid "Removed album name from selected files."
 msgstr "Az albumnév eltávolítva a kijelölt fájlokból."
 
-#: ../src/easytag.c:1411
+#: ../src/easytag.c:1422
 #, c-format
 msgid "Selected files tagged with disc number '%s/%s'."
 msgstr "A kijelölt fájlok megcímkézve a lemezszámmal: „%s/%s”."
 
-#: ../src/easytag.c:1416
+#: ../src/easytag.c:1427
 #, c-format
 msgid "Selected files tagged with disc number like 'xx'."
 msgstr "A kijelölt fájlok megcímkézve a lemezszámmal úgymint „xx”."
 
-#: ../src/easytag.c:1421
+#: ../src/easytag.c:1432
 msgid "Removed disc number from selected files."
 msgstr "A lemezszám eltávolítva a kijelölt fájlokból."
 
-#: ../src/easytag.c:1437
+#: ../src/easytag.c:1448
 #, c-format
 msgid "Selected files tagged with year '%s'."
 msgstr "A kijelölt fájlok megcímkézve az évszámmal: „%s”."
 
-#: ../src/easytag.c:1439
+#: ../src/easytag.c:1450
 msgid "Removed year from selected files."
 msgstr "Az évszám eltávolítva a kijelölt fájlokból."
 
-#: ../src/easytag.c:1465 ../src/easytag.c:1555
+#: ../src/easytag.c:1476 ../src/easytag.c:1567
 #, c-format
 msgid "Selected files tagged with track like 'xx/%s'."
 msgstr "A kijelölt fájlok megcímkézve a megadott számmal mint „xx/%s”."
 
-#: ../src/easytag.c:1468
+#: ../src/easytag.c:1479
 #, c-format
 msgid "Selected files tagged with track like 'xx'."
 msgstr "A kijelölt fájlok megcímkézve a megadott számmal mint „xx”."
 
-#: ../src/easytag.c:1472 ../src/easytag.c:1558
+#: ../src/easytag.c:1483 ../src/easytag.c:1570
 msgid "Removed track number from selected files."
 msgstr "A szám sorszáma eltávolítva a kijelölt fájlokból."
 
 #. msg = g_strdup_printf(_("All %d tracks numbered sequentially."), ETCore->ETFileSelectionList_Length);
-#: ../src/easytag.c:1528
+#: ../src/easytag.c:1540
 #, c-format
 msgid "Selected tracks numbered sequentially."
 msgstr "A kijelölt számok növekvően sorszámozva."
 
-#: ../src/easytag.c:1574
+#: ../src/easytag.c:1586
 #, c-format
 msgid "Selected files tagged with genre '%s'."
 msgstr "A kijelölt fájlok megcímkézve a műfajjal: „%s”."
 
-#: ../src/easytag.c:1576
+#: ../src/easytag.c:1588
 msgid "Removed genre from selected files."
 msgstr "A műfaj eltávolítva a kijelölt fájlokból."
 
-#: ../src/easytag.c:1598
+#: ../src/easytag.c:1610
 #, c-format
 msgid "Selected files tagged with comment '%s'."
 msgstr "A kijelölt fájlok megcímkézve a megjegyzéssel: „%s”."
 
-#: ../src/easytag.c:1600
+#: ../src/easytag.c:1612
 msgid "Removed comment from selected files."
 msgstr "A megjegyzés eltávolítva a kijelölt fájlokból."
 
-#: ../src/easytag.c:1614
+#: ../src/easytag.c:1626
 #, c-format
 msgid "Selected files tagged with composer '%s'."
 msgstr "A kijelölt fájlok megcímkézve a zeneszerzővel: „%s”."
 
-#: ../src/easytag.c:1616
+#: ../src/easytag.c:1628
 msgid "Removed composer from selected files."
 msgstr "A zeneszerző eltávolítva a kijelölt fájlokból."
 
-#: ../src/easytag.c:1631
+#: ../src/easytag.c:1643
 #, c-format
 msgid "Selected files tagged with original artist '%s'."
 msgstr "A kijelölt fájlok megcímkézve az eredeti előadóval: „%s”."
 
-#: ../src/easytag.c:1633
+#: ../src/easytag.c:1645
 msgid "Removed original artist from selected files."
 msgstr "Az eredeti előadó eltávolítva a kijelölt fájlokból."
 
-#: ../src/easytag.c:1648
+#: ../src/easytag.c:1660
 #, c-format
 msgid "Selected files tagged with copyright '%s'."
 msgstr "A kijelölt fájlok megcímkézve a szerzői joggal: „%s”."
 
-#: ../src/easytag.c:1650
+#: ../src/easytag.c:1662
 msgid "Removed copyright from selected files."
 msgstr "A szerzői jog eltávolítva a kijelölt fájlokból."
 
-#: ../src/easytag.c:1665
+#: ../src/easytag.c:1677
 #, c-format
 msgid "Selected files tagged with URL '%s'."
 msgstr "A kijelölt fájlok megcímkézve az URL-lel: „%s”."
 
-#: ../src/easytag.c:1667
+#: ../src/easytag.c:1679
 msgid "Removed URL from selected files."
 msgstr "Az URL eltávolítva a kijelölt fájlokból."
 
-#: ../src/easytag.c:1682
+#: ../src/easytag.c:1694
 #, c-format
 msgid "Selected files tagged with encoder name '%s'."
 msgstr "A kijelölt fájlok megcímkézve a kódoló nevével: „%s”."
 
-#: ../src/easytag.c:1684
+#: ../src/easytag.c:1696
 msgid "Removed encoder name from selected files."
 msgstr "A kodoló neve eltávolítva a kijelölt fájlokból."
 
-#: ../src/easytag.c:1716
+#: ../src/easytag.c:1728
 msgid "Selected files tagged with images."
 msgstr "A kijelölt fájlok megcímkézve a képekkel."
 
-#: ../src/easytag.c:1718
+#: ../src/easytag.c:1730
 msgid "Removed images from selected files."
 msgstr "A képek eltávolítva a kijelölt fájlokból."
 
-#: ../src/easytag.c:1999
+#: ../src/easytag.c:2011
 msgid "Select Mode and Mask, and redo the same action"
 msgstr "Válasszon módot és maszkot, és ismételje meg a műveletet"
 
-#: ../src/easytag.c:2051
+#: ../src/easytag.c:2063
 msgid "All tags have been scanned"
 msgstr "Minden címke feldolgozva"
 
-#: ../src/easytag.c:2107
+#: ../src/easytag.c:2119
 msgid "All tags have been removed"
 msgstr "Minden címke eltávolítva"
 
-#: ../src/easytag.c:2412
+#: ../src/easytag.c:2424
 #, c-format
 msgid "A file was changed by an external program"
 msgid_plural "%d files were changed by an external program."
 msgstr[0] "Egy fájlt egy külső program módosított"
 msgstr[1] "%d fájlt egy külső program módosított"
 
-#: ../src/easytag.c:2417
+#: ../src/easytag.c:2429
 msgid "Do you want to continue saving the file?"
 msgstr "Szeretné folytatni a fájl mentését?"
 
-#: ../src/easytag.c:2472 ../src/easytag.c:2492
+#: ../src/easytag.c:2487 ../src/easytag.c:2507
 msgid "Saving files was stopped"
 msgstr "A fájlok mentése le lett állítva"
 
-#: ../src/easytag.c:2494
+#: ../src/easytag.c:2509
 msgid "All files have been saved"
 msgstr "Minden fájl elmentve"
 
-#: ../src/easytag.c:2625
+#: ../src/easytag.c:2644
 #, c-format
 msgid "Cannot delete file (%s)"
 msgstr "Nem törölhető a fájl (%s)"
 
-#: ../src/easytag.c:2645
+#: ../src/easytag.c:2665
 msgid "Files have been partially deleted"
 msgstr "A fájlok részlegesen törölve"
 
-#: ../src/easytag.c:2647
+#: ../src/easytag.c:2667
 msgid "All files have been deleted"
 msgstr "Minden fájl törölve"
 
-#: ../src/easytag.c:2763
+#: ../src/easytag.c:2783
 #, c-format
 msgid "Do you want to write the tag of file '%s'?"
 msgstr "Szeretné beírni a(z) „%s” fájl címkéjét?"
 
-#: ../src/easytag.c:2765
+#: ../src/easytag.c:2785
 msgid "Confirm Tag Writing"
 msgstr "Címke írásának megerősítése"
 
-#: ../src/easytag.c:2770 ../src/easytag.c:2887 ../src/easytag.c:3147
+#: ../src/easytag.c:2790 ../src/easytag.c:2910 ../src/easytag.c:3173
 msgid "Repeat action for the remaining files"
 msgstr "Művelet ismétlése a hátralevő fájlokra"
 
 #. Directories and filename changed
-#: ../src/easytag.c:2851 ../src/scan.c:181
+#: ../src/easytag.c:2874 ../src/scan.c:181
 msgid "Rename File and Directory"
 msgstr "Fájl és könyvtár átnevezése"
 
-#: ../src/easytag.c:2852
+#: ../src/easytag.c:2875
 msgid "File and directory rename confirmation required"
 msgstr "A fájl és könyvtár átnevezése megerősítést igényel"
 
-#: ../src/easytag.c:2853
+#: ../src/easytag.c:2876
 #, c-format
 msgid "Do you want to rename the file and directory '%s' to '%s'?"
 msgstr "Szeretné átnevezni a fájlt és a könyvtárat („%s”) erre: „%s”?"
 
-#: ../src/easytag.c:2859
+#: ../src/easytag.c:2882
 msgid "Directory rename confirmation required"
 msgstr "A könyvtár átnevezése megerősítést igényel"
 
-#: ../src/easytag.c:2860
+#: ../src/easytag.c:2883
 #, c-format
 msgid "Do you want to rename the directory '%s' to '%s'?"
 msgstr "Szeretné átnevezni a könyvtárat („%s”) erre: „%s”?"
 
 #. Only filename changed
-#: ../src/easytag.c:2866
+#: ../src/easytag.c:2889
 msgid "Rename File"
 msgstr "Fájl átnevezése"
 
-#: ../src/easytag.c:2867
+#: ../src/easytag.c:2890
 msgid "File rename confirmation required"
 msgstr "A fájl átnevezése megerősítést igényel"
 
-#: ../src/easytag.c:2868
+#: ../src/easytag.c:2891
 #, c-format
 msgid "Do you want to rename the file '%s' to '%s'?"
 msgstr "Szeretné átnevezni a fájlt („%s”) erre: „%s”?"
 
-#: ../src/easytag.c:2934
+#: ../src/easytag.c:2957
 #, c-format
 msgid "Cannot rename file '%s' to '%s'"
 msgstr "Nem nevezhető át a(z) „%s” fájl erre: „%s”"
 
-#: ../src/easytag.c:2948
+#: ../src/easytag.c:2971
 #, c-format
 msgid "Cannot rename file '%s' to '%s': %s"
 msgstr "Nem nevezhető át a(z) „%s” fájl erre: „%s”: %s"
 
-#: ../src/easytag.c:2952
+#: ../src/easytag.c:2975
 msgid "File(s) not renamed"
 msgstr "A fájlok nem lettek átnevezve"
 
-#: ../src/easytag.c:3061
+#: ../src/easytag.c:3087
 #, c-format
 msgid "Writing tag of '%s'"
 msgstr "„%s” címkéjének írása"
 
-#: ../src/easytag.c:3068
+#: ../src/easytag.c:3094
 msgid "Tag(s) written"
 msgstr "Címkék kiírva"
 
-#: ../src/easytag.c:3083
+#: ../src/easytag.c:3109
 #, c-format
 msgid "Cannot write tag in file '%s' (%s)"
 msgstr "Nem írható címke a(z) „%s” fájlba (%s)"
 
-#: ../src/easytag.c:3096
+#: ../src/easytag.c:3122
 #, c-format
 msgid "Cannot write tag in file '%s'"
 msgstr "Nem írható címke a(z) „%s” fájlba"
 
-#: ../src/easytag.c:3099
+#: ../src/easytag.c:3125
 msgid "Tag Write Error"
 msgstr "Címkeírási hiba"
 
-#: ../src/easytag.c:3144 ../src/easytag.c:3158
+#: ../src/easytag.c:3170 ../src/easytag.c:3184
 #, c-format
 msgid "Do you really want to delete the file '%s'?"
 msgstr "Biztosan törölni szeretné a(z) „%s” fájlt?"
 
 # Fájl menü
-#: ../src/easytag.c:3150 ../src/easytag.c:3160
+#: ../src/easytag.c:3176 ../src/easytag.c:3186
 msgid "Delete File"
 msgstr "Fájl törlése"
 
-#: ../src/easytag.c:3185
+#: ../src/easytag.c:3211
 #, c-format
 msgid "File '%s' deleted"
 msgstr "A(z) „%s” fájl törölve"
 
-#: ../src/easytag.c:3317
+#: ../src/easytag.c:3346
 #, c-format
 msgid "Cannot read directory '%s'"
 msgstr "A(z) „%s” könyvtár nem olvasható"
 
-#: ../src/easytag.c:3321
+#: ../src/easytag.c:3350
 msgid "Directory Read Error"
 msgstr "Könyvtárolvasási hiba"
 
 #. Read the directory recursively
-#: ../src/easytag.c:3342
+#: ../src/easytag.c:3371
 #, c-format
 msgid "Search in progress…"
 msgstr "Keresés folyamatban…"
 
-#: ../src/easytag.c:3365 ../src/et_core.c:2776
+#: ../src/easytag.c:3394 ../src/et_core.c:2781
 #, c-format
 msgid "File: '%s'"
 msgstr "Fájl: „%s”"
 
-#: ../src/easytag.c:3415
+#: ../src/easytag.c:3444
 #, c-format
 msgid "Found one file in this directory and subdirectories"
 msgid_plural "Found %d files in this directory and subdirectories"
 msgstr[0] "Ebben a könyvtárban és az alkönyvtárakban egy fájl található"
 msgstr[1] "Ebben a könyvtárban és az alkönyvtárakban %d fájl található"
 
-#: ../src/easytag.c:3422
+#: ../src/easytag.c:3451
 #, c-format
 msgid "Found one file in this directory"
 msgid_plural "Found %d files in this directory"
 msgstr[0] "Ebben a könyvtárban egy fájl található"
 msgstr[1] "Ebben a könyvtárban %d fájl található"
 
-#: ../src/easytag.c:3444
+#: ../src/easytag.c:3473
 msgid "No file found in this directory and subdirectories"
 msgstr "Ebben a könyvtárban és az alkönyvtárakban nem található fájl"
 
-#: ../src/easytag.c:3446
+#: ../src/easytag.c:3475
 msgid "No file found in this directory"
 msgstr "Ebben a könyvtárban nem található fájl"
 
-#: ../src/easytag.c:3514
+#: ../src/easytag.c:3543
 #, c-format
 msgid "Error opening directory '%s' (%s)"
 msgstr "Hiba a könyvtár megnyitása közben: „%s” (%s)"
 
-#: ../src/easytag.c:3550
+#: ../src/easytag.c:3579
 #, c-format
 msgid "Cannot read directory (%s)"
 msgstr "A könyvtár nem olvasható (%s)"
 
-#: ../src/easytag.c:3570
+#: ../src/easytag.c:3599
 msgid "Searching for audio files…"
 msgstr "Hangfájlok keresése…"
 
-#: ../src/easytag.c:3571
+#: ../src/easytag.c:3600
 msgid "Searching"
 msgstr "Keresés"
 
-#: ../src/easytag.c:4202
+#: ../src/easytag.c:4231
 msgid "Select a directory to browse"
 msgstr "Válassza ki az átvizsgálandó könyvtárat"
 
 #. Menu items
-#: ../src/easytag.c:4349
+#: ../src/easytag.c:4378
 msgid "Tag selected files with this field"
 msgstr "A kijelölt fájlok címkézése ezzel a mezővel"
 
-#: ../src/easytag.c:4361 ../src/scan.c:2654
+#: ../src/easytag.c:4390 ../src/scan.c:2654
 msgid "Convert '_' and '%20' to spaces"
 msgstr "Az „_” és a „%20” átalakítása szóközre"
 
-#: ../src/easytag.c:4368 ../src/scan.c:2656
+#: ../src/easytag.c:4397 ../src/scan.c:2656
 msgid "Convert ' ' to '_'"
 msgstr "A „ ” átalakítása erre: „_”"
 
-#: ../src/easytag.c:4379
+#: ../src/easytag.c:4408
 msgid "All uppercase"
 msgstr "MINDENT NAGYBETŰSRE"
 
-#: ../src/easytag.c:4386
+#: ../src/easytag.c:4415
 msgid "All lowercase"
 msgstr "mindent kisbetűsre"
 
-#: ../src/easytag.c:4393
+#: ../src/easytag.c:4422
 msgid "First letter uppercase"
 msgstr "Első betű legyen nagybetű"
 
-#: ../src/easytag.c:4400
+#: ../src/easytag.c:4429
 msgid "First letter uppercase of each word"
 msgstr "Minden Szó Első Betűje Legyen Nagybetű"
 
-#: ../src/easytag.c:4411 ../src/prefs.c:1023 ../src/scan.c:2754
+#: ../src/easytag.c:4440 ../src/prefs.c:1023 ../src/scan.c:2754
 msgid "Remove spaces"
 msgstr "Szóközök eltávolítása"
 
-#: ../src/easytag.c:4418
+#: ../src/easytag.c:4447
 msgid "Insert space before uppercase letter"
 msgstr "Szóköz beszúrása minden nagybetű elé"
 
-#: ../src/easytag.c:4425
+#: ../src/easytag.c:4454
 msgid "Remove duplicate spaces or underscores"
 msgstr "Dupla szóközök vagy alsóvonások eltávolítása"
 
-#: ../src/easytag.c:4432
+#: ../src/easytag.c:4461
 msgid "Remove all text"
 msgstr "Minden szöveg eltávolítása"
 
-#: ../src/easytag.c:4451
+#: ../src/easytag.c:4480
 msgid "EasyTAG: Normal exit."
 msgstr "EasyTAG: Normális kilépés."
 
-#: ../src/easytag.c:4503
+#: ../src/easytag.c:4532
 msgid "Do you want to save them before quitting?"
 msgstr "El szeretné menteni azokat kilépés előtt?"
 
-#: ../src/easytag.c:4526
+#: ../src/easytag.c:4559
 msgid "Do you really want to quit?"
 msgstr "Biztosan ki szeretne lépni?"
 
@@ -2464,95 +2464,95 @@ msgstr "Hiba a címkék olvasása közben az ogg fájlból (%s)"
 msgid "Automatic corrections applied for file '%s'."
 msgstr "Automatikus javítások alkalmazva a(z) „%s” fájlhoz."
 
-#: ../src/et_core.c:2673
+#: ../src/et_core.c:2678
 msgid "ID3 Tag"
 msgstr "ID3 címke"
 
-#: ../src/et_core.c:2679
+#: ../src/et_core.c:2684
 msgid "Ogg Vorbis Tag"
 msgstr "Ogg Vorbis címke"
 
-#: ../src/et_core.c:2685
+#: ../src/et_core.c:2690
 msgid "FLAC Vorbis Tag"
 msgstr "FLAC Vorbis címke"
 
-#: ../src/et_core.c:2690
+#: ../src/et_core.c:2695
 msgid "APE Tag"
 msgstr "APE címke"
 
-#: ../src/et_core.c:2695
+#: ../src/et_core.c:2700
 msgid "MP4/M4A/AAC Tag"
 msgstr "MP4/M4A/AAC címke"
 
-#: ../src/et_core.c:2701
+#: ../src/et_core.c:2706
 msgid "Wavpack Tag"
 msgstr "Wavpack címke"
 
-#: ../src/et_core.c:2721
+#: ../src/et_core.c:2726
 msgid "MP3 File"
 msgstr "MP3 fájl"
 
-#: ../src/et_core.c:2725
+#: ../src/et_core.c:2730
 msgid "MP2 File"
 msgstr "MP2 fájl"
 
-#: ../src/et_core.c:2731
+#: ../src/et_core.c:2736
 msgid "Ogg Vorbis File"
 msgstr "Ogg Vorbis fájl"
 
 # ikon megjegyzés
-#: ../src/et_core.c:2737
+#: ../src/et_core.c:2742
 msgid "Speex File"
 msgstr "Speex fájl"
 
-#: ../src/et_core.c:2743
+#: ../src/et_core.c:2748
 msgid "FLAC File"
 msgstr "FLAC fájl"
 
-#: ../src/et_core.c:2748
+#: ../src/et_core.c:2753
 msgid "MusePack File"
 msgstr "MusePack fájl"
 
-#: ../src/et_core.c:2752
+#: ../src/et_core.c:2757
 msgid "Monkey's Audio File"
 msgstr "Monkey's hangfájl"
 
-#: ../src/et_core.c:2757
+#: ../src/et_core.c:2762
 msgid "MP4/AAC File"
 msgstr "MP4/AAC fájl"
 
-#: ../src/et_core.c:2763
+#: ../src/et_core.c:2768
 msgid "Wavpack File"
 msgstr "Wavpack fájl"
 
-#: ../src/et_core.c:2820 ../src/et_core.c:2875
+#: ../src/et_core.c:2825 ../src/et_core.c:2880
 msgid "File not found"
 msgstr "A fájl nem található"
 
-#: ../src/et_core.c:2825
+#: ../src/et_core.c:2830
 #, c-format
 msgid "Cannot query file information (%s)"
 msgstr "Nem kérdezhetők le a fájlinformációk (%s)"
 
-#: ../src/et_core.c:2859
+#: ../src/et_core.c:2864
 msgid "Read-only file"
 msgstr "Csak olvasható fájl"
 
 #. And refresh the number of files in this directory
-#: ../src/et_core.c:2923
+#: ../src/et_core.c:2928
 #, c-format
 msgid "One file"
 msgid_plural "%u files"
 msgstr[0] "Egy fájl"
 msgstr[1] "%u fájl"
 
-#: ../src/et_core.c:3128
+#: ../src/et_core.c:3132
 #, c-format
 msgid "Images (%d)"
 msgstr "Képek (%d)"
 
 #. Bitrate
-#: ../src/et_core.c:3170 ../src/flac_header.c:205
+#: ../src/et_core.c:3174 ../src/flac_header.c:205
 #: ../src/monkeyaudio_header.c:86 ../src/mp4_header.c:134
 #: ../src/mpeg_header.c:206 ../src/musepack_header.c:88
 #: ../src/ogg_header.c:401 ../src/wavpack_header.c:78
@@ -2561,7 +2561,7 @@ msgid "%d kb/s"
 msgstr "%d kb/s"
 
 #. Samplerate
-#: ../src/et_core.c:3175 ../src/flac_header.c:210
+#: ../src/et_core.c:3179 ../src/flac_header.c:210
 #: ../src/monkeyaudio_header.c:91 ../src/mp4_header.c:139
 #: ../src/mpeg_header.c:211 ../src/musepack_header.c:93
 #: ../src/ogg_header.c:406 ../src/wavpack_header.c:83
@@ -2569,20 +2569,20 @@ msgstr "%d kb/s"
 msgid "%d Hz"
 msgstr "%d Hz"
 
-#: ../src/et_core.c:3318 ../src/scan.c:690
+#: ../src/et_core.c:3322 ../src/scan.c:690
 #, c-format
 msgid "Could not convert filename '%s' into system filename encoding"
 msgstr "Nem alakítható át a(z) „%s” fájlnév rendszer fájlnév kodolássá"
 
-#: ../src/et_core.c:3320
+#: ../src/et_core.c:3324
 msgid "Try setting the environment variable G_FILENAME_ENCODING."
 msgstr "Próbálja meg beállítani a G_FILENAME_ENCODING környezeti változót."
 
-#: ../src/et_core.c:3321 ../src/scan.c:692
+#: ../src/et_core.c:3325 ../src/scan.c:692
 msgid "Filename translation"
 msgstr "Fájlnév fordítások"
 
-#: ../src/et_core.c:4021
+#: ../src/et_core.c:4025
 #, c-format
 msgid "Error writing tag type %d to file %s (%s)"
 msgstr "Hiba a(z) %d. címketípus fájlba írása közben: „%s” (%s)"
@@ -2601,7 +2601,7 @@ msgstr "Csatornák:"
 msgid "Error while opening file: '%s' as FLAC (%s)."
 msgstr "Hiba történt a(z) „%s” fájl mint FLAC megnyitása közben (%s)."
 
-#: ../src/flac_tag.c:352 ../src/ogg_tag.c:347
+#: ../src/flac_tag.c:352 ../src/ogg_tag.c:411
 #, c-format
 msgid ""
 "The year value '%s' seems to be invalid in file '%s'. The information will "
@@ -2620,7 +2620,7 @@ msgstr "A képblokk nem érvényes: „%s”"
 msgid "Error: Failed to write comments to file '%s' (%s)."
 msgstr "Hiba: Nem sikerült a megjegyzések írása a(z) „%s” fájlba (%s)."
 
-#: ../src/flac_tag.c:1099 ../src/ogg_tag.c:922
+#: ../src/flac_tag.c:1099 ../src/ogg_tag.c:1151
 #, c-format
 msgid "Written tag of '%s'"
 msgstr "A(z) „%s” címkéje kiírva"
@@ -2643,27 +2643,27 @@ msgstr ""
 msgid "Corrupted file"
 msgstr "Sérült fájl"
 
-#: ../src/id3_tag.c:540
+#: ../src/id3_tag.c:555
 #, c-format
 msgid "Removed tag of '%s'"
 msgstr "A(z) „%s” címkéje eltávolítva"
 
-#: ../src/id3_tag.c:544 ../src/id3_tag.c:644
+#: ../src/id3_tag.c:559 ../src/id3_tag.c:659
 #, c-format
 msgid "Error while removing ID3v1 tag of '%s' (%s)"
 msgstr "Hiba történt a(z) „%s” ID3v1 címkéjének eltávolításakor (%s)"
 
-#: ../src/id3_tag.c:546 ../src/id3_tag.c:616
+#: ../src/id3_tag.c:561 ../src/id3_tag.c:631
 #, c-format
 msgid "Error while removing ID3v2 tag of '%s' (%s)"
 msgstr "Hiba történt a(z) „%s” ID3v2 címkéjének eltávolításakor (%s)"
 
-#: ../src/id3_tag.c:565
+#: ../src/id3_tag.c:580
 #, c-format
 msgid "Error while updating ID3v2 tag of '%s' (%s)"
 msgstr "Hiba történt a(z) „%s” ID3v1 címkéjének frissítésekor (%s)"
 
-#: ../src/id3_tag.c:593
+#: ../src/id3_tag.c:608
 msgid ""
 "You have tried to save this tag to Unicode but it was detected that your "
 "version of id3lib is buggy"
@@ -2671,7 +2671,7 @@ msgstr ""
 "Ezt a címkét Unicode formátumban próbálta meg elmenteni, de azt észleltük, "
 "hogy az id3lib verziója hibás"
 
-#: ../src/id3_tag.c:595
+#: ../src/id3_tag.c:610
 #, c-format
 msgid ""
 "If you reload this file, some characters in the tag may not be displayed "
@@ -2690,90 +2690,90 @@ msgstr ""
 "\n"
 "File: %s"
 
-#: ../src/id3_tag.c:602
+#: ../src/id3_tag.c:617
 msgid "Buggy id3lib"
 msgstr "Hibás id3lib"
 
-#: ../src/id3_tag.c:636
+#: ../src/id3_tag.c:651
 #, c-format
 msgid "Error while updating ID3v1 tag of '%s' (%s)"
 msgstr "Hiba történt a(z) „%s” ID3v2 címkéjének frissítésekor (%s)"
 
-#: ../src/id3_tag.c:650 ../src/id3v24_tag.c:1050
+#: ../src/id3_tag.c:665 ../src/id3v24_tag.c:1048
 #, c-format
 msgid "Updated tag of '%s'"
 msgstr "A(z) „%s” címkéje frissítve"
 
-#: ../src/id3_tag.c:669
+#: ../src/id3_tag.c:684
 msgid "No error reported"
 msgstr "Nem történt hiba"
 
-#: ../src/id3_tag.c:671
+#: ../src/id3_tag.c:686
 msgid "No available memory"
 msgstr "Nincs elérhető memória"
 
-#: ../src/id3_tag.c:673
+#: ../src/id3_tag.c:688
 msgid "No data to parse"
 msgstr "Nincs feldolgozandó adat"
 
-#: ../src/id3_tag.c:675
+#: ../src/id3_tag.c:690
 msgid "Improperly formatted data"
 msgstr "Helytelenül formázott adatok"
 
-#: ../src/id3_tag.c:677
+#: ../src/id3_tag.c:692
 msgid "No buffer to write to"
 msgstr "Nincs írható puffer"
 
-#: ../src/id3_tag.c:679
+#: ../src/id3_tag.c:694
 msgid "Buffer is too small"
 msgstr "A puffer túl kicsi"
 
-#: ../src/id3_tag.c:681
+#: ../src/id3_tag.c:696
 msgid "Invalid frame ID"
 msgstr "Érvénytelen keret azonosító"
 
-#: ../src/id3_tag.c:683
+#: ../src/id3_tag.c:698
 msgid "Requested field not found"
 msgstr "A kért mező nem található"
 
-#: ../src/id3_tag.c:685
+#: ../src/id3_tag.c:700
 msgid "Unknown field type"
 msgstr "Ismeretlen mezőtípus"
 
-#: ../src/id3_tag.c:687
+#: ../src/id3_tag.c:702
 msgid "Tag is already attached to a file"
 msgstr "A címke már csatolva van egy fájlhoz"
 
-#: ../src/id3_tag.c:689
+#: ../src/id3_tag.c:704
 msgid "Invalid tag version"
 msgstr "Érvénytelen címke verzió"
 
-#: ../src/id3_tag.c:691
+#: ../src/id3_tag.c:706
 msgid "No file to parse"
 msgstr "Nincs feldolgozandó fájl"
 
-#: ../src/id3_tag.c:693
+#: ../src/id3_tag.c:708
 msgid "Attempting to write to a read-only file"
 msgstr "Írási kísérlet csak olvasható fájlba"
 
-#: ../src/id3_tag.c:695
+#: ../src/id3_tag.c:710
 msgid "Error in compression/uncompression"
 msgstr "Hiba a tömörítésben/kibontásban"
 
-#: ../src/id3_tag.c:697
+#: ../src/id3_tag.c:712
 msgid "Unknown error message"
 msgstr "Ismeretlen hibaüzenet"
 
-#: ../src/id3_tag.c:1301
+#: ../src/id3_tag.c:1316
 #, c-format
 msgid "Error while creating temporary file: '%s'"
 msgstr "Hiba az átmeneti fájl létrehozása közben: „%s”"
 
-#: ../src/id3_tag.c:1308
+#: ../src/id3_tag.c:1323
 msgid "Error while creating temporary file"
 msgstr "Hiba az átmeneti fájl létrehozása közben"
 
-#: ../src/id3_tag.c:1328
+#: ../src/id3_tag.c:1343
 #, c-format
 msgid "Error while writing to file: '%s' (%s)"
 msgstr "Hiba a fájl írása közben: „%s” (%s)"
@@ -2783,19 +2783,19 @@ msgstr "Hiba a fájl írása közben: „%s” (%s)"
 #. * missing (not read for some reason) while reading from
 #. * the file.
 #.
-#: ../src/id3v24_tag.c:1505
+#: ../src/id3v24_tag.c:1503
 #, c-format
 msgid "Cannot write tag of file ‘%s’ (a byte was missing)"
 msgid_plural "Cannot write tag of file ‘%s’ (%s bytes were missing)"
 msgstr[0] "Nem írható a(z) „%s” fájl címkéje (egy bájt hiányzik)"
 msgstr[1] "Nem írható a(z) „%s” fájl címkéje (%s bájt hiányzik)"
 
-#: ../src/id3v24_tag.c:1526
+#: ../src/id3v24_tag.c:1524
 #, c-format
 msgid "Cannot save tag of file '%s'"
 msgstr "Nem menthető a(z) „%s” fájl címkéje"
 
-#: ../src/id3v24_tag.c:1537
+#: ../src/id3v24_tag.c:1535
 #, c-format
 msgid "Size error while saving tag of '%s'"
 msgstr "Mérethiba a(z) „%s” címkéjének mentése közben"
@@ -3174,175 +3174,185 @@ msgstr ""
 msgid "Error: Failed to open file: '%s' as Vorbis (%s)."
 msgstr "Hiba: Nem sikerült a(z) „%s” fájl Vorbisként való megnyitása (%s)."
 
-#: ../src/ogg_tag.c:186 ../src/ogg_tag.c:739
+#: ../src/ogg_tag.c:249 ../src/ogg_tag.c:872
 #, c-format
 msgid "Warning: The Ogg Vorbis file '%s' contains an ID3v2 tag."
 msgstr "Figyelem: Az Ogg Vorbis fájl „%s” ID3v2 címkét tartalmaz."
 
-#: ../src/picture.c:244 ../src/picture.c:269
+#: ../src/ogg_tag.c:1020 ../src/picture.c:1256
 #, c-format
-msgid "Image file not loaded: %s"
-msgstr "A képfájl nincs betöltve: %s"
+msgid "Error with 'loader_write': %s"
+msgstr "Hiba a „loader_write” közben: %s"
 
-#: ../src/picture.c:261
-#, c-format
-msgid "Cannot open file: '%s'"
-msgstr "Nem nyitható meg a fájl: „%s”"
-
-#: ../src/picture.c:265
-msgid "Image File Error"
-msgstr "Képfájl hiba"
-
-#: ../src/picture.c:276
-msgid "Image file loaded"
-msgstr "A képfájl betöltve"
-
-#: ../src/picture.c:334
-msgid "Add Images"
-msgstr "Képek hozzáadása"
-
-#: ../src/picture.c:344 ../src/picture.c:700
-msgid "All Files"
-msgstr "Minden fájl"
-
-#: ../src/picture.c:350 ../src/picture.c:706
-msgid "PNG and JPEG"
-msgstr "PNG és JPEG"
-
-#: ../src/picture.c:477
-#, c-format
-msgid "Image Properties %d/%d"
-msgstr "Képtulajdonságok %d/%d"
-
-#: ../src/picture.c:501
-msgid "Image Type"
-msgstr "Képtípus"
-
-#. Description of the picture
-#: ../src/picture.c:560
-msgid "Image Description:"
-msgstr "Kép leírása:"
-
-#: ../src/picture.c:687
-#, c-format
-msgid "Save Image %d/%d"
-msgstr "Kép mentése %d/%d"
-
-#: ../src/picture.c:759
-#, c-format
-msgid "Image file not saved: %s"
-msgstr "A képfájl nincs mentve: %s"
-
-#: ../src/picture.c:827
-msgid "JPEG image"
-msgstr "JPEG-kép"
-
-#: ../src/picture.c:829
-msgid "PNG image"
-msgstr "PNG-kép"
-
-#: ../src/picture.c:831
-msgid "Unknown image"
-msgstr "Ismeretlen kép"
-
-#: ../src/picture.c:843
-msgid "32x32 pixel PNG file icon"
-msgstr "32x32 képpontos PNG fájl ikon"
-
-#: ../src/picture.c:845
-msgid "Other file icon"
-msgstr "Egyéb fájl ikon"
-
-#: ../src/picture.c:847
-msgid "Cover (front)"
-msgstr "Borító (első)"
-
-#: ../src/picture.c:849
-msgid "Cover (back)"
-msgstr "Borító (hátsó)"
-
-#: ../src/picture.c:851
-msgid "Leaflet page"
-msgstr "Szórólap oldal"
-
-#: ../src/picture.c:853
-msgid "Media (e.g. label side of CD)"
-msgstr "Média (például a CD címke oldala)"
-
-#: ../src/picture.c:855
-msgid "Lead artist/lead performer/soloist"
-msgstr "Vezető szerző / vezető előadó / szólista"
-
-#: ../src/picture.c:857
-msgid "Artist/performer"
-msgstr "Szerző / előadó"
-
-#: ../src/picture.c:859
-msgid "Conductor"
-msgstr "Karmester"
-
-#: ../src/picture.c:861
-msgid "Band/Orchestra"
-msgstr "Banda / Zenekar"
-
-#: ../src/picture.c:865
-msgid "Lyricist/text writer"
-msgstr "Dalszövegíró / szövegíró"
-
-#: ../src/picture.c:867
-msgid "Recording location"
-msgstr "Felvétel helyszíne"
-
-#: ../src/picture.c:869
-msgid "During recording"
-msgstr "Felvétel közben"
-
-#: ../src/picture.c:871
-msgid "During performance"
-msgstr "Előadás közben"
-
-#: ../src/picture.c:873
-msgid "Movie/video screen capture"
-msgstr "Film / videófelvétel"
-
-#: ../src/picture.c:875
-msgid "A bright colored fish"
-msgstr "Egy világos színes hal"
-
-#: ../src/picture.c:877
-msgid "Illustration"
-msgstr "Illusztráció"
-
-#: ../src/picture.c:879
-msgid "Band/Artist logotype"
-msgstr "Banda / Előadó logója"
-
-#: ../src/picture.c:881
-msgid "Publisher/studio logotype"
-msgstr "Kiadó / stúdió logója"
-
-#: ../src/picture.c:885
-msgid "Unknown image type"
-msgstr "Ismeretlen képtípus"
-
-#: ../src/picture.c:915 ../src/picture.c:926
-msgid "pixels"
-msgstr "képpont"
-
-#: ../src/picture.c:916 ../src/picture.c:927
-msgid "Type"
-msgstr "Típus"
-
-#: ../src/picture.c:928
-msgid "Description"
-msgstr "Leírás"
-
-#: ../src/picture.c:984
+#: ../src/ogg_tag.c:1035 ../src/picture.c:1179
 #, c-format
 msgid "Error with 'loader_close': %s"
 msgstr "Hiba a „loader_close” közben: %s"
 
+#: ../src/picture.c:104
+#, c-format
+msgid "Image file not saved: %s"
+msgstr "A képfájl nincs mentve: %s"
+
+#: ../src/picture.c:154
+#, c-format
+msgid "Cannot open file: '%s'"
+msgstr "Nem nyitható meg a fájl: „%s”"
+
+#: ../src/picture.c:158
+msgid "Image File Error"
+msgstr "Képfájl hiba"
+
+#: ../src/picture.c:162 ../src/picture.c:424
+#, c-format
+msgid "Image file not loaded: %s"
+msgstr "A képfájl nincs betöltve: %s"
+
+#: ../src/picture.c:446
+msgid "Image file loaded"
+msgstr "A képfájl betöltve"
+
+#: ../src/picture.c:503
+msgid "Add Images"
+msgstr "Képek hozzáadása"
+
+#: ../src/picture.c:513 ../src/picture.c:873
+msgid "All Files"
+msgstr "Minden fájl"
+
+#: ../src/picture.c:519 ../src/picture.c:879
+msgid "PNG and JPEG"
+msgstr "PNG és JPEG"
+
+#: ../src/picture.c:650
+#, c-format
+msgid "Image Properties %d/%d"
+msgstr "Képtulajdonságok %d/%d"
+
+#: ../src/picture.c:674
+msgid "Image Type"
+msgstr "Képtípus"
+
+#. Description of the picture
+#: ../src/picture.c:733
+msgid "Image Description:"
+msgstr "Kép leírása:"
+
+#: ../src/picture.c:860
+#, c-format
+msgid "Save Image %d/%d"
+msgstr "Kép mentése %d/%d"
+
+#: ../src/picture.c:1020
+msgid "JPEG image"
+msgstr "JPEG-kép"
+
+#: ../src/picture.c:1022
+msgid "PNG image"
+msgstr "PNG-kép"
+
+#: ../src/picture.c:1024
+#| msgid "PNG image"
+msgid "GIF image"
+msgstr "GIF-kép"
+
+#: ../src/picture.c:1026
+msgid "Unknown image"
+msgstr "Ismeretlen kép"
+
+#: ../src/picture.c:1038
+msgid "32x32 pixel PNG file icon"
+msgstr "32x32 képpontos PNG fájl ikon"
+
+#: ../src/picture.c:1040
+msgid "Other file icon"
+msgstr "Egyéb fájl ikon"
+
+#: ../src/picture.c:1042
+msgid "Cover (front)"
+msgstr "Borító (első)"
+
 #: ../src/picture.c:1044
+msgid "Cover (back)"
+msgstr "Borító (hátsó)"
+
+#: ../src/picture.c:1046
+msgid "Leaflet page"
+msgstr "Szórólap oldal"
+
+#: ../src/picture.c:1048
+msgid "Media (e.g. label side of CD)"
+msgstr "Média (például a CD címke oldala)"
+
+#: ../src/picture.c:1050
+msgid "Lead artist/lead performer/soloist"
+msgstr "Vezető szerző / vezető előadó / szólista"
+
+#: ../src/picture.c:1052
+msgid "Artist/performer"
+msgstr "Szerző / előadó"
+
+#: ../src/picture.c:1054
+msgid "Conductor"
+msgstr "Karmester"
+
+#: ../src/picture.c:1056
+msgid "Band/Orchestra"
+msgstr "Banda / Zenekar"
+
+#: ../src/picture.c:1060
+msgid "Lyricist/text writer"
+msgstr "Dalszövegíró / szövegíró"
+
+#: ../src/picture.c:1062
+msgid "Recording location"
+msgstr "Felvétel helyszíne"
+
+#: ../src/picture.c:1064
+msgid "During recording"
+msgstr "Felvétel közben"
+
+#: ../src/picture.c:1066
+msgid "During performance"
+msgstr "Előadás közben"
+
+#: ../src/picture.c:1068
+msgid "Movie/video screen capture"
+msgstr "Film / videófelvétel"
+
+#: ../src/picture.c:1070
+msgid "A bright colored fish"
+msgstr "Egy világos színes hal"
+
+#: ../src/picture.c:1072
+msgid "Illustration"
+msgstr "Illusztráció"
+
+#: ../src/picture.c:1074
+msgid "Band/Artist logotype"
+msgstr "Banda / Előadó logója"
+
+#: ../src/picture.c:1076
+msgid "Publisher/studio logotype"
+msgstr "Kiadó / stúdió logója"
+
+#: ../src/picture.c:1080
+msgid "Unknown image type"
+msgstr "Ismeretlen képtípus"
+
+#: ../src/picture.c:1110 ../src/picture.c:1121
+msgid "pixels"
+msgstr "képpont"
+
+#: ../src/picture.c:1111 ../src/picture.c:1122
+msgid "Type"
+msgstr "Típus"
+
+#: ../src/picture.c:1123
+msgid "Description"
+msgstr "Leírás"
+
+#: ../src/picture.c:1239
 msgid ""
 "Cannot display the image because not enough data has been read to determine "
 "how to create the image buffer."
@@ -3350,25 +3360,20 @@ msgstr ""
 "Nem jeleníthető meg a kép, mert nem lett elegendő adat beolvasva annak "
 "meghatározásához, hogy hogyan jöjjön létre a képpuffer."
 
-#: ../src/picture.c:1051
+#: ../src/picture.c:1246
 msgid "Cannot display the image"
 msgstr "Nem jeleníthető meg a kép"
 
-#: ../src/picture.c:1053
+#: ../src/picture.c:1248
 msgid ""
 "Not enough data has been read to determine how to create the image buffer."
 msgstr ""
 "Nem lett elegendő adat beolvasva annak meghatározásához, hogy hogyan jöjjön "
 "létre a képpuffer."
 
-#: ../src/picture.c:1055
+#: ../src/picture.c:1250
 msgid "Load Image File"
 msgstr "Képfájl betöltése"
-
-#: ../src/picture.c:1061
-#, c-format
-msgid "Error with 'loader_write': %s"
-msgstr "Hiba a „loader_write” közben: %s"
 
 # Ikon megjegyzés
 #. Label
@@ -5103,64 +5108,33 @@ msgstr "A(z) „%s” beállítófájl költöztetése nem sikerült"
 msgid "Error: Cannot create directory '%s' (%s)"
 msgstr "Hiba: Nem lehet létrehozni a könyvtárat: „%s” (%s)"
 
-#. Log_Print(_("DLL '%s' not already loaded. Try loading it..."), dllname);
-#: ../src/win32/win32dep.c:126
-#, c-format
-msgid "DLL '%s' not already loaded. Try loading it..."
-msgstr "A(z) „%s” DLL még nincs betöltve. Betöltés megpróbálása…"
+#~ msgid "DLL '%s' not already loaded. Try loading it..."
+#~ msgstr "A(z) „%s” DLL még nincs betöltve. Betöltés megpróbálása…"
 
-#. Log_Print(_("DLL '%s' could not be loaded"), dllname);
-#: ../src/win32/win32dep.c:130
-#, c-format
-msgid "DLL '%s' could not be loaded"
-msgstr "A(z) „%s” DLL nem tölthető be"
+#~ msgid "DLL '%s' could not be loaded"
+#~ msgstr "A(z) „%s” DLL nem tölthető be"
 
-#. Log_Print(_("This version of '%s' contains '%s'"), dllname, procedure);
-#: ../src/win32/win32dep.c:140
-#, c-format
-msgid "This version of '%s' contains '%s'"
-msgstr "A(z) „%s” ezen verziója tartalmazza ezt: „%s”"
+#~ msgid "This version of '%s' contains '%s'"
+#~ msgstr "A(z) „%s” ezen verziója tartalmazza ezt: „%s”"
 
-#. Log_Print(_("Function '%s' not found in dll '%s'"), procedure, dllname);
-#: ../src/win32/win32dep.c:146
-#, c-format
-msgid "Function '%s' not found in DLL '%s'"
-msgstr "A(z) „%s” függvény nem található a(z) „%s” DLL-ben"
+#~ msgid "Function '%s' not found in DLL '%s'"
+#~ msgstr "A(z) „%s” függvény nem található a(z) „%s” DLL-ben"
 
-#. ET_Win32_Path_Replace_Backslashes(app_data_dir);
-#. Log_Print(_("EasyTAG settings directory: '%s'"), app_data_dir);
-#: ../src/win32/win32dep.c:282
-#, c-format
-msgid "EasyTAG settings directory: '%s'"
-msgstr "Az EasyTAG beállítási könyvtára: „%s”"
+#~ msgid "EasyTAG settings directory: '%s'"
+#~ msgstr "Az EasyTAG beállítási könyvtára: „%s”"
 
-#. Log_Print(_("weasytag_init start..."));
-#: ../src/win32/win32dep.c:472
-#, c-format
-msgid "weasytag_init start..."
-msgstr "weasytag_init indul…"
+#~ msgid "weasytag_init start..."
+#~ msgstr "weasytag_init indul…"
 
-#. Log_Print(_("EasyTAG version: %s"),VERSION);
-#. g_print(_("EasyTAG version: %s"),VERSION);
-#. g_print("\n");
-#: ../src/win32/win32dep.c:478
-#, c-format
-msgid "GLib version: %u.%u.%u\n"
-msgstr "GLib verzió: %u.%u.%u\n"
+#~ msgid "GLib version: %u.%u.%u\n"
+#~ msgstr "GLib verzió: %u.%u.%u\n"
 
-#. Set Environmental Variables
-#. Log_Print(_("weasytag_init end..."));
-#: ../src/win32/win32dep.c:496
-#, c-format
-msgid "weasytag_init end..."
-msgstr "weasytag_init vége…"
+#~ msgid "weasytag_init end..."
+#~ msgstr "weasytag_init vége…"
 
 # egyéb menü
-#. Log_Print(_("Audio player: '%s'"), player);
-#: ../src/win32/win32dep.c:620
-#, c-format
-msgid "Audio player: '%s'"
-msgstr "Zenelejátszó: „%s”"
+#~ msgid "Audio player: '%s'"
+#~ msgstr "Zenelejátszó: „%s”"
 
 #~ msgid "The program '%s' cannot be found"
 #~ msgstr "A(z) „%s” program nem található"
