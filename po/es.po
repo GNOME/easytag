@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: easytag-1.99.11\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=easytag&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-03-07 22:43+0000\n"
-"PO-Revision-Date: 2014-03-12 18:19+0100\n"
+"POT-Creation-Date: 2014-03-12 17:21+0000\n"
+"PO-Revision-Date: 2014-03-13 11:00+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -624,11 +624,11 @@ msgstr "_Ayuda"
 
 #: ../src/bar.c:310
 msgid "_Contents"
-msgstr ""
+msgstr "_Contenido"
 
 #: ../src/bar.c:311
 msgid "Show help"
-msgstr ""
+msgstr "Mostrar ayuda"
 
 #: ../src/bar.c:313
 msgid "_About"
@@ -2705,7 +2705,7 @@ msgstr "Comando ejecutado: %s"
 #: ../src/misc.c:806
 #, c-format
 msgid "Failed to launch program: %s"
-msgstr ""
+msgstr "Falló al lanzar el programa: %s"
 
 #: ../src/misc.c:823
 msgid "Select File"
@@ -3136,10 +3136,9 @@ msgid "PNG image"
 msgstr "Imagen PNG"
 
 #: ../src/picture.c:1024
-#, fuzzy
 #| msgid "PNG image"
 msgid "GIF image"
-msgstr "Imagen PNG"
+msgstr "Imagen GIF"
 
 #: ../src/picture.c:1026
 msgid "Unknown image"
