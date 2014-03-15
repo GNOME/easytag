@@ -4125,18 +4125,20 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
 
 #ifdef ENABLE_MP4
         case MP4_TAG:
-            gtk_widget_hide(GTK_WIDGET(DiscNumberLabel));
-            gtk_widget_hide(GTK_WIDGET(DiscNumberEntry));
-            gtk_widget_hide(GTK_WIDGET(ComposerLabel));
-            gtk_widget_hide(GTK_WIDGET(ComposerEntry));
+            gtk_widget_hide (GTK_WIDGET (AlbumArtistLabel));
+            gtk_widget_hide (GTK_WIDGET (AlbumArtistEntry));
+            gtk_widget_show (GTK_WIDGET (DiscNumberLabel));
+            gtk_widget_show (GTK_WIDGET (DiscNumberEntry));
+            gtk_widget_show (GTK_WIDGET (ComposerLabel));
+            gtk_widget_show (GTK_WIDGET (ComposerEntry));
             gtk_widget_hide(GTK_WIDGET(OrigArtistLabel));
             gtk_widget_hide(GTK_WIDGET(OrigArtistEntry));
-            gtk_widget_hide(GTK_WIDGET(CopyrightLabel));
-            gtk_widget_hide(GTK_WIDGET(CopyrightEntry));
+            gtk_widget_show (GTK_WIDGET (CopyrightLabel));
+            gtk_widget_show (GTK_WIDGET (CopyrightEntry));
             gtk_widget_hide(GTK_WIDGET(URLLabel));
             gtk_widget_hide(GTK_WIDGET(URLEntry));
-            gtk_widget_hide(GTK_WIDGET(EncodedByLabel));
-            gtk_widget_hide(GTK_WIDGET(EncodedByEntry));
+            gtk_widget_show (GTK_WIDGET (EncodedByLabel));
+            gtk_widget_show (GTK_WIDGET (EncodedByEntry));
             et_tag_notebook_hide_images_tab (TagNoteBook);
             break;
 #endif

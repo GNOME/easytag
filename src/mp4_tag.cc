@@ -38,21 +38,18 @@
 #include "charset.h"
 
 #include <mp4file.h>
+#include <mp4tag.h>
+#include <tpropertymap.h>
 
 /*
  * Mp4_Tag_Read_File_Tag:
  *
  * Read tag data into an Mp4 file.
- *
- * Note:
- *  - for string fields, //if field is found but contains no info (strlen(str)==0), we don't read it
- *  - for track numbers, if they are zero, then we don't read it
  */
 gboolean Mp4tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
 {
     TagLib::MP4::Tag *tag;
     guint year;
-    guint track;
 
     g_return_val_if_fail (filename != NULL && FileTag != NULL, FALSE);
 
@@ -92,10 +89,23 @@ gboolean Mp4tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
      *********/
     FileTag->album = g_strdup (tag->album ().toCString (true));
 
-    /****************
-     * Album Artist *
-     ****************/
-    /* TODO: No album artist or disc number support in the TagLib C API! */
+    const TagLib::PropertyMap extra_tag = tag->properties ();
+
+    /* Disc number. */
+    /* Total disc number support in TagLib reads multiple disc numbers and
+     * joins them with a "/". */
+    if (extra_tag.contains ("DISCNUMBER"))
+    {
+        const TagLib::StringList disc_numbers = extra_tag["DISCNUMBER"];
+        int offset = disc_numbers.front ().find ("/");
+
+        if (offset != -1)
+        {
+            FileTag->disc_total = et_disc_number_to_string (disc_numbers.front ().substr (offset + 1).toInt ());
+        }
+
+        FileTag->disc_number = et_disc_number_to_string (disc_numbers.front ().toInt ());
+    }
 
     /********
      * Year *
@@ -110,11 +120,18 @@ gboolean Mp4tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     /*************************
      * Track and Total Track *
      *************************/
-    track = tag->track ();
+    if (extra_tag.contains ("TRACKNUMBER"))
+    {
+        const TagLib::StringList track_numbers = extra_tag["TRACKNUMBER"];
+        int offset = track_numbers.front ().find ("/");
 
-    if (track != 0)
-        FileTag->track = et_track_number_to_string (track);
-    /* TODO: No total track support in the TagLib C API! */
+        if (offset != -1)
+        {
+            FileTag->track_total = et_track_number_to_string (track_numbers.front ().substr (offset + 1).toInt ());
+        }
+
+        FileTag->track = et_track_number_to_string (track_numbers.front ().toInt ());
+    }
 
     /*********
      * Genre *
@@ -129,17 +146,32 @@ gboolean Mp4tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     /**********************
      * Composer or Writer *
      **********************/
-    /* TODO: No composer support in the TagLib C API! */
+    if (extra_tag.contains ("COMPOSER"))
+    {
+        const TagLib::StringList composers = extra_tag["COMPOSER"];
+        FileTag->composer = g_strdup (composers.front ().toCString (true));
+    }
+
+    /* Copyright. */
+    if (extra_tag.contains ("COPYRIGHT"))
+    {
+        const TagLib::StringList copyrights = extra_tag["COPYRIGHT"];
+        FileTag->copyright = g_strdup (copyrights.front ().toCString (true));
+    }
 
     /*****************
      * Encoding Tool *
      *****************/
-    /* TODO: No encode_by support in the TagLib C API! */
+    if (extra_tag.contains ("ENCODEDBY"))
+    {
+        const TagLib::StringList encodedbys = extra_tag["ENCODEDBY"];
+        FileTag->encoded_by = g_strdup (encodedbys.front ().toCString (true));
+    }
 
     /***********
      * Picture *
      ***********/
-    /* TODO: No encode_by support in the TagLib C API! */
+    /* FIXME: Add picture support. */
 
     return TRUE;
 }
@@ -149,16 +181,13 @@ gboolean Mp4tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
  * Mp4_Tag_Write_File_Tag:
  *
  * Write tag data into an Mp4 file.
- *
- * Note:
- *  - for track numbers, we write 0's if one or the other is blank
  */
 gboolean Mp4tag_Write_File_Tag (ET_File *ETFile)
 {
     File_Tag *FileTag;
     gchar    *filename;
     gchar    *filename_utf8;
-    TagLib::Tag *tag;
+    TagLib::MP4::Tag *tag;
     gboolean success;
 
     g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL, FALSE);
@@ -186,13 +215,15 @@ gboolean Mp4tag_Write_File_Tag (ET_File *ETFile)
         return FALSE;
     }
 
+    TagLib::PropertyMap fields;
+
     /*********
      * Title *
      *********/
     if (FileTag->title && *(FileTag->title))
     {
         TagLib::String string (FileTag->title, TagLib::String::UTF8);
-        tag->setTitle (string);
+        fields.insert ("TITLE", string);
     }
 
     /**********
@@ -201,7 +232,7 @@ gboolean Mp4tag_Write_File_Tag (ET_File *ETFile)
     if (FileTag->artist && *(FileTag->artist))
     {
         TagLib::String string (FileTag->artist, TagLib::String::UTF8);
-        tag->setArtist (string);
+        fields.insert ("ARTIST", string);
     }
 
     /*********
@@ -210,23 +241,61 @@ gboolean Mp4tag_Write_File_Tag (ET_File *ETFile)
     if (FileTag->album && *(FileTag->album))
     {
         TagLib::String string (FileTag->album, TagLib::String::UTF8);
-        tag->setAlbum (string);
+        fields.insert ("ALBUM", string);
+    }
+
+    /* Album artist. */
+    /* TODO: No album artist support in TagLib. */
+
+    /* Disc number. */
+    if (FileTag->disc_number && *(FileTag->disc_number))
+    {
+        if (FileTag->disc_total && *(FileTag->disc_total))
+        {
+            gchar *str;
+
+            str = g_strconcat (FileTag->disc_number, "/", FileTag->disc_total,
+                               NULL);
+            TagLib::String string (str, TagLib::String::UTF8);
+            fields.insert ("DISCNUMBER", string);
+            g_free (str);
+        }
+        else
+        {
+            TagLib::String string (FileTag->disc_number, TagLib::String::UTF8);
+            fields.insert ("DISCNUMBER", string);
+        }
     }
 
     /********
      * Year *
      ********/
-    if (FileTag->year)
+    if (FileTag->year && *(FileTag->year))
     {
-        tag->setYear (atoi (FileTag->year));
+        TagLib::String string (FileTag->year, TagLib::String::UTF8);
+        fields.insert ("DATE", string);
     }
 
     /*************************
      * Track and Total Track *
      *************************/
-    if (FileTag->track)
+    if (FileTag->track && *(FileTag->track))
     {
-        tag->setTrack (atoi (FileTag->track));
+        if (FileTag->track_total && *(FileTag->track_total))
+        {
+            gchar *str;
+
+            str = g_strconcat (FileTag->track, "/", FileTag->track_total,
+                               NULL);
+            TagLib::String string (str, TagLib::String::UTF8);
+            fields.insert ("TRACKNUMBER", string);
+            g_free (str);
+        }
+        else
+        {
+            TagLib::String string (FileTag->track, TagLib::String::UTF8);
+            fields.insert ("TRACKNUMBER", string);
+        }
     }
 
     /*********
@@ -235,7 +304,7 @@ gboolean Mp4tag_Write_File_Tag (ET_File *ETFile)
     if (FileTag->genre && *(FileTag->genre))
     {
         TagLib::String string (FileTag->genre, TagLib::String::UTF8);
-        tag->setGenre (string);
+        fields.insert ("GENRE", string);
     }
 
     /***********
@@ -244,21 +313,40 @@ gboolean Mp4tag_Write_File_Tag (ET_File *ETFile)
     if (FileTag->comment && *(FileTag->comment))
     {
         TagLib::String string (FileTag->comment, TagLib::String::UTF8);
-        tag->setComment (string);
+        fields.insert ("COMMENT", string);
     }
 
     /**********************
      * Composer or Writer *
      **********************/
+    if (FileTag->composer && *(FileTag->composer))
+    {
+        TagLib::String string (FileTag->composer, TagLib::String::UTF8);
+        fields.insert ("COMPOSER", string);
+    }
+
+    /* Copyright. */
+    if (FileTag->copyright && *(FileTag->copyright))
+    {
+        TagLib::String string (FileTag->copyright, TagLib::String::UTF8);
+        fields.insert ("COPYRIGHT", string);
+    }
 
     /*****************
      * Encoding Tool *
      *****************/
+    if (FileTag->encoded_by && *(FileTag->encoded_by))
+    {
+        TagLib::String string (FileTag->encoded_by, TagLib::String::UTF8);
+        fields.insert ("ENCODEDBY", string);
+    }
 
     /***********
      * Picture *
      ***********/
 
+    /* FIXME: Add picture support. */
+    tag->setProperties (fields);
     success = mp4file.save () ? TRUE : FALSE;
 
     return success;
