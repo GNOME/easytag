@@ -3748,10 +3748,12 @@ void Update_Command_Buttons_Sensivity (void)
                                  AM_SCANNER_RENAME_FILE, FALSE);
         ui_widget_set_sensitive (MENU_SCANNER_PATH,
                                  AM_SCANNER_PROCESS_FIELDS, FALSE);
+        ui_widget_set_sensitive (MENU_VIEW, AM_ARTIST_VIEW_MODE, FALSE);
 
         return;
     }else
     {
+        GtkWidget *artist_radio = NULL;
         GList *selfilelist = NULL;
         ET_File *etfile;
         gboolean has_undo = FALSE;
@@ -3817,6 +3819,7 @@ void Update_Command_Buttons_Sensivity (void)
                                  AM_SCANNER_RENAME_FILE, TRUE);
         ui_widget_set_sensitive (MENU_SCANNER_PATH,
                                  AM_SCANNER_PROCESS_FIELDS, TRUE);
+        ui_widget_set_sensitive (MENU_VIEW, AM_ARTIST_VIEW_MODE, TRUE);
 
         /* Check if one of the selected files has undo or redo data */
         if (BrowserList)
@@ -3871,6 +3874,20 @@ void Update_Command_Buttons_Sensivity (void)
             ui_widget_set_sensitive (MENU_EDIT, AM_REDO_HISTORY, TRUE);
         else
             ui_widget_set_sensitive (MENU_EDIT, AM_REDO_HISTORY, FALSE);
+
+        artist_radio = gtk_ui_manager_get_widget (UIManager,
+                                                  "/ToolBar/ArtistViewMode");
+
+        if (gtk_toggle_tool_button_get_active (GTK_TOGGLE_TOOL_BUTTON (artist_radio)))
+        {
+            ui_widget_set_sensitive (MENU_VIEW, AM_COLLAPSE_TREE, FALSE);
+            ui_widget_set_sensitive (MENU_VIEW, AM_INITIALIZE_TREE, FALSE);
+        }
+        else
+        {
+            ui_widget_set_sensitive (MENU_VIEW, AM_COLLAPSE_TREE, TRUE);
+            ui_widget_set_sensitive (MENU_VIEW, AM_INITIALIZE_TREE, TRUE);
+        }
     }
 
     if (!ETCore->ETFileDisplayedList->prev)    /* Is it the 1st item ? */
