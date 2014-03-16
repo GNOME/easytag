@@ -3053,8 +3053,8 @@ et_rename_file (const char *old_filepath, const char *new_filepath,
     g_object_unref (file_new_parent);
 
     /* Move the file. */
-    if (!g_file_move (file_old, file_new, G_FILE_COPY_OVERWRITE, NULL, NULL,
-                      NULL, error))
+    if (!g_file_move (file_old, file_new, G_FILE_COPY_NONE, NULL, NULL, NULL,
+                      error))
     {
         /* Error moving file. */
         g_object_unref (file_old);
