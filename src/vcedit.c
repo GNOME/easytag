@@ -487,18 +487,26 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
     char *buffer;
     int bytes;
     int needflush=0, needout=0;
-    GFileOutputStream *ostream;
+    GOutputStream *ostream;
+    gchar *buf;
+    gsize size;
+    GFileInfo *fileinfo;
 
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-    ostream = g_file_replace (file, NULL, FALSE, G_FILE_CREATE_NONE,
-                              NULL, error);
-
-    if (!ostream)
+    fileinfo = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_SIZE,
+                                  G_FILE_QUERY_INFO_NONE, NULL, error);
+    if (!fileinfo)
     {
         g_assert (error == NULL || *error != NULL);
         return FALSE;
     }
+
+    buf = g_malloc (g_file_info_get_size (fileinfo));
+    ostream = g_memory_output_stream_new (buf,
+                                          g_file_info_get_size (fileinfo),
+                                          g_realloc, g_free);
+    g_object_unref (fileinfo);
 
     state->eosin = 0;
     state->extrapage = 0;
@@ -529,9 +537,9 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
     {
         gsize bytes_written;
 
-        if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
-                                        ogout.header, ogout.header_len,
-                                        &bytes_written, NULL, error))
+        if (!g_output_stream_write_all (ostream, ogout.header,
+                                        ogout.header_len, &bytes_written, NULL,
+                                        error))
         {
             g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %ld bytes of data "
                      "were written", bytes_written, ogout.header_len);
@@ -539,9 +547,8 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
             goto cleanup;
         }
 
-        if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream), ogout.body,
-                                        ogout.body_len, &bytes_written, NULL,
-                                        error))
+        if (!g_output_stream_write_all (ostream, ogout.body, ogout.body_len,
+                                        &bytes_written, NULL, error))
         {
             g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %ld bytes of data "
                      "were written", bytes_written, ogout.body_len);
@@ -556,9 +563,9 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
         {
             gsize bytes_written;
 
-            if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
-                                            ogout.header, ogout.header_len,
-                                            &bytes_written, NULL, error))
+            if (!g_output_stream_write_all (ostream, ogout.header,
+                                            ogout.header_len, &bytes_written,
+                                            NULL, error))
             {
                 g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %ld bytes of "
                          "data were written", bytes_written, ogout.header_len);
@@ -566,9 +573,9 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
                 goto cleanup;
             }
 
-            if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
-                                            ogout.body, ogout.body_len,
-                                            &bytes_written, NULL, error))
+            if (!g_output_stream_write_all (ostream, ogout.body,
+                                            ogout.body_len, &bytes_written,
+                                            NULL, error))
             {
                 g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %ld bytes of "
                          "data were written", bytes_written, ogout.body_len);
@@ -582,8 +589,8 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
             {
                 gsize bytes_written;
 
-                if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
-                                                ogout.header, ogout.header_len,
+                if (!g_output_stream_write_all (ostream, ogout.header,
+                                                ogout.header_len,
                                                 &bytes_written, NULL, error))
                 {
                     g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %ld bytes "
@@ -593,9 +600,9 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
                     goto cleanup;
                 }
 
-                if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
-                                                ogout.body, ogout.body_len,
-                                                &bytes_written, NULL, error))
+                if (!g_output_stream_write_all (ostream, ogout.body,
+                                                ogout.body_len, &bytes_written,
+                                                NULL, error))
                 {
                     g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %ld bytes "
                              "of data were written", bytes_written,
@@ -664,9 +671,9 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
     {
         gsize bytes_written;
 
-        if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
-                                        ogout.header, ogout.header_len,
-                                        &bytes_written, NULL, error))
+        if (!g_output_stream_write_all (ostream, ogout.header,
+                                        ogout.header_len, &bytes_written, NULL,
+                                        error))
         {
             g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %ld bytes of data "
                      "were written", bytes_written, ogout.header_len);
@@ -674,9 +681,8 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
             goto cleanup;
         }
 
-        if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream), ogout.body,
-                                        ogout.body_len, &bytes_written, NULL,
-                                        error))
+        if (!g_output_stream_write_all (ostream, ogout.body, ogout.body_len,
+                                        &bytes_written, NULL, error))
         {
             g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %ld bytes of data "
                      "were written", bytes_written, ogout.body_len);
@@ -689,9 +695,9 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
     {
         gsize bytes_written;
 
-        if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
-                                        ogout.header, ogout.header_len,
-                                        &bytes_written, NULL, error))
+        if (!g_output_stream_write_all (ostream, ogout.header,
+                                        ogout.header_len, &bytes_written, NULL,
+                                        error))
         {
             g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %ld bytes of data "
                      "were written", bytes_written, ogout.header_len);
@@ -699,9 +705,8 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
             goto cleanup;
         }
 
-        if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream), ogout.body,
-                                        ogout.body_len, &bytes_written, NULL,
-                                        error))
+        if (!g_output_stream_write_all (ostream, ogout.body, ogout.body_len,
+                                        &bytes_written, NULL, error))
         {
             g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %ld bytes of data "
                      "were written", bytes_written, ogout.body_len);
@@ -732,17 +737,17 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
 
                 /* Don't bother going through the rest, we can just
                  * write the page out now */
-                if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
-                                                ogout.header, ogout.header_len,
+                if (!g_output_stream_write_all (ostream, ogout.header,
+                                                ogout.header_len,
                                                 &bytes_written, NULL, error))
                 {
                     g_assert (error == NULL || *error != NULL);
                     goto cleanup;
                 }
 
-                if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
-                                                ogout.body, ogout.body_len,
-                                                &bytes_written, NULL, error))
+                if (!g_output_stream_write_all (ostream, ogout.body,
+                                                ogout.body_len, &bytes_written,
+                                                NULL, error))
                 {
                     g_assert (error == NULL || *error != NULL);
                     goto cleanup;
@@ -786,12 +791,39 @@ cleanup:
         }
     }
 
-    g_object_unref (ostream);
-
     if (error == NULL || *error != NULL)
+    {
+        g_object_unref (ostream);
         return FALSE;
+    }
 
     g_assert (error == NULL || *error == NULL);
+
+    if (!g_output_stream_close (ostream, NULL, error))
+    {
+        g_object_unref (ostream);
+        g_assert (error == NULL || *error != NULL);
+        return FALSE;
+    }
+
+    g_assert (error == NULL || *error == NULL);
+
+    buf = g_memory_output_stream_steal_data (G_MEMORY_OUTPUT_STREAM (ostream));
+    size = g_memory_output_stream_get_data_size (G_MEMORY_OUTPUT_STREAM (ostream));
+
+    /* Write the in-memory data back out to the original file. */
+    if (!g_file_replace_contents (file, buf, size, NULL, FALSE,
+                                  G_FILE_CREATE_NONE, NULL, NULL, error))
+    {
+       g_object_unref (ostream);
+       g_free (buf);
+       g_assert (error == NULL || *error != NULL);
+       return FALSE;
+    }
+
+    g_free (buf);
+    g_object_unref (ostream);
+
     return TRUE;
 }
 
