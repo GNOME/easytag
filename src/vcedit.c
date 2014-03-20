@@ -561,26 +561,29 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
     {
         if(needflush)
         {
-            gsize bytes_written;
-
-            if (!g_output_stream_write_all (ostream, ogout.header,
-                                            ogout.header_len, &bytes_written,
-                                            NULL, error))
+            if (ogg_stream_flush (&streamout, &ogout))
             {
-                g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %ld bytes of "
-                         "data were written", bytes_written, ogout.header_len);
-                g_assert (error == NULL || *error != NULL);
-                goto cleanup;
-            }
+                gsize bytes_written;
 
-            if (!g_output_stream_write_all (ostream, ogout.body,
-                                            ogout.body_len, &bytes_written,
-                                            NULL, error))
-            {
-                g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %ld bytes of "
-                         "data were written", bytes_written, ogout.body_len);
-                g_assert (error == NULL || *error != NULL);
-                goto cleanup;
+                if (!g_output_stream_write_all (ostream, ogout.header,
+                                                ogout.header_len, &bytes_written,
+                                                NULL, error))
+                {
+                    g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %ld bytes of "
+                             "data were written", bytes_written, ogout.header_len);
+                    g_assert (error == NULL || *error != NULL);
+                    goto cleanup;
+                }
+
+                if (!g_output_stream_write_all (ostream, ogout.body,
+                                                ogout.body_len, &bytes_written,
+                                                NULL, error))
+                {
+                    g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %ld bytes of "
+                             "data were written", bytes_written, ogout.body_len);
+                    g_assert (error == NULL || *error != NULL);
+                    goto cleanup;
+                }
             }
         }
         else if(needout)
