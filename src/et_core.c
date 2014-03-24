@@ -58,6 +58,10 @@
 #   include "wavpack_header.h"
 #   include "wavpack_tag.h"
 #endif
+#ifdef ENABLE_OPUS
+#include "opus_tag.h"
+#include "opus_header.h"
+#endif
 #include "bar.h"
 #include "browser.h"
 #include "log.h"
@@ -463,6 +467,8 @@ GList *ET_Add_File_To_File_List (gchar *filename)
     if (!filename)
         return ETCore->ETFileList;
 
+    file = g_file_new_for_path (filename);
+
     /* Primary Key for this file */
     ETFileKey = ET_File_Key_New();
 
@@ -525,6 +531,17 @@ GList *ET_Add_File_To_File_List (gchar *filename)
             Wavpack_Tag_Read_File_Tag(filename, FileTag);
         break;
 #endif
+#ifdef ENABLE_OPUS
+        case OPUS_TAG:
+            if (!et_opus_tag_read_file_tag (file, FileTag, &error))
+            {
+                Log_Print (LOG_ERROR,
+                           _("Error reading tag from Opus file (%s)"),
+                           error->message);
+                g_clear_error (&error);
+            }
+            break;
+#endif
         case UNKNOWN_TAG:
         default:
             Log_Print(LOG_ERROR,"FileTag: Undefined tag type (%d) for file %s",ETFileDescription->TagType,filename_utf8);
@@ -573,6 +590,16 @@ GList *ET_Add_File_To_File_List (gchar *filename)
             Mp4_Header_Read_File_Info(filename,ETFileInfo);
             break;
 #endif
+#ifdef ENABLE_OPUS
+        case OPUS_FILE:
+            if (!et_opus_read_file_info (file, ETFileInfo, &error))
+            {
+                Log_Print (LOG_ERROR, _("Error while querying information for file: '%s' (%s)"),
+                           filename_utf8, error->message);
+                g_error_free (error);
+            }
+            break;
+#endif
         case UNKNOWN_FILE:
         default:
             Log_Print(LOG_ERROR,"ETFileInfo: Undefined file type (%d) for file %s",ETFileDescription->FileType,filename_utf8);
@@ -592,7 +619,6 @@ GList *ET_Add_File_To_File_List (gchar *filename)
 
     /* Store the modification time of the file to check if the file was changed
      * before saving */
-    file = g_file_new_for_path (filename);
     fileinfo = g_file_query_info (file, G_FILE_ATTRIBUTE_TIME_MODIFIED,
                                   G_FILE_QUERY_INFO_NONE, NULL, NULL);
     g_object_unref (file);
@@ -2652,6 +2678,9 @@ void ET_Display_File_Data_To_UI (ET_File *ETFile)
     gchar *cur_filename;
     gchar *cur_filename_utf8;
     gchar *msg;
+#ifdef ENABLE_OPUS
+    GFile *file;
+#endif
 
     g_return_if_fail (ETFile != NULL &&
                       ((GList *)ETFile->FileNameCur)->data != NULL);
@@ -2705,6 +2734,12 @@ void ET_Display_File_Data_To_UI (ET_File *ETFile)
         case WAVPACK_TAG:
             gtk_frame_set_label(GTK_FRAME(TagFrame),_("Wavpack Tag"));
             ET_Display_File_Tag_To_UI(ETFile);
+            break;
+#endif
+#ifdef ENABLE_OPUS
+        case OPUS_TAG:
+            gtk_frame_set_label (GTK_FRAME (TagFrame), _("Opus Tag"));
+            ET_Display_File_Tag_To_UI (ETFile);
             break;
 #endif
         case UNKNOWN_TAG:
@@ -2767,6 +2802,14 @@ void ET_Display_File_Data_To_UI (ET_File *ETFile)
         case WAVPACK_FILE:
             gtk_frame_set_label(GTK_FRAME(FileFrame),_("Wavpack File"));
             Wavpack_Header_Display_File_Info_To_UI(cur_filename,ETFile->ETFileInfo);
+            break;
+#endif
+#ifdef ENABLE_OPUS
+        case OPUS_FILE:
+            gtk_frame_set_label (GTK_FRAME (FileFrame), _("Opus File"));
+            file = g_file_new_for_path (cur_filename);
+            et_opus_header_display_file_info_to_ui (file, ETFile->ETFileInfo);
+            g_object_unref (file);
             break;
 #endif
         case UNKNOWN_FILE:
@@ -3267,6 +3310,9 @@ void ET_Save_File_Data_From_UI (ET_File *ETFile)
 #endif
 #ifdef ENABLE_WAVPACK
         case WAVPACK_TAG:
+#endif
+#ifdef ENABLE_OPUS
+        case OPUS_TAG:
 #endif
         case APE_TAG:
             ET_Save_File_Tag_From_UI(FileTag);

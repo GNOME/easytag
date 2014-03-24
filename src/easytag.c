@@ -4070,6 +4070,24 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
             break;
 #endif
 
+#ifdef ENABLE_OPUS
+        case OPUS_TAG:
+            gtk_widget_show (GTK_WIDGET (DiscNumberLabel));
+            gtk_widget_show (GTK_WIDGET (DiscNumberEntry));
+            gtk_widget_show (GTK_WIDGET (ComposerLabel));
+            gtk_widget_show (GTK_WIDGET (ComposerEntry));
+            gtk_widget_show (GTK_WIDGET (OrigArtistLabel));
+            gtk_widget_show (GTK_WIDGET (OrigArtistEntry));
+            gtk_widget_show (GTK_WIDGET (CopyrightLabel));
+            gtk_widget_show (GTK_WIDGET (CopyrightEntry));
+            gtk_widget_show (GTK_WIDGET (URLLabel));
+            gtk_widget_show (GTK_WIDGET (URLEntry));
+            gtk_widget_show (GTK_WIDGET (EncodedByLabel));
+            gtk_widget_show (GTK_WIDGET (EncodedByEntry));
+            et_tag_notebook_show_images_tab (TagNoteBook);
+            break;
+#endif
+
 #ifdef ENABLE_FLAC
         case FLAC_TAG:
             gtk_widget_show(GTK_WIDGET(DiscNumberLabel));

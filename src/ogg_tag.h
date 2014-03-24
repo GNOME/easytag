@@ -24,6 +24,7 @@
 
 
 #include <glib.h>
+#include "vcedit.h"
 #include "et_core.h"
 
 /**************
@@ -32,6 +33,8 @@
 gboolean ogg_tag_read_file_tag (gchar *filename, File_Tag *FileTag,
                                 GError **error);
 gboolean ogg_tag_write_file_tag (ET_File *ETFile, GError **error);
-
+void
+et_add_file_tags_from_vorbis_comments (vorbis_comment *vc, File_Tag *FileTag,
+                                       const gchar *filename_utf8);
 
 #endif /* __OGG_TAG_H__ */

@@ -107,6 +107,7 @@ typedef enum
     SPEEX_FILE,      // Speech audio files        : .spx
     OFR_FILE,        // OptimFROG (lossless)      : .ofr .ofs
     WAVPACK_FILE,    // Wavpack (lossless)        : .wv
+    OPUS_FILE, /* Ogg Opus File: .opus */
     UNKNOWN_FILE
 } ET_File_Type;
 
@@ -122,6 +123,7 @@ typedef enum
     FLAC_TAG,
     MP4_TAG,
     WAVPACK_TAG,
+    OPUS_TAG,
     UNKNOWN_TAG
 } ET_Tag_Type;
 
@@ -227,6 +229,9 @@ static const ET_File_Description ETFileDescription[] =
 #ifdef ENABLE_MP3
     {MP3_FILE,     ".mp3",  ID3_TAG},
     {MP2_FILE,     ".mp2",  ID3_TAG},
+#endif
+#ifdef ENABLE_OPUS
+    { OPUS_FILE, ".opus", OPUS_TAG},
 #endif
 #ifdef ENABLE_OGG
     {OGG_FILE,     ".ogg",  OGG_TAG},

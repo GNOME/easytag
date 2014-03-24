@@ -115,6 +115,9 @@ AC_ARG_ENABLE([id3v23],
 AC_ARG_ENABLE([ogg],
               [AS_HELP_STRING([--disable-ogg], [Disable support for Ogg Vorbis files (default=auto)])])
 
+AC_ARG_ENABLE([opus],
+              [AS_HELP_STRING([--disable-opus], [Disable support for Opus Vorbis files (default=auto)])])
+
 AC_ARG_ENABLE([speex],
               [AS_HELP_STRING([--disable-speex], [Disable support for Ogg Speex files (default=auto)])])
 
@@ -174,6 +177,21 @@ AS_IF([test "x$have_ogg" != "xno"],
       [OGG_DEPS=""
        AS_IF([test "x$enable_ogg" = "xyes"],
              [AC_MSG_ERROR([OGG Vorbis support requested but required dependencies ($OGG_DEPS) not found])])])
+
+dnl ################################################
+dnl # Opus libraries
+dnl ################################################
+
+OPUS_DEPS="opus >= 1.0 opusfile"
+AS_IF([test "x$enable_opus" != "xno"],
+      [PKG_CHECK_EXISTS([$OPUS_DEPS], [have_opus=yes], [have_opus=no])],
+      [have_opus=no])
+
+AS_IF([test "x$have_opus" != "xno"],
+      [AC_DEFINE([ENABLE_OPUS], [], [Define for Ogg Opus support])],
+      [OPUS_DEPS=""
+       AS_IF([test "x$enable_opus" = "xyes"],
+             [AC_MSG_ERROR([Opus support requested but required dependencies ($OPUS_DEPS) not found])])])
 
 dnl ################################################
 dnl # libSpeex library
@@ -284,7 +302,7 @@ AS_IF([test "x$have_wavpack" != "xno"],
 
 dnl Check the pkg-config dependencies
 GIO_DEPS="gio-2.0 >= 2.32.0" dnl For g_file_new_tmp()
-PKG_CHECK_MODULES([EASYTAG], [$GIO_DEPS $GTK_DEPS $OGG_DEPS $SPEEX_DEPS $FLAC_DEPS $ID3TAG_DEPS $TAGLIB_DEPS $WAVPACK_DEPS])
+PKG_CHECK_MODULES([EASYTAG], [$GIO_DEPS $GTK_DEPS $OPUS_DEPS $OGG_DEPS $SPEEX_DEPS $FLAC_DEPS $ID3TAG_DEPS $TAGLIB_DEPS $WAVPACK_DEPS])
 
 dnl Check for winsock
 AC_SEARCH_LIBS([gethostbyname], [nsl socket], [],
@@ -363,6 +381,7 @@ echo MP3 file support ........: $have_mp3
 echo ID3v2.3 tags support ....: $have_id3lib $ID3LIB_VERSION
 echo Ogg Vorbis file support .: $have_ogg
 echo Ogg Speex file support ..: $have_speex
+echo Ogg Opus file support ...: $have_opus
 echo FLAC file support .......: $have_flac
 echo MP4 file support ........: $have_taglib
 echo WavPack support .........: $have_wavpack

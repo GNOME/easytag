@@ -22,6 +22,7 @@ src/mpeg_header.c
 src/musepack_header.c
 src/ogg_header.c
 src/ogg_tag.c
+src/opus_header.c
 src/picture.c
 src/prefs.c
 src/scan.c

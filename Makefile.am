@@ -5,6 +5,7 @@ DISTCHECK_CONFIGURE_FLAGS = \
 	--enable-flac \
 	--enable-id3v23 \
 	--enable-ogg \
+	--enable-opus \
 	--enable-man \
 	--enable-mp3 \
 	--enable-mp4 \
@@ -59,6 +60,8 @@ easytag_SOURCES = \
 	src/musepack_header.c \
 	src/ogg_header.c \
 	src/ogg_tag.c \
+	src/opus_header.c \
+	src/opus_tag.c \
 	src/picture.c \
 	src/prefs.c \
 	src/scan.c \
@@ -98,6 +101,8 @@ easytag_headers = \
 	src/musepack_header.h \
 	src/ogg_header.h \
 	src/ogg_tag.h \
+	src/opus_header.h \
+	src/opus_tag.h \
 	src/picture.h \
 	src/prefs.h \
 	src/scan.h \
