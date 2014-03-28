@@ -24,8 +24,7 @@
 
 #include <gtk/gtk.h>
 
-//#include "et_core.h"
-
+G_BEGIN_DECLS
 
 /*
  * Types of errors
@@ -51,5 +50,6 @@ void       Log_Clean_Log_List   (void);
 void Log_Print (Log_Error_Type error_type,
                 gchar const *format, ...) G_GNUC_PRINTF (2, 3);
 
+G_END_DECLS
 
 #endif /* __LOG_H__ */

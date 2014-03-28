@@ -26,16 +26,14 @@
 
 #include "et_core.h"
 
-/****************
- * Declarations *
- ****************/
-
-
+G_BEGIN_DECLS
 
 /**************
  * Prototypes *
  **************/
 gboolean Mp4tag_Read_File_Tag  (gchar *filename, File_Tag *FileTag);
 gboolean Mp4tag_Write_File_Tag (ET_File *ETFile);
+
+G_END_DECLS
 
 #endif /* __MP4_TAG_H__ */

@@ -27,21 +27,18 @@
 #include <gdk/gdk.h>
 #include <config.h> // For definition of ENABLE_OGG, ...
 
-
-/***************
- * Declaration *
- ***************/
+G_BEGIN_DECLS
 
 /*
  * Colors Used (see declaration into et_core.c)
  */
-GdkColor LIGHT_BLUE;
-GdkColor RED;
-GdkColor LIGHT_RED;
-GdkColor GREY;
-GdkColor LIGHT_GREY;
-GdkColor YELLOW;
-GdkColor BLACK;
+extern GdkColor LIGHT_BLUE;
+extern GdkColor RED;
+extern GdkColor LIGHT_RED;
+extern GdkColor GREY;
+extern GdkColor LIGHT_GREY;
+extern GdkColor YELLOW;
+extern GdkColor BLACK;
 
 
 /*
@@ -332,7 +329,7 @@ struct _ET_Core
     GList *ETHistoryFileList;           // History list of files changes for undo/redo actions
 };
 
-ET_Core *ETCore;    // Main pointer to structure needed by EasyTAG
+extern ET_Core *ETCore; /* Main pointer to structure needed by EasyTAG. */
 
 
 
@@ -446,5 +443,6 @@ gint ET_Comp_Func_Sort_File_By_Descending_File_Bitrate    (ET_File *ETFile1, ET_
 gint ET_Comp_Func_Sort_File_By_Ascending_File_Samplerate  (ET_File *ETFile1, ET_File *ETFile2);
 gint ET_Comp_Func_Sort_File_By_Descending_File_Samplerate (ET_File *ETFile1, ET_File *ETFile2);
 
+G_END_DECLS
 
 #endif /* __ET_CORE_H__ */

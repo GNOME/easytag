@@ -24,9 +24,7 @@
 
 #include <gtk/gtk.h>
 
-/***************
- * Declaration *
- ***************/
+G_BEGIN_DECLS
 
 typedef struct
 {
@@ -61,5 +59,6 @@ gchar *Charset_Get_Name_From_Title (const gchar *charset_title);
 void Charset_Insert_Locales_Init    (void);
 void Charset_Insert_Locales_Destroy (void);
 
+G_END_DECLS
 
 #endif /* __CHARSET_H__ */

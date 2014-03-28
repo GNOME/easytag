@@ -24,9 +24,7 @@
 
 #include <gtk/gtk.h>
 
-/***************
- * Declaration *
- ***************/
+G_BEGIN_DECLS
 
 GtkWidget *playlist_use_mask_name;
 GtkWidget *playlist_use_dir_name;
@@ -109,5 +107,7 @@ gchar * et_disc_number_to_string (const guint disc_number);
 gchar * et_track_number_to_string (const guint track_number);
 
 void et_on_child_exited (GPid pid, gint status, gpointer user_data);
+
+G_END_DECLS
 
 #endif /* __MISC_H__ */
