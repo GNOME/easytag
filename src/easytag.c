@@ -474,7 +474,6 @@ on_application_open (GApplication *application, GFile **files, gint n_files,
                     Browser_Tree_Select_Dir (parent_path);
 
                     g_free (parent_path);
-                    g_free (path_utf8);
                 }
                 else
                 {
