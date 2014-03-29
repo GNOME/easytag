@@ -985,10 +985,15 @@ Browser_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
         // Returns the last line selected (in ascending line order) to display the item
         lastSelected = (GtkTreePath *)g_list_last(selectedRows)->data;
         if (gtk_tree_model_get_iter(GTK_TREE_MODEL(fileListModel), &lastFile, lastSelected))
-            gtk_tree_model_get(GTK_TREE_MODEL(fileListModel), &lastFile,
-                               LIST_FILE_POINTER, &fileETFile, -1);
-
-        Action_Select_Nth_File_By_Etfile(fileETFile);
+        {
+            gtk_tree_model_get (GTK_TREE_MODEL(fileListModel), &lastFile,
+                                LIST_FILE_POINTER, &fileETFile, -1);
+            Action_Select_Nth_File_By_Etfile (fileETFile);
+        }
+        else
+        {
+            g_warning ("%s", "Error getting iter from last path in selection");
+        }
     }else
     {
         // The real last selected line
