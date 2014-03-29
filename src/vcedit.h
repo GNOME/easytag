@@ -19,6 +19,11 @@ extern "C" {
 #include <ogg/ogg.h>
 #include <vorbis/codec.h>
 
+#ifdef ENABLE_OPUS
+#include <opus/opus.h>
+#include <opus/opusfile.h>
+#endif
+
 #ifdef ENABLE_SPEEX
 #include <speex/speex.h>
 #include <speex/speex_header.h>
@@ -27,6 +32,7 @@ extern "C" {
 #define VCEDIT_IS_UNKNOWN   0
 #define VCEDIT_IS_SPEEX     1
 #define VCEDIT_IS_OGGVORBIS 2
+#define VCEDIT_IS_OPUS      3
 
 typedef struct {
     ogg_sync_state      *oy;
@@ -38,7 +44,9 @@ typedef struct {
 #ifdef ENABLE_SPEEX
     SpeexHeader         *si;
 #endif
-
+#ifdef ENABLE_OPUS
+    OpusHead            *oi;
+#endif
     GFileInputStream    *in;
     long        serial;
     unsigned char   *mainbuf;

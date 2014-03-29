@@ -4011,6 +4011,11 @@ gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile)
             state = Wavpack_Tag_Write_File_Tag(ETFile);
             break;
 #endif
+#ifdef ENABLE_OPUS
+        case OPUS_TAG:
+            state = ogg_tag_write_file_tag (ETFile, &error);
+            break;
+#endif
         case UNKNOWN_TAG:
         default:
             Log_Print(LOG_ERROR,"Saving to HD: Undefined function for tag type '%d' (file %s).",

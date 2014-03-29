@@ -36,5 +36,6 @@ gboolean ogg_tag_write_file_tag (ET_File *ETFile, GError **error);
 void
 et_add_file_tags_from_vorbis_comments (vorbis_comment *vc, File_Tag *FileTag,
                                        const gchar *filename_utf8);
-
+void
+et_add_vorbis_comments_from_file_tags (vorbis_comment *vc, File_Tag *FileTag);
 #endif /* __OGG_TAG_H__ */

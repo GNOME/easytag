@@ -66,6 +66,13 @@ static void vcedit_clear_internals(vcedit_state *state)
         vorbis_info_clear(state->vi);
         free(state->vi);
     }
+#ifdef ENABLE_OPUS
+    if (state->oi)
+    {
+        g_free (state->oi);
+    }
+#endif /* ENABLE_OPUS */
+
     g_object_unref (state->in);
     memset(state, 0, sizeof(*state));
 }
@@ -104,6 +111,12 @@ static int _commentheader_out(vcedit_state *state, ogg_packet *op)
         oggpack_write(&opb,0x03,8);
         _v_writestring(&opb,"vorbis", 6);
     }
+#ifdef ENABLE_OPUS
+    else if (state->oggtype == VCEDIT_IS_OPUS)
+    {
+        _v_writestring (&opb, "OpusTags", 8);
+    }
+#endif
 
     /* vendor */
     oggpack_write(&opb,strlen(vendor),32);
@@ -351,16 +364,29 @@ vcedit_open(vcedit_state *state, GFile *file, GError **error)
     {
         state->oggtype = VCEDIT_IS_OGGVORBIS;
     }
-#ifdef ENABLE_SPEEX
     else
     {
+#ifdef ENABLE_SPEEX
         // Done after "Ogg test" to avoid to display an error message in function
         // speex_packet_to_header when the file is not Speex.
         state->si = malloc(sizeof(SpeexHeader));
         if((state->si = speex_packet_to_header((char*)(&header_main)->packet,(&header_main)->bytes)))
             state->oggtype = VCEDIT_IS_SPEEX;
-    }
 #endif
+#ifdef ENABLE_OPUS
+        if (state->oggtype == VCEDIT_IS_UNKNOWN)
+        {
+            state->oi = g_malloc (sizeof (OpusHead));
+
+            if (opus_head_parse (state->oi,
+                                 (unsigned char*)(&header_main)->packet,
+                                 (&header_main)->bytes) == 0)
+            {
+                state->oggtype = VCEDIT_IS_OPUS;
+            }
+        }
+#endif
+    }
 
     if (state->oggtype == VCEDIT_IS_UNKNOWN)
     {
@@ -380,6 +406,11 @@ vcedit_open(vcedit_state *state, GFile *file, GError **error)
             header = &header_comments;
             headerpackets = 2 + state->si->extra_headers;
             break;
+#endif
+#ifdef ENABLE_OPUS
+        case VCEDIT_IS_OPUS:
+            header = &header_comments;
+            headerpackets = 2;
 #endif
     }
     i = 1;
@@ -434,6 +465,35 @@ vcedit_open(vcedit_state *state, GFile *file, GError **error)
                                     goto err;
                                     break;
                             }
+                            break;
+#ifdef ENABLE_OPUS
+                        case VCEDIT_IS_OPUS:
+                            switch (opus_tags_parse ((OpusTags *)state->vc,
+                                                     header->packet,
+                                                     header->bytes))
+                            {
+                                case OP_ENOTFORMAT:
+                                    g_set_error (error, ET_OGG_ERROR,
+                                                 ET_OGG_ERROR_HEADER,
+                                                 "Ogg Opus tags do not start with \"OpusTags\"");
+                                    goto err;
+                                    break;
+
+                                case OP_EFAULT:
+                                    g_set_error (error, ET_OGG_ERROR,
+                                                 ET_OGG_ERROR_HEADER,
+                                                 "Not enough memory to store Ogg Opus tags");
+                                    goto err;
+                                    break;
+
+                                case OP_EBADHEADER:
+                                    g_set_error (error, ET_OGG_ERROR,
+                                                 ET_OGG_ERROR_HEADER,
+                                                 "Ogg Opus tags do not follow the specification");
+                                    goto err;
+                                    break;
+                            }
+#endif
                     }
                     i++;
                 }
@@ -530,7 +590,7 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
     ogg_stream_packetin(&streamout, &header_main);
     ogg_stream_packetin(&streamout, &header_comments);
 
-    if (state->oggtype != VCEDIT_IS_SPEEX)
+    if (state->oggtype == VCEDIT_IS_OGGVORBIS)
         ogg_stream_packetin(&streamout, &header_codebooks);
 
     while((result = ogg_stream_flush(&streamout, &ogout)))
@@ -618,12 +678,22 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
 
         needflush=needout=0;
 
-        if (state->oggtype == VCEDIT_IS_OGGVORBIS)
+        if (state->oggtype == VCEDIT_IS_OGGVORBIS ||
+            state->oggtype == VCEDIT_IS_OPUS)
         {
-            int size;
-            size = _blocksize(state, &op);
-            granpos += size;
-
+            if (state->oggtype == VCEDIT_IS_OGGVORBIS)
+            {
+                int size;
+                size = _blocksize(state, &op);
+                granpos += size;
+            }
+#ifdef ENABLE_OPUS
+            else
+            {
+                granpos += opus_packet_get_samples_per_frame (op.packet,
+                                                              48000);
+            }
+#endif
             if(op.granulepos == -1)
             {
                 op.granulepos = granpos;
