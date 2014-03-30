@@ -138,21 +138,21 @@ GTK3_DEPS="gtk+-3.0 >= 3.2.1"
 PKG_CHECK_EXISTS([$GTK2_DEPS], [have_gtk2=yes], [have_gtk2=no])
 PKG_CHECK_EXISTS([$GTK3_DEPS], [have_gtk3=yes], [have_gtk3=no])
 
-AC_ARG_WITH([gtk3],
-            [AS_HELP_STRING([--with-gtk3], [Enable experimental GTK+ 3 support (and disable GTK+ 2 support)])])
+AC_ARG_WITH([gtk2],
+            [AS_HELP_STRING([--with-gtk2], [Enable deprecated GTK+ 2 support (and disable GTK+ 3 support)])])
 
-AC_MSG_CHECKING([whether to use GTK+ 3])
-AS_IF([test "x$have_gtk3" = "xyes" -a "x$have_gtk2" = "xno" -a "x$with_gtk3" != "xyes"],
-      [AC_MSG_WARN([forcing GTK+ 3 support, as GTK+ 2 was not found])
-       with_gtk3=yes])
-AS_IF([test "x$with_gtk3" = "xyes"],
+AC_MSG_CHECKING([whether to use GTK+ 2])
+AS_IF([test "x$have_gtk2" = "xyes" -a "x$have_gtk3" = "xno" -a "x$with_gtk2" != "xyes"],
+      [AC_MSG_WARN([forcing GTK+ 2 support, as GTK+ 3 was not found])
+       with_gtk2=yes])
+AS_IF([test "x$with_gtk2" = "xyes"],
       [AC_MSG_RESULT([yes])
-       AC_MSG_WARN([GTK+ 3 support is currently experimental!])
-       GTK_DEPS="$GTK3_DEPS"
-       GTK_DEPRECATION_FLAGS="-DGDK_VERSION_MIN_REQUIRED=GDK_VERSION_3_4 -DGDK_VERSION_MAX_ALLOWED=GDK_VERSION_3_4"],
-      [AC_MSG_RESULT([no])
+       AC_MSG_WARN([GTK+ 2 support is currently deprecated!])
        GTK_DEPS="$GTK2_DEPS"
-       GTK_DEPRECATION_FLAGS="-DGSEAL_ENABLE -DGDK_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED"])
+       GTK_DEPRECATION_FLAGS="-DGSEAL_ENABLE -DGDK_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED"],
+      [AC_MSG_RESULT([no])
+       GTK_DEPS="$GTK3_DEPS"
+       GTK_DEPRECATION_FLAGS="-DGDK_VERSION_MIN_REQUIRED=GDK_VERSION_3_4 -DGDK_VERSION_MAX_ALLOWED=GDK_VERSION_3_4"])
 PKG_CHECK_MODULES([GTK], [$GTK_DEPS])
 
 
