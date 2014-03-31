@@ -101,3 +101,18 @@ void et_grid_attach_margins (GtkGrid *grid, GtkWidget *child, gint left,
     et_grid_attach_full (grid, child, left, top, width, height, FALSE, FALSE,
                          hmargin, vmargin);
 }
+
+GtkWidget *
+et_progress_bar_new (void)
+{
+    GtkWidget *progress;
+
+    progress = gtk_progress_bar_new ();
+
+#if GTK_CHECK_VERSION(3,0,0)
+    gtk_progress_bar_set_show_text (GTK_PROGRESS_BAR (progress), TRUE);
+    gtk_progress_bar_set_text (GTK_PROGRESS_BAR (progress), "");
+#endif
+
+    return progress;
+}

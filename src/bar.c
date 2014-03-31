@@ -35,6 +35,7 @@
 #include "misc.h"
 #include "charset.h"
 #include "ui_manager.h"
+#include "gtk2_compat.h"
 
 /***************
  * Declaration *
@@ -637,7 +638,7 @@ et_statusbar_pop_tooltip (void)
  */
 GtkWidget *Create_Progress_Bar (void)
 {
-    ProgressBar = gtk_progress_bar_new();
+    ProgressBar = et_progress_bar_new ();
 
     gtk_widget_show(ProgressBar);
     return ProgressBar;

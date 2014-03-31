@@ -57,6 +57,8 @@ void et_grid_attach_margins (GtkGrid *grid, GtkWidget *child, gint left,
                              gint top, gint width, gint height, gint hmargin,
                              gint vmargin);
 
+GtkWidget * et_progress_bar_new (void);
+
 G_END_DECLS
 
 #endif /* GTK2_COMPAT_H_ */
