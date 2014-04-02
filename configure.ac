@@ -182,6 +182,9 @@ dnl ################################################
 dnl # Opus libraries
 dnl ################################################
 
+AS_IF([test "x$have_ogg" = "xno"],
+      [AC_MSG_ERROR([Opus support requested but Ogg support disabled. Ogg support is required.])])
+
 OPUS_DEPS="opus >= 1.0 opusfile"
 AS_IF([test "x$enable_opus" != "xno"],
       [PKG_CHECK_EXISTS([$OPUS_DEPS], [have_opus=yes], [have_opus=no])],
@@ -196,7 +199,9 @@ AS_IF([test "x$have_opus" != "xno"],
 dnl ################################################
 dnl # libSpeex library
 dnl ################################################
-dnl check for system libspeex
+
+AS_IF([test "x$have_ogg" = "xno"],
+      [AC_MSG_ERROR([Speex support requested but Ogg support disabled. Ogg support is required.])])
 
 SPEEX_DEPS="speex"
 AS_IF([test "x$enable_speex" != "xno"],
@@ -212,7 +217,6 @@ AS_IF([test "x$have_speex" != "xno"],
 dnl ################################################
 dnl # libFLAC library
 dnl ################################################
-dnl check for system libflac
 
 FLAC_DEPS="flac >= 1.1.4"
 AS_IF([test "x$enable_flac" != "xno"],
