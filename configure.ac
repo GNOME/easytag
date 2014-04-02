@@ -182,16 +182,15 @@ dnl ################################################
 dnl # Opus libraries
 dnl ################################################
 
-AS_IF([test "x$have_ogg" = "xno"],
-      [AC_MSG_ERROR([Opus support requested but Ogg support disabled. Ogg support is required.])])
-
 OPUS_DEPS="opus >= 1.0 opusfile"
 AS_IF([test "x$enable_opus" != "xno"],
       [PKG_CHECK_EXISTS([$OPUS_DEPS], [have_opus=yes], [have_opus=no])],
       [have_opus=no])
 
 AS_IF([test "x$have_opus" != "xno"],
-      [AC_DEFINE([ENABLE_OPUS], [], [Define for Ogg Opus support])],
+      [AS_IF([test "x$have_ogg" = "xno"],
+             [AC_MSG_ERROR([Opus support requested but Ogg support disabled. Ogg support is required.])])
+       AC_DEFINE([ENABLE_OPUS], [], [Define for Ogg Opus support])],
       [OPUS_DEPS=""
        AS_IF([test "x$enable_opus" = "xyes"],
              [AC_MSG_ERROR([Opus support requested but required dependencies ($OPUS_DEPS) not found])])])
@@ -200,16 +199,15 @@ dnl ################################################
 dnl # libSpeex library
 dnl ################################################
 
-AS_IF([test "x$have_ogg" = "xno"],
-      [AC_MSG_ERROR([Speex support requested but Ogg support disabled. Ogg support is required.])])
-
 SPEEX_DEPS="speex"
 AS_IF([test "x$enable_speex" != "xno"],
       [PKG_CHECK_EXISTS([$SPEEX_DEPS], [have_speex=yes], [have_speex=no])],
       [have_speex=no])
 
 AS_IF([test "x$have_speex" != "xno"],
-      [AC_DEFINE([ENABLE_SPEEX], [], [Define for Speex support])],
+      [AS_IF([test "x$have_ogg" = "xno"],
+             [AC_MSG_ERROR([Speex support requested but Ogg support disabled. Ogg support is required.])])
+       AC_DEFINE([ENABLE_SPEEX], [], [Define for Speex support])],
       [SPEEX_DEPS=""
        AS_IF([test "x$enable_speex" = "xyes"],
              [AC_MSG_ERROR([OGG Speex support requested but required dependencies ($SPEEX_DEPS) not found])])])
