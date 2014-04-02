@@ -153,20 +153,36 @@ et_opus_read_file_info (GFile *gfile, ET_File_Info *ETFileInfo,
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     file = et_opus_open_file (gfile, error);
+
     if (!file)
     {
         g_assert (error == NULL || *error != NULL);
         return FALSE;
     }
 
+    /* FIXME: Improve error-checking. */
+    head = op_head (file, -1);
+    /* TODO: Read the vendor string from the Vorbis comment? */
+    ETFileInfo->version = head->version;
+    ETFileInfo->bitrate = op_bitrate (file, -1) / 1000;
+    ETFileInfo->mode = head->channel_count;
+
+    /* All Opus audio is encoded at 48 kHz, but the input sample rate can
+     * differ, and then input_sample_rate will be set. */
+    if (head->input_sample_rate != 0)
+    {
+        ETFileInfo->samplerate = head->input_sample_rate;
+    }
+    else
+    {
+        ETFileInfo->samplerate = 48000;
+    }
+
+    ETFileInfo->duration = op_pcm_total (file, -1) / 48000;
+    op_free (file);
+
     info = g_file_query_info (gfile, G_FILE_ATTRIBUTE_STANDARD_SIZE,
                               G_FILE_QUERY_INFO_NONE, NULL, NULL);
-
-    head = op_head (file, -1);
-    ETFileInfo->version = head->version;
-    ETFileInfo->bitrate = op_bitrate (file, -1);
-    ETFileInfo->samplerate = head->input_sample_rate;
-    ETFileInfo->mode = head->channel_count;
 
     if (info)
     {
@@ -177,9 +193,6 @@ et_opus_read_file_info (GFile *gfile, ET_File_Info *ETFileInfo,
     {
         ETFileInfo->size = 0;
     }
-    
-    ETFileInfo->duration = op_pcm_total (file, -1);
-    op_free (file);
 
     g_assert (error == NULL || *error == NULL);
     return TRUE;

@@ -459,6 +459,7 @@ et_picture_load_file (GFile *file, gpointer user_data)
             // Other tag types
             case ID3_TAG:
             case OGG_TAG:
+            case OPUS_TAG:
             case APE_TAG:
             case FLAC_TAG:
             case WAVPACK_TAG:
