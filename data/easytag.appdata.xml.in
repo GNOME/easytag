@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2013 David King <amigadave@amigadave.com> -->
+<!-- Copyright 2014 David King <amigadave@amigadave.com> -->
 <application>
     <id type="desktop">easytag.desktop</id>
     <licence>CC0</licence>
@@ -8,8 +8,8 @@
     <summary></summary>
 -->
     <description>
-        <_p>View and edit tags for MP3, MP2, MP4/AAC, FLAC, Ogg Vorbis,
-	MusePack, Monkey's Audio and WavPack files.</_p>
+        <_p>View and edit tags for MP3, MP2, MP4/AAC, FLAC, Ogg Opus, Ogg
+        Vorbis, MusePack, Monkey's Audio and WavPack files.</_p>
 	<_p>Look up albums in online databases, bulk edit tags, create
 	playlists and rename a collection of files.</_p>
         <_p>A simple and nice GTK+ interface makes tagging easier under
