@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: easytag\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=easytag&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-04-02 17:01+0000\n"
-"PO-Revision-Date: 2014-04-03 07:53-0300\n"
+"POT-Creation-Date: 2014-04-03 16:46+0000\n"
+"PO-Revision-Date: 2014-04-03 14:13-0300\n"
 "Last-Translator: Rafael Ferreira <rafael.f.f1@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -22,15 +22,12 @@ msgstr ""
 "X-Generator: Poedit 1.6.4\n"
 
 #: ../data/easytag.appdata.xml.in.h:1
-#| msgid ""
-#| "View and edit tags for MP3, MP2, MP4/AAC, FLAC, Ogg Vorbis, MusePack, "
-#| "Monkey's Audio and WavPack files."
 msgid ""
-"View and edit tags for MP3, MP2, MP4/AAC, FLAC, Ogg Opus, Ogg Vorbis, "
-"MusePack, Monkey's Audio and WavPack files."
+"View and edit tags for MP3, MP2, MP4/AAC, FLAC, Ogg Opus, Ogg Speex, Ogg "
+"Vorbis, MusePack, Monkey's Audio and WavPack files."
 msgstr ""
 "Veja e edite etiquetas de arquivos MP3, MP2, MP4/AAC, FLAC, Ogg Opus, Ogg "
-"Vorbis, MusePack, Monkey's Audio e WavPack."
+"Speex, Ogg Vorbis, MusePack, Monkey's Audio e WavPack."
 
 #: ../data/easytag.appdata.xml.in.h:2
 msgid ""
@@ -2347,7 +2344,6 @@ msgstr "Erro ao ler a etiqueta do arquivo off (%s)"
 
 #: ../src/et_core.c:539
 #, c-format
-#| msgid "Error reading tag from ogg file (%s)"
 msgid "Error reading tag from Opus file (%s)"
 msgstr "Erro ao ler a etiqueta do arquivo Opus (%s)"
 
@@ -2422,7 +2418,6 @@ msgid "Wavpack File"
 msgstr "Arquivo Wavpack"
 
 #: ../src/et_core.c:2809
-#| msgid "MusePack File"
 msgid "Opus File"
 msgstr "Arquivo Opus"
 
