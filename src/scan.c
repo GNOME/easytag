@@ -1716,12 +1716,15 @@ void Scan_Process_Fields_Keep_One_Space (gchar *string)
  * Function to replace underscore '_' by a space
  * No need to reallocate
  */
-void Scan_Convert_Underscore_Into_Space (gchar *string)
+void
+Scan_Convert_Underscore_Into_Space (gchar *string)
 {
-    gchar *tmp;
+    gchar *tmp = string;
 
-    while ((tmp=strchr(string,'_'))!=NULL)
+    while ((tmp = strchr (tmp, '_')) != NULL)
+    {
         *tmp = ' ';
+    }
 }
 
 /*
@@ -1770,10 +1773,12 @@ void Scan_Remove_Spaces (gchar *string)
  */
 void Scan_Convert_Space_Into_Undescore (gchar *string)
 {
-    gchar *tmp;
+    gchar *tmp = string;
 
-    while ((tmp=strchr(string,' '))!=NULL)
+    while ((tmp = strchr (tmp, ' ')) != NULL)
+    {
         *tmp = '_';
+    }
 }
 
 /*
