@@ -2,14 +2,15 @@ Please also see THANKS for non-code contributions
 
 David King <amigadave@amigadave.com>
   - GTK+ 3 port
-  - Co-maintainer
+  - Maintainer
 
 Kip Warner <kip@thevertigo.com>
-  - Co-maintainer
+  - Maintainer 2010-2012
 
 Santtu Lakkala <inz@inz.fi>
   - patches / DLM support
   - Initial GTK+ 3 port
+  - MP4 cover art support
 
 Jérôme Couderc <easytag@gmail.com>
   - Maintainer 2000-2008
@@ -31,6 +32,7 @@ Adrian Bunk <bunk@stusta.de>
 Abhinav Jangda <abhijangda@hotmail.com>
   - GIO porting
   - Several bugfixes
+  - Ogg Opus support
 
 Goetz Waschk <waschk@informatik.uni-rostock.de>
   - autoconf/automake

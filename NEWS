@@ -1,3 +1,26 @@
+2.1.10.99 - 2014-04-xx :
+========================
+
+    * Several stability fixes, found with Valgrind and the Fedora retrace
+      server
+    * Use GTK+ 3 by default, but still allow building against GTK+ 2
+    * Support extended tag fields in MP4 files
+    * Support GIF images in tags
+    * Abhinav Jangda’s Ogg Opus support, asynchronous image loading, scanner
+      function tests and new Vorbis cover art support
+    * Santtu Lakkala’s MP4 cover art and GIO support, fix for Roman numeral
+      capitalization
+    * Ask for confirmation before overwriting during renaming
+    * Avoid truncating Vorbis audio data when saving
+    * Piotr Drąg’s Polish translation updates
+    * Мирослав Николић’s Serbian translation update
+    * Daniel Mustieles’ Spanish translation updates
+    * Balázs Úr and Attila Hammer’s Hungarian translation updates
+    * Enrico Nicoletto and Rafael Ferrera’s Brazilian Portuguese translation
+      updates
+    * Marek Černocký’s Czech translation updates
+    * Aurimas Černius’s Lithuanian translation update
+
 2.1.10 - 2014-02-19 :
 =====================
 
