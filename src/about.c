@@ -42,9 +42,9 @@ void Show_About_Window (void)
         "Santtu Lakkala <inz@inz.fi>",
         "Jérôme Couderc <easytag@gmail.com>",
         "Daniel Drake <dsd@gentoo.org>",
+        "Avhinav Jangda <abhijangda@hotmail.com>",
         "Mihael Vrbanec <miqster@gmx.net>",
         "Michael Pujos <pujos.michael@laposte.net>",
-        "Adrian Bunk <bunk@fs.tum.de>",
         "Goetz Waschk <waschk@informatik.uni-rostock.de>",
         "Holger Schemel <aeglos@valinor.owl.de>",
         "Charles Kerr <charles@superimp.org>",
@@ -75,9 +75,7 @@ void Show_About_Window (void)
 
     static const gchar * const documenters[] =
     {
-        "Emmanuel Brun <brunema@wanadoo.fr>",
-        "Daniel Pichler <dpichler@dnet.it>",
-        "Anders Strömer <anders.stromer@comhem.se>",
+        "Ekaterina Gerasimova <kittykat3756@gmail.com>",
         NULL
     };
 
