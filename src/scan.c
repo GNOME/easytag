@@ -263,10 +263,6 @@ static void Mask_Editor_Clean_Up_Masks_List (void);
 
 static void Scanner_Option_Menu_Activate_Item (GtkWidget *widget, gpointer data);
 
-static int roman2int (const char *str);
-static const char *int2roman (int num);
-static char *int2roman_r (int num, char * str, size_t len);
-
 static void Scan_Convert_Character (gchar **string);
 static GList *Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask);
 static void Scan_Set_Scanner_Window_Init_Position (void);
@@ -1831,415 +1827,78 @@ handle_error:
     goto out;
 }
 
-/*
- * Quick roman numeral check (non-roman numerals may also return true)
- * Patch from Slash Bunny (2007.08.12)
- * (http://home.hiwaay.net/~lkseitz/math/roman/numerals.shtml)
- *    I = 1    (one)
- *    V = 5    (five)
- *    X = 10   (ten)
- *    L = 50   (fifty)
- *    C = 100  (one hundred)
- *    D = 500  (five hundred)
- *    M = 1000 (one thousand)
- */
 static gint
 Scan_Word_Is_Roman_Numeral (const gchar *text)
 {
-    const gchar *tmp;
-    gint  len;
-    gchar *buf = NULL;
-    gint   rn_int;
-    gchar *rn_char;
+    /* No need for caseless strchr. */
+    static const gchar romans[] = "MmDdCcLlXxVvIi";
 
-    if (!ScannerWindow
-    ||  !ProcessFieldsDetectRomanNumerals
-    ||  !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsDetectRomanNumerals)))
-        return 0;
-    
-    tmp = text;
-    len = 0;
+    gsize next_allowed = 0;
+    gsize prev = 0;
+    gsize count = 0;
 
-    while (*tmp)
+    const gchar *i;
+
+    if (!ScannerWindow || !ProcessFieldsDetectRomanNumerals
+        || !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (ProcessFieldsDetectRomanNumerals)))
     {
-        if (*tmp == (gunichar)'i'
-        ||  *tmp == (gunichar)'v'
-        ||  *tmp == (gunichar)'x'
-        ||  *tmp == (gunichar)'l'
-        ||  *tmp == (gunichar)'c'
-        ||  *tmp == (gunichar)'d'
-        ||  *tmp == (gunichar)'m')
+        return 0;
+    }
+
+    for (i = text; *i; i++)
+    {
+        const char *s = strchr (romans, *i);
+
+        if (s)
         {
-            // Found a roman numeral => continue
-            tmp++;
-            len++;
-        } else if (*tmp == ' '
-               ||  *tmp == '_'
-               ||  *tmp == '.'
-               ||  *tmp == ','
-               ||  *tmp == '-')
+            gsize c = (s - romans) / 2;
+
+            if (c < next_allowed)
+            {
+                return 0;
+            }
+
+            if (c < prev)
+            {
+                /* After subtraction, no more subtracted chars allowed. */
+                next_allowed = prev + 1;
+            }
+            else if (c == prev)
+            {
+                /* Allow indefinite repetition for m; three for c, x and i; and
+                 * none for d, l and v. */
+                if ((c && ++count > 3) || (c & 1))
+                {
+                    return 0;
+                }
+
+                /* No more subtraction. */
+                next_allowed = c;
+            }
+            else if (c && !(c & 1))
+            {
+                /* For first occurrence of c, x and i, allow "subtraction" from
+                 * 10 and 5 times self, reset counting. */
+                next_allowed = c - 2;
+                count = 1;
+            }
+
+            prev = c;
+        }
+        else
         {
-            // A separator was found => end of word
-            // Check if it is a valid roman numeral
-            goto roman_numeral_found;
-            
-        } else
-        {
-            return 0;
+            if (g_unichar_isalnum (g_utf8_get_char (i)))
+            {
+                return 0;
+            }
+
+            break;
         }
     }
 
-    // Found in last word of the string
-    
-roman_numeral_found:
-    // Check if it is a valid roman numeral
-    buf = g_strndup(text,len);
-    rn_int = roman2int(buf); // Convert the Roman numeral string to integer
-    
-    if (rn_int >= 0 )
-    {
-        // Some strings as "IIIII" or "CCCCC" are returned as valid, which is not correct...
-        // Same problem with: IC MIC IM MIM IL CIL XM MXM VC MVC VM MVM VL MVL LC MLC LD MLD LM MLM MDM 
-        // So we convert it again to a string, and compare to the initial one.
-        rn_char = (gchar *)int2roman(rn_int); // Convert the Roman numeral integer to string
-        if (rn_char
-        && strcasecmp(buf,rn_char)==0)
-        {
-            g_free(buf);
-            g_free(rn_char);
-            return len; // Roman numeral valid
-        }else
-        {
-            g_free(buf);
-            g_free(rn_char);
-            return 0;
-        }
-    }else
-    {
-        g_free(buf);
-        return 0;
-    }
+    /* Return length of found Roman numeral. */
+    return i - text;
 }
-
-
-
-/*
- * Taken from :
- *   Roman Numeral Conversion API (http://sourceforge.net/project/showfiles.php?group_id=211070)
- *    Copyright (c) 2007 David M. Syzdek <roman-project@syzdek.net>
- */
-/* Convert Roman numeral from integer to string */
-static const char *
-int2roman (int num)
-{
-    #define ROMAN_BUFF_LEN 512
-    
-    /* buffer for storing conversions */
-    char roman_string[ROMAN_BUFF_LEN];
-
-    /* wrap long2roman_r() with library buffer */
-    char *result = int2roman_r(num, roman_string, ROMAN_BUFF_LEN);
-   
-    if (!result)
-         return NULL;
-    return g_strdup(roman_string);
-}
-
-static char *
-int2roman_r (int num, char * str, size_t len)
-{
-   // local variables
-   unsigned pos;
-   unsigned u;
-   unsigned dividend;
-
-   g_return_val_if_fail (str != NULL, NULL);
-
-   // verify that number is withing boundaries
-   if ((num > 5000) || (num < 0))
-   {
-      return NULL;
-   };
-
-   // sets initial values
-   pos = 0;
-   memset(str, 0, len);
-   len--;
-
-   // checks for nullae
-   if (!(num))
-   {
-      str[0] = 'N';
-      return str;
-   };
-
-   // calculates thousands
-   dividend = num/1000;
-   if (dividend > (len-1))
-   {
-      return NULL;
-   };
-   for (u = 0; u < dividend; u++)
-      str[pos+u] = 'M';
-   num %= 1000;
-   pos += u;
-
-   // calculates hundreds
-   dividend = num/100;
-   if (dividend > (len-1-pos))
-   {
-      return NULL;
-   };
-   if (dividend == 9)
-   {
-      str[pos+0] = 'C';
-      str[pos+1] = 'M';
-      pos += 2;
-      dividend = 0;
-   };
-   if (dividend >= 5)
-   {
-      str[pos] = 'D';
-      dividend -= 5;
-      pos++;
-   };
-   if (dividend == 4)
-   {
-      str[pos+0] = 'C';
-      str[pos+1] = 'D';
-      dividend -= 4;
-      pos += 2;
-   };
-   for(u = 0; u < dividend; u++)
-      str[pos+u] = 'C';
-   pos += u;
-   num %= 100;
-
-   // calculates tens
-   dividend = num/10;
-   if (dividend > (len-1-pos))
-   {
-      return NULL;
-   };
-   if (dividend == 9)
-   {
-      str[pos+0] = 'X';
-      str[pos+1] = 'C';
-      dividend = 0;
-      pos += 2;
-   };
-   if (dividend >= 5)
-   {
-      str[pos+0] = 'L';
-      dividend -= 5;
-      pos++;
-   };
-   if (dividend == 4)
-   {
-      str[pos+0] = 'X';
-      str[pos+1] = 'L';
-      pos += 2;
-      dividend -= 4;
-   };
-   for (u = 0; u < dividend; u++)
-      str[pos+u] = 'X';
-   pos += u;
-   num %= 10;
-
-   // calculates ones
-   dividend = num;
-   if (dividend > (len-1-pos))
-   {
-      return NULL;
-   };
-   if (dividend == 9)
-   {
-      str[pos+0] = 'I';
-      str[pos+1] = 'X';
-      dividend = 0;
-      pos += 2;
-   };
-   if (dividend >= 5)
-   {
-      str[pos+0] = 'V';
-      dividend -= 5;
-      pos++;
-   };
-   if (dividend == 4)
-   {
-      str[pos+0] = 'I';
-      str[pos+1] = 'V';
-      pos += 2;
-      dividend -= 4;
-   };
-   for(u = 0; u < dividend; u++)
-      str[pos+u] = 'I';
-
-   /* ends function */
-   return str;
-}
-
-/* Convert Roman numeral from string to integer */
-static int
-roman2int (const char *str)
-{
-   // declares local vars
-   int      num;
-   unsigned i;
-   unsigned len;
-   unsigned last;
-   unsigned prevlast;
-
-   // checks args
-   if (!(str))
-   {
-      return(0);
-   };
-
-   // sets initial values 
-   num  = 0;
-   len  = strlen(str);
-   last = 1000;
-   prevlast = 1000;
-
-   // loops through characters
-   for(i = 0; i < len; i++)
-   {
-      switch(str[i])
-      {
-         case 'n':
-         case 'N':
-            if (strlen(str) > 1)
-            {
-               return(-1);
-            };
-            return(0);
-            break;
-         case 'i':
-         case 'I':
-            num  += 1;
-            // prevent patterns like IXI
-            if ((prevlast == 1) && (last != 1))
-            {
-               return(-1);
-            };
-            // prevent patterns like IIIII and VIIIII
-            if ((!(num%5)) || (!(num%10)))
-            {
-              return(-1);
-            };
-            // rotates value into history
-            prevlast   = last;
-            last  = 1;
-            break;
-         case 'v':
-         case 'V':
-            num += 5;
-            // tests for invalid syntax
-            if ( ((last <= 5) && (last != 1)) || (prevlast <= 5) )
-            {
-               return(-1);
-            }
-            // applies subtraction method & rotates value into history
-            if (last < 5)
-               num -= (last * 2);
-            prevlast  = last;
-            last = 5;
-            break;
-         case 'x':
-         case 'X':
-            num += 10;
-            // tests for invalid syntax
-            if ( ((prevlast < 10) && (last <= 10)) || ((last < 10) && (last != 1)) )
-            {
-               return(-1);
-            };
-            // prevent patterns like XXXXX and VXXXXX
-            if ((!(num%50)) || (!(num%100)))
-            {
-               return(-1);
-            };
-            // applies subtraction method & rotates value into history
-            if (last == 1)
-               num -= (last * 2);
-            prevlast  = last;
-            last = 10;
-            break;
-         case 'l':
-         case 'L':
-            num += 50;
-            // tests for invalid syntax
-            if ( ((last <= 50) && (last != 10)) || (prevlast <= 50) )
-            {
-               return(-1);
-            }
-            // applies subtraction method & rotates value into history
-            if (last < 50)
-               num -= (last * 2);
-            prevlast  = last;
-            last = 50;
-            break;
-         case 'c':
-         case 'C':
-            num += 100;
-            // tests for invalid syntax
-            if ( ((prevlast < 100) && (last <= 100)) || ((last < 100) && (last != 10)) )
-            {
-               return(-1);
-            };
-            // prevent patterns like CCCCC and VCCCCC
-            if ((!(num%500)) || (!(num%1000)))
-            {
-               return(-1);
-            };
-            // applies subtraction method & rotates value into history
-            if (last == 10)
-               num -= (last * 2);
-            prevlast  = last;
-            last = 100;
-            break;
-         case 'd':
-         case 'D':
-            num += 500;
-            // tests for invalid syntax
-            if ( ((last <= 500) && (last != 100)) || (prevlast <= 500) )
-            {
-               return(-1);
-            }
-            // applies subtraction method & rotates value into history
-            if (last < 500)
-               num -= (last * 2);
-            prevlast  = last;
-            last = 500;
-            break;
-         case 'm':
-         case 'M':
-            num += 1000;
-            // tests for invalid syntax
-            if ( ((prevlast < 1000) && (last <= 1000)) || ((last < 1000) && (last != 100)) )
-            {
-               return(-1);
-            };
-            // prevent patterns like MMMMM and VMMMMM
-            if ((!(num%5000)) || (!(num%10000)))
-            {
-               return(-1);
-            };
-            // applies subtraction method & rotates value into history
-            if (last == 100)
-               num -= (last * 2);
-            prevlast  = last;
-            last = 1000;
-            break;
-         default:
-            return(-1);
-      };
-   };
-
-   // ends function
-   return(num);
-}
-
 
 
 /*
