@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: easytag-1.99.11\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=easytag&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-04-03 16:46+0000\n"
-"PO-Revision-Date: 2014-04-04 09:58+0200\n"
+"POT-Creation-Date: 2014-04-07 09:21+0000\n"
+"PO-Revision-Date: 2014-04-07 12:16+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -25,9 +25,6 @@ msgstr ""
 "X-Generator: Gtranslator 2.91.5\n"
 
 #: ../data/easytag.appdata.xml.in.h:1
-#| msgid ""
-#| "View and edit tags for MP3, MP2, MP4/AAC, FLAC, Ogg Vorbis, MusePack, "
-#| "Monkey's Audio and WavPack files."
 msgid ""
 "View and edit tags for MP3, MP2, MP4/AAC, FLAC, Ogg Opus, Ogg Speex, Ogg "
 "Vorbis, MusePack, Monkey's Audio and WavPack files."
@@ -64,7 +61,7 @@ msgstr "Editar los metadatos de archivos de sonido"
 msgid "mp3;tag;audio;"
 msgstr "mp3;etiqueta;sonido;"
 
-#: ../src/about.c:91
+#: ../src/about.c:89
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -93,14 +90,14 @@ msgstr ""
 "programa. Sino, ver <http://www.gnu.org/licenses/>."
 
 #. Translators: put your own name here to appear in the about dialog.
-#: ../src/about.c:108
+#: ../src/about.c:106
 msgid "translator-credits"
 msgstr ""
 "Daniel Mustieles <daniel.mustieles@gmail.com>, 2012 - 2014\n"
 "Nicolás Satragno <nsatragno@gnome.org>, 2012, 2013\n"
 "Milagros Alessandra Infante Montero <maim92@gmail.com>, 2012, 2013"
 
-#: ../src/about.c:118
+#: ../src/about.c:116
 msgid "View and edit tags in audio files"
 msgstr "Ver y editar etiquetas en archivos de sonido"
 
@@ -375,7 +372,7 @@ msgstr "Último archivo"
 msgid "S_can Files"
 msgstr "A_nalizar archivos"
 
-#: ../src/bar.c:225 ../src/scan.c:2344
+#: ../src/bar.c:225 ../src/scan.c:2008
 msgid "Scan selected files"
 msgstr "Analizar archivos seleccionados"
 
@@ -1225,7 +1222,7 @@ msgstr "Líneas coincidentes con el algoritmo Levenshtein"
 #. Doesn't activate it by default because if the new user don't pay attention to it,
 #. it will not understand why the cddb results aren't loaded correctly...
 #. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbUseDLM2),CDDB_USE_DLM);
-#: ../src/cddb.c:859 ../src/prefs.c:1362
+#: ../src/cddb.c:859 ../src/prefs.c:1363
 msgid ""
 "When activating this option, the Levenshtein algorithm (DLM: Damerau-"
 "Levenshtein Metric) will be used to match the CDDB title against every "
@@ -2288,11 +2285,11 @@ msgstr "Seleccione una carpeta para examinar"
 msgid "Tag selected files with this field"
 msgstr "Etiquetar archivos seleccionados con este campo"
 
-#: ../src/easytag.c:4424 ../src/scan.c:2654
+#: ../src/easytag.c:4424 ../src/scan.c:2318
 msgid "Convert '_' and '%20' to spaces"
 msgstr "Convertir «_» y «%20» a espacios"
 
-#: ../src/easytag.c:4431 ../src/scan.c:2656
+#: ../src/easytag.c:4431 ../src/scan.c:2320
 msgid "Convert ' ' to '_'"
 msgstr "Convertir « » a «_»"
 
@@ -2312,7 +2309,7 @@ msgstr "Primera letra mayúscula"
 msgid "First letter uppercase of each word"
 msgstr "Primera letra de cada palabra en mayúscula"
 
-#: ../src/easytag.c:4474 ../src/prefs.c:1023 ../src/scan.c:2754
+#: ../src/easytag.c:4474 ../src/prefs.c:1023 ../src/scan.c:2418
 msgid "Remove spaces"
 msgstr "Quitar espacios"
 
@@ -2347,7 +2344,6 @@ msgstr "Error al leer etiqueta del archivo ogg: (%s)"
 
 #: ../src/et_core.c:539
 #, c-format
-#| msgid "Error reading tag from ogg file (%s)"
 msgid "Error reading tag from Opus file (%s)"
 msgstr "Error al leer etiqueta del archivo Opus (%s)"
 
@@ -2421,7 +2417,6 @@ msgid "Wavpack File"
 msgstr "Archivo Wavpack"
 
 #: ../src/et_core.c:2809
-#| msgid "MusePack File"
 msgid "Opus File"
 msgstr "Archivo Opus"
 
@@ -2469,7 +2464,7 @@ msgstr "%d kb/s"
 msgid "%d Hz"
 msgstr "%d Hz"
 
-#: ../src/et_core.c:3368 ../src/scan.c:690
+#: ../src/et_core.c:3368 ../src/scan.c:686
 #, c-format
 msgid "Could not convert filename '%s' into system filename encoding"
 msgstr ""
@@ -2480,7 +2475,7 @@ msgstr ""
 msgid "Try setting the environment variable G_FILENAME_ENCODING."
 msgstr "Intente configurar la variable de entorno G_FILENAME_ENCODING."
 
-#: ../src/et_core.c:3371 ../src/scan.c:692
+#: ../src/et_core.c:3371 ../src/scan.c:688
 msgid "Filename translation"
 msgstr "Traducción del nombre de archivo"
 
@@ -2824,7 +2819,7 @@ msgstr "Error del archivo de lista de reproducción"
 msgid "Written playlist file '%s'"
 msgstr "Se ha escrito el archivo de la lista «%s»"
 
-#: ../src/misc.c:1543 ../src/scan.c:3239 ../src/scan.c:3301
+#: ../src/misc.c:1543 ../src/scan.c:2903 ../src/scan.c:2965
 msgid "Invalid scanner mask"
 msgstr "Máscara del analizador no válida"
 
@@ -4253,16 +4248,17 @@ msgstr "Nombre de usuario para el servidor proxy."
 msgid "User Password:"
 msgstr "Contraseña de usuario:"
 
-#: ../src/prefs.c:1337
-msgid "Password of user for the the proxy server."
+#: ../src/prefs.c:1338
+#| msgid "Password of user for the the proxy server."
+msgid "Password of user for the proxy server."
 msgstr "Contraseña de usuario para el servidor proxy."
 
 #. Track Name list (CDDB results)
-#: ../src/prefs.c:1342
+#: ../src/prefs.c:1343
 msgid "Track Name List"
 msgstr "Lista de nombre de pista"
 
-#: ../src/prefs.c:1349
+#: ../src/prefs.c:1350
 msgid ""
 "Select corresponding audio file (according position or DLM if activated "
 "below)"
@@ -4270,7 +4266,7 @@ msgstr ""
 "Seleccionar el archivo de sonido correspondiente (de acuerdo a la posición o "
 "DLM si estuviese activado abajo)"
 
-#: ../src/prefs.c:1353
+#: ../src/prefs.c:1354
 msgid ""
 "If activated, when selecting a line in the list of tracks name, the "
 "corresponding audio file in the main list will be also selected."
@@ -4280,7 +4276,7 @@ msgstr ""
 "seleccionará también."
 
 #. Check box to use DLM (also used in the cddb window)
-#: ../src/prefs.c:1358
+#: ../src/prefs.c:1359
 msgid ""
 "Use the Levenshtein algorithm (DLM) to match lines (using title) with audio "
 "files (using filename)"
@@ -4291,15 +4287,15 @@ msgstr ""
 #.
 #. * Confirmation
 #.
-#: ../src/prefs.c:1373
+#: ../src/prefs.c:1374
 msgid "Confirmation"
 msgstr "Confirmación"
 
-#: ../src/prefs.c:1378
+#: ../src/prefs.c:1379
 msgid "Confirm exit from program"
 msgstr "Confirmar la salida del programa"
 
-#: ../src/prefs.c:1381
+#: ../src/prefs.c:1382
 msgid ""
 "If activated, opens a dialog box to ask confirmation before exiting the "
 "program."
@@ -4307,52 +4303,52 @@ msgstr ""
 "Si está activada, abre una caja de diálogo para confirmar si desea salir del "
 "programa."
 
-#: ../src/prefs.c:1384
+#: ../src/prefs.c:1385
 msgid "Confirm writing of file tag"
 msgstr "Confirmar escritura de la etiqueta del archivo"
 
-#: ../src/prefs.c:1388
+#: ../src/prefs.c:1389
 msgid "Confirm renaming of file"
 msgstr "Confirmar renombrado de archivo"
 
-#: ../src/prefs.c:1392
+#: ../src/prefs.c:1393
 msgid "Confirm deleting of file"
 msgstr "Confirmar eliminación de archivos"
 
-#: ../src/prefs.c:1396
+#: ../src/prefs.c:1397
 msgid "Confirm writing of playlist"
 msgstr "Confirmar escritura de la lista de reproducción"
 
-#: ../src/prefs.c:1400
+#: ../src/prefs.c:1401
 msgid "Confirm changing directory when there are unsaved changes"
 msgstr "Confirmar cambio de carpeta cuando hay cambios sin guardar"
 
 #. For translators : be aware to NOT translate '%.*d' in this string
-#: ../src/prefs.c:1438
+#: ../src/prefs.c:1439
 #, c-format
 msgid "(Example: %.*d_-_Track_name_1.mp3)"
 msgstr "(Ejemplo : %.*d_-_Nombre_pista_1.mp3)"
 
 #. Translators: please do NOT translate '%.*d' in this string.
-#: ../src/prefs.c:1471
+#: ../src/prefs.c:1472
 #, c-format
 msgid "(Example: disc_%.*d_of_10/Track_name_1.mp3)"
 msgstr "(Ejemplo: disc_%.*d_of_10/Nombre_pista_1.mp3)"
 
-#: ../src/prefs.c:1613 ../src/setting.c:904
+#: ../src/prefs.c:1614 ../src/setting.c:904
 msgid "Configuration saved"
 msgstr "Configuración guardada"
 
-#: ../src/prefs.c:1621
+#: ../src/prefs.c:1622
 msgid "Configuration unchanged"
 msgstr "Configuración sin cambios"
 
-#: ../src/prefs.c:1712
+#: ../src/prefs.c:1713
 msgid "The selected path for 'Default path to files' is invalid"
 msgstr ""
 "La ruta seleccionada para «Ruta a archivos predeterminada» no es válida"
 
-#: ../src/prefs.c:1714
+#: ../src/prefs.c:1715
 #, c-format
 msgid ""
 "Path: '%s'\n"
@@ -4361,16 +4357,16 @@ msgstr ""
 "Ruta: «%s»\n"
 "Error: %s"
 
-#: ../src/prefs.c:1716
+#: ../src/prefs.c:1717
 msgid "Invalid Path Error"
 msgstr "Error de ruta no válida"
 
-#: ../src/prefs.c:1830
+#: ../src/prefs.c:1831
 #, c-format
 msgid "The audio file player '%s' cannot be found"
 msgstr "No se puede encontrar el reproductor del archivo de sonido «%s»"
 
-#: ../src/prefs.c:1832
+#: ../src/prefs.c:1833
 msgid "Audio Player Error"
 msgstr "Error del reproductor de audio"
 
@@ -4378,78 +4374,78 @@ msgstr "Error del reproductor de audio"
 msgid "Fill Tag"
 msgstr "Rellenar etiqueta"
 
-#: ../src/scan.c:358
+#: ../src/scan.c:354
 #, c-format
 msgid "Cannot calculate CRC value of file (%s)"
 msgstr "No se puede calcular el valor CRC del archivo (%s)"
 
-#: ../src/scan.c:373
+#: ../src/scan.c:369
 msgid "Tag successfully scanned"
 msgstr "Etiqueta analizada con éxito"
 
-#: ../src/scan.c:375
+#: ../src/scan.c:371
 #, c-format
 msgid "Tag successfully scanned: %s"
 msgstr "Etiqueta analizada con éxito: %s"
 
-#: ../src/scan.c:416
+#: ../src/scan.c:412
 #, c-format
 msgid "Tag scanner: strange… the extension '%s' was not found in filename '%s'"
 msgstr ""
 "Etiqueta del analizador: extraño… la extensión «%s» no se encuentra en el "
 "nombre de archivo «%s»"
 
-#: ../src/scan.c:498 ../src/scan.c:527
+#: ../src/scan.c:494 ../src/scan.c:523
 #, c-format
 msgid "Scan Error: can't find separator '%s' within '%s'"
 msgstr "Error al analizar: no se puede encontrar el separador «%s» entre «%s»"
 
-#: ../src/scan.c:714
+#: ../src/scan.c:710
 msgid "New filename successfully scanned"
 msgstr "Nombre de archivo nuevo analizado con éxito"
 
-#: ../src/scan.c:717
+#: ../src/scan.c:713
 #, c-format
 msgid "New filename successfully scanned: %s"
 msgstr "Nombre de archivo nuevo analizado con éxito: %s"
 
-#: ../src/scan.c:1821
+#: ../src/scan.c:1822
 #, c-format
 msgid "Error while processing fields: %s"
 msgstr "Error al procesar campos: %s"
 
 #. The window
-#: ../src/scan.c:2328
+#: ../src/scan.c:1992
 msgid "Tag and Filename Scan"
 msgstr "Análisis de etiquetas y nombres de archivo"
 
 #. TODO: Set related action to match AM_SCAN_FILES.
-#: ../src/scan.c:2337
+#: ../src/scan.c:2001
 msgid "Scan Files"
 msgstr "Analizar archivos"
 
 #. Option Menu
-#: ../src/scan.c:2365
+#: ../src/scan.c:2029
 msgid "Scanner:"
 msgstr "Analizador:"
 
-#: ../src/scan.c:2386
+#: ../src/scan.c:2050
 msgid "Select the type of scanner to use"
 msgstr "Seleccionar el tipo de analizador que usar"
 
-#: ../src/scan.c:2395
+#: ../src/scan.c:2059
 msgid "Scanner Preferences"
 msgstr "Preferencias del analizador"
 
-#: ../src/scan.c:2404
+#: ../src/scan.c:2068
 msgid "Show / Hide Masks Editor"
 msgstr "Mostrar u ocultar editor de máscaras"
 
-#: ../src/scan.c:2414
+#: ../src/scan.c:2078
 msgid "Show / Hide Legend"
 msgstr "Mostrar u ocultar leyenda"
 
-#: ../src/scan.c:2444
+#: ../src/scan.c:2108
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse filename and "
 "path. Used to fill in tag fields"
@@ -4459,15 +4455,15 @@ msgstr ""
 "etiquetas."
 
 #. Preview label
-#: ../src/scan.c:2468
+#: ../src/scan.c:2132
 msgid "Fill tag preview"
 msgstr "Rellenar vista previa de la etiqueta"
 
-#: ../src/scan.c:2498
+#: ../src/scan.c:2162
 msgid "Prefix mask with current path"
 msgstr "Máscara del prefijo con la ruta actual"
 
-#: ../src/scan.c:2512
+#: ../src/scan.c:2176
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse tag fields. Used "
 "to rename the file.\n"
@@ -4480,15 +4476,15 @@ msgstr ""
 "absoluta, de lo contrario es relativa a la ruta anterior."
 
 #. Preview label
-#: ../src/scan.c:2537
+#: ../src/scan.c:2201
 msgid "Rename file preview"
 msgstr "Renombrar vista previa del archivo"
 
-#: ../src/scan.c:2556
+#: ../src/scan.c:2220
 msgid "Select fields:"
 msgstr "Seleccionar campos:"
 
-#: ../src/scan.c:2559
+#: ../src/scan.c:2223
 msgid ""
 "The buttons on the right represent the fields which can be processed. Select "
 "those which interest you"
@@ -4497,134 +4493,134 @@ msgstr ""
 "Seleccione aquellos que le interesen"
 
 #. Advice for Translators: set the first letter of filename translated
-#: ../src/scan.c:2563
+#: ../src/scan.c:2227
 msgid "F"
 msgstr "F"
 
-#: ../src/scan.c:2565
+#: ../src/scan.c:2229
 msgid "Process filename field"
 msgstr "Procesar campo del nombre de archivo"
 
 #. Advice for Translators: set the first letter of title translated
-#: ../src/scan.c:2567
+#: ../src/scan.c:2231
 msgid "T"
 msgstr "T"
 
-#: ../src/scan.c:2568
+#: ../src/scan.c:2232
 msgid "Process title field"
 msgstr "Procesar campo de título"
 
 #. Advice for Translators: set the first letter of artist translated
-#: ../src/scan.c:2570
+#: ../src/scan.c:2234
 msgid "Ar"
 msgstr "Ar"
 
-#: ../src/scan.c:2571
+#: ../src/scan.c:2235
 msgid "Process file artist field"
 msgstr "Procesar campo de artista de archivo"
 
 #. Advice for Translators: set the first letter of album artist translated
-#: ../src/scan.c:2573
+#: ../src/scan.c:2237
 msgid "AA"
 msgstr "AA"
 
-#: ../src/scan.c:2574
+#: ../src/scan.c:2238
 msgid "Process album artist field"
 msgstr "Procesar campo de artista del álbum"
 
 #. Advice for Translators: set the first letter of album translated
-#: ../src/scan.c:2576
+#: ../src/scan.c:2240
 msgid "Al"
 msgstr "Al"
 
-#: ../src/scan.c:2577
+#: ../src/scan.c:2241
 msgid "Process album field"
 msgstr "Procesar campo de álbum"
 
 #. Advice for Translators: set the first letter of genre translated
-#: ../src/scan.c:2579
+#: ../src/scan.c:2243
 msgid "G"
 msgstr "G"
 
-#: ../src/scan.c:2580
+#: ../src/scan.c:2244
 msgid "Process genre field"
 msgstr "Procesar campo de género"
 
 #. Advice for Translators: set the first letter of comment translated
-#: ../src/scan.c:2582
+#: ../src/scan.c:2246
 msgid "Cm"
 msgstr "Cm"
 
-#: ../src/scan.c:2583
+#: ../src/scan.c:2247
 msgid "Process comment field"
 msgstr "Procesar campo de comentario"
 
 #. Advice for Translators: set the first letter of composer translated
-#: ../src/scan.c:2585
+#: ../src/scan.c:2249
 msgid "Cp"
 msgstr "Cp"
 
-#: ../src/scan.c:2586
+#: ../src/scan.c:2250
 msgid "Process composer field"
 msgstr "Procesar campo del compositor"
 
 #. Advice for Translators: set the first letter of orig artist translated
-#: ../src/scan.c:2588
+#: ../src/scan.c:2252
 msgid "O"
 msgstr "O"
 
-#: ../src/scan.c:2589
+#: ../src/scan.c:2253
 msgid "Process original artist field"
 msgstr "Procesar campo de artista original"
 
 #. Advice for Translators: set the first letter of copyright translated
-#: ../src/scan.c:2591
+#: ../src/scan.c:2255
 msgid "Cr"
 msgstr "Cr"
 
-#: ../src/scan.c:2592
+#: ../src/scan.c:2256
 msgid "Process copyright field"
 msgstr "Procesar campo de copyright"
 
 #. Advice for Translators: set the first letter of URL translated
-#: ../src/scan.c:2594
+#: ../src/scan.c:2258
 msgid "U"
 msgstr "U"
 
-#: ../src/scan.c:2595
+#: ../src/scan.c:2259
 msgid "Process URL field"
 msgstr "Procesar campo de URL"
 
 #. Advice for Translators: set the first letter of encoder name translated
-#: ../src/scan.c:2597
+#: ../src/scan.c:2261
 msgid "E"
 msgstr "E"
 
-#: ../src/scan.c:2598
+#: ../src/scan.c:2262
 msgid "Process encoder name field"
 msgstr "Procesar campo de nombre de codificador"
 
-#: ../src/scan.c:2642
+#: ../src/scan.c:2306
 msgid "Invert selection"
 msgstr "Invertir la selección"
 
-#: ../src/scan.c:2649
+#: ../src/scan.c:2313
 msgid "Select/Unselect all"
 msgstr "Seleccionar/deseleccionar todo"
 
-#: ../src/scan.c:2664
+#: ../src/scan.c:2328
 msgid "Convert:"
 msgstr "Convertir:"
 
-#: ../src/scan.c:2666
+#: ../src/scan.c:2330
 msgid "to: "
 msgstr "a:"
 
-#: ../src/scan.c:2673
+#: ../src/scan.c:2337
 msgid "Do not convert"
 msgstr "No convertir"
 
-#: ../src/scan.c:2692
+#: ../src/scan.c:2356
 msgid ""
 "The underscore character or the string '%20' are replaced by one space. "
 "Example, before: 'Text%20In%20An_Entry', after: 'Text In An Entry'."
@@ -4632,7 +4628,7 @@ msgstr ""
 "El carácter de subrayado o la cadena «%20» se reemplazan por un espacio. "
 "Ejemplo, antes: «Texto%20En%20Una_Entrada», después: «Texto En Una Entrada»."
 
-#: ../src/scan.c:2695
+#: ../src/scan.c:2359
 msgid ""
 "The space character is replaced by one underscore character. Example, "
 "before: 'Text In An Entry', after: 'Text_In_An_Entry'."
@@ -4640,38 +4636,38 @@ msgstr ""
 "El carácter de espacio se reemplaza por un carácter de subrayado. Ejemplo, "
 "antes: «Texto En Una Entrada», después: «Texto_En_Una_Entrada»."
 
-#: ../src/scan.c:2698
+#: ../src/scan.c:2362
 msgid ""
 "Replace a string by another one. Note that the search is case sensitive."
 msgstr ""
 "Reemplazar una cadena por otra. Tenga en cuneta que la búsqueda es sensible "
 "a capitalización."
 
-#: ../src/scan.c:2705
+#: ../src/scan.c:2369
 msgid "Capitalize all"
 msgstr "Todo en mayúscula"
 
-#: ../src/scan.c:2707
+#: ../src/scan.c:2371
 msgid "Lowercase all"
 msgstr "Todo en minúscula"
 
-#: ../src/scan.c:2709
+#: ../src/scan.c:2373
 msgid "Capitalize first letter"
 msgstr "Primera letra en mayúscula"
 
-#: ../src/scan.c:2711
+#: ../src/scan.c:2375
 msgid "Capitalize the first letter of each word"
 msgstr "Primera letra de cada palabra en mayúscula"
 
-#: ../src/scan.c:2712
+#: ../src/scan.c:2376
 msgid "Detect Roman numerals"
 msgstr "Detectar números romanos"
 
-#: ../src/scan.c:2714
+#: ../src/scan.c:2378
 msgid "Do not change capitalization"
 msgstr "No cambiar la capitalización"
 
-#: ../src/scan.c:2736
+#: ../src/scan.c:2400
 msgid ""
 "Convert all words in all fields to upper case. Example, before: 'Text IN AN "
 "entry', after: 'TEXT IN AN ENTRY'."
@@ -4679,7 +4675,7 @@ msgstr ""
 "Convertir todas las palabras en todos los campos a mayúsculas. Ejemplo, "
 "antes: «Texto EN UNA entrada», después: «TEXTO EN UNA ENTRADA»."
 
-#: ../src/scan.c:2739
+#: ../src/scan.c:2403
 msgid ""
 "Convert all words in all fields to lower case. Example, before: 'TEXT IN an "
 "entry', after: 'text in an entry'."
@@ -4687,7 +4683,7 @@ msgstr ""
 "Convertir todas las palabras en todos los campos a minúsculas. Ejemplo, "
 "antes: «TEXTO EN una entrada», después: «texto en una entrada»."
 
-#: ../src/scan.c:2742
+#: ../src/scan.c:2406
 msgid ""
 "Convert the initial of the first word in all fields to upper case. Example, "
 "before: 'text IN An ENTRY', after: 'Text in an entry'."
@@ -4695,7 +4691,7 @@ msgstr ""
 "Convertir la inicial de la primera palabra en todos los campos a mayúsculas. "
 "Ejemplo, antes: «texto EN Una ENTRADA», después: «Texto en una entrada»."
 
-#: ../src/scan.c:2745
+#: ../src/scan.c:2409
 msgid ""
 "Convert the initial of each word in all fields to upper case. Example, "
 "before: 'Text in an ENTRY', after: 'Text In An Entry'."
@@ -4703,7 +4699,7 @@ msgstr ""
 "Convertir la inicial de cada palabra en todos los campos a mayúsculas. "
 "Ejemplo, antes: «Texto en una ENTRADA», después: «Texto En Una Entrada»."
 
-#: ../src/scan.c:2748
+#: ../src/scan.c:2412
 msgid ""
 "Force to convert to upper case the Roman numerals. Example, before: 'ix. "
 "text in an entry', after: 'IX. Text In An Entry'."
@@ -4711,19 +4707,19 @@ msgstr ""
 "Forzar a convertir a mayúsculas los números romanos. Ejemplo, antes: «ix. "
 "texto en una entrada», después: «IX. Texto En Una Entrada»."
 
-#: ../src/scan.c:2756
+#: ../src/scan.c:2420
 msgid "Insert a space before uppercase letters"
 msgstr "Insertar un espacio antes de las letras en mayúscula"
 
-#: ../src/scan.c:2758
+#: ../src/scan.c:2422
 msgid "Remove duplicate spaces and underscores"
 msgstr "Quitar espacios duplicados y subrayados"
 
-#: ../src/scan.c:2760
+#: ../src/scan.c:2424
 msgid "Do not change word separators"
 msgstr "No cambiar los separadores de palabra"
 
-#: ../src/scan.c:2774
+#: ../src/scan.c:2438
 msgid ""
 "All spaces between words are removed. Example, before: 'Text In An Entry', "
 "after: 'TextInAnEntry'."
@@ -4731,7 +4727,7 @@ msgstr ""
 "Todos los espacios entre palabras se eliminan. Ejemplo, antes: «Texto En Una "
 "Entrada», después: «TextoEnUnaEntrada»."
 
-#: ../src/scan.c:2777
+#: ../src/scan.c:2441
 msgid ""
 "A space is inserted before each upper case letter. Example, before: "
 "'TextInAnEntry', after: 'Text In An Entry'."
@@ -4739,7 +4735,7 @@ msgstr ""
 "Se inserta un espacio antes de cada letra mayúscula. Ejemplo, antes: "
 "«TextoEnUnaEntrada», después: «Texto En Una Entrada»."
 
-#: ../src/scan.c:2780
+#: ../src/scan.c:2444
 msgid ""
 "Duplicate spaces and underscores are removed. Example, before: "
 "'Text__In__An   Entry', after: 'Text_In_An Entry'."
@@ -4750,141 +4746,141 @@ msgstr ""
 #.
 #. * Frame to display codes legend
 #.
-#: ../src/scan.c:2787
+#: ../src/scan.c:2451
 msgid "Legend"
 msgstr "Leyenda"
 
-#: ../src/scan.c:2793
+#: ../src/scan.c:2457
 #, c-format
 msgid "%a: artist"
 msgstr "%a: artista"
 
-#: ../src/scan.c:2796
+#: ../src/scan.c:2460
 msgid "%z: album artist"
 msgstr "%z: artista del álbum"
 
-#: ../src/scan.c:2799
+#: ../src/scan.c:2463
 msgid "%b: album"
 msgstr "%b: álbum"
 
-#: ../src/scan.c:2802
+#: ../src/scan.c:2466
 #, c-format
 msgid "%c: comment"
 msgstr "%c: comentario"
 
-#: ../src/scan.c:2805
+#: ../src/scan.c:2469
 #, c-format
 msgid "%p: composer"
 msgstr "%p: compositor"
 
-#: ../src/scan.c:2808
+#: ../src/scan.c:2472
 msgid "%r: copyright"
 msgstr "%r: copyright"
 
-#: ../src/scan.c:2811
+#: ../src/scan.c:2475
 #, c-format
 msgid "%d: disc number"
 msgstr "%d: número de disco"
 
-#: ../src/scan.c:2814
+#: ../src/scan.c:2478
 #, c-format
 msgid "%e: encoded by"
 msgstr "%e: codificado por"
 
-#: ../src/scan.c:2817
+#: ../src/scan.c:2481
 #, c-format
 msgid "%g: genre"
 msgstr "%g: género"
 
-#: ../src/scan.c:2820
+#: ../src/scan.c:2484
 #, c-format
 msgid "%i: ignored"
 msgstr "%i: ignorado"
 
-#: ../src/scan.c:2823
+#: ../src/scan.c:2487
 msgid "%l: number of tracks"
 msgstr "%l: número de pistas"
 
-#: ../src/scan.c:2826
+#: ../src/scan.c:2490
 #, c-format
 msgid "%o: orig. artist"
 msgstr "%o: artista orig."
 
-#: ../src/scan.c:2829
+#: ../src/scan.c:2493
 #, c-format
 msgid "%n: track"
 msgstr "%n: pista"
 
-#: ../src/scan.c:2832
+#: ../src/scan.c:2496
 msgid "%t: title"
 msgstr "%t: título"
 
-#: ../src/scan.c:2835
+#: ../src/scan.c:2499
 #, c-format
 msgid "%u: URL"
 msgstr "%u: URL"
 
-#: ../src/scan.c:2838
+#: ../src/scan.c:2502
 #, c-format
 msgid "%x: number of discs"
 msgstr "%x: número de discos"
 
-#: ../src/scan.c:2841
+#: ../src/scan.c:2505
 msgid "%y: year"
 msgstr "%y: año"
 
 #.
 #. * Masks Editor
 #.
-#: ../src/scan.c:2848
+#: ../src/scan.c:2512
 msgid "Mask Editor"
 msgstr "Editor de máscara"
 
-#: ../src/scan.c:2902
+#: ../src/scan.c:2566
 msgid "Create New Mask"
 msgstr "Crear nueva máscara"
 
-#: ../src/scan.c:2912
+#: ../src/scan.c:2576
 msgid "Move Up this Mask"
 msgstr "Subir esta máscara"
 
-#: ../src/scan.c:2922
+#: ../src/scan.c:2586
 msgid "Move Down this Mask"
 msgstr "Bajar esta máscara"
 
-#: ../src/scan.c:2932
+#: ../src/scan.c:2596
 msgid "Duplicate Mask"
 msgstr "Duplicar máscara"
 
-#: ../src/scan.c:2942
+#: ../src/scan.c:2606
 msgid "Add Default Masks"
 msgstr "Añadir máscaras predeterminadas"
 
-#: ../src/scan.c:2952
+#: ../src/scan.c:2616
 msgid "Remove Mask"
 msgstr "Eliminar máscara"
 
-#: ../src/scan.c:2962
+#: ../src/scan.c:2626
 msgid "Save Masks"
 msgstr "Guardar máscaras"
 
-#: ../src/scan.c:3542
+#: ../src/scan.c:3206
 msgid "New_mask"
 msgstr "Máscara_nueva"
 
-#: ../src/scan.c:3581
+#: ../src/scan.c:3245
 msgid "Copy: No row selected"
 msgstr "Copiar: ninguna fila seleccionada"
 
-#: ../src/scan.c:3674
+#: ../src/scan.c:3338
 msgid "Remove: No row selected"
 msgstr "Quitar: ninguna fila seleccionada"
 
-#: ../src/scan.c:3721
+#: ../src/scan.c:3385
 msgid "Move Up: No row selected"
 msgstr "Subir: ninguna fila seleccionada"
 
-#: ../src/scan.c:3765
+#: ../src/scan.c:3429
 msgid "Move Down: No row selected"
 msgstr "Bajar: ninguna fila seleccionada"
 
