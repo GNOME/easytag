@@ -38,4 +38,7 @@ ltmain.sh
 /src/libapetag/.deps/
 /src/win32/.deps/
 /src/win32/easytag.rc
+/tests/.deps/
+/tests/test-*
+!/tests/*.c
 stamp-h1

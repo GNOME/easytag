@@ -266,10 +266,31 @@ tests/test-desktop-file-validate.sh: Makefile tests/.dstamp
 		echo "$(DESKTOP_FILE_VALIDATE) $(top_builddir)/$(desktop_DATA) || exit 1" >> $@; \
 		chmod +x $@
 
+check_PROGRAMS = \
+	tests/test-scan
+
+tests_test_scan_CPPFLAGS = \
+	-I$(top_srcdir)/src \
+	-I$(top_builddir) \
+	$(DEPRECATED_CPPFLAGS)
+
+tests_test_scan_CFLAGS = \
+	$(WARN_CFLAGS) \
+	$(EASYTAG_CFLAGS)
+
+tests_test_scan_SOURCES = \
+	tests/test-scan.c \
+	src/scan.c
+
+tests_test_scan_LDADD = \
+	$(EASYTAG_LIBS)
+
 check_SCRIPTS = \
 	tests/test-desktop-file-validate.sh
 
+# TODO: Use the GLib test runner
 TESTS = \
+	$(check_PROGRAMS) \
 	$(check_SCRIPTS)
 endif
 
