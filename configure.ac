@@ -71,10 +71,16 @@ AS_IF([test "x$enable_tests" != "xno"],
       [AC_PATH_PROG([DESKTOP_FILE_VALIDATE], [desktop-file-validate])
        AS_IF([test "x$ac_cv_path_DESKTOP_FILE_VALIDATE" != "xyes"],
              [have_desktop_file_validate=yes],
-             [have_desktop_file_validate=no])],
-      [have_desktop_file_validate=no])
+             [have_desktop_file_validate=no])
+       AC_PATH_PROG([GTESTER], [gtester])
+       AC_PATH_PROG([GTESTER_REPORT], [gtester-report])
+       AS_IF([test "x$ac_cv_path_GTESTER" != "xyes" -a "x$ac_cv_path_GTESTER_REPORT" != "xyes"],
+             [have_gtester=yes],
+             [have_gtester=no])],
+      [have_desktop_file_validate=no
+       have_gtester=no])
 
-AS_IF([test "x$have_desktop_file_validate" = "xyes"],
+AS_IF([test "x$have_desktop_file_validate" = "xyes" -a "x$have_gtester" = "xyes"],
       [testing_utilities=yes],
       [testing_utilities=no
        AS_IF([test "x$enable_tests" = "xyes"],

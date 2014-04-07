@@ -16,7 +16,6 @@ General tidying
 * Instantiate windows on first use, not at startup
 * GObjectification
 * Avoid using gtk_events_pending(), use asynchronous operations instead
-* Add a test suite
 
 After GTK+ 3
 ------------

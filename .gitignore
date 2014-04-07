@@ -13,6 +13,7 @@ config.h.in
 config.log
 config.status
 configure
+/data/easytag.appdata.valid
 /data/easytag.appdata.xml
 /data/easytag.desktop
 /doc/easytag.1
@@ -38,6 +39,9 @@ ltmain.sh
 /src/libapetag/.deps/
 /src/win32/.deps/
 /src/win32/easytag.rc
+/????-report.html
+/????-report.xml
+/test-suite.log
 /tests/.deps/
 /tests/test-*
 !/tests/*.c

@@ -266,6 +266,43 @@ tests/test-desktop-file-validate.sh: Makefile tests/.dstamp
 		echo "$(DESKTOP_FILE_VALIDATE) $(top_builddir)/$(desktop_DATA) || exit 1" >> $@; \
 		chmod +x $@
 
+# Not automake built-in TESTS_ENVIRONMENT!
+TEST_ENVIRONMENT = MALLOC_CHECK_=2 MALLOC_PERTURB_=$$(($${RANDOM:-256} % 256))
+
+# test: run all tests.
+test: $(check_PROGRAMS)
+	$(AM_V_at)$(TEST_ENVIRONMENT) $(GTESTER) --verbose $(check_PROGRAMS)
+
+# test-report: run tests and generate report.
+# perf-report: run tests with -m perf and generate report.
+# full-report: like test-report: with -m perf and -m slow.
+test-report perf-report full-report: $(check_PROGRAMS)
+	$(AM_V_at)test -z "$(check_PROGRAMS)" || { \
+	  case $@ in \
+	  test-report) test_options="-k";; \
+	  perf-report) test_options="-k -m=perf";; \
+	  full-report) test_options="-k -m=perf -m=slow";; \
+	  esac ; \
+	  $(TEST_ENVIRONMENT) $(GTESTER) --verbose $$test_options -o test-log.xml $(check_PROGRAMS) ; \
+	  if test -d "$(top_srcdir)/.git" ; then \
+	    REVISION=`git describe` ; \
+	  else \
+	    REVISION=$(PACKAGE_VERSION) ; \
+	  fi ; \
+	  echo '<?xml version="1.0"?>' > $@.xml ; \
+	  echo '<report-collection>' >> $@.xml ; \
+	  echo '<info>' >> $@.xml ; \
+	  echo '  <package>$(PACKAGE_NAME)</package>' >> $@.xml ; \
+	  echo '  <version>$(PACKAGE_VERSION)</version>' >> $@.xml ; \
+	  echo "  <revision>$$REVISION</revision>" >> $@.xml ; \
+	  echo '</info>' >> $@.xml ; \
+	  sed '1,1s/^<?xml\b[^>?]*?>//' < test-log.xml >> $@.xml ; \
+	  rm test-log.xml ; \
+	  echo >> $@.xml ; \
+	  echo '</report-collection>' >> $@.xml ; \
+	  $(GTESTER_REPORT) --version 2>/dev/null 1>&2 ; test "$$?" != 0 || $(GTESTER_REPORT) $@.xml >$@.html ; \
+	}
+
 check_PROGRAMS = \
 	tests/test-scan
 
@@ -288,7 +325,6 @@ tests_test_scan_LDADD = \
 check_SCRIPTS = \
 	tests/test-desktop-file-validate.sh
 
-# TODO: Use the GLib test runner
 TESTS = \
 	$(check_PROGRAMS) \
 	$(check_SCRIPTS)
@@ -300,12 +336,14 @@ CLEANFILES = \
 	$(desktop_DATA) \
 	$(easytag_rc) \
 	$(nodist_man_MANS) \
+	*.log \
 	easytag-$(PACKAGE_VERSION)-setup.exe \
 	easytag-win32-installer.nsi
 
 DISTCLEANFILES = \
 	po/.intltool-merge-cache
 
+check-local: test
 clean-local: clean-local-dstamp
 clean-local-dstamp:
 	-rm -f data/.dstamp
@@ -322,3 +360,4 @@ git-changelog-hook:
 dist-hook: git-changelog-hook
 
 .PHONY: clean-local-dstamp git-changelog-hook
+.PHONY: test test-report perf-report full-report
