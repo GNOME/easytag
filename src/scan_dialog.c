@@ -1363,7 +1363,12 @@ Scan_Process_Fields_Functions (gchar **string)
         Scan_Convert_Space_Into_Underscore (*string);
 
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsInsertSpace)))
-        Scan_Process_Fields_Insert_Space(string);
+    {
+        gchar *res;
+        res = Scan_Process_Fields_Insert_Space (*string);
+        g_free (*string);
+        *string = res;
+    }
 
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsOnlyOneSpace)))
         Scan_Process_Fields_Keep_One_Space(*string);
@@ -1372,13 +1377,28 @@ Scan_Process_Fields_Functions (gchar **string)
         Scan_Convert_Character(string);
 
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsAllUppercase)))
-        Scan_Process_Fields_All_Uppercase(*string);
+    {
+        gchar *res;
+        res = Scan_Process_Fields_All_Uppercase (*string);
+        g_free (*string);
+        *string = res;
+    }
 
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsAllDowncase)))
-        Scan_Process_Fields_All_Downcase(*string);
+    {
+        gchar *res;
+        res = Scan_Process_Fields_All_Downcase (*string);
+        g_free (*string);
+        *string = res;
+    }
 
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsFirstLetterUppercase)))
-         Scan_Process_Fields_Letter_Uppercase(*string);
+    {
+        gchar *res;
+        res = Scan_Process_Fields_Letter_Uppercase (*string);
+        g_free (*string);
+        *string = res;
+    }
 
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsFirstLettersUppercase)))
         Scan_Process_Fields_First_Letters_Uppercase(*string);
@@ -1452,7 +1472,10 @@ void Scan_Process_Fields_First_Letters_Uppercase (gchar *string)
     {
         exempt[0] = NULL;
     }
-    Scan_Process_Fields_All_Downcase(string);
+
+    temp = Scan_Process_Fields_All_Downcase (string);
+    g_free (string);
+    string = temp;
 
     if (!g_utf8_validate(string,-1,NULL))
     {

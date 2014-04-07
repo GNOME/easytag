@@ -102,13 +102,14 @@ scan_insert_space (void)
 
     for (i = 0; i < G_N_ELEMENTS (cases); i++)
     {
-        gchar *string;
+        gchar *string, *res;
 
         string = g_strdup (cases[i]);
-        Scan_Process_Fields_Insert_Space (&string);
-        check_string (string, results[i]);
+        res = Scan_Process_Fields_Insert_Space (string);
+        check_string (res, results[i]);
 
         g_free (string);
+        g_free (res);
     }
 }
 
@@ -123,13 +124,14 @@ scan_all_uppercase (void)
 
     for (i = 0; i < G_N_ELEMENTS (cases); i++)
     {
-        gchar *string;
+        gchar *string, *res;
 
         string = g_strdup (cases[i]);
-        Scan_Process_Fields_All_Uppercase (string);
-        check_string (string, results[i]);
+        res = Scan_Process_Fields_All_Uppercase (string);
+        check_string (res, results[i]);
 
         g_free (string);
+        g_free (res);
     }
 }
 
@@ -144,13 +146,14 @@ scan_all_lowercase (void)
 
     for (i = 0; i < G_N_ELEMENTS (cases); i++)
     {
-        gchar *string;
+        gchar *string, *res;
 
         string = g_strdup (cases[i]);
-        Scan_Process_Fields_All_Downcase (string);
-        check_string (string, results[i]);
+        res = Scan_Process_Fields_All_Downcase (string);
+        check_string (res, results[i]);
 
         g_free (string);
+        g_free (res);
     }
 }
 
@@ -167,13 +170,14 @@ scan_letter_uppercase (void)
 
     for (i = 0; i < G_N_ELEMENTS (cases); i++)
     {
-        gchar *string;
+        gchar *string, *res;
 
         string = g_strdup (cases [i]);
-        Scan_Process_Fields_Letter_Uppercase (string);
-        check_string (string, results [i]);
+        res = Scan_Process_Fields_Letter_Uppercase (string);
+        check_string (res, results [i]);
 
         g_free (string);
+        g_free (res);
     }
 }
 

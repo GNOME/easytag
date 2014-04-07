@@ -4309,21 +4309,23 @@ Convert_All_Uppercase (GtkWidget *entry)
 static void
 Convert_All_Lowercase (GtkWidget *entry)
 {
-    gchar *string = g_strdup(gtk_entry_get_text(GTK_ENTRY(entry)));
+    gchar *res;
+    const gchar *string = gtk_entry_get_text (GTK_ENTRY (entry));
 
-    Scan_Process_Fields_All_Downcase(string);
-    gtk_entry_set_text(GTK_ENTRY(entry),string);
-    g_free(string);
+    res = Scan_Process_Fields_All_Uppercase (string);
+    gtk_entry_set_text (GTK_ENTRY (entry), res);
+    g_free (res);
 }
 
 static void
 Convert_Letter_Uppercase (GtkWidget *entry)
 {
-    gchar *string = g_strdup(gtk_entry_get_text(GTK_ENTRY(entry)));
+    gchar *res;
+    const gchar *string = gtk_entry_get_text (GTK_ENTRY (entry));
 
-    Scan_Process_Fields_Letter_Uppercase(string);
-    gtk_entry_set_text(GTK_ENTRY(entry),string);
-    g_free(string);
+    res = Scan_Process_Fields_Letter_Uppercase (string);
+    gtk_entry_set_text (GTK_ENTRY (entry), res);
+    g_free (res);
 }
 
 static void
@@ -4349,15 +4351,12 @@ Convert_Remove_Space (GtkWidget *entry)
 static void
 Convert_Insert_Space (GtkWidget *entry)
 {
-    // FIX ME : we suppose that it will not grow more than 2 times its size...
-    guint string_length = 2 * strlen(gtk_entry_get_text(GTK_ENTRY(entry)));
-    gchar *string       = g_malloc(string_length+1);
-    strncpy(string,gtk_entry_get_text(GTK_ENTRY(entry)),string_length);
-    string[string_length]='\0';
+    gchar *res;
+    const gchar *string = (gtk_entry_get_text (GTK_ENTRY (entry)));
 
-    Scan_Process_Fields_Insert_Space(&string);
-    gtk_entry_set_text(GTK_ENTRY(entry),string);
-    g_free(string);
+    res = Scan_Process_Fields_Insert_Space (string);
+    gtk_entry_set_text (GTK_ENTRY (entry), res);
+    g_free (res);
 }
 
 static void

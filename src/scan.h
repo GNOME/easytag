@@ -25,11 +25,11 @@ void Scan_Convert_Underscore_Into_Space (gchar *string);
 void Scan_Convert_P20_Into_Space (gchar *string);
 void Scan_Convert_Space_Into_Underscore (gchar *string);
 void Scan_Process_Fields_Remove_Space (gchar *string);
-void Scan_Process_Fields_Insert_Space (gchar **string);
+gchar* Scan_Process_Fields_Insert_Space (const gchar *string);
 void Scan_Process_Fields_Keep_One_Space (gchar *string);
 void Scan_Remove_Spaces (gchar *string);
-void Scan_Process_Fields_All_Uppercase (gchar *string);
-void Scan_Process_Fields_All_Downcase (gchar *string);
-void Scan_Process_Fields_Letter_Uppercase (gchar *string);
+gchar* Scan_Process_Fields_All_Uppercase (const gchar *string);
+gchar* Scan_Process_Fields_All_Downcase (const gchar *string);
+gchar* Scan_Process_Fields_Letter_Uppercase (const gchar *string);
 
 #endif /* !ET_SCAN_H_ */

@@ -84,39 +84,36 @@ Scan_Process_Fields_Remove_Space (gchar *string)
 }
 
 /*
- * The function inserts a space before an uppercase letter
- * It is needed to realloc the memory!
+ * Scan_Process_Fields_Insert_Space:
+ * @string: Input string
+ *
+ * This function will insert space before every uppercase character.
+ *
+ * Returns: A newly allocated string.
  */
-void
-Scan_Process_Fields_Insert_Space (gchar **string)
+gchar *
+Scan_Process_Fields_Insert_Space (const gchar *string)
 {
     gchar *iter;
     gunichar c;
-    gint j;
-    guint string_length;
-    gchar *string1;
+    GString *string1;
 
-    // FIX ME : we suppose that it will not grow more than 2 times its size...
-    string_length = 2 * strlen(*string);
-    //string1 = g_realloc(*string, string_length+1);
-    string1       = g_malloc(string_length+1);
-    strncpy(string1,*string,string_length);
-    string1[string_length]='\0';
-    g_free(*string);
-    *string = string1;
+    string1 = g_string_new ("");
+    g_string_append_c (string1, *string);
 
-    for (iter = g_utf8_next_char(*string); *iter; iter = g_utf8_next_char(iter)) // At start : g_utf8_next_char to not consider first "uppercase" letter
+    for (iter = g_utf8_next_char (string); *iter; iter = g_utf8_next_char (iter))
     {
-        c = g_utf8_get_char(iter);
+        c = g_utf8_get_char (iter);
 
-        if (g_unichar_isupper(c))
+        if (g_unichar_isupper (c))
         {
-            for (j = strlen(iter); j > 0; j--)
-                *(iter + j) = *(iter + j - 1);
-            *iter = ' ';
-            iter++;
+            g_string_append_c (string1, ' ');
         }
+
+        g_string_append_unichar (string1, c);
     }
+
+    return g_string_free (string1, FALSE);
 }
 
 /*
@@ -166,86 +163,69 @@ Scan_Remove_Spaces (gchar *string)
   }
 }
 
-void
-Scan_Process_Fields_All_Uppercase (gchar *string)
+/* Returns a newly-allocated string. */
+gchar *
+Scan_Process_Fields_All_Uppercase (const gchar *string)
 {
-    gchar *temp;
-    gchar temp2[6]; // Must have at least 6 bytes of space
-    gunichar c;
-
-    for (temp = string; *temp; temp = g_utf8_next_char(temp))
-    {
-        c = g_utf8_get_char(temp);
-        if (g_unichar_islower(c))
-            strncpy(temp, temp2, g_unichar_to_utf8(g_unichar_toupper(c), temp2));
-    }
+    return g_utf8_strup (string, -1);
 }
 
-void
-Scan_Process_Fields_All_Downcase (gchar *string)
+/* Returns a newly-allocated string. */
+gchar *
+Scan_Process_Fields_All_Downcase (const gchar *string)
 {
-    gchar *temp;
-    gchar temp2[6];
-    gunichar c;
-
-    for (temp = string; *temp; temp = g_utf8_next_char(temp))
-    {
-        c = g_utf8_get_char(temp);
-        if (g_unichar_isupper(c))
-            strncpy(temp, temp2, g_unichar_to_utf8(g_unichar_tolower(c), temp2));
-    }
+    return g_utf8_strdown (string, -1);
 }
 
-void
-Scan_Process_Fields_Letter_Uppercase (gchar *string)
+/* Returns a newly-allocated string. */
+gchar *
+Scan_Process_Fields_Letter_Uppercase (const gchar *string)
 {
-    gchar *temp;
+    const gchar *temp;
     gchar temp2[6];
     gboolean set_to_upper_case = TRUE;
     gunichar c;
-    gchar utf8_character[6];
-    gchar *word, *word1, *word2;
+    GString *string1;
 
-    for (temp = string; *temp; temp = g_utf8_next_char(temp))
+    string1 = g_string_new ("");
+
+    for (temp = string; *temp; temp = g_utf8_next_char (temp))
     {
-        c = g_utf8_get_char(temp);
+        gchar *temp3;
+        int l;
+
+        c = g_utf8_get_char (temp);
+        l = g_unichar_to_utf8 (c, temp2);
+
         if (set_to_upper_case && g_unichar_islower(c))
-            strncpy(temp, temp2, g_unichar_to_utf8(g_unichar_toupper(c), temp2));
-        else if (!set_to_upper_case && g_unichar_isupper(c))
-            strncpy(temp, temp2, g_unichar_to_utf8(g_unichar_tolower(c), temp2));
-        set_to_upper_case = FALSE; // After the first time, all will be down case
-    }
-
-    temp = string;
-
-    // Uppercase again the word 'I' in english
-    while ( temp )
-    {
-        word = temp; // Needed if there is only one word
-        word1 = g_utf8_strchr(temp,-1,' ');
-        word2 = g_utf8_strchr(temp,-1,'_');
-
-        // Take the first string found (near beginning of string)
-        if (word1 && word2)
-            word = MIN(word1,word2);
-        else if (word1)
-            word = word1;
-        else if (word2)
-            word = word2;
-        else
-            // Last word of the string
-            break;
-
-        // Go to first character of the word (char. after ' ' or '_')
-        word = word+1;
-
-        // Set uppercase word 'I'
-        if (g_ascii_strncasecmp("I ", word, strlen("I ")) == 0)
         {
-            c = g_utf8_get_char(word);
-            strncpy(word, utf8_character, g_unichar_to_utf8(g_unichar_toupper(c), utf8_character));
+            temp3 = g_utf8_strup (temp2, l);
+            g_string_append (string1, temp3);
+            g_free (temp3);
+        }
+        else if (!set_to_upper_case && g_unichar_isupper(c))
+        {
+            temp3 = g_utf8_strdown (temp2, l);
+            g_string_append (string1, temp3);
+            g_free (temp3);
+        }
+        else
+        {
+            g_string_append_len (string1, temp2, l);
         }
 
-        temp = word;
+        /* Uppercase the word 'I' in english */
+        if (!set_to_upper_case &&
+            (*(temp - 1) == ' ' || *(temp - 1) == '_') &&
+            (*temp == 'i' || *temp == 'I') &&
+            (*(temp + 1) == ' ' || *(temp + 1) == '_'))
+        {
+            string1->str [string1->len - 1] = 'I';
+        }
+
+        /* After the first time, all will be lower case. */
+        set_to_upper_case = FALSE;
     }
+
+    return g_string_free (string1, FALSE);
 }
