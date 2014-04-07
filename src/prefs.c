@@ -1334,7 +1334,8 @@ void Open_OptionsWindow (void)
         gtk_entry_set_text(GTK_ENTRY(CddbProxyUserPassword),CDDB_PROXY_USER_PASSWORD);
     gtk_grid_attach (GTK_GRID (Table), CddbProxyUserPassword, 4, 2, 1, 1);
     gtk_entry_set_visibility(GTK_ENTRY(CddbProxyUserPassword),FALSE);
-    gtk_widget_set_tooltip_text(CddbProxyUserPassword,_("Password of user for the the proxy server."));
+    gtk_widget_set_tooltip_text (CddbProxyUserPassword,
+                                 _("Password of user for the proxy server."));
     Cddb_Use_Proxy_Toggled();
 
 
