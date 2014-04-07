@@ -18,7 +18,9 @@
 
 #include "scan.h"
 
-/* TODO: Add more test strings, and possibly some performance tests. */
+/* TODO: Add more test strings. */
+
+static const gsize PERF_ITERATIONS = 500000;
 
 static void
 check_string (gchar *cases, gchar *result)
@@ -181,6 +183,24 @@ scan_letter_uppercase (void)
     }
 }
 
+static void
+scan_perf (gconstpointer user_data)
+{
+    gsize i;
+    gdouble time;
+
+    g_test_timer_start ();
+
+    for (i = 0; i < PERF_ITERATIONS; i++)
+    {
+        ((GTestFunc)user_data) ();
+    }
+
+    time = g_test_timer_elapsed ();
+
+    g_test_minimized_result (time, "%6.1f seconds", time);
+}
+
 int
 main (int argc, char** argv)
 {
@@ -193,6 +213,24 @@ main (int argc, char** argv)
     g_test_add_func ("/scan/all-uppercase", scan_all_uppercase);
     g_test_add_func ("/scan/all-lowercase", scan_all_lowercase);
     g_test_add_func ("/scan/letter-uppercase", scan_letter_uppercase);
+
+    if (g_test_perf ())
+    {
+        g_test_add_data_func ("/scan/perf/underscore-to-space",
+                              scan_underscore_to_space, scan_perf);
+        g_test_add_data_func ("/scan/perf/remove-space", scan_remove_space,
+                              scan_perf);
+        g_test_add_data_func ("/scan/perf/P20-to-space", scan_p20_to_space,
+                              scan_perf);
+        g_test_add_data_func ("/scan/perf/insert-space", scan_insert_space,
+                              scan_perf);
+        g_test_add_data_func ("/scan/perf/all-uppercase", scan_all_uppercase,
+                              scan_perf);
+        g_test_add_data_func ("/scan/perf/all-lowercase", scan_all_lowercase,
+                              scan_perf);
+        g_test_add_data_func ("/scan/perf/letter-uppercase",
+                              scan_letter_uppercase, scan_perf);
+    }
 
     return g_test_run ();
 }
