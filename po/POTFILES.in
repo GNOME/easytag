@@ -25,7 +25,7 @@ src/ogg_tag.c
 src/opus_header.c
 src/picture.c
 src/prefs.c
-src/scan.c
+src/scan_dialog.c
 src/setting.c
 src/vcedit.c
 src/wavpack_header.c

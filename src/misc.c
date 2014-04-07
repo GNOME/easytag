@@ -36,6 +36,7 @@
 #include "bar.h"
 #include "prefs.h"
 #include "scan.h"
+#include "scan_dialog.h"
 #include "genres.h"
 #include "log.h"
 #include "charset.h"
@@ -1399,7 +1400,7 @@ Playlist_Write_Button_Pressed (void)
         }
         if (RFS_CONVERT_SPACE_INTO_UNDERSCORE)
         {
-            Scan_Convert_Space_Into_Undescore(playlist_basename_utf8);
+            Scan_Convert_Space_Into_Underscore (playlist_basename_utf8);
         }
         if (RFS_REMOVE_SPACES)
 				 {

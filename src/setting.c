@@ -37,7 +37,7 @@
 #include "bar.h"
 #include "easytag.h"
 #include "charset.h"
-#include "scan.h"
+#include "scan_dialog.h"
 #include "log.h"
 #include "misc.h"
 #include "cddb.h"

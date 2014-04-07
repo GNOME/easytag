@@ -47,6 +47,7 @@
 #include "prefs.h"
 #include "setting.h"
 #include "scan.h"
+#include "scan_dialog.h"
 #include "mpeg_header.h"
 #include "id3_tag.h"
 #include "ogg_tag.h"
@@ -4290,7 +4291,7 @@ Convert_Space_Into_Underscore (GtkWidget *entry)
 {
     gchar *string = g_strdup(gtk_entry_get_text(GTK_ENTRY(entry)));
 
-    Scan_Convert_Space_Into_Undescore(string);
+    Scan_Convert_Space_Into_Underscore (string);
     gtk_entry_set_text(GTK_ENTRY(entry),string);
     g_free(string);
 }

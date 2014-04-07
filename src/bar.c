@@ -29,7 +29,7 @@
 #include "prefs.h"
 #include "setting.h"
 #include "browser.h"
-#include "scan.h"
+#include "scan_dialog.h"
 #include "cddb.h"
 #include "log.h"
 #include "misc.h"

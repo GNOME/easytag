@@ -44,7 +44,7 @@
 #include "easytag.h"
 #include "et_core.h"
 #include "browser.h"
-#include "scan.h"
+#include "scan_dialog.h"
 #include "log.h"
 #include "misc.h"
 #include "setting.h"
