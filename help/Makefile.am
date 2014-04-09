@@ -16,6 +16,7 @@ HELP_FILES = \
 	legal.xml \
 	playlist-generate.page \
 	problems-id3.page \
+	problems-ogg-split.page \
 	scanner.page \
 	starting.page \
 	tag-field.page \

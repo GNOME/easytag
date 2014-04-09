@@ -1,0 +1,54 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:its="http://www.w3.org/2005/11/its"
+      type="topic" style="task"
+      id="problems-ogg-split">
+
+  <info>
+    <link type="guide" xref="index#problems"/>
+    <revision pkgversion="2.2.0" date="2014-04-10" status="review"/>
+
+    <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
+
+    <credit type="author">
+      <name>David King</name>
+      <email its:translate="no">amigadave@amigadave.com</email>
+    </credit>
+
+    <desc>Display missing tags in Ogg and FLAC files</desc>
+
+  </info>
+
+  <title>Ogg and FLAC tag splitting</title>
+
+  <p>In Ogg and FLAC files, tag fields can have multiple values. As an example,
+  if two artists performed a song, there might be two artist fields in the tag,
+  one for each artist. <app>EasyTAG</app> automatically reads the extra fields,
+  combining them together and showing them as if they were a single field.</p>
+
+  <p>Many applications do not read the multi-field tags correctly, and so the
+  default configuration is to save using a single field per entry. If the
+  application that you are using supports multi-field tags, you can configure
+  EasyTAG to save them. Fields will automatically be split whenever " - "
+  occurs in the field. For example, in the field "David Bowie - Queen", two
+  fields would be saved: "David Bowie" and "Queen".</p>
+
+  <p>To split tags into multiple fields:</p>
+
+  <steps>
+    <item>
+      <p>Select <guiseq style="menuitem"><gui style="menu">Edit</gui>
+      <gui style="menuitem">Preferences</gui></guiseq></p>
+    </item>
+    <item>
+      <p>Select the <gui style="tab">Tag Settings</gui> tab.</p>
+    </item>
+    <item>
+      <p>In <gui style="group">Tag Splitting</gui> section, check the fields
+      that you want to be split into multiple fields when saving.</p>
+    </item>
+    <item>
+      <p>Click <gui style="button">OK</gui> to save the settings.</p>
+    </item>
+  </steps>
+
+</page>
