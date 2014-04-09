@@ -1006,10 +1006,16 @@ Scan_Rename_File_Prefix_Path (void)
     gchar *path_tmp;
     const gchar *combo_text = NULL;
     gchar *combo_tmp;
-    ET_File *ETFile          = ETCore->ETFileDisplayed;
-    gchar *filename_utf8_cur = ((File_Name *)ETFile->FileNameCur->data)->value_utf8;
+    ET_File *ETFile = ETCore->ETFileDisplayed;
+    gchar *filename_utf8_cur;
     gchar *path_utf8_cur;
 
+    if (!ETFile)
+    {
+        return;
+    }
+
+    filename_utf8_cur = ((File_Name *)ETFile->FileNameCur->data)->value_utf8;
 
     // The path to prefix
     path_utf8_cur = g_path_get_dirname(filename_utf8_cur);
