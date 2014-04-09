@@ -6,6 +6,7 @@
   <info>
     <link type="guide" xref="index" group="#first"/>
     <revision pkgversion="2.1.9" date="2013-03-05" status="candidate" />
+    <revision pkgversion="2.2.0" date="2014-04-09" status="candidate" />
 
     <credit type="author">
       <name>Ekaterina Gerasimova</name>
@@ -20,6 +21,7 @@
   <title>Introduction</title>
 
   <p><app>EasyTAG</app> is a comprehensive tag editor for FLAC, Monkey's Audio,
-  MP2, MP3, MP4/AAC, MusePack, Ogg Vorbis, Speex and WavPack audio files.</p>
+  MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis and WavPack
+  audio files.</p>
 
 </page>
