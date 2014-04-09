@@ -15,6 +15,7 @@ HELP_FILES = \
 	keyboard-shortcuts.page \
 	legal.xml \
 	playlist-generate.page \
+	problems-id3.page \
 	scanner.page \
 	starting.page \
 	tag-field.page \

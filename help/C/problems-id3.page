@@ -1,0 +1,58 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:its="http://www.w3.org/2005/11/its"
+      type="topic" style="task"
+      id="problems-id3">
+
+  <info>
+    <link type="guide" xref="index#problems"/>
+    <revision pkgversion="2.2.0" date="2014-04-09" status="review"/>
+
+    <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
+
+    <credit type="author">
+      <name>David King</name>
+      <email its:translate="no">amigadave@amigadave.com</email>
+    </credit>
+
+    <desc>Fix ID3 tags that show up blank or incorrect tags in other
+    applications</desc>
+  </info>
+
+  <title>MP3 tags not showing correctly</title>
+
+  <p><em>ID3</em> tags, which are used for MP3 files, can be of one of several
+  different versions. <app>EasyTAG</app> supports ID3v2.4, ID3v2.3 and ID3v1.1.
+  The default version in <app>EasyTAG</app> is ID3v2.4, which has the most
+  features and is most efficient.</p>
+
+  <p>Most applications support the most recent version of the ID3 standard:
+  ID3v2.4.</p>
+
+  <p>Some applications and devices may support only ID3v2.3 and ID3v1.1 tags,
+  and a few may support only ID3v1.1 tags. If another application or a device
+  has a problem reading tags from your files, you should try changing the ID3
+  tag version settings in the preferences:</p>
+
+  <steps>
+    <item>
+      <p>Select
+      <guiseq style="menuitem"><gui style="menu">Edit</gui><gui style="menuitem">Preferences</gui></guiseq></p>
+    </item>
+    <item>
+      <p>Select the <gui style="tab">ID3 Tag Settings</gui> tab</p>
+    </item>
+    <item>
+      <p>In the <gui style="group">ID3v2 tags</gui> section, choose the
+      <gui>ID3v2.3</gui> setting in the <gui>Version</gui> drop-down lid to
+      improve compatibility with other systems capable of reading ID3v2 tags</p>
+    </item>
+    <item>
+      <p>Make sure that <gui style="check">Write ID3v1.x tag</gui> is checked
+      in the <gui style="group">ID3v1 tags</gui> section</p>
+    </item>
+    <item>
+      <p>Click <gui style="button">OK</gui> to save the settings</p>
+    </item>
+  </steps>
+
+</page>
