@@ -4125,8 +4125,6 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
 
 #ifdef ENABLE_MP4
         case MP4_TAG:
-            gtk_widget_hide (GTK_WIDGET (AlbumArtistLabel));
-            gtk_widget_hide (GTK_WIDGET (AlbumArtistEntry));
             gtk_widget_show (GTK_WIDGET (DiscNumberLabel));
             gtk_widget_show (GTK_WIDGET (DiscNumberEntry));
             gtk_widget_show (GTK_WIDGET (ComposerLabel));

@@ -168,11 +168,20 @@ gboolean Mp4tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
         FileTag->encoded_by = g_strdup (encodedbys.front ().toCString (true));
     }
 
+    const TagLib::MP4::ItemListMap &extra_items = tag->itemListMap ();
+
+    /****************
+     * Album Artist *
+     ****************/
+    if (extra_items.contains ("aART"))
+    {
+        const TagLib::MP4::Item album_artists = extra_items["aART"];
+        FileTag->album_artist = g_strdup (album_artists.toStringList ().front ().toCString (true));
+    }
+
     /***********
      * Picture *
      ***********/
-    const TagLib::MP4::ItemListMap extra_items = tag->itemListMap ();
-
     if (extra_items.contains ("covr"))
     {
         const TagLib::MP4::Item cover = extra_items["covr"];
@@ -259,9 +268,6 @@ gboolean Mp4tag_Write_File_Tag (ET_File *ETFile)
         TagLib::String string (FileTag->album, TagLib::String::UTF8);
         fields.insert ("ALBUM", string);
     }
-
-    /* Album artist. */
-    /* TODO: No album artist support in TagLib. */
 
     /* Disc number. */
     if (FileTag->disc_number && *(FileTag->disc_number))
@@ -357,11 +363,19 @@ gboolean Mp4tag_Write_File_Tag (ET_File *ETFile)
         fields.insert ("ENCODEDBY", string);
     }
 
+    TagLib::MP4::ItemListMap &extra_items = tag->itemListMap ();
+
+    /* Album artist. */
+    /* FIXME: No "ALBUMARTIST" support in TagLib, use atom directly. */
+    if (FileTag->album_artist && *(FileTag->album_artist))
+    {
+        TagLib::String string (FileTag->album_artist, TagLib::String::UTF8);
+        extra_items.insert ("aART", TagLib::MP4::Item (string));
+    }
+
     /***********
      * Picture *
      ***********/
-    TagLib::MP4::ItemListMap &extra_items = tag->itemListMap ();
-
     if (FileTag->picture)
     {
         Picture_Format pf;
