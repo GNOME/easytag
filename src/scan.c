@@ -40,15 +40,12 @@ Scan_Convert_Underscore_Into_Space (gchar *string)
 void
 Scan_Convert_P20_Into_Space (gchar *string)
 {
-    gchar *tmp, *tmp1;
+    gchar *tmp = string;
 
-    while ((tmp = strstr (string, "%20")) != NULL)
+    while ((tmp = strstr (tmp, "%20")) != NULL)
     {
-        tmp1 = tmp + 3;
         *(tmp++) = ' ';
-        while (*tmp1)
-            *(tmp++) = *(tmp1++);
-        *tmp = '\0';
+        strcpy (tmp, tmp + 2);
     }
 }
 
