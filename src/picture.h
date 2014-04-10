@@ -24,6 +24,7 @@
 
 #include "et_core.h"
 
+G_BEGIN_DECLS
 
 /***************
  * Declaration *
@@ -126,5 +127,6 @@ const gchar   *Picture_Mime_Type_String (Picture_Format format);
 gboolean Picture_Entry_View_Button_Pressed (GtkTreeView *treeview, GdkEventButton *event, gpointer data);
 gboolean Picture_Entry_View_Key_Pressed    (GtkTreeView *treeview, GdkEvent *event, gpointer data);
 
+G_END_DECLS
 
 #endif /* __PICTURE_H__ */

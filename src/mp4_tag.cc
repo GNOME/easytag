@@ -171,7 +171,23 @@ gboolean Mp4tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     /***********
      * Picture *
      ***********/
-    /* FIXME: Add picture support. */
+    const TagLib::MP4::ItemListMap extra_items = tag->itemListMap ();
+
+    if (extra_items.contains ("covr"))
+    {
+        const TagLib::MP4::Item cover = extra_items["covr"];
+        const TagLib::MP4::CoverArt &art = cover.toCoverArtList ().front ();
+
+        FileTag->picture = Picture_Allocate ();
+
+        FileTag->picture->size = art.data ().size ();
+        FileTag->picture->data = (guchar *)g_memdup (art.data ().data (),
+                                                     art.data ().size ());
+    }
+    else
+    {
+        FileTag->picture = NULL;
+    }
 
     return TRUE;
 }
@@ -344,8 +360,39 @@ gboolean Mp4tag_Write_File_Tag (ET_File *ETFile)
     /***********
      * Picture *
      ***********/
+    TagLib::MP4::ItemListMap &extra_items = tag->itemListMap ();
 
-    /* FIXME: Add picture support. */
+    if (FileTag->picture)
+    {
+        Picture_Format pf;
+        TagLib::MP4::CoverArt::Format f;
+
+        pf = Picture_Format_From_Data (FileTag->picture);
+
+        switch (pf)
+        {
+            case PICTURE_FORMAT_JPEG:
+                f = TagLib::MP4::CoverArt::JPEG;
+                break;
+            case PICTURE_FORMAT_PNG:
+                f = TagLib::MP4::CoverArt::PNG;
+                break;
+            case PICTURE_FORMAT_GIF:
+                f = TagLib::MP4::CoverArt::GIF;
+                break;
+            default:
+                g_critical ("Unknown format");
+                f = TagLib::MP4::CoverArt::JPEG;
+                break;
+        }
+
+        TagLib::MP4::CoverArt art (f, TagLib::ByteVector((char *)FileTag->picture->data,
+                                                         FileTag->picture->size));
+
+        extra_items.insert ("covr",
+                            TagLib::MP4::Item (TagLib::MP4::CoverArtList ().append (art)));
+    }
+
     tag->setProperties (fields);
     success = mp4file.save () ? TRUE : FALSE;
 

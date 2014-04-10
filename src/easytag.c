@@ -4139,7 +4139,7 @@ void Tag_Area_Display_Controls (ET_File *ETFile)
             gtk_widget_hide(GTK_WIDGET(URLEntry));
             gtk_widget_show (GTK_WIDGET (EncodedByLabel));
             gtk_widget_show (GTK_WIDGET (EncodedByEntry));
-            et_tag_notebook_hide_images_tab (TagNoteBook);
+            et_tag_notebook_show_images_tab (TagNoteBook);
             break;
 #endif
 
