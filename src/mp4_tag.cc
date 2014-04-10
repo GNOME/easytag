@@ -37,6 +37,7 @@
 #include "misc.h"
 #include "et_core.h"
 #include "charset.h"
+#include "gio_wrapper.h"
 
 #include <mp4file.h>
 #include <mp4tag.h>
@@ -58,7 +59,11 @@ gboolean Mp4tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     g_return_val_if_fail (filename != NULL && FileTag != NULL, FALSE);
 
     /* Get data from tag. */
-    TagLib::MP4::File mp4file (filename);
+    GFile *file = g_file_new_for_path (filename);
+    GIO_InputStream stream (file);
+    TagLib::MP4::File mp4file (&stream);
+
+    g_object_unref (file);
 
     if (!mp4file.isOpen ())
     {
@@ -226,7 +231,11 @@ gboolean Mp4tag_Write_File_Tag (ET_File *ETFile)
     filename_utf8 = ((File_Name *)ETFile->FileNameCur->data)->value_utf8;
 
     /* Open file for writing */
-    TagLib::MP4::File mp4file (filename);
+    GFile *file = g_file_new_for_path (filename);
+    GIO_IOStream stream (file);
+    TagLib::MP4::File mp4file (&stream);
+
+    g_object_unref (file);
 
     if (!mp4file.isOpen ())
     {
