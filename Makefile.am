@@ -59,7 +59,6 @@ easytag_SOURCES = \
 	src/misc.c \
 	src/monkeyaudio_header.c \
 	src/mpeg_header.c \
-	src/mp4_header.c \
 	src/mp4_tag.cc \
 	src/musepack_header.c \
 	src/ogg_header.c \
@@ -249,6 +248,7 @@ dist_noinst_DATA = \
 	src/libapetag/README.apetag \
 	src/libapetag/id3v2_read.c \
 	src/libapetag/id3v2_read.h \
+	src/mp4_header.cc \
 	src/win32/resource.h \
 	data/icons/win32/easytag.ico \
 	data/nsis/easytag-header.bmp \

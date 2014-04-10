@@ -28,6 +28,7 @@
 #include <glib/gi18n.h>
 #include <stdlib.h>
 
+#include "mp4_header.h"
 #include "mp4_tag.h"
 #include "picture.h"
 #include "easytag.h"
@@ -40,6 +41,9 @@
 #include <mp4file.h>
 #include <mp4tag.h>
 #include <tpropertymap.h>
+
+/* Include mp4_header.cc directly. */
+#include "mp4_header.cc"
 
 /*
  * Mp4_Tag_Read_File_Tag:

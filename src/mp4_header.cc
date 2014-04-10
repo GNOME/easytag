@@ -1,6 +1,6 @@
-/* mp4_header.c - 2005/02/05 */
 /*
- *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
+ *  EasyTAG - Tag editor for audio files
+ *  Copyright (C) 2012-1014  David King <amigadave@amigadave.com>
  *  Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
  *  Copyright (C) 2005  Stewart Whitman <swhitman@cox.net>
  *
@@ -19,27 +19,7 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include "config.h" // For definition of ENABLE_MP4
-
-#ifdef ENABLE_MP4
-
-#include <gtk/gtk.h>
-#include <glib/gi18n.h>
-#include <stdio.h>
-#include <errno.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
-
-#include "mp4_header.h"
-#include "easytag.h"
-#include "et_core.h"
-#include "log.h"
-#include "misc.h"
-#include "charset.h"
-
-#include <tag_c.h>
-
+/* This file is intended to be included directly in mp4_tag.cc */
 
 /*
  * Mp4_Header_Read_File_Info:
@@ -48,48 +28,62 @@
  */
 gboolean Mp4_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
 {
-    TagLib_File *file;
-    const TagLib_AudioProperties *properties;
+    TagLib::MP4::Tag *tag;
+    const TagLib::MP4::Properties *properties;
 
     g_return_val_if_fail (filename != NULL && ETFileInfo != NULL, FALSE);
 
     /* Get size of file */
     ETFileInfo->size = et_get_file_size (filename);
 
-    if ((file = taglib_file_new_type(filename, TagLib_File_MP4)) == NULL )
+    TagLib::MP4::File mp4file (filename);
+
+    if (!mp4file.isOpen ())
     {
-        gchar *filename_utf8 = filename_to_display(filename);
-        //g_print(_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
-        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8,_("MP4 format invalid"));
-        g_free(filename_utf8);
+        gchar *filename_utf8 = filename_to_display (filename);
+        Log_Print (LOG_ERROR, _("Error while opening file: '%s' (%s)."),
+                   filename_utf8,_("MP4 format invalid"));
+        g_free (filename_utf8);
         return FALSE;
     }
 
-    /* Check for audio track */
-    if( !taglib_file_is_valid(file) )
+    if (!(tag = mp4file.tag ()))
     {
-        gchar *filename_utf8 = filename_to_display(filename);
+        gchar *filename_utf8 = filename_to_display (filename);
         Log_Print (LOG_ERROR, _("File contains no audio track: '%s'"),
                    filename_utf8);
-        g_free(filename_utf8);
+        g_free (filename_utf8);
         return FALSE;
     }
 
-    properties = taglib_file_audioproperties(file);
+    properties = mp4file.audioProperties ();
+
     if (properties == NULL)
     {
         gchar *filename_utf8 = filename_to_display (filename);
         Log_Print (LOG_ERROR, _("Error reading properties from file: '%s'"),
                    filename_utf8);
         g_free (filename_utf8);
-        taglib_file_free (file);
         return FALSE;
     }
 
     /* Get format/subformat */
     {
-        ETFileInfo->mpc_version = g_strdup("MPEG");
-	ETFileInfo->mpc_profile = g_strdup("4, Unknown");
+        ETFileInfo->mpc_version = g_strdup ("MPEG");
+
+        switch (properties->codec ())
+        {
+            case TagLib::MP4::Properties::AAC:
+                ETFileInfo->mpc_profile = g_strdup ("4, AAC");
+                break;
+            case TagLib::MP4::Properties::ALAC:
+                ETFileInfo->mpc_profile = g_strdup ("4, ALAC");
+                break;
+            case TagLib::MP4::Properties::Unknown:
+            default:
+                ETFileInfo->mpc_profile = g_strdup ("4, Unknown");
+                break;
+        };
     }
 
     ETFileInfo->version = 4;
@@ -97,12 +91,11 @@ gboolean Mp4_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
     ETFileInfo->layer = 14;
 
     ETFileInfo->variable_bitrate = TRUE;
-    ETFileInfo->bitrate = taglib_audioproperties_bitrate(properties);
-    ETFileInfo->samplerate = taglib_audioproperties_samplerate(properties);
-    ETFileInfo->mode = taglib_audioproperties_channels(properties);
-    ETFileInfo->duration = taglib_audioproperties_length(properties);
+    ETFileInfo->bitrate = properties->bitrate ();
+    ETFileInfo->samplerate = properties->sampleRate ();
+    ETFileInfo->mode = properties->channels ();
+    ETFileInfo->duration = properties->length ();
 
-    taglib_file_free(file);
     return TRUE;
 }
 
@@ -170,5 +163,3 @@ gboolean Mp4_Header_Display_File_Info_To_UI(gchar *filename, ET_File_Info *ETFil
 
     return TRUE;
 }
-
-#endif

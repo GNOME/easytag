@@ -1,6 +1,6 @@
-/* mp4_header.h - 2005/02/15 */
 /*
- *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
+ *  EasyTAG - Tag editor for audio files
+ *  Copyright (C) 2012-2014  David King <amigadave@amigadave.com>
  *  Copyright (C) 2000-2005  Jerome Couderc <easytag@gmail.com>
  *  Copyright (C) 2005  Stewart Whitman <swhitman@cox.net>
  *
@@ -20,23 +20,17 @@
  */
 
 
-#ifndef __MP4_HEADER_H__
-#define __MP4_HEADER_H__
+#ifndef ET_MP4_HEADER_H_
+#define ET_MP4_HEADER_H_
 
 
 #include "et_core.h"
 
-/****************
- * Declarations *
- ****************/
+G_BEGIN_DECLS
 
-
-/**************
- * Prototypes *
- **************/
-
-gboolean Mp4_Header_Read_File_Info          (gchar *filename, ET_File_Info *ETFileInfo);
+gboolean Mp4_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo);
 gboolean Mp4_Header_Display_File_Info_To_UI (gchar *filename, ET_File_Info *ETFileInfo);
 
+G_END_DECLS
 
-#endif /* __MP4_HEADER_H__ */
+#endif /* ET_MP4_HEADER_H_ */

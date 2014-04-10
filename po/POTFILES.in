@@ -16,7 +16,7 @@ src/id3v24_tag.c
 src/log.c
 src/misc.c
 src/monkeyaudio_header.c
-src/mp4_header.c
+src/mp4_header.cc
 src/mp4_tag.cc
 src/mpeg_header.c
 src/musepack_header.c
