@@ -658,6 +658,8 @@ void Picture_Properties_Button_Clicked (GObject *object)
                                                          NULL);
         g_free(title);
 
+        gtk_window_set_default_size (GTK_WINDOW (PictureTypesWindow), 400,
+                                     400);
         gtk_dialog_set_default_response(GTK_DIALOG(PictureTypesWindow), GTK_RESPONSE_OK);
 
         ScrollWindowPictureTypes = gtk_scrolled_window_new(NULL, NULL);
@@ -677,7 +679,6 @@ void Picture_Properties_Button_Clicked (GObject *object)
                                             "text", PICTURE_TYPE_COLUMN_TEXT,
                                             NULL);
         gtk_tree_view_append_column(GTK_TREE_VIEW(type), column);
-        gtk_widget_set_size_request(type, 256, 256);
         gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(PictureTypesWindow))),ScrollWindowPictureTypes,TRUE,TRUE,0);
 
         // Behaviour following the tag type...
