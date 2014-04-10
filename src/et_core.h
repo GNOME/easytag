@@ -216,7 +216,7 @@ typedef struct _ET_File_Description ET_File_Description;
 struct _ET_File_Description
 {
     ET_File_Type FileType;    /* Type of file (ex: MP3) */
-    gchar       *Extension;   /* Extension (ex: ".mp3") */
+    const gchar *Extension; /* Extension (ex: ".mp3") */
     ET_Tag_Type  TagType;     /* Type of tag (ex: ID3) */
 };
 
