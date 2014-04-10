@@ -1,0 +1,4687 @@
+# Telugu translation for easytag.
+# Copyright (C) 2014 easytag's COPYRIGHT HOLDER
+# This file is distributed under the same license as the easytag package.
+# Praveen Illa <mail2ipn@gmail.com>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: easytag master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=easytag&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2014-04-10 19:13+0000\n"
+"PO-Revision-Date: 2014-04-11 02:41+0530\n"
+"Last-Translator: Praveen Illa <mail2ipn@gmail.com>\n"
+"Language-Team: Telugu <indlinux-telugu@lists.sourceforge.net>\n"
+"Language: te\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-Bookmarks: -1,516,-1,-1,-1,-1,-1,-1,-1,-1\n"
+
+#: ../data/easytag.appdata.xml.in.h:1
+msgid ""
+"View and edit tags for MP3, MP2, MP4/AAC, FLAC, Ogg Opus, Ogg Speex, Ogg "
+"Vorbis, MusePack, Monkey's Audio and WavPack files."
+msgstr ""
+
+#: ../data/easytag.appdata.xml.in.h:2
+msgid ""
+"Look up albums in online databases, bulk edit tags, create playlists and "
+"rename a collection of files."
+msgstr ""
+
+#: ../data/easytag.appdata.xml.in.h:3
+msgid ""
+"A simple and nice GTK+ interface makes tagging easier under GNU/Linux and "
+"Windows."
+msgstr ""
+
+#: ../data/easytag.desktop.in.h:1
+msgid "Sound File Metadata Editor"
+msgstr ""
+
+#: ../data/easytag.desktop.in.h:2
+msgid "Edit sound file metadata"
+msgstr ""
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: ../data/easytag.desktop.in.h:4
+msgid "mp3;tag;audio;"
+msgstr ""
+
+#: ../src/about.c:89
+msgid ""
+"This program is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along with "
+"this program. If not, see <http://www.gnu.org/licenses/>."
+msgstr ""
+
+#. Translators: put your own name here to appear in the about dialog.
+#: ../src/about.c:106
+msgid "translator-credits"
+msgstr "Praveen Illa <mail2ipn@gmail.com>, 2014."
+
+#: ../src/about.c:116
+msgid "View and edit tags in audio files"
+msgstr ""
+
+#. g_print(_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
+#: ../src/ape_tag.c:61 ../src/id3v24_tag.c:112 ../src/mp4_header.c:63
+#: ../src/mp4_tag.c:65 ../src/mp4_tag.c:186
+#, c-format
+msgid "Error while opening file: '%s' (%s)."
+msgstr ""
+
+#: ../src/application.c:37
+msgid "Print the version and exit"
+msgstr ""
+
+#: ../src/application.c:89
+#, c-format
+msgid "Website: %s"
+msgstr "జాలగూడు: %s"
+
+#: ../src/application.c:98
+msgid "- Tag and rename audio files"
+msgstr ""
+
+#.
+#. * Main Menu Actions
+#.
+#: ../src/bar.c:155
+msgid "_File"
+msgstr "దస్త్రం (_F)"
+
+#: ../src/bar.c:156
+msgid "Sort List by Tag"
+msgstr "కొసను బట్టి జాబితాను క్రమపరుచు"
+
+#: ../src/bar.c:159
+msgid "Sort List by Property"
+msgstr "లక్షణం బట్టి జాబితాను క్రమపరుచు"
+
+#: ../src/bar.c:160
+msgid "Ascending by filename"
+msgstr ""
+
+#: ../src/bar.c:161
+msgid "Descending by filename"
+msgstr ""
+
+#: ../src/bar.c:162
+msgid "Ascending by creation date"
+msgstr ""
+
+#: ../src/bar.c:163
+msgid "Descending by creation date"
+msgstr ""
+
+#: ../src/bar.c:164
+msgid "Ascending by track number"
+msgstr ""
+
+#: ../src/bar.c:165
+msgid "Descending by track number"
+msgstr ""
+
+#: ../src/bar.c:166
+msgid "Ascending by title"
+msgstr ""
+
+#: ../src/bar.c:167
+msgid "Descending by title"
+msgstr ""
+
+#: ../src/bar.c:168
+msgid "Ascending by artist"
+msgstr ""
+
+#: ../src/bar.c:169
+msgid "Descending by artist"
+msgstr ""
+
+#: ../src/bar.c:170
+msgid "Ascending by album artist"
+msgstr ""
+
+#: ../src/bar.c:171
+msgid "Descending by album artist"
+msgstr ""
+
+#: ../src/bar.c:172
+msgid "Ascending by album"
+msgstr ""
+
+#: ../src/bar.c:173
+msgid "Descending by album"
+msgstr ""
+
+#: ../src/bar.c:174
+msgid "Ascending by year"
+msgstr ""
+
+#: ../src/bar.c:175
+msgid "Descending by year"
+msgstr ""
+
+#: ../src/bar.c:176
+msgid "Ascending by genre"
+msgstr ""
+
+#: ../src/bar.c:177
+msgid "Descending by genre"
+msgstr ""
+
+#: ../src/bar.c:178
+msgid "Ascending by comment"
+msgstr ""
+
+#: ../src/bar.c:179
+msgid "Descending by comment"
+msgstr ""
+
+#: ../src/bar.c:180
+msgid "Ascending by composer"
+msgstr ""
+
+#: ../src/bar.c:181
+msgid "Descending by composer"
+msgstr ""
+
+#: ../src/bar.c:182
+msgid "Ascending by original artist"
+msgstr ""
+
+#: ../src/bar.c:183
+msgid "Descending by original artist"
+msgstr ""
+
+#: ../src/bar.c:184
+msgid "Ascending by copyright"
+msgstr ""
+
+#: ../src/bar.c:185
+msgid "Descending by copyright"
+msgstr ""
+
+#: ../src/bar.c:186
+msgid "Ascending by URL"
+msgstr ""
+
+#: ../src/bar.c:187
+msgid "Descending by URL"
+msgstr ""
+
+#. Translators: the encoder name is supposed to be the name of a person
+#. * or organisation, but can sometimes be the name of an application.
+#: ../src/bar.c:190
+msgid "Ascending by encoder name"
+msgstr ""
+
+#. Translators: the encoder name is supposed to be the name of a person
+#. * or organisation, but can sometimes be the name of an application.
+#: ../src/bar.c:193
+msgid "Descending by encoder name"
+msgstr ""
+
+#: ../src/bar.c:194
+msgid "Ascending by file type"
+msgstr ""
+
+#: ../src/bar.c:195
+msgid "Descending by file type"
+msgstr ""
+
+#: ../src/bar.c:196
+msgid "Ascending by file size"
+msgstr ""
+
+#: ../src/bar.c:197
+msgid "Descending by file size"
+msgstr ""
+
+#: ../src/bar.c:198
+msgid "Ascending by duration"
+msgstr ""
+
+#: ../src/bar.c:199
+msgid "Descending by duration"
+msgstr ""
+
+#: ../src/bar.c:200
+msgid "Ascending by bitrate"
+msgstr ""
+
+#: ../src/bar.c:201
+msgid "Descending by bitrate"
+msgstr ""
+
+#: ../src/bar.c:202
+msgid "Ascending by samplerate"
+msgstr ""
+
+#: ../src/bar.c:203
+msgid "Descending by samplerate"
+msgstr ""
+
+#: ../src/bar.c:205
+msgid "Open Files With…"
+msgstr "దస్త్రాలను దీనితో తెరువు"
+
+#: ../src/bar.c:206
+msgid "Run a command on the selected files"
+msgstr "ఎంచుకున్న దస్త్రాలపై ఒక ఆదేశాన్ని నడుపు"
+
+#: ../src/bar.c:209
+msgid "Select all"
+msgstr "అన్నిటిని ఎంపికచేయి"
+
+#: ../src/bar.c:210
+msgid "Unselect All"
+msgstr "మొత్తం ఎంపిక రద్దు"
+
+#: ../src/bar.c:211
+msgid "Clear the current selection"
+msgstr "ప్రస్తుత ఎంపికను శుభ్రపరుచు"
+
+#: ../src/bar.c:214
+msgid "Invert File Selection"
+msgstr "దస్త్ర ఎంపికను విలోమించు"
+
+#: ../src/bar.c:215
+msgid "Invert file selection"
+msgstr "దస్త్ర ఎంపికను విలోమించు"
+
+#: ../src/bar.c:217
+msgid "Delete Files"
+msgstr "దస్త్రాలను తొలగించు"
+
+#: ../src/bar.c:217
+msgid "Delete files"
+msgstr "దస్త్రాలను తొలగించు"
+
+#: ../src/bar.c:218
+msgid "_First File"
+msgstr "మొదటి దస్త్రం (&O)"
+
+#: ../src/bar.c:219
+msgid "First file"
+msgstr "మొదటి దస్త్రం"
+
+#: ../src/bar.c:220
+msgid "_Previous File"
+msgstr "మునుపటి దస్త్రం (_P)"
+
+#: ../src/bar.c:220
+msgid "Previous file"
+msgstr "మునుపటి దస్త్రం"
+
+#: ../src/bar.c:221
+msgid "_Next File"
+msgstr "తదుపరి దస్త్రం (_N)"
+
+#: ../src/bar.c:221
+msgid "Next file"
+msgstr "తదుపరి దస్త్రం"
+
+#: ../src/bar.c:222
+msgid "_Last File"
+msgstr "చివరి దస్త్రం (_L)"
+
+#: ../src/bar.c:223
+msgid "Last file"
+msgstr "చివరి దస్త్రం"
+
+#: ../src/bar.c:224
+msgid "S_can Files"
+msgstr "దస్త్రాలను పరికించు (_c)"
+
+#: ../src/bar.c:225 ../src/scan_dialog.c:1814
+msgid "Scan selected files"
+msgstr "ఎంపికచేసిన దస్త్రాలను పరికించు"
+
+#: ../src/bar.c:226
+msgid "_Remove Tags"
+msgstr "కొసలను తీసివేయి (_R)"
+
+#: ../src/bar.c:227
+msgid "Remove tags"
+msgstr "కొసలను తీసివేయి"
+
+#: ../src/bar.c:228
+msgid "_Undo Last Files Changes"
+msgstr "చివరగా దస్త్రాలకు చేసిన మార్పులను రద్దుచేయి (_U)"
+
+#: ../src/bar.c:229
+msgid "Undo last files changes"
+msgstr "చివరగా దస్త్రాలకు చేసిన మార్పులను రద్దుచేయి"
+
+#: ../src/bar.c:231
+msgid "R_edo Last Files Changes"
+msgstr "చివరగా దస్త్రాలకు చేసిన మార్పులను మళ్ళీచేయి (_e)"
+
+#: ../src/bar.c:232
+msgid "Redo last files changes"
+msgstr "చివరగా దస్త్రాలకు చేసిన మార్పులను మళ్ళీచేయి"
+
+#: ../src/bar.c:234
+msgid "_Save Files"
+msgstr "దస్త్రాలను భద్రపరుచు (_S)"
+
+#: ../src/bar.c:235
+msgid "Save changes to selected files"
+msgstr "మార్పులను ఎంపికచేసిన దస్త్రాలకు భద్రపరుచు"
+
+#: ../src/bar.c:237
+msgid "_Force Save Files"
+msgstr "బలవంతంగా దస్త్రాలను భద్రపరుచు (_F)"
+
+#: ../src/bar.c:238
+msgid "Force saving files"
+msgstr "బలవంతంగా దస్త్రాలను భద్రపరుస్తూంది"
+
+#: ../src/bar.c:240
+msgid "Undo Last Changes"
+msgstr "చివరి మార్పులను రద్దుచేయి"
+
+#: ../src/bar.c:240
+msgid "Undo last changes"
+msgstr "చివరి మార్పులను రద్దుచేయి"
+
+#: ../src/bar.c:241
+msgid "Redo Last Changes"
+msgstr "చివరి మార్పులను మళ్ళీచేయి"
+
+#: ../src/bar.c:241
+msgid "Redo last changes"
+msgstr "చివరి మార్పులను మళ్ళీచేయి"
+
+#: ../src/bar.c:242
+msgid "_Quit"
+msgstr "నిష్క్రమించు (_Q)"
+
+#: ../src/bar.c:242 ../src/easytag.c:2430 ../src/easytag.c:4565
+#: ../src/easytag.c:4597
+msgid "Quit"
+msgstr "నిష్క్రమించు"
+
+#: ../src/bar.c:245
+msgid "_Browser"
+msgstr "విహారకం (_B)"
+
+#: ../src/bar.c:246
+msgid "_Home Directory"
+msgstr "నివాస సంచయం (_H)"
+
+#: ../src/bar.c:247
+msgid "Go to home directory"
+msgstr "నివాస సంచయానికి వెళ్ళు"
+
+#: ../src/bar.c:249
+msgid "Desktop Directory"
+msgstr "డెస్క్‌టాప్ సంచయం"
+
+#: ../src/bar.c:250
+msgid "Go to desktop directory"
+msgstr "డెస్క్‌టాప్ సంచయానికి వెళ్ళు"
+
+#: ../src/bar.c:252
+msgid "Documents Directory"
+msgstr "పత్రాల సంచయం"
+
+#: ../src/bar.c:253
+msgid "Go to documents directory"
+msgstr "పత్రాల సంచయానికి వెళ్ళు"
+
+#: ../src/bar.c:255
+msgid "Downloads Directory"
+msgstr "దింపుకోళ్ళ సంచయం"
+
+#: ../src/bar.c:256
+msgid "Go to downloads directory"
+msgstr "దింపుకోళ్ళ సంచయానికి వెళ్ళు"
+
+#: ../src/bar.c:258
+msgid "Music Directory"
+msgstr "సంగీత సంచయం"
+
+#: ../src/bar.c:259
+msgid "Go to music directory"
+msgstr "సంగీత సంచయానికి వెళ్ళు"
+
+#: ../src/bar.c:261
+msgid "_Parent Directory"
+msgstr "మూల సంచయం (_P)"
+
+#: ../src/bar.c:262
+msgid "Go to parent directory"
+msgstr "మూల సంచయానికి వెళ్ళు"
+
+#: ../src/bar.c:264
+msgid "_Default Directory"
+msgstr "అప్రమేయ సంచయం (_D)"
+
+#: ../src/bar.c:265
+msgid "Go to default directory"
+msgstr "అప్రమేయ సంచయానికి వెళ్ళు"
+
+#: ../src/bar.c:267
+msgid "Set _Current Path as Default"
+msgstr "ప్రస్థుత బాటను అప్రమేయముగా అమర్చు (_C)"
+
+#: ../src/bar.c:267
+msgid "Set current path as default"
+msgstr "ప్రస్థుత బాటను అప్రమేయముగా అమర్చు"
+
+#: ../src/bar.c:268
+msgid "Rename Directory…"
+msgstr "సంచయం పేరుమార్చు..."
+
+#: ../src/bar.c:268
+msgid "Rename directory"
+msgstr "సంచయం పేరుమార్చు..."
+
+#: ../src/bar.c:269
+msgid "Reload Directory"
+msgstr "సంచయం తిరిగినింపు"
+
+#: ../src/bar.c:270
+msgid "Reload directory"
+msgstr "సంచయం తిరిగినింపు"
+
+#: ../src/bar.c:273
+msgid "Browse Directory With…"
+msgstr "దీనితో సంచయాన్ని విహరించండి..."
+
+#: ../src/bar.c:274
+msgid "Run a command on the directory"
+msgstr "సంచయంపై ఒక ఆదేశాన్ని నడుపు"
+
+#: ../src/bar.c:276
+msgid "_Collapse Tree"
+msgstr "వృక్షాన్ని ముడుచు (_C)"
+
+#: ../src/bar.c:277
+msgid "Collapse directory tree"
+msgstr "సంచయ వృక్షాన్ని ముడుచు"
+
+#: ../src/bar.c:278
+msgid "_Reload Tree"
+msgstr "వృక్షాన్ని తిరిగినింపు (_R)"
+
+#: ../src/bar.c:279
+msgid "Reload directory tree"
+msgstr "సంచయ వృక్షాన్ని తిరిగినింపు"
+
+#: ../src/bar.c:282
+msgid "S_canner Mode"
+msgstr "పరికింపకం రీతి (_c)"
+
+#: ../src/bar.c:284
+msgid "_Miscellaneous"
+msgstr "ఇతరాలు (_M)"
+
+#: ../src/bar.c:285
+msgid "_Find…"
+msgstr "వెతుకు...(_F)"
+
+#: ../src/bar.c:286
+msgid "Search filenames and tags"
+msgstr "దస్త్రాలపేర్లను మరియు కొసలను వెతుకు"
+
+#: ../src/bar.c:288
+msgid "CDD_B Search…"
+msgstr ""
+
+#: ../src/bar.c:289
+msgid "CDDB search"
+msgstr "CDDB శోధన"
+
+#: ../src/bar.c:291
+msgid "Load Filenames From a Text File…"
+msgstr ""
+
+#: ../src/bar.c:292
+msgid "Load filenames from a text file"
+msgstr "ఒక పాఠ్య దస్త్రం నుండి దస్త్రాలపేర్లను ఎక్కించు"
+
+#: ../src/bar.c:294
+msgid "Generate Playlist…"
+msgstr "పాటలజాబితాను ఉత్పత్తించు..."
+
+#: ../src/bar.c:295
+msgid "Generate a playlist"
+msgstr "పాటలజాబితాను ఉత్పత్తించు"
+
+#: ../src/bar.c:297 ../src/bar.c:328 ../src/bar.c:329 ../src/bar.c:330
+msgid "Run Audio Player"
+msgstr "ఆడియో ప్రదర్శకాన్ని నడుపు"
+
+#: ../src/bar.c:298 ../src/bar.c:328 ../src/bar.c:329 ../src/bar.c:330
+msgid "Run audio player"
+msgstr "ఆడియో ప్రదర్శకాన్ని నడుపు"
+
+#: ../src/bar.c:301
+msgid "_Edit"
+msgstr "సవరణ (_E)"
+
+#: ../src/bar.c:302
+msgid "_Preferences"
+msgstr "అభిరుచులు (_P)"
+
+#. The window
+#: ../src/bar.c:303 ../src/prefs.c:110
+msgid "Preferences"
+msgstr "అభిరుచులు"
+
+#: ../src/bar.c:305
+msgid "_View"
+msgstr "చూడటం (_V)"
+
+#: ../src/bar.c:306
+msgid "_Go"
+msgstr "వెళ్ళు (_G)"
+
+#: ../src/bar.c:308
+msgid "_Help"
+msgstr "సహాయం (_H)"
+
+#: ../src/bar.c:311
+msgid "_Contents"
+msgstr "విషయాలు (_C)"
+
+#: ../src/bar.c:312
+msgid "Show help"
+msgstr "సహాయం చూపించు"
+
+#: ../src/bar.c:314
+msgid "_About"
+msgstr "గురించి (_A)"
+
+#: ../src/bar.c:314
+msgid "About"
+msgstr "గురించి"
+
+#.
+#. * Following items are on toolbar but not on menu
+#.
+#: ../src/bar.c:320
+msgid "Stop the current action"
+msgstr "ప్రస్తుత చర్యను రద్దుచేయి "
+
+#.
+#. * Popup menu's Actions
+#.
+#: ../src/bar.c:326
+msgid "_File Operations"
+msgstr "దస్త్ర పరిక్రియలు (_F)"
+
+#: ../src/bar.c:327
+msgid "S_canner"
+msgstr "పరికింపకం (_c)"
+
+#: ../src/bar.c:331
+msgid "CDDB Search Files…"
+msgstr "CDDB శోధనా దస్త్రాలు…"
+
+#: ../src/bar.c:331
+msgid "CDDB search files…"
+msgstr "CDDB శోధనా దస్త్రాలు…"
+
+#. { AM_ARTIST_OPEN_FILE_WITH,     GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
+#. { AM_ALBUM_OPEN_FILE_WITH,      GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
+#: ../src/bar.c:335
+msgid "Clear log"
+msgstr "చిట్టాను చెరిపివేయి"
+
+#. { AM_BROWSE_SUBDIR,      GTK_STOCK_INDEX,        _("Browse _Subdirectories"),                         NULL, _("Browse _Sub-directories"),                         NULL,                                    FALSE },
+#: ../src/bar.c:342
+msgid "Browse _Subdirectories"
+msgstr "ఉపసంచయాలను విహరించు (_S)"
+
+#: ../src/bar.c:342
+msgid "Browse subdirectories"
+msgstr "ఉపసంచయాలను విహరించు"
+
+#: ../src/bar.c:346
+msgid "Show Hidden Directories"
+msgstr "దాచబడిన సంచయాలను చూపించు"
+
+#: ../src/bar.c:346
+msgid "Show hidden directories"
+msgstr "దాచబడిన సంచయాలను చూపించు"
+
+#: ../src/bar.c:348
+msgid "_Show Scanner"
+msgstr "పరికింపకాన్ని చూపించు (_S)"
+
+#: ../src/bar.c:349
+msgid "Show scanner"
+msgstr "పరికింపకాన్ని చూపించు"
+
+#: ../src/bar.c:355
+msgid "Tree Browser"
+msgstr "వృక్ష విహారకం"
+
+#: ../src/bar.c:356
+msgid "View by directory tree"
+msgstr "సంచయ వృక్షంచే చూడండి"
+
+#: ../src/bar.c:358
+msgid "Artist and Album"
+msgstr "కళాకారి మరియు ఆల్బమ్"
+
+#: ../src/bar.c:359
+msgid "View by artist and album"
+msgstr ""
+
+#: ../src/bar.c:364
+msgid "_Fill Tags…"
+msgstr "కొసలను నింపు...(_F)"
+
+#: ../src/bar.c:365
+msgid "Fill tags"
+msgstr "కొసలను నింపు"
+
+#: ../src/bar.c:367
+msgid "_Rename Files and Directories…"
+msgstr "దస్త్రాలు మరియు సంచయాల పేరుమార్చు...(_R)"
+
+#: ../src/bar.c:368
+msgid "Rename files and directories"
+msgstr "దస్త్రాలు మరియు సంచయాల పేరుమార్చు"
+
+#: ../src/bar.c:370
+msgid "_Process Fields…"
+msgstr "ప్రక్రియ క్షేత్రాలు...(_P)"
+
+#: ../src/bar.c:370 ../src/scan_dialog.c:184
+msgid "Process Fields"
+msgstr "ప్రక్రియ క్షేత్రాలు"
+
+#: ../src/bar.c:428
+#, c-format
+msgid "Could not merge UI, error was: %s\n"
+msgstr ""
+
+#: ../src/bar.c:533
+msgid "Ready to start"
+msgstr ""
+
+#: ../src/browser.c:376
+msgid "New default path for files selected"
+msgstr ""
+
+#: ../src/browser.c:678 ../src/easytag.c:4561
+msgid "Some files have been modified but not saved"
+msgstr ""
+
+#: ../src/browser.c:679
+msgid "Do you want to save them before changing the directory?"
+msgstr ""
+
+#: ../src/browser.c:683
+msgid "Confirm Directory Change"
+msgstr ""
+
+#: ../src/browser.c:2146
+msgid "<All albums>"
+msgstr "<అన్ని ఆల్బమ్లు>"
+
+#: ../src/browser.c:2607
+#, c-format
+msgid "Error: Searching for %s, could not find node %s in tree."
+msgstr ""
+
+#: ../src/browser.c:3101 ../src/browser.c:3179
+msgid "Tree"
+msgstr "వృక్షం"
+
+#: ../src/browser.c:3102 ../src/cddb.c:803 ../src/misc.c:1903
+msgid "Filename"
+msgstr "దస్త్రంపేరు"
+
+#: ../src/browser.c:3102 ../src/cddb.c:804 ../src/misc.c:1904
+#: ../src/prefs.c:643
+msgid "Title"
+msgstr "శీర్షిక"
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "Artist".
+#: ../src/browser.c:3103 ../src/browser.c:3110 ../src/cddb.c:483
+#: ../src/cddb.c:805 ../src/misc.c:1905 ../src/prefs.c:644
+msgid "Artist"
+msgstr "కళాకారులు"
+
+#: ../src/browser.c:3103 ../src/misc.c:1906
+msgid "Album Artist"
+msgstr "ఆల్బమ్ కళాకారి"
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "Album".
+#: ../src/browser.c:3104 ../src/browser.c:3112 ../src/cddb.c:486
+#: ../src/cddb.c:806 ../src/misc.c:1907 ../src/prefs.c:645
+msgid "Album"
+msgstr "ఆల్బమ్"
+
+#: ../src/browser.c:3104 ../src/cddb.c:807 ../src/misc.c:1909
+msgid "Year"
+msgstr "సంవత్సరం"
+
+#: ../src/browser.c:3104
+msgid "Disc"
+msgstr "డిస్కు"
+
+#: ../src/browser.c:3105 ../src/misc.c:1910
+msgid "Track"
+msgstr "ట్రాక్"
+
+#: ../src/browser.c:3105 ../src/cddb.c:810 ../src/misc.c:1911
+#: ../src/prefs.c:646
+msgid "Genre"
+msgstr "సాహిత్యం"
+
+#: ../src/browser.c:3106 ../src/misc.c:1912 ../src/prefs.c:647
+msgid "Comment"
+msgstr "వ్యాఖ్య"
+
+#: ../src/browser.c:3106 ../src/misc.c:1913 ../src/picture.c:1059
+#: ../src/prefs.c:648
+msgid "Composer"
+msgstr "స్వరకర్త:"
+
+#: ../src/browser.c:3107 ../src/misc.c:1914
+msgid "Original Artist"
+msgstr "అసలు కళాకారి"
+
+#: ../src/browser.c:3108 ../src/misc.c:1915
+msgid "Copyright"
+msgstr "నకలుహక్కు"
+
+#: ../src/browser.c:3108 ../src/misc.c:1916
+msgid "URL"
+msgstr "URL"
+
+#: ../src/browser.c:3109 ../src/misc.c:1917
+msgid "Encoded By"
+msgstr "ఎన్కోడు చేసినవారు"
+
+#: ../src/browser.c:3110
+msgid "# Albums"
+msgstr "# ఆల్బమ్‌లు"
+
+#: ../src/browser.c:3111 ../src/browser.c:3112
+msgid "# Files"
+msgstr "# దస్ర్తాలు"
+
+#: ../src/browser.c:3137
+msgid "Enter a directory to browse."
+msgstr ""
+
+#: ../src/browser.c:3146
+msgid "Select a directory to browse."
+msgstr ""
+
+#.
+#. * The label for displaying number of files in path (without subdirs)
+#.
+#. Translators: No files, as in "0 files".
+#: ../src/browser.c:3153 ../src/easytag.c:3469
+msgid "No files"
+msgstr ""
+
+#: ../src/browser.c:3231
+msgid "Artist & Album"
+msgstr "కళాకారి & ఆల్బమ్"
+
+#. Only directories changed
+#: ../src/browser.c:3595 ../src/easytag.c:2881
+msgid "Rename Directory"
+msgstr ""
+
+#: ../src/browser.c:3617
+#, c-format
+msgid "Rename the directory '%s' to:"
+msgstr ""
+
+#: ../src/browser.c:3636 ../src/misc.c:1172
+msgid "Use mask:"
+msgstr ""
+
+#: ../src/browser.c:3639
+msgid "If activated, it will use masks to rename directory."
+msgstr ""
+
+#: ../src/browser.c:3657
+msgid ""
+"Select or type in a mask using codes (see Legend in Scanner Window) to "
+"rename the directory from tag fields."
+msgstr ""
+
+#. Preview label
+#: ../src/browser.c:3681
+msgid "Rename directory preview"
+msgstr ""
+
+#: ../src/browser.c:3773
+msgid "You must type a directory name"
+msgstr ""
+
+#: ../src/browser.c:3774 ../src/browser.c:3795
+msgid "Directory Name Error"
+msgstr ""
+
+#: ../src/browser.c:3792
+#, c-format
+msgid "Could not convert '%s' into filename encoding."
+msgstr ""
+
+#: ../src/browser.c:3794
+msgid "Please use another name"
+msgstr ""
+
+#: ../src/browser.c:3864
+#, c-format
+msgid "The directory name '%s' already exists"
+msgstr ""
+
+#: ../src/browser.c:3865 ../src/easytag.c:2964
+msgid "Rename File Error"
+msgstr ""
+
+#: ../src/browser.c:3903 ../src/browser.c:3932
+msgid "Rename Directory Error"
+msgstr ""
+
+#: ../src/browser.c:3970
+msgid "Directory renamed"
+msgstr ""
+
+#: ../src/browser.c:4006
+msgid "Browse Directory With"
+msgstr ""
+
+#: ../src/browser.c:4022 ../src/browser.c:4148
+msgid "Program to run:"
+msgstr "నడుపుటకు కార్యక్రమమును ఎంచుకోండి:"
+
+#: ../src/browser.c:4034
+msgid ""
+"Enter the program to run. It will receive the current directory as parameter."
+msgstr ""
+
+#: ../src/browser.c:4128
+msgid "Open Files With"
+msgstr "దస్త్రాలను దీనితో తెరువు"
+
+#: ../src/browser.c:4160
+msgid ""
+"Enter the program to run. It will receive the current file as parameter."
+msgstr ""
+
+#: ../src/cddb.c:313
+msgid "Artist / Album"
+msgstr "కళాకారి / ఆల్బమ్"
+
+#: ../src/cddb.c:313
+msgid "Category"
+msgstr "వర్గం"
+
+#. Note: don't set "" instead of NULL else this will cause problem with translation language
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "Track Name".
+#: ../src/cddb.c:314 ../src/cddb.c:489
+msgid "Track Name"
+msgstr "ట్రాక్ పేరు"
+
+#: ../src/cddb.c:314
+msgid "Duration"
+msgstr "నిడివి"
+
+#: ../src/cddb.c:326
+msgid "CDDB Search"
+msgstr "CDDB శోధన"
+
+#.
+#. * 1 - Page for automatic search (generate the CDDBId from files)
+#.
+#: ../src/cddb.c:346
+msgid "Automatic Search"
+msgstr ""
+
+#: ../src/cddb.c:356
+msgid "Request CDDB"
+msgstr ""
+
+#: ../src/cddb.c:366
+msgid ""
+"Request automatically the CDDB using the selected files (the order is "
+"important) to generate the CddbID"
+msgstr ""
+
+#: ../src/cddb.c:377 ../src/cddb.c:457
+msgid "Stop the search"
+msgstr ""
+
+#. Check box to run the scanner
+#: ../src/cddb.c:384
+msgid "Use local CDDB"
+msgstr ""
+
+#: ../src/cddb.c:387 ../src/cddb.c:850
+msgid ""
+"When activating this option, after loading the fields, the current selected "
+"scanner will be ran (the scanner window must be opened)."
+msgstr ""
+
+#.
+#. * 2 - Page for manual search
+#.
+#: ../src/cddb.c:404
+msgid "Manual Search"
+msgstr ""
+
+#: ../src/cddb.c:416
+msgid "Words:"
+msgstr ""
+
+#: ../src/cddb.c:429
+msgid "Enter the words to search (separated by a space or '+')"
+msgstr ""
+
+#.
+#. * Search options
+#.
+#: ../src/cddb.c:469
+msgid "Search In:"
+msgstr ""
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "All fields".
+#: ../src/cddb.c:479
+msgid "All Fields"
+msgstr "అన్ని క్షేత్రాలు"
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "Other".
+#: ../src/cddb.c:492 ../src/picture.c:1037 ../src/prefs.c:807
+msgid "Other"
+msgstr "ఇతర"
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "All Categories".
+#: ../src/cddb.c:516
+msgid "All Categories"
+msgstr "అన్ని వర్గాలు"
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "Blues".
+#: ../src/cddb.c:520
+msgid "Blues"
+msgstr ""
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "Classical".
+#: ../src/cddb.c:523
+msgid "Classical"
+msgstr "సాంప్రదాయకం"
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "Country".
+#: ../src/cddb.c:526
+msgid "Country"
+msgstr "దేశం"
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "Folk".
+#: ../src/cddb.c:529
+msgid "Folk"
+msgstr ""
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "Jazz".
+#: ../src/cddb.c:532
+msgid "Jazz"
+msgstr ""
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "Misc".
+#: ../src/cddb.c:535
+msgid "Misc."
+msgstr "ఇతరాలు."
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "New age".
+#: ../src/cddb.c:538
+msgid "New Age"
+msgstr ""
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "Reggae".
+#: ../src/cddb.c:541
+msgid "Reggae"
+msgstr ""
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "Rock".
+#: ../src/cddb.c:544
+msgid "Rock"
+msgstr "రాక్"
+
+#. Translators: This option is for the previous 'search in' option. For
+#. * instance, translate this as "Search in:" "Soundtrack".
+#: ../src/cddb.c:547
+msgid "Soundtrack"
+msgstr ""
+
+#: ../src/cddb.c:587
+msgid "included: funk, soul, rap, pop, industrial, metal, etc."
+msgstr ""
+
+#: ../src/cddb.c:588
+msgid "movies, shows"
+msgstr ""
+
+#: ../src/cddb.c:589
+msgid "others that do not fit in the above categories"
+msgstr ""
+
+#. Button to display/hide the categories
+#: ../src/cddb.c:592
+msgid "Categories"
+msgstr "వర్గాలు"
+
+#.
+#. * Results command
+#.
+#: ../src/cddb.c:600
+msgid "Results:"
+msgstr "ఫలితాలు:"
+
+#: ../src/cddb.c:606 ../src/misc.c:1951
+msgid "Search:"
+msgstr "శోధించు:"
+
+#: ../src/cddb.c:620
+msgid "Enter the words to search in the list below"
+msgstr ""
+
+#: ../src/cddb.c:632
+msgid "Search Next"
+msgstr ""
+
+#: ../src/cddb.c:638
+msgid "Search Previous"
+msgstr ""
+
+#: ../src/cddb.c:649
+msgid "Show only red lines (or show all lines) in the 'Artist / Album' list"
+msgstr ""
+
+#: ../src/cddb.c:655
+msgid "Unselect all lines"
+msgstr ""
+
+#: ../src/cddb.c:661
+msgid "Invert lines selection"
+msgstr ""
+
+#: ../src/cddb.c:670
+msgid "Select all lines"
+msgstr ""
+
+#: ../src/cddb.c:788
+msgid ""
+"Select lines to 'apply' to your files list. All lines will be processed if "
+"no line is selected.\n"
+"You can also reorder lines in this list before using 'apply' button."
+msgstr ""
+
+#.
+#. * Apply results to fields...
+#.
+#: ../src/cddb.c:795
+msgid "Set Into:"
+msgstr ""
+
+#: ../src/cddb.c:801
+msgid "All"
+msgstr "అన్నీ"
+
+#: ../src/cddb.c:808
+msgid "Track #"
+msgstr ""
+
+#: ../src/cddb.c:809
+msgid "# Tracks"
+msgstr ""
+
+#. Check box to run the scanner
+#: ../src/cddb.c:847 ../src/misc.c:2992
+msgid "Run the current scanner for each file"
+msgstr ""
+
+#. Check box to use DLM (also used in the preferences window)
+#: ../src/cddb.c:854
+msgid "Match lines with the Levenshtein algorithm"
+msgstr ""
+
+#. Doesn't activate it by default because if the new user don't pay attention to it,
+#. it will not understand why the cddb results aren't loaded correctly...
+#. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbUseDLM2),CDDB_USE_DLM);
+#: ../src/cddb.c:859 ../src/prefs.c:1363
+msgid ""
+"When activating this option, the Levenshtein algorithm (DLM: Damerau-"
+"Levenshtein Metric) will be used to match the CDDB title against every "
+"filename in the current folder, and to select the best match. This will be "
+"used when selecting the corresponding audio file, or applying CDDB results, "
+"instead of using directly the position order."
+msgstr ""
+
+#: ../src/cddb.c:871
+msgid "Load the selected lines or all lines (if no line selected)."
+msgstr ""
+
+#: ../src/cddb.c:881
+msgid "Ready to search"
+msgstr ""
+
+#: ../src/cddb.c:1352
+#, c-format
+msgid ""
+"Album: '%s', artist: '%s', length: '%s', year: '%s', genre: '%s', ID: '%s'"
+msgstr ""
+
+#: ../src/cddb.c:1588
+#, c-format
+msgid "Resolving host '%s'…"
+msgstr ""
+
+#: ../src/cddb.c:1629
+#, c-format
+msgid "Cannot create a new socket (%s)"
+msgstr ""
+
+#: ../src/cddb.c:1643
+msgid "Cannot set options on the newly-created socket"
+msgstr ""
+
+#. Open connection to the server.
+#: ../src/cddb.c:1647
+#, c-format
+msgid "Connecting to host '%s', port '%d'…"
+msgstr ""
+
+#: ../src/cddb.c:1660
+#, c-format
+msgid "Cannot connect to host '%s' (%s)"
+msgstr ""
+
+#: ../src/cddb.c:1684
+#, c-format
+msgid "Cannot resolve host '%s' (%s)"
+msgstr ""
+
+#: ../src/cddb.c:1697
+#, c-format
+msgid "Connected to host '%s'"
+msgstr ""
+
+#: ../src/cddb.c:1778
+#, c-format
+msgid "Error while writing CDDB results to file '%s'"
+msgstr ""
+
+#: ../src/cddb.c:1789
+#, c-format
+msgid "Receiving data (%s)…"
+msgstr ""
+
+#: ../src/cddb.c:1801
+#, c-format
+msgid "Error when reading CDDB response (%s)"
+msgstr ""
+
+#: ../src/cddb.c:1808
+#, c-format
+msgid "Cannot create file '%s' (%s)"
+msgstr ""
+
+#: ../src/cddb.c:1849 ../src/setting.c:1256
+#, c-format
+msgid "Cannot open file '%s' (%s)"
+msgstr ""
+
+#. g_print("Request Cddb_Search_Album_List_From_String_Freedb : '%s'\n", cddb_in);
+#. Send the request
+#. g_print("Request Cddb_Search_Album_List_From_String_Gnudb : '%s'\n", cddb_in);
+#. Send the request
+#. g_print("Request Cddb_Get_Album_Tracks_List : '%s'\n", cddb_in);
+#. Send the request
+#: ../src/cddb.c:2314 ../src/cddb.c:2643 ../src/cddb.c:3516
+msgid "Sending request…"
+msgstr ""
+
+#: ../src/cddb.c:2318 ../src/cddb.c:2647 ../src/cddb.c:3216 ../src/cddb.c:3520
+#, c-format
+msgid "Cannot send the request (%s)"
+msgstr ""
+
+#.
+#. * Read the answer
+#.
+#. Read the answer
+#: ../src/cddb.c:2344 ../src/cddb.c:3230 ../src/cddb.c:3529
+msgid "Receiving data…"
+msgstr ""
+
+#: ../src/cddb.c:2351 ../src/cddb.c:2676 ../src/cddb.c:3237 ../src/cddb.c:3536
+msgid "The server returned a bad response"
+msgstr ""
+
+#: ../src/cddb.c:2365 ../src/cddb.c:2692 ../src/cddb.c:3252 ../src/cddb.c:3553
+#: ../src/cddb.c:3568
+#, c-format
+msgid "The server returned a bad response: %s"
+msgstr ""
+
+#: ../src/cddb.c:2512
+#, c-format
+msgid "Sorry, the web-based search is currently not available"
+msgstr ""
+
+#: ../src/cddb.c:2514 ../src/cddb.c:2863
+#, c-format
+msgid "Found one matching album"
+msgid_plural "Found %d matching albums"
+msgstr[0] "ఒక సరిపోలిన ఆల్బమ్ కనబడింది"
+msgstr[1] "%d సరిపోలిన ఆల్బమ్లు కనబడ్డాయి"
+
+#: ../src/cddb.c:2664
+#, c-format
+msgid "Receiving data of page %d (album %d/%d)…"
+msgstr ""
+
+#: ../src/cddb.c:2666
+#, c-format
+msgid "Receiving data of page %d…"
+msgstr ""
+
+#: ../src/cddb.c:2830
+#, c-format
+msgid "More results to load…"
+msgstr ""
+
+#: ../src/cddb.c:2959
+#, c-format
+msgid "No file selected"
+msgstr ""
+
+#. The CD redbook standard defines the maximum number of tracks as 99, any
+#. queries with more than 99 tracks will never return a result.
+#: ../src/cddb.c:2967
+#, c-format
+msgid "More than 99 files selected. Cannot send request"
+msgstr ""
+
+#: ../src/cddb.c:2973
+#, c-format
+msgid "One file selected"
+msgid_plural "%d files selected"
+msgstr[0] "ఒక దస్త్రం ఎంచుకోబడింది"
+msgstr[1] "%d దస్త్రాలు ఎంపికచేయబడ్డాయి"
+
+#: ../src/cddb.c:3056
+msgid "The path for 'Local CD Database' was not defined"
+msgstr ""
+
+#. Translators: 'it' in this sentence refers to the local CD
+#. * database path.
+#: ../src/cddb.c:3059
+msgid "Enter it in the preferences window before using this search."
+msgstr ""
+
+#: ../src/cddb.c:3061
+msgid "Local CD search"
+msgstr ""
+
+#. g_print("Request Cddb_Search_Album_From_Selected_Files : '%s'\n", cddb_in);
+#: ../src/cddb.c:3206
+#, c-format
+msgid "Sending request (CddbId: %s, #tracks: %d, Disc length: %d)…"
+msgstr ""
+
+#: ../src/cddb.c:3363
+#, c-format
+msgid "DiscID '%s' gave one matching album"
+msgid_plural "DiscID '%s' gave %d matching albums"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../src/cddb.c:3460
+#, c-format
+msgid "Can't load file: '%s' (%s)."
+msgstr ""
+
+#. Load the track list of the album
+#: ../src/cddb.c:3759
+msgid "Loading album track list…"
+msgstr ""
+
+#: ../src/cddb.c:3958
+msgid "The number of CDDB results does not match the number of selected files"
+msgstr ""
+
+#: ../src/cddb.c:3962
+msgid "Write Tag from CDDB"
+msgstr ""
+
+#: ../src/charset.c:47
+msgid "Arabic (IBM-864)"
+msgstr "అరబిక్ (IBM-864)"
+
+#: ../src/charset.c:48
+msgid "Arabic (ISO-8859-6)"
+msgstr "అరబిక్ (ISO 8859-6)"
+
+#: ../src/charset.c:49
+msgid "Arabic (Windows-1256)"
+msgstr "అరబిక్ (విండోస్-1256)"
+
+#: ../src/charset.c:50
+msgid "Baltic (ISO-8859-13)"
+msgstr "బాల్టిక్ (ISO-8859-13)"
+
+#: ../src/charset.c:51
+msgid "Baltic (ISO-8859-4)"
+msgstr "బాల్టిక్ (ISO-8859-13)"
+
+#: ../src/charset.c:52
+msgid "Baltic (Windows-1257)"
+msgstr "బాల్టిక్ (విండోస్-1257)"
+
+#: ../src/charset.c:53
+msgid "Celtic (ISO-8859-14)"
+msgstr "సెల్టిక్ (ISO-8859-14)"
+
+#: ../src/charset.c:54
+msgid "Central European (IBM-852)"
+msgstr "మధ్య ఐరోపా (IBM-852)"
+
+#: ../src/charset.c:55
+msgid "Central European (ISO-8859-2)"
+msgstr "సౌత్ యురోపియన్ (ISO-8859-2)"
+
+#: ../src/charset.c:56
+msgid "Central European (Windows-1250)"
+msgstr "మధ్య ఐరోపా  (Windows-1250)"
+
+#: ../src/charset.c:57
+msgid "Chinese Simplified (GB18030)"
+msgstr "సరళ చైనీసు (GB18030)"
+
+#: ../src/charset.c:58
+msgid "Chinese Simplified (GB2312)"
+msgstr "సరళ చైనీసు (GB2312)"
+
+#: ../src/charset.c:59
+msgid "Chinese Traditional (Big5)"
+msgstr "సాంప్రదాయ చైనీస్ (Big5)"
+
+#: ../src/charset.c:60
+msgid "Chinese Traditional (Big5-HKSCS)"
+msgstr "సాంప్రదాయ చైనీసు  (Big5-HKSCS)"
+
+#: ../src/charset.c:61
+msgid "Cyrillic (IBM-855)"
+msgstr "సిరిల్లిక్ (IBM-855)"
+
+#: ../src/charset.c:62
+msgid "Cyrillic (ISO-8859-5)"
+msgstr "సిరిల్లిక్ (ISO 8859-5)"
+
+#: ../src/charset.c:63
+msgid "Cyrillic (ISO-IR-111)"
+msgstr "సిరిల్లిక్ (ISO-IR-111)"
+
+#: ../src/charset.c:64
+msgid "Cyrillic (KOI8-R)"
+msgstr "సిరిల్లిక్ (KOI8-R)"
+
+#: ../src/charset.c:65
+msgid "Cyrillic (Windows-1251)"
+msgstr "సిరిలిక్ (విండోస్-1251)"
+
+#: ../src/charset.c:66
+msgid "Cyrillic/Russian (CP-866)"
+msgstr "సిరిల్లిక్/రష్యన్ (IBM-866)"
+
+#: ../src/charset.c:67
+msgid "Cyrillic/Ukrainian (KOI8-U)"
+msgstr "సిరిల్లిక్/యుక్రైనియన్ (KOI8-U)"
+
+#: ../src/charset.c:68
+msgid "English (US-ASCII)"
+msgstr "ఇంగ్లీష్ (US-ASCII)"
+
+#: ../src/charset.c:69
+msgid "Greek (ISO-8859-7)"
+msgstr "గ్రీక్ (ISO-8859-7)"
+
+#: ../src/charset.c:70
+msgid "Greek (Windows-1253)"
+msgstr "గ్రీక్ (విండోస్-1253)"
+
+#: ../src/charset.c:71
+msgid "Hebrew (IBM-862)"
+msgstr "హిబ్రూ (IBM-862)"
+
+#: ../src/charset.c:72
+msgid "Hebrew (Windows-1255)"
+msgstr "హిబ్రూ (విండోస్-1255)"
+
+#: ../src/charset.c:73
+msgid "Japanese (EUC-JP)"
+msgstr "జపనీస్ (EUC-JP)"
+
+#: ../src/charset.c:74
+msgid "Japanese (ISO-2022-JP)"
+msgstr "జపనీస్ (ISO-2022-JP)"
+
+#: ../src/charset.c:75
+msgid "Japanese (Shift_JIS)"
+msgstr "జపనీస్ (Shift_JIS)"
+
+#: ../src/charset.c:76
+msgid "Korean (EUC-KR)"
+msgstr "కొరియన్ (EUC-KR)"
+
+#: ../src/charset.c:77
+msgid "Nordic (ISO-8859-10)"
+msgstr "నార్డిక్ (ISO-8859-10)"
+
+#: ../src/charset.c:78
+msgid "South European (ISO-8859-3)"
+msgstr "సౌత్ యురోపియన్ (ISO-8859-3)"
+
+#: ../src/charset.c:79
+msgid "Thai (TIS-620)"
+msgstr "థాయ్ (TIS-620)"
+
+#: ../src/charset.c:80
+msgid "Turkish (IBM-857)"
+msgstr "టర్కిష్ (IBM-857)"
+
+#: ../src/charset.c:81
+msgid "Turkish (ISO-8859-9)"
+msgstr "టర్కిష్ (ISO-8859-9)"
+
+#: ../src/charset.c:82
+msgid "Turkish (Windows-1254)"
+msgstr "టర్కిష్ (విండోస్-1254)"
+
+#. {N_("Unicode (UTF-7)"),                   "UTF-7"         },
+#: ../src/charset.c:84
+msgid "Unicode (UTF-8)"
+msgstr "యూనీకోడ్ (UTF-8)"
+
+#. {N_("Unicode (UTF-16BE)"),                "UTF-16BE"      },
+#. {N_("Unicode (UTF-16LE)"),                "UTF-16LE"      },
+#. {N_("Unicode (UTF-32BE)"),                "UTF-32BE"      },
+#. {N_("Unicode (UTF-32LE)"),                "UTF-32LE"      },
+#: ../src/charset.c:91
+msgid "Vietnamese (VISCII)"
+msgstr "వియత్నామీస్ (VISCII)"
+
+#: ../src/charset.c:92
+msgid "Vietnamese (Windows-1258)"
+msgstr "వియత్నామీస్ (విండోస్-1258)"
+
+#: ../src/charset.c:93
+msgid "Visual Hebrew (ISO-8859-8)"
+msgstr "విజువల్ హిబ్రూ (ISO-8859-8)"
+
+#: ../src/charset.c:94
+msgid "Western (IBM-850)"
+msgstr "వెస్ట్రన్ (IBM-850)"
+
+#: ../src/charset.c:95
+msgid "Western (ISO-8859-1)"
+msgstr "వెస్ట్రన్ (ISO-8859-1)"
+
+#: ../src/charset.c:96
+msgid "Western (ISO-8859-15)"
+msgstr "వెస్ట్రన్ (ISO-8859-15)"
+
+#: ../src/charset.c:97
+msgid "Western (Windows-1252)"
+msgstr "వెస్ట్రన్ (Windows-1252)"
+
+#: ../src/charset.c:511
+#, c-format
+msgid "The filename '%s' couldn't be converted into UTF-8 (%s)."
+msgstr ""
+
+#: ../src/charset.c:512 ../src/charset.c:611 ../src/charset.c:674
+msgid "Invalid UTF-8"
+msgstr "చెల్లని UTF-8"
+
+#: ../src/charset.c:610
+#, c-format
+msgid ""
+"The UTF-8 string '%s' couldn't be converted into filename encoding (%s)."
+msgstr ""
+
+#: ../src/charset.c:673
+#, c-format
+msgid "The string '%s' couldn't be converted into UTF-8 (%s)."
+msgstr ""
+
+#. Starting messages
+#: ../src/easytag.c:185
+#, c-format
+msgid "Starting EasyTAG version %s (PID: %d)…"
+msgstr ""
+
+#: ../src/easytag.c:187
+#, c-format
+msgid "Using libid3tag version %s"
+msgstr ""
+
+#: ../src/easytag.c:190
+#, c-format
+msgid "Using id3lib version %d.%d.%d"
+msgstr ""
+
+#: ../src/easytag.c:196
+#, c-format
+msgid "Variable EASYTAGLANG defined. Setting locale: '%s'"
+msgstr ""
+
+#: ../src/easytag.c:198
+#, c-format
+msgid "Setting locale: '%s'"
+msgstr ""
+
+#: ../src/easytag.c:203
+#, c-format
+msgid "Currently using locale '%s' (and eventually '%s')"
+msgstr ""
+
+#: ../src/easytag.c:210
+msgid "Unable to create setting directories"
+msgstr ""
+
+#: ../src/easytag.c:427 ../src/et_core.c:597 ../src/et_core.c:609
+#, c-format
+msgid "Error while querying information for file: '%s' (%s)"
+msgstr ""
+
+#: ../src/easytag.c:490
+#, c-format
+msgid "Cannot open path '%s'"
+msgstr ""
+
+#.
+#. * Browser
+#.
+#: ../src/easytag.c:582 ../src/prefs.c:142
+msgid "Browser"
+msgstr "విహారకం"
+
+#: ../src/easytag.c:604 ../src/et_core.c:2817
+msgid "File"
+msgstr "దస్త్రం"
+
+#. Default values are MPs data
+#. Nothing to display
+#. gtk_label_set_text(GTK_LABEL(VersionLabel),"");
+#. gtk_label_set_text(GTK_LABEL(VersionValueLabel),"");
+#. Version changed to encoder version
+#. Encoder version
+#: ../src/easytag.c:636 ../src/easytag.c:4232 ../src/flac_header.c:201
+#: ../src/monkeyaudio_header.c:96 ../src/musepack_header.c:98
+#: ../src/ogg_header.c:389 ../src/opus_header.c:221 ../src/wavpack_header.c:72
+#, c-format
+msgid "Encoder:"
+msgstr "ఎన్కోడరు:"
+
+#: ../src/easytag.c:644
+msgid "Bitrate:"
+msgstr "బిట్‌రేట్:"
+
+#. Translators: Please try to keep this string as short as possible as it
+#. * is shown in a narrow column.
+#: ../src/easytag.c:654
+msgid "Frequency:"
+msgstr "పౌనఃపున్యం:"
+
+#. Mode
+#: ../src/easytag.c:665 ../src/easytag.c:4236 ../src/mpeg_header.c:216
+msgid "Mode:"
+msgstr "రీతి:"
+
+#: ../src/easytag.c:672
+msgid "Size:"
+msgstr "పరిమాణం:"
+
+#: ../src/easytag.c:679
+msgid "Duration:"
+msgstr "నిడివి:"
+
+#. Main Frame
+#: ../src/easytag.c:726 ../src/et_core.c:2747
+msgid "Tag"
+msgstr "కొస"
+
+#.
+#. * 1 - Page for common tag fields
+#.
+#: ../src/easytag.c:748
+msgid "Common"
+msgstr "ఉమ్మడి"
+
+#. Title
+#: ../src/easytag.c:755
+msgid "Title:"
+msgstr "శీర్షిక:"
+
+#: ../src/easytag.c:769
+msgid "Tag selected files with this title"
+msgstr ""
+
+#. Artist
+#: ../src/easytag.c:774
+msgid "Artist:"
+msgstr "కళాకారి:"
+
+#: ../src/easytag.c:788
+msgid "Tag selected files with this artist"
+msgstr ""
+
+#. Album Artist
+#: ../src/easytag.c:793
+msgid "Album artist:"
+msgstr "ఆల్బమ్ కళాకారి:"
+
+#: ../src/easytag.c:807
+msgid "Tag selected files with this album artist"
+msgstr ""
+
+#. Album
+#: ../src/easytag.c:812
+msgid "Album:"
+msgstr "ఆల్బమ్:"
+
+#: ../src/easytag.c:826
+msgid "Tag selected files with this album name"
+msgstr ""
+
+#. Disc Number
+#: ../src/easytag.c:831
+msgid "CD:"
+msgstr "సీడీ:"
+
+#: ../src/easytag.c:848
+msgid "Tag selected files with this disc number"
+msgstr ""
+
+#. Year
+#: ../src/easytag.c:853
+msgid "Year:"
+msgstr "సంవత్సరం:"
+
+#: ../src/easytag.c:873
+msgid "Tag selected files with this year"
+msgstr ""
+
+#: ../src/easytag.c:887
+msgid "Number selected tracks sequentially. Starts at 01 in each subdirectory."
+msgstr ""
+
+#. To have enough space to display the icon
+#. To have enough space to display the icon
+#: ../src/easytag.c:896
+msgid "Track #:"
+msgstr "పాట #:"
+
+#: ../src/easytag.c:927
+msgid ""
+"Set the number of files, in the same directory of the displayed file, to the "
+"selected tracks."
+msgstr ""
+
+#: ../src/easytag.c:947
+msgid "Tag selected files with this number of tracks"
+msgstr ""
+
+#. Genre
+#: ../src/easytag.c:951
+msgid "Genre:"
+msgstr "సాహిత్యం:"
+
+#: ../src/easytag.c:979
+msgid "Tag selected files with this genre"
+msgstr ""
+
+#. Comment
+#: ../src/easytag.c:984
+msgid "Comment:"
+msgstr "వ్యాఖ్య:"
+
+#: ../src/easytag.c:1011
+msgid "Tag selected files with this comment"
+msgstr ""
+
+#. Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(CommentView));
+#. Composer (name of the composers)
+#: ../src/easytag.c:1018
+msgid "Composer:"
+msgstr "స్వరకర్త:"
+
+#: ../src/easytag.c:1032
+msgid "Tag selected files with this composer"
+msgstr ""
+
+#. Translators: Original Artist / Performer. Please try to keep this string
+#. * as short as possible, as it must fit into a narrow column.
+#: ../src/easytag.c:1039
+msgid "Orig. artist:"
+msgstr "అసలు కళాకారి:"
+
+#: ../src/easytag.c:1053
+msgid "Tag selected files with this original artist"
+msgstr ""
+
+#. Copyright
+#: ../src/easytag.c:1059
+msgid "Copyright:"
+msgstr "నకలుహక్కు:"
+
+#: ../src/easytag.c:1073
+msgid "Tag selected files with this copyright"
+msgstr ""
+
+#. URL
+#: ../src/easytag.c:1079
+msgid "URL:"
+msgstr "URL:"
+
+#: ../src/easytag.c:1093
+msgid "Tag selected files with this URL"
+msgstr ""
+
+#. Encoded by
+#: ../src/easytag.c:1099
+msgid "Encoded by:"
+msgstr "ఎన్కోడు చేసినవారు:"
+
+#: ../src/easytag.c:1113
+msgid "Tag selected files with this encoder name"
+msgstr ""
+
+#.
+#. * 2 - Page for extra tag fields
+#.
+#: ../src/easytag.c:1147 ../src/et_core.c:3189 ../src/et_core.c:3192
+msgid "Images"
+msgstr "బొమ్మలు"
+
+#: ../src/easytag.c:1171
+msgid "You can use drag and drop to add an image"
+msgstr ""
+
+#: ../src/easytag.c:1218
+msgid "Add images to the tag"
+msgstr ""
+
+#: ../src/easytag.c:1236
+msgid "Remove selected images from the tag"
+msgstr ""
+
+#: ../src/easytag.c:1250
+msgid "Save the selected images to files"
+msgstr ""
+
+#: ../src/easytag.c:1261
+msgid "Edit image properties"
+msgstr ""
+
+#: ../src/easytag.c:1275
+msgid "Tag selected files with these images"
+msgstr ""
+
+#: ../src/easytag.c:1333
+#, c-format
+msgid "Selected files tagged with title '%s'."
+msgstr ""
+
+#: ../src/easytag.c:1335
+msgid "Removed title from selected files."
+msgstr ""
+
+#: ../src/easytag.c:1350
+#, c-format
+msgid "Selected files tagged with artist '%s'."
+msgstr ""
+
+#: ../src/easytag.c:1352
+msgid "Removed artist from selected files."
+msgstr ""
+
+#: ../src/easytag.c:1366
+#, c-format
+msgid "Selected files tagged with album artist '%s'."
+msgstr ""
+
+#: ../src/easytag.c:1368
+msgid "Removed album artist from selected files."
+msgstr ""
+
+#: ../src/easytag.c:1383
+#, c-format
+msgid "Selected files tagged with album '%s'."
+msgstr ""
+
+#: ../src/easytag.c:1385
+msgid "Removed album name from selected files."
+msgstr ""
+
+#: ../src/easytag.c:1422
+#, c-format
+msgid "Selected files tagged with disc number '%s/%s'."
+msgstr ""
+
+#: ../src/easytag.c:1427
+#, c-format
+msgid "Selected files tagged with disc number like 'xx'."
+msgstr ""
+
+#: ../src/easytag.c:1432
+msgid "Removed disc number from selected files."
+msgstr ""
+
+#: ../src/easytag.c:1448
+#, c-format
+msgid "Selected files tagged with year '%s'."
+msgstr ""
+
+#: ../src/easytag.c:1450
+msgid "Removed year from selected files."
+msgstr ""
+
+#: ../src/easytag.c:1476 ../src/easytag.c:1567
+#, c-format
+msgid "Selected files tagged with track like 'xx/%s'."
+msgstr ""
+
+#: ../src/easytag.c:1479
+#, c-format
+msgid "Selected files tagged with track like 'xx'."
+msgstr ""
+
+#: ../src/easytag.c:1483 ../src/easytag.c:1570
+msgid "Removed track number from selected files."
+msgstr ""
+
+#. msg = g_strdup_printf(_("All %d tracks numbered sequentially."), ETCore->ETFileSelectionList_Length);
+#: ../src/easytag.c:1540
+#, c-format
+msgid "Selected tracks numbered sequentially."
+msgstr ""
+
+#: ../src/easytag.c:1586
+#, c-format
+msgid "Selected files tagged with genre '%s'."
+msgstr ""
+
+#: ../src/easytag.c:1588
+msgid "Removed genre from selected files."
+msgstr ""
+
+#: ../src/easytag.c:1610
+#, c-format
+msgid "Selected files tagged with comment '%s'."
+msgstr ""
+
+#: ../src/easytag.c:1612
+msgid "Removed comment from selected files."
+msgstr ""
+
+#: ../src/easytag.c:1626
+#, c-format
+msgid "Selected files tagged with composer '%s'."
+msgstr ""
+
+#: ../src/easytag.c:1628
+msgid "Removed composer from selected files."
+msgstr ""
+
+#: ../src/easytag.c:1643
+#, c-format
+msgid "Selected files tagged with original artist '%s'."
+msgstr ""
+
+#: ../src/easytag.c:1645
+msgid "Removed original artist from selected files."
+msgstr ""
+
+#: ../src/easytag.c:1660
+#, c-format
+msgid "Selected files tagged with copyright '%s'."
+msgstr ""
+
+#: ../src/easytag.c:1662
+msgid "Removed copyright from selected files."
+msgstr ""
+
+#: ../src/easytag.c:1677
+#, c-format
+msgid "Selected files tagged with URL '%s'."
+msgstr ""
+
+#: ../src/easytag.c:1679
+msgid "Removed URL from selected files."
+msgstr ""
+
+#: ../src/easytag.c:1694
+#, c-format
+msgid "Selected files tagged with encoder name '%s'."
+msgstr ""
+
+#: ../src/easytag.c:1696
+msgid "Removed encoder name from selected files."
+msgstr ""
+
+#: ../src/easytag.c:1728
+msgid "Selected files tagged with images."
+msgstr ""
+
+#: ../src/easytag.c:1730
+msgid "Removed images from selected files."
+msgstr ""
+
+#: ../src/easytag.c:2011
+msgid "Select Mode and Mask, and redo the same action"
+msgstr ""
+
+#: ../src/easytag.c:2063
+msgid "All tags have been scanned"
+msgstr ""
+
+#: ../src/easytag.c:2119
+msgid "All tags have been removed"
+msgstr ""
+
+#: ../src/easytag.c:2424
+#, c-format
+msgid "A file was changed by an external program"
+msgid_plural "%d files were changed by an external program."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../src/easytag.c:2429
+msgid "Do you want to continue saving the file?"
+msgstr ""
+
+#: ../src/easytag.c:2487 ../src/easytag.c:2507
+msgid "Saving files was stopped"
+msgstr ""
+
+#: ../src/easytag.c:2509
+msgid "All files have been saved"
+msgstr ""
+
+#: ../src/easytag.c:2644
+#, c-format
+msgid "Cannot delete file (%s)"
+msgstr ""
+
+#: ../src/easytag.c:2665
+msgid "Files have been partially deleted"
+msgstr ""
+
+#: ../src/easytag.c:2667
+msgid "All files have been deleted"
+msgstr ""
+
+#: ../src/easytag.c:2783
+#, c-format
+msgid "Do you want to write the tag of file '%s'?"
+msgstr ""
+
+#: ../src/easytag.c:2785
+msgid "Confirm Tag Writing"
+msgstr ""
+
+#: ../src/easytag.c:2790 ../src/easytag.c:2910 ../src/easytag.c:3173
+msgid "Repeat action for the remaining files"
+msgstr ""
+
+#. Directories and filename changed
+#: ../src/easytag.c:2874 ../src/scan_dialog.c:183
+msgid "Rename File and Directory"
+msgstr ""
+
+#: ../src/easytag.c:2875
+msgid "File and directory rename confirmation required"
+msgstr ""
+
+#: ../src/easytag.c:2876
+#, c-format
+msgid "Do you want to rename the file and directory '%s' to '%s'?"
+msgstr ""
+
+#: ../src/easytag.c:2882
+msgid "Directory rename confirmation required"
+msgstr ""
+
+#: ../src/easytag.c:2883
+#, c-format
+msgid "Do you want to rename the directory '%s' to '%s'?"
+msgstr ""
+
+#. Only filename changed
+#: ../src/easytag.c:2889
+msgid "Rename File"
+msgstr ""
+
+#: ../src/easytag.c:2890
+msgid "File rename confirmation required"
+msgstr ""
+
+#: ../src/easytag.c:2891
+#, c-format
+msgid "Do you want to rename the file '%s' to '%s'?"
+msgstr ""
+
+#: ../src/easytag.c:2957
+#, c-format
+msgid "Cannot rename file '%s' to '%s'"
+msgstr ""
+
+#: ../src/easytag.c:2971
+#, c-format
+msgid "Cannot rename file '%s' to '%s': %s"
+msgstr ""
+
+#: ../src/easytag.c:2975
+msgid "File(s) not renamed"
+msgstr ""
+
+#: ../src/easytag.c:3087
+#, c-format
+msgid "Writing tag of '%s'"
+msgstr ""
+
+#: ../src/easytag.c:3094
+msgid "Tag(s) written"
+msgstr ""
+
+#: ../src/easytag.c:3109
+#, c-format
+msgid "Cannot write tag in file '%s' (%s)"
+msgstr ""
+
+#: ../src/easytag.c:3122
+#, c-format
+msgid "Cannot write tag in file '%s'"
+msgstr ""
+
+#: ../src/easytag.c:3125
+msgid "Tag Write Error"
+msgstr ""
+
+#: ../src/easytag.c:3170 ../src/easytag.c:3184
+#, c-format
+msgid "Do you really want to delete the file '%s'?"
+msgstr ""
+
+#: ../src/easytag.c:3176 ../src/easytag.c:3186
+msgid "Delete File"
+msgstr ""
+
+#: ../src/easytag.c:3211
+#, c-format
+msgid "File '%s' deleted"
+msgstr ""
+
+#: ../src/easytag.c:3346
+#, c-format
+msgid "Cannot read directory '%s'"
+msgstr ""
+
+#: ../src/easytag.c:3350
+msgid "Directory Read Error"
+msgstr ""
+
+#. Read the directory recursively
+#: ../src/easytag.c:3371
+#, c-format
+msgid "Search in progress…"
+msgstr ""
+
+#: ../src/easytag.c:3394 ../src/et_core.c:2824
+#, c-format
+msgid "File: '%s'"
+msgstr ""
+
+#: ../src/easytag.c:3444
+#, c-format
+msgid "Found one file in this directory and subdirectories"
+msgid_plural "Found %d files in this directory and subdirectories"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../src/easytag.c:3451
+#, c-format
+msgid "Found one file in this directory"
+msgid_plural "Found %d files in this directory"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../src/easytag.c:3473
+msgid "No file found in this directory and subdirectories"
+msgstr ""
+
+#: ../src/easytag.c:3475
+msgid "No file found in this directory"
+msgstr ""
+
+#: ../src/easytag.c:3543
+#, c-format
+msgid "Error opening directory '%s' (%s)"
+msgstr ""
+
+#: ../src/easytag.c:3579
+#, c-format
+msgid "Cannot read directory (%s)"
+msgstr ""
+
+#: ../src/easytag.c:3599
+msgid "Searching for audio files…"
+msgstr ""
+
+#: ../src/easytag.c:3600
+msgid "Searching"
+msgstr ""
+
+#: ../src/easytag.c:4266
+msgid "Select a directory to browse"
+msgstr ""
+
+#. Menu items
+#: ../src/easytag.c:4412
+msgid "Tag selected files with this field"
+msgstr ""
+
+#: ../src/easytag.c:4424 ../src/scan_dialog.c:2124
+msgid "Convert '_' and '%20' to spaces"
+msgstr ""
+
+#: ../src/easytag.c:4431 ../src/scan_dialog.c:2126
+msgid "Convert ' ' to '_'"
+msgstr ""
+
+#: ../src/easytag.c:4442
+msgid "All uppercase"
+msgstr ""
+
+#: ../src/easytag.c:4449
+msgid "All lowercase"
+msgstr ""
+
+#: ../src/easytag.c:4456
+msgid "First letter uppercase"
+msgstr ""
+
+#: ../src/easytag.c:4463
+msgid "First letter uppercase of each word"
+msgstr ""
+
+#: ../src/easytag.c:4474 ../src/prefs.c:1023 ../src/scan_dialog.c:2224
+msgid "Remove spaces"
+msgstr ""
+
+#: ../src/easytag.c:4481
+msgid "Insert space before uppercase letter"
+msgstr ""
+
+#: ../src/easytag.c:4488
+msgid "Remove duplicate spaces or underscores"
+msgstr ""
+
+#: ../src/easytag.c:4495
+msgid "Remove all text"
+msgstr ""
+
+#: ../src/easytag.c:4514
+msgid "EasyTAG: Normal exit."
+msgstr ""
+
+#: ../src/easytag.c:4566
+msgid "Do you want to save them before quitting?"
+msgstr ""
+
+#: ../src/easytag.c:4593
+msgid "Do you really want to quit?"
+msgstr ""
+
+#: ../src/et_core.c:510
+#, c-format
+msgid "Error reading tag from ogg file (%s)"
+msgstr ""
+
+#: ../src/et_core.c:539
+#, c-format
+msgid "Error reading tag from Opus file (%s)"
+msgstr ""
+
+#: ../src/et_core.c:682
+#, c-format
+msgid "Automatic corrections applied for file '%s'."
+msgstr ""
+
+#: ../src/et_core.c:2707
+msgid "ID3 Tag"
+msgstr "ID3 కొస"
+
+#: ../src/et_core.c:2713
+msgid "Ogg Vorbis Tag"
+msgstr ""
+
+#: ../src/et_core.c:2719
+msgid "FLAC Vorbis Tag"
+msgstr ""
+
+#: ../src/et_core.c:2724
+msgid "APE Tag"
+msgstr ""
+
+#: ../src/et_core.c:2729
+msgid "MP4/M4A/AAC Tag"
+msgstr ""
+
+#: ../src/et_core.c:2735
+msgid "Wavpack Tag"
+msgstr ""
+
+#: ../src/et_core.c:2741
+msgid "Opus Tag"
+msgstr ""
+
+#: ../src/et_core.c:2761
+msgid "MP3 File"
+msgstr "MP3 దస్త్రం"
+
+#: ../src/et_core.c:2765
+msgid "MP2 File"
+msgstr "MP2 దస్త్రం"
+
+#: ../src/et_core.c:2771
+msgid "Ogg Vorbis File"
+msgstr "Ogg Vorbis దస్త్రం"
+
+#: ../src/et_core.c:2777
+msgid "Speex File"
+msgstr "Speex దస్త్రం"
+
+#: ../src/et_core.c:2783
+msgid "FLAC File"
+msgstr "FLAC దస్త్రం"
+
+#: ../src/et_core.c:2788
+msgid "MusePack File"
+msgstr ""
+
+#: ../src/et_core.c:2792
+msgid "Monkey's Audio File"
+msgstr ""
+
+#: ../src/et_core.c:2797
+msgid "MP4/AAC File"
+msgstr "MP4/AAC దస్త్రం"
+
+#: ../src/et_core.c:2803
+msgid "Wavpack File"
+msgstr "Wavpack దస్త్రం"
+
+#: ../src/et_core.c:2809
+msgid "Opus File"
+msgstr "Opus దస్త్రం"
+
+#: ../src/et_core.c:2868 ../src/et_core.c:2923
+msgid "File not found"
+msgstr "దస్త్రం కనపడలేదు"
+
+#: ../src/et_core.c:2873
+#, c-format
+msgid "Cannot query file information (%s)"
+msgstr ""
+
+#: ../src/et_core.c:2907
+msgid "Read-only file"
+msgstr ""
+
+#. And refresh the number of files in this directory
+#: ../src/et_core.c:2971
+#, c-format
+msgid "One file"
+msgid_plural "%u files"
+msgstr[0] "ఒక దస్త్రం"
+msgstr[1] "%u దస్త్రాలు"
+
+#: ../src/et_core.c:3175
+#, c-format
+msgid "Images (%d)"
+msgstr ""
+
+#. Bitrate
+#: ../src/et_core.c:3217 ../src/flac_header.c:205
+#: ../src/monkeyaudio_header.c:86 ../src/mp4_header.c:134
+#: ../src/mpeg_header.c:206 ../src/musepack_header.c:88
+#: ../src/ogg_header.c:401 ../src/opus_header.c:227 ../src/wavpack_header.c:78
+#, c-format
+msgid "%d kb/s"
+msgstr "%d కిబై/సె"
+
+#. Samplerate
+#: ../src/et_core.c:3222 ../src/flac_header.c:210
+#: ../src/monkeyaudio_header.c:91 ../src/mp4_header.c:139
+#: ../src/mpeg_header.c:211 ../src/musepack_header.c:93
+#: ../src/ogg_header.c:406 ../src/opus_header.c:232 ../src/wavpack_header.c:83
+#, c-format
+msgid "%d Hz"
+msgstr "%d హెర్ట్జ్"
+
+#: ../src/et_core.c:3368 ../src/scan_dialog.c:688
+#, c-format
+msgid "Could not convert filename '%s' into system filename encoding"
+msgstr ""
+
+#: ../src/et_core.c:3370
+msgid "Try setting the environment variable G_FILENAME_ENCODING."
+msgstr ""
+
+#: ../src/et_core.c:3371 ../src/scan_dialog.c:690
+msgid "Filename translation"
+msgstr "దస్త్రంపేరు అనువాదం"
+
+#: ../src/et_core.c:4076
+#, c-format
+msgid "Error writing tag type %d to file %s (%s)"
+msgstr ""
+
+#. Mode
+#. Mode
+#. mpeg4ip library seems to always return -1
+#. Mode
+#: ../src/flac_header.c:215 ../src/mp4_header.c:145 ../src/ogg_header.c:411
+#: ../src/opus_header.c:237 ../src/wavpack_header.c:88
+msgid "Channels:"
+msgstr "ఛానళ్ళు:"
+
+#: ../src/flac_tag.c:131 ../src/flac_tag.c:850 ../src/flac_tag.c:860
+#, c-format
+msgid "Error while opening file: '%s' as FLAC (%s)."
+msgstr ""
+
+#: ../src/flac_tag.c:352 ../src/ogg_tag.c:310
+#, c-format
+msgid ""
+"The year value '%s' seems to be invalid in file '%s'. The information will "
+"be lost while saving tag."
+msgstr ""
+
+#: ../src/flac_tag.c:1061
+#, c-format
+msgid "Picture block isn't valid: '%s'"
+msgstr ""
+
+#: ../src/flac_tag.c:1094
+#, c-format
+msgid "Error: Failed to write comments to file '%s' (%s)."
+msgstr ""
+
+#: ../src/flac_tag.c:1099 ../src/ogg_tag.c:1166
+#, c-format
+msgid "Written tag of '%s'"
+msgstr ""
+
+#: ../src/id3_tag.c:158
+#, c-format
+msgid "Error while reading file: '%s' (%s)"
+msgstr ""
+
+#: ../src/id3_tag.c:170
+#, c-format
+msgid ""
+"As the following corrupted file '%s' will cause an error in id3lib, it will "
+"not be processed"
+msgstr ""
+
+#: ../src/id3_tag.c:172
+msgid "Corrupted file"
+msgstr "దస్త్రం పాడైనది"
+
+#: ../src/id3_tag.c:555
+#, c-format
+msgid "Removed tag of '%s'"
+msgstr ""
+
+#: ../src/id3_tag.c:559 ../src/id3_tag.c:659
+#, c-format
+msgid "Error while removing ID3v1 tag of '%s' (%s)"
+msgstr ""
+
+#: ../src/id3_tag.c:561 ../src/id3_tag.c:631
+#, c-format
+msgid "Error while removing ID3v2 tag of '%s' (%s)"
+msgstr ""
+
+#: ../src/id3_tag.c:580
+#, c-format
+msgid "Error while updating ID3v2 tag of '%s' (%s)"
+msgstr ""
+
+#: ../src/id3_tag.c:608
+msgid ""
+"You have tried to save this tag to Unicode but it was detected that your "
+"version of id3lib is buggy"
+msgstr ""
+
+#: ../src/id3_tag.c:610
+#, c-format
+msgid ""
+"If you reload this file, some characters in the tag may not be displayed "
+"correctly. Please, apply the patch src/id3lib/"
+"patch_id3lib_3.8.3_UTF16_writing_bug.diff to id3lib, which is available in "
+"the EasyTAG package sources.\n"
+"Note that this message will appear only once.\n"
+"\n"
+"File: %s"
+msgstr ""
+
+#: ../src/id3_tag.c:617
+msgid "Buggy id3lib"
+msgstr ""
+
+#: ../src/id3_tag.c:651
+#, c-format
+msgid "Error while updating ID3v1 tag of '%s' (%s)"
+msgstr ""
+
+#: ../src/id3_tag.c:665 ../src/id3v24_tag.c:1048
+#, c-format
+msgid "Updated tag of '%s'"
+msgstr ""
+
+#: ../src/id3_tag.c:684
+msgid "No error reported"
+msgstr ""
+
+#: ../src/id3_tag.c:686
+msgid "No available memory"
+msgstr ""
+
+#: ../src/id3_tag.c:688
+msgid "No data to parse"
+msgstr ""
+
+#: ../src/id3_tag.c:690
+msgid "Improperly formatted data"
+msgstr ""
+
+#: ../src/id3_tag.c:692
+msgid "No buffer to write to"
+msgstr ""
+
+#: ../src/id3_tag.c:694
+msgid "Buffer is too small"
+msgstr ""
+
+#: ../src/id3_tag.c:696
+msgid "Invalid frame ID"
+msgstr ""
+
+#: ../src/id3_tag.c:698
+msgid "Requested field not found"
+msgstr ""
+
+#: ../src/id3_tag.c:700
+msgid "Unknown field type"
+msgstr ""
+
+#: ../src/id3_tag.c:702
+msgid "Tag is already attached to a file"
+msgstr ""
+
+#: ../src/id3_tag.c:704
+msgid "Invalid tag version"
+msgstr ""
+
+#: ../src/id3_tag.c:706
+msgid "No file to parse"
+msgstr ""
+
+#: ../src/id3_tag.c:708
+msgid "Attempting to write to a read-only file"
+msgstr ""
+
+#: ../src/id3_tag.c:710
+msgid "Error in compression/uncompression"
+msgstr ""
+
+#: ../src/id3_tag.c:712
+msgid "Unknown error message"
+msgstr ""
+
+#: ../src/id3_tag.c:1316
+#, c-format
+msgid "Error while creating temporary file: '%s'"
+msgstr ""
+
+#: ../src/id3_tag.c:1323
+msgid "Error while creating temporary file"
+msgstr ""
+
+#: ../src/id3_tag.c:1343
+#, c-format
+msgid "Error while writing to file: '%s' (%s)"
+msgstr ""
+
+#. Translators: The first string is a filename, the
+#. * second string is the number of bytes that were
+#. * missing (not read for some reason) while reading from
+#. * the file.
+#.
+#: ../src/id3v24_tag.c:1503
+#, c-format
+msgid "Cannot write tag of file ‘%s’ (a byte was missing)"
+msgid_plural "Cannot write tag of file ‘%s’ (%s bytes were missing)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../src/id3v24_tag.c:1524
+#, c-format
+msgid "Cannot save tag of file '%s'"
+msgstr ""
+
+#: ../src/id3v24_tag.c:1535
+#, c-format
+msgid "Size error while saving tag of '%s'"
+msgstr ""
+
+#: ../src/log.c:100
+msgid "Log"
+msgstr "చిట్టా"
+
+#: ../src/misc.c:720
+msgid "You must type a program name"
+msgstr ""
+
+#: ../src/misc.c:721
+msgid "Program Name Error"
+msgstr ""
+
+#: ../src/misc.c:800
+#, c-format
+msgid "Executed command: %s"
+msgstr ""
+
+#: ../src/misc.c:807
+#, c-format
+msgid "Failed to launch program: %s"
+msgstr ""
+
+#: ../src/misc.c:824
+msgid "Select File"
+msgstr ""
+
+#: ../src/misc.c:830
+msgid "Select Directory"
+msgstr ""
+
+#: ../src/misc.c:1142
+msgid "Generate Playlist"
+msgstr "పాటలజాబితాను ఉత్పత్తించు"
+
+#: ../src/misc.c:1166
+msgid "M3U Playlist Name"
+msgstr ""
+
+#: ../src/misc.c:1181
+msgid "Use directory name"
+msgstr ""
+
+#. Playlist options
+#: ../src/misc.c:1198
+msgid "Playlist Options"
+msgstr ""
+
+#: ../src/misc.c:1204
+msgid "Include only the selected files"
+msgstr ""
+
+#: ../src/misc.c:1207
+msgid ""
+"If activated, only the selected files will be written in the playlist file. "
+"Else, all the files will be written."
+msgstr ""
+
+#: ../src/misc.c:1210
+msgid "Use full path for files in playlist"
+msgstr ""
+
+#: ../src/misc.c:1213
+msgid "Use relative path for files in playlist"
+msgstr ""
+
+#. Create playlist in parent directory
+#: ../src/misc.c:1219
+msgid "Create playlist in the parent directory"
+msgstr ""
+
+#: ../src/misc.c:1222
+msgid "If activated, the playlist will be created in the parent directory."
+msgstr ""
+
+#. DOS Separator
+#: ../src/misc.c:1226
+msgid "Use DOS directory separator"
+msgstr ""
+
+#: ../src/misc.c:1232
+msgid ""
+"This option replaces the UNIX directory separator '/' into DOS separator "
+"'\\'."
+msgstr ""
+
+#: ../src/misc.c:1241
+msgid "Playlist Content"
+msgstr ""
+
+#: ../src/misc.c:1247
+msgid "Write only list of files"
+msgstr ""
+
+#: ../src/misc.c:1251
+msgid "Write info using filename"
+msgstr ""
+
+#: ../src/misc.c:1254
+msgid "Write info using:"
+msgstr ""
+
+#: ../src/misc.c:1468
+#, c-format
+msgid "Cannot write playlist file '%s'"
+msgstr ""
+
+#: ../src/misc.c:1472
+msgid "Playlist File Error"
+msgstr ""
+
+#: ../src/misc.c:1480
+#, c-format
+msgid "Written playlist file '%s'"
+msgstr ""
+
+#: ../src/misc.c:1544 ../src/scan_dialog.c:2709 ../src/scan_dialog.c:2771
+msgid "Invalid scanner mask"
+msgstr ""
+
+#: ../src/misc.c:1908
+msgid "CD"
+msgstr ""
+
+#: ../src/misc.c:1930
+msgid "Find Files"
+msgstr ""
+
+#: ../src/misc.c:1962
+msgid ""
+"Type the word to search into files. Or type nothing to display all files."
+msgstr ""
+
+#. Where...
+#: ../src/misc.c:1968
+msgid "In:"
+msgstr ""
+
+#. Translators: This option is for the previous 'in' option. For instance,
+#. * translate this as "Search" "In:" "the Filename".
+#: ../src/misc.c:1973
+msgid "the Filename"
+msgstr ""
+
+#. Translators: This option is for the previous 'in' option. For instance,
+#. * translate this as "Search" "In:" "the Tag".
+#. * Note: label changed to "the Tag" (to be the only one) to fix a Hungarian
+#. * grammatical problem (which uses one word to say "in the tag" like here)
+#.
+#: ../src/misc.c:1979
+msgid "the Tag"
+msgstr ""
+
+#. Property of the search
+#: ../src/misc.c:1990 ../src/prefs.c:335
+msgid "Case sensitive"
+msgstr ""
+
+#: ../src/misc.c:2217
+msgid "Ready to search…"
+msgstr ""
+
+#: ../src/misc.c:2437
+#, c-format
+msgid "Found one file"
+msgid_plural "Found %d files"
+msgstr[0] "ఒక దస్త్రం కనపడింది"
+msgstr[1] "%d దస్త్రాలు కనపడ్డాయి"
+
+#: ../src/misc.c:2722
+msgid "Load Filenames From a Text File"
+msgstr ""
+
+#: ../src/misc.c:2751
+msgid "File:"
+msgstr "దస్త్రం:"
+
+#. Button 'load'
+#. the signal attached to this button, to load the file, is placed after the LoadFileContentList definition
+#: ../src/misc.c:2770
+msgid " Load "
+msgstr ""
+
+#: ../src/misc.c:2788
+msgid "Content of Text File"
+msgstr ""
+
+#. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+#: ../src/misc.c:2809 ../src/misc.c:2904
+msgid "Insert a blank line before the selected line"
+msgstr ""
+
+#. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+#: ../src/misc.c:2818 ../src/misc.c:2913
+msgid "Delete the selected line"
+msgstr ""
+
+#. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+#: ../src/misc.c:2827 ../src/misc.c:2922 ../src/misc.c:3408
+msgid "Delete all blank lines"
+msgstr ""
+
+#. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+#: ../src/misc.c:2839 ../src/misc.c:2934
+msgid "Move up the selected line"
+msgstr ""
+
+#. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+#: ../src/misc.c:2848 ../src/misc.c:2943
+msgid "Move down the selected line"
+msgstr ""
+
+#. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
+#: ../src/misc.c:2860 ../src/misc.c:2955 ../src/misc.c:3432
+msgid "Reload"
+msgstr ""
+
+#: ../src/misc.c:2882
+msgid "List of Files"
+msgstr ""
+
+#: ../src/misc.c:2977
+msgid "Selected line:"
+msgstr ""
+
+#: ../src/misc.c:2995
+msgid ""
+"When activating this option, after loading the filenames, the current "
+"selected scanner will be ran (the scanner window must be opened)."
+msgstr ""
+
+#: ../src/misc.c:3082
+#, c-format
+msgid "Cannot retrieve file info (%s)"
+msgstr ""
+
+#: ../src/misc.c:3144
+#, c-format
+msgid "Can't open file '%s' (%s)"
+msgstr ""
+
+#: ../src/misc.c:3180
+#, c-format
+msgid "Error reading file (%s)"
+msgstr ""
+
+#: ../src/misc.c:3396
+msgid "Insert a blank line"
+msgstr ""
+
+#: ../src/misc.c:3402
+msgid "Delete this line"
+msgstr ""
+
+#: ../src/misc.c:3417
+msgid "Move up this line"
+msgstr ""
+
+#: ../src/misc.c:3423
+msgid "Move down this line"
+msgstr ""
+
+#. Mode changed to profile name
+#: ../src/monkeyaudio_header.c:78 ../src/musepack_header.c:80
+#, c-format
+msgid "Profile:"
+msgstr "ప్రవర"
+
+#: ../src/mp4_header.c:63 ../src/mp4_tag.c:65 ../src/mp4_tag.c:186
+msgid "MP4 format invalid"
+msgstr ""
+
+#: ../src/mp4_header.c:72 ../src/mp4_tag.c:74
+#, c-format
+msgid "File contains no audio track: '%s'"
+msgstr ""
+
+#: ../src/mp4_header.c:82
+#, c-format
+msgid "Error reading properties from file: '%s'"
+msgstr ""
+
+#: ../src/mp4_header.c:132 ../src/mpeg_header.c:204
+#, c-format
+msgid "~%d kb/s"
+msgstr ""
+
+#: ../src/mp4_tag.c:85 ../src/mp4_tag.c:194
+#, c-format
+msgid "Error reading tags from file: '%s'"
+msgstr ""
+
+#: ../src/mpeg_header.c:64
+msgid "Stereo"
+msgstr "స్టీరియో"
+
+#: ../src/mpeg_header.c:65
+msgid "Joint stereo"
+msgstr ""
+
+#: ../src/mpeg_header.c:66
+msgid "Dual channel"
+msgstr ""
+
+#: ../src/mpeg_header.c:67
+msgid "Single channel"
+msgstr ""
+
+#. MPEG, Layer versions
+#: ../src/mpeg_header.c:194
+msgid "MPEG"
+msgstr ""
+
+#. FIXME: Pass error back to calling function.
+#: ../src/ogg_header.c:227
+#, c-format
+msgid "Error while opening file: '%s' (%s)"
+msgstr ""
+
+#: ../src/ogg_header.c:243
+#, c-format
+msgid ""
+"Ogg Vorbis: The specified bitstream does not exist or the file has been "
+"initialized improperly (file: '%s')."
+msgstr ""
+
+#: ../src/ogg_header.c:279
+#, c-format
+msgid "Ogg Vorbis: Read from media returned an error (file: '%s')."
+msgstr ""
+
+#: ../src/ogg_header.c:282
+#, c-format
+msgid "Ogg Vorbis: Bitstream is not Vorbis data (file: '%s')."
+msgstr ""
+
+#: ../src/ogg_header.c:285
+#, c-format
+msgid "Ogg Vorbis: Vorbis version mismatch (file: '%s')."
+msgstr ""
+
+#: ../src/ogg_header.c:288
+#, c-format
+msgid "Ogg Vorbis: Invalid Vorbis bitstream header (file: '%s')."
+msgstr ""
+
+#: ../src/ogg_header.c:291
+#, c-format
+msgid ""
+"Ogg Vorbis: Internal logic fault, indicates a bug or heap/stack corruption "
+"(file: '%s')."
+msgstr ""
+
+#: ../src/ogg_header.c:337
+#, c-format
+msgid "Error: Failed to open file: '%s' as Vorbis (%s)."
+msgstr ""
+
+#: ../src/ogg_tag.c:712 ../src/ogg_tag.c:887
+#, c-format
+msgid "Warning: The Ogg Vorbis file '%s' contains an ID3v2 tag."
+msgstr ""
+
+#: ../src/ogg_tag.c:1035 ../src/picture.c:1257
+#, c-format
+msgid "Error with 'loader_write': %s"
+msgstr ""
+
+#: ../src/ogg_tag.c:1050 ../src/picture.c:1180
+#, c-format
+msgid "Error with 'loader_close': %s"
+msgstr ""
+
+#: ../src/picture.c:104
+#, c-format
+msgid "Image file not saved: %s"
+msgstr ""
+
+#: ../src/picture.c:154
+#, c-format
+msgid "Cannot open file: '%s'"
+msgstr ""
+
+#: ../src/picture.c:158
+msgid "Image File Error"
+msgstr ""
+
+#: ../src/picture.c:162 ../src/picture.c:424
+#, c-format
+msgid "Image file not loaded: %s"
+msgstr ""
+
+#: ../src/picture.c:446
+msgid "Image file loaded"
+msgstr ""
+
+#: ../src/picture.c:504
+msgid "Add Images"
+msgstr "బొమ్మలను జోడించు"
+
+#: ../src/picture.c:514 ../src/picture.c:874
+msgid "All Files"
+msgstr "అన్ని దస్త్రాలు"
+
+#: ../src/picture.c:520 ../src/picture.c:880
+msgid "PNG and JPEG"
+msgstr "PNG మరియు JPEG"
+
+#: ../src/picture.c:651
+#, c-format
+msgid "Image Properties %d/%d"
+msgstr "బొమ్మ లక్షణాలు %d/%d"
+
+#: ../src/picture.c:675
+msgid "Image Type"
+msgstr "బొమ్మ రకం"
+
+#. Description of the picture
+#: ../src/picture.c:734
+msgid "Image Description:"
+msgstr "బొమ్మ వివరణ:"
+
+#: ../src/picture.c:861
+#, c-format
+msgid "Save Image %d/%d"
+msgstr "బొమ్మను భద్రపరుచు %d/%d"
+
+#: ../src/picture.c:1021
+msgid "JPEG image"
+msgstr "JPEG బొమ్మ"
+
+#: ../src/picture.c:1023
+msgid "PNG image"
+msgstr "PNG బొమ్మ"
+
+#: ../src/picture.c:1025
+msgid "GIF image"
+msgstr "GIF బొమ్మ"
+
+#: ../src/picture.c:1027
+msgid "Unknown image"
+msgstr "తెలియని బొమ్మ"
+
+#: ../src/picture.c:1039
+msgid "32x32 pixel PNG file icon"
+msgstr ""
+
+#: ../src/picture.c:1041
+msgid "Other file icon"
+msgstr ""
+
+#: ../src/picture.c:1043
+msgid "Cover (front)"
+msgstr ""
+
+#: ../src/picture.c:1045
+msgid "Cover (back)"
+msgstr ""
+
+#: ../src/picture.c:1047
+msgid "Leaflet page"
+msgstr ""
+
+#: ../src/picture.c:1049
+msgid "Media (e.g. label side of CD)"
+msgstr ""
+
+#: ../src/picture.c:1051
+msgid "Lead artist/lead performer/soloist"
+msgstr ""
+
+#: ../src/picture.c:1053
+msgid "Artist/performer"
+msgstr ""
+
+#: ../src/picture.c:1055
+msgid "Conductor"
+msgstr ""
+
+#: ../src/picture.c:1057
+msgid "Band/Orchestra"
+msgstr ""
+
+#: ../src/picture.c:1061
+msgid "Lyricist/text writer"
+msgstr ""
+
+#: ../src/picture.c:1063
+msgid "Recording location"
+msgstr ""
+
+#: ../src/picture.c:1065
+msgid "During recording"
+msgstr ""
+
+#: ../src/picture.c:1067
+msgid "During performance"
+msgstr ""
+
+#: ../src/picture.c:1069
+msgid "Movie/video screen capture"
+msgstr ""
+
+#: ../src/picture.c:1071
+msgid "A bright colored fish"
+msgstr ""
+
+#: ../src/picture.c:1073
+msgid "Illustration"
+msgstr ""
+
+#: ../src/picture.c:1075
+msgid "Band/Artist logotype"
+msgstr ""
+
+#: ../src/picture.c:1077
+msgid "Publisher/studio logotype"
+msgstr ""
+
+#: ../src/picture.c:1081
+msgid "Unknown image type"
+msgstr ""
+
+#: ../src/picture.c:1111 ../src/picture.c:1122
+msgid "pixels"
+msgstr "చిణువులు"
+
+#: ../src/picture.c:1112 ../src/picture.c:1123
+msgid "Type"
+msgstr "రకం"
+
+#: ../src/picture.c:1124
+msgid "Description"
+msgstr "వివరణ"
+
+#: ../src/picture.c:1240
+msgid ""
+"Cannot display the image because not enough data has been read to determine "
+"how to create the image buffer."
+msgstr ""
+
+#: ../src/picture.c:1247
+msgid "Cannot display the image"
+msgstr ""
+
+#: ../src/picture.c:1249
+msgid ""
+"Not enough data has been read to determine how to create the image buffer."
+msgstr ""
+
+#: ../src/picture.c:1251
+msgid "Load Image File"
+msgstr "బొమ్మ దస్త్రాన్ని నింపు"
+
+#. Label
+#: ../src/prefs.c:152
+msgid "Default directory:"
+msgstr "అప్రమేయ సంచయం:"
+
+#: ../src/prefs.c:165
+msgid ""
+"Specify the directory where your files are located. This path will be loaded "
+"when EasyTAG starts without parameter."
+msgstr ""
+
+#. Load directory on startup
+#: ../src/prefs.c:186
+msgid ""
+"Load on startup the default directory or the directory passed as argument"
+msgstr ""
+
+#: ../src/prefs.c:189
+msgid ""
+"Automatically search files, when EasyTAG starts, into the default directory. "
+"Note that this path may be overridden by the parameter passed to easytag "
+"(easytag /path_to/mp3_files)."
+msgstr ""
+
+#. Browse subdirectories
+#: ../src/prefs.c:194
+msgid "Search subdirectories"
+msgstr ""
+
+#: ../src/prefs.c:197
+msgid "Search subdirectories for files when reading a directory into the tree."
+msgstr ""
+
+#. Open the node to show subdirectories
+#: ../src/prefs.c:201
+msgid "Show subdirectories when selecting a directory"
+msgstr ""
+
+#: ../src/prefs.c:205
+msgid ""
+"This expands the selected node into the file browser to display the sub-"
+"directories."
+msgstr ""
+
+#. Browse hidden directories
+#: ../src/prefs.c:209
+msgid "Search hidden directories"
+msgstr ""
+
+#: ../src/prefs.c:214
+msgid "Search hidden directories for files (directories starting by a '.')."
+msgstr ""
+
+#.
+#. * Misc
+#.
+#: ../src/prefs.c:222
+msgid "Misc"
+msgstr ""
+
+#. User interface
+#: ../src/prefs.c:228
+msgid "User Interface"
+msgstr "వాడుకరి అంతరవర్తి"
+
+#. Show header infos
+#: ../src/prefs.c:235
+msgid "Show header information of file"
+msgstr ""
+
+#: ../src/prefs.c:238
+msgid ""
+"If activated, information about the file as the bitrate, the time, the size, "
+"will be displayed under the filename entry."
+msgstr ""
+
+#: ../src/prefs.c:244
+msgid "Display changed files in list using:"
+msgstr ""
+
+#: ../src/prefs.c:247
+msgid "Red color"
+msgstr "ఎరుపు రంగు"
+
+#: ../src/prefs.c:253
+msgid "Bold style"
+msgstr ""
+
+#. Sorting List Options
+#: ../src/prefs.c:259
+msgid "Sorting List Options"
+msgstr ""
+
+#. Sorting method
+#: ../src/prefs.c:268
+msgid "Sort the file list by:"
+msgstr ""
+
+#: ../src/prefs.c:278
+msgid "Ascending filename"
+msgstr ""
+
+#: ../src/prefs.c:280
+msgid "Descending filename"
+msgstr ""
+
+#: ../src/prefs.c:281
+msgid "Ascending title"
+msgstr ""
+
+#: ../src/prefs.c:282
+msgid "Descending title"
+msgstr ""
+
+#: ../src/prefs.c:283
+msgid "Ascending artist"
+msgstr ""
+
+#: ../src/prefs.c:284
+msgid "Descending artist"
+msgstr ""
+
+#: ../src/prefs.c:286
+msgid "Ascending album artist"
+msgstr ""
+
+#: ../src/prefs.c:288
+msgid "Descending album artist"
+msgstr ""
+
+#: ../src/prefs.c:289
+msgid "Ascending album"
+msgstr ""
+
+#: ../src/prefs.c:290
+msgid "Descending album"
+msgstr ""
+
+#: ../src/prefs.c:291
+msgid "Ascending year"
+msgstr ""
+
+#: ../src/prefs.c:292
+msgid "Descending year"
+msgstr ""
+
+#: ../src/prefs.c:294
+msgid "Ascending disc number"
+msgstr ""
+
+#: ../src/prefs.c:296
+msgid "Descending disc number"
+msgstr ""
+
+#: ../src/prefs.c:298
+msgid "Ascending track number"
+msgstr ""
+
+#: ../src/prefs.c:300
+msgid "Descending track number"
+msgstr ""
+
+#: ../src/prefs.c:301
+msgid "Ascending genre"
+msgstr ""
+
+#: ../src/prefs.c:302
+msgid "Descending genre"
+msgstr ""
+
+#: ../src/prefs.c:303
+msgid "Ascending comment"
+msgstr ""
+
+#: ../src/prefs.c:304
+msgid "Descending comment"
+msgstr ""
+
+#: ../src/prefs.c:306
+msgid "Ascending composer"
+msgstr ""
+
+#: ../src/prefs.c:308
+msgid "Descending composer"
+msgstr ""
+
+#: ../src/prefs.c:310
+msgid "Ascending original artist"
+msgstr ""
+
+#: ../src/prefs.c:312
+msgid "Descending original artist"
+msgstr ""
+
+#: ../src/prefs.c:314
+msgid "Ascending copyright"
+msgstr ""
+
+#: ../src/prefs.c:316
+msgid "Descending copyright"
+msgstr ""
+
+#: ../src/prefs.c:318
+msgid "Ascending URL"
+msgstr ""
+
+#: ../src/prefs.c:320
+msgid "Descending URL"
+msgstr ""
+
+#: ../src/prefs.c:322
+msgid "Ascending encoded by"
+msgstr ""
+
+#: ../src/prefs.c:324
+msgid "Descending encoded by"
+msgstr ""
+
+#: ../src/prefs.c:326
+msgid "Ascending creation date"
+msgstr ""
+
+#: ../src/prefs.c:328
+msgid "Descending creation date"
+msgstr ""
+
+#: ../src/prefs.c:332
+msgid "Select the type of file sorting when loading a directory."
+msgstr ""
+
+#: ../src/prefs.c:344
+msgid "If activated, the sorting of the list will be dependent on the case."
+msgstr ""
+
+#. File Player
+#: ../src/prefs.c:348
+msgid "File Audio Player"
+msgstr ""
+
+#: ../src/prefs.c:360
+msgid "Player to run:"
+msgstr ""
+
+#: ../src/prefs.c:366
+msgid ""
+"Enter the program used to play the files. Some arguments can be passed for "
+"the program (as 'xmms -p') before to receive files as other arguments."
+msgstr ""
+
+#. Log options
+#: ../src/prefs.c:384
+msgid "Log Options"
+msgstr ""
+
+#. Show / hide log view
+#: ../src/prefs.c:391
+msgid "Show log view in main window"
+msgstr ""
+
+#: ../src/prefs.c:394
+msgid "If activated, the log view would be visible in the main window."
+msgstr ""
+
+#: ../src/prefs.c:400
+msgid "Max number of lines:"
+msgstr ""
+
+#. g_signal_connect(G_OBJECT(NumberTrackFormated),"toggled",G_CALLBACK(Number_Track_Formatted_Toggled),NULL);
+#. * g_signal_emit_by_name(G_OBJECT(NumberTrackFormated),"toggled");
+#. gtk_tooltips_set_tip(Tips,GTK_BIN(FilePlayerCombo)->child,_("Enter the program used to "
+#. "play the files. Some arguments can be passed for the program (as 'xmms -p') before "
+#. "to receive files as other arguments."),NULL);
+#.
+#.
+#. * File Settings
+#.
+#: ../src/prefs.c:418
+msgid "File Settings"
+msgstr "దస్త్ర అమరికలు"
+
+#. File (name) Options
+#: ../src/prefs.c:424
+msgid "File Options"
+msgstr "దస్త్ర ఐచ్ఛికాలు"
+
+#: ../src/prefs.c:430
+msgid "Replace illegal characters in filename (for Windows and CD-Rom)"
+msgstr ""
+
+#: ../src/prefs.c:433
+msgid ""
+"Convert illegal characters for FAT32/16 and ISO9660 + Joliet filesystems "
+"('\\', ':', ';', '*', '?', '\"', '<', '>', '|') of the filename to avoid "
+"problem when renaming the file. This is useful when renaming the file from "
+"the tag with the scanner."
+msgstr ""
+
+#. Extension case (lower/upper?)
+#: ../src/prefs.c:441
+msgid "Convert filename extension to:"
+msgstr ""
+
+#: ../src/prefs.c:444
+msgid "Lower Case"
+msgstr ""
+
+#: ../src/prefs.c:447
+msgid "For example, the extension will be converted to '.mp3'"
+msgstr ""
+
+#: ../src/prefs.c:450
+msgid "Upper Case"
+msgstr ""
+
+#: ../src/prefs.c:453
+msgid "For example, the extension will be converted to '.MP3'"
+msgstr ""
+
+#: ../src/prefs.c:456
+msgid "No Change"
+msgstr ""
+
+#: ../src/prefs.c:459
+msgid "The extension will not be converted"
+msgstr ""
+
+#. Preserve modification time
+#: ../src/prefs.c:462
+msgid "Preserve modification time of the file"
+msgstr ""
+
+#: ../src/prefs.c:465
+msgid ""
+"Preserve the modification time (in file properties) when saving the file."
+msgstr ""
+
+#. Change directory modification time
+#: ../src/prefs.c:469
+msgid ""
+"Update modification time of the parent directory of the file (recommended "
+"when using Amarok)"
+msgstr ""
+
+#: ../src/prefs.c:473
+msgid ""
+"The modification time of the parent directory of the file will be updated "
+"when saving tag the file. At the present time it is automatically done only "
+"when renaming a file.\n"
+"This feature is interesting when using applications like Amarok. For "
+"performance reasons, they refresh file information by detecting changes of "
+"the parent directory."
+msgstr ""
+
+#. Character Set for Filename
+#: ../src/prefs.c:481
+msgid "Character Set for Filename"
+msgstr ""
+
+#. Rules for character set
+#: ../src/prefs.c:493
+msgid ""
+"Rules to apply if some characters can't be converted to the system character "
+"encoding when writing filename:"
+msgstr ""
+
+#: ../src/prefs.c:499
+msgid "Try another character encoding"
+msgstr ""
+
+#: ../src/prefs.c:503
+msgid ""
+"With this option, it will try the conversion to the encoding associated to "
+"your locale (for example: ISO-8859-1 for 'fr', KOI8-R for 'ru', ISO-8859-2 "
+"for 'ro'). If it fails, it will try the character encoding ISO-8859-1."
+msgstr ""
+
+#: ../src/prefs.c:510
+msgid ""
+"Force using the system character encoding and activate the transliteration"
+msgstr ""
+
+#: ../src/prefs.c:514 ../src/prefs.c:844 ../src/prefs.c:913
+msgid ""
+"With this option, when a character cannot be represented in the target "
+"character set, it can be approximated through one or several similarly "
+"looking characters."
+msgstr ""
+
+#: ../src/prefs.c:520
+msgid ""
+"Force using the system character encoding and silently discard some "
+"characters"
+msgstr ""
+
+#: ../src/prefs.c:524 ../src/prefs.c:854 ../src/prefs.c:923
+msgid ""
+"With this option, when a character cannot be represented in the target "
+"character set, it will be silently discarded."
+msgstr ""
+
+#.
+#. * Tag Settings
+#.
+#: ../src/prefs.c:533
+msgid "Tag Settings"
+msgstr ""
+
+#. Tag Options
+#: ../src/prefs.c:539
+msgid "Tag Options"
+msgstr ""
+
+#: ../src/prefs.c:545
+msgid "Auto completion of date if not complete"
+msgstr ""
+
+#: ../src/prefs.c:548
+msgid ""
+"Try to complete the year field if you enter only the last numerals of the "
+"date (for instance, if the current year is 2005: 5 => 2005, 4 => 2004, 6 => "
+"1996, 95 => 1995…)."
+msgstr ""
+
+#: ../src/prefs.c:556
+msgid "Write the track field with the following number of digits:"
+msgstr ""
+
+#: ../src/prefs.c:559
+msgid ""
+"If activated, the track field is written using the number '0' as padding to "
+"obtain a number with 'n' digits (for example, with two digits: '05', '09', "
+"'10'…). Else it keeps the 'raw' track value."
+msgstr ""
+
+#: ../src/prefs.c:578
+msgid "Write the disc field with the following number of digits:"
+msgstr ""
+
+#: ../src/prefs.c:583
+msgid "Whether to pad the disc field with leading zeroes"
+msgstr ""
+
+#: ../src/prefs.c:613
+msgid ""
+"Tag field focus when switching files in list with shortcuts Page Up/Page "
+"Down:"
+msgstr ""
+
+#: ../src/prefs.c:619
+msgid "Keep focus to the same tag field"
+msgstr ""
+
+#: ../src/prefs.c:625
+msgid "Return focus to the first tag field (i.e. 'Title' field)"
+msgstr ""
+
+#. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SetFocusToFirstTagField),SET_FOCUS_TO_FIRST_TAG_FIELD);
+#. Tag Splitting
+#: ../src/prefs.c:630
+msgid "Tag Splitting"
+msgstr ""
+
+#: ../src/prefs.c:639
+msgid ""
+"For Vorbis tags, selected fields will be split at dashes and saved as "
+"separate tags"
+msgstr ""
+
+#: ../src/prefs.c:649
+msgid "Original artist"
+msgstr ""
+
+#.
+#. * ID3 Tag Settings
+#.
+#: ../src/prefs.c:670
+msgid "ID3 Tag Settings"
+msgstr ""
+
+#. Tag Rules frame
+#: ../src/prefs.c:679
+msgid "ID3 Tag Rules"
+msgstr ""
+
+#. Strip tag when fields (managed by EasyTAG) are empty
+#: ../src/prefs.c:691
+msgid "Strip tags if all fields are set to blank"
+msgstr ""
+
+#: ../src/prefs.c:694
+msgid ""
+"As ID3v2 tags may contain other data than Title, Artist, Album, Year, Track, "
+"Genre or Comment (as an attached image, lyrics…), this option allows you to "
+"strip the whole tag when these seven standard data fields have been set to "
+"blank."
+msgstr ""
+
+#. Convert old ID3v2 tag version
+#: ../src/prefs.c:700
+msgid "Automatically convert old ID3v2 tag versions"
+msgstr ""
+
+#: ../src/prefs.c:703
+msgid ""
+"If activated, an old ID3v2 tag version (as ID3v2.2) will be updated to the "
+"ID3v2.3 version."
+msgstr ""
+
+#. Use CRC32
+#: ../src/prefs.c:707
+msgid "Use CRC32"
+msgstr ""
+
+#: ../src/prefs.c:710
+msgid "Set CRC32 in the ID3v2 tags"
+msgstr ""
+
+#. Use Compression
+#: ../src/prefs.c:713
+msgid "Use Compression"
+msgstr ""
+
+#: ../src/prefs.c:717
+msgid "Set Compression in the ID3v2 tags"
+msgstr ""
+
+#. Write Genre in text
+#: ../src/prefs.c:720
+msgid "Write Genre in text only"
+msgstr ""
+
+#: ../src/prefs.c:724
+msgid ""
+"Don't use ID3v1 number references in genre tag. Enable this if you see "
+"numbers as genre in your music player."
+msgstr ""
+
+#. Character Set for writing ID3 tag
+#: ../src/prefs.c:727
+msgid "Character Set for writing ID3 tags"
+msgstr ""
+
+#. ID3v2 tags
+#: ../src/prefs.c:734
+msgid "ID3v2 tags"
+msgstr ""
+
+#. Write ID3v2 tag
+#: ../src/prefs.c:747
+msgid "Write ID3v2 tag"
+msgstr ""
+
+#: ../src/prefs.c:750
+msgid ""
+"If activated, an ID3v2.4 tag will be added or updated at the beginning of "
+"the MP3 files. Else it will be stripped."
+msgstr ""
+
+#. ID3v2 tag version
+#: ../src/prefs.c:757
+msgid "Version:"
+msgstr "రూపాంతరం:"
+
+#: ../src/prefs.c:763
+msgid ""
+"Select the ID3v2 tag version to write:\n"
+" - ID3v2.3 is written using id3lib,\n"
+" - ID3v2.4 is written using libid3tag (recommended)."
+msgstr ""
+
+#. Charset
+#. Id3V1 writing character set
+#: ../src/prefs.c:778 ../src/prefs.c:882
+msgid "Charset:"
+msgstr "అక్షరసమితి:"
+
+#. Unicode
+#: ../src/prefs.c:783
+msgid "Unicode "
+msgstr "యూనికోడ్"
+
+#: ../src/prefs.c:791
+msgid "Unicode type to use"
+msgstr ""
+
+#: ../src/prefs.c:815
+msgid "Character set used to write the tag data in the file."
+msgstr ""
+
+#. ID3v2 Additional iconv() options
+#. ID3V1 Additional iconv() options
+#: ../src/prefs.c:825 ../src/prefs.c:894
+msgid "Additional settings for iconv():"
+msgstr ""
+
+#: ../src/prefs.c:831 ../src/prefs.c:900
+msgid "No"
+msgstr ""
+
+#: ../src/prefs.c:835 ../src/prefs.c:904
+msgid ""
+"With this option, when a character cannot be represented in the target "
+"character set, it isn't changed. But note that an error message will be "
+"displayed for information."
+msgstr ""
+
+#: ../src/prefs.c:840 ../src/prefs.c:909
+msgid "//TRANSLIT"
+msgstr ""
+
+#: ../src/prefs.c:850 ../src/prefs.c:919
+msgid "//IGNORE"
+msgstr ""
+
+#. ID3v1 tags
+#: ../src/prefs.c:859
+msgid "ID3v1 tags"
+msgstr ""
+
+#. Write ID3v1 tag
+#: ../src/prefs.c:873
+msgid "Write ID3v1.x tag"
+msgstr ""
+
+#: ../src/prefs.c:876
+msgid ""
+"If activated, an ID3v1 tag will be added or updated at the end of the MP3 "
+"files. Else it will be stripped."
+msgstr ""
+
+#: ../src/prefs.c:890
+msgid "Character set used to write ID3v1 tag data in the file."
+msgstr ""
+
+#. Character Set for reading tag
+#: ../src/prefs.c:928
+msgid "Character Set for reading ID3 tags"
+msgstr ""
+
+#: ../src/prefs.c:942
+msgid "Non-standard:"
+msgstr ""
+
+#: ../src/prefs.c:948
+msgid ""
+"This character set will be used when reading the tag data, to convert each "
+"string found in an ISO-8859-1 field in the tag (for ID3v2 or/and ID3v1 "
+"tag).\n"
+"\n"
+"For example:\n"
+"  - In previous versions of EasyTAG, you could save UTF-8 strings in an "
+"ISO-8859-1 field. This is not correct. To convert these tags to Unicode: "
+"activate this option and select UTF-8. You must also activate above the "
+"option 'Try to save tags to ISO-8859-1. If it isn't possible then use "
+"UNICODE (recommended)' or 'Always save tags to UNICODE character set'.\n"
+"  - If Unicode was not used, Russian people can select the character set "
+"'Windows-1251' to load tags written under Windows. And 'KOI8-R' to load tags "
+"written under Unix systems."
+msgstr ""
+
+#: ../src/prefs.c:966
+msgid "Character set used to read tag data in the file."
+msgstr ""
+
+#.
+#. * Scanner
+#.
+#: ../src/prefs.c:980
+msgid "Scanner"
+msgstr "పరికింపకం"
+
+#. Character conversion for the 'Fill Tag' scanner (=> FTS...)
+#: ../src/prefs.c:990
+msgid "Fill Tag Scanner - Character Conversion"
+msgstr ""
+
+#: ../src/prefs.c:996 ../src/prefs.c:1021
+msgid "Convert underscore character '_' and string '%20' to space ' '"
+msgstr ""
+
+#: ../src/prefs.c:998 ../src/prefs.c:1022
+msgid "Convert space ' ' to underscore '_'"
+msgstr ""
+
+#: ../src/prefs.c:1010 ../src/prefs.c:1012
+msgid ""
+"If activated, this conversion will be used when applying a mask from the "
+"scanner for tags."
+msgstr ""
+
+#. Character conversion for the 'Rename File' scanner (=> RFS...)
+#: ../src/prefs.c:1016
+msgid "Rename File Scanner - Character Conversion"
+msgstr ""
+
+#: ../src/prefs.c:1033 ../src/prefs.c:1035 ../src/prefs.c:1037
+msgid ""
+"If activated, this conversion will be used when applying a mask from the "
+"scanner for filenames."
+msgstr ""
+
+#. Character conversion for the 'Process Fields' scanner (=> PFS...)
+#: ../src/prefs.c:1040
+msgid "Process Fields Scanner - Character Conversion"
+msgstr ""
+
+#. Don't convert some words like to, feat. first letter uppercase.
+#: ../src/prefs.c:1047
+msgid ""
+"Don't uppercase first letter of words for some prepositions and articles."
+msgstr ""
+
+#: ../src/prefs.c:1051
+msgid ""
+"Don't convert first letter of words like prepositions, articles and words "
+"like feat., when using the scanner 'First letter uppercase of each "
+"word' (for example, you will obtain 'Text in an Entry' instead of 'Text In "
+"An Entry')."
+msgstr ""
+
+#. Properties of the scanner window
+#: ../src/prefs.c:1057
+msgid "Scanner Window"
+msgstr "పరికింపకం కిటికీ"
+
+#: ../src/prefs.c:1063
+msgid "Open the Scanner Window on startup"
+msgstr ""
+
+#: ../src/prefs.c:1066
+msgid ""
+"Activate this option to open automatically the scanner window when EasyTAG "
+"starts."
+msgstr ""
+
+#. Other options
+#: ../src/prefs.c:1071
+msgid "Fields"
+msgstr "క్షేత్రాలు"
+
+#. Overwrite text into tag fields
+#: ../src/prefs.c:1078
+msgid "Overwrite fields when scanning tags"
+msgstr ""
+
+#: ../src/prefs.c:1081
+msgid ""
+"If activated, the scanner will replace existing text in fields by the new "
+"one. If deactivated, only blank fields of the tag will be filled."
+msgstr ""
+
+#: ../src/prefs.c:1092
+msgid "Set this text as default comment:"
+msgstr ""
+
+#: ../src/prefs.c:1095
+msgid ""
+"Activate this option if you want to put the following string into the "
+"comment field when using the 'Fill Tag' scanner."
+msgstr ""
+
+#. CRC32 comment
+#: ../src/prefs.c:1113
+msgid "Use CRC32 as the default comment (for files with ID3 tags only)."
+msgstr ""
+
+#: ../src/prefs.c:1117
+msgid ""
+"Calculates the CRC-32 value of the file and writes it into the comment field "
+"when using the 'Fill Tag' scanner."
+msgstr ""
+
+#.
+#. * CDDB
+#.
+#: ../src/prefs.c:1128
+msgid "CDDB"
+msgstr "CDDB"
+
+#. CDDB Server Settings (Automatic Search)
+#: ../src/prefs.c:1134
+msgid "Server Settings for Automatic Search"
+msgstr ""
+
+#: ../src/prefs.c:1143 ../src/prefs.c:1182 ../src/prefs.c:1216
+msgid "Name:"
+msgstr "పేరు:"
+
+#: ../src/prefs.c:1162 ../src/prefs.c:1190 ../src/prefs.c:1225
+#: ../src/prefs.c:1310
+msgid "Port:"
+msgstr "పోర్టు:"
+
+#: ../src/prefs.c:1172 ../src/prefs.c:1200 ../src/prefs.c:1234
+msgid "CGI Path:"
+msgstr ""
+
+#. CDDB Server Settings (Manual Search)
+#: ../src/prefs.c:1208
+msgid "Server Settings for Manual Search"
+msgstr ""
+
+#. Local access for CDDB (Automatic Search)
+#: ../src/prefs.c:1242
+msgid "Local CDDB"
+msgstr ""
+
+#: ../src/prefs.c:1250
+msgid "Path:"
+msgstr "బాట:"
+
+#: ../src/prefs.c:1262
+msgid ""
+"Specify the directory where the local CD database is located. The local CD "
+"database contains the eleven following directories 'blues', 'classical', "
+"'country', 'data', 'folk', 'jazz', 'newage', 'reggae', 'rock', 'soundtrack' "
+"and 'misc'."
+msgstr ""
+
+#. CDDB Proxy Settings
+#: ../src/prefs.c:1288
+msgid "Proxy Settings"
+msgstr "ప్రాక్సీ  అమరికలు"
+
+#: ../src/prefs.c:1297
+msgid "Use a proxy"
+msgstr ""
+
+#: ../src/prefs.c:1300
+msgid "Set active the settings of the proxy server."
+msgstr ""
+
+#: ../src/prefs.c:1302
+msgid "Host Name:"
+msgstr ""
+
+#: ../src/prefs.c:1309
+msgid "Name of the proxy server."
+msgstr ""
+
+#: ../src/prefs.c:1317
+msgid "Port of the proxy server."
+msgstr ""
+
+#: ../src/prefs.c:1321
+msgid "User Name:"
+msgstr "వాడుకరి పేరు:"
+
+#: ../src/prefs.c:1328
+msgid "Name of user for the the proxy server."
+msgstr ""
+
+#: ../src/prefs.c:1329
+msgid "User Password:"
+msgstr "వాడుకరి సంకేతపదం:"
+
+#: ../src/prefs.c:1338
+msgid "Password of user for the proxy server."
+msgstr ""
+
+#. Track Name list (CDDB results)
+#: ../src/prefs.c:1343
+msgid "Track Name List"
+msgstr ""
+
+#: ../src/prefs.c:1350
+msgid ""
+"Select corresponding audio file (according position or DLM if activated "
+"below)"
+msgstr ""
+
+#: ../src/prefs.c:1354
+msgid ""
+"If activated, when selecting a line in the list of tracks name, the "
+"corresponding audio file in the main list will be also selected."
+msgstr ""
+
+#. Check box to use DLM (also used in the cddb window)
+#: ../src/prefs.c:1359
+msgid ""
+"Use the Levenshtein algorithm (DLM) to match lines (using title) with audio "
+"files (using filename)"
+msgstr ""
+
+#.
+#. * Confirmation
+#.
+#: ../src/prefs.c:1374
+msgid "Confirmation"
+msgstr ""
+
+#: ../src/prefs.c:1379
+msgid "Confirm exit from program"
+msgstr ""
+
+#: ../src/prefs.c:1382
+msgid ""
+"If activated, opens a dialog box to ask confirmation before exiting the "
+"program."
+msgstr ""
+
+#: ../src/prefs.c:1385
+msgid "Confirm writing of file tag"
+msgstr ""
+
+#: ../src/prefs.c:1389
+msgid "Confirm renaming of file"
+msgstr ""
+
+#: ../src/prefs.c:1393
+msgid "Confirm deleting of file"
+msgstr ""
+
+#: ../src/prefs.c:1397
+msgid "Confirm writing of playlist"
+msgstr ""
+
+#: ../src/prefs.c:1401
+msgid "Confirm changing directory when there are unsaved changes"
+msgstr ""
+
+#. For translators : be aware to NOT translate '%.*d' in this string
+#: ../src/prefs.c:1439
+#, c-format
+msgid "(Example: %.*d_-_Track_name_1.mp3)"
+msgstr ""
+
+#. Translators: please do NOT translate '%.*d' in this string.
+#: ../src/prefs.c:1472
+#, c-format
+msgid "(Example: disc_%.*d_of_10/Track_name_1.mp3)"
+msgstr ""
+
+#: ../src/prefs.c:1614 ../src/setting.c:904
+msgid "Configuration saved"
+msgstr ""
+
+#: ../src/prefs.c:1622
+msgid "Configuration unchanged"
+msgstr ""
+
+#: ../src/prefs.c:1713
+msgid "The selected path for 'Default path to files' is invalid"
+msgstr ""
+
+#: ../src/prefs.c:1715
+#, c-format
+msgid ""
+"Path: '%s'\n"
+"Error: %s"
+msgstr ""
+
+#: ../src/prefs.c:1717
+msgid "Invalid Path Error"
+msgstr ""
+
+#: ../src/prefs.c:1831
+#, c-format
+msgid "The audio file player '%s' cannot be found"
+msgstr ""
+
+#: ../src/prefs.c:1833
+msgid "Audio Player Error"
+msgstr ""
+
+#: ../src/scan_dialog.c:182
+msgid "Fill Tag"
+msgstr ""
+
+#: ../src/scan_dialog.c:356
+#, c-format
+msgid "Cannot calculate CRC value of file (%s)"
+msgstr ""
+
+#: ../src/scan_dialog.c:371
+msgid "Tag successfully scanned"
+msgstr ""
+
+#: ../src/scan_dialog.c:373
+#, c-format
+msgid "Tag successfully scanned: %s"
+msgstr ""
+
+#: ../src/scan_dialog.c:414
+#, c-format
+msgid "Tag scanner: strange… the extension '%s' was not found in filename '%s'"
+msgstr ""
+
+#: ../src/scan_dialog.c:496 ../src/scan_dialog.c:525
+#, c-format
+msgid "Scan Error: can't find separator '%s' within '%s'"
+msgstr ""
+
+#: ../src/scan_dialog.c:712
+msgid "New filename successfully scanned"
+msgstr ""
+
+#: ../src/scan_dialog.c:715
+#, c-format
+msgid "New filename successfully scanned: %s"
+msgstr ""
+
+#: ../src/scan_dialog.c:1628
+#, c-format
+msgid "Error while processing fields: %s"
+msgstr ""
+
+#. The window
+#: ../src/scan_dialog.c:1798
+msgid "Tag and Filename Scan"
+msgstr ""
+
+#. TODO: Set related action to match AM_SCAN_FILES.
+#: ../src/scan_dialog.c:1807
+msgid "Scan Files"
+msgstr ""
+
+#. Option Menu
+#: ../src/scan_dialog.c:1835
+msgid "Scanner:"
+msgstr ""
+
+#: ../src/scan_dialog.c:1856
+msgid "Select the type of scanner to use"
+msgstr ""
+
+#: ../src/scan_dialog.c:1865
+msgid "Scanner Preferences"
+msgstr ""
+
+#: ../src/scan_dialog.c:1874
+msgid "Show / Hide Masks Editor"
+msgstr ""
+
+#: ../src/scan_dialog.c:1884
+msgid "Show / Hide Legend"
+msgstr ""
+
+#: ../src/scan_dialog.c:1914
+msgid ""
+"Select or type in a mask using codes (see Legend) to parse filename and "
+"path. Used to fill in tag fields"
+msgstr ""
+
+#. Preview label
+#: ../src/scan_dialog.c:1938
+msgid "Fill tag preview"
+msgstr ""
+
+#: ../src/scan_dialog.c:1968
+msgid "Prefix mask with current path"
+msgstr ""
+
+#: ../src/scan_dialog.c:1982
+msgid ""
+"Select or type in a mask using codes (see Legend) to parse tag fields. Used "
+"to rename the file.\n"
+"Use / to make directories. If the first character is /, it's a absolute "
+"path, otherwise is relative to the old path."
+msgstr ""
+
+#. Preview label
+#: ../src/scan_dialog.c:2007
+msgid "Rename file preview"
+msgstr ""
+
+#: ../src/scan_dialog.c:2026
+msgid "Select fields:"
+msgstr ""
+
+#: ../src/scan_dialog.c:2029
+msgid ""
+"The buttons on the right represent the fields which can be processed. Select "
+"those which interest you"
+msgstr ""
+
+#. Advice for Translators: set the first letter of filename translated
+#: ../src/scan_dialog.c:2033
+msgid "F"
+msgstr ""
+
+#: ../src/scan_dialog.c:2035
+msgid "Process filename field"
+msgstr ""
+
+#. Advice for Translators: set the first letter of title translated
+#: ../src/scan_dialog.c:2037
+msgid "T"
+msgstr ""
+
+#: ../src/scan_dialog.c:2038
+msgid "Process title field"
+msgstr ""
+
+#. Advice for Translators: set the first letter of artist translated
+#: ../src/scan_dialog.c:2040
+msgid "Ar"
+msgstr ""
+
+#: ../src/scan_dialog.c:2041
+msgid "Process file artist field"
+msgstr ""
+
+#. Advice for Translators: set the first letter of album artist translated
+#: ../src/scan_dialog.c:2043
+msgid "AA"
+msgstr ""
+
+#: ../src/scan_dialog.c:2044
+msgid "Process album artist field"
+msgstr ""
+
+#. Advice for Translators: set the first letter of album translated
+#: ../src/scan_dialog.c:2046
+msgid "Al"
+msgstr ""
+
+#: ../src/scan_dialog.c:2047
+msgid "Process album field"
+msgstr ""
+
+#. Advice for Translators: set the first letter of genre translated
+#: ../src/scan_dialog.c:2049
+msgid "G"
+msgstr ""
+
+#: ../src/scan_dialog.c:2050
+msgid "Process genre field"
+msgstr ""
+
+#. Advice for Translators: set the first letter of comment translated
+#: ../src/scan_dialog.c:2052
+msgid "Cm"
+msgstr ""
+
+#: ../src/scan_dialog.c:2053
+msgid "Process comment field"
+msgstr ""
+
+#. Advice for Translators: set the first letter of composer translated
+#: ../src/scan_dialog.c:2055
+msgid "Cp"
+msgstr ""
+
+#: ../src/scan_dialog.c:2056
+msgid "Process composer field"
+msgstr ""
+
+#. Advice for Translators: set the first letter of orig artist translated
+#: ../src/scan_dialog.c:2058
+msgid "O"
+msgstr ""
+
+#: ../src/scan_dialog.c:2059
+msgid "Process original artist field"
+msgstr ""
+
+#. Advice for Translators: set the first letter of copyright translated
+#: ../src/scan_dialog.c:2061
+msgid "Cr"
+msgstr ""
+
+#: ../src/scan_dialog.c:2062
+msgid "Process copyright field"
+msgstr ""
+
+#. Advice for Translators: set the first letter of URL translated
+#: ../src/scan_dialog.c:2064
+msgid "U"
+msgstr ""
+
+#: ../src/scan_dialog.c:2065
+msgid "Process URL field"
+msgstr ""
+
+#. Advice for Translators: set the first letter of encoder name translated
+#: ../src/scan_dialog.c:2067
+msgid "E"
+msgstr ""
+
+#: ../src/scan_dialog.c:2068
+msgid "Process encoder name field"
+msgstr ""
+
+#: ../src/scan_dialog.c:2112
+msgid "Invert selection"
+msgstr "ఎంపికను విలోమించు"
+
+#: ../src/scan_dialog.c:2119
+msgid "Select/Unselect all"
+msgstr ""
+
+#: ../src/scan_dialog.c:2134
+msgid "Convert:"
+msgstr ""
+
+#: ../src/scan_dialog.c:2136
+msgid "to: "
+msgstr ""
+
+#: ../src/scan_dialog.c:2143
+msgid "Do not convert"
+msgstr ""
+
+#: ../src/scan_dialog.c:2162
+msgid ""
+"The underscore character or the string '%20' are replaced by one space. "
+"Example, before: 'Text%20In%20An_Entry', after: 'Text In An Entry'."
+msgstr ""
+
+#: ../src/scan_dialog.c:2165
+msgid ""
+"The space character is replaced by one underscore character. Example, "
+"before: 'Text In An Entry', after: 'Text_In_An_Entry'."
+msgstr ""
+
+#: ../src/scan_dialog.c:2168
+msgid ""
+"Replace a string by another one. Note that the search is case sensitive."
+msgstr ""
+
+#: ../src/scan_dialog.c:2175
+msgid "Capitalize all"
+msgstr ""
+
+#: ../src/scan_dialog.c:2177
+msgid "Lowercase all"
+msgstr ""
+
+#: ../src/scan_dialog.c:2179
+msgid "Capitalize first letter"
+msgstr ""
+
+#: ../src/scan_dialog.c:2181
+msgid "Capitalize the first letter of each word"
+msgstr ""
+
+#: ../src/scan_dialog.c:2182
+msgid "Detect Roman numerals"
+msgstr ""
+
+#: ../src/scan_dialog.c:2184
+msgid "Do not change capitalization"
+msgstr ""
+
+#: ../src/scan_dialog.c:2206
+msgid ""
+"Convert all words in all fields to upper case. Example, before: 'Text IN AN "
+"entry', after: 'TEXT IN AN ENTRY'."
+msgstr ""
+
+#: ../src/scan_dialog.c:2209
+msgid ""
+"Convert all words in all fields to lower case. Example, before: 'TEXT IN an "
+"entry', after: 'text in an entry'."
+msgstr ""
+
+#: ../src/scan_dialog.c:2212
+msgid ""
+"Convert the initial of the first word in all fields to upper case. Example, "
+"before: 'text IN An ENTRY', after: 'Text in an entry'."
+msgstr ""
+
+#: ../src/scan_dialog.c:2215
+msgid ""
+"Convert the initial of each word in all fields to upper case. Example, "
+"before: 'Text in an ENTRY', after: 'Text In An Entry'."
+msgstr ""
+
+#: ../src/scan_dialog.c:2218
+msgid ""
+"Force to convert to upper case the Roman numerals. Example, before: 'ix. "
+"text in an entry', after: 'IX. Text In An Entry'."
+msgstr ""
+
+#: ../src/scan_dialog.c:2226
+msgid "Insert a space before uppercase letters"
+msgstr ""
+
+#: ../src/scan_dialog.c:2228
+msgid "Remove duplicate spaces and underscores"
+msgstr ""
+
+#: ../src/scan_dialog.c:2230
+msgid "Do not change word separators"
+msgstr ""
+
+#: ../src/scan_dialog.c:2244
+msgid ""
+"All spaces between words are removed. Example, before: 'Text In An Entry', "
+"after: 'TextInAnEntry'."
+msgstr ""
+
+#: ../src/scan_dialog.c:2247
+msgid ""
+"A space is inserted before each upper case letter. Example, before: "
+"'TextInAnEntry', after: 'Text In An Entry'."
+msgstr ""
+
+#: ../src/scan_dialog.c:2250
+msgid ""
+"Duplicate spaces and underscores are removed. Example, before: "
+"'Text__In__An   Entry', after: 'Text_In_An Entry'."
+msgstr ""
+
+#.
+#. * Frame to display codes legend
+#.
+#: ../src/scan_dialog.c:2257
+msgid "Legend"
+msgstr ""
+
+#: ../src/scan_dialog.c:2263
+#, c-format
+msgid "%a: artist"
+msgstr ""
+
+#: ../src/scan_dialog.c:2266
+msgid "%z: album artist"
+msgstr ""
+
+#: ../src/scan_dialog.c:2269
+msgid "%b: album"
+msgstr ""
+
+#: ../src/scan_dialog.c:2272
+#, c-format
+msgid "%c: comment"
+msgstr ""
+
+#: ../src/scan_dialog.c:2275
+#, c-format
+msgid "%p: composer"
+msgstr ""
+
+#: ../src/scan_dialog.c:2278
+msgid "%r: copyright"
+msgstr ""
+
+#: ../src/scan_dialog.c:2281
+#, c-format
+msgid "%d: disc number"
+msgstr ""
+
+#: ../src/scan_dialog.c:2284
+#, c-format
+msgid "%e: encoded by"
+msgstr ""
+
+#: ../src/scan_dialog.c:2287
+#, c-format
+msgid "%g: genre"
+msgstr ""
+
+#: ../src/scan_dialog.c:2290
+#, c-format
+msgid "%i: ignored"
+msgstr ""
+
+#: ../src/scan_dialog.c:2293
+msgid "%l: number of tracks"
+msgstr ""
+
+#: ../src/scan_dialog.c:2296
+#, c-format
+msgid "%o: orig. artist"
+msgstr ""
+
+#: ../src/scan_dialog.c:2299
+#, c-format
+msgid "%n: track"
+msgstr ""
+
+#: ../src/scan_dialog.c:2302
+msgid "%t: title"
+msgstr ""
+
+#: ../src/scan_dialog.c:2305
+#, c-format
+msgid "%u: URL"
+msgstr ""
+
+#: ../src/scan_dialog.c:2308
+#, c-format
+msgid "%x: number of discs"
+msgstr ""
+
+#: ../src/scan_dialog.c:2311
+msgid "%y: year"
+msgstr ""
+
+#.
+#. * Masks Editor
+#.
+#: ../src/scan_dialog.c:2318
+msgid "Mask Editor"
+msgstr ""
+
+#: ../src/scan_dialog.c:2372
+msgid "Create New Mask"
+msgstr ""
+
+#: ../src/scan_dialog.c:2382
+msgid "Move Up this Mask"
+msgstr ""
+
+#: ../src/scan_dialog.c:2392
+msgid "Move Down this Mask"
+msgstr ""
+
+#: ../src/scan_dialog.c:2402
+msgid "Duplicate Mask"
+msgstr ""
+
+#: ../src/scan_dialog.c:2412
+msgid "Add Default Masks"
+msgstr ""
+
+#: ../src/scan_dialog.c:2422
+msgid "Remove Mask"
+msgstr ""
+
+#: ../src/scan_dialog.c:2432
+msgid "Save Masks"
+msgstr ""
+
+#: ../src/scan_dialog.c:3012
+msgid "New_mask"
+msgstr ""
+
+#: ../src/scan_dialog.c:3051
+msgid "Copy: No row selected"
+msgstr ""
+
+#: ../src/scan_dialog.c:3144
+msgid "Remove: No row selected"
+msgstr ""
+
+#: ../src/scan_dialog.c:3191
+msgid "Move Up: No row selected"
+msgstr ""
+
+#: ../src/scan_dialog.c:3235
+msgid "Move Down: No row selected"
+msgstr ""
+
+#: ../src/setting.c:924
+#, c-format
+msgid "Error: Cannot write configuration file: %s (%s)"
+msgstr ""
+
+#: ../src/setting.c:944 ../src/setting.c:961 ../src/setting.c:981
+#, c-format
+msgid "Error while writing configuration file: %s"
+msgstr ""
+
+#: ../src/setting.c:1100
+#, c-format
+msgid "Cannot open configuration file '%s' (%s)"
+msgstr ""
+
+#: ../src/setting.c:1102
+msgid "Loading default configuration"
+msgstr ""
+
+#: ../src/setting.c:1143
+#, c-format
+msgid "Cannot create or open file '%s' (%s)"
+msgstr ""
+
+#: ../src/setting.c:1203
+#, c-format
+msgid "Error: Cannot write list to file: %s (%s)"
+msgstr ""
+
+#: ../src/setting.c:1221
+#, c-format
+msgid "Error while writing list file: %s"
+msgstr ""
+
+#. Fall back to defaults
+#: ../src/setting.c:1301
+msgid "Loading default 'Fill Tag' masks…"
+msgstr ""
+
+#. Fall back to defaults
+#: ../src/setting.c:1331
+msgid "Loading default 'Rename File' masks…"
+msgstr ""
+
+#. Fall back to defaults
+#: ../src/setting.c:1357
+msgid "Loading default 'Rename Directory' masks…"
+msgstr ""
+
+#: ../src/setting.c:1568
+#, c-format
+msgid "Migrating configuration from directory '%s' to '%s'"
+msgstr ""
+
+#: ../src/setting.c:1592
+#, c-format
+msgid "Failed to migrate configuration file '%s'"
+msgstr ""
+
+#: ../src/setting.c:1629
+#, c-format
+msgid "Error: Cannot create directory '%s' (%s)"
+msgstr ""
