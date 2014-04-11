@@ -19,71 +19,6 @@
 
 #include "gio_wrapper.h"
 
-template<class T> class SimpleAutoPtr
-{
-public:
-    SimpleAutoPtr (T *item, GDestroyNotify dest) : ptr (item), dtor (dest)
-    {
-    }
-
-    ~SimpleAutoPtr ()
-    {
-        clear ();
-    }
-
-    SimpleAutoPtr<T> &operator= (T *item)
-    {
-        clear ();
-        ptr = item;
-
-	return *this;
-    }
-
-    operator T * ()
-    {
-        return ptr;
-    }
-
-    operator GTypeInstance * ()
-    {
-        return (GTypeInstance *)ptr;
-    }
-
-    operator bool ()
-    {
-        return !!ptr;
-    }
-
-    T &operator* ()
-    {
-        return *ptr;
-    }
-
-    T **operator& ()
-    {
-        return &ptr;
-    }
-
-    T *operator-> ()
-    {
-        return ptr;
-    }
-
-    void clear ()
-    {
-        if (ptr)
-        {
-            dtor ((void *)ptr);
-        }
-
-        ptr = NULL;
-    }
-
-private:
-    T *ptr;
-    GDestroyNotify dtor;
-};
-
 GIO_InputStream::GIO_InputStream (GFile * file_) :
     file ((GFile *)g_object_ref (gpointer (file_))),
     filename (g_file_get_uri (file)),
@@ -96,14 +31,9 @@ GIO_InputStream::~GIO_InputStream ()
 {
     clear ();
 
-    if (stream)
-    {
-        g_input_stream_close (G_INPUT_STREAM (stream), NULL, &error);
-        clear ();
-    }
-
+    g_clear_object (&stream);
     g_free (filename);
-    g_object_unref (G_OBJECT (file));
+    g_object_unref (file);
 }
 
 TagLib::FileName
@@ -321,10 +251,9 @@ GIO_IOStream::insert (TagLib::ByteVector const &data,
         return;
     }
 
-    SimpleAutoPtr<GFileIOStream> tstr (NULL,
-                                       (GDestroyNotify)g_io_stream_close);
-    SimpleAutoPtr<GFile> tmp (g_file_new_tmp ("easytag-XXXXXX", &tstr, NULL),
-                              g_object_unref);
+    GFileIOStream *tstr;
+    /* FIXME: Check for NULL. */
+    GFile *tmp = g_file_new_tmp ("easytag-XXXXXX", &tstr, NULL);
     char *buffer[4096];
     gsize r;
 
@@ -347,6 +276,8 @@ GIO_IOStream::insert (TagLib::ByteVector const &data,
 
 	if (error)
 	{
+            g_object_unref (tstr);
+            g_object_unref (tmp);
             return;
 	}
 
@@ -356,6 +287,8 @@ GIO_IOStream::insert (TagLib::ByteVector const &data,
 
     if (error)
     {
+        g_object_unref (tstr);
+        g_object_unref (tmp);
         return;
     }
 
@@ -365,6 +298,8 @@ GIO_IOStream::insert (TagLib::ByteVector const &data,
 
     if (error)
     {
+        g_object_unref (tstr);
+        g_object_unref (tmp);
         return;
     }
 
@@ -381,22 +316,27 @@ GIO_IOStream::insert (TagLib::ByteVector const &data,
 
         if (error)
         {
+            g_object_unref (tstr);
+            g_object_unref (tmp);
             return;
         }
     }
 
-    tstr = NULL;
-    g_io_stream_close (G_IO_STREAM (stream), NULL, NULL);
+    g_object_unref (tstr);
+    g_object_unref (stream);
     stream = NULL;
 
     g_file_move (tmp, file, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, &error);
 
     if (error)
     {
+            g_object_unref (tmp);
 	    return;
     }
 
     stream = g_file_open_readwrite (file, NULL, &error);
+
+    g_object_unref (tmp);
 }
 
 void
