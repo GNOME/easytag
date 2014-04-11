@@ -5,7 +5,7 @@
 
   <info>
     <link type="guide" xref="index#problems"/>
-    <revision pkgversion="2.2.0" date="2014-04-10" status="review"/>
+    <revision pkgversion="2.2.0" date="2014-04-11" status="candidate"/>
 
     <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
 
@@ -13,41 +13,47 @@
       <name>David King</name>
       <email its:translate="no">amigadave@amigadave.com</email>
     </credit>
+    <credit type="editor">
+      <name>Ekaterina Gerasimova</name>
+      <email its:translate="no">kittykat3756@gmail.com</email>
+    </credit>
 
-    <desc>Display missing tags in Ogg and FLAC files</desc>
-
+    <desc>Split a single tag field into multiple fields when you save Ogg and
+    FLAC files</desc>
   </info>
 
-  <title>Ogg and FLAC tag splitting</title>
+  <title>Split tag fields when saving</title>
 
-  <p>In Ogg and FLAC files, tag fields can have multiple values. As an example,
-  if two artists performed a song, there might be two artist fields in the tag,
-  one for each artist. <app>EasyTAG</app> automatically reads the extra fields,
-  combining them together and showing them as if they were a single field.</p>
+  <p>In Ogg and FLAC files, it is possible to have more than one
+  <link xref="tag">tag field</link> of each type. For example, if two artists
+  performed a song, there can be two artist fields in the tag, one for each
+  artist. <app>EasyTAG</app> automatically reads the extra fields, combining
+  them together and showing them as if they were a single field.</p>
 
-  <p>Many applications do not read the multi-field tags correctly, and so the
+  <p>Many applications do not read the multi-value field correctly, so the
   default configuration is to save using a single field per entry. If the
-  application that you are using supports multi-field tags, you can configure
-  EasyTAG to save them. Fields will automatically be split whenever " - "
-  occurs in the field. For example, in the field "David Bowie - Queen", two
-  fields would be saved: "David Bowie" and "Queen".</p>
+  application that you are using supports multiple field of one type, you can
+  configure EasyTAG to split fields when you save the file. Fields will
+  automatically be split whenever " - " occurs in the field. For example, in
+  the field "David Bowie - Queen", two fields would be saved: "David Bowie" and
+  "Queen".</p>
 
-  <p>To split tags into multiple fields:</p>
+  <p>To split fields when you save the files:</p>
 
   <steps>
     <item>
-      <p>Select <guiseq style="menuitem"><gui style="menu">Edit</gui>
-      <gui style="menuitem">Preferences</gui></guiseq></p>
+      <p>Select
+      <guiseq style="menuitem"><gui style="menu">Edit</gui><gui style="menuitem">Preferences</gui></guiseq></p>
     </item>
     <item>
-      <p>Select the <gui style="tab">Tag Settings</gui> tab.</p>
+      <p>Select the <gui style="tab">Tag Settings</gui> tab</p>
     </item>
     <item>
       <p>In <gui style="group">Tag Splitting</gui> section, check the fields
-      that you want to be split into multiple fields when saving.</p>
+      that you want to be split into multiple fields when saving</p>
     </item>
     <item>
-      <p>Click <gui style="button">OK</gui> to save the settings.</p>
+      <p>Click <gui style="button">OK</gui> to save the settings</p>
     </item>
   </steps>
 
