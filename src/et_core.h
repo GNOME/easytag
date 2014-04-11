@@ -224,46 +224,10 @@ struct _ET_File_Description
 /*
  * Description of supported files
  */
-static const ET_File_Description ETFileDescription[] = 
-{
-#ifdef ENABLE_MP3
-    {MP3_FILE,     ".mp3",  ID3_TAG},
-    {MP2_FILE,     ".mp2",  ID3_TAG},
-#endif
-#ifdef ENABLE_OPUS
-    { OPUS_FILE, ".opus", OPUS_TAG},
-#endif
-#ifdef ENABLE_OGG
-    {OGG_FILE,     ".ogg",  OGG_TAG},
-    {OGG_FILE,     ".oga",  OGG_TAG},
-#endif
-#ifdef ENABLE_SPEEX
-    {SPEEX_FILE,   ".spx",  OGG_TAG},  // Implemented by Pierre Dumuid
-#endif
-#ifdef ENABLE_FLAC
-    {FLAC_FILE,    ".flac", FLAC_TAG},
-    {FLAC_FILE,    ".fla",  FLAC_TAG},
-#endif
-    {MPC_FILE,     ".mpc",  APE_TAG},  // Implemented by Artur Polaczynski
-    {MPC_FILE,     ".mp+",  APE_TAG},  // Implemented by Artur Polaczynski
-    {MPC_FILE,     ".mpp",  APE_TAG},  // Implemented by Artur Polaczynski
-    {MAC_FILE,     ".ape",  APE_TAG},  // Implemented by Artur Polaczynski
-    {MAC_FILE,     ".mac",  APE_TAG},  // Implemented by Artur Polaczynski
-    {OFR_FILE,     ".ofr",  APE_TAG},
-    {OFR_FILE,     ".ofs",  APE_TAG},
-#ifdef ENABLE_MP4
-    {MP4_FILE,     ".mp4",  MP4_TAG},  // Implemented by Michael Ihde
-    {MP4_FILE,     ".m4a",  MP4_TAG},  // Implemented by Michael Ihde
-    {MP4_FILE,     ".m4p",  MP4_TAG},  // Implemented by Michael Ihde
-#endif
-#ifdef ENABLE_WAVPACK
-    {WAVPACK_FILE, ".wv",   WAVPACK_TAG}, // Implemented by Maarten Maathuis
-#endif
-    {UNKNOWN_FILE, "",      UNKNOWN_TAG}    /* This item must be placed to the end! */
-};
+extern const ET_File_Description ETFileDescription[];
 
 /* Calculate the last index of the previous tab */
-#define ET_FILE_DESCRIPTION_SIZE ( sizeof(ETFileDescription)/sizeof(ETFileDescription[0]) - 1 )
+extern const gsize ET_FILE_DESCRIPTION_SIZE;
 
 
 /*
