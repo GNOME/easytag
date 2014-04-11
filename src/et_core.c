@@ -116,7 +116,7 @@ const ET_File_Description ETFileDescription[] =
     { UNKNOWN_FILE, "", UNKNOWN_TAG } /* This item must be placed at the end! */
 };
 
-const gsize ET_FILE_DESCRIPTION_SIZE = G_N_ELEMENTS (ETFileDescription);
+const gsize ET_FILE_DESCRIPTION_SIZE = G_N_ELEMENTS (ETFileDescription) - 1;
 
 /*
  * Colors Used
