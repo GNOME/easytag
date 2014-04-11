@@ -374,8 +374,8 @@ void Init_Config_Variables (void)
     PANE_HANDLE_POSITION3           = 300;
     PANE_HANDLE_POSITION4           = 300;
     SHOW_HEADER_INFO                = 1;
-    CHANGED_FILES_DISPLAYED_TO_RED  = 1;
-    CHANGED_FILES_DISPLAYED_TO_BOLD = 0;
+    CHANGED_FILES_DISPLAYED_TO_RED  = 0;
+    CHANGED_FILES_DISPLAYED_TO_BOLD = 1;
 
     DATE_AUTO_COMPLETION                    = 1;
     NUMBER_TRACK_FORMATED                   = 1;
