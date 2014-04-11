@@ -29,7 +29,7 @@ easytag_CFLAGS = \
 	$(EASYTAG_CFLAGS)
 
 easytag_CXXFLAGS = \
-	$(WARN_CFLAGS) \
+	$(WARN_CXXFLAGS) \
 	$(EASYTAG_CFLAGS)
 
 easytag_SOURCES = \

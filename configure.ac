@@ -342,6 +342,26 @@ unset option
 CFLAGS="$realsave_CFLAGS"
 
 AC_SUBST([WARN_CFLAGS], ["$tested_warning_flags"])
+AC_LANG_PUSH([C++])
+
+realsave_CFLAGS="$CXXFLAGS"
+for option in $warning_flags; do
+    save_CFLAGS="$CXXFLAGS"
+    CXXFLAGS="$CXXFLAGS -Werror $option"
+	AC_MSG_CHECKING([whether the c++ compiler understands $option])
+	AC_COMPILE_IFELSE([AC_LANG_PROGRAM], [has_option=yes], [has_option=no])
+	CXXFLAGS="$save_CXXFLAGS"
+	AC_MSG_RESULT([$has_option])
+	AS_IF([test $has_option = yes],
+	      [tested_cxx_warning_flags="$tested_cxx_warning_flags $option"])
+	unset has_option
+	unset save_CFLAGS
+done
+unset option
+CXXFLAGS="$realsave_CXXFLAGS"
+
+AC_LANG_POP([C++])
+AC_SUBST([WARN_CXXFLAGS], ["$tested_cxx_warning_flags"])
 AC_SUBST([DEPRECATED_CPPFLAGS], ["-DG_DISABLE_SINGLE_INCLUDES -DGTK_DISABLE_SINGLE_INCLUDES -DG_DISABLE_DEPRECATED $GTK_DEPRECATION_FLAGS"])
 
 dnl To enable 'gprof' profiling
@@ -383,6 +403,7 @@ echo Preprocessor ............: $CC $CPPFLAGS
 echo Deprecation defines .....: $DEPRECATED_CPPFLAGS
 echo Compiler ................: $CC $CFLAGS
 echo Compiler warnings .......: $WARN_CFLAGS
+echo C++ Compiler warnings ...: $WARN_CXXFLAGS
 echo Linker ..................: $CC $LDFLAGS $LIBS
 echo GTK version .............: `$PKG_CONFIG --modversion $GTK_DEPS`
 echo MP3 file support ........: $have_mp3
