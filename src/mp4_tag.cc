@@ -61,15 +61,36 @@ gboolean Mp4tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     /* Get data from tag. */
     GFile *file = g_file_new_for_path (filename);
     GIO_InputStream stream (file);
-    TagLib::MP4::File mp4file (&stream);
 
+    if (!stream.isOpen ())
+    {
+        gchar *filename_utf8 = filename_to_display (filename);
+        const GError *error = stream.getError ();
+        Log_Print (LOG_ERROR, _("Error while opening file: '%s' (%s)."),
+                   filename_utf8, error->message);
+        g_free (filename_utf8);
+        return FALSE;
+    }
+
+    TagLib::MP4::File mp4file (&stream);
     g_object_unref (file);
 
     if (!mp4file.isOpen ())
     {
         gchar *filename_utf8 = filename_to_display (filename);
-        Log_Print (LOG_ERROR, _("Error while opening file: '%s' (%s)."),
-                   filename_utf8, _("MP4 format invalid"));
+        const GError *error = stream.getError ();
+
+        if (error)
+        {
+            Log_Print (LOG_ERROR, _("Error while opening file: '%s' (%s)."),
+                       filename_utf8, error->message);
+        }
+        else
+        {
+            Log_Print (LOG_ERROR, _("Error while opening file: '%s' (%s)."),
+                       filename_utf8, _("MP4 format invalid"));
+        }
+
         g_free (filename_utf8);
         return FALSE;
     }
@@ -233,14 +254,36 @@ gboolean Mp4tag_Write_File_Tag (ET_File *ETFile)
     /* Open file for writing */
     GFile *file = g_file_new_for_path (filename);
     GIO_IOStream stream (file);
+
+    if (!stream.isOpen ())
+    {
+        gchar *filename_utf8 = filename_to_display (filename);
+        const GError *error = stream.getError ();
+        Log_Print (LOG_ERROR, _("Error while opening file: '%s' (%s)."),
+                   filename_utf8, error->message);
+        g_free (filename_utf8);
+        return FALSE;
+    }
+
     TagLib::MP4::File mp4file (&stream);
 
     g_object_unref (file);
 
     if (!mp4file.isOpen ())
     {
-        Log_Print (LOG_ERROR, _("Error while opening file: '%s' (%s)."),
-                   filename_utf8, _("MP4 format invalid"));
+        const GError *error = stream.getError ();
+
+        if (error)
+        {
+            Log_Print (LOG_ERROR, _("Error while opening file: '%s' (%s)."),
+                       filename_utf8, error->message);
+        }
+        else
+        {
+            Log_Print (LOG_ERROR, _("Error while opening file: '%s' (%s)."),
+                       filename_utf8, _("MP4 format invalid"));
+        }
+
         return FALSE;
     }
 
