@@ -43,7 +43,7 @@ GIO_InputStream::name () const
 }
 
 TagLib::ByteVector
-GIO_InputStream::readBlock (ulong length)
+GIO_InputStream::readBlock (TagLib::ulong length)
 {
     if (error)
     {
@@ -65,13 +65,15 @@ GIO_InputStream::writeBlock (TagLib::ByteVector const &data)
 }
 
 void
-GIO_InputStream::insert (TagLib::ByteVector const &data, ulong start, ulong replace)
+GIO_InputStream::insert (TagLib::ByteVector const &data,
+                         TagLib::ulong start,
+                         TagLib::ulong replace)
 {
     g_warning ("%s", "Trying to write to read-only file!");
 }
 
 void
-GIO_InputStream::removeBlock (ulong start, ulong length)
+GIO_InputStream::removeBlock (TagLib::ulong start, TagLib::ulong length)
 {
     g_warning ("%s", "Trying to write to read-only file!");
 }
@@ -195,7 +197,7 @@ GIO_IOStream::name () const
 }
 
 TagLib::ByteVector
-GIO_IOStream::readBlock (ulong length)
+GIO_IOStream::readBlock (TagLib::ulong length)
 {
     if (error)
     {
@@ -229,8 +231,8 @@ GIO_IOStream::writeBlock (TagLib::ByteVector const &data)
 
 void
 GIO_IOStream::insert (TagLib::ByteVector const &data,
-                      ulong start,
-                      ulong replace)
+                      TagLib::ulong start,
+                      TagLib::ulong replace)
 {
     if (error)
     {
@@ -340,9 +342,9 @@ GIO_IOStream::insert (TagLib::ByteVector const &data,
 }
 
 void
-GIO_IOStream::removeBlock (ulong start, ulong len)
+GIO_IOStream::removeBlock (TagLib::ulong start, TagLib::ulong len)
 {
-    if (start + len >= (ulong)length ())
+    if (start + len >= (TagLib::ulong)length ())
     {
         truncate (start);
         return;

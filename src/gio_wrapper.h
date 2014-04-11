@@ -29,10 +29,10 @@ public:
     GIO_InputStream (GFile *file_);
     virtual ~GIO_InputStream ();
     virtual TagLib::FileName name () const;
-    virtual TagLib::ByteVector readBlock (ulong length);
+    virtual TagLib::ByteVector readBlock (TagLib::ulong length);
     virtual void writeBlock (TagLib::ByteVector const &data);
-    virtual void insert (TagLib::ByteVector const &data, ulong start = 0, ulong replace = 0);
-    virtual void removeBlock (ulong start = 0, ulong length = 0);
+    virtual void insert (TagLib::ByteVector const &data, TagLib::ulong start = 0, TagLib::ulong replace = 0);
+    virtual void removeBlock (TagLib::ulong start = 0, TagLib::ulong length = 0);
     virtual bool readOnly () const;
     virtual bool isOpen () const;
     virtual void seek (long int offset, TagLib::IOStream::Position p = TagLib::IOStream::Beginning);
@@ -57,10 +57,10 @@ public:
     GIO_IOStream (GFile *file_);
     virtual ~GIO_IOStream ();
     virtual TagLib::FileName name () const;
-    virtual TagLib::ByteVector readBlock (ulong length);
+    virtual TagLib::ByteVector readBlock (TagLib::ulong length);
     virtual void writeBlock (TagLib::ByteVector const &data);
-    virtual void insert (TagLib::ByteVector const &data, ulong start = 0, ulong replace = 0);
-    virtual void removeBlock (ulong start = 0, ulong len = 0);
+    virtual void insert (TagLib::ByteVector const &data, TagLib::ulong start = 0, TagLib::ulong replace = 0);
+    virtual void removeBlock (TagLib::ulong start = 0, TagLib::ulong len = 0);
     virtual bool readOnly () const;
     virtual bool isOpen () const;
     virtual void seek (long int offset, TagLib::IOStream::Position p = TagLib::IOStream::Beginning);
