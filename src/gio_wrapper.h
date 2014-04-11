@@ -41,11 +41,14 @@ public:
     virtual long int length ();
     virtual void truncate (long int length);
 
+    virtual const GError *getError() const;
+
 private:
     GIO_InputStream (const GIO_InputStream &other);
     GFile *file;
     GFileInputStream *stream;
     char *filename;
+    GError *error;
 };
 
 class GIO_IOStream : public TagLib::IOStream
@@ -66,11 +69,14 @@ public:
     virtual long int length ();
     virtual void truncate (long int length);
 
+    virtual const GError *getError() const;
+
 private:
     GIO_IOStream (const GIO_IOStream &other);
     GFile *file;
     GFileIOStream *stream;
     char *filename;
+    GError *error;
 };
 
 #endif /* ET_GIO_WRAPPER_H_ */

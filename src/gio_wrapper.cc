@@ -19,16 +19,89 @@
 
 #include "gio_wrapper.h"
 
+template<class T> class SimpleAutoPtr
+{
+public:
+    SimpleAutoPtr (T *item, GDestroyNotify dest) : ptr (item), dtor (dest)
+    {
+    }
+
+    ~SimpleAutoPtr ()
+    {
+        clear ();
+    }
+
+    SimpleAutoPtr<T> &operator= (T *item)
+    {
+        clear ();
+        ptr = item;
+
+	return *this;
+    }
+
+    operator T * ()
+    {
+        return ptr;
+    }
+
+    operator GTypeInstance * ()
+    {
+        return (GTypeInstance *)ptr;
+    }
+
+    operator bool ()
+    {
+        return !!ptr;
+    }
+
+    T &operator* ()
+    {
+        return *ptr;
+    }
+
+    T **operator& ()
+    {
+        return &ptr;
+    }
+
+    T *operator-> ()
+    {
+        return ptr;
+    }
+
+    void clear ()
+    {
+        if (ptr)
+        {
+            dtor ((void *)ptr);
+        }
+
+        ptr = NULL;
+    }
+
+private:
+    T *ptr;
+    GDestroyNotify dtor;
+};
+
 GIO_InputStream::GIO_InputStream (GFile * file_) :
     file ((GFile *)g_object_ref (gpointer (file_))),
-    filename (g_file_get_uri (file))
+    filename (g_file_get_uri (file)),
+    error (NULL)
 {
-    stream = g_file_read (file, NULL, NULL);
+    stream = g_file_read (file, NULL, &error);
 }
 
 GIO_InputStream::~GIO_InputStream ()
 {
-    g_input_stream_close (G_INPUT_STREAM (stream), NULL, NULL);
+    clear ();
+
+    if (stream)
+    {
+        g_input_stream_close (G_INPUT_STREAM (stream), NULL, &error);
+        clear ();
+    }
+
     g_free (filename);
     g_object_unref (G_OBJECT (file));
 }
@@ -42,12 +115,17 @@ GIO_InputStream::name () const
 TagLib::ByteVector
 GIO_InputStream::readBlock (ulong length)
 {
-    TagLib::ByteVector rv (length, 0);
-    rv = rv.mid (0, g_input_stream_read (G_INPUT_STREAM (stream),
-                                         (void *)rv.data (), length, NULL,
-                                         NULL));
+    if (error)
+    {
+        return TagLib::ByteVector::null;
+    }
 
-    return rv;
+    TagLib::ByteVector rv (length, 0);
+    gsize bytes;
+    g_input_stream_read_all (G_INPUT_STREAM (stream), (void *)rv.data (),
+                             length, &bytes, NULL, &error);
+
+    return rv.resize (bytes);
 }
 
 void
@@ -83,6 +161,11 @@ GIO_InputStream::isOpen () const
 void
 GIO_InputStream::seek (long int offset, TagLib::IOStream::Position p)
 {
+    if (error)
+    {
+        return;
+    }
+
     GSeekType type;
 
     switch (p)
@@ -101,12 +184,17 @@ GIO_InputStream::seek (long int offset, TagLib::IOStream::Position p)
             return;
     }
 
-    g_seekable_seek (G_SEEKABLE (stream), offset, type, NULL, NULL);
+    g_seekable_seek (G_SEEKABLE (stream), offset, type, NULL, &error);
 }
 
 void
 GIO_InputStream::clear ()
 {
+    if (error)
+    {
+        g_error_free(error);
+        error = NULL;
+    }
 }
 
 long int
@@ -118,12 +206,20 @@ GIO_InputStream::tell () const
 long int
 GIO_InputStream::length ()
 {
-    long rv;
+    if (error)
+    {
+        return -1;
+    }
+
+    long int rv = -1;
     GFileInfo *info = g_file_input_stream_query_info (stream,
                                                       G_FILE_ATTRIBUTE_STANDARD_SIZE,
-                                                      NULL, NULL);
-    rv = g_file_info_get_size (info);
-    g_object_unref (info);
+                                                      NULL, &error);
+    if (info)
+    {
+        rv = g_file_info_get_size (info);
+        g_object_unref (info);
+    }
 
     return rv;
 }
@@ -136,14 +232,28 @@ GIO_InputStream::truncate (long int length)
 
 GIO_IOStream::GIO_IOStream (GFile *file_) :
     file ((GFile *)g_object_ref (gpointer (file_))),
-    filename (g_file_get_uri (file_))
+    filename (g_file_get_uri (file_)),
+    error (NULL)
 {
-    stream = g_file_open_readwrite (file, NULL, NULL);
+    stream = g_file_open_readwrite (file, NULL, &error);
+}
+
+const GError *
+GIO_InputStream::getError () const
+{
+    return error;
 }
 
 GIO_IOStream::~GIO_IOStream ()
 {
-    g_io_stream_close (G_IO_STREAM (stream), NULL, NULL);
+    clear ();
+
+    if (stream)
+    {
+        g_io_stream_close (G_IO_STREAM (stream), NULL, &error);
+        clear ();
+    }
+
     g_free (filename);
     g_object_unref (G_OBJECT (file));
 }
@@ -157,19 +267,34 @@ GIO_IOStream::name () const
 TagLib::ByteVector
 GIO_IOStream::readBlock (ulong length)
 {
+    if (error)
+    {
+        return TagLib::ByteVector::null;
+    }
+
+    gsize bytes = 0;
     TagLib::ByteVector rv (length, 0);
     GInputStream *istream = g_io_stream_get_input_stream (G_IO_STREAM (stream));
-    rv = rv.mid (0, g_input_stream_read (istream, (void *)rv.data (), length,
-                                         NULL, NULL));
+    g_input_stream_read_all (istream,
+                             (void *)rv.data (), length,
+                             &bytes,
+                             NULL, &error);
 
-    return rv;
+    return rv.resize(bytes);
 }
 
 void
 GIO_IOStream::writeBlock (TagLib::ByteVector const &data)
 {
+    if (error)
+    {
+        return;
+    }
+
     GOutputStream *ostream = g_io_stream_get_output_stream (G_IO_STREAM (stream));
-    g_output_stream_write (ostream, data.data (), data.size (), NULL, NULL);
+
+    g_output_stream_write_all (ostream, data.data (), data.size (), NULL,
+			       NULL, &error);
 }
 
 void
@@ -177,6 +302,11 @@ GIO_IOStream::insert (TagLib::ByteVector const &data,
                       ulong start,
                       ulong replace)
 {
+    if (error)
+    {
+        return;
+    }
+
     if (data.size () == replace)
     {
         seek (start, TagLib::IOStream::Beginning);
@@ -191,10 +321,13 @@ GIO_IOStream::insert (TagLib::ByteVector const &data,
         return;
     }
 
-    GFileIOStream *tstr;
-    GFile *tmp = g_file_new_tmp ("easytag-XXXXXX", &tstr, NULL);
+    SimpleAutoPtr<GFileIOStream> tstr (NULL,
+                                       (GDestroyNotify)g_io_stream_close);
+    SimpleAutoPtr<GFile> tmp (g_file_new_tmp ("easytag-XXXXXX", &tstr, NULL),
+                              g_object_unref);
     char *buffer[4096];
     gsize r;
+
     GOutputStream *ostream = g_io_stream_get_output_stream (G_IO_STREAM (tstr));
     GInputStream *istream = g_io_stream_get_input_stream (G_IO_STREAM (stream));
 
@@ -202,40 +335,68 @@ GIO_IOStream::insert (TagLib::ByteVector const &data,
 
     while (g_input_stream_read_all (istream, buffer,
                                     MIN (sizeof (buffer), start), &r, NULL,
-                                    NULL) && r > 0)
+                                    &error) && r > 0)
     {
         gsize w;
-        g_output_stream_write_all (ostream, buffer, r, &w, NULL, NULL);
+        g_output_stream_write_all (ostream, buffer, r, &w, NULL, &error);
 
         if (w != r)
         {
             g_warning ("%s", "Unable to write all bytes");
         }
+
+	if (error)
+	{
+            return;
+	}
 
         start -= r;
         g_warning ("Wrote %lu bytes of %lu: %.*s", r, start, (int)r, buffer);
     }
 
-    g_output_stream_write (ostream, data.data (), data.size (), NULL, NULL);
+    if (error)
+    {
+        return;
+    }
+
+    g_output_stream_write_all (ostream, data.data (), data.size (), NULL,
+                               NULL, &error);
     seek (replace, TagLib::IOStream::Current);
 
+    if (error)
+    {
+        return;
+    }
+
     while (g_input_stream_read_all (istream, buffer, sizeof (buffer), &r,
-                                    NULL, NULL) && r > 0)
+                                    NULL, &error) && r > 0)
     {
         gsize w;
-        g_output_stream_write_all (ostream, buffer, r, &w, NULL, NULL);
+        g_output_stream_write_all (ostream, buffer, r, &w, NULL, &error);
 
         if (w != r)
         {
             g_warning ("%s", "Unable to write all bytes");
         }
+
+        if (error)
+        {
+            return;
+        }
     }
 
-    g_io_stream_close (G_IO_STREAM (tstr), NULL, NULL);
+    tstr = NULL;
     g_io_stream_close (G_IO_STREAM (stream), NULL, NULL);
-    g_file_move (tmp, file, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, NULL);
-    g_object_unref (gpointer(tmp));
-    stream = g_file_open_readwrite (file, NULL, NULL);
+    stream = NULL;
+
+    g_file_move (tmp, file, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, &error);
+
+    if (error)
+    {
+	    return;
+    }
+
+    stream = g_file_open_readwrite (file, NULL, &error);
 }
 
 void
@@ -265,6 +426,11 @@ GIO_IOStream::removeBlock (ulong start, ulong len)
             g_warning ("%s", "Unable to write all bytes");
         }
 
+	if (error)
+	{
+	    return;
+	}
+
         start += r;
         seek (start + len);
     }
@@ -287,6 +453,11 @@ GIO_IOStream::isOpen () const
 void
 GIO_IOStream::seek (long int offset, TagLib::IOStream::Position p)
 {
+    if (error)
+    {
+        return;
+    }
+
     GSeekType type;
 
     switch (p)
@@ -305,12 +476,13 @@ GIO_IOStream::seek (long int offset, TagLib::IOStream::Position p)
             return;
     }
 
-    g_seekable_seek (G_SEEKABLE (stream), offset, type, NULL, NULL);
+    g_seekable_seek (G_SEEKABLE (stream), offset, type, NULL, &error);
 }
 
 void
 GIO_IOStream::clear ()
 {
+    g_clear_error (&error);
 }
 
 long int
@@ -322,12 +494,22 @@ GIO_IOStream::tell () const
 long int
 GIO_IOStream::length ()
 {
-    long rv;
+    long rv = -1;
+
+    if (error)
+    {
+	return rv;
+    }
+
     GFileInfo *info = g_file_io_stream_query_info (stream,
                                                    G_FILE_ATTRIBUTE_STANDARD_SIZE,
-                                                   NULL, NULL);
-    rv = g_file_info_get_size (info);
-    g_object_unref (info);
+                                                   NULL, &error);
+
+    if (info)
+    {
+        rv = g_file_info_get_size (info);
+        g_object_unref (info);
+    }
 
     return rv;
 }
@@ -335,5 +517,15 @@ GIO_IOStream::length ()
 void
 GIO_IOStream::truncate (long int length)
 {
-    g_seekable_truncate (G_SEEKABLE (stream), length, NULL, NULL);
+    if (error)
+    {
+        return;
+    }
+
+    g_seekable_truncate (G_SEEKABLE (stream), length, NULL, &error);
+}
+
+const GError *GIO_IOStream::getError () const
+{
+    return error;
 }
