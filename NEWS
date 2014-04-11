@@ -1,5 +1,5 @@
-2.1.10.99 - 2014-04-xx :
-========================
+2.2.0 - 2014-04-11 :
+====================
 
     * Several stability fixes, found with Valgrind and the Fedora retrace
       server
@@ -11,7 +11,11 @@
     * Santtu Lakkala’s MP4 cover art and GIO support, fix for Roman numeral
       capitalization
     * Ask for confirmation before overwriting during renaming
+    * Ekaterina Gerasimova’s Mallard help updates
     * Avoid truncating Vorbis audio data when saving
+    * Gianvito Cavasoli’s Italian translation update
+    * Alexandre Franke’s French translation updates and typo fix
+    * Wolfgang Stöggl’s German translation updates
     * Piotr Drąg’s Polish translation updates
     * Мирослав Николић’s Serbian translation update
     * Daniel Mustieles’ Spanish translation updates
