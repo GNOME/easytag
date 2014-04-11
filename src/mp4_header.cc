@@ -36,7 +36,11 @@ gboolean Mp4_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
     /* Get size of file */
     ETFileInfo->size = et_get_file_size (filename);
 
-    TagLib::MP4::File mp4file (filename);
+    GFile *file = g_file_new_for_path (filename);
+    GIO_InputStream stream (file);
+    TagLib::MP4::File mp4file (&stream);
+
+    g_object_unref (file);
 
     if (!mp4file.isOpen ())
     {
