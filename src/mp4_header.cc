@@ -38,6 +38,17 @@ gboolean Mp4_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
 
     GFile *file = g_file_new_for_path (filename);
     GIO_InputStream stream (file);
+
+    if (!stream.isOpen ())
+    {
+        gchar *filename_utf8 = filename_to_display (filename);
+        const GError *error = stream.getError ();
+        Log_Print (LOG_ERROR, _("Error while opening file: '%s' (%s)."),
+                   filename_utf8, error->message);
+        g_free (filename_utf8);
+        return FALSE;
+    }
+
     TagLib::MP4::File mp4file (&stream);
 
     g_object_unref (file);
