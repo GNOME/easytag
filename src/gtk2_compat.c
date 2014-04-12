@@ -18,65 +18,6 @@
 
 #include "gtk2_compat.h"
 
-#if !GTK_CHECK_VERSION(3,0,0)
-
-void et_grid_attach_full (GtkGrid *grid, GtkWidget *child, gint left, gint top,
-                          gint width, gint height, gboolean hexpand,
-                          gboolean vexpand, gint hmargin, gint vmargin)
-{
-    GtkAttachOptions xoptions = GTK_FILL;
-    GtkAttachOptions yoptions = GTK_FILL;
-
-    if (hexpand)
-    {
-        xoptions |= GTK_EXPAND;
-    }
-    if (vexpand)
-    {
-        yoptions |= GTK_EXPAND;
-    }
-
-    gtk_table_attach (grid, child, left, left + width, top, top + height,
-                      xoptions, yoptions, hmargin, vmargin);
-}
-
-void gtk_grid_attach (GtkGrid *grid, GtkWidget *child, gint left, gint top,
-                      gint width, gint height)
-{
-    et_grid_attach_full (grid, child, left, top, width, height, FALSE, FALSE,
-                         0, 0);
-}
-
-GtkWidget *gtk_box_new(GtkOrientation orientation,gint padding)
-{
-    if (orientation==GTK_ORIENTATION_HORIZONTAL)
-        return gtk_hbox_new(FALSE,padding);
-    return gtk_vbox_new(FALSE,padding);
-}
-
-GtkWidget *gtk_button_box_new(GtkOrientation orientation)
-{
-    if (orientation==GTK_ORIENTATION_HORIZONTAL)
-        return gtk_hbutton_box_new();
-    return gtk_vbutton_box_new();
-}
-
-GtkWidget *gtk_paned_new(GtkOrientation orientation)
-{
-    if (orientation==GTK_ORIENTATION_HORIZONTAL)
-        return gtk_hpaned_new();
-    return gtk_vpaned_new();
-}
-
-GtkWidget *gtk_separator_new(GtkOrientation orientation)
-{
-    if (orientation==GTK_ORIENTATION_HORIZONTAL)
-        return gtk_hseparator_new();
-    return gtk_vseparator_new();
-}
-
-#else /* GTK_CHECK_VERSION(3,0,0) */
-
 void et_grid_attach_full (GtkGrid *grid, GtkWidget *child, gint left, gint top,
                           gint width, gint height, gboolean hexpand,
                           gboolean vexpand, gint hmargin, gint vmargin)
@@ -91,8 +32,6 @@ void et_grid_attach_full (GtkGrid *grid, GtkWidget *child, gint left, gint top,
                   NULL);
     gtk_grid_attach (grid, child, left, top, width, height);
 }
-
-#endif /* GTK_CHECK_VERSION(3,0,0) */
 
 void et_grid_attach_margins (GtkGrid *grid, GtkWidget *child, gint left,
                               gint top, gint width, gint height, gint hmargin,
@@ -109,10 +48,8 @@ et_progress_bar_new (void)
 
     progress = gtk_progress_bar_new ();
 
-#if GTK_CHECK_VERSION(3,0,0)
     gtk_progress_bar_set_show_text (GTK_PROGRESS_BAR (progress), TRUE);
     gtk_progress_bar_set_text (GTK_PROGRESS_BAR (progress), "");
-#endif
 
     return progress;
 }
