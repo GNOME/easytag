@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: easytag master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=easytag&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-12-18 15:58+0000\n"
-"PO-Revision-Date: 2014-01-03 22:21+0100\n"
+"POT-Creation-Date: 2014-04-12 15:20+0000\n"
+"PO-Revision-Date: 2014-04-12 18:57+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -22,6 +22,24 @@ msgstr ""
 "%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Generator: Poedit 1.5.4\n"
+
+#: ../data/easytag.appdata.xml.in.h:1
+msgid ""
+"View and edit tags for MP3, MP2, MP4/AAC, FLAC, Ogg Opus, Ogg Speex, Ogg "
+"Vorbis, MusePack, Monkey's Audio and WavPack files."
+msgstr ""
+
+#: ../data/easytag.appdata.xml.in.h:2
+msgid ""
+"Look up albums in online databases, bulk edit tags, create playlists and "
+"rename a collection of files."
+msgstr ""
+
+#: ../data/easytag.appdata.xml.in.h:3
+msgid ""
+"A simple and nice GTK+ interface makes tagging easier under GNU/Linux and "
+"Windows."
+msgstr "Enostaven in pregleden vmesnik GTK+, ki omogoča enostavno označevanje."
 
 #: ../data/easytag.desktop.in.h:1
 msgid "Sound File Metadata Editor"
@@ -36,7 +54,7 @@ msgstr "Urejanje metapodatkov zvočnih datotek"
 msgid "mp3;tag;audio;"
 msgstr "mp3;oznake;tag;zvok;skladbe;"
 
-#: ../src/about.c:91
+#: ../src/about.c:89
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -65,17 +83,18 @@ msgstr ""
 "www.gnu.org/licenses/>."
 
 #. Translators: put your own name here to appear in the about dialog.
-#: ../src/about.c:108
+#: ../src/about.c:106
 msgid "translator-credits"
 msgstr "Matej Urbančič <matej.urban@svn.gnome.org>"
 
-#: ../src/about.c:118
+#: ../src/about.c:116
 msgid "View and edit tags in audio files"
 msgstr "Oglejte si in urejajte oznake zvočnih datotek"
 
-#. g_print(_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
-#: ../src/ape_tag.c:61 ../src/id3v24_tag.c:112 ../src/mp4_header.c:63
-#: ../src/mp4_tag.c:65 ../src/mp4_tag.c:186
+#: ../src/ape_tag.c:61 ../src/id3v24_tag.c:112 ../src/mp4_header.cc:46
+#: ../src/mp4_header.cc:59 ../src/mp4_tag.cc:69 ../src/mp4_tag.cc:85
+#: ../src/mp4_tag.cc:90 ../src/mp4_tag.cc:262 ../src/mp4_tag.cc:278
+#: ../src/mp4_tag.cc:283
 #, c-format
 msgid "Error while opening file: '%s' (%s)."
 msgstr "Napaka med odpiranjem datoteke: '%s' (%s)."
@@ -96,729 +115,737 @@ msgstr "- označevanje in preimenovanje zvočnih datotek"
 #.
 #. * Main Menu Actions
 #.
-#: ../src/bar.c:154
+#: ../src/bar.c:155
 msgid "_File"
 msgstr "_Datoteka"
 
-#: ../src/bar.c:155
+#: ../src/bar.c:156
 msgid "Sort List by Tag"
 msgstr "Razvrsti seznam po oznakah"
 
-#: ../src/bar.c:158
+#: ../src/bar.c:159
 msgid "Sort List by Property"
 msgstr "Razvrsti seznam po lastnostih"
 
-#: ../src/bar.c:159
+#: ../src/bar.c:160
 msgid "Ascending by filename"
 msgstr "Razvrsti po imenu datoteke (naraščajoče)"
 
-#: ../src/bar.c:160
+#: ../src/bar.c:161
 msgid "Descending by filename"
 msgstr "Razvrsti po imenu datoteke (padajoče)"
 
-#: ../src/bar.c:161
+#: ../src/bar.c:162
 msgid "Ascending by creation date"
 msgstr "Razvrsti po datumu ustvarjanja (naraščajoče)"
 
-#: ../src/bar.c:162
+#: ../src/bar.c:163
 msgid "Descending by creation date"
 msgstr "Razvrsti po datumu ustvarjanja (padajoče)"
 
-#: ../src/bar.c:163
+#: ../src/bar.c:164
 msgid "Ascending by track number"
 msgstr "Naraščajoče po vrstnem redu sledi"
 
-#: ../src/bar.c:164
+#: ../src/bar.c:165
 msgid "Descending by track number"
 msgstr "Padajoče po vrstnem redu sledi"
 
-#: ../src/bar.c:165
+#: ../src/bar.c:166
 msgid "Ascending by title"
 msgstr "Naraščajoče po naslovu"
 
-#: ../src/bar.c:166
+#: ../src/bar.c:167
 msgid "Descending by title"
 msgstr "Padajoče po naslovu"
 
-#: ../src/bar.c:167
+#: ../src/bar.c:168
 msgid "Ascending by artist"
 msgstr "Naraščajoče po izvajalcu"
 
-#: ../src/bar.c:168
+#: ../src/bar.c:169
 msgid "Descending by artist"
 msgstr "Padajoče po izvajalcu"
 
-#: ../src/bar.c:169
+#: ../src/bar.c:170
 msgid "Ascending by album artist"
 msgstr "Naraščajoče po izvajalcu albuma"
 
-#: ../src/bar.c:170
+#: ../src/bar.c:171
 msgid "Descending by album artist"
 msgstr "Padajoče po izvajalcu albuma"
 
-#: ../src/bar.c:171
+#: ../src/bar.c:172
 msgid "Ascending by album"
 msgstr "Naraščajoče po albumu"
 
-#: ../src/bar.c:172
+#: ../src/bar.c:173
 msgid "Descending by album"
 msgstr "Padajoče po albumu"
 
-#: ../src/bar.c:173
+#: ../src/bar.c:174
 msgid "Ascending by year"
 msgstr "Naraščajoče po letu izida"
 
-#: ../src/bar.c:174
+#: ../src/bar.c:175
 msgid "Descending by year"
 msgstr "Padajoče po letu izida"
 
-#: ../src/bar.c:175
+#: ../src/bar.c:176
 msgid "Ascending by genre"
 msgstr "Naraščajoče po zvrsti"
 
-#: ../src/bar.c:176
+#: ../src/bar.c:177
 msgid "Descending by genre"
 msgstr "Padajoče po zvrsti"
 
-#: ../src/bar.c:177
+#: ../src/bar.c:178
 msgid "Ascending by comment"
 msgstr "Naraščajoče po opombah"
 
-#: ../src/bar.c:178
+#: ../src/bar.c:179
 msgid "Descending by comment"
 msgstr "Padajoče po opombah"
 
-#: ../src/bar.c:179
+#: ../src/bar.c:180
 msgid "Ascending by composer"
 msgstr "naraščajoče po skladatelju"
 
-#: ../src/bar.c:180
+#: ../src/bar.c:181
 msgid "Descending by composer"
 msgstr "padajoče po skladatelju"
 
-#: ../src/bar.c:181
+#: ../src/bar.c:182
 msgid "Ascending by original artist"
 msgstr "naraščajoče po izvirnem izvajalcu"
 
-#: ../src/bar.c:182
+#: ../src/bar.c:183
 msgid "Descending by original artist"
 msgstr "padajoče po izvirnem izvajalcu"
 
-#: ../src/bar.c:183
+#: ../src/bar.c:184
 msgid "Ascending by copyright"
 msgstr "Naraščajoče po avtorskih pravicah"
 
-#: ../src/bar.c:184
+#: ../src/bar.c:185
 msgid "Descending by copyright"
 msgstr "Padajoče po avtorskih pravicah"
 
-#: ../src/bar.c:185
+#: ../src/bar.c:186
 msgid "Ascending by URL"
 msgstr "Naraščajoče po naslovu URL"
 
-#: ../src/bar.c:186
+#: ../src/bar.c:187
 msgid "Descending by URL"
 msgstr "Padajoče po naslovu URL"
 
 #. Translators: the encoder name is supposed to be the name of a person
 #. * or organisation, but can sometimes be the name of an application.
-#: ../src/bar.c:189
+#: ../src/bar.c:190
 msgid "Ascending by encoder name"
 msgstr "naraščajoče po imenu kodirnika"
 
 #. Translators: the encoder name is supposed to be the name of a person
 #. * or organisation, but can sometimes be the name of an application.
-#: ../src/bar.c:192
+#: ../src/bar.c:193
 msgid "Descending by encoder name"
 msgstr "padajoče po imenu kodirnika"
 
-#: ../src/bar.c:193
+#: ../src/bar.c:194
 msgid "Ascending by file type"
 msgstr "Naraščajoče po vrsti datoteke"
 
-#: ../src/bar.c:194
+#: ../src/bar.c:195
 msgid "Descending by file type"
 msgstr "Padajoče po vrsti datoteke"
 
-#: ../src/bar.c:195
+#: ../src/bar.c:196
 msgid "Ascending by file size"
 msgstr "Naraščajoče po velikosti datoteke"
 
-#: ../src/bar.c:196
+#: ../src/bar.c:197
 msgid "Descending by file size"
 msgstr "Padajoče po velikosti datoteke"
 
-#: ../src/bar.c:197
+#: ../src/bar.c:198
 msgid "Ascending by duration"
 msgstr "Naraščajoče po trajanju"
 
-#: ../src/bar.c:198
+#: ../src/bar.c:199
 msgid "Descending by duration"
 msgstr "Padajoče po trajanju"
 
-#: ../src/bar.c:199
+#: ../src/bar.c:200
 msgid "Ascending by bitrate"
 msgstr "Naraščajoče po bitni hitrosti"
 
-#: ../src/bar.c:200
+#: ../src/bar.c:201
 msgid "Descending by bitrate"
 msgstr "Padajoče po bitni hitrosti"
 
-#: ../src/bar.c:201
+#: ../src/bar.c:202
 msgid "Ascending by samplerate"
 msgstr "naraščajoče po meri vzorčenja"
 
-#: ../src/bar.c:202
+#: ../src/bar.c:203
 msgid "Descending by samplerate"
 msgstr "padajoče po meri vzorčenja"
 
-#: ../src/bar.c:204
+#: ../src/bar.c:205
 msgid "Open Files With…"
 msgstr "Odpri s programom ..."
 
-#: ../src/bar.c:205
+#: ../src/bar.c:206
 msgid "Run a command on the selected files"
 msgstr "Izvedi ukaz na izbranih datotekah"
 
-#: ../src/bar.c:208
+#: ../src/bar.c:209
 msgid "Select all"
 msgstr "Izberi vse"
 
-#: ../src/bar.c:209
+#: ../src/bar.c:210
 msgid "Unselect All"
 msgstr "Prekliči celoten izbor"
 
-#: ../src/bar.c:210
+#: ../src/bar.c:211
 msgid "Clear the current selection"
 msgstr "Počisti trenutni izbor"
 
-#: ../src/bar.c:213
+#: ../src/bar.c:214
 msgid "Invert File Selection"
 msgstr "Preobrni izbor datotek"
 
-#: ../src/bar.c:214
+#: ../src/bar.c:215
 msgid "Invert file selection"
 msgstr "Preobrni izbor datotek"
 
-#: ../src/bar.c:216
+#: ../src/bar.c:217
 msgid "Delete Files"
 msgstr "Izbriši datoteke"
 
-#: ../src/bar.c:216
+#: ../src/bar.c:217
 msgid "Delete files"
 msgstr "Izbriši datoteke"
 
-#: ../src/bar.c:217
+#: ../src/bar.c:218
 msgid "_First File"
 msgstr "_Prva datoteka"
 
-#: ../src/bar.c:218
+#: ../src/bar.c:219
 msgid "First file"
 msgstr "Prva datoteka"
 
-#: ../src/bar.c:219
+#: ../src/bar.c:220
 msgid "_Previous File"
 msgstr "_Predhodna datoteka"
 
-#: ../src/bar.c:219
+#: ../src/bar.c:220
 msgid "Previous file"
 msgstr "Predhodna datoteka"
 
-#: ../src/bar.c:220
+#: ../src/bar.c:221
 msgid "_Next File"
 msgstr "_Naslednja datoteka"
 
-#: ../src/bar.c:220
+#: ../src/bar.c:221
 msgid "Next file"
 msgstr "Naslednja datoteka"
 
-#: ../src/bar.c:221
+#: ../src/bar.c:222
 msgid "_Last File"
 msgstr "_Zadnja datoteka"
 
-#: ../src/bar.c:222
+#: ../src/bar.c:223
 msgid "Last file"
 msgstr "Zadnja datoteka"
 
-#: ../src/bar.c:223
+#: ../src/bar.c:224
 msgid "S_can Files"
 msgstr "_Preišči datoteke"
 
-#: ../src/bar.c:224 ../src/scan.c:2352
+#: ../src/bar.c:225 ../src/scan_dialog.c:1814
 msgid "Scan selected files"
 msgstr "Preišči izbrane datoteke"
 
-#: ../src/bar.c:225
+#: ../src/bar.c:226
 msgid "_Remove Tags"
 msgstr "_Odstrani oznake"
 
-#: ../src/bar.c:226
+#: ../src/bar.c:227
 msgid "Remove tags"
 msgstr "Odstrani oznake"
 
-#: ../src/bar.c:227
+#: ../src/bar.c:228
 msgid "_Undo Last Files Changes"
 msgstr "_Razveljavi zadnje spremembe datotek"
 
-#: ../src/bar.c:228
+#: ../src/bar.c:229
 msgid "Undo last files changes"
 msgstr "Razveljavi zadnje spremembe datotek"
 
-#: ../src/bar.c:230
+#: ../src/bar.c:231
 msgid "R_edo Last Files Changes"
 msgstr "_Ponovi zadnje spremembe datotek"
 
-#: ../src/bar.c:231
+#: ../src/bar.c:232
 msgid "Redo last files changes"
 msgstr "Ponovi zadnje spremembe datotek"
 
-#: ../src/bar.c:233
+#: ../src/bar.c:234
 msgid "_Save Files"
 msgstr "_Shrani datoteke"
 
-#: ../src/bar.c:234
+#: ../src/bar.c:235
 msgid "Save changes to selected files"
 msgstr "Shrani spremembe v izbrane datoteke"
 
-#: ../src/bar.c:236
+#: ../src/bar.c:237
 msgid "_Force Save Files"
 msgstr "_Vsili shranjevanje datotek"
 
-#: ../src/bar.c:237
+#: ../src/bar.c:238
 msgid "Force saving files"
 msgstr "Vsili shranjevanje datotek"
 
-#: ../src/bar.c:239
+#: ../src/bar.c:240
 msgid "Undo Last Changes"
 msgstr "Razveljavi zadnje spremembe"
 
-#: ../src/bar.c:239
+#: ../src/bar.c:240
 msgid "Undo last changes"
 msgstr "Razveljavi zadnje spremembe"
 
-#: ../src/bar.c:240
+#: ../src/bar.c:241
 msgid "Redo Last Changes"
 msgstr "Ponovno uveljavi zadnje spremembe"
 
-#: ../src/bar.c:240
+#: ../src/bar.c:241
 msgid "Redo last changes"
 msgstr "Ponovno uveljavi zadnje spremembe"
 
-#: ../src/bar.c:241
+#: ../src/bar.c:242
 msgid "_Quit"
 msgstr "_Končaj"
 
-#: ../src/bar.c:241 ../src/easytag.c:2450 ../src/easytag.c:4572
-#: ../src/easytag.c:4600
+#: ../src/bar.c:242 ../src/easytag.c:2430 ../src/easytag.c:4565
+#: ../src/easytag.c:4597
 msgid "Quit"
 msgstr "Končaj"
 
-#: ../src/bar.c:244
+#: ../src/bar.c:245
 msgid "_Browser"
 msgstr "_Brskalnik"
 
-#: ../src/bar.c:245
+#: ../src/bar.c:246
 msgid "_Home Directory"
 msgstr "_Domača mapa"
 
-#: ../src/bar.c:246
+#: ../src/bar.c:247
 msgid "Go to home directory"
 msgstr "Pojdi v domačo mapo"
 
-#: ../src/bar.c:248
+#: ../src/bar.c:249
 msgid "Desktop Directory"
 msgstr "Mapa Namizje"
 
-#: ../src/bar.c:249
+#: ../src/bar.c:250
 msgid "Go to desktop directory"
 msgstr "Pojdi v mapo namizja"
 
-#: ../src/bar.c:251
+#: ../src/bar.c:252
 msgid "Documents Directory"
 msgstr "Mapa Dokumenti"
 
-#: ../src/bar.c:252
+#: ../src/bar.c:253
 msgid "Go to documents directory"
 msgstr "Pojdi v mapo dokumentov"
 
-#: ../src/bar.c:254
+#: ../src/bar.c:255
 msgid "Downloads Directory"
 msgstr "Mapa Prejemi"
 
-#: ../src/bar.c:255
+#: ../src/bar.c:256
 msgid "Go to downloads directory"
 msgstr "Pojdi v mapo prenosov"
 
-#: ../src/bar.c:257
+#: ../src/bar.c:258
 msgid "Music Directory"
 msgstr "Mapa Glasba"
 
-#: ../src/bar.c:258
+#: ../src/bar.c:259
 msgid "Go to music directory"
 msgstr "Pojdi v mapo z glasbo"
 
-#: ../src/bar.c:260
+#: ../src/bar.c:261
 msgid "_Parent Directory"
 msgstr "_Nadrejena mapa"
 
-#: ../src/bar.c:261
+#: ../src/bar.c:262
 msgid "Go to parent directory"
 msgstr "Pojdi v mapo višje"
 
-#: ../src/bar.c:263
+#: ../src/bar.c:264
 msgid "_Default Directory"
 msgstr "_Privzeta mapa"
 
-#: ../src/bar.c:264
+#: ../src/bar.c:265
 msgid "Go to default directory"
 msgstr "Pojdi v privzeto mapo"
 
-#: ../src/bar.c:266
+#: ../src/bar.c:267
 msgid "Set _Current Path as Default"
 msgstr "Nastavi _trenutno pot kot privzeto"
 
-#: ../src/bar.c:266
+#: ../src/bar.c:267
 msgid "Set current path as default"
 msgstr "Nastavi trenutno pot kot privzeto"
 
-#: ../src/bar.c:267
+#: ../src/bar.c:268
 msgid "Rename Directory…"
 msgstr "Preimenuj mapo ..."
 
-#: ../src/bar.c:267
+#: ../src/bar.c:268
 msgid "Rename directory"
 msgstr "Preimenuj mapo"
 
-#: ../src/bar.c:268
+#: ../src/bar.c:269
 msgid "Reload Directory"
 msgstr "Ponovno naloži mapo"
 
-#: ../src/bar.c:269
+#: ../src/bar.c:270
 msgid "Reload directory"
 msgstr "Ponovno naloži mapo"
 
-#: ../src/bar.c:272
+#: ../src/bar.c:273
 msgid "Browse Directory With…"
 msgstr "Prebrskaj mapo z ..."
 
-#: ../src/bar.c:273
+#: ../src/bar.c:274
 msgid "Run a command on the directory"
 msgstr "Izvedi ukaz v mapi"
 
-#: ../src/bar.c:275
+#: ../src/bar.c:276
 msgid "_Collapse Tree"
 msgstr "_Strni drevo"
 
-#: ../src/bar.c:276
+#: ../src/bar.c:277
 msgid "Collapse directory tree"
 msgstr "Strni drevo map"
 
-#: ../src/bar.c:277
+#: ../src/bar.c:278
 msgid "_Reload Tree"
 msgstr "Po_novno naloži drevo"
 
-#: ../src/bar.c:278
+#: ../src/bar.c:279
 msgid "Reload directory tree"
 msgstr "Ponovno naloži drevo map"
 
-#: ../src/bar.c:281
+#: ../src/bar.c:282
 msgid "S_canner Mode"
 msgstr "_Način preiskovanja datotek"
 
-#: ../src/bar.c:283
+#: ../src/bar.c:284
 msgid "_Miscellaneous"
 msgstr "_Razno"
 
-#: ../src/bar.c:284
+#: ../src/bar.c:285
 msgid "_Find…"
 msgstr "_Najdi ..."
 
-#: ../src/bar.c:285
+#: ../src/bar.c:286
 msgid "Search filenames and tags"
 msgstr "Poišči imena datotek in oznake"
 
-#: ../src/bar.c:287
+#: ../src/bar.c:288
 msgid "CDD_B Search…"
 msgstr "Iskanje CDD_B ..."
 
-#: ../src/bar.c:288
+#: ../src/bar.c:289
 msgid "CDDB search"
 msgstr "Iskanje po CDDB"
 
-#: ../src/bar.c:290
+#: ../src/bar.c:291
 msgid "Load Filenames From a Text File…"
 msgstr "Naloži imena datotek iz besedilne datoteke ..."
 
-#: ../src/bar.c:291
+#: ../src/bar.c:292
 msgid "Load filenames from a text file"
 msgstr "Naloži imena datotek iz besedilne datoteke"
 
-#: ../src/bar.c:293
+#: ../src/bar.c:294
 msgid "Generate Playlist…"
 msgstr "Ustvari seznam predvajanja ..."
 
-#: ../src/bar.c:294
+#: ../src/bar.c:295
 msgid "Generate a playlist"
 msgstr "Ustvari seznam predvajanja"
 
-#: ../src/bar.c:296 ../src/bar.c:322 ../src/bar.c:323 ../src/bar.c:324
+#: ../src/bar.c:297 ../src/bar.c:328 ../src/bar.c:329 ../src/bar.c:330
 msgid "Run Audio Player"
 msgstr "Zaženi zvočni predvajalnik"
 
-#: ../src/bar.c:297 ../src/bar.c:322 ../src/bar.c:323 ../src/bar.c:324
+#: ../src/bar.c:298 ../src/bar.c:328 ../src/bar.c:329 ../src/bar.c:330
 msgid "Run audio player"
 msgstr "Zaženi zvočni predvajalnik"
 
-#: ../src/bar.c:300
+#: ../src/bar.c:301
 msgid "_Edit"
 msgstr "_Uredi"
 
-#: ../src/bar.c:301
+#: ../src/bar.c:302
 msgid "_Preferences"
 msgstr "_Možnosti"
 
 #. The window
-#: ../src/bar.c:302 ../src/prefs.c:110
+#: ../src/bar.c:303 ../src/prefs.c:110
 msgid "Preferences"
 msgstr "Možnosti"
 
-#: ../src/bar.c:304
+#: ../src/bar.c:305
 msgid "_View"
 msgstr "Po_gled"
 
-#: ../src/bar.c:305
+#: ../src/bar.c:306
 msgid "_Go"
 msgstr "_Pojdi"
 
-#: ../src/bar.c:307
+#: ../src/bar.c:308
 msgid "_Help"
 msgstr "Pomo_č"
 
-#: ../src/bar.c:308
+#: ../src/bar.c:311
+msgid "_Contents"
+msgstr "_Vsebina"
+
+#: ../src/bar.c:312
+msgid "Show help"
+msgstr "Pokaži pomoč"
+
+#: ../src/bar.c:314
 msgid "_About"
 msgstr "_O programu"
 
-#: ../src/bar.c:308
+#: ../src/bar.c:314
 msgid "About"
 msgstr "O programu"
 
 #.
 #. * Following items are on toolbar but not on menu
 #.
-#: ../src/bar.c:314
+#: ../src/bar.c:320
 msgid "Stop the current action"
 msgstr "Ustavi trenutno dejanje"
 
 #.
 #. * Popup menu's Actions
 #.
-#: ../src/bar.c:320
+#: ../src/bar.c:326
 msgid "_File Operations"
 msgstr "Opravila _datotek"
 
-#: ../src/bar.c:321
+#: ../src/bar.c:327
 msgid "S_canner"
 msgstr "_Preiskovalnik"
 
-#: ../src/bar.c:325
+#: ../src/bar.c:331
 msgid "CDDB Search Files…"
 msgstr "Datoteke iskanja CDDB ..."
 
-#: ../src/bar.c:325
+#: ../src/bar.c:331
 msgid "CDDB search files…"
 msgstr "Datoteke iskanja CDDB ...Odstranjevanje namestitvenih datotek ..."
 
 #. { AM_ARTIST_OPEN_FILE_WITH,     GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
 #. { AM_ALBUM_OPEN_FILE_WITH,      GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
-#: ../src/bar.c:329
+#: ../src/bar.c:335
 msgid "Clear log"
 msgstr "Počisti dnevnik"
 
 #. { AM_BROWSE_SUBDIR,      GTK_STOCK_INDEX,        _("Browse _Subdirectories"),                         NULL, _("Browse _Sub-directories"),                         NULL,                                    FALSE },
-#: ../src/bar.c:336
+#: ../src/bar.c:342
 msgid "Browse _Subdirectories"
 msgstr "Prebrskaj _podmape"
 
-#: ../src/bar.c:336
+#: ../src/bar.c:342
 msgid "Browse subdirectories"
 msgstr "Prebrskaj podmape"
 
-#: ../src/bar.c:340
+#: ../src/bar.c:346
 msgid "Show Hidden Directories"
 msgstr "Pokaži skrite mape"
 
-#: ../src/bar.c:340
+#: ../src/bar.c:346
 msgid "Show hidden directories"
 msgstr "Pokaži skrite mape"
 
-#: ../src/bar.c:342
+#: ../src/bar.c:348
 msgid "_Show Scanner"
 msgstr "_Pokaži preiskovalnik"
 
-#: ../src/bar.c:343
+#: ../src/bar.c:349
 msgid "Show scanner"
 msgstr "Pokaži preiskovalnik"
 
-#: ../src/bar.c:349
+#: ../src/bar.c:355
 msgid "Tree Browser"
 msgstr "Drevesni brskalnik"
 
-#: ../src/bar.c:350
+#: ../src/bar.c:356
 msgid "View by directory tree"
 msgstr "Pokaži drevo map"
 
-#: ../src/bar.c:352
+#: ../src/bar.c:358
 msgid "Artist and Album"
 msgstr "Izvajalec in album"
 
-#: ../src/bar.c:353
+#: ../src/bar.c:359
 msgid "View by artist and album"
 msgstr "Pokaži po izvajalcih in albumih"
 
-#: ../src/bar.c:358
+#: ../src/bar.c:364
 msgid "_Fill Tags…"
 msgstr "_Zapolni oznake …"
 
-#: ../src/bar.c:359
+#: ../src/bar.c:365
 msgid "Fill tags"
 msgstr "Zapolni oznake"
 
-#: ../src/bar.c:361
+#: ../src/bar.c:367
 msgid "_Rename Files and Directories…"
 msgstr "_Preimenuj datoteke in mape ..."
 
-#: ../src/bar.c:362
+#: ../src/bar.c:368
 msgid "Rename files and directories"
 msgstr "Preimenuj datoteke in mape"
 
-#: ../src/bar.c:364
+#: ../src/bar.c:370
 msgid "_Process Fields…"
 msgstr "_Obdelaj polja ..."
 
-#: ../src/bar.c:364 ../src/scan.c:182
+#: ../src/bar.c:370 ../src/scan_dialog.c:184
 msgid "Process Fields"
 msgstr "Obdelaj polja"
 
-#: ../src/bar.c:422
+#: ../src/bar.c:428
 #, c-format
 msgid "Could not merge UI, error was: %s\n"
 msgstr "Prišlo je do napake med združevanjem vmesnika: %s\n"
 
-#: ../src/bar.c:528
+#: ../src/bar.c:533
 msgid "Ready to start"
 msgstr "Pripravljeno za začetek"
 
-#: ../src/browser.c:369
+#: ../src/browser.c:376
 msgid "New default path for files selected"
 msgstr "Nova privzeta pot za izbrane datoteke"
 
-#: ../src/browser.c:670 ../src/easytag.c:4568
+#: ../src/browser.c:678 ../src/easytag.c:4561
 msgid "Some files have been modified but not saved"
 msgstr "Nekatere datoteke so bile spremenjene, ne pa tudi shranjene"
 
-#: ../src/browser.c:671
+#: ../src/browser.c:679
 msgid "Do you want to save them before changing the directory?"
 msgstr "Jih želite shraniti pred spremembo mape?"
 
-#: ../src/browser.c:675
+#: ../src/browser.c:683
 msgid "Confirm Directory Change"
 msgstr "Potrdi spremembo mape"
 
-#: ../src/browser.c:2121
+#: ../src/browser.c:2146
 msgid "<All albums>"
 msgstr "<Vsi albumi>"
 
-#: ../src/browser.c:2573
+#: ../src/browser.c:2607
 #, c-format
 msgid "Error: Searching for %s, could not find node %s in tree."
 msgstr "Napaka: iskanje %s, vozlišča %s v drevesu ni mogoče najti"
 
-#: ../src/browser.c:3065 ../src/browser.c:3143
+#: ../src/browser.c:3101 ../src/browser.c:3179
 msgid "Tree"
 msgstr "Drevo"
 
-#: ../src/browser.c:3066 ../src/cddb.c:803 ../src/misc.c:1911
+#: ../src/browser.c:3102 ../src/cddb.c:803 ../src/misc.c:1903
 msgid "Filename"
 msgstr "Ime datoteke"
 
-#: ../src/browser.c:3066 ../src/cddb.c:804 ../src/misc.c:1912
+#: ../src/browser.c:3102 ../src/cddb.c:804 ../src/misc.c:1904
 #: ../src/prefs.c:643
 msgid "Title"
 msgstr "Naslov"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Artist".
-#: ../src/browser.c:3067 ../src/browser.c:3074 ../src/cddb.c:483
-#: ../src/cddb.c:805 ../src/misc.c:1913 ../src/prefs.c:644
+#: ../src/browser.c:3103 ../src/browser.c:3110 ../src/cddb.c:483
+#: ../src/cddb.c:805 ../src/misc.c:1905 ../src/prefs.c:644
 msgid "Artist"
 msgstr "Izvajalec"
 
-#: ../src/browser.c:3067 ../src/misc.c:1914
+#: ../src/browser.c:3103 ../src/misc.c:1906
 msgid "Album Artist"
 msgstr "Izvajalec albuma"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Album".
-#: ../src/browser.c:3068 ../src/browser.c:3076 ../src/cddb.c:486
-#: ../src/cddb.c:806 ../src/misc.c:1915 ../src/prefs.c:645
+#: ../src/browser.c:3104 ../src/browser.c:3112 ../src/cddb.c:486
+#: ../src/cddb.c:806 ../src/misc.c:1907 ../src/prefs.c:645
 msgid "Album"
 msgstr "Album"
 
-#: ../src/browser.c:3068 ../src/cddb.c:807 ../src/misc.c:1917
+#: ../src/browser.c:3104 ../src/cddb.c:807 ../src/misc.c:1909
 msgid "Year"
 msgstr "Leto"
 
-#: ../src/browser.c:3068
+#: ../src/browser.c:3104
 msgid "Disc"
 msgstr "Disk"
 
-#: ../src/browser.c:3069 ../src/misc.c:1918
+#: ../src/browser.c:3105 ../src/misc.c:1910
 msgid "Track"
 msgstr "Posnetek"
 
-#: ../src/browser.c:3069 ../src/cddb.c:810 ../src/misc.c:1919
+#: ../src/browser.c:3105 ../src/cddb.c:810 ../src/misc.c:1911
 #: ../src/prefs.c:646
 msgid "Genre"
 msgstr "Zvrst"
 
-#: ../src/browser.c:3070 ../src/misc.c:1920 ../src/prefs.c:647
+#: ../src/browser.c:3106 ../src/misc.c:1912 ../src/prefs.c:647
 msgid "Comment"
 msgstr "Opomba"
 
-#: ../src/browser.c:3070 ../src/misc.c:1921 ../src/picture.c:863
+#: ../src/browser.c:3106 ../src/misc.c:1913 ../src/picture.c:1060
 #: ../src/prefs.c:648
 msgid "Composer"
 msgstr "Skladatelj"
 
-#: ../src/browser.c:3071 ../src/misc.c:1922
+#: ../src/browser.c:3107 ../src/misc.c:1914
 msgid "Original Artist"
 msgstr "Izvirni izvajalec"
 
-#: ../src/browser.c:3072 ../src/misc.c:1923
+#: ../src/browser.c:3108 ../src/misc.c:1915
 msgid "Copyright"
 msgstr "Avtorske pravice"
 
-#: ../src/browser.c:3072 ../src/misc.c:1924
+#: ../src/browser.c:3108 ../src/misc.c:1916
 msgid "URL"
 msgstr "Naslov URL"
 
-#: ../src/browser.c:3073 ../src/misc.c:1925
+#: ../src/browser.c:3109 ../src/misc.c:1917
 msgid "Encoded By"
 msgstr "Kodirali"
 
-#: ../src/browser.c:3074
+#: ../src/browser.c:3110
 msgid "# Albums"
 msgstr "Št. albumov"
 
-#: ../src/browser.c:3075 ../src/browser.c:3076
+#: ../src/browser.c:3111 ../src/browser.c:3112
 msgid "# Files"
 msgstr "Št. datotek"
 
-#: ../src/browser.c:3101
+#: ../src/browser.c:3137
 msgid "Enter a directory to browse."
 msgstr "Vnesite ime mape za brskanje."
 
-#: ../src/browser.c:3110
+#: ../src/browser.c:3146
 msgid "Select a directory to browse."
 msgstr "Izberite mapo za brskanje."
 
@@ -826,127 +853,100 @@ msgstr "Izberite mapo za brskanje."
 #. * The label for displaying number of files in path (without subdirs)
 #.
 #. Translators: No files, as in "0 files".
-#: ../src/browser.c:3117 ../src/easytag.c:3472
+#: ../src/browser.c:3153 ../src/easytag.c:3469
 msgid "No files"
 msgstr "Ni datotek"
 
-#: ../src/browser.c:3195
+#: ../src/browser.c:3231
 msgid "Artist & Album"
 msgstr "Izvajalec in album"
 
 #. Only directories changed
-#: ../src/browser.c:3559 ../src/easytag.c:2890
+#: ../src/browser.c:3595 ../src/easytag.c:2881
 msgid "Rename Directory"
 msgstr "Preimenuj mapo"
 
-#: ../src/browser.c:3581
+#: ../src/browser.c:3617
 #, c-format
 msgid "Rename the directory '%s' to:"
 msgstr "Preimenuj mapo '%s' v:"
 
-#: ../src/browser.c:3600 ../src/misc.c:1175
+#: ../src/browser.c:3636 ../src/misc.c:1172
 msgid "Use mask:"
 msgstr "Uporabi masko:"
 
-#: ../src/browser.c:3603
+#: ../src/browser.c:3639
 msgid "If activated, it will use masks to rename directory."
 msgstr "Če je omogočeno, bo preimenovanje mape izvedeno z maskami."
 
-#: ../src/browser.c:3621
+#: ../src/browser.c:3657
 msgid ""
 "Select or type in a mask using codes (see Legend in Scanner Window) to "
 "rename the directory from tag fields."
 msgstr ""
 
 #. Preview label
-#: ../src/browser.c:3645
+#: ../src/browser.c:3681
 msgid "Rename directory preview"
 msgstr "Preimenuj predogled mape"
 
-#: ../src/browser.c:3737
+#: ../src/browser.c:3773
 msgid "You must type a directory name"
 msgstr "Vnesti je treba ime mape."
 
-#: ../src/browser.c:3738 ../src/browser.c:3759
+#: ../src/browser.c:3774 ../src/browser.c:3795
 msgid "Directory Name Error"
 msgstr "Napaka imena mape"
 
-#: ../src/browser.c:3756
+#: ../src/browser.c:3792
 #, c-format
 msgid "Could not convert '%s' into filename encoding."
 msgstr "'%s' ni mogoče pretvoriti v kodiranje imena datoteke."
 
-#: ../src/browser.c:3758
+#: ../src/browser.c:3794
 msgid "Please use another name"
 msgstr "Uporabite drugo ime."
 
-#: ../src/browser.c:3828
+#: ../src/browser.c:3864
 #, c-format
 msgid "The directory name '%s' already exists"
 msgstr "Ime mape '%s' že obstaja"
 
-#: ../src/browser.c:3829 ../src/easytag.c:2973
+#: ../src/browser.c:3865 ../src/easytag.c:2964
 msgid "Rename File Error"
 msgstr "Napaka preimenovanja datoteke"
 
-#: ../src/browser.c:3867 ../src/browser.c:3896
+#: ../src/browser.c:3903 ../src/browser.c:3932
 msgid "Rename Directory Error"
 msgstr "Napaka preimenovanja mape"
 
-#: ../src/browser.c:3934
+#: ../src/browser.c:3970
 msgid "Directory renamed"
 msgstr "Mapa je preimenovana"
 
-#: ../src/browser.c:3970
+#: ../src/browser.c:4006
 msgid "Browse Directory With"
 msgstr "Prebrskaj mapo s programom"
 
-#: ../src/browser.c:3986 ../src/browser.c:4112
+#: ../src/browser.c:4022 ../src/browser.c:4148
 msgid "Program to run:"
 msgstr "Program za zagon:"
 
-#: ../src/browser.c:3998
+#: ../src/browser.c:4034
 msgid ""
 "Enter the program to run. It will receive the current directory as parameter."
 msgstr ""
 "Vnesite program, ki naj bo zagnan. Kot parameter bo prejel trenutno mapo."
 
-#: ../src/browser.c:4092
+#: ../src/browser.c:4128
 msgid "Open Files With"
 msgstr "Odpri datoteke s programom"
 
-#: ../src/browser.c:4124
+#: ../src/browser.c:4160
 msgid ""
 "Enter the program to run. It will receive the current file as parameter."
 msgstr ""
 "Vnesite program, ki naj bo zagnan. Kot parameter bo prejel trenutno datoteko."
-
-#: ../src/browser.c:4251
-msgid "You must type a program name"
-msgstr "Vnesti morate ime programa"
-
-#: ../src/browser.c:4252 ../src/browser.c:4269
-msgid "Program Name Error"
-msgstr "Napaka imena programa"
-
-#: ../src/browser.c:4267 ../src/misc.c:792
-#, c-format
-msgid "The program '%s' cannot be found"
-msgstr "Programa '%s' ni mogoče najti."
-
-#: ../src/browser.c:4318 ../src/misc.c:837 ../src/misc.c:884
-#, c-format
-msgid "Cannot execute ‘%s’ (%s)"
-msgstr "Ni mogoče izvesti programa ‘%s’ (%s)"
-
-#: ../src/browser.c:4339
-msgid "Cannot fork another process\n"
-msgstr "Ni mogoče razvejiti v drugo opravilo\n"
-
-#: ../src/browser.c:4373
-#, c-format
-msgid "Executed command: %s"
-msgstr "Izveden ukaz: %s"
 
 #: ../src/cddb.c:313
 msgid "Artist / Album"
@@ -1033,7 +1033,7 @@ msgstr "Vsa polja"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Other".
-#: ../src/cddb.c:492 ../src/picture.c:841 ../src/prefs.c:807
+#: ../src/cddb.c:492 ../src/picture.c:1038 ../src/prefs.c:807
 msgid "Other"
 msgstr "Ostalo"
 
@@ -1127,7 +1127,7 @@ msgstr "Kategorije"
 msgid "Results:"
 msgstr "Rezultati:"
 
-#: ../src/cddb.c:606 ../src/misc.c:1959
+#: ../src/cddb.c:606 ../src/misc.c:1951
 msgid "Search:"
 msgstr "Poišči:"
 
@@ -1188,7 +1188,7 @@ msgid "# Tracks"
 msgstr "# posnetkov"
 
 #. Check box to run the scanner
-#: ../src/cddb.c:847 ../src/misc.c:3000
+#: ../src/cddb.c:847 ../src/misc.c:2992
 msgid "Run the current scanner for each file"
 msgstr "Zaženi trenutni preiskovalnik za vsako datoteko"
 
@@ -1200,7 +1200,7 @@ msgstr "Poišči ujemajoče vrstice z algoritmom Levenshtein"
 #. Doesn't activate it by default because if the new user don't pay attention to it,
 #. it will not understand why the cddb results aren't loaded correctly...
 #. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbUseDLM2),CDDB_USE_DLM);
-#: ../src/cddb.c:859 ../src/prefs.c:1362
+#: ../src/cddb.c:859 ../src/prefs.c:1363
 msgid ""
 "When activating this option, the Levenshtein algorithm (DLM: Damerau-"
 "Levenshtein Metric) will be used to match the CDDB title against every "
@@ -1280,7 +1280,7 @@ msgstr "Napaka pri branju odgovora CDDB (%s)"
 msgid "Cannot create file '%s' (%s)"
 msgstr "Datoteke '%s' ni mogoče ustvariti (%s)."
 
-#: ../src/cddb.c:1849 ../src/setting.c:1260
+#: ../src/cddb.c:1849 ../src/setting.c:1256
 #, c-format
 msgid "Cannot open file '%s' (%s)"
 msgstr "Datoteke '%s' ni mogoče odpreti (%s)."
@@ -1617,48 +1617,48 @@ msgid "The string '%s' couldn't be converted into UTF-8 (%s)."
 msgstr "Niza '%s' ni mogoče pretvoriti v UTF-8 (%s)."
 
 #. Starting messages
-#: ../src/easytag.c:211
+#: ../src/easytag.c:185
 #, c-format
 msgid "Starting EasyTAG version %s (PID: %d)…"
 msgstr "Začenjanje programa EasyTAG različice %s (PID: %d) ..."
 
-#: ../src/easytag.c:213
+#: ../src/easytag.c:187
 #, c-format
 msgid "Using libid3tag version %s"
 msgstr "Uporabljate libid3tag različice %s"
 
-#: ../src/easytag.c:216
+#: ../src/easytag.c:190
 #, c-format
 msgid "Using id3lib version %d.%d.%d"
 msgstr "Uporabljate id3lib različice %d.%d.%d"
 
-#: ../src/easytag.c:222
+#: ../src/easytag.c:196
 #, c-format
 msgid "Variable EASYTAGLANG defined. Setting locale: '%s'"
 msgstr ""
 "Spremenljivka EASYTAGLANG je določena. Nastavljanje krajevnih nastavitev: "
 "'%s'"
 
-#: ../src/easytag.c:224
+#: ../src/easytag.c:198
 #, c-format
 msgid "Setting locale: '%s'"
 msgstr "Nastavljanje jezikovnih nastavitev: '%s'"
 
-#: ../src/easytag.c:229
+#: ../src/easytag.c:203
 #, c-format
 msgid "Currently using locale '%s' (and eventually '%s')"
 msgstr "Uporabljate krajevne nastavitve '%s' (in navsezadnje '%s')"
 
-#: ../src/easytag.c:236
+#: ../src/easytag.c:210
 msgid "Unable to create setting directories"
 msgstr "Ni mogoče ustvariti nastavitvenih map"
 
-#: ../src/easytag.c:453 ../src/et_core.c:583
+#: ../src/easytag.c:427 ../src/et_core.c:637 ../src/et_core.c:649
 #, c-format
 msgid "Error while querying information for file: '%s' (%s)"
 msgstr "Napaka pri poizvedovanju po podatkih o datoteki: '%s' (%s)"
 
-#: ../src/easytag.c:518
+#: ../src/easytag.c:490
 #, c-format
 msgid "Cannot open path '%s'"
 msgstr "Poti '%s' ni mogoče odpreti."
@@ -1666,11 +1666,11 @@ msgstr "Poti '%s' ni mogoče odpreti."
 #.
 #. * Browser
 #.
-#: ../src/easytag.c:618 ../src/prefs.c:142
+#: ../src/easytag.c:582 ../src/prefs.c:142
 msgid "Browser"
 msgstr "Brskalnik"
 
-#: ../src/easytag.c:640 ../src/et_core.c:2727
+#: ../src/easytag.c:604 ../src/et_core.c:2857
 msgid "File"
 msgstr "Datoteka"
 
@@ -1680,382 +1680,382 @@ msgstr "Datoteka"
 #. gtk_label_set_text(GTK_LABEL(VersionValueLabel),"");
 #. Version changed to encoder version
 #. Encoder version
-#: ../src/easytag.c:672 ../src/easytag.c:4200 ../src/flac_header.c:201
+#: ../src/easytag.c:636 ../src/easytag.c:4232 ../src/flac_header.c:201
 #: ../src/monkeyaudio_header.c:96 ../src/musepack_header.c:98
-#: ../src/ogg_header.c:389 ../src/wavpack_header.c:72
+#: ../src/ogg_header.c:389 ../src/opus_header.c:221 ../src/wavpack_header.c:72
 #, c-format
 msgid "Encoder:"
 msgstr "Kodirnik:"
 
-#: ../src/easytag.c:680
+#: ../src/easytag.c:644
 msgid "Bitrate:"
 msgstr "Bitna hitrost:"
 
 #. Translators: Please try to keep this string as short as possible as it
 #. * is shown in a narrow column.
-#: ../src/easytag.c:690
+#: ../src/easytag.c:654
 msgid "Frequency:"
 msgstr "Frekvenca:"
 
 #. Mode
-#: ../src/easytag.c:701 ../src/easytag.c:4204 ../src/mpeg_header.c:216
+#: ../src/easytag.c:665 ../src/easytag.c:4236 ../src/mpeg_header.c:216
 msgid "Mode:"
 msgstr "Način:"
 
-#: ../src/easytag.c:708
+#: ../src/easytag.c:672
 msgid "Size:"
 msgstr "Velikost:"
 
-#: ../src/easytag.c:715
+#: ../src/easytag.c:679
 msgid "Duration:"
 msgstr "Trajanje:"
 
 #. Main Frame
-#: ../src/easytag.c:762 ../src/et_core.c:2665
+#: ../src/easytag.c:726 ../src/et_core.c:2787
 msgid "Tag"
 msgstr "Oznaka"
 
 #.
 #. * 1 - Page for common tag fields
 #.
-#: ../src/easytag.c:784
+#: ../src/easytag.c:748
 msgid "Common"
 msgstr "Splošno"
 
 #. Title
-#: ../src/easytag.c:791
+#: ../src/easytag.c:755
 msgid "Title:"
 msgstr "Naslov:"
 
-#: ../src/easytag.c:805
+#: ../src/easytag.c:769
 msgid "Tag selected files with this title"
 msgstr "Označi izbrane datoteke s tem naslovom"
 
 #. Artist
-#: ../src/easytag.c:810
+#: ../src/easytag.c:774
 msgid "Artist:"
 msgstr "Izvajalec:"
 
-#: ../src/easytag.c:824
+#: ../src/easytag.c:788
 msgid "Tag selected files with this artist"
 msgstr "Označi izbrane datoteke s tem izvajalcem"
 
 #. Album Artist
-#: ../src/easytag.c:829
+#: ../src/easytag.c:793
 msgid "Album artist:"
 msgstr "Izvajalec albuma:"
 
-#: ../src/easytag.c:843
+#: ../src/easytag.c:807
 msgid "Tag selected files with this album artist"
 msgstr "Označi izbrane datoteke s tem izvajalcem albuma"
 
 #. Album
-#: ../src/easytag.c:848
+#: ../src/easytag.c:812
 msgid "Album:"
 msgstr "Album:"
 
-#: ../src/easytag.c:862
+#: ../src/easytag.c:826
 msgid "Tag selected files with this album name"
 msgstr "Označi izbrane datoteke s tem naslovom albuma"
 
 #. Disc Number
-#: ../src/easytag.c:867
+#: ../src/easytag.c:831
 msgid "CD:"
 msgstr "CD:"
 
-#: ../src/easytag.c:884
+#: ../src/easytag.c:848
 msgid "Tag selected files with this disc number"
 msgstr "Označi izbrane datoteke s to številko plošče"
 
 #. Year
-#: ../src/easytag.c:889
+#: ../src/easytag.c:853
 msgid "Year:"
 msgstr "Leto:"
 
-#: ../src/easytag.c:909
+#: ../src/easytag.c:873
 msgid "Tag selected files with this year"
 msgstr "Označi izbrane datoteke s tem letom"
 
-#: ../src/easytag.c:923
+#: ../src/easytag.c:887
 msgid "Number selected tracks sequentially. Starts at 01 in each subdirectory."
 msgstr "Številči izbrane posnetke zaporedno. Začne z 01 v vsaki podmapi."
 
 #. To have enough space to display the icon
 #. To have enough space to display the icon
-#: ../src/easytag.c:932
+#: ../src/easytag.c:896
 msgid "Track #:"
 msgstr "# posnetka:"
 
-#: ../src/easytag.c:963
+#: ../src/easytag.c:927
 msgid ""
 "Set the number of files, in the same directory of the displayed file, to the "
 "selected tracks."
 msgstr ""
 "Izbranim posnetkom določite število datotek v isti mapi prikazane datoteke."
 
-#: ../src/easytag.c:983
+#: ../src/easytag.c:947
 msgid "Tag selected files with this number of tracks"
 msgstr "Označi izbrane datoteke s tem številom posnetkov"
 
 #. Genre
-#: ../src/easytag.c:987
+#: ../src/easytag.c:951
 msgid "Genre:"
 msgstr "Zvrst:"
 
-#: ../src/easytag.c:1015
+#: ../src/easytag.c:979
 msgid "Tag selected files with this genre"
 msgstr "Označi izbrane datoteke s to zvrstjo"
 
 #. Comment
-#: ../src/easytag.c:1020
+#: ../src/easytag.c:984
 msgid "Comment:"
 msgstr "Opomba:"
 
-#: ../src/easytag.c:1047
+#: ../src/easytag.c:1011
 msgid "Tag selected files with this comment"
 msgstr "Označi izbrane datoteke s tem komentarjem"
 
 #. Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(CommentView));
 #. Composer (name of the composers)
-#: ../src/easytag.c:1054
+#: ../src/easytag.c:1018
 msgid "Composer:"
 msgstr "Skladatelj:"
 
-#: ../src/easytag.c:1068
+#: ../src/easytag.c:1032
 msgid "Tag selected files with this composer"
 msgstr "Označi izbrane datoteke s tem skladateljem"
 
 #. Translators: Original Artist / Performer. Please try to keep this string
 #. * as short as possible, as it must fit into a narrow column.
-#: ../src/easytag.c:1075
+#: ../src/easytag.c:1039
 msgid "Orig. artist:"
 msgstr "Izvirni izvajalec:"
 
-#: ../src/easytag.c:1089
+#: ../src/easytag.c:1053
 msgid "Tag selected files with this original artist"
 msgstr "Označi izbrane datoteke s tem izvirnim izvajalcem"
 
 #. Copyright
-#: ../src/easytag.c:1095
+#: ../src/easytag.c:1059
 msgid "Copyright:"
 msgstr "Avtorske pravice:"
 
-#: ../src/easytag.c:1109
+#: ../src/easytag.c:1073
 msgid "Tag selected files with this copyright"
 msgstr "Označi izbrane datoteke s to avtorsko pravico"
 
 #. URL
-#: ../src/easytag.c:1115
+#: ../src/easytag.c:1079
 msgid "URL:"
 msgstr "Naslov URL:"
 
-#: ../src/easytag.c:1129
+#: ../src/easytag.c:1093
 msgid "Tag selected files with this URL"
 msgstr "Označi izbrane slike s tem naslovom URL"
 
 #. Encoded by
-#: ../src/easytag.c:1135
+#: ../src/easytag.c:1099
 msgid "Encoded by:"
 msgstr "Kodirano z:"
 
-#: ../src/easytag.c:1149
+#: ../src/easytag.c:1113
 msgid "Tag selected files with this encoder name"
 msgstr "Označi izbrane datoteke z imenom tega kodirnika"
 
 #.
 #. * 2 - Page for extra tag fields
 #.
-#: ../src/easytag.c:1183 ../src/et_core.c:3100 ../src/et_core.c:3103
+#: ../src/easytag.c:1147 ../src/et_core.c:3229 ../src/et_core.c:3232
 msgid "Images"
 msgstr "Slike"
 
-#: ../src/easytag.c:1207
+#: ../src/easytag.c:1171
 msgid "You can use drag and drop to add an image"
 msgstr "Sliko dodajte s povleci in spusti."
 
-#: ../src/easytag.c:1254
+#: ../src/easytag.c:1218
 msgid "Add images to the tag"
 msgstr "Oznaki dodaj slike"
 
-#: ../src/easytag.c:1272
+#: ../src/easytag.c:1236
 msgid "Remove selected images from the tag"
 msgstr "Odstrani izbrane slike oznaki"
 
-#: ../src/easytag.c:1286
+#: ../src/easytag.c:1250
 msgid "Save the selected images to files"
 msgstr "Shrani izbrane slike v datoteke"
 
-#: ../src/easytag.c:1297
+#: ../src/easytag.c:1261
 msgid "Edit image properties"
 msgstr "Uredi lastnosti slike"
 
-#: ../src/easytag.c:1311
+#: ../src/easytag.c:1275
 msgid "Tag selected files with these images"
 msgstr "Označi izbrane datoteke s temi slikami"
 
-#: ../src/easytag.c:1369
+#: ../src/easytag.c:1333
 #, c-format
 msgid "Selected files tagged with title '%s'."
 msgstr "Izbrane datoteke označene z naslovom '%s'."
 
-#: ../src/easytag.c:1371
+#: ../src/easytag.c:1335
 msgid "Removed title from selected files."
 msgstr "Naslov odstranjen iz izbranih datotek."
 
-#: ../src/easytag.c:1386
+#: ../src/easytag.c:1350
 #, c-format
 msgid "Selected files tagged with artist '%s'."
 msgstr "Izbrane datoteke označene z izvajalcem '%s'."
 
-#: ../src/easytag.c:1388
+#: ../src/easytag.c:1352
 msgid "Removed artist from selected files."
 msgstr "Izvajalec odstranjen iz izbranih datotek."
 
-#: ../src/easytag.c:1402
+#: ../src/easytag.c:1366
 #, c-format
 msgid "Selected files tagged with album artist '%s'."
 msgstr "Izbrane datoteke so bile označene z izvajalcem albuma ('%s')."
 
-#: ../src/easytag.c:1404
+#: ../src/easytag.c:1368
 msgid "Removed album artist from selected files."
 msgstr "Iz izbranih datotek je bil odstranjen izvajalec albuma."
 
-#: ../src/easytag.c:1419
+#: ../src/easytag.c:1383
 #, c-format
 msgid "Selected files tagged with album '%s'."
 msgstr "Izbrane datoteke označene z albumom '%s'."
 
-#: ../src/easytag.c:1421
+#: ../src/easytag.c:1385
 msgid "Removed album name from selected files."
 msgstr "Iz izbranih datotek je bilo odstranjeno ime albuma."
 
-#: ../src/easytag.c:1458
+#: ../src/easytag.c:1422
 #, c-format
 msgid "Selected files tagged with disc number '%s/%s'."
 msgstr "Izbrane datoteke so bile označene s številko diska '%s/%s'."
 
-#: ../src/easytag.c:1463
+#: ../src/easytag.c:1427
 #, c-format
 msgid "Selected files tagged with disc number like 'xx'."
 msgstr "Izbrane datoteke so bile označene s številko diska v obliki 'xx'."
 
-#: ../src/easytag.c:1468
+#: ../src/easytag.c:1432
 msgid "Removed disc number from selected files."
 msgstr "Številka diska odstranjena iz izbranih datotek."
 
-#: ../src/easytag.c:1484
+#: ../src/easytag.c:1448
 #, c-format
 msgid "Selected files tagged with year '%s'."
 msgstr "Izbrane datoteke označene z letom '%s'."
 
-#: ../src/easytag.c:1486
+#: ../src/easytag.c:1450
 msgid "Removed year from selected files."
 msgstr "Leto odstranjeno iz izbranih datotek."
 
-#: ../src/easytag.c:1512 ../src/easytag.c:1602
+#: ../src/easytag.c:1476 ../src/easytag.c:1567
 #, c-format
 msgid "Selected files tagged with track like 'xx/%s'."
 msgstr "Izbrane datoteke označene s posnetkom, kot je 'xx/%s'."
 
-#: ../src/easytag.c:1515
+#: ../src/easytag.c:1479
 #, c-format
 msgid "Selected files tagged with track like 'xx'."
 msgstr "Izbrane datoteke označene s posnetkom, kot je 'xx'."
 
-#: ../src/easytag.c:1519 ../src/easytag.c:1605
+#: ../src/easytag.c:1483 ../src/easytag.c:1570
 msgid "Removed track number from selected files."
 msgstr "Številka posnetka odstranjena iz izbranih datotek."
 
 #. msg = g_strdup_printf(_("All %d tracks numbered sequentially."), ETCore->ETFileSelectionList_Length);
-#: ../src/easytag.c:1575
+#: ../src/easytag.c:1540
 #, c-format
 msgid "Selected tracks numbered sequentially."
 msgstr "Izbrane datoteke zaporedno oštevilčene."
 
-#: ../src/easytag.c:1621
+#: ../src/easytag.c:1586
 #, c-format
 msgid "Selected files tagged with genre '%s'."
 msgstr "Izbrane datoteke označene z zvrstjo '%s'."
 
-#: ../src/easytag.c:1623
+#: ../src/easytag.c:1588
 msgid "Removed genre from selected files."
 msgstr "Zvrst odstranjena iz izbranih datotek."
 
-#: ../src/easytag.c:1645
+#: ../src/easytag.c:1610
 #, c-format
 msgid "Selected files tagged with comment '%s'."
 msgstr "Izbrane datoteke označene s komentarjem '%s'."
 
-#: ../src/easytag.c:1647
+#: ../src/easytag.c:1612
 msgid "Removed comment from selected files."
 msgstr "Komentar odstranjen iz izbranih datotek."
 
-#: ../src/easytag.c:1661
+#: ../src/easytag.c:1626
 #, c-format
 msgid "Selected files tagged with composer '%s'."
 msgstr "Izbrane datoteke označene s skladateljem '%s'."
 
-#: ../src/easytag.c:1663
+#: ../src/easytag.c:1628
 msgid "Removed composer from selected files."
 msgstr "Skladatelj odstranjen iz izbranih datotek."
 
-#: ../src/easytag.c:1678
+#: ../src/easytag.c:1643
 #, c-format
 msgid "Selected files tagged with original artist '%s'."
 msgstr "Izbrane datoteke so označene z izvornim avtorjem '%s'."
 
-#: ../src/easytag.c:1680
+#: ../src/easytag.c:1645
 msgid "Removed original artist from selected files."
 msgstr "Izvirni izvajalec je odstranjen iz izbranih datotek."
 
-#: ../src/easytag.c:1695
+#: ../src/easytag.c:1660
 #, c-format
 msgid "Selected files tagged with copyright '%s'."
 msgstr "Izbrane datoteke označene z avtorsko pravico '%s'."
 
-#: ../src/easytag.c:1697
+#: ../src/easytag.c:1662
 msgid "Removed copyright from selected files."
 msgstr "Avtorska pravica odstranjena iz izbranih datotek."
 
-#: ../src/easytag.c:1712
+#: ../src/easytag.c:1677
 #, c-format
 msgid "Selected files tagged with URL '%s'."
 msgstr "Izbrane datoteke označene z naslovom URL '%s'."
 
-#: ../src/easytag.c:1714
+#: ../src/easytag.c:1679
 msgid "Removed URL from selected files."
 msgstr "URL odstranjen iz izbranih datotek."
 
-#: ../src/easytag.c:1729
+#: ../src/easytag.c:1694
 #, c-format
 msgid "Selected files tagged with encoder name '%s'."
 msgstr "Izbrane datoteke so označene z imenom kodirnika '%s'."
 
-#: ../src/easytag.c:1731
+#: ../src/easytag.c:1696
 msgid "Removed encoder name from selected files."
 msgstr "Ime kodirnika je odstranjeno iz izbranih datotek."
 
-#: ../src/easytag.c:1763
+#: ../src/easytag.c:1728
 msgid "Selected files tagged with images."
 msgstr "Izbrane datoteke označene s slikami."
 
-#: ../src/easytag.c:1765
+#: ../src/easytag.c:1730
 msgid "Removed images from selected files."
 msgstr "Slike odstranjene iz izbranih datotek."
 
-#: ../src/easytag.c:2046
+#: ../src/easytag.c:2011
 msgid "Select Mode and Mask, and redo the same action"
 msgstr "Izberi način in masko in ponovno izvedi enako dejanje"
 
-#: ../src/easytag.c:2098
+#: ../src/easytag.c:2063
 msgid "All tags have been scanned"
 msgstr "Vse oznake so bile pregledane."
 
-#: ../src/easytag.c:2154
+#: ../src/easytag.c:2119
 msgid "All tags have been removed"
 msgstr "Vsi oznake so bile odstranjene."
 
-#: ../src/easytag.c:2444
+#: ../src/easytag.c:2424
 #, c-format
 msgid "A file was changed by an external program"
 msgid_plural "%d files were changed by an external program."
@@ -2064,154 +2064,154 @@ msgstr[1] "Zunanji program je spremenil %d datoteko."
 msgstr[2] "Zunanji program je spremenil %d datoteki."
 msgstr[3] "Zunanji program je spremenil %d datoteke."
 
-#: ../src/easytag.c:2449
+#: ../src/easytag.c:2429
 msgid "Do you want to continue saving the file?"
 msgstr "Želite nadaljevati s shranjevanjem datoteke?"
 
-#: ../src/easytag.c:2504 ../src/easytag.c:2524
+#: ../src/easytag.c:2487 ../src/easytag.c:2507
 msgid "Saving files was stopped"
 msgstr "Shranjevanje datotek je bilo ustavljeno"
 
-#: ../src/easytag.c:2526
+#: ../src/easytag.c:2509
 msgid "All files have been saved"
 msgstr "Vse datoteke so bile shranjene"
 
-#: ../src/easytag.c:2657
+#: ../src/easytag.c:2644
 #, c-format
 msgid "Cannot delete file (%s)"
 msgstr "Datoteke ni mogoče izbrisati (%s)."
 
-#: ../src/easytag.c:2677
+#: ../src/easytag.c:2665
 msgid "Files have been partially deleted"
 msgstr "Datoteke so bile delno izbrisane"
 
-#: ../src/easytag.c:2679
+#: ../src/easytag.c:2667
 msgid "All files have been deleted"
 msgstr "Vse datoteke so bile izbrisane"
 
-#: ../src/easytag.c:2795
+#: ../src/easytag.c:2783
 #, c-format
 msgid "Do you want to write the tag of file '%s'?"
 msgstr "Ali želite zapisati oznako datoteke '%s'?"
 
-#: ../src/easytag.c:2797
+#: ../src/easytag.c:2785
 msgid "Confirm Tag Writing"
 msgstr "Potrditev zapisovanja oznak"
 
-#: ../src/easytag.c:2802 ../src/easytag.c:2919 ../src/easytag.c:3179
+#: ../src/easytag.c:2790 ../src/easytag.c:2910 ../src/easytag.c:3173
 msgid "Repeat action for the remaining files"
 msgstr "Ponovi dejanje za ostale datoteke"
 
 #. Directories and filename changed
-#: ../src/easytag.c:2883 ../src/scan.c:181
+#: ../src/easytag.c:2874 ../src/scan_dialog.c:183
 msgid "Rename File and Directory"
 msgstr "Preimenuj datoteko ali mapo"
 
-#: ../src/easytag.c:2884
+#: ../src/easytag.c:2875
 msgid "File and directory rename confirmation required"
 msgstr "Zahtevana je potrditev preimenovanja datoteke in mape"
 
-#: ../src/easytag.c:2885
+#: ../src/easytag.c:2876
 #, c-format
 msgid "Do you want to rename the file and directory '%s' to '%s'?"
 msgstr "Ali želite preimenovati datoteko in mapo '%s' v '%s'?"
 
-#: ../src/easytag.c:2891
+#: ../src/easytag.c:2882
 msgid "Directory rename confirmation required"
 msgstr "Potrebna je potrditev preimenovanja mape"
 
-#: ../src/easytag.c:2892
+#: ../src/easytag.c:2883
 #, c-format
 msgid "Do you want to rename the directory '%s' to '%s'?"
 msgstr "Ali želite preimenovati mapo '%s' v '%s'?"
 
 #. Only filename changed
-#: ../src/easytag.c:2898
+#: ../src/easytag.c:2889
 msgid "Rename File"
 msgstr "Preimenuj datoteko"
 
-#: ../src/easytag.c:2899
+#: ../src/easytag.c:2890
 msgid "File rename confirmation required"
 msgstr "Potrebna je potrditev preimenovanja datoteke"
 
-#: ../src/easytag.c:2900
+#: ../src/easytag.c:2891
 #, c-format
 msgid "Do you want to rename the file '%s' to '%s'?"
 msgstr "Ali želite preimenovati datoteko '%s' v '%s'?"
 
-#: ../src/easytag.c:2966
+#: ../src/easytag.c:2957
 #, c-format
 msgid "Cannot rename file '%s' to '%s'"
 msgstr "Datoteke '%s' ni mogoče preimenovati v '%s'"
 
-#: ../src/easytag.c:2980
+#: ../src/easytag.c:2971
 #, c-format
 msgid "Cannot rename file '%s' to '%s': %s"
 msgstr "Datoteke '%s' ni mogoče preimenovati v '%s': %s"
 
-#: ../src/easytag.c:2984
+#: ../src/easytag.c:2975
 msgid "File(s) not renamed"
 msgstr "Datoteke, ki niso preimenovane"
 
-#: ../src/easytag.c:3093
+#: ../src/easytag.c:3087
 #, c-format
 msgid "Writing tag of '%s'"
 msgstr "Zapisovanje oznake v '%s'"
 
-#: ../src/easytag.c:3100
+#: ../src/easytag.c:3094
 msgid "Tag(s) written"
 msgstr "Oznake so bile zapisane"
 
-#: ../src/easytag.c:3115
+#: ../src/easytag.c:3109
 #, c-format
 msgid "Cannot write tag in file '%s' (%s)"
 msgstr "V datoteko '%s' ni mogoče zapisati oznake (%s)"
 
-#: ../src/easytag.c:3128
+#: ../src/easytag.c:3122
 #, c-format
 msgid "Cannot write tag in file '%s'"
 msgstr "V datoteko '%s' ni mogoče zapisati oznake"
 
-#: ../src/easytag.c:3131
+#: ../src/easytag.c:3125
 msgid "Tag Write Error"
 msgstr "Napaka zapisovanja oznake"
 
-#: ../src/easytag.c:3176 ../src/easytag.c:3190
+#: ../src/easytag.c:3170 ../src/easytag.c:3184
 #, c-format
 msgid "Do you really want to delete the file '%s'?"
 msgstr "Res želite izbrisati datoteko '%s'?"
 
-#: ../src/easytag.c:3182 ../src/easytag.c:3192
+#: ../src/easytag.c:3176 ../src/easytag.c:3186
 msgid "Delete File"
 msgstr "Izbriši datoteko"
 
-#: ../src/easytag.c:3217
+#: ../src/easytag.c:3211
 #, c-format
 msgid "File '%s' deleted"
 msgstr "Datoteka '%s' izbrisana"
 
-#: ../src/easytag.c:3349
+#: ../src/easytag.c:3346
 #, c-format
 msgid "Cannot read directory '%s'"
 msgstr "Mape '%s' ni mogoče prebrati."
 
-#: ../src/easytag.c:3353
+#: ../src/easytag.c:3350
 msgid "Directory Read Error"
 msgstr "Napaka branja mape"
 
 #. Read the directory recursively
-#: ../src/easytag.c:3374
+#: ../src/easytag.c:3371
 #, c-format
 msgid "Search in progress…"
 msgstr "Iskanje je v teku ..."
 
-#: ../src/easytag.c:3397 ../src/et_core.c:2734
+#: ../src/easytag.c:3394 ../src/et_core.c:2864
 #, c-format
 msgid "File: '%s'"
 msgstr "Datoteka: '%s'"
 
 # Multiple plural!!!
-#: ../src/easytag.c:3447
+#: ../src/easytag.c:3444
 #, c-format
 msgid "Found one file in this directory and subdirectories"
 msgid_plural "Found %d files in this directory and subdirectories"
@@ -2220,7 +2220,7 @@ msgstr[1] "V tej mapi in njenih podrejenih mapah je %d datoteka."
 msgstr[2] "V tej mapi in njenih podrejenih mapah sta %d datoteki."
 msgstr[3] "V tej mapi in njenih podrejenih mapah so %d datoteke."
 
-#: ../src/easytag.c:3454
+#: ../src/easytag.c:3451
 #, c-format
 msgid "Found one file in this directory"
 msgid_plural "Found %d files in this directory"
@@ -2229,203 +2229,191 @@ msgstr[1] "V tej mapi je %d datoteka."
 msgstr[2] "V tej mapi sta %d datoteki."
 msgstr[3] "V tej mapi so %d datoteke."
 
-#: ../src/easytag.c:3476
+#: ../src/easytag.c:3473
 msgid "No file found in this directory and subdirectories"
 msgstr "V mapi in njenih podmapah ni mogoče najti datotek"
 
-#: ../src/easytag.c:3478
+#: ../src/easytag.c:3475
 msgid "No file found in this directory"
 msgstr "V mapi ni mogoče najti datotek"
 
-#: ../src/easytag.c:3546
+#: ../src/easytag.c:3543
 #, c-format
 msgid "Error opening directory '%s' (%s)"
 msgstr "Napaka pri odpiranju mape '%s' (%s)"
 
-#: ../src/easytag.c:3582
+#: ../src/easytag.c:3579
 #, c-format
 msgid "Cannot read directory (%s)"
 msgstr "Mape ni mogoče prebrati (%s)"
 
-#: ../src/easytag.c:3602
+#: ../src/easytag.c:3599
 msgid "Searching for audio files…"
 msgstr "Poteka iskanje zvočnih datotek ..."
 
-#: ../src/easytag.c:3603
+#: ../src/easytag.c:3600
 msgid "Searching"
 msgstr "Iskanje"
 
-#: ../src/easytag.c:4234
+#: ../src/easytag.c:4266
 msgid "Select a directory to browse"
 msgstr "Izberite mapo za brskanje"
 
 #. Menu items
-#: ../src/easytag.c:4381
+#: ../src/easytag.c:4412
 msgid "Tag selected files with this field"
 msgstr "Označi izbrane datoteke s podatki tega polja"
 
-#: ../src/easytag.c:4393 ../src/scan.c:2662
+#: ../src/easytag.c:4424 ../src/scan_dialog.c:2124
 msgid "Convert '_' and '%20' to spaces"
 msgstr "Pretvori znaka '_' in '%20' v presledke"
 
-#: ../src/easytag.c:4400 ../src/scan.c:2664
+#: ../src/easytag.c:4431 ../src/scan_dialog.c:2126
 msgid "Convert ' ' to '_'"
 msgstr "Pretvori ' ' v '_'"
 
-#: ../src/easytag.c:4411
+#: ../src/easytag.c:4442
 msgid "All uppercase"
 msgstr "Vse velike črke"
 
-#: ../src/easytag.c:4418
+#: ../src/easytag.c:4449
 msgid "All lowercase"
 msgstr "Vse male črke"
 
-#: ../src/easytag.c:4425
+#: ../src/easytag.c:4456
 msgid "First letter uppercase"
 msgstr "Velika prva črka"
 
-#: ../src/easytag.c:4432
+#: ../src/easytag.c:4463
 msgid "First letter uppercase of each word"
 msgstr "Naj bo prva črka vsake besede velika"
 
-#: ../src/easytag.c:4443 ../src/prefs.c:1023 ../src/scan.c:2762
+#: ../src/easytag.c:4474 ../src/prefs.c:1023 ../src/scan_dialog.c:2224
 msgid "Remove spaces"
 msgstr "Odstrani presledke"
 
-#: ../src/easytag.c:4450
+#: ../src/easytag.c:4481
 msgid "Insert space before uppercase letter"
 msgstr "Vstavi presledek pred veliko črko"
 
-#: ../src/easytag.c:4457
+#: ../src/easytag.c:4488
 msgid "Remove duplicate spaces or underscores"
 msgstr "Odstrani podvojene presledke in podčrtaje"
 
-#: ../src/easytag.c:4464
+#: ../src/easytag.c:4495
 msgid "Remove all text"
 msgstr "Odstrani vse besedilo"
 
-#. gchar commmand[256];
-#: ../src/easytag.c:4487
-#, c-format
-msgid "EasyTAG version %s: Abnormal exit (PID: %d)"
-msgstr "Program EasyTAG različice %s: nenormalen konec (PID: %d)"
-
-#: ../src/easytag.c:4488 ../src/easytag.c:4499
-#, c-format
-msgid "Received signal '%s' (%d)"
-msgstr "Prejet signal '%s' (%d)"
-
-#: ../src/easytag.c:4491 ../src/easytag.c:4502
-#, c-format
-msgid ""
-"You have probably found a bug in EasyTAG. Please, file a bug report with a "
-"GDB backtrace ('gdb easytag core' then 'bt' and 'l') and information to "
-"reproduce it at: %s"
-msgstr ""
-
-#. To send messages to the console...
-#: ../src/easytag.c:4497
-#, c-format
-msgid "EasyTAG version %s: Abnormal exit (PID: %d)."
-msgstr "EasyTAG različice %s: neobičajni izhod (PID: %d)."
-
-#: ../src/easytag.c:4521
+#: ../src/easytag.c:4514
 msgid "EasyTAG: Normal exit."
 msgstr "EasyTAG: običajni izhod."
 
-#: ../src/easytag.c:4573
+#: ../src/easytag.c:4566
 msgid "Do you want to save them before quitting?"
 msgstr "Ali jih želite shraniti pred zapiranjem?"
 
-#: ../src/easytag.c:4596
+#: ../src/easytag.c:4593
 msgid "Do you really want to quit?"
 msgstr "Ali res želite končati?"
 
-#: ../src/et_core.c:505
+#: ../src/et_core.c:550
 #, c-format
 msgid "Error reading tag from ogg file (%s)"
 msgstr "Napaka med branjem oznak iz datoteke ogg (%s)"
 
-#: ../src/et_core.c:639
+#: ../src/et_core.c:579
+#, c-format
+msgid "Error reading tag from Opus file (%s)"
+msgstr "Napaka branja oznak iz datoteke Opus (%s)"
+
+#: ../src/et_core.c:722
 #, c-format
 msgid "Automatic corrections applied for file '%s'."
 msgstr "Datoteka '%s' je bila samodejno popravljena."
 
-#: ../src/et_core.c:2631
+#: ../src/et_core.c:2747
 msgid "ID3 Tag"
 msgstr "Oznaka ID3"
 
-#: ../src/et_core.c:2637
+#: ../src/et_core.c:2753
 msgid "Ogg Vorbis Tag"
 msgstr "Oznaka Ogg Vorbis"
 
-#: ../src/et_core.c:2643
+#: ../src/et_core.c:2759
 msgid "FLAC Vorbis Tag"
 msgstr "Oznaka FLAC Vorbis"
 
-#: ../src/et_core.c:2648
+#: ../src/et_core.c:2764
 msgid "APE Tag"
 msgstr "Oznaka APE"
 
-#: ../src/et_core.c:2653
+#: ../src/et_core.c:2769
 msgid "MP4/M4A/AAC Tag"
 msgstr "Oznaka MP4/M4A/AAC"
 
-#: ../src/et_core.c:2659
+#: ../src/et_core.c:2775
 msgid "Wavpack Tag"
 msgstr "Oznaka Wavpack"
 
-#: ../src/et_core.c:2679
+#: ../src/et_core.c:2781
+msgid "Opus Tag"
+msgstr "Oznaka Opus"
+
+#: ../src/et_core.c:2801
 msgid "MP3 File"
 msgstr "Datoteka MP3"
 
-#: ../src/et_core.c:2683
+#: ../src/et_core.c:2805
 msgid "MP2 File"
 msgstr "Datoteka MP2"
 
-#: ../src/et_core.c:2689
+#: ../src/et_core.c:2811
 msgid "Ogg Vorbis File"
 msgstr "Datoteka Ogg Vorbis"
 
-#: ../src/et_core.c:2695
+#: ../src/et_core.c:2817
 msgid "Speex File"
 msgstr "Datoteka Speex"
 
-#: ../src/et_core.c:2701
+#: ../src/et_core.c:2823
 msgid "FLAC File"
 msgstr "Datoteka FLAC"
 
-#: ../src/et_core.c:2706
+#: ../src/et_core.c:2828
 msgid "MusePack File"
 msgstr "Datoteka MusePack"
 
-#: ../src/et_core.c:2710
+#: ../src/et_core.c:2832
 msgid "Monkey's Audio File"
 msgstr "Zvočna datoteka Monkey"
 
-#: ../src/et_core.c:2715
+#: ../src/et_core.c:2837
 msgid "MP4/AAC File"
 msgstr "Datoteka MP4/AAC"
 
-#: ../src/et_core.c:2721
+#: ../src/et_core.c:2843
 msgid "Wavpack File"
 msgstr "Datoteka WavPack"
 
-#: ../src/et_core.c:2778 ../src/et_core.c:2833
+#: ../src/et_core.c:2849
+msgid "Opus File"
+msgstr "Datoteka Opus"
+
+#: ../src/et_core.c:2908 ../src/et_core.c:2963
 msgid "File not found"
 msgstr "Datoteke ni mogoče najti"
 
-#: ../src/et_core.c:2783
+#: ../src/et_core.c:2913
 #, c-format
 msgid "Cannot query file information (%s)"
 msgstr "Po podatkih o datoteki ni mogoče poizvedovati (%s)."
 
-#: ../src/et_core.c:2817
+#: ../src/et_core.c:2947
 msgid "Read-only file"
 msgstr "Datoteka samo za branje"
 
 #. And refresh the number of files in this directory
-#: ../src/et_core.c:2881
+#: ../src/et_core.c:3011
 #, c-format
 msgid "One file"
 msgid_plural "%u files"
@@ -2434,49 +2422,44 @@ msgstr[1] "%u datoteka"
 msgstr[2] "%u datoteki"
 msgstr[3] "%u datoteke"
 
-#: ../src/et_core.c:3086
+#: ../src/et_core.c:3215
 #, c-format
 msgid "Images (%d)"
 msgstr "Slike (%d)"
 
 #. Bitrate
-#: ../src/et_core.c:3128 ../src/flac_header.c:205
-#: ../src/monkeyaudio_header.c:86 ../src/mp4_header.c:134
+#: ../src/et_core.c:3257 ../src/flac_header.c:205
+#: ../src/monkeyaudio_header.c:86 ../src/mp4_header.cc:142
 #: ../src/mpeg_header.c:206 ../src/musepack_header.c:88
-#: ../src/ogg_header.c:401 ../src/wavpack_header.c:78
+#: ../src/ogg_header.c:401 ../src/opus_header.c:227 ../src/wavpack_header.c:78
 #, c-format
 msgid "%d kb/s"
 msgstr "%d kb/s"
 
 #. Samplerate
-#: ../src/et_core.c:3133 ../src/flac_header.c:210
-#: ../src/monkeyaudio_header.c:91 ../src/mp4_header.c:139
+#: ../src/et_core.c:3262 ../src/flac_header.c:210
+#: ../src/monkeyaudio_header.c:91 ../src/mp4_header.cc:147
 #: ../src/mpeg_header.c:211 ../src/musepack_header.c:93
-#: ../src/ogg_header.c:406 ../src/wavpack_header.c:83
+#: ../src/ogg_header.c:406 ../src/opus_header.c:232 ../src/wavpack_header.c:83
 #, c-format
 msgid "%d Hz"
 msgstr "%d Hz"
 
-#: ../src/et_core.c:3276 ../src/scan.c:690
+#: ../src/et_core.c:3408 ../src/scan_dialog.c:688
 #, c-format
 msgid "Could not convert filename '%s' into system filename encoding"
 msgstr ""
 "Imena datoteke '%s' ni mogoče pretvoriti v sistemsko kodiranje imen datotek"
 
-#: ../src/et_core.c:3278
+#: ../src/et_core.c:3410
 msgid "Try setting the environment variable G_FILENAME_ENCODING."
 msgstr "Poskusite nastaviti okoljsko spremenljivko G_FILENAME_ENCODING."
 
-#: ../src/et_core.c:3279 ../src/scan.c:692
+#: ../src/et_core.c:3411 ../src/scan_dialog.c:690
 msgid "Filename translation"
 msgstr "Prevod imena datoteke"
 
-#: ../src/et_core.c:3940
-#, c-format
-msgid "Cannot change the permissions of file '%s' (%s)"
-msgstr "Spreminjanje dovoljenj datoteke '%s' je spodletelo (%s)"
-
-#: ../src/et_core.c:3978
+#: ../src/et_core.c:4116
 #, c-format
 msgid "Error writing tag type %d to file %s (%s)"
 msgstr "Napaka pri pisanju oznake vrste %d v datoteko %s (%s)"
@@ -2485,8 +2468,8 @@ msgstr "Napaka pri pisanju oznake vrste %d v datoteko %s (%s)"
 #. Mode
 #. mpeg4ip library seems to always return -1
 #. Mode
-#: ../src/flac_header.c:215 ../src/mp4_header.c:145 ../src/ogg_header.c:411
-#: ../src/wavpack_header.c:88
+#: ../src/flac_header.c:215 ../src/mp4_header.cc:153 ../src/ogg_header.c:411
+#: ../src/opus_header.c:237 ../src/wavpack_header.c:88
 msgid "Channels:"
 msgstr "Kanali:"
 
@@ -2495,7 +2478,7 @@ msgstr "Kanali:"
 msgid "Error while opening file: '%s' as FLAC (%s)."
 msgstr "Napaka pri odpiranju datoteke: '%s' kot FLAC (%s)."
 
-#: ../src/flac_tag.c:352 ../src/ogg_tag.c:347
+#: ../src/flac_tag.c:352 ../src/ogg_tag.c:310
 #, c-format
 msgid ""
 "The year value '%s' seems to be invalid in file '%s'. The information will "
@@ -2512,7 +2495,7 @@ msgstr "Slikovni blok ni veljaven: '%s'"
 msgid "Error: Failed to write comments to file '%s' (%s)."
 msgstr "Napaka: komentarjev ni mogoče zapisati v datoteko '%s' (%s)."
 
-#: ../src/flac_tag.c:1099 ../src/ogg_tag.c:922
+#: ../src/flac_tag.c:1099 ../src/ogg_tag.c:1166
 #, c-format
 msgid "Written tag of '%s'"
 msgstr "Oznaka za '%s' zapisana"
@@ -2533,33 +2516,33 @@ msgstr ""
 msgid "Corrupted file"
 msgstr "Okvarjena datoteka"
 
-#: ../src/id3_tag.c:540
+#: ../src/id3_tag.c:555
 #, c-format
 msgid "Removed tag of '%s'"
 msgstr "Oznaka za '%s' odstranjena"
 
-#: ../src/id3_tag.c:544 ../src/id3_tag.c:644
+#: ../src/id3_tag.c:559 ../src/id3_tag.c:659
 #, c-format
 msgid "Error while removing ID3v1 tag of '%s' (%s)"
 msgstr "Napaka pri odstranjevanju oznake ID3v1 '%s' (%s)"
 
-#: ../src/id3_tag.c:546 ../src/id3_tag.c:616
+#: ../src/id3_tag.c:561 ../src/id3_tag.c:631
 #, c-format
 msgid "Error while removing ID3v2 tag of '%s' (%s)"
 msgstr "Napaka pri odstranjevanju oznake ID3v2 '%s' (%s)"
 
-#: ../src/id3_tag.c:565
+#: ../src/id3_tag.c:580
 #, c-format
 msgid "Error while updating ID3v2 tag of '%s' (%s)"
 msgstr "Napaka pri posodabljanju oznake ID3v2 '%s' (%s)"
 
-#: ../src/id3_tag.c:593
+#: ../src/id3_tag.c:608
 msgid ""
 "You have tried to save this tag to Unicode but it was detected that your "
 "version of id3lib is buggy"
 msgstr ""
 
-#: ../src/id3_tag.c:595
+#: ../src/id3_tag.c:610
 #, c-format
 msgid ""
 "If you reload this file, some characters in the tag may not be displayed "
@@ -2571,90 +2554,90 @@ msgid ""
 "File: %s"
 msgstr ""
 
-#: ../src/id3_tag.c:602
+#: ../src/id3_tag.c:617
 msgid "Buggy id3lib"
 msgstr "Hroščat id3lib"
 
-#: ../src/id3_tag.c:636
+#: ../src/id3_tag.c:651
 #, c-format
 msgid "Error while updating ID3v1 tag of '%s' (%s)"
 msgstr "Napaka pri posodabljanju oznake ID3v1 '%s' (%s)"
 
-#: ../src/id3_tag.c:650 ../src/id3v24_tag.c:1049
+#: ../src/id3_tag.c:665 ../src/id3v24_tag.c:1048
 #, c-format
 msgid "Updated tag of '%s'"
 msgstr "Oznaka za '%s' posodobljena"
 
-#: ../src/id3_tag.c:669
+#: ../src/id3_tag.c:684
 msgid "No error reported"
 msgstr "Ni poročil o napakah."
 
-#: ../src/id3_tag.c:671
+#: ../src/id3_tag.c:686
 msgid "No available memory"
 msgstr "Ni prostega pomnilnika."
 
-#: ../src/id3_tag.c:673
+#: ../src/id3_tag.c:688
 msgid "No data to parse"
 msgstr "Ni podatkov za razčlenjevanje"
 
-#: ../src/id3_tag.c:675
+#: ../src/id3_tag.c:690
 msgid "Improperly formatted data"
 msgstr "Neustrezno oblikovani podatki."
 
-#: ../src/id3_tag.c:677
+#: ../src/id3_tag.c:692
 msgid "No buffer to write to"
 msgstr "Ni medpomnilnika za pisanje"
 
-#: ../src/id3_tag.c:679
+#: ../src/id3_tag.c:694
 msgid "Buffer is too small"
 msgstr "Medpomnilnik je premajhen."
 
-#: ../src/id3_tag.c:681
+#: ../src/id3_tag.c:696
 msgid "Invalid frame ID"
 msgstr "Neveljaven ID okvirja."
 
-#: ../src/id3_tag.c:683
+#: ../src/id3_tag.c:698
 msgid "Requested field not found"
 msgstr "Zahtevanega polja ni mogoče najti"
 
-#: ../src/id3_tag.c:685
+#: ../src/id3_tag.c:700
 msgid "Unknown field type"
 msgstr "Neznana vrsta polja."
 
-#: ../src/id3_tag.c:687
+#: ../src/id3_tag.c:702
 msgid "Tag is already attached to a file"
 msgstr "Oznaka je datoteki že pripeta"
 
-#: ../src/id3_tag.c:689
+#: ../src/id3_tag.c:704
 msgid "Invalid tag version"
 msgstr "Neveljavna različica oznak"
 
-#: ../src/id3_tag.c:691
+#: ../src/id3_tag.c:706
 msgid "No file to parse"
 msgstr "Ni datoteke za razčlenjevanje"
 
-#: ../src/id3_tag.c:693
+#: ../src/id3_tag.c:708
 msgid "Attempting to write to a read-only file"
 msgstr "Poskus pisanja v datoteko, namenjeno branju"
 
-#: ../src/id3_tag.c:695
+#: ../src/id3_tag.c:710
 msgid "Error in compression/uncompression"
 msgstr "Napaka pri stiskanju/razširjanju"
 
-#: ../src/id3_tag.c:697
+#: ../src/id3_tag.c:712
 msgid "Unknown error message"
 msgstr "Neznano sporočilo o napaki"
 
-#: ../src/id3_tag.c:1301
+#: ../src/id3_tag.c:1316
 #, c-format
 msgid "Error while creating temporary file: '%s'"
 msgstr "Med ustvarjanjem nove datoteke je prišlo do napake: '%s'"
 
-#: ../src/id3_tag.c:1308
+#: ../src/id3_tag.c:1323
 msgid "Error while creating temporary file"
 msgstr "Pri ustvarjanju začasne datoteke je prišlo do napake"
 
-#: ../src/id3_tag.c:1328
+#: ../src/id3_tag.c:1343
 #, c-format
 msgid "Error while writing to file: '%s' (%s)"
 msgstr "Napaka pri pisanju v datoteko: '%s' (%s)"
@@ -2664,7 +2647,7 @@ msgstr "Napaka pri pisanju v datoteko: '%s' (%s)"
 #. * missing (not read for some reason) while reading from
 #. * the file.
 #.
-#: ../src/id3v24_tag.c:1504
+#: ../src/id3v24_tag.c:1503
 #, c-format
 msgid "Cannot write tag of file ‘%s’ (a byte was missing)"
 msgid_plural "Cannot write tag of file ‘%s’ (%s bytes were missing)"
@@ -2673,12 +2656,12 @@ msgstr[1] "V datoteko '%s' ni mogoče zapisati oznake (manjka %s bajt)"
 msgstr[2] "V datoteko '%s' ni mogoče zapisati oznake (manjkata %s bajta)"
 msgstr[3] "V datoteko '%s' ni mogoče zapisati oznake (manjkajo %s bajti)"
 
-#: ../src/id3v24_tag.c:1525
+#: ../src/id3v24_tag.c:1524
 #, c-format
 msgid "Cannot save tag of file '%s'"
 msgstr "Oznake datoteke '%s' ni mogoče zapisati"
 
-#: ../src/id3v24_tag.c:1536
+#: ../src/id3v24_tag.c:1535
 #, c-format
 msgid "Size error while saving tag of '%s'"
 msgstr "Prišlo je do napake pri shranjevanju oznake za '%s'"
@@ -2687,147 +2670,131 @@ msgstr "Prišlo je do napake pri shranjevanju oznake za '%s'"
 msgid "Log"
 msgstr "Dnevnik"
 
-#: ../src/misc.c:691
+#: ../src/misc.c:720
+msgid "You must type a program name"
+msgstr "Vnesti morate ime programa"
+
+#: ../src/misc.c:721
+msgid "Program Name Error"
+msgstr "Napaka imena programa"
+
+#: ../src/misc.c:800
+#, c-format
+msgid "Executed command: %s"
+msgstr "Izveden ukaz: %s"
+
+#: ../src/misc.c:807
+#, c-format
+msgid "Failed to launch program: %s"
+msgstr "Zagon programa je spodletel: %s"
+
+#: ../src/misc.c:824
 msgid "Select File"
 msgstr "Izbor datoteke"
 
-#: ../src/misc.c:697
+#: ../src/misc.c:830
 msgid "Select Directory"
 msgstr "Izbor mape"
 
-#: ../src/misc.c:781
-msgid "No audio player defined"
-msgstr "Zvočni predvajalnik ni določen"
-
-#: ../src/misc.c:782
-msgid "Audio Player Warning"
-msgstr "Opozorilo zvočnega predvajalnika"
-
-#: ../src/misc.c:878
-msgid "Cannot fork another process"
-msgstr "Drugega procesa ni mogoče razvejiti"
-
-#. Translators: file size (bytes, kilobytes, megabytes, gigabytes,
-#. * terabytes).
-#: ../src/misc.c:1046 ../src/misc.c:1066
-msgid "B"
-msgstr "B"
-
-#: ../src/misc.c:1046 ../src/misc.c:1066
-msgid "kB"
-msgstr "kB"
-
-#: ../src/misc.c:1046 ../src/misc.c:1066
-msgid "MB"
-msgstr "MB"
-
-#: ../src/misc.c:1046 ../src/misc.c:1066
-msgid "GB"
-msgstr "GB"
-
-#: ../src/misc.c:1046 ../src/misc.c:1066
-msgid "TB"
-msgstr "TB"
-
-#: ../src/misc.c:1145
+#: ../src/misc.c:1142
 msgid "Generate Playlist"
 msgstr "Ustvari seznam predvajanja"
 
-#: ../src/misc.c:1169
+#: ../src/misc.c:1166
 msgid "M3U Playlist Name"
 msgstr "Ime seznama predvajanja M3U"
 
-#: ../src/misc.c:1184
+#: ../src/misc.c:1181
 msgid "Use directory name"
 msgstr "Uporabi ime mape"
 
 #. Playlist options
-#: ../src/misc.c:1201
+#: ../src/misc.c:1198
 msgid "Playlist Options"
 msgstr "Možnosti seznama predvajanja"
 
-#: ../src/misc.c:1207
+#: ../src/misc.c:1204
 msgid "Include only the selected files"
 msgstr "Vključi le izbrane datoteke"
 
-#: ../src/misc.c:1210
+#: ../src/misc.c:1207
 msgid ""
 "If activated, only the selected files will be written in the playlist file. "
 "Else, all the files will be written."
 msgstr ""
 
-#: ../src/misc.c:1213
+#: ../src/misc.c:1210
 msgid "Use full path for files in playlist"
 msgstr "Za datoteke v seznamu predvajanja uporabi polno pot"
 
-#: ../src/misc.c:1216
+#: ../src/misc.c:1213
 msgid "Use relative path for files in playlist"
 msgstr "Za datoteke v seznamu predvajanja uporabi relativno pot"
 
 #. Create playlist in parent directory
-#: ../src/misc.c:1222
+#: ../src/misc.c:1219
 msgid "Create playlist in the parent directory"
 msgstr "Ustvari seznam predvajanja v nadrejeni mapi"
 
-#: ../src/misc.c:1225
+#: ../src/misc.c:1222
 msgid "If activated, the playlist will be created in the parent directory."
 msgstr ""
 "Izbrana možnost določa, da bo seznam predvajanja ustvarjen v nadrejeni mapi."
 
 #. DOS Separator
-#: ../src/misc.c:1229
+#: ../src/misc.c:1226
 msgid "Use DOS directory separator"
 msgstr "Uporabi ločilo map za DOS"
 
-#: ../src/misc.c:1235
+#: ../src/misc.c:1232
 msgid ""
 "This option replaces the UNIX directory separator '/' into DOS separator "
 "'\\'."
 msgstr "Ta možnost zamenja ločilo map za UNIX '/' v ločilo za DOS '\\'."
 
-#: ../src/misc.c:1244
+#: ../src/misc.c:1241
 msgid "Playlist Content"
 msgstr "Vsebina seznama predvajanja"
 
-#: ../src/misc.c:1250
+#: ../src/misc.c:1247
 msgid "Write only list of files"
 msgstr "Zapiši le seznam datotek"
 
-#: ../src/misc.c:1254
+#: ../src/misc.c:1251
 msgid "Write info using filename"
 msgstr "Zapiši podatke z uporabo imena datoteke"
 
-#: ../src/misc.c:1257
+#: ../src/misc.c:1254
 msgid "Write info using:"
 msgstr "Zapiši podatke z:"
 
-#: ../src/misc.c:1476
+#: ../src/misc.c:1468
 #, c-format
 msgid "Cannot write playlist file '%s'"
 msgstr "Ni mogoče zapisati datoteke seznama predvajanja '%s'."
 
-#: ../src/misc.c:1480
+#: ../src/misc.c:1472
 msgid "Playlist File Error"
 msgstr "Napaka datoteke seznama predvajanja"
 
-#: ../src/misc.c:1488
+#: ../src/misc.c:1480
 #, c-format
 msgid "Written playlist file '%s'"
 msgstr "Datoteka seznama predvajanja '%s' zapisana."
 
-#: ../src/misc.c:1552 ../src/scan.c:3247 ../src/scan.c:3309
+#: ../src/misc.c:1544 ../src/scan_dialog.c:2709 ../src/scan_dialog.c:2771
 msgid "Invalid scanner mask"
 msgstr "Neveljavna maska preiskovalnika"
 
-#: ../src/misc.c:1916
+#: ../src/misc.c:1908
 msgid "CD"
 msgstr "CD"
 
-#: ../src/misc.c:1938
+#: ../src/misc.c:1930
 msgid "Find Files"
 msgstr "Najdi datoteke"
 
-#: ../src/misc.c:1970
+#: ../src/misc.c:1962
 msgid ""
 "Type the word to search into files. Or type nothing to display all files."
 msgstr ""
@@ -2835,13 +2802,13 @@ msgstr ""
 "izpišejo vse datoteke."
 
 #. Where...
-#: ../src/misc.c:1976
+#: ../src/misc.c:1968
 msgid "In:"
 msgstr "V:"
 
 #. Translators: This option is for the previous 'in' option. For instance,
 #. * translate this as "Search" "In:" "the Filename".
-#: ../src/misc.c:1981
+#: ../src/misc.c:1973
 msgid "the Filename"
 msgstr "Ime datoteke"
 
@@ -2850,20 +2817,20 @@ msgstr "Ime datoteke"
 #. * Note: label changed to "the Tag" (to be the only one) to fix a Hungarian
 #. * grammatical problem (which uses one word to say "in the tag" like here)
 #.
-#: ../src/misc.c:1987
+#: ../src/misc.c:1979
 msgid "the Tag"
 msgstr "Oznaka"
 
 #. Property of the search
-#: ../src/misc.c:1998 ../src/prefs.c:335
+#: ../src/misc.c:1990 ../src/prefs.c:335
 msgid "Case sensitive"
 msgstr "Razlikuj velike in male črke"
 
-#: ../src/misc.c:2225
+#: ../src/misc.c:2217
 msgid "Ready to search…"
 msgstr "Pripravljeno na iskanje ..."
 
-#: ../src/misc.c:2445
+#: ../src/misc.c:2437
 #, c-format
 msgid "Found one file"
 msgid_plural "Found %d files"
@@ -2872,96 +2839,96 @@ msgstr[1] "Najdena %d datoteka"
 msgstr[2] "Najdeni %d datoteki"
 msgstr[3] "Najdene %d datoteke"
 
-#: ../src/misc.c:2730
+#: ../src/misc.c:2722
 msgid "Load Filenames From a Text File"
 msgstr "Naloži imena datotek iz besedilne datoteke"
 
-#: ../src/misc.c:2759
+#: ../src/misc.c:2751
 msgid "File:"
 msgstr "Datoteka:"
 
 #. Button 'load'
 #. the signal attached to this button, to load the file, is placed after the LoadFileContentList definition
-#: ../src/misc.c:2778
+#: ../src/misc.c:2770
 msgid " Load "
 msgstr " Naloži"
 
-#: ../src/misc.c:2796
+#: ../src/misc.c:2788
 msgid "Content of Text File"
 msgstr "Vsebina besedilne datoteke"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2817 ../src/misc.c:2912
+#: ../src/misc.c:2809 ../src/misc.c:2904
 msgid "Insert a blank line before the selected line"
 msgstr "Vstavi prazno vrstico pred izbrano vrstico"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2826 ../src/misc.c:2921
+#: ../src/misc.c:2818 ../src/misc.c:2913
 msgid "Delete the selected line"
 msgstr "Izbriši izbrano vrstico"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2835 ../src/misc.c:2930 ../src/misc.c:3416
+#: ../src/misc.c:2827 ../src/misc.c:2922 ../src/misc.c:3408
 msgid "Delete all blank lines"
 msgstr "Izbriši vse prazne vrstice"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2847 ../src/misc.c:2942
+#: ../src/misc.c:2839 ../src/misc.c:2934
 msgid "Move up the selected line"
 msgstr "Pomakni izbrano vrstico navzgor"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2856 ../src/misc.c:2951
+#: ../src/misc.c:2848 ../src/misc.c:2943
 msgid "Move down the selected line"
 msgstr "Pomakni izbrano vrstico navzdol"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2868 ../src/misc.c:2963 ../src/misc.c:3440
+#: ../src/misc.c:2860 ../src/misc.c:2955 ../src/misc.c:3432
 msgid "Reload"
 msgstr "Ponovno naloži"
 
-#: ../src/misc.c:2890
+#: ../src/misc.c:2882
 msgid "List of Files"
 msgstr "Seznam datotek"
 
-#: ../src/misc.c:2985
+#: ../src/misc.c:2977
 msgid "Selected line:"
 msgstr "Izbrana vrstica:"
 
-#: ../src/misc.c:3003
+#: ../src/misc.c:2995
 msgid ""
 "When activating this option, after loading the filenames, the current "
 "selected scanner will be ran (the scanner window must be opened)."
 msgstr ""
 
-#: ../src/misc.c:3090
+#: ../src/misc.c:3082
 #, c-format
 msgid "Cannot retrieve file info (%s)"
 msgstr "Podatkov o datoteki ni mogoče pridobiti (%s)."
 
-#: ../src/misc.c:3152
+#: ../src/misc.c:3144
 #, c-format
 msgid "Can't open file '%s' (%s)"
 msgstr "Ni mogoče odpreti datoteke '%s' (%s)"
 
-#: ../src/misc.c:3188
+#: ../src/misc.c:3180
 #, c-format
 msgid "Error reading file (%s)"
 msgstr "Napaka pri branju datoteke (%s)"
 
-#: ../src/misc.c:3404
+#: ../src/misc.c:3396
 msgid "Insert a blank line"
 msgstr "Vstavi prazno vrstico"
 
-#: ../src/misc.c:3410
+#: ../src/misc.c:3402
 msgid "Delete this line"
 msgstr "Izbriši to vrstico"
 
-#: ../src/misc.c:3425
+#: ../src/misc.c:3417
 msgid "Move up this line"
 msgstr "Premakni to vrstico navzgor"
 
-#: ../src/misc.c:3431
+#: ../src/misc.c:3423
 msgid "Move down this line"
 msgstr "Premakni to vrstico navzdol"
 
@@ -2971,26 +2938,26 @@ msgstr "Premakni to vrstico navzdol"
 msgid "Profile:"
 msgstr "Profil:"
 
-#: ../src/mp4_header.c:63 ../src/mp4_tag.c:65 ../src/mp4_tag.c:186
+#: ../src/mp4_header.cc:60 ../src/mp4_tag.cc:91 ../src/mp4_tag.cc:284
 msgid "MP4 format invalid"
 msgstr "Neveljaven zapis MP4"
 
-#: ../src/mp4_header.c:72 ../src/mp4_tag.c:74
+#: ../src/mp4_header.cc:68
 #, c-format
 msgid "File contains no audio track: '%s'"
 msgstr "Datoteka ne vsebuje zvočne sledi: '%s'"
 
-#: ../src/mp4_header.c:82
+#: ../src/mp4_header.cc:79
 #, c-format
 msgid "Error reading properties from file: '%s'"
 msgstr "Napaka med branjem lastnosti iz datoteke: '%s'"
 
-#: ../src/mp4_header.c:132 ../src/mpeg_header.c:204
+#: ../src/mp4_header.cc:140 ../src/mpeg_header.c:204
 #, c-format
 msgid "~%d kb/s"
 msgstr "~%d kb/s"
 
-#: ../src/mp4_tag.c:85 ../src/mp4_tag.c:194
+#: ../src/mp4_tag.cc:101 ../src/mp4_tag.cc:293
 #, c-format
 msgid "Error reading tags from file: '%s'"
 msgstr "Napaka med branjem oznak iz datoteke: '%s'"
@@ -3061,197 +3028,201 @@ msgstr ""
 msgid "Error: Failed to open file: '%s' as Vorbis (%s)."
 msgstr "Napaka: odpiranje datoteke '%s' kot Vorbis je spodletelo (%s)."
 
-#: ../src/ogg_tag.c:186 ../src/ogg_tag.c:739
+#: ../src/ogg_tag.c:712 ../src/ogg_tag.c:887
 #, c-format
 msgid "Warning: The Ogg Vorbis file '%s' contains an ID3v2 tag."
 msgstr "Opozorilo: datoteka Ogg Vorbis '%s' vsebuje oznako ID3v2."
 
-#: ../src/picture.c:244 ../src/picture.c:269
+#: ../src/ogg_tag.c:1035 ../src/picture.c:1258
 #, c-format
-msgid "Image file not loaded: %s"
-msgstr "Datoteka slike ni naložena: %s"
+msgid "Error with 'loader_write': %s"
+msgstr "Napaka ob 'loader_write': %s"
 
-#: ../src/picture.c:261
-#, c-format
-msgid "Cannot open file: '%s'"
-msgstr "Datoteke ni mogoče odpreti: '%s'"
-
-#: ../src/picture.c:265
-msgid "Image File Error"
-msgstr "Napaka slikovne datoteke"
-
-#: ../src/picture.c:276
-msgid "Image file loaded"
-msgstr "Slikovna datoteka naložena"
-
-#: ../src/picture.c:334
-msgid "Add Images"
-msgstr "Dodaj slike"
-
-#: ../src/picture.c:344 ../src/picture.c:700
-msgid "All Files"
-msgstr "Vse datoteke"
-
-#: ../src/picture.c:350 ../src/picture.c:706
-msgid "PNG and JPEG"
-msgstr "PNG in JPEG"
-
-#: ../src/picture.c:477
-#, c-format
-msgid "Image Properties %d/%d"
-msgstr "Lastnosti slike %d/%d"
-
-#: ../src/picture.c:501
-msgid "Image Type"
-msgstr "Vrsta slike"
-
-#. Description of the picture
-#: ../src/picture.c:560
-msgid "Image Description:"
-msgstr "Opis slike:"
-
-#: ../src/picture.c:687
-#, c-format
-msgid "Save Image %d/%d"
-msgstr "Shrani sliko %d/%d"
-
-#: ../src/picture.c:759
-#, c-format
-msgid "Image file not saved: %s"
-msgstr "Datoteka slike ni shranjena: %s"
-
-#: ../src/picture.c:827
-msgid "JPEG image"
-msgstr "Slika JPEG"
-
-#: ../src/picture.c:829
-msgid "PNG image"
-msgstr "Slika PNG"
-
-#: ../src/picture.c:831
-msgid "Unknown image"
-msgstr "Neznana slika"
-
-#: ../src/picture.c:843
-msgid "32x32 pixel PNG file icon"
-msgstr "Ikona PNG velikosti 32x32 točk"
-
-#: ../src/picture.c:845
-msgid "Other file icon"
-msgstr "Ikona druge vrste datoteke"
-
-#: ../src/picture.c:847
-msgid "Cover (front)"
-msgstr "Prednja stran ovitka"
-
-#: ../src/picture.c:849
-msgid "Cover (back)"
-msgstr "Hrbtna stran ovitka"
-
-#: ../src/picture.c:851
-msgid "Leaflet page"
-msgstr "Stran knjižice"
-
-#: ../src/picture.c:853
-msgid "Media (e.g. label side of CD)"
-msgstr "Medij (npr. stran CD z napisi)"
-
-#: ../src/picture.c:855
-msgid "Lead artist/lead performer/soloist"
-msgstr "Glavni izvajalec/osrednji nastopajoči/solist"
-
-#: ../src/picture.c:857
-msgid "Artist/performer"
-msgstr "Izvajalec"
-
-#: ../src/picture.c:859
-msgid "Conductor"
-msgstr "Dirigent"
-
-#: ../src/picture.c:861
-msgid "Band/Orchestra"
-msgstr "Skupina/orkester"
-
-#: ../src/picture.c:865
-msgid "Lyricist/text writer"
-msgstr "Avtor besedila"
-
-#: ../src/picture.c:867
-msgid "Recording location"
-msgstr "Mesto snemanja"
-
-#: ../src/picture.c:869
-msgid "During recording"
-msgstr "Med snemanjem"
-
-#: ../src/picture.c:871
-msgid "During performance"
-msgstr "Med nastopom"
-
-#: ../src/picture.c:873
-msgid "Movie/video screen capture"
-msgstr "Zaslonsko zajemanje videa"
-
-#: ../src/picture.c:875
-msgid "A bright colored fish"
-msgstr "Svetlo obarvana riba"
-
-#: ../src/picture.c:877
-msgid "Illustration"
-msgstr "Ilustracija"
-
-#: ../src/picture.c:879
-msgid "Band/Artist logotype"
-msgstr "Logotip skupine/izvajalca"
-
-#: ../src/picture.c:881
-msgid "Publisher/studio logotype"
-msgstr "Logotip založbe/studia"
-
-#: ../src/picture.c:885
-msgid "Unknown image type"
-msgstr "Neznana vrsta slike"
-
-#: ../src/picture.c:915 ../src/picture.c:926
-msgid "pixels"
-msgstr "točke"
-
-#: ../src/picture.c:916 ../src/picture.c:927
-msgid "Type"
-msgstr "Vrsta"
-
-#: ../src/picture.c:928
-msgid "Description"
-msgstr "Opis"
-
-#: ../src/picture.c:984
+#: ../src/ogg_tag.c:1050 ../src/picture.c:1181
 #, c-format
 msgid "Error with 'loader_close': %s"
 msgstr "Napaka ob 'loader_close': %s"
 
+#: ../src/picture.c:104
+#, c-format
+msgid "Image file not saved: %s"
+msgstr "Datoteka slike ni shranjena: %s"
+
+#: ../src/picture.c:154
+#, c-format
+msgid "Cannot open file: '%s'"
+msgstr "Datoteke ni mogoče odpreti: '%s'"
+
+#: ../src/picture.c:158
+msgid "Image File Error"
+msgstr "Napaka slikovne datoteke"
+
+#: ../src/picture.c:162 ../src/picture.c:424
+#, c-format
+msgid "Image file not loaded: %s"
+msgstr "Datoteka slike ni naložena: %s"
+
+#: ../src/picture.c:446
+msgid "Image file loaded"
+msgstr "Slikovna datoteka naložena"
+
+#: ../src/picture.c:504
+msgid "Add Images"
+msgstr "Dodaj slike"
+
+#: ../src/picture.c:514 ../src/picture.c:875
+msgid "All Files"
+msgstr "Vse datoteke"
+
+#: ../src/picture.c:520 ../src/picture.c:881
+msgid "PNG and JPEG"
+msgstr "PNG in JPEG"
+
+#: ../src/picture.c:651
+#, c-format
+msgid "Image Properties %d/%d"
+msgstr "Lastnosti slike %d/%d"
+
+#: ../src/picture.c:677
+msgid "Image Type"
+msgstr "Vrsta slike"
+
+#. Description of the picture
+#: ../src/picture.c:735
+msgid "Image Description:"
+msgstr "Opis slike:"
+
+#: ../src/picture.c:862
+#, c-format
+msgid "Save Image %d/%d"
+msgstr "Shrani sliko %d/%d"
+
+#: ../src/picture.c:1022
+msgid "JPEG image"
+msgstr "Slika JPEG"
+
+#: ../src/picture.c:1024
+msgid "PNG image"
+msgstr "Slika PNG"
+
+#: ../src/picture.c:1026
+msgid "GIF image"
+msgstr "Slikovna datoteka GIF"
+
+#: ../src/picture.c:1028
+msgid "Unknown image"
+msgstr "Neznana slika"
+
+#: ../src/picture.c:1040
+msgid "32x32 pixel PNG file icon"
+msgstr "Ikona PNG velikosti 32x32 točk"
+
+#: ../src/picture.c:1042
+msgid "Other file icon"
+msgstr "Ikona druge vrste datoteke"
+
 #: ../src/picture.c:1044
+msgid "Cover (front)"
+msgstr "Prednja stran ovitka"
+
+#: ../src/picture.c:1046
+msgid "Cover (back)"
+msgstr "Hrbtna stran ovitka"
+
+#: ../src/picture.c:1048
+msgid "Leaflet page"
+msgstr "Stran knjižice"
+
+#: ../src/picture.c:1050
+msgid "Media (e.g. label side of CD)"
+msgstr "Medij (npr. stran CD z napisi)"
+
+#: ../src/picture.c:1052
+msgid "Lead artist/lead performer/soloist"
+msgstr "Glavni izvajalec/osrednji nastopajoči/solist"
+
+#: ../src/picture.c:1054
+msgid "Artist/performer"
+msgstr "Izvajalec"
+
+#: ../src/picture.c:1056
+msgid "Conductor"
+msgstr "Dirigent"
+
+#: ../src/picture.c:1058
+msgid "Band/Orchestra"
+msgstr "Skupina/orkester"
+
+#: ../src/picture.c:1062
+msgid "Lyricist/text writer"
+msgstr "Avtor besedila"
+
+#: ../src/picture.c:1064
+msgid "Recording location"
+msgstr "Mesto snemanja"
+
+#: ../src/picture.c:1066
+msgid "During recording"
+msgstr "Med snemanjem"
+
+#: ../src/picture.c:1068
+msgid "During performance"
+msgstr "Med nastopom"
+
+#: ../src/picture.c:1070
+msgid "Movie/video screen capture"
+msgstr "Zaslonsko zajemanje videa"
+
+#: ../src/picture.c:1072
+msgid "A bright colored fish"
+msgstr "Svetlo obarvana riba"
+
+#: ../src/picture.c:1074
+msgid "Illustration"
+msgstr "Ilustracija"
+
+#: ../src/picture.c:1076
+msgid "Band/Artist logotype"
+msgstr "Logotip skupine/izvajalca"
+
+#: ../src/picture.c:1078
+msgid "Publisher/studio logotype"
+msgstr "Logotip založbe/studia"
+
+#: ../src/picture.c:1082
+msgid "Unknown image type"
+msgstr "Neznana vrsta slike"
+
+#: ../src/picture.c:1112 ../src/picture.c:1123
+msgid "pixels"
+msgstr "točke"
+
+#: ../src/picture.c:1113 ../src/picture.c:1124
+msgid "Type"
+msgstr "Vrsta"
+
+#: ../src/picture.c:1125
+msgid "Description"
+msgstr "Opis"
+
+#: ../src/picture.c:1241
 msgid ""
 "Cannot display the image because not enough data has been read to determine "
 "how to create the image buffer."
 msgstr ""
 
-#: ../src/picture.c:1051
+#: ../src/picture.c:1248
 msgid "Cannot display the image"
 msgstr "Slike ni mogoče prikazati"
 
-#: ../src/picture.c:1053
+#: ../src/picture.c:1250
 msgid ""
 "Not enough data has been read to determine how to create the image buffer."
 msgstr ""
 
-#: ../src/picture.c:1055
+#: ../src/picture.c:1252
 msgid "Load Image File"
 msgstr "Naloži slikovno datoteko"
-
-#: ../src/picture.c:1061
-#, c-format
-msgid "Error with 'loader_write': %s"
-msgstr "Napaka ob 'loader_write': %s"
 
 #. Label
 #: ../src/prefs.c:152
@@ -4126,29 +4097,29 @@ msgstr "Ime uporabnika za posredovalni strežnik."
 msgid "User Password:"
 msgstr "Geslo uporabnika:"
 
-#: ../src/prefs.c:1337
-msgid "Password of user for the the proxy server."
-msgstr "Geslo uporabnika posredovalnega strežnika."
+#: ../src/prefs.c:1338
+msgid "Password of user for the proxy server."
+msgstr "Geslo uporabnika za posredniški strežnik. %s"
 
 #. Track Name list (CDDB results)
-#: ../src/prefs.c:1342
+#: ../src/prefs.c:1343
 msgid "Track Name List"
 msgstr "Seznam naslovov posnetkov"
 
-#: ../src/prefs.c:1349
+#: ../src/prefs.c:1350
 msgid ""
 "Select corresponding audio file (according position or DLM if activated "
 "below)"
 msgstr ""
 
-#: ../src/prefs.c:1353
+#: ../src/prefs.c:1354
 msgid ""
 "If activated, when selecting a line in the list of tracks name, the "
 "corresponding audio file in the main list will be also selected."
 msgstr ""
 
 #. Check box to use DLM (also used in the cddb window)
-#: ../src/prefs.c:1358
+#: ../src/prefs.c:1359
 msgid ""
 "Use the Levenshtein algorithm (DLM) to match lines (using title) with audio "
 "files (using filename)"
@@ -4157,15 +4128,15 @@ msgstr ""
 #.
 #. * Confirmation
 #.
-#: ../src/prefs.c:1373
+#: ../src/prefs.c:1374
 msgid "Confirmation"
 msgstr "Potrditev"
 
-#: ../src/prefs.c:1378
+#: ../src/prefs.c:1379
 msgid "Confirm exit from program"
 msgstr "Potrdi izhod iz programa"
 
-#: ../src/prefs.c:1381
+#: ../src/prefs.c:1382
 msgid ""
 "If activated, opens a dialog box to ask confirmation before exiting the "
 "program."
@@ -4173,51 +4144,51 @@ msgstr ""
 "Izbrana možnost omogoči prikaz pogovornega okna, ki zahteva potrditev pred "
 "končanjem programa."
 
-#: ../src/prefs.c:1384
+#: ../src/prefs.c:1385
 msgid "Confirm writing of file tag"
 msgstr "Potrdi pisanje oznak v datoteko"
 
-#: ../src/prefs.c:1388
+#: ../src/prefs.c:1389
 msgid "Confirm renaming of file"
 msgstr "Potrdite preimenovanje datoteke"
 
-#: ../src/prefs.c:1392
+#: ../src/prefs.c:1393
 msgid "Confirm deleting of file"
 msgstr "Potrdite brisanje datoteke"
 
-#: ../src/prefs.c:1396
+#: ../src/prefs.c:1397
 msgid "Confirm writing of playlist"
 msgstr "Potrdite zapisovanje seznama predvajanja"
 
-#: ../src/prefs.c:1400
+#: ../src/prefs.c:1401
 msgid "Confirm changing directory when there are unsaved changes"
 msgstr "Potrdi spremembo mape, ko obstajajo neshranjene spremembe"
 
 #. For translators : be aware to NOT translate '%.*d' in this string
-#: ../src/prefs.c:1438
+#: ../src/prefs.c:1439
 #, c-format
 msgid "(Example: %.*d_-_Track_name_1.mp3)"
 msgstr "(Primer: %.*d_-_Ime_posnetka_1.mp3)"
 
 #. Translators: please do NOT translate '%.*d' in this string.
-#: ../src/prefs.c:1471
+#: ../src/prefs.c:1472
 #, c-format
 msgid "(Example: disc_%.*d_of_10/Track_name_1.mp3)"
 msgstr "(Primer: disk_%.*d_od_10/Ime_posnetka_1.mp3)"
 
-#: ../src/prefs.c:1613 ../src/setting.c:904
+#: ../src/prefs.c:1614 ../src/setting.c:904
 msgid "Configuration saved"
 msgstr "Nastavitve so shranjene"
 
-#: ../src/prefs.c:1621
+#: ../src/prefs.c:1622
 msgid "Configuration unchanged"
 msgstr "Nastavitve niso spremenjene"
 
-#: ../src/prefs.c:1707
+#: ../src/prefs.c:1713
 msgid "The selected path for 'Default path to files' is invalid"
 msgstr "Izbrana pot za 'Privzeta pot do datotek' je neveljavna"
 
-#: ../src/prefs.c:1708
+#: ../src/prefs.c:1715
 #, c-format
 msgid ""
 "Path: '%s'\n"
@@ -4226,110 +4197,110 @@ msgstr ""
 "Pot: '%s'\n"
 "Napaka: %s"
 
-#: ../src/prefs.c:1709
+#: ../src/prefs.c:1717
 msgid "Invalid Path Error"
 msgstr "Napaka neveljavne poti"
 
-#: ../src/prefs.c:1823
+#: ../src/prefs.c:1831
 #, c-format
 msgid "The audio file player '%s' cannot be found"
 msgstr "Predvajalnika zvočnih datotek '%s' ni mogoče najti"
 
-#: ../src/prefs.c:1825
+#: ../src/prefs.c:1833
 msgid "Audio Player Error"
 msgstr "Napaka zvočnega predvajalnika"
 
-#: ../src/scan.c:180
+#: ../src/scan_dialog.c:182
 msgid "Fill Tag"
 msgstr "Zapolni oznako"
 
-#: ../src/scan.c:358
+#: ../src/scan_dialog.c:356
 #, c-format
 msgid "Cannot calculate CRC value of file (%s)"
 msgstr "Vrednosti CDC datoteke ni mogoče izračunati (%s)"
 
-#: ../src/scan.c:373
+#: ../src/scan_dialog.c:371
 msgid "Tag successfully scanned"
 msgstr "Oznaka je uspešno preiskana"
 
-#: ../src/scan.c:375
+#: ../src/scan_dialog.c:373
 #, c-format
 msgid "Tag successfully scanned: %s"
 msgstr "Oznaka je uspešno preiskana: %s"
 
-#: ../src/scan.c:416
+#: ../src/scan_dialog.c:414
 #, c-format
 msgid "Tag scanner: strange… the extension '%s' was not found in filename '%s'"
 msgstr ""
 "Preiskovalnik oznak: nenavadno ... pripone '%s' v imenu datoteke '%s' ni "
 "mogoče najti"
 
-#: ../src/scan.c:498 ../src/scan.c:527
+#: ../src/scan_dialog.c:496 ../src/scan_dialog.c:525
 #, c-format
 msgid "Scan Error: can't find separator '%s' within '%s'"
 msgstr "Napaka preiskovanja: ločila '%s' v '%s' ni mogoče najti"
 
-#: ../src/scan.c:714
+#: ../src/scan_dialog.c:712
 msgid "New filename successfully scanned"
 msgstr "Ime nove datoteke je uspešno preiskano"
 
-#: ../src/scan.c:717
+#: ../src/scan_dialog.c:715
 #, c-format
 msgid "New filename successfully scanned: %s"
 msgstr "Ime nove datoteke je uspešno preiskano: %s"
 
-#: ../src/scan.c:1817
+#: ../src/scan_dialog.c:1628
 #, c-format
 msgid "Error while processing fields: %s"
 msgstr "Napaka med obdelovanjem polj: %s"
 
 #. The window
-#: ../src/scan.c:2336
+#: ../src/scan_dialog.c:1798
 msgid "Tag and Filename Scan"
 msgstr "Preiskovanje oznak in imen datotek"
 
 #. TODO: Set related action to match AM_SCAN_FILES.
-#: ../src/scan.c:2345
+#: ../src/scan_dialog.c:1807
 msgid "Scan Files"
 msgstr "Preišči datoteke"
 
 #. Option Menu
-#: ../src/scan.c:2373
+#: ../src/scan_dialog.c:1835
 msgid "Scanner:"
 msgstr "Optični bralnik:"
 
-#: ../src/scan.c:2394
+#: ../src/scan_dialog.c:1856
 msgid "Select the type of scanner to use"
 msgstr "Izberite vrsto preiskovalnika za uporabo"
 
-#: ../src/scan.c:2403
+#: ../src/scan_dialog.c:1865
 msgid "Scanner Preferences"
 msgstr "Možnosti optičnega bralnika"
 
-#: ../src/scan.c:2412
+#: ../src/scan_dialog.c:1874
 msgid "Show / Hide Masks Editor"
 msgstr "Pokaži ali skrij urejevalnik mask"
 
-#: ../src/scan.c:2422
+#: ../src/scan_dialog.c:1884
 msgid "Show / Hide Legend"
 msgstr "Pokaži ali skrij legendo"
 
-#: ../src/scan.c:2452
+#: ../src/scan_dialog.c:1914
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse filename and "
 "path. Used to fill in tag fields"
 msgstr ""
 
 #. Preview label
-#: ../src/scan.c:2476
+#: ../src/scan_dialog.c:1938
 msgid "Fill tag preview"
 msgstr "Predogled zapolnjenja oznak"
 
-#: ../src/scan.c:2506
+#: ../src/scan_dialog.c:1968
 msgid "Prefix mask with current path"
 msgstr "Maska predpone s trenutno potjo"
 
-#: ../src/scan.c:2520
+#: ../src/scan_dialog.c:1982
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse tag fields. Used "
 "to rename the file.\n"
@@ -4338,15 +4309,15 @@ msgid ""
 msgstr ""
 
 #. Preview label
-#: ../src/scan.c:2545
+#: ../src/scan_dialog.c:2007
 msgid "Rename file preview"
 msgstr "Preimenuj predogled datoteke"
 
-#: ../src/scan.c:2564
+#: ../src/scan_dialog.c:2026
 msgid "Select fields:"
 msgstr "Izbor polj:"
 
-#: ../src/scan.c:2567
+#: ../src/scan_dialog.c:2029
 msgid ""
 "The buttons on the right represent the fields which can be processed. Select "
 "those which interest you"
@@ -4355,134 +4326,134 @@ msgstr ""
 "tista, ki so za vas zanimiva."
 
 #. Advice for Translators: set the first letter of filename translated
-#: ../src/scan.c:2571
+#: ../src/scan_dialog.c:2033
 msgid "F"
 msgstr "D"
 
-#: ../src/scan.c:2573
+#: ../src/scan_dialog.c:2035
 msgid "Process filename field"
 msgstr "Obdelaj polje imena datoteke"
 
 #. Advice for Translators: set the first letter of title translated
-#: ../src/scan.c:2575
+#: ../src/scan_dialog.c:2037
 msgid "T"
 msgstr "N"
 
-#: ../src/scan.c:2576
+#: ../src/scan_dialog.c:2038
 msgid "Process title field"
 msgstr "Obdelaj polje naslova"
 
 #. Advice for Translators: set the first letter of artist translated
-#: ../src/scan.c:2578
+#: ../src/scan_dialog.c:2040
 msgid "Ar"
 msgstr "I"
 
-#: ../src/scan.c:2579
+#: ../src/scan_dialog.c:2041
 msgid "Process file artist field"
 msgstr "Obdelaj polje izvajalca"
 
 #. Advice for Translators: set the first letter of album artist translated
-#: ../src/scan.c:2581
+#: ../src/scan_dialog.c:2043
 msgid "AA"
 msgstr "Ia"
 
-#: ../src/scan.c:2582
+#: ../src/scan_dialog.c:2044
 msgid "Process album artist field"
 msgstr "Obdelaj polje izvajalca albuma"
 
 #. Advice for Translators: set the first letter of album translated
-#: ../src/scan.c:2584
+#: ../src/scan_dialog.c:2046
 msgid "Al"
 msgstr "Al"
 
-#: ../src/scan.c:2585
+#: ../src/scan_dialog.c:2047
 msgid "Process album field"
 msgstr "Obdelaj polje albuma"
 
 #. Advice for Translators: set the first letter of genre translated
-#: ../src/scan.c:2587
+#: ../src/scan_dialog.c:2049
 msgid "G"
 msgstr "Z"
 
-#: ../src/scan.c:2588
+#: ../src/scan_dialog.c:2050
 msgid "Process genre field"
 msgstr "Obdelaj polje zvrsti"
 
 #. Advice for Translators: set the first letter of comment translated
-#: ../src/scan.c:2590
+#: ../src/scan_dialog.c:2052
 msgid "Cm"
 msgstr "K"
 
-#: ../src/scan.c:2591
+#: ../src/scan_dialog.c:2053
 msgid "Process comment field"
 msgstr "Obdelaj polje komentarja"
 
 #. Advice for Translators: set the first letter of composer translated
-#: ../src/scan.c:2593
+#: ../src/scan_dialog.c:2055
 msgid "Cp"
 msgstr "Sk"
 
-#: ../src/scan.c:2594
+#: ../src/scan_dialog.c:2056
 msgid "Process composer field"
 msgstr "Obdelaj polje skladatelja"
 
 #. Advice for Translators: set the first letter of orig artist translated
-#: ../src/scan.c:2596
+#: ../src/scan_dialog.c:2058
 msgid "O"
 msgstr "O"
 
-#: ../src/scan.c:2597
+#: ../src/scan_dialog.c:2059
 msgid "Process original artist field"
 msgstr "Obdelaj polje izvirnega izvajalca"
 
 #. Advice for Translators: set the first letter of copyright translated
-#: ../src/scan.c:2599
+#: ../src/scan_dialog.c:2061
 msgid "Cr"
 msgstr "Ap"
 
-#: ../src/scan.c:2600
+#: ../src/scan_dialog.c:2062
 msgid "Process copyright field"
 msgstr "Obdelaj polje avtorske pravice"
 
 #. Advice for Translators: set the first letter of URL translated
-#: ../src/scan.c:2602
+#: ../src/scan_dialog.c:2064
 msgid "U"
 msgstr "U"
 
-#: ../src/scan.c:2603
+#: ../src/scan_dialog.c:2065
 msgid "Process URL field"
 msgstr "Obdelaj polje URL"
 
 #. Advice for Translators: set the first letter of encoder name translated
-#: ../src/scan.c:2605
+#: ../src/scan_dialog.c:2067
 msgid "E"
 msgstr "E"
 
-#: ../src/scan.c:2606
+#: ../src/scan_dialog.c:2068
 msgid "Process encoder name field"
 msgstr "Obdelaj polje imena kodirnika"
 
-#: ../src/scan.c:2650
+#: ../src/scan_dialog.c:2112
 msgid "Invert selection"
 msgstr "Preobrni izbor"
 
-#: ../src/scan.c:2657
+#: ../src/scan_dialog.c:2119
 msgid "Select/Unselect all"
 msgstr "Izberi ali prekliči izbor vseh"
 
-#: ../src/scan.c:2672
+#: ../src/scan_dialog.c:2134
 msgid "Convert:"
 msgstr "Pretvori:"
 
-#: ../src/scan.c:2674
+#: ../src/scan_dialog.c:2136
 msgid "to: "
 msgstr "v:"
 
-#: ../src/scan.c:2681
+#: ../src/scan_dialog.c:2143
 msgid "Do not convert"
 msgstr "Ne pretvori"
 
-#: ../src/scan.c:2700
+#: ../src/scan_dialog.c:2162
 msgid ""
 "The underscore character or the string '%20' are replaced by one space. "
 "Example, before: 'Text%20In%20An_Entry', after: 'Text In An Entry'."
@@ -4490,7 +4461,7 @@ msgstr ""
 "Podčrtaj ali niz '%20' zamenja en presledek. Primer: prej 'Besedilo"
 "%20Vnosa', poslej 'Besedilo Vnosa'."
 
-#: ../src/scan.c:2703
+#: ../src/scan_dialog.c:2165
 msgid ""
 "The space character is replaced by one underscore character. Example, "
 "before: 'Text In An Entry', after: 'Text_In_An_Entry'."
@@ -4498,38 +4469,38 @@ msgstr ""
 "Znak za presledek nadomesti z znakom za podčrtaj. Primer: prej 'Besedilo "
 "Vnosa', poslej 'Besedilo_Vnosa'."
 
-#: ../src/scan.c:2706
+#: ../src/scan_dialog.c:2168
 msgid ""
 "Replace a string by another one. Note that the search is case sensitive."
 msgstr ""
 "Zamenjaj niz z drugim. Iskanje upošteva razlikovanje med velikimi in malimi "
 "črkami."
 
-#: ../src/scan.c:2713
+#: ../src/scan_dialog.c:2175
 msgid "Capitalize all"
 msgstr "Velike začetnice povsod"
 
-#: ../src/scan.c:2715
+#: ../src/scan_dialog.c:2177
 msgid "Lowercase all"
 msgstr "Povsod male črke"
 
-#: ../src/scan.c:2717
+#: ../src/scan_dialog.c:2179
 msgid "Capitalize first letter"
 msgstr "Vsaka beseda naj ima veliko začetnico"
 
-#: ../src/scan.c:2719
+#: ../src/scan_dialog.c:2181
 msgid "Capitalize the first letter of each word"
 msgstr "Naj bo prva črka vsake besede velika"
 
-#: ../src/scan.c:2720
+#: ../src/scan_dialog.c:2182
 msgid "Detect Roman numerals"
 msgstr "Zaznaj rimske številke"
 
-#: ../src/scan.c:2722
+#: ../src/scan_dialog.c:2184
 msgid "Do not change capitalization"
 msgstr "Ne spreminjaj začetnic"
 
-#: ../src/scan.c:2744
+#: ../src/scan_dialog.c:2206
 msgid ""
 "Convert all words in all fields to upper case. Example, before: 'Text IN AN "
 "entry', after: 'TEXT IN AN ENTRY'."
@@ -4537,7 +4508,7 @@ msgstr ""
 "Pretvori vse besede v vseh poljih v velike črke. Primer: prej 'BESEDILO "
 "vnosa', poslej 'BESEDILO VNOSA'."
 
-#: ../src/scan.c:2747
+#: ../src/scan_dialog.c:2209
 msgid ""
 "Convert all words in all fields to lower case. Example, before: 'TEXT IN an "
 "entry', after: 'text in an entry'."
@@ -4545,7 +4516,7 @@ msgstr ""
 "Pretvori vse besede v vseh poljih v male črke. Primer: prej 'BESEDILO "
 "vnosa', poslej 'besedilo vnosa'."
 
-#: ../src/scan.c:2750
+#: ../src/scan_dialog.c:2212
 msgid ""
 "Convert the initial of the first word in all fields to upper case. Example, "
 "before: 'text IN An ENTRY', after: 'Text in an entry'."
@@ -4553,7 +4524,7 @@ msgstr ""
 "Pretvori začetnico prve besede v vseh poljih v veliko začetnico. Primer: "
 "prej 'Besedilo VNOSA', poslej 'Besedilo vnosa'."
 
-#: ../src/scan.c:2753
+#: ../src/scan_dialog.c:2215
 msgid ""
 "Convert the initial of each word in all fields to upper case. Example, "
 "before: 'Text in an ENTRY', after: 'Text In An Entry'."
@@ -4561,7 +4532,7 @@ msgstr ""
 "Pretvori začetnico vsake besede v vseh poljih v veliko začetnico. Primer: "
 "prej 'Besedilo VNOSA', poslej 'Besedilo Vnosa'."
 
-#: ../src/scan.c:2756
+#: ../src/scan_dialog.c:2218
 msgid ""
 "Force to convert to upper case the Roman numerals. Example, before: 'ix. "
 "text in an entry', after: 'IX. Text In An Entry'."
@@ -4569,19 +4540,19 @@ msgstr ""
 "Vsili pretvorbo v rimske številke in zapis z velikimi črkami. Na primer: "
 "vrednost 'ix. besedilo vnosa' se pretvori v : 'IX. Besedilo Vnosa'."
 
-#: ../src/scan.c:2764
+#: ../src/scan_dialog.c:2226
 msgid "Insert a space before uppercase letters"
 msgstr "Vstavi presledek pred veliko črko"
 
-#: ../src/scan.c:2766
+#: ../src/scan_dialog.c:2228
 msgid "Remove duplicate spaces and underscores"
 msgstr "Odstrani podvojene presledke in podčrtaje"
 
-#: ../src/scan.c:2768
+#: ../src/scan_dialog.c:2230
 msgid "Do not change word separators"
 msgstr "Ne spremeni ločila besed"
 
-#: ../src/scan.c:2782
+#: ../src/scan_dialog.c:2244
 msgid ""
 "All spaces between words are removed. Example, before: 'Text In An Entry', "
 "after: 'TextInAnEntry'."
@@ -4589,7 +4560,7 @@ msgstr ""
 "Vsi presledki med besedami so odstranjeni. Primer: prej 'Besedilo v vnosu', "
 "potem 'Besedilovvnosu'."
 
-#: ../src/scan.c:2785
+#: ../src/scan_dialog.c:2247
 msgid ""
 "A space is inserted before each upper case letter. Example, before: "
 "'TextInAnEntry', after: 'Text In An Entry'."
@@ -4597,7 +4568,7 @@ msgstr ""
 "Pred vsako veliko črko se vstavi presledek. Primer: prej 'BesediloVnosa', "
 "nato 'Besedilo Vnosa'."
 
-#: ../src/scan.c:2788
+#: ../src/scan_dialog.c:2250
 msgid ""
 "Duplicate spaces and underscores are removed. Example, before: "
 "'Text__In__An   Entry', after: 'Text_In_An Entry'."
@@ -4608,141 +4579,141 @@ msgstr ""
 #.
 #. * Frame to display codes legend
 #.
-#: ../src/scan.c:2795
+#: ../src/scan_dialog.c:2257
 msgid "Legend"
 msgstr "Legenda"
 
-#: ../src/scan.c:2801
+#: ../src/scan_dialog.c:2263
 #, c-format
 msgid "%a: artist"
 msgstr "%a: izvajalec"
 
-#: ../src/scan.c:2804
+#: ../src/scan_dialog.c:2266
 msgid "%z: album artist"
 msgstr "%z: izvajalec albuma"
 
-#: ../src/scan.c:2807
+#: ../src/scan_dialog.c:2269
 msgid "%b: album"
 msgstr "%b: album"
 
-#: ../src/scan.c:2810
+#: ../src/scan_dialog.c:2272
 #, c-format
 msgid "%c: comment"
 msgstr "%c: komentar"
 
-#: ../src/scan.c:2813
+#: ../src/scan_dialog.c:2275
 #, c-format
 msgid "%p: composer"
 msgstr "%p: skladatelj"
 
-#: ../src/scan.c:2816
+#: ../src/scan_dialog.c:2278
 msgid "%r: copyright"
 msgstr "%r: avtorske pravice"
 
-#: ../src/scan.c:2819
+#: ../src/scan_dialog.c:2281
 #, c-format
 msgid "%d: disc number"
 msgstr "%d: številka diska"
 
-#: ../src/scan.c:2822
+#: ../src/scan_dialog.c:2284
 #, c-format
 msgid "%e: encoded by"
 msgstr "%e: kodirali"
 
-#: ../src/scan.c:2825
+#: ../src/scan_dialog.c:2287
 #, c-format
 msgid "%g: genre"
 msgstr "%g: zvrst"
 
-#: ../src/scan.c:2828
+#: ../src/scan_dialog.c:2290
 #, c-format
 msgid "%i: ignored"
 msgstr "%i: prezrto"
 
-#: ../src/scan.c:2831
+#: ../src/scan_dialog.c:2293
 msgid "%l: number of tracks"
 msgstr "%l: število posnetkov"
 
-#: ../src/scan.c:2834
+#: ../src/scan_dialog.c:2296
 #, c-format
 msgid "%o: orig. artist"
 msgstr "%o: izvirni izvajalec"
 
-#: ../src/scan.c:2837
+#: ../src/scan_dialog.c:2299
 #, c-format
 msgid "%n: track"
 msgstr "%n: posnetek"
 
-#: ../src/scan.c:2840
+#: ../src/scan_dialog.c:2302
 msgid "%t: title"
 msgstr "%t: naslov"
 
-#: ../src/scan.c:2843
+#: ../src/scan_dialog.c:2305
 #, c-format
 msgid "%u: URL"
 msgstr "%u: naslov URL"
 
-#: ../src/scan.c:2846
+#: ../src/scan_dialog.c:2308
 #, c-format
 msgid "%x: number of discs"
 msgstr "%x: število diskov"
 
-#: ../src/scan.c:2849
+#: ../src/scan_dialog.c:2311
 msgid "%y: year"
 msgstr "%y: leto"
 
 #.
 #. * Masks Editor
 #.
-#: ../src/scan.c:2856
+#: ../src/scan_dialog.c:2318
 msgid "Mask Editor"
 msgstr "Urejevalnik mask"
 
-#: ../src/scan.c:2910
+#: ../src/scan_dialog.c:2372
 msgid "Create New Mask"
 msgstr "Ustvari novo masko"
 
-#: ../src/scan.c:2920
+#: ../src/scan_dialog.c:2382
 msgid "Move Up this Mask"
 msgstr "Premakni masko navzgor"
 
-#: ../src/scan.c:2930
+#: ../src/scan_dialog.c:2392
 msgid "Move Down this Mask"
 msgstr "Premakni masko navzdol"
 
-#: ../src/scan.c:2940
+#: ../src/scan_dialog.c:2402
 msgid "Duplicate Mask"
 msgstr "Podvoji masko"
 
-#: ../src/scan.c:2950
+#: ../src/scan_dialog.c:2412
 msgid "Add Default Masks"
 msgstr "Dodaj privzete maske"
 
-#: ../src/scan.c:2960
+#: ../src/scan_dialog.c:2422
 msgid "Remove Mask"
 msgstr "Odstrani masko"
 
-#: ../src/scan.c:2970
+#: ../src/scan_dialog.c:2432
 msgid "Save Masks"
 msgstr "Shrani maske"
 
-#: ../src/scan.c:3550
+#: ../src/scan_dialog.c:3012
 msgid "New_mask"
 msgstr "Nova _maska"
 
-#: ../src/scan.c:3589
+#: ../src/scan_dialog.c:3051
 msgid "Copy: No row selected"
 msgstr "Kopiraj: izbrana ni nobena vrstica"
 
-#: ../src/scan.c:3682
+#: ../src/scan_dialog.c:3144
 msgid "Remove: No row selected"
 msgstr "Odstrani: izbrana ni nobena vrstica"
 
-#: ../src/scan.c:3729
+#: ../src/scan_dialog.c:3191
 msgid "Move Up: No row selected"
 msgstr "Premakni navzgor: izbrana ni nobena vrstica"
 
-#: ../src/scan.c:3773
+#: ../src/scan_dialog.c:3235
 msgid "Move Down: No row selected"
 msgstr "Premakni navzdol: izbrana ni nobena vrstica"
 
@@ -4756,117 +4727,131 @@ msgstr "Ni mogoče zapisati nastavitvene datoteke: %s (%s)"
 msgid "Error while writing configuration file: %s"
 msgstr "Napaka med pisanjem v nastavitveno datoteko: %s."
 
-#: ../src/setting.c:1104
+#: ../src/setting.c:1100
 #, c-format
 msgid "Cannot open configuration file '%s' (%s)"
 msgstr "Ni mogoče odpreti nastavitvene datoteke '%s' (%s)"
 
-#: ../src/setting.c:1106
+#: ../src/setting.c:1102
 msgid "Loading default configuration"
 msgstr "Nalaganje privzetih nastavitev"
 
-#: ../src/setting.c:1147
+#: ../src/setting.c:1143
 #, c-format
 msgid "Cannot create or open file '%s' (%s)"
 msgstr "Ustvarjanje ali odpiranje '%s' je spodletelo (%s)"
 
-#: ../src/setting.c:1207
+#: ../src/setting.c:1203
 #, c-format
 msgid "Error: Cannot write list to file: %s (%s)"
 msgstr "Napaka: seznama ni mogoče zapisati v datoteko: %s (%s)"
 
-#: ../src/setting.c:1225
+#: ../src/setting.c:1221
 #, c-format
 msgid "Error while writing list file: %s"
 msgstr "Napaka med pisanjem v seznamsko datoteko: %s"
 
 #. Fall back to defaults
-#: ../src/setting.c:1305
+#: ../src/setting.c:1301
 msgid "Loading default 'Fill Tag' masks…"
 msgstr "Nalaganje privzetih mask za 'Zapolnjevanje oznak' …"
 
 #. Fall back to defaults
-#: ../src/setting.c:1335
+#: ../src/setting.c:1331
 msgid "Loading default 'Rename File' masks…"
 msgstr "Nalaganje privzetih mask 'Preimenuj datoteko' …"
 
 #. Fall back to defaults
-#: ../src/setting.c:1361
+#: ../src/setting.c:1357
 msgid "Loading default 'Rename Directory' masks…"
 msgstr "Nalaganje privzetih mask 'Preimenuj mapo' …"
 
-#: ../src/setting.c:1572
+#: ../src/setting.c:1568
 #, c-format
 msgid "Migrating configuration from directory '%s' to '%s'"
 msgstr "Premikanje nastavitve iz mape '%s' v '%s'"
 
-#: ../src/setting.c:1596
+#: ../src/setting.c:1592
 #, c-format
 msgid "Failed to migrate configuration file '%s'"
 msgstr "Preselitev nastavitvene datoteke '%s' je spodletela"
 
-#: ../src/setting.c:1633
+#: ../src/setting.c:1629
 #, c-format
 msgid "Error: Cannot create directory '%s' (%s)"
 msgstr "Napaka: mape '%s' ni mogoče ustvariti (%s)"
 
-#. Log_Print(_("DLL '%s' not already loaded. Try loading it..."), dllname);
-#: ../src/win32/win32dep.c:126
-#, c-format
-msgid "DLL '%s' not already loaded. Try loading it..."
-msgstr "DLL '%s' še vedno ni naložen. Poskusite ga naložiti ..."
+#~ msgid "The program '%s' cannot be found"
+#~ msgstr "Programa '%s' ni mogoče najti."
 
-#. Log_Print(_("DLL '%s' could not be loaded"), dllname);
-#: ../src/win32/win32dep.c:130
-#, c-format
-msgid "DLL '%s' could not be loaded"
-msgstr "Knjižnice DLL '%s' ni mogoče naložiti."
+#~ msgid "Cannot execute ‘%s’ (%s)"
+#~ msgstr "Ni mogoče izvesti programa ‘%s’ (%s)"
 
-#. Log_Print(_("This version of '%s' contains '%s'"), dllname, procedure);
-#: ../src/win32/win32dep.c:140
-#, c-format
-msgid "This version of '%s' contains '%s'"
-msgstr "Ta različica '%s' vsebuje '%s'"
+#~ msgid "Cannot fork another process\n"
+#~ msgstr "Ni mogoče razvejiti v drugo opravilo\n"
 
-#. Log_Print(_("Function '%s' not found in dll '%s'"), procedure, dllname);
-#: ../src/win32/win32dep.c:146
-#, c-format
-msgid "Function '%s' not found in DLL '%s'"
-msgstr "Funkcije '%s' ni mogoče najti v knjižnici DLL '%s'"
+#~ msgid "EasyTAG version %s: Abnormal exit (PID: %d)"
+#~ msgstr "Program EasyTAG različice %s: nenormalen konec (PID: %d)"
 
-#. ET_Win32_Path_Replace_Backslashes(app_data_dir);
-#. Log_Print(_("EasyTAG settings directory: '%s'"), app_data_dir);
-#: ../src/win32/win32dep.c:282
-#, c-format
-msgid "EasyTAG settings directory: '%s'"
-msgstr "Mapa nastavitev EasyTAG: '%s'"
+#~ msgid "Received signal '%s' (%d)"
+#~ msgstr "Prejet signal '%s' (%d)"
 
-#. Log_Print(_("weasytag_init start..."));
-#: ../src/win32/win32dep.c:472
-#, c-format
-msgid "weasytag_init start..."
-msgstr "Začenjanje weasytag_init ..."
+#~ msgid "EasyTAG version %s: Abnormal exit (PID: %d)."
+#~ msgstr "EasyTAG različice %s: neobičajni izhod (PID: %d)."
 
-#. Log_Print(_("EasyTAG version: %s"),VERSION);
-#. g_print(_("EasyTAG version: %s"),VERSION);
-#. g_print("\n");
-#: ../src/win32/win32dep.c:478
-#, c-format
-msgid "GLib version: %u.%u.%u\n"
-msgstr "Različica Glib: %u.%u.%u\n"
+#~ msgid "Cannot change the permissions of file '%s' (%s)"
+#~ msgstr "Spreminjanje dovoljenj datoteke '%s' je spodletelo (%s)"
 
-#. Set Environmental Variables
-#. Log_Print(_("weasytag_init end..."));
-#: ../src/win32/win32dep.c:496
-#, c-format
-msgid "weasytag_init end..."
-msgstr "Zaključevanje weasytag_init ..."
+#~ msgid "No audio player defined"
+#~ msgstr "Zvočni predvajalnik ni določen"
 
-#. Log_Print(_("Audio player: '%s'"), player);
-#: ../src/win32/win32dep.c:620
-#, c-format
-msgid "Audio player: '%s'"
-msgstr "Predvajalnik zvoka: '%s'"
+#~ msgid "Audio Player Warning"
+#~ msgstr "Opozorilo zvočnega predvajalnika"
+
+#~ msgid "Cannot fork another process"
+#~ msgstr "Drugega procesa ni mogoče razvejiti"
+
+#~ msgid "B"
+#~ msgstr "B"
+
+#~ msgid "kB"
+#~ msgstr "kB"
+
+#~ msgid "MB"
+#~ msgstr "MB"
+
+#~ msgid "GB"
+#~ msgstr "GB"
+
+#~ msgid "TB"
+#~ msgstr "TB"
+
+#~ msgid "DLL '%s' not already loaded. Try loading it..."
+#~ msgstr "DLL '%s' še vedno ni naložen. Poskusite ga naložiti ..."
+
+#~ msgid "DLL '%s' could not be loaded"
+#~ msgstr "Knjižnice DLL '%s' ni mogoče naložiti."
+
+#~ msgid "This version of '%s' contains '%s'"
+#~ msgstr "Ta različica '%s' vsebuje '%s'"
+
+#~ msgid "Function '%s' not found in DLL '%s'"
+#~ msgstr "Funkcije '%s' ni mogoče najti v knjižnici DLL '%s'"
+
+#~ msgid "EasyTAG settings directory: '%s'"
+#~ msgstr "Mapa nastavitev EasyTAG: '%s'"
+
+#~ msgid "weasytag_init start..."
+#~ msgstr "Začenjanje weasytag_init ..."
+
+#~ msgid "GLib version: %u.%u.%u\n"
+#~ msgstr "Različica Glib: %u.%u.%u\n"
+
+#~ msgid "weasytag_init end..."
+#~ msgstr "Zaključevanje weasytag_init ..."
+
+#~ msgid "Audio player: '%s'"
+#~ msgstr "Predvajalnik zvoka: '%s'"
 
 #~ msgid "Cannot execute %s (error %d)\n"
 #~ msgstr "Ni mogoče izvesti %s (napaka %d)\n"
