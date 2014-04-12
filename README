@@ -46,7 +46,7 @@ Currently EasyTAG supports the following:
 * Brazilian Portuguese, Bulgarian, Chinese, Czech, Danish, Dutch, French,
   German, Greek, Hungarian, Italian, Japanese, Polish, Romanian, Russian,
   Spanish, Swedish and Ukrainian translation languages
-* written in C and uses GTK+ 2 or GTK+ 3 for the GUI
+* written in C and uses GTK+ 3 for the GUI
 
 
 Installation
@@ -55,7 +55,7 @@ Installation
 ### Requirements
 
 * GLib version greater than 2.30.0 (http://www.gtk.org)
-* GTK+ version greater than 2.24.0 (http://www.gtk.org)
+* GTK+ version greater than 3.2.1 (http://www.gtk.org)
 * id3lib version greater than 3.7.12 (http://id3lib.sourceforge.net) (Recommended: id3lib-3.8.3)
 * flac (http://flac.sourceforge.net) (if not deactivated by './configure --disable-flac')
 * libogg and libvorbis (http://www.vorbis.com) (if not deactivated by './configure --disable-ogg')
