@@ -437,6 +437,8 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
 
     toolbar = gtk_ui_manager_get_widget (UIManager, "/ToolBar");
     gtk_widget_show_all(toolbar);
+    gtk_style_context_add_class (gtk_widget_get_style_context (toolbar),
+                                 GTK_STYLE_CLASS_PRIMARY_TOOLBAR);
 
     *pptoolbar = toolbar;
     *ppmenubar = menubar;
