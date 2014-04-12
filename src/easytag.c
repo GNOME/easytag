@@ -704,7 +704,6 @@ Create_Tag_Area (void)
     GtkWidget *Icon;
     GtkWidget *PictureScrollWindow;
     GtkWidget *toolbar;
-    GtkToolItem *toolitem;
     GIcon *icon;
     GtkWidget *image;
     GtkWidget *VBox;
@@ -1203,6 +1202,8 @@ Create_Tag_Area (void)
 
     /* Picture action toolbar. */
     toolbar = gtk_toolbar_new ();
+    gtk_style_context_add_class (gtk_widget_get_style_context (toolbar),
+                                 GTK_STYLE_CLASS_INLINE_TOOLBAR);
     gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
     gtk_toolbar_set_icon_size (GTK_TOOLBAR (toolbar), GTK_ICON_SIZE_MENU);
     et_grid_attach_full (GTK_GRID (Table), toolbar, 0, 1, 1, 1, FALSE, FALSE,
@@ -1238,9 +1239,6 @@ Create_Tag_Area (void)
     g_signal_connect (G_OBJECT (remove_image_toolitem), "clicked",
                       G_CALLBACK (Picture_Clear_Button_Clicked), NULL);
 
-    toolitem = gtk_separator_tool_item_new ();
-    gtk_toolbar_insert (GTK_TOOLBAR (toolbar), toolitem, -1);
-
     icon = g_themed_icon_new_with_default_fallbacks ("document-save");
     image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_MENU);
     save_image_toolitem = gtk_tool_button_new (image, NULL);
@@ -1262,9 +1260,6 @@ Create_Tag_Area (void)
     gtk_widget_set_sensitive (GTK_WIDGET (image_properties_toolitem), FALSE);
     g_signal_connect (G_OBJECT (image_properties_toolitem), "clicked",
                       G_CALLBACK (Picture_Properties_Button_Clicked), NULL);
-
-    toolitem = gtk_separator_tool_item_new ();
-    gtk_toolbar_insert (GTK_TOOLBAR (toolbar), toolitem, -1);
 
     icon = g_themed_icon_new_with_default_fallbacks ("insert-image");
     image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_MENU);
