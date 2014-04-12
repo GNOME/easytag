@@ -344,9 +344,9 @@ CFLAGS="$realsave_CFLAGS"
 AC_SUBST([WARN_CFLAGS], ["$tested_warning_flags"])
 AC_LANG_PUSH([C++])
 
-realsave_CFLAGS="$CXXFLAGS"
+realsave_CXXFLAGS="$CXXFLAGS"
 for option in $warning_flags; do
-    save_CFLAGS="$CXXFLAGS"
+    save_CXXFLAGS="$CXXFLAGS"
     CXXFLAGS="$CXXFLAGS -Werror $option"
 	AC_MSG_CHECKING([whether the c++ compiler understands $option])
 	AC_COMPILE_IFELSE([AC_LANG_PROGRAM], [has_option=yes], [has_option=no])
@@ -355,7 +355,7 @@ for option in $warning_flags; do
 	AS_IF([test $has_option = yes],
 	      [tested_cxx_warning_flags="$tested_cxx_warning_flags $option"])
 	unset has_option
-	unset save_CFLAGS
+	unset save_CXXFLAGS
 done
 unset option
 CXXFLAGS="$realsave_CXXFLAGS"
