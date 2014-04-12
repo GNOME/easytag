@@ -142,28 +142,8 @@ dnl Checks for libraries.
 dnl -------------------------------
 
 dnl GTK+ libraries
-GTK2_DEPS="gtk+-2.0 >= 2.24.7"
-GTK3_DEPS="gtk+-3.0 >= 3.2.1"
-PKG_CHECK_EXISTS([$GTK2_DEPS], [have_gtk2=yes], [have_gtk2=no])
-PKG_CHECK_EXISTS([$GTK3_DEPS], [have_gtk3=yes], [have_gtk3=no])
-
-AC_ARG_WITH([gtk2],
-            [AS_HELP_STRING([--with-gtk2], [Enable deprecated GTK+ 2 support (and disable GTK+ 3 support)])])
-
-AC_MSG_CHECKING([whether to use GTK+ 2])
-AS_IF([test "x$have_gtk2" = "xyes" -a "x$have_gtk3" = "xno" -a "x$with_gtk2" != "xyes"],
-      [AC_MSG_WARN([forcing GTK+ 2 support, as GTK+ 3 was not found])
-       with_gtk2=yes])
-AS_IF([test "x$with_gtk2" = "xyes"],
-      [AC_MSG_RESULT([yes])
-       AC_MSG_WARN([GTK+ 2 support is currently deprecated!])
-       GTK_DEPS="$GTK2_DEPS"
-       GTK_DEPRECATION_FLAGS="-DGSEAL_ENABLE -DGDK_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED"],
-      [AC_MSG_RESULT([no])
-       GTK_DEPS="$GTK3_DEPS"
-       GTK_DEPRECATION_FLAGS="-DGDK_VERSION_MIN_REQUIRED=GDK_VERSION_3_4 -DGDK_VERSION_MAX_ALLOWED=GDK_VERSION_3_4"])
-PKG_CHECK_MODULES([GTK], [$GTK_DEPS])
-
+GTK_DEPS="gtk+-3.0 >= 3.2.1"
+GTK_DEPRECATION_FLAGS="-DGDK_VERSION_MIN_REQUIRED=GDK_VERSION_3_4 -DGDK_VERSION_MAX_ALLOWED=GDK_VERSION_3_4"
 
 dnl Patch from Ben Taylor to fix a Solaris bug (for CDDB)
 AC_CHECK_LIB([socket], [recv])
@@ -405,7 +385,6 @@ echo Compiler ................: $CC $CFLAGS
 echo Compiler warnings .......: $WARN_CFLAGS
 echo C++ Compiler warnings ...: $WARN_CXXFLAGS
 echo Linker ..................: $CC $LDFLAGS $LIBS
-echo GTK version .............: `$PKG_CONFIG --modversion $GTK_DEPS`
 echo MP3 file support ........: $have_mp3
 echo ID3v2.3 tags support ....: $have_id3lib $ID3LIB_VERSION
 echo Ogg Vorbis file support .: $have_ogg
