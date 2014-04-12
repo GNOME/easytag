@@ -83,24 +83,7 @@ void Show_About_Window (void)
                                      "Copyright © 2009–2012 Kip Warner\n"
                                      "Copyright © 2000–2008 Jérôme Couderc";
 
-    const gchar *license;
     const gchar *translators;
-
-    license =  _("This program is free software; you can redistribute it "
-                 "and/or modify it under the terms of the GNU General Public "
-                 "License as published by the Free Software Foundation; "
-                 "either version 2 of the License, or (at your option) any "
-                 "later version.\n"
-                 "\n"
-                 "This program is distributed in the hope that it will be "
-                 "useful, but WITHOUT ANY WARRANTY; without even the implied "
-                 "warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR "
-                 "PURPOSE.  See the GNU General Public License for more "
-                 "details.\n"
-                 "\n"
-                 "You should have received a copy of the GNU General Public "
-                 "License along with this program. If not, see "
-                 "<http://www.gnu.org/licenses/>.");
 
     /* Translators: put your own name here to appear in the about dialog. */
     translators = _("translator-credits");
@@ -116,12 +99,11 @@ void Show_About_Window (void)
                            "comments", _("View and edit tags in audio files"),
                            "copyright", copyright,
                            "documenters", documenters,
-                           "license", license,
+                           "license-type", GTK_LICENSE_GPL_2_0,
                            "logo-icon-name", PACKAGE_TARNAME,
                            "program-name", PACKAGE_NAME,
                            "translator-credits", translators,
                            "version", PACKAGE_VERSION,
                            "website", PACKAGE_URL,
-                           "wrap-license", TRUE,
                            NULL);
 }
