@@ -893,19 +893,13 @@ gboolean Id3tag_Write_File_v24Tag (ET_File *ETFile)
     /***************
      * Part of set *
      ***************/
-    if (FileTag->disc_number && FileTag->disc_total && *FileTag->disc_total)
+    if (FileTag->disc_number)
     {
-        string1 = g_strconcat (FileTag->disc_number, "/", FileTag->disc_total,
-                               NULL);
+        string1 = et_id3tag_get_tpos_from_file_tag (FileTag);
+        etag_set_tags (string1, "TPOS", ID3_FIELD_TYPE_STRINGLIST, NULL, v2tag,
+                       &strip_tags);
+        g_free (string1);
     }
-    else
-    {
-        string1 = g_strdup (FileTag->disc_number);
-    }
-
-    etag_set_tags (string1, "TPOS", ID3_FIELD_TYPE_STRINGLIST, NULL, v2tag,
-                   &strip_tags);
-    g_free (string1);
 
     /********
      * Year *
