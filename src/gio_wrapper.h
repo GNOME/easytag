@@ -20,6 +20,10 @@
 #ifndef ET_GIO_WRAPPER_H_
 #define ET_GIO_WRAPPER_H_
 
+#include "config.h"
+
+#ifdef ENABLE_MP4
+
 #include <tiostream.h>
 #include <gio/gio.h>
 
@@ -78,5 +82,7 @@ private:
     char *filename;
     GError *error;
 };
+
+#endif /* ENABLE_MP4 */
 
 #endif /* ET_GIO_WRAPPER_H_ */
