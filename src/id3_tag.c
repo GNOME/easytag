@@ -84,6 +84,53 @@ static gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void);
  * Functions *
  *************/
 
+/**
+ * et_id3tag_get_tpos_from_file_tag:
+ * @FileTag: File_Tag to get disc_number and disc_total from
+ *
+ * This function will return TPOS from FileTag.
+ * Returns: a newly allocated string, should be freed using g_free.
+ */
+gchar *
+et_id3tag_get_tpos_from_file_tag (File_Tag *FileTag)
+{
+    GString *gstring;
+    gchar *p;
+
+    gstring = g_string_new ("");
+    p = FileTag->disc_number;
+
+    while (*p)
+    {
+        if (!isdigit (*p))
+        {
+            break;
+        }
+
+        g_string_append_c (gstring, *p);
+        p++;
+    }
+
+    if (FileTag->disc_total && *FileTag->disc_total)
+    {
+        g_string_append_c (gstring, '/');
+        p = FileTag->disc_total;
+
+        while (*p)
+        {
+            if (!isdigit (*p))
+            {
+                break;
+            }
+
+            g_string_append_c (gstring, *p);
+            p++;
+        }
+    }
+
+    return g_string_free (gstring, FALSE);
+}
+
 /*
  * Write the ID3 tags to the file. Returns TRUE on success, else 0.
  */
@@ -258,17 +305,7 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
     {
         id3_frame = ID3Frame_NewID (ID3FID_PARTINSET);
         ID3Tag_AttachFrame (id3_tag, id3_frame);
-
-		if (FileTag->disc_total && g_utf8_strlen (FileTag->disc_total, -1) > 0)
-        {
-            string1 = g_strconcat (FileTag->disc_number, "/",
-                                   FileTag->disc_total, NULL);
-        }
-        else
-        {
-            string1 = g_strdup (FileTag->disc_number);
-        }
-
+        string1 = et_id3tag_get_tpos_from_file_tag (FileTag);
         Id3tag_Set_Field (id3_frame, ID3FN_TEXT, string1);
         g_free (string1);
         has_disc_number = TRUE;

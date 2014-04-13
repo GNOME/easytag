@@ -43,5 +43,6 @@ gboolean Id3tag_Write_File_Tag    (ET_File *ETFile);
 gchar   *Id3tag_Genre_To_String (unsigned char genre_code);
 guchar   Id3tag_String_To_Genre (gchar *genre);
 
+gchar *et_id3tag_get_tpos_from_file_tag (File_Tag *file_tag);
 
 #endif /* __ID3TAG_H__ */
