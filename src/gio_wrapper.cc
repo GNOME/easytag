@@ -260,7 +260,7 @@ GIO_IOStream::insert (TagLib::ByteVector const &data,
     GFileIOStream *tstr;
     /* FIXME: Check for NULL. */
     GFile *tmp = g_file_new_tmp ("easytag-XXXXXX", &tstr, NULL);
-    char *buffer[4096];
+    char buffer[4096];
     gsize r;
 
     GOutputStream *ostream = g_io_stream_get_output_stream (G_IO_STREAM (tstr));
@@ -269,8 +269,8 @@ GIO_IOStream::insert (TagLib::ByteVector const &data,
     seek (0);
 
     while (g_input_stream_read_all (istream, buffer,
-                                    MIN (sizeof (buffer), start), &r, NULL,
-                                    &error) && r > 0)
+                                    MIN (sizeof (G_N_ELEMENTS (buffer)), start),
+                                    &r, NULL, &error) && r > 0)
     {
         gsize w;
         g_output_stream_write_all (ostream, buffer, r, &w, NULL, &error);
