@@ -17,6 +17,10 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
+#include "config.h"
+
+#ifdef ENABLE_MP4
+
 #include "gio_wrapper.h"
 
 GIO_InputStream::GIO_InputStream (GFile * file_) :
@@ -471,3 +475,5 @@ const GError *GIO_IOStream::getError () const
 {
     return error;
 }
+
+#endif /* ENABLE_MP4 */
