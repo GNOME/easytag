@@ -269,7 +269,7 @@ GIO_IOStream::insert (TagLib::ByteVector const &data,
     seek (0);
 
     while (g_input_stream_read_all (istream, buffer,
-                                    MIN (sizeof (G_N_ELEMENTS (buffer)), start),
+                                    MIN (G_N_ELEMENTS (buffer), start),
                                     &r, NULL, &error) && r > 0)
     {
         gsize w;
