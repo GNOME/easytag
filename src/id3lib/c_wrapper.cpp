@@ -32,6 +32,8 @@
 #include <id3/field.h>
 #include <id3/tag.h>
 
+#include "id3_bugfix.h"
+
 #ifdef __cplusplus
 extern "C"
 {
