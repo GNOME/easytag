@@ -56,7 +56,8 @@ Installation
 
 * GLib version greater than 2.30.0 (http://www.gtk.org)
 * GTK+ version greater than 3.2.1 (http://www.gtk.org)
-* id3lib version greater than 3.7.12 (http://id3lib.sourceforge.net) (Recommended: id3lib-3.8.3)
+* libid3tag (http://www.underbit.com/products/mad) (if not deactivated by './configure --disable-mp3')
+* id3lib version greater than 3.7.12 (http://id3lib.sourceforge.net) (Recommended: id3lib-3.8.3) (if not deactivated by './configure --disable-id3v23')
 * flac (http://flac.sourceforge.net) (if not deactivated by './configure --disable-flac')
 * libogg and libvorbis (http://www.vorbis.com) (if not deactivated by './configure --disable-ogg')
 * opus and opusfile (http://www.opus-codec.org/) (if not deactivated by './configure --disable-opus')
