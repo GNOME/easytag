@@ -1,5 +1,5 @@
 /* EasyTAG - tag editor for audio files
- * Copyright (C) 2013  David King <amigadave@amigadave.com>
+ * Copyright (C) 2014  David King <amigadave@amigadave.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -24,12 +24,7 @@
 #include <glib/gi18n.h>
 #include <stdlib.h>
 
-G_DEFINE_TYPE (EtApplication, et_application, G_TYPE_APPLICATION)
-
-struct _EtApplicationPrivate
-{
-    GtkWindow *main_window;
-};
+G_DEFINE_TYPE (EtApplication, et_application, GTK_TYPE_APPLICATION)
 
 static const GOptionEntry entries[] =
 {
@@ -137,9 +132,6 @@ et_application_startup (GApplication *application)
 {
     Charset_Insert_Locales_Init ();
 
-    /* TODO: Remove gtk_init() when porting to GtkApplication. */
-    gtk_init (NULL, NULL);
-
     G_APPLICATION_CLASS (et_application_parent_class)->startup (application);
 }
 
@@ -152,11 +144,6 @@ et_application_finalize (GObject *object)
 static void
 et_application_init (EtApplication *application)
 {
-    application->priv = G_TYPE_INSTANCE_GET_PRIVATE (application,
-                                                     ET_TYPE_APPLICATION,
-                                                     EtApplicationPrivate);
-
-    application->priv->main_window = NULL;
 }
 
 static void
@@ -165,8 +152,6 @@ et_application_class_init (EtApplicationClass *klass)
     G_OBJECT_CLASS (klass)->finalize = et_application_finalize;
     G_APPLICATION_CLASS (klass)->local_command_line = et_local_command_line;
     G_APPLICATION_CLASS (klass)->startup = et_application_startup;
-
-    g_type_class_add_private (klass, sizeof (EtApplicationPrivate));
 }
 
 /*
@@ -179,39 +164,7 @@ et_application_class_init (EtApplicationClass *klass)
 EtApplication *
 et_application_new ()
 {
-    return g_object_new (et_application_get_type (), "application-id",
+    return g_object_new (ET_TYPE_APPLICATION, "application-id",
                          "org.gnome.EasyTAG", "flags",
                          G_APPLICATION_HANDLES_OPEN, NULL);
-}
-
-/*
- * et_application_get_window:
- * @application: the application
- *
- * Get the current application window.
- *
- * Returns: the current application window, or %NULL if no window is set
- */
-GtkWindow *
-et_application_get_window (EtApplication *application)
-{
-    g_return_val_if_fail (ET_APPLICATION (application), NULL);
-
-    return application->priv->main_window;
-}
-
-/*
- * et_application_set_window:
- * @application: the application
- * @window: the window to set
- *
- * Set the application window, if none has been set already.
- */
-void
-et_application_set_window (EtApplication *application, GtkWindow *window)
-{
-    g_return_if_fail (ET_APPLICATION (application) || GTK_WINDOW (window)
-                      || application->priv->main_window != NULL);
-
-    application->priv->main_window = window;
 }

@@ -231,8 +231,8 @@ common_init (GApplication *application)
 
     /* The main window */
     MainWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    et_application_set_window (ET_APPLICATION (application),
-                               GTK_WINDOW (MainWindow));
+    gtk_application_add_window (GTK_APPLICATION (application),
+                                GTK_WINDOW (MainWindow));
     gtk_window_set_title (GTK_WINDOW (MainWindow), PACKAGE_NAME);
     // This part is needed to set correctly the position of handle panes
     gtk_window_set_default_size(GTK_WINDOW(MainWindow),MAIN_WINDOW_WIDTH,MAIN_WINDOW_HEIGHT);
@@ -397,7 +397,7 @@ static void
 on_application_open (GApplication *application, GFile **files, gint n_files,
                      gchar *hint, gpointer user_data)
 {
-    GtkWindow *main_window;
+    GList *windows;
     gboolean activated;
     GFile *arg;
     GFile *parent;
@@ -407,8 +407,8 @@ on_application_open (GApplication *application, GFile **files, gint n_files,
     gchar *path;
     gchar *path_utf8;
 
-    main_window = et_application_get_window (ET_APPLICATION (application));
-    activated = main_window ? TRUE : FALSE;
+    windows = gtk_application_get_windows (GTK_APPLICATION (application));
+    activated = windows ? TRUE : FALSE;
 
     /* Only take the first file; ignore the rest. */
     arg = files[0];
@@ -511,12 +511,13 @@ on_application_open (GApplication *application, GFile **files, gint n_files,
 static void
 on_application_activate (GApplication *application, gpointer user_data)
 {
-    GtkWindow *main_window;
+    GList *windows;
 
-    main_window = et_application_get_window (ET_APPLICATION (application));
-    if (main_window != NULL)
+    windows = gtk_application_get_windows (GTK_APPLICATION (application));
+
+    if (windows != NULL)
     {
-        gtk_window_present (main_window);
+        gtk_window_present (windows->data);
     }
     else
     {

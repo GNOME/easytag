@@ -29,25 +29,21 @@ G_BEGIN_DECLS
 
 typedef struct _EtApplication EtApplication;
 typedef struct _EtApplicationClass EtApplicationClass;
-typedef struct _EtApplicationPrivate EtApplicationPrivate;
 
 struct _EtApplication
 {
     /*< private >*/
-    GApplication parent_instance;
-    EtApplicationPrivate *priv;
+    GtkApplication parent_instance;
 };
 
 struct _EtApplicationClass
 {
     /*< private >*/
-    GApplicationClass parent_class;
+    GtkApplicationClass parent_class;
 };
 
 GType et_application_get_type (void);
 EtApplication *et_application_new (void);
-GtkWindow *et_application_get_window (EtApplication *application);
-void et_application_set_window (EtApplication *application, GtkWindow *window);
 
 G_END_DECLS
 
