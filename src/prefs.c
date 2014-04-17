@@ -1910,6 +1910,7 @@ et_preferences_on_response (GtkDialog *dialog, gint response_id,
             break;
         case GTK_RESPONSE_DELETE_EVENT:
             OptionsWindow_Quit ();
+            break;
         case GTK_RESPONSE_REJECT:
             OptionsWindow_Cancel_Button ();
             break;
