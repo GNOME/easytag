@@ -28,7 +28,6 @@
  */
 gboolean Mp4_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
 {
-    TagLib::MP4::Tag *tag;
     const TagLib::MP4::Properties *properties;
 
     g_return_val_if_fail (filename != NULL && ETFileInfo != NULL, FALSE);
@@ -58,15 +57,6 @@ gboolean Mp4_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
         gchar *filename_utf8 = filename_to_display (filename);
         Log_Print (LOG_ERROR, _("Error while opening file: '%s' (%s)."),
                    filename_utf8,_("MP4 format invalid"));
-        g_free (filename_utf8);
-        return FALSE;
-    }
-
-    if (!(tag = mp4file.tag ()))
-    {
-        gchar *filename_utf8 = filename_to_display (filename);
-        Log_Print (LOG_ERROR, _("File contains no audio track: '%s'"),
-                   filename_utf8);
         g_free (filename_utf8);
         return FALSE;
     }
