@@ -227,10 +227,15 @@ GIO_IOStream::writeBlock (TagLib::ByteVector const &data)
         return;
     }
 
+    gsize bytes_written;
     GOutputStream *ostream = g_io_stream_get_output_stream (G_IO_STREAM (stream));
 
-    g_output_stream_write_all (ostream, data.data (), data.size (), NULL,
-			       NULL, &error);
+    if (!g_output_stream_write_all (ostream, data.data (), data.size (),
+                                    &bytes_written, NULL, &error))
+    {
+        g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %" G_GSIZE_FORMAT
+                 " bytes of data were written", bytes_written, data.size ());
+    }
 }
 
 void
@@ -312,16 +317,13 @@ GIO_IOStream::insert (TagLib::ByteVector const &data,
     while (g_input_stream_read_all (istream, buffer, sizeof (buffer), &r,
                                     NULL, &error) && r > 0)
     {
-        gsize w;
-        g_output_stream_write_all (ostream, buffer, r, &w, NULL, &error);
+        gsize bytes_written;
 
-        if (w != r)
+        if (!g_output_stream_write_all (ostream, buffer, r, &bytes_written,
+                                        NULL, &error))
         {
-            g_warning ("%s", "Unable to write all bytes");
-        }
-
-        if (error)
-        {
+            g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %" G_GSIZE_FORMAT
+                     " bytes of data were written", bytes_written, r);
             g_object_unref (tstr);
             g_object_unref (tmp);
             return;
@@ -363,19 +365,17 @@ GIO_IOStream::removeBlock (TagLib::ulong start, TagLib::ulong len)
     while (g_input_stream_read_all (istream, buffer, sizeof (buffer), &r, NULL,
                                     NULL) && r > 0)
     {
-        gsize w;
+        gsize bytes_written;
+
         seek (start);
-        g_output_stream_write_all (ostream, buffer, r, &w, NULL, NULL);
 
-        if (w != r)
+        if (!g_output_stream_write_all (ostream, buffer, r, &bytes_written,
+                                        NULL, &error))
         {
-            g_warning ("%s", "Unable to write all bytes");
+            g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %" G_GSIZE_FORMAT
+                     " bytes of data were written", bytes_written, r);
+            return;
         }
-
-	if (error)
-	{
-	    return;
-	}
 
         start += r;
         seek (start + len);
