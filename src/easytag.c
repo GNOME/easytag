@@ -1500,7 +1500,6 @@ Mini_Button_Clicked (GObject *object)
         etfilelist     = ET_Sort_File_List(etfilelist,SORTING_FILE_MODE);
         etfilelistfull = ET_Sort_File_List(etfilelistfull,SORTING_FILE_MODE);
 
-        for (l = etfilelist; l != NULL; l = g_list_next (l))
         while (etfilelist && etfilelistfull)
         {
             // To get the path of the file
