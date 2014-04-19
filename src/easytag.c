@@ -4333,7 +4333,7 @@ Convert_First_Letters_Uppercase (GtkWidget *entry)
 {
     gchar *string = g_strdup(gtk_entry_get_text(GTK_ENTRY(entry)));
 
-    Scan_Process_Fields_First_Letters_Uppercase(string);
+    Scan_Process_Fields_First_Letters_Uppercase (&string);
     gtk_entry_set_text(GTK_ENTRY(entry),string);
     g_free(string);
 }
