@@ -60,7 +60,7 @@ void et_scan_show (GtkAction *action, gpointer user_data);
 
 void entry_check_rename_file_mask (GtkEntry *entry, gpointer user_data);
 
-void Scan_Process_Fields_First_Letters_Uppercase (gchar *string);
+void Scan_Process_Fields_First_Letters_Uppercase (gchar **str);
 
 void Init_ScannerWindow (void);
 void Open_ScannerWindow (gint scanner_type);

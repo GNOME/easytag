@@ -1407,7 +1407,9 @@ Scan_Process_Fields_Functions (gchar **string)
     }
 
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsFirstLettersUppercase)))
-        Scan_Process_Fields_First_Letters_Uppercase(*string);
+    {
+        Scan_Process_Fields_First_Letters_Uppercase (string);
+    }
 
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ProcessFieldsRemoveSpace)))
         Scan_Process_Fields_Remove_Space(*string);
@@ -1418,7 +1420,8 @@ Scan_Process_Fields_Functions (gchar **string)
  * Function to set the first letter of each word to uppercase, according the "Chicago Manual of Style" (http://www.docstyles.com/cmscrib.htm#Note2)
  * No needed to reallocate
  */
-void Scan_Process_Fields_First_Letters_Uppercase (gchar *string)
+void
+Scan_Process_Fields_First_Letters_Uppercase (gchar **str)
 {
 /**** DANIEL TEST *****
     gchar *iter;
@@ -1441,6 +1444,7 @@ void Scan_Process_Fields_First_Letters_Uppercase (gchar *string)
     }
 ****/
 /**** Barış Çiçek version ****/
+    gchar *string = *str;
     gchar *word, *word1, *word2, *temp;
     gint i, len;
     gchar utf8_character[6];
@@ -1480,8 +1484,8 @@ void Scan_Process_Fields_First_Letters_Uppercase (gchar *string)
     }
 
     temp = Scan_Process_Fields_All_Downcase (string);
-    g_free (string);
-    string = temp;
+    g_free (*str);
+    *str = string = temp;
 
     if (!g_utf8_validate(string,-1,NULL))
     {
