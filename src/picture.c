@@ -1329,12 +1329,11 @@ void Picture_Free (Picture *pic)
 static Picture *
 et_picture_load_file_data (GFile *file, GError **error)
 {
-    Picture *pic;
-    gchar *buffer = NULL;
     gsize size;
-    gsize bytes_read;
+    gssize n_spliced;
     GFileInfo *info;
     GFileInputStream *file_istream;
+    GOutputStream *ostream;
 
     info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_SIZE,
                               G_FILE_QUERY_INFO_NONE, NULL, error);
@@ -1354,17 +1353,30 @@ et_picture_load_file_data (GFile *file, GError **error)
     }
 
     size = g_file_info_get_size (info);
-    buffer = g_malloc (size);
     g_object_unref (info);
 
-    if (!g_input_stream_read_all (G_INPUT_STREAM (file_istream), buffer, size,
-                                  &bytes_read, NULL, error))
+    /* HTTP servers may not report a size, or the file could be empty. */
+    if (size == 0)
     {
-        g_free (buffer);
+        ostream = g_memory_output_stream_new (NULL, 0, g_realloc, g_free);
+    }
+    else
+    {
+        gchar *buffer;
 
-        g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %" G_GSIZE_FORMAT
-                 " bytes of picture data were read", bytes_read, size);
+        buffer = g_malloc (size);
+        ostream = g_memory_output_stream_new (buffer, size, g_realloc, g_free);
+    }
 
+    if ((n_spliced = g_output_stream_splice (ostream,
+                                             G_INPUT_STREAM (file_istream),
+                                             G_OUTPUT_STREAM_SPLICE_NONE, NULL,
+                                             error)) == -1)
+    {
+        g_debug ("Only %" G_GSSIZE_FORMAT " bytes out of %" G_GSIZE_FORMAT
+                 " bytes of picture data were spliced", n_spliced, size);
+
+        g_object_unref (ostream);
         g_object_unref (file_istream);
         g_assert (error == NULL || *error != NULL);
         return NULL;
@@ -1372,11 +1384,24 @@ et_picture_load_file_data (GFile *file, GError **error)
     else
     {
         /* Image loaded. */
-        pic = Picture_Allocate();
-        pic->size = size;
-        pic->data = (guchar *)buffer;
+        Picture *pic;
 
         g_object_unref (file_istream);
+
+        if (!g_output_stream_close (ostream, NULL, error))
+        {
+            g_object_unref (ostream);
+            g_assert (error == NULL || *error != NULL);
+            return NULL;
+        }
+
+        g_assert (error == NULL || *error == NULL);
+
+        pic = Picture_Allocate ();
+        pic->data = g_memory_output_stream_steal_data (G_MEMORY_OUTPUT_STREAM (ostream));
+        pic->size = g_memory_output_stream_get_data_size (G_MEMORY_OUTPUT_STREAM (ostream));
+
+        g_object_unref (ostream);
         g_assert (error == NULL || *error == NULL);
         return pic;
     }
