@@ -18,7 +18,7 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
+#include "config.h"
 
 #ifdef ENABLE_WAVPACK
 
@@ -32,29 +32,12 @@
 #include <wavpack/wavpack.h>
 
 #include "easytag.h"
-#include "vcedit.h"
 #include "et_core.h"
 #include "picture.h"
 #include "charset.h"
 #include "misc.h"
 #include "wavpack_tag.h"
 
-
-/***************
- * Declaration *
- ***************/
-
-#define MULTIFIELD_SEPARATOR " - "
-
-/**************
- * Prototypes *
- **************/
-gboolean Wavpack_Tag_Write_File (FILE *file_in, gchar *filename_in, vcedit_state *state);
-
-
-/*************
- * Functions *
- *************/
 
 /*
  * For the APEv2 tags, the following field names are officially supported and

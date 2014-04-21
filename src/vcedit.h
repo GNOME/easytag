@@ -11,9 +11,11 @@
 #ifndef __VCEDIT_H
 #define __VCEDIT_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif 
+#include "config.h"
+
+#ifdef ENABLE_OGG
+
+G_BEGIN_DECLS
 
 #include <stdio.h>
 #include <ogg/ogg.h>
@@ -65,8 +67,8 @@ extern vorbis_comment  *vcedit_comments(vcedit_state *state);
 extern int              vcedit_open(vcedit_state *state, GFile *in, GError **error);
 extern int              vcedit_write(vcedit_state *state, GFile *file, GError **error);
 
-#ifdef __cplusplus
-}
-#endif 
+G_END_DECLS
+
+#endif /* ENABLE_OGG */
 
 #endif /* __VCEDIT_H */
