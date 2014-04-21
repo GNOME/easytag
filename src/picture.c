@@ -1330,7 +1330,6 @@ static Picture *
 et_picture_load_file_data (GFile *file, GError **error)
 {
     gsize size;
-    gssize n_spliced;
     GFileInfo *info;
     GFileInputStream *file_istream;
     GOutputStream *ostream;
@@ -1368,14 +1367,10 @@ et_picture_load_file_data (GFile *file, GError **error)
         ostream = g_memory_output_stream_new (buffer, size, g_realloc, g_free);
     }
 
-    if ((n_spliced = g_output_stream_splice (ostream,
-                                             G_INPUT_STREAM (file_istream),
-                                             G_OUTPUT_STREAM_SPLICE_NONE, NULL,
-                                             error)) == -1)
+    if (g_output_stream_splice (ostream, G_INPUT_STREAM (file_istream),
+                                G_OUTPUT_STREAM_SPLICE_NONE, NULL,
+                                error) == -1)
     {
-        g_debug ("Only %" G_GSSIZE_FORMAT " bytes out of %" G_GSIZE_FORMAT
-                 " bytes of picture data were spliced", n_spliced, size);
-
         g_object_unref (ostream);
         g_object_unref (file_istream);
         g_assert (error == NULL || *error != NULL);
