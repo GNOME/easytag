@@ -293,8 +293,6 @@ GIO_IOStream::insert (TagLib::ByteVector const &data,
 	}
 
         start -= r;
-        g_warning ("Wrote %lu bytes of %" G_GSIZE_FORMAT ": %.*s", r, start, r,
-                   buffer);
     }
 
     if (error)
