@@ -1,3 +1,21 @@
+2.2.1 - 2014-04-22 :
+====================
+
+    * Fix image loading with HTTP URLs and empty images
+    * Fix bogus track numbers when automatically numbering files
+    * Add Opus and Speex MIME types to desktop file
+    * Abhinav Jangda’s fix for numeric characters in ID3 TPOS fields
+    * Roman Bogorodskiy’s ID3 wrapper compilation fix
+    * Improvements to MP4 GIO wrapper
+    * Fix a scanner bug when converting "%20" to " "
+    * Fix compilation if TagLib or libogg is unavailable
+    * Depend on TagLib 1.9.1 for MP4 support
+    * Use CXXFLAGS from the environment
+    * Rafael Ferrera’s Brazilian Portuguese translation update
+    * Aurimas Černius’s Lithuanian translation update
+    * Balázs Úr’s Hungarian translation update
+    * Matej Urbančič’s Slovenian translation update
+
 2.2.0 - 2014-04-11 :
 ====================
 
