@@ -3117,12 +3117,12 @@ Load_File_Content (GtkWidget *entry)
 {
     GFile *file;
     GFileInputStream *istream;
+    GDataInputStream *data;
     GError *error = NULL;
-    gssize size_read;
+    gsize size_read;
     gchar *filename;
     const gchar *filename_utf8;
-    gchar buffer[MAX_STRING_LEN];
-    gchar *text;
+    gchar *line;
     gchar *valid;
 
     g_return_if_fail (entry != NULL);
@@ -3134,6 +3134,7 @@ Load_File_Content (GtkWidget *entry)
 
     file = g_file_new_for_path (filename);
     istream = g_file_read (file, NULL, &error);
+    g_object_unref (file);
 
     if (!istream)
     {
@@ -3145,40 +3146,34 @@ Load_File_Content (GtkWidget *entry)
         return;
     }
 
-    gtk_list_store_clear(LoadFileContentListModel);
-    while ((size_read = g_input_stream_read (G_INPUT_STREAM (istream),
-                                             buffer, sizeof(buffer),
-                                             NULL, &error)) > 0)
-    {
-        if (buffer[strlen(buffer)-1]=='\n')
-            buffer[strlen(buffer)-1]='\0';
-        if (buffer[strlen(buffer)-1]=='\r')
-            buffer[strlen(buffer)-1]='\0';
-        text = &buffer[0];
+    data = g_data_input_stream_new (G_INPUT_STREAM (istream));
+    /* TODO: Find a safer alternative to _ANY. */
+    g_data_input_stream_set_newline_type (data,
+                                          G_DATA_STREAM_NEWLINE_TYPE_ANY);
+    gtk_list_store_clear (LoadFileContentListModel);
 
-        /*if (g_utf8_validate(text, -1, NULL))
-        {
-            valid = g_strdup(buffer);
-        } else
-        {
-            valid = convert_to_utf8(text);
-        }*/
-        valid = Try_To_Validate_Utf8_String(text);
+    while ((line = g_data_input_stream_read_line (data, &size_read, NULL,
+                                                  &error)))
+    {
+        /* FIXME: This should use the GLib filename encoding, not UTF-8. */
+        valid = Try_To_Validate_Utf8_String (line);
+        g_free (line);
 
         gtk_list_store_insert_with_values (LoadFileContentListModel, NULL,
                                            G_MAXINT, LOAD_FILE_CONTENT_TEXT,
                                            valid, -1);
-        g_free(valid);
+        g_free (valid);
     }
 
-    if (size_read == -1)
+    if (error)
     {
         Log_Print (LOG_ERROR, _("Error reading file (%s)"), error->message);
         g_error_free (error);
     }
-    g_object_unref (file);
+
+    g_object_unref (data);
     g_object_unref (istream);
-    g_free(filename);
+    g_free (filename);
 }
 
 /*
