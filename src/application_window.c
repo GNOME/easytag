@@ -1832,7 +1832,7 @@ et_application_window_init (EtApplicationWindow *self)
     widget = Create_Progress_Bar ();
     gtk_box_pack_end (GTK_BOX (hbox), widget, FALSE, FALSE, 0);
 
-    gtk_widget_show_all (GTK_WIDGET (self));
+    gtk_widget_show_all (GTK_WIDGET (main_vbox));
 }
 
 static void

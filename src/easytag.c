@@ -134,6 +134,8 @@ common_init (GApplication *application)
     window = et_application_window_new (GTK_APPLICATION (application));
     MainWindow = GTK_WIDGET (window);
 
+    gtk_widget_show (MainWindow);
+
     /* Starting messages */
     Log_Print(LOG_OK,_("Starting EasyTAG version %s (PID: %d)…"),PACKAGE_VERSION,getpid());
 #ifdef ENABLE_MP3
