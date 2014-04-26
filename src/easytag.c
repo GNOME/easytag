@@ -1133,7 +1133,6 @@ Create_Tag_Area (void)
     focusable_widgets_list = g_list_prepend(focusable_widgets_list,CopyrightEntry);
     focusable_widgets_list = g_list_prepend(focusable_widgets_list,URLEntry);
     focusable_widgets_list = g_list_prepend(focusable_widgets_list,EncodedByEntry);
-    focusable_widgets_list = g_list_prepend(focusable_widgets_list,TitleEntry); // To loop to the beginning
     /* More efficient than using g_list_append(), which must traverse the
      * whole list. */
     focusable_widgets_list = g_list_reverse(focusable_widgets_list);
