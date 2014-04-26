@@ -53,7 +53,7 @@ msgstr "Editor metadat zvukových souborů"
 
 #: ../data/easytag.desktop.in.h:2
 msgid "Edit sound file metadata"
-msgstr "Upravit metadata zvukového souboru"
+msgstr "Upravujte si metadata zvukových souborů"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: ../data/easytag.desktop.in.h:4
