@@ -1018,6 +1018,7 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
             guchar *ustring = NULL;
             gsize ustring_len = 0;
             gchar *base64_string;
+            gsize desclen;
             Picture_Format format = Picture_Format_From_Data (pic);
 
             /* According to the specification, only PNG and JPEG images should
@@ -1091,8 +1092,8 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
             mime = Picture_Mime_Type_String (format);
 
             /* Calculating full length of byte string and allocating. */
-            ustring = g_malloc (4 * 8 + strlen (mime)
-                                + strlen (pic->description) + pic->size);
+            desclen = pic->description ? strlen (pic->description) : 0;
+            ustring = g_malloc (4 * 8 + strlen (mime) + desclen + pic->size);
 
             /* Adding picture type. */
             convert_to_byte_array (pic->type, array);
@@ -1105,11 +1106,11 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
                                strlen (mime));
 
             /* Adding picture description. */
-            convert_to_byte_array (strlen (pic->description), array);
+            convert_to_byte_array (desclen, array);
             add_to_guchar_str (ustring, &ustring_len, array, 4);
             add_to_guchar_str (ustring, &ustring_len,
                                (guchar *)pic->description,
-                               strlen (pic->description));
+                               desclen);
 
             /* Adding width, height, color depth, indexed colors. */
             convert_to_byte_array (pic->width, array);
