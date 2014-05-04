@@ -278,12 +278,6 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc, File_Tag *FileTag,
     if ((string = vorbis_comment_query (vc, "DISCNUMBER", 0)) != NULL
         && g_utf8_strlen (string, -1) > 0)
     {
-        FileTag->disc_number = g_strdup (string);
-    }
-
-    if ((string = vorbis_comment_query (vc, "DISCNUMBER", 0)) != NULL
-        && g_utf8_strlen (string, -1) > 0)
-    {
         /* Check if DISCTOTAL used, else takes it in DISCNUMBER. */
         if ((string1 = vorbis_comment_query (vc, "DISCTOTAL", 0)) != NULL
             && g_utf8_strlen (string1, -1) > 0)
