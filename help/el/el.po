@@ -1,0 +1,1358 @@
+# Greek translation for easytag.
+# Copyright (C) 2014 easytag's COPYRIGHT HOLDER
+# This file is distributed under the same license as the easytag package.
+# Dimitris Spingos <dmtrs32@gmail.com>, 2014.
+# Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>, 2014.
+msgid ""
+msgstr ""
+"Project-Id-Version: easytag easytag-2-2\n"
+"POT-Creation-Date: 2014-05-04 15:12+0000\n"
+"PO-Revision-Date: 2014-05-04 07:25+0300\n"
+"Last-Translator: Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>\n"
+"Language-Team: www.gnome.gr\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
+
+#. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
+msgctxt "_"
+msgid "translator-credits"
+msgstr ""
+"Ελληνική μεταφραστική ομάδα του GNOME\n"
+" Δημήτρης Σπίγγος <dmtrs32@gmail.com>, 2014\n"
+"Για περισσότερα δείτε: http://gnome.gr"
+
+#. (itstool) path: credit/name
+#: C/cddb-search.page:11 C/file-rename.page:10 C/file-select.page:11
+#: C/format-specifier.page:11 C/image-delete.page:13 C/image-export.page:13
+#: C/image.page:15 C/index.page:11 C/introduction.page:12
+#: C/keyboard-shortcuts.page:11 C/playlist-generate.page:11
+#: C/problems-ogg-split.page:17 C/scanner.page:11 C/starting.page:10
+#: C/tag-field.page:14 C/tag.page:13
+msgid "Ekaterina Gerasimova"
+msgstr "Ekaterina Gerasimova"
+
+#. (itstool) path: info/desc
+#: C/cddb-search.page:17
+msgid "Fill tags using information from a CD database"
+msgstr ""
+"Συμπλήρωση ετικετών χρησιμοποιώντας πληροφορίες από μια βάση δεδομένων CD"
+
+#. (itstool) path: page/title
+#: C/cddb-search.page:20
+msgid "Search CDDB"
+msgstr "Αναζήτηση CDDB"
+
+#. (itstool) path: page/p
+#: C/cddb-search.page:22
+msgid ""
+"If your music is organized by album, <app>EasyTAG</app> can search online "
+"databases using the <sys>CDDB</sys> protocol and automatically fill in "
+"several tag fields."
+msgstr ""
+"Αν η μουσική σας είναι οργανωμένη κατά δίσκο, το <app>EasyTAG</app> μπορεί "
+"να αναζητήσει δικτυακές βάσεις δεδομένων χρησιμοποιώντας το πρωτόκολλο "
+"<sys>CDDB</sys> και να συμπληρώσει αυτόματα αρκετά πεδία ετικετών."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:28
+msgid ""
+"<link xref=\"file-select\">Select all the files</link> in the album that you "
+"want to search for. The ordering of the files must match the track order on "
+"the album."
+msgstr ""
+"<link xref=\"file-select\">Επιλογή όλων των αρχείων</link> στον δίσκο που "
+"θέλετε να αναζητήσετε. Η διάταξη των αρχείων πρέπει να ταιριάζει τη σειρά "
+"των κομματιών στον δίσκο."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:33
+msgid ""
+"Select <guiseq><gui style=\"menu\">Miscellaneous</gui> <gui style=\"menuitem"
+"\">CDDB Search…</gui></guiseq>."
+msgstr ""
+"Επιλέξτε <guiseq><gui style=\"menu\">Διάφορα</gui> <gui style=\"menuitem"
+"\">Αναζήτηση CDDB…</gui></guiseq>."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:37
+msgid ""
+"Press <gui style=\"button\">Find</gui> and wait for the search to finish."
+msgstr ""
+"Πατήστε <gui style=\"button\">Εύρεση</gui> και περιμένετε να ολοκληρωθεί η "
+"αναζήτηση."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:43
+msgid ""
+"Select an album from the list of results, and the track information will be "
+"shown to the right. If the album is not the one that you wanted, try "
+"selecting another result in the list."
+msgstr ""
+"Επιλέξτε έναν δίσκο από τον κατάλογο των αποτελεσμάτων και οι πληροφορίες "
+"κομματιού θα εμφανιστούν στα δεξιά. Αν ο δίσκος δεν είναι αυτός που θέλατε, "
+"δοκιμάστε να επιλέξτε ένα άλλο αποτέλεσμα στον κατάλογο."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:46
+msgid ""
+"If there are no results which match the tracks that you selected, select "
+"<gui style=\"tab\">Manual Search</gui> and enter the name of the album in "
+"the search field. Press <gui style=\"button\">Find</gui> and wait for the "
+"search to finish, and check the results again to see if you can find an "
+"album which matches the tracks that you selected."
+msgstr ""
+"Αν δεν υπάρχουν αποτελέσματα που να ταιριάζουν με τα κομμάτια που επιλέξατε, "
+"επιλέξτε <gui style=\"tab\">Χειροκίνητη αναζήτηση</gui> και εισάγετε το "
+"όνομα του δίσκου στο πεδίο αναζήτησης. Πατήστε <gui style=\"button\">Εύρεση</"
+"gui> και περιμένετε να τελειώσει η αναζήτηση, ξαναελέγξτε τα αποτελέσματα "
+"για να δείτε αν μπορείτε να βρείτε έναν δίσκο που ταιριάζει με τα κομμάτια "
+"που επιλέξατε."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:53
+msgid ""
+"Choose the tag fields to fill in by selecting either <gui style=\"checkbox"
+"\">All</gui> or a combination of <gui style=\"checkbox\">Filename</gui>, "
+"<gui style=\"checkbox\">Title</gui>, <gui style=\"checkbox\">Artist</gui>, "
+"<gui style=\"checkbox\">Album</gui>, <gui style=\"checkbox\">Year</gui>, "
+"<gui style=\"checkbox\">Track #</gui>, <gui style=\"checkbox\"># Tracks</"
+"gui> and <gui style=\"checkbox\">Genre</gui>."
+msgstr ""
+"Επιλέξτε τα πεδία ετικετών για να τα συμπληρώσετε επιλέγοντας είτε <gui "
+"style=\"checkbox\">Όλα</gui> ή έναν συνδυασμό των <gui style=\"checkbox"
+"\">Όνομα αρχείου</gui>, <gui style=\"checkbox\">Τίτλος</gui>, <gui style="
+"\"checkbox\">Καλλιτέχνης</gui>, <gui style=\"checkbox\">Δίσκος</gui>, <gui "
+"style=\"checkbox\">Έτος</gui>, <gui style=\"checkbox\">Κομμάτι #</gui>, <gui "
+"style=\"checkbox\"># Κομμάτια</gui> <gui style=\"checkbox\">Είδος</gui>."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:64
+msgid ""
+"To fill in the tags of the selected files using the details in the search "
+"result, press <gui style=\"button\">Apply</gui>."
+msgstr ""
+"Για να συμπληρώσετε τις ετικέτες των επιλεγμένων αρχείων χρησιμοποιώντας τις "
+"λεπτομέρειες στο αποτέλεσμα αναζήτησης, πατήστε <gui style=\"button"
+"\">Εφαρμογή</gui>."
+
+#. (itstool) path: page/p
+#: C/cddb-search.page:69
+msgid ""
+"If you wish to tag only specific files, you can change your selection after "
+"the search is complete."
+msgstr ""
+"Αν θέλετε να ονομάσετε μόνο συγκεκριμένα αρχεία, μπορείτε να αλλάξετε την "
+"επιλογή σας αφού ολοκληρωθεί η αναζήτηση."
+
+#. (itstool) path: info/desc
+#: C/file-rename.page:16
+msgid "Change the file names using tags"
+msgstr "Αλλαγή των ονομάτων αρχείων χρησιμοποιώντας ετικέτες"
+
+#. (itstool) path: page/title
+#: C/file-rename.page:19
+msgid "Rename files"
+msgstr "Μετονομασία αρχείων"
+
+#. (itstool) path: page/p
+#: C/file-rename.page:21
+msgid ""
+"You can rename your music files using the tags from within <app>EasyTAG</"
+"app>:"
+msgstr ""
+"Μπορείτε να μετονομάσετε τα μουσικά σας αρχεία χρησιμοποιώντας τις ετικέτες "
+"μέσα από το <app>EasyTAG</app>:"
+
+#. (itstool) path: item/p
+#: C/file-rename.page:26
+msgid ""
+"<link xref=\"file-select\">Select the files</link> that you wish to rename "
+"in the file view."
+msgstr ""
+"<link xref=\"file-select\">Επιλέξτε τα αρχεία</link> που θέλετε να "
+"μετονομάσετε στην προβολή αρχείων."
+
+#. (itstool) path: item/p
+#: C/file-rename.page:30
+msgid ""
+"Select <guiseq><gui style=\"menu\">Scanner</gui> <gui style=\"menuitem"
+"\">Rename Files and Directories…</gui></guiseq>."
+msgstr ""
+"Επιλέξτε <guiseq><gui style=\"menu\">Σαρωτής</gui> <gui style=\"menuitem"
+"\">Μετονομασία αρχείων και καταλόγων…</gui></guiseq>."
+
+#. (itstool) path: item/p
+#: C/file-rename.page:34
+msgid ""
+"Using the <gui xref=\"format-specifier\">Legend</gui>, type in the structure "
+"that you would like to use for the file naming. For example, if you wish "
+"your files to be named <file>[artist] - [title].[extension]</file>, "
+"enter <input>%a - %t</input> into the renaming field."
+msgstr ""
+"Χρησιμοποιώντας το <gui xref=\"format-specifier\">υπόμνημα</gui>, "
+"πληκτρολογήστε στη διάρθρωση που θα θέλατε να χρησιμοποιήσετε την ονομασία "
+"του αρχείου. Για παράδειγμα, αν θέλετε τα αρχεία σας να ονομαστούν "
+"<file>[καλλιτέχνης] - [τίτλος]. [επέκταση]</file>, εισάγετε <input>%a - %t</"
+"input> στο πεδίο μετονομασίας."
+
+#. (itstool) path: item/p
+#: C/file-rename.page:41
+msgid ""
+"To apply the changes to all files, select <guiseq><gui style=\"menu\">File</"
+"gui> <gui style=\"menuitem\">Scan Files…</gui></guiseq>."
+msgstr ""
+"Για να εφαρμόσετε τις αλλαγές σε όλα τα αρχεία, επιλέξτε <guiseq><gui style="
+"\"menu\">Αρχείο</gui> <gui style=\"menuitem\">Σάρωση αρχείων…</gui></guiseq>."
+
+#. (itstool) path: item/p
+#: C/file-rename.page:46
+msgid "Close the <gui style=\"dialog\">Tag and Filename scan</gui> dialog."
+msgstr ""
+"Κλείστε τον διάλογο <gui style=\"dialog\">Ετικέτες και σάρωση ονόματος "
+"αρχείου</gui>."
+
+#. (itstool) path: item/p
+#: C/file-rename.page:49
+msgid ""
+"To save the applied changes, select <guiseq><gui style=\"menu\">File</gui> "
+"<gui style=\"menuitem\">Save Files</gui></guiseq>."
+msgstr ""
+"Για να αποθηκεύσετε τις εφαρμοζόμενες αλλαγές, επιλέξτε <guiseq><gui style="
+"\"menu\">Αρχείο</gui> <gui style=\"menuitem\">Αποθήκευση αρχείων</gui></"
+"guiseq>."
+
+#. (itstool) path: note/p
+#: C/file-rename.page:56
+msgid "If you close the application without saving, your changes will be lost."
+msgstr "Αν κλείσετε την εφαρμογή χωρίς αποθήκευση, οι αλλαγές σας θα χαθούν."
+
+#. (itstool) path: info/desc
+#: C/file-select.page:17
+msgid "Choose files in the file list"
+msgstr "Επιλογή των αρχείων στον κατάλογο αρχείων"
+
+#. (itstool) path: page/title
+#: C/file-select.page:20
+msgid "Select files"
+msgstr "Επιλέξτε τα αρχεία"
+
+#. (itstool) path: page/p
+#: C/file-select.page:22
+msgid ""
+"<app>EasyTAG</app> has several features which operate on the files that are "
+"currently selected in the file list. To select multiple files, you can "
+"either hold down <key>Ctrl</key> while you click on the files that you wish "
+"to select or you can select a file then hold down <key>Shift</key> and click "
+"another file to select all the files between the two, including the first "
+"and last file."
+msgstr ""
+"Το <app>EasyTAG</app> έχει αρκετά γνωρίσματα που λειτουργούν στα αρχεία που "
+"είναι επιλεγμένα προς το παρόν στον κατάλογο αρχείων. Για να επιλέξετε πολλά "
+"αρχεία, μπορείτε είτε να κρατήστε πατημένο το <key>Ctrl</key> ενώ πατάτε τα "
+"αρχεία που θέλετε να επιλέξετε ή μπορείτε να επιλέξετε ένα αρχείο, έπειτα να "
+"κρατήστε πατημένο το <key>Shift</key> και να πατήσετε ένα άλλο αρχείο για να "
+"επιλέξετε όλα τα αρχεία μεταξύ των δύο, συμπεριλαμβάνοντας το πρώτο και το "
+"τελευταίο αρχείο."
+
+#. (itstool) path: info/desc
+#: C/format-specifier.page:17
+msgid "What is a format-specifier and which ones can I use?"
+msgstr "Τι είναι ένας προσδιοριστής μορφής και ποιους μπορώ να χρησιμοποιήσω;"
+
+#. (itstool) path: page/title
+#: C/format-specifier.page:21
+msgid "Format specifiers"
+msgstr "Προσδιοριστές μορφής"
+
+#. (itstool) path: page/p
+#: C/format-specifier.page:23
+msgid ""
+"<em>Format specifiers</em> can be used to split a file name into tags and to "
+"name a file or playlist based on existing tags using <link xref=\"scanner"
+"\">the scanner</link>."
+msgstr ""
+"Το <em>Προσδιοριστές μορφής</em> μπορεί να χρησιμοποιηθεί για να διαιρέσει "
+"ένα όνομα αρχείου σε ετικέτες και να ονομάσει ένα αρχείο ή έναν κατάλογο "
+"αναπαραγωγής με βάση τις υφιστάμενες ετικέτες χρησιμοποιώντας <link xref="
+"\"scanner\">τον σαρωτή</link>."
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:31
+msgid "Format specifier"
+msgstr "Προσδιοριστής μορφής"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:34
+msgid "Corresponding tag field"
+msgstr "Αντιστοίχηση πεδίου ετικέτας"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:41
+msgid "%a"
+msgstr "%a"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:44
+msgid ""
+"Artist: this is the artist or artists who created the track, this field may "
+"contact a featured artist as well as the album artist"
+msgstr ""
+"Καλλιτέχνης: αυτό είναι ο καλλιτέχνης ή οι καλλιτέχνες που δημιούργησαν το "
+"κομμάτι, αυτό το πεδίο μπορεί να επικοινωνήσει έναν συγκεκριμένο καλλιτέχνη "
+"καθώς και τον δίσκο του καλλιτέχνη."
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:50
+msgid "%z"
+msgstr "%z"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:53
+msgid "Album artist"
+msgstr "Καλλιτέχνης του δίσκου"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:58
+msgid "%b"
+msgstr "%b"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:61
+msgid "Album title"
+msgstr "Τίτλος δίσκου"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:66
+msgid "%c"
+msgstr "%c"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:69
+msgid "Comment: this is the free-form comment field"
+msgstr "Σχόλιο: αυτό είναι ένα πεδίο σχολίου ελεύθερης μορφής"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:74
+msgid "%p"
+msgstr "%p"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:77
+msgid "Composer: this is the creator of the track"
+msgstr "Συνθέτης: αυτό είναι ο δημιουργός του κομματιού"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:82
+msgid "%r"
+msgstr "%r"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:85
+msgid ""
+"Copyright holder: this is usually the artist, but it can also be the record "
+"label"
+msgstr ""
+"Κάτοχος πνευματικών δικαιωμάτων: αυτός είναι συνήθως ο καλλιτέχνης, αλλά "
+"μπορεί επίσης να είναι η ετικέτα εγγραφής."
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:91
+msgid "%d"
+msgstr "%d"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:94
+msgid "Disc number"
+msgstr "Αριθμός δίσκου"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:99
+msgid "%e"
+msgstr "%e"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:102
+msgid ""
+"Encoded by: this is usually the person who encoded the file, but the field "
+"is also used for the application that was used to encode the file"
+msgstr ""
+"Κωδικοποίηση κατά: αυτό είναι συνήθως το άτομο που κωδικοποίησε το αρχείο, "
+"αλλά το πεδίο χρησιμοποιείται επίσης για την εφαρμογή που χρησιμοποιήθηκε "
+"για να κωδικοποιήσει το αρχείο."
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:109
+msgid "%g"
+msgstr "%g"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:112
+msgid "Genre"
+msgstr "Είδος"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:117
+msgid "%i"
+msgstr "%i"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:120
+msgid ""
+"Ignored: this format specifier can only be used in <gui>Fill Tag</gui> to "
+"specify parts of the file name which should be ignored"
+msgstr ""
+"Παράβλεψη: αυτός ο προσδιοριστής μορφής μπορεί να χρησιμοποιηθεί μόνο στο "
+"<gui>Συμπλήρωση ετικέτας</gui> για να ορίσετε μέρη του ονόματος αρχείου που "
+"πρέπει να αγνοηθούν."
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:127
+msgid "%l"
+msgstr "%l"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:130
+msgid "Number of tracks: the total number of tracks on the medium"
+msgstr "Αριθμός κομματιών: ο συνολικός αριθμός κομματιών στο μέσο"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:135
+msgid "%o"
+msgstr "%o"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:138
+msgid "Original artist"
+msgstr "Αρχικός καλλιτέχνης"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:143
+msgid "%n"
+msgstr "%n"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:146
+msgid "Track number"
+msgstr "Αριθμός κομματιών"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:151
+msgid "%t"
+msgstr "%t"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:154
+msgid "Track title"
+msgstr "Τίτλος κομματιού"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:159
+msgid "%u"
+msgstr "%u"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:162
+msgid "URL"
+msgstr "URL"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:167
+msgid "%x"
+msgstr "%x"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:170
+msgid "Number of discs"
+msgstr "Αριθμός δίσκων"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:175
+msgid "%y"
+msgstr "%y"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:178
+msgid "Year of recording, sometimes the date of release is used instead"
+msgstr ""
+"Έτος εγγραφής, μερικές φορές χρησιμοποιείται η ημερομηνία έκδοσης στη θέση "
+"του."
+
+#. (itstool) path: page/title
+#: C/image-delete.page:19
+msgid "Delete an image"
+msgstr "Διαγραφή εικόνας"
+
+#. (itstool) path: page/p
+#: C/image-delete.page:21
+msgid ""
+"To delete an image from a tag, select it and press the <gui style=\"button"
+"\">Remove selected images from the tag</gui> button."
+msgstr ""
+"Για να διαγράψετε μια εικόνα από μια ετικέτα, επιλέξτε την και πατήστε το "
+"πλήκτρο <gui style=\"button\">Αφαίρεση επιλεγμένων εικόνων από την ετικέτα</"
+"gui>."
+
+#. (itstool) path: page/p
+#: C/image-delete.page:24
+msgid ""
+"To delete more than one image, select those images before deleting them."
+msgstr ""
+"Για να διαγράψετε περισσότερες από μία εικόνες, επιλέξτε αυτές τις εικόνες "
+"πριν τις διαγράψετε."
+
+#. (itstool) path: page/p
+#: C/image-delete.page:27
+msgid ""
+"It is also possible to delete all images from more than one file. To do "
+"this, select the files from which you want to delete the images, delete all "
+"images from the <gui style=\"tab\">Image</gui> tab, then press the <gui "
+"style=\"button\">Tag selected files with these images</gui> button."
+msgstr ""
+"Μπορείτε επίσης να διαγράψετε όλες τις εικόνες από περισσότερα από ένα "
+"αρχείο. Για να το κάνετε αυτό, επιλέξτε τα αρχεία από τα οποία θέλετε να "
+"διαγράψετε τις εικόνες, διαγράψτε όλες τις εικόνες από την καρτέλα <gui "
+"style=\"tab\">Εικόνα</gui>, έπειτα πατήστε το πλήκτρο <gui style=\"button"
+"\">Ετικέτα επιλεγμένων αρχείων με αυτές τις εικόνες</gui>."
+
+#. (itstool) path: page/title
+#: C/image-export.page:19
+msgid "Save an image"
+msgstr "Αποθήκευση μιας εικόνας"
+
+#. (itstool) path: page/p
+#: C/image-export.page:21
+msgid ""
+"If the file is already tagged with an image, you can export the image from "
+"the tag by selecting it and pressing <gui style=\"button\">Save the selected "
+"images to files</gui> button. The default filename will be the image "
+"description."
+msgstr ""
+"Αν το αρχείο έχει ήδη ετικέτα με μια εικόνα, μπορείτε να εξάγετε την εικόνα "
+"από την ετικέτα επιλέγοντας την και πατώντας το πλήκτρο <gui style=\"button"
+"\">Αποθήκευση των επιλεγμένων εικόνων σε αρχεία</gui>. Το προεπιλεγμένο "
+"όνομα αρχείου θα είναι η περιγραφή της εικόνας."
+
+#. (itstool) path: page/p
+#: C/image-export.page:26
+msgid ""
+"To export a number of images, select these images, then press the <gui style="
+"\"button\">Save the selected images to files</gui> button."
+msgstr ""
+"Για να εξάγετε έναν αριθμό από εικόνες, επιλέξτε αυτές τις εικόνες, έπειτα "
+"πατήστε το πλήκτρο <gui style=\"button\">Αποθήκευση των επιλεγμένων εικόνων "
+"σε αρχεία</gui>."
+
+#. (itstool) path: info/desc
+#: C/image.page:19
+msgid "Add images, such as cover art to the tag"
+msgstr "Προσθήκη εικόνων, όπως καλλιτεχνικό κάλυμμα στην ετικέτα"
+
+#. (itstool) path: page/title
+#: C/image.page:23
+msgid "Add an image to a file"
+msgstr "Προσθήκη εικόνας σε αρχείο"
+
+#. (itstool) path: page/p
+#: C/image.page:25
+msgid ""
+"Most audio file formats support an <sys>image</sys> tag field which can be "
+"used to add cover art and other related images to the audio file."
+msgstr ""
+"Οι περισσότερες μορφές αρχείων ήχου υποστηρίζουν ένα πεδίο ετικέτας "
+"<sys>εικόνας</sys> που μπορεί να χρησιμοποιηθεί για να προσθέσει "
+"καλλιτεχνικό κάλυμμα και άλλες σχετικές εικόνες στο αρχείο ήχου."
+
+#. (itstool) path: page/p
+#: C/image.page:28
+msgid ""
+"To add an image to the file, select the file, open the <gui style=\"tab"
+"\">Images</gui> tab and press the <gui style=\"button\">Add images to the "
+"tag</gui> button. Select the image and confirm your selection."
+msgstr ""
+"Για να προσθέσετε μια εικόνα στο αρχείο, επιλέξτε το αρχείο, ανοίξτε την "
+"καρτέλα <gui style=\"tab\">Εικόνες</gui> και πατήστε το πλήκτρο <gui style="
+"\"button\">Προσθήκη εικόνων στην ετικέτα</gui>. Επιλέξτε την εικόνα και "
+"επιβεβαιώστε την επιλογή σας."
+
+#. (itstool) path: page/p
+#: C/image.page:33
+msgid ""
+"Once the image is uploaded, it will be automatically marked as a front cover "
+"and the description will be the filename. To change the <gui>type</gui> and "
+"<gui>description</gui>, press the <gui style=\"button\">Edit image "
+"properties</gui> button. Once you have made the changes, press <gui style="
+"\"button\">OK</gui> to apply the changes."
+msgstr ""
+"Μόλις ανέβει η εικόνα, θα σημειωθεί αυτόματα ως εμπροσθόφυλλο και η "
+"περιγραφή θα είναι το όνομα του αρχείου . Για να αλλάξετε τον <gui>τύπο</"
+"gui> και την <gui>περιγραφή</gui>, πατήστε το πλήκτρο <gui style=\"button"
+"\">Επεξεργασία ιδιοτήτων εικόνας</gui>. Αφού έχετε κάνει τις αλλαγές, "
+"πατήστε <gui style=\"button\">Εντάξει</gui> για να εφαρμόσετε τις αλλαγές."
+
+#. (itstool) path: note/p
+#: C/image.page:40
+msgid "Your changes will not be saved automatically."
+msgstr "Οι αλλαγές σας δεν θα αποθηκευτούν αυτόματα."
+
+#. (itstool) path: page/p
+#: C/image.page:43
+msgid ""
+"You can tag multiple files with the same image by selecting them in the list "
+"of files, then selecting the image and pressing the <gui style=\"button"
+"\">Tag selected files with these images</gui> button. You will need to save "
+"these changes to write them to the files."
+msgstr ""
+"Μπορείτε να βάλετε ετικέτες σε πολλά αρχεία με την ίδια εικόνα επιλέγοντας "
+"τα στον κατάλογο των αρχείων, έπειτα επιλέγοντας την εικόνα και πατώντας το "
+"πλήκτρο <gui style=\"button\">Ετικέτα επιλεγμένων αρχείων με αυτές τις "
+"εικόνες</gui>. Θα χρειαστείτε να αποθηκεύσετε αυτές τις αλλαγές για να τις "
+"γράψετε στα αρχεία."
+
+#. (itstool) path: page/p
+#: C/image.page:48
+msgid ""
+"You can work with more than one image at a time by selecting those images "
+"before you edit, apply, save to file or delete them."
+msgstr ""
+"Μπορείτε να δουλέψετε με περισσότερες από μία εικόνες τη φορά επιλέγοντας "
+"αυτές τις εικόνες πριν τις επεξεργαστείτε, εφαρμόσετε, αποθηκεύσετε σε "
+"αρχείο ή τις διαγράψετε."
+
+#. (itstool) path: info/title
+#: C/index.page:17
+msgctxt "link"
+msgid "EasyTAG"
+msgstr "EasyTAG"
+
+#. (itstool) path: info/title
+#: C/index.page:18
+msgctxt "text"
+msgid "EasyTAG"
+msgstr "EasyTAG"
+
+#. (itstool) path: page/title
+#: C/index.page:22
+msgid "<_:media-1/> EasyTAG"
+msgstr "<_:media-1/> EasyTAG"
+
+#. (itstool) path: section/title
+#: C/index.page:28
+msgid "Features"
+msgstr "Γνωρίσματα"
+
+#. (itstool) path: section/title
+#: C/index.page:32
+msgid "Tags"
+msgstr "Ετικέτες"
+
+#. (itstool) path: section/title
+#: C/index.page:36
+msgid "The image tag field"
+msgstr "Το πεδίο ετικέτας εικόνας"
+
+#. (itstool) path: section/title
+#: C/index.page:44
+msgid "Common problems and questions"
+msgstr "Συνηθισμένα προβλήματα και ερωτήσεις"
+
+#. (itstool) path: page/title
+#: C/introduction.page:21
+msgid "Introduction"
+msgstr "Εισαγωγή"
+
+#. (itstool) path: page/p
+#: C/introduction.page:23
+msgid ""
+"<app>EasyTAG</app> is a comprehensive tag editor for FLAC, Monkey's Audio, "
+"MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis and WavPack "
+"audio files."
+msgstr ""
+"Το <app>EasyTAG</app> είναι ένας περιεκτικός επεξεργαστής ετικέτας για "
+"αρχεία ήχου FLAC, ήχο Monkey, MP2, MP3 MP4/AAC, MusePack, Ogg Opus, Ogg "
+"Speex, Ogg Vorbis και WavPack."
+
+#. (itstool) path: page/title
+#: C/keyboard-shortcuts.page:20
+msgid "Keyboard shortcuts"
+msgstr "Συντομεύσεις πληκτρολογίου"
+
+#. (itstool) path: page/p
+#: C/keyboard-shortcuts.page:22
+msgid ""
+"<app>EasyTAG</app> has a number of keyboard shortcuts, most of which are "
+"listed in the menus. Here are some which are especially useful:"
+msgstr ""
+"Το <app>EasyTAG</app> έχει έναν αριθμό από συντομεύσεις πληκτρολογίου, οι "
+"περισσότερες από τις οποίες είναι καταχωρισμένες στα μενού. Ιδού μερικές που "
+"είναι ιδιαίτερα χρήσιμες:"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:29
+msgid "Action"
+msgstr "Ενέργεια"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:32
+msgid "Shortcut"
+msgstr "Συντόμευση"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:39
+msgid "Apply tag to selected files"
+msgstr "Εφαρμογή ετικέτας στα επιλεγμένα αρχεία"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:42
+msgid "<keyseq><key>Ctrl</key><key>Return</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>Return</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:47
+msgid "Search all files, including filenames and tags"
+msgstr ""
+"Αναζήτηση όλων των αρχείων, συμπεριλαμβάνοντας ονόματα αρχείων και ετικέτες"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:50
+msgid "<keyseq><key>Ctrl</key><key>F</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>F</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:55
+msgid "Go to previous file while keeping focus on the same tag field"
+msgstr ""
+"Μετάβαση στο προηγούμενο αρχείο ενώ κρατάτε εστίαση στο ίδιο πεδίο ετικέτας"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:58
+msgid "<key>Page Up</key>"
+msgstr "<key>Page Up</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:63
+msgid "Go to next file while keeping focus on the same tag field"
+msgstr ""
+"Μετάβαση στο επόμενο αρχείο ενώ κρατάτε εστίαση στο ίδιο πεδίο ετικέτας"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:66
+msgid "<key>Page Down</key>"
+msgstr "<key>Page Down</key>"
+
+#. (itstool) path: p/link
+#: C/legal.xml:4
+msgid "Creative Commons Attribution-ShareAlike 3.0 Unported License"
+msgstr "Creative Commons Attribution-ShareAlike 3.0 Unported License"
+
+#. (itstool) path: license/p
+#: C/legal.xml:3
+msgid "This work is licensed under a <_:link-1/>."
+msgstr "Αυτή η δουλειά αδειοδοτήθηκε από <_:link-1/>."
+
+#. (itstool) path: info/desc
+#: C/playlist-generate.page:17
+msgid "Generate a playlist from the file list"
+msgstr "Δημιουργία ενός καταλόγου αναπαραγωγής από τον κατάλογο αρχείων"
+
+#. (itstool) path: page/title
+#: C/playlist-generate.page:20
+msgid "Create a playlist"
+msgstr "Δημιουργία καταλόγου αναπαραγωγής"
+
+#. (itstool) path: page/p
+#: C/playlist-generate.page:22
+msgid ""
+"You can create a M3U playlist for use with a music player based on the list "
+"of files shown in <app>EasyTAG</app>:"
+msgstr ""
+"Μπορείτε να δημιουργήσετε έναν κατάλογο αναπαραγωγής M3U που θα "
+"χρησιμοποιήσετε με μια συσκευή αναπαραγωγής μουσικής με βάση τον κατάλογο "
+"των αρχείων που εμφανίζονται στην <app>EasyTAG</app>:"
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:27
+msgid ""
+"<link xref=\"file-select\">Select the files</link> that you wish to be in "
+"the playlist in the file list."
+msgstr ""
+"<link xref=\"file-select\">Επιλέξτε τα αρχεία</link> που θέλετε να είναι "
+"στον κατάλογο αναπαραγωγής στον κατάλογο αρχείων."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:31
+msgid ""
+"Select <guiseq><gui style=\"menu\">Miscellaneous</gui> <gui style=\"menuitem"
+"\">Generate Playlist…</gui></guiseq>."
+msgstr ""
+"Επιλέξτε <guiseq><gui style=\"menu\">Διάφορα</gui> <gui style=\"menuitem"
+"\">Δημιουργία καταλόγου αναπαραγωγής…</gui></guiseq>."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:35
+msgid ""
+"Select <gui style=\"radiobutton\">Use mask</gui> and enter a mask, using "
+"<link xref=\"format-specifier\">format specifiers</link>, or select <gui "
+"style=\"radiobutton\">Use directory name</gui> to name the playlist after "
+"the directory which is selected in the <gui style=\"group\">Browser</gui>."
+msgstr ""
+"Επιλέξτε <gui style=\"radiobutton\">Χρήση μάσκας</gui> και εισάγετε μια "
+"μάσκα, χρησιμοποιώντας τους <link xref=\"format-specifier\">προσδιοριστές "
+"μορφής</link>, ή επιλέξτε <gui style=\"radiobutton\">Χρήση ονόματος "
+"καταλόγου</gui> για να ονομάσετε τον κατάλογο αναπαραγωγής σύμφωνα με τον "
+"κατάλογο που είναι επιλεγμένος στον <gui style=\"group\">Περιηγητή</gui>."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:42
+msgid ""
+"Select <gui style=\"checkbox\">Include only the selected files</gui> to use "
+"the files which are selected in the file list when generating the playlist. "
+"Deselect it to include all the displayed files in the playlist."
+msgstr ""
+"Επιλέξτε <gui style=\"checkbox\">Να συμπεριλαμβάνονται μόνο τα επιλεγμένα "
+"αρχεία</gui> για να χρησιμοποιήσετε τα αρχεία που είναι επιλεγμένα στον "
+"κατάλογο αρχείων κατά τη δημιουργία του καταλόγου αναπαραγωγής. Αποεπιλέξτε "
+"το για να συμπεριλάβετε όλα τα εμφανιζόμενα αρχεία στον κατάλογο "
+"αναπαραγωγής."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:48
+msgid ""
+"Select <gui style=\"radiobutton\">Use relative path for files in playlist</"
+"gui> unless you only plan to use the playlist on the same computer and you "
+"do not plan to move the audio files, in which case you can select <gui style="
+"\"radiobutton\">Use full path for files in playlist</gui>."
+msgstr ""
+"Επιλέξτε <gui style=\"radiobutton\">Χρήση σχετικής διαδρομής για τα αρχεία "
+"στον κατάλογο αναπαραγωγής</gui> εκτός και σκοπεύετε να χρησιμοποιήσετε μόνο "
+"τον κατάλογο αναπαραγωγής στον ίδιο υπολογιστή και δεν σκοπεύετε να "
+"μετακινήσετε τα αρχεία ήχου, οπότε μπορείτε να επιλέξετε <gui style="
+"\"radiobutton\">Χρήση πλήρους διαδρομής για αρχεία στον κατάλογο "
+"αναπαραγωγής</gui>."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:55
+msgid ""
+"Select <gui style=\"checkbox\">Create playlist in the parent directory</gui> "
+"if you want to save the playlist in the parent of the directory selected in "
+"the <gui style=\"group\">Browser</gui>. Otherwise, the playlist will be "
+"saved in the directory selected in the <gui style=\"group\">Browser</gui>."
+msgstr ""
+"Επιλέξτε <gui style=\"checkbox\">Δημιουργία καταλόγου αναπαραγωγής στον "
+"γονικό κατάλογο</gui> αν θέλετε να αποθηκεύσετε τον κατάλογο αναπαραγωγής "
+"στον γονικό του επιλεγμένου καταλόγου στον <gui style=\"group\">Περιηγητή</"
+"gui>. Αλλιώς, ο κατάλογος αναπαραγωγής θα αποθηκευτεί στον επιλεγμένο "
+"κατάλογο στον <gui style=\"group\">Περιηγητή</gui>."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:63
+msgid ""
+"If you are creating a playlist for use on a Windows computer, or on a "
+"<sys>NTFS</sys> or <sys>FAT</sys> file system, select <gui style=\"checkbox"
+"\">Use DOS directory separator</gui>."
+msgstr ""
+"Αν δημιουργείτε έναν κατάλογο αναπαραγωγής για χρήση σε έναν υπολογιστή "
+"Windows ή σε ένα σύστημα αρχείων <sys>NTFS</sys> ή <sys>FAT</sys>, επιλέξτε "
+"<gui style=\"checkbox\">Χρήση διαχωριστικού καταλόγου DOS</gui>."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:68
+msgid ""
+"Select <gui style=\"radiobutton\">Write only list of files</gui> to create a "
+"playlist which only contains a list of files. Select <gui style=\"radiobutton"
+"\">Write info using filename</gui> to also write extended information, "
+"including the duration of the audio file, to the playlist. Select <gui style="
+"\"radiobutton\">Write info using</gui> and enter a mask, using format "
+"specifiers, to write custom extended information to the playlist."
+msgstr ""
+"Επιλέξτε <gui style=\"radiobutton\">Εγγραφή μόνο καταλόγου αρχείων</gui> για "
+"να δημιουργήσετε έναν κατάλογο αναπαραγωγής που περιέχει μόνο έναν κατάλογο "
+"αρχείων. Επιλέξτε <gui style=\"radiobutton\">Εγγραφή πληροφοριών "
+"χρησιμοποιώντας όνομα αρχείου</gui> για να γράψετε επίσης εκτεταμένες "
+"πληροφορίες, συμπεριλαμβάνοντας τη διάρκεια του αρχείου ήχου, στον κατάλογο "
+"αναπαραγωγής. Επιλέξτε <gui style=\"radiobutton\">Εγγραφή πληροφοριών "
+"χρησιμοποιώντας</gui> και εισάγετε μια μάσκα, χρησιμοποιώντας προσδιοριστικά "
+"μορφής, για να γράψετε προσαρμοσμένες εκτεταμένες πληροφορίες στον κατάλογο "
+"αναπαραγωγής."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:77
+msgid "To generate the playlist, select <gui style=\"button\">Save</gui>."
+msgstr ""
+"Για να δημιουργήσετε τον κατάλογο αναπαραγωγής, επιλέξτε <gui style=\"button"
+"\">Αποθήκευση</gui>."
+
+#. (itstool) path: credit/name
+#: C/problems-id3.page:13 C/problems-ogg-split.page:13
+msgid "David King"
+msgstr "David King"
+
+#. (itstool) path: info/desc
+#: C/problems-id3.page:17
+msgid "Fix ID3 tags that show up blank or incorrect tags in other applications"
+msgstr ""
+"Διορθώστε ετικέτες ID3 που εμφανίζουν κενές ή εσφαλμένες ετικέτες σε άλλες "
+"εφαρμογές"
+
+#. (itstool) path: page/title
+#: C/problems-id3.page:21
+msgid "MP3 tags not showing correctly"
+msgstr "Ετικέτες MP3 που δεν εμφανίζονται σωστά"
+
+#. (itstool) path: page/p
+#: C/problems-id3.page:23
+msgid ""
+"<em>ID3</em> tags, which are used for MP3 files, can be of one of several "
+"different versions. <app>EasyTAG</app> supports ID3v2.4, ID3v2.3 and "
+"ID3v1.1. The default version in <app>EasyTAG</app> is ID3v2.4, which has the "
+"most features and is most efficient."
+msgstr ""
+"Ετικέτες <em>ID3</em>, που χρησιμοποιούνται για αρχεία MP3, μπορούν να είναι "
+"μία από πολλές διαφορετικές εκδόσεις. Το <app>EasyTAG</app> υποστηρίζει "
+"ID3v2.4, ID3v2.3 και ID3v1.1. Η προεπιλεγμένη έκδοση στο <app>EasyTAG</app> "
+"είναι ID3v2.4, που έχει τα περισσότερα γνωρίσματα και είναι περισσότερο "
+"αποτελεσματική."
+
+#. (itstool) path: page/p
+#: C/problems-id3.page:28
+msgid ""
+"Most applications support the most recent version of the ID3 standard: "
+"ID3v2.4."
+msgstr ""
+"Οι περισσότερες εφαρμογές υποστηρίζουν την πιο πρόσφατη έκδοση του προτύπου "
+"ID3: ID3v2.4."
+
+#. (itstool) path: page/p
+#: C/problems-id3.page:31
+msgid ""
+"Some applications and devices may support only ID3v2.3 and ID3v1.1 tags, and "
+"a few may support only ID3v1.1 tags. If another application or a device has "
+"a problem reading tags from your files, you should try changing the ID3 tag "
+"version settings in the preferences:"
+msgstr ""
+"Μερικές εφαρμογές και συσκευές μπορεί να υποστηρίζουν μόνο τις ετικέτες "
+"ID3v2.3 και ID3v1.1 και κάποιες λίγες ενδέχεται να υποστηρίζουν μόνο "
+"ετικέτες ID3v1.1. Αν μια άλλη εφαρμογή ή συσκευή έχει πρόβλημα ανάγνωσης "
+"ετικετών από τα αρχεία σας, θα πρέπει να προσπαθήσετε να αλλάξετε τις "
+"ρυθμίσεις έκδοσης ετικέτας ID3 στις προτιμήσεις:"
+
+#. (itstool) path: item/p
+#: C/problems-id3.page:38 C/problems-ogg-split.page:45
+msgid ""
+"Select <guiseq style=\"menuitem\"><gui style=\"menu\">Edit</gui><gui style="
+"\"menuitem\">Preferences</gui></guiseq>"
+msgstr ""
+"Επιλέξτε <guiseq style=\"menuitem\"><gui style=\"menu\">Επεξεργασία</"
+"gui><gui style=\"menuitem\">Προτιμήσεις</gui></guiseq>"
+
+#. (itstool) path: item/p
+#: C/problems-id3.page:42
+msgid "Select the <gui style=\"tab\">ID3 Tag Settings</gui> tab"
+msgstr "Επιλέξτε την καρτέλα <gui style=\"tab\">Ρυθμίσεις ετικέτας ID3</gui>"
+
+#. (itstool) path: item/p
+#: C/problems-id3.page:45
+msgid ""
+"In the <gui style=\"group\">ID3v2 tags</gui> section, choose the "
+"<gui>ID3v2.3</gui> setting in the <gui>Version</gui> drop-down lid to "
+"improve compatibility with other systems capable of reading ID3v2 tags"
+msgstr ""
+"Στην ενότητα <gui style=\"group\">Ετικέτες ID3v2</gui>, επιλέξτε τη ρύθμιση "
+"<gui>ID3v2.3</gui> στο πτυσσόμενο κάλυμμα <gui>Έκδοση</gui> για να "
+"βελτιώσετε τη συμβατότητα με άλλα συστήματα ικανά να διαβάσουν ετικέτες ID3v2"
+
+#. (itstool) path: item/p
+#: C/problems-id3.page:50
+msgid ""
+"Make sure that <gui style=\"check\">Write ID3v1.x tag</gui> is checked in "
+"the <gui style=\"group\">ID3v1 tags</gui> section"
+msgstr ""
+"Βεβαιωθείτε ότι το <gui style=\"check\">Εγγραφή ετικέτας ID3v1.x</gui> είναι "
+"σημειωμένο στην ενότητα <gui style=\"group\">Ετικέτες ID3v1</gui>"
+
+#. (itstool) path: item/p
+#: C/problems-id3.page:54 C/problems-ogg-split.page:56
+msgid "Click <gui style=\"button\">OK</gui> to save the settings"
+msgstr ""
+"Πατήστε <gui style=\"button\">Εντάξει</gui> για να αποθηκεύσετε τις ρυθμίσεις"
+
+#. (itstool) path: info/desc
+#: C/problems-ogg-split.page:21
+msgid ""
+"Split a single tag field into multiple fields when you save Ogg and FLAC "
+"files"
+msgstr ""
+"Διαίρεση ενός μοναδικού πεδίου ετικέτας σε πολλά πεδία, όταν αποθηκεύετε "
+"αρχεία Ogg και FLAC"
+
+#. (itstool) path: page/title
+#: C/problems-ogg-split.page:25
+msgid "Split tag fields when saving"
+msgstr "Διαίρεση πεδίων ετικετών κατά την αποθήκευση"
+
+#. (itstool) path: page/p
+#: C/problems-ogg-split.page:27
+msgid ""
+"In Ogg and FLAC files, it is possible to have more than one <link xref=\"tag"
+"\">tag field</link> of each type. For example, if two artists performed a "
+"song, there can be two artist fields in the tag, one for each artist. "
+"<app>EasyTAG</app> automatically reads the extra fields, combining them "
+"together and showing them as if they were a single field."
+msgstr ""
+"Στα αρχεία Ogg και FLAC, μπορείτε να έχετε περισσότερα από ένα <link xref="
+"\"tag\">πεδία ετικέτας</link> κάθε τύπου. Για παράδειγμα, αν δύο καλλιτέχνες "
+"τραγούδησαν έναν τραγούδι, τότε μπορεί να υπάρχουν δύο πεδία καλλιτέχνη στην "
+"ετικέτα, ένα για κάθε καλλιτέχνη. Το <app>EasyTAG</app> διαβάζει αυτόματα τα "
+"πρόσθετα πεδία, συνδυάζοντάς και εμφανίζοντάς τα μαζί σαν να ήταν ένα μόνο "
+"πεδίο."
+
+#. (itstool) path: page/p
+#: C/problems-ogg-split.page:33
+msgid ""
+"Many applications do not read the multi-value field correctly, so the "
+"default configuration is to save using a single field per entry. If the "
+"application that you are using supports multiple field of one type, you can "
+"configure EasyTAG to split fields when you save the file. Fields will "
+"automatically be split whenever \" - \" occurs in the field. For example, in "
+"the field \"David Bowie - Queen\", two fields would be saved: \"David Bowie"
+"\" and \"Queen\"."
+msgstr ""
+"Πολλές εφαρμογές δεν διαβάζουν το πεδίο πολλαπλής τιμής σωστά, έτσι η "
+"προεπιλεγμένη ρύθμιση πρέπει να αποθηκευτεί χρησιμοποιώντας ένα μόνο πεδίο "
+"ανά καταχώριση. Αν η εφαρμογή που χρησιμοποιείτε υποστηρίζει πολλά πεδία "
+"ενός τύπου, μπορείτε να ρυθμίσετε το EasyTAG ώστε να διαιρεί πεδία όταν "
+"αποθηκεύετε το αρχείο. Τα πεδία θα διαιρεθούν αυτόματα όποτε εμφανίζεται \" "
+"- \" στο πεδίο. Για παράδειγμα, στο πεδίο \"Πασχάλης Αρβανιτόπουλος - Τσαρμς"
+"\", θα αποθηκευτούν δύο πεδία: \"Πασχάλης Αρβανιτόπουλος\" και \"Τσαρμς\"."
+
+#. (itstool) path: page/p
+#: C/problems-ogg-split.page:41
+msgid "To split fields when you save the files:"
+msgstr "Για να διαιρέσετε πεδία κατά την αποθήκευση των αρχείων:"
+
+#. (itstool) path: item/p
+#: C/problems-ogg-split.page:49
+msgid "Select the <gui style=\"tab\">Tag Settings</gui> tab"
+msgstr "Επιλέξτε την καρτέλα <gui style=\"tab\">Ρυθμίσεις ετικέτας</gui>"
+
+#. (itstool) path: item/p
+#: C/problems-ogg-split.page:52
+msgid ""
+"In <gui style=\"group\">Tag Splitting</gui> section, check the fields that "
+"you want to be split into multiple fields when saving"
+msgstr ""
+"Στην ενότητα <gui style=\"group\">Διαίρεση ετικέτας</gui>, σημειώστε τα "
+"πεδία που θέλετε να διαιρεθούν σε πολλαπλά πεδία κατά την αποθήκευση"
+
+#. (itstool) path: info/desc
+#: C/scanner.page:17
+msgid "Update tags automatically."
+msgstr "Αυτόματη ενημέρωση των ετικετών."
+
+#. (itstool) path: page/title
+#: C/scanner.page:21
+msgid "The <gui>Scanner</gui>"
+msgstr "Ο <gui>Σαρωτής</gui>"
+
+#. (itstool) path: page/p
+#: C/scanner.page:23
+msgid ""
+"The scanner can be used to fill in fields based on the filename, rename a "
+"file and create a new directory based on the filled fields, and process the "
+"text in fields and the filename."
+msgstr ""
+"Ο σαρωτής μπορεί να χρησιμοποιηθεί για να συμπληρώσει τα πεδία με βάση το "
+"όνομα του αρχείου, για να μετονομάσει ένα αρχείο και να δημιουργήσει έναν "
+"νέο κατάλογο με βάση τα συμπληρωμένα πεδία και να επεξεργαστεί το κείμενο "
+"στα πεδία και στο όνομα του αρχείου."
+
+#. (itstool) path: section/title
+#: C/scanner.page:28
+msgid "Fill fields from a filename and directory structure"
+msgstr "Συμπλήρωση πεδίων από τη δομή ονόματος αρχείου και καταλόγου"
+
+#. (itstool) path: section/p
+#: C/scanner.page:30
+msgid ""
+"<gui>Fill Tag</gui> can be used to fill in tag fields based on the filename "
+"and its parent directories."
+msgstr ""
+"Η <gui>Συμπλήρωση ετικέτας</gui> μπορεί να χρησιμοποιηθεί για να συμπληρώσει "
+"τα πεδία ετικέτας με βάση το όνομα του αρχείου και τους γονικούς του "
+"καταλόγους."
+
+#. (itstool) path: section/p
+#: C/scanner.page:33
+msgid ""
+"Use <em xref=\"format-specifier\">format specifiers</em> and <em>separators</"
+"em> to split the filename and parent directories into different tag fields. "
+"The <em>format specifiers</em>, such as <input>%t</input> for track title, "
+"which are used to indicate the different tag fields, are listed in the "
+"<gui>Legend</gui>. <em>Separators</em> can be any part of the filename or "
+"the parent directories. Use <key>/</key> to add the <em>separator</em> for a "
+"parent directory."
+msgstr ""
+"Χρησιμοποιήστε τα <em xref=\"format-specifier\">προσδιοριστικά μορφής</em> "
+"και <em>διαχωριστικών</em> για να διαιρέσετε το όνομα του αρχείου και των "
+"γονικών καταλόγων σε διαφορετικά πεδία ετικετών. Τα <em>προσδιοριστικά "
+"μορφής</em>, όπως <input>%t</input> για τίτλο κομματιού, που "
+"χρησιμοποιούνται για να δείξουν τα διαφορετικά πεδία ετικετών, "
+"καταχωρίζονται στο <gui>Υπόμνημα</gui>. Τα <em>Διαχωριστικά</em> μπορούν να "
+"είναι οποιοδήποτε μέρος του ονόματος του αρχείου ή των γονικών καταλόγων. "
+"Χρησιμοποιήστε <key>/</key> για να προσθέσετε το <em>διαχωριστικό</em> για "
+"έναν γονικό κατάλογο."
+
+#. (itstool) path: section/p
+#: C/scanner.page:41
+msgid ""
+"For example, if you keep your audio files using the <file>artist/"
+"album/01 track title.flac</file> directory structure and filenames, use the "
+"<input>%a/%b/%t %n</input> <em>format string</em> to extract the track "
+"number and title from the filename, the album title from the parent "
+"directory and the artist from the grandparent directory."
+msgstr ""
+"Για παράδειγμα, αν κρατήσετε τα αρχεία ήχου σας χρησιμοποιώντας τη δομή "
+"καταλόγου και τα ονόματα αρχείων του <file>artist/album/01 track title.flac</"
+"file>, χρησιμοποιήστε το <input>%a/%b/%t %n</input> της <em>συμβολοσειράς "
+"μορφής</em> για να εξάγετε τον αριθμό κομματιού και τον τίτλο από το όνομα "
+"του αρχείου, τον τίτλο δίσκου από τον γονικό κατάλογο και τον καλλιτέχνη από "
+"τον προγονικό κατάλογο."
+
+#. (itstool) path: section/p
+#: C/scanner.page:47
+msgid ""
+"Fill the tag fields for the selected files using the <gui style=\"button"
+"\">Scan Files</gui> button."
+msgstr ""
+"Συμπληρώστε τα πεδία ετικετών για τα επιλεγμένα αρχεία χρησιμοποιώντας το "
+"πλήκτρο <gui style=\"button\">Σάρωση αρχείων</gui>."
+
+#. (itstool) path: section/title
+#: C/scanner.page:53
+msgid "Rename files and create new directories"
+msgstr "Μετονομασία αρχείων και δημιουργία νέων καταλόγων"
+
+#. (itstool) path: section/p
+#: C/scanner.page:55
+msgid ""
+"<gui xref=\"file-rename\">Rename File and Directory</gui> can be used to "
+"create a directory hierarchy and update filenames using the filled tag "
+"fields. If a new directory hierarchy is specified, it will be created inside "
+"the directory where the file is currently located."
+msgstr ""
+"Το <gui xref=\"file-rename\">Μετονομασία αρχείου και καταλόγου</gui> μπορεί "
+"να χρησιμοποιηθεί για να δημιουργήσετε μια ιεραρχία καταλόγου και να "
+"ενημερώσετε τα ονόματα αρχείων χρησιμοποιώντας τα συμπληρωμένα πεδία "
+"ετικέτας. Αν οριστεί μια νέα ιεραρχία καταλόγων, θα δημιουργηθεί μέσα στον "
+"κατάλογο όπου είναι προς το παρόν τοποθετημένο το αρχείο."
+
+#. (itstool) path: section/p
+#: C/scanner.page:60
+msgid ""
+"For example, if you have a tagged file inside the <file>Music</file> "
+"directory, you can use the <input>%a/%b/%t %n</input> <em>format string</"
+"em>, it will create the <file>Music/artist/album/01 track title.flac</file> "
+"file structure and filename. You will see a preview of the naming scheme "
+"below your specified format string."
+msgstr ""
+"Για παράδειγμα, αν έχετε ένα αρχείο με ετικέτα μέσα στον κατάλογο "
+"<file>μουσική</file>, μπορείτε να χρησιμοποιήσετε το <input>%a/%b/%t %n</"
+"input> της <em>συμβολοσειράς μορφής</em>, που θα δημιουργήσει τη δομή "
+"αρχείου και το όνομα αρχείου <file>Music/artist/album/01 track title.flac</"
+"file>. Θα δείτε μια προεπισκόπηση του σχήματος ονομασίας κάτω από την "
+"καθορισμένη συμβολοσειρά μορφής."
+
+#. (itstool) path: section/p
+#: C/scanner.page:66
+msgid ""
+"To prepare the files for moving and renaming, press the <gui style=\"button"
+"\">Scan Files</gui> button."
+msgstr ""
+"Για να προετοιμάστε τα αρχεία για μετακίνηση και μετονομασία, πατήστε το "
+"πλήκτρο <gui style=\"button\">Σάρωση αρχείων</gui>."
+
+#. (itstool) path: section/title
+#: C/scanner.page:72
+msgid "Bulk process tag fields and filename"
+msgstr "Μαζική επεξεργασία πεδίων ετικέτας και ονόματος αρχείου"
+
+#. (itstool) path: section/p
+#: C/scanner.page:74
+msgid ""
+"<gui>Process Fields</gui> is a sophisticated find and replace feature which "
+"allows you to select which tag fields to process. It also allows for the "
+"filename to be processed as well."
+msgstr ""
+"Η <gui>Επεξεργασία πεδίων</gui> είναι ένα προηγμένο γνώρισμα εύρεσης και "
+"αντικατάστασης που σας επιτρέπει να επιλέξετε ποια πεδία ετικέτας θα "
+"επεξεργαστείτε. Επιτρέπει επίσης να επεξεργαστεί το όνομα του αρχείου."
+
+#. (itstool) path: section/p
+#: C/scanner.page:78
+msgid ""
+"You can <gui>Convert</gui> characters for a simple find and replace, change "
+"capitalization and add or remove spaces."
+msgstr ""
+"Μπορείτε να <gui>μετατρέψετε</gui> χαρακτήρες για μια απλή εύρεση και "
+"αντικατάσταση, να αλλάξετε την κεφαλαιοποίηση και να προσθέσετε ή να "
+"αφαιρέσετε διαστήματα."
+
+#. (itstool) path: section/p
+#: C/scanner.page:81
+msgid ""
+"Use the <gui>Select fields</gui> buttons to specify which fields to change. "
+"You can also select or deselect all fields and invert your selection."
+msgstr ""
+"Χρησιμοποιήστε τα πλήκτρα <gui>Επιλογή πεδίων</gui> για να ορίσετε ποια "
+"πεδία θα αλλάξετε. Μπορείτε επίσης να επιλέξετε ή να αποεπιλέξετε όλα τα "
+"πεδία και να αντιστρέψετε την επιλογή σας."
+
+#. (itstool) path: info/desc
+#: C/starting.page:16
+msgid "Using <app>EasyTAG</app> for the first time"
+msgstr "Χρήση του <app>EasyTAG</app> για πρώτη φορά"
+
+#. (itstool) path: page/title
+#: C/starting.page:19
+msgid "Start using <app>EasyTAG</app>"
+msgstr "Έναρξη χρήσης του <app>EasyTAG</app>"
+
+#. (itstool) path: page/p
+#: C/starting.page:21
+msgid ""
+"When you start <app>EasyTAG</app> for the first time, it will search your "
+"<file>Music</file> directory or your home directory for audio files. If you "
+"wish to skip the search, press the <gui style=\"button\">Stop</gui> button."
+msgstr ""
+"Όταν ξεκινάτε το <app>EasyTAG</app> για πρώτη φορά, θα ψάξει τον κατάλογο "
+"σας <file>Μουσική</file> ή τον προσωπικό σας κατάλογο για αρχεία ήχου. Αν "
+"θέλετε να παραλείψετε την αναζήτηση, πατήστε το πλήκτρο <gui style=\"button"
+"\">Διακοπή</gui>."
+
+#. (itstool) path: page/p
+#: C/starting.page:25
+msgid ""
+"<app>EasyTAG</app> may apply some automatic corrections to some of your "
+"music files. These files will be highlighted in bold. These are normally "
+"updates to the tag metadata containers and will not be applied until you "
+"save the changes."
+msgstr ""
+"Το <app>EasyTAG</app> μπορεί να εφαρμόσει μερικές αυτόματες διορθώσεις σε "
+"κάποια από τα αρχεία μουσικής σας. Αυτά τα αρχεία θα επισημανθούν έντονα. "
+"Αυτά είναι κανονικά ενημερώσεις στους περιέκτες μεταδεδομένων ετικέτας και "
+"δεν θα εφαρμοστούν μέχρι να αποθηκεύσετε τις αλλαγές."
+
+#. (itstool) path: page/p
+#: C/starting.page:30
+msgid ""
+"To save these changes, select all the files that have been affected and "
+"press <keyseq><key>Ctrl</key><key>S</key></keyseq>. It is not possible to "
+"undo the automatic changes but they will not be saved unless you select the "
+"file and save it. You can disable some of the automatic updates in the <gui "
+"style=\"tab\">ID3 Tag Settings</gui> tab in the <gui style=\"dialog"
+"\">Preferences</gui> dialog."
+msgstr ""
+"Για να αποθηκεύσετε αυτές τις αλλαγές, επιλέξτε όλα τα αρχεία που έχουν "
+"επηρεαστεί και πατήστε <keyseq><key>Ctrl</key><key>S</key></keyseq>. Δεν "
+"μπορείτε να αναιρέσετε τις αυτόματες αλλαγές, αλλά δεν θα αποθηκευτούν εκτός "
+"και επιλέξετε το αρχείο και το αποθηκεύσετε. Μπορείτε να απενεργοποιήσετε "
+"κάποιες από τις αυτόματες ενημερώσεις στην καρτέλα <gui style=\"tab"
+"\">Ρυθμίσεις ετικέτας ID3</gui> στον διάλογο <gui style=\"dialog"
+"\">Προτιμήσεις</gui>."
+
+#. (itstool) path: info/desc
+#: C/tag-field.page:18
+msgid "Add text tags to a file"
+msgstr "Προσθήκη ετικετών κειμένου σε ένα αρχείο"
+
+#. (itstool) path: page/title
+#: C/tag-field.page:22
+msgid "Tag a file"
+msgstr "Ετικέτα σε αρχείο"
+
+#. (itstool) path: page/p
+#: C/tag-field.page:24
+msgid ""
+"Audio files can support a number of different tag <em>fields</em> which "
+"depend on the file format."
+msgstr ""
+"Τα αρχεία ήχου μπορούν να υποστηρίξουν έναν αριθμό από διαφορετικά "
+"<em>πεδία</em> ετικετών πράγμα που εξαρτάται από τη μορφή του αρχείου."
+
+#. (itstool) path: steps/title
+#: C/tag-field.page:28
+msgid "Update a tag field in a file"
+msgstr "Ενημέρωση πεδίου ετικέτας σε ένα αρχείο"
+
+#. (itstool) path: item/p
+#: C/tag-field.page:30
+msgid "Select the file that you wish to tag."
+msgstr "Επιλέξτε το αρχείο στο οποίο θέλετε να βάλετε ετικέτα."
+
+#. (itstool) path: item/p
+#: C/tag-field.page:33
+msgid "Update the field that you want to change in the <gui>Tag</gui> panel."
+msgstr ""
+"Ενημερώστε το πεδίο που θέλετε να αλλάξετε στο φάτνωμα <gui>ετικέτα</gui>."
+
+#. (itstool) path: item/p
+#: C/tag-field.page:37
+msgid ""
+"Select <guiseq><gui style=\"menu\">File</gui><gui style=\"menuitem\">Save "
+"files</gui></guiseq> to save your changes to the selected file."
+msgstr ""
+"Επιλέξτε <guiseq><gui style=\"menu\">Αρχείο</gui><gui style=\"menuitem"
+"\">Αποθήκευση αρχείων</gui></guiseq> για να αποθηκεύσετε τις αλλαγές σας στο "
+"επιλεγμένο αρχείο."
+
+#. (itstool) path: item/p
+#: C/tag-field.page:42
+msgid ""
+"When you are asked to <gui>Confirm Tag Writing</gui>, press <gui style="
+"\"button\">Save</gui> to save the changes."
+msgstr ""
+"Όταν σας ζητηθεί <gui>Επιβεβαίωση εγγραφής ετικέτας</gui>, πατήστε <gui "
+"style=\"button\">Αποθήκευση</gui> για να αποθηκεύσετε τις αλλαγές."
+
+#. (itstool) path: page/p
+#: C/tag-field.page:47
+msgid ""
+"You can tag multiple files with the same field by selecting them in the list "
+"of files and pressing the <gui>Tag selected files with this […]</gui> icon "
+"in the field that you want to tag. You will need to save these changes to "
+"write them to the files."
+msgstr ""
+"Μπορείτε να βάλετε ετικέτες σε πολλά αρχεία με το ίδιο πεδίο επιλέγοντας τα "
+"στον κατάλογο και πατώντας το εικονίδιο <gui>Τοποθέτηση ετικέτας στα "
+"επιλεγμένα αρχεία με αυτό […]</gui> στο πεδίο που θέλετε να βάλετε ετικέτα. "
+"Θα χρειαστείτε να αποθηκεύσετε αυτές τις αλλαγές για να τις γράψετε στα "
+"αρχεία."
+
+#. (itstool) path: info/desc
+#: C/tag.page:17
+msgid "What is a tag and what are fields?"
+msgstr "Τι είναι ετικέτες και τι πεδία;"
+
+#. (itstool) path: page/title
+#: C/tag.page:21
+msgid "Audio file tags"
+msgstr "Ετικέτες αρχείων ήχου"
+
+#. (itstool) path: page/p
+#: C/tag.page:23
+msgid ""
+"An audio file can contain <em>metadata</em> — information about itself — "
+"inside a <em>tag</em>. Each tag can contain one or more <em>fields</em>, "
+"such as <gui>Title</gui> or <gui>Artist</gui>. You can edit some of these "
+"fields using <app>EasyTAG</app>. The editable fields depend on the format of "
+"the file that you want to tag."
+msgstr ""
+"Ένα αρχείο ήχου μπορεί να περιέχει <em>μεταδεδομένα</em> — πληροφορίες για "
+"το ίδιο το αρχείο — μέσα σε μια <em>ετικέτα</em>. Κάθε ετικέτα μπορεί να "
+"περιέχει ένα ή περισσότερα <em>πεδία</em>, όπως <gui>Τίτλος</gui> ή "
+"<gui>Καλλιτέχνης</gui>. Μπορείτε να επεξεργαστείτε μερικά από αυτά τα πεδία "
+"χρησιμοποιώντας <app>EasyTAG</app>. Τα επεξεργάσιμα πεδία εξαρτώνται από τη "
+"μορφή του αρχείου στο οποίο θέλετε να βάλετε ετικέτα."
