@@ -663,13 +663,13 @@ etag_ucs42gchar(const id3_ucs4_t *usrc, unsigned is_latin,
 
 
 static int
-libid3tag_Get_Frame_Str(const struct id3_frame *frame, unsigned etag_field_type, gchar **retstr)
+libid3tag_Get_Frame_Str (const struct id3_frame *frame,
+                         unsigned etag_field_type,
+                         gchar **retstr)
 {
-    const union id3_field  *field;
-    unsigned    i, j, strcnt;
-    gchar   *ret, *tmpstr, *tmpstr2, *latinstr;
-    unsigned field_type;
-    const id3_ucs4_t *usrc;
+    const union id3_field *field;
+    unsigned i;
+    gchar *ret;
     unsigned is_latin, is_utf16;
     unsigned retval;
 
@@ -677,8 +677,8 @@ libid3tag_Get_Frame_Str(const struct id3_frame *frame, unsigned etag_field_type,
     retval = 0;
     is_latin = 1, is_utf16 = 0;
 
-    // Find the encoding used for the field
-    for (i = 0; (field = id3_frame_field(frame, i)); i++)
+    /* Find the encoding used for the field. */
+    for (i = 0; (field = id3_frame_field (frame, i)); i++)
     {
         if (id3_field_type(field) == ID3_FIELD_TYPE_TEXTENCODING)
         {
@@ -688,81 +688,135 @@ libid3tag_Get_Frame_Str(const struct id3_frame *frame, unsigned etag_field_type,
         }
     }
 
-    for (i = 0; (field = id3_frame_field(frame, i)); i++)
+    for (i = 0; (field = id3_frame_field (frame, i)); i++)
     {
-        tmpstr = tmpstr2 = NULL;
+        unsigned field_type;
+        gchar *tmpstr = NULL;
+
         switch (field_type = id3_field_type(field))
         {
             case ID3_FIELD_TYPE_LATIN1:
             case ID3_FIELD_TYPE_LATIN1FULL:
+            {
+                gchar *latinstr;
+
                 if (field_type == ID3_FIELD_TYPE_LATIN1)
                 {
                     if (!(etag_field_type & EASYTAG_ID3_FIELD_LATIN1))
                         continue;
-                }else
+                }
+                else
+                {
                     if (!(etag_field_type & EASYTAG_ID3_FIELD_LATIN1FULL))
                         continue;
-                latinstr = g_strdup(field_type == ID3_FIELD_TYPE_LATIN1 ? (gchar *)id3_field_getlatin1(field) : (gchar *)id3_field_getfulllatin1(field));
+                }
+
+                latinstr = g_strdup (field_type == ID3_FIELD_TYPE_LATIN1 ? (gchar *)id3_field_getlatin1 (field)
+                                                                         : (gchar *)id3_field_getfulllatin1 (field));
+
                 if (USE_NON_STANDARD_ID3_READING_CHARACTER_SET)
                 {
-                    tmpstr = convert_string(latinstr, FILE_READING_ID3V1V2_CHARACTER_SET, "UTF-8", FALSE);
+                    tmpstr = convert_string (latinstr,
+                                             FILE_READING_ID3V1V2_CHARACTER_SET,
+                                             "UTF-8", FALSE);
                     g_free (latinstr);
                 }
                 else
+                {
                     tmpstr = latinstr;
+                }
+
                 break;
+            }
 
             case ID3_FIELD_TYPE_STRING:
             case ID3_FIELD_TYPE_STRINGFULL:
+            {
+                const id3_ucs4_t *usrc;
+
                 if (field_type == ID3_FIELD_TYPE_STRING)
                 {
                     if (!(etag_field_type & EASYTAG_ID3_FIELD_STRING))
                         continue;
-                }else
+                }
+                else
+                {
                     if (!(etag_field_type & EASYTAG_ID3_FIELD_STRINGFULL))
                         continue;
-                usrc = (field_type == ID3_FIELD_TYPE_STRING) ? id3_field_getstring(field) : id3_field_getfullstring(field);
-                retval |= etag_ucs42gchar(usrc, is_latin, is_utf16, &tmpstr);
+                }
+
+                usrc = (field_type == ID3_FIELD_TYPE_STRING) ? id3_field_getstring (field)
+                                                             : id3_field_getfullstring (field);
+                retval |= etag_ucs42gchar (usrc, is_latin, is_utf16, &tmpstr);
                 break;
+            }
 
             case ID3_FIELD_TYPE_STRINGLIST:
+            {
+                unsigned strcnt, j;
+
                 if (!(etag_field_type & EASYTAG_ID3_FIELD_STRINGLIST))
                     continue;
-                strcnt = id3_field_getnstrings(field);
+
+                strcnt = id3_field_getnstrings (field);
+
                 for (j = 0; j < strcnt; j++)
                 {
-                    retval |= etag_ucs42gchar(
-                        id3_field_getstrings(field, j),
-                        is_latin, is_utf16, &tmpstr );
+                    gchar *tmpstr2 = NULL;
+
+                    retval |= etag_ucs42gchar (id3_field_getstrings (field, j),
+                                               is_latin, is_utf16, &tmpstr2);
 
                     if (tmpstr2 && *tmpstr2 && g_utf8_validate(tmpstr2, -1, NULL))
                     {
                         if (tmpstr)
-                            tmpstr = g_strconcat(tmpstr, " ", tmpstr2, NULL);
+                        {
+                            gchar *to_free = tmpstr;
+                            tmpstr = g_strconcat (tmpstr, " ", tmpstr2, NULL);
+
+                            g_free (to_free);
+                        }
                         else
-                            tmpstr = g_strdup(tmpstr2);
+                        {
+                            tmpstr = g_strdup (tmpstr2);
+                        }
                     }
 
-                    free(tmpstr2);
+                    free (tmpstr2);
                 }
+
+                break;
+            }
 
             default:
                 break;
         }
-        if (tmpstr && *tmpstr && g_utf8_validate(tmpstr, -1, NULL))
+
+        if (tmpstr && *tmpstr && g_utf8_validate (tmpstr, -1, NULL))
         {
             if (ret)
-                ret = g_strconcat(ret, MULTIFIELD_SEPARATOR, tmpstr, NULL);
+            {
+                gchar *to_free = ret;
+                ret = g_strconcat (ret, MULTIFIELD_SEPARATOR, tmpstr, NULL);
+                g_free (to_free);
+            }
             else
-                ret = g_strdup(tmpstr);
+            {
+                ret = g_strdup (tmpstr);
+            }
         }
-        g_free(tmpstr);
+
+        g_free (tmpstr);
     }
 
     if (retstr)
+    {
         *retstr = ret;
+    }
     else
+    {
         g_free (ret);
+    }
 
     return retval;
 }
