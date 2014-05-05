@@ -48,6 +48,7 @@
 #ifdef ENABLE_MP3
 
 #include <id3tag.h>
+#include "genres.h"
 
 
 /****************
@@ -326,9 +327,20 @@ gboolean Id3tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag)
                     FileTag->genre = g_strdup(string1);
             }
 
-            if (!FileTag->genre
-            && id3_genre_index(genre))
-                FileTag->genre = (gchar *)id3_ucs4_utf8duplicate(id3_genre_index(genre));
+            if (!FileTag->genre)
+            {
+                if (id3_genre_index (genre))
+                {
+                    FileTag->genre = (gchar *)id3_ucs4_utf8duplicate (id3_genre_index (genre));
+                }
+                else if (strcmp (genre_no (genre),
+                                 genre_no (ID3_INVALID_GENRE)) != 0)
+                {
+                    /* If the integer genre is not found in the (outdated)
+                     * libid3tag index, try the EasyTAG index instead. */
+                    FileTag->genre = g_strdup (genre_no (genre));
+                }
+            }
 
             g_free(string1);
         }
