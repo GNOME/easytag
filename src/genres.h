@@ -1,4 +1,3 @@
-/* genres.h - EasyTAG - Jerome Couderc 2000/05/29 */
 /*
  *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
  *  Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
@@ -18,10 +17,8 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-
-#ifndef __GENRES_H__
-#define __GENRES_H__
-
+#ifndef ET_GENRES_H_
+#define ET_GENRES_H_
 
 /* GENRE_MAX is the last genre number that can be used */
 #define GENRE_MAX ( sizeof(id3_genres)/sizeof(id3_genres[0]) - 1 )
@@ -33,14 +30,14 @@
 */
 #define genre_no(IndeX) ( IndeX < (sizeof(id3_genres)/sizeof(*id3_genres) ) ? id3_genres[IndeX] : "Unknown" )
 
-
 /* 
  * Do not sort genres!!
- * Last Update: 2000/04/30
+ * Last Update: 2014-05-05
+ * https://en.wikipedia.org/wiki/ID3#List_of_genres
  */
 static char *id3_genres[] =
 {
-    "Blues",            /* 0 */
+    "Blues", /* 0: Core ID3 support */
     "Classic Rock",
     "Country",
     "Dance",
@@ -120,7 +117,7 @@ static char *id3_genres[] =
     "Musical",
     "Rock & Roll", 
     "Hard Rock", 
-    "Folk",             /* 80 */
+    "Folk", /* 80: Winamp extensions */
     "Folk/Rock",
     "National Folk", 
     "Swing",
@@ -182,13 +179,56 @@ static char *id3_genres[] =
     "Crossover",
     "Contemporary Christian",/* 140 */
     "Christian Rock",
-    "Merengue",
+    "Merengue", /* Winamp 1.91 */
     "Salsa",
     "Thrash Metal",
     "Anime",            /* 145 */
     "JPop",
-    "Synthpop"
+    "Synthpop",
+    "Abstract", /* Winamp 5.6 */
+    "Art Rock",
+    "Baroque", /* 150 */
+    "Bhangra",
+    "Big Beat",
+    "Breakbeat",
+    "Chillout",
+    "Downtempo", /* 155 */
+    "Dub",
+    "EBM",
+    "Eclectic",
+    "Electro",
+    "Electroclash", /* 160 */
+    "Emo",
+    "Experimental",
+    "Garage",
+    "Global",
+    "IDM", /* 165 */
+    "Illbient",
+    "Industro-Goth",
+    "Jam Band",
+    "Krautrock",
+    "Leftfield", /* 170 */
+    "Lounge",
+    "Math Rock",
+    "New Romantic",
+    "Nu-Breakz",
+    "Post-Punk", /* 175 */
+    "Post-Rock",
+    "Psytrance",
+    "Shoegaze",
+    "Space Rock",
+    "Trop Rock", /* 180 */
+    "World Music",
+    "Neoclassical",
+    "Audiobook",
+    "Audio Theatre",
+    "Neue Deutsche Welle", /* 185 */
+    "Podcast",
+    "Indie Rock",
+    "G-Funk",
+    "Dubstep",
+    "Garage Rock", /* 190 */
+    "Psybient"
 };
 
-
-#endif /* __GENRES_H__ */
+#endif /* ET_GENRES_H_ */
