@@ -1,21 +1,20 @@
-/* ogg_tag.c - 2001/11/08 */
-/*
- *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
- *  Copyright (C) 2001-2003  Jerome Couderc <easytag@gmail.com>
+/* EasyTAG - Tag editor for audio files
+ * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2001-2003  Jerome Couderc <easytag@gmail.com>
  *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
 #include "config.h" // For definition of ENABLE_OGG
@@ -928,22 +927,26 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
     /*********
      * Title *
      *********/
-    Ogg_Set_Tag(vc,"TITLE=",FileTag->title,VORBIS_SPLIT_FIELD_TITLE);
+    Ogg_Set_Tag (vc, "TITLE=", FileTag->title,
+                 g_settings_get_boolean (MainSettings, "ogg-split-title"));
 
     /**********
      * Artist *
      **********/
-    Ogg_Set_Tag(vc,"ARTIST=",FileTag->artist, VORBIS_SPLIT_FIELD_ARTIST);
+    Ogg_Set_Tag (vc, "ARTIST=", FileTag->artist,
+                 g_settings_get_boolean (MainSettings, "ogg-split-artist"));
 
     /****************
      * Album Artist *
      ****************/
-    Ogg_Set_Tag(vc,"ALBUMARTIST=",FileTag->album_artist, VORBIS_SPLIT_FIELD_ARTIST);
+    Ogg_Set_Tag (vc, "ALBUMARTIST=", FileTag->album_artist,
+                 g_settings_get_boolean (MainSettings, "ogg-split-artist"));
 
     /*********
      * Album *
      *********/
-    Ogg_Set_Tag(vc,"ALBUM=",FileTag->album, VORBIS_SPLIT_FIELD_ALBUM);
+    Ogg_Set_Tag (vc, "ALBUM=", FileTag->album,
+                 g_settings_get_boolean (MainSettings, "ogg-split-album"));
 
     /***************
      * Disc Number *
@@ -966,23 +969,28 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
     /*********
      * Genre *
      *********/
-    Ogg_Set_Tag(vc,"GENRE=",FileTag->genre,VORBIS_SPLIT_FIELD_GENRE);
+    Ogg_Set_Tag (vc, "GENRE=", FileTag->genre,
+                 g_settings_get_boolean (MainSettings, "ogg-split-genre"));
 
     /***********
      * Comment *
      ***********/
     /* Format of new specification. */
-    Ogg_Set_Tag(vc,"DESCRIPTION=",FileTag->comment,VORBIS_SPLIT_FIELD_COMMENT);
+    Ogg_Set_Tag (vc, "DESCRIPTION=", FileTag->comment,
+                 g_settings_get_boolean (MainSettings, "ogg-split-comment"));
 
     /************
      * Composer *
      ************/
-    Ogg_Set_Tag(vc,"COMPOSER=",FileTag->composer,VORBIS_SPLIT_FIELD_COMPOSER);
+    Ogg_Set_Tag (vc ,"COMPOSER=", FileTag->composer,
+                 g_settings_get_boolean (MainSettings, "ogg-split-composer"));
 
     /*******************
      * Original artist *
      *******************/
-    Ogg_Set_Tag(vc,"PERFORMER=",FileTag->orig_artist,VORBIS_SPLIT_FIELD_ORIG_ARTIST);
+    Ogg_Set_Tag (vc, "PERFORMER=", FileTag->orig_artist,
+                 g_settings_get_boolean (MainSettings,
+                                         "ogg-split-original-artist"));
 
     /*************
      * Copyright *

@@ -124,7 +124,7 @@ write_playlist (EtPlaylistDialog *self, GFile *file, GError **error)
         g_string_free (to_write, TRUE);
     }
 
-    if (PLAYLIST_ONLY_SELECTED_FILES)
+    if (g_settings_get_boolean (MainSettings, "playlist-selected-only"))
     {
         GList *selfilelist = NULL;
         GtkTreeSelection *selection = et_application_window_browser_get_selection (ET_APPLICATION_WINDOW (MainWindow));
@@ -152,7 +152,7 @@ write_playlist (EtPlaylistDialog *self, GFile *file, GError **error)
         filename = ((File_Name *)etfile->FileNameCur->data)->value;
         duration = ((ET_File_Info *)etfile->ETFileInfo)->duration;
 
-        if (PLAYLIST_RELATIVE_PATH)
+        if (g_settings_get_boolean (MainSettings, "playlist-relative"))
         {
             // Keep only files in this directory and sub-dirs
             if ( strncmp(filename,basedir,strlen(basedir))==0 )
@@ -221,8 +221,9 @@ write_playlist (EtPlaylistDialog *self, GFile *file, GError **error)
                     g_free(filename_generated_utf8);
                 }
 
-                // 3) Write the file path
-                if (PLAYLIST_USE_DOS_SEPARATOR)
+                /* 3) Write the file path. */
+                if (g_settings_get_boolean (MainSettings,
+                                            "playlist-dos-separator"))
                 {
                     gchar *filename_conv = g_strdup(filename+strlen(basedir)+1);
                     convert_forwardslash_to_backslash (filename_conv);
@@ -270,7 +271,8 @@ write_playlist (EtPlaylistDialog *self, GFile *file, GError **error)
                     g_string_free (to_write, TRUE);
                 }
             }
-        }else // PLAYLIST_FULL_PATH
+        }
+        else /* !ETSettings:playlist-relative */
         {
             gsize bytes_written;
 
@@ -330,8 +332,9 @@ write_playlist (EtPlaylistDialog *self, GFile *file, GError **error)
                 g_free(filename_generated_utf8);
             }
 
-            // 3) Write the file path
-            if (PLAYLIST_USE_DOS_SEPARATOR)
+            /* 3) Write the file path. */
+            if (g_settings_get_boolean (MainSettings,
+                                        "playlist-dos-separator"))
             {
                 gchar *filename_conv = g_strdup(filename);
                 convert_forwardslash_to_backslash(filename_conv);
@@ -377,8 +380,10 @@ write_playlist (EtPlaylistDialog *self, GFile *file, GError **error)
         }
     }
 
-    if (PLAYLIST_ONLY_SELECTED_FILES)
-        g_list_free(etfilelist);
+    if (g_settings_get_boolean (MainSettings, "playlist-selected-only"))
+    {
+        g_list_free (etfilelist);
+    }
 
     g_assert (error == NULL || *error == NULL);
     g_object_unref (ostream);
@@ -406,15 +411,6 @@ write_button_clicked (EtPlaylistDialog *self)
 
     /* List of variables also set in the function 'Write_Playlist_Window_Apply_Changes' */
     /***if (PLAYLIST_NAME) g_free(PLAYLIST_NAME);
-    PLAYLIST_NAME                 = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(name_mask_combo)->child)));
-    PLAYLIST_USE_MASK_NAME        = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_use_mask_name));
-    PLAYLIST_USE_DIR_NAME         = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_use_dir_name));
-
-    PLAYLIST_ONLY_SELECTED_FILES  = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_only_selected_files));
-    PLAYLIST_FULL_PATH            = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_full_path));
-    PLAYLIST_RELATIVE_PATH        = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_relative_path));
-    PLAYLIST_CREATE_IN_PARENT_DIR = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_create_in_parent_dir));
-    PLAYLIST_USE_DOS_SEPARATOR    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_use_dos_separator));
 
     PLAYLIST_CONTENT_NONE         = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_content_none));
     PLAYLIST_CONTENT_FILENAME     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_content_filename));
@@ -427,7 +423,7 @@ write_button_clicked (EtPlaylistDialog *self)
     playlist_path_utf8 = filename_to_display (et_application_window_get_current_path (ET_APPLICATION_WINDOW (MainWindow)));
 
     /* Build the playlist filename. */
-    if (PLAYLIST_USE_MASK_NAME)
+    if (g_settings_get_boolean (MainSettings, "playlist-use-mask"))
     {
 
         if (!ETCore->ETFileList)
@@ -476,8 +472,9 @@ write_button_clicked (EtPlaylistDialog *self)
 
     }
 
-    // Must be placed after "Build the playlist filename", as we can truncate the path!
-    if (PLAYLIST_CREATE_IN_PARENT_DIR)
+    /* Must be placed after "Build the playlist filename", as we can truncate
+     * the path! */
+    if (g_settings_get_boolean (MainSettings, "playlist-parent-directory"))
     {
         if ( (strcmp(playlist_path_utf8,G_DIR_SEPARATOR_S) != 0) )
         {
@@ -683,8 +680,8 @@ create_playlist_dialog (EtPlaylistDialog *self)
     gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->name_mask_combo))),
                         PLAYLIST_NAME);
 
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_use_mask_name),PLAYLIST_USE_MASK_NAME);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_use_dir_name),PLAYLIST_USE_DIR_NAME);
+    g_settings_bind (MainSettings, "playlist-use-mask", playlist_use_mask_name,
+                     "active", G_SETTINGS_BIND_DEFAULT);
 
     // Mask status icon
     // Signal connection to check if mask is correct into the mask entry
@@ -701,7 +698,9 @@ create_playlist_dialog (EtPlaylistDialog *self)
 
     playlist_only_selected_files = gtk_check_button_new_with_label(_("Include only the selected files"));
     gtk_box_pack_start(GTK_BOX(vbox),playlist_only_selected_files,FALSE,FALSE,0);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_only_selected_files),PLAYLIST_ONLY_SELECTED_FILES);
+    g_settings_bind (MainSettings, "playlist-selected-only",
+                     playlist_only_selected_files, "active",
+                     G_SETTINGS_BIND_DEFAULT);
     gtk_widget_set_tooltip_text(playlist_only_selected_files,_("If activated, only the selected files will be "
         "written in the playlist file. Else, all the files will be written."));
 
@@ -710,13 +709,15 @@ create_playlist_dialog (EtPlaylistDialog *self)
     playlist_relative_path = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(playlist_full_path),
         _("Use relative path for files in playlist"));
     gtk_box_pack_start(GTK_BOX(vbox),playlist_relative_path,FALSE,FALSE,0);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_full_path),PLAYLIST_FULL_PATH);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_relative_path),PLAYLIST_RELATIVE_PATH);
+    g_settings_bind (MainSettings, "playlist-relative", playlist_relative_path,
+                     "active", G_SETTINGS_BIND_DEFAULT);
 
     // Create playlist in parent directory
     playlist_create_in_parent_dir = gtk_check_button_new_with_label(_("Create playlist in the parent directory"));
     gtk_box_pack_start(GTK_BOX(vbox),playlist_create_in_parent_dir,FALSE,FALSE,0);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_create_in_parent_dir),PLAYLIST_CREATE_IN_PARENT_DIR);
+    g_settings_bind (MainSettings, "playlist-parent-directory",
+                     playlist_create_in_parent_dir, "active",
+                     G_SETTINGS_BIND_DEFAULT);
     gtk_widget_set_tooltip_text(playlist_create_in_parent_dir,_("If activated, the playlist will be created "
         "in the parent directory."));
 
@@ -726,7 +727,9 @@ create_playlist_dialog (EtPlaylistDialog *self)
     /* This makes no sense under Win32, so we do not display it. */
     gtk_box_pack_start(GTK_BOX(vbox),playlist_use_dos_separator,FALSE,FALSE,0);
 #endif /* !G_OS_WIN32 */
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_use_dos_separator),PLAYLIST_USE_DOS_SEPARATOR);
+    g_settings_bind (MainSettings, "playlist-dos-separator",
+                     playlist_use_dos_separator, "active",
+                     G_SETTINGS_BIND_DEFAULT);
     gtk_widget_set_tooltip_text(playlist_use_dos_separator,_("This option replaces the UNIX directory "
         "separator '/' into DOS separator '\\'."));
 
@@ -798,14 +801,6 @@ et_playlist_dialog_apply_changes (EtPlaylistDialog *self)
     /* List of variables also set in the function 'Playlist_Write_Button_Pressed' */
     if (PLAYLIST_NAME) g_free(PLAYLIST_NAME);
     PLAYLIST_NAME = g_strdup (gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->name_mask_combo)))));
-    PLAYLIST_USE_MASK_NAME = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (playlist_use_mask_name));
-    PLAYLIST_USE_DIR_NAME = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (playlist_use_dir_name));
-
-    PLAYLIST_ONLY_SELECTED_FILES  = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_only_selected_files));
-    PLAYLIST_FULL_PATH            = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_full_path));
-    PLAYLIST_RELATIVE_PATH        = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_relative_path));
-    PLAYLIST_CREATE_IN_PARENT_DIR = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_create_in_parent_dir));
-    PLAYLIST_USE_DOS_SEPARATOR    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_use_dos_separator));
 
     PLAYLIST_CONTENT_NONE         = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_content_none));
     PLAYLIST_CONTENT_FILENAME     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_content_filename));

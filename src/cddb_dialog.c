@@ -601,7 +601,7 @@ Cddb_Track_List_Row_Selected (EtCDDBDialog *self, GtkTreeSelection *selection)
     priv = et_cddb_dialog_get_instance_private (self);
 
     // Exit if we don't have to select files in the main list
-    if (!CDDB_FOLLOW_FILE)
+    if (!g_settings_get_boolean (MainSettings, "cddb-follow-file"))
         return;
 
     selectedRows = gtk_tree_selection_get_selected_rows(selection, NULL);
@@ -624,7 +624,7 @@ Cddb_Track_List_Row_Selected (EtCDDBDialog *self, GtkTreeSelection *selection)
 
         if (found)
         {
-            if (CDDB_USE_DLM)
+            if (g_settings_get_boolean (MainSettings, "cddb-dlm-enabled"))
             {
                 gtk_tree_model_get(GTK_TREE_MODEL(priv->track_list_model), &currentFile,
                                    CDDB_TRACK_LIST_NAME, &text_path,
@@ -705,7 +705,7 @@ Cddb_Album_List_Set_Row_Appearance (EtCDDBDialog *self, GtkTreeIter *row)
 
     if (cddbalbum->track_list != NULL)
     {
-        if (CHANGED_FILES_DISPLAYED_TO_BOLD)
+        if (g_settings_get_boolean (MainSettings, "file-changed-bold"))
         {
             gtk_list_store_set(priv->album_list_model, row,
                                CDDB_ALBUM_LIST_FONT_STYLE,       PANGO_STYLE_NORMAL,
@@ -728,11 +728,12 @@ Cddb_Album_List_Set_Row_Appearance (EtCDDBDialog *self, GtkTreeIter *row)
                                    CDDB_ALBUM_LIST_FOREGROUND_COLOR, &RED, -1);
             }
         }
-    } else
+    }
+    else
     {
         if (cddbalbum->other_version == TRUE)
         {
-            if (CHANGED_FILES_DISPLAYED_TO_BOLD)
+            if (g_settings_get_boolean (MainSettings, "file-changed-bold"))
             {
                 gtk_list_store_set(priv->album_list_model, row,
                                    CDDB_ALBUM_LIST_FONT_STYLE,       PANGO_STYLE_ITALIC,
@@ -1137,6 +1138,9 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
     gchar     *cddb_server_name;
     gint       cddb_server_port;
     gchar     *cddb_server_cgi_path;
+    gboolean proxy_enabled;
+    gchar *proxy_hostname;
+    guint proxy_port;
     gint       bytes_written;
     gulong     bytes_read_total = 0;
     FILE      *file = NULL;
@@ -1178,12 +1182,23 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
 
     }else
     {
-        /* Remote access. */
         /* Connection to the server. */
+        proxy_enabled = g_settings_get_boolean (MainSettings,
+                                                "cddb-proxy-enabled");
+        proxy_hostname = g_settings_get_string (MainSettings,
+                                                "cddb-proxy-hostname");
+        proxy_port = g_settings_get_uint (MainSettings, "cddb-proxy-port");
         if ((socket_id = Cddb_Open_Connection (self,
-                                               CDDB_USE_PROXY ? CDDB_PROXY_NAME : cddb_server_name,
-                                               CDDB_USE_PROXY ? CDDB_PROXY_PORT : cddb_server_port)) <= 0)
+                                               proxy_enabled
+                                               ? proxy_hostname
+                                               : cddb_server_name,
+                                               proxy_enabled
+                                               ? proxy_port
+                                               : cddb_server_port)) <= 0)
+        {
+            g_free (proxy_hostname);
             return FALSE;
+        }
 
 		if ( strstr(cddb_server_name,"gnudb") != NULL )
 		{
@@ -1197,7 +1212,8 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
 		                              "%s"
 		                              "Connection: close\r\n"
 		                              "\r\n",
-		                              CDDB_USE_PROXY?"http://":"", CDDB_USE_PROXY?cddb_server_name:"",  // Needed when using proxy
+		                              proxy_enabled ? "http://" : "",
+                                              proxy_enabled ? cddb_server_name : "",
 		                              cddbalbum->category,cddbalbum->id,
 		                              cddb_server_name,cddb_server_port,
 		                              PACKAGE_NAME, PACKAGE_VERSION,
@@ -1215,7 +1231,9 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
 		                              "Host: %s:%d\r\n"
 		                              "%s"
 		                              "Connection: close\r\n\r\n",
-		                              CDDB_USE_PROXY?"http://":"",CDDB_USE_PROXY?cddb_server_name:"", cddb_server_cgi_path,
+		                              proxy_enabled ? "http://" : "",
+                                              proxy_enabled ? cddb_server_name : "",
+                                              cddb_server_cgi_path,
 		                              cddbalbum->category,cddbalbum->id,
 		                              PACKAGE_NAME, PACKAGE_VERSION,
 		                              cddb_server_name,cddb_server_port,
@@ -1235,9 +1253,11 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
             Log_Print(LOG_ERROR,_("Cannot send the request (%s)"),g_strerror(errno));
             Cddb_Close_Connection (self, socket_id);
             g_free(cddb_in);
+            g_free (proxy_hostname);
             return FALSE;
         }
         g_free(cddb_in);
+        g_free (proxy_hostname);
 
 
         // Read the answer
@@ -1737,6 +1757,9 @@ Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
     gchar *cddb_server_name;
     gint   cddb_server_port;
     gchar *cddb_server_cgi_path;
+    gboolean proxy_enabled;
+    gchar *proxy_hostname;
+    guint proxy_port;
 
     gchar *ptr_cat, *cat_str, *id_str, *art_alb_str;
     gchar *art_alb_tmp = NULL;
@@ -1775,18 +1798,31 @@ Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
     while ( (tmp=strchr(string,' '))!=NULL )
         *tmp = '+';
 
-    cddb_server_name     = g_strdup(CDDB_SERVER_NAME_MANUAL_SEARCH);    //"www.freedb.org");
-    cddb_server_port     = CDDB_SERVER_PORT_MANUAL_SEARCH;              //80;
-    cddb_server_cgi_path = g_strdup(CDDB_SERVER_CGI_PATH_MANUAL_SEARCH);//"/~cddb/cddb.cgi");
+    cddb_server_name = g_settings_get_string (MainSettings,
+                                              "cddb-manual-search-hostname");
+    cddb_server_port = g_settings_get_uint (MainSettings,
+                                            "cddb-manual-search-port");
+    cddb_server_cgi_path = g_settings_get_string (MainSettings,
+                                                  "cddb-manual-search-path");
 
     /* Connection to the server */
+    proxy_enabled = g_settings_get_boolean (MainSettings,
+                                            "cddb-proxy-enabled");
+    proxy_hostname = g_settings_get_string (MainSettings,
+                                            "cddb-proxy-hostname");
+    proxy_port = g_settings_get_uint (MainSettings, "cddb-proxy-port");
     if ((socket_id = Cddb_Open_Connection (self,
-                                           CDDB_USE_PROXY ? CDDB_PROXY_NAME : cddb_server_name,
-                                           CDDB_USE_PROXY ? CDDB_PROXY_PORT : cddb_server_port)) <= 0)
+                                           proxy_enabled
+                                           ? proxy_hostname
+                                           : cddb_server_name,
+                                           proxy_enabled
+                                           ? proxy_port
+                                           : cddb_server_port)) <= 0)
     {
         g_free (string);
         g_free (cddb_server_name);
         g_free (cddb_server_cgi_path);
+        g_free (proxy_hostname);
         return FALSE;
     }
 
@@ -1802,7 +1838,8 @@ Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
                               "%s"
                               "Connection: close\r\n"
                               "\r\n",
-                              CDDB_USE_PROXY?"http://":"", CDDB_USE_PROXY?cddb_server_name:"",  // Needed when using proxy
+                              proxy_enabled ? "http://" : "",
+                              proxy_enabled ? cddb_server_name : "",
                               string,
                               (tmp = Cddb_Generate_Request_String_With_Fields_And_Categories_Options (self)),
                               cddb_server_name,cddb_server_port,
@@ -1826,6 +1863,7 @@ Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
         g_free(string);
         g_free(cddb_server_name);
         g_free(cddb_server_cgi_path);
+        g_free (proxy_hostname);
         return FALSE;
     }
     g_free(cddb_in);
@@ -1875,6 +1913,7 @@ Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
         g_free(cddb_out);
         g_free(cddb_server_name);
         g_free(cddb_server_cgi_path);
+        g_free (proxy_hostname);
         gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
         gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_auto_search_button),FALSE);
         if (file)
@@ -2000,6 +2039,7 @@ Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
     g_free(cat_str); g_free(id_str); g_free(art_alb_str); g_free(end_str); g_free(html_end_str);
     g_free(cddb_server_name);
     g_free(cddb_server_cgi_path);
+    g_free (proxy_hostname);
 
     // Close file opened for reading lines
     if (file)
@@ -2050,6 +2090,9 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
     gchar *cddb_server_name;
     gint   cddb_server_port;
     gchar *cddb_server_cgi_path;
+    gboolean proxy_enabled;
+    gchar *proxy_hostname;
+    guint proxy_port;
 
     gchar *ptr_cat, *cat_str, *art_alb_str;
     gchar *end_str;
@@ -2107,18 +2150,29 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
     // Do a loop to load all the pages of results
     do
     {
-        cddb_server_name     = g_strdup(CDDB_SERVER_NAME_MANUAL_SEARCH);    //"www.gnudb.org");
-        cddb_server_port     = CDDB_SERVER_PORT_MANUAL_SEARCH;              //80;
-        cddb_server_cgi_path = g_strdup(CDDB_SERVER_CGI_PATH_MANUAL_SEARCH);//"/~cddb/cddb.cgi");
+        cddb_server_name = g_settings_get_string (MainSettings,
+                                                  "cddb-manual-search-hostname");
+        cddb_server_port = g_settings_get_uint (MainSettings,
+                                                "cddb-manual-search-port");
+        cddb_server_cgi_path = g_settings_get_string (MainSettings,
+                                                      "cddb-manual-search-path");
 
         /* Connection to the server */
+        proxy_enabled = g_settings_get_boolean (MainSettings,
+                                                "cddb-proxy-enabled");
+        proxy_hostname = g_settings_get_string (MainSettings,
+                                                "cddb-proxy-hostname");
+        proxy_port = g_settings_get_uint (MainSettings, "cddb-proxy-port");
         if ((socket_id = Cddb_Open_Connection (self,
-                                               CDDB_USE_PROXY ? CDDB_PROXY_NAME : cddb_server_name,
-                                               CDDB_USE_PROXY ? CDDB_PROXY_PORT : cddb_server_port)) <= 0)
+                                               proxy_enabled ? proxy_hostname
+                                                             : cddb_server_name,
+                                               proxy_enabled ? proxy_port
+                                                             : cddb_server_port)) <= 0)
         {
             g_free(string);
             g_free(cddb_server_name);
             g_free(cddb_server_cgi_path);
+            g_free (proxy_hostname);
             gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
             gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_auto_search_button),FALSE);
             return FALSE;
@@ -2135,7 +2189,8 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
                                   "%s"
                                   "Connection: close\r\n"
                                   "\r\n",
-                                  CDDB_USE_PROXY?"http://":"", CDDB_USE_PROXY?cddb_server_name:"",  // Needed when using proxy
+                                  proxy_enabled ? "http://" : "",
+                                  proxy_enabled ? cddb_server_name : "",
                                   string,
                                   next_page_cpt,
                                   cddb_server_name,cddb_server_port,
@@ -2157,6 +2212,7 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
             g_free (string);
             g_free (cddb_server_name);
             g_free (cddb_server_cgi_path);
+            g_free (proxy_hostname);
             gtk_widget_set_sensitive (GTK_WIDGET (priv->stop_search_button),
                                       FALSE);
             gtk_widget_set_sensitive (GTK_WIDGET (priv->stop_auto_search_button),
@@ -2189,6 +2245,7 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
             g_free(string);
             g_free(cddb_server_name);
             g_free(cddb_server_cgi_path);
+            g_free (proxy_hostname);
             gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
             gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_auto_search_button),FALSE);
             return FALSE;
@@ -2206,6 +2263,7 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
             g_free(string);
             g_free(cddb_server_name);
             g_free(cddb_server_cgi_path);
+            g_free (proxy_hostname);
             gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
             gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_auto_search_button),FALSE);
             if (file)
@@ -2351,6 +2409,7 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
         g_free(sraf_str);g_free(sraf_end_str);
         g_free(cddb_server_name);
         g_free(cddb_server_cgi_path);
+        g_free (proxy_hostname);
 
         // Close file opened for reading lines
         if (file)
@@ -2390,12 +2449,21 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
 static gboolean
 Cddb_Search_Album_List_From_String (EtCDDBDialog *self)
 {
-    if (strstr (CDDB_SERVER_NAME_MANUAL_SEARCH, "gnudb") != NULL)
+    gchar *hostname = g_settings_get_string (MainSettings,
+                                             "cddb-manual-search-hostname");
+
+    if (strstr (hostname, "gnudb") != NULL)
+    {
         /* Use gnudb. */
+        g_free (hostname);
         return Cddb_Search_Album_List_From_String_Gnudb (self);
+    }
     else
+    {
         /* Use freedb. */
+        g_free (hostname);
         return Cddb_Search_Album_List_From_String_Freedb (self);
+    }
 }
 
 /*
@@ -2575,8 +2643,8 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
             g_warning ("Iter not found matching path in CDDB track list model");
         }
 
-        // Set values in the ETFile
-        if (CDDB_USE_DLM)
+        /* Set values in the ETFile. */
+        if (g_settings_get_boolean (MainSettings, "cddb-dlm-enabled"))
         {
             // RQ : this part is ~ equal to code for '!CDDB_USE_DLM', but uses '*etfile' instead of 'etfile'
             ET_File **etfile = NULL;
@@ -2927,16 +2995,6 @@ Cddb_Set_To_All_Fields_Check_Button_Toggled (EtCDDBDialog *self)
 }
 
 static void
-Cddb_Use_Dlm_2_Check_Button_Toggled (EtCDDBDialog *self)
-{
-    EtCDDBDialogPrivate *priv;
-
-    priv = et_cddb_dialog_get_instance_private (self);
-
-    CDDB_USE_DLM = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->use_dlm2_toggle));
-}
-
-static void
 create_cddb_dialog (EtCDDBDialog *self)
 {
     EtCDDBDialogPrivate *priv;
@@ -3021,7 +3079,8 @@ create_cddb_dialog (EtCDDBDialog *self)
     // Check box to run the scanner
     priv->use_local_access_toggle = gtk_check_button_new_with_label(_("Use local CDDB"));
     gtk_box_pack_start(GTK_BOX(hbox),priv->use_local_access_toggle,FALSE,FALSE,0);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->use_local_access_toggle),CDDB_USE_LOCAL_ACCESS);
+    g_settings_bind (MainSettings, "cddb-local", priv->use_local_access_toggle,
+                     "active", G_SETTINGS_BIND_DEFAULT);
     gtk_widget_set_tooltip_text(priv->use_local_access_toggle,_("When activating this option, after loading the "
         "fields, the current selected scanner will be ran (the scanner window must be opened)."));
 
@@ -3139,7 +3198,9 @@ create_cddb_dialog (EtCDDBDialog *self)
     gtk_grid_attach (GTK_GRID (Table), priv->search_title_toggle, 3, 0, 1, 1);
     gtk_grid_attach (GTK_GRID (Table), priv->search_track_toggle, 4, 0, 1, 1);
     gtk_grid_attach (GTK_GRID (Table), priv->search_other_toggle, 5, 0, 1, 1);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->search_all_toggle), CDDB_SEARCH_IN_ALL_FIELDS);
+    g_settings_bind (MainSettings, "cddb-search-all-fields",
+                     priv->search_all_toggle, "active",
+                     G_SETTINGS_BIND_DEFAULT);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->search_artist_toggle), CDDB_SEARCH_IN_ARTIST_FIELD);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->search_title_toggle), CDDB_SEARCH_IN_TITLE_FIELD);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->search_track_toggle), CDDB_SEARCH_IN_TRACK_NAME_FIELD);
@@ -3216,7 +3277,9 @@ create_cddb_dialog (EtCDDBDialog *self)
     gtk_grid_attach (GTK_GRID (Table), priv->categories_soundtrack_toggle, 6, 3, 1,
                      1);
     gtk_label_set_line_wrap(GTK_LABEL(gtk_bin_get_child(GTK_BIN(priv->categories_all_toggle))),TRUE); // Wrap label of the check button.
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->categories_all_toggle),     CDDB_SEARCH_IN_ALL_CATEGORIES);
+    g_settings_bind (MainSettings, "cddb-search-all-categories",
+                     priv->categories_all_toggle, "active",
+                     G_SETTINGS_BIND_DEFAULT);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->categories_blues_toggle),     CDDB_SEARCH_IN_BLUES_CATEGORY);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->categories_classical_toggle), CDDB_SEARCH_IN_CLASSICAL_CATEGORY);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->categories_country_toggle),   CDDB_SEARCH_IN_COUNTRY_CATEGORY);
@@ -3260,8 +3323,9 @@ create_cddb_dialog (EtCDDBDialog *self)
     priv->show_categories_toggle = gtk_toggle_button_new_with_label (_("Categories"));
     gtk_grid_attach (GTK_GRID (Table), priv->show_categories_toggle, 6, 0, 1,
                      1);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->show_categories_toggle),
-                                  CDDB_SHOW_CATEGORIES);
+    g_settings_bind (MainSettings, "cddb-search-show-categories",
+                     priv->show_categories_toggle, "active",
+                     G_SETTINGS_BIND_DEFAULT);
     g_signal_connect_swapped (priv->show_categories_toggle, "toggled",
                               G_CALLBACK (on_show_categories_toggle_toggled),
                               self);
@@ -3556,25 +3620,23 @@ create_cddb_dialog (EtCDDBDialog *self)
     // Check box to run the scanner
     priv->run_scanner_toggle = gtk_check_button_new_with_label(_("Run the current scanner for each file"));
     gtk_box_pack_start(GTK_BOX(hbox),priv->run_scanner_toggle,FALSE,TRUE,0);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->run_scanner_toggle),CDDB_RUN_SCANNER);
+    g_settings_bind (MainSettings, "cddb-run-scanner",
+                     priv->run_scanner_toggle, "active",
+                     G_SETTINGS_BIND_DEFAULT);
     gtk_widget_set_tooltip_text(priv->run_scanner_toggle,_("When activating this option, after loading the "
         "fields, the current selected scanner will be ran (the scanner window must be opened)."));
 
     // Check box to use DLM (also used in the preferences window)
     priv->use_dlm2_toggle = gtk_check_button_new_with_label(_("Match lines with the Levenshtein algorithm"));
     gtk_box_pack_start(GTK_BOX(hbox),priv->use_dlm2_toggle,FALSE,FALSE,0);
-    // Doesn't activate it by default because if the new user don't pay attention to it,
-    // it will not understand why the cddb results aren't loaded correctly...
-    //gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->use_dlm2_toggle),CDDB_USE_DLM);
+    g_settings_bind (MainSettings, "cddb-dlm-enabled", priv->use_dlm2_toggle,
+                     "active", G_SETTINGS_BIND_DEFAULT);
     gtk_widget_set_tooltip_text(priv->use_dlm2_toggle,_("When activating this option, the "
         "Levenshtein algorithm (DLM: Damerau-Levenshtein Metric) will be used "
         "to match the CDDB title against every filename in the current folder, "
         "and to select the best match. This will be used when selecting the "
         "corresponding audio file, or applying CDDB results, instead of using "
         "directly the position order."));
-    g_signal_connect_swapped (priv->use_dlm2_toggle, "toggled",
-                              G_CALLBACK (Cddb_Use_Dlm_2_Check_Button_Toggled),
-                              self);
 
     /* Button to apply. */
     priv->apply_button = gtk_button_new_from_stock(GTK_STOCK_APPLY);
@@ -3618,14 +3680,11 @@ et_cddb_dialog_apply_changes (EtCDDBDialog *self)
 
     priv = et_cddb_dialog_get_instance_private (self);
 
-    CDDB_SEARCH_IN_ALL_FIELDS       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->search_all_toggle));
     CDDB_SEARCH_IN_ARTIST_FIELD     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->search_artist_toggle));
     CDDB_SEARCH_IN_TITLE_FIELD      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->search_title_toggle));
     CDDB_SEARCH_IN_TRACK_NAME_FIELD = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->search_track_toggle));
     CDDB_SEARCH_IN_OTHER_FIELD      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->search_other_toggle));
-    CDDB_SHOW_CATEGORIES            = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->show_categories_toggle));
 
-    CDDB_SEARCH_IN_ALL_CATEGORIES      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_all_toggle));
     CDDB_SEARCH_IN_BLUES_CATEGORY      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_blues_toggle));
     CDDB_SEARCH_IN_CLASSICAL_CATEGORY  = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_classical_toggle));
     CDDB_SEARCH_IN_COUNTRY_CATEGORY    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_country_toggle));
@@ -3646,10 +3705,6 @@ et_cddb_dialog_apply_changes (EtCDDBDialog *self)
     CDDB_SET_TO_TRACK_TOTAL = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_totaltracks_toggle));
     CDDB_SET_TO_GENRE       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_genre_toggle));
     CDDB_SET_TO_FILE_NAME   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_filename_toggle));
-
-    CDDB_RUN_SCANNER        = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->run_scanner_toggle));
-    CDDB_USE_DLM            = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->use_dlm2_toggle));
-    CDDB_USE_LOCAL_ACCESS   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->use_local_access_toggle));
 
     /* Save combobox history lists before exit. */
     Save_Cddb_Search_String_List(priv->search_string_model, MISC_COMBO_TEXT);
@@ -3890,6 +3945,9 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
     gchar *cddb_server_name;
     gint   cddb_server_port;
     gchar *cddb_server_cgi_path;
+    gboolean proxy_enabled;
+    gchar *proxy_hostname;
+    guint proxy_port;
     gint   server_try = 0;
     gchar *tmp, *valid;
     gchar *query_string;
@@ -4022,8 +4080,7 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
     gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_auto_search_button),TRUE);
 
 
-    CDDB_USE_LOCAL_ACCESS = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->use_local_access_toggle));
-    if (CDDB_USE_LOCAL_ACCESS) // Remote or Local acces?
+    if (g_settings_get_boolean (MainSettings, "cddb-local"))
     {
         /*
          * Local cddb acces
@@ -4151,16 +4208,24 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
             server_try++;
             if (server_try == 1)
             {
-                // 1rst try
-                cddb_server_name     = g_strdup(CDDB_SERVER_NAME_AUTOMATIC_SEARCH);
-                cddb_server_port     = CDDB_SERVER_PORT_AUTOMATIC_SEARCH;
-                cddb_server_cgi_path = g_strdup(CDDB_SERVER_CGI_PATH_AUTOMATIC_SEARCH);
-            }else
+                /* 1st try. */
+                cddb_server_name = g_settings_get_string (MainSettings,
+                                                          "cddb-automatic-search-hostname");
+                cddb_server_port = g_settings_get_uint (MainSettings,
+                                                        "cddb-automatic-search-port");
+                cddb_server_cgi_path = g_settings_get_string (MainSettings,
+                                                              "cddb-automatic-search-path");
+ 
+            }
+            else
             {
-                // 2sd try
-                cddb_server_name     = g_strdup(CDDB_SERVER_NAME_AUTOMATIC_SEARCH2);
-                cddb_server_port     = CDDB_SERVER_PORT_AUTOMATIC_SEARCH2;
-                cddb_server_cgi_path = g_strdup(CDDB_SERVER_CGI_PATH_AUTOMATIC_SEARCH2);
+                /* 2nd try. */
+                cddb_server_name = g_settings_get_string (MainSettings,
+                                                          "cddb-automatic-search-hostname2");
+                cddb_server_port = g_settings_get_uint (MainSettings,
+                                                        "cddb-automatic-search-port");
+                cddb_server_cgi_path = g_settings_get_string (MainSettings,
+                                                              "cddb-automatic-search-path2");
             }
 
             // Check values
@@ -4168,13 +4233,24 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
                 continue;
 
             /* Connection to the server. */
+            proxy_enabled = g_settings_get_boolean (MainSettings,
+                                                    "cddb-proxy-enabled");
+            proxy_hostname = g_settings_get_string (MainSettings,
+                                                   "cddb-proxy-hostname");
+            proxy_port = g_settings_get_uint (MainSettings, "cddb-proxy-port");
+
             if ((socket_id = Cddb_Open_Connection (self,
-                                                   CDDB_USE_PROXY ? CDDB_PROXY_NAME : cddb_server_name,
-                                                   CDDB_USE_PROXY ? CDDB_PROXY_PORT : cddb_server_port)) <= 0)
+                                                   proxy_enabled
+                                                   ? proxy_hostname
+                                                   : cddb_server_name,
+                                                   proxy_enabled
+                                                   ? proxy_port
+                                                   : cddb_server_port)) <= 0)
             {
                 g_free(cddb_in);
                 g_free(cddb_server_name);
                 g_free(cddb_server_cgi_path);
+                g_free (proxy_hostname);
                 return FALSE;
             }
 
@@ -4191,7 +4267,9 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
                                       "Host: %s:%d\r\n"
                                       "%s"
                                       "Connection: close\r\n\r\n",
-                                      CDDB_USE_PROXY?"http://":"",CDDB_USE_PROXY?cddb_server_name:"", cddb_server_cgi_path,
+                                      proxy_enabled ? "http://" : "",
+                                      proxy_enabled ? cddb_server_name : "",
+                                      cddb_server_cgi_path,
                                       cddb_discid,
                                       num_tracks, query_string,
                                       disc_length,
@@ -4217,6 +4295,7 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
                 g_free (cddb_in);
                 g_free (cddb_server_name);
                 g_free (cddb_server_cgi_path);
+                g_free (proxy_hostname);
                 return FALSE;
             }
             g_free(cddb_in);
@@ -4239,6 +4318,7 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
                 g_free(msg);
                 g_free(cddb_server_name);
                 g_free(cddb_server_cgi_path);
+                g_free (proxy_hostname);
                 gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
                 gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_auto_search_button),FALSE);
                 return FALSE;
@@ -4255,6 +4335,7 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
                 g_free(cddb_out);
                 g_free(cddb_server_name);
                 g_free(cddb_server_cgi_path);
+                g_free (proxy_hostname);
                 gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
                 gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_auto_search_button),FALSE);
                 if (file)
@@ -4345,6 +4426,7 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
             g_free(cddb_end_str);
             g_free(cddb_server_name);
             g_free(cddb_server_cgi_path);
+            g_free (proxy_hostname);
 
             /* Close file opened for reading lines. */
             if (file)
@@ -4424,22 +4506,33 @@ Cddb_Get_Pixbuf_From_Server_Name (const gchar *server_name)
 static gchar *
 Cddb_Format_Proxy_Authentification (void)
 {
+    gchar *username;
+    gchar *password;
     gchar *ret;
 
-    if (CDDB_USE_PROXY &&  CDDB_PROXY_USER_NAME != NULL && *CDDB_PROXY_USER_NAME != '\0')
+    username = g_settings_get_string (MainSettings, "cddb-proxy-username");
+    password = g_settings_get_string (MainSettings, "cddb-proxy-password");
+
+    if (g_settings_get_boolean (MainSettings, "cddb-proxy-enabled")
+        && username && *username )
     {
         const gchar *tempstr;
         gchar *str_encoded;
 
-        tempstr = g_strconcat(CDDB_PROXY_USER_NAME, ":", CDDB_PROXY_USER_PASSWORD, NULL);
+        tempstr = g_strconcat (username, ":", password, NULL);
         str_encoded = g_base64_encode((const guchar *)tempstr, strlen(tempstr));
 
         ret = g_strdup_printf("Proxy-authorization: Basic %s\r\n", str_encoded);
         g_free (str_encoded);
-    }else
-    {
-        ret = g_strdup("");
     }
+    else
+    {
+        ret = g_strdup ("");
+    }
+
+    g_free (username);
+    g_free (password);
+
     return ret;
 }
 

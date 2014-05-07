@@ -63,7 +63,6 @@ struct _EtLoadFilesDialogPrivate
     GtkListStore *load_file_content_model;
     GtkWidget *load_file_name_view;
     GtkListStore *load_file_name_model;
-    GtkWidget *load_file_run_scanner;
 
     GtkWidget *selected_line_entry;
 };
@@ -138,7 +137,8 @@ Load_Filename_Set_Filenames (EtLoadFilesDialog *self)
             g_free(filename_new_utf8);
 
             /* Then run current scanner if requested. */
-            if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->load_file_run_scanner)))
+            if (g_settings_get_boolean (MainSettings,
+                                        "load-filenames-run-scanner"))
             {
                 EtScanDialog *dialog;
 
@@ -176,11 +176,9 @@ on_response (GtkDialog *dialog, gint response_id, gpointer user_data)
             Load_Filename_Set_Filenames (ET_LOAD_FILES_DIALOG (dialog));
             break;
         case GTK_RESPONSE_CANCEL:
-            et_load_files_dialog_apply_changes (ET_LOAD_FILES_DIALOG (dialog));
             gtk_widget_hide (GTK_WIDGET (dialog));
             break;
         case GTK_RESPONSE_DELETE_EVENT:
-            et_load_files_dialog_apply_changes (ET_LOAD_FILES_DIALOG (dialog));
             break;
         default:
             g_assert_not_reached ();
@@ -829,6 +827,7 @@ create_load_files_dialog (EtLoadFilesDialog *self)
     GtkWidget *loadedvbox;
     GtkWidget *filelistvbox;
     GtkWidget *vboxpaned;
+    GtkWidget *load_file_run_scanner;
     const gchar *path;
     GtkCellRenderer* renderer;
     GtkTreeViewColumn* column;
@@ -1106,31 +1105,17 @@ create_load_files_dialog (EtLoadFilesDialog *self)
     Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
     gtk_box_pack_start(GTK_BOX(content_area),Separator,FALSE,FALSE,0);
 
-    priv->load_file_run_scanner = gtk_check_button_new_with_label(_("Run the current scanner for each file"));
-    gtk_box_pack_start(GTK_BOX(content_area),priv->load_file_run_scanner,FALSE,TRUE,0);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->load_file_run_scanner),LOAD_FILE_RUN_SCANNER);
-    gtk_widget_set_tooltip_text(priv->load_file_run_scanner,_("When activating this option, after loading the "
+    load_file_run_scanner = gtk_check_button_new_with_label (_("Run the current scanner for each file"));
+    gtk_box_pack_start (GTK_BOX (content_area), load_file_run_scanner, FALSE,
+                        TRUE, 0);
+    g_settings_bind (MainSettings, "load-filenames-run-scanner",
+                     load_file_run_scanner, "active", G_SETTINGS_BIND_DEFAULT);
+    gtk_widget_set_tooltip_text (load_file_run_scanner, _("When activating this option, after loading the "
         "filenames, the current selected scanner will be ran (the scanner window must be opened)."));
 
     // To initialize 'ButtonLoad' sensivity
     g_signal_emit_by_name(G_OBJECT(gtk_bin_get_child(GTK_BIN(priv->file_to_load_combo))),"changed");
 }
-
-/*
- * For the configuration file...
- */
-void
-et_load_files_dialog_apply_changes (EtLoadFilesDialog *self)
-{
-    EtLoadFilesDialogPrivate *priv;
-
-    g_return_if_fail (ET_LOAD_FILES_DIALOG (self));
-
-    priv = et_load_files_dialog_get_instance_private (self);
-
-    LOAD_FILE_RUN_SCANNER = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->load_file_run_scanner));
-}
-
 
 static void
 et_load_files_dialog_finalize (GObject *object)

@@ -2581,13 +2581,13 @@ et_application_window_tag_area_display_controls (EtApplicationWindow *self,
     gtk_widget_show (GTK_WIDGET (priv->comment_label));
     gtk_widget_show(GTK_WIDGET(CommentEntry));
 
-    // Special controls to display or not!
+    /* Special controls to display or not! */
     switch (ETFile->ETFileDescription->TagType)
     {
         case ID3_TAG:
-            if (!FILE_WRITING_ID3V2_WRITE_TAG)
+            if (!g_settings_get_boolean (MainSettings, "id3v2-enabled"))
             {
-                // ID3v1 : Hide specifics ID3v2 fields if not activated!
+                /* ID3v1 : Hide specifics ID3v2 fields if not activated! */
                 gtk_widget_hide (GTK_WIDGET (priv->disc_number_label));
                 gtk_widget_hide(GTK_WIDGET(DiscNumberEntry));
                 gtk_widget_hide (GTK_WIDGET (priv->composer_label));
@@ -3047,8 +3047,10 @@ et_application_window_select_first_file (GtkAction *action, gpointer user_data)
     Update_Command_Buttons_Sensivity();
     et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (self)));
 
-    if (SET_FOCUS_TO_FIRST_TAG_FIELD)
-        gtk_widget_grab_focus(GTK_WIDGET(TitleEntry));
+    if (!g_settings_get_boolean (MainSettings, "tag-preserve-focus"))
+    {
+        gtk_widget_grab_focus (GTK_WIDGET (TitleEntry));
+    }
 }
 
 
@@ -3090,8 +3092,10 @@ et_application_window_select_prev_file (GtkAction *action, gpointer user_data)
     Update_Command_Buttons_Sensivity();
     et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (self)));
 
-    if (SET_FOCUS_TO_FIRST_TAG_FIELD)
-        gtk_widget_grab_focus(GTK_WIDGET(TitleEntry));
+    if (!g_settings_get_boolean (MainSettings, "tag-preserve-focus"))
+    {
+        gtk_widget_grab_focus (GTK_WIDGET (TitleEntry));
+    }
 }
 
 
@@ -3133,8 +3137,10 @@ et_application_window_select_next_file (GtkAction *acton, gpointer user_data)
     Update_Command_Buttons_Sensivity();
     et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (self)));
 
-    if (SET_FOCUS_TO_FIRST_TAG_FIELD)
-        gtk_widget_grab_focus(GTK_WIDGET(TitleEntry));
+    if (!g_settings_get_boolean (MainSettings, "tag-preserve-focus"))
+    {
+        gtk_widget_grab_focus (GTK_WIDGET (TitleEntry));
+    }
 }
 
 
@@ -3173,8 +3179,10 @@ et_application_window_select_last_file (GtkAction *action, gpointer user_data)
     Update_Command_Buttons_Sensivity();
     et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (self)));
 
-    if (SET_FOCUS_TO_FIRST_TAG_FIELD)
-        gtk_widget_grab_focus(GTK_WIDGET(TitleEntry));
+    if (!g_settings_get_boolean (MainSettings, "tag-preserve-focus"))
+    {
+        gtk_widget_grab_focus (GTK_WIDGET (TitleEntry));
+    }
 }
 
 /*
@@ -3308,7 +3316,8 @@ delete_file (ET_File *ETFile, gboolean multiple_files, GError **error)
     /*
      * Remove the file
      */
-    if (CONFIRM_DELETE_FILE && !SF_HideMsgbox_Delete_File)
+    if (g_settings_get_boolean (MainSettings, "confirm-delete-file")
+        && !SF_HideMsgbox_Delete_File)
     {
         if (multiple_files)
         {

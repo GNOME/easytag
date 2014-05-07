@@ -882,7 +882,7 @@ Browser_Tree_Node_Selected (EtBrowser *self, GtkTreeSelection *selection)
     selectedPath = gtk_tree_model_get_path(GTK_TREE_MODEL(priv->directory_model), &selectedIter);
 
     /* Open the node */
-    if (OPEN_SELECTED_BROWSER_NODE)
+    if (g_settings_get_boolean (MainSettings, "browse-expand-children"))
     {
         gtk_tree_view_expand_row(GTK_TREE_VIEW(priv->tree), selectedPath, FALSE);
     }
@@ -903,7 +903,8 @@ Browser_Tree_Node_Selected (EtBrowser *self, GtkTreeSelection *selection)
     Update_Command_Buttons_Sensivity(); // Not clean to put this here...
 
     /* Check if all files have been saved before changing the directory */
-    if (CONFIRM_WHEN_UNSAVED_FILES && ET_Check_If_All_Files_Are_Saved() != TRUE)
+    if (g_settings_get_boolean (MainSettings, "confirm-when-unsaved-files")
+        && ET_Check_If_All_Files_Are_Saved () != TRUE)
     {
         GtkWidget *msgdialog;
         gint response;
@@ -950,7 +951,7 @@ Browser_Tree_Node_Selected (EtBrowser *self, GtkTreeSelection *selection)
     /* Start to read the directory */
     /* The first time, 'counter' is equal to zero. And if we don't want to load
      * directory on startup, we skip the 'reading', but newt we must read it each time */
-    if (LOAD_ON_STARTUP || counter)
+    if (g_settings_get_boolean (MainSettings, "load-on-startup") || counter)
     {
         gboolean dir_loaded;
         GtkTreeIter parentIter;
@@ -978,7 +979,8 @@ Browser_Tree_Node_Selected (EtBrowser *self, GtkTreeSelection *selection)
                     {
                         gtk_tree_view_collapse_row (GTK_TREE_VIEW (priv->tree),
                                                     selectedPath);
-                        if (OPEN_SELECTED_BROWSER_NODE)
+                        if (g_settings_get_boolean (MainSettings,
+                                                    "browse-expand-children"))
                         {
                             gtk_tree_view_expand_row (GTK_TREE_VIEW (priv->tree),
                                                       selectedPath, FALSE);
@@ -1723,7 +1725,7 @@ Browser_List_Set_Row_Appearance (EtBrowser *self, GtkTreeIter *iter)
     // Set text to bold/red if 'filename' or 'tag' changed
     if ( ET_Check_If_File_Is_Saved(rowETFile) == FALSE )
     {
-        if (CHANGED_FILES_DISPLAYED_TO_BOLD)
+        if (g_settings_get_boolean (MainSettings, "file-changed-bold"))
         {
             gtk_list_store_set(priv->file_model, iter,
                                LIST_FONT_WEIGHT,    PANGO_WEIGHT_BOLD,
@@ -2473,7 +2475,7 @@ Browser_Artist_List_Set_Row_Appearance (EtBrowser *self, GtkTreeIter *iter)
         {
             if (ET_Check_If_File_Is_Saved ((ET_File *)m->data) == FALSE)
             {
-                if (CHANGED_FILES_DISPLAYED_TO_BOLD)
+                if (g_settings_get_boolean (MainSettings, "file-changed-bold"))
                 {
                     // Set the font-style to "bold"
                     gtk_list_store_set(priv->artist_model, iter,
@@ -2707,7 +2709,7 @@ Browser_Album_List_Set_Row_Appearance (EtBrowser *self, GtkTreeIter *iter)
     {
         if (ET_Check_If_File_Is_Saved ((ET_File *)l->data) == FALSE)
         {
-            if (CHANGED_FILES_DISPLAYED_TO_BOLD)
+            if (g_settings_get_boolean (MainSettings, "file-changed-bold"))
             {
                 // Set the font-style to "bold"
                 gtk_list_store_set(priv->album_model, iter,
@@ -3223,7 +3225,8 @@ check_for_subdir (const gchar *path)
         {
             if ((g_file_info_get_file_type (childinfo) ==
                  G_FILE_TYPE_DIRECTORY) &&
-                (BROWSE_HIDDEN_DIR || !g_file_info_get_is_hidden (childinfo)))
+                (g_settings_get_boolean (MainSettings, "browse-show-hidden")
+                 || !g_file_info_get_is_hidden (childinfo)))
             {
                 g_object_unref (childinfo);
                 g_file_enumerator_close (enumerator, NULL, NULL);
@@ -3412,7 +3415,8 @@ expand_cb (EtBrowser *self, GtkTreeIter *iter, GtkTreePath *gtreePath, GtkTreeVi
             isdir = g_file_info_get_file_type (childinfo) == G_FILE_TYPE_DIRECTORY;
 
             if (isdir &&
-                (BROWSE_HIDDEN_DIR || !g_file_info_get_is_hidden (childinfo)))
+                (g_settings_get_boolean (MainSettings, "browse-show-hidden")
+                 || !g_file_info_get_is_hidden (childinfo)))
             {
                 const gchar *dirname_utf8;
                 dirname_utf8 = g_file_info_get_display_name (childinfo);
@@ -4198,7 +4202,9 @@ et_browser_show_rename_directory_dialog (EtBrowser *self)
 
     priv->rename_directory_mask_toggle = gtk_check_button_new_with_label(_("Use mask:"));
     gtk_box_pack_start(GTK_BOX(HBox),priv->rename_directory_mask_toggle,FALSE,FALSE,0);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->rename_directory_mask_toggle),RENAME_DIRECTORY_WITH_MASK);
+    g_settings_bind (MainSettings, "rename-directory-with-mask",
+                     priv->rename_directory_mask_toggle, "active",
+                     G_SETTINGS_BIND_DEFAULT);
     gtk_widget_set_tooltip_text(priv->rename_directory_mask_toggle,_("If activated, it will use masks to rename directory."));
     g_signal_connect_swapped (priv->rename_directory_mask_toggle, "toggled",
                               G_CALLBACK (Rename_Directory_With_Mask_Toggled),
@@ -4285,8 +4291,6 @@ Destroy_Rename_Directory_Window (EtBrowser *self)
         RENAME_DIRECTORY_DEFAULT_MASK = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->rename_directory_mask_combo)))));
         Add_String_To_Combo_List(priv->rename_directory_mask_model, RENAME_DIRECTORY_DEFAULT_MASK);
         Save_Rename_Directory_Masks_List(priv->rename_directory_mask_model, MASK_EDITOR_TEXT);
-
-        RENAME_DIRECTORY_WITH_MASK = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->rename_directory_mask_toggle));
 
         gtk_list_store_clear(priv->rename_directory_mask_model);
 

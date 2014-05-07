@@ -931,22 +931,30 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
         /*********
          * Title *
          *********/
-        Flac_Set_Tag(vc_block,"TITLE=",FileTag->title, VORBIS_SPLIT_FIELD_TITLE);
+        Flac_Set_Tag (vc_block, "TITLE=", FileTag->title,
+                      g_settings_get_boolean (MainSettings,
+                                              "ogg-split-title"));
 
         /**********
          * Artist *
          **********/
-        Flac_Set_Tag(vc_block,"ARTIST=",FileTag->artist,VORBIS_SPLIT_FIELD_ARTIST);
+        Flac_Set_Tag (vc_block, "ARTIST=", FileTag->artist,
+                      g_settings_get_boolean (MainSettings,
+                                              "ogg-split-artist"));
 
         /****************
          * Album Artist *
          ****************/
-        Flac_Set_Tag(vc_block,"ALBUMARTIST=",FileTag->album_artist,VORBIS_SPLIT_FIELD_ARTIST);
+        Flac_Set_Tag (vc_block, "ALBUMARTIST=", FileTag->album_artist,
+                      g_settings_get_boolean (MainSettings,
+                                              "ogg-split-artist"));
 
         /*********
          * Album *
          *********/
-        Flac_Set_Tag(vc_block,"ALBUM=",FileTag->album,VORBIS_SPLIT_FIELD_ALBUM);
+        Flac_Set_Tag (vc_block, "ALBUM=", FileTag->album,
+                      g_settings_get_boolean (MainSettings,
+                                              "ogg-split-album"));
 
         /******************************
          * Disc Number and Disc Total *
@@ -968,22 +976,30 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
         /*********
          * Genre *
          *********/
-        Flac_Set_Tag(vc_block,"GENRE=",FileTag->genre,VORBIS_SPLIT_FIELD_GENRE);
+        Flac_Set_Tag (vc_block, "GENRE=", FileTag->genre,
+                      g_settings_get_boolean (MainSettings,
+                                              "ogg-split-genre"));
 
         /***********
          * Comment *
          ***********/
-        Flac_Set_Tag(vc_block,"DESCRIPTION=",FileTag->comment,VORBIS_SPLIT_FIELD_COMMENT);
+        Flac_Set_Tag (vc_block, "DESCRIPTION=", FileTag->comment,
+                      g_settings_get_boolean (MainSettings,
+                                              "ogg-split-comment"));
 
         /************
          * Composer *
          ************/
-        Flac_Set_Tag(vc_block,"COMPOSER=",FileTag->composer,VORBIS_SPLIT_FIELD_COMPOSER);
+        Flac_Set_Tag (vc_block, "COMPOSER=", FileTag->composer,
+                      g_settings_get_boolean (MainSettings,
+                                              "ogg-split-comment"));
 
         /*******************
          * Original artist *
          *******************/
-        Flac_Set_Tag(vc_block,"PERFORMER=",FileTag->orig_artist,VORBIS_SPLIT_FIELD_ORIG_ARTIST);
+        Flac_Set_Tag (vc_block, "PERFORMER=", FileTag->orig_artist,
+                      g_settings_get_boolean (MainSettings,
+                                              "ogg-split-original-artist"));
 
         /*************
          * Copyright *
@@ -1082,8 +1098,10 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
     // Move all PADDING blocks to the end on the metadata, and merge them into a single block.
     FLAC__metadata_chain_sort_padding(chain);
  
-    // Write tag
-    if ( !FLAC__metadata_chain_write(chain, /*padding*/TRUE, PRESERVE_MODIFICATION_TIME) )
+    /* Write tag. */
+    if (!FLAC__metadata_chain_write (chain, /*padding*/TRUE,
+                                     g_settings_get_boolean (MainSettings,
+                                                             "file-preserve-modification-time")))
     {
         // Error with "FLAC__metadata_chain_write"
         FLAC__Metadata_ChainStatus status = FLAC__metadata_chain_status(chain);

@@ -1,21 +1,20 @@
-/* et_core.c - 2001/10/21 */
-/*
- *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
- *  Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
+/* EasyTAG - Tag editor for audio files
+ * Copyright (C) 2000-2003  David King <amigadave@amigadave.com>
+ * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
  *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
 #include <config.h>
@@ -4086,7 +4085,8 @@ ET_Save_File_Tag_To_HD (ET_File *ETFile, GError **error)
     /* Update properties for the file. */
     if (fileinfo)
     {
-        if (PRESERVE_MODIFICATION_TIME)
+        if (g_settings_get_boolean (MainSettings,
+                                    "file-preserve-modification-time"))
         {
             g_file_set_attributes_from_info (file, fileinfo,
                                              G_FILE_QUERY_INFO_NONE,
@@ -4114,10 +4114,13 @@ ET_Save_File_Tag_To_HD (ET_File *ETFile, GError **error)
     if (state==TRUE)
     {
 
-        // Update date and time of the parent directory of the file after changing the tag
-        // value (ex: needed for Amarok for refreshing). Note that when renaming a file the
-        // parent directory is automatically updated.
-        if (UPDATE_PARENT_DIRECTORY_MODIFICATION_TIME)
+        /* Update date and time of the parent directory of the file after
+         * changing the tag value (ex: needed for Amarok for refreshing). Note
+         * that when renaming a file the parent directory is automatically
+         * updated.
+         */
+        if (g_settings_get_boolean (MainSettings,
+                                    "file-update-parent-modification-time"))
         {
             gchar *path = g_path_get_dirname (cur_filename);
             utime (path, NULL);
@@ -5001,8 +5004,9 @@ gboolean ET_File_Name_Convert_Character (gchar *filename_utf8)
         *character = '-';
 #endif /* G_OS_WIN32 */
 
-    // Convert other illegal characters on FAT32/16 filesystems and ISO9660 and Joliet (CD-ROM filesystems)
-    if (REPLACE_ILLEGAL_CHARACTERS_IN_FILENAME)
+    /* Convert other illegal characters on FAT32/16 filesystems and ISO9660 and
+     * Joliet (CD-ROM filesystems). */
+    if (g_settings_get_boolean (MainSettings, "rename-replace-illegal-chars"))
     {
         // Commented as we display unicode values as "\351" for "é"
         //while ( (character=g_utf8_strchr(filename_utf8, -1, '\\'))!=NULL )

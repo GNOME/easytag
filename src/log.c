@@ -160,10 +160,10 @@ et_log_area_init (EtLogArea *self)
     /* Load pending messages in the Log list. */
     Log_Print_Tmp_List (self);
 
-    if (SHOW_LOG_VIEW)
-    {
-        gtk_widget_show_all (GTK_WIDGET (self));
-    }
+    gtk_widget_show_all (GTK_WIDGET (self));
+
+    g_settings_bind (MainSettings, "log-show", self, "visible",
+                     G_SETTINGS_BIND_DEFAULT);
 }
 
 
@@ -288,7 +288,7 @@ Log_Print (EtLogAreaKind error_type, const gchar * const format, ...)
         n_items = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->log_model),
                                                   NULL);
 
-        if (n_items > LOG_MAX_LINES - 1
+        if (n_items > g_settings_get_uint (MainSettings, "log-lines") - 1
             &&  gtk_tree_model_get_iter_first (GTK_TREE_MODEL (priv->log_model),
                                                &iter))
         {

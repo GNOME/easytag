@@ -1,20 +1,20 @@
-/*
- *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
- *  Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
+/* EasyTAG - Tag editor for audio files
+ * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
  *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
 
@@ -179,7 +179,7 @@ common_init (GApplication *application)
  * @arg: the path to check
  *
  * Recursively check for a hidden path in the directory tree given by @arg. If
- * a hidden path is found, set BROWSE_HIDDEN to 1.
+ * a hidden path is found, set browse-show-hidden to TRUE.
  */
 static void
 check_for_hidden_path_in_tree (GFile *arg)
@@ -214,9 +214,8 @@ check_for_hidden_path_in_tree (GFile *arg)
         {
             if (g_file_info_get_is_hidden (info))
             {
-                /* If the user saves the configuration for this session,
-                 * this value will be saved. */
-                BROWSE_HIDDEN_DIR = 1;
+                g_settings_set_boolean (MainSettings, "browse-show-hidden",
+                                        TRUE);
             }
         }
 
@@ -871,7 +870,8 @@ Save_File (ET_File *ETFile, gboolean multiple_files,
         GtkWidget *msgdialog_check_button = NULL;
         gint response;
 
-        if (CONFIRM_WRITE_TAG && !SF_HideMsgbox_Write_Tag)
+        if (g_settings_get_boolean (MainSettings, "confirm-rename-file")
+            && !SF_HideMsgbox_Write_Tag)
         {
             // ET_Display_File_Data_To_UI(ETFile);
 
@@ -954,7 +954,8 @@ Save_File (ET_File *ETFile, gboolean multiple_files,
         GtkWidget *msgdialog_check_button = NULL;
         gint response;
 
-        if (CONFIRM_RENAME_FILE && !SF_HideMsgbox_Rename_File)
+        if (g_settings_get_boolean (MainSettings, "confirm-rename-file")
+            && !SF_HideMsgbox_Rename_File)
         {
             gchar *msgdialog_title = NULL;
             gchar *msg = NULL;
@@ -1308,17 +1309,18 @@ gboolean Read_Directory (gchar *path_real)
     /* Open the window to quit recursion (since 27/04/2007 : not only into recursion mode) */
     Set_Busy_Cursor();
     uiaction = gtk_ui_manager_get_action(UIManager, "/ToolBar/Stop");
-    g_object_set(uiaction, "sensitive", BROWSE_SUBDIR, NULL);
-    //if (BROWSE_SUBDIR)
-        Open_Quit_Recursion_Function_Window();
+    g_settings_bind (MainSettings, "browse-subdir", uiaction, "sensitive",
+                     G_SETTINGS_BIND_GET);
+    Open_Quit_Recursion_Function_Window();
 
     /* Read the directory recursively */
     msg = g_strdup_printf(_("Search in progress…"));
     Statusbar_Message(msg,FALSE);
     g_free(msg);
-    // Search the supported files
+    /* Search the supported files. */
     FileList = read_directory_recursively (FileList, dir_enumerator,
-                                           BROWSE_SUBDIR);
+                                           g_settings_get_boolean (MainSettings,
+                                                                   "browse-subdir"));
     g_file_enumerator_close (dir_enumerator, NULL, &error);
     g_object_unref (dir_enumerator);
     g_object_unref (dir);
@@ -1384,7 +1386,7 @@ gboolean Read_Directory (gchar *path_real)
         //}
 
         /* Prepare message for the status bar */
-        if (BROWSE_SUBDIR)
+        if (g_settings_get_boolean (MainSettings, "browse-subdir"))
         {
             msg = g_strdup_printf (ngettext ("Found one file in this directory and subdirectories",
                                              "Found %d files in this directory and subdirectories",
@@ -1415,7 +1417,7 @@ gboolean Read_Directory (gchar *path_real)
                                                       _("No files")); /* See in ET_Display_Filename_To_UI */
 
         /* Prepare message for the status bar */
-        if (BROWSE_SUBDIR)
+        if (g_settings_get_boolean (MainSettings, "browse-subdir"))
             msg = g_strdup(_("No file found in this directory and subdirectories"));
         else
             msg = g_strdup(_("No file found in this directory"));
@@ -1466,7 +1468,9 @@ read_directory_recursively (GList *file_list, GFileEnumerator *dir_enumerator,
         type = g_file_info_get_file_type (info);
 
         /* Hidden directory like '.mydir' will also be browsed if allowed. */
-        if (!is_hidden || (BROWSE_HIDDEN_DIR && is_hidden))
+        if (!is_hidden || (g_settings_get_boolean (MainSettings,
+                                                   "browse-show-hidden")
+                           && is_hidden))
         {
             if (type == G_FILE_TYPE_DIRECTORY)
             {
@@ -1918,7 +1922,7 @@ Init_Load_Default_Dir (void)
 
     /* FIXME: Open the scanner window. */
     /*
-    if (OPEN_SCANNER_WINDOW_ON_STARTUP)
+    if (g_settings_get_boolean (MainSettings, "scan-startup"))
     {
         et_application_window_show_scan_dialog (ET_APPLICATION_WINDOW (MainWindow));
     }
@@ -1984,7 +1988,8 @@ void Quit_MainWindow (void)
         ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed); // To detect change before exiting
 
     /* Check if all files have been saved before exit */
-    if (CONFIRM_WHEN_UNSAVED_FILES && ET_Check_If_All_Files_Are_Saved() != TRUE)
+    if (g_settings_get_boolean (MainSettings, "confirm-when-unsaved-files")
+        && ET_Check_If_All_Files_Are_Saved () != TRUE)
     {
         /* Some files haven't been saved */
         msgbox = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
@@ -2017,7 +2022,8 @@ void Quit_MainWindow (void)
                 break;
         }
 
-    } else if (CONFIRM_BEFORE_EXIT)
+    }
+    else if (g_settings_get_boolean (MainSettings, "confirm-quit"))
     {
         msgbox = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
                                          GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,

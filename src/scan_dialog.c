@@ -271,20 +271,34 @@ Scan_Tag_With_Mask (EtScanDialog *self, ET_File *ETFile)
         // Get the target entry for this code
         dest = Scan_Return_File_Tag_Field_From_Mask_Code(FileTag,mask_item->code);
 
-        // We display the text affected to the code
-        if ( dest && ( OVERWRITE_TAG_FIELD || *dest==NULL || strlen(*dest)==0 ) )
-            ET_Set_Field_File_Tag_Item(dest,mask_item->string);
+        /* We display the text affected to the code. */
+        if (dest && (g_settings_get_boolean (MainSettings,
+                                             "fill-overwrite-tag-fields")
+            || *dest == NULL || strlen (*dest) == 0))
+        {
+            ET_Set_Field_File_Tag_Item (dest, mask_item->string);
+        }
 
     }
 
     Scan_Free_File_Fill_Tag_List(fill_tag_list);
 
-    // Set the default text to comment
-    if (SET_DEFAULT_COMMENT && (OVERWRITE_TAG_FIELD || FileTag->comment==NULL || strlen(FileTag->comment)==0 ) )
-        ET_Set_Field_File_Tag_Item((void *)&FileTag->comment,DEFAULT_COMMENT);
+    /* Set the default text to comment. */
+    if (g_settings_get_boolean (MainSettings, "fill-set-default-comment")
+        && (g_settings_get_boolean (MainSettings, "fill-overwrite-tag-fields")
+            || FileTag->comment == NULL || strlen (FileTag->comment) == 0))
+    {
+        gchar *default_comment = g_settings_get_string (MainSettings,
+                                                        "fill-default-comment");
+        ET_Set_Field_File_Tag_Item ((void *)&FileTag->comment,
+                                    default_comment);
+        g_free (default_comment);
+    }
 
-    // Set CRC-32 value as default comment (for files with ID3 tag only ;-)
-    if (SET_CRC32_COMMENT && (OVERWRITE_TAG_FIELD || FileTag->comment==NULL || strlen(FileTag->comment)==0 ) )
+    /* Set CRC-32 value as default comment (for files with ID3 tag only). */
+    if (g_settings_get_boolean (MainSettings, "fill-crc32-comment")
+        && (g_settings_get_boolean (MainSettings, "fill-overwrite-tag-fields")
+            || FileTag->comment == NULL || strlen (FileTag->comment) == 0))
     {
         GError *error = NULL;
         guint32 crc32_value;
@@ -1544,11 +1558,6 @@ Scan_Process_Fields_First_Letters_Uppercase (EtScanDialog *self, gchar **str)
         NULL
     };
 
-    if (!PFS_DONT_UPPER_SOME_WORDS)
-    {
-        exempt[0] = NULL;
-    }
-
     temp = Scan_Process_Fields_All_Downcase (string);
     g_free (*str);
     *str = string = temp;
@@ -1615,7 +1624,14 @@ Scan_Process_Fields_First_Letters_Uppercase (EtScanDialog *self, gchar **str)
             c = g_utf8_get_char(word);
             strncpy(word, utf8_character, g_unichar_to_utf8(g_unichar_toupper(c), utf8_character));
 
-            // Set lowercase the first character of this word if found in the exempt words list
+            if (g_settings_get_boolean (MainSettings,
+                                        "process-uppercase-prepositions"))
+            {
+                break;
+            }
+
+            /* Lowercase the first character of this word if found in the
+             * exempt words list. */
             for (i=0; exempt[i]!=NULL; i++)
             {
                 if (g_ascii_strncasecmp(exempt[i], word, strlen(exempt[i])) == 0)
@@ -2579,7 +2595,9 @@ create_scan_dialog (EtScanDialog *self)
     gtk_box_pack_start(GTK_BOX(HBox1),priv->mask_editor_toggle,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(priv->mask_editor_toggle),GTK_RELIEF_NONE);
     gtk_widget_set_tooltip_text(priv->mask_editor_toggle,_("Show / Hide Masks Editor"));
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->mask_editor_toggle),SCAN_MASK_EDITOR_BUTTON);
+    g_settings_bind (MainSettings, "scan-mask-editor-show",
+                     priv->mask_editor_toggle, "active",
+                     G_SETTINGS_BIND_DEFAULT);
     g_signal_connect_swapped (priv->mask_editor_toggle, "toggled",
                               G_CALLBACK (Scan_Toggle_Mask_Editor_Button),
                               self);
@@ -2591,7 +2609,8 @@ create_scan_dialog (EtScanDialog *self)
     gtk_box_pack_start(GTK_BOX(HBox1),priv->legend_toggle,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(priv->legend_toggle),GTK_RELIEF_NONE);
     gtk_widget_set_tooltip_text(priv->legend_toggle,_("Show / Hide Legend"));
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->legend_toggle),SCAN_LEGEND_BUTTON);
+    g_settings_bind (MainSettings, "scan-legend-show", priv->legend_toggle,
+                     "active", G_SETTINGS_BIND_DEFAULT);
     g_signal_connect_swapped (priv->legend_toggle, "toggled",
                               G_CALLBACK (Scan_Toggle_Legend_Button),
                               self);
@@ -2872,29 +2891,24 @@ create_scan_dialog (EtScanDialog *self)
     gtk_box_pack_start(GTK_BOX(hbox),priv->process_convert_to_entry,     FALSE,FALSE,0);
     gtk_box_pack_start (GTK_BOX (group), process_fields_convert_none, FALSE,
                         FALSE, 0);
-    if (PROCESS_FIELDS_CONVERT_FROM)
-        gtk_entry_set_text(GTK_ENTRY(priv->process_convert_from_entry),PROCESS_FIELDS_CONVERT_FROM);
-    if (PROCESS_FIELDS_CONVERT_TO)
-        gtk_entry_set_text(GTK_ENTRY(priv->process_convert_to_entry),PROCESS_FIELDS_CONVERT_TO);
+
     /* Toggled signals */
     g_signal_connect_swapped (priv->process_convert_toggle, "toggled",
                               G_CALLBACK (Process_Fields_Convert_Check_Button_Toggled),
                               self);
     /* Set check buttons to init value */
-    if (PF_CONVERT_INTO_SPACE || PF_CONVERT_SPACE || PF_CONVERT)
-    {
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->process_convert_to_space_toggle),
-                                      PF_CONVERT_INTO_SPACE);
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->process_convert_to_underscores_toggle),
-                                      PF_CONVERT_SPACE);
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->process_convert_toggle),
-                                      PF_CONVERT);
-    }
-    else
-    {
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (process_fields_convert_none),
-                                      TRUE);
-    }
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_convert_to_space_toggle),PF_CONVERT_INTO_SPACE);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_convert_to_underscores_toggle),PF_CONVERT_SPACE);
+    g_settings_bind (MainSettings, "process-convert-characters",
+                     priv->process_convert_toggle, "active",
+                     G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (MainSettings, "process-convert-characters-from",
+                     priv->process_convert_from_entry, "text",
+                     G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (MainSettings, "process-convert-characters-to",
+                     priv->process_convert_to_entry, "text",
+                     G_SETTINGS_BIND_DEFAULT);
+
     /* Tooltips */
     gtk_widget_set_tooltip_text(priv->process_convert_to_space_toggle,
         _("The underscore character or the string '%20' are replaced by one space. "
@@ -2937,26 +2951,18 @@ create_scan_dialog (EtScanDialog *self)
                               G_CALLBACK (Process_Fields_First_Letters_Check_Button_Toggled),
                               self);
     /* Set check buttons to init value */
-    if (PF_CONVERT_ALL_UPPERCASE || PF_CONVERT_ALL_DOWNCASE
-        || PF_CONVERT_FIRST_LETTER_UPPERCASE
-        || PF_CONVERT_FIRST_LETTERS_UPPERCASE)
-    {
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->process_all_uppercase_toggle),
-                                      PF_CONVERT_ALL_UPPERCASE);
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->process_all_lowercase_toggle),
-                                      PF_CONVERT_ALL_DOWNCASE);
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->process_first_uppercase_toggle),
-                                      PF_CONVERT_FIRST_LETTER_UPPERCASE);
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->process_first_style_uppercase_toggle),
-                                      PF_CONVERT_FIRST_LETTERS_UPPERCASE);
-    }
-    else
-    {
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (process_fields_case_none),
-                                      TRUE);
-    }
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->process_roman_numerals_check),
-                                  PF_DETECT_ROMAN_NUMERALS);
+    g_settings_bind (MainSettings, "process-uppercase-all",
+                     priv->process_all_uppercase_toggle, "active",
+                     G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (MainSettings, "process-lowercase-all",
+                     priv->process_all_lowercase_toggle, "active",
+                     G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (MainSettings, "process-uppercase-first-letters",
+                     priv->process_first_uppercase_toggle, "active",
+                     G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (MainSettings, "process-detect-roman-numerals",
+                     priv->process_roman_numerals_check, "active",
+                     G_SETTINGS_BIND_DEFAULT);
     /* Tooltips */
     gtk_widget_set_tooltip_text(priv->process_all_uppercase_toggle,
         _("Convert all words in all fields to upper case. "
@@ -2988,24 +2994,19 @@ create_scan_dialog (EtScanDialog *self)
                         FALSE, 0);
     gtk_box_pack_start (GTK_BOX (group), priv->process_insert_space_toggle, FALSE,
                         FALSE, 0);
-    gtk_box_pack_start (GTK_BOX (group), priv->process_insert_one_space_toggle, FALSE,
-                        FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (group), priv->process_insert_one_space_toggle,
+                        FALSE, FALSE, 0);
     gtk_box_pack_start (GTK_BOX (group), radio_space_none, FALSE, FALSE, 0);
     /* Set check buttons to init value */
-    if (PF_REMOVE_SPACE || PF_INSERT_SPACE || PF_ONLY_ONE_SPACE)
-    {
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->process_remove_space_toggle),
-                                      PF_REMOVE_SPACE);
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->process_insert_space_toggle),
-                                      PF_INSERT_SPACE);
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->process_insert_one_space_toggle),
-                                      PF_ONLY_ONE_SPACE);
-    }
-    else
-    {
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio_space_none),
-                                      TRUE);
-    }
+    g_settings_bind (MainSettings, "process-remove-spaces",
+                     priv->process_remove_space_toggle, "active",
+                     G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (MainSettings, "process-insert-capital-spaces",
+                     priv->process_insert_space_toggle, "active",
+                     G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (MainSettings, "process-remove-duplicate-spaces",
+                     priv->process_insert_one_space_toggle, "active",
+                     G_SETTINGS_BIND_DEFAULT);
     /* Tooltips */
     gtk_widget_set_tooltip_text(priv->process_remove_space_toggle,
         _("All spaces between words are removed. "
@@ -3263,9 +3264,6 @@ et_scan_dialog_apply_changes (EtScanDialog *self)
     /* The selected scanner type. */
     SCANNER_TYPE = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->type_combo));
 
-    SCAN_MASK_EDITOR_BUTTON   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->mask_editor_toggle));
-    SCAN_LEGEND_BUTTON        = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->legend_toggle));
-
     /* Group: select entries to process */
     PROCESS_FILENAME_FIELD    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_filename_toggle));
     PROCESS_TITLE_FIELD       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_title_toggle));
@@ -3280,27 +3278,9 @@ et_scan_dialog_apply_changes (EtScanDialog *self)
     PROCESS_URL_FIELD         = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_url_toggle));
     PROCESS_ENCODED_BY_FIELD  = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_encoded_by_toggle));
 
-    if (PROCESS_FIELDS_CONVERT_FROM) g_free(PROCESS_FIELDS_CONVERT_FROM);
-    PROCESS_FIELDS_CONVERT_FROM = g_strdup(gtk_entry_get_text(GTK_ENTRY(priv->process_convert_from_entry)));
-    if (PROCESS_FIELDS_CONVERT_TO) g_free(PROCESS_FIELDS_CONVERT_TO);
-    PROCESS_FIELDS_CONVERT_TO   = g_strdup(gtk_entry_get_text(GTK_ENTRY(priv->process_convert_to_entry)));
-
     /* Group: convert one character */
     PF_CONVERT_INTO_SPACE     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_convert_to_space_toggle));
     PF_CONVERT_SPACE          = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_convert_to_underscores_toggle));
-    PF_CONVERT                = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_convert_toggle));
-
-    /* Group: capitalize */
-    PF_CONVERT_ALL_UPPERCASE           = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_all_uppercase_toggle));
-    PF_CONVERT_ALL_DOWNCASE            = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_all_lowercase_toggle));
-    PF_CONVERT_FIRST_LETTER_UPPERCASE  = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_first_uppercase_toggle));
-    PF_CONVERT_FIRST_LETTERS_UPPERCASE = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_first_style_uppercase_toggle));
-    PF_DETECT_ROMAN_NUMERALS           = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_roman_numerals_check));
-
-    /* Group: remove/insert space */
-    PF_REMOVE_SPACE   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_remove_space_toggle));
-    PF_INSERT_SPACE   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_insert_space_toggle));
-    PF_ONLY_ONE_SPACE = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_insert_one_space_toggle));
 
     /* Save default masks. */
     if (SCAN_TAG_DEFAULT_MASK) g_free(SCAN_TAG_DEFAULT_MASK);

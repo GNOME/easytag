@@ -1,5 +1,5 @@
 /* EasyTAG - tag editor for audio files
- * Copyright (C) 2013  David King <amigadave@amigadave.com>
+ * Copyright (C) 2013-2014  David King <amigadave@amigadave.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -257,10 +257,14 @@ Add_Row_To_Search_Result_List (EtSearchDialog *self,
         {
             if ( SearchResultList_Text[column] && strlen(string_to_search) && strstr(SearchResultList_Text[column],string_to_search) )
             {
-                if (CHANGED_FILES_DISPLAYED_TO_BOLD)
+                if (g_settings_get_boolean (MainSettings, "file-changed-bold"))
+                {
                     SearchResultList_Weight[column] = PANGO_WEIGHT_BOLD;
+                }
                 else
+                {
                     SearchResultList_Color[column] = &RED;
+                }
             }
 
         } else
@@ -279,10 +283,14 @@ Add_Row_To_Search_Result_List (EtSearchDialog *self,
 
             if ( list_text && strlen(string_to_search2) && strstr(list_text,string_to_search2) )
             {
-                if (CHANGED_FILES_DISPLAYED_TO_BOLD)
+                if (g_settings_get_boolean (MainSettings, "file-changed-bold"))
+                {
                     SearchResultList_Weight[column] = PANGO_WEIGHT_BOLD;
+                }
                 else
+                {
                     SearchResultList_Color[column] = &RED;
+                }
             }
 
             g_free(list_text);
@@ -651,10 +659,10 @@ create_search_dialog (EtSearchDialog *self)
     priv->search_in_tag = gtk_check_button_new_with_label (_("the Tag"));
     gtk_grid_attach (GTK_GRID (Table), priv->search_in_filename, 1, 1, 1, 1);
     gtk_grid_attach (GTK_GRID (Table), priv->search_in_tag, 2, 1, 1, 1);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->search_in_filename),
-                                  SEARCH_IN_FILENAME);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->search_in_tag),
-                                  SEARCH_IN_TAG);
+    g_settings_bind (MainSettings, "search-filename", priv->search_in_filename,
+                     "active", G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (MainSettings, "search-tag", priv->search_in_tag,
+                     "active", G_SETTINGS_BIND_DEFAULT);
 
     Separator = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
     et_grid_attach_full (GTK_GRID (Table), Separator, 3, 1, 1, 1, FALSE, FALSE,
@@ -664,8 +672,9 @@ create_search_dialog (EtSearchDialog *self)
     priv->search_case_sensitive = gtk_check_button_new_with_label (_("Case sensitive"));
     et_grid_attach_full (GTK_GRID (Table), priv->search_case_sensitive, 4, 1,
                          1, 1, TRUE, FALSE, 0, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->search_case_sensitive),
-                                  SEARCH_CASE_SENSITIVE);
+    g_settings_bind (MainSettings, "search-case-sensitive",
+                     priv->search_case_sensitive, "active",
+                     G_SETTINGS_BIND_DEFAULT);
 
     // Results list
     ScrollWindow = gtk_scrolled_window_new(NULL,NULL);
@@ -907,10 +916,6 @@ et_search_dialog_apply_changes (EtSearchDialog *self)
     priv = et_search_dialog_get_instance_private (self);
 
     Save_Search_File_List (priv->search_string_model, MISC_COMBO_TEXT);
-
-    SEARCH_IN_FILENAME = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->search_in_filename));
-    SEARCH_IN_TAG = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->search_in_tag));
-    SEARCH_CASE_SENSITIVE = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->search_case_sensitive));
 }
 
 static void

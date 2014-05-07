@@ -47,7 +47,6 @@ struct _EtLoadFilesDialogClass
 
 GType et_load_files_dialog_get_type (void);
 EtLoadFilesDialog *et_load_files_dialog_new (void);
-void et_load_files_dialog_apply_changes (EtLoadFilesDialog *self);
 
 G_END_DECLS
 

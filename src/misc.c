@@ -292,7 +292,10 @@ gboolean Parse_Date (void)
     GDateTime *dt;
 
     /* Early return. */
-    if (!DATE_AUTO_COMPLETION) return FALSE;
+    if (!g_settings_get_boolean (MainSettings, "tag-date-autocomplete"))
+    {
+        return FALSE;
+    }
 
     /* Get the info entered by user */
     year = gtk_entry_get_text(GTK_ENTRY(YearEntry));
@@ -898,10 +901,16 @@ et_disc_number_to_string (const guint disc_number)
 gchar *
 et_track_number_to_string (const guint track_number)
 {
-    return NUMBER_TRACK_FORMATED ? g_strdup_printf ("%.*d",
-                                                    NUMBER_TRACK_FORMATED_SPIN_BUTTON,
-                                                    track_number)
-                                 : g_strdup_printf ("%d", track_number);
+    if (g_settings_get_boolean (MainSettings, "tag-number-padded"))
+    {
+        return g_strdup_printf ("%.*d", g_settings_get_uint (MainSettings,
+                                                             "tag-number-length"),
+                                track_number);
+    }
+    else
+    {
+        return g_strdup_printf ("%d", track_number);
+    }
 }
 
 void
