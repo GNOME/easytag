@@ -196,7 +196,7 @@ static gchar *ET_File_Name_Format_Extension (ET_File *ETFile);
 
 static void set_sort_order_for_column_id (gint column_id,
                                           GtkTreeViewColumn *column,
-                                          ET_Sorting_Type sort_type);
+                                          EtSortMode sort_type);
 
 
 /*******************
@@ -987,14 +987,16 @@ ET_Remove_File_From_Artist_Album_List (ET_File *ETFile)
  * Note : Add also new sorting in 'Browser_List_Sort_Func'
  */
 static void
-ET_Sort_Displayed_File_List (ET_Sorting_Type Sorting_Type)
+ET_Sort_Displayed_File_List (EtSortMode Sorting_Type)
 {
     ETCore->ETFileDisplayedList = ET_Sort_File_List(ETCore->ETFileDisplayedList,Sorting_Type);
 }
+
 /*
  * Sort an 'ETFileList'
  */
-GList *ET_Sort_File_List (GList *ETFileList, ET_Sorting_Type Sorting_Type)
+GList *
+ET_Sort_File_List (GList *ETFileList, EtSortMode Sorting_Type)
 {
     EtApplicationWindow *window;
     GtkTreeViewColumn *column;
@@ -1008,147 +1010,147 @@ GList *ET_Sort_File_List (GList *ETFileList, ET_Sorting_Type Sorting_Type)
     /* Important to rewind before. */
     etfilelist = g_list_first (ETFileList);
 
+    /* FIXME: Port to sort-mode? */
     set_sort_order_for_column_id (column_id, column, Sorting_Type);
 
-    // Sort...
+    /* Sort... */
     switch (Sorting_Type)
     {
-        case SORTING_UNKNOWN:
-        case SORTING_BY_ASCENDING_FILENAME:
+        case ET_SORT_MODE_ASCENDING_FILENAME:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_Filename);
             break;
-        case SORTING_BY_DESCENDING_FILENAME:
+        case ET_SORT_MODE_DESCENDING_FILENAME:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_Filename);
             break;
-        case SORTING_BY_ASCENDING_TITLE:
+        case ET_SORT_MODE_ASCENDING_TITLE:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_Title);
             break;
-        case SORTING_BY_DESCENDING_TITLE:
+        case ET_SORT_MODE_DESCENDING_TITLE:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_Title);
             break;
-        case SORTING_BY_ASCENDING_ARTIST:
+        case ET_SORT_MODE_ASCENDING_ARTIST:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_Artist);
             break;
-        case SORTING_BY_DESCENDING_ARTIST:
+        case ET_SORT_MODE_DESCENDING_ARTIST:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_Artist);
             break;
-        case SORTING_BY_ASCENDING_ALBUM_ARTIST:
+        case ET_SORT_MODE_ASCENDING_ALBUM_ARTIST:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_Album_Artist);
             break;
-        case SORTING_BY_DESCENDING_ALBUM_ARTIST:
+        case ET_SORT_MODE_DESCENDING_ALBUM_ARTIST:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_Album_Artist);
             break;
-		case SORTING_BY_ASCENDING_ALBUM:
+		case ET_SORT_MODE_ASCENDING_ALBUM:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_Album);
             break;
-        case SORTING_BY_DESCENDING_ALBUM:
+        case ET_SORT_MODE_DESCENDING_ALBUM:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_Album);
             break;
-        case SORTING_BY_ASCENDING_YEAR:
+        case ET_SORT_MODE_ASCENDING_YEAR:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_Year);
             break;
-        case SORTING_BY_DESCENDING_YEAR:
+        case ET_SORT_MODE_DESCENDING_YEAR:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_Year);
             break;
-        case SORTING_BY_ASCENDING_DISC_NUMBER:
+        case ET_SORT_MODE_ASCENDING_DISC_NUMBER:
             etfilelist = g_list_sort (etfilelist,
                                       (GCompareFunc)et_comp_func_sort_file_by_ascending_disc_number);
             break;
-        case SORTING_BY_DESCENDING_DISC_NUMBER:
+        case ET_SORT_MODE_DESCENDING_DISC_NUMBER:
             etfilelist = g_list_sort (etfilelist,
                                       (GCompareFunc)et_comp_func_sort_file_by_descending_disc_number);
             break;
-        case SORTING_BY_ASCENDING_TRACK_NUMBER:
+        case ET_SORT_MODE_ASCENDING_TRACK_NUMBER:
             etfilelist = g_list_sort (etfilelist,
                                       (GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_Track_Number);
             break;
-        case SORTING_BY_DESCENDING_TRACK_NUMBER:
+        case ET_SORT_MODE_DESCENDING_TRACK_NUMBER:
             etfilelist = g_list_sort (etfilelist,
                                       (GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_Track_Number);
             break;
-        case SORTING_BY_ASCENDING_GENRE:
+        case ET_SORT_MODE_ASCENDING_GENRE:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_Genre);
             break;
-        case SORTING_BY_DESCENDING_GENRE:
+        case ET_SORT_MODE_DESCENDING_GENRE:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_Genre);
             break;
-        case SORTING_BY_ASCENDING_COMMENT:
+        case ET_SORT_MODE_ASCENDING_COMMENT:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_Comment);
             break;
-        case SORTING_BY_DESCENDING_COMMENT:
+        case ET_SORT_MODE_DESCENDING_COMMENT:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_Comment);
             break;
-        case SORTING_BY_ASCENDING_COMPOSER:
+        case ET_SORT_MODE_ASCENDING_COMPOSER:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_Composer);
             break;
-        case SORTING_BY_DESCENDING_COMPOSER:
+        case ET_SORT_MODE_DESCENDING_COMPOSER:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_Composer);
             break;
-        case SORTING_BY_ASCENDING_ORIG_ARTIST:
+        case ET_SORT_MODE_ASCENDING_ORIG_ARTIST:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_Orig_Artist);
             break;
-        case SORTING_BY_DESCENDING_ORIG_ARTIST:
+        case ET_SORT_MODE_DESCENDING_ORIG_ARTIST:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_Orig_Artist);
             break;
-        case SORTING_BY_ASCENDING_COPYRIGHT:
+        case ET_SORT_MODE_ASCENDING_COPYRIGHT:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_Copyright);
             break;
-        case SORTING_BY_DESCENDING_COPYRIGHT:
+        case ET_SORT_MODE_DESCENDING_COPYRIGHT:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_Copyright);
             break;
-        case SORTING_BY_ASCENDING_URL:
+        case ET_SORT_MODE_ASCENDING_URL:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_Url);
             break;
-        case SORTING_BY_DESCENDING_URL:
+        case ET_SORT_MODE_DESCENDING_URL:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_Url);
             break;
-        case SORTING_BY_ASCENDING_ENCODED_BY:
+        case ET_SORT_MODE_ASCENDING_ENCODED_BY:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_Encoded_By);
             break;
-        case SORTING_BY_DESCENDING_ENCODED_BY:
+        case ET_SORT_MODE_DESCENDING_ENCODED_BY:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_Encoded_By);
             break;
-        case SORTING_BY_ASCENDING_CREATION_DATE:
+        case ET_SORT_MODE_ASCENDING_CREATION_DATE:
             etfilelist = g_list_sort (etfilelist,
                                       (GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_Creation_Date);
             break;
-        case SORTING_BY_DESCENDING_CREATION_DATE:
+        case ET_SORT_MODE_DESCENDING_CREATION_DATE:
             etfilelist = g_list_sort (etfilelist,
                                       (GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_Creation_Date);
             break;
-        case SORTING_BY_ASCENDING_FILE_TYPE:
+        case ET_SORT_MODE_ASCENDING_FILE_TYPE:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_File_Type);
             break;
-        case SORTING_BY_DESCENDING_FILE_TYPE:
+        case ET_SORT_MODE_DESCENDING_FILE_TYPE:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_File_Type);
             break;
-        case SORTING_BY_ASCENDING_FILE_SIZE:
+        case ET_SORT_MODE_ASCENDING_FILE_SIZE:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_File_Size);
             break;
-        case SORTING_BY_DESCENDING_FILE_SIZE:
+        case ET_SORT_MODE_DESCENDING_FILE_SIZE:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_File_Size);
             break;
-        case SORTING_BY_ASCENDING_FILE_DURATION:
+        case ET_SORT_MODE_ASCENDING_FILE_DURATION:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_File_Duration);
             break;
-        case SORTING_BY_DESCENDING_FILE_DURATION:
+        case ET_SORT_MODE_DESCENDING_FILE_DURATION:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_File_Duration);
             break;
-        case SORTING_BY_ASCENDING_FILE_BITRATE:
+        case ET_SORT_MODE_ASCENDING_FILE_BITRATE:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_File_Bitrate);
             break;
-        case SORTING_BY_DESCENDING_FILE_BITRATE:
+        case ET_SORT_MODE_DESCENDING_FILE_BITRATE:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_File_Bitrate);
             break;
-        case SORTING_BY_ASCENDING_FILE_SAMPLERATE:
+        case ET_SORT_MODE_ASCENDING_FILE_SAMPLERATE:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Ascending_File_Samplerate);
             break;
-        case SORTING_BY_DESCENDING_FILE_SAMPLERATE:
+        case ET_SORT_MODE_DESCENDING_FILE_SAMPLERATE:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_File_Samplerate);
             break;
     }
     /* Save sorting mode (note: needed when called from UI). */
-    SORTING_FILE_MODE = Sorting_Type;
+    g_settings_set_enum (MainSettings, "sort-mode", Sorting_Type);
 
     //ETFileList = g_list_first(etfilelist);
     return g_list_first(etfilelist);
@@ -1158,7 +1160,8 @@ GList *ET_Sort_File_List (GList *ETFileList, ET_Sorting_Type Sorting_Type)
 /*
  * Sort the list of files following the 'Sorting_Type' value. The new sorting is displayed in the UI.
  */
-void ET_Sort_Displayed_File_List_And_Update_UI (ET_Sorting_Type Sorting_Type)
+void
+ET_Sort_Displayed_File_List_And_Update_UI (EtSortMode Sorting_Type)
 {
     g_return_if_fail (ETCore->ETFileList != NULL);
 
@@ -2171,8 +2174,9 @@ gboolean ET_Set_Displayed_File_List (GList *ETFileList)
         ETCore->ETFileDisplayedList_TotalDuration += ((ET_File_Info *)((ET_File *)l->data)->ETFileInfo)->duration;
     }
 
-    // Sort the file list
-    ET_Sort_Displayed_File_List(SORTING_FILE_MODE);
+    /* Sort the file list. */
+    ET_Sort_Displayed_File_List (g_settings_get_enum (MainSettings,
+                                 "sort-mode"));
 
     // Should renums ETCore->ETFileDisplayedList only!
     ET_Displayed_File_List_Number();
@@ -5064,21 +5068,24 @@ ET_Get_Number_Of_Files_In_Directory (const gchar *path_utf8)
  */
 static void
 set_sort_order_for_column_id (gint column_id, GtkTreeViewColumn *column,
-                              ET_Sorting_Type sort_type)
+                              EtSortMode sort_type)
 {
     EtApplicationWindow *window;
+    EtSortMode current_mode;
 
     window = ET_APPLICATION_WINDOW (MainWindow);
 
     /* Removing the sort indicator for the currently selected treeview
      * column. */
-    if (SORTING_FILE_MODE < SORTING_BY_ASCENDING_CREATION_DATE)
+    current_mode = g_settings_get_enum (MainSettings, "sort-mode");
+
+    if (current_mode < ET_SORT_MODE_ASCENDING_CREATION_DATE)
     {
-        gtk_tree_view_column_set_sort_indicator (et_application_window_browser_get_column_for_column_id (window, SORTING_FILE_MODE / 2),
+        gtk_tree_view_column_set_sort_indicator (et_application_window_browser_get_column_for_column_id (window, current_mode / 2),
                                                  FALSE);
     }
 
-    if (sort_type < SORTING_BY_ASCENDING_CREATION_DATE)
+    if (sort_type < ET_SORT_MODE_ASCENDING_CREATION_DATE)
     {
         gtk_tree_view_column_clicked (et_application_window_browser_get_column_for_column_id (window, column_id));
 

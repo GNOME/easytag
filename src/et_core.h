@@ -1,31 +1,31 @@
-/* et_core.h - 2001/10/21 */
-/*
- *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
- *  Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
+/* EasyTAG - Tag editor for audio files
+ * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
  *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
+#ifndef ET_CORE_H_
+#define ET_CORE_H_
 
-#ifndef __ET_CORE_H__
-#define __ET_CORE_H__
+#include "config.h" /* For definition of ENABLE_OGG and so on. */
 
+#include "setting.h"
 
 #include <glib.h>
 #include <gdk/gdk.h>
-#include <config.h> // For definition of ENABLE_OGG, ...
 
 G_BEGIN_DECLS
 
@@ -33,58 +33,6 @@ G_BEGIN_DECLS
  * Colors Used (see declaration into et_core.c)
  */
 extern GdkRGBA RED;
-
-
-/*
- * Types of sorting (discontinuous value to avoid separators in SortingFileOptionMenu).
- */
-typedef enum
-{
-    SORTING_BY_ASCENDING_FILENAME,
-    SORTING_BY_DESCENDING_FILENAME,
-    SORTING_BY_ASCENDING_TITLE,
-    SORTING_BY_DESCENDING_TITLE,
-    SORTING_BY_ASCENDING_ARTIST,
-    SORTING_BY_DESCENDING_ARTIST,
-    SORTING_BY_ASCENDING_ALBUM_ARTIST,
-    SORTING_BY_DESCENDING_ALBUM_ARTIST,
-    SORTING_BY_ASCENDING_ALBUM,
-    SORTING_BY_DESCENDING_ALBUM,
-    SORTING_BY_ASCENDING_YEAR,
-    SORTING_BY_DESCENDING_YEAR,
-    SORTING_BY_ASCENDING_DISC_NUMBER,
-    SORTING_BY_DESCENDING_DISC_NUMBER,
-    SORTING_BY_ASCENDING_TRACK_NUMBER,
-    SORTING_BY_DESCENDING_TRACK_NUMBER,
-    SORTING_BY_ASCENDING_GENRE,
-    SORTING_BY_DESCENDING_GENRE,
-    SORTING_BY_ASCENDING_COMMENT,
-    SORTING_BY_DESCENDING_COMMENT,
-    SORTING_BY_ASCENDING_COMPOSER,
-    SORTING_BY_DESCENDING_COMPOSER,
-    SORTING_BY_ASCENDING_ORIG_ARTIST,
-    SORTING_BY_DESCENDING_ORIG_ARTIST,
-    SORTING_BY_ASCENDING_COPYRIGHT,
-    SORTING_BY_DESCENDING_COPYRIGHT,
-    SORTING_BY_ASCENDING_URL,
-    SORTING_BY_DESCENDING_URL,
-    SORTING_BY_ASCENDING_ENCODED_BY,
-    SORTING_BY_DESCENDING_ENCODED_BY,
-    SORTING_BY_ASCENDING_CREATION_DATE,
-    SORTING_BY_DESCENDING_CREATION_DATE,
-    SORTING_BY_ASCENDING_FILE_TYPE,
-    SORTING_BY_DESCENDING_FILE_TYPE,
-    SORTING_BY_ASCENDING_FILE_SIZE,
-    SORTING_BY_DESCENDING_FILE_SIZE,
-    SORTING_BY_ASCENDING_FILE_DURATION,
-    SORTING_BY_DESCENDING_FILE_DURATION,
-    SORTING_BY_ASCENDING_FILE_BITRATE,
-    SORTING_BY_DESCENDING_FILE_BITRATE,
-    SORTING_BY_ASCENDING_FILE_SAMPLERATE,
-    SORTING_BY_DESCENDING_FILE_SAMPLERATE,
-    SORTING_UNKNOWN
-} ET_Sorting_Type;
-
 
 /*
  * Types of files
@@ -358,8 +306,8 @@ guint ET_Get_Number_Of_Files_In_Directory (const gchar *path_utf8);
 
 gboolean ET_Detect_Changes_Of_File_Tag          (File_Tag  *FileTag1,  File_Tag  *FileTag2);
 
-GList *ET_Sort_File_List                                  (GList *ETFileList, ET_Sorting_Type Sorting_Type);
-void   ET_Sort_Displayed_File_List_And_Update_UI          (ET_Sorting_Type Sorting_Type);
+GList *ET_Sort_File_List (GList *ETFileList, EtSortMode Sorting_Type);
+void ET_Sort_Displayed_File_List_And_Update_UI (EtSortMode Sorting_Type);
 gint ET_Comp_Func_Sort_File_By_Ascending_Filename         (ET_File *ETFile1, ET_File *ETFile2);
 gint ET_Comp_Func_Sort_File_By_Descending_Filename        (ET_File *ETFile1, ET_File *ETFile2);
 gint ET_Comp_Func_Sort_File_By_Ascending_Creation_Date    (ET_File *ETFile1, ET_File *ETFile2);
@@ -408,4 +356,4 @@ gint ET_Comp_Func_Sort_File_By_Descending_File_Samplerate (ET_File *ETFile1, ET_
 
 G_END_DECLS
 
-#endif /* __ET_CORE_H__ */
+#endif /* ET_CORE_H_ */

@@ -101,10 +101,6 @@ static const gchar CDDB_LOCAL_PATH_HISTORY_FILE[] = "cddb_local_path.history";
 
 static void Save_Config_To_File (void);
 static gboolean Create_Easytag_Directory (void);
-static void set_sorting_indicator_for_column_id (EtApplicationWindow *self,
-                                                 gint column_id,
-                                                 ET_Sorting_Type temp_sort,
-                                                 GtkTreeViewColumn *column);
 
 
 
@@ -117,7 +113,6 @@ static const tConfigVariable Config_Variables[] =
 
     {"pad_disc_number", CV_TYPE_BOOL, &PAD_DISC_NUMBER },
     {"pad_disc_number_digits", CV_TYPE_INT, &PAD_DISC_NUMBER_DIGITS },
-    {"sorting_file_mode",                    CV_TYPE_INT,     &SORTING_FILE_MODE                        },
     {"sorting_file_case_sensitive",          CV_TYPE_BOOL,    &SORTING_FILE_CASE_SENSITIVE              },
 
     {"filename_extension_lower_case",                  CV_TYPE_BOOL,    &FILENAME_EXTENSION_LOWER_CASE            },
@@ -230,7 +225,6 @@ void Init_Config_Variables (void)
      */
     PAD_DISC_NUMBER = 1;
     PAD_DISC_NUMBER_DIGITS = 1;
-    SORTING_FILE_MODE                       = SORTING_BY_ASCENDING_FILENAME;
 #ifdef G_OS_WIN32
     SORTING_FILE_CASE_SENSITIVE             = 1;
 #else /* !G_OS_WIN32 */
@@ -366,9 +360,6 @@ Apply_Changes_Of_Preferences_Window (void)
     GtkWidget *dialog;
     gchar *temp;
     int active;
-    ET_Sorting_Type temp_sort;
-    gint column_id;
-    GtkTreeViewColumn * column;
 
     window = ET_APPLICATION_WINDOW (MainWindow);
     dialog = et_application_window_get_preferences_dialog (window);
@@ -387,22 +378,6 @@ Apply_Changes_Of_Preferences_Window (void)
         PAD_DISC_NUMBER = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pad_disc_number));
         PAD_DISC_NUMBER_DIGITS = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (pad_disc_number_spinbutton));
         SORTING_FILE_CASE_SENSITIVE            = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(SortingFileCaseSensitive));
-
-        temp_sort = gtk_combo_box_get_active (GTK_COMBO_BOX (SortingFileCombo));
-        column_id = temp_sort / 2;
-        if (SORTING_FILE_MODE < SORTING_BY_ASCENDING_CREATION_DATE)
-        {
-            gtk_tree_view_column_set_sort_indicator (et_application_window_browser_get_column_for_column_id (window, SORTING_FILE_MODE / 2),
-                                                     FALSE);
-        }
-        if (temp_sort < SORTING_BY_ASCENDING_CREATION_DATE)
-        {
-            column = et_application_window_browser_get_column_for_column_id (window, column_id);
-            set_sorting_indicator_for_column_id (window, column_id, temp_sort,
-                                                 column);
-        }
-        SORTING_FILE_MODE = temp_sort;
-        et_application_window_browser_refresh_sort (ET_APPLICATION_WINDOW (MainWindow));
 
         if (AUDIO_FILE_PLAYER) g_free(AUDIO_FILE_PLAYER);
         AUDIO_FILE_PLAYER                       = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)))));
@@ -1245,24 +1220,78 @@ Create_Easytag_Directory (void)
     }
 }
 
-static void
-set_sorting_indicator_for_column_id (EtApplicationWindow *window,
-                                     gint column_id,
-                                     ET_Sorting_Type temp_sort,
-                                     GtkTreeViewColumn *column)
+/*
+ * et_settings_enum_get:
+ * @value: the property value to be set (active item on combo box)
+ * @variant: the variant to set the @value from
+ * @user_data: the #GType of the #GSettings enum
+ *
+ * Wrapper function to convert an enum-type GSettings key into an integer
+ * value.
+ *
+ * Returns: %TRUE if the mapping was successful, %FALSE otherwise
+ */
+gboolean
+et_settings_enum_get (GValue *value, GVariant *variant, gpointer user_data)
 {
-    GtkSortType current_sort;
-    GtkSortType sort_type;
+    GType enum_type;
+    GEnumClass *enum_class;
+    GEnumValue *enum_value;
+    const gchar *nick;
 
-    gtk_tree_view_column_clicked (column);
+    g_return_val_if_fail (user_data != NULL, FALSE);
 
-    current_sort = et_application_window_browser_get_sort_order_for_column_id (window,
-                                                                               column_id);
+    enum_type = (GType)GPOINTER_TO_SIZE (user_data);
+    enum_class = g_type_class_ref (enum_type);
+    nick = g_variant_get_string (variant, NULL);
+    enum_value = g_enum_get_value_by_nick (enum_class, nick);
+    g_type_class_unref (enum_class);
 
-    sort_type = temp_sort % 2 == 0 ? GTK_SORT_ASCENDING : GTK_SORT_DESCENDING;
-
-    if (sort_type != current_sort)
+    if (!enum_value)
     {
-        gtk_tree_view_column_clicked (column);
+        g_warning ("Unable to lookup %s enum nick '%s' from GType",
+                   g_type_name (enum_type),
+                   nick);
+        return FALSE;
     }
+
+    g_value_set_int (value, enum_value->value);
+    return TRUE;
+}
+
+/*
+ * et_settings_enum_set:
+ * @value: the property value to set the @variant from
+ * @expected_type: the expected type of the returned variant
+ * @user_data: the #GType of the #GSettings enum
+ *
+ * Wrapper function to convert an integer value into a string suitable for
+ * storing into an enum-type GSettings key.
+ *
+ * Returns: a new GVariant containing the mapped value, or %NULL upon failure
+ */
+GVariant *
+et_settings_enum_set (const GValue *value, const GVariantType *expected_type,
+                      gpointer user_data)
+{
+    GType enum_type;
+    GEnumClass *enum_class;
+    GEnumValue *enum_value;
+
+    g_return_val_if_fail (user_data != NULL, NULL);
+
+    enum_type = (GType)GPOINTER_TO_SIZE (user_data);
+    enum_class = g_type_class_ref (enum_type);
+    enum_value = g_enum_get_value (enum_class, g_value_get_int (value));
+    g_type_class_unref (enum_class);
+
+    if (!enum_value)
+    {
+        g_warning ("Unable to lookup %s enum value '%d' from GType",
+                   g_type_name (enum_type), g_value_get_int (value));
+        return NULL;
+    }
+
+    return g_variant_new (g_variant_type_peek_string (expected_type),
+                          enum_value->value_nick);
 }

@@ -22,6 +22,7 @@ localedir = $(prefix)/$(DATADIRNAME)/locale
 easytag_CPPFLAGS = \
 	-I$(top_srcdir) \
 	-I$(top_builddir) \
+	-I$(top_builddir)/src \
 	$(DEPRECATED_CPPFLAGS) \
 	-DLOCALEDIR=\"$(localedir)\"
 

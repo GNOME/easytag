@@ -37,6 +37,7 @@
 #include "misc.h"
 #include "scan_dialog.h"
 #include "easytag.h"
+#include "enums.h"
 #include "browser.h"
 #include "cddb_dialog.h"
 #include "charset.h"
@@ -347,85 +348,13 @@ create_preferences_dialog (EtPreferencesDialog *self)
     /* Sorting List Options */
     Frame = gtk_frame_new (_("Sorting List Options"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width (GTK_CONTAINER(vbox), BOX_SPACING);
-
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
-    gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
-    /* Sorting method */
-    Label = gtk_label_new(_("Sort the file list by:"));
-    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
-
-    SortingFileCombo = gtk_combo_box_text_new();
-    gtk_box_pack_start (GTK_BOX (hbox), SortingFileCombo, FALSE, FALSE, 2);
-    gtk_widget_set_size_request(GTK_WIDGET(SortingFileCombo), 260, -1);
-    gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(SortingFileCombo),2); // Two columns
-
-    // Items of option menu
-    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
-                                    _("Ascending filename"));
-    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
-                                    _("Descending filename"));
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending title"));
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending title"));
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending artist"));
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending artist"));
-    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
-                                    _("Ascending album artist"));
-    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
-                                    _("Descending album artist"));
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending album"));
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending album"));
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending year"));
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending year"));
-    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
-                                    _("Ascending disc number"));
-    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
-                                    _("Descending disc number"));
-    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
-                                    _("Ascending track number"));
-    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
-                                    _("Descending track number"));
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending genre"));
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending genre"));
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Ascending comment"));
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SortingFileCombo), _("Descending comment"));
-    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
-                                    _("Ascending composer"));
-    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
-                                    _("Descending composer"));
-    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
-                                    _("Ascending original artist"));
-    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
-                                    _("Descending original artist"));
-    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
-                                    _("Ascending copyright"));
-    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
-                                    _("Descending copyright"));
-    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
-                                    _("Ascending URL"));
-    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
-                                    _("Descending URL"));
-    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
-                                    _("Ascending encoded by"));
-    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
-                                    _("Descending encoded by"));
-    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
-                                    _("Ascending creation date"));
-    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (SortingFileCombo),
-                                    _("Descending creation date"));
-
-    gtk_combo_box_set_active(GTK_COMBO_BOX(SortingFileCombo), SORTING_FILE_MODE);
-    gtk_widget_set_tooltip_text(SortingFileCombo,
-                                _("Select the type of file sorting when "
-                                "loading a directory."));
 
     SortingFileCaseSensitive = gtk_check_button_new_with_label(_("Case sensitive"));
 #ifndef G_OS_WIN32
     /* Always true and not user modifiable on win32, as strncasecmp() does not
      * work correctly with g_utf8_collate_key().
      */
+    gtk_container_add (GTK_CONTAINER (Frame), SortingFileCaseSensitive);
     gtk_box_pack_start(GTK_BOX(hbox),SortingFileCaseSensitive,FALSE,FALSE,0);
 #endif /* !G_OS_WIN32 */
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SortingFileCaseSensitive),

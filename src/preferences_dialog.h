@@ -59,7 +59,6 @@ GtkWidget *DefaultPathToMp3;
 GtkWidget *BrowseHiddendir;
 
 /* Misc */
-GtkWidget *SortingFileCombo;
 GtkWidget *SortingFileCaseSensitive;
 
 GtkWidget *FilePlayerCombo;

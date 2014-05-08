@@ -199,13 +199,11 @@
       <default>true</default>
     </key>
 
-    <!-- TODO: Generate enums with glib-mkenums.
     <key name="sort-mode" enum="org.gnome.EasyTAG.EtSortMode">
       <summary>How to sort audio files in the file list</summary>
       <description>Sort files in ascending or descending order for the selected type</description>
       <default>'ascending-track-number'</default>
     </key>
-    -->
 
     <key name="log-lines" type="u">
       <summary>Number of log lines</summary>

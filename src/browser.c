@@ -70,6 +70,7 @@ struct _EtBrowserPrivate
     GtkListStore *file_model;
     GtkWidget *file_view;
     guint file_selected_handler;
+    EtSortMode file_sort_mode;
 
     GtkWidget *album_list;
     GtkListStore *album_model;
@@ -255,8 +256,8 @@ static void et_run_program_list_on_response (GtkDialog *dialog,
                                              gint response_id,
                                              gpointer user_data);
 
-static void et_browser_set_sorting_file_mode (GtkTreeViewColumn *column,
-                                              gpointer data);
+static void et_browser_on_column_clicked (GtkTreeViewColumn *column,
+                                          gpointer data);
 
 
 /*************
@@ -2080,7 +2081,7 @@ et_browser_clear (EtBrowser *self)
 }
 
 /*
- * Refresh the list sorting (call me after SORTING_FILE_MODE has changed)
+ * Refresh the list sorting (call me after sort-mode has changed)
  */
 void
 et_browser_refresh_sort (EtBrowser *self)
@@ -2110,136 +2111,136 @@ Browser_List_Sort_Func (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b,
     gtk_tree_model_get(model, a, LIST_FILE_POINTER, &ETFile1, -1);
     gtk_tree_model_get(model, b, LIST_FILE_POINTER, &ETFile2, -1);
 
-    switch (SORTING_FILE_MODE)
+    switch (g_settings_get_enum (MainSettings, "sort-mode"))
     {
-        case SORTING_UNKNOWN:
-        case SORTING_BY_ASCENDING_FILENAME:
+        case ET_SORT_MODE_ASCENDING_FILENAME:
             result = ET_Comp_Func_Sort_File_By_Ascending_Filename(ETFile1, ETFile2);
             break;
-        case SORTING_BY_DESCENDING_FILENAME:
+        case ET_SORT_MODE_DESCENDING_FILENAME:
             result = ET_Comp_Func_Sort_File_By_Descending_Filename(ETFile1, ETFile2);
             break;
-        case SORTING_BY_ASCENDING_TITLE:
+        case ET_SORT_MODE_ASCENDING_TITLE:
             result = ET_Comp_Func_Sort_File_By_Ascending_Title(ETFile1, ETFile2);
             break;
-        case SORTING_BY_DESCENDING_TITLE:
+        case ET_SORT_MODE_DESCENDING_TITLE:
             result = ET_Comp_Func_Sort_File_By_Descending_Title(ETFile1, ETFile2);
             break;
-        case SORTING_BY_ASCENDING_ARTIST:
+        case ET_SORT_MODE_ASCENDING_ARTIST:
             result = ET_Comp_Func_Sort_File_By_Ascending_Artist(ETFile1, ETFile2);
             break;
-        case SORTING_BY_DESCENDING_ARTIST:
+        case ET_SORT_MODE_DESCENDING_ARTIST:
             result = ET_Comp_Func_Sort_File_By_Descending_Artist(ETFile1, ETFile2);
             break;
-        case SORTING_BY_ASCENDING_ALBUM_ARTIST:
+        case ET_SORT_MODE_ASCENDING_ALBUM_ARTIST:
             result = ET_Comp_Func_Sort_File_By_Ascending_Album_Artist(ETFile1, ETFile2);
             break;
-        case SORTING_BY_DESCENDING_ALBUM_ARTIST:
+        case ET_SORT_MODE_DESCENDING_ALBUM_ARTIST:
             result = ET_Comp_Func_Sort_File_By_Descending_Album_Artist(ETFile1, ETFile2);
             break;
-        case SORTING_BY_ASCENDING_ALBUM:
+        case ET_SORT_MODE_ASCENDING_ALBUM:
             result = ET_Comp_Func_Sort_File_By_Ascending_Album(ETFile1, ETFile2);
             break;
-        case SORTING_BY_DESCENDING_ALBUM:
+        case ET_SORT_MODE_DESCENDING_ALBUM:
             result = ET_Comp_Func_Sort_File_By_Descending_Album(ETFile1, ETFile2);
             break;
-        case SORTING_BY_ASCENDING_YEAR:
+        case ET_SORT_MODE_ASCENDING_YEAR:
             result = ET_Comp_Func_Sort_File_By_Ascending_Year(ETFile1, ETFile2);
             break;
-        case SORTING_BY_DESCENDING_YEAR:
+        case ET_SORT_MODE_DESCENDING_YEAR:
             result = ET_Comp_Func_Sort_File_By_Descending_Year(ETFile1, ETFile2);
             break;
-        case SORTING_BY_ASCENDING_DISC_NUMBER:
+        case ET_SORT_MODE_ASCENDING_DISC_NUMBER:
             result = et_comp_func_sort_file_by_ascending_disc_number (ETFile1,
                                                                       ETFile2);
             break;
-        case SORTING_BY_DESCENDING_DISC_NUMBER:
+        case ET_SORT_MODE_DESCENDING_DISC_NUMBER:
             result = et_comp_func_sort_file_by_descending_disc_number (ETFile1,
                                                                        ETFile2);
             break;
-        case SORTING_BY_ASCENDING_TRACK_NUMBER:
+        case ET_SORT_MODE_ASCENDING_TRACK_NUMBER:
             result = ET_Comp_Func_Sort_File_By_Ascending_Track_Number (ETFile1, ETFile2);
             break;
-        case SORTING_BY_DESCENDING_TRACK_NUMBER:
+        case ET_SORT_MODE_DESCENDING_TRACK_NUMBER:
             result = ET_Comp_Func_Sort_File_By_Descending_Track_Number (ETFile1, ETFile2);
             break;
-        case SORTING_BY_ASCENDING_GENRE:
+        case ET_SORT_MODE_ASCENDING_GENRE:
             result = ET_Comp_Func_Sort_File_By_Ascending_Genre(ETFile1, ETFile2);
             break;
-        case SORTING_BY_DESCENDING_GENRE:
+        case ET_SORT_MODE_DESCENDING_GENRE:
             result = ET_Comp_Func_Sort_File_By_Descending_Genre(ETFile1, ETFile2);
             break;
-        case SORTING_BY_ASCENDING_COMMENT:
+        case ET_SORT_MODE_ASCENDING_COMMENT:
             result = ET_Comp_Func_Sort_File_By_Ascending_Comment(ETFile1, ETFile2);
             break;
-        case SORTING_BY_DESCENDING_COMMENT:
+        case ET_SORT_MODE_DESCENDING_COMMENT:
             result = ET_Comp_Func_Sort_File_By_Descending_Comment(ETFile1, ETFile2);
             break;
-        case SORTING_BY_ASCENDING_COMPOSER:
+        case ET_SORT_MODE_ASCENDING_COMPOSER:
             result = ET_Comp_Func_Sort_File_By_Ascending_Composer(ETFile1, ETFile2);
             break;
-        case SORTING_BY_DESCENDING_COMPOSER:
+        case ET_SORT_MODE_DESCENDING_COMPOSER:
             result = ET_Comp_Func_Sort_File_By_Descending_Composer(ETFile1, ETFile2);
             break;
-        case SORTING_BY_ASCENDING_ORIG_ARTIST:
+        case ET_SORT_MODE_ASCENDING_ORIG_ARTIST:
             result = ET_Comp_Func_Sort_File_By_Ascending_Orig_Artist(ETFile1, ETFile2);
             break;
-        case SORTING_BY_DESCENDING_ORIG_ARTIST:
+        case ET_SORT_MODE_DESCENDING_ORIG_ARTIST:
             result = ET_Comp_Func_Sort_File_By_Descending_Orig_Artist(ETFile1, ETFile2);
             break;
-        case SORTING_BY_ASCENDING_COPYRIGHT:
+        case ET_SORT_MODE_ASCENDING_COPYRIGHT:
             result = ET_Comp_Func_Sort_File_By_Ascending_Copyright(ETFile1, ETFile2);
             break;
-        case SORTING_BY_DESCENDING_COPYRIGHT:
+        case ET_SORT_MODE_DESCENDING_COPYRIGHT:
             result = ET_Comp_Func_Sort_File_By_Descending_Copyright(ETFile1, ETFile2);
             break;
-        case SORTING_BY_ASCENDING_URL:
+        case ET_SORT_MODE_ASCENDING_URL:
             result = ET_Comp_Func_Sort_File_By_Ascending_Url(ETFile1, ETFile2);
             break;
-        case SORTING_BY_DESCENDING_URL:
+        case ET_SORT_MODE_DESCENDING_URL:
             result = ET_Comp_Func_Sort_File_By_Descending_Url(ETFile1, ETFile2);
             break;
-        case SORTING_BY_ASCENDING_ENCODED_BY:
+        case ET_SORT_MODE_ASCENDING_ENCODED_BY:
             result = ET_Comp_Func_Sort_File_By_Ascending_Encoded_By(ETFile1, ETFile2);
             break;
-        case SORTING_BY_DESCENDING_ENCODED_BY:
+        case ET_SORT_MODE_DESCENDING_ENCODED_BY:
             result = ET_Comp_Func_Sort_File_By_Descending_Encoded_By(ETFile1, ETFile2);
             break;
-        case SORTING_BY_ASCENDING_CREATION_DATE:
-            result = ET_Comp_Func_Sort_File_By_Ascending_Creation_Date (ETFile1,                                                                        ETFile2);
+        case ET_SORT_MODE_ASCENDING_CREATION_DATE:
+            result = ET_Comp_Func_Sort_File_By_Ascending_Creation_Date (ETFile1,
+                                                                        ETFile2);
             break;
-        case SORTING_BY_DESCENDING_CREATION_DATE:
+        case ET_SORT_MODE_DESCENDING_CREATION_DATE:
             result = ET_Comp_Func_Sort_File_By_Descending_Creation_Date (ETFile1,
                                                                          ETFile2);
             break;
-        case SORTING_BY_ASCENDING_FILE_TYPE:
+        case ET_SORT_MODE_ASCENDING_FILE_TYPE:
             result = ET_Comp_Func_Sort_File_By_Ascending_File_Type(ETFile1, ETFile2);
             break;
-        case SORTING_BY_DESCENDING_FILE_TYPE:
+        case ET_SORT_MODE_DESCENDING_FILE_TYPE:
             result = ET_Comp_Func_Sort_File_By_Descending_File_Type(ETFile1, ETFile2);
             break;
-        case SORTING_BY_ASCENDING_FILE_SIZE:
+        case ET_SORT_MODE_ASCENDING_FILE_SIZE:
             result = ET_Comp_Func_Sort_File_By_Ascending_File_Size(ETFile1, ETFile2);
             break;
-        case SORTING_BY_DESCENDING_FILE_SIZE:
+        case ET_SORT_MODE_DESCENDING_FILE_SIZE:
             result = ET_Comp_Func_Sort_File_By_Descending_File_Size(ETFile1, ETFile2);
             break;
-        case SORTING_BY_ASCENDING_FILE_DURATION:
+        case ET_SORT_MODE_ASCENDING_FILE_DURATION:
             result = ET_Comp_Func_Sort_File_By_Ascending_File_Duration(ETFile1, ETFile2);
             break;
-        case SORTING_BY_DESCENDING_FILE_DURATION:
+        case ET_SORT_MODE_DESCENDING_FILE_DURATION:
             result = ET_Comp_Func_Sort_File_By_Descending_File_Duration(ETFile1, ETFile2);
             break;
-        case SORTING_BY_ASCENDING_FILE_BITRATE:
+        case ET_SORT_MODE_ASCENDING_FILE_BITRATE:
             result = ET_Comp_Func_Sort_File_By_Ascending_File_Bitrate(ETFile1, ETFile2);
             break;
-        case SORTING_BY_DESCENDING_FILE_BITRATE:
+        case ET_SORT_MODE_DESCENDING_FILE_BITRATE:
             result = ET_Comp_Func_Sort_File_By_Descending_File_Bitrate(ETFile1, ETFile2);
             break;
-        case SORTING_BY_ASCENDING_FILE_SAMPLERATE:
+        case ET_SORT_MODE_ASCENDING_FILE_SAMPLERATE:
             result = ET_Comp_Func_Sort_File_By_Ascending_File_Samplerate(ETFile1, ETFile2);
             break;
-        case SORTING_BY_DESCENDING_FILE_SAMPLERATE:
+        case ET_SORT_MODE_DESCENDING_FILE_SAMPLERATE:
             result = ET_Comp_Func_Sort_File_By_Descending_File_Samplerate(ETFile1, ETFile2);
             break;
     }
@@ -3574,6 +3575,52 @@ collapse_cb (EtBrowser *self, GtkTreeIter *iter, GtkTreePath *treePath, GtkTreeV
     g_object_unref (icon);
 }
 
+static void
+on_sort_mode_changed (EtBrowser *self, gchar *key, GSettings *settings)
+{
+    EtBrowserPrivate *priv;
+    EtSortMode sort_mode;
+    GtkTreeViewColumn *column;
+
+    priv = et_browser_get_instance_private (self);
+
+    sort_mode = g_settings_get_enum (MainSettings, key);
+    column = et_browser_get_column_for_column_id (self, sort_mode / 2);
+
+    /* If the column to sort is different than the old sorted column. */
+    if (sort_mode / 2 != priv->file_sort_mode / 2)
+    {
+        GtkTreeViewColumn *old_column;
+
+        old_column = et_browser_get_column_for_column_id (self,
+                                                          priv->file_sort_mode / 2);
+
+        /* Reset the sort order of the old sort column. */
+        if (gtk_tree_view_column_get_sort_order (old_column)
+            == GTK_SORT_DESCENDING)
+        {
+            gtk_tree_view_column_set_sort_order (old_column,
+                                                 GTK_SORT_ASCENDING);
+        }
+
+        gtk_tree_view_column_set_sort_indicator (old_column, FALSE);
+    }
+
+    /* New sort mode is for a column with a visible counterpart. */
+    if (sort_mode / 2 < ET_SORT_MODE_ASCENDING_CREATION_DATE)
+    {
+        gtk_tree_view_column_set_sort_indicator (column, TRUE);
+    }
+
+    /* Even is GTK_SORT_ASCENDING, odd is GTK_SORT_DESCENDING. */
+    gtk_tree_view_column_set_sort_order (column, sort_mode % 2);
+
+    /* Store the new sort mode. */
+    priv->file_sort_mode = sort_mode;
+
+    et_browser_refresh_sort (self);
+}
+
 /*
  * Create item of the browser (Entry + Tree + List).
  */
@@ -3948,10 +3995,12 @@ create_browser (EtBrowser *self)
         gtk_tree_view_column_set_clickable (column, TRUE);
         g_object_set_data (G_OBJECT (column), "browser", self);
         g_signal_connect (column, "clicked",
-                          G_CALLBACK (et_browser_set_sorting_file_mode),
+                          G_CALLBACK (et_browser_on_column_clicked),
                           GINT_TO_POINTER (ascending_sort));
     }
 
+    g_signal_connect_swapped (MainSettings, "changed::sort-mode",
+                              G_CALLBACK (on_sort_mode_changed), self);
     gtk_tree_view_set_reorderable(GTK_TREE_VIEW(priv->file_view), FALSE);
     gtk_tree_selection_set_mode(gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->file_view)),GTK_SELECTION_MULTIPLE);
     /* When selecting a line. */
@@ -4007,61 +4056,28 @@ create_browser (EtBrowser *self)
 }
 
 /*
- * et_browser_set_sorting_file_mode:
+ * et_browser_on_column_clicked:
  * @column: the tree view column to sort
  * @data: the (required) #ET_Sorting_Type, converted to a pointer with
  * #GINT_TO_POINTER
  *
- * Set the #SORTING_FILE_MODE and display appropriate sort indicator when
+ * Set the sort mode and display appropriate sort indicator when
  * column is clicked.
  */
 static void
-et_browser_set_sorting_file_mode (GtkTreeViewColumn *column, gpointer data)
+et_browser_on_column_clicked (GtkTreeViewColumn *column, gpointer data)
 {
-    EtBrowser *self;
-    gint column_id = SORTING_FILE_MODE / 2;
-
-    self = ET_BROWSER (g_object_get_data (G_OBJECT (column), "browser"));
-
-    if (gtk_tree_view_column_get_sort_indicator (column) == FALSE
-        && SORTING_FILE_MODE < SORTING_BY_ASCENDING_CREATION_DATE)
-    {
-        if (et_browser_get_sort_order_for_column_id (self, SORTING_FILE_MODE / 2) == GTK_SORT_DESCENDING)
-        {
-            gtk_tree_view_column_set_sort_order (et_browser_get_column_for_column_id (self, column_id),
-                                                 GTK_SORT_ASCENDING);
-        }
-        gtk_tree_view_column_set_sort_indicator (et_browser_get_column_for_column_id (self, column_id),
-                                                 FALSE);
-    }
-    else if (gtk_tree_view_column_get_sort_order (column) == GTK_SORT_ASCENDING)
-    {
-        gtk_tree_view_column_set_sort_order (column, GTK_SORT_DESCENDING);
-    }
-    else
-    {
-        gtk_tree_view_column_set_sort_order (column, GTK_SORT_ASCENDING);
-    }
-
-    if (SORTING_FILE_MODE > SORTING_BY_DESCENDING_ENCODED_BY)
-    {
-        gtk_tree_view_column_set_sort_indicator (column, TRUE);
-        gtk_tree_view_column_set_sort_order (column, GTK_SORT_ASCENDING);
-    }
-
+    /* Flip to a descing sort mode if the row is already sorted ascending. */
     if (gtk_tree_view_column_get_sort_order (column) == GTK_SORT_ASCENDING)
     {
-        SORTING_FILE_MODE = GPOINTER_TO_INT (data);
+        g_settings_set_enum (MainSettings, "sort-mode",
+                             GPOINTER_TO_INT (data) + 1);
     }
     else
     {
-        SORTING_FILE_MODE = GPOINTER_TO_INT (data) + 1;
+        g_settings_set_enum (MainSettings, "sort-mode",
+                             GPOINTER_TO_INT (data));
     }
-
-    gtk_tree_view_column_set_sort_indicator (column, TRUE);
-
-    /* FIXME! */
-    et_application_window_browser_refresh_sort (ET_APPLICATION_WINDOW (MainWindow));
 }
 
 /*******************************

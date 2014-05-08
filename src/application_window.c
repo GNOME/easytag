@@ -640,6 +640,7 @@ Mini_Button_Clicked (GObject *object)
          * So we must browse the whole 'etfilelistfull' to get position of each selected file.
          * Note : 'etfilelistfull' and 'etfilelist' must be sorted in the same order */
         GList *etfilelistfull = NULL;
+        gint sort_mode;
         gchar *path = NULL;
         gchar *path1 = NULL;
         gint i = 0;
@@ -647,9 +648,10 @@ Mini_Button_Clicked (GObject *object)
         /* FIX ME!: see to fill also the Total Track (it's a good idea?) */
         etfilelistfull = g_list_first(ETCore->ETFileList);
 
-        // Sort 'etfilelistfull' and 'etfilelist' in the same order
-        etfilelist     = ET_Sort_File_List(etfilelist,SORTING_FILE_MODE);
-        etfilelistfull = ET_Sort_File_List(etfilelistfull,SORTING_FILE_MODE);
+        /* Sort 'etfilelistfull' and 'etfilelist' in the same order. */
+        sort_mode = g_settings_get_enum (MainSettings, "sort-mode");
+        etfilelist = ET_Sort_File_List (etfilelist, sort_mode);
+        etfilelistfull = ET_Sort_File_List (etfilelistfull, sort_mode);
 
         while (etfilelist && etfilelistfull)
         {

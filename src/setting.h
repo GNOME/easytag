@@ -1,26 +1,25 @@
-/* config.h - 2000/06/21 */
-/*
- *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
- *  Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
+/* EasyTAG - Tag editor for audio files
+ * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
  *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
 
-#ifndef __CONFIG_H__
-#define __CONFIG_H__
+#ifndef ET_SETTINGS_H_
+#define ET_SETTINGS_H_
 
 #include <gtk/gtk.h>
 
@@ -45,6 +44,53 @@ struct _tConfigVariable
 };
 
 
+/* Types of sorting. See the GSettings key "sort-mode". */
+typedef enum
+{
+    ET_SORT_MODE_ASCENDING_FILENAME,
+    ET_SORT_MODE_DESCENDING_FILENAME,
+    ET_SORT_MODE_ASCENDING_TITLE,
+    ET_SORT_MODE_DESCENDING_TITLE,
+    ET_SORT_MODE_ASCENDING_ARTIST,
+    ET_SORT_MODE_DESCENDING_ARTIST,
+    ET_SORT_MODE_ASCENDING_ALBUM_ARTIST,
+    ET_SORT_MODE_DESCENDING_ALBUM_ARTIST,
+    ET_SORT_MODE_ASCENDING_ALBUM,
+    ET_SORT_MODE_DESCENDING_ALBUM,
+    ET_SORT_MODE_ASCENDING_YEAR,
+    ET_SORT_MODE_DESCENDING_YEAR,
+    ET_SORT_MODE_ASCENDING_DISC_NUMBER,
+    ET_SORT_MODE_DESCENDING_DISC_NUMBER,
+    ET_SORT_MODE_ASCENDING_TRACK_NUMBER,
+    ET_SORT_MODE_DESCENDING_TRACK_NUMBER,
+    ET_SORT_MODE_ASCENDING_GENRE,
+    ET_SORT_MODE_DESCENDING_GENRE,
+    ET_SORT_MODE_ASCENDING_COMMENT,
+    ET_SORT_MODE_DESCENDING_COMMENT,
+    ET_SORT_MODE_ASCENDING_COMPOSER,
+    ET_SORT_MODE_DESCENDING_COMPOSER,
+    ET_SORT_MODE_ASCENDING_ORIG_ARTIST,
+    ET_SORT_MODE_DESCENDING_ORIG_ARTIST,
+    ET_SORT_MODE_ASCENDING_COPYRIGHT,
+    ET_SORT_MODE_DESCENDING_COPYRIGHT,
+    ET_SORT_MODE_ASCENDING_URL,
+    ET_SORT_MODE_DESCENDING_URL,
+    ET_SORT_MODE_ASCENDING_ENCODED_BY,
+    ET_SORT_MODE_DESCENDING_ENCODED_BY,
+    ET_SORT_MODE_ASCENDING_CREATION_DATE,
+    ET_SORT_MODE_DESCENDING_CREATION_DATE,
+    ET_SORT_MODE_ASCENDING_FILE_TYPE,
+    ET_SORT_MODE_DESCENDING_FILE_TYPE,
+    ET_SORT_MODE_ASCENDING_FILE_SIZE,
+    ET_SORT_MODE_DESCENDING_FILE_SIZE,
+    ET_SORT_MODE_ASCENDING_FILE_DURATION,
+    ET_SORT_MODE_DESCENDING_FILE_DURATION,
+    ET_SORT_MODE_ASCENDING_FILE_BITRATE,
+    ET_SORT_MODE_DESCENDING_FILE_BITRATE,
+    ET_SORT_MODE_ASCENDING_FILE_SAMPLERATE,
+    ET_SORT_MODE_DESCENDING_FILE_SAMPLERATE
+} EtSortMode;
+
 /*
  * Config variables
  */
@@ -55,7 +101,6 @@ GSettings *MainSettings;
 gchar  *DEFAULT_PATH_TO_MP3;
 
 /* Misc */
-gint    SORTING_FILE_MODE;
 gint    SORTING_FILE_CASE_SENSITIVE;
 
 gchar  *AUDIO_FILE_PLAYER;
@@ -227,6 +272,10 @@ void Save_Cddb_Search_String_In_Result_List (GtkListStore *liststore, gint colnu
 void Load_Cddb_Local_Path_List (GtkListStore *liststore, gint colnum);
 void Save_Cddb_Local_Path_List (GtkListStore *liststore, gint colnum);
 
+gboolean et_settings_enum_get (GValue *value, GVariant *variant,
+                               gpointer user_data);
+GVariant *et_settings_enum_set (const GValue *value,
+                                const GVariantType *expected_type,
+                                gpointer user_data);
 
-
-#endif /* __CONFIG_H__ */
+#endif /* ET_SETTINGS_H_ */
