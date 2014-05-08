@@ -47,20 +47,10 @@ struct _EtScanDialogClass
     GtkDialogClass parent_class;
 };
 
-/*
- * The mode for the scanner window.
- */
-typedef enum
-{
-    ET_SCAN_TYPE_FILL_TAG,
-    ET_SCAN_TYPE_RENAME_FILE,
-    ET_SCAN_TYPE_PROCESS_FIELDS
-} EtScanType;
-
 GType et_scan_dialog_get_type (void);
 EtScanDialog *et_scan_dialog_new (void);
 void et_scan_dialog_apply_changes (EtScanDialog *self);
-void et_scan_dialog_open (EtScanDialog *self, EtScanType scanner_type);
+void et_scan_dialog_open (EtScanDialog *self, EtScanMode scanner_type);
 void et_scan_dialog_scan_selected_files (EtScanDialog *self);
 void et_scan_dialog_update_previews (EtScanDialog *self);
 

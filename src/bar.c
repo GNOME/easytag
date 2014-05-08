@@ -400,13 +400,13 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
     GtkRadioActionEntry scanner_mode_entries[] =
     {
         { AM_SCANNER_FILL_TAG, "document-properties", _("_Fill Tags…"), NULL,
-          _("Fill tags"), ET_SCAN_TYPE_FILL_TAG },
+          _("Fill tags"), ET_SCAN_MODE_FILL_TAG },
         { AM_SCANNER_RENAME_FILE, "document-properties",
           _("_Rename Files and Directories…"), NULL,
-          _("Rename files and directories"), ET_SCAN_TYPE_RENAME_FILE },
+          _("Rename files and directories"), ET_SCAN_MODE_RENAME_FILE },
         { AM_SCANNER_PROCESS_FIELDS, "document-properties",
           _("_Process Fields…"), NULL, _("Process Fields"),
-          ET_SCAN_TYPE_PROCESS_FIELDS }
+          ET_SCAN_MODE_PROCESS_FIELDS }
     };
 
     GError *error = NULL;

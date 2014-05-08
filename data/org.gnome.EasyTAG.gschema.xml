@@ -643,13 +643,11 @@
       <default>false</default>
     </key>
 
-    <!-- TODO: Generate enums with glib-mkenums.
     <key name="scan-mode" enum="org.gnome.EasyTAG.EtScanMode">
       <summary>The scan mode</summary>
       <description>Which type of scan to show in the scanner</description>
       <default>'rename-file'</default>
     </key>
-    -->
 
     <key name="ogg-split-title" type="b">
       <summary>Split Ogg title fields</summary>

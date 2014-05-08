@@ -43,6 +43,15 @@ struct _tConfigVariable
     void *pointer;              /* Pointer to our variable */
 };
 
+/*
+ * The mode for the scanner window.
+ */
+typedef enum
+{
+    ET_SCAN_MODE_FILL_TAG,
+    ET_SCAN_MODE_RENAME_FILE,
+    ET_SCAN_MODE_PROCESS_FIELDS
+} EtScanMode;
 
 /* Types of sorting. See the GSettings key "sort-mode". */
 typedef enum
@@ -133,7 +142,6 @@ gint PAD_DISC_NUMBER;
 gint PAD_DISC_NUMBER_DIGITS;
 
 /* Scanner */
-gint    SCANNER_TYPE;
 gint    FTS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE;
 gint    FTS_CONVERT_SPACE_INTO_UNDERSCORE;
 gint    RFS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE;

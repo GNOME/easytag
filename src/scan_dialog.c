@@ -1,20 +1,20 @@
-/*
- *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
- *  Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
+/* EasyTAG - Tag editor for audio files
+ * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
  *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
 #include "config.h"
@@ -31,6 +31,7 @@
 #include "application_window.h"
 #include "gtk2_compat.h"
 #include "easytag.h"
+#include "enums.h"
 #include "preferences_dialog.h"
 #include "scan.h"
 #include "setting.h"
@@ -56,7 +57,7 @@ struct _EtScanDialogPrivate
     GtkWidget *mask_editor_entry;
     GtkWidget *mask_editor_view;
 
-    GtkWidget *type_combo;
+    GtkWidget *mode_combo;
     GtkWidget *scan_tag_mask_combo;
     GtkWidget *rename_file_mask_combo;
 
@@ -541,7 +542,7 @@ Scan_Fill_Tag_Generate_Preview (EtScanDialog *self)
     priv = et_scan_dialog_get_instance_private (self);
 
     if (!ETCore->ETFileDisplayedList
-        || gtk_combo_box_get_active (GTK_COMBO_BOX (priv->type_combo)) != ET_SCAN_TYPE_FILL_TAG)
+        || gtk_combo_box_get_active (GTK_COMBO_BOX (priv->mode_combo)) != ET_SCAN_MODE_FILL_TAG)
         return;
 
     mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->scan_tag_mask_combo)))));
@@ -602,7 +603,7 @@ Scan_Rename_File_Generate_Preview (EtScanDialog *self)
     || !priv->rename_file_mask_combo || !priv->rename_file_preview_label)
         return;
 
-    if (gtk_combo_box_get_active(GTK_COMBO_BOX(priv->type_combo)) != ET_SCAN_TYPE_RENAME_FILE)
+    if (gtk_combo_box_get_active(GTK_COMBO_BOX(priv->mode_combo)) != ET_SCAN_MODE_RENAME_FILE)
         return;
 
     mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->rename_file_mask_combo)))));
@@ -1726,21 +1727,23 @@ static gchar
  * Function when you select an item of the option menu
  */
 static void
-Scanner_Option_Menu_Activate_Item (EtScanDialog *self, GtkWidget *combo)
+on_scan_mode_changed (EtScanDialog *self, gchar *key, GSettings *settings)
 {
     EtScanDialogPrivate *priv;
     GtkRadioAction *radio_action;
+    EtScanMode mode;
 
     priv = et_scan_dialog_get_instance_private (self);
 
+    /* TODO: Bind to a single GAction. */
     radio_action = GTK_RADIO_ACTION (gtk_ui_manager_get_action (UIManager,
                                                                 "/MenuBar/ViewMenu/ScannerMenu/FillTag"));
-    SCANNER_TYPE = gtk_combo_box_get_active (GTK_COMBO_BOX (combo));
-    gtk_radio_action_set_current_value (radio_action, SCANNER_TYPE);
+    mode = g_settings_get_enum (MainSettings, key);
+    gtk_radio_action_set_current_value (radio_action, mode);
 
-    switch (SCANNER_TYPE)
+    switch (mode)
     {
-        case ET_SCAN_TYPE_FILL_TAG:
+        case ET_SCAN_MODE_FILL_TAG:
             gtk_widget_show(priv->mask_editor_toggle);
             gtk_widget_show(priv->legend_toggle);
             gtk_widget_show(priv->scan_tag_frame);
@@ -1752,7 +1755,7 @@ Scanner_Option_Menu_Activate_Item (EtScanDialog *self, GtkWidget *combo)
             g_signal_emit_by_name(G_OBJECT(priv->mask_editor_toggle),"toggled");    /* To hide or show mask editor frame */
             break;
 
-        case ET_SCAN_TYPE_RENAME_FILE:
+        case ET_SCAN_MODE_RENAME_FILE:
             gtk_widget_show(priv->mask_editor_toggle);
             gtk_widget_show(priv->legend_toggle);
             gtk_widget_hide(priv->scan_tag_frame);
@@ -1764,7 +1767,7 @@ Scanner_Option_Menu_Activate_Item (EtScanDialog *self, GtkWidget *combo)
             g_signal_emit_by_name(G_OBJECT(priv->mask_editor_toggle),"toggled");    /* To hide or show mask editor frame */
             break;
 
-        case ET_SCAN_TYPE_PROCESS_FIELDS:
+        case ET_SCAN_MODE_PROCESS_FIELDS:
             gtk_widget_hide(priv->mask_editor_toggle);
             gtk_widget_hide(priv->legend_toggle);
             gtk_widget_hide(priv->scan_tag_frame);
@@ -1782,17 +1785,16 @@ Scanner_Option_Menu_Activate_Item (EtScanDialog *self, GtkWidget *combo)
 }
 
 void
-et_scan_dialog_open (EtScanDialog *self, EtScanType scanner_type)
+et_scan_dialog_open (EtScanDialog *self, EtScanMode scanner_type)
 {
-    EtScanDialogPrivate *priv;
-
     g_return_if_fail (ET_SCAN_DIALOG (self));
-    g_return_if_fail (scanner_type >= ET_SCAN_TYPE_FILL_TAG
-                      && scanner_type <= ET_SCAN_TYPE_PROCESS_FIELDS);
+    g_return_if_fail (scanner_type >= ET_SCAN_MODE_FILL_TAG
+                      && scanner_type <= ET_SCAN_MODE_PROCESS_FIELDS);
 
-    priv = et_scan_dialog_get_instance_private (self);
-
-    gtk_combo_box_set_active (GTK_COMBO_BOX (priv->type_combo), scanner_type);
+    if (g_settings_get_enum (MainSettings, "scan-mode") != scanner_type)
+    {
+        g_settings_set_enum (MainSettings, "scan-mode", scanner_type);
+    }
 }
 
 static void
@@ -1807,7 +1809,7 @@ Mask_Editor_List_Add (EtScanDialog *self)
 
     treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(priv->mask_editor_view));
 
-    if (gtk_combo_box_get_active(GTK_COMBO_BOX(priv->type_combo)) == ET_SCAN_TYPE_FILL_TAG)
+    if (gtk_combo_box_get_active(GTK_COMBO_BOX(priv->mode_combo)) == ET_SCAN_MODE_FILL_TAG)
     {
         while(Scan_Masks[i])
         {
@@ -1823,7 +1825,7 @@ Mask_Editor_List_Add (EtScanDialog *self)
             g_free(temp);
             i++;
         }
-    } else if (gtk_combo_box_get_active(GTK_COMBO_BOX(priv->type_combo)) == ET_SCAN_TYPE_RENAME_FILE)
+    } else if (gtk_combo_box_get_active(GTK_COMBO_BOX(priv->mode_combo)) == ET_SCAN_MODE_RENAME_FILE)
     {
         while(Rename_File_Masks[i])
         {
@@ -1924,10 +1926,10 @@ Mask_Editor_List_Save_Button (EtScanDialog *self)
 
     Mask_Editor_Clean_Up_Masks_List (self);
 
-    if (gtk_combo_box_get_active(GTK_COMBO_BOX(priv->type_combo)) == ET_SCAN_TYPE_FILL_TAG)
+    if (gtk_combo_box_get_active(GTK_COMBO_BOX(priv->mode_combo)) == ET_SCAN_MODE_FILL_TAG)
     {
         Save_Scan_Tag_Masks_List(priv->scan_tag_masks_model, MASK_EDITOR_TEXT);
-    } else if (gtk_combo_box_get_active(GTK_COMBO_BOX(priv->type_combo)) == ET_SCAN_TYPE_RENAME_FILE)
+    } else if (gtk_combo_box_get_active(GTK_COMBO_BOX(priv->mode_combo)) == ET_SCAN_MODE_RENAME_FILE)
     {
         Save_Rename_File_Masks_List(priv->rename_masks_model, MASK_EDITOR_TEXT);
     }
@@ -2556,27 +2558,31 @@ create_scan_dialog (EtScanDialog *self)
     Label = gtk_label_new(_("Scanner:"));
     gtk_box_pack_start(GTK_BOX(HBox1),Label,FALSE,FALSE,0);
 
-    priv->type_combo = gtk_combo_box_text_new();
-    gtk_box_pack_start(GTK_BOX (HBox1), priv->type_combo, TRUE, TRUE, 2);
-    gtk_widget_set_size_request(priv->type_combo, 160, -1);
+    priv->mode_combo = gtk_combo_box_text_new();
+    gtk_box_pack_start(GTK_BOX (HBox1), priv->mode_combo, TRUE, TRUE, 2);
+    gtk_widget_set_size_request(priv->mode_combo, 160, -1);
 
     /* Option for Tag */
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(priv->type_combo),
-                                   _(Scanner_Option_Menu_Items[ET_SCAN_TYPE_FILL_TAG]));
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(priv->mode_combo),
+                                   _(Scanner_Option_Menu_Items[ET_SCAN_MODE_FILL_TAG]));
 
     /* Option for FileName */
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(priv->type_combo),
-                                   _(Scanner_Option_Menu_Items[ET_SCAN_TYPE_RENAME_FILE]));
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(priv->mode_combo),
+                                   _(Scanner_Option_Menu_Items[ET_SCAN_MODE_RENAME_FILE]));
 
     /* Option for ProcessFields */
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(priv->type_combo),
-                              _(Scanner_Option_Menu_Items[ET_SCAN_TYPE_PROCESS_FIELDS]));
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(priv->mode_combo),
+                              _(Scanner_Option_Menu_Items[ET_SCAN_MODE_PROCESS_FIELDS]));
 
     /* Selection of the item made at the end of the function. */
-    gtk_widget_set_tooltip_text (priv->type_combo,
+    gtk_widget_set_tooltip_text (priv->mode_combo,
                                  _("Select the type of scanner to use"));
-    g_signal_connect_swapped (priv->type_combo, "changed",
-                              G_CALLBACK (Scanner_Option_Menu_Activate_Item),
+    g_settings_bind_with_mapping (MainSettings, "scan-mode", priv->mode_combo,
+                                  "active", G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_get, et_settings_enum_set,
+                                  GSIZE_TO_POINTER (ET_TYPE_SCAN_MODE), NULL);
+    g_signal_connect_swapped (MainSettings, "changed::scan-mode",
+                              G_CALLBACK (on_scan_mode_changed),
                               self);
 
     /* Options button */
@@ -3214,8 +3220,7 @@ create_scan_dialog (EtScanDialog *self)
     gtk_widget_show_all (ScanVBox);
 
     /* Activate the current menu in the option menu. */
-    gtk_combo_box_set_active (GTK_COMBO_BOX (priv->type_combo),
-                              SCANNER_TYPE);
+    on_scan_mode_changed (self, "scan-mode", MainSettings);
 }
 
 /*
@@ -3225,23 +3230,23 @@ void
 Scan_Select_Mode_And_Run_Scanner (EtScanDialog *self, ET_File *ETFile)
 {
     EtScanDialogPrivate *priv;
-    EtScanType mode;
+    EtScanMode mode;
 
     g_return_if_fail (ET_SCAN_DIALOG (self));
     g_return_if_fail (ETFile != NULL);
 
     priv = et_scan_dialog_get_instance_private (self);
-    mode = gtk_combo_box_get_active (GTK_COMBO_BOX (priv->type_combo));
+    mode = gtk_combo_box_get_active (GTK_COMBO_BOX (priv->mode_combo));
 
     switch (mode)
     {
-        case ET_SCAN_TYPE_FILL_TAG:
+        case ET_SCAN_MODE_FILL_TAG:
             Scan_Tag_With_Mask (self, ETFile);
             break;
-        case ET_SCAN_TYPE_RENAME_FILE:
+        case ET_SCAN_MODE_RENAME_FILE:
             Scan_Rename_File_With_Mask (self, ETFile);
             break;
-        case ET_SCAN_TYPE_PROCESS_FIELDS:
+        case ET_SCAN_MODE_PROCESS_FIELDS:
             Scan_Process_Fields (self, ETFile);
             break;
         default:
@@ -3260,9 +3265,6 @@ et_scan_dialog_apply_changes (EtScanDialog *self)
     g_return_if_fail (ET_SCAN_DIALOG (self));
 
     priv = et_scan_dialog_get_instance_private (self);
-
-    /* The selected scanner type. */
-    SCANNER_TYPE = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->type_combo));
 
     /* Group: select entries to process */
     PROCESS_FILENAME_FIELD    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_filename_toggle));

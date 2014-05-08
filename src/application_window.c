@@ -2449,26 +2449,17 @@ et_application_window_scan_selected_files (G_GNUC_UNUSED GtkAction *action,
  * @current: the member of the action group which has just been activated
  * @user_data: user data set when the signal handler was connected
  *
- * Select the current scanner mode and open the scanner window.
+ * Select the current scanner mode.
  */
 void
 et_on_action_select_scan_mode (GtkRadioAction *action, GtkRadioAction *current,
                                gpointer user_data)
 {
-    EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
     gint active_value;
-
-    priv = et_application_window_get_instance_private (self);
 
     active_value = gtk_radio_action_get_current_value (action);
 
-    if (SCANNER_TYPE != active_value)
-    {
-        SCANNER_TYPE = active_value;
-    }
-
-    et_scan_dialog_open (ET_SCAN_DIALOG (priv->scan_dialog), SCANNER_TYPE);
+    g_settings_set_enum (MainSettings, "scan-mode", active_value);
 }
 
 void
