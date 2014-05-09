@@ -421,13 +421,13 @@
       <default>false</default>
     </key>
 
-    <!-- TODO: Generate enums and flags with glib-mkenums.
     <key name="process-fields" flags="org.gnome.EasyTAG.EtProcessField">
       <summary>Process these tag fields</summary>
       <description>The tag fields to process when using the scanner</description>
       <default>['title','artist','album-artist','album','genre','comment','composer','original-artist','copyright','url','encoded-by']</default>
     </key>
 
+    <!-- TODO: Generate enums and flags with glib-mkenums.
     <key name="process-convert-spaces" enum="org.gnome.EasyTAG.EtConvertSpaces">
       <summary>Convert spaces and underscores in tags</summary>
       <description>Whether to convert to spaces (and %20) or underscores when processing tag fields</description>

@@ -69,18 +69,6 @@ struct _EtScanDialogPrivate
 
     GtkWidget *legend_toggle;
     GtkWidget *mask_editor_toggle;
-    GtkWidget *process_filename_toggle;
-    GtkWidget *process_title_toggle;
-    GtkWidget *process_artist_toggle;
-    GtkWidget *process_album_artist_toggle;
-    GtkWidget *process_album_toggle;
-    GtkWidget *process_genre_toggle;
-    GtkWidget *process_comment_toggle;
-    GtkWidget *process_composer_toggle;
-    GtkWidget *process_original_artist_toggle;
-    GtkWidget *process_copyright_toggle;
-    GtkWidget *process_url_toggle;
-    GtkWidget *process_encoded_by_toggle;
 
     GtkWidget *process_convert_to_space_toggle;
     GtkWidget *process_convert_to_underscores_toggle;
@@ -235,6 +223,12 @@ static void et_scan_on_response (GtkDialog *dialog, gint response_id,
 /*************
  * Functions *
  *************/
+
+gboolean et_scan_flags_get (GValue *value, GVariant *variant,
+                             gpointer user_data);
+GVariant *et_scan_flags_set (const GValue *value,
+                                const GVariantType *expected_type,
+                                gpointer user_data);
 
 /*
  * Uses the filename and path to fill tag information
@@ -1170,25 +1164,25 @@ Scan_Process_Fields_Functions (EtScanDialog *self, gchar **string)
 static void
 Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
 {
-    EtScanDialogPrivate *priv;
     File_Name *FileName = NULL;
     File_Tag  *FileTag  = NULL;
     File_Name *st_filename;
     File_Tag  *st_filetag;
+    guint process_fields;
     gchar     *filename_utf8;
     gchar     *string;
 
     g_return_if_fail (ETFile != NULL);
 
-    priv = et_scan_dialog_get_instance_private (self);
-
     st_filename = (File_Name *)ETFile->FileNameNew->data;
     st_filetag  = (File_Tag  *)ETFile->FileTag->data;
+    process_fields = g_settings_get_flags (MainSettings, "process-fields");
 
     /* Process the filename */
     if (st_filename != NULL)
     {
-        if (st_filename->value_utf8 && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_filename_toggle)))
+        if (st_filename->value_utf8 
+            && (process_fields & ET_PROCESS_FIELD_FILENAME))
         {
             gchar *string_utf8;
             gchar *pos;
@@ -1214,8 +1208,9 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
     /* Process data of the tag */
     if (st_filetag != NULL)
     {
-        // Title field
-        if (st_filetag->title && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_title_toggle)))
+        /* Title field. */
+        if (st_filetag->title
+            && (process_fields & ET_PROCESS_FIELD_TITLE))
         {
             if (!FileTag)
             {
@@ -1232,8 +1227,9 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
             g_free(string);
         }
 
-        // Artist field
-        if (st_filetag->artist && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_artist_toggle)))
+        /* Artist field. */
+        if (st_filetag->artist
+            && (process_fields & ET_PROCESS_FIELD_ARTIST))
         {
             if (!FileTag)
             {
@@ -1250,8 +1246,9 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
             g_free(string);
         }
 
-		// Album Artist field
-        if (st_filetag->album_artist && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_album_artist_toggle)))
+        /* Album Artist field. */
+        if (st_filetag->album_artist
+            && (process_fields & ET_PROCESS_FIELD_ALBUM_ARTIST))
         {
             if (!FileTag)
             {
@@ -1267,8 +1264,10 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
 
             g_free(string);
         }
-        // Album field
-        if (st_filetag->album && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_album_toggle)))
+
+        /* Album field. */
+        if (st_filetag->album
+            && (process_fields & ET_PROCESS_FIELD_ALBUM))
         {
             if (!FileTag)
             {
@@ -1285,8 +1284,9 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
             g_free(string);
         }
 
-        // Genre field
-        if (st_filetag->genre && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_genre_toggle)))
+        /* Genre field. */
+        if (st_filetag->genre
+            && (process_fields & ET_PROCESS_FIELD_GENRE))
         {
             if (!FileTag)
             {
@@ -1303,8 +1303,9 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
             g_free(string);
         }
 
-        // Comment field
-        if (st_filetag->comment && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_comment_toggle)))
+        /* Comment field. */
+        if (st_filetag->comment
+            && (process_fields & ET_PROCESS_FIELD_COMMENT))
         {
             if (!FileTag)
             {
@@ -1321,8 +1322,9 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
             g_free(string);
         }
 
-        // Composer field
-        if (st_filetag->composer && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_composer_toggle)))
+        /* Composer field. */
+        if (st_filetag->composer
+            && (process_fields & ET_PROCESS_FIELD_COMPOSER))
         {
             if (!FileTag)
             {
@@ -1339,8 +1341,9 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
             g_free(string);
         }
 
-        // Original artist field
-        if (st_filetag->orig_artist && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_original_artist_toggle)))
+        /* Original artist field. */
+        if (st_filetag->orig_artist
+            && (process_fields & ET_PROCESS_FIELD_ORIGINAL_ARTIST))
         {
             if (!FileTag)
             {
@@ -1357,8 +1360,9 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
             g_free(string);
         }
 
-        // Copyright field
-        if (st_filetag->copyright && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_copyright_toggle)))
+        /* Copyright field. */
+        if (st_filetag->copyright
+            && (process_fields & ET_PROCESS_FIELD_COPYRIGHT))
         {
             if (!FileTag)
             {
@@ -1375,8 +1379,9 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
             g_free(string);
         }
 
-        // URL field
-        if (st_filetag->url && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_url_toggle)))
+        /* URL field. */
+        if (st_filetag->url
+            && (process_fields & ET_PROCESS_FIELD_URL))
         {
             if (!FileTag)
             {
@@ -1393,8 +1398,9 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
             g_free(string);
         }
 
-        // 'Encoded by' field
-        if (st_filetag->encoded_by && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_encoded_by_toggle)))
+        /* 'Encoded by' field. */
+        if (st_filetag->encoded_by
+            && (process_fields & ET_PROCESS_FIELD_ENCODED_BY))
         {
             if (!FileTag)
             {
@@ -1953,24 +1959,15 @@ on_hide (EtScanDialog *self)
 static void
 Select_Fields_Select_Unselect_All (EtScanDialog *self)
 {
-    EtScanDialogPrivate *priv;
+    GFlagsClass *flags_class;
     static gboolean state = TRUE;
 
-    priv = et_scan_dialog_get_instance_private (self);
-
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_filename_toggle),   state);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_title_toggle),      state);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_artist_toggle),     state);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_album_artist_toggle),state);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_album_toggle),      state);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_genre_toggle),      state);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_comment_toggle),    state);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_composer_toggle),   state);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_original_artist_toggle), state);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_copyright_toggle),  state);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_url_toggle),        state);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_encoded_by_toggle),  state);
+    flags_class = g_type_class_ref (ET_TYPE_PROCESS_FIELD);
+    g_settings_set_flags (MainSettings, "process-fields",
+                          state ? 0 : 0 | flags_class->mask);
     state = !state;
+
+    g_type_class_unref (flags_class);
 }
 
 static void
@@ -1994,18 +1991,7 @@ Select_Fields_Set_Sensitive (EtScanDialog *self)
 
     priv = et_scan_dialog_get_instance_private (self);
 
-    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_filename_toggle))
-    ||  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_title_toggle))
-    ||  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_artist_toggle))
-    ||  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_album_artist_toggle))
-    ||  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_album_toggle))
-    ||  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_genre_toggle))
-    ||  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_comment_toggle))
-    ||  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_composer_toggle))
-    ||  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_original_artist_toggle))
-    ||  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_copyright_toggle))
-    ||  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_url_toggle))
-    ||  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_encoded_by_toggle)))
+    if (g_settings_get_flags (MainSettings, "process-fields") != 0)
     {
         gtk_widget_set_sensitive(GTK_WIDGET(priv->process_convert_to_space_toggle),     TRUE);
         gtk_widget_set_sensitive(GTK_WIDGET(priv->process_convert_to_underscores_toggle),         TRUE);
@@ -2050,34 +2036,14 @@ Select_Fields_Set_Sensitive (EtScanDialog *self)
 static void
 Select_Fields_Invert_Selection (EtScanDialog *self)
 {
-    EtScanDialogPrivate *priv;
+    GFlagsClass *flags_class;
+    guint current;
 
-    priv = et_scan_dialog_get_instance_private (self);
-
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_filename_toggle),
-                                !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_filename_toggle)));
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_title_toggle),
-                                !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_title_toggle)));
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_artist_toggle),
-                                !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_artist_toggle)));
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_album_artist_toggle),
-                                !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_album_artist_toggle)));
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_album_toggle),
-                                !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_album_toggle)));
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_genre_toggle),
-                                !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_genre_toggle)));
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_comment_toggle),
-                                !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_comment_toggle)));
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_composer_toggle),
-                                !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_composer_toggle)));
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_original_artist_toggle),
-                                !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_original_artist_toggle)));
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_copyright_toggle),
-                                !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_copyright_toggle)));
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_url_toggle),
-                                !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_url_toggle)));
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_encoded_by_toggle),
-                                !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_encoded_by_toggle)));
+    current = g_settings_get_flags (MainSettings, "process-fields");
+    flags_class = g_type_class_ref (ET_TYPE_PROCESS_FIELD);
+    g_settings_set_flags (MainSettings, "process-fields",
+                          ~current & flags_class->mask);
+    g_type_class_unref (flags_class);
 }
 
 static void
@@ -2496,6 +2462,134 @@ Process_Fields_Convert_Check_Button_Toggled (EtScanDialog *self, GtkWidget *obje
                               gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->process_convert_toggle)));
 }
 
+/*
+ * et_scan_flags_get:
+ * @value: the property value to be set (active item on combo box)
+ * @variant: the variant to set the @value from
+ * @user_data: the #GType of the #GSettings flags
+ *
+ * Wrapper function to convert a flags-type GSettings key state into the active
+ * toggle button.
+ *
+ * Returns: %TRUE if the mapping was successful, %FALSE otherwise
+ */
+gboolean
+et_scan_flags_get (GValue *value, GVariant *variant, gpointer user_data)
+{
+    const gchar *name;
+    GType flags_type;
+    GFlagsClass *flags_class;
+    GVariantIter iter;
+    GFlagsValue *flags_value;
+    const gchar *nick;
+    guint flags = 0;
+
+    g_return_val_if_fail (user_data != NULL, FALSE);
+
+    name = gtk_widget_get_name (GTK_WIDGET (user_data));
+    flags_type = (GType)GPOINTER_TO_SIZE (g_object_get_data (G_OBJECT (user_data),
+                                                                       "flags-type"));
+    flags_class = g_type_class_ref (flags_type);
+
+    g_variant_iter_init (&iter, variant);
+
+    while (g_variant_iter_next (&iter, "&s", &nick))
+    {
+        flags_value = g_flags_get_value_by_nick (flags_class, nick);
+
+        if (flags_value)
+        {
+            flags |= flags_value->value;
+        }
+        else
+        {
+            g_warning ("Unable to lookup %s flags nick '%s' from GType",
+                       g_type_name (flags_type), nick);
+            g_type_class_unref (flags_class);
+            return FALSE;
+        }
+    }
+
+    flags_value = g_flags_get_value_by_nick (flags_class, name);
+    g_type_class_unref (flags_class);
+
+    /* TRUE if settings flag is set for this widget, which will make the widget
+     * active. */
+    g_value_set_boolean (value, flags & flags_value->value);
+    return TRUE;
+}
+
+/*
+ * et_scan_flags_set:
+ * @value: the property value to set the @variant from
+ * @expected_type: the expected type of the returned variant
+ * @user_data: the widget associated with the changed setting
+ *
+ * Wrapper function to convert a boolean value into a string suitable for
+ * storing into a flags-type GSettings key.
+ *
+ * Returns: a new GVariant containing the mapped value, or %NULL upon failure
+ */
+GVariant *
+et_scan_flags_set (const GValue *value, const GVariantType *expected_type,
+                   gpointer user_data)
+{
+    const gchar *name;
+    GType flags_type;
+    GFlagsClass *flags_class;
+    GFlagsValue *flags_value;
+    guint mask;
+    GVariantBuilder builder;
+    guint flags = g_settings_get_flags (MainSettings, "process-fields");
+
+    g_return_val_if_fail (user_data != NULL, NULL);
+
+    name = gtk_widget_get_name (GTK_WIDGET (user_data));
+    flags_type = (GType)GPOINTER_TO_SIZE (g_object_get_data (G_OBJECT (user_data),
+                                                                       "flags-type"));
+    flags_class = g_type_class_ref (flags_type);
+    flags_value = g_flags_get_value_by_nick (flags_class, name);
+    mask = flags_class->mask;
+
+    if (!flags_value)
+    {
+        g_warning ("Unable to lookup %s flags value '%d' from GType",
+                   g_type_name (flags_type), g_value_get_boolean (value));
+        g_type_class_unref (flags_class);
+        return NULL;
+    }
+
+    if (g_value_get_boolean (value))
+    {
+        flags |= flags_value->value;
+    }
+    else
+    {
+        flags &= (flags_value->value ^ mask);
+    }
+
+    g_variant_builder_init (&builder, expected_type);
+
+    while (flags)
+    {
+        flags_value = g_flags_get_first_value (flags_class, flags);
+
+        if (flags_value == NULL)
+        {
+            g_variant_builder_clear (&builder);
+            g_type_class_unref (flags_class);
+            return NULL;
+        }
+
+        g_variant_builder_add (&builder, "s", flags_value->value_nick);
+        flags &= ~flags_value->value;
+    }
+
+    g_type_class_unref (flags_class);
+
+    return g_variant_builder_end (&builder);
+}
+
 static void
 create_scan_dialog (EtScanDialog *self)
 {
@@ -2770,81 +2864,68 @@ create_scan_dialog (EtScanDialog *self)
                                  _("The buttons on the right represent the "
                                    "fields which can be processed. Select "
                                    "those which interest you"));
-    // Advice for Translators: set the first letter of filename translated
-    priv->process_filename_toggle = gtk_toggle_button_new_with_label(   _("F"));
-    gtk_widget_set_tooltip_text (priv->process_filename_toggle,
-                                 _("Process filename field"));
-    // Advice for Translators: set the first letter of title translated
-    priv->process_title_toggle = gtk_toggle_button_new_with_label(      _("T"));
-    gtk_widget_set_tooltip_text(priv->process_title_toggle,             _("Process title field"));
-    // Advice for Translators: set the first letter of artist translated
-    priv->process_artist_toggle = gtk_toggle_button_new_with_label(     _("Ar"));
-    gtk_widget_set_tooltip_text(priv->process_artist_toggle,            _("Process file artist field"));
-    // Advice for Translators: set the first letter of album artist translated
-    priv->process_album_artist_toggle = gtk_toggle_button_new_with_label(_("AA"));
-    gtk_widget_set_tooltip_text(priv->process_album_artist_toggle,       _("Process album artist field"));
-    // Advice for Translators: set the first letter of album translated
-    priv->process_album_toggle = gtk_toggle_button_new_with_label(      _("Al"));
-    gtk_widget_set_tooltip_text(priv->process_album_toggle,             _("Process album field"));
-    // Advice for Translators: set the first letter of genre translated
-    priv->process_genre_toggle = gtk_toggle_button_new_with_label(      _("G"));
-    gtk_widget_set_tooltip_text(priv->process_genre_toggle,             _("Process genre field"));
-    // Advice for Translators: set the first letter of comment translated
-    priv->process_comment_toggle = gtk_toggle_button_new_with_label(    _("Cm"));
-    gtk_widget_set_tooltip_text(priv->process_comment_toggle,           _("Process comment field"));
-    // Advice for Translators: set the first letter of composer translated
-    priv->process_composer_toggle = gtk_toggle_button_new_with_label(   _("Cp"));
-    gtk_widget_set_tooltip_text(priv->process_composer_toggle,          _("Process composer field"));
-    // Advice for Translators: set the first letter of orig artist translated
-    priv->process_original_artist_toggle = gtk_toggle_button_new_with_label( _("O"));
-    gtk_widget_set_tooltip_text(priv->process_original_artist_toggle,        _("Process original artist field"));
-    // Advice for Translators: set the first letter of copyright translated
-    priv->process_copyright_toggle = gtk_toggle_button_new_with_label(  _("Cr"));
-    gtk_widget_set_tooltip_text(priv->process_copyright_toggle,         _("Process copyright field"));
-    // Advice for Translators: set the first letter of URL translated
-    priv->process_url_toggle = gtk_toggle_button_new_with_label(        _("U"));
-    gtk_widget_set_tooltip_text(priv->process_url_toggle,               _("Process URL field"));
-    // Advice for Translators: set the first letter of encoder name translated
-    priv->process_encoded_by_toggle = gtk_toggle_button_new_with_label(  _("E"));
-    gtk_widget_set_tooltip_text(priv->process_encoded_by_toggle,         _("Process encoder name field"));
-    gtk_box_pack_start(GTK_BOX(hbox),priv->process_filename_toggle,   TRUE,TRUE,2);
-    gtk_box_pack_start(GTK_BOX(hbox),priv->process_title_toggle,      TRUE,TRUE,2);
-    gtk_box_pack_start(GTK_BOX(hbox),priv->process_artist_toggle,     TRUE,TRUE,2);
-    gtk_box_pack_start(GTK_BOX(hbox),priv->process_album_artist_toggle,TRUE,TRUE,2);
-    gtk_box_pack_start(GTK_BOX(hbox),priv->process_album_toggle,      TRUE,TRUE,2);
-    gtk_box_pack_start(GTK_BOX(hbox),priv->process_genre_toggle,      TRUE,TRUE,2);
-    gtk_box_pack_start(GTK_BOX(hbox),priv->process_comment_toggle,    TRUE,TRUE,2);
-    gtk_box_pack_start(GTK_BOX(hbox),priv->process_composer_toggle,   TRUE,TRUE,2);
-    gtk_box_pack_start(GTK_BOX(hbox),priv->process_original_artist_toggle, TRUE,TRUE,2);
-    gtk_box_pack_start(GTK_BOX(hbox),priv->process_copyright_toggle,  TRUE,TRUE,2);
-    gtk_box_pack_start(GTK_BOX(hbox),priv->process_url_toggle,        TRUE,TRUE,2);
-    gtk_box_pack_start(GTK_BOX(hbox),priv->process_encoded_by_toggle,  TRUE,TRUE,2);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_filename_toggle),   PROCESS_FILENAME_FIELD);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_title_toggle),      PROCESS_TITLE_FIELD);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_artist_toggle),     PROCESS_ARTIST_FIELD);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_album_artist_toggle),PROCESS_ALBUM_ARTIST_FIELD);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_album_toggle),      PROCESS_ALBUM_FIELD);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_genre_toggle),      PROCESS_GENRE_FIELD);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_comment_toggle),    PROCESS_COMMENT_FIELD);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_composer_toggle),   PROCESS_COMPOSER_FIELD);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_original_artist_toggle), PROCESS_ORIG_ARTIST_FIELD);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_copyright_toggle),  PROCESS_COPYRIGHT_FIELD);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_url_toggle),        PROCESS_URL_FIELD);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_encoded_by_toggle),  PROCESS_ENCODED_BY_FIELD);
-    g_signal_connect_swapped  (priv->process_filename_toggle, "toggled",
-                               G_CALLBACK (Select_Fields_Set_Sensitive), self);
-    g_signal_connect_swapped (priv->process_title_toggle, "toggled",
-                              G_CALLBACK (Select_Fields_Set_Sensitive), self);
-    g_signal_connect_swapped (priv->process_artist_toggle, "toggled", G_CALLBACK (Select_Fields_Set_Sensitive), self);
-    g_signal_connect_swapped (priv->process_album_artist_toggle, "toggled", G_CALLBACK (Select_Fields_Set_Sensitive), self);
-    g_signal_connect_swapped (priv->process_album_toggle, "toggled", G_CALLBACK (Select_Fields_Set_Sensitive), self);
-    g_signal_connect_swapped (priv->process_genre_toggle, "toggled", G_CALLBACK (Select_Fields_Set_Sensitive), self);
-    g_signal_connect_swapped (priv->process_comment_toggle, "toggled", G_CALLBACK (Select_Fields_Set_Sensitive), self);
-    g_signal_connect_swapped (priv->process_composer_toggle, "toggled", G_CALLBACK (Select_Fields_Set_Sensitive), self);
-    g_signal_connect_swapped (priv->process_original_artist_toggle, "toggled", G_CALLBACK (Select_Fields_Set_Sensitive), self);
-    g_signal_connect_swapped (priv->process_copyright_toggle, "toggled", G_CALLBACK (Select_Fields_Set_Sensitive), self);
-    g_signal_connect_swapped (priv->process_url_toggle, "toggled", G_CALLBACK (Select_Fields_Set_Sensitive), self);
-    g_signal_connect_swapped (priv->process_encoded_by_toggle, "toggled", G_CALLBACK (Select_Fields_Set_Sensitive), self);
+    {
+        gsize i;
+        GFlagsClass *flags_class;
+        GFlagsValue *flags_value;
+        static const struct
+        {
+            const gchar *label;
+            const gchar *tooltip;
+        } mapping[] =
+        {
+            /* Translators: the first letter of "filename". */
+            { N_("F"), N_("Process filename") },
+            /* Translators: the first letter of the track "title". */
+            { N_("T"), N_("Process title field") },
+            /* Translators: the first letter of the track "artist". */
+            { N_("Ar"), N_("Process artist field") },
+            /* Translators: the first letter of the track "album artist". */
+            { N_("AA"), N_("Process album artist field") },
+            /* Translators: the first letter of the track "album". */
+            { N_("Al"), N_("Process album field") },
+            /* Translators: the first letter of the track "genre". */
+            { N_("G"), N_("Process genre field") },
+            /* Translators: the first letter of the track "comment". */
+            { N_("Cm"), N_("Process comment field") },
+            /* Translators: the first letter of the track "composer". */
+            { N_("Cp"), N_("Process composer field") },
+            /* Translators: the first letter of the track "original artist". */
+            { N_("O"), N_("Process original artist field") },
+            /* Translators: the first letter of the track "copyright". */
+            { N_("Cr"), N_("Process copyright field") },
+            /* Translators: the first letter of "URL". */
+            { N_("U"), N_("Process URL field") },
+            /* Translators: the first letter of "encoded-by". */
+            { N_("E"), N_("Process encoded-by field") },
+        };
+
+        flags_class = g_type_class_ref (ET_TYPE_PROCESS_FIELD);
+
+        for (i = 0; i < G_N_ELEMENTS (mapping); i++)
+        {
+            GtkWidget *widget;
+
+            flags_value = g_flags_get_first_value (flags_class, 1 << i);
+            widget = gtk_toggle_button_new_with_label (gettext (mapping[i].label));
+            gtk_widget_set_tooltip_text (widget, gettext (mapping[i].tooltip));
+            gtk_widget_set_name (widget, flags_value->value_nick);
+            g_object_set_data (G_OBJECT (widget), "flags-type",
+                               GSIZE_TO_POINTER (ET_TYPE_PROCESS_FIELD));
+            g_settings_bind_with_mapping (MainSettings, "process-fields",
+                                          widget, "active",
+                                          G_SETTINGS_BIND_DEFAULT,
+                                          et_scan_flags_get,
+                                          et_scan_flags_set, widget, NULL);
+            gtk_box_pack_start (GTK_BOX (hbox), widget, TRUE, TRUE, 2);
+            g_signal_connect_swapped (G_OBJECT (widget), "toggled",
+                                      G_CALLBACK (Select_Fields_Set_Sensitive),
+                                      self);
+        }
+
+        g_type_class_unref (flags_class);
+    }
+
     /* The small buttons */
     Button = gtk_button_new();
     g_signal_connect_swapped (Button, "clicked",
@@ -3265,20 +3346,6 @@ et_scan_dialog_apply_changes (EtScanDialog *self)
     g_return_if_fail (ET_SCAN_DIALOG (self));
 
     priv = et_scan_dialog_get_instance_private (self);
-
-    /* Group: select entries to process */
-    PROCESS_FILENAME_FIELD    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_filename_toggle));
-    PROCESS_TITLE_FIELD       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_title_toggle));
-    PROCESS_ARTIST_FIELD      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_artist_toggle));
-    PROCESS_ALBUM_ARTIST_FIELD= gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_album_artist_toggle));
-    PROCESS_ALBUM_FIELD       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_album_toggle));
-    PROCESS_GENRE_FIELD       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_genre_toggle));
-    PROCESS_COMMENT_FIELD     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_comment_toggle));
-    PROCESS_COMPOSER_FIELD    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_composer_toggle));
-    PROCESS_ORIG_ARTIST_FIELD = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_original_artist_toggle));
-    PROCESS_COPYRIGHT_FIELD   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_copyright_toggle));
-    PROCESS_URL_FIELD         = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_url_toggle));
-    PROCESS_ENCODED_BY_FIELD  = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_encoded_by_toggle));
 
     /* Group: convert one character */
     PF_CONVERT_INTO_SPACE     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_convert_to_space_toggle));

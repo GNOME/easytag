@@ -128,18 +128,6 @@ static const tConfigVariable Config_Variables[] =
     {"rfs_convert_underscore_and_p20_into_space",CV_TYPE_BOOL,&RFS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE },
     {"rfs_convert_space_into_underscore",        CV_TYPE_BOOL,&RFS_CONVERT_SPACE_INTO_UNDERSCORE         },
     {"rfs_remove_spaces",                        CV_TYPE_BOOL,&RFS_REMOVE_SPACES                         },
-    {"process_filename_field",                  CV_TYPE_BOOL,    &PROCESS_FILENAME_FIELD                 },
-    {"process_title_field",                     CV_TYPE_BOOL,    &PROCESS_TITLE_FIELD                    },
-    {"process_artist_field",                    CV_TYPE_BOOL,    &PROCESS_ARTIST_FIELD                   },
-    {"process_album_artist_field",              CV_TYPE_BOOL,    &PROCESS_ALBUM_ARTIST_FIELD             },
-    {"process_album_field",                     CV_TYPE_BOOL,    &PROCESS_ALBUM_FIELD                    },
-    {"process_genre_field",                     CV_TYPE_BOOL,    &PROCESS_GENRE_FIELD                    },
-    {"process_comment_field",                   CV_TYPE_BOOL,    &PROCESS_COMMENT_FIELD                  },
-    {"process_composer_field",                  CV_TYPE_BOOL,    &PROCESS_COMPOSER_FIELD                 },
-    {"process_orig_artist_field",               CV_TYPE_BOOL,    &PROCESS_ORIG_ARTIST_FIELD              },
-    {"process_copyright_field",                 CV_TYPE_BOOL,    &PROCESS_COPYRIGHT_FIELD                },
-    {"process_url_field",                       CV_TYPE_BOOL,    &PROCESS_URL_FIELD                      },
-    {"process_encoded_by_field",                CV_TYPE_BOOL,    &PROCESS_ENCODED_BY_FIELD               },
 
     {"pf_convert_into_space",                   CV_TYPE_BOOL,    &PF_CONVERT_INTO_SPACE                  },
     {"pf_convert_space",                        CV_TYPE_BOOL,    &PF_CONVERT_SPACE                       },
@@ -247,19 +235,6 @@ void Init_Config_Variables (void)
     /*
      * Scanner window
      */
-    PROCESS_FILENAME_FIELD             = 0;
-    PROCESS_TITLE_FIELD                = 1;
-    PROCESS_ARTIST_FIELD               = 1;
-    PROCESS_ALBUM_ARTIST_FIELD         = 1;
-    PROCESS_ALBUM_FIELD                = 1;
-    PROCESS_GENRE_FIELD                = 1;
-    PROCESS_COMMENT_FIELD              = 1;
-    PROCESS_COMPOSER_FIELD             = 1;
-    PROCESS_ORIG_ARTIST_FIELD          = 1;
-    PROCESS_COPYRIGHT_FIELD            = 1;
-    PROCESS_URL_FIELD                  = 1;
-    PROCESS_ENCODED_BY_FIELD           = 1;
-
     PF_CONVERT_INTO_SPACE              = 1;
     PF_CONVERT_SPACE                   = 0;
 

@@ -50,6 +50,23 @@ typedef enum
     ET_FILENAME_EXTENSION_NO_CHANGE
 } EtFilenameExtensionMode;
 
+/* Tag fields to process in the scanner. */
+typedef enum
+{
+    ET_PROCESS_FIELD_FILENAME = 1 << 0,
+    ET_PROCESS_FIELD_TITLE = 1 << 1,
+    ET_PROCESS_FIELD_ARTIST = 1 << 2,
+    ET_PROCESS_FIELD_ALBUM_ARTIST = 1 << 3,
+    ET_PROCESS_FIELD_ALBUM = 1 << 4,
+    ET_PROCESS_FIELD_GENRE = 1 << 5,
+    ET_PROCESS_FIELD_COMMENT = 1 << 6,
+    ET_PROCESS_FIELD_COMPOSER = 1 << 7,
+    ET_PROCESS_FIELD_ORIGINAL_ARTIST = 1 << 8,
+    ET_PROCESS_FIELD_COPYRIGHT = 1 << 9,
+    ET_PROCESS_FIELD_URL = 1 << 10,
+    ET_PROCESS_FIELD_ENCODED_BY = 1 << 11
+} EtProcessField;
+
 /* Content of generated playlists. */
 typedef enum
 {
@@ -165,18 +182,6 @@ gint    RFS_CONVERT_SPACE_INTO_UNDERSCORE;
 gint    RFS_REMOVE_SPACES;
 
 /* Scanner window */
-gint    PROCESS_FILENAME_FIELD;
-gint    PROCESS_TITLE_FIELD;
-gint    PROCESS_ARTIST_FIELD;
-gint    PROCESS_ALBUM_ARTIST_FIELD;
-gint    PROCESS_ALBUM_FIELD;
-gint    PROCESS_GENRE_FIELD;
-gint    PROCESS_COMMENT_FIELD;
-gint    PROCESS_COMPOSER_FIELD;
-gint    PROCESS_ORIG_ARTIST_FIELD;
-gint    PROCESS_COPYRIGHT_FIELD;
-gint    PROCESS_URL_FIELD;
-gint    PROCESS_ENCODED_BY_FIELD;
 gint    PF_CONVERT_INTO_SPACE;
 gint    PF_CONVERT_SPACE;
 
