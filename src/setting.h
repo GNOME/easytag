@@ -43,6 +43,13 @@ struct _tConfigVariable
     void *pointer;              /* Pointer to our variable */
 };
 
+typedef enum
+{
+    ET_FILENAME_EXTENSION_LOWER_CASE,
+    ET_FILENAME_EXTENSION_UPPER_CASE,
+    ET_FILENAME_EXTENSION_NO_CHANGE
+} EtFilenameExtensionMode;
+
 /*
  * The mode for the scanner window.
  */
@@ -115,10 +122,6 @@ gint    SORTING_FILE_CASE_SENSITIVE;
 gchar  *AUDIO_FILE_PLAYER;
 
 /* File Settings */
-gint    FILENAME_EXTENSION_LOWER_CASE;
-gint    FILENAME_EXTENSION_UPPER_CASE;
-gint    FILENAME_EXTENSION_NO_CHANGE;
-
 gint    FILENAME_CHARACTER_SET_OTHER;
 gint    FILENAME_CHARACTER_SET_APPROXIMATE;
 gint    FILENAME_CHARACTER_SET_DISCARD;
@@ -285,5 +288,10 @@ gboolean et_settings_enum_get (GValue *value, GVariant *variant,
 GVariant *et_settings_enum_set (const GValue *value,
                                 const GVariantType *expected_type,
                                 gpointer user_data);
+gboolean et_settings_enum_radio_get (GValue *value, GVariant *variant,
+                                     gpointer user_data);
+GVariant *et_settings_enum_radio_set (const GValue *value,
+                                      const GVariantType *expected_type,
+                                      gpointer user_data);
 
 #endif /* ET_SETTINGS_H_ */

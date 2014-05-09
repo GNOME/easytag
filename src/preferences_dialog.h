@@ -64,10 +64,6 @@ GtkWidget *SortingFileCaseSensitive;
 GtkWidget *FilePlayerCombo;
 
 /* File Settings */
-GtkWidget *FilenameExtensionNoChange;
-GtkWidget *FilenameExtensionLowerCase;
-GtkWidget *FilenameExtensionUpperCase;
-
 GtkWidget *FilenameCharacterSetOther;
 GtkWidget *FilenameCharacterSetApproximate;
 GtkWidget *FilenameCharacterSetDiscard;

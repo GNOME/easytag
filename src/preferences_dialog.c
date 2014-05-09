@@ -182,6 +182,9 @@ create_preferences_dialog (EtPreferencesDialog *self)
     GtkWidget *ConfirmDeleteFile;
     GtkWidget *ConfirmWritePlayList;
     GtkWidget *ConfirmWhenUnsavedFiles;
+    GtkWidget *FilenameExtensionNoChange;
+    GtkWidget *FilenameExtensionLowerCase;
+    GtkWidget *FilenameExtensionUpperCase;
     gchar *path_utf8;
     gchar *program_path;
 
@@ -456,21 +459,40 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
 
     FilenameExtensionLowerCase = gtk_radio_button_new_with_label(NULL,_("Lower Case"));
+    gtk_widget_set_name (FilenameExtensionLowerCase, "lower-case");
     gtk_box_pack_start(GTK_BOX(hbox),FilenameExtensionLowerCase,FALSE,FALSE,2);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FilenameExtensionLowerCase),FILENAME_EXTENSION_LOWER_CASE);
     gtk_widget_set_tooltip_text(FilenameExtensionLowerCase,_("For example, the extension will be converted to '.mp3'"));
 
     FilenameExtensionUpperCase = gtk_radio_button_new_with_label(
         gtk_radio_button_get_group(GTK_RADIO_BUTTON(FilenameExtensionLowerCase)),_("Upper Case"));
+    gtk_widget_set_name (FilenameExtensionUpperCase, "upper-case");
     gtk_box_pack_start(GTK_BOX(hbox),FilenameExtensionUpperCase,FALSE,FALSE,2);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FilenameExtensionUpperCase),FILENAME_EXTENSION_UPPER_CASE);
     gtk_widget_set_tooltip_text(FilenameExtensionUpperCase,_("For example, the extension will be converted to '.MP3'"));
 
     FilenameExtensionNoChange = gtk_radio_button_new_with_label(
         gtk_radio_button_get_group(GTK_RADIO_BUTTON(FilenameExtensionLowerCase)),_("No Change"));
+    gtk_widget_set_name (FilenameExtensionNoChange, "no-change");
     gtk_box_pack_start(GTK_BOX(hbox),FilenameExtensionNoChange,FALSE,FALSE,2);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FilenameExtensionNoChange),FILENAME_EXTENSION_NO_CHANGE);
     gtk_widget_set_tooltip_text(FilenameExtensionNoChange,_("The extension will not be converted"));
+
+    g_settings_bind_with_mapping (MainSettings, "rename-extension-mode",
+                                  FilenameExtensionLowerCase, "active",
+                                  G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  FilenameExtensionLowerCase, NULL);
+    g_settings_bind_with_mapping (MainSettings, "rename-extension-mode",
+                                  FilenameExtensionUpperCase, "active",
+                                  G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  FilenameExtensionUpperCase, NULL);
+    g_settings_bind_with_mapping (MainSettings, "rename-extension-mode",
+                                  FilenameExtensionNoChange, "active",
+                                  G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  FilenameExtensionNoChange, NULL);
 
     /* Preserve modification time */
     PreserveModificationTime = gtk_check_button_new_with_label(_("Preserve modification time of the file"));

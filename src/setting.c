@@ -115,9 +115,6 @@ static const tConfigVariable Config_Variables[] =
     {"pad_disc_number_digits", CV_TYPE_INT, &PAD_DISC_NUMBER_DIGITS },
     {"sorting_file_case_sensitive",          CV_TYPE_BOOL,    &SORTING_FILE_CASE_SENSITIVE              },
 
-    {"filename_extension_lower_case",                  CV_TYPE_BOOL,    &FILENAME_EXTENSION_LOWER_CASE            },
-    {"filename_extension_upper_case",                  CV_TYPE_BOOL,    &FILENAME_EXTENSION_UPPER_CASE            },
-    {"filename_extension_no_change",                   CV_TYPE_BOOL,    &FILENAME_EXTENSION_NO_CHANGE             },
     {"filename_character_set_other",                   CV_TYPE_BOOL,    &FILENAME_CHARACTER_SET_OTHER             },
     {"filename_character_set_approximate",             CV_TYPE_BOOL,    &FILENAME_CHARACTER_SET_APPROXIMATE       },
     {"filename_character_set_discard",                 CV_TYPE_BOOL,    &FILENAME_CHARACTER_SET_DISCARD           },
@@ -239,10 +236,6 @@ void Init_Config_Variables (void)
     /*
      * File Settings
      */
-    FILENAME_EXTENSION_LOWER_CASE               = 1;
-    FILENAME_EXTENSION_UPPER_CASE               = 0;
-    FILENAME_EXTENSION_NO_CHANGE                = 0;
-
     FILENAME_CHARACTER_SET_OTHER                = 1;
     FILENAME_CHARACTER_SET_APPROXIMATE          = 0;
     FILENAME_CHARACTER_SET_DISCARD              = 0;
@@ -381,10 +374,6 @@ Apply_Changes_Of_Preferences_Window (void)
         AUDIO_FILE_PLAYER                       = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)))));
 
         /* File Settings */
-        FILENAME_EXTENSION_LOWER_CASE             = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FilenameExtensionLowerCase));
-        FILENAME_EXTENSION_UPPER_CASE             = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FilenameExtensionUpperCase));
-        FILENAME_EXTENSION_NO_CHANGE              = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FilenameExtensionNoChange));
-
         FILENAME_CHARACTER_SET_OTHER              = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FilenameCharacterSetOther));
         FILENAME_CHARACTER_SET_APPROXIMATE        = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FilenameCharacterSetApproximate));
         FILENAME_CHARACTER_SET_DISCARD            = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FilenameCharacterSetDiscard));
@@ -1292,4 +1281,65 @@ et_settings_enum_set (const GValue *value, const GVariantType *expected_type,
 
     return g_variant_new (g_variant_type_peek_string (expected_type),
                           enum_value->value_nick);
+}
+
+/*
+ * et_settings_enum_radio_get:
+ * @value: the property value to be set
+ * @variant: the variant to set the @value from
+ * @user_data: the widget on which the setting should be applied
+ *
+ * Wrapper function to convert an enum-type GSettings key state to the active
+ * radio button.
+ *
+ * Returns: %TRUE
+ */
+gboolean
+et_settings_enum_radio_get (GValue *value, GVariant *variant,
+                            gpointer user_data)
+{
+    const gchar *name;
+    const gchar *setting;
+
+    name = gtk_widget_get_name (GTK_WIDGET (user_data));
+    setting = g_variant_get_string (variant, NULL);
+
+    /* Only set the radio button which matches the setting to active. */
+    if (g_strcmp0 (name, setting) == 0)
+    {
+        g_value_set_boolean (value, TRUE);
+    }
+
+    return TRUE;
+}
+
+/*
+ * et_settings_enum_radio_set:
+ * @value: the property value to set the @variant from
+ * @expected_type: the expected type of the returned variant
+ * @user_data: the widget which the setting should be taken from
+ *
+ * Wrapper function to convert the active radiobutton to the value of an
+ * enum-type GSettings key.
+ *
+ * Returns: a new GVariant containing the mapped value, or %NULL upon failure
+ */
+GVariant *
+et_settings_enum_radio_set (const GValue *value,
+                            const GVariantType *expected_type,
+                            gpointer user_data)
+{
+    GVariant *variant = NULL;
+    const gchar *name;
+
+    /* Ignore buttons that are not active. */
+    if (!g_value_get_boolean (value))
+    {
+        return variant;
+    }
+
+    name = gtk_widget_get_name (GTK_WIDGET (user_data));
+    variant = g_variant_new_string (name);
+
+    return variant;
 }
