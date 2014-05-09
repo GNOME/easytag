@@ -1,5 +1,5 @@
 /* EasyTAG - tag editor for audio files
- * Copyright (C) 2013  David King <amigadave@amigadave.com>
+ * Copyright (C) 2013-2014  David King <amigadave@amigadave.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -81,7 +81,8 @@ write_playlist (EtPlaylistDialog *self, GFile *file, GError **error)
     gchar *filename;
     gchar *basedir;
     gchar *temp;
-    gint   duration;
+    gint duration;
+    EtPlaylistContent playlist_content;
 
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
@@ -102,8 +103,11 @@ write_playlist (EtPlaylistDialog *self, GFile *file, GError **error)
     basedir = g_file_get_path (parent);
     g_object_unref (parent);
 
-    // 1) First line of the file (if playlist content is not set to "write only list of files")
-    if (!PLAYLIST_CONTENT_NONE)
+    playlist_content = g_settings_get_enum (MainSettings, "playlist-content");
+
+    /* 1) First line of the file (if playlist content is not set to "write only
+     * list of files") */
+    if (playlist_content != ET_PLAYLIST_CONTENT_FILENAMES)
     {
         gsize bytes_written;
 
@@ -159,66 +163,70 @@ write_playlist (EtPlaylistDialog *self, GFile *file, GError **error)
             {
                 gsize bytes_written;
 
-                // 2) Write the header
-                if (PLAYLIST_CONTENT_NONE)
+                /* 2) Write the header. */
+                switch (playlist_content)
                 {
-                    // No header written
-                }else if (PLAYLIST_CONTENT_FILENAME)
-                {
+                    case ET_PLAYLIST_CONTENT_FILENAMES:
+                        /* No header written. */
+                        break;
+                    case ET_PLAYLIST_CONTENT_EXTENDED:
+                        /* Header has extended information. */
+                        temp = g_path_get_basename (filename);
+                        to_write = g_string_new ("#EXTINF:");
+                        /* Must be written in system encoding (not UTF-8). */
+                        g_string_append_printf (to_write, "%d,%s\r\n", duration,
+                                                temp);
 
-                    // Header uses only filename
-                    temp = g_path_get_basename(filename);
-                    to_write = g_string_new ("#EXTINF:");
-                    /* Must be written in system encoding (not UTF-8)*/
-                    g_string_append_printf (to_write, "%d,%s\r\n", duration,
-                                            temp);
-
-                    if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
-                                                    to_write->str,
-                                                    to_write->len,
-                                                    &bytes_written, NULL,
-                                                    error))
-                    {
-                        g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %"
-                                 G_GSIZE_FORMAT "bytes of data were written",
-                                 bytes_written, to_write->len);
-                        g_assert (error == NULL || *error != NULL);
+                        if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
+                                                        to_write->str,
+                                                        to_write->len,
+                                                        &bytes_written, NULL,
+                                                        error))
+                        {
+                            g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %"
+                                     G_GSIZE_FORMAT "bytes of data were written",
+                                     bytes_written, to_write->len);
+                            g_assert (error == NULL || *error != NULL);
+                            g_string_free (to_write, TRUE);
+                            g_object_unref (ostream);
+                            return FALSE;
+                        }
                         g_string_free (to_write, TRUE);
-                        g_object_unref (ostream);
-                        return FALSE;
-                    }
-                    g_string_free (to_write, TRUE);
-                    g_free(temp);
-                }else if (PLAYLIST_CONTENT_MASK)
-                {
-                    // Header uses generated filename from a mask
-                    gchar *mask = filename_from_display(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->content_mask_combo)))));
-                    // Special case : we don't replace illegal characters and don't check if there is a directory separator in the mask.
-                    gchar *filename_generated_utf8 = Scan_Generate_New_Filename_From_Mask(etfile,mask,TRUE);
-                    gchar *filename_generated = filename_from_display(filename_generated_utf8);
-
-                    to_write = g_string_new ("#EXTINF:");
-                    /* Must be written in system encoding (not UTF-8)*/
-                    g_string_append_printf (to_write, "%d,%s\r\n", duration,
-                                            filename_generated);
-
-                    if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
-                                                    to_write->str,
-                                                    to_write->len,
-                                                    &bytes_written, NULL,
-                                                    error))
+                        g_free (temp);
+                        break;
+                    case ET_PLAYLIST_CONTENT_EXTENDED_MASK:
                     {
-                        g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %"
-                                 G_GSIZE_FORMAT "bytes of data were written",
-                                 bytes_written, to_write->len);
-                        g_assert (error == NULL || *error != NULL);
+                        /* Header uses information generated from a mask. */
+                        gchar *mask = filename_from_display (gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->content_mask_combo)))));
+                        /* Special case: do not replace illegal characters and
+                         * do not check if there is a directory separator in
+                         * the mask. */
+                        gchar *filename_generated_utf8 = Scan_Generate_New_Filename_From_Mask (etfile, mask, TRUE);
+                        gchar *filename_generated = filename_from_display (filename_generated_utf8);
+
+                        to_write = g_string_new ("#EXTINF:");
+                        /* Must be written in system encoding (not UTF-8). */
+                        g_string_append_printf (to_write, "%d,%s\r\n", duration,
+                                                filename_generated);
+
+                        if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
+                                                        to_write->str,
+                                                        to_write->len,
+                                                        &bytes_written, NULL,
+                                                        error))
+                        {
+                            g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %"
+                                     G_GSIZE_FORMAT "bytes of data were written",
+                                     bytes_written, to_write->len);
+                            g_assert (error == NULL || *error != NULL);
+                            g_string_free (to_write, TRUE);
+                            g_object_unref (ostream);
+                            return FALSE;
+                        }
                         g_string_free (to_write, TRUE);
-                        g_object_unref (ostream);
-                        return FALSE;
+                        g_free (mask);
+                        g_free (filename_generated_utf8);
                     }
-                    g_string_free (to_write, TRUE);
-                    g_free(mask);
-                    g_free(filename_generated_utf8);
                 }
 
                 /* 3) Write the file path. */
@@ -276,60 +284,68 @@ write_playlist (EtPlaylistDialog *self, GFile *file, GError **error)
         {
             gsize bytes_written;
 
-            // 2) Write the header
-            if (PLAYLIST_CONTENT_NONE)
+            /* 2) Write the header. */
+            switch (playlist_content)
             {
-                // No header written
-            }else if (PLAYLIST_CONTENT_FILENAME)
-            {
-                // Header uses only filename
-                temp = g_path_get_basename(filename);
-                to_write = g_string_new ("#EXTINF:");
-                /* Must be written in system encoding (not UTF-8)*/
-                g_string_append_printf (to_write, "%d,%s\r\n", duration,
-                                        temp);
+                case ET_PLAYLIST_CONTENT_FILENAMES:
+                    /* No header written. */
+                    break;
+                case ET_PLAYLIST_CONTENT_EXTENDED:
+                    /* Header has extended information. */
+                    temp = g_path_get_basename (filename);
+                    to_write = g_string_new ("#EXTINF:");
+                    /* Must be written in system encoding (not UTF-8). */
+                    g_string_append_printf (to_write, "%d,%s\r\n", duration,
+                                            temp);
+                    g_free (temp);
 
-                if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
-                                                to_write->str, to_write->len,
-                                                &bytes_written, NULL, error))
-                {
-                    g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %"
-                             G_GSIZE_FORMAT" bytes of data were written",
-                             bytes_written, to_write->len);
-                    g_assert (error == NULL || *error != NULL);
+                    if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
+                                                    to_write->str, to_write->len,
+                                                    &bytes_written, NULL, error))
+                    {
+                        g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %"
+                                 G_GSIZE_FORMAT" bytes of data were written",
+                                 bytes_written, to_write->len);
+                        g_assert (error == NULL || *error != NULL);
+                        g_string_free (to_write, TRUE);
+                        g_object_unref (ostream);
+                        return FALSE;
+                    }
                     g_string_free (to_write, TRUE);
-                    g_object_unref (ostream);
-                    return FALSE;
-                }
-                g_string_free (to_write, TRUE);
-                g_free(temp);
-            }else if (PLAYLIST_CONTENT_MASK)
-            {
-                // Header uses generated filename from a mask
-                gchar *mask = filename_from_display(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->content_mask_combo)))));
-                gchar *filename_generated_utf8 = Scan_Generate_New_Filename_From_Mask(etfile,mask,TRUE);
-                gchar *filename_generated = filename_from_display(filename_generated_utf8);
-
-                to_write = g_string_new ("#EXTINF:");
-                /* Must be written in system encoding (not UTF-8)*/
-                g_string_append_printf (to_write, "%d,%s\r\n", duration,
-                                        filename_generated);
-
-                if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
-                                                to_write->str, to_write->len,
-                                                &bytes_written, NULL, error))
+                    break;
+                case ET_PLAYLIST_CONTENT_EXTENDED_MASK:
                 {
-                    g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %"
-                             G_GSIZE_FORMAT" bytes of data were written",
-                             bytes_written, to_write->len);
-                    g_assert (error == NULL || *error != NULL);
+                    /* Header uses information generated from a mask. */
+                    gchar *mask = filename_from_display (gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->content_mask_combo)))));
+                    /* Special case: do not replace illegal characters and
+                     * do not check if there is a directory separator in
+                     * the mask. */
+                    gchar *filename_generated_utf8 = Scan_Generate_New_Filename_From_Mask (etfile, mask, TRUE);
+                    gchar *filename_generated = filename_from_display (filename_generated_utf8);
+
+                    to_write = g_string_new ("#EXTINF:");
+                    /* Must be written in system encoding (not UTF-8). */
+                    g_string_append_printf (to_write, "%d,%s\r\n", duration,
+                                            filename_generated);
+                    g_free (filename_generated);
+
+                    if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream),
+                                                    to_write->str, to_write->len,
+                                                    &bytes_written, NULL, error))
+                    {
+                        g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %"
+                                 G_GSIZE_FORMAT" bytes of data were written",
+                                 bytes_written, to_write->len);
+                        g_assert (error == NULL || *error != NULL);
+                        g_string_free (to_write, TRUE);
+                        g_object_unref (ostream);
+                        return FALSE;
+                    }
                     g_string_free (to_write, TRUE);
-                    g_object_unref (ostream);
-                    return FALSE;
+                    g_free (mask);
+                    g_free (filename_generated_utf8);
                 }
-                g_string_free (to_write, TRUE);
-                g_free(mask);
-                g_free(filename_generated_utf8);
+                break;
             }
 
             /* 3) Write the file path. */
@@ -412,9 +428,6 @@ write_button_clicked (EtPlaylistDialog *self)
     /* List of variables also set in the function 'Write_Playlist_Window_Apply_Changes' */
     /***if (PLAYLIST_NAME) g_free(PLAYLIST_NAME);
 
-    PLAYLIST_CONTENT_NONE         = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_content_none));
-    PLAYLIST_CONTENT_FILENAME     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_content_filename));
-    PLAYLIST_CONTENT_MASK         = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_content_mask));
     if (PLAYLIST_CONTENT_MASK_VALUE) g_free(PLAYLIST_CONTENT_MASK_VALUE);
     PLAYLIST_CONTENT_MASK_VALUE   = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(content_mask_combo)->child)));***/
     et_playlist_dialog_apply_changes (self);
@@ -632,6 +645,9 @@ create_playlist_dialog (EtPlaylistDialog *self)
     GtkWidget *content_area;
     GtkWidget *hbox;
     GtkWidget *vbox;
+    GtkWidget *playlist_content_filenames;
+    GtkWidget *playlist_content_extended;
+    GtkWidget *playlist_content_mask;
 
     priv = et_playlist_dialog_get_instance_private (self);
     dialog = GTK_DIALOG (self);
@@ -743,14 +759,21 @@ create_playlist_dialog (EtPlaylistDialog *self)
     gtk_container_add (GTK_CONTAINER (frame), vbox);
     gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
 
-    playlist_content_none = gtk_radio_button_new_with_label(NULL,_("Write only list of files"));
-    gtk_box_pack_start(GTK_BOX(vbox),playlist_content_none,FALSE,FALSE,0);
+    playlist_content_filenames = gtk_radio_button_new_with_label (NULL,
+                                                                  _("Write only list of files"));
+    gtk_widget_set_name (playlist_content_filenames, "filenames");
+    gtk_box_pack_start (GTK_BOX (vbox), playlist_content_filenames, FALSE,
+                        FALSE,0);
 
-    playlist_content_filename = gtk_radio_button_new_with_label_from_widget(
-        GTK_RADIO_BUTTON(playlist_content_none),_("Write info using filename"));
-    gtk_box_pack_start(GTK_BOX(vbox),playlist_content_filename,FALSE,FALSE,0);
+    playlist_content_extended = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (playlist_content_filenames),
+                                                                             _("Write info using filename"));
+    gtk_widget_set_name (playlist_content_extended, "extended");
+    gtk_box_pack_start (GTK_BOX (vbox), playlist_content_extended, FALSE,
+                        FALSE, 0);
 
-    playlist_content_mask = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(playlist_content_none), _("Write info using:"));
+    playlist_content_mask = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (playlist_content_filenames),
+                                                                         _("Write info using:"));
+    gtk_widget_set_name (playlist_content_mask, "extended-mask");
     hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),playlist_content_mask,FALSE,FALSE,0);
@@ -774,10 +797,24 @@ create_playlist_dialog (EtPlaylistDialog *self)
                       "changed", G_CALLBACK (entry_check_content_mask),
                       NULL);
 
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_content_none),    PLAYLIST_CONTENT_NONE);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_content_filename),PLAYLIST_CONTENT_FILENAME);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_content_mask),    PLAYLIST_CONTENT_MASK);
-
+    g_settings_bind_with_mapping (MainSettings, "playlist-content",
+                                  playlist_content_filenames, "active",
+                                  G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  playlist_content_filenames, NULL);
+    g_settings_bind_with_mapping (MainSettings, "playlist-content",
+                                  playlist_content_extended, "active",
+                                  G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  playlist_content_extended, NULL);
+    g_settings_bind_with_mapping (MainSettings, "playlist-content",
+                                  playlist_content_mask, "active",
+                                  G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  playlist_content_mask, NULL);
 
     /* To initialize the mask status icon and visibility */
     g_signal_emit_by_name (gtk_bin_get_child (GTK_BIN (priv->name_mask_combo)),
@@ -802,10 +839,6 @@ et_playlist_dialog_apply_changes (EtPlaylistDialog *self)
     if (PLAYLIST_NAME) g_free(PLAYLIST_NAME);
     PLAYLIST_NAME = g_strdup (gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->name_mask_combo)))));
 
-    PLAYLIST_CONTENT_NONE         = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_content_none));
-    PLAYLIST_CONTENT_FILENAME     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_content_filename));
-    PLAYLIST_CONTENT_MASK         = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_content_mask));
-    
     if (PLAYLIST_CONTENT_MASK_VALUE) g_free(PLAYLIST_CONTENT_MASK_VALUE);
     PLAYLIST_CONTENT_MASK_VALUE = g_strdup (gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->content_mask_combo)))));
 

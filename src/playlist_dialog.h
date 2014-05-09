@@ -40,9 +40,6 @@ GtkWidget *playlist_full_path;
 GtkWidget *playlist_relative_path;
 GtkWidget *playlist_create_in_parent_dir;
 GtkWidget *playlist_use_dos_separator;
-GtkWidget *playlist_content_none;
-GtkWidget *playlist_content_filename;
-GtkWidget *playlist_content_mask;
 
 
 struct _EtPlaylistDialog

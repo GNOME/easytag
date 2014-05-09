@@ -543,13 +543,11 @@
       <default>false</default>
     </key>
 
-    <!-- TODO: Generate enums with glib-mkenums.
     <key name="playlist-content" enum="org.gnome.EasyTAG.EtPlaylistContent">
       <summary>Content of generated playlists</summary>
       <description>Write a plain list of files, include extended information from the filename or extended information using a supplied mask</description>
       <default>'extended'</default>
     </key>
-    -->
 
     <key name="playlist-default-mask" type="s">
       <summary>Playlist default mask</summary>

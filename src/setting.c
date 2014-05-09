@@ -155,9 +155,6 @@ static const tConfigVariable Config_Variables[] =
     {"pf_convert_space",                        CV_TYPE_BOOL,    &PF_CONVERT_SPACE                       },
 
     {"playlist_name",                           CV_TYPE_STRING,  &PLAYLIST_NAME                          },
-    {"playlist_content_none",                   CV_TYPE_BOOL,    &PLAYLIST_CONTENT_NONE                  },
-    {"playlist_content_filename",               CV_TYPE_BOOL,    &PLAYLIST_CONTENT_FILENAME              },
-    {"playlist_content_mask",                   CV_TYPE_BOOL,    &PLAYLIST_CONTENT_MASK                  },
     {"playlist_content_mask_value",             CV_TYPE_STRING,  &PLAYLIST_CONTENT_MASK_VALUE            },
 
     {"cddb_local_path",                         CV_TYPE_STRING,  &CDDB_LOCAL_PATH                        },
@@ -293,9 +290,6 @@ void Init_Config_Variables (void)
      * Playlist window
      */
     PLAYLIST_NAME                   = g_strdup("playlist_%a_-_%b");
-    PLAYLIST_CONTENT_NONE           = 0;
-    PLAYLIST_CONTENT_FILENAME       = 1;
-    PLAYLIST_CONTENT_MASK           = 0;
     PLAYLIST_CONTENT_MASK_VALUE     = g_strdup("%n/%l - %a - %b - %t");
 
     /*

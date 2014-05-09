@@ -50,6 +50,14 @@ typedef enum
     ET_FILENAME_EXTENSION_NO_CHANGE
 } EtFilenameExtensionMode;
 
+/* Content of generated playlists. */
+typedef enum
+{
+    ET_PLAYLIST_CONTENT_FILENAMES,
+    ET_PLAYLIST_CONTENT_EXTENDED,
+    ET_PLAYLIST_CONTENT_EXTENDED_MASK
+} EtPlaylistContent;
+
 /*
  * The mode for the scanner window.
  */
@@ -169,9 +177,6 @@ gint    PF_CONVERT_SPACE;
 
 /* Playlist window */
 gchar  *PLAYLIST_NAME;
-gint    PLAYLIST_CONTENT_NONE;
-gint    PLAYLIST_CONTENT_FILENAME;
-gint    PLAYLIST_CONTENT_MASK;
 gchar  *PLAYLIST_CONTENT_MASK_VALUE;
 
 gchar  *CDDB_LOCAL_PATH;
