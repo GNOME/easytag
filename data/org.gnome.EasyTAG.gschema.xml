@@ -242,13 +242,13 @@
       <description>Choose the character set to be used when writing ID3v1 tags</description>
       <default>'ISO-8859-1'</default>
     </key>
+    -->
 
     <key name="id3v1-encoding-option" enum="org.gnome.EasyTAG.EtTagEncoding">
       <summary>Encoding options when writing ID3v1 tags</summary>
       <description>Additional options to pass to iconv() when converting between encodings when writing ID3v1 tags</description>
       <default>'none'</default>
     </key>
-    -->
 
     <key name="id3v2-enabled" type="b">
       <summary>Write ID3v2 tags</summary>
@@ -308,13 +308,13 @@
       <description>Override the typical Unicode character set to be used when writing ID3v2 tags</description>
       <default>'ISO-8859-1'</default>
     </key>
+    -->
 
     <key name="id3v2-encoding-option" enum="org.gnome.EasyTAG.EtTagEncoding">
       <summary>Encoding options when writing ID3v2 tags</summary>
       <description>Additional options to pass to iconv() when converting between encodings when writing ID3v2 tags</description>
       <default>'none'</default>
     </key>
-    -->
 
     <key name="tag-date-autocomplete" type="b">
       <summary>Automatically complete the date</summary>

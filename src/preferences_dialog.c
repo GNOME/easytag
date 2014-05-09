@@ -67,6 +67,12 @@ struct _EtPreferencesDialogPrivate
     GtkWidget *FileWritingId3v2UseCrc32;
     GtkWidget *FileWritingId3v2UseCompression;
     GtkWidget *FileWritingId3v2TextOnlyGenre;
+    GtkWidget *FileWritingId3v2IconvOptionsNo;
+    GtkWidget *FileWritingId3v2IconvOptionsTranslit;
+    GtkWidget *FileWritingId3v2IconvOptionsIgnore;
+    GtkWidget *FileWritingId3v1IconvOptionsNo;
+    GtkWidget *FileWritingId3v1IconvOptionsTranslit;
+    GtkWidget *FileWritingId3v1IconvOptionsIgnore;
 
     GtkWidget *options_notebook;
     gint options_notebook_scanner;
@@ -880,33 +886,51 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_misc_set_alignment (GTK_MISC (priv->LabelAdditionalId3v2IconvOptions),
                             0, 0.5);
 
-    FileWritingId3v2IconvOptionsNo = gtk_radio_button_new_with_label(NULL,
-        _("No"));
-    gtk_grid_attach (GTK_GRID (Table), FileWritingId3v2IconvOptionsNo, 2, 6, 1,
+    priv->FileWritingId3v2IconvOptionsNo = gtk_radio_button_new_with_label (NULL,
+                                                                            _("No"));
+    gtk_grid_attach (GTK_GRID (Table), priv->FileWritingId3v2IconvOptionsNo, 2, 6, 1,
                      1);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v2IconvOptionsNo),FILE_WRITING_ID3V2_ICONV_OPTIONS_NO);
-    gtk_widget_set_tooltip_text(FileWritingId3v2IconvOptionsNo,_("With this option, when "
+    gtk_widget_set_name (priv->FileWritingId3v2IconvOptionsNo, "none");
+    gtk_widget_set_tooltip_text (priv->FileWritingId3v2IconvOptionsNo, _("With this option, when "
         "a character cannot be represented in the target character set, it isn't changed. "
         "But note that an error message will be displayed for information."));
-    FileWritingId3v2IconvOptionsTranslit = gtk_radio_button_new_with_label(
-        gtk_radio_button_get_group(GTK_RADIO_BUTTON(FileWritingId3v2IconvOptionsNo)),
+    priv->FileWritingId3v2IconvOptionsTranslit = gtk_radio_button_new_with_label (gtk_radio_button_get_group (GTK_RADIO_BUTTON (priv->FileWritingId3v2IconvOptionsNo)),
         _("//TRANSLIT"));
-    gtk_grid_attach (GTK_GRID (Table), FileWritingId3v2IconvOptionsTranslit, 3,
+    gtk_grid_attach (GTK_GRID (Table), priv->FileWritingId3v2IconvOptionsTranslit, 3,
                      6, 1, 1);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v2IconvOptionsTranslit),FILE_WRITING_ID3V2_ICONV_OPTIONS_TRANSLIT);
-    gtk_widget_set_tooltip_text(FileWritingId3v2IconvOptionsTranslit,_("With this option, when "
+    gtk_widget_set_name (priv->FileWritingId3v2IconvOptionsTranslit,
+                         "transliterate");
+    gtk_widget_set_tooltip_text (priv->FileWritingId3v2IconvOptionsTranslit, _("With this option, when "
         "a character cannot be represented in the target character set, it can be "
         "approximated through one or several similarly looking characters."));
 
-    FileWritingId3v2IconvOptionsIgnore = gtk_radio_button_new_with_label(
-        gtk_radio_button_get_group(GTK_RADIO_BUTTON(FileWritingId3v2IconvOptionsNo)),
+    priv->FileWritingId3v2IconvOptionsIgnore = gtk_radio_button_new_with_label (gtk_radio_button_get_group (GTK_RADIO_BUTTON (priv->FileWritingId3v2IconvOptionsNo)),
         _("//IGNORE"));
-    gtk_grid_attach (GTK_GRID (Table), FileWritingId3v2IconvOptionsIgnore, 4,
+    gtk_grid_attach (GTK_GRID (Table), priv->FileWritingId3v2IconvOptionsIgnore, 4,
                      6, 1, 1);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v2IconvOptionsIgnore),FILE_WRITING_ID3V2_ICONV_OPTIONS_IGNORE);
-    gtk_widget_set_tooltip_text(FileWritingId3v2IconvOptionsIgnore,_("With this option, when "
+    gtk_widget_set_name (priv->FileWritingId3v2IconvOptionsIgnore, "ignore");
+    gtk_widget_set_tooltip_text (priv->FileWritingId3v2IconvOptionsIgnore, _("With this option, when "
         "a character cannot be represented in the target character set, it will "
         "be silently discarded."));
+
+    g_settings_bind_with_mapping (MainSettings, "id3v2-encoding-option",
+                                  priv->FileWritingId3v2IconvOptionsNo, "active",
+                                  G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  priv->FileWritingId3v2IconvOptionsNo, NULL);
+    g_settings_bind_with_mapping (MainSettings, "id3v2-encoding-option",
+                                  priv->FileWritingId3v2IconvOptionsTranslit,
+                                  "active", G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  priv->FileWritingId3v2IconvOptionsTranslit, NULL);
+    g_settings_bind_with_mapping (MainSettings, "id3v2-encoding-option",
+                                  priv->FileWritingId3v2IconvOptionsIgnore, "active",
+                                  G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  priv->FileWritingId3v2IconvOptionsIgnore, NULL);
 
     // ID3v1 tags
     Frame = gtk_frame_new (_("ID3v1 tags"));
@@ -951,33 +975,51 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_misc_set_alignment (GTK_MISC (priv->LabelAdditionalId3v1IconvOptions),
                             0, 0.5);
 
-    FileWritingId3v1IconvOptionsNo = gtk_radio_button_new_with_label(NULL,
-        _("No"));
-    gtk_grid_attach (GTK_GRID (Table), FileWritingId3v1IconvOptionsNo, 1, 4, 1,
+    priv->FileWritingId3v1IconvOptionsNo = gtk_radio_button_new_with_label (NULL,
+                                                                            _("No"));
+    gtk_grid_attach (GTK_GRID (Table), priv->FileWritingId3v1IconvOptionsNo, 1, 4, 1,
                      1);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v1IconvOptionsNo),FILE_WRITING_ID3V1_ICONV_OPTIONS_NO);
-    gtk_widget_set_tooltip_text(FileWritingId3v1IconvOptionsNo,_("With this option, when "
+    gtk_widget_set_name (priv->FileWritingId3v1IconvOptionsNo, "none");
+    gtk_widget_set_tooltip_text (priv->FileWritingId3v1IconvOptionsNo, _("With this option, when "
         "a character cannot be represented in the target character set, it isn't changed. "
         "But note that an error message will be displayed for information."));
-    FileWritingId3v1IconvOptionsTranslit = gtk_radio_button_new_with_label(
-        gtk_radio_button_get_group(GTK_RADIO_BUTTON(FileWritingId3v1IconvOptionsNo)),
+    priv->FileWritingId3v1IconvOptionsTranslit = gtk_radio_button_new_with_label (gtk_radio_button_get_group (GTK_RADIO_BUTTON (priv->FileWritingId3v1IconvOptionsNo)),
         _("//TRANSLIT"));
-    gtk_grid_attach (GTK_GRID (Table), FileWritingId3v1IconvOptionsTranslit, 2,
+    gtk_grid_attach (GTK_GRID (Table), priv->FileWritingId3v1IconvOptionsTranslit, 2,
                      4, 1, 1);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v1IconvOptionsTranslit),FILE_WRITING_ID3V1_ICONV_OPTIONS_TRANSLIT);
-    gtk_widget_set_tooltip_text(FileWritingId3v1IconvOptionsTranslit,_("With this option, when "
+    gtk_widget_set_name (priv->FileWritingId3v1IconvOptionsTranslit,
+                         "transliterate");
+    gtk_widget_set_tooltip_text (priv->FileWritingId3v1IconvOptionsTranslit,_("With this option, when "
         "a character cannot be represented in the target character set, it can be "
         "approximated through one or several similarly looking characters."));
 
-    FileWritingId3v1IconvOptionsIgnore = gtk_radio_button_new_with_label(
-        gtk_radio_button_get_group(GTK_RADIO_BUTTON(FileWritingId3v1IconvOptionsNo)),
+    priv->FileWritingId3v1IconvOptionsIgnore = gtk_radio_button_new_with_label (gtk_radio_button_get_group (GTK_RADIO_BUTTON (priv->FileWritingId3v1IconvOptionsNo)),
         _("//IGNORE"));
-    gtk_grid_attach (GTK_GRID (Table), FileWritingId3v1IconvOptionsIgnore, 3,
+    gtk_grid_attach (GTK_GRID (Table), priv->FileWritingId3v1IconvOptionsIgnore, 3,
                      4, 1, 1);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FileWritingId3v1IconvOptionsIgnore),FILE_WRITING_ID3V1_ICONV_OPTIONS_IGNORE);
-    gtk_widget_set_tooltip_text(FileWritingId3v1IconvOptionsIgnore,_("With this option, when "
+    gtk_widget_set_name (priv->FileWritingId3v1IconvOptionsIgnore, "ignore");
+    gtk_widget_set_tooltip_text (priv->FileWritingId3v1IconvOptionsIgnore, _("With this option, when "
         "a character cannot be represented in the target character set, it will "
         "be silently discarded."));
+
+    g_settings_bind_with_mapping (MainSettings, "id3v1-encoding-option",
+                                  priv->FileWritingId3v1IconvOptionsNo, "active",
+                                  G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  priv->FileWritingId3v1IconvOptionsNo, NULL);
+    g_settings_bind_with_mapping (MainSettings, "id3v1-encoding-option",
+                                  priv->FileWritingId3v1IconvOptionsTranslit,
+                                  "active", G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  priv->FileWritingId3v1IconvOptionsTranslit, NULL);
+    g_settings_bind_with_mapping (MainSettings, "id3v1-encoding-option",
+                                  priv->FileWritingId3v1IconvOptionsIgnore, "active",
+                                  G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  priv->FileWritingId3v1IconvOptionsIgnore, NULL);
 
     /* Character Set for reading tag */
     Frame = gtk_frame_new (_("Character Set for reading ID3 tags"));
@@ -1568,9 +1610,9 @@ notify_id3_settings_active (GObject *object,
         gtk_widget_set_sensitive(priv->FileWritingId3v2UseNoUnicodeCharacterSet, TRUE);
         gtk_widget_set_sensitive(FileWritingId3v2NoUnicodeCharacterSetCombo, !active);
         gtk_widget_set_sensitive (priv->LabelAdditionalId3v2IconvOptions, !active);
-        gtk_widget_set_sensitive(FileWritingId3v2IconvOptionsNo, !active);
-        gtk_widget_set_sensitive(FileWritingId3v2IconvOptionsTranslit, !active);
-        gtk_widget_set_sensitive(FileWritingId3v2IconvOptionsIgnore, !active);
+        gtk_widget_set_sensitive (priv->FileWritingId3v2IconvOptionsNo, !active);
+        gtk_widget_set_sensitive (priv->FileWritingId3v2IconvOptionsTranslit, !active);
+        gtk_widget_set_sensitive (priv->FileWritingId3v2IconvOptionsIgnore, !active);
         gtk_widget_set_sensitive (priv->FileWritingId3v2UseCrc32, TRUE);
         gtk_widget_set_sensitive (priv->FileWritingId3v2UseCompression, TRUE);
         gtk_widget_set_sensitive (priv->FileWritingId3v2TextOnlyGenre, TRUE);
@@ -1588,9 +1630,9 @@ notify_id3_settings_active (GObject *object,
         gtk_widget_set_sensitive(FileWritingId3v2UnicodeCharacterSetCombo, FALSE);
         gtk_widget_set_sensitive(FileWritingId3v2NoUnicodeCharacterSetCombo, FALSE);
         gtk_widget_set_sensitive (priv->LabelAdditionalId3v2IconvOptions, FALSE);
-        gtk_widget_set_sensitive(FileWritingId3v2IconvOptionsNo, FALSE);
-        gtk_widget_set_sensitive(FileWritingId3v2IconvOptionsTranslit, FALSE);
-        gtk_widget_set_sensitive(FileWritingId3v2IconvOptionsIgnore, FALSE);
+        gtk_widget_set_sensitive (priv->FileWritingId3v2IconvOptionsNo, FALSE);
+        gtk_widget_set_sensitive (priv->FileWritingId3v2IconvOptionsTranslit, FALSE);
+        gtk_widget_set_sensitive (priv->FileWritingId3v2IconvOptionsIgnore, FALSE);
         gtk_widget_set_sensitive (priv->FileWritingId3v2UseCrc32, FALSE);
         gtk_widget_set_sensitive (priv->FileWritingId3v2UseCompression, FALSE);
         gtk_widget_set_sensitive (priv->FileWritingId3v2TextOnlyGenre, FALSE);
@@ -1602,9 +1644,9 @@ notify_id3_settings_active (GObject *object,
     gtk_widget_set_sensitive (priv->LabelId3v1Charset, active);
     gtk_widget_set_sensitive(FileWritingId3v1CharacterSetCombo, active);
     gtk_widget_set_sensitive (priv->LabelAdditionalId3v1IconvOptions, active);
-    gtk_widget_set_sensitive(FileWritingId3v1IconvOptionsNo, active);
-    gtk_widget_set_sensitive(FileWritingId3v1IconvOptionsTranslit, active);
-    gtk_widget_set_sensitive(FileWritingId3v1IconvOptionsIgnore, active);
+    gtk_widget_set_sensitive (priv->FileWritingId3v1IconvOptionsNo, active);
+    gtk_widget_set_sensitive (priv->FileWritingId3v1IconvOptionsTranslit, active);
+    gtk_widget_set_sensitive (priv->FileWritingId3v1IconvOptionsIgnore, active);
 }
 
 /* Callback from et_preferences_dialog_on_response. */

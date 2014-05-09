@@ -1241,10 +1241,12 @@ id3taglib_set_field(struct id3_frame *frame,
             /* id3v1 fields converted using its own character set and iconv options */
             if ( id3v1 )
             {
-                if ( !FILE_WRITING_ID3V1_ICONV_OPTIONS_NO )
+                EtTagEncoding iconv_option = g_settings_get_enum (MainSettings,
+                                                                  "id3v1-encoding-option");
+                if (iconv_option != ET_TAG_ENCODING_NONE)
                     encname = g_strconcat(
                         FILE_WRITING_ID3V1_CHARACTER_SET,
-                        FILE_WRITING_ID3V1_ICONV_OPTIONS_TRANSLIT ? "//TRANSLIT" : "//IGNORE",
+                        iconv_option == ET_TAG_ENCODING_TRANSLITERATE ? "//TRANSLIT" : "//IGNORE",
                         NULL);
                 else
                     encname = g_strdup(FILE_WRITING_ID3V1_CHARACTER_SET);
@@ -1253,10 +1255,12 @@ id3taglib_set_field(struct id3_frame *frame,
                 /* latin1 fields (such as URL) always converted with ISO-8859-1*/
                 if ((type != ID3_FIELD_TYPE_LATIN1) && (type != ID3_FIELD_TYPE_LATIN1FULL))
                 {
-                    if ( FILE_WRITING_ID3V2_ICONV_OPTIONS_NO == 0)
+                    EtTagEncoding iconv_option = g_settings_get_enum (MainSettings,
+                                                                      "id3v2-encoding-option");
+                    if (iconv_option != ET_TAG_ENCODING_NONE)
                         encname = g_strconcat(
                             FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET,
-                            FILE_WRITING_ID3V2_ICONV_OPTIONS_TRANSLIT ? "//TRANSLIT" : "//IGNORE",
+                            iconv_option == ET_TAG_ENCODING_TRANSLITERATE ? "//TRANSLIT" : "//IGNORE",
                             NULL);
                     else
                         encname = g_strdup(FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET);

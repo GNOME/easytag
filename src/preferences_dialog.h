@@ -75,13 +75,6 @@ GtkWidget *FileWritingId3v2NoUnicodeCharacterSetCombo;
 GtkWidget *FileWritingId3v1CharacterSetCombo;
 GtkWidget *FileReadingId3v1v2CharacterSetCombo;
 
-GtkWidget *FileWritingId3v2IconvOptionsNo;
-GtkWidget *FileWritingId3v2IconvOptionsTranslit;
-GtkWidget *FileWritingId3v2IconvOptionsIgnore;
-GtkWidget *FileWritingId3v1IconvOptionsNo;
-GtkWidget *FileWritingId3v1IconvOptionsTranslit;
-GtkWidget *FileWritingId3v1IconvOptionsIgnore;
-
 GtkWidget *pad_disc_number;
 GtkWidget *pad_disc_number_spinbutton;
 

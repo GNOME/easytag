@@ -123,13 +123,7 @@ static const tConfigVariable Config_Variables[] =
     {"file_writing_id3v2_version_4",                   CV_TYPE_BOOL,  &FILE_WRITING_ID3V2_VERSION_4   },
     {"file_writing_id3v2_unicode_character_set",       CV_TYPE_STRING,&FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET},
     {"file_writing_id3v2_no_unicode_character_set",    CV_TYPE_STRING,&FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET},
-    {"file_writing_id3v2_iconv_options_no",            CV_TYPE_BOOL,  &FILE_WRITING_ID3V2_ICONV_OPTIONS_NO},
-    {"file_writing_id3v2_iconv_options_translit",      CV_TYPE_BOOL,  &FILE_WRITING_ID3V2_ICONV_OPTIONS_TRANSLIT},
-    {"file_writing_id3v2_iconv_options_ignore",        CV_TYPE_BOOL,  &FILE_WRITING_ID3V2_ICONV_OPTIONS_IGNORE},
     {"file_writing_id3v1_character_set",               CV_TYPE_STRING,&FILE_WRITING_ID3V1_CHARACTER_SET},
-    {"file_writing_id3v1_iconv_options_no",            CV_TYPE_BOOL,  &FILE_WRITING_ID3V1_ICONV_OPTIONS_NO},
-    {"file_writing_id3v1_iconv_options_translit",      CV_TYPE_BOOL,  &FILE_WRITING_ID3V1_ICONV_OPTIONS_TRANSLIT},
-    {"file_writing_id3v1_iconv_options_ignore",        CV_TYPE_BOOL,  &FILE_WRITING_ID3V1_ICONV_OPTIONS_IGNORE},
 
     {"audio_file_player",                       CV_TYPE_STRING,&AUDIO_FILE_PLAYER                        },
 
@@ -252,13 +246,7 @@ void Init_Config_Variables (void)
     FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET        = g_strdup("UTF-8");
 #endif /* !G_OS_WIN32 */
     FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET     = g_strdup("ISO-8859-1");
-    FILE_WRITING_ID3V2_ICONV_OPTIONS_NO             = 1;
-    FILE_WRITING_ID3V2_ICONV_OPTIONS_TRANSLIT       = 0;
-    FILE_WRITING_ID3V2_ICONV_OPTIONS_IGNORE         = 0;
     FILE_WRITING_ID3V1_CHARACTER_SET                = g_strdup("ISO-8859-1");
-    FILE_WRITING_ID3V1_ICONV_OPTIONS_NO             = 0;
-    FILE_WRITING_ID3V1_ICONV_OPTIONS_TRANSLIT       = 1;
-    FILE_WRITING_ID3V1_ICONV_OPTIONS_IGNORE         = 0;
 
     /*
      * Scanner
@@ -390,17 +378,9 @@ Apply_Changes_Of_Preferences_Window (void)
         FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET  = Charset_Get_Name_From_Title(temp);
         g_free(temp);
 
-        FILE_WRITING_ID3V2_ICONV_OPTIONS_NO          = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FileWritingId3v2IconvOptionsNo));
-        FILE_WRITING_ID3V2_ICONV_OPTIONS_TRANSLIT    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FileWritingId3v2IconvOptionsTranslit));
-        FILE_WRITING_ID3V2_ICONV_OPTIONS_IGNORE      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FileWritingId3v2IconvOptionsIgnore));
-
         temp = Get_Active_Combo_Box_Item(GTK_COMBO_BOX(FileWritingId3v1CharacterSetCombo));
         FILE_WRITING_ID3V1_CHARACTER_SET             = Charset_Get_Name_From_Title(temp);
         g_free(temp);
-
-        FILE_WRITING_ID3V1_ICONV_OPTIONS_NO          = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FileWritingId3v1IconvOptionsNo));
-        FILE_WRITING_ID3V1_ICONV_OPTIONS_TRANSLIT    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FileWritingId3v1IconvOptionsTranslit));
-        FILE_WRITING_ID3V1_ICONV_OPTIONS_IGNORE      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FileWritingId3v1IconvOptionsIgnore));
 
         /* Scanner */
         // Fill Tag Scanner
