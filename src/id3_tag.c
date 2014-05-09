@@ -1,21 +1,20 @@
-/* id3tag.c - 2001/02/16 */
-/*
- *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
- *  Copyright (C) 2001-2003  Jerome Couderc <easytag@gmail.com>
+/* EasyTAG - Tag editor for audio files
+ * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2001-2003  Jerome Couderc <easytag@gmail.com>
  *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
 #include "config.h"
@@ -67,7 +66,8 @@ static gchar *Id3tag_Rules_For_ISO_Fields (const gchar *string,
 static gchar *Id3tag_Get_Field (const ID3Frame *id3_frame,
                                 ID3_FieldID id3_fieldid);
 static ID3_TextEnc Id3tag_Set_Field (const ID3Frame *id3_frame,
-                                     ID3_FieldID id3_fieldid, gchar *string);
+                                     ID3_FieldID id3_fieldid,
+                                     const gchar *string);
 
 ID3_C_EXPORT size_t ID3Tag_Link_1         (ID3Tag *id3tag, const char *filename);
 ID3_C_EXPORT size_t ID3Field_GetASCII_1   (const ID3Field *field, char *buffer,      size_t maxChars, size_t itemNum);
@@ -1031,7 +1031,10 @@ gchar *Id3tag_Get_Field (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid)
  * - [ 1073951 ] Added missing Field Encoding functions to C wrapper
  *               http://sourceforge.net/tracker/index.php?func=detail&aid=1073951&group_id=979&atid=300979
  */
-ID3_TextEnc Id3tag_Set_Field (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid, gchar *string)
+ID3_TextEnc
+Id3tag_Set_Field (const ID3Frame *id3_frame,
+                  ID3_FieldID id3_fieldid,
+                  const gchar *string)
 {
     ID3Field *id3_field = NULL;
     ID3Field *id3_field_encoding = NULL;
@@ -1342,6 +1345,7 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
     ID3Frame *id3_frame;
     gboolean use_unicode;
     gsize bytes_written;
+    const gchar test_str[] = "\xe5\x92\xbb";
 
     /* Create a temporary file. */
     file = g_file_new_tmp ("easytagXXXXXX.mp3", &iostream, &error);
@@ -1403,10 +1407,9 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
     // Create a new 'title' field for testing
     id3_frame = ID3Frame_NewID(ID3FID_TITLE);
     ID3Tag_AttachFrame(id3_tag,id3_frame);
-    // Use a Chinese character instead of the latin-1 character as in Id3tag_Set_Field()
-    // we try to convert the string to ISO-8859-1 even in the Unicode mode.
-    //Id3tag_Set_Field(id3_frame, ID3FN_TEXT, "\303\251"); // This latin-1 character is written in Unicode as 'E9 FF' instead of 'E9 00' if bugged
-    Id3tag_Set_Field(id3_frame, ID3FN_TEXT, "\343\302\260"); // This Chinese character is written in Unicode as 'FF FE B0 FF' instead of 'FF FE B0 30' if bugged
+    /* Test a string that exposes an id3lib bug when converted to UTF-16.
+     * http://sourceforge.net/p/id3lib/patches/64/ */
+    Id3tag_Set_Field (id3_frame, ID3FN_TEXT, test_str);
 
     // Update the tag
     ID3Tag_UpdateByTagType(id3_tag,ID3TT_ID3V2);
@@ -1429,9 +1432,8 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
 
     g_object_unref (file);
 
-    // Same string found? if yes => not bugged
-    //if ( result && strcmp(result,"\303\251")!=0 )
-    if ( result && strcmp(result,"\343\302\260")!=0 )
+    /* Same string found? if yes => not buggy. */
+    if (result && strcmp (result, test_str) != 0)
     {
         return TRUE;
     }
