@@ -55,7 +55,6 @@ G_END_DECLS
 /* FIXME: Remove widget declarations when switching to GSettings. */
 /* Widgets included in config */
 /* Common */
-GtkWidget *DefaultPathToMp3;
 GtkWidget *BrowseHiddendir;
 
 /* Misc */
@@ -64,7 +63,6 @@ GtkWidget *SortingFileCaseSensitive;
 GtkWidget *FilePlayerCombo;
 
 /* Tag Settings */
-GtkWidget *FileWritingId3v2VersionCombo;
 GtkWidget *FileWritingId3v2UnicodeCharacterSetCombo;
 GtkWidget *FileWritingId3v2NoUnicodeCharacterSetCombo;
 GtkWidget *FileWritingId3v1CharacterSetCombo;

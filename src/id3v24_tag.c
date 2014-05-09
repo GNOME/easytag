@@ -154,7 +154,7 @@ gboolean Id3tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag)
                 unsigned version = id3_tag_version(tag);
 #ifdef ENABLE_ID3LIB
                 /* Besides upgrade old tags we will downgrade id3v2.4 to id3v2.3 */
-                if ( FILE_WRITING_ID3V2_VERSION_4 )
+                if (g_settings_get_boolean (MainSettings, "id3v2-version-4"))
                 {
                     update = (ID3_TAG_VERSION_MAJOR(version) < 4);
                 }else

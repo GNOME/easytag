@@ -72,8 +72,6 @@ static const gchar RENAME_DIRECTORY_MASKS_FILE[] = "rename_directory.mask";
 static const gchar PLAY_LIST_NAME_MASKS_FILE[] = "play_list_name.mask";
 // File for history of PlayListContentMaskEntry combobox
 static const gchar PLAYLIST_CONTENT_MASKS_FILE[] = "playlist_content.mask";
-// File for history of DefaultPathToMp3 combobox
-static const gchar DEFAULT_PATH_TO_MP3_HISTORY_FILE[] = "default_path_to_mp3.history";
 // File for history of BrowserEntry combobox
 static const gchar PATH_ENTRY_HISTORY_FILE[] = "browser_path.history";
 // File for history of run program combobox for directories
@@ -109,12 +107,9 @@ static gboolean Create_Easytag_Directory (void);
  ********************/
 static const tConfigVariable Config_Variables[] =
 {
-    {"default_path_to_mp3",                 CV_TYPE_STRING,  &DEFAULT_PATH_TO_MP3               },
-
     {"sorting_file_case_sensitive",          CV_TYPE_BOOL,    &SORTING_FILE_CASE_SENSITIVE              },
 
     {"file_reading_id3v1v2_character_set",             CV_TYPE_STRING,&FILE_READING_ID3V1V2_CHARACTER_SET},
-    {"file_writing_id3v2_version_4",                   CV_TYPE_BOOL,  &FILE_WRITING_ID3V2_VERSION_4   },
     {"file_writing_id3v2_unicode_character_set",       CV_TYPE_STRING,&FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET},
     {"file_writing_id3v2_no_unicode_character_set",    CV_TYPE_STRING,&FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET},
     {"file_writing_id3v1_character_set",               CV_TYPE_STRING,&FILE_WRITING_ID3V1_CHARACTER_SET},
@@ -173,21 +168,37 @@ static const tConfigVariable Config_Variables[] =
  * Functions *
  *************/
 
+static void
+check_default_path (void)
+{
+    GVariant *default_path;
+    const gchar *path;
+
+    default_path = g_settings_get_value (MainSettings, "default-path");
+    path = g_variant_get_bytestring (default_path);
+
+    if (!*path)
+    {
+        path = g_get_user_special_dir (G_USER_DIRECTORY_MUSIC);
+        g_settings_set_value (MainSettings, "default-path",
+                              g_variant_new_bytestring (path ? path
+                                                             : g_get_home_dir ()));
+    }
+
+    g_variant_unref (default_path);
+}
+
 /*
  * Define and Load default values into config variables
  */
 void Init_Config_Variables (void)
 {
-    const gchar *music_dir;
-
     MainSettings = g_settings_new ("org.gnome.EasyTAG");
 
     /*
      * Common
      */
-    music_dir = g_get_user_special_dir (G_USER_DIRECTORY_MUSIC);
-    DEFAULT_PATH_TO_MP3 = music_dir ? g_strdup (music_dir)
-                                    : g_strdup (g_get_home_dir ());
+    check_default_path ();
 
     /*
      * Misc
@@ -208,11 +219,6 @@ void Init_Config_Variables (void)
      * Tag Settings
      */
     FILE_READING_ID3V1V2_CHARACTER_SET              = g_strdup("UTF-8");
-#ifdef G_OS_WIN32
-    FILE_WRITING_ID3V2_VERSION_4                    = 0;
-#else /* !G_OS_WIN32 */
-    FILE_WRITING_ID3V2_VERSION_4                    = 1;
-#endif /* !G_OS_WIN32 */
 #ifdef G_OS_WIN32
     FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET        = g_strdup("UTF-16");
 #else /* !G_OS_WIN32 */
@@ -299,14 +305,6 @@ Apply_Changes_Of_Preferences_Window (void)
 
     if (dialog)
     {
-        /* Common */
-        if (DEFAULT_PATH_TO_MP3) g_free(DEFAULT_PATH_TO_MP3);
-        DEFAULT_PATH_TO_MP3           = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3))))); // Saved in UTF-8
-#if 0
-#ifdef G_OS_WIN32
-        ET_Win32_Path_Replace_Backslashes(DEFAULT_PATH_TO_MP3);
-#endif /* G_OS_WIN32 */
-#endif
         /* Misc */
         SORTING_FILE_CASE_SENSITIVE            = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(SortingFileCaseSensitive));
 
@@ -315,10 +313,7 @@ Apply_Changes_Of_Preferences_Window (void)
 
         /* Tag Settings */
 #ifdef ENABLE_ID3LIB
-        active = gtk_combo_box_get_active(GTK_COMBO_BOX(FileWritingId3v2VersionCombo));
-        FILE_WRITING_ID3V2_VERSION_4 = !active;
-#else
-        FILE_WRITING_ID3V2_VERSION_4 = 1;
+        g_settings_set_boolean (MainSettings, "id3v2-version-4", TRUE);
 #endif
         temp = Get_Active_Combo_Box_Item(GTK_COMBO_BOX(FileReadingId3v1v2CharacterSetCombo));
         FILE_READING_ID3V1V2_CHARACTER_SET = Charset_Get_Name_From_Title(temp);
@@ -661,7 +656,6 @@ gboolean Setting_Create_Files (void)
     check_or_create_file (SCAN_TAG_MASKS_FILE);
     check_or_create_file (RENAME_FILE_MASKS_FILE);
     check_or_create_file (RENAME_DIRECTORY_MASKS_FILE);
-    check_or_create_file (DEFAULT_PATH_TO_MP3_HISTORY_FILE);
     check_or_create_file (PATH_ENTRY_HISTORY_FILE);
     check_or_create_file (PLAY_LIST_NAME_MASKS_FILE);
     check_or_create_file (RUN_PROGRAM_WITH_DIRECTORY_HISTORY_FILE);
@@ -872,17 +866,6 @@ void Save_Rename_Directory_Masks_List (GtkListStore *liststore, gint colnum)
 
 
 
-/*
- * Functions for writing and reading list of 'DefaultPathToMp3' combobox
- */
-void Load_Default_Path_To_MP3_List (GtkListStore *liststore, gint colnum)
-{
-    Populate_List_Store_From_File(DEFAULT_PATH_TO_MP3_HISTORY_FILE, liststore, colnum);
-}
-void Save_Default_Path_To_MP3_List (GtkListStore *liststore, gint colnum)
-{
-    Save_List_Store_To_File(DEFAULT_PATH_TO_MP3_HISTORY_FILE, liststore, colnum);
-}
 
 /*
  * Functions for writing and reading list of 'BrowserEntry' combobox
@@ -1036,7 +1019,6 @@ migrate_config_file_dir (const gchar *old_path, const gchar *new_path)
                                         SCAN_TAG_MASKS_FILE,
                                         RENAME_FILE_MASKS_FILE,
                                         RENAME_DIRECTORY_MASKS_FILE,
-                                        DEFAULT_PATH_TO_MP3_HISTORY_FILE,
                                         PATH_ENTRY_HISTORY_FILE,
                                         PLAY_LIST_NAME_MASKS_FILE,
                                         RUN_PROGRAM_WITH_DIRECTORY_HISTORY_FILE,

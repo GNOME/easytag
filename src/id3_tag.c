@@ -1480,7 +1480,7 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
 gboolean Id3tag_Write_File_Tag (ET_File *ETFile)
 {
 #ifdef ENABLE_ID3LIB
-    if (FILE_WRITING_ID3V2_VERSION_4)
+    if (g_settings_get_boolean (MainSettings, "id3v2-version-4"))
         return Id3tag_Write_File_v24Tag(ETFile);
     else
         return Id3tag_Write_File_v23Tag(ETFile);

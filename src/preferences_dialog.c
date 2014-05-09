@@ -61,6 +61,7 @@ struct _EtPreferencesDialogPrivate
     GtkWidget *LabelId3v2Charset;
     GtkWidget *LabelId3v1Charset;
     GtkWidget *LabelId3v2Version;
+    GtkWidget *FileWritingId3v2VersionCombo;
     GtkWidget *FileWritingId3v2UseUnicodeCharacterSet;
     GtkWidget *FileWritingId3v2UseNoUnicodeCharacterSet;
     GtkWidget *ConvertOldId3v2TagVersion;
@@ -100,15 +101,66 @@ static void et_preferences_on_response (GtkDialog *dialog, gint response_id,
  * Functions *
  *************/
 static void
-DefaultPathToMp3_Combo_Add_String (EtPreferencesDialog *self)
+et_prefs_current_folder_changed (EtPreferencesDialog *self,
+                                 GtkFileChooser *default_path_button)
 {
-    EtPreferencesDialogPrivate *priv;
+    gchar *path;
+
+    /* The path that is currently selected, not that which is currently being
+     * displayed. */
+    path = gtk_file_chooser_get_filename (default_path_button);
+
+    if (path)
+    {
+        g_settings_set_value (MainSettings, "default-path",
+                              g_variant_new_bytestring (path));
+        g_free (path);
+    }
+}
+
+static void
+on_default_path_changed (GSettings *settings,
+                         const gchar *key,
+                         GtkFileChooserButton *default_path_button)
+{
+    GVariant *default_path;
     const gchar *path;
 
-    priv = et_preferences_dialog_get_instance_private (self);
+    default_path = g_settings_get_value (settings, "default-path");
+    path = g_variant_get_bytestring (default_path);
 
-    path = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3))));
-    Add_String_To_Combo_List(GTK_LIST_STORE(priv->default_path_model), path);
+    gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (default_path_button),
+                                         path);
+    g_variant_unref (default_path);
+}
+
+static gboolean
+et_preferences_id3v2_version_get (GValue *value,
+                                  GVariant *variant,
+                                  gpointer user_data)
+{
+    gboolean id3v24;
+
+    id3v24 = g_variant_get_boolean (variant);
+
+    g_value_set_int (value, id3v24 ? 1 : 0);
+
+    return TRUE;
+}
+
+static GVariant *
+et_preferences_id3v2_version_set (const GValue *value,
+                                  const GVariantType *variant_type,
+                                  gpointer user_data)
+{
+    GVariant *id3v24;
+    gint active_row;
+
+    active_row = g_value_get_int (value);
+
+    id3v24 = g_variant_new_boolean (active_row == 1);
+
+    return id3v24;
 }
 
 static void
@@ -195,7 +247,7 @@ create_preferences_dialog (EtPreferencesDialog *self)
     GtkWidget *FilenameExtensionNoChange;
     GtkWidget *FilenameExtensionLowerCase;
     GtkWidget *FilenameExtensionUpperCase;
-    gchar *path_utf8;
+    GtkWidget *default_path_button;
     gchar *program_path;
 
     priv = et_preferences_dialog_get_instance_private (self);
@@ -240,41 +292,30 @@ create_preferences_dialog (EtPreferencesDialog *self)
     HBox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_box_pack_start(GTK_BOX(vbox),HBox,FALSE,FALSE,0);
 
-    // Label
+    /* Label. */
     Label = gtk_label_new(_("Default directory:"));
     gtk_box_pack_start(GTK_BOX(HBox),Label,FALSE,FALSE,0);
 
-    /* Combo. */
-    priv->default_path_model = gtk_list_store_new (MISC_COMBO_COUNT,
-                                                   G_TYPE_STRING);
-
-    DefaultPathToMp3 = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(priv->default_path_model));
-    g_object_unref (priv->default_path_model);
-    gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(DefaultPathToMp3), MISC_COMBO_TEXT);
-    gtk_box_pack_start(GTK_BOX(HBox),DefaultPathToMp3,TRUE,TRUE,0);
-    gtk_widget_set_size_request(DefaultPathToMp3, 400, -1);
-    gtk_widget_set_tooltip_text(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3)),_("Specify the directory where "
-        "your files are located. This path will be loaded when EasyTAG starts without parameter."));
-    g_signal_connect_swapped (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (DefaultPathToMp3))),
-                              "activate",
-                              G_CALLBACK (DefaultPathToMp3_Combo_Add_String),
+    default_path_button = gtk_file_chooser_button_new (_("Default Browser Path"),
+                                                       GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
+    on_default_path_changed (MainSettings, "changed::default-path",
+                             GTK_FILE_CHOOSER_BUTTON (default_path_button));
+    /* Connecting to current-folder-changed does not work if the user selects
+     * a directory from the combo box list provided by the file chooser button.
+     */
+    g_signal_connect_swapped (default_path_button, "file-set",
+                              G_CALLBACK (et_prefs_current_folder_changed),
                               self);
-    //g_signal_connect(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3)))),"focus_out_event",G_CALLBACK(DefaultPathToMp3_Combo_Add_String),NULL);
-
-    // History list
-    Load_Default_Path_To_MP3_List(priv->default_path_model, MISC_COMBO_TEXT);
-    // If default path hasn't been added already, add it now..
-    path_utf8 = filename_to_display(DEFAULT_PATH_TO_MP3);
-    Add_String_To_Combo_List(priv->default_path_model, path_utf8);
-    if (path_utf8)
-        gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3))), path_utf8);
-    g_free(path_utf8);
-
-    // Button browse
-    Button = gtk_button_new_from_stock(GTK_STOCK_OPEN);
-    gtk_box_pack_start(GTK_BOX(HBox),Button,FALSE,FALSE,0);
-    g_signal_connect_swapped(G_OBJECT(Button),"clicked",
-                             G_CALLBACK(File_Selection_Window_For_Directory),G_OBJECT(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3))));
+    g_signal_connect (MainSettings, "changed::default-path",
+                      G_CALLBACK (on_default_path_changed),
+                      default_path_button);
+    gtk_box_pack_start (GTK_BOX (HBox), default_path_button, TRUE, TRUE, 0);
+    gtk_file_chooser_button_set_width_chars (GTK_FILE_CHOOSER_BUTTON (default_path_button),
+                                             30);
+    gtk_widget_set_tooltip_text (default_path_button,
+                                 _("Specify the directory where your files are"
+                                 " located. This path will be loaded when"
+                                 " EasyTAG starts without parameter."));
 
     /* Load directory on startup */
     LoadOnStartup = gtk_check_button_new_with_label(_("Load on startup the default directory or the directory passed as argument"));
@@ -838,19 +879,23 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_grid_attach (GTK_GRID (Table), priv->LabelId3v2Version, 0, 1, 2, 1);
     gtk_misc_set_alignment (GTK_MISC (priv->LabelId3v2Version), 0, 0.5);
 
-    FileWritingId3v2VersionCombo = gtk_combo_box_text_new();
-    gtk_widget_set_tooltip_text (FileWritingId3v2VersionCombo,
+    priv->FileWritingId3v2VersionCombo = gtk_combo_box_text_new ();
+    gtk_widget_set_tooltip_text (priv->FileWritingId3v2VersionCombo,
                                  _("Select the ID3v2 tag version to write:\n"
                                    " - ID3v2.3 is written using id3lib,\n"
                                    " - ID3v2.4 is written using libid3tag (recommended)."));
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(FileWritingId3v2VersionCombo), "ID3v2.4");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(FileWritingId3v2VersionCombo), "ID3v2.3");
-    gtk_combo_box_set_active(GTK_COMBO_BOX(FileWritingId3v2VersionCombo),
-        FILE_WRITING_ID3V2_VERSION_4 ? 0 : 1);
-    gtk_grid_attach (GTK_GRID (Table), FileWritingId3v2VersionCombo, 2, 1, 2,
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (priv->FileWritingId3v2VersionCombo), "ID3v2.4");
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (priv->FileWritingId3v2VersionCombo), "ID3v2.3");
+    g_settings_bind_with_mapping (MainSettings, "id3v2-version-4",
+                                  priv->FileWritingId3v2VersionCombo, "active",
+                                  G_SETTINGS_BIND_DEFAULT,
+                                  et_preferences_id3v2_version_get,
+                                  et_preferences_id3v2_version_set, self,
+                                  NULL);
+    gtk_grid_attach (GTK_GRID (Table), priv->FileWritingId3v2VersionCombo, 2, 1, 2,
                      1);
-    g_signal_connect (FileWritingId3v2VersionCombo, "changed",
-                      G_CALLBACK (id3_settings_changed), self);
+    g_signal_connect (MainSettings, "changed::id3v2-version-4",
+                      G_CALLBACK (notify_id3_settings_active), self);
 #endif
 
 
@@ -1393,7 +1438,7 @@ create_preferences_dialog (EtPreferencesDialog *self)
     // If default path hasn't been added already, add it now..
     if (CDDB_LOCAL_PATH)
     {
-        path_utf8 = filename_to_display(CDDB_LOCAL_PATH);
+        gchar *path_utf8 = filename_to_display (CDDB_LOCAL_PATH);
         Add_String_To_Combo_List(priv->cddb_local_path_model, path_utf8);
         if (path_utf8)
             gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbLocalPath))), path_utf8);
@@ -1604,8 +1649,8 @@ notify_id3_settings_active (GObject *object,
 
 #ifdef ENABLE_ID3LIB
         gtk_widget_set_sensitive (priv->LabelId3v2Version, TRUE);
-        gtk_widget_set_sensitive (FileWritingId3v2VersionCombo, TRUE);
-        if (gtk_combo_box_get_active(GTK_COMBO_BOX(FileWritingId3v2VersionCombo)) == 1)
+        gtk_widget_set_sensitive (priv->FileWritingId3v2VersionCombo, TRUE);
+        if (gtk_combo_box_get_active (GTK_COMBO_BOX (priv->FileWritingId3v2VersionCombo)) == 1)
         {
             // When "ID3v2.3" is selected
             gtk_combo_box_set_active(GTK_COMBO_BOX(FileWritingId3v2UnicodeCharacterSetCombo), 1);
@@ -1636,7 +1681,7 @@ notify_id3_settings_active (GObject *object,
         gtk_widget_set_sensitive (priv->LabelId3v2Charset, FALSE);
 #ifdef ENABLE_ID3LIB
         gtk_widget_set_sensitive (priv->LabelId3v2Version, FALSE);
-        gtk_widget_set_sensitive (FileWritingId3v2VersionCombo, FALSE);
+        gtk_widget_set_sensitive (priv->FileWritingId3v2VersionCombo, FALSE);
 #endif
         gtk_widget_set_sensitive (priv->FileWritingId3v2UseUnicodeCharacterSet, FALSE);
         gtk_widget_set_sensitive (priv->FileWritingId3v2UseNoUnicodeCharacterSet, FALSE);
@@ -1671,7 +1716,6 @@ OptionsWindow_Quit (EtPreferencesDialog *self)
 
 /*
  * Check_Config: Check if config information are correct
- * dsd: Check this... going from utf8 to raw is dodgy stuff
  *
  * Problem noted : if a character is escaped (like : 'C\351line DION') in
  *                 gtk_file_chooser it will converted to UTF-8. So after, there
@@ -1685,53 +1729,60 @@ OptionsWindow_Quit (EtPreferencesDialog *self)
 static gboolean
 Check_DefaultPathToMp3 (EtPreferencesDialog *self)
 {
-    gchar *path_utf8;
-    gchar *path_real;
+    GVariant *default_path;
+    const gchar *path_real;
     GFile *file;
     GFileInfo *fileinfo;
-    GtkWidget *msgdialog;
 
-    path_utf8 = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3)))));
-    if (!path_utf8 || g_utf8_strlen(path_utf8, -1) < 1)
+    default_path = g_settings_get_value (MainSettings, "default-path");
+    path_real = g_variant_get_bytestring (default_path);
+
+    if (!*path_real)
     {
-        g_free(path_utf8);
+        g_variant_unref (default_path);
         return TRUE;
     }
 
-    path_real = filename_from_display (path_utf8);
     file = g_file_new_for_path (path_real);
-    fileinfo = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_TYPE,
+    fileinfo = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_TYPE ","
+                                  G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
                                   G_FILE_QUERY_INFO_NONE, NULL, NULL);
+    g_variant_unref (default_path);
     g_object_unref (file);
 
     if (fileinfo)
     {
         if (g_file_info_get_file_type (fileinfo) == G_FILE_TYPE_DIRECTORY)
         {
-            g_free (path_real);
-            g_free (path_utf8);
             g_object_unref (fileinfo);
             return TRUE; /* Path is good */
+        }
+        else
+        {
+            GtkWidget *msgdialog;
+            const gchar *path_utf8;
+
+            path_utf8 = g_file_info_get_display_name (fileinfo);
+            msgdialog = gtk_message_dialog_new (GTK_WINDOW (self),
+                                                GTK_DIALOG_MODAL
+                                                | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                GTK_MESSAGE_ERROR,
+                                                GTK_BUTTONS_CLOSE,
+                                                "%s",
+                                                _("The selected path for 'Default path to files' is invalid"));
+            gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (msgdialog),
+                                                      _("Path: '%s'\nError: %s"),
+                                                      path_utf8,
+                                                      g_strerror (errno));
+            gtk_window_set_title (GTK_WINDOW (msgdialog),
+                                  _("Invalid Path Error"));
+
+            gtk_dialog_run (GTK_DIALOG (msgdialog));
+            gtk_widget_destroy (msgdialog);
         }
 
         g_object_unref (fileinfo);
     }
-
-    msgdialog = gtk_message_dialog_new (GTK_WINDOW (self),
-                                        GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                        GTK_MESSAGE_ERROR,
-                                        GTK_BUTTONS_CLOSE,
-                                        "%s",
-                                        _("The selected path for 'Default path to files' is invalid"));
-    gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (msgdialog),
-                                              _("Path: '%s'\nError: %s"),
-                                              path_utf8, g_strerror (errno));
-    gtk_window_set_title (GTK_WINDOW (msgdialog), _("Invalid Path Error"));
-
-    gtk_dialog_run (GTK_DIALOG (msgdialog));
-    gtk_widget_destroy (msgdialog);
-    g_free (path_real);
-    g_free (path_utf8);
 
     return FALSE;
 }
@@ -1865,7 +1916,6 @@ OptionsWindow_Save_Button (EtPreferencesDialog *self)
 
 #ifndef G_OS_WIN32
     /* FIXME : make gtk crash on win32 */
-    Add_String_To_Combo_List(priv->default_path_model,      gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(DefaultPathToMp3)))));
     Add_String_To_Combo_List(priv->file_player_model,       gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)))));
     Add_String_To_Combo_List(priv->cddb_local_path_model,    gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbLocalPath)))));
 #endif /* !G_OS_WIN32 */
@@ -1897,7 +1947,6 @@ et_preferences_dialog_apply_changes (EtPreferencesDialog *self)
     priv = et_preferences_dialog_get_instance_private (self);
 
     /* Save combobox history lists before exit */
-    Save_Default_Path_To_MP3_List (priv->default_path_model, MISC_COMBO_TEXT);
     Save_Audio_File_Player_List (priv->file_player_model, MISC_COMBO_TEXT);
     Save_Cddb_Local_Path_List (priv->cddb_local_path_model, MISC_COMBO_TEXT);
 }

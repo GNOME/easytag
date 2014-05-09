@@ -154,16 +154,12 @@ typedef enum
 
 GSettings *MainSettings;
 
-/* Common */
-gchar  *DEFAULT_PATH_TO_MP3;
-
 /* Misc */
 gint    SORTING_FILE_CASE_SENSITIVE;
 
 gchar  *AUDIO_FILE_PLAYER;
 
 /* Tag Settings */
-gint    FILE_WRITING_ID3V2_VERSION_4;
 gchar  *FILE_READING_ID3V1V2_CHARACTER_SET;
 
 gchar  *FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET;
@@ -246,10 +242,6 @@ void Save_Rename_File_Masks_List (GtkListStore *liststore, gint colnum);
 /* RenameDirectoryMasksList 'RenameDirectoryMaskCombo' combobox */
 void Load_Rename_Directory_Masks_List (GtkListStore *liststore, gint colnum, gchar **fallback);
 void Save_Rename_Directory_Masks_List (GtkListStore *liststore, gint colnum);
-
-/* 'DefaultPathToMp3' combobox */
-void Load_Default_Path_To_MP3_List (GtkListStore *liststore, gint colnum);
-void Save_Default_Path_To_MP3_List (GtkListStore *liststore, gint colnum);
 
 /* 'BrowserEntry' combobox */
 void Load_Path_Entry_List (GtkListStore *liststore, gint colnum);

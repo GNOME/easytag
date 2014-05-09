@@ -1012,7 +1012,6 @@ create_browser_area (EtApplicationWindow *self)
 
     /* Don't load init dir here because Tag area hasn't been yet created!.
      * It will be load at the end of the main function */
-    //Browser_Tree_Select_Dir(DEFAULT_PATH_TO_MP3);
 
     return frame;
 }

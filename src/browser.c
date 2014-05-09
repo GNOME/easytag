@@ -320,29 +320,18 @@ void
 et_browser_load_default_dir (EtBrowser *self)
 {
     GFile **files;
-    gchar *path_utf8;
-    gchar *path;
+    GVariant *default_path;
+    const gchar *path;
 
-    path_utf8 = g_strdup(DEFAULT_PATH_TO_MP3);
-    if (!path_utf8 || strlen(path_utf8)<=0)
-    {
-        g_free(path_utf8);
-        path_utf8 = g_strdup (g_get_home_dir ());
-    }
-
-    /* FIXME: only in UTF-8 if coming from the config file, when it should be
-     * in GLib filename encoding in all cases. */
-    /* 'DEFAULT_PATH_TO_MP3' is stored in UTF-8, we must convert it to the file
-     * system encoding before... */
-    path = filename_from_display(path_utf8);
+    default_path = g_settings_get_value (MainSettings, "default-path");
+    path = g_variant_get_bytestring (default_path);
 
     files = g_new (GFile *, 1);
     files[0] = g_file_new_for_path (path);
     g_application_open (g_application_get_default (), files, 1, "");
 
     g_object_unref (files[0]);
-    g_free(path);
-    g_free(path_utf8);
+    g_variant_unref (default_path);
     g_free (files);
 }
 
@@ -567,12 +556,9 @@ et_browser_set_current_path_default (EtBrowser *self)
 
     priv = et_browser_get_instance_private (self);
 
-    if (DEFAULT_PATH_TO_MP3 != NULL)
-    {
-        g_free (DEFAULT_PATH_TO_MP3);
-    }
+    g_settings_set_value (MainSettings, "default-path",
+                          g_variant_new_bytestring (priv->current_path));
 
-    DEFAULT_PATH_TO_MP3 = g_strdup (priv->current_path);
     Statusbar_Message (_("New default path for files selected"),TRUE);
 }
 
@@ -2993,7 +2979,12 @@ et_browser_reload (EtBrowser *self)
         else if (g_utf8_strlen(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->entry_combo)))), -1) > 0)
             current_path = filename_from_display(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->entry_combo)))));
         else
-            current_path = g_strdup(DEFAULT_PATH_TO_MP3);
+        {
+            GVariant *path = g_settings_get_value (MainSettings,
+                                                   "default-path");
+            current_path = g_variant_dup_bytestring (path, NULL);
+            g_variant_unref (path);
+        }
     }
 
     /* Select again the memorized path without loading files */
