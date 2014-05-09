@@ -890,9 +890,12 @@ et_get_file_size (const gchar *filename)
 gchar *
 et_disc_number_to_string (const guint disc_number)
 {
-    if (PAD_DISC_NUMBER)
+    if (g_settings_get_boolean (MainSettings, "tag-disc-padded"))
     {
-        return g_strdup_printf ("%.*d", PAD_DISC_NUMBER_DIGITS, disc_number);
+        return g_strdup_printf ("%.*d",
+                                g_settings_get_uint (MainSettings,
+                                                     "tag-disc-length"),
+                                disc_number);
     }
 
     return g_strdup_printf ("%d", disc_number);

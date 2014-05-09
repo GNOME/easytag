@@ -70,9 +70,6 @@ GtkWidget *FileWritingId3v2NoUnicodeCharacterSetCombo;
 GtkWidget *FileWritingId3v1CharacterSetCombo;
 GtkWidget *FileReadingId3v1v2CharacterSetCombo;
 
-GtkWidget *pad_disc_number;
-GtkWidget *pad_disc_number_spinbutton;
-
 /* Scanner */
 GtkWidget *FTSConvertUnderscoreAndP20IntoSpace;
 GtkWidget *FTSConvertSpaceIntoUnderscore;

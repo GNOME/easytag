@@ -111,8 +111,6 @@ static const tConfigVariable Config_Variables[] =
 {
     {"default_path_to_mp3",                 CV_TYPE_STRING,  &DEFAULT_PATH_TO_MP3               },
 
-    {"pad_disc_number", CV_TYPE_BOOL, &PAD_DISC_NUMBER },
-    {"pad_disc_number_digits", CV_TYPE_INT, &PAD_DISC_NUMBER_DIGITS },
     {"sorting_file_case_sensitive",          CV_TYPE_BOOL,    &SORTING_FILE_CASE_SENSITIVE              },
 
     {"file_reading_id3v1v2_character_set",             CV_TYPE_STRING,&FILE_READING_ID3V1V2_CHARACTER_SET},
@@ -194,8 +192,6 @@ void Init_Config_Variables (void)
     /*
      * Misc
      */
-    PAD_DISC_NUMBER = 1;
-    PAD_DISC_NUMBER_DIGITS = 1;
 #ifdef G_OS_WIN32
     SORTING_FILE_CASE_SENSITIVE             = 1;
 #else /* !G_OS_WIN32 */
@@ -312,8 +308,6 @@ Apply_Changes_Of_Preferences_Window (void)
 #endif /* G_OS_WIN32 */
 #endif
         /* Misc */
-        PAD_DISC_NUMBER = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pad_disc_number));
-        PAD_DISC_NUMBER_DIGITS = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (pad_disc_number_spinbutton));
         SORTING_FILE_CASE_SENSITIVE            = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(SortingFileCaseSensitive));
 
         if (AUDIO_FILE_PLAYER) g_free(AUDIO_FILE_PLAYER);

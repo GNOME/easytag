@@ -84,7 +84,6 @@ struct _EtPreferencesDialogPrivate
 /* Options window */
 static void Number_Track_Formatted_Spin_Button_Changed (GtkWidget *Label,
                                                         GtkWidget *SpinButton);
-static void et_prefs_on_pad_disc_number_toggled (void);
 static void et_prefs_on_pad_disc_number_spinbutton_changed (GtkWidget *label,
                                                             GtkWidget *spinbutton);
 
@@ -151,6 +150,8 @@ create_preferences_dialog (EtPreferencesDialog *self)
     GtkWidget *DateAutoCompletion;
     GtkWidget *NumberTrackFormated;
     GtkWidget *NumberTrackFormatedSpinButton;
+    GtkWidget *pad_disc_number;
+    GtkWidget *pad_disc_number_spinbutton;
     GtkWidget *SetFocusToSameTagField;
     GtkWidget *VorbisSplitFieldTitle;
     GtkWidget *VorbisSplitFieldArtist;
@@ -650,8 +651,8 @@ create_preferences_dialog (EtPreferencesDialog *self)
 
     pad_disc_number = gtk_check_button_new_with_label (_("Write the disc field with the following number of digits:"));
     gtk_box_pack_start (GTK_BOX (hbox), pad_disc_number, FALSE, FALSE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (pad_disc_number),
-                                  PAD_DISC_NUMBER);
+    g_settings_bind (MainSettings, "tag-number-padded", pad_disc_number,
+                     "active", G_SETTINGS_BIND_DEFAULT);
     gtk_widget_set_tooltip_text (pad_disc_number,
                                  _("Whether to pad the disc field with leading zeroes"));
 
@@ -659,16 +660,18 @@ create_preferences_dialog (EtPreferencesDialog *self)
                                                                  1.0);
     gtk_box_pack_start (GTK_BOX (hbox), pad_disc_number_spinbutton, FALSE,
                         FALSE, 0);
-    gtk_spin_button_set_value (GTK_SPIN_BUTTON (pad_disc_number_spinbutton),
-                               (gfloat)PAD_DISC_NUMBER_DIGITS);
-    g_signal_connect (G_OBJECT (pad_disc_number), "toggled",
-                      G_CALLBACK (et_prefs_on_pad_disc_number_toggled), NULL);
+    g_settings_bind (MainSettings, "tag-number-length",
+                     pad_disc_number_spinbutton, "value",
+                     G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (MainSettings, "tag-number-padded",
+                     pad_disc_number_spinbutton, "sensitive",
+                     G_SETTINGS_BIND_GET);
     g_signal_emit_by_name (G_OBJECT (pad_disc_number), "toggled");
 
     /* Label to show the example. */
     Label = gtk_label_new ("");
     gtk_box_pack_start (GTK_BOX (hbox), Label, FALSE, FALSE, BOX_SPACING);
-    g_signal_connect_swapped (G_OBJECT (pad_disc_number_spinbutton), "changed",
+    g_signal_connect_swapped ((pad_disc_number_spinbutton), "changed",
                               G_CALLBACK (et_prefs_on_pad_disc_number_spinbutton_changed),
                               Label);
     g_signal_emit_by_name (G_OBJECT (pad_disc_number_spinbutton), "changed");
@@ -1560,23 +1563,13 @@ Number_Track_Formatted_Spin_Button_Changed (GtkWidget *Label,
 }
 
 static void
-et_prefs_on_pad_disc_number_toggled (void)
-{
-    gtk_widget_set_sensitive (pad_disc_number_spinbutton,
-                              gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pad_disc_number)));
-    /* Update the example. */
-    g_signal_emit_by_name (G_OBJECT (pad_disc_number_spinbutton), "changed",
-                           NULL);
-}
-
-static void
 et_prefs_on_pad_disc_number_spinbutton_changed (GtkWidget *label,
                                                 GtkWidget *spinbutton)
 {
     gchar *tmp;
     guint val;
 
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pad_disc_number)))
+    if (g_settings_get_boolean (MainSettings, "tag-disc-padded"))
     {
         val = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spinbutton));
     }

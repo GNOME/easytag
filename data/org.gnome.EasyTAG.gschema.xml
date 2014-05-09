@@ -322,6 +322,21 @@
       <default>true</default>
     </key>
 
+    <key name="tag-disc-padded" type="b">
+      <summary>Pad the disc number tag field</summary>
+      <description>Whether the disc number tag field should be padded with
+      leading zeroes</description>
+      <default>true</default>
+    </key>
+
+    <key name="tag-disc-length" type="u">
+      <summary>The length of the disc number field</summary>
+      <description>The length of the disc number field, which controls if the
+      field is padded with leading zeroes</description>
+      <default>2</default>
+      <range min="0" max="6" />
+    </key>
+
     <key name="tag-number-padded" type="b">
       <summary>Pad the track number tag field</summary>
       <description>Whether the track number tag field should be padded with leading zeroes</description>
