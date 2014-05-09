@@ -1,4 +1,4 @@
-Source: https://git.gnome.org/browse/easytag/tag/?id=easytag-2.2.1
+Source: https://git.gnome.org/browse/easytag/tag/?id=easytag-2.2.2
 
 This binary was generated with GCC/MinGW on Fedora Rawhide.
 
@@ -17,21 +17,21 @@ DLLs from the following Fedora binary packages are included:
 * mingw32-libogg
 * mingw32-libpng
 * mingw32-opus
+* mingw32-opusfile
 * mingw32-pango
 * mingw32-pixman
 * mingw32-speex
+* mingw32-taglib
 * mingw32-wavpack
 * mingw32-win-iconv
 * mingw32-zlib
 
 Additional icons were taken from the gnome-icon-themes-standard package.
 
-DLLs from Additional libraries, not packaged in Fedora but available as .spec
+DLLs from additional libraries, not packaged in Fedora but available as .spec
 files, are included:
 
 * mingw32-libid3tag
-* mingw32-opusfile
-* mingw32-taglib
 
 The .spec files for the additional libraries are available at:
 

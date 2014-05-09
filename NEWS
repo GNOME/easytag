@@ -1,3 +1,16 @@
+2.2.2 - 2014-05-09 :
+====================
+
+    * Fix loading filenames from a text file
+    * Fix saving Ogg cover art without a description
+    * Fix check for broken id3lib UTF-16 writing
+    * Fix keyboard navigation to allow escaping the tag area
+    * Update ID3v1 genre list
+    * Revert asynchronous image handling changes
+    * Andreas Winkelmann’s ID3 memory leak fix
+    * Andika Triwidada’s Indonesian translation
+    * Dimitris Spingos’s Greek help translation
+
 2.2.1 - 2014-04-22 :
 ====================
 
