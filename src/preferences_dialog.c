@@ -145,6 +145,9 @@ create_preferences_dialog (EtPreferencesDialog *self)
     GtkWidget *ReplaceIllegalCharactersInFilename;
     GtkWidget *PreserveModificationTime;
     GtkWidget *UpdateParentDirectoryModificationTime;
+    GtkWidget *FilenameCharacterSetOther;
+    GtkWidget *FilenameCharacterSetApproximate;
+    GtkWidget *FilenameCharacterSetDiscard;
     GtkWidget *DateAutoCompletion;
     GtkWidget *NumberTrackFormated;
     GtkWidget *NumberTrackFormatedSpinButton;
@@ -545,7 +548,7 @@ create_preferences_dialog (EtPreferencesDialog *self)
     FilenameCharacterSetOther = gtk_radio_button_new_with_label(NULL,_("Try another "
         "character encoding"));
     gtk_grid_attach (GTK_GRID (Table), FilenameCharacterSetOther, 1, 1, 1, 1);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FilenameCharacterSetOther),FILENAME_CHARACTER_SET_OTHER);
+    gtk_widget_set_name (FilenameCharacterSetOther, "try-alternative");
     gtk_widget_set_tooltip_text(FilenameCharacterSetOther,_("With this option, it will "
         "try the conversion to the encoding associated to your locale (for example: "
         "ISO-8859-1 for 'fr', KOI8-R for 'ru', ISO-8859-2 for 'ro'). If it fails, it "
@@ -556,7 +559,7 @@ create_preferences_dialog (EtPreferencesDialog *self)
         _("Force using the system character encoding and activate the transliteration"));
     gtk_grid_attach (GTK_GRID (Table), FilenameCharacterSetApproximate, 1, 2,
                      1, 1);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FilenameCharacterSetApproximate),FILENAME_CHARACTER_SET_APPROXIMATE);
+    gtk_widget_set_name (FilenameCharacterSetApproximate, "transliterate");
     gtk_widget_set_tooltip_text(FilenameCharacterSetApproximate,_("With this option, when "
         "a character cannot be represented in the target character set, it can be "
         "approximated through one or several similarly looking characters."));
@@ -566,12 +569,29 @@ create_preferences_dialog (EtPreferencesDialog *self)
         _("Force using the system character encoding and silently discard some characters"));
     gtk_grid_attach (GTK_GRID (Table), FilenameCharacterSetDiscard, 1, 3, 1,
                      1);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FilenameCharacterSetDiscard),FILENAME_CHARACTER_SET_DISCARD);
+    gtk_widget_set_name (FilenameCharacterSetDiscard, "ignore");
     gtk_widget_set_tooltip_text(FilenameCharacterSetDiscard,_("With this option, when "
         "a character cannot be represented in the target character set, it will "
         "be silently discarded."));
 
-
+    g_settings_bind_with_mapping (MainSettings, "rename-encoding",
+                                  FilenameCharacterSetOther, "active",
+                                  G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  FilenameCharacterSetOther, NULL);
+    g_settings_bind_with_mapping (MainSettings, "rename-encoding",
+                                  FilenameCharacterSetApproximate,
+                                  "active", G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  FilenameCharacterSetApproximate, NULL);
+    g_settings_bind_with_mapping (MainSettings, "rename-encoding",
+                                  FilenameCharacterSetDiscard, "active",
+                                  G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  FilenameCharacterSetDiscard, NULL);
 
     /*
      * Tag Settings

@@ -611,13 +611,11 @@
       <default>'lower-case'</default>
     </key>
 
-    <!-- TODO: Generate enums with glib-mkenums.
     <key name="rename-encoding" enum="org.gnome.EasyTAG.EtRenameEncoding">
       <summary>Encoding options when renaming files</summary>
       <description>If the encoding of the filename does not match the filesystem encoding, choose whether to try another encoding, approximate the filesystem encoding with transliteration or discard the offending characters</description>
       <default>'try-alternative'</default>
     </key>
-    -->
 
     <key name="rename-replace-illegal-chars" type="b">
       <summary>Replace illegal characters when renaming</summary>

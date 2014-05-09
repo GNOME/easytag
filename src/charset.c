@@ -546,32 +546,44 @@ gchar *filename_from_display (const gchar *string)
         char_encoding = char_encoding+1; // Skip the '.'
     if (char_encoding)
     {
+        EtRenameEncoding enc_option = g_settings_get_enum (MainSettings,
+                                                           "rename-encoding");
         error = NULL;
 
-        if (FILENAME_CHARACTER_SET_OTHER)
+        switch (enc_option)
         {
-            ret = g_convert(string, -1, char_encoding, "UTF-8", NULL, NULL, &error);
-
-        }else if (FILENAME_CHARACTER_SET_APPROXIMATE)
-        {
-            // iconv_open (3):
-            // When the string "//TRANSLIT" is appended to tocode, transliteration
-            // is activated. This means that when a character cannot be represented
-            // in the target character set, it can be approximated through one or
-            // several similarly looking characters.
-            gchar *enc = g_strconcat(char_encoding, "//TRANSLIT", NULL);
-            ret = g_convert(string, -1, enc, "UTF-8", NULL, NULL, &error);
-            g_free(enc);
-
-        }else if (FILENAME_CHARACTER_SET_DISCARD)
-        {
-            // iconv_open (3):
-            // When the string "//IGNORE" is appended to tocode, characters that
-            // cannot be represented in the target character set will be silently
-            // discarded.
-            gchar *enc = g_strconcat(char_encoding, "//IGNORE", NULL);
-            ret = g_convert(string, -1, enc, "UTF-8", NULL, NULL, &error);
-            g_free(enc);
+            case ET_RENAME_ENCODING_TRY_ALTERNATIVE:
+                ret = g_convert (string, -1, char_encoding, "UTF-8", NULL,
+                                 NULL, &error);
+                break;
+            case ET_RENAME_ENCODING_TRANSLITERATE:
+            {
+                /* iconv_open (3):
+                 * When the string "//TRANSLIT" is appended to tocode,
+                 * transliteration is activated. This means that when a
+                 * character cannot be represented in the target character set,
+                 * it can be approximated through one or several similarly
+                 * looking characters.
+                 */
+                gchar *enc = g_strconcat (char_encoding, "//TRANSLIT", NULL);
+                ret = g_convert (string, -1, enc, "UTF-8", NULL, NULL, &error);
+                g_free (enc);
+                break;
+            }
+            case ET_RENAME_ENCODING_IGNORE:
+            {
+                /* iconv_open (3):
+                 * When the string "//IGNORE" is appended to tocode, characters
+                 * that cannot be represented in the target character set will
+                 * be silently discarded.
+                 */
+                gchar *enc = g_strconcat (char_encoding, "//IGNORE", NULL);
+                ret = g_convert (string, -1, enc, "UTF-8", NULL, NULL, &error);
+                g_free (enc);
+                break;
+            }
+            default:
+                g_assert_not_reached ();
         }
     }
 

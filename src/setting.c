@@ -115,10 +115,6 @@ static const tConfigVariable Config_Variables[] =
     {"pad_disc_number_digits", CV_TYPE_INT, &PAD_DISC_NUMBER_DIGITS },
     {"sorting_file_case_sensitive",          CV_TYPE_BOOL,    &SORTING_FILE_CASE_SENSITIVE              },
 
-    {"filename_character_set_other",                   CV_TYPE_BOOL,    &FILENAME_CHARACTER_SET_OTHER             },
-    {"filename_character_set_approximate",             CV_TYPE_BOOL,    &FILENAME_CHARACTER_SET_APPROXIMATE       },
-    {"filename_character_set_discard",                 CV_TYPE_BOOL,    &FILENAME_CHARACTER_SET_DISCARD           },
-
     {"file_reading_id3v1v2_character_set",             CV_TYPE_STRING,&FILE_READING_ID3V1V2_CHARACTER_SET},
     {"file_writing_id3v2_version_4",                   CV_TYPE_BOOL,  &FILE_WRITING_ID3V2_VERSION_4   },
     {"file_writing_id3v2_unicode_character_set",       CV_TYPE_STRING,&FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET},
@@ -223,13 +219,6 @@ void Init_Config_Variables (void)
 #else /* !G_OS_WIN32 */
     AUDIO_FILE_PLAYER                       = g_strdup("xdg-open");
 #endif /* !G_OS_WIN32 */
-
-    /*
-     * File Settings
-     */
-    FILENAME_CHARACTER_SET_OTHER                = 1;
-    FILENAME_CHARACTER_SET_APPROXIMATE          = 0;
-    FILENAME_CHARACTER_SET_DISCARD              = 0;
 
     /*
      * Tag Settings
@@ -354,11 +343,6 @@ Apply_Changes_Of_Preferences_Window (void)
 
         if (AUDIO_FILE_PLAYER) g_free(AUDIO_FILE_PLAYER);
         AUDIO_FILE_PLAYER                       = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)))));
-
-        /* File Settings */
-        FILENAME_CHARACTER_SET_OTHER              = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FilenameCharacterSetOther));
-        FILENAME_CHARACTER_SET_APPROXIMATE        = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FilenameCharacterSetApproximate));
-        FILENAME_CHARACTER_SET_DISCARD            = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FilenameCharacterSetDiscard));
 
         /* Tag Settings */
 #ifdef ENABLE_ID3LIB

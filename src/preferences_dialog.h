@@ -63,11 +63,6 @@ GtkWidget *SortingFileCaseSensitive;
 
 GtkWidget *FilePlayerCombo;
 
-/* File Settings */
-GtkWidget *FilenameCharacterSetOther;
-GtkWidget *FilenameCharacterSetApproximate;
-GtkWidget *FilenameCharacterSetDiscard;
-
 /* Tag Settings */
 GtkWidget *FileWritingId3v2VersionCombo;
 GtkWidget *FileWritingId3v2UnicodeCharacterSetCombo;
