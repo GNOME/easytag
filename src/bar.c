@@ -36,6 +36,7 @@
 #include "charset.h"
 #include "ui_manager.h"
 #include "gtk2_compat.h"
+#include "musicbrainz_dialog.h"
 
 /***************
  * Declaration *
@@ -286,7 +287,7 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
           _("Search filenames and tags"),
           G_CALLBACK (Open_Search_File_Window) },
         { AM_CDDB_SEARCH, GTK_STOCK_CDROM, _("CDD_B Search…"), "<Primary>B",
-          _("CDDB search"), G_CALLBACK (Open_Cddb_Window) },
+          _("CDDB search"), G_CALLBACK (et_open_musicbrainz_dialog) },
         { AM_FILENAME_FROM_TXT, GTK_STOCK_OPEN,
           _("Load Filenames From a Text File…"), "<Primary>T",
           _("Load filenames from a text file"),

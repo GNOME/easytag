@@ -62,6 +62,8 @@ easytag_SOURCES = \
 	src/mpeg_header.c \
 	src/mp4_tag.cc \
 	src/musepack_header.c \
+	src/musicbrainz_dialog.c \
+	src/mbentityview.c \
 	src/ogg_header.c \
 	src/ogg_tag.c \
 	src/opus_header.c \
