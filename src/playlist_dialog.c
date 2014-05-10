@@ -438,6 +438,7 @@ write_button_clicked (EtPlaylistDialog *self)
     /* Build the playlist filename. */
     if (g_settings_get_boolean (MainSettings, "playlist-use-mask"))
     {
+        EtConvertSpaces convert_mode;
 
         if (!ETCore->ETFileList)
             return;
@@ -449,21 +450,25 @@ write_button_clicked (EtPlaylistDialog *self)
         playlist_basename_utf8 = Scan_Generate_New_Filename_From_Mask(ETCore->ETFileDisplayed,temp,FALSE);
         g_free(temp);
 
-        // Replace Characters (with scanner)
-        if (RFS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE)
-        {
-            Scan_Convert_Underscore_Into_Space(playlist_basename_utf8);
-            Scan_Convert_P20_Into_Space(playlist_basename_utf8);
-        }
-        if (RFS_CONVERT_SPACE_INTO_UNDERSCORE)
-        {
-            Scan_Convert_Space_Into_Underscore (playlist_basename_utf8);
-        }
-        if (RFS_REMOVE_SPACES)
-				 {
-				    Scan_Remove_Spaces(playlist_basename_utf8);
-				 }
+        /* Replace Characters (with scanner). */
+        convert_mode = g_settings_get_flags (MainSettings,
+                                             "rename-convert-spaces");
 
+        switch (convert_mode)
+        {
+            case ET_CONVERT_SPACES_SPACES:
+                Scan_Convert_Underscore_Into_Space (playlist_basename_utf8);
+                Scan_Convert_P20_Into_Space (playlist_basename_utf8);
+                break;
+            case ET_CONVERT_SPACES_UNDERSCORES:
+                Scan_Convert_Space_Into_Underscore (playlist_basename_utf8);
+                break;
+            case ET_CONVERT_SPACES_REMOVE:
+                Scan_Remove_Spaces (playlist_basename_utf8);
+                break;
+            default:
+                g_assert_not_reached ();
+        }
     }else // PLAYLIST_USE_DIR_NAME
     {
 

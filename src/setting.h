@@ -43,6 +43,15 @@ struct _tConfigVariable
     void *pointer;              /* Pointer to our variable */
 };
 
+/* Method for processing spaces when updating tags. */
+typedef enum
+{
+    ET_CONVERT_SPACES_SPACES,
+    ET_CONVERT_SPACES_UNDERSCORES,
+    ET_CONVERT_SPACES_REMOVE,
+    ET_CONVERT_SPACES_NO_CHANGE
+} EtConvertSpaces;
+
 typedef enum
 {
     ET_FILENAME_EXTENSION_LOWER_CASE,
@@ -166,13 +175,6 @@ gchar  *FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET;
 gchar  *FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET;
 
 gchar  *FILE_WRITING_ID3V1_CHARACTER_SET;
-
-/* Scanner */
-gint    FTS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE;
-gint    FTS_CONVERT_SPACE_INTO_UNDERSCORE;
-gint    RFS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE;
-gint    RFS_CONVERT_SPACE_INTO_UNDERSCORE;
-gint    RFS_REMOVE_SPACES;
 
 /* Scanner window */
 gint    PF_CONVERT_INTO_SPACE;

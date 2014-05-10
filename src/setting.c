@@ -116,12 +116,6 @@ static const tConfigVariable Config_Variables[] =
 
     {"audio_file_player",                       CV_TYPE_STRING,&AUDIO_FILE_PLAYER                        },
 
-    {"fts_convert_underscore_and_p20_into_space",CV_TYPE_BOOL,&FTS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE },
-    {"fts_convert_space_into_underscore",        CV_TYPE_BOOL,&FTS_CONVERT_SPACE_INTO_UNDERSCORE         },
-    {"rfs_convert_underscore_and_p20_into_space",CV_TYPE_BOOL,&RFS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE },
-    {"rfs_convert_space_into_underscore",        CV_TYPE_BOOL,&RFS_CONVERT_SPACE_INTO_UNDERSCORE         },
-    {"rfs_remove_spaces",                        CV_TYPE_BOOL,&RFS_REMOVE_SPACES                         },
-
     {"pf_convert_into_space",                   CV_TYPE_BOOL,    &PF_CONVERT_INTO_SPACE                  },
     {"pf_convert_space",                        CV_TYPE_BOOL,    &PF_CONVERT_SPACE                       },
 
@@ -228,13 +222,6 @@ void Init_Config_Variables (void)
     FILE_WRITING_ID3V1_CHARACTER_SET                = g_strdup("ISO-8859-1");
 
     /*
-     * Scanner
-     */
-    FTS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE = 1;
-    FTS_CONVERT_SPACE_INTO_UNDERSCORE         = 0;
-    RFS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE = 1;
-
-    /*
      * Scanner window
      */
     PF_CONVERT_INTO_SPACE              = 1;
@@ -329,15 +316,6 @@ Apply_Changes_Of_Preferences_Window (void)
         temp = Get_Active_Combo_Box_Item(GTK_COMBO_BOX(FileWritingId3v1CharacterSetCombo));
         FILE_WRITING_ID3V1_CHARACTER_SET             = Charset_Get_Name_From_Title(temp);
         g_free(temp);
-
-        /* Scanner */
-        // Fill Tag Scanner
-        FTS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FTSConvertUnderscoreAndP20IntoSpace));
-        FTS_CONVERT_SPACE_INTO_UNDERSCORE         = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FTSConvertSpaceIntoUnderscore));
-        // Rename File Scanner
-        RFS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(RFSConvertUnderscoreAndP20IntoSpace));
-        RFS_CONVERT_SPACE_INTO_UNDERSCORE         = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(RFSConvertSpaceIntoUnderscore));
-				RFS_REMOVE_SPACES                         = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(RFSRemoveSpaces));
 
         /* CDDB */
         if (CDDB_LOCAL_PATH) g_free(CDDB_LOCAL_PATH);

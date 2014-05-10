@@ -353,6 +353,7 @@ Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask)
     guint mask_splitted_index;
     guint file_splitted_index;
     Scan_Mask_Item *mask_item;
+    EtConvertSpaces convert_mode;
 
     g_return_val_if_fail (ETFile != NULL && mask != NULL, NULL);
 
@@ -377,20 +378,26 @@ Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask)
         g_free(tmp1);
     }
 
-    // Replace characters into mask and filename before parsing
-    if (FTS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE)
-    {
-        Scan_Convert_Underscore_Into_Space(mask);
-        Scan_Convert_Underscore_Into_Space(filename_utf8);
-        Scan_Convert_P20_Into_Space(mask);
-        Scan_Convert_P20_Into_Space(filename_utf8);
-    }
-    if (FTS_CONVERT_SPACE_INTO_UNDERSCORE)
-    {
-        Scan_Convert_Space_Into_Underscore (mask);
-        Scan_Convert_Space_Into_Underscore (filename_utf8);
-    }
+    /* Replace characters into mask and filename before parsing. */
+    convert_mode = g_settings_get_enum (MainSettings, "fill-convert-spaces");
 
+    switch (convert_mode)
+    {
+        case ET_CONVERT_SPACES_SPACES:
+            Scan_Convert_Underscore_Into_Space (mask);
+            Scan_Convert_Underscore_Into_Space (filename_utf8);
+            Scan_Convert_P20_Into_Space (mask);
+            Scan_Convert_P20_Into_Space (filename_utf8);
+            break;
+        case ET_CONVERT_SPACES_UNDERSCORES:
+            Scan_Convert_Space_Into_Underscore (mask);
+            Scan_Convert_Space_Into_Underscore (filename_utf8);
+            break;
+        case ET_CONVERT_SPACES_NO_CHANGE:
+            break;
+        default:
+            g_assert_not_reached ();
+    }
 
     // Split the Scanner mask
     mask_splitted = g_strsplit(mask,G_DIR_SEPARATOR_S,0);
@@ -818,20 +825,26 @@ gchar *Scan_Generate_New_Filename_From_Mask (ET_File *ETFile, gchar *mask, gbool
             /* Do not replace characters in a playlist information field. */
             if (!no_dir_check_or_conversion)
             {
-                ET_File_Name_Convert_Character(mask_item->string);
+                EtConvertSpaces convert_mode;
 
-                if (RFS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE)
+                ET_File_Name_Convert_Character (mask_item->string);
+                convert_mode = g_settings_get_enum (MainSettings,
+                                                    "rename-convert-spaces");
+
+                switch (convert_mode)
                 {
-                    Scan_Convert_Underscore_Into_Space(mask_item->string);
-                    Scan_Convert_P20_Into_Space(mask_item->string);
-                }
-                if (RFS_CONVERT_SPACE_INTO_UNDERSCORE)
-                {
-                    Scan_Convert_Space_Into_Underscore (mask_item->string);
-                }
-                if (RFS_REMOVE_SPACES)
-                {
-                    Scan_Remove_Spaces(mask_item->string);
+                    case ET_CONVERT_SPACES_SPACES:
+                        Scan_Convert_Underscore_Into_Space (mask_item->string);
+                        Scan_Convert_P20_Into_Space (mask_item->string);
+                        break;
+                    case ET_CONVERT_SPACES_UNDERSCORES:
+                        Scan_Convert_Space_Into_Underscore (mask_item->string);
+                        break;
+                    case ET_CONVERT_SPACES_REMOVE:
+                        Scan_Remove_Spaces (mask_item->string);
+                        break;
+                    default:
+                        g_assert_not_reached ();
                 }
             }
         }else

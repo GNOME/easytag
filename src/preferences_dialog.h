@@ -68,13 +68,6 @@ GtkWidget *FileWritingId3v2NoUnicodeCharacterSetCombo;
 GtkWidget *FileWritingId3v1CharacterSetCombo;
 GtkWidget *FileReadingId3v1v2CharacterSetCombo;
 
-/* Scanner */
-GtkWidget *FTSConvertUnderscoreAndP20IntoSpace;
-GtkWidget *FTSConvertSpaceIntoUnderscore;
-GtkWidget *RFSConvertUnderscoreAndP20IntoSpace;
-GtkWidget *RFSConvertSpaceIntoUnderscore;
-GtkWidget *RFSRemoveSpaces;
-
 /* CDDB */
 GtkWidget *CddbLocalPath;
 

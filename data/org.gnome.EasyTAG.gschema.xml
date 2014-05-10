@@ -362,13 +362,11 @@
       <default>'xdg-open'</default>
     </key>
 
-    <!-- TODO: Generate enums with glib-mkenums.
     <key name="fill-convert-spaces" enum="org.gnome.EasyTAG.EtConvertSpaces">
       <summary>Convert spaces and underscores when filling tag fields</summary>
       <description>Whether to convert to spaces (and %20) or underscores when filling tag fields from filenames</description>
       <default>'spaces'</default>
     </key>
-    -->
 
     <key name="fill-overwrite-tag-fields" type="b">
       <summary>Overwrite tag field</summary>
@@ -442,13 +440,11 @@
       <default>['title','artist','album-artist','album','genre','comment','composer','original-artist','copyright','url','encoded-by']</default>
     </key>
 
-    <!-- TODO: Generate enums and flags with glib-mkenums.
     <key name="process-convert-spaces" enum="org.gnome.EasyTAG.EtConvertSpaces">
       <summary>Convert spaces and underscores in tags</summary>
       <description>Whether to convert to spaces (and %20) or underscores when processing tag fields</description>
       <default>'spaces'</default>
     </key>
-    -->
 
     <key name="process-convert-characters" type="b">
       <summary>Convert characters in tags</summary>
@@ -612,13 +608,11 @@
       <default>true</default>
     </key>
 
-    <!-- TODO: Generate enums with glib-mkenums.
     <key name="rename-convert-spaces" enum="org.gnome.EasyTAG.EtConvertSpaces">
       <summary>Convert spaces and underscores when renaming files</summary>
       <description>Whether to convert to spaces or underscores when renaming files</description>
       <default>'spaces'</default>
     </key>
-    -->
 
     <key name="rename-extension-mode" enum="org.gnome.EasyTAG.EtFilenameExtensionMode">
       <summary>How to modify filename extensions when renaming</summary>

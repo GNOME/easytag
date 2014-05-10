@@ -89,8 +89,6 @@ static void et_prefs_on_pad_disc_number_spinbutton_changed (GtkWidget *label,
                                                             GtkWidget *spinbutton);
 
 static void notify_id3_settings_active (GObject *object, GParamSpec *pspec, EtPreferencesDialog *self);
-static void Scanner_Convert_Check_Button_Toggled_1 (GtkWidget *object_rec,
-                                                    GtkWidget *object_emi);
 static void CddbLocalPath_Combo_Add_String (void);
 
 static void et_preferences_on_response (GtkDialog *dialog, gint response_id,
@@ -216,6 +214,12 @@ create_preferences_dialog (EtPreferencesDialog *self)
     GtkWidget *FileWritingId3v2WriteTag;
     GtkWidget *FileWritingId3v1WriteTag;
     GtkWidget *UseNonStandardId3ReadingCharacterSet;
+    GtkWidget *FTSConvertUnderscoreAndP20IntoSpace;
+    GtkWidget *FTSConvertSpaceIntoUnderscore;
+    GtkWidget *FTSConvertSpaceNoChange;
+    GtkWidget *RFSConvertUnderscoreAndP20IntoSpace;
+    GtkWidget *RFSConvertSpaceIntoUnderscore;
+    GtkWidget *RFSRemoveSpaces;
     GtkWidget *PFSDontUpperSomeWords;
     GtkWidget *OpenScannerWindowOnStartup;
     GtkWidget *OverwriteTagField;
@@ -1158,24 +1162,42 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
 
-    FTSConvertUnderscoreAndP20IntoSpace = gtk_check_button_new_with_label(_("Convert underscore "
-        "character '_' and string '%20' to space ' '"));
-    FTSConvertSpaceIntoUnderscore = gtk_check_button_new_with_label(_("Convert space ' ' to underscore '_'"));
+    FTSConvertUnderscoreAndP20IntoSpace = gtk_radio_button_new_with_label_from_widget (NULL,
+       _("Convert underscore character '_' and string '%20' to space ' '"));
+    gtk_widget_set_name (FTSConvertUnderscoreAndP20IntoSpace, "spaces");
+    FTSConvertSpaceIntoUnderscore = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (FTSConvertUnderscoreAndP20IntoSpace),
+                                                                                 _("Convert space ' ' to underscore '_'"));
+    gtk_widget_set_name (FTSConvertSpaceIntoUnderscore, "underscores");
+    FTSConvertSpaceNoChange = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (FTSConvertUnderscoreAndP20IntoSpace),
+                                                                           _("No conversion"));
+    gtk_widget_set_name (FTSConvertSpaceNoChange, "no-change");
     gtk_box_pack_start(GTK_BOX(vbox),FTSConvertUnderscoreAndP20IntoSpace,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(vbox),FTSConvertSpaceIntoUnderscore,      FALSE,FALSE,0);
-    g_signal_connect_swapped(G_OBJECT(FTSConvertUnderscoreAndP20IntoSpace),"toggled",
-        G_CALLBACK(Scanner_Convert_Check_Button_Toggled_1),G_OBJECT(FTSConvertSpaceIntoUnderscore));
-    g_signal_connect_swapped(G_OBJECT(FTSConvertSpaceIntoUnderscore),"toggled",
-        G_CALLBACK(Scanner_Convert_Check_Button_Toggled_1),G_OBJECT(FTSConvertUnderscoreAndP20IntoSpace));
-
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FTSConvertUnderscoreAndP20IntoSpace),
-        FTS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FTSConvertSpaceIntoUnderscore),
-        FTS_CONVERT_SPACE_INTO_UNDERSCORE);
+    gtk_box_pack_start (GTK_BOX (vbox), FTSConvertSpaceNoChange, FALSE, FALSE,
+                        0);
+    g_settings_bind_with_mapping (MainSettings, "fill-convert-spaces",
+                                  FTSConvertUnderscoreAndP20IntoSpace,
+                                  "active", G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  FTSConvertUnderscoreAndP20IntoSpace, NULL);
+    g_settings_bind_with_mapping (MainSettings, "fill-convert-spaces",
+                                  FTSConvertSpaceIntoUnderscore, "active",
+                                  G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  FTSConvertSpaceIntoUnderscore, NULL);
+    g_settings_bind_with_mapping (MainSettings, "fill-convert-spaces",
+                                  FTSConvertSpaceNoChange, "active",
+                                  G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  FTSConvertSpaceNoChange, NULL);
     gtk_widget_set_tooltip_text(FTSConvertUnderscoreAndP20IntoSpace,_("If activated, this conversion "
         "will be used when applying a mask from the scanner for tags."));
     gtk_widget_set_tooltip_text(FTSConvertSpaceIntoUnderscore,_("If activated, this conversion "
         "will be used when applying a mask from the scanner for tags."));
+    /* TODO: No change tooltip. */
 
     /* Character conversion for the 'Rename File' scanner (=> RFS...) */
     Frame = gtk_frame_new (_("Rename File Scanner - Character Conversion"));
@@ -1185,16 +1207,32 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
     RFSConvertUnderscoreAndP20IntoSpace = gtk_radio_button_new_with_label(NULL, _("Convert underscore " "character '_' and string '%20' to space ' '"));
     RFSConvertSpaceIntoUnderscore = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(RFSConvertUnderscoreAndP20IntoSpace), _("Convert space ' ' to underscore '_'"));
-		RFSRemoveSpaces = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(RFSConvertUnderscoreAndP20IntoSpace), _("Remove spaces"));
+    RFSRemoveSpaces = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (RFSConvertUnderscoreAndP20IntoSpace),
+                                                                   _("Remove spaces"));
+    gtk_widget_set_name (RFSConvertUnderscoreAndP20IntoSpace, "spaces");
+    gtk_widget_set_name (RFSConvertSpaceIntoUnderscore, "underscores");
+    gtk_widget_set_name (RFSRemoveSpaces, "remove");
     gtk_box_pack_start(GTK_BOX(vbox),RFSConvertUnderscoreAndP20IntoSpace,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(vbox),RFSConvertSpaceIntoUnderscore,      FALSE,FALSE,0);
     gtk_box_pack_start (GTK_BOX (vbox), RFSRemoveSpaces, FALSE, FALSE, 0);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(RFSConvertUnderscoreAndP20IntoSpace),
-        RFS_CONVERT_UNDERSCORE_AND_P20_INTO_SPACE);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(RFSConvertSpaceIntoUnderscore),
-        RFS_CONVERT_SPACE_INTO_UNDERSCORE);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(RFSRemoveSpaces),
-        RFS_REMOVE_SPACES);
+    g_settings_bind_with_mapping (MainSettings, "rename-convert-spaces",
+                                  RFSConvertUnderscoreAndP20IntoSpace,
+                                  "active", G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  RFSConvertUnderscoreAndP20IntoSpace, NULL);
+    g_settings_bind_with_mapping (MainSettings, "rename-convert-spaces",
+                                  RFSConvertSpaceIntoUnderscore, "active",
+                                  G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  RFSConvertSpaceIntoUnderscore, NULL);
+    g_settings_bind_with_mapping (MainSettings, "rename-convert-spaces",
+                                  RFSRemoveSpaces, "active",
+                                  G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set, RFSRemoveSpaces,
+                                  NULL);
     gtk_widget_set_tooltip_text(RFSConvertUnderscoreAndP20IntoSpace,_("If activated, this conversion "
         "will be used when applying a mask from the scanner for filenames."));
     gtk_widget_set_tooltip_text(RFSConvertSpaceIntoUnderscore,_("If activated, this conversion "
@@ -1276,11 +1314,6 @@ create_preferences_dialog (EtPreferencesDialog *self)
                      G_SETTINGS_BIND_DEFAULT);
     gtk_widget_set_tooltip_text(Crc32Comment,_("Calculates the CRC-32 value of the file "
         "and writes it into the comment field when using the 'Fill Tag' scanner."));
-    g_signal_connect_swapped(G_OBJECT(SetDefaultComment), "toggled",
-        G_CALLBACK(Scanner_Convert_Check_Button_Toggled_1),G_OBJECT(Crc32Comment));
-    g_signal_connect_swapped(G_OBJECT(Crc32Comment), "toggled",
-        G_CALLBACK(Scanner_Convert_Check_Button_Toggled_1),G_OBJECT(SetDefaultComment));
-
 
     /*
      * CDDB
@@ -1963,20 +1996,6 @@ et_preferences_dialog_show_scanner (EtPreferencesDialog *self)
     gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->options_notebook),
                                    priv->options_notebook_scanner);
     gtk_window_present (GTK_WINDOW (self));
-}
-
-/*
- * Manage Check buttons into Scanner tab: conversion group
- * This reproduces "something" like the behaviour of radio buttons with check buttons
- */
-static void
-Scanner_Convert_Check_Button_Toggled_1 (GtkWidget *object_rec,
-                                        GtkWidget *object_emi)
-{
-    g_return_if_fail (object_rec != NULL || object_emi != NULL);
-
-    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(object_emi)) == TRUE)
-        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(object_rec),!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(object_emi)));
 }
 
 static void
