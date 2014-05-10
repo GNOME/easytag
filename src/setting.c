@@ -107,7 +107,6 @@ static gboolean Create_Easytag_Directory (void);
  ********************/
 static const tConfigVariable Config_Variables[] =
 {
-    {"sorting_file_case_sensitive",          CV_TYPE_BOOL,    &SORTING_FILE_CASE_SENSITIVE              },
 
     {"file_reading_id3v1v2_character_set",             CV_TYPE_STRING,&FILE_READING_ID3V1V2_CHARACTER_SET},
     {"file_writing_id3v2_unicode_character_set",       CV_TYPE_STRING,&FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET},
@@ -198,12 +197,6 @@ void Init_Config_Variables (void)
      * Misc
      */
 #ifdef G_OS_WIN32
-    SORTING_FILE_CASE_SENSITIVE             = 1;
-#else /* !G_OS_WIN32 */
-    SORTING_FILE_CASE_SENSITIVE             = 0;
-#endif /* !G_OS_WIN32 */
-
-#ifdef G_OS_WIN32
     AUDIO_FILE_PLAYER                       = ET_Win32_Get_Audio_File_Player();
 #else /* !G_OS_WIN32 */
     AUDIO_FILE_PLAYER                       = g_strdup("xdg-open");
@@ -293,8 +286,6 @@ Apply_Changes_Of_Preferences_Window (void)
     if (dialog)
     {
         /* Misc */
-        SORTING_FILE_CASE_SENSITIVE            = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(SortingFileCaseSensitive));
-
         if (AUDIO_FILE_PLAYER) g_free(AUDIO_FILE_PLAYER);
         AUDIO_FILE_PLAYER                       = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)))));
 

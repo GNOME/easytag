@@ -53,13 +53,7 @@ void et_preferences_dialog_show_scanner (EtPreferencesDialog *self);
 G_END_DECLS
 
 /* FIXME: Remove widget declarations when switching to GSettings. */
-/* Widgets included in config */
-/* Common */
-GtkWidget *BrowseHiddendir;
-
 /* Misc */
-GtkWidget *SortingFileCaseSensitive;
-
 GtkWidget *FilePlayerCombo;
 
 /* Tag Settings */

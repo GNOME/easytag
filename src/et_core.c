@@ -1194,7 +1194,9 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Filename (ET_File *ETFile1, ET_File *ET
     gchar *file2_ck   = ((File_Name *)((GList *)ETFile2->FileNameCur)->data)->value_ck;
     // !!!! : Must be the same rules as "Cddb_Track_List_Sort_Func" to be
     // able to sort in the same order files in cddb and in the file list.
-    return SORTING_FILE_CASE_SENSITIVE ? strcmp(file1_ck,file2_ck) : strcasecmp(file1_ck,file2_ck);
+    return g_settings_get_boolean (MainSettings,
+                                   "sort-case-sensitive") ? strcmp (file1_ck, file2_ck)
+                                                          : strcasecmp (file1_ck, file2_ck);
 }
 
 /*
@@ -1361,7 +1363,7 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Title (ET_File *ETFile1, ET_File *ETFil
     if ( !ETFile2->FileTag->data || !((File_Tag *)ETFile2->FileTag->data)->title )
         return 1;
 
-    if (SORTING_FILE_CASE_SENSITIVE)
+    if (g_settings_get_boolean (MainSettings, "sort-case-sensitive"))
     {
         if ( strcmp(((File_Tag *)ETFile1->FileTag->data)->title,((File_Tag *)ETFile2->FileTag->data)->title) == 0 )
             // Second criterion
@@ -1404,7 +1406,7 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Artist (ET_File *ETFile1, ET_File *ETFi
     if ( !ETFile2->FileTag->data || !((File_Tag *)ETFile2->FileTag->data)->artist )
         return 1;
 
-    if (SORTING_FILE_CASE_SENSITIVE)
+    if (g_settings_get_boolean (MainSettings, "sort-case-sensitive"))
     {
         if ( strcmp(((File_Tag *)ETFile1->FileTag->data)->artist,((File_Tag *)ETFile2->FileTag->data)->artist) == 0 )
             // Second criterion
@@ -1446,7 +1448,7 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Album_Artist (ET_File *ETFile1, ET_File
     if ( !ETFile2->FileTag->data || !((File_Tag *)ETFile2->FileTag->data)->album_artist )
         return 1;
 
-    if (SORTING_FILE_CASE_SENSITIVE)
+    if (g_settings_get_boolean (MainSettings, "sort-case-sensitive"))
     {
         if ( strcmp(((File_Tag *)ETFile1->FileTag->data)->album_artist,((File_Tag *)ETFile2->FileTag->data)->album_artist) == 0 )
             // Second criterion
@@ -1488,7 +1490,7 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Album (ET_File *ETFile1, ET_File *ETFil
     if ( !ETFile2->FileTag->data || !((File_Tag *)ETFile2->FileTag->data)->album )
         return 1;
 
-    if (SORTING_FILE_CASE_SENSITIVE)
+    if (g_settings_get_boolean (MainSettings, "sort-case-sensitive"))
     {
         if ( strcmp(((File_Tag *)ETFile1->FileTag->data)->album,((File_Tag *)ETFile2->FileTag->data)->album) == 0 )
             // Second criterion
@@ -1563,7 +1565,7 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Genre (ET_File *ETFile1, ET_File *ETFil
     if ( !ETFile1->FileTag->data || !((File_Tag *)ETFile1->FileTag->data)->genre ) return -1;
     if ( !ETFile2->FileTag->data || !((File_Tag *)ETFile2->FileTag->data)->genre ) return 1;
 
-    if (SORTING_FILE_CASE_SENSITIVE)
+    if (g_settings_get_boolean (MainSettings, "sort-case-sensitive"))
     {
         if ( strcmp(((File_Tag *)ETFile1->FileTag->data)->genre,((File_Tag *)ETFile2->FileTag->data)->genre) == 0 )
             // Second criterion
@@ -1606,7 +1608,7 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Comment (ET_File *ETFile1, ET_File *ETF
     if ( !ETFile2->FileTag->data || !((File_Tag *)ETFile2->FileTag->data)->comment )
         return 1;
 
-    if (SORTING_FILE_CASE_SENSITIVE)
+    if (g_settings_get_boolean (MainSettings, "sort-case-sensitive"))
     {
         if ( strcmp(((File_Tag *)ETFile1->FileTag->data)->comment,((File_Tag *)ETFile2->FileTag->data)->comment) == 0 )
             // Second criterion
@@ -1649,7 +1651,7 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Composer (ET_File *ETFile1, ET_File *ET
     if ( !ETFile2->FileTag->data || !((File_Tag *)ETFile2->FileTag->data)->composer )
         return 1;
 
-    if (SORTING_FILE_CASE_SENSITIVE)
+    if (g_settings_get_boolean (MainSettings, "sort-case-sensitive"))
     {
         if ( strcmp(((File_Tag *)ETFile1->FileTag->data)->composer,((File_Tag *)ETFile2->FileTag->data)->composer) == 0 )
             // Second criterion
@@ -1692,7 +1694,7 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Orig_Artist (ET_File *ETFile1, ET_File 
     if ( !ETFile2->FileTag->data || !((File_Tag *)ETFile2->FileTag->data)->orig_artist )
         return 1;
 
-    if (SORTING_FILE_CASE_SENSITIVE)
+    if (g_settings_get_boolean (MainSettings, "sort-case-sensitive"))
     {
         if ( strcmp(((File_Tag *)ETFile1->FileTag->data)->orig_artist,((File_Tag *)ETFile2->FileTag->data)->orig_artist) == 0 )
             // Second criterion
@@ -1735,7 +1737,7 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Copyright (ET_File *ETFile1, ET_File *E
     if ( !ETFile2->FileTag->data || !((File_Tag *)ETFile2->FileTag->data)->copyright )
         return 1;
 
-    if (SORTING_FILE_CASE_SENSITIVE)
+    if (g_settings_get_boolean (MainSettings, "sort-case-sensitive"))
     {
         if ( strcmp(((File_Tag *)ETFile1->FileTag->data)->copyright,((File_Tag *)ETFile2->FileTag->data)->copyright) == 0 )
             // Second criterion
@@ -1778,7 +1780,7 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Url (ET_File *ETFile1, ET_File *ETFile2
     if ( !ETFile2->FileTag->data || !((File_Tag *)ETFile2->FileTag->data)->url )
         return 1;
 
-    if (SORTING_FILE_CASE_SENSITIVE)
+    if (g_settings_get_boolean (MainSettings, "sort-case-sensitive"))
     {
         if ( strcmp(((File_Tag *)ETFile1->FileTag->data)->url,((File_Tag *)ETFile2->FileTag->data)->url) == 0 )
             // Second criterion
@@ -1821,7 +1823,7 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Encoded_By (ET_File *ETFile1, ET_File *
     if ( !ETFile2->FileTag->data || !((File_Tag *)ETFile2->FileTag->data)->encoded_by )
         return 1;
 
-    if (SORTING_FILE_CASE_SENSITIVE)
+    if (g_settings_get_boolean (MainSettings, "sort-case-sensitive"))
     {
         if ( strcmp(((File_Tag *)ETFile1->FileTag->data)->encoded_by,((File_Tag *)ETFile2->FileTag->data)->encoded_by) == 0 )
             // Second criterion
@@ -1996,8 +1998,8 @@ static gint ET_Comp_Func_Sort_Artist_Item_By_Ascending_Artist (GList *AlbumList1
     || !(etfile2_artist = ((File_Tag *)etfile2->FileTag->data)->artist) )
         return 1;
 
-    //if (SORTING_FILE_CASE_SENSITIVE)
-    //    return strcmp(etfile1_artist,etfile2_artist);
+    /*if (g_settings_get_boolean (MainSettings, "sort-case-sensitive"))
+     *    return strcmp(etfile1_artist,etfile2_artist); */
     //else
         return strcasecmp(etfile1_artist,etfile2_artist);
 }
@@ -2022,8 +2024,8 @@ ET_Comp_Func_Sort_Album_Item_By_Ascending_Album (GList *etfilelist1,
     || !(etfile2_album  = ((File_Tag *)etfile2->FileTag->data)->album) )
         return 1;
 
-    //if (SORTING_FILE_CASE_SENSITIVE)
-    //    return strcmp(etfile1_album,etfile2_album);
+    /*if (g_settings_get_boolean (MainSettings, "sort-case-sensitive"))
+     *    return strcmp(etfile1_album,etfile2_album); */
     //else
         return strcasecmp(etfile1_album,etfile2_album);
 }

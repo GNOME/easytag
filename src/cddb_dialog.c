@@ -3745,7 +3745,9 @@ Cddb_Track_List_Sort_Func (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b,
             text2cp = g_utf8_collate_key_for_filename(text2, -1);
             // Must be the same rules as "ET_Comp_Func_Sort_File_By_Ascending_Filename" to be
             // able to sort in the same order files in cddb and in the file list.
-            ret = SORTING_FILE_CASE_SENSITIVE ? strcmp(text1cp,text2cp) : strcasecmp(text1cp,text2cp);
+            ret = g_settings_get_boolean (MainSettings,
+                                          "sort-case-sensitive") ? strcmp (text1cp, text2cp)
+                                                                 : strcasecmp (text1cp, text2cp);
 
             g_free(text1);
             g_free(text2);

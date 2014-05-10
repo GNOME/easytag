@@ -186,9 +186,11 @@ create_preferences_dialog (EtPreferencesDialog *self)
     GtkWidget *LoadOnStartup;
     GtkWidget *BrowseSubdir;
     GtkWidget *OpenSelectedBrowserNode;
+    GtkWidget *BrowseHiddendir;
     GtkWidget *ShowHeaderInfos;
     GtkWidget *ChangedFilesDisplayedToRed;
     GtkWidget *ChangedFilesDisplayedToBold;
+    GtkWidget *SortingFileCaseSensitive;
     GtkWidget *ShowLogView;
     GtkWidget *LogMaxLinesSpinButton;
     GtkWidget *ReplaceIllegalCharactersInFilename;
@@ -350,9 +352,6 @@ create_preferences_dialog (EtPreferencesDialog *self)
 
     /* Browse hidden directories */
     BrowseHiddendir = gtk_check_button_new_with_label(_("Search hidden directories"));
-#ifndef G_OS_WIN32 /* Always true and not user modifiable on win32 */
-    gtk_box_pack_start(GTK_BOX(vbox),BrowseHiddendir,FALSE,FALSE,0);
-#endif /* !G_OS_WIN32 */
     g_settings_bind (MainSettings, "browse-show-hidden", BrowseHiddendir,
                      "active", G_SETTINGS_BIND_DEFAULT);
     gtk_widget_set_tooltip_text(BrowseHiddendir,_("Search hidden directories for files "
@@ -408,15 +407,10 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
 
     SortingFileCaseSensitive = gtk_check_button_new_with_label(_("Case sensitive"));
-#ifndef G_OS_WIN32
-    /* Always true and not user modifiable on win32, as strncasecmp() does not
-     * work correctly with g_utf8_collate_key().
-     */
     gtk_container_add (GTK_CONTAINER (Frame), SortingFileCaseSensitive);
-    gtk_box_pack_start(GTK_BOX(hbox),SortingFileCaseSensitive,FALSE,FALSE,0);
-#endif /* !G_OS_WIN32 */
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SortingFileCaseSensitive),
-        SORTING_FILE_CASE_SENSITIVE);
+    g_settings_bind (MainSettings, "sort-case-sensitive",
+                     SortingFileCaseSensitive, "active",
+                     G_SETTINGS_BIND_DEFAULT);
     gtk_widget_set_tooltip_text(SortingFileCaseSensitive,_("If activated, the "
         "sorting of the list will be dependent on the case."));
 

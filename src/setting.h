@@ -164,8 +164,6 @@ typedef enum
 GSettings *MainSettings;
 
 /* Misc */
-gint    SORTING_FILE_CASE_SENSITIVE;
-
 gchar  *AUDIO_FILE_PLAYER;
 
 /* Tag Settings */
