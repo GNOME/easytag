@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkImage" id="findimage">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-find</property>
+  </object>
+  <object class="GtkImage" id="image10">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-find</property>
+  </object>
+  <object class="GtkImage" id="image11">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-stop</property>
+  </object>
   <object class="GtkImage" id="image12">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -11,6 +26,12 @@
     <property name="can_focus">False</property>
     <property name="stock">gtk-stop</property>
   </object>
+  <object class="GtkImage" id="image14">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-missing-image</property>
+    <property name="icon-size">5</property>
+  </object>
   <object class="GtkImage" id="image8">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -20,17 +41,6 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="stock">gtk-stop</property>
-  </object>
-  <object class="GtkImage" id="findimage">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-find</property>
-  </object>
-  <object class="GtkImage" id="image14">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-missing-image</property>
-    <property name="icon-size">5</property>
   </object>
   <object class="GtkImage" id="img_invert_selection">
     <property name="visible">True</property>
@@ -46,16 +56,6 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="stock">easytag-unselect-all</property>
-  </object>
-  <object class="GtkImage" id="image10">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-find</property>
-  </object>
-  <object class="GtkImage" id="image11">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-stop</property>
   </object>
   <object class="GtkDialog" id="mbDialog">
     <property name="can_focus">False</property>
@@ -531,12 +531,18 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <child>
-                                  <object class="GtkComboBoxText" id="comboboxtext1">
+                                  <object class="GtkComboBoxText" id="cmbTextSearch">
                                     <property name="width_request">131</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
+                                    <property name="has_entry">True</property>
                                     <property name="entry_text_column">0</property>
                                     <property name="id_column">1</property>
+                                    <child internal-child="entry">
+                                      <object class="GtkEntry" id="comboboxtext-entry">
+                                        <property name="can_focus">False</property>
+                                      </object>
+                                    </child>
                                   </object>
                                 </child>
                               </object>
@@ -559,7 +565,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkToolButton" id="toolbutton3">
+                              <object class="GtkToolButton" id="toolbtnDown">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">toolbutton3</property>
@@ -582,7 +588,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkToolButton" id="toolbutton5">
+                              <object class="GtkToolButton" id="toolbtnInvertSelection">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">toolbutton5</property>
@@ -595,7 +601,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkToolButton" id="toolbutton6">
+                              <object class="GtkToolButton" id="toolbtnSelectAll">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">toolbutton6</property>
@@ -608,7 +614,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkToolButton" id="toolbutton7">
+                              <object class="GtkToolButton" id="toolbtnUnselectAll">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">toolbutton7</property>
@@ -621,7 +627,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkToolButton" id="toolbutton8">
+                              <object class="GtkToolButton" id="toolbtnToggleRedLines">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">toolbutton8</property>
@@ -634,7 +640,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkToolButton" id="toolbutton9">
+                              <object class="GtkToolButton" id="toolbtnRefresh">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">toolbutton9</property>

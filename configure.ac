@@ -165,6 +165,9 @@ dnl -------------------------------
 dnl Checks for libraries.
 dnl -------------------------------
 
+dnl libmusicbrainz5
+MUSICBRAINZ_DEPS="libmusicbrainz5 >= 5.0"
+
 dnl Patch from Ben Taylor to fix a Solaris bug (for CDDB)
 AC_CHECK_LIB([socket], [recv])
 
@@ -331,7 +334,7 @@ GIO_DEPS="gio-2.0 >= 2.32.0" dnl For g_file_new_tmp()
 GLIB_DEPRECATION_FLAGS="-DGLIB_VERSION_MIN_REQUIRED=GLIB_VERSION_2_32 -DGLIB_VERSION_MAX_ALLOWED=GLIB_VERSION_2_32"
 GTK_DEPS="gtk+-3.0 >= 3.4.0"
 GTK_DEPRECATION_FLAGS="-DGDK_VERSION_MIN_REQUIRED=GDK_VERSION_3_4 -DGDK_VERSION_MAX_ALLOWED=GDK_VERSION_3_4"
-PKG_CHECK_MODULES([EASYTAG], [$GIO_DEPS $GTK_DEPS $OPUS_DEPS $OGG_DEPS $SPEEX_DEPS $FLAC_DEPS $ID3TAG_DEPS $TAGLIB_DEPS $WAVPACK_DEPS])
+PKG_CHECK_MODULES([EASYTAG], [$MUSICBRAINZ_DEPS $GIO_DEPS $GTK_DEPS $OPUS_DEPS $OGG_DEPS $SPEEX_DEPS $FLAC_DEPS $ID3TAG_DEPS $TAGLIB_DEPS $WAVPACK_DEPS])
 
 dnl Check for winsock
 AC_SEARCH_LIBS([gethostbyname], [nsl socket], [],
