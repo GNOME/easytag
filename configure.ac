@@ -145,9 +145,11 @@ dnl GTK+ libraries
 GTK_DEPS="gtk+-3.0 >= 3.2.1"
 GTK_DEPRECATION_FLAGS="-DGDK_VERSION_MIN_REQUIRED=GDK_VERSION_3_4 -DGDK_VERSION_MAX_ALLOWED=GDK_VERSION_3_4"
 
+dnl libmusicbrainz5
+libmusicbrainz_DEPS="libmusicbrainz5 >= 5.0"
+
 dnl Patch from Ben Taylor to fix a Solaris bug (for CDDB)
 AC_CHECK_LIB([socket], [recv])
-
 
 dnl ################################################
 dnl # Ogg Vorbis libraries
@@ -290,7 +292,7 @@ AS_IF([test "x$have_wavpack" != "xno"],
 
 dnl Check the pkg-config dependencies
 GIO_DEPS="gio-2.0 >= 2.32.0" dnl For g_file_new_tmp()
-PKG_CHECK_MODULES([EASYTAG], [$GIO_DEPS $GTK_DEPS $OPUS_DEPS $OGG_DEPS $SPEEX_DEPS $FLAC_DEPS $ID3TAG_DEPS $TAGLIB_DEPS $WAVPACK_DEPS])
+PKG_CHECK_MODULES([EASYTAG], [$libmusicbrainz_DEPS $GIO_DEPS $GTK_DEPS $OPUS_DEPS $OGG_DEPS $SPEEX_DEPS $FLAC_DEPS $ID3TAG_DEPS $TAGLIB_DEPS $WAVPACK_DEPS])
 
 dnl Check for winsock
 AC_SEARCH_LIBS([gethostbyname], [nsl socket], [],

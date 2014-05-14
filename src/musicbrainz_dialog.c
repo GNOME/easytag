@@ -69,7 +69,6 @@ et_open_musicbrainz_dialog ()
                         entityView, TRUE, TRUE, 2);
     gtk_box_reorder_child (GTK_BOX (gtk_builder_get_object (builder, "centralBox")),
                            entityView, 0);
-
     gtk_widget_show_all (mbDialog);
     gtk_dialog_run (GTK_DIALOG (mbDialog));
     gtk_widget_destroy (mbDialog);
