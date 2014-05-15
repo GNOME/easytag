@@ -38,9 +38,9 @@ char *columns [MB_ENTITY_TYPE_COUNT][8] = {
 
 /*
  * EtMbEntityViewPrivate:
- * @breadCrumbBox: GtkToolbar which represents the BreadCrumbWidget
+ * @breadCrumbBox: GtkBox which represents the BreadCrumbWidget
  * @treeView: GtkTreeView to display the recieved music brainz data
- * @breadCrumbNodes: Array of GNode being displayed by the GtkToggleToolButton
+ * @breadCrumbNodes: Array of GNode being displayed by the GtkToggleButton
  * @listStore: GtkTreeStore for treeView
  * @scrolledWindow: GtkScrolledWindow for treeView
  * @mbTreeRoot: Root Node of the Mb5Entity Tree
@@ -58,7 +58,7 @@ typedef struct
     GtkWidget *scrolledWindow;
     GNode *mbTreeRoot;
     GNode *mbTreeCurrentNode;
-    GtkToolItem *activeToggleButton;
+    GtkWidget *activeToggleButton;
 } EtMbEntityViewPrivate;
 
 /**************
@@ -69,14 +69,14 @@ static void
 et_mb_entity_view_class_init (EtMbEntityViewClass *klass);
 static void
 et_mb_entity_view_init (EtMbEntityView *proj_notebook);
-static GtkToolItem *
-insert_togglebtn_in_toolbar (GtkToolbar *toolbar);
+static GtkWidget *
+insert_togglebtn_in_breadcrumb (GtkBox *breadCrumb);
 static void
 add_iter_to_list_store (GtkListStore *list_store, GNode *node);
 static void
 show_data_in_entity_view (EtMbEntityView *entity_view);
 static void
-toggle_button_clicked (GtkToolButton *btn, gpointer user_data);
+toggle_button_clicked (GtkWidget *btn, gpointer user_data);
 static void
 tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
                          GtkTreeViewColumn *column, gpointer user_data);
@@ -131,17 +131,17 @@ et_mb_entity_view_class_init (EtMbEntityViewClass *klass)
 
 /*
  * insert_togglebtn_in_toolbar:
- * @toolbar: GtkToolbar in which GtkToggleToolButton will be inserted
+ * @toolbar: GtkBox in which GtkToggleToolButton will be inserted
  *
- * Returns: GtkToolItem inserted in GtkToolbar.
- * Insert a GtkToggleToolButton in GtkToolbar.
+ * Returns: GtkWidget inserted in GtkBox.
+ * Insert a GtkToggleButton in GtkBox.
  */
-static GtkToolItem *
-insert_togglebtn_in_toolbar (GtkToolbar *toolbar)
+static GtkWidget *
+insert_togglebtn_in_breadcrumb (GtkBox *breadCrumb)
 {
-    GtkToolItem *btn;
-    btn = gtk_toggle_tool_button_new ();
-    gtk_toolbar_insert (toolbar, btn, -1);
+    GtkWidget *btn;
+    btn = gtk_toggle_button_new ();
+    gtk_box_pack_start (breadCrumb, btn, FALSE, FALSE, 2);
     return btn;
 }
 
@@ -327,21 +327,22 @@ show_data_in_entity_view (EtMbEntityView *entity_view)
 
 /*
  * toggle_button_clicked:
- * @btn: The GtkToolButton clicked.
+ * @btn: The GtkToggleButton clicked.
  * @user_data: User Data passed to the handler.
  *
- * The singal handler for GtkToggleToolButton's clicked signal.
+ * The singal handler for GtkToggleButton's clicked signal.
  */
 static void
-toggle_button_clicked (GtkToolButton *btn, gpointer user_data)
+toggle_button_clicked (GtkWidget *btn, gpointer user_data)
 {
     EtMbEntityView *entity_view;
     EtMbEntityViewPrivate *priv;
+    GList *children;
 
     entity_view = ET_MB_ENTITY_VIEW (user_data);
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
 
-    if (btn == GTK_TOOL_BUTTON (priv->activeToggleButton))
+    if (btn == priv->activeToggleButton)
     {
         return;
     }
@@ -357,9 +358,9 @@ toggle_button_clicked (GtkToolButton *btn, gpointer user_data)
                                            FALSE);
     }
 
-    priv->mbTreeCurrentNode = priv->breadCrumbNodes[gtk_toolbar_get_item_index (GTK_TOOLBAR (priv->breadCrumbBox),
-                                                    GTK_TOOL_ITEM (btn))];
-    priv->activeToggleButton = GTK_TOOL_ITEM (btn);
+    children = gtk_container_get_children (GTK_CONTAINER (priv->breadCrumbBox));
+    priv->mbTreeCurrentNode = priv->breadCrumbNodes[g_list_index (children, btn)];
+    priv->activeToggleButton = btn;
     show_data_in_entity_view (entity_view);
 }
 
@@ -378,7 +379,7 @@ tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
 {
     EtMbEntityView *entity_view;
     EtMbEntityViewPrivate *priv;
-    GtkToolItem *toggle_btn;
+    GtkWidget *toggle_btn;
     int depth;
     GtkTreeIter iter;
     gchar *entity_name;
@@ -406,18 +407,12 @@ tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
         return;
     }
 
-    toggle_btn = insert_togglebtn_in_toolbar (GTK_TOOLBAR (priv->breadCrumbBox));
-    priv->breadCrumbNodes [gtk_toolbar_get_n_items (GTK_TOOLBAR (priv->breadCrumbBox)) - 1] = priv->mbTreeCurrentNode;
-
-    for (depth = gtk_toolbar_get_n_items (GTK_TOOLBAR (priv->breadCrumbBox));
-         depth < MB_ENTITY_TYPE_COUNT; depth++)
-    {
-        priv->breadCrumbNodes [depth] = NULL;
-    }
+    toggle_btn = insert_togglebtn_in_breadcrumb (GTK_BOX (priv->breadCrumbBox));
+    priv->breadCrumbNodes [g_list_length (gtk_container_get_children (GTK_CONTAINER (priv->breadCrumbBox))) - 1] = priv->mbTreeCurrentNode;
 
     if (priv->activeToggleButton)
     {
-        gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (priv->activeToggleButton),
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->activeToggleButton),
                                            FALSE);
     }
 
@@ -426,11 +421,8 @@ tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
                       G_CALLBACK (toggle_button_clicked), entity_view);
     priv->activeToggleButton = toggle_btn;
     gtk_tree_model_get_iter (priv->listStore, &iter, path);
-    /* TODO: Toggle Tool Button not setting the label */
     gtk_tree_model_get (priv->listStore, &iter, 0, &entity_name, -1);
-    printf ("entity_name %s\n", entity_name);
-    gtk_tool_button_set_label_widget (GTK_TOOL_BUTTON (toggle_btn), NULL);
-    gtk_tool_button_set_label (GTK_TOOL_BUTTON (toggle_btn), entity_name);
+    gtk_button_set_label (GTK_BUTTON (toggle_btn), entity_name);
     gtk_widget_show_all (GTK_WIDGET (priv->breadCrumbBox));
     show_data_in_entity_view (entity_view);
 }
@@ -449,7 +441,7 @@ et_mb_entity_view_init (EtMbEntityView *entity_view)
     gtk_orientable_set_orientation (GTK_ORIENTABLE (entity_view), GTK_ORIENTATION_VERTICAL);
 
     /* Adding child widgets */    
-    priv->breadCrumbBox = gtk_toolbar_new ();
+    priv->breadCrumbBox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
     priv->treeView = gtk_tree_view_new ();
     priv->scrolledWindow = gtk_scrolled_window_new (NULL, NULL);
     gtk_container_add (GTK_CONTAINER (priv->scrolledWindow), priv->treeView);
@@ -478,16 +470,38 @@ void
 et_mb_entity_view_set_tree_root (EtMbEntityView *entity_view, GNode *treeRoot)
 {
     EtMbEntityViewPrivate *priv;
-    GtkToolItem *btn;
+    GtkWidget *btn;
+    GNode *child;
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
     priv->mbTreeRoot = treeRoot;
     priv->mbTreeCurrentNode = treeRoot;
-    btn = insert_togglebtn_in_toolbar (GTK_TOOLBAR (priv->breadCrumbBox));
-    gtk_tool_button_set_label (GTK_TOOL_BUTTON (btn), "Artists");
-    priv->breadCrumbNodes [0] = treeRoot;
-    priv->activeToggleButton = btn;
-    gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (btn), TRUE);
-    show_data_in_entity_view (entity_view);
+    btn = insert_togglebtn_in_breadcrumb (GTK_BOX (priv->breadCrumbBox));
+    child = g_node_first_child (treeRoot);
+    if (child)
+    {
+        switch (((EtMbEntity *)child->data)->type)
+        {
+            case MB_ENTITY_TYPE_ARTIST:
+                gtk_button_set_label (GTK_BUTTON (btn), "Artists");
+                break;
+
+            case MB_ENTITY_TYPE_ALBUM:
+                gtk_button_set_label (GTK_BUTTON (btn), "Album");
+                break;
+
+            case MB_ENTITY_TYPE_TRACK:
+                gtk_button_set_label (GTK_BUTTON (btn), "Track");
+                break;
+
+            default:
+                break;
+        }
+
+        priv->breadCrumbNodes [0] = treeRoot;
+        priv->activeToggleButton = btn;
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (btn), TRUE);
+        show_data_in_entity_view (entity_view);
+    }
 }
 
 
