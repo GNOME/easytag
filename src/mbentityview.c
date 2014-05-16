@@ -18,7 +18,14 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
+#include <gdk/gdkkeysyms.h>
+#include <glib/gi18n.h>
+
+#include "gtk2_compat.h"
+#include "easytag.h"
 #include "mbentityview.h"
+#include "log.h"
+#include "musicbrainz_dialog.h"
 
 #define NAME_MAX_SIZE 256
 #define ET_MB_ENTITY_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), \
@@ -31,35 +38,43 @@
 
 char *columns [MB_ENTITY_TYPE_COUNT][8] = {
     {"Name", "Gender", "Type"},
-    {"Name", "Artist", "Release", "Type"},
-    {"Name", "Country", "Album", "Date", "Time", "Number"},
+    {"Name", "Artist", "Tracks", "Type"},
+    {"Name", "Album", "Artist", "Time", "Number"},
     };
 
+static GSimpleAsyncResult *async_result;
 
 /*
  * EtMbEntityViewPrivate:
- * @breadCrumbBox: GtkBox which represents the BreadCrumbWidget
- * @treeView: GtkTreeView to display the recieved music brainz data
- * @breadCrumbNodes: Array of GNode being displayed by the GtkToggleButton
- * @listStore: GtkTreeStore for treeView
- * @scrolledWindow: GtkScrolledWindow for treeView
- * @mbTreeRoot: Root Node of the Mb5Entity Tree
- * @mbTreeCurrentNode: Current node being displayed by EtMbEntityView
- * @activeToggleButton: Current active GtkToggleToolButton
+ * @bread_crumb_box: GtkBox which represents the BreadCrumbWidget
+ * @tree_view: GtkTreeView to display the recieved music brainz data
+ * @bread_crumb_nodes: Array of GNode being displayed by the GtkToggleButton
+ * @list_store: GtkTreeStore for treeView
+ * @scrolled_window: GtkScrolledWindow for treeView
+ * @mb_tree_root: Root Node of the Mb5Entity Tree
+ * @mb_tree_current_node: Current node being displayed by EtMbEntityView
+ * @active_toggle_button: Current active GtkToggleToolButton
  *
  * Private data for EtMbEntityView.
  */
 typedef struct
 {
-    GtkWidget *breadCrumbBox;
-    GNode *breadCrumbNodes[MB_ENTITY_TYPE_COUNT];
-    GtkWidget *treeView;
-    GtkTreeModel *listStore;
-    GtkWidget *scrolledWindow;
-    GNode *mbTreeRoot;
-    GNode *mbTreeCurrentNode;
-    GtkWidget *activeToggleButton;
+    GtkWidget *bread_crumb_box;
+    GNode *bread_crumb_nodes[MB_ENTITY_TYPE_COUNT];
+    GtkWidget *tree_view;
+    GtkTreeModel *list_store;
+    GtkWidget *scrolled_window;
+    GNode *mb_tree_root;
+    GNode *mb_tree_current_node;
+    GtkWidget *active_toggle_button;
 } EtMbEntityViewPrivate;
+
+typedef struct
+{
+    EtMbEntityView *entity_view;
+    GNode *child;
+    GtkTreeIter iter;
+} SearchInLevelThreadData;
 
 /**************
  * Prototypes *
@@ -93,8 +108,9 @@ tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
 GType
 et_mb_entity_view_get_type (void)
 {
+    /* TODO: Use G_DEFINE_TYPE */
     static GType et_mb_entity_view_type = 0;
-    
+
     if (!et_mb_entity_view_type)
     {
         static const GTypeInfo et_mb_entity_view_type_info = 
@@ -155,12 +171,16 @@ insert_togglebtn_in_breadcrumb (GtkBox *breadCrumb)
 static void
 add_iter_to_list_store (GtkListStore *list_store, GNode *node)
 {
-    /* Traverse node in GNode and add it to listStore */
+    /* Traverse node in GNode and add it to list_store */
     enum MB_ENTITY_TYPE type;
-    Mb5ReleaseList *release_list;
+    //Mb5ReleaseList *release_list;
     Mb5ArtistCredit artist_credit;
     Mb5NameCreditList name_list;
+    Mb5ReleaseGroup release_group;
+    Mb5ReleaseList release_list;
     int i;
+    int minutes;
+    int seconds;
     GString *gstring;
     GtkTreeIter iter;
     gchar name [NAME_MAX_SIZE];
@@ -172,9 +192,9 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
         entity = ((EtMbEntity *)node->data)->entity;
         switch (type)
         {
-            /* Following code may depend on the search code */
             case MB_ENTITY_TYPE_ARTIST:
                 mb5_artist_get_name ((Mb5Artist)entity, name, sizeof (name));
+                printf ("name %s\n", name);
                 gtk_list_store_append (list_store, &iter);
                 gtk_list_store_set (list_store, &iter,
                                     MB_ARTIST_COLUMNS_NAME, name, -1);
@@ -187,17 +207,53 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                 gtk_list_store_set (list_store, &iter,
                                     MB_ARTIST_COLUMNS_TYPE,
                                     name, -1);
+
+                if (((EtMbEntity *)node->data)->is_red_line)
+                {
+                    printf ("IS RED\n");
+                    gtk_list_store_set (list_store, &iter,
+                                        MB_ARTIST_COLUMNS_N, "red", -1);
+                }
+                else
+                {
+                    printf ("IS BLACK\n");
+                    gtk_list_store_set (list_store, &iter,
+                                        MB_ARTIST_COLUMNS_N, "black", -1);
+                }
+
                 break;
 
             case MB_ENTITY_TYPE_ALBUM:
-                mb5_releasegroup_get_title ((Mb5ReleaseGroup)entity, name, sizeof (name));
+                mb5_release_get_title ((Mb5Release)entity, name, sizeof (name));
                 gtk_list_store_append (list_store, &iter);
                 gtk_list_store_set (list_store, &iter,
-                                     MB_ALBUM_COLUMNS_NAME, name, -1);
+                                    MB_ALBUM_COLUMNS_NAME, name, -1);
 
-                artist_credit = mb5_releasegroup_get_artistcredit ((Mb5ReleaseGroup)entity);
-                name_list = mb5_artistcredit_get_namecreditlist (artist_credit);
-                gstring = g_string_new ("");
+                artist_credit = mb5_release_get_artistcredit ((Mb5Release)entity);
+
+                if (artist_credit)
+                {
+                    name_list = mb5_artistcredit_get_namecreditlist (artist_credit);
+                    gstring = g_string_new ("");
+
+                    for (i = 0; i < mb5_namecredit_list_size (name_list); i++)
+                    {
+                        Mb5NameCredit name_credit;
+                        Mb5Artist name_credit_artist;
+                        int size;
+
+                        name_credit = mb5_namecredit_list_item (name_list, i);
+                        name_credit_artist = mb5_namecredit_get_artist (name_credit);
+                        size = mb5_artist_get_name (name_credit_artist, name, sizeof (name));
+                        g_string_append_len (gstring, name, size);
+                        g_string_append_c (gstring, ' ');
+                    }
+
+                    gtk_list_store_set (list_store, &iter,
+                                        MB_ALBUM_COLUMNS_ARTIST,
+                                        gstring->str, -1);
+                    g_string_free (gstring, TRUE);
+                }
 
                 for (i = 0; i < mb5_namecredit_list_get_count (name_list); i++)
                 {
@@ -218,26 +274,77 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                                     MB_ALBUM_COLUMNS_ARTIST, gstring->str, -1);
                 g_string_free (gstring, TRUE);
 
-                release_list = mb5_releasegroup_get_releaselist ((Mb5ReleaseGroup)entity);
+                //TODO: Correct below code
+                /*release_list = mb5_release_get_releaselist ((Mb5Release)entity);
                 gtk_list_store_set (list_store, &iter,
                                     MB_ALBUM_COLUMNS_RELEASES,
                                     mb5_release_list_get_count (release_list), -1);
-                mb5_release_list_delete (release_list);
+                mb5_release_list_delete (release_list);*/
                 break;
 
             case MB_ENTITY_TYPE_TRACK:
-                mb5_recording_get_id ((Mb5Recording)entity, name, sizeof (name));
+                mb5_recording_get_title ((Mb5Recording)entity, name, sizeof (name));
                 gtk_list_store_append (list_store, &iter);
                 gtk_list_store_set (list_store, &iter,
                                     MB_TRACK_COLUMNS_NAME, name, -1);
 
                 /* TODO: Get country and number */
-                gtk_list_store_set (list_store, &iter,
-                                    MB_TRACK_COLUMNS_COUNTRY, name, -1);
+                /*gtk_list_store_set (list_store, &iter,
+                                    MB_TRACK_COLUMNS_COUNTRY, name, -1);*/
+                artist_credit = mb5_recording_get_artistcredit ((Mb5Release)entity);
+                if (artist_credit)
+                {
+                    name_list = mb5_artistcredit_get_namecreditlist (artist_credit);
+                    gstring = g_string_new ("");
 
+                    for (i = 0; i < mb5_namecredit_list_size (name_list); i++)
+                    {
+                        Mb5NameCredit name_credit;
+                        Mb5Artist name_credit_artist;
+                        int size;
+
+                        name_credit = mb5_namecredit_list_item (name_list, i);
+                        name_credit_artist = mb5_namecredit_get_artist (name_credit);
+                        size = mb5_artist_get_name (name_credit_artist, name, sizeof (name));
+                        g_string_append_len (gstring, name, size);
+                        g_string_append_c (gstring, ' ');
+                    }
+
+                    gtk_list_store_set (list_store, &iter,
+                                        MB_TRACK_COLUMNS_ARTIST,
+                                        gstring->str, -1);
+                    g_string_free (gstring, TRUE);
+                }
+
+                release_list = mb5_recording_get_releaselist ((Mb5Recording)entity);
+                if (release_list)
+                {
+                    gstring = g_string_new ("");
+                    for (i = 0; i < mb5_release_list_size (release_list); i++)
+                    {
+                        Mb5Release release;
+                        int size;
+
+                        release = mb5_release_list_item (release_list, i);
+                        size = mb5_release_get_title (release, name, sizeof (name));
+                        g_string_append_len (gstring, name, size);
+                        g_string_append_c (gstring, ' ');
+                    }
+
+                    gtk_list_store_set (list_store, &iter,
+                                        MB_TRACK_COLUMNS_ALBUM,
+                                        gstring->str, -1);
+                    g_string_free (gstring, TRUE);
+                }
+
+                minutes = mb5_recording_get_length ((Mb5Recording)entity)/60000;
+                seconds = mb5_recording_get_length ((Mb5Recording)entity)%60000;
+                i = g_snprintf (name, NAME_MAX_SIZE, "%d:%d", minutes,
+                                seconds/1000);
+                name [i] = '\0';
                 gtk_list_store_set (list_store, &iter,
                                     MB_TRACK_COLUMNS_TIME,
-                                    mb5_recording_get_length ((Mb5Recording)entity), -1);
+                                    name, -1);
                 break;
 
             case MB_ENTITY_TYPE_COUNT:
@@ -267,25 +374,25 @@ show_data_in_entity_view (EtMbEntityView *entity_view)
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
 
     /* Remove the previous List Store */
-    if (GTK_IS_LIST_STORE (priv->listStore))
+    if (GTK_IS_LIST_STORE (priv->list_store))
     {
-        gtk_list_store_clear (GTK_LIST_STORE (priv->listStore));
+        gtk_list_store_clear (GTK_LIST_STORE (priv->list_store));
     }
 
-    gtk_tree_view_set_model (GTK_TREE_VIEW (priv->treeView), NULL);
+    gtk_tree_view_set_model (GTK_TREE_VIEW (priv->tree_view), NULL);
 
     /* Remove all colums */
-    list_cols = gtk_tree_view_get_columns (GTK_TREE_VIEW (priv->treeView));
+    list_cols = gtk_tree_view_get_columns (GTK_TREE_VIEW (priv->tree_view));
     for (list = g_list_first (list_cols); list != NULL; list = g_list_next (list))
     {
-        gtk_tree_view_remove_column (GTK_TREE_VIEW (priv->treeView),
+        gtk_tree_view_remove_column (GTK_TREE_VIEW (priv->tree_view),
                                      GTK_TREE_VIEW_COLUMN (list->data));
     }
 
     g_list_free (list_cols);
 
     /* Create new List Store and add it */
-    type = ((EtMbEntity *)(g_node_first_child (priv->mbTreeCurrentNode)->data))->type;
+    type = ((EtMbEntity *)(g_node_first_child (priv->mb_tree_current_node)->data))->type;
     switch (type)
     {
         case MB_ENTITY_TYPE_ARTIST:
@@ -312,17 +419,17 @@ show_data_in_entity_view (EtMbEntityView *entity_view)
         renderer = gtk_cell_renderer_text_new ();
         column = gtk_tree_view_column_new_with_attributes (columns[type][i],
                                                            renderer, "text", i, NULL);
-        gtk_tree_view_append_column (GTK_TREE_VIEW (priv->treeView), column);
+        gtk_tree_view_append_column (GTK_TREE_VIEW (priv->tree_view), column);
     }
 
-    priv->listStore = GTK_TREE_MODEL (gtk_list_store_newv (total_cols, types));
+    priv->list_store = GTK_TREE_MODEL (gtk_list_store_newv (total_cols, types));
     g_free (types);
 
-    gtk_tree_view_set_model (GTK_TREE_VIEW (priv->treeView), priv->listStore);
-    g_object_unref (priv->listStore);
+    gtk_tree_view_set_model (GTK_TREE_VIEW (priv->tree_view), priv->list_store);
+    g_object_unref (priv->list_store);
 
-    add_iter_to_list_store (GTK_LIST_STORE (priv->listStore),
-                            g_node_first_child (priv->mbTreeCurrentNode));
+    add_iter_to_list_store (GTK_LIST_STORE (priv->list_store),
+                            g_node_first_child (priv->mb_tree_current_node));
 }
 
 /*
@@ -342,26 +449,138 @@ toggle_button_clicked (GtkWidget *btn, gpointer user_data)
     entity_view = ET_MB_ENTITY_VIEW (user_data);
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
 
-    if (btn == priv->activeToggleButton)
+    if (btn == priv->active_toggle_button)
     {
         return;
     }
 
-    if (!gtk_toggle_tool_button_get_active (GTK_TOGGLE_TOOL_BUTTON (btn)))
+    if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (btn)))
     {
         return;
     }
 
-    if (priv->activeToggleButton)
+    if (priv->active_toggle_button)
     {
-        gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (priv->activeToggleButton),
-                                           FALSE);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->active_toggle_button),
+                                      FALSE);
     }
 
-    children = gtk_container_get_children (GTK_CONTAINER (priv->breadCrumbBox));
-    priv->mbTreeCurrentNode = priv->breadCrumbNodes[g_list_index (children, btn)];
-    priv->activeToggleButton = btn;
+    children = gtk_container_get_children (GTK_CONTAINER (priv->bread_crumb_box));
+    priv->mb_tree_current_node = priv->bread_crumb_nodes[g_list_index (children, btn)];
+    priv->active_toggle_button = btn;
     show_data_in_entity_view (entity_view);
+}
+
+static void
+search_in_levels_callback (GObject *source, GAsyncResult *res,
+                           gpointer user_data)
+{
+    EtMbEntityView *entity_view;
+    EtMbEntityViewPrivate *priv;
+    GtkWidget *toggle_btn;
+    gchar *entity_name;
+    SearchInLevelThreadData *thread_data;
+    GList *children;
+    GList *active_child;
+
+    thread_data = user_data;
+    entity_view = thread_data->entity_view;
+    priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
+
+    gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
+                        0, "Retrieving Completed");
+    /* Check if child node has children or not */
+    if (!g_node_first_child (thread_data->child))
+    {
+        return;
+    }
+
+    priv->mb_tree_current_node = thread_data->child;
+    children = gtk_container_get_children (GTK_CONTAINER (priv->bread_crumb_box));
+    active_child = g_list_find (children, priv->active_toggle_button);
+    while ((active_child = g_list_next (active_child)))
+    {
+        gtk_container_remove (GTK_CONTAINER (priv->bread_crumb_box),
+                              GTK_WIDGET (active_child->data));
+    }
+
+    toggle_btn = insert_togglebtn_in_breadcrumb (GTK_BOX (priv->bread_crumb_box));
+    children = gtk_container_get_children (GTK_CONTAINER (priv->bread_crumb_box));
+    priv->bread_crumb_nodes [g_list_length (children) - 1] = thread_data->child;
+
+    if (priv->active_toggle_button)
+    {
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->active_toggle_button),
+                                      FALSE);
+    }
+
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toggle_btn), TRUE);
+    g_signal_connect (G_OBJECT (toggle_btn), "clicked",
+                      G_CALLBACK (toggle_button_clicked), entity_view);
+    priv->active_toggle_button = toggle_btn;
+    gtk_tree_model_get (priv->list_store, &thread_data->iter, 0, &entity_name,
+                        -1);
+    gtk_button_set_label (GTK_BUTTON (toggle_btn), entity_name);
+    gtk_widget_show_all (GTK_WIDGET (priv->bread_crumb_box));
+    ((EtMbEntity *)thread_data->child->data)->is_red_line = TRUE;
+    show_data_in_entity_view (entity_view);
+    g_object_unref (res);
+    g_free (thread_data);
+}
+
+static void
+search_in_levels_thread_func (GSimpleAsyncResult *res, GObject *obj,
+                              GCancellable *cancellable)
+{
+    SearchInLevelThreadData *thread_data;
+    gchar mbid [NAME_MAX_SIZE];
+    GError *error;
+    gchar *status_msg;
+    gchar parent_entity_str [NAME_MAX_SIZE];
+    gchar *child_entity_type_str;
+
+    child_entity_type_str = NULL;
+    thread_data = g_async_result_get_user_data (G_ASYNC_RESULT (res));
+
+    if (((EtMbEntity *)thread_data->child->data)->type ==
+        MB_ENTITY_TYPE_TRACK)
+    {
+        return;
+    }
+    else if (((EtMbEntity *)thread_data->child->data)->type ==
+             MB_ENTITY_TYPE_ARTIST)
+    {
+        child_entity_type_str = g_strdup ("Albums ");
+        mb5_artist_get_id (((EtMbEntity *)thread_data->child->data)->entity,
+                           mbid, sizeof (mbid));
+        mb5_artist_get_name (((EtMbEntity *)thread_data->child->data)->entity,
+                             parent_entity_str, sizeof (parent_entity_str));
+    }
+    else if (((EtMbEntity *)thread_data->child->data)->type ==
+             MB_ENTITY_TYPE_ALBUM)
+    {
+        child_entity_type_str = g_strdup ("Tracks ");
+        mb5_release_get_id (((EtMbEntity *)thread_data->child->data)->entity,
+                            mbid, sizeof (mbid));
+        mb5_release_get_title (((EtMbEntity *)thread_data->child->data)->entity,
+                               parent_entity_str, sizeof (parent_entity_str));
+    }
+
+    error = NULL;
+    status_msg = g_strconcat ("Retrieving ", child_entity_type_str, "for ",
+                              parent_entity_str, NULL);
+    et_show_status_msg_in_idle (status_msg);
+    g_free (status_msg);
+    g_free (child_entity_type_str);
+
+    if (!et_musicbrainz_search_in_entity (((EtMbEntity *)thread_data->child->data)->type + 1,
+                                          ((EtMbEntity *)thread_data->child->data)->type,
+                                          mbid, thread_data->child, &error))
+    {
+        g_simple_async_report_gerror_in_idle (NULL,
+                                              mb5_search_error_callback,
+                                              thread_data, error);
+    }
 }
 
 /*
@@ -377,54 +596,41 @@ static void
 tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
                          GtkTreeViewColumn *column, gpointer user_data)
 {
+    /* TODO: Add Cancellable object */
+    SearchInLevelThreadData *thread_data;
     EtMbEntityView *entity_view;
     EtMbEntityViewPrivate *priv;
-    GtkWidget *toggle_btn;
+    GNode *child;
     int depth;
     GtkTreeIter iter;
-    gchar *entity_name;
-    GNode *child;
 
     entity_view = ET_MB_ENTITY_VIEW (user_data);
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
+    gtk_tree_model_get_iter (priv->list_store, &iter, path);
+    depth = 0;
 
-    /* Depth is 1-based */
-    depth = gtk_tree_path_get_depth (path);
-    child = g_node_nth_child (priv->mbTreeCurrentNode,
-                              depth - 1);
-
-    /* Check if child node has children or not */
-    if (!g_node_first_child (child))
+    while (gtk_tree_model_iter_previous (priv->list_store, &iter))
     {
-        return;
+        depth++;
     }
 
-    priv->mbTreeCurrentNode = child;
+    printf ("depth %d\n", depth);
+    child = g_node_nth_child (priv->mb_tree_current_node,
+                              depth);
 
-    if (((EtMbEntity *)(priv->mbTreeCurrentNode->data))->type ==
-        MB_ENTITY_TYPE_TRACK)
-    {
-        return;
-    }
-
-    toggle_btn = insert_togglebtn_in_breadcrumb (GTK_BOX (priv->breadCrumbBox));
-    priv->breadCrumbNodes [g_list_length (gtk_container_get_children (GTK_CONTAINER (priv->breadCrumbBox))) - 1] = priv->mbTreeCurrentNode;
-
-    if (priv->activeToggleButton)
-    {
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->activeToggleButton),
-                                           FALSE);
-    }
-
-    gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (toggle_btn), TRUE);
-    g_signal_connect (G_OBJECT (toggle_btn), "clicked",
-                      G_CALLBACK (toggle_button_clicked), entity_view);
-    priv->activeToggleButton = toggle_btn;
-    gtk_tree_model_get_iter (priv->listStore, &iter, path);
-    gtk_tree_model_get (priv->listStore, &iter, 0, &entity_name, -1);
-    gtk_button_set_label (GTK_BUTTON (toggle_btn), entity_name);
-    gtk_widget_show_all (GTK_WIDGET (priv->breadCrumbBox));
-    show_data_in_entity_view (entity_view);
+    thread_data = g_malloc (sizeof (SearchInLevelThreadData));
+    thread_data->entity_view = ET_MB_ENTITY_VIEW (user_data);
+    thread_data->child = child;
+    gtk_tree_model_get_iter (priv->list_store, &thread_data->iter, path);
+    gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
+                        0, "Starting MusicBrainz Search");
+    async_result = g_simple_async_result_new (NULL,
+                                              search_in_levels_callback,
+                                              thread_data,
+                                              tree_view_row_activated);
+    g_simple_async_result_run_in_thread (async_result,
+                                         search_in_levels_thread_func,
+                                         0, NULL);
 }
 
 /*
@@ -438,24 +644,26 @@ et_mb_entity_view_init (EtMbEntityView *entity_view)
 {
     EtMbEntityViewPrivate *priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
 
-    gtk_orientable_set_orientation (GTK_ORIENTABLE (entity_view), GTK_ORIENTATION_VERTICAL);
+    gtk_orientable_set_orientation (GTK_ORIENTABLE (entity_view),
+                                    GTK_ORIENTATION_VERTICAL);
 
     /* Adding child widgets */
-    priv->breadCrumbBox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
-    priv->treeView = gtk_tree_view_new ();
-    priv->scrolledWindow = gtk_scrolled_window_new (NULL, NULL);
-    gtk_container_add (GTK_CONTAINER (priv->scrolledWindow), priv->treeView);
-    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->scrolledWindow),
+    priv->bread_crumb_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
+    priv->tree_view = gtk_tree_view_new ();
+    priv->scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    gtk_container_add (GTK_CONTAINER (priv->scrolled_window),
+                       priv->tree_view);
+    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->scrolled_window),
                                     GTK_POLICY_ALWAYS, GTK_POLICY_ALWAYS);
-    gtk_box_pack_start (GTK_BOX (entity_view), priv->breadCrumbBox,
+    gtk_box_pack_start (GTK_BOX (entity_view), priv->bread_crumb_box,
                         FALSE, FALSE, 2);
-    gtk_box_pack_start (GTK_BOX (entity_view), priv->scrolledWindow,
+    gtk_box_pack_start (GTK_BOX (entity_view), priv->scrolled_window,
                         TRUE, TRUE, 2);
-    priv->mbTreeRoot = NULL;
-    priv->mbTreeCurrentNode = NULL;
-    priv->activeToggleButton = NULL;
+    priv->mb_tree_root = NULL;
+    priv->mb_tree_current_node = NULL;
+    priv->active_toggle_button = NULL;
 
-    g_signal_connect (G_OBJECT (priv->treeView), "row-activated",
+    g_signal_connect (G_OBJECT (priv->tree_view), "row-activated",
                       G_CALLBACK (tree_view_row_activated), entity_view);
 }
 
@@ -473,9 +681,9 @@ et_mb_entity_view_set_tree_root (EtMbEntityView *entity_view, GNode *treeRoot)
     GtkWidget *btn;
     GNode *child;
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
-    priv->mbTreeRoot = treeRoot;
-    priv->mbTreeCurrentNode = treeRoot;
-    btn = insert_togglebtn_in_breadcrumb (GTK_BOX (priv->breadCrumbBox));
+    priv->mb_tree_root = treeRoot;
+    priv->mb_tree_current_node = treeRoot;
+    btn = insert_togglebtn_in_breadcrumb (GTK_BOX (priv->bread_crumb_box));
     child = g_node_first_child (treeRoot);
     if (child)
     {
@@ -497,10 +705,13 @@ et_mb_entity_view_set_tree_root (EtMbEntityView *entity_view, GNode *treeRoot)
                 break;
         }
 
-        priv->breadCrumbNodes [0] = treeRoot;
-        priv->activeToggleButton = btn;
+        priv->bread_crumb_nodes [0] = treeRoot;
+        priv->active_toggle_button = btn;
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (btn), TRUE);
+        gtk_widget_show_all (priv->bread_crumb_box);
         show_data_in_entity_view (entity_view);
+        g_signal_connect (G_OBJECT (btn), "clicked",
+                          G_CALLBACK (toggle_button_clicked), entity_view);
     }
 }
 

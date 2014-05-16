@@ -66,11 +66,13 @@
       <object class="GtkBox" id="dialog-vbox1">
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
         <child internal-child="action_area">
           <object class="GtkButtonBox" id="dialog-action_area1">
             <property name="can_focus">False</property>
             <property name="layout_style">end</property>
+            <child>
+              <placeholder/>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -239,9 +241,15 @@
                               <object class="GtkComboBoxText" id="cbManualSearch">
                                 <property name="width_request">240</property>
                                 <property name="visible">True</property>
-                                <property name="can_focus">False</property>
+                                <property name="can_focus">True</property>
+                                <property name="has_entry">True</property>
                                 <property name="entry_text_column">0</property>
                                 <property name="id_column">1</property>
+                                <child internal-child="entry">
+                                  <object class="GtkEntry" id="combobox-entry">
+                                    <property name="can_focus">True</property>
+                                  </object>
+                                </child>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -263,7 +271,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkComboBox" id="cbManualSearchIn">
+                              <object class="GtkComboBoxText" id="cbManualSearchIn">
                                 <property name="width_request">120</property>
                                 <property name="height_request">26</property>
                                 <property name="visible">True</property>
@@ -319,6 +327,7 @@
                   <object class="GtkLabel" id="label13">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="margin_right">1</property>
                     <property name="label" translatable="yes">Manual Search</property>
                   </object>
                   <packing>
@@ -730,7 +739,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkStatusbar" id="statusbar1">
+              <object class="GtkStatusbar" id="statusbar">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="spacing">2</property>
