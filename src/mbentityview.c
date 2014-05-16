@@ -190,12 +190,12 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                 break;
 
             case MB_ENTITY_TYPE_ALBUM:
-                mb5_releasegroup_get_title ((Mb5ReleaseGroup)entity, name, sizeof (name));
+                mb5_release_get_title ((Mb5Release)entity, name, sizeof (name));
                 gtk_list_store_append (list_store, &iter);
                 gtk_list_store_set (list_store, &iter, 
-                                     MB_ALBUM_COLUMNS_NAME, name, -1);
+                                    MB_ALBUM_COLUMNS_NAME, name, -1);
 
-                artist_credit = mb5_releasegroup_get_artistcredit ((Mb5ReleaseGroup)entity);
+                artist_credit = mb5_release_get_artistcredit ((Mb5Release)entity);
                 name_list = mb5_artistcredit_get_namecreditlist (artist_credit);
                 gstring = g_string_new ("");
 
@@ -218,11 +218,12 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                                     MB_ALBUM_COLUMNS_ARTIST, gstring->str, -1);
                 g_string_free (gstring, TRUE);
 
-                release_list = mb5_releasegroup_get_releaselist ((Mb5ReleaseGroup)entity);
+                //TODO: Correct below code
+                /*release_list = mb5_release_get_releaselist ((Mb5Release)entity);
                 gtk_list_store_set (list_store, &iter,
                                     MB_ALBUM_COLUMNS_RELEASES,
                                     mb5_release_list_get_count (release_list), -1);
-                mb5_release_list_delete (release_list);
+                mb5_release_list_delete (release_list);*/
                 break;
 
             case MB_ENTITY_TYPE_TRACK:
