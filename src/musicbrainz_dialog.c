@@ -61,12 +61,16 @@ et_open_musicbrainz_dialog ()
 {
     entityView = et_mb_entity_view_new ();
     builder = gtk_builder_new ();
-    gtk_builder_add_from_file (builder, "data/musicbrainz_dialog.glade", NULL);
+    /* TODO: Check the error. */
+    gtk_builder_add_from_resource (builder,
+                                   "/org/gnome/EasyTAG/musicbrainz_dialog.ui",
+                                   NULL);
 
     mbDialog = GTK_WIDGET (gtk_builder_get_object (builder, "mbDialog"));
 
     gtk_box_pack_start (GTK_BOX (gtk_builder_get_object (builder, "centralBox")),
                         entityView, TRUE, TRUE, 2);
+    /* FIXME: This should not be needed. */
     gtk_box_reorder_child (GTK_BOX (gtk_builder_get_object (builder, "centralBox")),
                            entityView, 0);
     gtk_widget_show_all (mbDialog);

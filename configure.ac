@@ -40,6 +40,8 @@ AC_PROG_CXXCPP
 AC_PROG_SED
 PKG_PROG_PKG_CONFIG([0.24])
 
+AC_SUBST([GLIB_COMPILE_RESOURCES], [`$PKG_CONFIG --variable glib_compile_resources gio-2.0`])
+
 dnl Man page, generated with xsltproc from DocBook XML.
 AC_ARG_ENABLE([man],
     [AS_HELP_STRING([--disable-man], [Disable building the man page])])

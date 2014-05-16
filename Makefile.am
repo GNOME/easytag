@@ -17,6 +17,9 @@ SUBDIRS = help po
 
 bin_PROGRAMS = easytag
 
+BUILT_SOURCES = \
+	$(nodist_easytag_SOURCES)
+
 localedir = $(prefix)/$(DATADIRNAME)/locale
 easytag_CPPFLAGS = \
 	-I$(top_srcdir) \
@@ -78,6 +81,9 @@ easytag_SOURCES = \
 	src/wavpack_tag.c \
 	src/win32/win32dep.c
 
+nodist_easytag_SOURCES = \
+	src/resource.c
+
 easytag_headers = \
 	src/id3lib/id3_bugfix.h \
 	src/libapetag/apetaglib.h \
@@ -122,10 +128,19 @@ easytag_headers = \
 	src/wavpack_tag.h \
 	src/win32/win32dep.h
 
+nodist_easytag_headers = \
+	src/resource.h
+
 easytag_LDADD = \
 	$(EASYTAG_LIBS) \
 	$(ID3LIB_LIBS) \
 	$(easytag_rc)
+
+noinst_resource_files = \
+	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir=$(srcdir)/data $(srcdir)/data/org.gnome.EasyTAG.gresource.xml)
+
+src/resource.c src/resource.h: data/org.gnome.EasyTAG.gresource.xml Makefile $(noinst_resource_files)
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir)/data --generate $<
 
 if WINDOWS_HOST
 ICONDIR = $(srcdir)/data/icons/win32
@@ -247,6 +262,8 @@ dist_noinst_DATA = \
 	$(appdata_in_files) \
 	$(desktop_in_files) \
 	$(easytag_headers) \
+	data/org.gnome.EasyTAG.gresource.xml \
+	$(noinst_resource_files) \
 	src/id3lib/patch_id3lib_3.8.3_UTF16_writing_bug.diff \
 	src/libapetag/COPYING.LGPL \
 	src/libapetag/README.apetag \
@@ -346,7 +363,9 @@ CLEANFILES = \
 	$(nodist_man_MANS) \
 	*.log \
 	easytag-$(PACKAGE_VERSION)-setup.exe \
-	easytag-win32-installer.nsi
+	easytag-win32-installer.nsi \
+	src/resource.c \
+	src/resource.h
 
 DISTCLEANFILES = \
 	po/.intltool-merge-cache
