@@ -107,12 +107,14 @@ easytag_headers = \
 	src/gtk2_compat.h \
 	src/id3_tag.h \
 	src/log.h \
+	src/mbentityview.h \
 	src/misc.h \
 	src/monkeyaudio_header.h \
 	src/mpeg_header.h \
 	src/mp4_header.h \
 	src/mp4_tag.h \
 	src/musepack_header.h \
+	src/musicbrainz_dialog.h \
 	src/ogg_header.h \
 	src/ogg_tag.h \
 	src/opus_header.h \

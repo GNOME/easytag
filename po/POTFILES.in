@@ -1,5 +1,6 @@
 data/easytag.appdata.xml.in
 data/easytag.desktop.in
+[type: gettext/glade]data/musicbrainz_dialog.ui
 src/about.c
 src/ape_tag.c
 src/application.c
