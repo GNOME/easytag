@@ -27,6 +27,40 @@
 #define SEARCH_LIMIT_STR "5"
 #define SEARCH_LIMIT_INT 5
 
+/****************
+ * Declarations *
+ ****************/
+
+GCancellable *cancellable;
+
+/*
+ * Error domain and codes for errors while reading/writing Opus files
+ */
+GQuark et_mb5_search_error_quark (void);
+
+#define ET_MB5_SEARCH_ERROR et_mb5_search_error_quark ()
+
+/*
+ * EtMB5SearchError:
+ * @ET_MB5_SEARCH_ERROR_CONNECTION: Connection Error
+ * @ET_MB5_SEARCH_ERROR_TIMEOUT: Timeout reached while communicating
+ * @ET_MB5_SEARCH_ERROR_AUTHENTICATION: Server Authentication not matched
+ * @ET_MB5_SEARCH_ERROR_FETCH: Cannot Fetch Data
+ * @ET_MB5_SEARCH_ERROR_REQUEST: Request to MusicBrainz Server cannot be made
+ * @ET_MB5_SEARCH_ERROR_RESOURCE_NOT_FOUND: Resource user is trying to search is not found
+ *
+ * Errors while searching MusicBrainz Server.
+ */
+typedef enum
+{
+    ET_MB5_SEARCH_ERROR_CONNECTION,
+    ET_MB5_SEARCH_ERROR_TIMEOUT,
+    ET_MB5_SEARCH_ERROR_AUTHENTICATION,
+    ET_MB5_SEARCH_ERROR_FETCH,
+    ET_MB5_SEARCH_ERROR_REQUEST,
+    ET_MB5_SEARCH_ERROR_RESOURCE_NOT_FOUND,
+} EtMB5SearchError;
+
 enum MB_ENTITY_TYPE
 {
     MB_ENTITY_TYPE_ARTIST = 0,
@@ -45,12 +79,14 @@ typedef struct
  * Prototypes *
  **************/
 
-void
+gboolean
 et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                                  enum MB_ENTITY_TYPE parent_type,
-                                 gchar *parent_mbid, GNode *root);
-void
-et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root);
+                                 gchar *parent_mbid, GNode *root,
+                                 GError **error);
+gboolean
+et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
+                       GError **error);
 void
 free_mb_tree (GNode *node);
 #endif /* __MB_SEARCH_H__ */

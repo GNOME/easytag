@@ -21,6 +21,19 @@
 #include "mb_search.h"
 
 /*
+ * et_mb5_search_error_quark:
+ *
+ * To get EtMB5SearchError domain.
+ *
+ * Returns: GQuark for EtMB5SearchError domain
+ */
+GQuark
+et_mb5_search_error_quark (void)
+{
+    return g_quark_from_static_string ("et-mb5-search-error-quark");
+}
+
+/*
  * et_musicbrainz_search_in_entity:
  * @string:
  * @child_type:
@@ -30,16 +43,16 @@
  *
  *
  */
-void
+gboolean
 et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                                  enum MB_ENTITY_TYPE parent_type,
-                                 gchar *parent_mbid, GNode *root)
+                                 gchar *parent_mbid, GNode *root,
+                                 GError **error)
 {
     Mb5Query query;
     Mb5Metadata metadata;
     char error_message[256];
     tQueryResult result;
-    //int httpcode;
     char *param_values[1];
     char *param_names[1];
 
@@ -53,7 +66,7 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
         metadata = mb5_query_query (query, "artist", parent_mbid, "", 1, param_names,
                                     param_values);
         result = mb5_query_get_lastresult (query);
-        //httpcode = mb5_query_get_lasthttpcode (query);
+
         if (result == eQuery_Success)
         {
             if (metadata)
@@ -77,7 +90,6 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                         entity->type = MB_ENTITY_TYPE_ALBUM;
                         node = g_node_new (entity);
                         g_node_append (root, node);
-                        printf ("releases\n");
                     }
                 }
             }
@@ -93,12 +105,53 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
         
     }
 
-    return;
+    mb5_query_delete (query);
+
+    return TRUE;
+
     err:
     mb5_query_get_lasterrormessage (query, error_message,
                                     sizeof(error_message));
-    printf ("Error searching MusicBrainz Database: '%s'\n", error_message);
-    mb5_query_delete (query);
+
+    switch (result)
+    {
+        case eQuery_ConnectionError:
+            g_set_error (error, ET_MB5_SEARCH_ERROR,
+                         ET_MB5_SEARCH_ERROR_CONNECTION, error_message);
+            break;
+
+        case eQuery_Timeout:
+            g_set_error (error, ET_MB5_SEARCH_ERROR,
+                         ET_MB5_SEARCH_ERROR_TIMEOUT, error_message);
+            break;
+
+        case eQuery_AuthenticationError:
+            g_set_error (error, ET_MB5_SEARCH_ERROR,
+                         ET_MB5_SEARCH_ERROR_AUTHENTICATION, error_message);
+            break;
+
+        case eQuery_FetchError:
+            g_set_error (error, ET_MB5_SEARCH_ERROR,
+                         ET_MB5_SEARCH_ERROR_FETCH, error_message);
+            break;
+ 
+        case eQuery_RequestError:
+            g_set_error (error, ET_MB5_SEARCH_ERROR,
+                         ET_MB5_SEARCH_ERROR_REQUEST, error_message);
+            break;
+ 
+        case eQuery_ResourceNotFound:
+            g_set_error (error, ET_MB5_SEARCH_ERROR, 
+                         ET_MB5_SEARCH_ERROR_RESOURCE_NOT_FOUND,
+                         error_message);
+            break;
+
+        default:
+            break;
+    }
+
+    g_assert (error == NULL || *error != NULL);
+    return FALSE;
 }
 
 /*
@@ -109,17 +162,18 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
  *
  *
  */
-void
-et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root)
+gboolean
+et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
+                       GError **error)
 {
-    /* TODO: to free metadata, first use mb5_<entity>_copy to copy that entity */
     Mb5Query query;
     Mb5Metadata metadata;
     char error_message[256];
     tQueryResult result;
-    //int HTTPCode;
     char *param_values[2];
     char *param_names[2];
+
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     param_names [0] = "query";
     param_names [1] = "limit";
@@ -132,7 +186,6 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root)
         metadata = mb5_query_query (query, "artist", "", "", 2, param_names,
                                     param_values);
         result = mb5_query_get_lastresult (query);
-        //HTTPCode = mb5_query_get_lasthttpcode (Query);
         if (result == eQuery_Success)
         {
             if (metadata)
@@ -173,7 +226,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root)
         metadata = mb5_query_query (query, "release", "", "", 2, param_names,
                                     param_values);
         result = mb5_query_get_lastresult (query);
-        //HTTPCode = mb5_query_get_lasthttpcode (Query);
+
         if (result == eQuery_Success)
         {
             if (metadata)
@@ -185,7 +238,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root)
                 for (i = 0; i < mb5_release_list_size (list); i++)
                 {
                     Mb5Release release;
-                    release = mb5_artist_list_item (list, i);
+                    release = mb5_release_list_item (list, i);
                     if (release)
                     {
                         GNode *node;
@@ -213,12 +266,52 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root)
     }
 
     mb5_query_delete (query);
-    return;
+
+    return TRUE;
 
     err:
     mb5_query_get_lasterrormessage (query, error_message,
                                     sizeof(error_message));
-    printf ("Error searching MusicBrainz Database: '%s'\n", error_message);
+
+    switch (result)
+    {
+        case eQuery_ConnectionError:
+            g_set_error (error, ET_MB5_SEARCH_ERROR,
+                         ET_MB5_SEARCH_ERROR_CONNECTION, error_message);
+            break;
+
+        case eQuery_Timeout:
+            g_set_error (error, ET_MB5_SEARCH_ERROR,
+                         ET_MB5_SEARCH_ERROR_TIMEOUT, error_message);
+            break;
+
+        case eQuery_AuthenticationError:
+            g_set_error (error, ET_MB5_SEARCH_ERROR,
+                         ET_MB5_SEARCH_ERROR_AUTHENTICATION, error_message);
+            break;
+
+        case eQuery_FetchError:
+            g_set_error (error, ET_MB5_SEARCH_ERROR,
+                         ET_MB5_SEARCH_ERROR_FETCH, error_message);
+            break;
+ 
+        case eQuery_RequestError:
+            g_set_error (error, ET_MB5_SEARCH_ERROR,
+                         ET_MB5_SEARCH_ERROR_REQUEST, error_message);
+            break;
+ 
+        case eQuery_ResourceNotFound:
+            g_set_error (error, ET_MB5_SEARCH_ERROR, 
+                         ET_MB5_SEARCH_ERROR_RESOURCE_NOT_FOUND,
+                         error_message);
+            break;
+
+        default:
+            break;
+    }
+
+    g_assert (error == NULL || *error != NULL);
+    return FALSE;
 }
 
 /*

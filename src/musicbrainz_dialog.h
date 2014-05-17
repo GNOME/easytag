@@ -21,11 +21,21 @@
 #ifndef __MUSICBRAINZ_DIALOG_H__
 #define __MUSICBRAINZ_DIALOG_H__
 
+/****************
+ * Declarations *
+ ****************/
+
+GtkBuilder *builder;
+GtkWidget *mbDialog;
+GtkWidget *entityView;
+
 /**************
  * Prototypes *
  **************/
 
 void
 et_open_musicbrainz_dialog (void);
-
+void
+mb5_search_error_callback (GObject *source, GAsyncResult *res,
+                           gpointer user_data);
 #endif /* __MUSICBRAINZ_DIALOG_H__ */

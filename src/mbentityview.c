@@ -18,7 +18,14 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
+#include <gdk/gdkkeysyms.h>
+#include <glib/gi18n.h>
+
+#include "gtk2_compat.h"
+#include "easytag.h"
 #include "mbentityview.h"
+#include "log.h"
+#include "musicbrainz_dialog.h"
 
 #define NAME_MAX_SIZE 256
 #define ET_MB_ENTITY_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), \
@@ -94,8 +101,9 @@ tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
 GType
 et_mb_entity_view_get_type (void)
 {
+    /* TODO: Use G_DEFINE_TYPE */
     static GType et_mb_entity_view_type = 0;
-    
+
     if (!et_mb_entity_view_type)
     {
         static const GTypeInfo et_mb_entity_view_type_info = 
@@ -349,15 +357,15 @@ toggle_button_clicked (GtkWidget *btn, gpointer user_data)
         return;
     }
 
-    if (!gtk_toggle_tool_button_get_active (GTK_TOGGLE_TOOL_BUTTON (btn)))
+    if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (btn)))
     {
         return;
     }
 
     if (priv->active_toggle_button)
     {
-        gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (priv->active_toggle_button),
-                                           FALSE);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->active_toggle_button),
+                                      FALSE);
     }
 
     children = gtk_container_get_children (GTK_CONTAINER (priv->bread_crumb_box));
@@ -425,11 +433,12 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
     show_data_in_entity_view (entity_view);
     g_object_unref (res);
 }
-                            
+
 static void
 search_in_levels_thread_func (GSimpleAsyncResult *res, GObject *obj,
                               GCancellable *cancellable)
 {
+    /* TODO: Call GTK+ functions from main thread */
     EtMbEntityView *entity_view;
     EtMbEntityViewPrivate *priv;
     GtkTreeSelection *selection;
@@ -438,6 +447,7 @@ search_in_levels_thread_func (GSimpleAsyncResult *res, GObject *obj,
     GNode *child;
     gchar mbid [NAME_MAX_SIZE];
     int depth;
+    GError *error;
 
     entity_view = ET_MB_ENTITY_VIEW (g_async_result_get_user_data (G_ASYNC_RESULT (res)));
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
@@ -460,10 +470,17 @@ search_in_levels_thread_func (GSimpleAsyncResult *res, GObject *obj,
     {
         mb5_release_get_id (((EtMbEntity *)child->data)->entity, mbid, sizeof (mbid));
     }
-    
-    et_musicbrainz_search_in_entity (((EtMbEntity *)child->data)->type + 1,
-                                     ((EtMbEntity *)child->data)->type, mbid,
-                                     child);
+
+    error = NULL;
+
+    if (!et_musicbrainz_search_in_entity (((EtMbEntity *)child->data)->type + 1,
+                                          ((EtMbEntity *)child->data)->type, mbid,
+                                          child, &error))
+    {
+        g_simple_async_report_gerror_in_idle (NULL,
+                                              mb5_search_error_callback,
+                                              NULL, error);
+    }
 }
 
 /*
@@ -482,7 +499,8 @@ tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
     /* TODO: Add Cancellable object */
     /* TODO: Use GSimpleAsyncResult with GError */
     /* TODO: Display Status Bar messages */
-    async_result = g_simple_async_result_new (NULL, search_in_levels_callback, 
+    async_result = g_simple_async_result_new (NULL,
+                                              search_in_levels_callback,
                                               user_data,
                                               tree_view_row_activated);
     g_simple_async_result_run_in_thread (async_result,
@@ -565,6 +583,8 @@ et_mb_entity_view_set_tree_root (EtMbEntityView *entity_view, GNode *treeRoot)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (btn), TRUE);
         gtk_widget_show_all (priv->bread_crumb_box);
         show_data_in_entity_view (entity_view);
+        g_signal_connect (G_OBJECT (btn), "clicked",
+                          G_CALLBACK (toggle_button_clicked), entity_view);
     }
 }
 
