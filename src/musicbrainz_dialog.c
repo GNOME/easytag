@@ -39,12 +39,19 @@ static GtkWidget *mbDialog;
 static GtkWidget *entityView;
 static GNode *mb_tree_root;
 static GSimpleAsyncResult *async_result;
-static GCancellable *cancellable;
 
 /*************
  * Functions *
  *************/
 
+/*
+ * manual_search_callback:
+ * @source: Source Object
+ * @res: GAsyncResult
+ * @user_data: User data
+ *
+ * Callback function for GAsyncResult for Manual Search.
+ */
 static void
 manual_search_callback (GObject *source, GAsyncResult *res,
                         gpointer user_data)
@@ -54,6 +61,14 @@ manual_search_callback (GObject *source, GAsyncResult *res,
     g_object_unref (res);
 }
 
+/*
+ * manual_search_thread_func:
+ * @res: GSimpleAsyncResult
+ * @obj: Source GObject
+ * @cancellable: GCancellable to cancel the operation
+ *
+ * Thread func of GSimpleAsyncResult to do Manual Search in another thread.
+ */
 static void
 manual_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
                            GCancellable *cancellable)
@@ -71,6 +86,13 @@ manual_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
                            type, mb_tree_root);
 }
 
+/*
+ * btn_manual_find_clicked:
+ * @btn: The source GtkButton
+ * @user_data: User data passed
+ *
+ * Signal Handler for "clicked" signal of mbSearchButton.
+ */
 static void
 btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
 {
@@ -82,6 +104,7 @@ btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
 
     /* TODO: Add Cancellable object */
     /* TODO: Use GSimpleAsyncResult with GError */
+    /* TODO: Display Status Bar messages */
     async_result = g_simple_async_result_new (NULL, manual_search_callback, 
                                               NULL, btn_manual_find_clicked);
     g_simple_async_result_run_in_thread (async_result,

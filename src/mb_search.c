@@ -31,7 +31,7 @@
  *
  */
 void
-et_musicbrainz_search_in_entity (gchar *string, enum MB_ENTITY_TYPE child_type,
+et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                                  enum MB_ENTITY_TYPE parent_type,
                                  gchar *parent_mbid, GNode *root)
 {
@@ -67,7 +67,7 @@ et_musicbrainz_search_in_entity (gchar *string, enum MB_ENTITY_TYPE child_type,
                 for (i = 0; i < mb5_release_list_size (list); i++)
                 {
                     Mb5Release release;
-                    release = mb5_artist_list_item (list, i);
+                    release = mb5_release_list_item (list, i);
                     if (release)
                     {
                         GNode *node;
@@ -77,11 +77,10 @@ et_musicbrainz_search_in_entity (gchar *string, enum MB_ENTITY_TYPE child_type,
                         entity->type = MB_ENTITY_TYPE_ALBUM;
                         node = g_node_new (entity);
                         g_node_append (root, node);
+                        printf ("releases\n");
                     }
                 }
             }
-
-            g_free (param_values [0]);
         }
         else
         {
