@@ -67,6 +67,7 @@ easytag_SOURCES = \
 	src/musepack_header.c \
 	src/musicbrainz_dialog.c \
 	src/mbentityview.c \
+	src/mb_search.c \
 	src/ogg_header.c \
 	src/ogg_tag.c \
 	src/opus_header.c \
@@ -115,6 +116,8 @@ easytag_headers = \
 	src/mp4_tag.h \
 	src/musepack_header.h \
 	src/musicbrainz_dialog.h \
+	src/mb_search.h \
+	src/mbentityview.h \
 	src/ogg_header.h \
 	src/ogg_tag.h \
 	src/opus_header.h \

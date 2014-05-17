@@ -22,7 +22,7 @@
 #define __MB_ENTITY_VIEW_H__
 
 #include <gtk/gtk.h>
-#include <musicbrainz5/mb5_c.h>
+#include "mb_search.h"
 
 #define ET_MB_ENTITY_VIEW_TYPE (et_mb_entity_view_get_type ())
 #define ET_MB_ENTITY_VIEW(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), \
@@ -66,14 +66,6 @@ typedef struct
     GtkBoxClass parent;
 } EtMbEntityViewClass;
 
-enum MB_ENTITY_TYPE
-{
-    MB_ENTITY_TYPE_ARTIST = 0,
-    MB_ENTITY_TYPE_ALBUM,
-    MB_ENTITY_TYPE_TRACK,
-    MB_ENTITY_TYPE_COUNT,
-};
-
 enum MB_ARTIST_COLUMNS
 {
     MB_ARTIST_COLUMNS_NAME,
@@ -100,18 +92,12 @@ enum MB_TRACK_COLUMNS
     MB_TRACK_COLUMNS_N
 };
 
-typedef struct
-{
-    Mb5Entity entity;
-    enum MB_ENTITY_TYPE type;    
-} EtMbEntity;
-
 /**************
  * Prototypes *
  **************/
 
 GType
-et_mb_entity_view_get_type (void) G_GNUC_CONST;
+et_mb_entity_view_get_type (void);
 GtkWidget *
 et_mb_entity_view_new (void);
 void

@@ -38,27 +38,27 @@ char *columns [MB_ENTITY_TYPE_COUNT][8] = {
 
 /*
  * EtMbEntityViewPrivate:
- * @breadCrumbBox: GtkBox which represents the BreadCrumbWidget
- * @treeView: GtkTreeView to display the recieved music brainz data
- * @breadCrumbNodes: Array of GNode being displayed by the GtkToggleButton
- * @listStore: GtkTreeStore for treeView
- * @scrolledWindow: GtkScrolledWindow for treeView
- * @mbTreeRoot: Root Node of the Mb5Entity Tree
- * @mbTreeCurrentNode: Current node being displayed by EtMbEntityView
- * @activeToggleButton: Current active GtkToggleToolButton
+ * @bread_crumb_box: GtkBox which represents the BreadCrumbWidget
+ * @tree_view: GtkTreeView to display the recieved music brainz data
+ * @bread_crumb_nodes: Array of GNode being displayed by the GtkToggleButton
+ * @list_store: GtkTreeStore for treeView
+ * @scrolled_window: GtkScrolledWindow for treeView
+ * @mb_tree_root: Root Node of the Mb5Entity Tree
+ * @mb_tree_current_node: Current node being displayed by EtMbEntityView
+ * @active_toggle_button: Current active GtkToggleToolButton
  *
  * Private data for EtMbEntityView.
  */
 typedef struct
 {
-    GtkWidget *breadCrumbBox;
-    GNode *breadCrumbNodes[MB_ENTITY_TYPE_COUNT];
-    GtkWidget *treeView;
-    GtkTreeModel *listStore;
-    GtkWidget *scrolledWindow;
-    GNode *mbTreeRoot;
-    GNode *mbTreeCurrentNode;
-    GtkWidget *activeToggleButton;
+    GtkWidget *bread_crumb_box;
+    GNode *bread_crumb_nodes[MB_ENTITY_TYPE_COUNT];
+    GtkWidget *tree_view;
+    GtkTreeModel *list_store;
+    GtkWidget *scrolled_window;
+    GNode *mb_tree_root;
+    GNode *mb_tree_current_node;
+    GtkWidget *active_toggle_button;
 } EtMbEntityViewPrivate;
 
 /**************
@@ -155,7 +155,7 @@ insert_togglebtn_in_breadcrumb (GtkBox *breadCrumb)
 static void
 add_iter_to_list_store (GtkListStore *list_store, GNode *node)
 {
-    /* Traverse node in GNode and add it to listStore */
+    /* Traverse node in GNode and add it to list_store */
     enum MB_ENTITY_TYPE type;
     Mb5ReleaseList *release_list;
     Mb5ArtistCredit artist_credit;
@@ -268,25 +268,25 @@ show_data_in_entity_view (EtMbEntityView *entity_view)
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
 
     /* Remove the previous List Store */
-    if (GTK_IS_LIST_STORE (priv->listStore))
+    if (GTK_IS_LIST_STORE (priv->list_store))
     {
-        gtk_list_store_clear (GTK_LIST_STORE (priv->listStore));
+        gtk_list_store_clear (GTK_LIST_STORE (priv->list_store));
     }
 
-    gtk_tree_view_set_model (GTK_TREE_VIEW (priv->treeView), NULL);
+    gtk_tree_view_set_model (GTK_TREE_VIEW (priv->tree_view), NULL);
 
     /* Remove all colums */
-    list_cols = gtk_tree_view_get_columns (GTK_TREE_VIEW (priv->treeView));
+    list_cols = gtk_tree_view_get_columns (GTK_TREE_VIEW (priv->tree_view));
     for (list = g_list_first (list_cols); list != NULL; list = g_list_next (list))
     {
-        gtk_tree_view_remove_column (GTK_TREE_VIEW (priv->treeView),
+        gtk_tree_view_remove_column (GTK_TREE_VIEW (priv->tree_view),
                                      GTK_TREE_VIEW_COLUMN (list->data));
     }
 
     g_list_free (list_cols);
 
     /* Create new List Store and add it */
-    type = ((EtMbEntity *)(g_node_first_child (priv->mbTreeCurrentNode)->data))->type;
+    type = ((EtMbEntity *)(g_node_first_child (priv->mb_tree_current_node)->data))->type;
     switch (type)
     {
         case MB_ENTITY_TYPE_ARTIST:
@@ -313,17 +313,17 @@ show_data_in_entity_view (EtMbEntityView *entity_view)
         renderer = gtk_cell_renderer_text_new ();
         column = gtk_tree_view_column_new_with_attributes (columns[type][i], 
                                                            renderer, "text", i, NULL);
-        gtk_tree_view_append_column (GTK_TREE_VIEW (priv->treeView), column);
+        gtk_tree_view_append_column (GTK_TREE_VIEW (priv->tree_view), column);
     }
 
-    priv->listStore = GTK_TREE_MODEL (gtk_list_store_newv (total_cols, types));
+    priv->list_store = GTK_TREE_MODEL (gtk_list_store_newv (total_cols, types));
     g_free (types);
 
-    gtk_tree_view_set_model (GTK_TREE_VIEW (priv->treeView), priv->listStore);
-    g_object_unref (priv->listStore);
+    gtk_tree_view_set_model (GTK_TREE_VIEW (priv->tree_view), priv->list_store);
+    g_object_unref (priv->list_store);
 
-    add_iter_to_list_store (GTK_LIST_STORE (priv->listStore),
-                            g_node_first_child (priv->mbTreeCurrentNode));
+    add_iter_to_list_store (GTK_LIST_STORE (priv->list_store),
+                            g_node_first_child (priv->mb_tree_current_node));
 }
 
 /*
@@ -343,7 +343,7 @@ toggle_button_clicked (GtkWidget *btn, gpointer user_data)
     entity_view = ET_MB_ENTITY_VIEW (user_data);
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
 
-    if (btn == priv->activeToggleButton)
+    if (btn == priv->active_toggle_button)
     {
         return;
     }
@@ -353,15 +353,15 @@ toggle_button_clicked (GtkWidget *btn, gpointer user_data)
         return;
     }
 
-    if (priv->activeToggleButton)
+    if (priv->active_toggle_button)
     {
-        gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (priv->activeToggleButton),
+        gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (priv->active_toggle_button),
                                            FALSE);
     }
 
-    children = gtk_container_get_children (GTK_CONTAINER (priv->breadCrumbBox));
-    priv->mbTreeCurrentNode = priv->breadCrumbNodes[g_list_index (children, btn)];
-    priv->activeToggleButton = btn;
+    children = gtk_container_get_children (GTK_CONTAINER (priv->bread_crumb_box));
+    priv->mb_tree_current_node = priv->bread_crumb_nodes[g_list_index (children, btn)];
+    priv->active_toggle_button = btn;
     show_data_in_entity_view (entity_view);
 }
 
@@ -391,7 +391,7 @@ tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
 
     /* Depth is 1-based */
     depth = gtk_tree_path_get_depth (path);
-    child = g_node_nth_child (priv->mbTreeCurrentNode,
+    child = g_node_nth_child (priv->mb_tree_current_node,
                               depth - 1);
 
     /* Check if child node has children or not */
@@ -400,31 +400,31 @@ tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
         return;
     }
 
-    priv->mbTreeCurrentNode = child;
+    priv->mb_tree_current_node = child;
 
-    if (((EtMbEntity *)(priv->mbTreeCurrentNode->data))->type ==
+    if (((EtMbEntity *)(priv->mb_tree_current_node->data))->type ==
         MB_ENTITY_TYPE_TRACK)
     {
         return;
     }
 
-    toggle_btn = insert_togglebtn_in_breadcrumb (GTK_BOX (priv->breadCrumbBox));
-    priv->breadCrumbNodes [g_list_length (gtk_container_get_children (GTK_CONTAINER (priv->breadCrumbBox))) - 1] = priv->mbTreeCurrentNode;
+    toggle_btn = insert_togglebtn_in_breadcrumb (GTK_BOX (priv->bread_crumb_box));
+    priv->bread_crumb_nodes [g_list_length (gtk_container_get_children (GTK_CONTAINER (priv->bread_crumb_box))) - 1] = priv->mb_tree_current_node;
 
-    if (priv->activeToggleButton)
+    if (priv->active_toggle_button)
     {
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->activeToggleButton),
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->active_toggle_button),
                                            FALSE);
     }
 
     gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (toggle_btn), TRUE);
     g_signal_connect (G_OBJECT (toggle_btn), "clicked",
                       G_CALLBACK (toggle_button_clicked), entity_view);
-    priv->activeToggleButton = toggle_btn;
-    gtk_tree_model_get_iter (priv->listStore, &iter, path);
-    gtk_tree_model_get (priv->listStore, &iter, 0, &entity_name, -1);
+    priv->active_toggle_button = toggle_btn;
+    gtk_tree_model_get_iter (priv->list_store, &iter, path);
+    gtk_tree_model_get (priv->list_store, &iter, 0, &entity_name, -1);
     gtk_button_set_label (GTK_BUTTON (toggle_btn), entity_name);
-    gtk_widget_show_all (GTK_WIDGET (priv->breadCrumbBox));
+    gtk_widget_show_all (GTK_WIDGET (priv->bread_crumb_box));
     show_data_in_entity_view (entity_view);
 }
 
@@ -442,21 +442,21 @@ et_mb_entity_view_init (EtMbEntityView *entity_view)
     gtk_orientable_set_orientation (GTK_ORIENTABLE (entity_view), GTK_ORIENTATION_VERTICAL);
 
     /* Adding child widgets */    
-    priv->breadCrumbBox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
-    priv->treeView = gtk_tree_view_new ();
-    priv->scrolledWindow = gtk_scrolled_window_new (NULL, NULL);
-    gtk_container_add (GTK_CONTAINER (priv->scrolledWindow), priv->treeView);
-    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->scrolledWindow),
+    priv->bread_crumb_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
+    priv->tree_view = gtk_tree_view_new ();
+    priv->scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    gtk_container_add (GTK_CONTAINER (priv->scrolled_window), priv->tree_view);
+    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->scrolled_window),
                                     GTK_POLICY_ALWAYS, GTK_POLICY_ALWAYS);
-    gtk_box_pack_start (GTK_BOX (entity_view), priv->breadCrumbBox,
+    gtk_box_pack_start (GTK_BOX (entity_view), priv->bread_crumb_box,
                         FALSE, FALSE, 2);
-    gtk_box_pack_start (GTK_BOX (entity_view), priv->scrolledWindow,
+    gtk_box_pack_start (GTK_BOX (entity_view), priv->scrolled_window,
                         TRUE, TRUE, 2);
-    priv->mbTreeRoot = NULL;
-    priv->mbTreeCurrentNode = NULL;
-    priv->activeToggleButton = NULL;
+    priv->mb_tree_root = NULL;
+    priv->mb_tree_current_node = NULL;
+    priv->active_toggle_button = NULL;
 
-    g_signal_connect (G_OBJECT (priv->treeView), "row-activated",
+    g_signal_connect (G_OBJECT (priv->tree_view), "row-activated",
                       G_CALLBACK (tree_view_row_activated), entity_view);
 }
 
@@ -474,9 +474,9 @@ et_mb_entity_view_set_tree_root (EtMbEntityView *entity_view, GNode *treeRoot)
     GtkWidget *btn;
     GNode *child;
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
-    priv->mbTreeRoot = treeRoot;
-    priv->mbTreeCurrentNode = treeRoot;
-    btn = insert_togglebtn_in_breadcrumb (GTK_BOX (priv->breadCrumbBox));
+    priv->mb_tree_root = treeRoot;
+    priv->mb_tree_current_node = treeRoot;
+    btn = insert_togglebtn_in_breadcrumb (GTK_BOX (priv->bread_crumb_box));
     child = g_node_first_child (treeRoot);
     if (child)
     {
@@ -498,8 +498,8 @@ et_mb_entity_view_set_tree_root (EtMbEntityView *entity_view, GNode *treeRoot)
                 break;
         }
 
-        priv->breadCrumbNodes [0] = treeRoot;
-        priv->activeToggleButton = btn;
+        priv->bread_crumb_nodes [0] = treeRoot;
+        priv->active_toggle_button = btn;
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (btn), TRUE);
         show_data_in_entity_view (entity_view);
     }

@@ -29,9 +29,6 @@
 #include "log.h"
 #include "musicbrainz_dialog.h"
 #include "mbentityview.h"
-
-#define SEARCH_LIMIT_STR "5"
-#define SEARCH_LIMIT_INT 5
  
 /***************
  * Declaration *
@@ -41,203 +38,25 @@ static GtkBuilder *builder;
 static GtkWidget *mbDialog;
 static GtkWidget *entityView;
 static GNode *mb_tree_root;
-
-/**************
- * Prototypes *
- **************/
-
-static void
-et_musicbrainz_search_in_entity (gchar *string, enum MB_ENTITY_TYPE child_type,
-                                 enum MB_ENTITY_TYPE parent_type,
-                                 gchar *parent_mbid, GNode *root);
-static void
-et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root);
+static GSimpleAsyncResult *async_result;
+static GCancellable *cancellable;
 
 /*************
  * Functions *
  *************/
 
 static void
-et_musicbrainz_search_in_entity (gchar *string, enum MB_ENTITY_TYPE child_type,
-                                 enum MB_ENTITY_TYPE parent_type,
-                                 gchar *parent_mbid, GNode *root)
+manual_search_callback (GObject *source, GAsyncResult *res,
+                        gpointer user_data)
 {
-    Mb5Query query;
-    Mb5Metadata metadata;
-    char error_message[256];
-    tQueryResult result;
-    //int httpcode;
-    char *param_values[1];
-    char *param_names[1];
-
-    param_names [0] = "inc";
-    query = mb5_query_new ("easytag", NULL, 0);
-
-    if (child_type == MB_ENTITY_TYPE_ALBUM &&
-        parent_type == MB_ENTITY_TYPE_ARTIST)
-    {
-        param_values [0] = "releases";
-        metadata = mb5_query_query (query, "artist", parent_mbid, "", 1, param_names,
-                                    param_values);
-        result = mb5_query_get_lastresult (query);
-        //httpcode = mb5_query_get_lasthttpcode (query);
-        if (result == eQuery_Success)
-        {
-            if (metadata)
-            {
-                int i;
-                Mb5ReleaseList list;
-                Mb5Artist artist;
-                artist = mb5_metadata_get_artist (metadata);
-                list = mb5_artist_get_releaselist (artist);
-
-                for (i = 0; i < mb5_release_list_size (list); i++)
-                {
-                    Mb5Release release;
-                    release = mb5_artist_list_item (list, i);
-                    if (release)
-                    {
-                        GNode *node;
-                        EtMbEntity *entity;
-                        entity = g_malloc (sizeof (EtMbEntity));
-                        entity->entity = release;
-                        entity->type = MB_ENTITY_TYPE_ALBUM;
-                        node = g_node_new (entity);
-                        g_node_append (root, node);
-                    }
-                }
-            }
-
-            g_free (param_values [0]);
-        }
-        else
-        {
-            goto err;
-        }
-    }
-    else if (child_type == MB_ENTITY_TYPE_TRACK &&
-             parent_type == MB_ENTITY_TYPE_ALBUM)
-    {
-        
-    }
-
-    return;
-    err:
-    mb5_query_get_lasterrormessage (query, error_message,
-                                    sizeof(error_message));
-    printf ("Error searching MusicBrainz Database: '%s'\n", error_message);
-    mb5_query_delete (query);
+    et_mb_entity_view_set_tree_root (ET_MB_ENTITY_VIEW (entityView),
+                                     mb_tree_root);
+    g_object_unref (res);
 }
 
 static void
-et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root)
-{
-    /* TODO: to free metadata, first use mb5_<entity>_copy to copy that entity */
-    Mb5Query Query;
-    Mb5Metadata Metadata;
-    char ErrorMessage[256];
-    tQueryResult Result;
-    //int HTTPCode;
-    char *ParamValues[2];
-    char *ParamNames[2];
-
-    ParamNames [0] = "query";
-    ParamNames [1] = "limit";
-    ParamValues [1] = SEARCH_LIMIT_STR;
-    Query = mb5_query_new ("easytag", NULL, 0);
-
-    if (type == MB_ENTITY_TYPE_ARTIST)
-    {
-        ParamValues [0] = g_strconcat ("artist:", string, NULL);
-        Metadata = mb5_query_query (Query, "artist", "", "", 2, ParamNames,
-                                    ParamValues);
-        Result = mb5_query_get_lastresult (Query);
-        //HTTPCode = mb5_query_get_lasthttpcode (Query);
-        if (Result == eQuery_Success)
-        {
-            if (Metadata)
-            {
-                int i;
-                Mb5ArtistList ArtistList;
-                ArtistList = mb5_metadata_get_artistlist (Metadata);
-
-                for (i = 0; i < mb5_artist_list_size (ArtistList); i++)
-                {
-                    Mb5Artist Artist;
-                    Artist = mb5_artist_list_item (ArtistList, i);
-                    if (Artist)
-                    {
-                        GNode *node;
-                        EtMbEntity *entity;
-                        entity = g_malloc (sizeof (EtMbEntity));
-                        entity->entity = Artist;
-                        entity->type = MB_ENTITY_TYPE_ARTIST;
-                        node = g_node_new (entity);
-                        g_node_append (root, node);
-                    }
-                }
-            }
-
-            g_free (ParamValues [0]);
-        }
-        else
-        {
-            goto err;
-        }
-    }
-    else if (type == MB_ENTITY_TYPE_ALBUM)
-    {
-        ParamValues [0] = g_strconcat ("release:", string, NULL);
-        Metadata = mb5_query_query (Query, "release", "", "", 2, ParamNames,
-                                    ParamValues);
-        Result = mb5_query_get_lastresult (Query);
-        //HTTPCode = mb5_query_get_lasthttpcode (Query);
-        if (Result == eQuery_Success)
-        {
-            if (Metadata)
-            {
-                int i;
-                Mb5ReleaseList list;
-                list = mb5_metadata_get_releaselist (Metadata);
-
-                for (i = 0; i < mb5_release_list_size (list); i++)
-                {
-                    Mb5Release release;
-                    release = mb5_artist_list_item (list, i);
-                    if (release)
-                    {
-                        GNode *node;
-                        EtMbEntity *entity;
-                        entity = g_malloc (sizeof (EtMbEntity));
-                        entity->entity = release;
-                        entity->type = MB_ENTITY_TYPE_ALBUM;
-                        node = g_node_new (entity);
-                        g_node_append (root, node);
-                    }
-                }
-            }
-
-            g_free (ParamValues [0]);
-        }
-        else
-        {
-            goto err;
-        }
-    }
-    else if (type == MB_ENTITY_TYPE_TRACK)
-    {
-    }
-
-    return;
-    err:
-    mb5_query_get_lasterrormessage (Query, ErrorMessage,
-                                    sizeof(ErrorMessage));
-    printf ("Error searching MusicBrainz Database: '%s'\n", ErrorMessage);
-    mb5_query_delete (Query);
-}
-
-static void
-btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
+manual_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
+                           GCancellable *cancellable)
 {
     GtkWidget *cb_manual_search;
     GtkWidget *cb_manual_search_in;
@@ -248,16 +67,25 @@ btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
     cb_manual_search_in = GTK_WIDGET (gtk_builder_get_object (builder,
                                                               "cbManualSearchIn"));
     type = gtk_combo_box_get_active (GTK_COMBO_BOX (cb_manual_search_in));
-
-    if (g_node_first_child (mb_tree_root))
-    {
-        /* TODO: Clear the tree */
-    }
-
     et_musicbrainz_search (gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (cb_manual_search)),
                            type, mb_tree_root);
-    et_mb_entity_view_set_tree_root (ET_MB_ENTITY_VIEW (entityView),
-                                     mb_tree_root);
+}
+
+static void
+btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
+{
+    if (g_node_first_child (mb_tree_root))
+    {
+        free_mb_tree (mb_tree_root);
+        mb_tree_root = g_node_new (NULL);
+    }
+
+    /* TODO: Add Cancellable object */
+    /* TODO: Use GSimpleAsyncResult with GError */
+    async_result = g_simple_async_result_new (NULL, manual_search_callback, 
+                                              NULL, btn_manual_find_clicked);
+    g_simple_async_result_run_in_thread (async_result,
+                                         manual_search_thread_func, 0, NULL);
 }
 
 /*
@@ -298,4 +126,5 @@ et_open_musicbrainz_dialog ()
     gtk_dialog_run (GTK_DIALOG (mbDialog));
     gtk_widget_destroy (mbDialog);
     g_object_unref (G_OBJECT (builder));
+    free_mb_tree (mb_tree_root);
 }
