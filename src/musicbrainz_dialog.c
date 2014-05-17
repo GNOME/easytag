@@ -37,6 +37,12 @@
 static GNode *mb_tree_root;
 static GSimpleAsyncResult *async_result;
 
+typedef struct
+{
+    gchar *text_to_search;
+    int type;
+} ManualSearchThreadData;
+
 /*************
  * Functions *
  *************/
@@ -56,11 +62,12 @@ manual_search_callback (GObject *source, GAsyncResult *res,
     et_mb_entity_view_set_tree_root (ET_MB_ENTITY_VIEW (entityView),
                                      mb_tree_root);
     g_object_unref (res);
+    g_free (user_data);
 }
 
 void
 mb5_search_error_callback (GObject *source, GAsyncResult *res,
-                              gpointer user_data)
+                           gpointer user_data)
 {
     GError *dest;
     dest = NULL;
@@ -71,6 +78,7 @@ mb5_search_error_callback (GObject *source, GAsyncResult *res,
     gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
                         0, dest->message);
     g_error_free (dest);
+    g_free (user_data);
 }
 
 /*
@@ -85,25 +93,18 @@ static void
 manual_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
                            GCancellable *cancellable)
 {
-    /* TODO: Call GTK+ functions from main thread */
-    GtkWidget *cb_manual_search;
-    GtkWidget *cb_manual_search_in;
-    int type;
     GError *error;
-    error = NULL;
-   
-    cb_manual_search = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                           "cbManualSearch"));
-    cb_manual_search_in = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                              "cbManualSearchIn"));
-    type = gtk_combo_box_get_active (GTK_COMBO_BOX (cb_manual_search_in));
+    ManualSearchThreadData *thread_data;
 
-    if (!et_musicbrainz_search (gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (cb_manual_search)),
-                                type, mb_tree_root, &error))
+    error = NULL;
+    thread_data = (ManualSearchThreadData *)g_async_result_get_user_data (G_ASYNC_RESULT (res));
+
+    if (!et_musicbrainz_search (thread_data->text_to_search,
+                                thread_data->type, mb_tree_root, &error))
     {
         g_simple_async_report_gerror_in_idle (NULL,
                                               mb5_search_error_callback,
-                                              NULL, error);
+                                              thread_data, error);
     }
 }
 
@@ -117,18 +118,31 @@ manual_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
 static void
 btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
 {
+    GtkWidget *cb_manual_search;
+    GtkWidget *cb_manual_search_in;
+    int type;
+    ManualSearchThreadData *thread_data;
+
     if (g_node_first_child (mb_tree_root))
     {
         free_mb_tree (mb_tree_root);
         mb_tree_root = g_node_new (NULL);
     }
-
+  
+    cb_manual_search = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                           "cbManualSearch"));
+    cb_manual_search_in = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                              "cbManualSearchIn"));
+    type = gtk_combo_box_get_active (GTK_COMBO_BOX (cb_manual_search_in));
+    thread_data = g_malloc (sizeof (ManualSearchThreadData));
+    thread_data->type = type;
+    thread_data->text_to_search = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (cb_manual_search));
     cancellable = g_cancellable_new ();
     /* TODO: Add Cancellable object */
-    /* TODO: Use GSimpleAsyncResult with GError */
     /* TODO: Display Status Bar messages */
     async_result = g_simple_async_result_new (NULL, manual_search_callback, 
-                                              NULL, btn_manual_find_clicked);
+                                              thread_data,
+                                              btn_manual_find_clicked);
     g_simple_async_result_run_in_thread (async_result,
                                          manual_search_thread_func, 0, NULL);
 }

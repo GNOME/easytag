@@ -69,6 +69,13 @@ typedef struct
     GtkWidget *active_toggle_button;
 } EtMbEntityViewPrivate;
 
+typedef struct
+{
+    EtMbEntityView *entity_view;
+    GNode *child;
+    GtkTreeIter iter;
+} SearchInLevelThreadData;
+
 /**************
  * Prototypes *
  **************/
@@ -181,7 +188,6 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
         entity = ((EtMbEntity *)node->data)->entity;
         switch (type)
         {
-            /* Following code may depend on the search code */
             case MB_ENTITY_TYPE_ARTIST:
                 mb5_artist_get_name ((Mb5Artist)entity, name, sizeof (name));
                 gtk_list_store_append (list_store, &iter);
@@ -381,32 +387,20 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
     EtMbEntityView *entity_view;
     EtMbEntityViewPrivate *priv;
     GtkWidget *toggle_btn;
-    GtkTreeSelection *selection;
-    int depth;
-    GtkTreeIter iter;
-    GtkTreePath *path;
     gchar *entity_name;
-    GNode *child;
+    SearchInLevelThreadData *thread_data;
 
-    entity_view = ET_MB_ENTITY_VIEW (user_data);
+    thread_data = user_data;
+    entity_view = thread_data->entity_view;
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
 
-    /* Depth is 1-based */
-    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view));
-    gtk_tree_selection_get_selected (selection, &(priv->list_store), &iter);
-    path = gtk_tree_model_get_path (priv->list_store, &iter);
-    depth = gtk_tree_path_get_depth (path);
-    gtk_tree_path_free (path);
-    child = g_node_nth_child (priv->mb_tree_current_node,
-                              depth - 1);
-
     /* Check if child node has children or not */
-    if (!g_node_first_child (child))
+    if (!g_node_first_child (thread_data->child))
     {
         return;
     }
 
-    priv->mb_tree_current_node = child;
+    priv->mb_tree_current_node = thread_data->child;
 
     if (((EtMbEntity *)(priv->mb_tree_current_node->data))->type ==
         MB_ENTITY_TYPE_TRACK)
@@ -427,59 +421,52 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
     g_signal_connect (G_OBJECT (toggle_btn), "clicked",
                       G_CALLBACK (toggle_button_clicked), entity_view);
     priv->active_toggle_button = toggle_btn;
-    gtk_tree_model_get (priv->list_store, &iter, 0, &entity_name, -1);
+    
+    gtk_tree_model_get (priv->list_store, &thread_data->iter, 0, &entity_name, -1);
     gtk_button_set_label (GTK_BUTTON (toggle_btn), entity_name);
     gtk_widget_show_all (GTK_WIDGET (priv->bread_crumb_box));
     show_data_in_entity_view (entity_view);
     g_object_unref (res);
+    g_free (thread_data);
 }
 
 static void
 search_in_levels_thread_func (GSimpleAsyncResult *res, GObject *obj,
                               GCancellable *cancellable)
 {
-    /* TODO: Call GTK+ functions from main thread */
-    EtMbEntityView *entity_view;
-    EtMbEntityViewPrivate *priv;
-    GtkTreeSelection *selection;
-    GtkTreeIter iter;
-    GtkTreePath *path;
-    GNode *child;
+    SearchInLevelThreadData *thread_data;
     gchar mbid [NAME_MAX_SIZE];
-    int depth;
     GError *error;
 
-    entity_view = ET_MB_ENTITY_VIEW (g_async_result_get_user_data (G_ASYNC_RESULT (res)));
-    priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
-    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view));
-    gtk_tree_selection_get_selected (selection, &(priv->list_store), &iter);
-    path = gtk_tree_model_get_path (priv->list_store, &iter);
-    depth = gtk_tree_path_get_depth (path);
-    gtk_tree_path_free (path);
-    child = g_node_nth_child (priv->mb_tree_current_node,
-                              depth - 1);
-    if (((EtMbEntity *)child->data)->type == MB_ENTITY_TYPE_TRACK)
+    thread_data = g_async_result_get_user_data (G_ASYNC_RESULT (res));
+
+    if (((EtMbEntity *)thread_data->child->data)->type ==
+        MB_ENTITY_TYPE_TRACK)
     {
         return;
     }
-    else if (((EtMbEntity *)child->data)->type == MB_ENTITY_TYPE_ARTIST)
+    else if (((EtMbEntity *)thread_data->child->data)->type ==
+             MB_ENTITY_TYPE_ARTIST)
     {
-        mb5_artist_get_id (((EtMbEntity *)child->data)->entity, mbid, sizeof (mbid));
+        mb5_artist_get_id (((EtMbEntity *)thread_data->child->data)->entity,
+                           mbid, sizeof (mbid));
     }
-    else if (((EtMbEntity *)child->data)->type == MB_ENTITY_TYPE_ALBUM)
+    else if (((EtMbEntity *)thread_data->child->data)->type ==
+             MB_ENTITY_TYPE_ALBUM)
     {
-        mb5_release_get_id (((EtMbEntity *)child->data)->entity, mbid, sizeof (mbid));
+        mb5_release_get_id (((EtMbEntity *)thread_data->child->data)->entity,
+                            mbid, sizeof (mbid));
     }
 
     error = NULL;
 
-    if (!et_musicbrainz_search_in_entity (((EtMbEntity *)child->data)->type + 1,
-                                          ((EtMbEntity *)child->data)->type, mbid,
-                                          child, &error))
+    if (!et_musicbrainz_search_in_entity (((EtMbEntity *)thread_data->child->data)->type + 1,
+                                          ((EtMbEntity *)thread_data->child->data)->type,
+                                          mbid, thread_data->child, &error))
     {
         g_simple_async_report_gerror_in_idle (NULL,
                                               mb5_search_error_callback,
-                                              NULL, error);
+                                              thread_data, error);
     }
 }
 
@@ -497,11 +484,27 @@ tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
                          GtkTreeViewColumn *column, gpointer user_data)
 {
     /* TODO: Add Cancellable object */
-    /* TODO: Use GSimpleAsyncResult with GError */
     /* TODO: Display Status Bar messages */
+    SearchInLevelThreadData *thread_data;
+    EtMbEntityView *entity_view;
+    EtMbEntityViewPrivate *priv;
+    GNode *child;
+    int depth;
+
+    entity_view = ET_MB_ENTITY_VIEW (user_data);
+    priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
+    depth = gtk_tree_path_get_depth (path);
+    child = g_node_nth_child (priv->mb_tree_current_node,
+                              depth - 1);
+
+    thread_data = g_malloc (sizeof (SearchInLevelThreadData));
+    thread_data->entity_view = ET_MB_ENTITY_VIEW (user_data);
+    thread_data->child = child;
+    gtk_tree_model_get_iter (priv->list_store, &thread_data->iter, path);
+
     async_result = g_simple_async_result_new (NULL,
                                               search_in_levels_callback,
-                                              user_data,
+                                              thread_data,
                                               tree_view_row_activated);
     g_simple_async_result_run_in_thread (async_result,
                                          search_in_levels_thread_func,
