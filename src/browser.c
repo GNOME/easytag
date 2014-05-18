@@ -915,6 +915,7 @@ gboolean Browser_Tree_Select_Dir (const gchar *current_path)
             g_object_unref (file);
             g_free (path);
         }
+
         do
         {
             gtk_tree_model_get(GTK_TREE_MODEL(directoryTreeModel), &currentNode,
@@ -931,7 +932,16 @@ gboolean Browser_Tree_Select_Dir (const gchar *current_path)
                 break;
             }
             g_free(nodeName);
-        } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(directoryTreeModel), &currentNode));
+
+            if (!gtk_tree_model_iter_next (GTK_TREE_MODEL (directoryTreeModel),
+                                           &currentNode))
+            {
+                /* Path was not found in tree, such as when a hidden path was
+                 * passed in, but hidden paths are set to not be displayed. */
+                g_strfreev (parts);
+                return FALSE;
+            }
+        } while (1);
 
         parentNode = currentNode;
         rootPath = gtk_tree_model_get_path(GTK_TREE_MODEL(directoryTreeModel), &parentNode);
