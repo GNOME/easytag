@@ -31,7 +31,7 @@
  * Declarations *
  ****************/
 
-GCancellable *cancellable;
+GCancellable *mb5_search_cancellable;
 
 /*
  * Error domain and codes for errors while reading/writing Opus files

@@ -38,4 +38,6 @@ et_open_musicbrainz_dialog (void);
 void
 mb5_search_error_callback (GObject *source, GAsyncResult *res,
                            gpointer user_data);
+void
+et_show_status_msg_in_idle (gchar *message);
 #endif /* __MUSICBRAINZ_DIALOG_H__ */

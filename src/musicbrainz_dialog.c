@@ -61,8 +61,32 @@ manual_search_callback (GObject *source, GAsyncResult *res,
 {
     et_mb_entity_view_set_tree_root (ET_MB_ENTITY_VIEW (entityView),
                                      mb_tree_root);
+    gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
+                        0, "Searching Completed");
     g_object_unref (res);
     g_free (user_data);
+}
+
+static void
+et_show_status_msg_in_idle_cb (GObject *obj, GAsyncResult *res,
+                               gpointer user_data)
+{
+    gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
+                        0, user_data);
+    g_free (user_data);
+    g_object_unref (res);
+}
+
+void
+et_show_status_msg_in_idle (gchar *message)
+{
+    GSimpleAsyncResult *async_res;
+
+    async_res = g_simple_async_result_new (NULL,
+                                           et_show_status_msg_in_idle_cb,
+                                           g_strdup (message),
+                                           et_show_status_msg_in_idle);
+    g_simple_async_result_complete_in_idle (async_res);
 }
 
 void
@@ -95,9 +119,13 @@ manual_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
 {
     GError *error;
     ManualSearchThreadData *thread_data;
+    gchar *status_msg;
 
     error = NULL;
     thread_data = (ManualSearchThreadData *)g_async_result_get_user_data (G_ASYNC_RESULT (res));
+    status_msg = g_strconcat ("Searching ", thread_data->text_to_search, NULL);
+    et_show_status_msg_in_idle (status_msg);
+    g_free (status_msg);
 
     if (!et_musicbrainz_search (thread_data->text_to_search,
                                 thread_data->type, mb_tree_root, &error))
@@ -137,14 +165,22 @@ btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
     thread_data = g_malloc (sizeof (ManualSearchThreadData));
     thread_data->type = type;
     thread_data->text_to_search = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (cb_manual_search));
-    cancellable = g_cancellable_new ();
+    mb5_search_cancellable = g_cancellable_new ();
     /* TODO: Add Cancellable object */
-    /* TODO: Display Status Bar messages */
+    gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
+                        0, "Starting MusicBrainz Search");
     async_result = g_simple_async_result_new (NULL, manual_search_callback, 
                                               thread_data,
                                               btn_manual_find_clicked);
     g_simple_async_result_run_in_thread (async_result,
-                                         manual_search_thread_func, 0, NULL);
+                                         manual_search_thread_func, 0,
+                                         mb5_search_cancellable);
+}
+
+static void
+btn_manual_stop_clicked (GtkWidget *btn, gpointer user_data)
+{
+    g_cancellable_cancel (mb5_search_cancellable);
 }
 
 /*
@@ -184,6 +220,11 @@ et_open_musicbrainz_dialog ()
     g_signal_connect (gtk_builder_get_object (builder, "btnManualFind"),
                       "clicked", G_CALLBACK (btn_manual_find_clicked),
                       NULL);
+    g_signal_connect (gtk_builder_get_object (builder, "btnManualStop"),
+                      "clicked", G_CALLBACK (btn_manual_stop_clicked),
+                      NULL);
+
+    /* Fill Values in cb_manual_search_in */
     cb_manual_search_in = GTK_WIDGET (gtk_builder_get_object (builder,
                                                               "cbManualSearchIn"));
 

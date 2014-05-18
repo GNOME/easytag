@@ -426,6 +426,8 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
     gtk_button_set_label (GTK_BUTTON (toggle_btn), entity_name);
     gtk_widget_show_all (GTK_WIDGET (priv->bread_crumb_box));
     show_data_in_entity_view (entity_view);
+    gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
+                        0, "Retrieving Completed");
     g_object_unref (res);
     g_free (thread_data);
 }
@@ -437,7 +439,11 @@ search_in_levels_thread_func (GSimpleAsyncResult *res, GObject *obj,
     SearchInLevelThreadData *thread_data;
     gchar mbid [NAME_MAX_SIZE];
     GError *error;
+    gchar *status_msg;
+    gchar parent_entity_str [NAME_MAX_SIZE];
+    gchar *child_entity_type_str;
 
+    child_entity_type_str = NULL;
     thread_data = g_async_result_get_user_data (G_ASYNC_RESULT (res));
 
     if (((EtMbEntity *)thread_data->child->data)->type ==
@@ -448,17 +454,28 @@ search_in_levels_thread_func (GSimpleAsyncResult *res, GObject *obj,
     else if (((EtMbEntity *)thread_data->child->data)->type ==
              MB_ENTITY_TYPE_ARTIST)
     {
+        child_entity_type_str = g_strdup ("Albums ");
         mb5_artist_get_id (((EtMbEntity *)thread_data->child->data)->entity,
                            mbid, sizeof (mbid));
+        mb5_artist_get_name (((EtMbEntity *)thread_data->child->data)->entity,
+                             parent_entity_str, sizeof (parent_entity_str));
     }
     else if (((EtMbEntity *)thread_data->child->data)->type ==
              MB_ENTITY_TYPE_ALBUM)
     {
+        child_entity_type_str = g_strdup ("Tracks ");
         mb5_release_get_id (((EtMbEntity *)thread_data->child->data)->entity,
                             mbid, sizeof (mbid));
+        mb5_release_get_title (((EtMbEntity *)thread_data->child->data)->entity,
+                               parent_entity_str, sizeof (parent_entity_str));
     }
 
     error = NULL;
+    status_msg = g_strconcat ("Retrieving ", child_entity_type_str, "for ",
+                              parent_entity_str, NULL);
+    et_show_status_msg_in_idle (status_msg);
+    g_free (status_msg);
+    g_free (child_entity_type_str);
 
     if (!et_musicbrainz_search_in_entity (((EtMbEntity *)thread_data->child->data)->type + 1,
                                           ((EtMbEntity *)thread_data->child->data)->type,
@@ -484,7 +501,6 @@ tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
                          GtkTreeViewColumn *column, gpointer user_data)
 {
     /* TODO: Add Cancellable object */
-    /* TODO: Display Status Bar messages */
     SearchInLevelThreadData *thread_data;
     EtMbEntityView *entity_view;
     EtMbEntityViewPrivate *priv;
@@ -501,7 +517,8 @@ tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
     thread_data->entity_view = ET_MB_ENTITY_VIEW (user_data);
     thread_data->child = child;
     gtk_tree_model_get_iter (priv->list_store, &thread_data->iter, path);
-
+    gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
+                        0, "Starting MusicBrainz Search");
     async_result = g_simple_async_result_new (NULL,
                                               search_in_levels_callback,
                                               thread_data,
