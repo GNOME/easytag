@@ -76,6 +76,7 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                 Mb5Artist artist;
                 artist = mb5_metadata_get_artist (metadata);
                 list = mb5_artist_get_releaselist (artist);
+                param_values[0] = "artists release-groups";
 
                 for (i = 0; i < mb5_release_list_size (list); i++)
                 {
@@ -83,16 +84,28 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                     release = mb5_release_list_item (list, i);
                     if (release)
                     {
+                        Mb5Metadata metadata_release;
+                        gchar release_mbid [NAME_MAX_SIZE];
                         GNode *node;
                         EtMbEntity *entity;
+                        mb5_release_get_id ((Mb5Release)release,
+                                            release_mbid,
+                                            sizeof (release_mbid));
+                        metadata_release = mb5_query_query (query, "release",
+                                                            release_mbid, "",
+                                                            1, param_names,
+                                                            param_values);
                         entity = g_malloc (sizeof (EtMbEntity));
-                        entity->entity = release;
+                        entity->entity = mb5_release_clone (mb5_metadata_get_release (metadata_release));
                         entity->type = MB_ENTITY_TYPE_ALBUM;
+                        entity->is_red_line = FALSE;
                         node = g_node_new (entity);
                         g_node_append (root, node);
+                        mb5_metadata_delete (metadata_release);
                     }
                 }
             }
+            mb5_metadata_delete (metadata);
         }
         else
         {
@@ -266,6 +279,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
                         entity = g_malloc (sizeof (EtMbEntity));
                         entity->entity = mb5_artist_clone (artist);
                         entity->type = MB_ENTITY_TYPE_ARTIST;
+                        entity->is_red_line = FALSE;
                         node = g_node_new (entity);
                         g_node_append (root, node);
                     }
@@ -287,6 +301,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
         metadata = mb5_query_query (query, "release", "", "", 2, param_names,
                                     param_values);
         result = mb5_query_get_lastresult (query);
+        g_free (param_values [0]);
 
         if (result == eQuery_Success)
         {
@@ -304,18 +319,29 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
                     release = mb5_release_list_item (list, i);
                     if (release)
                     {
+                        Mb5Metadata metadata_release;
+                        gchar release_mbid [NAME_MAX_SIZE];
                         GNode *node;
                         EtMbEntity *entity;
+
+                        mb5_release_get_id ((Mb5Release)release,
+                                            release_mbid,
+                                            sizeof (release_mbid));
+                        metadata_release = mb5_query_query (query, "release",
+                                                            release_mbid, "",
+                                                            1, param_names,
+                                                            param_values);
                         entity = g_malloc (sizeof (EtMbEntity));
-                        entity->entity = mb5_release_clone (release);
+                        entity->entity = mb5_release_clone (mb5_metadata_get_release (metadata_release));
                         entity->type = MB_ENTITY_TYPE_ALBUM;
+                        entity->is_red_line = FALSE;
                         node = g_node_new (entity);
                         g_node_append (root, node);
+                        mb5_metadata_delete (metadata_release);
                     }
                 }
             }
 
-            g_free (param_values [0]);
             mb5_metadata_delete (metadata);
         }
         else

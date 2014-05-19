@@ -31,6 +31,8 @@
  * Declarations *
  ****************/
 
+#define NAME_MAX_SIZE 256
+
 GCancellable *mb5_search_cancellable;
 
 /*
@@ -73,6 +75,7 @@ typedef struct
 {
     Mb5Entity entity;
     enum MB_ENTITY_TYPE type;
+    gboolean is_red_line;
 } EtMbEntity;
 
 /**************

@@ -636,7 +636,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkToolButton" id="toolbtnToggleRedLines">
+                              <object class="GtkToggleToolButton" id="toolbtnToggleRedLines">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">toolbutton8</property>
