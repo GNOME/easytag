@@ -29,7 +29,8 @@
 #include "log.h"
 #include "musicbrainz_dialog.h"
 #include "mbentityview.h"
- 
+#include "mb_search.h"
+
 /***************
  * Declaration *
  ***************/
@@ -178,6 +179,48 @@ btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
 }
 
 static void
+tool_btn_toggle_red_lines_clicked (GtkWidget *btn, gpointer user_data)
+{
+    
+}
+
+static void
+tool_btn_up_clicked (GtkWidget *btn, gpointer user_data)
+{
+    
+}
+
+static void
+tool_btn_down_clicked (GtkWidget *btn, gpointer user_data)
+{
+    
+}
+
+static void
+tool_btn_invert_selection_clicked (GtkWidget *btn, gpointer user_data)
+{
+    
+}
+
+static void
+tool_btn_select_all_clicked (GtkWidget *btn, gpointer user_data)
+{
+    et_mb_entity_view_select_all (ET_MB_ENTITY_VIEW (entityView));
+}
+
+static void
+tool_btn_unselect_all_clicked (GtkWidget *btn, gpointer user_data)
+{
+    et_mb_entity_view_unselect_all (ET_MB_ENTITY_VIEW (entityView));
+}
+
+static void
+tool_btn_refersh_clicked (GtkWidget *btn, gpointer user_data)
+{
+    
+}
+
+static void
 btn_manual_stop_clicked (GtkWidget *btn, gpointer user_data)
 {
     g_cancellable_cancel (mb5_search_cancellable);
@@ -222,6 +265,9 @@ et_open_musicbrainz_dialog ()
                       NULL);
     g_signal_connect (gtk_builder_get_object (builder, "btnManualStop"),
                       "clicked", G_CALLBACK (btn_manual_stop_clicked),
+                      NULL);
+    g_signal_connect (gtk_builder_get_object (builder, "toolbtnToggleRedLines"),
+                      "clicked", G_CALLBACK (tool_btn_toggle_red_lines_clicked),
                       NULL);
 
     /* Fill Values in cb_manual_search_in */

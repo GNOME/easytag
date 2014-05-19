@@ -22,7 +22,6 @@
 #define __MB_ENTITY_VIEW_H__
 
 #include <gtk/gtk.h>
-#include "mb_search.h"
 
 #define ET_MB_ENTITY_VIEW_TYPE (et_mb_entity_view_get_type ())
 #define ET_MB_ENTITY_VIEW(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), \
@@ -101,5 +100,10 @@ et_mb_entity_view_get_type (void);
 GtkWidget *
 et_mb_entity_view_new (void);
 void
-et_mb_entity_view_set_tree_root (EtMbEntityView *entity_view, GNode *treeRoot);
+et_mb_entity_view_set_tree_root (EtMbEntityView *entity_view,
+                                 GNode *treeRoot);
+void
+et_mb_entity_view_select_all (EtMbEntityView *entity_view);
+void
+et_mb_entity_view_unselect_all (EtMbEntityView *entity_view);
 #endif /* __MB_ENTITY_VIEW_H__ */
