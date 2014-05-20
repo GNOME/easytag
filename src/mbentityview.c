@@ -39,7 +39,7 @@
 char *columns [MB_ENTITY_TYPE_COUNT][8] = {
     {"Name", "Gender", "Type"},
     {"Name", "Artist", "Tracks", "Type"},
-    {"Name", "Country", "Album", "Date", "Time", "Number"},
+    {"Name", "Album", "Artist", "Time", "Number"},
     };
 
 static GSimpleAsyncResult *async_result;
@@ -176,7 +176,10 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
     Mb5ArtistCredit artist_credit;
     Mb5NameCreditList name_list;
     Mb5ReleaseGroup release_group;
+    Mb5ReleaseList release_list;
     int i;
+    int minutes;
+    int seconds;
     GString *gstring;
     GtkTreeIter iter;
     gchar name [NAME_MAX_SIZE];
@@ -266,18 +269,66 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                 break;
 
             case MB_ENTITY_TYPE_TRACK:
-                mb5_recording_get_id ((Mb5Recording)entity, name, sizeof (name));
+                mb5_recording_get_title ((Mb5Recording)entity, name, sizeof (name));
                 gtk_list_store_append (list_store, &iter);
                 gtk_list_store_set (list_store, &iter, 
                                     MB_TRACK_COLUMNS_NAME, name, -1);
 
                 /* TODO: Get country and number */
-                gtk_list_store_set (list_store, &iter,
-                                    MB_TRACK_COLUMNS_COUNTRY, name, -1);
+                /*gtk_list_store_set (list_store, &iter,
+                                    MB_TRACK_COLUMNS_COUNTRY, name, -1);*/
+                artist_credit = mb5_recording_get_artistcredit ((Mb5Release)entity);
+                if (artist_credit)
+                {
+                    name_list = mb5_artistcredit_get_namecreditlist (artist_credit);
+                    gstring = g_string_new ("");
 
+                    for (i = 0; i < mb5_namecredit_list_size (name_list); i++)
+                    {
+                        Mb5NameCredit name_credit;
+                        Mb5Artist name_credit_artist;
+                        int size;
+                        name_credit = mb5_namecredit_list_item (name_list, i);
+                        name_credit_artist = mb5_namecredit_get_artist (name_credit);
+                        size = mb5_artist_get_name (name_credit_artist, name, sizeof (name));
+                        g_string_append_len (gstring, name, size);
+                        g_string_append_c (gstring, ' ');
+                    }
+                    gtk_list_store_set (list_store, &iter,
+                                        MB_TRACK_COLUMNS_ARTIST,
+                                        gstring->str, -1);
+                    g_string_free (gstring, TRUE);
+                }
+
+                release_list = mb5_recording_get_releaselist ((Mb5Recording)entity);
+                if (release_list)
+                {
+                    gstring = g_string_new ("");
+                    for (i = 0; i < mb5_release_list_size (release_list); i++)
+                    {
+                        Mb5Release release;
+                        int size;
+
+                        release = mb5_release_list_item (release_list, i);
+                        size = mb5_release_get_title (release, name, sizeof (name));
+                        g_string_append_len (gstring, name, size);
+                        g_string_append_c (gstring, ' ');
+                    }
+
+                    gtk_list_store_set (list_store, &iter,
+                                        MB_TRACK_COLUMNS_ALBUM,
+                                        gstring->str, -1);
+                    g_string_free (gstring, TRUE);
+                }
+
+                minutes = mb5_recording_get_length ((Mb5Recording)entity)/60000;
+                seconds = mb5_recording_get_length ((Mb5Recording)entity)%60000;
+                i = g_snprintf (name, NAME_MAX_SIZE, "%d:%d", minutes,
+                                seconds/1000);
+                name [i] = '\0';
                 gtk_list_store_set (list_store, &iter,
                                     MB_TRACK_COLUMNS_TIME,
-                                    mb5_recording_get_length ((Mb5Recording)entity), -1);
+                                    name, -1);
                 break;
 
             case MB_ENTITY_TYPE_COUNT:
@@ -571,13 +622,15 @@ et_mb_entity_view_init (EtMbEntityView *entity_view)
 {
     EtMbEntityViewPrivate *priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
 
-    gtk_orientable_set_orientation (GTK_ORIENTABLE (entity_view), GTK_ORIENTATION_VERTICAL);
+    gtk_orientable_set_orientation (GTK_ORIENTABLE (entity_view),
+                                    GTK_ORIENTATION_VERTICAL);
 
-    /* Adding child widgets */    
+    /* Adding child widgets */
     priv->bread_crumb_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
     priv->tree_view = gtk_tree_view_new ();
     priv->scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-    gtk_container_add (GTK_CONTAINER (priv->scrolled_window), priv->tree_view);
+    gtk_container_add (GTK_CONTAINER (priv->scrolled_window),
+                       priv->tree_view);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->scrolled_window),
                                     GTK_POLICY_ALWAYS, GTK_POLICY_ALWAYS);
     gtk_box_pack_start (GTK_BOX (entity_view), priv->bread_crumb_box,

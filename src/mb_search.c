@@ -63,8 +63,8 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
         parent_type == MB_ENTITY_TYPE_ARTIST)
     {
         param_values [0] = "releases";
-        metadata = mb5_query_query (query, "artist", parent_mbid, "", 1, param_names,
-                                    param_values);
+        metadata = mb5_query_query (query, "artist", parent_mbid, "", 1,
+                                    param_names, param_values);
         result = mb5_query_get_lastresult (query);
 
         if (result == eQuery_Success)
@@ -115,7 +115,68 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
     else if (child_type == MB_ENTITY_TYPE_TRACK &&
              parent_type == MB_ENTITY_TYPE_ALBUM)
     {
-        
+        param_values [0] = "recordings";
+        metadata = mb5_query_query (query, "release", parent_mbid, "", 1,
+                                    param_names, param_values);
+        result = mb5_query_get_lastresult (query);
+
+        if (result == eQuery_Success)
+        {
+            if (metadata)
+            {
+                int i;
+                Mb5MediumList list;
+                Mb5Release release;
+                release = mb5_metadata_get_release (metadata);
+                list = mb5_release_get_mediumlist (release);
+                param_values[0] = "releases artists";
+
+                for (i = 0; i < mb5_medium_list_size (list); i++)
+                {
+                    Mb5Medium medium;
+                    medium = mb5_medium_list_item (list, i);
+
+                    if (medium)
+                    {
+                        Mb5Metadata metadata_recording;
+                        gchar recording_mbid [NAME_MAX_SIZE];
+                        GNode *node;
+                        EtMbEntity *entity;
+                        Mb5TrackList track_list;
+                        int j;
+
+                        track_list = mb5_medium_get_tracklist (medium);
+
+                        for (j = 0; j < mb5_track_list_size (track_list); j++)
+                        {
+                            Mb5Recording recording;
+
+                            recording = mb5_track_get_recording (mb5_track_list_item (track_list, j));
+                            mb5_recording_get_id (recording,
+                                                  recording_mbid,
+                                                  sizeof (recording_mbid));
+                            metadata_recording = mb5_query_query (query, "recording",
+                                                                  recording_mbid, "",
+                                                                  1, param_names,
+                                                                  param_values);
+                            entity = g_malloc (sizeof (EtMbEntity));
+                            entity->entity = mb5_recording_clone (mb5_metadata_get_recording (metadata_recording));
+                            entity->type = MB_ENTITY_TYPE_TRACK;
+                            entity->is_red_line = FALSE;
+                            node = g_node_new (entity);
+                            g_node_append (root, node);
+                            mb5_metadata_delete (metadata_recording);
+                        }
+                    }
+                }
+            }
+
+            mb5_metadata_delete (metadata);
+        }
+        else
+        {
+            goto err;
+        }
     }
 
     mb5_query_delete (query);
@@ -250,7 +311,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
                 Mb5ReleaseList list;
                 list = mb5_metadata_get_releaselist (metadata);
                 param_names [0] = "inc";
-                param_values [0] = "artists";
+                param_values [0] = "artists release-groups";
 
                 for (i = 0; i < mb5_release_list_size (list); i++)
                 {
@@ -291,6 +352,55 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
 
     else if (type == MB_ENTITY_TYPE_TRACK)
     {
+        param_values [0] = g_strconcat ("recordings:", string, NULL);
+        metadata = mb5_query_query (query, "recording", "", "", 2,
+                                    param_names, param_values);
+        result = mb5_query_get_lastresult (query);
+        g_free (param_values [0]);
+
+        if (result == eQuery_Success)
+        {
+            if (metadata)
+            {
+                int i;
+                Mb5RecordingList list;
+
+                list = mb5_metadata_get_recordinglist (metadata);
+                param_names [0] = "inc";
+                param_values[0] = "releases artists";
+
+                for (i = 0; i < mb5_recording_list_size (list); i++)
+                {
+                    Mb5Recording recording;
+                    Mb5Metadata metadata_recording;
+                    gchar recording_mbid [NAME_MAX_SIZE];
+                    GNode *node;
+                    EtMbEntity *entity;
+
+                    recording = mb5_recording_list_item (list, i);
+                    mb5_recording_get_id (recording,
+                                          recording_mbid,
+                                          sizeof (recording_mbid));
+                    metadata_recording = mb5_query_query (query, "recording",
+                                                          recording_mbid, "",
+                                                          1, param_names,
+                                                          param_values);
+                    entity = g_malloc (sizeof (EtMbEntity));
+                    entity->entity = mb5_recording_clone (mb5_metadata_get_recording (metadata_recording));
+                    entity->type = MB_ENTITY_TYPE_TRACK;
+                    entity->is_red_line = FALSE;
+                    node = g_node_new (entity);
+                    g_node_append (root, node);
+                    mb5_metadata_delete (metadata_recording);
+                }
+            }
+
+            mb5_metadata_delete (metadata);
+        }
+        else
+        {
+            goto err;
+        }
     }
 
     mb5_query_delete (query);
