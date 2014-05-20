@@ -193,6 +193,7 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
         {
             case MB_ENTITY_TYPE_ARTIST:
                 mb5_artist_get_name ((Mb5Artist)entity, name, sizeof (name));
+                printf ("name %s\n", name);
                 gtk_list_store_append (list_store, &iter);
                 gtk_list_store_set (list_store, &iter, 
                                     MB_ARTIST_COLUMNS_NAME, name, -1);
@@ -208,11 +209,13 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
 
                 if (((EtMbEntity *)node->data)->is_red_line)
                 {
+                    printf ("IS RED\n");
                     gtk_list_store_set (list_store, &iter,
                                         MB_ARTIST_COLUMNS_N, "red", -1);
                 }
                 else
                 {
+                    printf ("IS BLACK\n");
                     gtk_list_store_set (list_store, &iter,
                                         MB_ARTIST_COLUMNS_N, "black", -1);
                 }
@@ -237,12 +240,14 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                         Mb5NameCredit name_credit;
                         Mb5Artist name_credit_artist;
                         int size;
+
                         name_credit = mb5_namecredit_list_item (name_list, i);
                         name_credit_artist = mb5_namecredit_get_artist (name_credit);
                         size = mb5_artist_get_name (name_credit_artist, name, sizeof (name));
                         g_string_append_len (gstring, name, size);
                         g_string_append_c (gstring, ' ');
                     }
+
                     gtk_list_store_set (list_store, &iter,
                                         MB_ALBUM_COLUMNS_ARTIST,
                                         gstring->str, -1);
@@ -288,12 +293,14 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                         Mb5NameCredit name_credit;
                         Mb5Artist name_credit_artist;
                         int size;
+
                         name_credit = mb5_namecredit_list_item (name_list, i);
                         name_credit_artist = mb5_namecredit_get_artist (name_credit);
                         size = mb5_artist_get_name (name_credit_artist, name, sizeof (name));
                         g_string_append_len (gstring, name, size);
                         g_string_append_c (gstring, ' ');
                     }
+
                     gtk_list_store_set (list_store, &iter,
                                         MB_TRACK_COLUMNS_ARTIST,
                                         gstring->str, -1);
@@ -472,11 +479,15 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
     GtkWidget *toggle_btn;
     gchar *entity_name;
     SearchInLevelThreadData *thread_data;
+    GList *children;
+    GList *active_child;
 
     thread_data = user_data;
     entity_view = thread_data->entity_view;
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
 
+    gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
+                        0, "Retrieving Completed");
     /* Check if child node has children or not */
     if (!g_node_first_child (thread_data->child))
     {
@@ -484,8 +495,17 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
     }
 
     priv->mb_tree_current_node = thread_data->child;
+    children = gtk_container_get_children (GTK_CONTAINER (priv->bread_crumb_box));
+    active_child = g_list_find (children, priv->active_toggle_button);
+    while ((active_child = g_list_next (active_child)))
+    {
+        gtk_container_remove (GTK_CONTAINER (priv->bread_crumb_box),
+                              GTK_WIDGET (active_child->data));
+    }
+
     toggle_btn = insert_togglebtn_in_breadcrumb (GTK_BOX (priv->bread_crumb_box));
-    priv->bread_crumb_nodes [g_list_length (gtk_container_get_children (GTK_CONTAINER (priv->bread_crumb_box))) - 1] = thread_data->child;
+    children = gtk_container_get_children (GTK_CONTAINER (priv->bread_crumb_box));
+    priv->bread_crumb_nodes [g_list_length (children) - 1] = thread_data->child;
 
     if (priv->active_toggle_button)
     {
@@ -498,13 +518,12 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
                       G_CALLBACK (toggle_button_clicked), entity_view);
     priv->active_toggle_button = toggle_btn;
 
-    gtk_tree_model_get (priv->list_store, &thread_data->iter, 0, &entity_name, -1);
+    gtk_tree_model_get (priv->list_store, &thread_data->iter, 0, &entity_name,
+                        -1);
     gtk_button_set_label (GTK_BUTTON (toggle_btn), entity_name);
     gtk_widget_show_all (GTK_WIDGET (priv->bread_crumb_box));
-    show_data_in_entity_view (entity_view);
-    gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
-                        0, "Retrieving Completed");
     ((EtMbEntity *)thread_data->child->data)->is_red_line = TRUE;
+    show_data_in_entity_view (entity_view);
     g_object_unref (res);
     g_free (thread_data);
 }
@@ -583,12 +602,21 @@ tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
     EtMbEntityViewPrivate *priv;
     GNode *child;
     int depth;
+    GtkTreeIter iter;
 
     entity_view = ET_MB_ENTITY_VIEW (user_data);
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
-    depth = gtk_tree_path_get_depth (path);
+    gtk_tree_model_get_iter (priv->list_store, &iter, path);
+    depth = 0;
+
+    while (gtk_tree_model_iter_previous (priv->list_store, &iter))
+    {        
+        depth++;
+    }
+
+    printf ("depth %d\n", depth);
     child = g_node_nth_child (priv->mb_tree_current_node,
-                              depth - 1);
+                              depth);
 
     if (((EtMbEntity *)child->data)->type ==
         MB_ENTITY_TYPE_TRACK)
