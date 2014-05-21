@@ -106,4 +106,8 @@ void
 et_mb_entity_view_select_all (EtMbEntityView *entity_view);
 void
 et_mb_entity_view_unselect_all (EtMbEntityView *entity_view);
+void
+et_mb_entity_view_toggle_red_lines (EtMbEntityView *entity_view);
+void
+et_mb_entity_view_invert_selection (EtMbEntityView *entity_view);
 #endif /* __MB_ENTITY_VIEW_H__ */

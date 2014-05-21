@@ -67,12 +67,18 @@ static void
 manual_search_callback (GObject *source, GAsyncResult *res,
                         gpointer user_data)
 {
+    GtkComboBoxText *combo_box;
+
     et_mb_entity_view_set_tree_root (ET_MB_ENTITY_VIEW (entityView),
                                      mb_tree_root);
     gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
                         0, "Searching Completed");
     g_object_unref (res);
     g_free (user_data);
+
+    combo_box = GTK_COMBO_BOX_TEXT (gtk_builder_get_object (builder, "cbManualSearch"));
+    gtk_combo_box_text_append_text (combo_box,
+                                    gtk_combo_box_text_get_active_text (combo_box));
 }
 
 /*
@@ -211,7 +217,7 @@ btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
 static void
 tool_btn_toggle_red_lines_clicked (GtkWidget *btn, gpointer user_data)
 {
-
+    et_mb_entity_view_toggle_red_lines (ET_MB_ENTITY_VIEW (entityView));
 }
 
 static void
@@ -229,7 +235,7 @@ tool_btn_down_clicked (GtkWidget *btn, gpointer user_data)
 static void
 tool_btn_invert_selection_clicked (GtkWidget *btn, gpointer user_data)
 {
-
+    et_mb_entity_view_invert_selection (ET_MB_ENTITY_VIEW (entityView));
 }
 
 static void
@@ -298,6 +304,9 @@ et_open_musicbrainz_dialog ()
                       NULL);
     g_signal_connect (gtk_builder_get_object (builder, "toolbtnToggleRedLines"),
                       "clicked", G_CALLBACK (tool_btn_toggle_red_lines_clicked),
+                      NULL);
+    g_signal_connect (gtk_builder_get_object (builder, "toolbtnInvertSelection"),
+                      "clicked", G_CALLBACK (tool_btn_invert_selection_clicked),
                       NULL);
 
     /* Fill Values in cb_manual_search_in */

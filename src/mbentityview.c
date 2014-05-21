@@ -67,6 +67,9 @@ typedef struct
     GNode *mb_tree_root;
     GNode *mb_tree_current_node;
     GtkWidget *active_toggle_button;
+    GtkTreeModel *filter;
+    gboolean search_or_red;
+    gboolean toggle_red_lines;
 } EtMbEntityViewPrivate;
 
 typedef struct
@@ -95,10 +98,55 @@ toggle_button_clicked (GtkWidget *btn, gpointer user_data);
 static void
 tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
                          GtkTreeViewColumn *column, gpointer user_data);
-
+static gboolean
+tree_filter_visible_func (GtkTreeModel *model, GtkTreeIter *iter,
+                          gpointer data);
 /*************
  * Functions *
  *************/
+
+static gboolean
+tree_filter_visible_func (GtkTreeModel *model, GtkTreeIter *iter,
+                          gpointer data)
+{
+    EtMbEntityViewPrivate *priv;
+
+    priv = (EtMbEntityViewPrivate *)data;
+
+    if (!priv->search_or_red)
+    {
+        gchar *value;
+
+        if (gtk_tree_model_get_n_columns (model) == MB_ARTIST_COLUMNS_N + 1)
+        {
+            gtk_tree_model_get (model, iter, MB_ARTIST_COLUMNS_N, &value, -1);
+        }
+        else if (gtk_tree_model_get_n_columns (model) == MB_ALBUM_COLUMNS_N + 1)
+        {
+            gtk_tree_model_get (model, iter, MB_ALBUM_COLUMNS_N, &value, -1);
+        }
+        else if (gtk_tree_model_get_n_columns (model) == MB_TRACK_COLUMNS_N + 1)
+        {
+            gtk_tree_model_get (model, iter, MB_TRACK_COLUMNS_N, &value, -1);
+        }
+        else
+        {
+            return TRUE;
+        }
+
+        if (g_strcmp0 (value, "black") == 0)
+        {
+            g_free (value);
+            return TRUE;
+        }
+
+        g_free (value);
+
+        return priv->toggle_red_lines;
+    }
+
+    return TRUE;
+}
 
 /*
  * et_mb_entity_view_get_type
@@ -193,8 +241,8 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
         {
             case MB_ENTITY_TYPE_ARTIST:
                 mb5_artist_get_name ((Mb5Artist)entity, name, sizeof (name));
-                printf ("name %s\n", name);
-                gtk_list_store_append (list_store, &iter);
+                gtk_list_store_insert_with_values (list_store, &iter, -1,
+                                        MB_ARTIST_COLUMNS_N, "black", -1);
                 gtk_list_store_set (list_store, &iter,
                                     MB_ARTIST_COLUMNS_NAME, name, -1);
 
@@ -209,13 +257,11 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
 
                 if (((EtMbEntity *)node->data)->is_red_line)
                 {
-                    printf ("IS RED\n");
                     gtk_list_store_set (list_store, &iter,
                                         MB_ARTIST_COLUMNS_N, "red", -1);
                 }
                 else
                 {
-                    printf ("IS BLACK\n");
                     gtk_list_store_set (list_store, &iter,
                                         MB_ARTIST_COLUMNS_N, "black", -1);
                 }
@@ -225,7 +271,8 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
             case MB_ENTITY_TYPE_ALBUM:
                 mb5_release_get_title ((Mb5Release)entity, name,
                                        sizeof (name));
-                gtk_list_store_append (list_store, &iter);
+                gtk_list_store_insert_with_values (list_store, &iter, -1,
+                                        MB_ALBUM_COLUMNS_N, "black", -1);
                 gtk_list_store_set (list_store, &iter,
                                     MB_ALBUM_COLUMNS_NAME, name, -1);
 
@@ -420,10 +467,15 @@ show_data_in_entity_view (EtMbEntityView *entity_view)
                                               "text", total_cols, NULL);
 
     priv->list_store = GTK_TREE_MODEL (gtk_list_store_newv (total_cols + 1, types));
+    priv->filter = GTK_TREE_MODEL (gtk_tree_model_filter_new (priv->list_store,
+                                                              NULL));
+    gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (priv->filter),
+                                            tree_filter_visible_func, priv,
+                                            NULL);
     g_free (types);
 
-    gtk_tree_view_set_model (GTK_TREE_VIEW (priv->tree_view), priv->list_store);
-    g_object_unref (priv->list_store);
+    gtk_tree_view_set_model (GTK_TREE_VIEW (priv->tree_view), priv->filter);
+    g_object_unref (priv->filter);
     add_iter_to_list_store (GTK_LIST_STORE (priv->list_store),
                             g_node_first_child (priv->mb_tree_current_node));
 }
@@ -594,11 +646,14 @@ tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
     EtMbEntityViewPrivate *priv;
     GNode *child;
     int depth;
+    GtkTreeIter filter_iter;
     GtkTreeIter iter;
 
     entity_view = ET_MB_ENTITY_VIEW (user_data);
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
-    gtk_tree_model_get_iter (priv->list_store, &iter, path);
+    gtk_tree_model_get_iter (priv->filter, &filter_iter, path);
+    gtk_tree_model_filter_convert_iter_to_child_iter (GTK_TREE_MODEL_FILTER (priv->filter), &iter,
+                                                      &filter_iter);
     depth = 0;
 
     while (gtk_tree_model_iter_previous (priv->list_store, &iter))
@@ -606,7 +661,6 @@ tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
         depth++;
     }
 
-    printf ("depth %d\n", depth);
     child = g_node_nth_child (priv->mb_tree_current_node,
                               depth);
 
@@ -619,7 +673,8 @@ tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
     thread_data = g_malloc (sizeof (SearchInLevelThreadData));
     thread_data->entity_view = ET_MB_ENTITY_VIEW (user_data);
     thread_data->child = child;
-    gtk_tree_model_get_iter (priv->list_store, &thread_data->iter, path);
+    gtk_tree_model_filter_convert_iter_to_child_iter (GTK_TREE_MODEL_FILTER (priv->filter), &thread_data->iter,
+                                                      &filter_iter);
     gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
                         0, "Starting MusicBrainz Search");
     async_result = g_simple_async_result_new (NULL,
@@ -660,6 +715,7 @@ et_mb_entity_view_init (EtMbEntityView *entity_view)
     priv->mb_tree_root = NULL;
     priv->mb_tree_current_node = NULL;
     priv->active_toggle_button = NULL;
+    priv->toggle_red_lines = TRUE;
 
     g_signal_connect (G_OBJECT (priv->tree_view), "row-activated",
                       G_CALLBACK (tree_view_row_activated), entity_view);
@@ -757,4 +813,55 @@ et_mb_entity_view_unselect_all (EtMbEntityView *entity_view)
 
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
     gtk_tree_selection_unselect_all (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view)));
+}
+
+/*
+ * et_mb_entity_view_toggle_red_lines:
+ * @entity_view: EtMbEntityView
+ *
+ * To toggle the state of red lines being displayed.
+ */
+void
+et_mb_entity_view_toggle_red_lines (EtMbEntityView *entity_view)
+{
+    EtMbEntityViewPrivate *priv;
+
+    priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
+    priv->search_or_red = FALSE;
+    priv->toggle_red_lines = !priv->toggle_red_lines;
+    gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER (priv->filter));
+}
+
+/*
+ * et_mb_entity_view_invert_selection:
+ * @entity_view: EtMbEntityView
+ *
+ * To select the unselected rows and unselect the selected rows.
+ */
+void
+et_mb_entity_view_invert_selection (EtMbEntityView *entity_view)
+{
+    EtMbEntityViewPrivate *priv;
+    GtkTreeIter filter_iter;
+    GtkTreeSelection *selection;
+
+    priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view));
+    if (!gtk_tree_model_get_iter_first (priv->filter, &filter_iter))
+    {
+        return FALSE;
+    }
+
+    do
+    {
+        if (!gtk_tree_selection_iter_is_selected (selection, &filter_iter))
+        {
+            gtk_tree_selection_select_iter (selection, &filter_iter);
+        }
+        else
+        {
+            gtk_tree_selection_unselect_iter (selection, &filter_iter);
+        }
+    }
+    while (gtk_tree_model_iter_next (priv->filter, &filter_iter));
 }
