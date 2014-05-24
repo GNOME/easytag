@@ -42,6 +42,13 @@ char *columns [MB_ENTITY_TYPE_COUNT][8] = {
     {"Name", "Album", "Artist", "Time", "Number"},
     };
 
+enum ET_MB_DISPLAY_RESULTS
+{
+    ET_MB_DISPLAY_RESULTS_ALL = 0,
+    ET_MB_DISPLAY_RESULTS_RED = 1,
+    ET_MB_DISPLAY_RESULTS_SEARCH = 1 << 1,
+};
+
 static GSimpleAsyncResult *async_result;
 
 /*
@@ -70,6 +77,7 @@ typedef struct
     GtkTreeModel *filter;
     gboolean search_or_red;
     gboolean toggle_red_lines;
+    const gchar *text_to_search_in_results;
 } EtMbEntityViewPrivate;
 
 typedef struct
@@ -113,7 +121,27 @@ tree_filter_visible_func (GtkTreeModel *model, GtkTreeIter *iter,
 
     priv = (EtMbEntityViewPrivate *)data;
 
-    if (!priv->search_or_red)
+    if (priv->search_or_red == ET_MB_DISPLAY_RESULTS_ALL)
+    {
+        return TRUE;
+    }
+
+    if (priv->search_or_red & ET_MB_DISPLAY_RESULTS_SEARCH)
+    {
+        gchar *value;
+
+        gtk_tree_model_get (model, iter, 0, &value, -1);
+
+        if (g_strstr_len (value, -1, priv->text_to_search_in_results))
+        {
+            g_free (value);
+            return TRUE;
+        }
+
+        g_free (value);
+    }
+    
+    if (priv->search_or_red & ET_MB_DISPLAY_RESULTS_RED)
     {
         gchar *value;
 
@@ -145,7 +173,7 @@ tree_filter_visible_func (GtkTreeModel *model, GtkTreeIter *iter,
         return priv->toggle_red_lines;
     }
 
-    return TRUE;
+    return FALSE;
 }
 
 /*
@@ -728,6 +756,7 @@ et_mb_entity_view_init (EtMbEntityView *entity_view)
     priv->mb_tree_current_node = NULL;
     priv->active_toggle_button = NULL;
     priv->toggle_red_lines = TRUE;
+    priv->search_or_red = ET_MB_DISPLAY_RESULTS_ALL;
 
     g_signal_connect (G_OBJECT (priv->tree_view), "row-activated",
                       G_CALLBACK (tree_view_row_activated), entity_view);
@@ -821,7 +850,7 @@ et_mb_entity_view_toggle_red_lines (EtMbEntityView *entity_view)
     EtMbEntityViewPrivate *priv;
 
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
-    priv->search_or_red = FALSE;
+    priv->search_or_red = priv->search_or_red | ET_MB_DISPLAY_RESULTS_RED;
     priv->toggle_red_lines = !priv->toggle_red_lines;
     gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER (priv->filter));
 }
@@ -837,7 +866,7 @@ et_mb_entity_view_invert_selection (EtMbEntityView *entity_view)
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view));
     if (!gtk_tree_model_get_iter_first (priv->filter, &filter_iter))
     {
-        return FALSE;
+        return;
     }
 
     do
@@ -852,4 +881,82 @@ et_mb_entity_view_invert_selection (EtMbEntityView *entity_view)
         }
     }
     while (gtk_tree_model_iter_next (priv->filter, &filter_iter));
+}
+
+int
+et_mb_entity_view_get_current_level (EtMbEntityView *entity_view)
+{
+    EtMbEntityViewPrivate *priv;
+    GList *list;
+    int n;
+
+    priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
+    list = gtk_container_get_children (GTK_CONTAINER (priv->bread_crumb_box));
+    n = g_list_length (list);
+    g_list_free (list);
+
+    return n;
+}
+
+void
+et_mb_entity_view_search_in_results (EtMbEntityView *entity_view,
+                                     const gchar *text)
+{
+    EtMbEntityViewPrivate *priv;
+
+    priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
+    priv->text_to_search_in_results = text;
+    priv->search_or_red = priv->search_or_red | ET_MB_DISPLAY_RESULTS_SEARCH;
+    gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER (priv->filter));
+}
+
+void
+et_mb_entity_view_select_up (EtMbEntityView *entity_view)
+{
+    EtMbEntityViewPrivate *priv;
+    GtkTreeSelection *selection;
+    GtkTreeIter iter;
+
+    priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view));
+
+    if (!gtk_tree_selection_iter_is_selected (selection, &iter))
+    {
+        return;
+    }
+
+    if (!gtk_tree_model_iter_previous (priv->filter, &iter))
+    {
+        return;
+    }
+
+    gtk_tree_selection_select_iter (selection, &iter);
+}
+
+void
+et_mb_entity_view_select_down (EtMbEntityView *entity_view)
+{
+    EtMbEntityViewPrivate *priv;
+    GtkTreeSelection *selection;
+    GtkTreeIter iter;
+
+    priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view));
+
+    if (!gtk_tree_selection_iter_is_selected (selection, &iter))
+    {
+        return;
+    }
+
+    if (!gtk_tree_model_iter_next (priv->filter, &iter))
+    {
+        return;
+    }
+
+    gtk_tree_selection_select_iter (selection, &iter);
+}
+
+void
+et_mb_entity_view_refresh_current_level (EtMbEntityView *entity_view)
+{
 }
