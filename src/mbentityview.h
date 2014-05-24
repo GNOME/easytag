@@ -110,4 +110,15 @@ void
 et_mb_entity_view_toggle_red_lines (EtMbEntityView *entity_view);
 void
 et_mb_entity_view_invert_selection (EtMbEntityView *entity_view);
+int
+et_mb_entity_view_get_current_level (EtMbEntityView *entity_view);
+void
+et_mb_entity_view_search_in_results (EtMbEntityView *entity_view,
+                                     const gchar *text);
+void
+et_mb_entity_view_refresh_current_level (EtMbEntityView *entity_view);
+void
+et_mb_entity_view_select_up (EtMbEntityView *entity_view);
+void
+et_mb_entity_view_select_down (EtMbEntityView *entity_view);
 #endif /* __MB_ENTITY_VIEW_H__ */

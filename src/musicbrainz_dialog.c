@@ -223,13 +223,13 @@ tool_btn_toggle_red_lines_clicked (GtkWidget *btn, gpointer user_data)
 static void
 tool_btn_up_clicked (GtkWidget *btn, gpointer user_data)
 {
-
+    et_mb_entity_view_select_up (ET_MB_ENTITY_VIEW (entityView));
 }
 
 static void
 tool_btn_down_clicked (GtkWidget *btn, gpointer user_data)
 {
-
+    et_mb_entity_view_select_down (ET_MB_ENTITY_VIEW (entityView));
 }
 
 static void
@@ -253,13 +253,26 @@ tool_btn_unselect_all_clicked (GtkWidget *btn, gpointer user_data)
 static void
 tool_btn_refersh_clicked (GtkWidget *btn, gpointer user_data)
 {
-
+    /* TODO: Implement Refresh Operation */
+    if (et_mb_entity_view_get_current_level (ET_MB_ENTITY_VIEW (entityView)) >
+        1)
+    {
+        /* Current level is more than 1, refereshing means downloading an */
+        /* entity's children */
+    }
 }
 
 static void
 btn_manual_stop_clicked (GtkWidget *btn, gpointer user_data)
 {
     g_cancellable_cancel (mb5_search_cancellable);
+}
+
+static void
+entry_tree_view_search_changed (GtkEditable *editable, gpointer user_data)
+{
+    et_mb_entity_view_search_in_results (ET_MB_ENTITY_VIEW (entityView),
+                    gtk_entry_get_text (GTK_ENTRY (gtk_builder_get_object (builder, "entryTreeViewSearch"))));
 }
 
 /*
@@ -302,13 +315,25 @@ et_open_musicbrainz_dialog ()
     g_signal_connect (gtk_builder_get_object (builder, "btnManualStop"),
                       "clicked", G_CALLBACK (btn_manual_stop_clicked),
                       NULL);
-    g_signal_connect (gtk_builder_get_object (builder, "toolbtnToggleRedLines"),
-                      "clicked", G_CALLBACK (tool_btn_toggle_red_lines_clicked),
+    g_signal_connect (gtk_builder_get_object (builder, "toolbtnUp"),
+                      "clicked", G_CALLBACK (tool_btn_up_clicked),
+                      NULL);
+    g_signal_connect (gtk_builder_get_object (builder, "toolbtnDown"),
+                      "clicked", G_CALLBACK (tool_btn_down_clicked),
+                      NULL);
+    g_signal_connect (gtk_builder_get_object (builder, "toolbtnSelectAll"),
+                      "clicked", G_CALLBACK (tool_btn_select_all_clicked),
+                      NULL);
+    g_signal_connect (gtk_builder_get_object (builder, "toolbtnUnselectAll"),
+                      "clicked", G_CALLBACK (tool_btn_unselect_all_clicked),
                       NULL);
     g_signal_connect (gtk_builder_get_object (builder, "toolbtnInvertSelection"),
                       "clicked", G_CALLBACK (tool_btn_invert_selection_clicked),
                       NULL);
-
+    g_signal_connect_after (gtk_builder_get_object (builder, "entryTreeViewSearch"),
+                            "changed",
+                            G_CALLBACK (entry_tree_view_search_changed),
+                            NULL);
     /* Fill Values in cb_manual_search_in */
     cb_manual_search_in = GTK_WIDGET (gtk_builder_get_object (builder,
                                                               "cbManualSearchIn"));
