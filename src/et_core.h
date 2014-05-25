@@ -99,7 +99,7 @@ typedef enum
 {                    //                                             (.ext) is not so popular 
     MP2_FILE = 0,    // Mpeg audio Layer 2        : .mp2            (.mpg) (.mpga)
     MP3_FILE,        // Mpeg audio Layer 3        : .mp3            (.mpg) (.mpga)
-    MP4_FILE,        // Mpeg audio Layer 4 / AAC  : .mp4            (.m4a) (.m4p)
+    MP4_FILE, /* MPEG audio Layer 4 / AAC: .mp4 (.m4a) (.m4p) (.m4v) */
     OGG_FILE,        // Ogg Vorbis audio          : .ogg            (.ogm)
     FLAC_FILE,       // FLAC (lossless)           : .flac .fla
     MPC_FILE,        // MusePack                  : .mpc .mp+ .mpp
