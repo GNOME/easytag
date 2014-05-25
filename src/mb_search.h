@@ -52,6 +52,7 @@ GQuark et_mb5_search_error_quark (void);
  * @ET_MB5_SEARCH_ERROR_FETCH: Cannot Fetch Data
  * @ET_MB5_SEARCH_ERROR_REQUEST: Request to MusicBrainz Server cannot be made
  * @ET_MB5_SEARCH_ERROR_RESOURCE_NOT_FOUND: Resource user is trying to search is not found
+ * @ET_MB5_SEARCH_ERROR_CANCELLED: Operation was cancelled
  *
  * Errors while searching MusicBrainz Server.
  */
@@ -63,6 +64,7 @@ typedef enum
     ET_MB5_SEARCH_ERROR_FETCH,
     ET_MB5_SEARCH_ERROR_REQUEST,
     ET_MB5_SEARCH_ERROR_RESOURCE_NOT_FOUND,
+    ET_MB5_SEARCH_ERROR_CANCELLED,
 } EtMB5SearchError;
 
 enum MB_ENTITY_TYPE
@@ -88,10 +90,10 @@ gboolean
 et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                                  enum MB_ENTITY_TYPE parent_type,
                                  gchar *parent_mbid, GNode *root,
-                                 GError **error);
+                                 GError **error, GCancellable *cancellable);
 gboolean
 et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
-                       GError **error);
+                       GError **error, GCancellable *cancellable);
 void
 free_mb_tree (GNode *node);
 #endif /* __MB_SEARCH_H__ */
