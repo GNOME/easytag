@@ -952,21 +952,22 @@ et_mb_entity_view_select_up (EtMbEntityView *entity_view)
     EtMbEntityViewPrivate *priv;
     GtkTreeSelection *selection;
     GtkTreeIter iter;
+    GList *selected_rows;
 
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view));
-
-    if (!gtk_tree_selection_iter_is_selected (selection, &iter))
+    selected_rows = gtk_tree_selection_get_selected_rows (selection, &priv->filter);
+    gtk_tree_model_get_iter (priv->filter, &iter,
+                             (g_list_first (selected_rows)->data));
+    if (!gtk_tree_model_iter_next (priv->filter, &iter))
     {
-        return;
-    }
-
-    if (!gtk_tree_model_iter_previous (priv->filter, &iter))
-    {
-        return;
+        goto exit;
     }
 
     gtk_tree_selection_select_iter (selection, &iter);
+
+    exit:
+    g_list_free_full (selected_rows, (GDestroyNotify)gtk_tree_path_free);
 }
 
 /*
@@ -981,21 +982,22 @@ et_mb_entity_view_select_down (EtMbEntityView *entity_view)
     EtMbEntityViewPrivate *priv;
     GtkTreeSelection *selection;
     GtkTreeIter iter;
+    GList *selected_rows;
 
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view));
-
-    if (!gtk_tree_selection_iter_is_selected (selection, &iter))
-    {
-        return;
-    }
-
+    selected_rows = gtk_tree_selection_get_selected_rows (selection, &priv->filter);
+    gtk_tree_model_get_iter (priv->filter, &iter,
+                             g_list_last (selected_rows)->data);
     if (!gtk_tree_model_iter_next (priv->filter, &iter))
     {
-        return;
+        goto exit;
     }
 
     gtk_tree_selection_select_iter (selection, &iter);
+
+    exit:
+    g_list_free_full (selected_rows, (GDestroyNotify)gtk_tree_path_free);
 }
 
 /*

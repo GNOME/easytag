@@ -119,6 +119,14 @@ et_show_status_msg_in_idle (gchar *message)
     g_simple_async_result_complete_in_idle (async_res);
 }
 
+/*
+ * et_show_status_msg_in_idle_cb:
+ * @obj: Source Object
+ * @res: GAsyncResult
+ * @user_data: User data
+ *
+ * Callback function for Displaying StatusBar Message.
+ */
 void
 mb5_search_error_callback (GObject *source, GAsyncResult *res,
                            gpointer user_data)
@@ -220,36 +228,78 @@ tool_btn_toggle_red_lines_clicked (GtkWidget *btn, gpointer user_data)
     et_mb_entity_view_toggle_red_lines (ET_MB_ENTITY_VIEW (entityView));
 }
 
+/*
+ * btn_manual_stop_clicked:
+ * @btn: GtkButton
+ * @user_data: User data
+ *
+ * Signal Handler for "clicked" signal of toolbtnUp.
+ */
 static void
 tool_btn_up_clicked (GtkWidget *btn, gpointer user_data)
 {
     et_mb_entity_view_select_up (ET_MB_ENTITY_VIEW (entityView));
 }
 
+/*
+ * btn_manual_stop_clicked:
+ * @btn: GtkButton
+ * @user_data: User data
+ *
+ * Signal Handler for "clicked" signal of toolbtnDown.
+ */
 static void
 tool_btn_down_clicked (GtkWidget *btn, gpointer user_data)
 {
     et_mb_entity_view_select_down (ET_MB_ENTITY_VIEW (entityView));
 }
 
+/*
+ * btn_manual_stop_clicked:
+ * @btn: GtkButton
+ * @user_data: User data
+ *
+ * Signal Handler for "clicked" signal of toolbtnInvertSelection.
+ */
 static void
 tool_btn_invert_selection_clicked (GtkWidget *btn, gpointer user_data)
 {
     et_mb_entity_view_invert_selection (ET_MB_ENTITY_VIEW (entityView));
 }
 
+/*
+ * btn_manual_stop_clicked:
+ * @btn: GtkButton
+ * @user_data: User data
+ *
+ * Signal Handler for "clicked" signal of toolbtnSelectAll.
+ */
 static void
 tool_btn_select_all_clicked (GtkWidget *btn, gpointer user_data)
 {
     et_mb_entity_view_select_all (ET_MB_ENTITY_VIEW (entityView));
 }
 
+/*
+ * btn_manual_stop_clicked:
+ * @btn: GtkButton
+ * @user_data: User data
+ *
+ * Signal Handler for "clicked" signal of toolbtnUnselectAll.
+ */
 static void
 tool_btn_unselect_all_clicked (GtkWidget *btn, gpointer user_data)
 {
     et_mb_entity_view_unselect_all (ET_MB_ENTITY_VIEW (entityView));
 }
 
+/*
+ * btn_manual_stop_clicked:
+ * @btn: GtkButton
+ * @user_data: User data
+ *
+ * Signal Handler for "clicked" signal of btnManualStop.
+ */
 static void
 tool_btn_refersh_clicked (GtkWidget *btn, gpointer user_data)
 {
@@ -262,17 +312,31 @@ tool_btn_refersh_clicked (GtkWidget *btn, gpointer user_data)
     }
 }
 
+/*
+ * btn_manual_stop_clicked:
+ * @btn: GtkButton
+ * @user_data: User data
+ *
+ * Signal Handler for "clicked" signal of btnManualStop.
+ */
 static void
 btn_manual_stop_clicked (GtkWidget *btn, gpointer user_data)
 {
     g_cancellable_cancel (mb5_search_cancellable);
 }
 
+/*
+ * entry_tree_view_search_changed:
+ * @editable: GtkEditable for which handler is called
+ * @user_data: User data
+ *
+ * Signal Handler for "changed" signal of entryTreeViewSearch.
+ */
 static void
 entry_tree_view_search_changed (GtkEditable *editable, gpointer user_data)
 {
     et_mb_entity_view_search_in_results (ET_MB_ENTITY_VIEW (entityView),
-                    gtk_entry_get_text (GTK_ENTRY (gtk_builder_get_object (builder, "entryTreeViewSearch"))));
+                                         gtk_entry_get_text (GTK_ENTRY (gtk_builder_get_object (builder, "entryTreeViewSearch"))));
 }
 
 /*
@@ -329,6 +393,9 @@ et_open_musicbrainz_dialog ()
                       NULL);
     g_signal_connect (gtk_builder_get_object (builder, "toolbtnInvertSelection"),
                       "clicked", G_CALLBACK (tool_btn_invert_selection_clicked),
+                      NULL);
+    g_signal_connect (gtk_builder_get_object (builder, "toolbtnToggleRedLines"),
+                      "clicked", G_CALLBACK (tool_btn_toggle_red_lines_clicked),
                       NULL);
     g_signal_connect_after (gtk_builder_get_object (builder, "entryTreeViewSearch"),
                             "changed",
