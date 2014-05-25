@@ -826,6 +826,12 @@ et_mb_entity_view_new ()
     return GTK_WIDGET (g_object_new (et_mb_entity_view_get_type (), NULL));
 }
 
+/*
+ * et_mb_entity_view_set_tree_root:
+ * @entity_view: EtMbEntityView
+ *
+ * To select all rows.
+ */
 void
 et_mb_entity_view_select_all (EtMbEntityView *entity_view)
 {
@@ -835,6 +841,12 @@ et_mb_entity_view_select_all (EtMbEntityView *entity_view)
     gtk_tree_selection_select_all (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view)));
 }
 
+/*
+ * et_mb_entity_view_unselect_all:
+ * @entity_view: EtMbEntityView
+ *
+ * To unselect all rows.
+ */
 void
 et_mb_entity_view_unselect_all (EtMbEntityView *entity_view)
 {
@@ -844,6 +856,12 @@ et_mb_entity_view_unselect_all (EtMbEntityView *entity_view)
     gtk_tree_selection_unselect_all (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view)));
 }
 
+/*
+ * et_mb_entity_view_toggle_red_lines:
+ * @entity_view: EtMbEntityView
+ *
+ * To toggle the state of red lines being displayed.
+ */
 void
 et_mb_entity_view_toggle_red_lines (EtMbEntityView *entity_view)
 {
@@ -855,6 +873,12 @@ et_mb_entity_view_toggle_red_lines (EtMbEntityView *entity_view)
     gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER (priv->filter));
 }
 
+/*
+ * et_mb_entity_view_invert_selection:
+ * @entity_view: EtMbEntityView
+ *
+ * To select the unselected rows and unselect the selected rows.
+ */
 void
 et_mb_entity_view_invert_selection (EtMbEntityView *entity_view)
 {
@@ -883,6 +907,12 @@ et_mb_entity_view_invert_selection (EtMbEntityView *entity_view)
     while (gtk_tree_model_iter_next (priv->filter, &filter_iter));
 }
 
+/*
+ * et_mb_entity_view_get_current_level:
+ * @entity_view: EtMbEntityView
+ *
+ * Get the current level at which search results are shown
+ */
 int
 et_mb_entity_view_get_current_level (EtMbEntityView *entity_view)
 {
@@ -898,6 +928,12 @@ et_mb_entity_view_get_current_level (EtMbEntityView *entity_view)
     return n;
 }
 
+/*
+ * et_mb_entity_view_search_in_results:
+ * @entity_view: EtMbEntityView
+ *
+ * To search in the results obtained
+ */
 void
 et_mb_entity_view_search_in_results (EtMbEntityView *entity_view,
                                      const gchar *text)
@@ -910,52 +946,72 @@ et_mb_entity_view_search_in_results (EtMbEntityView *entity_view,
     gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER (priv->filter));
 }
 
+/*
+ * et_mb_entity_view_select_up:
+ * @entity_view: EtMbEntityView
+ *
+ * To select the row above the current row.
+ */
 void
 et_mb_entity_view_select_up (EtMbEntityView *entity_view)
 {
     EtMbEntityViewPrivate *priv;
     GtkTreeSelection *selection;
     GtkTreeIter iter;
+    GList *selected_rows;
 
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view));
-
-    if (!gtk_tree_selection_iter_is_selected (selection, &iter))
+    selected_rows = gtk_tree_selection_get_selected_rows (selection, &priv->filter);
+    gtk_tree_model_get_iter (priv->filter, &iter,
+                             (g_list_first (selected_rows)->data));
+    if (!gtk_tree_model_iter_next (priv->filter, &iter))
     {
-        return;
-    }
-
-    if (!gtk_tree_model_iter_previous (priv->filter, &iter))
-    {
-        return;
+        goto exit;
     }
 
     gtk_tree_selection_select_iter (selection, &iter);
+
+    exit:
+    g_list_free_full (selected_rows, (GDestroyNotify)gtk_tree_path_free); 
 }
 
+/*
+ * et_mb_entity_view_select_down:
+ * @entity_view: EtMbEntityView
+ *
+ * To select the row below the current row.
+ */
 void
 et_mb_entity_view_select_down (EtMbEntityView *entity_view)
 {
     EtMbEntityViewPrivate *priv;
     GtkTreeSelection *selection;
     GtkTreeIter iter;
+    GList *selected_rows;
 
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view));
-
-    if (!gtk_tree_selection_iter_is_selected (selection, &iter))
-    {
-        return;
-    }
-
+    selected_rows = gtk_tree_selection_get_selected_rows (selection, &priv->filter);
+    gtk_tree_model_get_iter (priv->filter, &iter,
+                             g_list_last (selected_rows)->data);
     if (!gtk_tree_model_iter_next (priv->filter, &iter))
     {
-        return;
+        goto exit;
     }
 
     gtk_tree_selection_select_iter (selection, &iter);
+
+    exit:
+    g_list_free_full (selected_rows, (GDestroyNotify)gtk_tree_path_free);    
 }
 
+/*
+ * et_mb_entity_view_refresh_current_level:
+ * @entity_view: EtMbEntityView
+ *
+ * To re download data from MusicBrainz Server at the current level.
+ */
 void
 et_mb_entity_view_refresh_current_level (EtMbEntityView *entity_view)
 {

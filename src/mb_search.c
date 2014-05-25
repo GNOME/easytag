@@ -19,6 +19,7 @@
  */
 
 #include "mb_search.h"
+#include "musicbrainz_dialog.h"
 
 /*
  * et_mb5_search_error_quark:
@@ -74,9 +75,14 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                 int i;
                 Mb5ReleaseList list;
                 Mb5Artist artist;
+                gchar *message;
+
                 artist = mb5_metadata_get_artist (metadata);
                 list = mb5_artist_get_releaselist (artist);
                 param_values[0] = "artists release-groups";
+                message = g_strdup_printf ("Found %d Album(s)", mb5_release_list_size (list));
+                et_show_status_msg_in_idle (message);
+                g_free (message);
 
                 for (i = 0; i < mb5_release_list_size (list); i++)
                 {
@@ -85,14 +91,26 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                     if (release)
                     {
                         Mb5Metadata metadata_release;
-                        gchar release_mbid [NAME_MAX_SIZE];
+                        gchar buf [NAME_MAX_SIZE];
                         GNode *node;
                         EtMbEntity *entity;
-                        mb5_release_get_id ((Mb5Release)release,
-                                            release_mbid,
-                                            sizeof (release_mbid));
+                        int size;
+
+                        size = mb5_release_get_title ((Mb5Release)release, buf,
+                                                      sizeof (buf));
+                        buf [size] = '\0';
+                        message = g_strdup_printf ("Retrieving %s (%d/%d)",
+                                                   buf, i,
+                                                   mb5_release_list_size (list));
+                        et_show_status_msg_in_idle (message);
+                        g_free (message);
+
+                        size = mb5_release_get_id ((Mb5Release)release,
+                                                   buf,
+                                                   sizeof (buf));
+                        buf [size] = '\0';
                         metadata_release = mb5_query_query (query, "release",
-                                                            release_mbid, "",
+                                                            buf, "",
                                                             1, param_names,
                                                             param_values);
                         entity = g_malloc (sizeof (EtMbEntity));
@@ -139,24 +157,39 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                     if (medium)
                     {
                         Mb5Metadata metadata_recording;
-                        gchar recording_mbid [NAME_MAX_SIZE];
+                        gchar buf [NAME_MAX_SIZE];
                         GNode *node;
                         EtMbEntity *entity;
                         Mb5TrackList track_list;
                         int j;
+                        int size;
+                        gchar *message;
 
                         track_list = mb5_medium_get_tracklist (medium);
+                        message = g_strdup_printf ("Found %d Track(s)", mb5_track_list_size (list));
+                        et_show_status_msg_in_idle (message);
+                        g_free (message);
 
                         for (j = 0; j < mb5_track_list_size (track_list); j++)
                         {
                             Mb5Recording recording;
 
                             recording = mb5_track_get_recording (mb5_track_list_item (track_list, j));
-                            mb5_recording_get_id (recording,
-                                                  recording_mbid,
-                                                  sizeof (recording_mbid));
+                            size = mb5_recording_get_title (recording, buf,
+                                                            sizeof (buf));
+                            buf [size] = '\0';
+                            message = g_strdup_printf ("Retrieving %s (%d/%d)",
+                                                       buf, j,
+                                                       mb5_track_list_size (track_list));
+                            et_show_status_msg_in_idle (message);
+                            g_free (message);
+
+                            size = mb5_recording_get_id (recording,
+                                                         buf,
+                                                         sizeof (buf));
+                            
                             metadata_recording = mb5_query_query (query, "recording",
-                                                                  recording_mbid, "",
+                                                                  buf, "",
                                                                   1, param_names,
                                                                   param_values);
                             entity = g_malloc (sizeof (EtMbEntity));
@@ -316,19 +349,35 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
                 for (i = 0; i < mb5_release_list_size (list); i++)
                 {
                     Mb5Release release;
+                    gchar *message;
+
+                    message = g_strdup_printf ("Found %d Album(s)", mb5_release_list_size (list));
+                    et_show_status_msg_in_idle (message);
+                    g_free (message);
+
                     release = mb5_release_list_item (list, i);
                     if (release)
                     {
                         Mb5Metadata metadata_release;
-                        gchar release_mbid [NAME_MAX_SIZE];
+                        gchar buf [NAME_MAX_SIZE];
                         GNode *node;
                         EtMbEntity *entity;
+                        int size;
+
+                        size = mb5_release_get_title ((Mb5Release)release, buf,
+                                                      sizeof (buf));
+                        buf [size] = '\0';
+                        message = g_strdup_printf ("Retrieving %s (%d/%d)",
+                                                   buf, i,
+                                                   mb5_release_list_size (list));
+                        et_show_status_msg_in_idle (message);
+                        g_free (message);
 
                         mb5_release_get_id ((Mb5Release)release,
-                                            release_mbid,
-                                            sizeof (release_mbid));
+                                            buf,
+                                            sizeof (buf));
                         metadata_release = mb5_query_query (query, "release",
-                                                            release_mbid, "",
+                                                            buf, "",
                                                             1, param_names,
                                                             param_values);
                         entity = g_malloc (sizeof (EtMbEntity));
@@ -364,25 +413,39 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
             {
                 int i;
                 Mb5RecordingList list;
+                gchar *message;
 
                 list = mb5_metadata_get_recordinglist (metadata);
                 param_names [0] = "inc";
                 param_values[0] = "releases artists";
+                message = g_strdup_printf ("Found %d Track(s)",
+                                           mb5_recording_list_size (list));
+                et_show_status_msg_in_idle (message);
+                g_free (message);
 
                 for (i = 0; i < mb5_recording_list_size (list); i++)
                 {
                     Mb5Recording recording;
                     Mb5Metadata metadata_recording;
-                    gchar recording_mbid [NAME_MAX_SIZE];
+                    gchar buf [NAME_MAX_SIZE];
                     GNode *node;
                     EtMbEntity *entity;
+                    int size;
 
                     recording = mb5_recording_list_item (list, i);
+                    size = mb5_recording_get_title (recording, buf, sizeof (buf));
+                    buf [size] = '\0';
+                    message = g_strdup_printf ("Retrieving %s (%d/%d)",
+                                               buf, i,
+                                               mb5_track_list_size (list));
+                    et_show_status_msg_in_idle (message);
+                    g_free (message);
+
                     mb5_recording_get_id (recording,
-                                          recording_mbid,
-                                          sizeof (recording_mbid));
+                                          buf,
+                                          sizeof (buf));
                     metadata_recording = mb5_query_query (query, "recording",
-                                                          recording_mbid, "",
+                                                          buf, "",
                                                           1, param_names,
                                                           param_values);
                     entity = g_malloc (sizeof (EtMbEntity));
