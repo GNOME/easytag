@@ -62,6 +62,15 @@ manual_search_callback (GObject *source, GAsyncResult *res,
 {
     GtkComboBoxText *combo_box;
 
+    if (!g_simple_async_result_get_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res)))
+    {
+        g_object_unref (res);
+        g_free (user_data);
+        free_mb_tree (mb_tree_root);
+        mb_tree_root = g_node_new (NULL);
+        return;
+    }
+
     et_mb_entity_view_set_tree_root (ET_MB_ENTITY_VIEW (entityView),
                                      mb_tree_root);
     gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
@@ -98,7 +107,7 @@ et_show_status_msg_in_idle_cb (GObject *obj, GAsyncResult *res,
  * @res: GAsyncResult
  * @user_data: User data
  *
- * Function to Display StatusBar Message.
+ * Function to Display StatusBar Messages in Main Thread.
  */
 void
 et_show_status_msg_in_idle (gchar *message)
@@ -113,12 +122,12 @@ et_show_status_msg_in_idle (gchar *message)
 }
 
 /*
- * et_show_status_msg_in_idle_cb:
+ * mb5_search_error_callback:
  * @obj: Source Object
  * @res: GAsyncResult
  * @user_data: User data
  *
- * Callback function for Displaying StatusBar Message.
+ * Callback function for displaying errors.
  */
 void
 mb5_search_error_callback (GObject *source, GAsyncResult *res,
@@ -133,7 +142,6 @@ mb5_search_error_callback (GObject *source, GAsyncResult *res,
     gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
                         0, dest->message);
     g_error_free (dest);
-    g_free (user_data);
 }
 
 /*
@@ -153,18 +161,52 @@ manual_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
     gchar *status_msg;
 
     error = NULL;
+    g_simple_async_result_set_op_res_gboolean (res, FALSE);
+
+    if (g_cancellable_is_cancelled (cancellable))
+    {
+        et_set_cancel_error (&error);
+        g_simple_async_report_gerror_in_idle (NULL,
+                                              mb5_search_error_callback,
+                                              NULL, error);
+        return;
+    }
+
     thread_data = (ManualSearchThreadData *)g_async_result_get_user_data (G_ASYNC_RESULT (res));
-    status_msg = g_strconcat ("Searching ", thread_data->text_to_search, NULL);
+    status_msg = g_strconcat ("Searching ", thread_data->text_to_search,
+                              NULL);
     et_show_status_msg_in_idle (status_msg);
     g_free (status_msg);
 
+    if (g_cancellable_is_cancelled (cancellable))
+    {
+        et_set_cancel_error (&error);
+        g_simple_async_report_gerror_in_idle (NULL,
+                                              mb5_search_error_callback,
+                                              thread_data, error);
+        return;
+    }
+
     if (!et_musicbrainz_search (thread_data->text_to_search,
-                                thread_data->type, mb_tree_root, &error))
+                                thread_data->type, mb_tree_root, &error,
+                                cancellable))
     {
         g_simple_async_report_gerror_in_idle (NULL,
                                               mb5_search_error_callback,
                                               thread_data, error);
+        return;
     }
+
+    if (g_cancellable_is_cancelled (cancellable))
+    {
+        et_set_cancel_error (&error);
+        g_simple_async_report_gerror_in_idle (NULL,
+                                              mb5_search_error_callback,
+                                              thread_data, error);
+        return;
+    }
+
+    g_simple_async_result_set_op_res_gboolean (res, TRUE);
 }
 
 /*
@@ -197,7 +239,6 @@ btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
     thread_data->type = type;
     thread_data->text_to_search = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (cb_manual_search));
     mb5_search_cancellable = g_cancellable_new ();
-    /* TODO: Add Cancellable object */
     gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
                         0, "Starting MusicBrainz Search");
     async_result = g_simple_async_result_new (NULL, manual_search_callback, 
@@ -330,7 +371,8 @@ static void
 entry_tree_view_search_changed (GtkEditable *editable, gpointer user_data)
 {
     et_mb_entity_view_search_in_results (ET_MB_ENTITY_VIEW (entityView),
-                                         gtk_entry_get_text (GTK_ENTRY (gtk_builder_get_object (builder, "entryTreeViewSearch"))));
+                                         gtk_entry_get_text (GTK_ENTRY (gtk_builder_get_object (builder,
+                                                                        "entryTreeViewSearch"))));
 }
 
 /*

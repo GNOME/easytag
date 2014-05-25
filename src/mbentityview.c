@@ -54,13 +54,17 @@ static GSimpleAsyncResult *async_result;
 /*
  * EtMbEntityViewPrivate:
  * @bread_crumb_box: GtkBox which represents the BreadCrumbWidget
- * @tree_view: GtkTreeView to display the recieved music brainz data
  * @bread_crumb_nodes: Array of GNode being displayed by the GtkToggleButton
+ * @tree_view: GtkTreeView to display the recieved music brainz data
  * @list_store: GtkTreeStore for treeView
  * @scrolled_window: GtkScrolledWindow for treeView
  * @mb_tree_root: Root Node of the Mb5Entity Tree
  * @mb_tree_current_node: Current node being displayed by EtMbEntityView
  * @active_toggle_button: Current active GtkToggleToolButton
+ * @filter: GtkTreeModelFilter to filter rows based on the conditions
+ * @search_or_red: Toggle Red Lines or Search in results
+ * @toggle_red_lines: Display Red Lines or not
+ * @text_to_search_in_results: Text to search in results
  *
  * Private data for EtMbEntityView.
  */
@@ -75,11 +79,19 @@ typedef struct
     GNode *mb_tree_current_node;
     GtkWidget *active_toggle_button;
     GtkTreeModel *filter;
-    gboolean search_or_red;
+    int search_or_red;
     gboolean toggle_red_lines;
     const gchar *text_to_search_in_results;
 } EtMbEntityViewPrivate;
 
+/*
+ * SearchInLevelThreadData:
+ * @entity_view: EtMbEntityView
+ * @child: GNode for which to retrieve children
+ * @iter: Iter to the row of GNode
+ *
+ * Used for passing to Thread Function of Search In Levels.
+ */
 typedef struct
 {
     EtMbEntityView *entity_view;
@@ -113,6 +125,16 @@ tree_filter_visible_func (GtkTreeModel *model, GtkTreeIter *iter,
  * Functions *
  *************/
 
+/*
+ * tree_filter_visible_func:
+ * @model: GtkTreeModel
+ * @iter: GtkTreeIter of current tree row
+ * @data: user data passed
+ *
+ * Filter function of GtkTreeModelFilter
+ *
+ * Returns: TRUE if row should be displayed or FALSE if it shouldn't.
+ */
 static gboolean
 tree_filter_visible_func (GtkTreeModel *model, GtkTreeIter *iter,
                           gpointer data)
@@ -269,7 +291,6 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
         {
             case MB_ENTITY_TYPE_ARTIST:
                 mb5_artist_get_name ((Mb5Artist)entity, name, sizeof (name));
-                //gtk_list_store_append (list_store, &iter);
                 gtk_list_store_insert_with_values (list_store, &iter, -1,
                                         MB_ARTIST_COLUMNS_N, "black", -1);
                 gtk_list_store_set (list_store, &iter, 
@@ -300,7 +321,6 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
             case MB_ENTITY_TYPE_ALBUM:
                 mb5_release_get_title ((Mb5Release)entity, name,
                                        sizeof (name));
-                //gtk_list_store_append (list_store, &iter);
                 gtk_list_store_insert_with_values (list_store, &iter, -1,
                                         MB_ALBUM_COLUMNS_N, "black", -1);
                 gtk_list_store_set (list_store, &iter, 
@@ -554,6 +574,14 @@ toggle_button_clicked (GtkWidget *btn, gpointer user_data)
     show_data_in_entity_view (entity_view);
 }
 
+/*
+ * manual_search_callback:
+ * @source: Source Object
+ * @res: GAsyncResult
+ * @user_data: User data
+ *
+ * Callback function for GAsyncResult for Search In Levels.
+ */
 static void
 search_in_levels_callback (GObject *source, GAsyncResult *res,
                            gpointer user_data)
@@ -565,6 +593,13 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
     SearchInLevelThreadData *thread_data;
     GList *children;
     GList *active_child;
+
+    if (!g_simple_async_result_get_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res)))
+    {
+        g_object_unref (res);
+        g_free (user_data);
+        return;
+    }
 
     thread_data = user_data;
     entity_view = thread_data->entity_view;
@@ -612,6 +647,14 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
     g_free (thread_data);
 }
 
+/*
+ * manual_search_callback:
+ * @res: GAsyncResult
+ * @obj: Source Object
+ * @cancellable: User data
+ *
+ * Search in Levels Thread Function
+ */
 static void
 search_in_levels_thread_func (GSimpleAsyncResult *res, GObject *obj,
                               GCancellable *cancellable)
@@ -625,6 +668,18 @@ search_in_levels_thread_func (GSimpleAsyncResult *res, GObject *obj,
 
     child_entity_type_str = NULL;
     thread_data = g_async_result_get_user_data (G_ASYNC_RESULT (res));
+    g_simple_async_result_set_op_res_gboolean (res, FALSE);
+
+    if (g_cancellable_is_cancelled (cancellable))
+    {
+        g_set_error (&error, ET_MB5_SEARCH_ERROR,
+                     ET_MB5_SEARCH_ERROR_CANCELLED,
+                     "Operation cancelled by user");
+        g_simple_async_report_gerror_in_idle (NULL,
+                                              mb5_search_error_callback,
+                                              NULL, error);
+        return;
+    }
 
     if (((EtMbEntity *)thread_data->child->data)->type ==
         MB_ENTITY_TYPE_TRACK)
@@ -657,14 +712,29 @@ search_in_levels_thread_func (GSimpleAsyncResult *res, GObject *obj,
     g_free (status_msg);
     g_free (child_entity_type_str);
 
+    if (g_cancellable_is_cancelled (cancellable))
+    {
+        g_set_error (&error, ET_MB5_SEARCH_ERROR,
+                     ET_MB5_SEARCH_ERROR_CANCELLED,
+                     "Operation cancelled by user");
+        g_simple_async_report_gerror_in_idle (NULL,
+                                              mb5_search_error_callback,
+                                              NULL, error);
+        return;
+    }
+
     if (!et_musicbrainz_search_in_entity (((EtMbEntity *)thread_data->child->data)->type + 1,
                                           ((EtMbEntity *)thread_data->child->data)->type,
-                                          mbid, thread_data->child, &error))
+                                          mbid, thread_data->child, &error,
+                                          cancellable))
     {
         g_simple_async_report_gerror_in_idle (NULL,
                                               mb5_search_error_callback,
                                               thread_data, error);
+        return;
     }
+
+    g_simple_async_result_set_op_res_gboolean (res, TRUE);
 }
 
 /*
@@ -721,9 +791,10 @@ tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
                                               search_in_levels_callback,
                                               thread_data,
                                               tree_view_row_activated);
+    mb5_search_cancellable = g_cancellable_new ();
     g_simple_async_result_run_in_thread (async_result,
                                          search_in_levels_thread_func,
-                                         0, NULL);
+                                         0, mb5_search_cancellable);
 }
 
 /*
