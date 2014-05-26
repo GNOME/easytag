@@ -1224,7 +1224,6 @@ void Browser_List_Refresh_File_In_List (ET_File *ETFile)
     GtkWidget *artist_radio;
     GtkTreeSelection *selection;
     GtkTreeIter selectedIter;
-    GtkTreePath *currentPath = NULL;
     ET_File   *etfile;
     File_Tag  *FileTag;
     File_Name *FileName;
@@ -1233,7 +1232,6 @@ void Browser_List_Refresh_File_In_List (ET_File *ETFile)
     gchar *track;
     gchar *disc;
     gboolean valid;
-    gint row;
     gchar *artist, *album;
 
     if (!ETCore->ETFileDisplayedList || !BrowserList || !ETFile ||
@@ -1347,58 +1345,56 @@ void Browser_List_Refresh_File_In_List (ET_File *ETFile)
         gchar *current_artist = ((File_Tag *)ETFile->FileTag->data)->artist;
         gchar *current_album  = ((File_Tag *)ETFile->FileTag->data)->album;
 
-        for (row=0; row < gtk_tree_model_iter_n_children(GTK_TREE_MODEL(artistListModel), NULL); row++)
+        valid = gtk_tree_model_get_iter_first (GTK_TREE_MODEL (artistListModel),
+                                               &selectedIter);
+
+        while (valid)
         {
-            if (row == 0)
-                currentPath = gtk_tree_path_new_first();
-            else
-                gtk_tree_path_next(currentPath);
+                gtk_tree_model_get (GTK_TREE_MODEL (artistListModel),
+                                    &selectedIter, ARTIST_NAME, &artist, -1);
 
-            valid = gtk_tree_model_get_iter(GTK_TREE_MODEL(artistListModel), &selectedIter, currentPath);
-            if (valid)
-            {
-                gtk_tree_model_get(GTK_TREE_MODEL(artistListModel), &selectedIter, ARTIST_NAME, &artist, -1);
-
-                if ( (!current_artist && !artist)
-                ||   (current_artist && artist && g_utf8_collate(current_artist,artist)==0) )
+                if ((!current_artist && !artist)
+                    || (current_artist && artist
+                        && g_utf8_collate (current_artist, artist) == 0))
                 {
-                    // Set color of the row
-                    Browser_Artist_List_Set_Row_Appearance(&selectedIter);
-                    g_free(artist);
+                    /* Set color of the row. */
+                    Browser_Artist_List_Set_Row_Appearance (&selectedIter);
+                    g_free (artist);
                     break;
                 }
-                g_free(artist);
-            }
+
+                g_free (artist);
+
+                valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (artistListModel),
+                                                  &selectedIter);
         }
-        gtk_tree_path_free(currentPath); currentPath = NULL;
 
         //
         // FIX ME : see also if we must add a new line / or change list of the ETFile
         //
-        for (row=0; row < gtk_tree_model_iter_n_children(GTK_TREE_MODEL(albumListModel), NULL); row++)
+        valid = gtk_tree_model_get_iter_first (GTK_TREE_MODEL (albumListModel),
+                                               &selectedIter);
+
+        while (valid)
         {
-            if (row == 0)
-                currentPath = gtk_tree_path_new_first();
-            else
-                gtk_tree_path_next(currentPath);
+            gtk_tree_model_get (GTK_TREE_MODEL (albumListModel), &selectedIter,
+                                ALBUM_NAME, &album, -1);
 
-            valid = gtk_tree_model_get_iter(GTK_TREE_MODEL(albumListModel), &selectedIter, currentPath);
-            if (valid)
+            if ((!current_album && !album)
+                || (current_album && album
+                    && g_utf8_collate (current_album, album) == 0))
             {
-                gtk_tree_model_get(GTK_TREE_MODEL(albumListModel), &selectedIter, ALBUM_NAME, &album, -1);
-
-                if ( (!current_album && !album)
-                ||   (current_album && album && g_utf8_collate(current_album,album)==0) )
-                {
-                    // Set color of the row
-                    Browser_Album_List_Set_Row_Appearance(&selectedIter);
-                    g_free(album);
-                    break;
-                }
-                g_free(album);
+                /* Set color of the row. */
+                Browser_Album_List_Set_Row_Appearance (&selectedIter);
+                g_free (album);
+                break;
             }
+
+            g_free (album);
+
+            valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (albumListModel),
+                                              &selectedIter);
         }
-        gtk_tree_path_free(currentPath); currentPath = NULL;
 
         //
         // FIX ME : see also if we must add a new line / or change list of the ETFile
