@@ -1736,8 +1736,8 @@ ET_File *Browser_List_Select_File_By_DLM (const gchar* string, gboolean select_i
 void Browser_List_Clear()
 {
     gtk_list_store_clear(fileListModel);
-    gtk_list_store_clear(artistListModel);
-    gtk_list_store_clear(albumListModel);
+    browser_artist_model_clear ();
+    browser_album_model_clear ();
 
 }
 
@@ -1968,6 +1968,27 @@ void Browser_List_Invert_File_Selection (void)
     }
 }
 
+void
+browser_artist_model_clear (void)
+{
+    GtkTreeSelection *selection;
+
+    /* Empty Model, Disable Browser_Artist_List_Row_Selected() during clear
+     * because it may be called and may crash.
+    */
+
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (BrowserArtistList));
+
+    g_signal_handlers_block_by_func (selection,
+                                     G_CALLBACK (Browser_Artist_List_Row_Selected),
+                                     NULL);
+
+    gtk_list_store_clear (artistListModel);
+
+    g_signal_handlers_unblock_by_func (selection,
+                                       G_CALLBACK (Browser_Artist_List_Row_Selected),
+                                       NULL);
+}
 
 void Browser_Artist_List_Load_Files (ET_File *etfile_to_select)
 {
@@ -1985,7 +2006,8 @@ void Browser_Artist_List_Load_Files (ET_File *etfile_to_select)
     if (etfile_to_select)
         artist_to_select = ((File_Tag *)etfile_to_select->FileTag->data)->artist;
 
-    gtk_list_store_clear(artistListModel);
+    browser_artist_model_clear ();
+
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserArtistList));
 
     for (l = ETCore->ETArtistAlbumFileList; l != NULL; l = g_list_next (l))
@@ -2117,7 +2139,26 @@ Browser_Artist_List_Set_Row_Appearance (GtkTreeIter *iter)
     }
 }
 
+void
+browser_album_model_clear (void)
+{
+    GtkTreeSelection *selection;
 
+    /* Empty model, disable Browser_Album_List_Row_Selected () during clear
+     * because it is called and crashed. */
+
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (BrowserAlbumList));
+
+    g_signal_handlers_block_by_func (selection,
+                                     G_CALLBACK (Browser_Album_List_Row_Selected),
+                                     NULL);
+
+    gtk_list_store_clear (albumListModel);
+
+    g_signal_handlers_unblock_by_func (selection,
+                                       G_CALLBACK (Browser_Album_List_Row_Selected),
+                                       NULL);
+}
 
 /*
  * Load the list of Albums for each Artist
@@ -2137,7 +2178,8 @@ Browser_Album_List_Load_Files (GList *albumlist, ET_File *etfile_to_select)
     if (etfile_to_select)
         album_to_select = ((File_Tag *)etfile_to_select->FileTag->data)->album;
 
-    gtk_list_store_clear(albumListModel);
+    browser_album_model_clear ();
+
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserAlbumList));
 
     // Create a first row to select all albums of the artist

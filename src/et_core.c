@@ -2390,6 +2390,11 @@ ET_Free_Artist_Album_File_List (void)
     g_return_val_if_fail (ETCore != NULL
                           && ETCore->ETArtistAlbumFileList != NULL, FALSE);
 
+    /* Pointers are stored inside the artist/album list-stores, so free them
+     * first. */
+    browser_artist_model_clear ();
+    browser_album_model_clear ();
+
     for (l = ETCore->ETArtistAlbumFileList; l != NULL; l = g_list_next (l))
     {
         GList *m;
