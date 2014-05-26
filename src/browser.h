@@ -143,6 +143,10 @@ GtkWidget *RenameDirectoryPreviewLabel;
  **************/
 
 GtkWidget   *Create_Browser_Items    (GtkWidget *parent);
+
+void browser_album_model_clear (void);
+void browser_artist_model_clear (void);
+
 gboolean     Browser_Tree_Select_Dir (const gchar *current_path);
 void         Browser_Tree_Rebuild    (gchar *path_to_load);
 void         Browser_Tree_Collapse   (void);
