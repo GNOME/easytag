@@ -32,6 +32,8 @@
                                             ET_MB_ENTITY_VIEW_TYPE, \
                                             EtMbEntityViewPrivate))
 
+G_DEFINE_TYPE (EtMbEntityView, et_mb_entity_view, GTK_TYPE_BOX)
+
 /***************
  * Declaration *
  ***************/
@@ -82,6 +84,7 @@ typedef struct
     int search_or_red;
     gboolean toggle_red_lines;
     const gchar *text_to_search_in_results;
+    GtkTreeViewColumn *color_column;
 } EtMbEntityViewPrivate;
 
 /*
@@ -121,6 +124,9 @@ tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
 static gboolean
 tree_filter_visible_func (GtkTreeModel *model, GtkTreeIter *iter,
                           gpointer data);
+static void
+et_mb_entity_view_destroy (GtkWidget *object);
+
 /*************
  * Functions *
  *************/
@@ -199,39 +205,6 @@ tree_filter_visible_func (GtkTreeModel *model, GtkTreeIter *iter,
 }
 
 /*
- * et_mb_entity_view_get_type
- *
- * Returns: A GType, type of EtMbEntityView.
- */
-GType
-et_mb_entity_view_get_type (void)
-{
-    /* TODO: Use G_DEFINE_TYPE */
-    static GType et_mb_entity_view_type = 0;
-
-    if (!et_mb_entity_view_type)
-    {
-        static const GTypeInfo et_mb_entity_view_type_info = 
-        {
-            sizeof (EtMbEntityViewClass),
-            NULL,
-            NULL,
-            (GClassInitFunc) et_mb_entity_view_class_init,
-            NULL,
-            NULL,
-            sizeof (EtMbEntityView),
-            0,
-            (GInstanceInitFunc) et_mb_entity_view_init,
-        };
-        et_mb_entity_view_type = g_type_register_static (GTK_TYPE_BOX, 
-                                                         "EtMbEntityView",
-                                                         &et_mb_entity_view_type_info,
-                                                         0);
-    }
-    return et_mb_entity_view_type;
-}
-
-/*
  * et_mb_entity_view_class_init:
  * @klass: EtMbEntityViewClass to initialize.
  *
@@ -240,7 +213,11 @@ et_mb_entity_view_get_type (void)
 static void
 et_mb_entity_view_class_init (EtMbEntityViewClass *klass)
 {
+    GtkWidgetClass *widget_class;
+
     g_type_class_add_private (klass, sizeof (EtMbEntityViewPrivate));
+    widget_class = GTK_WIDGET_CLASS (klass);
+    widget_class->destroy = et_mb_entity_view_destroy;
 }
 
 /*
@@ -466,9 +443,15 @@ show_data_in_entity_view (EtMbEntityView *entity_view)
     if (GTK_IS_LIST_STORE (priv->list_store))
     {
         gtk_list_store_clear (GTK_LIST_STORE (priv->list_store));
+        g_object_unref (priv->list_store);
     }
 
     gtk_tree_view_set_model (GTK_TREE_VIEW (priv->tree_view), NULL);
+
+    if (GTK_IS_TREE_MODEL_FILTER (priv->filter))
+    {
+        g_object_unref (priv->filter);
+    }
 
     /* Remove all colums */
     list_cols = gtk_tree_view_get_columns (GTK_TREE_VIEW (priv->tree_view));
@@ -506,7 +489,7 @@ show_data_in_entity_view (EtMbEntityView *entity_view)
     {
         types [i] = G_TYPE_STRING;
         renderer = gtk_cell_renderer_text_new ();
-        column = gtk_tree_view_column_new_with_attributes (columns[type][i], 
+        column = gtk_tree_view_column_new_with_attributes (columns[type][i],
                                                            renderer, "text", i,
                                                            "foreground",
                                                            total_cols, NULL);
@@ -515,10 +498,6 @@ show_data_in_entity_view (EtMbEntityView *entity_view)
 
     /* Setting the colour column */
     types [total_cols] = G_TYPE_STRING;
-    renderer = gtk_cell_renderer_text_new ();
-    gtk_tree_view_column_new_with_attributes ("Colour Column", renderer,
-                                              "text", total_cols, NULL);
-
     priv->list_store = GTK_TREE_MODEL (gtk_list_store_newv (total_cols + 1, types));
     priv->filter = GTK_TREE_MODEL (gtk_tree_model_filter_new (priv->list_store,
                                                               NULL));
@@ -594,7 +573,8 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
     GList *children;
     GList *active_child;
 
-    if (!g_simple_async_result_get_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res)))
+    if (res &&
+        !g_simple_async_result_get_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res)))
     {
         g_object_unref (res);
         g_free (user_data);
@@ -643,7 +623,12 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
     gtk_widget_show_all (GTK_WIDGET (priv->bread_crumb_box));
     ((EtMbEntity *)thread_data->child->data)->is_red_line = TRUE;
     show_data_in_entity_view (entity_view);
-    g_object_unref (res);
+
+    if (res)
+    {
+        g_object_unref (res);
+    }
+
     g_free (thread_data);
 }
 
@@ -750,7 +735,6 @@ static void
 tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
                          GtkTreeViewColumn *column, gpointer user_data)
 {
-    /* TODO: Add Cancellable object */
     SearchInLevelThreadData *thread_data;
     EtMbEntityView *entity_view;
     EtMbEntityViewPrivate *priv;
@@ -785,6 +769,12 @@ tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
     thread_data->child = child;
     gtk_tree_model_filter_convert_iter_to_child_iter (GTK_TREE_MODEL_FILTER (priv->filter), &thread_data->iter,
                                                       &filter_iter);
+    if (((EtMbEntity *)child->data)->is_red_line)
+    {
+        search_in_levels_callback (NULL, NULL, thread_data);
+        return;
+    }
+
     gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
                         0, "Starting MusicBrainz Search");
     async_result = g_simple_async_result_new (NULL,
@@ -1086,4 +1076,27 @@ et_mb_entity_view_select_down (EtMbEntityView *entity_view)
 void
 et_mb_entity_view_refresh_current_level (EtMbEntityView *entity_view)
 {
+}
+
+static void
+et_mb_entity_view_destroy (GtkWidget *object)
+{
+    EtMbEntityView *entity_view;
+    EtMbEntityViewPrivate *priv;
+
+    g_return_if_fail (object != NULL);
+    g_return_if_fail (IS_ET_MB_ENTITY_VIEW(object));
+
+    entity_view = ET_MB_ENTITY_VIEW (object);
+    priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
+
+    if (GTK_IS_LIST_STORE (priv->list_store))
+    {
+        g_object_unref (priv->list_store);
+    }
+
+    if (GTK_WIDGET_CLASS (et_mb_entity_view_parent_class)->destroy)
+    {
+        (*GTK_WIDGET_CLASS (et_mb_entity_view_parent_class)->destroy)(object);
+    }
 }
