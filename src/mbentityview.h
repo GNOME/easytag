@@ -21,6 +21,8 @@
 #ifndef __MB_ENTITY_VIEW_H__
 #define __MB_ENTITY_VIEW_H__
 
+G_BEGIN_DECLS
+
 #include <gtk/gtk.h>
 
 #define ET_MB_ENTITY_VIEW_TYPE (et_mb_entity_view_get_type ())
@@ -28,14 +30,14 @@
                                                              ET_MB_ENTITY_VIEW_TYPE, \
                                                              EtMbEntityView))
 
-#define ET_MB_ENTITY_VIEW_CLASS (klass) (G_TYPE_CHECK_INSTANCE_CAST ((klass), \
+#define ET_MB_ENTITY_VIEW_CLASS(klass) (G_TYPE_CHECK_INSTANCE_CAST ((klass), \
                                                                     ET_MB_ENTITY_VIEW_TYPE, \
                                                                     EtMbEntityView))
 
-#define IS_ET_MB_ENTITY_VIEW (obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), \
+#define IS_ET_MB_ENTITY_VIEW(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), \
                                                                ET_MB_ENTITY_VIEW_TYPE))
 
-#define IS_ET_MB_ENTITY_VIEW_CLASS (klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), \
+#define IS_ET_MB_ENTITY_VIEW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), \
                                                                      ET_MB_ENTITY_VIEW_TYPE))
 
 /***************
@@ -121,4 +123,7 @@ void
 et_mb_entity_view_select_up (EtMbEntityView *entity_view);
 void
 et_mb_entity_view_select_down (EtMbEntityView *entity_view);
+
+G_END_DECLS
+
 #endif /* __MB_ENTITY_VIEW_H__ */

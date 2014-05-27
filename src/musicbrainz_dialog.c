@@ -419,8 +419,8 @@ et_open_musicbrainz_dialog ()
     gtk_box_pack_start (GTK_BOX (gtk_builder_get_object (builder, "centralBox")),
                         entityView, TRUE, TRUE, 2);
     /* FIXME: This should not be needed. */
-    gtk_box_reorder_child (GTK_BOX (gtk_builder_get_object (builder, "centralBox")),
-                           entityView, 0);
+    //gtk_box_reorder_child (GTK_BOX (gtk_builder_get_object (builder, "centralBox")),
+    //                       entityView, 0);
     g_signal_connect (gtk_builder_get_object (builder, "btnManualFind"),
                       "clicked", G_CALLBACK (btn_manual_find_clicked),
                       NULL);
