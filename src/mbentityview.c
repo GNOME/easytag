@@ -44,6 +44,12 @@ char *columns [MB_ENTITY_TYPE_COUNT][8] = {
     {"Name", "Album", "Artist", "Time", "Number"},
     };
 
+/*
+ * ET_MB_DISPLAY_RESULTS:
+ * @ET_MB_DISPLAY_RESULTS_ALL: Display all results.
+ * @ET_MB_DISPLAY_RESULTS_RED: Display Red Lines
+ * @ET_MB_DISPLAY_RESULTS_SEARCH: Display Search Results
+ */
 enum ET_MB_DISPLAY_RESULTS
 {
     ET_MB_DISPLAY_RESULTS_ALL = 0,
@@ -507,8 +513,6 @@ show_data_in_entity_view (EtMbEntityView *entity_view)
     g_free (types);
 
     gtk_tree_view_set_model (GTK_TREE_VIEW (priv->tree_view), priv->filter);
-    //TODO: see if this is required
-    //g_object_unref (priv->list_store);
     g_object_unref (priv->filter);
     add_iter_to_list_store (GTK_LIST_STORE (priv->list_store),
                             g_node_first_child (priv->mb_tree_current_node));
@@ -823,6 +827,13 @@ et_mb_entity_view_init (EtMbEntityView *entity_view)
                       G_CALLBACK (tree_view_row_activated), entity_view);
 }
 
+/*
+ * delete_bread_crumb_button:
+ * @button: Button to delete.
+ * @data: User data
+ *
+ * Callback function to delete a button from bread crumb.
+ */
 static void
 delete_bread_crumb_button (GtkWidget *button, gpointer data)
 {
@@ -1087,6 +1098,12 @@ et_mb_entity_view_refresh_current_level (EtMbEntityView *entity_view)
 {
 }
 
+/*
+ * et_mb_entity_view_destroy:
+ * @object: EtMbEntityView
+ *
+ * Overloaded destructor for EtMbEntityView.
+ */
 static void
 et_mb_entity_view_destroy (GtkWidget *object)
 {

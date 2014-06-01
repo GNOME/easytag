@@ -21,14 +21,6 @@
 #include "mb_search.h"
 #include "musicbrainz_dialog.h"
 
-void
-et_set_cancel_error (GError **error)
-{
-    g_set_error (error, ET_MB5_SEARCH_ERROR,
-                 ET_MB5_SEARCH_ERROR_CANCELLED,
-                 "Operation cancelled by user");
-}
-
 /*
  * et_mb5_search_error_quark:
  *
