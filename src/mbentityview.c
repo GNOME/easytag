@@ -824,6 +824,19 @@ et_mb_entity_view_init (EtMbEntityView *entity_view)
 }
 
 /*
+ * delete_bread_crumb_button:
+ * @button: Button to delete.
+ * @data: User data
+ *
+ * Callback function to delete a button from bread crumb.
+ */
+static void
+delete_bread_crumb_button (GtkWidget *button, gpointer data)
+{
+    gtk_container_remove (GTK_CONTAINER (data), button);
+}
+
+/*
  * et_mb_entity_view_set_tree_root:
  * @entity_view: EtMbEntityView for which tree root to set.
  * @treeRoot: GNode to set as tree root.
@@ -839,6 +852,9 @@ et_mb_entity_view_set_tree_root (EtMbEntityView *entity_view, GNode *treeRoot)
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
     priv->mb_tree_root = treeRoot;
     priv->mb_tree_current_node = treeRoot;
+    gtk_container_foreach (GTK_CONTAINER (priv->bread_crumb_box),
+                           delete_bread_crumb_button,
+                           priv->bread_crumb_box);
     btn = insert_togglebtn_in_breadcrumb (GTK_BOX (priv->bread_crumb_box));
     child = g_node_first_child (treeRoot);
     if (child)

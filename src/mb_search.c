@@ -128,12 +128,16 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                             g_assert (error == NULL || *error != NULL);
                             return FALSE;
                         }
+                        else
+                        {
+                            printf ("not cancelled\n");
+                        }
 
                         size = mb5_release_get_title ((Mb5Release)release, buf,
                                                       sizeof (buf));
                         buf [size] = '\0';
                         message = g_strdup_printf ("Retrieving %s (%d/%d)",
-                                                   buf, i,
+                                                   buf, i+1,
                                                    mb5_release_list_size (list));
                         et_show_status_msg_in_idle (message);
                         g_free (message);

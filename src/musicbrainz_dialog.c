@@ -416,6 +416,7 @@ et_open_musicbrainz_dialog ()
     mb_tree_root = g_node_new (NULL);
     entityView = et_mb_entity_view_new ();
     mbDialog = GTK_WIDGET (gtk_builder_get_object (builder, "mbDialog"));
+    gtk_widget_set_size_request (mbDialog, 600, 500);
     gtk_box_pack_start (GTK_BOX (gtk_builder_get_object (builder, "centralBox")),
                         entityView, TRUE, TRUE, 2);
     /* FIXME: This should not be needed. */
