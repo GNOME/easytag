@@ -168,7 +168,7 @@ tree_filter_visible_func (GtkTreeModel *model, GtkTreeIter *iter,
 
         g_free (value);
     }
-    
+ 
     if (priv->search_or_red & ET_MB_DISPLAY_RESULTS_RED)
     {
         gchar *value;
@@ -270,7 +270,7 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                 mb5_artist_get_name ((Mb5Artist)entity, name, sizeof (name));
                 gtk_list_store_insert_with_values (list_store, &iter, -1,
                                         MB_ARTIST_COLUMNS_N, "black", -1);
-                gtk_list_store_set (list_store, &iter, 
+                gtk_list_store_set (list_store, &iter,
                                     MB_ARTIST_COLUMNS_NAME, name, -1);
 
                 mb5_artist_get_gender ((Mb5Artist)entity, name, sizeof (name));
@@ -300,7 +300,7 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                                        sizeof (name));
                 gtk_list_store_insert_with_values (list_store, &iter, -1,
                                         MB_ALBUM_COLUMNS_N, "black", -1);
-                gtk_list_store_set (list_store, &iter, 
+                gtk_list_store_set (list_store, &iter,
                                     MB_ALBUM_COLUMNS_NAME, name, -1);
 
                 artist_credit = mb5_release_get_artistcredit ((Mb5Release)entity);
@@ -350,7 +350,7 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
             case MB_ENTITY_TYPE_TRACK:
                 mb5_recording_get_title ((Mb5Recording)entity, name, sizeof (name));
                 gtk_list_store_append (list_store, &iter);
-                gtk_list_store_set (list_store, &iter, 
+                gtk_list_store_set (list_store, &iter,
                                     MB_TRACK_COLUMNS_NAME, name, -1);
 
                 /* TODO: Get country and number */
@@ -414,7 +414,7 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
 
             case MB_ENTITY_TYPE_COUNT:
                 break;
-            
+ 
         }
 
         node = g_node_next_sibling (node);
@@ -501,7 +501,7 @@ show_data_in_entity_view (EtMbEntityView *entity_view)
     priv->list_store = GTK_TREE_MODEL (gtk_list_store_newv (total_cols + 1, types));
     priv->filter = GTK_TREE_MODEL (gtk_tree_model_filter_new (priv->list_store,
                                                               NULL));
-    gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (priv->filter), 
+    gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (priv->filter),
                                             tree_filter_visible_func, priv,
                                             NULL);
     g_free (types);
@@ -751,7 +751,7 @@ tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
     depth = 0;
 
     while (gtk_tree_model_iter_previous (priv->list_store, &iter))
-    {        
+    {
         depth++;
     }
 
@@ -823,6 +823,12 @@ et_mb_entity_view_init (EtMbEntityView *entity_view)
                       G_CALLBACK (tree_view_row_activated), entity_view);
 }
 
+static void
+delete_bread_crumb_button (GtkWidget *button, gpointer data)
+{
+    gtk_container_remove (GTK_CONTAINER (data), button);
+}
+
 /*
  * et_mb_entity_view_set_tree_root:
  * @entity_view: EtMbEntityView for which tree root to set.
@@ -839,6 +845,9 @@ et_mb_entity_view_set_tree_root (EtMbEntityView *entity_view, GNode *treeRoot)
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
     priv->mb_tree_root = treeRoot;
     priv->mb_tree_current_node = treeRoot;
+    gtk_container_foreach (GTK_CONTAINER (priv->bread_crumb_box),
+                           delete_bread_crumb_button,
+                           priv->bread_crumb_box);
     btn = insert_togglebtn_in_breadcrumb (GTK_BOX (priv->bread_crumb_box));
     child = g_node_first_child (treeRoot);
     if (child)
@@ -1034,7 +1043,7 @@ et_mb_entity_view_select_up (EtMbEntityView *entity_view)
     gtk_tree_selection_select_iter (selection, &iter);
 
     exit:
-    g_list_free_full (selected_rows, (GDestroyNotify)gtk_tree_path_free); 
+    g_list_free_full (selected_rows, (GDestroyNotify)gtk_tree_path_free);
 }
 
 /*
@@ -1064,7 +1073,7 @@ et_mb_entity_view_select_down (EtMbEntityView *entity_view)
     gtk_tree_selection_select_iter (selection, &iter);
 
     exit:
-    g_list_free_full (selected_rows, (GDestroyNotify)gtk_tree_path_free);    
+    g_list_free_full (selected_rows, (GDestroyNotify)gtk_tree_path_free);
 }
 
 /*
