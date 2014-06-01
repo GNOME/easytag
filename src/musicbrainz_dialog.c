@@ -85,7 +85,8 @@ manual_search_callback (GObject *source, GAsyncResult *res,
     g_object_unref (res);
     g_free (user_data);
 
-    combo_box = GTK_COMBO_BOX_TEXT (gtk_builder_get_object (builder, "cbManualSearch"));
+    combo_box = GTK_COMBO_BOX_TEXT (gtk_builder_get_object (builder,
+                                                            "cbManualSearch"));
     gtk_combo_box_text_append_text (combo_box,
                                     gtk_combo_box_text_get_active_text (combo_box));
 }
@@ -419,9 +420,6 @@ et_open_musicbrainz_dialog ()
     gtk_widget_set_size_request (mbDialog, 600, 500);
     gtk_box_pack_start (GTK_BOX (gtk_builder_get_object (builder, "centralBox")),
                         entityView, TRUE, TRUE, 2);
-    /* FIXME: This should not be needed. */
-    //gtk_box_reorder_child (GTK_BOX (gtk_builder_get_object (builder, "centralBox")),
-    //                       entityView, 0);
     g_signal_connect (gtk_builder_get_object (builder, "btnManualFind"),
                       "clicked", G_CALLBACK (btn_manual_find_clicked),
                       NULL);
@@ -450,6 +448,7 @@ et_open_musicbrainz_dialog ()
                             "changed",
                             G_CALLBACK (entry_tree_view_search_changed),
                             NULL);
+
     /* Fill Values in cb_manual_search_in */
     cb_manual_search_in = GTK_WIDGET (gtk_builder_get_object (builder,
                                                               "cbManualSearchIn"));
