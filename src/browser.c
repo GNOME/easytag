@@ -2143,6 +2143,31 @@ void
 browser_album_model_clear (void)
 {
     GtkTreeSelection *selection;
+    gboolean valid;
+    GtkTreeIter iter;
+
+    /* Free the attached list in the "all albums" row. */
+    valid = gtk_tree_model_get_iter_first (GTK_TREE_MODEL (albumListModel),
+                                           &iter);
+
+    while (valid)
+    {
+        GList *l;
+        gboolean all_albums_row = FALSE;
+
+        gtk_tree_model_get (GTK_TREE_MODEL (albumListModel), &iter,
+                            ALBUM_ETFILE_LIST_POINTER, &l,
+                            ALBUM_ALL_ALBUMS_ROW, &all_albums_row, -1);
+
+        if (all_albums_row && l)
+        {
+            g_list_free (l);
+            break;
+        }
+
+        valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (albumListModel),
+                                          &iter);
+    }
 
     /* Empty model, disable Browser_Album_List_Row_Selected () during clear
      * because it is called and crashed. */
@@ -2183,7 +2208,6 @@ Browser_Album_List_Load_Files (GList *albumlist, ET_File *etfile_to_select)
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserAlbumList));
 
     // Create a first row to select all albums of the artist
-    // FIX ME : the attached list must be freed!
     for (l = albumlist; l != NULL; l = g_list_next (l))
     {
         GList *etfilelist_tmp;
@@ -2199,6 +2223,7 @@ Browser_Album_List_Load_Files (GList *albumlist, ET_File *etfile_to_select)
                                        ALBUM_NUM_FILES,
                                        g_list_length (g_list_first (etfilelist)),
                                        ALBUM_ETFILE_LIST_POINTER, etfilelist,
+                                       ALBUM_ALL_ALBUMS_ROW, TRUE,
                                        -1);
 
     // Create a line for each album of the artist
@@ -2221,7 +2246,8 @@ Browser_Album_List_Load_Files (GList *albumlist, ET_File *etfile_to_select)
                                            ALBUM_NUM_FILES,
                                            g_list_length (g_list_first (etfilelist)),
                                            ALBUM_ETFILE_LIST_POINTER,
-                                           etfilelist, -1);
+                                           etfilelist,
+                                           ALBUM_ALL_ALBUMS_ROW, FALSE, -1);
 
         g_object_unref (icon);
 
@@ -3376,7 +3402,8 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                          G_TYPE_POINTER,
                                          PANGO_TYPE_STYLE,
                                          G_TYPE_INT,
-                                         GDK_TYPE_COLOR);
+                                         GDK_TYPE_COLOR,
+                                         G_TYPE_BOOLEAN);
 
     BrowserAlbumList = gtk_tree_view_new_with_model(GTK_TREE_MODEL(albumListModel));
     g_object_unref (albumListModel);
