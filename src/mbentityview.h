@@ -51,7 +51,7 @@ G_BEGIN_DECLS
  * This widget is used to show data recieved from music brainz and helps to
  * navigate in it using breadcrumb widget.
  */
-typedef struct 
+typedef struct
 {
     GtkBox vbox;
 } EtMbEntityView;

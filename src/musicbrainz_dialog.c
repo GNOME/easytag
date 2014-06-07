@@ -248,7 +248,7 @@ btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
         free_mb_tree (mb_tree_root);
         mb_tree_root = g_node_new (NULL);
     }
-  
+ 
     cb_manual_search = GTK_WIDGET (gtk_builder_get_object (builder,
                                                            "cbManualSearch"));
     cb_manual_search_in = GTK_WIDGET (gtk_builder_get_object (builder,
@@ -260,7 +260,7 @@ btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
     mb5_search_cancellable = g_cancellable_new ();
     gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
                         0, "Starting MusicBrainz Search");
-    async_result = g_simple_async_result_new (NULL, manual_search_callback, 
+    async_result = g_simple_async_result_new (NULL, manual_search_callback,
                                               thread_data,
                                               btn_manual_find_clicked);
     g_simple_async_result_run_in_thread (async_result,
@@ -362,7 +362,7 @@ tool_btn_refersh_clicked (GtkWidget *btn, gpointer user_data)
     {
         /* Current level is more than 1, refereshing means downloading an */
         /* entity's children */
-        
+ 
     }
 }
 
@@ -417,7 +417,7 @@ selected_find_callback (GObject *source, GAsyncResult *res,
     g_free (user_data);
 }
 
-static void 
+static void
 selected_find_thread_func (GSimpleAsyncResult *res, GObject *obj,
                            GCancellable *cancellable)
 {
@@ -512,7 +512,7 @@ bt_selected_find_clicked (GtkWidget *widget, gpointer user_data)
         {
             iter_list = g_list_prepend (iter_list,
                                         gtk_tree_iter_copy (&current_iter));
-        } 
+        }
         while (gtk_tree_model_iter_next(GTK_TREE_MODEL(tree_model),
                &current_iter));
 
@@ -541,7 +541,7 @@ bt_selected_find_clicked (GtkWidget *widget, gpointer user_data)
     thread_data = g_malloc (sizeof (SelectedFindThreadData));
     thread_data->hash_table = hash_table;
     mb5_search_cancellable = g_cancellable_new ();
-    async_result = g_simple_async_result_new (NULL, selected_find_callback, 
+    async_result = g_simple_async_result_new (NULL, selected_find_callback,
                                               thread_data,
                                               bt_selected_find_clicked);
     g_simple_async_result_run_in_thread (async_result,

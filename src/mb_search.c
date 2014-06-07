@@ -151,7 +151,7 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                                                             1, param_names,
                                                             param_values);
                         entity = g_malloc (sizeof (EtMbEntity));
-                        entity->entity = mb5_release_clone (mb5_metadata_get_release (metadata_release));                
+                        entity->entity = mb5_release_clone (mb5_metadata_get_release (metadata_release));
                         entity->type = MB_ENTITY_TYPE_ALBUM;
                         entity->is_red_line = FALSE;
                         node = g_node_new (entity);
@@ -235,7 +235,7 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                             size = mb5_recording_get_id (recording,
                                                          buf,
                                                          sizeof (buf));
-                            
+ 
                             metadata_recording = mb5_query_query (query, "recording",
                                                                   buf, "",
                                                                   1, param_names,
@@ -296,7 +296,7 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
             break;
  
         case eQuery_ResourceNotFound:
-            g_set_error (error, ET_MB5_SEARCH_ERROR, 
+            g_set_error (error, ET_MB5_SEARCH_ERROR,
                          ET_MB5_SEARCH_ERROR_RESOURCE_NOT_FOUND,
                          error_message);
             break;
@@ -363,7 +363,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
                 int i;
                 Mb5ArtistList list;
                 list = mb5_metadata_get_artistlist (metadata);
-    
+ 
                 for (i = 0; i < mb5_artist_list_size (list); i++)
                 {
                     Mb5Artist artist;
@@ -469,7 +469,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
                                                             1, param_names,
                                                             param_values);
                         entity = g_malloc (sizeof (EtMbEntity));
-                        entity->entity = mb5_release_clone (mb5_metadata_get_release (metadata_release));                
+                        entity->entity = mb5_release_clone (mb5_metadata_get_release (metadata_release));
                         entity->type = MB_ENTITY_TYPE_ALBUM;
                         entity->is_red_line = FALSE;
                         node = g_node_new (entity);
@@ -601,7 +601,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
             break;
  
         case eQuery_ResourceNotFound:
-            g_set_error (error, ET_MB5_SEARCH_ERROR, 
+            g_set_error (error, ET_MB5_SEARCH_ERROR,
                          ET_MB5_SEARCH_ERROR_RESOURCE_NOT_FOUND,
                          error_message);
             break;
