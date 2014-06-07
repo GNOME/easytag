@@ -2158,9 +2158,20 @@ void Open_ScannerWindow (gint scanner_type)
     /* Toggled signals */
     g_signal_connect(G_OBJECT(ProcessFieldsConvert),         "toggled",G_CALLBACK(Process_Fields_Convert_Check_Button_Toggled),NULL);
     /* Set check buttons to init value */
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsConvertIntoSpace),PF_CONVERT_INTO_SPACE);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsConvertSpace),PF_CONVERT_SPACE);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsConvert),PF_CONVERT);
+    if (PF_CONVERT_INTO_SPACE || PF_CONVERT_SPACE || PF_CONVERT)
+    {
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ProcessFieldsConvertIntoSpace),
+                                      PF_CONVERT_INTO_SPACE);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ProcessFieldsConvertSpace),
+                                      PF_CONVERT_SPACE);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ProcessFieldsConvert),
+                                      PF_CONVERT);
+    }
+    else
+    {
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (process_fields_convert_none),
+                                      TRUE);
+    }
     /* Tooltips */
     gtk_widget_set_tooltip_text(ProcessFieldsConvertIntoSpace,
         _("The underscore character or the string '%20' are replaced by one space. "
@@ -2200,11 +2211,26 @@ void Open_ScannerWindow (gint scanner_type)
     /* Toggled signals */
     g_signal_connect(G_OBJECT(ProcessFieldsFirstLettersUppercase),"toggled",G_CALLBACK(Process_Fields_First_Letters_Check_Button_Toggled),NULL);
     /* Set check buttons to init value */
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsAllUppercase),PF_CONVERT_ALL_UPPERCASE);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsAllDowncase),PF_CONVERT_ALL_DOWNCASE);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsFirstLetterUppercase),PF_CONVERT_FIRST_LETTER_UPPERCASE);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsFirstLettersUppercase),PF_CONVERT_FIRST_LETTERS_UPPERCASE);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsDetectRomanNumerals),PF_DETECT_ROMAN_NUMERALS);
+    if (PF_CONVERT_ALL_UPPERCASE || PF_CONVERT_ALL_DOWNCASE
+        || PF_CONVERT_FIRST_LETTER_UPPERCASE
+        || PF_CONVERT_FIRST_LETTERS_UPPERCASE)
+    {
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ProcessFieldsAllUppercase),
+                                      PF_CONVERT_ALL_UPPERCASE);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ProcessFieldsAllDowncase),
+                                      PF_CONVERT_ALL_DOWNCASE);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ProcessFieldsFirstLetterUppercase),
+                                      PF_CONVERT_FIRST_LETTER_UPPERCASE);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ProcessFieldsFirstLettersUppercase),
+                                      PF_CONVERT_FIRST_LETTERS_UPPERCASE);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ProcessFieldsDetectRomanNumerals),
+                                      PF_DETECT_ROMAN_NUMERALS);
+    }
+    else
+    {
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (process_fields_case_none),
+                                      TRUE);
+    }
     /* Tooltips */
     gtk_widget_set_tooltip_text(ProcessFieldsAllUppercase,
         _("Convert all words in all fields to upper case. "
@@ -2240,9 +2266,17 @@ void Open_ScannerWindow (gint scanner_type)
                         FALSE, 0);
     gtk_box_pack_start (GTK_BOX (group), radio_space_none, FALSE, FALSE, 0);
     /* Set check buttons to init value */
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsRemoveSpace),PF_REMOVE_SPACE);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsInsertSpace),PF_INSERT_SPACE);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ProcessFieldsOnlyOneSpace),PF_ONLY_ONE_SPACE);
+    if (PF_REMOVE_SPACE || PF_INSERT_SPACE || PF_ONLY_ONE_SPACE)
+    {
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ProcessFieldsRemoveSpace),PF_REMOVE_SPACE);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ProcessFieldsInsertSpace),PF_INSERT_SPACE);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ProcessFieldsOnlyOneSpace),PF_ONLY_ONE_SPACE);
+    }
+    else
+    {
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio_space_none),
+                                      TRUE);
+    }
     /* Tooltips */
     gtk_widget_set_tooltip_text(ProcessFieldsRemoveSpace,
         _("All spaces between words are removed. "
