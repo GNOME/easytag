@@ -50,6 +50,7 @@ GQuark et_mb5_search_error_quark (void);
  * @ET_MB5_SEARCH_ERROR_REQUEST: Request to MusicBrainz Server cannot be made
  * @ET_MB5_SEARCH_ERROR_RESOURCE_NOT_FOUND: Resource user is trying to search is not found
  * @ET_MB5_SEARCH_ERROR_CANCELLED: Operation was cancelled
+ * @ET_MB5_SEARCH_ERROR_DISCID: Cannot find DiscID
  *
  * Errors while searching MusicBrainz Server.
  */
@@ -62,6 +63,7 @@ typedef enum
     ET_MB5_SEARCH_ERROR_REQUEST,
     ET_MB5_SEARCH_ERROR_RESOURCE_NOT_FOUND,
     ET_MB5_SEARCH_ERROR_CANCELLED,
+    ET_MB5_SEARCH_ERROR_DISCID,
 } EtMB5SearchError;
 
 enum MB_ENTITY_TYPE
@@ -70,6 +72,7 @@ enum MB_ENTITY_TYPE
     MB_ENTITY_TYPE_ALBUM,
     MB_ENTITY_TYPE_TRACK,
     MB_ENTITY_TYPE_COUNT,
+    MB_ENTITY_TYPE_DISCID,
 };
 
 typedef struct

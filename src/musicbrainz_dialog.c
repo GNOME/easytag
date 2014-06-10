@@ -23,6 +23,7 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 #include <glib/gi18n.h>
+#include <discid/discid.h>
 
 #include "easytag.h"
 #include "log.h"
@@ -433,11 +434,9 @@ selected_find_thread_func (GSimpleAsyncResult *res, GObject *obj,
 
     while (iter)
     {
-        if (g_cancellable_is_cancelled (cancellable))
+        if (!et_musicbrainz_search ((gchar *)iter->data, MB_ENTITY_TYPE_ALBUM,
+                                    mb_tree_root, &error, cancellable))
         {
-            g_set_error (&error, ET_MB5_SEARCH_ERROR,
-                         ET_MB5_SEARCH_ERROR_CANCELLED,
-                         "Operation cancelled by user");
             g_simple_async_report_gerror_in_idle (NULL,
                                                   mb5_search_error_callback,
                                                   thread_data, error);
@@ -445,9 +444,11 @@ selected_find_thread_func (GSimpleAsyncResult *res, GObject *obj,
             return;
         }
 
-        if (!et_musicbrainz_search ((gchar *)iter->data, MB_ENTITY_TYPE_ALBUM,
-                                    mb_tree_root, &error, cancellable))
+        if (g_cancellable_is_cancelled (cancellable))
         {
+            g_set_error (&error, ET_MB5_SEARCH_ERROR,
+                         ET_MB5_SEARCH_ERROR_CANCELLED,
+                         "Operation cancelled by user");
             g_simple_async_report_gerror_in_idle (NULL,
                                                   mb5_search_error_callback,
                                                   thread_data, error);
@@ -553,6 +554,96 @@ bt_selected_find_clicked (GtkWidget *widget, gpointer user_data)
                         0, "Starting Selected Files Search");
 }
 
+static void
+discid_search_callback (GObject *source, GAsyncResult *res,
+                        gpointer user_data)
+{
+    if (!g_simple_async_result_get_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res)))
+    {
+        g_object_unref (res);
+        free_mb_tree (mb_tree_root);
+        mb_tree_root = g_node_new (NULL);
+        return;
+    }
+
+    et_mb_entity_view_set_tree_root (ET_MB_ENTITY_VIEW (entityView),
+                                     mb_tree_root);
+    gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
+                        0, "Searching Completed");
+    g_object_unref (res);
+    g_free (user_data);
+}
+
+static void
+discid_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
+                           GCancellable *cancellable)
+{
+    GError *error;
+    DiscId *disc;
+    gchar *discid;
+
+    error = NULL;
+    disc = discid_new ();
+    g_simple_async_result_set_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res),
+                                               FALSE);
+
+    if (!discid_read_sparse (disc, discid_get_default_device (), 0))
+    {
+        /* Error reading disc */
+        g_set_error (&error, ET_MB5_SEARCH_ERROR,
+                     ET_MB5_SEARCH_ERROR_DISCID,
+                     discid_get_error_msg (disc));
+        g_simple_async_report_gerror_in_idle (NULL,
+                                              mb5_search_error_callback,
+                                              NULL, error);
+        return;
+    }
+
+    discid = discid_get_id (disc);
+
+    if (g_cancellable_is_cancelled (cancellable))
+    {
+        g_set_error (&error, ET_MB5_SEARCH_ERROR,
+                     ET_MB5_SEARCH_ERROR_CANCELLED,
+                     "Operation cancelled by user");
+        g_simple_async_report_gerror_in_idle (NULL,
+                                              mb5_search_error_callback,
+                                              NULL, error);
+        discid_free (disc);
+        return;
+    }
+
+    if (!et_musicbrainz_search (discid, MB_ENTITY_TYPE_DISCID, mb_tree_root,
+                                &error, cancellable))
+    {
+        g_simple_async_report_gerror_in_idle (NULL,
+                                              mb5_search_error_callback,
+                                              NULL, error);
+        discid_free (disc);
+        return;
+    }
+
+    et_mb_entity_view_set_tree_root (ET_MB_ENTITY_VIEW (entityView),
+                                     mb_tree_root);
+    discid_free (disc);
+    g_simple_async_result_set_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res),
+                                               TRUE);
+}
+
+static void
+btn_discid_search (GtkWidget *button, gpointer data)
+{
+    mb5_search_cancellable = g_cancellable_new ();
+    gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
+                        0, "Starting MusicBrainz Search");
+    async_result = g_simple_async_result_new (NULL, discid_search_callback,
+                                              NULL,
+                                              btn_manual_find_clicked);
+    g_simple_async_result_run_in_thread (async_result,
+                                         discid_search_thread_func, 0,
+                                         mb5_search_cancellable);
+}
+
 /*
  * et_open_musicbrainz_dialog:
  *
@@ -612,10 +703,20 @@ et_open_musicbrainz_dialog ()
     g_signal_connect (gtk_builder_get_object (builder, "btnSelectedFind"),
                       "clicked", G_CALLBACK (bt_selected_find_clicked),
                       NULL);
+    g_signal_connect (gtk_builder_get_object (builder, "btnSelectedStop"),
+                      "clicked", G_CALLBACK (btn_manual_stop_clicked),
+                      NULL);
+    g_signal_connect (gtk_builder_get_object (builder, "btnDiscFind"),
+                      "clicked", G_CALLBACK (btn_discid_search),
+                      NULL);
+    g_signal_connect (gtk_builder_get_object (builder, "btnDiscStop"),
+                      "clicked", G_CALLBACK (btn_manual_stop_clicked),
+                      NULL);
     g_signal_connect_after (gtk_builder_get_object (builder, "entryTreeViewSearch"),
                             "changed",
                             G_CALLBACK (entry_tree_view_search_changed),
                             NULL);
+
     /* Fill Values in cb_manual_search_in */
     cb_manual_search_in = GTK_WIDGET (gtk_builder_get_object (builder,
                                                               "cbManualSearchIn"));

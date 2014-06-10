@@ -416,6 +416,7 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                 break;
 
             case MB_ENTITY_TYPE_COUNT:
+            case MB_ENTITY_TYPE_DISCID:
                 break;
         }
 
@@ -507,7 +508,6 @@ show_data_in_entity_view (EtMbEntityView *entity_view)
                                             tree_filter_visible_func, priv,
                                             NULL);
     g_free (types);
-
     gtk_tree_view_set_model (GTK_TREE_VIEW (priv->tree_view), priv->filter);
     g_object_unref (priv->filter);
     add_iter_to_list_store (GTK_LIST_STORE (priv->list_store),
