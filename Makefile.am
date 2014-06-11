@@ -9,6 +9,7 @@ DISTCHECK_CONFIGURE_FLAGS = \
 	--enable-man \
 	--enable-mp3 \
 	--enable-mp4 \
+	--enable-nautilus-actions \
 	--enable-speex \
 	--enable-tests \
 	--enable-wavpack
@@ -281,12 +282,10 @@ dist_noinst_DATA = \
 	data/nsis/easytag-header.bmp \
 	data/nsis/easytag-sidebar.bmp \
 	$(pixmaps) \
-	\
+	doc/easytag.xml \
+	COPYING.GPL3 \
 	easytag-win32-installer.nsi.in \
-	\
-	HACKING \
-	\
-	doc/easytag.xml
+	HACKING
 
 dist_noinst_SCRIPTS = \
 	autogen.sh

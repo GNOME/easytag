@@ -1,7 +1,9 @@
 # ignore file
+*.lo
 *.o
 .dirstamp
 .dstamp
+.libs
 /build-aux
 m4/*
 Makefile
@@ -26,8 +28,9 @@ configure
 /easytag-win32-installer.nsi
 /easytag.exe
 /INSTALL
-libtool
-ltmain.sh
+/libnautilus-easytag.la
+/libtool
+/nautilus-extension/.deps
 /po/*.gmo
 /po/.intltool-merge-cache
 /po/Makefile.in.in
