@@ -1,5 +1,6 @@
 data/easytag.appdata.xml.in
 data/easytag.desktop.in
+nautilus-extension/nautilus-easytag.c
 src/about.c
 src/ape_tag.c
 src/application.c

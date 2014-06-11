@@ -154,6 +154,31 @@ easytag-win32-installer.nsi: easytag-win32-installer.nsi.in Makefile
 		-e "s|\@PACKAGE_VERSION\@|$(PACKAGE_VERSION)|" \
 		-e "s|\@PREFIX\@|$(prefix)|" $< > $@
 
+if ENABLE_NAUTILUS_ACTIONS
+nautilus_extensiondir = $(NAUTILUS_EXTENSION_DIR)
+
+nautilus_extension_LTLIBRARIES = \
+	libnautilus-easytag.la
+
+libnautilus_easytag_la_SOURCES = \
+	nautilus-extension/easytag-module.c \
+	nautilus-extension/nautilus-easytag.c \
+	nautilus-extension/nautilus-easytag.h
+
+libnautilus_easytag_la_CPPFLAGS = \
+	-I$(top_srcdir) \
+	-I$(top_builddir) \
+	$(DEPRECATED_CPPFLAGS) \
+	-DLOCALEDIR=\"$(localedir)\" \
+	$(NAUTILUS_CFLAGS)
+
+libnautilus_easytag_la_LDFLAGS = \
+	-module -avoid-version -no-undefined
+
+libnautilus_easytag_la_LIBADD = \
+	$(NAUTILUS_LIBS)
+endif
+
 # Create a directory stamp in the build dir. Used to workaround the case where
 # a pattern rule is used for a target with a path that does not ordinarily
 # exist in the build dir.

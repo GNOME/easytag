@@ -19,6 +19,12 @@ AM_MAINTAINER_MODE([enable])
 AM_SILENT_RULES([yes])
 
 dnl -------------------------------
+dnl Init Libtool
+dnl -------------------------------
+LT_PREREQ([2.2])
+LT_INIT([disable-static])
+
+dnl -------------------------------
 dnl Translation files.
 dnl -------------------------------
 IT_PROG_INTLTOOL([0.50.0])
@@ -135,6 +141,10 @@ AC_ARG_ENABLE([mp4],
 
 AC_ARG_ENABLE([wavpack],
               [AS_HELP_STRING([--disable-wavpack], [Disable support for Wavpack files (default=auto)])])
+
+AC_ARG_ENABLE([nautilus_actions],
+              [AS_HELP_STRING([--disable-nautilus-actions], [do not build the nautilus context menu actions (default=auto)])])
+
 
 
 dnl -------------------------------
@@ -288,6 +298,24 @@ AS_IF([test "x$have_wavpack" != "xno"],
        AS_IF([test "x$enable_wavpack" = "xyes"],
              [AC_MSG_ERROR([Wavpack support requested but required dependencies ($WAVPACK_DEPS) not found])])])
 
+dnl ################################################
+dnl # Nautilus
+dnl ################################################
+NAUTILUS_DEPS="libnautilus-extension gio-unix-2.0"
+AS_IF([test "x$enable_nautilus_actions" != "xno"],
+      [PKG_CHECK_EXISTS([$NAUTILUS_DEPS], [have_libnautilus_extension=yes], [have_libnautilus_extension=no])],
+      [have_libnautilus_extension=no])
+
+AS_IF([test "x$have_libnautilus_extension" = "xno"],
+      [NAUTILUS_DEPS=""
+       AS_IF([test "x$enable_nautilus_actions" = "xyes"],
+             [AC_MSG_ERROR([Nautilus Actions build requested but required dependencies ($NAUTILUS_DEPS) not found])])],
+      [PKG_CHECK_MODULES([NAUTILUS], [$NAUTILUS_DEPS])
+       NAUTILUS_EXTENSION_DIR=`$PKG_CONFIG --variable=extensiondir libnautilus-extension`
+       AC_SUBST([NAUTILUS_EXTENSION_DIR], [$NAUTILUS_EXTENSION_DIR])])
+
+AM_CONDITIONAL([ENABLE_NAUTILUS_ACTIONS], [test x"$have_libnautilus_extension" != x"no"])
+
 dnl Check the pkg-config dependencies
 GIO_DEPS="gio-2.0 >= 2.32.0" dnl For g_file_new_tmp()
 PKG_CHECK_MODULES([EASYTAG], [$GIO_DEPS $GTK_DEPS $OPUS_DEPS $OGG_DEPS $SPEEX_DEPS $FLAC_DEPS $ID3TAG_DEPS $TAGLIB_DEPS $WAVPACK_DEPS])
@@ -394,6 +422,7 @@ echo FLAC file support .......: $have_flac
 echo MP4 file support ........: $have_taglib
 echo WavPack support .........: $have_wavpack
 echo NLS/gettext .............: $USE_NLS
+echo Nautilus actions ........: $have_libnautilus_extension
 echo Tests during make check .: $testing_utilities
 echo Install prefix ..........: $prefix
 echo 
