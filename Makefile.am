@@ -162,9 +162,7 @@ nautilus_extension_LTLIBRARIES = \
 	libnautilus-easytag.la
 
 libnautilus_easytag_la_SOURCES = \
-	nautilus-extension/easytag-module.c \
-	nautilus-extension/nautilus-easytag.c \
-	nautilus-extension/nautilus-easytag.h
+	nautilus-extension/nautilus-easytag.c
 
 libnautilus_easytag_la_CPPFLAGS = \
 	-I$(top_srcdir) \

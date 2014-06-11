@@ -17,8 +17,6 @@
 
 #include "config.h"
 
-#include "nautilus-easytag.h"
-
 #include <string.h>
 #include <gio/gio.h>
 #include <gio/gdesktopappinfo.h>
@@ -27,61 +25,30 @@
 #include <libnautilus-extension/nautilus-file-info.h>
 #include <libnautilus-extension/nautilus-menu-provider.h>
 
-static GObjectClass *parent_class;
+#define NAUTILUS_TYPE_EASYTAG (nautilus_easytag_get_type ())
+#define NAUTILUS_EASYTAG(o) (G_TYPE_CHECK_INSTANCE_CAST ((o), NAUTILUS_TYPE_EASYTAG, NautilusEasytag))
+#define NAUTILUS_IS_EASYTAG(o) (G_TYPE_CHECK_INSTANCE_TYPE ((o), NAUTILUS_TYPE_EASYTAG))
 
-void
-on_open_in_easytag (NautilusMenuItem *item,
-                    gpointer data)
+typedef struct _NautilusEasytag NautilusEasytag;
+typedef struct _NautilusEasytagClass NautilusEasytagClass;
+
+struct _NautilusEasytag
 {
-    NautilusFileInfo    *dir;
-    GList               *uris = NULL;
-    GdkDisplay          *display = gdk_display_get_default ();
-    GDesktopAppInfo     *appinfo;
-    GdkAppLaunchContext *context;
+    GObject parent;
+};
 
-    dir = g_object_get_data (G_OBJECT (item), "dir");
-
-    appinfo = g_desktop_app_info_new ("easytag.desktop");
-
-    if (appinfo)
-    {
-        uris = g_list_append (uris, nautilus_file_info_get_uri (dir));
-
-        context = gdk_display_get_app_launch_context (display);
-
-        g_app_info_launch_uris (G_APP_INFO (appinfo), uris,
-                                G_APP_LAUNCH_CONTEXT (context), NULL);
-    }
-}
-
-void
-on_open_with_easytag (NautilusMenuItem *item,
-                      gpointer data)
+struct _NautilusEasytagClass
 {
-    GList               *files, *scan;
-    GList               *uris = NULL;
-    GdkDisplay          *display = gdk_display_get_default ();
-    GDesktopAppInfo     *appinfo;
-    GdkAppLaunchContext *context;
+    GObjectClass parent_class;
+};
 
-    files = g_object_get_data (G_OBJECT (item), "files");
+GType nautilus_easytag_get_type (void);
 
-    appinfo = g_desktop_app_info_new ("easytag.desktop");
-
-    if (appinfo)
-    {
-        for (scan = files; scan; scan = scan->next)
-        {
-            uris = g_list_append (uris,
-                                  nautilus_file_info_get_uri (scan->data));
-        }
-
-        context = gdk_display_get_app_launch_context (display);
-
-        g_app_info_launch_uris (G_APP_INFO (appinfo), uris,
-                                G_APP_LAUNCH_CONTEXT (context), NULL);
-    }
-}
+typedef struct
+{
+    gboolean is_directory;
+    gboolean is_file;
+} FileMimeInfo;
 
 static struct
 {
@@ -103,36 +70,6 @@ static struct
     { "audio/x-opus+ogg", FALSE, TRUE },
     { NULL, FALSE }
 };
-
-typedef struct
-{
-    gboolean is_directory;
-    gboolean is_file;
-} FileMimeInfo;
-
-static FileMimeInfo
-get_file_mime_info (NautilusFileInfo *file)
-{
-    FileMimeInfo file_mime_info;
-    gsize i;
-
-    file_mime_info.is_directory = FALSE;
-    file_mime_info.is_file = FALSE;
-
-    for (i = 0; easytag_mime_types[i].mime_type != NULL; i++)
-    {
-        if (nautilus_file_info_is_mime_type (file,
-                                             easytag_mime_types[i].mime_type))
-        {
-            file_mime_info.is_directory = easytag_mime_types[i].is_directory;
-            file_mime_info.is_file = easytag_mime_types[i].is_file;
-
-            return file_mime_info;
-        }
-    }
-
-    return file_mime_info;
-}
 
 static gboolean
 unsupported_scheme (NautilusFileInfo *file)
@@ -164,16 +101,94 @@ unsupported_scheme (NautilusFileInfo *file)
     return result;
 }
 
+static FileMimeInfo
+get_file_mime_info (NautilusFileInfo *file)
+{
+    FileMimeInfo file_mime_info;
+    gsize i;
+
+    file_mime_info.is_directory = FALSE;
+    file_mime_info.is_file = FALSE;
+
+    for (i = 0; easytag_mime_types[i].mime_type != NULL; i++)
+    {
+        if (nautilus_file_info_is_mime_type (file,
+                                             easytag_mime_types[i].mime_type))
+        {
+            file_mime_info.is_directory = easytag_mime_types[i].is_directory;
+            file_mime_info.is_file = easytag_mime_types[i].is_file;
+
+            return file_mime_info;
+        }
+    }
+
+    return file_mime_info;
+}
+
+static void
+on_open_in_easytag (NautilusMenuItem *item,
+                    gpointer data)
+{
+    NautilusFileInfo *dir;
+    GDesktopAppInfo *appinfo;
+
+    dir = g_object_get_data (G_OBJECT (item), "dir");
+
+    appinfo = g_desktop_app_info_new ("easytag.desktop");
+
+    if (appinfo)
+    {
+        GdkAppLaunchContext *context;
+        GList *uris = NULL;
+
+        uris = g_list_append (uris, nautilus_file_info_get_uri (dir));
+        context = gdk_display_get_app_launch_context (gdk_display_get_default ());
+
+        g_app_info_launch_uris (G_APP_INFO (appinfo), uris,
+                                G_APP_LAUNCH_CONTEXT (context), NULL);
+    }
+}
+
+static void
+on_open_with_easytag (NautilusMenuItem *item,
+                      gpointer data)
+{
+    GList *files, *scan;
+    GDesktopAppInfo *appinfo;
+
+    files = g_object_get_data (G_OBJECT (item), "files");
+
+    appinfo = g_desktop_app_info_new ("easytag.desktop");
+
+    if (appinfo)
+    {
+        GdkAppLaunchContext *context;
+        GList *l;
+        GList *uris = NULL;
+
+        for (l = files; l != NULL; l = g_list_next (l))
+        {
+            uris = g_list_append (uris,
+                                  nautilus_file_info_get_uri (l->data));
+        }
+
+        context = gdk_display_get_app_launch_context (gdk_display_get_default ());
+
+        g_app_info_launch_uris (G_APP_INFO (appinfo), uris,
+                                G_APP_LAUNCH_CONTEXT (context), NULL);
+    }
+}
+
 static GList *
 nautilus_easytag_get_file_items (NautilusMenuProvider *provider,
                                  GtkWidget *window,
                                  GList *files)
 {
     GList *items = NULL;
-    GList *scan;
+    GList *l;
     gboolean one_item;
-    gboolean  one_directory = TRUE;
-    gboolean  all_files = TRUE;
+    gboolean one_directory = TRUE;
+    gboolean all_files = TRUE;
 
     if (files == NULL)
     {
@@ -185,10 +200,10 @@ nautilus_easytag_get_file_items (NautilusMenuProvider *provider,
         return NULL;
     }
 
-    for (scan = files; scan; scan = scan->next)
+    for (l = files; l != NULL; l = g_list_next (l))
     {
-        NautilusFileInfo *file = scan->data;
         FileMimeInfo file_mime_info;
+        NautilusFileInfo *file = l->data;
 
         file_mime_info = get_file_mime_info (file);
 
@@ -209,7 +224,7 @@ nautilus_easytag_get_file_items (NautilusMenuProvider *provider,
     {
         NautilusMenuItem *item;
 
-        item = nautilus_menu_item_new ("NautilusEasyTag::open_directory",
+        item = nautilus_menu_item_new ("NautilusEasytag::open_directory",
                                        _("Open in EasyTAG"),
                                        _("Open the current selected directory in EasyTAG"),
                                        "easytag");
@@ -227,7 +242,7 @@ nautilus_easytag_get_file_items (NautilusMenuProvider *provider,
     {
         NautilusMenuItem *item;
 
-        item = nautilus_menu_item_new ("NautilusEasyTag::open_files",
+        item = nautilus_menu_item_new ("NautilusEasytag::open_files",
                                        _("Open with EasyTAG"),
                                        _("Open selected files in EasyTAG"),
                                        "easytag");
@@ -252,51 +267,48 @@ nautilus_easytag_menu_provider_iface_init (NautilusMenuProviderIface *iface)
     iface->get_file_items = nautilus_easytag_get_file_items;
 }
 
-static void
-nautilus_easytag_instance_init (NautilusEasyTag *fr)
-{
-}
+G_DEFINE_DYNAMIC_TYPE_EXTENDED (NautilusEasytag,
+                                nautilus_easytag,
+                                G_TYPE_OBJECT,
+                                0,
+                                G_IMPLEMENT_INTERFACE_DYNAMIC (NAUTILUS_TYPE_MENU_PROVIDER,
+                                                               nautilus_easytag_menu_provider_iface_init));
 
 static void
-nautilus_easytag_class_init (NautilusEasyTagClass *class)
+nautilus_easytag_init (NautilusEasytag *self)
 {
-    parent_class = g_type_class_peek_parent (class);
 }
 
-GType easytag_type = 0;
-
-GType nautilus_easytag_get_type ()
+static void
+nautilus_easytag_class_init (NautilusEasytagClass *class)
 {
-    return easytag_type;
 }
 
-void nautilus_easytag_register_type (GTypeModule *module)
+static void
+nautilus_easytag_class_finalize (NautilusEasytagClass *class)
 {
-    static const GTypeInfo info = {
-        sizeof (NautilusEasyTagClass),
-        (GBaseInitFunc) NULL,
-        (GBaseFinalizeFunc) NULL,
-        (GClassInitFunc) nautilus_easytag_class_init,
-        NULL,
-        NULL,
-        sizeof (NautilusEasyTag),
-        0,
-        (GInstanceInitFunc) nautilus_easytag_instance_init,
-    };
+}
 
-    static const GInterfaceInfo menu_provider_iface_info = {
-        (GInterfaceInitFunc) nautilus_easytag_menu_provider_iface_init,
-        NULL,
-        NULL
-    };
+/* Nautilus extension module. */
+static GType type_list[1];
 
-    easytag_type = g_type_module_register_type (module,
-                                                G_TYPE_OBJECT,
-                                                "NautilusEasyTag",
-                                                &info, 0);
+void
+nautilus_module_initialize (GTypeModule *module)
+{
+    nautilus_easytag_register_type (module);
 
-    g_type_module_add_interface (module,
-                                 easytag_type,
-                                 NAUTILUS_TYPE_MENU_PROVIDER,
-                                 &menu_provider_iface_info);
+    type_list[0] = NAUTILUS_TYPE_EASYTAG;
+}
+
+void
+nautilus_module_shutdown (void)
+{
+}
+
+void
+nautilus_module_list_types (const GType **types,
+                            int *num_types)
+{
+    *types = type_list;
+    *num_types = G_N_ELEMENTS (type_list);
 }
