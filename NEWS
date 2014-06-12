@@ -1,6 +1,15 @@
-2.2.1 - 2014-04-22 :
+2.3.1 - unreleased :
 ====================
 
+    * Add a Nautilus extension, for showing actions in the context menu
+    * Use GTK+ 3 only, and drop support for GTK+ 2
+    * Fix loading filenames from a text file
+    * Fix saving Ogg cover art without a description
+    * Fix check for broken id3lib UTF-16 writing
+    * Fix keyboard navigation to allow escaping the tag area
+    * Update ID3v1 genre list
+    * Revert asynchronous image handling changes
+    * Andreas Winkelmann’s ID3 memory leak fix
     * Fix image loading with HTTP URLs and empty images
     * Fix bogus track numbers when automatically numbering files
     * Add Opus and Speex MIME types to desktop file
@@ -11,10 +20,12 @@
     * Fix compilation if TagLib or libogg is unavailable
     * Depend on TagLib 1.9.1 for MP4 support
     * Use CXXFLAGS from the environment
+    * Andika Triwidada’s Indonesian translation
     * Rafael Ferrera’s Brazilian Portuguese translation update
     * Aurimas Černius’s Lithuanian translation update
     * Balázs Úr’s Hungarian translation update
     * Matej Urbančič’s Slovenian translation update
+    * Dimitris Spingos’s Greek help translation
 
 2.2.0 - 2014-04-11 :
 ====================
