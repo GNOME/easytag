@@ -446,9 +446,9 @@
       <default>['title','artist','album-artist','album','genre','comment','composer','original-artist','copyright','url','encoded-by']</default>
     </key>
 
-    <key name="process-convert-spaces" enum="org.gnome.EasyTAG.EtConvertSpaces">
-      <summary>Convert spaces and underscores in tags</summary>
-      <description>Whether to convert to spaces (and %20) or underscores when processing tag fields</description>
+    <key name="process-convert" enum="org.gnome.EasyTAG.EtProcessFieldsConvert">
+      <summary>Convert tag fields when processing</summary>
+      <description>Whether to convert to spaces (and %20), underscores or other characters when processing tag fields</description>
       <default>'spaces'</default>
     </key>
 

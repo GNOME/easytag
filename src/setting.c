@@ -115,9 +115,6 @@ static const tConfigVariable Config_Variables[] =
 
     {"audio_file_player",                       CV_TYPE_STRING,&AUDIO_FILE_PLAYER                        },
 
-    {"pf_convert_into_space",                   CV_TYPE_BOOL,    &PF_CONVERT_INTO_SPACE                  },
-    {"pf_convert_space",                        CV_TYPE_BOOL,    &PF_CONVERT_SPACE                       },
-
     {"playlist_name",                           CV_TYPE_STRING,  &PLAYLIST_NAME                          },
     {"playlist_content_mask_value",             CV_TYPE_STRING,  &PLAYLIST_CONTENT_MASK_VALUE            },
 
@@ -187,12 +184,6 @@ void Init_Config_Variables (void)
 #endif /* !G_OS_WIN32 */
     FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET     = g_strdup("ISO-8859-1");
     FILE_WRITING_ID3V1_CHARACTER_SET                = g_strdup("ISO-8859-1");
-
-    /*
-     * Scanner window
-     */
-    PF_CONVERT_INTO_SPACE              = 1;
-    PF_CONVERT_SPACE                   = 0;
 
     /*
      * Playlist window

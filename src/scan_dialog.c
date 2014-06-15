@@ -1103,18 +1103,29 @@ static void
 Scan_Process_Fields_Functions (EtScanDialog *self, gchar **string)
 {
     EtScanDialogPrivate *priv;
+    EtProcessFieldsConvert process;
 
     priv = et_scan_dialog_get_instance_private (self);
 
-    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_convert_to_space_toggle)))
+    process = g_settings_get_enum (MainSettings, "process-convert");
+
+    switch (process)
     {
-        Scan_Convert_Underscore_Into_Space(*string);
-        Scan_Convert_P20_Into_Space(*string);
+        case ET_PROCESS_FIELDS_CONVERT_SPACES:
+            Scan_Convert_Underscore_Into_Space (*string);
+            Scan_Convert_P20_Into_Space (*string);
+            break;
+        case ET_PROCESS_FIELDS_CONVERT_UNDERSCORES:
+            Scan_Convert_Space_Into_Underscore (*string);
+            break;
+        case ET_PROCESS_FIELDS_CONVERT_CHARACTERS:
+            Scan_Convert_Character (self, string);
+            break;
+        case ET_PROCESS_FIELDS_CONVERT_NO_CHANGE:
+            break;
     }
 
-    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_convert_to_underscores_toggle)))
-        Scan_Convert_Space_Into_Underscore (*string);
-
+    /* FIXME: Use GSettings keys instead of toggle buton states. */
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_insert_space_toggle)))
     {
         gchar *res;
@@ -1125,9 +1136,6 @@ Scan_Process_Fields_Functions (EtScanDialog *self, gchar **string)
 
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_insert_one_space_toggle)))
         Scan_Process_Fields_Keep_One_Space(*string);
-
-    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_convert_toggle)))
-        Scan_Convert_Character (self, string);
 
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_all_uppercase_toggle)))
     {
@@ -2830,8 +2838,11 @@ create_scan_dialog (EtScanDialog *self)
     group = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
     gtk_box_pack_start (GTK_BOX (VBox), group, FALSE, FALSE, 0);
     priv->process_convert_to_space_toggle = gtk_radio_button_new_with_label_from_widget (NULL, _("Convert '_' and '%20' to spaces"));
+    gtk_widget_set_name (priv->process_convert_to_space_toggle, "spaces");
     priv->process_convert_to_underscores_toggle = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (priv->process_convert_to_space_toggle),
                                                                              _("Convert ' ' to '_'"));
+    gtk_widget_set_name (priv->process_convert_to_underscores_toggle,
+                         "underscores");
     gtk_box_pack_start (GTK_BOX (group), priv->process_convert_to_space_toggle, FALSE,
                         FALSE, 0);
     gtk_box_pack_start (GTK_BOX (group), priv->process_convert_to_underscores_toggle, FALSE,
@@ -2840,6 +2851,7 @@ create_scan_dialog (EtScanDialog *self)
     gtk_box_pack_start (GTK_BOX (group), hbox, FALSE, FALSE, 0);
     priv->process_convert_toggle = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (priv->process_convert_to_space_toggle),
                                                                         _("Convert:"));
+    gtk_widget_set_name (priv->process_convert_toggle, "characters");
     priv->process_convert_to_entry        = gtk_entry_new();
     /* FIXME Use translation context. A "space" at the end to allow another
      * translation for "to :" (needed in French!) */
@@ -2851,6 +2863,7 @@ create_scan_dialog (EtScanDialog *self)
     gtk_widget_set_size_request(priv->process_convert_from_entry,120,-1);
     process_fields_convert_none = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (priv->process_convert_to_space_toggle),
                                                                                _("Do not convert"));
+    gtk_widget_set_name (process_fields_convert_none, "no-change");
     gtk_box_pack_start(GTK_BOX(hbox),priv->process_convert_toggle,       FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),priv->process_convert_from_entry,   FALSE,FALSE,0);
     gtk_box_pack_start (GTK_BOX (hbox), priv->process_convert_label, FALSE,
@@ -2864,11 +2877,31 @@ create_scan_dialog (EtScanDialog *self)
                               G_CALLBACK (Process_Fields_Convert_Check_Button_Toggled),
                               self);
     /* Set check buttons to init value */
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_convert_to_space_toggle),PF_CONVERT_INTO_SPACE);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->process_convert_to_underscores_toggle),PF_CONVERT_SPACE);
-    g_settings_bind (MainSettings, "process-convert-characters",
-                     priv->process_convert_toggle, "active",
-                     G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind_with_mapping (MainSettings, "process-convert",
+                                  priv->process_convert_to_space_toggle,
+                                  "active", G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  priv->process_convert_to_space_toggle, NULL);
+    g_settings_bind_with_mapping (MainSettings, "process-convert",
+                                  priv->process_convert_to_underscores_toggle,
+                                  "active", G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  priv->process_convert_to_underscores_toggle,
+                                  NULL);
+    g_settings_bind_with_mapping (MainSettings, "process-convert",
+                                  priv->process_convert_toggle,
+                                  "active", G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  priv->process_convert_toggle, NULL);
+    g_settings_bind_with_mapping (MainSettings, "process-convert",
+                                  process_fields_convert_none,
+                                  "active", G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  process_fields_convert_none, NULL);
     g_settings_bind (MainSettings, "process-convert-characters-from",
                      priv->process_convert_from_entry, "text",
                      G_SETTINGS_BIND_DEFAULT);
@@ -3226,10 +3259,6 @@ et_scan_dialog_apply_changes (EtScanDialog *self)
     g_return_if_fail (ET_SCAN_DIALOG (self));
 
     priv = et_scan_dialog_get_instance_private (self);
-
-    /* Group: convert one character */
-    PF_CONVERT_INTO_SPACE     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_convert_to_space_toggle));
-    PF_CONVERT_SPACE          = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_convert_to_underscores_toggle));
 
     /* Save default masks. */
     if (SCAN_TAG_DEFAULT_MASK) g_free(SCAN_TAG_DEFAULT_MASK);

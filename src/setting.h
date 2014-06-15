@@ -113,6 +113,14 @@ typedef enum
     ET_PROCESS_FIELD_ENCODED_BY = 1 << 11
 } EtProcessField;
 
+typedef enum
+{
+    ET_PROCESS_FIELDS_CONVERT_SPACES,
+    ET_PROCESS_FIELDS_CONVERT_UNDERSCORES,
+    ET_PROCESS_FIELDS_CONVERT_CHARACTERS,
+    ET_PROCESS_FIELDS_CONVERT_NO_CHANGE
+} EtProcessFieldsConvert;
+
 /* Content of generated playlists. */
 typedef enum
 {
@@ -210,10 +218,6 @@ gchar  *FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET;
 gchar  *FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET;
 
 gchar  *FILE_WRITING_ID3V1_CHARACTER_SET;
-
-/* Scanner window */
-gint    PF_CONVERT_INTO_SPACE;
-gint    PF_CONVERT_SPACE;
 
 /* Playlist window */
 gchar  *PLAYLIST_NAME;
