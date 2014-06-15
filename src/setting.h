@@ -43,6 +43,43 @@ struct _tConfigVariable
     void *pointer;              /* Pointer to our variable */
 };
 
+/* Categories to search in CDDB manual search. */
+typedef enum
+{
+    ET_CDDB_SEARCH_CATEGORY_BLUES = 1 << 0,
+    ET_CDDB_SEARCH_CATEGORY_CLASSICAL = 1 << 1,
+    ET_CDDB_SEARCH_CATEGORY_COUNTRY = 1 << 2,
+    ET_CDDB_SEARCH_CATEGORY_FOLK = 1 << 3,
+    ET_CDDB_SEARCH_CATEGORY_JAZZ = 1 << 4,
+    ET_CDDB_SEARCH_CATEGORY_MISC = 1 << 5,
+    ET_CDDB_SEARCH_CATEGORY_NEWAGE = 1 << 6,
+    ET_CDDB_SEARCH_CATEGORY_REGGAE = 1 << 7,
+    ET_CDDB_SEARCH_CATEGORY_ROCK = 1 << 8,
+    ET_CDDB_SEARCH_CATEGORY_SOUNDTRACK = 1 << 9
+} EtCddbSearchCategory;
+
+/* Fields to use in CDDB manual search. */
+typedef enum
+{
+    ET_CDDB_SEARCH_FIELD_ARTIST = 1 << 0,
+    ET_CDDB_SEARCH_FIELD_TITLE = 1 << 1,
+    ET_CDDB_SEARCH_FIELD_TRACK = 1 << 2,
+    ET_CDDB_SEARCH_FIELD_OTHER = 1 << 3
+} EtCddbSearchField;
+
+/* Fields to set from CDDB search results. */
+typedef enum
+{
+    ET_CDDB_SET_FIELD_TITLE = 1 << 0,
+    ET_CDDB_SET_FIELD_ARTIST = 1 << 1,
+    ET_CDDB_SET_FIELD_ALBUM = 1 << 2,
+    ET_CDDB_SET_FIELD_YEAR = 1 << 3,
+    ET_CDDB_SET_FIELD_TRACK = 1 << 4,
+    ET_CDDB_SET_FIELD_TRACK_TOTAL = 1 << 5,
+    ET_CDDB_SET_FIELD_GENRE = 1 << 6,
+    ET_CDDB_SET_FIELD_FILENAME = 1 << 7
+} EtCddbSetField;
+
 /* Method for processing spaces when updating tags. */
 typedef enum
 {
@@ -184,33 +221,6 @@ gchar  *PLAYLIST_CONTENT_MASK_VALUE;
 
 gchar  *CDDB_LOCAL_PATH;
 
-/* CDDB window */
-gint    CDDB_SEARCH_IN_ARTIST_FIELD;
-gint    CDDB_SEARCH_IN_TITLE_FIELD;
-gint    CDDB_SEARCH_IN_TRACK_NAME_FIELD;
-gint    CDDB_SEARCH_IN_OTHER_FIELD;
-
-gint    CDDB_SEARCH_IN_BLUES_CATEGORY;
-gint    CDDB_SEARCH_IN_CLASSICAL_CATEGORY;
-gint    CDDB_SEARCH_IN_COUNTRY_CATEGORY;
-gint    CDDB_SEARCH_IN_FOLK_CATEGORY;
-gint    CDDB_SEARCH_IN_JAZZ_CATEGORY;
-gint    CDDB_SEARCH_IN_MISC_CATEGORY;
-gint    CDDB_SEARCH_IN_NEWAGE_CATEGORY;
-gint    CDDB_SEARCH_IN_REGGAE_CATEGORY;
-gint    CDDB_SEARCH_IN_ROCK_CATEGORY;
-gint    CDDB_SEARCH_IN_SOUNDTRACK_CATEGORY;
-
-gint    CDDB_SET_TO_ALL_FIELDS;
-gint    CDDB_SET_TO_TITLE;
-gint    CDDB_SET_TO_ARTIST;
-gint    CDDB_SET_TO_ALBUM;
-gint    CDDB_SET_TO_YEAR;
-gint    CDDB_SET_TO_TRACK;
-gint    CDDB_SET_TO_TRACK_TOTAL;
-gint    CDDB_SET_TO_GENRE;
-gint    CDDB_SET_TO_FILE_NAME;
-
 /* Default mask */
 gchar  *SCAN_TAG_DEFAULT_MASK;
 gchar  *RENAME_FILE_DEFAULT_MASK;
@@ -297,5 +307,11 @@ gboolean et_settings_enum_radio_get (GValue *value, GVariant *variant,
 GVariant *et_settings_enum_radio_set (const GValue *value,
                                       const GVariantType *expected_type,
                                       gpointer user_data);
+gboolean et_settings_flags_toggle_get (GValue *value, GVariant *variant,
+                                       gpointer user_data);
+GVariant *et_settings_flags_toggle_set (const GValue *value,
+                                        const GVariantType *expected_type,
+                                        gpointer user_data);
+
 
 #endif /* ET_SETTINGS_H_ */

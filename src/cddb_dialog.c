@@ -1,20 +1,20 @@
-/*
- *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
- *  Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
+/* EasyTAG - Tag editor for audio files
+ * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
+ * Copyright (C) 2014  David King <amigadave@amigadave.com>
  *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
 #include "config.h"
@@ -42,6 +42,7 @@
 #include "application_window.h"
 #include "cddb_dialog.h"
 #include "easytag.h"
+#include "enums.h"
 #include "et_core.h"
 #include "browser.h"
 #include "scan_dialog.h"
@@ -72,34 +73,6 @@ struct _EtCDDBDialogPrivate
     GtkWidget *search_string_entry;
     GtkWidget *search_string_in_results_entry;
 
-    GtkWidget *search_all_toggle;
-    GtkWidget *search_artist_toggle;
-    GtkWidget *search_title_toggle;
-    GtkWidget *search_track_toggle;
-    GtkWidget *search_other_toggle;
-
-    GtkWidget *categories_all_toggle;
-    GtkWidget *categories_blues_toggle;
-    GtkWidget *categories_classical_toggle;
-    GtkWidget *categories_country_toggle;
-    GtkWidget *categories_folk_toggle;
-    GtkWidget *categories_jazz_toggle;
-    GtkWidget *categories_misc_toggle;
-    GtkWidget *categories_newage_toggle;
-    GtkWidget *categories_reggae_toggle;
-    GtkWidget *categories_rock_toggle;
-    GtkWidget *categories_soundtrack_toggle;
-
-    GtkWidget *set_all_toggle;
-    GtkWidget *set_title_toggle;
-    GtkWidget *set_artist_toggle;
-    GtkWidget *set_album_toggle;
-    GtkWidget *set_year_toggle;
-    GtkWidget *set_tracknumber_toggle;
-    GtkWidget *set_totaltracks_toggle;
-    GtkWidget *set_genre_toggle;
-    GtkWidget *set_filename_toggle;
-
     GtkWidget *apply_button;
     GtkWidget *search_button;
     GtkWidget *stop_search_button;
@@ -118,7 +91,7 @@ struct _EtCDDBDialogPrivate
     GtkWidget *use_local_access_toggle;
 
     GtkWidget *separator_h;
-    GtkWidget *separator_v;
+    GtkWidget *category_toggle[10];
 };
 
 /*
@@ -250,40 +223,28 @@ static void
 on_show_categories_toggle_toggled (EtCDDBDialog *self)
 {
     EtCDDBDialogPrivate *priv;
+    gsize i;
 
     priv = et_cddb_dialog_get_instance_private (self);
 
+    /* FIXME: Toggle visibility of the container instead. */
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->show_categories_toggle)))
     {
-        gtk_widget_show(priv->separator_h);
-        gtk_widget_show(priv->categories_all_toggle);
-        gtk_widget_show(priv->separator_v);
-        gtk_widget_show(priv->categories_blues_toggle);
-        gtk_widget_show(priv->categories_classical_toggle);
-        gtk_widget_show(priv->categories_country_toggle);
-        gtk_widget_show(priv->categories_folk_toggle);
-        gtk_widget_show(priv->categories_jazz_toggle);
-        gtk_widget_show(priv->categories_misc_toggle);
-        gtk_widget_show(priv->categories_newage_toggle);
-        gtk_widget_show(priv->categories_reggae_toggle);
-        gtk_widget_show(priv->categories_rock_toggle);
-        gtk_widget_show(priv->categories_soundtrack_toggle);
+        gtk_widget_show (priv->separator_h);
+
+        for (i = 0; i < 10; i++)
+        {
+            gtk_widget_show (priv->category_toggle[i]);
+        }
     }
     else
     {
-        gtk_widget_hide(priv->separator_h);
-        gtk_widget_hide(priv->categories_all_toggle);
-        gtk_widget_hide(priv->separator_v);
-        gtk_widget_hide(priv->categories_blues_toggle);
-        gtk_widget_hide(priv->categories_classical_toggle);
-        gtk_widget_hide(priv->categories_country_toggle);
-        gtk_widget_hide(priv->categories_folk_toggle);
-        gtk_widget_hide(priv->categories_jazz_toggle);
-        gtk_widget_hide(priv->categories_misc_toggle);
-        gtk_widget_hide(priv->categories_newage_toggle);
-        gtk_widget_hide(priv->categories_reggae_toggle);
-        gtk_widget_hide(priv->categories_rock_toggle);
-        gtk_widget_hide(priv->categories_soundtrack_toggle);
+        gtk_widget_hide (priv->separator_h);
+
+        for (i = 0; i < 10; i++)
+        {
+            gtk_widget_hide (priv->category_toggle[i]);
+        }
     }
 
     /* Force the window to be redrawn. */
@@ -294,29 +255,20 @@ static void
 update_apply_button_sensitivity (EtCDDBDialog *self)
 {
     EtCDDBDialogPrivate *priv;
-    gboolean cddbsettoallfields, cddbsettotitle, cddbsettoartist, cddbsettoalbum,
-             cddbsettoyear, cddbsettotrack, cddbsettotracktotal, cddbsettogenre, cddbsettofilename;
 
     priv = et_cddb_dialog_get_instance_private (self);
 
-    // Tag fields
-    cddbsettoallfields  = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_all_toggle));
-    cddbsettotitle      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_title_toggle));
-    cddbsettoartist     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_artist_toggle));
-    cddbsettoalbum      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_album_toggle));
-    cddbsettoyear       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_year_toggle));
-    cddbsettotrack      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_tracknumber_toggle));
-    cddbsettotracktotal = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_totaltracks_toggle));
-    cddbsettogenre      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_genre_toggle));
-    cddbsettofilename   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_filename_toggle));
-    if ( priv->apply_button && gtk_tree_model_iter_n_children(GTK_TREE_MODEL(priv->track_list_model), NULL) > 0
-    && (cddbsettoallfields || cddbsettotitle || cddbsettoartist     || cddbsettoalbum || cddbsettoyear
-        || cddbsettotrack  || cddbsettotracktotal || cddbsettogenre || cddbsettofilename) )
+    /* If any field is set, enable the apply button. */
+    if (priv->apply_button
+        && gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->track_list_model),
+                                           NULL) > 0
+        && (g_settings_get_flags (MainSettings, "cddb-set-fields") != 0))
     {
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->apply_button),TRUE);
-    } else
+        gtk_widget_set_sensitive (GTK_WIDGET (priv->apply_button), TRUE);
+    }
+    else
     {
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->apply_button),FALSE);
+        gtk_widget_set_sensitive (GTK_WIDGET (priv->apply_button), FALSE);
     }
 }
 
@@ -324,42 +276,19 @@ static void
 update_search_button_sensitivity (EtCDDBDialog *self)
 {
     EtCDDBDialogPrivate *priv;
-    gboolean cddbinallfields, cddbinartistfield, cddbintitlefield, cddbintracknamefield, cddbinotherfield;
-    gboolean cddbinallcategories, cddbinbluescategory, cddbinclassicalcategory, cddbincountrycategory,
-             cddbinfolkcategory, cddbinjazzcategory, cddbinmisccategory, cddbinnewagecategory,
-             cddbinreggaecategory, cddbinrockcategory, cddbinsoundtrackcategory;
 
     priv = et_cddb_dialog_get_instance_private (self);
 
-    // Fields
-    cddbinallfields      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->search_all_toggle));
-    cddbinartistfield    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->search_artist_toggle));
-    cddbintitlefield     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->search_title_toggle));
-    cddbintracknamefield = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->search_track_toggle));
-    cddbinotherfield     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->search_other_toggle));
-    // Categories
-    cddbinallcategories      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_all_toggle));
-    cddbinbluescategory      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_blues_toggle));
-    cddbinclassicalcategory  = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_classical_toggle));
-    cddbincountrycategory    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_country_toggle));
-    cddbinfolkcategory       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_folk_toggle));
-    cddbinjazzcategory       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_jazz_toggle));
-    cddbinmisccategory       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_misc_toggle));
-    cddbinnewagecategory     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_newage_toggle));
-    cddbinreggaecategory     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_reggae_toggle));
-    cddbinrockcategory       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_rock_toggle));
-    cddbinsoundtrackcategory = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_soundtrack_toggle));
-
-    if ( priv->search_button && g_utf8_strlen (gtk_entry_get_text (GTK_ENTRY (priv->search_string_entry)), -1) > 0
-    && (cddbinallfields     || cddbinartistfield   || cddbintitlefield        || cddbintracknamefield || cddbinotherfield)
-    && (cddbinallcategories || cddbinbluescategory || cddbinclassicalcategory || cddbincountrycategory
-        || cddbinfolkcategory   || cddbinjazzcategory || cddbinmisccategory || cddbinnewagecategory
-        || cddbinreggaecategory || cddbinrockcategory || cddbinsoundtrackcategory) )
+    if (priv->search_button
+        && g_utf8_strlen (gtk_entry_get_text (GTK_ENTRY (priv->search_string_entry)), -1) > 0
+        && (g_settings_get_flags (MainSettings, "cddb-search-fields") != 0)
+        && (g_settings_get_flags (MainSettings, "cddb-search-categories") != 0))
     {
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->search_button),TRUE);
-    } else
+        gtk_widget_set_sensitive (GTK_WIDGET (priv->search_button), TRUE);
+    }
+    else
     {
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->search_button),FALSE);
+        gtk_widget_set_sensitive (GTK_WIDGET (priv->search_button), FALSE);
     }
 }
 
@@ -1663,26 +1592,17 @@ Cddb_Free_Album_List (EtCDDBDialog *self)
 static gchar *
 Cddb_Generate_Request_String_With_Fields_And_Categories_Options (EtCDDBDialog *self)
 {
-    EtCDDBDialogPrivate *priv;
     GString *string;
-    gboolean cddbinallfields, cddbinartistfield, cddbintitlefield, cddbintracknamefield, cddbinotherfield;
-    gboolean cddbinallcategories, cddbinbluescategory, cddbinclassicalcategory, cddbincountrycategory,
-             cddbinfolkcategory, cddbinjazzcategory, cddbinmisccategory, cddbinnewagecategory,
-             cddbinreggaecategory, cddbinrockcategory, cddbinsoundtrackcategory;
-
-    priv = et_cddb_dialog_get_instance_private (self);
+    guint search_fields;
+    guint search_categories;
 
     /* Init. */
     string = g_string_sized_new (256);
 
     /* Fields. */
-    cddbinallfields = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->search_all_toggle));
-    cddbinartistfield = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->search_artist_toggle));
-    cddbintitlefield = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->search_title_toggle));
-    cddbintracknamefield = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->search_track_toggle));
-    cddbinotherfield = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->search_other_toggle));
-
-    if (cddbinallfields)
+    /* FIXME: Fetch cddb-search-fields "all-set" mask. */
+#if 0
+    if (search_all_fields)
     {
         g_string_append (string, "&allfields=YES");
     }
@@ -1690,47 +1610,72 @@ Cddb_Generate_Request_String_With_Fields_And_Categories_Options (EtCDDBDialog *s
     {
         g_string_append (string, "&allfields=NO");
     }
+#endif
 
-    if (cddbinartistfield) g_string_append (string, "&fields=artist");
-    if (cddbintitlefield) g_string_append (string, "&fields=title");
-    if (cddbintracknamefield) g_string_append (string, "&fields=track");
-    if (cddbinotherfield) g_string_append (string, "&fields=rest");
+    search_fields = g_settings_get_flags (MainSettings, "cddb-search-fields");
 
+    if (search_fields & ET_CDDB_SEARCH_FIELD_ARTIST)
+    {
+        g_string_append (string, "&fields=artist");
+    }
+    if (search_fields & ET_CDDB_SEARCH_FIELD_TITLE)
+    {
+        g_string_append (string, "&fields=title");
+    }
+    if (search_fields & ET_CDDB_SEARCH_FIELD_TRACK)
+    {
+        g_string_append (string, "&fields=track");
+    }
+    if (search_fields & ET_CDDB_SEARCH_FIELD_OTHER)
+    {
+        g_string_append (string, "&fields=rest");
+    }
 
-    // Categories (warning : there is one other CDDB catogories not used here ("data"))
-    cddbinallcategories      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_all_toggle));
-    cddbinbluescategory      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_blues_toggle));
-    cddbinclassicalcategory  = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_classical_toggle));
-    cddbincountrycategory    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_country_toggle));
-    cddbinfolkcategory       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_folk_toggle));
-    cddbinjazzcategory       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_jazz_toggle));
-    cddbinmisccategory       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_misc_toggle));
-    cddbinnewagecategory     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_newage_toggle));
-    cddbinreggaecategory     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_reggae_toggle));
-    cddbinrockcategory       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_rock_toggle));
-    cddbinsoundtrackcategory = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_soundtrack_toggle));
-
+    /* Categories (warning: there is one other CDDB category that is not used
+     * here ("data")) */
+    search_categories = g_settings_get_flags (MainSettings,
+                                              "cddb-search-categories");
     g_string_append (string, "&allcats=NO");
 
-    if (cddbinallcategories)
+    if (search_categories & ET_CDDB_SEARCH_CATEGORY_BLUES)
     {
-        /* All categories except "data". */
-        g_string_append (string,
-                         "&cats=blues&cats=classical&cats=country&cats=folk&cats=jazz"
-                         "&cats=misc&cats=newage&cats=reggae&cats=rock&cats=soundtrack");
+        g_string_append (string, "&cats=blues");
     }
-    else
+    if (search_categories & ET_CDDB_SEARCH_CATEGORY_CLASSICAL)
     {
-        if (cddbinbluescategory) g_string_append (string, "&cats=blues");
-        if (cddbinclassicalcategory) g_string_append (string, "&cats=classical");
-        if (cddbincountrycategory) g_string_append (string, "&cats=country");
-        if (cddbinfolkcategory) g_string_append (string, "&cats=folk");
-        if (cddbinjazzcategory) g_string_append (string, "&cats=jazz");
-        if (cddbinmisccategory) g_string_append (string, "&cats=misc");
-        if (cddbinnewagecategory) g_string_append (string, "&cats=newage");
-        if (cddbinreggaecategory) g_string_append (string, "&cats=reggae");
-        if (cddbinrockcategory) g_string_append (string, "&cats=rock");
-        if (cddbinsoundtrackcategory) g_string_append (string, "&cats=soundtrack");
+        g_string_append (string, "&cats=classical");
+    }
+    if (search_categories & ET_CDDB_SEARCH_CATEGORY_COUNTRY)
+    {
+        g_string_append (string, "&cats=country");
+    }
+    if (search_categories & ET_CDDB_SEARCH_CATEGORY_FOLK)
+    {
+        g_string_append (string, "&cats=folk");
+    }
+    if (search_categories & ET_CDDB_SEARCH_CATEGORY_JAZZ)
+    {
+        g_string_append (string, "&cats=jazz");
+    }
+    if (search_categories & ET_CDDB_SEARCH_CATEGORY_MISC)
+    {
+        g_string_append (string, "&cats=misc");
+    }
+    if (search_categories & ET_CDDB_SEARCH_CATEGORY_NEWAGE)
+    {
+        g_string_append (string, "&cats=newage");
+    }
+    if (search_categories & ET_CDDB_SEARCH_CATEGORY_REGGAE)
+    {
+        g_string_append (string, "&cats=reggae");
+    }
+    if (search_categories & ET_CDDB_SEARCH_CATEGORY_ROCK)
+    {
+        g_string_append (string, "&cats=rock");
+    }
+    if (search_categories & ET_CDDB_SEARCH_CATEGORY_SOUNDTRACK)
+    {
+        g_string_append (string, "&cats=soundtrack");
     }
 
     return g_string_free (string, FALSE);
@@ -2484,8 +2429,6 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
     GList *selectedrows = NULL;
     gchar buffer[256];
     gboolean CddbTrackList_Line_Selected;
-    gboolean cddbsettoallfields, cddbsettotitle,      cddbsettoartist, cddbsettoalbum, cddbsettoyear,
-             cddbsettotrack,     cddbsettotracktotal, cddbsettogenre,  cddbsettofilename;
     CddbTrackAlbum *cddbtrackalbum = NULL;
     GtkTreeSelection *selection = NULL;
     GtkTreeSelection *file_selection = NULL;
@@ -2501,16 +2444,6 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
 
     // Save the current displayed data
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
-
-    cddbsettoallfields  = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_all_toggle));
-    cddbsettotitle      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_title_toggle));
-    cddbsettoartist     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_artist_toggle));
-    cddbsettoalbum      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_album_toggle));
-    cddbsettoyear       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_year_toggle));
-    cddbsettotrack      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_tracknumber_toggle));
-    cddbsettotracktotal = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_totaltracks_toggle));
-    cddbsettogenre      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_genre_toggle));
-    cddbsettofilename   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_filename_toggle));
 
     /* FIXME: Hack! */
     file_selection = et_application_window_browser_get_selection (ET_APPLICATION_WINDOW (MainWindow));
@@ -2650,62 +2583,83 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
             ET_File **etfile = NULL;
             File_Name *FileName = NULL;
             File_Tag *FileTag = NULL;
+            guint set_fields;
 
             gtk_tree_model_get(GTK_TREE_MODEL(priv->track_list_model), &currentIter,
                                CDDB_TRACK_LIST_ETFILE, &etfile, -1);
 
-            /*
-             * Tag fields
-             */
-            if (cddbsettoallfields || cddbsettotitle || cddbsettoartist
-                || cddbsettoalbum || cddbsettoyear || cddbsettotrack
-                || cddbsettotracktotal || cddbsettogenre)
+            /* Tag fields. */
+            set_fields = g_settings_get_flags (MainSettings, "cddb-set-fields");
+
+            if (set_fields != 0)
             {
                 // Allocation of a new FileTag
                 FileTag = ET_File_Tag_Item_New();
                 ET_Copy_File_Tag_Item(*etfile,FileTag);
 
-                if (cddbsettoallfields || cddbsettotitle)
-                    ET_Set_Field_File_Tag_Item(&FileTag->title,cddbtrackalbum->track_name);
+                if (set_fields & ET_CDDB_SET_FIELD_TITLE)
+                {
+                    ET_Set_Field_File_Tag_Item (&FileTag->title,
+                                                cddbtrackalbum->track_name);
+                }
 
-                if ( (cddbsettoallfields || cddbsettoartist) && cddbtrackalbum->cddbalbum->artist)
-                    ET_Set_Field_File_Tag_Item(&FileTag->artist,cddbtrackalbum->cddbalbum->artist);
+                if ((set_fields & ET_CDDB_SET_FIELD_ARTIST)
+                    && cddbtrackalbum->cddbalbum->artist)
+                {
+                    ET_Set_Field_File_Tag_Item (&FileTag->artist,
+                                                cddbtrackalbum->cddbalbum->artist);
+                }
 
-                if ( (cddbsettoallfields || cddbsettoalbum) && cddbtrackalbum->cddbalbum->album)
-                    ET_Set_Field_File_Tag_Item(&FileTag->album, cddbtrackalbum->cddbalbum->album);
+                if ((set_fields & ET_CDDB_SET_FIELD_ALBUM)
+                    && cddbtrackalbum->cddbalbum->album)
+                {
+                    ET_Set_Field_File_Tag_Item (&FileTag->album,
+                                                cddbtrackalbum->cddbalbum->album);
+                }
 
-                if ( (cddbsettoallfields || cddbsettoyear) && cddbtrackalbum->cddbalbum->year)
-                    ET_Set_Field_File_Tag_Item(&FileTag->year,  cddbtrackalbum->cddbalbum->year);
+                if ((set_fields & ET_CDDB_SET_FIELD_YEAR)
+                    && cddbtrackalbum->cddbalbum->year)
+                {
+                    ET_Set_Field_File_Tag_Item (&FileTag->year,
+                                                cddbtrackalbum->cddbalbum->year);
+                }
 
-                if (cddbsettoallfields || cddbsettotrack)
+                if (set_fields & ET_CDDB_SET_FIELD_TRACK)
                 {
                     snprintf (buffer, sizeof (buffer), "%s",
                               et_track_number_to_string (cddbtrackalbum->track_number));
 
-                    ET_Set_Field_File_Tag_Item(&FileTag->track,buffer);
+                    ET_Set_Field_File_Tag_Item (&FileTag->track, buffer);
                 }
 
-                if (cddbsettoallfields || cddbsettotracktotal)
+                if (set_fields & ET_CDDB_SET_FIELD_TRACK_TOTAL)
                 {
                     snprintf (buffer, sizeof (buffer), "%s",
                               et_track_number_to_string (list_length));
 
-                    ET_Set_Field_File_Tag_Item(&FileTag->track_total,buffer);
+                    ET_Set_Field_File_Tag_Item (&FileTag->track_total, buffer);
                 }
 
-                if ( (cddbsettoallfields || cddbsettogenre) && (cddbtrackalbum->cddbalbum->genre || cddbtrackalbum->cddbalbum->category) )
+                if ((set_fields & ET_CDDB_SET_FIELD_GENRE)
+                    && (cddbtrackalbum->cddbalbum->genre
+                        || cddbtrackalbum->cddbalbum->category))
                 {
-                    if (cddbtrackalbum->cddbalbum->genre && g_utf8_strlen(cddbtrackalbum->cddbalbum->genre, -1)>0)
-                        ET_Set_Field_File_Tag_Item(&FileTag->genre,Cddb_Get_Id3_Genre_From_Cddb_Genre(cddbtrackalbum->cddbalbum->genre));
+                    if (cddbtrackalbum->cddbalbum->genre
+                        && g_utf8_strlen (cddbtrackalbum->cddbalbum->genre, -1) > 0)
+                    {
+                        ET_Set_Field_File_Tag_Item (&FileTag->genre,
+                                                    Cddb_Get_Id3_Genre_From_Cddb_Genre (cddbtrackalbum->cddbalbum->genre));
+                    }
                     else
-                        ET_Set_Field_File_Tag_Item(&FileTag->genre,Cddb_Get_Id3_Genre_From_Cddb_Genre(cddbtrackalbum->cddbalbum->category));
+                    {
+                        ET_Set_Field_File_Tag_Item (&FileTag->genre,
+                                                    Cddb_Get_Id3_Genre_From_Cddb_Genre (cddbtrackalbum->cddbalbum->category));
+                    }
                 }
             }
 
-            /*
-             * Filename field
-             */
-            if ( (cddbsettoallfields || cddbsettofilename) )
+            /* Filename field. */
+            if (set_fields & ET_CDDB_SET_FIELD_FILENAME)
             {
                 gchar *filename_generated_utf8;
                 gchar *filename_new_utf8;
@@ -2747,63 +2701,86 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
             ET_File   *etfile;
             File_Name *FileName = NULL;
             File_Tag  *FileTag  = NULL;
+            guint set_fields;
 
             fileIter = (GtkTreeIter*) file_iterlist->data;
             etfile = et_application_window_browser_get_et_file_from_iter (ET_APPLICATION_WINDOW (MainWindow),
                                                                           fileIter);
 
-            /*
-             * Tag fields
-             */
-            if (cddbsettoallfields || cddbsettotitle || cddbsettoartist
-                || cddbsettoalbum || cddbsettoyear || cddbsettotrack
-                || cddbsettotracktotal || cddbsettogenre)
+            /* Tag fields. */
+            set_fields = g_settings_get_flags (MainSettings, "cddb-set-fields");
+
+            if (set_fields != 0)
             {
-                // Allocation of a new FileTag
-                FileTag = ET_File_Tag_Item_New();
-                ET_Copy_File_Tag_Item(etfile,FileTag);
+                /* Allocation of a new FileTag. */
+                FileTag = ET_File_Tag_Item_New ();
+                ET_Copy_File_Tag_Item (etfile, FileTag);
 
-                if (cddbsettoallfields || cddbsettotitle)
-                    ET_Set_Field_File_Tag_Item(&FileTag->title,cddbtrackalbum->track_name);
+                if (set_fields & ET_CDDB_SET_FIELD_TITLE)
+                {
+                    ET_Set_Field_File_Tag_Item (&FileTag->title,
+                                                cddbtrackalbum->track_name);
+                }
 
-                if ( (cddbsettoallfields || cddbsettoartist) && cddbtrackalbum->cddbalbum->artist)
-                    ET_Set_Field_File_Tag_Item(&FileTag->artist,cddbtrackalbum->cddbalbum->artist);
+                if ((set_fields & ET_CDDB_SET_FIELD_ARTIST)
+                    && cddbtrackalbum->cddbalbum->artist)
+                {
+                    ET_Set_Field_File_Tag_Item (&FileTag->artist,
+                                                cddbtrackalbum->cddbalbum->artist);
+                }
 
-                if ( (cddbsettoallfields || cddbsettoalbum) && cddbtrackalbum->cddbalbum->album)
-                    ET_Set_Field_File_Tag_Item(&FileTag->album, cddbtrackalbum->cddbalbum->album);
+                if ((set_fields & ET_CDDB_SET_FIELD_ALBUM)
+                    && cddbtrackalbum->cddbalbum->album)
+                {
+                    ET_Set_Field_File_Tag_Item (&FileTag->album,
+                                                cddbtrackalbum->cddbalbum->album);
+                }
 
-                if ( (cddbsettoallfields || cddbsettoyear) && cddbtrackalbum->cddbalbum->year)
-                    ET_Set_Field_File_Tag_Item(&FileTag->year,  cddbtrackalbum->cddbalbum->year);
+                if ((set_fields & ET_CDDB_SET_FIELD_YEAR)
+                    && cddbtrackalbum->cddbalbum->year)
+                {
+                    ET_Set_Field_File_Tag_Item (&FileTag->year,
+                                                cddbtrackalbum->cddbalbum->year);
+                }
 
-                if (cddbsettoallfields || cddbsettotrack)
+                if (set_fields & ET_CDDB_SET_FIELD_TRACK)
                 {
                     snprintf (buffer, sizeof (buffer), "%s",
                               et_track_number_to_string (cddbtrackalbum->track_number));
 
-                    ET_Set_Field_File_Tag_Item(&FileTag->track,buffer);
+                    ET_Set_Field_File_Tag_Item (&FileTag->track, buffer);
                 }
 
-                if (cddbsettoallfields || cddbsettotracktotal)
+                if (set_fields & ET_CDDB_SET_FIELD_TRACK_TOTAL)
                 {
                     snprintf (buffer, sizeof (buffer), "%s",
                               et_track_number_to_string (list_length));
 
-                    ET_Set_Field_File_Tag_Item(&FileTag->track_total,buffer);
+                    ET_Set_Field_File_Tag_Item (&FileTag->track_total, buffer);
                 }
 
-                if ( (cddbsettoallfields || cddbsettogenre) && (cddbtrackalbum->cddbalbum->genre || cddbtrackalbum->cddbalbum->category) )
+                if ((set_fields & ET_CDDB_SET_FIELD_GENRE)
+                    && (cddbtrackalbum->cddbalbum->genre
+                        || cddbtrackalbum->cddbalbum->category) )
                 {
-                    if (cddbtrackalbum->cddbalbum->genre && g_utf8_strlen(cddbtrackalbum->cddbalbum->genre, -1)>0)
-                        ET_Set_Field_File_Tag_Item(&FileTag->genre,Cddb_Get_Id3_Genre_From_Cddb_Genre(cddbtrackalbum->cddbalbum->genre));
+                    if (cddbtrackalbum->cddbalbum->genre
+                        && g_utf8_strlen (cddbtrackalbum->cddbalbum->genre, -1) > 0)
+                    {
+                        ET_Set_Field_File_Tag_Item (&FileTag->genre,
+                                                    Cddb_Get_Id3_Genre_From_Cddb_Genre (cddbtrackalbum->cddbalbum->genre));
+                    }
                     else
-                        ET_Set_Field_File_Tag_Item(&FileTag->genre,Cddb_Get_Id3_Genre_From_Cddb_Genre(cddbtrackalbum->cddbalbum->category));
+                    {
+                        ET_Set_Field_File_Tag_Item (&FileTag->genre,
+                                                    Cddb_Get_Id3_Genre_From_Cddb_Genre (cddbtrackalbum->cddbalbum->category));
+                    }
                 }
             }
 
             /*
              * Filename field
              */
-            if ( (cddbsettoallfields || cddbsettofilename) )
+            if (set_fields & ET_CDDB_SET_FIELD_FILENAME)
             {
                 gchar *filename_generated_utf8;
                 gchar *filename_new_utf8;
@@ -2946,55 +2923,6 @@ Cddb_Destroy_Window (EtCDDBDialog *self)
 }
 
 static void
-Cddb_Search_In_All_Fields_Check_Button_Toggled (EtCDDBDialog *self)
-{
-    EtCDDBDialogPrivate *priv;
-
-    priv = et_cddb_dialog_get_instance_private (self);
-
-    gtk_widget_set_sensitive (priv->search_artist_toggle, !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->search_all_toggle)));
-    gtk_widget_set_sensitive (priv->search_title_toggle, !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->search_all_toggle)));
-    gtk_widget_set_sensitive (priv->search_track_toggle,!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->search_all_toggle)));
-    gtk_widget_set_sensitive (priv->search_other_toggle, !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->search_all_toggle)));
-}
-
-static void
-Cddb_Search_In_All_Categories_Check_Button_Toggled (EtCDDBDialog *self)
-{
-    EtCDDBDialogPrivate *priv;
-
-    priv = et_cddb_dialog_get_instance_private (self);
-
-    gtk_widget_set_sensitive (priv->categories_blues_toggle, !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->categories_all_toggle)));
-    gtk_widget_set_sensitive(priv->categories_classical_toggle, !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_all_toggle)));
-    gtk_widget_set_sensitive(priv->categories_country_toggle,   !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_all_toggle)));
-    gtk_widget_set_sensitive(priv->categories_folk_toggle,      !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_all_toggle)));
-    gtk_widget_set_sensitive(priv->categories_jazz_toggle,      !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_all_toggle)));
-    gtk_widget_set_sensitive(priv->categories_misc_toggle,      !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_all_toggle)));
-    gtk_widget_set_sensitive(priv->categories_newage_toggle,    !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_all_toggle)));
-    gtk_widget_set_sensitive(priv->categories_reggae_toggle,    !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_all_toggle)));
-    gtk_widget_set_sensitive(priv->categories_rock_toggle,      !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_all_toggle)));
-    gtk_widget_set_sensitive(priv->categories_soundtrack_toggle,!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_all_toggle)));
-}
-
-static void
-Cddb_Set_To_All_Fields_Check_Button_Toggled (EtCDDBDialog *self)
-{
-    EtCDDBDialogPrivate *priv;
-
-    priv = et_cddb_dialog_get_instance_private (self);
-
-    gtk_widget_set_sensitive(priv->set_title_toggle,     !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_all_toggle)));
-    gtk_widget_set_sensitive(priv->set_artist_toggle,    !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_all_toggle)));
-    gtk_widget_set_sensitive(priv->set_album_toggle,     !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_all_toggle)));
-    gtk_widget_set_sensitive(priv->set_year_toggle,      !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_all_toggle)));
-    gtk_widget_set_sensitive(priv->set_tracknumber_toggle,     !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_all_toggle)));
-    gtk_widget_set_sensitive(priv->set_totaltracks_toggle,!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_all_toggle)));
-    gtk_widget_set_sensitive(priv->set_genre_toggle,     !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_all_toggle)));
-    gtk_widget_set_sensitive(priv->set_filename_toggle,  !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_all_toggle)));
-}
-
-static void
 create_cddb_dialog (EtCDDBDialog *self)
 {
     EtCDDBDialogPrivate *priv;
@@ -3014,7 +2942,6 @@ create_cddb_dialog (EtCDDBDialog *self)
     GtkCellRenderer* renderer;
     GtkTreeViewColumn* column;
     GtkTreePath *path;
-    GtkAllocation allocation = { 0,0,0,0 };
 
     priv = et_cddb_dialog_get_instance_private (self);
 
@@ -3176,148 +3103,131 @@ create_cddb_dialog (EtCDDBDialog *self)
     gtk_grid_set_row_spacing (GTK_GRID (Table), 1);
     gtk_grid_set_column_spacing (GTK_GRID (Table), 1);
 
-    /* Translators: This option is for the previous 'search in' option. For
-     * instance, translate this as "Search in:" "All fields". */
-    priv->search_all_toggle      = gtk_check_button_new_with_label(_("All Fields"));
-    Separator                  = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
-    /* Translators: This option is for the previous 'search in' option. For
-     * instance, translate this as "Search in:" "Artist". */
-    priv->search_artist_toggle    = gtk_check_button_new_with_label(_("Artist"));
-    /* Translators: This option is for the previous 'search in' option. For
-     * instance, translate this as "Search in:" "Album". */
-    priv->search_title_toggle     = gtk_check_button_new_with_label(_("Album"));
-    /* Translators: This option is for the previous 'search in' option. For
-     * instance, translate this as "Search in:" "Track Name". */
-    priv->search_track_toggle = gtk_check_button_new_with_label(_("Track Name"));
-    /* Translators: This option is for the previous 'search in' option. For
-     * instance, translate this as "Search in:" "Other". */
-    priv->search_other_toggle     = gtk_check_button_new_with_label(_("Other"));
-    gtk_grid_attach (GTK_GRID (Table), priv->search_all_toggle, 0, 0, 1, 1);
-    gtk_grid_attach (GTK_GRID (Table), Separator, 1, 0, 1, 1);
-    gtk_grid_attach (GTK_GRID (Table), priv->search_artist_toggle, 2, 0, 1, 1);
-    gtk_grid_attach (GTK_GRID (Table), priv->search_title_toggle, 3, 0, 1, 1);
-    gtk_grid_attach (GTK_GRID (Table), priv->search_track_toggle, 4, 0, 1, 1);
-    gtk_grid_attach (GTK_GRID (Table), priv->search_other_toggle, 5, 0, 1, 1);
-    g_settings_bind (MainSettings, "cddb-search-all-fields",
-                     priv->search_all_toggle, "active",
-                     G_SETTINGS_BIND_DEFAULT);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->search_artist_toggle), CDDB_SEARCH_IN_ARTIST_FIELD);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->search_title_toggle), CDDB_SEARCH_IN_TITLE_FIELD);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->search_track_toggle), CDDB_SEARCH_IN_TRACK_NAME_FIELD);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->search_other_toggle), CDDB_SEARCH_IN_OTHER_FIELD);
-    g_signal_connect_swapped (priv->search_all_toggle, "toggled",
-                              G_CALLBACK (Cddb_Search_In_All_Fields_Check_Button_Toggled),
-                              self);
-    g_signal_connect_swapped (priv->search_all_toggle, "toggled",
-                              G_CALLBACK (update_search_button_sensitivity),
-                              self);
-    g_signal_connect_swapped (priv->search_artist_toggle, "toggled",
-                              G_CALLBACK (update_search_button_sensitivity),
-                              self);
-    g_signal_connect_swapped (priv->search_title_toggle, "toggled",
-                              G_CALLBACK (update_search_button_sensitivity),
-                              self);
-    g_signal_connect_swapped (priv->search_track_toggle, "toggled",
-                              G_CALLBACK (update_search_button_sensitivity),
-                              self);
-    g_signal_connect_swapped (priv->search_other_toggle, "toggled",
-                              G_CALLBACK (update_search_button_sensitivity),
-                              self);
+    {
+        gsize i;
+        GFlagsClass *flags_class;
+        static const struct
+        {
+            const gchar *label;
+            /* const gchar *tooltip; */
+        } mapping[] =
+        {
+            /* Translators: This option is for the previous 'search in' option.
+             * For instance, translate this as "Search in:" "Artist". */
+            { N_("Artist") },
+            /* Translators: This option is for the previous 'search in' option.
+             * For instance, translate this as "Search in:" "Album". */
+            { N_("Album") },
+            /* Translators: This option is for the previous 'search in' option.
+             * For instance, translate this as "Search in:" "Track Name". */
+            { N_("Track Name") },
+            /* Translators: This option is for the previous 'search in' option.
+             * For instance, translate this as "Search in:" "Other". */
+            { N_("Other") }
+        };
+
+        flags_class = g_type_class_ref (ET_TYPE_CDDB_SEARCH_FIELD);
+
+        for (i = 0; i < G_N_ELEMENTS (mapping); i++)
+        {
+            GFlagsValue *flags_value;
+            GtkWidget *widget;
+
+            flags_value = g_flags_get_first_value (flags_class, 1 << i);
+            widget = gtk_check_button_new_with_label (gettext (mapping[i].label));
+            gtk_widget_set_name (widget, flags_value->value_nick);
+            g_object_set_data (G_OBJECT (widget), "flags-type",
+                               GSIZE_TO_POINTER (ET_TYPE_CDDB_SEARCH_FIELD));
+            g_settings_bind_with_mapping (MainSettings, "cddb-search-fields",
+                                          widget, "active",
+                                          G_SETTINGS_BIND_DEFAULT,
+                                          et_settings_flags_toggle_get,
+                                          et_settings_flags_toggle_set,
+                                          widget, NULL);
+            gtk_grid_attach (GTK_GRID (Table), widget, i, 0, 1, 1);
+            g_signal_connect_swapped (widget, "toggled",
+                                      G_CALLBACK (update_search_button_sensitivity),
+                                      self);
+        }
+    }
 
     priv->separator_h = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
     gtk_grid_attach (GTK_GRID (Table), priv->separator_h, 0, 1, 6, 1);
 
-    /* Translators: This option is for the previous 'search in' option. For
-     * instance, translate this as "Search in:" "All Categories". */
-    priv->categories_all_toggle      = gtk_check_button_new_with_label(_("All Categories"));
-    priv->separator_v                 = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
-    /* Translators: This option is for the previous 'search in' option. For
-     * instance, translate this as "Search in:" "Blues". */
-    priv->categories_blues_toggle      = gtk_check_button_new_with_label(_("Blues"));
-    /* Translators: This option is for the previous 'search in' option. For
-     * instance, translate this as "Search in:" "Classical". */
-    priv->categories_classical_toggle  = gtk_check_button_new_with_label(_("Classical"));
-    /* Translators: This option is for the previous 'search in' option. For
-     * instance, translate this as "Search in:" "Country". */
-    priv->categories_country_toggle    = gtk_check_button_new_with_label(_("Country"));
-    /* Translators: This option is for the previous 'search in' option. For
-     * instance, translate this as "Search in:" "Folk". */
-    priv->categories_folk_toggle       = gtk_check_button_new_with_label(_("Folk"));
-    /* Translators: This option is for the previous 'search in' option. For
-     * instance, translate this as "Search in:" "Jazz". */
-    priv->categories_jazz_toggle       = gtk_check_button_new_with_label(_("Jazz"));
-    /* Translators: This option is for the previous 'search in' option. For
-     * instance, translate this as "Search in:" "Misc". */
-    priv->categories_misc_toggle       = gtk_check_button_new_with_label(_("Misc."));
-    /* Translators: This option is for the previous 'search in' option. For
-     * instance, translate this as "Search in:" "New age". */
-    priv->categories_newage_toggle     = gtk_check_button_new_with_label(_("New Age"));
-    /* Translators: This option is for the previous 'search in' option. For
-     * instance, translate this as "Search in:" "Reggae". */
-    priv->categories_reggae_toggle     = gtk_check_button_new_with_label(_("Reggae"));
-    /* Translators: This option is for the previous 'search in' option. For
-     * instance, translate this as "Search in:" "Rock". */
-    priv->categories_rock_toggle       = gtk_check_button_new_with_label(_("Rock"));
-    /* Translators: This option is for the previous 'search in' option. For
-     * instance, translate this as "Search in:" "Soundtrack". */
-    priv->categories_soundtrack_toggle = gtk_check_button_new_with_label(_("Soundtrack"));
-    gtk_grid_attach (GTK_GRID (Table), priv->categories_all_toggle, 0, 2, 1, 2);
-    gtk_grid_attach (GTK_GRID (Table), priv->separator_v, 1, 2, 1, 2);
-    gtk_grid_attach (GTK_GRID (Table), priv->categories_blues_toggle, 2, 2, 1, 1);
-    gtk_grid_attach (GTK_GRID (Table), priv->categories_classical_toggle, 3, 2, 1,
-                     1);
-    gtk_grid_attach (GTK_GRID (Table), priv->categories_country_toggle, 4, 2, 1,
-                     1);
-    gtk_grid_attach (GTK_GRID (Table), priv->categories_folk_toggle, 5, 2, 1, 1);
-    gtk_grid_attach (GTK_GRID (Table), priv->categories_jazz_toggle, 6, 2, 1, 1);
-    gtk_grid_attach (GTK_GRID (Table), priv->categories_misc_toggle, 2, 3, 1, 1);
-    gtk_grid_attach (GTK_GRID (Table), priv->categories_newage_toggle, 3, 3, 1, 1);
-    gtk_grid_attach (GTK_GRID (Table), priv->categories_reggae_toggle, 4, 3, 1, 1);
-    gtk_grid_attach (GTK_GRID (Table), priv->categories_rock_toggle, 5, 3, 1, 1);
-    gtk_grid_attach (GTK_GRID (Table), priv->categories_soundtrack_toggle, 6, 3, 1,
-                     1);
-    gtk_label_set_line_wrap(GTK_LABEL(gtk_bin_get_child(GTK_BIN(priv->categories_all_toggle))),TRUE); // Wrap label of the check button.
-    g_settings_bind (MainSettings, "cddb-search-all-categories",
-                     priv->categories_all_toggle, "active",
-                     G_SETTINGS_BIND_DEFAULT);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->categories_blues_toggle),     CDDB_SEARCH_IN_BLUES_CATEGORY);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->categories_classical_toggle), CDDB_SEARCH_IN_CLASSICAL_CATEGORY);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->categories_country_toggle),   CDDB_SEARCH_IN_COUNTRY_CATEGORY);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->categories_folk_toggle),      CDDB_SEARCH_IN_FOLK_CATEGORY);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->categories_jazz_toggle),      CDDB_SEARCH_IN_JAZZ_CATEGORY);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->categories_misc_toggle),      CDDB_SEARCH_IN_MISC_CATEGORY);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->categories_newage_toggle),    CDDB_SEARCH_IN_NEWAGE_CATEGORY);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->categories_reggae_toggle),    CDDB_SEARCH_IN_REGGAE_CATEGORY);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->categories_rock_toggle),      CDDB_SEARCH_IN_ROCK_CATEGORY);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->categories_soundtrack_toggle),CDDB_SEARCH_IN_SOUNDTRACK_CATEGORY);
-    g_signal_connect_swapped (priv->categories_all_toggle, "toggled",
-                              G_CALLBACK (Cddb_Search_In_All_Categories_Check_Button_Toggled),
-                              self);
-    g_signal_connect_swapped (priv->categories_all_toggle, "toggled",
-                      G_CALLBACK (update_search_button_sensitivity), self);
-    g_signal_connect_swapped (priv->categories_blues_toggle, "toggled",
-                      G_CALLBACK (update_search_button_sensitivity), self);
-    g_signal_connect_swapped (priv->categories_classical_toggle, "toggled",
-                      G_CALLBACK (update_search_button_sensitivity), self);
-    g_signal_connect_swapped (priv->categories_country_toggle, "toggled",
-                      G_CALLBACK (update_search_button_sensitivity), self);
-    g_signal_connect_swapped (priv->categories_folk_toggle, "toggled",
-                      G_CALLBACK (update_search_button_sensitivity), self);
-    g_signal_connect_swapped (priv->categories_jazz_toggle, "toggled",
-                      G_CALLBACK (update_search_button_sensitivity), self);
-    g_signal_connect_swapped (priv->categories_misc_toggle, "toggled",
-                      G_CALLBACK (update_search_button_sensitivity), self);
-    g_signal_connect_swapped (priv->categories_newage_toggle, "toggled",
-                      G_CALLBACK (update_search_button_sensitivity), self);
-    g_signal_connect_swapped (priv->categories_reggae_toggle, "toggled",
-                      G_CALLBACK (update_search_button_sensitivity), self);
-    g_signal_connect_swapped (priv->categories_rock_toggle, "toggled",
-                      G_CALLBACK (update_search_button_sensitivity), self);
-    g_signal_connect_swapped (priv->categories_soundtrack_toggle, "toggled",
-                      G_CALLBACK (update_search_button_sensitivity), self);
-    gtk_widget_set_tooltip_text(priv->categories_rock_toggle,_("included: funk, soul, rap, pop, industrial, metal, etc."));
-    gtk_widget_set_tooltip_text(priv->categories_soundtrack_toggle,_("movies, shows"));
-    gtk_widget_set_tooltip_text(priv->categories_misc_toggle,_("others that do not fit in the above categories"));
+    {
+        gsize i;
+        GFlagsClass *flags_class;
+        static const struct
+        {
+            const gchar *label;
+            const gchar *tooltip;
+        } mapping[] =
+        {
+            /* Translators: This option is for the previous 'search in' option.
+             * For instance, translate this as "Search in:" "Blues". */
+            { N_("Blues"), NULL },
+            /* Translators: This option is for the previous 'search in' option.
+             * For instance, translate this as "Search in:" "Classical". */
+            { N_("Classical"), NULL },
+            /* Translators: This option is for the previous 'search in' option.
+             * For instance, translate this as "Search in:" "Country". */
+            { N_("Country"), NULL },
+            /* Translators: This option is for the previous 'search in' option.
+             * For instance, translate this as "Search in:" "Folk". */
+            { N_("Folk"), NULL },
+            /* Translators: This option is for the previous 'search in' option.
+             * For instance, translate this as "Search in:" "Jazz". */
+            { N_("Jazz"), NULL },
+            /* Translators: This option is for the previous 'search in' option.
+             * For instance, translate this as "Search in:" "Misc". */
+            { N_("Misc."),
+              N_("others that do not fit in the above categories") },
+            /* Translators: This option is for the previous 'search in' option.
+             * For instance, translate this as "Search in:" "New age". */
+            { N_("New Age"), NULL },
+            /* Translators: This option is for the previous 'search in' option.
+             * For instance, translate this as "Search in:" "Reggae". */
+            { N_("Reggae"), NULL },
+            /* Translators: This option is for the previous 'search in' option.
+             * For instance, translate this as "Search in:" "Rock". */
+            { N_("Rock"),
+              N_("included: funk, soul, rap, pop, industrial, metal, etc.") },
+            /* Translators: This option is for the previous 'search in' option.
+             * For instance, translate this as "Search in:" "Soundtrack". */
+            { N_("Soundtrack"), N_("movies, shows") }
+    
+        };
+
+        flags_class = g_type_class_ref (ET_TYPE_CDDB_SEARCH_CATEGORY);
+
+        for (i = 0; i < G_N_ELEMENTS (mapping); i++)
+        {
+            GFlagsValue *flags_value;
+            GtkWidget *widget;
+
+            flags_value = g_flags_get_first_value (flags_class, 1 << i);
+            widget = gtk_check_button_new_with_label (gettext (mapping[i].label));
+            priv->category_toggle[i] = widget;
+            gtk_widget_set_tooltip_text (widget, gettext (mapping[i].tooltip));
+            gtk_widget_set_name (widget, flags_value->value_nick);
+            g_object_set_data (G_OBJECT (widget), "flags-type",
+                               GSIZE_TO_POINTER (ET_TYPE_CDDB_SEARCH_CATEGORY));
+            g_settings_bind_with_mapping (MainSettings,
+                                          "cddb-search-categories", widget,
+                                          "active", G_SETTINGS_BIND_DEFAULT,
+                                          et_settings_flags_toggle_get,
+                                          et_settings_flags_toggle_set,
+                                          widget, NULL);
+            /* 2 rows of 5 columns each. */
+            gtk_grid_attach (GTK_GRID (Table), widget, (i % 5), (i / 5) + 2, 1,
+                             1);
+            g_signal_connect_swapped (G_OBJECT (widget), "toggled",
+                                      G_CALLBACK (update_search_button_sensitivity),
+                                      self);
+        }
+
+        g_type_class_unref (flags_class);
+    }
 
     /* Button to display/hide the categories. */
     priv->show_categories_toggle = gtk_toggle_button_new_with_label (_("Categories"));
@@ -3552,67 +3462,54 @@ create_cddb_dialog (EtCDDBDialog *self)
     vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
 
-    priv->set_all_toggle  = gtk_check_button_new_with_label(_("All"));
-    Separator           = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
-    priv->set_filename_toggle   = gtk_check_button_new_with_label(_("Filename"));
-    priv->set_title_toggle      = gtk_check_button_new_with_label(_("Title"));
-    priv->set_artist_toggle     = gtk_check_button_new_with_label(_("Artist"));
-    priv->set_album_toggle      = gtk_check_button_new_with_label(_("Album"));
-    priv->set_year_toggle       = gtk_check_button_new_with_label(_("Year"));
-    priv->set_tracknumber_toggle = gtk_check_button_new_with_label(_("Track #"));
-    priv->set_totaltracks_toggle = gtk_check_button_new_with_label(_("# Tracks"));
-    priv->set_genre_toggle      = gtk_check_button_new_with_label(_("Genre"));
     hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
-    gtk_box_pack_start(GTK_BOX(hbox),priv->set_all_toggle, FALSE,FALSE,0);
-    gtk_box_pack_start(GTK_BOX(hbox),Separator,          FALSE,FALSE,2);
-    gtk_box_pack_start(GTK_BOX(hbox),priv->set_filename_toggle,  FALSE,FALSE,2);
-    gtk_box_pack_start(GTK_BOX(hbox),priv->set_title_toggle,     FALSE,FALSE,2);
-    gtk_box_pack_start(GTK_BOX(hbox),priv->set_artist_toggle,    FALSE,FALSE,2);
-    gtk_box_pack_start(GTK_BOX(hbox),priv->set_album_toggle,     FALSE,FALSE,2);
-    gtk_box_pack_start(GTK_BOX(hbox),priv->set_year_toggle,      FALSE,FALSE,2);
-    gtk_box_pack_start(GTK_BOX(hbox),priv->set_tracknumber_toggle,     FALSE,FALSE,2);
-    gtk_box_pack_start(GTK_BOX(hbox),priv->set_totaltracks_toggle,FALSE,FALSE,2);
-    gtk_box_pack_start(GTK_BOX(hbox),priv->set_genre_toggle,     FALSE,FALSE,2);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->set_all_toggle), CDDB_SET_TO_ALL_FIELDS);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->set_title_toggle),     CDDB_SET_TO_TITLE);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->set_artist_toggle),    CDDB_SET_TO_ARTIST);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->set_album_toggle),     CDDB_SET_TO_ALBUM);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->set_year_toggle),      CDDB_SET_TO_YEAR);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->set_tracknumber_toggle),     CDDB_SET_TO_TRACK);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->set_totaltracks_toggle),CDDB_SET_TO_TRACK_TOTAL);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->set_genre_toggle),     CDDB_SET_TO_GENRE);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->set_filename_toggle),  CDDB_SET_TO_FILE_NAME);
-    g_signal_connect_swapped (priv->set_all_toggle, "toggled",
-                              G_CALLBACK (Cddb_Set_To_All_Fields_Check_Button_Toggled),
-                              self);
-    g_signal_connect_swapped (priv->set_all_toggle, "toggled",
-                              G_CALLBACK(update_apply_button_sensitivity),
-                              self);
-    g_signal_connect_swapped (priv->set_title_toggle, "toggled",
-                              G_CALLBACK(update_apply_button_sensitivity),
-                              self);
-    g_signal_connect_swapped (priv->set_artist_toggle, "toggled",
-                              G_CALLBACK(update_apply_button_sensitivity),
-                              self);
-    g_signal_connect_swapped (priv->set_album_toggle, "toggled",
-                              G_CALLBACK(update_apply_button_sensitivity),
-                              self);
-    g_signal_connect_swapped (priv->set_year_toggle, "toggled",
-                              G_CALLBACK(update_apply_button_sensitivity),
-                              self);
-    g_signal_connect_swapped (priv->set_tracknumber_toggle, "toggled",
-                              G_CALLBACK(update_apply_button_sensitivity),
-                              self);
-    g_signal_connect_swapped (priv->set_totaltracks_toggle, "toggled",
-                              G_CALLBACK(update_apply_button_sensitivity),
-                              self);
-    g_signal_connect_swapped (priv->set_genre_toggle, "toggled",
-                              G_CALLBACK(update_apply_button_sensitivity),
-                              self);
-    g_signal_connect_swapped (priv->set_filename_toggle, "toggled",
-                              G_CALLBACK(update_apply_button_sensitivity),
-                              self);
+
+    {
+        gsize i;
+        GFlagsClass *flags_class;
+        static const struct
+        {
+            const gchar *label;
+            /* const gchar *tooltip; */
+        } mapping[] =
+        {
+            { N_("Filename") },
+            { N_("Title") },
+            { N_("Artist") },
+            { N_("Album") },
+            { N_("Year") },
+            { N_("Track #") },
+            { N_("# Tracks") },
+            { N_("Genre") }
+        };
+
+        flags_class = g_type_class_ref (ET_TYPE_CDDB_SET_FIELD);
+
+        for (i = 0; i < G_N_ELEMENTS (mapping); i++)
+        {
+            GFlagsValue *flags_value;
+            GtkWidget *widget;
+
+            flags_value = g_flags_get_first_value (flags_class, 1 << i);
+            widget = gtk_check_button_new_with_label (gettext (mapping[i].label));
+            gtk_widget_set_name (widget, flags_value->value_nick);
+            g_object_set_data (G_OBJECT (widget), "flags-type",
+                               GSIZE_TO_POINTER (ET_TYPE_CDDB_SET_FIELD));
+            g_settings_bind_with_mapping (MainSettings, "cddb-set-fields",
+                                          widget, "active",
+                                          G_SETTINGS_BIND_DEFAULT,
+                                          et_settings_flags_toggle_get,
+                                          et_settings_flags_toggle_set,
+                                          widget, NULL);
+            gtk_box_pack_start (GTK_BOX (hbox), widget, FALSE, FALSE, 2);
+            g_signal_connect_swapped (G_OBJECT (widget), "toggled",
+                                      G_CALLBACK (update_apply_button_sensitivity),
+                                      self);
+        }
+
+        g_type_class_unref (flags_class);
+    }
 
     hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
@@ -3657,14 +3554,9 @@ create_cddb_dialog (EtCDDBDialog *self)
                         _("Ready to search"));
 
     g_signal_emit_by_name (priv->search_string_entry, "changed");
-    g_signal_emit_by_name (priv->search_all_toggle, "toggled");
-    g_signal_emit_by_name (priv->categories_all_toggle, "toggled");
-    g_signal_emit_by_name (priv->set_all_toggle, "toggled");
     priv->stop_searching = FALSE;
 
-    /* Force resize window. */
-    gtk_widget_get_allocation(GTK_WIDGET(priv->categories_all_toggle), &allocation);
-    gtk_widget_set_size_request(GTK_WIDGET(priv->search_all_toggle), allocation.width, -1);
+    /* TODO: Force resize window? */
     g_signal_emit_by_name (priv->show_categories_toggle, "toggled");
 }
 
@@ -3679,32 +3571,6 @@ et_cddb_dialog_apply_changes (EtCDDBDialog *self)
     g_return_if_fail (ET_CDDB_DIALOG (self));
 
     priv = et_cddb_dialog_get_instance_private (self);
-
-    CDDB_SEARCH_IN_ARTIST_FIELD     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->search_artist_toggle));
-    CDDB_SEARCH_IN_TITLE_FIELD      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->search_title_toggle));
-    CDDB_SEARCH_IN_TRACK_NAME_FIELD = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->search_track_toggle));
-    CDDB_SEARCH_IN_OTHER_FIELD      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->search_other_toggle));
-
-    CDDB_SEARCH_IN_BLUES_CATEGORY      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_blues_toggle));
-    CDDB_SEARCH_IN_CLASSICAL_CATEGORY  = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_classical_toggle));
-    CDDB_SEARCH_IN_COUNTRY_CATEGORY    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_country_toggle));
-    CDDB_SEARCH_IN_FOLK_CATEGORY       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_folk_toggle));
-    CDDB_SEARCH_IN_JAZZ_CATEGORY       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_jazz_toggle));
-    CDDB_SEARCH_IN_MISC_CATEGORY       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_misc_toggle));
-    CDDB_SEARCH_IN_NEWAGE_CATEGORY     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_newage_toggle));
-    CDDB_SEARCH_IN_REGGAE_CATEGORY     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_reggae_toggle));
-    CDDB_SEARCH_IN_ROCK_CATEGORY       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_rock_toggle));
-    CDDB_SEARCH_IN_SOUNDTRACK_CATEGORY = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->categories_soundtrack_toggle));
-
-    CDDB_SET_TO_ALL_FIELDS  = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_all_toggle));
-    CDDB_SET_TO_TITLE       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_title_toggle));
-    CDDB_SET_TO_ARTIST      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_artist_toggle));
-    CDDB_SET_TO_ALBUM       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_album_toggle));
-    CDDB_SET_TO_YEAR        = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_year_toggle));
-    CDDB_SET_TO_TRACK       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_tracknumber_toggle));
-    CDDB_SET_TO_TRACK_TOTAL = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_totaltracks_toggle));
-    CDDB_SET_TO_GENRE       = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_genre_toggle));
-    CDDB_SET_TO_FILE_NAME   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->set_filename_toggle));
 
     /* Save combobox history lists before exit. */
     Save_Cddb_Search_String_List(priv->search_string_model, MISC_COMBO_TEXT);

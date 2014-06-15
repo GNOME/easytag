@@ -123,32 +123,6 @@ static const tConfigVariable Config_Variables[] =
 
     {"cddb_local_path",                         CV_TYPE_STRING,  &CDDB_LOCAL_PATH                        },
 
-    {"cddb_search_in_artist_field",             CV_TYPE_BOOL,    &CDDB_SEARCH_IN_ARTIST_FIELD            },
-    {"cddb_search_in_title_field",              CV_TYPE_BOOL,    &CDDB_SEARCH_IN_TITLE_FIELD             },
-    {"cddb_search_in_track_name_field",         CV_TYPE_BOOL,    &CDDB_SEARCH_IN_TRACK_NAME_FIELD        },
-    {"cddb_search_in_other_field",              CV_TYPE_BOOL,    &CDDB_SEARCH_IN_OTHER_FIELD             },
-
-    {"cddb_search_in_blues_categories",         CV_TYPE_BOOL,    &CDDB_SEARCH_IN_BLUES_CATEGORY          },
-    {"cddb_search_in_classical_categories",     CV_TYPE_BOOL,    &CDDB_SEARCH_IN_CLASSICAL_CATEGORY      },
-    {"cddb_search_in_country_categories",       CV_TYPE_BOOL,    &CDDB_SEARCH_IN_COUNTRY_CATEGORY        },
-    {"cddb_search_in_folk_categories",          CV_TYPE_BOOL,    &CDDB_SEARCH_IN_FOLK_CATEGORY           },
-    {"cddb_search_in_jazz_categories",          CV_TYPE_BOOL,    &CDDB_SEARCH_IN_JAZZ_CATEGORY           },
-    {"cddb_search_in_misc_categories",          CV_TYPE_BOOL,    &CDDB_SEARCH_IN_MISC_CATEGORY           },
-    {"cddb_search_in_newage_categories",        CV_TYPE_BOOL,    &CDDB_SEARCH_IN_NEWAGE_CATEGORY         },
-    {"cddb_search_in_reggae_categories",        CV_TYPE_BOOL,    &CDDB_SEARCH_IN_REGGAE_CATEGORY         },
-    {"cddb_search_in_rock_categories",          CV_TYPE_BOOL,    &CDDB_SEARCH_IN_ROCK_CATEGORY           },
-    {"cddb_search_in_soundtrack_categories",    CV_TYPE_BOOL,    &CDDB_SEARCH_IN_SOUNDTRACK_CATEGORY     },
-
-    {"cddb_set_to_all_fields",                  CV_TYPE_BOOL,    &CDDB_SET_TO_ALL_FIELDS                 },
-    {"cddb_set_to_title",                       CV_TYPE_BOOL,    &CDDB_SET_TO_TITLE                      },
-    {"cddb_set_to_artist",                      CV_TYPE_BOOL,    &CDDB_SET_TO_ARTIST                     },
-    {"cddb_set_to_album",                       CV_TYPE_BOOL,    &CDDB_SET_TO_ALBUM                      },
-    {"cddb_set_to_year",                        CV_TYPE_BOOL,    &CDDB_SET_TO_YEAR                       },
-    {"cddb_set_to_track",                       CV_TYPE_BOOL,    &CDDB_SET_TO_TRACK                      },
-    {"cddb_set_to_track_total",                 CV_TYPE_BOOL,    &CDDB_SET_TO_TRACK_TOTAL                },
-    {"cddb_set_to_genre",                       CV_TYPE_BOOL,    &CDDB_SET_TO_GENRE                      },
-    {"cddb_set_to_file_name",                   CV_TYPE_BOOL,    &CDDB_SET_TO_FILE_NAME                  },
-
     {"scan_tag_default_mask",                   CV_TYPE_STRING,  &SCAN_TAG_DEFAULT_MASK                  },
     {"rename_file_default_mask",                CV_TYPE_STRING,  &RENAME_FILE_DEFAULT_MASK               },
     {"rename_directory_default_mask",           CV_TYPE_STRING,  &RENAME_DIRECTORY_DEFAULT_MASK          },
@@ -230,32 +204,6 @@ void Init_Config_Variables (void)
      * CDDB window
      */
     CDDB_LOCAL_PATH                         = NULL;
-
-    CDDB_SEARCH_IN_ARTIST_FIELD         = 1;
-    CDDB_SEARCH_IN_TITLE_FIELD          = 1;
-    CDDB_SEARCH_IN_TRACK_NAME_FIELD     = 0;
-    CDDB_SEARCH_IN_OTHER_FIELD          = 0;
-
-    CDDB_SEARCH_IN_BLUES_CATEGORY       = 0;
-    CDDB_SEARCH_IN_CLASSICAL_CATEGORY   = 0;
-    CDDB_SEARCH_IN_COUNTRY_CATEGORY     = 0;
-    CDDB_SEARCH_IN_FOLK_CATEGORY        = 0;
-    CDDB_SEARCH_IN_JAZZ_CATEGORY        = 0;
-    CDDB_SEARCH_IN_MISC_CATEGORY        = 1;
-    CDDB_SEARCH_IN_NEWAGE_CATEGORY      = 1;
-    CDDB_SEARCH_IN_REGGAE_CATEGORY      = 0;
-    CDDB_SEARCH_IN_ROCK_CATEGORY        = 1;
-    CDDB_SEARCH_IN_SOUNDTRACK_CATEGORY  = 0;
-
-    CDDB_SET_TO_ALL_FIELDS  = 1;
-    CDDB_SET_TO_TITLE       = 1;
-    CDDB_SET_TO_ARTIST      = 0;
-    CDDB_SET_TO_ALBUM       = 0;
-    CDDB_SET_TO_YEAR        = 0;
-    CDDB_SET_TO_TRACK       = 1;
-    CDDB_SET_TO_TRACK_TOTAL = 1;
-    CDDB_SET_TO_GENRE       = 0;
-    CDDB_SET_TO_FILE_NAME   = 1;
 
     /*
      * Masks
@@ -1220,4 +1168,133 @@ et_settings_enum_radio_set (const GValue *value,
     variant = g_variant_new_string (name);
 
     return variant;
+}
+
+/*
+ * et_settings_flags_toggle_get:
+ * @value: the property value to be set (active item on combo box)
+ * @variant: the variant to set the @value from
+ * @user_data: the #GType of the #GSettings flags
+ *
+ * Wrapper function to convert a flags-type GSettings key state into the active
+ * toggle button.
+ *
+ * Returns: %TRUE if the mapping was successful, %FALSE otherwise
+ */
+gboolean
+et_settings_flags_toggle_get (GValue *value, GVariant *variant, gpointer user_data)
+{
+    const gchar *name;
+    GType flags_type;
+    GFlagsClass *flags_class;
+    GVariantIter iter;
+    GFlagsValue *flags_value;
+    const gchar *nick;
+    guint flags = 0;
+
+    g_return_val_if_fail (user_data != NULL, FALSE);
+
+    name = gtk_widget_get_name (GTK_WIDGET (user_data));
+    flags_type = (GType)GPOINTER_TO_SIZE (g_object_get_data (G_OBJECT (user_data),
+                                                                       "flags-type"));
+    flags_class = g_type_class_ref (flags_type);
+
+    g_variant_iter_init (&iter, variant);
+
+    while (g_variant_iter_next (&iter, "&s", &nick))
+    {
+        flags_value = g_flags_get_value_by_nick (flags_class, nick);
+
+        if (flags_value)
+        {
+            flags |= flags_value->value;
+        }
+        else
+        {
+            g_warning ("Unable to lookup %s flags nick '%s' from GType",
+                       g_type_name (flags_type), nick);
+            g_type_class_unref (flags_class);
+            return FALSE;
+        }
+    }
+
+    flags_value = g_flags_get_value_by_nick (flags_class, name);
+    g_type_class_unref (flags_class);
+
+    /* TRUE if settings flag is set for this widget, which will make the widget
+     * active. */
+    g_value_set_boolean (value, flags & flags_value->value);
+    return TRUE;
+}
+
+/*
+ * et_settings_flags_toggle_set:
+ * @value: the property value to set the @variant from
+ * @expected_type: the expected type of the returned variant
+ * @user_data: the widget associated with the changed setting
+ *
+ * Wrapper function to convert a boolean value into a string suitable for
+ * storing into a flags-type GSettings key.
+ *
+ * Returns: a new GVariant containing the mapped value, or %NULL upon failure
+ */
+GVariant *
+et_settings_flags_toggle_set (const GValue *value,
+                              const GVariantType *expected_type,
+                              gpointer user_data)
+{
+    const gchar *name;
+    GType flags_type;
+    GFlagsClass *flags_class;
+    GFlagsValue *flags_value;
+    guint mask;
+    GVariantBuilder builder;
+    guint flags = g_settings_get_flags (MainSettings, "process-fields");
+
+    g_return_val_if_fail (user_data != NULL, NULL);
+
+    name = gtk_widget_get_name (GTK_WIDGET (user_data));
+    flags_type = (GType)GPOINTER_TO_SIZE (g_object_get_data (G_OBJECT (user_data),
+                                                                       "flags-type"));
+    flags_class = g_type_class_ref (flags_type);
+    flags_value = g_flags_get_value_by_nick (flags_class, name);
+    mask = flags_class->mask;
+
+    if (!flags_value)
+    {
+        g_warning ("Unable to lookup %s flags value '%d' from GType",
+                   g_type_name (flags_type), g_value_get_boolean (value));
+        g_type_class_unref (flags_class);
+        return NULL;
+    }
+
+    if (g_value_get_boolean (value))
+    {
+        flags |= flags_value->value;
+    }
+    else
+    {
+        flags &= (flags_value->value ^ mask);
+    }
+
+    g_variant_builder_init (&builder, expected_type);
+
+    while (flags)
+    {
+        flags_value = g_flags_get_first_value (flags_class, flags);
+
+        if (flags_value == NULL)
+        {
+            g_variant_builder_clear (&builder);
+            g_type_class_unref (flags_class);
+            return NULL;
+        }
+
+        g_variant_builder_add (&builder, "s", flags_value->value_nick);
+        flags &= ~flags_value->value;
+    }
+
+    g_type_class_unref (flags_class);
+
+    return g_variant_builder_end (&builder);
 }

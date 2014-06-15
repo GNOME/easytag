@@ -150,22 +150,28 @@
       <default>false</default>
     </key>
 
-    <key name="cddb-search-all-fields" type="b">
-      <summary>Search in all fiels of CDDB results</summary>
-      <description>Whether to search for matches in all fields of the returned CDDB results</description>
-      <default>false</default>
+    <key name="cddb-search-fields" flags="org.gnome.EasyTAG.EtCddbSearchField">
+      <summary>The fields to use in a manual CDDB search</summary>
+      <description>Which fields to search for matches of the returned CDDB results</description>
+      <default>['artist','title','track','other']</default>
     </key>
 
-    <key name="cddb-search-all-categories" type="b">
-      <summary>Search in all categories of CDDB results</summary>
-      <description>Whether to search for matches in all categories of the returned CDDB results</description>
-      <default>false</default>
+    <key name="cddb-search-categories" flags="org.gnome.EasyTAG.EtCddbSearchCategory">
+      <summary>The categories to use in a CDDB search</summary>
+      <description>Which categories to search for matches in the returned CDDB results</description>
+      <default>['blues','classical','country','folk','jazz','misc','newage','reggae','rock','soundtrack']</default>
     </key>
 
     <key name="cddb-search-show-categories" type="b">
       <summary>Show the categories list in the CDDB manual search</summary>
       <description>Whether to show the list of categories which can be searched with a manual CDDB query</description>
       <default>false</default>
+    </key>
+
+    <key name="cddb-set-fields" flags="org.gnome.EasyTAG.EtCddbSetField">
+      <summary>The tag fields to set when matching against CDDB results</summary>
+      <description>Which tag fields should be set when matching against selected files and CDDB results</description>
+      <default>['title','artist','album','year','track','track-total','genre','filename']</default>
     </key>
 
     <key name="file-preserve-modification-time" type="b">

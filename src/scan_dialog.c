@@ -224,12 +224,6 @@ static void et_scan_on_response (GtkDialog *dialog, gint response_id,
  * Functions *
  *************/
 
-gboolean et_scan_flags_get (GValue *value, GVariant *variant,
-                             gpointer user_data);
-GVariant *et_scan_flags_set (const GValue *value,
-                                const GVariantType *expected_type,
-                                gpointer user_data);
-
 /*
  * Uses the filename and path to fill tag information
  * Note: mask and source are read from the right to the left
@@ -2475,134 +2469,6 @@ Process_Fields_Convert_Check_Button_Toggled (EtScanDialog *self, GtkWidget *obje
                               gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->process_convert_toggle)));
 }
 
-/*
- * et_scan_flags_get:
- * @value: the property value to be set (active item on combo box)
- * @variant: the variant to set the @value from
- * @user_data: the #GType of the #GSettings flags
- *
- * Wrapper function to convert a flags-type GSettings key state into the active
- * toggle button.
- *
- * Returns: %TRUE if the mapping was successful, %FALSE otherwise
- */
-gboolean
-et_scan_flags_get (GValue *value, GVariant *variant, gpointer user_data)
-{
-    const gchar *name;
-    GType flags_type;
-    GFlagsClass *flags_class;
-    GVariantIter iter;
-    GFlagsValue *flags_value;
-    const gchar *nick;
-    guint flags = 0;
-
-    g_return_val_if_fail (user_data != NULL, FALSE);
-
-    name = gtk_widget_get_name (GTK_WIDGET (user_data));
-    flags_type = (GType)GPOINTER_TO_SIZE (g_object_get_data (G_OBJECT (user_data),
-                                                                       "flags-type"));
-    flags_class = g_type_class_ref (flags_type);
-
-    g_variant_iter_init (&iter, variant);
-
-    while (g_variant_iter_next (&iter, "&s", &nick))
-    {
-        flags_value = g_flags_get_value_by_nick (flags_class, nick);
-
-        if (flags_value)
-        {
-            flags |= flags_value->value;
-        }
-        else
-        {
-            g_warning ("Unable to lookup %s flags nick '%s' from GType",
-                       g_type_name (flags_type), nick);
-            g_type_class_unref (flags_class);
-            return FALSE;
-        }
-    }
-
-    flags_value = g_flags_get_value_by_nick (flags_class, name);
-    g_type_class_unref (flags_class);
-
-    /* TRUE if settings flag is set for this widget, which will make the widget
-     * active. */
-    g_value_set_boolean (value, flags & flags_value->value);
-    return TRUE;
-}
-
-/*
- * et_scan_flags_set:
- * @value: the property value to set the @variant from
- * @expected_type: the expected type of the returned variant
- * @user_data: the widget associated with the changed setting
- *
- * Wrapper function to convert a boolean value into a string suitable for
- * storing into a flags-type GSettings key.
- *
- * Returns: a new GVariant containing the mapped value, or %NULL upon failure
- */
-GVariant *
-et_scan_flags_set (const GValue *value, const GVariantType *expected_type,
-                   gpointer user_data)
-{
-    const gchar *name;
-    GType flags_type;
-    GFlagsClass *flags_class;
-    GFlagsValue *flags_value;
-    guint mask;
-    GVariantBuilder builder;
-    guint flags = g_settings_get_flags (MainSettings, "process-fields");
-
-    g_return_val_if_fail (user_data != NULL, NULL);
-
-    name = gtk_widget_get_name (GTK_WIDGET (user_data));
-    flags_type = (GType)GPOINTER_TO_SIZE (g_object_get_data (G_OBJECT (user_data),
-                                                                       "flags-type"));
-    flags_class = g_type_class_ref (flags_type);
-    flags_value = g_flags_get_value_by_nick (flags_class, name);
-    mask = flags_class->mask;
-
-    if (!flags_value)
-    {
-        g_warning ("Unable to lookup %s flags value '%d' from GType",
-                   g_type_name (flags_type), g_value_get_boolean (value));
-        g_type_class_unref (flags_class);
-        return NULL;
-    }
-
-    if (g_value_get_boolean (value))
-    {
-        flags |= flags_value->value;
-    }
-    else
-    {
-        flags &= (flags_value->value ^ mask);
-    }
-
-    g_variant_builder_init (&builder, expected_type);
-
-    while (flags)
-    {
-        flags_value = g_flags_get_first_value (flags_class, flags);
-
-        if (flags_value == NULL)
-        {
-            g_variant_builder_clear (&builder);
-            g_type_class_unref (flags_class);
-            return NULL;
-        }
-
-        g_variant_builder_add (&builder, "s", flags_value->value_nick);
-        flags &= ~flags_value->value;
-    }
-
-    g_type_class_unref (flags_class);
-
-    return g_variant_builder_end (&builder);
-}
-
 static void
 create_scan_dialog (EtScanDialog *self)
 {
@@ -2928,8 +2794,9 @@ create_scan_dialog (EtScanDialog *self)
             g_settings_bind_with_mapping (MainSettings, "process-fields",
                                           widget, "active",
                                           G_SETTINGS_BIND_DEFAULT,
-                                          et_scan_flags_get,
-                                          et_scan_flags_set, widget, NULL);
+                                          et_settings_flags_toggle_get,
+                                          et_settings_flags_toggle_set, widget,
+                                          NULL);
             gtk_box_pack_start (GTK_BOX (hbox), widget, TRUE, TRUE, 2);
             g_signal_connect_swapped (G_OBJECT (widget), "toggled",
                                       G_CALLBACK (Select_Fields_Set_Sensitive),
