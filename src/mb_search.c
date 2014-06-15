@@ -121,7 +121,9 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                 param_values[0] = "artists release-groups";
                 message = g_strdup_printf (_("Found %d Album(s)"),
                                            mb5_release_list_size (list));
+#ifndef TEST
                 et_show_status_msg_in_idle (message);
+#endif
                 g_free (message);
 
                 for (i = 0; i < mb5_release_list_size (list); i++)
@@ -154,7 +156,9 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                         message = g_strdup_printf (_("Retrieving %s (%d/%d)"),
                                                    buf, i+1,
                                                    mb5_release_list_size (list));
+#ifndef TEST
                         et_show_status_msg_in_idle (message);
+#endif
                         g_free (message);
 
                         size = mb5_release_get_id ((Mb5Release)release,
@@ -221,7 +225,9 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                         track_list = mb5_medium_get_tracklist (medium);
                         message = g_strdup_printf (_("Found %d Track(s)"),
                                                    mb5_track_list_size (list));
+#ifndef TEST
                         et_show_status_msg_in_idle (message);
+#endif
                         g_free (message);
 
                         for (j = 0; j < mb5_track_list_size (track_list); j++)
@@ -247,7 +253,9 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                             message = g_strdup_printf (_("Retrieving %s (%d/%d)"),
                                                        buf, j,
                                                        mb5_track_list_size (track_list));
+#ifndef TEST
                             et_show_status_msg_in_idle (message);
+#endif
                             g_free (message);
 
                             size = mb5_recording_get_id (recording,
@@ -443,7 +451,9 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
                 param_values [0] = "artists release-groups";
                 message = g_strdup_printf (_("Found %d Album(s)"),
                                            mb5_release_list_size (list));
+#ifndef TEST
                 et_show_status_msg_in_idle (message);
+#endif
                 g_free (message);
 
                 for (i = 0; i < mb5_release_list_size (list); i++)
@@ -477,7 +487,9 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
                         message = g_strdup_printf (_("Retrieving %s (%d/%d)"),
                                                    buf, i,
                                                    mb5_release_list_size (list));
+#ifndef TEST
                         et_show_status_msg_in_idle (message);
+#endif
                         g_free (message);
 
                         mb5_release_get_id ((Mb5Release)release,
@@ -527,7 +539,9 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
                 param_values[0] = "releases artists";
                 message = g_strdup_printf (_("Found %d Track(s)"),
                                            mb5_recording_list_size (list));
+#ifndef TEST
                 et_show_status_msg_in_idle (message);
+#endif
                 g_free (message);
 
                 for (i = 0; i < mb5_recording_list_size (list); i++)
@@ -556,7 +570,9 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
                     message = g_strdup_printf (_("Retrieving %s (%d/%d)"),
                                                buf, i,
                                                mb5_track_list_size (list));
+#ifndef TEST
                     et_show_status_msg_in_idle (message);
+#endif
                     g_free (message);
 
                     mb5_recording_get_id (recording,
@@ -607,7 +623,9 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
                 param_values [0] = "artists release-groups";
                 message = g_strdup_printf (_("Found %d Album(s)"),
                                            mb5_release_list_size (list));
+#ifndef TEST
                 et_show_status_msg_in_idle (message);
+#endif
                 g_free (message);
 
                 for (i = 0; i < mb5_release_list_size (list); i++)
@@ -641,7 +659,9 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
                         message = g_strdup_printf (_("Retrieving %s (%d/%d)"),
                                                    buf, i,
                                                    mb5_release_list_size (list));
+#ifndef TEST
                         et_show_status_msg_in_idle (message);
+#endif
                         g_free (message);
 
                         mb5_release_get_id ((Mb5Release)release,

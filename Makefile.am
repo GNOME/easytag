@@ -415,9 +415,8 @@ test-report perf-report full-report: $(check_PROGRAMS)
 	}
 
 check_PROGRAMS = \
-	tests/test-scan
+	tests/test-scan \
 	tests/test-musicbrainz
-	tests/test-musicbrainz_server
 
 tests_test_scan_CPPFLAGS = \
 	-I$(top_srcdir)/src \
@@ -438,33 +437,19 @@ tests_test_scan_LDADD = \
 tests_test_musicbrainz_CPPFLAGS = \
 	-I$(top_srcdir)/src \
 	-I$(top_builddir) \
-	$(DEPRECATED_CPPFLAGS)
+	$(DEPRECATED_CPPFLAGS) \
+          -D TEST
 
 tests_test_musicbrainz_CFLAGS = \
 	$(WARN_CFLAGS) \
-	$(EASYTAG_CFLAGS)
+	$(EASYTAG_CFLAGS) \
+          -D TEST
 
 tests_test_musicbrainz_SOURCES = \
-	tests/test-musibrainz.c \
-	src/mb_search.c \
-	src/musicbrainz_dialog.c
+	tests/test-musicbrainz.c \
+          src/mb_search.c
 
 tests_test_musicbrainz_LDADD = \
-	$(EASYTAG_LIBS)
-
-tests_test_musicbrainz_server_CPPFLAGS = \
-	-I$(top_srcdir)/src \
-	-I$(top_builddir) \
-	$(DEPRECATED_CPPFLAGS)
-
-tests_test_musicbrainz_server_CFLAGS = \
-	$(WARN_CFLAGS) \
-	$(EASYTAG_CFLAGS)
-
-tests_test_musicbrainz_server_SOURCES = \
-	tests/test-musibrainz_server.c
-
-tests_test_musicbrainz_server_LDADD = \
 	$(EASYTAG_LIBS)
 
 check_SCRIPTS = \
