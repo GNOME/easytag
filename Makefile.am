@@ -446,8 +446,8 @@ tests_test_musicbrainz_CFLAGS = \
 
 tests_test_musicbrainz_SOURCES = \
 	tests/test-musibrainz.c \
-	src/mb_search.c 
-#	src/musicbrainz_dialog.c
+	src/mb_search.c \
+	src/musicbrainz_dialog.c
 
 tests_test_musicbrainz_LDADD = \
 	$(EASYTAG_LIBS)
