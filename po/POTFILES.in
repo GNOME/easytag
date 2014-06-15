@@ -53,3 +53,4 @@ src/tags/vcedit.c
 src/tags/wavpack_header.c
 src/tags/wavpack_tag.c
 src/win32/win32dep.c
+src/musicbrainz_dialog.c

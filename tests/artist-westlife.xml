@@ -1,0 +1,44 @@
+<?xml version="1.0" standalone="yes"?>
+<metadata created="2014-06-13T12:59:33.332Z">
+<artist-list count="1" offset="0">
+<artist id="5f000e69-3cfd-4871-8f1b-faa7f0d4bcbc" type="Group" ext:score="100">
+<name>Westlife</name>
+<sort-name>Westlife</sort-name>
+<country>IE</country>
+<area id="390b05d4-11ec-3bce-a343-703a366b34a5">
+<name>Ireland</name>
+<sort-name>Ireland</sort-name>
+</area>
+<begin-area id="a580da6b-ff88-4b8a-85fc-0271ce976260">
+<name>Sligo</name>
+<sort-name>Sligo</sort-name>
+</begin-area>
+<end-area id="462e7952-4fa9-43cd-bc24-2c5c9cd5dd47">
+<name>Dublin</name>
+<sort-name>Dublin</sort-name>
+</end-area>
+<life-span>
+<begin>1998-07-03</begin>
+<end>2012-06</end>
+<ended>true</ended>
+</life-span>
+<alias-list>
+<alias sort-name="West Live">West Live</alias>
+</alias-list>
+<tag-list>
+<tag count="2">
+<name>irish</name>
+</tag>
+<tag count="1">
+<name>adult contemporary</name>
+</tag>
+<tag count="1">
+<name>pop</name>
+</tag>
+<tag count="1">
+<name>pop and chart</name>
+</tag>
+</tag-list>
+</artist>
+</artist-list>
+</metadata>

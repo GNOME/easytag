@@ -1,0 +1,41 @@
+<?xml version="1.0" standalone="yes"?>
+<metadata>
+  <release id="fd77296e-86f0-436e-8ea2-b657151f2167">
+    <title>Never Gone</title>
+    <status>Official</status>
+    <quality>normal</quality>
+    <text-representation>
+      <language>eng</language>
+      <script>Latn</script>
+      </text-representation>
+    <date>2005</date>
+    <release-event-list count="1">
+      <release-event>
+        <date>2005</date>
+        </release-event>
+      </release-event-list>
+    <barcode>828767589626</barcode>
+    <cover-art-archive>
+      <artwork>false</artwork>
+      <count>0</count>
+      <front>false</front>
+      <back>false</back>
+      </cover-art-archive>
+    <medium-list count="1">
+      <medium>
+        <position>1</position>
+        <track-list count="1" offset="0">
+          <track id="0044d842-64c2-3b7a-a175-eef552261621">
+            <position>1</position>
+            <number>1</number>
+            <length>229000</length>
+            <recording id="ddc5fc5c-8a83-4d20-a711-313797030da6">
+              <title>I Still...</title>
+              <length>229000</length>
+              </recording>
+            </track>
+          </track-list>
+        </medium>
+      </medium-list>
+    </release>
+  </metadata>

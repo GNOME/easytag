@@ -1,0 +1,58 @@
+<?xml version="1.0" standalone="yes"?>
+<metadata>
+  <artist type="Group" id="5f000e69-3cfd-4871-8f1b-faa7f0d4bcbc">
+    <name>Westlife</name>
+    <sort-name>Westlife</sort-name>
+    <isni-list>
+      <isni>0000000110883140</isni>
+      </isni-list>
+    <country>IE</country>
+    <area id="390b05d4-11ec-3bce-a343-703a366b34a5">
+      <name>Ireland</name>
+      <sort-name>Ireland</sort-name>
+      <iso-3166-1-code-list>
+        <iso-3166-1-code>IE</iso-3166-1-code>
+        </iso-3166-1-code-list>
+      </area>
+    <begin-area id="a580da6b-ff88-4b8a-85fc-0271ce976260">
+      <name>Sligo</name>
+      <sort-name>Sligo</sort-name>
+      </begin-area>
+    <end-area id="462e7952-4fa9-43cd-bc24-2c5c9cd5dd47">
+      <name>Dublin</name>
+      <sort-name>Dublin</sort-name>
+      </end-area>
+    <life-span>
+      <begin>1998-07-03</begin>
+      <end>2012-06</end>
+      <ended>true</ended>
+      </life-span>
+    <release-list count="1">
+      <release id="182fbd5e-5f3e-413a-9ff1-8a9a81d052c0">
+        <title>Unbreakable: The Greatest Hits, Volume 1</title>
+        <status>Official</status>
+        <quality>normal</quality>
+        <packaging>Jewel Case</packaging>
+        <text-representation>
+          <language>eng</language>
+          <script>Latn</script>
+          </text-representation>
+        <date>2002-11-11</date>
+        <country>MX</country>
+        <release-event-list count="1">
+          <release-event>
+            <date>2002-11-11</date>
+            <area id="3e08b2cd-69f3-317c-b1e4-e71be581839e">
+              <name>Mexico</name>
+              <sort-name>Mexico</sort-name>
+              <iso-3166-1-code-list>
+                <iso-3166-1-code>MX</iso-3166-1-code>
+                </iso-3166-1-code-list>
+              </area>
+            </release-event>
+          </release-event-list>
+        <barcode>743219753328</barcode>
+        </release>
+      </release-list>
+    </artist>
+  </metadata>

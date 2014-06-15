@@ -21,6 +21,9 @@
 #include "mb_search.h"
 #include "musicbrainz_dialog.h"
 
+static gchar *server = NULL;
+static int port = 0;
+
 /*
  * et_mb5_search_error_quark:
  *
@@ -34,6 +37,18 @@ et_mb5_search_error_quark (void)
     return g_quark_from_static_string ("et-mb5-search-error-quark");
 }
 
+void
+et_musicbrainz_search_set_server_port (gchar *_server, int _port)
+{
+    if (server)
+    {
+        g_free (server);
+    }
+
+    server = g_strdup (_server);
+    port = _port;
+}
+
 /*
  * et_musicbrainz_search_in_entity:
  * @child_type: Type of the children to get.
@@ -44,7 +59,7 @@ et_mb5_search_error_quark (void)
  *
  * To retrieve children entities of a parent entity.
  *
- * Returns: TRUE if successfull, FALSE if not.
+ * Returns: TRUE if successful, FALSE if not.
  */
 gboolean
 et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
@@ -69,7 +84,7 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
     }
 
     param_names [0] = "inc";
-    query = mb5_query_new ("easytag", NULL, 0);
+    query = mb5_query_new ("easytag", server, port);
 
     if (child_type == MB_ENTITY_TYPE_ALBUM &&
         parent_type == MB_ENTITY_TYPE_ARTIST)
@@ -127,10 +142,6 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                             mb5_metadata_delete (metadata);
                             g_assert (error == NULL || *error != NULL);
                             return FALSE;
-                        }
-                        else
-                        {
-                            printf ("not cancelled\n");
                         }
 
                         size = mb5_release_get_title ((Mb5Release)release, buf,
@@ -336,7 +347,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
     param_names [0] = "query";
     param_names [1] = "limit";
     param_values [1] = SEARCH_LIMIT_STR;
-    query = mb5_query_new ("easytag", NULL, 0);
+    query = mb5_query_new ("easytag", server, port);
 
     if (g_cancellable_is_cancelled (cancellable))
     {
