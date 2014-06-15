@@ -87,6 +87,8 @@ typedef struct
  * Prototypes *
  **************/
 
+void
+et_musicbrainz_search_set_server_port (gchar *server, int port);
 gboolean
 et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                                  enum MB_ENTITY_TYPE parent_type,

@@ -1,0 +1,128 @@
+<?xml version="1.0" standalone="yes"?>
+<metadata>
+<recording id="ddc5fc5c-8a83-4d20-a711-313797030da6">
+<title>I Still...</title>
+<length>229000</length>
+<artist-credit>
+<name-credit>
+<artist id="2f569e60-0a1b-4fb9-95a4-3dc1525d1aad">
+<name>Backstreet Boys</name>
+<sort-name>Backstreet Boys</sort-name>
+</artist>
+</name-credit>
+</artist-credit>
+<release-list count="5">
+<release id="8403e2ec-f09e-43c7-997b-1e650cae139a">
+<title>Now That's What I Call Music! 42</title>
+<status>Official</status>
+<quality>normal</quality>
+<text-representation>
+<language>eng</language>
+<script>Latn</script>
+</text-representation>
+<date>2006</date>
+<country>ZA</country>
+<release-event-list count="1">
+<release-event>
+<date>2006</date>
+<area id="50cc7852-862e-30ae-aa82-385fe7135b7f">
+<name>South Africa</name>
+<sort-name>South Africa</sort-name>
+<iso-3166-1-code-list>
+<iso-3166-1-code>ZA</iso-3166-1-code>
+</iso-3166-1-code-list>
+</area>
+</release-event>
+</release-event-list>
+<barcode>6007124463630</barcode>
+</release>
+<release id="9d3942e9-45a7-4958-8df0-8065b4a14880">
+<title>Absolute Hits 2006</title>
+<status>Official</status>
+<quality>normal</quality>
+<text-representation>
+<language>mul</language>
+<script>Latn</script>
+</text-representation>
+<date>2006-11-15</date>
+<country>SE</country>
+<release-event-list count="1">
+<release-event>
+<date>2006-11-15</date>
+<area id="23d10872-f5ae-3f0c-bf55-332788a16ecb">
+<name>Sweden</name>
+<sort-name>Sweden</sort-name>
+<iso-3166-1-code-list>
+<iso-3166-1-code>SE</iso-3166-1-code>
+</iso-3166-1-code-list>
+</area>
+</release-event>
+</release-event-list>
+<barcode>0094638008323</barcode>
+</release>
+<release id="a3e87183-5536-35a4-ad96-1925d73360aa">
+<title>Never Gone</title>
+<status>Official</status>
+<quality>normal</quality>
+<text-representation>
+<language>eng</language>
+<script>Latn</script>
+</text-representation>
+<date>2005</date>
+<country>CA</country>
+<release-event-list count="1">
+<release-event>
+<date>2005</date>
+<area id="71bbafaa-e825-3e15-8ca9-017dcad1748b">
+<name>Canada</name>
+<sort-name>Canada</sort-name>
+<iso-3166-1-code-list>
+<iso-3166-1-code>CA</iso-3166-1-code>
+</iso-3166-1-code-list>
+</area>
+</release-event>
+</release-event-list>
+<barcode>828766961126</barcode>
+</release>
+<release id="f278b617-b8f6-4b4e-bcd9-cf0af410d2d9">
+<title>Never Gone</title>
+<status>Official</status>
+<quality>normal</quality>
+<text-representation>
+<language>eng</language>
+<script>Latn</script>
+</text-representation>
+<date>2005</date>
+<country>JP</country>
+<release-event-list count="1">
+<release-event>
+<date>2005</date>
+<area id="2db42837-c832-3c27-b4a3-08198f75693c">
+<name>Japan</name>
+<sort-name>Japan</sort-name>
+<iso-3166-1-code-list>
+<iso-3166-1-code>JP</iso-3166-1-code>
+</iso-3166-1-code-list>
+</area>
+</release-event>
+</release-event-list>
+</release>
+<release id="fd77296e-86f0-436e-8ea2-b657151f2167">
+<title>Never Gone</title>
+<status>Official</status>
+<quality>normal</quality>
+<text-representation>
+<language>eng</language>
+<script>Latn</script>
+</text-representation>
+<date>2005</date>
+<release-event-list count="1">
+<release-event>
+<date>2005</date>
+</release-event>
+</release-event-list>
+<barcode>828767589626</barcode>
+</release>
+</release-list>
+</recording>
+</metadata>

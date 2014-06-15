@@ -1,0 +1,236 @@
+<?xml version="1.0" standalone="yes"?>
+<metadata created="2014-06-13T04:29:19.114Z">
+<recording-list count="517884" offset="0">
+<recording id="ddc5fc5c-8a83-4d20-a711-313797030da6" ext:score="100">
+<title>I Still...</title>
+<length>229000</length>
+<artist-credit>
+<name-credit>
+<artist id="2f569e60-0a1b-4fb9-95a4-3dc1525d1aad">
+<name>Backstreet Boys</name>
+<sort-name>Backstreet Boys</sort-name>
+<alias-list>
+<alias sort-name="Bachstreet Boys" type="Search hint">Bachstreet Boys</alias>
+<alias sort-name="Back Street Boys" type="Search hint">Back Street Boys</alias>
+<alias sort-name="Backstret Boys" type="Search hint">Backstret Boys</alias>
+<alias sort-name="backtreet boy" type="Search hint">backtreet boy</alias>
+<alias sort-name="Bckstreet Boys" type="Search hint">Bckstreet Boys</alias>
+<alias sort-name="Bsb">Bsb</alias>
+<alias sort-name="The Backstreet Boys">The Backstreet Boys</alias>
+</alias-list>
+</artist>
+</name-credit>
+</artist-credit>
+<release-list>
+<release id="f278b617-b8f6-4b4e-bcd9-cf0af410d2d9">
+<title>Never Gone</title>
+<status>Official</status>
+<release-group id="acbabee9-5c0e-3dc6-837c-7ed7d63d02f7" type="Album">
+<primary-type>Album</primary-type>
+</release-group>
+<date>2005</date>
+<country>JP</country>
+<release-event-list>
+<release-event>
+<date>2005</date>
+<area id="2db42837-c832-3c27-b4a3-08198f75693c">
+<name>Japan</name>
+<sort-name>Japan</sort-name>
+<iso-3166-1-code-list>
+<iso-3166-1-code>JP</iso-3166-1-code>
+</iso-3166-1-code-list>
+</area>
+</release-event>
+</release-event-list>
+<medium-list>
+<track-count>15</track-count>
+<medium>
+<position>1</position>
+<track-list count="15" offset="4">
+<track id="02c728ac-37ab-357b-9811-73629b71d481">
+<number>5</number>
+<title>I Still...</title>
+<length>229000</length>
+</track>
+</track-list>
+</medium>
+</medium-list>
+</release>
+<release id="9d3942e9-45a7-4958-8df0-8065b4a14880">
+<title>Absolute Hits 2006</title>
+<status>Official</status>
+<artist-credit>
+<name-credit>
+<artist id="89ad4ac3-39f7-470e-963a-56509c546377">
+<name>Various Artists</name>
+<sort-name>Various Artists</sort-name>
+</artist>
+</name-credit>
+</artist-credit>
+<release-group id="9e47f663-1e0c-39d5-9a28-16751763233f" type="Compilation">
+<primary-type>Album</primary-type>
+<secondary-type-list>
+<secondary-type>Compilation</secondary-type>
+</secondary-type-list>
+</release-group>
+<date>2006-11-15</date>
+<country>SE</country>
+<release-event-list>
+<release-event>
+<date>2006-11-15</date>
+<area id="23d10872-f5ae-3f0c-bf55-332788a16ecb">
+<name>Sweden</name>
+<sort-name>Sweden</sort-name>
+<iso-3166-1-code-list>
+<iso-3166-1-code>SE</iso-3166-1-code>
+</iso-3166-1-code-list>
+</area>
+</release-event>
+</release-event-list>
+<medium-list>
+<track-count>40</track-count>
+<medium>
+<position>1</position>
+<format>CD</format>
+<track-list count="20" offset="16">
+<track id="04b0f01d-3912-36a8-a309-0553268b0865">
+<number>17</number>
+<title>I Still</title>
+<length>226000</length>
+</track>
+</track-list>
+</medium>
+</medium-list>
+</release>
+<release id="a3e87183-5536-35a4-ad96-1925d73360aa">
+<title>Never Gone</title>
+<status>Official</status>
+<release-group id="acbabee9-5c0e-3dc6-837c-7ed7d63d02f7" type="Album">
+<primary-type>Album</primary-type>
+</release-group>
+<date>2005</date>
+<country>CA</country>
+<release-event-list>
+<release-event>
+<date>2005</date>
+<area id="71bbafaa-e825-3e15-8ca9-017dcad1748b">
+<name>Canada</name>
+<sort-name>Canada</sort-name>
+<iso-3166-1-code-list>
+<iso-3166-1-code>CA</iso-3166-1-code>
+</iso-3166-1-code-list>
+</area>
+</release-event>
+</release-event-list>
+<medium-list>
+<track-count>15</track-count>
+<medium>
+<position>1</position>
+<format>CD</format>
+<track-list count="15" offset="4">
+<track id="80f99d1a-8022-34e4-9d99-b0729be8f91d">
+<number>5</number>
+<title>I Still...</title>
+<length>229000</length>
+</track>
+</track-list>
+</medium>
+</medium-list>
+</release>
+<release id="8403e2ec-f09e-43c7-997b-1e650cae139a">
+<title>Now That's What I Call Music! 42</title>
+<status>Official</status>
+<artist-credit>
+<name-credit>
+<artist id="89ad4ac3-39f7-470e-963a-56509c546377">
+<name>Various Artists</name>
+<sort-name>Various Artists</sort-name>
+</artist>
+</name-credit>
+</artist-credit>
+<release-group id="003a2031-f840-4ab9-b293-635b26d2ead7" type="Compilation">
+<primary-type>Album</primary-type>
+<secondary-type-list>
+<secondary-type>Compilation</secondary-type>
+</secondary-type-list>
+</release-group>
+<date>2006</date>
+<country>ZA</country>
+<release-event-list>
+<release-event>
+<date>2006</date>
+<area id="50cc7852-862e-30ae-aa82-385fe7135b7f">
+<name>South Africa</name>
+<sort-name>South Africa</sort-name>
+<iso-3166-1-code-list>
+<iso-3166-1-code>ZA</iso-3166-1-code>
+</iso-3166-1-code-list>
+</area>
+</release-event>
+</release-event-list>
+<medium-list>
+<track-count>21</track-count>
+<medium>
+<position>1</position>
+<format>CD</format>
+<track-list count="21" offset="6">
+<track id="8c5844c4-2496-35c7-a41b-4a5decf86b1f">
+<number>7</number>
+<title>I Still</title>
+<length>227400</length>
+</track>
+</track-list>
+</medium>
+</medium-list>
+</release>
+<release id="fd77296e-86f0-436e-8ea2-b657151f2167">
+<title>Never Gone</title>
+<status>Official</status>
+<release-group id="acbabee9-5c0e-3dc6-837c-7ed7d63d02f7" type="Album">
+<primary-type>Album</primary-type>
+</release-group>
+<date>2005</date>
+<release-event-list>
+<release-event>
+<date>2005</date>
+</release-event>
+</release-event-list>
+<medium-list>
+<track-count>16</track-count>
+<medium>
+<position>1</position>
+<format>CD</format>
+<track-list count="15" offset="4">
+<track id="0044d842-64c2-3b7a-a175-eef552261621">
+<number>5</number>
+<title>I Still...</title>
+<length>229000</length>
+</track>
+</track-list>
+</medium>
+</medium-list>
+</release>
+</release-list>
+<tag-list>
+<tag count="1">
+<name>pop</name>
+</tag>
+<tag count="2">
+<name>dance-pop</name>
+</tag>
+<tag count="1">
+<name>adult contemporary</name>
+</tag>
+<tag count="1">
+<name>teen pop</name>
+</tag>
+<tag count="1">
+<name>euro-dance</name>
+</tag>
+<tag count="1">
+<name>pop/rock</name>
+</tag>
+</tag-list>
+</recording>
+</recording-list>
+</metadata>

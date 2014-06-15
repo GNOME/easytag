@@ -1,0 +1,33 @@
+<?xml version="1.0" standalone="yes"?>
+<metadata>
+<release id="fd77296e-86f0-436e-8ea2-b657151f2167">
+<title>Never Gone</title>
+<status>Official</status>
+<quality>normal</quality>
+<text-representation>
+<language>eng</language>
+<script>Latn</script>
+</text-representation>
+<artist-credit>
+<name-credit>
+<artist id="2f569e60-0a1b-4fb9-95a4-3dc1525d1aad">
+<name>Backstreet Boys</name>
+<sort-name>Backstreet Boys</sort-name>
+</artist>
+</name-credit>
+</artist-credit>
+<date>2005</date>
+<release-event-list count="1">
+<release-event>
+<date>2005</date>
+</release-event>
+</release-event-list>
+<barcode>828767589626</barcode>
+<cover-art-archive>
+<artwork>false</artwork>
+<count>0</count>
+<front>false</front>
+<back>false</back>
+</cover-art-archive>
+</release>
+</metadata>
