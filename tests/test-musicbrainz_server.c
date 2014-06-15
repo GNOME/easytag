@@ -10,7 +10,7 @@ default_handler (SoupServer *server, SoupMessage *msg, const char *path,
     gchar *response_text;
     gsize length;
 
-    g_file_get_contents ("./error.xml", &response_text, &length, NULL);
+    g_file_get_contents ("./tests/error.xml", &response_text, &length, NULL);
     soup_message_set_response (msg, "application/xml", SOUP_MEMORY_TAKE,
                                "error", strlen ("error"));
     soup_message_set_status (msg, 200);
@@ -24,7 +24,7 @@ westlife_handler (SoupServer *server, SoupMessage *msg, const char *path,
     gchar *response_text;
     gsize length;
     printf ("dsfsdfsdf\n");
-    if (g_file_get_contents ("./artist-westlife_releases.xml", &response_text,
+    if (g_file_get_contents ("./tests/artist-westlife_releases.xml", &response_text,
                              &length, NULL))
     {
         soup_message_set_response (msg, "application/xml", SOUP_MEMORY_TAKE,
@@ -42,7 +42,7 @@ westlife_release_info_handler (SoupServer *server, SoupMessage *msg, const char 
     gchar *response_text;
     gsize length;
 
-    if (g_file_get_contents ("./artist-westlife_release_info.xml", &response_text,
+    if (g_file_get_contents ("./tests/artist-westlife_release_info.xml", &response_text,
                              &length, NULL))
     {
         soup_message_set_response (msg, "application/xml", SOUP_MEMORY_TAKE,
@@ -59,7 +59,7 @@ i_still_handler (SoupServer *server, SoupMessage *msg, const char *path,
     gchar *response_text;
     gsize length;
 
-    if (g_file_get_contents ("./album-i_still_info.xml", &response_text,
+    if (g_file_get_contents ("./tests/album-i_still_info.xml", &response_text,
                              &length, NULL))
     {
         soup_message_set_response (msg, "application/xml", SOUP_MEMORY_TAKE,
@@ -82,7 +82,7 @@ never_gone_handler (SoupServer *server, SoupMessage *msg, const char *path,
     //printf ("%s\n", value);
     if (value && !g_strcmp0 (value, "artists release-groups"))
     {
-       if (g_file_get_contents ("./album-never_gone_info.xml", &response_text,
+       if (g_file_get_contents ("./tests/album-never_gone_info.xml", &response_text,
                                 &length, NULL))
         {
             soup_message_set_response (msg, "application/xml", SOUP_MEMORY_TAKE,
@@ -93,7 +93,7 @@ never_gone_handler (SoupServer *server, SoupMessage *msg, const char *path,
 
     else if (value && !g_strcmp0 (value, "recordings"))
     {
-       if (g_file_get_contents ("./album-never_gone_recordings.xml",
+       if (g_file_get_contents ("./tests/album-never_gone_recordings.xml",
                                 &response_text, &length, NULL))
         {
             soup_message_set_response (msg, "application/xml", SOUP_MEMORY_TAKE,
@@ -116,7 +116,7 @@ artist_handler (SoupServer *server, SoupMessage *msg, const char *path,
     printf ("ddd %s\n", path);
     if (value && !strcmp ((gchar *)value, "artist:Westlife"))
     {
-        if (g_file_get_contents ("./artist-westlife.xml", &response_text,
+        if (g_file_get_contents ("./tests/artist-westlife.xml", &response_text,
                                  &length, NULL))
         {
             //printf ("sending message %s\n", response_text);
@@ -128,7 +128,7 @@ artist_handler (SoupServer *server, SoupMessage *msg, const char *path,
         }                                        
     }
 
-    g_file_get_contents ("./error.xml", &response_text, &length, NULL);
+    g_file_get_contents ("./tests/error.xml", &response_text, &length, NULL);
     soup_message_set_response (msg, "application/xml", SOUP_MEMORY_TAKE,
                                response_text, strlen (response_text));
     soup_message_set_status (msg, 200);
@@ -147,7 +147,7 @@ release_handler (SoupServer *server, SoupMessage *msg, const char *path,
 
     if (value && !strcmp ((gchar *)value, "release:Never Gone"))
     {
-        if (g_file_get_contents ("./album-never_gone.xml", &response_text,
+        if (g_file_get_contents ("./tests/album-never_gone.xml", &response_text,
                                  &length, NULL))
         {//printf ("sending message %s\n", response_text);
 
@@ -159,7 +159,7 @@ release_handler (SoupServer *server, SoupMessage *msg, const char *path,
         }                                        
     }
 
-    g_file_get_contents ("./error.xml", &response_text, &length, NULL);
+    g_file_get_contents ("./tests/error.xml", &response_text, &length, NULL);
     soup_message_set_response (msg, "application/xml", SOUP_MEMORY_TAKE,
                                response_text, strlen (response_text));
     soup_message_set_status (msg, 200);
@@ -178,7 +178,7 @@ recording_handler (SoupServer *server, SoupMessage *msg, const char *path,
     printf ("%s\n", value);
     if (value && !strcmp ((gchar *)value, "recordings:I Still"))
     {
-        if (g_file_get_contents ("./recordings-i_still.xml", &response_text,
+        if (g_file_get_contents ("./tests/recordings-i_still.xml", &response_text,
                                  &length, NULL))
         {printf ("sending message %s\n", response_text);
 
@@ -190,7 +190,7 @@ recording_handler (SoupServer *server, SoupMessage *msg, const char *path,
         }
     }
 
-    g_file_get_contents ("./error.xml", &response_text, &length, NULL);
+    g_file_get_contents ("./tests/error.xml", &response_text, &length, NULL);
     soup_message_set_response (msg, "application/xml", SOUP_MEMORY_TAKE,
                                response_text, strlen (response_text));
     soup_message_set_status (msg, 200);
@@ -204,18 +204,19 @@ discid_handler (SoupServer *server, SoupMessage *msg, const char *path,
     gchar *response_text;
     gsize length;
 
-    g_file_get_contents ("./metadata.xml", &response_text, &length, NULL);
+    g_file_get_contents ("./tests/metadata.xml", &response_text, &length, NULL);
     soup_message_set_response (msg, "application/xml", SOUP_MEMORY_TAKE,
                                response_text, strlen (response_text));
     soup_message_set_status (msg, 200);
 }
 
-void
+int
 main ()
 {
     SoupServer *server;
 
     g_type_init ();
+
     server = soup_server_new (SOUP_SERVER_PORT, 8088, NULL);    
     soup_server_add_handler (server, "/", (SoupServerCallback)default_handler,
                              NULL, NULL);
@@ -241,5 +242,8 @@ main ()
                              NULL);
     soup_server_add_handler (server, "/ws/2/discid",
                              (SoupServerCallback)discid_handler, NULL, NULL);
+
     soup_server_run (server);
+
+    return 0;
 }

@@ -295,9 +295,12 @@ AS_IF([test "x$have_wavpack" != "xno"],
 dnl Check for libdiscid
 LIBDISCID_DEPS="libdiscid >= 0.2.2"
 
+dnl Check for libsoup
+LIBSOUP_DEPS="libsoup-2.4 >= 2.4"
+
 dnl Check the pkg-config dependencies
 GIO_DEPS="gio-2.0 >= 2.32.0" dnl For g_file_new_tmp()
-PKG_CHECK_MODULES([EASYTAG], [$libmusicbrainz_DEPS $GIO_DEPS $GTK_DEPS $OPUS_DEPS $OGG_DEPS $SPEEX_DEPS $FLAC_DEPS $ID3TAG_DEPS $TAGLIB_DEPS $WAVPACK_DEPS $LIBDISCID_DEPS])
+PKG_CHECK_MODULES([EASYTAG], [$libmusicbrainz_DEPS $GIO_DEPS $GTK_DEPS $OPUS_DEPS $OGG_DEPS $SPEEX_DEPS $FLAC_DEPS $ID3TAG_DEPS $TAGLIB_DEPS $WAVPACK_DEPS $LIBDISCID_DEPS $LIBSOUP_DEPS])
 
 dnl Check for winsock
 AC_SEARCH_LIBS([gethostbyname], [nsl socket], [],

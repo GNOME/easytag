@@ -33,3 +33,5 @@ src/wavpack_header.c
 src/wavpack_tag.c
 src/win32/win32dep.c
 src/musicbrainz_dialog.c
+src/mbentityview.c
+src/mb_search.c

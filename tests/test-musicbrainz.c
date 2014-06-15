@@ -4,7 +4,13 @@
 
 static gchar name[NAME_MAX_SIZE];
 static gchar mbid[NAME_MAX_SIZE];
-void
+
+static void
+mb_search_test ();
+static void
+mb_search_in_test ();
+
+static void
 mb_search_test ()
 {
     GNode *mbTreeNode;
@@ -65,7 +71,7 @@ mb_search_test ()
     }
 }
 
-void
+static void
 mb_search_in_test ()
 {
     GNode *mbTreeNode;
@@ -142,12 +148,19 @@ mb_search_in_test ()
 }
 
 int
-main(int argc, char** argv)
+main (int argc, char** argv)
 {
-    g_test_init(&argc, &argv, NULL);
+    gchar *arg[2];
+    GPid pid;
+    arg [0] = "test-musicbrainz_server";
+    arg [1] = NULL;
+    g_test_init (&argc, &argv, NULL);
+    if (g_spawn_async (NULL, &arg[0], NULL, G_SPAWN_FILE_AND_ARGV_ZERO, NULL, NULL, &pid, NULL));
+    printf ("Running\n");
     et_musicbrainz_search_set_server_port ("localhost", 8088);
-    g_test_add_func("/musicbrainz/mb_search", mb_search_test);
-    g_test_add_func("/musicbrainz/mb_search_in", mb_search_in_test);
-
-    return g_test_run();
+    g_test_add_func ("/musicbrainz/mb_search", mb_search_test);
+    g_test_add_func ("/musicbrainz/mb_search_in", mb_search_in_test);
+    g_test_run ();
+    kill (pid, SIGKILL);
+    return 0;
 }
