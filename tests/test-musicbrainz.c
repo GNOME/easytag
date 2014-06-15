@@ -152,7 +152,7 @@ main (int argc, char** argv)
 {
     gchar *arg[2];
     GPid pid;
-    arg [0] = "test-musicbrainz_server";
+    arg [0] = "tests/test-musicbrainz_server";
     arg [1] = NULL;
     g_test_init (&argc, &argv, NULL);
     if (g_spawn_async (NULL, &arg[0], NULL, G_SPAWN_FILE_AND_ARGV_ZERO, NULL, NULL, &pid, NULL));
