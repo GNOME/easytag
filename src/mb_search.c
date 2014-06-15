@@ -18,6 +18,8 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
+#include <glib/gi18n.h>
+
 #include "mb_search.h"
 #include "musicbrainz_dialog.h"
 
@@ -78,7 +80,7 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
     {
         g_set_error (error, ET_MB5_SEARCH_ERROR,
                      ET_MB5_SEARCH_ERROR_CANCELLED,
-                     "Operation cancelled by user");
+                     _("Operation cancelled by user"));
         g_assert (error == NULL || *error != NULL);
         return FALSE;
     }
@@ -107,7 +109,7 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                 {
                     g_set_error (error, ET_MB5_SEARCH_ERROR,
                                  ET_MB5_SEARCH_ERROR_CANCELLED,
-                                 "Operation cancelled by user");
+                                 _("Operation cancelled by user"));
                     mb5_query_delete (query);
                     mb5_metadata_delete (metadata);
                     g_assert (error == NULL || *error != NULL);
@@ -117,7 +119,8 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                 artist = mb5_metadata_get_artist (metadata);
                 list = mb5_artist_get_releaselist (artist);
                 param_values[0] = "artists release-groups";
-                message = g_strdup_printf ("Found %d Album(s)", mb5_release_list_size (list));
+                message = g_strdup_printf (_("Found %d Album(s)"),
+                                           mb5_release_list_size (list));
                 et_show_status_msg_in_idle (message);
                 g_free (message);
 
@@ -125,6 +128,7 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                 {
                     Mb5Release release;
                     release = mb5_release_list_item (list, i);
+
                     if (release)
                     {
                         Mb5Metadata metadata_release;
@@ -137,7 +141,7 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                         {
                             g_set_error (error, ET_MB5_SEARCH_ERROR,
                                          ET_MB5_SEARCH_ERROR_CANCELLED,
-                                         "Operation cancelled by user");
+                                         _("Operation cancelled by user"));
                             mb5_query_delete (query);
                             mb5_metadata_delete (metadata);
                             g_assert (error == NULL || *error != NULL);
@@ -147,7 +151,7 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                         size = mb5_release_get_title ((Mb5Release)release, buf,
                                                       sizeof (buf));
                         buf [size] = '\0';
-                        message = g_strdup_printf ("Retrieving %s (%d/%d)",
+                        message = g_strdup_printf (_("Retrieving %s (%d/%d)"),
                                                    buf, i+1,
                                                    mb5_release_list_size (list));
                         et_show_status_msg_in_idle (message);
@@ -171,6 +175,7 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                     }
                 }
             }
+
             mb5_metadata_delete (metadata);
         }
         else
@@ -214,7 +219,8 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                         gchar *message;
 
                         track_list = mb5_medium_get_tracklist (medium);
-                        message = g_strdup_printf ("Found %d Track(s)", mb5_track_list_size (list));
+                        message = g_strdup_printf (_("Found %d Track(s)"),
+                                                   mb5_track_list_size (list));
                         et_show_status_msg_in_idle (message);
                         g_free (message);
 
@@ -222,11 +228,12 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                         {
                             Mb5Recording recording;
 
+
                             if (g_cancellable_is_cancelled (cancellable))
                             {
                                 g_set_error (error, ET_MB5_SEARCH_ERROR,
                                              ET_MB5_SEARCH_ERROR_CANCELLED,
-                                             "Operation cancelled by user");
+                                             _("Operation cancelled by user"));
                                 mb5_query_delete (query);
                                 mb5_metadata_delete (metadata);
                                 g_assert (error == NULL || *error != NULL);
@@ -237,7 +244,7 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                             size = mb5_recording_get_title (recording, buf,
                                                             sizeof (buf));
                             buf [size] = '\0';
-                            message = g_strdup_printf ("Retrieving %s (%d/%d)",
+                            message = g_strdup_printf (_("Retrieving %s (%d/%d)"),
                                                        buf, j,
                                                        mb5_track_list_size (track_list));
                             et_show_status_msg_in_idle (message);
@@ -247,9 +254,10 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                                                          buf,
                                                          sizeof (buf));
  
-                            metadata_recording = mb5_query_query (query, "recording",
-                                                                  buf, "",
-                                                                  1, param_names,
+                            metadata_recording = mb5_query_query (query,
+                                                                  "recording",
+                                                                  buf, "", 1,
+                                                                  param_names,
                                                                   param_values);
                             entity = g_malloc (sizeof (EtMbEntity));
                             entity->entity = mb5_recording_clone (mb5_metadata_get_recording (metadata_recording));
@@ -353,7 +361,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
     {
         g_set_error (error, ET_MB5_SEARCH_ERROR,
                      ET_MB5_SEARCH_ERROR_CANCELLED,
-                     "Operation cancelled by user");
+                     _("Operation cancelled by user"));
         mb5_query_delete (query);
         g_assert (error == NULL || *error != NULL);
         return FALSE;
@@ -383,7 +391,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
                     {
                         g_set_error (error, ET_MB5_SEARCH_ERROR,
                                      ET_MB5_SEARCH_ERROR_CANCELLED,
-                                     "Operation cancelled by user");
+                                     _("Operation cancelled by user"));
                         mb5_query_delete (query);
                         mb5_metadata_delete (metadata);
                         g_assert (error == NULL || *error != NULL);
@@ -433,7 +441,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
                 list = mb5_metadata_get_releaselist (metadata);
                 param_names [0] = "inc";
                 param_values [0] = "artists release-groups";
-                message = g_strdup_printf ("Found %d Album(s)",
+                message = g_strdup_printf (_("Found %d Album(s)"),
                                            mb5_release_list_size (list));
                 et_show_status_msg_in_idle (message);
                 g_free (message);
@@ -446,7 +454,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
                     {
                         g_set_error (error, ET_MB5_SEARCH_ERROR,
                                      ET_MB5_SEARCH_ERROR_CANCELLED,
-                                     "Operation cancelled by user");
+                                     _("Operation cancelled by user"));
                         mb5_query_delete (query);
                         mb5_metadata_delete (metadata);
                         g_assert (error == NULL || *error != NULL);
@@ -463,10 +471,10 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
                         EtMbEntity *entity;
                         int size;
 
-                        size = mb5_release_get_title ((Mb5Release)release, buf,
-                                                      sizeof (buf));
+                        size = mb5_release_get_title ((Mb5Release)release,
+                                                      buf, sizeof (buf));
                         buf [size] = '\0';
-                        message = g_strdup_printf ("Retrieving %s (%d/%d)",
+                        message = g_strdup_printf (_("Retrieving %s (%d/%d)"),
                                                    buf, i,
                                                    mb5_release_list_size (list));
                         et_show_status_msg_in_idle (message);
@@ -517,7 +525,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
                 list = mb5_metadata_get_recordinglist (metadata);
                 param_names [0] = "inc";
                 param_values[0] = "releases artists";
-                message = g_strdup_printf ("Found %d Track(s)",
+                message = g_strdup_printf (_("Found %d Track(s)"),
                                            mb5_recording_list_size (list));
                 et_show_status_msg_in_idle (message);
                 g_free (message);
@@ -535,7 +543,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
                     {
                         g_set_error (error, ET_MB5_SEARCH_ERROR,
                                      ET_MB5_SEARCH_ERROR_CANCELLED,
-                                     "Operation cancelled by user");
+                                     _("Operation cancelled by user"));
                         mb5_query_delete (query);
                         mb5_metadata_delete (metadata);
                         g_assert (error == NULL || *error != NULL);
@@ -545,7 +553,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
                     recording = mb5_recording_list_item (list, i);
                     size = mb5_recording_get_title (recording, buf, sizeof (buf));
                     buf [size] = '\0';
-                    message = g_strdup_printf ("Retrieving %s (%d/%d)",
+                    message = g_strdup_printf (_("Retrieving %s (%d/%d)"),
                                                buf, i,
                                                mb5_track_list_size (list));
                     et_show_status_msg_in_idle (message);
@@ -597,7 +605,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
                 list = mb5_disc_get_releaselist (disc);
                 param_names [0] = "inc";
                 param_values [0] = "artists release-groups";
-                message = g_strdup_printf ("Found %d Album(s)",
+                message = g_strdup_printf (_("Found %d Album(s)"),
                                            mb5_release_list_size (list));
                 et_show_status_msg_in_idle (message);
                 g_free (message);
@@ -610,7 +618,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
                     {
                         g_set_error (error, ET_MB5_SEARCH_ERROR,
                                      ET_MB5_SEARCH_ERROR_CANCELLED,
-                                     "Operation cancelled by user");
+                                     _("Operation cancelled by user"));
                         mb5_query_delete (query);
                         mb5_metadata_delete (metadata);
                         g_assert (error == NULL || *error != NULL);
@@ -630,7 +638,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
                         size = mb5_release_get_title ((Mb5Release)release, buf,
                                                       sizeof (buf));
                         buf [size] = '\0';
-                        message = g_strdup_printf ("Retrieving %s (%d/%d)",
+                        message = g_strdup_printf (_("Retrieving %s (%d/%d)"),
                                                    buf, i,
                                                    mb5_release_list_size (list));
                         et_show_status_msg_in_idle (message);
