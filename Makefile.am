@@ -335,8 +335,7 @@ test-report perf-report full-report: $(check_PROGRAMS)
 
 check_PROGRAMS = \
 	tests/test-scan \
-	tests/test-musicbrainz \
-	tests/test-musicbrainz_server
+	tests/test-musicbrainz
 
 tests_test_scan_CPPFLAGS = \
 	-I$(top_srcdir)/src \
@@ -370,22 +369,6 @@ tests_test_musicbrainz_SOURCES = \
           src/mb_search.c
 
 tests_test_musicbrainz_LDADD = \
-	$(EASYTAG_LIBS)
-
-tests_test_musicbrainz_server_CPPFLAGS = \
-	-I$(top_srcdir)/src \
-	-I$(top_builddir) \
-	$(DEPRECATED_CPPFLAGS) \
-          -DTEST
-
-tests_test_musicbrainz_server_CFLAGS = \
-	$(WARN_CFLAGS) \
-	$(EASYTAG_CFLAGS)
-
-tests_test_musicbrainz_server_SOURCES = \
-	tests/test-musicbrainz_server.c
-
-tests_test_musicbrainz_server_LDADD = \
 	$(EASYTAG_LIBS)
 
 check_SCRIPTS = \
