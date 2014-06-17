@@ -25,4 +25,4 @@ HELP_FILES = \
 HELP_MEDIA = \
 	media/icon.png
 
-HELP_LINGUAS = el
+HELP_LINGUAS =	el es
