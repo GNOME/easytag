@@ -153,7 +153,7 @@ static const gchar *ui_xml =
 "    </menu>"
 
 "    <menu action='MiscMenu'>"
-"      <menuitem action='CDDBSearch' />"
+"      <menuitem action='MBSearch' />"
 "      <separator />"
 
 "      <menuitem action='LoadFilenames' />"
@@ -211,7 +211,7 @@ static const gchar *ui_xml =
 "    <separator />"
 
 "    <toolitem action='SearchFile' />"
-"    <toolitem action='CDDBSearch' />"
+"    <toolitem action='MBSearch' />"
 "    <toolitem action='WritePlaylist' />"
 "    <separator />"
 
@@ -233,7 +233,7 @@ static const gchar *ui_xml =
 "    <menu action='ScannerSubpopup'>"
 "      <menuitem action='ShowScanner' />"
 "    </menu>"
-"    <menuitem action='CDDBSearchFile' />"
+"    <menuitem action='MBSearchFile' />"
 "    <menuitem action='SearchFile' />"
 "    <menuitem action='DeleteFile' />"
 "    <menuitem action='ReloadDir' />"
