@@ -40,8 +40,8 @@ G_DEFINE_TYPE (EtMbEntityView, et_mb_entity_view, GTK_TYPE_BOX)
 
 char *columns [MB_ENTITY_TYPE_COUNT][8] = {
     {"Name", "Gender", "Type"},
-    {"Name", "Artist", "Tracks", "Type"},
-    {"Name", "Album", "Artist", "Time", "Number"},
+    {"Name", "Artist", "Type"},
+    {"Name", "Album", "Artist", "Time"},
     };
 
 /*
@@ -271,7 +271,9 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
     while (node)
     {
         Mb5Entity entity;
+
         entity = ((EtMbEntity *)node->data)->entity;
+
         switch (type)
         {
             case MB_ENTITY_TYPE_ARTIST:
@@ -349,7 +351,6 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                                         MB_ALBUM_COLUMNS_N, "black", -1);
                 }
 
-                //TODO: Add number of tracks
                 release_group = mb5_release_get_releasegroup ((Mb5Release)entity);
                 mb5_releasegroup_get_primarytype (release_group, name,
                                                   sizeof (name));
@@ -364,9 +365,6 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                 gtk_list_store_set (list_store, &iter,
                                     MB_TRACK_COLUMNS_NAME, name, -1);
 
-                /* TODO: Get country and number */
-                /*gtk_list_store_set (list_store, &iter,
-                                    MB_TRACK_COLUMNS_COUNTRY, name, -1);*/
                 artist_credit = mb5_recording_get_artistcredit ((Mb5Release)entity);
                 if (artist_credit)
                 {
