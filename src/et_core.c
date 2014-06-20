@@ -2100,7 +2100,13 @@ GList *ET_Displayed_File_List_By_Etfile (ET_File *ETFile)
         if (ETFile == (ET_File *)etfilelist->data)
             break;
     }
-    ETCore->ETFileDisplayedList = etfilelist; // To "save" the position like in ET_File_List_Next... (not very good - FIX ME)
+
+    if (etfilelist)
+    {
+        /* To "save" the position like in ET_File_List_Next... (not very good -
+         * FIXME) */
+        ETCore->ETFileDisplayedList = etfilelist;
+    }
     return etfilelist;
 }
 

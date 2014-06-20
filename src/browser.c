@@ -1026,7 +1026,7 @@ void Browser_List_Load_File_List (GList *etfilelist, ET_File *etfile_to_select)
 
     g_return_if_fail (BrowserList != NULL);
 
-    gtk_list_store_clear(fileListModel);
+    browser_file_model_clear ();
 
     for (l = g_list_first (etfilelist); l != NULL; l = g_list_next (l))
     {
@@ -1725,13 +1725,35 @@ ET_File *Browser_List_Select_File_By_DLM (const gchar* string, gboolean select_i
     return retval;
 }
 
+/*
+ * Empty model, disabling Browser_List_Row_Selected () during clear because it
+ * is called and causes crashes otherwise.
+ */
+void
+browser_file_model_clear (void)
+{
+    GtkTreeSelection *selection;
+
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (BrowserList));
+
+    g_signal_handlers_block_by_func (selection,
+                                     G_CALLBACK (Browser_List_Row_Selected),
+                                     NULL);
+
+    gtk_list_store_clear (fileListModel);
+
+    g_signal_handlers_unblock_by_func (selection,
+                                       G_CALLBACK (Browser_List_Row_Selected),
+                                       NULL);
+}
+
 
 /*
  * Clear all entries on the file list
  */
 void Browser_List_Clear()
 {
-    gtk_list_store_clear(fileListModel);
+    browser_file_model_clear ();
     browser_artist_model_clear ();
     browser_album_model_clear ();
 
