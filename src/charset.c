@@ -695,24 +695,26 @@ gchar *Try_To_Validate_Utf8_String (const gchar *string)
 
 
 
-void Charset_Populate_Combobox (GtkComboBox *combo, gchar *select_charset)
+void
+Charset_Populate_Combobox (GtkComboBox *combo, gint select_charset)
 {
-    guint i;
+    gsize i;
 
-    for (i=0; i<CHARSET_TRANS_ARRAY_LEN; i++)
+    for (i = 0; i < CHARSET_TRANS_ARRAY_LEN; i++)
     {
-        gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(combo), _(charset_trans_array[i].charset_title));
+        gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo),
+                                        _(charset_trans_array[i].charset_title));
 
-        if (select_charset && strcmp(charset_trans_array[i].charset_name, select_charset) == 0)
-            gtk_combo_box_set_active(combo, i);
     }
+
+    gtk_combo_box_set_active (combo, select_charset);
 }
 
 
 /*
  * Return charset_name from charset_title
  */
-gchar *
+const gchar *
 Charset_Get_Name_From_Title (const gchar *charset_title)
 {
     guint i;
@@ -729,4 +731,13 @@ Charset_Get_Name_From_Title (const gchar *charset_title)
     }
 
     return NULL;
+}
+
+const gchar *
+et_charset_get_name_from_index (gint index)
+{
+    g_return_val_if_fail (index >= 0 && index <= CHARSET_TRANS_ARRAY_LEN,
+                          NULL);
+
+    return charset_trans_array[index].charset_name;
 }

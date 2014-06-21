@@ -28,8 +28,8 @@ G_BEGIN_DECLS
 
 typedef struct
 {
-    gchar *charset_title;
-    gchar *charset_name;
+    const gchar *charset_title;
+    const gchar *charset_name;
 } CharsetInfo;
 
 
@@ -52,8 +52,9 @@ gchar *filename_from_display (const gchar *string);
 
 gchar *Try_To_Validate_Utf8_String (const gchar *string);
 
-void   Charset_Populate_Combobox   (GtkComboBox *combo, gchar *select_charset);
-gchar *Charset_Get_Name_From_Title (const gchar *charset_title);
+void Charset_Populate_Combobox (GtkComboBox *combo, gint select_charset);
+const gchar *Charset_Get_Name_From_Title (const gchar *charset_title);
+const gchar * et_charset_get_name_from_index (gint index);
 
 
 void Charset_Insert_Locales_Init    (void);

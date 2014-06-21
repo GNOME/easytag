@@ -108,11 +108,6 @@ static gboolean Create_Easytag_Directory (void);
 static const tConfigVariable Config_Variables[] =
 {
 
-    {"file_reading_id3v1v2_character_set",             CV_TYPE_STRING,&FILE_READING_ID3V1V2_CHARACTER_SET},
-    {"file_writing_id3v2_unicode_character_set",       CV_TYPE_STRING,&FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET},
-    {"file_writing_id3v2_no_unicode_character_set",    CV_TYPE_STRING,&FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET},
-    {"file_writing_id3v1_character_set",               CV_TYPE_STRING,&FILE_WRITING_ID3V1_CHARACTER_SET},
-
     {"audio_file_player",                       CV_TYPE_STRING,&AUDIO_FILE_PLAYER                        },
 
     {"playlist_name",                           CV_TYPE_STRING,  &PLAYLIST_NAME                          },
@@ -174,18 +169,6 @@ void Init_Config_Variables (void)
 #endif /* !G_OS_WIN32 */
 
     /*
-     * Tag Settings
-     */
-    FILE_READING_ID3V1V2_CHARACTER_SET              = g_strdup("UTF-8");
-#ifdef G_OS_WIN32
-    FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET        = g_strdup("UTF-16");
-#else /* !G_OS_WIN32 */
-    FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET        = g_strdup("UTF-8");
-#endif /* !G_OS_WIN32 */
-    FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET     = g_strdup("ISO-8859-1");
-    FILE_WRITING_ID3V1_CHARACTER_SET                = g_strdup("ISO-8859-1");
-
-    /*
      * Playlist window
      */
     PLAYLIST_NAME                   = g_strdup("playlist_%a_-_%b");
@@ -216,8 +199,6 @@ Apply_Changes_Of_Preferences_Window (void)
 {
     EtApplicationWindow *window;
     GtkWidget *dialog;
-    gchar *temp;
-    int active;
 
     window = ET_APPLICATION_WINDOW (MainWindow);
     dialog = et_application_window_get_preferences_dialog (window);
@@ -232,20 +213,6 @@ Apply_Changes_Of_Preferences_Window (void)
 #ifdef ENABLE_ID3LIB
         g_settings_set_boolean (MainSettings, "id3v2-version-4", TRUE);
 #endif
-        temp = Get_Active_Combo_Box_Item(GTK_COMBO_BOX(FileReadingId3v1v2CharacterSetCombo));
-        FILE_READING_ID3V1V2_CHARACTER_SET = Charset_Get_Name_From_Title(temp);
-        g_free(temp);
-
-        active = gtk_combo_box_get_active(GTK_COMBO_BOX(FileWritingId3v2UnicodeCharacterSetCombo));
-        FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET     = (active == 1) ? "UTF-16" : "UTF-8";
-
-        temp = Get_Active_Combo_Box_Item(GTK_COMBO_BOX(FileWritingId3v2NoUnicodeCharacterSetCombo));
-        FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET  = Charset_Get_Name_From_Title(temp);
-        g_free(temp);
-
-        temp = Get_Active_Combo_Box_Item(GTK_COMBO_BOX(FileWritingId3v1CharacterSetCombo));
-        FILE_WRITING_ID3V1_CHARACTER_SET             = Charset_Get_Name_From_Title(temp);
-        g_free(temp);
 
         /* CDDB */
         if (CDDB_LOCAL_PATH) g_free(CDDB_LOCAL_PATH);

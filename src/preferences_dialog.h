@@ -56,12 +56,6 @@ G_END_DECLS
 /* Misc */
 GtkWidget *FilePlayerCombo;
 
-/* Tag Settings */
-GtkWidget *FileWritingId3v2UnicodeCharacterSetCombo;
-GtkWidget *FileWritingId3v2NoUnicodeCharacterSetCombo;
-GtkWidget *FileWritingId3v1CharacterSetCombo;
-GtkWidget *FileReadingId3v1v2CharacterSetCombo;
-
 /* CDDB */
 GtkWidget *CddbLocalPath;
 

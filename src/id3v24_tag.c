@@ -557,11 +557,13 @@ etag_guess_byteorder(const id3_ucs4_t *ustr, gchar **ret) /* XXX */
 
     if (g_settings_get_boolean (MainSettings, "id3-override-read-encoding"))
     {
-        charset = FILE_READING_ID3V1V2_CHARACTER_SET;
+        charset = g_settings_get_string (MainSettings,
+                                         "id3v1v2-charset");
     }
     else if (!g_settings_get_boolean (MainSettings, "id3v2-enable-unicode"))
     {
-        charset = FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET; /* XXX */
+        charset = g_settings_get_string (MainSettings,
+                                         "id3v2-no-unicode-charset"); /* XXX */
     }
     else
     {
@@ -665,7 +667,13 @@ etag_ucs42gchar(const id3_ucs4_t *usrc, unsigned is_latin,
     {
         if ((latinstr = (gchar *)id3_ucs4_latin1duplicate(usrc)))
         {
-            retstr = convert_string(latinstr, FILE_READING_ID3V1V2_CHARACTER_SET, "UTF-8", FALSE);
+            gint id3v1v2_charset;
+            const gchar * charset;
+
+            id3v1v2_charset = g_settings_get_enum (MainSettings,
+                                                   "id3v1v2-charset");
+            charset = et_charset_get_name_from_index (id3v1v2_charset);
+            retstr = convert_string (latinstr, charset, "UTF-8", FALSE);
             free(latinstr);
         }
     }else
@@ -743,9 +751,13 @@ libid3tag_Get_Frame_Str (const struct id3_frame *frame,
                 if (g_settings_get_boolean (MainSettings,
                                             "id3-override-read-encoding"))
                 {
-                    tmpstr = convert_string (latinstr,
-                                             FILE_READING_ID3V1V2_CHARACTER_SET,
-                                             "UTF-8", FALSE);
+                    gint id3v1v2_charset;
+                    const gchar * charset;
+
+                    id3v1v2_charset = g_settings_get_enum (MainSettings,
+                                                           "id3v1v2-charset");
+                    charset = et_charset_get_name_from_index (id3v1v2_charset);
+                    tmpstr = convert_string (latinstr, charset, "UTF-8", FALSE);
                     g_free (latinstr);
                 }
                 else
@@ -1241,46 +1253,77 @@ id3taglib_set_field(struct id3_frame *frame,
             /* id3v1 fields converted using its own character set and iconv options */
             if ( id3v1 )
             {
-                EtTagEncoding iconv_option = g_settings_get_enum (MainSettings,
-                                                                  "id3v1-encoding-option");
+                gint id3v1_charset;
+                const gchar *charset;
+                EtTagEncoding iconv_option;
+
+                id3v1_charset = g_settings_get_enum (MainSettings,
+                                                     "id3v1-charset");
+                charset = et_charset_get_name_from_index (id3v1_charset);
+                iconv_option = g_settings_get_enum (MainSettings,
+                                                    "id3v1-encoding-option");
+
                 if (iconv_option != ET_TAG_ENCODING_NONE)
-                    encname = g_strconcat(
-                        FILE_WRITING_ID3V1_CHARACTER_SET,
-                        iconv_option == ET_TAG_ENCODING_TRANSLITERATE ? "//TRANSLIT" : "//IGNORE",
-                        NULL);
+                {
+                    encname = g_strconcat (charset,
+                                           iconv_option == ET_TAG_ENCODING_TRANSLITERATE ? "//TRANSLIT" : "//IGNORE",
+                                           NULL);
+                }
                 else
-                    encname = g_strdup(FILE_WRITING_ID3V1_CHARACTER_SET);
-            } else
+                {
+                    encname = g_strdup (charset);
+                }
+            }
+            else
             {
                 /* latin1 fields (such as URL) always converted with ISO-8859-1*/
                 if ((type != ID3_FIELD_TYPE_LATIN1) && (type != ID3_FIELD_TYPE_LATIN1FULL))
                 {
-                    EtTagEncoding iconv_option = g_settings_get_enum (MainSettings,
-                                                                      "id3v2-encoding-option");
+                    gint id3v2_charset;
+                    const gchar *charset;
+                    EtTagEncoding iconv_option;
+
+                    id3v2_charset = g_settings_get_enum (MainSettings,
+                                                         "id3v2-no-unicode-charset");
+                    charset = et_charset_get_name_from_index (id3v2_charset);
+                    iconv_option = g_settings_get_enum (MainSettings,
+                                                        "id3v2-encoding-option");
                     if (iconv_option != ET_TAG_ENCODING_NONE)
-                        encname = g_strconcat(
-                            FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET,
-                            iconv_option == ET_TAG_ENCODING_TRANSLITERATE ? "//TRANSLIT" : "//IGNORE",
-                            NULL);
+                    {
+                        encname = g_strconcat (charset,
+                                               iconv_option == ET_TAG_ENCODING_TRANSLITERATE ? "//TRANSLIT" : "//IGNORE",
+                                               NULL);
+                    }
                     else
-                        encname = g_strdup(FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET);
+                    {
+                        encname = g_strdup (charset);
+                    }
                 }
             }
 
             latinstr = convert_string(str, "UTF-8", encname ? encname : "ISO-8859-1//IGNORE", TRUE);
             g_free (encname);
             buf = id3_latin1_ucs4duplicate((id3_latin1_t const *)latinstr);
-        } else
+        }
+        else
         {
-            if (!strcmp(FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET, "UTF-16"))
+            gchar *charset;
+
+            charset = g_settings_get_string (MainSettings,
+                                             "id3v2-unicode-charset");
+
+            if (!strcmp (charset, "UTF-16"))
             {
                 enc_field = ID3_FIELD_TEXTENCODING_UTF_16;
                 buf = id3_utf8_ucs4duplicate((id3_utf8_t const *)str);
-            }else
+            }
+            else
             {
                 enc_field = ID3_FIELD_TEXTENCODING_UTF_8;
                 buf = id3_utf8_ucs4duplicate((id3_utf8_t const *)str);
             }
+
+            g_free (charset);
         }
     }
 

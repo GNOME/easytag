@@ -906,6 +906,7 @@ gchar *Id3tag_Get_Field (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid)
 
     //g_print("Id3tag_Get_Field - ID3Frame '%s'\n",ID3FrameInfo_ShortName(ID3Frame_GetID(id3_frame)));
 
+    /* FIXME: Disentangle and avoid compiler warning (9999 in switch). */
     if ( (id3_field = ID3Frame_GetField(id3_frame,id3_fieldid)) )
     {
         ID3_TextEnc enc = ID3TE_NONE;
@@ -934,18 +935,27 @@ gchar *Id3tag_Get_Field (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid)
             if (g_settings_get_boolean (MainSettings,
                                         "id3-override-read-encoding"))
             {
-                // Encoding set by user to ???.
-                if ( strcmp(FILE_READING_ID3V1V2_CHARACTER_SET,"ISO-8859-1") == 0 )
+                /* Encoding set by user to ???. */
+                gint id3v1v2_charset;
+                const gchar *charset;
+
+                id3v1v2_charset = g_settings_get_enum (MainSettings,
+                                                       "id3v1v2-charset");
+                charset = et_charset_get_name_from_index (id3v1v2_charset);
+                if (strcmp (charset, "ISO-8859-1") == 0)
                 {
                     enc = ID3TE_ISO8859_1;
-                }else if ( strcmp(FILE_READING_ID3V1V2_CHARACTER_SET,"UTF-16BE") == 0
-                      ||   strcmp(FILE_READING_ID3V1V2_CHARACTER_SET,"UTF-16LE") == 0 )
+                }
+                else if (strcmp (charset, "UTF-16BE") == 0
+                         || strcmp (charset, "UTF-16LE") == 0)
                 {
                     enc = ID3TE_UTF16;
-                }else if ( strcmp(FILE_READING_ID3V1V2_CHARACTER_SET,"UTF-8") == 0 )
+                }
+                else if (strcmp (charset, "UTF-8") == 0)
                 {
                     enc = ID3TE_UTF8;
-                }else
+                }
+                else
                 {
                     enc = 9999;
                 }
@@ -986,10 +996,18 @@ gchar *Id3tag_Get_Field (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid)
                 break;
 
             case 9999:
+            {
+                gint id3v1v2_charset;
+                const gchar *charset;
+
                 string = g_malloc0(sizeof(char)*ID3V2_MAX_STRING_LEN+1);
                 num_chars = ID3Field_GetASCII_1(id3_field,string,ID3V2_MAX_STRING_LEN,0);
-                string1 = convert_string(string,FILE_READING_ID3V1V2_CHARACTER_SET,"UTF-8",FALSE);
+                id3v1v2_charset = g_settings_get_enum (MainSettings,
+                                                       "id3v1v2-charset");
+                charset = et_charset_get_name_from_index (id3v1v2_charset);
+                string1 = convert_string (string, charset, "UTF-8", FALSE);
                 break;
+            }
 
             default:
                 string = g_malloc0(sizeof(char)*4*ID3V2_MAX_STRING_LEN+1);
@@ -1061,7 +1079,7 @@ Id3tag_Set_Field (const ID3Frame *id3_frame,
             return ID3TE_NONE;
         }
 
-        /*
+        /* FIXME: Disentangle and avoid compiler warning (9999 in switch).
          * We prioritize the rule selected in options. If the encoding of the
          * field is ISO-8859-1, we can write it to another single byte encoding.
          */
@@ -1078,21 +1096,31 @@ Id3tag_Set_Field (const ID3Frame *id3_frame,
                 // Force to UTF-16 as UTF-8 isn't supported
                 enc = ID3TE_UTF16;
             }
-        } else
+        }
+        else
         {
-            // Other encoding selected
-            // Encoding set by user to ???.
-            if ( strcmp(FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET,"ISO-8859-1") == 0 )
+            gint id3v2_charset;
+            const gchar *charset;
+
+            id3v2_charset = g_settings_get_enum (MainSettings,
+                                                 "id3v2-no-unicode-charset");
+            charset = et_charset_get_name_from_index (id3v2_charset);
+
+            /* Other encoding selected. Encoding set by user to ???. */
+            if (strcmp (charset, "ISO-8859-1") == 0)
             {
                 enc = ID3TE_ISO8859_1;
-            }else if ( strcmp(FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET,"UTF-16BE") == 0
-                  ||   strcmp(FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET,"UTF-16LE") == 0 )
+            }
+            else if (strcmp (charset, "UTF-16BE") == 0
+                     || strcmp (charset, "UTF-16LE") == 0)
             {
                 enc = ID3TE_UTF16;
-            }else if ( strcmp(FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET,"UTF-8") == 0 )
+            }
+            else if (strcmp (charset, "UTF-8") == 0)
             {
                 enc = ID3TE_UTF8;
-            }else
+            }
+            else
             {
                 enc = 9999;
             }
@@ -1160,8 +1188,18 @@ Id3tag_Set_Field (const ID3Frame *id3_frame,
 
             case 9999:
             default:
-                //string_converted = convert_string(string,"UTF-8",FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET,TRUE);
-                string_converted = Id3tag_Rules_For_ISO_Fields(string,"UTF-8",FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET);
+            {
+                //string_converted = convert_string(string,"UTF-8",charset,TRUE);
+                gint id3v2_charset;
+                const gchar *charset;
+
+                id3v2_charset = g_settings_get_enum (MainSettings,
+                                                     "id3v2-no-unicode-charset");
+                charset = et_charset_get_name_from_index (id3v2_charset);
+
+                string_converted = Id3tag_Rules_For_ISO_Fields (string,
+                                                                "UTF-8",
+                                                                charset);
                 ID3Field_SetEncoding(id3_field,ID3TE_ISO8859_1);
                 ID3Field_SetASCII(id3_field,string_converted);
                 g_free(string_converted);
@@ -1172,6 +1210,7 @@ Id3tag_Set_Field (const ID3Frame *id3_frame,
 
                 return ID3TE_NONE;
                 break;
+            }
         }
     }
 
@@ -1224,13 +1263,22 @@ void Id3tag_Prepare_ID3v1 (ID3Tag *id3_tag)
             if ( (id3_field_text != NULL)
             &&   (enc != ID3TE_ISO8859_1) )
             {
-                // Read UTF-16 frame
+                gint id3v1_charset;
+                const gchar *charset;
+
+                /* Read UTF-16 frame. */
                 string = g_malloc0(sizeof(unicode_t)*ID3V2_MAX_STRING_LEN+1);
                 num_chars = ID3Field_GetUNICODE_1(id3_field_text,(unicode_t *)string,ID3V2_MAX_STRING_LEN,0);
                 // "convert_string_1" as we need to pass length for UTF-16
                 string1 = convert_string_1(string,num_chars,"UTF-16BE","UTF-8",FALSE);
 
-                string_converted = Id3tag_Rules_For_ISO_Fields(string1,"UTF-8",FILE_WRITING_ID3V1_CHARACTER_SET);
+                id3v1_charset = g_settings_get_enum (MainSettings,
+                                                     "id3v1-charset");
+                charset = et_charset_get_name_from_index (id3v1_charset);
+
+                string_converted = Id3tag_Rules_For_ISO_Fields (string1,
+                                                                "UTF-8",
+                                                                charset);
 
                 if (string_converted)
                 {

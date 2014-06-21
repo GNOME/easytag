@@ -242,18 +242,22 @@
       <default>true</default>
     </key>
 
-    <!-- TODO: Generate enums with glib-mkenums.
     <key name="id3v1-charset" enum="org.gnome.EasyTAG.EtCharset">
       <summary>The character set for writing ID3v1 tags</summary>
       <description>Choose the character set to be used when writing ID3v1 tags</description>
-      <default>'ISO-8859-1'</default>
+      <default>'iso-8859-1'</default>
     </key>
-    -->
 
     <key name="id3v1-encoding-option" enum="org.gnome.EasyTAG.EtTagEncoding">
       <summary>Encoding options when writing ID3v1 tags</summary>
       <description>Additional options to pass to iconv() when converting between encodings when writing ID3v1 tags</description>
       <default>'none'</default>
+    </key>
+
+    <key name="id3v1v2-charset" enum="org.gnome.EasyTAG.EtCharset">
+      <summary>The character set for reading ID3v1 and ID3v2 tags</summary>
+      <description>Choose the character set to be used when reading ID3v1 and ID3v2 tags</description>
+      <default>'utf-8'</default>
     </key>
 
     <key name="id3v2-enabled" type="b">
@@ -308,13 +312,11 @@
       <default>'UTF-8'</default>
     </key>
 
-    <!-- TODO: Generate enums with glib-mkenums.
     <key name="id3v2-no-unicode-charset" enum="org.gnome.EasyTAG.EtCharset">
       <summary>The character set for writing ID3v2 tags</summary>
       <description>Override the typical Unicode character set to be used when writing ID3v2 tags</description>
-      <default>'ISO-8859-1'</default>
+      <default>'iso-8859-1'</default>
     </key>
-    -->
 
     <key name="id3v2-encoding-option" enum="org.gnome.EasyTAG.EtTagEncoding">
       <summary>Encoding options when writing ID3v2 tags</summary>

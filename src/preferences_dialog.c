@@ -64,6 +64,12 @@ struct _EtPreferencesDialogPrivate
     GtkWidget *FileWritingId3v2VersionCombo;
     GtkWidget *FileWritingId3v2UseUnicodeCharacterSet;
     GtkWidget *FileWritingId3v2UseNoUnicodeCharacterSet;
+
+    GtkWidget *FileWritingId3v2UnicodeCharacterSetCombo;
+    GtkWidget *FileWritingId3v2NoUnicodeCharacterSetCombo;
+    GtkWidget *FileWritingId3v1CharacterSetCombo;
+    GtkWidget *FileReadingId3v1v2CharacterSetCombo;
+
     GtkWidget *ConvertOldId3v2TagVersion;
     GtkWidget *FileWritingId3v2UseCrc32;
     GtkWidget *FileWritingId3v2UseCompression;
@@ -166,6 +172,53 @@ id3_settings_changed (GtkComboBox *combo,
                       EtPreferencesDialog *self)
 {
     notify_id3_settings_active (NULL, NULL, self);
+}
+
+static gboolean
+et_preferences_id3v2_unicode_charset_get (GValue *value,
+                                          GVariant *variant,
+                                          gpointer user_data)
+{
+    const gchar *charset;
+
+    charset = g_variant_get_string (variant, NULL);
+
+    if (strcmp (charset, "UTF-8") == 0)
+    {
+        g_value_set_int (value, 0);
+    }
+    else if (strcmp (charset, "UTF-16") == 0)
+    {
+        g_value_set_int (value, 1);
+    }
+    else
+    {
+        return FALSE;
+    }
+
+    return TRUE;
+}
+
+static GVariant *
+et_preferences_id3v2_unicode_charset_set (const GValue *value,
+                                          const GVariantType *variant_type,
+                                          gpointer user_data)
+{
+    gint active_row;
+
+    active_row = g_value_get_int (value);
+
+    switch (active_row)
+    {
+        case 0:
+            return g_variant_new_string ("UTF-8");
+            break;
+        case 1:
+            return g_variant_new_string ("UTF-16");
+            break;
+        default:
+            g_assert_not_reached ();
+    }
 }
 
 /*
@@ -910,18 +963,22 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_grid_attach (GTK_GRID (Table), priv->FileWritingId3v2UseUnicodeCharacterSet,
                      1, 3, 1, 1);
 
-    FileWritingId3v2UnicodeCharacterSetCombo = gtk_combo_box_text_new();
-    gtk_widget_set_tooltip_text(FileWritingId3v2UnicodeCharacterSetCombo,
-                                _("Unicode type to use"));
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(FileWritingId3v2UnicodeCharacterSetCombo), "UTF-8");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(FileWritingId3v2UnicodeCharacterSetCombo), "UTF-16");
-    if ( FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET == NULL )
-        gtk_combo_box_set_active(GTK_COMBO_BOX(FileWritingId3v2UnicodeCharacterSetCombo), 0); // Set UTF-8 by default
-    else
-        gtk_combo_box_set_active(GTK_COMBO_BOX(FileWritingId3v2UnicodeCharacterSetCombo),
-            strcmp(FILE_WRITING_ID3V2_UNICODE_CHARACTER_SET, "UTF-8") ? 1 : 0);
+    priv->FileWritingId3v2UnicodeCharacterSetCombo = gtk_combo_box_text_new ();
+    gtk_widget_set_tooltip_text (priv->FileWritingId3v2UnicodeCharacterSetCombo,
+                                 _("Unicode type to use"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (priv->FileWritingId3v2UnicodeCharacterSetCombo),
+                                    "UTF-8");
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (priv->FileWritingId3v2UnicodeCharacterSetCombo),
+                                    "UTF-16");
+    g_settings_bind_with_mapping (MainSettings, "id3v2-unicode-charset",
+                                  priv->FileWritingId3v2UnicodeCharacterSetCombo,
+                                  "active", G_SETTINGS_BIND_DEFAULT,
+                                  et_preferences_id3v2_unicode_charset_get,
+                                  et_preferences_id3v2_unicode_charset_set,
+                                  NULL, NULL);
     gtk_grid_attach (GTK_GRID (Table),
-                     FileWritingId3v2UnicodeCharacterSetCombo, 2, 3, 2, 1);
+                     priv->FileWritingId3v2UnicodeCharacterSetCombo, 2, 3, 2,
+                     1);
     g_signal_connect (priv->FileWritingId3v2UseUnicodeCharacterSet,
                       "notify::active",
                       G_CALLBACK (notify_id3_settings_active), self);
@@ -933,18 +990,25 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_grid_attach (GTK_GRID (Table),
                      priv->FileWritingId3v2UseNoUnicodeCharacterSet, 1, 4, 1, 1);
 
-    FileWritingId3v2NoUnicodeCharacterSetCombo = gtk_combo_box_text_new();
-    gtk_widget_set_tooltip_text (FileWritingId3v2NoUnicodeCharacterSetCombo,
+    priv->FileWritingId3v2NoUnicodeCharacterSetCombo = gtk_combo_box_text_new();
+    gtk_widget_set_tooltip_text (priv->FileWritingId3v2NoUnicodeCharacterSetCombo,
                                  _("Character set used to write the tag data in the file."));
 
-    Charset_Populate_Combobox(GTK_COMBO_BOX(FileWritingId3v2NoUnicodeCharacterSetCombo), 
-        FILE_WRITING_ID3V2_NO_UNICODE_CHARACTER_SET);
+    Charset_Populate_Combobox (GTK_COMBO_BOX (priv->FileWritingId3v2NoUnicodeCharacterSetCombo), 
+                               g_settings_get_enum (MainSettings,
+                                                    "id3v2-no-unicode-charset"));
     gtk_grid_attach (GTK_GRID (Table),
-                     FileWritingId3v2NoUnicodeCharacterSetCombo, 2, 4, 3, 1);
+                     priv->FileWritingId3v2NoUnicodeCharacterSetCombo, 2, 4, 3,
+                     1);
+    g_settings_bind_with_mapping (MainSettings, "id3v2-no-unicode-charset",
+                                  priv->FileWritingId3v2NoUnicodeCharacterSetCombo,
+                                  "active", G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_get, et_settings_enum_set,
+                                  GSIZE_TO_POINTER (ET_TYPE_CHARSET), NULL);
     g_signal_connect (priv->FileWritingId3v2UseNoUnicodeCharacterSet,
                       "notify::active",
                       G_CALLBACK (notify_id3_settings_active), self);
-    
+
     /* ID3v2 Additional iconv() options. */
     priv->LabelAdditionalId3v2IconvOptions = gtk_label_new (_("Additional settings for iconv():"));
     gtk_grid_attach (GTK_GRID (Table), priv->LabelAdditionalId3v2IconvOptions,
@@ -1027,12 +1091,19 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_grid_attach (GTK_GRID (Table), priv->LabelId3v1Charset, 0, 1, 4, 1);
     gtk_misc_set_alignment (GTK_MISC (priv->LabelId3v1Charset), 0, 0.5);
 
-    FileWritingId3v1CharacterSetCombo = gtk_combo_box_text_new();
-    gtk_grid_attach (GTK_GRID (Table), FileWritingId3v1CharacterSetCombo, 1, 2,
-                     3, 1);
-    gtk_widget_set_tooltip_text (FileWritingId3v1CharacterSetCombo,
+    priv->FileWritingId3v1CharacterSetCombo = gtk_combo_box_text_new();
+    gtk_grid_attach (GTK_GRID (Table), priv->FileWritingId3v1CharacterSetCombo,
+                     1, 2, 3, 1);
+    gtk_widget_set_tooltip_text (priv->FileWritingId3v1CharacterSetCombo,
                                  _("Character set used to write ID3v1 tag data in the file."));
-    Charset_Populate_Combobox(GTK_COMBO_BOX(FileWritingId3v1CharacterSetCombo), FILE_WRITING_ID3V1_CHARACTER_SET);
+    Charset_Populate_Combobox (GTK_COMBO_BOX (priv->FileWritingId3v1CharacterSetCombo),
+                               g_settings_get_enum (MainSettings,
+                                                    "id3v1-charset"));
+    g_settings_bind_with_mapping (MainSettings, "id3v1-charset",
+                                  priv->FileWritingId3v1CharacterSetCombo,
+                                  "active", G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_get, et_settings_enum_set,
+                                  GSIZE_TO_POINTER (ET_TYPE_CHARSET), NULL);
 
     /* ID3V1 Additional iconv() options*/
     priv->LabelAdditionalId3v1IconvOptions = gtk_label_new (_("Additional settings for iconv():"));
@@ -1122,17 +1193,23 @@ create_preferences_dialog (EtPreferencesDialog *self)
         "'Windows-1251' to load tags written under Windows. And 'KOI8-R' to load tags "
         "written under Unix systems."));
 
-    FileReadingId3v1v2CharacterSetCombo = gtk_combo_box_text_new();
-    gtk_grid_attach (GTK_GRID (Table), FileReadingId3v1v2CharacterSetCombo, 2,
-                     0, 1, 1);
+    priv->FileReadingId3v1v2CharacterSetCombo = gtk_combo_box_text_new();
+    gtk_grid_attach (GTK_GRID (Table),
+                     priv->FileReadingId3v1v2CharacterSetCombo, 2, 0, 1, 1);
 
-    gtk_widget_set_tooltip_text (FileReadingId3v1v2CharacterSetCombo,
+    gtk_widget_set_tooltip_text (priv->FileReadingId3v1v2CharacterSetCombo,
                                  _("Character set used to read tag data in the file."));
 
-    Charset_Populate_Combobox(GTK_COMBO_BOX(FileReadingId3v1v2CharacterSetCombo), 
-        FILE_READING_ID3V1V2_CHARACTER_SET);
+    Charset_Populate_Combobox (GTK_COMBO_BOX (priv->FileReadingId3v1v2CharacterSetCombo),
+                               g_settings_get_enum (MainSettings,
+                                                    "id3v1v2-charset"));
+    g_settings_bind_with_mapping (MainSettings, "id3v1v2-charset",
+                                  priv->FileReadingId3v1v2CharacterSetCombo,
+                                  "active", G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_get, et_settings_enum_set,
+                                  GSIZE_TO_POINTER (ET_TYPE_CHARSET), NULL);
     g_settings_bind (MainSettings, "id3-override-read-encoding",
-                     FileReadingId3v1v2CharacterSetCombo, "sensitive",
+                     priv->FileReadingId3v1v2CharacterSetCombo, "sensitive",
                      G_SETTINGS_BIND_GET);
     notify_id3_settings_active (NULL, NULL, self);
 
@@ -1677,23 +1754,30 @@ notify_id3_settings_active (GObject *object,
 #ifdef ENABLE_ID3LIB
         gtk_widget_set_sensitive (priv->LabelId3v2Version, TRUE);
         gtk_widget_set_sensitive (priv->FileWritingId3v2VersionCombo, TRUE);
-        if (gtk_combo_box_get_active (GTK_COMBO_BOX (priv->FileWritingId3v2VersionCombo)) == 1)
+
+        if (!g_settings_get_boolean (MainSettings, "id3v2-version-4"))
         {
-            // When "ID3v2.3" is selected
-            gtk_combo_box_set_active(GTK_COMBO_BOX(FileWritingId3v2UnicodeCharacterSetCombo), 1);
-            gtk_widget_set_sensitive(FileWritingId3v2UnicodeCharacterSetCombo, FALSE);
-        }else
+            /* When "ID3v2.3" is selected. */
+            gtk_combo_box_set_active (GTK_COMBO_BOX (priv->FileWritingId3v2UnicodeCharacterSetCombo), 1);
+            gtk_widget_set_sensitive (priv->FileWritingId3v2UnicodeCharacterSetCombo,
+                                      FALSE);
+        }
+        else
         {
-            // When "ID3v2.4" is selected
-            gtk_combo_box_set_active(GTK_COMBO_BOX(FileWritingId3v2UnicodeCharacterSetCombo), 0); // Set "UTF-8" as default value for this version of tag
-            gtk_widget_set_sensitive(FileWritingId3v2UnicodeCharacterSetCombo, active);
+            /* When "ID3v2.4" is selected, set "UTF-8" as default value. */
+            gtk_combo_box_set_active (GTK_COMBO_BOX (priv->FileWritingId3v2UnicodeCharacterSetCombo),
+                                      0);
+            gtk_widget_set_sensitive (priv->FileWritingId3v2UnicodeCharacterSetCombo,
+                                      active);
         }
 #else 
-        gtk_widget_set_sensitive(FileWritingId3v2UnicodeCharacterSetCombo, active);
+        gtk_widget_set_sensitive (priv->FileWritingId3v2UnicodeCharacterSetCombo,
+                                  active);
 #endif
         gtk_widget_set_sensitive(priv->FileWritingId3v2UseUnicodeCharacterSet, TRUE);
         gtk_widget_set_sensitive(priv->FileWritingId3v2UseNoUnicodeCharacterSet, TRUE);
-        gtk_widget_set_sensitive(FileWritingId3v2NoUnicodeCharacterSetCombo, !active);
+        gtk_widget_set_sensitive (priv->FileWritingId3v2NoUnicodeCharacterSetCombo,
+                                  !active);
         gtk_widget_set_sensitive (priv->LabelAdditionalId3v2IconvOptions, !active);
         gtk_widget_set_sensitive (priv->FileWritingId3v2IconvOptionsNo, !active);
         gtk_widget_set_sensitive (priv->FileWritingId3v2IconvOptionsTranslit, !active);
@@ -1712,8 +1796,10 @@ notify_id3_settings_active (GObject *object,
 #endif
         gtk_widget_set_sensitive (priv->FileWritingId3v2UseUnicodeCharacterSet, FALSE);
         gtk_widget_set_sensitive (priv->FileWritingId3v2UseNoUnicodeCharacterSet, FALSE);
-        gtk_widget_set_sensitive(FileWritingId3v2UnicodeCharacterSetCombo, FALSE);
-        gtk_widget_set_sensitive(FileWritingId3v2NoUnicodeCharacterSetCombo, FALSE);
+        gtk_widget_set_sensitive (priv->FileWritingId3v2UnicodeCharacterSetCombo,
+                                  FALSE);
+        gtk_widget_set_sensitive (priv->FileWritingId3v2NoUnicodeCharacterSetCombo,
+                                  FALSE);
         gtk_widget_set_sensitive (priv->LabelAdditionalId3v2IconvOptions, FALSE);
         gtk_widget_set_sensitive (priv->FileWritingId3v2IconvOptionsNo, FALSE);
         gtk_widget_set_sensitive (priv->FileWritingId3v2IconvOptionsTranslit, FALSE);
@@ -1727,7 +1813,7 @@ notify_id3_settings_active (GObject *object,
     active = g_settings_get_boolean (MainSettings, "id3v1-enabled");
 
     gtk_widget_set_sensitive (priv->LabelId3v1Charset, active);
-    gtk_widget_set_sensitive(FileWritingId3v1CharacterSetCombo, active);
+    gtk_widget_set_sensitive (priv->FileWritingId3v1CharacterSetCombo, active);
     gtk_widget_set_sensitive (priv->LabelAdditionalId3v1IconvOptions, active);
     gtk_widget_set_sensitive (priv->FileWritingId3v1IconvOptionsNo, active);
     gtk_widget_set_sensitive (priv->FileWritingId3v1IconvOptionsTranslit, active);
