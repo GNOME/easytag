@@ -122,7 +122,8 @@ void
 et_mb_entity_view_select_up (EtMbEntityView *entity_view);
 void
 et_mb_entity_view_select_down (EtMbEntityView *entity_view);
-
+void
+et_mb_entity_view_clear_all (EtMbEntityView *entity_view);
 G_END_DECLS
 
 #endif /* __MB_ENTITY_VIEW_H__ */

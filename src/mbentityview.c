@@ -37,7 +37,7 @@ G_DEFINE_TYPE (EtMbEntityView, et_mb_entity_view, GTK_TYPE_BOX)
  * Declaration *
  ***************/
 
-char *columns [MB_ENTITY_TYPE_COUNT][8] = {
+char *columns [MB_ENTITY_KIND_COUNT][8] = {
     {"Name", "Gender", "Type"},
     {"Name", "Artist", "Type"},
     {"Name", "Album", "Artist", "Time"},
@@ -78,7 +78,7 @@ static GSimpleAsyncResult *async_result;
 typedef struct
 {
     GtkWidget *bread_crumb_box;
-    GNode *bread_crumb_nodes[MB_ENTITY_TYPE_COUNT];
+    GNode *bread_crumb_nodes[MB_ENTITY_KIND_COUNT];
     GtkWidget *tree_view;
     GtkTreeModel *list_store;
     GtkWidget *scrolled_window;
@@ -130,8 +130,7 @@ static gboolean
 tree_filter_visible_func (GtkTreeModel *model, GtkTreeIter *iter,
                           gpointer data);
 static void
-et_mb_entity_view_destroy (GtkWidget *object);
-
+et_mb_entity_view_finalize (GObject *object);
 /*************
  * Functions *
  *************/
@@ -151,7 +150,9 @@ tree_filter_visible_func (GtkTreeModel *model, GtkTreeIter *iter,
                           gpointer data)
 {
     EtMbEntityViewPrivate *priv;
+    int columns;
 
+    columns = gtk_tree_model_get_n_columns (model);
     priv = (EtMbEntityViewPrivate *)data;
 
     if (priv->search_or_red == ET_MB_DISPLAY_RESULTS_ALL)
@@ -178,17 +179,15 @@ tree_filter_visible_func (GtkTreeModel *model, GtkTreeIter *iter,
     {
         gchar *value;
 
-        if (gtk_tree_model_get_n_columns (model) == MB_ARTIST_COLUMNS_N + 1)
+        if (columns == MB_ARTIST_COLUMNS_N + 1)
         {
             gtk_tree_model_get (model, iter, MB_ARTIST_COLUMNS_N, &value, -1);
         }
-        else if (gtk_tree_model_get_n_columns (model) ==
-                 MB_ALBUM_COLUMNS_N + 1)
+        else if (columns == MB_ALBUM_COLUMNS_N + 1)
         {
             gtk_tree_model_get (model, iter, MB_ALBUM_COLUMNS_N, &value, -1);
         }
-        else if (gtk_tree_model_get_n_columns (model) ==
-                 MB_TRACK_COLUMNS_N + 1)
+        else if (columns == MB_TRACK_COLUMNS_N + 1)
         {
             gtk_tree_model_get (model, iter, MB_TRACK_COLUMNS_N, &value, -1);
         }
@@ -220,11 +219,8 @@ tree_filter_visible_func (GtkTreeModel *model, GtkTreeIter *iter,
 static void
 et_mb_entity_view_class_init (EtMbEntityViewClass *klass)
 {
-    GtkWidgetClass *widget_class;
-
     g_type_class_add_private (klass, sizeof (EtMbEntityViewPrivate));
-    widget_class = GTK_WIDGET_CLASS (klass);
-    widget_class->destroy = et_mb_entity_view_destroy;
+    G_OBJECT_CLASS (klass)->finalize = et_mb_entity_view_finalize;
 }
 
 /*
@@ -254,7 +250,7 @@ static void
 add_iter_to_list_store (GtkListStore *list_store, GNode *node)
 {
     /* Traverse node in GNode and add it to list_store */
-    enum MB_ENTITY_TYPE type;
+    MbEntityKind type;
     Mb5ArtistCredit artist_credit;
     Mb5NameCreditList name_list;
     Mb5ReleaseGroup release_group;
@@ -275,10 +271,11 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
 
         switch (type)
         {
-            case MB_ENTITY_TYPE_ARTIST:
+            case MB_ENTITY_KIND_ARTIST:
                 mb5_artist_get_name ((Mb5Artist)entity, name, sizeof (name));
                 gtk_list_store_insert_with_values (list_store, &iter, -1,
-                                        MB_ARTIST_COLUMNS_N, "black", -1);
+                                                   MB_ARTIST_COLUMNS_N,
+                                                   "black", -1);
                 gtk_list_store_set (list_store, &iter,
                                     MB_ARTIST_COLUMNS_NAME, name, -1);
 
@@ -305,7 +302,7 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
 
                 break;
 
-            case MB_ENTITY_TYPE_ALBUM:
+            case MB_ENTITY_KIND_ALBUM:
                 mb5_release_get_title ((Mb5Release)entity, name,
                                        sizeof (name));
                 gtk_list_store_insert_with_values (list_store, &iter, -1,
@@ -355,7 +352,7 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                                     MB_ALBUM_COLUMNS_TYPE, name, -1);
                 break;
 
-            case MB_ENTITY_TYPE_TRACK:
+            case MB_ENTITY_KIND_TRACK:
                 mb5_recording_get_title ((Mb5Recording)entity, name,
                                          sizeof (name));
                 gtk_list_store_append (list_store, &iter);
@@ -422,8 +419,8 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                                     name, -1);
                 break;
 
-            case MB_ENTITY_TYPE_COUNT:
-            case MB_ENTITY_TYPE_DISCID:
+            case MB_ENTITY_KIND_COUNT:
+            case MB_ENTITY_KIND_DISCID:
                 break;
         }
 
@@ -478,15 +475,15 @@ show_data_in_entity_view (EtMbEntityView *entity_view)
     type = ((EtMbEntity *)(g_node_first_child (priv->mb_tree_current_node)->data))->type;
     switch (type)
     {
-        case MB_ENTITY_TYPE_ARTIST:
+        case MB_ENTITY_KIND_ARTIST:
             total_cols = MB_ARTIST_COLUMNS_N;
             break;
 
-        case MB_ENTITY_TYPE_ALBUM:
+        case MB_ENTITY_KIND_ALBUM:
             total_cols = MB_ALBUM_COLUMNS_N;
             break;
 
-        case MB_ENTITY_TYPE_TRACK:
+        case MB_ENTITY_KIND_TRACK:
             total_cols = MB_TRACK_COLUMNS_N;
             break;
 
@@ -509,8 +506,14 @@ show_data_in_entity_view (EtMbEntityView *entity_view)
 
     /* Setting the colour column */
     types [total_cols] = G_TYPE_STRING;
+    //if (priv->list_store == NULL)
     priv->list_store = GTK_TREE_MODEL (gtk_list_store_newv (total_cols + 1,
                                                             types));
+    /*else FIXME:
+    {
+        gtk_list_store_clear (GTK_LIST_STORE (priv->list_store));
+        gtk_list_store_set_column_types (GTK_LIST_STORE (priv->list_store), total_cols + 1, types);
+    }*/
     priv->filter = GTK_TREE_MODEL (gtk_tree_model_filter_new (priv->list_store,
                                                               NULL));
     gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (priv->filter),
@@ -677,12 +680,12 @@ search_in_levels_thread_func (GSimpleAsyncResult *res, GObject *obj,
     }
 
     if (((EtMbEntity *)thread_data->child->data)->type ==
-        MB_ENTITY_TYPE_TRACK)
+        MB_ENTITY_KIND_TRACK)
     {
         return;
     }
     else if (((EtMbEntity *)thread_data->child->data)->type ==
-             MB_ENTITY_TYPE_ARTIST)
+             MB_ENTITY_KIND_ARTIST)
     {
         child_entity_type_str = g_strdup ("Albums ");
         mb5_artist_get_id (((EtMbEntity *)thread_data->child->data)->entity,
@@ -691,7 +694,7 @@ search_in_levels_thread_func (GSimpleAsyncResult *res, GObject *obj,
                              parent_entity_str, sizeof (parent_entity_str));
     }
     else if (((EtMbEntity *)thread_data->child->data)->type ==
-             MB_ENTITY_TYPE_ALBUM)
+             MB_ENTITY_KIND_ALBUM)
     {
         child_entity_type_str = g_strdup ("Tracks ");
         mb5_release_get_id (((EtMbEntity *)thread_data->child->data)->entity,
@@ -769,7 +772,7 @@ tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
                               depth);
 
     if (((EtMbEntity *)child->data)->type ==
-        MB_ENTITY_TYPE_TRACK)
+        MB_ENTITY_KIND_TRACK)
     {
         return;
     }
@@ -816,10 +819,11 @@ et_mb_entity_view_init (EtMbEntityView *entity_view)
     priv->bread_crumb_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
     priv->tree_view = gtk_tree_view_new ();
     priv->scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->scrolled_window),
+                                    GTK_POLICY_AUTOMATIC,
+                                    GTK_POLICY_AUTOMATIC);
     gtk_container_add (GTK_CONTAINER (priv->scrolled_window),
                        priv->tree_view);
-    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->scrolled_window),
-                                    GTK_POLICY_ALWAYS, GTK_POLICY_ALWAYS);
     gtk_box_pack_start (GTK_BOX (entity_view), priv->bread_crumb_box,
                         FALSE, FALSE, 2);
     gtk_box_pack_start (GTK_BOX (entity_view), priv->scrolled_window,
@@ -829,7 +833,7 @@ et_mb_entity_view_init (EtMbEntityView *entity_view)
     priv->active_toggle_button = NULL;
     priv->toggle_red_lines = TRUE;
     priv->search_or_red = ET_MB_DISPLAY_RESULTS_ALL;
-
+    priv->list_store = NULL;
     g_signal_connect (G_OBJECT (priv->tree_view), "row-activated",
                       G_CALLBACK (tree_view_row_activated), entity_view);
 }
@@ -874,15 +878,15 @@ et_mb_entity_view_set_tree_root (EtMbEntityView *entity_view, GNode *treeRoot)
     {
         switch (((EtMbEntity *)child->data)->type)
         {
-            case MB_ENTITY_TYPE_ARTIST:
+            case MB_ENTITY_KIND_ARTIST:
                 gtk_button_set_label (GTK_BUTTON (btn), _("Artists"));
                 break;
 
-            case MB_ENTITY_TYPE_ALBUM:
+            case MB_ENTITY_KIND_ALBUM:
                 gtk_button_set_label (GTK_BUTTON (btn), _("Albums"));
                 break;
 
-            case MB_ENTITY_TYPE_TRACK:
+            case MB_ENTITY_KIND_TRACK:
                 gtk_button_set_label (GTK_BUTTON (btn), _("Tracks"));
                 break;
 
@@ -1119,6 +1123,19 @@ et_mb_entity_view_refresh_current_level (EtMbEntityView *entity_view)
 {
 }
 
+void
+et_mb_entity_view_clear_all (EtMbEntityView *entity_view)
+{
+    EtMbEntityViewPrivate *priv;
+
+    priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
+
+    if (GTK_IS_LIST_STORE (priv->list_store))
+    {
+        gtk_list_store_clear (GTK_LIST_STORE (priv->list_store));
+    }
+}
+
 /*
  * et_mb_entity_view_destroy:
  * @object: EtMbEntityView
@@ -1126,7 +1143,7 @@ et_mb_entity_view_refresh_current_level (EtMbEntityView *entity_view)
  * Overloaded destructor for EtMbEntityView.
  */
 static void
-et_mb_entity_view_destroy (GtkWidget *object)
+et_mb_entity_view_finalize (GObject *object)
 {
     EtMbEntityView *entity_view;
     EtMbEntityViewPrivate *priv;
@@ -1136,6 +1153,7 @@ et_mb_entity_view_destroy (GtkWidget *object)
 
     entity_view = ET_MB_ENTITY_VIEW (object);
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
+<<<<<<< HEAD
 
     if (GTK_IS_LIST_STORE (priv->list_store))
     {
@@ -1146,4 +1164,8 @@ et_mb_entity_view_destroy (GtkWidget *object)
     {
         (*GTK_WIDGET_CLASS (et_mb_entity_view_parent_class)->destroy)(object);
     }
+=======
+    g_clear_object (&priv->list_store);
+    G_OBJECT_CLASS (et_mb_entity_view_parent_class)->finalize(object);
+>>>>>>> 4b51406... Some Improvements after review
 }
