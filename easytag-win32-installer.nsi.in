@@ -318,6 +318,7 @@ SectionGroup "Translations" SecTranslations
   !insertmacro Locale "id"
   !insertmacro Locale "it"
   !insertmacro Locale "ja"
+  !insertmacro Locale "ko"
   !insertmacro Locale "lt"
   !insertmacro Locale "nl"
   !insertmacro Locale "pl"
