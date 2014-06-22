@@ -244,17 +244,24 @@ btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
     int type;
     ManualSearchThreadData *thread_data;
 
+    cb_manual_search_in = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                              "cbManualSearchIn"));
+    type = gtk_combo_box_get_active (GTK_COMBO_BOX (cb_manual_search_in));
+
+    if (type == -1)
+    {
+        return;
+    }
+
     if (g_node_first_child (mb_tree_root))
     {
         free_mb_tree (mb_tree_root);
         mb_tree_root = g_node_new (NULL);
     }
  
+    et_mb_entity_view_clear_all (ET_MB_ENTITY_VIEW (entityView));
     cb_manual_search = GTK_WIDGET (gtk_builder_get_object (builder,
                                                            "cbManualSearch"));
-    cb_manual_search_in = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                              "cbManualSearchIn"));
-    type = gtk_combo_box_get_active (GTK_COMBO_BOX (cb_manual_search_in));
     thread_data = g_malloc (sizeof (ManualSearchThreadData));
     thread_data->type = type;
     thread_data->text_to_search = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (cb_manual_search));
@@ -377,7 +384,10 @@ tool_btn_refersh_clicked (GtkWidget *btn, gpointer user_data)
 static void
 btn_manual_stop_clicked (GtkWidget *btn, gpointer user_data)
 {
-    g_cancellable_cancel (mb5_search_cancellable);
+    if (G_IS_CANCELLABLE (mb5_search_cancellable))
+    {
+        g_cancellable_cancel (mb5_search_cancellable);
+    }
 }
 
 /*

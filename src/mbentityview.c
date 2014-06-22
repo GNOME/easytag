@@ -1114,6 +1114,15 @@ et_mb_entity_view_refresh_current_level (EtMbEntityView *entity_view)
 {
 }
 
+void
+et_mb_entity_view_clear_all (EtMbEntityView *entity_view)
+{
+    EtMbEntityViewPrivate *priv;
+
+    priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
+    gtk_list_store_clear (GTK_LIST_STORE (priv->list_store));
+}
+
 /*
  * et_mb_entity_view_destroy:
  * @object: EtMbEntityView
