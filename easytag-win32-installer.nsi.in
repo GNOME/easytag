@@ -197,6 +197,7 @@ Section "Core ${PRODUCT_NAME} Files" SecProgram
   File "${PREFIX}/bin/libvorbis-0.dll"
   File "${PREFIX}/bin/libvorbisfile-3.dll"
   File "${PREFIX}/bin/libwavpack-1.dll"
+  File "${PREFIX}/bin/glib-compile-schemas.exe"
   File "${PREFIX}/bin/gspawn-win32-helper.exe"
   File "${PREFIX}/bin/pango-querymodules.exe"
   File "${PREFIX}/bin/zlib1.dll"
@@ -238,12 +239,16 @@ Section "Core ${PRODUCT_NAME} Files" SecProgram
   SetOutPath "$INSTDIR\share\icons\hicolor\48x48\apps"
   File "${DESTDIR}${PREFIX}/share/icons/hicolor/48x48/apps/easytag.png"
 
+  SetOutPath "$INSTDIR\share\glib-2.0\schemas"
+  File "${PREFIX}/share/glib-2.0/schemas/org.gtk.Settings.FileChooser.gschema.xml"
+
   SetOutPath "$INSTDIR\bin"
   File "${DESTDIR}${PREFIX}/bin/${PRODUCT_EXE_NAME}"
 
   ReadEnvStr $0 COMSPEC
   SetOutPath "$INSTDIR"
-  nsExec::ExecToLog '$0 /C \bin\pango-querymodules.exe > etc\pango\pango.modules'
+  nsExec::ExecToLog '"$0" /C bin\pango-querymodules.exe > etc\pango\pango.modules'
+  nsExec::ExecToLog '"$0" /C bin\glib-compile-schemas.exe share\glib-2.0\schemas'
 
   ; FIXME: ChangeLog should come from the dist dir, otherwise it does not
   ; contain the generated changelog.
@@ -396,6 +401,8 @@ Section Uninstall
 
   Delete /rebootok "$INSTDIR\bin\zlib1.dll"
   Delete /rebootok "$INSTDIR\bin\pango-querymodules.exe"
+  Delete /rebootok "$INSTDIR\bin\gspawn-win32-helper.exe"
+  Delete /rebootok "$INSTDIR\bin\glib-compile-schemas.exe"
   Delete /rebootok "$INSTDIR\bin\libwavpack-1.dll"
   Delete /rebootok "$INSTDIR\bin\libvorbisfile-3.dll"
   Delete /rebootok "$INSTDIR\bin\libvorbis-0.dll"
