@@ -1,3 +1,15 @@
+2.2.3 - 2014-06-22 :
+====================
+
+    * Avoid a crash when browsing hidden directories
+    * Andreas Winkelmann’s browser crash and memory leak fixes
+    * Avoid a crash with GtkFileChooser on Windows
+    * Restore process fields options correctly
+    * Add .m4v as a supported MP4 extension
+    * Seong-ho Cho’s Korean translation
+    * Tom Tryfonidis’s Greek translation update
+    * Мирослав Николић’s Serbian translation update
+
 2.2.2 - 2014-05-09 :
 ====================
 
