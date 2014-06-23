@@ -67,19 +67,19 @@ typedef enum
     ET_MB5_SEARCH_ERROR_DISCID,
 } EtMB5SearchError;
 
-enum MB_ENTITY_TYPE
+typedef enum _MbEntityKind
 {
-    MB_ENTITY_TYPE_ARTIST = 0,
-    MB_ENTITY_TYPE_ALBUM,
-    MB_ENTITY_TYPE_TRACK,
-    MB_ENTITY_TYPE_COUNT,
-    MB_ENTITY_TYPE_DISCID,
-};
+    MB_ENTITY_KIND_ARTIST = 0,
+    MB_ENTITY_KIND_ALBUM,
+    MB_ENTITY_KIND_TRACK,
+    MB_ENTITY_KIND_COUNT,
+    MB_ENTITY_KIND_DISCID,
+} MbEntityKind;
 
 typedef struct
 {
     Mb5Entity entity;
-    enum MB_ENTITY_TYPE type;
+    MbEntityKind type;
     gboolean is_red_line;
 } EtMbEntity;
 
@@ -90,12 +90,12 @@ typedef struct
 void
 et_musicbrainz_search_set_server_port (gchar *server, int port);
 gboolean
-et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
-                                 enum MB_ENTITY_TYPE parent_type,
+et_musicbrainz_search_in_entity (MbEntityKind child_type,
+                                 MbEntityKind parent_type,
                                  gchar *parent_mbid, GNode *root,
                                  GError **error, GCancellable *cancellable);
 gboolean
-et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
+et_musicbrainz_search (gchar *string, MbEntityKind type, GNode *root,
                        GError **error, GCancellable *cancellable);
 void
 free_mb_tree (GNode *node);

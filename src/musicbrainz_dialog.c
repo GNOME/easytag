@@ -42,6 +42,12 @@ static GSimpleAsyncResult *async_result;
 
 typedef struct
 {
+    GNode *mb_tree_root;
+    GSimpleAsyncResult *async_result;
+} MusicBrainzDialog;
+
+typedef struct
+{
     GHashTable *hash_table;
 } SelectedFindThreadData;
 /*
@@ -189,8 +195,7 @@ manual_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
     }
 
     thread_data = (ManualSearchThreadData *)g_async_result_get_user_data (G_ASYNC_RESULT (res));
-    status_msg = g_strconcat (_("Searching "), thread_data->text_to_search,
-                              NULL);
+    status_msg = g_strdup_printf (_("Searching %s"), thread_data->text_to_search);
     et_show_status_msg_in_idle (status_msg);
     g_free (status_msg);
 
@@ -362,7 +367,7 @@ tool_btn_unselect_all_clicked (GtkWidget *btn, gpointer user_data)
  * Signal Handler for "clicked" signal of btnManualStop.
  */
 static void
-tool_btn_refersh_clicked (GtkWidget *btn, gpointer user_data)
+tool_btn_refresh_clicked (GtkWidget *btn, gpointer user_data)
 {
     /* TODO: Implement Refresh Operation */
     if (et_mb_entity_view_get_current_level (ET_MB_ENTITY_VIEW (entityView)) >
@@ -445,7 +450,7 @@ selected_find_thread_func (GSimpleAsyncResult *res, GObject *obj,
 
     while (iter)
     {
-        if (!et_musicbrainz_search ((gchar *)iter->data, MB_ENTITY_TYPE_ALBUM,
+        if (!et_musicbrainz_search ((gchar *)iter->data, MB_ENTITY_KIND_ALBUM,
                                     mb_tree_root, &error, cancellable))
         {
             g_simple_async_report_gerror_in_idle (NULL,
@@ -621,7 +626,7 @@ discid_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
         return;
     }
 
-    if (!et_musicbrainz_search (discid, MB_ENTITY_TYPE_DISCID, mb_tree_root,
+    if (!et_musicbrainz_search (discid, MB_ENTITY_KIND_DISCID, mb_tree_root,
                                 &error, cancellable))
     {
         g_simple_async_report_gerror_in_idle (NULL,
@@ -650,6 +655,12 @@ btn_discid_search (GtkWidget *button, gpointer data)
     g_simple_async_result_run_in_thread (async_result,
                                          discid_search_thread_func, 0,
                                          mb5_search_cancellable);
+}
+
+static void
+btn_close_clicked (GtkWidget *button, gpointer data)
+{
+    gtk_dialog_response (GTK_DIALOG (mbDialog), GTK_RESPONSE_CLOSE);
 }
 
 /*
@@ -708,6 +719,9 @@ et_open_musicbrainz_dialog ()
     g_signal_connect (gtk_builder_get_object (builder, "toolbtnToggleRedLines"),
                       "clicked", G_CALLBACK (tool_btn_toggle_red_lines_clicked),
                       NULL);
+    g_signal_connect (gtk_builder_get_object (builder, "toolbtnRefresh"),
+                      "clicked", G_CALLBACK (tool_btn_refresh_clicked),
+                      NULL);
     g_signal_connect (gtk_builder_get_object (builder, "btnSelectedFind"),
                       "clicked", G_CALLBACK (bt_selected_find_clicked),
                       NULL);
@@ -719,6 +733,9 @@ et_open_musicbrainz_dialog ()
                       NULL);
     g_signal_connect (gtk_builder_get_object (builder, "btnDiscStop"),
                       "clicked", G_CALLBACK (btn_manual_stop_clicked),
+                      NULL);
+    g_signal_connect (gtk_builder_get_object (builder, "btnClose"),
+                      "clicked", G_CALLBACK (btn_close_clicked),
                       NULL);
     g_signal_connect_after (gtk_builder_get_object (builder, "entryTreeViewSearch"),
                             "changed",
@@ -732,6 +749,8 @@ et_open_musicbrainz_dialog ()
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (cb_manual_search_in), "Artist");
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (cb_manual_search_in), "Album");
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (cb_manual_search_in), "Track");
+
+    gtk_combo_box_set_active (GTK_COMBO_BOX (cb_manual_search_in), 1);
 
     gtk_widget_show_all (mbDialog);
     gtk_dialog_run (GTK_DIALOG (mbDialog));

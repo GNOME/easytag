@@ -64,8 +64,8 @@ et_musicbrainz_search_set_server_port (gchar *_server, int _port)
  * Returns: TRUE if successful, FALSE if not.
  */
 gboolean
-et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
-                                 enum MB_ENTITY_TYPE parent_type,
+et_musicbrainz_search_in_entity (MbEntityKind child_type,
+                                 MbEntityKind parent_type,
                                  gchar *parent_mbid, GNode *root,
                                  GError **error, GCancellable *cancellable)
 {
@@ -88,8 +88,8 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
     param_names [0] = "inc";
     query = mb5_query_new ("easytag", server, port);
 
-    if (child_type == MB_ENTITY_TYPE_ALBUM &&
-        parent_type == MB_ENTITY_TYPE_ARTIST)
+    if (child_type == MB_ENTITY_KIND_ALBUM &&
+        parent_type == MB_ENTITY_KIND_ARTIST)
     {
         param_values [0] = "releases";
         metadata = mb5_query_query (query, "artist", parent_mbid, "", 1,
@@ -171,7 +171,7 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                                                             param_values);
                         entity = g_malloc (sizeof (EtMbEntity));
                         entity->entity = mb5_release_clone (mb5_metadata_get_release (metadata_release));
-                        entity->type = MB_ENTITY_TYPE_ALBUM;
+                        entity->type = MB_ENTITY_KIND_ALBUM;
                         entity->is_red_line = FALSE;
                         node = g_node_new (entity);
                         g_node_append (root, node);
@@ -187,8 +187,8 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
             goto err;
         }
     }
-    else if (child_type == MB_ENTITY_TYPE_TRACK &&
-             parent_type == MB_ENTITY_TYPE_ALBUM)
+    else if (child_type == MB_ENTITY_KIND_TRACK &&
+             parent_type == MB_ENTITY_KIND_ALBUM)
     {
         param_values [0] = "recordings";
         metadata = mb5_query_query (query, "release", parent_mbid, "", 1,
@@ -269,7 +269,7 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
                                                                   param_values);
                             entity = g_malloc (sizeof (EtMbEntity));
                             entity->entity = mb5_recording_clone (mb5_metadata_get_recording (metadata_recording));
-                            entity->type = MB_ENTITY_TYPE_TRACK;
+                            entity->type = MB_ENTITY_KIND_TRACK;
                             entity->is_red_line = FALSE;
                             node = g_node_new (entity);
                             g_node_append (root, node);
@@ -348,7 +348,7 @@ et_musicbrainz_search_in_entity (enum MB_ENTITY_TYPE child_type,
  * Returns: TRUE if successfull, FALSE if not.
  */
 gboolean
-et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
+et_musicbrainz_search (gchar *string, MbEntityKind type, GNode *root,
                        GError **error, GCancellable *cancellable)
 {
     Mb5Query query;
@@ -375,7 +375,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
         return FALSE;
     }
 
-    if (type == MB_ENTITY_TYPE_ARTIST)
+    if (type == MB_ENTITY_KIND_ARTIST)
     {
         param_values [0] = g_strconcat ("artist:", string, NULL);
         metadata = mb5_query_query (query, "artist", "", "", 2, param_names,
@@ -414,7 +414,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
                         EtMbEntity *entity;
                         entity = g_malloc (sizeof (EtMbEntity));
                         entity->entity = mb5_artist_clone (artist);
-                        entity->type = MB_ENTITY_TYPE_ARTIST;
+                        entity->type = MB_ENTITY_KIND_ARTIST;
                         entity->is_red_line = FALSE;
                         node = g_node_new (entity);
                         g_node_append (root, node);
@@ -430,7 +430,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
         }
     }
 
-    else if (type == MB_ENTITY_TYPE_ALBUM)
+    else if (type == MB_ENTITY_KIND_ALBUM)
     {
         param_values [0] = g_strconcat ("release:", string, NULL);
         metadata = mb5_query_query (query, "release", "", "", 2, param_names,
@@ -501,7 +501,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
                                                             param_values);
                         entity = g_malloc (sizeof (EtMbEntity));
                         entity->entity = mb5_release_clone (mb5_metadata_get_release (metadata_release));
-                        entity->type = MB_ENTITY_TYPE_ALBUM;
+                        entity->type = MB_ENTITY_KIND_ALBUM;
                         entity->is_red_line = FALSE;
                         node = g_node_new (entity);
                         g_node_append (root, node);
@@ -518,7 +518,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
         }
     }
 
-    else if (type == MB_ENTITY_TYPE_TRACK)
+    else if (type == MB_ENTITY_KIND_TRACK)
     {
         param_values [0] = g_strconcat ("recordings:", string, NULL);
         metadata = mb5_query_query (query, "recording", "", "", 2,
@@ -584,7 +584,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
                                                           param_values);
                     entity = g_malloc (sizeof (EtMbEntity));
                     entity->entity = mb5_recording_clone (mb5_metadata_get_recording (metadata_recording));
-                    entity->type = MB_ENTITY_TYPE_TRACK;
+                    entity->type = MB_ENTITY_KIND_TRACK;
                     entity->is_red_line = FALSE;
                     node = g_node_new (entity);
                     g_node_append (root, node);
@@ -600,7 +600,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
         }
     }
 
-    else if (type == MB_ENTITY_TYPE_DISCID)
+    else if (type == MB_ENTITY_KIND_DISCID)
     {
         param_names[0] = "toc";
         param_values [0] = "";
@@ -673,7 +673,7 @@ et_musicbrainz_search (gchar *string, enum MB_ENTITY_TYPE type, GNode *root,
                                                             param_values);
                         entity = g_malloc (sizeof (EtMbEntity));
                         entity->entity = mb5_release_clone (mb5_metadata_get_release (metadata_release));
-                        entity->type = MB_ENTITY_TYPE_ALBUM;
+                        entity->type = MB_ENTITY_KIND_ALBUM;
                         entity->is_red_line = FALSE;
                         node = g_node_new (entity);
                         g_node_append (root, node);
@@ -755,17 +755,17 @@ free_mb_tree (GNode *node)
 
     if (et_entity)
     {
-        if (et_entity->type == MB_ENTITY_TYPE_ARTIST)
+        if (et_entity->type == MB_ENTITY_KIND_ARTIST)
         {
             mb5_artist_delete ((Mb5Artist)et_entity->entity);
         }
 
-        else if (et_entity->type == MB_ENTITY_TYPE_ALBUM)
+        else if (et_entity->type == MB_ENTITY_KIND_ALBUM)
         {
             mb5_release_delete ((Mb5Release)et_entity->entity);
         }
 
-        else if (et_entity->type == MB_ENTITY_TYPE_TRACK)
+        else if (et_entity->type == MB_ENTITY_KIND_TRACK)
         {
             mb5_recording_delete ((Mb5Recording)et_entity->entity);
         }
