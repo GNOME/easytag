@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkImage" id="findimage">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-find</property>
+  </object>
+  <object class="GtkImage" id="img_invert_selection">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">easytag-invert-selection</property>
+  </object>
   <object class="GtkImage" id="img_red_lines">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -10,11 +20,6 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="stock">easytag-unselect-all</property>
-  </object>
-  <object class="GtkImage" id="findimage">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-find</property>
   </object>
   <object class="GtkImage" id="image10">
     <property name="visible">True</property>
@@ -51,11 +56,6 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="stock">gtk-stop</property>
-  </object>
-  <object class="GtkImage" id="img_invert_selection">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">easytag-invert-selection</property>
   </object>
   <object class="GtkDialog" id="mbDialog">
     <property name="can_focus">False</property>
@@ -156,6 +156,7 @@
                                 <child>
                                   <object class="GtkButton" id="btnAutomaticStop">
                                     <property name="visible">True</property>
+                                    <property name="sensitive">False</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
                                     <property name="image">image9</property>
@@ -300,6 +301,7 @@
                             <child>
                               <object class="GtkButton" id="btnManualStop">
                                 <property name="visible">True</property>
+                                <property name="sensitive">False</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
                                 <property name="tooltip_text" translatable="yes">Stop Manual Search</property>
@@ -377,6 +379,7 @@
                         <child>
                           <object class="GtkButton" id="btnSelectedStop">
                             <property name="visible">True</property>
+                            <property name="sensitive">False</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
                             <property name="image">image11</property>
@@ -453,6 +456,7 @@
                         <child>
                           <object class="GtkButton" id="btnDiscStop">
                             <property name="visible">True</property>
+                            <property name="sensitive">False</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
                             <property name="image">image13</property>
@@ -699,7 +703,7 @@
                     <property name="can_focus">False</property>
                     <property name="spacing">4</property>
                     <child>
-                      <object class="GtkButton" id="button9">
+                      <object class="GtkButton" id="btnClose">
                         <property name="label" translatable="yes">Close</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>

@@ -138,6 +138,8 @@ AC_ARG_ENABLE([mp4],
 AC_ARG_ENABLE([wavpack],
               [AS_HELP_STRING([--disable-wavpack], [Disable support for Wavpack files (default=auto)])])
 
+AC_ARG_ENABLE([libmusicbrainz],
+              [AS_HELP_STRING([--disable-libmusicbrainz], [Disable support for libmusicbrainz (default=auto)])])
 
 dnl -------------------------------
 dnl Checks for libraries.
@@ -149,6 +151,15 @@ GTK_DEPRECATION_FLAGS="-DGDK_VERSION_MIN_REQUIRED=GDK_VERSION_3_4 -DGDK_VERSION_
 
 dnl libmusicbrainz5
 libmusicbrainz_DEPS="libmusicbrainz5 >= 5.0"
+AS_IF([test "x$enable_libmusicbrainz" != "xno"],
+      [PKG_CHECK_EXISTS([$libmusicbrainz_DEPS], [have_libmusicbrainz=yes], [have_libmusicbrainz=no])],
+      [have_libmusicbrainz=no])
+
+AS_IF([test "x$have_libmusicbrainz" != "xno"],
+      [AC_DEFINE([ENABLE_libmusicbrainz], [], [Define for libmusicbrainz support])],
+      [libmusicbrainz_DEPS=""
+       AS_IF([test "x$enable_libmusicbrainz" = "xyes"],
+             [AC_MSG_ERROR([libmusicbrainz support requested but required dependencies ($libmusicbrainz_DEPS) not found])])])
 
 dnl Patch from Ben Taylor to fix a Solaris bug (for CDDB)
 AC_CHECK_LIB([socket], [recv])
@@ -403,6 +414,7 @@ echo Ogg Opus file support ...: $have_opus
 echo FLAC file support .......: $have_flac
 echo MP4 file support ........: $have_taglib
 echo WavPack support .........: $have_wavpack
+echo MusicBrainz support .....: $have_libmusicbrainz
 echo NLS/gettext .............: $USE_NLS
 echo Tests during make check .: $testing_utilities
 echo Install prefix ..........: $prefix

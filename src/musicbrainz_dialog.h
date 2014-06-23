@@ -21,6 +21,10 @@
 #ifndef __MUSICBRAINZ_DIALOG_H__
 #define __MUSICBRAINZ_DIALOG_H__
 
+#include "config.h"
+
+#ifdef ENABLE_libmusicbrainz
+
 /****************
  * Declarations *
  ****************/
@@ -41,3 +45,4 @@ mb5_search_error_callback (GObject *source, GAsyncResult *res,
 void
 et_show_status_msg_in_idle (gchar *message);
 #endif /* __MUSICBRAINZ_DIALOG_H__ */
+#endif /* ENABLE_libmusicbrainz */

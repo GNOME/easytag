@@ -18,6 +18,10 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
+#include "config.h"
+
+#ifdef ENABLE_libmusicbrainz
+
 #include <glib/gi18n.h>
 
 #include "mb_search.h"
@@ -783,3 +787,4 @@ free_mb_tree (GNode *node)
 
     g_node_destroy (node);
 }
+#endif /* ENABLE_libmusicbrainz */

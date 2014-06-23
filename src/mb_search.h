@@ -21,6 +21,10 @@
 #ifndef __MB_SEARCH_H__
 #define __MB_SEARCH_H__
 
+#include "config.h"
+
+#ifdef ENABLE_libmusicbrainz
+
 #include <gtk/gtk.h>
 #include <musicbrainz5/mb5_c.h>
 
@@ -102,3 +106,4 @@ free_mb_tree (GNode *node);
 void
 et_set_cancel_error (GError **error);
 #endif /* __MB_SEARCH_H__ */
+#endif /* ENABLE_libmusicbrainz */

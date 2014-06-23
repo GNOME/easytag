@@ -286,8 +286,10 @@ void Create_UI (GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { AM_SEARCH_FILE, GTK_STOCK_FIND, _("_Find…"), "<Primary>F",
           _("Search filenames and tags"),
           G_CALLBACK (Open_Search_File_Window) },
+#ifdef ENABLE_libmusicbrainz
         { AM_MB_SEARCH, GTK_STOCK_CDROM, _("MusicBrainz_ Search…"), "<Primary>B",
           _("MusicBrainz search"), G_CALLBACK (et_open_musicbrainz_dialog) },
+#endif
         { AM_FILENAME_FROM_TXT, GTK_STOCK_OPEN,
           _("Load Filenames From a Text File…"), "<Primary>T",
           _("Load filenames from a text file"),

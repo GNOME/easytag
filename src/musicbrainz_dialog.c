@@ -20,6 +20,8 @@
  
 #include "config.h"
 
+#ifdef ENABLE_libmusicbrainz
+
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 #include <glib/gi18n.h>
@@ -36,15 +38,15 @@
 /***************
  * Declaration *
  ***************/
-
-static GNode *mb_tree_root;
-static GSimpleAsyncResult *async_result;
+//static GSimpleAsyncResult *async_result;
 
 typedef struct
 {
     GNode *mb_tree_root;
     GSimpleAsyncResult *async_result;
-} MusicBrainzDialog;
+} MusicBrainzDialogPrivate;
+
+static MusicBrainzDialogPrivate *mb_dialog_priv;
 
 typedef struct
 {
@@ -85,13 +87,13 @@ manual_search_callback (GObject *source, GAsyncResult *res,
     {
         g_object_unref (res);
         g_free (user_data);
-        free_mb_tree (mb_tree_root);
-        mb_tree_root = g_node_new (NULL);
+        free_mb_tree (mb_dialog_priv->mb_tree_root);
+        mb_dialog_priv->mb_tree_root = g_node_new (NULL);
         return;
     }
 
     et_mb_entity_view_set_tree_root (ET_MB_ENTITY_VIEW (entityView),
-                                     mb_tree_root);
+                                     mb_dialog_priv->mb_tree_root);
     gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder,
                         "statusbar")), 0, _("Searching Completed"));
     g_object_unref (res);
@@ -211,7 +213,7 @@ manual_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
     }
 
     if (!et_musicbrainz_search (thread_data->text_to_search,
-                                thread_data->type, mb_tree_root, &error,
+                                thread_data->type, mb_dialog_priv->mb_tree_root, &error,
                                 cancellable))
     {
         g_simple_async_report_gerror_in_idle (NULL,
@@ -258,10 +260,10 @@ btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
         return;
     }
 
-    if (g_node_first_child (mb_tree_root))
+    if (g_node_first_child (mb_dialog_priv->mb_tree_root))
     {
-        free_mb_tree (mb_tree_root);
-        mb_tree_root = g_node_new (NULL);
+        free_mb_tree (mb_dialog_priv->mb_tree_root);
+        mb_dialog_priv->mb_tree_root = g_node_new (NULL);
     }
  
     et_mb_entity_view_clear_all (ET_MB_ENTITY_VIEW (entityView));
@@ -273,10 +275,10 @@ btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
     mb5_search_cancellable = g_cancellable_new ();
     gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder,
                         "statusbar")), 0, _("Starting MusicBrainz Search"));
-    async_result = g_simple_async_result_new (NULL, manual_search_callback,
+    mb_dialog_priv->async_result = g_simple_async_result_new (NULL, manual_search_callback,
                                               thread_data,
                                               btn_manual_find_clicked);
-    g_simple_async_result_run_in_thread (async_result,
+    g_simple_async_result_run_in_thread (mb_dialog_priv->async_result,
                                          manual_search_thread_func, 0,
                                          mb5_search_cancellable);
 }
@@ -419,13 +421,13 @@ selected_find_callback (GObject *source, GAsyncResult *res,
         g_object_unref (res);
         g_object_unref (((SelectedFindThreadData *)user_data)->hash_table);
         g_free (user_data);
-        free_mb_tree (mb_tree_root);
-        mb_tree_root = g_node_new (NULL);
+        free_mb_tree (mb_dialog_priv->mb_tree_root);
+        mb_dialog_priv->mb_tree_root = g_node_new (NULL);
         return;
     }
 
     et_mb_entity_view_set_tree_root (ET_MB_ENTITY_VIEW (entityView),
-                                     mb_tree_root);
+                                     mb_dialog_priv->mb_tree_root);
     gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
                         0, _("Searching Completed"));
     g_object_unref (res);
@@ -451,7 +453,7 @@ selected_find_thread_func (GSimpleAsyncResult *res, GObject *obj,
     while (iter)
     {
         if (!et_musicbrainz_search ((gchar *)iter->data, MB_ENTITY_KIND_ALBUM,
-                                    mb_tree_root, &error, cancellable))
+                                    mb_dialog_priv->mb_tree_root, &error, cancellable))
         {
             g_simple_async_report_gerror_in_idle (NULL,
                                                   mb5_search_error_callback,
@@ -557,10 +559,11 @@ bt_selected_find_clicked (GtkWidget *widget, gpointer user_data)
     thread_data = g_malloc (sizeof (SelectedFindThreadData));
     thread_data->hash_table = hash_table;
     mb5_search_cancellable = g_cancellable_new ();
-    async_result = g_simple_async_result_new (NULL, selected_find_callback,
-                                              thread_data,
-                                              bt_selected_find_clicked);
-    g_simple_async_result_run_in_thread (async_result,
+    mb_dialog_priv->async_result = g_simple_async_result_new (NULL,
+                                                              selected_find_callback,
+                                                              thread_data,
+                                                              bt_selected_find_clicked);
+    g_simple_async_result_run_in_thread (mb_dialog_priv->async_result,
                                          selected_find_thread_func, 0,
                                          mb5_search_cancellable);
     gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
@@ -574,13 +577,13 @@ discid_search_callback (GObject *source, GAsyncResult *res,
     if (!g_simple_async_result_get_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res)))
     {
         g_object_unref (res);
-        free_mb_tree (mb_tree_root);
-        mb_tree_root = g_node_new (NULL);
+        free_mb_tree (mb_dialog_priv->mb_tree_root);
+        mb_dialog_priv->mb_tree_root = g_node_new (NULL);
         return;
     }
 
     et_mb_entity_view_set_tree_root (ET_MB_ENTITY_VIEW (entityView),
-                                     mb_tree_root);
+                                     mb_dialog_priv->mb_tree_root);
     gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
                         0, _("Searching Completed"));
     g_object_unref (res);
@@ -626,7 +629,7 @@ discid_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
         return;
     }
 
-    if (!et_musicbrainz_search (discid, MB_ENTITY_KIND_DISCID, mb_tree_root,
+    if (!et_musicbrainz_search (discid, MB_ENTITY_KIND_DISCID, mb_dialog_priv->mb_tree_root,
                                 &error, cancellable))
     {
         g_simple_async_report_gerror_in_idle (NULL,
@@ -637,7 +640,7 @@ discid_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
     }
 
     et_mb_entity_view_set_tree_root (ET_MB_ENTITY_VIEW (entityView),
-                                     mb_tree_root);
+                                     mb_dialog_priv->mb_tree_root);
     discid_free (disc);
     g_simple_async_result_set_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res),
                                                TRUE);
@@ -649,10 +652,10 @@ btn_discid_search (GtkWidget *button, gpointer data)
     mb5_search_cancellable = g_cancellable_new ();
     gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
                         0, _("Starting MusicBrainz Search"));
-    async_result = g_simple_async_result_new (NULL, discid_search_callback,
+    mb_dialog_priv->async_result = g_simple_async_result_new (NULL, discid_search_callback,
                                               NULL,
                                               btn_manual_find_clicked);
-    g_simple_async_result_run_in_thread (async_result,
+    g_simple_async_result_run_in_thread (mb_dialog_priv->async_result,
                                          discid_search_thread_func, 0,
                                          mb5_search_cancellable);
 }
@@ -660,7 +663,10 @@ btn_discid_search (GtkWidget *button, gpointer data)
 static void
 btn_close_clicked (GtkWidget *button, gpointer data)
 {
-    gtk_dialog_response (GTK_DIALOG (mbDialog), GTK_RESPONSE_CLOSE);
+    gtk_widget_destroy (mbDialog);
+    g_object_unref (G_OBJECT (builder));
+    free_mb_tree (mb_dialog_priv->mb_tree_root);
+    g_free (mb_dialog_priv);
 }
 
 /*
@@ -689,12 +695,14 @@ et_open_musicbrainz_dialog ()
         return;
     }
 
-    mb_tree_root = g_node_new (NULL);
+    mb_dialog_priv = g_malloc (sizeof (MusicBrainzDialogPrivate));
+    mb_dialog_priv->mb_tree_root = g_node_new (NULL);
     entityView = et_mb_entity_view_new ();
     mbDialog = GTK_WIDGET (gtk_builder_get_object (builder, "mbDialog"));
     gtk_widget_set_size_request (mbDialog, 600, 500);
     gtk_box_pack_start (GTK_BOX (gtk_builder_get_object (builder, "centralBox")),
                         entityView, TRUE, TRUE, 2);
+    
     g_signal_connect (gtk_builder_get_object (builder, "btnManualFind"),
                       "clicked", G_CALLBACK (btn_manual_find_clicked),
                       NULL);
@@ -756,5 +764,7 @@ et_open_musicbrainz_dialog ()
     gtk_dialog_run (GTK_DIALOG (mbDialog));
     gtk_widget_destroy (mbDialog);
     g_object_unref (G_OBJECT (builder));
-    free_mb_tree (mb_tree_root);
+    free_mb_tree (mb_dialog_priv->mb_tree_root);
+    g_free (mb_dialog_priv);
 }
+#endif /* ENABLE_libmusicbrainz */

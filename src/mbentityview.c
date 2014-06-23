@@ -18,6 +18,10 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
+#include "config.h"
+
+#ifdef ENABLE_libmusicbrainz
+
 #include <gdk/gdkkeysyms.h>
 #include <glib/gi18n.h>
 
@@ -1151,3 +1155,4 @@ et_mb_entity_view_finalize (GObject *object)
     g_clear_object (&priv->list_store);
     G_OBJECT_CLASS (et_mb_entity_view_parent_class)->finalize(object);
 }
+#endif /* ENABLE_libmusicbrainz */
