@@ -678,6 +678,7 @@ void
 et_open_musicbrainz_dialog ()
 {
     GtkWidget *cb_manual_search_in;
+    GtkWidget *cb_search;
     GError *error;
 
     builder = gtk_builder_new ();
@@ -702,7 +703,10 @@ et_open_musicbrainz_dialog ()
     gtk_widget_set_size_request (mbDialog, 600, 500);
     gtk_box_pack_start (GTK_BOX (gtk_builder_get_object (builder, "centralBox")),
                         entityView, TRUE, TRUE, 2);
-    
+
+    cb_search = GTK_WIDGET (gtk_builder_get_object (builder, "cbManualSearch"));
+    g_signal_connect (gtk_bin_get_child (GTK_BIN (cb_search)), "activate",
+                      G_CALLBACK (btn_manual_find_clicked), NULL);
     g_signal_connect (gtk_builder_get_object (builder, "btnManualFind"),
                       "clicked", G_CALLBACK (btn_manual_find_clicked),
                       NULL);
