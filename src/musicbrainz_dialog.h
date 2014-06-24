@@ -32,6 +32,7 @@
 GtkBuilder *builder;
 GtkWidget *mbDialog;
 GtkWidget *entityView;
+gboolean exit_on_complete;
 
 /**************
  * Prototypes *

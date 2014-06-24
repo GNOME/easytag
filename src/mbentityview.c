@@ -258,9 +258,7 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
     int i;
     int minutes;
     int seconds;
-    GString *gstring;
     GtkTreeIter iter;
-    gchar name [NAME_MAX_SIZE];
 
     type = ((EtMbEntity *)node->data)->type;
     while (node)
@@ -272,49 +270,59 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
         switch (type)
         {
             case MB_ENTITY_KIND_ARTIST:
+            {
+                gchar gender [NAME_MAX_SIZE];
+                gchar type [NAME_MAX_SIZE];               
+                gchar name [NAME_MAX_SIZE];
+
                 mb5_artist_get_name ((Mb5Artist)entity, name, sizeof (name));
-                gtk_list_store_insert_with_values (list_store, &iter, -1,
-                                                   MB_ARTIST_COLUMNS_N,
-                                                   "black", -1);
-                gtk_list_store_set (list_store, &iter,
-                                    MB_ARTIST_COLUMNS_NAME, name, -1);
-
-                mb5_artist_get_gender ((Mb5Artist)entity, name,
-                                       sizeof (name));
-                gtk_list_store_set (list_store, &iter,
-                                    MB_ARTIST_COLUMNS_GENDER, name, -1);
-
-                mb5_artist_get_type ((Mb5Artist)entity, name, sizeof (name));
-                gtk_list_store_set (list_store, &iter,
-                                    MB_ARTIST_COLUMNS_TYPE,
-                                    name, -1);
+                mb5_artist_get_gender ((Mb5Artist)entity, gender,
+                                       sizeof (gender));
+                mb5_artist_get_type ((Mb5Artist)entity, type, sizeof (type));
 
                 if (((EtMbEntity *)node->data)->is_red_line)
                 {
-                    gtk_list_store_set (list_store, &iter,
-                                        MB_ARTIST_COLUMNS_N, "red", -1);
+                    gtk_list_store_insert_with_values (list_store, &iter, -1,
+                                                       MB_ARTIST_COLUMNS_NAME,
+                                                       name,
+                                                       MB_ARTIST_COLUMNS_GENDER,
+                                                       gender,
+                                                       MB_ARTIST_COLUMNS_TYPE,
+                                                       type,
+                                                       MB_ARTIST_COLUMNS_N,
+                                                       "red", -1);
                 }
                 else
                 {
-                    gtk_list_store_set (list_store, &iter,
-                                        MB_ARTIST_COLUMNS_N, "black", -1);
+                    gtk_list_store_insert_with_values (list_store, &iter, -1,
+                                                       MB_ARTIST_COLUMNS_NAME,
+                                                       name,
+                                                       MB_ARTIST_COLUMNS_GENDER,
+                                                       gender,
+                                                       MB_ARTIST_COLUMNS_TYPE,
+                                                       type,
+                                                       MB_ARTIST_COLUMNS_N,
+                                                       "black", -1);
                 }
 
                 break;
+            }
 
             case MB_ENTITY_KIND_ALBUM:
-                mb5_release_get_title ((Mb5Release)entity, name,
-                                       sizeof (name));
-                gtk_list_store_insert_with_values (list_store, &iter, -1,
-                                        MB_ALBUM_COLUMNS_N, "black", -1);
-                gtk_list_store_set (list_store, &iter,
-                                    MB_ALBUM_COLUMNS_NAME, name, -1);
+            {
+                gchar group [NAME_MAX_SIZE];
+                GString *gstring;
+                gchar name [NAME_MAX_SIZE];
 
+                release_group = mb5_release_get_releasegroup ((Mb5Release)entity);
+                mb5_releasegroup_get_primarytype (release_group, group,
+                                                  sizeof (group));
                 artist_credit = mb5_release_get_artistcredit ((Mb5Release)entity);
+                gstring = g_string_new ("");
+
                 if (artist_credit)
                 {
                     name_list = mb5_artistcredit_get_namecreditlist (artist_credit);
-                    gstring = g_string_new ("");
 
                     for (i = 0; i < mb5_namecredit_list_size (name_list); i++)
                     {
@@ -328,42 +336,51 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                         g_string_append_len (gstring, name, size);
                         g_string_append_c (gstring, ' ');
                     }
-                    gtk_list_store_set (list_store, &iter,
-                                        MB_ALBUM_COLUMNS_ARTIST,
-                                        gstring->str, -1);
-                    g_string_free (gstring, TRUE);
                 }
 
+                mb5_release_get_title ((Mb5Release)entity, name,
+                                       sizeof (name));
+                
                 if (((EtMbEntity *)node->data)->is_red_line)
                 {
-                    gtk_list_store_set (list_store, &iter,
-                                        MB_ALBUM_COLUMNS_N, "red", -1);
+                    gtk_list_store_insert_with_values (list_store, &iter, -1,
+                                                       MB_ALBUM_COLUMNS_NAME, 
+                                                       name,
+                                                       MB_ALBUM_COLUMNS_ARTIST,
+                                                       gstring->str,
+                                                       MB_ALBUM_COLUMNS_TYPE,
+                                                       group,
+                                                       MB_ALBUM_COLUMNS_N,
+                                                       "red", -1);
                 }
                 else
                 {
-                    gtk_list_store_set (list_store, &iter,
+                    gtk_list_store_insert_with_values (list_store, &iter, -1,
+                                        MB_ALBUM_COLUMNS_NAME, name,
+                                        MB_ALBUM_COLUMNS_ARTIST,
+                                        gstring->str,
+                                        MB_ALBUM_COLUMNS_TYPE, group,
                                         MB_ALBUM_COLUMNS_N, "black", -1);
                 }
 
-                release_group = mb5_release_get_releasegroup ((Mb5Release)entity);
-                mb5_releasegroup_get_primarytype (release_group, name,
-                                                  sizeof (name));
-                gtk_list_store_set (list_store, &iter,
-                                    MB_ALBUM_COLUMNS_TYPE, name, -1);
+                g_string_free (gstring, TRUE);
+
                 break;
+            }
 
             case MB_ENTITY_KIND_TRACK:
-                mb5_recording_get_title ((Mb5Recording)entity, name,
-                                         sizeof (name));
-                gtk_list_store_append (list_store, &iter);
-                gtk_list_store_set (list_store, &iter,
-                                    MB_TRACK_COLUMNS_NAME, name, -1);
+            {
+                GString *artists;
+                GString *releases;
+                gchar name [NAME_MAX_SIZE];
+                gchar time [NAME_MAX_SIZE];
 
                 artist_credit = mb5_recording_get_artistcredit ((Mb5Release)entity);
+                artists = g_string_new ("");
+
                 if (artist_credit)
                 {
                     name_list = mb5_artistcredit_get_namecreditlist (artist_credit);
-                    gstring = g_string_new ("");
 
                     for (i = 0; i < mb5_namecredit_list_size (name_list); i++)
                     {
@@ -375,22 +392,16 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                         name_credit_artist = mb5_namecredit_get_artist (name_credit);
                         size = mb5_artist_get_name (name_credit_artist, name,
                                                     sizeof (name));
-                        g_string_append_len (gstring, name, size);
-                        g_string_append_c (gstring, ' ');
+                        g_string_append_len (artists, name, size);
+                        g_string_append_c (artists, ' ');
                     }
-
-                    gtk_list_store_set (list_store, &iter,
-                                        MB_TRACK_COLUMNS_ARTIST,
-                                        gstring->str, -1);
-                    g_string_free (gstring, TRUE);
                 }
 
                 release_list = mb5_recording_get_releaselist ((Mb5Recording)entity);
+                releases = g_string_new ("");
 
                 if (release_list)
                 {
-                    gstring = g_string_new ("");
-
                     for (i = 0; i < mb5_release_list_size (release_list); i++)
                     {
                         Mb5Release release;
@@ -399,25 +410,31 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                         release = mb5_release_list_item (release_list, i);
                         size = mb5_release_get_title (release, name,
                                                       sizeof (name));
-                        g_string_append_len (gstring, name, size);
-                        g_string_append_c (gstring, ' ');
+                        g_string_append_len (releases, name, size);
+                        g_string_append_c (releases, ' ');
                     }
-
-                    gtk_list_store_set (list_store, &iter,
-                                        MB_TRACK_COLUMNS_ALBUM,
-                                        gstring->str, -1);
-                    g_string_free (gstring, TRUE);
                 }
 
                 minutes = mb5_recording_get_length ((Mb5Recording)entity)/60000;
                 seconds = mb5_recording_get_length ((Mb5Recording)entity)%60000;
-                i = g_snprintf (name, NAME_MAX_SIZE, "%d:%d", minutes,
+                i = g_snprintf (time, NAME_MAX_SIZE, "%d:%d", minutes,
                                 seconds/1000);
-                name [i] = '\0';
-                gtk_list_store_set (list_store, &iter,
-                                    MB_TRACK_COLUMNS_TIME,
-                                    name, -1);
+                time [i] = '\0';
+                mb5_recording_get_title ((Mb5Recording)entity, name,
+                                         sizeof (name));
+                gtk_list_store_insert_with_values (list_store, &iter, -1,
+                                                   MB_TRACK_COLUMNS_NAME, name,
+                                                   MB_TRACK_COLUMNS_ARTIST,
+                                                   artists->str,
+                                                   MB_TRACK_COLUMNS_ALBUM,
+                                                   releases->str,
+                                                   MB_TRACK_COLUMNS_TIME,
+                                                   time, -1);
+                g_string_free (releases, TRUE);
+                g_string_free (artists, TRUE);
+
                 break;
+            }
 
             case MB_ENTITY_KIND_COUNT:
             case MB_ENTITY_KIND_DISCID:
@@ -638,6 +655,12 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
 
     g_free (thread_data);
     et_music_brainz_dialog_stop_set_sensitive (FALSE);
+
+    if (exit_on_complete)
+    {
+        gtk_dialog_response (GTK_DIALOG (mbDialog),
+                             GTK_RESPONSE_DELETE_EVENT);
+    }
 }
 
 /*

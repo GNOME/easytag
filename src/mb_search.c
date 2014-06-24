@@ -238,7 +238,6 @@ et_musicbrainz_search_in_entity (MbEntityKind child_type,
                         {
                             Mb5Recording recording;
 
-
                             if (g_cancellable_is_cancelled (cancellable))
                             {
                                 g_set_error (error, ET_MB5_SEARCH_ERROR,
