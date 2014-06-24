@@ -115,10 +115,6 @@ typedef struct
  * Prototypes *
  **************/
 
-static void
-et_mb_entity_view_class_init (EtMbEntityViewClass *klass);
-static void
-et_mb_entity_view_init (EtMbEntityView *proj_notebook);
 static GtkWidget *
 insert_togglebtn_in_breadcrumb (GtkBox *breadCrumb);
 static void
@@ -510,14 +506,8 @@ show_data_in_entity_view (EtMbEntityView *entity_view)
 
     /* Setting the colour column */
     types [total_cols] = G_TYPE_STRING;
-    //if (priv->list_store == NULL)
     priv->list_store = GTK_TREE_MODEL (gtk_list_store_newv (total_cols + 1,
                                                             types));
-    /*else FIXME:
-    {
-        gtk_list_store_clear (GTK_LIST_STORE (priv->list_store));
-        gtk_list_store_set_column_types (GTK_LIST_STORE (priv->list_store), total_cols + 1, types);
-    }*/
     priv->filter = GTK_TREE_MODEL (gtk_tree_model_filter_new (priv->list_store,
                                                               NULL));
     gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (priv->filter),
@@ -647,6 +637,7 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
     }
 
     g_free (thread_data);
+    et_music_brainz_dialog_stop_set_sensitive (FALSE);
 }
 
 /*
@@ -803,6 +794,7 @@ tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
     g_simple_async_result_run_in_thread (async_result,
                                          search_in_levels_thread_func,
                                          0, mb5_search_cancellable);
+    et_music_brainz_dialog_stop_set_sensitive (TRUE);
 }
 
 /*
