@@ -44,5 +44,7 @@ mb5_search_error_callback (GObject *source, GAsyncResult *res,
                            gpointer user_data);
 void
 et_show_status_msg_in_idle (gchar *message);
+void
+et_music_brainz_dialog_stop_set_sensitive (gboolean sensitive);
 #endif /* __MUSICBRAINZ_DIALOG_H__ */
 #endif /* ENABLE_libmusicbrainz */
