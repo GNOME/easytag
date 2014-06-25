@@ -771,6 +771,7 @@ et_open_musicbrainz_dialog ()
     GtkWidget *cb_manual_search_in;
     GtkWidget *cb_search;
     GError *error;
+    ET_File *et_file;
 
     builder = gtk_builder_new ();
     error = NULL;
@@ -853,6 +854,15 @@ et_open_musicbrainz_dialog ()
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (cb_manual_search_in), "Track");
 
     gtk_combo_box_set_active (GTK_COMBO_BOX (cb_manual_search_in), 1);
+
+    /* Set the text of cbManualSearch to the album of selected file */
+    get_first_selected_file (&et_file);
+
+    if (et_file && ((File_Tag *)et_file->FileTag->data)->album)
+    {
+        gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (cb_search))),
+                            ((File_Tag *)et_file->FileTag->data)->album);
+    }
 
     gtk_widget_show_all (mbDialog);
     gtk_dialog_run (GTK_DIALOG (mbDialog));
