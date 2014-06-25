@@ -464,15 +464,39 @@ bt_selected_find_clicked (GtkWidget *widget, gpointer user_data)
 
     if (type == MB_ENTITY_KIND_ARTIST)
     {
-        gtk_entry_set_text (GTK_ENTRY (entry), file_tag->artist);
+        if (file_tag->artist && *(file_tag->artist))
+        {
+            gtk_entry_set_text (GTK_ENTRY (entry), file_tag->artist);
+        }
+        else
+        {
+            gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
+                        0, _("Artist of current file is not set"));
+        }
     }
     else if (type == MB_ENTITY_KIND_ALBUM)
     {
-        gtk_entry_set_text (GTK_ENTRY (entry), file_tag->album);
+        if (file_tag->album && *(file_tag->album))
+        {
+            gtk_entry_set_text (GTK_ENTRY (entry), file_tag->album);
+        }
+        else
+        {
+            gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
+                        0, _("Album of current file is not set"));
+        }
     }
     else if (type == MB_ENTITY_KIND_TRACK)
     {
-        gtk_entry_set_text (GTK_ENTRY (entry), file_tag->title);
+        if (file_tag->title && *(file_tag->title))
+        {
+            gtk_entry_set_text (GTK_ENTRY (entry), file_tag->title);
+        }
+        else
+        {
+            gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
+                        0, _("Track of current file is not set"));
+        }
     }
 
     btn_manual_find_clicked (NULL, NULL);
