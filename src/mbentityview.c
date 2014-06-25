@@ -315,8 +315,6 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                 GString *gstring;
                 gchar name [NAME_MAX_SIZE];
 
-                mb5_release_get_title ((Mb5Release)entity, name,
-                                       sizeof (name));
                 release_group = mb5_release_get_releasegroup ((Mb5Release)entity);
                 mb5_releasegroup_get_primarytype (release_group, group,
                                                   sizeof (group));
@@ -342,6 +340,9 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                     }
                 }
 
+                mb5_release_get_title ((Mb5Release)entity, name,
+                                       sizeof (name));
+                
                 if (((EtMbEntity *)node->data)->is_red_line)
                 {
                     gtk_list_store_insert_with_values (list_store, &iter, -1,
@@ -375,9 +376,6 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                 GString *releases;
                 gchar name [NAME_MAX_SIZE];
                 gchar time [NAME_MAX_SIZE];
-
-                mb5_recording_get_title ((Mb5Recording)entity, name,
-                                         sizeof (name));
 
                 artist_credit = mb5_recording_get_artistcredit ((Mb5Release)entity);
                 artists = g_string_new ("");
@@ -424,7 +422,8 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                 i = g_snprintf (time, NAME_MAX_SIZE, "%d:%d", minutes,
                                 seconds/1000);
                 time [i] = '\0';
-
+                mb5_recording_get_title ((Mb5Recording)entity, name,
+                                         sizeof (name));
                 gtk_list_store_insert_with_values (list_store, &iter, -1,
                                                    MB_TRACK_COLUMNS_NAME, name,
                                                    MB_TRACK_COLUMNS_ARTIST,
