@@ -781,7 +781,12 @@ et_music_brainz_dialog_delete_event (GtkWidget *widget, GdkEvent *event,
         return TRUE;
     }
 
-     return FALSE;
+    gtk_widget_destroy ((widget));
+    g_object_unref (G_OBJECT (builder));
+    free_mb_tree (mb_dialog_priv->mb_tree_root);
+    g_free (mb_dialog_priv);
+
+    return FALSE;
 }
 
 /*
@@ -821,7 +826,8 @@ et_open_musicbrainz_dialog ()
     gtk_box_pack_start (GTK_BOX (gtk_builder_get_object (builder, "centralBox")),
                         entityView, TRUE, TRUE, 2);
 
-    //g_signal_connect (mbDialog, "delete-event", G_CALLBACK (et_music_brainz_dialog_delete_event), NULL);
+    g_signal_connect (mbDialog, "delete-event", G_CALLBACK (et_music_brainz_dialog_delete_event), NULL);
+    g_signal_connect (mbDialog, "close", G_CALLBACK (et_music_brainz_dialog_destroy_handler), NULL);
     cb_search = GTK_WIDGET (gtk_builder_get_object (builder, "cbManualSearch"));
     g_signal_connect (gtk_bin_get_child (GTK_BIN (cb_search)), "activate",
                       G_CALLBACK (btn_manual_find_clicked), NULL);
@@ -890,9 +896,6 @@ et_open_musicbrainz_dialog ()
 
     gtk_widget_show_all (mbDialog);
     gtk_dialog_run (GTK_DIALOG (mbDialog));
-    gtk_widget_destroy (mbDialog);
-    g_object_unref (G_OBJECT (builder));
-    free_mb_tree (mb_dialog_priv->mb_tree_root);
-    g_free (mb_dialog_priv);
+    //gtk_widget_destroy (mbDialog);
 }
 #endif /* ENABLE_libmusicbrainz */
