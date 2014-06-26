@@ -6,6 +6,11 @@
     <property name="can_focus">False</property>
     <property name="stock">gtk-find</property>
   </object>
+  <object class="GtkImage" id="img_invert_selection">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">easytag-invert-selection</property>
+  </object>
   <object class="GtkImage" id="img_red_lines">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -15,11 +20,6 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="stock">easytag-unselect-all</property>
-  </object>
-  <object class="GtkImage" id="img_invert_selection">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">easytag-invert-selection</property>
   </object>
   <object class="GtkDialog" id="mbDialog">
     <property name="can_focus">False</property>
@@ -408,7 +408,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton" id="button10">
+                      <object class="GtkButton" id="btnApplyChanges">
                         <property name="label" translatable="yes">Apply Tag Changes</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>

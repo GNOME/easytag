@@ -29,6 +29,8 @@ G_BEGIN_DECLS
 
 #include <gtk/gtk.h>
 
+#include "mb_search.h"
+
 #define ET_MB_ENTITY_VIEW_TYPE (et_mb_entity_view_get_type ())
 #define ET_MB_ENTITY_VIEW(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), \
                                                              ET_MB_ENTITY_VIEW_TYPE, \
@@ -128,6 +130,8 @@ void
 et_mb_entity_view_select_down (EtMbEntityView *entity_view);
 void
 et_mb_entity_view_clear_all (EtMbEntityView *entity_view);
+EtMbEntity *
+et_mb_entity_view_get_selected_entity (EtMbEntityView *entity_view);
 G_END_DECLS
 
 #endif /* ENABLE_MUSICBRAINZ */
