@@ -88,7 +88,6 @@ struct _EtCDDBDialogPrivate
 
     GtkWidget *run_scanner_toggle;
     GtkWidget *use_dlm2_toggle; /* '2' as also used in prefs.c */
-    GtkWidget *use_local_access_toggle;
 
     GtkWidget *separator_h;
     GtkWidget *category_toggle[10];
@@ -3003,18 +3002,6 @@ create_cddb_dialog (EtCDDBDialog *self)
     Separator = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
     gtk_box_pack_start(GTK_BOX(hbox),Separator,FALSE,FALSE,0);
 
-    // Check box to run the scanner
-    priv->use_local_access_toggle = gtk_check_button_new_with_label(_("Use local CDDB"));
-    gtk_box_pack_start(GTK_BOX(hbox),priv->use_local_access_toggle,FALSE,FALSE,0);
-    g_settings_bind (MainSettings, "cddb-local", priv->use_local_access_toggle,
-                     "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(priv->use_local_access_toggle,_("When activating this option, after loading the "
-        "fields, the current selected scanner will be ran (the scanner window must be opened)."));
-
-    // Separator line
-    Separator = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
-    gtk_box_pack_start(GTK_BOX(hbox),Separator,FALSE,FALSE,0);
-
     /* Button to quit. */
     Button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
     gtk_box_pack_end(GTK_BOX(hbox),Button,FALSE,FALSE,0);
@@ -3817,7 +3804,7 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
     gchar *proxy_hostname;
     guint proxy_port;
     gint   server_try = 0;
-    gchar *tmp, *valid;
+    gchar *tmp;
     gchar *query_string;
     gchar *cddb_discid;
     gchar *cddb_end_str;
@@ -3948,122 +3935,7 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
     gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_auto_search_button),TRUE);
 
 
-    if (g_settings_get_boolean (MainSettings, "cddb-local"))
     {
-        /*
-         * Local cddb acces
-         */
-        static const gchar *CddbDir[] = // Or use cddb_genre_vs_id3_genre[][2]?
-        {
-            "blues", "classical", "country", "data",   "folk",
-            "jazz",  "misc",      "newage",  "reggae", "rock",
-            "soundtrack"
-        };
-        static const gsize CddbDirSize = G_N_ELEMENTS (CddbDir) - 1;
-        gsize i;
-
-        // We check if the file corresponding to the discid exists in each directory
-        for (i=0; i<=CddbDirSize; i++)
-        {
-            gchar *file_path;
-
-            if (!CDDB_LOCAL_PATH || strlen(CDDB_LOCAL_PATH)==0)
-            {
-                GtkWidget *msgdialog;
-
-                msgdialog = gtk_message_dialog_new(GTK_WINDOW(self),
-                                                   GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                   GTK_MESSAGE_ERROR,
-                                                   GTK_BUTTONS_CLOSE,
-                                                   "%s",
-                                                   _("The path for 'Local CD Database' was not defined"));
-                /* Translators: 'it' in this sentence refers to the local CD
-                 * database path. */
-                gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog), "%s", _("Enter it in the preferences window before using this search."));
-                gtk_window_set_title (GTK_WINDOW (msgdialog),
-                                      _("Local CD search"));
-
-                gtk_dialog_run(GTK_DIALOG(msgdialog));
-                gtk_widget_destroy(msgdialog);
-                break;
-            }
-            file_path = g_strconcat(CDDB_LOCAL_PATH,
-                                    CDDB_LOCAL_PATH[strlen(CDDB_LOCAL_PATH)-1]!=G_DIR_SEPARATOR ? G_DIR_SEPARATOR_S : "",
-                                    CddbDir[i],"/",cddb_discid,NULL);
-
-            if ( (file=fopen(file_path,"r"))!=0 )
-            {
-                // File found
-                CddbAlbum *cddbalbum;
-                gint rc = 0;
-
-                cddbalbum = g_malloc0(sizeof(CddbAlbum));
-
-                // Parameters of the server used (Local acces => specific!)
-                cddbalbum->server_name     = NULL;                // No server name
-                cddbalbum->server_port     = 0;                   // No server port
-                cddbalbum->server_cgi_path = g_strdup(file_path); /* Filename. */
-                cddbalbum->bitmap          = Cddb_Get_Pixbuf_From_Server_Name(file_path);
-
-                // Get album category
-                cddbalbum->category = Try_To_Validate_Utf8_String(CddbDir[i]);
-
-                // Get album ID
-                cddbalbum->id = Try_To_Validate_Utf8_String(cddb_discid);
-
-                while ( self && !priv->stop_searching
-                && (rc = Cddb_Read_Line(&file,&cddb_out)) > 0 )
-                {
-                    if (!cddb_out) // Empty line?
-                        continue;
-                    //g_print("%s\n",cddb_out);
-
-                    // Get Album and Artist names
-                    if ( strncmp(cddb_out,"DTITLE=",7)==0 )
-                    {
-                        // Note : disc title too long take severals lines. For example :
-                        // DTITLE=Marilyn Manson / The Nobodies (2005 Against All Gods Mix - Korea Tour L
-                        // DTITLE=imited Edition)
-                        if (!cddbalbum->artist_album)
-                        {
-                            // It is the first time we find DTITLE...
-
-                            // Artist and album
-                            cddbalbum->artist_album = Try_To_Validate_Utf8_String(cddb_out+7); // '7' to skip 'DTITLE='
-                        }else
-                        {
-                            // It is at least the second time we find DTITLE
-                            // So we suppose that only the album was truncated
-
-                            // Album
-                            valid = Try_To_Validate_Utf8_String(cddb_out+7); // '7' to skip 'DTITLE='
-                            tmp = cddbalbum->artist_album; // To free...
-                            cddbalbum->artist_album = g_strconcat(cddbalbum->artist_album,valid,NULL);
-                            g_free(tmp);
-
-                            // Don't need to read more data to read in the file
-                            break;
-                        }
-                    }
-
-                    g_free(cddb_out);
-                }
-
-                priv->album_list = g_list_append(priv->album_list,cddbalbum);
-
-                // Need to close it, if not done in Cddb_Read_Line
-                if (file)
-                    fclose(file);
-                file = NULL;
-            }
-            g_free(file_path);
-
-        }
-
-
-    }else
-    {
-
         /*
          * Remote cddb acces
          *

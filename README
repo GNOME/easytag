@@ -37,7 +37,7 @@ Currently EasyTAG supports the following:
 * ability to process fields of tag and filename (convert letters into
   upper case, lower case, …)
 * ability to open a directory or a file with an external program
-* remote and local CDDB support for manual or automatic search
+* CDDB support for manual or automatic search
 * a tree based browser or a view by Artist & Album
 * a list to select files
 * a playlist generator window

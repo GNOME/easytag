@@ -66,8 +66,6 @@ static const gchar CONFIG_FILE[] = "easytagrc";
 static const gchar SCAN_TAG_MASKS_FILE[] = "scan_tag.mask";
 // File of masks for rename file scanner
 static const gchar RENAME_FILE_MASKS_FILE[] = "rename_file.mask";
-// File for history of RenameDirectoryMaskCombo combobox
-static const gchar RENAME_DIRECTORY_MASKS_FILE[] = "rename_directory.mask";
 // File for history of BrowserEntry combobox
 static const gchar PATH_ENTRY_HISTORY_FILE[] = "browser_path.history";
 // File for history of run program combobox for directories
@@ -84,8 +82,6 @@ static const gchar FILE_TO_LOAD_HISTORY_FILE[] = "file_to_load.history";
 static const gchar CDDB_SEARCH_STRING_HISTORY_FILE[] = "cddb_search_string.history";
 // File for history of CddbSearchStringInResultEntry combobox
 static const gchar CDDB_SEARCH_STRING_IN_RESULT_HISTORY_FILE[] = "cddb_search_string_in_result.history";
-// File for history of CddbLocalPath combobox
-static const gchar CDDB_LOCAL_PATH_HISTORY_FILE[] = "cddb_local_path.history";
 
 
 
@@ -106,11 +102,8 @@ static const tConfigVariable Config_Variables[] =
 
     {"audio_file_player",                       CV_TYPE_STRING,&AUDIO_FILE_PLAYER                        },
 
-    {"cddb_local_path",                         CV_TYPE_STRING,  &CDDB_LOCAL_PATH                        },
-
     {"scan_tag_default_mask",                   CV_TYPE_STRING,  &SCAN_TAG_DEFAULT_MASK                  },
     {"rename_file_default_mask",                CV_TYPE_STRING,  &RENAME_FILE_DEFAULT_MASK               },
-    {"rename_directory_default_mask",           CV_TYPE_STRING,  &RENAME_DIRECTORY_DEFAULT_MASK          },
 };
 
 
@@ -162,16 +155,10 @@ void Init_Config_Variables (void)
 #endif /* !G_OS_WIN32 */
 
     /*
-     * CDDB window
-     */
-    CDDB_LOCAL_PATH                         = NULL;
-
-    /*
      * Masks
      */
     SCAN_TAG_DEFAULT_MASK           = NULL;
     RENAME_FILE_DEFAULT_MASK        = NULL;
-    RENAME_DIRECTORY_DEFAULT_MASK   = NULL;
 }
 
 
@@ -200,10 +187,6 @@ Apply_Changes_Of_Preferences_Window (void)
 #ifdef ENABLE_ID3LIB
         g_settings_set_boolean (MainSettings, "id3v2-version-4", TRUE);
 #endif
-
-        /* CDDB */
-        if (CDDB_LOCAL_PATH) g_free(CDDB_LOCAL_PATH);
-        CDDB_LOCAL_PATH = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbLocalPath)))));
 
         /* Parameters and variables of Scanner Window are in "scan.c" file */
         /* Parameters and variables of Cddb Window are in "cddb.c" file */
@@ -513,7 +496,6 @@ gboolean Setting_Create_Files (void)
 
     check_or_create_file (SCAN_TAG_MASKS_FILE);
     check_or_create_file (RENAME_FILE_MASKS_FILE);
-    check_or_create_file (RENAME_DIRECTORY_MASKS_FILE);
     check_or_create_file (PATH_ENTRY_HISTORY_FILE);
     check_or_create_file (RUN_PROGRAM_WITH_DIRECTORY_HISTORY_FILE);
     check_or_create_file (RUN_PROGRAM_WITH_FILE_HISTORY_FILE);
@@ -522,7 +504,6 @@ gboolean Setting_Create_Files (void)
     check_or_create_file (FILE_TO_LOAD_HISTORY_FILE);
     check_or_create_file (CDDB_SEARCH_STRING_HISTORY_FILE);
     check_or_create_file (CDDB_SEARCH_STRING_IN_RESULT_HISTORY_FILE);
-    check_or_create_file (CDDB_LOCAL_PATH_HISTORY_FILE);
 
     return TRUE;
 }
@@ -694,36 +675,6 @@ void Save_Rename_File_Masks_List (GtkListStore *liststore, gint colnum)
 }
 
 /*
- * Functions for writing and reading list of 'Rename Directory' masks
- */
-void Load_Rename_Directory_Masks_List (GtkListStore *liststore, gint colnum, gchar **fallback)
-{
-    gint i = 0;
-
-    if (!Populate_List_Store_From_File(RENAME_DIRECTORY_MASKS_FILE, liststore, colnum))
-    {
-        // Fall back to defaults
-        Log_Print(LOG_OK,_("Loading default 'Rename Directory' masks…"));
-
-        while(fallback[i])
-        {
-            gtk_list_store_insert_with_values (liststore, NULL, G_MAXINT,
-                                               colnum, fallback[i], -1);
-            i++;
-        }
-    }
-}
-
-void Save_Rename_Directory_Masks_List (GtkListStore *liststore, gint colnum)
-{
-    Save_List_Store_To_File(RENAME_DIRECTORY_MASKS_FILE, liststore, colnum);
-}
-
-
-
-
-
-/*
  * Functions for writing and reading list of 'BrowserEntry' combobox
  */
 void Load_Path_Entry_List (GtkListStore *liststore, gint colnum)
@@ -820,22 +771,6 @@ void Save_Cddb_Search_String_In_Result_List (GtkListStore *liststore, gint colnu
 }
 
 /*
- * Functions for writing and reading list of 'CddbLocalPath3' combobox
- */
-void Load_Cddb_Local_Path_List (GtkListStore *liststore, gint colnum)
-{
-    Populate_List_Store_From_File(CDDB_LOCAL_PATH_HISTORY_FILE, liststore, colnum);
-}
-void Save_Cddb_Local_Path_List (GtkListStore *liststore, gint colnum)
-{
-    Save_List_Store_To_File(CDDB_LOCAL_PATH_HISTORY_FILE, liststore, colnum);
-}
-
-
-
-
-
-/*
  * migrate_config_to_xdg_dir:
  * @old_path: (type filename): the path to migrate from
  * @new_path: (type filename): the path to migrate to
@@ -850,7 +785,6 @@ migrate_config_file_dir (const gchar *old_path, const gchar *new_path)
     static const gchar *filenames[] = { CONFIG_FILE,
                                         SCAN_TAG_MASKS_FILE,
                                         RENAME_FILE_MASKS_FILE,
-                                        RENAME_DIRECTORY_MASKS_FILE,
                                         PATH_ENTRY_HISTORY_FILE,
                                         RUN_PROGRAM_WITH_DIRECTORY_HISTORY_FILE,
                                         RUN_PROGRAM_WITH_FILE_HISTORY_FILE,
@@ -859,7 +793,6 @@ migrate_config_file_dir (const gchar *old_path, const gchar *new_path)
                                         FILE_TO_LOAD_HISTORY_FILE,
                                         CDDB_SEARCH_STRING_HISTORY_FILE,
                                         CDDB_SEARCH_STRING_IN_RESULT_HISTORY_FILE,
-                                        CDDB_LOCAL_PATH_HISTORY_FILE,
                                         NULL
     };
 

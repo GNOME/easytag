@@ -260,12 +260,9 @@ GSettings *MainSettings;
 /* Misc */
 gchar  *AUDIO_FILE_PLAYER;
 
-gchar  *CDDB_LOCAL_PATH;
-
 /* Default mask */
 gchar  *SCAN_TAG_DEFAULT_MASK;
 gchar  *RENAME_FILE_DEFAULT_MASK;
-gchar  *RENAME_DIRECTORY_DEFAULT_MASK;
 
 /**************
  * Prototypes *
@@ -289,10 +286,6 @@ void Save_Scan_Tag_Masks_List (GtkListStore *liststore, gint colnum);
 void Load_Rename_File_Masks_List (GtkListStore *liststore, gint colnum,
                                   const gchar * const *fallback);
 void Save_Rename_File_Masks_List (GtkListStore *liststore, gint colnum);
-
-/* RenameDirectoryMasksList 'RenameDirectoryMaskCombo' combobox */
-void Load_Rename_Directory_Masks_List (GtkListStore *liststore, gint colnum, gchar **fallback);
-void Save_Rename_Directory_Masks_List (GtkListStore *liststore, gint colnum);
 
 /* 'BrowserEntry' combobox */
 void Load_Path_Entry_List (GtkListStore *liststore, gint colnum);
@@ -325,10 +318,6 @@ void Save_Cddb_Search_String_List (GtkListStore *liststore, gint colnum);
 /* 'CddbSearchStringInResultEntry' combobox */
 void Load_Cddb_Search_String_In_Result_List (GtkListStore *liststore, gint colnum);
 void Save_Cddb_Search_String_In_Result_List (GtkListStore *liststore, gint colnum);
-
-/* 'CddbLocalPath' combobox */
-void Load_Cddb_Local_Path_List (GtkListStore *liststore, gint colnum);
-void Save_Cddb_Local_Path_List (GtkListStore *liststore, gint colnum);
 
 gboolean et_settings_enum_get (GValue *value, GVariant *variant,
                                gpointer user_data);

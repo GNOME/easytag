@@ -101,18 +101,6 @@
       <default>true</default>
     </key>
 
-    <key name="cddb-local" type="b">
-      <summary>Use local CDDB</summary>
-      <description>Whether to use a locally-stored copy of the CDDB</description>
-      <default>false</default>
-    </key>
-
-    <key name="cddb-local-path" type="s">
-      <summary>Path to local CDDB</summary>
-      <description>A path to a locally-stored copy of the CDDB</description>
-      <default>''</default>
-    </key>
-
     <key name="cddb-proxy-enabled" type="b">
       <summary>Enable proxy for remote CDDB</summary>
       <description>Whether to access remote CDDB through a proxy</description>

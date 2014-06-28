@@ -95,8 +95,7 @@ struct _EtBrowserPrivate
     GtkWidget *rename_directory_dialog;
     GtkWidget *rename_directory_combo;
     GtkWidget *rename_directory_mask_toggle;
-    GtkWidget *rename_directory_mask_combo;
-    GtkListStore *rename_directory_mask_model;
+    GtkWidget *rename_directory_mask_entry;
     GtkWidget *rename_directory_preview_label;
 
     gchar *current_path;
@@ -111,17 +110,6 @@ struct _EtBrowserPrivate
 
 
 static const guint BOX_SPACING = 6;
-
-static gchar *Rename_Directory_Masks [] =
-{
-    "%a - %b",
-    "%a_-_%b",
-    "%a - %b (%y) - %g",
-    "%a_-_%b_(%y)_-_%g",
-    "VA - %b (%y)",
-    "VA_-_%b_(%y)",
-    NULL
-};
 
 /*
  * EtPathState:
@@ -4084,10 +4072,12 @@ rename_directory_generate_preview (EtBrowser *self)
     priv = et_browser_get_instance_private (self);
 
     if (!ETCore->ETFileDisplayed
-    ||  !priv->rename_directory_dialog || !priv->rename_directory_mask_combo || !priv->rename_directory_preview_label)
+    ||  !priv->rename_directory_dialog || !priv->rename_directory_mask_entry || !priv->rename_directory_preview_label)
         return;
 
-    mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->rename_directory_mask_combo)))));
+    mask = g_settings_get_string (MainSettings,
+                                  "rename-directory-default-mask");
+
     if (!mask)
         return;
 
@@ -4217,45 +4207,28 @@ et_browser_show_rename_directory_dialog (EtBrowser *self)
                               G_CALLBACK (Rename_Directory_With_Mask_Toggled),
                               self);
 
-    // Set up list model which is used by the combobox
-    /* Rename directory from mask */
-    if (!priv->rename_directory_mask_model)
-        priv->rename_directory_mask_model = gtk_list_store_new(MASK_EDITOR_COUNT, G_TYPE_STRING);
-    else
-        gtk_list_store_clear(priv->rename_directory_mask_model);
+    /* The entry to enter the mask to apply. */
+    priv->rename_directory_mask_entry = gtk_entry_new ();
+    gtk_widget_set_size_request(priv->rename_directory_mask_entry, 80, -1);
 
-    // The combo box to select the mask to apply
-    priv->rename_directory_mask_combo = gtk_combo_box_new_with_entry();
-    gtk_combo_box_set_model(GTK_COMBO_BOX(priv->rename_directory_mask_combo), GTK_TREE_MODEL(priv->rename_directory_mask_model));
-    gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(priv->rename_directory_mask_combo), MASK_EDITOR_TEXT);
-    gtk_widget_set_size_request(priv->rename_directory_mask_combo, 80, -1);
-
-    gtk_box_pack_start(GTK_BOX(HBox),priv->rename_directory_mask_combo,TRUE,TRUE,0);
-    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->rename_directory_mask_combo)))),
+    gtk_box_pack_start(GTK_BOX(HBox),priv->rename_directory_mask_entry,TRUE,TRUE,0);
+    gtk_widget_set_tooltip_text (priv->rename_directory_mask_entry,
         _("Select or type in a mask using codes (see Legend in Scanner Window) to rename "
         "the directory from tag fields."));
-    // Signal to generate preview (preview of the new directory)
-    g_signal_connect_swapped (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->rename_directory_mask_combo))),
+    /* Signal to generate preview (preview of the new directory). */
+    g_signal_connect_swapped (priv->rename_directory_mask_entry,
                               "changed",
                               G_CALLBACK (rename_directory_generate_preview),
                               self);
 
-    // Load masks into the combobox from a file
-    Load_Rename_Directory_Masks_List(priv->rename_directory_mask_model, MASK_EDITOR_TEXT, Rename_Directory_Masks);
-    if (RENAME_DIRECTORY_DEFAULT_MASK)
-    {
-        Add_String_To_Combo_List(priv->rename_directory_mask_model, RENAME_DIRECTORY_DEFAULT_MASK);
-        gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->rename_directory_mask_combo))), RENAME_DIRECTORY_DEFAULT_MASK);
-    }else
-    {
-        gtk_combo_box_set_active(GTK_COMBO_BOX(priv->rename_directory_mask_combo), 0);
-    }
+    g_settings_bind (MainSettings, "rename-directory-default-mask",
+                     priv->rename_directory_mask_entry, "text",
+                     G_SETTINGS_BIND_DEFAULT);
 
-    // Mask status icon
-    // Signal connection to check if mask is correct into the mask entry
-    g_signal_connect (gtk_bin_get_child (GTK_BIN (priv->rename_directory_mask_combo)),
-                      "changed", G_CALLBACK (entry_check_rename_file_mask),
-                      NULL);
+    /* Mask status icon. Signal connection to check if mask is correct to the
+     * mask entry. */
+    g_signal_connect (priv->rename_directory_mask_entry, "changed",
+                      G_CALLBACK (entry_check_rename_file_mask), NULL);
 
     // Preview label
     priv->rename_directory_preview_label = gtk_label_new (_("Rename directory preview"));
@@ -4276,8 +4249,8 @@ et_browser_show_rename_directory_dialog (EtBrowser *self)
     // To initialize the 'Use mask' check button state
     g_signal_emit_by_name(G_OBJECT(priv->rename_directory_mask_toggle),"toggled");
 
-    // To initialize PreviewLabel + MaskStatusIconBox
-    g_signal_emit_by_name(G_OBJECT(gtk_bin_get_child(GTK_BIN(priv->rename_directory_mask_combo))),"changed");
+    /* To initialize PreviewLabel + MaskStatusIconBox. */
+    g_signal_emit_by_name (priv->rename_directory_mask_entry, "changed");
 
     g_free(directory_name_utf8);
 }
@@ -4293,13 +4266,6 @@ Destroy_Rename_Directory_Window (EtBrowser *self)
     {
         g_free(g_object_get_data(G_OBJECT(priv->rename_directory_dialog),"Parent_Directory"));
         g_free(g_object_get_data(G_OBJECT(priv->rename_directory_dialog),"Current_Directory"));
-
-        if (RENAME_DIRECTORY_DEFAULT_MASK) g_free(RENAME_DIRECTORY_DEFAULT_MASK);
-        RENAME_DIRECTORY_DEFAULT_MASK = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->rename_directory_mask_combo)))));
-        Add_String_To_Combo_List(priv->rename_directory_mask_model, RENAME_DIRECTORY_DEFAULT_MASK);
-        Save_Rename_Directory_Masks_List(priv->rename_directory_mask_model, MASK_EDITOR_TEXT);
-
-        gtk_list_store_clear(priv->rename_directory_mask_model);
 
         gtk_widget_destroy(priv->rename_directory_dialog);
         priv->rename_directory_preview_label = NULL;
@@ -4333,8 +4299,11 @@ Rename_Directory (EtBrowser *self)
 
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->rename_directory_mask_toggle)))
     {
-        // Renamed from mask
-        gchar *mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->rename_directory_mask_combo)))));
+        /* Renamed from mask. */
+        gchar *mask;
+
+        mask = g_settings_get_string (MainSettings,
+                                      "rename-directory-default-mask");
         directory_new_name = Scan_Generate_New_Directory_Name_From_Mask(ETCore->ETFileDisplayed,mask,FALSE);
         g_free(mask);
 
@@ -4562,7 +4531,7 @@ Rename_Directory_With_Mask_Toggled (EtBrowser *self)
     priv = et_browser_get_instance_private (self);
 
     gtk_widget_set_sensitive(GTK_WIDGET(priv->rename_directory_combo),            !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->rename_directory_mask_toggle)));
-    gtk_widget_set_sensitive(GTK_WIDGET(priv->rename_directory_mask_combo),         gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->rename_directory_mask_toggle)));
+    gtk_widget_set_sensitive(GTK_WIDGET(priv->rename_directory_mask_entry),         gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->rename_directory_mask_toggle)));
     gtk_widget_set_sensitive(GTK_WIDGET(priv->rename_directory_preview_label),      gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->rename_directory_mask_toggle)));
 }
 

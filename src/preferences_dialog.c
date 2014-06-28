@@ -52,7 +52,6 @@ static const guint BOX_SPACING = 6;
 
 struct _EtPreferencesDialogPrivate
 {
-    GtkListStore *cddb_local_path_model;
     GtkListStore *default_path_model;
     GtkListStore *file_player_model;
 
@@ -95,7 +94,6 @@ static void et_prefs_on_pad_disc_number_spinbutton_changed (GtkWidget *label,
                                                             GtkWidget *spinbutton);
 
 static void notify_id3_settings_active (GObject *object, GParamSpec *pspec, EtPreferencesDialog *self);
-static void CddbLocalPath_Combo_Add_String (void);
 
 static void et_preferences_on_response (GtkDialog *dialog, gint response_id,
                                         gpointer user_data);
@@ -1509,51 +1507,6 @@ create_preferences_dialog (EtPreferencesDialog *self)
                      CddbServerCgiPathManualSearch, "text",
                      G_SETTINGS_BIND_DEFAULT);
 
-    /* Local access for CDDB (Automatic Search). */
-    Frame = gtk_frame_new (_("Local CDDB"));
-    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
-
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(vbox),hbox);
-    Label = gtk_label_new(_("Path:"));
-    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
-
-    priv->cddb_local_path_model = gtk_list_store_new (MISC_COMBO_COUNT,
-                                                      G_TYPE_STRING);
-
-    CddbLocalPath = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(priv->cddb_local_path_model));
-    g_object_unref (priv->cddb_local_path_model);
-    gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(CddbLocalPath),MISC_COMBO_TEXT);
-    gtk_box_pack_start(GTK_BOX(hbox),CddbLocalPath,FALSE,FALSE,0);
-    gtk_widget_set_size_request(GTK_WIDGET(CddbLocalPath), 450, -1);
-    gtk_widget_set_tooltip_text(gtk_bin_get_child(GTK_BIN(CddbLocalPath)),_("Specify the directory "
-        "where the local CD database is located. The local CD database contains the eleven following "
-        "directories 'blues', 'classical', 'country', 'data', 'folk', 'jazz', 'newage', 'reggae', "
-        "'rock', 'soundtrack' and 'misc'."));
-    g_signal_connect(G_OBJECT(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbLocalPath)))),"activate",G_CALLBACK(CddbLocalPath_Combo_Add_String),NULL);
-    //g_signal_connect(G_OBJECT(GTK_ENTRY(GTK_BIN(CddbLocalPath)->child)),"focus_out_event",G_CALLBACK(CddbLocalPath_Combo_Add_String),NULL);
-
-    // History list
-    Load_Cddb_Local_Path_List(priv->cddb_local_path_model, MISC_COMBO_TEXT);
-
-    // If default path hasn't been added already, add it now..
-    if (CDDB_LOCAL_PATH)
-    {
-        gchar *path_utf8 = filename_to_display (CDDB_LOCAL_PATH);
-        Add_String_To_Combo_List(priv->cddb_local_path_model, path_utf8);
-        if (path_utf8)
-            gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbLocalPath))), path_utf8);
-        g_free(path_utf8);
-    }
-
-    Button = gtk_button_new_from_stock(GTK_STOCK_OPEN);
-    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    g_signal_connect_swapped(G_OBJECT(Button),"clicked",
-                             G_CALLBACK(File_Selection_Window_For_Directory),G_OBJECT(gtk_bin_get_child(GTK_BIN(CddbLocalPath))));
-
     // CDDB Proxy Settings
     Frame = gtk_frame_new (_("Proxy Settings"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
@@ -2030,7 +1983,6 @@ OptionsWindow_Save_Button (EtPreferencesDialog *self)
 #ifndef G_OS_WIN32
     /* FIXME : make gtk crash on win32 */
     Add_String_To_Combo_List(priv->file_player_model,       gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)))));
-    Add_String_To_Combo_List(priv->cddb_local_path_model,    gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbLocalPath)))));
 #endif /* !G_OS_WIN32 */
 
     Save_Changes_Of_Preferences_Window();
@@ -2061,7 +2013,6 @@ et_preferences_dialog_apply_changes (EtPreferencesDialog *self)
 
     /* Save combobox history lists before exit */
     Save_Audio_File_Player_List (priv->file_player_model, MISC_COMBO_TEXT);
-    Save_Cddb_Local_Path_List (priv->cddb_local_path_model, MISC_COMBO_TEXT);
 }
 
 void
@@ -2076,15 +2027,6 @@ et_preferences_dialog_show_scanner (EtPreferencesDialog *self)
     gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->options_notebook),
                                    priv->options_notebook_scanner);
     gtk_window_present (GTK_WINDOW (self));
-}
-
-static void
-CddbLocalPath_Combo_Add_String (void)
-{
-    const gchar *path;
-
-    path = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(CddbLocalPath))));
-    Add_String_To_Combo_List(GTK_LIST_STORE(CddbLocalPath), path);
 }
 
 /*

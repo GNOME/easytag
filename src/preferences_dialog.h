@@ -56,7 +56,4 @@ G_END_DECLS
 /* Misc */
 GtkWidget *FilePlayerCombo;
 
-/* CDDB */
-GtkWidget *CddbLocalPath;
-
 #endif /* ET_PREFERENCES_DIALOG_H_ */
