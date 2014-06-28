@@ -102,7 +102,7 @@ gboolean
 et_musicbrainz_search (gchar *string, MbEntityKind type, GNode *root,
                        GError **error, GCancellable *cancellable);
 void
-free_mb_tree (GNode *node);
+free_mb_tree (GNode **node);
 void
 et_set_cancel_error (GError **error);
 #endif /* __MB_SEARCH_H__ */

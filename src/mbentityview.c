@@ -30,7 +30,6 @@
 #include "mbentityview.h"
 #include "log.h"
 #include "musicbrainz_dialog.h"
-#include "mb_search.h"
 
 #define ET_MB_ENTITY_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), \
                                             ET_MB_ENTITY_VIEW_TYPE, \
@@ -132,6 +131,10 @@ tree_filter_visible_func (GtkTreeModel *model, GtkTreeIter *iter,
                           gpointer data);
 static void
 et_mb_entity_view_finalize (GObject *object);
+static void
+search_in_levels (EtMbEntityView *entity_view, GNode *child,
+                  GtkTreeIter *iter, gboolean is_refresh);
+
 /*************
  * Functions *
  *************/
@@ -336,7 +339,11 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                         size = mb5_artist_get_name (name_credit_artist, name,
                                                     sizeof (name));
                         g_string_append_len (gstring, name, size);
-                        g_string_append_c (gstring, ' ');
+
+                        if (i + 1 < mb5_namecredit_list_size (name_list))
+                        {
+                            g_string_append_len (gstring, ", ", 2);
+                        }
                     }
                 }
 
@@ -395,7 +402,11 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                         size = mb5_artist_get_name (name_credit_artist, name,
                                                     sizeof (name));
                         g_string_append_len (artists, name, size);
-                        g_string_append_c (artists, ' ');
+
+                        if (i + 1 < mb5_namecredit_list_size (name_list))
+                        {
+                            g_string_append_len (artists, ", ", 2);
+                        }
                     }
                 }
 
@@ -404,17 +415,41 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
 
                 if (release_list)
                 {
+                    GHashTable *hash_table;
+
+                    hash_table = g_hash_table_new (g_str_hash, g_str_equal);
+
                     for (i = 0; i < mb5_release_list_size (release_list); i++)
                     {
+                        /* Display Release Name if its any other Release of 
+                         * its Release Group hasn't been displayed
+                         */
                         Mb5Release release;
                         int size;
 
                         release = mb5_release_list_item (release_list, i);
-                        size = mb5_release_get_title (release, name,
-                                                      sizeof (name));
+                        size = mb5_releasegroup_get_id (mb5_release_get_releasegroup (release),
+                                                        name, sizeof (name));
+                        name [size] = '\0';
+
+                        if (g_hash_table_contains (hash_table, name))
+                        {
+                            continue;
+                        }
+
+                        g_hash_table_add (hash_table, name);
+                        size = mb5_release_get_title (release,
+                                                      name, sizeof (name));
+
+                        if (!releases->str || *releases->str)
+                        {
+                            g_string_append_len (releases, ", ", 2);
+                        }
+
                         g_string_append_len (releases, name, size);
-                        g_string_append_c (releases, ' ');
                     }
+
+                    g_hash_table_destroy (hash_table);
                 }
 
                 minutes = mb5_recording_get_length ((Mb5Recording)entity)/60000;
@@ -622,33 +657,40 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
     }
 
     priv->mb_tree_current_node = thread_data->child;
-    children = gtk_container_get_children (GTK_CONTAINER (priv->bread_crumb_box));
-    active_child = g_list_find (children, priv->active_toggle_button);
-    while ((active_child = g_list_next (active_child)))
+
+    if (gtk_list_store_iter_is_valid (GTK_LIST_STORE (priv->list_store), &thread_data->iter))
     {
-        gtk_container_remove (GTK_CONTAINER (priv->bread_crumb_box),
-                              GTK_WIDGET (active_child->data));
+        /* Only run if iter is valid i.e. it is not a Refresh Option */
+        children = gtk_container_get_children (GTK_CONTAINER (priv->bread_crumb_box));
+        active_child = g_list_find (children, priv->active_toggle_button);
+    
+        while ((active_child = g_list_next (active_child)))
+        {
+            gtk_container_remove (GTK_CONTAINER (priv->bread_crumb_box),
+                                  GTK_WIDGET (active_child->data));
+        }
+    
+        toggle_btn = insert_togglebtn_in_breadcrumb (GTK_BOX (priv->bread_crumb_box));
+        children = gtk_container_get_children (GTK_CONTAINER (priv->bread_crumb_box));
+        priv->bread_crumb_nodes [g_list_length (children) - 1] = thread_data->child;
+    
+        if (priv->active_toggle_button)
+        {
+            gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->active_toggle_button),
+                                          FALSE);
+        }
+    
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toggle_btn), TRUE);
+        g_signal_connect (G_OBJECT (toggle_btn), "clicked",
+                          G_CALLBACK (toggle_button_clicked), entity_view);
+        priv->active_toggle_button = toggle_btn;
+    
+        gtk_tree_model_get (priv->list_store, &thread_data->iter, 0, &entity_name,
+                            -1);
+        gtk_button_set_label (GTK_BUTTON (toggle_btn), entity_name);
+        gtk_widget_show_all (GTK_WIDGET (priv->bread_crumb_box));
     }
 
-    toggle_btn = insert_togglebtn_in_breadcrumb (GTK_BOX (priv->bread_crumb_box));
-    children = gtk_container_get_children (GTK_CONTAINER (priv->bread_crumb_box));
-    priv->bread_crumb_nodes [g_list_length (children) - 1] = thread_data->child;
-
-    if (priv->active_toggle_button)
-    {
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->active_toggle_button),
-                                      FALSE);
-    }
-
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toggle_btn), TRUE);
-    g_signal_connect (G_OBJECT (toggle_btn), "clicked",
-                      G_CALLBACK (toggle_button_clicked), entity_view);
-    priv->active_toggle_button = toggle_btn;
-
-    gtk_tree_model_get (priv->list_store, &thread_data->iter, 0, &entity_name,
-                        -1);
-    gtk_button_set_label (GTK_BUTTON (toggle_btn), entity_name);
-    gtk_widget_show_all (GTK_WIDGET (priv->bread_crumb_box));
     ((EtMbEntity *)thread_data->child->data)->is_red_line = TRUE;
     show_data_in_entity_view (entity_view);
 
@@ -770,7 +812,6 @@ static void
 tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
                          GtkTreeViewColumn *column, gpointer user_data)
 {
-    SearchInLevelThreadData *thread_data;
     EtMbEntityView *entity_view;
     EtMbEntityViewPrivate *priv;
     GNode *child;
@@ -792,20 +833,35 @@ tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
 
     child = g_node_nth_child (priv->mb_tree_current_node,
                               depth);
+    search_in_levels (ET_MB_ENTITY_VIEW (user_data), child, &filter_iter, FALSE);
+}
+
+static void
+search_in_levels (EtMbEntityView *entity_view, GNode *child,
+                  GtkTreeIter *filter_iter, gboolean is_refresh)
+{
+    SearchInLevelThreadData *thread_data;
+    EtMbEntityViewPrivate *priv;
 
     if (((EtMbEntity *)child->data)->type ==
         MB_ENTITY_KIND_TRACK)
-    {
+    {printf ("sdsd\n");
         return;
     }
 
     thread_data = g_malloc (sizeof (SearchInLevelThreadData));
-    thread_data->entity_view = ET_MB_ENTITY_VIEW (user_data);
+    thread_data->entity_view = entity_view;
     thread_data->child = child;
-    gtk_tree_model_filter_convert_iter_to_child_iter (GTK_TREE_MODEL_FILTER (priv->filter),
-                                                      &thread_data->iter,
-                                                      &filter_iter);
-    if (((EtMbEntity *)child->data)->is_red_line)
+    priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
+
+    if (filter_iter)
+    {
+        gtk_tree_model_filter_convert_iter_to_child_iter (GTK_TREE_MODEL_FILTER (priv->filter),
+                                                          &thread_data->iter,
+                                                          filter_iter);
+    }
+
+    if (!is_refresh && ((EtMbEntity *)child->data)->is_red_line)
     {
         search_in_levels_callback (NULL, NULL, thread_data);
         return;
@@ -1134,6 +1190,26 @@ et_mb_entity_view_select_down (EtMbEntityView *entity_view)
 void
 et_mb_entity_view_refresh_current_level (EtMbEntityView *entity_view)
 {
+    EtMbEntityViewPrivate *priv;
+    EtMbEntity *et_entity;
+    GNode *child;
+
+    priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
+    et_entity = priv->mb_tree_current_node->data;
+
+    /* Delete Current Data */
+    et_mb_entity_view_clear_all (entity_view);
+    child = g_node_first_child (priv->mb_tree_current_node);
+
+    while (child)
+    {
+        GNode *child1;
+        child1 = g_node_next_sibling (child);
+        free_mb_tree (&child);
+        child = child1;
+    }
+
+    search_in_levels (entity_view, priv->mb_tree_current_node, NULL, TRUE);
 }
 
 void
@@ -1168,5 +1244,45 @@ et_mb_entity_view_finalize (GObject *object)
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
     g_clear_object (&priv->list_store);
     G_OBJECT_CLASS (et_mb_entity_view_parent_class)->finalize(object);
+}
+
+EtMbEntity *
+et_mb_entity_view_get_selected_entity (EtMbEntityView *entity_view)
+{
+    EtMbEntityViewPrivate *priv;
+    GNode *child;
+    int depth;
+    GtkTreeIter filter_iter;
+    GtkTreeIter iter;
+    GtkTreeSelection *selection;
+    GList* list_sel_rows;
+
+    priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view));
+    if (!gtk_tree_selection_count_selected_rows (selection))
+    {
+        return NULL;
+    }
+
+    list_sel_rows = gtk_tree_selection_get_selected_rows (selection, &priv->filter);
+    gtk_tree_model_get_iter (priv->filter,
+                                &filter_iter,
+                                (GtkTreePath *)g_list_first (list_sel_rows)->data);
+    g_list_free_full (list_sel_rows,
+                      (GDestroyNotify)gtk_tree_path_free);
+
+    gtk_tree_model_filter_convert_iter_to_child_iter (GTK_TREE_MODEL_FILTER (priv->filter),
+                                                      &iter, &filter_iter);
+    depth = 0;
+
+    while (gtk_tree_model_iter_previous (priv->list_store, &iter))
+    {
+        depth++;
+    }
+
+    child = g_node_nth_child (priv->mb_tree_current_node,
+                              depth);
+
+    return ((EtMbEntity *)child->data);
 }
 #endif /* ENABLE_libmusicbrainz */

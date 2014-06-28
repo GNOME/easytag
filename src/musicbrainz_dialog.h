@@ -47,5 +47,7 @@ void
 et_show_status_msg_in_idle (gchar *message);
 void
 et_music_brainz_dialog_stop_set_sensitive (gboolean sensitive);
+void
+et_music_brainz_dialog_destroy (GtkWidget *widget);
 #endif /* __MUSICBRAINZ_DIALOG_H__ */
 #endif /* ENABLE_libmusicbrainz */

@@ -41,10 +41,29 @@
 static void
 get_first_selected_file (ET_File  **et_file);
 
+typedef enum
+{
+    ET_MB_SEARCH_TYPE_MANUAL,
+} EtMbSearchType;
+
+typedef struct
+{
+    EtMbSearchType type;
+} EtMbSearch;
+
+typedef struct
+{
+    EtMbSearch parent;
+    gchar *to_search;
+    MbEntityKind to_search_type;
+    GNode *parent_node;
+} EtMbManualSearch;
+
 typedef struct
 {
     GNode *mb_tree_root;
     GSimpleAsyncResult *async_result;
+    EtMbSearch *search;
 } MusicBrainzDialogPrivate;
 
 static MusicBrainzDialogPrivate *mb_dialog_priv;
@@ -73,6 +92,27 @@ btn_close_clicked (GtkWidget *button, gpointer data);
  * Functions *
  *************/
 
+static void
+et_musicbrainz_set_search_manual (EtMbSearch **search, gchar *to_search,
+                                  GNode *node, MbEntityKind type)
+{
+    if (*search)
+    {
+        if ((*search)->type == ET_MB_SEARCH_TYPE_MANUAL)
+        {
+            g_free (((EtMbManualSearch *)(*search))->to_search);
+        }
+
+        g_free (*search);
+    }
+
+    *search = g_malloc (sizeof (EtMbManualSearch));
+    ((EtMbManualSearch *)(*search))->to_search = g_strdup (to_search);
+    (*search)->type = ET_MB_SEARCH_TYPE_MANUAL;
+    ((EtMbManualSearch *)(*search))->parent_node = node;
+    ((EtMbManualSearch *)(*search))->to_search_type = type;
+}
+
 /*
  * manual_search_callback:
  * @source: Source Object
@@ -91,8 +131,13 @@ manual_search_callback (GObject *source, GAsyncResult *res,
     {
         g_object_unref (res);
         g_free (user_data);
-        free_mb_tree (mb_dialog_priv->mb_tree_root);
-        mb_dialog_priv->mb_tree_root = g_node_new (NULL);
+
+        if (mb_dialog_priv)
+        {
+            free_mb_tree (&mb_dialog_priv->mb_tree_root);
+            mb_dialog_priv->mb_tree_root = g_node_new (NULL);
+        }
+
         return;
     }
 
@@ -101,18 +146,17 @@ manual_search_callback (GObject *source, GAsyncResult *res,
     gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder,
                         "statusbar")), 0, _("Searching Completed"));
     g_object_unref (res);
-    g_free (user_data);
-
     combo_box = GTK_COMBO_BOX_TEXT (gtk_builder_get_object (builder,
                                                             "cbManualSearch"));
     gtk_combo_box_text_append_text (combo_box,
                                     gtk_combo_box_text_get_active_text (combo_box));
     et_music_brainz_dialog_stop_set_sensitive (FALSE);
-
-    if (exit_on_complete)
-    {
-        btn_close_clicked (NULL, NULL);
-    }
+    mb_dialog_priv->search = ET_MB_SEARCH_TYPE_MANUAL;
+    et_musicbrainz_set_search_manual (&mb_dialog_priv->search,
+                                      ((ManualSearchThreadData *)user_data)->text_to_search,
+                                      mb_dialog_priv->mb_tree_root,
+                                      ((ManualSearchThreadData *)user_data)->type);
+    g_free (user_data);
 }
 
 /*
@@ -178,7 +222,7 @@ mb5_search_error_callback (GObject *source, GAsyncResult *res,
 
     if (exit_on_complete)
     {
-        btn_close_clicked (NULL, NULL);
+        et_music_brainz_dialog_destroy (mbDialog);
     }
 }
 
@@ -278,7 +322,7 @@ btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
 
     if (g_node_first_child (mb_dialog_priv->mb_tree_root))
     {
-        free_mb_tree (mb_dialog_priv->mb_tree_root);
+        free_mb_tree (&mb_dialog_priv->mb_tree_root);
         mb_dialog_priv->mb_tree_root = g_node_new (NULL);
     }
  
@@ -388,13 +432,35 @@ tool_btn_unselect_all_clicked (GtkWidget *btn, gpointer user_data)
 static void
 tool_btn_refresh_clicked (GtkWidget *btn, gpointer user_data)
 {
+    if (!mb_dialog_priv->search)
+    {
+        return;
+    }
+
     /* TODO: Implement Refresh Operation */
     if (et_mb_entity_view_get_current_level (ET_MB_ENTITY_VIEW (entityView)) >
         1)
     {
         /* Current level is more than 1, refereshing means downloading an */
         /* entity's children */
- 
+        et_mb_entity_view_refresh_current_level (ET_MB_ENTITY_VIEW (entityView));
+        return;
+    }
+
+    if (mb_dialog_priv->search->type == ET_MB_SEARCH_TYPE_MANUAL)
+    {
+        EtMbManualSearch *manual_search;
+        GtkWidget *entry;
+
+        manual_search = (EtMbManualSearch *)mb_dialog_priv->search;
+        et_mb_entity_view_clear_all (ET_MB_ENTITY_VIEW (entityView));
+        free_mb_tree (&mb_dialog_priv->mb_tree_root);
+        mb_dialog_priv->mb_tree_root = g_node_new (NULL);
+        entry = gtk_bin_get_child (GTK_BIN (gtk_builder_get_object (builder, "cbManualSearch")));
+        gtk_entry_set_text (GTK_ENTRY (entry), manual_search->to_search);
+        gtk_combo_box_set_active (GTK_COMBO_BOX (gtk_builder_get_object (builder, "cbManualSearchIn")),
+                                  manual_search->to_search_type);
+        btn_manual_find_clicked (NULL, NULL);
     }
 }
 
@@ -540,7 +606,7 @@ discid_search_callback (GObject *source, GAsyncResult *res,
     if (!g_simple_async_result_get_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res)))
     {
         g_object_unref (res);
-        free_mb_tree (mb_dialog_priv->mb_tree_root);
+        free_mb_tree (&mb_dialog_priv->mb_tree_root);
         mb_dialog_priv->mb_tree_root = g_node_new (NULL);
         return;
     }
@@ -621,7 +687,7 @@ btn_discid_search (GtkWidget *button, gpointer data)
     mb5_search_cancellable = g_cancellable_new ();
     gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
                         0, _("Starting MusicBrainz Search"));
-    mb_dialog_priv->async_result = g_simple_async_result_new (NULL, 
+    mb_dialog_priv->async_result = g_simple_async_result_new (NULL,
                                                               discid_search_callback,
                                                               NULL,
                                                               btn_manual_find_clicked);
@@ -764,29 +830,107 @@ et_music_brainz_dialog_stop_set_sensitive (gboolean sensitive)
                               sensitive);
 }
 
-/* FIXME: Pressing Escape while there is a search gives error */
-static gboolean
-et_music_brainz_dialog_delete_event (GtkWidget *widget, GdkEvent *event,
-                                     gpointer data)
+static void
+btn_apply_changes_clicked (GtkWidget *widget, gpointer data)
 {
-    if (gtk_widget_get_sensitive (GTK_WIDGET (gtk_builder_get_object (builder,
-                                  "btnStop"))))
+    if (mb_dialog_priv->search->type == ET_MB_SEARCH_TYPE_MANUAL)
     {
-        gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
-                            0,
-                            _("Currently there is a search in progress. Please wait for it to exit."));
-        exit_on_complete = TRUE;
-        btn_manual_stop_clicked (NULL, NULL);
+        ET_File *et_file;
+        EtMbEntity *et_entity;
 
-        return TRUE;
+        et_entity = et_mb_entity_view_get_selected_entity (ET_MB_ENTITY_VIEW (entityView));
+
+        if (!et_entity || et_entity->type != MB_ENTITY_KIND_TRACK)
+        {
+            gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
+                                0, _("Please select a Track."));
+            return;
+        }
+
+        get_first_selected_file (&et_file);
+
+        if (et_file)
+        {
+            File_Tag *file_tag;
+            gchar string [NAME_MAX_SIZE];
+            int size;
+
+            file_tag = (File_Tag *)et_file->FileTag->data;
+            size = mb5_recording_get_title (et_entity->entity, string,
+                                            sizeof (string));
+            string [size] = '\0';
+            ET_Set_Field_File_Tag_Item (&file_tag->title, string);
+
+            //ET_Set_Field_File_Tag_Item (&file_tag->artist,
+            //ET_Set_Field_File_Tag_Item (&file_tag->album,
+ 
+            /*ET_Set_Field_File_Tag_Item (&file_tag->year,
+
+                if (cddbsettoallfields || cddbsettotrack)
+                {
+                    snprintf (buffer, sizeof (buffer), "%s",
+                              et_track_number_to_string (cddbtrackalbum->track_number));
+
+                    ET_Set_Field_File_Tag_Item(&FileTag->track,buffer);
+                }
+
+                if (cddbsettoallfields || cddbsettotracktotal)
+                {
+                    snprintf (buffer, sizeof (buffer), "%s",
+                              et_track_number_to_string (list_length));
+
+                    ET_Set_Field_File_Tag_Item(&FileTag->track_total,buffer);
+                }
+
+                if ( (cddbsettoallfields || cddbsettogenre) && (cddbtrackalbum->cddbalbum->genre || cddbtrackalbum->cddbalbum->category) )
+                {
+                    if (cddbtrackalbum->cddbalbum->genre && g_utf8_strlen(cddbtrackalbum->cddbalbum->genre, -1)>0)
+                        ET_Set_Field_File_Tag_Item(&FileTag->genre,Cddb_Get_Id3_Genre_From_Cddb_Genre(cddbtrackalbum->cddbalbum->genre));
+                    else
+                        ET_Set_Field_File_Tag_Item(&FileTag->genre,Cddb_Get_Id3_Genre_From_Cddb_Genre(cddbtrackalbum->cddbalbum->category));
+                }
+            }*/
+
+            /*if ( (cddbsettoallfields || cddbsettofilename) )
+            {
+                gchar *filename_generated_utf8;
+                gchar *filename_new_utf8;
+
+                // Allocation of a new FileName
+                FileName = ET_File_Name_Item_New();
+
+                // Build the filename with the path
+                snprintf (buffer, sizeof (buffer), "%s",
+                          et_track_number_to_string (cddbtrackalbum->track_number));
+
+                filename_generated_utf8 = g_strconcat(buffer," - ",cddbtrackalbum->track_name,NULL);
+                ET_File_Name_Convert_Character(filename_generated_utf8); // Replace invalid characters
+                filename_new_utf8 = ET_File_Name_Generate(*etfile,filename_generated_utf8);
+
+                ET_Set_Filename_File_Name_Item(FileName,filename_new_utf8,NULL);
+
+                g_free(filename_generated_utf8);
+                g_free(filename_new_utf8);
+            }
+
+            ET_Manage_Changes_Of_File_Data(*etfile,FileName,FileTag);
+
+            // Then run current scanner if asked...
+            if (ScannerWindow && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbRunScanner)) )
+                Scan_Select_Mode_And_Run_Scanner(*etfile);*/
+
+        }
     }
+}
 
-    gtk_widget_destroy ((widget));
+void
+et_music_brainz_dialog_destroy (GtkWidget *widget)
+{
+    gtk_widget_destroy (widget);
     g_object_unref (G_OBJECT (builder));
-    free_mb_tree (mb_dialog_priv->mb_tree_root);
+    free_mb_tree (&mb_dialog_priv->mb_tree_root);
     g_free (mb_dialog_priv);
-
-    return FALSE;
+    mb_dialog_priv = NULL;
 }
 
 /*
@@ -819,6 +963,7 @@ et_open_musicbrainz_dialog ()
 
     mb_dialog_priv = g_malloc (sizeof (MusicBrainzDialogPrivate));
     mb_dialog_priv->mb_tree_root = g_node_new (NULL);
+    mb_dialog_priv->search = NULL;
     exit_on_complete = FALSE;
     entityView = et_mb_entity_view_new ();
     mbDialog = GTK_WIDGET (gtk_builder_get_object (builder, "mbDialog"));
@@ -826,7 +971,6 @@ et_open_musicbrainz_dialog ()
     gtk_box_pack_start (GTK_BOX (gtk_builder_get_object (builder, "centralBox")),
                         entityView, TRUE, TRUE, 2);
 
-    g_signal_connect (mbDialog, "delete-event", G_CALLBACK (et_music_brainz_dialog_delete_event), NULL);
     cb_search = GTK_WIDGET (gtk_builder_get_object (builder, "cbManualSearch"));
     g_signal_connect (gtk_bin_get_child (GTK_BIN (cb_search)), "activate",
                       G_CALLBACK (btn_manual_find_clicked), NULL);
@@ -866,6 +1010,10 @@ et_open_musicbrainz_dialog ()
     g_signal_connect (gtk_builder_get_object (builder, "btnClose"),
                       "clicked", G_CALLBACK (btn_close_clicked),
                       NULL);
+    g_signal_connect (gtk_builder_get_object (builder, "btnApplyChanges"),
+                      "clicked", G_CALLBACK (btn_apply_changes_clicked),
+                      NULL);
+ 
     //g_signal_connect (gtk_builder_get_object (builder, "btnAutomaticSearch"),
     //                  "clicked", G_CALLBACK (btn_automatic_search_clicked),
     //                  NULL);
@@ -895,6 +1043,17 @@ et_open_musicbrainz_dialog ()
 
     gtk_widget_show_all (mbDialog);
     gtk_dialog_run (GTK_DIALOG (mbDialog));
-    //gtk_widget_destroy (mbDialog);
+
+    if (gtk_widget_get_sensitive (GTK_WIDGET (gtk_builder_get_object (builder,
+                                  "btnStop"))))
+    {
+        exit_on_complete = TRUE;
+        btn_manual_stop_clicked (NULL, NULL);
+        gtk_widget_hide (mbDialog);
+    }
+    else
+    {
+        et_music_brainz_dialog_destroy (mbDialog);
+    }
 }
 #endif /* ENABLE_libmusicbrainz */
