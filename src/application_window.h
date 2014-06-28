@@ -51,7 +51,6 @@ void et_application_window_tag_area_set_sensitive (EtApplicationWindow *self, gb
 void et_application_window_file_area_set_sensitive (EtApplicationWindow *self, gboolean sensitive);
 void et_application_window_tag_area_display_controls (EtApplicationWindow *self, ET_File *ETFile);
 GtkWidget * et_application_window_get_log_area (EtApplicationWindow *self);
-GtkWidget * et_application_window_get_playlist_dialog (EtApplicationWindow *self);
 void et_application_window_show_playlist_dialog (GtkAction *action, gpointer user_data);
 GtkWidget * et_application_window_get_load_files_dialog (EtApplicationWindow *self);
 void et_application_window_show_load_files_dialog (GtkAction *action, gpointer user_data);

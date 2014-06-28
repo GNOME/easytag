@@ -32,16 +32,6 @@ typedef struct _EtPlaylistDialog EtPlaylistDialog;
 typedef struct _EtPlaylistDialogClass EtPlaylistDialogClass;
 typedef struct _EtPlaylistDialogPrivate EtPlaylistDialogPrivate;
 
-/* FIXME: Used by setting.c, remove when porting to GSettings. */
-GtkWidget *playlist_use_mask_name;
-GtkWidget *playlist_use_dir_name;
-GtkWidget *playlist_only_selected_files;
-GtkWidget *playlist_full_path;
-GtkWidget *playlist_relative_path;
-GtkWidget *playlist_create_in_parent_dir;
-GtkWidget *playlist_use_dos_separator;
-
-
 struct _EtPlaylistDialog
 {
     /*< private >*/
@@ -57,7 +47,6 @@ struct _EtPlaylistDialogClass
 
 GType et_playlist_dialog_get_type (void);
 EtPlaylistDialog *et_playlist_dialog_new (void);
-void et_playlist_dialog_apply_changes (EtPlaylistDialog *self);
 
 G_END_DECLS
 

@@ -260,10 +260,6 @@ GSettings *MainSettings;
 /* Misc */
 gchar  *AUDIO_FILE_PLAYER;
 
-/* Playlist window */
-gchar  *PLAYLIST_NAME;
-gchar  *PLAYLIST_CONTENT_MASK_VALUE;
-
 gchar  *CDDB_LOCAL_PATH;
 
 /* Default mask */
@@ -302,10 +298,6 @@ void Save_Rename_Directory_Masks_List (GtkListStore *liststore, gint colnum);
 void Load_Path_Entry_List (GtkListStore *liststore, gint colnum);
 void Save_Path_Entry_List (GtkListStore *liststore, gint colnum);
 
-/* 'PlayListNameEntry' combobox */
-void Load_Play_List_Name_List (GtkListStore *liststore, gint colnum);
-void Save_Play_List_Name_List (GtkListStore *liststore, gint colnum);
-
 /* Run Program combobox (tree browser) */
 void Load_Run_Program_With_Directory_List (GtkListStore *liststore, gint colnum);
 void Save_Run_Program_With_Directory_List (GtkListStore *liststore, gint colnum);
@@ -325,10 +317,6 @@ void Save_Search_File_List (GtkListStore *liststore, gint colnum);
 /* 'FileToLoad' combobox */
 void Load_File_To_Load_List (GtkListStore *liststore, gint colnum);
 void Save_File_To_Load_List (GtkListStore *liststore, gint colnum);
-
-/* 'PlayListContentMaskEntry' combobox */
-void Load_Playlist_Content_Mask_List (GtkListStore *liststore, gint colnum);
-void Save_Playlist_Content_Mask_List (GtkListStore *liststore, gint colnum);
 
 /* 'CddbSearchStringEntry' combobox */
 void Load_Cddb_Search_String_List (GtkListStore *liststore, gint colnum);

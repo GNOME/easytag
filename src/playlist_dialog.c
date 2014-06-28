@@ -44,10 +44,8 @@ static const guint BOX_SPACING = 6;
 
 struct _EtPlaylistDialogPrivate
 {
-    GtkWidget *name_mask_combo;
-    GtkWidget *content_mask_combo;
-    GtkListStore *name_mask_model;
-    GtkListStore *content_mask_model;
+    GtkWidget *name_mask_entry;
+    GtkWidget *content_mask_entry;
 };
 
 /*
@@ -197,7 +195,7 @@ write_playlist (EtPlaylistDialog *self, GFile *file, GError **error)
                     case ET_PLAYLIST_CONTENT_EXTENDED_MASK:
                     {
                         /* Header uses information generated from a mask. */
-                        gchar *mask = filename_from_display (gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->content_mask_combo)))));
+                        gchar *mask = filename_from_display (gtk_entry_get_text (GTK_ENTRY (priv->content_mask_entry)));
                         /* Special case: do not replace illegal characters and
                          * do not check if there is a directory separator in
                          * the mask. */
@@ -316,7 +314,7 @@ write_playlist (EtPlaylistDialog *self, GFile *file, GError **error)
                 case ET_PLAYLIST_CONTENT_EXTENDED_MASK:
                 {
                     /* Header uses information generated from a mask. */
-                    gchar *mask = filename_from_display (gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->content_mask_combo)))));
+                    gchar *mask = filename_from_display (gtk_entry_get_text (GTK_ENTRY (priv->content_mask_entry)));
                     /* Special case: do not replace illegal characters and
                      * do not check if there is a directory separator in
                      * the mask. */
@@ -420,17 +418,13 @@ write_button_clicked (EtPlaylistDialog *self)
 
     priv = et_playlist_dialog_get_instance_private (self);
 
-    // Check if playlist name was filled
-    if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(playlist_use_mask_name))
-    &&   g_utf8_strlen(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->name_mask_combo)))), -1)<=0 )
-        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(playlist_use_dir_name),TRUE);
-
-    /* List of variables also set in the function 'Write_Playlist_Window_Apply_Changes' */
-    /***if (PLAYLIST_NAME) g_free(PLAYLIST_NAME);
-
-    if (PLAYLIST_CONTENT_MASK_VALUE) g_free(PLAYLIST_CONTENT_MASK_VALUE);
-    PLAYLIST_CONTENT_MASK_VALUE   = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(content_mask_combo)->child)));***/
-    et_playlist_dialog_apply_changes (self);
+    /* Check if playlist name was filled. */
+    if (g_settings_get_boolean (MainSettings, "playlist-use-mask")
+        && g_utf8_strlen (gtk_entry_get_text (GTK_ENTRY(priv->name_mask_entry)), -1) <=0)
+    {
+        /* TODO: Can this happen? */
+        g_settings_set_boolean (MainSettings, "playlist-use-mask", FALSE);
+    }
 
     // Path of the playlist file (may be truncated later if PLAYLIST_CREATE_IN_PARENT_DIR is TRUE)
     playlist_path_utf8 = filename_to_display (et_application_window_get_current_path (ET_APPLICATION_WINDOW (MainWindow)));
@@ -438,17 +432,22 @@ write_button_clicked (EtPlaylistDialog *self)
     /* Build the playlist filename. */
     if (g_settings_get_boolean (MainSettings, "playlist-use-mask"))
     {
+        gchar *playlist_name;
         EtConvertSpaces convert_mode;
 
         if (!ETCore->ETFileList)
             return;
 
-        Add_String_To_Combo_List (priv->name_mask_model, PLAYLIST_NAME);
+        playlist_name = g_settings_get_string (MainSettings,
+                                               "playlist-filename-mask");
 
-        // Generate filename from tag of the current selected file (hummm FIX ME)
-        temp = filename_from_display(PLAYLIST_NAME);
-        playlist_basename_utf8 = Scan_Generate_New_Filename_From_Mask(ETCore->ETFileDisplayed,temp,FALSE);
-        g_free(temp);
+        /* Generate filename from tag of the current selected file (FIXME). */
+        temp = filename_from_display (playlist_name);
+        g_free (playlist_name);
+        playlist_basename_utf8 = Scan_Generate_New_Filename_From_Mask (ETCore->ETFileDisplayed,
+                                                                       temp,
+                                                                       FALSE);
+        g_free (temp);
 
         /* Replace Characters (with scanner). */
         convert_mode = g_settings_get_flags (MainSettings,
@@ -577,11 +576,9 @@ on_response (GtkDialog *dialog, gint response_id, gpointer user_data)
             write_button_clicked (ET_PLAYLIST_DIALOG (dialog));
             break;
         case GTK_RESPONSE_CANCEL:
-            et_playlist_dialog_apply_changes (ET_PLAYLIST_DIALOG (dialog));
             gtk_widget_hide (GTK_WIDGET (dialog));
             break;
         case GTK_RESPONSE_DELETE_EVENT:
-            et_playlist_dialog_apply_changes (ET_PLAYLIST_DIALOG (dialog));
             break;
         default:
             g_assert_not_reached ();
@@ -650,6 +647,13 @@ create_playlist_dialog (EtPlaylistDialog *self)
     GtkWidget *content_area;
     GtkWidget *hbox;
     GtkWidget *vbox;
+    GtkWidget *playlist_use_mask_name;
+    GtkWidget *playlist_use_dir_name;
+    GtkWidget *playlist_only_selected_files;
+    GtkWidget *playlist_full_path;
+    GtkWidget *playlist_relative_path;
+    GtkWidget *playlist_create_in_parent_dir;
+    GtkWidget *playlist_use_dos_separator;
     GtkWidget *playlist_content_filenames;
     GtkWidget *playlist_content_extended;
     GtkWidget *playlist_content_mask;
@@ -673,9 +677,6 @@ create_playlist_dialog (EtPlaylistDialog *self)
 
 
     /* Playlist name */
-    priv->name_mask_model = gtk_list_store_new (MISC_COMBO_COUNT,
-                                                G_TYPE_STRING);
-
     frame = gtk_frame_new (_("M3U Playlist Name"));
     gtk_box_pack_start (GTK_BOX (content_area), frame, TRUE, TRUE, 0);
     vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
@@ -686,29 +687,21 @@ create_playlist_dialog (EtPlaylistDialog *self)
     hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),playlist_use_mask_name,FALSE,FALSE,0);
-    priv->name_mask_combo = gtk_combo_box_new_with_model_and_entry (GTK_TREE_MODEL (priv->name_mask_model));
-    g_object_unref (priv->name_mask_model);
-    gtk_combo_box_set_entry_text_column (GTK_COMBO_BOX (priv->name_mask_combo),
-                                         MISC_COMBO_TEXT);
-    gtk_box_pack_start (GTK_BOX (hbox), priv->name_mask_combo, FALSE, FALSE,
+    priv->name_mask_entry = gtk_entry_new ();
+    gtk_box_pack_start (GTK_BOX (hbox), priv->name_mask_entry, FALSE, FALSE,
                         0);
     playlist_use_dir_name = gtk_radio_button_new_with_label_from_widget(
         GTK_RADIO_BUTTON(playlist_use_mask_name),_("Use directory name"));
     gtk_box_pack_start(GTK_BOX(vbox),playlist_use_dir_name,FALSE,FALSE,0);
-    // History list
-    Load_Play_List_Name_List (priv->name_mask_model, MISC_COMBO_TEXT);
-    Add_String_To_Combo_List (priv->name_mask_model, PLAYLIST_NAME);
-    gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->name_mask_combo))),
-                        PLAYLIST_NAME);
-
+    g_settings_bind (MainSettings, "playlist-filename-mask",
+                     priv->name_mask_entry, "text", G_SETTINGS_BIND_DEFAULT);
     g_settings_bind (MainSettings, "playlist-use-mask", playlist_use_mask_name,
                      "active", G_SETTINGS_BIND_DEFAULT);
 
-    // Mask status icon
-    // Signal connection to check if mask is correct into the mask entry
-    g_signal_connect (gtk_bin_get_child (GTK_BIN (priv->name_mask_combo)),
-                      "changed", G_CALLBACK (entry_check_content_mask),
-                      NULL);
+    /* Mask status icon. Signal connection to check if mask is correct in the
+     * mask entry. */
+    g_signal_connect (priv->name_mask_entry, "changed",
+                      G_CALLBACK (entry_check_content_mask), NULL);
 
     /* Playlist options */
     frame = gtk_frame_new (_("Playlist Options"));
@@ -755,9 +748,6 @@ create_playlist_dialog (EtPlaylistDialog *self)
         "separator '/' into DOS separator '\\'."));
 
     /* Playlist content */
-    priv->content_mask_model = gtk_list_store_new (MISC_COMBO_COUNT,
-                                                   G_TYPE_STRING);
-
     frame = gtk_frame_new (_("Playlist Content"));
     gtk_box_pack_start (GTK_BOX (content_area), frame, TRUE, TRUE, 0);
     vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
@@ -783,24 +773,17 @@ create_playlist_dialog (EtPlaylistDialog *self)
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(hbox),playlist_content_mask,FALSE,FALSE,0);
     // Set a label, a combobox and un editor button in the 3rd radio button
-    priv->content_mask_combo = gtk_combo_box_new_with_model_and_entry (GTK_TREE_MODEL (priv->content_mask_model));
-    g_object_unref (priv->content_mask_model);
-    gtk_combo_box_set_entry_text_column (GTK_COMBO_BOX (priv->content_mask_combo),
-                                         MISC_COMBO_TEXT);
-    gtk_box_pack_start (GTK_BOX (hbox), priv->content_mask_combo, FALSE, FALSE, 0);
-    // History list
-    Load_Playlist_Content_Mask_List (priv->content_mask_model,
-                                     MISC_COMBO_TEXT);
-    Add_String_To_Combo_List (priv->content_mask_model,
-                              PLAYLIST_CONTENT_MASK_VALUE);
-    gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->content_mask_combo))),
-                        PLAYLIST_CONTENT_MASK_VALUE);
+    priv->content_mask_entry = gtk_entry_new ();
+    gtk_box_pack_start (GTK_BOX (hbox), priv->content_mask_entry, FALSE, FALSE,
+                        0);
+    g_settings_bind (MainSettings, "playlist-default-mask",
+                     priv->content_mask_entry, "text",
+                     G_SETTINGS_BIND_DEFAULT);
 
-    // Mask status icon
-    // Signal connection to check if mask is correct into the mask entry
-    g_signal_connect (gtk_bin_get_child (GTK_BIN (priv->content_mask_combo)),
-                      "changed", G_CALLBACK (entry_check_content_mask),
-                      NULL);
+    /* Mask status icon. Signal connection to check if mask is correct in the
+     * mask entry. */
+    g_signal_connect (priv->content_mask_entry, "changed",
+                      G_CALLBACK (entry_check_content_mask), NULL);
 
     g_settings_bind_with_mapping (MainSettings, "playlist-content",
                                   playlist_content_filenames, "active",
@@ -821,36 +804,9 @@ create_playlist_dialog (EtPlaylistDialog *self)
                                   et_settings_enum_radio_set,
                                   playlist_content_mask, NULL);
 
-    /* To initialize the mask status icon and visibility */
-    g_signal_emit_by_name (gtk_bin_get_child (GTK_BIN (priv->name_mask_combo)),
-                           "changed");
-    g_signal_emit_by_name (gtk_bin_get_child (GTK_BIN (priv->content_mask_combo)),
-                           "changed");
-}
-
-/*
- * For the configuration file...
- */
-void
-et_playlist_dialog_apply_changes (EtPlaylistDialog *self)
-{
-    EtPlaylistDialogPrivate *priv;
-
-    g_return_if_fail (ET_PLAYLIST_DIALOG (self));
-
-    priv = et_playlist_dialog_get_instance_private (self);
-
-    /* List of variables also set in the function 'Playlist_Write_Button_Pressed' */
-    if (PLAYLIST_NAME) g_free(PLAYLIST_NAME);
-    PLAYLIST_NAME = g_strdup (gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->name_mask_combo)))));
-
-    if (PLAYLIST_CONTENT_MASK_VALUE) g_free(PLAYLIST_CONTENT_MASK_VALUE);
-    PLAYLIST_CONTENT_MASK_VALUE = g_strdup (gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->content_mask_combo)))));
-
-    /* Save combobox history lists before exit */
-    Save_Play_List_Name_List (priv->name_mask_model, MISC_COMBO_TEXT);
-    Save_Playlist_Content_Mask_List (priv->content_mask_model,
-                                     MISC_COMBO_TEXT);
+    /* To initialize the mask status icon and visibility. */
+    g_signal_emit_by_name (priv->name_mask_entry, "changed");
+    g_signal_emit_by_name (priv->content_mask_entry, "changed");
 }
 
 static void

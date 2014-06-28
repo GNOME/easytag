@@ -1896,18 +1896,6 @@ et_application_window_get_log_area (EtApplicationWindow *self)
     return priv->log_area;
 }
 
-GtkWidget *
-et_application_window_get_playlist_dialog (EtApplicationWindow *self)
-{
-    EtApplicationWindowPrivate *priv;
-
-    g_return_val_if_fail (self != NULL, NULL);
-
-    priv = et_application_window_get_instance_private (self);
-
-    return priv->playlist_dialog;
-}
-
 void
 et_application_window_show_playlist_dialog (G_GNUC_UNUSED GtkAction *action,
                                             gpointer user_data)

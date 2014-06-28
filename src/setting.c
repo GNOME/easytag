@@ -68,10 +68,6 @@ static const gchar SCAN_TAG_MASKS_FILE[] = "scan_tag.mask";
 static const gchar RENAME_FILE_MASKS_FILE[] = "rename_file.mask";
 // File for history of RenameDirectoryMaskCombo combobox
 static const gchar RENAME_DIRECTORY_MASKS_FILE[] = "rename_directory.mask";
-// File for history of PlayListNameCombo combobox
-static const gchar PLAY_LIST_NAME_MASKS_FILE[] = "play_list_name.mask";
-// File for history of PlayListContentMaskEntry combobox
-static const gchar PLAYLIST_CONTENT_MASKS_FILE[] = "playlist_content.mask";
 // File for history of BrowserEntry combobox
 static const gchar PATH_ENTRY_HISTORY_FILE[] = "browser_path.history";
 // File for history of run program combobox for directories
@@ -109,9 +105,6 @@ static const tConfigVariable Config_Variables[] =
 {
 
     {"audio_file_player",                       CV_TYPE_STRING,&AUDIO_FILE_PLAYER                        },
-
-    {"playlist_name",                           CV_TYPE_STRING,  &PLAYLIST_NAME                          },
-    {"playlist_content_mask_value",             CV_TYPE_STRING,  &PLAYLIST_CONTENT_MASK_VALUE            },
 
     {"cddb_local_path",                         CV_TYPE_STRING,  &CDDB_LOCAL_PATH                        },
 
@@ -167,12 +160,6 @@ void Init_Config_Variables (void)
 #else /* !G_OS_WIN32 */
     AUDIO_FILE_PLAYER                       = g_strdup("xdg-open");
 #endif /* !G_OS_WIN32 */
-
-    /*
-     * Playlist window
-     */
-    PLAYLIST_NAME                   = g_strdup("playlist_%a_-_%b");
-    PLAYLIST_CONTENT_MASK_VALUE     = g_strdup("%n/%l - %a - %b - %t");
 
     /*
      * CDDB window
@@ -250,10 +237,6 @@ Apply_Changes_Of_UI (void)
     /* Configuration of the cddb window (see cddb_dialog.c).
      * Function also called when destroying the window. */
     et_cddb_dialog_apply_changes (ET_CDDB_DIALOG (et_application_window_get_cddb_dialog (ET_APPLICATION_WINDOW (MainWindow))));
-
-    /* Configuration of the playlist window (see playlist_dialog.c).
-     * Function also called when destroying the window. */
-    et_playlist_dialog_apply_changes (ET_PLAYLIST_DIALOG (et_application_window_get_playlist_dialog (ET_APPLICATION_WINDOW (MainWindow))));
 
     /* Configuration of the search_file window (see search_dialog.c).
      * Function also called when destroying the window. */
@@ -532,13 +515,11 @@ gboolean Setting_Create_Files (void)
     check_or_create_file (RENAME_FILE_MASKS_FILE);
     check_or_create_file (RENAME_DIRECTORY_MASKS_FILE);
     check_or_create_file (PATH_ENTRY_HISTORY_FILE);
-    check_or_create_file (PLAY_LIST_NAME_MASKS_FILE);
     check_or_create_file (RUN_PROGRAM_WITH_DIRECTORY_HISTORY_FILE);
     check_or_create_file (RUN_PROGRAM_WITH_FILE_HISTORY_FILE);
     check_or_create_file (AUDIO_FILE_PLAYER_HISTORY_FILE);
     check_or_create_file (SEARCH_FILE_HISTORY_FILE);
     check_or_create_file (FILE_TO_LOAD_HISTORY_FILE);
-    check_or_create_file (PLAYLIST_CONTENT_MASKS_FILE);
     check_or_create_file (CDDB_SEARCH_STRING_HISTORY_FILE);
     check_or_create_file (CDDB_SEARCH_STRING_IN_RESULT_HISTORY_FILE);
     check_or_create_file (CDDB_LOCAL_PATH_HISTORY_FILE);
@@ -755,18 +736,6 @@ void Save_Path_Entry_List (GtkListStore *liststore, gint colnum)
 }
 
 /*
- * Functions for writing and reading list of 'PlayListNameCombo' combobox
- */
-void Load_Play_List_Name_List (GtkListStore *liststore, gint colnum)
-{
-    Populate_List_Store_From_File(PLAY_LIST_NAME_MASKS_FILE, liststore, colnum);
-}
-void Save_Play_List_Name_List (GtkListStore *liststore, gint colnum)
-{
-    Save_List_Store_To_File(PLAY_LIST_NAME_MASKS_FILE, liststore, colnum);
-}
-
-/*
  * Functions for writing and reading list of combobox to run program (tree browser)
  */
 void Load_Run_Program_With_Directory_List (GtkListStore *liststore, gint colnum)
@@ -827,18 +796,6 @@ void Save_File_To_Load_List (GtkListStore *liststore, gint colnum)
 }
 
 /*
- * Functions for writing and reading list of combobox of playlist content
- */
-void Load_Playlist_Content_Mask_List (GtkListStore *liststore, gint colnum)
-{
-    Populate_List_Store_From_File(PLAYLIST_CONTENT_MASKS_FILE, liststore, colnum);
-}
-void Save_Playlist_Content_Mask_List (GtkListStore *liststore, gint colnum)
-{
-    Save_List_Store_To_File(PLAYLIST_CONTENT_MASKS_FILE, liststore, colnum);
-}
-
-/*
  * Functions for writing and reading list of combobox of cddb search string
  */
 void Load_Cddb_Search_String_List (GtkListStore *liststore, gint colnum)
@@ -895,13 +852,11 @@ migrate_config_file_dir (const gchar *old_path, const gchar *new_path)
                                         RENAME_FILE_MASKS_FILE,
                                         RENAME_DIRECTORY_MASKS_FILE,
                                         PATH_ENTRY_HISTORY_FILE,
-                                        PLAY_LIST_NAME_MASKS_FILE,
                                         RUN_PROGRAM_WITH_DIRECTORY_HISTORY_FILE,
                                         RUN_PROGRAM_WITH_FILE_HISTORY_FILE,
                                         AUDIO_FILE_PLAYER_HISTORY_FILE,
                                         SEARCH_FILE_HISTORY_FILE,
                                         FILE_TO_LOAD_HISTORY_FILE,
-                                        PLAYLIST_CONTENT_MASKS_FILE,
                                         CDDB_SEARCH_STRING_HISTORY_FILE,
                                         CDDB_SEARCH_STRING_IN_RESULT_HISTORY_FILE,
                                         CDDB_LOCAL_PATH_HISTORY_FILE,
