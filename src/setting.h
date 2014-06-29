@@ -260,10 +260,6 @@ GSettings *MainSettings;
 /* Misc */
 gchar  *AUDIO_FILE_PLAYER;
 
-/* Default mask */
-gchar  *SCAN_TAG_DEFAULT_MASK;
-gchar  *RENAME_FILE_DEFAULT_MASK;
-
 /**************
  * Prototypes *
  **************/

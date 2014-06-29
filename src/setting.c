@@ -100,10 +100,7 @@ static gboolean Create_Easytag_Directory (void);
 static const tConfigVariable Config_Variables[] =
 {
 
-    {"audio_file_player",                       CV_TYPE_STRING,&AUDIO_FILE_PLAYER                        },
-
-    {"scan_tag_default_mask",                   CV_TYPE_STRING,  &SCAN_TAG_DEFAULT_MASK                  },
-    {"rename_file_default_mask",                CV_TYPE_STRING,  &RENAME_FILE_DEFAULT_MASK               },
+    {"audio_file_player",                       CV_TYPE_STRING,&AUDIO_FILE_PLAYER                        }
 };
 
 
@@ -153,12 +150,6 @@ void Init_Config_Variables (void)
 #else /* !G_OS_WIN32 */
     AUDIO_FILE_PLAYER                       = g_strdup("xdg-open");
 #endif /* !G_OS_WIN32 */
-
-    /*
-     * Masks
-     */
-    SCAN_TAG_DEFAULT_MASK           = NULL;
-    RENAME_FILE_DEFAULT_MASK        = NULL;
 }
 
 

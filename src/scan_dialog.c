@@ -2636,19 +2636,17 @@ create_scan_dialog (EtScanDialog *self)
                               G_CALLBACK (Scan_Fill_Tag_Generate_Preview),
                               self);
 
-    // Load masks into the combobox from a file
-    Load_Scan_Tag_Masks_List(priv->scan_tag_masks_model, MASK_EDITOR_TEXT, Scan_Masks);
-    if (SCAN_TAG_DEFAULT_MASK)
-    {
-        Add_String_To_Combo_List(priv->scan_tag_masks_model, SCAN_TAG_DEFAULT_MASK);
-        gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->scan_tag_mask_combo))), SCAN_TAG_DEFAULT_MASK);
-    }else
-    {
-        gtk_combo_box_set_active(GTK_COMBO_BOX(priv->scan_tag_mask_combo), 0);
-    }
+    /* Load masks into the combobox from a file. */
+    Load_Scan_Tag_Masks_List (priv->scan_tag_masks_model, MASK_EDITOR_TEXT,
+                              Scan_Masks);
+    g_settings_bind (MainSettings, "scan-tag-default-mask",
+                     gtk_bin_get_child (GTK_BIN (priv->scan_tag_mask_combo)),
+                     "text", G_SETTINGS_BIND_DEFAULT);
+    Add_String_To_Combo_List (priv->scan_tag_masks_model,
+                              gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->scan_tag_mask_combo)))));
 
-    // Mask status icon
-    // Signal connection to check if mask is correct into the mask entry
+    /* Mask status icon. Signal connection to check if mask is correct in the
+     * mask entry. */
     g_signal_connect (gtk_bin_get_child (GTK_BIN (priv->scan_tag_mask_combo)),
                       "changed", G_CALLBACK (entry_check_scan_tag_mask),
                       NULL);
@@ -2708,19 +2706,17 @@ create_scan_dialog (EtScanDialog *self)
                               G_CALLBACK (Scan_Rename_File_Generate_Preview),
                               self);
 
-    // Load masks into the combobox from a file
-    Load_Rename_File_Masks_List(priv->rename_masks_model, MASK_EDITOR_TEXT, Rename_File_Masks);
-    if (RENAME_FILE_DEFAULT_MASK)
-    {
-        Add_String_To_Combo_List(priv->rename_masks_model, RENAME_FILE_DEFAULT_MASK);
-        gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->rename_file_mask_combo))), RENAME_FILE_DEFAULT_MASK);
-    }else
-    {
-        gtk_combo_box_set_active(GTK_COMBO_BOX(priv->rename_file_mask_combo), 0);
-    }
+    /* Load masks into the combobox from a file. */
+    Load_Rename_File_Masks_List (priv->rename_masks_model, MASK_EDITOR_TEXT,
+                                 Rename_File_Masks);
+    g_settings_bind (MainSettings, "rename-file-default-mask",
+                     gtk_bin_get_child (GTK_BIN (priv->rename_file_mask_combo)),
+                     "text", G_SETTINGS_BIND_DEFAULT);
+    Add_String_To_Combo_List (priv->rename_masks_model,
+                              gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->rename_file_mask_combo)))));
 
-    // Mask status icon
-    // Signal connection to check if mask is correct into the mask entry
+    /* Mask status icon. Signal connection to check if mask is correct to the
+     * mask entry. */
     g_signal_connect (gtk_bin_get_child (GTK_BIN (priv->rename_file_mask_combo)),
                       "changed", G_CALLBACK (entry_check_rename_file_mask),
                       NULL);
@@ -3261,14 +3257,12 @@ et_scan_dialog_apply_changes (EtScanDialog *self)
     priv = et_scan_dialog_get_instance_private (self);
 
     /* Save default masks. */
-    if (SCAN_TAG_DEFAULT_MASK) g_free(SCAN_TAG_DEFAULT_MASK);
-    SCAN_TAG_DEFAULT_MASK = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->scan_tag_mask_combo)))));
-    Add_String_To_Combo_List(priv->scan_tag_masks_model, SCAN_TAG_DEFAULT_MASK);
+    Add_String_To_Combo_List (priv->scan_tag_masks_model,
+                              gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->scan_tag_mask_combo)))));
     Save_Rename_File_Masks_List(priv->scan_tag_masks_model, MASK_EDITOR_TEXT);
 
-    if (RENAME_FILE_DEFAULT_MASK) g_free(RENAME_FILE_DEFAULT_MASK);
-    RENAME_FILE_DEFAULT_MASK = g_strdup (gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->rename_file_mask_combo)))));
-    Add_String_To_Combo_List(priv->rename_masks_model, RENAME_FILE_DEFAULT_MASK);
+    Add_String_To_Combo_List(priv->rename_masks_model,
+                             gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->rename_file_mask_combo)))));
     Save_Rename_File_Masks_List(priv->rename_masks_model, MASK_EDITOR_TEXT);
 }
 
