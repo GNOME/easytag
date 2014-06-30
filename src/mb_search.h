@@ -100,6 +100,8 @@ et_musicbrainz_search_in_entity (MbEntityKind child_type,
 gboolean
 et_musicbrainz_search (gchar *string, MbEntityKind type, GNode *root,
                        GError **error, GCancellable *cancellable);
+gchar *
+et_mb5_release_get_artists_names (Mb5Release release);
 void
 free_mb_tree (GNode **node);
 #endif /* __MB_SEARCH_H__ */

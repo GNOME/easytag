@@ -52,6 +52,45 @@ et_mb5_search_error_quark (void)
     return g_quark_from_static_string ("et-mb5-search-error-quark");
 }
 
+gchar *
+et_mb5_release_get_artists_names (Mb5Release release)
+{
+    GString *album_artist;
+    int i;
+    Mb5ArtistCredit artist_credit;
+
+    album_artist = g_string_new ("");
+    artist_credit = mb5_release_get_artistcredit (release);
+
+    if (artist_credit)
+    {
+        Mb5NameCreditList name_list;
+        gchar temp[NAME_MAX_SIZE];
+
+        name_list = mb5_artistcredit_get_namecreditlist (artist_credit);
+
+        for (i = 0; i < mb5_namecredit_list_size (name_list); i++)
+        {
+            Mb5NameCredit name_credit;
+            Mb5Artist name_credit_artist;
+            int size;
+
+            name_credit = mb5_namecredit_list_item (name_list, i);
+            name_credit_artist = mb5_namecredit_get_artist (name_credit);
+            size = mb5_artist_get_name (name_credit_artist, temp,
+                                        sizeof (temp));
+            g_string_append_len (album_artist, temp, size);
+
+            if (i + 1 < mb5_namecredit_list_size (name_list))
+            {
+                g_string_append_len (album_artist, ", ", 2);
+            }
+        }
+    }
+
+    return g_string_free (album_artist, FALSE);
+}
+
 void
 et_musicbrainz_search_set_server_port (gchar *_server, int _port)
 {

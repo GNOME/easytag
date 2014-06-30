@@ -41,6 +41,17 @@
 static void
 get_first_selected_file (ET_File  **et_file);
 
+enum TagChoiceColumns
+{
+    TAG_CHOICE_TITLE,
+    TAG_CHOICE_ALBUM,
+    TAG_CHOICE_ARTIST,
+    TAG_CHOICE_ALBUM_ARTIST,
+    TAG_CHOICE_DATE,
+    TAG_CHOICE_COUNTRY,
+    TAG_CHOICE_COLS_N
+};
+        
 typedef enum
 {
     ET_MB_SEARCH_TYPE_MANUAL,
@@ -64,6 +75,9 @@ typedef struct
     GNode *mb_tree_root;
     GSimpleAsyncResult *async_result;
     EtMbSearch *search;
+    GtkBuilder *tag_choices_builder;
+    GtkWidget *tag_choices_dialog;
+    GtkTreeModel *tag_choices_list_store;
 } MusicBrainzDialogPrivate;
 
 static MusicBrainzDialogPrivate *mb_dialog_priv;
@@ -837,6 +851,24 @@ et_music_brainz_dialog_stop_set_sensitive (gboolean sensitive)
 }
 
 static void
+et_set_file_tag (ET_File *et_file, gchar *title, gchar *artist,
+                 gchar *album, gchar *album_artist, gchar *date,
+                 gchar *country)
+{
+    File_Tag *file_tag;
+
+    file_tag = ET_File_Tag_Item_New();
+    ET_Copy_File_Tag_Item (et_file, file_tag);
+    ET_Set_Field_File_Tag_Item (&file_tag->title, title);
+    ET_Set_Field_File_Tag_Item (&file_tag->artist, artist);
+    ET_Set_Field_File_Tag_Item (&file_tag->album, album);
+    ET_Set_Field_File_Tag_Item (&file_tag->album_artist, album_artist);
+    ET_Set_Field_File_Tag_Item (&file_tag->year, date);
+    ET_Manage_Changes_Of_File_Data (et_file, NULL, file_tag);
+    ET_Display_File_Data_To_UI (ETCore->ETFileDisplayed);
+}
+
+static void
 btn_apply_changes_clicked (GtkWidget *widget, gpointer data)
 {
     if (mb_dialog_priv->search->type == ET_MB_SEARCH_TYPE_MANUAL)
@@ -857,74 +889,196 @@ btn_apply_changes_clicked (GtkWidget *widget, gpointer data)
 
         if (et_file)
         {
-            File_Tag *file_tag;
-            gchar string [NAME_MAX_SIZE];
             int size;
+            Mb5ReleaseList *release_list;
+            GtkListStore *tag_choice_list_store;
+            GtkWidget *tag_choice_dialog;
+            GtkWidget *tag_choice_tree_view;
+            GtkCellRenderer *renderer;
+            GtkTreeViewColumn *column;
+            Mb5ArtistCredit artist_credit;
+            int i;
+            gchar title [NAME_MAX_SIZE];
+            gchar *album_artist;
+            gchar album[NAME_MAX_SIZE];
+            gchar date[NAME_MAX_SIZE];
+            gchar country[NAME_MAX_SIZE];
 
-            file_tag = (File_Tag *)et_file->FileTag->data;
-            size = mb5_recording_get_title (et_entity->entity, string,
-                                            sizeof (string));
-            string [size] = '\0';
-            ET_Set_Field_File_Tag_Item (&file_tag->title, string);
+            GString *artist;
+            GtkTreeIter iter;
+            GtkTreeSelection *selection;
 
-            //ET_Set_Field_File_Tag_Item (&file_tag->artist,
-            //ET_Set_Field_File_Tag_Item (&file_tag->album,
- 
-            /*ET_Set_Field_File_Tag_Item (&file_tag->year,
+            release_list = mb5_recording_get_releaselist (et_entity->entity);
+            artist_credit = mb5_recording_get_artistcredit (et_entity->entity);
+            artist = g_string_new ("");
 
-                if (cddbsettoallfields || cddbsettotrack)
-                {
-                    snprintf (buffer, sizeof (buffer), "%s",
-                              et_track_number_to_string (cddbtrackalbum->track_number));
-
-                    ET_Set_Field_File_Tag_Item(&FileTag->track,buffer);
-                }
-
-                if (cddbsettoallfields || cddbsettotracktotal)
-                {
-                    snprintf (buffer, sizeof (buffer), "%s",
-                              et_track_number_to_string (list_length));
-
-                    ET_Set_Field_File_Tag_Item(&FileTag->track_total,buffer);
-                }
-
-                if ( (cddbsettoallfields || cddbsettogenre) && (cddbtrackalbum->cddbalbum->genre || cddbtrackalbum->cddbalbum->category) )
-                {
-                    if (cddbtrackalbum->cddbalbum->genre && g_utf8_strlen(cddbtrackalbum->cddbalbum->genre, -1)>0)
-                        ET_Set_Field_File_Tag_Item(&FileTag->genre,Cddb_Get_Id3_Genre_From_Cddb_Genre(cddbtrackalbum->cddbalbum->genre));
-                    else
-                        ET_Set_Field_File_Tag_Item(&FileTag->genre,Cddb_Get_Id3_Genre_From_Cddb_Genre(cddbtrackalbum->cddbalbum->category));
-                }
-            }*/
-
-            /*if ( (cddbsettoallfields || cddbsettofilename) )
+            if (artist_credit)
             {
-                gchar *filename_generated_utf8;
-                gchar *filename_new_utf8;
+                Mb5NameCreditList name_list;
 
-                // Allocation of a new FileName
-                FileName = ET_File_Name_Item_New();
+                name_list = mb5_artistcredit_get_namecreditlist (artist_credit);
 
-                // Build the filename with the path
-                snprintf (buffer, sizeof (buffer), "%s",
-                          et_track_number_to_string (cddbtrackalbum->track_number));
+                for (i = 0; i < mb5_namecredit_list_size (name_list); i++)
+                {
+                    Mb5NameCredit name_credit;
+                    Mb5Artist name_credit_artist;
 
-                filename_generated_utf8 = g_strconcat(buffer," - ",cddbtrackalbum->track_name,NULL);
-                ET_File_Name_Convert_Character(filename_generated_utf8); // Replace invalid characters
-                filename_new_utf8 = ET_File_Name_Generate(*etfile,filename_generated_utf8);
+                    name_credit = mb5_namecredit_list_item (name_list, i);
+                    name_credit_artist = mb5_namecredit_get_artist (name_credit);
+                    size = mb5_artist_get_name (name_credit_artist, title,
+                                                sizeof (title));
+                    g_string_append_len (artist, title, size);
 
-                ET_Set_Filename_File_Name_Item(FileName,filename_new_utf8,NULL);
-
-                g_free(filename_generated_utf8);
-                g_free(filename_new_utf8);
+                    if (i + 1 < mb5_namecredit_list_size (name_list))
+                    {
+                        g_string_append_len (artist, ", ", 2);
+                    }
+                }
             }
 
-            ET_Manage_Changes_Of_File_Data(*etfile,FileName,FileTag);
+            size = mb5_recording_get_title (et_entity->entity, title,
+                                            sizeof (title));
+            title [size] = '\0';
+            size = mb5_release_list_size (release_list);
 
-            // Then run current scanner if asked...
-            if (ScannerWindow && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbRunScanner)) )
-                Scan_Select_Mode_And_Run_Scanner(*etfile);*/
+            if (size > 1)
+            {
+                /* More than one releases show Dialog and let user decide */
+                tag_choice_dialog = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                        "tag_choice_dialog"));
+                tag_choice_tree_view = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                           "tag_choice_treeview"));
+                tag_choice_list_store = gtk_list_store_new (TAG_CHOICE_COLS_N,
+                                                            G_TYPE_STRING,
+                                                            G_TYPE_STRING,
+                                                            G_TYPE_STRING,
+                                                            G_TYPE_STRING,
+                                                            G_TYPE_STRING,
+                                                            G_TYPE_STRING);
+                renderer = gtk_cell_renderer_text_new ();
+                column = gtk_tree_view_column_new_with_attributes ("Title",
+                                                           renderer, "text",
+                                                           TAG_CHOICE_TITLE,
+                                                           NULL);
+                gtk_tree_view_append_column (GTK_TREE_VIEW (tag_choice_tree_view),
+                                             column);
 
+                renderer = gtk_cell_renderer_text_new ();
+                column = gtk_tree_view_column_new_with_attributes ("Album",
+                                                           renderer, "text",
+                                                           TAG_CHOICE_ALBUM,
+                                                           NULL);
+                gtk_tree_view_append_column (GTK_TREE_VIEW (tag_choice_tree_view),
+                                             column);
+
+                renderer = gtk_cell_renderer_text_new ();
+                column = gtk_tree_view_column_new_with_attributes ("Artist",
+                                                           renderer, "text",
+                                                           TAG_CHOICE_ARTIST,
+                                                           NULL);
+                gtk_tree_view_append_column (GTK_TREE_VIEW (tag_choice_tree_view),
+                                             column);
+
+                renderer = gtk_cell_renderer_text_new ();
+                column = gtk_tree_view_column_new_with_attributes ("Album Artist",
+                                                           renderer, "text",
+                                                           TAG_CHOICE_ALBUM_ARTIST,
+                                                           NULL);
+                gtk_tree_view_append_column (GTK_TREE_VIEW (tag_choice_tree_view),
+                                             column);
+
+                renderer = gtk_cell_renderer_text_new ();
+                column = gtk_tree_view_column_new_with_attributes ("Date",
+                                                           renderer, "text",
+                                                           TAG_CHOICE_DATE,
+                                                           NULL);
+                gtk_tree_view_append_column (GTK_TREE_VIEW (tag_choice_tree_view),
+                                             column);
+
+                renderer = gtk_cell_renderer_text_new ();
+                column = gtk_tree_view_column_new_with_attributes ("Country",
+                                                           renderer, "text",
+                                                           TAG_CHOICE_COUNTRY,
+                                                           NULL);
+                gtk_tree_view_append_column (GTK_TREE_VIEW (tag_choice_tree_view),
+                                             column);
+                gtk_tree_view_set_model (GTK_TREE_VIEW (tag_choice_tree_view),
+                                         GTK_TREE_MODEL (tag_choice_list_store));
+
+                for (size--; size >= 0; size--)
+                {
+                    Mb5Release release;
+
+                    release = mb5_release_list_item (release_list, size);
+                    mb5_release_get_title (release, album, sizeof (album));
+                    album_artist = et_mb5_release_get_artists_names (release);
+                    mb5_release_get_date (release, date, sizeof (date));
+                    mb5_release_get_country (release, country, sizeof (country));
+
+                    gtk_list_store_insert_with_values (GTK_LIST_STORE (tag_choice_list_store),
+                                                       &iter, -1, TAG_CHOICE_TITLE, title,
+                                                       TAG_CHOICE_ALBUM, album,
+                                                       TAG_CHOICE_ARTIST, artist->str,
+                                                       TAG_CHOICE_ALBUM_ARTIST, album_artist,
+                                                       TAG_CHOICE_DATE, date,
+                                                       TAG_CHOICE_COUNTRY, country, -1);
+                    g_free (album_artist);
+                }
+
+                gtk_widget_set_size_request (tag_choice_dialog, 600, 200);
+                gtk_widget_show_all (tag_choice_dialog);
+
+                if (gtk_dialog_run (GTK_DIALOG (tag_choice_dialog)) == 0)
+                {
+                    g_string_free (artist, TRUE);
+                    gtk_widget_destroy (tag_choice_dialog);
+
+                    return;
+                }
+
+                selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (tag_choice_tree_view));
+                if (gtk_tree_selection_get_selected (selection,
+                                                     (GtkTreeModel **)&tag_choice_list_store,
+                                                     &iter))
+                {
+                    gchar *ret_album;
+                    gchar *ret_album_artist;
+                    gchar *ret_date;
+                    gchar *ret_country;
+
+                    gtk_tree_model_get (GTK_TREE_MODEL (tag_choice_list_store),
+                                        &iter, TAG_CHOICE_ALBUM, &ret_album,
+                                        TAG_CHOICE_ALBUM_ARTIST,&ret_album_artist,
+                                        TAG_CHOICE_DATE, &ret_date,
+                                        TAG_CHOICE_COUNTRY, &ret_country,
+                                        -1);
+                    et_set_file_tag (et_file, title, artist->str,
+                                     ret_album, ret_album_artist,
+                                     ret_date, ret_country);
+                    g_free (ret_album);
+                    g_free (ret_album_artist);
+                    g_free (ret_date);
+                    g_free (ret_country);
+                }
+
+                g_string_free (artist, TRUE);
+                gtk_widget_destroy (tag_choice_dialog);
+
+                return;
+            }
+
+            mb5_release_get_title (mb5_release_list_item (release_list, 0),
+                                   album, sizeof (album));
+            album_artist = et_mb5_release_get_artists_names (mb5_release_list_item (release_list, 0));
+            mb5_release_get_date (mb5_release_list_item (release_list, 0),
+                                  date, sizeof (date));
+            mb5_release_get_country (mb5_release_list_item (release_list, 0),
+                                     country, sizeof (country));
+            et_set_file_tag (et_file, title, artist->str,
+                             album, album_artist,
+                             date, country);
+            g_free (album_artist);
+            g_string_free (artist, TRUE);
         }
     }
 }
