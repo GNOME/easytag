@@ -59,6 +59,11 @@ typedef enum
 
 typedef struct
 {
+    GHashTable *hash_table;
+} SelectedFindThreadData;
+
+typedef struct
+{
     EtMbSearchType type;
 } EtMbSearch;
 
@@ -510,77 +515,174 @@ entry_tree_view_search_changed (GtkEditable *editable, gpointer user_data)
 }
 
 static void
+selected_find_callback (GObject *source, GAsyncResult *res,
+                        gpointer user_data)
+{
+    if (!g_simple_async_result_get_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res)))
+    {
+        g_object_unref (res);
+        g_object_unref (((SelectedFindThreadData *)user_data)->hash_table);
+        g_free (user_data);
+        free_mb_tree (&mb_dialog_priv->mb_tree_root);
+        mb_dialog_priv->mb_tree_root = g_node_new (NULL);
+        return;
+    }
+
+    et_mb_entity_view_set_tree_root (ET_MB_ENTITY_VIEW (entityView),
+                                     mb_dialog_priv->mb_tree_root);
+    gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
+                        0, _("Searching Completed"));
+    g_object_unref (res);
+    g_hash_table_destroy (((SelectedFindThreadData *)user_data)->hash_table);
+    g_free (user_data);
+    et_music_brainz_dialog_stop_set_sensitive (FALSE);
+
+    if (exit_on_complete)
+    {
+        btn_close_clicked (NULL, NULL);
+    }
+}
+
+static void
+selected_find_thread_func (GSimpleAsyncResult *res, GObject *obj,
+                           GCancellable *cancellable)
+{
+    GList *list_keys;
+    GList *iter;
+    SelectedFindThreadData *thread_data;
+    GError *error;
+
+    g_simple_async_result_set_op_res_gboolean (res, FALSE);
+    error = NULL;
+    thread_data = (SelectedFindThreadData *)g_async_result_get_user_data (G_ASYNC_RESULT (res));
+    list_keys = g_hash_table_get_keys (thread_data->hash_table);
+    iter = g_list_first (list_keys);
+
+    while (iter)
+    {
+        if (!et_musicbrainz_search ((gchar *)iter->data, MB_ENTITY_KIND_ALBUM,
+                                    mb_dialog_priv->mb_tree_root, &error,
+                                    cancellable))
+        {
+            g_simple_async_report_gerror_in_idle (NULL,
+                                                  mb5_search_error_callback,
+                                                  thread_data, error);
+            g_list_free (list_keys);
+            return;
+        }
+
+        if (g_cancellable_is_cancelled (cancellable))
+        {
+            g_set_error (&error, ET_MB5_SEARCH_ERROR,
+                         ET_MB5_SEARCH_ERROR_CANCELLED,
+                         _("Operation cancelled by user"));
+            g_simple_async_report_gerror_in_idle (NULL,
+                                                  mb5_search_error_callback,
+                                                  thread_data, error);
+            g_list_free (list_keys);
+            return;
+        }
+
+        iter = g_list_next (iter);
+    }
+
+    g_list_free (list_keys);
+    g_simple_async_result_set_op_res_gboolean (res, TRUE);
+}
+
+static void
 bt_selected_find_clicked (GtkWidget *widget, gpointer user_data)
 {
-    ET_File *et_file;
-    File_Tag *file_tag;
-    GtkWidget *cb_manual_search;
-    GtkWidget *cb_manual_search_in;
-    GtkWidget *entry;
-    int type;
+    GtkListStore *tree_model;
+    GtkTreeSelection *selection;
+    int count;
+    GList *iter_list;
+    GList *l;
+    GHashTable *hash_table;
+    SelectedFindThreadData *thread_data;
 
-    et_file = NULL;
-    get_first_selected_file (&et_file);
+    iter_list = NULL;
+    tree_model = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(BrowserList)));
+    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
+    count = gtk_tree_selection_count_selected_rows(selection);
 
-    if (!et_file)
+    if (count > 0)
     {
-        gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
-                        0, _("No File Selected."));
-        return;
+        GList* list_sel_rows;
+
+        list_sel_rows = gtk_tree_selection_get_selected_rows(selection, NULL);
+
+        for (l = list_sel_rows; l != NULL; l = g_list_next (l))
+        {
+            GtkTreeIter iter;
+
+            if (gtk_tree_model_get_iter(GTK_TREE_MODEL(tree_model),
+                                        &iter,
+                                        (GtkTreePath *) l->data))
+            {
+                iter_list = g_list_prepend (iter_list,
+                                            gtk_tree_iter_copy (&iter));
+            }
+        }
+
+        g_list_free_full (list_sel_rows,
+                          (GDestroyNotify)gtk_tree_path_free);
+
+    }
+    else /* No rows selected, use the whole list */
+    {
+        GtkTreeIter current_iter;
+
+        if (!gtk_tree_model_get_iter_first(GTK_TREE_MODEL(tree_model),
+                                           &current_iter))
+        {
+            /* No row is present, return */
+            return;
+        }
+
+        do
+        {
+            iter_list = g_list_prepend (iter_list,
+                                        gtk_tree_iter_copy (&current_iter));
+        }
+        while (gtk_tree_model_iter_next(GTK_TREE_MODEL(tree_model),
+               &current_iter));
+
+        count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(tree_model),
+                                               NULL);
     }
 
-    file_tag = (File_Tag *)et_file->FileTag->data;
-    cb_manual_search_in = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                              "cbManualSearchIn"));
-    type = gtk_combo_box_get_active (GTK_COMBO_BOX (cb_manual_search_in));
+    hash_table = g_hash_table_new (g_str_hash,
+                                   g_str_equal);
 
-    if (type == -1)
+    for (l = iter_list; l != NULL; l = g_list_next (l))
     {
-        return;
-    }
+        ET_File *etfile;
+        File_Tag *file_tag;
 
-    cb_manual_search = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                           "cbManualSearch"));
-    entry = gtk_bin_get_child (GTK_BIN (cb_manual_search));
+        etfile = Browser_List_Get_ETFile_From_Iter ((GtkTreeIter *)l->data);
+        file_tag = (File_Tag *)etfile->FileTag->data;
 
-    if (type == MB_ENTITY_KIND_ARTIST)
-    {
-        if (file_tag->artist && *(file_tag->artist))
+        if (file_tag->album != NULL)
         {
-            gtk_entry_set_text (GTK_ENTRY (entry), file_tag->artist);
-        }
-        else
-        {
-            gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
-                        0, _("Artist of current file is not set"));
-        }
-    }
-    else if (type == MB_ENTITY_KIND_ALBUM)
-    {
-        if (file_tag->album && *(file_tag->album))
-        {
-            gtk_entry_set_text (GTK_ENTRY (entry), file_tag->album);
-        }
-        else
-        {
-            gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
-                        0, _("Album of current file is not set"));
-        }
-    }
-    else if (type == MB_ENTITY_KIND_TRACK)
-    {
-        if (file_tag->title && *(file_tag->title))
-        {
-            gtk_entry_set_text (GTK_ENTRY (entry), file_tag->title);
-        }
-        else
-        {
-            gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
-                        0, _("Track of current file is not set"));
+            g_hash_table_add (hash_table, file_tag->album);
         }
     }
 
-    btn_manual_find_clicked (NULL, NULL);
+    g_list_free_full (iter_list, (GDestroyNotify)gtk_tree_iter_free);
+    thread_data = g_malloc (sizeof (SelectedFindThreadData));
+    thread_data->hash_table = hash_table;
+    mb5_search_cancellable = g_cancellable_new ();
+    mb_dialog_priv->async_result = g_simple_async_result_new (NULL,
+                                                              selected_find_callback,
+                                                              thread_data,
+                                                              bt_selected_find_clicked);
+    g_simple_async_result_run_in_thread (mb_dialog_priv->async_result,
+                                         selected_find_thread_func, 0,
+                                         mb5_search_cancellable);
+    gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
+                        0, _("Starting Selected Files Search"));
+    et_music_brainz_dialog_stop_set_sensitive (TRUE);
 }
 
 static void
