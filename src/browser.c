@@ -1413,7 +1413,8 @@ Browser_List_Set_Row_Appearance (GtkTreeIter *iter)
 {
     ET_File *rowETFile = NULL;
     gboolean otherdir = FALSE;
-    GdkColor *backgroundcolor;
+    const GdkRGBA LIGHT_BLUE = { 0.866, 0.933, 1.0, 1.0 };
+    const GdkRGBA *background;
     //gchar *temp = NULL;
 
     if (iter == NULL)
@@ -1428,9 +1429,9 @@ Browser_List_Set_Row_Appearance (GtkTreeIter *iter)
 
     // Must change background color?
     if (otherdir)
-        backgroundcolor = &LIGHT_BLUE;
+        background = &LIGHT_BLUE;
     else
-        backgroundcolor = NULL;
+        background = NULL;
 
     // Set text to bold/red if 'filename' or 'tag' changed
     if ( ET_Check_If_File_Is_Saved(rowETFile) == FALSE )
@@ -1439,20 +1440,20 @@ Browser_List_Set_Row_Appearance (GtkTreeIter *iter)
         {
             gtk_list_store_set(fileListModel, iter,
                                LIST_FONT_WEIGHT,    PANGO_WEIGHT_BOLD,
-                               LIST_ROW_BACKGROUND, backgroundcolor,
+                               LIST_ROW_BACKGROUND, background,
                                LIST_ROW_FOREGROUND, NULL, -1);
         } else
         {
             gtk_list_store_set(fileListModel, iter,
                                LIST_FONT_WEIGHT,    PANGO_WEIGHT_NORMAL,
-                               LIST_ROW_BACKGROUND, backgroundcolor,
+                               LIST_ROW_BACKGROUND, background,
                                LIST_ROW_FOREGROUND, &RED, -1);
         }
     } else
     {
         gtk_list_store_set(fileListModel, iter,
                            LIST_FONT_WEIGHT,    PANGO_WEIGHT_NORMAL,
-                           LIST_ROW_BACKGROUND, backgroundcolor,
+                           LIST_ROW_BACKGROUND, background,
                            LIST_ROW_FOREGROUND, NULL ,-1);
     }
 
@@ -3508,7 +3509,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                         G_TYPE_INT, /* File key. */
                                         G_TYPE_BOOLEAN, /* File OtherDir. */
                                         G_TYPE_INT, /* Font weight. */
-                                        GDK_TYPE_COLOR, /* Row background. */
+                                        GDK_TYPE_RGBA, /* Row background. */
                                         GDK_TYPE_COLOR); /* Row foreground. */
 
     BrowserList = gtk_tree_view_new_with_model(GTK_TREE_MODEL(fileListModel));
@@ -3529,7 +3530,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
         gtk_tree_view_column_set_title (column, _(BrowserList_Titles[i]));
         gtk_tree_view_column_set_attributes(column, renderer, "text", i,
                                             "weight", LIST_FONT_WEIGHT,
-                                            "background-gdk",
+                                            "background-rgba",
                                             LIST_ROW_BACKGROUND,
                                             "foreground-gdk",
                                             LIST_ROW_FOREGROUND, NULL);

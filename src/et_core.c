@@ -122,7 +122,6 @@ const gsize ET_FILE_DESCRIPTION_SIZE = G_N_ELEMENTS (ETFileDescription) - 1;
 /*
  * Colors Used
  */
-GdkColor LIGHT_BLUE = {0, 0xddd1, 0xeeec, 0xffff};
 GdkColor RED        = {0, 0xffff, 0x0000, 0x0000};
 GdkColor LIGHT_RED  = {0, 0xffff, 0x8888, 0x8888};
 GdkColor GREY       = {0, 0xaa00, 0xaa00, 0xaa00};
