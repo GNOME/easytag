@@ -36,9 +36,6 @@ extern GdkColor LIGHT_BLUE;
 extern GdkColor RED;
 extern GdkColor LIGHT_RED;
 extern GdkColor GREY;
-extern GdkColor LIGHT_GREY;
-extern GdkColor YELLOW;
-extern GdkColor BLACK;
 
 
 /*
