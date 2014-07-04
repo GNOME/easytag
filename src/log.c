@@ -53,8 +53,6 @@ enum
     LOG_PIXBUF,
     LOG_TIME_TEXT,
     LOG_TEXT,
-    LOG_ROW_BACKGROUND,
-    LOG_ROW_FOREGROUND,
     LOG_COLUMN_COUNT
 };
 
@@ -112,9 +110,7 @@ GtkWidget *Create_Log_Area (void)
     logListModel = gtk_list_store_new(LOG_COLUMN_COUNT,
                                       G_TYPE_STRING,
                                       G_TYPE_STRING,
-                                      G_TYPE_STRING,
-                                      GDK_TYPE_COLOR,
-                                      GDK_TYPE_COLOR);
+                                      G_TYPE_STRING);
 
     LogList = gtk_tree_view_new_with_model(GTK_TREE_MODEL(logListModel));
     g_object_unref (logListModel);
@@ -139,16 +135,12 @@ GtkWidget *Create_Log_Area (void)
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
     gtk_tree_view_column_set_attributes(column, renderer,
                                         "text",           LOG_TIME_TEXT,
-                                        "background-gdk", LOG_ROW_BACKGROUND,
-                                        "foreground-gdk", LOG_ROW_FOREGROUND,
                                         NULL);
 
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
     gtk_tree_view_column_set_attributes(column, renderer,
                                         "text",           LOG_TEXT,
-                                        "background-gdk", LOG_ROW_BACKGROUND,
-                                        "foreground-gdk", LOG_ROW_FOREGROUND,
                                         NULL);
 
     // Create Popup Menu on browser album list
@@ -277,8 +269,7 @@ void Log_Print (Log_Error_Type error_type, gchar const *format, ...)
                                            LOG_PIXBUF,
                                            Log_Get_Stock_Id_From_Error_Type (error_type),
                                            LOG_TIME_TEXT, time, LOG_TEXT,
-                                           string, LOG_ROW_BACKGROUND, NULL,
-                                           LOG_ROW_FOREGROUND, NULL, -1);
+                                           string, -1);
         Log_List_Set_Row_Visible(GTK_TREE_MODEL(logListModel), &iter);
         g_free(time);
     }else
@@ -403,8 +394,7 @@ Log_Print_Tmp_List (void)
                                                ((Log_Data *)l->data)->time,
                                                LOG_TEXT,
                                                ((Log_Data *)l->data)->string,
-                                               LOG_ROW_BACKGROUND, NULL,
-                                               LOG_ROW_FOREGROUND, NULL, -1);
+                                               -1);
             Log_List_Set_Row_Visible(GTK_TREE_MODEL(logListModel), &iter);
         }
     }
