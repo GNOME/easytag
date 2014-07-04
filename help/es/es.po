@@ -6,14 +6,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag master\n"
-"POT-Creation-Date: 2014-06-17 17:20+0000\n"
-"PO-Revision-Date: 2014-06-17 19:39+0200\n"
+"POT-Creation-Date: 2014-07-04 10:40+0000\n"
+"PO-Revision-Date: 2014-07-04 12:47+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Gtranslator 2.91.6\n"
 
@@ -35,12 +35,12 @@ msgstr "Ekaterina Gerasimova"
 #. (itstool) path: info/desc
 #: C/cddb-search.page:17
 msgid "Fill tags using information from a CD database"
-msgstr ""
+msgstr "Rellenar las etiquetas usando información de una base de datos de CD"
 
 #. (itstool) path: page/title
 #: C/cddb-search.page:20
 msgid "Search CDDB"
-msgstr ""
+msgstr "Buscar CDDB"
 
 #. (itstool) path: page/p
 #: C/cddb-search.page:22
@@ -117,7 +117,7 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/file-rename.page:16
 msgid "Change the file names using tags"
-msgstr ""
+msgstr "Cambiar los nombres de los archivos usando etiquetas"
 
 #. (itstool) path: page/title
 #: C/file-rename.page:19
@@ -137,6 +137,8 @@ msgid ""
 "<link xref=\"file-select\">Select the files</link> that you wish to rename "
 "in the file view."
 msgstr ""
+"<link xref=\"file-select\">Seleccione los archivos</link> que quiere "
+"renombrar en la vista de archivos."
 
 #. (itstool) path: item/p
 #: C/file-rename.page:30
@@ -353,7 +355,7 @@ msgstr ""
 #. (itstool) path: td/p
 #: C/format-specifier.page:138
 msgid "Original artist"
-msgstr ""
+msgstr "Artista original"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:143
@@ -363,7 +365,7 @@ msgstr "%n"
 #. (itstool) path: td/p
 #: C/format-specifier.page:146
 msgid "Track number"
-msgstr ""
+msgstr "Número de pista"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:151
@@ -373,7 +375,7 @@ msgstr "%t"
 #. (itstool) path: td/p
 #: C/format-specifier.page:154
 msgid "Track title"
-msgstr ""
+msgstr "Título de la pista"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:159
@@ -393,7 +395,7 @@ msgstr "%x"
 #. (itstool) path: td/p
 #: C/format-specifier.page:170
 msgid "Number of discs"
-msgstr ""
+msgstr "Número de discos"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:175
@@ -408,7 +410,7 @@ msgstr ""
 #. (itstool) path: page/title
 #: C/image-delete.page:19
 msgid "Delete an image"
-msgstr ""
+msgstr "Eliminar una imagen"
 
 #. (itstool) path: page/p
 #: C/image-delete.page:21
@@ -435,7 +437,7 @@ msgstr ""
 #. (itstool) path: page/title
 #: C/image-export.page:19
 msgid "Save an image"
-msgstr ""
+msgstr "Guardar una imagen"
 
 #. (itstool) path: page/p
 #: C/image-export.page:21
@@ -544,7 +546,7 @@ msgstr ""
 #. (itstool) path: section/title
 #: C/index.page:44
 msgid "Common problems and questions"
-msgstr ""
+msgstr "Problemas comunes y preguntas"
 
 #. (itstool) path: page/title
 #: C/introduction.page:21
@@ -589,7 +591,7 @@ msgstr ""
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:42
 msgid "<keyseq><key>Ctrl</key><key>Return</key></keyseq>"
-msgstr ""
+msgstr "<keyseq><key>Ctrl</key><key>Intro</key></keyseq>"
 
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:47
@@ -599,7 +601,7 @@ msgstr ""
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:50
 msgid "<keyseq><key>Ctrl</key><key>F</key></keyseq>"
-msgstr ""
+msgstr "<keyseq><key>Ctrl</key><key>F</key></keyseq>"
 
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:55
@@ -609,7 +611,7 @@ msgstr ""
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:58
 msgid "<key>Page Up</key>"
-msgstr ""
+msgstr "<key>Re Pág</key>"
 
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:63
@@ -619,17 +621,17 @@ msgstr ""
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:66
 msgid "<key>Page Down</key>"
-msgstr ""
+msgstr "<key>Av Pág</key>"
 
 #. (itstool) path: p/link
 #: C/legal.xml:4
 msgid "Creative Commons Attribution-ShareAlike 3.0 Unported License"
-msgstr ""
+msgstr "Creative Commons de Atribución-Compartir Igual 3.0 sin soporte"
 
 #. (itstool) path: license/p
 #: C/legal.xml:3
 msgid "This work is licensed under a <_:link-1/>."
-msgstr ""
+msgstr "Este trabajo está licenciado bajo la <_:link-1/>."
 
 #. (itstool) path: info/desc
 #: C/playlist-generate.page:17
@@ -639,7 +641,7 @@ msgstr ""
 #. (itstool) path: page/title
 #: C/playlist-generate.page:20
 msgid "Create a playlist"
-msgstr ""
+msgstr "Crear una lista de reproducción"
 
 #. (itstool) path: page/p
 #: C/playlist-generate.page:22
