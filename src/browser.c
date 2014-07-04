@@ -3363,7 +3363,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                         "text",           ARTIST_NAME,
                                         "weight",         ARTIST_FONT_WEIGHT,
                                         "style",          ARTIST_FONT_STYLE,
-                                        "foreground-gdk", ARTIST_ROW_FOREGROUND,
+                                        "foreground-rgba", ARTIST_ROW_FOREGROUND,
                                         NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserArtistList), column);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -3378,7 +3378,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                         "text",           ARTIST_NUM_ALBUMS,
                                         "weight",         ARTIST_FONT_WEIGHT,
                                         "style",          ARTIST_FONT_STYLE,
-                                        "foreground-gdk", ARTIST_ROW_FOREGROUND,
+                                        "foreground-rgba", ARTIST_ROW_FOREGROUND,
                                         NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserArtistList), column);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -3393,7 +3393,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                         "text",           ARTIST_NUM_FILES,
                                         "weight",         ARTIST_FONT_WEIGHT,
                                         "style",          ARTIST_FONT_STYLE,
-                                        "foreground-gdk", ARTIST_ROW_FOREGROUND,
+                                        "foreground-rgba", ARTIST_ROW_FOREGROUND,
                                         NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserArtistList), column);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -3444,7 +3444,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                         "text",           ALBUM_NAME,
                                         "weight",         ALBUM_FONT_WEIGHT,
                                         "style",          ALBUM_FONT_STYLE,
-                                        "foreground-gdk", ALBUM_ROW_FOREGROUND,
+                                        "foreground-rgba", ALBUM_ROW_FOREGROUND,
                                         NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserAlbumList), column);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -3459,7 +3459,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                         "text",           ALBUM_NUM_FILES,
                                         "weight",         ALBUM_FONT_WEIGHT,
                                         "style",          ALBUM_FONT_STYLE,
-                                        "foreground-gdk", ALBUM_ROW_FOREGROUND,
+                                        "foreground-rgba", ALBUM_ROW_FOREGROUND,
                                         NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(BrowserAlbumList), column);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -3510,7 +3510,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                         G_TYPE_BOOLEAN, /* File OtherDir. */
                                         G_TYPE_INT, /* Font weight. */
                                         GDK_TYPE_RGBA, /* Row background. */
-                                        GDK_TYPE_COLOR); /* Row foreground. */
+                                        GDK_TYPE_RGBA); /* Row foreground. */
 
     BrowserList = gtk_tree_view_new_with_model(GTK_TREE_MODEL(fileListModel));
     g_object_unref (fileListModel);
@@ -3532,7 +3532,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                             "weight", LIST_FONT_WEIGHT,
                                             "background-rgba",
                                             LIST_ROW_BACKGROUND,
-                                            "foreground-gdk",
+                                            "foreground-rgba",
                                             LIST_ROW_FOREGROUND, NULL);
         gtk_tree_view_column_set_resizable (column, TRUE);
         gtk_tree_view_append_column (GTK_TREE_VIEW (BrowserList), column);

@@ -32,9 +32,7 @@ G_BEGIN_DECLS
 /*
  * Colors Used (see declaration into et_core.c)
  */
-extern GdkColor RED;
-extern GdkColor LIGHT_RED;
-extern GdkColor GREY;
+extern GdkRGBA RED;
 
 
 /*

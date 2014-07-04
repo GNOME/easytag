@@ -2028,21 +2028,21 @@ void Open_Search_File_Window (void)
                                                G_TYPE_INT, /* Font Weight for URL */
                                                G_TYPE_INT, /* Font Weight for Encoded by */
 
-                                               GDK_TYPE_COLOR, /* Color Weight for Filename */
-                                               GDK_TYPE_COLOR, /* Color Weight for Title */
-                                               GDK_TYPE_COLOR, /* Color Weight for Artist */
-                                               GDK_TYPE_COLOR, /* Color Weight for Album Artist */
-											   GDK_TYPE_COLOR, /* Color Weight for Album */
-                                               GDK_TYPE_COLOR, /* Color Weight for Disc Number */
-                                               GDK_TYPE_COLOR, /* Color Weight for Year */
-                                               GDK_TYPE_COLOR, /* Color Weight for Track + Track Total */
-                                               GDK_TYPE_COLOR, /* Color Weight for Genre */
-                                               GDK_TYPE_COLOR, /* Color Weight for Comment */
-                                               GDK_TYPE_COLOR, /* Color Weight for Composer */
-                                               GDK_TYPE_COLOR, /* Color Weight for Orig. Artist */
-                                               GDK_TYPE_COLOR, /* Color Weight for Copyright */
-                                               GDK_TYPE_COLOR, /* Color Weight for URL */
-                                               GDK_TYPE_COLOR, /* Color Weight for Encoded by */
+                                               GDK_TYPE_RGBA, /* Color Weight for Filename */
+                                               GDK_TYPE_RGBA, /* Color Weight for Title */
+                                               GDK_TYPE_RGBA, /* Color Weight for Artist */
+                                               GDK_TYPE_RGBA, /* Color Weight for Album Artist */
+                                               GDK_TYPE_RGBA, /* Color Weight for Album */
+                                               GDK_TYPE_RGBA, /* Color Weight for Disc Number */
+                                               GDK_TYPE_RGBA, /* Color Weight for Year */
+                                               GDK_TYPE_RGBA, /* Color Weight for Track + Track Total */
+                                               GDK_TYPE_RGBA, /* Color Weight for Genre */
+                                               GDK_TYPE_RGBA, /* Color Weight for Comment */
+                                               GDK_TYPE_RGBA, /* Color Weight for Composer */
+                                               GDK_TYPE_RGBA, /* Color Weight for Orig. Artist */
+                                               GDK_TYPE_RGBA, /* Color Weight for Copyright */
+                                               GDK_TYPE_RGBA, /* Color Weight for URL */
+                                               GDK_TYPE_RGBA, /* Color Weight for Encoded by */
 
                                                G_TYPE_POINTER);
     SearchResultList = gtk_tree_view_new_with_model(GTK_TREE_MODEL(SearchResultListModel));
@@ -2052,7 +2052,7 @@ void Open_Search_File_Window (void)
     column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[0]), renderer,
                                                       "text",           SEARCH_RESULT_FILENAME,
                                                       "weight",         SEARCH_RESULT_FILENAME_WEIGHT,
-                                                      "foreground-gdk", SEARCH_RESULT_FILENAME_FOREGROUND,
+                                                      "foreground-rgba", SEARCH_RESULT_FILENAME_FOREGROUND,
                                                       NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(SearchResultList), column);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -2061,7 +2061,7 @@ void Open_Search_File_Window (void)
     column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[1]), renderer,
                                                       "text",           SEARCH_RESULT_TITLE,
                                                       "weight",         SEARCH_RESULT_TITLE_WEIGHT,
-                                                      "foreground-gdk", SEARCH_RESULT_TITLE_FOREGROUND,
+                                                      "foreground-rgba", SEARCH_RESULT_TITLE_FOREGROUND,
                                                       NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(SearchResultList), column);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -2070,7 +2070,7 @@ void Open_Search_File_Window (void)
     column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[2]), renderer,
                                                       "text",           SEARCH_RESULT_ARTIST,
                                                       "weight",         SEARCH_RESULT_ARTIST_WEIGHT,
-                                                      "foreground-gdk", SEARCH_RESULT_ARTIST_FOREGROUND,
+                                                      "foreground-rgba", SEARCH_RESULT_ARTIST_FOREGROUND,
                                                       NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(SearchResultList), column);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -2079,7 +2079,7 @@ void Open_Search_File_Window (void)
     column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[3]), renderer,
                                                       "text",           SEARCH_RESULT_ALBUM_ARTIST,
                                                       "weight",         SEARCH_RESULT_ALBUM_ARTIST_WEIGHT,
-                                                      "foreground-gdk", SEARCH_RESULT_ALBUM_ARTIST_FOREGROUND,
+                                                      "foreground-rgba", SEARCH_RESULT_ALBUM_ARTIST_FOREGROUND,
                                                       NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(SearchResultList), column);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -2088,7 +2088,7 @@ void Open_Search_File_Window (void)
     column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[4]), renderer,
                                                       "text",           SEARCH_RESULT_ALBUM,
                                                       "weight",         SEARCH_RESULT_ALBUM_WEIGHT,
-                                                      "foreground-gdk", SEARCH_RESULT_ALBUM_FOREGROUND,
+                                                      "foreground-rgba", SEARCH_RESULT_ALBUM_FOREGROUND,
                                                       NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(SearchResultList), column);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -2097,7 +2097,7 @@ void Open_Search_File_Window (void)
     column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[5]), renderer,
                                                       "text",           SEARCH_RESULT_DISC_NUMBER,
                                                       "weight",         SEARCH_RESULT_DISC_NUMBER_WEIGHT,
-                                                      "foreground-gdk", SEARCH_RESULT_DISC_NUMBER_FOREGROUND,
+                                                      "foreground-rgba", SEARCH_RESULT_DISC_NUMBER_FOREGROUND,
                                                       NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(SearchResultList), column);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -2106,7 +2106,7 @@ void Open_Search_File_Window (void)
     column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[6]), renderer,
                                                       "text",           SEARCH_RESULT_YEAR,
                                                       "weight",         SEARCH_RESULT_YEAR_WEIGHT,
-                                                      "foreground-gdk", SEARCH_RESULT_YEAR_FOREGROUND,
+                                                      "foreground-rgba", SEARCH_RESULT_YEAR_FOREGROUND,
                                                       NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(SearchResultList), column);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -2115,7 +2115,7 @@ void Open_Search_File_Window (void)
     column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[7]), renderer,
                                                       "text",           SEARCH_RESULT_TRACK,
                                                       "weight",         SEARCH_RESULT_TRACK_WEIGHT,
-                                                      "foreground-gdk", SEARCH_RESULT_TRACK_FOREGROUND,
+                                                      "foreground-rgba", SEARCH_RESULT_TRACK_FOREGROUND,
                                                       NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(SearchResultList), column);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -2124,7 +2124,7 @@ void Open_Search_File_Window (void)
     column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[8]), renderer,
                                                       "text",           SEARCH_RESULT_GENRE,
                                                       "weight",         SEARCH_RESULT_GENRE_WEIGHT,
-                                                      "foreground-gdk", SEARCH_RESULT_GENRE_FOREGROUND,
+                                                      "foreground-rgba", SEARCH_RESULT_GENRE_FOREGROUND,
                                                       NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(SearchResultList), column);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -2133,7 +2133,7 @@ void Open_Search_File_Window (void)
     column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[9]), renderer,
                                                       "text",           SEARCH_RESULT_COMMENT,
                                                       "weight",         SEARCH_RESULT_COMMENT_WEIGHT,
-                                                      "foreground-gdk", SEARCH_RESULT_COMMENT_FOREGROUND,
+                                                      "foreground-rgba", SEARCH_RESULT_COMMENT_FOREGROUND,
                                                       NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(SearchResultList), column);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -2142,7 +2142,7 @@ void Open_Search_File_Window (void)
     column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[10]), renderer,
                                                       "text",           SEARCH_RESULT_COMPOSER,
                                                       "weight",         SEARCH_RESULT_COMPOSER_WEIGHT,
-                                                      "foreground-gdk", SEARCH_RESULT_COMPOSER_FOREGROUND,
+                                                      "foreground-rgba", SEARCH_RESULT_COMPOSER_FOREGROUND,
                                                       NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(SearchResultList), column);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -2151,7 +2151,7 @@ void Open_Search_File_Window (void)
     column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[11]), renderer,
                                                       "text",           SEARCH_RESULT_ORIG_ARTIST,
                                                       "weight",         SEARCH_RESULT_ORIG_ARTIST_WEIGHT,
-                                                      "foreground-gdk", SEARCH_RESULT_ORIG_ARTIST_FOREGROUND,
+                                                      "foreground-rgba", SEARCH_RESULT_ORIG_ARTIST_FOREGROUND,
                                                       NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(SearchResultList), column);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -2160,7 +2160,7 @@ void Open_Search_File_Window (void)
     column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[12]), renderer,
                                                       "text",           SEARCH_RESULT_COPYRIGHT,
                                                       "weight",         SEARCH_RESULT_COPYRIGHT_WEIGHT,
-                                                      "foreground-gdk", SEARCH_RESULT_COPYRIGHT_FOREGROUND,
+                                                      "foreground-rgba", SEARCH_RESULT_COPYRIGHT_FOREGROUND,
                                                       NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(SearchResultList), column);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -2169,7 +2169,7 @@ void Open_Search_File_Window (void)
     column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[13]), renderer,
                                                       "text",           SEARCH_RESULT_URL,
                                                       "weight",         SEARCH_RESULT_URL_WEIGHT,
-                                                      "foreground-gdk", SEARCH_RESULT_URL_FOREGROUND,
+                                                      "foreground-rgba", SEARCH_RESULT_URL_FOREGROUND,
                                                       NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(SearchResultList), column);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -2178,7 +2178,7 @@ void Open_Search_File_Window (void)
     column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[14]), renderer,
                                                       "text",           SEARCH_RESULT_ENCODED_BY,
                                                       "weight",         SEARCH_RESULT_ENCODED_BY_WEIGHT,
-                                                      "foreground-gdk", SEARCH_RESULT_ENCODED_BY_FOREGROUND,
+                                                      "foreground-rgba", SEARCH_RESULT_ENCODED_BY_FOREGROUND,
                                                       NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(SearchResultList), column);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -2457,7 +2457,7 @@ Add_Row_To_Search_Result_List (ET_File *ETFile, const gchar *string_to_search)
                                         PANGO_WEIGHT_NORMAL, PANGO_WEIGHT_NORMAL,
                                         PANGO_WEIGHT_NORMAL, PANGO_WEIGHT_NORMAL,
                                         PANGO_WEIGHT_NORMAL};
-    GdkColor *SearchResultList_Color[15] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+    GdkRGBA *SearchResultList_Color[15] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL,
                                             NULL, NULL, NULL, NULL, NULL, NULL, NULL,
                                             NULL};
     gchar *track, *track_total;

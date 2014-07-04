@@ -707,7 +707,7 @@ void Open_Cddb_Window (void)
                                                       "text",           CDDB_ALBUM_LIST_ALBUM,
                                                       "weight",         CDDB_ALBUM_LIST_FONT_WEIGHT,
                                                       "style",          CDDB_ALBUM_LIST_FONT_STYLE,
-                                                      "foreground-gdk", CDDB_ALBUM_LIST_FOREGROUND_COLOR,
+                                                      "foreground-rgba", CDDB_ALBUM_LIST_FOREGROUND_COLOR,
                                                       NULL);
     gtk_tree_view_column_set_resizable(column, TRUE);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -718,7 +718,7 @@ void Open_Cddb_Window (void)
                                                       "text",           CDDB_ALBUM_LIST_CATEGORY,
                                                       "weight",         CDDB_ALBUM_LIST_FONT_WEIGHT,
                                                       "style",          CDDB_ALBUM_LIST_FONT_STYLE,
-                                                      "foreground-gdk", CDDB_ALBUM_LIST_FOREGROUND_COLOR,
+                                                      "foreground-rgba", CDDB_ALBUM_LIST_FOREGROUND_COLOR,
                                                       NULL);
     gtk_tree_view_column_set_resizable(column, TRUE);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -3793,6 +3793,7 @@ Cddb_Album_List_Set_Row_Appearance (GtkTreeIter *row)
         {
             if (cddbalbum->other_version == TRUE)
             {
+                const GdkRGBA LIGHT_RED = { 1.0, 0.5, 0.5, 1.0};
                 gtk_list_store_set(CddbAlbumListModel, row,
                                    CDDB_ALBUM_LIST_FONT_STYLE,       PANGO_STYLE_NORMAL,
                                    CDDB_ALBUM_LIST_FONT_WEIGHT,      PANGO_WEIGHT_NORMAL,
@@ -3817,6 +3818,7 @@ Cddb_Album_List_Set_Row_Appearance (GtkTreeIter *row)
                                    CDDB_ALBUM_LIST_FOREGROUND_COLOR, NULL,-1);
             } else
             {
+                const GdkRGBA GREY = { 0.664, 0.664, 0.664, 1.0 };
                 gtk_list_store_set(CddbAlbumListModel, row,
                                    CDDB_ALBUM_LIST_FONT_STYLE,       PANGO_STYLE_NORMAL,
                                    CDDB_ALBUM_LIST_FONT_WEIGHT,      PANGO_WEIGHT_NORMAL,
