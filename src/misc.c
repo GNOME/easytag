@@ -737,22 +737,65 @@ static void Open_File_Selection_Window (GtkWidget *entry, gchar *title, GtkFileC
 
 
 
-void Run_Audio_Player_Using_Directory (void)
+static void
+et_run_audio_player (GList *files)
+{
+    GFileInfo *info;
+    GError *error = NULL;
+    const gchar *content_type;
+    GAppInfo *app_info;
+    GdkAppLaunchContext *context;
+
+    g_return_if_fail (files != NULL);
+
+    info = g_file_query_info (files->data,
+                              G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+                              G_FILE_QUERY_INFO_NONE, NULL, &error);
+
+    if (error)
+    {
+        g_warning ("Unable to get content type for file: %s",
+                   error->message);
+        g_error_free (error);
+        return;
+    }
+
+    content_type = g_file_info_get_content_type (info);
+    app_info = g_app_info_get_default_for_type (content_type, FALSE);
+    g_object_unref (info);
+
+    context = gdk_display_get_app_launch_context (gdk_display_get_default ());
+
+    if (!g_app_info_launch (app_info, files, G_APP_LAUNCH_CONTEXT (context),
+                            &error))
+    {
+        Log_Print (LOG_ERROR, _("Failed to launch program: %s"),
+                   error->message);
+        g_error_free (error);
+    }
+
+    g_object_unref (context);
+    g_object_unref (app_info);
+}
+
+void
+Run_Audio_Player_Using_Directory (void)
 {
     GList *l;
-    GList *path_list = NULL;
+    GList *file_list = NULL;
 
     for (l = g_list_first (ETCore->ETFileList); l != NULL; l = g_list_next (l))
     {
         ET_File *etfile = (ET_File *)l->data;
         gchar *path = ((File_Name *)etfile->FileNameCur->data)->value;
-        path_list = g_list_prepend (path_list, path);
+        file_list = g_list_prepend (file_list, g_file_new_for_path (path));
     }
 
-    path_list = g_list_reverse (path_list);
+    file_list = g_list_reverse (file_list);
 
-    et_run_program (AUDIO_FILE_PLAYER, path_list);
-    g_list_free (path_list);
+    et_run_audio_player (file_list);
+
+    g_list_free_full (file_list, g_object_unref);
 }
 
 /*
