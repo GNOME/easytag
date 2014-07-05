@@ -737,7 +737,7 @@ static void Open_File_Selection_Window (GtkWidget *entry, gchar *title, GtkFileC
 
 
 
-static void
+void
 et_run_audio_player (GList *files)
 {
     GFileInfo *info;

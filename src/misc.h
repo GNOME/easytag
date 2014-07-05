@@ -71,6 +71,7 @@ goffset et_get_file_size (const gchar *filename);
 
 gint Combo_Alphabetic_Sort (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, gpointer data);
 
+void et_run_audio_player (GList *files);
 gboolean et_run_program (const gchar *program_name, GList *args_list);
 
 void File_Selection_Window_For_File      (GtkWidget *entry);

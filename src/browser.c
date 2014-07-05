@@ -330,7 +330,7 @@ et_browser_run_player_for_album_list (EtBrowser *self)
     GtkTreeIter iter;
     GtkTreeSelection *selection;
     GList *l;
-    GList *path_list = NULL;
+    GList *file_list = NULL;
 
     priv = et_browser_get_instance_private (self);
 
@@ -348,13 +348,13 @@ et_browser_run_player_for_album_list (EtBrowser *self)
     {
         ET_File *etfile = (ET_File *)l->data;
         gchar *path = ((File_Name *)etfile->FileNameCur->data)->value;
-        path_list = g_list_prepend (path_list, path);
+        file_list = g_list_prepend (file_list, g_file_new_for_path (path));
     }
 
-    path_list = g_list_reverse (path_list);
+    file_list = g_list_reverse (file_list);
 
-    et_run_program (AUDIO_FILE_PLAYER, path_list);
-    g_list_free (path_list);
+    et_run_audio_player (file_list);
+    g_list_free_full (file_list, g_object_unref);
 }
 
 void
@@ -364,7 +364,7 @@ et_browser_run_player_for_artist_list (EtBrowser *self)
     GtkTreeIter iter;
     GtkTreeSelection *selection;
     GList *l, *m;
-    GList *path_list = NULL;
+    GList *file_list = NULL;
 
     priv = et_browser_get_instance_private (self);
 
@@ -383,14 +383,14 @@ et_browser_run_player_for_artist_list (EtBrowser *self)
         {
             ET_File *etfile = (ET_File *)m->data;
             gchar *path = ((File_Name *)etfile->FileNameCur->data)->value;
-            path_list = g_list_prepend (path_list, path);
+            file_list = g_list_prepend (file_list, g_file_new_for_path (path));
         }
     }
 
-    path_list = g_list_reverse (path_list);
+    file_list = g_list_reverse (file_list);
 
-    et_run_program (AUDIO_FILE_PLAYER, path_list);
-    g_list_free (path_list);
+    et_run_audio_player (file_list);
+    g_list_free_full (file_list, g_object_unref);
 }
 
 void
@@ -399,7 +399,7 @@ et_browser_run_player_for_selection (EtBrowser *self)
     EtBrowserPrivate *priv;
     GList *selfilelist = NULL;
     GList *l;
-    GList *path_list = NULL;
+    GList *file_list = NULL;
     GtkTreeSelection *selection;
 
     priv = et_browser_get_instance_private (self);
@@ -411,13 +411,13 @@ et_browser_run_player_for_selection (EtBrowser *self)
     {
         ET_File *etfile = et_browser_get_et_file_from_path (self, l->data);
         gchar *path = ((File_Name *)etfile->FileNameCur->data)->value;
-        path_list = g_list_prepend (path_list, path);
+        file_list = g_list_prepend (file_list, g_file_new_for_path (path));
     }
 
-    path_list = g_list_reverse (path_list);
+    file_list = g_list_reverse (file_list);
 
-    et_run_program (AUDIO_FILE_PLAYER, path_list);
-    g_list_free (path_list);
+    et_run_audio_player (file_list);
+    g_list_free_full (file_list, g_object_unref);
     g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
 }
 
