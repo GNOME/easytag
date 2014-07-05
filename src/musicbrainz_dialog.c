@@ -34,6 +34,7 @@
 #include "mbentityview.h"
 #include "mb_search.h"
 #include "browser.h"
+#include "dlm.h"
 
 /***************
  * Declaration *
@@ -51,10 +52,11 @@ enum TagChoiceColumns
     TAG_CHOICE_COUNTRY,
     TAG_CHOICE_COLS_N
 };
-        
+ 
 typedef enum
 {
     ET_MB_SEARCH_TYPE_MANUAL,
+    ET_MB_SEARCH_TYPE_SELECTED,
 } EtMbSearchType;
 
 typedef struct
@@ -80,9 +82,8 @@ typedef struct
     GNode *mb_tree_root;
     GSimpleAsyncResult *async_result;
     EtMbSearch *search;
-    GtkBuilder *tag_choices_builder;
-    GtkWidget *tag_choices_dialog;
-    GtkTreeModel *tag_choices_list_store;
+    GtkTreeModel *tag_choice_store;
+    GtkWidget *tag_choice_dialog;
 } MusicBrainzDialogPrivate;
 
 static MusicBrainzDialogPrivate *mb_dialog_priv;
@@ -103,7 +104,8 @@ typedef struct
 /****************
  * Declarations *
  ***************/
-
+static gboolean
+et_apply_track_tag_to_et_file (Mb5Recording recording, ET_File *et_file);
 static void
 btn_close_clicked (GtkWidget *button, gpointer data);
 
@@ -128,6 +130,27 @@ et_musicbrainz_set_search_manual (EtMbSearch **search, gchar *to_search,
     *search = g_malloc (sizeof (EtMbManualSearch));
     ((EtMbManualSearch *)(*search))->to_search = g_strdup (to_search);
     (*search)->type = ET_MB_SEARCH_TYPE_MANUAL;
+    ((EtMbManualSearch *)(*search))->parent_node = node;
+    ((EtMbManualSearch *)(*search))->to_search_type = type;
+}
+
+static void
+et_musicbrainz_set_selected_search (EtMbSearch **search, gchar *to_search,
+                                    GNode *node, MbEntityKind type)
+{
+    if (*search)
+    {
+        if ((*search)->type == ET_MB_SEARCH_TYPE_SELECTED)
+        {
+            g_free (((EtMbManualSearch *)(*search))->to_search);
+        }
+
+        g_free (*search);
+    }
+
+    *search = g_malloc (sizeof (EtMbManualSearch));
+    ((EtMbManualSearch *)(*search))->to_search = g_strdup (to_search);
+    (*search)->type = ET_MB_SEARCH_TYPE_SELECTED;
     ((EtMbManualSearch *)(*search))->parent_node = node;
     ((EtMbManualSearch *)(*search))->to_search_type = type;
 }
@@ -521,7 +544,7 @@ selected_find_callback (GObject *source, GAsyncResult *res,
     if (!g_simple_async_result_get_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res)))
     {
         g_object_unref (res);
-        g_object_unref (((SelectedFindThreadData *)user_data)->hash_table);
+        g_hash_table_destroy (((SelectedFindThreadData *)user_data)->hash_table);
         g_free (user_data);
         free_mb_tree (&mb_dialog_priv->mb_tree_root);
         mb_dialog_priv->mb_tree_root = g_node_new (NULL);
@@ -541,6 +564,8 @@ selected_find_callback (GObject *source, GAsyncResult *res,
     {
         btn_close_clicked (NULL, NULL);
     }
+
+    et_musicbrainz_set_selected_search (&mb_dialog_priv->search, "AAAA", NULL, MB_ENTITY_KIND_TRACK);
 }
 
 static void
@@ -590,27 +615,24 @@ selected_find_thread_func (GSimpleAsyncResult *res, GObject *obj,
     g_simple_async_result_set_op_res_gboolean (res, TRUE);
 }
 
-static void
-bt_selected_find_clicked (GtkWidget *widget, gpointer user_data)
+static int
+get_selected_iter_list (GtkTreeView *tree_view, GList **list)
 {
-    GtkListStore *tree_model;
+    GtkTreeModel *tree_model;
     GtkTreeSelection *selection;
     int count;
-    GList *iter_list;
     GList *l;
-    GHashTable *hash_table;
-    SelectedFindThreadData *thread_data;
 
-    iter_list = NULL;
-    tree_model = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(BrowserList)));
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
-    count = gtk_tree_selection_count_selected_rows(selection);
+    tree_model = gtk_tree_view_get_model (GTK_TREE_VIEW (tree_view));
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (tree_view));
+    count = gtk_tree_selection_count_selected_rows (selection);
 
     if (count > 0)
     {
         GList* list_sel_rows;
 
-        list_sel_rows = gtk_tree_selection_get_selected_rows(selection, NULL);
+        list_sel_rows = gtk_tree_selection_get_selected_rows (selection,
+                                                              &tree_model);
 
         for (l = list_sel_rows; l != NULL; l = g_list_next (l))
         {
@@ -620,8 +642,8 @@ bt_selected_find_clicked (GtkWidget *widget, gpointer user_data)
                                         &iter,
                                         (GtkTreePath *) l->data))
             {
-                iter_list = g_list_prepend (iter_list,
-                                            gtk_tree_iter_copy (&iter));
+                *list = g_list_prepend (*list,
+                                        gtk_tree_iter_copy (&iter));
             }
         }
 
@@ -637,13 +659,13 @@ bt_selected_find_clicked (GtkWidget *widget, gpointer user_data)
                                            &current_iter))
         {
             /* No row is present, return */
-            return;
+            return 0;
         }
 
         do
         {
-            iter_list = g_list_prepend (iter_list,
-                                        gtk_tree_iter_copy (&current_iter));
+            *list = g_list_prepend (*list,
+                                    gtk_tree_iter_copy (&current_iter));
         }
         while (gtk_tree_model_iter_next(GTK_TREE_MODEL(tree_model),
                &current_iter));
@@ -652,8 +674,28 @@ bt_selected_find_clicked (GtkWidget *widget, gpointer user_data)
                                                NULL);
     }
 
-    hash_table = g_hash_table_new (g_str_hash,
-                                   g_str_equal);
+    return count;
+}
+
+static void
+bt_selected_find_clicked (GtkWidget *widget, gpointer user_data)
+{
+    GList *iter_list;
+    GList *l;
+    GHashTable *hash_table;
+    SelectedFindThreadData *thread_data;
+
+    iter_list = NULL;
+    l = NULL;
+
+    if (!get_selected_iter_list (GTK_TREE_VIEW (BrowserList), &iter_list))
+    {
+        gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
+                        0, _("No Files Selected"));
+        return;
+    }
+
+    hash_table = g_hash_table_new (g_str_hash, g_str_equal);
 
     for (l = iter_list; l != NULL; l = g_list_next (l))
     {
@@ -661,6 +703,7 @@ bt_selected_find_clicked (GtkWidget *widget, gpointer user_data)
         File_Tag *file_tag;
 
         etfile = Browser_List_Get_ETFile_From_Iter ((GtkTreeIter *)l->data);
+
         file_tag = (File_Tag *)etfile->FileTag->data;
 
         if (file_tag->album != NULL)
@@ -967,226 +1010,315 @@ et_set_file_tag (ET_File *et_file, gchar *title, gchar *artist,
 static void
 btn_apply_changes_clicked (GtkWidget *widget, gpointer data)
 {
-    if (mb_dialog_priv->search->type == ET_MB_SEARCH_TYPE_MANUAL)
+    GList *file_iter_list;
+    GList *track_iter_list;
+    GList *list_iter1;
+    GList *list_iter2;
+
+    file_iter_list = NULL;
+    track_iter_list = NULL;
+
+    if (!get_selected_iter_list (GTK_TREE_VIEW (BrowserList),
+                                 &file_iter_list))
     {
-        ET_File *et_file;
+        gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
+                        0, _("No Files Selected"));
+        return;
+    }
+
+    if (!et_mb_entity_view_get_selected_entity_list (ET_MB_ENTITY_VIEW (entityView),
+                                                     &track_iter_list))
+    {
+        gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
+                        0, _("No Track Selected"));
+        g_list_free_full (file_iter_list, (GDestroyNotify)gtk_tree_iter_free);
+
+        return;
+    }
+
+    if (((EtMbEntity *)track_iter_list->data)->type !=
+        MB_ENTITY_KIND_TRACK)
+    {
+        gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
+                        0, _("No Track Selected"));
+        g_list_free_full (file_iter_list, (GDestroyNotify)gtk_tree_iter_free);
+        g_list_free (track_iter_list);
+
+        return;
+    }
+
+    if (mb_dialog_priv->search->type == ET_MB_SEARCH_TYPE_MANUAL ||
+        mb_dialog_priv->search->type == ET_MB_SEARCH_TYPE_SELECTED)
+    {
         EtMbEntity *et_entity;
+        EtMbEntity *album_entity;
+        GHashTable *hash_table;
+        gchar album [NAME_MAX_SIZE];
 
-        et_entity = et_mb_entity_view_get_selected_entity (ET_MB_ENTITY_VIEW (entityView));
+        album_entity = et_mb_entity_view_get_current_entity (ET_MB_ENTITY_VIEW (entityView));
+        hash_table = g_hash_table_new (g_str_hash, g_str_equal);
+        mb5_release_get_title (album_entity->entity, album, sizeof (album));
 
-        if (!et_entity || et_entity->type != MB_ENTITY_KIND_TRACK)
+        for (list_iter1 = track_iter_list; list_iter1;
+             list_iter1 = g_list_next (list_iter1))
         {
-            gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
-                                0, _("Please select a Track."));
-            return;
-        }
-
-        get_first_selected_file (&et_file);
-
-        if (et_file)
-        {
-            int size;
-            Mb5ReleaseList *release_list;
-            GtkListStore *tag_choice_list_store;
-            GtkWidget *tag_choice_dialog;
-            GtkWidget *tag_choice_tree_view;
-            GtkCellRenderer *renderer;
-            GtkTreeViewColumn *column;
-            Mb5ArtistCredit artist_credit;
-            int i;
+            ET_File *best_et_file;
+            gchar *filename;
             gchar title [NAME_MAX_SIZE];
-            gchar *album_artist;
-            gchar album[NAME_MAX_SIZE];
-            gchar date[NAME_MAX_SIZE];
-            gchar country[NAME_MAX_SIZE];
+            File_Tag *file_tag;
+            int min_distance;
 
-            GString *artist;
-            GtkTreeIter iter;
-            GtkTreeSelection *selection;
+            min_distance = 0xFFFF;
+            filename = NULL;
+            best_et_file = NULL;
+            et_entity = list_iter1->data;
+            mb5_recording_get_title (et_entity->entity, title,
+                                     sizeof (title));
 
-            release_list = mb5_recording_get_releaselist (et_entity->entity);
-            artist_credit = mb5_recording_get_artistcredit (et_entity->entity);
-            artist = g_string_new ("");
-
-            if (artist_credit)
+            for (list_iter2 = file_iter_list; list_iter2 != NULL;
+                 list_iter2 = g_list_next (list_iter2))
             {
-                Mb5NameCreditList name_list;
+                int distance;
+                ET_File *et_file;
 
-                name_list = mb5_artistcredit_get_namecreditlist (artist_credit);
+                et_file = Browser_List_Get_ETFile_From_Iter (list_iter2->data);
+                filename = ((File_Name *)et_file->FileNameCur->data)->value;
+                file_tag = (File_Tag *)et_file->FileTag->data;
 
-                for (i = 0; i < mb5_namecredit_list_size (name_list); i++)
+                if (g_hash_table_contains (hash_table, filename))
                 {
-                    Mb5NameCredit name_credit;
-                    Mb5Artist name_credit_artist;
+                    continue;
+                }
 
-                    name_credit = mb5_namecredit_list_item (name_list, i);
-                    name_credit_artist = mb5_namecredit_get_artist (name_credit);
-                    size = mb5_artist_get_name (name_credit_artist, title,
-                                                sizeof (title));
-                    g_string_append_len (artist, title, size);
+                if (!file_tag->album && g_strcmp0 (file_tag->album, album))
+                {
+                    continue;
+                }
 
-                    if (i + 1 < mb5_namecredit_list_size (name_list))
+                if (file_tag->title)
+                {
+                    distance = dlm (file_tag->title, title);
+                }
+                else
+                {
+                    distance = dlm (filename, title);
+                }
+
+                if (distance < min_distance)
+                {
+                    min_distance = distance;
+                    best_et_file = et_file;
+                }
+            }
+
+            if (best_et_file)
+            {
+                if (et_apply_track_tag_to_et_file (et_entity->entity,
+                                                   best_et_file))
+                {
+                    g_hash_table_add (hash_table,
+                                      ((File_Name *)best_et_file->FileNameCur->data)->value);
+ 
+                    while (gtk_events_pending ())
                     {
-                        g_string_append_len (artist, ", ", 2);
+                        gtk_main_iteration ();
                     }
                 }
             }
-
-            size = mb5_recording_get_title (et_entity->entity, title,
-                                            sizeof (title));
-            title [size] = '\0';
-            size = mb5_release_list_size (release_list);
-
-            if (size > 1)
-            {
-                /* More than one releases show Dialog and let user decide */
-                tag_choice_dialog = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                        "tag_choice_dialog"));
-                tag_choice_tree_view = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                           "tag_choice_treeview"));
-                tag_choice_list_store = gtk_list_store_new (TAG_CHOICE_COLS_N,
-                                                            G_TYPE_STRING,
-                                                            G_TYPE_STRING,
-                                                            G_TYPE_STRING,
-                                                            G_TYPE_STRING,
-                                                            G_TYPE_STRING,
-                                                            G_TYPE_STRING);
-                renderer = gtk_cell_renderer_text_new ();
-                column = gtk_tree_view_column_new_with_attributes ("Title",
-                                                           renderer, "text",
-                                                           TAG_CHOICE_TITLE,
-                                                           NULL);
-                gtk_tree_view_append_column (GTK_TREE_VIEW (tag_choice_tree_view),
-                                             column);
-
-                renderer = gtk_cell_renderer_text_new ();
-                column = gtk_tree_view_column_new_with_attributes ("Album",
-                                                           renderer, "text",
-                                                           TAG_CHOICE_ALBUM,
-                                                           NULL);
-                gtk_tree_view_append_column (GTK_TREE_VIEW (tag_choice_tree_view),
-                                             column);
-
-                renderer = gtk_cell_renderer_text_new ();
-                column = gtk_tree_view_column_new_with_attributes ("Artist",
-                                                           renderer, "text",
-                                                           TAG_CHOICE_ARTIST,
-                                                           NULL);
-                gtk_tree_view_append_column (GTK_TREE_VIEW (tag_choice_tree_view),
-                                             column);
-
-                renderer = gtk_cell_renderer_text_new ();
-                column = gtk_tree_view_column_new_with_attributes ("Album Artist",
-                                                           renderer, "text",
-                                                           TAG_CHOICE_ALBUM_ARTIST,
-                                                           NULL);
-                gtk_tree_view_append_column (GTK_TREE_VIEW (tag_choice_tree_view),
-                                             column);
-
-                renderer = gtk_cell_renderer_text_new ();
-                column = gtk_tree_view_column_new_with_attributes ("Date",
-                                                           renderer, "text",
-                                                           TAG_CHOICE_DATE,
-                                                           NULL);
-                gtk_tree_view_append_column (GTK_TREE_VIEW (tag_choice_tree_view),
-                                             column);
-
-                renderer = gtk_cell_renderer_text_new ();
-                column = gtk_tree_view_column_new_with_attributes ("Country",
-                                                           renderer, "text",
-                                                           TAG_CHOICE_COUNTRY,
-                                                           NULL);
-                gtk_tree_view_append_column (GTK_TREE_VIEW (tag_choice_tree_view),
-                                             column);
-                gtk_tree_view_set_model (GTK_TREE_VIEW (tag_choice_tree_view),
-                                         GTK_TREE_MODEL (tag_choice_list_store));
-
-                for (size--; size >= 0; size--)
-                {
-                    Mb5Release release;
-
-                    release = mb5_release_list_item (release_list, size);
-                    mb5_release_get_title (release, album, sizeof (album));
-                    album_artist = et_mb5_release_get_artists_names (release);
-                    mb5_release_get_date (release, date, sizeof (date));
-                    mb5_release_get_country (release, country, sizeof (country));
-
-                    gtk_list_store_insert_with_values (GTK_LIST_STORE (tag_choice_list_store),
-                                                       &iter, -1, TAG_CHOICE_TITLE, title,
-                                                       TAG_CHOICE_ALBUM, album,
-                                                       TAG_CHOICE_ARTIST, artist->str,
-                                                       TAG_CHOICE_ALBUM_ARTIST, album_artist,
-                                                       TAG_CHOICE_DATE, date,
-                                                       TAG_CHOICE_COUNTRY, country, -1);
-                    g_free (album_artist);
-                }
-
-                gtk_widget_set_size_request (tag_choice_dialog, 600, 200);
-                gtk_widget_show_all (tag_choice_dialog);
-
-                if (gtk_dialog_run (GTK_DIALOG (tag_choice_dialog)) == 0)
-                {
-                    g_string_free (artist, TRUE);
-                    gtk_widget_destroy (tag_choice_dialog);
-
-                    return;
-                }
-
-                selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (tag_choice_tree_view));
-                if (gtk_tree_selection_get_selected (selection,
-                                                     (GtkTreeModel **)&tag_choice_list_store,
-                                                     &iter))
-                {
-                    gchar *ret_album;
-                    gchar *ret_album_artist;
-                    gchar *ret_date;
-                    gchar *ret_country;
-
-                    gtk_tree_model_get (GTK_TREE_MODEL (tag_choice_list_store),
-                                        &iter, TAG_CHOICE_ALBUM, &ret_album,
-                                        TAG_CHOICE_ALBUM_ARTIST,&ret_album_artist,
-                                        TAG_CHOICE_DATE, &ret_date,
-                                        TAG_CHOICE_COUNTRY, &ret_country,
-                                        -1);
-                    et_set_file_tag (et_file, title, artist->str,
-                                     ret_album, ret_album_artist,
-                                     ret_date, ret_country);
-                    g_free (ret_album);
-                    g_free (ret_album_artist);
-                    g_free (ret_date);
-                    g_free (ret_country);
-                }
-
-                g_string_free (artist, TRUE);
-                gtk_widget_destroy (tag_choice_dialog);
-
-                return;
-            }
-
-            mb5_release_get_title (mb5_release_list_item (release_list, 0),
-                                   album, sizeof (album));
-            album_artist = et_mb5_release_get_artists_names (mb5_release_list_item (release_list, 0));
-            mb5_release_get_date (mb5_release_list_item (release_list, 0),
-                                  date, sizeof (date));
-            mb5_release_get_country (mb5_release_list_item (release_list, 0),
-                                     country, sizeof (country));
-            et_set_file_tag (et_file, title, artist->str,
-                             album, album_artist,
-                             date, country);
-            g_free (album_artist);
-            g_string_free (artist, TRUE);
         }
     }
+
+    g_list_free_full (file_iter_list, (GDestroyNotify)gtk_tree_iter_free);
+    g_list_free (track_iter_list);
+}
+
+static gboolean
+et_apply_track_tag_to_et_file (Mb5Recording recording, ET_File *et_file)
+{
+    int size;
+    Mb5ReleaseList *release_list;
+    gchar title [NAME_MAX_SIZE];
+    gchar *album_artist;
+    gchar album[NAME_MAX_SIZE];
+    gchar date[NAME_MAX_SIZE];
+    gchar country[NAME_MAX_SIZE];
+    gchar *artist;
+    GtkTreeIter iter;
+    GtkTreeSelection *selection;
+    GtkWidget *tag_choice_tree_view;
+
+    tag_choice_tree_view = GTK_WIDGET (gtk_builder_get_object (builder, "tag_choice_treeview"));
+    release_list = mb5_recording_get_releaselist (recording);
+    artist = et_mb5_recording_get_artists_names (recording);
+    size = mb5_recording_get_title (recording, title,
+                                    sizeof (title));
+    title [size] = '\0';
+    size = mb5_release_list_size (release_list);
+
+    if (size > 1)
+    {
+        /* More than one releases show Dialog and let user decide */
+ 
+        for (size--; size >= 0; size--)
+        {
+            Mb5Release release;
+
+            release = mb5_release_list_item (release_list, size);
+            mb5_release_get_title (release, album, sizeof (album));
+            album_artist = et_mb5_release_get_artists_names (release);
+            mb5_release_get_date (release, date, sizeof (date));
+            mb5_release_get_country (release, country, sizeof (country));
+
+            gtk_list_store_insert_with_values (GTK_LIST_STORE (mb_dialog_priv->tag_choice_store),
+                                               &iter, -1, TAG_CHOICE_TITLE, title,
+                                               TAG_CHOICE_ALBUM, album,
+                                               TAG_CHOICE_ARTIST, artist,
+                                               TAG_CHOICE_ALBUM_ARTIST, album_artist,
+                                               TAG_CHOICE_DATE, date,
+                                               TAG_CHOICE_COUNTRY, country, -1);
+            g_free (album_artist);
+        }
+
+        gtk_widget_set_size_request (mb_dialog_priv->tag_choice_dialog,
+                                     600, 200);
+        gtk_widget_show_all (mb_dialog_priv->tag_choice_dialog);
+
+        if (gtk_dialog_run (GTK_DIALOG (mb_dialog_priv->tag_choice_dialog)) == 0)
+        {
+            g_free (artist);
+            gtk_widget_hide (mb_dialog_priv->tag_choice_dialog);
+
+            return FALSE;
+        }
+
+        selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (tag_choice_tree_view));
+
+        if (gtk_tree_selection_get_selected (selection,
+                                             &mb_dialog_priv->tag_choice_store,
+                                             &iter))
+        {
+            gchar *ret_album;
+            gchar *ret_album_artist;
+            gchar *ret_date;
+            gchar *ret_country;
+
+            gtk_tree_model_get (GTK_TREE_MODEL (mb_dialog_priv->tag_choice_store),
+                                &iter, TAG_CHOICE_ALBUM, &ret_album,
+                                TAG_CHOICE_ALBUM_ARTIST,&ret_album_artist,
+                                TAG_CHOICE_DATE, &ret_date,
+                                TAG_CHOICE_COUNTRY, &ret_country,
+                                -1);
+            et_set_file_tag (et_file, title, artist,
+                             ret_album, ret_album_artist,
+                             ret_date, ret_country);
+            g_free (ret_album);
+            g_free (ret_album_artist);
+            g_free (ret_date);
+            g_free (ret_country);
+        }
+
+        g_free (artist);
+
+        gtk_widget_hide (mb_dialog_priv->tag_choice_dialog);
+        gtk_list_store_clear (GTK_LIST_STORE (mb_dialog_priv->tag_choice_store));
+
+        return TRUE;
+    }
+
+    mb5_release_get_title (mb5_release_list_item (release_list, 0),
+                           album, sizeof (album));
+    album_artist = et_mb5_release_get_artists_names (mb5_release_list_item (release_list, 0));
+    mb5_release_get_date (mb5_release_list_item (release_list, 0),
+                          date, sizeof (date));
+    mb5_release_get_country (mb5_release_list_item (release_list, 0),
+                             country, sizeof (country));
+    et_set_file_tag (et_file, title, artist,
+                     album, album_artist,
+                     date, country);
+    g_free (album_artist);
+    g_free (artist);
+
+    return TRUE;
 }
 
 void
 et_music_brainz_dialog_destroy (GtkWidget *widget)
 {
+    gtk_widget_destroy (mb_dialog_priv->tag_choice_dialog);
     gtk_widget_destroy (widget);
     g_object_unref (G_OBJECT (builder));
     free_mb_tree (&mb_dialog_priv->mb_tree_root);
     g_free (mb_dialog_priv);
     mb_dialog_priv = NULL;
+}
+
+static void
+et_initialize_tag_choice_dialog (void)
+{
+    GtkWidget *tag_choice_list;
+    GtkCellRenderer *renderer;
+    GtkTreeViewColumn *column;
+    GtkListStore *list_store;
+
+    mb_dialog_priv->tag_choice_dialog = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                            "tag_choice_dialog"));
+    tag_choice_list = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                          "tag_choice_treeview"));
+    list_store = gtk_list_store_new (TAG_CHOICE_COLS_N, G_TYPE_STRING,
+                                     G_TYPE_STRING, G_TYPE_STRING,
+                                     G_TYPE_STRING, G_TYPE_STRING,
+                                     G_TYPE_STRING);
+    mb_dialog_priv->tag_choice_store = GTK_TREE_MODEL (list_store);
+    gtk_tree_view_set_model (GTK_TREE_VIEW (tag_choice_list),
+                             mb_dialog_priv->tag_choice_store);
+
+    renderer = gtk_cell_renderer_text_new ();
+    column = gtk_tree_view_column_new_with_attributes ("Title",
+                                               renderer, "text",
+                                               TAG_CHOICE_TITLE,
+                                               NULL);
+    gtk_tree_view_append_column (GTK_TREE_VIEW (tag_choice_list),
+                                 column);
+
+    renderer = gtk_cell_renderer_text_new ();
+    column = gtk_tree_view_column_new_with_attributes ("Album",
+                                                       renderer, "text",
+                                                       TAG_CHOICE_ALBUM,
+                                                       NULL);
+    gtk_tree_view_append_column (GTK_TREE_VIEW (tag_choice_list),
+                                 column);
+
+    renderer = gtk_cell_renderer_text_new ();
+    column = gtk_tree_view_column_new_with_attributes ("Artist",
+                                                       renderer, "text",
+                                                       TAG_CHOICE_ARTIST,
+                                                       NULL);
+    gtk_tree_view_append_column (GTK_TREE_VIEW (tag_choice_list),
+                                 column);
+
+    renderer = gtk_cell_renderer_text_new ();
+    column = gtk_tree_view_column_new_with_attributes ("Album Artist",
+                                                       renderer, "text",
+                                                       TAG_CHOICE_ALBUM_ARTIST,
+                                                       NULL);
+    gtk_tree_view_append_column (GTK_TREE_VIEW (tag_choice_list),
+                                 column);
+
+    renderer = gtk_cell_renderer_text_new ();
+    column = gtk_tree_view_column_new_with_attributes ("Date",
+                                                       renderer, "text",
+                                                       TAG_CHOICE_DATE,
+                                                       NULL);
+    gtk_tree_view_append_column (GTK_TREE_VIEW (tag_choice_list),
+                                 column);
+
+    renderer = gtk_cell_renderer_text_new ();
+    column = gtk_tree_view_column_new_with_attributes ("Country",
+                                                       renderer, "text",
+                                                       TAG_CHOICE_COUNTRY,
+                                                       NULL);
+    gtk_tree_view_append_column (GTK_TREE_VIEW (tag_choice_list),
+                                 column);
 }
 
 /*
@@ -1227,6 +1359,7 @@ et_open_musicbrainz_dialog ()
     gtk_box_pack_start (GTK_BOX (gtk_builder_get_object (builder, "centralBox")),
                         entityView, TRUE, TRUE, 2);
 
+    et_initialize_tag_choice_dialog ();
     cb_search = GTK_WIDGET (gtk_builder_get_object (builder, "cbManualSearch"));
     g_signal_connect (gtk_bin_get_child (GTK_BIN (cb_search)), "activate",
                       G_CALLBACK (btn_manual_find_clicked), NULL);

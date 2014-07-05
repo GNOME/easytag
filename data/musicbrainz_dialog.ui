@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkImage" id="img_unselect_all">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">easytag-unselect-all</property>
+  </object>
   <object class="GtkImage" id="findimage">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -15,11 +20,6 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="stock">easytag-red-lines</property>
-  </object>
-  <object class="GtkImage" id="img_unselect_all">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">easytag-unselect-all</property>
   </object>
   <object class="GtkDialog" id="mbDialog">
     <property name="can_focus">False</property>

@@ -130,8 +130,11 @@ void
 et_mb_entity_view_select_down (EtMbEntityView *entity_view);
 void
 et_mb_entity_view_clear_all (EtMbEntityView *entity_view);
+int
+et_mb_entity_view_get_selected_entity_list (EtMbEntityView *entity_view,
+                                            GList **list);
 EtMbEntity *
-et_mb_entity_view_get_selected_entity (EtMbEntityView *entity_view);
+et_mb_entity_view_get_current_entity (EtMbEntityView *entity_view);
 G_END_DECLS
 
 #endif /* __MB_ENTITY_VIEW_H__ */

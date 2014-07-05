@@ -53,6 +53,45 @@ et_mb5_search_error_quark (void)
 }
 
 gchar *
+et_mb5_recording_get_artists_names (Mb5Recording recording)
+{
+    GString *artist;
+    Mb5ArtistCredit artist_credit;
+    int i;
+    int size;
+    gchar title [NAME_MAX_SIZE];
+
+    artist_credit = mb5_recording_get_artistcredit (recording);
+    artist = g_string_new ("");
+
+    if (artist_credit)
+    {
+        Mb5NameCreditList name_list;
+
+        name_list = mb5_artistcredit_get_namecreditlist (artist_credit);
+
+        for (i = 0; i < mb5_namecredit_list_size (name_list); i++)
+        {
+            Mb5NameCredit name_credit;
+            Mb5Artist name_credit_artist;
+
+            name_credit = mb5_namecredit_list_item (name_list, i);
+            name_credit_artist = mb5_namecredit_get_artist (name_credit);
+            size = mb5_artist_get_name (name_credit_artist, title,
+                                        sizeof (title));
+            g_string_append_len (artist, title, size);
+
+            if (i + 1 < mb5_namecredit_list_size (name_list))
+            {
+                g_string_append_len (artist, ", ", 2);
+            }
+        }
+    }
+
+    return g_string_free (artist, FALSE);
+}
+
+gchar *
 et_mb5_release_get_artists_names (Mb5Release release)
 {
     GString *album_artist;
@@ -232,7 +271,7 @@ et_musicbrainz_search_in_entity (MbEntityKind child_type,
                 Mb5Release release;
                 release = mb5_metadata_get_release (metadata);
                 list = mb5_release_get_mediumlist (release);
-                param_values[0] = "releases artists";
+                param_values[0] = "releases artists artist-credits release-groups";
 
                 for (i = 0; i < mb5_medium_list_size (list); i++)
                 {
