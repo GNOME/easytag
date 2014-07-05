@@ -119,7 +119,6 @@ common_init (GApplication *application)
 
     /* Load Config */
     Init_Config_Variables();
-    Read_Config();
     /* Display_Config(); // <- for debugging */
 
     /* Initialization */

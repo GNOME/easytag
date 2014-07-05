@@ -6,7 +6,6 @@ General tidying
 
 * Use PNG icons and drop the XPM ones
 * Use GProxyResolver for proxy settings
-* Port configuration settings to use GSettings
 * Port file I/O to use GFile from GIO
 ** Additionally, make I/O asynchronous
 ** Always use the GLib encoding for filenames (convert for display)

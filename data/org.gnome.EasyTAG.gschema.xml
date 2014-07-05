@@ -352,12 +352,6 @@
       <default>true</default>
     </key>
 
-    <key name="audio-file-player" type="s">
-      <summary>Audio file player</summary>
-      <description>The audio file player command-line</description>
-      <default>'xdg-open'</default>
-    </key>
-
     <key name="fill-convert-spaces" enum="org.gnome.EasyTAG.EtConvertSpaces">
       <summary>Convert spaces and underscores when filling tag fields</summary>
       <description>Whether to convert to spaces (and %20) or underscores when filling tag fields from filenames</description>

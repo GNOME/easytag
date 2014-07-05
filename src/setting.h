@@ -23,26 +23,6 @@
 
 #include <gtk/gtk.h>
 
-/***************
- * Declaration *
- ***************/
-
-typedef enum
-{
-    CV_TYPE_STRING=0,
-    CV_TYPE_INT,
-    CV_TYPE_BOOL
-} Config_Variable_Type;
-
-
-typedef struct _tConfigVariable tConfigVariable;
-struct _tConfigVariable
-{
-    char *name;                 /* Variable name written in config file */
-    Config_Variable_Type type;  /* Variable type: Integer, Alphabetic, ... */
-    void *pointer;              /* Pointer to our variable */
-};
-
 /* Categories to search in CDDB manual search. */
 typedef enum
 {
@@ -257,15 +237,7 @@ typedef enum
 
 GSettings *MainSettings;
 
-/* Misc */
-gchar  *AUDIO_FILE_PLAYER;
-
-/**************
- * Prototypes *
- **************/
-
 void Init_Config_Variables (void);
-void Read_Config           (void);
 
 void Save_Changes_Of_Preferences_Window  (void);
 void Save_Changes_Of_UI                  (void);
@@ -294,10 +266,6 @@ void Save_Run_Program_With_Directory_List (GtkListStore *liststore, gint colnum)
 /* Run Program combobox (file browser) */
 void Load_Run_Program_With_File_List (GtkListStore *liststore, gint colnum);
 void Save_Run_Program_With_File_List (GtkListStore *liststore, gint colnum);
-
-/* 'FilePlayerEntry' combobox */
-void Load_Audio_File_Player_List (GtkListStore *liststore, gint colnum);
-void Save_Audio_File_Player_List (GtkListStore *liststore, gint colnum);
 
 /* 'SearchStringEntry' combobox */
 void Load_Search_File_List (GtkListStore *liststore, gint colnum);

@@ -47,13 +47,8 @@ struct _EtPreferencesDialogClass
 
 GType et_preferences_dialog_get_type (void);
 EtPreferencesDialog *et_preferences_dialog_new (void);
-void et_preferences_dialog_apply_changes (EtPreferencesDialog *self);
 void et_preferences_dialog_show_scanner (EtPreferencesDialog *self);
 
 G_END_DECLS
-
-/* FIXME: Remove widget declarations when switching to GSettings. */
-/* Misc */
-GtkWidget *FilePlayerCombo;
 
 #endif /* ET_PREFERENCES_DIALOG_H_ */

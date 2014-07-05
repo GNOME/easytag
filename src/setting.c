@@ -72,8 +72,6 @@ static const gchar PATH_ENTRY_HISTORY_FILE[] = "browser_path.history";
 static const gchar RUN_PROGRAM_WITH_DIRECTORY_HISTORY_FILE[] = "run_program_with_directory.history";
 // File for history of run program combobox for files
 static const gchar RUN_PROGRAM_WITH_FILE_HISTORY_FILE[] = "run_program_with_file.history";
-// File for history of run player combobox
-static const gchar AUDIO_FILE_PLAYER_HISTORY_FILE[] = "audio_file_player.history";
 // File for history of search string combobox
 static const gchar SEARCH_FILE_HISTORY_FILE[] = "search_file.history";
 // File for history of FileToLoad combobox
@@ -89,22 +87,7 @@ static const gchar CDDB_SEARCH_STRING_IN_RESULT_HISTORY_FILE[] = "cddb_search_st
  * Prototypes *
  **************/
 
-static void Save_Config_To_File (void);
 static gboolean Create_Easytag_Directory (void);
-
-
-
-/********************
- * Config Variables *
- ********************/
-static const tConfigVariable Config_Variables[] =
-{
-
-    {"audio_file_player",                       CV_TYPE_STRING,&AUDIO_FILE_PLAYER                        }
-};
-
-
-
 
 /*************
  * Functions *
@@ -141,15 +124,6 @@ void Init_Config_Variables (void)
      * Common
      */
     check_default_path ();
-
-    /*
-     * Misc
-     */
-#ifdef G_OS_WIN32
-    AUDIO_FILE_PLAYER                       = ET_Win32_Get_Audio_File_Player();
-#else /* !G_OS_WIN32 */
-    AUDIO_FILE_PLAYER                       = g_strdup("xdg-open");
-#endif /* !G_OS_WIN32 */
 }
 
 
@@ -170,9 +144,6 @@ Apply_Changes_Of_Preferences_Window (void)
 
     if (dialog)
     {
-        /* Misc */
-        if (AUDIO_FILE_PLAYER) g_free(AUDIO_FILE_PLAYER);
-        AUDIO_FILE_PLAYER                       = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)))));
 
         /* Tag Settings */
 #ifdef ENABLE_ID3LIB
@@ -200,10 +171,6 @@ Apply_Changes_Of_UI (void)
      * Changes in user interface
      */
 
-    /* Configuration of the preference window (see preferences_dialog.c).
-     * Function also called when destroying the window. */
-    et_preferences_dialog_apply_changes (ET_PREFERENCES_DIALOG (et_application_window_get_preferences_dialog (ET_APPLICATION_WINDOW (MainWindow))));
-
     /* Configuration of the scanner window (see scan_dialog.c).
      * Function also called when destroying the window. */
     et_scan_dialog_apply_changes (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (MainWindow))));
@@ -220,229 +187,15 @@ Apply_Changes_Of_UI (void)
 void Save_Changes_Of_UI (void)
 {
     Apply_Changes_Of_UI();
-    Save_Config_To_File();
 }
 
 void Save_Changes_Of_Preferences_Window (void)
 {
     Apply_Changes_Of_Preferences_Window();
-    Save_Config_To_File();
 
     Statusbar_Message(_("Configuration saved"),TRUE);
 }
 
-
-
-/*
- * Write the config file
- */
-static void
-Save_Config_To_File (void)
-{
-    gchar *file_path = NULL;
-    FILE *file;
-
-    file_path = g_build_filename (g_get_user_config_dir (), PACKAGE_TARNAME,
-                                  CONFIG_FILE, NULL);
-
-    if (!Create_Easytag_Directory () || (file = fopen (file_path, "w+")) == 0)
-    {
-        Log_Print (LOG_ERROR,
-                   _("Error: Cannot write configuration file: %s (%s)"),
-                   file_path, g_strerror(errno));
-    }
-    else
-    {
-        gint ConfigVarListLen = sizeof(Config_Variables)/sizeof(tConfigVariable);
-        gint i;
-        gchar *data = NULL;
-
-        for (i=0; i<ConfigVarListLen; i++)
-        {
-            switch (Config_Variables[i].type)
-            {
-                case CV_TYPE_INT:
-                {
-                    data = g_strdup_printf("%s=%i\n",Config_Variables[i].name,
-                                                     *(int *)Config_Variables[i].pointer);
-                    if (fwrite (data, strlen (data), 1, file) != 1)
-                    {
-                        Log_Print (LOG_ERROR,
-                                   _("Error while writing configuration file: %s"),
-                                   file_path);
-                        fclose (file);
-                        g_free (file_path);
-                        g_free (data);
-                        return;
-                    }
-                    g_free(data);
-                    break;
-                }
-                case CV_TYPE_BOOL:
-                {
-                    data = g_strdup_printf("%s=%i\n",Config_Variables[i].name,
-                                                     ( *(int *)Config_Variables[i].pointer ? 1 : 0 ));
-                    if (fwrite (data, strlen (data), 1, file) != 1)
-                    {
-                        Log_Print (LOG_ERROR,
-                                   _("Error while writing configuration file: %s"),
-                                   file_path);
-                        fclose (file);
-                        g_free (file_path);
-                        g_free (data);
-                        return;
-                    }
-                    g_free(data);
-                    break;
-                }
-                case CV_TYPE_STRING:
-                {
-                    /* Doesn't write datum if empty */
-                    if ( (*(char **)Config_Variables[i].pointer)==NULL ) break;
-
-                    data = g_strdup_printf("%s=%s\n",Config_Variables[i].name,
-                                                     *(char **)Config_Variables[i].pointer);
-                    if (fwrite (data, strlen (data), 1, file) != 1)
-                    {
-                        Log_Print (LOG_ERROR,
-                                   _("Error while writing configuration file: %s"),
-                                   file_path);
-                        fclose (file);
-                        g_free (file_path);
-                        g_free (data);
-                        return;
-                    }
-                    g_free(data);
-                    break;
-                }
-                default:
-                {
-                    Log_Print(LOG_ERROR,"ERROR: Can't save: type of config variable not supported "
-                              "for '%s'!",Config_Variables[i].name);
-                    break;
-                }
-            }
-        }
-        fclose(file);
-    }
-    g_free(file_path);
-}
-
-
-/*
- * Parse lines read (line as <var_description>=<value>) and load the values
- * into the corresponding config variables.
- */
-static void
-Set_Config (gchar *line)
-{
-    const gchar *var_descriptor;
-    const gchar *var_value;
-    gint ConfigVarListLen;
-    gint i;
-
-    g_return_if_fail (line != NULL);
-
-    if (*line=='\n' || *line=='#') return;
-
-    /* Cut string */
-    var_descriptor = strtok (line, "=");
-
-    if (!var_descriptor)
-    {
-        g_message ("Invalid configuration file line ‘%s’", line);
-        return;
-    }
-
-    var_value = strtok (NULL, "=");
-
-    if (!var_value)
-    {
-        g_message ("No value for configuration key ‘%s’", var_descriptor);
-        return;
-    }
-
-    ConfigVarListLen = sizeof(Config_Variables)/sizeof(tConfigVariable);
-    for (i=0; i<ConfigVarListLen; i++)
-    {
-        if (Config_Variables[i].name!=NULL && var_descriptor
-        && !strcmp(Config_Variables[i].name,var_descriptor))
-        {
-            switch (Config_Variables[i].type)
-            {
-                case CV_TYPE_INT:
-                {
-                    *(int *)Config_Variables[i].pointer = strtol(var_value, NULL, 10);
-                    break;
-                }
-
-                case CV_TYPE_BOOL:
-                {
-                    if (strtol(var_value, NULL, 10))
-                        *(int *)Config_Variables[i].pointer = 1;
-                    else
-                        *(int *)Config_Variables[i].pointer = 0;
-                    break;
-                }
-
-                case CV_TYPE_STRING:
-                {
-
-                    if (*(char **)Config_Variables[i].pointer != NULL)
-                    {
-                        g_free (*(char **)Config_Variables[i].pointer);
-                    }
-
-                    *(char **)Config_Variables[i].pointer = g_strdup (var_value);
-                    break;
-                }
-
-                default:
-                {
-                    Log_Print(LOG_ERROR,"ERROR: Can't read: type of config variable not supported "
-                              "for '%s'!",Config_Variables[i].name);
-                    break;
-                }
-            }
-        }
-    }
-}
-
-
-/*
- * Read config from config file
- */
-void Read_Config (void)
-{
-    gchar *file_path = NULL;
-    FILE *file;
-    gchar buffer[MAX_STRING_LEN];
-
-    /* The file to read */
-    file_path = g_build_filename (g_get_user_config_dir (), PACKAGE_TARNAME,
-                                  CONFIG_FILE, NULL);
-
-    if ((file = fopen (file_path,"r")) == 0)
-    {
-        Log_Print (LOG_ERROR, _("Cannot open configuration file '%s' (%s)"),
-                   file_path, g_strerror (errno));
-        Log_Print (LOG_OK, _("Loading default configuration"));
-    }else
-    {
-        while (fgets(buffer,sizeof(buffer),file))
-        {
-            if (buffer[strlen(buffer)-1]=='\n')
-                buffer[strlen(buffer)-1]='\0';
-            Set_Config(buffer);
-        }
-        fclose(file);
-
-        // Force this configuration! - Disabled as it is boring for russian people
-        //USE_ISO_8859_1_CHARACTER_SET_TRANSLATION = 1;
-        //USE_CHARACTER_SET_TRANSLATION            = 0;
-    }
-    g_free(file_path);
-}
 
 
 /*
@@ -490,7 +243,6 @@ gboolean Setting_Create_Files (void)
     check_or_create_file (PATH_ENTRY_HISTORY_FILE);
     check_or_create_file (RUN_PROGRAM_WITH_DIRECTORY_HISTORY_FILE);
     check_or_create_file (RUN_PROGRAM_WITH_FILE_HISTORY_FILE);
-    check_or_create_file (AUDIO_FILE_PLAYER_HISTORY_FILE);
     check_or_create_file (SEARCH_FILE_HISTORY_FILE);
     check_or_create_file (FILE_TO_LOAD_HISTORY_FILE);
     check_or_create_file (CDDB_SEARCH_STRING_HISTORY_FILE);
@@ -702,18 +454,6 @@ void Save_Run_Program_With_File_List (GtkListStore *liststore, gint colnum)
 }
 
 /*
- * Functions for writing and reading list of combobox to run file audio player
- */
-void Load_Audio_File_Player_List (GtkListStore *liststore, gint colnum)
-{
-    Populate_List_Store_From_File(AUDIO_FILE_PLAYER_HISTORY_FILE, liststore, colnum);
-}
-void Save_Audio_File_Player_List (GtkListStore *liststore, gint colnum)
-{
-    Save_List_Store_To_File(AUDIO_FILE_PLAYER_HISTORY_FILE, liststore, colnum);
-}
-
-/*
  * Functions for writing and reading list of combobox to search a string into file (tag or filename)
  */
 void Load_Search_File_List (GtkListStore *liststore, gint colnum)
@@ -779,7 +519,6 @@ migrate_config_file_dir (const gchar *old_path, const gchar *new_path)
                                         PATH_ENTRY_HISTORY_FILE,
                                         RUN_PROGRAM_WITH_DIRECTORY_HISTORY_FILE,
                                         RUN_PROGRAM_WITH_FILE_HISTORY_FILE,
-                                        AUDIO_FILE_PLAYER_HISTORY_FILE,
                                         SEARCH_FILE_HISTORY_FILE,
                                         FILE_TO_LOAD_HISTORY_FILE,
                                         CDDB_SEARCH_STRING_HISTORY_FILE,

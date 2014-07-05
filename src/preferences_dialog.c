@@ -227,7 +227,6 @@ create_preferences_dialog (EtPreferencesDialog *self)
 {
     EtPreferencesDialogPrivate *priv;
     GtkWidget *OptionsVBox;
-    GtkWidget *Button;
     GtkWidget *Label;
     GtkWidget *Frame;
     GtkWidget *Table;
@@ -305,7 +304,6 @@ create_preferences_dialog (EtPreferencesDialog *self)
     GtkWidget *FilenameExtensionLowerCase;
     GtkWidget *FilenameExtensionUpperCase;
     GtkWidget *default_path_button;
-    gchar *program_path;
 
     priv = et_preferences_dialog_get_instance_private (self);
 
@@ -464,41 +462,6 @@ create_preferences_dialog (EtPreferencesDialog *self)
                      G_SETTINGS_BIND_DEFAULT);
     gtk_widget_set_tooltip_text(SortingFileCaseSensitive,_("If activated, the "
         "sorting of the list will be dependent on the case."));
-
-    /* File Player */
-    Frame = gtk_frame_new (_("File Audio Player"));
-    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-
-    /* Player name with params. */
-    priv->file_player_model = gtk_list_store_new (MISC_COMBO_COUNT,
-                                                  G_TYPE_STRING);
-
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(Frame),hbox);
-    gtk_container_set_border_width (GTK_CONTAINER (hbox), BOX_SPACING);
-    Label = gtk_label_new (_("Player to run:"));
-    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
-    FilePlayerCombo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(priv->file_player_model));
-    g_object_unref (priv->file_player_model);
-    gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(FilePlayerCombo),MISC_COMBO_TEXT);
-    gtk_widget_set_size_request(GTK_WIDGET(FilePlayerCombo), 300, -1);
-    gtk_box_pack_start(GTK_BOX(hbox),FilePlayerCombo,FALSE,FALSE,0);
-    gtk_widget_set_tooltip_text(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)),_("Enter the program used to "
-        "play the files. Some arguments can be passed for the program (as 'xmms -p') before "
-        "to receive files as other arguments."));
-    // History List
-    Load_Audio_File_Player_List(priv->file_player_model, MISC_COMBO_TEXT);
-    Add_String_To_Combo_List(priv->file_player_model, AUDIO_FILE_PLAYER);
-    // Don't load the parameter if XMMS not found, else user can't save the preference
-    if ( (program_path=Check_If_Executable_Exists(AUDIO_FILE_PLAYER)))
-        gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo))), AUDIO_FILE_PLAYER);
-    g_free(program_path);
-
-    // Button browse
-    Button = gtk_button_new_from_stock(GTK_STOCK_OPEN);
-    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    g_signal_connect_swapped(G_OBJECT(Button),"clicked",
-        G_CALLBACK(File_Selection_Window_For_File), G_OBJECT(gtk_bin_get_child(GTK_BIN(FilePlayerCombo))));
 
     /* Log options */
     Frame = gtk_frame_new (_("Log Options"));
@@ -1777,7 +1740,6 @@ notify_id3_settings_active (GObject *object,
 static void
 OptionsWindow_Quit (EtPreferencesDialog *self)
 {
-    et_preferences_dialog_apply_changes (self);
 }
 
 /*
@@ -1918,53 +1880,10 @@ gint Check_CharacterSetTranslation (void)
 }
 *************/
 
-/*
- * Check if player binary is found
- */
 static gboolean
-Check_FilePlayerCombo (EtPreferencesDialog *self)
-{
-    gchar *program_path = NULL;
-    gchar *program_path_validated = NULL;
-
-#ifdef G_OS_WIN32
-    return TRUE; /* FIXME see Check_If_Executable_Exists */
-    /* Note : Check_If_Executable_Exists crashes when player is 'winamp.exe' with g_find_program_in_path */
-#endif /* G_OS_WIN32 */
-
-    // The program typed
-    program_path = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)))));
-    g_strstrip(program_path);
-    // The program file validated
-    if (program_path && strlen(program_path)>0)
-        program_path_validated = Check_If_Executable_Exists(program_path);
-
-    if ( program_path && strlen(program_path)>0 && !program_path_validated ) // A file is typed but it is invalid!
-    {
-        GtkWidget *msgdialog = gtk_message_dialog_new (GTK_WINDOW (self),
-                                                      GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                      GTK_MESSAGE_ERROR,
-                                                      GTK_BUTTONS_CLOSE,
-                                                      _("The audio file player '%s' cannot be found"),
-                                                      program_path);
-        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Audio Player Error"));
-
-        gtk_dialog_run(GTK_DIALOG(msgdialog));
-        gtk_widget_destroy(msgdialog);
-
-        g_free(program_path);
-        return FALSE;
-    } else
-    {
-        g_free(program_path);
-        g_free(program_path_validated);
-        return TRUE;
-    }
-}static gboolean
 Check_Config (EtPreferencesDialog *self)
 {
-    if (Check_DefaultPathToMp3 (self)
-        && Check_FilePlayerCombo (self))
+    if (Check_DefaultPathToMp3 (self))
         return TRUE; /* No problem detected */
     else
         return FALSE; /* Oops! */
@@ -1974,16 +1893,7 @@ Check_Config (EtPreferencesDialog *self)
 static void
 OptionsWindow_Save_Button (EtPreferencesDialog *self)
 {
-    EtPreferencesDialogPrivate *priv;
-
-    priv = et_preferences_dialog_get_instance_private (self);
-
     if (!Check_Config (self)) return;
-
-#ifndef G_OS_WIN32
-    /* FIXME : make gtk crash on win32 */
-    Add_String_To_Combo_List(priv->file_player_model,       gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(FilePlayerCombo)))));
-#endif /* !G_OS_WIN32 */
 
     Save_Changes_Of_Preferences_Window();
 
@@ -1997,22 +1907,6 @@ OptionsWindow_Cancel_Button (EtPreferencesDialog *self)
 {
     OptionsWindow_Quit (self);
     Statusbar_Message(_("Configuration unchanged"),TRUE);
-}
-
-/*
- * For the configuration file...
- */
-void
-et_preferences_dialog_apply_changes (EtPreferencesDialog *self)
-{
-    EtPreferencesDialogPrivate *priv;
-
-    g_return_if_fail (ET_PREFERENCES_DIALOG (self));
-
-    priv = et_preferences_dialog_get_instance_private (self);
-
-    /* Save combobox history lists before exit */
-    Save_Audio_File_Player_List (priv->file_player_model, MISC_COMBO_TEXT);
 }
 
 void
