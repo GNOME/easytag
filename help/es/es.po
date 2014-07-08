@@ -6,14 +6,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag master\n"
-"POT-Creation-Date: 2014-06-17 17:20+0000\n"
-"PO-Revision-Date: 2014-06-17 19:39+0200\n"
+"POT-Creation-Date: 2014-07-08 03:13+0000\n"
+"PO-Revision-Date: 2014-07-08 17:35+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Gtranslator 2.91.6\n"
 
@@ -35,12 +35,12 @@ msgstr "Ekaterina Gerasimova"
 #. (itstool) path: info/desc
 #: C/cddb-search.page:17
 msgid "Fill tags using information from a CD database"
-msgstr ""
+msgstr "Rellenar las etiquetas usando información de una base de datos de CD"
 
 #. (itstool) path: page/title
 #: C/cddb-search.page:20
 msgid "Search CDDB"
-msgstr ""
+msgstr "Buscar CDDB"
 
 #. (itstool) path: page/p
 #: C/cddb-search.page:22
@@ -70,6 +70,7 @@ msgstr ""
 msgid ""
 "Press <gui style=\"button\">Find</gui> and wait for the search to finish."
 msgstr ""
+"Pulse <gui style=\"button\">Buscar</gui> y espere a que la búsqueda termine."
 
 #. (itstool) path: item/p
 #: C/cddb-search.page:43
@@ -117,7 +118,7 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/file-rename.page:16
 msgid "Change the file names using tags"
-msgstr ""
+msgstr "Cambiar los nombres de los archivos usando etiquetas"
 
 #. (itstool) path: page/title
 #: C/file-rename.page:19
@@ -137,6 +138,8 @@ msgid ""
 "<link xref=\"file-select\">Select the files</link> that you wish to rename "
 "in the file view."
 msgstr ""
+"<link xref=\"file-select\">Seleccione los archivos</link> que quiere "
+"renombrar en la vista de archivos."
 
 #. (itstool) path: item/p
 #: C/file-rename.page:30
@@ -144,6 +147,8 @@ msgid ""
 "Select <guiseq><gui style=\"menu\">Scanner</gui> <gui style=\"menuitem"
 "\">Rename Files and Directories…</gui></guiseq>."
 msgstr ""
+"Seleccione <guiseq><gui style=\"menu\">Analizador</gui> <gui style=\"menuitem"
+"\">Renombrar archivos y carpetas…</gui></guiseq>."
 
 #. (itstool) path: item/p
 #: C/file-rename.page:34
@@ -160,6 +165,8 @@ msgid ""
 "To apply the changes to all files, select <guiseq><gui style=\"menu\">File</"
 "gui> <gui style=\"menuitem\">Scan Files…</gui></guiseq>."
 msgstr ""
+"Para aplicar los cambios a todos los archivos, seleccione <guiseq><gui style="
+"\"menu\">Archivo</gui> <gui style=\"menuitem\">Analizar archivos"
 
 #. (itstool) path: item/p
 #: C/file-rename.page:46
@@ -172,16 +179,18 @@ msgid ""
 "To save the applied changes, select <guiseq><gui style=\"menu\">File</gui> "
 "<gui style=\"menuitem\">Save Files</gui></guiseq>."
 msgstr ""
+"Para guardar los cambios aplicados, seleccione <guiseq><gui style=\"menu"
+"\">Archivo</gui> <gui style=\"menuitem\">Guardar archivos</gui></guiseq>."
 
 #. (itstool) path: note/p
 #: C/file-rename.page:56
 msgid "If you close the application without saving, your changes will be lost."
-msgstr ""
+msgstr "Si cierra la aplicación sin guardar los cambios, éstos se perderán."
 
 #. (itstool) path: info/desc
 #: C/file-select.page:17
 msgid "Choose files in the file list"
-msgstr ""
+msgstr "Elegir archivos en la lista"
 
 #. (itstool) path: page/title
 #: C/file-select.page:20
@@ -202,12 +211,12 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/format-specifier.page:17
 msgid "What is a format-specifier and which ones can I use?"
-msgstr ""
+msgstr "¿Qué es un especificador de formato y cuáles puedo usar?"
 
 #. (itstool) path: page/title
 #: C/format-specifier.page:21
 msgid "Format specifiers"
-msgstr ""
+msgstr "Especificadores de formato"
 
 #. (itstool) path: page/p
 #: C/format-specifier.page:23
@@ -216,16 +225,20 @@ msgid ""
 "name a file or playlist based on existing tags using <link xref=\"scanner"
 "\">the scanner</link>."
 msgstr ""
+"Los <em>especificadores de formato</em> se pueden usar para dividir el "
+"nombre de un archivo en etiquetas y para nombrar un archivo o una lista de "
+"reproducción basándose en las etiquetas existentes usando <link xref="
+"\"scanner\">el analizador</link>."
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:31
 msgid "Format specifier"
-msgstr ""
+msgstr "Especificador de formato"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:34
 msgid "Corresponding tag field"
-msgstr ""
+msgstr "Campo de etiqueta correspondiente"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:41
@@ -238,6 +251,8 @@ msgid ""
 "Artist: this is the artist or artists who created the track, this field may "
 "contact a featured artist as well as the album artist"
 msgstr ""
+"Artista: esto es el artista o artistas que crearon la pista. Este campo debe "
+"contener un artista destacado así como el álbum del artista."
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:50
@@ -247,7 +262,7 @@ msgstr "%z"
 #. (itstool) path: td/p
 #: C/format-specifier.page:53
 msgid "Album artist"
-msgstr ""
+msgstr "Artista del álbum"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:58
@@ -257,7 +272,7 @@ msgstr "%b"
 #. (itstool) path: td/p
 #: C/format-specifier.page:61
 msgid "Album title"
-msgstr ""
+msgstr "Título del álbum"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:66
@@ -267,7 +282,7 @@ msgstr "%c"
 #. (itstool) path: td/p
 #: C/format-specifier.page:69
 msgid "Comment: this is the free-form comment field"
-msgstr ""
+msgstr "Comentario: esto es un campo libre para comentarios"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:74
@@ -277,7 +292,7 @@ msgstr "%p"
 #. (itstool) path: td/p
 #: C/format-specifier.page:77
 msgid "Composer: this is the creator of the track"
-msgstr ""
+msgstr "Compositor: esto es el creado de la pista"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:82
@@ -290,6 +305,8 @@ msgid ""
 "Copyright holder: this is usually the artist, but it can also be the record "
 "label"
 msgstr ""
+"Propietario del copyright: normalmente esto es el artista, pero también "
+"puede ser el sello del disco"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:91
@@ -299,7 +316,7 @@ msgstr "%d"
 #. (itstool) path: td/p
 #: C/format-specifier.page:94
 msgid "Disc number"
-msgstr ""
+msgstr "Número de disco"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:99
@@ -312,6 +329,9 @@ msgid ""
 "Encoded by: this is usually the person who encoded the file, but the field "
 "is also used for the application that was used to encode the file"
 msgstr ""
+"Codificado por: normalmente esto es la persona que ha codificado el archivo, "
+"pero este campo también lo puede usar la aplicación que se usó para "
+"codificar el archivo"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:109
@@ -321,7 +341,7 @@ msgstr "%g"
 #. (itstool) path: td/p
 #: C/format-specifier.page:112
 msgid "Genre"
-msgstr ""
+msgstr "Género"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:117
@@ -334,6 +354,9 @@ msgid ""
 "Ignored: this format specifier can only be used in <gui>Fill Tag</gui> to "
 "specify parts of the file name which should be ignored"
 msgstr ""
+"Ignorado: este especificador de formato sólo se puede usar en <gui>Rellenar "
+"etiqueta</gui> para especificar partes del nombre del archivo que se deben "
+"ignorar"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:127
@@ -343,17 +366,17 @@ msgstr "%l"
 #. (itstool) path: td/p
 #: C/format-specifier.page:130
 msgid "Number of tracks: the total number of tracks on the medium"
-msgstr "Number of tracks: the total number of tracks on the medium"
+msgstr "Número de pistas: el número total de pistas del medio"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:135
 msgid "%o"
-msgstr ""
+msgstr "%o"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:138
 msgid "Original artist"
-msgstr ""
+msgstr "Artista original"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:143
@@ -363,7 +386,7 @@ msgstr "%n"
 #. (itstool) path: td/p
 #: C/format-specifier.page:146
 msgid "Track number"
-msgstr ""
+msgstr "Número de pista"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:151
@@ -373,7 +396,7 @@ msgstr "%t"
 #. (itstool) path: td/p
 #: C/format-specifier.page:154
 msgid "Track title"
-msgstr ""
+msgstr "Título de la pista"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:159
@@ -393,7 +416,7 @@ msgstr "%x"
 #. (itstool) path: td/p
 #: C/format-specifier.page:170
 msgid "Number of discs"
-msgstr ""
+msgstr "Número de discos"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:175
@@ -404,11 +427,13 @@ msgstr "%y"
 #: C/format-specifier.page:178
 msgid "Year of recording, sometimes the date of release is used instead"
 msgstr ""
+"Año de la grabación, aunque algunas veces se usa el año de publicación en su "
+"lugar"
 
 #. (itstool) path: page/title
 #: C/image-delete.page:19
 msgid "Delete an image"
-msgstr ""
+msgstr "Eliminar una imagen"
 
 #. (itstool) path: page/p
 #: C/image-delete.page:21
@@ -422,6 +447,7 @@ msgstr ""
 msgid ""
 "To delete more than one image, select those images before deleting them."
 msgstr ""
+"Para eliminar más de una imane, seleccione las imágenes antes de eliminarlas."
 
 #. (itstool) path: page/p
 #: C/image-delete.page:27
@@ -435,7 +461,7 @@ msgstr ""
 #. (itstool) path: page/title
 #: C/image-export.page:19
 msgid "Save an image"
-msgstr ""
+msgstr "Guardar una imagen"
 
 #. (itstool) path: page/p
 #: C/image-export.page:21
@@ -456,12 +482,12 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/image.page:19
 msgid "Add images, such as cover art to the tag"
-msgstr ""
+msgstr "Añadir imágenes, como la carátula, a la etiqueta"
 
 #. (itstool) path: page/title
 #: C/image.page:23
 msgid "Add an image to a file"
-msgstr ""
+msgstr "Añadir una imagen a un archivo"
 
 #. (itstool) path: page/p
 #: C/image.page:25
@@ -491,7 +517,7 @@ msgstr ""
 #. (itstool) path: note/p
 #: C/image.page:40
 msgid "Your changes will not be saved automatically."
-msgstr ""
+msgstr "Sus cambios no se guardará automáticamente."
 
 #. (itstool) path: page/p
 #: C/image.page:43
@@ -539,12 +565,12 @@ msgstr "Etiquetas"
 #. (itstool) path: section/title
 #: C/index.page:36
 msgid "The image tag field"
-msgstr ""
+msgstr "El campo de etiqueta de la imagen"
 
 #. (itstool) path: section/title
 #: C/index.page:44
 msgid "Common problems and questions"
-msgstr ""
+msgstr "Problemas comunes y preguntas"
 
 #. (itstool) path: page/title
 #: C/introduction.page:21
@@ -584,62 +610,64 @@ msgstr "Atajo"
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:39
 msgid "Apply tag to selected files"
-msgstr ""
+msgstr "Aplicar la etiqueta a los archivos seleccionados"
 
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:42
 msgid "<keyseq><key>Ctrl</key><key>Return</key></keyseq>"
-msgstr ""
+msgstr "<keyseq><key>Ctrl</key><key>Intro</key></keyseq>"
 
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:47
 msgid "Search all files, including filenames and tags"
-msgstr ""
+msgstr "Buscar todos los archivos, incluyendo nombres de archivos y etiquetas"
 
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:50
 msgid "<keyseq><key>Ctrl</key><key>F</key></keyseq>"
-msgstr ""
+msgstr "<keyseq><key>Ctrl</key><key>F</key></keyseq>"
 
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:55
 msgid "Go to previous file while keeping focus on the same tag field"
 msgstr ""
+"Ir al archivo anterior manteniendo el foco en el mismo campo de etiqueta"
 
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:58
 msgid "<key>Page Up</key>"
-msgstr ""
+msgstr "<key>Re Pág</key>"
 
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:63
 msgid "Go to next file while keeping focus on the same tag field"
 msgstr ""
+"Ir al siguiente archivo manteniendo el foco en el mismo campo de etiqueta"
 
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:66
 msgid "<key>Page Down</key>"
-msgstr ""
+msgstr "<key>Av Pág</key>"
 
 #. (itstool) path: p/link
 #: C/legal.xml:4
 msgid "Creative Commons Attribution-ShareAlike 3.0 Unported License"
-msgstr ""
+msgstr "Creative Commons de Atribución-Compartir Igual 3.0 sin soporte"
 
 #. (itstool) path: license/p
 #: C/legal.xml:3
 msgid "This work is licensed under a <_:link-1/>."
-msgstr ""
+msgstr "Este trabajo está licenciado bajo la <_:link-1/>."
 
 #. (itstool) path: info/desc
 #: C/playlist-generate.page:17
 msgid "Generate a playlist from the file list"
-msgstr ""
+msgstr "Generar una lista de reproducción de la lista de archivos"
 
 #. (itstool) path: page/title
 #: C/playlist-generate.page:20
 msgid "Create a playlist"
-msgstr ""
+msgstr "Crear una lista de reproducción"
 
 #. (itstool) path: page/p
 #: C/playlist-generate.page:22
@@ -654,6 +682,8 @@ msgid ""
 "<link xref=\"file-select\">Select the files</link> that you wish to be in "
 "the playlist in the file list."
 msgstr ""
+"En la lista de archivos, <link xref=\"file-select\">seleccione los archivos</"
+"link> que quiere incluir en la lista de reproducción."
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:31
@@ -661,6 +691,8 @@ msgid ""
 "Select <guiseq><gui style=\"menu\">Miscellaneous</gui> <gui style=\"menuitem"
 "\">Generate Playlist…</gui></guiseq>."
 msgstr ""
+"Seleccione <guiseq><gui style=\"menu\">Varios</gui> <gui style=\"menuitem"
+"\">Generar lista de reproducción…</gui></guiseq>."
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:35
@@ -720,6 +752,8 @@ msgstr ""
 #: C/playlist-generate.page:77
 msgid "To generate the playlist, select <gui style=\"button\">Save</gui>."
 msgstr ""
+"Para generar la lista de reproducción, seleccione <gui style=\"button"
+"\">Guardar</gui>."
 
 #. (itstool) path: credit/name
 #: C/problems-id3.page:13 C/problems-ogg-split.page:13
@@ -734,7 +768,7 @@ msgstr ""
 #. (itstool) path: page/title
 #: C/problems-id3.page:21
 msgid "MP3 tags not showing correctly"
-msgstr ""
+msgstr "Las etiquetas MP3 no se muestran correctamente"
 
 #. (itstool) path: page/p
 #: C/problems-id3.page:23
@@ -792,6 +826,7 @@ msgstr ""
 #: C/problems-id3.page:54 C/problems-ogg-split.page:56
 msgid "Click <gui style=\"button\">OK</gui> to save the settings"
 msgstr ""
+"Pulse <gui style=\"button\">Aceptar</gui> para guardar la configuración"
 
 #. (itstool) path: info/desc
 #: C/problems-ogg-split.page:21
@@ -803,7 +838,7 @@ msgstr ""
 #. (itstool) path: page/title
 #: C/problems-ogg-split.page:25
 msgid "Split tag fields when saving"
-msgstr ""
+msgstr "Dividir campos de etiquetas al guardar"
 
 #. (itstool) path: page/p
 #: C/problems-ogg-split.page:27
@@ -830,7 +865,7 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/problems-ogg-split.page:41
 msgid "To split fields when you save the files:"
-msgstr ""
+msgstr "Para dividir campos cuando guarda los archivos:"
 
 #. (itstool) path: item/p
 #: C/problems-ogg-split.page:49
@@ -847,12 +882,12 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/scanner.page:17
 msgid "Update tags automatically."
-msgstr ""
+msgstr "Actualizar las etiquetas automáticamente"
 
 #. (itstool) path: page/title
 #: C/scanner.page:21
 msgid "The <gui>Scanner</gui>"
-msgstr ""
+msgstr "El <gui>Analizador</gui>"
 
 #. (itstool) path: page/p
 #: C/scanner.page:23
@@ -873,6 +908,8 @@ msgid ""
 "<gui>Fill Tag</gui> can be used to fill in tag fields based on the filename "
 "and its parent directories."
 msgstr ""
+"<gui>Rellenar etiqueta</gui> se puede usar para rellenar campos de etiquetas "
+"basándose en el nombre del archivo o en las carpetas padre."
 
 #. (itstool) path: section/p
 #: C/scanner.page:33
@@ -906,7 +943,7 @@ msgstr ""
 #. (itstool) path: section/title
 #: C/scanner.page:53
 msgid "Rename files and create new directories"
-msgstr ""
+msgstr "Renombrar archivos y crear carpetas nuevas"
 
 #. (itstool) path: section/p
 #: C/scanner.page:55
@@ -933,6 +970,8 @@ msgid ""
 "To prepare the files for moving and renaming, press the <gui style=\"button"
 "\">Scan Files</gui> button."
 msgstr ""
+"Para preparar los archivos para moverlos y renombrarlos, pulse el botón <gui "
+"style=\"button\">Analizar archivos</gui>."
 
 #. (itstool) path: section/title
 #: C/scanner.page:72
@@ -953,6 +992,8 @@ msgid ""
 "You can <gui>Convert</gui> characters for a simple find and replace, change "
 "capitalization and add or remove spaces."
 msgstr ""
+"Puede <gui>Convertir</gui> caracteres para una búsqueda con reemplazamiento "
+"sencilla, cambiar la capitalización o eliminar espacios."
 
 #. (itstool) path: section/p
 #: C/scanner.page:81
@@ -964,12 +1005,12 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/starting.page:16
 msgid "Using <app>EasyTAG</app> for the first time"
-msgstr ""
+msgstr "Usar <app>EasyTAG</app> por primera vez"
 
 #. (itstool) path: page/title
 #: C/starting.page:19
 msgid "Start using <app>EasyTAG</app>"
-msgstr ""
+msgstr "Empezar a usar <app>EasyTAG</app>"
 
 #. (itstool) path: page/p
 #: C/starting.page:21
@@ -1002,12 +1043,12 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/tag-field.page:18
 msgid "Add text tags to a file"
-msgstr ""
+msgstr "Añadir etiquetas de texto a un archivo"
 
 #. (itstool) path: page/title
 #: C/tag-field.page:22
 msgid "Tag a file"
-msgstr ""
+msgstr "Etiquetar un archivo"
 
 #. (itstool) path: page/p
 #: C/tag-field.page:24
@@ -1015,21 +1056,24 @@ msgid ""
 "Audio files can support a number of different tag <em>fields</em> which "
 "depend on the file format."
 msgstr ""
+"Los archivos de sonido pueden soportar varios <em>campos</em> de etiqueta "
+"que dependen del formato del archivo."
 
 #. (itstool) path: steps/title
 #: C/tag-field.page:28
 msgid "Update a tag field in a file"
-msgstr ""
+msgstr "Actualizar un campo de etiqueta en un archivo"
 
 #. (itstool) path: item/p
 #: C/tag-field.page:30
 msgid "Select the file that you wish to tag."
-msgstr ""
+msgstr "Seleccione el archivo que quiere etiquetar"
 
 #. (itstool) path: item/p
 #: C/tag-field.page:33
 msgid "Update the field that you want to change in the <gui>Tag</gui> panel."
 msgstr ""
+"Actualice el campo que quiere cambiar en el panel <gui>Etiqueta</gui> panel."
 
 #. (itstool) path: item/p
 #: C/tag-field.page:37
@@ -1057,12 +1101,12 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/tag.page:17
 msgid "What is a tag and what are fields?"
-msgstr ""
+msgstr "¿Qué es un etiqueta e qué son los campos?"
 
 #. (itstool) path: page/title
 #: C/tag.page:21
 msgid "Audio file tags"
-msgstr ""
+msgstr "Etiquetas de archivos de sonido"
 
 #. (itstool) path: page/p
 #: C/tag.page:23
