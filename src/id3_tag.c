@@ -1566,7 +1566,8 @@ guchar Id3tag_String_To_Genre (gchar *genre)
  *    - undefined/unknown (GENRE_MAX+1 to ID3_INVALID_GENRE-1)
  *    - invalid (>ID3_INVALID_GENRE)
  */
-gchar *Id3tag_Genre_To_String (unsigned char genre_code)
+const gchar *
+Id3tag_Genre_To_String (unsigned char genre_code)
 {
     if (genre_code>=ID3_INVALID_GENRE)    /* empty */
         return "";

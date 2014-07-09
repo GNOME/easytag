@@ -225,11 +225,11 @@ apefrm_add_noreplace (apetag *mem_cnt, unsigned long flags, char *name, char *va
 
 /* search in apetag for name and return tag */
 struct tag * 
-apefrm_get (apetag *mem_cnt, char *name) ;
+apefrm_get (apetag *mem_cnt, const char *name) ;
 
 /* search in apetag for name and return string */
 char * 
-apefrm_getstr (apetag *mem_cnt, char *name) ;
+apefrm_getstr (apetag *mem_cnt, const char *name) ;
 
 /* remove frame from memory */
 void 

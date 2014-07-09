@@ -590,22 +590,22 @@ create_search_dialog (EtSearchDialog *self)
     GtkWidget *ScrollWindow;
     GtkTreeViewColumn* column;
     GtkCellRenderer* renderer;
-    gchar *SearchResultList_Titles[] = { N_("Filename"),
-                                         N_("Title"),
-                                         N_("Artist"),
-                                         N_("Album Artist"),
-                                         N_("Album"),
-                                         N_("CD"),
-                                         N_("Year"),
-                                         N_("Track"),
-                                         N_("Genre"),
-                                         N_("Comment"),
-                                         N_("Composer"),
-                                         N_("Original Artist"),
-                                         N_("Copyright"),
-                                         N_("URL"),
-                                         N_("Encoded By")
-                                       };
+    const gchar *SearchResultList_Titles[] = { N_("Filename"),
+                                               N_("Title"),
+                                               N_("Artist"),
+                                               N_("Album Artist"),
+                                               N_("Album"),
+                                               N_("CD"),
+                                               N_("Year"),
+                                               N_("Track"),
+                                               N_("Genre"),
+                                               N_("Comment"),
+                                               N_("Composer"),
+                                               N_("Original Artist"),
+                                               N_("Copyright"),
+                                               N_("URL"),
+                                               N_("Encoded By")
+                                             };
 
     priv = et_search_dialog_get_instance_private (self);
 

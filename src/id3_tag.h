@@ -40,7 +40,7 @@ gboolean Id3tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag);
 gboolean Id3tag_Write_File_v24Tag (ET_File *ETFile);
 gboolean Id3tag_Write_File_Tag    (ET_File *ETFile);
 
-gchar   *Id3tag_Genre_To_String (unsigned char genre_code);
+const gchar * Id3tag_Genre_To_String (unsigned char genre_code);
 guchar   Id3tag_String_To_Genre (gchar *genre);
 
 gchar *et_id3tag_get_tpos_from_file_tag (File_Tag *file_tag);

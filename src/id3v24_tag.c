@@ -573,7 +573,9 @@ etag_guess_byteorder(const id3_ucs4_t *ustr, gchar **ret) /* XXX */
     }
 
     if (!charset)
-        charset = "ISO-8859-1";
+    {
+        charset = g_strdup ("ISO-8859-1");
+    }
 
     tmp = (gchar *)id3_ucs4_utf8duplicate(ustr);
     str = g_convert(tmp, -1, charset, "UTF-8", NULL, NULL, NULL);
@@ -745,8 +747,8 @@ libid3tag_Get_Frame_Str (const struct id3_frame *frame,
                         continue;
                 }
 
-                latinstr = g_strdup (field_type == ID3_FIELD_TYPE_LATIN1 ? (gchar *)id3_field_getlatin1 (field)
-                                                                         : (gchar *)id3_field_getfulllatin1 (field));
+                latinstr = g_strdup (field_type == ID3_FIELD_TYPE_LATIN1 ? (const gchar *)id3_field_getlatin1 (field)
+                                                                         : (const gchar *)id3_field_getfulllatin1 (field));
 
                 if (g_settings_get_boolean (MainSettings,
                                             "id3-override-read-encoding"))

@@ -1056,6 +1056,8 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
                 
                 // Mime type
                 format = Picture_Format_From_Data(pic);
+                /* Safe to pass a const string, according to the FLAC API
+                 * reference. */
                 FLAC__metadata_object_picture_set_mime_type(picture_block, (gchar *)Picture_Mime_Type_String(format), TRUE);
 
                 // Description

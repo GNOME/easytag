@@ -170,7 +170,7 @@ enum
 
 
 #define CDDB_GENRE_MAX ( sizeof(cddb_genre_vs_id3_genre)/sizeof(cddb_genre_vs_id3_genre[0]) - 1 )
-static char *cddb_genre_vs_id3_genre [][2] =
+static const gchar *cddb_genre_vs_id3_genre [][2] =
 {
     /* Cddb Genre - ID3 Genre */
     {"Blues",       "Blues"},

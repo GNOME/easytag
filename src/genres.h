@@ -35,7 +35,7 @@
  * Last Update: 2014-05-05
  * https://en.wikipedia.org/wiki/ID3#List_of_genres
  */
-static char *id3_genres[] =
+static const char *id3_genres[] =
 {
     "Blues", /* 0: Core ID3 support */
     "Classic Rock",

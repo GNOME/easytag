@@ -96,10 +96,10 @@ struct tag *
 libapetag_maloc_cont_int (apetag *mem_cnt, struct tag *mTag);
 int
 libapetag_maloc_cont_text (apetag *mem_cnt, unsigned long flags,
-             long sizeName, char *name, long sizeValue, char *value);
+             long sizeName, const char *name, long sizeValue, char *value);
 int
 libapetag_maloc_cont (apetag *mem_cnt, unsigned long flags,
-        long sizeName, char *name, long sizeValue, char *value);
+        long sizeName, const char *name, long sizeValue, const char *value);
 static int
 libapetag_qsort (struct tag **a, struct tag **b);
 int
@@ -186,7 +186,7 @@ libapetag_maloc_cont_int (apetag *mem_cnt, struct tag *mTag)
  */
 int
 libapetag_maloc_cont (apetag *mem_cnt, unsigned long flags,
-        long sizeName, char *name, long sizeValue, char *value)
+        long sizeName, const char *name, long sizeValue, const char *value)
 {
     struct tag *mTag;
         // TODO:: zadbac o to zeby tu czyscilo istniejace tagi jesli value=NULL
@@ -237,7 +237,7 @@ libapetag_maloc_cont (apetag *mem_cnt, unsigned long flags,
 */
 int
 libapetag_maloc_cont_text (apetag *mem_cnt, unsigned long flags,
-               long sizeName, char *name, long sizeValue,
+               long sizeName, const char *name, long sizeValue,
                char *value)
 {
     int n = sizeValue;
@@ -359,7 +359,7 @@ for ((framka = apefrm_get(ape, APE_TAG_LIB_FIRST)); framka!=NULL;) {
     \warning don't change anything in this struct make copy and work
 */
 struct tag *
-apefrm_get (apetag *mem_cnt, char *name)
+apefrm_get (apetag *mem_cnt, const char *name)
 {
     int n;
     struct tag **mTag;
@@ -406,7 +406,7 @@ apefrm_get (apetag *mem_cnt, char *name)
     \todo check if frame type isn't binary
 */
 char *
-apefrm_getstr (apetag *mem_cnt, char *name)
+apefrm_getstr (apetag *mem_cnt, const char *name)
 {
     struct tag *mTag;
     
@@ -626,7 +626,10 @@ readtag_id3v1_fp (apetag *mem_cnt, FILE * fp)
     } else {
         libapetag_maloc_cont_text(mem_cnt, 0, 7, "Comment", 30, m.comment);
     }
-    libapetag_maloc_cont_text(mem_cnt, 0, 5, "Genre",
+    /* Special-case the genre. As the text never has a trailing space, which
+     * libapetag_maloc_cont_text() strips, simply call libapetag_maloc_cont()
+     * directly. */
+    libapetag_maloc_cont(mem_cnt, 0, 5, "Genre",
                 strlen(genre_no(m.genre)), genre_no(m.genre));
     
     return 0;

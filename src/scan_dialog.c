@@ -292,7 +292,7 @@ Scan_Tag_With_Mask (EtScanDialog *self, ET_File *ETFile)
         GError *error = NULL;
         guint32 crc32_value;
         gchar *buffer;
-        ET_File_Description *ETFileDescription;
+        const ET_File_Description *ETFileDescription;
 
         ETFileDescription = ETFile->ETFileDescription;
         switch (ETFileDescription->TagType)

@@ -53,7 +53,7 @@ typedef struct
 
 static struct
 {
-    gchar *mime_type;
+    const gchar *mime_type;
     gboolean is_directory;
     gboolean is_file;
 } easytag_mime_types[] =

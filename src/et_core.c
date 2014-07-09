@@ -131,8 +131,8 @@ GdkRGBA RED = {1.0, 0.0, 0.0, 1.0 };
 
 //gboolean ET_File_Is_Supported (gchar *filename);
 static gchar *ET_Get_File_Extension (const gchar *filename);
-static ET_File_Description *ET_Get_File_Description (const gchar *filename);
-static ET_File_Description *ET_Get_File_Description_From_Extension (const gchar *extension);
+static const ET_File_Description *ET_Get_File_Description (const gchar *filename);
+static const ET_File_Description *ET_Get_File_Description_From_Extension (const gchar *extension);
 
 static gboolean ET_Free_File_List                 (void);
 static gboolean ET_Free_File_Name_List            (GList *FileNameList);
@@ -220,20 +220,20 @@ ET_Get_File_Extension (const gchar *filename)
  * Determine description of file using his extension.
  * If extension is NULL or not found into the tab, it returns the last entry for UNKNOWN_FILE.
  */
-static ET_File_Description *
+static const ET_File_Description *
 ET_Get_File_Description_From_Extension (const gchar *extension)
 {
     guint i;
 
     if (!extension) // Unknown file
-        return (ET_File_Description*) &ETFileDescription[ET_FILE_DESCRIPTION_SIZE];
+        return &ETFileDescription[ET_FILE_DESCRIPTION_SIZE];
 
     for (i=0; i<ET_FILE_DESCRIPTION_SIZE; i++)  // Use of '<' instead of '<=' to avoid to test for Unknown file
         if ( strcasecmp(extension,ETFileDescription[i].Extension)==0 )
-            return (ET_File_Description*) &ETFileDescription[i];
+            return &ETFileDescription[i];
 
     // If not found in the list
-    return (ET_File_Description*) &ETFileDescription[ET_FILE_DESCRIPTION_SIZE];
+    return &ETFileDescription[ET_FILE_DESCRIPTION_SIZE];
 }
 
 
@@ -242,7 +242,7 @@ ET_Get_File_Description_From_Extension (const gchar *extension)
  * Determines first the extension. If extension is NULL or not found into the tab,
  * it returns the last entry for UNKNOWN_FILE.
  */
-static ET_File_Description *
+static const ET_File_Description *
 ET_Get_File_Description (const gchar *filename)
 {
     return ET_Get_File_Description_From_Extension(ET_Get_File_Extension(filename));
@@ -485,7 +485,7 @@ ET_Undo_Key_New (void)
  */
 GList *ET_Add_File_To_File_List (gchar *filename)
 {
-    ET_File_Description *ETFileDescription;
+    const ET_File_Description *ETFileDescription;
     ET_File      *ETFile;
     File_Name    *FileName;
     File_Tag     *FileTag;
@@ -2733,7 +2733,7 @@ gboolean ET_Set_Field_File_Tag_Picture (Picture **FileTagField, Picture *pic)
  */
 void ET_Display_File_Data_To_UI (ET_File *ETFile)
 {
-    ET_File_Description *ETFileDescription;
+    const ET_File_Description *ETFileDescription;
     gchar *cur_filename;
     gchar *cur_filename_utf8;
     gchar *msg;
@@ -3325,7 +3325,7 @@ ET_Display_File_Info_To_UI(ET_File_Info *ETFileInfo)
  */
 void ET_Save_File_Data_From_UI (ET_File *ETFile)
 {
-    ET_File_Description *ETFileDescription;
+    const ET_File_Description *ETFileDescription;
     File_Name *FileName;
     File_Tag  *FileTag;
     guint      undo_key;
@@ -4025,7 +4025,7 @@ ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
 gboolean
 ET_Save_File_Tag_To_HD (ET_File *ETFile, GError **error)
 {
-    ET_File_Description *ETFileDescription;
+    const ET_File_Description *ETFileDescription;
     gchar *cur_filename;
     gchar *cur_filename_utf8;
     gboolean state;

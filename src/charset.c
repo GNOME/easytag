@@ -158,7 +158,7 @@ check_locale (const char *locale)
 
 /* stolen from gnome-desktop-item.c */
 G_GNUC_NULL_TERMINATED static void
-insert_locales (GHashTable *encodings, char *enc, ...)
+insert_locales (GHashTable *encodings, const gchar *enc, ...)
 {
     va_list args;
     char *s;
@@ -169,7 +169,9 @@ insert_locales (GHashTable *encodings, char *enc, ...)
         s = va_arg (args, char *);
         if (s == NULL)
             break;
-        g_hash_table_insert (encodings, s, enc);
+        /* A GDestroyNotify is not passed, so casting away the const is
+         * safe, as the key is never freed. */
+        g_hash_table_insert (encodings, s, (gpointer)enc);
     }
     va_end (args);
 }
@@ -179,6 +181,7 @@ insert_locales (GHashTable *encodings, char *enc, ...)
 void
 Charset_Insert_Locales_Init (void)
 {
+    /* FIXME: Use g_hash_table_new_full. */
     encodings = g_hash_table_new (g_str_hash, g_str_equal);
 
     /* "C" is plain ascii */

@@ -184,7 +184,7 @@ struct _ET_File
 
     time_t FileModificationTime;            /* Save modification time of the file */
 
-    ET_File_Description *ETFileDescription;
+    const ET_File_Description *ETFileDescription;
     gchar               *ETFileExtension;   /* Real extension of the file (keeping the case) (should be placed in ETFileDescription?) */
     ET_File_Info        *ETFileInfo;        /* Header infos: bitrate, duration, ... */
 
