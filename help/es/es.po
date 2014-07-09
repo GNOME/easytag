@@ -166,7 +166,7 @@ msgid ""
 "gui> <gui style=\"menuitem\">Scan Files…</gui></guiseq>."
 msgstr ""
 "Para aplicar los cambios a todos los archivos, seleccione <guiseq><gui style="
-"\"menu\">Archivo</gui> <gui style=\"menuitem\">Analizar archivos"
+"\"menu\">Archivo</gui> <gui style=\"menuitem\">Analizar archivos</gui></guiseq>."
 
 #. (itstool) path: item/p
 #: C/file-rename.page:46
