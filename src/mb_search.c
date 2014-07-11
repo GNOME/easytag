@@ -721,6 +721,60 @@ et_musicbrainz_search (gchar *string, MbEntityKind type, GNode *root,
             goto err;
         }
     }
+    else if (type == MB_ENTITY_KIND_FREEDBID)
+    {
+        param_values [0] = g_strconcat ("discid:", string, NULL);
+        metadata = mb5_query_query (query, "freedb", "", "", 2, param_names,
+                                    param_values);
+        result = mb5_query_get_lastresult (query);
+        g_free (param_values [0]);
+
+        if (result == eQuery_Success)
+        {
+            if (metadata)
+            {
+                int i;
+                Mb5FreeDBDiscList list;
+                gchar *message;
+
+                list = mb5_metadata_get_freedbdisclist (metadata);
+                message = g_strdup_printf (_("Found %d Result(s)"),
+                                           mb5_freedbdisc_list_size (list));
+#ifndef TEST
+                //et_show_status_msg_in_idle (message);
+#endif
+                g_free (message);
+
+                for (i = 0; i < mb5_freedbdisc_list_size (list); i++)
+                {
+                    Mb5FreeDBDisc freedbdisc;
+
+                    CHECK_CANCELLED(cancellable);
+                    freedbdisc = mb5_freedbdisc_list_item (list, i);
+
+                    if (freedbdisc)
+                    {
+                        gchar buf [NAME_MAX_SIZE];
+                        GNode *node;
+                        EtMbEntity *entity;
+                        int size;
+
+                        size = mb5_freedbdisc_get_title (freedbdisc,
+                                                         buf, sizeof (buf));
+                        buf [size] = '\0';
+                        entity = g_malloc (sizeof (EtMbEntity));
+                        entity->entity = mb5_freedbdisc_clone (freedbdisc);
+                        entity->type = MB_ENTITY_KIND_FREEDBID;
+                        entity->is_red_line = FALSE;
+                        node = g_node_new (entity);
+                        g_node_append (root, node);
+                    }
+                }
+            }
+
+            mb5_metadata_delete (metadata);
+        }
+    }
 
     mb5_query_delete (query);
     CHECK_CANCELLED(cancellable);

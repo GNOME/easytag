@@ -98,6 +98,14 @@ enum MB_TRACK_COLUMNS
     MB_TRACK_COLUMNS_N
 };
 
+enum MB_FREEDBID_COLUMNS
+{
+    MB_FREEDBID_COLUMNS_ID,
+    MB_FREEDBID_COLUMNS_NAME,
+    MB_FREEDBID_COLUMNS_ARTIST,
+    MB_FREEDBID_COLUMNS_N
+};
+
 /**************
  * Prototypes *
  **************/

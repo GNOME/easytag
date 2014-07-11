@@ -41,10 +41,11 @@ G_DEFINE_TYPE (EtMbEntityView, et_mb_entity_view, GTK_TYPE_BOX)
  * Declaration *
  ***************/
 
-char *columns [MB_ENTITY_KIND_COUNT][8] = {
+char *columns [MB_ENTITY_KIND_COUNT][10] = {
     {"Name", "Gender", "Type"},
     {"Name", "Artist", "Type"},
     {"Name", "Album", "Artist", "Time"},
+    {"FreeDB ID", "Title", "Artist"}
     };
 
 /*
@@ -473,6 +474,27 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                 break;
             }
 
+            case MB_ENTITY_KIND_FREEDBID:
+            {
+                gchar freedbid [NAME_MAX_SIZE];
+                gchar title [NAME_MAX_SIZE];
+                gchar artist [NAME_MAX_SIZE];
+
+                mb5_freedbdisc_get_artist ((Mb5FreeDBDisc)entity,
+                                           artist, sizeof (artist));
+                mb5_freedbdisc_get_title ((Mb5FreeDBDisc)entity,
+                                          title, sizeof (title));
+                mb5_freedbdisc_get_id ((Mb5FreeDBDisc)entity,
+                                       freedbid, sizeof (freedbid));
+                gtk_list_store_insert_with_values (list_store, &iter, -1,
+                                                   MB_FREEDBID_COLUMNS_ID,
+                                                   freedbid,
+                                                   MB_FREEDBID_COLUMNS_NAME,
+                                                   title,
+                                                   MB_FREEDBID_COLUMNS_ARTIST,
+                                                   artist, -1);
+            }
+
             case MB_ENTITY_KIND_COUNT:
             case MB_ENTITY_KIND_DISCID:
                 break;
@@ -540,6 +562,10 @@ show_data_in_entity_view (EtMbEntityView *entity_view)
 
         case MB_ENTITY_KIND_TRACK:
             total_cols = MB_TRACK_COLUMNS_N;
+            break;
+
+        case MB_ENTITY_KIND_FREEDBID:
+            total_cols = MB_FREEDBID_COLUMNS_N;
             break;
 
         default:
@@ -845,7 +871,7 @@ search_in_levels (EtMbEntityView *entity_view, GNode *child,
 
     if (((EtMbEntity *)child->data)->type ==
         MB_ENTITY_KIND_TRACK)
-    {printf ("sdsd\n");
+    {
         return;
     }
 
@@ -967,6 +993,10 @@ et_mb_entity_view_set_tree_root (EtMbEntityView *entity_view, GNode *treeRoot)
 
             case MB_ENTITY_KIND_TRACK:
                 gtk_button_set_label (GTK_BUTTON (btn), _("Tracks"));
+                break;
+
+            case MB_ENTITY_KIND_FREEDBID:
+                gtk_button_set_label (GTK_BUTTON (btn), _("FreeDB Disc"));
                 break;
 
             default:
@@ -1191,11 +1221,9 @@ void
 et_mb_entity_view_refresh_current_level (EtMbEntityView *entity_view)
 {
     EtMbEntityViewPrivate *priv;
-    EtMbEntity *et_entity;
     GNode *child;
 
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
-    et_entity = priv->mb_tree_current_node->data;
 
     /* Delete Current Data */
     et_mb_entity_view_clear_all (entity_view);

@@ -26,6 +26,7 @@
 #include <gdk/gdkkeysyms.h>
 #include <glib/gi18n.h>
 #include <discid/discid.h>
+#include <openssl/ssl.h>
 
 #include "gtk2_compat.h"
 #include "easytag.h"
@@ -838,7 +839,8 @@ discid_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
         return;
     }
 
-    if (!et_musicbrainz_search (discid, MB_ENTITY_KIND_DISCID, mb_dialog_priv->mb_tree_root,
+    if (!et_musicbrainz_search (discid, MB_ENTITY_KIND_DISCID,
+                                mb_dialog_priv->mb_tree_root,
                                 &error, cancellable))
     {
         g_simple_async_report_gerror_in_idle (NULL,
@@ -848,8 +850,6 @@ discid_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
         return;
     }
 
-    et_mb_entity_view_set_tree_root (ET_MB_ENTITY_VIEW (entityView),
-                                     mb_dialog_priv->mb_tree_root);
     discid_free (disc);
     g_simple_async_result_set_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res),
                                                TRUE);
@@ -877,7 +877,70 @@ btn_close_clicked (GtkWidget *button, gpointer data)
     gtk_dialog_response (GTK_DIALOG (mbDialog), GTK_RESPONSE_DELETE_EVENT);
 }
 
-#if 0
+static void
+freedbid_search_callback (GObject *source, GAsyncResult *res,
+                          gpointer user_data)
+{
+    if (!g_simple_async_result_get_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res)))
+    {
+        g_object_unref (res);
+        free_mb_tree (&mb_dialog_priv->mb_tree_root);
+        mb_dialog_priv->mb_tree_root = g_node_new (NULL);
+        g_free (user_data);
+        return;
+    }
+
+    et_mb_entity_view_set_tree_root (ET_MB_ENTITY_VIEW (entityView),
+                                     mb_dialog_priv->mb_tree_root);
+    gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
+                        0, _("Searching Completed"));
+    g_object_unref (res);
+    g_free (user_data);
+    et_music_brainz_dialog_stop_set_sensitive (FALSE);
+
+    if (exit_on_complete)
+    {
+        btn_close_clicked (NULL, NULL);
+    }
+}
+
+static void
+freedbid_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
+                             GCancellable *cancellable)
+{
+    GError *error;
+    gchar *freedbid;
+
+    error = NULL;
+    g_simple_async_result_set_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res),
+                                               FALSE);
+    freedbid = g_async_result_get_user_data (G_ASYNC_RESULT (res));
+
+    if (g_cancellable_is_cancelled (cancellable))
+    {
+        g_set_error (&error, ET_MB5_SEARCH_ERROR,
+                     ET_MB5_SEARCH_ERROR_CANCELLED,
+                     _("Operation cancelled by user"));
+        g_simple_async_report_gerror_in_idle (NULL,
+                                              mb5_search_error_callback,
+                                              NULL, error);
+        return;
+    }
+
+    if (!et_musicbrainz_search (freedbid, MB_ENTITY_KIND_FREEDBID,
+                                mb_dialog_priv->mb_tree_root,
+                                &error, cancellable))
+    {
+        g_simple_async_report_gerror_in_idle (NULL,
+                                              mb5_search_error_callback,
+                                              NULL, error);
+        return;
+    }
+
+    g_simple_async_result_set_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res),
+                                               TRUE);
+}
+
 static void
 btn_automatic_search_clicked (GtkWidget *button, gpointer data)
 {
@@ -886,13 +949,10 @@ btn_automatic_search_clicked (GtkWidget *button, gpointer data)
     int count;
     GList *iter_list;
     GList *l;
-    GHashTable *hash_table;
-    SelectedFindThreadData *thread_data;
     int total_id;
     int num_tracks;
     guint total_frames = 150;
     guint disc_length  = 2;
-    gchar *query_string;
     gchar *cddb_discid;
 
     iter_list = NULL;
@@ -992,10 +1052,21 @@ btn_automatic_search_clicked (GtkWidget *button, gpointer data)
         }
     }
 
-    cddb_discid = g_strdup_printf("%08x",(guint)(((total_id % 0xFF) << 24) |
-                                         (disc_length << 8) | num_tracks));
+    cddb_discid = g_strdup_printf ("%08x", (guint)(((total_id % 0xFF) << 24) |
+                                   (disc_length << 8) | num_tracks));
+
+    mb5_search_cancellable = g_cancellable_new ();
+    gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
+                        0, _("Starting MusicBrainz Search"));
+    mb_dialog_priv->async_result = g_simple_async_result_new (NULL,
+                                                              freedbid_search_callback,
+                                                              cddb_discid,
+                                                              btn_automatic_search_clicked);
+    g_simple_async_result_run_in_thread (mb_dialog_priv->async_result,
+                                         freedbid_search_thread_func, 0,
+                                         mb5_search_cancellable);
+    et_music_brainz_dialog_stop_set_sensitive (TRUE);
 }
-#endif
 
 void
 et_music_brainz_dialog_stop_set_sensitive (gboolean sensitive)
@@ -1427,9 +1498,9 @@ et_open_musicbrainz_dialog ()
                       "clicked", G_CALLBACK (btn_apply_changes_clicked),
                       NULL);
  
-    //g_signal_connect (gtk_builder_get_object (builder, "btnAutomaticSearch"),
-    //                  "clicked", G_CALLBACK (btn_automatic_search_clicked),
-    //                  NULL);
+    g_signal_connect (gtk_builder_get_object (builder, "btnAutomaticSearch"),
+                      "clicked", G_CALLBACK (btn_automatic_search_clicked),
+                      NULL);
     g_signal_connect_after (gtk_builder_get_object (builder, "entryTreeViewSearch"),
                             "changed",
                             G_CALLBACK (entry_tree_view_search_changed),
