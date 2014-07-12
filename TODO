@@ -15,7 +15,6 @@ After GTK+ 3
 ------------
 
 * Port to GtkApplication
-* Add an application menu with gtk_application_set_app_menu()
 * Use GtkAppChooserDialog for selecting applications
 
 Tagging features

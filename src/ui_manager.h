@@ -176,13 +176,6 @@ static const gchar *ui_xml =
 "      <menuitem action='LastFile' />"
 "    </menu>"
 
-"    <menu action='HelpMenu'>"
-#ifndef G_OS_WIN32
-"      <menuitem action='HelpContents' />"
-#endif /* !G_OS_WIN32 */
-"      <menuitem action='About' />"
-"    </menu>"
-
 "  </menubar>"
 
 

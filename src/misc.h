@@ -65,8 +65,6 @@ void Run_Audio_Player_Using_Directory (void);
 
 gchar *Convert_Duration (gulong duration);
 
-void et_show_help (void);
-
 goffset et_get_file_size (const gchar *filename);
 
 gint Combo_Alphabetic_Sort (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, gpointer data);

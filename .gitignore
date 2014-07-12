@@ -51,6 +51,8 @@ configure
 /src/win32/easytag.rc
 /src/enums.c
 /src/enums.h
+/src/resource.c
+/src/resource.h
 /????-report.html
 /????-report.xml
 /test-suite.log

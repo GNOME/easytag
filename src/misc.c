@@ -875,25 +875,6 @@ gchar *Convert_Duration (gulong duration)
 }
 
 /*
- * et_show_help:
- */
-void
-et_show_help (void)
-{
-    GError *error = NULL;
-
-    /* TODO: Add link to application help instead. */
-    gtk_show_uri (gtk_window_get_screen (GTK_WINDOW (MainWindow)),
-                  "help:easytag", GDK_CURRENT_TIME, &error);
-
-    if (error)
-    {
-        g_debug ("Error while opening help: %s", error->message);
-        g_error_free (error);
-    }
-}
-
-/*
  * @filename: (type filename): the path to a file
  *
  * Gets the size of a file in bytes.

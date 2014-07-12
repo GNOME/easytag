@@ -25,7 +25,6 @@
 #include "application_window.h"
 #include "bar.h"
 #include "easytag.h"
-#include "about.h"
 #include "preferences_dialog.h"
 #include "setting.h"
 #include "browser.h"
@@ -330,14 +329,6 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
 
         { MENU_VIEW, NULL, _("_View"), NULL, NULL, NULL },
         { MENU_GO, NULL, _("_Go"), NULL, NULL, NULL },
-
-        { MENU_HELP,                NULL,                   _("_Help"),                             NULL,         NULL,                                 NULL },
-/* TODO: Link to help.gnome.org, or locally-installed help, on Windows. */
-#ifndef G_OS_WIN32
-        { AM_OPEN_HELP_CONTENTS, GTK_STOCK_HELP, _("_Contents"), "F1",
-          _("Show help"), G_CALLBACK (et_show_help) },
-#endif
-        { AM_OPEN_ABOUT_WINDOW,     GTK_STOCK_ABOUT,        _("_About"),                            NULL,         _("About"),                           G_CALLBACK(Show_About_Window) },
 
 
         /*

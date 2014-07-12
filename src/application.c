@@ -19,7 +19,10 @@
 #include "config.h"
 
 #include "application.h"
+
+#include "about.h"
 #include "charset.h"
+#include "easytag.h"
 
 #include <glib/gi18n.h>
 #include <stdlib.h>
@@ -31,6 +34,49 @@ static const GOptionEntry entries[] =
     { "version", 'v', 0, G_OPTION_ARG_NONE, NULL,
       N_("Print the version and exit"), NULL },
     { NULL }
+};
+
+static void
+on_help (GSimpleAction *action,
+         GVariant *parameter,
+         gpointer user_data)
+{
+/* TODO: Link to help.gnome.org, or locally-installed help, on Windows. */
+#ifndef G_OS_WIN32
+    GError *error = NULL;
+
+    gtk_show_uri (gtk_window_get_screen (GTK_WINDOW (MainWindow)),
+                  "help:easytag", GDK_CURRENT_TIME, &error);
+
+    if (error)
+    {
+        g_debug ("Error while opening help: %s", error->message);
+        g_error_free (error);
+    }
+#endif
+}
+
+static void
+on_about (GSimpleAction *action,
+          GVariant *parameter,
+          gpointer user_data)
+{
+    Show_About_Window ();
+}
+
+static void
+on_quit (GSimpleAction *action,
+         GVariant *parameter,
+         gpointer user_data)
+{
+    Quit_MainWindow ();
+}
+
+static const GActionEntry actions[] =
+{
+    { "help", on_help },
+    { "about", on_about },
+    { "quit", on_quit }
 };
 
 /*
@@ -130,9 +176,30 @@ et_local_command_line (GApplication *application, gchar **arguments[],
 static void
 et_application_startup (GApplication *application)
 {
-    Charset_Insert_Locales_Init ();
+    GtkBuilder *builder;
+    GError *error = NULL;
+    GMenuModel *appmenu;
+
+    g_action_map_add_action_entries (G_ACTION_MAP (application), actions,
+                                     G_N_ELEMENTS (actions), application);
 
     G_APPLICATION_CLASS (et_application_parent_class)->startup (application);
+
+    builder = gtk_builder_new ();
+    gtk_builder_add_from_resource (builder, "/org/gnome/EasyTAG/menus.ui",
+                                   &error);
+
+    if (error != NULL)
+    {
+        g_error ("Unable to get app menu from resource: %s", error->message);
+    }
+
+    appmenu = G_MENU_MODEL (gtk_builder_get_object (builder, "app-menu"));
+    gtk_application_set_app_menu (GTK_APPLICATION (application), appmenu);
+
+    g_object_unref (builder);
+
+    Charset_Insert_Locales_Init ();
 }
 
 static void

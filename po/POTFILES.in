@@ -1,5 +1,6 @@
 data/easytag.appdata.xml.in
 data/easytag.desktop.in
+[type: gettext/glade]data/menus.ui
 data/org.gnome.EasyTAG.gschema.xml
 nautilus-extension/nautilus-easytag.c
 src/about.c

@@ -46,6 +46,8 @@ AC_PROG_CXXCPP
 AC_PROG_SED
 PKG_PROG_PKG_CONFIG([0.24])
 
+AC_SUBST([GLIB_COMPILE_RESOURCES], [`$PKG_CONFIG --variable glib_compile_resources gio-2.0`])
+
 AC_MSG_CHECKING([for glib-mkenums script])
 GLIB_MKENUMS=`$PKG_CONFIG --variable=glib_mkenums glib-2.0`
 AS_IF([test "x$GLIB_MKENUMS" = "x"],
@@ -159,7 +161,7 @@ dnl Checks for libraries.
 dnl -------------------------------
 
 dnl GTK+ libraries
-GTK_DEPS="gtk+-3.0 >= 3.2.1"
+GTK_DEPS="gtk+-3.0 >= 3.4.0"
 GTK_DEPRECATION_FLAGS="-DGDK_VERSION_MIN_REQUIRED=GDK_VERSION_3_4 -DGDK_VERSION_MAX_ALLOWED=GDK_VERSION_3_4"
 
 dnl Patch from Ben Taylor to fix a Solaris bug (for CDDB)
