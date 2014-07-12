@@ -69,12 +69,6 @@ void et_application_window_browser_set_sensitive (EtApplicationWindow *self, gbo
 void et_application_window_browser_clear (EtApplicationWindow *self);
 void et_application_window_browser_clear_album_model (EtApplicationWindow *self);
 void et_application_window_browser_clear_artist_model (EtApplicationWindow *self);
-void et_application_window_go_home (GtkAction *action, gpointer user_data);
-void et_application_window_go_desktop (GtkAction *action, gpointer user_data);
-void et_application_window_go_documents (GtkAction *action, gpointer user_data);
-void et_application_window_go_download (GtkAction *action, gpointer user_data);
-void et_application_window_go_music (GtkAction *action, gpointer user_data);
-void et_application_window_go_parent (GtkAction *action, gpointer user_data);
 void et_application_window_run_player_for_album_list (GtkAction *action, gpointer user_data);
 void et_application_window_run_player_for_artist_list (GtkAction *action, gpointer user_data);
 void et_application_window_run_player_for_selection (GtkAction *action, gpointer user_data);

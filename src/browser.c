@@ -284,7 +284,7 @@ et_browser_go_documents (EtBrowser *self)
  * Load downloads directory
  */
 void
-et_browser_go_download (EtBrowser *self)
+et_browser_go_downloads (EtBrowser *self)
 {
     et_browser_select_dir (self,
                            g_get_user_special_dir (G_USER_DIRECTORY_DOWNLOAD));

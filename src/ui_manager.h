@@ -161,15 +161,6 @@ static const gchar *ui_xml =
 "    </menu>"
 
 "    <menu action='GoMenu'>"
-"      <menuitem action='GoToHome' />"
-"      <menuitem action='GoToDesktop' />"
-"      <menuitem action='GoToDocument' />"
-"      <menuitem action='GoToDownload' />"
-"      <menuitem action='GoToMusic' />"
-"      <menuitem action='GoToParent' />"
-"      <menuitem action='GoToDefaultPath' />"
-"      <separator />"
-
 "      <menuitem action='FirstFile' />"
 "      <menuitem action='PreviousFile' />"
 "      <menuitem action='NextFile' />"

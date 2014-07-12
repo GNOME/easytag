@@ -1695,6 +1695,114 @@ create_tag_area (EtApplicationWindow *self)
     return TagFrame;
 }
 
+static void
+on_go_home (GSimpleAction *action,
+            GVariant *variant,
+            gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_go_home (ET_BROWSER (priv->browser));
+}
+
+static void
+on_go_desktop (GSimpleAction *action,
+               GVariant *variant,
+               gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_go_desktop (ET_BROWSER (priv->browser));
+}
+
+static void
+on_go_documents (GSimpleAction *action,
+                 GVariant *variant,
+                 gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_go_documents (ET_BROWSER (priv->browser));
+}
+
+static void
+on_go_downloads (GSimpleAction *action,
+                 GVariant *variant,
+                 gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_go_downloads (ET_BROWSER (priv->browser));
+}
+
+static void
+on_go_music (GSimpleAction *action,
+             GVariant *variant,
+             gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_go_music (ET_BROWSER (priv->browser));
+}
+
+static void
+on_go_parent (GSimpleAction *action,
+              GVariant *variant,
+              gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_go_parent (ET_BROWSER (priv->browser));
+}
+
+static void
+on_go_default (GSimpleAction *action,
+               GVariant *variant,
+               gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_load_default_dir (ET_BROWSER (priv->browser));
+}
+
+static const GActionEntry actions[] =
+{
+    { "go-home", on_go_home },
+    { "go-desktop", on_go_desktop },
+    { "go-documents", on_go_documents },
+    { "go-downloads", on_go_downloads },
+    { "go-music", on_go_music },
+    { "go-parent", on_go_parent },
+    { "go-default", on_go_default },
+};
 
 static void
 et_application_window_dispose (GObject *object)
@@ -1763,6 +1871,9 @@ et_application_window_init (EtApplicationWindow *self)
     priv->preferences_dialog = NULL;
     priv->scan_dialog = NULL;
     priv->search_dialog = NULL;
+
+    g_action_map_add_action_entries (G_ACTION_MAP (self), actions,
+                                     G_N_ELEMENTS (actions), self);
 
     window = GTK_WINDOW (self);
 
@@ -2163,78 +2274,6 @@ et_application_window_browser_clear_artist_model (EtApplicationWindow *self)
     g_return_if_fail (priv->browser != NULL);
 
     et_browser_clear_artist_model (ET_BROWSER (priv->browser));
-}
-
-void
-et_application_window_go_home (G_GNUC_UNUSED GtkAction *action,
-                               gpointer user_data)
-{
-    EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
-
-    priv = et_application_window_get_instance_private (self);
-
-    et_browser_go_home (ET_BROWSER (priv->browser));
-}
-
-void
-et_application_window_go_desktop (G_GNUC_UNUSED GtkAction *action,
-                                  gpointer user_data)
-{
-    EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
-
-    priv = et_application_window_get_instance_private (self);
-
-    et_browser_go_desktop (ET_BROWSER (priv->browser));
-}
-
-void
-et_application_window_go_documents (G_GNUC_UNUSED GtkAction *action,
-                                    gpointer user_data)
-{
-    EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
-
-    priv = et_application_window_get_instance_private (self);
-
-    et_browser_go_documents (ET_BROWSER (priv->browser));
-}
-
-void
-et_application_window_go_download (G_GNUC_UNUSED GtkAction *action,
-                                   gpointer user_data)
-{
-    EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
-
-    priv = et_application_window_get_instance_private (self);
-
-    et_browser_go_download (ET_BROWSER (priv->browser));
-}
-
-void
-et_application_window_go_music (G_GNUC_UNUSED GtkAction *action,
-                                gpointer user_data)
-{
-    EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
-
-    priv = et_application_window_get_instance_private (self);
-
-    et_browser_go_music (ET_BROWSER (priv->browser));
-}
-
-void
-et_application_window_go_parent (G_GNUC_UNUSED GtkAction *action,
-                                 gpointer user_data)
-{
-    EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
-
-    priv = et_application_window_get_instance_private (self);
-
-    et_browser_go_parent (ET_BROWSER (priv->browser));
 }
 
 void

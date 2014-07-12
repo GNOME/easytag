@@ -94,7 +94,7 @@ void et_browser_toggle_display_mode (EtBrowser *self);
 void et_browser_go_home (EtBrowser *self);
 void et_browser_go_desktop (EtBrowser *self);
 void et_browser_go_documents (EtBrowser *self);
-void et_browser_go_download (EtBrowser *self);
+void et_browser_go_downloads (EtBrowser *self);
 void et_browser_go_music (EtBrowser *self);
 void et_browser_go_parent (EtBrowser *self);
 

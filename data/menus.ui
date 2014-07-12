@@ -334,38 +334,52 @@
             <attribute name="label" translatable="yes">_Go</attribute>
             <section>
             <item>
+                <attribute name="accel">&lt;Alt&gt;Home</attribute>
+                <attribute name="action">win.go-home</attribute>
                 <attribute name="label" translatable="yes">_Home Directory</attribute>
             </item>
             <item>
+                <attribute name="action">win.go-desktop</attribute>
                 <attribute name="label" translatable="yes">Desktop Directory</attribute>
             </item>
             <item>
+                <attribute name="action">win.go-documents</attribute>
                 <attribute name="label" translatable="yes">Documents Directory</attribute>
             </item>
             <item>
+                <attribute name="action">win.go-downloads</attribute>
                 <attribute name="label" translatable="yes">Downloads Directory</attribute>
             </item>
             <item>
+                <attribute name="action">win.go-music</attribute>
                 <attribute name="label" translatable="yes">Music Directory</attribute>
             </item>
             <item>
+                <attribute name="accel">&lt;Alt&gt;Up</attribute>
+                <attribute name="action">win.go-parent</attribute>
                 <attribute name="label" translatable="yes">_Parent Directory</attribute>
             </item>
             <item>
+                <attribute name="accel">&lt;Primary&gt;d</attribute>
+                <attribute name="action">win.go-default</attribute>
                 <attribute name="label" translatable="yes">_Default Directory</attribute>
             </item>
             </section>
             <section>
             <item>
+                <attribute name="action">win.go-first</attribute>
                 <attribute name="label" translatable="yes">First File</attribute>
             </item>
             <item>
+                <attribute name="action">win.go-previous</attribute>
                 <attribute name="label" translatable="yes">Previous File</attribute>
             </item>
             <item>
+                <attribute name="action">win.go-next</attribute>
                 <attribute name="label" translatable="yes">_Next File</attribute>
             </item>
             <item>
+                <attribute name="action">win.go-last</attribute>
                 <attribute name="label" translatable="yes">_Last File</attribute>
             </item>
             </section>
