@@ -58,6 +58,7 @@ typedef enum
 {
     ET_MB_SEARCH_TYPE_MANUAL,
     ET_MB_SEARCH_TYPE_SELECTED,
+    ET_MB_SEARCH_TYPE_AUTOMATIC,
 } EtMbSearchType;
 
 typedef struct
@@ -84,6 +85,11 @@ typedef struct
     EtMbSearch parent;
     GList *list_iter;
 } EtMbSelectedSearch;
+
+typedef struct
+{
+    EtMbSearch parent;
+} EtMbAutomaticSearch;
 
 typedef struct
 {
@@ -118,6 +124,8 @@ static void
 btn_close_clicked (GtkWidget *button, gpointer data);
 static void
 bt_selected_find_clicked (GtkWidget *widget, gpointer user_data);
+static void
+btn_automatic_search_clicked (GtkWidget *button, gpointer data);
 /*************
  * Functions *
  *************/
@@ -135,6 +143,9 @@ et_mb_destroy_search (EtMbSearch **search)
         {
             g_list_free_full (((EtMbSelectedSearch *)(*search))->list_iter,
                               (GDestroyNotify)gtk_tree_iter_free);
+        }
+        else if ((*search)->type == ET_MB_SEARCH_TYPE_AUTOMATIC)
+        {
         }
 
         g_free (*search);
@@ -160,6 +171,14 @@ et_mb_set_selected_search (EtMbSearch **search, GList *list_files)
     *search = g_malloc (sizeof (EtMbSelectedSearch));
     (*search)->type = ET_MB_SEARCH_TYPE_SELECTED;
     ((EtMbSelectedSearch *)(*search))->list_iter = list_files;
+}
+
+static void
+et_mb_set_automatic_search (EtMbSearch **search)
+{
+    et_mb_destroy_search (search);
+    *search = g_malloc (sizeof (EtMbAutomaticSearch));
+    (*search)->type = ET_MB_SEARCH_TYPE_AUTOMATIC;
 }
 
 /*
@@ -306,7 +325,8 @@ manual_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
     }
 
     thread_data = (ManualSearchThreadData *)g_async_result_get_user_data (G_ASYNC_RESULT (res));
-    status_msg = g_strdup_printf (_("Searching %s"), thread_data->text_to_search);
+    status_msg = g_strdup_printf (_("Searching %s"),
+                                  thread_data->text_to_search);
     et_show_status_msg_in_idle (status_msg);
     g_free (status_msg);
 
@@ -516,8 +536,20 @@ tool_btn_refresh_clicked (GtkWidget *btn, gpointer user_data)
         //EtMbSelectedSearch *search;
 
         //search = (EtMbSelectedSearch *)mb_dialog_priv->search;
+        free_mb_tree (&mb_dialog_priv->mb_tree_root);
+        mb_dialog_priv->mb_tree_root = g_node_new (NULL);
         et_mb_entity_view_clear_all (ET_MB_ENTITY_VIEW (entityView));
         bt_selected_find_clicked (NULL, NULL);
+    }
+    else if (mb_dialog_priv->search->type == ET_MB_SEARCH_TYPE_AUTOMATIC)
+    {
+        //EtMbSelectedSearch *search;
+
+        //search = (EtMbSelectedSearch *)mb_dialog_priv->search;
+        free_mb_tree (&mb_dialog_priv->mb_tree_root);
+        mb_dialog_priv->mb_tree_root = g_node_new (NULL);
+        et_mb_entity_view_clear_all (ET_MB_ENTITY_VIEW (entityView));
+        btn_automatic_search_clicked (NULL, NULL);
     }
 }
 
@@ -897,6 +929,7 @@ freedbid_search_callback (GObject *source, GAsyncResult *res,
     g_object_unref (res);
     g_free (user_data);
     et_music_brainz_dialog_stop_set_sensitive (FALSE);
+    et_mb_set_automatic_search (&mb_dialog_priv->search);
 
     if (exit_on_complete)
     {
@@ -1060,7 +1093,7 @@ btn_automatic_search_clicked (GtkWidget *button, gpointer data)
                         0, _("Starting MusicBrainz Search"));
     mb_dialog_priv->async_result = g_simple_async_result_new (NULL,
                                                               freedbid_search_callback,
-                                                              cddb_discid,
+                                                              g_strdup("24028103"),
                                                               btn_automatic_search_clicked);
     g_simple_async_result_run_in_thread (mb_dialog_priv->async_result,
                                          freedbid_search_thread_func, 0,

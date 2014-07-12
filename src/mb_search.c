@@ -353,6 +353,12 @@ et_musicbrainz_search_in_entity (MbEntityKind child_type,
             goto err;
         }
     }
+    else if (child_type == MB_ENTITY_KIND_ALBUM &&
+             parent_type == MB_ENTITY_KIND_FREEDBID)
+    {
+        return et_musicbrainz_search (parent_mbid, child_type, root, error,
+                                      cancellable);
+    }
 
     CHECK_CANCELLED(cancellable);
     mb5_query_delete (query);
