@@ -17,4 +17,358 @@
             </item>
         </section>
     </menu>
+    <menu id='menubar'>
+        <submenu>
+            <attribute name="label" translatable="yes">_File</attribute>
+            <section>
+                <item>
+                    <attribute name="label" translatable="yes">Open Files With…</attribute>
+                </item>
+                <item>
+                    <attribute name="label" translatable="yes">Run Audio Player</attribute>
+                </item>
+            </section>
+            <section>
+                <item>
+                    <attribute name="label" translatable="yes">Invert File Selection</attribute>
+                </item>
+            </section>
+            <section>
+                <item>
+                    <attribute name="label" translatable="yes">Delete Files</attribute>
+                </item>
+            </section>
+            <section>
+                <item>
+                    <attribute name="label" translatable="yes">Undo Last File Changes</attribute>
+                </item>
+                <item>
+                    <attribute name="label" translatable="yes">Redo Last File Changes</attribute>
+                </item>
+                <item>
+                    <attribute name="label" translatable="yes">_Save Files</attribute>
+                </item>
+                <item>
+                    <attribute name="label" translatable="yes">_Force Save Files</attribute>
+                </item>
+            </section>
+        </submenu>
+        <submenu>
+            <attribute name="label" translatable="yes">_Edit</attribute>
+            <section>
+                <item>
+                    <attribute name="label" translatable="yes">_Find</attribute>
+                </item>
+                <item>
+                    <attribute name="label" translatable="yes">Select All</attribute>
+                </item>
+                <item>
+                    <attribute name="label" translatable="yes">Unselect All</attribute>
+                </item>
+            </section>
+            <section>
+                <item>
+                    <attribute name="label" translatable="yes">Undo Last Changes</attribute>
+                </item>
+                <item>
+                    <attribute name="label" translatable="yes">Redo Last Changes</attribute>
+                </item>
+            </section>
+            <section>
+                <item>
+                    <attribute name="label" translatable="yes">_Remove Tags</attribute>
+                </item>
+            </section>
+            <section>
+                <item>
+                    <attribute name="label" translatable="yes">_Preferences</attribute>
+                </item>
+            </section>
+        </submenu>
+        <submenu>
+            <attribute name="label" translatable="yes">_View</attribute>
+            <section>
+                <item>
+                    <attribute name="label" translatable="yes">Show Scanner</attribute>
+                </item>
+                <submenu>
+                    <attribute name="label" translatable="yes">Scanner Mode</attribute>
+                    <item>
+                        <attribute name="label" translatable="yes">Fill Tags</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Rename Files and Directories</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Process Fields</attribute>
+                    </item>
+                </submenu>
+            </section>
+            <section>
+                <item>
+                    <attribute name="label" translatable="yes">Tree Browser</attribute>
+                </item>
+                <item>
+                    <attribute name="label" translatable="yes">Artists and Albums</attribute>
+                </item>
+            </section>
+            <submenu>
+                <attribute name="label" translatable="yes">Sort List by Tag</attribute>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Ascending by track number</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Descending by track number</attribute>
+                    </item>
+                </section>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Ascending by title</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Descending by title</attribute>
+                    </item>
+                </section>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Ascending by artist</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Descending by artist</attribute>
+                    </item>
+                </section>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Ascending by album artist</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Descending by album artist</attribute>
+                    </item>
+                </section>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Ascending by album</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Descending by album</attribute>
+                    </item>
+                </section>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Ascending by year</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Descending by year</attribute>
+                    </item>
+                </section>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Ascending by genre</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Descending by genre</attribute>
+                    </item>
+                </section>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Ascending by comment</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Descending by comment</attribute>
+                    </item>
+                </section>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Ascending by composer</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Descending by composer</attribute>
+                    </item>
+                </section>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Ascending by original artist</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Descending by original artist</attribute>
+                    </item>
+                </section>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Ascending by copyright</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Descending by copyright</attribute>
+                    </item>
+                </section>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Ascending by URL</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Descending by URL</attribute>
+                    </item>
+                </section>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Ascending by encoder name</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Descending by encoder name</attribute>
+                    </item>
+                </section>
+            </submenu>
+            <submenu>
+                <attribute name="label" translatable="yes">Sort List by Property</attribute>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Ascending by filename</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Descending by filename</attribute>
+                    </item>
+                </section>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Ascending by creation date</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Descending by creation date</attribute>
+                    </item>
+                </section>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Ascending by file type</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Descending by file type</attribute>
+                    </item>
+                </section>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Ascending by file size</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Descending by file size</attribute>
+                    </item>
+                </section>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Ascending by duration</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Descending by duration</attribute>
+                    </item>
+                </section>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Ascending by bitrate</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Descending by bitrate</attribute>
+                    </item>
+                </section>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Ascending by samplerate</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Descending by samplerate</attribute>
+                    </item>
+                </section>
+            </submenu>
+            <section>
+                <item>
+                    <attribute name="label" translatable="yes">Collapse Tree</attribute>
+                </item>
+                <item>
+                    <attribute name="label" translatable="yes">Reload Tree</attribute>
+                </item>
+            </section>
+            <section>
+                <item>
+                    <attribute name="label" translatable="yes">Reload Directory</attribute>
+                </item>
+            </section>
+            <section>
+                <item>
+                    <attribute name="label" translatable="yes">Show Hidden Directoires</attribute>
+                </item>
+            </section>
+        </submenu>
+        <submenu>
+            <attribute name="label" translatable="yes">_Browser</attribute>
+            <section>
+                <item>
+                    <attribute name="label" translatable="yes">Set _Current Path as Default</attribute>
+                </item>
+            </section>
+            <section>
+                <item>
+                    <attribute name="label" translatable="yes">Rename Directory…</attribute>
+                </item>
+                <item>
+                    <attribute name="label" translatable="yes">Browse Directory With…</attribute>
+                </item>
+            </section>
+            <section>
+                <item>
+                    <attribute name="label" translatable="yes">Browse _Subdirectories</attribute>
+                </item>
+            </section>
+        </submenu>
+        <submenu>
+            <attribute name="label" translatable="yes">_Miscellaneous</attribute>
+            <item>
+                <attribute name="label" translatable="yes">CDD_B Search…</attribute>
+            </item>
+            <item>
+                <attribute name="label" translatable="yes">Load Filenames From a Text File…</attribute>
+            </item>
+            <item>
+                <attribute name="label" translatable="yes">Generate Playlist…</attribute>
+            </item>
+        </submenu>
+        <submenu>
+            <attribute name="label" translatable="yes">_Go</attribute>
+            <section>
+            <item>
+                <attribute name="label" translatable="yes">_Home Directory</attribute>
+            </item>
+            <item>
+                <attribute name="label" translatable="yes">Desktop Directory</attribute>
+            </item>
+            <item>
+                <attribute name="label" translatable="yes">Documents Directory</attribute>
+            </item>
+            <item>
+                <attribute name="label" translatable="yes">Downloads Directory</attribute>
+            </item>
+            <item>
+                <attribute name="label" translatable="yes">Music Directory</attribute>
+            </item>
+            <item>
+                <attribute name="label" translatable="yes">_Parent Directory</attribute>
+            </item>
+            <item>
+                <attribute name="label" translatable="yes">_Default Directory</attribute>
+            </item>
+            </section>
+            <section>
+            <item>
+                <attribute name="label" translatable="yes">First File</attribute>
+            </item>
+            <item>
+                <attribute name="label" translatable="yes">Previous File</attribute>
+            </item>
+            <item>
+                <attribute name="label" translatable="yes">_Next File</attribute>
+            </item>
+            <item>
+                <attribute name="label" translatable="yes">_Last File</attribute>
+            </item>
+            </section>
+        </submenu>
+    </menu>
 </interface>

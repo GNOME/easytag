@@ -179,6 +179,7 @@ et_application_startup (GApplication *application)
     GtkBuilder *builder;
     GError *error = NULL;
     GMenuModel *appmenu;
+    GMenuModel *menubar;
 
     g_action_map_add_action_entries (G_ACTION_MAP (application), actions,
                                      G_N_ELEMENTS (actions), application);
@@ -196,6 +197,9 @@ et_application_startup (GApplication *application)
 
     appmenu = G_MENU_MODEL (gtk_builder_get_object (builder, "app-menu"));
     gtk_application_set_app_menu (GTK_APPLICATION (application), appmenu);
+
+    menubar = G_MENU_MODEL (gtk_builder_get_object (builder, "menubar"));
+    gtk_application_set_menubar (GTK_APPLICATION (application), menubar);
 
     g_object_unref (builder);
 
