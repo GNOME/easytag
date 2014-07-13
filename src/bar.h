@@ -26,28 +26,11 @@
  * Declaration *
  ***************/
 GtkWidget      *ProgressBar;
-GtkUIManager   *UIManager;
-GtkActionGroup *ActionGroup;
-
-#define POPUP_FILE              "FilePopup"
-#define POPUP_SUBMENU_SCANNER   "ScannerSubpopup"
-
-#define AM_OPEN_OPTIONS_WINDOW      "Preferences"
-#define AM_CDDB_SEARCH_FILE         "CDDBSearchFile"
-
-#define AM_STOP                     "Stop"
-
-typedef struct _Action_Pair Action_Pair;
-struct _Action_Pair {
-    const gchar *action;
-    GQuark quark;
-};
 
 /**************
  * Prototypes *
  **************/
 
-GtkWidget *create_main_toolbar (GtkWindow *window);
 GtkWidget *Create_Status_Bar   (void);
 void Statusbar_Message (const gchar *message, gboolean with_timer);
 GtkWidget *Create_Progress_Bar (void);

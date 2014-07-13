@@ -17,23 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 
-#include "application_window.h"
 #include "bar.h"
-#include "easytag.h"
-#include "preferences_dialog.h"
-#include "setting.h"
-#include "browser.h"
-#include "scan_dialog.h"
-#include "cddb_dialog.h"
-#include "log.h"
-#include "misc.h"
 #include "charset.h"
-#include "ui_manager.h"
 #include "gtk2_compat.h"
 
 /***************
@@ -43,7 +33,6 @@ static GtkWidget *StatusBar = NULL;
 static guint StatusBarContext;
 static guint timer_cid;
 static guint StatusbarTimerId = 0;
-static GList *ActionPairsList = NULL;
 
 /**************
  * Prototypes *
@@ -54,72 +43,6 @@ static void Statusbar_Remove_Timer (void);
 /*************
  * Functions o
  *************/
-
-GtkWidget *
-create_main_toolbar (GtkWindow *window)
-{
-    GtkWidget *toolbar;
-
-    /*
-     * Structure :
-     *  - name
-     *  - stock_id
-     *  - label
-     *  - accelerator
-     *  - tooltip
-     *  - callback
-     */
-    GtkActionEntry ActionEntries[] =
-    {
-        /*
-         * Following items are on toolbar but not on menu
-         */
-        { AM_STOP, GTK_STOCK_STOP, _("Stop the current action"), NULL, _("Stop the current action"), G_CALLBACK(Action_Main_Stop_Button_Pressed) },
-
-    };
-
-    GError *error = NULL;
-    guint num_menu_entries;
-    guint i;
-
-    /* Calculate number of items into the menu */
-    num_menu_entries = G_N_ELEMENTS(ActionEntries);
-
-    /* Populate quarks list with the entries */
-    for(i = 0; i < num_menu_entries; i++)
-    {
-        Action_Pair* ActionPair = g_malloc0(sizeof(Action_Pair));
-        ActionPair->action = ActionEntries[i].name;
-        ActionPair->quark  = g_quark_from_string(ActionPair->action);
-        ActionPairsList = g_list_prepend (ActionPairsList, ActionPair);
-    }
-
-    ActionPairsList = g_list_reverse (ActionPairsList);
-
-    /* UI Management */
-    ActionGroup = gtk_action_group_new("actions");
-    gtk_action_group_set_translation_domain (ActionGroup, GETTEXT_PACKAGE);
-    gtk_action_group_add_actions(ActionGroup, ActionEntries, num_menu_entries, window);
-
-    UIManager = gtk_ui_manager_new();
-
-    if (!gtk_ui_manager_add_ui_from_string(UIManager, ui_xml, -1, &error))
-    {
-        g_error(_("Could not merge UI, error was: %s\n"), error->message);
-        g_error_free(error);
-    }
-    gtk_ui_manager_insert_action_group(UIManager, ActionGroup, 0);
-    gtk_window_add_accel_group (window,
-                                gtk_ui_manager_get_accel_group (UIManager));
-
-    toolbar = gtk_ui_manager_get_widget (UIManager, "/ToolBar");
-    gtk_widget_show_all (toolbar);
-    gtk_style_context_add_class (gtk_widget_get_style_context (toolbar),
-                                 GTK_STYLE_CLASS_PRIMARY_TOOLBAR);
-
-    return toolbar;
-}
-
 
 /*
  * Status bar functions

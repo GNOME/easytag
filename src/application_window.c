@@ -2867,6 +2867,14 @@ on_run_player_directory (GSimpleAction *action,
     Run_Audio_Player_Using_Directory ();
 }
 
+static void
+on_stop (GSimpleAction *action,
+         GVariant *variant,
+         gpointer user_data)
+{
+    Action_Main_Stop_Button_Pressed ();
+}
+
 static const GActionEntry actions[] =
 {
     /* File menu. */
@@ -2925,7 +2933,9 @@ static const GActionEntry actions[] =
     { "clear-log", on_clear_log },
     { "run-player-album", on_run_player_album },
     { "run-player-artist", on_run_player_artist },
-    { "run-player-directory", on_run_player_directory }
+    { "run-player-directory", on_run_player_directory },
+    /* Toolbar. */
+    { "stop", on_stop }
 };
 
 static void
@@ -3028,13 +3038,9 @@ et_application_window_init (EtApplicationWindow *self)
 
     /* Menu bar and tool bar. */
     {
-        GtkWidget *tool_area;
         GtkBuilder *builder;
         GError *error = NULL;
         GtkWidget *toolbar;
-
-        tool_area = create_main_toolbar (window);
-        gtk_box_pack_start (GTK_BOX (main_vbox), tool_area, FALSE, FALSE, 0);
 
         builder = gtk_builder_new ();
         gtk_builder_add_from_resource (builder,
@@ -3475,7 +3481,6 @@ void
 et_application_window_update_actions (EtApplicationWindow *self)
 {
     GtkDialog *dialog;
-    GtkAction *uiaction;
 
     dialog = GTK_DIALOG (et_application_window_get_scan_dialog (self));
 
@@ -3488,8 +3493,7 @@ et_application_window_update_actions (EtApplicationWindow *self)
         et_application_window_tag_area_set_sensitive (self, FALSE);
 
         /* Tool bar buttons (the others are covered by the menu) */
-        uiaction = gtk_ui_manager_get_action(UIManager, "/ToolBar/Stop");
-        g_object_set(uiaction, "sensitive", FALSE, NULL);
+        set_action_state (self, "stop", FALSE);
 
         /* Scanner Window */
         if (dialog)
@@ -3536,8 +3540,7 @@ et_application_window_update_actions (EtApplicationWindow *self)
         et_application_window_tag_area_set_sensitive (self, TRUE);
 
         /* Tool bar buttons */
-        uiaction = gtk_ui_manager_get_action(UIManager, "/ToolBar/Stop");
-        g_object_set(uiaction, "sensitive", FALSE, NULL);
+        set_action_state (self, "stop", FALSE);
 
         /* Scanner Window */
         if (dialog)

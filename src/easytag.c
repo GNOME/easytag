@@ -528,7 +528,7 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
     File_Tag  *FileTag;
     File_Name *FileNameNew;
     double     fraction;
-    GtkAction *uiaction;
+    GAction *action;
     GtkWidget *widget_focused;
     GtkTreePath *currentPath = NULL;
 
@@ -603,8 +603,9 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
     SF_HideMsgbox_Rename_File = FALSE;
 
     Main_Stop_Button_Pressed = FALSE;
-    uiaction = gtk_ui_manager_get_action(UIManager, "/ToolBar/Stop"); // Activate the stop button
-    g_object_set(uiaction, "sensitive", FALSE, NULL);
+    /* Activate the stop button. */
+    action = g_action_map_lookup_action (G_ACTION_MAP (MainWindow), "stop");
+    g_simple_action_set_enabled (G_SIMPLE_ACTION (action), FALSE);
 
     /*
      * Check if file was changed by an external program
@@ -708,8 +709,8 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
         msg = g_strdup (_("All files have been saved"));
 
     Main_Stop_Button_Pressed = FALSE;
-    uiaction = gtk_ui_manager_get_action(UIManager, "/ToolBar/Stop");
-    g_object_set(uiaction, "sensitive", FALSE, NULL);
+    action = g_action_map_lookup_action (G_ACTION_MAP (MainWindow), "stop");
+    g_simple_action_set_enabled (G_SIMPLE_ACTION (action), FALSE);
 
     /* Return to the saved position in the list */
     ET_Display_File_Data_To_UI(etfile_save_position);
@@ -1187,7 +1188,7 @@ gboolean Read_Directory (gchar *path_real)
     GList *FileList = NULL;
     GList *l;
     gint   progress_bar_index = 0;
-    GtkAction *uiaction;
+    GAction *action;
     EtApplicationWindow *window;
 
     g_return_val_if_fail (path_real != NULL, FALSE);
@@ -1250,9 +1251,9 @@ gboolean Read_Directory (gchar *path_real)
 
     /* Open the window to quit recursion (since 27/04/2007 : not only into recursion mode) */
     Set_Busy_Cursor();
-    uiaction = gtk_ui_manager_get_action(UIManager, "/ToolBar/Stop");
-    g_settings_bind (MainSettings, "browse-subdir", uiaction, "sensitive",
-                     G_SETTINGS_BIND_GET);
+    action = g_action_map_lookup_action (G_ACTION_MAP (MainWindow), "stop");
+    g_settings_bind (MainSettings, "browse-subdir", G_SIMPLE_ACTION (action),
+                     "enabled", G_SETTINGS_BIND_GET);
     Open_Quit_Recursion_Function_Window();
 
     /* Read the directory recursively */
@@ -1304,8 +1305,8 @@ gboolean Read_Directory (gchar *path_real)
     /* Close window to quit recursion */
     Destroy_Quit_Recursion_Function_Window();
     Main_Stop_Button_Pressed = FALSE;
-    uiaction = gtk_ui_manager_get_action(UIManager, "/ToolBar/Stop");
-    g_object_set(uiaction, "sensitive", FALSE, NULL);
+    action = g_action_map_lookup_action (G_ACTION_MAP (MainWindow), "stop");
+    g_simple_action_set_enabled (G_SIMPLE_ACTION (action), FALSE);
 
     //ET_Debug_Print_File_List(ETCore->ETFileList,__FILE__,__LINE__,__FUNCTION__);
 
@@ -1534,10 +1535,11 @@ et_on_quit_recursion_response (GtkDialog *dialog, gint response_id,
  */
 void Action_Main_Stop_Button_Pressed (void)
 {
-    GtkAction *uiaction;
+    GAction *action;
+
+    action = g_action_map_lookup_action (G_ACTION_MAP (MainWindow), "stop");
+    g_simple_action_set_enabled (G_SIMPLE_ACTION (action), FALSE);
     Main_Stop_Button_Pressed = TRUE;
-    uiaction = gtk_ui_manager_get_action(UIManager, "/ToolBar/Stop");
-    g_object_set(uiaction, "sensitive", FALSE, NULL);
 }
 
 /*

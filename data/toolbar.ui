@@ -1,6 +1,9 @@
 <interface domain="easytag">
     <object class="GtkToolbar" id="main_toolbar">
         <property name="visible">True</property>
+        <style>
+            <class name="primary-toolbar"/>
+        </style>
         <child>
             <object class="GtkToolButton" id="first_button">
                 <property name="action-name">win.go-first</property>
@@ -147,6 +150,18 @@
                 <property name="icon-name">document-save-as</property>
                 <property name="label" translatable="yes">Generate Playlist…</property>
                 <property name="tooltip-text" translatable="yes">Generate a playlist</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkSeparatorToolItem" id="separator5"/>
+        </child>
+        <child>
+            <object class="GtkToolButton" id="stop_button">
+                <property name="action-name">win.stop</property>
+                <property name="icon-name">process-stop</property>
+                <property name="label" translatable="yes">Stop</property>
+                <property name="tooltip-text" translatable="yes">Stop the current action</property>
                 <property name="visible">True</property>
             </object>
         </child>

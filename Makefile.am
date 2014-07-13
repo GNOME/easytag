@@ -128,7 +128,6 @@ easytag_headers = \
 	src/scan_dialog.h \
 	src/search_dialog.h \
 	src/setting.h \
-	src/ui_manager.h \
 	src/vcedit.h \
 	src/wavpack_header.h \
 	src/wavpack_tag.h \
