@@ -152,14 +152,6 @@ static const gchar *ui_xml =
 "      <menuitem action='BrowseSubdir' />"
 "    </menu>"
 
-"    <menu action='MiscMenu'>"
-"      <menuitem action='CDDBSearch' />"
-"      <separator />"
-
-"      <menuitem action='LoadFilenames' />"
-"      <menuitem action='WritePlaylist' />"
-"    </menu>"
-
 "    <menu action='GoMenu'>"
 "      <menuitem action='FirstFile' />"
 "      <menuitem action='PreviousFile' />"
@@ -192,11 +184,6 @@ static const gchar *ui_xml =
 "    <separator />"
 
 "    <toolitem action='SelInv'/>"
-"    <separator />"
-
-"    <toolitem action='SearchFile' />"
-"    <toolitem action='CDDBSearch' />"
-"    <toolitem action='WritePlaylist' />"
 "    <separator />"
 
 "    <toolitem action='Stop'/>"

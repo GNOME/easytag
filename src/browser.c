@@ -875,7 +875,8 @@ Browser_Tree_Node_Selected (EtBrowser *self, GtkTreeSelection *selection)
 
     /* Save the current displayed data */
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
-    Update_Command_Buttons_Sensivity(); // Not clean to put this here...
+    /* FIXME: Not clean to put this here. */
+    et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
 
     /* Check if all files have been saved before changing the directory */
     if (g_settings_get_boolean (MainSettings, "confirm-when-unsaved-files")
@@ -970,7 +971,7 @@ Browser_Tree_Node_Selected (EtBrowser *self, GtkTreeSelection *selection)
     }else
     {
         /* As we don't use the function 'Read_Directory' we must add this function here */
-        Update_Command_Buttons_Sensivity();
+        et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
     }
     counter++;
 
@@ -2991,7 +2992,7 @@ et_browser_reload (EtBrowser *self)
     }
     g_free(current_path);
 
-    Update_Command_Buttons_Sensivity();
+    et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
 }
 
 /*

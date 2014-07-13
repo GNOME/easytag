@@ -443,7 +443,7 @@ void Action_Select_Nth_File_By_Etfile (ET_File *ETFile)
     ET_Displayed_File_List_By_Etfile(ETFile); // Just to update 'ETFileDisplayedList'
     ET_Display_File_Data_To_UI(ETFile);
 
-    Update_Command_Buttons_Sensivity();
+    et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
     et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (MainWindow))));
 }
 
@@ -466,7 +466,7 @@ void Action_Undo_From_History_List (void)
                                                             ETFile);
     }
 
-    Update_Command_Buttons_Sensivity();
+    et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
 }
 
 
@@ -490,7 +490,7 @@ void Action_Redo_From_History_List (void)
                                                             ETFile);
     }
 
-    Update_Command_Buttons_Sensivity();
+    et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
 }
 
 
@@ -733,7 +733,7 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
                 gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), 0.0);
                 Statusbar_Message (_("Saving files was stopped"), TRUE);
                 /* To update state of command buttons */
-                Update_Command_Buttons_Sensivity();
+                et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
                 et_application_window_browser_set_sensitive (window, TRUE);
                 et_application_window_tag_area_set_sensitive (window, TRUE);
                 et_application_window_file_area_set_sensitive (window, TRUE);
@@ -772,7 +772,7 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
         et_application_window_browser_toggle_display_mode (window);
 
     /* To update state of command buttons */
-    Update_Command_Buttons_Sensivity();
+    et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
     et_application_window_browser_set_sensitive (window, TRUE);
     et_application_window_tag_area_set_sensitive (window, TRUE);
     et_application_window_file_area_set_sensitive (window, TRUE);
@@ -1250,7 +1250,7 @@ gboolean Read_Directory (gchar *path_real)
     /* Initialize file list */
     ET_Core_Free();
     ET_Core_Initialize();
-    Update_Command_Buttons_Sensivity();
+    et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
 
     window = ET_APPLICATION_WINDOW (MainWindow);
 
@@ -1423,7 +1423,7 @@ gboolean Read_Directory (gchar *path_real)
     }
 
     /* Update sensitivity of buttons and menus */
-    Update_Command_Buttons_Sensivity();
+    et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
 
     et_application_window_browser_set_sensitive (window, TRUE);
 
@@ -1618,254 +1618,6 @@ ui_widget_set_sensitive (const gchar *menu, const gchar *action, gboolean sensit
 }
 
 /*
- * Update_Command_Buttons_Sensivity: Set to sensitive/unsensitive the state of each button into
- * the commands area and menu items in function of state of the "main list".
- */
-void
-Update_Command_Buttons_Sensivity (void)
-{
-    EtApplicationWindow *window;
-    GtkDialog *dialog;
-    GtkAction *uiaction;
-
-    window = ET_APPLICATION_WINDOW (MainWindow);
-    dialog = GTK_DIALOG (et_application_window_get_scan_dialog (window));
-
-    if (!ETCore->ETFileDisplayedList)
-    {
-        /* No file found */
-
-        /* File and Tag frames */
-        et_application_window_file_area_set_sensitive (window, FALSE);
-        et_application_window_tag_area_set_sensitive (window, FALSE);
-
-        /* Tool bar buttons (the others are covered by the menu) */
-        uiaction = gtk_ui_manager_get_action(UIManager, "/ToolBar/Stop");
-        g_object_set(uiaction, "sensitive", FALSE, NULL);
-
-        /* Scanner Window */
-        if (dialog)
-        {
-            gtk_dialog_set_response_sensitive (dialog, GTK_RESPONSE_APPLY,
-                                               FALSE);
-        }
-
-        /* Menu commands */
-        ui_widget_set_sensitive(MENU_FILE, AM_OPEN_FILE_WITH, FALSE);
-        ui_widget_set_sensitive(MENU_FILE, AM_INVERT_SELECTION, FALSE);
-        ui_widget_set_sensitive(MENU_FILE, AM_DELETE_FILE, FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_ASCENDING_FILENAME, FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_DESCENDING_FILENAME,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_ASCENDING_CREATION_DATE,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_DESCENDING_CREATION_DATE,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_ASCENDING_TRACK_NUMBER,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_DESCENDING_TRACK_NUMBER,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_ASCENDING_TITLE,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_DESCENDING_TITLE,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_ASCENDING_ARTIST,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_DESCENDING_ARTIST,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_ASCENDING_ALBUM,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_DESCENDING_ALBUM,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_ASCENDING_YEAR,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_DESCENDING_YEAR,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_ASCENDING_GENRE,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_DESCENDING_GENRE,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_ASCENDING_COMMENT,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_DESCENDING_COMMENT,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_ASCENDING_FILE_TYPE,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_DESCENDING_FILE_TYPE,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_ASCENDING_FILE_SIZE,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_DESCENDING_FILE_SIZE,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_ASCENDING_FILE_DURATION,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_DESCENDING_FILE_DURATION,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_ASCENDING_FILE_BITRATE,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_DESCENDING_FILE_BITRATE,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_ASCENDING_FILE_SAMPLERATE,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_DESCENDING_FILE_SAMPLERATE,FALSE);
-        ui_widget_set_sensitive (MENU_GO, AM_PREV, FALSE);
-        ui_widget_set_sensitive (MENU_GO, AM_NEXT, FALSE);
-        ui_widget_set_sensitive (MENU_GO, AM_FIRST, FALSE);
-        ui_widget_set_sensitive (MENU_GO, AM_LAST, FALSE);
-        ui_widget_set_sensitive (MENU_EDIT, AM_REMOVE, FALSE);
-        ui_widget_set_sensitive(MENU_FILE, AM_UNDO, FALSE);
-        ui_widget_set_sensitive(MENU_FILE, AM_REDO, FALSE);
-        ui_widget_set_sensitive(MENU_FILE, AM_SAVE, FALSE);
-        ui_widget_set_sensitive(MENU_FILE, AM_SAVE_FORCED, FALSE);
-        ui_widget_set_sensitive (MENU_EDIT, AM_UNDO_HISTORY, FALSE);
-        ui_widget_set_sensitive (MENU_EDIT, AM_REDO_HISTORY, FALSE);
-        ui_widget_set_sensitive (MENU_EDIT, AM_SEARCH_FILE, FALSE);
-        ui_widget_set_sensitive(MENU_MISC, AM_FILENAME_FROM_TXT, FALSE);
-        ui_widget_set_sensitive(MENU_MISC, AM_WRITE_PLAYLIST, FALSE);
-        ui_widget_set_sensitive (MENU_FILE, AM_RUN_AUDIO_PLAYER, FALSE);
-        ui_widget_set_sensitive (MENU_SCANNER_PATH,
-                                 AM_SCANNER_FILL_TAG, FALSE);
-        ui_widget_set_sensitive (MENU_SCANNER_PATH,
-                                 AM_SCANNER_RENAME_FILE, FALSE);
-        ui_widget_set_sensitive (MENU_SCANNER_PATH,
-                                 AM_SCANNER_PROCESS_FIELDS, FALSE);
-        ui_widget_set_sensitive (MENU_VIEW, AM_ARTIST_VIEW_MODE, FALSE);
-
-        return;
-    }else
-    {
-        GtkWidget *artist_radio = NULL;
-        GList *selfilelist = NULL;
-        ET_File *etfile;
-        gboolean has_undo = FALSE;
-        gboolean has_redo = FALSE;
-        //gboolean has_to_save = FALSE;
-        GtkTreeSelection *selection;
-
-        /* File and Tag frames */
-        et_application_window_file_area_set_sensitive (window, TRUE);
-        et_application_window_tag_area_set_sensitive (window, TRUE);
-
-        /* Tool bar buttons */
-        uiaction = gtk_ui_manager_get_action(UIManager, "/ToolBar/Stop");
-        g_object_set(uiaction, "sensitive", FALSE, NULL);
-
-        /* Scanner Window */
-        if (dialog)
-        {
-            gtk_dialog_set_response_sensitive (dialog, GTK_RESPONSE_APPLY,
-                                               TRUE);
-        }
-
-        /* Commands into menu */
-        ui_widget_set_sensitive(MENU_FILE, AM_OPEN_FILE_WITH,TRUE);
-        ui_widget_set_sensitive(MENU_FILE, AM_INVERT_SELECTION,TRUE);
-        ui_widget_set_sensitive(MENU_FILE, AM_DELETE_FILE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_ASCENDING_FILENAME,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_FILENAME,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_ASCENDING_CREATION_DATE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_CREATION_DATE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_ASCENDING_TRACK_NUMBER,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_DESCENDING_TRACK_NUMBER,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_ASCENDING_TITLE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_DESCENDING_TITLE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_ASCENDING_ARTIST,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_DESCENDING_ARTIST,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_ASCENDING_ALBUM,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_DESCENDING_ALBUM,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_ASCENDING_YEAR,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_DESCENDING_YEAR,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_ASCENDING_GENRE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_DESCENDING_GENRE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_ASCENDING_COMMENT,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_DESCENDING_COMMENT,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_ASCENDING_FILE_TYPE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_FILE_TYPE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_ASCENDING_FILE_SIZE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_FILE_SIZE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_ASCENDING_FILE_DURATION,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_FILE_DURATION,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_ASCENDING_FILE_BITRATE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_FILE_BITRATE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_ASCENDING_FILE_SAMPLERATE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_FILE_SAMPLERATE,TRUE);
-        ui_widget_set_sensitive (MENU_EDIT, AM_REMOVE, TRUE);
-        ui_widget_set_sensitive (MENU_EDIT, AM_SEARCH_FILE, TRUE);
-        ui_widget_set_sensitive(MENU_MISC,AM_FILENAME_FROM_TXT,TRUE);
-        ui_widget_set_sensitive(MENU_MISC,AM_WRITE_PLAYLIST,TRUE);
-        ui_widget_set_sensitive (MENU_FILE, AM_RUN_AUDIO_PLAYER, TRUE);
-        ui_widget_set_sensitive (MENU_SCANNER_PATH,
-                                 AM_SCANNER_FILL_TAG,TRUE);
-        ui_widget_set_sensitive (MENU_SCANNER_PATH,
-                                 AM_SCANNER_RENAME_FILE, TRUE);
-        ui_widget_set_sensitive (MENU_SCANNER_PATH,
-                                 AM_SCANNER_PROCESS_FIELDS, TRUE);
-        ui_widget_set_sensitive (MENU_VIEW, AM_ARTIST_VIEW_MODE, TRUE);
-
-        /* Check if one of the selected files has undo or redo data */
-        {
-            GList *l;
-
-            selection = et_application_window_browser_get_selection (window);
-            selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
-
-            for (l = selfilelist; l != NULL; l = g_list_next (l))
-            {
-                etfile = et_application_window_browser_get_et_file_from_path (ET_APPLICATION_WINDOW (MainWindow),
-                                                                              l->data);
-                has_undo    |= ET_File_Data_Has_Undo_Data(etfile);
-                has_redo    |= ET_File_Data_Has_Redo_Data(etfile);
-                //has_to_save |= ET_Check_If_File_Is_Saved(etfile);
-                if ((has_undo && has_redo /*&& has_to_save*/) || !l->next) // Useless to check the other files
-                    break;
-            }
-
-            g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
-        }
-
-        /* Enable undo commands if there are undo data */
-        if (has_undo)
-            ui_widget_set_sensitive(MENU_FILE, AM_UNDO, TRUE);
-        else
-            ui_widget_set_sensitive(MENU_FILE, AM_UNDO, FALSE);
-
-        /* Enable redo commands if there are redo data */
-        if (has_redo)
-            ui_widget_set_sensitive(MENU_FILE, AM_REDO, TRUE);
-        else
-            ui_widget_set_sensitive(MENU_FILE, AM_REDO, FALSE);
-
-        /* Enable save file command if file has been changed */
-        // Desactivated because problem with only one file in the list, as we can't change the selected file => can't mark file as changed
-        /*if (has_to_save)
-            ui_widget_set_sensitive(MENU_FILE, AM_SAVE, FALSE);
-        else*/
-            ui_widget_set_sensitive(MENU_FILE, AM_SAVE, TRUE);
-        
-        ui_widget_set_sensitive(MENU_FILE, AM_SAVE_FORCED, TRUE);
-
-        /* Enable undo command if there are data into main undo list (history list) */
-        if (ET_History_File_List_Has_Undo_Data())
-            ui_widget_set_sensitive (MENU_EDIT, AM_UNDO_HISTORY, TRUE);
-        else
-            ui_widget_set_sensitive (MENU_EDIT, AM_UNDO_HISTORY, FALSE);
-
-        /* Enable redo commands if there are data into main redo list (history list) */
-        if (ET_History_File_List_Has_Redo_Data())
-            ui_widget_set_sensitive (MENU_EDIT, AM_REDO_HISTORY, TRUE);
-        else
-            ui_widget_set_sensitive (MENU_EDIT, AM_REDO_HISTORY, FALSE);
-
-        artist_radio = gtk_ui_manager_get_widget (UIManager,
-                                                  "/ToolBar/ArtistViewMode");
-
-        if (gtk_toggle_tool_button_get_active (GTK_TOGGLE_TOOL_BUTTON (artist_radio)))
-        {
-            ui_widget_set_sensitive (MENU_VIEW, AM_COLLAPSE_TREE, FALSE);
-            ui_widget_set_sensitive (MENU_VIEW, AM_INITIALIZE_TREE, FALSE);
-        }
-        else
-        {
-            ui_widget_set_sensitive (MENU_VIEW, AM_COLLAPSE_TREE, TRUE);
-            ui_widget_set_sensitive (MENU_VIEW, AM_INITIALIZE_TREE, TRUE);
-        }
-    }
-
-    if (!ETCore->ETFileDisplayedList->prev)    /* Is it the 1st item ? */
-    {
-        ui_widget_set_sensitive (MENU_GO, AM_PREV, FALSE);
-        ui_widget_set_sensitive (MENU_GO, AM_FIRST, FALSE);
-    }else
-    {
-        ui_widget_set_sensitive (MENU_GO, AM_PREV, TRUE);
-        ui_widget_set_sensitive (MENU_GO, AM_FIRST, TRUE);
-    }
-    if (!ETCore->ETFileDisplayedList->next)    /* Is it the last item ? */
-    {
-        ui_widget_set_sensitive (MENU_GO, AM_NEXT, FALSE);
-        ui_widget_set_sensitive (MENU_GO, AM_LAST, FALSE);
-    }else
-    {
-        ui_widget_set_sensitive (MENU_GO, AM_NEXT, TRUE);
-        ui_widget_set_sensitive (MENU_GO, AM_LAST, TRUE);
-    }
-}
-
-/*
  * Just to disable buttons when we are saving files (do not disable Quit button)
  */
 void
@@ -1939,8 +1691,8 @@ Init_Load_Default_Dir (void)
 	                                        ET_APPLICATION_WINDOW (MainWindow));
     }
 
-    // To set sensivity of buttons in the case if the default directory is invalid
-    Update_Command_Buttons_Sensivity();
+    /* Set sensitivity of buttons if the default directory is invalid. */
+    et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
 
     return G_SOURCE_REMOVE;
 }

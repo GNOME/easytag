@@ -39,7 +39,6 @@ GtkWidget *CheckMenuItemBrowseHiddenDirMainMenu;
 #define MENU_GO "GoMenu"
 #define MENU_BROWSER    "BrowserMenu"
 #define MENU_SCANNER    "ScannerMenu"
-#define MENU_MISC       "MiscMenu"
 
 #define MENU_FILE_SORT_TAG      "SortTagMenu"
 #define MENU_FILE_SORT_PROP     "SortPropMenu"
@@ -87,9 +86,6 @@ GtkWidget *CheckMenuItemBrowseHiddenDirMainMenu;
 #define AM_SCANNER_SHOW "ShowScanner"
 #define AM_SEARCH_FILE              "SearchFile"
 #define AM_CDDB_SEARCH_FILE         "CDDBSearchFile"
-#define AM_CDDB_SEARCH              "CDDBSearch"
-#define AM_FILENAME_FROM_TXT        "LoadFilenames"
-#define AM_WRITE_PLAYLIST           "WritePlaylist"
 #define AM_RUN_AUDIO_PLAYER         "RunAudio"
 #define AM_QUIT                     "Quit"
 

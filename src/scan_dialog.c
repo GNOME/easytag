@@ -3474,7 +3474,7 @@ et_scan_dialog_scan_selected_files (EtScanDialog *self)
     ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
 
     /* To update state of command buttons */
-    Update_Command_Buttons_Sensivity();
+    et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
 
     gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), "");
     gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), 0);

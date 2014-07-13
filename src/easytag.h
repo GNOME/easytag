@@ -124,7 +124,6 @@ void et_on_action_select_scan_mode (GtkRadioAction *action,
 
 gboolean Read_Directory               (gchar *path);
 void Quit_MainWindow                  (void);
-void Update_Command_Buttons_Sensivity (void);
 
 void Clear_File_Entry_Field (void);
 void Clear_Tag_Entry_Fields (void);

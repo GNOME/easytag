@@ -321,12 +321,18 @@
         <submenu>
             <attribute name="label" translatable="yes">_Miscellaneous</attribute>
             <item>
+                <attribute name="accel">&lt;Primary&gt;b</attribute>
+                <attribute name="action">win.show-cddb</attribute>
                 <attribute name="label" translatable="yes">CDD_B Search…</attribute>
             </item>
             <item>
+                <attribute name="accel">&lt;Primary&gt;t</attribute>
+                <attribute name="action">win.show-load-filenames</attribute>
                 <attribute name="label" translatable="yes">Load Filenames From a Text File…</attribute>
             </item>
             <item>
+                <attribute name="accel">&lt;Primary&gt;w</attribute>
+                <attribute name="action">win.show-playlist</attribute>
                 <attribute name="label" translatable="yes">Generate Playlist…</attribute>
             </item>
         </submenu>

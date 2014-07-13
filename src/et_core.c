@@ -906,7 +906,7 @@ gboolean ET_Remove_File_From_File_List (ET_File *ETFile)
         Clear_Header_Fields();
         Clear_Tag_Entry_Fields();
         gtk_label_set_text(GTK_LABEL(FileIndex),"0/0:");
-        Update_Command_Buttons_Sensivity();
+        et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
     }
 
     return TRUE;
@@ -1181,7 +1181,7 @@ ET_Sort_Displayed_File_List_And_Update_UI (EtSortMode Sorting_Type)
     ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
 
     et_application_window_browser_refresh_sort (ET_APPLICATION_WINDOW (MainWindow));
-    Update_Command_Buttons_Sensivity();
+    et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
 }
 
 

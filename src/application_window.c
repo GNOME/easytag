@@ -901,7 +901,7 @@ Mini_Button_Clicked (GObject *object)
     g_free(string_to_set1);
 
     /* To update state of Undo button */
-    Update_Command_Buttons_Sensivity();
+    et_application_window_update_actions (ET_APPLICATION_WINDOW (toplevel));
 }
 
 /*
@@ -913,6 +913,7 @@ void
 et_application_window_redo_selected_files (GtkAction *action,
                                            gpointer user_data)
 {
+    EtApplicationWindow *self;
     EtApplicationWindowPrivate *priv;
     GList *selfilelist = NULL;
     GList *l;
@@ -922,7 +923,9 @@ et_application_window_redo_selected_files (GtkAction *action,
 
     g_return_val_if_fail (ETCore->ETFileDisplayedList != NULL, FALSE);
 
-    priv = et_application_window_get_instance_private (ET_APPLICATION_WINDOW (user_data));
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
+
     /* Save the current displayed data */
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
 
@@ -943,7 +946,7 @@ et_application_window_redo_selected_files (GtkAction *action,
 
     /* Display the current file */
     ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
-    Update_Command_Buttons_Sensivity();
+    et_application_window_update_actions (self);
 }
 
 /*
@@ -1696,6 +1699,80 @@ create_tag_area (EtApplicationWindow *self)
 }
 
 static void
+et_application_window_show_cddb_dialog (EtApplicationWindow *self)
+{
+    EtApplicationWindowPrivate *priv;
+
+    priv = et_application_window_get_instance_private (self);
+
+    if (priv->cddb_dialog)
+    {
+        gtk_widget_show (priv->cddb_dialog);
+    }
+    else
+    {
+        priv->cddb_dialog = GTK_WIDGET (et_cddb_dialog_new ());
+        gtk_widget_show_all (priv->cddb_dialog);
+    }
+}
+
+static void
+on_show_cddb (GSimpleAction *action,
+              GVariant *variant,
+              gpointer user_data)
+{
+    EtApplicationWindow *self;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+
+    et_application_window_show_cddb_dialog (self);
+}
+
+static void
+on_show_load_filenames (GSimpleAction *action,
+                        GVariant *variant,
+                        gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
+
+    if (priv->load_files_dialog)
+    {
+        gtk_widget_show (priv->load_files_dialog);
+    }
+    else
+    {
+        priv->load_files_dialog = GTK_WIDGET (et_load_files_dialog_new ());
+        gtk_widget_show_all (priv->load_files_dialog);
+    }
+}
+
+static void
+on_show_playlist (GSimpleAction *action,
+                  GVariant *variant,
+                  gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
+
+    if (priv->playlist_dialog)
+    {
+        gtk_widget_show (priv->playlist_dialog);
+    }
+    else
+    {
+        priv->playlist_dialog = GTK_WIDGET (et_playlist_dialog_new ());
+        gtk_widget_show_all (priv->playlist_dialog);
+    }
+}
+
+static void
 on_go_home (GSimpleAction *action,
             GVariant *variant,
             gpointer user_data)
@@ -1795,6 +1872,11 @@ on_go_default (GSimpleAction *action,
 
 static const GActionEntry actions[] =
 {
+    /* Miscellaneous menu. */
+    { "show-cddb", on_show_cddb },
+    { "show-load-filenames", on_show_load_filenames },
+    { "show-playlist", on_show_playlist },
+    /* Go menu. */
     { "go-home", on_go_home },
     { "go-desktop", on_go_desktop },
     { "go-documents", on_go_documents },
@@ -2007,26 +2089,6 @@ et_application_window_get_log_area (EtApplicationWindow *self)
     return priv->log_area;
 }
 
-void
-et_application_window_show_playlist_dialog (G_GNUC_UNUSED GtkAction *action,
-                                            gpointer user_data)
-{
-    EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
-
-    priv = et_application_window_get_instance_private (self);
-
-    if (priv->playlist_dialog)
-    {
-        gtk_widget_show (priv->playlist_dialog);
-    }
-    else
-    {
-        priv->playlist_dialog = GTK_WIDGET (et_playlist_dialog_new ());
-        gtk_widget_show_all (priv->playlist_dialog);
-    }
-}
-
 GtkWidget *
 et_application_window_get_load_files_dialog (EtApplicationWindow *self)
 {
@@ -2037,26 +2099,6 @@ et_application_window_get_load_files_dialog (EtApplicationWindow *self)
     priv = et_application_window_get_instance_private (self);
 
     return priv->load_files_dialog;
-}
-
-void
-et_application_window_show_load_files_dialog (G_GNUC_UNUSED GtkAction *action,
-                                              gpointer user_data)
-{
-    EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
-
-    priv = et_application_window_get_instance_private (self);
-
-    if (priv->load_files_dialog)
-    {
-        gtk_widget_show (priv->load_files_dialog);
-    }
-    else
-    {
-        priv->load_files_dialog = GTK_WIDGET (et_load_files_dialog_new ());
-        gtk_widget_show_all (priv->load_files_dialog);
-    }
 }
 
 GtkWidget *
@@ -2153,26 +2195,6 @@ et_application_window_get_cddb_dialog (EtApplicationWindow *self)
 }
 
 void
-et_application_window_show_cddb_dialog (G_GNUC_UNUSED GtkAction *action,
-                                        gpointer user_data)
-{
-    EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
-
-    priv = et_application_window_get_instance_private (self);
-
-    if (priv->cddb_dialog)
-    {
-        gtk_widget_show (priv->cddb_dialog);
-    }
-    else
-    {
-        priv->cddb_dialog = GTK_WIDGET (et_cddb_dialog_new ());
-        gtk_widget_show_all (priv->cddb_dialog);
-    }
-}
-
-void
 et_application_window_search_cddb_for_selection (G_GNUC_UNUSED GtkAction *action,
                                                  gpointer user_data)
 {
@@ -2181,7 +2203,7 @@ et_application_window_search_cddb_for_selection (G_GNUC_UNUSED GtkAction *action
 
     priv = et_application_window_get_instance_private (self);
 
-    et_application_window_show_cddb_dialog (action, user_data);
+    et_application_window_show_cddb_dialog (self);
     et_cddb_dialog_search_from_selection (ET_CDDB_DIALOG (priv->cddb_dialog));
 }
 
@@ -2500,7 +2522,7 @@ et_on_action_select_browser_mode (G_GNUC_UNUSED GtkRadioAction *action,
 
     et_application_window_browser_toggle_display_mode (ET_APPLICATION_WINDOW (user_data));
 
-    Update_Command_Buttons_Sensivity();
+    et_application_window_update_actions (ET_APPLICATION_WINDOW (user_data));
 }
 
 /*
@@ -2541,6 +2563,295 @@ et_application_window_file_area_set_sensitive (EtApplicationWindow *self,
     /* File Area. */
     gtk_widget_set_sensitive (gtk_bin_get_child (GTK_BIN (priv->file_area)),
                               sensitive);
+}
+
+static void
+ui_widget_set_sensitive (const gchar *menu,
+                         const gchar *action,
+                         gboolean sensitive)
+{
+    GtkAction *uiaction;
+    gchar *path;
+
+    path = g_strconcat ("/MenuBar/", menu,"/", action, NULL);
+
+    uiaction = gtk_ui_manager_get_action (UIManager, path);
+
+    if (uiaction)
+    {
+        gtk_action_set_sensitive (uiaction, sensitive);
+    }
+    else
+    {
+        g_warning ("Action not found for path '%s'", path);
+    }
+
+    g_free (path);
+}
+
+static void
+set_action_state (EtApplicationWindow *self,
+                  const gchar *action_name,
+                  gboolean enabled)
+{
+    GSimpleAction *action;
+
+    action = G_SIMPLE_ACTION (g_action_map_lookup_action (G_ACTION_MAP (self),
+                                                          action_name));
+
+    if (action == NULL)
+    {
+        g_error ("Unable to find action '%s' in application window",
+                 action_name);
+    }
+
+    g_simple_action_set_enabled (action, enabled);
+}
+
+/* et_application_window_update_actions:
+ * Set to sensitive/unsensitive the state of each button into
+ * the commands area and menu items in function of state of the "main list".
+ */
+void
+et_application_window_update_actions (EtApplicationWindow *self)
+{
+    GtkDialog *dialog;
+    GtkAction *uiaction;
+
+    dialog = GTK_DIALOG (et_application_window_get_scan_dialog (self));
+
+    if (!ETCore->ETFileDisplayedList)
+    {
+        /* No file found */
+
+        /* File and Tag frames */
+        et_application_window_file_area_set_sensitive (self, FALSE);
+        et_application_window_tag_area_set_sensitive (self, FALSE);
+
+        /* Tool bar buttons (the others are covered by the menu) */
+        uiaction = gtk_ui_manager_get_action(UIManager, "/ToolBar/Stop");
+        g_object_set(uiaction, "sensitive", FALSE, NULL);
+
+        /* Scanner Window */
+        if (dialog)
+        {
+            gtk_dialog_set_response_sensitive (dialog, GTK_RESPONSE_APPLY,
+                                               FALSE);
+        }
+
+        /* Menu commands */
+        ui_widget_set_sensitive(MENU_FILE, AM_OPEN_FILE_WITH, FALSE);
+        ui_widget_set_sensitive(MENU_FILE, AM_INVERT_SELECTION, FALSE);
+        ui_widget_set_sensitive(MENU_FILE, AM_DELETE_FILE, FALSE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_ASCENDING_FILENAME, FALSE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_DESCENDING_FILENAME,FALSE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_ASCENDING_CREATION_DATE,FALSE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_DESCENDING_CREATION_DATE,FALSE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_ASCENDING_TRACK_NUMBER,FALSE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_DESCENDING_TRACK_NUMBER,FALSE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_ASCENDING_TITLE,FALSE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_DESCENDING_TITLE,FALSE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_ASCENDING_ARTIST,FALSE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_DESCENDING_ARTIST,FALSE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_ASCENDING_ALBUM,FALSE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_DESCENDING_ALBUM,FALSE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_ASCENDING_YEAR,FALSE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_DESCENDING_YEAR,FALSE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_ASCENDING_GENRE,FALSE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_DESCENDING_GENRE,FALSE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_ASCENDING_COMMENT,FALSE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_DESCENDING_COMMENT,FALSE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_ASCENDING_FILE_TYPE,FALSE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_DESCENDING_FILE_TYPE,FALSE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_ASCENDING_FILE_SIZE,FALSE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_DESCENDING_FILE_SIZE,FALSE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_ASCENDING_FILE_DURATION,FALSE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_DESCENDING_FILE_DURATION,FALSE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_ASCENDING_FILE_BITRATE,FALSE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_DESCENDING_FILE_BITRATE,FALSE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_ASCENDING_FILE_SAMPLERATE,FALSE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_DESCENDING_FILE_SAMPLERATE,FALSE);
+        ui_widget_set_sensitive (MENU_GO, AM_PREV, FALSE);
+        ui_widget_set_sensitive (MENU_GO, AM_NEXT, FALSE);
+        ui_widget_set_sensitive (MENU_GO, AM_FIRST, FALSE);
+        ui_widget_set_sensitive (MENU_GO, AM_LAST, FALSE);
+        ui_widget_set_sensitive (MENU_EDIT, AM_REMOVE, FALSE);
+        ui_widget_set_sensitive(MENU_FILE, AM_UNDO, FALSE);
+        ui_widget_set_sensitive(MENU_FILE, AM_REDO, FALSE);
+        ui_widget_set_sensitive(MENU_FILE, AM_SAVE, FALSE);
+        ui_widget_set_sensitive(MENU_FILE, AM_SAVE_FORCED, FALSE);
+        ui_widget_set_sensitive (MENU_EDIT, AM_UNDO_HISTORY, FALSE);
+        ui_widget_set_sensitive (MENU_EDIT, AM_REDO_HISTORY, FALSE);
+        ui_widget_set_sensitive (MENU_EDIT, AM_SEARCH_FILE, FALSE);
+        set_action_state (self, "show-load-filenames", FALSE);
+        set_action_state (self, "show-playlist", FALSE);
+        ui_widget_set_sensitive (MENU_FILE, AM_RUN_AUDIO_PLAYER, FALSE);
+        ui_widget_set_sensitive (MENU_SCANNER_PATH,
+                                 AM_SCANNER_FILL_TAG, FALSE);
+        ui_widget_set_sensitive (MENU_SCANNER_PATH,
+                                 AM_SCANNER_RENAME_FILE, FALSE);
+        ui_widget_set_sensitive (MENU_SCANNER_PATH,
+                                 AM_SCANNER_PROCESS_FIELDS, FALSE);
+        ui_widget_set_sensitive (MENU_VIEW, AM_ARTIST_VIEW_MODE, FALSE);
+
+        return;
+    }else
+    {
+        GtkWidget *artist_radio = NULL;
+        GList *selfilelist = NULL;
+        ET_File *etfile;
+        gboolean has_undo = FALSE;
+        gboolean has_redo = FALSE;
+        //gboolean has_to_save = FALSE;
+        GtkTreeSelection *selection;
+
+        /* File and Tag frames */
+        et_application_window_file_area_set_sensitive (self, TRUE);
+        et_application_window_tag_area_set_sensitive (self, TRUE);
+
+        /* Tool bar buttons */
+        uiaction = gtk_ui_manager_get_action(UIManager, "/ToolBar/Stop");
+        g_object_set(uiaction, "sensitive", FALSE, NULL);
+
+        /* Scanner Window */
+        if (dialog)
+        {
+            gtk_dialog_set_response_sensitive (dialog, GTK_RESPONSE_APPLY,
+                                               TRUE);
+        }
+
+        /* Commands into menu */
+        ui_widget_set_sensitive(MENU_FILE, AM_OPEN_FILE_WITH,TRUE);
+        ui_widget_set_sensitive(MENU_FILE, AM_INVERT_SELECTION,TRUE);
+        ui_widget_set_sensitive(MENU_FILE, AM_DELETE_FILE,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_ASCENDING_FILENAME,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_FILENAME,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_ASCENDING_CREATION_DATE,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_CREATION_DATE,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_ASCENDING_TRACK_NUMBER,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_DESCENDING_TRACK_NUMBER,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_ASCENDING_TITLE,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_DESCENDING_TITLE,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_ASCENDING_ARTIST,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_DESCENDING_ARTIST,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_ASCENDING_ALBUM,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_DESCENDING_ALBUM,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_ASCENDING_YEAR,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_DESCENDING_YEAR,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_ASCENDING_GENRE,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_DESCENDING_GENRE,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_ASCENDING_COMMENT,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_DESCENDING_COMMENT,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_ASCENDING_FILE_TYPE,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_FILE_TYPE,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_ASCENDING_FILE_SIZE,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_FILE_SIZE,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_ASCENDING_FILE_DURATION,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_FILE_DURATION,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_ASCENDING_FILE_BITRATE,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_FILE_BITRATE,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_ASCENDING_FILE_SAMPLERATE,TRUE);
+        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_FILE_SAMPLERATE,TRUE);
+        ui_widget_set_sensitive (MENU_EDIT, AM_REMOVE, TRUE);
+        ui_widget_set_sensitive (MENU_EDIT, AM_SEARCH_FILE, TRUE);
+        set_action_state (self, "show-load-filenames", TRUE);
+        set_action_state (self, "show-playlist", TRUE);
+        ui_widget_set_sensitive (MENU_FILE, AM_RUN_AUDIO_PLAYER, TRUE);
+        ui_widget_set_sensitive (MENU_SCANNER_PATH,
+                                 AM_SCANNER_FILL_TAG,TRUE);
+        ui_widget_set_sensitive (MENU_SCANNER_PATH,
+                                 AM_SCANNER_RENAME_FILE, TRUE);
+        ui_widget_set_sensitive (MENU_SCANNER_PATH,
+                                 AM_SCANNER_PROCESS_FIELDS, TRUE);
+        ui_widget_set_sensitive (MENU_VIEW, AM_ARTIST_VIEW_MODE, TRUE);
+
+        /* Check if one of the selected files has undo or redo data */
+        {
+            GList *l;
+
+            selection = et_application_window_browser_get_selection (self);
+            selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
+
+            for (l = selfilelist; l != NULL; l = g_list_next (l))
+            {
+                etfile = et_application_window_browser_get_et_file_from_path (self,
+                                                                              l->data);
+                has_undo    |= ET_File_Data_Has_Undo_Data(etfile);
+                has_redo    |= ET_File_Data_Has_Redo_Data(etfile);
+                //has_to_save |= ET_Check_If_File_Is_Saved(etfile);
+                if ((has_undo && has_redo /*&& has_to_save*/) || !l->next) // Useless to check the other files
+                    break;
+            }
+
+            g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
+        }
+
+        /* Enable undo commands if there are undo data */
+        if (has_undo)
+            ui_widget_set_sensitive(MENU_FILE, AM_UNDO, TRUE);
+        else
+            ui_widget_set_sensitive(MENU_FILE, AM_UNDO, FALSE);
+
+        /* Enable redo commands if there are redo data */
+        if (has_redo)
+            ui_widget_set_sensitive(MENU_FILE, AM_REDO, TRUE);
+        else
+            ui_widget_set_sensitive(MENU_FILE, AM_REDO, FALSE);
+
+        /* Enable save file command if file has been changed */
+        // Desactivated because problem with only one file in the list, as we can't change the selected file => can't mark file as changed
+        /*if (has_to_save)
+            ui_widget_set_sensitive(MENU_FILE, AM_SAVE, FALSE);
+        else*/
+            ui_widget_set_sensitive(MENU_FILE, AM_SAVE, TRUE);
+        
+        ui_widget_set_sensitive(MENU_FILE, AM_SAVE_FORCED, TRUE);
+
+        /* Enable undo command if there are data into main undo list (history list) */
+        if (ET_History_File_List_Has_Undo_Data())
+            ui_widget_set_sensitive (MENU_EDIT, AM_UNDO_HISTORY, TRUE);
+        else
+            ui_widget_set_sensitive (MENU_EDIT, AM_UNDO_HISTORY, FALSE);
+
+        /* Enable redo commands if there are data into main redo list (history list) */
+        if (ET_History_File_List_Has_Redo_Data())
+            ui_widget_set_sensitive (MENU_EDIT, AM_REDO_HISTORY, TRUE);
+        else
+            ui_widget_set_sensitive (MENU_EDIT, AM_REDO_HISTORY, FALSE);
+
+        artist_radio = gtk_ui_manager_get_widget (UIManager,
+                                                  "/ToolBar/ArtistViewMode");
+
+        if (gtk_toggle_tool_button_get_active (GTK_TOGGLE_TOOL_BUTTON (artist_radio)))
+        {
+            ui_widget_set_sensitive (MENU_VIEW, AM_COLLAPSE_TREE, FALSE);
+            ui_widget_set_sensitive (MENU_VIEW, AM_INITIALIZE_TREE, FALSE);
+        }
+        else
+        {
+            ui_widget_set_sensitive (MENU_VIEW, AM_COLLAPSE_TREE, TRUE);
+            ui_widget_set_sensitive (MENU_VIEW, AM_INITIALIZE_TREE, TRUE);
+        }
+    }
+
+    if (!ETCore->ETFileDisplayedList->prev)    /* Is it the 1st item ? */
+    {
+        ui_widget_set_sensitive (MENU_GO, AM_PREV, FALSE);
+        ui_widget_set_sensitive (MENU_GO, AM_FIRST, FALSE);
+    }else
+    {
+        ui_widget_set_sensitive (MENU_GO, AM_PREV, TRUE);
+        ui_widget_set_sensitive (MENU_GO, AM_FIRST, TRUE);
+    }
+    if (!ETCore->ETFileDisplayedList->next)    /* Is it the last item ? */
+    {
+        ui_widget_set_sensitive (MENU_GO, AM_NEXT, FALSE);
+        ui_widget_set_sensitive (MENU_GO, AM_LAST, FALSE);
+    }else
+    {
+        ui_widget_set_sensitive (MENU_GO, AM_NEXT, TRUE);
+        ui_widget_set_sensitive (MENU_GO, AM_LAST, TRUE);
+    }
 }
 
 static void
@@ -2795,7 +3106,7 @@ et_application_window_select_all (GtkAction *action, gpointer user_data)
         ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
 
         et_browser_select_all (ET_BROWSER (priv->browser));
-        Update_Command_Buttons_Sensivity ();
+        et_application_window_update_actions (self);
     }
 }
 
@@ -3027,7 +3338,7 @@ et_application_window_invert_selection (GtkAction *action, gpointer user_data)
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
 
     et_browser_invert_selection (ET_BROWSER (priv->browser));
-    Update_Command_Buttons_Sensivity();
+    et_application_window_update_actions (self);
 }
 
 /*
@@ -3063,7 +3374,7 @@ et_application_window_select_first_file (GtkAction *action, gpointer user_data)
         ET_Display_File_Data_To_UI((ET_File *)etfilelist->data);
     }
 
-    Update_Command_Buttons_Sensivity();
+    et_application_window_update_actions (self);
     et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (self)));
 
     if (!g_settings_get_boolean (MainSettings, "tag-preserve-focus"))
@@ -3108,7 +3419,7 @@ et_application_window_select_prev_file (GtkAction *action, gpointer user_data)
 //    if (!ETFileList->prev)
 //        gdk_beep(); // Warm the user
 
-    Update_Command_Buttons_Sensivity();
+    et_application_window_update_actions (self);
     et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (self)));
 
     if (!g_settings_get_boolean (MainSettings, "tag-preserve-focus"))
@@ -3153,7 +3464,7 @@ et_application_window_select_next_file (GtkAction *acton, gpointer user_data)
 //    if (!ETFileList->next)
 //        gdk_beep(); // Warm the user
 
-    Update_Command_Buttons_Sensivity();
+    et_application_window_update_actions (self);
     et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (self)));
 
     if (!g_settings_get_boolean (MainSettings, "tag-preserve-focus"))
@@ -3195,7 +3506,7 @@ et_application_window_select_last_file (GtkAction *action, gpointer user_data)
         ET_Display_File_Data_To_UI((ET_File *)etfilelist->data);
     }
 
-    Update_Command_Buttons_Sensivity();
+    et_application_window_update_actions (self);
     et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (self)));
 
     if (!g_settings_get_boolean (MainSettings, "tag-preserve-focus"))
@@ -3211,6 +3522,7 @@ void
 et_application_window_remove_selected_tags (GtkAction *action,
                                             gpointer user_data)
 {
+    EtApplicationWindow *self;
     EtApplicationWindowPrivate *priv;
     GList *selfilelist = NULL;
     GList *l;
@@ -3223,14 +3535,15 @@ et_application_window_remove_selected_tags (GtkAction *action,
 
     g_return_if_fail (ETCore->ETFileDisplayedList != NULL);
 
-    priv = et_application_window_get_instance_private (ET_APPLICATION_WINDOW (user_data));
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
 
     /* Save the current displayed data */
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
 
     /* Initialize status bar */
     gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), 0.0);
-    selection = et_application_window_browser_get_selection (ET_APPLICATION_WINDOW (user_data));
+    selection = et_application_window_browser_get_selection (self);
     selectcount = gtk_tree_selection_count_selected_rows (selection);
     progress_bar_index = 0;
 
@@ -3253,11 +3566,11 @@ et_application_window_remove_selected_tags (GtkAction *action,
     g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
 
     /* Refresh the whole list (faster than file by file) to show changes. */
-    et_application_window_browser_refresh_list (ET_APPLICATION_WINDOW (user_data));
+    et_application_window_browser_refresh_list (self);
 
     /* Display the current file */
     ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
-    Update_Command_Buttons_Sensivity();
+    et_application_window_update_actions (self);
 
     gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), 0.0);
     Statusbar_Message(_("All tags have been removed"),TRUE);
@@ -3274,6 +3587,7 @@ void
 et_application_window_undo_selected_files (GtkAction *action,
                                            gpointer user_data)
 {
+    EtApplicationWindow *self;
     EtApplicationWindowPrivate *priv;
     GList *selfilelist = NULL;
     GList *l;
@@ -3283,12 +3597,13 @@ et_application_window_undo_selected_files (GtkAction *action,
 
     g_return_val_if_fail (ETCore->ETFileDisplayedList != NULL, FALSE);
 
-    priv = et_application_window_get_instance_private (ET_APPLICATION_WINDOW (user_data));
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
 
     /* Save the current displayed data */
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
 
-    selection = et_application_window_browser_get_selection (ET_APPLICATION_WINDOW (user_data));
+    selection = et_application_window_browser_get_selection (self);
     selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
 
     for (l = selfilelist; l != NULL; l = g_list_next (l))
@@ -3301,11 +3616,11 @@ et_application_window_undo_selected_files (GtkAction *action,
     g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
 
     /* Refresh the whole list (faster than file by file) to show changes. */
-    et_application_window_browser_refresh_list (ET_APPLICATION_WINDOW (user_data));
+    et_application_window_browser_refresh_list (self);
 
     /* Display the current file */
     ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
-    Update_Command_Buttons_Sensivity();
+    et_application_window_update_actions (self);
 
     //ET_Debug_Print_File_List(ETCore->ETFileList,__FILE__,__LINE__,__FUNCTION__);
 }
@@ -3525,8 +3840,8 @@ et_application_window_delete_selected_files (GtkAction *action,
             case -1:
                 // Stop deleting files + reinit progress bar
                 gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar),0.0);
-                // To update state of command buttons
-                Update_Command_Buttons_Sensivity();
+                /* To update state of command buttons. */
+                et_application_window_update_actions (self);
                 et_application_window_browser_set_sensitive (self, TRUE);
                 et_application_window_tag_area_set_sensitive (self, TRUE);
                 et_application_window_file_area_set_sensitive (self, TRUE);
@@ -3555,7 +3870,7 @@ et_application_window_delete_selected_files (GtkAction *action,
     et_browser_toggle_display_mode (ET_BROWSER (priv->browser));
 
     /* To update state of command buttons */
-    Update_Command_Buttons_Sensivity();
+    et_application_window_update_actions (self);
     et_application_window_browser_set_sensitive (self, TRUE);
     et_application_window_tag_area_set_sensitive (self, TRUE);
     et_application_window_file_area_set_sensitive (self, TRUE);
