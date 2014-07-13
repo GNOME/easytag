@@ -1870,6 +1870,163 @@ on_go_default (GSimpleAction *action,
     et_browser_load_default_dir (ET_BROWSER (priv->browser));
 }
 
+static void
+on_go_first (GSimpleAction *action,
+             GVariant *variant,
+             gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self;
+    GList *etfilelist;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
+
+    if (!ETCore->ETFileDisplayedList)
+        return;
+
+    /* Save the current displayed data */
+    ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+
+    /* Go to the first item of the list */
+    etfilelist = ET_Displayed_File_List_First ();
+
+    if (etfilelist)
+    {
+        /* To avoid the last line still selected. */
+        et_browser_unselect_all (ET_BROWSER (priv->browser));
+        et_application_window_browser_select_file_by_et_file (self,
+                                                              (ET_File *)etfilelist->data,
+                                                              TRUE);
+        ET_Display_File_Data_To_UI ((ET_File *)etfilelist->data);
+    }
+
+    et_application_window_update_actions (self);
+    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (self)));
+
+    if (!g_settings_get_boolean (MainSettings, "tag-preserve-focus"))
+    {
+        gtk_widget_grab_focus (GTK_WIDGET (TitleEntry));
+    }
+}
+
+static void
+on_go_previous (GSimpleAction *action,
+                GVariant *variant,
+                gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self;
+    GList *etfilelist;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
+
+    if (!ETCore->ETFileDisplayedList || !ETCore->ETFileDisplayedList->prev)
+        return;
+
+    /* Save the current displayed data */
+    ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+
+    /* Go to the prev item of the list */
+    etfilelist = ET_Displayed_File_List_Previous ();
+
+    if (etfilelist)
+    {
+        et_browser_unselect_all (ET_BROWSER (priv->browser));
+        et_application_window_browser_select_file_by_et_file (self,
+                                                              (ET_File *)etfilelist->data,
+                                                              TRUE);
+        ET_Display_File_Data_To_UI((ET_File *)etfilelist->data);
+    }
+
+    et_application_window_update_actions (self);
+    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (self)));
+
+    if (!g_settings_get_boolean (MainSettings, "tag-preserve-focus"))
+    {
+        gtk_widget_grab_focus (GTK_WIDGET (TitleEntry));
+    }
+}
+
+static void
+on_go_next (GSimpleAction *action,
+            GVariant *variant,
+            gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self;
+    GList *etfilelist;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
+
+    if (!ETCore->ETFileDisplayedList || !ETCore->ETFileDisplayedList->next)
+        return;
+
+    /* Save the current displayed data */
+    ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+
+    /* Go to the next item of the list */
+    etfilelist = ET_Displayed_File_List_Next ();
+
+    if (etfilelist)
+    {
+        et_browser_unselect_all (ET_BROWSER (priv->browser));
+        et_application_window_browser_select_file_by_et_file (self,
+                                                              (ET_File *)etfilelist->data,
+                                                              TRUE);
+        ET_Display_File_Data_To_UI((ET_File *)etfilelist->data);
+    }
+
+    et_application_window_update_actions (self);
+    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (self)));
+
+    if (!g_settings_get_boolean (MainSettings, "tag-preserve-focus"))
+    {
+        gtk_widget_grab_focus (GTK_WIDGET (TitleEntry));
+    }
+}
+
+static void
+on_go_last (GSimpleAction *action,
+            GVariant *variant,
+            gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self;
+    GList *etfilelist;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
+
+    if (!ETCore->ETFileDisplayedList || !ETCore->ETFileDisplayedList->next)
+        return;
+
+    /* Save the current displayed data */
+    ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+
+    /* Go to the last item of the list */
+    etfilelist = ET_Displayed_File_List_Last ();
+
+    if (etfilelist)
+    {
+        et_browser_unselect_all (ET_BROWSER (priv->browser));
+        et_application_window_browser_select_file_by_et_file (self,
+                                                              (ET_File *)etfilelist->data,
+                                                              TRUE);
+        ET_Display_File_Data_To_UI ((ET_File *)etfilelist->data);
+    }
+
+    et_application_window_update_actions (self);
+    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (self)));
+
+    if (!g_settings_get_boolean (MainSettings, "tag-preserve-focus"))
+    {
+        gtk_widget_grab_focus (GTK_WIDGET (TitleEntry));
+    }
+}
+
 static const GActionEntry actions[] =
 {
     /* Miscellaneous menu. */
@@ -1884,6 +2041,10 @@ static const GActionEntry actions[] =
     { "go-music", on_go_music },
     { "go-parent", on_go_parent },
     { "go-default", on_go_default },
+    { "go-first", on_go_first },
+    { "go-previous", on_go_previous },
+    { "go-next", on_go_next },
+    { "go-last", on_go_last },
 };
 
 static void
@@ -2376,19 +2537,6 @@ et_application_window_select_dir (EtApplicationWindow *self, const gchar *path)
 }
 
 void
-et_application_window_load_default_dir (G_GNUC_UNUSED GtkAction *action,
-                                        gpointer user_data)
-{
-    EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
-
-    priv = et_application_window_get_instance_private (self);
-
-    et_browser_load_default_dir (ET_BROWSER (priv->browser));
-}
-
-
-void
 et_application_window_set_current_path_default (G_GNUC_UNUSED GtkAction *action,
                                                 gpointer user_data)
 {
@@ -2627,6 +2775,49 @@ set_action_state (EtApplicationWindow *self,
     g_simple_action_set_enabled (action, enabled);
 }
 
+/* et_application_window_disable_command_actions:
+ * Disable buttons when saving files (do not disable Quit button).
+ */
+void
+et_application_window_disable_command_actions (EtApplicationWindow *self)
+{
+    GtkDialog *dialog;
+
+    dialog = GTK_DIALOG (et_application_window_get_scan_dialog (self));
+
+    /* Scanner Window */
+    if (dialog)
+    {
+        gtk_dialog_set_response_sensitive (dialog, GTK_RESPONSE_APPLY, FALSE);
+    }
+
+    /* "File" menu commands */
+    ui_widget_set_sensitive(MENU_FILE,AM_OPEN_FILE_WITH,FALSE);
+    ui_widget_set_sensitive(MENU_FILE,AM_INVERT_SELECTION,FALSE);
+    ui_widget_set_sensitive(MENU_FILE,AM_DELETE_FILE,FALSE);
+    set_action_state (self, "go-first", FALSE);
+    set_action_state (self, "go-previous", FALSE);
+    set_action_state (self, "go-next", FALSE);
+    set_action_state (self, "go-last", FALSE);
+    ui_widget_set_sensitive (MENU_EDIT, AM_REMOVE, FALSE);
+    ui_widget_set_sensitive(MENU_FILE,AM_UNDO,FALSE);
+    ui_widget_set_sensitive(MENU_FILE,AM_REDO,FALSE);
+    ui_widget_set_sensitive(MENU_FILE,AM_SAVE,FALSE);
+    ui_widget_set_sensitive(MENU_FILE,AM_SAVE_FORCED,FALSE);
+    ui_widget_set_sensitive (MENU_EDIT, AM_UNDO_HISTORY, FALSE);
+    ui_widget_set_sensitive (MENU_EDIT, AM_REDO_HISTORY, FALSE);
+
+    /* "Scanner" menu commands */
+    ui_widget_set_sensitive (MENU_SCANNER_PATH, AM_SCANNER_FILL_TAG,
+                             FALSE);
+    ui_widget_set_sensitive (MENU_SCANNER_PATH,
+                             AM_SCANNER_RENAME_FILE, FALSE);
+    ui_widget_set_sensitive (MENU_SCANNER_PATH,
+                             AM_SCANNER_PROCESS_FIELDS, FALSE);
+
+}
+
+
 /* et_application_window_update_actions:
  * Set to sensitive/unsensitive the state of each button into
  * the commands area and menu items in function of state of the "main list".
@@ -2690,10 +2881,10 @@ et_application_window_update_actions (EtApplicationWindow *self)
         ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_DESCENDING_FILE_BITRATE,FALSE);
         ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_ASCENDING_FILE_SAMPLERATE,FALSE);
         ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_DESCENDING_FILE_SAMPLERATE,FALSE);
-        ui_widget_set_sensitive (MENU_GO, AM_PREV, FALSE);
-        ui_widget_set_sensitive (MENU_GO, AM_NEXT, FALSE);
-        ui_widget_set_sensitive (MENU_GO, AM_FIRST, FALSE);
-        ui_widget_set_sensitive (MENU_GO, AM_LAST, FALSE);
+        set_action_state (self, "go-previous", FALSE);
+        set_action_state (self, "go-next", FALSE);
+        set_action_state (self, "go-first", FALSE);
+        set_action_state (self, "go-last", FALSE);
         ui_widget_set_sensitive (MENU_EDIT, AM_REMOVE, FALSE);
         ui_widget_set_sensitive(MENU_FILE, AM_UNDO, FALSE);
         ui_widget_set_sensitive(MENU_FILE, AM_REDO, FALSE);
@@ -2855,21 +3046,24 @@ et_application_window_update_actions (EtApplicationWindow *self)
 
     if (!ETCore->ETFileDisplayedList->prev)    /* Is it the 1st item ? */
     {
-        ui_widget_set_sensitive (MENU_GO, AM_PREV, FALSE);
-        ui_widget_set_sensitive (MENU_GO, AM_FIRST, FALSE);
-    }else
-    {
-        ui_widget_set_sensitive (MENU_GO, AM_PREV, TRUE);
-        ui_widget_set_sensitive (MENU_GO, AM_FIRST, TRUE);
+        set_action_state (self, "go-previous", FALSE);
+        set_action_state (self, "go-first", FALSE);
     }
+    else
+    {
+        set_action_state (self, "go-previous", TRUE);
+        set_action_state (self, "go-first", TRUE);
+    }
+
     if (!ETCore->ETFileDisplayedList->next)    /* Is it the last item ? */
     {
-        ui_widget_set_sensitive (MENU_GO, AM_NEXT, FALSE);
-        ui_widget_set_sensitive (MENU_GO, AM_LAST, FALSE);
-    }else
+        set_action_state (self, "go-next", FALSE);
+        set_action_state (self, "go-last", FALSE);
+    }
+    else
     {
-        ui_widget_set_sensitive (MENU_GO, AM_NEXT, TRUE);
-        ui_widget_set_sensitive (MENU_GO, AM_LAST, TRUE);
+        set_action_state (self, "go-next", TRUE);
+        set_action_state (self, "go-last", TRUE);
     }
 }
 
@@ -3361,180 +3555,6 @@ et_application_window_invert_selection (GtkAction *action, gpointer user_data)
 }
 
 /*
- * Action when First button is selected
- */
-void
-et_application_window_select_first_file (GtkAction *action, gpointer user_data)
-{
-    EtApplicationWindow *self;
-    GList *etfilelist;
-
-    if (!ETCore->ETFileDisplayedList)
-        return;
-
-    self = ET_APPLICATION_WINDOW (user_data);
-
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
-
-    /* Go to the first item of the list */
-    etfilelist = ET_Displayed_File_List_First();
-    if (etfilelist)
-    {
-        EtApplicationWindowPrivate *priv;
-
-        priv = et_application_window_get_instance_private (self);
-
-        /* To avoid the last line still selected. */
-        et_browser_unselect_all (ET_BROWSER (priv->browser));
-        et_application_window_browser_select_file_by_et_file (self,
-                                                              (ET_File *)etfilelist->data,
-                                                              TRUE);
-        ET_Display_File_Data_To_UI((ET_File *)etfilelist->data);
-    }
-
-    et_application_window_update_actions (self);
-    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (self)));
-
-    if (!g_settings_get_boolean (MainSettings, "tag-preserve-focus"))
-    {
-        gtk_widget_grab_focus (GTK_WIDGET (TitleEntry));
-    }
-}
-
-
-/*
- * Action when Prev button is selected
- */
-void
-et_application_window_select_prev_file (GtkAction *action, gpointer user_data)
-{
-    EtApplicationWindow *self;
-    GList *etfilelist;
-
-    if (!ETCore->ETFileDisplayedList || !ETCore->ETFileDisplayedList->prev)
-        return;
-
-    self = ET_APPLICATION_WINDOW (user_data);
-
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
-
-    /* Go to the prev item of the list */
-    etfilelist = ET_Displayed_File_List_Previous();
-    if (etfilelist)
-    {
-        EtApplicationWindowPrivate *priv;
-
-        priv = et_application_window_get_instance_private (self);
-
-        et_browser_unselect_all (ET_BROWSER (priv->browser));
-        et_application_window_browser_select_file_by_et_file (self,
-                                                              (ET_File *)etfilelist->data,
-                                                              TRUE);
-        ET_Display_File_Data_To_UI((ET_File *)etfilelist->data);
-    }
-
-//    if (!ETFileList->prev)
-//        gdk_beep(); // Warm the user
-
-    et_application_window_update_actions (self);
-    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (self)));
-
-    if (!g_settings_get_boolean (MainSettings, "tag-preserve-focus"))
-    {
-        gtk_widget_grab_focus (GTK_WIDGET (TitleEntry));
-    }
-}
-
-
-/*
- * Action when Next button is selected
- */
-void
-et_application_window_select_next_file (GtkAction *acton, gpointer user_data)
-{
-    EtApplicationWindow *self;
-    GList *etfilelist;
-
-    if (!ETCore->ETFileDisplayedList || !ETCore->ETFileDisplayedList->next)
-        return;
-
-    self = ET_APPLICATION_WINDOW (user_data);
-
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
-
-    /* Go to the next item of the list */
-    etfilelist = ET_Displayed_File_List_Next();
-    if (etfilelist)
-    {
-        EtApplicationWindowPrivate *priv;
-
-        priv = et_application_window_get_instance_private (self);
-
-        et_browser_unselect_all (ET_BROWSER (priv->browser));
-        et_application_window_browser_select_file_by_et_file (self,
-                                                              (ET_File *)etfilelist->data,
-                                                              TRUE);
-        ET_Display_File_Data_To_UI((ET_File *)etfilelist->data);
-    }
-
-//    if (!ETFileList->next)
-//        gdk_beep(); // Warm the user
-
-    et_application_window_update_actions (self);
-    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (self)));
-
-    if (!g_settings_get_boolean (MainSettings, "tag-preserve-focus"))
-    {
-        gtk_widget_grab_focus (GTK_WIDGET (TitleEntry));
-    }
-}
-
-
-/*
- * Action when Last button is selected
- */
-void
-et_application_window_select_last_file (GtkAction *action, gpointer user_data)
-{
-    EtApplicationWindow *self;
-    GList *etfilelist;
-
-    if (!ETCore->ETFileDisplayedList || !ETCore->ETFileDisplayedList->next)
-        return;
-
-    self = ET_APPLICATION_WINDOW (user_data);
-
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
-
-    /* Go to the last item of the list */
-    etfilelist = ET_Displayed_File_List_Last();
-    if (etfilelist)
-    {
-        EtApplicationWindowPrivate *priv;
-
-        priv = et_application_window_get_instance_private (self);
-
-        et_browser_unselect_all (ET_BROWSER (priv->browser));
-        et_application_window_browser_select_file_by_et_file (self,
-                                                              (ET_File *)etfilelist->data,
-                                                              TRUE);
-        ET_Display_File_Data_To_UI((ET_File *)etfilelist->data);
-    }
-
-    et_application_window_update_actions (self);
-    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (self)));
-
-    if (!g_settings_get_boolean (MainSettings, "tag-preserve-focus"))
-    {
-        gtk_widget_grab_focus (GTK_WIDGET (TitleEntry));
-    }
-}
-
-/*
  * Action when Remove button is pressed
  */
 void
@@ -3793,7 +3813,7 @@ et_application_window_delete_selected_files (GtkAction *action,
     gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), progress_bar_text);
 
     /* Set to unsensitive all command buttons (except Quit button) */
-    Disable_Command_Buttons();
+    et_application_window_disable_command_actions (self);
     et_application_window_browser_set_sensitive (self, FALSE);
     et_application_window_tag_area_set_sensitive (self, FALSE);
     et_application_window_file_area_set_sensitive (self, FALSE);

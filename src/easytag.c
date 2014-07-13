@@ -641,7 +641,7 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
     gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), progress_bar_text);
 
     /* Set to unsensitive all command buttons (except Quit button) */
-    Disable_Command_Buttons();
+    et_application_window_disable_command_actions (window);
     et_application_window_browser_set_sensitive (window, FALSE);
     et_application_window_tag_area_set_sensitive (window, FALSE);
     et_application_window_file_area_set_sensitive (window, FALSE);
@@ -1597,69 +1597,6 @@ void Action_Main_Stop_Button_Pressed (void)
     g_object_set(uiaction, "sensitive", FALSE, NULL);
 }
 
-static void
-ui_widget_set_sensitive (const gchar *menu, const gchar *action, gboolean sensitive)
-{
-    GtkAction *uiaction;
-    gchar *path;
-
-    path = g_strconcat("/MenuBar/", menu,"/", action, NULL);
-
-    uiaction = gtk_ui_manager_get_action(UIManager, path);
-    if (uiaction)
-    {
-        gtk_action_set_sensitive (uiaction, sensitive);
-    }
-    else
-    {
-        g_warning ("Action not found for path '%s'", path);
-    }
-    g_free(path);
-}
-
-/*
- * Just to disable buttons when we are saving files (do not disable Quit button)
- */
-void
-Disable_Command_Buttons (void)
-{
-    GtkDialog *dialog;
-
-    dialog = GTK_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (MainWindow)));
-
-    /* Scanner Window */
-    if (dialog)
-    {
-        gtk_dialog_set_response_sensitive (dialog, GTK_RESPONSE_APPLY, FALSE);
-    }
-
-    /* "File" menu commands */
-    ui_widget_set_sensitive(MENU_FILE,AM_OPEN_FILE_WITH,FALSE);
-    ui_widget_set_sensitive(MENU_FILE,AM_INVERT_SELECTION,FALSE);
-    ui_widget_set_sensitive(MENU_FILE,AM_DELETE_FILE,FALSE);
-    ui_widget_set_sensitive (MENU_GO, AM_FIRST, FALSE);
-    ui_widget_set_sensitive (MENU_GO, AM_PREV, FALSE);
-    ui_widget_set_sensitive (MENU_GO, AM_NEXT, FALSE);
-    ui_widget_set_sensitive (MENU_GO, AM_LAST, FALSE);
-    ui_widget_set_sensitive (MENU_EDIT, AM_REMOVE, FALSE);
-    ui_widget_set_sensitive(MENU_FILE,AM_UNDO,FALSE);
-    ui_widget_set_sensitive(MENU_FILE,AM_REDO,FALSE);
-    ui_widget_set_sensitive(MENU_FILE,AM_SAVE,FALSE);
-    ui_widget_set_sensitive(MENU_FILE,AM_SAVE_FORCED,FALSE);
-    ui_widget_set_sensitive (MENU_EDIT, AM_UNDO_HISTORY, FALSE);
-    ui_widget_set_sensitive (MENU_EDIT, AM_REDO_HISTORY, FALSE);
-
-    /* "Scanner" menu commands */
-    ui_widget_set_sensitive (MENU_SCANNER_PATH, AM_SCANNER_FILL_TAG,
-                             FALSE);
-    ui_widget_set_sensitive (MENU_SCANNER_PATH,
-                             AM_SCANNER_RENAME_FILE, FALSE);
-    ui_widget_set_sensitive (MENU_SCANNER_PATH,
-                             AM_SCANNER_PROCESS_FIELDS, FALSE);
-
-}
-
-
 /*
  * Load the default directory when the user interface is completely displayed
  * to avoid bad visualization effect at startup.
@@ -1687,8 +1624,8 @@ Init_Load_Default_Dir (void)
     else
     {
         Statusbar_Message(_("Select a directory to browse"),FALSE);
-        et_application_window_load_default_dir (NULL,
-	                                        ET_APPLICATION_WINDOW (MainWindow));
+        g_action_group_activate_action (G_ACTION_GROUP (MainWindow),
+                                        "go-default", NULL);
     }
 
     /* Set sensitivity of buttons if the default directory is invalid. */

@@ -152,13 +152,6 @@ static const gchar *ui_xml =
 "      <menuitem action='BrowseSubdir' />"
 "    </menu>"
 
-"    <menu action='GoMenu'>"
-"      <menuitem action='FirstFile' />"
-"      <menuitem action='PreviousFile' />"
-"      <menuitem action='NextFile' />"
-"      <menuitem action='LastFile' />"
-"    </menu>"
-
 "  </menubar>"
 
 
@@ -166,12 +159,6 @@ static const gchar *ui_xml =
  * Tool bar
  */
 "  <toolbar name='ToolBar'>"
-"    <toolitem action='FirstFile'/>"
-"    <toolitem action='PreviousFile'/>"
-"    <toolitem action='NextFile'/>"
-"    <toolitem action='LastFile'/>"
-"    <separator />"
-
 "    <toolitem action='ShowScanner'/>"
 "    <toolitem action='RemoveTag'/>"
 "    <toolitem action='UndoFile'/>"

@@ -36,7 +36,6 @@ GtkWidget *CheckMenuItemBrowseHiddenDirMainMenu;
 #define MENU_FILE       "FileMenu"
 #define MENU_EDIT "EditMenu"
 #define MENU_VIEW "ViewMenu"
-#define MENU_GO "GoMenu"
 #define MENU_BROWSER    "BrowserMenu"
 #define MENU_SCANNER    "ScannerMenu"
 
@@ -52,10 +51,6 @@ GtkWidget *CheckMenuItemBrowseHiddenDirMainMenu;
 #define POPUP_DIR_RUN_AUDIO     "DirPopupRunAudio"
 #define POPUP_LOG               "LogPopup"
 
-#define AM_PREV                     "PreviousFile"
-#define AM_NEXT                     "NextFile"
-#define AM_FIRST                    "FirstFile"
-#define AM_LAST                     "LastFile"
 #define AM_SCAN_FILES "ScanFiles"
 #define AM_REMOVE                   "RemoveTag"
 #define AM_UNDO                     "UndoFile"

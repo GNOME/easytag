@@ -49,6 +49,7 @@ GType et_application_window_get_type (void);
 EtApplicationWindow *et_application_window_new (GtkApplication *application);
 void et_application_window_tag_area_set_sensitive (EtApplicationWindow *self, gboolean sensitive);
 void et_application_window_file_area_set_sensitive (EtApplicationWindow *self, gboolean sensitive);
+void et_application_window_disable_command_actions (EtApplicationWindow *self);
 void et_application_window_update_actions (EtApplicationWindow *self);
 void et_application_window_tag_area_display_controls (EtApplicationWindow *self, ET_File *ETFile);
 GtkWidget * et_application_window_get_log_area (EtApplicationWindow *self);
@@ -72,7 +73,6 @@ void et_application_window_run_player_for_artist_list (GtkAction *action, gpoint
 void et_application_window_run_player_for_selection (GtkAction *action, gpointer user_data);
 void et_application_window_reload_directory (GtkAction *action, gpointer user_data);
 void et_application_window_select_dir (EtApplicationWindow *self, const gchar *path);
-void et_application_window_load_default_dir (GtkAction *action, gpointer user_data);
 void et_application_window_set_current_path_default (GtkAction *action, gpointer user_data);
 const gchar * et_application_window_get_current_path (EtApplicationWindow *self);
 void et_application_window_show_open_directory_with_dialog (GtkAction *action, gpointer user_data);
@@ -101,10 +101,6 @@ void et_application_window_browser_refresh_file_in_list (EtApplicationWindow *se
 void et_application_window_browser_refresh_sort (EtApplicationWindow *self);
 void et_application_window_unselect_all (GtkAction *action, gpointer user_data);
 void et_application_window_invert_selection (GtkAction *action, gpointer user_data);
-void et_application_window_select_prev_file (GtkAction *action, gpointer user_data);
-void et_application_window_select_next_file (GtkAction *action, gpointer user_data);
-void et_application_window_select_first_file (GtkAction *action, gpointer user_data);
-void et_application_window_select_last_file (GtkAction *action, gpointer user_data);
 void et_application_window_delete_selected_files (GtkAction *action, gpointer user_data);
 void et_application_window_remove_selected_tags (GtkAction *action, gpointer user_data);
 void et_application_window_undo_selected_files (GtkAction *action, gpointer user_data);

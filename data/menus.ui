@@ -373,18 +373,22 @@
             </section>
             <section>
             <item>
+                <attribute name="accel">&lt;Primary&gt;Home</attribute>
                 <attribute name="action">win.go-first</attribute>
                 <attribute name="label" translatable="yes">First File</attribute>
             </item>
             <item>
+                <attribute name="accel">Page_Up</attribute>
                 <attribute name="action">win.go-previous</attribute>
                 <attribute name="label" translatable="yes">Previous File</attribute>
             </item>
             <item>
+                <attribute name="accel">Page_Down</attribute>
                 <attribute name="action">win.go-next</attribute>
                 <attribute name="label" translatable="yes">_Next File</attribute>
             </item>
             <item>
+                <attribute name="accel">&lt;Primary&gt;End</attribute>
                 <attribute name="action">win.go-last</attribute>
                 <attribute name="label" translatable="yes">_Last File</attribute>
             </item>

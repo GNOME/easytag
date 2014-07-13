@@ -3441,7 +3441,7 @@ et_scan_dialog_scan_selected_files (EtScanDialog *self)
     gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), progress_bar_text);
 
     /* Set to unsensitive all command buttons (except Quit button) */
-    Disable_Command_Buttons();
+    et_application_window_disable_command_actions (ET_APPLICATION_WINDOW (MainWindow));
 
     progress_bar_index = 0;
 

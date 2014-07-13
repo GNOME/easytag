@@ -101,7 +101,6 @@ gboolean ReadingDirectory;
 /**************
  * Prototypes *
  **************/
-void Disable_Command_Buttons (void);
 void Action_Invert_Files_Selection      (void);
 void Action_Select_Nth_File_By_Position (gulong num_item);
 void Action_Select_Nth_File_By_Etfile   (ET_File *ETFile);

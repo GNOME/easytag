@@ -224,18 +224,6 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { AM_DELETE_FILE, GTK_STOCK_DELETE, _("Delete Files"), NULL,
           _("Delete files"),
           G_CALLBACK (et_application_window_delete_selected_files) },
-        { AM_FIRST, GTK_STOCK_GOTO_FIRST, _("_First File"), "<Primary>Home",
-          _("First file"),
-          G_CALLBACK (et_application_window_select_first_file) },
-        { AM_PREV, GTK_STOCK_GO_BACK, _("_Previous File"), "Page_Up",
-          _("Previous file"),
-          G_CALLBACK (et_application_window_select_prev_file) },
-        { AM_NEXT, GTK_STOCK_GO_FORWARD, _("_Next File"), "Page_Down",
-          _("Next file"),
-          G_CALLBACK (et_application_window_select_next_file) },
-        { AM_LAST, GTK_STOCK_GOTO_LAST, _("_Last File"), "<Primary>End",
-          _("Last file"),
-          G_CALLBACK (et_application_window_select_last_file) },
         { AM_SCAN_FILES, GTK_STOCK_APPLY, _("S_can Files"), NULL,
           _("Scan selected files"),
           G_CALLBACK (et_application_window_scan_selected_files) },
@@ -296,7 +284,6 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
           G_CALLBACK (et_application_window_show_preferences_dialog) },
 
         { MENU_VIEW, NULL, _("_View"), NULL, NULL, NULL },
-        { MENU_GO, NULL, _("_Go"), NULL, NULL, NULL },
 
 
         /*
