@@ -152,106 +152,158 @@
                 <attribute name="label" translatable="yes">Sort List by Tag</attribute>
                 <section>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Ascending by track number</attribute>
+                        <attribute name="target">ascending-track-number</attribute>
                     </item>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Descending by track number</attribute>
+                        <attribute name="target">descending-track-number</attribute>
                     </item>
                 </section>
                 <section>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Ascending by title</attribute>
+                        <attribute name="target">ascending-title</attribute>
                     </item>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Descending by title</attribute>
+                        <attribute name="target">descending-title</attribute>
                     </item>
                 </section>
                 <section>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Ascending by artist</attribute>
+                        <attribute name="target">ascending-artist</attribute>
                     </item>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Descending by artist</attribute>
+                        <attribute name="target">descending-artist</attribute>
                     </item>
                 </section>
                 <section>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Ascending by album artist</attribute>
+                        <attribute name="target">ascending-album-artist</attribute>
                     </item>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Descending by album artist</attribute>
+                        <attribute name="target">descending-album-artist</attribute>
                     </item>
                 </section>
                 <section>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Ascending by album</attribute>
+                        <attribute name="target">ascending-album</attribute>
                     </item>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Descending by album</attribute>
+                        <attribute name="target">descending-album</attribute>
                     </item>
                 </section>
                 <section>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Ascending by year</attribute>
+                        <attribute name="target">ascending-year</attribute>
                     </item>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Descending by year</attribute>
+                        <attribute name="target">descending-year</attribute>
                     </item>
                 </section>
                 <section>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Ascending by genre</attribute>
+                        <attribute name="target">ascending-genre</attribute>
                     </item>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Descending by genre</attribute>
+                        <attribute name="target">descending-genre</attribute>
                     </item>
                 </section>
                 <section>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Ascending by comment</attribute>
+                        <attribute name="target">ascending-comment</attribute>
                     </item>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Descending by comment</attribute>
+                        <attribute name="target">descending-comment</attribute>
                     </item>
                 </section>
                 <section>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Ascending by composer</attribute>
+                        <attribute name="target">ascending-composer</attribute>
                     </item>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Descending by composer</attribute>
+                        <attribute name="target">descending-composer</attribute>
                     </item>
                 </section>
                 <section>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Ascending by original artist</attribute>
+                        <attribute name="target">ascending-orig-artist</attribute>
                     </item>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Descending by original artist</attribute>
+                        <attribute name="target">descending-orig-artist</attribute>
                     </item>
                 </section>
                 <section>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Ascending by copyright</attribute>
+                        <attribute name="target">ascending-copyright</attribute>
                     </item>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Descending by copyright</attribute>
+                        <attribute name="target">descending-copyright</attribute>
                     </item>
                 </section>
                 <section>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Ascending by URL</attribute>
+                        <attribute name="target">ascending-url</attribute>
                     </item>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Descending by URL</attribute>
+                        <attribute name="target">descending-url</attribute>
                     </item>
                 </section>
                 <section>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Ascending by encoder name</attribute>
+                        <attribute name="target">ascending-encoded-by</attribute>
                     </item>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Descending by encoder name</attribute>
+                        <attribute name="target">descending-encoded-by</attribute>
                     </item>
                 </section>
             </submenu>
@@ -259,58 +311,86 @@
                 <attribute name="label" translatable="yes">Sort List by Property</attribute>
                 <section>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Ascending by filename</attribute>
+                        <attribute name="target">ascending-filename</attribute>
                     </item>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Descending by filename</attribute>
+                        <attribute name="target">descending-filename</attribute>
                     </item>
                 </section>
                 <section>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Ascending by creation date</attribute>
+                        <attribute name="target">ascending-creation-date</attribute>
                     </item>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Descending by creation date</attribute>
+                        <attribute name="target">descending-creation-date</attribute>
                     </item>
                 </section>
                 <section>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Ascending by file type</attribute>
+                        <attribute name="target">ascending-file-type</attribute>
                     </item>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Descending by file type</attribute>
+                        <attribute name="target">descending-file-type</attribute>
                     </item>
                 </section>
                 <section>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Ascending by file size</attribute>
+                        <attribute name="target">ascending-file-size</attribute>
                     </item>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Descending by file size</attribute>
+                        <attribute name="target">descending-file-size</attribute>
                     </item>
                 </section>
                 <section>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Ascending by duration</attribute>
+                        <attribute name="target">ascending-file-duration</attribute>
                     </item>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Descending by duration</attribute>
+                        <attribute name="target">descending-file-duration</attribute>
                     </item>
                 </section>
                 <section>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Ascending by bitrate</attribute>
+                        <attribute name="target">ascending-file-bitrate</attribute>
                     </item>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Descending by bitrate</attribute>
+                        <attribute name="target">descending-file-bitrate</attribute>
                     </item>
                 </section>
                 <section>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Ascending by samplerate</attribute>
+                        <attribute name="target">ascending-file-samplerate</attribute>
                     </item>
                     <item>
+                        <attribute name="action">win.sort-mode</attribute>
                         <attribute name="label" translatable="yes">Descending by samplerate</attribute>
+                        <attribute name="target">descending-file-samplerate</attribute>
                     </item>
                 </section>
             </submenu>

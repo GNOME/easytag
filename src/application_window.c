@@ -2829,7 +2829,8 @@ static const GActionEntry actions[] =
     { "scanner", on_action_toggle, NULL, "false", on_scanner_change },
     /* { "scan-mode", on_action_radio, NULL, "false", on_scan_mode_change },
      * Created from GSetting. */
-    /* FIXME: Sorting submenus. */
+    /* { "sort-mode", on_action_radio, "s", "'ascending-filename'",
+     * on_sort_mode_change }, Created from GSetting */
     { "file-artist-view", on_action_radio, "s", "'file'",
       on_file_artist_view_change },
     { "collapse-tree", on_collapse_tree },
@@ -2941,6 +2942,9 @@ et_application_window_init (EtApplicationWindow *self)
     action = g_settings_create_action (MainSettings, "scan-mode");
     g_action_map_add_action (G_ACTION_MAP (self), action);
     g_object_unref (action);
+    action = g_settings_create_action (MainSettings, "sort-mode");
+    g_action_map_add_action (G_ACTION_MAP (self), action);
+    g_object_unref (action);
 
     window = GTK_WINDOW (self);
 
@@ -2957,14 +2961,12 @@ et_application_window_init (EtApplicationWindow *self)
 
     /* Menu bar and tool bar. */
     {
-        GtkWidget *menu_area;
         GtkWidget *tool_area;
         GtkBuilder *builder;
         GError *error = NULL;
         GtkWidget *toolbar;
 
-        Create_UI (window, &menu_area, &tool_area);
-        gtk_box_pack_start (GTK_BOX (main_vbox), menu_area, FALSE, FALSE, 0);
+        tool_area = create_main_toolbar (window);
         gtk_box_pack_start (GTK_BOX (main_vbox), tool_area, FALSE, FALSE, 0);
 
         builder = gtk_builder_new ();
@@ -3395,30 +3397,6 @@ et_application_window_file_area_set_sensitive (EtApplicationWindow *self,
 }
 
 static void
-ui_widget_set_sensitive (const gchar *menu,
-                         const gchar *action,
-                         gboolean sensitive)
-{
-    GtkAction *uiaction;
-    gchar *path;
-
-    path = g_strconcat ("/MenuBar/", menu,"/", action, NULL);
-
-    uiaction = gtk_ui_manager_get_action (UIManager, path);
-
-    if (uiaction)
-    {
-        gtk_action_set_sensitive (uiaction, sensitive);
-    }
-    else
-    {
-        g_warning ("Action not found for path '%s'", path);
-    }
-
-    g_free (path);
-}
-
-static void
 set_action_state (EtApplicationWindow *self,
                   const gchar *action_name,
                   gboolean enabled)
@@ -3509,34 +3487,7 @@ et_application_window_update_actions (EtApplicationWindow *self)
         set_action_state (self, "open-with", FALSE);
         set_action_state (self, "invert-selection", FALSE);
         set_action_state (self, "delete", FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_ASCENDING_FILENAME, FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_DESCENDING_FILENAME,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_ASCENDING_CREATION_DATE,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_DESCENDING_CREATION_DATE,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_ASCENDING_TRACK_NUMBER,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_DESCENDING_TRACK_NUMBER,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_ASCENDING_TITLE,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_DESCENDING_TITLE,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_ASCENDING_ARTIST,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_DESCENDING_ARTIST,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_ASCENDING_ALBUM,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_DESCENDING_ALBUM,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_ASCENDING_YEAR,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_DESCENDING_YEAR,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_ASCENDING_GENRE,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_DESCENDING_GENRE,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_ASCENDING_COMMENT,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH, AM_SORT_DESCENDING_COMMENT,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_ASCENDING_FILE_TYPE,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_DESCENDING_FILE_TYPE,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_ASCENDING_FILE_SIZE,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_DESCENDING_FILE_SIZE,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_ASCENDING_FILE_DURATION,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_DESCENDING_FILE_DURATION,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_ASCENDING_FILE_BITRATE,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_DESCENDING_FILE_BITRATE,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_ASCENDING_FILE_SAMPLERATE,FALSE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH, AM_SORT_DESCENDING_FILE_SAMPLERATE,FALSE);
+        /* FIXME: set_action_state (self, "sort-mode", FALSE); */
         set_action_state (self, "go-previous", FALSE);
         set_action_state (self, "go-next", FALSE);
         set_action_state (self, "go-first", FALSE);
@@ -3584,34 +3535,7 @@ et_application_window_update_actions (EtApplicationWindow *self)
         set_action_state (self, "open-with", TRUE);
         set_action_state (self, "invert-selection", TRUE);
         set_action_state (self, "delete", TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_ASCENDING_FILENAME,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_FILENAME,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_ASCENDING_CREATION_DATE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_CREATION_DATE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_ASCENDING_TRACK_NUMBER,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_DESCENDING_TRACK_NUMBER,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_ASCENDING_TITLE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_DESCENDING_TITLE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_ASCENDING_ARTIST,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_DESCENDING_ARTIST,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_ASCENDING_ALBUM,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_DESCENDING_ALBUM,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_ASCENDING_YEAR,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_DESCENDING_YEAR,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_ASCENDING_GENRE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_DESCENDING_GENRE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_ASCENDING_COMMENT,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_TAG_PATH,AM_SORT_DESCENDING_COMMENT,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_ASCENDING_FILE_TYPE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_FILE_TYPE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_ASCENDING_FILE_SIZE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_FILE_SIZE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_ASCENDING_FILE_DURATION,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_FILE_DURATION,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_ASCENDING_FILE_BITRATE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_FILE_BITRATE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_ASCENDING_FILE_SAMPLERATE,TRUE);
-        ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_FILE_SAMPLERATE,TRUE);
+        /* FIXME set_action_state (self, "sort-mode", TRUE); */
         set_action_state (self, "remove-tags", TRUE);
         set_action_state (self, "find", TRUE);
         set_action_state (self, "show-load-filenames", TRUE);
