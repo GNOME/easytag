@@ -41,6 +41,15 @@
             <object class="GtkSeparatorToolItem" id="separator1"/>
         </child>
         <child>
+            <object class="GtkToggleToolButton" id="scanner_button">
+                <property name="action-name">win.scanner</property>
+                <property name="icon-name">document-properties</property>
+                <property name="label" translatable="yes">_Show Scanner</property>
+                <property name="tooltip-text" translatable="yes">Show scanner</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
             <object class="GtkToolButton" id="remove_tags_button">
                 <property name="action-name">win.remove-tags</property>
                 <property name="icon-name">edit-clear</property>
@@ -80,6 +89,29 @@
             <object class="GtkSeparatorToolItem" id="separator2"/>
         </child>
         <child>
+            <object class="GtkToggleToolButton" id="file_view_button">
+                <property name="action-name">win.file-artist-view</property>
+                <property name="action-target">'file'</property>
+                <property name="icon-name">audio-x-generic</property>
+                <property name="label" translatable="yes">Tree Browser</property>
+                <property name="tooltip-text" translatable="yes">View by directory tree</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkToggleToolButton" id="artist_view_button">
+                <property name="action-name">win.file-artist-view</property>
+                <property name="action-target">'artist'</property>
+                <property name="label" translatable="yes">Artist and Album</property>
+                <property name="stock-id">easytag-artist-album</property>
+                <property name="tooltip-text" translatable="yes">View by artist and album</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkSeparatorToolItem" id="separator3"/>
+        </child>
+        <child>
             <object class="GtkToolButton" id="invert_selection_button">
                 <property name="action-name">win.invert-selection</property>
                 <property name="label" translatable="yes">Invert File Selection</property>
@@ -89,7 +121,7 @@
             </object>
         </child>
         <child>
-            <object class="GtkSeparatorToolItem" id="separator3"/>
+            <object class="GtkSeparatorToolItem" id="separator4"/>
         </child>
         <child>
             <object class="GtkToolButton" id="find_button">

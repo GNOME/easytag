@@ -50,7 +50,6 @@ static GList *ActionPairsList = NULL;
  * Prototypes *
  **************/
 
-static void Init_Menu_Bar (void);
 static void Statusbar_Remove_Timer (void);
 
 static void et_statusbar_push_tooltip (const gchar *message);
@@ -75,16 +74,6 @@ static void on_menu_item_deselect (GtkMenuItem *item, gpointer user_data);
  */
 #define QCASE(string,callback) if (quark == g_quark_from_string((string))) { (callback)(); }
 #define QCASE_DATA(string,callback,data) if (quark == g_quark_from_string((string))) { (callback)((data)); }
-
-static void
-reload_browser (gpointer data)
-{
-    EtApplicationWindow *window;
-
-    window = ET_APPLICATION_WINDOW (data);
-
-    et_application_window_browser_reload (NULL, window);
-}
 
 /*
  * Menu bar
@@ -135,7 +124,6 @@ Menu_Sort_Action (GtkAction *item, gpointer data)
     QCASE_DATA(AM_SORT_DESCENDING_FILE_BITRATE,    ET_Sort_Displayed_File_List_And_Update_UI, ET_SORT_MODE_DESCENDING_FILE_BITRATE);
     QCASE_DATA(AM_SORT_ASCENDING_FILE_SAMPLERATE,  ET_Sort_Displayed_File_List_And_Update_UI, ET_SORT_MODE_ASCENDING_FILE_SAMPLERATE);
     QCASE_DATA(AM_SORT_DESCENDING_FILE_SAMPLERATE, ET_Sort_Displayed_File_List_And_Update_UI, ET_SORT_MODE_DESCENDING_FILE_SAMPLERATE);
-    QCASE_DATA(AM_INITIALIZE_TREE, reload_browser, data);
     et_application_window_browser_refresh_sort (ET_APPLICATION_WINDOW (data));
 }
 
@@ -213,21 +201,6 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
           _("Scan selected files"),
           G_CALLBACK (et_application_window_scan_selected_files) },
 
-        { AM_RELOAD_DIRECTORY, GTK_STOCK_REFRESH, _("Reload Directory"),
-          "<Primary>R", _("Reload directory"),
-          G_CALLBACK (et_application_window_reload_directory) },
-        { AM_COLLAPSE_TREE, NULL, _("_Collapse Tree"), "<Primary><Shift>C",
-          _("Collapse directory tree"),
-          G_CALLBACK (et_application_window_browser_collapse) },
-        { AM_INITIALIZE_TREE, GTK_STOCK_REFRESH, _("_Reload Tree"),
-          "<Primary><Shift>R", _("Reload directory tree"),
-          G_CALLBACK (et_application_window_browser_reload) },
-
-        { MENU_SCANNER, NULL, _("S_canner Mode"), NULL, NULL, NULL },
-
-        { MENU_VIEW, NULL, _("_View"), NULL, NULL, NULL },
-
-
         /*
          * Following items are on toolbar but not on menu
          */
@@ -257,55 +230,12 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
 
     };
 
-    GtkToggleActionEntry ToggleActionEntries[] =
-    {
-#ifndef G_OS_WIN32 /* No sense here for Win32, "hidden" means : starts with a
-                    * '.'
-                    */
-        { AM_BROWSER_HIDDEN_DIR, NULL, _("Show Hidden Directories"), NULL,
-          _("Show hidden directories"),
-          G_CALLBACK (et_application_window_browser_reload),
-          g_settings_get_boolean (MainSettings, "browse-show-hidden") },
-#endif /* !G_OS_WIN32 */
-        { AM_SCANNER_SHOW, "document-properties", _("_Show Scanner"), NULL,
-          _("Show scanner"),
-          G_CALLBACK (et_application_window_show_scan_dialog),
-          g_settings_get_boolean (MainSettings, "scan-startup") },
-    };
-
-    GtkRadioActionEntry view_mode_entries[] =
-    {
-        { AM_TREE_VIEW_MODE, "audio-x-generic", _("Tree Browser"), NULL,
-          _("View by directory tree"), 0 },
-        { AM_ARTIST_VIEW_MODE, "easytag-artist-album",
-          _("Artist and Album"), NULL,
-          _("View by artist and album"), 1 }
-    };
-
-    GtkRadioActionEntry scanner_mode_entries[] =
-    {
-        { AM_SCANNER_FILL_TAG, "document-properties", _("_Fill Tags…"), NULL,
-          _("Fill tags"), ET_SCAN_MODE_FILL_TAG },
-        { AM_SCANNER_RENAME_FILE, "document-properties",
-          _("_Rename Files and Directories…"), NULL,
-          _("Rename files and directories"), ET_SCAN_MODE_RENAME_FILE },
-        { AM_SCANNER_PROCESS_FIELDS, "document-properties",
-          _("_Process Fields…"), NULL, _("Process Fields"),
-          ET_SCAN_MODE_PROCESS_FIELDS }
-    };
-
     GError *error = NULL;
     guint num_menu_entries;
-    guint num_toggle_entries;
-    guint n_view_mode_entries;
-    guint n_scanner_mode_entries;
     guint i;
 
     /* Calculate number of items into the menu */
     num_menu_entries = G_N_ELEMENTS(ActionEntries);
-    num_toggle_entries = G_N_ELEMENTS(ToggleActionEntries);
-    n_view_mode_entries = G_N_ELEMENTS (view_mode_entries);
-    n_scanner_mode_entries = G_N_ELEMENTS (scanner_mode_entries);
 
     /* Populate quarks list with the entries */
     for(i = 0; i < num_menu_entries; i++)
@@ -316,29 +246,12 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         ActionPairsList = g_list_prepend (ActionPairsList, ActionPair);
     }
 
-    for(i = 0; i < num_toggle_entries; i++)
-    {
-        Action_Pair* ActionPair = g_malloc0(sizeof(Action_Pair));
-        ActionPair->action = ToggleActionEntries[i].name;
-        ActionPair->quark  = g_quark_from_string(ActionPair->action);
-        ActionPairsList = g_list_prepend (ActionPairsList, ActionPair);
-    }
-
     ActionPairsList = g_list_reverse (ActionPairsList);
 
     /* UI Management */
     ActionGroup = gtk_action_group_new("actions");
     gtk_action_group_set_translation_domain (ActionGroup, GETTEXT_PACKAGE);
     gtk_action_group_add_actions(ActionGroup, ActionEntries, num_menu_entries, window);
-    gtk_action_group_add_toggle_actions(ActionGroup, ToggleActionEntries, num_toggle_entries, window);
-    gtk_action_group_add_radio_actions (ActionGroup, view_mode_entries,
-                                        n_view_mode_entries, 0,
-                                        G_CALLBACK (et_on_action_select_browser_mode),
-                                        window);
-    gtk_action_group_add_radio_actions (ActionGroup, scanner_mode_entries,
-                                        n_scanner_mode_entries, 0,
-                                        G_CALLBACK (et_on_action_select_scan_mode),
-                                        window);
 
     UIManager = gtk_ui_manager_new();
 
@@ -357,7 +270,6 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
                                 gtk_ui_manager_get_accel_group (UIManager));
 
     menubar = gtk_ui_manager_get_widget(UIManager, "/MenuBar");
-    Init_Menu_Bar();
     gtk_widget_show_all(menubar);
 
     toolbar = gtk_ui_manager_get_widget (UIManager, "/ToolBar");
@@ -369,31 +281,6 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
     *ppmenubar = menubar;
 }
 
-
-/*
- * Initialize some items of the main menu
- */
-static void
-Init_Menu_Bar (void)
-{
-    
-    CheckMenuItemBrowseSubdirMainMenu = gtk_ui_manager_get_widget(UIManager, "/MenuBar/BrowserMenu/BrowseSubdir");
-    if (CheckMenuItemBrowseSubdirMainMenu)
-    {
-        g_settings_bind (MainSettings, "browse-subdir",
-                         CheckMenuItemBrowseSubdirMainMenu, "active",
-                         G_SETTINGS_BIND_GET);
-    }
-
-    CheckMenuItemBrowseHiddenDirMainMenu = gtk_ui_manager_get_widget (UIManager,
-                                                                      "/MenuBar/ViewMenu/BrowseHiddenDir");
-    if (CheckMenuItemBrowseHiddenDirMainMenu)
-    {
-        g_settings_bind (MainSettings, "browse-show-hidden",
-                         CheckMenuItemBrowseHiddenDirMainMenu, "active",
-                         G_SETTINGS_BIND_GET);
-    }
-}
 
 /*
  * Status bar functions

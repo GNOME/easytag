@@ -529,7 +529,6 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
     File_Name *FileNameNew;
     double     fraction;
     GtkAction *uiaction;
-    GtkWidget *toggle_radio;
     GtkWidget *widget_focused;
     GtkTreePath *currentPath = NULL;
 
@@ -718,11 +717,7 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
                                                           etfile_save_position,
                                                           TRUE);
 
-    /* Browser is on mode : Artist + Album list */
-    toggle_radio = gtk_ui_manager_get_widget (UIManager,
-                                              "/ToolBar/ArtistViewMode");
-    if (gtk_toggle_tool_button_get_active (GTK_TOGGLE_TOOL_BUTTON (toggle_radio)))
-        et_application_window_browser_toggle_display_mode (window);
+    et_application_window_browser_toggle_display_mode (window);
 
     /* To update state of command buttons */
     et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
@@ -1193,7 +1188,6 @@ gboolean Read_Directory (gchar *path_real)
     GList *l;
     gint   progress_bar_index = 0;
     GtkAction *uiaction;
-    GtkWidget *artist_radio;
     EtApplicationWindow *window;
 
     g_return_val_if_fail (path_real != NULL, FALSE);
@@ -1215,10 +1209,6 @@ gboolean Read_Directory (gchar *path_real)
     Clear_Header_Fields();
     Clear_Tag_Entry_Fields();
     gtk_label_set_text(GTK_LABEL(FileIndex),"0/0:");
-
-    artist_radio = gtk_ui_manager_get_widget (UIManager, "/ToolBar/ArtistViewMode");
-    gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (artist_radio),
-                                       FALSE);
 
     // Set to unsensitive the Browser Area, to avoid to select another file while loading the first one
     et_application_window_browser_set_sensitive (window, FALSE);
@@ -1561,13 +1551,11 @@ Init_Load_Default_Dir (void)
     ET_Core_Free();
     ET_Core_Initialize();
 
-    /* FIXME: Open the scanner window. */
-    /*
     if (g_settings_get_boolean (MainSettings, "scan-startup"))
     {
-        et_application_window_show_scan_dialog (ET_APPLICATION_WINDOW (MainWindow));
+        g_action_group_activate_action (G_ACTION_GROUP (MainWindow), "scanner",
+                                        NULL);
     }
-    */
 
     if (INIT_DIRECTORY)
     {

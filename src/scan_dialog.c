@@ -1751,16 +1751,11 @@ static void
 on_scan_mode_changed (EtScanDialog *self, gchar *key, GSettings *settings)
 {
     EtScanDialogPrivate *priv;
-    GtkRadioAction *radio_action;
     EtScanMode mode;
 
     priv = et_scan_dialog_get_instance_private (self);
 
-    /* TODO: Bind to a single GAction. */
-    radio_action = GTK_RADIO_ACTION (gtk_ui_manager_get_action (UIManager,
-                                                                "/MenuBar/ViewMenu/ScannerMenu/FillTag"));
     mode = g_settings_get_enum (MainSettings, key);
-    gtk_radio_action_set_current_value (radio_action, mode);
 
     switch (mode)
     {
@@ -1954,21 +1949,6 @@ Mask_Editor_List_Save_Button (EtScanDialog *self)
     {
         Save_Rename_File_Masks_List(priv->rename_masks_model, MASK_EDITOR_TEXT);
     }
-}
-
-static void
-on_hide (EtScanDialog *self)
-{
-    GtkToggleAction *toggle_action;
-
-    toggle_action = GTK_TOGGLE_ACTION (gtk_ui_manager_get_action (UIManager,
-                                                                  "/ToolBar/ShowScanner"));
-
-    if (gtk_toggle_action_get_active (toggle_action))
-    {
-        gtk_toggle_action_set_active (toggle_action, FALSE);
-    }
-
 }
 
 static void
@@ -2477,6 +2457,15 @@ Process_Fields_Convert_Check_Button_Toggled (EtScanDialog *self, GtkWidget *obje
                               gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->process_convert_toggle)));
 }
 
+/* Make sure that the Show Scanner toggle action is updated. */
+static void
+et_scan_on_hide (GtkWidget *widget,
+                 gpointer user_data)
+{
+    g_action_group_activate_action (G_ACTION_GROUP (MainWindow), "scanner",
+                                    NULL);
+}
+
 static void
 create_scan_dialog (EtScanDialog *self)
 {
@@ -2508,7 +2497,6 @@ create_scan_dialog (EtScanDialog *self)
 
     /* 'Scan selected files' button */
     scan_button = gtk_button_new_from_stock (GTK_STOCK_APPLY);
-    /* TODO: Set related action to match AM_SCAN_FILES. */
     gtk_button_set_label (GTK_BUTTON (scan_button), _("Scan Files"));
     gtk_widget_set_can_default (scan_button, TRUE);
     gtk_dialog_add_action_widget (GTK_DIALOG (self), scan_button,
@@ -2520,9 +2508,9 @@ create_scan_dialog (EtScanDialog *self)
     /* The response signal handles close, scan and the delete event. */
     g_signal_connect (self, "response", G_CALLBACK (et_scan_on_response),
                       NULL);
-    g_signal_connect (self, "hide", G_CALLBACK (on_hide), NULL);
     g_signal_connect (self, "delete-event",
                       G_CALLBACK (gtk_widget_hide_on_delete), NULL);
+    g_signal_connect (self, "hide", G_CALLBACK (et_scan_on_hide), NULL);
 
     /* The main vbox */
     ScanVBox = gtk_dialog_get_content_area (GTK_DIALOG (self));

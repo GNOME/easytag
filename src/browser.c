@@ -1373,7 +1373,7 @@ et_browser_refresh_list (EtBrowser *self)
     gchar *track;
     gchar *disc;
     gboolean valid;
-    GtkWidget *artist_radio;
+    GVariant *variant;
 
     g_return_if_fail (ET_BROWSER (self));
 
@@ -1384,9 +1384,6 @@ et_browser_refresh_list (EtBrowser *self)
     {
         return;
     }
-
-    artist_radio = gtk_ui_manager_get_widget (UIManager,
-                                              "/ToolBar/ArtistViewMode");
 
     // Browse the full list for changes
     //gtk_tree_model_get_iter_first(GTK_TREE_MODEL(priv->file_model), &iter);
@@ -1437,8 +1434,11 @@ et_browser_refresh_list (EtBrowser *self)
     }
     gtk_tree_path_free(currentPath);
 
+    variant = g_action_group_get_action_state (G_ACTION_GROUP (MainWindow),
+                                               "file-artist-view");
+
     // When displaying Artist + Album lists => refresh also rows color
-    if (gtk_toggle_tool_button_get_active (GTK_TOGGLE_TOOL_BUTTON (artist_radio)))
+    if (strcmp (g_variant_get_string (variant, NULL), "artist") == 0)
     {
 
         for (row = 0; row < gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->artist_model), NULL); row++)
@@ -1466,6 +1466,8 @@ et_browser_refresh_list (EtBrowser *self)
         }
         gtk_tree_path_free(currentPath);
     }
+
+    g_variant_unref (variant);
 }
 
 
@@ -1479,7 +1481,7 @@ et_browser_refresh_file_in_list (EtBrowser *self, ET_File *ETFile)
 {
     EtBrowserPrivate *priv;
     GList *selectedRow = NULL;
-    GtkWidget *artist_radio;
+    GVariant *variant;
     GtkTreeSelection *selection;
     GtkTreeIter selectedIter;
     ET_File   *etfile;
@@ -1501,9 +1503,6 @@ et_browser_refresh_file_in_list (EtBrowser *self, ET_File *ETFile)
     {
         return;
     }
-
-    artist_radio = gtk_ui_manager_get_widget (UIManager,
-                                              "/ToolBar/ArtistViewMode");
 
     // Search the row of the modified file to update it (when found: row_found=TRUE)
     // 1/3. Get position of ETFile in ETFileList
@@ -1601,8 +1600,11 @@ et_browser_refresh_file_in_list (EtBrowser *self, ET_File *ETFile)
     /* Change appearance (line to red) if filename changed. */
     Browser_List_Set_Row_Appearance (self, &selectedIter);
 
-    // When displaying Artist + Album lists => refresh also rows color
-    if (gtk_toggle_tool_button_get_active (GTK_TOGGLE_TOOL_BUTTON (artist_radio)))
+    variant = g_action_group_get_action_state (G_ACTION_GROUP (MainWindow),
+                                               "file-artist-view");
+
+    /* When displaying Artist + Album lists => refresh also rows color. */
+    if (strcmp (g_variant_get_string (variant, NULL), "artist") == 0)
     {
         gchar *current_artist = ((File_Tag *)ETFile->FileTag->data)->artist;
         gchar *current_album  = ((File_Tag *)ETFile->FileTag->data)->album;
@@ -1663,6 +1665,8 @@ et_browser_refresh_file_in_list (EtBrowser *self, ET_File *ETFile)
         // FIX ME : see also if we must add a new line / or change list of the ETFile
         //
     }
+
+    g_variant_unref (variant);
 }
 
 
@@ -2713,58 +2717,51 @@ Browser_Album_List_Set_Row_Appearance (EtBrowser *self, GtkTreeIter *iter)
 }
 
 void
-et_browser_toggle_display_mode (EtBrowser *self)
+et_browser_set_display_mode (EtBrowser *self,
+                             EtBrowserMode mode)
 {
     EtBrowserPrivate *priv;
     ET_File *etfile = ETCore->ETFileDisplayed; // ETFile to display again after changing browser view
-    GtkWidget *artist_radio;
 
     g_return_if_fail (ET_BROWSER (self));
 
     priv = et_browser_get_instance_private (self);
 
-    // Save the current displayed data
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
+    /* Save the current displayed data. */
+    ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
 
-    // Toggle button to switch view
-    artist_radio = gtk_ui_manager_get_widget (UIManager,
-                                              "/ToolBar/ArtistViewMode");
-
-    // Button pressed in the toolbar
-    if (gtk_toggle_tool_button_get_active (GTK_TOGGLE_TOOL_BUTTON (artist_radio)))
+    switch (mode)
     {
-        /*
-         * Artist + Album view
-         */
+        case ET_BROWSER_MODE_FILE:
+            /* Set the whole list as "Displayed list". */
+            ET_Set_Displayed_File_List (ETCore->ETFileList);
 
-        /* Display Artist + Album lists. */
-        gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->notebook), 1);
-        ET_Create_Artist_Album_File_List();
-        Browser_Artist_List_Load_Files (self, etfile);
+            /* Display Tree Browser. */
+            gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->notebook), 0);
+            et_browser_load_file_list (self, ETCore->ETFileDisplayedList,
+                                       etfile);
 
-    }else
-    {
+            /* Displays the first file if nothing specified. */
+            if (!etfile)
+            {
+                GList *etfilelist = ET_Displayed_File_List_First ();
+                if (etfilelist)
+                {
+                    etfile = (ET_File *)etfilelist->data;
+                }
 
-        /*
-         * Browser (classic) view
-         */
-        // Set the whole list as "Displayed list"
-        ET_Set_Displayed_File_List(ETCore->ETFileList);
-
-        /* Display Tree Browser. */
-        gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->notebook), 0);
-        et_browser_load_file_list (self, ETCore->ETFileDisplayedList, etfile);
-
-        // Displays the first file if nothing specified
-        if (!etfile)
-        {
-            GList *etfilelist = ET_Displayed_File_List_First();
-            if (etfilelist)
-                etfile = (ET_File *)etfilelist->data;
-            Action_Select_Nth_File_By_Etfile(etfile);
-        }
+                Action_Select_Nth_File_By_Etfile (etfile);
+            }
+            break;
+        case ET_BROWSER_MODE_ARTIST:
+            /* Display Artist + Album lists. */
+            gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->notebook), 1);
+            ET_Create_Artist_Album_File_List ();
+            Browser_Artist_List_Load_Files (self, etfile);
+            break;
+        default:
+            g_assert_not_reached ();
     }
-
     //ET_Display_File_Data_To_UI(etfile); // Causes a crash
 }
 

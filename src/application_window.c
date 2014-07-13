@@ -1960,7 +1960,7 @@ on_delete (GSimpleAction *action,
     et_browser_load_file_list (ET_BROWSER (priv->browser),
                                ETCore->ETFileDisplayedList, NULL);
     /* Rebuild the list... */
-    et_browser_toggle_display_mode (ET_BROWSER (priv->browser));
+    /*et_browser_toggle_display_mode (ET_BROWSER (priv->browser));*/
 
     /* To update state of command buttons */
     et_application_window_update_actions (self);
@@ -2311,6 +2311,146 @@ on_preferences (GSimpleAction *action,
         priv->preferences_dialog = GTK_WIDGET (et_preferences_dialog_new ());
         gtk_widget_show_all (priv->preferences_dialog);
     }
+}
+
+static void
+on_action_toggle (GSimpleAction *action,
+                  GVariant *variant,
+                  gpointer user_data)
+{
+    GVariant *state;
+
+    /* Toggle the current state. */
+    state = g_action_get_state (G_ACTION (action));
+    g_action_change_state (G_ACTION (action),
+                           g_variant_new_boolean (!g_variant_get_boolean (state)));
+    g_variant_unref (state);
+}
+
+static void
+on_action_radio (GSimpleAction *action,
+                 GVariant *variant,
+                 gpointer user_data)
+{
+    /* Set the action state to the just-activated state. */
+    g_action_change_state (G_ACTION (action), variant);
+}
+
+static void
+on_scanner_change (GSimpleAction *action,
+                   GVariant *variant,
+                   gpointer user_data)
+{
+    EtApplicationWindow *self;
+    EtApplicationWindowPrivate *priv;
+    gboolean active;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
+    active = g_variant_get_boolean (variant);
+
+    if (!active)
+    {
+        if (priv->scan_dialog)
+        {
+            gtk_widget_hide (priv->scan_dialog);
+        }
+        else
+        {
+            return;
+        }
+    }
+    else
+    {
+        if (priv->scan_dialog)
+        {
+            gtk_widget_show (priv->scan_dialog);
+        }
+        else
+        {
+            priv->scan_dialog = GTK_WIDGET (et_scan_dialog_new ());
+            gtk_widget_show (priv->scan_dialog);
+        }
+    }
+
+    g_simple_action_set_state (action, variant);
+}
+
+static void
+on_file_artist_view_change (GSimpleAction *action,
+                            GVariant *variant,
+                            gpointer user_data)
+{
+    EtApplicationWindow *self;
+    EtApplicationWindowPrivate *priv;
+    const gchar *state;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
+    state = g_variant_get_string (variant, NULL);
+
+    g_return_if_fail (ETCore->ETFileDisplayedList != NULL);
+
+    /* Save the current displayed data. */
+    ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+
+    if (strcmp (state, "file") == 0)
+    {
+        et_browser_set_display_mode (ET_BROWSER (priv->browser),
+                                     ET_BROWSER_MODE_FILE);
+    }
+    else if (strcmp (state, "artist") == 0)
+    {
+        et_browser_set_display_mode (ET_BROWSER (priv->browser),
+                                     ET_BROWSER_MODE_ARTIST);
+    }
+    else
+    {
+        g_assert_not_reached ();
+    }
+
+    g_simple_action_set_state (action, variant);
+
+    et_application_window_update_actions (ET_APPLICATION_WINDOW (user_data));
+}
+
+static void
+on_collapse_tree (GSimpleAction *action,
+                  GVariant *variant,
+                  gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_collapse (ET_BROWSER (priv->browser));
+}
+
+static void
+on_reload_tree (GSimpleAction *action,
+                GVariant *variant,
+                gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_reload (ET_BROWSER (priv->browser));
+}
+
+static void
+on_reload_directory (GSimpleAction *action,
+                     GVariant *variant,
+                     gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_reload_directory (ET_BROWSER (priv->browser));
 }
 
 static void
@@ -2685,6 +2825,18 @@ static const GActionEntry actions[] =
     { "redo-last-changes", on_redo_last_changes },
     { "remove-tags", on_remove_tags },
     { "preferences", on_preferences },
+    /* View menu. */
+    { "scanner", on_action_toggle, NULL, "false", on_scanner_change },
+    /* { "scan-mode", on_action_radio, NULL, "false", on_scan_mode_change },
+     * Created from GSetting. */
+    /* FIXME: Sorting submenus. */
+    { "file-artist-view", on_action_radio, "s", "'file'",
+      on_file_artist_view_change },
+    { "collapse-tree", on_collapse_tree },
+    { "reload-tree", on_reload_tree },
+    { "reload-directory", on_reload_directory },
+    /* { "browse-show-hidden", on_action_toggle, NULL, "true",
+      on_browse_show_hidden_change }, Created from GSetting. */
     /* Browser menu. */
     { "set-default-path", on_set_default_path },
     { "rename-directory", on_rename_directory },
@@ -2780,7 +2932,13 @@ et_application_window_init (EtApplicationWindow *self)
     g_action_map_add_action_entries (G_ACTION_MAP (self), actions,
                                      G_N_ELEMENTS (actions), self);
 
+    action = g_settings_create_action (MainSettings, "browse-show-hidden");
+    g_action_map_add_action (G_ACTION_MAP (self), action);
+    g_object_unref (action);
     action = g_settings_create_action (MainSettings, "browse-subdir");
+    g_action_map_add_action (G_ACTION_MAP (self), action);
+    g_object_unref (action);
+    action = g_settings_create_action (MainSettings, "scan-mode");
     g_action_map_add_action (G_ACTION_MAP (self), action);
     g_object_unref (action);
 
@@ -3014,37 +3172,30 @@ et_application_window_search_cddb_for_selection (G_GNUC_UNUSED GtkAction *action
 }
 
 void
-et_application_window_browser_collapse (G_GNUC_UNUSED GtkAction *action,
-                                        gpointer user_data)
-{
-    EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
-
-    priv = et_application_window_get_instance_private (self);
-
-    et_browser_collapse (ET_BROWSER (priv->browser));
-}
-
-void
-et_application_window_browser_reload (G_GNUC_UNUSED GtkAction *action,
-                                      gpointer user_data)
-{
-    EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
-
-    priv = et_application_window_get_instance_private (self);
-
-    et_browser_reload (ET_BROWSER (priv->browser));
-}
-
-void
 et_application_window_browser_toggle_display_mode (EtApplicationWindow *self)
 {
     EtApplicationWindowPrivate *priv;
+    GVariant *variant;
 
     priv = et_application_window_get_instance_private (self);
 
-    et_browser_toggle_display_mode (ET_BROWSER (priv->browser));
+    variant = g_action_group_get_action_state (G_ACTION_GROUP (self),
+                                               "file-artist-view");
+
+    if (strcmp (g_variant_get_string (variant, NULL), "file") == 0)
+    {
+        et_browser_set_display_mode (ET_BROWSER (priv->browser),
+                                     ET_BROWSER_MODE_FILE);
+    }
+    else if (strcmp (g_variant_get_string (variant, NULL), "artist") == 0)
+    {
+        et_browser_set_display_mode (ET_BROWSER (priv->browser),
+                                     ET_BROWSER_MODE_ARTIST);
+    }
+    else
+    {
+        g_assert_not_reached ();
+    }
 }
 
 void
@@ -3129,18 +3280,6 @@ et_application_window_run_player_for_artist_list (G_GNUC_UNUSED GtkAction *actio
 }
 
 void
-et_application_window_reload_directory (G_GNUC_UNUSED GtkAction *action,
-                                        gpointer user_data)
-{
-    EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
-
-    priv = et_application_window_get_instance_private (self);
-
-    et_browser_reload_directory (ET_BROWSER (priv->browser));
-}
-
-void
 et_application_window_select_dir (EtApplicationWindow *self, const gchar *path)
 {
     EtApplicationWindowPrivate *priv;
@@ -3172,41 +3311,6 @@ et_application_window_get_scan_dialog (EtApplicationWindow *self)
     priv = et_application_window_get_instance_private (self);
 
     return priv->scan_dialog;
-}
-
-void
-et_application_window_show_scan_dialog (GtkAction *action, gpointer user_data)
-{
-    EtApplicationWindowPrivate *priv;
-    gboolean active;
-    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
-
-    priv = et_application_window_get_instance_private (self);
-    active = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
-
-    if (!active)
-    {
-        if (priv->scan_dialog)
-        {
-            gtk_widget_hide (priv->scan_dialog);
-        }
-        else
-        {
-            return;
-        }
-    }
-    else
-    {
-        if (priv->scan_dialog)
-        {
-            gtk_widget_show (priv->scan_dialog);
-        }
-        else
-        {
-            priv->scan_dialog = GTK_WIDGET (et_scan_dialog_new ());
-            gtk_widget_show (priv->scan_dialog);
-        }
-    }
 }
 
 /*
@@ -3248,14 +3352,6 @@ et_on_action_select_browser_mode (G_GNUC_UNUSED GtkRadioAction *action,
                                   G_GNUC_UNUSED GtkRadioAction *current,
                                   gpointer user_data)
 {
-    g_return_if_fail (ETCore->ETFileDisplayedList != NULL);
-
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
-
-    et_application_window_browser_toggle_display_mode (ET_APPLICATION_WINDOW (user_data));
-
-    et_application_window_update_actions (ET_APPLICATION_WINDOW (user_data));
 }
 
 /*
@@ -3373,14 +3469,8 @@ et_application_window_disable_command_actions (EtApplicationWindow *self)
     set_action_state (self, "undo-last-changes", FALSE);
     set_action_state (self, "redo-last-changes", FALSE);
 
-    /* "Scanner" menu commands */
-    ui_widget_set_sensitive (MENU_SCANNER_PATH, AM_SCANNER_FILL_TAG,
-                             FALSE);
-    ui_widget_set_sensitive (MENU_SCANNER_PATH,
-                             AM_SCANNER_RENAME_FILE, FALSE);
-    ui_widget_set_sensitive (MENU_SCANNER_PATH,
-                             AM_SCANNER_PROCESS_FIELDS, FALSE);
-
+    /* FIXME: "Scanner" menu commands */
+    /*set_action_state (self, "scan-mode", FALSE);*/
 }
 
 
@@ -3462,18 +3552,12 @@ et_application_window_update_actions (EtApplicationWindow *self)
         set_action_state (self, "show-load-filenames", FALSE);
         set_action_state (self, "show-playlist", FALSE);
         set_action_state (self, "run-player", FALSE);
-        ui_widget_set_sensitive (MENU_SCANNER_PATH,
-                                 AM_SCANNER_FILL_TAG, FALSE);
-        ui_widget_set_sensitive (MENU_SCANNER_PATH,
-                                 AM_SCANNER_RENAME_FILE, FALSE);
-        ui_widget_set_sensitive (MENU_SCANNER_PATH,
-                                 AM_SCANNER_PROCESS_FIELDS, FALSE);
-        ui_widget_set_sensitive (MENU_VIEW, AM_ARTIST_VIEW_MODE, FALSE);
+        /* FIXME set_action_state (self, "scan-mode", FALSE);*/
+        set_action_state (self, "file-artist-view", FALSE);
 
         return;
     }else
     {
-        GtkWidget *artist_radio = NULL;
         GList *selfilelist = NULL;
         ET_File *etfile;
         gboolean has_undo = FALSE;
@@ -3533,13 +3617,8 @@ et_application_window_update_actions (EtApplicationWindow *self)
         set_action_state (self, "show-load-filenames", TRUE);
         set_action_state (self, "show-playlist", TRUE);
         set_action_state (self, "run-player", TRUE);
-        ui_widget_set_sensitive (MENU_SCANNER_PATH,
-                                 AM_SCANNER_FILL_TAG,TRUE);
-        ui_widget_set_sensitive (MENU_SCANNER_PATH,
-                                 AM_SCANNER_RENAME_FILE, TRUE);
-        ui_widget_set_sensitive (MENU_SCANNER_PATH,
-                                 AM_SCANNER_PROCESS_FIELDS, TRUE);
-        ui_widget_set_sensitive (MENU_VIEW, AM_ARTIST_VIEW_MODE, TRUE);
+        /* FIXME set_action_state (self, "scan-mode", TRUE); */
+        set_action_state (self, "file-artist-view", TRUE);
 
         /* Check if one of the selected files has undo or redo data */
         {
@@ -3611,18 +3690,31 @@ et_application_window_update_actions (EtApplicationWindow *self)
             set_action_state (self, "redo-last-changes", FALSE);
         }
 
-        artist_radio = gtk_ui_manager_get_widget (UIManager,
-                                                  "/ToolBar/ArtistViewMode");
+        {
+            GVariant *variant;
+            const gchar *state;
 
-        if (gtk_toggle_tool_button_get_active (GTK_TOGGLE_TOOL_BUTTON (artist_radio)))
-        {
-            ui_widget_set_sensitive (MENU_VIEW, AM_COLLAPSE_TREE, FALSE);
-            ui_widget_set_sensitive (MENU_VIEW, AM_INITIALIZE_TREE, FALSE);
-        }
-        else
-        {
-            ui_widget_set_sensitive (MENU_VIEW, AM_COLLAPSE_TREE, TRUE);
-            ui_widget_set_sensitive (MENU_VIEW, AM_INITIALIZE_TREE, TRUE);
+            variant = g_action_group_get_action_state (G_ACTION_GROUP (self),
+                                                     "file-artist-view");
+
+            state = g_variant_get_string (variant, NULL);
+
+            if (strcmp (state, "artist") == 0)
+            {
+                set_action_state (self, "collapse-tree", FALSE);
+                set_action_state (self, "reload-tree", FALSE);
+            }
+            else if (strcmp (state, "file") == 0)
+            {
+                set_action_state (self, "collapse-tree", TRUE);
+                set_action_state (self, "reload-tree", TRUE);
+            }
+            else
+            {
+                g_assert_not_reached ();
+            }
+
+            g_variant_unref (variant);
         }
     }
 

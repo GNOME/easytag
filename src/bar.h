@@ -30,18 +30,11 @@ GtkWidget      *ProgressBar;
 GtkUIManager   *UIManager;
 GtkActionGroup *ActionGroup;
 
-GtkWidget *CheckMenuItemBrowseSubdirMainMenu;
-GtkWidget *CheckMenuItemBrowseHiddenDirMainMenu;
-
-#define MENU_VIEW "ViewMenu"
-#define MENU_SCANNER    "ScannerMenu"
-
 #define MENU_FILE_SORT_TAG      "SortTagMenu"
 #define MENU_FILE_SORT_PROP     "SortPropMenu"
 #define MENU_SORT_TAG_PATH "ViewMenu/SortTagMenu"
 #define MENU_SORT_PROP_PATH "ViewMenu/SortPropMenu"
 
-#define MENU_SCANNER_PATH MENU_VIEW "/" MENU_SCANNER
 #define POPUP_FILE              "FilePopup"
 #define POPUP_DIR               "DirPopup"
 #define POPUP_SUBMENU_SCANNER   "ScannerSubpopup"
@@ -49,17 +42,7 @@ GtkWidget *CheckMenuItemBrowseHiddenDirMainMenu;
 #define POPUP_LOG               "LogPopup"
 
 #define AM_SCAN_FILES "ScanFiles"
-#define AM_BROWSER_HIDDEN_DIR       "BrowseHiddenDir"
-#define AM_COLLAPSE_TREE            "CollapseTree"
-#define AM_INITIALIZE_TREE          "RefreshTree"
-#define AM_RELOAD_DIRECTORY         "ReloadDir"
-#define AM_TREE_VIEW_MODE "TreeViewMode"
-#define AM_ARTIST_VIEW_MODE "ArtistViewMode"
 #define AM_OPEN_OPTIONS_WINDOW      "Preferences"
-#define AM_SCANNER_FILL_TAG         "FillTag"
-#define AM_SCANNER_RENAME_FILE      "RenameFile"
-#define AM_SCANNER_PROCESS_FIELDS   "ProcessFields"
-#define AM_SCANNER_SHOW "ShowScanner"
 #define AM_CDDB_SEARCH_FILE         "CDDBSearchFile"
 
 #define AM_ARTIST_RUN_AUDIO_PLAYER  "ArtistRunAudio"
@@ -126,8 +109,5 @@ void Create_UI (GtkWindow *window, GtkWidget **menubar, GtkWidget **toolbar);
 GtkWidget *Create_Status_Bar   (void);
 void Statusbar_Message (const gchar *message, gboolean with_timer);
 GtkWidget *Create_Progress_Bar (void);
-
-void Check_Menu_Item_Update_Browse_Subdir  (void);
-void Check_Menu_Item_Update_Browse_Hidden_Dir  (void);
 
 #endif /* __BAR_H__ */

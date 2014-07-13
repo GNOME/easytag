@@ -59,8 +59,6 @@ GtkWidget * et_application_window_get_preferences_dialog (EtApplicationWindow *s
 void et_application_window_show_preferences_dialog_scanner (GtkAction *action, gpointer user_data);
 GtkWidget * et_application_window_get_cddb_dialog (EtApplicationWindow *self);
 void et_application_window_search_cddb_for_selection (GtkAction *action, gpointer user_data);
-void et_application_window_browser_collapse (GtkAction *action, gpointer user_data);
-void et_application_window_browser_reload (GtkAction *action, gpointer user_data);
 void et_application_window_browser_toggle_display_mode (EtApplicationWindow *self);
 void et_application_window_browser_set_sensitive (EtApplicationWindow *self, gboolean sensitive);
 void et_application_window_browser_clear (EtApplicationWindow *self);
@@ -68,11 +66,9 @@ void et_application_window_browser_clear_album_model (EtApplicationWindow *self)
 void et_application_window_browser_clear_artist_model (EtApplicationWindow *self);
 void et_application_window_run_player_for_album_list (GtkAction *action, gpointer user_data);
 void et_application_window_run_player_for_artist_list (GtkAction *action, gpointer user_data);
-void et_application_window_reload_directory (GtkAction *action, gpointer user_data);
 void et_application_window_select_dir (EtApplicationWindow *self, const gchar *path);
 const gchar * et_application_window_get_current_path (EtApplicationWindow *self);
 GtkWidget * et_application_window_get_scan_dialog (EtApplicationWindow *self);
-void et_application_window_show_scan_dialog (GtkAction *action, gpointer user_data);
 void et_application_window_scan_selected_files (GtkAction *action, gpointer user_data);
 void et_on_action_select_scan_mode (GtkRadioAction *action, GtkRadioAction *current, gpointer user_data);
 void et_on_action_select_browser_mode (GtkRadioAction *action, GtkRadioAction *current, gpointer user_data);

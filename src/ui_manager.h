@@ -11,18 +11,6 @@ static const gchar *ui_xml =
  */
 "  <menubar name='MenuBar'>"
 "    <menu action='ViewMenu'>"
-"      <menuitem action='ShowScanner' />"
-"      <menu action='ScannerMenu'>"
-"        <menuitem action='FillTag' />"
-"        <menuitem action='RenameFile' />"
-"        <menuitem action='ProcessFields' />"
-"      </menu>"
-"      <separator />"
-
-"      <menuitem action='TreeViewMode'/>"
-"      <menuitem action='ArtistViewMode'/>"
-"      <separator />"
-
 "      <menu action='SortTagMenu'>"
 "        <menuitem action='SortTrackNumAsc' />"
 "        <menuitem action='SortTrackNumDesc' />"
@@ -89,18 +77,6 @@ static const gchar *ui_xml =
 "        <menuitem action='SortSamplerateAsc' />"
 "        <menuitem action='SortSamplerateDesc' />"
 "      </menu>"
-"      <separator />"
-
-"      <menuitem action='CollapseTree' />"
-"      <menuitem action='RefreshTree' />"
-"      <separator />"
-
-"      <menuitem action='ReloadDir' />"
-"      <separator />"
-
-#ifndef G_OS_WIN32
-"      <menuitem action='BrowseHiddenDir' />"
-#endif /* !G_OS_WIN32 */
 "    </menu>"
 
 "  </menubar>"
@@ -110,13 +86,6 @@ static const gchar *ui_xml =
  * Tool bar
  */
 "  <toolbar name='ToolBar'>"
-"    <toolitem action='ShowScanner'/>"
-"    <separator />"
-
-"    <toolitem action='TreeViewMode'/>"
-"    <toolitem action='ArtistViewMode'/>"
-"    <separator />"
-
 "    <toolitem action='Stop'/>"
 "  </toolbar>"
 

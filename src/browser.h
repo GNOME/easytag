@@ -53,6 +53,12 @@ void et_browser_show_open_directory_with_dialog (EtBrowser *self);
 void et_browser_show_open_files_with_dialog (EtBrowser *self);
 void et_browser_show_rename_directory_dialog (EtBrowser *self);
 
+typedef enum
+{
+    ET_BROWSER_MODE_FILE,
+    ET_BROWSER_MODE_ARTIST
+} EtBrowserMode;
+
 /*
  * To number columns of ComboBox
  */
@@ -89,7 +95,7 @@ ET_File * et_browser_get_et_file_from_iter (EtBrowser *self, GtkTreeIter *iter);
 void et_browser_entry_set_text (EtBrowser *self, const gchar *text);
 void et_browser_label_set_text (EtBrowser *self, const gchar *text);
 
-void et_browser_toggle_display_mode (EtBrowser *self);
+void et_browser_set_display_mode (EtBrowser *self, EtBrowserMode mode);
 
 void et_browser_go_home (EtBrowser *self);
 void et_browser_go_desktop (EtBrowser *self);

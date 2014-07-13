@@ -114,27 +114,38 @@
             <attribute name="label" translatable="yes">_View</attribute>
             <section>
                 <item>
+                    <attribute name="action">win.scanner</attribute>
                     <attribute name="label" translatable="yes">Show Scanner</attribute>
                 </item>
                 <submenu>
                     <attribute name="label" translatable="yes">Scanner Mode</attribute>
                     <item>
+                        <attribute name="action">win.scan-mode</attribute>
                         <attribute name="label" translatable="yes">Fill Tags</attribute>
+                        <attribute name="target">fill-tag</attribute>
                     </item>
                     <item>
+                        <attribute name="action">win.scan-mode</attribute>
                         <attribute name="label" translatable="yes">Rename Files and Directories</attribute>
+                        <attribute name="target">rename-file</attribute>
                     </item>
                     <item>
+                        <attribute name="action">win.scan-mode</attribute>
                         <attribute name="label" translatable="yes">Process Fields</attribute>
+                        <attribute name="target">process-fields</attribute>
                     </item>
                 </submenu>
             </section>
             <section>
                 <item>
+                    <attribute name="action">win.file-artist-view</attribute>
                     <attribute name="label" translatable="yes">Tree Browser</attribute>
+                    <attribute name="target">file</attribute>
                 </item>
                 <item>
+                    <attribute name="action">win.file-artist-view</attribute>
                     <attribute name="label" translatable="yes">Artists and Albums</attribute>
+                    <attribute name="target">artist</attribute>
                 </item>
             </section>
             <submenu>
@@ -305,20 +316,27 @@
             </submenu>
             <section>
                 <item>
+                    <attribute name="accel">&lt;Primary&gt;&lt;Shift&gt;c</attribute>
+                    <attribute name="action">win.collapse-tree</attribute>
                     <attribute name="label" translatable="yes">Collapse Tree</attribute>
                 </item>
                 <item>
+                    <attribute name="accel">&lt;Primary&gt;&lt;Shift&gt;r</attribute>
+                    <attribute name="action">win.reload-tree</attribute>
                     <attribute name="label" translatable="yes">Reload Tree</attribute>
                 </item>
             </section>
             <section>
                 <item>
+                    <attribute name="accel">&lt;Primary&gt;r</attribute>
+                    <attribute name="action">win.reload-directory</attribute>
                     <attribute name="label" translatable="yes">Reload Directory</attribute>
                 </item>
             </section>
             <section>
                 <item>
-                    <attribute name="label" translatable="yes">Show Hidden Directoires</attribute>
+                    <attribute name="action">win.browse-show-hidden</attribute>
+                    <attribute name="label" translatable="yes">Show Hidden Directories</attribute>
                 </item>
             </section>
         </submenu>
