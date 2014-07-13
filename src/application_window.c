@@ -1974,10 +1974,29 @@ et_application_window_init (EtApplicationWindow *self)
     {
         GtkWidget *menu_area;
         GtkWidget *tool_area;
+        GtkBuilder *builder;
+        GError *error = NULL;
+        GtkWidget *toolbar;
 
         Create_UI (window, &menu_area, &tool_area);
         gtk_box_pack_start (GTK_BOX (main_vbox), menu_area, FALSE, FALSE, 0);
         gtk_box_pack_start (GTK_BOX (main_vbox), tool_area, FALSE, FALSE, 0);
+
+        builder = gtk_builder_new ();
+        gtk_builder_add_from_resource (builder,
+                                       "/org/gnome/EasyTAG/toolbar.ui",
+                                       &error);
+
+        if (error != NULL)
+        {
+            g_error ("Unable to get toolbar from resource: %s",
+                     error->message);
+        }
+
+        toolbar = GTK_WIDGET (gtk_builder_get_object (builder, "main_toolbar"));
+        gtk_box_pack_start (GTK_BOX (main_vbox), toolbar, FALSE, FALSE, 0);
+
+        g_object_unref (builder);
     }
 
     /* The two panes: BrowserArea on the left, FileArea+TagArea on the right */

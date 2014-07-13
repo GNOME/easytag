@@ -1,0 +1,23 @@
+<interface domain="easytag">
+    <object class="GtkToolbar" id="main_toolbar">
+        <property name="visible">True</property>
+        <child>
+            <object class="GtkToolButton" id="cddb_button">
+                <property name="action-name">win.show-cddb</property>
+                <property name="icon-name">media-optical</property>
+                <property name="label" translatable="yes">CDDB Search…</property>
+                <property name="tooltip-text" translatable="yes">CDDB Search</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkToolButton" id="playlist_button">
+                <property name="action-name">win.show-playlist</property>
+                <property name="icon-name">document-save-as</property>
+                <property name="label" translatable="yes">Generate Playlist…</property>
+                <property name="tooltip-text" translatable="yes">Generate a playlist</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+    </object>
+</interface>
