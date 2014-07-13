@@ -68,11 +68,9 @@ void et_application_window_browser_clear_album_model (EtApplicationWindow *self)
 void et_application_window_browser_clear_artist_model (EtApplicationWindow *self);
 void et_application_window_run_player_for_album_list (GtkAction *action, gpointer user_data);
 void et_application_window_run_player_for_artist_list (GtkAction *action, gpointer user_data);
-void et_application_window_run_player_for_selection (GtkAction *action, gpointer user_data);
 void et_application_window_reload_directory (GtkAction *action, gpointer user_data);
 void et_application_window_select_dir (EtApplicationWindow *self, const gchar *path);
 const gchar * et_application_window_get_current_path (EtApplicationWindow *self);
-void et_application_window_show_open_files_with_dialog (GtkAction *action, gpointer user_data);
 GtkWidget * et_application_window_get_scan_dialog (EtApplicationWindow *self);
 void et_application_window_show_scan_dialog (GtkAction *action, gpointer user_data);
 void et_application_window_scan_selected_files (GtkAction *action, gpointer user_data);
@@ -93,10 +91,6 @@ void et_application_window_browser_unselect_all (EtApplicationWindow *self);
 void et_application_window_browser_refresh_list (EtApplicationWindow *self);
 void et_application_window_browser_refresh_file_in_list (EtApplicationWindow *self, ET_File *file);
 void et_application_window_browser_refresh_sort (EtApplicationWindow *self);
-void et_application_window_invert_selection (GtkAction *action, gpointer user_data);
-void et_application_window_delete_selected_files (GtkAction *action, gpointer user_data);
-void et_application_window_undo_selected_files (GtkAction *action, gpointer user_data);
-void et_application_window_redo_selected_files (GtkAction *action, gpointer user_data);
 void et_application_window_hide_log_area (EtApplicationWindow *self);
 void et_application_window_show_log_area (EtApplicationWindow *self);
 

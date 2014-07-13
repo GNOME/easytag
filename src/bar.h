@@ -33,7 +33,6 @@ GtkActionGroup *ActionGroup;
 GtkWidget *CheckMenuItemBrowseSubdirMainMenu;
 GtkWidget *CheckMenuItemBrowseHiddenDirMainMenu;
 
-#define MENU_FILE       "FileMenu"
 #define MENU_VIEW "ViewMenu"
 #define MENU_SCANNER    "ScannerMenu"
 
@@ -50,27 +49,18 @@ GtkWidget *CheckMenuItemBrowseHiddenDirMainMenu;
 #define POPUP_LOG               "LogPopup"
 
 #define AM_SCAN_FILES "ScanFiles"
-#define AM_UNDO                     "UndoFile"
-#define AM_REDO                     "RedoFile"
-#define AM_SAVE                     "SaveFile"
-#define AM_SAVE_FORCED              "SaveFileForced"
-#define AM_INVERT_SELECTION         "SelInv"
-#define AM_DELETE_FILE              "DeleteFile"
 #define AM_BROWSER_HIDDEN_DIR       "BrowseHiddenDir"
 #define AM_COLLAPSE_TREE            "CollapseTree"
 #define AM_INITIALIZE_TREE          "RefreshTree"
 #define AM_RELOAD_DIRECTORY         "ReloadDir"
 #define AM_TREE_VIEW_MODE "TreeViewMode"
 #define AM_ARTIST_VIEW_MODE "ArtistViewMode"
-#define AM_OPEN_FILE_WITH           "OpenFile"
 #define AM_OPEN_OPTIONS_WINDOW      "Preferences"
 #define AM_SCANNER_FILL_TAG         "FillTag"
 #define AM_SCANNER_RENAME_FILE      "RenameFile"
 #define AM_SCANNER_PROCESS_FIELDS   "ProcessFields"
 #define AM_SCANNER_SHOW "ShowScanner"
 #define AM_CDDB_SEARCH_FILE         "CDDBSearchFile"
-#define AM_RUN_AUDIO_PLAYER         "RunAudio"
-#define AM_QUIT                     "Quit"
 
 #define AM_ARTIST_RUN_AUDIO_PLAYER  "ArtistRunAudio"
 #define AM_ARTIST_OPEN_FILE_WITH    "ArtistOpenFile"

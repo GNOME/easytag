@@ -50,7 +50,46 @@
             </object>
         </child>
         <child>
+            <object class="GtkToolButton" id="undo_file_changes_button">
+                <property name="action-name">win.undo-file-changes</property>
+                <property name="icon-name">edit-undo</property>
+                <property name="label" translatable="yes">_Undo</property>
+                <property name="tooltip-text" translatable="yes">Undo last file changes</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkToolButton" id="redo_file_changes_button">
+                <property name="action-name">win.redo-file-changes</property>
+                <property name="icon-name">edit-redo</property>
+                <property name="label" translatable="yes">R_edo</property>
+                <property name="tooltip-text" translatable="yes">Redo last file changes</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkToolButton" id="save_button">
+                <property name="action-name">win.save</property>
+                <property name="icon-name">document-save</property>
+                <property name="label" translatable="yes">_Save Files</property>
+                <property name="tooltip-text" translatable="yes">Save changes to selected files</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
             <object class="GtkSeparatorToolItem" id="separator2"/>
+        </child>
+        <child>
+            <object class="GtkToolButton" id="invert_selection_button">
+                <property name="action-name">win.invert-selection</property>
+                <property name="label" translatable="yes">Invert File Selection</property>
+                <property name="stock-id">easytag-invert-selection</property>
+                <property name="tooltip-text" translatable="yes">Invert file selection</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkSeparatorToolItem" id="separator3"/>
         </child>
         <child>
             <object class="GtkToolButton" id="find_button">

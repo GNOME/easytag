@@ -22,33 +22,47 @@
             <attribute name="label" translatable="yes">_File</attribute>
             <section>
                 <item>
+                    <attribute name="accel">&lt;Primary&gt;&lt;Shift&gt;o</attribute>
+                    <attribute name="action">win.open-with</attribute>
                     <attribute name="label" translatable="yes">Open Files With…</attribute>
                 </item>
                 <item>
+                    <attribute name="action">win.run-player</attribute>
                     <attribute name="label" translatable="yes">Run Audio Player</attribute>
                 </item>
             </section>
             <section>
                 <item>
+                    <attribute name="accel">&lt;Primary&gt;i</attribute>
+                    <attribute name="action">win.invert-selection</attribute>
                     <attribute name="label" translatable="yes">Invert File Selection</attribute>
                 </item>
             </section>
             <section>
                 <item>
+                    <attribute name="action">win.delete</attribute>
                     <attribute name="label" translatable="yes">Delete Files</attribute>
                 </item>
             </section>
             <section>
                 <item>
+                    <attribute name="accel">&lt;Primary&gt;z</attribute>
+                    <attribute name="action">win.undo-file-changes</attribute>
                     <attribute name="label" translatable="yes">Undo Last File Changes</attribute>
                 </item>
                 <item>
+                    <attribute name="accel">&lt;Primary&gt;y</attribute>
+                    <attribute name="action">win.redo-file-changes</attribute>
                     <attribute name="label" translatable="yes">Redo Last File Changes</attribute>
                 </item>
                 <item>
+                    <attribute name="accel">&lt;Primary&gt;s</attribute>
+                    <attribute name="action">win.save</attribute>
                     <attribute name="label" translatable="yes">_Save Files</attribute>
                 </item>
                 <item>
+                    <attribute name="accel">&lt;Primary&gt;&lt;Shift&gt;s</attribute>
+                    <attribute name="action">win.save-force</attribute>
                     <attribute name="label" translatable="yes">_Force Save Files</attribute>
                 </item>
             </section>

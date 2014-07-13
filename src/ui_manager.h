@@ -10,27 +10,6 @@ static const gchar *ui_xml =
  * Menu bar
  */
 "  <menubar name='MenuBar'>"
-"    <menu action='FileMenu'>"
-
-"      <menuitem action='OpenFile' />"
-"      <menuitem action='RunAudio' />"
-"      <separator />"
-
-"      <menuitem action='SelInv' />"
-"      <separator />"
-
-"      <menuitem action='DeleteFile' />"
-"      <separator />"
-
-"      <menuitem action='UndoFile' />"
-"      <menuitem action='RedoFile' />"
-"      <menuitem action='SaveFile' />"
-"      <menuitem action='SaveFileForced' />"
-"      <separator />"
-
-"      <menuitem action='Quit' />"
-"    </menu>"
-
 "    <menu action='ViewMenu'>"
 "      <menuitem action='ShowScanner' />"
 "      <menu action='ScannerMenu'>"
@@ -132,16 +111,10 @@ static const gchar *ui_xml =
  */
 "  <toolbar name='ToolBar'>"
 "    <toolitem action='ShowScanner'/>"
-"    <toolitem action='UndoFile'/>"
-"    <toolitem action='RedoFile'/>"
-"    <toolitem action='SaveFile'/>"
 "    <separator />"
 
 "    <toolitem action='TreeViewMode'/>"
 "    <toolitem action='ArtistViewMode'/>"
-"    <separator />"
-
-"    <toolitem action='SelInv'/>"
 "    <separator />"
 
 "    <toolitem action='Stop'/>"

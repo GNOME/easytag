@@ -709,8 +709,8 @@ Browser_List_Key_Press (GtkWidget *list, GdkEvent *event, gpointer data)
             switch(kevent->keyval)
             {
                 case GDK_KEY_Delete:
-                    et_application_window_delete_selected_files (NULL,
-                                                                 MainWindow);
+                    g_action_group_activate_action (G_ACTION_GROUP (MainWindow),
+                                                    "delete", NULL);
                     return TRUE;
             }
         }

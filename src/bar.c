@@ -160,7 +160,6 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         /*
          * Main Menu Actions
          */
-        { MENU_FILE,                          NULL,                      _("_File"),                         NULL, NULL,                               NULL},
         { MENU_FILE_SORT_TAG, GTK_STOCK_SORT_ASCENDING, _("Sort List by Tag"),
           NULL, NULL, NULL },
         { MENU_FILE_SORT_PROP, GTK_STOCK_SORT_ASCENDING,
@@ -210,32 +209,9 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { AM_SORT_ASCENDING_FILE_SAMPLERATE,  GTK_STOCK_SORT_ASCENDING,  _("Ascending by samplerate"),       NULL, _("Ascending by samplerate"),       G_CALLBACK(Menu_Sort_Action) },
         { AM_SORT_DESCENDING_FILE_SAMPLERATE, GTK_STOCK_SORT_DESCENDING, _("Descending by samplerate"),      NULL, _("Descending by samplerate"),      G_CALLBACK(Menu_Sort_Action) },
 
-        { AM_OPEN_FILE_WITH, GTK_STOCK_OPEN, _("Open Files With…"),
-          "<Primary><Shift>O", _("Run a command on the selected files"),
-          G_CALLBACK (et_application_window_show_open_files_with_dialog) },
-        { AM_INVERT_SELECTION, "easytag-invert-selection",
-          _("Invert File Selection"), "<Primary>I", _("Invert file selection"),
-          G_CALLBACK (et_application_window_invert_selection) },
-        { AM_DELETE_FILE, GTK_STOCK_DELETE, _("Delete Files"), NULL,
-          _("Delete files"),
-          G_CALLBACK (et_application_window_delete_selected_files) },
         { AM_SCAN_FILES, GTK_STOCK_APPLY, _("S_can Files"), NULL,
           _("Scan selected files"),
           G_CALLBACK (et_application_window_scan_selected_files) },
-        { AM_UNDO, GTK_STOCK_UNDO, _("_Undo Last Files Changes"), "<Primary>Z",
-          _("Undo last files changes"),
-          G_CALLBACK (et_application_window_undo_selected_files) },
-        { AM_REDO, GTK_STOCK_REDO, _("R_edo Last Files Changes"),
-          "<Primary><Shift>Z", _("Redo last files changes"),
-          G_CALLBACK (et_application_window_redo_selected_files) },
-        { AM_SAVE, GTK_STOCK_SAVE, _("_Save Files"), "<Primary>S",
-          _("Save changes to selected files"),
-          G_CALLBACK(Action_Save_Selected_Files) },
-        { AM_SAVE_FORCED, GTK_STOCK_SAVE, _("_Force Save Files"),
-          "<Primary><Shift>S", _("Force saving files"),
-          G_CALLBACK (Action_Force_Saving_Selected_Files) },
-        { AM_QUIT, GTK_STOCK_QUIT, _("_Quit"), "<Primary>Q", _("Quit"),
-          G_CALLBACK (Quit_MainWindow) },
 
         { AM_RELOAD_DIRECTORY, GTK_STOCK_REFRESH, _("Reload Directory"),
           "<Primary>R", _("Reload directory"),
@@ -248,10 +224,6 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
           G_CALLBACK (et_application_window_browser_reload) },
 
         { MENU_SCANNER, NULL, _("S_canner Mode"), NULL, NULL, NULL },
-
-        { AM_RUN_AUDIO_PLAYER, GTK_STOCK_MEDIA_PLAY, _("Run Audio Player"),
-          "<Primary>M", _("Run audio player"),
-          G_CALLBACK (et_application_window_run_player_for_selection) },
 
         { MENU_VIEW, NULL, _("_View"), NULL, NULL, NULL },
 
