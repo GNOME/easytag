@@ -42,7 +42,6 @@
 static GtkWidget *StatusBar = NULL;
 static guint StatusBarContext;
 static guint timer_cid;
-static guint tooltip_cid;
 static guint StatusbarTimerId = 0;
 static GList *ActionPairsList = NULL;
 
@@ -51,19 +50,6 @@ static GList *ActionPairsList = NULL;
  **************/
 
 static void Statusbar_Remove_Timer (void);
-
-static void et_statusbar_push_tooltip (const gchar *message);
-static void et_statusbar_pop_tooltip (void);
-static void et_ui_manager_on_connect_proxy (GtkUIManager *manager,
-                                            GtkAction *action,
-                                            GtkWidget *proxy,
-                                            gpointer user_data);
-static void et_ui_manager_on_disconnect_proxy (GtkUIManager *manager,
-                                               GtkAction *action,
-                                               GtkWidget *proxy,
-                                               gpointer user_data);
-static void on_menu_item_select (GtkMenuItem *item, gpointer user_data);
-static void on_menu_item_deselect (GtkMenuItem *item, gpointer user_data);
 
 /*************
  * Functions o
@@ -117,11 +103,6 @@ create_main_toolbar (GtkWindow *window)
 
     UIManager = gtk_ui_manager_new();
 
-    g_signal_connect (UIManager, "connect-proxy",
-                      G_CALLBACK (et_ui_manager_on_connect_proxy), NULL);
-    g_signal_connect (UIManager, "disconnect-proxy",
-                      G_CALLBACK (et_ui_manager_on_disconnect_proxy), NULL);
-
     if (!gtk_ui_manager_add_ui_from_string(UIManager, ui_xml, -1, &error))
     {
         g_error(_("Could not merge UI, error was: %s\n"), error->message);
@@ -152,8 +133,6 @@ GtkWidget *Create_Status_Bar (void)
     StatusBarContext = gtk_statusbar_get_context_id(GTK_STATUSBAR(StatusBar),"Messages");
     timer_cid = gtk_statusbar_get_context_id (GTK_STATUSBAR (StatusBar),
                                               "timer");
-    tooltip_cid = gtk_statusbar_get_context_id (GTK_STATUSBAR (StatusBar),
-                                                "tooltip");
 
     Statusbar_Message (_("Ready to start"), TRUE);
 
@@ -227,38 +206,6 @@ Statusbar_Message (const gchar *message, gboolean with_timer)
 }
 
 /*
- * et_statusbar_push_tooltip:
- * @message: a tooltip to display in the status bar
- *
- * Display a tooltip in the status bar of the main window. Call
- * et_statusbar_pop_tooltip() to stop displaying the tooltip message.
- */
-static void
-et_statusbar_push_tooltip (const gchar *message)
-{
-    g_return_if_fail (StatusBar != NULL && message != NULL);
-
-    gtk_statusbar_push (GTK_STATUSBAR (StatusBar), tooltip_cid, message);
-}
-
-/*
- * et_statusbar_pop_tooltip:
- *
- * Pop a tooltip message from the status bar. et_statusbar_push_tooltip() must
- * have been called first.
- */
-static void
-et_statusbar_pop_tooltip (void)
-{
-    g_return_if_fail (StatusBar != NULL);
-
-    gtk_statusbar_pop (GTK_STATUSBAR (StatusBar), tooltip_cid);
-}
-
-
-
-
-/*
  * Progress bar
  */
 GtkWidget *Create_Progress_Bar (void)
@@ -267,98 +214,4 @@ GtkWidget *Create_Progress_Bar (void)
 
     gtk_widget_show(ProgressBar);
     return ProgressBar;
-}
-
-/*
- * et_ui_manager_on_connect_proxy:
- * @manager: the UI manager which generated the signal
- * @action: the action which was connected to @proxy
- * @proxy: the widget which was connected to @action
- * @user_data: user data set when the signal was connected
- *
- * Connect handlers for selection and deselection of menu items, in order to
- * set tooltips for the menu items as status bar messages.
- */
-static void
-et_ui_manager_on_connect_proxy (GtkUIManager *manager, GtkAction *action,
-                                GtkWidget *proxy, gpointer user_data)
-{
-    if (GTK_IS_MENU_ITEM (proxy))
-    {
-        guint id;
-
-        id = g_signal_connect (proxy, "select",
-                               G_CALLBACK (on_menu_item_select), action);
-        g_object_set_data (G_OBJECT (proxy), "select-id",
-                           GUINT_TO_POINTER (id));
-        id = g_signal_connect (proxy, "deselect",
-                               G_CALLBACK (on_menu_item_deselect), NULL);
-        g_object_set_data (G_OBJECT (proxy), "deselect-id",
-                           GUINT_TO_POINTER (id));
-    }
-}
-
-/*
- * et_ui_manager_on_disconnect_proxy:
- * @manager: the UI manager which generated the signal
- * @action: the action which was connected to @proxy
- * @proxy: the widget which was connected to @action
- * @user_data: user data set when the signal was connected
- *
- * Disconnect handlers for selecting and deselecting menu items.
- */
-static void
-et_ui_manager_on_disconnect_proxy (GtkUIManager *manager, GtkAction *action,
-                                   GtkWidget *proxy, gpointer user_data)
-{
-    if (GTK_IS_MENU_ITEM (proxy))
-    {
-        guint id;
-
-        id = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (proxy),
-                                                  "select-id"));
-        g_signal_handler_disconnect (proxy, id);
-        id = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (proxy),
-                                                  "deselect-id"));
-        g_signal_handler_disconnect (proxy, id);
-    }
-}
-
-/*
- * on_menu_item_select:
- * @item: the menu item which was selected
- * @user_data: the #GtkAction corresponding to @item
- *
- * Set the current status bar message to the tooltip of the menu @item which
- * was selected.
- */
-static void
-on_menu_item_select (GtkMenuItem *item, gpointer user_data)
-{
-    GtkAction *action;
-    const gchar *message;
-
-    g_return_if_fail (user_data != NULL);
-
-    action = GTK_ACTION (user_data);
-    message = gtk_action_get_tooltip (action);
-
-    if (message)
-    {
-        et_statusbar_push_tooltip (message);
-    }
-}
-
-/*
- * on_menu_item_deselect:
- * @item: the menu item which was deselected
- * @user_data: user data set when the signal was connected
- *
- * Clear the current tooltip status bar message when the menu item is
- * deselected.
- */
-static void
-on_menu_item_deselect (GtkMenuItem *item, gpointer user_data)
-{
-    et_statusbar_pop_tooltip ();
 }
