@@ -247,21 +247,9 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { AM_QUIT, GTK_STOCK_QUIT, _("_Quit"), "<Primary>Q", _("Quit"),
           G_CALLBACK (Quit_MainWindow) },
 
-        { MENU_BROWSER,                NULL,                   _("_Browser"),                      NULL,                NULL,                               NULL },
-        { AM_SET_PATH_AS_DEFAULT, GTK_STOCK_DIRECTORY,
-          _("Set _Current Path as Default"), NULL,
-          _("Set current path as default"),
-          G_CALLBACK (et_application_window_set_current_path_default) },
-        { AM_RENAME_DIR, GTK_STOCK_INDEX, _("Rename Directory…"), "F2",
-          _("Rename directory"),
-          G_CALLBACK (et_application_window_show_rename_directory_dialog) },
         { AM_RELOAD_DIRECTORY, GTK_STOCK_REFRESH, _("Reload Directory"),
           "<Primary>R", _("Reload directory"),
           G_CALLBACK (et_application_window_reload_directory) },
-        { AM_BROWSE_DIRECTORY_WITH, GTK_STOCK_EXECUTE,
-          _("Browse Directory With…"), NULL,
-          _("Run a command on the directory"),
-          G_CALLBACK (et_application_window_show_open_directory_with_dialog) },
         { AM_COLLAPSE_TREE, NULL, _("_Collapse Tree"), "<Primary><Shift>C",
           _("Collapse directory tree"),
           G_CALLBACK (et_application_window_browser_collapse) },
@@ -317,9 +305,6 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
 
     GtkToggleActionEntry ToggleActionEntries[] =
     {
-        { AM_BROWSE_SUBDIR, NULL, _("Browse _Subdirectories"), NULL,
-          _("Browse subdirectories"), NULL,
-          g_settings_get_boolean (MainSettings, "browse-subdir") },
 #ifndef G_OS_WIN32 /* No sense here for Win32, "hidden" means : starts with a
                     * '.'
                     */

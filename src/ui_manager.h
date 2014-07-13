@@ -141,17 +141,6 @@ static const gchar *ui_xml =
 #endif /* !G_OS_WIN32 */
 "    </menu>"
 
-"    <menu action='BrowserMenu'>"
-"      <menuitem action='SetDefaultPath' />"
-"      <separator />"
-
-"      <menuitem action='RenameDir' />"
-"      <menuitem action='BrowseDir' />"
-"      <separator />"
-
-"      <menuitem action='BrowseSubdir' />"
-"    </menu>"
-
 "  </menubar>"
 
 

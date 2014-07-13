@@ -1717,6 +1717,48 @@ et_application_window_show_cddb_dialog (EtApplicationWindow *self)
 }
 
 static void
+on_set_default_path (GSimpleAction *action,
+                     GVariant *variant,
+                     gpointer user_data)
+{
+    EtApplicationWindow *self;
+    EtApplicationWindowPrivate *priv;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_set_current_path_default (ET_BROWSER (priv->browser));
+}
+
+static void
+on_rename_directory (GSimpleAction *action,
+                     GVariant *variant,
+                     gpointer user_data)
+{
+    EtApplicationWindow *self;
+    EtApplicationWindowPrivate *priv;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_show_rename_directory_dialog (ET_BROWSER (priv->browser));
+}
+
+static void
+on_browse_directory (GSimpleAction *action,
+                     GVariant *variant,
+                     gpointer user_data)
+{
+    EtApplicationWindow *self;
+    EtApplicationWindowPrivate *priv;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_show_open_directory_with_dialog (ET_BROWSER (priv->browser));
+}
+
+static void
 on_show_cddb (GSimpleAction *action,
               GVariant *variant,
               gpointer user_data)
@@ -2029,6 +2071,11 @@ on_go_last (GSimpleAction *action,
 
 static const GActionEntry actions[] =
 {
+    /* Browser menu. */
+    { "set-default-path", on_set_default_path },
+    { "rename-directory", on_rename_directory },
+    { "browse-directory", on_browse_directory },
+    /* { "browse-subdir", on_browse_subdir }, Created from GSetting. */
     /* Miscellaneous menu. */
     { "show-cddb", on_show_cddb },
     { "show-load-filenames", on_show_load_filenames },
@@ -2099,6 +2146,7 @@ static void
 et_application_window_init (EtApplicationWindow *self)
 {
     EtApplicationWindowPrivate *priv;
+    GAction *action;
     GtkWindow *window;
     GtkWidget *main_vbox;
     GtkWidget *hbox, *vbox;
@@ -2117,6 +2165,10 @@ et_application_window_init (EtApplicationWindow *self)
 
     g_action_map_add_action_entries (G_ACTION_MAP (self), actions,
                                      G_N_ELEMENTS (actions), self);
+
+    action = g_settings_create_action (MainSettings, "browse-subdir");
+    g_action_map_add_action (G_ACTION_MAP (self), action);
+    g_object_unref (action);
 
     window = GTK_WINDOW (self);
 
@@ -2536,18 +2588,6 @@ et_application_window_select_dir (EtApplicationWindow *self, const gchar *path)
     et_browser_select_dir (ET_BROWSER (priv->browser), path);
 }
 
-void
-et_application_window_set_current_path_default (G_GNUC_UNUSED GtkAction *action,
-                                                gpointer user_data)
-{
-    EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
-
-    priv = et_application_window_get_instance_private (self);
-
-    et_browser_set_current_path_default (ET_BROWSER (priv->browser));
-}
-
 const gchar *
 et_application_window_get_current_path (EtApplicationWindow *self)
 {
@@ -2561,18 +2601,6 @@ et_application_window_get_current_path (EtApplicationWindow *self)
 }
 
 void
-et_application_window_show_open_directory_with_dialog (G_GNUC_UNUSED GtkAction *action,
-                                                       gpointer user_data)
-{
-    EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
-
-    priv = et_application_window_get_instance_private (self);
-
-    et_browser_show_open_directory_with_dialog (ET_BROWSER (priv->browser));
-}
-
-void
 et_application_window_show_open_files_with_dialog (G_GNUC_UNUSED GtkAction *action,
                                                    gpointer user_data)
 {
@@ -2582,18 +2610,6 @@ et_application_window_show_open_files_with_dialog (G_GNUC_UNUSED GtkAction *acti
     priv = et_application_window_get_instance_private (self);
 
     et_browser_show_open_files_with_dialog (ET_BROWSER (priv->browser));
-}
-
-void
-et_application_window_show_rename_directory_dialog (G_GNUC_UNUSED GtkAction *action,
-                                                    gpointer user_data)
-{
-    EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
-
-    priv = et_application_window_get_instance_private (self);
-
-    et_browser_show_rename_directory_dialog (ET_BROWSER (priv->browser));
 }
 
 GtkWidget *

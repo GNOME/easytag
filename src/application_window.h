@@ -73,11 +73,8 @@ void et_application_window_run_player_for_artist_list (GtkAction *action, gpoint
 void et_application_window_run_player_for_selection (GtkAction *action, gpointer user_data);
 void et_application_window_reload_directory (GtkAction *action, gpointer user_data);
 void et_application_window_select_dir (EtApplicationWindow *self, const gchar *path);
-void et_application_window_set_current_path_default (GtkAction *action, gpointer user_data);
 const gchar * et_application_window_get_current_path (EtApplicationWindow *self);
-void et_application_window_show_open_directory_with_dialog (GtkAction *action, gpointer user_data);
 void et_application_window_show_open_files_with_dialog (GtkAction *action, gpointer user_data);
-void et_application_window_show_rename_directory_dialog (GtkAction *action, gpointer user_data);
 GtkWidget * et_application_window_get_scan_dialog (EtApplicationWindow *self);
 void et_application_window_show_scan_dialog (GtkAction *action, gpointer user_data);
 void et_application_window_scan_selected_files (GtkAction *action, gpointer user_data);

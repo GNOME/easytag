@@ -301,19 +301,24 @@
             <attribute name="label" translatable="yes">_Browser</attribute>
             <section>
                 <item>
+                    <attribute name="action">win.set-default-path</attribute>
                     <attribute name="label" translatable="yes">Set _Current Path as Default</attribute>
                 </item>
             </section>
             <section>
                 <item>
+                    <attribute name="accel">F2</attribute>
+                    <attribute name="action">win.rename-directory</attribute>
                     <attribute name="label" translatable="yes">Rename Directory…</attribute>
                 </item>
                 <item>
+                    <attribute name="action">win.browse-directory</attribute>
                     <attribute name="label" translatable="yes">Browse Directory With…</attribute>
                 </item>
             </section>
             <section>
                 <item>
+                    <attribute name="action">win.browse-subdir</attribute>
                     <attribute name="label" translatable="yes">Browse _Subdirectories</attribute>
                 </item>
             </section>
