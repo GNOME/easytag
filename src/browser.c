@@ -3340,7 +3340,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                          G_TYPE_POINTER,
                                          PANGO_TYPE_STYLE,
                                          G_TYPE_INT,
-                                         GDK_TYPE_COLOR);
+                                         GDK_TYPE_RGBA);
 
     BrowserArtistList = gtk_tree_view_new_with_model(GTK_TREE_MODEL(artistListModel));
     g_object_unref (artistListModel);
@@ -3421,7 +3421,7 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
                                          G_TYPE_POINTER,
                                          PANGO_TYPE_STYLE,
                                          G_TYPE_INT,
-                                         GDK_TYPE_COLOR,
+                                         GDK_TYPE_RGBA,
                                          G_TYPE_BOOLEAN);
 
     BrowserAlbumList = gtk_tree_view_new_with_model(GTK_TREE_MODEL(albumListModel));

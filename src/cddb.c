@@ -690,7 +690,7 @@ void Open_Cddb_Window (void)
                                             G_TYPE_POINTER,
                                             PANGO_TYPE_STYLE,
                                             G_TYPE_INT,
-                                            GDK_TYPE_COLOR);
+                                            GDK_TYPE_RGBA);
     CddbAlbumListView = gtk_tree_view_new_with_model(GTK_TREE_MODEL(CddbAlbumListModel));
     g_object_unref (CddbAlbumListModel);
 
