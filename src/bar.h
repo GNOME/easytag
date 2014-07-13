@@ -34,7 +34,6 @@ GtkWidget *CheckMenuItemBrowseSubdirMainMenu;
 GtkWidget *CheckMenuItemBrowseHiddenDirMainMenu;
 
 #define MENU_FILE       "FileMenu"
-#define MENU_EDIT "EditMenu"
 #define MENU_VIEW "ViewMenu"
 #define MENU_SCANNER    "ScannerMenu"
 
@@ -51,15 +50,10 @@ GtkWidget *CheckMenuItemBrowseHiddenDirMainMenu;
 #define POPUP_LOG               "LogPopup"
 
 #define AM_SCAN_FILES "ScanFiles"
-#define AM_REMOVE                   "RemoveTag"
 #define AM_UNDO                     "UndoFile"
 #define AM_REDO                     "RedoFile"
-#define AM_UNDO_HISTORY             "Undo"
-#define AM_REDO_HISTORY             "Redo"
 #define AM_SAVE                     "SaveFile"
 #define AM_SAVE_FORCED              "SaveFileForced"
-#define AM_SELECT_ALL "SelAll"
-#define AM_UNSELECT_ALL "UnselAll"
 #define AM_INVERT_SELECTION         "SelInv"
 #define AM_DELETE_FILE              "DeleteFile"
 #define AM_BROWSER_HIDDEN_DIR       "BrowseHiddenDir"
@@ -74,7 +68,6 @@ GtkWidget *CheckMenuItemBrowseHiddenDirMainMenu;
 #define AM_SCANNER_RENAME_FILE      "RenameFile"
 #define AM_SCANNER_PROCESS_FIELDS   "ProcessFields"
 #define AM_SCANNER_SHOW "ShowScanner"
-#define AM_SEARCH_FILE              "SearchFile"
 #define AM_CDDB_SEARCH_FILE         "CDDBSearchFile"
 #define AM_RUN_AUDIO_PLAYER         "RunAudio"
 #define AM_QUIT                     "Quit"

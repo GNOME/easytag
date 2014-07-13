@@ -31,23 +31,6 @@ static const gchar *ui_xml =
 "      <menuitem action='Quit' />"
 "    </menu>"
 
-
-"    <menu action='EditMenu'>"
-"      <menuitem action='SearchFile' />"
-"      <menuitem action='SelAll' />"
-"      <menuitem action='UnselAll' />"
-"      <separator />"
-
-"      <menuitem action='Undo' />"
-"      <menuitem action='Redo' />"
-"      <separator />"
-
-"      <menuitem action='RemoveTag' />"
-"      <separator />"
-
-"      <menuitem action='Preferences' />"
-"    </menu>"
-
 "    <menu action='ViewMenu'>"
 "      <menuitem action='ShowScanner' />"
 "      <menu action='ScannerMenu'>"
@@ -149,7 +132,6 @@ static const gchar *ui_xml =
  */
 "  <toolbar name='ToolBar'>"
 "    <toolitem action='ShowScanner'/>"
-"    <toolitem action='RemoveTag'/>"
 "    <toolitem action='UndoFile'/>"
 "    <toolitem action='RedoFile'/>"
 "    <toolitem action='SaveFile'/>"

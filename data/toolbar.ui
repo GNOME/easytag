@@ -41,6 +41,27 @@
             <object class="GtkSeparatorToolItem" id="separator1"/>
         </child>
         <child>
+            <object class="GtkToolButton" id="remove_tags_button">
+                <property name="action-name">win.remove-tags</property>
+                <property name="icon-name">edit-clear</property>
+                <property name="label" translatable="yes">_Remove Tags</property>
+                <property name="tooltip-text" translatable="yes">Remove tags</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkSeparatorToolItem" id="separator2"/>
+        </child>
+        <child>
+            <object class="GtkToolButton" id="find_button">
+                <property name="action-name">win.find</property>
+                <property name="icon-name">edit-find</property>
+                <property name="label" translatable="yes">_Find…</property>
+                <property name="tooltip-text" translatable="yes">Search filenames and tags</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
             <object class="GtkToolButton" id="cddb_button">
                 <property name="action-name">win.show-cddb</property>
                 <property name="icon-name">media-optical</property>

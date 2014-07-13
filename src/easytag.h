@@ -110,8 +110,6 @@ void Action_Undo_All_Files              (void);
 void Action_Redo_All_Files              (void);
 void Action_Save_Selected_Files         (void);
 void Action_Force_Saving_Selected_Files (void);
-void Action_Undo_From_History_List      (void);
-void Action_Redo_From_History_List      (void);
 gint et_delete_file (ET_File *ETFile, gboolean multiple_files, GError **error);
 gint Save_All_Files_With_Answer         (gboolean force_saving_files);
 

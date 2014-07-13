@@ -213,11 +213,6 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { AM_OPEN_FILE_WITH, GTK_STOCK_OPEN, _("Open Files With…"),
           "<Primary><Shift>O", _("Run a command on the selected files"),
           G_CALLBACK (et_application_window_show_open_files_with_dialog) },
-        { AM_SELECT_ALL, GTK_STOCK_SELECT_ALL, NULL, "<Primary>A",
-          _("Select all"), G_CALLBACK (et_application_window_select_all) },
-        { AM_UNSELECT_ALL, "easytag-unselect-all", _("Unselect All"),
-          "<Primary><Shift>A", _("Clear the current selection"),
-          G_CALLBACK (et_application_window_unselect_all) },
         { AM_INVERT_SELECTION, "easytag-invert-selection",
           _("Invert File Selection"), "<Primary>I", _("Invert file selection"),
           G_CALLBACK (et_application_window_invert_selection) },
@@ -227,9 +222,6 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { AM_SCAN_FILES, GTK_STOCK_APPLY, _("S_can Files"), NULL,
           _("Scan selected files"),
           G_CALLBACK (et_application_window_scan_selected_files) },
-        { AM_REMOVE, GTK_STOCK_CLEAR, _("_Remove Tags"), "<Primary>E",
-          _("Remove tags"),
-          G_CALLBACK (et_application_window_remove_selected_tags) },
         { AM_UNDO, GTK_STOCK_UNDO, _("_Undo Last Files Changes"), "<Primary>Z",
           _("Undo last files changes"),
           G_CALLBACK (et_application_window_undo_selected_files) },
@@ -242,8 +234,6 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
         { AM_SAVE_FORCED, GTK_STOCK_SAVE, _("_Force Save Files"),
           "<Primary><Shift>S", _("Force saving files"),
           G_CALLBACK (Action_Force_Saving_Selected_Files) },
-        { AM_UNDO_HISTORY,       GTK_STOCK_UNDO,             _("Undo Last Changes"),          NULL,                _("Undo last changes"),         G_CALLBACK(Action_Undo_From_History_List) },
-        { AM_REDO_HISTORY,       GTK_STOCK_REDO,             _("Redo Last Changes"),          NULL,                _("Redo last changes"),         G_CALLBACK(Action_Redo_From_History_List) },
         { AM_QUIT, GTK_STOCK_QUIT, _("_Quit"), "<Primary>Q", _("Quit"),
           G_CALLBACK (Quit_MainWindow) },
 
@@ -259,17 +249,9 @@ Create_UI (GtkWindow *window, GtkWidget **ppmenubar, GtkWidget **pptoolbar)
 
         { MENU_SCANNER, NULL, _("S_canner Mode"), NULL, NULL, NULL },
 
-        { AM_SEARCH_FILE, GTK_STOCK_FIND, _("_Find…"), "<Primary>F",
-          _("Search filenames and tags"),
-          G_CALLBACK (et_application_window_show_search_dialog) },
         { AM_RUN_AUDIO_PLAYER, GTK_STOCK_MEDIA_PLAY, _("Run Audio Player"),
           "<Primary>M", _("Run audio player"),
           G_CALLBACK (et_application_window_run_player_for_selection) },
-
-        { MENU_EDIT, NULL, _("_Edit"), NULL, NULL, NULL },
-        { AM_OPEN_OPTIONS_WINDOW, GTK_STOCK_PREFERENCES, _("_Preferences"),
-          NULL, _("Preferences"),
-          G_CALLBACK (et_application_window_show_preferences_dialog) },
 
         { MENU_VIEW, NULL, _("_View"), NULL, NULL, NULL },
 

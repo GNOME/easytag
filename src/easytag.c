@@ -447,53 +447,6 @@ void Action_Select_Nth_File_By_Etfile (ET_File *ETFile)
     et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (MainWindow))));
 }
 
-void Action_Undo_From_History_List (void)
-{
-    ET_File *ETFile;
-
-    g_return_if_fail (ETCore->ETFileList != NULL);
-
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
-
-    ETFile = ET_Undo_History_File_Data();
-    if (ETFile)
-    {
-        ET_Display_File_Data_To_UI(ETFile);
-        et_application_window_browser_select_file_by_et_file (ET_APPLICATION_WINDOW (MainWindow),
-                                                              ETFile, TRUE);
-        et_application_window_browser_refresh_file_in_list (ET_APPLICATION_WINDOW (MainWindow),
-                                                            ETFile);
-    }
-
-    et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
-}
-
-
-
-void Action_Redo_From_History_List (void)
-{
-    ET_File *ETFile;
-
-    g_return_if_fail (ETCore->ETFileDisplayedList != NULL);
-
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
-
-    ETFile = ET_Redo_History_File_Data();
-    if (ETFile)
-    {
-        ET_Display_File_Data_To_UI(ETFile);
-        et_application_window_browser_select_file_by_et_file (ET_APPLICATION_WINDOW (MainWindow),
-                                                              ETFile, TRUE);
-        et_application_window_browser_refresh_file_in_list (ET_APPLICATION_WINDOW (MainWindow),
-                                                            ETFile);
-    }
-
-    et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
-}
-
-
 /*
  * Action when Save button is pressed
  */

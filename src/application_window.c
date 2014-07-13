@@ -1717,6 +1717,243 @@ et_application_window_show_cddb_dialog (EtApplicationWindow *self)
 }
 
 static void
+on_find (GSimpleAction *action,
+         GVariant *variant,
+         gpointer user_data)
+{
+    EtApplicationWindow *self;
+    EtApplicationWindowPrivate *priv;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
+
+    if (priv->search_dialog)
+    {
+        gtk_widget_show (priv->search_dialog);
+    }
+    else
+    {
+        priv->search_dialog = GTK_WIDGET (et_search_dialog_new ());
+        gtk_widget_show_all (priv->search_dialog);
+    }
+}
+
+static void
+on_select_all (GSimpleAction *action,
+               GVariant *variant,
+               gpointer user_data)
+{
+    GtkWidget *focused;
+
+    /* Use the currently-focused widget and "select all" as appropriate.
+     * https://bugzilla.gnome.org/show_bug.cgi?id=697515 */
+    focused = gtk_window_get_focus (GTK_WINDOW (user_data));
+
+    if (GTK_IS_EDITABLE (focused))
+    {
+        gtk_editable_select_region (GTK_EDITABLE (focused), 0, -1);
+    }
+    else if (focused == PictureEntryView)
+    {
+        GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (focused));
+        gtk_tree_selection_select_all (selection);
+    }
+    else /* Assume that other widgets should select all in the file view. */
+    {
+        EtApplicationWindowPrivate *priv;
+        EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+        priv = et_application_window_get_instance_private (self);
+
+        /* Save the current displayed data */
+        ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+
+        et_browser_select_all (ET_BROWSER (priv->browser));
+        et_application_window_update_actions (self);
+    }
+}
+
+static void
+on_unselect_all (GSimpleAction *action,
+                 GVariant *variant,
+                 gpointer user_data)
+{
+    EtApplicationWindow *self;
+    EtApplicationWindowPrivate *priv;
+    GtkWidget *focused;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
+
+    focused = gtk_window_get_focus (GTK_WINDOW (user_data));
+
+    if (GTK_IS_EDITABLE (focused))
+    {
+        GtkEditable *editable;
+        gint pos;
+
+        editable = GTK_EDITABLE (focused);
+        pos = gtk_editable_get_position (editable);
+        gtk_editable_select_region (editable, 0, 0);
+        gtk_editable_set_position (editable, pos);
+    }
+    else if (focused == PictureEntryView)
+    {
+        GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (focused));
+        gtk_tree_selection_unselect_all (selection);
+    }
+    else /* Assume that other widgets should unselect all in the file view. */
+    {
+        /* Save the current displayed data */
+        ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+
+        et_browser_unselect_all (ET_BROWSER (priv->browser));
+
+        ETCore->ETFileDisplayed = NULL;
+    }
+}
+
+static void
+on_undo_last_changes (GSimpleAction *action,
+                      GVariant *variant,
+                      gpointer user_data)
+{
+    EtApplicationWindow *self;
+    ET_File *ETFile;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+
+    g_return_if_fail (ETCore->ETFileList != NULL);
+
+    /* Save the current displayed data */
+    ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+
+    ETFile = ET_Undo_History_File_Data ();
+
+    if (ETFile)
+    {
+        ET_Display_File_Data_To_UI (ETFile);
+        et_application_window_browser_select_file_by_et_file (self, ETFile,
+                                                              TRUE);
+        et_application_window_browser_refresh_file_in_list (self, ETFile);
+    }
+
+    et_application_window_update_actions (self);
+}
+
+static void
+on_redo_last_changes (GSimpleAction *action,
+                      GVariant *variant,
+                      gpointer user_data)
+{
+    EtApplicationWindow *self;
+    ET_File *ETFile;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+
+    g_return_if_fail (ETCore->ETFileDisplayedList != NULL);
+
+    /* Save the current displayed data */
+    ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+
+    ETFile = ET_Redo_History_File_Data ();
+
+    if (ETFile)
+    {
+        ET_Display_File_Data_To_UI (ETFile);
+        et_application_window_browser_select_file_by_et_file (self, ETFile,
+                                                              TRUE);
+        et_application_window_browser_refresh_file_in_list (self, ETFile);
+    }
+
+    et_application_window_update_actions (self);
+}
+
+static void
+on_remove_tags (GSimpleAction *action,
+                GVariant *variant,
+                gpointer user_data)
+{
+    EtApplicationWindow *self;
+    EtApplicationWindowPrivate *priv;
+    GList *selfilelist = NULL;
+    GList *l;
+    ET_File *etfile;
+    File_Tag *FileTag;
+    gint progress_bar_index;
+    gint selectcount;
+    double fraction;
+    GtkTreeSelection *selection;
+
+    g_return_if_fail (ETCore->ETFileDisplayedList != NULL);
+
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
+
+    /* Save the current displayed data */
+    ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+
+    /* Initialize status bar */
+    gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (ProgressBar), 0.0);
+    selection = et_application_window_browser_get_selection (self);
+    selectcount = gtk_tree_selection_count_selected_rows (selection);
+    progress_bar_index = 0;
+
+    selfilelist = gtk_tree_selection_get_selected_rows (selection, NULL);
+
+    for (l = selfilelist; l != NULL; l = g_list_next (l))
+    {
+        etfile = et_browser_get_et_file_from_path (ET_BROWSER (priv->browser),
+                                                   l->data);
+        FileTag = ET_File_Tag_Item_New ();
+        ET_Manage_Changes_Of_File_Data (etfile, NULL, FileTag);
+
+        fraction = (++progress_bar_index) / (double) selectcount;
+        gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (ProgressBar),
+                                       fraction);
+        /* Needed to refresh status bar */
+        while (gtk_events_pending ())
+        {
+            gtk_main_iteration ();
+        }
+    }
+
+    g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
+
+    /* Refresh the whole list (faster than file by file) to show changes. */
+    et_application_window_browser_refresh_list (self);
+
+    /* Display the current file */
+    ET_Display_File_Data_To_UI (ETCore->ETFileDisplayed);
+    et_application_window_update_actions (self);
+
+    gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (ProgressBar), 0.0);
+    Statusbar_Message (_("All tags have been removed"),TRUE);
+}
+
+static void
+on_preferences (GSimpleAction *action,
+                GVariant *variant,
+                gpointer user_data)
+{
+    EtApplicationWindow *self;
+    EtApplicationWindowPrivate *priv;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
+
+    if (priv->preferences_dialog)
+    {
+        gtk_widget_show (priv->preferences_dialog);
+    }
+    else
+    {
+        priv->preferences_dialog = GTK_WIDGET (et_preferences_dialog_new ());
+        gtk_widget_show_all (priv->preferences_dialog);
+    }
+}
+
+static void
 on_set_default_path (GSimpleAction *action,
                      GVariant *variant,
                      gpointer user_data)
@@ -2071,6 +2308,14 @@ on_go_last (GSimpleAction *action,
 
 static const GActionEntry actions[] =
 {
+    /* Edit menu. */
+    { "find", on_find },
+    { "select-all", on_select_all },
+    { "unselect-all", on_unselect_all },
+    { "undo-last-changes", on_undo_last_changes },
+    { "redo-last-changes", on_redo_last_changes },
+    { "remove-tags", on_remove_tags },
+    { "preferences", on_preferences },
     /* Browser menu. */
     { "set-default-path", on_set_default_path },
     { "rename-directory", on_rename_directory },
@@ -2345,26 +2590,6 @@ et_application_window_get_search_dialog (EtApplicationWindow *self)
     return priv->search_dialog;
 }
 
-void
-et_application_window_show_search_dialog (G_GNUC_UNUSED GtkAction *action,
-                                          gpointer user_data)
-{
-    EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
-
-    priv = et_application_window_get_instance_private (self);
-
-    if (priv->search_dialog)
-    {
-        gtk_widget_show (priv->search_dialog);
-    }
-    else
-    {
-        priv->search_dialog = GTK_WIDGET (et_search_dialog_new ());
-        gtk_widget_show_all (priv->search_dialog);
-    }
-}
-
 GtkWidget *
 et_application_window_get_preferences_dialog (EtApplicationWindow *self)
 {
@@ -2375,26 +2600,6 @@ et_application_window_get_preferences_dialog (EtApplicationWindow *self)
     priv = et_application_window_get_instance_private (self);
 
     return priv->preferences_dialog;
-}
-
-void
-et_application_window_show_preferences_dialog (G_GNUC_UNUSED GtkAction *action,
-                                               gpointer user_data)
-{
-    EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
-
-    priv = et_application_window_get_instance_private (self);
-
-    if (priv->preferences_dialog)
-    {
-        gtk_widget_show (priv->preferences_dialog);
-    }
-    else
-    {
-        priv->preferences_dialog = GTK_WIDGET (et_preferences_dialog_new ());
-        gtk_widget_show_all (priv->preferences_dialog);
-    }
 }
 
 void
@@ -2815,13 +3020,13 @@ et_application_window_disable_command_actions (EtApplicationWindow *self)
     set_action_state (self, "go-previous", FALSE);
     set_action_state (self, "go-next", FALSE);
     set_action_state (self, "go-last", FALSE);
-    ui_widget_set_sensitive (MENU_EDIT, AM_REMOVE, FALSE);
+    set_action_state (self, "remove-tags", FALSE);
     ui_widget_set_sensitive(MENU_FILE,AM_UNDO,FALSE);
     ui_widget_set_sensitive(MENU_FILE,AM_REDO,FALSE);
     ui_widget_set_sensitive(MENU_FILE,AM_SAVE,FALSE);
     ui_widget_set_sensitive(MENU_FILE,AM_SAVE_FORCED,FALSE);
-    ui_widget_set_sensitive (MENU_EDIT, AM_UNDO_HISTORY, FALSE);
-    ui_widget_set_sensitive (MENU_EDIT, AM_REDO_HISTORY, FALSE);
+    set_action_state (self, "undo-last-changes", FALSE);
+    set_action_state (self, "redo-last-changes", FALSE);
 
     /* "Scanner" menu commands */
     ui_widget_set_sensitive (MENU_SCANNER_PATH, AM_SCANNER_FILL_TAG,
@@ -2901,14 +3106,14 @@ et_application_window_update_actions (EtApplicationWindow *self)
         set_action_state (self, "go-next", FALSE);
         set_action_state (self, "go-first", FALSE);
         set_action_state (self, "go-last", FALSE);
-        ui_widget_set_sensitive (MENU_EDIT, AM_REMOVE, FALSE);
+        set_action_state (self, "remove-tags", FALSE);
         ui_widget_set_sensitive(MENU_FILE, AM_UNDO, FALSE);
         ui_widget_set_sensitive(MENU_FILE, AM_REDO, FALSE);
         ui_widget_set_sensitive(MENU_FILE, AM_SAVE, FALSE);
         ui_widget_set_sensitive(MENU_FILE, AM_SAVE_FORCED, FALSE);
-        ui_widget_set_sensitive (MENU_EDIT, AM_UNDO_HISTORY, FALSE);
-        ui_widget_set_sensitive (MENU_EDIT, AM_REDO_HISTORY, FALSE);
-        ui_widget_set_sensitive (MENU_EDIT, AM_SEARCH_FILE, FALSE);
+        set_action_state (self, "undo-last-changes", FALSE);
+        set_action_state (self, "redo-last-changes", FALSE);
+        set_action_state (self, "find", FALSE);
         set_action_state (self, "show-load-filenames", FALSE);
         set_action_state (self, "show-playlist", FALSE);
         ui_widget_set_sensitive (MENU_FILE, AM_RUN_AUDIO_PLAYER, FALSE);
@@ -2978,8 +3183,8 @@ et_application_window_update_actions (EtApplicationWindow *self)
         ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_FILE_BITRATE,TRUE);
         ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_ASCENDING_FILE_SAMPLERATE,TRUE);
         ui_widget_set_sensitive(MENU_SORT_PROP_PATH,AM_SORT_DESCENDING_FILE_SAMPLERATE,TRUE);
-        ui_widget_set_sensitive (MENU_EDIT, AM_REMOVE, TRUE);
-        ui_widget_set_sensitive (MENU_EDIT, AM_SEARCH_FILE, TRUE);
+        set_action_state (self, "remove-tags", TRUE);
+        set_action_state (self, "find", TRUE);
         set_action_state (self, "show-load-filenames", TRUE);
         set_action_state (self, "show-playlist", TRUE);
         ui_widget_set_sensitive (MENU_FILE, AM_RUN_AUDIO_PLAYER, TRUE);
@@ -3034,16 +3239,24 @@ et_application_window_update_actions (EtApplicationWindow *self)
         ui_widget_set_sensitive(MENU_FILE, AM_SAVE_FORCED, TRUE);
 
         /* Enable undo command if there are data into main undo list (history list) */
-        if (ET_History_File_List_Has_Undo_Data())
-            ui_widget_set_sensitive (MENU_EDIT, AM_UNDO_HISTORY, TRUE);
+        if (ET_History_File_List_Has_Undo_Data ())
+        {
+            set_action_state (self, "undo-last-changes", TRUE);
+        }
         else
-            ui_widget_set_sensitive (MENU_EDIT, AM_UNDO_HISTORY, FALSE);
+        {
+            set_action_state (self, "undo-last-changes", FALSE);
+        }
 
         /* Enable redo commands if there are data into main redo list (history list) */
-        if (ET_History_File_List_Has_Redo_Data())
-            ui_widget_set_sensitive (MENU_EDIT, AM_REDO_HISTORY, TRUE);
+        if (ET_History_File_List_Has_Redo_Data ())
+        {
+            set_action_state (self, "redo-last-changes", TRUE);
+        }
         else
-            ui_widget_set_sensitive (MENU_EDIT, AM_REDO_HISTORY, FALSE);
+        {
+            set_action_state (self, "redo-last-changes", FALSE);
+        }
 
         artist_radio = gtk_ui_manager_get_widget (UIManager,
                                                   "/ToolBar/ArtistViewMode");
@@ -3303,42 +3516,6 @@ et_application_window_tag_area_display_controls (EtApplicationWindow *self,
     }
 }
 
-/*
- * Action when selecting all files
- */
-void
-et_application_window_select_all (GtkAction *action, gpointer user_data)
-{
-    GtkWidget *focused;
-
-    /* Use the currently-focused widget and "select all" as appropriate.
-     * https://bugzilla.gnome.org/show_bug.cgi?id=697515 */
-    focused = gtk_window_get_focus (GTK_WINDOW (user_data));
-
-    if (GTK_IS_EDITABLE (focused))
-    {
-        gtk_editable_select_region (GTK_EDITABLE (focused), 0, -1);
-    }
-    else if (focused == PictureEntryView)
-    {
-        GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (focused));
-        gtk_tree_selection_select_all (selection);
-    }
-    else /* Assume that other widgets should select all in the file view. */
-    {
-        EtApplicationWindowPrivate *priv;
-        EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
-
-        priv = et_application_window_get_instance_private (self);
-
-        /* Save the current displayed data */
-        ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
-
-        et_browser_select_all (ET_BROWSER (priv->browser));
-        et_application_window_update_actions (self);
-    }
-}
-
 void
 et_application_window_browser_entry_set_text (EtApplicationWindow *self,
                                               const gchar *text)
@@ -3522,37 +3699,6 @@ et_application_window_browser_refresh_sort (EtApplicationWindow *self)
 }
 
 /*
- * Action when unselecting all
- */
-void
-et_application_window_unselect_all (GtkAction *action, gpointer user_data)
-{
-    GtkWidget *focused;
-
-    focused = gtk_window_get_focus (GTK_WINDOW (user_data));
-
-    if (GTK_IS_EDITABLE (focused))
-    {
-        GtkEditable *editable;
-        gint pos;
-
-        editable = GTK_EDITABLE (focused);
-        pos = gtk_editable_get_position (editable);
-        gtk_editable_select_region (editable, 0, 0);
-        gtk_editable_set_position (editable, pos);
-    }
-    else if (focused == PictureEntryView)
-    {
-        GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (focused));
-        gtk_tree_selection_unselect_all (selection);
-    }
-    else /* Assume that other widgets should unselect all in the file view. */
-    {
-        et_application_window_browser_unselect_all (ET_APPLICATION_WINDOW (user_data));
-    }
-}
-
-/*
  * Action when inverting files selection
  */
 void
@@ -3569,69 +3715,6 @@ et_application_window_invert_selection (GtkAction *action, gpointer user_data)
     et_browser_invert_selection (ET_BROWSER (priv->browser));
     et_application_window_update_actions (self);
 }
-
-/*
- * Action when Remove button is pressed
- */
-void
-et_application_window_remove_selected_tags (GtkAction *action,
-                                            gpointer user_data)
-{
-    EtApplicationWindow *self;
-    EtApplicationWindowPrivate *priv;
-    GList *selfilelist = NULL;
-    GList *l;
-    ET_File *etfile;
-    File_Tag *FileTag;
-    gint progress_bar_index;
-    gint selectcount;
-    double fraction;
-    GtkTreeSelection *selection;
-
-    g_return_if_fail (ETCore->ETFileDisplayedList != NULL);
-
-    self = ET_APPLICATION_WINDOW (user_data);
-    priv = et_application_window_get_instance_private (self);
-
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
-
-    /* Initialize status bar */
-    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), 0.0);
-    selection = et_application_window_browser_get_selection (self);
-    selectcount = gtk_tree_selection_count_selected_rows (selection);
-    progress_bar_index = 0;
-
-    selfilelist = gtk_tree_selection_get_selected_rows (selection, NULL);
-
-    for (l = selfilelist; l != NULL; l = g_list_next (l))
-    {
-        etfile = et_browser_get_et_file_from_path (ET_BROWSER (priv->browser),
-                                                   l->data);
-        FileTag = ET_File_Tag_Item_New();
-        ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
-
-        fraction = (++progress_bar_index) / (double) selectcount;
-        gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), fraction);
-        /* Needed to refresh status bar */
-        while (gtk_events_pending())
-            gtk_main_iteration();
-    }
-
-    g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
-
-    /* Refresh the whole list (faster than file by file) to show changes. */
-    et_application_window_browser_refresh_list (self);
-
-    /* Display the current file */
-    ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
-    et_application_window_update_actions (self);
-
-    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), 0.0);
-    Statusbar_Message(_("All tags have been removed"),TRUE);
-}
-
-
 
 /*
  * Action when Undo button is pressed.

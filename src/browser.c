@@ -768,7 +768,8 @@ Browser_List_Button_Press (EtBrowser *self,
     }else if (event->type==GDK_3BUTTON_PRESS && event->button==1)
     {
         /* Triple left mouse click, select all files of the list. */
-        et_application_window_select_all (NULL, MainWindow);
+        g_action_group_activate_action (G_ACTION_GROUP (MainWindow),
+                                        "select-all", NULL);
     }
     return FALSE;
 }

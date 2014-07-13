@@ -57,30 +57,41 @@
             <attribute name="label" translatable="yes">_Edit</attribute>
             <section>
                 <item>
-                    <attribute name="label" translatable="yes">_Find</attribute>
+                    <attribute name="accel">&lt;Primary&gt;f</attribute>
+                    <attribute name="action">win.find</attribute>
+                    <attribute name="label" translatable="yes">_Find…</attribute>
                 </item>
                 <item>
+                    <attribute name="accel">&lt;Primary&gt;a</attribute>
+                    <attribute name="action">win.select-all</attribute>
                     <attribute name="label" translatable="yes">Select All</attribute>
                 </item>
                 <item>
+                    <attribute name="accel">&lt;Primary&gt;&lt;Shift&gt;a</attribute>
+                    <attribute name="action">win.unselect-all</attribute>
                     <attribute name="label" translatable="yes">Unselect All</attribute>
                 </item>
             </section>
             <section>
                 <item>
+                    <attribute name="action">win.undo-last-changes</attribute>
                     <attribute name="label" translatable="yes">Undo Last Changes</attribute>
                 </item>
                 <item>
+                    <attribute name="action">win.redo-last-changes</attribute>
                     <attribute name="label" translatable="yes">Redo Last Changes</attribute>
                 </item>
             </section>
             <section>
                 <item>
+                    <attribute name="accel">&lt;Primary&gt;e</attribute>
+                    <attribute name="action">win.remove-tags</attribute>
                     <attribute name="label" translatable="yes">_Remove Tags</attribute>
                 </item>
             </section>
             <section>
                 <item>
+                    <attribute name="action">win.preferences</attribute>
                     <attribute name="label" translatable="yes">_Preferences</attribute>
                 </item>
             </section>
