@@ -2806,6 +2806,67 @@ on_go_last (GSimpleAction *action,
     }
 }
 
+static void
+on_show_cddb_selection (GSimpleAction *action,
+                        GVariant *variant,
+                        gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_application_window_show_cddb_dialog (self);
+    et_cddb_dialog_search_from_selection (ET_CDDB_DIALOG (priv->cddb_dialog));
+}
+
+static void
+on_clear_log (GSimpleAction *action,
+              GVariant *variant,
+              gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_log_area_clear (ET_LOG_AREA (priv->log_area));
+}
+
+static void
+on_run_player_album (GSimpleAction *action,
+                     GVariant *variant,
+                     gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_run_player_for_album_list (ET_BROWSER (priv->browser));
+}
+
+static void
+on_run_player_artist (GSimpleAction *action,
+                      GVariant *variant,
+                      gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_run_player_for_artist_list (ET_BROWSER (priv->browser));
+}
+
+static void
+on_run_player_directory (GSimpleAction *action,
+                         GVariant *variant,
+                         gpointer user_data)
+{
+    Run_Audio_Player_Using_Directory ();
+}
+
 static const GActionEntry actions[] =
 {
     /* File menu. */
@@ -2859,6 +2920,12 @@ static const GActionEntry actions[] =
     { "go-previous", on_go_previous },
     { "go-next", on_go_next },
     { "go-last", on_go_last },
+    /* Popup menus. */
+    { "show-cddb-selection", on_show_cddb_selection },
+    { "clear-log", on_clear_log },
+    { "run-player-album", on_run_player_album },
+    { "run-player-artist", on_run_player_artist },
+    { "run-player-directory", on_run_player_directory }
 };
 
 static void
@@ -3161,19 +3228,6 @@ et_application_window_get_cddb_dialog (EtApplicationWindow *self)
 }
 
 void
-et_application_window_search_cddb_for_selection (G_GNUC_UNUSED GtkAction *action,
-                                                 gpointer user_data)
-{
-    EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
-
-    priv = et_application_window_get_instance_private (self);
-
-    et_application_window_show_cddb_dialog (self);
-    et_cddb_dialog_search_from_selection (ET_CDDB_DIALOG (priv->cddb_dialog));
-}
-
-void
 et_application_window_browser_toggle_display_mode (EtApplicationWindow *self)
 {
     EtApplicationWindowPrivate *priv;
@@ -3258,30 +3312,6 @@ et_application_window_browser_clear_artist_model (EtApplicationWindow *self)
 }
 
 void
-et_application_window_run_player_for_album_list (G_GNUC_UNUSED GtkAction *action,
-                                                 gpointer user_data)
-{
-    EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
-
-    priv = et_application_window_get_instance_private (self);
-
-    et_browser_run_player_for_album_list (ET_BROWSER (priv->browser));
-}
-
-void
-et_application_window_run_player_for_artist_list (G_GNUC_UNUSED GtkAction *action,
-                                                  gpointer user_data)
-{
-    EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
-
-    priv = et_application_window_get_instance_private (self);
-
-    et_browser_run_player_for_artist_list (ET_BROWSER (priv->browser));
-}
-
-void
 et_application_window_select_dir (EtApplicationWindow *self, const gchar *path)
 {
     EtApplicationWindowPrivate *priv;
@@ -3313,21 +3343,6 @@ et_application_window_get_scan_dialog (EtApplicationWindow *self)
     priv = et_application_window_get_instance_private (self);
 
     return priv->scan_dialog;
-}
-
-/*
- * Action when Scan button is pressed
- */
-void
-et_application_window_scan_selected_files (G_GNUC_UNUSED GtkAction *action,
-                                           gpointer user_data)
-{
-    EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
-
-    priv = et_application_window_get_instance_private (self);
-
-    et_scan_dialog_scan_selected_files (ET_SCAN_DIALOG (priv->scan_dialog));
 }
 
 /*

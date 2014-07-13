@@ -30,20 +30,10 @@ GtkUIManager   *UIManager;
 GtkActionGroup *ActionGroup;
 
 #define POPUP_FILE              "FilePopup"
-#define POPUP_DIR               "DirPopup"
 #define POPUP_SUBMENU_SCANNER   "ScannerSubpopup"
-#define POPUP_DIR_RUN_AUDIO     "DirPopupRunAudio"
-#define POPUP_LOG               "LogPopup"
 
 #define AM_OPEN_OPTIONS_WINDOW      "Preferences"
 #define AM_CDDB_SEARCH_FILE         "CDDBSearchFile"
-
-#define AM_ARTIST_RUN_AUDIO_PLAYER  "ArtistRunAudio"
-#define AM_ARTIST_OPEN_FILE_WITH    "ArtistOpenFile"
-#define AM_ALBUM_RUN_AUDIO_PLAYER   "AlbumRunAudio"
-#define AM_ALBUM_OPEN_FILE_WITH     "AlbumOpenFile"
-
-#define AM_LOG_CLEAN                "CleanLog"
 
 #define AM_STOP                     "Stop"
 

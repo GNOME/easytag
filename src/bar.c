@@ -90,28 +90,6 @@ create_main_toolbar (GtkWindow *window)
          */
         { AM_STOP, GTK_STOCK_STOP, _("Stop the current action"), NULL, _("Stop the current action"), G_CALLBACK(Action_Main_Stop_Button_Pressed) },
 
-
-        /*
-         * Popup menu's Actions
-         */
-        { POPUP_FILE,                   NULL,              _("_File Operations"),          NULL, NULL,                         NULL },
-        { POPUP_SUBMENU_SCANNER,        "document-properties",    _("S_canner"),                  NULL, NULL,                         NULL },
-        { POPUP_DIR_RUN_AUDIO,          GTK_STOCK_MEDIA_PLAY,   _("Run Audio Player"),          NULL, _("Run audio player"),        G_CALLBACK(Run_Audio_Player_Using_Directory) },
-        { AM_ARTIST_RUN_AUDIO_PLAYER, GTK_STOCK_MEDIA_PLAY,
-          _("Run Audio Player"), NULL, _("Run audio player"),
-          G_CALLBACK (et_application_window_run_player_for_artist_list) },
-        { AM_ALBUM_RUN_AUDIO_PLAYER, GTK_STOCK_MEDIA_PLAY,
-          _("Run Audio Player"), NULL, _("Run audio player"),
-          G_CALLBACK (et_application_window_run_player_for_album_list) },
-        { AM_CDDB_SEARCH_FILE, GTK_STOCK_CDROM, _("CDDB Search Files…"), NULL,
-          _("CDDB search files…"),
-          G_CALLBACK (et_application_window_search_cddb_for_selection) },
-        //{ AM_ARTIST_OPEN_FILE_WITH,     GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
-        //{ AM_ALBUM_OPEN_FILE_WITH,      GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
-
-        { AM_LOG_CLEAN, GTK_STOCK_CLEAR, _("Clear log"), NULL, _("Clear log"),
-	  G_CALLBACK (et_log_area_clear) }
-
     };
 
     GError *error = NULL;

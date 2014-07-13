@@ -101,7 +101,10 @@ et_log_area_init (EtLogArea *self)
     GtkWidget *ScrollWindowLogList;
     GtkCellRenderer *renderer;
     GtkTreeViewColumn *column;
-    GtkWidget *PopupMenu;
+    GtkBuilder *builder;
+    GError *error = NULL;
+    GMenuModel *menu_model;
+    GtkWidget *menu;
 
     priv = self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, ET_TYPE_LOG_AREA,
                                                      EtLogAreaPrivate);
@@ -152,10 +155,23 @@ et_log_area_init (EtLogArea *self)
                                         NULL);
 
     /* Create Popup Menu on browser album list. */
-    PopupMenu = gtk_ui_manager_get_widget(UIManager, "/LogPopup");
-    gtk_menu_attach_to_widget (GTK_MENU (PopupMenu), priv->log_view, NULL);
+    builder = gtk_builder_new ();
+    gtk_builder_add_from_resource (builder, "/org/gnome/EasyTAG/menus.ui",
+                                   &error);
+
+    if (error != NULL)
+    {
+        g_error ("Unable to get popup menu from resource: %s",
+                 error->message);
+    }
+
+    menu_model = G_MENU_MODEL (gtk_builder_get_object (builder, "log-menu"));
+    menu = gtk_menu_new_from_model (menu_model);
+    gtk_menu_attach_to_widget (GTK_MENU (menu), priv->log_view, NULL);
     g_signal_connect (priv->log_view, "button-press-event",
-                      G_CALLBACK (Log_Popup_Menu_Handler), PopupMenu);
+                      G_CALLBACK (Log_Popup_Menu_Handler), menu);
+
+    g_object_unref (builder);
 
     /* Load pending messages in the Log list. */
     Log_Print_Tmp_List (self);
@@ -219,13 +235,13 @@ Log_List_Set_Row_Visible (EtLogArea *self, GtkTreeIter *rowIter)
  * Remove all lines in the log list
  */
 void
-et_log_area_clear (GtkAction *action, gpointer user_data)
+et_log_area_clear (EtLogArea *self)
 {
-    EtApplicationWindow *window;
     EtLogAreaPrivate *priv;
 
-    window = ET_APPLICATION_WINDOW (user_data);
-    priv = et_log_area_get_instance_private (ET_LOG_AREA (et_application_window_get_log_area (window)));
+    g_return_if_fail (ET_LOG_AREA (self));
+
+    priv = et_log_area_get_instance_private (self);
 
     if (priv->log_model)
     {

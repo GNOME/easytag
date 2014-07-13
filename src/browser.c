@@ -3617,7 +3617,10 @@ create_browser (EtBrowser *self)
     gsize i;
     GtkCellRenderer *renderer;
     GtkTreeViewColumn *column;
-    GtkWidget *PopupMenu;
+    GtkBuilder *builder;
+    GError *error = NULL;
+    GMenuModel *menu_model;
+    GtkWidget *menu;
     const gchar *BrowserTree_Titles[] = { N_("Tree") };
     const gchar *BrowserList_Titles[] = { N_("Filename"), N_("Title"),
                                           N_("Artist"), N_("Album Artist"),
@@ -3743,11 +3746,22 @@ create_browser (EtBrowser *self)
                       G_CALLBACK (Browser_Tree_Key_Press), NULL);
 
     /* Create Popup Menu on browser tree view */
-    PopupMenu = gtk_ui_manager_get_widget(UIManager, "/DirPopup");
-    gtk_menu_attach_to_widget (GTK_MENU (PopupMenu), priv->tree, NULL);
-    g_signal_connect (priv->tree, "button-press-event",
-                      G_CALLBACK (Browser_Popup_Menu_Handler), PopupMenu);
+    builder = gtk_builder_new ();
+    gtk_builder_add_from_resource (builder, "/org/gnome/EasyTAG/menus.ui",
+                                   &error);
 
+    if (error != NULL)
+    {
+        g_error ("Unable to get popup menu from resource: %s",
+                 error->message);
+    }
+
+    menu_model = G_MENU_MODEL (gtk_builder_get_object (builder,
+                                                       "directory-menu"));
+    menu = gtk_menu_new_from_model (menu_model);
+    gtk_menu_attach_to_widget (GTK_MENU (menu), priv->tree, NULL);
+    g_signal_connect (priv->tree, "button-press-event",
+                      G_CALLBACK (Browser_Popup_Menu_Handler), menu);
 
     /*
      * The ScrollWindows with the Artist and Album Lists
@@ -3836,11 +3850,13 @@ create_browser (EtBrowser *self)
 
     gtk_container_add(GTK_CONTAINER(ScrollWindowArtistList),priv->artist_list);
 
-    // Create Popup Menu on browser artist list
-    PopupMenu = gtk_ui_manager_get_widget(UIManager, "/DirArtistPopup");
-    gtk_menu_attach_to_widget (GTK_MENU (PopupMenu), priv->artist_list, NULL);
+    /* Create Popup Menu on browser artist list. */
+    menu_model = G_MENU_MODEL (gtk_builder_get_object (builder,
+                                                       "directory-artist-menu"));
+    menu = gtk_menu_new_from_model (menu_model);
+    gtk_menu_attach_to_widget (GTK_MENU (menu), priv->artist_list, NULL);
     g_signal_connect (priv->artist_list, "button-press-event",
-                      G_CALLBACK (Browser_Popup_Menu_Handler), PopupMenu);
+                      G_CALLBACK (Browser_Popup_Menu_Handler), menu);
     // Not available yet!
     //ui_widget_set_sensitive(MENU_FILE, AM_ARTIST_OPEN_FILE_WITH, FALSE);
 
@@ -3904,11 +3920,14 @@ create_browser (EtBrowser *self)
                                                              self);
     gtk_container_add(GTK_CONTAINER(ScrollWindowAlbumList),priv->album_list);
 
-    // Create Popup Menu on browser album list
-    PopupMenu = gtk_ui_manager_get_widget(UIManager, "/DirAlbumPopup");
-    gtk_menu_attach_to_widget (GTK_MENU (PopupMenu), priv->album_list, NULL);
+    /* Create Popup Menu on browser album list. */
+    menu_model = G_MENU_MODEL (gtk_builder_get_object (builder,
+                                                       "directory-album-menu"));
+    menu = gtk_menu_new_from_model (menu_model);
+    gtk_menu_attach_to_widget (GTK_MENU (menu), priv->album_list, NULL);
     g_signal_connect (priv->album_list, "button-press-event",
-                      G_CALLBACK (Browser_Popup_Menu_Handler), PopupMenu);
+                      G_CALLBACK (Browser_Popup_Menu_Handler), menu);
+
     // Not available yet!
     //ui_widget_set_sensitive(MENU_FILE, AM_ALBUM_OPEN_FILE_WITH, FALSE);
 
@@ -4001,13 +4020,14 @@ create_browser (EtBrowser *self)
                               G_CALLBACK (Browser_List_Button_Press), self);
 
 
-    /*
-     * Create Popup Menu on file list
-     */
-    PopupMenu = gtk_ui_manager_get_widget(UIManager, "/FilePopup");
-    gtk_menu_attach_to_widget (GTK_MENU (PopupMenu), priv->file_view, NULL);
+    /* Create Popup Menu on file list. */
+    menu_model = G_MENU_MODEL (gtk_builder_get_object (builder, "file-menu"));
+    menu = gtk_menu_new_from_model (menu_model);
+    gtk_menu_attach_to_widget (GTK_MENU (menu), priv->file_view, NULL);
     g_signal_connect(G_OBJECT(priv->file_view),"button-press-event",
-                     G_CALLBACK (Browser_Popup_Menu_Handler), PopupMenu);
+                     G_CALLBACK (Browser_Popup_Menu_Handler), menu);
+
+    g_object_unref (builder);
 
     /*
      * The list store for run program combos
