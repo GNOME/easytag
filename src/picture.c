@@ -1285,7 +1285,7 @@ et_picture_save_file_data (const Picture *pic, GFile *file, GError **error)
  */
 gboolean Picture_Entry_View_Button_Pressed (GtkTreeView *treeview, GdkEventButton *event, gpointer data)
 {
-    if (event->type == GDK_BUTTON_PRESS && event->button == 1)
+    if (event->type == GDK_BUTTON_PRESS && event->button == GDK_BUTTON_PRIMARY)
     {
         if (event->window == gtk_tree_view_get_bin_window (treeview))
         {
@@ -1297,7 +1297,8 @@ gboolean Picture_Entry_View_Button_Pressed (GtkTreeView *treeview, GdkEventButto
         }
     }
 
-    if (event->type==GDK_2BUTTON_PRESS && event->button==1)
+    if (event->type == GDK_2BUTTON_PRESS
+        && event->button == GDK_BUTTON_PRIMARY)
     {
         GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(PictureEntryView));
 

@@ -729,7 +729,8 @@ Browser_List_Button_Press (EtBrowser *self,
 {
     g_return_val_if_fail (event != NULL, FALSE);
 
-    if (event->type==GDK_2BUTTON_PRESS && event->button==1)
+    if (event->type == GDK_2BUTTON_PRESS
+        && event->button == GDK_BUTTON_PRIMARY)
     {
         /* Double left mouse click */
         // Select files of the same directory (useful when browsing sub-directories)
@@ -765,7 +766,9 @@ Browser_List_Button_Press (EtBrowser *self,
         g_free(path_ref);
         if (currentPath)
             gtk_tree_path_free(currentPath);
-    }else if (event->type==GDK_3BUTTON_PRESS && event->button==1)
+    }
+    else if (event->type == GDK_3BUTTON_PRESS
+             && event->button == GDK_BUTTON_PRIMARY)
     {
         /* Triple left mouse click, select all files of the list. */
         g_action_group_activate_action (G_ACTION_GROUP (MainWindow),
@@ -2794,10 +2797,11 @@ et_browser_set_sensitive (EtBrowser *self, gboolean sensitive)
  * Browser_Popup_Menu_Handler : displays the corresponding menu
  */
 static gboolean
-Browser_Popup_Menu_Handler (GtkWidget *widget, GdkEventButton *event,
+Browser_Popup_Menu_Handler (GtkWidget *widget,
+                            GdkEventButton *event,
                             GtkMenu *menu)
 {
-    if (event && (event->type == GDK_BUTTON_PRESS) && (event->button == 3))
+    if (gdk_event_triggers_context_menu ((GdkEvent *)event))
     {
         if (GTK_IS_TREE_VIEW (widget))
         {
@@ -2823,10 +2827,10 @@ Browser_Popup_Menu_Handler (GtkWidget *widget, GdkEventButton *event,
         gtk_menu_popup (menu, NULL, NULL, NULL, NULL, event->button,
 	                event->time);
 
-        return TRUE;
+        return GDK_EVENT_STOP;
     }
 
-    return FALSE;
+    return GDK_EVENT_PROPAGATE;
 }
 
 /*

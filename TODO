@@ -9,6 +9,7 @@ General tidying
 ** Additionally, make I/O asynchronous
 ** Always use the GLib encoding for filenames (convert for display)
 * Avoid using gtk_events_pending(), use asynchronous operations instead
+* Use the popup-menu signal on GtkWidget
 
 After GTK+ 3
 ------------

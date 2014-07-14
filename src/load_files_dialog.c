@@ -623,15 +623,18 @@ Load_Filename_Select_Row_In_Other_List (GtkWidget* treeview_target, gpointer ori
  * Create and attach a popup menu on the two clist of the LoadFileWindow
  */
 static gboolean
-Load_Filename_Popup_Menu_Handler (GtkWidget *treeview, GdkEventButton *event,
+Load_Filename_Popup_Menu_Handler (GtkWidget *treeview,
+                                  GdkEventButton *event,
                                   GtkMenu *menu)
 {
-    if (event && (event->type==GDK_BUTTON_PRESS) && (event->button==3))
+    if (gdk_event_triggers_context_menu ((GdkEvent *)event))
     {
-        gtk_menu_popup(menu,NULL,NULL,NULL,NULL,event->button,event->time);
-        return TRUE;
+        gtk_menu_popup (menu, NULL, NULL, NULL, NULL, event->button,
+                        event->time);
+        return GDK_EVENT_STOP;
     }
-    return FALSE;
+
+    return GDK_EVENT_PROPAGATE;
 }
 
 static void

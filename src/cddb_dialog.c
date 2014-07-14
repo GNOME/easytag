@@ -2881,13 +2881,13 @@ track_list_select_all (EtCDDBDialog *self)
 static gboolean
 on_track_list_button_press_event (EtCDDBDialog *self, GdkEventButton *event)
 {
-    g_return_val_if_fail (event != NULL, FALSE);
-
-    if (event->type == GDK_2BUTTON_PRESS && event->button == 1)
+    if (event->type == GDK_2BUTTON_PRESS
+        && event->button == GDK_BUTTON_PRIMARY)
     {
         /* Double left mouse click */
         track_list_select_all (self);
     }
+
     return FALSE;
 }
 

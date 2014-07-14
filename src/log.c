@@ -195,12 +195,14 @@ static gboolean
 Log_Popup_Menu_Handler (GtkWidget *treeview, GdkEventButton *event,
                         GtkMenu *menu)
 {
-    if (event && (event->type==GDK_BUTTON_PRESS) && (event->button == 3))
+    if (gdk_event_triggers_context_menu ((GdkEvent *)event))
     {
-        gtk_menu_popup(menu,NULL,NULL,NULL,NULL,event->button,event->time);
-        return TRUE;
+        gtk_menu_popup (menu, NULL, NULL, NULL, NULL, event->button,
+                        event->time);
+        return GDK_EVENT_STOP;
     }
-    return FALSE;
+
+    return GDK_EVENT_PROPAGATE;
 }
 
 

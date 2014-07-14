@@ -218,37 +218,17 @@ Convert_Remove_All_Text (GtkWidget *entry)
     gtk_entry_set_text (GTK_ENTRY (entry), "");
 }
 
-/* Show the popup menu when the third mouse button is pressed. */
-static gboolean
-Entry_Popup_Menu_Handler (GtkMenu *menu,
-                          GdkEventButton *event,
-                          gpointer user_data)
-{
-    if (event && (event->type == GDK_BUTTON_PRESS) && (event->button == 3))
-    {
-        gtk_menu_popup (menu, NULL, NULL, NULL, NULL, event->button,
-                        event->time);
-        return TRUE;
-    }
-
-    return FALSE;
-}
-
-/*
+/* TODO: Support populate-all and do not assume the widget is a GtkMenu.
  * Popup menu attached to all entries of tag + filename + rename combobox.
  * Displayed when pressing the right mouse button and contains functions to process ths strings.
  */
 static void
-Attach_Popup_Menu_To_Tag_Entries (GtkEntry *entry)
+on_entry_populate_popup (GtkEntry *entry,
+                         GtkWidget *menu,
+                         gpointer user_data)
 {
-    GtkWidget *menu;
     GtkWidget *image;
     GtkWidget *menu_item;
-
-    menu = gtk_menu_new ();
-    g_signal_connect_swapped (entry, "button-press-event",
-                              G_CALLBACK (Entry_Popup_Menu_Handler),
-                              G_OBJECT (menu));
 
     /* Menu items */
     menu_item = gtk_image_menu_item_new_with_label (_("Tag selected files with this field"));
@@ -997,7 +977,8 @@ create_file_area (void)
     gtk_editable_set_editable (GTK_EDITABLE (FileEntry), TRUE);
     gtk_box_pack_start (GTK_BOX (hbox), FileEntry, TRUE, TRUE, 2);
 
-    Attach_Popup_Menu_To_Tag_Entries (GTK_ENTRY (FileEntry));
+    g_signal_connect (FileEntry, "populate-popup",
+                      G_CALLBACK (on_entry_populate_popup), NULL);
 
     /*
      *  File Infos
@@ -1138,7 +1119,8 @@ create_tag_area (EtApplicationWindow *self)
                                      GTK_ENTRY_ICON_SECONDARY,
                                      _("Tag selected files with this title"));
 
-    Attach_Popup_Menu_To_Tag_Entries (GTK_ENTRY (TitleEntry));
+    g_signal_connect (TitleEntry, "populate-popup",
+                      G_CALLBACK (on_entry_populate_popup), NULL);
 
     /* Artist */
     priv->artist_label = gtk_label_new (_("Artist:"));
@@ -1157,7 +1139,8 @@ create_tag_area (EtApplicationWindow *self)
                                      GTK_ENTRY_ICON_SECONDARY,
                                      _("Tag selected files with this artist"));
 
-    Attach_Popup_Menu_To_Tag_Entries (GTK_ENTRY (ArtistEntry));
+    g_signal_connect (ArtistEntry, "populate-popup",
+                      G_CALLBACK (on_entry_populate_popup), NULL);
 
     /* Album Artist */
     priv->album_artist_label = gtk_label_new (_("Album artist:"));
@@ -1176,7 +1159,8 @@ create_tag_area (EtApplicationWindow *self)
                                      GTK_ENTRY_ICON_SECONDARY,
                                      _("Tag selected files with this album artist"));
 
-    Attach_Popup_Menu_To_Tag_Entries (GTK_ENTRY (AlbumArtistEntry));
+    g_signal_connect (AlbumArtistEntry, "populate-popup",
+                      G_CALLBACK (on_entry_populate_popup), NULL);
 
     /* Album */
     priv->album_label = gtk_label_new (_("Album:"));
@@ -1195,7 +1179,8 @@ create_tag_area (EtApplicationWindow *self)
                                      GTK_ENTRY_ICON_SECONDARY,
                                      _("Tag selected files with this album name"));
 
-    Attach_Popup_Menu_To_Tag_Entries (GTK_ENTRY (AlbumEntry));
+    g_signal_connect (AlbumEntry, "populate-popup",
+                      G_CALLBACK (on_entry_populate_popup), NULL);
 
     /* Disc Number */
     priv->disc_number_label = gtk_label_new (_("CD:"));
@@ -1217,7 +1202,8 @@ create_tag_area (EtApplicationWindow *self)
                                      GTK_ENTRY_ICON_SECONDARY,
                                      _("Tag selected files with this disc number"));
 
-    Attach_Popup_Menu_To_Tag_Entries (GTK_ENTRY (DiscNumberEntry));
+    g_signal_connect (DiscNumberEntry, "populate-popup",
+                      G_CALLBACK (on_entry_populate_popup), NULL);
 
     /* Year */
     priv->year_label = gtk_label_new (_("Year:"));
@@ -1367,7 +1353,9 @@ create_tag_area (EtApplicationWindow *self)
                                      GTK_ENTRY_ICON_SECONDARY,
                                      _("Tag selected files with this genre"));
 
-    Attach_Popup_Menu_To_Tag_Entries (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (GenreCombo))));
+    g_signal_connect (gtk_bin_get_child (GTK_BIN (GenreCombo)),
+                      "populate-popup", G_CALLBACK (on_entry_populate_popup),
+                      NULL);
 
     /* Comment */
     priv->comment_label = gtk_label_new (_("Comment:"));
@@ -1386,7 +1374,8 @@ create_tag_area (EtApplicationWindow *self)
                                      GTK_ENTRY_ICON_SECONDARY,
                                      _("Tag selected files with this comment"));
 
-    Attach_Popup_Menu_To_Tag_Entries (GTK_ENTRY (CommentEntry));
+    g_signal_connect (CommentEntry, "populate-popup",
+                      G_CALLBACK (on_entry_populate_popup), NULL);
 
     /* Composer (name of the composers) */
     priv->composer_label = gtk_label_new (_("Composer:"));
@@ -1405,7 +1394,8 @@ create_tag_area (EtApplicationWindow *self)
                                      GTK_ENTRY_ICON_SECONDARY,
                                      _("Tag selected files with this composer"));
 
-    Attach_Popup_Menu_To_Tag_Entries (GTK_ENTRY (ComposerEntry));
+    g_signal_connect (ComposerEntry, "populate-popup",
+                      G_CALLBACK (on_entry_populate_popup), NULL);
 
     /* Translators: Original Artist / Performer. Please try to keep this string
      * as short as possible, as it must fit into a narrow column. */
@@ -1425,7 +1415,8 @@ create_tag_area (EtApplicationWindow *self)
                                      GTK_ENTRY_ICON_SECONDARY,
                                      _("Tag selected files with this original artist"));
 
-    Attach_Popup_Menu_To_Tag_Entries (GTK_ENTRY (OrigArtistEntry));
+    g_signal_connect (OrigArtistEntry, "populate-popup",
+                      G_CALLBACK (on_entry_populate_popup), NULL);
 
 
     /* Copyright */
@@ -1445,7 +1436,8 @@ create_tag_area (EtApplicationWindow *self)
                                      GTK_ENTRY_ICON_SECONDARY,
                                      _("Tag selected files with this copyright"));
 
-    Attach_Popup_Menu_To_Tag_Entries (GTK_ENTRY (CopyrightEntry));
+    g_signal_connect (CopyrightEntry, "populate-popup",
+                      G_CALLBACK (on_entry_populate_popup), NULL);
 
 
     /* URL */
@@ -1465,7 +1457,8 @@ create_tag_area (EtApplicationWindow *self)
                                      GTK_ENTRY_ICON_SECONDARY,
                                      _("Tag selected files with this URL"));
 
-    Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(URLEntry));
+    g_signal_connect (URLEntry, "populate-popup",
+                      G_CALLBACK (on_entry_populate_popup), NULL);
 
 
     /* Encoded by */
@@ -1485,7 +1478,8 @@ create_tag_area (EtApplicationWindow *self)
                                      GTK_ENTRY_ICON_SECONDARY,
                                      _("Tag selected files with this encoder name"));
 
-    Attach_Popup_Menu_To_Tag_Entries (GTK_ENTRY (EncodedByEntry));
+    g_signal_connect (EncodedByEntry, "populate-popup",
+                      G_CALLBACK (on_entry_populate_popup), NULL);
 
     /* Set focus chain. */
     focus_chain = g_list_prepend (focus_chain, TitleEntry);
@@ -1641,8 +1635,6 @@ create_tag_area (EtApplicationWindow *self)
                                  _("Tag selected files with these images"));
     g_signal_connect (priv->apply_image_toolitem, "clicked",
                       G_CALLBACK (Mini_Button_Clicked), NULL);
-
-    /*Attach_Popup_Menu_To_Tag_Entries (GTK_ENTRY (PictureEntryView));*/
 
     gtk_widget_show_all (TagFrame);
     return TagFrame;
