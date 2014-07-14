@@ -2352,6 +2352,7 @@ Browser_Artist_List_Load_Files (EtBrowser *self, ET_File *etfile_to_select)
     for (l = ETCore->ETArtistAlbumFileList; l != NULL; l = g_list_next (l))
     {
         gint   nbr_files = 0;
+        GdkPixbuf* pixbuf;
 
         // Insert a line for each artist
         AlbumList = (GList *)l->data;
@@ -2366,14 +2367,18 @@ Browser_Artist_List_Load_Files (EtBrowser *self, ET_File *etfile_to_select)
         }
 
         /* Add the new row. */
+        pixbuf = gdk_pixbuf_new_from_resource ("/org/gnome/EasyTAG/images/artist.png",
+                                               NULL);
         gtk_list_store_insert_with_values (priv->artist_model, &iter, G_MAXINT,
-                                           ARTIST_PIXBUF, "easytag-artist",
+                                           ARTIST_PIXBUF, pixbuf,
                                            ARTIST_NAME, artistname,
                                            ARTIST_NUM_ALBUMS,
                                            g_list_length (g_list_first (AlbumList)),
                                            ARTIST_NUM_FILES, nbr_files,
                                            ARTIST_ALBUM_LIST_POINTER,
                                            AlbumList, -1);
+
+        g_object_unref (pixbuf);
 
         // Todo: Use something better than string comparison
         if ( (!artistname && !artist_to_select)
@@ -3777,7 +3782,7 @@ create_browser (EtBrowser *self)
                                    GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 
     priv->artist_model = gtk_list_store_new (ARTIST_COLUMN_COUNT,
-                                             G_TYPE_STRING, // Stock-id
+                                             GDK_TYPE_PIXBUF,
                                              G_TYPE_STRING,
                                              G_TYPE_UINT,
                                              G_TYPE_UINT,
@@ -3800,7 +3805,7 @@ create_browser (EtBrowser *self)
     renderer = gtk_cell_renderer_pixbuf_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
     gtk_tree_view_column_set_attributes(column, renderer,
-                                       "stock-id",        ARTIST_PIXBUF,
+                                        "pixbuf", ARTIST_PIXBUF,
                                         NULL);
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);

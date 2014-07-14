@@ -2989,7 +2989,10 @@ create_cddb_dialog (EtCDDBDialog *self)
                                 _("Request automatically the CDDB using the selected files (the order is important) to generate the CddbID"));
 
     // Button to stop the search
-    priv->stop_auto_search_button = Create_Button_With_Icon_And_Label(GTK_STOCK_STOP,NULL);
+    priv->stop_auto_search_button = gtk_button_new ();
+    gtk_container_add (GTK_CONTAINER (priv->stop_auto_search_button),
+                       gtk_image_new_from_icon_name ("process-stop",
+                                                     GTK_ICON_SIZE_BUTTON));
     gtk_box_pack_start(GTK_BOX(hbox),priv->stop_auto_search_button,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(priv->stop_auto_search_button),GTK_RELIEF_NONE);
     gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_auto_search_button),FALSE);
@@ -3064,7 +3067,10 @@ create_cddb_dialog (EtCDDBDialog *self)
                               self);
 
     /* Button to stop the search. */
-    priv->stop_search_button = Create_Button_With_Icon_And_Label(GTK_STOCK_STOP,NULL);
+    priv->stop_search_button = gtk_button_new ();
+    gtk_container_add (GTK_CONTAINER (priv->stop_search_button),
+                       gtk_image_new_from_icon_name ("process-stop",
+                                                     GTK_ICON_SIZE_BUTTON));
     gtk_box_pack_start(GTK_BOX(hbox),priv->stop_search_button,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(priv->stop_search_button),GTK_RELIEF_NONE);
     gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
@@ -3262,14 +3268,20 @@ create_cddb_dialog (EtCDDBDialog *self)
 
     gtk_entry_set_text (GTK_ENTRY (priv->search_string_in_results_entry), "");
 
-    Button = Create_Button_With_Icon_And_Label(GTK_STOCK_GO_DOWN,NULL);
+    Button = gtk_button_new ();
+    gtk_container_add (GTK_CONTAINER (Button),
+                       gtk_image_new_from_icon_name ("go-down",
+                                                     GTK_ICON_SIZE_BUTTON));
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
     g_signal_connect_swapped (Button, "clicked",
                               G_CALLBACK (find_next_string_in_results), self);
     gtk_widget_set_tooltip_text(Button,_("Search Next"));
 
-    Button = Create_Button_With_Icon_And_Label(GTK_STOCK_GO_UP,NULL);
+    Button = gtk_button_new ();
+    gtk_container_add (GTK_CONTAINER (Button),
+                       gtk_image_new_from_icon_name ("go-up",
+                                                     GTK_ICON_SIZE_BUTTON));
     gtk_box_pack_start (GTK_BOX (hbox), Button, FALSE, FALSE, 0);
     gtk_button_set_relief (GTK_BUTTON (Button), GTK_RELIEF_NONE);
     g_signal_connect_swapped (Button, "clicked",
@@ -3282,7 +3294,7 @@ create_cddb_dialog (EtCDDBDialog *self)
     gtk_box_pack_start(GTK_BOX(hbox),Separator,FALSE,FALSE,0);
 
     priv->display_red_lines_toggle = gtk_toggle_button_new();
-    Icon = gtk_image_new_from_stock("easytag-red-lines", GTK_ICON_SIZE_BUTTON);
+    Icon = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/red-lines.png");
     gtk_container_add(GTK_CONTAINER(priv->display_red_lines_toggle),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),priv->display_red_lines_toggle,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(priv->display_red_lines_toggle),GTK_RELIEF_NONE);
@@ -3291,15 +3303,18 @@ create_cddb_dialog (EtCDDBDialog *self)
                               G_CALLBACK (Cddb_Display_Red_Lines_In_Result),
                               self);
 
-    Button = Create_Button_With_Icon_And_Label ("easytag-unselect-all", NULL);
+    Icon = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/unselect-all.png");
+    Button = gtk_button_new ();
+    gtk_container_add (GTK_CONTAINER (Button), Icon);
     gtk_box_pack_end (GTK_BOX (hbox), Button, FALSE, FALSE, 0);
     gtk_button_set_relief (GTK_BUTTON (Button), GTK_RELIEF_NONE);
     gtk_widget_set_tooltip_text (Button, _("Unselect all lines"));
     g_signal_connect_swapped (Button, "clicked",
                               G_CALLBACK (track_list_unselect_all), self);
 
-    Button = Create_Button_With_Icon_And_Label ("easytag-invert-selection",
-                                                NULL);
+    Icon = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/invert-selection.png");
+    Button = gtk_button_new ();
+    gtk_container_add (GTK_CONTAINER (Button), Icon);
     gtk_box_pack_end (GTK_BOX (hbox), Button, FALSE, FALSE, 0);
     gtk_button_set_relief (GTK_BUTTON (Button), GTK_RELIEF_NONE);
     gtk_widget_set_tooltip_text (Button, _("Invert lines selection"));
@@ -3309,8 +3324,8 @@ create_cddb_dialog (EtCDDBDialog *self)
 
     Button = gtk_button_new ();
     gtk_container_add (GTK_CONTAINER (Button),
-                       gtk_image_new_from_stock (GTK_STOCK_SELECT_ALL,
-                                                 GTK_ICON_SIZE_BUTTON));
+                       gtk_image_new_from_icon_name ("edit-select-all",
+                                                     GTK_ICON_SIZE_BUTTON));
     gtk_box_pack_end (GTK_BOX (hbox), Button, FALSE, FALSE, 0);
     gtk_button_set_relief (GTK_BUTTON (Button), GTK_RELIEF_NONE);
     gtk_widget_set_tooltip_text (Button, _("Select all lines"));
@@ -4218,12 +4233,6 @@ Cddb_Get_Id3_Genre_From_Cddb_Genre (const gchar *cddb_genre)
     return cddb_genre;
 }
 
-/* Pixmaps */
-#include "data/pixmaps/freedb.xpm"
-#include "data/pixmaps/gnudb.xpm"
-#include "data/pixmaps/musicbrainz.xpm"
-/*#include "data/pixmaps/closed_folder.xpm"*/
-
 /*
  * Returns the pixmap to display following the server name
  */
@@ -4233,11 +4242,14 @@ Cddb_Get_Pixbuf_From_Server_Name (const gchar *server_name)
     g_return_val_if_fail (server_name != NULL, NULL);
 
     if (strstr (server_name, "freedb.org"))
-        return gdk_pixbuf_new_from_xpm_data(freedb_xpm);
+        return gdk_pixbuf_new_from_resource ("/org/gnome/EasyTAG/images/freedb.png",
+                                             NULL);
     else if (strstr(server_name,"gnudb.org"))
-        return gdk_pixbuf_new_from_xpm_data(gnudb_xpm);
+        return gdk_pixbuf_new_from_resource ("/org/gnome/EasyTAG/images/gnudb.png",
+                                             NULL);
     else if (strstr(server_name,"musicbrainz.org"))
-        return gdk_pixbuf_new_from_xpm_data(musicbrainz_xpm);
+        return gdk_pixbuf_new_from_resource ("/org/gnome/EasyTAG/images/musicbrainz.png",
+                                             NULL);
     else
         return NULL;
 }

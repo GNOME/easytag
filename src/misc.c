@@ -53,9 +53,6 @@ static GdkCursor *MouseCursor;
 /**************
  * Prototypes *
  **************/
-static void Create_Xpm_Icon_Factory (const char **xpm_data,
-                                     const char *name_in_factory);
-
 /* Browser */
 static void Open_File_Selection_Window (GtkWidget *entry, gchar *title, GtkFileChooserAction action);
 void        File_Selection_Window_For_File      (GtkWidget *entry);
@@ -69,42 +66,6 @@ void        File_Selection_Window_For_Directory (GtkWidget *entry);
 /******************************
  * Functions managing pixmaps *
  ******************************/
-
-/*
- * Return a button with an icon and a label
- */
-GtkWidget *Create_Button_With_Icon_And_Label (const gchar *pixmap_name, gchar *label)
-{
-    GtkWidget *Button;
-    GtkWidget *HBox;
-    GtkWidget *Label;
-    GtkWidget *Pixmap;
-
-    Button = gtk_button_new();
-    HBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
-    gtk_container_add(GTK_CONTAINER(Button),HBox);
-
-    /* Add a pixmap if not null */
-    if (pixmap_name != NULL)
-    {
-        gtk_widget_realize(MainWindow);
-        Pixmap = gtk_image_new_from_stock(pixmap_name, GTK_ICON_SIZE_BUTTON);
-        gtk_container_add(GTK_CONTAINER(HBox),Pixmap);
-    }
-
-    /* Add a label if not null */
-    if (label != NULL)
-    {
-        Label = gtk_label_new(label);
-        gtk_container_add(GTK_CONTAINER(HBox),Label);
-    }
-
-    /* Display a warning message if the both parameters are NULL */
-    if (pixmap_name==NULL && label==NULL)
-        g_warning("Empty button created 'adr=%p' (no icon and no label)!",Button);
-
-    return Button;
-}
 
 /*
  * Add the 'string' passed in parameter to the list store
@@ -418,87 +379,6 @@ void Set_Unbusy_Cursor (void)
     gdk_window_set_cursor(gtk_widget_get_window(MainWindow),NULL);
     Destroy_Mouse_Cursor();
 }
-
-
-
-/*
- * Add easytag specific icons to GTK stock set
- */
-#include "data/pixmaps/all_uppercase.xpm"
-#include "data/pixmaps/all_downcase.xpm"
-#include "data/pixmaps/artist.xpm"
-#include "data/pixmaps/artist_album.xpm"
-//#include "data/pixmaps/blackwhite.xpm"
-#include "data/pixmaps/first_letter_uppercase.xpm"
-#include "data/pixmaps/first_letter_uppercase_word.xpm"
-#include "data/pixmaps/invert_selection.xpm"
-#include "data/pixmaps/mask.xpm"
-#include "data/pixmaps/red_lines.xpm"
-//#include "data/pixmaps/sequence_track.xpm"
-#include "data/pixmaps/unselect_all.xpm"
-void Init_Custom_Icons (void)
-{
-    Create_Xpm_Icon_Factory((const char**)artist_xpm,               "easytag-artist");
-    Create_Xpm_Icon_Factory((const char**)invert_selection_xpm,     "easytag-invert-selection");
-    Create_Xpm_Icon_Factory((const char**)unselect_all_xpm,         "easytag-unselect-all");
-    Create_Xpm_Icon_Factory((const char**)mask_xpm,                 "easytag-mask");
-    //Create_Xpm_Icon_Factory((const char**)blackwhite_xpm,         "easytag-blackwhite");
-    //Create_Xpm_Icon_Factory((const char**)sequence_track_xpm,     "easytag-sequence-track");
-    Create_Xpm_Icon_Factory((const char**)red_lines_xpm,            "easytag-red-lines");
-    Create_Xpm_Icon_Factory((const char**)artist_album_xpm,     "easytag-artist-album");
-    Create_Xpm_Icon_Factory((const char**)all_uppercase_xpm,        "easytag-all-uppercase");
-    Create_Xpm_Icon_Factory((const char**)all_downcase_xpm,         "easytag-all-downcase");
-    Create_Xpm_Icon_Factory((const char**)first_letter_uppercase_xpm,       "easytag-first-letter-uppercase");
-    Create_Xpm_Icon_Factory((const char**)first_letter_uppercase_word_xpm,  "easytag-first-letter-uppercase-word");
-}
-
-
-/*
- * Create an icon factory from the specified pixmap
- * Also add it to the GTK stock images
- */
-static void
-Create_Xpm_Icon_Factory (const char **xpm_data, const char *name_in_factory)
-{
-    GtkIconSet      *icon;
-    GtkIconFactory  *factory;
-    GdkPixbuf       *pixbuf;
-
-    if (!*xpm_data || !name_in_factory)
-        return;
-
-    pixbuf = gdk_pixbuf_new_from_xpm_data(xpm_data);
-
-    if (pixbuf)
-    {
-        icon = gtk_icon_set_new_from_pixbuf(pixbuf);
-        g_object_unref(G_OBJECT(pixbuf));
-
-        factory = gtk_icon_factory_new();
-        gtk_icon_factory_add(factory, name_in_factory, icon);
-        gtk_icon_set_unref(icon);
-        gtk_icon_factory_add_default(factory);
-    }
-}
-
-/*
- * Return a widget with a pixmap
- * Note: for pixmap 'pixmap.xpm', pixmap_name is 'pixmap_xpm'
- */
-GtkWidget *Create_Xpm_Image (const char **xpm_name)
-{
-    GdkPixbuf *pixbuf;
-    GtkWidget *image;
-
-    g_return_val_if_fail (*xpm_name != NULL, NULL);
-
-    pixbuf = gdk_pixbuf_new_from_xpm_data(xpm_name);
-    image = gtk_image_new_from_pixbuf(GDK_PIXBUF(pixbuf));
-
-    return image;
-}
-
-
 
 /*
  * Iter compare func: Sort alphabetically

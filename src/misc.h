@@ -31,13 +31,6 @@ G_BEGIN_DECLS
  **************/
 
 /*
- * Create Pixmaps, buttons...
- */
-GtkWidget *Create_Button_With_Icon_And_Label (const gchar *pixmap_name, gchar *label);
-GtkWidget *Create_Xpm_Image                  (const char **xpm_name);
-
-
-/*
  * Combobox misc functions
  */
 gboolean Add_String_To_Combo_List(GtkListStore *liststore, const gchar *string);
@@ -52,7 +45,6 @@ gboolean Parse_Date (void);
 void Load_Genres_List_To_UI (void);
 void Load_Track_List_To_UI  (void);
 void Init_Character_Translation_Table (void);
-void Init_Custom_Icons (void);
 gchar *Check_If_Executable_Exists (const gchar *program);
 
 // Mouse cursor

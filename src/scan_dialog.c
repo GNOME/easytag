@@ -2566,7 +2566,7 @@ create_scan_dialog (EtScanDialog *self)
 
     /* Mask Editor button */
     priv->mask_editor_toggle = gtk_toggle_button_new();
-    Icon = gtk_image_new_from_stock("easytag-mask", GTK_ICON_SIZE_BUTTON);
+    Icon = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/mask.png");
     gtk_container_add(GTK_CONTAINER(priv->mask_editor_toggle),Icon);
     gtk_box_pack_start(GTK_BOX(HBox1),priv->mask_editor_toggle,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(priv->mask_editor_toggle),GTK_RELIEF_NONE);
@@ -2805,8 +2805,7 @@ create_scan_dialog (EtScanDialog *self)
                               G_CALLBACK (Select_Fields_Invert_Selection),
                               self);
     gtk_box_pack_end (GTK_BOX(hbox), Button, FALSE, FALSE, 0);
-    Icon = gtk_image_new_from_stock ("easytag-invert-selection",
-                                     GTK_ICON_SIZE_BUTTON);
+    Icon = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/invert-selection.png");
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_widget_set_tooltip_text (Button, _("Invert selection"));
     Button = gtk_button_new();

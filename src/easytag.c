@@ -124,7 +124,6 @@ common_init (GApplication *application)
     /* Initialization */
     ET_Core_Create();
     Main_Stop_Button_Pressed = FALSE;
-    Init_Custom_Icons();
     Init_Mouse_Cursor();
     TrackEntryComboModel = NULL;
     GenreComboModel      = NULL;

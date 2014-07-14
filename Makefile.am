@@ -271,21 +271,21 @@ doc/easytag.1: doc/easytag.xml Makefile
 nodist_man_MANS = doc/easytag.1
 endif
 
-pixmaps = \
-	data/pixmaps/all_downcase.xpm \
-	data/pixmaps/all_uppercase.xpm \
-	data/pixmaps/artist.xpm \
-	data/pixmaps/artist_album.xpm \
-	data/pixmaps/first_letter_uppercase.xpm \
-	data/pixmaps/first_letter_uppercase_word.xpm \
-	data/pixmaps/freedb.xpm \
-	data/pixmaps/gnudb.xpm \
-	data/pixmaps/invert_selection.xpm \
-	data/pixmaps/mask.xpm \
-	data/pixmaps/musicbrainz.xpm \
-	data/pixmaps/red_lines.xpm \
-	data/pixmaps/sequence_track.xpm \
-	data/pixmaps/unselect_all.xpm
+images = \
+	data/images/all-lowercase.png \
+	data/images/all-uppercase.png \
+	data/images/artist.png \
+	data/images/artist-album.png \
+	data/images/first-letter-uppercase.png \
+	data/images/first-letter-uppercase-word.png \
+	data/images/freedb.png \
+	data/images/gnudb.png \
+	data/images/invert-selection.png \
+	data/images/mask.png \
+	data/images/musicbrainz.png \
+	data/images/red-lines.png \
+	data/images/sequence-track.png \
+	data/images/unselect-all.png
 
 iconthemedir = $(datadir)/icons/hicolor
 
@@ -348,7 +348,7 @@ dist_noinst_DATA = \
 	data/icons/win32/easytag.ico \
 	data/nsis/easytag-header.bmp \
 	data/nsis/easytag-sidebar.bmp \
-	$(pixmaps) \
+	$(images) \
 	doc/easytag.xml \
 	COPYING.GPL3 \
 	easytag-win32-installer.nsi.in \

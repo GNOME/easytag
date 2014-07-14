@@ -878,8 +878,7 @@ create_load_files_dialog (EtLoadFilesDialog *self)
     g_signal_connect_swapped(G_OBJECT(Button),"clicked", G_CALLBACK(File_Selection_Window_For_File), G_OBJECT(gtk_bin_get_child(GTK_BIN(priv->file_to_load_combo))));
     // Button 'load'
     // the signal attached to this button, to load the file, is placed after the priv->load_file_content_view definition
-    ButtonLoad = Create_Button_With_Icon_And_Label(GTK_STOCK_REVERT_TO_SAVED,_(" Load "));
-    //ButtonLoad = gtk_button_new_with_label(_(" Load "));
+    ButtonLoad = gtk_button_new_with_label (_("Load"));
     gtk_box_pack_start(GTK_BOX(hbox),ButtonLoad,FALSE,FALSE,0);
     g_signal_connect_swapped(G_OBJECT(gtk_bin_get_child(GTK_BIN(priv->file_to_load_combo))),"changed", G_CALLBACK(set_load_button_sensitivity), G_OBJECT(ButtonLoad));
 

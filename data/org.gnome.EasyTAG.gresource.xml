@@ -3,5 +3,19 @@
     <gresource prefix='/org/gnome/EasyTAG'>
         <file preprocess='xml-stripblanks'>menus.ui</file>
         <file preprocess='xml-stripblanks'>toolbar.ui</file>
+        <file preprocess='to-pixdata'>images/all-lowercase.png</file>
+        <file preprocess='to-pixdata'>images/all-uppercase.png</file>
+        <file preprocess='to-pixdata'>images/artist-album.png</file>
+        <file preprocess='to-pixdata'>images/artist.png</file>
+        <file preprocess='to-pixdata'>images/first-letter-uppercase.png</file>
+        <file preprocess='to-pixdata'>images/first-letter-uppercase-word.png</file>
+        <file preprocess='to-pixdata'>images/freedb.png</file>
+        <file preprocess='to-pixdata'>images/gnudb.png</file>
+        <file preprocess='to-pixdata'>images/invert-selection.png</file>
+        <file preprocess='to-pixdata'>images/mask.png</file>
+        <file preprocess='to-pixdata'>images/musicbrainz.png</file>
+        <file preprocess='to-pixdata'>images/red-lines.png</file>
+        <file preprocess='to-pixdata'>images/sequence-track.png</file>
+        <file preprocess='to-pixdata'>images/unselect-all.png</file>
     </gresource>
 </gresources>

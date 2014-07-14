@@ -284,8 +284,7 @@ Attach_Popup_Menu_To_Tag_Entries (GtkEntry *entry)
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
 
     menu_item = gtk_image_menu_item_new_with_label (_("All uppercase"));
-    image = gtk_image_new_from_stock ("easytag-all-uppercase",
-                                      GTK_ICON_SIZE_MENU);
+    image = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/all-uppercase.png");
     gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menu_item), image);
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     g_signal_connect_swapped (menu_item, "activate",
@@ -293,8 +292,7 @@ Attach_Popup_Menu_To_Tag_Entries (GtkEntry *entry)
                               G_OBJECT (entry));
 
     menu_item = gtk_image_menu_item_new_with_label (_("All lowercase"));
-    image = gtk_image_new_from_stock ("easytag-all-downcase",
-                                      GTK_ICON_SIZE_MENU);
+    image = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/all-lowercase.png");
     gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menu_item), image);
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     g_signal_connect_swapped (menu_item, "activate",
@@ -302,8 +300,7 @@ Attach_Popup_Menu_To_Tag_Entries (GtkEntry *entry)
                               G_OBJECT (entry));
 
     menu_item = gtk_image_menu_item_new_with_label (_("First letter uppercase"));
-    image = gtk_image_new_from_stock ("easytag-first-letter-uppercase",
-                                      GTK_ICON_SIZE_MENU);
+    image = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/first-letter-uppercase.png");
     gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menu_item), image);
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     g_signal_connect_swapped (menu_item, "activate",
@@ -311,8 +308,7 @@ Attach_Popup_Menu_To_Tag_Entries (GtkEntry *entry)
                               G_OBJECT (entry));
 
     menu_item = gtk_image_menu_item_new_with_label (_("First letter uppercase of each word"));
-    image = gtk_image_new_from_stock ("easytag-first-letter-uppercase-word",
-                                      GTK_ICON_SIZE_MENU);
+    image = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/first-letter-uppercase-word.png");
     gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menu_item), image);
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     g_signal_connect_swapped (menu_item, "activate",
@@ -1071,7 +1067,6 @@ create_file_area (void)
     return FileFrame;
 }
 
-#include "data/pixmaps/sequence_track.xpm"
 static GtkWidget *
 create_tag_area (EtApplicationWindow *self)
 {
@@ -1265,7 +1260,7 @@ create_tag_area (EtApplicationWindow *self)
                                  _("Number selected tracks sequentially. "
                                    "Starts at 01 in each subdirectory."));
     /* Pixmap into priv->track_sequence_button button. */
-    image = Create_Xpm_Image ((const char **)sequence_track_xpm);
+    image = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/sequence-track.png");
     gtk_container_add (GTK_CONTAINER (priv->track_sequence_button), image);
     gtk_widget_set_can_default (priv->track_sequence_button, TRUE);
     gtk_widget_set_can_focus (priv->track_sequence_button, FALSE);
@@ -1312,7 +1307,7 @@ create_tag_area (EtApplicationWindow *self)
     gtk_widget_set_tooltip_text (priv->track_number_button,
                                  _("Set the number of files, in the same directory of the displayed file, to the selected tracks."));
     /* Pixmap into priv->track_number_button button. */
-    image = Create_Xpm_Image ((const char **)sequence_track_xpm);
+    image = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/sequence-track.png");
     gtk_container_add (GTK_CONTAINER (priv->track_number_button), image);
     gtk_widget_set_can_default (priv->track_number_button, TRUE);
     gtk_widget_set_can_focus (priv->track_number_button, FALSE);
@@ -3041,6 +3036,7 @@ et_application_window_init (EtApplicationWindow *self)
         GtkBuilder *builder;
         GError *error = NULL;
         GtkWidget *toolbar;
+        GtkToolButton *button;
 
         builder = gtk_builder_new ();
         gtk_builder_add_from_resource (builder,
@@ -3055,6 +3051,14 @@ et_application_window_init (EtApplicationWindow *self)
 
         toolbar = GTK_WIDGET (gtk_builder_get_object (builder, "main_toolbar"));
         gtk_box_pack_start (GTK_BOX (main_vbox), toolbar, FALSE, FALSE, 0);
+
+        /* TODO: Use resource property on GtkImage when using GTK+ > 3.8. */
+        button = GTK_TOOL_BUTTON (gtk_builder_get_object (builder, "artist_view_button"));
+        gtk_tool_button_set_icon_widget (button,
+                                         gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/artist.png"));
+        button = GTK_TOOL_BUTTON (gtk_builder_get_object (builder, "invert_selection_button"));
+        gtk_tool_button_set_icon_widget (button,
+                                         gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/invert-selection.png"));
 
         g_object_unref (builder);
     }
