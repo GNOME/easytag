@@ -25,8 +25,13 @@ void et_grid_attach_full (GtkGrid *grid, GtkWidget *child, gint left, gint top,
     g_object_set (G_OBJECT(child),
                   "hexpand", hexpand,
                   "vexpand", vexpand,
+#if GTK_CHECK_VERSION (3, 12, 0)
+                  "margin-start", hmargin,
+                  "margin-end", hmargin,
+#else
                   "margin-left", hmargin,
                   "margin-right", hmargin,
+#endif
                   "margin-top", vmargin,
                   "margin-bottom", vmargin,
                   NULL);
