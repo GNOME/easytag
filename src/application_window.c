@@ -3201,11 +3201,11 @@ et_application_window_get_preferences_dialog (EtApplicationWindow *self)
 }
 
 void
-et_application_window_show_preferences_dialog_scanner (G_GNUC_UNUSED GtkAction *action,
-                                                       gpointer user_data)
+et_application_window_show_preferences_dialog_scanner (EtApplicationWindow *self)
 {
     EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
+
+    g_return_if_fail (ET_APPLICATION_WINDOW (self));
 
     priv = et_application_window_get_instance_private (self);
 
@@ -3345,32 +3345,6 @@ et_application_window_get_scan_dialog (EtApplicationWindow *self)
     priv = et_application_window_get_instance_private (self);
 
     return priv->scan_dialog;
-}
-
-/*
- * et_on_action_select_scan_mode:
- * @action: the action on which the signal was emitted
- * @current: the member of the action group which has just been activated
- * @user_data: user data set when the signal handler was connected
- *
- * Select the current scanner mode.
- */
-void
-et_on_action_select_scan_mode (GtkRadioAction *action, GtkRadioAction *current,
-                               gpointer user_data)
-{
-    gint active_value;
-
-    active_value = gtk_radio_action_get_current_value (action);
-
-    g_settings_set_enum (MainSettings, "scan-mode", active_value);
-}
-
-void
-et_on_action_select_browser_mode (G_GNUC_UNUSED GtkRadioAction *action,
-                                  G_GNUC_UNUSED GtkRadioAction *current,
-                                  gpointer user_data)
-{
 }
 
 /*

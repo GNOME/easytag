@@ -56,7 +56,7 @@ GtkWidget * et_application_window_get_log_area (EtApplicationWindow *self);
 GtkWidget * et_application_window_get_load_files_dialog (EtApplicationWindow *self);
 GtkWidget * et_application_window_get_search_dialog (EtApplicationWindow *self);
 GtkWidget * et_application_window_get_preferences_dialog (EtApplicationWindow *self);
-void et_application_window_show_preferences_dialog_scanner (GtkAction *action, gpointer user_data);
+void et_application_window_show_preferences_dialog_scanner (EtApplicationWindow *self);
 GtkWidget * et_application_window_get_cddb_dialog (EtApplicationWindow *self);
 void et_application_window_browser_toggle_display_mode (EtApplicationWindow *self);
 void et_application_window_browser_set_sensitive (EtApplicationWindow *self, gboolean sensitive);
@@ -66,8 +66,6 @@ void et_application_window_browser_clear_artist_model (EtApplicationWindow *self
 void et_application_window_select_dir (EtApplicationWindow *self, const gchar *path);
 const gchar * et_application_window_get_current_path (EtApplicationWindow *self);
 GtkWidget * et_application_window_get_scan_dialog (EtApplicationWindow *self);
-void et_on_action_select_scan_mode (GtkRadioAction *action, GtkRadioAction *current, gpointer user_data);
-void et_on_action_select_browser_mode (GtkRadioAction *action, GtkRadioAction *current, gpointer user_data);
 void et_application_window_browser_entry_set_text (EtApplicationWindow *self, const gchar *text);
 void et_application_window_browser_label_set_text (EtApplicationWindow *self, const gchar *text);
 ET_File * et_application_window_browser_get_et_file_from_path (EtApplicationWindow *self, GtkTreePath *path);

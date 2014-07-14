@@ -101,21 +101,13 @@ gboolean ReadingDirectory;
 /**************
  * Prototypes *
  **************/
-void Action_Select_Nth_File_By_Position (gulong num_item);
 void Action_Select_Nth_File_By_Etfile   (ET_File *ETFile);
 
-gint Action_Redo_Selected_File          (void);
-void Action_Undo_All_Files              (void);
-void Action_Redo_All_Files              (void);
 void Action_Save_Selected_Files         (void);
 void Action_Force_Saving_Selected_Files (void);
-gint et_delete_file (ET_File *ETFile, gboolean multiple_files, GError **error);
 gint Save_All_Files_With_Answer         (gboolean force_saving_files);
 
 void Action_Main_Stop_Button_Pressed    (void);
-void et_on_action_select_scan_mode (GtkRadioAction *action,
-                                    GtkRadioAction *current,
-                                    gpointer user_data);
 
 gboolean Read_Directory               (gchar *path);
 void Quit_MainWindow                  (void);

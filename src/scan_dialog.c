@@ -3265,8 +3265,7 @@ et_scan_dialog_apply_changes (EtScanDialog *self)
 static void
 Scan_Option_Button (void)
 {
-    et_application_window_show_preferences_dialog_scanner (NULL,
-                                                           ET_APPLICATION_WINDOW (MainWindow));
+    et_application_window_show_preferences_dialog_scanner (ET_APPLICATION_WINDOW (MainWindow));
 }
 
 
