@@ -252,7 +252,7 @@ Attach_Popup_Menu_To_Tag_Entries (GtkEntry *entry)
 
     /* Menu items */
     menu_item = gtk_image_menu_item_new_with_label (_("Tag selected files with this field"));
-    image = gtk_image_new_from_stock (GTK_STOCK_JUMP_TO, GTK_ICON_SIZE_MENU);
+    image = gtk_image_new_from_icon_name ("go-jump", GTK_ICON_SIZE_MENU);
     gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menu_item), image);
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     g_signal_connect_swapped (menu_item, "activate",
@@ -324,7 +324,7 @@ Attach_Popup_Menu_To_Tag_Entries (GtkEntry *entry)
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
 
     menu_item = gtk_image_menu_item_new_with_label (_("Remove spaces"));
-    image = gtk_image_new_from_stock (GTK_STOCK_REMOVE, GTK_ICON_SIZE_MENU);
+    image = gtk_image_new_from_icon_name ("list-remove", GTK_ICON_SIZE_MENU);
     gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menu_item), image);
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     g_signal_connect_swapped (menu_item, "activate",
@@ -332,7 +332,7 @@ Attach_Popup_Menu_To_Tag_Entries (GtkEntry *entry)
                               G_OBJECT (entry));
 
     menu_item = gtk_image_menu_item_new_with_label (_("Insert space before uppercase letter"));
-    image = gtk_image_new_from_stock (GTK_STOCK_ADD, GTK_ICON_SIZE_MENU);
+    image = gtk_image_new_from_icon_name ("list-add", GTK_ICON_SIZE_MENU);
     gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menu_item), image);
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     g_signal_connect_swapped (menu_item, "activate",
@@ -340,7 +340,7 @@ Attach_Popup_Menu_To_Tag_Entries (GtkEntry *entry)
                               G_OBJECT (entry));
 
     menu_item = gtk_image_menu_item_new_with_label (_("Remove duplicate spaces or underscores"));
-    image = gtk_image_new_from_stock (GTK_STOCK_REMOVE, GTK_ICON_SIZE_MENU);
+    image = gtk_image_new_from_icon_name ("list-remove", GTK_ICON_SIZE_MENU);
     gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menu_item), image);
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     g_signal_connect_swapped (menu_item, "activate",
@@ -348,7 +348,7 @@ Attach_Popup_Menu_To_Tag_Entries (GtkEntry *entry)
                               G_OBJECT (entry));
 
     menu_item = gtk_image_menu_item_new_with_label (_("Remove all text"));
-    image = gtk_image_new_from_stock (GTK_STOCK_REMOVE, GTK_ICON_SIZE_MENU);
+    image = gtk_image_new_from_icon_name ("list-remove", GTK_ICON_SIZE_MENU);
     gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menu_item), image);
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     g_signal_connect_swapped (menu_item, "activate",

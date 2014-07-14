@@ -2556,7 +2556,8 @@ create_scan_dialog (EtScanDialog *self)
 
     /* Options button */
     Button = gtk_button_new();
-    Icon = gtk_image_new_from_stock(GTK_STOCK_PREFERENCES, GTK_ICON_SIZE_BUTTON);
+    Icon = gtk_image_new_from_icon_name ("preferences-other",
+                                         GTK_ICON_SIZE_BUTTON);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(HBox1),Button,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
@@ -2579,7 +2580,7 @@ create_scan_dialog (EtScanDialog *self)
 
     /* Legend button */
     priv->legend_toggle = gtk_toggle_button_new();
-    Icon = gtk_image_new_from_stock(GTK_STOCK_HELP, GTK_ICON_SIZE_BUTTON);
+    Icon = gtk_image_new_from_icon_name ("help-faq", GTK_ICON_SIZE_BUTTON);
     gtk_container_add(GTK_CONTAINER(priv->legend_toggle),Icon);
     gtk_box_pack_start(GTK_BOX(HBox1),priv->legend_toggle,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(priv->legend_toggle),GTK_RELIEF_NONE);
@@ -3118,7 +3119,8 @@ create_scan_dialog (EtScanDialog *self)
 
     /* New mask button */
     Button = gtk_button_new();
-    Icon = gtk_image_new_from_stock(GTK_STOCK_NEW, GTK_ICON_SIZE_SMALL_TOOLBAR);
+    Icon = gtk_image_new_from_icon_name ("document-new",
+                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(vbox),Button,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
@@ -3128,7 +3130,7 @@ create_scan_dialog (EtScanDialog *self)
 
     /* Move up mask button */
     Button = gtk_button_new();
-    Icon = gtk_image_new_from_stock(GTK_STOCK_GO_UP, GTK_ICON_SIZE_SMALL_TOOLBAR);
+    Icon = gtk_image_new_from_icon_name ("go-up", GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(vbox),Button,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
@@ -3138,7 +3140,8 @@ create_scan_dialog (EtScanDialog *self)
 
     /* Move down mask button */
     Button = gtk_button_new();
-    Icon = gtk_image_new_from_stock(GTK_STOCK_GO_DOWN, GTK_ICON_SIZE_SMALL_TOOLBAR);
+    Icon = gtk_image_new_from_icon_name ("go-down",
+                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(vbox),Button,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
@@ -3148,7 +3151,8 @@ create_scan_dialog (EtScanDialog *self)
 
     /* Copy mask button */
     Button = gtk_button_new();
-    Icon = gtk_image_new_from_stock(GTK_STOCK_COPY, GTK_ICON_SIZE_SMALL_TOOLBAR);
+    Icon = gtk_image_new_from_icon_name ("edit-copy",
+                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(vbox),Button,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
@@ -3158,7 +3162,8 @@ create_scan_dialog (EtScanDialog *self)
 
     /* Add mask button */
     Button = gtk_button_new();
-    Icon = gtk_image_new_from_stock(GTK_STOCK_ADD, GTK_ICON_SIZE_SMALL_TOOLBAR);
+    Icon = gtk_image_new_from_icon_name ("list-add",
+                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(vbox),Button,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
@@ -3168,7 +3173,8 @@ create_scan_dialog (EtScanDialog *self)
 
     /* Remove mask button */
     Button = gtk_button_new();
-    Icon = gtk_image_new_from_stock(GTK_STOCK_REMOVE, GTK_ICON_SIZE_SMALL_TOOLBAR);
+    Icon = gtk_image_new_from_icon_name ("list-remove",
+                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(vbox),Button,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
@@ -3178,7 +3184,8 @@ create_scan_dialog (EtScanDialog *self)
 
     /* Save mask button */
     Button = gtk_button_new();
-    Icon = gtk_image_new_from_stock(GTK_STOCK_SAVE, GTK_ICON_SIZE_SMALL_TOOLBAR);
+    Icon = gtk_image_new_from_icon_name ("document-save",
+                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_end(GTK_BOX(vbox),Button,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);

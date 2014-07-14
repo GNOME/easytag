@@ -648,19 +648,19 @@ create_load_file_content_view_popup (EtLoadFilesDialog *self, GtkWidget *list)
                       BrowserPopupMenu);
     
     MenuItem = gtk_image_menu_item_new_with_label(_("Insert a blank line"));
-    Image = gtk_image_new_from_stock(GTK_STOCK_ADD,GTK_ICON_SIZE_MENU);
+    Image = gtk_image_new_from_icon_name ("list-add", GTK_ICON_SIZE_MENU);
     gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu), MenuItem);
     g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Insert_Blank_Line), G_OBJECT(list));
 
     MenuItem = gtk_image_menu_item_new_with_label(_("Delete this line"));
-    Image = gtk_image_new_from_stock(GTK_STOCK_REMOVE,GTK_ICON_SIZE_MENU);
+    Image = gtk_image_new_from_icon_name ("list-remove", GTK_ICON_SIZE_MENU);
     gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
     g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Delete_Line), G_OBJECT(list));
 
     MenuItem = gtk_image_menu_item_new_with_label(_("Delete all blank lines"));
-    Image = gtk_image_new_from_stock(GTK_STOCK_REMOVE,GTK_ICON_SIZE_MENU);
+    Image = gtk_image_new_from_icon_name ("list-remove", GTK_ICON_SIZE_MENU);
     gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
     g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Delete_All_Blank_Lines),G_OBJECT(list));
@@ -669,13 +669,13 @@ create_load_file_content_view_popup (EtLoadFilesDialog *self, GtkWidget *list)
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
 
     MenuItem = gtk_image_menu_item_new_with_label(_("Move up this line"));
-    Image = gtk_image_new_from_stock(GTK_STOCK_GO_UP,GTK_ICON_SIZE_MENU);
+    Image = gtk_image_new_from_icon_name ("go-up", GTK_ICON_SIZE_MENU);
     gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
     g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Move_Up),G_OBJECT(list));
 
     MenuItem = gtk_image_menu_item_new_with_label(_("Move down this line"));
-    Image = gtk_image_new_from_stock(GTK_STOCK_GO_DOWN,GTK_ICON_SIZE_MENU);
+    Image = gtk_image_new_from_icon_name ("go-down", GTK_ICON_SIZE_MENU);
     gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
     g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Move_Down),G_OBJECT(list));
@@ -684,7 +684,7 @@ create_load_file_content_view_popup (EtLoadFilesDialog *self, GtkWidget *list)
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
 
     MenuItem = gtk_image_menu_item_new_with_label(_("Reload"));
-    Image = gtk_image_new_from_stock(GTK_STOCK_REFRESH,GTK_ICON_SIZE_MENU);
+    Image = gtk_image_new_from_icon_name ("view-refresh", GTK_ICON_SIZE_MENU);
     gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
     g_signal_connect (MenuItem, "activate",
@@ -708,19 +708,19 @@ create_load_file_name_view_popup (EtLoadFilesDialog *self, GtkWidget *list)
                       BrowserPopupMenu);
     
     MenuItem = gtk_image_menu_item_new_with_label(_("Insert a blank line"));
-    Image = gtk_image_new_from_stock(GTK_STOCK_ADD,GTK_ICON_SIZE_MENU);
+    Image = gtk_image_new_from_icon_name ("list-add", GTK_ICON_SIZE_MENU);
     gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu), MenuItem);
     g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Insert_Blank_Line), G_OBJECT(list));
 
     MenuItem = gtk_image_menu_item_new_with_label(_("Delete this line"));
-    Image = gtk_image_new_from_stock(GTK_STOCK_REMOVE,GTK_ICON_SIZE_MENU);
+    Image = gtk_image_new_from_icon_name ("list-remove", GTK_ICON_SIZE_MENU);
     gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
     g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Delete_Line), G_OBJECT(list));
 
     MenuItem = gtk_image_menu_item_new_with_label(_("Delete all blank lines"));
-    Image = gtk_image_new_from_stock(GTK_STOCK_REMOVE,GTK_ICON_SIZE_MENU);
+    Image = gtk_image_new_from_icon_name ("list-remove", GTK_ICON_SIZE_MENU);
     gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
     g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Delete_All_Blank_Lines),G_OBJECT(list));
@@ -729,13 +729,13 @@ create_load_file_name_view_popup (EtLoadFilesDialog *self, GtkWidget *list)
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
 
     MenuItem = gtk_image_menu_item_new_with_label(_("Move up this line"));
-    Image = gtk_image_new_from_stock(GTK_STOCK_GO_UP,GTK_ICON_SIZE_MENU);
+    Image = gtk_image_new_from_icon_name ("go-up", GTK_ICON_SIZE_MENU);
     gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
     g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Move_Up),G_OBJECT(list));
 
     MenuItem = gtk_image_menu_item_new_with_label(_("Move down this line"));
-    Image = gtk_image_new_from_stock(GTK_STOCK_GO_DOWN,GTK_ICON_SIZE_MENU);
+    Image = gtk_image_new_from_icon_name ("go-down", GTK_ICON_SIZE_MENU);
     gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
     g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Move_Down),G_OBJECT(list));
@@ -744,7 +744,7 @@ create_load_file_name_view_popup (EtLoadFilesDialog *self, GtkWidget *list)
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
 
     MenuItem = gtk_image_menu_item_new_with_label(_("Reload"));
-    Image = gtk_image_new_from_stock(GTK_STOCK_REFRESH,GTK_ICON_SIZE_MENU);
+    Image = gtk_image_new_from_icon_name ("view-refresh", GTK_ICON_SIZE_MENU);
     gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
     g_signal_connect (MenuItem, "activate",
@@ -914,7 +914,8 @@ create_load_files_dialog (EtLoadFilesDialog *self)
     gtk_box_pack_start(GTK_BOX(loadedvbox),hbox,FALSE,FALSE,0);
 
     Button = gtk_button_new();
-    Icon = gtk_image_new_from_stock(GTK_STOCK_ADD,GTK_ICON_SIZE_SMALL_TOOLBAR);
+    Icon = gtk_image_new_from_icon_name ("list-add",
+                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
@@ -923,7 +924,8 @@ create_load_files_dialog (EtLoadFilesDialog *self)
                              G_CALLBACK(Load_Filename_List_Insert_Blank_Line), G_OBJECT(priv->load_file_content_view));
 
     Button = gtk_button_new();
-    Icon = gtk_image_new_from_stock(GTK_STOCK_REMOVE,GTK_ICON_SIZE_SMALL_TOOLBAR);
+    Icon = gtk_image_new_from_icon_name ("list-remove",
+                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
@@ -932,7 +934,8 @@ create_load_files_dialog (EtLoadFilesDialog *self)
                              G_CALLBACK(Load_Filename_List_Delete_Line), G_OBJECT(priv->load_file_content_view));
     
     Button = gtk_button_new();
-    Icon = gtk_image_new_from_stock(GTK_STOCK_REMOVE,GTK_ICON_SIZE_SMALL_TOOLBAR);
+    Icon = gtk_image_new_from_icon_name ("list-remove",
+                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
@@ -944,7 +947,7 @@ create_load_files_dialog (EtLoadFilesDialog *self)
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
 
     Button = gtk_button_new();
-    Icon = gtk_image_new_from_stock(GTK_STOCK_GO_UP, GTK_ICON_SIZE_SMALL_TOOLBAR);
+    Icon = gtk_image_new_from_icon_name ("go-up", GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
@@ -953,7 +956,8 @@ create_load_files_dialog (EtLoadFilesDialog *self)
                              G_CALLBACK(Load_Filename_List_Move_Up), G_OBJECT(priv->load_file_content_view));
 
     Button = gtk_button_new();
-    Icon = gtk_image_new_from_stock(GTK_STOCK_GO_DOWN, GTK_ICON_SIZE_SMALL_TOOLBAR);
+    Icon = gtk_image_new_from_icon_name ("go-down",
+                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
@@ -965,7 +969,8 @@ create_load_files_dialog (EtLoadFilesDialog *self)
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
 
     Button = gtk_button_new();
-    Icon = gtk_image_new_from_stock(GTK_STOCK_REFRESH,GTK_ICON_SIZE_SMALL_TOOLBAR);
+    Icon = gtk_image_new_from_icon_name ("view-refresh",
+                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
@@ -1010,7 +1015,8 @@ create_load_files_dialog (EtLoadFilesDialog *self)
     gtk_box_pack_start(GTK_BOX(filelistvbox),hbox,FALSE,FALSE,0);
 
     Button = gtk_button_new();
-    Icon = gtk_image_new_from_stock(GTK_STOCK_ADD,GTK_ICON_SIZE_SMALL_TOOLBAR);
+    Icon = gtk_image_new_from_icon_name ("list-add",
+                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
@@ -1019,7 +1025,8 @@ create_load_files_dialog (EtLoadFilesDialog *self)
                              G_CALLBACK(Load_Filename_List_Insert_Blank_Line), G_OBJECT(priv->load_file_name_view));
 
     Button = gtk_button_new();
-    Icon = gtk_image_new_from_stock(GTK_STOCK_REMOVE,GTK_ICON_SIZE_SMALL_TOOLBAR);
+    Icon = gtk_image_new_from_icon_name ("list-remove",
+                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
@@ -1028,7 +1035,8 @@ create_load_files_dialog (EtLoadFilesDialog *self)
                              G_CALLBACK(Load_Filename_List_Delete_Line), G_OBJECT(priv->load_file_name_view));
 
     Button = gtk_button_new();
-    Icon = gtk_image_new_from_stock(GTK_STOCK_REMOVE,GTK_ICON_SIZE_SMALL_TOOLBAR);
+    Icon = gtk_image_new_from_icon_name ("list-remove",
+                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
@@ -1040,7 +1048,7 @@ create_load_files_dialog (EtLoadFilesDialog *self)
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
 
     Button = gtk_button_new();
-    Icon = gtk_image_new_from_stock(GTK_STOCK_GO_UP, GTK_ICON_SIZE_SMALL_TOOLBAR);
+    Icon = gtk_image_new_from_icon_name ("go-up", GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
@@ -1049,7 +1057,8 @@ create_load_files_dialog (EtLoadFilesDialog *self)
                              G_CALLBACK(Load_Filename_List_Move_Up), G_OBJECT(priv->load_file_name_view));
 
     Button = gtk_button_new();
-    Icon = gtk_image_new_from_stock(GTK_STOCK_GO_DOWN, GTK_ICON_SIZE_SMALL_TOOLBAR);
+    Icon = gtk_image_new_from_icon_name ("go-down",
+                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
@@ -1061,7 +1070,8 @@ create_load_files_dialog (EtLoadFilesDialog *self)
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
 
     Button = gtk_button_new();
-    Icon = gtk_image_new_from_stock(GTK_STOCK_REFRESH,GTK_ICON_SIZE_SMALL_TOOLBAR);
+    Icon = gtk_image_new_from_icon_name ("view-refresh",
+                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_container_add(GTK_CONTAINER(Button),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);

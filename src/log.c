@@ -54,7 +54,7 @@ struct _EtLogAreaPrivate
 
 enum
 {
-    LOG_PIXBUF,
+    LOG_ICON_NAME,
     LOG_TIME_TEXT,
     LOG_TEXT,
     LOG_COLUMN_COUNT
@@ -80,7 +80,6 @@ static gboolean Log_Popup_Menu_Handler (GtkWidget *treeview,
 static void Log_List_Set_Row_Visible (EtLogArea *self, GtkTreeIter *rowIter);
 static void Log_Print_Tmp_List (EtLogArea *self);
 static gchar *Log_Format_Date (void);
-static gchar *Log_Get_Stock_Id_From_Error_Type (EtLogAreaKind error_type);
 
 
 
@@ -138,9 +137,9 @@ et_log_area_init (EtLogArea *self)
 
     renderer = gtk_cell_renderer_pixbuf_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_attributes(column, renderer,
-                                       "stock-id", LOG_PIXBUF,
-                                        NULL);
+    gtk_tree_view_column_set_attributes (column, renderer,
+                                         "icon-name", LOG_ICON_NAME,
+                                         NULL);
 
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
@@ -268,6 +267,29 @@ Log_Format_Date (void)
     return time;
 }
 
+static const gchar *
+get_icon_name_from_error_kind (EtLogAreaKind error_kind)
+{
+    switch (error_kind)
+    {
+        /* Same icon for information and OK messages. */
+        case LOG_OK:
+        case LOG_INFO:
+            return "dialog-information";
+            break;
+        case LOG_WARNING:
+            return "dialog-warning";
+            break;
+        case LOG_ERROR:
+            return "dialog-error";
+            break;
+        case LOG_UNKNOWN:
+            return NULL;
+            break;
+        default:
+            g_assert_not_reached ();
+    }
+}
 
 /*
  * Function to use anywhere in the application to send a message to the LogList
@@ -312,8 +334,8 @@ Log_Print (EtLogAreaKind error_type, const gchar * const format, ...)
         }
 
         gtk_list_store_insert_with_values (priv->log_model, &iter, G_MAXINT,
-                                           LOG_PIXBUF,
-                                           Log_Get_Stock_Id_From_Error_Type (error_type),
+                                           LOG_ICON_NAME,
+                                           get_icon_name_from_error_kind (error_type),
                                            LOG_TIME_TEXT, time, LOG_TEXT,
                                            string, -1);
         Log_List_Set_Row_Visible (self, &iter);
@@ -439,8 +461,8 @@ Log_Print_Tmp_List (EtLogArea *self)
         {
             EtLogAreaData *log_data = (EtLogAreaData *)l->data;
             gtk_list_store_insert_with_values (priv->log_model, &iter,
-                                               G_MAXINT, LOG_PIXBUF,
-                                               Log_Get_Stock_Id_From_Error_Type (log_data->error_type),
+                                               G_MAXINT, LOG_ICON_NAME,
+                                               get_icon_name_from_error_kind (log_data->error_type),
                                                LOG_TIME_TEXT, log_data->time,
                                                LOG_TEXT, log_data->string, -1);
             Log_List_Set_Row_Visible (self, &iter);
@@ -463,31 +485,5 @@ Log_Print_Tmp_List (EtLogArea *self)
 
         g_list_free (priv->log_tmp_list);
         priv->log_tmp_list = NULL;
-    }
-}
-
-
-static gchar *
-Log_Get_Stock_Id_From_Error_Type (EtLogAreaKind error_type)
-{
-    switch (error_type)
-    {
-        case LOG_OK:
-            return GTK_STOCK_OK;
-            break;
-        case LOG_INFO:
-            return GTK_STOCK_DIALOG_INFO;
-            break;
-        case LOG_WARNING:
-            return GTK_STOCK_DIALOG_WARNING;
-            break;
-        case LOG_ERROR:
-            return GTK_STOCK_DIALOG_ERROR;
-            break;
-        case LOG_UNKNOWN:
-            return NULL;
-            break;
-        default:
-            g_assert_not_reached ();
     }
 }

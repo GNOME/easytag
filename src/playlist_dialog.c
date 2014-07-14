@@ -634,7 +634,8 @@ entry_check_content_mask (GtkEntry *entry, gpointer user_data)
 
     Good_Mask:
         g_free(mask);
-        gtk_entry_set_icon_from_stock (entry, GTK_ENTRY_ICON_SECONDARY, NULL);
+        gtk_entry_set_icon_from_icon_name (entry, GTK_ENTRY_ICON_SECONDARY,
+                                           NULL);
         return;
 }
 
