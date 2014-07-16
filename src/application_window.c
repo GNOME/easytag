@@ -89,6 +89,10 @@ struct _EtApplicationWindowPrivate
     GtkWidget *track_sequence_button;
     GtkWidget *track_number_button;
     GtkToolItem *apply_image_toolitem;
+
+    gboolean is_maximized;
+    gint height;
+    gint width;
 };
 
 /* Used to force to hide the msgbox when deleting file */
@@ -111,6 +115,49 @@ on_main_window_delete_event (GtkWidget *window,
 
     /* Handled the event, so stop propagation. */
     return TRUE;
+}
+
+static gboolean
+on_configure_event (GtkWidget *window,
+                    GdkEvent *event,
+                    gpointer user_data)
+{
+    EtApplicationWindow *self;
+    EtApplicationWindowPrivate *priv;
+    GdkEventConfigure *configure_event;
+
+    self = ET_APPLICATION_WINDOW (window);
+    priv = et_application_window_get_instance_private (self);
+    configure_event = (GdkEventConfigure *)event;
+
+    if (!priv->is_maximized)
+    {
+        priv->width = configure_event->width;
+        priv->height = configure_event->height;
+    }
+
+    return GDK_EVENT_PROPAGATE;
+}
+
+static gboolean
+on_window_state_event (GtkWidget *window,
+                       GdkEvent *event,
+                       gpointer user_data)
+{
+    EtApplicationWindow *self;
+    EtApplicationWindowPrivate *priv;
+    GdkEventWindowState *state_event;
+
+    self = ET_APPLICATION_WINDOW (window);
+    priv = et_application_window_get_instance_private (self);
+    state_event = (GdkEventWindowState *)event;
+
+    if (state_event->changed_mask & GDK_WINDOW_STATE_MAXIMIZED)
+    {
+        priv->is_maximized = (state_event->new_window_state & GDK_WINDOW_STATE_MAXIMIZED) != 0;
+    }
+
+    return GDK_EVENT_PROPAGATE;
 }
 
 static void
@@ -3016,8 +3063,16 @@ et_application_window_init (EtApplicationWindow *self)
     gtk_window_set_icon_name (window, PACKAGE_TARNAME);
     gtk_window_set_title (window, PACKAGE_NAME);
 
+    priv->is_maximized = FALSE;
+    priv->height = 0;
+    priv->width = 0;
+
+    g_signal_connect (self, "configure-event",
+                      G_CALLBACK (on_configure_event), NULL);
     g_signal_connect (self, "delete-event",
                       G_CALLBACK (on_main_window_delete_event), NULL);
+    g_signal_connect (self, "window-state-event",
+                      G_CALLBACK (on_window_state_event), NULL);
 
     /* Mainvbox for Menu bar + Tool bar + "Browser Area & FileArea & TagArea" + Log Area + "Status bar & Progress bar" */
     main_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
