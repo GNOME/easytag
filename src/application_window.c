@@ -117,6 +117,98 @@ on_main_window_delete_event (GtkWidget *window,
     return TRUE;
 }
 
+static void
+save_state (EtApplicationWindow *self)
+{
+    EtApplicationWindowPrivate *priv;
+    gchar *path;
+    GKeyFile *keyfile;
+    gchar *buffer;
+    gsize length;
+    GError *error = NULL;
+
+    priv = et_application_window_get_instance_private (self);
+    keyfile = g_key_file_new ();
+    path = g_build_filename (g_get_user_cache_dir (), PACKAGE_TARNAME,
+                             "state", NULL);
+
+    /* Try to preserve comments by loading an existing keyfile. */
+    if (!g_key_file_load_from_file (keyfile, path, G_KEY_FILE_KEEP_COMMENTS,
+                                    &error))
+    {
+        g_debug ("Error loading window state during saving: %s",
+                 error->message);
+        g_clear_error (&error);
+    }
+
+    g_key_file_set_integer (keyfile, "EtApplicationWindow", "width",
+                            priv->width);
+    g_key_file_set_integer (keyfile, "EtApplicationWindow", "height",
+                            priv->height);
+    g_key_file_set_boolean (keyfile, "EtApplicationWindow", "is_maximized",
+                            priv->is_maximized);
+
+    /* TODO; Use g_key_file_save_to_file() in GLib 2.40. */
+    buffer = g_key_file_to_data (keyfile, &length, NULL);
+
+    if (!g_file_set_contents (path, buffer, length, &error))
+    {
+        g_warning ("Error saving window state: %s", error->message);
+        g_error_free (error);
+    }
+
+    g_free (buffer);
+    g_free (path);
+    g_key_file_free (keyfile);
+}
+
+static void
+restore_state (EtApplicationWindow *self)
+{
+    EtApplicationWindowPrivate *priv;
+    GtkWindow *window;
+    GKeyFile *keyfile;
+    gchar *path;
+    GError *error = NULL;
+
+    priv = et_application_window_get_instance_private (self);
+    window = GTK_WINDOW (self);
+
+    keyfile = g_key_file_new ();
+    path = g_build_filename (g_get_user_cache_dir (), PACKAGE_TARNAME,
+                             "state", NULL);
+
+    if (!g_key_file_load_from_file (keyfile, path, G_KEY_FILE_KEEP_COMMENTS,
+                                    &error))
+    {
+        g_debug ("Error loading window state: %s", error->message);
+        g_error_free (error);
+        g_key_file_free (keyfile);
+        g_free (path);
+        return;
+    }
+
+    g_free (path);
+
+    /* Ignore errors, as the default values are fine. */
+    priv->width = g_key_file_get_integer (keyfile, "EtApplicationWindow",
+                                          "width", NULL);
+    priv->height = g_key_file_get_integer (keyfile, "EtApplicationWindow",
+                                           "height", NULL);
+    priv->is_maximized = g_key_file_get_boolean (keyfile,
+                                                 "EtApplicationWindow",
+                                                 "is_maximized", NULL);
+
+    gtk_window_set_default_size (window, priv->width, priv->height);
+
+    if (priv->is_maximized)
+    {
+        gtk_window_maximize (window);
+    }
+
+    g_key_file_free (keyfile);
+}
+
 static gboolean
 on_configure_event (GtkWidget *window,
                     GdkEvent *event,
@@ -2981,6 +3073,8 @@ et_application_window_dispose (GObject *object)
     self = ET_APPLICATION_WINDOW (object);
     priv = et_application_window_get_instance_private (self);
 
+    save_state (self);
+
     if (priv->cddb_dialog)
     {
         gtk_widget_destroy (priv->cddb_dialog);
@@ -3059,13 +3153,8 @@ et_application_window_init (EtApplicationWindow *self)
 
     window = GTK_WINDOW (self);
 
-    gtk_window_set_default_size (window, 1024, 768);
     gtk_window_set_icon_name (window, PACKAGE_TARNAME);
     gtk_window_set_title (window, PACKAGE_NAME);
-
-    priv->is_maximized = FALSE;
-    priv->height = 0;
-    priv->width = 0;
 
     g_signal_connect (self, "configure-event",
                       G_CALLBACK (on_configure_event), NULL);
@@ -3073,6 +3162,8 @@ et_application_window_init (EtApplicationWindow *self)
                       G_CALLBACK (on_main_window_delete_event), NULL);
     g_signal_connect (self, "window-state-event",
                       G_CALLBACK (on_window_state_event), NULL);
+
+    restore_state (self);
 
     /* Mainvbox for Menu bar + Tool bar + "Browser Area & FileArea & TagArea" + Log Area + "Status bar & Progress bar" */
     main_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
