@@ -40,10 +40,6 @@ gchar   *Get_Active_Combo_Box_Item(GtkComboBox *combo);
 /*
  * Other
  */
-void Insert_Only_Digit (GtkEditable *editable,const gchar *text,gint length,gint *position,gpointer data);
-gboolean Parse_Date (void);
-void Load_Genres_List_To_UI (void);
-void Load_Track_List_To_UI  (void);
 void Init_Character_Translation_Table (void);
 gchar *Check_If_Executable_Exists (const gchar *program);
 

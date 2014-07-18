@@ -160,13 +160,11 @@ static gboolean ET_Remove_File_From_Artist_Album_List (ET_File *ETFile);
 
 static void ET_Display_File_And_List_Status_To_UI (ET_File *ETFile);
 static void ET_Display_Filename_To_UI (ET_File *ETFile);
-static gboolean ET_Display_File_Tag_To_UI (ET_File *ETFile);
 static gboolean ET_Display_File_Info_To_UI (ET_File_Info *ETFileInfo);
 
 static gboolean ET_Save_File_Name_From_UI (ET_File *ETFile,
                                            File_Name *FileName);
 static gboolean ET_Save_File_Name_Internal (ET_File *ETFile, File_Name *FileName);
-static gboolean ET_Save_File_Tag_From_UI (File_Tag *FileTag);
 static gboolean ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag);
 
 static void ET_Mark_File_Tag_As_Saved (ET_File *ETFile);
@@ -904,7 +902,7 @@ gboolean ET_Remove_File_From_File_List (ET_File *ETFile)
         // Reinit the tag and file area
         Clear_File_Entry_Field();
         Clear_Header_Fields();
-        Clear_Tag_Entry_Fields();
+        et_application_window_tag_area_clear (ET_APPLICATION_WINDOW (MainWindow));
         gtk_label_set_text(GTK_LABEL(FileIndex),"0/0:");
         et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
     }
@@ -2759,55 +2757,8 @@ void ET_Display_File_Data_To_UI (ET_File *ETFile)
     ET_Display_Filename_To_UI(ETFile);
 
     /* Display tag data */
-    switch (ETFileDescription->TagType)
-    {
-#ifdef ENABLE_MP3
-        case ID3_TAG:
-            gtk_frame_set_label(GTK_FRAME(TagFrame),_("ID3 Tag"));
-            ET_Display_File_Tag_To_UI(ETFile);
-            break;
-#endif
-#ifdef ENABLE_OGG
-        case OGG_TAG:
-            gtk_frame_set_label(GTK_FRAME(TagFrame),_("Ogg Vorbis Tag"));
-            ET_Display_File_Tag_To_UI(ETFile);
-            break;
-#endif
-#ifdef ENABLE_FLAC
-        case FLAC_TAG:
-            gtk_frame_set_label(GTK_FRAME(TagFrame),_("FLAC Vorbis Tag"));
-            ET_Display_File_Tag_To_UI(ETFile);
-            break;
-#endif
-        case APE_TAG:
-            gtk_frame_set_label(GTK_FRAME(TagFrame),_("APE Tag"));
-            ET_Display_File_Tag_To_UI(ETFile);
-            break;
-#ifdef ENABLE_MP4
-        case MP4_TAG:
-            gtk_frame_set_label(GTK_FRAME(TagFrame),_("MP4/M4A/AAC Tag"));
-            ET_Display_File_Tag_To_UI(ETFile);
-            break;
-#endif
-#ifdef ENABLE_WAVPACK
-        case WAVPACK_TAG:
-            gtk_frame_set_label(GTK_FRAME(TagFrame),_("Wavpack Tag"));
-            ET_Display_File_Tag_To_UI(ETFile);
-            break;
-#endif
-#ifdef ENABLE_OPUS
-        case OPUS_TAG:
-            gtk_frame_set_label (GTK_FRAME (TagFrame), _("Opus Tag"));
-            ET_Display_File_Tag_To_UI (ETFile);
-            break;
-#endif
-        case UNKNOWN_TAG:
-        default:
-            gtk_frame_set_label(GTK_FRAME(TagFrame),_("Tag"));
-            ET_Display_File_Tag_To_UI(ETFile); // To reinit screen
-            Log_Print(LOG_ERROR,"FileTag: Undefined tag type %d for file %s.",ETFileDescription->TagType,cur_filename_utf8);
-            break;
-    }
+    et_application_window_tag_area_display_et_file (ET_APPLICATION_WINDOW (MainWindow),
+                                                    ETFile);
 
     /* Display controls in tag area */
     et_application_window_tag_area_display_controls (ET_APPLICATION_WINDOW (MainWindow),
@@ -3038,227 +2989,6 @@ ET_Display_Filename_To_UI (ET_File *ETFile)
 
 
 /*
- * Display all tag infos (tags fields) into entry boxes of the user interface.
- * These data have the same structure for all files.
- */
-static gboolean
-ET_Display_File_Tag_To_UI (ET_File *ETFile)
-{
-    File_Tag *FileTag = NULL;
-    //GtkTextBuffer *textbuffer;
-
-    if (!ETFile || !ETFile->FileTag)
-    {
-        // Reset all tag entries
-        Clear_Tag_Entry_Fields();
-        //Tag_Area_Set_Sensitive(FALSE);
-        return FALSE;
-    }
-
-    //Tag_Area_Set_Sensitive(TRUE); // Causes displaying problem when saving files
-
-    FileTag = (File_Tag *)(ETFile->FileTag->data);
-
-    /* Show title */
-    if (FileTag && FileTag->title)
-    {
-        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->title);
-        gtk_entry_set_text(GTK_ENTRY(TitleEntry), tmp);
-        g_free(tmp);
-    }else
-        gtk_entry_set_text(GTK_ENTRY(TitleEntry),"");
-
-    /* Show artist */
-    if (FileTag && FileTag->artist)
-    {
-        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->artist);
-        gtk_entry_set_text(GTK_ENTRY(ArtistEntry), tmp);
-        g_free(tmp);
-    }else
-        gtk_entry_set_text(GTK_ENTRY(ArtistEntry),"");
-
-	/* Show album artist */
-    if (FileTag && FileTag->album_artist)
-    {
-        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->album_artist);
-        gtk_entry_set_text(GTK_ENTRY(AlbumArtistEntry), tmp);
-        g_free(tmp);
-    }else
-        gtk_entry_set_text(GTK_ENTRY(AlbumArtistEntry),"");
-
-    /* Show album */
-    if (FileTag && FileTag->album)
-    {
-        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->album);
-        gtk_entry_set_text(GTK_ENTRY(AlbumEntry), tmp);
-        g_free(tmp);
-    }else
-        gtk_entry_set_text(GTK_ENTRY(AlbumEntry),"");
-
-    /* Show disc number and number of discs. */
-    if (FileTag && FileTag->disc_number)
-    {
-        gchar *tmp;
-
-        if (FileTag->disc_total)
-        {
-            gchar *total;
-
-            total = g_strjoin ("/", FileTag->disc_number, FileTag->disc_total,
-                               NULL);
-            tmp = Try_To_Validate_Utf8_String (total);
-            g_free (total);
-        }
-        else
-        {
-            tmp = Try_To_Validate_Utf8_String (FileTag->disc_number);
-        }
-
-        gtk_entry_set_text (GTK_ENTRY (DiscNumberEntry), tmp);
-        g_free (tmp);
-    }
-    else
-    {
-        gtk_entry_set_text (GTK_ENTRY (DiscNumberEntry), "");
-    }
-
-    /* Show year */
-    if (FileTag && FileTag->year)
-    {
-        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->year);
-        gtk_entry_set_text(GTK_ENTRY(YearEntry),tmp);
-        g_free(tmp);
-    }else
-        gtk_entry_set_text(GTK_ENTRY(YearEntry),"");
-
-    /* Show track */
-    if (FileTag && FileTag->track)
-    {
-        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->track);
-        gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(TrackEntryCombo))),tmp);
-        g_free(tmp);
-    }else
-        gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(TrackEntryCombo))),"");
-
-    /* Show number of tracks on the album */
-    if (FileTag && FileTag->track_total)
-    {
-        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->track_total);
-        gtk_entry_set_text(GTK_ENTRY(TrackTotalEntry),tmp);
-        g_free(tmp);
-    }else
-        gtk_entry_set_text(GTK_ENTRY(TrackTotalEntry),"");
-
-    /* Show genre */
-    if (FileTag && FileTag->genre)
-    {
-        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->genre);
-        gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(GenreCombo))), tmp);
-        g_free(tmp);
-    }else
-        gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(GenreCombo))),"");
-
-    /* Show comment */
-    //textbuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(CommentView));
-    if (FileTag && FileTag->comment)
-    {
-        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->comment);
-        //gtk_text_buffer_set_text(GTK_TEXT_BUFFER(textbuffer), FileTag->comment, -1);
-        gtk_entry_set_text(GTK_ENTRY(CommentEntry), tmp);
-        g_free(tmp);
-    }else
-        //gtk_text_buffer_set_text(GTK_TEXT_BUFFER(textbuffer), "", -1);
-        gtk_entry_set_text(GTK_ENTRY(CommentEntry),"");
-
-    /* Show composer */
-    if (FileTag && FileTag->composer)
-    {
-        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->composer);
-        gtk_entry_set_text(GTK_ENTRY(ComposerEntry), tmp);
-        g_free(tmp);
-    }else
-        gtk_entry_set_text(GTK_ENTRY(ComposerEntry),"");
-
-    /* Show original artist */
-    if (FileTag && FileTag->orig_artist)
-    {
-        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->orig_artist);
-        gtk_entry_set_text(GTK_ENTRY(OrigArtistEntry), tmp);
-        g_free(tmp);
-    }else
-        gtk_entry_set_text(GTK_ENTRY(OrigArtistEntry),"");
-
-    /* Show copyright */
-    if (FileTag && FileTag->copyright)
-    {
-        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->copyright);
-        gtk_entry_set_text(GTK_ENTRY(CopyrightEntry), tmp);
-        g_free(tmp);
-    }else
-        gtk_entry_set_text(GTK_ENTRY(CopyrightEntry),"");
-
-    /* Show URL */
-    if (FileTag && FileTag->url)
-    {
-        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->url);
-        gtk_entry_set_text(GTK_ENTRY(URLEntry), tmp);
-        g_free(tmp);
-    }else
-        gtk_entry_set_text(GTK_ENTRY(URLEntry),"");
-
-    /* Show Encoded by */
-    if (FileTag && FileTag->encoded_by)
-    {
-        gchar *tmp = Try_To_Validate_Utf8_String(FileTag->encoded_by);
-        gtk_entry_set_text(GTK_ENTRY(EncodedByEntry), tmp);
-        g_free(tmp);
-    }else
-        gtk_entry_set_text(GTK_ENTRY(EncodedByEntry),"");
-
-    /* Show picture */
-    PictureEntry_Clear();
-    if (FileTag && FileTag->picture)
-    {
-        Picture *pic = FileTag->picture;
-        guint    nbr_pic = 0;
-        GtkWidget *page;
-        gchar *string;
-
-        PictureEntry_Update(FileTag->picture, FALSE);
-
-        // Count the number of items
-        for (pic = FileTag->picture; pic != NULL; pic = pic->next)
-        {
-            nbr_pic++;
-        }
-
-        // Get page "Images" of the notebook
-        page = gtk_notebook_get_nth_page(GTK_NOTEBOOK(TagNoteBook),1);
-        string = g_strdup_printf (_("Images (%d)"), nbr_pic);
-        // Update the notebook tab
-        gtk_notebook_set_tab_label_text(GTK_NOTEBOOK(TagNoteBook),page,string);
-        // Update the notebook menu
-        gtk_notebook_set_menu_label_text(GTK_NOTEBOOK(TagNoteBook),page,string);
-        g_free(string);
-
-    }else
-    {
-        GtkWidget *page;
-        // Get page "Images" of the notebook
-        page = gtk_notebook_get_nth_page(GTK_NOTEBOOK(TagNoteBook),1);
-        // Update the notebook tab
-        gtk_notebook_set_tab_label_text (GTK_NOTEBOOK (TagNoteBook), page,
-                                         _("Images"));
-        // Update the notebook menu
-        gtk_notebook_set_menu_label_text (GTK_NOTEBOOK (TagNoteBook), page,
-                                          _("Images"));
-    }
-
-    return TRUE;
-}
-
-
-/*
  * "Default" way to display File Info to the user interface.
  */
 static gboolean
@@ -3349,13 +3079,6 @@ void ET_Save_File_Data_From_UI (ET_File *ETFile)
     FileName->key = undo_key;
     ET_Save_File_Name_From_UI(ETFile,FileName); // Used for all files!
 
-    /*
-     * Save tag data and generate undo for tag
-     */
-    FileTag = g_malloc0(sizeof(File_Tag));
-    ET_Initialize_File_Tag_Item(FileTag);
-    FileTag->key = undo_key;
-
     switch (ETFileDescription->TagType)
     {
 #ifdef ENABLE_MP3
@@ -3377,11 +3100,12 @@ void ET_Save_File_Data_From_UI (ET_File *ETFile)
         case OPUS_TAG:
 #endif
         case APE_TAG:
-            ET_Save_File_Tag_From_UI(FileTag);
-            ET_Copy_File_Tag_Item_Other_Field(ETFile,FileTag);
+            FileTag = et_application_window_tag_area_create_file_tag (ET_APPLICATION_WINDOW (MainWindow));
+            ET_Copy_File_Tag_Item_Other_Field (ETFile, FileTag);
             break;
         case UNKNOWN_TAG:
         default:
+            FileTag = ET_File_Tag_Item_New ();
             Log_Print(LOG_ERROR,"FileTag: Undefined tag type %d for file %s.",ETFileDescription->TagType,cur_filename_utf8);
             break;
     }
@@ -3459,8 +3183,8 @@ ET_Save_File_Name_From_UI (ET_File *ETFile, File_Name *FileName)
         // Keep the 'last' filename (if a 'blank' filename was entered in the fileentry for ex)...
         filename_new = g_path_get_basename( ((File_Name *)ETFile->FileNameNew->data)->value );
     }
-    g_free(extension);
-    g_free(filename);
+    g_free (filename);
+    g_free (extension);
 
     // Check if new filename seems to be correct
     if ( !filename_new || strlen(filename_new) <= strlen(ETFile->ETFileDescription->Extension) )
@@ -3554,260 +3278,8 @@ ET_Save_File_Name_Internal (ET_File *ETFile, File_Name *FileName)
     }
 }
 
-
 /*
- * Load values, entered into entries of the UI, into a File_Tag structure which had been newly created.
- */
-static gboolean
-ET_Save_File_Tag_From_UI (File_Tag *FileTag)
-{
-    gchar *buffer = NULL;
-    //GtkTextBuffer *textbuffer;
-    //GtkTextIter    start_iter;
-    //GtkTextIter    end_iter;
-
-    g_return_val_if_fail (FileTag != NULL, FALSE);
-
-    /* Title */
-    buffer = g_strdup(gtk_entry_get_text(GTK_ENTRY(TitleEntry)));
-    g_strstrip (buffer);
-
-    if ( g_utf8_strlen(buffer, -1) > 0 )
-        FileTag->title = buffer;
-    else
-    {
-        FileTag->title = NULL;
-        g_free(buffer);
-    }
-
-    /* Artist */
-    buffer = g_strdup(gtk_entry_get_text(GTK_ENTRY(ArtistEntry)));
-    g_strstrip (buffer);
-
-    if ( g_utf8_strlen(buffer, -1) > 0 )
-        FileTag->artist = buffer;
-    else
-    {
-        FileTag->artist = NULL;
-        g_free(buffer);
-    }
-
-	/* Album Artist */
-    buffer = g_strdup(gtk_entry_get_text(GTK_ENTRY(AlbumArtistEntry)));
-    g_strstrip (buffer);
-
-    if ( g_utf8_strlen(buffer, -1) > 0 )
-        FileTag->album_artist = buffer;
-    else
-    {
-        FileTag->album_artist = NULL;
-        g_free(buffer);
-    }
-
-    /* Album */
-    buffer = g_strdup(gtk_entry_get_text(GTK_ENTRY(AlbumEntry)));
-    g_strstrip (buffer);
-
-    if ( g_utf8_strlen(buffer, -1) > 0 )
-        FileTag->album = buffer;
-    else
-    {
-        FileTag->album = NULL;
-        g_free(buffer);
-    }
-
-    /* Disc number and total number of discs. */
-    buffer = g_strdup (gtk_entry_get_text (GTK_ENTRY (DiscNumberEntry)));
-    g_strstrip (buffer);
-
-    if (g_utf8_strlen (buffer, -1) > 0)
-    {
-        gchar *separator;
-
-        separator = g_utf8_strchr (buffer, -1, '/');
-
-        if (separator != NULL && g_utf8_strlen (separator + 1, -1) > 0)
-        {
-            /* Copy before the separator for the disc number, beyond the
-             * separator for the total number of discs. */
-            FileTag->disc_number = g_strndup (buffer, separator - buffer);
-            FileTag->disc_total = g_strdup (separator + 1);
-            g_free (buffer);
-        }
-        else
-        {
-            FileTag->disc_number = buffer;
-            FileTag->disc_total = NULL;
-        }
-    }
-    else
-    {
-        FileTag->disc_number = NULL;
-        FileTag->disc_total = NULL;
-        g_free (buffer);
-    }
-
-    /* Year */
-    buffer = g_strdup(gtk_entry_get_text(GTK_ENTRY(YearEntry)));
-    g_strstrip (buffer);
-
-    if ( g_utf8_strlen(buffer, -1) > 0 )
-        FileTag->year = buffer;
-    else
-    {
-        FileTag->year = NULL;
-        g_free(buffer);
-    }
-
-    /* Track */
-    buffer = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(TrackEntryCombo)))));
-    g_strstrip (buffer);
-
-    if ( g_utf8_strlen(buffer, -1) > 0  )
-    {
-        FileTag->track = et_track_number_to_string (atoi (buffer));
-        g_free (buffer);
-    } else
-    {
-        FileTag->track = NULL;
-        g_free(buffer);
-    }
-
-    /* Track Total */
-    buffer = g_strdup(gtk_entry_get_text(GTK_ENTRY(TrackTotalEntry)));
-    g_strstrip (buffer);
-
-    if ( g_utf8_strlen(buffer, -1) > 0  )
-    {
-        FileTag->track_total = et_track_number_to_string (atoi (buffer));
-        g_free (buffer);
-    } else
-    {
-        FileTag->track_total = NULL;
-        g_free(buffer);
-    }
-
-    /* Genre */
-    buffer = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(GenreCombo)))));
-    g_strstrip (buffer);
-
-    if ( g_utf8_strlen(buffer, -1) > 0 )
-        FileTag->genre = buffer;
-    else
-    {
-        FileTag->genre = NULL;
-        g_free(buffer);
-    }
-
-    /* Comment */
-    //textbuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(CommentView));
-    //gtk_text_buffer_get_bounds(GTK_TEXT_BUFFER(textbuffer),&start_iter,&end_iter);
-    //buffer = gtk_text_buffer_get_text(GTK_TEXT_BUFFER(textbuffer),&start_iter,&end_iter,TRUE);
-    buffer = g_strdup(gtk_entry_get_text(GTK_ENTRY(CommentEntry)));
-    g_strstrip (buffer);
-
-    if ( g_utf8_strlen(buffer, -1) > 0 )
-        FileTag->comment = buffer;
-    else
-    {
-        FileTag->comment = NULL;
-        g_free(buffer);
-    }
-
-    /* Composer */
-    buffer = g_strdup(gtk_entry_get_text(GTK_ENTRY(ComposerEntry)));
-    g_strstrip (buffer);
-
-    if ( g_utf8_strlen(buffer, -1) > 0 )
-        FileTag->composer = buffer;
-    else
-    {
-        FileTag->composer = NULL;
-        g_free(buffer);
-    }
-
-    /* Original Artist */
-    buffer = g_strdup(gtk_entry_get_text(GTK_ENTRY(OrigArtistEntry)));
-    g_strstrip (buffer);
-
-    if ( g_utf8_strlen(buffer, -1) > 0 )
-        FileTag->orig_artist = buffer;
-    else
-    {
-        FileTag->orig_artist = NULL;
-        g_free(buffer);
-    }
-
-    /* Copyright */
-    buffer = g_strdup(gtk_entry_get_text(GTK_ENTRY(CopyrightEntry)));
-    g_strstrip (buffer);
-
-    if ( g_utf8_strlen(buffer, -1) > 0 )
-        FileTag->copyright = buffer;
-    else
-    {
-        FileTag->copyright = NULL;
-        g_free(buffer);
-    }
-
-    /* URL */
-    buffer = g_strdup(gtk_entry_get_text(GTK_ENTRY(URLEntry)));
-    g_strstrip (buffer);
-
-    if ( g_utf8_strlen(buffer, -1) > 0 )
-        FileTag->url = buffer;
-    else
-    {
-        FileTag->url = NULL;
-        g_free(buffer);
-    }
-
-    /* Encoded by */
-    buffer = g_strdup(gtk_entry_get_text(GTK_ENTRY(EncodedByEntry)));
-    g_strstrip (buffer);
-
-    if ( g_utf8_strlen(buffer, -1) > 0 )
-        FileTag->encoded_by = buffer;
-    else
-    {
-        FileTag->encoded_by = NULL;
-        g_free(buffer);
-    }
-
-    /* Picture */
-    {
-        Picture *pic, *prev_pic = NULL;
-        GtkTreeModel *model;
-        GtkTreeIter iter;
-
-        if (FileTag->picture)
-        {
-            Picture_Free(FileTag->picture);
-            FileTag->picture = NULL;
-        }
-
-        model = gtk_tree_view_get_model(GTK_TREE_VIEW(PictureEntryView));
-        if (gtk_tree_model_get_iter_first(model, &iter))
-        {
-            do
-            {
-                gtk_tree_model_get(model, &iter, PICTURE_COLUMN_DATA, &pic,-1);
-                pic = Picture_Copy_One(pic);
-                if (!FileTag->picture)
-                    FileTag->picture = pic;
-                else
-                    prev_pic->next = pic;
-                prev_pic = pic;
-            } while (gtk_tree_model_iter_next(model, &iter));
-        }
-    }
-
-    return TRUE;
-}
-
-
-/*
- * Do the same thing of ET_Save_File_Tag_From_UI without getting the data from the UI.
+ * Do the same thing of et_tag_area_create_file_tag without getting the data from the UI.
  */
 static gboolean
 ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)

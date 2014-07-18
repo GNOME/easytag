@@ -125,8 +125,6 @@ common_init (GApplication *application)
     ET_Core_Create();
     Main_Stop_Button_Pressed = FALSE;
     Init_Mouse_Cursor();
-    TrackEntryComboModel = NULL;
-    GenreComboModel      = NULL;
 
     /* The main window */
     window = et_application_window_new (GTK_APPLICATION (application));
@@ -1207,7 +1205,7 @@ gboolean Read_Directory (gchar *path_real)
     /* Clear entry boxes  */
     Clear_File_Entry_Field();
     Clear_Header_Fields();
-    Clear_Tag_Entry_Fields();
+    et_application_window_tag_area_clear (window);
     gtk_label_set_text(GTK_LABEL(FileIndex),"0/0:");
 
     // Set to unsensitive the Browser Area, to avoid to select another file while loading the first one
@@ -1315,9 +1313,6 @@ gboolean Read_Directory (gchar *path_real)
         /* Load the list of file into the browser list widget */
         et_application_window_browser_toggle_display_mode (window);
 
-        /* Load the list attached to the TrackEntry */
-        Load_Track_List_To_UI();
-
         /* Display the first file */
         //No need to select first item, because Browser_Display_Tree_Or_Artist_Album_List() does this
         //etfilelist = ET_Displayed_File_List_First();
@@ -1347,7 +1342,7 @@ gboolean Read_Directory (gchar *path_real)
         /* Clear entry boxes */
         Clear_File_Entry_Field();
         Clear_Header_Fields();
-        Clear_Tag_Entry_Fields();
+        et_application_window_tag_area_clear (ET_APPLICATION_WINDOW (MainWindow));
 
         if (FileIndex)
             gtk_label_set_text(GTK_LABEL(FileIndex),"0/0:");

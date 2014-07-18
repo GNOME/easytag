@@ -35,6 +35,7 @@ src/preferences_dialog.c
 src/scan_dialog.c
 src/search_dialog.c
 src/setting.c
+src/tag_area.c
 src/vcedit.c
 src/wavpack_header.c
 src/wavpack_tag.c

@@ -18,9 +18,8 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-
-#ifndef __PICTURE_H__
-#define __PICTURE_H__
+#ifndef ET_PICTURE_H_
+#define ET_PICTURE_H_
 
 #include "et_core.h"
 
@@ -79,43 +78,9 @@ typedef enum
     PICTURE_FORMAT_UNKNOWN
 } Picture_Format;
 
-enum // Columns for PictureEntryView
-{
-    PICTURE_COLUMN_PIC, // Column 0
-    PICTURE_COLUMN_TEXT,
-    PICTURE_COLUMN_DATA,
-    PICTURE_COLUMN_COUNT
-};
-
-enum // Columns for list in properties window
-{
-    PICTURE_TYPE_COLUMN_TEXT, // Column 0
-    PICTURE_TYPE_COLUMN_TYPE_CODE,
-    PICTURE_TYPE_COLUMN_COUNT
-};
-
-enum
-{
-    TARGET_URI_LIST
-};
-
-
 /**************
  * Prototypes *
  **************/
-
-void Tag_Area_Picture_Drag_Data (GtkWidget *widget, GdkDragContext *dc, 
-                                 gint x, gint y, GtkSelectionData *selection_data,
-                                 guint info, guint t, gpointer data);
-void Picture_Selection_Changed_cb (GtkTreeSelection *selection, gpointer data);
-
-void Picture_Add_Button_Clicked         (GObject *object);
-void Picture_Properties_Button_Clicked  (GObject *object);
-void Picture_Save_Button_Clicked        (GObject *object);
-void Picture_Clear_Button_Clicked       (GObject *object);
-
-void PictureEntry_Clear  (void);
-void PictureEntry_Update (Picture *pic, gboolean select_it);
 
 Picture       *Picture_Allocate         (void);
 Picture       *Picture_Copy_One         (const Picture *pic);
@@ -123,10 +88,14 @@ Picture       *Picture_Copy             (const Picture *pic);
 void           Picture_Free             (Picture *pic);
 Picture_Format Picture_Format_From_Data (Picture *pic);
 const gchar   *Picture_Mime_Type_String (Picture_Format format);
+const gchar * Picture_Type_String (EtPictureType type);
+gchar * Picture_Info (Picture *pic);
 
-gboolean Picture_Entry_View_Button_Pressed (GtkTreeView *treeview, GdkEventButton *event, gpointer data);
-gboolean Picture_Entry_View_Key_Pressed    (GtkTreeView *treeview, GdkEvent *event, gpointer data);
+Picture *et_picture_load_file_data (GFile *file, GError **error);
+gboolean et_picture_save_file_data (const Picture *pic, GFile *file, GError **error);
+
+EtPictureType et_picture_type_from_filename (const gchar *filename_utf8);
 
 G_END_DECLS
 
-#endif /* __PICTURE_H__ */
+#endif /* ET_PICTURE_H_ */

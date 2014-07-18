@@ -59,35 +59,6 @@ GtkWidget *SizeValueLabel;
 GtkWidget *DurationLabel;
 GtkWidget *DurationValueLabel;
 
-/* TAG Area */
-GtkWidget    *TagFrame;
-GtkWidget    *TagNoteBook;
-GtkWidget    *TitleEntry;
-GtkWidget    *ArtistEntry;
-GtkWidget    *AlbumArtistEntry;
-GtkWidget    *AlbumEntry;
-GtkWidget    *DiscNumberEntry;
-GtkWidget    *YearEntry;
-GtkWidget    *TrackEntryCombo;
-GtkListStore *TrackEntryComboModel;
-GtkWidget    *TrackTotalEntry;
-GtkWidget    *GenreCombo;
-GtkListStore *GenreComboModel;
-GtkWidget    *CommentEntry;
-//GtkWidget    *CommentView;
-GtkWidget    *ComposerEntry;
-GtkWidget    *OrigArtistEntry;
-GtkWidget    *CopyrightEntry;
-GtkWidget    *URLEntry;
-GtkWidget    *EncodedByEntry;
-GtkWidget    *PictureEntryView;
-
-/* Other for picture. */
-GtkToolItem *remove_image_toolitem;
-GtkToolItem *add_image_toolitem;
-GtkToolItem *save_image_toolitem;
-GtkToolItem *image_properties_toolitem;
-
 gchar *INIT_DIRECTORY;
 
 #ifndef errno
@@ -113,7 +84,6 @@ gboolean Read_Directory               (gchar *path);
 void Quit_MainWindow                  (void);
 
 void Clear_File_Entry_Field (void);
-void Clear_Tag_Entry_Fields (void);
 void Clear_Header_Fields    (void);
 
 
