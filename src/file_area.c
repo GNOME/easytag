@@ -56,6 +56,25 @@ struct _EtFileAreaPrivate
 };
 
 static void
+on_file_show_header_changed (EtFileArea *self,
+                             gchar *key,
+                             GSettings *settings)
+{
+    EtFileAreaPrivate *priv;
+
+    priv = et_file_area_get_instance_private (self);
+
+    if (g_settings_get_boolean (settings, key))
+    {
+        gtk_widget_show (priv->header_grid);
+    }
+    else
+    {
+        gtk_widget_hide (priv->header_grid);
+    }
+}
+
+static void
 create_file_area (EtFileArea *self)
 {
     EtFileAreaPrivate *priv;
@@ -153,11 +172,9 @@ create_file_area (EtFileArea *self)
     gtk_misc_set_alignment (GTK_MISC (priv->duration_label), 1.0, 0.5);
     gtk_misc_set_alignment (GTK_MISC (priv->duration_value_label), 0.0, 0.5);
 
-    /* FIXME */
-    #if 0
-    if (SHOW_HEADER_INFO)
-        gtk_widget_show_all(HeaderInfosTable);
-    #endif
+    g_signal_connect_swapped (MainSettings, "changed::file-show-header",
+                              G_CALLBACK (on_file_show_header_changed), self);
+    on_file_show_header_changed (self, "file-show-header", MainSettings);
 }
 
 static void
