@@ -126,39 +126,6 @@ void Init_Config_Variables (void)
     check_default_path ();
 }
 
-
-
-/*
- * Function called when pressing the "Save" button of the preferences window.
- * Save into the config variables the settings of each tab of the Preferences window...
- * If settings needs to be "shown/applied" to the corresponding window, we do it
- */
-static void
-Apply_Changes_Of_Preferences_Window (void)
-{
-    EtApplicationWindow *window;
-    GtkWidget *dialog;
-
-    window = ET_APPLICATION_WINDOW (MainWindow);
-    dialog = et_application_window_get_preferences_dialog (window);
-
-    if (dialog)
-    {
-
-        /* Tag Settings */
-#ifdef ENABLE_ID3LIB
-        g_settings_set_boolean (MainSettings, "id3v2-version-4", TRUE);
-#endif
-
-        /* Parameters and variables of Scanner Window are in "scan.c" file */
-        /* Parameters and variables of Cddb Window are in "cddb.c" file */
-    }
-
-    /*
-     * Changes to apply to :
-     */
-}
-
 /*
  * Save into the config variables the settings of each window
  *  - Position/size of the window
@@ -188,15 +155,6 @@ void Save_Changes_Of_UI (void)
 {
     Apply_Changes_Of_UI();
 }
-
-void Save_Changes_Of_Preferences_Window (void)
-{
-    Apply_Changes_Of_Preferences_Window();
-
-    Statusbar_Message(_("Configuration saved"),TRUE);
-}
-
-
 
 /*
  * check_or_create_file:

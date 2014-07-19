@@ -1895,8 +1895,6 @@ OptionsWindow_Save_Button (EtPreferencesDialog *self)
 {
     if (!Check_Config (self)) return;
 
-    Save_Changes_Of_Preferences_Window();
-
     OptionsWindow_Quit (self);
     Statusbar_Message(_("Configuration saved"),TRUE);
 }
