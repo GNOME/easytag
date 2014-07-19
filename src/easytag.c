@@ -166,8 +166,6 @@ common_init (GApplication *application)
      * to the screen and open also the scanner window */
     idle_handler_id = g_idle_add ((GSourceFunc)Init_Load_Default_Dir, NULL);
     g_source_set_name_by_id (idle_handler_id, "Init idle function");
-
-    gtk_main ();
 }
 
 /*
