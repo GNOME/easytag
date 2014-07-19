@@ -14,6 +14,7 @@ src/cddb_dialog.c
 src/charset.c
 src/easytag.c
 src/et_core.c
+src/file_area.c
 src/flac_header.c
 src/flac_tag.c
 src/id3_tag.c

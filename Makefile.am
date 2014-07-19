@@ -54,6 +54,7 @@ easytag_SOURCES = \
 	src/easytag.c \
 	src/enums.c \
 	src/et_core.c \
+	src/file_area.c \
 	src/flac_header.c \
 	src/flac_tag.c \
 	src/gio_wrapper.cc \
@@ -104,6 +105,7 @@ easytag_headers = \
 	src/dlm.h \
 	src/easytag.h \
 	src/et_core.h \
+	src/file_area.h \
 	src/flac_header.h \
 	src/flac_tag.h \
 	src/genres.h \

@@ -29,7 +29,8 @@
 G_BEGIN_DECLS
 
 gboolean Mp4_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo);
-gboolean Mp4_Header_Display_File_Info_To_UI (gchar *filename, ET_File_Info *ETFileInfo);
+EtFileHeaderFields * Mp4_Header_Display_File_Info_To_UI (gchar *filename, ET_File *ETFile);
+void et_mp4_file_header_fields_free (EtFileHeaderFields *fields);
 
 G_END_DECLS
 

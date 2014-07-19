@@ -158,9 +158,8 @@ static guint ET_Undo_Key_New (void);
 
 static gboolean ET_Remove_File_From_Artist_Album_List (ET_File *ETFile);
 
-static void ET_Display_File_And_List_Status_To_UI (ET_File *ETFile);
 static void ET_Display_Filename_To_UI (ET_File *ETFile);
-static gboolean ET_Display_File_Info_To_UI (ET_File_Info *ETFileInfo);
+static EtFileHeaderFields * ET_Display_File_Info_To_UI (ET_File *ETFile);
 
 static gboolean ET_Save_File_Name_From_UI (ET_File *ETFile,
                                            File_Name *FileName);
@@ -900,10 +899,8 @@ gboolean ET_Remove_File_From_File_List (ET_File *ETFile)
     }else
     {
         // Reinit the tag and file area
-        Clear_File_Entry_Field();
-        Clear_Header_Fields();
+        et_application_window_file_area_clear (ET_APPLICATION_WINDOW (MainWindow));
         et_application_window_tag_area_clear (ET_APPLICATION_WINDOW (MainWindow));
-        gtk_label_set_text(GTK_LABEL(FileIndex),"0/0:");
         et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
     }
 
@@ -2725,16 +2722,30 @@ gboolean ET_Set_Field_File_Tag_Picture (Picture **FileTagField, Picture *pic)
  * Displaying functions *
  ************************/
 
+static void
+et_file_header_fields_free (EtFileHeaderFields *fields)
+{
+    g_free (fields->version);
+    g_free (fields->bitrate);
+    g_free (fields->samplerate);
+    g_free (fields->mode);
+    g_free (fields->size);
+    g_free (fields->duration);
+    g_slice_free (EtFileHeaderFields, fields);
+}
+
 /*
  * Display information of the file (Position + Header + Tag) to the user interface.
  * Before doing it, it saves data of the file currently displayed
  */
 void ET_Display_File_Data_To_UI (ET_File *ETFile)
 {
+    EtApplicationWindow *window;
     const ET_File_Description *ETFileDescription;
     gchar *cur_filename;
     gchar *cur_filename_utf8;
     gchar *msg;
+    EtFileHeaderFields *fields;
 #ifdef ENABLE_OPUS
     GFile *file;
 #endif
@@ -2750,85 +2761,98 @@ void ET_Display_File_Data_To_UI (ET_File *ETFile)
     /* Save the current displayed file */
     ETCore->ETFileDisplayed = ETFile;
 
+    window = ET_APPLICATION_WINDOW (MainWindow);
+
     /* Display position in list + show/hide icon if file writable/read_only (cur_filename) */
-    ET_Display_File_And_List_Status_To_UI(ETFile);
+    et_application_window_file_area_set_file_fields (window, ETFile);
 
     /* Display filename (and his path) (value in FileNameNew) */
     ET_Display_Filename_To_UI(ETFile);
 
     /* Display tag data */
-    et_application_window_tag_area_display_et_file (ET_APPLICATION_WINDOW (MainWindow),
-                                                    ETFile);
+    et_application_window_tag_area_display_et_file (window, ETFile);
 
     /* Display controls in tag area */
-    et_application_window_tag_area_display_controls (ET_APPLICATION_WINDOW (MainWindow),
-                                                     ETFile);
+    et_application_window_tag_area_display_controls (window, ETFile);
 
     /* Display file data, header data and file type */
     switch (ETFileDescription->FileType)
     {
 #if defined ENABLE_MP3 && defined ENABLE_ID3LIB
         case MP3_FILE:
-            gtk_frame_set_label(GTK_FRAME(FileFrame),_("MP3 File"));
-            Mpeg_Header_Display_File_Info_To_UI(cur_filename,ETFile->ETFileInfo);
-            break;
         case MP2_FILE:
-            gtk_frame_set_label(GTK_FRAME(FileFrame),_("MP2 File"));
-            Mpeg_Header_Display_File_Info_To_UI(cur_filename,ETFile->ETFileInfo);
+            fields = Mpeg_Header_Display_File_Info_To_UI (cur_filename,
+                                                          ETFile);
+            et_application_window_file_area_set_header_fields (window, fields);
+            et_mpeg_file_header_fields_free (fields);
             break;
 #endif
 #ifdef ENABLE_OGG
         case OGG_FILE:
-            gtk_frame_set_label(GTK_FRAME(FileFrame),_("Ogg Vorbis File"));
-            Ogg_Header_Display_File_Info_To_UI(cur_filename,ETFile->ETFileInfo);
+            fields = Ogg_Header_Display_File_Info_To_UI (cur_filename, ETFile);
+            et_application_window_file_area_set_header_fields (window, fields);
+            et_ogg_file_header_fields_free (fields);
             break;
 #endif
 #ifdef ENABLE_SPEEX
         case SPEEX_FILE:
-            gtk_frame_set_label(GTK_FRAME(FileFrame),_("Speex File"));
-            Ogg_Header_Display_File_Info_To_UI(cur_filename,ETFile->ETFileInfo);
+            fields = Ogg_Header_Display_File_Info_To_UI (cur_filename, ETFile);
+            et_application_window_file_area_set_header_fields (window, fields);
+            et_ogg_file_header_fields_free (fields);
             break;
 #endif
 #ifdef ENABLE_FLAC
         case FLAC_FILE:
-            gtk_frame_set_label(GTK_FRAME(FileFrame),_("FLAC File"));
-            Flac_Header_Display_File_Info_To_UI(cur_filename,ETFile->ETFileInfo);
+            fields = Flac_Header_Display_File_Info_To_UI (cur_filename,
+                                                          ETFile);
+            et_application_window_file_area_set_header_fields (window, fields);
+            et_flac_file_header_fields_free (fields);
             break;
 #endif
         case MPC_FILE:
-            gtk_frame_set_label(GTK_FRAME(FileFrame),_("MusePack File"));
-            Mpc_Header_Display_File_Info_To_UI(cur_filename,ETFile->ETFileInfo);
+            fields = Mpc_Header_Display_File_Info_To_UI (cur_filename, ETFile);
+            et_application_window_file_area_set_header_fields (window, fields);
+            et_mpc_file_header_fields_free (fields);
             break;
         case MAC_FILE:
-            gtk_frame_set_label(GTK_FRAME(FileFrame),_("Monkey's Audio File"));
-            Mac_Header_Display_File_Info_To_UI(cur_filename,ETFile->ETFileInfo);
+            fields = Mac_Header_Display_File_Info_To_UI (cur_filename,
+                                                         ETFile);
+            et_application_window_file_area_set_header_fields (window, fields);
+            et_mac_file_header_fields_free (fields);
             break;
 #ifdef ENABLE_MP4
         case MP4_FILE:
-            gtk_frame_set_label(GTK_FRAME(FileFrame),_("MP4/AAC File"));
-            Mp4_Header_Display_File_Info_To_UI(cur_filename,ETFile->ETFileInfo);
+            fields = Mp4_Header_Display_File_Info_To_UI (cur_filename, ETFile);
+            et_application_window_file_area_set_header_fields (window, fields);
+            et_mp4_file_header_fields_free (fields);
             break;
 #endif
 #ifdef ENABLE_WAVPACK
         case WAVPACK_FILE:
-            gtk_frame_set_label(GTK_FRAME(FileFrame),_("Wavpack File"));
-            Wavpack_Header_Display_File_Info_To_UI(cur_filename,ETFile->ETFileInfo);
+            fields = Wavpack_Header_Display_File_Info_To_UI (cur_filename,
+                                                             ETFile);
+            et_application_window_file_area_set_header_fields (window, fields);
+            et_wavpack_file_header_fields_free (fields);
             break;
 #endif
 #ifdef ENABLE_OPUS
         case OPUS_FILE:
-            gtk_frame_set_label (GTK_FRAME (FileFrame), _("Opus File"));
             file = g_file_new_for_path (cur_filename);
-            et_opus_header_display_file_info_to_ui (file, ETFile->ETFileInfo);
+            fields = et_opus_header_display_file_info_to_ui (file, ETFile);
+            et_application_window_file_area_set_header_fields (window, fields);
+            et_opus_file_header_fields_free (fields);
             g_object_unref (file);
             break;
 #endif
         case UNKNOWN_FILE:
         default:
-            gtk_frame_set_label(GTK_FRAME(FileFrame),_("File"));
-            // Default displaying
-            ET_Display_File_Info_To_UI(ETFile->ETFileInfo);
-            Log_Print(LOG_ERROR,"ETFileInfo: Undefined file type %d for file %s.",ETFileDescription->FileType,cur_filename_utf8);
+            /* Default displaying. */
+            fields = ET_Display_File_Info_To_UI (ETFile);
+            et_application_window_file_area_set_header_fields (window, fields);
+            et_file_header_fields_free (fields);
+            Log_Print (LOG_ERROR,
+                       "ETFileInfo: Undefined file type %d for file %s.",
+                       ETFileDescription->FileType, cur_filename_utf8);
             break;
     }
 
@@ -2837,140 +2861,16 @@ void ET_Display_File_Data_To_UI (ET_File *ETFile)
     g_free(msg);
 }
 
-
-/*
- * Toggle visibility of the small status icon if filename is read-only or not found.
- * Show the position of the current file in the list, by using the index and list length.
- */
-static void
-ET_Display_File_And_List_Status_To_UI (ET_File *ETFile)
-{
-    GFile *file;
-    gchar *text;
-    gchar *cur_filename;
-    GFileInfo *info;
-    GError *error = NULL;
-
-    g_return_if_fail (ETFile != NULL);
-
-    cur_filename = ((File_Name *)((GList *)ETFile->FileNameCur)->data)->value;
-
-    file = g_file_new_for_path (cur_filename);
-
-    info = g_file_query_info (file, G_FILE_ATTRIBUTE_ACCESS_CAN_READ ","
-                              G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE,
-                              G_FILE_QUERY_INFO_NONE, NULL, &error);
-
-    /* Show/hide 'AccessStatusIcon' */
-    if (!info)
-    {
-        if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND))
-        {
-            /* No such file or directory. */
-            GIcon *emblem_icon;
-
-            emblem_icon = g_themed_icon_new ("emblem-unreadable");
-
-            gtk_entry_set_icon_from_gicon (GTK_ENTRY (FileEntry),
-                                           GTK_ENTRY_ICON_SECONDARY,
-                                           emblem_icon);
-            gtk_entry_set_icon_tooltip_text (GTK_ENTRY (FileEntry),
-                                             GTK_ENTRY_ICON_SECONDARY,
-                                             _("File not found"));
-            g_object_unref (emblem_icon);
-        }
-        else
-        {
-            Log_Print (LOG_ERROR, _("Cannot query file information (%s)"),
-                       error->message);
-            g_error_free (error);
-            g_object_unref (file);
-            return;
-        }
-    }
-    else
-    {
-        gboolean readable, writable;
-
-        readable = g_file_info_get_attribute_boolean (info,
-                                                      G_FILE_ATTRIBUTE_ACCESS_CAN_READ);
-        writable = g_file_info_get_attribute_boolean (info,
-                                                      G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE);
-
-        if (readable && writable)
-        {
-            /* User has all necessary permissions. */
-            gtk_entry_set_icon_from_gicon (GTK_ENTRY (FileEntry),
-                                           GTK_ENTRY_ICON_SECONDARY, NULL);
-        }
-        else if (!writable)
-        {
-            /* Read only file or permission denied. */
-            GIcon *emblem_icon;
-
-            emblem_icon = g_themed_icon_new ("emblem-readonly");
-
-            gtk_entry_set_icon_from_gicon (GTK_ENTRY (FileEntry),
-                                           GTK_ENTRY_ICON_SECONDARY,
-                                           emblem_icon);
-            gtk_entry_set_icon_tooltip_text (GTK_ENTRY (FileEntry),
-                                             GTK_ENTRY_ICON_SECONDARY,
-                                             _("Read-only file"));
-            g_object_unref (emblem_icon);
-
-        }
-        else
-        {
-            /* Otherwise unreadable. */
-            GIcon *emblem_icon;
-
-            emblem_icon = g_themed_icon_new ("emblem-unreadable");
-
-            gtk_entry_set_icon_from_gicon (GTK_ENTRY (FileEntry),
-                                           GTK_ENTRY_ICON_SECONDARY,
-                                           emblem_icon);
-            gtk_entry_set_icon_tooltip_text (GTK_ENTRY (FileEntry),
-                                             GTK_ENTRY_ICON_SECONDARY,
-                                             _("File not found"));
-            g_object_unref (emblem_icon);
-        }
-        g_object_unref (info);
-    }
-
-    /* Show position of current file in list */
-    text = g_strdup_printf("%d/%d:",ETFile->IndexKey,ETCore->ETFileDisplayedList_Length);
-    gtk_label_set_text(GTK_LABEL(FileIndex),text);
-    g_object_unref (file);
-    g_free(text);
-}
-
 static void
 ET_Display_Filename_To_UI (ET_File *ETFile)
 {
-    gchar *pos;
     gchar *new_filename_utf8;
-    gchar *basename_utf8;
     gchar *dirname_utf8;
     gchar *text;
 
     g_return_if_fail (ETFile != NULL);
 
     new_filename_utf8 = ((File_Name *)((GList *)ETFile->FileNameNew)->data)->value_utf8;
-
-    /*
-     * Set filename into FileEntry
-     */
-    basename_utf8 = g_path_get_basename(new_filename_utf8);
-
-    // Remove the extension
-    if ((pos=g_utf8_strrchr(basename_utf8, -1, '.'))!=NULL)
-        *pos = 0;
-    gtk_entry_set_text(GTK_ENTRY(FileEntry),basename_utf8);
-    /*FIX ME : gchar *tmp = Try_To_Validate_Utf8_String(basename_utf8);
-    g_free(tmp);*/
-    g_free(basename_utf8);
-    // Justify to the left text into FileEntry
-    gtk_editable_set_position(GTK_EDITABLE(FileEntry),0);
 
     /*
      * Set the path to the file into BrowserEntry (dirbrowser)
@@ -2991,58 +2891,50 @@ ET_Display_Filename_To_UI (ET_File *ETFile)
 /*
  * "Default" way to display File Info to the user interface.
  */
-static gboolean
-ET_Display_File_Info_To_UI(ET_File_Info *ETFileInfo)
+static EtFileHeaderFields *
+ET_Display_File_Info_To_UI (ET_File *ETFile)
 {
-    gchar *text;
+    EtFileHeaderFields *fields;
+    ET_File_Info *info;
     gchar *time  = NULL;
     gchar *time1 = NULL;
     gchar *size  = NULL;
     gchar *size1 = NULL;
 
+    info = ETFile->ETFileInfo;
+    fields = g_slice_new (EtFileHeaderFields);
+
+    fields->description = _("File");
+
     /* MPEG, Layer versions */
-    text = g_strdup_printf("%d, Layer %d",ETFileInfo->version,ETFileInfo->layer);
-    gtk_label_set_text(GTK_LABEL(VersionValueLabel),text);
-    g_free(text);
+    fields->version = g_strdup_printf ("%d, Layer %d", info->version,
+                                       info->layer);
 
     /* Bitrate */
-    text = g_strdup_printf(_("%d kb/s"),ETFileInfo->bitrate);
-    gtk_label_set_text(GTK_LABEL(BitrateValueLabel),text);
-    g_free(text);
+    fields->bitrate = g_strdup_printf (_("%d kb/s"), info->bitrate);
 
     /* Samplerate */
-    text = g_strdup_printf(_("%d Hz"),ETFileInfo->samplerate);
-    gtk_label_set_text(GTK_LABEL(SampleRateValueLabel),text);
-    g_free(text);
+    fields->samplerate = g_strdup_printf (_("%d Hz"), info->samplerate);
 
     /* Mode */
-    text = g_strdup_printf("%d",ETFileInfo->mode);
-    gtk_label_set_text(GTK_LABEL(ModeValueLabel),text);
-    g_free(text);
+    fields->mode = g_strdup_printf ("%d", info->mode);
 
     /* Size */
-    size  = g_format_size (ETFileInfo->size);
+    size = g_format_size (info->size);
     size1 = g_format_size (ETCore->ETFileDisplayedList_TotalSize);
-    text  = g_strdup_printf("%s (%s)",size,size1);
-    gtk_label_set_text(GTK_LABEL(SizeValueLabel),text);
-    g_free(size);
-    g_free(size1);
-    g_free(text);
+    fields->size = g_strdup_printf ("%s (%s)", size, size1);
+    g_free (size);
+    g_free (size1);
 
     /* Duration */
-    time  = Convert_Duration(ETFileInfo->duration);
-    time1 = Convert_Duration(ETCore->ETFileDisplayedList_TotalDuration);
-    text  = g_strdup_printf("%s (%s)",time,time1);
-    gtk_label_set_text(GTK_LABEL(DurationValueLabel),text);
-    g_free(time);
-    g_free(time1);
-    g_free(text);
+    time = Convert_Duration (info->duration);
+    time1 = Convert_Duration (ETCore->ETFileDisplayedList_TotalDuration);
+    fields->duration = g_strdup_printf ("%s (%s)", time, time1);
+    g_free (time);
+    g_free (time1);
 
-    return TRUE;
+    return fields;
 }
-
-
-
 
 /********************
  * Saving functions *
@@ -3141,8 +3033,9 @@ ET_Save_File_Name_From_UI (ET_File *ETFile, File_Name *FileName)
 
     g_return_val_if_fail (ETFile != NULL && FileName != NULL, FALSE);
 
-    filename_utf8 = gtk_entry_get_text(GTK_ENTRY(FileEntry));
-    filename = filename_from_display(filename_utf8);
+    filename_utf8 = et_application_window_file_area_get_filename (ET_APPLICATION_WINDOW (MainWindow));
+    filename = filename_from_display (filename_utf8);
+
     if (!filename)
     {
         // If translation fails...
@@ -3159,7 +3052,6 @@ ET_Save_File_Name_From_UI (ET_File *ETFile, File_Name *FileName)
 
         gtk_dialog_run(GTK_DIALOG(msgdialog));
         gtk_widget_destroy(msgdialog);
-        g_free(filename);
         g_free(filename_escaped_utf8);
         return FALSE;
     }

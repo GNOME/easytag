@@ -41,24 +41,6 @@ gboolean Main_Stop_Button_Pressed;
 
 GtkWidget *MainWindow;
 
-/* File Area */
-GtkWidget *FileFrame;
-GtkWidget *FileIndex;
-GtkWidget *FileEntry;
-GtkWidget *HeaderInfosTable;    /* declarated here to show/hide file header infos */
-GtkWidget *VersionLabel;
-GtkWidget *VersionValueLabel;
-GtkWidget *BitrateLabel;
-GtkWidget *BitrateValueLabel;
-GtkWidget *SampleRateLabel;
-GtkWidget *SampleRateValueLabel;
-GtkWidget *ModeLabel;
-GtkWidget *ModeValueLabel;
-GtkWidget *SizeLabel;
-GtkWidget *SizeValueLabel;
-GtkWidget *DurationLabel;
-GtkWidget *DurationValueLabel;
-
 gchar *INIT_DIRECTORY;
 
 #ifndef errno
@@ -82,9 +64,5 @@ void Action_Main_Stop_Button_Pressed    (void);
 
 gboolean Read_Directory               (gchar *path);
 void Quit_MainWindow                  (void);
-
-void Clear_File_Entry_Field (void);
-void Clear_Header_Fields    (void);
-
 
 #endif /* __EASYTAG_H__ */

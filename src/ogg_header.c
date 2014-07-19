@@ -1,21 +1,20 @@
-/* ogg_header.c - 2003/12/29 */
-/*
- *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
- *  Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
+/* EasyTAG - Tag editor for audio files
+ * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
  *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
 #include "config.h" /* For definition of ENABLE_OGG. */
@@ -377,61 +376,82 @@ gboolean Speex_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
 }
 #endif
 
-gboolean Ogg_Header_Display_File_Info_To_UI (gchar *filename, ET_File_Info *ETFileInfo)
+EtFileHeaderFields *
+Ogg_Header_Display_File_Info_To_UI (gchar *filename, ET_File *ETFile)
 {
-    gchar *text;
+    EtFileHeaderFields *fields;
+    ET_File_Info *info;
     gchar *time = NULL;
     gchar *time1 = NULL;
     gchar *size = NULL;
     gchar *size1 = NULL;
 
+    info = ETFile->ETFileInfo;
+    fields = g_slice_new (EtFileHeaderFields);
+
+    switch (ETFile->ETFileDescription->FileType)
+    {
+        case OGG_FILE:
+            fields->description = _("Ogg Vorbis File");
+            break;
+        case SPEEX_FILE:
+            fields->description = _("Speex File");
+            break;
+        default:
+            g_assert_not_reached ();
+    }
+
     /* Encoder version */
-    gtk_label_set_text(GTK_LABEL(VersionLabel),_("Encoder:"));
-    if (!ETFileInfo->mpc_version)
+    fields->version_label = _("Encoder:");
+
+    if (!info->mpc_version)
     {
-        text = g_strdup_printf("%d",ETFileInfo->version);
-        gtk_label_set_text(GTK_LABEL(VersionValueLabel),text);
-        g_free(text);
-    }else
+        fields->version = g_strdup_printf ("%d", info->version);
+    }
+    else
     {
-        gtk_label_set_text(GTK_LABEL(VersionValueLabel),ETFileInfo->mpc_version);
+        fields->version = g_strdup (info->mpc_version);
     }
 
     /* Bitrate */
-    text = g_strdup_printf(_("%d kb/s"),ETFileInfo->bitrate);
-    gtk_label_set_text(GTK_LABEL(BitrateValueLabel),text);
-    g_free(text);
+    fields->bitrate = g_strdup_printf (_("%d kb/s"), info->bitrate);
 
     /* Samplerate */
-    text = g_strdup_printf(_("%d Hz"),ETFileInfo->samplerate);
-    gtk_label_set_text(GTK_LABEL(SampleRateValueLabel),text);
-    g_free(text);
+    fields->samplerate = g_strdup_printf (_("%d Hz"), info->samplerate);
 
     /* Mode */
-    gtk_label_set_text(GTK_LABEL(ModeLabel),_("Channels:"));
-    text = g_strdup_printf("%d",ETFileInfo->mode);
-    gtk_label_set_text(GTK_LABEL(ModeValueLabel),text);
-    g_free(text);
+    fields->mode_label = _("Channels:");
+    fields->mode = g_strdup_printf ("%d", info->mode);
 
     /* Size */
-    size  = g_format_size (ETFileInfo->size);
+    size = g_format_size (info->size);
     size1 = g_format_size (ETCore->ETFileDisplayedList_TotalSize);
-    text  = g_strdup_printf("%s (%s)",size,size1);
-    gtk_label_set_text(GTK_LABEL(SizeValueLabel),text);
-    g_free(size);
-    g_free(size1);
-    g_free(text);
+    fields->size = g_strdup_printf ("%s (%s)", size, size1);
+    g_free (size);
+    g_free (size1);
 
     /* Duration */
-    time  = Convert_Duration(ETFileInfo->duration);
-    time1 = Convert_Duration(ETCore->ETFileDisplayedList_TotalDuration);
-    text  = g_strdup_printf("%s (%s)",time,time1);
-    gtk_label_set_text(GTK_LABEL(DurationValueLabel),text);
-    g_free(time);
-    g_free(time1);
-    g_free(text);
+    time = Convert_Duration (info->duration);
+    time1 = Convert_Duration (ETCore->ETFileDisplayedList_TotalDuration);
+    fields->duration = g_strdup_printf ("%s (%s)", time, time1);
+    g_free (time);
+    g_free (time1);
 
-    return TRUE;
+    return fields;
+}
+
+void
+et_ogg_file_header_fields_free (EtFileHeaderFields *fields)
+{
+    g_return_if_fail (fields != NULL);
+
+    g_free (fields->version);
+    g_free (fields->bitrate);
+    g_free (fields->samplerate);
+    g_free (fields->mode);
+    g_free (fields->size);
+    g_free (fields->duration);
+    g_slice_free (EtFileHeaderFields, fields);
 }
 
 #endif /* ENABLE_OGG */

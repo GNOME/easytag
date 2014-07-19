@@ -51,6 +51,10 @@ File_Tag * et_application_window_tag_area_create_file_tag (EtApplicationWindow *
 gboolean et_application_window_tag_area_display_et_file (EtApplicationWindow *self, ET_File *ETFile);
 void et_application_window_tag_area_clear (EtApplicationWindow *self);
 void et_application_window_tag_area_set_sensitive (EtApplicationWindow *self, gboolean sensitive);
+const gchar * et_application_window_file_area_get_filename (EtApplicationWindow *self);
+void et_application_window_file_area_set_file_fields (EtApplicationWindow *self, ET_File *ETFile);
+void et_application_window_file_area_set_header_fields (EtApplicationWindow *self, EtFileHeaderFields *fields);
+void et_application_window_file_area_clear (EtApplicationWindow *self);
 void et_application_window_file_area_set_sensitive (EtApplicationWindow *self, gboolean sensitive);
 void et_application_window_disable_command_actions (EtApplicationWindow *self);
 void et_application_window_update_actions (EtApplicationWindow *self);

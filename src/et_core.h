@@ -150,6 +150,34 @@ struct _ET_File_Info
     gchar *mpc_version;         /* MPC data : encoder version  (also for Speex) */
 };
 
+/*
+ * EtFileHeaderFields:
+ * @description: a description of the file type, such as MP3 File
+ * @version_label: the label for the encoder version, such as MPEG
+ * @version: the encoder version (such as 2, Layer III)
+ * @bitrate: the bitrate of the file (not the bit depth of the samples)
+ * @samplerate: the sample rate of the primary audio track, generally in Hz
+ * @mode_label: the label for the audio mode, for example Mode
+ * @mode: the audio mode (stereo, mono, and so on)
+ * @size: the size of the audio file
+ * @duration: the length of the primary audio track
+ *
+ * UI-visible strings, populated by the tagging support code to be displayed in
+ * the EtFileArea.
+ */
+typedef struct
+{
+    /*< public >*/
+    gchar *description;
+    gchar *version_label;
+    gchar *version;
+    gchar *bitrate;
+    gchar *samplerate;
+    gchar *mode_label;
+    gchar *mode;
+    gchar *size;
+    gchar *duration;
+} EtFileHeaderFields;
 
 /*
  * Structure for descripting supported files

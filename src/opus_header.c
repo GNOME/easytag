@@ -201,63 +201,72 @@ et_opus_read_file_info (GFile *gfile, ET_File_Info *ETFileInfo,
 /*
  * et_opus_header_display_file_info_to_ui:
  * @filename: file to display info of
- * @ETFileInfo: ET_File_Info to display information
+ * @ETFile: ET_File to display information
  *
- * Display header info from ET_File_Info.
+ * Display header info from ET_File.
  *
- * Returns: %TRUE if successful, otherwise %FALSE
+ * Returns: a new #EtFileHeaderFields, free with
+ * et_opus_file_header_fields_free()
  */
-gboolean
+EtFileHeaderFields *
 et_opus_header_display_file_info_to_ui (GFile *file,
-                                        ET_File_Info *ETFileInfo)
+                                        ET_File *ETFile)
 {
-    gchar *text;
+    EtFileHeaderFields *fields;
+    ET_File_Info *info;
     gchar *time = NULL;
     gchar *time1 = NULL;
     gchar *size = NULL;
     gchar *size1 = NULL;
 
+    info = ETFile->ETFileInfo;
+    fields = g_slice_new (EtFileHeaderFields);
+
+    fields->description = _("Opus File");
+
     /* Encoder version */
-    gtk_label_set_text (GTK_LABEL (VersionLabel), _("Encoder:"));
-    text = g_strdup_printf ("%d", ETFileInfo->version);
-    gtk_label_set_text (GTK_LABEL (VersionValueLabel), text);
-    g_free (text);
+    fields->version_label = _("Encoder:");
+    fields->version = g_strdup_printf ("%d", info->version);
 
     /* Bitrate */
-    text = g_strdup_printf (_("%d kb/s"), ETFileInfo->bitrate);
-    gtk_label_set_text (GTK_LABEL (BitrateValueLabel), text);
-    g_free (text);
+    fields->bitrate = g_strdup_printf (_("%d kb/s"), info->bitrate);
 
     /* Samplerate */
-    text = g_strdup_printf (_("%d Hz"), ETFileInfo->samplerate);
-    gtk_label_set_text (GTK_LABEL (SampleRateValueLabel), text);
-    g_free (text);
+    fields->samplerate = g_strdup_printf (_("%d Hz"), info->samplerate);
 
     /* Mode */
-    gtk_label_set_text (GTK_LABEL (ModeLabel), _("Channels:"));
-    text = g_strdup_printf ("%d", ETFileInfo->mode);
-    gtk_label_set_text (GTK_LABEL (ModeValueLabel), text);
-    g_free (text);
+    fields->mode_label = _("Channels:");
+    fields->mode = g_strdup_printf ("%d", info->mode);
 
     /* Size */
-    size  = g_format_size (ETFileInfo->size);
+    size = g_format_size (info->size);
     size1 = g_format_size (ETCore->ETFileDisplayedList_TotalSize);
-    text  = g_strdup_printf ("%s (%s)", size, size1);
-    gtk_label_set_text (GTK_LABEL (SizeValueLabel), text);
+    fields->size = g_strdup_printf ("%s (%s)", size, size1);
     g_free (size);
     g_free (size1);
-    g_free (text);
 
     /* Duration */
-    time  = Convert_Duration (ETFileInfo->duration);
+    time = Convert_Duration (info->duration);
     time1 = Convert_Duration (ETCore->ETFileDisplayedList_TotalDuration);
-    text  = g_strdup_printf ("%s (%s)", time, time1);
-    gtk_label_set_text (GTK_LABEL (DurationValueLabel), text);
+    fields->duration = g_strdup_printf ("%s (%s)", time, time1);
     g_free (time);
     g_free (time1);
-    g_free (text);
 
-    return TRUE;
+    return fields;
+}
+
+void
+et_opus_file_header_fields_free (EtFileHeaderFields *fields)
+{
+    g_return_if_fail (fields != NULL);
+
+    g_free (fields->version);
+    g_free (fields->bitrate);
+    g_free (fields->samplerate);
+    g_free (fields->mode);
+    g_free (fields->size);
+    g_free (fields->duration);
+    g_slice_free (EtFileHeaderFields, fields);
 }
 
 #endif /* ENABLE_OPUS */

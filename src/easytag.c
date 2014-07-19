@@ -1203,10 +1203,8 @@ gboolean Read_Directory (gchar *path_real)
     et_application_window_browser_clear (window);
 
     /* Clear entry boxes  */
-    Clear_File_Entry_Field();
-    Clear_Header_Fields();
+    et_application_window_file_area_clear (window);
     et_application_window_tag_area_clear (window);
-    gtk_label_set_text(GTK_LABEL(FileIndex),"0/0:");
 
     // Set to unsensitive the Browser Area, to avoid to select another file while loading the first one
     et_application_window_browser_set_sensitive (window, FALSE);
@@ -1340,14 +1338,8 @@ gboolean Read_Directory (gchar *path_real)
     }else
     {
         /* Clear entry boxes */
-        Clear_File_Entry_Field();
-        Clear_Header_Fields();
+        et_application_window_file_area_clear (ET_APPLICATION_WINDOW (MainWindow));
         et_application_window_tag_area_clear (ET_APPLICATION_WINDOW (MainWindow));
-
-        if (FileIndex)
-            gtk_label_set_text(GTK_LABEL(FileIndex),"0/0:");
-
-
 
 	/* Translators: No files, as in "0 files". */
         et_application_window_browser_label_set_text (ET_APPLICATION_WINDOW (MainWindow),

@@ -27,6 +27,7 @@
 #include "browser.h"
 #include "cddb_dialog.h"
 #include "easytag.h"
+#include "file_area.h"
 #include "gtk2_compat.h"
 #include "load_files_dialog.h"
 #include "log.h"
@@ -256,38 +257,6 @@ et_application_window_tag_area_clear (EtApplicationWindow *self)
     et_tag_area_clear (ET_TAG_AREA (priv->tag_area));
 }
 
-
-/*
- * Clear the entry of file area
- */
-void
-Clear_File_Entry_Field (void)
-{
-    g_return_if_fail (FileEntry != NULL);
-
-    gtk_entry_set_text (GTK_ENTRY (FileEntry),"");
-}
-
-
-/*
- * Clear the header information
- */
-void
-Clear_Header_Fields (void)
-{
-    g_return_if_fail (VersionValueLabel != NULL);
-
-    /* Default values are MPs data */
-    gtk_label_set_text (GTK_LABEL (VersionLabel), _("Encoder:"));
-    gtk_label_set_text (GTK_LABEL (VersionValueLabel), "");
-    gtk_label_set_text (GTK_LABEL (BitrateValueLabel), "");
-    gtk_label_set_text (GTK_LABEL (SampleRateValueLabel), "");
-    gtk_label_set_text (GTK_LABEL (ModeLabel), _("Mode:"));
-    gtk_label_set_text (GTK_LABEL (ModeValueLabel), "");
-    gtk_label_set_text (GTK_LABEL (SizeValueLabel), "");
-    gtk_label_set_text (GTK_LABEL (DurationValueLabel), "");
-}
-
 static GtkWidget *
 create_browser_area (EtApplicationWindow *self)
 {
@@ -306,104 +275,6 @@ create_browser_area (EtApplicationWindow *self)
      * It will be load at the end of the main function */
 
     return frame;
-}
-
-
-static GtkWidget *
-create_file_area (void)
-{
-    GtkWidget *vbox, *hbox;
-    GtkWidget *separator;
-
-    FileFrame = gtk_frame_new (_("File"));
-    gtk_container_set_border_width (GTK_CONTAINER (FileFrame), 2);
-
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-    gtk_container_add (GTK_CONTAINER (FileFrame), vbox);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), 2);
-
-    /* HBox for FileEntry and IconBox */
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-
-    /* File index (position in list + list length) */
-    FileIndex = gtk_label_new ("0/0:");
-    gtk_box_pack_start (GTK_BOX (hbox), FileIndex, FALSE, FALSE, 0);
-
-    /* Filename. */
-    FileEntry = gtk_entry_new ();
-    gtk_editable_set_editable (GTK_EDITABLE (FileEntry), TRUE);
-    gtk_box_pack_start (GTK_BOX (hbox), FileEntry, TRUE, TRUE, 2);
-
-    g_signal_connect (FileEntry, "populate-popup",
-                      G_CALLBACK (on_entry_populate_popup), NULL);
-
-    /*
-     *  File Infos
-     */
-    HeaderInfosTable = et_grid_new (3, 5);
-    gtk_container_add (GTK_CONTAINER (vbox), HeaderInfosTable);
-    gtk_container_set_border_width (GTK_CONTAINER (HeaderInfosTable), 2);
-    gtk_grid_set_row_spacing (GTK_GRID (HeaderInfosTable), 1);
-    gtk_grid_set_column_spacing (GTK_GRID (HeaderInfosTable), 2);
-
-    VersionLabel = gtk_label_new (_("Encoder:"));
-    gtk_grid_attach (GTK_GRID (HeaderInfosTable), VersionLabel, 0, 0, 1, 1);
-    VersionValueLabel = gtk_label_new ("");
-    gtk_grid_attach (GTK_GRID (HeaderInfosTable), VersionValueLabel, 1, 0, 1,
-                     1);
-    gtk_misc_set_alignment (GTK_MISC (VersionLabel), 1.0, 0.5);
-    gtk_misc_set_alignment (GTK_MISC (VersionValueLabel), 0.0, 0.5);
-
-    BitrateLabel = gtk_label_new (_("Bitrate:"));
-    gtk_grid_attach (GTK_GRID (HeaderInfosTable), BitrateLabel, 0, 1, 1, 1);
-    BitrateValueLabel = gtk_label_new ("");
-    gtk_grid_attach (GTK_GRID (HeaderInfosTable), BitrateValueLabel, 1, 1, 1,
-                     1);
-    gtk_misc_set_alignment (GTK_MISC (BitrateLabel), 1.0, 0.5);
-    gtk_misc_set_alignment (GTK_MISC (BitrateValueLabel), 0.0, 0.5);
-
-    /* Translators: Please try to keep this string as short as possible as it
-     * is shown in a narrow column. */
-    SampleRateLabel = gtk_label_new (_("Frequency:"));
-    gtk_grid_attach (GTK_GRID (HeaderInfosTable), SampleRateLabel, 0, 2, 1, 1);
-    SampleRateValueLabel = gtk_label_new("");
-    gtk_grid_attach (GTK_GRID (HeaderInfosTable), SampleRateValueLabel, 1, 2,
-                     1, 1);
-    gtk_misc_set_alignment (GTK_MISC (SampleRateLabel), 1.0, 0.5);
-    gtk_misc_set_alignment (GTK_MISC (SampleRateValueLabel), 0.0, 0.5);
-
-    separator = gtk_separator_new (GTK_ORIENTATION_VERTICAL);
-    gtk_grid_attach (GTK_GRID (HeaderInfosTable), separator, 2, 0, 1, 4);
-
-    ModeLabel = gtk_label_new(_("Mode:"));
-    gtk_grid_attach (GTK_GRID (HeaderInfosTable), ModeLabel, 3, 0, 1, 1);
-    ModeValueLabel = gtk_label_new ("");
-    gtk_grid_attach (GTK_GRID (HeaderInfosTable), ModeValueLabel, 4, 0, 1, 1);
-    gtk_misc_set_alignment (GTK_MISC (ModeLabel), 1.0, 0.5);
-    gtk_misc_set_alignment (GTK_MISC (ModeValueLabel), 0.0, 0.5);
-
-    SizeLabel = gtk_label_new (_("Size:"));
-    gtk_grid_attach (GTK_GRID (HeaderInfosTable), SizeLabel, 3, 1, 1, 1);
-    SizeValueLabel = gtk_label_new ("");
-    gtk_grid_attach (GTK_GRID (HeaderInfosTable), SizeValueLabel, 4, 1, 1, 1);
-    gtk_misc_set_alignment (GTK_MISC (SizeLabel), 1.0, 0.5);
-    gtk_misc_set_alignment (GTK_MISC (SizeValueLabel), 0.0, 0.5);
-
-    DurationLabel = gtk_label_new (_("Duration:"));
-    gtk_grid_attach (GTK_GRID (HeaderInfosTable), DurationLabel, 3, 2, 1, 1);
-    DurationValueLabel = gtk_label_new ("");
-    gtk_grid_attach (GTK_GRID (HeaderInfosTable), DurationValueLabel, 4, 2, 1,
-                     1);
-    gtk_misc_set_alignment (GTK_MISC (DurationLabel), 1.0, 0.5);
-    gtk_misc_set_alignment (GTK_MISC (DurationValueLabel), 0.0, 0.5);
-
-    /* FIXME */
-    #if 0
-    if (SHOW_HEADER_INFO)
-        gtk_widget_show_all(HeaderInfosTable);
-    #endif
-    return FileFrame;
 }
 
 static void
@@ -1842,7 +1713,7 @@ et_application_window_init (EtApplicationWindow *self)
     gtk_paned_set_position (GTK_PANED (priv->hpaned), 600);
 
     /* File */
-    priv->file_area = create_file_area ();
+    priv->file_area = et_file_area_new ();
     gtk_box_pack_start (GTK_BOX (vbox), priv->file_area, FALSE, FALSE, 0);
 
     /* Tag */
@@ -2137,6 +2008,56 @@ et_application_window_tag_area_set_sensitive (EtApplicationWindow *self,
     /* TAG Area (entries + buttons). */
     gtk_widget_set_sensitive (gtk_bin_get_child (GTK_BIN (priv->tag_area)),
                               sensitive);
+}
+
+void
+et_application_window_file_area_clear (EtApplicationWindow *self)
+{
+    EtApplicationWindowPrivate *priv;
+
+    g_return_if_fail (ET_APPLICATION_WINDOW (self));
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_file_area_clear (ET_FILE_AREA (priv->file_area));
+}
+
+const gchar *
+et_application_window_file_area_get_filename (EtApplicationWindow *self)
+{
+    EtApplicationWindowPrivate *priv;
+
+    g_return_val_if_fail (ET_APPLICATION_WINDOW (self), NULL);
+
+    priv = et_application_window_get_instance_private (self);
+
+    return et_file_area_get_filename (ET_FILE_AREA (priv->file_area));
+}
+
+void
+et_application_window_file_area_set_file_fields (EtApplicationWindow *self,
+                                                 ET_File *ETFile)
+{
+    EtApplicationWindowPrivate *priv;
+
+    g_return_if_fail (ET_APPLICATION_WINDOW (self));
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_file_area_set_file_fields (ET_FILE_AREA (priv->file_area), ETFile);
+}
+
+void
+et_application_window_file_area_set_header_fields (EtApplicationWindow *self,
+                                                   EtFileHeaderFields *fields)
+{
+    EtApplicationWindowPrivate *priv;
+
+    g_return_if_fail (ET_APPLICATION_WINDOW (self));
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_file_area_set_header_fields (ET_FILE_AREA (priv->file_area), fields);
 }
 
 /*
