@@ -138,7 +138,7 @@ static gint Save_List_Of_Files (GList *etfilelist,
                                 gboolean force_saving_files);
 static gint Delete_Selected_Files_With_Answer (void);
 
-static void Init_Load_Default_Dir (void);
+static gboolean Init_Load_Default_Dir (void);
 static void EasyTAG_Exit (void);
 static gboolean et_rename_file (const char *old_filepath,
                                 const char *new_filepath, GError **error);
@@ -4240,7 +4240,7 @@ void Clear_Header_Fields (void)
  * Load the default directory when the user interface is completely displayed
  * to avoid bad visualization effect at startup.
  */
-static void
+static gboolean
 Init_Load_Default_Dir (void)
 {
     //ETCore->ETFileList = NULL;
@@ -4264,7 +4264,7 @@ Init_Load_Default_Dir (void)
     // To set sensivity of buttons in the case if the default directory is invalid
     Update_Command_Buttons_Sensivity();
 
-    g_source_remove(idle_handler_id);
+    return G_SOURCE_REMOVE;
 }
 
 
