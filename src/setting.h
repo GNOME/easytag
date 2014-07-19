@@ -239,8 +239,6 @@ GSettings *MainSettings;
 
 void Init_Config_Variables (void);
 
-void Save_Changes_Of_UI                  (void);
-
 gboolean Setting_Create_Files     (void);
 
 

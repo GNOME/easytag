@@ -1577,8 +1577,8 @@ EasyTAG_Exit (void)
 static void
 Quit_MainWindow_Confirmed (void)
 {
-    // Save the configuration when exiting...
-    Save_Changes_Of_UI();
+    /* Save the configuration when exiting. */
+    et_application_window_apply_changes (ET_APPLICATION_WINDOW (MainWindow));
     
     // Quit EasyTAG
     EasyTAG_Exit();

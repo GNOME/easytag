@@ -127,36 +127,6 @@ void Init_Config_Variables (void)
 }
 
 /*
- * Save into the config variables the settings of each window
- *  - Position/size of the window
- *  - Specific options in the window
- */
-static void
-Apply_Changes_Of_UI (void)
-{
-    /*
-     * Changes in user interface
-     */
-
-    /* Configuration of the scanner window (see scan_dialog.c).
-     * Function also called when destroying the window. */
-    et_scan_dialog_apply_changes (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (MainWindow))));
-
-    /* Configuration of the cddb window (see cddb_dialog.c).
-     * Function also called when destroying the window. */
-    et_cddb_dialog_apply_changes (ET_CDDB_DIALOG (et_application_window_get_cddb_dialog (ET_APPLICATION_WINDOW (MainWindow))));
-
-    /* Configuration of the search_file window (see search_dialog.c).
-     * Function also called when destroying the window. */
-    et_search_dialog_apply_changes (ET_SEARCH_DIALOG (et_application_window_get_search_dialog (ET_APPLICATION_WINDOW (MainWindow))));
-}
-
-void Save_Changes_Of_UI (void)
-{
-    Apply_Changes_Of_UI();
-}
-
-/*
  * check_or_create_file:
  * @filename: (type filename): the filename to create
  *

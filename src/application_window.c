@@ -1807,42 +1807,6 @@ et_application_window_get_log_area (EtApplicationWindow *self)
     return priv->log_area;
 }
 
-GtkWidget *
-et_application_window_get_load_files_dialog (EtApplicationWindow *self)
-{
-    EtApplicationWindowPrivate *priv;
-
-    g_return_val_if_fail (self != NULL, NULL);
-
-    priv = et_application_window_get_instance_private (self);
-
-    return priv->load_files_dialog;
-}
-
-GtkWidget *
-et_application_window_get_search_dialog (EtApplicationWindow *self)
-{
-    EtApplicationWindowPrivate *priv;
-
-    g_return_val_if_fail (self != NULL, NULL);
-
-    priv = et_application_window_get_instance_private (self);
-
-    return priv->search_dialog;
-}
-
-GtkWidget *
-et_application_window_get_preferences_dialog (EtApplicationWindow *self)
-{
-    EtApplicationWindowPrivate *priv;
-
-    g_return_val_if_fail (self != NULL, NULL);
-
-    priv = et_application_window_get_instance_private (self);
-
-    return priv->preferences_dialog;
-}
-
 void
 et_application_window_show_preferences_dialog_scanner (EtApplicationWindow *self)
 {
@@ -1858,18 +1822,6 @@ et_application_window_show_preferences_dialog_scanner (EtApplicationWindow *self
     }
 
     et_preferences_dialog_show_scanner (ET_PREFERENCES_DIALOG (priv->preferences_dialog));
-}
-
-GtkWidget *
-et_application_window_get_cddb_dialog (EtApplicationWindow *self)
-{
-    EtApplicationWindowPrivate *priv;
-
-    g_return_val_if_fail (self != NULL, NULL);
-
-    priv = et_application_window_get_instance_private (self);
-
-    return priv->cddb_dialog;
 }
 
 void
@@ -1988,6 +1940,31 @@ et_application_window_get_scan_dialog (EtApplicationWindow *self)
     priv = et_application_window_get_instance_private (self);
 
     return priv->scan_dialog;
+}
+
+void
+et_application_window_apply_changes (EtApplicationWindow *self)
+{
+    EtApplicationWindowPrivate *priv;
+
+    g_return_if_fail (ET_APPLICATION_WINDOW (self));
+
+    priv = et_application_window_get_instance_private (self);
+
+    if (priv->scan_dialog)
+    {
+        et_scan_dialog_apply_changes (ET_SCAN_DIALOG (priv->scan_dialog));
+    }
+
+    if (priv->cddb_dialog)
+    {
+        et_cddb_dialog_apply_changes (ET_CDDB_DIALOG (priv->cddb_dialog));
+    }
+
+    if (priv->search_dialog)
+    {
+        et_search_dialog_apply_changes (ET_SEARCH_DIALOG (priv->search_dialog));
+    }
 }
 
 /*
