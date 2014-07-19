@@ -311,10 +311,9 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_window_set_title (GTK_WINDOW (self), _("Preferences"));
     gtk_window_set_transient_for (GTK_WINDOW (self), GTK_WINDOW (MainWindow));
     gtk_window_set_destroy_with_parent (GTK_WINDOW (self), TRUE);
-    gtk_dialog_add_buttons (GTK_DIALOG (self), GTK_STOCK_CANCEL,
-                            GTK_RESPONSE_REJECT, GTK_STOCK_OK,
-                            GTK_RESPONSE_ACCEPT, NULL);
-    gtk_dialog_set_default_response (GTK_DIALOG (self), GTK_RESPONSE_ACCEPT);
+    gtk_dialog_add_buttons (GTK_DIALOG (self), GTK_STOCK_CLOSE,
+                            GTK_RESPONSE_CLOSE, NULL);
+    gtk_dialog_set_default_response (GTK_DIALOG (self), GTK_RESPONSE_CLOSE);
     g_signal_connect (self, "response",
                       G_CALLBACK (et_preferences_on_response), NULL);
     g_signal_connect (self, "delete-event",
@@ -1736,12 +1735,6 @@ notify_id3_settings_active (GObject *object,
     gtk_widget_set_sensitive (priv->FileWritingId3v1IconvOptionsIgnore, active);
 }
 
-/* Callback from et_preferences_dialog_on_response. */
-static void
-OptionsWindow_Quit (EtPreferencesDialog *self)
-{
-}
-
 /*
  * Check_Config: Check if config information are correct
  *
@@ -1895,16 +1888,7 @@ OptionsWindow_Save_Button (EtPreferencesDialog *self)
 {
     if (!Check_Config (self)) return;
 
-    OptionsWindow_Quit (self);
-    Statusbar_Message(_("Configuration saved"),TRUE);
-}
-
-/* Callback from et_preferences_dialog_on_response. */
-static void
-OptionsWindow_Cancel_Button (EtPreferencesDialog *self)
-{
-    OptionsWindow_Quit (self);
-    Statusbar_Message(_("Configuration unchanged"),TRUE);
+    gtk_widget_hide (GTK_WIDGET (self));
 }
 
 void
@@ -1936,15 +1920,10 @@ et_preferences_on_response (GtkDialog *dialog, gint response_id,
 {
     switch (response_id)
     {
-        case GTK_RESPONSE_ACCEPT:
+        case GTK_RESPONSE_CLOSE:
             OptionsWindow_Save_Button (ET_PREFERENCES_DIALOG (dialog));
             break;
         case GTK_RESPONSE_DELETE_EVENT:
-            OptionsWindow_Quit (ET_PREFERENCES_DIALOG (dialog));
-            break;
-        case GTK_RESPONSE_REJECT:
-            OptionsWindow_Cancel_Button (ET_PREFERENCES_DIALOG (dialog));
-            gtk_widget_hide (GTK_WIDGET (dialog));
             break;
         default:
             g_assert_not_reached ();
