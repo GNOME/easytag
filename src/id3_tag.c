@@ -906,7 +906,6 @@ gchar *Id3tag_Get_Field (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid)
 
     //g_print("Id3tag_Get_Field - ID3Frame '%s'\n",ID3FrameInfo_ShortName(ID3Frame_GetID(id3_frame)));
 
-    /* FIXME: Disentangle and avoid compiler warning (9999 in switch). */
     if ( (id3_field = ID3Frame_GetField(id3_frame,id3_fieldid)) )
     {
         ID3_TextEnc enc = ID3TE_NONE;
@@ -955,9 +954,20 @@ gchar *Id3tag_Get_Field (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid)
                 {
                     enc = ID3TE_UTF8;
                 }
-                else
+                else if (ID3Field_IsEncodable (id3_field))
                 {
-                    enc = 9999;
+                    gint id3v1v2_charset;
+                    const gchar *charset;
+
+                    string = g_malloc0 (ID3V2_MAX_STRING_LEN + 1);
+                    num_chars = ID3Field_GetASCII_1 (id3_field, string,
+                                                     ID3V2_MAX_STRING_LEN, 0);
+                    id3v1v2_charset = g_settings_get_enum (MainSettings,
+                                                           "id3v1v2-charset");
+                    charset = et_charset_get_name_from_index (id3v1v2_charset);
+                    string1 = convert_string (string, charset, "UTF-8", FALSE);
+                    /* Override to a non-standard character encoding. */
+                    goto out;
                 }
             }
         }
@@ -978,7 +988,6 @@ gchar *Id3tag_Get_Field (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid)
                 break;
 
             case ID3TE_UTF8: // Shouldn't work with id3lib 3.8.3 (supports only ID3v2.3, not ID3v2.4)
-                // For UTF-8, this part do the same thing that enc=9999
                 string = g_malloc0(sizeof(char)*ID3V2_MAX_STRING_LEN+1);
                 num_chars = ID3Field_GetASCII_1(id3_field,string,ID3V2_MAX_STRING_LEN,0);
                 //string1 = convert_string(string,"UTF-8","UTF-8",FALSE); // Nothing to do
@@ -995,20 +1004,6 @@ gchar *Id3tag_Get_Field (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid)
                 string1 = convert_string_1(string,num_chars,"UTF-16BE","UTF-8",FALSE);
                 break;
 
-            case 9999:
-            {
-                gint id3v1v2_charset;
-                const gchar *charset;
-
-                string = g_malloc0(sizeof(char)*ID3V2_MAX_STRING_LEN+1);
-                num_chars = ID3Field_GetASCII_1(id3_field,string,ID3V2_MAX_STRING_LEN,0);
-                id3v1v2_charset = g_settings_get_enum (MainSettings,
-                                                       "id3v1v2-charset");
-                charset = et_charset_get_name_from_index (id3v1v2_charset);
-                string1 = convert_string (string, charset, "UTF-8", FALSE);
-                break;
-            }
-
             default:
                 string = g_malloc0(sizeof(char)*4*ID3V2_MAX_STRING_LEN+1);
                 num_chars = ID3Field_GetASCII_1(id3_field,string,ID3V2_MAX_STRING_LEN,0);
@@ -1018,6 +1013,7 @@ gchar *Id3tag_Get_Field (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid)
     }
     //g_print(">>ID:%d >'%s' (string1:'%s') (num_chars:%d)\n",ID3Field_GetINT(id3_field_encoding),string,string1,num_chars);
 
+out:
     // In case the conversion fails, try 'filename_to_display' character fix...
     if (num_chars && !string1)
     {
@@ -1079,8 +1075,7 @@ Id3tag_Set_Field (const ID3Frame *id3_frame,
             return ID3TE_NONE;
         }
 
-        /* FIXME: Disentangle and avoid compiler warning (9999 in switch).
-         * We prioritize the rule selected in options. If the encoding of the
+         /* We prioritize the rule selected in options. If the encoding of the
          * field is ISO-8859-1, we can write it to another single byte encoding.
          */
         if (g_settings_get_boolean (MainSettings, "id3v2-enable-unicode"))
@@ -1120,9 +1115,9 @@ Id3tag_Set_Field (const ID3Frame *id3_frame,
             {
                 enc = ID3TE_UTF8;
             }
-            else
+            else if (ID3Field_IsEncodable (id3_field))
             {
-                enc = 9999;
+                goto override;
             }
         }
 
@@ -1186,7 +1181,7 @@ Id3tag_Set_Field (const ID3Frame *id3_frame,
                 return ID3TE_UTF16;
                 break;
 
-            case 9999:
+override:
             default:
             {
                 //string_converted = convert_string(string,"UTF-8",charset,TRUE);
