@@ -703,8 +703,8 @@ get_selected_iter_list (GtkTreeView *tree_view, GList **list)
     {
         GtkTreeIter current_iter;
 
-        if (!gtk_tree_model_get_iter_first(GTK_TREE_MODEL(tree_model),
-                                           &current_iter))
+        if (!gtk_tree_model_get_iter_first (GTK_TREE_MODEL (tree_model),
+                                            &current_iter))
         {
             /* No row is present, return */
             return 0;
@@ -715,11 +715,11 @@ get_selected_iter_list (GtkTreeView *tree_view, GList **list)
             *list = g_list_prepend (*list,
                                     gtk_tree_iter_copy (&current_iter));
         }
-        while (gtk_tree_model_iter_next(GTK_TREE_MODEL(tree_model),
+        while (gtk_tree_model_iter_next (GTK_TREE_MODEL (tree_model),
                &current_iter));
 
-        count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(tree_model),
-                                               NULL);
+        count = gtk_tree_model_iter_n_children (GTK_TREE_MODEL(tree_model),
+                                                NULL);
     }
 
     return count;
@@ -1078,6 +1078,7 @@ btn_automatic_search_clicked (GtkWidget *button, gpointer data)
         secs = etfile->ETFileInfo->duration;
         total_frames += secs * 75;
         disc_length  += secs;
+
         while (secs > 0)
         {
             total_id = total_id + (secs % 10);
@@ -1093,7 +1094,7 @@ btn_automatic_search_clicked (GtkWidget *button, gpointer data)
                         0, _("Starting MusicBrainz Search"));
     mb_dialog_priv->async_result = g_simple_async_result_new (NULL,
                                                               freedbid_search_callback,
-                                                              g_strdup("24028103"),
+                                                              cddb_discid,
                                                               btn_automatic_search_clicked);
     g_simple_async_result_run_in_thread (mb_dialog_priv->async_result,
                                          freedbid_search_thread_func, 0,
@@ -1106,6 +1107,7 @@ et_music_brainz_dialog_stop_set_sensitive (gboolean sensitive)
 {
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btnStop")),
                               sensitive);
+    gtk_widget_set_sensitive (entityView, !sensitive);
 }
 
 static void
@@ -1141,7 +1143,7 @@ btn_apply_changes_clicked (GtkWidget *widget, gpointer data)
                                  &file_iter_list))
     {
         gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
-                        0, _("No Files Selected"));
+                            0, _("No Files Selected"));
         return;
     }
 
@@ -1149,7 +1151,7 @@ btn_apply_changes_clicked (GtkWidget *widget, gpointer data)
                                                      &track_iter_list))
     {
         gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
-                        0, _("No Track Selected"));
+                            0, _("No Track Selected"));
         g_list_free_full (file_iter_list, (GDestroyNotify)gtk_tree_iter_free);
 
         return;
@@ -1159,23 +1161,20 @@ btn_apply_changes_clicked (GtkWidget *widget, gpointer data)
         MB_ENTITY_KIND_TRACK)
     {
         gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
-                        0, _("No Track Selected"));
+                            0, _("No Track Selected"));
         g_list_free_full (file_iter_list, (GDestroyNotify)gtk_tree_iter_free);
         g_list_free (track_iter_list);
 
         return;
     }
 
-    if (mb_dialog_priv->search->type == ET_MB_SEARCH_TYPE_MANUAL ||
-        mb_dialog_priv->search->type == ET_MB_SEARCH_TYPE_SELECTED)
+    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (gtk_builder_get_object (builder, "chkUseDLM"))))
     {
         EtMbEntity *et_entity;
         EtMbEntity *album_entity;
-        GHashTable *hash_table;
         gchar album [NAME_MAX_SIZE];
 
         album_entity = et_mb_entity_view_get_current_entity (ET_MB_ENTITY_VIEW (entityView));
-        hash_table = g_hash_table_new (g_str_hash, g_str_equal);
         mb5_release_get_title (album_entity->entity, album, sizeof (album));
 
         for (list_iter1 = track_iter_list; list_iter1;
@@ -1204,12 +1203,9 @@ btn_apply_changes_clicked (GtkWidget *widget, gpointer data)
                 filename = ((File_Name *)et_file->FileNameCur->data)->value;
                 file_tag = (File_Tag *)et_file->FileTag->data;
 
-                if (g_hash_table_contains (hash_table, filename))
-                {
-                    continue;
-                }
-
-                if (!file_tag->album && g_strcmp0 (file_tag->album, album))
+                if (mb_dialog_priv->search->type == 
+                    ET_MB_SEARCH_TYPE_SELECTED &&
+                    !file_tag->album && g_strcmp0 (file_tag->album, album))
                 {
                     continue;
                 }
@@ -1232,16 +1228,40 @@ btn_apply_changes_clicked (GtkWidget *widget, gpointer data)
 
             if (best_et_file)
             {
-                if (et_apply_track_tag_to_et_file (et_entity->entity,
-                                                   best_et_file))
+                et_apply_track_tag_to_et_file (et_entity->entity,
+                                               best_et_file);
+                while (gtk_events_pending ())
                 {
-                    g_hash_table_add (hash_table,
-                                      ((File_Name *)best_et_file->FileNameCur->data)->value);
- 
-                    while (gtk_events_pending ())
-                    {
-                        gtk_main_iteration ();
-                    }
+                    gtk_main_iteration ();
+                }
+            }
+        }
+    }
+    else
+    {
+        EtMbEntity *et_entity;
+        EtMbEntity *album_entity;
+        gchar album [NAME_MAX_SIZE];
+
+        album_entity = et_mb_entity_view_get_current_entity (ET_MB_ENTITY_VIEW (entityView));
+        mb5_release_get_title (album_entity->entity, album, sizeof (album));
+        list_iter2 = file_iter_list;
+
+        for (list_iter1 = track_iter_list; list_iter1 && list_iter2;
+             list_iter1 = g_list_next (list_iter1),
+             list_iter2 = g_list_next (list_iter2))
+        {
+            ET_File *et_file;
+
+            et_entity = list_iter1->data;
+            et_file = Browser_List_Get_ETFile_From_Iter (list_iter2->data);
+
+            if (et_apply_track_tag_to_et_file (et_entity->entity,
+                                               et_file))
+            {
+                while (gtk_events_pending ())
+                {
+                    gtk_main_iteration ();
                 }
             }
         }
@@ -1289,7 +1309,8 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, ET_File *et_file)
             mb5_release_get_country (release, country, sizeof (country));
 
             gtk_list_store_insert_with_values (GTK_LIST_STORE (mb_dialog_priv->tag_choice_store),
-                                               &iter, -1, TAG_CHOICE_TITLE, title,
+                                               &iter, -1,
+                                               TAG_CHOICE_TITLE, title,
                                                TAG_CHOICE_ALBUM, album,
                                                TAG_CHOICE_ARTIST, artist,
                                                TAG_CHOICE_ALBUM_ARTIST, album_artist,
