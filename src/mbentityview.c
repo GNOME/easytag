@@ -771,12 +771,7 @@ search_in_levels_thread_func (GSimpleAsyncResult *res, GObject *obj,
     }
 
     if (((EtMbEntity *)thread_data->child->data)->type ==
-        MB_ENTITY_KIND_TRACK)
-    {
-        return;
-    }
-    else if (((EtMbEntity *)thread_data->child->data)->type ==
-             MB_ENTITY_KIND_ARTIST)
+        MB_ENTITY_KIND_ARTIST)
     {
         child_entity_type_str = g_strdup ("Albums ");
         mb5_artist_get_id (((EtMbEntity *)thread_data->child->data)->entity,
@@ -803,6 +798,10 @@ search_in_levels_thread_func (GSimpleAsyncResult *res, GObject *obj,
                                   mbid, sizeof (mbid));
         g_stpcpy (parent_entity_str, mbid);
         to_search = MB_ENTITY_KIND_ALBUM;
+    }
+    else
+    {
+        return;
     }
 
     error = NULL;

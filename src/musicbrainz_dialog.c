@@ -41,6 +41,18 @@
  * Declaration *
  ***************/
 
+/*
+ * TagChoiceColumns:
+ * @TAG_CHOICE_TITLE: 
+ * @TAG_CHOICE_ALBUM: 
+ * @TAG_CHOICE_ARTIST: 
+ * @TAG_CHOICE_ALBUM_ARTIST: 
+ * @TAG_CHOICE_DATE: 
+ * @TAG_CHOICE_COUNTRY: 
+ * @TAG_CHOICE_COLS_N:
+ *
+ * Tag Choice Columns
+ */
 enum TagChoiceColumns
 {
     TAG_CHOICE_TITLE,
@@ -51,7 +63,15 @@ enum TagChoiceColumns
     TAG_CHOICE_COUNTRY,
     TAG_CHOICE_COLS_N
 };
- 
+
+/*
+ * EtMbSearchType:
+ * @ET_MB_SEARCH_TYPE_MANUAL: Manual Search Type
+ * @ET_MB_SEARCH_TYPE_SELECTED: Selected Search Type
+ * @ET_MB_SEARCH_TYPE_AUTOMATIC: Automatic Search Type
+ *
+ * Represents type of Search.
+ */
 typedef enum
 {
     ET_MB_SEARCH_TYPE_MANUAL,
@@ -59,17 +79,39 @@ typedef enum
     ET_MB_SEARCH_TYPE_AUTOMATIC,
 } EtMbSearchType;
 
+/*
+ * SelectedFindThreadData:
+ * @text_to_search: Manual Search Text
+ * @type: Type of Entity
+ *
+ * Thread Data for storing Manual Search's data.
+ */
 typedef struct
 {
     GHashTable *hash_table;
     GList *list_iter;
 } SelectedFindThreadData;
 
+/*
+ * EtMbSearch:
+ * @type: Type of Search
+ *
+ * Thread Data for storing EtMbSearch's data.
+ */
 typedef struct
 {
     EtMbSearchType type;
 } EtMbSearch;
 
+/*
+ * EtMbManualSearch:
+ * @parent: Parent Struct
+ * @to_search: String to search
+ * @to_search_type: EtMbEntityType to search
+ * @parent_node: Parent Node
+ *
+ * Stores information about Manual Search.
+ */
 typedef struct
 {
     EtMbSearch parent;
@@ -78,17 +120,40 @@ typedef struct
     GNode *parent_node;
 } EtMbManualSearch;
 
+/*
+ * EtMbSelectedSearch:
+ * @parent: Parent Struct
+ * @list_iter: List of Files.
+ *
+ * Stores information about Selected Files Search.
+ */
 typedef struct
 {
     EtMbSearch parent;
     GList *list_iter;
 } EtMbSelectedSearch;
 
+/*
+ * EtMbAutomaticSearch:
+ * @parent: Parent Struct
+ *
+ * Stores information about Automatic Search.
+ */
 typedef struct
 {
     EtMbSearch parent;
 } EtMbAutomaticSearch;
 
+/*
+ * MusicBrainzDialogPrivate:
+ * @mb_tree_root: Root of Node Tree
+ * @async_result: GSimpleAsyncResult
+ * @search: EtMbSearch storing information about previous search
+ * @tag_choice_store: GtkTreeModel for Tag Choice Dialog
+ * @tag_choice_dialog: Tag Choice Dialog
+ *
+ * Private data for MusicBrainzDialog.
+ */
 typedef struct
 {
     GNode *mb_tree_root;
