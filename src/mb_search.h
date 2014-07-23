@@ -74,7 +74,7 @@ typedef enum
 /*
  * MbEntityKind:
  * @MB_ENTITY_KIND_ARTIST: Entity is of Artist Type
- * @MB_ENTITY_KIND_ALBUM: Entity is of Abum Type
+ * @MB_ENTITY_KIND_ALBUM: Entity is of Album Type
  * @MB_ENTITY_KIND_TRACK: Entity is of Track Type
  * @MB_ENTITY_KIND_FREEDBID: Entity is of FreeDBID Type
  * @MB_ENTITY_KIND_COUNT: Total Entities
@@ -92,6 +92,14 @@ typedef enum _MbEntityKind
     MB_ENTITY_KIND_DISCID,
 } MbEntityKind;
 
+/*
+ * EtMbEntity
+ * @entity: Mb5Entity
+ * @type: Type of Entity
+ * @is_red_line: Whether it contains child entities
+ *
+ * Struct representing an Entity for MusicBrainz.
+ */
 typedef struct
 {
     Mb5Entity entity;
