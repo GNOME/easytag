@@ -40,8 +40,6 @@
 /***************
  * Declaration *
  ***************/
-static void
-get_first_selected_file (ET_File  **et_file);
 
 enum TagChoiceColumns
 {
@@ -115,21 +113,108 @@ typedef struct
     int type;
 } ManualSearchThreadData;
 
-/****************
- * Declarations *
- ***************/
+/**************
+ * Prototypes *
+ **************/
+static void
+get_first_selected_file (ET_File  **et_file);
 static gboolean
 et_apply_track_tag_to_et_file (Mb5Recording recording, ET_File *et_file);
 static void
 btn_close_clicked (GtkWidget *button, gpointer data);
 static void
-bt_selected_find_clicked (GtkWidget *widget, gpointer user_data);
+btn_selected_find_clicked (GtkWidget *widget, gpointer user_data);
 static void
 btn_automatic_search_clicked (GtkWidget *button, gpointer data);
+static void
+et_mb_destroy_search (EtMbSearch **search);
+static void
+et_mb_set_search_manual (EtMbSearch **search, gchar *to_search,
+                         GNode *node, MbEntityKind type);
+static void
+et_mb_set_selected_search (EtMbSearch **search, GList *list_files);
+static void
+et_mb_set_automatic_search (EtMbSearch **search);
+static void
+manual_search_callback (GObject *source, GAsyncResult *res,
+                        gpointer user_data);
+static void
+et_show_status_msg_in_idle_cb (GObject *obj, GAsyncResult *res,
+                               gpointer user_data);
+static void
+manual_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
+                           GCancellable *cancellable);
+static void
+btn_manual_find_clicked (GtkWidget *btn, gpointer user_data);
+static void
+tool_btn_toggle_red_lines_clicked (GtkWidget *btn, gpointer user_data);
+static void
+tool_btn_up_clicked (GtkWidget *btn, gpointer user_data);
+static void
+tool_btn_down_clicked (GtkWidget *btn, gpointer user_data);
+static void
+tool_btn_invert_selection_clicked (GtkWidget *btn, gpointer user_data);
+static void
+tool_btn_select_all_clicked (GtkWidget *btn, gpointer user_data);
+static void
+tool_btn_unselect_all_clicked (GtkWidget *btn, gpointer user_data);
+static void
+tool_btn_refresh_clicked (GtkWidget *btn, gpointer user_data);
+static void
+btn_manual_stop_clicked (GtkWidget *btn, gpointer user_data);
+static void
+entry_tree_view_search_changed (GtkEditable *editable, gpointer user_data);
+static void
+selected_find_callback (GObject *source, GAsyncResult *res,
+                        gpointer user_data);
+static void
+selected_find_thread_func (GSimpleAsyncResult *res, GObject *obj,
+                           GCancellable *cancellable);
+static int
+get_selected_iter_list (GtkTreeView *tree_view, GList **list);
+static void
+btn_selected_find_clicked (GtkWidget *widget, gpointer user_data);
+static void
+get_first_selected_file (ET_File  **et_file);
+static void
+discid_search_callback (GObject *source, GAsyncResult *res,
+                        gpointer user_data);
+static void
+discid_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
+                           GCancellable *cancellable);
+static void
+btn_discid_search_clicked (GtkWidget *button, gpointer data);
+static void
+btn_close_clicked (GtkWidget *button, gpointer data);
+static void
+freedbid_search_callback (GObject *source, GAsyncResult *res,
+                          gpointer user_data);
+static void
+freedbid_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
+                             GCancellable *cancellable);
+static void
+btn_automatic_search_clicked (GtkWidget *button, gpointer data);
+static void
+et_set_file_tag (ET_File *et_file, gchar *title, gchar *artist,
+                 gchar *album, gchar *album_artist, gchar *date,
+                 gchar *country);
+static void
+btn_apply_changes_clicked (GtkWidget *widget, gpointer data);
+static gboolean
+et_apply_track_tag_to_et_file (Mb5Recording recording, ET_File *et_file);
+static void
+et_initialize_tag_choice_dialog (void);
+
 /*************
  * Functions *
  *************/
 
+/*
+ * et_mb_destroy_search:
+ * @search: EtMbSearch
+ *
+ * Destroyes an EtMbSearch Object.
+ */
 static void
 et_mb_destroy_search (EtMbSearch **search)
 {
@@ -152,6 +237,15 @@ et_mb_destroy_search (EtMbSearch **search)
     }
 }
 
+/*
+ * et_mb_set_search_manual:
+ * @search: EtMbSearch
+ * @to_search: String searched in Manual Search
+ * @node: Current Parent Node
+ * @type: Type of Entity
+ *
+ * Set the EtMbSearch as Manual Search.
+ */
 static void
 et_mb_set_search_manual (EtMbSearch **search, gchar *to_search,
                          GNode *node, MbEntityKind type)
@@ -164,6 +258,13 @@ et_mb_set_search_manual (EtMbSearch **search, gchar *to_search,
     ((EtMbManualSearch *)(*search))->to_search_type = type;
 }
 
+/*
+ * et_mb_set_search_manual:
+ * @search: EtMbSearch
+ * @list_files: List of Files selected
+ *
+ * Set the EtMbSearch as Selected Search.
+ */
 static void
 et_mb_set_selected_search (EtMbSearch **search, GList *list_files)
 {
@@ -173,6 +274,12 @@ et_mb_set_selected_search (EtMbSearch **search, GList *list_files)
     ((EtMbSelectedSearch *)(*search))->list_iter = list_files;
 }
 
+/*
+ * et_mb_set_search_manual:
+ * @search: EtMbSearch
+ *
+ * Set the EtMbSearch as Automatic Search.
+ */
 static void
 et_mb_set_automatic_search (EtMbSearch **search)
 {
@@ -506,7 +613,6 @@ tool_btn_refresh_clicked (GtkWidget *btn, gpointer user_data)
         return;
     }
 
-    /* TODO: Implement Refresh Operation */
     if (et_mb_entity_view_get_current_level (ET_MB_ENTITY_VIEW (entityView)) >
         1)
     {
@@ -533,19 +639,13 @@ tool_btn_refresh_clicked (GtkWidget *btn, gpointer user_data)
     }
     else if (mb_dialog_priv->search->type == ET_MB_SEARCH_TYPE_SELECTED)
     {
-        //EtMbSelectedSearch *search;
-
-        //search = (EtMbSelectedSearch *)mb_dialog_priv->search;
         free_mb_tree (&mb_dialog_priv->mb_tree_root);
         mb_dialog_priv->mb_tree_root = g_node_new (NULL);
         et_mb_entity_view_clear_all (ET_MB_ENTITY_VIEW (entityView));
-        bt_selected_find_clicked (NULL, NULL);
+        btn_selected_find_clicked (NULL, NULL);
     }
     else if (mb_dialog_priv->search->type == ET_MB_SEARCH_TYPE_AUTOMATIC)
     {
-        //EtMbSelectedSearch *search;
-
-        //search = (EtMbSelectedSearch *)mb_dialog_priv->search;
         free_mb_tree (&mb_dialog_priv->mb_tree_root);
         mb_dialog_priv->mb_tree_root = g_node_new (NULL);
         et_mb_entity_view_clear_all (ET_MB_ENTITY_VIEW (entityView));
@@ -584,6 +684,14 @@ entry_tree_view_search_changed (GtkEditable *editable, gpointer user_data)
                                                                         "entryTreeViewSearch"))));
 }
 
+/*
+ * selected_find_callback:
+ * @source: Source Object
+ * @res: GSimpleAsyncResult
+ * @user_data: User data
+ *
+ * Callback function for Selected Search.
+ */
 static void
 selected_find_callback (GObject *source, GAsyncResult *res,
                         gpointer user_data)
@@ -616,6 +724,14 @@ selected_find_callback (GObject *source, GAsyncResult *res,
     g_free (user_data);
 }
 
+/*
+ * selected_find_thread_func:
+ * @res: GSimpleAsyncResult
+ * @obj: Source Object
+ * @cancellable: GCancellable
+ *
+ * Thread Function for Selected Files Search.
+ */
 static void
 selected_find_thread_func (GSimpleAsyncResult *res, GObject *obj,
                            GCancellable *cancellable)
@@ -663,6 +779,15 @@ selected_find_thread_func (GSimpleAsyncResult *res, GObject *obj,
     g_simple_async_result_set_op_res_gboolean (res, TRUE);
 }
 
+/*
+ * get_selected_iter_list:
+ * @tree_view: GtkTreeView
+ * @list: [out] GList
+ *
+ * Returns: Number of Elements of list.
+ *
+ * Get the GList of selected iterators of GtkTreeView.
+ */
 static int
 get_selected_iter_list (GtkTreeView *tree_view, GList **list)
 {
@@ -725,8 +850,15 @@ get_selected_iter_list (GtkTreeView *tree_view, GList **list)
     return count;
 }
 
+/*
+ * btn_selected_find_clicked:
+ * @button: GtkButton
+ * @data: User data
+ *
+ * Signal Handler for "clicked" signal of btnSeelctedFind.
+ */
 static void
-bt_selected_find_clicked (GtkWidget *widget, gpointer user_data)
+btn_selected_find_clicked (GtkWidget *button, gpointer data)
 {
     GList *iter_list;
     GList *l;
@@ -767,7 +899,7 @@ bt_selected_find_clicked (GtkWidget *widget, gpointer user_data)
     mb_dialog_priv->async_result = g_simple_async_result_new (NULL,
                                                               selected_find_callback,
                                                               thread_data,
-                                                              bt_selected_find_clicked);
+                                                              btn_selected_find_clicked);
     g_simple_async_result_run_in_thread (mb_dialog_priv->async_result,
                                          selected_find_thread_func, 0,
                                          mb5_search_cancellable);
@@ -776,6 +908,12 @@ bt_selected_find_clicked (GtkWidget *widget, gpointer user_data)
     et_music_brainz_dialog_stop_set_sensitive (TRUE);
 }
 
+/*
+ * get_first_selected_file:
+ * @et_file: [out] ET_File
+ *
+ * Get the First Selected File from BrowserFileList.
+ */
 static void
 get_first_selected_file (ET_File  **et_file)
 {
@@ -806,6 +944,14 @@ get_first_selected_file (ET_File  **et_file)
     }
 }
 
+/*
+ * discid_search_callback:
+ * @source: Source Object
+ * @res: GAsyncResult
+ * @user_data: User data
+ *
+ * Callback function for GAsyncResult for Discid Search.
+ */
 static void
 discid_search_callback (GObject *source, GAsyncResult *res,
                         gpointer user_data)
@@ -832,6 +978,14 @@ discid_search_callback (GObject *source, GAsyncResult *res,
     }
 }
 
+/*
+ * discid_search_thread_func:
+ * @res: GSimpleAsyncResult
+ * @obj: Source GObject
+ * @cancellable: GCancellable to cancel the operation
+ *
+ * Thread func of GSimpleAsyncResult to do DiscID Search in another thread.
+ */
 static void
 discid_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
                            GCancellable *cancellable)
@@ -887,8 +1041,15 @@ discid_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
                                                TRUE);
 }
 
+/*
+ * btn_discid_search_clicked:
+ * @button: GtkButton
+ * @data: User data
+ *
+ * Signal Handler for "clicked" signal of btnDiscidSearch.
+ */
 static void
-btn_discid_search (GtkWidget *button, gpointer data)
+btn_discid_search_clicked (GtkWidget *button, gpointer data)
 {
     mb5_search_cancellable = g_cancellable_new ();
     gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
@@ -903,12 +1064,27 @@ btn_discid_search (GtkWidget *button, gpointer data)
     et_music_brainz_dialog_stop_set_sensitive (TRUE);
 }
 
+/*
+ * btn_close_clicked:
+ * @button: GtkButton
+ * @data: User data
+ *
+ * Signal Handler for "clicked" signal of btnClose.
+ */
 static void
 btn_close_clicked (GtkWidget *button, gpointer data)
 {
     gtk_dialog_response (GTK_DIALOG (mbDialog), GTK_RESPONSE_DELETE_EVENT);
 }
 
+/*
+ * freedbid_search_callback:
+ * @source: Source Object
+ * @res: GAsyncResult
+ * @user_data: User data
+ *
+ * Callback function for GAsyncResult for FreeDB Search.
+ */
 static void
 freedbid_search_callback (GObject *source, GAsyncResult *res,
                           gpointer user_data)
@@ -937,6 +1113,14 @@ freedbid_search_callback (GObject *source, GAsyncResult *res,
     }
 }
 
+/*
+ * freedbid_search_thread_func:
+ * @res: GSimpleAsyncResult
+ * @obj: Source GObject
+ * @cancellable: GCancellable to cancel the operation
+ *
+ * Thread func of GSimpleAsyncResult to do FreeDB Search in another thread.
+ */
 static void
 freedbid_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
                              GCancellable *cancellable)
@@ -974,8 +1158,15 @@ freedbid_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
                                                TRUE);
 }
 
+/*
+ * btn_automatic_search_clicked:
+ * @btn: GtkButton
+ * @user_data: User data
+ *
+ * Signal Handler for "clicked" signal of btnAutomaticSearch.
+ */
 static void
-btn_automatic_search_clicked (GtkWidget *button, gpointer data)
+btn_automatic_search_clicked (GtkWidget *btn, gpointer data)
 {
     GtkListStore *tree_model;
     GtkTreeSelection *selection;
@@ -984,10 +1175,12 @@ btn_automatic_search_clicked (GtkWidget *button, gpointer data)
     GList *l;
     int total_id;
     int num_tracks;
-    guint total_frames = 150;
-    guint disc_length  = 2;
+    guint total_frames;
+    guint disc_length;
     gchar *cddb_discid;
 
+    total_frames = 150;
+    disc_length  = 2;
     iter_list = NULL;
     tree_model = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(BrowserList)));
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList));
@@ -1102,6 +1295,12 @@ btn_automatic_search_clicked (GtkWidget *button, gpointer data)
     et_music_brainz_dialog_stop_set_sensitive (TRUE);
 }
 
+/*
+ * et_music_brainz_dialog_stop_set_sensitive:
+ * @sensitive: gboolean
+ *
+ * Set btnStop and entityView as sensitive according to @sensitive.
+ */
 void
 et_music_brainz_dialog_stop_set_sensitive (gboolean sensitive)
 {
@@ -1110,6 +1309,18 @@ et_music_brainz_dialog_stop_set_sensitive (gboolean sensitive)
     gtk_widget_set_sensitive (entityView, !sensitive);
 }
 
+/*
+ * et_set_file_tag:
+ * @et_file: ET_File 
+ * @title: Title
+ * @artist: Artist
+ * @album: Album
+ * @album_artist: Album Artist
+ * @date: Date
+ * @country: Country
+ *
+ * Set Tags of File to the values supplied as parameters.
+ */
 static void
 et_set_file_tag (ET_File *et_file, gchar *title, gchar *artist,
                  gchar *album, gchar *album_artist, gchar *date,
@@ -1128,8 +1339,15 @@ et_set_file_tag (ET_File *et_file, gchar *title, gchar *artist,
     ET_Display_File_Data_To_UI (ETCore->ETFileDisplayed);
 }
 
+/*
+ * btn_apply_changes_clicked:
+ * @btn: GtkButton
+ * @user_data: User data
+ *
+ * Signal Handler for "clicked" signal of btnApplyChanges.
+ */
 static void
-btn_apply_changes_clicked (GtkWidget *widget, gpointer data)
+btn_apply_changes_clicked (GtkWidget *btn, gpointer data)
 {
     GList *file_iter_list;
     GList *track_iter_list;
@@ -1271,6 +1489,15 @@ btn_apply_changes_clicked (GtkWidget *widget, gpointer data)
     g_list_free (track_iter_list);
 }
 
+/*
+ * et_apply_track_tag_to_et_file:
+ * @recording: MusicBrainz Recording
+ * @et_file: ET_File to apply tags to
+ *
+ * Returns: TRUE if applied and FALSE it not
+ *
+ * Apply Tags from Mb5Recording to ET_File.
+ */
 static gboolean
 et_apply_track_tag_to_et_file (Mb5Recording recording, ET_File *et_file)
 {
@@ -1389,6 +1616,12 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, ET_File *et_file)
     return TRUE;
 }
 
+/*
+ * et_music_brainz_dialog_destroy:
+ * @widget: MusicBrainz Dialog to destroy
+ *
+ * Destroy the MusicBrainz Dialog.
+ */
 void
 et_music_brainz_dialog_destroy (GtkWidget *widget)
 {
@@ -1401,6 +1634,11 @@ et_music_brainz_dialog_destroy (GtkWidget *widget)
     mb_dialog_priv = NULL;
 }
 
+/*
+ * et_initialize_tag_choice_dialog:
+ *
+ * Initialize the Tag Choice Dialog.
+ */
 static void
 et_initialize_tag_choice_dialog (void)
 {
@@ -1537,10 +1775,10 @@ et_open_musicbrainz_dialog ()
                       "clicked", G_CALLBACK (tool_btn_refresh_clicked),
                       NULL);
     g_signal_connect (gtk_builder_get_object (builder, "btnSelectedFind"),
-                      "clicked", G_CALLBACK (bt_selected_find_clicked),
+                      "clicked", G_CALLBACK (btn_selected_find_clicked),
                       NULL);
     g_signal_connect (gtk_builder_get_object (builder, "btnDiscFind"),
-                      "clicked", G_CALLBACK (btn_discid_search),
+                      "clicked", G_CALLBACK (btn_discid_search_clicked),
                       NULL);
     g_signal_connect (gtk_builder_get_object (builder, "btnStop"),
                       "clicked", G_CALLBACK (btn_manual_stop_clicked),
