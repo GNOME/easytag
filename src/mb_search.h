@@ -70,9 +70,20 @@ typedef enum
     ET_MB5_SEARCH_ERROR_DISCID,
 } EtMB5SearchError;
 
+/*
+ * MbEntityKind:
+ * @MB_ENTITY_KIND_ARTIST: Entity is of Artist Type
+ * @MB_ENTITY_KIND_ALBUM: Entity is of Album Type
+ * @MB_ENTITY_KIND_TRACK: Entity is of Track Type
+ * @MB_ENTITY_KIND_FREEDBID: Entity is of FreeDBID Type
+ * @MB_ENTITY_KIND_COUNT: Total Entities
+ * @MB_ENTITY_KIND_DISCID: Entity is of DiscID Type
+ *
+ * Type of MusicBrainz Entity.
+ */
 typedef enum _MbEntityKind
 {
-    MB_ENTITY_KIND_ARTIST = 0,
+    MB_ENTITY_KIND_ARTIST,
     MB_ENTITY_KIND_ALBUM,
     MB_ENTITY_KIND_TRACK,
     MB_ENTITY_KIND_FREEDBID,
@@ -80,6 +91,14 @@ typedef enum _MbEntityKind
     MB_ENTITY_KIND_DISCID,
 } MbEntityKind;
 
+/*
+ * EtMbEntity
+ * @entity: Mb5Entity
+ * @type: Type of Entity
+ * @is_red_line: Whether it contains child entities
+ *
+ * Struct representing an Entity for MusicBrainz.
+ */
 typedef struct
 {
     Mb5Entity entity;
