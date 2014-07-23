@@ -874,6 +874,15 @@ tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
                       FALSE);
 }
 
+/*
+ * search_in_levels:
+ * @entity_view: EtMbEntityView
+ * @child: GNode
+ * @filter_iter: Iterator of GtkTreeFilter containing parent entity
+ * @is_refresh: Whether it is a refresh operation
+ *
+ * Start Searching in Levels.
+ */
 static void
 search_in_levels (EtMbEntityView *entity_view, GNode *child,
                   GtkTreeIter *filter_iter, gboolean is_refresh)
@@ -1252,6 +1261,12 @@ et_mb_entity_view_refresh_current_level (EtMbEntityView *entity_view)
     search_in_levels (entity_view, priv->mb_tree_current_node, NULL, TRUE);
 }
 
+/*
+ * et_mb_entity_view_clear_all:
+ * @entity_view: EtMbEntityView
+ *
+ * Clear EtMbEntityView.
+ */
 void
 et_mb_entity_view_clear_all (EtMbEntityView *entity_view)
 {
@@ -1286,6 +1301,13 @@ et_mb_entity_view_finalize (GObject *object)
     G_OBJECT_CLASS (et_mb_entity_view_parent_class)->finalize(object);
 }
 
+/*
+ * et_mb_entity_view_get_current_entity:
+ * @entity_view: EtMbEntityView
+ *
+ * Returns: EtMbEntity
+ * Get current parent EtMbEntity.
+ */
 EtMbEntity *
 et_mb_entity_view_get_current_entity (EtMbEntityView *entity_view)
 {
@@ -1296,6 +1318,15 @@ et_mb_entity_view_get_current_entity (EtMbEntityView *entity_view)
     return priv->mb_tree_current_node->data;
 }
 
+/*
+ * et_mb_entity_view_get_selected_entity_list:
+ * @entity_view: EtMbEntityView
+ * @list: GList
+ *
+ * Returns: Number of elements in list.
+ *
+ * Get the list of selected EtMbEntity from EtMbEntityView
+ */
 int
 et_mb_entity_view_get_selected_entity_list (EtMbEntityView *entity_view,
                                             GList **list)

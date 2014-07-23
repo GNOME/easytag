@@ -52,6 +52,13 @@ et_mb5_search_error_quark (void)
     return g_quark_from_static_string ("et-mb5-search-error-quark");
 }
 
+/*
+ * et_mb5_recording_get_artists_names:
+ * @recording: Mb5Recording
+ *
+ * Returns: String containing all the artist names of recording
+ * Get all the artist names of recording.
+ */
 gchar *
 et_mb5_recording_get_artists_names (Mb5Recording recording)
 {
@@ -91,6 +98,13 @@ et_mb5_recording_get_artists_names (Mb5Recording recording)
     return g_string_free (artist, FALSE);
 }
 
+/*
+ * et_mb5_release_get_artists_names:
+ * @release: Mb5Release
+ *
+ * Returns: String containing all artist names of release
+ * Get all the artist names of recording.
+ */
 gchar *
 et_mb5_release_get_artists_names (Mb5Release release)
 {
@@ -130,6 +144,13 @@ et_mb5_release_get_artists_names (Mb5Release release)
     return g_string_free (album_artist, FALSE);
 }
 
+/*
+ * et_musicbrainz_search_set_server_port:
+ * @_server: Address of server
+ * @_port: Port
+ *
+ * Set a musicbrainz server address and port.
+ */
 void
 et_musicbrainz_search_set_server_port (gchar *_server, int _port)
 {
