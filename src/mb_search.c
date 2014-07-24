@@ -255,7 +255,7 @@ et_musicbrainz_search_in_entity (MbEntityKind child_type,
                                                             1, param_names,
                                                             param_values);
                         CHECK_CANCELLED(cancellable);
-                        entity = g_malloc (sizeof (EtMbEntity));
+                        entity = g_slice_new (EtMbEntity);
                         entity->entity = mb5_release_clone (mb5_metadata_get_release (metadata_release));
                         entity->type = MB_ENTITY_KIND_ALBUM;
                         entity->is_red_line = FALSE;
@@ -355,7 +355,7 @@ et_musicbrainz_search_in_entity (MbEntityKind child_type,
                                                                   param_names,
                                                                   param_values);
                             CHECK_CANCELLED(cancellable);
-                            entity = g_malloc (sizeof (EtMbEntity));
+                            entity = g_slice_new (EtMbEntity);
                             entity->entity = mb5_recording_clone (mb5_metadata_get_recording (metadata_recording));
                             entity->type = MB_ENTITY_KIND_TRACK;
                             entity->is_red_line = FALSE;
@@ -497,7 +497,7 @@ et_musicbrainz_search (gchar *string, MbEntityKind type, GNode *root,
                     {
                         GNode *node;
                         EtMbEntity *entity;
-                        entity = g_malloc (sizeof (EtMbEntity));
+                        entity = g_slice_new (EtMbEntity);
                         entity->entity = mb5_artist_clone (artist);
                         entity->type = MB_ENTITY_KIND_ARTIST;
                         entity->is_red_line = FALSE;
@@ -576,7 +576,7 @@ et_musicbrainz_search (gchar *string, MbEntityKind type, GNode *root,
                                                             1, param_names,
                                                             param_values);
                         CHECK_CANCELLED(cancellable);
-                        entity = g_malloc (sizeof (EtMbEntity));
+                        entity = g_slice_new (EtMbEntity);
                         entity->entity = mb5_release_clone (mb5_metadata_get_release (metadata_release));
                         entity->type = MB_ENTITY_KIND_ALBUM;
                         entity->is_red_line = FALSE;
@@ -650,7 +650,7 @@ et_musicbrainz_search (gchar *string, MbEntityKind type, GNode *root,
                                                           1, param_names,
                                                           param_values);
                     CHECK_CANCELLED(cancellable);
-                    entity = g_malloc (sizeof (EtMbEntity));
+                    entity = g_slice_new (EtMbEntity);
                     entity->entity = mb5_recording_clone (mb5_metadata_get_recording (metadata_recording));
                     entity->type = MB_ENTITY_KIND_TRACK;
                     entity->is_red_line = FALSE;
@@ -730,7 +730,7 @@ et_musicbrainz_search (gchar *string, MbEntityKind type, GNode *root,
                                                             1, param_names,
                                                             param_values);
                         CHECK_CANCELLED(cancellable);
-                        entity = g_malloc (sizeof (EtMbEntity));
+                        entity = g_slice_new (EtMbEntity);
                         entity->entity = mb5_release_clone (mb5_metadata_get_release (metadata_release));
                         entity->type = MB_ENTITY_KIND_ALBUM;
                         entity->is_red_line = FALSE;
@@ -789,7 +789,7 @@ et_musicbrainz_search (gchar *string, MbEntityKind type, GNode *root,
                         size = mb5_freedbdisc_get_title (freedbdisc,
                                                          buf, sizeof (buf));
                         buf [size] = '\0';
-                        entity = g_malloc (sizeof (EtMbEntity));
+                        entity = g_slice_new (EtMbEntity);
                         entity->entity = mb5_freedbdisc_clone (freedbdisc);
                         entity->type = MB_ENTITY_KIND_FREEDBID;
                         entity->is_red_line = FALSE;
@@ -893,7 +893,7 @@ free_mb_tree (GNode **_node)
         }
     }
 
-    g_free (et_entity);
+    g_slice_free (EtMbEntity, et_entity);
     g_node_unlink (node);
     child = g_node_first_child (node);
 

@@ -288,17 +288,18 @@ et_mb_destroy_search (EtMbSearch **search)
         if ((*search)->type == ET_MB_SEARCH_TYPE_MANUAL)
         {
             g_free (((EtMbManualSearch *)(*search))->to_search);
+            g_slice_free (EtMbManualSearch, (EtMbManualSearch *)*search);
         }
         else if ((*search)->type == ET_MB_SEARCH_TYPE_SELECTED)
         {
             g_list_free_full (((EtMbSelectedSearch *)(*search))->list_iter,
                               (GDestroyNotify)gtk_tree_iter_free);
+            g_slice_free (EtMbSelectedSearch, (EtMbSelectedSearch *)*search);
         }
         else if ((*search)->type == ET_MB_SEARCH_TYPE_AUTOMATIC)
         {
+            g_slice_free (EtMbAutomaticSearch, (EtMbAutomaticSearch *)*search);
         }
-
-        g_free (*search);
     }
 }
 
@@ -316,7 +317,7 @@ et_mb_set_search_manual (EtMbSearch **search, gchar *to_search,
                          GNode *node, MbEntityKind type)
 {
     et_mb_destroy_search (search);
-    *search = g_malloc (sizeof (EtMbManualSearch));
+    *search = (EtMbSearch *)g_slice_new (EtMbManualSearch);
     ((EtMbManualSearch *)(*search))->to_search = g_strdup (to_search);
     (*search)->type = ET_MB_SEARCH_TYPE_MANUAL;
     ((EtMbManualSearch *)(*search))->parent_node = node;
@@ -334,7 +335,7 @@ static void
 et_mb_set_selected_search (EtMbSearch **search, GList *list_files)
 {
     et_mb_destroy_search (search);
-    *search = g_malloc (sizeof (EtMbSelectedSearch));
+    *search = (EtMbSearch *)g_slice_new (EtMbSelectedSearch);
     (*search)->type = ET_MB_SEARCH_TYPE_SELECTED;
     ((EtMbSelectedSearch *)(*search))->list_iter = list_files;
 }
@@ -349,7 +350,7 @@ static void
 et_mb_set_automatic_search (EtMbSearch **search)
 {
     et_mb_destroy_search (search);
-    *search = g_malloc (sizeof (EtMbAutomaticSearch));
+    *search = (EtMbSearch *)g_slice_new (EtMbAutomaticSearch);
     (*search)->type = ET_MB_SEARCH_TYPE_AUTOMATIC;
 }
 
@@ -370,7 +371,7 @@ manual_search_callback (GObject *source, GAsyncResult *res,
     if (!g_simple_async_result_get_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res)))
     {
         g_object_unref (res);
-        g_free (user_data);
+        g_slice_free (ManualSearchThreadData, user_data);
 
         if (mb_dialog_priv)
         {
@@ -396,7 +397,7 @@ manual_search_callback (GObject *source, GAsyncResult *res,
                              ((ManualSearchThreadData *)user_data)->text_to_search,
                              mb_dialog_priv->mb_tree_root,
                              ((ManualSearchThreadData *)user_data)->type);
-    g_free (user_data);
+    g_slice_free (ManualSearchThreadData, user_data);
 }
 
 /*
@@ -570,7 +571,7 @@ btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
     et_mb_entity_view_clear_all (ET_MB_ENTITY_VIEW (entityView));
     cb_manual_search = GTK_WIDGET (gtk_builder_get_object (builder,
                                                            "cbManualSearch"));
-    thread_data = g_malloc (sizeof (ManualSearchThreadData));
+    thread_data = g_slice_new (ManualSearchThreadData);
     thread_data->type = type;
     thread_data->text_to_search = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (cb_manual_search));
     mb5_search_cancellable = g_cancellable_new ();
@@ -765,7 +766,7 @@ selected_find_callback (GObject *source, GAsyncResult *res,
     {
         g_object_unref (res);
         g_hash_table_destroy (((SelectedFindThreadData *)user_data)->hash_table);
-        g_free (user_data);
+        g_slice_free (SelectedFindThreadData, user_data);
         free_mb_tree (&mb_dialog_priv->mb_tree_root);
         mb_dialog_priv->mb_tree_root = g_node_new (NULL);
         return;
@@ -786,7 +787,7 @@ selected_find_callback (GObject *source, GAsyncResult *res,
 
     et_mb_set_selected_search (&mb_dialog_priv->search,
                                ((SelectedFindThreadData *)user_data)->list_iter);
-    g_free (user_data);
+    g_slice_free (SelectedFindThreadData, user_data);
 }
 
 /*
@@ -963,7 +964,7 @@ btn_selected_find_clicked (GtkWidget *button, gpointer data)
         }
     }
 
-    thread_data = g_malloc (sizeof (SelectedFindThreadData));
+    thread_data = g_slice_new (SelectedFindThreadData);
     thread_data->hash_table = hash_table;
     thread_data->list_iter = iter_list;
     mb5_search_cancellable = g_cancellable_new ();
@@ -1043,7 +1044,7 @@ discid_search_callback (GObject *source, GAsyncResult *res,
     gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
                         0, _("Searching Completed"));
     g_object_unref (res);
-    g_free (user_data);
+    g_slice_free (DiscIDSearchThreadData, thread_data);
     et_music_brainz_dialog_stop_set_sensitive (FALSE);
 
     if (exit_on_complete)
@@ -1706,7 +1707,7 @@ et_music_brainz_dialog_destroy (GtkWidget *widget)
     gtk_widget_destroy (widget);
     g_object_unref (G_OBJECT (builder));
     free_mb_tree (&mb_dialog_priv->mb_tree_root);
-    g_free (mb_dialog_priv);
+    g_slice_free (MusicBrainzDialogPrivate, mb_dialog_priv);
     mb_dialog_priv = NULL;
 }
 
@@ -1812,7 +1813,7 @@ et_open_musicbrainz_dialog ()
         return;
     }
 
-    mb_dialog_priv = g_malloc (sizeof (MusicBrainzDialogPrivate));
+    mb_dialog_priv = g_slice_new (MusicBrainzDialogPrivate);
     mb_dialog_priv->mb_tree_root = g_node_new (NULL);
     mb_dialog_priv->search = NULL;
     exit_on_complete = FALSE;

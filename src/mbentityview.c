@@ -662,7 +662,7 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
         !g_simple_async_result_get_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res)))
     {
         g_object_unref (res);
-        g_free (user_data);
+        g_slice_free (SearchInLevelThreadData, user_data);
         return;
     }
 
@@ -722,7 +722,7 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
         g_object_unref (res);
     }
 
-    g_free (thread_data);
+    g_slice_free (SearchInLevelThreadData, thread_data);
     et_music_brainz_dialog_stop_set_sensitive (FALSE);
 
     if (exit_on_complete)
@@ -893,7 +893,7 @@ search_in_levels (EtMbEntityView *entity_view, GNode *child,
         return;
     }
 
-    thread_data = g_malloc (sizeof (SearchInLevelThreadData));
+    thread_data = g_slice_new (SearchInLevelThreadData);
     thread_data->entity_view = entity_view;
     thread_data->child = child;
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
