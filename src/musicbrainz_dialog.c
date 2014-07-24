@@ -848,7 +848,7 @@ selected_find_thread_func (GSimpleAsyncResult *res, GObject *obj,
 /*
  * get_selected_iter_list:
  * @tree_view: GtkTreeView
- * @list: [out] GList
+ * @list:[out] GList
  *
  * Returns: Number of Elements of list.
  *
@@ -982,7 +982,7 @@ btn_selected_find_clicked (GtkWidget *button, gpointer data)
 
 /*
  * get_first_selected_file:
- * @et_file: [out] ET_File
+ * @et_file:[out] ET_File
  *
  * Get the First Selected File from BrowserFileList.
  */
@@ -1472,7 +1472,7 @@ btn_apply_changes_clicked (GtkWidget *btn, gpointer data)
     {
         EtMbEntity *et_entity;
         EtMbEntity *album_entity;
-        gchar album [NAME_MAX_SIZE];
+        gchar album[NAME_MAX_SIZE];
 
         album_entity = et_mb_entity_view_get_current_entity (ET_MB_ENTITY_VIEW (entityView));
         mb5_release_get_title (album_entity->entity, album, sizeof (album));
@@ -1482,7 +1482,7 @@ btn_apply_changes_clicked (GtkWidget *btn, gpointer data)
         {
             ET_File *best_et_file;
             gchar *filename;
-            gchar title [NAME_MAX_SIZE];
+            gchar title[NAME_MAX_SIZE];
             File_Tag *file_tag;
             int min_distance;
 
@@ -1535,7 +1535,7 @@ btn_apply_changes_clicked (GtkWidget *btn, gpointer data)
     {
         EtMbEntity *et_entity;
         EtMbEntity *album_entity;
-        gchar album [NAME_MAX_SIZE];
+        gchar album[NAME_MAX_SIZE];
 
         album_entity = et_mb_entity_view_get_current_entity (ET_MB_ENTITY_VIEW (entityView));
         mb5_release_get_title (album_entity->entity, album, sizeof (album));
@@ -1580,7 +1580,7 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, ET_File *et_file)
 {
     int size;
     Mb5ReleaseList *release_list;
-    gchar title [NAME_MAX_SIZE];
+    gchar title[NAME_MAX_SIZE];
     gchar *album_artist;
     gchar album[NAME_MAX_SIZE];
     gchar date[NAME_MAX_SIZE];
@@ -1595,7 +1595,7 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, ET_File *et_file)
     artist = et_mb5_recording_get_artists_names (recording);
     size = mb5_recording_get_title (recording, title,
                                     sizeof (title));
-    title [size] = '\0';
+    title[size] = '\0';
     size = mb5_release_list_size (release_list);
 
     if (size > 1)
