@@ -40,14 +40,6 @@ G_DEFINE_TYPE (EtMbEntityView, et_mb_entity_view, GTK_TYPE_BOX)
 /***************
  * Declaration *
  ***************/
-
-char *columns [MB_ENTITY_KIND_COUNT][10] = {
-    {"Name", "Gender", "Type"},
-    {"Name", "Artist", "Type"},
-    {"Name", "Album", "Artist", "Time"},
-    {"FreeDB ID", "Title", "Artist"}
-    };
-
 /*
  * ET_MB_DISPLAY_RESULTS:
  * @ET_MB_DISPLAY_RESULTS_ALL: Display all results.
@@ -60,8 +52,6 @@ enum ET_MB_DISPLAY_RESULTS
     ET_MB_DISPLAY_RESULTS_RED = 1,
     ET_MB_DISPLAY_RESULTS_SEARCH = 1 << 1,
 };
-
-static GSimpleAsyncResult *async_result;
 
 /*
  * EtMbEntityViewPrivate:
@@ -264,6 +254,8 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
     int minutes;
     int seconds;
     GtkTreeIter iter;
+    static const GdkRGBA red = {1, 0, 0, 0};
+    static const GdkRGBA black = {0, 0, 0, 0};
 
     type = ((EtMbEntity *)node->data)->type;
     while (node)
@@ -276,9 +268,9 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
         {
             case MB_ENTITY_KIND_ARTIST:
             {
-                gchar gender [NAME_MAX_SIZE];
-                gchar type [NAME_MAX_SIZE];               
-                gchar name [NAME_MAX_SIZE];
+                gchar gender[NAME_MAX_SIZE];
+                gchar type[NAME_MAX_SIZE];               
+                gchar name[NAME_MAX_SIZE];
 
                 mb5_artist_get_name ((Mb5Artist)entity, name, sizeof (name));
                 mb5_artist_get_gender ((Mb5Artist)entity, gender,
@@ -295,7 +287,7 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                                                        MB_ARTIST_COLUMNS_TYPE,
                                                        type,
                                                        MB_ARTIST_COLUMNS_N,
-                                                       "red", -1);
+                                                       &red, -1);
                 }
                 else
                 {
@@ -307,7 +299,7 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                                                        MB_ARTIST_COLUMNS_TYPE,
                                                        type,
                                                        MB_ARTIST_COLUMNS_N,
-                                                       "black", -1);
+                                                       &black, -1);
                 }
 
                 break;
@@ -315,9 +307,9 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
 
             case MB_ENTITY_KIND_ALBUM:
             {
-                gchar group [NAME_MAX_SIZE];
+                gchar group[NAME_MAX_SIZE];
                 GString *gstring;
-                gchar name [NAME_MAX_SIZE];
+                gchar name[NAME_MAX_SIZE];
 
                 release_group = mb5_release_get_releasegroup ((Mb5Release)entity);
                 mb5_releasegroup_get_primarytype (release_group, group,
@@ -361,7 +353,7 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                                                        MB_ALBUM_COLUMNS_TYPE,
                                                        group,
                                                        MB_ALBUM_COLUMNS_N,
-                                                       "red", -1);
+                                                       &red, -1);
                 }
                 else
                 {
@@ -370,7 +362,7 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                                         MB_ALBUM_COLUMNS_ARTIST,
                                         gstring->str,
                                         MB_ALBUM_COLUMNS_TYPE, group,
-                                        MB_ALBUM_COLUMNS_N, "black", -1);
+                                        MB_ALBUM_COLUMNS_N, &black, -1);
                 }
 
                 g_string_free (gstring, TRUE);
@@ -382,8 +374,8 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
             {
                 GString *artists;
                 GString *releases;
-                gchar name [NAME_MAX_SIZE];
-                gchar time [NAME_MAX_SIZE];
+                gchar name[NAME_MAX_SIZE];
+                gchar time[NAME_MAX_SIZE];
 
                 artist_credit = mb5_recording_get_artistcredit ((Mb5Release)entity);
                 artists = g_string_new ("");
@@ -431,7 +423,7 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                         release = mb5_release_list_item (release_list, i);
                         size = mb5_releasegroup_get_id (mb5_release_get_releasegroup (release),
                                                         name, sizeof (name));
-                        name [size] = '\0';
+                        name[size] = '\0';
 
                         if (g_hash_table_contains (hash_table, name))
                         {
@@ -457,7 +449,7 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                 seconds = mb5_recording_get_length ((Mb5Recording)entity)%60000;
                 i = g_snprintf (time, NAME_MAX_SIZE, "%d:%d", minutes,
                                 seconds/1000);
-                time [i] = '\0';
+                time[i] = '\0';
                 mb5_recording_get_title ((Mb5Recording)entity, name,
                                          sizeof (name));
                 gtk_list_store_insert_with_values (list_store, &iter, -1,
@@ -476,9 +468,9 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
 
             case MB_ENTITY_KIND_FREEDBID:
             {
-                gchar freedbid [NAME_MAX_SIZE];
-                gchar title [NAME_MAX_SIZE];
-                gchar artist [NAME_MAX_SIZE];
+                gchar freedbid[NAME_MAX_SIZE];
+                gchar title[NAME_MAX_SIZE];
+                gchar artist[NAME_MAX_SIZE];
 
                 mb5_freedbdisc_get_artist ((Mb5FreeDBDisc)entity,
                                            artist, sizeof (artist));
@@ -520,6 +512,12 @@ show_data_in_entity_view (EtMbEntityView *entity_view)
     int i, total_cols, type;
     GList *list_cols, *list;
     GType *types;
+    static const gchar *columns[MB_ENTITY_KIND_COUNT][10] = {
+        {N_("Name"), N_("Gender"), N_("Type")},
+        {N_("Name"), N_("Artist"), N_("Type")},
+        {"Name", "Album", "Artist", "Time"},
+        {"FreeDB ID", "Title", "Artist"}
+    };
 
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
 
@@ -576,17 +574,17 @@ show_data_in_entity_view (EtMbEntityView *entity_view)
 
     for (i = 0; i < total_cols; i++)
     {
-        types [i] = G_TYPE_STRING;
+        types[i] = G_TYPE_STRING;
         renderer = gtk_cell_renderer_text_new ();
         column = gtk_tree_view_column_new_with_attributes (columns[type][i],
                                                            renderer, "text",
-                                                           i, "foreground",
+                                                           i, "foreground-rgba",
                                                            total_cols, NULL);
         gtk_tree_view_append_column (GTK_TREE_VIEW (priv->tree_view), column);
     }
 
     /* Setting the colour column */
-    types [total_cols] = G_TYPE_STRING;
+    types[total_cols] = GDK_TYPE_RGBA;
     priv->list_store = GTK_TREE_MODEL (gtk_list_store_newv (total_cols + 1,
                                                             types));
     priv->filter = GTK_TREE_MODEL (gtk_tree_model_filter_new (priv->list_store,
@@ -698,7 +696,7 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
     
         toggle_btn = insert_togglebtn_in_breadcrumb (GTK_BOX (priv->bread_crumb_box));
         children = gtk_container_get_children (GTK_CONTAINER (priv->bread_crumb_box));
-        priv->bread_crumb_nodes [g_list_length (children) - 1] = thread_data->child;
+        priv->bread_crumb_nodes[g_list_length (children) - 1] = thread_data->child;
     
         if (priv->active_toggle_button)
         {
@@ -748,10 +746,10 @@ search_in_levels_thread_func (GSimpleAsyncResult *res, GObject *obj,
                               GCancellable *cancellable)
 {
     SearchInLevelThreadData *thread_data;
-    gchar mbid [NAME_MAX_SIZE];
-    GError *error;
+    gchar mbid[NAME_MAX_SIZE];
+    GError *error = NULL;
     gchar *status_msg;
-    gchar parent_entity_str [NAME_MAX_SIZE];
+    gchar parent_entity_str[NAME_MAX_SIZE];
     gchar *child_entity_type_str;
     MbEntityKind to_search;
 
@@ -770,38 +768,39 @@ search_in_levels_thread_func (GSimpleAsyncResult *res, GObject *obj,
         return;
     }
 
-    if (((EtMbEntity *)thread_data->child->data)->type ==
-        MB_ENTITY_KIND_ARTIST)
+    switch (((EtMbEntity *)thread_data->child->data)->type)
     {
-        child_entity_type_str = g_strdup ("Albums ");
-        mb5_artist_get_id (((EtMbEntity *)thread_data->child->data)->entity,
-                           mbid, sizeof (mbid));
-        mb5_artist_get_name (((EtMbEntity *)thread_data->child->data)->entity,
-                             parent_entity_str, sizeof (parent_entity_str));
-        to_search = MB_ENTITY_KIND_ALBUM;
-    }
-    else if (((EtMbEntity *)thread_data->child->data)->type ==
-             MB_ENTITY_KIND_ALBUM)
-    {
-        child_entity_type_str = g_strdup ("Tracks ");
-        mb5_release_get_id (((EtMbEntity *)thread_data->child->data)->entity,
-                            mbid, sizeof (mbid));
-        mb5_release_get_title (((EtMbEntity *)thread_data->child->data)->entity,
-                               parent_entity_str, sizeof (parent_entity_str));
-        to_search = MB_ENTITY_KIND_TRACK;
-    }
-    else if (((EtMbEntity *)thread_data->child->data)->type ==
-             MB_ENTITY_KIND_FREEDBID)
-    {
-        child_entity_type_str = g_strdup ("Albums ");
-        mb5_freedbdisc_get_title (((EtMbEntity *)thread_data->child->data)->entity,
-                                  mbid, sizeof (mbid));
-        g_stpcpy (parent_entity_str, mbid);
-        to_search = MB_ENTITY_KIND_ALBUM;
-    }
-    else
-    {
-        return;
+        case MB_ENTITY_KIND_ARTIST:
+        {
+            child_entity_type_str = g_strdup ("Albums ");
+            mb5_artist_get_id (((EtMbEntity *)thread_data->child->data)->entity,
+                               mbid, sizeof (mbid));
+            mb5_artist_get_name (((EtMbEntity *)thread_data->child->data)->entity,
+                                 parent_entity_str, sizeof (parent_entity_str));
+            to_search = MB_ENTITY_KIND_ALBUM;
+            break;
+        }
+        case MB_ENTITY_KIND_ALBUM:
+        {
+            child_entity_type_str = g_strdup ("Tracks ");
+            mb5_release_get_id (((EtMbEntity *)thread_data->child->data)->entity,
+                                mbid, sizeof (mbid));
+            mb5_release_get_title (((EtMbEntity *)thread_data->child->data)->entity,
+                                   parent_entity_str, sizeof (parent_entity_str));
+            to_search = MB_ENTITY_KIND_TRACK;
+            break;
+        }
+        case MB_ENTITY_KIND_FREEDBID:
+        {
+            child_entity_type_str = g_strdup ("Albums ");
+            mb5_freedbdisc_get_title (((EtMbEntity *)thread_data->child->data)->entity,
+                                      mbid, sizeof (mbid));
+            g_stpcpy (parent_entity_str, mbid);
+            to_search = MB_ENTITY_KIND_ALBUM;
+            break;
+        }
+        default:
+            return;
     }
 
     error = NULL;
@@ -889,6 +888,7 @@ search_in_levels (EtMbEntityView *entity_view, GNode *child,
 {
     SearchInLevelThreadData *thread_data;
     EtMbEntityViewPrivate *priv;
+    GSimpleAsyncResult *async_result;
 
     if (((EtMbEntity *)child->data)->type ==
         MB_ENTITY_KIND_TRACK)
@@ -1024,7 +1024,7 @@ et_mb_entity_view_set_tree_root (EtMbEntityView *entity_view, GNode *treeRoot)
                 break;
         }
 
-        priv->bread_crumb_nodes [0] = treeRoot;
+        priv->bread_crumb_nodes[0] = treeRoot;
         priv->active_toggle_button = btn;
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (btn), TRUE);
         gtk_widget_show_all (priv->bread_crumb_box);
