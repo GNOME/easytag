@@ -436,392 +436,13 @@ et_musicbrainz_search_in_entity (MbEntityKind child_type,
     return FALSE;
 }
 
-/*
- * et_musicbrainz_search:
- * @string: String to search in MusicBrainz database.
- * @type: Type of entity to search.
- * @root: Root of the mbTree.
- * @error: GError.
- *
- * To search for an entity in MusicBrainz Database.
- *
- * Returns: TRUE if successfull, FALSE if not.
- */
-gboolean
-et_musicbrainz_search (gchar *string, MbEntityKind type, GNode *root,
-                       GError **error, GCancellable *cancellable)
+static void
+et_musicbrainz_set_error_from_query (Mb5Query query, tQueryResult result, 
+                                     GError **error)
 {
-    Mb5Query query;
-    Mb5Metadata metadata;
     char error_message[256];
-    tQueryResult result;
-    char *param_values[2];
-    char *param_names[2];
 
-    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
-
-    param_names[0] = "query";
-    param_names[1] = "limit";
-    param_values[1] = SEARCH_LIMIT_STR;
-    query = mb5_query_new (USER_AGENT, server, port);
-
-    if (g_cancellable_is_cancelled (cancellable))
-    {
-        g_set_error (error, ET_MB5_SEARCH_ERROR,
-                     ET_MB5_SEARCH_ERROR_CANCELLED,
-                     _("Operation cancelled by user"));
-        mb5_query_delete (query);
-        g_assert (error == NULL || *error != NULL);
-        return FALSE;
-    }
-
-    if (type == MB_ENTITY_KIND_ARTIST)
-    {
-        param_values[0] = g_strconcat ("artist:", string, NULL);
-        metadata = mb5_query_query (query, "artist", "", "", 2, param_names,
-                                    param_values);
-        g_free (param_values[0]);
-        result = mb5_query_get_lastresult (query);
-
-        if (result == eQuery_Success)
-        {
-            if (metadata)
-            {
-                int i;
-                Mb5ArtistList list;
-                list = mb5_metadata_get_artistlist (metadata);
- 
-                for (i = 0; i < mb5_artist_list_size (list); i++)
-                {
-                    Mb5Artist artist;
-
-                    CHECK_CANCELLED(cancellable);
-                    artist = mb5_artist_list_item (list, i);
-
-                    if (artist)
-                    {
-                        GNode *node;
-                        EtMbEntity *entity;
-                        entity = g_slice_new (EtMbEntity);
-                        entity->entity = mb5_artist_clone (artist);
-                        entity->type = MB_ENTITY_KIND_ARTIST;
-                        entity->is_red_line = FALSE;
-                        node = g_node_new (entity);
-                        g_node_append (root, node);
-                    }
-                }
-            }
-
-            mb5_metadata_delete (metadata);
-        }
-        else
-        {
-            goto err;
-        }
-    }
-
-    else if (type == MB_ENTITY_KIND_ALBUM)
-    {
-        param_values[0] = g_strconcat ("release:", string, NULL);
-        metadata = mb5_query_query (query, "release", "", "", 2, param_names,
-                                    param_values);
-        result = mb5_query_get_lastresult (query);
-        g_free (param_values[0]);
-
-        if (result == eQuery_Success)
-        {
-            if (metadata)
-            {
-                int i;
-                Mb5ReleaseList list;
-                gchar *message;
-
-                list = mb5_metadata_get_releaselist (metadata);
-                param_names[0] = "inc";
-                param_values[0] = "artists release-groups";
-                message = g_strdup_printf (ngettext (_("Found %d Albums"),
-                                           _("Found %d Albums"), 
-                                           mb5_release_list_size (list)),
-                                           mb5_release_list_size (list));
-#ifndef TEST
-                et_show_status_msg_in_idle (message);
-#endif
-                g_free (message);
-
-                for (i = 0; i < mb5_release_list_size (list); i++)
-                {
-                    Mb5Release release;
-
-                    CHECK_CANCELLED(cancellable);
-                    release = mb5_release_list_item (list, i);
-
-                    if (release)
-                    {
-                        Mb5Metadata metadata_release;
-                        gchar buf[NAME_MAX_SIZE];
-                        GNode *node;
-                        EtMbEntity *entity;
-                        int size;
-
-                        size = mb5_release_get_title ((Mb5Release)release,
-                                                      buf, sizeof (buf));
-                        buf[size] = '\0';
-                        message = g_strdup_printf (_("Retrieving %s (%d/%d)"),
-                                                   buf, i,
-                                                   mb5_release_list_size (list));
-#ifndef TEST
-                        et_show_status_msg_in_idle (message);
-#endif
-                        g_free (message);
-
-                        mb5_release_get_id ((Mb5Release)release,
-                                            buf,
-                                            sizeof (buf));
-                        CHECK_CANCELLED(cancellable);
-                        metadata_release = mb5_query_query (query, "release",
-                                                            buf, "",
-                                                            1, param_names,
-                                                            param_values);
-                        CHECK_CANCELLED(cancellable);
-                        entity = g_slice_new (EtMbEntity);
-                        entity->entity = mb5_release_clone (mb5_metadata_get_release (metadata_release));
-                        entity->type = MB_ENTITY_KIND_ALBUM;
-                        entity->is_red_line = FALSE;
-                        node = g_node_new (entity);
-                        g_node_append (root, node);
-                        mb5_metadata_delete (metadata_release);
-                    }
-                }
-            }
-
-            mb5_metadata_delete (metadata);
-        }
-        else
-        {
-            goto err;
-        }
-    }
-
-    else if (type == MB_ENTITY_KIND_TRACK)
-    {
-        param_values[0] = g_strconcat ("recordings:", string, NULL);
-        metadata = mb5_query_query (query, "recording", "", "", 2,
-                                    param_names, param_values);
-        result = mb5_query_get_lastresult (query);
-        g_free (param_values[0]);
-
-        if (result == eQuery_Success)
-        {
-            if (metadata)
-            {
-                int i;
-                Mb5RecordingList list;
-                gchar *message;
-
-                list = mb5_metadata_get_recordinglist (metadata);
-                param_names[0] = "inc";
-                param_values[0] = "releases artists artist-credits release-groups";
-                message = g_strdup_printf (ngettext (_("Found %d Track"),
-                                           _("Found %d Tracks"),
-                                           mb5_recording_list_size (list)),
-                                           mb5_recording_list_size (list));
-#ifndef TEST
-                et_show_status_msg_in_idle (message);
-#endif
-                g_free (message);
-
-                for (i = 0; i < mb5_recording_list_size (list); i++)
-                {
-                    Mb5Recording recording;
-                    Mb5Metadata metadata_recording;
-                    gchar buf[NAME_MAX_SIZE];
-                    GNode *node;
-                    EtMbEntity *entity;
-                    int size;
-
-                    CHECK_CANCELLED(cancellable);
-                    recording = mb5_recording_list_item (list, i);
-                    size = mb5_recording_get_title (recording, buf, sizeof (buf));
-                    buf[size] = '\0';
-                    message = g_strdup_printf (_("Retrieving %s (%d/%d)"),
-                                               buf, i,
-                                               mb5_track_list_size (list));
-#ifndef TEST
-                    et_show_status_msg_in_idle (message);
-#endif
-                    g_free (message);
-
-                    mb5_recording_get_id (recording,
-                                          buf,
-                                          sizeof (buf));
-                    metadata_recording = mb5_query_query (query, "recording",
-                                                          buf, "",
-                                                          1, param_names,
-                                                          param_values);
-                    CHECK_CANCELLED(cancellable);
-                    entity = g_slice_new (EtMbEntity);
-                    entity->entity = mb5_recording_clone (mb5_metadata_get_recording (metadata_recording));
-                    entity->type = MB_ENTITY_KIND_TRACK;
-                    entity->is_red_line = FALSE;
-                    node = g_node_new (entity);
-                    g_node_append (root, node);
-                    mb5_metadata_delete (metadata_recording);
-                }
-            }
-
-            mb5_metadata_delete (metadata);
-        }
-        else
-        {
-            goto err;
-        }
-    }
-
-    else if (type == MB_ENTITY_KIND_DISCID)
-    {
-        param_names[0] = "toc";
-        param_values[0] = "";
-        metadata = mb5_query_query (query, "discid", string, "", 1, param_names,
-                                    param_values);
-        result = mb5_query_get_lastresult (query);
-
-        if (result == eQuery_Success)
-        {
-            if (metadata)
-            {
-                int i;
-                Mb5ReleaseList list;
-                gchar *message;
-                Mb5Disc disc;
-
-                disc = mb5_metadata_get_disc (metadata);
-                list = mb5_disc_get_releaselist (disc);
-                param_names[0] = "inc";
-                param_values[0] = "artists release-groups";
-                message = g_strdup_printf (ngettext (_("Found %d Album"),
-                                           _("Found %d Albums"),
-                                           mb5_release_list_size (list)),
-                                           mb5_release_list_size (list));
-#ifndef TEST
-                et_show_status_msg_in_idle (message);
-#endif
-                g_free (message);
-
-                for (i = 0; i < mb5_release_list_size (list); i++)
-                {
-                    Mb5Release release;
-
-                    CHECK_CANCELLED(cancellable);
-                    release = mb5_release_list_item (list, i);
-
-                    if (release)
-                    {
-                        Mb5Metadata metadata_release;
-                        gchar buf[NAME_MAX_SIZE];
-                        GNode *node;
-                        EtMbEntity *entity;
-                        int size;
-
-                        size = mb5_release_get_title ((Mb5Release)release, buf,
-                                                      sizeof (buf));
-                        buf[size] = '\0';
-                        message = g_strdup_printf (_("Retrieving %s (%d/%d)"),
-                                                   buf, i,
-                                                   mb5_release_list_size (list));
-#ifndef TEST
-                        et_show_status_msg_in_idle (message);
-#endif
-                        g_free (message);
-
-                        mb5_release_get_id ((Mb5Release)release,
-                                            buf,
-                                            sizeof (buf));
-                        metadata_release = mb5_query_query (query, "release",
-                                                            buf, "",
-                                                            1, param_names,
-                                                            param_values);
-                        CHECK_CANCELLED(cancellable);
-                        entity = g_slice_new (EtMbEntity);
-                        entity->entity = mb5_release_clone (mb5_metadata_get_release (metadata_release));
-                        entity->type = MB_ENTITY_KIND_ALBUM;
-                        entity->is_red_line = FALSE;
-                        node = g_node_new (entity);
-                        g_node_append (root, node);
-                        mb5_metadata_delete (metadata_release);
-                    }
-                }
-            }
-
-            mb5_metadata_delete (metadata);
-        }
-        else
-        {
-            goto err;
-        }
-    }
-    else if (type == MB_ENTITY_KIND_FREEDBID)
-    {
-        param_values[0] = g_strconcat ("discid:", string, NULL);
-        metadata = mb5_query_query (query, "freedb", "", "", 2, param_names,
-                                    param_values);
-        result = mb5_query_get_lastresult (query);
-        g_free (param_values[0]);
-
-        if (result == eQuery_Success)
-        {
-            if (metadata)
-            {
-                int i;
-                Mb5FreeDBDiscList list;
-                gchar *message;
-
-                list = mb5_metadata_get_freedbdisclist (metadata);
-                message = g_strdup_printf (ngettext (_("Found %d Result"),
-                                           _("Found %d Results"),
-                                           mb5_freedbdisc_list_size (list)), 
-                                           mb5_freedbdisc_list_size (list));
-#ifndef TEST
-                et_show_status_msg_in_idle (message);
-#endif
-                g_free (message);
-
-                for (i = 0; i < mb5_freedbdisc_list_size (list); i++)
-                {
-                    Mb5FreeDBDisc freedbdisc;
-
-                    CHECK_CANCELLED(cancellable);
-                    freedbdisc = mb5_freedbdisc_list_item (list, i);
-
-                    if (freedbdisc)
-                    {
-                        gchar buf[NAME_MAX_SIZE];
-                        GNode *node;
-                        EtMbEntity *entity;
-                        int size;
-
-                        size = mb5_freedbdisc_get_title (freedbdisc,
-                                                         buf, sizeof (buf));
-                        buf[size] = '\0';
-                        entity = g_slice_new (EtMbEntity);
-                        entity->entity = mb5_freedbdisc_clone (freedbdisc);
-                        entity->type = MB_ENTITY_KIND_FREEDBID;
-                        entity->is_red_line = FALSE;
-                        node = g_node_new (entity);
-                        g_node_append (root, node);
-                    }
-                }
-            }
-
-            mb5_metadata_delete (metadata);
-        }
-    }
-
-    mb5_query_delete (query);
-    CHECK_CANCELLED(cancellable);
-
-    return TRUE;
-
-    err:
+    g_return_if_fail (error == NULL || *error == NULL);
     mb5_query_get_lasterrormessage (query, error_message,
                                     sizeof(error_message));
 
@@ -863,7 +484,526 @@ et_musicbrainz_search (gchar *string, MbEntityKind type, GNode *root,
     }
 
     g_assert (error == NULL || *error != NULL);
+}
+
+static gboolean
+et_musicbrainz_search_artist (gchar *string, GNode *root, GError **error,
+                              GCancellable *cancellable)
+{
+    Mb5Query query;
+    Mb5Metadata metadata;
+    tQueryResult result;
+    char *param_values[2];
+    char *param_names[2];
+
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+    param_names[0] = "query";
+    param_names[1] = "limit";
+    param_values[1] = SEARCH_LIMIT_STR;
+    CHECK_CANCELLED(cancellable);
+    query = mb5_query_new (USER_AGENT, server, port);
+    param_values[0] = g_strconcat ("artist:", string, NULL);
+    metadata = mb5_query_query (query, "artist", "", "", 2, param_names,
+                                param_values);
+    g_free (param_values[0]);
+    result = mb5_query_get_lastresult (query);
+
+    if (result == eQuery_Success)
+    {
+        if (metadata)
+        {
+            int i;
+            Mb5ArtistList list;
+            list = mb5_metadata_get_artistlist (metadata);
+ 
+            for (i = 0; i < mb5_artist_list_size (list); i++)
+            {
+                Mb5Artist artist;
+
+                CHECK_CANCELLED(cancellable);
+                artist = mb5_artist_list_item (list, i);
+
+                if (artist)
+                {
+                    GNode *node;
+                    EtMbEntity *entity;
+                    entity = g_slice_new (EtMbEntity);
+                    entity->entity = mb5_artist_clone (artist);
+                    entity->type = MB_ENTITY_KIND_ARTIST;
+                    entity->is_red_line = FALSE;
+                    node = g_node_new (entity);
+                    g_node_append (root, node);
+                }
+            }
+        }
+
+        mb5_metadata_delete (metadata);
+    }
+    else
+    {
+        goto err;
+    }
+
+    mb5_query_delete (query);
+    CHECK_CANCELLED(cancellable);
+
+    return TRUE;
+
+    err:
+    et_musicbrainz_set_error_from_query (query, result, error);
+    mb5_query_delete (query);
+    g_assert (error == NULL || *error != NULL);
+
     return FALSE;
+}
+
+static gboolean
+et_musicbrainz_search_album (gchar *string, GNode *root, GError **error,
+                             GCancellable *cancellable)
+{
+    Mb5Query query;
+    Mb5Metadata metadata;
+    tQueryResult result;
+    char *param_values[2];
+    char *param_names[2];
+
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+    param_names[0] = "query";
+    param_names[1] = "limit";
+    param_values[1] = SEARCH_LIMIT_STR;
+    CHECK_CANCELLED(cancellable);
+    query = mb5_query_new (USER_AGENT, server, port);
+    param_values[0] = g_strconcat ("release:", string, NULL);
+    metadata = mb5_query_query (query, "release", "", "", 2, param_names,
+                                param_values);
+    result = mb5_query_get_lastresult (query);
+    g_free (param_values[0]);
+
+    if (result == eQuery_Success)
+    {
+        if (metadata)
+        {
+            int i;
+            Mb5ReleaseList list;
+            gchar *message;
+
+            list = mb5_metadata_get_releaselist (metadata);
+            param_names[0] = "inc";
+            param_values[0] = "artists release-groups";
+            message = g_strdup_printf (ngettext (_("Found %d Albums"),
+                                       _("Found %d Albums"), 
+                                       mb5_release_list_size (list)),
+                                       mb5_release_list_size (list));
+#ifndef TEST
+            et_show_status_msg_in_idle (message);
+#endif
+            g_free (message);
+
+            for (i = 0; i < mb5_release_list_size (list); i++)
+            {
+                Mb5Release release;
+
+                CHECK_CANCELLED(cancellable);
+                release = mb5_release_list_item (list, i);
+
+                if (release)
+                {
+                    Mb5Metadata metadata_release;
+                    gchar buf[NAME_MAX_SIZE];
+                    GNode *node;
+                    EtMbEntity *entity;
+                    int size;
+
+                    size = mb5_release_get_title ((Mb5Release)release,
+                                                  buf, sizeof (buf));
+                    buf[size] = '\0';
+                    message = g_strdup_printf (_("Retrieving %s (%d/%d)"),
+                                               buf, i,
+                                               mb5_release_list_size (list));
+#ifndef TEST
+                    et_show_status_msg_in_idle (message);
+#endif
+                    g_free (message);
+
+                    mb5_release_get_id ((Mb5Release)release,
+                                        buf,
+                                        sizeof (buf));
+                    CHECK_CANCELLED(cancellable);
+                    metadata_release = mb5_query_query (query, "release",
+                                                        buf, "",
+                                                        1, param_names,
+                                                        param_values);
+                    CHECK_CANCELLED(cancellable);
+                    entity = g_slice_new (EtMbEntity);
+                    entity->entity = mb5_release_clone (mb5_metadata_get_release (metadata_release));
+                    entity->type = MB_ENTITY_KIND_ALBUM;
+                    entity->is_red_line = FALSE;
+                    node = g_node_new (entity);
+                    g_node_append (root, node);
+                    mb5_metadata_delete (metadata_release);
+                }
+            }
+        }
+
+        mb5_metadata_delete (metadata);
+    }
+    else
+    {
+        goto err;
+    }
+
+    mb5_query_delete (query);
+    CHECK_CANCELLED(cancellable);
+
+    return TRUE;
+
+    err:
+    et_musicbrainz_set_error_from_query (query, result, error);
+    mb5_query_delete (query);
+    g_assert (error == NULL || *error != NULL);
+
+    return FALSE;
+}
+
+static gboolean
+et_musicbrainz_search_track (gchar *string, GNode *root, GError **error,
+                             GCancellable *cancellable)
+{
+    Mb5Query query;
+    Mb5Metadata metadata;
+    tQueryResult result;
+    char *param_values[2];
+    char *param_names[2];
+
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+    param_names[0] = "query";
+    param_names[1] = "limit";
+    param_values[1] = SEARCH_LIMIT_STR;
+    CHECK_CANCELLED(cancellable);
+    query = mb5_query_new (USER_AGENT, server, port);
+    param_values[0] = g_strconcat ("recordings:", string, NULL);
+    metadata = mb5_query_query (query, "recording", "", "", 2,
+                                param_names, param_values);
+    result = mb5_query_get_lastresult (query);
+    g_free (param_values[0]);
+
+    if (result == eQuery_Success)
+    {
+        if (metadata)
+        {
+            int i;
+            Mb5RecordingList list;
+            gchar *message;
+
+            list = mb5_metadata_get_recordinglist (metadata);
+            param_names[0] = "inc";
+            param_values[0] = "releases artists artist-credits release-groups";
+            message = g_strdup_printf (ngettext (_("Found %d Track"),
+                                       _("Found %d Tracks"),
+                                       mb5_recording_list_size (list)),
+                                       mb5_recording_list_size (list));
+#ifndef TEST
+            et_show_status_msg_in_idle (message);
+#endif
+            g_free (message);
+
+            for (i = 0; i < mb5_recording_list_size (list); i++)
+            {
+                Mb5Recording recording;
+                Mb5Metadata metadata_recording;
+                gchar buf[NAME_MAX_SIZE];
+                GNode *node;
+                EtMbEntity *entity;
+                int size;
+
+                CHECK_CANCELLED(cancellable);
+                recording = mb5_recording_list_item (list, i);
+                size = mb5_recording_get_title (recording, buf, sizeof (buf));
+                buf[size] = '\0';
+                message = g_strdup_printf (_("Retrieving %s (%d/%d)"),
+                                           buf, i,
+                                           mb5_track_list_size (list));
+#ifndef TEST
+                et_show_status_msg_in_idle (message);
+#endif
+                g_free (message);
+
+                mb5_recording_get_id (recording,
+                                      buf,
+                                      sizeof (buf));
+                metadata_recording = mb5_query_query (query, "recording",
+                                                      buf, "",
+                                                      1, param_names,
+                                                      param_values);
+                CHECK_CANCELLED(cancellable);
+                entity = g_slice_new (EtMbEntity);
+                entity->entity = mb5_recording_clone (mb5_metadata_get_recording (metadata_recording));
+                entity->type = MB_ENTITY_KIND_TRACK;
+                entity->is_red_line = FALSE;
+                node = g_node_new (entity);
+                g_node_append (root, node);
+                mb5_metadata_delete (metadata_recording);
+            }
+        }
+
+        mb5_metadata_delete (metadata);
+    }
+    else
+    {
+        goto err;
+    }
+
+    mb5_query_delete (query);
+    CHECK_CANCELLED(cancellable);
+
+    return TRUE;
+
+    err:
+    et_musicbrainz_set_error_from_query (query, result, error);
+    mb5_query_delete (query);
+    g_assert (error == NULL || *error != NULL);
+
+    return FALSE;
+}
+
+static gboolean
+et_musicbrainz_search_discid (gchar *string, GNode *root, GError **error,
+                              GCancellable *cancellable)
+{
+    Mb5Query query;
+    Mb5Metadata metadata;
+    tQueryResult result;
+    char *param_values[2];
+    char *param_names[2];
+
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+    param_names[0] = "query";
+    param_names[1] = "limit";
+    param_values[1] = SEARCH_LIMIT_STR;
+    CHECK_CANCELLED(cancellable);
+    query = mb5_query_new (USER_AGENT, server, port);
+    param_names[0] = "toc";
+    param_values[0] = "";
+    metadata = mb5_query_query (query, "discid", string, "", 1, param_names,
+                                param_values);
+    result = mb5_query_get_lastresult (query);
+
+    if (result == eQuery_Success)
+    {
+        if (metadata)
+        {
+            int i;
+            Mb5ReleaseList list;
+            gchar *message;
+            Mb5Disc disc;
+
+            disc = mb5_metadata_get_disc (metadata);
+            list = mb5_disc_get_releaselist (disc);
+            param_names[0] = "inc";
+            param_values[0] = "artists release-groups";
+            message = g_strdup_printf (ngettext (_("Found %d Album"),
+                                       _("Found %d Albums"),
+                                       mb5_release_list_size (list)),
+                                       mb5_release_list_size (list));
+#ifndef TEST
+            et_show_status_msg_in_idle (message);
+#endif
+            g_free (message);
+
+            for (i = 0; i < mb5_release_list_size (list); i++)
+            {
+                Mb5Release release;
+
+                CHECK_CANCELLED(cancellable);
+                release = mb5_release_list_item (list, i);
+
+                if (release)
+                {
+                    Mb5Metadata metadata_release;
+                    gchar buf[NAME_MAX_SIZE];
+                    GNode *node;
+                    EtMbEntity *entity;
+                    int size;
+
+                    size = mb5_release_get_title ((Mb5Release)release, buf,
+                                                  sizeof (buf));
+                    buf[size] = '\0';
+                    message = g_strdup_printf (_("Retrieving %s (%d/%d)"),
+                                               buf, i,
+                                               mb5_release_list_size (list));
+#ifndef TEST
+                    et_show_status_msg_in_idle (message);
+#endif
+                    g_free (message);
+                    mb5_release_get_id ((Mb5Release)release,
+                                        buf,
+                                        sizeof (buf));
+                    metadata_release = mb5_query_query (query, "release",
+                                                        buf, "",
+                                                        1, param_names,
+                                                        param_values);
+                    CHECK_CANCELLED(cancellable);
+                    entity = g_slice_new (EtMbEntity);
+                    entity->entity = mb5_release_clone (mb5_metadata_get_release (metadata_release));
+                    entity->type = MB_ENTITY_KIND_ALBUM;
+                    entity->is_red_line = FALSE;
+                    node = g_node_new (entity);
+                    g_node_append (root, node);
+                    mb5_metadata_delete (metadata_release);
+                }
+            }
+        }
+
+        mb5_metadata_delete (metadata);
+    }
+    else
+    {
+        goto err;
+    }
+
+    mb5_query_delete (query);
+    CHECK_CANCELLED(cancellable);
+
+    return TRUE;
+
+    err:
+    et_musicbrainz_set_error_from_query (query, result, error);
+    mb5_query_delete (query);
+    g_assert (error == NULL || *error != NULL);
+
+    return FALSE;
+}
+
+static gboolean
+et_musicbrainz_search_freedbid (gchar *string, GNode *root, GError **error,
+                                GCancellable *cancellable)
+{
+    Mb5Query query;
+    Mb5Metadata metadata;
+    tQueryResult result;
+    char *param_values[2];
+    char *param_names[2];
+
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+    param_names[0] = "query";
+    param_names[1] = "limit";
+    param_values[1] = SEARCH_LIMIT_STR;
+    CHECK_CANCELLED(cancellable);
+    query = mb5_query_new (USER_AGENT, server, port);
+    param_values[0] = g_strconcat ("discid:", string, NULL);
+    metadata = mb5_query_query (query, "freedb", "", "", 2, param_names,
+                                param_values);
+    result = mb5_query_get_lastresult (query);
+    g_free (param_values[0]);
+
+    if (result == eQuery_Success)
+    {
+        if (metadata)
+        {
+            int i;
+            Mb5FreeDBDiscList list;
+            gchar *message;
+
+            list = mb5_metadata_get_freedbdisclist (metadata);
+            message = g_strdup_printf (ngettext (_("Found %d Result"),
+                                       _("Found %d Results"),
+                                       mb5_freedbdisc_list_size (list)), 
+                                       mb5_freedbdisc_list_size (list));
+#ifndef TEST
+            et_show_status_msg_in_idle (message);
+#endif
+            g_free (message);
+
+            for (i = 0; i < mb5_freedbdisc_list_size (list); i++)
+            {
+                Mb5FreeDBDisc freedbdisc;
+
+                CHECK_CANCELLED(cancellable);
+                freedbdisc = mb5_freedbdisc_list_item (list, i);
+
+                if (freedbdisc)
+                {
+                    gchar buf[NAME_MAX_SIZE];
+                    GNode *node;
+                    EtMbEntity *entity;
+                    int size;
+
+                    size = mb5_freedbdisc_get_title (freedbdisc,
+                                                     buf, sizeof (buf));
+                    buf[size] = '\0';
+                    entity = g_slice_new (EtMbEntity);
+                    entity->entity = mb5_freedbdisc_clone (freedbdisc);
+                    entity->type = MB_ENTITY_KIND_FREEDBID;
+                    entity->is_red_line = FALSE;
+                    node = g_node_new (entity);
+                    g_node_append (root, node);
+                }
+            }
+        }
+
+        mb5_metadata_delete (metadata);
+    }
+    else
+    {
+        goto err;
+    }
+
+    mb5_query_delete (query);
+    CHECK_CANCELLED(cancellable);
+
+    return TRUE;
+
+    err:
+    et_musicbrainz_set_error_from_query (query, result, error);
+    mb5_query_delete (query);
+    g_assert (error == NULL || *error != NULL);
+
+    return FALSE;
+}
+
+/*
+ * et_musicbrainz_search:
+ * @string: String to search in MusicBrainz database.
+ * @type: Type of entity to search.
+ * @root: Root of the mbTree.
+ * @error: GError.
+ *
+ * To search for an entity in MusicBrainz Database.
+ *
+ * Returns: TRUE if successfull, FALSE if not.
+ */
+gboolean
+et_musicbrainz_search (gchar *string, MbEntityKind type, GNode *root,
+                       GError **error, GCancellable *cancellable)
+{
+    switch (type)
+    {
+        case MB_ENTITY_KIND_ARTIST:
+            return et_musicbrainz_search_artist (string, root, error,
+                                                 cancellable);
+    
+
+        case MB_ENTITY_KIND_ALBUM:
+            return et_musicbrainz_search_album (string, root, error,
+                                                cancellable);
+
+        case MB_ENTITY_KIND_TRACK:
+            return et_musicbrainz_search_track (string, root, error,
+                                                cancellable);
+
+        case MB_ENTITY_KIND_DISCID:
+            return et_musicbrainz_search_discid (string, root, error,
+                                                 cancellable);
+        case MB_ENTITY_KIND_FREEDBID:
+            return et_musicbrainz_search_freedbid (string, root, error,
+                                                   cancellable);
+        default:
+            return FALSE;
+    }
 }
 
 /*

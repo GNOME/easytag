@@ -31,8 +31,6 @@
 
 GtkBuilder *builder;
 GtkWidget *mbDialog;
-GtkWidget *entityView;
-gboolean exit_on_complete;
 
 /**************
  * Prototypes *
@@ -49,5 +47,7 @@ void
 et_music_brainz_dialog_stop_set_sensitive (gboolean sensitive);
 void
 et_music_brainz_dialog_destroy (GtkWidget *widget);
+gboolean
+et_music_brainz_get_exit_on_complete (void);
 #endif /* __MUSICBRAINZ_DIALOG_H__ */
 #endif /* ENABLE_libmusicbrainz */
