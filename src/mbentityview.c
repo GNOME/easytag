@@ -30,9 +30,7 @@
 #include "log.h"
 #include "musicbrainz_dialog.h"
 
-#define ET_MB_ENTITY_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), \
-                                            ET_MB_ENTITY_VIEW_TYPE, \
-                                            EtMbEntityViewPrivate))
+#define ET_MB_ENTITY_VIEW_GET_PRIVATE(obj) (obj->priv)
 
 G_DEFINE_TYPE (EtMbEntityView, et_mb_entity_view, GTK_TYPE_BOX)
 
@@ -69,7 +67,7 @@ enum ET_MB_DISPLAY_RESULTS
  *
  * Private data for EtMbEntityView.
  */
-typedef struct
+struct _EtMbEntityViewPrivate
 {
     GtkWidget *bread_crumb_box;
     GNode *bread_crumb_nodes[MB_ENTITY_KIND_COUNT];
@@ -84,7 +82,7 @@ typedef struct
     gboolean toggle_red_lines;
     const gchar *text_to_search_in_results;
     GtkTreeViewColumn *color_column;
-} EtMbEntityViewPrivate;
+};
 
 /*
  * SearchInLevelThreadData:
@@ -509,11 +507,11 @@ show_data_in_entity_view (EtMbEntityView *entity_view)
     int i, total_cols, type;
     GList *list_cols, *list;
     GType *types;
-    static const gchar *columns[MB_ENTITY_KIND_COUNT][10] = {
+    static const gchar *column_names[MB_ENTITY_KIND_COUNT][4] = {
         {N_("Name"), N_("Gender"), N_("Type")},
         {N_("Name"), N_("Artist"), N_("Type")},
-        {"Name", "Album", "Artist", "Time"},
-        {"FreeDB ID", "Title", "Artist"}
+        {N_("Name"), N_("Album"), N_("Artist"), N_("Time")},
+        {N_("FreeDB ID"), N_("Title"), N_("Artist")}
     };
 
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
@@ -573,7 +571,7 @@ show_data_in_entity_view (EtMbEntityView *entity_view)
     {
         types[i] = G_TYPE_STRING;
         renderer = gtk_cell_renderer_text_new ();
-        column = gtk_tree_view_column_new_with_attributes (columns[type][i],
+        column = gtk_tree_view_column_new_with_attributes (column_names[type][i],
                                                            renderer, "text",
                                                            i, "foreground-rgba",
                                                            total_cols, NULL);
@@ -723,7 +721,7 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
     g_slice_free (SearchInLevelThreadData, thread_data);
     et_music_brainz_dialog_stop_set_sensitive (FALSE);
 
-    if (exit_on_complete)
+    if (et_music_brainz_get_exit_on_complete ())
     {
         gtk_dialog_response (GTK_DIALOG (mbDialog),
                              GTK_RESPONSE_DELETE_EVENT);
@@ -933,7 +931,12 @@ search_in_levels (EtMbEntityView *entity_view, GNode *child,
 static void
 et_mb_entity_view_init (EtMbEntityView *entity_view)
 {
-    EtMbEntityViewPrivate *priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
+    EtMbEntityViewPrivate *priv;
+    
+    priv = entity_view->priv = G_TYPE_INSTANCE_GET_PRIVATE (entity_view,
+                                                            et_mb_entity_view_get_type (),
+                                                            EtMbEntityViewPrivate);
+
 
     gtk_orientable_set_orientation (GTK_ORIENTABLE (entity_view),
                                     GTK_ORIENTATION_VERTICAL);
@@ -951,12 +954,8 @@ et_mb_entity_view_init (EtMbEntityView *entity_view)
                         FALSE, FALSE, 2);
     gtk_box_pack_start (GTK_BOX (entity_view), priv->scrolled_window,
                         TRUE, TRUE, 2);
-    priv->mb_tree_root = NULL;
-    priv->mb_tree_current_node = NULL;
-    priv->active_toggle_button = NULL;
     priv->toggle_red_lines = TRUE;
     priv->search_or_red = ET_MB_DISPLAY_RESULTS_ALL;
-    priv->list_store = NULL;
     g_signal_connect (G_OBJECT (priv->tree_view), "row-activated",
                       G_CALLBACK (tree_view_row_activated), entity_view);
 }
@@ -1296,15 +1295,9 @@ et_mb_entity_view_clear_all (EtMbEntityView *entity_view)
 static void
 et_mb_entity_view_finalize (GObject *object)
 {
-    EtMbEntityView *entity_view;
-    EtMbEntityViewPrivate *priv;
-
     g_return_if_fail (object != NULL);
     g_return_if_fail (IS_ET_MB_ENTITY_VIEW(object));
 
-    entity_view = ET_MB_ENTITY_VIEW (object);
-    priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
-    g_clear_object (&priv->list_store);
     G_OBJECT_CLASS (et_mb_entity_view_parent_class)->finalize(object);
 }
 

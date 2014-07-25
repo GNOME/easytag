@@ -50,6 +50,7 @@ G_BEGIN_DECLS
  * Declaration *
  ***************/
 
+typedef struct _EtMbEntityViewPrivate EtMbEntityViewPrivate;
 /*
  * EtMbEntityView:
  * @vbox: GtkBox, parent class of EtMbEntityView
@@ -60,6 +61,7 @@ G_BEGIN_DECLS
 typedef struct
 {
     GtkBox vbox;
+    EtMbEntityViewPrivate *priv;
 } EtMbEntityView;
 
 /*
