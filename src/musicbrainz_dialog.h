@@ -45,10 +45,8 @@ G_BEGIN_DECLS
  * Declarations *
  ****************/
 
-GtkBuilder *builder;
-GtkWidget *mbDialog;
-
 typedef struct _EtMusicBrainzDialogPrivate EtMusicBrainzDialogPrivate;
+
 /*
  * EtMbEntityView:
  * @vbox: GtkBox, parent class of EtMbEntityView
@@ -95,6 +93,10 @@ void
 et_music_brainz_dialog_destroy (GtkWidget *widget);
 gboolean
 et_music_brainz_get_exit_on_complete (void);
+void
+et_music_brainz_dialog_set_statusbar_message (gchar *message);
+void
+et_music_brainz_dialog_set_response (GtkResponseType response);
 G_END_DECLS
 #endif /* __MUSICBRAINZ_DIALOG_H__ */
 #endif /* ENABLE_libmusicbrainz */

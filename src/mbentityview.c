@@ -668,10 +668,8 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
     thread_data = user_data;
     entity_view = thread_data->entity_view;
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
+    et_music_brainz_dialog_set_statusbar_message (_("Retrieving Completed"));
 
-    gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder,
-                        "statusbar")),
-                        0, "Retrieving Completed");
     /* Check if child node has children or not */
     if (!g_node_first_child (thread_data->child))
     {
@@ -680,7 +678,8 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
 
     priv->mb_tree_current_node = thread_data->child;
 
-    if (gtk_list_store_iter_is_valid (GTK_LIST_STORE (priv->list_store), &thread_data->iter))
+    if (gtk_list_store_iter_is_valid (GTK_LIST_STORE (priv->list_store),
+                                      &thread_data->iter))
     {
         /* Only run if iter is valid i.e. it is not a Refresh Option */
         children = gtk_container_get_children (GTK_CONTAINER (priv->bread_crumb_box));
@@ -726,8 +725,7 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
 
     if (et_music_brainz_get_exit_on_complete ())
     {
-        gtk_dialog_response (GTK_DIALOG (mbDialog),
-                             GTK_RESPONSE_DELETE_EVENT);
+        et_music_brainz_dialog_set_response (GTK_RESPONSE_DELETE_EVENT);
     }
 }
 
@@ -912,8 +910,7 @@ search_in_levels (EtMbEntityView *entity_view, GNode *child,
         return;
     }
 
-    gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
-                        0, _("Starting MusicBrainz Search"));
+    et_music_brainz_dialog_set_statusbar_message (_("Starting MusicBrainz Search"));
     async_result = g_simple_async_result_new (NULL,
                                               search_in_levels_callback,
                                               thread_data,
