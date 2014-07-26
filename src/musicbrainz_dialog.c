@@ -37,6 +37,10 @@
 #include "application_window.h"
 #include "dlm.h"
 
+#define ET_MUSICBRAINZ_DIALOG_GET_PRIVATE(obj) (obj->priv)
+
+G_DEFINE_TYPE (EtMusicBrainzDialog, et_musicbrainz_dialog, GTK_TYPE_DIALOG)
+
 /***************
  * Declaration *
  ***************/
@@ -154,7 +158,7 @@ typedef struct
  *
  * Private data for MusicBrainzDialog.
  */
-typedef struct
+struct _EtMusicBrainzDialogPrivate
 {
     GNode *mb_tree_root;
     GSimpleAsyncResult *async_result;
@@ -162,9 +166,8 @@ typedef struct
     GtkTreeModel *tag_choice_store;
     GtkWidget *tag_choice_dialog;
     GtkWidget *entityView;
-} MusicBrainzDialogPrivate;
+};
 
-static MusicBrainzDialogPrivate *mb_dialog_priv;
 static gboolean exit_on_complete;
 
 /*
@@ -270,17 +273,11 @@ btn_apply_changes_clicked (GtkWidget *widget, gpointer data);
 static gboolean
 et_apply_track_tag_to_et_file (Mb5Recording recording, ET_File *et_file);
 static void
-et_initialize_tag_choice_dialog (void);
+et_initialize_tag_choice_dialog (EtMusicBrainzDialogPrivate *mb_dialog_priv);
 
 /*************
  * Functions *
  *************/
-
-gboolean
-et_music_brainz_get_exit_on_complete (void)
-{
-    return exit_on_complete;
-}
 
 /*
  * et_mb_destroy_search:
@@ -388,6 +385,9 @@ manual_search_callback (GObject *source, GAsyncResult *res,
                         gpointer user_data)
 {
     GtkComboBoxText *combo_box;
+    EtMusicBrainzDialogPrivate *mb_dialog_priv;
+
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
 
     if (!g_simple_async_result_get_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res)))
     {
@@ -422,73 +422,6 @@ manual_search_callback (GObject *source, GAsyncResult *res,
 }
 
 /*
- * et_show_status_msg_in_idle_cb:
- * @obj: Source Object
- * @res: GAsyncResult
- * @user_data: User data
- *
- * Callback function for Displaying StatusBar Message.
- */
-static void
-et_show_status_msg_in_idle_cb (GObject *obj, GAsyncResult *res,
-                               gpointer user_data)
-{
-    gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder,
-                        "statusbar")), 0, user_data);
-    g_free (user_data);
-    g_object_unref (res);
-}
-
-/*
- * et_show_status_msg_in_idle:
- * @obj: Source Object
- * @res: GAsyncResult
- * @user_data: User data
- *
- * Function to Display StatusBar Messages in Main Thread.
- */
-void
-et_show_status_msg_in_idle (gchar *message)
-{
-    GSimpleAsyncResult *async_res;
-
-    async_res = g_simple_async_result_new (NULL,
-                                           et_show_status_msg_in_idle_cb,
-                                           g_strdup (message),
-                                           et_show_status_msg_in_idle);
-    g_simple_async_result_complete_in_idle (async_res);
-}
-
-/*
- * mb5_search_error_callback:
- * @obj: Source Object
- * @res: GAsyncResult
- * @user_data: User data
- *
- * Callback function for displaying errors.
- */
-void
-mb5_search_error_callback (GObject *source, GAsyncResult *res,
-                           gpointer user_data)
-{
-    GError *dest;
-    dest = NULL;
-    g_simple_async_result_propagate_error (G_SIMPLE_ASYNC_RESULT (res),
-                                           &dest);
-    Log_Print (LOG_ERROR,
-               _("Error searching MusicBrainz Database '%s'"), dest->message);
-    gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder,
-                                       "statusbar")), 0, dest->message);
-    g_error_free (dest);
-    et_music_brainz_dialog_stop_set_sensitive (FALSE);
-
-    if (exit_on_complete)
-    {
-        et_music_brainz_dialog_destroy (mbDialog);
-    }
-}
-
-/*
  * manual_search_thread_func:
  * @res: GSimpleAsyncResult
  * @obj: Source GObject
@@ -503,7 +436,9 @@ manual_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
     GError *error;
     ManualSearchThreadData *thread_data;
     gchar *status_msg;
+    EtMusicBrainzDialogPrivate *mb_dialog_priv;
 
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
     error = NULL;
     g_simple_async_result_set_op_res_gboolean (res, FALSE);
 
@@ -536,7 +471,8 @@ manual_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
     }
 
     if (!et_musicbrainz_search (thread_data->text_to_search,
-                                thread_data->type, mb_dialog_priv->mb_tree_root, &error,
+                                thread_data->type, 
+                                mb_dialog_priv->mb_tree_root, &error,
                                 cancellable))
     {
         g_simple_async_report_gerror_in_idle (NULL,
@@ -573,7 +509,9 @@ btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
     GtkWidget *cb_manual_search_in;
     int type;
     ManualSearchThreadData *thread_data;
+    EtMusicBrainzDialogPrivate *mb_dialog_priv;
 
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
     cb_manual_search_in = GTK_WIDGET (gtk_builder_get_object (builder,
                                                               "cbManualSearchIn"));
     type = gtk_combo_box_get_active (GTK_COMBO_BOX (cb_manual_search_in));
@@ -618,6 +556,9 @@ btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
 static void
 tool_btn_toggle_red_lines_clicked (GtkWidget *btn, gpointer user_data)
 {
+    EtMusicBrainzDialogPrivate *mb_dialog_priv;
+
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
     et_mb_entity_view_toggle_red_lines (ET_MB_ENTITY_VIEW (mb_dialog_priv->entityView));
 }
 
@@ -631,6 +572,9 @@ tool_btn_toggle_red_lines_clicked (GtkWidget *btn, gpointer user_data)
 static void
 tool_btn_up_clicked (GtkWidget *btn, gpointer user_data)
 {
+    EtMusicBrainzDialogPrivate *mb_dialog_priv;
+
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
     et_mb_entity_view_select_up (ET_MB_ENTITY_VIEW (mb_dialog_priv->entityView));
 }
 
@@ -644,6 +588,9 @@ tool_btn_up_clicked (GtkWidget *btn, gpointer user_data)
 static void
 tool_btn_down_clicked (GtkWidget *btn, gpointer user_data)
 {
+    EtMusicBrainzDialogPrivate *mb_dialog_priv;
+
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
     et_mb_entity_view_select_down (ET_MB_ENTITY_VIEW (mb_dialog_priv->entityView));
 }
 
@@ -657,6 +604,9 @@ tool_btn_down_clicked (GtkWidget *btn, gpointer user_data)
 static void
 tool_btn_invert_selection_clicked (GtkWidget *btn, gpointer user_data)
 {
+    EtMusicBrainzDialogPrivate *mb_dialog_priv;
+
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
     et_mb_entity_view_invert_selection (ET_MB_ENTITY_VIEW (mb_dialog_priv->entityView));
 }
 
@@ -670,6 +620,9 @@ tool_btn_invert_selection_clicked (GtkWidget *btn, gpointer user_data)
 static void
 tool_btn_select_all_clicked (GtkWidget *btn, gpointer user_data)
 {
+    EtMusicBrainzDialogPrivate *mb_dialog_priv;
+
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
     et_mb_entity_view_select_all (ET_MB_ENTITY_VIEW (mb_dialog_priv->entityView));
 }
 
@@ -683,6 +636,9 @@ tool_btn_select_all_clicked (GtkWidget *btn, gpointer user_data)
 static void
 tool_btn_unselect_all_clicked (GtkWidget *btn, gpointer user_data)
 {
+    EtMusicBrainzDialogPrivate *mb_dialog_priv;
+
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
     et_mb_entity_view_unselect_all (ET_MB_ENTITY_VIEW (mb_dialog_priv->entityView));
 }
 
@@ -696,6 +652,10 @@ tool_btn_unselect_all_clicked (GtkWidget *btn, gpointer user_data)
 static void
 tool_btn_refresh_clicked (GtkWidget *btn, gpointer user_data)
 {
+    EtMusicBrainzDialogPrivate *mb_dialog_priv;
+
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
+
     if (!mb_dialog_priv->search)
     {
         return;
@@ -767,6 +727,9 @@ btn_manual_stop_clicked (GtkWidget *btn, gpointer user_data)
 static void
 entry_tree_view_search_changed (GtkEditable *editable, gpointer user_data)
 {
+    EtMusicBrainzDialogPrivate *mb_dialog_priv;
+
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
     et_mb_entity_view_search_in_results (ET_MB_ENTITY_VIEW (mb_dialog_priv->entityView),
                                          gtk_entry_get_text (GTK_ENTRY (gtk_builder_get_object (builder,
                                                                         "entryTreeViewSearch"))));
@@ -784,6 +747,10 @@ static void
 selected_find_callback (GObject *source, GAsyncResult *res,
                         gpointer user_data)
 {
+    EtMusicBrainzDialogPrivate *mb_dialog_priv;
+
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
+
     if (!g_simple_async_result_get_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res)))
     {
         g_object_unref (res);
@@ -828,7 +795,9 @@ selected_find_thread_func (GSimpleAsyncResult *res, GObject *obj,
     GList *iter;
     SelectedFindThreadData *thread_data;
     GError *error;
+    EtMusicBrainzDialogPrivate *mb_dialog_priv;
 
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
     g_simple_async_result_set_op_res_gboolean (res, FALSE);
     error = NULL;
     thread_data = (SelectedFindThreadData *)g_async_result_get_user_data (G_ASYNC_RESULT (res));
@@ -956,9 +925,11 @@ btn_selected_find_clicked (GtkWidget *button, gpointer data)
     SelectedFindThreadData *thread_data;
     GtkTreeView *browser_list;
     GtkTreeSelection *selection;
+    EtMusicBrainzDialogPrivate *mb_dialog_priv;
 
     selection = et_application_window_browser_get_selection (ET_APPLICATION_WINDOW (MainWindow));
     browser_list = gtk_tree_selection_get_tree_view (selection);
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
     iter_list = NULL;
     l = NULL;
 
@@ -1053,6 +1024,10 @@ static void
 discid_search_callback (GObject *source, GAsyncResult *res,
                         gpointer user_data)
 {
+    EtMusicBrainzDialogPrivate *mb_dialog_priv;
+
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
+
     if (!g_simple_async_result_get_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res)))
     {
         g_object_unref (res);
@@ -1090,7 +1065,9 @@ discid_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
     GError *error;
     DiscId *disc;
     gchar *discid;
+    EtMusicBrainzDialogPrivate *mb_dialog_priv;
 
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
     error = NULL;
     disc = discid_new ();
     g_simple_async_result_set_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res),
@@ -1148,6 +1125,9 @@ discid_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
 static void
 btn_discid_search_clicked (GtkWidget *button, gpointer data)
 {
+    EtMusicBrainzDialogPrivate *mb_dialog_priv;
+
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
     mb5_search_cancellable = g_cancellable_new ();
     gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder, "statusbar")),
                         0, _("Starting MusicBrainz Search"));
@@ -1186,6 +1166,10 @@ static void
 freedbid_search_callback (GObject *source, GAsyncResult *res,
                           gpointer user_data)
 {
+    EtMusicBrainzDialogPrivate *mb_dialog_priv;
+
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
+
     if (!g_simple_async_result_get_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res)))
     {
         g_object_unref (res);
@@ -1224,7 +1208,9 @@ freedbid_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
 {
     GError *error;
     gchar *freedbid;
+    EtMusicBrainzDialogPrivate *mb_dialog_priv;
 
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
     error = NULL;
     g_simple_async_result_set_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res),
                                                FALSE);
@@ -1276,7 +1262,9 @@ btn_automatic_search_clicked (GtkWidget *btn, gpointer data)
     guint disc_length;
     gchar *cddb_discid;
     GtkTreeView *browser_list;
+    EtMusicBrainzDialogPrivate *mb_dialog_priv;
 
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
     total_frames = 150;
     disc_length  = 2;
     iter_list = NULL;
@@ -1396,20 +1384,6 @@ btn_automatic_search_clicked (GtkWidget *btn, gpointer data)
 }
 
 /*
- * et_music_brainz_dialog_stop_set_sensitive:
- * @sensitive: gboolean
- *
- * Set btnStop and mb_dialog_priv->entityView as sensitive according to @sensitive.
- */
-void
-et_music_brainz_dialog_stop_set_sensitive (gboolean sensitive)
-{
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btnStop")),
-                              sensitive);
-    gtk_widget_set_sensitive (mb_dialog_priv->entityView, !sensitive);
-}
-
-/*
  * et_set_file_tag:
  * @et_file: ET_File 
  * @title: Title
@@ -1455,9 +1429,11 @@ btn_apply_changes_clicked (GtkWidget *btn, gpointer data)
     GList *list_iter2;
     GtkTreeView *browser_list;
     GtkTreeSelection *selection;
+    EtMusicBrainzDialogPrivate *mb_dialog_priv;
 
     selection = et_application_window_browser_get_selection (ET_APPLICATION_WINDOW (MainWindow));
-    browser_list = gtk_tree_selection_get_tree_view (selection);       
+    browser_list = gtk_tree_selection_get_tree_view (selection);
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
     file_iter_list = NULL;
     track_iter_list = NULL;
 
@@ -1607,7 +1583,9 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, ET_File *et_file)
     GtkTreeIter iter;
     GtkTreeSelection *selection;
     GtkWidget *tag_choice_tree_view;
+    EtMusicBrainzDialogPrivate *mb_dialog_priv;
 
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
     tag_choice_tree_view = GTK_WIDGET (gtk_builder_get_object (builder, "tag_choice_treeview"));
     release_list = mb5_recording_get_releaselist (recording);
     artist = et_mb5_recording_get_artists_names (recording);
@@ -1720,18 +1698,8 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, ET_File *et_file)
 void
 et_music_brainz_dialog_destroy (GtkWidget *widget)
 {
-    et_mb_destroy_search (&mb_dialog_priv->search);
-
-    if (GTK_IS_WIDGET (mb_dialog_priv->tag_choice_dialog))
-    {
-        gtk_widget_destroy (mb_dialog_priv->tag_choice_dialog);
-    }
-
     gtk_widget_destroy (widget);
     g_object_unref (G_OBJECT (builder));
-    free_mb_tree (&mb_dialog_priv->mb_tree_root);
-    g_slice_free (MusicBrainzDialogPrivate, mb_dialog_priv);
-    mb_dialog_priv = NULL;
 }
 
 /*
@@ -1740,13 +1708,13 @@ et_music_brainz_dialog_destroy (GtkWidget *widget)
  * Initialize the Tag Choice Dialog.
  */
 static void
-et_initialize_tag_choice_dialog (void)
+et_initialize_tag_choice_dialog (EtMusicBrainzDialogPrivate *mb_dialog_priv)
 {
     GtkWidget *tag_choice_list;
     GtkCellRenderer *renderer;
     GtkTreeViewColumn *column;
     GtkListStore *list_store;
-
+    
     mb_dialog_priv->tag_choice_dialog = GTK_WIDGET (gtk_builder_get_object (builder,
                                                                             "tag_choice_dialog"));
     tag_choice_list = GTK_WIDGET (gtk_builder_get_object (builder,
@@ -1809,19 +1777,149 @@ et_initialize_tag_choice_dialog (void)
                                  column);
 }
 
+gboolean
+et_music_brainz_get_exit_on_complete (void)
+{
+    return exit_on_complete;
+}
+
 /*
- * et_open_musicbrainz_dialog:
+ * et_show_status_msg_in_idle_cb:
+ * @obj: Source Object
+ * @res: GAsyncResult
+ * @user_data: User data
  *
- * This function will open the musicbrainz dialog.
+ * Callback function for Displaying StatusBar Message.
+ */
+static void
+et_show_status_msg_in_idle_cb (GObject *obj, GAsyncResult *res,
+                               gpointer user_data)
+{
+    gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder,
+                        "statusbar")), 0, user_data);
+    g_free (user_data);
+    g_object_unref (res);
+}
+
+/*
+ * et_show_status_msg_in_idle_cb:
+ * @obj: Source Object
+ * @res: GAsyncResult
+ * @user_data: User data
+ *
+ * Function to Display StatusBar Messages in Main Thread.
  */
 void
-et_open_musicbrainz_dialog ()
+et_show_status_msg_in_idle (gchar *message)
 {
+    GSimpleAsyncResult *async_res;
+
+    async_res = g_simple_async_result_new (NULL,
+                                           et_show_status_msg_in_idle_cb,
+                                           g_strdup (message),
+                                           et_show_status_msg_in_idle);
+    g_simple_async_result_complete_in_idle (async_res);
+}
+
+/*
+ * et_music_brainz_dialog_stop_set_sensitive:
+ * @sensitive: gboolean
+ *
+ * Set btnStop and mb_dialog_priv->entityView as sensitive according to @sensitive.
+ */
+void
+et_music_brainz_dialog_stop_set_sensitive (gboolean sensitive)
+{
+    EtMusicBrainzDialogPrivate *mb_dialog_priv;
+
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btnStop")),
+                              sensitive);
+    gtk_widget_set_sensitive (mb_dialog_priv->entityView, !sensitive);
+}
+
+/*
+ * mb5_search_error_callback:
+ * @obj: Source Object
+ * @res: GAsyncResult
+ * @user_data: User data
+ *
+ * Callback function for displaying errors.
+ */
+void
+mb5_search_error_callback (GObject *source, GAsyncResult *res,
+                           gpointer user_data)
+{
+    GError *dest;
+    dest = NULL;
+    g_simple_async_result_propagate_error (G_SIMPLE_ASYNC_RESULT (res),
+                                           &dest);
+    Log_Print (LOG_ERROR,
+               _("Error searching MusicBrainz Database '%s'"), dest->message);
+    gtk_statusbar_push (GTK_STATUSBAR (gtk_builder_get_object (builder,
+                                       "statusbar")), 0, dest->message);
+    g_error_free (dest);
+    et_music_brainz_dialog_stop_set_sensitive (FALSE);
+
+    if (exit_on_complete)
+    {
+        et_music_brainz_dialog_destroy (mbDialog);
+    }
+}
+
+/*
+ * et_mb_entity_view_destroy:
+ * @object: EtMbEntityView
+ *
+ * Overloaded destructor for EtMbEntityView.
+ */
+static void
+et_musicbrainz_dialog_finalize (GObject *object)
+{
+    EtMusicBrainzDialogPrivate *mb_dialog_priv;
+
+    g_return_if_fail (object != NULL);
+    g_return_if_fail (IS_ET_MUSICBRAINZ_DIALOG(object));
+
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
+    et_mb_destroy_search (&mb_dialog_priv->search);
+    gtk_widget_destroy (mb_dialog_priv->tag_choice_dialog);
+    G_OBJECT_CLASS (et_musicbrainz_dialog_parent_class)->finalize(object);
+    free_mb_tree (&mb_dialog_priv->mb_tree_root);
+}
+
+/*
+ * et_mb_entity_view_class_init:
+ * @klass: EtMbEntityViewClass to initialize.
+ *
+ * Initializes an EtMbEntityViewClass class.
+ */
+static void
+et_musicbrainz_dialog_class_init (EtMusicBrainzDialogClass *klass)
+{
+    g_type_class_add_private (klass, sizeof (EtMusicBrainzDialogPrivate));
+    G_OBJECT_CLASS (klass)->finalize = et_musicbrainz_dialog_finalize;
+}
+
+/*
+ * et_mb_entity_view_init:
+ * @entity_view: EtMbEntityView to initialize.
+ *
+ * Initializes an EtMbEntityView.
+ */
+static void
+et_musicbrainz_dialog_init (EtMusicBrainzDialog *dialog)
+{
+    EtMusicBrainzDialogPrivate *priv;
     GtkWidget *cb_manual_search_in;
     GtkWidget *cb_search;
+    GtkWidget *box;
     GError *error;
     ET_File *et_file;
 
+    priv = dialog->priv = G_TYPE_INSTANCE_GET_PRIVATE (dialog,
+                                                       et_musicbrainz_dialog_get_type (),
+                                                       EtMusicBrainzDialogPrivate);
     builder = gtk_builder_new ();
     error = NULL;
 
@@ -1837,17 +1935,19 @@ et_open_musicbrainz_dialog ()
         return;
     }
 
-    mb_dialog_priv = g_slice_new (MusicBrainzDialogPrivate);
-    mb_dialog_priv->mb_tree_root = g_node_new (NULL);
-    mb_dialog_priv->search = NULL;
+    priv->mb_tree_root = g_node_new (NULL);
+    priv->search = NULL;
     exit_on_complete = FALSE;
-    mb_dialog_priv->entityView = et_mb_entity_view_new ();
-    mbDialog = GTK_WIDGET (gtk_builder_get_object (builder, "mbDialog"));
-    gtk_widget_set_size_request (mbDialog, 660, 500);
+    priv->entityView = et_mb_entity_view_new ();
+    box = GTK_WIDGET (gtk_builder_get_object (builder, "mb_box"));
+    gtk_window_set_title (GTK_WINDOW (dialog), "MusicBrainz Search");
+    gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))),
+                        box, TRUE, TRUE, 2);
+    gtk_widget_set_size_request (GTK_WIDGET (dialog), 660, 500);
     gtk_box_pack_start (GTK_BOX (gtk_builder_get_object (builder, "centralBox")),
-                        mb_dialog_priv->entityView, TRUE, TRUE, 2);
+                        priv->entityView, TRUE, TRUE, 2);
 
-    et_initialize_tag_choice_dialog ();
+    et_initialize_tag_choice_dialog (priv);
     cb_search = GTK_WIDGET (gtk_builder_get_object (builder, "cbManualSearch"));
     g_signal_connect (gtk_bin_get_child (GTK_BIN (cb_search)), "activate",
                       G_CALLBACK (btn_manual_find_clicked), NULL);
@@ -1917,7 +2017,30 @@ et_open_musicbrainz_dialog ()
         gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (cb_search))),
                             ((File_Tag *)et_file->FileTag->data)->album);
     }
+}
 
+/*
+ * et_mb_entity_view_new:
+ *
+ * Creates a new EtMbEntityView.
+ *
+ * Returns: GtkWidget, a new EtMbEntityView.
+ */
+GtkWidget *
+et_musicbrainz_dialog_new ()
+{
+    return GTK_WIDGET (g_object_new (et_musicbrainz_dialog_get_type (), NULL));
+}
+
+/*
+ * et_open_musicbrainz_dialog:
+ *
+ * This function will open the musicbrainz dialog.
+ */
+void
+et_open_musicbrainz_dialog ()
+{
+    mbDialog = et_musicbrainz_dialog_new ();
     gtk_widget_show_all (mbDialog);
     gtk_dialog_run (GTK_DIALOG (mbDialog));
 
