@@ -25,6 +25,22 @@
 
 #ifdef ENABLE_libmusicbrainz
 
+G_BEGIN_DECLS
+
+#define ET_MUSICBRAINZ_DIALOG_TYPE (et_musicbrainz_dialog_get_type ())
+#define ET_MUSICBRAINZ_DIALOG(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), \
+                                                                ET_MUSICBRAINZ_DIALOG_TYPE, \
+                                                                EtMusicBrainzDialog))
+
+#define ET_MUSICBRAINZ_DIALOG_CLASS(klass) (G_TYPE_CHECK_INSTANCE_CAST ((klass), \
+                                                                        ET_MUSICBRAINZ_DIALOG_TYPE, \
+                                                                        EtMusicBrainzDialog))
+
+#define IS_ET_MUSICBRAINZ_DIALOG(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), \
+                                                                   ET_MUSICBRAINZ_DIALOG_TYPE))
+
+#define IS_ET_MUSICBRAINZ_DIALOG_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), \
+                                                                        ET_MUSICBRAINZ_DIALOG_TYPE))
 /****************
  * Declarations *
  ****************/
@@ -32,10 +48,40 @@
 GtkBuilder *builder;
 GtkWidget *mbDialog;
 
+typedef struct _EtMusicBrainzDialogPrivate EtMusicBrainzDialogPrivate;
+/*
+ * EtMbEntityView:
+ * @vbox: GtkBox, parent class of EtMbEntityView
+ *
+ * This widget is used to show data recieved from music brainz and helps to
+ * navigate in it using breadcrumb widget.
+ */
+typedef struct
+{
+    GtkDialog dialog;
+    EtMusicBrainzDialogPrivate *priv;
+} EtMusicBrainzDialog;
+
+/*
+ * EtMbEntityViewClass:
+ * @parent: GtkBoxClass, parent class of EtMbEntityViewClass
+ *
+ * Class of EtMbEntityView.
+ */
+typedef struct
+{
+    GtkDialogClass parent;
+} EtMusicBrainzDialogClass;
+
+
 /**************
  * Prototypes *
  **************/
 
+GType
+et_musicbrainz_dialog_get_type (void);
+GtkWidget *
+et_musicbrainz_dialog_new (void);
 void
 et_open_musicbrainz_dialog (void);
 void
@@ -49,5 +95,6 @@ void
 et_music_brainz_dialog_destroy (GtkWidget *widget);
 gboolean
 et_music_brainz_get_exit_on_complete (void);
+G_END_DECLS
 #endif /* __MUSICBRAINZ_DIALOG_H__ */
 #endif /* ENABLE_libmusicbrainz */
