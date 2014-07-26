@@ -75,6 +75,10 @@ discid_handler (SoupServer *server, SoupMessage *msg, const char *path,
                 GHashTable *query, SoupClientContext *client,
                 gpointer user_data);
 static void 
+freedb_handler (SoupServer *server, SoupMessage *msg, const char *path,
+                GHashTable *query, SoupClientContext *client,
+                gpointer user_data);                
+static void 
 discid_release_handler (SoupServer *server, SoupMessage *msg, 
                         const char *path, GHashTable *query,
                         SoupClientContext *client,
@@ -90,7 +94,7 @@ mb_search_test (void)
 
     err = NULL;
     mbTreeNode = g_node_new (NULL);
-    if (et_musicbrainz_search ("Westlife", MB_ENTITY_TYPE_ARTIST, mbTreeNode,
+    if (et_musicbrainz_search ("Westlife", MB_ENTITY_KIND_ARTIST, mbTreeNode,
                                &err, NULL))
     {
         EtMbEntity *etentity;
@@ -98,17 +102,17 @@ mb_search_test (void)
         etentity = (EtMbEntity *)(g_node_first_child (mbTreeNode)->data);
         mb5_artist_get_name (etentity->entity, name, NAME_MAX_SIZE);
         g_assert_cmpstr (name, ==, "Westlife");
-        free_mb_tree (mbTreeNode);
+        free_mb_tree (&mbTreeNode);
     }
     else
     {
-        free_mb_tree (mbTreeNode);
+        free_mb_tree (&mbTreeNode);
         return;
     }
 
     mbTreeNode = g_node_new (NULL);
 
-    if (et_musicbrainz_search ("Never Gone", MB_ENTITY_TYPE_ALBUM, mbTreeNode,
+    if (et_musicbrainz_search ("Never Gone", MB_ENTITY_KIND_ALBUM, mbTreeNode,
                                &err, NULL))
     {
         EtMbEntity *etentity;
@@ -116,17 +120,17 @@ mb_search_test (void)
         etentity = (EtMbEntity *)(g_node_first_child (mbTreeNode)->data);
         mb5_release_get_title (etentity->entity, name, NAME_MAX_SIZE);
         g_assert_cmpstr (name, ==, "Never Gone");
-        free_mb_tree (mbTreeNode);
+        free_mb_tree (&mbTreeNode);
     }
     else
     {
-        free_mb_tree (mbTreeNode);
+        free_mb_tree (&mbTreeNode);
         return;
     }
 
     mbTreeNode = g_node_new (NULL);
 
-    if (et_musicbrainz_search ("I Still", MB_ENTITY_TYPE_TRACK, mbTreeNode,
+    if (et_musicbrainz_search ("I Still", MB_ENTITY_KIND_TRACK, mbTreeNode,
                                &err, NULL))
     {
         EtMbEntity *etentity;
@@ -134,18 +138,18 @@ mb_search_test (void)
         etentity = (EtMbEntity *)(g_node_first_child (mbTreeNode)->data);
         mb5_recording_get_title (etentity->entity, name, NAME_MAX_SIZE);
         g_assert_cmpstr (name, ==, "I Still...");
-        free_mb_tree (mbTreeNode);
+        free_mb_tree (&mbTreeNode);
     }
     else
     {
-        free_mb_tree (mbTreeNode);
+        free_mb_tree (&mbTreeNode);
         return;
     }
 
     mbTreeNode = g_node_new (NULL);
 
     if (et_musicbrainz_search ("lwHl8fGzJyLXQR33ug60E8jhf4k-",
-                               MB_ENTITY_TYPE_DISCID, mbTreeNode,
+                               MB_ENTITY_KIND_DISCID, mbTreeNode,
                                &err, NULL))
     {
         EtMbEntity *etentity;
@@ -153,11 +157,30 @@ mb_search_test (void)
         etentity = (EtMbEntity *)(g_node_first_child (mbTreeNode)->data);
         mb5_recording_get_title (etentity->entity, name, NAME_MAX_SIZE);
         g_assert_cmpstr (name, ==, "Praat geen poep");
-        free_mb_tree (mbTreeNode);
+        free_mb_tree (&mbTreeNode);
     }
     else
     {
-        free_mb_tree (mbTreeNode);
+        free_mb_tree (&mbTreeNode);
+        return;
+    }
+
+    mbTreeNode = g_node_new (NULL);
+
+    if (et_musicbrainz_search ("24028103",
+                               MB_ENTITY_KIND_FREEDBID, mbTreeNode,
+                               &err, NULL))
+    {
+        EtMbEntity *etentity;
+
+        etentity = (EtMbEntity *)(g_node_first_child (mbTreeNode)->data);
+        mb5_freedbdisc_get_title (etentity->entity, name, NAME_MAX_SIZE);
+        g_assert_cmpstr (name, ==, "Rubbish");
+        free_mb_tree (&mbTreeNode);
+    }
+    else
+    {
+        free_mb_tree (&mbTreeNode);
         return;
     }
 }
@@ -171,7 +194,7 @@ mb_search_in_test (void)
     err = NULL;
     mbTreeNode = g_node_new (NULL);
 
-    if (et_musicbrainz_search ("Westlife", MB_ENTITY_TYPE_ARTIST, mbTreeNode,
+    if (et_musicbrainz_search ("Westlife", MB_ENTITY_KIND_ARTIST, mbTreeNode,
                                &err, NULL))
     {
         EtMbEntity *etentity;
@@ -184,8 +207,8 @@ mb_search_in_test (void)
 
         mb5_artist_get_id (etentity->entity, mbid, NAME_MAX_SIZE);
 
-        if (et_musicbrainz_search_in_entity (MB_ENTITY_TYPE_ALBUM,
-                                             MB_ENTITY_TYPE_ARTIST, mbid,
+        if (et_musicbrainz_search_in_entity (MB_ENTITY_KIND_ALBUM,
+                                             MB_ENTITY_KIND_ARTIST, mbid,
                                              westlife_node, &err, NULL))
         {
             EtMbEntity *etentity;
@@ -196,17 +219,17 @@ mb_search_in_test (void)
                              "Unbreakable: The Greatest Hits, Volume 1");
         }
 
-        free_mb_tree (mbTreeNode);
+        free_mb_tree (&mbTreeNode);
     }
     else
     {
-        free_mb_tree (mbTreeNode);
+        free_mb_tree (&mbTreeNode);
         return;
     }
 
     mbTreeNode = g_node_new (NULL);
 
-    if (et_musicbrainz_search ("Never Gone", MB_ENTITY_TYPE_ALBUM, mbTreeNode,
+    if (et_musicbrainz_search ("Never Gone", MB_ENTITY_KIND_ALBUM, mbTreeNode,
                                &err, NULL))
     {
         EtMbEntity *etentity;
@@ -218,8 +241,8 @@ mb_search_in_test (void)
         g_assert_cmpstr (name, ==, "Never Gone");
         mb5_release_get_id (etentity->entity, mbid, NAME_MAX_SIZE);
 
-        if (et_musicbrainz_search_in_entity (MB_ENTITY_TYPE_TRACK,
-                                             MB_ENTITY_TYPE_ALBUM, mbid,
+        if (et_musicbrainz_search_in_entity (MB_ENTITY_KIND_TRACK,
+                                             MB_ENTITY_KIND_ALBUM, mbid,
                                              never_gone_node, &err, NULL))
         {
             EtMbEntity *etentity;
@@ -229,11 +252,11 @@ mb_search_in_test (void)
             g_assert_cmpstr (name, ==, "I Still...");
         }
 
-        free_mb_tree (mbTreeNode);
+        free_mb_tree (&mbTreeNode);
     }
     else
     {
-        free_mb_tree (mbTreeNode);
+        free_mb_tree (&mbTreeNode);
         return;
     }
 }
@@ -461,6 +484,21 @@ discid_release_handler (SoupServer *server, SoupMessage *msg,
     soup_message_set_status (msg, 200);
 }
 
+static void 
+freedb_handler (SoupServer *server, SoupMessage *msg, const char *path,
+                GHashTable *query, SoupClientContext *client,
+                gpointer user_data)
+{    
+    gchar *response_text;
+    gsize length;
+
+    g_file_get_contents ("./tests/freedb.xml", &response_text, &length,
+                         NULL);
+    soup_message_set_response (msg, "application/xml", SOUP_MEMORY_TAKE,
+                               response_text, strlen (response_text));
+    soup_message_set_status (msg, 200);
+}
+
 static gpointer
 run_server (gpointer data)
 {
@@ -513,7 +551,8 @@ main (int argc, char** argv)
                              NULL);
     soup_server_add_handler (server, "/ws/2/discid",
                              (SoupServerCallback)discid_handler, NULL, NULL);
-
+    soup_server_add_handler (server, "/ws/2/freedb",
+                             (SoupServerCallback)freedb_handler, NULL, NULL);
     /* Running Server in a new thread */
     thread = g_thread_new ("Server", run_server, NULL);
 
