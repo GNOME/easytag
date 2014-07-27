@@ -1833,7 +1833,8 @@ et_show_status_msg_in_idle (gchar *message)
  * et_music_brainz_dialog_stop_set_sensitive:
  * @sensitive: gboolean
  *
- * Set btnStop and mb_dialog_priv->entityView as sensitive according to @sensitive.
+ * Set btnStop, EtMbEntityView and other widgets as sensitive 
+ * according to @sensitive.
  */
 void
 et_music_brainz_dialog_stop_set_sensitive (gboolean sensitive)
@@ -1844,6 +1845,30 @@ et_music_brainz_dialog_stop_set_sensitive (gboolean sensitive)
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btnStop")),
                               sensitive);
     gtk_widget_set_sensitive (mb_dialog_priv->entityView, !sensitive);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btnManualFind")),
+                              !sensitive);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btnSelectedFind")),
+                              !sensitive);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btnAutomaticSearch")),
+                              !sensitive);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btnDiscFind")),
+                              !sensitive);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "entryTreeViewSearch")),
+                              !sensitive);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtnUp")),
+                              !sensitive);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtnDown")),
+                              !sensitive);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtnInvertSelection")),
+                              !sensitive);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtnSelectAll")),
+                              !sensitive);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtnSelectAll")),
+                              !sensitive);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtnToggleRedLines")),
+                              !sensitive);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtnRefresh")),
+                              !sensitive);
 }
 
 /*
