@@ -281,12 +281,24 @@ et_initialize_tag_choice_dialog (EtMusicBrainzDialogPrivate *mb_dialog_priv);
  * Functions *
  *************/
 
+/*
+ * et_music_brainz_dialog_set_response:
+ * @response: Response of GtkDialog
+ *
+ * Set the Response of MusicBrainzDialog and exit it.
+ */
 void
 et_music_brainz_dialog_set_response (GtkResponseType response)
 {
     gtk_dialog_response (GTK_DIALOG (mbDialog), response);
 }
 
+/*
+ * et_music_brainz_dialog_set_statusbar_message:
+ * @message: Message to be displayed
+ *
+ * Display message in Statusbar.
+ */
 void
 et_music_brainz_dialog_set_statusbar_message (gchar *message)
 {
@@ -920,6 +932,8 @@ get_selected_iter_list (GtkTreeView *tree_view, GList **list)
                                                 NULL);
     }
 
+    *list = g_list_reverse (*list);
+
     return count;
 }
 
@@ -1539,10 +1553,9 @@ btn_apply_changes_clicked (GtkWidget *btn, gpointer data)
 
         album_entity = et_mb_entity_view_get_current_entity (ET_MB_ENTITY_VIEW (mb_dialog_priv->entityView));
         mb5_release_get_title (album_entity->entity, album, sizeof (album));
-        list_iter2 = file_iter_list;
 
-        for (list_iter1 = track_iter_list; list_iter1 && list_iter2;
-             list_iter1 = g_list_next (list_iter1),
+        for (list_iter1 = track_iter_list, list_iter2 = file_iter_list;
+             list_iter1 && list_iter2; list_iter1 = g_list_next (list_iter1),
              list_iter2 = g_list_next (list_iter2))
         {
             ET_File *et_file;
@@ -1550,14 +1563,7 @@ btn_apply_changes_clicked (GtkWidget *btn, gpointer data)
             et_entity = list_iter1->data;
             et_file = Browser_List_Get_ETFile_From_Iter (list_iter2->data);
 
-            if (et_apply_track_tag_to_et_file (et_entity->entity,
-                                               et_file))
-            {
-                while (gtk_events_pending ())
-                {
-                    gtk_main_iteration ();
-                }
-            }
+            et_apply_track_tag_to_et_file (et_entity->entity, et_file);
         }
     }
 
@@ -1868,6 +1874,8 @@ et_music_brainz_dialog_stop_set_sensitive (gboolean sensitive)
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtnToggleRedLines")),
                               !sensitive);
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtnRefresh")),
+                              !sensitive);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btnApplyChanges")),
                               !sensitive);
 }
 

@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
-  <object class="GtkImage" id="img_red_lines">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">easytag-red-lines</property>
-  </object>
-  <object class="GtkImage" id="img_unselect_all">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">easytag-unselect-all</property>
-  </object>
   <object class="GtkImage" id="findimage">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -20,6 +10,16 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="stock">easytag-invert-selection</property>
+  </object>
+  <object class="GtkImage" id="img_red_lines">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">easytag-red-lines</property>
+  </object>
+  <object class="GtkImage" id="img_unselect_all">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">easytag-unselect-all</property>
   </object>
   <object class="GtkBox" id="mb_box">
     <property name="visible">True</property>
@@ -461,6 +461,7 @@
   <object class="GtkDialog" id="tag_choice_dialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
+    <property name="title" translatable="yes">Select the Tag you want apply</property>
     <property name="type_hint">dialog</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox2">
@@ -506,19 +507,6 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="label1">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="xalign">0</property>
-            <property name="label" translatable="yes">Select the Tag you want to apply:</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkScrolledWindow" id="scrolledwindow1">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -536,7 +524,7 @@
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
-            <property name="position">2</property>
+            <property name="position">1</property>
           </packing>
         </child>
       </object>

@@ -1378,6 +1378,9 @@ et_mb_entity_view_get_selected_entity_list (EtMbEntityView *entity_view,
         while (child != NULL);
     }
 
+    /* Reverse the list as we are prepending elements to it */
+    *list = g_list_reverse (*list);
+
     return count;
 }
 #endif /* ENABLE_libmusicbrainz */
