@@ -421,6 +421,7 @@ manual_search_callback (GObject *source, GAsyncResult *res,
     {
         g_object_unref (res);
         g_slice_free (ManualSearchThreadData, user_data);
+        et_music_brainz_dialog_stop_set_sensitive (FALSE);
 
         if (mb_dialog_priv)
         {
@@ -437,7 +438,7 @@ manual_search_callback (GObject *source, GAsyncResult *res,
                         "statusbar")), 0, _("Searching Completed"));
     g_object_unref (res);
     combo_box = GTK_COMBO_BOX_TEXT (gtk_builder_get_object (builder,
-                                                            "cbManualSearch"));
+                                                            "cb_manual_search"));
     gtk_combo_box_text_append_text (combo_box,
                                     gtk_combo_box_text_get_active_text (combo_box));
     et_music_brainz_dialog_stop_set_sensitive (FALSE);
@@ -528,7 +529,7 @@ manual_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
  * @btn: GtkButton
  * @user_data: User data
  *
- * Signal Handler for "clicked" signal of btnManualFind.
+ * Signal Handler for "clicked" signal of btn_manual_find.
  */
 static void
 btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
@@ -541,7 +542,7 @@ btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
 
     mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
     cb_manual_search_in = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                              "cbManualSearchIn"));
+                                                              "cb_manual_search_in"));
     type = gtk_combo_box_get_active (GTK_COMBO_BOX (cb_manual_search_in));
 
     if (type == -1)
@@ -557,7 +558,7 @@ btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
  
     et_mb_entity_view_clear_all (ET_MB_ENTITY_VIEW (mb_dialog_priv->entityView));
     cb_manual_search = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                           "cbManualSearch"));
+                                                           "cb_manual_search"));
     thread_data = g_slice_new (ManualSearchThreadData);
     thread_data->type = type;
     thread_data->text_to_search = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (cb_manual_search));
@@ -579,7 +580,7 @@ btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
  * @btn: GtkButton
  * @user_data: User data
  *
- * Signal Handler for "clicked" signal of toolbtnToggleRedLines.
+ * Signal Handler for "clicked" signal of toolbtn_toggle_red_lines.
  */
 static void
 tool_btn_toggle_red_lines_clicked (GtkWidget *btn, gpointer user_data)
@@ -595,7 +596,7 @@ tool_btn_toggle_red_lines_clicked (GtkWidget *btn, gpointer user_data)
  * @btn: GtkButton
  * @user_data: User data
  *
- * Signal Handler for "clicked" signal of toolbtnUp.
+ * Signal Handler for "clicked" signal of toolbtn_up.
  */
 static void
 tool_btn_up_clicked (GtkWidget *btn, gpointer user_data)
@@ -611,7 +612,7 @@ tool_btn_up_clicked (GtkWidget *btn, gpointer user_data)
  * @btn: GtkButton
  * @user_data: User data
  *
- * Signal Handler for "clicked" signal of toolbtnDown.
+ * Signal Handler for "clicked" signal of toolbtn_down.
  */
 static void
 tool_btn_down_clicked (GtkWidget *btn, gpointer user_data)
@@ -627,7 +628,7 @@ tool_btn_down_clicked (GtkWidget *btn, gpointer user_data)
  * @btn: GtkButton
  * @user_data: User data
  *
- * Signal Handler for "clicked" signal of toolbtnInvertSelection.
+ * Signal Handler for "clicked" signal of toolbtn_invert_selection.
  */
 static void
 tool_btn_invert_selection_clicked (GtkWidget *btn, gpointer user_data)
@@ -643,7 +644,7 @@ tool_btn_invert_selection_clicked (GtkWidget *btn, gpointer user_data)
  * @btn: GtkButton
  * @user_data: User data
  *
- * Signal Handler for "clicked" signal of toolbtnSelectAll.
+ * Signal Handler for "clicked" signal of toolbtn_select_all.
  */
 static void
 tool_btn_select_all_clicked (GtkWidget *btn, gpointer user_data)
@@ -659,7 +660,7 @@ tool_btn_select_all_clicked (GtkWidget *btn, gpointer user_data)
  * @btn: GtkButton
  * @user_data: User data
  *
- * Signal Handler for "clicked" signal of toolbtnUnselectAll.
+ * Signal Handler for "clicked" signal of toolbtn_unselect_all.
  */
 static void
 tool_btn_unselect_all_clicked (GtkWidget *btn, gpointer user_data)
@@ -707,9 +708,9 @@ tool_btn_refresh_clicked (GtkWidget *btn, gpointer user_data)
         et_mb_entity_view_clear_all (ET_MB_ENTITY_VIEW (mb_dialog_priv->entityView));
         free_mb_tree (&mb_dialog_priv->mb_tree_root);
         mb_dialog_priv->mb_tree_root = g_node_new (NULL);
-        entry = gtk_bin_get_child (GTK_BIN (gtk_builder_get_object (builder, "cbManualSearch")));
+        entry = gtk_bin_get_child (GTK_BIN (gtk_builder_get_object (builder, "cb_manual_search")));
         gtk_entry_set_text (GTK_ENTRY (entry), manual_search->to_search);
-        gtk_combo_box_set_active (GTK_COMBO_BOX (gtk_builder_get_object (builder, "cbManualSearchIn")),
+        gtk_combo_box_set_active (GTK_COMBO_BOX (gtk_builder_get_object (builder, "cb_manual_search_in")),
                                   manual_search->to_search_type);
         btn_manual_find_clicked (NULL, NULL);
     }
@@ -750,7 +751,7 @@ btn_manual_stop_clicked (GtkWidget *btn, gpointer user_data)
  * @editable: GtkEditable for which handler is called
  * @user_data: User data
  *
- * Signal Handler for "changed" signal of entryTreeViewSearch.
+ * Signal Handler for "changed" signal of entry_tree_view_search.
  */
 static void
 entry_tree_view_search_changed (GtkEditable *editable, gpointer user_data)
@@ -760,7 +761,7 @@ entry_tree_view_search_changed (GtkEditable *editable, gpointer user_data)
     mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
     et_mb_entity_view_search_in_results (ET_MB_ENTITY_VIEW (mb_dialog_priv->entityView),
                                          gtk_entry_get_text (GTK_ENTRY (gtk_builder_get_object (builder,
-                                                                        "entryTreeViewSearch"))));
+                                                                        "entry_tree_view_search"))));
 }
 
 /*
@@ -783,6 +784,7 @@ selected_find_callback (GObject *source, GAsyncResult *res,
     {
         g_object_unref (res);
         g_hash_table_destroy (((SelectedFindThreadData *)user_data)->hash_table);
+        et_music_brainz_dialog_stop_set_sensitive (FALSE);
         g_slice_free (SelectedFindThreadData, user_data);
         free_mb_tree (&mb_dialog_priv->mb_tree_root);
         mb_dialog_priv->mb_tree_root = g_node_new (NULL);
@@ -1054,6 +1056,7 @@ discid_search_callback (GObject *source, GAsyncResult *res,
         g_object_unref (res);
         free_mb_tree (&mb_dialog_priv->mb_tree_root);
         mb_dialog_priv->mb_tree_root = g_node_new (NULL);
+        et_music_brainz_dialog_stop_set_sensitive (FALSE);
         return;
     }
 
@@ -1167,7 +1170,7 @@ btn_discid_search_clicked (GtkWidget *button, gpointer data)
  * @button: GtkButton
  * @data: User data
  *
- * Signal Handler for "clicked" signal of btnClose.
+ * Signal Handler for "clicked" signal of btn_close.
  */
 static void
 btn_close_clicked (GtkWidget *button, gpointer data)
@@ -1197,6 +1200,7 @@ freedbid_search_callback (GObject *source, GAsyncResult *res,
         free_mb_tree (&mb_dialog_priv->mb_tree_root);
         mb_dialog_priv->mb_tree_root = g_node_new (NULL);
         g_free (user_data);
+        et_music_brainz_dialog_stop_set_sensitive (FALSE);
         return;
     }
 
@@ -1267,7 +1271,7 @@ freedbid_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
  * @btn: GtkButton
  * @user_data: User data
  *
- * Signal Handler for "clicked" signal of btnAutomaticSearch.
+ * Signal Handler for "clicked" signal of btn_automatic_search.
  */
 static void
 btn_automatic_search_clicked (GtkWidget *btn, gpointer data)
@@ -1436,7 +1440,7 @@ et_set_file_tag (ET_File *et_file, gchar *title, gchar *artist,
  * @btn: GtkButton
  * @user_data: User data
  *
- * Signal Handler for "clicked" signal of btnApplyChanges.
+ * Signal Handler for "clicked" signal of btn_apply_changes.
  */
 static void
 btn_apply_changes_clicked (GtkWidget *btn, gpointer data)
@@ -1480,7 +1484,7 @@ btn_apply_changes_clicked (GtkWidget *btn, gpointer data)
         return;
     }
 
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (gtk_builder_get_object (builder, "chkUseDLM"))))
+    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (gtk_builder_get_object (builder, "chk_use_dlm"))))
     {
         EtMbEntity *et_entity;
         EtMbEntity *album_entity;
@@ -1839,7 +1843,7 @@ et_show_status_msg_in_idle (gchar *message)
  * et_music_brainz_dialog_stop_set_sensitive:
  * @sensitive: gboolean
  *
- * Set btnStop, EtMbEntityView and other widgets as sensitive 
+ * Set btn_stop, EtMbEntityView and other widgets as sensitive 
  * according to @sensitive.
  */
 void
@@ -1848,34 +1852,35 @@ et_music_brainz_dialog_stop_set_sensitive (gboolean sensitive)
     EtMusicBrainzDialogPrivate *mb_dialog_priv;
 
     mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btnStop")),
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btn_stop")),
                               sensitive);
     gtk_widget_set_sensitive (mb_dialog_priv->entityView, !sensitive);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btnManualFind")),
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btn_manual_find")), TRUE);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btn_manual_find")),
                               !sensitive);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btnSelectedFind")),
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btn_selected_find")),
                               !sensitive);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btnAutomaticSearch")),
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btn_automatic_search")),
                               !sensitive);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btnDiscFind")),
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btn_disc_find")),
                               !sensitive);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "entryTreeViewSearch")),
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "entry_tree_view_search")),
                               !sensitive);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtnUp")),
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtn_up")),
                               !sensitive);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtnDown")),
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtn_down")),
                               !sensitive);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtnInvertSelection")),
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtn_invert_selection")),
                               !sensitive);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtnSelectAll")),
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtn_select_all")),
                               !sensitive);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtnSelectAll")),
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtn_unselect_all")),
                               !sensitive);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtnToggleRedLines")),
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtn_toggle_red_lines")),
                               !sensitive);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtnRefresh")),
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtn_refresh")),
                               !sensitive);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btnApplyChanges")),
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btn_apply_changes")),
                               !sensitive);
 }
 
@@ -1988,64 +1993,64 @@ et_musicbrainz_dialog_init (EtMusicBrainzDialog *dialog)
     gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))),
                         box, TRUE, TRUE, 2);
     gtk_widget_set_size_request (GTK_WIDGET (dialog), 660, 500);
-    gtk_box_pack_start (GTK_BOX (gtk_builder_get_object (builder, "centralBox")),
+    gtk_box_pack_start (GTK_BOX (gtk_builder_get_object (builder, "central_box")),
                         priv->entityView, TRUE, TRUE, 2);
 
     et_initialize_tag_choice_dialog (priv);
-    cb_search = GTK_WIDGET (gtk_builder_get_object (builder, "cbManualSearch"));
+    cb_search = GTK_WIDGET (gtk_builder_get_object (builder, "cb_manual_search"));
     g_signal_connect (gtk_bin_get_child (GTK_BIN (cb_search)), "activate",
                       G_CALLBACK (btn_manual_find_clicked), NULL);
-    g_signal_connect (gtk_builder_get_object (builder, "btnManualFind"),
+    g_signal_connect (gtk_builder_get_object (builder, "btn_manual_find"),
                       "clicked", G_CALLBACK (btn_manual_find_clicked),
                       NULL);
-    g_signal_connect (gtk_builder_get_object (builder, "toolbtnUp"),
+    g_signal_connect (gtk_builder_get_object (builder, "toolbtn_up"),
                       "clicked", G_CALLBACK (tool_btn_up_clicked),
                       NULL);
-    g_signal_connect (gtk_builder_get_object (builder, "toolbtnDown"),
+    g_signal_connect (gtk_builder_get_object (builder, "toolbtn_down"),
                       "clicked", G_CALLBACK (tool_btn_down_clicked),
                       NULL);
-    g_signal_connect (gtk_builder_get_object (builder, "toolbtnSelectAll"),
+    g_signal_connect (gtk_builder_get_object (builder, "toolbtn_select_all"),
                       "clicked", G_CALLBACK (tool_btn_select_all_clicked),
                       NULL);
-    g_signal_connect (gtk_builder_get_object (builder, "toolbtnUnselectAll"),
+    g_signal_connect (gtk_builder_get_object (builder, "toolbtn_unselect_all"),
                       "clicked", G_CALLBACK (tool_btn_unselect_all_clicked),
                       NULL);
-    g_signal_connect (gtk_builder_get_object (builder, "toolbtnInvertSelection"),
+    g_signal_connect (gtk_builder_get_object (builder, "toolbtn_invert_selection"),
                       "clicked", G_CALLBACK (tool_btn_invert_selection_clicked),
                       NULL);
-    g_signal_connect (gtk_builder_get_object (builder, "toolbtnToggleRedLines"),
+    g_signal_connect (gtk_builder_get_object (builder, "toolbtn_toggle_red_lines"),
                       "clicked", G_CALLBACK (tool_btn_toggle_red_lines_clicked),
                       NULL);
-    g_signal_connect (gtk_builder_get_object (builder, "toolbtnRefresh"),
+    g_signal_connect (gtk_builder_get_object (builder, "toolbtn_refresh"),
                       "clicked", G_CALLBACK (tool_btn_refresh_clicked),
                       NULL);
-    g_signal_connect (gtk_builder_get_object (builder, "btnSelectedFind"),
+    g_signal_connect (gtk_builder_get_object (builder, "btn_selected_find"),
                       "clicked", G_CALLBACK (btn_selected_find_clicked),
                       NULL);
-    g_signal_connect (gtk_builder_get_object (builder, "btnDiscFind"),
+    g_signal_connect (gtk_builder_get_object (builder, "btn_disc_find"),
                       "clicked", G_CALLBACK (btn_discid_search_clicked),
                       NULL);
-    g_signal_connect (gtk_builder_get_object (builder, "btnStop"),
+    g_signal_connect (gtk_builder_get_object (builder, "btn_stop"),
                       "clicked", G_CALLBACK (btn_manual_stop_clicked),
                       NULL);
-    g_signal_connect (gtk_builder_get_object (builder, "btnClose"),
+    g_signal_connect (gtk_builder_get_object (builder, "btn_close"),
                       "clicked", G_CALLBACK (btn_close_clicked),
                       NULL);
-    g_signal_connect (gtk_builder_get_object (builder, "btnApplyChanges"),
+    g_signal_connect (gtk_builder_get_object (builder, "btn_apply_changes"),
                       "clicked", G_CALLBACK (btn_apply_changes_clicked),
                       NULL);
  
-    g_signal_connect (gtk_builder_get_object (builder, "btnAutomaticSearch"),
+    g_signal_connect (gtk_builder_get_object (builder, "btn_automatic_search"),
                       "clicked", G_CALLBACK (btn_automatic_search_clicked),
                       NULL);
-    g_signal_connect_after (gtk_builder_get_object (builder, "entryTreeViewSearch"),
+    g_signal_connect_after (gtk_builder_get_object (builder, "entry_tree_view_search"),
                             "changed",
                             G_CALLBACK (entry_tree_view_search_changed),
                             NULL);
 
     /* Fill Values in cb_manual_search_in */
     cb_manual_search_in = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                              "cbManualSearchIn"));
+                                                              "cb_manual_search_in"));
 
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (cb_manual_search_in), "Artist");
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (cb_manual_search_in), "Album");
@@ -2053,7 +2058,7 @@ et_musicbrainz_dialog_init (EtMusicBrainzDialog *dialog)
 
     gtk_combo_box_set_active (GTK_COMBO_BOX (cb_manual_search_in), 1);
 
-    /* Set the text of cbManualSearch to the album of selected file */
+    /* Set the text of cb_manual_search to the album of selected file */
     get_first_selected_file (&et_file);
 
     if (et_file && ((File_Tag *)et_file->FileTag->data)->album)
@@ -2092,7 +2097,7 @@ et_open_musicbrainz_dialog ()
     gtk_dialog_run (GTK_DIALOG (mbDialog));
 
     if (gtk_widget_get_sensitive (GTK_WIDGET (gtk_builder_get_object (builder,
-                                  "btnStop"))))
+                                  "btn_stop"))))
     {
         priv->exit_on_complete = TRUE;
         btn_manual_stop_clicked (NULL, NULL);

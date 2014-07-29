@@ -43,7 +43,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkComboBoxText" id="cbManualSearch">
+          <object class="GtkComboBoxText" id="cb_manual_search">
             <property name="width_request">190</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -79,7 +79,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkComboBoxText" id="cbManualSearchIn">
+          <object class="GtkComboBoxText" id="cb_manual_search_in">
             <property name="width_request">110</property>
             <property name="height_request">26</property>
             <property name="visible">True</property>
@@ -94,7 +94,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="btnManualFind">
+          <object class="GtkButton" id="btn_manual_find">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
@@ -122,7 +122,7 @@
         <property name="can_focus">False</property>
         <property name="spacing">4</property>
         <child>
-          <object class="GtkButton" id="btnSelectedFind">
+          <object class="GtkButton" id="btn_selected_find">
             <property name="label" translatable="yes">Search Selected File</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -135,7 +135,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="btnAutomaticSearch">
+          <object class="GtkButton" id="btn_automatic_search">
             <property name="label" translatable="yes">Automatic Search</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -148,7 +148,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="btnDiscFind">
+          <object class="GtkButton" id="btn_disc_find">
             <property name="label" translatable="yes">DiscID Search</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -183,12 +183,12 @@
             <property name="can_focus">False</property>
             <property name="left_padding">12</property>
             <child>
-              <object class="GtkVBox" id="centralBox">
+              <object class="GtkVBox" id="central_box">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="spacing">3</property>
                 <child>
-                  <object class="GtkToolbar" id="toolbar1">
+                  <object class="GtkToolbar" id="toolbar">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
@@ -213,7 +213,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <child>
-                          <object class="GtkEntry" id="entryTreeViewSearch">
+                          <object class="GtkEntry" id="entry_tree_view_search">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="invisible_char">●</property>
@@ -227,7 +227,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkToolButton" id="toolbtnUp">
+                      <object class="GtkToolButton" id="toolbtn_up">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="has_tooltip">True</property>
@@ -243,7 +243,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkToolButton" id="toolbtnDown">
+                      <object class="GtkToolButton" id="toolbtn_down">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="has_tooltip">True</property>
@@ -269,7 +269,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkToolButton" id="toolbtnInvertSelection">
+                      <object class="GtkToolButton" id="toolbtn_invert_selection">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="has_tooltip">True</property>
@@ -285,7 +285,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkToolButton" id="toolbtnSelectAll">
+                      <object class="GtkToolButton" id="toolbtn_select_all">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="has_tooltip">True</property>
@@ -301,7 +301,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkToolButton" id="toolbtnUnselectAll">
+                      <object class="GtkToolButton" id="toolbtn_unselect_all">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="has_tooltip">True</property>
@@ -317,7 +317,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkToggleToolButton" id="toolbtnToggleRedLines">
+                      <object class="GtkToggleToolButton" id="toolbtn_toggle_red_lines">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="has_tooltip">True</property>
@@ -333,7 +333,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkToolButton" id="toolbtnRefresh">
+                      <object class="GtkToolButton" id="toolbtn_refresh">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="has_tooltip">True</property>
@@ -349,7 +349,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkToolButton" id="btnStop">
+                      <object class="GtkToolButton" id="btn_stop">
                         <property name="visible">True</property>
                         <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
@@ -390,7 +390,7 @@
       </packing>
     </child>
     <child>
-      <object class="GtkCheckButton" id="chkUseDLM">
+      <object class="GtkCheckButton" id="chk_use_dlm">
         <property name="label" translatable="yes">Match lines with the Levenshtein algorithm</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
@@ -410,7 +410,7 @@
         <property name="can_focus">False</property>
         <property name="spacing">4</property>
         <child>
-          <object class="GtkButton" id="btnClose">
+          <object class="GtkButton" id="btn_close">
             <property name="label" translatable="yes">Close</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -424,7 +424,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="btnApplyChanges">
+          <object class="GtkButton" id="btn_apply_changes">
             <property name="label" translatable="yes">Apply Tag Changes</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
