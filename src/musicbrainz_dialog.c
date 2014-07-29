@@ -1653,7 +1653,7 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, ET_File *et_file)
         {
             g_free (artist);
             gtk_widget_hide (mb_dialog_priv->tag_choice_dialog);
-
+            gtk_list_store_clear (GTK_LIST_STORE (mb_dialog_priv->tag_choice_store));
             return FALSE;
         }
 
