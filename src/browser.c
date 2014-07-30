@@ -2636,12 +2636,12 @@ void Browser_Tree_Rebuild (gchar *path_to_load)
             current_path = g_strdup(DEFAULT_PATH_TO_MP3);
     }
 
-    Browser_Tree_Initialize();
     /* Select again the memorized path without loading files */
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserTree));
     if (selection)
     {
         g_signal_handlers_block_by_func(G_OBJECT(selection),G_CALLBACK(Browser_Tree_Node_Selected),NULL);
+        Browser_Tree_Initialize ();
         Browser_Tree_Select_Dir(current_path);
         g_signal_handlers_unblock_by_func(G_OBJECT(selection),G_CALLBACK(Browser_Tree_Node_Selected),NULL);
     }
