@@ -1526,14 +1526,7 @@ btn_apply_changes_clicked (GtkWidget *btn, gpointer data)
                     continue;
                 }
 
-                if (file_tag->title)
-                {
-                    distance = dlm (file_tag->title, title);
-                }
-                else
-                {
-                    distance = dlm (filename, title);
-                }
+                distance = dlm (filename, title);
 
                 if (distance < min_distance)
                 {

@@ -632,12 +632,18 @@ toggle_button_clicked (GtkWidget *btn, gpointer user_data)
     EtMbEntityView *entity_view;
     EtMbEntityViewPrivate *priv;
     GList *children;
+    GtkWidget *prev_active_toggle_btn;
 
     entity_view = ET_MB_ENTITY_VIEW (user_data);
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
 
     if (btn == priv->active_toggle_button)
     {
+        if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (btn)))
+        {
+            gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (btn), TRUE);
+        }
+
         return;
     }
 
@@ -646,9 +652,12 @@ toggle_button_clicked (GtkWidget *btn, gpointer user_data)
         return;
     }
 
-    if (priv->active_toggle_button)
+    prev_active_toggle_btn = priv->active_toggle_button;
+    priv->active_toggle_button = btn;
+
+    if (prev_active_toggle_btn)
     {
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->active_toggle_button),
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prev_active_toggle_btn),
                                       FALSE);
     }
 
@@ -703,6 +712,8 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
     if (gtk_list_store_iter_is_valid (GTK_LIST_STORE (priv->list_store),
                                       &thread_data->iter))
     {
+        GtkWidget *prev_active_toggle_btn;
+
         /* Only run if iter is valid i.e. it is not a Refresh Option */
         children = gtk_container_get_children (GTK_CONTAINER (priv->bread_crumb_box));
         active_child = g_list_find (children, priv->active_toggle_button);
@@ -716,17 +727,18 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
         toggle_btn = insert_togglebtn_in_breadcrumb (GTK_BOX (priv->bread_crumb_box));
         children = gtk_container_get_children (GTK_CONTAINER (priv->bread_crumb_box));
         priv->bread_crumb_nodes[g_list_length (children) - 1] = thread_data->child;
-    
-        if (priv->active_toggle_button)
+        prev_active_toggle_btn = priv->active_toggle_button;
+        priv->active_toggle_button = toggle_btn;
+
+        if (prev_active_toggle_btn)
         {
-            gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->active_toggle_button),
+            gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prev_active_toggle_btn),
                                           FALSE);
         }
     
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toggle_btn), TRUE);
         g_signal_connect (G_OBJECT (toggle_btn), "clicked",
                           G_CALLBACK (toggle_button_clicked), entity_view);
-        priv->active_toggle_button = toggle_btn;
     
         gtk_tree_model_get (priv->list_store, &thread_data->iter, 0,
                             &entity_name, -1);
@@ -1177,7 +1189,7 @@ et_mb_entity_view_get_current_level (EtMbEntityView *entity_view)
 
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
     list = gtk_container_get_children (GTK_CONTAINER (priv->bread_crumb_box));
-    n = g_list_length (list);
+    n = g_list_index (list, priv->active_toggle_button) + 1;
     g_list_free (list);
 
     return n;
