@@ -2026,7 +2026,55 @@ Cddb_Free_Track_Album_List (GList *track_list)
     return TRUE;
 }
 
+/*
+ * Clear the album model, blocking the tree view selection changed handlers
+ * during the process, to prevent the handlers being called on removed rows.
+ */
+static void
+cddb_album_model_clear (void)
+{
+    GtkTreeSelection *selection;
 
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (CddbAlbumListView));
+
+    g_signal_handlers_block_by_func (selection,
+                                     G_CALLBACK (Cddb_Get_Album_Tracks_List_CB),
+                                     NULL);
+    g_signal_handlers_block_by_func (selection,
+                                     G_CALLBACK (Cddb_Show_Album_Info),
+                                     NULL);
+
+    gtk_list_store_clear (CddbAlbumListModel);
+
+    g_signal_handlers_unblock_by_func (selection,
+                                       G_CALLBACK (Cddb_Show_Album_Info),
+                                       NULL);
+    g_signal_handlers_unblock_by_func (selection,
+                                       G_CALLBACK (Cddb_Get_Album_Tracks_List_CB),
+                                       NULL);
+}
+
+/*
+ * Clear the album model, blocking the tree view selection changed handlers
+ * during the process, to prevent the handlers being called on removed rows.
+ */
+static void
+cddb_track_model_clear (void)
+{
+    GtkTreeSelection *selection;
+
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (CddbTrackListView));
+
+    g_signal_handlers_block_by_func (selection,
+                                     G_CALLBACK (Cddb_Track_List_Row_Selected),
+                                     NULL);
+
+    gtk_list_store_clear (CddbTrackListModel);
+
+    g_signal_handlers_unblock_by_func (selection,
+                                       G_CALLBACK (Cddb_Track_List_Row_Selected),
+                                       NULL);
+}
 
 /*
  * Load the CddbAlbumList into the corresponding List
@@ -2054,8 +2102,8 @@ Cddb_Load_Album_List (gboolean only_red_lines)
                                    CDDB_ALBUM_LIST_DATA, &cddbalbumSelected, -1);
         }
 
-        // Remove lines
-        gtk_list_store_clear(CddbAlbumListModel);
+        /* Remove lines. */
+        cddb_album_model_clear ();
 
         // Reload list following parameter 'only_red_lines'
         for (l = g_list_first (CddbAlbumList); l != NULL; l = g_list_next (l))
@@ -2097,8 +2145,8 @@ Cddb_Load_Track_Album_List (GList *track_list)
     {
         GList *l;
 
-        // Must block the select signal of the target to avoid looping
-        gtk_list_store_clear(CddbTrackListModel);
+        /* Must block the select signal of the target to avoid looping. */
+        cddb_track_model_clear ();
 
         for (l = g_list_first (track_list); l != NULL; l = g_list_next (l))
         {
@@ -2326,9 +2374,10 @@ Cddb_Search_Album_List_From_String_Freedb (void)
     g_free(cddb_in);
 
 
-    // Delete previous album list
-    gtk_list_store_clear(CddbAlbumListModel);
-    gtk_list_store_clear(CddbTrackListModel);
+    /* Delete previous album list. */
+    cddb_album_model_clear ();
+    cddb_track_model_clear ();
+
     if (CddbAlbumList)
     {
         Cddb_Free_Album_List();
@@ -2586,9 +2635,10 @@ Cddb_Search_Album_List_From_String_Gnudb (void)
         *tmp = '+';
 
 
-    // Delete previous album list
-    gtk_list_store_clear(CddbAlbumListModel);
-    gtk_list_store_clear(CddbTrackListModel);
+    /* Delete previous album list. */
+    cddb_album_model_clear ();
+    cddb_track_model_clear ();
+
     if (CddbAlbumList)
     {
         Cddb_Free_Album_List();
@@ -3012,9 +3062,10 @@ Cddb_Search_Album_From_Selected_Files (void)
                                          (disc_length << 8) | num_tracks));
 
 
-    // Delete previous album list
-    gtk_list_store_clear(CddbAlbumListModel);
-    gtk_list_store_clear(CddbTrackListModel);
+    /* Delete previous album list. */
+    cddb_album_model_clear ();
+    cddb_track_model_clear ();
+
     if (CddbAlbumList)
     {
         Cddb_Free_Album_List();
@@ -3431,8 +3482,9 @@ Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
 
     g_return_val_if_fail (CddbWindow != NULL, FALSE);
 
-    gtk_list_store_clear(CddbTrackListModel);
-    Cddb_Set_Apply_Button_Sensitivity();
+    cddb_track_model_clear ();
+    Cddb_Set_Apply_Button_Sensitivity ();
+
     if (gtk_tree_selection_get_selected(selection, NULL, &row))
     {
         gtk_tree_model_get(GTK_TREE_MODEL(CddbAlbumListModel), &row, CDDB_ALBUM_LIST_DATA, &cddbalbum, -1);
