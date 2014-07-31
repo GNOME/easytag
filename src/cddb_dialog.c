@@ -2974,7 +2974,7 @@ create_cddb_dialog (EtCDDBDialog *self)
     gtk_box_pack_start(GTK_BOX(notebookvbox),hbox,FALSE,FALSE,0);
 
     Label = gtk_label_new(_("Request CDDB"));
-    gtk_misc_set_alignment(GTK_MISC(Label),1.0,0.5);
+    gtk_widget_set_halign (Label, GTK_ALIGN_END);
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
 
     // Button to generate CddbId and request string from the selected files
@@ -3027,7 +3027,7 @@ create_cddb_dialog (EtCDDBDialog *self)
     gtk_box_pack_start(GTK_BOX(notebookvbox),hbox,FALSE,FALSE,0);
 
     Label = gtk_label_new(_("Words:"));
-    gtk_misc_set_alignment(GTK_MISC(Label),1.0,0.5);
+    gtk_widget_set_halign (Label, GTK_ALIGN_END);
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
 
     g_assert (priv->search_string_model == NULL);
@@ -3243,7 +3243,7 @@ create_cddb_dialog (EtCDDBDialog *self)
     gtk_container_add(GTK_CONTAINER(Frame),hbox);
 
     Label = gtk_label_new(_("Search:"));
-    gtk_misc_set_alignment(GTK_MISC(Label),1.0,0.5);
+    gtk_widget_set_halign (Label, GTK_ALIGN_END);
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
 
     g_assert (priv->search_string_in_result_model == NULL);

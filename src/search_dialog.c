@@ -628,7 +628,7 @@ create_search_dialog (EtSearchDialog *self)
     priv->search_string_model = gtk_list_store_new (MISC_COMBO_COUNT, G_TYPE_STRING);
 
     Label = gtk_label_new(_("Search:"));
-    gtk_misc_set_alignment(GTK_MISC(Label),1.0,0.5);
+    gtk_widget_set_halign (Label, GTK_ALIGN_END);
     gtk_grid_attach (GTK_GRID (Table), Label, 0, 0, 1, 1);
     priv->search_string_combo = gtk_combo_box_new_with_model_and_entry (GTK_TREE_MODEL (priv->search_string_model));
     g_object_unref (priv->search_string_model);
@@ -646,7 +646,7 @@ create_search_dialog (EtSearchDialog *self)
 
     // Where...
     Label = gtk_label_new(_("In:"));
-    gtk_misc_set_alignment(GTK_MISC(Label),1.0,0.5);
+    gtk_widget_set_halign (Label, GTK_ALIGN_END);
     gtk_grid_attach (GTK_GRID (Table), Label, 0, 1, 1, 1);
     /* Translators: This option is for the previous 'in' option. For instance,
      * translate this as "Search" "In:" "the Filename". */

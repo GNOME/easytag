@@ -595,8 +595,7 @@ create_preferences_dialog (EtPreferencesDialog *self)
     Label = gtk_label_new(_("Rules to apply if some characters can't be converted to "
         "the system character encoding when writing filename:"));
     gtk_grid_attach (GTK_GRID (Table), Label, 0, 0, 2, 1);
-    gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
-
+    gtk_widget_set_halign (Label, GTK_ALIGN_START);
 
     FilenameCharacterSetOther = gtk_radio_button_new_with_label(NULL,_("Try another "
         "character encoding"));
@@ -751,7 +750,7 @@ create_preferences_dialog (EtPreferencesDialog *self)
     
     Label = gtk_label_new(_("For Vorbis tags, selected fields will be split at dashes and saved as separate tags"));
     gtk_grid_attach (GTK_GRID (Table), Label, 0, 0, 2, 1);
-    gtk_misc_set_alignment(GTK_MISC(Label),0,0.5);
+    gtk_widget_set_halign (Label, GTK_ALIGN_START);
 
     VorbisSplitFieldTitle = gtk_check_button_new_with_label(_("Title"));
     VorbisSplitFieldArtist = gtk_check_button_new_with_label(_("Artist"));
@@ -888,7 +887,7 @@ create_preferences_dialog (EtPreferencesDialog *self)
     /* ID3v2 tag version */
     priv->LabelId3v2Version = gtk_label_new (_("Version:"));
     gtk_grid_attach (GTK_GRID (Table), priv->LabelId3v2Version, 0, 1, 2, 1);
-    gtk_misc_set_alignment (GTK_MISC (priv->LabelId3v2Version), 0, 0.5);
+    gtk_widget_set_halign (priv->LabelId3v2Version, GTK_ALIGN_START);
 
     priv->FileWritingId3v2VersionCombo = gtk_combo_box_text_new ();
     gtk_widget_set_tooltip_text (priv->FileWritingId3v2VersionCombo,
@@ -913,7 +912,7 @@ create_preferences_dialog (EtPreferencesDialog *self)
     /* Charset */
     priv->LabelId3v2Charset = gtk_label_new (_("Charset:"));
     gtk_grid_attach (GTK_GRID (Table), priv->LabelId3v2Charset, 0, 2, 5, 1);
-    gtk_misc_set_alignment (GTK_MISC (priv->LabelId3v2Charset), 0, 0.5);
+    gtk_widget_set_halign (priv->LabelId3v2Charset, GTK_ALIGN_START);
 
     /* Unicode. */
     priv->FileWritingId3v2UseUnicodeCharacterSet = gtk_radio_button_new_with_label (NULL, _("Unicode "));
@@ -973,8 +972,8 @@ create_preferences_dialog (EtPreferencesDialog *self)
     priv->LabelAdditionalId3v2IconvOptions = gtk_label_new (_("Additional settings for iconv():"));
     gtk_grid_attach (GTK_GRID (Table), priv->LabelAdditionalId3v2IconvOptions,
                      2, 5, 3, 1);
-    gtk_misc_set_alignment (GTK_MISC (priv->LabelAdditionalId3v2IconvOptions),
-                            0, 0.5);
+    gtk_widget_set_halign (priv->LabelAdditionalId3v2IconvOptions,
+                           GTK_ALIGN_START);
 
     priv->FileWritingId3v2IconvOptionsNo = gtk_radio_button_new_with_label (NULL,
                                                                             _("No"));
@@ -1049,7 +1048,7 @@ create_preferences_dialog (EtPreferencesDialog *self)
     /* Id3V1 writing character set */
     priv->LabelId3v1Charset = gtk_label_new (_("Charset:"));
     gtk_grid_attach (GTK_GRID (Table), priv->LabelId3v1Charset, 0, 1, 4, 1);
-    gtk_misc_set_alignment (GTK_MISC (priv->LabelId3v1Charset), 0, 0.5);
+    gtk_widget_set_halign (priv->LabelId3v1Charset, GTK_ALIGN_START);
 
     priv->FileWritingId3v1CharacterSetCombo = gtk_combo_box_text_new();
     gtk_grid_attach (GTK_GRID (Table), priv->FileWritingId3v1CharacterSetCombo,
@@ -1069,8 +1068,8 @@ create_preferences_dialog (EtPreferencesDialog *self)
     priv->LabelAdditionalId3v1IconvOptions = gtk_label_new (_("Additional settings for iconv():"));
     gtk_grid_attach (GTK_GRID (Table), priv->LabelAdditionalId3v1IconvOptions,
                      1, 3, 3, 1);
-    gtk_misc_set_alignment (GTK_MISC (priv->LabelAdditionalId3v1IconvOptions),
-                            0, 0.5);
+    gtk_widget_set_halign (priv->LabelAdditionalId3v1IconvOptions,
+                           GTK_ALIGN_START);
 
     priv->FileWritingId3v1IconvOptionsNo = gtk_radio_button_new_with_label (NULL,
                                                                             _("No"));
@@ -1487,7 +1486,7 @@ create_preferences_dialog (EtPreferencesDialog *self)
 
     Label = gtk_label_new(_("Host Name:"));
     gtk_grid_attach (GTK_GRID (Table), Label, 1, 1, 1, 1);
-    gtk_misc_set_alignment(GTK_MISC(Label),1,0.5);
+    gtk_widget_set_halign (Label, GTK_ALIGN_END);
     CddbProxyName = gtk_entry_new();
     gtk_grid_attach (GTK_GRID (Table), CddbProxyName, 2, 1, 1, 1);
     g_settings_bind (MainSettings, "cddb-proxy-hostname",
@@ -1497,7 +1496,7 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_widget_set_tooltip_text(CddbProxyName,_("Name of the proxy server."));
     Label = gtk_label_new (_("Port:"));
     gtk_grid_attach (GTK_GRID (Table), Label, 3, 1, 1, 1);
-    gtk_misc_set_alignment(GTK_MISC(Label),1,0.5);
+    gtk_widget_set_halign (Label, GTK_ALIGN_END);
     CddbProxyPort = gtk_spin_button_new_with_range (0.0, 65535.0, 1.0);
     g_settings_bind (MainSettings, "cddb-proxy-port", CddbProxyPort, "value",
                      G_SETTINGS_BIND_DEFAULT);
@@ -1508,7 +1507,7 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_widget_set_tooltip_text(CddbProxyPort,_("Port of the proxy server."));
     Label = gtk_label_new(_("User Name:"));
     gtk_grid_attach (GTK_GRID (Table), Label, 1, 2, 1, 1);
-    gtk_misc_set_alignment(GTK_MISC(Label),1,0.5);
+    gtk_widget_set_halign (Label, GTK_ALIGN_END);
     CddbProxyUserName = gtk_entry_new();
     g_settings_bind (MainSettings, "cddb-proxy-username", CddbProxyUserName,
                      "text", G_SETTINGS_BIND_DEFAULT);
@@ -1518,7 +1517,7 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_widget_set_tooltip_text(CddbProxyUserName,_("Name of user for the the proxy server."));
     Label = gtk_label_new(_("User Password:"));
     gtk_grid_attach (GTK_GRID (Table), Label, 3, 2, 1, 1);
-    gtk_misc_set_alignment(GTK_MISC(Label),1,0.5);
+    gtk_widget_set_halign (Label, GTK_ALIGN_END);
     CddbProxyUserPassword = gtk_entry_new();
     gtk_entry_set_visibility (GTK_ENTRY (CddbProxyUserPassword), FALSE);
     g_settings_bind (MainSettings, "cddb-proxy-password", CddbProxyUserPassword,

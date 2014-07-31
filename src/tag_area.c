@@ -2094,7 +2094,7 @@ create_tag_area (EtTagArea *self)
     priv->title_label = gtk_label_new (_("Title:"));
     et_grid_attach_full (GTK_GRID (table), priv->title_label, 0, 0, 1, 1,
                          FALSE, FALSE, TablePadding, TablePadding);
-    gtk_misc_set_alignment (GTK_MISC (priv->title_label), 1.0, 0.5);
+    gtk_widget_set_halign (priv->title_label, GTK_ALIGN_END);
 
     priv->title_entry = gtk_entry_new ();
     gtk_entry_set_icon_from_icon_name (GTK_ENTRY (priv->title_entry),
@@ -2111,7 +2111,7 @@ create_tag_area (EtTagArea *self)
     priv->artist_label = gtk_label_new (_("Artist:"));
     et_grid_attach_full (GTK_GRID (table), priv->artist_label, 0, 1, 1, 1,
                          FALSE, FALSE, TablePadding, TablePadding);
-    gtk_misc_set_alignment (GTK_MISC (priv->artist_label), 1.0, 0.5);
+    gtk_widget_set_halign (priv->artist_label, GTK_ALIGN_END);
 
     priv->artist_entry = gtk_entry_new ();
     gtk_entry_set_icon_from_icon_name (GTK_ENTRY (priv->artist_entry),
@@ -2128,7 +2128,7 @@ create_tag_area (EtTagArea *self)
     priv->album_artist_label = gtk_label_new (_("Album artist:"));
     et_grid_attach_full (GTK_GRID (table), priv->album_artist_label, 0, 2, 1,
                          1, FALSE, FALSE, TablePadding, TablePadding);
-    gtk_misc_set_alignment (GTK_MISC (priv->album_artist_label), 1.0, 0.5);
+    gtk_widget_set_halign (priv->album_artist_label, GTK_ALIGN_END);
 
     priv->album_artist_entry = gtk_entry_new ();
     gtk_entry_set_icon_from_icon_name (GTK_ENTRY (priv->album_artist_entry),
@@ -2145,7 +2145,7 @@ create_tag_area (EtTagArea *self)
     priv->album_label = gtk_label_new (_("Album:"));
     et_grid_attach_full (GTK_GRID (table), priv->album_label, 0, 3, 1, 1,
                          FALSE, FALSE, TablePadding, TablePadding);
-    gtk_misc_set_alignment (GTK_MISC (priv->album_label), 1.0, 0.5);
+    gtk_widget_set_halign (priv->album_label, GTK_ALIGN_END);
 
     priv->album_entry = gtk_entry_new ();
     gtk_entry_set_icon_from_icon_name (GTK_ENTRY (priv->album_entry),
@@ -2162,7 +2162,7 @@ create_tag_area (EtTagArea *self)
     priv->disc_number_label = gtk_label_new (_("CD:"));
     et_grid_attach_full (GTK_GRID (table), priv->disc_number_label, 8, 3, 1, 1,
                          FALSE, FALSE, TablePadding, TablePadding);
-    gtk_misc_set_alignment (GTK_MISC (priv->disc_number_label), 1.0, 0.5);
+    gtk_widget_set_halign (priv->disc_number_label, GTK_ALIGN_END);
 
     priv->disc_number_entry = gtk_entry_new ();
     gtk_entry_set_icon_from_icon_name (GTK_ENTRY (priv->disc_number_entry),
@@ -2182,7 +2182,7 @@ create_tag_area (EtTagArea *self)
     priv->year_label = gtk_label_new (_("Year:"));
     et_grid_attach_full (GTK_GRID (table), priv->year_label, 0, 4, 1, 1, FALSE,
                          FALSE, TablePadding, TablePadding);
-    gtk_misc_set_alignment (GTK_MISC (priv->year_label), 1.0, 0.5);
+    gtk_widget_set_halign (priv->year_label, GTK_ALIGN_END);
 
     priv->year_entry = gtk_entry_new ();
     gtk_entry_set_max_length (GTK_ENTRY (priv->year_entry), 4);
@@ -2228,7 +2228,7 @@ create_tag_area (EtTagArea *self)
     priv->track_label = gtk_label_new (_("Track #:"));
     et_grid_attach_full (GTK_GRID (table), priv->track_label, 5, 4, 1, 1,
                          FALSE, FALSE, TablePadding, TablePadding);
-    gtk_misc_set_alignment (GTK_MISC (priv->track_label), 1.0, 0.5);
+    gtk_widget_set_halign (priv->track_label, GTK_ALIGN_END);
 
     if (priv->track_combo_model != NULL)
     {
@@ -2257,7 +2257,6 @@ create_tag_area (EtTagArea *self)
     label = gtk_label_new ("/");
     et_grid_attach_full (GTK_GRID (table), label, 7, 4, 1, 1, FALSE, FALSE,
                          TablePadding, TablePadding);
-    gtk_misc_set_alignment (GTK_MISC (label), 0.5, 0.5);
 
     priv->track_number_button = gtk_button_new ();
     gtk_widget_set_size_request (priv->track_number_button, MButtonSize,
@@ -2292,7 +2291,7 @@ create_tag_area (EtTagArea *self)
     priv->genre_label = gtk_label_new (_("Genre:"));
     et_grid_attach_full (GTK_GRID (table), priv->genre_label, 0, 5, 1, 1,
                          FALSE, FALSE, TablePadding, TablePadding);
-    gtk_misc_set_alignment (GTK_MISC (priv->genre_label), 1.0, 0.5);
+    gtk_widget_set_halign (priv->genre_label, GTK_ALIGN_END);
 
     if (priv->genre_combo_model != NULL)
     {
@@ -2335,7 +2334,7 @@ create_tag_area (EtTagArea *self)
     priv->comment_label = gtk_label_new (_("Comment:"));
     et_grid_attach_full (GTK_GRID (table), priv->comment_label, 0, 6, 1, 1,
                          FALSE, FALSE, TablePadding, TablePadding);
-    gtk_misc_set_alignment (GTK_MISC (priv->comment_label), 1.0, 0.5);
+    gtk_widget_set_halign (priv->comment_label, GTK_ALIGN_END);
 
     priv->comment_entry = gtk_entry_new ();
     gtk_entry_set_icon_from_icon_name (GTK_ENTRY (priv->comment_entry),
@@ -2352,7 +2351,7 @@ create_tag_area (EtTagArea *self)
     priv->composer_label = gtk_label_new (_("Composer:"));
     et_grid_attach_full (GTK_GRID (table), priv->composer_label, 0, 7, 1, 1,
                          FALSE, FALSE, TablePadding, TablePadding);
-    gtk_misc_set_alignment (GTK_MISC (priv->composer_label), 1.0, 0.5);
+    gtk_widget_set_halign (priv->composer_label, GTK_ALIGN_END);
 
     priv->composer_entry = gtk_entry_new ();
     gtk_entry_set_icon_from_icon_name (GTK_ENTRY (priv->composer_entry),
@@ -2370,7 +2369,7 @@ create_tag_area (EtTagArea *self)
     priv->orig_artist_label = gtk_label_new (_("Orig. artist:"));
     et_grid_attach_full (GTK_GRID (table), priv->orig_artist_label, 0, 8, 1, 1,
                          FALSE, FALSE, TablePadding, TablePadding);
-    gtk_misc_set_alignment (GTK_MISC (priv->orig_artist_label), 1.0, 0.5);
+    gtk_widget_set_halign (priv->orig_artist_label, GTK_ALIGN_END);
 
     priv->orig_artist_entry = gtk_entry_new ();
     gtk_entry_set_icon_from_icon_name (GTK_ENTRY (priv->orig_artist_entry),
@@ -2387,7 +2386,7 @@ create_tag_area (EtTagArea *self)
     priv->copyright_label = gtk_label_new (_("Copyright:"));
     et_grid_attach_full (GTK_GRID (table), priv->copyright_label, 0, 9, 1, 1,
                          FALSE, FALSE, TablePadding, TablePadding);
-    gtk_misc_set_alignment (GTK_MISC (priv->copyright_label), 1.0, 0.5);
+    gtk_widget_set_halign (priv->copyright_label, GTK_ALIGN_END);
 
     priv->copyright_entry = gtk_entry_new ();
     gtk_entry_set_icon_from_icon_name (GTK_ENTRY (priv->copyright_entry),
@@ -2406,7 +2405,7 @@ create_tag_area (EtTagArea *self)
     priv->url_label = gtk_label_new (_("URL:"));
     et_grid_attach_full (GTK_GRID (table), priv->url_label, 0, 10, 1, 1, FALSE,
                          FALSE, TablePadding, TablePadding);
-    gtk_misc_set_alignment (GTK_MISC (priv->url_label), 1.0, 0.5);
+    gtk_widget_set_halign (priv->url_label, GTK_ALIGN_END);
 
     priv->url_entry = gtk_entry_new ();
     gtk_entry_set_icon_from_icon_name (GTK_ENTRY (priv->url_entry),
@@ -2423,7 +2422,7 @@ create_tag_area (EtTagArea *self)
     priv->encoded_by_label = gtk_label_new (_("Encoded by:"));
     et_grid_attach_full (GTK_GRID (table), priv->encoded_by_label, 0, 11, 1, 1,
                          FALSE, FALSE, TablePadding, TablePadding);
-    gtk_misc_set_alignment (GTK_MISC (priv->encoded_by_label), 1.0, 0.5);
+    gtk_widget_set_halign (priv->encoded_by_label, GTK_ALIGN_END);
 
     priv->encoded_by_entry = gtk_entry_new ();
     gtk_entry_set_icon_from_icon_name (GTK_ENTRY (priv->encoded_by_entry),

@@ -119,8 +119,8 @@ create_file_area (EtFileArea *self)
     priv->version_value_label = gtk_label_new ("");
     gtk_grid_attach (GTK_GRID (priv->header_grid), priv->version_value_label,
                      1, 0, 1, 1);
-    gtk_misc_set_alignment (GTK_MISC (priv->version_label), 1.0, 0.5);
-    gtk_misc_set_alignment (GTK_MISC (priv->version_value_label), 0.0, 0.5);
+    gtk_widget_set_halign (priv->version_label, GTK_ALIGN_END);
+    gtk_widget_set_halign (priv->version_value_label, GTK_ALIGN_START);
 
     priv->bitrate_label = gtk_label_new (_("Bitrate:"));
     gtk_grid_attach (GTK_GRID (priv->header_grid), priv->bitrate_label, 0, 1,
@@ -128,8 +128,8 @@ create_file_area (EtFileArea *self)
     priv->bitrate_value_label = gtk_label_new ("");
     gtk_grid_attach (GTK_GRID (priv->header_grid), priv->bitrate_value_label,
                      1, 1, 1, 1);
-    gtk_misc_set_alignment (GTK_MISC (priv->bitrate_label), 1.0, 0.5);
-    gtk_misc_set_alignment (GTK_MISC (priv->bitrate_value_label), 0.0, 0.5);
+    gtk_widget_set_halign (priv->bitrate_label, GTK_ALIGN_END);
+    gtk_widget_set_halign (priv->bitrate_value_label, GTK_ALIGN_START);
 
     /* Translators: Please try to keep this string as short as possible as it
      * is shown in a narrow column. */
@@ -139,8 +139,8 @@ create_file_area (EtFileArea *self)
     priv->samplerate_value_label = gtk_label_new ("");
     gtk_grid_attach (GTK_GRID (priv->header_grid),
                      priv->samplerate_value_label, 1, 2, 1, 1);
-    gtk_misc_set_alignment (GTK_MISC (priv->samplerate_label), 1.0, 0.5);
-    gtk_misc_set_alignment (GTK_MISC (priv->samplerate_value_label), 0.0, 0.5);
+    gtk_widget_set_halign (priv->samplerate_label, GTK_ALIGN_END);
+    gtk_widget_set_halign (priv->samplerate_value_label, GTK_ALIGN_START);
 
     separator = gtk_separator_new (GTK_ORIENTATION_VERTICAL);
     gtk_grid_attach (GTK_GRID (priv->header_grid), separator, 2, 0, 1, 4);
@@ -151,8 +151,8 @@ create_file_area (EtFileArea *self)
     priv->mode_value_label = gtk_label_new ("");
     gtk_grid_attach (GTK_GRID (priv->header_grid), priv->mode_value_label, 4,
                      0, 1, 1);
-    gtk_misc_set_alignment (GTK_MISC (priv->mode_label), 1.0, 0.5);
-    gtk_misc_set_alignment (GTK_MISC (priv->mode_value_label), 0.0, 0.5);
+    gtk_widget_set_halign (priv->mode_label, GTK_ALIGN_END);
+    gtk_widget_set_halign (priv->mode_value_label, GTK_ALIGN_START);
 
     priv->size_label = gtk_label_new (_("Size:"));
     gtk_grid_attach (GTK_GRID (priv->header_grid), priv->size_label, 3, 1, 1,
@@ -160,8 +160,8 @@ create_file_area (EtFileArea *self)
     priv->size_value_label = gtk_label_new ("");
     gtk_grid_attach (GTK_GRID (priv->header_grid), priv->size_value_label, 4,
                      1, 1, 1);
-    gtk_misc_set_alignment (GTK_MISC (priv->size_label), 1.0, 0.5);
-    gtk_misc_set_alignment (GTK_MISC (priv->size_value_label), 0.0, 0.5);
+    gtk_widget_set_halign (priv->size_label, GTK_ALIGN_END);
+    gtk_widget_set_halign (priv->size_value_label, GTK_ALIGN_START);
 
     priv->duration_label = gtk_label_new (_("Duration:"));
     gtk_grid_attach (GTK_GRID (priv->header_grid), priv->duration_label, 3, 2,
@@ -169,8 +169,8 @@ create_file_area (EtFileArea *self)
     priv->duration_value_label = gtk_label_new ("");
     gtk_grid_attach (GTK_GRID (priv->header_grid), priv->duration_value_label,
                      4, 2, 1, 1);
-    gtk_misc_set_alignment (GTK_MISC (priv->duration_label), 1.0, 0.5);
-    gtk_misc_set_alignment (GTK_MISC (priv->duration_value_label), 0.0, 0.5);
+    gtk_widget_set_halign (priv->duration_label, GTK_ALIGN_END);
+    gtk_widget_set_halign (priv->duration_value_label, GTK_ALIGN_START);
 
     g_signal_connect_swapped (MainSettings, "changed::file-show-header",
                               G_CALLBACK (on_file_show_header_changed), self);

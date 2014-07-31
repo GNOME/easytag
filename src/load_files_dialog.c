@@ -862,7 +862,7 @@ create_load_files_dialog (EtLoadFilesDialog *self)
                                                    G_TYPE_STRING);
 
     Label = gtk_label_new(_("File:"));
-    gtk_misc_set_alignment(GTK_MISC(Label),1.0,0.5);
+    gtk_widget_set_halign (Label, GTK_ALIGN_END);
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
     priv->file_to_load_combo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(priv->file_to_load_model));
     g_object_unref (priv->file_to_load_model);
