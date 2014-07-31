@@ -15,7 +15,6 @@
   <download-page rdf:resource="https://download.gnome.org/sources/easytag/" />
   <screenshots rdf:resource="https://wiki.gnome.org/Apps/EasyTAG/Screenshots" />
   <wiki rdf:resource="https://wiki.gnome.org/Apps/EasyTAG" />
-  <programming-language>C</programming-language>
   <mailing-list rdf:resource="https://mail.gnome.org/mailman/listinfo/easytag-list" />
   <bug-database rdf:resource="https://bugzilla.gnome.org/browse.cgi?product=easytag" />
   <category rdf:resource="http://api.gnome.org/doap-extensions#productivity" />
