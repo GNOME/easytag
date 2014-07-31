@@ -247,8 +247,6 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
 {
     /* Traverse node in GNode and add it to list_store */
     MbEntityKind type;
-    Mb5ArtistCredit artist_credit;
-    Mb5NameCreditList name_list;
     Mb5ReleaseGroup release_group;
     Mb5ReleaseList release_list;
     int i;
@@ -309,38 +307,13 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
             case MB_ENTITY_KIND_ALBUM:
             {
                 gchar group[NAME_MAX_SIZE];
-                GString *gstring;
                 gchar name[NAME_MAX_SIZE];
+                gchar *album_artists;
 
                 release_group = mb5_release_get_releasegroup ((Mb5Release)entity);
                 mb5_releasegroup_get_primarytype (release_group, group,
                                                   sizeof (group));
-                artist_credit = mb5_release_get_artistcredit ((Mb5Release)entity);
-                gstring = g_string_new ("");
-
-                if (artist_credit)
-                {
-                    name_list = mb5_artistcredit_get_namecreditlist (artist_credit);
-
-                    for (i = 0; i < mb5_namecredit_list_size (name_list); i++)
-                    {
-                        Mb5NameCredit name_credit;
-                        Mb5Artist name_credit_artist;
-                        int size;
-
-                        name_credit = mb5_namecredit_list_item (name_list, i);
-                        name_credit_artist = mb5_namecredit_get_artist (name_credit);
-                        size = mb5_artist_get_name (name_credit_artist, name,
-                                                    sizeof (name));
-                        g_string_append_len (gstring, name, size);
-
-                        if (i + 1 < mb5_namecredit_list_size (name_list))
-                        {
-                            g_string_append_len (gstring, ", ", 2);
-                        }
-                    }
-                }
-
+                album_artists = et_mb5_release_get_artists_names (entity);
                 mb5_release_get_title ((Mb5Release)entity, name,
                                        sizeof (name));
                 
@@ -350,7 +323,7 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                                                        MB_ALBUM_COLUMNS_NAME, 
                                                        name,
                                                        MB_ALBUM_COLUMNS_ARTIST,
-                                                       gstring->str,
+                                                       album_artists,
                                                        MB_ALBUM_COLUMNS_TYPE,
                                                        group,
                                                        MB_ALBUM_COLUMNS_N,
@@ -361,49 +334,24 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                     gtk_list_store_insert_with_values (list_store, &iter, -1,
                                         MB_ALBUM_COLUMNS_NAME, name,
                                         MB_ALBUM_COLUMNS_ARTIST,
-                                        gstring->str,
+                                        album_artists,
                                         MB_ALBUM_COLUMNS_TYPE, group,
                                         MB_ALBUM_COLUMNS_N, &black, -1);
                 }
 
-                g_string_free (gstring, TRUE);
+                g_free (album_artists);
 
                 break;
             }
 
             case MB_ENTITY_KIND_TRACK:
             {
-                GString *artists;
                 GString *releases;
                 gchar name[NAME_MAX_SIZE];
                 gchar time[NAME_MAX_SIZE];
+                gchar *artists;
 
-                artist_credit = mb5_recording_get_artistcredit ((Mb5Release)entity);
-                artists = g_string_new ("");
-
-                if (artist_credit)
-                {
-                    name_list = mb5_artistcredit_get_namecreditlist (artist_credit);
-
-                    for (i = 0; i < mb5_namecredit_list_size (name_list); i++)
-                    {
-                        Mb5NameCredit name_credit;
-                        Mb5Artist name_credit_artist;
-                        int size;
-
-                        name_credit = mb5_namecredit_list_item (name_list, i);
-                        name_credit_artist = mb5_namecredit_get_artist (name_credit);
-                        size = mb5_artist_get_name (name_credit_artist, name,
-                                                    sizeof (name));
-                        g_string_append_len (artists, name, size);
-
-                        if (i + 1 < mb5_namecredit_list_size (name_list))
-                        {
-                            g_string_append_len (artists, ", ", 2);
-                        }
-                    }
-                }
-
+                artists = et_mb5_recording_get_artists_names (entity);
                 release_list = mb5_recording_get_releaselist ((Mb5Recording)entity);
                 releases = g_string_new ("");
 
@@ -456,7 +404,7 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                 gtk_list_store_insert_with_values (list_store, &iter, -1,
                                                    MB_TRACK_COLUMNS_NAME, name,
                                                    MB_TRACK_COLUMNS_ARTIST,
-                                                   artists->str,
+                                                   artists,
                                                    MB_TRACK_COLUMNS_ALBUM,
                                                    releases->str,
                                                    MB_TRACK_COLUMNS_TIME,
@@ -464,7 +412,7 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                                                    MB_TRACK_COLUMNS_N, 
                                                    &black, -1);
                 g_string_free (releases, TRUE);
-                g_string_free (artists, TRUE);
+                g_free (artists);
 
                 break;
             }
