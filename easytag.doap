@@ -17,7 +17,7 @@
   <wiki rdf:resource="https://wiki.gnome.org/Apps/EasyTAG" />
   <mailing-list rdf:resource="https://mail.gnome.org/mailman/listinfo/easytag-list" />
   <bug-database rdf:resource="https://bugzilla.gnome.org/browse.cgi?product=easytag" />
-  <category rdf:resource="http://api.gnome.org/doap-extensions#productivity" />
+  <category rdf:resource="http://api.gnome.org/doap-extensions#apps" />
   <repository>
     <GitRepository>
       <location rdf:resource="git://git.gnome.org/easytag" />
