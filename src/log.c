@@ -50,6 +50,9 @@ struct _EtLogAreaPrivate
     /* Temporary list to store messages for the LogList when this control was
      * not yet created. */
     GList *log_tmp_list;
+
+    /* Popup menu. */
+    GtkWidget *menu;
 };
 
 enum
@@ -75,8 +78,6 @@ typedef struct
 /**************
  * Prototypes *
  **************/
-static gboolean Log_Popup_Menu_Handler (GtkWidget *treeview,
-                                        GdkEventButton *event, GtkMenu *menu);
 static void Log_List_Set_Row_Visible (EtLogArea *self, GtkTreeIter *rowIter);
 static void Log_Print_Tmp_List (EtLogArea *self);
 static gchar *Log_Format_Date (void);
@@ -86,6 +87,60 @@ static gchar *Log_Format_Date (void);
 /*************
  * Functions *
  *************/
+
+static void
+do_popup_menu (EtLogArea *self,
+               GdkEventButton *event)
+{
+    EtLogAreaPrivate *priv;
+    gint button;
+    gint event_time;
+
+    priv = et_log_area_get_instance_private (self);
+
+    if (event)
+    {
+        button = event->button;
+        event_time = event->time;
+    }
+    else
+    {
+        button = 0;
+        event_time = gtk_get_current_event_time ();
+    }
+
+    /* TODO: Add popup positioning function. */
+    gtk_menu_popup (GTK_MENU (priv->menu), NULL, NULL, NULL, NULL, button,
+                    event_time);
+}
+
+static gboolean
+on_popup_menu (GtkWidget *treeview,
+               EtLogArea *self)
+{
+    do_popup_menu (self, NULL);
+
+    return GDK_EVENT_STOP;
+}
+
+/*
+ * Log_Popup_Menu_Handler : displays the corresponding menu
+ */
+static gboolean
+on_button_press_event (GtkWidget *treeview,
+                       GdkEventButton *event,
+                       EtLogArea *self)
+{
+    if (gdk_event_triggers_context_menu ((GdkEvent *)event))
+    {
+        do_popup_menu (self, event);
+
+        return GDK_EVENT_STOP;
+    }
+
+    return GDK_EVENT_PROPAGATE;
+}
+
 
 static void
 et_log_area_class_init (EtLogAreaClass *klass)
@@ -103,7 +158,6 @@ et_log_area_init (EtLogArea *self)
     GtkBuilder *builder;
     GError *error = NULL;
     GMenuModel *menu_model;
-    GtkWidget *menu;
 
     priv = self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, ET_TYPE_LOG_AREA,
                                                      EtLogAreaPrivate);
@@ -153,7 +207,7 @@ et_log_area_init (EtLogArea *self)
                                         "text",           LOG_TEXT,
                                         NULL);
 
-    /* Create Popup Menu on browser album list. */
+    /* Create popup menu. */
     builder = gtk_builder_new ();
     gtk_builder_add_from_resource (builder, "/org/gnome/EasyTAG/menus.ui",
                                    &error);
@@ -165,12 +219,15 @@ et_log_area_init (EtLogArea *self)
     }
 
     menu_model = G_MENU_MODEL (gtk_builder_get_object (builder, "log-menu"));
-    menu = gtk_menu_new_from_model (menu_model);
-    gtk_menu_attach_to_widget (GTK_MENU (menu), priv->log_view, NULL);
-    g_signal_connect (priv->log_view, "button-press-event",
-                      G_CALLBACK (Log_Popup_Menu_Handler), menu);
+    priv->menu = gtk_menu_new_from_model (menu_model);
+    gtk_menu_attach_to_widget (GTK_MENU (priv->menu), priv->log_view, NULL);
 
     g_object_unref (builder);
+
+    g_signal_connect (priv->log_view, "popup-menu", G_CALLBACK (on_popup_menu),
+                      self);
+    g_signal_connect (priv->log_view, "button-press-event",
+                      G_CALLBACK (on_button_press_event), self);
 
     /* Load pending messages in the Log list. */
     Log_Print_Tmp_List (self);
@@ -187,24 +244,6 @@ et_log_area_new ()
 {
     return g_object_new (ET_TYPE_LOG_AREA, "label", _("Log"), NULL);
 }
-
-/*
- * Log_Popup_Menu_Handler : displays the corresponding menu
- */
-static gboolean
-Log_Popup_Menu_Handler (GtkWidget *treeview, GdkEventButton *event,
-                        GtkMenu *menu)
-{
-    if (gdk_event_triggers_context_menu ((GdkEvent *)event))
-    {
-        gtk_menu_popup (menu, NULL, NULL, NULL, NULL, event->button,
-                        event->time);
-        return GDK_EVENT_STOP;
-    }
-
-    return GDK_EVENT_PROPAGATE;
-}
-
 
 /*
  * Set a row visible in the log list (by scrolling the list)
