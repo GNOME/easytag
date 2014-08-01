@@ -61,8 +61,10 @@ struct _EtLoadFilesDialogPrivate
     GtkListStore *file_to_load_model;
     GtkWidget *load_file_content_view;
     GtkListStore *load_file_content_model;
+    GtkWidget *load_file_content_menu;
     GtkWidget *load_file_name_view;
     GtkListStore *load_file_name_model;
+    GtkWidget *load_file_name_menu;
 
     GtkWidget *selected_line_entry;
 };
@@ -619,96 +621,20 @@ Load_Filename_Select_Row_In_Other_List (GtkWidget* treeview_target, gpointer ori
     g_signal_handlers_unblock_by_func(G_OBJECT(selection_target), G_CALLBACK(Load_Filename_Select_Row_In_Other_List), G_OBJECT(treeview_orig));
 }
 
-/*
- * Create and attach a popup menu on the two clist of the LoadFileWindow
- */
-static gboolean
-Load_Filename_Popup_Menu_Handler (GtkWidget *treeview,
-                                  GdkEventButton *event,
-                                  GtkMenu *menu)
-{
-    if (gdk_event_triggers_context_menu ((GdkEvent *)event))
-    {
-        gtk_menu_popup (menu, NULL, NULL, NULL, NULL, event->button,
-                        event->time);
-        return GDK_EVENT_STOP;
-    }
-
-    return GDK_EVENT_PROPAGATE;
-}
-
 static void
-create_load_file_content_view_popup (EtLoadFilesDialog *self, GtkWidget *list)
+create_load_file_content_view_popup (EtLoadFilesDialog *self)
 {
+    EtLoadFilesDialogPrivate *priv;
+    GtkWidget *list;
     GtkWidget *BrowserPopupMenu;
     GtkWidget *Image;
     GtkWidget *MenuItem;
 
-    BrowserPopupMenu = gtk_menu_new();
-    gtk_menu_attach_to_widget (GTK_MENU (BrowserPopupMenu), list, NULL);
-    g_signal_connect (G_OBJECT (list), "button-press-event",
-                      G_CALLBACK (Load_Filename_Popup_Menu_Handler),
-                      BrowserPopupMenu);
-    
-    MenuItem = gtk_image_menu_item_new_with_label(_("Insert a blank line"));
-    Image = gtk_image_new_from_icon_name ("list-add", GTK_ICON_SIZE_MENU);
-    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
-    gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu), MenuItem);
-    g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Insert_Blank_Line), G_OBJECT(list));
-
-    MenuItem = gtk_image_menu_item_new_with_label(_("Delete this line"));
-    Image = gtk_image_new_from_icon_name ("list-remove", GTK_ICON_SIZE_MENU);
-    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
-    gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
-    g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Delete_Line), G_OBJECT(list));
-
-    MenuItem = gtk_image_menu_item_new_with_label(_("Delete all blank lines"));
-    Image = gtk_image_new_from_icon_name ("list-remove", GTK_ICON_SIZE_MENU);
-    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
-    gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
-    g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Delete_All_Blank_Lines),G_OBJECT(list));
-
-    MenuItem = gtk_menu_item_new();
-    gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
-
-    MenuItem = gtk_image_menu_item_new_with_label(_("Move up this line"));
-    Image = gtk_image_new_from_icon_name ("go-up", GTK_ICON_SIZE_MENU);
-    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
-    gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
-    g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Move_Up),G_OBJECT(list));
-
-    MenuItem = gtk_image_menu_item_new_with_label(_("Move down this line"));
-    Image = gtk_image_new_from_icon_name ("go-down", GTK_ICON_SIZE_MENU);
-    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
-    gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
-    g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Move_Down),G_OBJECT(list));
-
-    MenuItem = gtk_menu_item_new();
-    gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
-
-    MenuItem = gtk_image_menu_item_new_with_label(_("Reload"));
-    Image = gtk_image_new_from_icon_name ("view-refresh", GTK_ICON_SIZE_MENU);
-    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
-    gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
-    g_signal_connect (MenuItem, "activate",
-                      G_CALLBACK (on_load_file_content_view_reload_clicked),
-                      self);
-
-    gtk_widget_show_all(BrowserPopupMenu);
-}
-
-static void
-create_load_file_name_view_popup (EtLoadFilesDialog *self, GtkWidget *list)
-{
-    GtkWidget *BrowserPopupMenu;
-    GtkWidget *Image;
-    GtkWidget *MenuItem;
+    priv = et_load_files_dialog_get_instance_private (self);
+    list = priv->load_file_name_view;
 
     BrowserPopupMenu = gtk_menu_new();
     gtk_menu_attach_to_widget (GTK_MENU (BrowserPopupMenu), list, NULL);
-    g_signal_connect (G_OBJECT (list), "button-press-event",
-                      G_CALLBACK (Load_Filename_Popup_Menu_Handler),
-                      BrowserPopupMenu);
     
     MenuItem = gtk_image_menu_item_new_with_label(_("Insert a blank line"));
     Image = gtk_image_new_from_icon_name ("list-add", GTK_ICON_SIZE_MENU);
@@ -755,6 +681,176 @@ create_load_file_name_view_popup (EtLoadFilesDialog *self, GtkWidget *list)
                       self);
 
     gtk_widget_show_all(BrowserPopupMenu);
+
+    priv->load_file_content_menu = BrowserPopupMenu;
+}
+
+static void
+do_name_view_popup_menu (EtLoadFilesDialog *self,
+                         GdkEventButton *event)
+{
+    EtLoadFilesDialogPrivate *priv;
+    gint button;
+    gint event_time;
+
+    priv = et_load_files_dialog_get_instance_private (self);
+
+    if (event)
+    {
+        button = event->button;
+        event_time = event->time;
+    }
+    else
+    {
+        button = 0;
+        event_time = gtk_get_current_event_time ();
+    }
+
+    /* TODO: Add popup positioning function. */
+    gtk_menu_popup (GTK_MENU (priv->load_file_content_menu), NULL, NULL, NULL,
+                    NULL, button, event_time);
+}
+
+static gboolean
+on_name_view_popup_menu (GtkWidget *treeview,
+                         EtLoadFilesDialog *self)
+{
+    do_name_view_popup_menu (self, NULL);
+
+    return GDK_EVENT_STOP;
+}
+
+/*
+ * Handle button press events from the file name view. */
+static gboolean
+on_name_view_button_press_event (GtkWidget *treeview,
+                                 GdkEventButton *event,
+                                 EtLoadFilesDialog *self)
+{
+    if (gdk_event_triggers_context_menu ((GdkEvent *)event))
+    {
+        do_name_view_popup_menu (self, event);
+
+        return GDK_EVENT_STOP;
+    }
+
+    return GDK_EVENT_PROPAGATE;
+}
+
+static void
+create_load_file_name_view_popup (EtLoadFilesDialog *self)
+{
+    EtLoadFilesDialogPrivate *priv;
+    GtkWidget *list;
+    GtkWidget *BrowserPopupMenu;
+    GtkWidget *Image;
+    GtkWidget *MenuItem;
+
+    priv = et_load_files_dialog_get_instance_private (self);
+    list = priv->load_file_content_view;
+
+    BrowserPopupMenu = gtk_menu_new();
+    gtk_menu_attach_to_widget (GTK_MENU (BrowserPopupMenu), list, NULL);
+    
+    MenuItem = gtk_image_menu_item_new_with_label(_("Insert a blank line"));
+    Image = gtk_image_new_from_icon_name ("list-add", GTK_ICON_SIZE_MENU);
+    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
+    gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu), MenuItem);
+    g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Insert_Blank_Line), G_OBJECT(list));
+
+    MenuItem = gtk_image_menu_item_new_with_label(_("Delete this line"));
+    Image = gtk_image_new_from_icon_name ("list-remove", GTK_ICON_SIZE_MENU);
+    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
+    gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
+    g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Delete_Line), G_OBJECT(list));
+
+    MenuItem = gtk_image_menu_item_new_with_label(_("Delete all blank lines"));
+    Image = gtk_image_new_from_icon_name ("list-remove", GTK_ICON_SIZE_MENU);
+    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
+    gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
+    g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Delete_All_Blank_Lines),G_OBJECT(list));
+
+    MenuItem = gtk_menu_item_new();
+    gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
+
+    MenuItem = gtk_image_menu_item_new_with_label(_("Move up this line"));
+    Image = gtk_image_new_from_icon_name ("go-up", GTK_ICON_SIZE_MENU);
+    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
+    gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
+    g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Move_Up),G_OBJECT(list));
+
+    MenuItem = gtk_image_menu_item_new_with_label(_("Move down this line"));
+    Image = gtk_image_new_from_icon_name ("go-down", GTK_ICON_SIZE_MENU);
+    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
+    gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
+    g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Move_Down),G_OBJECT(list));
+
+    MenuItem = gtk_menu_item_new();
+    gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
+
+    MenuItem = gtk_image_menu_item_new_with_label(_("Reload"));
+    Image = gtk_image_new_from_icon_name ("view-refresh", GTK_ICON_SIZE_MENU);
+    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
+    gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
+    g_signal_connect (MenuItem, "activate",
+                      G_CALLBACK (on_load_file_content_view_reload_clicked),
+                      self);
+
+    gtk_widget_show_all(BrowserPopupMenu);
+
+    priv->load_file_name_menu = BrowserPopupMenu;
+}
+
+static void
+do_content_view_popup_menu (EtLoadFilesDialog *self,
+                            GdkEventButton *event)
+{
+    EtLoadFilesDialogPrivate *priv;
+    gint button;
+    gint event_time;
+
+    priv = et_load_files_dialog_get_instance_private (self);
+
+    if (event)
+    {
+        button = event->button;
+        event_time = event->time;
+    }
+    else
+    {
+        button = 0;
+        event_time = gtk_get_current_event_time ();
+    }
+
+    /* TODO: Add popup positioning function. */
+    gtk_menu_popup (GTK_MENU (priv->load_file_name_menu), NULL, NULL, NULL,
+                    NULL, button, event_time);
+}
+
+static gboolean
+on_content_view_popup_menu (GtkWidget *treeview,
+                            EtLoadFilesDialog *self)
+{
+    do_content_view_popup_menu (self, NULL);
+
+    return GDK_EVENT_STOP;
+}
+
+/*
+ * Handle button press events from the file content view. */
+static gboolean
+on_content_view_button_press_event (GtkWidget *treeview,
+                                    GdkEventButton *event,
+                                    EtLoadFilesDialog *self)
+{
+    if (gdk_event_triggers_context_menu ((GdkEvent *)event))
+    {
+        do_content_view_popup_menu (self, event);
+
+        return GDK_EVENT_STOP;
+    }
+
+    return GDK_EVENT_PROPAGATE;
 }
 
 /*
@@ -1093,9 +1189,17 @@ create_load_files_dialog (EtLoadFilesDialog *self)
     gtk_paned_pack2(GTK_PANED(vboxpaned),filelistvbox,TRUE,FALSE);
     gtk_box_pack_start(GTK_BOX(content_area),vboxpaned,TRUE,TRUE,0);
 
-    // Create popup menus
-    create_load_file_content_view_popup (self, priv->load_file_content_view);
-    create_load_file_name_view_popup (self, priv->load_file_name_view);
+    /* Create popup menus. */
+    create_load_file_content_view_popup (self);
+    create_load_file_name_view_popup (self);
+    g_signal_connect (priv->load_file_content_view, "button-press-event",
+                      G_CALLBACK (on_content_view_button_press_event), self);
+    g_signal_connect (priv->load_file_content_view, "popup-menu",
+                      G_CALLBACK (on_content_view_popup_menu), self);
+    g_signal_connect (priv->load_file_name_view, "button-press-event",
+                      G_CALLBACK (on_name_view_button_press_event), self);
+    g_signal_connect (priv->load_file_name_view, "popup-menu",
+                      G_CALLBACK (on_name_view_popup_menu), self);
 
     hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_box_pack_start(GTK_BOX(content_area),hbox,FALSE,TRUE,0);
