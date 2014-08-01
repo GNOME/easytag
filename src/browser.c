@@ -69,18 +69,22 @@ struct _EtBrowserPrivate
 
     GtkListStore *file_model;
     GtkWidget *file_view;
+    GtkWidget *file_menu;
     guint file_selected_handler;
     EtSortMode file_sort_mode;
 
     GtkWidget *album_list;
+    GtkWidget *album_menu;
     GtkListStore *album_model;
     guint album_selected_handler;
 
     GtkWidget *artist_list;
+    GtkWidget *artist_menu;
     GtkListStore *artist_model;
     guint artist_selected_handler;
 
     GtkWidget *tree; /* Tree of directories. */
+    GtkWidget *tree_menu;
     GtkTreeStore *directory_model;
 
     GtkListStore *run_program_model;
@@ -716,64 +720,6 @@ Browser_List_Key_Press (GtkWidget *list, GdkEvent *event, gpointer data)
         }
     }
 
-    return FALSE;
-}
-
-/*
- * Action for double/triple click
- */
-static gboolean
-Browser_List_Button_Press (EtBrowser *self,
-                           GdkEventButton *event,
-                           GtkTreeView *treeview)
-{
-    g_return_val_if_fail (event != NULL, FALSE);
-
-    if (event->type == GDK_2BUTTON_PRESS
-        && event->button == GDK_BUTTON_PRIMARY)
-    {
-        /* Double left mouse click */
-        // Select files of the same directory (useful when browsing sub-directories)
-        GList *l;
-        gchar *path_ref = NULL;
-        gchar *patch_check = NULL;
-        GtkTreePath *currentPath = NULL;
-
-        if (!ETCore->ETFileDisplayed)
-            return FALSE;
-
-        // File taken as reference...
-        path_ref = g_path_get_dirname( ((File_Name *)ETCore->ETFileDisplayed->FileNameCur->data)->value );
-
-        // Search and select files of the same directory
-        for (l = g_list_first (ETCore->ETFileDisplayedList); l != NULL;
-             l = g_list_next (l))
-        {
-            // Path of the file to check if it is in the same directory
-            patch_check = g_path_get_dirname (((File_Name *)((ET_File *)l->data)->FileNameCur->data)->value);
-
-            if ( path_ref && patch_check && strcmp(path_ref,patch_check)==0 )
-            {
-                // Use of 'currentPath' to try to increase speed. Indeed, in many
-                // cases, the next file to select, is the next in the list
-                currentPath = et_browser_select_file_by_et_file2 (self,
-                                                                  (ET_File *)l->data,
-                                                                  TRUE,
-                                                                  currentPath);
-            }
-            g_free(patch_check);
-        }
-        g_free(path_ref);
-        if (currentPath)
-            gtk_tree_path_free(currentPath);
-    }
-    else if (event->type == GDK_3BUTTON_PRESS
-             && event->button == GDK_BUTTON_PRIMARY)
-    {
-        /* Triple left mouse click, select all files of the list. */
-        g_action_group_activate_action (G_ACTION_GROUP (MainWindow),
-                                        "select-all", NULL);
-    }
     return FALSE;
 }
 
@@ -2792,42 +2738,251 @@ et_browser_set_sensitive (EtBrowser *self, gboolean sensitive)
     gtk_widget_set_sensitive (GTK_WIDGET (priv->label), sensitive);
 }
 
+static void
+do_popup_menu (EtBrowser *self,
+               GdkEventButton *event,
+               GtkTreeView *view,
+               GtkWidget *menu)
+{
+    gint button;
+    gint event_time;
+
+    if (event)
+    {
+        button = event->button;
+        event_time = event->time;
+    }
+    else
+    {
+        button = 0;
+        event_time = gtk_get_current_event_time ();
+    }
+
+    /* TODO: Add popup positioning function. */
+    gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL, button,
+                    event_time);
+}
+
+static void
+select_row_for_button_press_event (GtkTreeView *treeview,
+                                   GdkEventButton *event)
+{
+    if (event->window == gtk_tree_view_get_bin_window (treeview))
+    {
+        GtkTreePath *tree_path;
+
+        if (gtk_tree_view_get_path_at_pos (treeview, event->x,
+                                           event->y, &tree_path, NULL,
+                                           NULL,NULL))
+        {
+            gtk_tree_selection_select_path (gtk_tree_view_get_selection (treeview),
+                                            tree_path);
+            gtk_tree_path_free (tree_path);
+        }
+    }
+}
+
+static gboolean
+on_album_tree_popup_menu (GtkWidget *treeview,
+                          EtBrowser *self)
+{
+    EtBrowserPrivate *priv;
+
+    priv = et_browser_get_instance_private (self);
+
+    do_popup_menu (self, NULL, GTK_TREE_VIEW (treeview), priv->album_menu);
+
+    return GDK_EVENT_STOP;
+}
+
+static gboolean
+on_artist_tree_popup_menu (GtkWidget *treeview,
+                           EtBrowser *self)
+{
+    EtBrowserPrivate *priv;
+
+    priv = et_browser_get_instance_private (self);
+
+    do_popup_menu (self, NULL, GTK_TREE_VIEW (treeview), priv->artist_menu);
+
+    return GDK_EVENT_STOP;
+}
+
+static gboolean
+on_directory_tree_popup_menu (GtkWidget *treeview,
+                              EtBrowser *self)
+{
+    EtBrowserPrivate *priv;
+
+    priv = et_browser_get_instance_private (self);
+
+    do_popup_menu (self, NULL, GTK_TREE_VIEW (treeview), priv->tree_menu);
+
+    return GDK_EVENT_STOP;
+}
+
+static gboolean
+on_file_tree_popup_menu (GtkWidget *treeview,
+                         EtBrowser *self)
+{
+    EtBrowserPrivate *priv;
+
+    priv = et_browser_get_instance_private (self);
+
+    do_popup_menu (self, NULL, GTK_TREE_VIEW (treeview), priv->file_menu);
+
+    return GDK_EVENT_STOP;
+}
+
+static gboolean
+on_album_tree_button_press_event (GtkWidget *widget,
+                                  GdkEventButton *event,
+                                  EtBrowser *self)
+{
+    if (gdk_event_triggers_context_menu ((GdkEvent *)event))
+    {
+        EtBrowserPrivate *priv;
+
+        priv = et_browser_get_instance_private (self);
+
+        if (GTK_IS_TREE_VIEW (widget))
+        {
+            select_row_for_button_press_event (GTK_TREE_VIEW (widget), event);
+        }
+
+        do_popup_menu (self, event, GTK_TREE_VIEW (priv->album_list),
+                       priv->album_menu);
+
+        return GDK_EVENT_STOP;
+    }
+
+    return GDK_EVENT_PROPAGATE;
+}
+
+static gboolean
+on_artist_tree_button_press_event (GtkWidget *widget,
+                                   GdkEventButton *event,
+                                   EtBrowser *self)
+{
+    if (gdk_event_triggers_context_menu ((GdkEvent *)event))
+    {
+        EtBrowserPrivate *priv;
+
+        priv = et_browser_get_instance_private (self);
+
+        if (GTK_IS_TREE_VIEW (widget))
+        {
+            select_row_for_button_press_event (GTK_TREE_VIEW (widget), event);
+        }
+
+        do_popup_menu (self, event, GTK_TREE_VIEW (priv->artist_list),
+                       priv->artist_menu);
+
+        return GDK_EVENT_STOP;
+    }
+
+    return GDK_EVENT_PROPAGATE;
+}
+
+static gboolean
+on_directory_tree_button_press_event (GtkWidget *widget,
+                                      GdkEventButton *event,
+                                      EtBrowser *self)
+{
+    if (gdk_event_triggers_context_menu ((GdkEvent *)event))
+    {
+        EtBrowserPrivate *priv;
+
+        priv = et_browser_get_instance_private (self);
+
+        if (GTK_IS_TREE_VIEW (widget))
+        {
+            select_row_for_button_press_event (GTK_TREE_VIEW (widget), event);
+        }
+
+        do_popup_menu (self, event, GTK_TREE_VIEW (priv->tree),
+                       priv->tree_menu);
+
+        return GDK_EVENT_STOP;
+    }
+
+    return GDK_EVENT_PROPAGATE;
+}
 
 /*
  * Browser_Popup_Menu_Handler : displays the corresponding menu
  */
 static gboolean
-Browser_Popup_Menu_Handler (GtkWidget *widget,
-                            GdkEventButton *event,
-                            GtkMenu *menu)
+on_file_tree_button_press_event (GtkWidget *widget,
+                                 GdkEventButton *event,
+                                 EtBrowser *self)
 {
     if (gdk_event_triggers_context_menu ((GdkEvent *)event))
     {
+        EtBrowserPrivate *priv;
+
+        priv = et_browser_get_instance_private (self);
+
         if (GTK_IS_TREE_VIEW (widget))
         {
-            GtkTreeView *browser_tree;
-
-            browser_tree = GTK_TREE_VIEW (widget);
-
-            if (event->window == gtk_tree_view_get_bin_window (browser_tree))
-            {
-                GtkTreePath *tree_path;
-
-                if (gtk_tree_view_get_path_at_pos (browser_tree, event->x,
-                                                   event->y, &tree_path, NULL,
-                                                   NULL,NULL))
-                {
-                    gtk_tree_selection_select_path (gtk_tree_view_get_selection (browser_tree),
-                                                    tree_path);
-                    gtk_tree_path_free (tree_path);
-                }
-            }
+            select_row_for_button_press_event (GTK_TREE_VIEW (widget), event);
         }
 
-        gtk_menu_popup (menu, NULL, NULL, NULL, NULL, event->button,
-	                event->time);
+        do_popup_menu (self, event, GTK_TREE_VIEW (priv->file_view),
+                       priv->file_menu);
 
         return GDK_EVENT_STOP;
+    }
+    else if (event->type == GDK_2BUTTON_PRESS
+        && event->button == GDK_BUTTON_PRIMARY)
+    {
+        /* Double left mouse click. Select files of the same directory (useful
+         * when browsing sub-directories). */
+        GList *l;
+        gchar *path_ref = NULL;
+        gchar *patch_check = NULL;
+        GtkTreePath *currentPath = NULL;
+
+        if (!ETCore->ETFileDisplayed)
+            return FALSE;
+
+        /* File taken as reference. */
+        path_ref = g_path_get_dirname (((File_Name *)ETCore->ETFileDisplayed->FileNameCur->data)->value);
+
+        /* Search and select files of the same directory. */
+        for (l = g_list_first (ETCore->ETFileDisplayedList); l != NULL;
+             l = g_list_next (l))
+        {
+            /* Path of the file to check if it is in the same directory. */
+            patch_check = g_path_get_dirname (((File_Name *)((ET_File *)l->data)->FileNameCur->data)->value);
+
+            if (path_ref && patch_check && strcmp (path_ref, patch_check) == 0)
+            {
+                /* Use of 'currentPath' to try to increase speed. Indeed, in
+                 * many cases, the next file to select, is the next in the
+                 * list. */
+                currentPath = et_browser_select_file_by_et_file2 (self,
+                                                                  (ET_File *)l->data,
+                                                                  TRUE,
+                                                                  currentPath);
+            }
+
+            g_free (patch_check);
+        }
+
+        g_free (path_ref);
+
+        if (currentPath)
+        {
+            gtk_tree_path_free (currentPath);
+        }
+    }
+    else if (event->type == GDK_3BUTTON_PRESS
+             && event->button == GDK_BUTTON_PRIMARY)
+    {
+        /* Triple left mouse click, select all files of the list. */
+        g_action_group_activate_action (G_ACTION_GROUP (MainWindow),
+                                        "select-all", NULL);
     }
 
     return GDK_EVENT_PROPAGATE;
@@ -3629,7 +3784,6 @@ create_browser (EtBrowser *self)
     GtkBuilder *builder;
     GError *error = NULL;
     GMenuModel *menu_model;
-    GtkWidget *menu;
     const gchar *BrowserTree_Titles[] = { N_("Tree") };
     const gchar *BrowserList_Titles[] = { N_("Filename"), N_("Title"),
                                           N_("Artist"), N_("Album Artist"),
@@ -3754,7 +3908,7 @@ create_browser (EtBrowser *self)
     g_signal_connect (priv->tree, "key-press-event",
                       G_CALLBACK (Browser_Tree_Key_Press), NULL);
 
-    /* Create Popup Menu on browser tree view */
+    /* Create popup menu on browser tree view. */
     builder = gtk_builder_new ();
     gtk_builder_add_from_resource (builder, "/org/gnome/EasyTAG/menus.ui",
                                    &error);
@@ -3767,10 +3921,12 @@ create_browser (EtBrowser *self)
 
     menu_model = G_MENU_MODEL (gtk_builder_get_object (builder,
                                                        "directory-menu"));
-    menu = gtk_menu_new_from_model (menu_model);
-    gtk_menu_attach_to_widget (GTK_MENU (menu), priv->tree, NULL);
+    priv->tree_menu = gtk_menu_new_from_model (menu_model);
+    gtk_menu_attach_to_widget (GTK_MENU (priv->tree_menu), priv->tree, NULL);
     g_signal_connect (priv->tree, "button-press-event",
-                      G_CALLBACK (Browser_Popup_Menu_Handler), menu);
+                      G_CALLBACK (on_directory_tree_button_press_event), self);
+    g_signal_connect (priv->tree, "popup-menu",
+                      G_CALLBACK (on_directory_tree_popup_menu), self);
 
     /*
      * The ScrollWindows with the Artist and Album Lists
@@ -3859,13 +4015,16 @@ create_browser (EtBrowser *self)
 
     gtk_container_add(GTK_CONTAINER(ScrollWindowArtistList),priv->artist_list);
 
-    /* Create Popup Menu on browser artist list. */
+    /* Create popup menu on browser artist list. */
     menu_model = G_MENU_MODEL (gtk_builder_get_object (builder,
                                                        "directory-artist-menu"));
-    menu = gtk_menu_new_from_model (menu_model);
-    gtk_menu_attach_to_widget (GTK_MENU (menu), priv->artist_list, NULL);
+    priv->artist_menu = gtk_menu_new_from_model (menu_model);
+    gtk_menu_attach_to_widget (GTK_MENU (priv->artist_menu), priv->artist_list,
+                               NULL);
     g_signal_connect (priv->artist_list, "button-press-event",
-                      G_CALLBACK (Browser_Popup_Menu_Handler), menu);
+                      G_CALLBACK (on_artist_tree_button_press_event), self);
+    g_signal_connect (priv->artist_list, "popup-menu",
+                      G_CALLBACK (on_artist_tree_popup_menu), self);
     // Not available yet!
     //ui_widget_set_sensitive(MENU_FILE, AM_ARTIST_OPEN_FILE_WITH, FALSE);
 
@@ -3932,10 +4091,13 @@ create_browser (EtBrowser *self)
     /* Create Popup Menu on browser album list. */
     menu_model = G_MENU_MODEL (gtk_builder_get_object (builder,
                                                        "directory-album-menu"));
-    menu = gtk_menu_new_from_model (menu_model);
-    gtk_menu_attach_to_widget (GTK_MENU (menu), priv->album_list, NULL);
+    priv->album_menu = gtk_menu_new_from_model (menu_model);
+    gtk_menu_attach_to_widget (GTK_MENU (priv->album_menu), priv->album_list,
+                               NULL);
     g_signal_connect (priv->album_list, "button-press-event",
-                      G_CALLBACK (Browser_Popup_Menu_Handler), menu);
+                      G_CALLBACK (on_album_tree_button_press_event), self);
+    g_signal_connect (priv->album_list, "popup-menu",
+                      G_CALLBACK (on_album_tree_popup_menu), self);
 
     // Not available yet!
     //ui_widget_set_sensitive(MENU_FILE, AM_ALBUM_OPEN_FILE_WITH, FALSE);
@@ -4025,16 +4187,16 @@ create_browser (EtBrowser *self)
                                                             self);
     g_signal_connect (priv->file_view, "key-press-event",
                       G_CALLBACK (Browser_List_Key_Press), NULL);
-    g_signal_connect_swapped (priv->file_view, "button-press-event",
-                              G_CALLBACK (Browser_List_Button_Press), self);
 
-
-    /* Create Popup Menu on file list. */
+    /* Create popup menu on file list. */
     menu_model = G_MENU_MODEL (gtk_builder_get_object (builder, "file-menu"));
-    menu = gtk_menu_new_from_model (menu_model);
-    gtk_menu_attach_to_widget (GTK_MENU (menu), priv->file_view, NULL);
-    g_signal_connect(G_OBJECT(priv->file_view),"button-press-event",
-                     G_CALLBACK (Browser_Popup_Menu_Handler), menu);
+    priv->file_menu = gtk_menu_new_from_model (menu_model);
+    gtk_menu_attach_to_widget (GTK_MENU (priv->file_menu), priv->file_view,
+                               NULL);
+    g_signal_connect (priv->file_view, "button-press-event",
+                      G_CALLBACK (on_file_tree_button_press_event), self);
+    g_signal_connect (priv->file_view, "popup-menu",
+                      G_CALLBACK (on_file_tree_popup_menu), self);
 
     g_object_unref (builder);
 
