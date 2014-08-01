@@ -343,7 +343,7 @@ gboolean ET_Set_Displayed_File_List         (GList *ETFileList);
 
 void     ET_Display_File_Data_To_UI (ET_File *ETFile);
 void     ET_Save_File_Data_From_UI  (ET_File *ETFile);
-gboolean ET_Save_File_Tag_To_HD     (ET_File *ETFile);
+gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile, GError **error);
 
 gboolean ET_Undo_File_Data          (ET_File *ETFile);
 gboolean ET_Redo_File_Data          (ET_File *ETFile);

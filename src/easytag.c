@@ -3075,9 +3075,9 @@ et_rename_file (const char *old_filepath, const char *new_filepath,
 static gboolean
 Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox)
 {
+    GError *error = NULL;
     gchar *cur_filename_utf8 = ((File_Name *)ETFile->FileNameCur->data)->value_utf8;
     gchar *msg = NULL;
-    gchar *msg1;
     gchar *basename_utf8;
     GtkWidget *msgdialog;
 
@@ -3087,29 +3087,14 @@ Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox)
     g_free(msg);
     msg = NULL;
 
-    if (ET_Save_File_Tag_To_HD(ETFile))
+    if (ET_Save_File_Tag_To_HD (ETFile, &error))
     {
         Statusbar_Message(_("Tag(s) written"),TRUE);
         g_free (basename_utf8);
         return TRUE;
     }
 
-    switch ( ((ET_File_Description *)ETFile->ETFileDescription)->TagType)
-    {
-#ifdef ENABLE_OGG
-        case OGG_TAG:
-            /* Special for Ogg Vorbis because the error was already reported in
-             * ET_Save_File_Tag_To_HD. */
-            break;
-#endif
-        default:
-            msg = g_strdup (g_strerror (errno));
-            msg1 = g_strdup_printf (_("Cannot write tag in file '%s' (%s)"),
-                                    basename_utf8, msg);
-            Log_Print (LOG_ERROR, "%s", msg1);
-            g_free (msg1);
-    }
-
+    Log_Print (LOG_ERROR, "%s", error->message);
 
     if (!hide_msgbox)
     {
@@ -3119,13 +3104,15 @@ Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox)
                              GTK_BUTTONS_CLOSE,
                              _("Cannot write tag in file '%s'"),
                              basename_utf8);
-        gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),"%s",msg);
+        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (msgdialog),
+                                                  "%s", error->message);
         gtk_window_set_title(GTK_WINDOW(msgdialog),_("Tag Write Error"));
 
         gtk_dialog_run(GTK_DIALOG(msgdialog));
         gtk_widget_destroy(msgdialog);
     }
-    g_free(msg);
+
+    g_clear_error (&error);
     g_free(basename_utf8);
 
     return FALSE;

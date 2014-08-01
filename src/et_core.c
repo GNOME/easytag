@@ -4011,7 +4011,8 @@ ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
 /*
  * Save data contained into File_Tag structure to the file on hard disk.
  */
-gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile)
+gboolean
+ET_Save_File_Tag_To_HD (ET_File *ETFile, GError **error)
 {
     ET_File_Description *ETFileDescription;
     gchar *cur_filename;
@@ -4019,9 +4020,9 @@ gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile)
     gboolean state;
     GFile *file;
     GFileInfo *fileinfo;
-    GError *error = NULL;
 
     g_return_val_if_fail (ETFile != NULL, FALSE);
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     cur_filename      = ((File_Name *)(ETFile->FileNameCur)->data)->value;
     cur_filename_utf8 = ((File_Name *)(ETFile->FileNameCur)->data)->value_utf8;
@@ -4042,7 +4043,7 @@ gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile)
 #endif
 #ifdef ENABLE_OGG
         case OGG_TAG:
-            state = ogg_tag_write_file_tag (ETFile, &error);
+            state = ogg_tag_write_file_tag (ETFile, error);
             break;
 #endif
 #ifdef ENABLE_FLAC
@@ -4065,7 +4066,7 @@ gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile)
 #endif
 #ifdef ENABLE_OPUS
         case OPUS_TAG:
-            state = ogg_tag_write_file_tag (ETFile, &error);
+            state = ogg_tag_write_file_tag (ETFile, error);
             break;
 #endif
         case UNKNOWN_TAG:
@@ -4122,13 +4123,12 @@ gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile)
     }
     else
     {
-        if (error)
+        if (*error == NULL)
         {
-                Log_Print (LOG_ERROR,
-                           _("Error writing tag type %d to file %s (%s)"),
-                           ETFileDescription->TagType, cur_filename_utf8,
-                           error->message);
-                g_error_free (error);
+            g_set_error (error, G_IO_ERROR, G_IO_ERROR_UNKNOWN,
+                         _("Error writing tag type %d to file %s (%s)"),
+                         ETFileDescription->TagType, cur_filename_utf8,
+                         g_strerror (EIO));
         }
 
         return FALSE;
