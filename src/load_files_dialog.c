@@ -1226,8 +1226,8 @@ create_load_files_dialog (EtLoadFilesDialog *self)
                         TRUE, 0);
     g_settings_bind (MainSettings, "load-filenames-run-scanner",
                      load_file_run_scanner, "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (load_file_run_scanner, _("When activating this option, after loading the "
-        "filenames, the current selected scanner will be ran (the scanner window must be opened)."));
+    gtk_widget_set_tooltip_text (load_file_run_scanner,
+                                 _("Whether to run the current scanner on files loaded from a text file"));
 
     // To initialize 'ButtonLoad' sensivity
     g_signal_emit_by_name(G_OBJECT(gtk_bin_get_child(GTK_BIN(priv->file_to_load_combo))),"changed");

@@ -716,8 +716,8 @@ create_playlist_dialog (EtPlaylistDialog *self)
     g_settings_bind (MainSettings, "playlist-selected-only",
                      playlist_only_selected_files, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(playlist_only_selected_files,_("If activated, only the selected files will be "
-        "written in the playlist file. Else, all the files will be written."));
+    gtk_widget_set_tooltip_text (playlist_only_selected_files,
+                                 _("Whether to use only the selected files or all files when creating playlists"));
 
     playlist_full_path = gtk_radio_button_new_with_label(NULL,_("Use full path for files in playlist"));
     gtk_box_pack_start(GTK_BOX(vbox),playlist_full_path,FALSE,FALSE,0);
@@ -733,8 +733,8 @@ create_playlist_dialog (EtPlaylistDialog *self)
     g_settings_bind (MainSettings, "playlist-parent-directory",
                      playlist_create_in_parent_dir, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(playlist_create_in_parent_dir,_("If activated, the playlist will be created "
-        "in the parent directory."));
+    gtk_widget_set_tooltip_text (playlist_create_in_parent_dir,
+                                 _("Whether to create the playlist in the parent directory"));
 
     // DOS Separator
     playlist_use_dos_separator = gtk_check_button_new_with_label(_("Use DOS directory separator"));
@@ -745,8 +745,8 @@ create_playlist_dialog (EtPlaylistDialog *self)
     g_settings_bind (MainSettings, "playlist-dos-separator",
                      playlist_use_dos_separator, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(playlist_use_dos_separator,_("This option replaces the UNIX directory "
-        "separator '/' into DOS separator '\\'."));
+    gtk_widget_set_tooltip_text (playlist_use_dos_separator,
+                                 _("Whether to use DOS path separators when generating playlists"));
 
     /* Playlist content */
     frame = gtk_frame_new (_("Playlist Content"));

@@ -367,43 +367,39 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_file_chooser_button_set_width_chars (GTK_FILE_CHOOSER_BUTTON (default_path_button),
                                              30);
     gtk_widget_set_tooltip_text (default_path_button,
-                                 _("Specify the directory where your files are"
-                                 " located. This path will be loaded when"
-                                 " EasyTAG starts without parameter."));
+                                 _("The default path to search for music files"));
 
     /* Load directory on startup */
     LoadOnStartup = gtk_check_button_new_with_label(_("Load on startup the default directory or the directory passed as argument"));
     gtk_box_pack_start(GTK_BOX(vbox),LoadOnStartup,FALSE,FALSE,0);
     g_settings_bind (MainSettings, "load-on-startup", LoadOnStartup, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(LoadOnStartup,_("Automatically search files, when EasyTAG starts, "
-        "into the default directory. Note that this path may be overridden by the parameter "
-        "passed to easytag (easytag /path_to/mp3_files)."));
+    gtk_widget_set_tooltip_text (LoadOnStartup,
+                                 _("Whether to load the default path (or the path passed as an argument) on application startup"));
 
     /* Browse subdirectories */
-    BrowseSubdir = gtk_check_button_new_with_label(_("Search subdirectories"));
+    BrowseSubdir = gtk_check_button_new_with_label (_("Browse subdirectories"));
     gtk_box_pack_start(GTK_BOX(vbox),BrowseSubdir,FALSE,FALSE,0);
     g_settings_bind (MainSettings, "browse-subdir", BrowseSubdir, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(BrowseSubdir,_("Search subdirectories for files when reading "
-        "a directory into the tree."));
+    gtk_widget_set_tooltip_text (BrowseSubdir,
+                                 _("Whether to search subdirectories for audio files when reading a path in the browser"));
 
     /* Open the node to show subdirectories */
-    OpenSelectedBrowserNode = gtk_check_button_new_with_label(_("Show subdirectories when selecting "
-        "a directory"));
+    OpenSelectedBrowserNode = gtk_check_button_new_with_label (_("Expand the subdirectories of the selected path"));
     gtk_box_pack_start(GTK_BOX(vbox),OpenSelectedBrowserNode,FALSE,FALSE,0);
     g_settings_bind (MainSettings, "browse-expand-children",
                      OpenSelectedBrowserNode, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(OpenSelectedBrowserNode,_("This expands the selected node into the file "
-        "browser to display the sub-directories."));
+    gtk_widget_set_tooltip_text (OpenSelectedBrowserNode,
+                                 _("Whether to expand the subdirectories of a node in the directory browser when selecting it"));
 
     /* Browse hidden directories */
     BrowseHiddendir = gtk_check_button_new_with_label(_("Search hidden directories"));
     g_settings_bind (MainSettings, "browse-show-hidden", BrowseHiddendir,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(BrowseHiddendir,_("Search hidden directories for files "
-        "(directories starting by a '.')."));
+    gtk_widget_set_tooltip_text (BrowseHiddendir,
+                                 _("Whether to show hidden directories when showing a path in the browser"));
 
 
 
@@ -423,12 +419,12 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
 
     // Show header infos
-    ShowHeaderInfos = gtk_check_button_new_with_label(_("Show header information of file"));
+    ShowHeaderInfos = gtk_check_button_new_with_label (_("Show audio file header summary"));
     gtk_box_pack_start(GTK_BOX(vbox),ShowHeaderInfos,FALSE,FALSE,0);
     g_settings_bind (MainSettings, "file-show-header", ShowHeaderInfos, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(ShowHeaderInfos,_("If activated, information about the file as "
-        "the bitrate, the time, the size, will be displayed under the filename entry."));
+    gtk_widget_set_tooltip_text (ShowHeaderInfos,
+                                 _("Whether to show header information, such as bitrate and duration, for audio files"));
 
     // Display color mode for changed files in list
     hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
@@ -454,13 +450,13 @@ create_preferences_dialog (EtPreferencesDialog *self)
     Frame = gtk_frame_new (_("Sorting List Options"));
     gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
 
-    SortingFileCaseSensitive = gtk_check_button_new_with_label(_("Case sensitive"));
+    SortingFileCaseSensitive = gtk_check_button_new_with_label(_("Sort files case-sensitively"));
     gtk_container_add (GTK_CONTAINER (Frame), SortingFileCaseSensitive);
     g_settings_bind (MainSettings, "sort-case-sensitive",
                      SortingFileCaseSensitive, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(SortingFileCaseSensitive,_("If activated, the "
-        "sorting of the list will be dependent on the case."));
+    gtk_widget_set_tooltip_text (SortingFileCaseSensitive,
+                                 _("Whether file sorting is case-sensitive"));
 
     /* Log options */
     Frame = gtk_frame_new (_("Log Options"));
@@ -470,12 +466,12 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
 
     // Show / hide log view
-    ShowLogView = gtk_check_button_new_with_label(_("Show log view in main window"));
+    ShowLogView = gtk_check_button_new_with_label (_("Show the log"));
     gtk_box_pack_start(GTK_BOX(vbox),ShowLogView,FALSE,FALSE,0);
     g_settings_bind (MainSettings, "log-show", ShowLogView, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(ShowLogView,_("If activated, the log view would be "
-                                            "visible in the main window."));
+    gtk_widget_set_tooltip_text (ShowLogView,
+                                 _("Whether to show the log in the main window"));
    
     // Max number of lines
     hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
@@ -504,7 +500,7 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width (GTK_CONTAINER(vbox), BOX_SPACING);
 
-    ReplaceIllegalCharactersInFilename = gtk_check_button_new_with_label(_("Replace illegal characters in filename (for Windows and CD-Rom)"));
+    ReplaceIllegalCharactersInFilename = gtk_check_button_new_with_label (_("Replace illegal characters when renaming"));
     gtk_box_pack_start(GTK_BOX(vbox),ReplaceIllegalCharactersInFilename,FALSE,FALSE,0);
     g_settings_bind (MainSettings, "rename-replace-illegal-chars",
                      ReplaceIllegalCharactersInFilename, "active",
@@ -557,26 +553,22 @@ create_preferences_dialog (EtPreferencesDialog *self)
                                   FilenameExtensionNoChange, NULL);
 
     /* Preserve modification time */
-    PreserveModificationTime = gtk_check_button_new_with_label(_("Preserve modification time of the file"));
+    PreserveModificationTime = gtk_check_button_new_with_label (_("Preserve modification time when writing files"));
     gtk_box_pack_start(GTK_BOX(vbox),PreserveModificationTime,FALSE,FALSE,0);
     g_settings_bind (MainSettings, "file-preserve-modification-time",
                      PreserveModificationTime, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(PreserveModificationTime,_("Preserve the modification time "
-        "(in file properties) when saving the file."));
+    gtk_widget_set_tooltip_text (PreserveModificationTime,
+                                 _("Whether to preserve the existing modification time when editing files"));
 
     /* Change directory modification time */
-    UpdateParentDirectoryModificationTime = gtk_check_button_new_with_label(_("Update modification time "
-        "of the parent directory of the file (recommended when using Amarok)"));
+    UpdateParentDirectoryModificationTime = gtk_check_button_new_with_label (_("Update parent directory modification time when writing files"));
     gtk_box_pack_start(GTK_BOX(vbox),UpdateParentDirectoryModificationTime,FALSE,FALSE,0);
     g_settings_bind (MainSettings, "file-update-parent-modification-time",
                      UpdateParentDirectoryModificationTime, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(UpdateParentDirectoryModificationTime,_("The modification time "
-        "of the parent directory of the file will be updated when saving tag the file. At the "
-        "present time it is automatically done only when renaming a file.\nThis feature is "
-        "interesting when using applications like Amarok. For performance reasons, they refresh "
-        "file information by detecting changes of the parent directory."));
+    gtk_widget_set_tooltip_text (UpdateParentDirectoryModificationTime,
+                                 _("Whether to update the modification time on the parent directory when editing files"));
 
 
     /* Character Set for Filename */
@@ -592,8 +584,7 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_grid_set_column_spacing (GTK_GRID (Table), 2 * BOX_SPACING);
 
     /* Rules for character set */
-    Label = gtk_label_new(_("Rules to apply if some characters can't be converted to "
-        "the system character encoding when writing filename:"));
+    Label = gtk_label_new (_("Encoding options when renaming files"));
     gtk_grid_attach (GTK_GRID (Table), Label, 0, 0, 2, 1);
     gtk_widget_set_halign (Label, GTK_ALIGN_START);
 
@@ -664,9 +655,8 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_box_pack_start(GTK_BOX(vbox),DateAutoCompletion,FALSE,FALSE,0);
     g_settings_bind (MainSettings, "tag-date-autocomplete", DateAutoCompletion,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(DateAutoCompletion,_("Try to complete the year field if you enter "
-        "only the last numerals of the date (for instance, if the current year is 2005: "
-        "5 => 2005, 4 => 2004, 6 => 1996, 95 => 1995…)."));
+    gtk_widget_set_tooltip_text (DateAutoCompletion,
+                                 _("Whether to automatically complete the date tag"));
 
     /* Track formatting. */
     hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
@@ -676,9 +666,8 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_box_pack_start(GTK_BOX(hbox),NumberTrackFormated,FALSE,FALSE,0);
     g_settings_bind (MainSettings, "tag-number-padded", NumberTrackFormated,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(NumberTrackFormated,_("If activated, the track field is written using "
-        "the number '0' as padding to obtain a number with 'n' digits (for example, with two digits: '05', "
-        "'09', '10'…). Else it keeps the 'raw' track value."));
+    gtk_widget_set_tooltip_text (NumberTrackFormated,
+                                 _("Whether the track number tag field should be padded with leading zeroes"));
 
     NumberTrackFormatedSpinButton = gtk_spin_button_new_with_range(2.0,6.0,1.0);
     gtk_box_pack_start(GTK_BOX(hbox),NumberTrackFormatedSpinButton,FALSE,FALSE,0);
@@ -732,11 +721,13 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_box_pack_start(GTK_BOX(vbox),Separator,FALSE,FALSE,0);
 
     /* Tag field focus */
-    SetFocusToSameTagField = gtk_check_button_new_with_label (_("Keep focus on the same tag field when switching files"));
+    SetFocusToSameTagField = gtk_check_button_new_with_label (_("Preserve the tag field focus"));
     gtk_box_pack_start (GTK_BOX (vbox), SetFocusToSameTagField, FALSE, FALSE,
                         0);
     g_settings_bind (MainSettings, "tag-preserve-focus", SetFocusToSameTagField,
                      "active", G_SETTINGS_BIND_DEFAULT);
+    gtk_widget_set_tooltip_text (SetFocusToSameTagField,
+                                 _("hether to preserve focus on the current tag field when switching file"));
 
     /* Tag Splitting */
     Frame = gtk_frame_new (_("Tag Splitting"));
@@ -809,14 +800,12 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_grid_set_column_spacing (GTK_GRID (Table), BOX_SPACING);
 
     /* Strip tag when fields (managed by EasyTAG) are empty */
-    StripTagWhenEmptyFields = gtk_check_button_new_with_label(_("Strip tags if all fields are set to blank"));
+    StripTagWhenEmptyFields = gtk_check_button_new_with_label (_("Strip ID3 tags if all ID3 tags are empty"));
     gtk_grid_attach (GTK_GRID (Table), StripTagWhenEmptyFields, 0, 0, 1, 1);
     g_settings_bind (MainSettings, "id3-strip-empty", StripTagWhenEmptyFields,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(StripTagWhenEmptyFields,_("As ID3v2 tags may contain other data than "
-        "Title, Artist, Album, Year, Track, Genre or Comment (as an attached image, lyrics…), "
-        "this option allows you to strip the whole tag when these seven standard data fields have "
-        "been set to blank."));
+    gtk_widget_set_tooltip_text (StripTagWhenEmptyFields,
+                                 _("Whether to remove the ID3 tag from the audio file if all the individual tag fields are empty"));
 
     /* Convert old ID3v2 tag version */
     priv->ConvertOldId3v2TagVersion = gtk_check_button_new_with_label (_("Automatically convert old ID3v2 tag versions"));
@@ -824,34 +813,36 @@ create_preferences_dialog (EtPreferencesDialog *self)
     g_settings_bind (MainSettings, "id3v2-convert-old",
                      priv->ConvertOldId3v2TagVersion, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (priv->ConvertOldId3v2TagVersion,_("If activated, an old ID3v2 tag version (as "
-        "ID3v2.2) will be updated to the ID3v2.3 version."));
+    gtk_widget_set_tooltip_text (priv->ConvertOldId3v2TagVersion,
+                                 _("Whether to convert ID3 tags written against old version of the specification, such as ID3v2.2, to newer ones, such as ID3v2.3 or ID3v2.4"));
 
     /* Use CRC32 */
     priv->FileWritingId3v2UseCrc32 = gtk_check_button_new_with_label (_("Use CRC32"));
     gtk_grid_attach (GTK_GRID (Table), priv->FileWritingId3v2UseCrc32, 1, 0, 1, 1);
     g_settings_bind (MainSettings, "id3v2-crc32", priv->FileWritingId3v2UseCrc32,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (priv->FileWritingId3v2UseCrc32,_("Set CRC32 in the ID3v2 tags"));
+    gtk_widget_set_tooltip_text (priv->FileWritingId3v2UseCrc32,
+                                 _("Whether to embed a CRC-32 checksum of the audio file data in ID3v2 tags"));
 
     /* Use Compression */
-    priv->FileWritingId3v2UseCompression = gtk_check_button_new_with_label(_("Use Compression"));
+    priv->FileWritingId3v2UseCompression = gtk_check_button_new_with_label (_("Compress data in ID3v2 tags"));
     gtk_grid_attach (GTK_GRID (Table), priv->FileWritingId3v2UseCompression, 1, 1, 1,
                      1);
     g_settings_bind (MainSettings, "id3v2-compression",
                      priv->FileWritingId3v2UseCompression, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (priv->FileWritingId3v2UseCompression,_("Set Compression in the ID3v2 tags"));
+    gtk_widget_set_tooltip_text (priv->FileWritingId3v2UseCompression,
+                                 _("Whether to compress data in ID3v2 tags"));
 	
     /* Write Genre in text */
-    priv->FileWritingId3v2TextOnlyGenre = gtk_check_button_new_with_label(_("Write Genre in text only"));
+    priv->FileWritingId3v2TextOnlyGenre = gtk_check_button_new_with_label (_("Use text-only genre in ID3v2 tags"));
     gtk_grid_attach (GTK_GRID (Table), priv->FileWritingId3v2TextOnlyGenre, 0, 2, 1,
                      1);
     g_settings_bind (MainSettings, "id3v2-text-only-genre",
                      priv->FileWritingId3v2TextOnlyGenre, "active",
                      G_SETTINGS_BIND_DEFAULT);
     gtk_widget_set_tooltip_text (priv->FileWritingId3v2TextOnlyGenre,
-                                 _("Don't use ID3v1 number references in genre tag. Enable this if you see numbers as genre in your music player."));	
+                                 _("Whether to use only a string, and not the integer-base ID3v1 genre field, when writing a genre field to ID3v2 tags"));	
 
     /* Character Set for writing ID3 tag */
     Frame = gtk_frame_new (_("Character Set for writing ID3 tags"));
@@ -878,8 +869,8 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_grid_attach (GTK_GRID (Table), FileWritingId3v2WriteTag, 0, 0, 5, 1);
     g_settings_bind (MainSettings, "id3v2-enabled", FileWritingId3v2WriteTag,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(FileWritingId3v2WriteTag,_("If activated, an ID3v2.4 tag will be added or "
-        "updated at the beginning of the MP3 files. Else it will be stripped."));
+    gtk_widget_set_tooltip_text (FileWritingId3v2WriteTag,
+                                 _("Whether to write ID3v2 tags when writing ID3 tags into audio files"));
     g_signal_connect (FileWritingId3v2WriteTag, "notify::active",
                       G_CALLBACK (notify_id3_settings_active), self);
 
@@ -924,7 +915,7 @@ create_preferences_dialog (EtPreferencesDialog *self)
 
     priv->FileWritingId3v2UnicodeCharacterSetCombo = gtk_combo_box_text_new ();
     gtk_widget_set_tooltip_text (priv->FileWritingId3v2UnicodeCharacterSetCombo,
-                                 _("Unicode type to use"));
+                                 _("Choose the Unicode character set to be used when writing ID3v2 tags"));
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (priv->FileWritingId3v2UnicodeCharacterSetCombo),
                                     "UTF-8");
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (priv->FileWritingId3v2UnicodeCharacterSetCombo),
@@ -951,7 +942,7 @@ create_preferences_dialog (EtPreferencesDialog *self)
 
     priv->FileWritingId3v2NoUnicodeCharacterSetCombo = gtk_combo_box_text_new();
     gtk_widget_set_tooltip_text (priv->FileWritingId3v2NoUnicodeCharacterSetCombo,
-                                 _("Character set used to write the tag data in the file."));
+                                 _("Override the typical Unicode character set to be used when writing ID3v2 tags"));
 
     Charset_Populate_Combobox (GTK_COMBO_BOX (priv->FileWritingId3v2NoUnicodeCharacterSetCombo), 
                                g_settings_get_enum (MainSettings,
@@ -1040,8 +1031,8 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_grid_attach (GTK_GRID (Table), FileWritingId3v1WriteTag, 0, 0, 4, 1);
     g_settings_bind (MainSettings, "id3v1-enabled", FileWritingId3v1WriteTag,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(FileWritingId3v1WriteTag,_("If activated, an ID3v1 tag will be added or "
-        "updated at the end of the MP3 files. Else it will be stripped."));
+    gtk_widget_set_tooltip_text (FileWritingId3v1WriteTag,
+                                 _("Whether to write ID3v1 tags when writing ID3 tags into audio files"));
     g_signal_connect (FileWritingId3v1WriteTag, "notify::active",
                       G_CALLBACK (notify_id3_settings_active), self);
 
@@ -1054,7 +1045,7 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_grid_attach (GTK_GRID (Table), priv->FileWritingId3v1CharacterSetCombo,
                      1, 2, 3, 1);
     gtk_widget_set_tooltip_text (priv->FileWritingId3v1CharacterSetCombo,
-                                 _("Character set used to write ID3v1 tag data in the file."));
+                                 _("Choose the character set to be used when writing ID3v1 tag"));
     Charset_Populate_Combobox (GTK_COMBO_BOX (priv->FileWritingId3v1CharacterSetCombo),
                                g_settings_get_enum (MainSettings,
                                                     "id3v1-charset"));
@@ -1138,26 +1129,15 @@ create_preferences_dialog (EtPreferencesDialog *self)
                      G_SETTINGS_BIND_DEFAULT);
     gtk_grid_attach (GTK_GRID (Table), UseNonStandardId3ReadingCharacterSet, 0,
                      0, 1, 1);
-    gtk_widget_set_tooltip_text(UseNonStandardId3ReadingCharacterSet,
-        _("This character set will be used when reading the tag data, to convert "
-        "each string found in an ISO-8859-1 field in the tag (for ID3v2 or/and ID3v1 tag).\n"
-        "\n"
-        "For example:\n"
-        "  - In previous versions of EasyTAG, you could save UTF-8 strings in an ISO-8859-1 "
-        "field. This is not correct. To convert these tags to Unicode: activate this option "
-        "and select UTF-8. You must also activate above the option 'Try to save tags to "
-        "ISO-8859-1. If it isn't possible then use UNICODE (recommended)' or 'Always save "
-        "tags to UNICODE character set'.\n"
-        "  - If Unicode was not used, Russian people can select the character set "
-        "'Windows-1251' to load tags written under Windows. And 'KOI8-R' to load tags "
-        "written under Unix systems."));
+    gtk_widget_set_tooltip_text (UseNonStandardId3ReadingCharacterSet,
+                                 _("Whether to use a non-standard character encoding when reading ID3 tags"));
 
     priv->FileReadingId3v1v2CharacterSetCombo = gtk_combo_box_text_new();
     gtk_grid_attach (GTK_GRID (Table),
                      priv->FileReadingId3v1v2CharacterSetCombo, 2, 0, 1, 1);
 
     gtk_widget_set_tooltip_text (priv->FileReadingId3v1v2CharacterSetCombo,
-                                 _("Character set used to read tag data in the file."));
+                                 _("Choose the character set to be used when reading ID3v1 and ID3v2 tags"));
 
     Charset_Populate_Combobox (GTK_COMBO_BOX (priv->FileReadingId3v1v2CharacterSetCombo),
                                g_settings_get_enum (MainSettings,
@@ -1283,10 +1263,8 @@ create_preferences_dialog (EtPreferencesDialog *self)
     g_settings_bind (MainSettings, "process-uppercase-prepositions",
                      PFSDontUpperSomeWords, "active",
                      G_SETTINGS_BIND_DEFAULT | G_SETTINGS_BIND_INVERT_BOOLEAN);
-    gtk_widget_set_tooltip_text(PFSDontUpperSomeWords, _("Don't convert first "
-        "letter of words like prepositions, articles and words like feat., "
-        "when using the scanner 'First letter uppercase of each word' (for "
-        "example, you will obtain 'Text in an Entry' instead of 'Text In An Entry')."));
+    gtk_widget_set_tooltip_text (PFSDontUpperSomeWords,
+                                 _("Whether to upper-case the first letter of prepositions and some other short words such as \"feat.\" when processing tag fields"));
 
     /* Properties of the scanner window */
     Frame = gtk_frame_new (_("Scanner Window"));
@@ -1295,12 +1273,12 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_container_add(GTK_CONTAINER(Frame),vbox);
     gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
 
-    OpenScannerWindowOnStartup = gtk_check_button_new_with_label(_("Open the Scanner Window on startup"));
+    OpenScannerWindowOnStartup = gtk_check_button_new_with_label (_("Show the scanner window on startup"));
     gtk_box_pack_start(GTK_BOX(vbox),OpenScannerWindowOnStartup,FALSE,FALSE,0);
     g_settings_bind (MainSettings, "scan-startup", OpenScannerWindowOnStartup,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(OpenScannerWindowOnStartup,_("Activate this option to open automatically "
-        "the scanner window when EasyTAG starts."));
+    gtk_widget_set_tooltip_text (OpenScannerWindowOnStartup,
+                                 _("Whether to show the scanner window on application startup"));
 
 
     /* Other options */
@@ -1315,8 +1293,8 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_box_pack_start(GTK_BOX(vbox),OverwriteTagField,FALSE,FALSE,0);
     g_settings_bind (MainSettings, "fill-overwrite-tag-fields",
                      OverwriteTagField, "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(OverwriteTagField,_("If activated, the scanner will replace existing text "
-        "in fields by the new one. If deactivated, only blank fields of the tag will be filled."));
+    gtk_widget_set_tooltip_text (OverwriteTagField,
+                                 _("Whether to overwrite the tag field values when filling tags. Otherwise, only blank tag fields will be filled"));
 
     /* Set a default comment text or CRC-32 checksum. */
     hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
@@ -1325,8 +1303,8 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_box_pack_start(GTK_BOX(hbox),SetDefaultComment,FALSE,FALSE,0);
     g_settings_bind (MainSettings, "fill-set-default-comment",
                      SetDefaultComment, "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(SetDefaultComment,_("Activate this option if you want to put the "
-        "following string into the comment field when using the 'Fill Tag' scanner."));
+    gtk_widget_set_tooltip_text (SetDefaultComment,
+                                 _("Whether to set the comment tag field to the provided default value when filling tags"));
     DefaultComment = gtk_entry_new ();
     gtk_box_pack_start(GTK_BOX(hbox),DefaultComment,FALSE,FALSE,0);
     gtk_widget_set_size_request(GTK_WIDGET(DefaultComment), 250, -1);
@@ -1342,8 +1320,8 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_box_pack_start(GTK_BOX(vbox),Crc32Comment,FALSE,FALSE,0);
     g_settings_bind (MainSettings, "fill-crc32-comment", Crc32Comment, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(Crc32Comment,_("Calculates the CRC-32 value of the file "
-        "and writes it into the comment field when using the 'Fill Tag' scanner."));
+    gtk_widget_set_tooltip_text (Crc32Comment,
+                                 _("Whether to use the CRC-32 of the audio file data as the default comment, for files with ID3 tags only"));
 
     /*
      * CDDB
@@ -1482,7 +1460,8 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_grid_attach (GTK_GRID (Table), CddbUseProxy, 0, 0, 5, 1);
     g_settings_bind (MainSettings, "cddb-proxy-enabled", CddbUseProxy, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(CddbUseProxy,_("Set active the settings of the proxy server."));
+    gtk_widget_set_tooltip_text (CddbUseProxy,
+                                 _("Whether to access remote CDDB through a proxy"));
 
     Label = gtk_label_new(_("Host Name:"));
     gtk_grid_attach (GTK_GRID (Table), Label, 1, 1, 1, 1);
@@ -1493,7 +1472,8 @@ create_preferences_dialog (EtPreferencesDialog *self)
                      CddbProxyName, "text", G_SETTINGS_BIND_DEFAULT);
     g_settings_bind (MainSettings, "cddb-proxy-enabled", CddbProxyName,
                      "sensitive", G_SETTINGS_BIND_GET);
-    gtk_widget_set_tooltip_text(CddbProxyName,_("Name of the proxy server."));
+    gtk_widget_set_tooltip_text (CddbProxyName,
+                                 _("Hostname for a proxy to access remote CDDB"));
     Label = gtk_label_new (_("Port:"));
     gtk_grid_attach (GTK_GRID (Table), Label, 3, 1, 1, 1);
     gtk_widget_set_halign (Label, GTK_ALIGN_END);
@@ -1504,7 +1484,8 @@ create_preferences_dialog (EtPreferencesDialog *self)
                      "sensitive", G_SETTINGS_BIND_GET);
     gtk_widget_set_size_request(GTK_WIDGET(CddbProxyPort), 45, -1);
     gtk_grid_attach (GTK_GRID (Table), CddbProxyPort, 4, 1, 1, 1);
-    gtk_widget_set_tooltip_text(CddbProxyPort,_("Port of the proxy server."));
+    gtk_widget_set_tooltip_text (CddbProxyPort,
+                                 _("Port for a proxy to access remote CDDB"));
     Label = gtk_label_new(_("User Name:"));
     gtk_grid_attach (GTK_GRID (Table), Label, 1, 2, 1, 1);
     gtk_widget_set_halign (Label, GTK_ALIGN_END);
@@ -1514,7 +1495,8 @@ create_preferences_dialog (EtPreferencesDialog *self)
     g_settings_bind (MainSettings, "cddb-proxy-enabled", CddbProxyUserName,
                      "sensitive", G_SETTINGS_BIND_GET);
     gtk_grid_attach (GTK_GRID (Table), CddbProxyUserName, 2, 2, 1, 1);
-    gtk_widget_set_tooltip_text(CddbProxyUserName,_("Name of user for the the proxy server."));
+    gtk_widget_set_tooltip_text (CddbProxyUserName,
+                                 _("Username for a proxy to access remote CDDB"));
     Label = gtk_label_new(_("User Password:"));
     gtk_grid_attach (GTK_GRID (Table), Label, 3, 2, 1, 1);
     gtk_widget_set_halign (Label, GTK_ALIGN_END);
@@ -1526,7 +1508,7 @@ create_preferences_dialog (EtPreferencesDialog *self)
                      "sensitive", G_SETTINGS_BIND_GET);
     gtk_grid_attach (GTK_GRID (Table), CddbProxyUserPassword, 4, 2, 1, 1);
     gtk_widget_set_tooltip_text (CddbProxyUserPassword,
-                                 _("Password of user for the proxy server."));
+                                 _("Password for a proxy to access remote CDDB"));
 
     // Track Name list (CDDB results)
     Frame = gtk_frame_new (_("Track Name List"));
@@ -1541,9 +1523,8 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_box_pack_start(GTK_BOX(vbox),CddbFollowFile,FALSE,FALSE,0);
     g_settings_bind (MainSettings, "cddb-follow-file", CddbFollowFile,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(CddbFollowFile,_("If activated, when selecting a "
-        "line in the list of tracks name, the corresponding audio file in the "
-        "main list will be also selected."));
+    gtk_widget_set_tooltip_text (CddbFollowFile,
+                                 _("Whether to select the file in the file list which matches the position in the CDDB results list"));
 
     // Check box to use DLM (also used in the cddb window)
     CddbUseDLM = gtk_check_button_new_with_label(_("Use the Levenshtein algorithm "
@@ -1551,12 +1532,8 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_box_pack_start(GTK_BOX(vbox),CddbUseDLM,FALSE,FALSE,0);
     g_settings_bind (MainSettings, "cddb-dlm-enabled", CddbUseDLM, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(CddbUseDLM,_("When activating this option, the "
-        "Levenshtein algorithm (DLM: Damerau-Levenshtein Metric) will be used "
-        "to match the CDDB title against every filename in the current folder, "
-        "and to select the best match. This will be used when selecting the "
-        "corresponding audio file, or applying CDDB results, instead of using "
-        "directly the position order."));
+    gtk_widget_set_tooltip_text (CddbUseDLM,
+                                 _("Whether to use the DLM algorithm to match CDDB results to files"));
 
 
     /*
@@ -1567,33 +1544,33 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_notebook_append_page (GTK_NOTEBOOK(priv->options_notebook), VBox, Label);
     gtk_container_set_border_width (GTK_CONTAINER (VBox), BOX_SPACING);
 
-    ConfirmBeforeExit = gtk_check_button_new_with_label(_("Confirm exit from program"));
+    ConfirmBeforeExit = gtk_check_button_new_with_label (_("Confirm before quitting the application"));
     gtk_box_pack_start(GTK_BOX(VBox),ConfirmBeforeExit,FALSE,FALSE,0);
     g_settings_bind (MainSettings, "confirm-quit", ConfirmBeforeExit, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(ConfirmBeforeExit,_("If activated, opens a dialog box to ask "
-        "confirmation before exiting the program."));
+    gtk_widget_set_tooltip_text (ConfirmBeforeExit,
+                                 _("Whether to ask for confirmation from the user before quitting the application"));
 
-    ConfirmWriteTag = gtk_check_button_new_with_label(_("Confirm writing of file tag"));
+    ConfirmWriteTag = gtk_check_button_new_with_label (_("Confirm before writing tags"));
     gtk_box_pack_start(GTK_BOX(VBox),ConfirmWriteTag,FALSE,FALSE,0);
     g_settings_bind (MainSettings, "confirm-write-tags", ConfirmWriteTag,
                      "active", G_SETTINGS_BIND_DEFAULT);
 
-    ConfirmRenameFile = gtk_check_button_new_with_label(_("Confirm renaming of file"));
+    ConfirmRenameFile = gtk_check_button_new_with_label (_("Confirm before renaming a file"));
     gtk_box_pack_start(GTK_BOX(VBox),ConfirmRenameFile,FALSE,FALSE,0);
     g_settings_bind (MainSettings, "confirm-rename-file", ConfirmRenameFile,
                      "active", G_SETTINGS_BIND_DEFAULT);
 
-    ConfirmDeleteFile = gtk_check_button_new_with_label(_("Confirm deleting of file"));
+    ConfirmDeleteFile = gtk_check_button_new_with_label (_("Confirm before deleting a file"));
     g_settings_bind (MainSettings, "confirm-delete-file", ConfirmDeleteFile,
                      "active", G_SETTINGS_BIND_DEFAULT);
 
-    ConfirmWritePlayList = gtk_check_button_new_with_label(_("Confirm writing of playlist"));
+    ConfirmWritePlayList = gtk_check_button_new_with_label (_("Confirm before writing a playlist"));
     gtk_box_pack_start(GTK_BOX(VBox),ConfirmWritePlayList,FALSE,FALSE,0);
     g_settings_bind (MainSettings, "confirm-write-playlist",
                      ConfirmWritePlayList, "active", G_SETTINGS_BIND_DEFAULT);
 
-    ConfirmWhenUnsavedFiles = gtk_check_button_new_with_label(_("Confirm changing directory when there are unsaved changes"));
+    ConfirmWhenUnsavedFiles = gtk_check_button_new_with_label (_("Confirm before losing unsaved changes to files"));
     gtk_box_pack_start(GTK_BOX(VBox),ConfirmWhenUnsavedFiles,FALSE,FALSE,0);
     g_settings_bind (MainSettings, "confirm-when-unsaved-files",
                      ConfirmWhenUnsavedFiles, "active",

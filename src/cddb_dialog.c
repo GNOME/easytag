@@ -3522,20 +3522,16 @@ create_cddb_dialog (EtCDDBDialog *self)
     g_settings_bind (MainSettings, "cddb-run-scanner",
                      priv->run_scanner_toggle, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(priv->run_scanner_toggle,_("When activating this option, after loading the "
-        "fields, the current selected scanner will be ran (the scanner window must be opened)."));
+    gtk_widget_set_tooltip_text (priv->run_scanner_toggle,
+                                 _("Whether to run the tag scanner, with the current settings, on the CDDB results"));
 
     // Check box to use DLM (also used in the preferences window)
     priv->use_dlm2_toggle = gtk_check_button_new_with_label(_("Match lines with the Levenshtein algorithm"));
     gtk_box_pack_start(GTK_BOX(hbox),priv->use_dlm2_toggle,FALSE,FALSE,0);
     g_settings_bind (MainSettings, "cddb-dlm-enabled", priv->use_dlm2_toggle,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(priv->use_dlm2_toggle,_("When activating this option, the "
-        "Levenshtein algorithm (DLM: Damerau-Levenshtein Metric) will be used "
-        "to match the CDDB title against every filename in the current folder, "
-        "and to select the best match. This will be used when selecting the "
-        "corresponding audio file, or applying CDDB results, instead of using "
-        "directly the position order."));
+    gtk_widget_set_tooltip_text (priv->use_dlm2_toggle,
+                                 _("Whether to use the DLM algorithm to match CDDB results to files"));
 
     /* Button to apply. */
     priv->apply_button = gtk_button_new_from_stock(GTK_STOCK_APPLY);

@@ -4392,7 +4392,8 @@ et_browser_show_rename_directory_dialog (EtBrowser *self)
     g_settings_bind (MainSettings, "rename-directory-with-mask",
                      priv->rename_directory_mask_toggle, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(priv->rename_directory_mask_toggle,_("If activated, it will use masks to rename directory."));
+    gtk_widget_set_tooltip_text (priv->rename_directory_mask_toggle,
+                                 _("Whether to use a mask when renaming directories"));
     g_signal_connect_swapped (priv->rename_directory_mask_toggle, "toggled",
                               G_CALLBACK (Rename_Directory_With_Mask_Toggled),
                               self);

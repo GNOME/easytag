@@ -2545,7 +2545,7 @@ create_scan_dialog (EtScanDialog *self)
 
     /* Selection of the item made at the end of the function. */
     gtk_widget_set_tooltip_text (priv->mode_combo,
-                                 _("Select the type of scanner to use"));
+                                 _("Which type of scan to show in the scanner"));
     g_settings_bind_with_mapping (MainSettings, "scan-mode", priv->mode_combo,
                                   "active", G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_get, et_settings_enum_set,
@@ -2948,21 +2948,16 @@ create_scan_dialog (EtScanDialog *self)
                      priv->process_roman_numerals_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
     /* Tooltips */
-    gtk_widget_set_tooltip_text(priv->process_all_uppercase_toggle,
-        _("Convert all words in all fields to upper case. "
-          "Example, before: 'Text IN AN entry', after: 'TEXT IN AN ENTRY'."));
-    gtk_widget_set_tooltip_text(priv->process_all_lowercase_toggle,
-        _("Convert all words in all fields to lower case. "
-          "Example, before: 'TEXT IN an entry', after: 'text in an entry'."));
-    gtk_widget_set_tooltip_text(priv->process_first_uppercase_toggle,
-        _("Convert the initial of the first word in all fields to upper case. "
-          "Example, before: 'text IN An ENTRY', after: 'Text in an entry'."));
-    gtk_widget_set_tooltip_text(priv->process_first_style_uppercase_toggle,
-        _("Convert the initial of each word in all fields to upper case. "
-          "Example, before: 'Text in an ENTRY', after: 'Text In An Entry'."));
-    gtk_widget_set_tooltip_text(priv->process_roman_numerals_check,
-        _("Force to convert to upper case the Roman numerals. "
-          "Example, before: 'ix. text in an entry', after: 'IX. Text In An Entry'."));
+    gtk_widget_set_tooltip_text (priv->process_all_uppercase_toggle,
+                                 _("Whether to upper-case all characters of the tag when processing tag fields"));
+    gtk_widget_set_tooltip_text (priv->process_all_lowercase_toggle,
+                                 _("Whether to lower-case all characters of the tag when processing tag fields"));
+    gtk_widget_set_tooltip_text (priv->process_first_uppercase_toggle,
+                                 _("Whether to upper-case the first letter of the tag when processing tag fields"));
+    gtk_widget_set_tooltip_text (priv->process_first_style_uppercase_toggle,
+                                 _("Whether to upper-case the first letter of each word when processing tag fields"));
+    gtk_widget_set_tooltip_text (priv->process_roman_numerals_check,
+                                 _("Whether to detect Roman numerals when applying upper-case conversions while processing tag fields"));
 
     /* Group: insert/remove spaces */
     group = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
@@ -2992,15 +2987,12 @@ create_scan_dialog (EtScanDialog *self)
                      priv->process_insert_one_space_toggle, "active",
                      G_SETTINGS_BIND_DEFAULT);
     /* Tooltips */
-    gtk_widget_set_tooltip_text(priv->process_remove_space_toggle,
-        _("All spaces between words are removed. "
-          "Example, before: 'Text In An Entry', after: 'TextInAnEntry'."));
-    gtk_widget_set_tooltip_text(priv->process_insert_space_toggle,
-        _("A space is inserted before each upper case letter. "
-          "Example, before: 'TextInAnEntry', after: 'Text In An Entry'."));
-    gtk_widget_set_tooltip_text(priv->process_insert_one_space_toggle,
-        _("Duplicate spaces and underscores are removed. "
-          "Example, before: 'Text__In__An   Entry', after: 'Text_In_An Entry'."));
+    gtk_widget_set_tooltip_text (priv->process_remove_space_toggle,
+                                 _("Whether to remove all spaces when processing tag fields"));
+    gtk_widget_set_tooltip_text (priv->process_insert_space_toggle,
+                                 _("Whether to insert spaces before capital letters when processing tag fields"));
+    gtk_widget_set_tooltip_text (priv->process_insert_one_space_toggle,
+                                 _("Whether to remove duplicate spaces and underscores when processing tag fields"));
     Select_Fields_Set_Sensitive (self);
 
     /*
