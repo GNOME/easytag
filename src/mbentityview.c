@@ -636,6 +636,8 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
     GList *children;
     GList *active_child;
 
+    thread_data = user_data;
+
     if (res &&
         !g_simple_async_result_get_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res)))
     {
@@ -644,7 +646,6 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
         return;
     }
 
-    thread_data = user_data;
     entity_view = thread_data->entity_view;
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
     et_music_brainz_dialog_set_statusbar_message (_("Retrieving Completed"));

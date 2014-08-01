@@ -40,7 +40,7 @@ static int port = 0;
                                                         ET_MB5_SEARCH_ERROR_CANCELLED,\
                                                         _("Operation cancelled by user"));\
                                            g_assert (error == NULL || *error != NULL);\
-                                           return FALSE;\
+                                           goto cancel;\
                                       }
 
 /**************
@@ -200,14 +200,16 @@ et_musicbrainz_search_in_entity (MbEntityKind child_type,
 {
     Mb5Query query;
     Mb5Metadata metadata;
+    Mb5Metadata metadata_entity;
     tQueryResult result;
     char *param_values[1];
     char *param_names[1];
 
-    CHECK_CANCELLED(cancellable);
-
     param_names[0] = "inc";
     query = mb5_query_new (USER_AGENT, server, port);
+    metadata = NULL;
+    metadata_entity = NULL;
+    CHECK_CANCELLED(cancellable);
 
     if (child_type == MB_ENTITY_KIND_ALBUM &&
         parent_type == MB_ENTITY_KIND_ARTIST)
@@ -246,7 +248,6 @@ et_musicbrainz_search_in_entity (MbEntityKind child_type,
 
                     if (release)
                     {
-                        Mb5Metadata metadata_release;
                         gchar buf[NAME_MAX_SIZE];
                         GNode *node;
                         EtMbEntity *entity;
@@ -268,24 +269,24 @@ et_musicbrainz_search_in_entity (MbEntityKind child_type,
                                                    buf,
                                                    sizeof (buf));
                         buf[size] = '\0';
-                        metadata_release = mb5_query_query (query, "release",
-                                                            buf, "",
-                                                            1, param_names,
-                                                            param_values);
+                        metadata_entity = mb5_query_query (query, "release",
+                                                           buf, "",
+                                                           1, param_names,
+                                                           param_values);
                         result = mb5_query_get_lastresult (query);
 
                         if (result == eQuery_Success)
                         {
-                            if (metadata_release)
+                            if (metadata_entity)
                             {
                                 CHECK_CANCELLED(cancellable);
                                 entity = g_slice_new (EtMbEntity);
-                                entity->entity = mb5_release_clone (mb5_metadata_get_release (metadata_release));
+                                entity->entity = mb5_release_clone (mb5_metadata_get_release (metadata_entity));
                                 entity->type = MB_ENTITY_KIND_ALBUM;
                                 entity->is_red_line = FALSE;
                                 node = g_node_new (entity);
                                 g_node_append (root, node);
-                                mb5_metadata_delete (metadata_release);
+                                mb5_metadata_delete (metadata_entity);
                             }
                         }
                         else
@@ -332,7 +333,6 @@ et_musicbrainz_search_in_entity (MbEntityKind child_type,
 
                     if (medium)
                     {
-                        Mb5Metadata metadata_recording;
                         gchar buf[NAME_MAX_SIZE];
                         GNode *node;
                         EtMbEntity *entity;
@@ -355,17 +355,8 @@ et_musicbrainz_search_in_entity (MbEntityKind child_type,
                         {
                             Mb5Recording recording;
 
-                            if (g_cancellable_is_cancelled (cancellable))
-                            {
-                                g_set_error (error, ET_MB5_SEARCH_ERROR,
-                                             ET_MB5_SEARCH_ERROR_CANCELLED,
-                                             _("Operation cancelled by user"));
-                                mb5_query_delete (query);
-                                mb5_metadata_delete (metadata);
-                                g_assert (error == NULL || *error != NULL);
-                                return FALSE;
-                            }
 
+                            CHECK_CANCELLED(cancellable);
                             recording = mb5_track_get_recording (mb5_track_list_item (track_list, j));
                             size = mb5_recording_get_title (recording, buf,
                                                             sizeof (buf));
@@ -382,25 +373,25 @@ et_musicbrainz_search_in_entity (MbEntityKind child_type,
                                                          buf,
                                                          sizeof (buf));
                             CHECK_CANCELLED(cancellable);
-                            metadata_recording = mb5_query_query (query,
-                                                                  "recording",
-                                                                  buf, "", 1,
-                                                                  param_names,
-                                                                  param_values);
+                            metadata_entity = mb5_query_query (query,
+                                                               "recording",
+                                                               buf, "", 1,
+                                                               param_names,
+                                                               param_values);
                             result = mb5_query_get_lastresult (query);
 
                             if (result == eQuery_Success)
                             {
-                                if (metadata_recording)
+                                if (metadata_entity)
                                 {
                                     CHECK_CANCELLED(cancellable);
                                     entity = g_slice_new (EtMbEntity);
-                                    entity->entity = mb5_recording_clone (mb5_metadata_get_recording (metadata_recording));
+                                    entity->entity = mb5_recording_clone (mb5_metadata_get_recording (metadata_entity));
                                     entity->type = MB_ENTITY_KIND_TRACK;
                                     entity->is_red_line = FALSE;
                                     node = g_node_new (entity);
                                     g_node_append (root, node);
-                                    mb5_metadata_delete (metadata_recording);
+                                    mb5_metadata_delete (metadata_entity);
                                 }
                             }
                             else
@@ -423,6 +414,8 @@ et_musicbrainz_search_in_entity (MbEntityKind child_type,
     else if (child_type == MB_ENTITY_KIND_ALBUM &&
              parent_type == MB_ENTITY_KIND_FREEDBID)
     {
+        mb5_query_delete (query);
+
         return et_musicbrainz_search (parent_mbid, child_type, root, error,
                                       cancellable);
     }
@@ -433,9 +426,33 @@ et_musicbrainz_search_in_entity (MbEntityKind child_type,
     return TRUE;
 
     err:
+    
+    if (metadata_entity)
+    {
+        mb5_metadata_delete (metadata_entity);
+    }
+
+    if (metadata)
+    {
+        mb5_metadata_delete (metadata);
+    }
+
     et_musicbrainz_set_error_from_query (query, result, error);
     mb5_query_delete (query);
     g_assert (error == NULL || *error != NULL);
+    
+    return FALSE;
+
+    cancel:
+
+    if (metadata)
+    {
+        mb5_metadata_delete (metadata);
+    }
+
+    mb5_query_delete (query);
+    g_assert (error == NULL || *error != NULL);
+
     return FALSE;
 }
 
@@ -539,8 +556,8 @@ et_musicbrainz_search_artist (gchar *string, GNode *root, GError **error,
     param_names[0] = "query";
     param_names[1] = "limit";
     param_values[1] = SEARCH_LIMIT_STR;
-    CHECK_CANCELLED(cancellable);
     query = mb5_query_new (USER_AGENT, server, port);
+    CHECK_CANCELLED(cancellable);
     param_values[0] = g_strconcat ("artist:", string, NULL);
     metadata = mb5_query_query (query, "artist", "", "", 2, param_names,
                                 param_values);
@@ -583,13 +600,19 @@ et_musicbrainz_search_artist (gchar *string, GNode *root, GError **error,
         goto err;
     }
 
-    mb5_query_delete (query);
     CHECK_CANCELLED(cancellable);
+    mb5_query_delete (query);
 
     return TRUE;
 
     err:
     et_musicbrainz_set_error_from_query (query, result, error);
+    mb5_query_delete (query);
+    g_assert (error == NULL || *error != NULL);
+
+    return FALSE;
+    
+    cancel:
     mb5_query_delete (query);
     g_assert (error == NULL || *error != NULL);
 
@@ -613,18 +636,21 @@ et_musicbrainz_search_album (gchar *string, GNode *root, GError **error,
 {
     Mb5Query query;
     Mb5Metadata metadata;
+    Mb5Metadata metadata_release;
     tQueryResult result;
     char *param_values[2];
     char *param_names[2];
 
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
+    metadata = NULL;
+    metadata_release = NULL;
     param_names[0] = "query";
     param_names[1] = "limit";
     param_values[1] = SEARCH_LIMIT_STR;
-    CHECK_CANCELLED(cancellable);
     query = mb5_query_new (USER_AGENT, server, port);
     param_values[0] = g_strconcat ("release:", string, NULL);
+    CHECK_CANCELLED(cancellable);
     metadata = mb5_query_query (query, "release", "", "", 2, param_names,
                                 param_values);
     result = mb5_query_get_lastresult (query);
@@ -659,7 +685,6 @@ et_musicbrainz_search_album (gchar *string, GNode *root, GError **error,
 
                 if (release)
                 {
-                    Mb5Metadata metadata_release;
                     gchar buf[NAME_MAX_SIZE];
                     GNode *node;
                     EtMbEntity *entity;
@@ -715,13 +740,36 @@ et_musicbrainz_search_album (gchar *string, GNode *root, GError **error,
         goto err;
     }
 
-    mb5_query_delete (query);
     CHECK_CANCELLED(cancellable);
+    mb5_query_delete (query);
 
     return TRUE;
 
     err:
+    
+    if (metadata)
+    {
+        mb5_metadata_delete (metadata);
+    }
+
     et_musicbrainz_set_error_from_query (query, result, error);
+    mb5_query_delete (query);
+    g_assert (error == NULL || *error != NULL);
+
+    return FALSE;
+    
+    cancel:
+    
+    if (metadata_release)
+    {
+        mb5_metadata_delete (metadata_release);
+    }
+
+    if (metadata)
+    {
+        mb5_metadata_delete (metadata);
+    }
+
     mb5_query_delete (query);
     g_assert (error == NULL || *error != NULL);
 
@@ -745,18 +793,21 @@ et_musicbrainz_search_track (gchar *string, GNode *root, GError **error,
 {
     Mb5Query query;
     Mb5Metadata metadata;
+    Mb5Metadata metadata_recording;
     tQueryResult result;
     char *param_values[2];
     char *param_names[2];
 
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
+    metadata = NULL;
     param_names[0] = "query";
     param_names[1] = "limit";
     param_values[1] = SEARCH_LIMIT_STR;
-    CHECK_CANCELLED(cancellable);
+    metadata_recording = NULL;
     query = mb5_query_new (USER_AGENT, server, port);
     param_values[0] = g_strconcat ("recordings:", string, NULL);
+    CHECK_CANCELLED(cancellable);
     metadata = mb5_query_query (query, "recording", "", "", 2,
                                 param_names, param_values);
     result = mb5_query_get_lastresult (query);
@@ -785,7 +836,6 @@ et_musicbrainz_search_track (gchar *string, GNode *root, GError **error,
             for (i = 0; i < mb5_recording_list_size (list); i++)
             {
                 Mb5Recording recording;
-                Mb5Metadata metadata_recording;
                 gchar buf[NAME_MAX_SIZE];
                 GNode *node;
                 EtMbEntity *entity;
@@ -840,13 +890,36 @@ et_musicbrainz_search_track (gchar *string, GNode *root, GError **error,
         goto err;
     }
 
-    mb5_query_delete (query);
     CHECK_CANCELLED(cancellable);
+    mb5_query_delete (query);
 
     return TRUE;
 
     err:
+
+    if (metadata)
+    {
+        mb5_metadata_delete (metadata);
+    }
+
     et_musicbrainz_set_error_from_query (query, result, error);
+    mb5_query_delete (query);
+    g_assert (error == NULL || *error != NULL);
+
+    return FALSE;
+    
+    cancel:
+    
+    if (metadata_recording)
+    {
+        mb5_metadata_delete (metadata_recording);
+    }
+
+    if (metadata)
+    {
+        mb5_metadata_delete (metadata);
+    }
+
     mb5_query_delete (query);
     g_assert (error == NULL || *error != NULL);
 
@@ -972,16 +1045,26 @@ et_musicbrainz_search_discid (gchar *string, GNode *root, GError **error,
         goto err;
     }
 
-    mb5_query_delete (query);
     CHECK_CANCELLED(cancellable);
+    mb5_query_delete (query);
 
     return TRUE;
-
+        
     err:
+
+    if (metadata)
+    {
+        mb5_metadata_delete (metadata);
+    }
+
     et_musicbrainz_set_error_from_query (query, result, error);
     mb5_query_delete (query);
     g_assert (error == NULL || *error != NULL);
 
+    return FALSE;
+    
+    cancel:
+    
     return FALSE;
 }
 
@@ -1070,16 +1153,26 @@ et_musicbrainz_search_freedbid (gchar *string, GNode *root, GError **error,
         goto err;
     }
 
-    mb5_query_delete (query);
     CHECK_CANCELLED(cancellable);
+    mb5_query_delete (query);
 
     return TRUE;
 
     err:
+
+    if (metadata)
+    {
+        mb5_metadata_delete (metadata);
+    }
+
     et_musicbrainz_set_error_from_query (query, result, error);
     mb5_query_delete (query);
     g_assert (error == NULL || *error != NULL);
 
+    return FALSE;
+    
+    cancel:
+    
     return FALSE;
 }
 
