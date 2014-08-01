@@ -87,6 +87,7 @@ void et_application_window_browser_refresh_file_in_list (EtApplicationWindow *se
 void et_application_window_browser_refresh_sort (EtApplicationWindow *self);
 void et_application_window_hide_log_area (EtApplicationWindow *self);
 void et_application_window_show_log_area (EtApplicationWindow *self);
+void et_application_window_scan_dialog_update_previews (EtApplicationWindow *self);
 
 G_END_DECLS
 

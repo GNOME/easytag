@@ -439,7 +439,7 @@ void Action_Select_Nth_File_By_Etfile (ET_File *ETFile)
     ET_Display_File_Data_To_UI(ETFile);
 
     et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
-    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (MainWindow))));
+    et_application_window_scan_dialog_update_previews (ET_APPLICATION_WINDOW (MainWindow));
 }
 
 /*

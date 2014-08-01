@@ -1304,7 +1304,7 @@ on_go_first (GSimpleAction *action,
     }
 
     et_application_window_update_actions (self);
-    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (self)));
+    et_application_window_scan_dialog_update_previews (self);
 
     if (!g_settings_get_boolean (MainSettings, "tag-preserve-focus"))
     {
@@ -1343,7 +1343,7 @@ on_go_previous (GSimpleAction *action,
     }
 
     et_application_window_update_actions (self);
-    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (self)));
+    et_application_window_scan_dialog_update_previews (self);
 
     if (!g_settings_get_boolean (MainSettings, "tag-preserve-focus"))
     {
@@ -1382,7 +1382,7 @@ on_go_next (GSimpleAction *action,
     }
 
     et_application_window_update_actions (self);
-    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (self)));
+    et_application_window_scan_dialog_update_previews (self);
 
     if (!g_settings_get_boolean (MainSettings, "tag-preserve-focus"))
     {
@@ -1421,7 +1421,7 @@ on_go_last (GSimpleAction *action,
     }
 
     et_application_window_update_actions (self);
-    et_scan_dialog_update_previews (ET_SCAN_DIALOG (et_application_window_get_scan_dialog (self)));
+    et_application_window_scan_dialog_update_previews (self);
 
     if (!g_settings_get_boolean (MainSettings, "tag-preserve-focus"))
     {
@@ -1793,6 +1793,21 @@ et_application_window_show_log_area (EtApplicationWindow *self)
     priv = et_application_window_get_instance_private (self);
 
     gtk_widget_hide (priv->log_area);
+}
+
+void
+et_application_window_scan_dialog_update_previews (EtApplicationWindow *self)
+{
+    EtApplicationWindowPrivate *priv;
+
+    g_return_if_fail (self != NULL);
+
+    priv = et_application_window_get_instance_private (self);
+
+    if (priv->scan_dialog)
+    {
+        et_scan_dialog_update_previews (ET_SCAN_DIALOG (priv->scan_dialog));
+    }
 }
 
 GtkWidget *
