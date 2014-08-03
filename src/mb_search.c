@@ -445,6 +445,11 @@ et_musicbrainz_search_in_entity (MbEntityKind child_type,
 
     cancel:
 
+    if (metadata_entity)
+    {
+        mb5_metadata_delete (metadata_entity);
+    }
+
     if (metadata)
     {
         mb5_metadata_delete (metadata);
