@@ -30,6 +30,10 @@
 /****************
  * Declarations *
  ****************/
+
+#define SEARCH_LIMIT_STR "5"
+#define SEARCH_LIMIT_INT 5
+
 static gchar *server = NULL;
 static int port = 0;
 
