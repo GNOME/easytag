@@ -28,9 +28,6 @@
 #include <gtk/gtk.h>
 #include <musicbrainz5/mb5_c.h>
 
-#define SEARCH_LIMIT_STR "5"
-#define SEARCH_LIMIT_INT 5
-
 /****************
  * Declarations *
  ****************/

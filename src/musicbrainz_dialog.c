@@ -482,11 +482,7 @@ manual_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
     GError *error;
     ManualSearchThreadData *thread_data;
     gchar *status_msg;
-    EtMusicBrainzDialogPrivate *mb_dialog_priv;
-    EtMusicBrainzDialog *dlg;
-
-    dlg = ET_MUSICBRAINZ_DIALOG (mbDialog);
-    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (dlg);
+    
     error = NULL;
     g_simple_async_result_set_op_res_gboolean (res, FALSE);
 
@@ -851,11 +847,7 @@ selected_find_thread_func (GSimpleAsyncResult *res, GObject *obj,
     GList *iter;
     SelectedFindThreadData *thread_data;
     GError *error;
-    EtMusicBrainzDialog *dlg;
-    EtMusicBrainzDialogPrivate *mb_dialog_priv;
 
-    dlg = ET_MUSICBRAINZ_DIALOG (mbDialog);
-    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (dlg);
     g_simple_async_result_set_op_res_gboolean (res, FALSE);
     error = NULL;
     thread_data = g_async_result_get_user_data (G_ASYNC_RESULT (res));
@@ -1126,12 +1118,8 @@ discid_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
     GError *error;
     DiscId *disc;
     gchar *discid;
-    EtMusicBrainzDialogPrivate *mb_dialog_priv;
-    EtMusicBrainzDialog *dlg;
     DiscIDSearchThreadData *thread_data;
 
-    dlg = ET_MUSICBRAINZ_DIALOG (mbDialog);
-    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (dlg);
     error = NULL;
     disc = discid_new ();
     g_simple_async_result_set_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res),
@@ -1285,13 +1273,8 @@ freedbid_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
                              GCancellable *cancellable)
 {
     GError *error;
-    gchar *freedbid;
-    EtMusicBrainzDialogPrivate *mb_dialog_priv;
-    EtMusicBrainzDialog *dlg;
     FreeDBIDSearchThreadData *thread_data;
 
-    dlg = ET_MUSICBRAINZ_DIALOG (mbDialog);
-    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (dlg);
     error = NULL;
     g_simple_async_result_set_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res),
                                                FALSE);
