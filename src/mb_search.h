@@ -126,5 +126,7 @@ void
 free_mb_tree (GNode **node);
 void
 et_set_cancel_error (GError **error);
+EtMbEntity *
+et_mb_entity_copy (EtMbEntity *etentity);
 #endif /* __MB_SEARCH_H__ */
 #endif /* ENABLE_libmusicbrainz */

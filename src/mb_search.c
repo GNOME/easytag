@@ -31,8 +31,8 @@
  * Declarations *
  ****************/
 
-#define SEARCH_LIMIT_STR "5"
-#define SEARCH_LIMIT_INT 5
+#define SEARCH_LIMIT_STR "2"
+#define SEARCH_LIMIT_INT 2
 
 static gchar *server = NULL;
 static int port = 0;
@@ -539,6 +539,49 @@ free_mb_node_children (GNode *node)
     }
 }
 
+EtMbEntity *
+et_mb_entity_copy (EtMbEntity *etentity)
+{
+    EtMbEntity *entity;
+    
+    if (!etentity)
+    {
+        return NULL;
+    }
+
+    entity = g_slice_new (EtMbEntity);
+    entity->type = etentity->type;
+
+    switch (entity->type)
+    {
+        case MB_ENTITY_KIND_ARTIST:
+            entity->entity = mb5_artist_clone (etentity->entity);
+            break;
+
+        case MB_ENTITY_KIND_ALBUM:
+            entity->entity = mb5_release_clone (etentity->entity);
+            break;
+
+        case MB_ENTITY_KIND_TRACK:
+            entity->entity = mb5_recording_clone (etentity->entity);
+            break;
+
+        case MB_ENTITY_KIND_FREEDBID:
+            entity->entity = mb5_freedbdisc_clone (etentity->entity);
+            break;
+
+        case MB_ENTITY_KIND_DISCID:
+            entity->entity = mb5_disc_clone (etentity->entity);
+            break;
+
+        default:
+            g_slice_free (EtMbEntity, entity);
+            return NULL;
+    }
+
+    return entity;
+}
+
 /*
  * et_musicbrainz_search_artist:
  * @string: String to search
@@ -557,20 +600,23 @@ et_musicbrainz_search_artist (gchar *string, GNode *root, GError **error,
     Mb5Query query;
     Mb5Metadata metadata;
     tQueryResult result;
-    char *param_values[2];
-    char *param_names[2];
+    char *param_values[3];
+    char *param_names[3];
 
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     param_names[0] = "query";
     param_names[1] = "limit";
     param_values[1] = SEARCH_LIMIT_STR;
+    param_names[2] = "offset";
+    param_values[2] = g_strdup_printf ("%d", g_node_n_children (root));
     query = mb5_query_new (USER_AGENT, server, port);
     CHECK_CANCELLED(cancellable);
     param_values[0] = g_strconcat ("artist:", string, NULL);
-    metadata = mb5_query_query (query, "artist", "", "", 2, param_names,
+    metadata = mb5_query_query (query, "artist", "", "", 3, param_names,
                                 param_values);
     g_free (param_values[0]);
+    g_free (param_values[2]);
     result = mb5_query_get_lastresult (query);
 
     if (result == eQuery_Success)
@@ -647,8 +693,8 @@ et_musicbrainz_search_album (gchar *string, GNode *root, GError **error,
     Mb5Metadata metadata;
     Mb5Metadata metadata_release;
     tQueryResult result;
-    char *param_values[2];
-    char *param_names[2];
+    char *param_values[3];
+    char *param_names[3];
 
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
@@ -656,14 +702,17 @@ et_musicbrainz_search_album (gchar *string, GNode *root, GError **error,
     metadata_release = NULL;
     param_names[0] = "query";
     param_names[1] = "limit";
+    param_names[2] = "offset";
+    param_values[2] = g_strdup_printf ("%d", g_node_n_children (root));
     param_values[1] = SEARCH_LIMIT_STR;
     query = mb5_query_new (USER_AGENT, server, port);
     param_values[0] = g_strconcat ("release:", string, NULL);
     CHECK_CANCELLED(cancellable);
-    metadata = mb5_query_query (query, "release", "", "", 2, param_names,
+    metadata = mb5_query_query (query, "release", "", "", 3, param_names,
                                 param_values);
     result = mb5_query_get_lastresult (query);
     g_free (param_values[0]);
+    g_free (param_values[2]);
 
     if (result == eQuery_Success)
     {
@@ -804,23 +853,26 @@ et_musicbrainz_search_track (gchar *string, GNode *root, GError **error,
     Mb5Metadata metadata;
     Mb5Metadata metadata_recording;
     tQueryResult result;
-    char *param_values[2];
-    char *param_names[2];
+    char *param_values[3];
+    char *param_names[3];
 
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     metadata = NULL;
     param_names[0] = "query";
     param_names[1] = "limit";
+    param_names[2] = "offset";
+    param_values[2] = g_strdup_printf ("%d", g_node_n_children (root));
     param_values[1] = SEARCH_LIMIT_STR;
     metadata_recording = NULL;
     query = mb5_query_new (USER_AGENT, server, port);
     param_values[0] = g_strconcat ("recordings:", string, NULL);
     CHECK_CANCELLED(cancellable);
-    metadata = mb5_query_query (query, "recording", "", "", 2,
+    metadata = mb5_query_query (query, "recording", "", "", 3,
                                 param_names, param_values);
     result = mb5_query_get_lastresult (query);
     g_free (param_values[0]);
+    g_free (param_values[2]);
 
     if (result == eQuery_Success)
     {
