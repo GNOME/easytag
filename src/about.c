@@ -26,7 +26,8 @@
 #include "about.h"
 #include "easytag.h"
 
-void Show_About_Window (void)
+void
+et_show_about_dialog (GtkWindow *parent)
 {
     static const gchar * const artists[] =
     {
@@ -93,7 +94,7 @@ void Show_About_Window (void)
         translators = NULL;
     }
 
-    gtk_show_about_dialog (GTK_WINDOW (MainWindow),
+    gtk_show_about_dialog (parent,
                            "artists", artists,
                            "authors", authors,
                            "comments", _("View and edit tags in audio files"),

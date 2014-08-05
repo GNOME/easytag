@@ -72,7 +72,11 @@ on_about (GSimpleAction *action,
           GVariant *parameter,
           gpointer user_data)
 {
-    Show_About_Window ();
+    GList *windows;
+
+    windows = gtk_application_get_windows (GTK_APPLICATION (user_data));
+
+    et_show_about_dialog (windows->data);
 }
 
 static void
