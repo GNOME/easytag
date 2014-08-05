@@ -1,5 +1,5 @@
 /* EasyTAG - tag editor for audio files
- * Copyright (C) 2013  David King <amigadave@amigadave.com>
+ * Copyright (C) 2013,2014  David King <amigadave@amigadave.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -31,11 +31,13 @@ G_BEGIN_DECLS
 
 typedef struct _EtApplication EtApplication;
 typedef struct _EtApplicationClass EtApplicationClass;
+typedef struct _EtApplicationPrivate EtApplicationPrivate;
 
 struct _EtApplication
 {
     /*< private >*/
     GtkApplication parent_instance;
+    EtApplicationPrivate *priv;
 };
 
 struct _EtApplicationClass
