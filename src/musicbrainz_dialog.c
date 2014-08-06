@@ -122,6 +122,7 @@ typedef struct
 {
     EtMbSearch parent;
     GList *list_iter;
+    GArray *n_nodes;
 } EtMbSelectedSearch;
 
 /*
@@ -186,6 +187,7 @@ typedef struct
     GHashTable *hash_table;
     GList *list_iter;
     GNode *node;
+    GArray *n_nodes;
 } SelectedFindThreadData;
 
 typedef struct 
@@ -218,7 +220,8 @@ static void
 et_mb_set_search_manual (EtMbSearch **search, gchar *to_search,
                          GNode *node, MbEntityKind type);
 static void
-et_mb_set_selected_search (EtMbSearch **search, GList *list_files);
+et_mb_set_selected_search (EtMbSearch **search, GArray *n_nodes,
+                           GList *list_files);
 static void
 et_mb_set_automatic_search (EtMbSearch **search);
 static void
@@ -349,6 +352,7 @@ et_mb_destroy_search (EtMbSearch **search)
         {
             g_list_free_full (((EtMbSelectedSearch *)(*search))->list_iter,
                               (GDestroyNotify)gtk_tree_iter_free);
+            g_array_free (((EtMbSelectedSearch *)(*search))->n_nodes, TRUE);
             g_slice_free (EtMbSelectedSearch,
                           (EtMbSelectedSearch *)(*search));
             break;
@@ -396,12 +400,14 @@ et_mb_set_search_manual (EtMbSearch **search, gchar *to_search,
  * Set the EtMbSearch as Selected Search.
  */
 static void
-et_mb_set_selected_search (EtMbSearch **search, GList *list_files)
+et_mb_set_selected_search (EtMbSearch **search, GArray *n_nodes,
+                           GList *list_files)
 {
     et_mb_destroy_search (search);
     *search = (EtMbSearch *)g_slice_new (EtMbSelectedSearch);
     (*search)->type = ET_MB_SEARCH_TYPE_SELECTED;
     ((EtMbSelectedSearch *)(*search))->list_iter = list_files;
+    ((EtMbSelectedSearch *)(*search))->n_nodes = n_nodes;
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btn_fetch_more")),
                               TRUE);
 }
@@ -522,8 +528,9 @@ manual_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
 
     if (!et_musicbrainz_search (thread_data->text_to_search,
                                 thread_data->type, 
-                                thread_data->node, &error,
-                                cancellable))
+                                thread_data->node,
+                                g_node_n_children (thread_data->node),
+                                &error, cancellable))
     {
         g_simple_async_report_gerror_in_idle (NULL,
                                               mb5_search_error_callback,
@@ -545,6 +552,13 @@ manual_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
     g_simple_async_result_set_op_res_gboolean (res, TRUE);
 }
 
+/*
+ * btn_fetch_more_clicked:
+ * @btn: GtkButton
+ * @user_data: Additional Data
+ *
+ * Callback of "clicked" signal handler for btn_fetch_more.
+ */
 static void
 btn_fetch_more_clicked (GtkWidget *btn, gpointer user_data)
 {
@@ -571,10 +585,64 @@ btn_fetch_more_clicked (GtkWidget *btn, gpointer user_data)
         mb_dialog_priv->async_result = g_simple_async_result_new (NULL, 
                                                                   manual_search_callback,
                                                                   thread_data,
-                                                                  btn_manual_find_clicked);
+                                                                  btn_fetch_more_clicked);
         g_simple_async_result_run_in_thread (mb_dialog_priv->async_result,
                                              manual_search_thread_func, 0,
                                              mb5_search_cancellable);
+        et_music_brainz_dialog_stop_set_sensitive (TRUE);
+    }
+    else if (mb_dialog_priv->search->type == ET_MB_SEARCH_TYPE_SELECTED)
+    {
+        GList *iter_list;
+        GList *l;
+        GHashTable *hash_table;
+        SelectedFindThreadData *thread_data;
+        EtMbSelectedSearch *selected_search;
+
+        iter_list = NULL;
+        l = NULL;
+    
+        if (!get_selected_iter_list (GTK_TREE_VIEW (BrowserList), &iter_list))
+        {
+            gtk_statusbar_push (mb_dialog_priv->statusbar,
+                            0, _("No Files Selected"));
+            return;
+        }
+    
+        hash_table = g_hash_table_new (g_str_hash, g_str_equal);
+    
+        for (l = iter_list; l != NULL; l = g_list_next (l))
+        {
+            ET_File *etfile;
+            File_Tag *file_tag;
+    
+            etfile = Browser_List_Get_ETFile_From_Iter ((GtkTreeIter *)l->data);
+    
+            file_tag = (File_Tag *)etfile->FileTag->data;
+    
+            if (file_tag->album != NULL)
+            {
+                g_hash_table_add (hash_table, file_tag->album);
+            }
+        }
+    
+        selected_search = (EtMbSelectedSearch *)mb_dialog_priv->search;
+        thread_data = g_slice_new (SelectedFindThreadData);
+        thread_data->hash_table = hash_table;
+        thread_data->list_iter = iter_list;
+        thread_data->node = g_node_copy_deep (mb_dialog_priv->mb_tree_root, 
+                                              (GCopyFunc)et_mb_entity_copy, NULL);
+        thread_data->n_nodes = g_array_ref (selected_search->n_nodes);
+        mb5_search_cancellable = g_cancellable_new ();
+        mb_dialog_priv->async_result = g_simple_async_result_new (NULL,
+                                                                  selected_find_callback,
+                                                                  thread_data,
+                                                                  btn_fetch_more_clicked);
+        g_simple_async_result_run_in_thread (mb_dialog_priv->async_result,
+                                             selected_find_thread_func, 0,
+                                             mb5_search_cancellable);
+        gtk_statusbar_push (mb_dialog_priv->statusbar, 0,
+                            _("Starting Selected Files Search"));
         et_music_brainz_dialog_stop_set_sensitive (TRUE);
     }
 }
@@ -846,7 +914,9 @@ selected_find_callback (GObject *source, GAsyncResult *res,
         g_object_unref (res);
         g_hash_table_destroy (thread_data->hash_table);
         et_music_brainz_dialog_stop_set_sensitive (FALSE);
+        g_array_unref (thread_data->n_nodes);
         g_slice_free (SelectedFindThreadData, user_data);
+
         return;
     }
 
@@ -867,6 +937,7 @@ selected_find_callback (GObject *source, GAsyncResult *res,
     }
 
     et_mb_set_selected_search (&mb_dialog_priv->search,
+                               thread_data->n_nodes,
                                ((SelectedFindThreadData *)user_data)->list_iter);
     g_slice_free (SelectedFindThreadData, user_data);
 }
@@ -887,18 +958,25 @@ selected_find_thread_func (GSimpleAsyncResult *res, GObject *obj,
     GList *iter;
     SelectedFindThreadData *thread_data;
     GError *error;
+    int i;
+    int children;
 
+    i = 0;
     g_simple_async_result_set_op_res_gboolean (res, FALSE);
     error = NULL;
     thread_data = g_async_result_get_user_data (G_ASYNC_RESULT (res));
     list_keys = g_hash_table_get_keys (thread_data->hash_table);
+    g_array_set_size (thread_data->n_nodes, g_list_length (list_keys));
     iter = g_list_first (list_keys);
 
     while (iter)
     {
+        children = g_node_n_children (thread_data->node);
+
         if (!et_musicbrainz_search ((gchar *)iter->data, MB_ENTITY_KIND_ALBUM,
-                                    thread_data->node, &error,
-                                    cancellable))
+                                    thread_data->node, 
+                                    g_array_index (thread_data->n_nodes, int, i),
+                                    &error, cancellable))
         {
             g_simple_async_report_gerror_in_idle (NULL,
                                                   mb5_search_error_callback,
@@ -907,6 +985,8 @@ selected_find_thread_func (GSimpleAsyncResult *res, GObject *obj,
             return;
         }
 
+        g_array_index (thread_data->n_nodes, int, i) += g_node_n_children (thread_data->node) - children;
+ 
         if (g_cancellable_is_cancelled (cancellable))
         {
             g_set_error (&error, ET_MB5_SEARCH_ERROR,
@@ -920,6 +1000,7 @@ selected_find_thread_func (GSimpleAsyncResult *res, GObject *obj,
         }
 
         iter = g_list_next (iter);
+        i++;
     }
 
     g_list_free (list_keys);
@@ -1049,6 +1130,7 @@ btn_selected_find_clicked (GtkWidget *button, gpointer data)
     thread_data->hash_table = hash_table;
     thread_data->list_iter = iter_list;
     thread_data->node = g_node_new (NULL);
+    thread_data->n_nodes = g_array_new (FALSE, TRUE, sizeof (int));
     mb5_search_cancellable = g_cancellable_new ();
     mb_dialog_priv->async_result = g_simple_async_result_new (NULL,
                                                               selected_find_callback,
@@ -1057,8 +1139,8 @@ btn_selected_find_clicked (GtkWidget *button, gpointer data)
     g_simple_async_result_run_in_thread (mb_dialog_priv->async_result,
                                          selected_find_thread_func, 0,
                                          mb5_search_cancellable);
-    gtk_statusbar_push (mb_dialog_priv->statusbar,
-                        0, _("Starting Selected Files Search"));
+    gtk_statusbar_push (mb_dialog_priv->statusbar, 0,
+                        _("Starting Selected Files Search"));
     et_music_brainz_dialog_stop_set_sensitive (TRUE);
 }
 
@@ -1131,11 +1213,13 @@ discid_search_callback (GObject *source, GAsyncResult *res,
     et_mb_entity_view_clear_all (ET_MB_ENTITY_VIEW (mb_dialog_priv->entityView));
     et_mb_entity_view_set_tree_root (ET_MB_ENTITY_VIEW (mb_dialog_priv->entityView),
                                      mb_dialog_priv->mb_tree_root);
-    gtk_statusbar_push (mb_dialog_priv->statusbar,
-                        0, _("Searching Completed"));
+    gtk_statusbar_push (mb_dialog_priv->statusbar, 0,
+                        _("Searching Completed"));
     g_object_unref (res);
     g_free (user_data);
     et_music_brainz_dialog_stop_set_sensitive (FALSE);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btn_fetch_more")),
+                              FALSE);
 
     if (mb_dialog_priv->exit_on_complete)
     {
@@ -1193,7 +1277,7 @@ discid_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
 
     thread_data = g_async_result_get_user_data (G_ASYNC_RESULT (res));
     if (!et_musicbrainz_search (discid, MB_ENTITY_KIND_DISCID,
-                                thread_data->node,
+                                thread_data->node, 0,
                                 &error, cancellable))
     {
         g_simple_async_report_gerror_in_idle (NULL,
@@ -1334,7 +1418,7 @@ freedbid_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
 
     if (!et_musicbrainz_search (thread_data->cddb_discid,
                                 MB_ENTITY_KIND_FREEDBID,
-                                thread_data->node,
+                                thread_data->node, 0,
                                 &error, cancellable))
     {
         g_simple_async_report_gerror_in_idle (NULL,

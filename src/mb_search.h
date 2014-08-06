@@ -33,6 +33,8 @@
  ****************/
 
 #define NAME_MAX_SIZE 256
+#define SEARCH_LIMIT_INT 2
+#define SEARCH_LIMIT_STR "2"
 
 GCancellable *mb5_search_cancellable;
 
@@ -116,8 +118,8 @@ et_musicbrainz_search_in_entity (MbEntityKind child_type,
                                  gchar *parent_mbid, GNode *root,
                                  GError **error, GCancellable *cancellable);
 gboolean
-et_musicbrainz_search (gchar *string, MbEntityKind type, GNode *root,
-                       GError **error, GCancellable *cancellable);
+et_musicbrainz_search (gchar *string, MbEntityKind type, GNode *root, 
+                       int offset, GError **error, GCancellable *cancellable);
 gchar *
 et_mb5_release_get_artists_names (Mb5Release release);
 gchar *

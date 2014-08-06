@@ -31,9 +31,6 @@
  * Declarations *
  ****************/
 
-#define SEARCH_LIMIT_STR "2"
-#define SEARCH_LIMIT_INT 2
-
 static gchar *server = NULL;
 static int port = 0;
 
@@ -420,7 +417,7 @@ et_musicbrainz_search_in_entity (MbEntityKind child_type,
     {
         mb5_query_delete (query);
 
-        return et_musicbrainz_search (parent_mbid, child_type, root, error,
+        return et_musicbrainz_search (parent_mbid, child_type, root, 0, error,
                                       cancellable);
     }
 
@@ -594,8 +591,8 @@ et_mb_entity_copy (EtMbEntity *etentity)
  * Search for Artists with name as @string
  */
 static gboolean
-et_musicbrainz_search_artist (gchar *string, GNode *root, GError **error,
-                              GCancellable *cancellable)
+et_musicbrainz_search_artist (gchar *string, GNode *root, int offset, 
+                              GError **error, GCancellable *cancellable)
 {
     Mb5Query query;
     Mb5Metadata metadata;
@@ -609,7 +606,7 @@ et_musicbrainz_search_artist (gchar *string, GNode *root, GError **error,
     param_names[1] = "limit";
     param_values[1] = SEARCH_LIMIT_STR;
     param_names[2] = "offset";
-    param_values[2] = g_strdup_printf ("%d", g_node_n_children (root));
+    param_values[2] = g_strdup_printf ("%d", offset);
     query = mb5_query_new (USER_AGENT, server, port);
     CHECK_CANCELLED(cancellable);
     param_values[0] = g_strconcat ("artist:", string, NULL);
@@ -686,8 +683,8 @@ et_musicbrainz_search_artist (gchar *string, GNode *root, GError **error,
  * Search for Albums with name as @string
  */
 static gboolean
-et_musicbrainz_search_album (gchar *string, GNode *root, GError **error,
-                             GCancellable *cancellable)
+et_musicbrainz_search_album (gchar *string, GNode *root, int offset, 
+                             GError **error, GCancellable *cancellable)
 {
     Mb5Query query;
     Mb5Metadata metadata;
@@ -703,7 +700,7 @@ et_musicbrainz_search_album (gchar *string, GNode *root, GError **error,
     param_names[0] = "query";
     param_names[1] = "limit";
     param_names[2] = "offset";
-    param_values[2] = g_strdup_printf ("%d", g_node_n_children (root));
+    param_values[2] = g_strdup_printf ("%d", offset);
     param_values[1] = SEARCH_LIMIT_STR;
     query = mb5_query_new (USER_AGENT, server, port);
     param_values[0] = g_strconcat ("release:", string, NULL);
@@ -846,8 +843,8 @@ et_musicbrainz_search_album (gchar *string, GNode *root, GError **error,
  * Search for Tracks with name as @string
  */
 static gboolean
-et_musicbrainz_search_track (gchar *string, GNode *root, GError **error,
-                             GCancellable *cancellable)
+et_musicbrainz_search_track (gchar *string, GNode *root, int offset, 
+                             GError **error, GCancellable *cancellable)
 {
     Mb5Query query;
     Mb5Metadata metadata;
@@ -862,7 +859,7 @@ et_musicbrainz_search_track (gchar *string, GNode *root, GError **error,
     param_names[0] = "query";
     param_names[1] = "limit";
     param_names[2] = "offset";
-    param_values[2] = g_strdup_printf ("%d", g_node_n_children (root));
+    param_values[2] = g_strdup_printf ("%d", offset);
     param_values[1] = SEARCH_LIMIT_STR;
     metadata_recording = NULL;
     query = mb5_query_new (USER_AGENT, server, port);
@@ -1249,22 +1246,22 @@ et_musicbrainz_search_freedbid (gchar *string, GNode *root, GError **error,
  * Returns: TRUE if successfull, FALSE if not.
  */
 gboolean
-et_musicbrainz_search (gchar *string, MbEntityKind type, GNode *root,
+et_musicbrainz_search (gchar *string, MbEntityKind type, GNode *root, int offset,
                        GError **error, GCancellable *cancellable)
 {
     switch (type)
     {
         case MB_ENTITY_KIND_ARTIST:
-            return et_musicbrainz_search_artist (string, root, error,
+            return et_musicbrainz_search_artist (string, root, offset, error,
                                                  cancellable);
     
 
         case MB_ENTITY_KIND_ALBUM:
-            return et_musicbrainz_search_album (string, root, error,
+            return et_musicbrainz_search_album (string, root, offset, error,
                                                 cancellable);
 
         case MB_ENTITY_KIND_TRACK:
-            return et_musicbrainz_search_track (string, root, error,
+            return et_musicbrainz_search_track (string, root, offset, error,
                                                 cancellable);
 
         case MB_ENTITY_KIND_DISCID:
