@@ -63,6 +63,7 @@ easytag_SOURCES = \
 	src/id3v24_tag.c \
 	src/load_files_dialog.c \
 	src/log.c \
+	src/main.c \
 	src/misc.c \
 	src/monkeyaudio_header.c \
 	src/mpeg_header.c \

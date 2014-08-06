@@ -17,7 +17,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-
 #include "config.h" // For definition of ENABLE_OGG
 #include <gtk/gtk.h>
 #include <stdio.h>
@@ -38,7 +37,6 @@
 
 #include "gtk2_compat.h"
 #include "easytag.h"
-#include "application.h"
 #include "application_window.h"
 #include "browser.h"
 #include "log.h"
@@ -97,33 +95,6 @@ static void Open_Quit_Recursion_Function_Window (void);
 static void Destroy_Quit_Recursion_Function_Window (void);
 static void et_on_quit_recursion_response (GtkDialog *dialog, gint response_id,
                                            gpointer user_data);
-
-/********
- * Main *
- ********/
-int main (int argc, char *argv[])
-{
-    EtApplication *application;
-    gint status;
-
-#if ENABLE_NLS
-    textdomain (GETTEXT_PACKAGE);
-    bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
-    bind_textdomain_codeset (PACKAGE_TARNAME, "UTF-8");
-#endif /* ENABLE_NLS */
-
-    INIT_DIRECTORY = NULL;
-
-#if !GLIB_CHECK_VERSION (2, 35, 1)
-    g_type_init ();
-#endif /* !GLIB_CHECK_VERSION (2, 35, 1) */
-
-    application = et_application_new ();
-    status = g_application_run (G_APPLICATION (application), argc, argv);
-    g_object_unref (application);
-
-    return status;
-}
 
 /*
  * Select a file in the "main list" using the ETFile adress of each item.
