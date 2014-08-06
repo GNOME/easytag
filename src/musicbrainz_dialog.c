@@ -568,6 +568,12 @@ btn_fetch_more_clicked (GtkWidget *btn, gpointer user_data)
     dlg = ET_MUSICBRAINZ_DIALOG (mbDialog);
     mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (dlg);
     
+    if (et_mb_entity_view_get_current_level (ET_MB_ENTITY_VIEW (mb_dialog_priv->entityView)) !=
+        1)
+    {
+        return;
+    }
+
     if (mb_dialog_priv->search->type == ET_MB_SEARCH_TYPE_MANUAL)
     {
         ManualSearchThreadData *thread_data;
