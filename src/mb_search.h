@@ -32,6 +32,8 @@
  ****************/
 
 #define NAME_MAX_SIZE 256
+#define SEARCH_LIMIT_INT 2
+#define SEARCH_LIMIT_STR "2"
 
 GCancellable *mb5_search_cancellable;
 
