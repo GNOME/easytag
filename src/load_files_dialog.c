@@ -627,7 +627,6 @@ create_load_file_content_view_popup (EtLoadFilesDialog *self)
     EtLoadFilesDialogPrivate *priv;
     GtkWidget *list;
     GtkWidget *BrowserPopupMenu;
-    GtkWidget *Image;
     GtkWidget *MenuItem;
 
     priv = et_load_files_dialog_get_instance_private (self);
@@ -636,45 +635,33 @@ create_load_file_content_view_popup (EtLoadFilesDialog *self)
     BrowserPopupMenu = gtk_menu_new();
     gtk_menu_attach_to_widget (GTK_MENU (BrowserPopupMenu), list, NULL);
     
-    MenuItem = gtk_image_menu_item_new_with_label(_("Insert a blank line"));
-    Image = gtk_image_new_from_icon_name ("list-add", GTK_ICON_SIZE_MENU);
-    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
+    MenuItem = gtk_menu_item_new_with_label(_("Insert a blank line"));
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu), MenuItem);
     g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Insert_Blank_Line), G_OBJECT(list));
 
-    MenuItem = gtk_image_menu_item_new_with_label(_("Delete this line"));
-    Image = gtk_image_new_from_icon_name ("list-remove", GTK_ICON_SIZE_MENU);
-    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
+    MenuItem = gtk_menu_item_new_with_label(_("Delete this line"));
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
     g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Delete_Line), G_OBJECT(list));
 
-    MenuItem = gtk_image_menu_item_new_with_label(_("Delete all blank lines"));
-    Image = gtk_image_new_from_icon_name ("list-remove", GTK_ICON_SIZE_MENU);
-    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
+    MenuItem = gtk_menu_item_new_with_label(_("Delete all blank lines"));
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
     g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Delete_All_Blank_Lines),G_OBJECT(list));
 
     MenuItem = gtk_menu_item_new();
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
 
-    MenuItem = gtk_image_menu_item_new_with_label(_("Move up this line"));
-    Image = gtk_image_new_from_icon_name ("go-up", GTK_ICON_SIZE_MENU);
-    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
+    MenuItem = gtk_menu_item_new_with_label(_("Move up this line"));
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
     g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Move_Up),G_OBJECT(list));
 
-    MenuItem = gtk_image_menu_item_new_with_label(_("Move down this line"));
-    Image = gtk_image_new_from_icon_name ("go-down", GTK_ICON_SIZE_MENU);
-    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
+    MenuItem = gtk_menu_item_new_with_label(_("Move down this line"));
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
     g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Move_Down),G_OBJECT(list));
 
     MenuItem = gtk_menu_item_new();
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
 
-    MenuItem = gtk_image_menu_item_new_with_label(_("Reload"));
-    Image = gtk_image_new_from_icon_name ("view-refresh", GTK_ICON_SIZE_MENU);
-    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
+    MenuItem = gtk_menu_item_new_with_label(_("Reload"));
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
     g_signal_connect (MenuItem, "activate",
                       G_CALLBACK (on_load_file_name_view_reload_clicked),
@@ -743,7 +730,6 @@ create_load_file_name_view_popup (EtLoadFilesDialog *self)
     EtLoadFilesDialogPrivate *priv;
     GtkWidget *list;
     GtkWidget *BrowserPopupMenu;
-    GtkWidget *Image;
     GtkWidget *MenuItem;
 
     priv = et_load_files_dialog_get_instance_private (self);
@@ -752,45 +738,33 @@ create_load_file_name_view_popup (EtLoadFilesDialog *self)
     BrowserPopupMenu = gtk_menu_new();
     gtk_menu_attach_to_widget (GTK_MENU (BrowserPopupMenu), list, NULL);
     
-    MenuItem = gtk_image_menu_item_new_with_label(_("Insert a blank line"));
-    Image = gtk_image_new_from_icon_name ("list-add", GTK_ICON_SIZE_MENU);
-    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
+    MenuItem = gtk_menu_item_new_with_label (_("Insert a blank line"));
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu), MenuItem);
     g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Insert_Blank_Line), G_OBJECT(list));
 
-    MenuItem = gtk_image_menu_item_new_with_label(_("Delete this line"));
-    Image = gtk_image_new_from_icon_name ("list-remove", GTK_ICON_SIZE_MENU);
-    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
+    MenuItem = gtk_menu_item_new_with_label (_("Delete this line"));
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
     g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Delete_Line), G_OBJECT(list));
 
-    MenuItem = gtk_image_menu_item_new_with_label(_("Delete all blank lines"));
-    Image = gtk_image_new_from_icon_name ("list-remove", GTK_ICON_SIZE_MENU);
-    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
+    MenuItem = gtk_menu_item_new_with_label (_("Delete all blank lines"));
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
     g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Delete_All_Blank_Lines),G_OBJECT(list));
 
     MenuItem = gtk_menu_item_new();
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
 
-    MenuItem = gtk_image_menu_item_new_with_label(_("Move up this line"));
-    Image = gtk_image_new_from_icon_name ("go-up", GTK_ICON_SIZE_MENU);
-    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
+    MenuItem = gtk_menu_item_new_with_label (_("Move up this line"));
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
     g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Move_Up),G_OBJECT(list));
 
-    MenuItem = gtk_image_menu_item_new_with_label(_("Move down this line"));
-    Image = gtk_image_new_from_icon_name ("go-down", GTK_ICON_SIZE_MENU);
-    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
+    MenuItem = gtk_menu_item_new_with_label (_("Move down this line"));
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
     g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Move_Down),G_OBJECT(list));
 
     MenuItem = gtk_menu_item_new();
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
 
-    MenuItem = gtk_image_menu_item_new_with_label(_("Reload"));
-    Image = gtk_image_new_from_icon_name ("view-refresh", GTK_ICON_SIZE_MENU);
-    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(MenuItem),Image);
+    MenuItem = gtk_menu_item_new_with_label (_("Reload"));
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
     g_signal_connect (MenuItem, "activate",
                       G_CALLBACK (on_load_file_content_view_reload_clicked),

@@ -730,14 +730,11 @@ on_entry_populate_popup (GtkEntry *entry,
                          GtkWidget *menu,
                          EtTagArea *self)
 {
-    GtkWidget *image;
     GtkWidget *menu_item;
 
     /* Menu items */
-    menu_item = gtk_image_menu_item_new_with_label (_("Tag selected files with this field"));
+    menu_item = gtk_menu_item_new_with_label (_("Tag selected files with this field"));
     g_object_set_data (G_OBJECT (menu_item), "tag-area", self);
-    image = gtk_image_new_from_icon_name ("go-jump", GTK_ICON_SIZE_MENU);
-    gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menu_item), image);
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     g_signal_connect_swapped (menu_item, "activate",
                               G_CALLBACK (on_apply_to_selection_menu_item),
@@ -763,33 +760,25 @@ on_entry_populate_popup (GtkEntry *entry,
     menu_item = gtk_menu_item_new ();
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
 
-    menu_item = gtk_image_menu_item_new_with_label (_("All uppercase"));
-    image = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/all-uppercase.png");
-    gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menu_item), image);
+    menu_item = gtk_menu_item_new_with_label (_("All uppercase"));
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     g_signal_connect_swapped (menu_item, "activate",
                               G_CALLBACK (Convert_All_Uppercase),
                               G_OBJECT (entry));
 
-    menu_item = gtk_image_menu_item_new_with_label (_("All lowercase"));
-    image = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/all-lowercase.png");
-    gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menu_item), image);
+    menu_item = gtk_menu_item_new_with_label (_("All lowercase"));
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     g_signal_connect_swapped (menu_item, "activate",
                               G_CALLBACK (Convert_All_Lowercase),
                               G_OBJECT (entry));
 
-    menu_item = gtk_image_menu_item_new_with_label (_("First letter uppercase"));
-    image = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/first-letter-uppercase.png");
-    gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menu_item), image);
+    menu_item = gtk_menu_item_new_with_label (_("First letter uppercase"));
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     g_signal_connect_swapped (menu_item, "activate",
                               G_CALLBACK (Convert_Letter_Uppercase),
                               G_OBJECT (entry));
 
-    menu_item = gtk_image_menu_item_new_with_label (_("First letter uppercase of each word"));
-    image = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/first-letter-uppercase-word.png");
-    gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menu_item), image);
+    menu_item = gtk_menu_item_new_with_label (_("First letter uppercase of each word"));
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     g_signal_connect_swapped (menu_item, "activate",
                               G_CALLBACK (Convert_First_Letters_Uppercase),
@@ -799,33 +788,25 @@ on_entry_populate_popup (GtkEntry *entry,
     menu_item = gtk_menu_item_new ();
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
 
-    menu_item = gtk_image_menu_item_new_with_label (_("Remove spaces"));
-    image = gtk_image_new_from_icon_name ("list-remove", GTK_ICON_SIZE_MENU);
-    gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menu_item), image);
+    menu_item = gtk_menu_item_new_with_label (_("Remove spaces"));
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     g_signal_connect_swapped (menu_item, "activate",
                               G_CALLBACK (Convert_Remove_Space),
                               G_OBJECT (entry));
 
-    menu_item = gtk_image_menu_item_new_with_label (_("Insert space before uppercase letter"));
-    image = gtk_image_new_from_icon_name ("list-add", GTK_ICON_SIZE_MENU);
-    gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menu_item), image);
+    menu_item = gtk_menu_item_new_with_label (_("Insert space before uppercase letter"));
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     g_signal_connect_swapped (menu_item, "activate",
                               G_CALLBACK (Convert_Insert_Space),
                               G_OBJECT (entry));
 
-    menu_item = gtk_image_menu_item_new_with_label (_("Remove duplicate spaces or underscores"));
-    image = gtk_image_new_from_icon_name ("list-remove", GTK_ICON_SIZE_MENU);
-    gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menu_item), image);
+    menu_item = gtk_menu_item_new_with_label (_("Remove duplicate spaces or underscores"));
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     g_signal_connect_swapped (menu_item, "activate",
                               G_CALLBACK (Convert_Only_One_Space),
                               G_OBJECT (entry));
 
-    menu_item = gtk_image_menu_item_new_with_label (_("Remove all text"));
-    image = gtk_image_new_from_icon_name ("list-remove", GTK_ICON_SIZE_MENU);
-    gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menu_item), image);
+    menu_item = gtk_menu_item_new_with_label (_("Remove all text"));
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     g_signal_connect_swapped (menu_item, "activate",
                               G_CALLBACK (Convert_Remove_All_Text),
