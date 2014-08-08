@@ -387,11 +387,15 @@ static void Open_File_Selection_Window (GtkWidget *entry, gchar *title, GtkFileC
         return;
     }
 
-    FileSelectionWindow = gtk_file_chooser_dialog_new(title, parent_window, action,
-                                                      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                                      GTK_STOCK_OPEN,   GTK_RESPONSE_ACCEPT,
-                                                      NULL);
-    // Set initial directory
+    FileSelectionWindow = gtk_file_chooser_dialog_new (title, parent_window,
+                                                       action,
+                                                       _("_Cancel"),
+                                                       GTK_RESPONSE_CANCEL,
+                                                       _("_Open"),
+                                                       GTK_RESPONSE_ACCEPT,
+                                                       NULL);
+
+    /* Set initial directory. */
     tmp = gtk_entry_get_text(GTK_ENTRY(entry));
     if (tmp && *tmp)
     {

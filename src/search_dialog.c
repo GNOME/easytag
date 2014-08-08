@@ -881,8 +881,8 @@ create_search_dialog (EtSearchDialog *self)
                       "changed", G_CALLBACK(Search_Result_List_Row_Selected),
                       self);
 
-    // Button to run the search
-    Button = gtk_button_new_from_stock(GTK_STOCK_FIND);
+    /* Button to run the search. */
+    Button = gtk_button_new_with_mnemonic (_("_Find"));
     gtk_grid_attach (GTK_GRID (Table), Button, 5, 0, 1, 1);
     gtk_widget_set_can_default(Button,TRUE);
     gtk_widget_grab_default(Button);
@@ -890,8 +890,8 @@ create_search_dialog (EtSearchDialog *self)
     g_signal_connect (gtk_bin_get_child (GTK_BIN (priv->search_string_combo)),
                       "activate", G_CALLBACK (Search_File), self);
 
-    // Button to cancel
-    Button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
+    /* Button to cancel. */
+    Button = gtk_button_new_with_mnemonic (_("_Close"));
     gtk_grid_attach (GTK_GRID (Table), Button, 5, 1, 1, 1);
     g_signal_connect (Button, "clicked", G_CALLBACK (on_close_clicked), self);
 

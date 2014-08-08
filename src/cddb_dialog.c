@@ -2524,7 +2524,9 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
                                            GTK_BUTTONS_NONE,
                                            "%s",
                                            _("The number of CDDB results does not match the number of selected files"));
-        gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_APPLY,GTK_RESPONSE_APPLY, NULL);
+        gtk_dialog_add_buttons (GTK_DIALOG (msgdialog), _("_Cancel"),
+                                GTK_RESPONSE_CANCEL, _("_Apply"),
+                                GTK_RESPONSE_APPLY, NULL);
         gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),"%s","Do you want to continue?");
         gtk_window_set_title (GTK_WINDOW (msgdialog),
                               _("Write Tag from CDDB"));
@@ -2977,8 +2979,8 @@ create_cddb_dialog (EtCDDBDialog *self)
     gtk_widget_set_halign (Label, GTK_ALIGN_END);
     gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
 
-    // Button to generate CddbId and request string from the selected files
-    Button = gtk_button_new_from_stock (GTK_STOCK_FIND);
+    /* Button to generate CddbId and request string from the selected files. */
+    Button = gtk_button_new_with_mnemonic (_("_Search"));
     gtk_box_pack_start (GTK_BOX (hbox), Button, FALSE, FALSE, 0);
     gtk_widget_set_can_default (Button, TRUE);
     gtk_widget_grab_default (Button);
@@ -3006,7 +3008,7 @@ create_cddb_dialog (EtCDDBDialog *self)
     gtk_box_pack_start(GTK_BOX(hbox),Separator,FALSE,FALSE,0);
 
     /* Button to quit. */
-    Button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
+    Button = gtk_button_new_with_mnemonic (_("_Close"));
     gtk_box_pack_end(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     gtk_widget_set_can_default(Button,TRUE);
     g_signal_connect_swapped (Button, "clicked",
@@ -3054,8 +3056,8 @@ create_cddb_dialog (EtCDDBDialog *self)
     /* Set content of the clipboard if available. */
     gtk_editable_paste_clipboard (GTK_EDITABLE (priv->search_string_entry));
 
-    // Button to run the search
-    priv->search_button = gtk_button_new_from_stock(GTK_STOCK_FIND);
+    /* Button to run the search. */
+    priv->search_button = gtk_button_new_with_mnemonic (_("_Search"));
     gtk_box_pack_start(GTK_BOX(hbox),priv->search_button,FALSE,FALSE,0);
     gtk_widget_set_can_default(priv->search_button,TRUE);
     gtk_widget_grab_default(priv->search_button);
@@ -3079,7 +3081,7 @@ create_cddb_dialog (EtCDDBDialog *self)
     gtk_widget_set_tooltip_text (priv->stop_search_button, _("Stop the search"));
 
     /* Button to quit. */
-    Button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
+    Button = gtk_button_new_with_mnemonic (_("_Close"));
     gtk_box_pack_end(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     gtk_widget_set_can_default(Button,TRUE);
     g_signal_connect_swapped (Button, "clicked",
@@ -3534,7 +3536,7 @@ create_cddb_dialog (EtCDDBDialog *self)
                                  _("Whether to use the DLM algorithm to match CDDB results to files"));
 
     /* Button to apply. */
-    priv->apply_button = gtk_button_new_from_stock(GTK_STOCK_APPLY);
+    priv->apply_button = gtk_button_new_with_mnemonic (_("_Apply"));
     gtk_box_pack_end(GTK_BOX(hbox),priv->apply_button,FALSE,FALSE,0);
     g_signal_connect_swapped (priv->apply_button, "clicked",
                               G_CALLBACK (Cddb_Set_Track_Infos_To_File_List),

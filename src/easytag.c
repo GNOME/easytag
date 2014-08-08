@@ -292,7 +292,9 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
                                            GTK_BUTTONS_NONE,
                                            ngettext("A file was changed by an external program","%d files were changed by an external program.",nb_files_changed_by_ext_program),
                                            nb_files_changed_by_ext_program);
-        gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_DISCARD,GTK_RESPONSE_NO,GTK_STOCK_SAVE,GTK_RESPONSE_YES,NULL);
+        gtk_dialog_add_buttons (GTK_DIALOG (msgdialog), _("_Discard"),
+                                GTK_RESPONSE_NO, _("_Save"), GTK_RESPONSE_YES,
+                                NULL);
         gtk_dialog_set_default_response (GTK_DIALOG (msgdialog),
                                          GTK_RESPONSE_YES);
         gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),"%s",_("Do you want to continue saving the file?"));
@@ -507,14 +509,17 @@ Save_File (ET_File *ETFile, gboolean multiple_files,
                 msgdialog_check_button = gtk_check_button_new_with_label(_("Repeat action for the remaining files"));
                 gtk_container_add(GTK_CONTAINER(message_area),msgdialog_check_button);
                 gtk_widget_show (msgdialog_check_button);
-                gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_DISCARD,GTK_RESPONSE_NO,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_SAVE,GTK_RESPONSE_YES,NULL);
+                gtk_dialog_add_buttons (GTK_DIALOG (msgdialog),
+                                        _("_Discard"), GTK_RESPONSE_NO,
+                                        _("_Cancel"), GTK_RESPONSE_CANCEL,
+                                        _("_Save"), GTK_RESPONSE_YES, NULL);
                 gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(msgdialog_check_button), TRUE); // Checked by default
-            }else
+            }
+            else
             {
                 gtk_dialog_add_buttons (GTK_DIALOG (msgdialog),
-                                        GTK_STOCK_CANCEL, GTK_RESPONSE_NO,
-                                        GTK_STOCK_SAVE, GTK_RESPONSE_YES,
-                                        NULL);
+                                        _("_Cancel"), GTK_RESPONSE_NO,
+                                        _("_Save"), GTK_RESPONSE_YES, NULL);
             }
 
             gtk_dialog_set_default_response (GTK_DIALOG (msgdialog),
@@ -628,11 +633,17 @@ Save_File (ET_File *ETFile, gboolean multiple_files,
                 msgdialog_check_button = gtk_check_button_new_with_label(_("Repeat action for the remaining files"));
                 gtk_container_add(GTK_CONTAINER(message_area),msgdialog_check_button);
                 gtk_widget_show (msgdialog_check_button);
-                gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_DISCARD,GTK_RESPONSE_NO,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_SAVE,GTK_RESPONSE_YES,NULL);
+                gtk_dialog_add_buttons (GTK_DIALOG (msgdialog), _("_Discard"),
+                                        GTK_RESPONSE_NO, _("_Cancel"),
+                                        GTK_RESPONSE_CANCEL, _("_Save"),
+                                        GTK_RESPONSE_YES, NULL);
                 gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(msgdialog_check_button), TRUE); // Checked by default
-            }else
+            }
+            else
             {
-                gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_DISCARD,GTK_RESPONSE_NO,GTK_STOCK_SAVE,GTK_RESPONSE_YES,NULL);
+                gtk_dialog_add_buttons (GTK_DIALOG (msgdialog), _("_Discard"),
+                                        GTK_RESPONSE_NO, _("_Save"),
+                                        GTK_RESPONSE_YES, NULL);
             }
             g_free(msg);
             g_free(msg1);
@@ -1150,8 +1161,8 @@ Open_Quit_Recursion_Function_Window (void)
                                                   "%s",
                                                   _("Searching for audio files…"));
     gtk_window_set_title (GTK_WINDOW (QuitRecursionWindow), _("Searching"));
-    gtk_dialog_add_button (GTK_DIALOG (QuitRecursionWindow), GTK_STOCK_STOP,
-                                       GTK_RESPONSE_CANCEL);
+    gtk_dialog_add_button (GTK_DIALOG (QuitRecursionWindow), _("_Stop"),
+                           GTK_RESPONSE_CANCEL);
 
     g_signal_connect (G_OBJECT (QuitRecursionWindow),"response",
                       G_CALLBACK (et_on_quit_recursion_response), NULL);
@@ -1251,7 +1262,10 @@ void Quit_MainWindow (void)
                                         GTK_BUTTONS_NONE,
                                         "%s",
                                         _("Some files have been modified but not saved"));
-        gtk_dialog_add_buttons(GTK_DIALOG(msgbox),GTK_STOCK_DISCARD,GTK_RESPONSE_NO,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_SAVE,GTK_RESPONSE_YES,NULL);
+        gtk_dialog_add_buttons (GTK_DIALOG (msgbox), _("_Discard"),
+                                GTK_RESPONSE_NO, _("_Cancel"),
+                                GTK_RESPONSE_CANCEL, _("_Save"),
+                                GTK_RESPONSE_YES, NULL);
         gtk_dialog_set_default_response (GTK_DIALOG (msgbox),
                                          GTK_RESPONSE_YES);
         gtk_window_set_title(GTK_WINDOW(msgbox),_("Quit"));
@@ -1284,7 +1298,9 @@ void Quit_MainWindow (void)
                                          GTK_BUTTONS_NONE,
                                          "%s",
                                          _("Do you really want to quit?"));
-         gtk_dialog_add_buttons(GTK_DIALOG(msgbox),GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_QUIT,GTK_RESPONSE_CLOSE,NULL);
+         gtk_dialog_add_buttons (GTK_DIALOG (msgbox), _("_Cancel"),
+                                 GTK_RESPONSE_CANCEL, _("_Quit"),
+                                 GTK_RESPONSE_CLOSE, NULL);
         gtk_dialog_set_default_response (GTK_DIALOG (msgbox),
                                          GTK_RESPONSE_CLOSE);
         gtk_window_set_title(GTK_WINDOW(msgbox),_("Quit"));

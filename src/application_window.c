@@ -335,7 +335,10 @@ delete_file (ET_File *ETFile, gboolean multiple_files, GError **error)
             message_area = gtk_message_dialog_get_message_area(GTK_MESSAGE_DIALOG(msgdialog));
             msgdialog_check_button = gtk_check_button_new_with_label(_("Repeat action for the remaining files"));
             gtk_container_add(GTK_CONTAINER(message_area),msgdialog_check_button);
-            gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_NO,GTK_RESPONSE_NO,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_DELETE,GTK_RESPONSE_YES,NULL);
+            gtk_dialog_add_buttons (GTK_DIALOG (msgdialog), _("_Skip"),
+                                    GTK_RESPONSE_NO, _("_Cancel"),
+                                    GTK_RESPONSE_CANCEL, _("_Delete"),
+                                    GTK_RESPONSE_YES, NULL);
             gtk_window_set_title(GTK_WINDOW(msgdialog),_("Delete File"));
             //GTK_TOGGLE_BUTTON(msgbox_check_button)->active = TRUE; // Checked by default
         }else
@@ -347,7 +350,9 @@ delete_file (ET_File *ETFile, gboolean multiple_files, GError **error)
                                                _("Do you really want to delete the file '%s'?"),
                                                basename_utf8);
             gtk_window_set_title(GTK_WINDOW(msgdialog),_("Delete File"));
-            gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_CANCEL,GTK_RESPONSE_NO,GTK_STOCK_DELETE,GTK_RESPONSE_YES,NULL);
+            gtk_dialog_add_buttons (GTK_DIALOG (msgdialog), _("_Cancel"),
+                                    GTK_RESPONSE_NO, _("_Delete"),
+                                    GTK_RESPONSE_YES, NULL);
         }
         gtk_dialog_set_default_response (GTK_DIALOG (msgdialog),
                                          GTK_RESPONSE_YES);

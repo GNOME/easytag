@@ -842,7 +842,10 @@ Browser_Tree_Node_Selected (EtBrowser *self, GtkTreeSelection *selection)
                                            "%s",
                                            _("Some files have been modified but not saved"));
         gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),"%s",_("Do you want to save them before changing the directory?"));
-        gtk_dialog_add_buttons(GTK_DIALOG(msgdialog),GTK_STOCK_DISCARD,GTK_RESPONSE_NO,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_SAVE,GTK_RESPONSE_YES,NULL);
+        gtk_dialog_add_buttons (GTK_DIALOG (msgdialog), _("_Discard"),
+                                GTK_RESPONSE_NO, _("_Cancel"),
+                                GTK_RESPONSE_CANCEL, _("_Save"),
+                                GTK_RESPONSE_YES, NULL);
         gtk_dialog_set_default_response (GTK_DIALOG (msgdialog),
                                          GTK_RESPONSE_YES);
         gtk_window_set_title(GTK_WINDOW(msgdialog),_("Confirm Directory Change"));
@@ -3827,7 +3830,7 @@ create_browser (EtBrowser *self)
     /*
      * The button to select a directory to browse
      */
-    priv->button = gtk_button_new_from_stock (GTK_STOCK_OPEN);
+    priv->button = gtk_button_new_with_mnemonic (_("_Open"));
     gtk_box_pack_start (GTK_BOX (HBox), priv->button, FALSE, FALSE, 1);
     g_signal_connect_swapped (priv->button, "clicked",
                               G_CALLBACK (File_Selection_Window_For_Directory),
@@ -4350,9 +4353,9 @@ et_browser_show_rename_directory_dialog (EtBrowser *self)
     priv->rename_directory_dialog = gtk_dialog_new_with_buttons (_("Rename Directory"),
                                                          GTK_WINDOW (MainWindow),
                                                          GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                         GTK_STOCK_CANCEL,
+                                                         _("_Cancel"),
                                                          GTK_RESPONSE_CANCEL,
-                                                         GTK_STOCK_APPLY,
+                                                         _("_Rename"),
                                                          GTK_RESPONSE_APPLY,
                                                          NULL);
 
@@ -4760,9 +4763,9 @@ et_browser_show_open_directory_with_dialog (EtBrowser *self)
     priv->open_directory_with_dialog = gtk_dialog_new_with_buttons (_("Browse Directory With"),
                                                         GTK_WINDOW (MainWindow),
                                                         GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                        GTK_STOCK_CANCEL,
+                                                        _("_Cancel"),
                                                         GTK_RESPONSE_CANCEL,
-                                                        GTK_STOCK_EXECUTE,
+                                                        _("_Execute"),
                                                         GTK_RESPONSE_OK, NULL);
 
     gtk_dialog_set_default_response (GTK_DIALOG (priv->open_directory_with_dialog),
@@ -4797,7 +4800,7 @@ et_browser_show_open_directory_with_dialog (EtBrowser *self)
                               self);
 
     /* The button to Browse */
-    Button = gtk_button_new_from_stock(GTK_STOCK_OPEN);
+    Button = gtk_button_new_with_mnemonic (_("_Open"));
     gtk_box_pack_start(GTK_BOX(HBox),Button,FALSE,FALSE,0);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
                              G_CALLBACK(File_Selection_Window_For_File),G_OBJECT(gtk_bin_get_child(GTK_BIN(priv->open_directory_with_combobox))));
@@ -4955,9 +4958,9 @@ et_browser_show_open_files_with_dialog (EtBrowser *self)
     priv->open_files_with_dialog = gtk_dialog_new_with_buttons (_("Open Files With"),
                                                         GTK_WINDOW (MainWindow),
                                                         GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                        GTK_STOCK_CANCEL,
+                                                        _("_Cancel"),
                                                         GTK_RESPONSE_CANCEL,
-                                                        GTK_STOCK_EXECUTE,
+                                                        _("_Execute"),
                                                         GTK_RESPONSE_OK,
                                                         NULL);
 
@@ -4999,7 +5002,7 @@ et_browser_show_open_files_with_dialog (EtBrowser *self)
 			      self);
 
     /* The button to Browse */
-    Button = gtk_button_new_from_stock(GTK_STOCK_OPEN);
+    Button = gtk_button_new_with_mnemonic (_("_Open"));
     gtk_box_pack_start(GTK_BOX(HBox),Button,FALSE,FALSE,0);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked",
                              G_CALLBACK(File_Selection_Window_For_File),G_OBJECT(gtk_bin_get_child(GTK_BIN(priv->open_files_with_combobox))));

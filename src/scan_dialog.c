@@ -2492,12 +2492,11 @@ create_scan_dialog (EtScanDialog *self)
     gtk_window_set_title (GTK_WINDOW (self), _("Tag and Filename Scan"));
     gtk_window_set_transient_for (GTK_WINDOW (self), GTK_WINDOW (MainWindow));
     gtk_window_set_destroy_with_parent (GTK_WINDOW (self), TRUE);
-    gtk_dialog_add_buttons (GTK_DIALOG (self), GTK_STOCK_CLOSE,
+    gtk_dialog_add_buttons (GTK_DIALOG (self), _("_Close"),
                             GTK_RESPONSE_CLOSE, NULL);
 
     /* 'Scan selected files' button */
-    scan_button = gtk_button_new_from_stock (GTK_STOCK_APPLY);
-    gtk_button_set_label (GTK_BUTTON (scan_button), _("Scan Files"));
+    scan_button = gtk_button_new_with_label (_("Scan Files"));
     gtk_widget_set_can_default (scan_button, TRUE);
     gtk_dialog_add_action_widget (GTK_DIALOG (self), scan_button,
                                   GTK_RESPONSE_APPLY);

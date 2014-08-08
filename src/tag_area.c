@@ -747,17 +747,13 @@ on_entry_populate_popup (GtkEntry *entry,
     menu_item = gtk_menu_item_new ();
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
 
-    menu_item = gtk_image_menu_item_new_with_label (_("Convert '_' and '%20' to spaces"));
-    image = gtk_image_new_from_stock (GTK_STOCK_CONVERT, GTK_ICON_SIZE_MENU);
-    gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menu_item), image);
+    menu_item = gtk_menu_item_new_with_label (_("Convert '_' and '%20' to spaces"));
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     g_signal_connect_swapped (menu_item, "activate",
                               G_CALLBACK (Convert_P20_And_Underscore_Into_Spaces),
                               G_OBJECT (entry));
 
-    menu_item = gtk_image_menu_item_new_with_label (_("Convert ' ' to '_'"));
-    image = gtk_image_new_from_stock (GTK_STOCK_CONVERT, GTK_ICON_SIZE_MENU);
-    gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menu_item), image);
+    menu_item = gtk_menu_item_new_with_label (_("Convert ' ' to '_'"));
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     g_signal_connect_swapped (menu_item, "activate",
                               G_CALLBACK (Convert_Space_Into_Underscore),
@@ -1411,12 +1407,13 @@ on_picture_add_button_clicked (GObject *object,
     }
 
 
-    FileSelectionWindow = gtk_file_chooser_dialog_new(_("Add Images"),
-                                                      parent_window,
-                                                      GTK_FILE_CHOOSER_ACTION_OPEN,
-                                                      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                                      GTK_STOCK_OPEN,   GTK_RESPONSE_OK,
-                                                      NULL);
+    FileSelectionWindow = gtk_file_chooser_dialog_new (_("Add Images"),
+                                                       parent_window,
+                                                       GTK_FILE_CHOOSER_ACTION_OPEN,
+                                                       _("_Cancel"),
+                                                       GTK_RESPONSE_CANCEL,
+                                                       _("_Open"),
+                                                       GTK_RESPONSE_OK, NULL);
 
     // Add files filters
     // "All files" filter
@@ -1561,12 +1558,14 @@ on_picture_properties_button_clicked (GObject *object,
 
         title = g_strdup_printf (_("Image Properties %d/%d"), selection_i++,
                                  selection_nbr);
-        PictureTypesWindow = gtk_dialog_new_with_buttons(title,
-                                                         parent_window,
-                                                         GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                         GTK_STOCK_CANCEL, GTK_RESPONSE_REJECT,
-                                                         GTK_STOCK_OK,     GTK_RESPONSE_OK,
-                                                         NULL);
+        PictureTypesWindow = gtk_dialog_new_with_buttons (title,
+                                                          parent_window,
+                                                          GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                          _("_Cancel"),
+                                                          GTK_RESPONSE_REJECT,
+                                                          _("_OK"),
+                                                          GTK_RESPONSE_OK,
+                                                          NULL);
         g_free(title);
 
         gtk_window_set_default_size (GTK_WINDOW (PictureTypesWindow), 400,
@@ -1775,12 +1774,14 @@ on_picture_save_button_clicked (GObject *object,
 
         title = g_strdup_printf (_("Save Image %d/%d"), selection_i++,
                                  selection_nbr);
-        FileSelectionWindow = gtk_file_chooser_dialog_new(title,
-                                                          parent_window,
-                                                          GTK_FILE_CHOOSER_ACTION_SAVE,
-                                                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                                          GTK_STOCK_SAVE,   GTK_RESPONSE_OK,
-                                                          NULL);
+        FileSelectionWindow = gtk_file_chooser_dialog_new (title,
+                                                           parent_window,
+                                                           GTK_FILE_CHOOSER_ACTION_SAVE,
+                                                           _("_Cancel"),
+                                                           GTK_RESPONSE_CANCEL,
+                                                           _("_Save"),
+                                                           GTK_RESPONSE_OK,
+                                                           NULL);
         g_free(title);
 
         // Add files filters

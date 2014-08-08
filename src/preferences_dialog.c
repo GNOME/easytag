@@ -311,8 +311,8 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_window_set_title (GTK_WINDOW (self), _("Preferences"));
     gtk_window_set_transient_for (GTK_WINDOW (self), GTK_WINDOW (MainWindow));
     gtk_window_set_destroy_with_parent (GTK_WINDOW (self), TRUE);
-    gtk_dialog_add_buttons (GTK_DIALOG (self), GTK_STOCK_CLOSE,
-                            GTK_RESPONSE_CLOSE, NULL);
+    gtk_dialog_add_buttons (GTK_DIALOG (self), _("_Close"), GTK_RESPONSE_CLOSE,
+                            NULL);
     gtk_dialog_set_default_response (GTK_DIALOG (self), GTK_RESPONSE_CLOSE);
     g_signal_connect (self, "response",
                       G_CALLBACK (et_preferences_on_response), NULL);

@@ -540,16 +540,6 @@ write_button_clicked (EtPlaylistDialog *self)
         {
             gchar *msg;
             msg = g_strdup_printf(_("Written playlist file '%s'"),playlist_name_utf8);
-            /*msgbox = msg_box_new(_("Information"),
-                                   GTK_WINDOW(WritePlaylistWindow),
-                                   NULL,
-                                   GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-								   msg,
-								   GTK_STOCK_DIALOG_INFO,
-                                   GTK_STOCK_OK, GTK_RESPONSE_OK,
-                                   NULL);
-            gtk_dialog_run(GTK_DIALOG(msgbox));
-            gtk_widget_destroy(msgbox);*/
             Statusbar_Message(msg,TRUE);
             g_free(msg);
         }
@@ -665,8 +655,8 @@ create_playlist_dialog (EtPlaylistDialog *self)
     gtk_window_set_title (GTK_WINDOW (self), _("Generate Playlist"));
     gtk_window_set_transient_for (GTK_WINDOW (self), GTK_WINDOW (MainWindow));
     gtk_window_set_destroy_with_parent (GTK_WINDOW (self), TRUE);
-    gtk_dialog_add_buttons (dialog, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                            GTK_STOCK_SAVE, GTK_RESPONSE_OK, NULL);
+    gtk_dialog_add_buttons (dialog, _("_Cancel"), GTK_RESPONSE_CANCEL,
+                            _("_Save"), GTK_RESPONSE_OK, NULL);
     gtk_dialog_set_default_response (dialog, GTK_RESPONSE_OK);
     g_signal_connect (dialog, "response", G_CALLBACK (on_response), NULL);
     g_signal_connect (dialog, "delete-event",

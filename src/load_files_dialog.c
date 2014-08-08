@@ -937,8 +937,8 @@ create_load_files_dialog (EtLoadFilesDialog *self)
                           _("Load Filenames From a Text File"));
     gtk_window_set_transient_for (GTK_WINDOW (self), GTK_WINDOW (MainWindow));
     gtk_window_set_destroy_with_parent (GTK_WINDOW (self), TRUE);
-    gtk_dialog_add_buttons (GTK_DIALOG (self), GTK_STOCK_CLOSE,
-                            GTK_RESPONSE_CANCEL, GTK_STOCK_APPLY,
+    gtk_dialog_add_buttons (GTK_DIALOG (self), _("_Close"),
+                            GTK_RESPONSE_CANCEL, _("_Apply"),
                             GTK_RESPONSE_APPLY, NULL);
     gtk_dialog_set_default_response (GTK_DIALOG (self), GTK_RESPONSE_APPLY);
     g_signal_connect (self, "response", G_CALLBACK (on_response), NULL);
@@ -971,8 +971,8 @@ create_load_files_dialog (EtLoadFilesDialog *self)
     if ((path = et_application_window_get_current_path (ET_APPLICATION_WINDOW (MainWindow))) != NULL)
         gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->file_to_load_combo))),path);
     // the 'changed' signal is attached below to enable/disable the button to load
-    // Button 'browse'
-    Button = gtk_button_new_from_stock(GTK_STOCK_OPEN);
+    /* Button 'browse'. */
+    Button = gtk_button_new_with_mnemonic (_("_Open"));
     gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
     g_signal_connect_swapped(G_OBJECT(Button),"clicked", G_CALLBACK(File_Selection_Window_For_File), G_OBJECT(gtk_bin_get_child(GTK_BIN(priv->file_to_load_combo))));
     // Button 'load'
