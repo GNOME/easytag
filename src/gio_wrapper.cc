@@ -233,8 +233,8 @@ GIO_IOStream::writeBlock (TagLib::ByteVector const &data)
     if (!g_output_stream_write_all (ostream, data.data (), data.size (),
                                     &bytes_written, NULL, &error))
     {
-        g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %" G_GSIZE_FORMAT
-                 " bytes of data were written", bytes_written, data.size ());
+        g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %u bytes of data were "
+                 "written", bytes_written, data.size ());
     }
 }
 
