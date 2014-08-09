@@ -45,8 +45,9 @@ configure
 /po/easytag.pot
 /po/stamp-it
 /src/.deps/
-/src/id3lib/.deps/
-/src/libapetag/.deps/
+/src/tags/id3lib/.deps/
+/src/tags/libapetag/.deps/
+/src/tags/.deps/
 /src/win32/.deps/
 /src/win32/easytag.rc
 /src/enums.c

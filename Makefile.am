@@ -21,6 +21,8 @@ bin_PROGRAMS = easytag
 localedir = $(prefix)/$(DATADIRNAME)/locale
 easytag_CPPFLAGS = \
 	-I$(top_srcdir) \
+	-I$(top_srcdir)/src \
+	-I$(top_srcdir)/src/tags \
 	-I$(top_builddir) \
 	-I$(top_builddir)/src \
 	$(DEPRECATED_CPPFLAGS) \
@@ -35,13 +37,7 @@ easytag_CXXFLAGS = \
 	$(EASYTAG_CFLAGS)
 
 easytag_SOURCES = \
-	src/id3lib/c_wrapper.cpp \
-	src/libapetag/apetaglib.c \
-	src/libapetag/is_tag.c \
-	src/libapetag/info_mac.c \
-	src/libapetag/info_mpc.c \
 	src/about.c \
-	src/ape_tag.c \
 	src/application.c \
 	src/application_window.c \
 	src/bar.c \
@@ -55,24 +51,11 @@ easytag_SOURCES = \
 	src/enums.c \
 	src/et_core.c \
 	src/file_area.c \
-	src/flac_header.c \
-	src/flac_tag.c \
-	src/gio_wrapper.cc \
 	src/gtk2_compat.c \
-	src/id3_tag.c \
-	src/id3v24_tag.c \
 	src/load_files_dialog.c \
 	src/log.c \
 	src/main.c \
 	src/misc.c \
-	src/monkeyaudio_header.c \
-	src/mpeg_header.c \
-	src/mp4_tag.cc \
-	src/musepack_header.c \
-	src/ogg_header.c \
-	src/ogg_tag.c \
-	src/opus_header.c \
-	src/opus_tag.c \
 	src/picture.c \
 	src/playlist_dialog.c \
 	src/preferences_dialog.c \
@@ -81,22 +64,35 @@ easytag_SOURCES = \
 	src/search_dialog.c \
 	src/setting.c \
 	src/tag_area.c \
-	src/vcedit.c \
-	src/wavpack_header.c \
-	src/wavpack_tag.c \
+	src/tags/id3lib/c_wrapper.cpp \
+	src/tags/libapetag/apetaglib.c \
+	src/tags/libapetag/is_tag.c \
+	src/tags/libapetag/info_mac.c \
+	src/tags/libapetag/info_mpc.c \
+	src/tags/ape_tag.c \
+	src/tags/flac_header.c \
+	src/tags/flac_tag.c \
+	src/tags/gio_wrapper.cc \
+	src/tags/id3_tag.c \
+	src/tags/id3v24_tag.c \
+	src/tags/monkeyaudio_header.c \
+	src/tags/mpeg_header.c \
+	src/tags/mp4_tag.cc \
+	src/tags/musepack_header.c \
+	src/tags/ogg_header.c \
+	src/tags/ogg_tag.c \
+	src/tags/opus_header.c \
+	src/tags/opus_tag.c \
+	src/tags/vcedit.c \
+	src/tags/wavpack_header.c \
+	src/tags/wavpack_tag.c \
 	src/win32/win32dep.c
 
 nodist_easytag_SOURCES = \
 	src/resource.c
 
 easytag_headers = \
-	src/id3lib/id3_bugfix.h \
-	src/libapetag/apetaglib.h \
-	src/libapetag/is_tag.h \
-	src/libapetag/info_mac.h \
-	src/libapetag/info_mpc.h \
 	src/about.h \
-	src/ape_tag.h \
 	src/application.h \
 	src/application_window.h \
 	src/bar.h \
@@ -107,24 +103,11 @@ easytag_headers = \
 	src/easytag.h \
 	src/et_core.h \
 	src/file_area.h \
-	src/flac_header.h \
-	src/flac_tag.h \
 	src/genres.h \
-	src/gio_wrapper.h \
 	src/gtk2_compat.h \
-	src/id3_tag.h \
 	src/load_files_dialog.h \
 	src/log.h \
 	src/misc.h \
-	src/monkeyaudio_header.h \
-	src/mpeg_header.h \
-	src/mp4_header.h \
-	src/mp4_tag.h \
-	src/musepack_header.h \
-	src/ogg_header.h \
-	src/ogg_tag.h \
-	src/opus_header.h \
-	src/opus_tag.h \
 	src/picture.h \
 	src/playlist_dialog.h \
 	src/preferences_dialog.h \
@@ -133,9 +116,28 @@ easytag_headers = \
 	src/search_dialog.h \
 	src/setting.h \
 	src/tag_area.h \
-	src/vcedit.h \
-	src/wavpack_header.h \
-	src/wavpack_tag.h \
+	src/tags/id3lib/id3_bugfix.h \
+	src/tags/libapetag/apetaglib.h \
+	src/tags/libapetag/is_tag.h \
+	src/tags/libapetag/info_mac.h \
+	src/tags/libapetag/info_mpc.h \
+	src/tags/ape_tag.h \
+	src/tags/flac_header.h \
+	src/tags/flac_tag.h \
+	src/tags/gio_wrapper.h \
+	src/tags/id3_tag.h \
+	src/tags/monkeyaudio_header.h \
+	src/tags/mpeg_header.h \
+	src/tags/mp4_header.h \
+	src/tags/mp4_tag.h \
+	src/tags/musepack_header.h \
+	src/tags/ogg_header.h \
+	src/tags/ogg_tag.h \
+	src/tags/opus_header.h \
+	src/tags/opus_tag.h \
+	src/tags/vcedit.h \
+	src/tags/wavpack_header.h \
+	src/tags/wavpack_tag.h \
 	src/win32/win32dep.h
 
 nodist_easytag_headers = \
@@ -343,12 +345,12 @@ dist_noinst_DATA = \
 	$(easytag_headers) \
 	data/org.gnome.EasyTAG.gresource.xml \
 	$(noinst_resource_files) \
-	src/id3lib/patch_id3lib_3.8.3_UTF16_writing_bug.diff \
-	src/libapetag/COPYING.LGPL \
-	src/libapetag/README.apetag \
-	src/libapetag/id3v2_read.c \
-	src/libapetag/id3v2_read.h \
-	src/mp4_header.cc \
+	src/tags/id3lib/patch_id3lib_3.8.3_UTF16_writing_bug.diff \
+	src/tags/libapetag/COPYING.LGPL \
+	src/tags/libapetag/README.apetag \
+	src/tags/libapetag/id3v2_read.c \
+	src/tags/libapetag/id3v2_read.h \
+	src/tags/mp4_header.cc \
 	src/win32/resource.h \
 	data/icons/win32/easytag.ico \
 	data/nsis/easytag-header.bmp \
