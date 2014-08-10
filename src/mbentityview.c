@@ -143,6 +143,7 @@ tree_filter_visible_func (GtkTreeModel *model, GtkTreeIter *iter,
 {
     EtMbEntityViewPrivate *priv;
     int columns;
+    static const GdkRGBA black = {0, 0, 0, 0};
 
     columns = gtk_tree_model_get_n_columns (model);
     priv = (EtMbEntityViewPrivate *)data;
@@ -169,7 +170,7 @@ tree_filter_visible_func (GtkTreeModel *model, GtkTreeIter *iter,
 
     if (priv->search_or_red & ET_MB_DISPLAY_RESULTS_RED)
     {
-        gchar *value;
+        GdkRGBA *value;
 
         if (columns == MB_ARTIST_COLUMNS_N + 1)
         {
@@ -183,19 +184,21 @@ tree_filter_visible_func (GtkTreeModel *model, GtkTreeIter *iter,
         {
             gtk_tree_model_get (model, iter, MB_TRACK_COLUMNS_N, &value, -1);
         }
+        else if (columns == MB_FREEDBID_COLUMNS_N + 1)
+        {
+            gtk_tree_model_get (model, iter, MB_FREEDBID_COLUMNS_N,
+                                &value, -1);
+        }
         else
         {
             return TRUE;
         }
 
-        if (g_strcmp0 (value, "black") == 0)
+        if (gdk_rgba_equal (&black, value))
         {
-            g_free (value);
             return TRUE;
         }
-
-        g_free (value);
-
+    
         return priv->toggle_red_lines;
     }
 
@@ -455,7 +458,9 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                                                    MB_TRACK_COLUMNS_ALBUM,
                                                    releases->str,
                                                    MB_TRACK_COLUMNS_TIME,
-                                                   time, -1);
+                                                   time, 
+                                                   MB_TRACK_COLUMNS_N, 
+                                                   &black, -1);
                 g_string_free (releases, TRUE);
                 g_string_free (artists, TRUE);
 
@@ -474,13 +479,30 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                                           title, sizeof (title));
                 mb5_freedbdisc_get_id ((Mb5FreeDBDisc)entity,
                                        freedbid, sizeof (freedbid));
-                gtk_list_store_insert_with_values (list_store, &iter, -1,
-                                                   MB_FREEDBID_COLUMNS_ID,
-                                                   freedbid,
-                                                   MB_FREEDBID_COLUMNS_NAME,
-                                                   title,
-                                                   MB_FREEDBID_COLUMNS_ARTIST,
-                                                   artist, -1);
+                if (((EtMbEntity *)node->data)->is_red_line)
+                {
+                    gtk_list_store_insert_with_values (list_store, &iter, -1,
+                                                       MB_FREEDBID_COLUMNS_ID,
+                                                       freedbid,
+                                                       MB_FREEDBID_COLUMNS_NAME,
+                                                       title,
+                                                       MB_FREEDBID_COLUMNS_ARTIST,
+                                                       artist, 
+                                                       MB_FREEDBID_COLUMNS_N,
+                                                       &red, -1);
+                }
+                else
+                {
+                    gtk_list_store_insert_with_values (list_store, &iter, -1,
+                                                       MB_FREEDBID_COLUMNS_ID,
+                                                       freedbid,
+                                                       MB_FREEDBID_COLUMNS_NAME,
+                                                       title,
+                                                       MB_FREEDBID_COLUMNS_ARTIST,
+                                                       artist, 
+                                                       MB_FREEDBID_COLUMNS_N,
+                                                       &black, -1);
+                }
             }
 
             case MB_ENTITY_KIND_COUNT:
@@ -607,12 +629,18 @@ toggle_button_clicked (GtkWidget *btn, gpointer user_data)
     EtMbEntityView *entity_view;
     EtMbEntityViewPrivate *priv;
     GList *children;
+    GtkWidget *prev_active_toggle_btn;
 
     entity_view = ET_MB_ENTITY_VIEW (user_data);
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
 
     if (btn == priv->active_toggle_button)
     {
+        if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (btn)))
+        {
+            gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (btn), TRUE);
+        }
+
         return;
     }
 
@@ -621,9 +649,12 @@ toggle_button_clicked (GtkWidget *btn, gpointer user_data)
         return;
     }
 
-    if (priv->active_toggle_button)
+    prev_active_toggle_btn = priv->active_toggle_button;
+    priv->active_toggle_button = btn;
+
+    if (prev_active_toggle_btn)
     {
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->active_toggle_button),
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prev_active_toggle_btn),
                                       FALSE);
     }
 
@@ -678,6 +709,8 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
     if (gtk_list_store_iter_is_valid (GTK_LIST_STORE (priv->list_store),
                                       &thread_data->iter))
     {
+        GtkWidget *prev_active_toggle_btn;
+
         /* Only run if iter is valid i.e. it is not a Refresh Option */
         children = gtk_container_get_children (GTK_CONTAINER (priv->bread_crumb_box));
         active_child = g_list_find (children, priv->active_toggle_button);
@@ -691,17 +724,18 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
         toggle_btn = insert_togglebtn_in_breadcrumb (GTK_BOX (priv->bread_crumb_box));
         children = gtk_container_get_children (GTK_CONTAINER (priv->bread_crumb_box));
         priv->bread_crumb_nodes[g_list_length (children) - 1] = thread_data->child;
-    
-        if (priv->active_toggle_button)
+        prev_active_toggle_btn = priv->active_toggle_button;
+        priv->active_toggle_button = toggle_btn;
+
+        if (prev_active_toggle_btn)
         {
-            gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->active_toggle_button),
+            gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prev_active_toggle_btn),
                                           FALSE);
         }
     
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toggle_btn), TRUE);
         g_signal_connect (G_OBJECT (toggle_btn), "clicked",
                           G_CALLBACK (toggle_button_clicked), entity_view);
-        priv->active_toggle_button = toggle_btn;
     
         gtk_tree_model_get (priv->list_store, &thread_data->iter, 0,
                             &entity_name, -1);
@@ -1087,6 +1121,12 @@ et_mb_entity_view_toggle_red_lines (EtMbEntityView *entity_view)
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
     priv->search_or_red = priv->search_or_red | ET_MB_DISPLAY_RESULTS_RED;
     priv->toggle_red_lines = !priv->toggle_red_lines;
+
+    if (!GTK_IS_TREE_MODEL_FILTER (priv->filter))
+    {
+        return;
+    }
+
     gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER (priv->filter));
 }
 
@@ -1104,7 +1144,14 @@ et_mb_entity_view_invert_selection (EtMbEntityView *entity_view)
     GtkTreeSelection *selection;
 
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
+
+    if (!GTK_IS_TREE_MODEL_FILTER (priv->filter))
+    {
+        return;
+    }
+
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view));
+
     if (!gtk_tree_model_get_iter_first (priv->filter, &filter_iter))
     {
         return;
@@ -1139,7 +1186,7 @@ et_mb_entity_view_get_current_level (EtMbEntityView *entity_view)
 
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
     list = gtk_container_get_children (GTK_CONTAINER (priv->bread_crumb_box));
-    n = g_list_length (list);
+    n = g_list_index (list, priv->active_toggle_button) + 1;
     g_list_free (list);
 
     return n;
@@ -1160,6 +1207,12 @@ et_mb_entity_view_search_in_results (EtMbEntityView *entity_view,
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
     priv->text_to_search_in_results = text;
     priv->search_or_red = priv->search_or_red | ET_MB_DISPLAY_RESULTS_SEARCH;
+
+    if (!GTK_IS_TREE_MODEL_FILTER (priv->filter))
+    {
+        return;
+    }
+
     gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER (priv->filter));
 }
 
@@ -1178,6 +1231,12 @@ et_mb_entity_view_select_up (EtMbEntityView *entity_view)
     GList *selected_rows;
 
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
+
+    if (!GTK_IS_TREE_MODEL_FILTER (priv->filter))
+    {
+        return;
+    }
+
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view));
     selected_rows = gtk_tree_selection_get_selected_rows (selection,
                                                           &priv->filter);
@@ -1214,6 +1273,12 @@ et_mb_entity_view_select_down (EtMbEntityView *entity_view)
     GList *selected_rows;
 
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
+    
+    if (!GTK_IS_TREE_MODEL_FILTER (priv->filter))
+    {
+        return;
+    }
+
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view));
     selected_rows = gtk_tree_selection_get_selected_rows (selection,
                                                           &priv->filter);
@@ -1339,6 +1404,12 @@ et_mb_entity_view_get_selected_entity_list (EtMbEntityView *entity_view,
     
     *list = NULL;
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
+
+    if (!priv->mb_tree_current_node)
+    {
+        return 0;
+    }
+
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view));
     count = gtk_tree_selection_count_selected_rows (selection);
 
@@ -1377,12 +1448,11 @@ et_mb_entity_view_get_selected_entity_list (EtMbEntityView *entity_view,
         count = g_node_n_children (priv->mb_tree_current_node);
         child = g_node_first_child (priv->mb_tree_current_node);
 
-        do
+        while (child != NULL)
         {
             *list = g_list_prepend (*list, child->data);
             child = g_node_next_sibling (child);
         }
-        while (child != NULL);
     }
 
     /* Reverse the list as we are prepending elements to it */
