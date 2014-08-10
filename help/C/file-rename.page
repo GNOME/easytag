@@ -27,8 +27,11 @@
       rename in the file view.</p>
     </item>
     <item>
-      <p>Select <guiseq><gui style="menu">Scanner</gui>
-      <gui style="menuitem">Rename Files and Directories…</gui></guiseq>.</p>
+      <p>Select <guiseq><gui style="menu">View</gui>
+      <gui style="menuitem">Show Scanner</gui></guiseq>.</p>
+    </item>
+    <item>
+      <p>Select the <gui>Rename File and Directory</gui> scanner.</p>
     </item>
     <item>
       <p>Using the <gui xref="format-specifier">Legend</gui>, type in the
@@ -38,12 +41,11 @@
       into the renaming field.</p>
     </item>
     <item>
-      <p>To apply the changes to all files, select
-      <guiseq><gui style="menu">File</gui>
-      <gui style="menuitem">Scan Files…</gui></guiseq>.</p>
+      <p>To apply the changes to the selected files, click
+      <gui style="button">Scan Files</gui>.</p>
     </item>
     <item>
-      <p>Close the <gui style="dialog">Tag and Filename scan</gui> dialog.</p>
+      <p>Close the <gui style="dialog">Tag and Filename Scan</gui> dialog.</p>
     </item>
     <item>
       <p>To save the applied changes, select
