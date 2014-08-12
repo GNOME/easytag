@@ -1315,9 +1315,10 @@ free_mb_tree (GNode **_node)
         {
             mb5_recording_delete ((Mb5Recording)et_entity->entity);
         }
+    
+        g_slice_free (EtMbEntity, et_entity);
     }
 
-    g_slice_free (EtMbEntity, et_entity);
     g_node_unlink (node);
     child = g_node_first_child (node);
 

@@ -308,6 +308,8 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                 gchar group[NAME_MAX_SIZE];
                 gchar name[NAME_MAX_SIZE];
                 gchar *album_artists;
+                gchar country[NAME_MAX_SIZE];
+                gchar date[NAME_MAX_SIZE];
 
                 release_group = mb5_release_get_releasegroup ((Mb5Release)entity);
                 mb5_releasegroup_get_primarytype (release_group, group,
@@ -315,7 +317,9 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                 album_artists = et_mb5_release_get_artists_names (entity);
                 mb5_release_get_title ((Mb5Release)entity, name,
                                        sizeof (name));
-                
+                mb5_release_get_country (entity, country, sizeof (country));
+                mb5_release_get_date (entity, date, sizeof (date));
+
                 if (((EtMbEntity *)node->data)->is_red_line)
                 {
                     gtk_list_store_insert_with_values (list_store, &iter, -1,
@@ -324,18 +328,29 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                                                        MB_ALBUM_COLUMNS_ARTIST,
                                                        album_artists,
                                                        MB_ALBUM_COLUMNS_TYPE,
-                                                       group,
+                                                       group, 
+                                                       MB_ALBUM_COLUMNS_COUNTRY,
+                                                       country,
+                                                       MB_ALBUM_COLUMNS_DATE,
+                                                       date,
                                                        MB_ALBUM_COLUMNS_N,
                                                        &red, -1);
                 }
                 else
                 {
                     gtk_list_store_insert_with_values (list_store, &iter, -1,
-                                        MB_ALBUM_COLUMNS_NAME, name,
-                                        MB_ALBUM_COLUMNS_ARTIST,
-                                        album_artists,
-                                        MB_ALBUM_COLUMNS_TYPE, group,
-                                        MB_ALBUM_COLUMNS_N, &black, -1);
+                                                       MB_ALBUM_COLUMNS_NAME,
+                                                       name,
+                                                       MB_ALBUM_COLUMNS_ARTIST,
+                                                       album_artists,
+                                                       MB_ALBUM_COLUMNS_TYPE,
+                                                       group,
+                                                       MB_ALBUM_COLUMNS_COUNTRY,
+                                                       country,
+                                                       MB_ALBUM_COLUMNS_DATE,
+                                                       date,                                                       
+                                                       MB_ALBUM_COLUMNS_N,
+                                                       &black, -1);
                 }
 
                 g_free (album_artists);
@@ -478,9 +493,9 @@ show_data_in_entity_view (EtMbEntityView *entity_view)
     int i, total_cols, type;
     GList *list_cols, *list;
     GType *types;
-    static const gchar *column_names[MB_ENTITY_KIND_COUNT][4] = {
+    static const gchar *column_names[MB_ENTITY_KIND_COUNT][5] = {
         {N_("Name"), N_("Gender"), N_("Type")},
-        {N_("Name"), N_("Artist"), N_("Type")},
+        {N_("Name"), N_("Artist"), N_("Type"), N_("Country"), N_("Date")},
         {N_("Name"), N_("Album"), N_("Artist"), N_("Time")},
         {N_("FreeDB ID"), N_("Title"), N_("Artist")}
     };

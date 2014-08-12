@@ -1357,8 +1357,8 @@ btn_discid_search_clicked (GtkWidget *button, gpointer data)
                         0, _("Starting MusicBrainz Search"));
     mb_dialog_priv->async_result = g_simple_async_result_new (NULL,
                                                               discid_search_callback,
-                                                              NULL,
-                                                              btn_manual_find_clicked);
+                                                              thread_data,
+                                                              btn_discid_search_clicked);
     g_simple_async_result_run_in_thread (mb_dialog_priv->async_result,
                                          discid_search_thread_func, 0,
                                          mb5_search_cancellable);
