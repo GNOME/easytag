@@ -97,6 +97,8 @@ void
 et_music_brainz_dialog_set_statusbar_message (gchar *message);
 void
 et_music_brainz_dialog_set_response (GtkResponseType response);
+void
+et_music_brainz_dialog_toolbar_buttons_set_sensitive (gboolean sensitive);
 G_END_DECLS
 #endif /* __MUSICBRAINZ_DIALOG_H__ */
 #endif /* ENABLE_MUSICBRAINZ */

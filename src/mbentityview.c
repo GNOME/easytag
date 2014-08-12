@@ -648,6 +648,8 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
     {
         g_object_unref (res);
         g_slice_free (SearchInLevelThreadData, user_data);
+        et_music_brainz_dialog_toolbar_buttons_set_sensitive (TRUE);
+        et_music_brainz_dialog_stop_set_sensitive (FALSE);
         return;
     }
 
@@ -710,6 +712,7 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
 
     g_slice_free (SearchInLevelThreadData, thread_data);
     et_music_brainz_dialog_stop_set_sensitive (FALSE);
+    et_music_brainz_dialog_toolbar_buttons_set_sensitive (TRUE);
 
     if (et_music_brainz_get_exit_on_complete ())
     {
@@ -924,6 +927,7 @@ search_in_levels (EtMbEntityView *entity_view, GNode *child,
                                          search_in_levels_thread_func,
                                          0, mb5_search_cancellable);
     et_music_brainz_dialog_stop_set_sensitive (TRUE);
+    et_music_brainz_dialog_toolbar_buttons_set_sensitive (FALSE);
 }
 
 /*

@@ -215,6 +215,7 @@
                         <child>
                           <object class="GtkEntry" id="entry_tree_view_search">
                             <property name="visible">True</property>
+                            <property name="sensitive">False</property>
                             <property name="can_focus">True</property>
                             <property name="invisible_char">●</property>
                             <property name="invisible_char_set">True</property>
@@ -229,6 +230,7 @@
                     <child>
                       <object class="GtkToolButton" id="toolbtn_up">
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="has_tooltip">True</property>
                         <property name="tooltip_markup" translatable="yes">Up</property>
@@ -245,6 +247,7 @@
                     <child>
                       <object class="GtkToolButton" id="toolbtn_down">
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="has_tooltip">True</property>
                         <property name="tooltip_markup" translatable="yes">Down</property>
@@ -271,6 +274,7 @@
                     <child>
                       <object class="GtkToolButton" id="toolbtn_invert_selection">
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="has_tooltip">True</property>
                         <property name="tooltip_markup" translatable="yes">Invert Selections</property>
@@ -287,6 +291,7 @@
                     <child>
                       <object class="GtkToolButton" id="toolbtn_select_all">
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="has_tooltip">True</property>
                         <property name="tooltip_markup" translatable="yes">Select All</property>
@@ -303,6 +308,7 @@
                     <child>
                       <object class="GtkToolButton" id="toolbtn_unselect_all">
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="has_tooltip">True</property>
                         <property name="tooltip_markup" translatable="yes">Unselect All</property>
@@ -319,6 +325,7 @@
                     <child>
                       <object class="GtkToggleToolButton" id="toolbtn_toggle_red_lines">
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="has_tooltip">True</property>
                         <property name="tooltip_markup" translatable="yes">Toggle Red Lines</property>
@@ -335,6 +342,7 @@
                     <child>
                       <object class="GtkToolButton" id="toolbtn_refresh">
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="has_tooltip">True</property>
                         <property name="tooltip_markup" translatable="yes">Refresh</property>

@@ -277,9 +277,8 @@ get_selected_iter_list (GtkTreeView *tree_view, GList **list);
 static void
 btn_selected_find_clicked (GtkWidget *widget, gpointer user_data);
 static void
-get_first_selected_file (ET_File  **et_file);
-
-#ifdef ENABLE_LIBDISCID
+get_first_selected_file (ET_File **et_file);
+#ifdef ENABLE_lIBDISCID
 static void
 discid_search_callback (GObject *source, GAsyncResult *res,
                         gpointer user_data);
@@ -473,6 +472,21 @@ manual_search_callback (GObject *source, GAsyncResult *res,
         et_music_brainz_dialog_stop_set_sensitive (FALSE);
         free_mb_tree (&thread_data->node);
 
+        if (mbDialog)
+        {
+            dlg = ET_MUSICBRAINZ_DIALOG (mbDialog);
+            priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (dlg);
+
+            if (priv->search)
+            {
+                et_music_brainz_dialog_toolbar_buttons_set_sensitive (TRUE);
+            }
+            else
+            {
+                et_music_brainz_dialog_toolbar_buttons_set_sensitive (FALSE);
+            }
+        }
+
         return;
     }
 
@@ -490,6 +504,7 @@ manual_search_callback (GObject *source, GAsyncResult *res,
     gtk_combo_box_text_append_text (combo_box,
                                     gtk_combo_box_text_get_active_text (combo_box));
     et_music_brainz_dialog_stop_set_sensitive (FALSE);
+    et_music_brainz_dialog_toolbar_buttons_set_sensitive (TRUE);
     priv->search = ET_MB_SEARCH_TYPE_MANUAL;
     et_mb_set_search_manual (&priv->search, thread_data->text_to_search,
                              priv->mb_tree_root, thread_data->type);
@@ -621,6 +636,7 @@ btn_fetch_more_clicked (GtkWidget *btn, gpointer user_data)
                                              manual_search_thread_func, 0,
                                              mb5_search_cancellable);
         et_music_brainz_dialog_stop_set_sensitive (TRUE);
+        et_music_brainz_dialog_toolbar_buttons_set_sensitive (FALSE);
     }
     else if (mb_dialog_priv->search->type == ET_MB_SEARCH_TYPE_SELECTED)
     {
@@ -680,6 +696,7 @@ btn_fetch_more_clicked (GtkWidget *btn, gpointer user_data)
         gtk_statusbar_push (mb_dialog_priv->statusbar, 0,
                             _("Starting Selected Files Search"));
         et_music_brainz_dialog_stop_set_sensitive (TRUE);
+        et_music_brainz_dialog_toolbar_buttons_set_sensitive (FALSE);
     }
 }
 
@@ -728,6 +745,7 @@ btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
                                          manual_search_thread_func, 0,
                                          mb5_search_cancellable);
     et_music_brainz_dialog_stop_set_sensitive (TRUE);
+    et_music_brainz_dialog_toolbar_buttons_set_sensitive (FALSE);
 }
 
 /*
@@ -951,6 +969,21 @@ selected_find_callback (GObject *source, GAsyncResult *res,
         g_array_unref (thread_data->n_nodes);
         g_slice_free (SelectedFindThreadData, user_data);
 
+        if (mbDialog)
+        {
+            dlg = ET_MUSICBRAINZ_DIALOG (mbDialog);
+            mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (dlg);
+
+            if (mb_dialog_priv->search)
+            {
+                et_music_brainz_dialog_toolbar_buttons_set_sensitive (TRUE);
+            }
+            else
+            {
+                et_music_brainz_dialog_toolbar_buttons_set_sensitive (FALSE);
+            }
+        }
+
         return;
     }
 
@@ -966,6 +999,7 @@ selected_find_callback (GObject *source, GAsyncResult *res,
     g_object_unref (res);
     g_hash_table_destroy (thread_data->hash_table);
     et_music_brainz_dialog_stop_set_sensitive (FALSE);
+    et_music_brainz_dialog_toolbar_buttons_set_sensitive (TRUE);
 
     if (mb_dialog_priv->exit_on_complete)
     {
@@ -1185,6 +1219,7 @@ btn_selected_find_clicked (GtkWidget *button, gpointer data)
     gtk_statusbar_push (mb_dialog_priv->statusbar, 0,
                         _("Starting Selected Files Search"));
     et_music_brainz_dialog_stop_set_sensitive (TRUE);
+    et_music_brainz_dialog_toolbar_buttons_set_sensitive (FALSE);
 }
 
 /*
@@ -1250,6 +1285,22 @@ discid_search_callback (GObject *source, GAsyncResult *res,
         g_object_unref (res);
         free_mb_tree (&thread_data->node);
         et_music_brainz_dialog_stop_set_sensitive (FALSE);
+
+        if (mbDialog)
+        {
+            dlg = ET_MUSICBRAINZ_DIALOG (mbDialog);
+            mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (dlg);
+
+            if (mb_dialog_priv->search)
+            {
+                et_music_brainz_dialog_toolbar_buttons_set_sensitive (TRUE);
+            }
+            else
+            {
+                et_music_brainz_dialog_toolbar_buttons_set_sensitive (FALSE);
+            }
+        }
+
         return;
     }
 
@@ -1265,6 +1316,7 @@ discid_search_callback (GObject *source, GAsyncResult *res,
     g_object_unref (res);
     g_slice_free (DiscIDSearchThreadData, thread_data);
     et_music_brainz_dialog_stop_set_sensitive (FALSE);
+    et_music_brainz_dialog_toolbar_buttons_set_sensitive (TRUE);
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btn_fetch_more")),
                               FALSE);
 
@@ -1371,6 +1423,7 @@ btn_discid_search_clicked (GtkWidget *button, gpointer data)
                                          discid_search_thread_func, 0,
                                          mb5_search_cancellable);
     et_music_brainz_dialog_stop_set_sensitive (TRUE);
+    et_music_brainz_dialog_toolbar_buttons_set_sensitive (FALSE);
 #else
     GtkWidget *msg_dialog;
     
@@ -1420,6 +1473,22 @@ freedbid_search_callback (GObject *source, GAsyncResult *res,
         g_free (thread_data->cddb_discid);
         g_slice_free (FreeDBIDSearchThreadData, thread_data);
         et_music_brainz_dialog_stop_set_sensitive (FALSE);
+
+        if (mbDialog)
+        {
+            dlg = ET_MUSICBRAINZ_DIALOG (mbDialog);
+            mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (dlg);
+
+            if (mb_dialog_priv->search)
+            {
+                et_music_brainz_dialog_toolbar_buttons_set_sensitive (TRUE);
+            }
+            else
+            {
+                et_music_brainz_dialog_toolbar_buttons_set_sensitive (FALSE);
+            }
+        }
+
         return;
     }
 
@@ -1436,6 +1505,7 @@ freedbid_search_callback (GObject *source, GAsyncResult *res,
     g_free (thread_data->cddb_discid);
     g_slice_free (FreeDBIDSearchThreadData, thread_data);
     et_music_brainz_dialog_stop_set_sensitive (FALSE);
+    et_music_brainz_dialog_toolbar_buttons_set_sensitive (TRUE);
     et_mb_set_automatic_search (&mb_dialog_priv->search);
 
     if (mb_dialog_priv->exit_on_complete)
@@ -1635,6 +1705,7 @@ btn_automatic_search_clicked (GtkWidget *btn, gpointer data)
                                          freedbid_search_thread_func, 0,
                                          mb5_search_cancellable);
     et_music_brainz_dialog_stop_set_sensitive (TRUE);
+    et_music_brainz_dialog_toolbar_buttons_set_sensitive (FALSE);
 }
 
 /*
@@ -2087,7 +2158,7 @@ et_music_brainz_dialog_stop_set_sensitive (gboolean sensitive)
 {
     EtMusicBrainzDialogPrivate *mb_dialog_priv;
 
-    if (!IS_ET_MUSICBRAINZ_DIALOG (mbDialog))
+    if (!mbDialog)
     {
         return;
     }
@@ -2095,8 +2166,8 @@ et_music_brainz_dialog_stop_set_sensitive (gboolean sensitive)
     mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btn_stop")),
                               sensitive);
-    gtk_widget_set_sensitive (mb_dialog_priv->entityView, !sensitive);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btn_manual_find")), TRUE);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btn_apply_changes")),
+                              !sensitive);
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btn_manual_find")),
                               !sensitive);
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btn_selected_find")),
@@ -2105,26 +2176,41 @@ et_music_brainz_dialog_stop_set_sensitive (gboolean sensitive)
                               !sensitive);
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btn_disc_find")),
                               !sensitive);
+    gtk_widget_set_sensitive (mb_dialog_priv->entityView, !sensitive);
+}
+
+/*
+ * et_music_brainz_dialog_toolbar_buttons_set_sensitive:
+ * @sensitive: Widget should be sensitive or not.
+ *
+ * Set the Toolbar Buttons sensitive.
+ */
+void
+et_music_brainz_dialog_toolbar_buttons_set_sensitive (gboolean sensitive)
+{
+    if (!mbDialog)
+    {
+        return;
+    }
+
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "entry_tree_view_search")),
-                              !sensitive);
+                              sensitive);
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtn_up")),
-                              !sensitive);
+                              sensitive);
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtn_down")),
-                              !sensitive);
+                              sensitive);
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtn_invert_selection")),
-                              !sensitive);
+                              sensitive);
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtn_select_all")),
-                              !sensitive);
+                              sensitive);
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtn_unselect_all")),
-                              !sensitive);
+                              sensitive);
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtn_toggle_red_lines")),
-                              !sensitive);
+                              sensitive);
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtn_refresh")),
-                              !sensitive);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btn_apply_changes")),
-                              !sensitive);
+                              sensitive);
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btn_fetch_more")),
-                              !sensitive);
+                              sensitive);
 }
 
 /*
