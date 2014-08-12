@@ -162,6 +162,9 @@ AC_ARG_ENABLE([nautilus_actions],
 AC_ARG_ENABLE([musicbrainz],
               [AS_HELP_STRING([--disable-musicbrainz], [Disable support for musicbrainz (default=auto)])])
 
+AC_ARG_ENABLE([libdiscid],
+              [AS_HELP_STRING([--disable-libdiscid], [Disable support for libdiscid (default=auto)])])
+
 dnl -------------------------------
 dnl Checks for libraries.
 dnl -------------------------------
@@ -180,6 +183,15 @@ AS_IF([test "x$have_musicbrainz" != "xno"],
 
 dnl libdiscid
 LIBDISCID_DEPS="libdiscid >= 0.2.2"
+AS_IF([test "x$enable_libdiscid" != "xno"],
+      [PKG_CHECK_EXISTS([$LIBDISCID_DEPS], [have_libdiscid=yes], [have_libdiscid=no])],
+      [have_libdiscid=no])
+
+AS_IF([test "x$have_libdiscid" != "xno"],
+      [AC_DEFINE([ENABLE_LIBDISCID], [], [Define for libdiscid support])],
+      [LIBDISCID_DEPS=""
+       AS_IF([test "x$enable_libdiscid" = "xyes"],
+             [AC_MSG_ERROR([libdiscid support requested but required dependencies ($LIBDISCID_DEPS) not found])])])
 
 dnl libsoup
 LIBSOUP_DEPS="libsoup-2.4 >= 2.4"
@@ -440,6 +452,7 @@ echo FLAC file support .......: $have_flac
 echo MP4 file support ........: $have_taglib
 echo WavPack support .........: $have_wavpack
 echo MusicBrainz support .....: $have_musicbrainz
+echo DiscID support ..........: $have_libdiscid
 echo NLS/gettext .............: $USE_NLS
 echo Nautilus actions ........: $have_libnautilus_extension
 echo Tests during make check .: $testing_utilities

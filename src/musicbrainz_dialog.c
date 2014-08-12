@@ -278,12 +278,16 @@ static void
 btn_selected_find_clicked (GtkWidget *widget, gpointer user_data);
 static void
 get_first_selected_file (ET_File  **et_file);
+
+#ifdef ENABLE_LIBDISCID
 static void
 discid_search_callback (GObject *source, GAsyncResult *res,
                         gpointer user_data);
 static void
 discid_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
                            GCancellable *cancellable);
+#endif /* ENABLE_LIBDISCID */
+
 static void
 btn_discid_search_clicked (GtkWidget *button, gpointer data);
 static void
@@ -1222,6 +1226,7 @@ get_first_selected_file (ET_File  **et_file)
     }
 }
 
+#ifdef ENABLE_LIBDISCID
 /*
  * discid_search_callback:
  * @source: Source Object
@@ -1334,6 +1339,8 @@ discid_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
                                                TRUE);
 }
 
+#endif /* ENABLE_LIBDISCID */
+
 /*
  * btn_discid_search_clicked:
  * @button: GtkButton
@@ -1344,6 +1351,7 @@ discid_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
 static void
 btn_discid_search_clicked (GtkWidget *button, gpointer data)
 {
+#ifdef ENABLE_LIBDISCID
     EtMusicBrainzDialogPrivate *mb_dialog_priv;
     EtMusicBrainzDialog *dlg;
     DiscIDSearchThreadData *thread_data;
@@ -1363,6 +1371,15 @@ btn_discid_search_clicked (GtkWidget *button, gpointer data)
                                          discid_search_thread_func, 0,
                                          mb5_search_cancellable);
     et_music_brainz_dialog_stop_set_sensitive (TRUE);
+#else
+    GtkWidget *msg_dialog;
+    
+    msg_dialog = gtk_message_dialog_new (GTK_WINDOW (mbDialog), GTK_DIALOG_MODAL, 
+                                         GTK_MESSAGE_INFO, GTK_BUTTONS_OK,
+                                         _("libdiscid is not installed. Please install it to use DiscID Search"));
+    gtk_dialog_run (GTK_DIALOG (msg_dialog));
+    gtk_widget_destroy (msg_dialog);
+#endif /* ENABLE_LIBDISCID */
 }
 
 /*
