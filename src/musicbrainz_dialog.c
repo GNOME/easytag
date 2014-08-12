@@ -220,7 +220,8 @@ typedef struct
 static void
 get_first_selected_file (ET_File  **et_file);
 static gboolean
-et_apply_track_tag_to_et_file (Mb5Recording recording, ET_File *et_file);
+et_apply_track_tag_to_et_file (Mb5Recording recording, EtMbEntity *album_entity, 
+                               ET_File *et_file);
 static void
 btn_close_clicked (GtkWidget *button, gpointer data);
 static void
@@ -305,8 +306,6 @@ et_set_file_tag (ET_File *et_file, gchar *title, gchar *artist,
                  gchar *country);
 static void
 btn_apply_changes_clicked (GtkWidget *widget, gpointer data);
-static gboolean
-et_apply_track_tag_to_et_file (Mb5Recording recording, ET_File *et_file);
 static void
 et_initialize_tag_choice_dialog (EtMusicBrainzDialogPrivate *mb_dialog_priv);
 
@@ -1756,6 +1755,9 @@ btn_apply_changes_clicked (GtkWidget *btn, gpointer data)
     GtkTreeSelection *selection;
     EtMusicBrainzDialogPrivate *mb_dialog_priv;
     EtMusicBrainzDialog *dlg;
+    EtMbEntity *et_entity;
+    EtMbEntity *album_entity;
+    gchar album[NAME_MAX_SIZE];
 
     selection = et_application_window_browser_get_selection (ET_APPLICATION_WINDOW (MainWindow));
     browser_list = gtk_tree_selection_get_tree_view (selection);
@@ -1793,15 +1795,16 @@ btn_apply_changes_clicked (GtkWidget *btn, gpointer data)
         return;
     }
 
+    album_entity = et_mb_entity_view_get_current_entity (ET_MB_ENTITY_VIEW (mb_dialog_priv->entityView));
+
+    if (album_entity)
+    {
+        mb5_release_get_title (album_entity->entity, album, 
+                               sizeof (album));
+    }
+
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (gtk_builder_get_object (builder, "chk_use_dlm"))))
     {
-        EtMbEntity *et_entity;
-        EtMbEntity *album_entity;
-        gchar album[NAME_MAX_SIZE];
-
-        album_entity = et_mb_entity_view_get_current_entity (ET_MB_ENTITY_VIEW (mb_dialog_priv->entityView));
-        mb5_release_get_title (album_entity->entity, album, sizeof (album));
-
         for (list_iter1 = track_iter_list; list_iter1;
              list_iter1 = g_list_next (list_iter1))
         {
@@ -1848,19 +1851,13 @@ btn_apply_changes_clicked (GtkWidget *btn, gpointer data)
             if (best_et_file)
             {
                 et_apply_track_tag_to_et_file (et_entity->entity,
+                                               album_entity, 
                                                best_et_file);
             }
         }
     }
     else
     {
-        EtMbEntity *et_entity;
-        EtMbEntity *album_entity;
-        gchar album[NAME_MAX_SIZE];
-
-        album_entity = et_mb_entity_view_get_current_entity (ET_MB_ENTITY_VIEW (mb_dialog_priv->entityView));
-        mb5_release_get_title (album_entity->entity, album, sizeof (album));
-
         for (list_iter1 = track_iter_list, list_iter2 = file_iter_list;
              list_iter1 && list_iter2; list_iter1 = g_list_next (list_iter1),
              list_iter2 = g_list_next (list_iter2))
@@ -1871,7 +1868,8 @@ btn_apply_changes_clicked (GtkWidget *btn, gpointer data)
             et_file = et_application_window_browser_get_et_file_from_iter (ET_APPLICATION_WINDOW (MainWindow),
                                                                            list_iter2->data);
 
-            et_apply_track_tag_to_et_file (et_entity->entity, et_file);
+            et_apply_track_tag_to_et_file (et_entity->entity, album_entity, 
+                                           et_file);
         }
     }
 
@@ -1883,13 +1881,15 @@ btn_apply_changes_clicked (GtkWidget *btn, gpointer data)
  * et_apply_track_tag_to_et_file:
  * @recording: MusicBrainz Recording
  * @et_file: ET_File to apply tags to
+ * @album_entity: Default Album Entity
  *
  * Returns: TRUE if applied and FALSE it not
  *
  * Apply Tags from Mb5Recording to ET_File.
  */
 static gboolean
-et_apply_track_tag_to_et_file (Mb5Recording recording, ET_File *et_file)
+et_apply_track_tag_to_et_file (Mb5Recording recording, EtMbEntity *album_entity, 
+                               ET_File *et_file)
 {
     int size;
     Mb5ReleaseList *release_list;
@@ -1904,25 +1904,24 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, ET_File *et_file)
     GtkWidget *tag_choice_tree_view;
     EtMusicBrainzDialogPrivate *mb_dialog_priv;
     EtMusicBrainzDialog *dlg;
+    Mb5Release release;
 
     dlg = ET_MUSICBRAINZ_DIALOG (mbDialog);
     mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (dlg);
+    artist = et_mb5_recording_get_artists_names (recording);
     tag_choice_tree_view = GTK_WIDGET (gtk_builder_get_object (builder, "tag_choice_treeview"));
     release_list = mb5_recording_get_releaselist (recording);
-    artist = et_mb5_recording_get_artists_names (recording);
     size = mb5_recording_get_title (recording, title,
                                     sizeof (title));
     title[size] = '\0';
     size = mb5_release_list_size (release_list);
 
-    if (size > 1)
+    if (!album_entity && size > 1)
     {
         /* More than one releases show Dialog and let user decide */
  
         for (size--; size >= 0; size--)
         {
-            Mb5Release release;
-
             release = mb5_release_list_item (release_list, size);
             mb5_release_get_title (release, album, sizeof (album));
             album_artist = et_mb5_release_get_artists_names (release);
@@ -1994,13 +1993,19 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, ET_File *et_file)
         }
     }
 
-    mb5_release_get_title (mb5_release_list_item (release_list, 0),
-                           album, sizeof (album));
-    album_artist = et_mb5_release_get_artists_names (mb5_release_list_item (release_list, 0));
-    mb5_release_get_date (mb5_release_list_item (release_list, 0),
-                          date, sizeof (date));
-    mb5_release_get_country (mb5_release_list_item (release_list, 0),
-                             country, sizeof (country));
+    if (!album_entity)
+    {
+        release = mb5_release_list_item (release_list, 0);
+    }
+    else
+    {
+        release = album_entity->entity;
+    }
+
+    mb5_release_get_title (release, album, sizeof (album));
+    album_artist = et_mb5_release_get_artists_names (release);
+    mb5_release_get_date (release, date, sizeof (date));
+    mb5_release_get_country (release, country, sizeof (country));
     et_set_file_tag (et_file, title, artist,
                      album, album_artist,
                      date, country);
