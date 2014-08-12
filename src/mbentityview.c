@@ -501,23 +501,15 @@ show_data_in_entity_view (EtMbEntityView *entity_view)
     };
 
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
+    gtk_tree_view_set_model (GTK_TREE_VIEW (priv->tree_view), NULL);
+    priv->filter = NULL;
 
     /* Remove the previous List Store */
-    if (GTK_IS_LIST_STORE (priv->list_store))
-    {
-        gtk_list_store_clear (GTK_LIST_STORE (priv->list_store));
-        g_object_unref (priv->list_store);
-    }
-
-    gtk_tree_view_set_model (GTK_TREE_VIEW (priv->tree_view), NULL);
-
-    if (GTK_IS_TREE_MODEL_FILTER (priv->filter))
-    {
-        g_object_unref (priv->filter);
-    }
+    g_clear_object (&priv->list_store);
 
     /* Remove all colums */
     list_cols = gtk_tree_view_get_columns (GTK_TREE_VIEW (priv->tree_view));
+
     for (list = g_list_first (list_cols); list != NULL;
          list = g_list_next (list))
     {
@@ -1103,7 +1095,7 @@ et_mb_entity_view_toggle_red_lines (EtMbEntityView *entity_view)
     priv->search_or_red = priv->search_or_red | ET_MB_DISPLAY_RESULTS_RED;
     priv->toggle_red_lines = !priv->toggle_red_lines;
 
-    if (!GTK_IS_TREE_MODEL_FILTER (priv->filter))
+    if (!priv->filter)
     {
         return;
     }
@@ -1126,7 +1118,7 @@ et_mb_entity_view_invert_selection (EtMbEntityView *entity_view)
 
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
 
-    if (!GTK_IS_TREE_MODEL_FILTER (priv->filter))
+    if (!priv->filter)
     {
         return;
     }
@@ -1189,7 +1181,7 @@ et_mb_entity_view_search_in_results (EtMbEntityView *entity_view,
     priv->text_to_search_in_results = text;
     priv->search_or_red = priv->search_or_red | ET_MB_DISPLAY_RESULTS_SEARCH;
 
-    if (!GTK_IS_TREE_MODEL_FILTER (priv->filter))
+    if (!priv->filter)
     {
         return;
     }
@@ -1213,7 +1205,7 @@ et_mb_entity_view_select_up (EtMbEntityView *entity_view)
 
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
 
-    if (!GTK_IS_TREE_MODEL_FILTER (priv->filter))
+    if (!priv->filter)
     {
         return;
     }
@@ -1255,7 +1247,7 @@ et_mb_entity_view_select_down (EtMbEntityView *entity_view)
 
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
     
-    if (!GTK_IS_TREE_MODEL_FILTER (priv->filter))
+    if (!priv->filter)
     {
         return;
     }
