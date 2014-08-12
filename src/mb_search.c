@@ -358,15 +358,16 @@ et_musicbrainz_search_in_entity (MbEntityKind child_type,
                         {
                             Mb5Recording recording;
 
-
                             CHECK_CANCELLED(cancellable);
                             recording = mb5_track_get_recording (mb5_track_list_item (track_list, j));
                             size = mb5_recording_get_title (recording, buf,
                                                             sizeof (buf));
                             buf[size] = '\0';
-                            message = g_strdup_printf (_("Retrieving %s (%d/%d)"),
-                                                       buf, j,
-                                                       mb5_track_list_size (track_list));
+                            message = g_strdup_printf (_("Retrieving %s (%d/%d) of medium (%d/%d)"),
+                                                       buf, j + 1,
+                                                       mb5_track_list_size (track_list),
+                                                       i + 1,
+                                                       mb5_medium_list_size (list));
 #ifndef TEST
                             et_show_status_msg_in_idle (message);
 #endif
