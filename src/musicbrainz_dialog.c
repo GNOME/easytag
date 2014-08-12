@@ -37,6 +37,7 @@
 #include "application_window.h"
 #include "dlm.h"
 
+#define TAG_CHOICE_DIALOG_TITLE "Select the tag you want to apply to "
 #define ET_MUSICBRAINZ_DIALOG_GET_PRIVATE(obj) (obj->priv)
 
 G_DEFINE_TYPE (EtMusicBrainzDialog, et_musicbrainz_dialog, GTK_TYPE_DIALOG)
@@ -1905,6 +1906,7 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, EtMbEntity *album_entity,
     EtMusicBrainzDialogPrivate *mb_dialog_priv;
     EtMusicBrainzDialog *dlg;
     Mb5Release release;
+    gchar *tag_choice_title;
 
     dlg = ET_MUSICBRAINZ_DIALOG (mbDialog);
     mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (dlg);
@@ -1941,6 +1943,12 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, EtMbEntity *album_entity,
 
         gtk_widget_set_size_request (mb_dialog_priv->tag_choice_dialog,
                                      600, 200);
+        tag_choice_title = g_strconcat (TAG_CHOICE_DIALOG_TITLE, 
+                                        ((File_Name *)et_file->FileNameCur->data)->value, 
+                                        NULL);
+        gtk_window_set_title (GTK_WINDOW (mb_dialog_priv->tag_choice_dialog),
+                              tag_choice_title);
+        g_free (tag_choice_title);
         gtk_widget_show_all (mb_dialog_priv->tag_choice_dialog);
 
         if (gtk_dialog_run (GTK_DIALOG (mb_dialog_priv->tag_choice_dialog)) == 0)
