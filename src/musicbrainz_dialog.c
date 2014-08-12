@@ -2011,6 +2011,24 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, ET_File *et_file)
 }
 
 /*
+ * et_music_brainz_dialog_clear:
+ * @widget: MusicBrainz Dialog
+ *
+ * Clears a MusicBrainz Object and set it to NULL
+ */
+static void
+et_music_brainz_dialog_clear (GtkWidget **widget)
+{
+    if (!widget || !*widget)
+    {
+        return;
+    }
+
+    et_music_brainz_dialog_destroy (*widget);
+    *widget = NULL;
+}
+
+/*
  * et_music_brainz_dialog_destroy:
  * @widget: MusicBrainz Dialog to destroy
  *
@@ -2243,7 +2261,7 @@ mb5_search_error_callback (GObject *source, GAsyncResult *res,
 
     if (mb_dialog_priv->exit_on_complete)
     {
-        et_music_brainz_dialog_destroy (mbDialog);
+        et_music_brainz_dialog_clear (&mbDialog);
     }
 }
 
@@ -2443,7 +2461,7 @@ et_open_musicbrainz_dialog ()
     }
     else
     {
-        et_music_brainz_dialog_destroy (mbDialog);
+        et_music_brainz_dialog_clear (&mbDialog);
     }
 }
 #endif /* ENABLE_MUSICBRAINZ */
