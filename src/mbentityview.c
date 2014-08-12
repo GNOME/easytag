@@ -1098,12 +1098,7 @@ et_mb_entity_view_toggle_red_lines (EtMbEntityView *entity_view)
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
     priv->search_or_red = priv->search_or_red | ET_MB_DISPLAY_RESULTS_RED;
     priv->toggle_red_lines = !priv->toggle_red_lines;
-
-    if (!priv->filter)
-    {
-        return;
-    }
-
+    g_return_if_fail (priv->filter);
     gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER (priv->filter));
 }
 
@@ -1121,12 +1116,7 @@ et_mb_entity_view_invert_selection (EtMbEntityView *entity_view)
     GtkTreeSelection *selection;
 
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
-
-    if (!priv->filter)
-    {
-        return;
-    }
-
+    g_return_if_fail (priv->filter);
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view));
 
     if (!gtk_tree_model_get_iter_first (priv->filter, &filter_iter))
@@ -1184,12 +1174,7 @@ et_mb_entity_view_search_in_results (EtMbEntityView *entity_view,
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
     priv->text_to_search_in_results = text;
     priv->search_or_red = priv->search_or_red | ET_MB_DISPLAY_RESULTS_SEARCH;
-
-    if (!priv->filter)
-    {
-        return;
-    }
-
+    g_return_if_fail (priv->filter);
     gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER (priv->filter));
 }
 
@@ -1208,12 +1193,7 @@ et_mb_entity_view_select_up (EtMbEntityView *entity_view)
     GList *selected_rows;
 
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
-
-    if (!priv->filter)
-    {
-        return;
-    }
-
+    g_return_if_fail (priv->filter);
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view));
     selected_rows = gtk_tree_selection_get_selected_rows (selection,
                                                           &priv->filter);
@@ -1249,13 +1229,8 @@ et_mb_entity_view_select_down (EtMbEntityView *entity_view)
     GtkTreeIter iter;
     GList *selected_rows;
 
-    priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
-    
-    if (!priv->filter)
-    {
-        return;
-    }
-
+    priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);   
+    g_return_if_fail (priv->filter);
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view));
     selected_rows = gtk_tree_selection_get_selected_rows (selection,
                                                           &priv->filter);
