@@ -257,7 +257,7 @@
     <key name="id3v2-version-4" type="b">
       <summary>Enable ID3v2.4 support</summary>
       <description>Whether to write ID3v2.4 tags when ID3v2 support is enabled</description>
-      <default>true</default>
+      <default>false</default>
     </key>
 
     <key name="id3v2-convert-old" type="b">
