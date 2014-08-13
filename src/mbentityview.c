@@ -680,9 +680,11 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
                                   GTK_WIDGET (active_child->data));
         }
     
+        g_list_free (children);
         toggle_btn = insert_togglebtn_in_breadcrumb (GTK_BOX (priv->bread_crumb_box));
         children = gtk_container_get_children (GTK_CONTAINER (priv->bread_crumb_box));
         priv->bread_crumb_nodes[g_list_length (children) - 1] = thread_data->child;
+        g_list_free (children);
         prev_active_toggle_btn = priv->active_toggle_button;
         priv->active_toggle_button = toggle_btn;
 
@@ -699,6 +701,7 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
         gtk_tree_model_get (priv->list_store, &thread_data->iter, 0,
                             &entity_name, -1);
         gtk_button_set_label (GTK_BUTTON (toggle_btn), entity_name);
+        g_free (entity_name);
         gtk_widget_show_all (GTK_WIDGET (priv->bread_crumb_box));
     }
 
@@ -1309,9 +1312,16 @@ et_mb_entity_view_clear_all (EtMbEntityView *entity_view)
 static void
 et_mb_entity_view_finalize (GObject *object)
 {
+    EtMbEntityViewPrivate *priv;
+    EtMbEntityView *entity_view;
+
+    entity_view = ET_MB_ENTITY_VIEW (object);
+    priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
+
     g_return_if_fail (object != NULL);
     g_return_if_fail (IS_ET_MB_ENTITY_VIEW(object));
 
+    g_object_unref (priv->list_store);
     G_OBJECT_CLASS (et_mb_entity_view_parent_class)->finalize(object);
 }
 
