@@ -227,7 +227,7 @@
     <key name="id3v1-enabled" type="b">
       <summary>Write ID3v1 tags</summary>
       <description>Whether to write ID3v1 tags when writing ID3 tags into audio files</description>
-      <default>true</default>
+      <default>false</default>
     </key>
 
     <key name="id3v1-charset" enum="org.gnome.EasyTAG.EtCharset">
