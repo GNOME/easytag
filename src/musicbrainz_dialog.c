@@ -70,6 +70,7 @@ enum TagChoiceColumns
     TAG_CHOICE_DISC_TOTAL,
     TAG_CHOICE_TRACK_NUMBER,
     TAG_CHOICE_TRACK_TOTAL,
+    TAG_CHOICE_COMPOSERS,
     TAG_CHOICE_COLS_N
 };
 
@@ -309,7 +310,7 @@ static void
 et_set_file_tag (ET_File *et_file, gchar *title, gchar *artist,
                  gchar *album, gchar *album_artist, gchar *date,
                  gchar *country, gchar *disc, gchar *track,
-                 gchar *disc_total, gchar *track_total);
+                 gchar *disc_total, gchar *track_total, gchar *composer);
 static void
 btn_apply_changes_clicked (GtkWidget *widget, gpointer data);
 static void
@@ -1729,7 +1730,7 @@ static void
 et_set_file_tag (ET_File *et_file, gchar *title, gchar *artist,
                  gchar *album, gchar *album_artist, gchar *date,
                  gchar *country, gchar *disc, gchar *track,
-                 gchar *disc_total, gchar *track_total)
+                 gchar *disc_total, gchar *track_total, gchar *composer)
 {
     File_Tag *file_tag;
 
@@ -1744,7 +1745,7 @@ et_set_file_tag (ET_File *et_file, gchar *title, gchar *artist,
     ET_Set_Field_File_Tag_Item (&file_tag->disc_total, disc_total);
     ET_Set_Field_File_Tag_Item (&file_tag->track, track);
     ET_Set_Field_File_Tag_Item (&file_tag->disc_number, disc);
-    printf ("%s %s\n", track_total, disc_total);
+    ET_Set_Field_File_Tag_Item (&file_tag->composer, composer);
     ET_Manage_Changes_Of_File_Data (et_file, NULL, file_tag);
     ET_Display_File_Data_To_UI (ETCore->ETFileDisplayed);
 }
@@ -1916,6 +1917,7 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, EtMbEntity *album_entity,
     gchar *track;
     gchar *track_total;
     gchar *disc_total;
+    gchar *composers;
     GtkTreeIter iter;
     GtkTreeSelection *selection;
     GtkWidget *tag_choice_tree_view;
@@ -1942,7 +1944,8 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, EtMbEntity *album_entity,
     title[size] = '\0';
     size = mb5_release_list_size (release_list);
     release = NULL;
-
+    composers = et_mb5_recording_get_composers (recording);
+    
     if (album_entity)
     {
         gchar id[NAME_MAX_SIZE];
@@ -1989,7 +1992,7 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, EtMbEntity *album_entity,
             et_set_file_tag (et_file, title, artist,
                              album, album_artist,
                              date, country, disc, track,
-                             disc_total, track_total);
+                             disc_total, track_total, composers);
             g_free (discids);
             g_free (trackids);
             g_free (disc);
@@ -2002,11 +2005,12 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, EtMbEntity *album_entity,
         {
             et_set_file_tag (et_file, title, artist,
                              album, album_artist,
-                             date, country, "", "", "", "");
+                             date, country, "", "", "", "", composers);
         }
 
         g_free (album_artist);
         g_free (artist);
+        g_free (composers);
 
         return TRUE;
     }
@@ -2049,6 +2053,8 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, EtMbEntity *album_entity,
                                                    track,
                                                    TAG_CHOICE_TRACK_TOTAL,
                                                    track_total,
+                                                   TAG_CHOICE_COMPOSERS,
+                                                   composers
                                                    -1);
                 g_free (disc_total);
                 g_free (track_total);
@@ -2060,6 +2066,7 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, EtMbEntity *album_entity,
             g_free (trackids);    
             g_free (album_artist);
             g_free (track_count);
+            g_free (composers);
         }
 
         gtk_widget_set_size_request (mb_dialog_priv->tag_choice_dialog,
@@ -2104,7 +2111,7 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, EtMbEntity *album_entity,
             et_set_file_tag (et_file, title, artist,
                              ret_album, ret_album_artist,
                              ret_date, ret_country, disc, track, disc_total, 
-                             track_total);
+                             track_total, composers);
             g_free (ret_album);
             g_free (ret_album_artist);
             g_free (ret_date);
@@ -2114,6 +2121,7 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, EtMbEntity *album_entity,
             g_free (track_total);
             g_free (disc);
             g_free (track);
+            g_free (composers);
     
             gtk_widget_hide (mb_dialog_priv->tag_choice_dialog);
             gtk_list_store_clear (GTK_LIST_STORE (mb_dialog_priv->tag_choice_store));
@@ -2123,7 +2131,7 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, EtMbEntity *album_entity,
         else
         {
             g_free (artist);
-    
+            g_free (composers);
             gtk_widget_hide (mb_dialog_priv->tag_choice_dialog);
             gtk_list_store_clear (GTK_LIST_STORE (mb_dialog_priv->tag_choice_store));
     
@@ -2185,7 +2193,7 @@ et_initialize_tag_choice_dialog (EtMusicBrainzDialogPrivate *mb_dialog_priv)
                                      G_TYPE_STRING, G_TYPE_STRING,
                                      G_TYPE_STRING, G_TYPE_STRING,
                                      G_TYPE_STRING, G_TYPE_STRING,
-                                     G_TYPE_STRING);
+                                     G_TYPE_STRING, G_TYPE_STRING);
     mb_dialog_priv->tag_choice_store = GTK_TREE_MODEL (list_store);
     gtk_tree_view_set_model (GTK_TREE_VIEW (tag_choice_list),
                              mb_dialog_priv->tag_choice_store);
@@ -2267,6 +2275,14 @@ et_initialize_tag_choice_dialog (EtMusicBrainzDialogPrivate *mb_dialog_priv)
     column = gtk_tree_view_column_new_with_attributes ("Track Total",
                                                        renderer, "text",
                                                        TAG_CHOICE_TRACK_TOTAL,
+                                                       NULL);
+    gtk_tree_view_append_column (GTK_TREE_VIEW (tag_choice_list),
+                                 column);
+    
+    renderer = gtk_cell_renderer_text_new ();
+    column = gtk_tree_view_column_new_with_attributes ("Composer",
+                                                       renderer, "text",
+                                                       TAG_CHOICE_COMPOSERS,
                                                        NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (tag_choice_list),
                                  column);

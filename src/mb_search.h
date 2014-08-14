@@ -125,6 +125,8 @@ gchar *
 et_mb5_release_get_artists_names (Mb5Release release);
 gchar *
 et_mb5_recording_get_artists_names (Mb5Recording recording);
+gchar *
+et_mb5_recording_get_composers (Mb5Recording recording);
 int
 et_mb5_recording_get_medium_track_for_release (Mb5Release release,
                                                int **discids, int **trackids,

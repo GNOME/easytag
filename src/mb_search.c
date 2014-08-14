@@ -34,6 +34,7 @@
 static gchar *server = NULL;
 static int port = 0;
 
+#define COMPOSER_STR "composer"
 #define USER_AGENT PACKAGE_NAME"/"PACKAGE_VERSION" ( "PACKAGE_URL" ) "
 #define CHECK_CANCELLED(cancellable) if (g_cancellable_is_cancelled (cancellable))\
                                      {\
@@ -114,6 +115,60 @@ et_mb5_recording_get_artists_names (Mb5Recording recording)
     }
 
     return g_string_free (artist, FALSE);
+}
+
+/*
+ * et_mb5_recording_get_composers:
+ * @recording: Mb5Recording
+ *
+ * Get composers for a recording.
+ *
+ * Returns: A string containing composers.
+ */
+gchar *
+et_mb5_recording_get_composers (Mb5Recording recording)
+{
+    Mb5RelationListList relation_lists;
+    int i;
+    int j;
+    GString *composers;
+    
+    composers = g_string_new ("");
+    relation_lists = mb5_recording_get_relationlistlist (recording);
+    
+    for (i = 0; i < mb5_relationlist_list_size (relation_lists); i++)
+    {
+        Mb5RelationList relation_list;
+        
+        relation_list = mb5_relationlist_list_item (relation_lists, i);
+        
+        for (j = 0; j < mb5_relation_list_size (relation_list); j++)
+        {
+            Mb5Relation relation;
+            Mb5Artist artist;
+            gchar name[NAME_MAX_SIZE];
+
+            relation = mb5_relation_list_item (relation_list, j);
+            artist = mb5_relation_get_artist (relation);
+            mb5_relation_get_type (relation, name, sizeof (name));
+
+            if (g_strcmp0 (name, COMPOSER_STR))
+            {
+                continue;
+            }
+
+            mb5_artist_get_name (artist, name, sizeof (name));
+            
+            if (!(*composers->str))
+            {
+                g_string_append (composers, ", ");
+            }
+        
+            g_string_append (composers, name);
+        }
+    }
+
+    return g_string_free (composers, FALSE);
 }
 
 /*
