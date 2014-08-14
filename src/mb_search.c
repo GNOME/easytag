@@ -327,7 +327,8 @@ et_musicbrainz_search_in_entity (MbEntityKind child_type,
                 Mb5Release release;
                 release = mb5_metadata_get_release (metadata);
                 list = mb5_release_get_mediumlist (release);
-                param_values[0] = "releases artists artist-credits release-groups";
+                param_values[0] = "releases artists artist-credits" 
+                                  " release-groups mediums artist-rels";
 
                 for (i = 0; i < mb5_medium_list_size (list); i++)
                 {
@@ -463,6 +464,48 @@ et_musicbrainz_search_in_entity (MbEntityKind child_type,
     g_assert (error == NULL || *error != NULL);
 
     return FALSE;
+}
+
+/*
+ * et_mb5_recording_get_medium_track_for_release:
+ * release: Mb5Release
+ * discids: [out] an array of integer to get array of disc numbers.
+ * trackids: [out] an array of integer to get array of track numbers.
+ * disccount: [out] a pointer to integer to get number of discs.
+ * trackcount: [out] a pointer to integer to get total tracks.
+ *
+ * Get Disc Numbers, Track Numbers, Disc Count, Track counts for 
+ * release associated with a recording.
+ *
+ * Returns: Size of all arrays.
+ */
+int
+et_mb5_recording_get_medium_track_for_release (Mb5Release release, 
+                                               int **discids, int **trackids,
+                                               int *disccount, int **trackcount)
+{
+    Mb5MediumList medium_list;
+    int i;
+
+    medium_list = mb5_release_get_mediumlist (release);
+    *discids = g_malloc (sizeof (int) * mb5_medium_list_size (medium_list));
+    *trackids = g_malloc (sizeof (int) * mb5_medium_list_size (medium_list));
+    *trackcount = g_malloc (sizeof (int) * mb5_medium_list_size (medium_list));
+    *disccount = mb5_medium_list_get_count (medium_list);
+
+    for (i = 0; i < mb5_medium_list_size (medium_list); i++)
+    {
+        Mb5Medium medium;
+        Mb5TrackList track_list;
+
+        medium = mb5_medium_list_item (medium_list, i);
+        track_list = mb5_medium_get_tracklist (medium);
+        (*discids)[i] = mb5_medium_get_position (medium);
+        (*trackids)[i] = mb5_track_get_position (mb5_track_list_item (track_list, 0));
+        (*trackcount)[i] = mb5_track_list_get_count (track_list);
+    }
+
+    return i;
 }
 
 /*
@@ -884,7 +927,8 @@ et_musicbrainz_search_track (gchar *string, GNode *root, int offset,
 
             list = mb5_metadata_get_recordinglist (metadata);
             param_names[0] = "inc";
-            param_values[0] = "releases artists artist-credits release-groups";
+            param_values[0] = "releases artists artist-credits release-groups"
+                              "  mediums artist-rels";
             message = g_strdup_printf (ngettext (_("Found %d Track"),
                                        _("Found %d Tracks"),
                                        mb5_recording_list_size (list)),
@@ -1316,7 +1360,7 @@ free_mb_tree (GNode **_node)
         {
             mb5_recording_delete ((Mb5Recording)et_entity->entity);
         }
-    
+
         g_slice_free (EtMbEntity, et_entity);
     }
 

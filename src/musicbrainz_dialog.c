@@ -66,6 +66,10 @@ enum TagChoiceColumns
     TAG_CHOICE_ALBUM_ARTIST,
     TAG_CHOICE_DATE,
     TAG_CHOICE_COUNTRY,
+    TAG_CHOICE_DISC_NUMBER,
+    TAG_CHOICE_DISC_TOTAL,
+    TAG_CHOICE_TRACK_NUMBER,
+    TAG_CHOICE_TRACK_TOTAL,
     TAG_CHOICE_COLS_N
 };
 
@@ -304,7 +308,8 @@ btn_automatic_search_clicked (GtkWidget *button, gpointer data);
 static void
 et_set_file_tag (ET_File *et_file, gchar *title, gchar *artist,
                  gchar *album, gchar *album_artist, gchar *date,
-                 gchar *country);
+                 gchar *country, gchar *disc, gchar *track,
+                 gchar *disc_total, gchar *track_total);
 static void
 btn_apply_changes_clicked (GtkWidget *widget, gpointer data);
 static void
@@ -1723,7 +1728,8 @@ btn_automatic_search_clicked (GtkWidget *btn, gpointer data)
 static void
 et_set_file_tag (ET_File *et_file, gchar *title, gchar *artist,
                  gchar *album, gchar *album_artist, gchar *date,
-                 gchar *country)
+                 gchar *country, gchar *disc, gchar *track,
+                 gchar *disc_total, gchar *track_total)
 {
     File_Tag *file_tag;
 
@@ -1734,6 +1740,11 @@ et_set_file_tag (ET_File *et_file, gchar *title, gchar *artist,
     ET_Set_Field_File_Tag_Item (&file_tag->album, album);
     ET_Set_Field_File_Tag_Item (&file_tag->album_artist, album_artist);
     ET_Set_Field_File_Tag_Item (&file_tag->year, date);
+    ET_Set_Field_File_Tag_Item (&file_tag->track_total, track_total);
+    ET_Set_Field_File_Tag_Item (&file_tag->disc_total, disc_total);
+    ET_Set_Field_File_Tag_Item (&file_tag->track, track);
+    ET_Set_Field_File_Tag_Item (&file_tag->disc_number, disc);
+    printf ("%s %s\n", track_total, disc_total);
     ET_Manage_Changes_Of_File_Data (et_file, NULL, file_tag);
     ET_Display_File_Data_To_UI (ETCore->ETFileDisplayed);
 }
@@ -1893,6 +1904,7 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, EtMbEntity *album_entity,
                                ET_File *et_file)
 {
     int size;
+    int i;
     Mb5ReleaseList *release_list;
     gchar title[NAME_MAX_SIZE];
     gchar *album_artist;
@@ -1900,6 +1912,10 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, EtMbEntity *album_entity,
     gchar date[NAME_MAX_SIZE];
     gchar country[NAME_MAX_SIZE];
     gchar *artist;
+    gchar *disc;
+    gchar *track;
+    gchar *track_total;
+    gchar *disc_total;
     GtkTreeIter iter;
     GtkTreeSelection *selection;
     GtkWidget *tag_choice_tree_view;
@@ -1907,7 +1923,15 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, EtMbEntity *album_entity,
     EtMusicBrainzDialog *dlg;
     Mb5Release release;
     gchar *tag_choice_title;
+    int *discids;
+    int *trackids;
+    int n_disc;
+    int *track_count;
+    int disc_count;
 
+    discids = NULL;
+    trackids = NULL;
+    track_count = NULL;
     dlg = ET_MUSICBRAINZ_DIALOG (mbDialog);
     mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (dlg);
     artist = et_mb5_recording_get_artists_names (recording);
@@ -1917,8 +1941,76 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, EtMbEntity *album_entity,
                                     sizeof (title));
     title[size] = '\0';
     size = mb5_release_list_size (release_list);
+    release = NULL;
 
-    if (!album_entity && size > 1)
+    if (album_entity)
+    {
+        gchar id[NAME_MAX_SIZE];
+        
+        mb5_release_get_id (album_entity->entity, id, sizeof (id));
+
+        for (i = 0; i < size; i++)
+        {
+            gchar id1[NAME_MAX_SIZE];
+            
+            mb5_release_get_id (mb5_release_list_item (release_list, i), 
+                                id1, sizeof (id1));
+            if (g_strcmp0 (id1, id) == 0)
+            {
+                release = mb5_release_list_item (release_list, i);
+                break;
+            }
+        }
+    }
+
+    if (release || size == 1)
+    {
+        if (!release)
+        {
+            release = mb5_release_list_item (release_list, 0);
+        }
+
+        n_disc = et_mb5_recording_get_medium_track_for_release (release, 
+                                                                &discids, &trackids,
+                                                                &disc_count,
+                                                                &track_count);
+        /* As it is a 1-1 relationship so, one track with one recording */
+        mb5_release_get_title (release, album, sizeof (album));
+        album_artist = et_mb5_release_get_artists_names (release);
+        mb5_release_get_date (release, date, sizeof (date));
+        mb5_release_get_country (release, country, sizeof (country));
+
+        if (n_disc != 0)
+        {
+            disc_total = g_strdup_printf ("%d", disc_count);
+            track_total = g_strdup_printf ("%d", *track_count);
+            disc = g_strdup_printf ("%d", *discids);
+            track = g_strdup_printf ("%d", *trackids);
+            et_set_file_tag (et_file, title, artist,
+                             album, album_artist,
+                             date, country, disc, track,
+                             disc_total, track_total);
+            g_free (discids);
+            g_free (trackids);
+            g_free (disc);
+            g_free (track);
+            g_free (disc_total);
+            g_free (track_total);
+            g_free (track_count);
+        }
+        else
+        {
+            et_set_file_tag (et_file, title, artist,
+                             album, album_artist,
+                             date, country, "", "", "", "");
+        }
+
+        g_free (album_artist);
+        g_free (artist);
+
+        return TRUE;
+    }
+    else
     {
         /* More than one releases show Dialog and let user decide */
  
@@ -1929,16 +2021,45 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, EtMbEntity *album_entity,
             album_artist = et_mb5_release_get_artists_names (release);
             mb5_release_get_date (release, date, sizeof (date));
             mb5_release_get_country (release, country, sizeof (country));
+            n_disc = et_mb5_recording_get_medium_track_for_release (release, 
+                                                                    &discids, &trackids,
+                                                                    &disc_count,
+                                                                    &track_count);
+            for (i = 0; i < n_disc; i++)
+            {
+                disc_total = g_strdup_printf ("%d", disc_count);
+                track_total = g_strdup_printf ("%d", *track_count);
+                disc = g_strdup_printf ("%d", *discids);
+                track = g_strdup_printf ("%d", *trackids);
+                gtk_list_store_insert_with_values (GTK_LIST_STORE (mb_dialog_priv->tag_choice_store),
+                                                   &iter, -1,
+                                                   TAG_CHOICE_TITLE, title,
+                                                   TAG_CHOICE_ALBUM, album,
+                                                   TAG_CHOICE_ARTIST, artist,
+                                                   TAG_CHOICE_ALBUM_ARTIST, 
+                                                   album_artist,
+                                                   TAG_CHOICE_DATE, date,
+                                                   TAG_CHOICE_COUNTRY, 
+                                                   country,
+                                                   TAG_CHOICE_DISC_NUMBER, 
+                                                   disc,
+                                                   TAG_CHOICE_DISC_TOTAL,
+                                                   disc_total,
+                                                   TAG_CHOICE_TRACK_NUMBER, 
+                                                   track,
+                                                   TAG_CHOICE_TRACK_TOTAL,
+                                                   track_total,
+                                                   -1);
+                g_free (disc_total);
+                g_free (track_total);
+                g_free (disc);
+                g_free (track);
+            }
 
-            gtk_list_store_insert_with_values (GTK_LIST_STORE (mb_dialog_priv->tag_choice_store),
-                                               &iter, -1,
-                                               TAG_CHOICE_TITLE, title,
-                                               TAG_CHOICE_ALBUM, album,
-                                               TAG_CHOICE_ARTIST, artist,
-                                               TAG_CHOICE_ALBUM_ARTIST, album_artist,
-                                               TAG_CHOICE_DATE, date,
-                                               TAG_CHOICE_COUNTRY, country, -1);
+            g_free (discids);
+            g_free (trackids);    
             g_free (album_artist);
+            g_free (track_count);
         }
 
         gtk_widget_set_size_request (mb_dialog_priv->tag_choice_dialog,
@@ -1975,15 +2096,24 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, EtMbEntity *album_entity,
                                 TAG_CHOICE_ALBUM_ARTIST,&ret_album_artist,
                                 TAG_CHOICE_DATE, &ret_date,
                                 TAG_CHOICE_COUNTRY, &ret_country,
+                                TAG_CHOICE_DISC_NUMBER, &disc,
+                                TAG_CHOICE_DISC_TOTAL, &disc_total,
+                                TAG_CHOICE_TRACK_NUMBER, &track,
+                                TAG_CHOICE_TRACK_TOTAL, &track_total,
                                 -1);
             et_set_file_tag (et_file, title, artist,
                              ret_album, ret_album_artist,
-                             ret_date, ret_country);
+                             ret_date, ret_country, disc, track, disc_total, 
+                             track_total);
             g_free (ret_album);
             g_free (ret_album_artist);
             g_free (ret_date);
             g_free (ret_country);
             g_free (artist);
+            g_free (disc_total);
+            g_free (track_total);
+            g_free (disc);
+            g_free (track);
     
             gtk_widget_hide (mb_dialog_priv->tag_choice_dialog);
             gtk_list_store_clear (GTK_LIST_STORE (mb_dialog_priv->tag_choice_store));
@@ -1999,28 +2129,7 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, EtMbEntity *album_entity,
     
             return FALSE;
         }
-    }
-
-    if (!album_entity)
-    {
-        release = mb5_release_list_item (release_list, 0);
-    }
-    else
-    {
-        release = album_entity->entity;
-    }
-
-    mb5_release_get_title (release, album, sizeof (album));
-    album_artist = et_mb5_release_get_artists_names (release);
-    mb5_release_get_date (release, date, sizeof (date));
-    mb5_release_get_country (release, country, sizeof (country));
-    et_set_file_tag (et_file, title, artist,
-                     album, album_artist,
-                     date, country);
-    g_free (album_artist);
-    g_free (artist);
-
-    return TRUE;
+    }    
 }
 
 /*
@@ -2074,6 +2183,8 @@ et_initialize_tag_choice_dialog (EtMusicBrainzDialogPrivate *mb_dialog_priv)
     list_store = gtk_list_store_new (TAG_CHOICE_COLS_N, G_TYPE_STRING,
                                      G_TYPE_STRING, G_TYPE_STRING,
                                      G_TYPE_STRING, G_TYPE_STRING,
+                                     G_TYPE_STRING, G_TYPE_STRING,
+                                     G_TYPE_STRING, G_TYPE_STRING,
                                      G_TYPE_STRING);
     mb_dialog_priv->tag_choice_store = GTK_TREE_MODEL (list_store);
     gtk_tree_view_set_model (GTK_TREE_VIEW (tag_choice_list),
@@ -2124,6 +2235,38 @@ et_initialize_tag_choice_dialog (EtMusicBrainzDialogPrivate *mb_dialog_priv)
     column = gtk_tree_view_column_new_with_attributes ("Country",
                                                        renderer, "text",
                                                        TAG_CHOICE_COUNTRY,
+                                                       NULL);
+    gtk_tree_view_append_column (GTK_TREE_VIEW (tag_choice_list),
+                                 column);
+    
+    renderer = gtk_cell_renderer_text_new ();
+    column = gtk_tree_view_column_new_with_attributes ("Disc",
+                                                       renderer, "text",
+                                                       TAG_CHOICE_DISC_NUMBER,
+                                                       NULL);
+    gtk_tree_view_append_column (GTK_TREE_VIEW (tag_choice_list),
+                                 column);
+    
+    renderer = gtk_cell_renderer_text_new ();
+    column = gtk_tree_view_column_new_with_attributes ("Disc Total",
+                                                       renderer, "text",
+                                                       TAG_CHOICE_DISC_TOTAL,
+                                                       NULL);
+    gtk_tree_view_append_column (GTK_TREE_VIEW (tag_choice_list),
+                                 column);
+
+    renderer = gtk_cell_renderer_text_new ();
+    column = gtk_tree_view_column_new_with_attributes ("Track",
+                                                       renderer, "text",
+                                                       TAG_CHOICE_TRACK_NUMBER,
+                                                       NULL);
+    gtk_tree_view_append_column (GTK_TREE_VIEW (tag_choice_list),
+                                 column);
+    
+    renderer = gtk_cell_renderer_text_new ();
+    column = gtk_tree_view_column_new_with_attributes ("Track Total",
+                                                       renderer, "text",
+                                                       TAG_CHOICE_TRACK_TOTAL,
                                                        NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (tag_choice_list),
                                  column);
