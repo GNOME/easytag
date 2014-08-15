@@ -2,7 +2,8 @@
 <!-- Copyright 2014 David King <amigadave@amigadave.com> -->
 <application>
     <id type="desktop">easytag.desktop</id>
-    <licence>CC0</licence>
+    <metadata_license>CC0-1.0</metadata_license>
+    <project_license>GPL-2.0+ and LGPL-2.1+</project_license>
 <!-- Both taken from the desktop file.
     <name>EasyTAG</name>
     <summary></summary>
