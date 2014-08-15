@@ -107,7 +107,7 @@ static void
 et_mb_entity_view_finalize (GObject *object);
 static void
 search_in_levels (EtMbEntityView *entity_view, GNode *child,
-                  GtkTreeIter *iter, gboolean is_refresh);
+                  GtkTreeIter *iter, gboolean is_fetch_more);
 
 /*************
  * Functions *
@@ -651,7 +651,7 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
     {
         GtkWidget *prev_active_toggle_btn;
 
-        /* Only run if iter is valid i.e. it is not a Refresh Operation */
+        /* Only run if iter is valid i.e. it is not a Fetch More Operation */
         children = gtk_container_get_children (GTK_CONTAINER (priv->bread_crumb_box));
         active_child = g_list_find (children, priv->active_toggle_button);
     
@@ -875,7 +875,7 @@ tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
  */
 static void
 search_in_levels (EtMbEntityView *entity_view, GNode *child,
-                  GtkTreeIter *filter_iter, gboolean is_refresh)
+                  GtkTreeIter *filter_iter, gboolean is_fetch_more)
 {
     SearchInLevelThreadData *thread_data;
     EtMbEntityViewPrivate *priv;
@@ -899,7 +899,7 @@ search_in_levels (EtMbEntityView *entity_view, GNode *child,
                                                           filter_iter);
     }
 
-    if (!is_refresh && ((EtMbEntity *)child->data)->is_red_line)
+    if (!is_fetch_more && ((EtMbEntity *)child->data)->is_red_line)
     {
         /* If node is a red line and it is not a refresh operation */
         search_in_levels_callback (NULL, NULL, thread_data);
@@ -1147,35 +1147,6 @@ et_mb_entity_view_get_current_level (EtMbEntityView *entity_view)
     g_list_free (list);
 
     return n;
-}
-
-/*
- * et_mb_entity_view_refresh_current_level:
- * @entity_view: EtMbEntityView
- *
- * To re download data from MusicBrainz Server at the current level.
- */
-void
-et_mb_entity_view_refresh_current_level (EtMbEntityView *entity_view)
-{
-    EtMbEntityViewPrivate *priv;
-    GNode *child;
-
-    priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
-
-    /* Delete Current Data */
-    et_mb_entity_view_clear_all (entity_view);
-    child = g_node_first_child (priv->mb_tree_current_node);
-
-    while (child)
-    {
-        GNode *child1;
-        child1 = g_node_next_sibling (child);
-        free_mb_tree (&child);
-        child = child1;
-    }
-
-    search_in_levels (entity_view, priv->mb_tree_current_node, NULL, TRUE);
 }
 
 /*
