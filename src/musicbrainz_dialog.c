@@ -258,10 +258,6 @@ btn_manual_find_clicked (GtkWidget *btn, gpointer user_data);
 static void
 tool_btn_toggle_red_lines_clicked (GtkWidget *btn, gpointer user_data);
 static void
-tool_btn_up_clicked (GtkWidget *btn, gpointer user_data);
-static void
-tool_btn_down_clicked (GtkWidget *btn, gpointer user_data);
-static void
 tool_btn_invert_selection_clicked (GtkWidget *btn, gpointer user_data);
 static void
 tool_btn_select_all_clicked (GtkWidget *btn, gpointer user_data);
@@ -271,8 +267,6 @@ static void
 tool_btn_refresh_clicked (GtkWidget *btn, gpointer user_data);
 static void
 btn_manual_stop_clicked (GtkWidget *btn, gpointer user_data);
-static void
-entry_tree_view_search_changed (GtkEditable *editable, gpointer user_data);
 static void
 selected_find_callback (GObject *source, GAsyncResult *res,
                         gpointer user_data);
@@ -783,40 +777,6 @@ tool_btn_toggle_red_lines_clicked (GtkWidget *btn, gpointer user_data)
  * @btn: GtkButton
  * @user_data: User data
  *
- * Signal Handler for "clicked" signal of toolbtn_up.
- */
-static void
-tool_btn_up_clicked (GtkWidget *btn, gpointer user_data)
-{
-    EtMusicBrainzDialogPrivate *mb_dialog_priv;
-
-    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
-    et_mb_entity_view_select_up (ET_MB_ENTITY_VIEW (mb_dialog_priv->entityView));
-}
-
-/*
- * btn_manual_stop_clicked:
- * @btn: GtkButton
- * @user_data: User data
- *
- * Signal Handler for "clicked" signal of toolbtn_down.
- */
-static void
-tool_btn_down_clicked (GtkWidget *btn, gpointer user_data)
-{
-    EtMusicBrainzDialogPrivate *mb_dialog_priv;
-    EtMusicBrainzDialog *dlg;
-
-    dlg = ET_MUSICBRAINZ_DIALOG (mbDialog);
-    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (dlg);
-    et_mb_entity_view_select_down (ET_MB_ENTITY_VIEW (mb_dialog_priv->entityView));
-}
-
-/*
- * btn_manual_stop_clicked:
- * @btn: GtkButton
- * @user_data: User data
- *
  * Signal Handler for "clicked" signal of toolbtn_invert_selection.
  */
 static void
@@ -933,26 +893,6 @@ btn_manual_stop_clicked (GtkWidget *btn, gpointer user_data)
     {
         g_cancellable_cancel (mb5_search_cancellable);
     }
-}
-
-/*
- * entry_tree_view_search_changed:
- * @editable: GtkEditable for which handler is called
- * @user_data: User data
- *
- * Signal Handler for "changed" signal of entry_tree_view_search.
- */
-static void
-entry_tree_view_search_changed (GtkEditable *editable, gpointer user_data)
-{
-    EtMusicBrainzDialogPrivate *mb_dialog_priv;
-    EtMusicBrainzDialog *dlg;
-
-    dlg = ET_MUSICBRAINZ_DIALOG (mbDialog);
-    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (dlg);
-    et_mb_entity_view_search_in_results (ET_MB_ENTITY_VIEW (mb_dialog_priv->entityView),
-                                         gtk_entry_get_text (GTK_ENTRY (gtk_builder_get_object (builder,
-                                                                        "entry_tree_view_search"))));
 }
 
 /*
@@ -2419,12 +2359,6 @@ et_music_brainz_dialog_toolbar_buttons_set_sensitive (gboolean sensitive)
         return;
     }
 
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "entry_tree_view_search")),
-                              sensitive);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtn_up")),
-                              sensitive);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtn_down")),
-                              sensitive);
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtn_invert_selection")),
                               sensitive);
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtn_select_all")),
@@ -2555,7 +2489,7 @@ et_musicbrainz_dialog_init (EtMusicBrainzDialog *dialog)
     gtk_window_set_title (GTK_WINDOW (dialog), "MusicBrainz Search");
     gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))),
                         box, TRUE, TRUE, 2);
-    gtk_widget_set_size_request (GTK_WIDGET (dialog), 700, 500);
+    gtk_widget_set_size_request (GTK_WIDGET (dialog), 600, 500);
     /* Pack EtMbEntityView into central box */
     gtk_box_pack_start (GTK_BOX (gtk_builder_get_object (builder, "central_box")),
                         priv->entityView, TRUE, TRUE, 2);
@@ -2567,12 +2501,6 @@ et_musicbrainz_dialog_init (EtMusicBrainzDialog *dialog)
                       G_CALLBACK (btn_manual_find_clicked), NULL);
     g_signal_connect (gtk_builder_get_object (builder, "btn_manual_find"),
                       "clicked", G_CALLBACK (btn_manual_find_clicked),
-                      NULL);
-    g_signal_connect (gtk_builder_get_object (builder, "toolbtn_up"),
-                      "clicked", G_CALLBACK (tool_btn_up_clicked),
-                      NULL);
-    g_signal_connect (gtk_builder_get_object (builder, "toolbtn_down"),
-                      "clicked", G_CALLBACK (tool_btn_down_clicked),
                       NULL);
     g_signal_connect (gtk_builder_get_object (builder, "toolbtn_select_all"),
                       "clicked", G_CALLBACK (tool_btn_select_all_clicked),
@@ -2610,10 +2538,6 @@ et_musicbrainz_dialog_init (EtMusicBrainzDialog *dialog)
     g_signal_connect (gtk_builder_get_object (builder, "btn_fetch_more"),
                       "clicked", G_CALLBACK (btn_fetch_more_clicked),
                       NULL);
-    g_signal_connect_after (gtk_builder_get_object (builder, "entry_tree_view_search"),
-                            "changed",
-                            G_CALLBACK (entry_tree_view_search_changed),
-                            NULL);
 
     /* Fill Values in cb_manual_search_in */
     cb_manual_search_in = GTK_WIDGET (gtk_builder_get_object (builder,

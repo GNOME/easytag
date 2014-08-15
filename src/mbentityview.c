@@ -37,18 +37,6 @@ G_DEFINE_TYPE (EtMbEntityView, et_mb_entity_view, GTK_TYPE_BOX)
 /***************
  * Declaration *
  ***************/
-/*
- * ET_MB_DISPLAY_RESULTS:
- * @ET_MB_DISPLAY_RESULTS_ALL: Display all results.
- * @ET_MB_DISPLAY_RESULTS_RED: Display Red Lines
- * @ET_MB_DISPLAY_RESULTS_SEARCH: Display Search Results
- */
-enum ET_MB_DISPLAY_RESULTS
-{
-    ET_MB_DISPLAY_RESULTS_ALL = 0,
-    ET_MB_DISPLAY_RESULTS_RED = 1,
-    ET_MB_DISPLAY_RESULTS_SEARCH = 1 << 1,
-};
 
 /*
  * EtMbEntityViewPrivate:
@@ -61,7 +49,6 @@ enum ET_MB_DISPLAY_RESULTS
  * @mb_tree_current_node: Current node being displayed by EtMbEntityView
  * @active_toggle_button: Current active GtkToggleToolButton
  * @filter: GtkTreeModelFilter to filter rows based on the conditions
- * @search_or_red: Toggle Red Lines or Search in results
  * @toggle_red_lines: Display Red Lines or not
  * @text_to_search_in_results: Text to search in results
  *
@@ -78,7 +65,6 @@ struct _EtMbEntityViewPrivate
     GNode *mb_tree_current_node;
     GtkWidget *active_toggle_button;
     GtkTreeModel *filter;
-    int search_or_red;
     gboolean toggle_red_lines;
     const gchar *text_to_search_in_results;
     GtkTreeViewColumn *color_column;
@@ -147,30 +133,8 @@ tree_filter_visible_func (GtkTreeModel *model, GtkTreeIter *iter,
 
     columns = gtk_tree_model_get_n_columns (model);
     priv = (EtMbEntityViewPrivate *)data;
-
-    if (priv->search_or_red == ET_MB_DISPLAY_RESULTS_ALL)
-    {
-        /* Display all results */
-        return TRUE;
-    }
-
-    if (priv->search_or_red & ET_MB_DISPLAY_RESULTS_SEARCH)
-    {
-        /* Display results corresponding to search text only */
-        gchar *value;
-
-        gtk_tree_model_get (model, iter, 0, &value, -1);
-
-        if (g_strstr_len (value, -1, priv->text_to_search_in_results))
-        {
-            g_free (value);
-            return TRUE;
-        }
-
-        g_free (value);
-    }
-
-    if (priv->search_or_red & ET_MB_DISPLAY_RESULTS_RED)
+ 
+    if (!priv->toggle_red_lines)
     {
         /* Display Red Results only */
         GdkRGBA *value;
@@ -202,10 +166,10 @@ tree_filter_visible_func (GtkTreeModel *model, GtkTreeIter *iter,
             return TRUE;
         }
     
-        return priv->toggle_red_lines;
+        return FALSE;
     }
 
-    return FALSE;
+    return TRUE;
 }
 
 /*
@@ -988,7 +952,6 @@ et_mb_entity_view_init (EtMbEntityView *entity_view)
     gtk_box_pack_start (GTK_BOX (entity_view), priv->scrolled_window,
                         TRUE, TRUE, 2);
     priv->toggle_red_lines = TRUE;
-    priv->search_or_red = ET_MB_DISPLAY_RESULTS_ALL;
     g_signal_connect (G_OBJECT (priv->tree_view), "row-activated",
                       G_CALLBACK (tree_view_row_activated), entity_view);
 }
@@ -1121,7 +1084,6 @@ et_mb_entity_view_toggle_red_lines (EtMbEntityView *entity_view)
     EtMbEntityViewPrivate *priv;
 
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
-    priv->search_or_red = priv->search_or_red | ET_MB_DISPLAY_RESULTS_RED;
     priv->toggle_red_lines = !priv->toggle_red_lines;
     g_return_if_fail (priv->filter);
     gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER (priv->filter));
@@ -1182,99 +1144,6 @@ et_mb_entity_view_get_current_level (EtMbEntityView *entity_view)
     g_list_free (list);
 
     return n;
-}
-
-/*
- * et_mb_entity_view_search_in_results:
- * @entity_view: EtMbEntityView
- *
- * To search in the results obtained
- */
-void
-et_mb_entity_view_search_in_results (EtMbEntityView *entity_view,
-                                     const gchar *text)
-{
-    EtMbEntityViewPrivate *priv;
-
-    priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
-    priv->text_to_search_in_results = text;
-    priv->search_or_red = priv->search_or_red | ET_MB_DISPLAY_RESULTS_SEARCH;
-    g_return_if_fail (priv->filter);
-    gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER (priv->filter));
-}
-
-/*
- * et_mb_entity_view_select_up:
- * @entity_view: EtMbEntityView
- *
- * To select the row above the current row.
- */
-void
-et_mb_entity_view_select_up (EtMbEntityView *entity_view)
-{
-    EtMbEntityViewPrivate *priv;
-    GtkTreeSelection *selection;
-    GtkTreeIter iter;
-    GList *selected_rows;
-
-    priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
-    g_return_if_fail (priv->filter);
-    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view));
-    selected_rows = gtk_tree_selection_get_selected_rows (selection,
-                                                          &priv->filter);
-    if (!selected_rows)
-    {
-        return;
-    }
-
-    gtk_tree_model_get_iter (priv->filter, &iter,
-                             (g_list_first (selected_rows)->data));
-    if (!gtk_tree_model_iter_previous (priv->filter, &iter))
-    {
-        goto exit;
-    }
-
-    gtk_tree_selection_select_iter (selection, &iter);
-
-    exit:
-    g_list_free_full (selected_rows, (GDestroyNotify)gtk_tree_path_free);
-}
-
-/*
- * et_mb_entity_view_select_down:
- * @entity_view: EtMbEntityView
- *
- * To select the row below the current row.
- */
-void
-et_mb_entity_view_select_down (EtMbEntityView *entity_view)
-{
-    EtMbEntityViewPrivate *priv;
-    GtkTreeSelection *selection;
-    GtkTreeIter iter;
-    GList *selected_rows;
-
-    priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);   
-    g_return_if_fail (priv->filter);
-    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view));
-    selected_rows = gtk_tree_selection_get_selected_rows (selection,
-                                                          &priv->filter);
-    if (!selected_rows)
-    {
-        return;
-    }
-
-    gtk_tree_model_get_iter (priv->filter, &iter,
-                             g_list_last (selected_rows)->data);
-    if (!gtk_tree_model_iter_next (priv->filter, &iter))
-    {
-        goto exit;
-    }
-
-    gtk_tree_selection_select_iter (selection, &iter);
-
-    exit:
-    g_list_free_full (selected_rows, (GDestroyNotify)gtk_tree_path_free);
 }
 
 /*
@@ -1343,7 +1212,11 @@ et_mb_entity_view_finalize (GObject *object)
     g_return_if_fail (object != NULL);
     g_return_if_fail (IS_ET_MB_ENTITY_VIEW(object));
 
-    g_object_unref (priv->list_store);
+    if (priv->list_store)
+    {
+        g_object_unref (priv->list_store);
+    }
+
     G_OBJECT_CLASS (et_mb_entity_view_parent_class)->finalize(object);
 }
 

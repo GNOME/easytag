@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
-  <object class="GtkImage" id="img_invert_selection">
+  <object class="GtkImage" id="findimage">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">easytag-invert-selection</property>
+    <property name="stock">gtk-find</property>
   </object>
   <object class="GtkImage" id="img_red_lines">
     <property name="visible">True</property>
@@ -16,10 +16,10 @@
     <property name="can_focus">False</property>
     <property name="stock">easytag-unselect-all</property>
   </object>
-  <object class="GtkImage" id="findimage">
+  <object class="GtkImage" id="img_invert_selection">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-find</property>
+    <property name="stock">easytag-invert-selection</property>
   </object>
   <object class="GtkBox" id="mb_box">
     <property name="visible">True</property>
@@ -180,86 +180,6 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkToolItem" id="toolbutton1">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <child>
-                          <object class="GtkLabel" id="label3">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">Search:</property>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="homogeneous">True</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkToolItem" id="toolbutton2">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <child>
-                          <object class="GtkEntry" id="entry_tree_view_search">
-                            <property name="visible">True</property>
-                            <property name="sensitive">False</property>
-                            <property name="can_focus">True</property>
-                            <property name="invisible_char">●</property>
-                            <property name="invisible_char_set">True</property>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="homogeneous">True</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkToolButton" id="toolbtn_up">
-                        <property name="visible">True</property>
-                        <property name="sensitive">False</property>
-                        <property name="can_focus">False</property>
-                        <property name="has_tooltip">True</property>
-                        <property name="tooltip_markup" translatable="yes">Up</property>
-                        <property name="tooltip_text" translatable="yes">Up</property>
-                        <property name="label" translatable="yes">toolbutton3</property>
-                        <property name="use_underline">True</property>
-                        <property name="stock_id">gtk-go-up</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="homogeneous">True</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkToolButton" id="toolbtn_down">
-                        <property name="visible">True</property>
-                        <property name="sensitive">False</property>
-                        <property name="can_focus">False</property>
-                        <property name="has_tooltip">True</property>
-                        <property name="tooltip_markup" translatable="yes">Down</property>
-                        <property name="tooltip_text" translatable="yes">Down</property>
-                        <property name="label" translatable="yes">toolbutton3</property>
-                        <property name="use_underline">True</property>
-                        <property name="stock_id">gtk-go-down</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="homogeneous">True</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkSeparatorToolItem" id="toolbutton4">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="homogeneous">True</property>
-                      </packing>
-                    </child>
-                    <child>
                       <object class="GtkToolButton" id="toolbtn_invert_selection">
                         <property name="visible">True</property>
                         <property name="sensitive">False</property>
@@ -272,7 +192,7 @@
                         <property name="icon_widget">img_invert_selection</property>
                       </object>
                       <packing>
-                        <property name="expand">False</property>
+                        <property name="expand">True</property>
                         <property name="homogeneous">True</property>
                       </packing>
                     </child>
@@ -289,7 +209,7 @@
                         <property name="stock_id">gtk-select-all</property>
                       </object>
                       <packing>
-                        <property name="expand">False</property>
+                        <property name="expand">True</property>
                         <property name="homogeneous">True</property>
                       </packing>
                     </child>
@@ -306,7 +226,7 @@
                         <property name="icon_widget">img_unselect_all</property>
                       </object>
                       <packing>
-                        <property name="expand">False</property>
+                        <property name="expand">True</property>
                         <property name="homogeneous">True</property>
                       </packing>
                     </child>
@@ -323,7 +243,7 @@
                         <property name="icon_widget">img_red_lines</property>
                       </object>
                       <packing>
-                        <property name="expand">False</property>
+                        <property name="expand">True</property>
                         <property name="homogeneous">True</property>
                       </packing>
                     </child>
@@ -340,7 +260,7 @@
                         <property name="stock_id">gtk-refresh</property>
                       </object>
                       <packing>
-                        <property name="expand">False</property>
+                        <property name="expand">True</property>
                         <property name="homogeneous">True</property>
                       </packing>
                     </child>
@@ -354,7 +274,7 @@
                         <property name="stock_id">gtk-cancel</property>
                       </object>
                       <packing>
-                        <property name="expand">False</property>
+                        <property name="expand">True</property>
                         <property name="homogeneous">True</property>
                       </packing>
                     </child>
@@ -368,7 +288,7 @@
                         <property name="stock_id">gtk-save</property>
                       </object>
                       <packing>
-                        <property name="expand">False</property>
+                        <property name="expand">True</property>
                         <property name="homogeneous">True</property>
                       </packing>
                     </child>
