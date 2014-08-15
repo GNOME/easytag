@@ -480,15 +480,20 @@ manual_search_callback (GObject *source, GAsyncResult *res,
 
         if (mbDialog)
         {
+            /* if mbDialog is a valid Dialog */
             dlg = ET_MUSICBRAINZ_DIALOG (mbDialog);
             priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (dlg);
 
             if (priv->search)
             {
+                /* If there exists some previous search then enable 
+                 * all toolbar buttons */
                 et_music_brainz_dialog_toolbar_buttons_set_sensitive (TRUE);
             }
             else
             {
+                /* If no previous search exists, disable all 
+                 * toolbar buttons */
                 et_music_brainz_dialog_toolbar_buttons_set_sensitive (FALSE);
             }
         }
@@ -511,6 +516,8 @@ manual_search_callback (GObject *source, GAsyncResult *res,
                                     gtk_combo_box_text_get_active_text (combo_box));
     et_music_brainz_dialog_stop_set_sensitive (FALSE);
     et_music_brainz_dialog_toolbar_buttons_set_sensitive (TRUE);
+    
+    /* Set the current search as Manual Search */
     priv->search = ET_MB_SEARCH_TYPE_MANUAL;
     et_mb_set_search_manual (&priv->search, thread_data->text_to_search,
                              priv->mb_tree_root, thread_data->type);
@@ -611,12 +618,15 @@ btn_fetch_more_clicked (GtkWidget *btn, gpointer user_data)
     if (mb_dialog_priv->search->type == ET_MB_SEARCH_TYPE_AUTOMATIC && 
         level <= 2)
     {
+        /* if current search is automatic search and its level is 
+         * greater than 1 then fetch more results for these albums */
         et_mb_entity_view_fetch_more_at_current_level (ET_MB_ENTITY_VIEW (mb_dialog_priv->entityView));
         return;
     }
 
     if (level != 1)
     {
+        /* If Level is not equal to 1 then do nothing */
         return;
     }
 
@@ -731,6 +741,7 @@ btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
 
     if (type == -1)
     {
+        /* Do nothing is if no type of entity is selected */
         return;
     }
 
@@ -977,15 +988,20 @@ selected_find_callback (GObject *source, GAsyncResult *res,
 
         if (mbDialog)
         {
+            /* if mbDialog is a valid Dialog */
             dlg = ET_MUSICBRAINZ_DIALOG (mbDialog);
             mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (dlg);
 
             if (mb_dialog_priv->search)
             {
+                /* If there exists some previous search then enable 
+                 * all toolbar buttons */
                 et_music_brainz_dialog_toolbar_buttons_set_sensitive (TRUE);
             }
             else
             {
+                /* If no previous search exists, disable all 
+                 * toolbar buttons */
                 et_music_brainz_dialog_toolbar_buttons_set_sensitive (FALSE);
             }
         }
@@ -1012,6 +1028,7 @@ selected_find_callback (GObject *source, GAsyncResult *res,
         btn_close_clicked (NULL, NULL);
     }
 
+    /* Set search as selected search */
     et_mb_set_selected_search (&mb_dialog_priv->search,
                                thread_data->n_nodes,
                                ((SelectedFindThreadData *)user_data)->list_iter);
@@ -1047,6 +1064,7 @@ selected_find_thread_func (GSimpleAsyncResult *res, GObject *obj,
 
     while (iter)
     {
+        /* Search for each album in hashtable */
         children = g_node_n_children (thread_data->node);
 
         if (!et_musicbrainz_search ((gchar *)iter->data, MB_ENTITY_KIND_ALBUM,
@@ -1061,6 +1079,8 @@ selected_find_thread_func (GSimpleAsyncResult *res, GObject *obj,
             return;
         }
 
+        /* Update n_nodes array containing number of nodes 
+         * downloaded for an album */
         g_array_index (thread_data->n_nodes, int, i) += g_node_n_children (thread_data->node) - children;
  
         if (g_cancellable_is_cancelled (cancellable))
@@ -1192,6 +1212,7 @@ btn_selected_find_clicked (GtkWidget *button, gpointer data)
         return;
     }
 
+    /* Create hash table for fast search and insert operations */
     hash_table = g_hash_table_new (g_str_hash, g_str_equal);
 
     for (l = iter_list; l != NULL; l = g_list_next (l))
@@ -1294,15 +1315,20 @@ discid_search_callback (GObject *source, GAsyncResult *res,
 
         if (mbDialog)
         {
+            /* if mbDialog is a valid Dialog */
             dlg = ET_MUSICBRAINZ_DIALOG (mbDialog);
             mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (dlg);
 
             if (mb_dialog_priv->search)
             {
+                 /* If there exists some previous search then enable 
+                 * all toolbar buttons */
                 et_music_brainz_dialog_toolbar_buttons_set_sensitive (TRUE);
             }
             else
             {
+                /* If no previous search exists, disable all 
+                 * toolbar buttons */
                 et_music_brainz_dialog_toolbar_buttons_set_sensitive (FALSE);
             }
         }
@@ -1431,6 +1457,7 @@ btn_discid_search_clicked (GtkWidget *button, gpointer data)
     et_music_brainz_dialog_stop_set_sensitive (TRUE);
     et_music_brainz_dialog_toolbar_buttons_set_sensitive (FALSE);
 #else
+    /* Show this dialog if libdiscid doesn't exist */
     GtkWidget *msg_dialog;
     
     msg_dialog = gtk_message_dialog_new (GTK_WINDOW (mbDialog), GTK_DIALOG_MODAL, 
@@ -1482,15 +1509,20 @@ freedbid_search_callback (GObject *source, GAsyncResult *res,
 
         if (mbDialog)
         {
+            /* if mbDialog is a valid Dialog */
             dlg = ET_MUSICBRAINZ_DIALOG (mbDialog);
             mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (dlg);
 
             if (mb_dialog_priv->search)
             {
+                /* If there exists some previous search then enable 
+                 * all toolbar buttons */
                 et_music_brainz_dialog_toolbar_buttons_set_sensitive (TRUE);
             }
             else
             {
+                /* If no previous search exists, disable all 
+                 * toolbar buttons */
                 et_music_brainz_dialog_toolbar_buttons_set_sensitive (FALSE);
             }
         }
@@ -1797,6 +1829,7 @@ btn_apply_changes_clicked (GtkWidget *btn, gpointer data)
         return;
     }
 
+    /* Function should continue only if a track has been selected */
     if (((EtMbEntity *)track_iter_list->data)->type !=
         MB_ENTITY_KIND_TRACK)
     {
@@ -1812,12 +1845,14 @@ btn_apply_changes_clicked (GtkWidget *btn, gpointer data)
 
     if (album_entity)
     {
+        /* If there is a parent album node of track nodes */
         mb5_release_get_title (album_entity->entity, album, 
                                sizeof (album));
     }
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (gtk_builder_get_object (builder, "chk_use_dlm"))))
     {
+        /* Use DLM Algorithm to find the best match for applying tags */
         for (list_iter1 = track_iter_list; list_iter1;
              list_iter1 = g_list_next (list_iter1))
         {
@@ -1871,6 +1906,7 @@ btn_apply_changes_clicked (GtkWidget *btn, gpointer data)
     }
     else
     {
+        /* nth Tag is applied to nth selected file */
         for (list_iter1 = track_iter_list, list_iter2 = file_iter_list;
              list_iter1 && list_iter2; list_iter1 = g_list_next (list_iter1),
              list_iter2 = g_list_next (list_iter2))
@@ -1948,6 +1984,8 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, EtMbEntity *album_entity,
     
     if (album_entity)
     {
+        /* Find the release which has same id as that of 
+         * parent release node */
         gchar id[NAME_MAX_SIZE];
         
         mb5_release_get_id (album_entity->entity, id, sizeof (id));
@@ -1968,6 +2006,9 @@ et_apply_track_tag_to_et_file (Mb5Recording recording, EtMbEntity *album_entity,
 
     if (release || size == 1)
     {
+        /* If the required release in the recording is found or
+         * number of release in recording is 1 
+         * then use that release's tags only */
         if (!release)
         {
             release = mb5_release_list_item (release_list, 0);
@@ -2188,6 +2229,7 @@ et_initialize_tag_choice_dialog (EtMusicBrainzDialogPrivate *mb_dialog_priv)
                                                                             "tag_choice_dialog"));
     tag_choice_list = GTK_WIDGET (gtk_builder_get_object (builder,
                                                           "tag_choice_treeview"));
+    /* Create new list store */
     list_store = gtk_list_store_new (TAG_CHOICE_COLS_N, G_TYPE_STRING,
                                      G_TYPE_STRING, G_TYPE_STRING,
                                      G_TYPE_STRING, G_TYPE_STRING,
@@ -2199,6 +2241,7 @@ et_initialize_tag_choice_dialog (EtMusicBrainzDialogPrivate *mb_dialog_priv)
                              mb_dialog_priv->tag_choice_store);
     g_object_unref (list_store);
 
+    /* Insert columns into tree view */
     renderer = gtk_cell_renderer_text_new ();
     column = gtk_tree_view_column_new_with_attributes ("Title",
                                                        renderer, "text",
@@ -2433,6 +2476,7 @@ mb5_search_error_callback (GObject *source, GAsyncResult *res,
 
     if (mb_dialog_priv->exit_on_complete)
     {
+        /* If music brainz dialog has to be cleared on error */
         et_music_brainz_dialog_clear (&mbDialog);
     }
 }
@@ -2517,10 +2561,13 @@ et_musicbrainz_dialog_init (EtMusicBrainzDialog *dialog)
     gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))),
                         box, TRUE, TRUE, 2);
     gtk_widget_set_size_request (GTK_WIDGET (dialog), 700, 500);
+    /* Pack EtMbEntityView into central box */
     gtk_box_pack_start (GTK_BOX (gtk_builder_get_object (builder, "central_box")),
                         priv->entityView, TRUE, TRUE, 2);
     et_initialize_tag_choice_dialog (priv);
     cb_search = GTK_WIDGET (gtk_builder_get_object (builder, "cb_manual_search"));
+    
+    /* Set callback functions */
     g_signal_connect (gtk_bin_get_child (GTK_BIN (cb_search)), "activate",
                       G_CALLBACK (btn_manual_find_clicked), NULL);
     g_signal_connect (gtk_builder_get_object (builder, "btn_manual_find"),
