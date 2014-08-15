@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkImage" id="img_invert_selection">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">easytag-invert-selection</property>
+  </object>
   <object class="GtkImage" id="img_red_lines">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -15,11 +20,6 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="stock">gtk-find</property>
-  </object>
-  <object class="GtkImage" id="img_invert_selection">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">easytag-invert-selection</property>
   </object>
   <object class="GtkBox" id="mb_box">
     <property name="visible">True</property>
@@ -437,6 +437,7 @@
           <object class="GtkButton" id="btn_apply_changes">
             <property name="label" translatable="yes">Apply Tag Changes</property>
             <property name="visible">True</property>
+            <property name="sensitive">False</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
           </object>

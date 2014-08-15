@@ -2394,8 +2394,6 @@ et_music_brainz_dialog_stop_set_sensitive (gboolean sensitive)
     mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btn_stop")),
                               sensitive);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btn_apply_changes")),
-                              !sensitive);
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btn_manual_find")),
                               !sensitive);
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btn_selected_find")),
@@ -2438,6 +2436,8 @@ et_music_brainz_dialog_toolbar_buttons_set_sensitive (gboolean sensitive)
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "toolbtn_refresh")),
                               sensitive);
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btn_fetch_more")),
+                              sensitive);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btn_apply_changes")),
                               sensitive);
 }
 
