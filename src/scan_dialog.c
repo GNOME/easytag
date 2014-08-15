@@ -3409,6 +3409,7 @@ et_scan_dialog_scan_selected_files (EtScanDialog *self)
     GList *selfilelist = NULL;
     GList *l;
     ET_File *etfile;
+    EtApplicationWindow *window;
     GtkTreeSelection *selection;
 
     g_return_if_fail (ETCore->ETFileDisplayedList != NULL);
@@ -3417,15 +3418,16 @@ et_scan_dialog_scan_selected_files (EtScanDialog *self)
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
 
     /* Initialize status bar */
-    selection = et_application_window_browser_get_selection (ET_APPLICATION_WINDOW (MainWindow));
+    window = ET_APPLICATION_WINDOW (MainWindow);
+    selection = et_application_window_browser_get_selection (window);
     selectcount = gtk_tree_selection_count_selected_rows (selection);
-    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar),0);
+    et_application_window_progress_set_fraction (window, 0.0);
     progress_bar_index = 0;
     g_snprintf(progress_bar_text, 30, "%d/%d", progress_bar_index, selectcount);
-    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), progress_bar_text);
+    et_application_window_progress_set_text (window, progress_bar_text);
 
     /* Set to unsensitive all command buttons (except Quit button) */
-    et_application_window_disable_command_actions (ET_APPLICATION_WINDOW (MainWindow));
+    et_application_window_disable_command_actions (window);
 
     progress_bar_index = 0;
 
@@ -3433,16 +3435,16 @@ et_scan_dialog_scan_selected_files (EtScanDialog *self)
 
     for (l = selfilelist; l != NULL; l = g_list_next (l))
     {
-        etfile = et_application_window_browser_get_et_file_from_path (ET_APPLICATION_WINDOW (MainWindow),
+        etfile = et_application_window_browser_get_et_file_from_path (window,
                                                                       l->data);
 
         /* Run the current scanner. */
         Scan_Select_Mode_And_Run_Scanner (self, etfile);
 
         fraction = (++progress_bar_index) / (double) selectcount;
-        gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), fraction);
+        et_application_window_progress_set_fraction (window, fraction);
         g_snprintf(progress_bar_text, 30, "%d/%d", progress_bar_index, selectcount);
-        gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), progress_bar_text);
+        et_application_window_progress_set_text (window, progress_bar_text);
 
         /* Needed to refresh status bar */
         while (gtk_events_pending())
@@ -3452,16 +3454,16 @@ et_scan_dialog_scan_selected_files (EtScanDialog *self)
     g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
 
     /* Refresh the whole list (faster than file by file) to show changes. */
-    et_application_window_browser_refresh_list (ET_APPLICATION_WINDOW (MainWindow));
+    et_application_window_browser_refresh_list (window);
 
     /* Display the current file */
     ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
 
     /* To update state of command buttons */
-    et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
+    et_application_window_update_actions (window);
 
-    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), "");
-    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), 0);
+    et_application_window_progress_set_text (window, "");
+    et_application_window_progress_set_fraction (window, 0.0);
     Statusbar_Message(_("All tags have been scanned"),TRUE);
 }
 

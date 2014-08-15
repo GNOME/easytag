@@ -35,6 +35,7 @@
 #include "picture.h"
 #include "playlist_dialog.h"
 #include "preferences_dialog.h"
+#include "progress_bar.h"
 #include "search_dialog.h"
 #include "scan.h"
 #include "scan_dialog.h"
@@ -53,6 +54,8 @@ struct _EtApplicationWindowPrivate
     GtkWidget *file_area;
     GtkWidget *log_area;
     GtkWidget *tag_area;
+    GtkWidget *progress_bar;
+
     GtkWidget *cddb_dialog;
     GtkWidget *load_files_dialog;
     GtkWidget *playlist_dialog;
@@ -484,10 +487,10 @@ on_delete (GSimpleAction *action,
     nb_files_to_delete = gtk_tree_selection_count_selected_rows (selection);
 
     /* Initialize status bar */
-    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar),0);
+    et_application_window_progress_set_fraction (self, 0.0);
     progress_bar_index = 0;
     g_snprintf(progress_bar_text, 30, "%d/%d", progress_bar_index, nb_files_to_delete);
-    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), progress_bar_text);
+    et_application_window_progress_set_text (self, progress_bar_text);
 
     /* Set to unsensitive all command buttons (except Quit button) */
     et_application_window_disable_command_actions (self);
@@ -523,12 +526,10 @@ on_delete (GSimpleAction *action,
         et_application_window_browser_select_file_by_et_file (self, ETFile,
                                                               FALSE);
         fraction = (++progress_bar_index) / (double) nb_files_to_delete;
-        gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (ProgressBar),
-                                       fraction);
+        et_application_window_progress_set_fraction (self, fraction);
         g_snprintf (progress_bar_text, 30, "%d/%d", progress_bar_index,
                     nb_files_to_delete);
-        gtk_progress_bar_set_text (GTK_PROGRESS_BAR (ProgressBar),
-                                   progress_bar_text);
+        et_application_window_progress_set_text (self, progress_bar_text);
         /* FIXME: Needed to refresh status bar */
         while (gtk_events_pending ())
         {
@@ -560,8 +561,8 @@ on_delete (GSimpleAction *action,
                 }
                 break;
             case -1:
-                // Stop deleting files + reinit progress bar
-                gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar),0.0);
+                /* Stop deleting files + reinit progress bar. */
+                et_application_window_progress_set_fraction (self, 0.0);
                 /* To update state of command buttons. */
                 et_application_window_update_actions (self);
                 et_application_window_browser_set_sensitive (self, TRUE);
@@ -597,8 +598,8 @@ on_delete (GSimpleAction *action,
     et_application_window_tag_area_set_sensitive (self, TRUE);
     et_application_window_file_area_set_sensitive (self, TRUE);
 
-    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), "");
-    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), 0);
+    et_application_window_progress_set_text (self, "");
+    et_application_window_progress_set_fraction (self, 0.0);
     Statusbar_Message(msg,TRUE);
     g_free(msg);
 
@@ -882,7 +883,7 @@ on_remove_tags (GSimpleAction *action,
     ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
 
     /* Initialize status bar */
-    gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (ProgressBar), 0.0);
+    et_application_window_progress_set_fraction (self, 0.0);
     selection = et_application_window_browser_get_selection (self);
     selectcount = gtk_tree_selection_count_selected_rows (selection);
     progress_bar_index = 0;
@@ -897,8 +898,7 @@ on_remove_tags (GSimpleAction *action,
         ET_Manage_Changes_Of_File_Data (etfile, NULL, FileTag);
 
         fraction = (++progress_bar_index) / (double) selectcount;
-        gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (ProgressBar),
-                                       fraction);
+        et_application_window_progress_set_fraction (self, fraction);
         /* Needed to refresh status bar */
         while (gtk_events_pending ())
         {
@@ -915,7 +915,7 @@ on_remove_tags (GSimpleAction *action,
     ET_Display_File_Data_To_UI (ETCore->ETFileDisplayed);
     et_application_window_update_actions (self);
 
-    gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (ProgressBar), 0.0);
+    et_application_window_progress_set_fraction (self, 0.0);
     Statusbar_Message (_("All tags have been removed"),TRUE);
 }
 
@@ -1746,8 +1746,8 @@ et_application_window_init (EtApplicationWindow *self)
     gtk_box_pack_start (GTK_BOX (hbox), widget, TRUE, TRUE, 0);
 
     /* Progress bar */
-    widget = Create_Progress_Bar ();
-    gtk_box_pack_end (GTK_BOX (hbox), widget, FALSE, FALSE, 0);
+    priv->progress_bar = et_progress_bar_new ();
+    gtk_box_pack_end (GTK_BOX (hbox), priv->progress_bar, FALSE, FALSE, 0);
 
     gtk_widget_show_all (GTK_WIDGET (main_vbox));
 }
@@ -1813,6 +1813,33 @@ et_application_window_scan_dialog_update_previews (EtApplicationWindow *self)
     {
         et_scan_dialog_update_previews (ET_SCAN_DIALOG (priv->scan_dialog));
     }
+}
+
+void
+et_application_window_progress_set_fraction (EtApplicationWindow *self,
+                                             gdouble fraction)
+{
+    EtApplicationWindowPrivate *priv;
+
+    g_return_if_fail (ET_APPLICATION_WINDOW (self));
+
+    priv = et_application_window_get_instance_private (self);
+
+    gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (priv->progress_bar),
+                                   fraction);
+}
+
+void
+et_application_window_progress_set_text (EtApplicationWindow *self,
+                                         const gchar *text)
+{
+    EtApplicationWindowPrivate *priv;
+
+    g_return_if_fail (ET_APPLICATION_WINDOW (self));
+
+    priv = et_application_window_get_instance_private (self);
+
+    gtk_progress_bar_set_text (GTK_PROGRESS_BAR (priv->progress_bar), text);
 }
 
 GtkWidget *

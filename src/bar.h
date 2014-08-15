@@ -22,17 +22,11 @@
 #ifndef __BAR_H__
 #define __BAR_H__
 
-/***************
- * Declaration *
- ***************/
-GtkWidget      *ProgressBar;
-
 /**************
  * Prototypes *
  **************/
 
 GtkWidget *Create_Status_Bar   (void);
 void Statusbar_Message (const gchar *message, gboolean with_timer);
-GtkWidget *Create_Progress_Bar (void);
 
 #endif /* __BAR_H__ */

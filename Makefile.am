@@ -59,6 +59,7 @@ easytag_SOURCES = \
 	src/picture.c \
 	src/playlist_dialog.c \
 	src/preferences_dialog.c \
+	src/progress_bar.c \
 	src/scan.c \
 	src/scan_dialog.c \
 	src/search_dialog.c \
@@ -111,6 +112,7 @@ easytag_headers = \
 	src/picture.h \
 	src/playlist_dialog.h \
 	src/preferences_dialog.h \
+	src/progress_bar.h \
 	src/scan.h \
 	src/scan_dialog.h \
 	src/search_dialog.h \

@@ -257,10 +257,10 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
     }
 
     /* Initialize status bar */
-    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar),0);
+    et_application_window_progress_set_fraction (window, 0.0);
     progress_bar_index = 0;
     g_snprintf(progress_bar_text, 30, "%d/%d", progress_bar_index, nb_files_to_save);
-    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), progress_bar_text);
+    et_application_window_progress_set_text (window, progress_bar_text);
 
     /* Set to unsensitive all command buttons (except Quit button) */
     et_application_window_disable_command_actions (window);
@@ -332,15 +332,16 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
             /* ET_Display_File_Data_To_UI ((ET_File *)l->data);
              * Use of 'currentPath' to try to increase speed. Indeed, in many
              * cases, the next file to select, is the next in the list. */
-            et_application_window_browser_select_file_by_et_file2 (ET_APPLICATION_WINDOW (MainWindow),
+            et_application_window_browser_select_file_by_et_file2 (window,
                                                                    (ET_File *)l->data,
                                                                    FALSE,
                                                                    currentPath);
 
             fraction = (++progress_bar_index) / (double) nb_files_to_save;
-            gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), fraction);
+            et_application_window_progress_set_fraction (window, fraction);
             g_snprintf(progress_bar_text, 30, "%d/%d", progress_bar_index, nb_files_to_save);
-            gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), progress_bar_text);
+            et_application_window_progress_set_text (window,
+                                                     progress_bar_text);
 
             /* Needed to refresh status bar */
             while (gtk_events_pending())
@@ -354,11 +355,11 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
             if (saving_answer == -1)
             {
                 /* Stop saving files + reinit progress bar */
-                gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), "");
-                gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), 0.0);
+                et_application_window_progress_set_text (window, "");
+                et_application_window_progress_set_fraction (window, 0.0);
                 Statusbar_Message (_("Saving files was stopped"), TRUE);
                 /* To update state of command buttons */
-                et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
+                et_application_window_update_actions (window);
                 et_application_window_browser_set_sensitive (window, TRUE);
                 et_application_window_tag_area_set_sensitive (window, TRUE);
                 et_application_window_file_area_set_sensitive (window, TRUE);
@@ -401,11 +402,11 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
     /* Give again focus to the first entry, else the focus is passed to another */
     gtk_widget_grab_focus(GTK_WIDGET(widget_focused));
 
-    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), "");
-    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), 0);
+    et_application_window_progress_set_text (window, "");
+    et_application_window_progress_set_fraction (window, 0.0);
     Statusbar_Message(msg,TRUE);
     g_free(msg);
-    et_application_window_browser_refresh_list (ET_APPLICATION_WINDOW (MainWindow));
+    et_application_window_browser_refresh_list (window);
     return TRUE;
 }
 
@@ -949,9 +950,9 @@ gboolean Read_Directory (gchar *path_real)
 
     nbrfile = g_list_length(FileList);
 
-    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), 0.0);
+    et_application_window_progress_set_fraction (window, 0.0);
     g_snprintf(progress_bar_text, 30, "%d/%d", 0, nbrfile);
-    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), progress_bar_text);
+    et_application_window_progress_set_text (window, progress_bar_text);
 
     // Load the supported files (Extension recognized)
     for (l = FileList; l != NULL && !Main_Stop_Button_Pressed;
@@ -968,18 +969,18 @@ gboolean Read_Directory (gchar *path_real)
         // Warning: Do not free filename_real because ET_Add_File.. uses it for internal structures
         ET_Add_File_To_File_List(filename_real);
 
-        // Update the progress bar
+        /* Update the progress bar. */
         fraction = (++progress_bar_index) / (double) nbrfile;
-        gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), fraction);
+        et_application_window_progress_set_fraction (window, fraction);
         g_snprintf(progress_bar_text, 30, "%d/%d", progress_bar_index, nbrfile);
-        gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), progress_bar_text);
+        et_application_window_progress_set_text (window, progress_bar_text);
         while (gtk_events_pending())
             gtk_main_iteration();
     }
 
     /* Just free the list, not the data. */
     g_list_free (FileList);
-    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(ProgressBar), "");
+    et_application_window_progress_set_text (window, "");
 
     /* Close window to quit recursion */
     Destroy_Quit_Recursion_Function_Window();
@@ -1037,11 +1038,11 @@ gboolean Read_Directory (gchar *path_real)
     }
 
     /* Update sensitivity of buttons and menus */
-    et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
+    et_application_window_update_actions (window);
 
     et_application_window_browser_set_sensitive (window, TRUE);
 
-    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(ProgressBar), 0.0);
+    et_application_window_progress_set_fraction (window, 0.0);
     Statusbar_Message(msg,FALSE);
     g_free(msg);
     Set_Unbusy_Cursor();

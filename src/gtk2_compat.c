@@ -1,5 +1,4 @@
-/*
- * EasyTAG - Tag editor for MP3 and Ogg Vorbis files
+/* EasyTAG - Tag editor for audio files
  * Copyright (C) 2012  David King <amigadave@amigadave.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -44,17 +43,4 @@ void et_grid_attach_margins (GtkGrid *grid, GtkWidget *child, gint left,
 {
     et_grid_attach_full (grid, child, left, top, width, height, FALSE, FALSE,
                          hmargin, vmargin);
-}
-
-GtkWidget *
-et_progress_bar_new (void)
-{
-    GtkWidget *progress;
-
-    progress = gtk_progress_bar_new ();
-
-    gtk_progress_bar_set_show_text (GTK_PROGRESS_BAR (progress), TRUE);
-    gtk_progress_bar_set_text (GTK_PROGRESS_BAR (progress), "");
-
-    return progress;
 }

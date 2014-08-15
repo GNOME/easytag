@@ -1,6 +1,5 @@
-/*
- * EasyTAG - Tag editor for MP3 and Ogg Vorbis files
- * Copyright (C) 2012  David King <amigadave@amigadave.com>
+/* EasyTAG - Tag editor for audio files
+ * Copyright (C) 2014  David King <amigadave@amigadave.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,23 +15,15 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GTK2_COMPAT_H_
-#define GTK2_COMPAT_H_
+#ifndef ET_PROGRESS_BAR_H_
+#define ET_PROGRESS_BAR_H_
 
 #include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
-#define et_grid_new(r,c) gtk_grid_new()
-
-void et_grid_attach_full (GtkGrid *grid, GtkWidget *child, gint left, gint top,
-                          gint width, gint height, gboolean hexpand,
-                          gboolean vexpand, gint hmargin, gint vmargin);
-
-void et_grid_attach_margins (GtkGrid *grid, GtkWidget *child, gint left,
-                             gint top, gint width, gint height, gint hmargin,
-                             gint vmargin);
+GtkWidget * et_progress_bar_new (void);
 
 G_END_DECLS
 
-#endif /* GTK2_COMPAT_H_ */
+#endif /* ET_PROGRESS_BAR_H_ */

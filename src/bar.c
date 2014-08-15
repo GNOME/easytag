@@ -127,14 +127,3 @@ Statusbar_Message (const gchar *message, gboolean with_timer)
 
     g_free(msg_temp);
 }
-
-/*
- * Progress bar
- */
-GtkWidget *Create_Progress_Bar (void)
-{
-    ProgressBar = et_progress_bar_new ();
-
-    gtk_widget_show(ProgressBar);
-    return ProgressBar;
-}
