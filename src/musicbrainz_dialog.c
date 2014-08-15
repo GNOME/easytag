@@ -462,7 +462,6 @@ static void
 manual_search_callback (GObject *source, GAsyncResult *res,
                         gpointer user_data)
 {
-    GtkComboBoxText *combo_box;
     EtMusicBrainzDialogPrivate *priv;
     EtMusicBrainzDialog *dlg;
     GSimpleAsyncResult *simple_async;
@@ -510,10 +509,6 @@ manual_search_callback (GObject *source, GAsyncResult *res,
                                      priv->mb_tree_root);
     gtk_statusbar_push (priv->statusbar, 0, _("Searching Completed"));
     g_object_unref (res);
-    combo_box = GTK_COMBO_BOX_TEXT (gtk_builder_get_object (builder,
-                                                            "cb_manual_search"));
-    gtk_combo_box_text_append_text (combo_box,
-                                    gtk_combo_box_text_get_active_text (combo_box));
     et_music_brainz_dialog_stop_set_sensitive (FALSE);
     et_music_brainz_dialog_toolbar_buttons_set_sensitive (TRUE);
     
@@ -726,7 +721,7 @@ btn_fetch_more_clicked (GtkWidget *btn, gpointer user_data)
 static void
 btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
 {
-    GtkWidget *cb_manual_search;
+    GtkWidget *entry_manual_search;
     GtkWidget *cb_manual_search_in;
     int type;
     ManualSearchThreadData *thread_data;
@@ -745,12 +740,12 @@ btn_manual_find_clicked (GtkWidget *btn, gpointer user_data)
         return;
     }
 
-    cb_manual_search = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                           "cb_manual_search"));
+    entry_manual_search = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                              "entry_manual_search"));
     thread_data = g_slice_new (ManualSearchThreadData);
     thread_data->type = type;
     thread_data->node = g_node_new (NULL);
-    thread_data->text_to_search = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (cb_manual_search));
+    thread_data->text_to_search = (gchar *)gtk_entry_get_text (GTK_ENTRY (entry_manual_search));
     mb5_search_cancellable = g_cancellable_new ();
     gtk_statusbar_push (mb_dialog_priv->statusbar, 0,
                         _("Starting MusicBrainz Search"));
@@ -2528,7 +2523,7 @@ et_musicbrainz_dialog_init (EtMusicBrainzDialog *dialog)
 {
     EtMusicBrainzDialogPrivate *priv;
     GtkWidget *cb_manual_search_in;
-    GtkWidget *cb_search;
+    GtkWidget *entry_manual_search;
     GtkWidget *box;
     GError *error;
     ET_File *et_file;
@@ -2565,10 +2560,10 @@ et_musicbrainz_dialog_init (EtMusicBrainzDialog *dialog)
     gtk_box_pack_start (GTK_BOX (gtk_builder_get_object (builder, "central_box")),
                         priv->entityView, TRUE, TRUE, 2);
     et_initialize_tag_choice_dialog (priv);
-    cb_search = GTK_WIDGET (gtk_builder_get_object (builder, "cb_manual_search"));
+    entry_manual_search = GTK_WIDGET (gtk_builder_get_object (builder, "entry_manual_search"));
     
     /* Set callback functions */
-    g_signal_connect (gtk_bin_get_child (GTK_BIN (cb_search)), "activate",
+    g_signal_connect (entry_manual_search, "activate",
                       G_CALLBACK (btn_manual_find_clicked), NULL);
     g_signal_connect (gtk_builder_get_object (builder, "btn_manual_find"),
                       "clicked", G_CALLBACK (btn_manual_find_clicked),
@@ -2638,7 +2633,7 @@ et_musicbrainz_dialog_init (EtMusicBrainzDialog *dialog)
 
     if (et_file && ((File_Tag *)et_file->FileTag->data)->album)
     {
-        gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (cb_search))),
+        gtk_entry_set_text (GTK_ENTRY (entry_manual_search),
                             ((File_Tag *)et_file->FileTag->data)->album);
     }
 }
