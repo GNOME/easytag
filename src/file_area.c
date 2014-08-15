@@ -133,7 +133,7 @@ create_file_area (EtFileArea *self)
 
     /* Translators: Please try to keep this string as short as possible as it
      * is shown in a narrow column. */
-    priv->samplerate_label = gtk_label_new (_("Frequency:"));
+    priv->samplerate_label = gtk_label_new (_("Sample rate:"));
     gtk_grid_attach (GTK_GRID (priv->header_grid), priv->samplerate_label, 0,
                      2, 1, 1);
     priv->samplerate_value_label = gtk_label_new ("");

@@ -551,7 +551,7 @@ et_browser_set_current_path_default (EtBrowser *self)
                           g_variant_new_bytestring (priv->current_path));
 
     et_application_window_status_bar_message (ET_APPLICATION_WINDOW (MainWindow),
-                                              _("New default path for files selected"),
+                                              _("New default path selected for browser"),
                                               TRUE);
 }
 
@@ -842,7 +842,9 @@ Browser_Tree_Node_Selected (EtBrowser *self, GtkTreeSelection *selection)
                                            GTK_BUTTONS_NONE,
                                            "%s",
                                            _("Some files have been modified but not saved"));
-        gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),"%s",_("Do you want to save them before changing the directory?"));
+        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (msgdialog),
+                                                  "%s",
+                                                  _("Do you want to save them before changing directory?"));
         gtk_dialog_add_buttons (GTK_DIALOG (msgdialog), _("_Discard"),
                                 GTK_RESPONSE_NO, _("_Cancel"),
                                 GTK_RESPONSE_CANCEL, _("_Save"),
@@ -3216,7 +3218,8 @@ Browser_Tree_Rename_Directory (EtBrowser *self,
         {
             // ERROR! Could not find it!
             gchar *text_utf8 = filename_to_display(textsplit[i]);
-            Log_Print(LOG_ERROR,_("Error: Searching for %s, could not find node %s in tree."), last_path, text_utf8);
+            g_critical ("Error: Searching for %s, could not find node %s in tree.",
+                        last_path, text_utf8);
             g_strfreev(textsplit);
             g_free(text_utf8);
             return;
@@ -3826,7 +3829,8 @@ create_browser (EtBrowser *self)
                               "activate", G_CALLBACK (Browser_Entry_Activated),
 			      self);
     gtk_box_pack_start(GTK_BOX(HBox),priv->entry_combo,TRUE,TRUE,1);
-    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->entry_combo)))),_("Enter a directory to browse."));
+    gtk_widget_set_tooltip_text (GTK_WIDGET (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->entry_combo)))),
+                                 _("Choose a directory to show in the browser"));
 
     /*
      * The button to select a directory to browse

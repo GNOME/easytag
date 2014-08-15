@@ -625,7 +625,7 @@ GList *ET_Add_File_To_File_List (gchar *filename)
         case OPUS_FILE:
             if (!et_opus_read_file_info (file, ETFileInfo, &error))
             {
-                Log_Print (LOG_ERROR, _("Error while querying information for file: '%s' (%s)"),
+                Log_Print (LOG_ERROR, _("Error while querying information for file '%s': %s"),
                            filename_utf8, error->message);
                 g_error_free (error);
             }
@@ -637,7 +637,7 @@ GList *ET_Add_File_To_File_List (gchar *filename)
             /* To get at least the file size. */
             if (!et_core_read_file_info (filename, ETFileInfo, &error))
             {
-                Log_Print (LOG_ERROR, _("Error while querying information for file: '%s' (%s)"),
+                Log_Print (LOG_ERROR, _("Error while querying information for file '%s': %s"),
                            filename_utf8, error->message);
                 g_error_free (error);
             }

@@ -48,12 +48,12 @@
                 <item>
                     <attribute name="accel">&lt;Primary&gt;z</attribute>
                     <attribute name="action">win.undo-file-changes</attribute>
-                    <attribute name="label" translatable="yes">Undo Last File Changes</attribute>
+                    <attribute name="label" translatable="yes">Undo for File</attribute>
                 </item>
                 <item>
                     <attribute name="accel">&lt;Primary&gt;y</attribute>
                     <attribute name="action">win.redo-file-changes</attribute>
-                    <attribute name="label" translatable="yes">Redo Last File Changes</attribute>
+                    <attribute name="label" translatable="yes">Redo for File</attribute>
                 </item>
                 <item>
                     <attribute name="accel">&lt;Primary&gt;s</attribute>
@@ -89,11 +89,11 @@
             <section>
                 <item>
                     <attribute name="action">win.undo-last-changes</attribute>
-                    <attribute name="label" translatable="yes">Undo Last Changes</attribute>
+                    <attribute name="label" translatable="yes">Undo</attribute>
                 </item>
                 <item>
                     <attribute name="action">win.redo-last-changes</attribute>
-                    <attribute name="label" translatable="yes">Redo Last Changes</attribute>
+                    <attribute name="label" translatable="yes">Redo</attribute>
                 </item>
             </section>
             <section>
@@ -372,24 +372,24 @@
                 <section>
                     <item>
                         <attribute name="action">win.sort-mode</attribute>
-                        <attribute name="label" translatable="yes">Ascending by bitrate</attribute>
+                        <attribute name="label" translatable="yes">Ascending by bit rate</attribute>
                         <attribute name="target">ascending-file-bitrate</attribute>
                     </item>
                     <item>
                         <attribute name="action">win.sort-mode</attribute>
-                        <attribute name="label" translatable="yes">Descending by bitrate</attribute>
+                        <attribute name="label" translatable="yes">Descending by bit rate</attribute>
                         <attribute name="target">descending-file-bitrate</attribute>
                     </item>
                 </section>
                 <section>
                     <item>
                         <attribute name="action">win.sort-mode</attribute>
-                        <attribute name="label" translatable="yes">Ascending by samplerate</attribute>
+                        <attribute name="label" translatable="yes">Ascending by sample rate</attribute>
                         <attribute name="target">ascending-file-samplerate</attribute>
                     </item>
                     <item>
                         <attribute name="action">win.sort-mode</attribute>
-                        <attribute name="label" translatable="yes">Descending by samplerate</attribute>
+                        <attribute name="label" translatable="yes">Descending by sample rate</attribute>
                         <attribute name="target">descending-file-samplerate</attribute>
                     </item>
                 </section>
@@ -869,24 +869,24 @@
                 <section>
                     <item>
                         <attribute name="action">win.sort-mode</attribute>
-                        <attribute name="label" translatable="yes">Ascending by bitrate</attribute>
+                        <attribute name="label" translatable="yes">Ascending by bit rate</attribute>
                         <attribute name="target">ascending-file-bitrate</attribute>
                     </item>
                     <item>
                         <attribute name="action">win.sort-mode</attribute>
-                        <attribute name="label" translatable="yes">Descending by bitrate</attribute>
+                        <attribute name="label" translatable="yes">Descending by bit rate</attribute>
                         <attribute name="target">descending-file-bitrate</attribute>
                     </item>
                 </section>
                 <section>
                     <item>
                         <attribute name="action">win.sort-mode</attribute>
-                        <attribute name="label" translatable="yes">Ascending by samplerate</attribute>
+                        <attribute name="label" translatable="yes">Ascending by sample rate</attribute>
                         <attribute name="target">ascending-file-samplerate</attribute>
                     </item>
                     <item>
                         <attribute name="action">win.sort-mode</attribute>
-                        <attribute name="label" translatable="yes">Descending by samplerate</attribute>
+                        <attribute name="label" translatable="yes">Descending by sample rate</attribute>
                         <attribute name="target">descending-file-samplerate</attribute>
                     </item>
                 </section>

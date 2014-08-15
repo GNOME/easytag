@@ -180,7 +180,7 @@ common_init (EtApplication *self)
 
     if (get_locale ())
         Log_Print (LOG_OK,
-                   _("Currently using locale '%s' (and eventually '%s')"),
+                   _("System locale is '%s', using '%s'"),
                    get_locale (), get_encoding_from_locale (get_locale ()));
 
     if (settings_warning)
@@ -416,7 +416,7 @@ et_application_open (GApplication *self,
     {
         if (activated)
         {
-            Log_Print (LOG_ERROR, _("Error while querying information for file: '%s' (%s)"),
+            Log_Print (LOG_ERROR, _("Error while querying information for file '%s': %s"),
                        path_utf8, err->message);
 
         }

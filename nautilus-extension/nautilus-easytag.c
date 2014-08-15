@@ -227,7 +227,7 @@ nautilus_easytag_get_file_items (NautilusMenuProvider *provider,
 
         item = nautilus_menu_item_new ("NautilusEasytag::open_directory",
                                        _("Open in EasyTAG"),
-                                       _("Open the current selected directory in EasyTAG"),
+                                       _("Open the selected directory in EasyTAG"),
                                        "easytag");
         g_signal_connect (item,
                           "activate",
@@ -245,7 +245,7 @@ nautilus_easytag_get_file_items (NautilusMenuProvider *provider,
 
         item = nautilus_menu_item_new ("NautilusEasytag::open_files",
                                        _("Open with EasyTAG"),
-                                       _("Open selected files in EasyTAG"),
+                                       _("Open the selected files in EasyTAG"),
                                        "easytag");
         g_signal_connect (item,
                           "activate",

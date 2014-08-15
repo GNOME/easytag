@@ -557,7 +557,7 @@ on_delete (GSimpleAction *action,
                  * an error during deletion. */
                 if (error)
                 {
-                    Log_Print (LOG_ERROR, _("Cannot delete file (%s)"),
+                    Log_Print (LOG_ERROR, _("Cannot delete file ‘%s’"),
                                error->message);
                     g_clear_error (&error);
                 }
@@ -578,7 +578,7 @@ on_delete (GSimpleAction *action,
     g_list_free_full (rowreflist, (GDestroyNotify)gtk_tree_row_reference_free);
 
     if (nb_files_deleted < nb_files_to_delete)
-        msg = g_strdup (_("Files have been partially deleted"));
+        msg = g_strdup (_("Some files were not deleted"));
     else
         msg = g_strdup (_("All files have been deleted"));
 

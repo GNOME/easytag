@@ -177,7 +177,7 @@
 
     <key name="file-show-header" type="b">
       <summary>Show audio file header summary</summary>
-      <description>Whether to show header information, such as bitrate and duration, for audio files</description>
+      <description>Whether to show header information, such as bit rate and duration, for audio files</description>
       <default>true</default>
     </key>
 

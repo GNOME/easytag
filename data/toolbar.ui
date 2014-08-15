@@ -97,7 +97,7 @@
                 <property name="action-target">'file'</property>
                 <property name="icon-name">audio-x-generic</property>
                 <property name="label" translatable="yes">Tree Browser</property>
-                <property name="tooltip-text" translatable="yes">View by directory tree</property>
+                <property name="tooltip-text" translatable="yes">Browse directory tree</property>
                 <property name="visible">True</property>
             </object>
         </child>
@@ -107,7 +107,7 @@
                 <property name="action-target">'artist'</property>
                 <property name="label" translatable="yes">Artist and Album</property>
                 <!--<property name="icon-widget">artist_view_image</property>-->
-                <property name="tooltip-text" translatable="yes">View by artist and album</property>
+                <property name="tooltip-text" translatable="yes">Browse artist and album</property>
                 <property name="visible">True</property>
             </object>
         </child>
