@@ -929,6 +929,7 @@ static void
 et_mb_entity_view_init (EtMbEntityView *entity_view)
 {
     EtMbEntityViewPrivate *priv;
+    GtkStyleContext *context;
     
     priv = entity_view->priv = G_TYPE_INSTANCE_GET_PRIVATE (entity_view,
                                                             et_mb_entity_view_get_type (),
@@ -939,7 +940,9 @@ et_mb_entity_view_init (EtMbEntityView *entity_view)
                                     GTK_ORIENTATION_VERTICAL);
 
     /* Adding child widgets */
-    priv->bread_crumb_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
+    priv->bread_crumb_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+    context = gtk_widget_get_style_context (priv->bread_crumb_box);
+    gtk_style_context_add_class (context, GTK_STYLE_CLASS_LINKED);
     priv->tree_view = gtk_tree_view_new ();
     priv->scrolled_window = gtk_scrolled_window_new (NULL, NULL);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->scrolled_window),
