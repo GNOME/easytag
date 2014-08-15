@@ -33,7 +33,6 @@
 #include "application_window.h"
 #include "gtk2_compat.h"
 #include "setting.h"
-#include "bar.h"
 #include "misc.h"
 #include "scan_dialog.h"
 #include "easytag.h"

@@ -21,7 +21,6 @@
 #include "application.h"
 
 #include "about.h"
-#include "bar.h"
 #include "charset.h"
 #include "easytag.h"
 #include "log.h"
@@ -121,7 +120,9 @@ on_idle_init (EtApplication *self)
     }
     else
     {
-        Statusbar_Message(_("Select a directory to browse"),FALSE);
+        et_application_window_status_bar_message (ET_APPLICATION_WINDOW (MainWindow),
+                                                  _("Select a directory to browse"),
+                                                  FALSE);
         g_action_group_activate_action (G_ACTION_GROUP (MainWindow),
                                         "go-default", NULL);
     }

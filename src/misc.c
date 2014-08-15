@@ -26,13 +26,13 @@
 #include <sys/stat.h>
 #include <errno.h>
 
+#include "application_window.h"
 #include "gtk2_compat.h"
 #include "misc.h"
 #include "easytag.h"
 #include "id3_tag.h"
 #include "browser.h"
 #include "setting.h"
-#include "bar.h"
 #include "preferences_dialog.h"
 #include "log.h"
 #include "charset.h"
@@ -336,7 +336,8 @@ et_run_program (const gchar *program_name, GList *args_list)
         g_child_watch_add (pid, et_on_child_exited, NULL);
 
         msg = g_strdup_printf (_("Executed command: %s"), program_name);
-        Statusbar_Message (msg, TRUE);
+        et_application_window_status_bar_message (ET_APPLICATION_WINDOW (MainWindow),
+                                                  msg, TRUE);
         g_free (msg);
         res = TRUE;
     }

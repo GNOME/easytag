@@ -23,7 +23,6 @@
 #include <glib/gi18n.h>
 
 #include "application_window.h"
-#include "bar.h"
 #include "browser.h"
 #include "charset.h"
 #include "easytag.h"
@@ -540,8 +539,9 @@ write_button_clicked (EtPlaylistDialog *self)
         {
             gchar *msg;
             msg = g_strdup_printf(_("Written playlist file '%s'"),playlist_name_utf8);
-            Statusbar_Message(msg,TRUE);
-            g_free(msg);
+            et_application_window_status_bar_message (ET_APPLICATION_WINDOW (MainWindow),
+                                                      msg, TRUE);
+            g_free (msg);
         }
         g_object_unref (file);
     }

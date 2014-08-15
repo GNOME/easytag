@@ -32,7 +32,6 @@
 #include "log.h"
 #include "application_window.h"
 #include "easytag.h"
-#include "bar.h"
 #include "setting.h"
 #include "charset.h"
 

@@ -24,7 +24,6 @@
 #include <glib/gi18n.h>
 
 #include "application_window.h"
-#include "bar.h"
 #include "browser.h"
 #include "charset.h"
 #include "easytag.h"

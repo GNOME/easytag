@@ -7,7 +7,6 @@ nautilus-extension/nautilus-easytag.c
 src/about.c
 src/application.c
 src/application_window.c
-src/bar.c
 src/browser.c
 src/cddb_dialog.c
 src/charset.c
@@ -23,6 +22,7 @@ src/preferences_dialog.c
 src/scan_dialog.c
 src/search_dialog.c
 src/setting.c
+src/status_bar.c
 src/tag_area.c
 src/tags/ape_tag.c
 src/tags/flac_header.c

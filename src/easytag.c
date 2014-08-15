@@ -41,7 +41,6 @@
 #include "browser.h"
 #include "log.h"
 #include "misc.h"
-#include "bar.h"
 #include "cddb_dialog.h"
 #include "preferences_dialog.h"
 #include "setting.h"
@@ -357,7 +356,9 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
                 /* Stop saving files + reinit progress bar */
                 et_application_window_progress_set_text (window, "");
                 et_application_window_progress_set_fraction (window, 0.0);
-                Statusbar_Message (_("Saving files was stopped"), TRUE);
+                et_application_window_status_bar_message (window,
+                                                          _("Saving files was stopped"),
+                                                          TRUE);
                 /* To update state of command buttons */
                 et_application_window_update_actions (window);
                 et_application_window_browser_set_sensitive (window, TRUE);
@@ -404,7 +405,7 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
 
     et_application_window_progress_set_text (window, "");
     et_application_window_progress_set_fraction (window, 0.0);
-    Statusbar_Message(msg,TRUE);
+    et_application_window_status_bar_message (window, msg, TRUE);
     g_free(msg);
     et_application_window_browser_refresh_list (window);
     return TRUE;
@@ -702,7 +703,9 @@ Save_File (ET_File *ETFile, gboolean multiple_files,
                                filename_cur_utf8, filename_new_utf8,
                                error->message);
 
-                    Statusbar_Message (_("File(s) not renamed"), TRUE);
+                    et_application_window_status_bar_message (ET_APPLICATION_WINDOW (MainWindow),
+                                                              _("File(s) not renamed"),
+                                                              TRUE);
                     g_error_free (error);
                 }
 
@@ -815,13 +818,15 @@ Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox)
 
     basename_utf8 = g_path_get_basename(cur_filename_utf8);
     msg = g_strdup_printf(_("Writing tag of '%s'"),basename_utf8);
-    Statusbar_Message(msg,TRUE);
+    et_application_window_status_bar_message (ET_APPLICATION_WINDOW (MainWindow),
+                                              msg, TRUE);
     g_free(msg);
     msg = NULL;
 
     if (ET_Save_File_Tag_To_HD (ETFile, &error))
     {
-        Statusbar_Message(_("Tag(s) written"),TRUE);
+        et_application_window_status_bar_message (ET_APPLICATION_WINDOW (MainWindow),
+                                                  _("Tag(s) written"), TRUE);
         g_free (basename_utf8);
         return TRUE;
     }
@@ -938,8 +943,8 @@ gboolean Read_Directory (gchar *path_real)
 
     /* Read the directory recursively */
     msg = g_strdup_printf(_("Search in progress…"));
-    Statusbar_Message(msg,FALSE);
-    g_free(msg);
+    et_application_window_status_bar_message (window, msg, FALSE);
+    g_free (msg);
     /* Search the supported files. */
     FileList = read_directory_recursively (FileList, dir_enumerator,
                                            g_settings_get_boolean (MainSettings,
@@ -962,7 +967,7 @@ gboolean Read_Directory (gchar *path_real)
         gchar *filename_utf8 = filename_to_display(filename_real);
 
         msg = g_strdup_printf(_("File: '%s'"),filename_utf8);
-        Statusbar_Message(msg,FALSE);
+        et_application_window_status_bar_message (window, msg, FALSE);
         g_free(msg);
         g_free(filename_utf8);
 
@@ -1043,8 +1048,8 @@ gboolean Read_Directory (gchar *path_real)
     et_application_window_browser_set_sensitive (window, TRUE);
 
     et_application_window_progress_set_fraction (window, 0.0);
-    Statusbar_Message(msg,FALSE);
-    g_free(msg);
+    et_application_window_status_bar_message (window, msg, FALSE);
+    g_free (msg);
     Set_Unbusy_Cursor();
     ReadingDirectory = FALSE;
 

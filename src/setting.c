@@ -38,7 +38,6 @@
 #include "playlist_dialog.h"
 #include "preferences_dialog.h"
 #include "search_dialog.h"
-#include "bar.h"
 #include "easytag.h"
 #include "charset.h"
 #include "scan_dialog.h"

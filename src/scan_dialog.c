@@ -36,7 +36,6 @@
 #include "scan.h"
 #include "setting.h"
 #include "id3_tag.h"
-#include "bar.h"
 #include "browser.h"
 #include "log.h"
 #include "misc.h"
@@ -324,7 +323,9 @@ Scan_Tag_With_Mask (EtScanDialog *self, ET_File *ETFile)
     ET_Manage_Changes_Of_File_Data(ETFile,NULL,FileTag);
 
     g_free(mask);
-    Statusbar_Message(_("Tag successfully scanned"),TRUE);
+    et_application_window_status_bar_message (ET_APPLICATION_WINDOW (MainWindow),
+                                              _("Tag successfully scanned"),
+                                              TRUE);
     filename_utf8 = g_path_get_basename( ((File_Name *)ETFile->FileNameNew->data)->value_utf8 );
     Log_Print(LOG_OK,_("Tag successfully scanned: %s"),filename_utf8);
     g_free(filename_utf8);
@@ -732,7 +733,9 @@ Scan_Rename_File_With_Mask (EtScanDialog *self, ET_File *ETFile)
     ET_Manage_Changes_Of_File_Data(ETFile,FileName,NULL);
     g_free(filename_new_utf8);
 
-    Statusbar_Message (_("New filename successfully scanned"),TRUE);
+    et_application_window_status_bar_message (ET_APPLICATION_WINDOW (MainWindow),
+                                              _("New filename successfully scanned"),
+                                              TRUE);
 
     filename_new_utf8 = g_path_get_basename(((File_Name *)ETFile->FileNameNew->data)->value_utf8);
     Log_Print (LOG_OK, _("New filename successfully scanned: %s"),
@@ -3464,7 +3467,9 @@ et_scan_dialog_scan_selected_files (EtScanDialog *self)
 
     et_application_window_progress_set_text (window, "");
     et_application_window_progress_set_fraction (window, 0.0);
-    Statusbar_Message(_("All tags have been scanned"),TRUE);
+    et_application_window_status_bar_message (window,
+                                              _("All tags have been scanned"),
+                                              TRUE);
 }
 
 /*

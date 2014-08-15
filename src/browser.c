@@ -43,7 +43,6 @@
 #include "easytag.h"
 #include "et_core.h"
 #include "scan_dialog.h"
-#include "bar.h"
 #include "log.h"
 #include "misc.h"
 #include "setting.h"
@@ -551,7 +550,9 @@ et_browser_set_current_path_default (EtBrowser *self)
     g_settings_set_value (MainSettings, "default-path",
                           g_variant_new_bytestring (priv->current_path));
 
-    Statusbar_Message (_("New default path for files selected"),TRUE);
+    et_application_window_status_bar_message (ET_APPLICATION_WINDOW (MainWindow),
+                                              _("New default path for files selected"),
+                                              TRUE);
 }
 
 /*
@@ -4714,7 +4715,8 @@ Rename_Directory (EtBrowser *self)
     g_free(tmp_path);
     g_free(tmp_path_utf8);
     g_free(directory_new_name_file);
-    Statusbar_Message(_("Directory renamed"),TRUE);
+    et_application_window_status_bar_message (ET_APPLICATION_WINDOW (MainWindow),
+                                              _("Directory renamed"), TRUE);
 }
 
 static void

@@ -35,7 +35,6 @@
 #include "log.h"
 #include "misc.h"
 #include "setting.h"
-#include "bar.h"
 #include "charset.h"
 
 #include "win32/win32dep.h"

@@ -23,7 +23,6 @@
 #include <gdk/gdkkeysyms.h>
 #include <glib/gi18n.h>
 
-#include "bar.h"
 #include "browser.h"
 #include "cddb_dialog.h"
 #include "easytag.h"
@@ -40,6 +39,7 @@
 #include "scan.h"
 #include "scan_dialog.h"
 #include "setting.h"
+#include "status_bar.h"
 #include "tag_area.h"
 
 /* TODO: Use G_DEFINE_TYPE_WITH_PRIVATE. */
@@ -55,6 +55,7 @@ struct _EtApplicationWindowPrivate
     GtkWidget *log_area;
     GtkWidget *tag_area;
     GtkWidget *progress_bar;
+    GtkWidget *status_bar;
 
     GtkWidget *cddb_dialog;
     GtkWidget *load_files_dialog;
@@ -380,7 +381,8 @@ delete_file (ET_File *ETFile, gboolean multiple_files, GError **error)
             if (g_file_delete (cur_file, NULL, error))
             {
                 gchar *msg = g_strdup_printf(_("File '%s' deleted"), basename_utf8);
-                Statusbar_Message(msg,FALSE);
+                et_application_window_status_bar_message (ET_APPLICATION_WINDOW (MainWindow),
+                                                          msg, FALSE);
                 g_free(msg);
                 g_free(basename_utf8);
                 g_object_unref (cur_file);
@@ -600,8 +602,8 @@ on_delete (GSimpleAction *action,
 
     et_application_window_progress_set_text (self, "");
     et_application_window_progress_set_fraction (self, 0.0);
-    Statusbar_Message(msg,TRUE);
-    g_free(msg);
+    et_application_window_status_bar_message (self, msg, TRUE);
+    g_free (msg);
 
     return;
 }
@@ -916,7 +918,9 @@ on_remove_tags (GSimpleAction *action,
     et_application_window_update_actions (self);
 
     et_application_window_progress_set_fraction (self, 0.0);
-    Statusbar_Message (_("All tags have been removed"),TRUE);
+    et_application_window_status_bar_message (self,
+                                              _("All tags have been removed"),
+                                              TRUE);
 }
 
 static void
@@ -1742,8 +1746,8 @@ et_application_window_init (EtApplicationWindow *self)
     gtk_widget_show (hbox);
 
     /* Status bar */
-    widget = Create_Status_Bar ();
-    gtk_box_pack_start (GTK_BOX (hbox), widget, TRUE, TRUE, 0);
+    priv->status_bar = et_status_bar_new ();
+    gtk_box_pack_start (GTK_BOX (hbox), priv->status_bar, TRUE, TRUE, 0);
 
     /* Progress bar */
     priv->progress_bar = et_progress_bar_new ();
@@ -1840,6 +1844,21 @@ et_application_window_progress_set_text (EtApplicationWindow *self,
     priv = et_application_window_get_instance_private (self);
 
     gtk_progress_bar_set_text (GTK_PROGRESS_BAR (priv->progress_bar), text);
+}
+
+void
+et_application_window_status_bar_message (EtApplicationWindow *self,
+                                          const gchar *message,
+                                          gboolean with_timer)
+{
+    EtApplicationWindowPrivate *priv;
+
+    g_return_if_fail (ET_APPLICATION_WINDOW (self));
+
+    priv = et_application_window_get_instance_private (self);
+
+    et_status_bar_message (ET_STATUS_BAR (priv->status_bar), message,
+                           with_timer);
 }
 
 GtkWidget *

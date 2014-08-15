@@ -90,6 +90,7 @@ void et_application_window_show_log_area (EtApplicationWindow *self);
 void et_application_window_scan_dialog_update_previews (EtApplicationWindow *self);
 void et_application_window_progress_set_fraction (EtApplicationWindow *self, gdouble fraction);
 void et_application_window_progress_set_text (EtApplicationWindow *self, const gchar *text);
+void et_application_window_status_bar_message (EtApplicationWindow *self, const gchar *message, gboolean with_timer);
 
 G_END_DECLS
 

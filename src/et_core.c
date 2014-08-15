@@ -62,7 +62,6 @@
 #include "opus_tag.h"
 #include "opus_header.h"
 #endif
-#include "bar.h"
 #include "browser.h"
 #include "log.h"
 #include "misc.h"
@@ -2857,8 +2856,8 @@ void ET_Display_File_Data_To_UI (ET_File *ETFile)
     }
 
     msg = g_strdup_printf(_("File: '%s'"), cur_filename_utf8);
-    Statusbar_Message(msg,FALSE);
-    g_free(msg);
+    et_application_window_status_bar_message (window, msg, FALSE);
+    g_free (msg);
 }
 
 static void

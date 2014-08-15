@@ -40,7 +40,6 @@ easytag_SOURCES = \
 	src/about.c \
 	src/application.c \
 	src/application_window.c \
-	src/bar.c \
 	src/browser.c \
 	src/browser.h \
 	src/cddb_dialog.c \
@@ -64,6 +63,7 @@ easytag_SOURCES = \
 	src/scan_dialog.c \
 	src/search_dialog.c \
 	src/setting.c \
+	src/status_bar.c \
 	src/tag_area.c \
 	src/tags/id3lib/c_wrapper.cpp \
 	src/tags/libapetag/apetaglib.c \
@@ -96,7 +96,6 @@ easytag_headers = \
 	src/about.h \
 	src/application.h \
 	src/application_window.h \
-	src/bar.h \
 	src/cddb_dialog.h \
 	src/charset.h \
 	src/crc32.h \
@@ -117,6 +116,7 @@ easytag_headers = \
 	src/scan_dialog.h \
 	src/search_dialog.h \
 	src/setting.h \
+	src/status_bar.h \
 	src/tag_area.h \
 	src/tags/id3lib/id3_bugfix.h \
 	src/tags/libapetag/apetaglib.h \

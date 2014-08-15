@@ -24,7 +24,6 @@
 #include <glib/gi18n.h>
 
 #include "application_window.h"
-#include "bar.h"
 #include "charset.h"
 #include "easytag.h"
 #include "et_core.h"
@@ -136,6 +135,7 @@ on_apply_to_selection (GObject *object,
                        EtTagArea *self)
 {
     EtTagAreaPrivate *priv;
+    EtApplicationWindow *window;
     GList *etfilelist = NULL;
     GList *selection_filelist = NULL;
     GList *l;
@@ -150,18 +150,20 @@ on_apply_to_selection (GObject *object,
 
     priv = et_tag_area_get_instance_private (self);
 
+    window = ET_APPLICATION_WINDOW (MainWindow);
+
     // Save the current displayed data
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
 
     /* Warning : 'selection_filelist' is not a list of 'ETFile' items! */
-    selection = et_application_window_browser_get_selection (ET_APPLICATION_WINDOW (MainWindow));
+    selection = et_application_window_browser_get_selection (window);
     selection_filelist = gtk_tree_selection_get_selected_rows (selection, NULL);
 
     // Create an 'ETFile' list from 'selection_filelist'
     for (l = selection_filelist; l != NULL; l = g_list_next (l))
     {
-        etfile = et_application_window_browser_get_et_file_from_path (ET_APPLICATION_WINDOW (MainWindow),
-                                                   l->data);
+        etfile = et_application_window_browser_get_et_file_from_path (window,
+                                                                      l->data);
         etfilelist = g_list_prepend (etfilelist, etfile);
     }
 
@@ -587,7 +589,7 @@ on_apply_to_selection (GObject *object,
     g_list_free(etfilelist);
 
     /* Refresh the whole list (faster than file by file) to show changes. */
-    et_application_window_browser_refresh_list (ET_APPLICATION_WINDOW (MainWindow));
+    et_application_window_browser_refresh_list (window);
 
     /* Display the current file (Needed when sequencing tracks) */
     ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
@@ -595,14 +597,14 @@ on_apply_to_selection (GObject *object,
     if (msg)
     {
         Log_Print(LOG_OK,"%s",msg);
-        Statusbar_Message(msg,TRUE);
+        et_application_window_status_bar_message (window, msg,TRUE);
         g_free(msg);
     }
     g_free(string_to_set);
     g_free(string_to_set1);
 
     /* To update state of Undo button */
-    et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
+    et_application_window_update_actions (window);
 }
 
 static void
