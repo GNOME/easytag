@@ -1,0 +1,180 @@
+<interface domain="easytag">
+    <requires lib="gtk+" version="3.4"/>
+    <object class="GtkGrid" id="scanner_grid">
+        <property name="border-width">12</property>
+        <property name="orientation">vertical</property>
+        <property name="row-spacing">6</property>
+        <property name="visible">True</property>
+        <child>
+            <object class="GtkLabel" id="character_conversion_label">
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Character Conversion</property>
+                <property name="visible">True</property>
+                <attributes>
+                    <attribute name="weight" value="bold"/>
+                </attributes>
+            </object>
+        </child>
+        <child>
+            <object class="GtkLabel" id="fill_tag_scanner_label">
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Fill Tag Scanner</property>
+                <property name="margin-left">12</property>
+                <property name="margin-top">12</property>
+                <property name="visible">True</property>
+                <attributes>
+                    <attribute name="weight" value="bold"/>
+                </attributes>
+            </object>
+        </child>
+        <child>
+            <object class="GtkRadioButton" id="fts_underscore_p20_radio">
+                <property name="label" translatable="yes">Convert underscores and '%20' to spaces</property>
+                <property name="margin-left">24</property>
+                <property name="name">spaces</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkRadioButton" id="fts_spaces_radio">
+                <property name="group">fts_underscore_p20_radio</property>
+                <property name="label" translatable="yes">Convert spaces and '%20' to underscores</property>
+                <property name="margin-left">24</property>
+                <property name="name">underscores</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkRadioButton" id="fts_none_radio">
+                <property name="group">fts_underscore_p20_radio</property>
+                <property name="label" translatable="yes">No conversion</property>
+                <property name="margin-left">24</property>
+                <property name="name">no-change</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkLabel" id="rename_file_directory_scanner_label">
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Rename File and Directory Scanner</property>
+                <property name="margin-left">12</property>
+                <property name="margin-top">12</property>
+                <property name="visible">True</property>
+                <attributes>
+                    <attribute name="weight" value="bold"/>
+                </attributes>
+            </object>
+        </child>
+        <child>
+            <object class="GtkRadioButton" id="rfs_underscore_p20_radio">
+                <property name="label" translatable="yes">Convert underscores and '%20' to spaces</property>
+                <property name="margin-left">24</property>
+                <property name="name">spaces</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkRadioButton" id="rfs_spaces_radio">
+                <property name="group">rfs_underscore_p20_radio</property>
+                <property name="label" translatable="yes">Convert spaces and '%20' to underscores</property>
+                <property name="margin-left">24</property>
+                <property name="name">underscores</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkRadioButton" id="rfs_remove_radio">
+                <property name="group">rfs_underscore_p20_radio</property>
+                <property name="label" translatable="yes">No conversion</property>
+                <property name="margin-left">24</property>
+                <property name="name">remove</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkLabel" id="process_fields_scanner_label">
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Process Fields Scanner</property>
+                <property name="margin-left">12</property>
+                <property name="margin-top">12</property>
+                <property name="visible">True</property>
+                <attributes>
+                    <attribute name="weight" value="bold"/>
+                </attributes>
+            </object>
+        </child>
+        <child>
+            <object class="GtkCheckButton" id="pfs_uppercase_prep_check">
+                <property name="label" translatable="yes">Upper-case the first letters of all words, including prepositions and articles</property>
+                <property name="margin-left">24</property>
+                <property name="tooltip-text" translatable="yes">Whether to upper-case the first letter of prepositions and some other short words such as "feat." when processing tag fields</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkLabel" id="scanner_dialog_label">
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Scanner Dialog</property>
+                <property name="margin-top">12</property>
+                <property name="visible">True</property>
+                <attributes>
+                    <attribute name="weight" value="bold"/>
+                </attributes>
+            </object>
+        </child>
+        <child>
+            <object class="GtkCheckButton" id="scanner_dialog_startup_check">
+                <property name="label" translatable="yes">Show the scanner dialog on startup</property>
+                <property name="margin-left">12</property>
+                <property name="tooltip-text" translatable="yes">Whether to show the scanner window on application startup</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkLabel" id="fields_label">
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Fields</property>
+                <property name="margin-top">12</property>
+                <property name="visible">True</property>
+                <attributes>
+                    <attribute name="weight" value="bold"/>
+                </attributes>
+            </object>
+        </child>
+        <child>
+            <object class="GtkCheckButton" id="overwrite_fields_check">
+                <property name="label" translatable="yes">Overwrite fields when scanning tags</property>
+                <property name="margin-left">12</property>
+                <property name="tooltip-text" translatable="yes">Whether to overwrite the tag field values when filling tags. Otherwise, only blank tag fields will be filled</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkBox" id="default_comment_box">
+                <property name="margin-left">12</property>
+                <property name="spacing">12</property>
+                <property name="visible">True</property>
+                <child>
+                    <object class="GtkCheckButton" id="default_comment_check">
+                        <property name="label" translatable="yes">Set this text as default comment:</property>
+                        <property name="tooltip-text" translatable="yes">Whether to set the comment tag field to the provided default value when filling tags</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkEntry" id="default_comment_entry">
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <child>
+            <object class="GtkCheckButton" id="crc32_default_check">
+                <property name="label" translatable="yes">Use CRC32 as the default comment (for files with ID3 tags only)</property>
+                <property name="margin-left">12</property>
+                <property name="tooltip-text" translatable="yes">Whether to use the CRC-32 of the audio file data as the default comment, for files with ID3 tags only</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+    </object>
+</interface>

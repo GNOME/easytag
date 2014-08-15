@@ -303,6 +303,8 @@ create_preferences_dialog (EtPreferencesDialog *self)
     GtkWidget *FilenameExtensionLowerCase;
     GtkWidget *FilenameExtensionUpperCase;
     GtkWidget *default_path_button;
+    GtkBuilder *builder;
+    GError *error = NULL;
 
     priv = et_preferences_dialog_get_instance_private (self);
 
@@ -1156,34 +1158,30 @@ create_preferences_dialog (EtPreferencesDialog *self)
      * Scanner
      */
     Label = gtk_label_new (_("Scanner"));
-    VBox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
+    builder = gtk_builder_new ();
+    gtk_builder_add_from_resource (builder,
+                                   "/org/gnome/EasyTAG/preferences_dialog.ui",
+                                   &error);
+
+    if (error != NULL)
+    {
+        g_error ("Unable to get scanner page from resource: %s",
+                 error->message);
+    }
+
+    VBox = GTK_WIDGET (gtk_builder_get_object (builder, "scanner_grid"));
     gtk_notebook_append_page (GTK_NOTEBOOK(priv->options_notebook), VBox, Label);
-    gtk_container_set_border_width (GTK_CONTAINER (VBox), BOX_SPACING);
 
     /* Save the number of the page. Asked in Scanner window */
     priv->options_notebook_scanner = gtk_notebook_page_num (GTK_NOTEBOOK (priv->options_notebook),
                                                             VBox);
 
     /* Character conversion for the 'Fill Tag' scanner (=> FTS...) */
-    Frame = gtk_frame_new (_("Fill Tag Scanner - Character Conversion"));
-    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
-
-    FTSConvertUnderscoreAndP20IntoSpace = gtk_radio_button_new_with_label_from_widget (NULL,
-       _("Convert underscore character '_' and string '%20' to space ' '"));
-    gtk_widget_set_name (FTSConvertUnderscoreAndP20IntoSpace, "spaces");
-    FTSConvertSpaceIntoUnderscore = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (FTSConvertUnderscoreAndP20IntoSpace),
-                                                                                 _("Convert space ' ' to underscore '_'"));
-    gtk_widget_set_name (FTSConvertSpaceIntoUnderscore, "underscores");
-    FTSConvertSpaceNoChange = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (FTSConvertUnderscoreAndP20IntoSpace),
-                                                                           _("No conversion"));
-    gtk_widget_set_name (FTSConvertSpaceNoChange, "no-change");
-    gtk_box_pack_start(GTK_BOX(vbox),FTSConvertUnderscoreAndP20IntoSpace,FALSE,FALSE,0);
-    gtk_box_pack_start(GTK_BOX(vbox),FTSConvertSpaceIntoUnderscore,      FALSE,FALSE,0);
-    gtk_box_pack_start (GTK_BOX (vbox), FTSConvertSpaceNoChange, FALSE, FALSE,
-                        0);
+    FTSConvertUnderscoreAndP20IntoSpace = GTK_WIDGET (gtk_builder_get_object (builder, "fts_underscore_p20_radio"));
+    FTSConvertSpaceIntoUnderscore = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                        "fts_spaces_radio"));
+    FTSConvertSpaceNoChange = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                  "fts_none_radio"));
     g_settings_bind_with_mapping (MainSettings, "fill-convert-spaces",
                                   FTSConvertUnderscoreAndP20IntoSpace,
                                   "active", G_SETTINGS_BIND_DEFAULT,
@@ -1202,28 +1200,14 @@ create_preferences_dialog (EtPreferencesDialog *self)
                                   et_settings_enum_radio_get,
                                   et_settings_enum_radio_set,
                                   FTSConvertSpaceNoChange, NULL);
-    gtk_widget_set_tooltip_text(FTSConvertUnderscoreAndP20IntoSpace,_("If activated, this conversion "
-        "will be used when applying a mask from the scanner for tags."));
-    gtk_widget_set_tooltip_text(FTSConvertSpaceIntoUnderscore,_("If activated, this conversion "
-        "will be used when applying a mask from the scanner for tags."));
     /* TODO: No change tooltip. */
 
     /* Character conversion for the 'Rename File' scanner (=> RFS...) */
-    Frame = gtk_frame_new (_("Rename File Scanner - Character Conversion"));
-    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
-    RFSConvertUnderscoreAndP20IntoSpace = gtk_radio_button_new_with_label(NULL, _("Convert underscore " "character '_' and string '%20' to space ' '"));
-    RFSConvertSpaceIntoUnderscore = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(RFSConvertUnderscoreAndP20IntoSpace), _("Convert space ' ' to underscore '_'"));
-    RFSRemoveSpaces = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (RFSConvertUnderscoreAndP20IntoSpace),
-                                                                   _("Remove spaces"));
-    gtk_widget_set_name (RFSConvertUnderscoreAndP20IntoSpace, "spaces");
-    gtk_widget_set_name (RFSConvertSpaceIntoUnderscore, "underscores");
-    gtk_widget_set_name (RFSRemoveSpaces, "remove");
-    gtk_box_pack_start(GTK_BOX(vbox),RFSConvertUnderscoreAndP20IntoSpace,FALSE,FALSE,0);
-    gtk_box_pack_start(GTK_BOX(vbox),RFSConvertSpaceIntoUnderscore,      FALSE,FALSE,0);
-    gtk_box_pack_start (GTK_BOX (vbox), RFSRemoveSpaces, FALSE, FALSE, 0);
+    RFSConvertUnderscoreAndP20IntoSpace = GTK_WIDGET (gtk_builder_get_object (builder, "rfs_underscore_p20_radio"));
+    RFSConvertSpaceIntoUnderscore = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                        "rfs_spaces_radio"));
+    RFSRemoveSpaces = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                          "rfs_remove_radio"));
     g_settings_bind_with_mapping (MainSettings, "rename-convert-spaces",
                                   RFSConvertUnderscoreAndP20IntoSpace,
                                   "active", G_SETTINGS_BIND_DEFAULT,
@@ -1242,85 +1226,45 @@ create_preferences_dialog (EtPreferencesDialog *self)
                                   et_settings_enum_radio_get,
                                   et_settings_enum_radio_set, RFSRemoveSpaces,
                                   NULL);
-    gtk_widget_set_tooltip_text(RFSConvertUnderscoreAndP20IntoSpace,_("If activated, this conversion "
-        "will be used when applying a mask from the scanner for filenames."));
-    gtk_widget_set_tooltip_text(RFSConvertSpaceIntoUnderscore,_("If activated, this conversion "
-        "will be used when applying a mask from the scanner for filenames."));
-    gtk_widget_set_tooltip_text(RFSRemoveSpaces,_("If activated, this conversion "        "will be used when applying a mask from the scanner for filenames."));
 
     /* Character conversion for the 'Process Fields' scanner (=> PFS...) */
-    Frame = gtk_frame_new (_("Process Fields Scanner - Character Conversion"));
-    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
-
-    /* Don't convert some words like to, feat. first letter uppercase. */
-    PFSDontUpperSomeWords = gtk_check_button_new_with_label(_("Don't uppercase "
-        "first letter of words for some prepositions and articles."));
-    gtk_box_pack_start(GTK_BOX(vbox),PFSDontUpperSomeWords, FALSE, FALSE, 0);
+    PFSDontUpperSomeWords = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                "pfs_uppercase_prep_check"));
     g_settings_bind (MainSettings, "process-uppercase-prepositions",
                      PFSDontUpperSomeWords, "active",
-                     G_SETTINGS_BIND_DEFAULT | G_SETTINGS_BIND_INVERT_BOOLEAN);
-    gtk_widget_set_tooltip_text (PFSDontUpperSomeWords,
-                                 _("Whether to upper-case the first letter of prepositions and some other short words such as \"feat.\" when processing tag fields"));
+                     G_SETTINGS_BIND_DEFAULT);
 
     /* Properties of the scanner window */
-    Frame = gtk_frame_new (_("Scanner Window"));
-    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
-
-    OpenScannerWindowOnStartup = gtk_check_button_new_with_label (_("Show the scanner window on startup"));
-    gtk_box_pack_start(GTK_BOX(vbox),OpenScannerWindowOnStartup,FALSE,FALSE,0);
+    OpenScannerWindowOnStartup = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                     "scanner_dialog_startup_check"));
     g_settings_bind (MainSettings, "scan-startup", OpenScannerWindowOnStartup,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (OpenScannerWindowOnStartup,
-                                 _("Whether to show the scanner window on application startup"));
-
 
     /* Other options */
-    Frame = gtk_frame_new (_("Fields"));
-    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
-
-    // Overwrite text into tag fields
-    OverwriteTagField = gtk_check_button_new_with_label(_("Overwrite fields when scanning tags"));
-    gtk_box_pack_start(GTK_BOX(vbox),OverwriteTagField,FALSE,FALSE,0);
+    OverwriteTagField = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                            "overwrite_fields_check"));
     g_settings_bind (MainSettings, "fill-overwrite-tag-fields",
                      OverwriteTagField, "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (OverwriteTagField,
-                                 _("Whether to overwrite the tag field values when filling tags. Otherwise, only blank tag fields will be filled"));
 
     /* Set a default comment text or CRC-32 checksum. */
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
-    gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
-    SetDefaultComment = gtk_check_button_new_with_label(_("Set this text as default comment:"));
-    gtk_box_pack_start(GTK_BOX(hbox),SetDefaultComment,FALSE,FALSE,0);
+    SetDefaultComment = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                            "default_comment_check"));
+    DefaultComment = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                         "default_comment_entry"));
     g_settings_bind (MainSettings, "fill-set-default-comment",
                      SetDefaultComment, "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (SetDefaultComment,
-                                 _("Whether to set the comment tag field to the provided default value when filling tags"));
-    DefaultComment = gtk_entry_new ();
-    gtk_box_pack_start(GTK_BOX(hbox),DefaultComment,FALSE,FALSE,0);
-    gtk_widget_set_size_request(GTK_WIDGET(DefaultComment), 250, -1);
     g_settings_bind (MainSettings, "fill-set-default-comment", DefaultComment,
                      "sensitive", G_SETTINGS_BIND_GET);
-
     g_settings_bind (MainSettings, "fill-default-comment", DefaultComment,
                      "text", G_SETTINGS_BIND_DEFAULT);
 
     /* CRC32 comment. */
-    Crc32Comment = gtk_check_button_new_with_label(_("Use CRC32 as the default "
-        "comment (for files with ID3 tags only)."));
-    gtk_box_pack_start(GTK_BOX(vbox),Crc32Comment,FALSE,FALSE,0);
-    g_settings_bind (MainSettings, "fill-crc32-comment", Crc32Comment, "active",
-                     G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (Crc32Comment,
-                                 _("Whether to use the CRC-32 of the audio file data as the default comment, for files with ID3 tags only"));
+    Crc32Comment = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                       "crc32_default_check"));
+    g_settings_bind (MainSettings, "fill-crc32-comment", Crc32Comment,
+                     "active", G_SETTINGS_BIND_DEFAULT);
+
+    g_object_unref (builder);
 
     /*
      * CDDB
