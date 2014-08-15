@@ -6,6 +6,11 @@
     <property name="can_focus">False</property>
     <property name="stock">gtk-find</property>
   </object>
+  <object class="GtkImage" id="img_invert_selection">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">easytag-invert-selection</property>
+  </object>
   <object class="GtkImage" id="img_red_lines">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -16,15 +21,11 @@
     <property name="can_focus">False</property>
     <property name="stock">easytag-unselect-all</property>
   </object>
-  <object class="GtkImage" id="img_invert_selection">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">easytag-invert-selection</property>
-  </object>
   <object class="GtkBox" id="mb_box">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="orientation">vertical</property>
+    <property name="spacing">2</property>
     <child>
       <object class="GtkHBox" id="hbox3">
         <property name="visible">True</property>
@@ -156,167 +157,171 @@
       </packing>
     </child>
     <child>
-      <object class="GtkFrame" id="frame2">
-        <property name="width_request">555</property>
-        <property name="height_request">216</property>
+      <object class="GtkLabel" id="label1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="label_xalign">0</property>
-        <property name="shadow_type">in</property>
+        <property name="xalign">0</property>
+        <property name="label" translatable="yes">&lt;b&gt;Results:&lt;/b&gt;</property>
+        <property name="use_markup">True</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkGrid" id="grid1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="row_homogeneous">True</property>
+        <property name="column_homogeneous">True</property>
         <child>
-          <object class="GtkAlignment" id="alignment2">
-            <property name="width_request">551</property>
-            <property name="height_request">193</property>
+          <object class="GtkVBox" id="central_box">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="left_padding">12</property>
+            <property name="margin_left">4</property>
+            <property name="spacing">3</property>
             <child>
-              <object class="GtkVBox" id="central_box">
+              <object class="GtkToolbar" id="toolbar">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="spacing">3</property>
                 <child>
-                  <object class="GtkToolbar" id="toolbar">
+                  <object class="GtkToolButton" id="toolbtn_invert_selection">
                     <property name="visible">True</property>
+                    <property name="sensitive">False</property>
                     <property name="can_focus">False</property>
-                    <child>
-                      <object class="GtkToolButton" id="toolbtn_invert_selection">
-                        <property name="visible">True</property>
-                        <property name="sensitive">False</property>
-                        <property name="can_focus">False</property>
-                        <property name="has_tooltip">True</property>
-                        <property name="tooltip_markup" translatable="yes">Invert Selections</property>
-                        <property name="tooltip_text" translatable="yes">Invert Selections</property>
-                        <property name="label" translatable="yes">toolbutton5</property>
-                        <property name="use_underline">True</property>
-                        <property name="icon_widget">img_invert_selection</property>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="homogeneous">True</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkToolButton" id="toolbtn_select_all">
-                        <property name="visible">True</property>
-                        <property name="sensitive">False</property>
-                        <property name="can_focus">False</property>
-                        <property name="has_tooltip">True</property>
-                        <property name="tooltip_markup" translatable="yes">Select All</property>
-                        <property name="tooltip_text" translatable="yes">Select All</property>
-                        <property name="label" translatable="yes">toolbutton6</property>
-                        <property name="use_underline">True</property>
-                        <property name="stock_id">gtk-select-all</property>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="homogeneous">True</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkToolButton" id="toolbtn_unselect_all">
-                        <property name="visible">True</property>
-                        <property name="sensitive">False</property>
-                        <property name="can_focus">False</property>
-                        <property name="has_tooltip">True</property>
-                        <property name="tooltip_markup" translatable="yes">Unselect All</property>
-                        <property name="tooltip_text" translatable="yes">Unselect All</property>
-                        <property name="label" translatable="yes">toolbutton7</property>
-                        <property name="use_underline">True</property>
-                        <property name="icon_widget">img_unselect_all</property>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="homogeneous">True</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkToggleToolButton" id="toolbtn_toggle_red_lines">
-                        <property name="visible">True</property>
-                        <property name="sensitive">False</property>
-                        <property name="can_focus">False</property>
-                        <property name="has_tooltip">True</property>
-                        <property name="tooltip_markup" translatable="yes">Toggle Red Lines</property>
-                        <property name="tooltip_text" translatable="yes">Toggle Red Lines</property>
-                        <property name="label" translatable="yes">toolbutton8</property>
-                        <property name="use_underline">True</property>
-                        <property name="icon_widget">img_red_lines</property>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="homogeneous">True</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkToolButton" id="toolbtn_refresh">
-                        <property name="visible">True</property>
-                        <property name="sensitive">False</property>
-                        <property name="can_focus">False</property>
-                        <property name="has_tooltip">True</property>
-                        <property name="tooltip_markup" translatable="yes">Refresh</property>
-                        <property name="tooltip_text" translatable="yes">Refresh</property>
-                        <property name="label" translatable="yes">toolbutton9</property>
-                        <property name="use_underline">True</property>
-                        <property name="stock_id">gtk-refresh</property>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="homogeneous">True</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkToolButton" id="btn_stop">
-                        <property name="visible">True</property>
-                        <property name="sensitive">False</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">toolbutton3</property>
-                        <property name="use_underline">True</property>
-                        <property name="stock_id">gtk-cancel</property>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="homogeneous">True</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkToolButton" id="btn_fetch_more">
-                        <property name="visible">True</property>
-                        <property name="sensitive">False</property>
-                        <property name="can_focus">False</property>
-                        <property name="tooltip_text" translatable="yes">Fetch more results</property>
-                        <property name="use_underline">True</property>
-                        <property name="stock_id">gtk-save</property>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="homogeneous">True</property>
-                      </packing>
-                    </child>
+                    <property name="has_tooltip">True</property>
+                    <property name="tooltip_markup" translatable="yes">Invert Selections</property>
+                    <property name="tooltip_text" translatable="yes">Invert Selections</property>
+                    <property name="label" translatable="yes">toolbutton5</property>
+                    <property name="use_underline">True</property>
+                    <property name="icon_widget">img_invert_selection</property>
                   </object>
                   <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="pack_type">end</property>
-                    <property name="position">0</property>
+                    <property name="expand">True</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToolButton" id="toolbtn_select_all">
+                    <property name="visible">True</property>
+                    <property name="sensitive">False</property>
+                    <property name="can_focus">False</property>
+                    <property name="has_tooltip">True</property>
+                    <property name="tooltip_markup" translatable="yes">Select All</property>
+                    <property name="tooltip_text" translatable="yes">Select All</property>
+                    <property name="label" translatable="yes">toolbutton6</property>
+                    <property name="use_underline">True</property>
+                    <property name="stock_id">gtk-select-all</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToolButton" id="toolbtn_unselect_all">
+                    <property name="visible">True</property>
+                    <property name="sensitive">False</property>
+                    <property name="can_focus">False</property>
+                    <property name="has_tooltip">True</property>
+                    <property name="tooltip_markup" translatable="yes">Unselect All</property>
+                    <property name="tooltip_text" translatable="yes">Unselect All</property>
+                    <property name="label" translatable="yes">toolbutton7</property>
+                    <property name="use_underline">True</property>
+                    <property name="icon_widget">img_unselect_all</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToggleToolButton" id="toolbtn_toggle_red_lines">
+                    <property name="visible">True</property>
+                    <property name="sensitive">False</property>
+                    <property name="can_focus">False</property>
+                    <property name="has_tooltip">True</property>
+                    <property name="tooltip_markup" translatable="yes">Toggle Red Lines</property>
+                    <property name="tooltip_text" translatable="yes">Toggle Red Lines</property>
+                    <property name="label" translatable="yes">toolbutton8</property>
+                    <property name="use_underline">True</property>
+                    <property name="icon_widget">img_red_lines</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToolButton" id="toolbtn_refresh">
+                    <property name="visible">True</property>
+                    <property name="sensitive">False</property>
+                    <property name="can_focus">False</property>
+                    <property name="has_tooltip">True</property>
+                    <property name="tooltip_markup" translatable="yes">Refresh</property>
+                    <property name="tooltip_text" translatable="yes">Refresh</property>
+                    <property name="label" translatable="yes">toolbutton9</property>
+                    <property name="use_underline">True</property>
+                    <property name="stock_id">gtk-refresh</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToolButton" id="btn_stop">
+                    <property name="visible">True</property>
+                    <property name="sensitive">False</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">toolbutton3</property>
+                    <property name="use_underline">True</property>
+                    <property name="stock_id">gtk-cancel</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToolButton" id="btn_fetch_more">
+                    <property name="visible">True</property>
+                    <property name="sensitive">False</property>
+                    <property name="can_focus">False</property>
+                    <property name="has_tooltip">True</property>
+                    <property name="tooltip_markup" translatable="yes">Fetch more results</property>
+                    <property name="tooltip_text" translatable="yes">Fetch more results</property>
+                    <property name="use_underline">True</property>
+                    <property name="stock_id">gtk-save</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="homogeneous">True</property>
                   </packing>
                 </child>
               </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="pack_type">end</property>
+                <property name="position">0</property>
+              </packing>
             </child>
           </object>
-        </child>
-        <child type="label">
-          <object class="GtkLabel" id="label8">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Results:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
-          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
         </child>
       </object>
       <packing>
         <property name="expand">True</property>
         <property name="fill">True</property>
-        <property name="position">2</property>
+        <property name="position">3</property>
       </packing>
     </child>
     <child>
@@ -331,7 +336,7 @@
       <packing>
         <property name="expand">False</property>
         <property name="fill">False</property>
-        <property name="position">3</property>
+        <property name="position">4</property>
       </packing>
     </child>
     <child>
@@ -372,7 +377,7 @@
       <packing>
         <property name="expand">False</property>
         <property name="fill">False</property>
-        <property name="position">4</property>
+        <property name="position">5</property>
       </packing>
     </child>
     <child>
@@ -385,7 +390,7 @@
       <packing>
         <property name="expand">False</property>
         <property name="fill">False</property>
-        <property name="position">5</property>
+        <property name="position">6</property>
       </packing>
     </child>
   </object>
