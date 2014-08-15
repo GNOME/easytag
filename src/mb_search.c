@@ -272,6 +272,7 @@ et_musicbrainz_search_in_entity (MbEntityKind child_type,
     if (child_type == MB_ENTITY_KIND_ALBUM &&
         parent_type == MB_ENTITY_KIND_ARTIST)
     {
+        /* Get all Albums of an Artist */
         param_values[0] = "releases";
         metadata = mb5_query_query (query, "artist", parent_mbid, "", 1,
                                     param_names, param_values);
@@ -327,6 +328,7 @@ et_musicbrainz_search_in_entity (MbEntityKind child_type,
                                                    buf,
                                                    sizeof (buf));
                         buf[size] = '\0';
+                        /* Get more information about album */
                         metadata_entity = mb5_query_query (query, "release",
                                                            buf, "",
                                                            1, param_names,
@@ -366,6 +368,7 @@ et_musicbrainz_search_in_entity (MbEntityKind child_type,
     else if (child_type == MB_ENTITY_KIND_TRACK &&
              parent_type == MB_ENTITY_KIND_ALBUM)
     {
+        /* Get All Tracks of an Album */
         param_values[0] = "recordings";
         CHECK_CANCELLED(cancellable);
         metadata = mb5_query_query (query, "release", parent_mbid, "", 1,
@@ -433,6 +436,7 @@ et_musicbrainz_search_in_entity (MbEntityKind child_type,
                                                          buf,
                                                          sizeof (buf));
                             CHECK_CANCELLED(cancellable);
+                            /* Get more information about Recording */
                             metadata_entity = mb5_query_query (query,
                                                                "recording",
                                                                buf, "", 1,
@@ -621,6 +625,12 @@ et_musicbrainz_set_error_from_query (Mb5Query query, tQueryResult result,
     g_assert (error == NULL || *error != NULL);
 }
 
+/*
+ * free_mb_node_children:
+ * @node: GNode whose children are to be freed
+ *
+ * Free all children of a node;
+ */
 static void
 free_mb_node_children (GNode *node)
 {
@@ -637,6 +647,14 @@ free_mb_node_children (GNode *node)
     }
 }
 
+/*
+ * et_mb_entity_copy:
+ * @etentity: EtMbEntity to be copied
+ *
+ * Copies given EtMbEntity
+ *
+ * Returns: A new copy must be freed using g_slice_free.
+ */
 EtMbEntity *
 et_mb_entity_copy (EtMbEntity *etentity)
 {
@@ -861,6 +879,7 @@ et_musicbrainz_search_album (gchar *string, GNode *root, int offset,
                                         buf,
                                         sizeof (buf));
                     CHECK_CANCELLED(cancellable);
+                    /* Get more information about Album */
                     metadata_release = mb5_query_query (query, "release",
                                                         buf, "",
                                                         1, param_names,
@@ -1016,6 +1035,7 @@ et_musicbrainz_search_track (gchar *string, GNode *root, int offset,
                 mb5_recording_get_id (recording,
                                       buf,
                                       sizeof (buf));
+                /* Get more information about Recording */
                 metadata_recording = mb5_query_query (query, "recording",
                                                       buf, "",
                                                       1, param_names,
@@ -1170,6 +1190,7 @@ et_musicbrainz_search_discid (gchar *string, GNode *root, GError **error,
                     mb5_release_get_id ((Mb5Release)release,
                                         buf,
                                         sizeof (buf));
+                    /* Get more information about Album */
                     metadata_release = mb5_query_query (query, "release",
                                                         buf, "",
                                                         1, param_names,
