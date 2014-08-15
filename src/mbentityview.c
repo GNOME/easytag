@@ -150,11 +150,13 @@ tree_filter_visible_func (GtkTreeModel *model, GtkTreeIter *iter,
 
     if (priv->search_or_red == ET_MB_DISPLAY_RESULTS_ALL)
     {
+        /* Display all results */
         return TRUE;
     }
 
     if (priv->search_or_red & ET_MB_DISPLAY_RESULTS_SEARCH)
     {
+        /* Display results corresponding to search text only */
         gchar *value;
 
         gtk_tree_model_get (model, iter, 0, &value, -1);
@@ -170,6 +172,7 @@ tree_filter_visible_func (GtkTreeModel *model, GtkTreeIter *iter,
 
     if (priv->search_or_red & ET_MB_DISPLAY_RESULTS_RED)
     {
+        /* Display Red Results only */
         GdkRGBA *value;
 
         if (columns == MB_ARTIST_COLUMNS_N + 1)
@@ -266,6 +269,7 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
         {
             case MB_ENTITY_KIND_ARTIST:
             {
+                /* If type of node is artist */
                 gchar gender[NAME_MAX_SIZE];
                 gchar type[NAME_MAX_SIZE];               
                 gchar name[NAME_MAX_SIZE];
@@ -305,6 +309,7 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
 
             case MB_ENTITY_KIND_ALBUM:
             {
+                /* If type of node is album */
                 gchar group[NAME_MAX_SIZE];
                 gchar name[NAME_MAX_SIZE];
                 gchar *album_artists;
@@ -360,6 +365,7 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
 
             case MB_ENTITY_KIND_TRACK:
             {
+                /* If type of node is track */
                 GString *releases;
                 gchar name[NAME_MAX_SIZE];
                 gchar time[NAME_MAX_SIZE];
@@ -433,6 +439,7 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
 
             case MB_ENTITY_KIND_FREEDBID:
             {
+                /* If type of node is FreeDB ID */
                 gchar freedbid[NAME_MAX_SIZE];
                 gchar title[NAME_MAX_SIZE];
                 gchar artist[NAME_MAX_SIZE];
@@ -469,6 +476,7 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                 }
             }
 
+            /* Do nothing if type of node is one of the following */
             case MB_ENTITY_KIND_COUNT:
             case MB_ENTITY_KIND_DISCID:
                 break;
@@ -547,6 +555,7 @@ show_data_in_entity_view (EtMbEntityView *entity_view)
 
     for (i = 0; i < total_cols; i++)
     {
+        /* Set all columns to String type */
         types[i] = G_TYPE_STRING;
         renderer = gtk_cell_renderer_text_new ();
         column = gtk_tree_view_column_new_with_attributes (column_names[type][i],
@@ -592,6 +601,9 @@ toggle_button_clicked (GtkWidget *btn, gpointer user_data)
 
     if (btn == priv->active_toggle_button)
     {
+        /* If the clicked button is active toggle 
+         * button then change its state to TRUE
+         */
         if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (btn)))
         {
             gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (btn), TRUE);
@@ -602,9 +614,13 @@ toggle_button_clicked (GtkWidget *btn, gpointer user_data)
 
     if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (btn)))
     {
+        /* Do nothing if state is FALSE */
         return;
     }
 
+    /* If clicked button is not active toggle button and its state is TRUE
+     * load all the children of node associated with it 
+     */
     prev_active_toggle_btn = priv->active_toggle_button;
     priv->active_toggle_button = btn;
 
@@ -646,6 +662,7 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
     if (res &&
         !g_simple_async_result_get_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res)))
     {
+        /* If an error occurred */
         g_object_unref (res);
         g_slice_free (SearchInLevelThreadData, user_data);
         et_music_brainz_dialog_toolbar_buttons_set_sensitive (TRUE);
@@ -670,7 +687,7 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
     {
         GtkWidget *prev_active_toggle_btn;
 
-        /* Only run if iter is valid i.e. it is not a Refresh Option */
+        /* Only run if iter is valid i.e. it is not a Refresh Operation */
         children = gtk_container_get_children (GTK_CONTAINER (priv->bread_crumb_box));
         active_child = g_list_find (children, priv->active_toggle_button);
     
@@ -762,6 +779,7 @@ search_in_levels_thread_func (GSimpleAsyncResult *res, GObject *obj,
     {
         case MB_ENTITY_KIND_ARTIST:
         {
+            /* If parent is artist then get all albums */
             child_entity_type_str = g_strdup ("Albums ");
             mb5_artist_get_id (((EtMbEntity *)thread_data->child->data)->entity,
                                mbid, sizeof (mbid));
@@ -772,6 +790,7 @@ search_in_levels_thread_func (GSimpleAsyncResult *res, GObject *obj,
         }
         case MB_ENTITY_KIND_ALBUM:
         {
+            /* If parent is album then get all tracks */
             child_entity_type_str = g_strdup ("Tracks ");
             mb5_release_get_id (((EtMbEntity *)thread_data->child->data)->entity,
                                 mbid, sizeof (mbid));
@@ -782,6 +801,7 @@ search_in_levels_thread_func (GSimpleAsyncResult *res, GObject *obj,
         }
         case MB_ENTITY_KIND_FREEDBID:
         {
+            /* If parent is Freedbid then get all albums */
             child_entity_type_str = g_strdup ("Albums ");
             mb5_freedbdisc_get_title (((EtMbEntity *)thread_data->child->data)->entity,
                                       mbid, sizeof (mbid));
@@ -868,6 +888,7 @@ tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
                                                       &iter, &filter_iter);
     depth = 0;
 
+    /* Get the desired node associated with the activated row */
     while (gtk_tree_model_iter_previous (priv->list_store, &iter))
     {
         depth++;
@@ -916,6 +937,7 @@ search_in_levels (EtMbEntityView *entity_view, GNode *child,
 
     if (!is_refresh && ((EtMbEntity *)child->data)->is_red_line)
     {
+        /* If node is a red line and it is not a refresh operation */
         search_in_levels_callback (NULL, NULL, thread_data);
         return;
     }
@@ -1377,6 +1399,7 @@ et_mb_entity_view_get_selected_entity_list (EtMbEntityView *entity_view,
 
     if (count > 0 && count < g_node_n_children (priv->mb_tree_current_node))
     {
+        /* If some rows are selected then add only those nodes in the list */
         GList *l;
 
         list_sel_rows = gtk_tree_selection_get_selected_rows (selection,
@@ -1391,7 +1414,7 @@ et_mb_entity_view_get_selected_entity_list (EtMbEntityView *entity_view,
             gtk_tree_model_filter_convert_iter_to_child_iter (GTK_TREE_MODEL_FILTER (priv->filter),
                                                               &iter, &filter_iter);
             depth = 0;
-        
+            /* Get the node associated with the given iter */
             while (gtk_tree_model_iter_previous (priv->list_store, &iter))
             {
                 depth++;
@@ -1407,6 +1430,7 @@ et_mb_entity_view_get_selected_entity_list (EtMbEntityView *entity_view,
     }
     else
     {
+        /* If no node is selected then select all the children */
         count = g_node_n_children (priv->mb_tree_current_node);
         child = g_node_first_child (priv->mb_tree_current_node);
 
