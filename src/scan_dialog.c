@@ -2470,6 +2470,23 @@ et_scan_on_hide (GtkWidget *widget,
 }
 
 static void
+et_grid_attach_margins (GtkGrid *grid,
+                        GtkWidget *child,
+                        gint left_attach,
+                        gint top_attach)
+{
+    gtk_widget_set_halign (child, GTK_ALIGN_START);
+#if GTK_CHECK_VERSION (3, 12, 0)
+    gtk_widget_set_margin_start (child, BOX_SPACING);
+    gtk_widget_set_margin_end (child, BOX_SPACING);
+#else
+    gtk_widget_set_margin_left (child, BOX_SPACING);
+    gtk_widget_set_margin_right (child, BOX_SPACING);
+#endif
+
+    gtk_grid_attach (grid, child, left_attach, top_attach, 1, 1);
+}
+static void
 create_scan_dialog (EtScanDialog *self)
 {
     EtScanDialogPrivate *priv;
@@ -3007,56 +3024,39 @@ create_scan_dialog (EtScanDialog *self)
     gtk_container_add(GTK_CONTAINER(priv->legend_frame),Table);
     gtk_container_set_border_width(GTK_CONTAINER(Table),4);
     Label = gtk_label_new(_("%a: artist"));
-    et_grid_attach_margins (GTK_GRID (Table), Label, 0, 0, 1, 1, 6, 0);
-    gtk_widget_set_halign (Label, GTK_ALIGN_START);
+    et_grid_attach_margins (GTK_GRID (Table), Label, 0, 0);
     Label = gtk_label_new(_("%z: album artist"));
-    et_grid_attach_margins (GTK_GRID (Table), Label, 0, 1, 1, 1, 6, 0);
-    gtk_widget_set_halign (Label, GTK_ALIGN_START);
+    et_grid_attach_margins (GTK_GRID (Table), Label, 0, 1);
     Label = gtk_label_new(_("%b: album"));
-    et_grid_attach_margins (GTK_GRID (Table), Label, 0, 2, 1, 1, 6, 0);
-    gtk_widget_set_halign (Label, GTK_ALIGN_START);
+    et_grid_attach_margins (GTK_GRID (Table), Label, 0, 2);
     Label = gtk_label_new(_("%c: comment"));
-    et_grid_attach_margins (GTK_GRID (Table), Label, 0, 3, 1, 1, 6, 0);
-    gtk_widget_set_halign (Label, GTK_ALIGN_START);
+    et_grid_attach_margins (GTK_GRID (Table), Label, 0, 3);
     Label = gtk_label_new(_("%p: composer"));
-    et_grid_attach_margins (GTK_GRID (Table), Label, 0, 4, 1, 1, 6, 0);
-    gtk_widget_set_halign (Label, GTK_ALIGN_START);
+    et_grid_attach_margins (GTK_GRID (Table), Label, 0, 4);
     Label = gtk_label_new(_("%r: copyright"));
-    et_grid_attach_margins (GTK_GRID (Table), Label, 0, 5, 1, 1, 6, 0);
-    gtk_widget_set_halign (Label, GTK_ALIGN_START);
+    et_grid_attach_margins (GTK_GRID (Table), Label, 0, 5);
     Label = gtk_label_new(_("%d: disc number"));
-    et_grid_attach_margins (GTK_GRID (Table), Label, 1, 0, 1, 1, 6, 0);
-    gtk_widget_set_halign (Label, GTK_ALIGN_START);
+    et_grid_attach_margins (GTK_GRID (Table), Label, 1, 0);
     Label = gtk_label_new(_("%e: encoded by"));
-    et_grid_attach_margins (GTK_GRID (Table), Label, 1, 1, 1, 1, 6, 0);
-    gtk_widget_set_halign (Label, GTK_ALIGN_START);
+    et_grid_attach_margins (GTK_GRID (Table), Label, 1, 1);
     Label = gtk_label_new(_("%g: genre"));
-    et_grid_attach_margins (GTK_GRID (Table), Label, 1, 2, 1, 1, 6, 0);
-    gtk_widget_set_halign (Label, GTK_ALIGN_START);
+    et_grid_attach_margins (GTK_GRID (Table), Label, 1, 2);
     Label = gtk_label_new(_("%i: ignored"));
-    et_grid_attach_margins (GTK_GRID (Table), Label, 1, 3, 1, 1, 6, 0);
-    gtk_widget_set_halign (Label, GTK_ALIGN_START);
+    et_grid_attach_margins (GTK_GRID (Table), Label, 1, 3);
     Label = gtk_label_new(_("%l: number of tracks"));
-    et_grid_attach_margins (GTK_GRID (Table), Label, 1, 4, 1, 1, 6, 0);
-    gtk_widget_set_halign (Label, GTK_ALIGN_START);
+    et_grid_attach_margins (GTK_GRID (Table), Label, 1, 4);
     Label = gtk_label_new(_("%o: orig. artist"));
-    et_grid_attach_margins (GTK_GRID (Table), Label, 1, 5, 1, 1, 6, 0);
-    gtk_widget_set_halign (Label, GTK_ALIGN_START);
+    et_grid_attach_margins (GTK_GRID (Table), Label, 1, 5);
     Label = gtk_label_new(_("%n: track"));
-    et_grid_attach_margins (GTK_GRID (Table), Label, 2, 0, 1, 1, 6, 0);
-    gtk_widget_set_halign (Label, GTK_ALIGN_START);
+    et_grid_attach_margins (GTK_GRID (Table), Label, 2, 0);
     Label = gtk_label_new(_("%t: title"));
-    et_grid_attach_margins (GTK_GRID (Table), Label, 2, 1, 1, 1, 6, 0);
-    gtk_widget_set_halign (Label, GTK_ALIGN_START);
+    et_grid_attach_margins (GTK_GRID (Table), Label, 2, 1);
     Label = gtk_label_new(_("%u: URL"));
-    et_grid_attach_margins (GTK_GRID (Table), Label, 2, 2, 1, 1, 6, 0);
-    gtk_widget_set_halign (Label, GTK_ALIGN_START);
+    et_grid_attach_margins (GTK_GRID (Table), Label, 2, 2);
     Label = gtk_label_new (_("%x: number of discs"));
-    et_grid_attach_margins (GTK_GRID (Table), Label, 2, 3, 1, 1, 6, 0);
-    gtk_widget_set_halign (Label, GTK_ALIGN_START);
+    et_grid_attach_margins (GTK_GRID (Table), Label, 2, 3);
     Label = gtk_label_new(_("%y: year"));
-    et_grid_attach_margins (GTK_GRID (Table), Label, 2, 4, 1, 1, 6, 0);
-    gtk_widget_set_halign (Label, GTK_ALIGN_START);
+    et_grid_attach_margins (GTK_GRID (Table), Label, 2, 4);
 
     /*
      * Masks Editor

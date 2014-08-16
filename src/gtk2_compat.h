@@ -27,10 +27,6 @@ void et_grid_attach_full (GtkGrid *grid, GtkWidget *child, gint left, gint top,
                           gint width, gint height, gboolean hexpand,
                           gboolean vexpand, gint hmargin, gint vmargin);
 
-void et_grid_attach_margins (GtkGrid *grid, GtkWidget *child, gint left,
-                             gint top, gint width, gint height, gint hmargin,
-                             gint vmargin);
-
 G_END_DECLS
 
 #endif /* GTK2_COMPAT_H_ */

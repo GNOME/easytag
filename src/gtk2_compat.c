@@ -36,11 +36,3 @@ void et_grid_attach_full (GtkGrid *grid, GtkWidget *child, gint left, gint top,
                   NULL);
     gtk_grid_attach (grid, child, left, top, width, height);
 }
-
-void et_grid_attach_margins (GtkGrid *grid, GtkWidget *child, gint left,
-                              gint top, gint width, gint height, gint hmargin,
-                              gint vmargin)
-{
-    et_grid_attach_full (grid, child, left, top, width, height, FALSE, FALSE,
-                         hmargin, vmargin);
-}
