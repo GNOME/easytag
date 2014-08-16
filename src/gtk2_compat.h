@@ -23,8 +23,6 @@
 
 G_BEGIN_DECLS
 
-#define et_grid_new(r,c) gtk_grid_new()
-
 void et_grid_attach_full (GtkGrid *grid, GtkWidget *child, gint left, gint top,
                           gint width, gint height, gboolean hexpand,
                           gboolean vexpand, gint hmargin, gint vmargin);

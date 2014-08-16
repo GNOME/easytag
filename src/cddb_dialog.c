@@ -38,7 +38,6 @@
 #endif /* !G_OS_WIN32 */
 #include <errno.h>
 
-#include "gtk2_compat.h"
 #include "application_window.h"
 #include "cddb_dialog.h"
 #include "easytag.h"
@@ -3093,7 +3092,7 @@ create_cddb_dialog (EtCDDBDialog *self)
     Frame = gtk_frame_new(_("Search In:"));
     gtk_box_pack_start(GTK_BOX(notebookvbox),Frame,FALSE,TRUE,0);
 
-    Table = et_grid_new (7,4);
+    Table = gtk_grid_new ();
     gtk_container_add(GTK_CONTAINER(Frame),Table);
     gtk_grid_set_row_spacing (GTK_GRID (Table), 1);
     gtk_grid_set_column_spacing (GTK_GRID (Table), 1);

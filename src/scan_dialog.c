@@ -3003,7 +3003,7 @@ create_scan_dialog (EtScanDialog *self)
     priv->legend_frame = gtk_frame_new (_("Legend"));
     gtk_box_pack_start(GTK_BOX(ScanVBox),priv->legend_frame,FALSE,FALSE,0);
     /* Legend labels */
-    Table = et_grid_new (3, 6);
+    Table = gtk_grid_new ();
     gtk_container_add(GTK_CONTAINER(priv->legend_frame),Table);
     gtk_container_set_border_width(GTK_CONTAINER(Table),4);
     Label = gtk_label_new(_("%a: artist"));

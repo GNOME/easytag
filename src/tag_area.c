@@ -2070,7 +2070,7 @@ create_tag_area (EtTagArea *self)
      */
     label = gtk_label_new (_("Common"));
 
-    table = et_grid_new (11, 11);
+    table = gtk_grid_new ();
     gtk_notebook_append_page (GTK_NOTEBOOK (priv->notebook), table, label);
     gtk_container_set_border_width (GTK_CONTAINER (table), 2);
 
@@ -2447,7 +2447,7 @@ create_tag_area (EtTagArea *self)
     /* Also used in ET_Display_File_Tag_To_UI. */
     label = gtk_label_new (_("Images"));
 
-    priv->images_tab = table = et_grid_new (1, 2);
+    priv->images_tab = table = gtk_grid_new ();
     gtk_notebook_append_page (GTK_NOTEBOOK (priv->notebook), table, label);
     gtk_container_set_border_width (GTK_CONTAINER (table), 2);
 

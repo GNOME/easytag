@@ -618,7 +618,7 @@ create_search_dialog (EtSearchDialog *self)
     gtk_container_set_border_width (GTK_CONTAINER (self),
                                     BOX_SPACING);
 
-    Table = et_grid_new (3, 6);
+    Table = gtk_grid_new ();
     gtk_container_add (GTK_CONTAINER (content_area), Table);
     gtk_grid_set_row_spacing (GTK_GRID (Table), BOX_SPACING);
     gtk_grid_set_column_spacing (GTK_GRID (Table), BOX_SPACING);
