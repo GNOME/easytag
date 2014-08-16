@@ -1234,12 +1234,6 @@ create_preferences_dialog (EtPreferencesDialog *self)
                      PFSDontUpperSomeWords, "active",
                      G_SETTINGS_BIND_DEFAULT);
 
-    /* Properties of the scanner window */
-    OpenScannerWindowOnStartup = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                     "scanner_dialog_startup_check"));
-    g_settings_bind (MainSettings, "scan-startup", OpenScannerWindowOnStartup,
-                     "active", G_SETTINGS_BIND_DEFAULT);
-
     /* Other options */
     OverwriteTagField = GTK_WIDGET (gtk_builder_get_object (builder,
                                                             "overwrite_fields_check"));
@@ -1263,8 +1257,6 @@ create_preferences_dialog (EtPreferencesDialog *self)
                                                        "crc32_default_check"));
     g_settings_bind (MainSettings, "fill-crc32-comment", Crc32Comment,
                      "active", G_SETTINGS_BIND_DEFAULT);
-
-    g_object_unref (builder);
 
     /*
      * CDDB
@@ -1482,42 +1474,47 @@ create_preferences_dialog (EtPreferencesDialog *self)
     /*
      * Confirmation
      */
-    Label = gtk_label_new (_("Confirmation"));
-    VBox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
+    Label = gtk_label_new (_("Application"));
+    VBox = GTK_WIDGET (gtk_builder_get_object (builder, "application_grid"));
     gtk_notebook_append_page (GTK_NOTEBOOK(priv->options_notebook), VBox, Label);
-    gtk_container_set_border_width (GTK_CONTAINER (VBox), BOX_SPACING);
-
-    ConfirmBeforeExit = gtk_check_button_new_with_label (_("Confirm before quitting the application"));
-    gtk_box_pack_start(GTK_BOX(VBox),ConfirmBeforeExit,FALSE,FALSE,0);
+    ConfirmBeforeExit = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                            "confirm_quit_check"));
     g_settings_bind (MainSettings, "confirm-quit", ConfirmBeforeExit, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (ConfirmBeforeExit,
-                                 _("Whether to ask for confirmation from the user before quitting the application"));
 
-    ConfirmWriteTag = gtk_check_button_new_with_label (_("Confirm before writing tags"));
-    gtk_box_pack_start(GTK_BOX(VBox),ConfirmWriteTag,FALSE,FALSE,0);
+    ConfirmWriteTag = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                          "confirm_write_check"));
     g_settings_bind (MainSettings, "confirm-write-tags", ConfirmWriteTag,
                      "active", G_SETTINGS_BIND_DEFAULT);
 
-    ConfirmRenameFile = gtk_check_button_new_with_label (_("Confirm before renaming a file"));
-    gtk_box_pack_start(GTK_BOX(VBox),ConfirmRenameFile,FALSE,FALSE,0);
+    ConfirmRenameFile = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                            "confirm_rename_check"));
     g_settings_bind (MainSettings, "confirm-rename-file", ConfirmRenameFile,
                      "active", G_SETTINGS_BIND_DEFAULT);
 
-    ConfirmDeleteFile = gtk_check_button_new_with_label (_("Confirm before deleting a file"));
+    ConfirmDeleteFile = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                            "confirm_delete_check"));
     g_settings_bind (MainSettings, "confirm-delete-file", ConfirmDeleteFile,
                      "active", G_SETTINGS_BIND_DEFAULT);
 
-    ConfirmWritePlayList = gtk_check_button_new_with_label (_("Confirm before writing a playlist"));
-    gtk_box_pack_start(GTK_BOX(VBox),ConfirmWritePlayList,FALSE,FALSE,0);
+    ConfirmWritePlayList = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                               "confirm_write_playlist_check"));
     g_settings_bind (MainSettings, "confirm-write-playlist",
                      ConfirmWritePlayList, "active", G_SETTINGS_BIND_DEFAULT);
 
-    ConfirmWhenUnsavedFiles = gtk_check_button_new_with_label (_("Confirm before losing unsaved changes to files"));
-    gtk_box_pack_start(GTK_BOX(VBox),ConfirmWhenUnsavedFiles,FALSE,FALSE,0);
+    ConfirmWhenUnsavedFiles = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                  "confirm_unsaved_files_check"));
     g_settings_bind (MainSettings, "confirm-when-unsaved-files",
                      ConfirmWhenUnsavedFiles, "active",
                      G_SETTINGS_BIND_DEFAULT);
+
+    /* Properties of the scanner window */
+    OpenScannerWindowOnStartup = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                     "scanner_dialog_startup_check"));
+    g_settings_bind (MainSettings, "scan-startup", OpenScannerWindowOnStartup,
+                     "active", G_SETTINGS_BIND_DEFAULT);
+
+    g_object_unref (builder);
 
     /* Load the default page */
     g_settings_bind (MainSettings, "preferences-page", priv->options_notebook,

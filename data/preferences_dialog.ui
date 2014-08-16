@@ -112,25 +112,6 @@
             </object>
         </child>
         <child>
-            <object class="GtkLabel" id="scanner_dialog_label">
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">Scanner Dialog</property>
-                <property name="margin-top">12</property>
-                <property name="visible">True</property>
-                <attributes>
-                    <attribute name="weight" value="bold"/>
-                </attributes>
-            </object>
-        </child>
-        <child>
-            <object class="GtkCheckButton" id="scanner_dialog_startup_check">
-                <property name="label" translatable="yes">Show the scanner dialog on startup</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether to show the scanner window on application startup</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
             <object class="GtkLabel" id="fields_label">
                 <property name="halign">start</property>
                 <property name="label" translatable="yes">Fields</property>
@@ -173,6 +154,89 @@
                 <property name="label" translatable="yes">Use CRC32 as the default comment (for files with ID3 tags only)</property>
                 <property name="margin-left">12</property>
                 <property name="tooltip-text" translatable="yes">Whether to use the CRC-32 of the audio file data as the default comment, for files with ID3 tags only</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+    </object>
+    <object class="GtkGrid" id="application_grid">
+        <property name="border-width">12</property>
+        <property name="orientation">vertical</property>
+        <property name="row-spacing">6</property>
+        <property name="visible">True</property>
+        <child>
+            <object class="GtkLabel" id="confirmation_label">
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Confirmation</property>
+                <property name="visible">True</property>
+                <attributes>
+                    <attribute name="weight" value="bold"/>
+                </attributes>
+            </object>
+        </child>
+        <child>
+            <object class="GtkCheckButton" id="confirm_quit_check">
+                <property name="label" translatable="yes">Confirm before quitting the application</property>
+                <property name="margin-left">12</property>
+                <property name="tooltip-text" translatable="yes">Whether to ask for confirmation from the user before quitting the application</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkCheckButton" id="confirm_write_check">
+                <property name="label" translatable="yes">Confirm before writing tags</property>
+                <property name="margin-left">12</property>
+                <property name="tooltip-text" translatable="yes">Whether to ask for confirmation from the user before writing tags to audio files</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkCheckButton" id="confirm_rename_check">
+                <property name="label" translatable="yes">Confirm before renaming a file</property>
+                <property name="margin-left">12</property>
+                <property name="tooltip-text" translatable="yes">Whether to ask for confirmation from the user before renaming a file</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkCheckButton" id="confirm_delete_check">
+                <property name="label" translatable="yes">Confirm before deleting a file</property>
+                <property name="margin-left">12</property>
+                <property name="tooltip-text" translatable="yes">Whether to ask for confirmation from the user before deleting a file</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkCheckButton" id="confirm_write_playlist_check">
+                <property name="label" translatable="yes">Confirm before writing a playlist</property>
+                <property name="margin-left">12</property>
+                <property name="tooltip-text" translatable="yes">Whether to ask for confirmation from the user before writing a playlist</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkCheckButton" id="confirm_unsaved_files_check">
+                <property name="label" translatable="yes">Confirm before losing unsaved changes to files</property>
+                <property name="margin-left">12</property>
+                <property name="tooltip-text" translatable="yes">Whether to ask for confirmation from the user before performing an operation that would lose unsaved changes on files</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkLabel" id="scanner_dialog_label">
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Scanner Dialog</property>
+                <property name="margin-top">12</property>
+                <property name="visible">True</property>
+                <attributes>
+                    <attribute name="weight" value="bold"/>
+                </attributes>
+            </object>
+        </child>
+        <child>
+            <object class="GtkCheckButton" id="scanner_dialog_startup_check">
+                <property name="label" translatable="yes">Show the scanner dialog on startup</property>
+                <property name="margin-left">12</property>
+                <property name="tooltip-text" translatable="yes">Whether to show the scanner window on application startup</property>
                 <property name="visible">True</property>
             </object>
         </child>
