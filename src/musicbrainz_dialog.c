@@ -460,8 +460,6 @@ manual_search_callback (GObject *source, GAsyncResult *res,
     ManualSearchThreadData *thread_data;
 
     simple_async = G_SIMPLE_ASYNC_RESULT (res);
-    dlg = ET_MUSICBRAINZ_DIALOG (mbDialog);
-    priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (dlg);
     thread_data = (ManualSearchThreadData *)user_data;
 
     if (!g_simple_async_result_get_op_res_gboolean (simple_async))
@@ -474,6 +472,8 @@ manual_search_callback (GObject *source, GAsyncResult *res,
         return;
     }
 
+    dlg = ET_MUSICBRAINZ_DIALOG (mbDialog);
+    priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (dlg);
     et_mb_entity_view_clear_all (ET_MB_ENTITY_VIEW (priv->entityView));
     free_mb_tree (&priv->mb_tree_root);
     priv->mb_tree_root = thread_data->node;
@@ -937,8 +937,6 @@ selected_find_callback (GObject *source, GAsyncResult *res,
     EtMusicBrainzDialog *dlg;
     SelectedFindThreadData  *thread_data;
 
-    dlg = ET_MUSICBRAINZ_DIALOG (mbDialog);
-    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (dlg);
     thread_data = user_data;
 
     if (!g_simple_async_result_get_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res)))
@@ -952,6 +950,8 @@ selected_find_callback (GObject *source, GAsyncResult *res,
         return;
     }
 
+    dlg = ET_MUSICBRAINZ_DIALOG (mbDialog);
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (dlg);
     free_mb_tree (&mb_dialog_priv->mb_tree_root);
     mb_dialog_priv->mb_tree_root = thread_data->node;
     et_mb_entity_view_clear_all (ET_MB_ENTITY_VIEW (mb_dialog_priv->entityView));
@@ -1239,9 +1239,7 @@ discid_search_callback (GObject *source, GAsyncResult *res,
     DiscIDSearchThreadData *thread_data;
 
     thread_data = user_data;
-    dlg = ET_MUSICBRAINZ_DIALOG (mbDialog);
-    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (dlg);
-
+    
     if (!g_simple_async_result_get_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res)))
     {
         g_object_unref (res);
@@ -1250,6 +1248,8 @@ discid_search_callback (GObject *source, GAsyncResult *res,
         return;
     }
 
+    dlg = ET_MUSICBRAINZ_DIALOG (mbDialog);
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (dlg);
     free_mb_tree (&mb_dialog_priv->mb_tree_root);
     mb_dialog_priv->mb_tree_root = thread_data->node;
     et_mb_entity_view_clear_all (ET_MB_ENTITY_VIEW (mb_dialog_priv->entityView));
@@ -1394,8 +1394,6 @@ freedbid_search_callback (GObject *source, GAsyncResult *res,
     EtMusicBrainzDialog *dlg;
     FreeDBIDSearchThreadData *thread_data;
 
-    dlg = ET_MUSICBRAINZ_DIALOG (mbDialog);
-    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (dlg);
     thread_data = user_data;
 
     if (!g_simple_async_result_get_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (res)))
@@ -1408,6 +1406,8 @@ freedbid_search_callback (GObject *source, GAsyncResult *res,
         return;
     }
 
+    dlg = ET_MUSICBRAINZ_DIALOG (mbDialog);
+    mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (dlg);
     free_mb_tree (&mb_dialog_priv->mb_tree_root);
     mb_dialog_priv->mb_tree_root = thread_data->node;
     et_mb_entity_view_clear_all (ET_MB_ENTITY_VIEW (mb_dialog_priv->entityView));
@@ -2069,6 +2069,11 @@ void
 et_music_brainz_dialog_stop_set_sensitive (gboolean sensitive)
 {
     EtMusicBrainzDialogPrivate *mb_dialog_priv;
+
+    if (!IS_ET_MUSICBRAINZ_DIALOG (mbDialog))
+    {
+        return;
+    }
 
     mb_dialog_priv = ET_MUSICBRAINZ_DIALOG_GET_PRIVATE (ET_MUSICBRAINZ_DIALOG (mbDialog));
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "btn_stop")),
