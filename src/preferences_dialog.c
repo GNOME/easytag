@@ -220,9 +220,7 @@ static void
 create_preferences_dialog (EtPreferencesDialog *self)
 {
     EtPreferencesDialogPrivate *priv;
-    GtkWidget *OptionsVBox;
-    GtkWidget *Label;
-    GtkWidget *VBox, *vbox;
+    GtkWidget *vbox;
     GtkWidget *LoadOnStartup;
     GtkWidget *BrowseSubdir;
     GtkWidget *OpenSelectedBrowserNode;
@@ -314,19 +312,10 @@ create_preferences_dialog (EtPreferencesDialog *self)
 
      /* Options */
      /* The vbox */
-    OptionsVBox = gtk_dialog_get_content_area (GTK_DIALOG (self));
-    gtk_box_set_spacing (GTK_BOX (OptionsVBox), BOX_SPACING);
+    vbox = gtk_dialog_get_content_area (GTK_DIALOG (self));
+    gtk_box_set_spacing (GTK_BOX (vbox), BOX_SPACING);
 
      /* Options NoteBook */
-    priv->options_notebook = gtk_notebook_new();
-    gtk_notebook_popup_enable(GTK_NOTEBOOK(priv->options_notebook));
-    gtk_notebook_set_scrollable(GTK_NOTEBOOK(priv->options_notebook),TRUE);
-    gtk_box_pack_start(GTK_BOX(OptionsVBox),priv->options_notebook,TRUE,TRUE,0);
-
-    /*
-     * Browser
-     */
-    Label = gtk_label_new(_("Interface"));
     builder = gtk_builder_new ();
     gtk_builder_add_from_resource (builder,
                                    "/org/gnome/EasyTAG/preferences_dialog.ui",
@@ -338,8 +327,13 @@ create_preferences_dialog (EtPreferencesDialog *self)
                  error->message);
     }
 
-    vbox = GTK_WIDGET (gtk_builder_get_object (builder, "ui_grid"));
-    gtk_notebook_append_page (GTK_NOTEBOOK (priv->options_notebook), vbox, Label);
+    priv->options_notebook = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                 "preferences_notebook"));
+    gtk_box_pack_start (GTK_BOX (vbox), priv->options_notebook, TRUE, TRUE, 0);
+
+    /*
+     * Browser
+     */
     default_path_button = GTK_WIDGET (gtk_builder_get_object (builder,
                                                               "default_path_button"));
     on_default_path_changed (MainSettings, "changed::default-path",
@@ -417,11 +411,6 @@ create_preferences_dialog (EtPreferencesDialog *self)
     /*
      * File Settings
      */
-    Label = gtk_label_new (_("Files"));
-    VBox = GTK_WIDGET (gtk_builder_get_object (builder, "file_grid"));
-    gtk_notebook_append_page (GTK_NOTEBOOK (priv->options_notebook), VBox,
-                              Label);
-
     /* File (name) Options */
     ReplaceIllegalCharactersInFilename = GTK_WIDGET (gtk_builder_get_object (builder,
                                                                              "file_name_replace_check"));
@@ -500,10 +489,6 @@ create_preferences_dialog (EtPreferencesDialog *self)
     /*
      * Tag Settings
      */
-    Label = gtk_label_new (_("Tags"));
-    VBox = GTK_WIDGET (gtk_builder_get_object (builder, "tags_grid"));
-    gtk_notebook_append_page (GTK_NOTEBOOK (priv->options_notebook), VBox, Label);
-
     /* Tag Options */
     DateAutoCompletion = GTK_WIDGET (gtk_builder_get_object (builder,
                                                              "tags_auto_date_check"));
@@ -583,12 +568,6 @@ create_preferences_dialog (EtPreferencesDialog *self)
     /*
      * ID3 Tag Settings
      */
-    Label = gtk_label_new (_("ID3 Tags"));
-    VBox = GTK_WIDGET (gtk_builder_get_object (builder, "id3_tags_grid"));
-#ifdef ENABLE_MP3
-    gtk_notebook_append_page (GTK_NOTEBOOK (priv->options_notebook), VBox, Label);
-#endif
-
     /* Strip tag when fields (managed by EasyTAG) are empty */
     StripTagWhenEmptyFields = GTK_WIDGET (gtk_builder_get_object (builder,
                                                                   "id3_strip_check"));
@@ -778,13 +757,10 @@ create_preferences_dialog (EtPreferencesDialog *self)
     /*
      * Scanner
      */
-    Label = gtk_label_new (_("Scanner"));
-    VBox = GTK_WIDGET (gtk_builder_get_object (builder, "scanner_grid"));
-    gtk_notebook_append_page (GTK_NOTEBOOK(priv->options_notebook), VBox, Label);
-
     /* Save the number of the page. Asked in Scanner window */
+    vbox = GTK_WIDGET (gtk_builder_get_object (builder, "scanner_grid"));
     priv->options_notebook_scanner = gtk_notebook_page_num (GTK_NOTEBOOK (priv->options_notebook),
-                                                            VBox);
+                                                            vbox);
 
     /* Character conversion for the 'Fill Tag' scanner (=> FTS...) */
     FTSConvertUnderscoreAndP20IntoSpace = GTK_WIDGET (gtk_builder_get_object (builder, "fts_underscore_p20_radio"));
@@ -871,10 +847,6 @@ create_preferences_dialog (EtPreferencesDialog *self)
     /*
      * CDDB
      */
-    Label = gtk_label_new (_("CDDB"));
-    VBox = GTK_WIDGET (gtk_builder_get_object (builder, "cddb_grid"));
-    gtk_notebook_append_page (GTK_NOTEBOOK (priv->options_notebook), VBox, Label);
-
     /* 1st automatic search server. */
     CddbServerNameAutomaticSearch = GTK_WIDGET (gtk_builder_get_object (builder,
                                                                         "cddb_automatic_host1_combo"));
@@ -979,9 +951,6 @@ create_preferences_dialog (EtPreferencesDialog *self)
     /*
      * Confirmation
      */
-    Label = gtk_label_new (_("Application"));
-    VBox = GTK_WIDGET (gtk_builder_get_object (builder, "application_grid"));
-    gtk_notebook_append_page (GTK_NOTEBOOK(priv->options_notebook), VBox, Label);
     ConfirmBeforeExit = GTK_WIDGET (gtk_builder_get_object (builder,
                                                             "confirm_quit_check"));
     g_settings_bind (MainSettings, "confirm-quit", ConfirmBeforeExit, "active",

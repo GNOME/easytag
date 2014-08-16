@@ -35,1459 +35,1513 @@
         <property name="step-increment">1.0</property>
         <property name="upper">6.0</property>
     </object>
-    <object class="GtkGrid" id="ui_grid">
-        <property name="border-width">12</property>
-        <property name="orientation">vertical</property>
-        <property name="row-spacing">6</property>
+    <object class="GtkNotebook" id="preferences_notebook">
+        <property name="enable-popup">True</property>
+        <property name="scrollable">True</property>
         <property name="visible">True</property>
         <child>
-            <object class="GtkLabel" id="browser_label">
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">Browser</property>
-                <property name="visible">True</property>
-                <attributes>
-                    <attribute name="weight" value="bold"/>
-                </attributes>
-            </object>
-        </child>
-        <child>
-            <object class="GtkBox" id="default_path_box">
-                <property name="margin-left">12</property>
-                <property name="spacing">12</property>
-                <property name="visible">True</property>
-                <child>
-                    <object class="GtkLabel" id="default_path_label">
-                        <property name="label" translatable="yes">Default Directory:</property>
-                        <property name="visible">True</property>
-                    </object>
-                </child>
-                <child>
-                    <object class="GtkFileChooserButton" id="default_path_button">
-                        <property name="action">select-folder</property>
-                        <property name="tooltip-text" translatable="yes">The default path to search for music files</property>
-                        <property name="width-chars">30</property>
-                        <property name="visible">True</property>
-                    </object>
-                </child>
-            </object>
-        </child>
-        <child>
-            <object class="GtkCheckButton" id="browser_startup_check">
-                <property name="label" translatable="yes">Load on startup the default directory or the directory passed as argument</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether to load the default path (or the path passed as an argument) on application startup</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkCheckButton" id="browser_subdirs_check">
-                <property name="label" translatable="yes">Browse subdirectories</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether to search subdirectories for audio files when reading a path in the browser</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkCheckButton" id="browser_expand_subdirs_check">
-                <property name="label" translatable="yes">Expand the subdirectories of the selected path</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether to expand the subdirectories of a node in the directory browser when selecting it</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkCheckButton" id="browser_hidden_check">
-                <property name="label" translatable="yes">Search hidden directories</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether to show hidden directories when showing a path in the browser</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkCheckButton" id="browser_case_check">
-                <property name="label" translatable="yes">Sort files case-sensitively</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether file sorting is case-sensitive</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkLabel" id="log_label">
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">Log</property>
-                <property name="visible">True</property>
-                <attributes>
-                    <attribute name="weight" value="bold"/>
-                </attributes>
-            </object>
-        </child>
-        <child>
-            <object class="GtkCheckButton" id="log_show_check">
-                <property name="label" translatable="yes">Show the log</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether to show the log in the main window</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkBox" id="log_lines_box">
-                <property name="margin-left">12</property>
-                <property name="spacing">12</property>
-                <property name="visible">True</property>
-                <child>
-                    <object class="GtkLabel" id="log_lines_label">
-                        <property name="label" translatable="yes">Maximum number of lines:</property>
-                        <property name="visible">True</property>
-                    </object>
-                </child>
-                <child>
-                    <object class="GtkSpinButton" id="log_lines_button">
-                        <property name="adjustment">log_lines_adjustment</property>
-                        <property name="tooltip-text" translatable="yes">The maximum number of lines to keep in the log</property>
-                        <property name="visible">True</property>
-                    </object>
-                </child>
-            </object>
-        </child>
-        <child>
-            <object class="GtkLabel" id="general_label">
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">General</property>
-                <property name="visible">True</property>
-                <attributes>
-                    <attribute name="weight" value="bold"/>
-                </attributes>
-            </object>
-        </child>
-        <child>
-            <object class="GtkCheckButton" id="header_show_check">
-                <property name="label" translatable="yes">Show audio file header summary</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether to show header information, such as bit rate and duration, for audio files</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkBox" id="general_list_box">
-                <property name="margin-left">12</property>
-                <property name="spacing">12</property>
-                <property name="visible">True</property>
-                <child>
-                    <object class="GtkLabel" id="list_label">
-                        <property name="label" translatable="yes">Display changed files in list using:</property>
-                        <property name="visible">True</property>
-                    </object>
-                </child>
-                <child>
-                    <object class="GtkRadioButton" id="list_red_radio">
-                        <property name="label" translatable="yes">Red color</property>
-                        <property name="visible">True</property>
-                    </object>
-                </child>
-                <child>
-                    <object class="GtkRadioButton" id="list_bold_radio">
-                        <property name="group">list_red_radio</property>
-                        <property name="label" translatable="yes">Bold style</property>
-                        <property name="visible">True</property>
-                    </object>
-                </child>
-            </object>
-        </child>
-    </object>
-    <object class="GtkGrid" id="file_grid">
-        <property name="border-width">12</property>
-        <property name="orientation">vertical</property>
-        <property name="row-spacing">6</property>
-        <property name="visible">True</property>
-        <child>
-            <object class="GtkLabel" id="file_label">
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">File Settings</property>
-                <property name="visible">True</property>
-                <attributes>
-                    <attribute name="weight" value="bold"/>
-                </attributes>
-            </object>
-        </child>
-        <child>
-            <object class="GtkCheckButton" id="file_preserve_check">
-                <property name="label" translatable="yes">Preserve modification time when writing files</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether to preserve the existing modification time when editing files</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkCheckButton" id="file_parent_check">
-                <property name="label" translatable="yes">Update parent directory modification time when writing files</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether to update the modification time on the parent directory when editing files</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkLabel" id="file_name_label">
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">Filenames</property>
-                <property name="margin-top">12</property>
-                <property name="visible">True</property>
-                <attributes>
-                    <attribute name="weight" value="bold"/>
-                </attributes>
-            </object>
-        </child>
-        <child>
-            <object class="GtkCheckButton" id="file_name_replace_check">
-                <property name="label" translatable="yes">Replace illegal characters when renaming</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Convert illegal characters for FAT32/16 and ISO9660 + Joliet filesystems ('\\', ':', ';', '*', '?', '\"', '&lt;', '&gt;', '|') of the filename to avoid problem when renaming the file. This is useful when renaming the file from the tag with the scanner.</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkBox" id="file_name_convert_box">
-                <property name="margin-left">12</property>
-                <property name="spacing">12</property>
-                <property name="visible">True</property>
-                <child>
-                    <object class="GtkLabel" id="name_convert_label">
-                        <property name="label" translatable="yes">Convert filename extension to:</property>
-                        <property name="visible">True</property>
-                    </object>
-                </child>
-                <child>
-                    <object class="GtkRadioButton" id="name_lower_radio">
-                        <property name="label" translatable="yes">Lower Case</property>
-                        <property name="name">lower-case</property>
-                        <property name="tooltip-text" translatable="yes">For example, the extension will be converted to '.mp3'</property>
-                        <property name="visible">True</property>
-                    </object>
-                </child>
-                <child>
-                    <object class="GtkRadioButton" id="name_upper_radio">
-                        <property name="group">name_lower_radio</property>
-                        <property name="label" translatable="yes">Upper Case</property>
-                        <property name="name">upper-case</property>
-                        <property name="tooltip-text" translatable="yes">For example, the extension will be converted to '.MP3'</property>
-                        <property name="visible">True</property>
-                    </object>
-                </child>
-                <child>
-                    <object class="GtkRadioButton" id="name_no_change_radio">
-                        <property name="group">name_lower_radio</property>
-                        <property name="label" translatable="yes">No Change</property>
-                        <property name="name">no-change</property>
-                        <property name="tooltip-text" translatable="yes">The extension will not be modified</property>
-                        <property name="visible">True</property>
-                    </object>
-                </child>
-            </object>
-        </child>
-        <child>
-            <object class="GtkLabel" id="file_encoding_label">
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">Filename Encoding</property>
-                <property name="margin-left">12</property>
-                <property name="margin-top">12</property>
-                <property name="visible">True</property>
-                <attributes>
-                    <attribute name="weight" value="bold"/>
-                </attributes>
-            </object>
-        </child>
-        <child>
-            <object class="GtkRadioButton" id="file_encoding_try_alternative_radio">
-                <property name="label" translatable="yes">Try another character encoding</property>
-                <property name="margin-left">24</property>
-                <property name="name">try-alternative</property>
-                <property name="tooltip-text" translatable="yes">With this option, it will try the conversion to the encoding associated to your locale (for example: ISO-8859-1 for 'fr', KOI8-R for 'ru', ISO-8859-2 for 'ro'). If it fails, it will try the character encoding ISO-8859-1</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkRadioButton" id="file_encoding_transliterate_radio">
-                <property name="group">file_encoding_try_alternative_radio</property>
-                <property name="label" translatable="yes">Force using the system character encoding and transliterate characters</property>
-                <property name="margin-left">24</property>
-                <property name="name">transliterate</property>
-                <property name="tooltip-text" translatable="yes">With this option, when a character cannot be represented in the target character set, it can be approximated through one or several similarly looking characters</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkRadioButton" id="file_encoding_ignore_radio">
-                <property name="group">file_encoding_try_alternative_radio</property>
-                <property name="label" translatable="yes">Force using the system character encoding and silently discard some characters</property>
-                <property name="margin-left">24</property>
-                <property name="name">ignore</property>
-                <property name="tooltip-text" translatable="yes">With this option, when a character cannot be represented in the target character set, it will be silently discarded</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-    </object>
-    <object class="GtkGrid" id="tags_grid">
-        <property name="border-width">12</property>
-        <property name="orientation">vertical</property>
-        <property name="row-spacing">6</property>
-        <property name="visible">True</property>
-        <child>
-            <object class="GtkLabel" id="tags_label">
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">General</property>
-                <property name="visible">True</property>
-                <attributes>
-                    <attribute name="weight" value="bold"/>
-                </attributes>
-            </object>
-        </child>
-        <child>
-            <object class="GtkCheckButton" id="tags_auto_date_check">
-                <property name="label" translatable="yes">Automatically complete date field</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether to automatically complete the date tag</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkCheckButton" id="tags_preserve_focus_check">
-                <property name="label" translatable="yes">Preserve the tag field focus</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether to preserve focus on the current tag field when switching file</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkGrid" id="tags_padding_grid">
-                <property name="column-spacing">12</property>
-                <property name="margin-left">12</property>
-                <property name="row-spacing">6</property>
-                <property name="visible">True</property>
-                <child>
-                    <object class="GtkCheckButton" id="tags_disc_check">
-                        <property name="label" translatable="yes">Whether to pad the disc field to this number of digits:</property>
-                        <property name="tooltip-text" translatable="yes">Whether the disc number tag field should be padded with leading zeroes</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">0</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkSpinButton" id="tags_disc_button">
-                        <property name="adjustment">tags_disc_adjustment</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">0</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkCheckButton" id="tags_track_check">
-                        <property name="label" translatable="yes">Whether to pad the track field to this number of digits:</property>
-                        <property name="tooltip-text" translatable="yes">Whether the track number tag field should be padded with leading zeroes</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">1</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkSpinButton" id="tags_track_button">
-                        <property name="adjustment">tags_track_adjustment</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">1</property>
-                    </packing>
-                </child>
-            </object>
-        </child>
-        <child>
-            <object class="GtkLabel" id="tags_splitting_label">
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">Splitting</property>
-                <property name="margin-top">12</property>
-                <property name="visible">True</property>
-                <attributes>
-                    <attribute name="weight" value="bold"/>
-                </attributes>
-            </object>
-        </child>
-        <child>
-            <object class="GtkLabel" id="tags_splitting_description_label">
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">For Vorbis tags, selected fields will be split at dashes and saved as separate tags</property>
-                <property name="margin-left">12</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkGrid" id="tags_splitting_grid">
-                <property name="column-spacing">18</property>
-                <property name="margin-left">12</property>
-                <property name="row-spacing">6</property>
-                <property name="visible">True</property>
-                <child>
-                    <object class="GtkCheckButton" id="split_title_check">
-                        <property name="label" translatable="yes">Title</property>
-                        <property name="tooltip-text" translatable="yes">Whether to split title fields at a " - " separator in Ogg comments</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">0</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkCheckButton" id="split_artist_check">
-                        <property name="label" translatable="yes">Artist</property>
-                        <property name="tooltip-text" translatable="yes">Whether to split artist fields at a " - " separator in Ogg comments</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">1</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkCheckButton" id="split_album_check">
-                        <property name="label" translatable="yes">Album</property>
-                        <property name="tooltip-text" translatable="yes">Whether to split album fields at a " - " separator in Ogg comments</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">2</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkCheckButton" id="split_genre_check">
-                        <property name="label" translatable="yes">Genre</property>
-                        <property name="tooltip-text" translatable="yes">Whether to split genre fields at a " - " separator in Ogg comments</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">3</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkCheckButton" id="split_comment_check">
-                        <property name="label" translatable="yes">Comment</property>
-                        <property name="tooltip-text" translatable="yes">Whether to split comment fields at a " - " separator in Ogg comments</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">0</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkCheckButton" id="split_composer_check">
-                        <property name="label" translatable="yes">Composer</property>
-                        <property name="tooltip-text" translatable="yes">Whether to split composer fields at a " - " separator in Ogg comments</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">1</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkCheckButton" id="split_orig_artist_check">
-                        <property name="label" translatable="yes">Original artist</property>
-                        <property name="tooltip-text" translatable="yes">Whether to split original artist fields at a " - " separator in Ogg comments</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">2</property>
-                    </packing>
-                </child>
-            </object>
-        </child>
-    </object>
-    <object class="GtkGrid" id="id3_tags_grid">
-        <property name="border-width">12</property>
-        <property name="orientation">vertical</property>
-        <property name="row-spacing">6</property>
-        <property name="visible">True</property>
-        <child>
-            <object class="GtkLabel" id="id3_tags_label">
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">General</property>
-                <property name="visible">True</property>
-                <attributes>
-                    <attribute name="weight" value="bold"/>
-                </attributes>
-            </object>
-        </child>
-        <child>
-            <object class="GtkCheckButton" id="id3_strip_check">
-                <property name="label" translatable="yes">Strip ID3 tags if all ID3 tags are empty</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether to remove the ID3 tag from the audio file if all the individual tag fields are empty</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkBox" id="id3_read_encoding_box">
-                <property name="margin-left">12</property>
-                <property name="spacing">12</property>
-                <property name="visible">True</property>
-                <child>
-                    <object class="GtkCheckButton" id="id3_read_encoding_check">
-                        <property name="label" translatable="yes">Non-standard encoding for reading ID3 tags:</property>
-                        <property name="tooltip-text" translatable="yes">Whether to use a non-standard character encoding when reading ID3 tags</property>
-                        <property name="visible">True</property>
-                    </object>
-                </child>
-                <child>
-                    <object class="GtkComboBoxText" id="id3_read_encoding_combo">
-                        <property name="tooltip-text" translatable="yes">Choose the character set to be used when reading ID3v1 and ID3v2 tags</property>
-                        <property name="visible">True</property>
-                    </object>
-                </child>
-            </object>
-        </child>
-        <child>
-            <object class="GtkLabel" id="id3_v2_label">
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">ID3v2</property>
-                <property name="margin-top">12</property>
-                <property name="visible">True</property>
-                <attributes>
-                    <attribute name="weight" value="bold"/>
-                </attributes>
-            </object>
-        </child>
-        <child>
-            <object class="GtkGrid" id="id3_v2_encoding_grid">
-                <property name="column-spacing">12</property>
-                <property name="margin-left">12</property>
-                <property name="row-spacing">6</property>
-                <property name="visible">True</property>
-                <child>
-                    <object class="GtkCheckButton" id="id3_v2_check">
-                        <property name="label" translatable="yes">Write ID3v2 tag</property>
-                        <property name="tooltip-text" translatable="yes">Whether to write ID3v2 tags when writing ID3 tags into audio files</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">0</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkLabel" id="id3_v2_version_label">
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Version:</property>
-                        <property name="margin-left">12</property>
-                        <property name="tooltip-text" translatable="yes">Whether to write ID3v2 tags when writing ID3 tags into audio files</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">0</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkComboBoxText" id="id3_v2_version_combo">
-                        <items>
-                            <item id="id3v2.3">ID3v2.3</item>
-                            <item id="id3v2.4">ID3v2.4</item>
-                        </items>
-                        <property name="tooltip-text" translatable="yes">Select the ID3v2 tag version to write:
-• ID3v2.3 is written using id3lib,
-• ID3v2.4 is written using libid3tag (recommended)</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">2</property>
-                        <property name="top_attach">0</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkLabel" id="id3_v2_encoding_label">
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Character encoding:</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">1</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkRadioButton" id="id3_v2_unicode_radio">
-                        <property name="label" translatable="yes">Unicode</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">1</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkComboBoxText" id="id3_v2_unicode_encoding_combo">
-                        <items>
-                            <item id="utf-8">UTF-8</item>
-                            <item id="utf-16">UTF-16</item>
-                        </items>
-                        <property name="tooltip-text" translatable="yes">Choose the Unicode character encoding to be used when writing ID3v2 tags</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">2</property>
-                        <property name="top_attach">1</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkRadioButton" id="id3_v2_other_radio">
-                        <property name="group">id3_v2_unicode_radio</property>
-                        <property name="label" translatable="yes">Other</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">2</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkComboBoxText" id="id3_v2_override_encoding_combo">
-                        <property name="tooltip-text" translatable="yes">Override the standard Unicode character encoding to be used when writing ID3v2 tags</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">2</property>
-                        <property name="top_attach">2</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkLabel" id="id3_v2_iconv_label">
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">When encoding conversion fails:</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">3</property>
-                        <property name="width">2</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkBox" id="id3_v2_iconv_box">
-                        <property name="spacing">12</property>
-                        <child>
-                            <object class="GtkRadioButton" id="id3_v2_none_radio">
-                                <property name="label" translatable="yes">Report error</property>
-                                <property name="name">none</property>
-                                <property name="tooltip-text" translatable="yes">With this option, when a character cannot be represented in the target character encoding, it isn't changed. But note that an error message will be displayed for information</property>
-                                <property name="visible">True</property>
-                            </object>
-                        </child>
-                        <child>
-                            <object class="GtkRadioButton" id="id3_v2_transliterate_radio">
-                                <property name="group">id3_v1_none_radio</property>
-                                <property name="label" translatable="yes">Transliterate</property>
-                                <property name="name">transliterate</property>
-                                <property name="tooltip-text" translatable="yes">With this option, when a character cannot be represented in the target character encoding, it can be approximated through one or several similar-looking characters</property>
-                                <property name="visible">True</property>
-                            </object>
-                        </child>
-                        <child>
-                            <object class="GtkRadioButton" id="id3_v2_ignore_radio">
-                                <property name="group">id3_v1_none_radio</property>
-                                <property name="label" translatable="yes">Discard</property>
-                                <property name="name">ignore</property>
-                                <property name="tooltip-text" translatable="yes">With this option, when a character cannot be represented in the target character encoding, it will be silently discarded</property>
-                                <property name="visible">True</property>
-                            </object>
-                        </child>
-                    </object>
-                    <packing>
-                        <property name="left_attach">2</property>
-                        <property name="top_attach">3</property>
-                        <property name="width">2</property>
-                    </packing>
-                </child>
-            </object>
-        </child>
-        <child>
-            <object class="GtkGrid" id="id3_v2_check_grid">
-                <property name="column-spacing">12</property>
-                <property name="margin-left">12</property>
-                <property name="row-spacing">6</property>
-                <property name="visible">True</property>
-                <child>
-                    <object class="GtkCheckButton" id="id3_v2_convert_check">
-                        <property name="label" translatable="yes">Automatically convert old ID3v2 tag versions</property>
-                        <property name="tooltip-text" translatable="yes">Whether to convert ID3 tags written against old version of the specification, such as ID3v2.2, to newer ones, such as ID3v2.3 or ID3v2.4</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">0</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkCheckButton" id="id3_v2_crc32_check">
-                        <property name="label" translatable="yes">Use CRC32</property>
-                        <property name="tooltip-text" translatable="yes">Whether to embed a CRC-32 checksum of the audio file data in ID3v2 tags</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">0</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkCheckButton" id="id3_v2_compression_check">
-                        <property name="label" translatable="yes">Compress data in ID3v2 tags</property>
-                        <property name="tooltip-text" translatable="yes">Whether to compress data in ID3v2 tags</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">1</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkCheckButton" id="id3_v2_genre_check">
-                        <property name="label" translatable="yes">Use text-only genre in ID3v2 tags</property>
-                        <property name="tooltip-text" translatable="yes">Whether to use only a string, and not the integer-base ID3v1 genre field, when writing a genre field to ID3v2 tags</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">1</property>
-                    </packing>
-                </child>
-            </object>
-        </child>
-        <child>
-            <object class="GtkLabel" id="id3_v1_label">
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">ID3v1</property>
-                <property name="margin-top">12</property>
-                <property name="visible">True</property>
-                <attributes>
-                    <attribute name="weight" value="bold"/>
-                </attributes>
-            </object>
-        </child>
-        <child>
-            <object class="GtkCheckButton" id="id3_v1_check">
-                <property name="label" translatable="yes">Write ID3v1 tag</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether to write ID3v1 tags when writing ID3 tags into audio files</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkGrid" id="id3_v1_encoding_grid">
-                <property name="column-spacing">12</property>
-                <property name="margin-left">12</property>
-                <property name="row-spacing">6</property>
-                <property name="visible">True</property>
-                <child>
-                    <object class="GtkLabel" id="id3_v1_encoding_label">
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Character encoding:</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">0</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkComboBoxText" id="id3_v1_encoding_combo">
-                        <property name="tooltip-text" translatable="yes">Choose the character set to be used when writing ID3v1 tag</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">0</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkLabel" id="id3_v1_iconv_label">
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">When encoding conversion fails:</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">1</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkBox" id="id3_v1_iconv_box">
-                        <property name="spacing">12</property>
-                        <child>
-                            <object class="GtkRadioButton" id="id3_v1_none_radio">
-                                <property name="label" translatable="yes">Report error</property>
-                                <property name="name">none</property>
-                                <property name="tooltip-text" translatable="yes">With this option, when a character cannot be represented in the target character encoding, it isn't changed. But note that an error message will be displayed for information</property>
-                                <property name="visible">True</property>
-                            </object>
-                        </child>
-                        <child>
-                            <object class="GtkRadioButton" id="id3_v1_transliterate_radio">
-                                <property name="group">id3_v1_none_radio</property>
-                                <property name="label" translatable="yes">Transliterate</property>
-                                <property name="name">transliterate</property>
-                                <property name="tooltip-text" translatable="yes">With this option, when a character cannot be represented in the target character encoding, it can be approximated through one or several similar-looking characters</property>
-                                <property name="visible">True</property>
-                            </object>
-                        </child>
-                        <child>
-                            <object class="GtkRadioButton" id="id3_v1_ignore_radio">
-                                <property name="group">id3_v1_none_radio</property>
-                                <property name="label" translatable="yes">Discard</property>
-                                <property name="name">ignore</property>
-                                <property name="tooltip-text" translatable="yes">With this option, when a character cannot be represented in the target character encoding, it will be silently discarded</property>
-                                <property name="visible">True</property>
-                            </object>
-                        </child>
-                    </object>
-                    <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">1</property>
-                        <property name="width">2</property>
-                    </packing>
-                </child>
-            </object>
-        </child>
-    </object>
-    <object class="GtkGrid" id="scanner_grid">
-        <property name="border-width">12</property>
-        <property name="orientation">vertical</property>
-        <property name="row-spacing">6</property>
-        <property name="visible">True</property>
-        <child>
-            <object class="GtkLabel" id="character_conversion_label">
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">Character Conversion</property>
-                <property name="visible">True</property>
-                <attributes>
-                    <attribute name="weight" value="bold"/>
-                </attributes>
-            </object>
-        </child>
-        <child>
-            <object class="GtkLabel" id="fill_tag_scanner_label">
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">Fill Tag Scanner</property>
-                <property name="margin-left">12</property>
-                <property name="margin-top">12</property>
-                <property name="visible">True</property>
-                <attributes>
-                    <attribute name="weight" value="bold"/>
-                </attributes>
-            </object>
-        </child>
-        <child>
-            <object class="GtkRadioButton" id="fts_underscore_p20_radio">
-                <property name="label" translatable="yes">Convert underscores and '%20' to spaces</property>
-                <property name="margin-left">24</property>
-                <property name="name">spaces</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkRadioButton" id="fts_spaces_radio">
-                <property name="group">fts_underscore_p20_radio</property>
-                <property name="label" translatable="yes">Convert spaces and '%20' to underscores</property>
-                <property name="margin-left">24</property>
-                <property name="name">underscores</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkRadioButton" id="fts_none_radio">
-                <property name="group">fts_underscore_p20_radio</property>
-                <property name="label" translatable="yes">No conversion</property>
-                <property name="margin-left">24</property>
-                <property name="name">no-change</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkLabel" id="rename_file_directory_scanner_label">
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">Rename File and Directory Scanner</property>
-                <property name="margin-left">12</property>
-                <property name="margin-top">12</property>
-                <property name="visible">True</property>
-                <attributes>
-                    <attribute name="weight" value="bold"/>
-                </attributes>
-            </object>
-        </child>
-        <child>
-            <object class="GtkRadioButton" id="rfs_underscore_p20_radio">
-                <property name="label" translatable="yes">Convert underscores and '%20' to spaces</property>
-                <property name="margin-left">24</property>
-                <property name="name">spaces</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkRadioButton" id="rfs_spaces_radio">
-                <property name="group">rfs_underscore_p20_radio</property>
-                <property name="label" translatable="yes">Convert spaces and '%20' to underscores</property>
-                <property name="margin-left">24</property>
-                <property name="name">underscores</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkRadioButton" id="rfs_remove_radio">
-                <property name="group">rfs_underscore_p20_radio</property>
-                <property name="label" translatable="yes">No conversion</property>
-                <property name="margin-left">24</property>
-                <property name="name">remove</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkLabel" id="process_fields_scanner_label">
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">Process Fields Scanner</property>
-                <property name="margin-left">12</property>
-                <property name="margin-top">12</property>
-                <property name="visible">True</property>
-                <attributes>
-                    <attribute name="weight" value="bold"/>
-                </attributes>
-            </object>
-        </child>
-        <child>
-            <object class="GtkCheckButton" id="pfs_uppercase_prep_check">
-                <property name="label" translatable="yes">Upper-case the first letters of all words, including prepositions and articles</property>
-                <property name="margin-left">24</property>
-                <property name="tooltip-text" translatable="yes">Whether to upper-case the first letter of prepositions and some other short words such as "feat." when processing tag fields</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkLabel" id="fields_label">
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">Fields</property>
-                <property name="margin-top">12</property>
-                <property name="visible">True</property>
-                <attributes>
-                    <attribute name="weight" value="bold"/>
-                </attributes>
-            </object>
-        </child>
-        <child>
-            <object class="GtkCheckButton" id="overwrite_fields_check">
-                <property name="label" translatable="yes">Overwrite fields when scanning tags</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether to overwrite the tag field values when filling tags. Otherwise, only blank tag fields will be filled</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkBox" id="default_comment_box">
-                <property name="margin-left">12</property>
-                <property name="spacing">12</property>
-                <property name="visible">True</property>
-                <child>
-                    <object class="GtkCheckButton" id="default_comment_check">
-                        <property name="label" translatable="yes">Set this text as default comment:</property>
-                        <property name="tooltip-text" translatable="yes">Whether to set the comment tag field to the provided default value when filling tags</property>
-                        <property name="visible">True</property>
-                    </object>
-                </child>
-                <child>
-                    <object class="GtkEntry" id="default_comment_entry">
-                        <property name="visible">True</property>
-                    </object>
-                </child>
-            </object>
-        </child>
-        <child>
-            <object class="GtkCheckButton" id="crc32_default_check">
-                <property name="label" translatable="yes">Use CRC32 as the default comment (for files with ID3 tags only)</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether to use the CRC-32 of the audio file data as the default comment, for files with ID3 tags only</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-    </object>
-    <object class="GtkGrid" id="cddb_grid">
-        <property name="border-width">12</property>
-        <property name="orientation">vertical</property>
-        <property name="row-spacing">6</property>
-        <property name="visible">True</property>
-        <child>
-            <object class="GtkGrid" id="cddb_search_grid">
-                <property name="column-spacing">12</property>
+            <object class="GtkGrid" id="ui_grid">
+                <property name="border-width">12</property>
                 <property name="orientation">vertical</property>
                 <property name="row-spacing">6</property>
                 <property name="visible">True</property>
                 <child>
-                    <object class="GtkLabel" id="automatic_search_label">
+                    <object class="GtkLabel" id="browser_label">
                         <property name="halign">start</property>
-                        <property name="label" translatable="yes">Automatic Search Servers</property>
+                        <property name="label" translatable="yes">Browser</property>
                         <property name="visible">True</property>
                         <attributes>
                             <attribute name="weight" value="bold"/>
                         </attributes>
                     </object>
-                    <packing>
-                        <property name="width">6</property>
-                    </packing>
                 </child>
                 <child>
-                    <object class="GtkLabel" id="cddb_automatic_host1_label">
+                    <object class="GtkBox" id="default_path_box">
+                        <property name="margin-left">12</property>
+                        <property name="spacing">12</property>
+                        <property name="visible">True</property>
+                        <child>
+                            <object class="GtkLabel" id="default_path_label">
+                                <property name="label" translatable="yes">Default Directory:</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkFileChooserButton" id="default_path_button">
+                                <property name="action">select-folder</property>
+                                <property name="tooltip-text" translatable="yes">The default path to search for music files</property>
+                                <property name="width-chars">30</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="browser_startup_check">
+                        <property name="label" translatable="yes">Load on startup the default directory or the directory passed as argument</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Whether to load the default path (or the path passed as an argument) on application startup</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="browser_subdirs_check">
+                        <property name="label" translatable="yes">Browse subdirectories</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Whether to search subdirectories for audio files when reading a path in the browser</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="browser_expand_subdirs_check">
+                        <property name="label" translatable="yes">Expand the subdirectories of the selected path</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Whether to expand the subdirectories of a node in the directory browser when selecting it</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="browser_hidden_check">
+                        <property name="label" translatable="yes">Search hidden directories</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Whether to show hidden directories when showing a path in the browser</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="browser_case_check">
+                        <property name="label" translatable="yes">Sort files case-sensitively</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Whether file sorting is case-sensitive</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="log_label">
                         <property name="halign">start</property>
-                        <property name="label" translatable="yes">Host:</property>
+                        <property name="label" translatable="yes">Log</property>
                         <property name="visible">True</property>
+                        <attributes>
+                            <attribute name="weight" value="bold"/>
+                        </attributes>
                     </object>
-                    <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">1</property>
-                    </packing>
                 </child>
                 <child>
-                    <object class="GtkComboBoxText" id="cddb_automatic_host1_combo">
-                        <property name="has-entry">True</property>
+                    <object class="GtkCheckButton" id="log_show_check">
+                        <property name="label" translatable="yes">Show the log</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Whether to show the log in the main window</property>
                         <property name="visible">True</property>
-                        <items>
-                            <item translatable="yes" id="host_a">freedb.freedb.org</item>
-                            <item translatable="yes" id="host_b">www.gnudb.org</item>
-                            <item translatable="yes" id="host_c">at.freedb.org</item>
-                            <item translatable="yes" id="host_d">au.freedb.org</item>
-                            <item translatable="yes" id="host_e">ca.freedb.org</item>
-                            <item translatable="yes" id="host_f">es.freedb.org</item>
-                            <item translatable="yes" id="host_g">fi.freedb.org</item>
-                            <item translatable="yes" id="host_h">ru.freedb.org</item>
-                            <item translatable="yes" id="host_i">uk.freedb.org</item>
-                            <item translatable="yes" id="host_j">us.freedb.org</item>
-                        </items>
                     </object>
-                    <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">1</property>
-                    </packing>
                 </child>
                 <child>
-                    <object class="GtkLabel" id="cddb_automatic_port1_label">
+                    <object class="GtkBox" id="log_lines_box">
+                        <property name="margin-left">12</property>
+                        <property name="spacing">12</property>
+                        <property name="visible">True</property>
+                        <child>
+                            <object class="GtkLabel" id="log_lines_label">
+                                <property name="label" translatable="yes">Maximum number of lines:</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkSpinButton" id="log_lines_button">
+                                <property name="adjustment">log_lines_adjustment</property>
+                                <property name="tooltip-text" translatable="yes">The maximum number of lines to keep in the log</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="general_label">
                         <property name="halign">start</property>
-                        <property name="label" translatable="yes">Port:</property>
+                        <property name="label" translatable="yes">General</property>
                         <property name="visible">True</property>
+                        <attributes>
+                            <attribute name="weight" value="bold"/>
+                        </attributes>
                     </object>
-                    <packing>
-                        <property name="left_attach">2</property>
-                        <property name="top_attach">1</property>
-                    </packing>
                 </child>
                 <child>
-                    <object class="GtkSpinButton" id="cddb_automatic_port1_button">
-                        <property name="adjustment">cddb_automatic_host1_adjustment</property>
+                    <object class="GtkCheckButton" id="header_show_check">
+                        <property name="label" translatable="yes">Show audio file header summary</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Whether to show header information, such as bit rate and duration, for audio files</property>
                         <property name="visible">True</property>
                     </object>
-                    <packing>
-                        <property name="left_attach">3</property>
-                        <property name="top_attach">1</property>
-                    </packing>
                 </child>
                 <child>
-                    <object class="GtkLabel" id="cddb_automatic_path1_label">
+                    <object class="GtkBox" id="general_list_box">
+                        <property name="margin-left">12</property>
+                        <property name="spacing">12</property>
+                        <property name="visible">True</property>
+                        <child>
+                            <object class="GtkLabel" id="list_label">
+                                <property name="label" translatable="yes">Display changed files in list using:</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkRadioButton" id="list_red_radio">
+                                <property name="label" translatable="yes">Red color</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkRadioButton" id="list_bold_radio">
+                                <property name="group">list_red_radio</property>
+                                <property name="label" translatable="yes">Bold style</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <child type="tab">
+            <object class="GtkLabel" id="interface_tab_label">
+                <property name="label" translatable="yes">Interface</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkGrid" id="file_grid">
+                <property name="border-width">12</property>
+                <property name="orientation">vertical</property>
+                <property name="row-spacing">6</property>
+                <property name="visible">True</property>
+                <child>
+                    <object class="GtkLabel" id="file_label">
                         <property name="halign">start</property>
-                        <property name="label" translatable="yes">CGI Path:</property>
+                        <property name="label" translatable="yes">File Settings</property>
                         <property name="visible">True</property>
+                        <attributes>
+                            <attribute name="weight" value="bold"/>
+                        </attributes>
                     </object>
-                    <packing>
-                        <property name="left_attach">4</property>
-                        <property name="top_attach">1</property>
-                    </packing>
                 </child>
                 <child>
-                    <object class="GtkEntry" id="cddb_automatic_path1_entry">
+                    <object class="GtkCheckButton" id="file_preserve_check">
+                        <property name="label" translatable="yes">Preserve modification time when writing files</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Whether to preserve the existing modification time when editing files</property>
                         <property name="visible">True</property>
                     </object>
-                    <packing>
-                        <property name="left_attach">5</property>
-                        <property name="top_attach">1</property>
-                    </packing>
                 </child>
                 <child>
-                    <object class="GtkLabel" id="cddb_automatic_host2_label">
+                    <object class="GtkCheckButton" id="file_parent_check">
+                        <property name="label" translatable="yes">Update parent directory modification time when writing files</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Whether to update the modification time on the parent directory when editing files</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="file_name_label">
                         <property name="halign">start</property>
-                        <property name="label" translatable="yes">Host:</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">2</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkComboBoxText" id="cddb_automatic_host2_combo">
-                        <property name="has-entry">True</property>
-                        <property name="visible">True</property>
-                        <items>
-                            <item translatable="yes" id="host_musicbrainz">freedb.musicbrainz.org</item>
-                        </items>
-                    </object>
-                    <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">2</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkLabel" id="cddb_automatic_port2_label">
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Port:</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">2</property>
-                        <property name="top_attach">2</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkSpinButton" id="cddb_automatic_port2_button">
-                        <property name="adjustment">cddb_automatic_host2_adjustment</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">3</property>
-                        <property name="top_attach">2</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkLabel" id="cddb_automatic_path2_label">
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">CGI Path:</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">4</property>
-                        <property name="top_attach">2</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkEntry" id="cddb_automatic_path2_entry">
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">5</property>
-                        <property name="top_attach">2</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkLabel" id="manual_search_label">
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Manual Search Server</property>
+                        <property name="label" translatable="yes">Filenames</property>
                         <property name="margin-top">12</property>
                         <property name="visible">True</property>
                         <attributes>
                             <attribute name="weight" value="bold"/>
                         </attributes>
                     </object>
-                    <packing>
-                        <property name="width">6</property>
-                    </packing>
                 </child>
                 <child>
-                    <object class="GtkLabel" id="cddb_manual_host_label">
+                    <object class="GtkCheckButton" id="file_name_replace_check">
+                        <property name="label" translatable="yes">Replace illegal characters when renaming</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Convert illegal characters for FAT32/16 and ISO9660 + Joliet filesystems ('\\', ':', ';', '*', '?', '\"', '&lt;', '&gt;', '|') of the filename to avoid problem when renaming the file. This is useful when renaming the file from the tag with the scanner.</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkBox" id="file_name_convert_box">
+                        <property name="margin-left">12</property>
+                        <property name="spacing">12</property>
+                        <property name="visible">True</property>
+                        <child>
+                            <object class="GtkLabel" id="name_convert_label">
+                                <property name="label" translatable="yes">Convert filename extension to:</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkRadioButton" id="name_lower_radio">
+                                <property name="label" translatable="yes">Lower Case</property>
+                                <property name="name">lower-case</property>
+                                <property name="tooltip-text" translatable="yes">For example, the extension will be converted to '.mp3'</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkRadioButton" id="name_upper_radio">
+                                <property name="group">name_lower_radio</property>
+                                <property name="label" translatable="yes">Upper Case</property>
+                                <property name="name">upper-case</property>
+                                <property name="tooltip-text" translatable="yes">For example, the extension will be converted to '.MP3'</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkRadioButton" id="name_no_change_radio">
+                                <property name="group">name_lower_radio</property>
+                                <property name="label" translatable="yes">No Change</property>
+                                <property name="name">no-change</property>
+                                <property name="tooltip-text" translatable="yes">The extension will not be modified</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="file_encoding_label">
                         <property name="halign">start</property>
-                        <property name="label" translatable="yes">Host:</property>
+                        <property name="label" translatable="yes">Filename Encoding</property>
+                        <property name="margin-left">12</property>
+                        <property name="margin-top">12</property>
                         <property name="visible">True</property>
+                        <attributes>
+                            <attribute name="weight" value="bold"/>
+                        </attributes>
                     </object>
-                    <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">4</property>
-                    </packing>
                 </child>
                 <child>
-                    <object class="GtkComboBoxText" id="cddb_manual_host_combo">
-                        <property name="has-entry">True</property>
+                    <object class="GtkRadioButton" id="file_encoding_try_alternative_radio">
+                        <property name="label" translatable="yes">Try another character encoding</property>
+                        <property name="margin-left">24</property>
+                        <property name="name">try-alternative</property>
+                        <property name="tooltip-text" translatable="yes">With this option, it will try the conversion to the encoding associated to your locale (for example: ISO-8859-1 for 'fr', KOI8-R for 'ru', ISO-8859-2 for 'ro'). If it fails, it will try the character encoding ISO-8859-1</property>
                         <property name="visible">True</property>
-                        <items>
-                            <item translatable="yes" id="host_freedb">www.freedb.org</item>
-                            <item translatable="yes" id="host_gnudb">www.gnudb.org</item>
-                        </items>
                     </object>
-                    <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">4</property>
-                    </packing>
                 </child>
                 <child>
-                    <object class="GtkLabel" id="cddb_manual_port_label">
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Port:</property>
+                    <object class="GtkRadioButton" id="file_encoding_transliterate_radio">
+                        <property name="group">file_encoding_try_alternative_radio</property>
+                        <property name="label" translatable="yes">Force using the system character encoding and transliterate characters</property>
+                        <property name="margin-left">24</property>
+                        <property name="name">transliterate</property>
+                        <property name="tooltip-text" translatable="yes">With this option, when a character cannot be represented in the target character set, it can be approximated through one or several similarly looking characters</property>
                         <property name="visible">True</property>
                     </object>
-                    <packing>
-                        <property name="left_attach">2</property>
-                        <property name="top_attach">4</property>
-                    </packing>
                 </child>
                 <child>
-                    <object class="GtkSpinButton" id="cddb_manual_port_button">
-                        <property name="adjustment">cddb_manual_host_adjustment</property>
+                    <object class="GtkRadioButton" id="file_encoding_ignore_radio">
+                        <property name="group">file_encoding_try_alternative_radio</property>
+                        <property name="label" translatable="yes">Force using the system character encoding and silently discard some characters</property>
+                        <property name="margin-left">24</property>
+                        <property name="name">ignore</property>
+                        <property name="tooltip-text" translatable="yes">With this option, when a character cannot be represented in the target character set, it will be silently discarded</property>
                         <property name="visible">True</property>
                     </object>
-                    <packing>
-                        <property name="left_attach">3</property>
-                        <property name="top_attach">4</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkLabel" id="cddb_manual_path_label">
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">CGI Path:</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">4</property>
-                        <property name="top_attach">4</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkEntry" id="cddb_manual_path_entry">
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left_attach">5</property>
-                        <property name="top_attach">4</property>
-                    </packing>
                 </child>
             </object>
         </child>
-        <child>
-            <object class="GtkLabel" id="cddb_proxy_label">
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">Proxy</property>
-                <property name="margin-top">12</property>
-                <property name="visible">True</property>
-                <attributes>
-                    <attribute name="weight" value="bold"/>
-                </attributes>
+        <child type="tab">
+            <object class="GtkLabel" id="files_tab_label">
+                <property name="label" translatable="yes">Files</property>
             </object>
         </child>
         <child>
-            <object class="GtkCheckButton" id="cddb_proxy_check">
-                <property name="label" translatable="yes">Use a proxy server</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether to access remote CDDB through a proxy</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkGrid" id="cddb_proxy_grid">
-                <property name="column-spacing">12</property>
+            <object class="GtkGrid" id="tags_grid">
+                <property name="border-width">12</property>
+                <property name="orientation">vertical</property>
                 <property name="row-spacing">6</property>
                 <property name="visible">True</property>
                 <child>
-                    <object class="GtkLabel" id="cddb_host_label">
+                    <object class="GtkLabel" id="tags_label">
                         <property name="halign">start</property>
-                        <property name="label" translatable="yes">Host:</property>
+                        <property name="label" translatable="yes">General</property>
                         <property name="visible">True</property>
+                        <attributes>
+                            <attribute name="weight" value="bold"/>
+                        </attributes>
                     </object>
-                    <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">0</property>
-                    </packing>
                 </child>
                 <child>
-                    <object class="GtkEntry" id="cddb_host_entry">
-                        <property name="tooltip-text" translatable="yes">Hostname for a proxy to access remote CDDB</property>
+                    <object class="GtkCheckButton" id="tags_auto_date_check">
+                        <property name="label" translatable="yes">Automatically complete date field</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Whether to automatically complete the date tag</property>
                         <property name="visible">True</property>
                     </object>
-                    <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">0</property>
-                    </packing>
                 </child>
                 <child>
-                    <object class="GtkLabel" id="cddb_port_label">
+                    <object class="GtkCheckButton" id="tags_preserve_focus_check">
+                        <property name="label" translatable="yes">Preserve the tag field focus</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Whether to preserve focus on the current tag field when switching file</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkGrid" id="tags_padding_grid">
+                        <property name="column-spacing">12</property>
+                        <property name="margin-left">12</property>
+                        <property name="row-spacing">6</property>
+                        <property name="visible">True</property>
+                        <child>
+                            <object class="GtkCheckButton" id="tags_disc_check">
+                                <property name="label" translatable="yes">Whether to pad the disc field to this number of digits:</property>
+                                <property name="tooltip-text" translatable="yes">Whether the disc number tag field should be padded with leading zeroes</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">0</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkSpinButton" id="tags_disc_button">
+                                <property name="adjustment">tags_disc_adjustment</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">0</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkCheckButton" id="tags_track_check">
+                                <property name="label" translatable="yes">Whether to pad the track field to this number of digits:</property>
+                                <property name="tooltip-text" translatable="yes">Whether the track number tag field should be padded with leading zeroes</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">1</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkSpinButton" id="tags_track_button">
+                                <property name="adjustment">tags_track_adjustment</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">1</property>
+                            </packing>
+                        </child>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="tags_splitting_label">
                         <property name="halign">start</property>
-                        <property name="label" translatable="yes">Port:</property>
+                        <property name="label" translatable="yes">Splitting</property>
+                        <property name="margin-top">12</property>
                         <property name="visible">True</property>
+                        <attributes>
+                            <attribute name="weight" value="bold"/>
+                        </attributes>
                     </object>
-                    <packing>
-                        <property name="left-attach">2</property>
-                        <property name="top-attach">0</property>
-                    </packing>
                 </child>
                 <child>
-                    <object class="GtkSpinButton" id="cddb_port_button">
-                        <property name="adjustment">cddb_proxy_adjustment</property>
-                        <property name="tooltip-text" translatable="yes">Port for a proxy to access remote CDDB</property>
-                        <property name="visible">True</property>
-                    </object>
-                    <packing>
-                        <property name="left-attach">3</property>
-                        <property name="top-attach">0</property>
-                    </packing>
-                </child>
-                <child>
-                    <object class="GtkLabel" id="cddb_user_label">
+                    <object class="GtkLabel" id="tags_splitting_description_label">
                         <property name="halign">start</property>
-                        <property name="label" translatable="yes">User:</property>
+                        <property name="label" translatable="yes">For Vorbis tags, selected fields will be split at dashes and saved as separate tags</property>
+                        <property name="margin-left">12</property>
                         <property name="visible">True</property>
                     </object>
-                    <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">1</property>
-                    </packing>
                 </child>
                 <child>
-                    <object class="GtkEntry" id="cddb_user_entry">
-                        <property name="tooltip-text" translatable="yes">Username for a proxy to access remote CDDB</property>
+                    <object class="GtkGrid" id="tags_splitting_grid">
+                        <property name="column-spacing">18</property>
+                        <property name="margin-left">12</property>
+                        <property name="row-spacing">6</property>
                         <property name="visible">True</property>
+                        <child>
+                            <object class="GtkCheckButton" id="split_title_check">
+                                <property name="label" translatable="yes">Title</property>
+                                <property name="tooltip-text" translatable="yes">Whether to split title fields at a " - " separator in Ogg comments</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">0</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkCheckButton" id="split_artist_check">
+                                <property name="label" translatable="yes">Artist</property>
+                                <property name="tooltip-text" translatable="yes">Whether to split artist fields at a " - " separator in Ogg comments</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">1</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkCheckButton" id="split_album_check">
+                                <property name="label" translatable="yes">Album</property>
+                                <property name="tooltip-text" translatable="yes">Whether to split album fields at a " - " separator in Ogg comments</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">2</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkCheckButton" id="split_genre_check">
+                                <property name="label" translatable="yes">Genre</property>
+                                <property name="tooltip-text" translatable="yes">Whether to split genre fields at a " - " separator in Ogg comments</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">3</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkCheckButton" id="split_comment_check">
+                                <property name="label" translatable="yes">Comment</property>
+                                <property name="tooltip-text" translatable="yes">Whether to split comment fields at a " - " separator in Ogg comments</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">0</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkCheckButton" id="split_composer_check">
+                                <property name="label" translatable="yes">Composer</property>
+                                <property name="tooltip-text" translatable="yes">Whether to split composer fields at a " - " separator in Ogg comments</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">1</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkCheckButton" id="split_orig_artist_check">
+                                <property name="label" translatable="yes">Original artist</property>
+                                <property name="tooltip-text" translatable="yes">Whether to split original artist fields at a " - " separator in Ogg comments</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">2</property>
+                            </packing>
+                        </child>
                     </object>
-                    <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">1</property>
-                    </packing>
                 </child>
+            </object>
+        </child>
+        <child type="tab">
+            <object class="GtkLabel" id="tags_tab_label">
+                <property name="label" translatable="yes">Tags</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkGrid" id="id3_tags_grid">
+                <property name="border-width">12</property>
+                <property name="orientation">vertical</property>
+                <property name="row-spacing">6</property>
+                <property name="visible">True</property>
                 <child>
-                    <object class="GtkLabel" id="cddb_password_label">
+                    <object class="GtkLabel" id="id3_tags_label">
                         <property name="halign">start</property>
-                        <property name="label" translatable="yes">Password:</property>
+                        <property name="label" translatable="yes">General</property>
                         <property name="visible">True</property>
+                        <attributes>
+                            <attribute name="weight" value="bold"/>
+                        </attributes>
                     </object>
-                    <packing>
-                        <property name="left-attach">2</property>
-                        <property name="top-attach">1</property>
-                    </packing>
                 </child>
                 <child>
-                    <object class="GtkEntry" id="cddb_password_entry">
-                        <property name="tooltip-text" translatable="yes">Password for a proxy to access remote CDDB</property>
-                        <property name="visibility">False</property>
+                    <object class="GtkCheckButton" id="id3_strip_check">
+                        <property name="label" translatable="yes">Strip ID3 tags if all ID3 tags are empty</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Whether to remove the ID3 tag from the audio file if all the individual tag fields are empty</property>
                         <property name="visible">True</property>
                     </object>
-                    <packing>
-                        <property name="left-attach">3</property>
-                        <property name="top-attach">1</property>
-                    </packing>
+                </child>
+                <child>
+                    <object class="GtkBox" id="id3_read_encoding_box">
+                        <property name="margin-left">12</property>
+                        <property name="spacing">12</property>
+                        <property name="visible">True</property>
+                        <child>
+                            <object class="GtkCheckButton" id="id3_read_encoding_check">
+                                <property name="label" translatable="yes">Non-standard encoding for reading ID3 tags:</property>
+                                <property name="tooltip-text" translatable="yes">Whether to use a non-standard character encoding when reading ID3 tags</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkComboBoxText" id="id3_read_encoding_combo">
+                                <property name="tooltip-text" translatable="yes">Choose the character set to be used when reading ID3v1 and ID3v2 tags</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="id3_v2_label">
+                        <property name="halign">start</property>
+                        <property name="label" translatable="yes">ID3v2</property>
+                        <property name="margin-top">12</property>
+                        <property name="visible">True</property>
+                        <attributes>
+                            <attribute name="weight" value="bold"/>
+                        </attributes>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkGrid" id="id3_v2_encoding_grid">
+                        <property name="column-spacing">12</property>
+                        <property name="margin-left">12</property>
+                        <property name="row-spacing">6</property>
+                        <property name="visible">True</property>
+                        <child>
+                            <object class="GtkCheckButton" id="id3_v2_check">
+                                <property name="label" translatable="yes">Write ID3v2 tag</property>
+                                <property name="tooltip-text" translatable="yes">Whether to write ID3v2 tags when writing ID3 tags into audio files</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">0</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkLabel" id="id3_v2_version_label">
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Version:</property>
+                                <property name="margin-left">12</property>
+                                <property name="tooltip-text" translatable="yes">Whether to write ID3v2 tags when writing ID3 tags into audio files</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">0</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkComboBoxText" id="id3_v2_version_combo">
+                                <items>
+                                    <item id="id3v2.3">ID3v2.3</item>
+                                    <item id="id3v2.4">ID3v2.4</item>
+                                </items>
+                                <property name="tooltip-text" translatable="yes">Select the ID3v2 tag version to write:
+        • ID3v2.3 is written using id3lib,
+        • ID3v2.4 is written using libid3tag (recommended)</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">2</property>
+                                <property name="top_attach">0</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkLabel" id="id3_v2_encoding_label">
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Character encoding:</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">1</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkRadioButton" id="id3_v2_unicode_radio">
+                                <property name="label" translatable="yes">Unicode</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">1</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkComboBoxText" id="id3_v2_unicode_encoding_combo">
+                                <items>
+                                    <item id="utf-8">UTF-8</item>
+                                    <item id="utf-16">UTF-16</item>
+                                </items>
+                                <property name="tooltip-text" translatable="yes">Choose the Unicode character encoding to be used when writing ID3v2 tags</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">2</property>
+                                <property name="top_attach">1</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkRadioButton" id="id3_v2_other_radio">
+                                <property name="group">id3_v2_unicode_radio</property>
+                                <property name="label" translatable="yes">Other</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">2</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkComboBoxText" id="id3_v2_override_encoding_combo">
+                                <property name="tooltip-text" translatable="yes">Override the standard Unicode character encoding to be used when writing ID3v2 tags</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">2</property>
+                                <property name="top_attach">2</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkLabel" id="id3_v2_iconv_label">
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">When encoding conversion fails:</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">3</property>
+                                <property name="width">2</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkBox" id="id3_v2_iconv_box">
+                                <property name="spacing">12</property>
+                                <child>
+                                    <object class="GtkRadioButton" id="id3_v2_none_radio">
+                                        <property name="label" translatable="yes">Report error</property>
+                                        <property name="name">none</property>
+                                        <property name="tooltip-text" translatable="yes">With this option, when a character cannot be represented in the target character encoding, it isn't changed. But note that an error message will be displayed for information</property>
+                                        <property name="visible">True</property>
+                                    </object>
+                                </child>
+                                <child>
+                                    <object class="GtkRadioButton" id="id3_v2_transliterate_radio">
+                                        <property name="group">id3_v1_none_radio</property>
+                                        <property name="label" translatable="yes">Transliterate</property>
+                                        <property name="name">transliterate</property>
+                                        <property name="tooltip-text" translatable="yes">With this option, when a character cannot be represented in the target character encoding, it can be approximated through one or several similar-looking characters</property>
+                                        <property name="visible">True</property>
+                                    </object>
+                                </child>
+                                <child>
+                                    <object class="GtkRadioButton" id="id3_v2_ignore_radio">
+                                        <property name="group">id3_v1_none_radio</property>
+                                        <property name="label" translatable="yes">Discard</property>
+                                        <property name="name">ignore</property>
+                                        <property name="tooltip-text" translatable="yes">With this option, when a character cannot be represented in the target character encoding, it will be silently discarded</property>
+                                        <property name="visible">True</property>
+                                    </object>
+                                </child>
+                            </object>
+                            <packing>
+                                <property name="left_attach">2</property>
+                                <property name="top_attach">3</property>
+                                <property name="width">2</property>
+                            </packing>
+                        </child>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkGrid" id="id3_v2_check_grid">
+                        <property name="column-spacing">12</property>
+                        <property name="margin-left">12</property>
+                        <property name="row-spacing">6</property>
+                        <property name="visible">True</property>
+                        <child>
+                            <object class="GtkCheckButton" id="id3_v2_convert_check">
+                                <property name="label" translatable="yes">Automatically convert old ID3v2 tag versions</property>
+                                <property name="tooltip-text" translatable="yes">Whether to convert ID3 tags written against old version of the specification, such as ID3v2.2, to newer ones, such as ID3v2.3 or ID3v2.4</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">0</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkCheckButton" id="id3_v2_crc32_check">
+                                <property name="label" translatable="yes">Use CRC32</property>
+                                <property name="tooltip-text" translatable="yes">Whether to embed a CRC-32 checksum of the audio file data in ID3v2 tags</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">0</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkCheckButton" id="id3_v2_compression_check">
+                                <property name="label" translatable="yes">Compress data in ID3v2 tags</property>
+                                <property name="tooltip-text" translatable="yes">Whether to compress data in ID3v2 tags</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">1</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkCheckButton" id="id3_v2_genre_check">
+                                <property name="label" translatable="yes">Use text-only genre in ID3v2 tags</property>
+                                <property name="tooltip-text" translatable="yes">Whether to use only a string, and not the integer-base ID3v1 genre field, when writing a genre field to ID3v2 tags</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">1</property>
+                            </packing>
+                        </child>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="id3_v1_label">
+                        <property name="halign">start</property>
+                        <property name="label" translatable="yes">ID3v1</property>
+                        <property name="margin-top">12</property>
+                        <property name="visible">True</property>
+                        <attributes>
+                            <attribute name="weight" value="bold"/>
+                        </attributes>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="id3_v1_check">
+                        <property name="label" translatable="yes">Write ID3v1 tag</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Whether to write ID3v1 tags when writing ID3 tags into audio files</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkGrid" id="id3_v1_encoding_grid">
+                        <property name="column-spacing">12</property>
+                        <property name="margin-left">12</property>
+                        <property name="row-spacing">6</property>
+                        <property name="visible">True</property>
+                        <child>
+                            <object class="GtkLabel" id="id3_v1_encoding_label">
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Character encoding:</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">0</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkComboBoxText" id="id3_v1_encoding_combo">
+                                <property name="tooltip-text" translatable="yes">Choose the character set to be used when writing ID3v1 tag</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">0</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkLabel" id="id3_v1_iconv_label">
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">When encoding conversion fails:</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">1</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkBox" id="id3_v1_iconv_box">
+                                <property name="spacing">12</property>
+                                <child>
+                                    <object class="GtkRadioButton" id="id3_v1_none_radio">
+                                        <property name="label" translatable="yes">Report error</property>
+                                        <property name="name">none</property>
+                                        <property name="tooltip-text" translatable="yes">With this option, when a character cannot be represented in the target character encoding, it isn't changed. But note that an error message will be displayed for information</property>
+                                        <property name="visible">True</property>
+                                    </object>
+                                </child>
+                                <child>
+                                    <object class="GtkRadioButton" id="id3_v1_transliterate_radio">
+                                        <property name="group">id3_v1_none_radio</property>
+                                        <property name="label" translatable="yes">Transliterate</property>
+                                        <property name="name">transliterate</property>
+                                        <property name="tooltip-text" translatable="yes">With this option, when a character cannot be represented in the target character encoding, it can be approximated through one or several similar-looking characters</property>
+                                        <property name="visible">True</property>
+                                    </object>
+                                </child>
+                                <child>
+                                    <object class="GtkRadioButton" id="id3_v1_ignore_radio">
+                                        <property name="group">id3_v1_none_radio</property>
+                                        <property name="label" translatable="yes">Discard</property>
+                                        <property name="name">ignore</property>
+                                        <property name="tooltip-text" translatable="yes">With this option, when a character cannot be represented in the target character encoding, it will be silently discarded</property>
+                                        <property name="visible">True</property>
+                                    </object>
+                                </child>
+                            </object>
+                            <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">1</property>
+                                <property name="width">2</property>
+                            </packing>
+                        </child>
+                    </object>
                 </child>
             </object>
         </child>
-        <child>
-            <object class="GtkLabel" id="cddb_list_label">
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">Results List</property>
-                <property name="margin-top">12</property>
-                <property name="visible">True</property>
-                <attributes>
-                    <attribute name="weight" value="bold"/>
-                </attributes>
+        <child type="tab">
+            <object class="GtkLabel" id="id3_tags_tab_label">
+                <property name="label" translatable="yes">ID3 Tags</property>
             </object>
         </child>
         <child>
-            <object class="GtkCheckButton" id="cddb_follow_check">
-                <property name="label" translatable="yes">Select corresponding file (according to position or DLM if activated below)</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether to select the file in the file list which matches the position in the CDDB results list</property>
+            <object class="GtkGrid" id="scanner_grid">
+                <property name="border-width">12</property>
+                <property name="orientation">vertical</property>
+                <property name="row-spacing">6</property>
                 <property name="visible">True</property>
+                <child>
+                    <object class="GtkLabel" id="character_conversion_label">
+                        <property name="halign">start</property>
+                        <property name="label" translatable="yes">Character Conversion</property>
+                        <property name="visible">True</property>
+                        <attributes>
+                            <attribute name="weight" value="bold"/>
+                        </attributes>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="fill_tag_scanner_label">
+                        <property name="halign">start</property>
+                        <property name="label" translatable="yes">Fill Tag Scanner</property>
+                        <property name="margin-left">12</property>
+                        <property name="margin-top">12</property>
+                        <property name="visible">True</property>
+                        <attributes>
+                            <attribute name="weight" value="bold"/>
+                        </attributes>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkRadioButton" id="fts_underscore_p20_radio">
+                        <property name="label" translatable="yes">Convert underscores and '%20' to spaces</property>
+                        <property name="margin-left">24</property>
+                        <property name="name">spaces</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkRadioButton" id="fts_spaces_radio">
+                        <property name="group">fts_underscore_p20_radio</property>
+                        <property name="label" translatable="yes">Convert spaces and '%20' to underscores</property>
+                        <property name="margin-left">24</property>
+                        <property name="name">underscores</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkRadioButton" id="fts_none_radio">
+                        <property name="group">fts_underscore_p20_radio</property>
+                        <property name="label" translatable="yes">No conversion</property>
+                        <property name="margin-left">24</property>
+                        <property name="name">no-change</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="rename_file_directory_scanner_label">
+                        <property name="halign">start</property>
+                        <property name="label" translatable="yes">Rename File and Directory Scanner</property>
+                        <property name="margin-left">12</property>
+                        <property name="margin-top">12</property>
+                        <property name="visible">True</property>
+                        <attributes>
+                            <attribute name="weight" value="bold"/>
+                        </attributes>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkRadioButton" id="rfs_underscore_p20_radio">
+                        <property name="label" translatable="yes">Convert underscores and '%20' to spaces</property>
+                        <property name="margin-left">24</property>
+                        <property name="name">spaces</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkRadioButton" id="rfs_spaces_radio">
+                        <property name="group">rfs_underscore_p20_radio</property>
+                        <property name="label" translatable="yes">Convert spaces and '%20' to underscores</property>
+                        <property name="margin-left">24</property>
+                        <property name="name">underscores</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkRadioButton" id="rfs_remove_radio">
+                        <property name="group">rfs_underscore_p20_radio</property>
+                        <property name="label" translatable="yes">No conversion</property>
+                        <property name="margin-left">24</property>
+                        <property name="name">remove</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="process_fields_scanner_label">
+                        <property name="halign">start</property>
+                        <property name="label" translatable="yes">Process Fields Scanner</property>
+                        <property name="margin-left">12</property>
+                        <property name="margin-top">12</property>
+                        <property name="visible">True</property>
+                        <attributes>
+                            <attribute name="weight" value="bold"/>
+                        </attributes>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="pfs_uppercase_prep_check">
+                        <property name="label" translatable="yes">Upper-case the first letters of all words, including prepositions and articles</property>
+                        <property name="margin-left">24</property>
+                        <property name="tooltip-text" translatable="yes">Whether to upper-case the first letter of prepositions and some other short words such as "feat." when processing tag fields</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="fields_label">
+                        <property name="halign">start</property>
+                        <property name="label" translatable="yes">Fields</property>
+                        <property name="margin-top">12</property>
+                        <property name="visible">True</property>
+                        <attributes>
+                            <attribute name="weight" value="bold"/>
+                        </attributes>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="overwrite_fields_check">
+                        <property name="label" translatable="yes">Overwrite fields when scanning tags</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Whether to overwrite the tag field values when filling tags. Otherwise, only blank tag fields will be filled</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkBox" id="default_comment_box">
+                        <property name="margin-left">12</property>
+                        <property name="spacing">12</property>
+                        <property name="visible">True</property>
+                        <child>
+                            <object class="GtkCheckButton" id="default_comment_check">
+                                <property name="label" translatable="yes">Set this text as default comment:</property>
+                                <property name="tooltip-text" translatable="yes">Whether to set the comment tag field to the provided default value when filling tags</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkEntry" id="default_comment_entry">
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="crc32_default_check">
+                        <property name="label" translatable="yes">Use CRC32 as the default comment (for files with ID3 tags only)</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Whether to use the CRC-32 of the audio file data as the default comment, for files with ID3 tags only</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <child type="tab">
+            <object class="GtkLabel" id="scanner_tab_label">
+                <property name="label" translatable="yes">Scanner</property>
             </object>
         </child>
         <child>
-            <object class="GtkCheckButton" id="cddb_dlm_check">
-                <property name="label" translatable="yes">Use the Levenshtein algorithm (DLM) to match results (using title) with audio files (using filename)</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether to use the DLM algorithm to match CDDB results to files</property>
+            <object class="GtkGrid" id="cddb_grid">
+                <property name="border-width">12</property>
+                <property name="orientation">vertical</property>
+                <property name="row-spacing">6</property>
                 <property name="visible">True</property>
+                <child>
+                    <object class="GtkGrid" id="cddb_search_grid">
+                        <property name="column-spacing">12</property>
+                        <property name="orientation">vertical</property>
+                        <property name="row-spacing">6</property>
+                        <property name="visible">True</property>
+                        <child>
+                            <object class="GtkLabel" id="automatic_search_label">
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Automatic Search Servers</property>
+                                <property name="visible">True</property>
+                                <attributes>
+                                    <attribute name="weight" value="bold"/>
+                                </attributes>
+                            </object>
+                            <packing>
+                                <property name="width">6</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkLabel" id="cddb_automatic_host1_label">
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Host:</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">1</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkComboBoxText" id="cddb_automatic_host1_combo">
+                                <property name="has-entry">True</property>
+                                <property name="visible">True</property>
+                                <items>
+                                    <item translatable="yes" id="host_a">freedb.freedb.org</item>
+                                    <item translatable="yes" id="host_b">www.gnudb.org</item>
+                                    <item translatable="yes" id="host_c">at.freedb.org</item>
+                                    <item translatable="yes" id="host_d">au.freedb.org</item>
+                                    <item translatable="yes" id="host_e">ca.freedb.org</item>
+                                    <item translatable="yes" id="host_f">es.freedb.org</item>
+                                    <item translatable="yes" id="host_g">fi.freedb.org</item>
+                                    <item translatable="yes" id="host_h">ru.freedb.org</item>
+                                    <item translatable="yes" id="host_i">uk.freedb.org</item>
+                                    <item translatable="yes" id="host_j">us.freedb.org</item>
+                                </items>
+                            </object>
+                            <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">1</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkLabel" id="cddb_automatic_port1_label">
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Port:</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">2</property>
+                                <property name="top_attach">1</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkSpinButton" id="cddb_automatic_port1_button">
+                                <property name="adjustment">cddb_automatic_host1_adjustment</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">3</property>
+                                <property name="top_attach">1</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkLabel" id="cddb_automatic_path1_label">
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">CGI Path:</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">4</property>
+                                <property name="top_attach">1</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkEntry" id="cddb_automatic_path1_entry">
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">5</property>
+                                <property name="top_attach">1</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkLabel" id="cddb_automatic_host2_label">
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Host:</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">2</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkComboBoxText" id="cddb_automatic_host2_combo">
+                                <property name="has-entry">True</property>
+                                <property name="visible">True</property>
+                                <items>
+                                    <item translatable="yes" id="host_musicbrainz">freedb.musicbrainz.org</item>
+                                </items>
+                            </object>
+                            <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">2</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkLabel" id="cddb_automatic_port2_label">
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Port:</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">2</property>
+                                <property name="top_attach">2</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkSpinButton" id="cddb_automatic_port2_button">
+                                <property name="adjustment">cddb_automatic_host2_adjustment</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">3</property>
+                                <property name="top_attach">2</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkLabel" id="cddb_automatic_path2_label">
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">CGI Path:</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">4</property>
+                                <property name="top_attach">2</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkEntry" id="cddb_automatic_path2_entry">
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">5</property>
+                                <property name="top_attach">2</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkLabel" id="manual_search_label">
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Manual Search Server</property>
+                                <property name="margin-top">12</property>
+                                <property name="visible">True</property>
+                                <attributes>
+                                    <attribute name="weight" value="bold"/>
+                                </attributes>
+                            </object>
+                            <packing>
+                                <property name="width">6</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkLabel" id="cddb_manual_host_label">
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Host:</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">4</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkComboBoxText" id="cddb_manual_host_combo">
+                                <property name="has-entry">True</property>
+                                <property name="visible">True</property>
+                                <items>
+                                    <item translatable="yes" id="host_freedb">www.freedb.org</item>
+                                    <item translatable="yes" id="host_gnudb">www.gnudb.org</item>
+                                </items>
+                            </object>
+                            <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">4</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkLabel" id="cddb_manual_port_label">
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Port:</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">2</property>
+                                <property name="top_attach">4</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkSpinButton" id="cddb_manual_port_button">
+                                <property name="adjustment">cddb_manual_host_adjustment</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">3</property>
+                                <property name="top_attach">4</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkLabel" id="cddb_manual_path_label">
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">CGI Path:</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">4</property>
+                                <property name="top_attach">4</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkEntry" id="cddb_manual_path_entry">
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left_attach">5</property>
+                                <property name="top_attach">4</property>
+                            </packing>
+                        </child>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="cddb_proxy_label">
+                        <property name="halign">start</property>
+                        <property name="label" translatable="yes">Proxy</property>
+                        <property name="margin-top">12</property>
+                        <property name="visible">True</property>
+                        <attributes>
+                            <attribute name="weight" value="bold"/>
+                        </attributes>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="cddb_proxy_check">
+                        <property name="label" translatable="yes">Use a proxy server</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Whether to access remote CDDB through a proxy</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkGrid" id="cddb_proxy_grid">
+                        <property name="column-spacing">12</property>
+                        <property name="row-spacing">6</property>
+                        <property name="visible">True</property>
+                        <child>
+                            <object class="GtkLabel" id="cddb_host_label">
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Host:</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">0</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkEntry" id="cddb_host_entry">
+                                <property name="tooltip-text" translatable="yes">Hostname for a proxy to access remote CDDB</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left-attach">1</property>
+                                <property name="top-attach">0</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkLabel" id="cddb_port_label">
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Port:</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left-attach">2</property>
+                                <property name="top-attach">0</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkSpinButton" id="cddb_port_button">
+                                <property name="adjustment">cddb_proxy_adjustment</property>
+                                <property name="tooltip-text" translatable="yes">Port for a proxy to access remote CDDB</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left-attach">3</property>
+                                <property name="top-attach">0</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkLabel" id="cddb_user_label">
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">User:</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">1</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkEntry" id="cddb_user_entry">
+                                <property name="tooltip-text" translatable="yes">Username for a proxy to access remote CDDB</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left-attach">1</property>
+                                <property name="top-attach">1</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkLabel" id="cddb_password_label">
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Password:</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left-attach">2</property>
+                                <property name="top-attach">1</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkEntry" id="cddb_password_entry">
+                                <property name="tooltip-text" translatable="yes">Password for a proxy to access remote CDDB</property>
+                                <property name="visibility">False</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left-attach">3</property>
+                                <property name="top-attach">1</property>
+                            </packing>
+                        </child>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="cddb_list_label">
+                        <property name="halign">start</property>
+                        <property name="label" translatable="yes">Results List</property>
+                        <property name="margin-top">12</property>
+                        <property name="visible">True</property>
+                        <attributes>
+                            <attribute name="weight" value="bold"/>
+                        </attributes>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="cddb_follow_check">
+                        <property name="label" translatable="yes">Select corresponding file (according to position or DLM if activated below)</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Whether to select the file in the file list which matches the position in the CDDB results list</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="cddb_dlm_check">
+                        <property name="label" translatable="yes">Use the Levenshtein algorithm (DLM) to match results (using title) with audio files (using filename)</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Whether to use the DLM algorithm to match CDDB results to files</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
             </object>
         </child>
-    </object>
-    <object class="GtkGrid" id="application_grid">
-        <property name="border-width">12</property>
-        <property name="orientation">vertical</property>
-        <property name="row-spacing">6</property>
-        <property name="visible">True</property>
-        <child>
-            <object class="GtkLabel" id="confirmation_label">
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">Confirmation</property>
-                <property name="visible">True</property>
-                <attributes>
-                    <attribute name="weight" value="bold"/>
-                </attributes>
+        <child type="tab">
+            <object class="GtkLabel" id="cddb_tab_label">
+                <property name="label" translatable="yes">CDDB</property>
             </object>
         </child>
         <child>
-            <object class="GtkCheckButton" id="confirm_quit_check">
-                <property name="label" translatable="yes">Confirm before quitting the application</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether to ask for confirmation from the user before quitting the application</property>
+            <object class="GtkGrid" id="application_grid">
+                <property name="border-width">12</property>
+                <property name="orientation">vertical</property>
+                <property name="row-spacing">6</property>
                 <property name="visible">True</property>
+                <child>
+                    <object class="GtkLabel" id="confirmation_label">
+                        <property name="halign">start</property>
+                        <property name="label" translatable="yes">Confirmation</property>
+                        <property name="visible">True</property>
+                        <attributes>
+                            <attribute name="weight" value="bold"/>
+                        </attributes>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="confirm_quit_check">
+                        <property name="label" translatable="yes">Confirm before quitting the application</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Whether to ask for confirmation from the user before quitting the application</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="confirm_write_check">
+                        <property name="label" translatable="yes">Confirm before writing tags</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Whether to ask for confirmation from the user before writing tags to audio files</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="confirm_rename_check">
+                        <property name="label" translatable="yes">Confirm before renaming a file</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Whether to ask for confirmation from the user before renaming a file</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="confirm_delete_check">
+                        <property name="label" translatable="yes">Confirm before deleting a file</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Whether to ask for confirmation from the user before deleting a file</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="confirm_write_playlist_check">
+                        <property name="label" translatable="yes">Confirm before writing a playlist</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Whether to ask for confirmation from the user before writing a playlist</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="confirm_unsaved_files_check">
+                        <property name="label" translatable="yes">Confirm before losing unsaved changes to files</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Whether to ask for confirmation from the user before performing an operation that would lose unsaved changes on files</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="scanner_dialog_label">
+                        <property name="halign">start</property>
+                        <property name="label" translatable="yes">Scanner Dialog</property>
+                        <property name="margin-top">12</property>
+                        <property name="visible">True</property>
+                        <attributes>
+                            <attribute name="weight" value="bold"/>
+                        </attributes>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="scanner_dialog_startup_check">
+                        <property name="label" translatable="yes">Show the scanner dialog on startup</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Whether to show the scanner window on application startup</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
             </object>
         </child>
-        <child>
-            <object class="GtkCheckButton" id="confirm_write_check">
-                <property name="label" translatable="yes">Confirm before writing tags</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether to ask for confirmation from the user before writing tags to audio files</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkCheckButton" id="confirm_rename_check">
-                <property name="label" translatable="yes">Confirm before renaming a file</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether to ask for confirmation from the user before renaming a file</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkCheckButton" id="confirm_delete_check">
-                <property name="label" translatable="yes">Confirm before deleting a file</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether to ask for confirmation from the user before deleting a file</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkCheckButton" id="confirm_write_playlist_check">
-                <property name="label" translatable="yes">Confirm before writing a playlist</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether to ask for confirmation from the user before writing a playlist</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkCheckButton" id="confirm_unsaved_files_check">
-                <property name="label" translatable="yes">Confirm before losing unsaved changes to files</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether to ask for confirmation from the user before performing an operation that would lose unsaved changes on files</property>
-                <property name="visible">True</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkLabel" id="scanner_dialog_label">
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">Scanner Dialog</property>
-                <property name="margin-top">12</property>
-                <property name="visible">True</property>
-                <attributes>
-                    <attribute name="weight" value="bold"/>
-                </attributes>
-            </object>
-        </child>
-        <child>
-            <object class="GtkCheckButton" id="scanner_dialog_startup_check">
-                <property name="label" translatable="yes">Show the scanner dialog on startup</property>
-                <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether to show the scanner window on application startup</property>
-                <property name="visible">True</property>
+        <child type="tab">
+            <object class="GtkLabel" id="application_tab_label">
+                <property name="label" translatable="yes">Application</property>
             </object>
         </child>
     </object>
