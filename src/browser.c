@@ -39,7 +39,6 @@
 #include <errno.h>
 
 #include "application_window.h"
-#include "gtk2_compat.h"
 #include "easytag.h"
 #include "et_core.h"
 #include "scan_dialog.h"

@@ -35,7 +35,6 @@
 #endif
 #include <sys/types.h>
 
-#include "gtk2_compat.h"
 #include "easytag.h"
 #include "application_window.h"
 #include "browser.h"

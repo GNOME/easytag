@@ -29,7 +29,6 @@
 #include <glib/gi18n.h>
 
 #include "application_window.h"
-#include "gtk2_compat.h"
 #include "easytag.h"
 #include "enums.h"
 #include "preferences_dialog.h"

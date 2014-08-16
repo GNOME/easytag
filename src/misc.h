@@ -68,6 +68,10 @@ gchar * et_track_number_to_string (const guint track_number);
 
 void et_on_child_exited (GPid pid, gint status, gpointer user_data);
 
+void et_grid_attach_full (GtkGrid *grid, GtkWidget *child, gint left, gint top,
+                          gint width, gint height, gboolean hexpand,
+                          gboolean vexpand, gint hmargin, gint vmargin);
+
 G_END_DECLS
 
 #endif /* __MISC_H__ */

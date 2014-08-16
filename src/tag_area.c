@@ -28,7 +28,6 @@
 #include "easytag.h"
 #include "et_core.h"
 #include "genres.h"
-#include "gtk2_compat.h"
 #include "log.h"
 #include "misc.h"
 #include "picture.h"

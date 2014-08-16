@@ -27,7 +27,6 @@
 #include "cddb_dialog.h"
 #include "easytag.h"
 #include "file_area.h"
-#include "gtk2_compat.h"
 #include "load_files_dialog.h"
 #include "log.h"
 #include "misc.h"

@@ -50,7 +50,6 @@ easytag_SOURCES = \
 	src/enums.c \
 	src/et_core.c \
 	src/file_area.c \
-	src/gtk2_compat.c \
 	src/load_files_dialog.c \
 	src/log.c \
 	src/main.c \
@@ -104,7 +103,6 @@ easytag_headers = \
 	src/et_core.h \
 	src/file_area.h \
 	src/genres.h \
-	src/gtk2_compat.h \
 	src/load_files_dialog.h \
 	src/log.h \
 	src/misc.h \
