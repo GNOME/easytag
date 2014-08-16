@@ -1,5 +1,169 @@
 <interface domain="easytag">
     <requires lib="gtk+" version="3.4"/>
+    <object class="GtkAdjustment" id="log_lines_adjustment">
+        <property name="lower">10.0</property>
+        <property name="step-increment">10.0</property>
+        <property name="upper">1500.0</property>
+    </object>
+    <object class="GtkGrid" id="ui_grid">
+        <property name="border-width">12</property>
+        <property name="orientation">vertical</property>
+        <property name="row-spacing">6</property>
+        <property name="visible">True</property>
+        <child>
+            <object class="GtkLabel" id="browser_label">
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Browser</property>
+                <property name="visible">True</property>
+                <attributes>
+                    <attribute name="weight" value="bold"/>
+                </attributes>
+            </object>
+        </child>
+        <child>
+            <object class="GtkBox" id="default_path_box">
+                <property name="margin-left">12</property>
+                <property name="spacing">12</property>
+                <property name="visible">True</property>
+                <child>
+                    <object class="GtkLabel" id="default_path_label">
+                        <property name="label" translatable="yes">Default Directory:</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkFileChooserButton" id="default_path_button">
+                        <property name="action">select-folder</property>
+                        <property name="tooltip-text" translatable="yes">The default path to search for music files</property>
+                        <property name="width-chars">30</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <child>
+            <object class="GtkCheckButton" id="browser_startup_check">
+                <property name="label" translatable="yes">Load on startup the default directory or the directory passed as argument</property>
+                <property name="margin-left">12</property>
+                <property name="tooltip-text" translatable="yes">Whether to load the default path (or the path passed as an argument) on application startup</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkCheckButton" id="browser_subdirs_check">
+                <property name="label" translatable="yes">Browse subdirectories</property>
+                <property name="margin-left">12</property>
+                <property name="tooltip-text" translatable="yes">Whether to search subdirectories for audio files when reading a path in the browser</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkCheckButton" id="browser_expand_subdirs_check">
+                <property name="label" translatable="yes">Expand the subdirectories of the selected path</property>
+                <property name="margin-left">12</property>
+                <property name="tooltip-text" translatable="yes">Whether to expand the subdirectories of a node in the directory browser when selecting it</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkCheckButton" id="browser_hidden_check">
+                <property name="label" translatable="yes">Search hidden directories</property>
+                <property name="margin-left">12</property>
+                <property name="tooltip-text" translatable="yes">Whether to show hidden directories when showing a path in the browser</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkCheckButton" id="browser_case_check">
+                <property name="label" translatable="yes">Sort files case-sensitively</property>
+                <property name="margin-left">12</property>
+                <property name="tooltip-text" translatable="yes">Whether file sorting is case-sensitive</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkLabel" id="log_label">
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Log</property>
+                <property name="visible">True</property>
+                <attributes>
+                    <attribute name="weight" value="bold"/>
+                </attributes>
+            </object>
+        </child>
+        <child>
+            <object class="GtkCheckButton" id="log_show_check">
+                <property name="label" translatable="yes">Show the log</property>
+                <property name="margin-left">12</property>
+                <property name="tooltip-text" translatable="yes">Whether to show the log in the main window</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkBox" id="log_lines_box">
+                <property name="margin-left">12</property>
+                <property name="spacing">12</property>
+                <property name="visible">True</property>
+                <child>
+                    <object class="GtkLabel" id="log_lines_label">
+                        <property name="label" translatable="yes">Maximum number of lines:</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkSpinButton" id="log_lines_button">
+                        <property name="adjustment">log_lines_adjustment</property>
+                        <property name="tooltip-text" translatable="yes">The maximum number of lines to keep in the log</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <child>
+            <object class="GtkLabel" id="general_label">
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">General</property>
+                <property name="visible">True</property>
+                <attributes>
+                    <attribute name="weight" value="bold"/>
+                </attributes>
+            </object>
+        </child>
+        <child>
+            <object class="GtkCheckButton" id="header_show_check">
+                <property name="label" translatable="yes">Show audio file header summary</property>
+                <property name="margin-left">12</property>
+                <property name="tooltip-text" translatable="yes">Whether to show header information, such as bit rate and duration, for audio files</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkBox" id="general_list_box">
+                <property name="margin-left">12</property>
+                <property name="spacing">12</property>
+                <property name="visible">True</property>
+                <child>
+                    <object class="GtkLabel" id="list_label">
+                        <property name="label" translatable="yes">Display changed files in list using:</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkRadioButton" id="list_red_radio">
+                        <property name="label" translatable="yes">Red color</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkRadioButton" id="list_bold_radio">
+                        <property name="group">list_red_radio</property>
+                        <property name="label" translatable="yes">Bold style</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+    </object>
     <object class="GtkGrid" id="scanner_grid">
         <property name="border-width">12</property>
         <property name="orientation">vertical</property>

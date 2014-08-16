@@ -230,14 +230,13 @@ create_preferences_dialog (EtPreferencesDialog *self)
     GtkWidget *Frame;
     GtkWidget *Table;
     GtkWidget *VBox, *vbox;
-    GtkWidget *HBox, *hbox, *id3v1v2hbox;
+    GtkWidget *hbox, *id3v1v2hbox;
     GtkWidget *Separator;
     GtkWidget *LoadOnStartup;
     GtkWidget *BrowseSubdir;
     GtkWidget *OpenSelectedBrowserNode;
     GtkWidget *BrowseHiddendir;
     GtkWidget *ShowHeaderInfos;
-    GtkWidget *ChangedFilesDisplayedToRed;
     GtkWidget *ChangedFilesDisplayedToBold;
     GtkWidget *SortingFileCaseSensitive;
     GtkWidget *ShowLogView;
@@ -333,26 +332,25 @@ create_preferences_dialog (EtPreferencesDialog *self)
     gtk_notebook_set_scrollable(GTK_NOTEBOOK(priv->options_notebook),TRUE);
     gtk_box_pack_start(GTK_BOX(OptionsVBox),priv->options_notebook,TRUE,TRUE,0);
 
-
-
     /*
      * Browser
      */
-    Label = gtk_label_new(_("Browser"));
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
+    Label = gtk_label_new(_("Interface"));
+    builder = gtk_builder_new ();
+    gtk_builder_add_from_resource (builder,
+                                   "/org/gnome/EasyTAG/preferences_dialog.ui",
+                                   &error);
+
+    if (error != NULL)
+    {
+        g_error ("Unable to get scanner page from resource: %s",
+                 error->message);
+    }
+
+    vbox = GTK_WIDGET (gtk_builder_get_object (builder, "ui_grid"));
     gtk_notebook_append_page (GTK_NOTEBOOK (priv->options_notebook), vbox, Label);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
-
-    /* Default directory */
-    HBox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
-    gtk_box_pack_start(GTK_BOX(vbox),HBox,FALSE,FALSE,0);
-
-    /* Label. */
-    Label = gtk_label_new(_("Default directory:"));
-    gtk_box_pack_start(GTK_BOX(HBox),Label,FALSE,FALSE,0);
-
-    default_path_button = gtk_file_chooser_button_new (_("Default Browser Path"),
-                                                       GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
+    default_path_button = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                              "default_path_button"));
     on_default_path_changed (MainSettings, "changed::default-path",
                              GTK_FILE_CHOOSER_BUTTON (default_path_button));
     /* Connecting to current-folder-changed does not work if the user selects
@@ -364,127 +362,66 @@ create_preferences_dialog (EtPreferencesDialog *self)
     g_signal_connect (MainSettings, "changed::default-path",
                       G_CALLBACK (on_default_path_changed),
                       default_path_button);
-    gtk_box_pack_start (GTK_BOX (HBox), default_path_button, TRUE, TRUE, 0);
-    gtk_file_chooser_button_set_width_chars (GTK_FILE_CHOOSER_BUTTON (default_path_button),
-                                             30);
-    gtk_widget_set_tooltip_text (default_path_button,
-                                 _("The default path to search for music files"));
 
     /* Load directory on startup */
-    LoadOnStartup = gtk_check_button_new_with_label(_("Load on startup the default directory or the directory passed as argument"));
-    gtk_box_pack_start(GTK_BOX(vbox),LoadOnStartup,FALSE,FALSE,0);
+    LoadOnStartup = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                        "browser_startup_check"));
     g_settings_bind (MainSettings, "load-on-startup", LoadOnStartup, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (LoadOnStartup,
-                                 _("Whether to load the default path (or the path passed as an argument) on application startup"));
 
     /* Browse subdirectories */
-    BrowseSubdir = gtk_check_button_new_with_label (_("Browse subdirectories"));
-    gtk_box_pack_start(GTK_BOX(vbox),BrowseSubdir,FALSE,FALSE,0);
+    BrowseSubdir = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                       "browser_subdirs_check"));
     g_settings_bind (MainSettings, "browse-subdir", BrowseSubdir, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (BrowseSubdir,
-                                 _("Whether to search subdirectories for audio files when reading a path in the browser"));
 
     /* Open the node to show subdirectories */
-    OpenSelectedBrowserNode = gtk_check_button_new_with_label (_("Expand the subdirectories of the selected path"));
-    gtk_box_pack_start(GTK_BOX(vbox),OpenSelectedBrowserNode,FALSE,FALSE,0);
+    OpenSelectedBrowserNode = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                  "browser_expand_subdirs_check"));
     g_settings_bind (MainSettings, "browse-expand-children",
                      OpenSelectedBrowserNode, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (OpenSelectedBrowserNode,
-                                 _("Whether to expand the subdirectories of a node in the directory browser when selecting it"));
 
     /* Browse hidden directories */
-    BrowseHiddendir = gtk_check_button_new_with_label(_("Search hidden directories"));
+    BrowseHiddendir = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                          "browser_hidden_check"));
     g_settings_bind (MainSettings, "browse-show-hidden", BrowseHiddendir,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (BrowseHiddendir,
-                                 _("Whether to show hidden directories when showing a path in the browser"));
 
-
-
-    /*
-     * Misc
-     */
-    Label = gtk_label_new (_("Misc"));
-    VBox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_notebook_append_page (GTK_NOTEBOOK (priv->options_notebook), VBox, Label);
-    gtk_container_set_border_width (GTK_CONTAINER (VBox), BOX_SPACING);
-
-    /* User interface */
-    Frame = gtk_frame_new (_("User Interface"));
-    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
-
-    // Show header infos
-    ShowHeaderInfos = gtk_check_button_new_with_label (_("Show audio file header summary"));
-    gtk_box_pack_start(GTK_BOX(vbox),ShowHeaderInfos,FALSE,FALSE,0);
-    g_settings_bind (MainSettings, "file-show-header", ShowHeaderInfos, "active",
+    SortingFileCaseSensitive = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                   "browser_case_check"));
+    g_settings_bind (MainSettings, "sort-case-sensitive",
+                     SortingFileCaseSensitive, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (ShowHeaderInfos,
-                                 _("Whether to show header information, such as bitrate and duration, for audio files"));
 
-    // Display color mode for changed files in list
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
-    gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
-    Label = gtk_label_new(_("Display changed files in list using:"));
-    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
+    /* Show / hide log view. */
+    ShowLogView = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                      "log_show_check"));
+    g_settings_bind (MainSettings, "log-show", ShowLogView, "active",
+                     G_SETTINGS_BIND_DEFAULT);
+   
+    /* Max number of lines. */
+    LogMaxLinesSpinButton = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                "log_lines_button"));
+    g_settings_bind (MainSettings, "log-lines", LogMaxLinesSpinButton,
+                     "value", G_SETTINGS_BIND_DEFAULT);
 
-    ChangedFilesDisplayedToRed = gtk_radio_button_new_with_label(NULL,_("Red color"));
-    gtk_box_pack_start(GTK_BOX(hbox),ChangedFilesDisplayedToRed,FALSE,FALSE,4);
+    /* Show header informantion. */
+    ShowHeaderInfos = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                          "header_show_check"));
+    g_settings_bind (MainSettings, "file-show-header", ShowHeaderInfos,
+                     "active", G_SETTINGS_BIND_DEFAULT);
 
-    // Set "new" Gtk+-2.0ish black/bold style for changed items
-    ChangedFilesDisplayedToBold = gtk_radio_button_new_with_label(
-        gtk_radio_button_get_group(GTK_RADIO_BUTTON(ChangedFilesDisplayedToRed)),_("Bold style"));
-    gtk_box_pack_start(GTK_BOX(hbox),ChangedFilesDisplayedToBold,FALSE,FALSE,2);
+    /* Display color mode for changed files in list. */
+    /* Set "new" Gtk+-2.0ish black/bold style for changed items. */
+    ChangedFilesDisplayedToBold = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                      "list_bold_radio"));
     g_settings_bind (MainSettings, "file-changed-bold",
                      ChangedFilesDisplayedToBold, "active",
                      G_SETTINGS_BIND_DEFAULT);
     g_signal_connect_swapped (ChangedFilesDisplayedToBold, "notify::active",
                               G_CALLBACK (et_application_window_browser_refresh_list),
                               MainWindow);
-
-    /* Sorting List Options */
-    Frame = gtk_frame_new (_("Sorting List Options"));
-    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-
-    SortingFileCaseSensitive = gtk_check_button_new_with_label(_("Sort files case-sensitively"));
-    gtk_container_add (GTK_CONTAINER (Frame), SortingFileCaseSensitive);
-    g_settings_bind (MainSettings, "sort-case-sensitive",
-                     SortingFileCaseSensitive, "active",
-                     G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (SortingFileCaseSensitive,
-                                 _("Whether file sorting is case-sensitive"));
-
-    /* Log options */
-    Frame = gtk_frame_new (_("Log Options"));
-    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
-
-    // Show / hide log view
-    ShowLogView = gtk_check_button_new_with_label (_("Show the log"));
-    gtk_box_pack_start(GTK_BOX(vbox),ShowLogView,FALSE,FALSE,0);
-    g_settings_bind (MainSettings, "log-show", ShowLogView, "active",
-                     G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (ShowLogView,
-                                 _("Whether to show the log in the main window"));
-   
-    // Max number of lines
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
-    gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
-    Label = gtk_label_new (_("Max number of lines:"));
-    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
-    
-    LogMaxLinesSpinButton = gtk_spin_button_new_with_range(10.0,1500.0,10.0);
-    gtk_box_pack_start(GTK_BOX(hbox),LogMaxLinesSpinButton,FALSE,FALSE,0);
-    g_settings_bind (MainSettings, "log-lines", LogMaxLinesSpinButton,
-                     "value", G_SETTINGS_BIND_DEFAULT);
-
 
     /*
      * File Settings
@@ -1158,17 +1095,6 @@ create_preferences_dialog (EtPreferencesDialog *self)
      * Scanner
      */
     Label = gtk_label_new (_("Scanner"));
-    builder = gtk_builder_new ();
-    gtk_builder_add_from_resource (builder,
-                                   "/org/gnome/EasyTAG/preferences_dialog.ui",
-                                   &error);
-
-    if (error != NULL)
-    {
-        g_error ("Unable to get scanner page from resource: %s",
-                 error->message);
-    }
-
     VBox = GTK_WIDGET (gtk_builder_get_object (builder, "scanner_grid"));
     gtk_notebook_append_page (GTK_NOTEBOOK(priv->options_notebook), VBox, Label);
 
