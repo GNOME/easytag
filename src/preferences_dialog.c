@@ -54,10 +54,10 @@ struct _EtPreferencesDialogPrivate
     GtkListStore *default_path_model;
     GtkListStore *file_player_model;
 
-    GtkWidget *LabelAdditionalId3v1IconvOptions;
+    GtkWidget *id3_v1_encoding_grid;
+
     GtkWidget *LabelAdditionalId3v2IconvOptions;
     GtkWidget *LabelId3v2Charset;
-    GtkWidget *LabelId3v1Charset;
     GtkWidget *LabelId3v2Version;
     GtkWidget *FileWritingId3v2VersionCombo;
     GtkWidget *FileWritingId3v2UseUnicodeCharacterSet;
@@ -87,11 +87,6 @@ struct _EtPreferencesDialogPrivate
  * Prototypes *
  **************/
 /* Options window */
-static void Number_Track_Formatted_Spin_Button_Changed (GtkWidget *Label,
-                                                        GtkWidget *SpinButton);
-static void et_prefs_on_pad_disc_number_spinbutton_changed (GtkWidget *label,
-                                                            GtkWidget *spinbutton);
-
 static void notify_id3_settings_active (GObject *object, GParamSpec *pspec, EtPreferencesDialog *self);
 
 static void et_preferences_on_response (GtkDialog *dialog, gint response_id,
@@ -230,8 +225,7 @@ create_preferences_dialog (EtPreferencesDialog *self)
     GtkWidget *Frame;
     GtkWidget *Table;
     GtkWidget *VBox, *vbox;
-    GtkWidget *hbox, *id3v1v2hbox;
-    GtkWidget *Separator;
+    GtkWidget *hbox;
     GtkWidget *LoadOnStartup;
     GtkWidget *BrowseSubdir;
     GtkWidget *OpenSelectedBrowserNode;
@@ -509,38 +503,24 @@ create_preferences_dialog (EtPreferencesDialog *self)
     /*
      * Tag Settings
      */
-    Label = gtk_label_new (_("Tag Settings"));
-    VBox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
+    Label = gtk_label_new (_("Tags"));
+    VBox = GTK_WIDGET (gtk_builder_get_object (builder, "tags_grid"));
     gtk_notebook_append_page (GTK_NOTEBOOK (priv->options_notebook), VBox, Label);
-    gtk_container_set_border_width (GTK_CONTAINER (VBox), BOX_SPACING);
 
     /* Tag Options */
-    Frame = gtk_frame_new (_("Tag Options"));
-    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
-
-    DateAutoCompletion = gtk_check_button_new_with_label(_("Auto completion of date if not complete"));
-    gtk_box_pack_start(GTK_BOX(vbox),DateAutoCompletion,FALSE,FALSE,0);
+    DateAutoCompletion = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                             "tags_auto_date_check"));
     g_settings_bind (MainSettings, "tag-date-autocomplete", DateAutoCompletion,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (DateAutoCompletion,
-                                 _("Whether to automatically complete the date tag"));
 
     /* Track formatting. */
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
-    gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
-
-    NumberTrackFormated = gtk_check_button_new_with_label(_("Write the track field with the following number of digits:"));
-    gtk_box_pack_start(GTK_BOX(hbox),NumberTrackFormated,FALSE,FALSE,0);
+    NumberTrackFormated = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                              "tags_track_check"));
     g_settings_bind (MainSettings, "tag-number-padded", NumberTrackFormated,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (NumberTrackFormated,
-                                 _("Whether the track number tag field should be padded with leading zeroes"));
 
-    NumberTrackFormatedSpinButton = gtk_spin_button_new_with_range(2.0,6.0,1.0);
-    gtk_box_pack_start(GTK_BOX(hbox),NumberTrackFormatedSpinButton,FALSE,FALSE,0);
+    NumberTrackFormatedSpinButton = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                        "tags_track_button"));
     g_settings_bind (MainSettings, "tag-number-length",
                      NumberTrackFormatedSpinButton, "value",
                      G_SETTINGS_BIND_DEFAULT);
@@ -548,28 +528,14 @@ create_preferences_dialog (EtPreferencesDialog *self)
                      NumberTrackFormatedSpinButton, "sensitive",
                      G_SETTINGS_BIND_GET);
 
-    Label = gtk_label_new(""); // Label to show the example
-    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,4);
-    g_signal_connect_swapped (NumberTrackFormatedSpinButton, "changed",
-                              G_CALLBACK (Number_Track_Formatted_Spin_Button_Changed),
-                              Label);
-    g_signal_emit_by_name(G_OBJECT(NumberTrackFormatedSpinButton),"changed",NULL);
-
     /* Disc formatting. */
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
-
-    pad_disc_number = gtk_check_button_new_with_label (_("Write the disc field with the following number of digits:"));
-    gtk_box_pack_start (GTK_BOX (hbox), pad_disc_number, FALSE, FALSE, 0);
+    pad_disc_number = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                          "tags_disc_check"));
     g_settings_bind (MainSettings, "tag-number-padded", pad_disc_number,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (pad_disc_number,
-                                 _("Whether to pad the disc field with leading zeroes"));
 
-    pad_disc_number_spinbutton = gtk_spin_button_new_with_range (1.0, 6.0,
-                                                                 1.0);
-    gtk_box_pack_start (GTK_BOX (hbox), pad_disc_number_spinbutton, FALSE,
-                        FALSE, 0);
+    pad_disc_number_spinbutton = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                     "tags_disc_button"));
     g_settings_bind (MainSettings, "tag-number-length",
                      pad_disc_number_spinbutton, "value",
                      G_SETTINGS_BIND_DEFAULT);
@@ -578,56 +544,27 @@ create_preferences_dialog (EtPreferencesDialog *self)
                      G_SETTINGS_BIND_GET);
     g_signal_emit_by_name (G_OBJECT (pad_disc_number), "toggled");
 
-    /* Label to show the example. */
-    Label = gtk_label_new ("");
-    gtk_box_pack_start (GTK_BOX (hbox), Label, FALSE, FALSE, BOX_SPACING);
-    g_signal_connect_swapped ((pad_disc_number_spinbutton), "changed",
-                              G_CALLBACK (et_prefs_on_pad_disc_number_spinbutton_changed),
-                              Label);
-    g_signal_emit_by_name (G_OBJECT (pad_disc_number_spinbutton), "changed");
-
-    // Separator line
-    Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
-    gtk_box_pack_start(GTK_BOX(vbox),Separator,FALSE,FALSE,0);
-
     /* Tag field focus */
-    SetFocusToSameTagField = gtk_check_button_new_with_label (_("Preserve the tag field focus"));
-    gtk_box_pack_start (GTK_BOX (vbox), SetFocusToSameTagField, FALSE, FALSE,
-                        0);
+    SetFocusToSameTagField = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                 "tags_preserve_focus_check"));
     g_settings_bind (MainSettings, "tag-preserve-focus", SetFocusToSameTagField,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (SetFocusToSameTagField,
-                                 _("hether to preserve focus on the current tag field when switching file"));
 
     /* Tag Splitting */
-    Frame = gtk_frame_new (_("Tag Splitting"));
-    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-
-    Table = et_grid_new (5, 2);
-    gtk_container_add(GTK_CONTAINER(Frame),Table);
-    gtk_container_set_border_width (GTK_CONTAINER (Table), BOX_SPACING);
-    gtk_grid_set_column_spacing (GTK_GRID (Table), BOX_SPACING);
-    gtk_grid_set_row_spacing (GTK_GRID (Table), BOX_SPACING);
-    
-    Label = gtk_label_new(_("For Vorbis tags, selected fields will be split at dashes and saved as separate tags"));
-    gtk_grid_attach (GTK_GRID (Table), Label, 0, 0, 2, 1);
-    gtk_widget_set_halign (Label, GTK_ALIGN_START);
-
-    VorbisSplitFieldTitle = gtk_check_button_new_with_label(_("Title"));
-    VorbisSplitFieldArtist = gtk_check_button_new_with_label(_("Artist"));
-    VorbisSplitFieldAlbum = gtk_check_button_new_with_label(_("Album"));
-    VorbisSplitFieldGenre = gtk_check_button_new_with_label(_("Genre"));
-    VorbisSplitFieldComment = gtk_check_button_new_with_label(_("Comment"));
-    VorbisSplitFieldComposer = gtk_check_button_new_with_label(_("Composer"));
-    VorbisSplitFieldOrigArtist = gtk_check_button_new_with_label(_("Original artist"));
-
-    gtk_grid_attach (GTK_GRID (Table), VorbisSplitFieldTitle, 0, 1, 1, 1);
-    gtk_grid_attach (GTK_GRID (Table), VorbisSplitFieldArtist, 0, 2, 1, 1);
-    gtk_grid_attach (GTK_GRID (Table), VorbisSplitFieldAlbum, 0, 3, 1, 1);
-    gtk_grid_attach (GTK_GRID (Table), VorbisSplitFieldGenre, 0, 4, 1, 1);
-    gtk_grid_attach (GTK_GRID (Table), VorbisSplitFieldComment, 1, 1, 1, 1);
-    gtk_grid_attach (GTK_GRID (Table), VorbisSplitFieldComposer, 1, 2, 1, 1);
-    gtk_grid_attach (GTK_GRID (Table), VorbisSplitFieldOrigArtist, 1, 3, 1, 1);
+    VorbisSplitFieldTitle = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                "split_title_check"));
+    VorbisSplitFieldArtist = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                 "split_artist_check"));
+    VorbisSplitFieldAlbum = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                "split_album_check"));
+    VorbisSplitFieldGenre = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                "split_genre_check"));
+    VorbisSplitFieldComment = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                  "split_comment_check"));
+    VorbisSplitFieldComposer = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                   "split_composer_check"));
+    VorbisSplitFieldOrigArtist = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                     "split_orig_artist_check"));
 
     g_settings_bind (MainSettings, "ogg-split-title", VorbisSplitFieldTitle,
                      "active", G_SETTINGS_BIND_DEFAULT);
@@ -649,177 +586,95 @@ create_preferences_dialog (EtPreferencesDialog *self)
     /*
      * ID3 Tag Settings
      */
-    Label = gtk_label_new (_("ID3 Tag Settings"));
-    VBox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
+    Label = gtk_label_new (_("ID3 Tags"));
+    VBox = GTK_WIDGET (gtk_builder_get_object (builder, "id3_tags_grid"));
 #ifdef ENABLE_MP3
     gtk_notebook_append_page (GTK_NOTEBOOK (priv->options_notebook), VBox, Label);
 #endif
-    gtk_container_set_border_width (GTK_CONTAINER (VBox), BOX_SPACING);
-
-
-    /* Tag Rules frame */
-    Frame = gtk_frame_new (_("ID3 Tag Rules"));
-    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
-
-    Table = et_grid_new (3, 2);
-    gtk_box_pack_start(GTK_BOX(vbox),Table,FALSE,FALSE,0);
-    gtk_grid_set_row_spacing (GTK_GRID (Table), BOX_SPACING);
-    gtk_grid_set_column_spacing (GTK_GRID (Table), BOX_SPACING);
 
     /* Strip tag when fields (managed by EasyTAG) are empty */
-    StripTagWhenEmptyFields = gtk_check_button_new_with_label (_("Strip ID3 tags if all ID3 tags are empty"));
-    gtk_grid_attach (GTK_GRID (Table), StripTagWhenEmptyFields, 0, 0, 1, 1);
+    StripTagWhenEmptyFields = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                  "id3_strip_check"));
     g_settings_bind (MainSettings, "id3-strip-empty", StripTagWhenEmptyFields,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (StripTagWhenEmptyFields,
-                                 _("Whether to remove the ID3 tag from the audio file if all the individual tag fields are empty"));
 
     /* Convert old ID3v2 tag version */
-    priv->ConvertOldId3v2TagVersion = gtk_check_button_new_with_label (_("Automatically convert old ID3v2 tag versions"));
-    gtk_grid_attach (GTK_GRID (Table), priv->ConvertOldId3v2TagVersion, 0, 1, 1, 1);
+    priv->ConvertOldId3v2TagVersion = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                          "id3_v2_convert_check"));
     g_settings_bind (MainSettings, "id3v2-convert-old",
                      priv->ConvertOldId3v2TagVersion, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (priv->ConvertOldId3v2TagVersion,
-                                 _("Whether to convert ID3 tags written against old version of the specification, such as ID3v2.2, to newer ones, such as ID3v2.3 or ID3v2.4"));
 
     /* Use CRC32 */
-    priv->FileWritingId3v2UseCrc32 = gtk_check_button_new_with_label (_("Use CRC32"));
-    gtk_grid_attach (GTK_GRID (Table), priv->FileWritingId3v2UseCrc32, 1, 0, 1, 1);
+    priv->FileWritingId3v2UseCrc32 = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                         "id3_v2_crc32_check"));
     g_settings_bind (MainSettings, "id3v2-crc32", priv->FileWritingId3v2UseCrc32,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (priv->FileWritingId3v2UseCrc32,
-                                 _("Whether to embed a CRC-32 checksum of the audio file data in ID3v2 tags"));
 
     /* Use Compression */
-    priv->FileWritingId3v2UseCompression = gtk_check_button_new_with_label (_("Compress data in ID3v2 tags"));
-    gtk_grid_attach (GTK_GRID (Table), priv->FileWritingId3v2UseCompression, 1, 1, 1,
-                     1);
+    priv->FileWritingId3v2UseCompression = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                               "id3_v2_compression_check"));
     g_settings_bind (MainSettings, "id3v2-compression",
                      priv->FileWritingId3v2UseCompression, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (priv->FileWritingId3v2UseCompression,
-                                 _("Whether to compress data in ID3v2 tags"));
 	
     /* Write Genre in text */
-    priv->FileWritingId3v2TextOnlyGenre = gtk_check_button_new_with_label (_("Use text-only genre in ID3v2 tags"));
-    gtk_grid_attach (GTK_GRID (Table), priv->FileWritingId3v2TextOnlyGenre, 0, 2, 1,
-                     1);
+    priv->FileWritingId3v2TextOnlyGenre = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                              "id3_v2_genre_check"));
     g_settings_bind (MainSettings, "id3v2-text-only-genre",
                      priv->FileWritingId3v2TextOnlyGenre, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (priv->FileWritingId3v2TextOnlyGenre,
-                                 _("Whether to use only a string, and not the integer-base ID3v1 genre field, when writing a genre field to ID3v2 tags"));	
-
-    /* Character Set for writing ID3 tag */
-    Frame = gtk_frame_new (_("Character Set for writing ID3 tags"));
-    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    id3v1v2hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(Frame),id3v1v2hbox);
-    gtk_container_set_border_width (GTK_CONTAINER (id3v1v2hbox), BOX_SPACING);
-
-    // ID3v2 tags
-    Frame = gtk_frame_new (_("ID3v2 tags"));
-    gtk_box_pack_start(GTK_BOX(id3v1v2hbox),Frame,FALSE,FALSE,2);
-
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
-
-    Table = et_grid_new (8, 6);
-    gtk_box_pack_start(GTK_BOX(vbox),Table,FALSE,FALSE,0);
-    gtk_grid_set_row_spacing (GTK_GRID (Table), BOX_SPACING);
-    gtk_grid_set_column_spacing (GTK_GRID (Table), BOX_SPACING);
 
     /* Write ID3v2 tag */
-    FileWritingId3v2WriteTag = gtk_check_button_new_with_label(_("Write ID3v2 tag"));
-    gtk_grid_attach (GTK_GRID (Table), FileWritingId3v2WriteTag, 0, 0, 5, 1);
+    FileWritingId3v2WriteTag = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                   "id3_v2_check"));
     g_settings_bind (MainSettings, "id3v2-enabled", FileWritingId3v2WriteTag,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (FileWritingId3v2WriteTag,
-                                 _("Whether to write ID3v2 tags when writing ID3 tags into audio files"));
     g_signal_connect (FileWritingId3v2WriteTag, "notify::active",
                       G_CALLBACK (notify_id3_settings_active), self);
 
 #ifdef ENABLE_ID3LIB
     /* ID3v2 tag version */
-    priv->LabelId3v2Version = gtk_label_new (_("Version:"));
-    gtk_grid_attach (GTK_GRID (Table), priv->LabelId3v2Version, 0, 1, 2, 1);
-    gtk_widget_set_halign (priv->LabelId3v2Version, GTK_ALIGN_START);
-
-    priv->FileWritingId3v2VersionCombo = gtk_combo_box_text_new ();
-    gtk_widget_set_tooltip_text (priv->FileWritingId3v2VersionCombo,
-                                 _("Select the ID3v2 tag version to write:\n"
-                                   " - ID3v2.3 is written using id3lib,\n"
-                                   " - ID3v2.4 is written using libid3tag (recommended)."));
-    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (priv->FileWritingId3v2VersionCombo), "ID3v2.4");
-    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (priv->FileWritingId3v2VersionCombo), "ID3v2.3");
+    priv->LabelId3v2Version = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                  "id3_v2_version_label"));
+    priv->FileWritingId3v2VersionCombo = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                             "id3_v2_version_combo"));
     g_settings_bind_with_mapping (MainSettings, "id3v2-version-4",
                                   priv->FileWritingId3v2VersionCombo, "active",
                                   G_SETTINGS_BIND_DEFAULT,
                                   et_preferences_id3v2_version_get,
                                   et_preferences_id3v2_version_set, self,
                                   NULL);
-    gtk_grid_attach (GTK_GRID (Table), priv->FileWritingId3v2VersionCombo, 2, 1, 2,
-                     1);
     g_signal_connect (MainSettings, "changed::id3v2-version-4",
                       G_CALLBACK (notify_id3_settings_active), self);
 #endif
 
-
     /* Charset */
-    priv->LabelId3v2Charset = gtk_label_new (_("Charset:"));
-    gtk_grid_attach (GTK_GRID (Table), priv->LabelId3v2Charset, 0, 2, 5, 1);
-    gtk_widget_set_halign (priv->LabelId3v2Charset, GTK_ALIGN_START);
-
+    priv->LabelId3v2Charset = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                  "id3_v2_encoding_label"));
     /* Unicode. */
-    priv->FileWritingId3v2UseUnicodeCharacterSet = gtk_radio_button_new_with_label (NULL, _("Unicode "));
+    priv->FileWritingId3v2UseUnicodeCharacterSet = GTK_WIDGET (gtk_builder_get_object (builder, "id3_v2_unicode_radio"));
     g_settings_bind (MainSettings, "id3v2-enable-unicode",
                      priv->FileWritingId3v2UseUnicodeCharacterSet, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_grid_attach (GTK_GRID (Table), priv->FileWritingId3v2UseUnicodeCharacterSet,
-                     1, 3, 1, 1);
 
-    priv->FileWritingId3v2UnicodeCharacterSetCombo = gtk_combo_box_text_new ();
-    gtk_widget_set_tooltip_text (priv->FileWritingId3v2UnicodeCharacterSetCombo,
-                                 _("Choose the Unicode character set to be used when writing ID3v2 tags"));
-    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (priv->FileWritingId3v2UnicodeCharacterSetCombo),
-                                    "UTF-8");
-    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (priv->FileWritingId3v2UnicodeCharacterSetCombo),
-                                    "UTF-16");
+    priv->FileWritingId3v2UnicodeCharacterSetCombo = GTK_WIDGET (gtk_builder_get_object (builder, "id3_v2_unicode_encoding_combo"));
     g_settings_bind_with_mapping (MainSettings, "id3v2-unicode-charset",
                                   priv->FileWritingId3v2UnicodeCharacterSetCombo,
                                   "active", G_SETTINGS_BIND_DEFAULT,
                                   et_preferences_id3v2_unicode_charset_get,
                                   et_preferences_id3v2_unicode_charset_set,
                                   NULL, NULL);
-    gtk_grid_attach (GTK_GRID (Table),
-                     priv->FileWritingId3v2UnicodeCharacterSetCombo, 2, 3, 2,
-                     1);
     g_signal_connect (priv->FileWritingId3v2UseUnicodeCharacterSet,
                       "notify::active",
                       G_CALLBACK (notify_id3_settings_active), self);
 
     /* Non-Unicode. */
-    priv->FileWritingId3v2UseNoUnicodeCharacterSet = gtk_radio_button_new_with_label(
-        gtk_radio_button_get_group(GTK_RADIO_BUTTON(priv->FileWritingId3v2UseUnicodeCharacterSet)),
-        _("Other"));
-    gtk_grid_attach (GTK_GRID (Table),
-                     priv->FileWritingId3v2UseNoUnicodeCharacterSet, 1, 4, 1, 1);
-
-    priv->FileWritingId3v2NoUnicodeCharacterSetCombo = gtk_combo_box_text_new();
-    gtk_widget_set_tooltip_text (priv->FileWritingId3v2NoUnicodeCharacterSetCombo,
-                                 _("Override the typical Unicode character set to be used when writing ID3v2 tags"));
-
+    priv->FileWritingId3v2UseNoUnicodeCharacterSet = GTK_WIDGET (gtk_builder_get_object (builder, "id3_v2_other_radio"));
+    priv->FileWritingId3v2NoUnicodeCharacterSetCombo = GTK_WIDGET (gtk_builder_get_object (builder, "id3_v2_override_encoding_combo"));
     Charset_Populate_Combobox (GTK_COMBO_BOX (priv->FileWritingId3v2NoUnicodeCharacterSetCombo), 
                                g_settings_get_enum (MainSettings,
                                                     "id3v2-no-unicode-charset"));
-    gtk_grid_attach (GTK_GRID (Table),
-                     priv->FileWritingId3v2NoUnicodeCharacterSetCombo, 2, 4, 3,
-                     1);
     g_settings_bind_with_mapping (MainSettings, "id3v2-no-unicode-charset",
                                   priv->FileWritingId3v2NoUnicodeCharacterSetCombo,
                                   "active", G_SETTINGS_BIND_DEFAULT,
@@ -830,38 +685,11 @@ create_preferences_dialog (EtPreferencesDialog *self)
                       G_CALLBACK (notify_id3_settings_active), self);
 
     /* ID3v2 Additional iconv() options. */
-    priv->LabelAdditionalId3v2IconvOptions = gtk_label_new (_("Additional settings for iconv():"));
-    gtk_grid_attach (GTK_GRID (Table), priv->LabelAdditionalId3v2IconvOptions,
-                     2, 5, 3, 1);
-    gtk_widget_set_halign (priv->LabelAdditionalId3v2IconvOptions,
-                           GTK_ALIGN_START);
-
-    priv->FileWritingId3v2IconvOptionsNo = gtk_radio_button_new_with_label (NULL,
-                                                                            _("No"));
-    gtk_grid_attach (GTK_GRID (Table), priv->FileWritingId3v2IconvOptionsNo, 2, 6, 1,
-                     1);
-    gtk_widget_set_name (priv->FileWritingId3v2IconvOptionsNo, "none");
-    gtk_widget_set_tooltip_text (priv->FileWritingId3v2IconvOptionsNo, _("With this option, when "
-        "a character cannot be represented in the target character set, it isn't changed. "
-        "But note that an error message will be displayed for information."));
-    priv->FileWritingId3v2IconvOptionsTranslit = gtk_radio_button_new_with_label (gtk_radio_button_get_group (GTK_RADIO_BUTTON (priv->FileWritingId3v2IconvOptionsNo)),
-        _("//TRANSLIT"));
-    gtk_grid_attach (GTK_GRID (Table), priv->FileWritingId3v2IconvOptionsTranslit, 3,
-                     6, 1, 1);
-    gtk_widget_set_name (priv->FileWritingId3v2IconvOptionsTranslit,
-                         "transliterate");
-    gtk_widget_set_tooltip_text (priv->FileWritingId3v2IconvOptionsTranslit, _("With this option, when "
-        "a character cannot be represented in the target character set, it can be "
-        "approximated through one or several similarly looking characters."));
-
-    priv->FileWritingId3v2IconvOptionsIgnore = gtk_radio_button_new_with_label (gtk_radio_button_get_group (GTK_RADIO_BUTTON (priv->FileWritingId3v2IconvOptionsNo)),
-        _("//IGNORE"));
-    gtk_grid_attach (GTK_GRID (Table), priv->FileWritingId3v2IconvOptionsIgnore, 4,
-                     6, 1, 1);
-    gtk_widget_set_name (priv->FileWritingId3v2IconvOptionsIgnore, "ignore");
-    gtk_widget_set_tooltip_text (priv->FileWritingId3v2IconvOptionsIgnore, _("With this option, when "
-        "a character cannot be represented in the target character set, it will "
-        "be silently discarded."));
+    priv->LabelAdditionalId3v2IconvOptions = GTK_WIDGET (gtk_builder_get_object (builder, "id3_v2_iconv_label"));
+    priv->FileWritingId3v2IconvOptionsNo = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                               "id3_v2_none_radio"));
+    priv->FileWritingId3v2IconvOptionsTranslit = GTK_WIDGET (gtk_builder_get_object (builder, "id3_v2_transliterate_radio")),
+    priv->FileWritingId3v2IconvOptionsIgnore = GTK_WIDGET (gtk_builder_get_object (builder, "id3_v2_ignore_radio"));
 
     g_settings_bind_with_mapping (MainSettings, "id3v2-encoding-option",
                                   priv->FileWritingId3v2IconvOptionsNo, "active",
@@ -882,40 +710,18 @@ create_preferences_dialog (EtPreferencesDialog *self)
                                   et_settings_enum_radio_set,
                                   priv->FileWritingId3v2IconvOptionsIgnore, NULL);
 
-    // ID3v1 tags
-    Frame = gtk_frame_new (_("ID3v1 tags"));
-    gtk_box_pack_start(GTK_BOX(id3v1v2hbox),Frame,FALSE,FALSE,2);
-
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
-
-    Table = et_grid_new (6, 5);
-    gtk_box_pack_start(GTK_BOX(vbox),Table,FALSE,FALSE,0);
-    gtk_grid_set_row_spacing (GTK_GRID (Table), BOX_SPACING);
-    gtk_grid_set_column_spacing (GTK_GRID (Table), BOX_SPACING);
-
-
     /* Write ID3v1 tag */
-    FileWritingId3v1WriteTag = gtk_check_button_new_with_label(_("Write ID3v1.x tag"));
-    gtk_grid_attach (GTK_GRID (Table), FileWritingId3v1WriteTag, 0, 0, 4, 1);
+    FileWritingId3v1WriteTag = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                   "id3_v1_check"));
     g_settings_bind (MainSettings, "id3v1-enabled", FileWritingId3v1WriteTag,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (FileWritingId3v1WriteTag,
-                                 _("Whether to write ID3v1 tags when writing ID3 tags into audio files"));
     g_signal_connect (FileWritingId3v1WriteTag, "notify::active",
                       G_CALLBACK (notify_id3_settings_active), self);
 
+    priv->id3_v1_encoding_grid = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                     "id3_v1_encoding_grid"));
     /* Id3V1 writing character set */
-    priv->LabelId3v1Charset = gtk_label_new (_("Charset:"));
-    gtk_grid_attach (GTK_GRID (Table), priv->LabelId3v1Charset, 0, 1, 4, 1);
-    gtk_widget_set_halign (priv->LabelId3v1Charset, GTK_ALIGN_START);
-
-    priv->FileWritingId3v1CharacterSetCombo = gtk_combo_box_text_new();
-    gtk_grid_attach (GTK_GRID (Table), priv->FileWritingId3v1CharacterSetCombo,
-                     1, 2, 3, 1);
-    gtk_widget_set_tooltip_text (priv->FileWritingId3v1CharacterSetCombo,
-                                 _("Choose the character set to be used when writing ID3v1 tag"));
+    priv->FileWritingId3v1CharacterSetCombo = GTK_WIDGET (gtk_builder_get_object (builder, "id3_v1_encoding_combo"));
     Charset_Populate_Combobox (GTK_COMBO_BOX (priv->FileWritingId3v1CharacterSetCombo),
                                g_settings_get_enum (MainSettings,
                                                     "id3v1-charset"));
@@ -926,38 +732,10 @@ create_preferences_dialog (EtPreferencesDialog *self)
                                   GSIZE_TO_POINTER (ET_TYPE_CHARSET), NULL);
 
     /* ID3V1 Additional iconv() options*/
-    priv->LabelAdditionalId3v1IconvOptions = gtk_label_new (_("Additional settings for iconv():"));
-    gtk_grid_attach (GTK_GRID (Table), priv->LabelAdditionalId3v1IconvOptions,
-                     1, 3, 3, 1);
-    gtk_widget_set_halign (priv->LabelAdditionalId3v1IconvOptions,
-                           GTK_ALIGN_START);
-
-    priv->FileWritingId3v1IconvOptionsNo = gtk_radio_button_new_with_label (NULL,
-                                                                            _("No"));
-    gtk_grid_attach (GTK_GRID (Table), priv->FileWritingId3v1IconvOptionsNo, 1, 4, 1,
-                     1);
-    gtk_widget_set_name (priv->FileWritingId3v1IconvOptionsNo, "none");
-    gtk_widget_set_tooltip_text (priv->FileWritingId3v1IconvOptionsNo, _("With this option, when "
-        "a character cannot be represented in the target character set, it isn't changed. "
-        "But note that an error message will be displayed for information."));
-    priv->FileWritingId3v1IconvOptionsTranslit = gtk_radio_button_new_with_label (gtk_radio_button_get_group (GTK_RADIO_BUTTON (priv->FileWritingId3v1IconvOptionsNo)),
-        _("//TRANSLIT"));
-    gtk_grid_attach (GTK_GRID (Table), priv->FileWritingId3v1IconvOptionsTranslit, 2,
-                     4, 1, 1);
-    gtk_widget_set_name (priv->FileWritingId3v1IconvOptionsTranslit,
-                         "transliterate");
-    gtk_widget_set_tooltip_text (priv->FileWritingId3v1IconvOptionsTranslit,_("With this option, when "
-        "a character cannot be represented in the target character set, it can be "
-        "approximated through one or several similarly looking characters."));
-
-    priv->FileWritingId3v1IconvOptionsIgnore = gtk_radio_button_new_with_label (gtk_radio_button_get_group (GTK_RADIO_BUTTON (priv->FileWritingId3v1IconvOptionsNo)),
-        _("//IGNORE"));
-    gtk_grid_attach (GTK_GRID (Table), priv->FileWritingId3v1IconvOptionsIgnore, 3,
-                     4, 1, 1);
-    gtk_widget_set_name (priv->FileWritingId3v1IconvOptionsIgnore, "ignore");
-    gtk_widget_set_tooltip_text (priv->FileWritingId3v1IconvOptionsIgnore, _("With this option, when "
-        "a character cannot be represented in the target character set, it will "
-        "be silently discarded."));
+    priv->FileWritingId3v1IconvOptionsNo = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                               "id3_v1_none_radio"));
+    priv->FileWritingId3v1IconvOptionsTranslit = GTK_WIDGET (gtk_builder_get_object (builder, "id3_v1_transliterate_radio"));
+    priv->FileWritingId3v1IconvOptionsIgnore = GTK_WIDGET (gtk_builder_get_object (builder, "id3_v1_ignore_radio"));
 
     g_settings_bind_with_mapping (MainSettings, "id3v1-encoding-option",
                                   priv->FileWritingId3v1IconvOptionsNo, "active",
@@ -979,36 +757,14 @@ create_preferences_dialog (EtPreferencesDialog *self)
                                   priv->FileWritingId3v1IconvOptionsIgnore, NULL);
 
     /* Character Set for reading tag */
-    Frame = gtk_frame_new (_("Character Set for reading ID3 tags"));
-    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
-
-    Table = et_grid_new(4,2);
-    gtk_box_pack_start(GTK_BOX(vbox),Table,FALSE,FALSE,0);
-    //gtk_container_set_border_width(GTK_CONTAINER(Table), 2);
-    /*gtk_grid_set_row_spacing (GTK_GRID (Table), 2);*/
-    gtk_grid_set_column_spacing (GTK_GRID (Table), BOX_SPACING);
-
-    // "File Reading Charset" Check Button + Combo
-    UseNonStandardId3ReadingCharacterSet = gtk_check_button_new_with_label(_(
-        "Non-standard:"));
+    /* "File Reading Charset" Check Button + Combo. */
+    UseNonStandardId3ReadingCharacterSet = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                               "id3_read_encoding_check"));
     g_settings_bind (MainSettings, "id3-override-read-encoding",
                      UseNonStandardId3ReadingCharacterSet, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_grid_attach (GTK_GRID (Table), UseNonStandardId3ReadingCharacterSet, 0,
-                     0, 1, 1);
-    gtk_widget_set_tooltip_text (UseNonStandardId3ReadingCharacterSet,
-                                 _("Whether to use a non-standard character encoding when reading ID3 tags"));
 
-    priv->FileReadingId3v1v2CharacterSetCombo = gtk_combo_box_text_new();
-    gtk_grid_attach (GTK_GRID (Table),
-                     priv->FileReadingId3v1v2CharacterSetCombo, 2, 0, 1, 1);
-
-    gtk_widget_set_tooltip_text (priv->FileReadingId3v1v2CharacterSetCombo,
-                                 _("Choose the character set to be used when reading ID3v1 and ID3v2 tags"));
-
+    priv->FileReadingId3v1v2CharacterSetCombo = GTK_WIDGET (gtk_builder_get_object (builder, "id3_read_encoding_combo"));
     Charset_Populate_Combobox (GTK_COMBO_BOX (priv->FileReadingId3v1v2CharacterSetCombo),
                                g_settings_get_enum (MainSettings,
                                                     "id3v1v2-charset"));
@@ -1021,7 +777,6 @@ create_preferences_dialog (EtPreferencesDialog *self)
                      priv->FileReadingId3v1v2CharacterSetCombo, "sensitive",
                      G_SETTINGS_BIND_GET);
     notify_id3_settings_active (NULL, NULL, self);
-
 
     /*
      * Scanner
@@ -1380,51 +1135,6 @@ create_preferences_dialog (EtPreferencesDialog *self)
 }
 
 static void
-Number_Track_Formatted_Spin_Button_Changed (GtkWidget *Label,
-                                            GtkWidget *SpinButton)
-{
-    gchar *tmp;
-    gint val;
-
-    if (g_settings_get_boolean (MainSettings, "tag-number-padded"))
-    {
-        val = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (SpinButton));
-    }
-    else
-        val = 1;
-
-    // For translators : be aware to NOT translate '%.*d' in this string
-    tmp = g_strdup_printf(_("(Example: %.*d_-_Track_name_1.mp3)"),val,1);
-
-    gtk_label_set_text(GTK_LABEL(Label),tmp);
-    g_free(tmp);
-}
-
-static void
-et_prefs_on_pad_disc_number_spinbutton_changed (GtkWidget *label,
-                                                GtkWidget *spinbutton)
-{
-    gchar *tmp;
-    guint val;
-
-    if (g_settings_get_boolean (MainSettings, "tag-disc-padded"))
-    {
-        val = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spinbutton));
-    }
-    else
-    {
-        val = 1;
-    }
-
-    /* Translators: please do NOT translate '%.*d' in this string. */
-    tmp = g_strdup_printf (_("(Example: disc_%.*d_of_10/Track_name_1.mp3)"),
-                           val, 1);
-
-    gtk_label_set_text (GTK_LABEL (label), tmp);
-    g_free (tmp);
-}
-
-static void
 notify_id3_settings_active (GObject *object,
                             GParamSpec *pspec,
                             EtPreferencesDialog *self)
@@ -1501,12 +1211,7 @@ notify_id3_settings_active (GObject *object,
 
     active = g_settings_get_boolean (MainSettings, "id3v1-enabled");
 
-    gtk_widget_set_sensitive (priv->LabelId3v1Charset, active);
-    gtk_widget_set_sensitive (priv->FileWritingId3v1CharacterSetCombo, active);
-    gtk_widget_set_sensitive (priv->LabelAdditionalId3v1IconvOptions, active);
-    gtk_widget_set_sensitive (priv->FileWritingId3v1IconvOptionsNo, active);
-    gtk_widget_set_sensitive (priv->FileWritingId3v1IconvOptionsTranslit, active);
-    gtk_widget_set_sensitive (priv->FileWritingId3v1IconvOptionsIgnore, active);
+    gtk_widget_set_sensitive (priv->id3_v1_encoding_grid, active);
 }
 
 /*
