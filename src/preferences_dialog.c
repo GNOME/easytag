@@ -426,50 +426,25 @@ create_preferences_dialog (EtPreferencesDialog *self)
     /*
      * File Settings
      */
-    Label = gtk_label_new (_("File Settings"));
-    VBox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_notebook_append_page (GTK_NOTEBOOK (priv->options_notebook), VBox, Label);
-    gtk_container_set_border_width (GTK_CONTAINER (VBox), BOX_SPACING);
+    Label = gtk_label_new (_("Files"));
+    VBox = GTK_WIDGET (gtk_builder_get_object (builder, "file_grid"));
+    gtk_notebook_append_page (GTK_NOTEBOOK (priv->options_notebook), VBox,
+                              Label);
 
     /* File (name) Options */
-    Frame = gtk_frame_new (_("File Options"));
-    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width (GTK_CONTAINER(vbox), BOX_SPACING);
-
-    ReplaceIllegalCharactersInFilename = gtk_check_button_new_with_label (_("Replace illegal characters when renaming"));
-    gtk_box_pack_start(GTK_BOX(vbox),ReplaceIllegalCharactersInFilename,FALSE,FALSE,0);
+    ReplaceIllegalCharactersInFilename = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                             "file_name_replace_check"));
     g_settings_bind (MainSettings, "rename-replace-illegal-chars",
                      ReplaceIllegalCharactersInFilename, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text(ReplaceIllegalCharactersInFilename,_("Convert illegal characters for "
-        "FAT32/16 and ISO9660 + Joliet filesystems ('\\', ':', ';', '*', '?', '\"', '<', '>', '|') "
-        "of the filename to avoid problem when renaming the file. This is useful when renaming the "
-        "file from the tag with the scanner."));
 
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
-    gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     /* Extension case (lower/upper?) */
-    Label = gtk_label_new(_("Convert filename extension to:"));
-    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
-
-    FilenameExtensionLowerCase = gtk_radio_button_new_with_label(NULL,_("Lower Case"));
-    gtk_widget_set_name (FilenameExtensionLowerCase, "lower-case");
-    gtk_box_pack_start(GTK_BOX(hbox),FilenameExtensionLowerCase,FALSE,FALSE,2);
-    gtk_widget_set_tooltip_text(FilenameExtensionLowerCase,_("For example, the extension will be converted to '.mp3'"));
-
-    FilenameExtensionUpperCase = gtk_radio_button_new_with_label(
-        gtk_radio_button_get_group(GTK_RADIO_BUTTON(FilenameExtensionLowerCase)),_("Upper Case"));
-    gtk_widget_set_name (FilenameExtensionUpperCase, "upper-case");
-    gtk_box_pack_start(GTK_BOX(hbox),FilenameExtensionUpperCase,FALSE,FALSE,2);
-    gtk_widget_set_tooltip_text(FilenameExtensionUpperCase,_("For example, the extension will be converted to '.MP3'"));
-
-    FilenameExtensionNoChange = gtk_radio_button_new_with_label(
-        gtk_radio_button_get_group(GTK_RADIO_BUTTON(FilenameExtensionLowerCase)),_("No Change"));
-    gtk_widget_set_name (FilenameExtensionNoChange, "no-change");
-    gtk_box_pack_start(GTK_BOX(hbox),FilenameExtensionNoChange,FALSE,FALSE,2);
-    gtk_widget_set_tooltip_text(FilenameExtensionNoChange,_("The extension will not be converted"));
+    FilenameExtensionLowerCase = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                     "name_lower_radio"));
+    FilenameExtensionUpperCase = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                     "name_upper_radio"));
+    FilenameExtensionNoChange = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                    "name_no_change_radio"));
 
     g_settings_bind_with_mapping (MainSettings, "rename-extension-mode",
                                   FilenameExtensionLowerCase, "active",
@@ -491,69 +466,26 @@ create_preferences_dialog (EtPreferencesDialog *self)
                                   FilenameExtensionNoChange, NULL);
 
     /* Preserve modification time */
-    PreserveModificationTime = gtk_check_button_new_with_label (_("Preserve modification time when writing files"));
-    gtk_box_pack_start(GTK_BOX(vbox),PreserveModificationTime,FALSE,FALSE,0);
+    PreserveModificationTime = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                   "file_preserve_check"));
     g_settings_bind (MainSettings, "file-preserve-modification-time",
                      PreserveModificationTime, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (PreserveModificationTime,
-                                 _("Whether to preserve the existing modification time when editing files"));
 
     /* Change directory modification time */
-    UpdateParentDirectoryModificationTime = gtk_check_button_new_with_label (_("Update parent directory modification time when writing files"));
-    gtk_box_pack_start(GTK_BOX(vbox),UpdateParentDirectoryModificationTime,FALSE,FALSE,0);
+    UpdateParentDirectoryModificationTime = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                                "file_parent_check"));
     g_settings_bind (MainSettings, "file-update-parent-modification-time",
                      UpdateParentDirectoryModificationTime, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (UpdateParentDirectoryModificationTime,
-                                 _("Whether to update the modification time on the parent directory when editing files"));
-
 
     /* Character Set for Filename */
-    Frame = gtk_frame_new (_("Character Set for Filename"));
-    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
-
-    Table = et_grid_new (4, 2);
-    gtk_box_pack_start(GTK_BOX(vbox),Table,FALSE,FALSE,0);
-    /*gtk_grid_set_row_spacing (GTK_GRID (Table), 2);*/
-    gtk_grid_set_column_spacing (GTK_GRID (Table), 2 * BOX_SPACING);
-
-    /* Rules for character set */
-    Label = gtk_label_new (_("Encoding options when renaming files"));
-    gtk_grid_attach (GTK_GRID (Table), Label, 0, 0, 2, 1);
-    gtk_widget_set_halign (Label, GTK_ALIGN_START);
-
-    FilenameCharacterSetOther = gtk_radio_button_new_with_label(NULL,_("Try another "
-        "character encoding"));
-    gtk_grid_attach (GTK_GRID (Table), FilenameCharacterSetOther, 1, 1, 1, 1);
-    gtk_widget_set_name (FilenameCharacterSetOther, "try-alternative");
-    gtk_widget_set_tooltip_text(FilenameCharacterSetOther,_("With this option, it will "
-        "try the conversion to the encoding associated to your locale (for example: "
-        "ISO-8859-1 for 'fr', KOI8-R for 'ru', ISO-8859-2 for 'ro'). If it fails, it "
-        "will try the character encoding ISO-8859-1."));
-
-    FilenameCharacterSetApproximate = gtk_radio_button_new_with_label(
-        gtk_radio_button_get_group(GTK_RADIO_BUTTON(FilenameCharacterSetOther)),
-        _("Force using the system character encoding and activate the transliteration"));
-    gtk_grid_attach (GTK_GRID (Table), FilenameCharacterSetApproximate, 1, 2,
-                     1, 1);
-    gtk_widget_set_name (FilenameCharacterSetApproximate, "transliterate");
-    gtk_widget_set_tooltip_text(FilenameCharacterSetApproximate,_("With this option, when "
-        "a character cannot be represented in the target character set, it can be "
-        "approximated through one or several similarly looking characters."));
-
-    FilenameCharacterSetDiscard = gtk_radio_button_new_with_label(
-        gtk_radio_button_get_group(GTK_RADIO_BUTTON(FilenameCharacterSetOther)),
-        _("Force using the system character encoding and silently discard some characters"));
-    gtk_grid_attach (GTK_GRID (Table), FilenameCharacterSetDiscard, 1, 3, 1,
-                     1);
-    gtk_widget_set_name (FilenameCharacterSetDiscard, "ignore");
-    gtk_widget_set_tooltip_text(FilenameCharacterSetDiscard,_("With this option, when "
-        "a character cannot be represented in the target character set, it will "
-        "be silently discarded."));
+    FilenameCharacterSetOther = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                    "file_encoding_try_alternative_radio"));
+    FilenameCharacterSetApproximate = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                          "file_encoding_transliterate_radio"));
+    FilenameCharacterSetDiscard = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                      "file_encoding_ignore_radio"));
 
     g_settings_bind_with_mapping (MainSettings, "rename-encoding",
                                   FilenameCharacterSetOther, "active",

@@ -164,6 +164,137 @@
             </object>
         </child>
     </object>
+    <object class="GtkGrid" id="file_grid">
+        <property name="border-width">12</property>
+        <property name="orientation">vertical</property>
+        <property name="row-spacing">6</property>
+        <property name="visible">True</property>
+        <child>
+            <object class="GtkLabel" id="file_label">
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">File Settings</property>
+                <property name="visible">True</property>
+                <attributes>
+                    <attribute name="weight" value="bold"/>
+                </attributes>
+            </object>
+        </child>
+        <child>
+            <object class="GtkCheckButton" id="file_preserve_check">
+                <property name="label" translatable="yes">Preserve modification time when writing files</property>
+                <property name="margin-left">12</property>
+                <property name="tooltip-text" translatable="yes">Whether to preserve the existing modification time when editing files</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkCheckButton" id="file_parent_check">
+                <property name="label" translatable="yes">Update parent directory modification time when writing files</property>
+                <property name="margin-left">12</property>
+                <property name="tooltip-text" translatable="yes">Whether to update the modification time on the parent directory when editing files</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkLabel" id="file_name_label">
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Filenames</property>
+                <property name="margin-top">12</property>
+                <property name="visible">True</property>
+                <attributes>
+                    <attribute name="weight" value="bold"/>
+                </attributes>
+            </object>
+        </child>
+        <child>
+            <object class="GtkCheckButton" id="file_name_replace_check">
+                <property name="label" translatable="yes">Replace illegal characters when renaming</property>
+                <property name="margin-left">12</property>
+                <property name="tooltip-text" translatable="yes">Convert illegal characters for FAT32/16 and ISO9660 + Joliet filesystems ('\\', ':', ';', '*', '?', '\"', '&lt;', '&gt;', '|') of the filename to avoid problem when renaming the file. This is useful when renaming the file from the tag with the scanner.</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkBox" id="file_name_convert_box">
+                <property name="margin-left">12</property>
+                <property name="spacing">12</property>
+                <property name="visible">True</property>
+                <child>
+                    <object class="GtkLabel" id="name_convert_label">
+                        <property name="label" translatable="yes">Convert filename extension to:</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkRadioButton" id="name_lower_radio">
+                        <property name="label" translatable="yes">Lower Case</property>
+                        <property name="name">lower-case</property>
+                        <property name="tooltip-text" translatable="yes">For example, the extension will be converted to '.mp3'</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkRadioButton" id="name_upper_radio">
+                        <property name="group">name_lower_radio</property>
+                        <property name="label" translatable="yes">Upper Case</property>
+                        <property name="name">upper-case</property>
+                        <property name="tooltip-text" translatable="yes">For example, the extension will be converted to '.MP3'</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkRadioButton" id="name_no_change_radio">
+                        <property name="group">name_lower_radio</property>
+                        <property name="label" translatable="yes">No Change</property>
+                        <property name="name">no-change</property>
+                        <property name="tooltip-text" translatable="yes">The extension will not be modified</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <child>
+            <object class="GtkLabel" id="file_encoding_label">
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Filename Encoding</property>
+                <property name="margin-left">12</property>
+                <property name="margin-top">12</property>
+                <property name="visible">True</property>
+                <attributes>
+                    <attribute name="weight" value="bold"/>
+                </attributes>
+            </object>
+        </child>
+        <child>
+            <object class="GtkRadioButton" id="file_encoding_try_alternative_radio">
+                <property name="label" translatable="yes">Try another character encoding</property>
+                <property name="margin-left">24</property>
+                <property name="name">try-alternative</property>
+                <property name="tooltip-text" translatable="yes">With this option, it will try the conversion to the encoding associated to your locale (for example: ISO-8859-1 for 'fr', KOI8-R for 'ru', ISO-8859-2 for 'ro'). If it fails, it will try the character encoding ISO-8859-1</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkRadioButton" id="file_encoding_transliterate_radio">
+                <property name="group">file_encoding_try_alternative_radio</property>
+                <property name="label" translatable="yes">Force using the system character encoding and transliterate characters</property>
+                <property name="margin-left">24</property>
+                <property name="name">transliterate</property>
+                <property name="tooltip-text" translatable="yes">With this option, when a character cannot be represented in the target character set, it can be approximated through one or several similarly looking characters</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkRadioButton" id="file_encoding_ignore_radio">
+                <property name="group">file_encoding_try_alternative_radio</property>
+                <property name="label" translatable="yes">Force using the system character encoding and silently discard some characters</property>
+                <property name="margin-left">24</property>
+                <property name="name">ignore</property>
+                <property name="tooltip-text" translatable="yes">With this option, when a character cannot be represented in the target character set, it will be silently discarded</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+    </object>
     <object class="GtkGrid" id="scanner_grid">
         <property name="border-width">12</property>
         <property name="orientation">vertical</property>
