@@ -222,10 +222,7 @@ create_preferences_dialog (EtPreferencesDialog *self)
     EtPreferencesDialogPrivate *priv;
     GtkWidget *OptionsVBox;
     GtkWidget *Label;
-    GtkWidget *Frame;
-    GtkWidget *Table;
     GtkWidget *VBox, *vbox;
-    GtkWidget *hbox;
     GtkWidget *LoadOnStartup;
     GtkWidget *BrowseSubdir;
     GtkWidget *OpenSelectedBrowserNode;
@@ -875,213 +872,108 @@ create_preferences_dialog (EtPreferencesDialog *self)
      * CDDB
      */
     Label = gtk_label_new (_("CDDB"));
-    VBox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
+    VBox = GTK_WIDGET (gtk_builder_get_object (builder, "cddb_grid"));
     gtk_notebook_append_page (GTK_NOTEBOOK (priv->options_notebook), VBox, Label);
-    gtk_container_set_border_width (GTK_CONTAINER (VBox), BOX_SPACING);
 
-    // CDDB Server Settings (Automatic Search)
-    Frame = gtk_frame_new (_("Server Settings for Automatic Search"));
-    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE, 0);
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
-
-    // 1rst automatic search server
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(vbox),hbox);
-    Label = gtk_label_new(_("Name:"));
-    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
-    CddbServerNameAutomaticSearch = gtk_combo_box_text_new_with_entry();
-    gtk_box_pack_start(GTK_BOX(hbox),CddbServerNameAutomaticSearch,FALSE,FALSE,0);
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch), "freedb.freedb.org");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch), "www.gnudb.org");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch), "at.freedb.org");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch), "au.freedb.org");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch), "ca.freedb.org");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch), "es.freedb.org");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch), "fi.freedb.org");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch), "ru.freedb.org");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch), "uk.freedb.org");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch), "us.freedb.org");
+    /* 1st automatic search server. */
+    CddbServerNameAutomaticSearch = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                        "cddb_automatic_host1_combo"));
     g_settings_bind (MainSettings, "cddb-automatic-search-hostname",
                      gtk_bin_get_child (GTK_BIN (CddbServerNameAutomaticSearch)),
                      "text", G_SETTINGS_BIND_DEFAULT);
 
-    Label = gtk_label_new (_("Port:"));
-    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
-    CddbServerPortAutomaticSearch = gtk_spin_button_new_with_range (0.0,
-                                                                    65535.0,
-                                                                    1.0);
+    CddbServerPortAutomaticSearch = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                        "cddb_automatic_port1_button"));
     g_settings_bind (MainSettings, "cddb-automatic-search-port",
                      CddbServerPortAutomaticSearch, "value",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_size_request(GTK_WIDGET(CddbServerPortAutomaticSearch), 45, -1);
-    gtk_box_pack_start(GTK_BOX(hbox),CddbServerPortAutomaticSearch,FALSE,FALSE,0);
 
-    Label = gtk_label_new (_("CGI Path:"));
-    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
-    CddbServerCgiPathAutomaticSearch = gtk_entry_new();
-    gtk_box_pack_start(GTK_BOX(hbox),CddbServerCgiPathAutomaticSearch,FALSE,FALSE,0);
+    CddbServerCgiPathAutomaticSearch = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                           "cddb_automatic_path1_entry"));
     g_settings_bind (MainSettings, "cddb-automatic-search-path",
                      CddbServerCgiPathAutomaticSearch, "text",
                      G_SETTINGS_BIND_DEFAULT);
 
-    // 2sd automatic search server
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(vbox),hbox);
-    Label = gtk_label_new(_("Name:"));
-    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
-    CddbServerNameAutomaticSearch2 = gtk_combo_box_text_new_with_entry();
-    gtk_box_pack_start(GTK_BOX(hbox),CddbServerNameAutomaticSearch2,FALSE,FALSE,0);
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameAutomaticSearch2), "freedb.musicbrainz.org");
+    /* 2nd automatic search server. */
+    CddbServerNameAutomaticSearch2 = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                         "cddb_automatic_host2_combo"));
     g_settings_bind (MainSettings, "cddb-automatic-search-hostname2",
                      gtk_bin_get_child (GTK_BIN (CddbServerNameAutomaticSearch2)),
                      "text", G_SETTINGS_BIND_DEFAULT);
 
-    Label = gtk_label_new (_("Port:"));
-    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
-    CddbServerPortAutomaticSearch2 = gtk_spin_button_new_with_range (0.0,
-                                                                     65535.0,
-                                                                     1.0);
+    CddbServerPortAutomaticSearch2 = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                         "cddb_automatic_port2_button"));
     g_settings_bind (MainSettings, "cddb-automatic-search-port2",
                      CddbServerPortAutomaticSearch2, "value",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_size_request(GTK_WIDGET(CddbServerPortAutomaticSearch2), 45, -1);
-    gtk_box_pack_start(GTK_BOX(hbox),CddbServerPortAutomaticSearch2,FALSE,FALSE,0);
 
-    Label = gtk_label_new (_("CGI Path:"));
-    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
-    CddbServerCgiPathAutomaticSearch2 = gtk_entry_new();
-    gtk_box_pack_start(GTK_BOX(hbox),CddbServerCgiPathAutomaticSearch2,FALSE,FALSE,0);
+    CddbServerCgiPathAutomaticSearch2 = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                            "cddb_automatic_path2_entry"));
     g_settings_bind (MainSettings, "cddb-automatic-search-path2",
                      CddbServerCgiPathAutomaticSearch2, "text",
                      G_SETTINGS_BIND_DEFAULT);
 
-    // CDDB Server Settings (Manual Search)
-    Frame = gtk_frame_new (_("Server Settings for Manual Search"));
-    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox), 4);
-
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(vbox),hbox);
-    Label = gtk_label_new(_("Name:"));
-    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
-    CddbServerNameManualSearch = gtk_combo_box_text_new_with_entry();
-    gtk_box_pack_start(GTK_BOX(hbox),CddbServerNameManualSearch,FALSE,FALSE,0);
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameManualSearch), "www.freedb.org");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(CddbServerNameManualSearch), "www.gnudb.org");
+    /* CDDB Server Settings (Manual Search). */
+    CddbServerNameManualSearch = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                     "cddb_manual_host_combo"));
     g_settings_bind (MainSettings, "cddb-manual-search-hostname",
                      gtk_bin_get_child (GTK_BIN (CddbServerNameManualSearch)),
                      "text", G_SETTINGS_BIND_DEFAULT);
 
-    Label = gtk_label_new (_("Port:"));
-    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
-    CddbServerPortManualSearch = gtk_spin_button_new_with_range (0.0, 65535.0,
-                                                                 1.0);
-    gtk_widget_set_size_request(GTK_WIDGET(CddbServerPortManualSearch), 45, -1);
-    gtk_box_pack_start(GTK_BOX(hbox),CddbServerPortManualSearch,FALSE,FALSE,0);
+    CddbServerPortManualSearch = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                     "cddb_manual_port_button"));
     g_settings_bind (MainSettings, "cddb-manual-search-port",
                      CddbServerPortManualSearch, "value",
                      G_SETTINGS_BIND_DEFAULT);
 
-    Label = gtk_label_new (_("CGI Path:"));
-    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,2);
-    CddbServerCgiPathManualSearch = gtk_entry_new();
-    gtk_box_pack_start(GTK_BOX(hbox),CddbServerCgiPathManualSearch,FALSE,FALSE,0);
+    CddbServerCgiPathManualSearch = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                        "cddb_manual_path_entry"));
     g_settings_bind (MainSettings, "cddb-manual-search-path",
                      CddbServerCgiPathManualSearch, "text",
                      G_SETTINGS_BIND_DEFAULT);
 
-    // CDDB Proxy Settings
-    Frame = gtk_frame_new (_("Proxy Settings"));
-    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-
-    Table = et_grid_new (3, 5);
-    gtk_container_add(GTK_CONTAINER(Frame),Table);
-    gtk_grid_set_row_spacing (GTK_GRID (Table), BOX_SPACING);
-    gtk_grid_set_column_spacing (GTK_GRID (Table), BOX_SPACING);
-    gtk_container_set_border_width(GTK_CONTAINER(Table), BOX_SPACING);
-
-    CddbUseProxy = gtk_check_button_new_with_label(_("Use a proxy"));
-    gtk_grid_attach (GTK_GRID (Table), CddbUseProxy, 0, 0, 5, 1);
+    /* CDDB Proxy Settings. */
+    CddbUseProxy = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                       "cddb_proxy_check"));
     g_settings_bind (MainSettings, "cddb-proxy-enabled", CddbUseProxy, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (CddbUseProxy,
-                                 _("Whether to access remote CDDB through a proxy"));
 
-    Label = gtk_label_new(_("Host Name:"));
-    gtk_grid_attach (GTK_GRID (Table), Label, 1, 1, 1, 1);
-    gtk_widget_set_halign (Label, GTK_ALIGN_END);
-    CddbProxyName = gtk_entry_new();
-    gtk_grid_attach (GTK_GRID (Table), CddbProxyName, 2, 1, 1, 1);
+    CddbProxyName = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                        "cddb_host_entry"));
     g_settings_bind (MainSettings, "cddb-proxy-hostname",
                      CddbProxyName, "text", G_SETTINGS_BIND_DEFAULT);
     g_settings_bind (MainSettings, "cddb-proxy-enabled", CddbProxyName,
                      "sensitive", G_SETTINGS_BIND_GET);
-    gtk_widget_set_tooltip_text (CddbProxyName,
-                                 _("Hostname for a proxy to access remote CDDB"));
-    Label = gtk_label_new (_("Port:"));
-    gtk_grid_attach (GTK_GRID (Table), Label, 3, 1, 1, 1);
-    gtk_widget_set_halign (Label, GTK_ALIGN_END);
-    CddbProxyPort = gtk_spin_button_new_with_range (0.0, 65535.0, 1.0);
+    CddbProxyPort = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                        "cddb_port_button"));
     g_settings_bind (MainSettings, "cddb-proxy-port", CddbProxyPort, "value",
                      G_SETTINGS_BIND_DEFAULT);
     g_settings_bind (MainSettings, "cddb-proxy-enabled", CddbProxyPort,
                      "sensitive", G_SETTINGS_BIND_GET);
-    gtk_widget_set_size_request(GTK_WIDGET(CddbProxyPort), 45, -1);
-    gtk_grid_attach (GTK_GRID (Table), CddbProxyPort, 4, 1, 1, 1);
-    gtk_widget_set_tooltip_text (CddbProxyPort,
-                                 _("Port for a proxy to access remote CDDB"));
-    Label = gtk_label_new(_("User Name:"));
-    gtk_grid_attach (GTK_GRID (Table), Label, 1, 2, 1, 1);
-    gtk_widget_set_halign (Label, GTK_ALIGN_END);
-    CddbProxyUserName = gtk_entry_new();
+    CddbProxyUserName = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                            "cddb_user_entry"));
     g_settings_bind (MainSettings, "cddb-proxy-username", CddbProxyUserName,
                      "text", G_SETTINGS_BIND_DEFAULT);
     g_settings_bind (MainSettings, "cddb-proxy-enabled", CddbProxyUserName,
                      "sensitive", G_SETTINGS_BIND_GET);
-    gtk_grid_attach (GTK_GRID (Table), CddbProxyUserName, 2, 2, 1, 1);
-    gtk_widget_set_tooltip_text (CddbProxyUserName,
-                                 _("Username for a proxy to access remote CDDB"));
-    Label = gtk_label_new(_("User Password:"));
-    gtk_grid_attach (GTK_GRID (Table), Label, 3, 2, 1, 1);
-    gtk_widget_set_halign (Label, GTK_ALIGN_END);
-    CddbProxyUserPassword = gtk_entry_new();
-    gtk_entry_set_visibility (GTK_ENTRY (CddbProxyUserPassword), FALSE);
+    CddbProxyUserPassword = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                "cddb_password_entry"));
     g_settings_bind (MainSettings, "cddb-proxy-password", CddbProxyUserPassword,
                      "text", G_SETTINGS_BIND_DEFAULT);
     g_settings_bind (MainSettings, "cddb-proxy-enabled", CddbProxyUserPassword,
                      "sensitive", G_SETTINGS_BIND_GET);
-    gtk_grid_attach (GTK_GRID (Table), CddbProxyUserPassword, 4, 2, 1, 1);
-    gtk_widget_set_tooltip_text (CddbProxyUserPassword,
-                                 _("Password for a proxy to access remote CDDB"));
 
-    // Track Name list (CDDB results)
-    Frame = gtk_frame_new (_("Track Name List"));
-    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,FALSE,0);
-
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(Frame),vbox);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
-
-    CddbFollowFile = gtk_check_button_new_with_label(_("Select corresponding audio "
-        "file (according position or DLM if activated below)"));
-    gtk_box_pack_start(GTK_BOX(vbox),CddbFollowFile,FALSE,FALSE,0);
+    /* Track Name list (CDDB results). */
+    CddbFollowFile = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                         "cddb_follow_check"));
     g_settings_bind (MainSettings, "cddb-follow-file", CddbFollowFile,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (CddbFollowFile,
-                                 _("Whether to select the file in the file list which matches the position in the CDDB results list"));
 
-    // Check box to use DLM (also used in the cddb window)
-    CddbUseDLM = gtk_check_button_new_with_label(_("Use the Levenshtein algorithm "
-        "(DLM) to match lines (using title) with audio files (using filename)"));
-    gtk_box_pack_start(GTK_BOX(vbox),CddbUseDLM,FALSE,FALSE,0);
+    /* Check box to use DLM. */
+    CddbUseDLM = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                     "cddb_dlm_check"));
     g_settings_bind (MainSettings, "cddb-dlm-enabled", CddbUseDLM, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (CddbUseDLM,
-                                 _("Whether to use the DLM algorithm to match CDDB results to files"));
 
 
     /*
