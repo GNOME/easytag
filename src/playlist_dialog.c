@@ -633,14 +633,12 @@ create_playlist_dialog (EtPlaylistDialog *self)
 {
     EtPlaylistDialogPrivate *priv;
     GtkDialog *dialog;
-    GtkWidget *frame;
     GtkWidget *content_area;
-    GtkWidget *hbox;
-    GtkWidget *vbox;
+    GtkBuilder *builder;
+    GError *error = NULL;
+    GtkWidget *grid;
     GtkWidget *playlist_use_mask_name;
-    GtkWidget *playlist_use_dir_name;
     GtkWidget *playlist_only_selected_files;
-    GtkWidget *playlist_full_path;
     GtkWidget *playlist_relative_path;
     GtkWidget *playlist_create_in_parent_dir;
     GtkWidget *playlist_use_dos_separator;
@@ -664,25 +662,25 @@ create_playlist_dialog (EtPlaylistDialog *self)
     content_area = gtk_dialog_get_content_area (dialog);
     gtk_box_set_spacing (GTK_BOX (content_area), BOX_SPACING);
     gtk_container_set_border_width (GTK_CONTAINER (content_area), BOX_SPACING);
+    builder = gtk_builder_new ();
+    gtk_builder_add_from_resource (builder,
+                                   "/org/gnome/EasyTAG/playlist_dialog.ui",
+                                   &error);
 
+    if (error != NULL)
+    {
+        g_error ("Unable to get scanner page from resource: %s",
+                 error->message);
+    }
+
+    grid = GTK_WIDGET (gtk_builder_get_object (builder, "playlist_grid"));
+    gtk_container_add (GTK_CONTAINER (content_area), grid);
 
     /* Playlist name */
-    frame = gtk_frame_new (_("M3U Playlist Name"));
-    gtk_box_pack_start (GTK_BOX (content_area), frame, TRUE, TRUE, 0);
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_container_add (GTK_CONTAINER(frame), vbox);
-    gtk_container_set_border_width(GTK_CONTAINER (vbox), 4);
-
-    playlist_use_mask_name = gtk_radio_button_new_with_label(NULL, _("Use mask:"));
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
-    gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
-    gtk_box_pack_start(GTK_BOX(hbox),playlist_use_mask_name,FALSE,FALSE,0);
-    priv->name_mask_entry = gtk_entry_new ();
-    gtk_box_pack_start (GTK_BOX (hbox), priv->name_mask_entry, FALSE, FALSE,
-                        0);
-    playlist_use_dir_name = gtk_radio_button_new_with_label_from_widget(
-        GTK_RADIO_BUTTON(playlist_use_mask_name),_("Use directory name"));
-    gtk_box_pack_start(GTK_BOX(vbox),playlist_use_dir_name,FALSE,FALSE,0);
+    playlist_use_mask_name = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                 "name_mask_radio"));
+    priv->name_mask_entry = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                "name_mask_entry"));
     g_settings_bind (MainSettings, "playlist-filename-mask",
                      priv->name_mask_entry, "text", G_SETTINGS_BIND_DEFAULT);
     g_settings_bind (MainSettings, "playlist-use-mask", playlist_use_mask_name,
@@ -694,78 +692,40 @@ create_playlist_dialog (EtPlaylistDialog *self)
                       G_CALLBACK (entry_check_content_mask), NULL);
 
     /* Playlist options */
-    frame = gtk_frame_new (_("Playlist Options"));
-    gtk_box_pack_start (GTK_BOX (content_area), frame, TRUE, TRUE, 0);
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_container_add (GTK_CONTAINER (frame), vbox);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
-
-    playlist_only_selected_files = gtk_check_button_new_with_label(_("Include only the selected files"));
-    gtk_box_pack_start(GTK_BOX(vbox),playlist_only_selected_files,FALSE,FALSE,0);
+    playlist_only_selected_files = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                       "selected_files_check"));
     g_settings_bind (MainSettings, "playlist-selected-only",
                      playlist_only_selected_files, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (playlist_only_selected_files,
-                                 _("Whether to use only the selected files or all files when creating playlists"));
 
-    playlist_full_path = gtk_radio_button_new_with_label(NULL,_("Use full path for files in playlist"));
-    gtk_box_pack_start(GTK_BOX(vbox),playlist_full_path,FALSE,FALSE,0);
-    playlist_relative_path = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(playlist_full_path),
-        _("Use relative path for files in playlist"));
-    gtk_box_pack_start(GTK_BOX(vbox),playlist_relative_path,FALSE,FALSE,0);
+    playlist_relative_path = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                 "path_relative_radio"));
     g_settings_bind (MainSettings, "playlist-relative", playlist_relative_path,
                      "active", G_SETTINGS_BIND_DEFAULT);
 
-    // Create playlist in parent directory
-    playlist_create_in_parent_dir = gtk_check_button_new_with_label(_("Create playlist in the parent directory"));
-    gtk_box_pack_start(GTK_BOX(vbox),playlist_create_in_parent_dir,FALSE,FALSE,0);
+    /* Create playlist in parent directory. */
+    playlist_create_in_parent_dir = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                        "playlist_parent_check"));
     g_settings_bind (MainSettings, "playlist-parent-directory",
                      playlist_create_in_parent_dir, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (playlist_create_in_parent_dir,
-                                 _("Whether to create the playlist in the parent directory"));
 
-    // DOS Separator
-    playlist_use_dos_separator = gtk_check_button_new_with_label(_("Use DOS directory separator"));
-#ifndef G_OS_WIN32
-    /* This makes no sense under Win32, so we do not display it. */
-    gtk_box_pack_start(GTK_BOX(vbox),playlist_use_dos_separator,FALSE,FALSE,0);
-#endif /* !G_OS_WIN32 */
+    /* DOS Separator. */
+    playlist_use_dos_separator = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                     "playlist_dos_check"));
     g_settings_bind (MainSettings, "playlist-dos-separator",
                      playlist_use_dos_separator, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (playlist_use_dos_separator,
-                                 _("Whether to use DOS path separators when generating playlists"));
 
     /* Playlist content */
-    frame = gtk_frame_new (_("Playlist Content"));
-    gtk_box_pack_start (GTK_BOX (content_area), frame, TRUE, TRUE, 0);
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_container_add (GTK_CONTAINER (frame), vbox);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), BOX_SPACING);
-
-    playlist_content_filenames = gtk_radio_button_new_with_label (NULL,
-                                                                  _("Write only list of files"));
-    gtk_widget_set_name (playlist_content_filenames, "filenames");
-    gtk_box_pack_start (GTK_BOX (vbox), playlist_content_filenames, FALSE,
-                        FALSE,0);
-
-    playlist_content_extended = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (playlist_content_filenames),
-                                                                             _("Write info using filename"));
-    gtk_widget_set_name (playlist_content_extended, "extended");
-    gtk_box_pack_start (GTK_BOX (vbox), playlist_content_extended, FALSE,
-                        FALSE, 0);
-
-    playlist_content_mask = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (playlist_content_filenames),
-                                                                         _("Write info using:"));
-    gtk_widget_set_name (playlist_content_mask, "extended-mask");
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
-    gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
-    gtk_box_pack_start(GTK_BOX(hbox),playlist_content_mask,FALSE,FALSE,0);
-    // Set a label, a combobox and un editor button in the 3rd radio button
-    priv->content_mask_entry = gtk_entry_new ();
-    gtk_box_pack_start (GTK_BOX (hbox), priv->content_mask_entry, FALSE, FALSE,
-                        0);
+    playlist_content_filenames = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                     "content_filenames_radio"));
+    playlist_content_extended = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                    "content_extended_radio"));
+    playlist_content_mask = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                "content_extended_mask_radio"));
+    priv->content_mask_entry = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                   "content_mask_entry"));
     g_settings_bind (MainSettings, "playlist-default-mask",
                      priv->content_mask_entry, "text",
                      G_SETTINGS_BIND_DEFAULT);
@@ -793,6 +753,8 @@ create_playlist_dialog (EtPlaylistDialog *self)
                                   et_settings_enum_radio_get,
                                   et_settings_enum_radio_set,
                                   playlist_content_mask, NULL);
+
+    g_object_unref (builder);
 
     /* To initialize the mask status icon and visibility. */
     g_signal_emit_by_name (priv->name_mask_entry, "changed");

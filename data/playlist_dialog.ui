@@ -1,0 +1,143 @@
+<interface domain="easytag">
+    <requires lib="gtk+" version="3.4"/>
+    <object class="GtkGrid" id="playlist_grid">
+        <property name="border-width">12</property>
+        <property name="orientation">vertical</property>
+        <property name="row-spacing">6</property>
+        <property name="visible">True</property>
+        <child>
+            <object class="GtkLabel" id="name_label">
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Filename</property>
+                <property name="visible">True</property>
+                <attributes>
+                    <attribute name="weight" value="bold"/>
+                </attributes>
+            </object>
+        </child>
+        <child>
+            <object class="GtkBox" id="name_mask_box">
+                <property name="margin-left">12</property>
+                <property name="spacing">12</property>
+                <property name="visible">True</property>
+                <child>
+                    <object class="GtkRadioButton" id="name_mask_radio">
+                        <property name="label" translatable="yes">Use mask:</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkEntry" id="name_mask_entry">
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <child>
+            <object class="GtkRadioButton" id="name_directory_radio">
+                <property name="group">name_mask_radio</property>
+                <property name="label" translatable="yes">Use directory name</property>
+                <property name="margin-left">12</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkLabel" id="options_label">
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Options</property>
+                <property name="margin-top">12</property>
+                <property name="visible">True</property>
+                <attributes>
+                    <attribute name="weight" value="bold"/>
+                </attributes>
+            </object>
+        </child>
+        <child>
+            <object class="GtkCheckButton" id="selected_files_check">
+                <property name="label" translatable="yes">Include only the selected files</property>
+                <property name="margin-left">12</property>
+                <property name="tooltip-text" translatable="yes">Whether to use only the selected files or all files when creating playlists</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkRadioButton" id="path_full_radio">
+                <property name="label" translatable="yes">Use full path for files in playlist</property>
+                <property name="margin-left">12</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkRadioButton" id="path_relative_radio">
+                <property name="group">path_full_radio</property>
+                <property name="label" translatable="yes">Use relative path for files in playlist</property>
+                <property name="margin-left">12</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkCheckButton" id="playlist_parent_check">
+                <property name="label" translatable="yes">Create playlist in the parent directory</property>
+                <property name="margin-left">12</property>
+                <property name="tooltip-text" translatable="yes">Whether to create the playlist in the parent directory</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkCheckButton" id="playlist_dos_check">
+                <property name="label" translatable="yes">Use DOS directory separator</property>
+                <property name="margin-left">12</property>
+                <property name="tooltip-text" translatable="yes">Whether to use DOS path separators when generating playlists</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkLabel" id="content_label">
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Content</property>
+                <property name="margin-top">12</property>
+                <property name="visible">True</property>
+                <attributes>
+                    <attribute name="weight" value="bold"/>
+                </attributes>
+            </object>
+        </child>
+        <child>
+            <object class="GtkRadioButton" id="content_filenames_radio">
+                <property name="label" translatable="yes">Write only list of files</property>
+                <property name="margin-left">12</property>
+                <property name="name">filenames</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkRadioButton" id="content_extended_radio">
+                <property name="group">content_filenames_radio</property>
+                <property name="label" translatable="yes">Write information using filename</property>
+                <property name="name">extended</property>
+                <property name="margin-left">12</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkBox" id="content_box">
+                <property name="margin-left">12</property>
+                <property name="spacing">12</property>
+                <property name="visible">True</property>
+                <child>
+                    <object class="GtkRadioButton" id="content_extended_mask_radio">
+                        <property name="group">content_filenames_radio</property>
+                        <property name="label" translatable="yes">Write information using:</property>
+                        <property name="name">extended-mask</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkEntry" id="content_mask_entry">
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+    </object>
+</interface>
