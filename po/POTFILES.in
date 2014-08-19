@@ -1,5 +1,6 @@
 data/easytag.appdata.xml.in
 data/easytag.desktop.in
+[type: gettext/glade]data/browser.ui
 [type: gettext/glade]data/menus.ui
 [type: gettext/glade]data/playlist_dialog.ui
 [type: gettext/glade]data/preferences_dialog.ui
