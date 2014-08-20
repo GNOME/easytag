@@ -1,0 +1,84 @@
+<interface domain="easytag">
+    <requires lib="gtk+" version="3.4"/>
+    <object class="GtkDialog" id="image_properties_dialog">
+        <property name="border-width">12</property>
+        <property name="destroy-with-parent">True</property>
+        <property name="modal">True</property>
+        <child internal-child="vbox">
+            <object class="GtkBox" id="vbox">
+                <property name="spacing">12</property>
+                <child>
+                    <object class="GtkGrid" id="properties_grid">
+                        <property name="column-spacing">12</property>
+                        <property name="orientation">vertical</property>
+                        <property name="row-spacing">6</property>
+                        <property name="visible">True</property>
+                        <child>
+                            <object class="GtkScrolledWindow" id="types_scrolled">
+                                <property name="min-content-height">300</property>
+                                <property name="min-content-width">400</property>
+                                <property name="visible">True</property>
+                                <child>
+                                    <object class="GtkTreeView" id="types_view">
+                                        <property name="visible">True</property>
+                                        <child>
+                                            <object class="GtkTreeViewColumn" id="types_column">
+                                                <property name="title" translatable="yes">Image Type</property>
+                                                <child>
+                                                    <object class="GtkCellRendererText" id="types_renderer"/>
+                                                    <attributes>
+                                                        <attribute name="text">0</attribute>
+                                                    </attributes>
+                                                </child>
+                                            </object>
+                                        </child>
+                                    </object>
+                                </child>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkLabel" id="description_label">
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Description</property>
+                                <property name="margin-top">12</property>
+                                <property name="visible">True</property>
+                                <attributes>
+                                    <attribute name="weight" value="bold"/>
+                                </attributes>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkEntry" id="description_entry">
+                                <property name="margin-left">12</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+                <child internal-child="action_area">
+                    <object class="GtkButtonBox" id="button_box">
+                        <child>
+                            <object class="GtkButton" id="cancel_button">
+                                <property name="label" translatable="yes">_Cancel</property>
+                                <property name="use-underline">True</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkButton" id="accept_button">
+                                <property name="can-default">True</property>
+                                <property name="label" translatable="yes">_Accept</property>
+                                <property name="use-underline">True</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <action-widgets>
+            <action-widget response="-3">accept_button</action-widget>
+            <action-widget response="-2">cancel_button</action-widget>
+        </action-widgets>
+    </object>
+</interface>

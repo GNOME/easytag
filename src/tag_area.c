@@ -1486,10 +1486,7 @@ on_picture_properties_button_clicked (GObject *object,
 {
     EtTagArea *self;
     EtTagAreaPrivate *priv;
-    GtkWidget *ScrollWindowPictureTypes, *PictureTypesWindow;
-    GtkWidget *type, *label, *desc;
-    GtkCellRenderer *renderer;
-    GtkTreeViewColumn *column;
+    GtkWidget *type, *desc;
     GtkTreeSelection *selection;
     GtkListStore *store;
     GtkTreeIter type_iter_to_select, iter;
@@ -1504,10 +1501,11 @@ on_picture_properties_button_clicked (GObject *object,
     self = ET_TAG_AREA (user_data);
     priv = et_tag_area_get_instance_private (self);
 
-    parent_window = GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(object)));
-    if (!gtk_widget_is_toplevel(GTK_WIDGET(parent_window)))
+    parent_window = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (object)));
+
+    if (!gtk_widget_is_toplevel (GTK_WIDGET (parent_window)))
     {
-        g_warning("Could not get parent window\n");
+        g_warning ("Could not get parent window");
         return;
     }
 
@@ -1518,14 +1516,17 @@ on_picture_properties_button_clicked (GObject *object,
 
     for (l = selection_list; l != NULL; l = g_list_next (l))
     {
+        GtkWidget *PictureTypesWindow;
         GtkTreePath *path = l->data;
         Picture *pic = NULL;
         GtkTreeSelection *selectiontype;
         gchar *title;
         GtkTreePath *rowPath;
         gboolean valid;
+        GtkBuilder *builder;
+        GError *error = NULL;
 
-        // Get corresponding picture
+        /* Get corresponding picture. */
         valid = gtk_tree_model_get_iter (model, &iter, path);
 
         if (valid)
@@ -1538,42 +1539,36 @@ on_picture_properties_button_clicked (GObject *object,
             break;
         }
 
+        builder = gtk_builder_new ();
+        gtk_builder_add_from_resource (builder,
+                                       "/org/gnome/EasyTAG/tag_area.ui",
+                                       &error);
+
+        if (error != NULL)
+        {
+            g_error ("Unable to get image properties dialog from resource: %s",
+                     error->message);
+        }
+
         title = g_strdup_printf (_("Image Properties %d/%d"), selection_i++,
                                  selection_nbr);
-        PictureTypesWindow = gtk_dialog_new_with_buttons (title,
-                                                          parent_window,
-                                                          GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                          _("_Cancel"),
-                                                          GTK_RESPONSE_REJECT,
-                                                          _("_OK"),
-                                                          GTK_RESPONSE_OK,
-                                                          NULL);
-        g_free(title);
+        PictureTypesWindow = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                 "image_properties_dialog"));
+        gtk_window_set_title (GTK_WINDOW (PictureTypesWindow), title);
+        g_free (title);
+        gtk_window_set_transient_for (GTK_WINDOW (PictureTypesWindow),
+                                      parent_window);
 
-        gtk_window_set_default_size (GTK_WINDOW (PictureTypesWindow), 400,
-                                     400);
-        gtk_dialog_set_default_response(GTK_DIALOG(PictureTypesWindow), GTK_RESPONSE_OK);
+        gtk_dialog_set_default_response (GTK_DIALOG (PictureTypesWindow),
+                                         GTK_RESPONSE_ACCEPT);
 
-        ScrollWindowPictureTypes = gtk_scrolled_window_new(NULL, NULL);
-        gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(ScrollWindowPictureTypes),
-                                       GTK_POLICY_AUTOMATIC,
-                                       GTK_POLICY_AUTOMATIC);
-        store = gtk_list_store_new(PICTURE_TYPE_COLUMN_COUNT, G_TYPE_STRING, G_TYPE_INT);
-        type = gtk_tree_view_new_with_model(GTK_TREE_MODEL(store));
+        store = gtk_list_store_new (PICTURE_TYPE_COLUMN_COUNT, G_TYPE_STRING,
+                                    G_TYPE_INT);
+        type = GTK_WIDGET (gtk_builder_get_object (builder, "types_view"));
+        gtk_tree_view_set_model (GTK_TREE_VIEW (type), GTK_TREE_MODEL (store));
         g_object_unref (store);
-        gtk_container_add(GTK_CONTAINER(ScrollWindowPictureTypes), type);
 
-        renderer = gtk_cell_renderer_text_new();
-        column = gtk_tree_view_column_new();
-        gtk_tree_view_column_pack_start(column, renderer, FALSE);
-        gtk_tree_view_column_set_title (column, _("Image Type"));
-        gtk_tree_view_column_set_attributes(column, renderer,
-                                            "text", PICTURE_TYPE_COLUMN_TEXT,
-                                            NULL);
-        gtk_tree_view_append_column(GTK_TREE_VIEW(type), column);
-        gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(PictureTypesWindow))),ScrollWindowPictureTypes,TRUE,TRUE,0);
-
-        // Behaviour following the tag type...
+        /* Behaviour following the tag type. */
         switch (ETCore->ETFileDisplayed->ETFileDescription->TagType)
         {
             case MP4_TAG:
@@ -1592,10 +1587,10 @@ on_picture_properties_button_clicked (GObject *object,
                 break;
             }
 
-            // Other tag types
+            /* Other tag types. */
             default:
             {
-                // Load pictures types
+                /* Load pictures types. */
                 for (pic_type = ET_PICTURE_TYPE_OTHER; pic_type < ET_PICTURE_TYPE_UNDEFINED; pic_type++)
                 {
                     GtkTreeIter itertype;
@@ -1608,75 +1603,75 @@ on_picture_properties_button_clicked (GObject *object,
                                                        pic_type, -1);
                     /* Line to select by default. */
                     if (pic->type == pic_type)
+                    {
                         type_iter_to_select = itertype;
+                    }
                 }
                 break;
             }
         }
 
-        // Select the line by default
-        selectiontype = gtk_tree_view_get_selection(GTK_TREE_VIEW(type));
-        gtk_tree_selection_select_iter(selectiontype, &type_iter_to_select);
+        /* Select the line by default. */
+        selectiontype = gtk_tree_view_get_selection (GTK_TREE_VIEW (type));
+        gtk_tree_selection_select_iter (selectiontype, &type_iter_to_select);
 
-        // Set visible the current selected line
-        rowPath = gtk_tree_model_get_path(GTK_TREE_MODEL(store), &type_iter_to_select);
-        gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(type), rowPath, NULL, FALSE, 0, 0);
-        gtk_tree_path_free(rowPath);
+        /* Set visible the current selected line. */
+        rowPath = gtk_tree_model_get_path (GTK_TREE_MODEL (store),
+                                           &type_iter_to_select);
+        gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (type), rowPath, NULL,
+                                      FALSE, 0, 0);
+        gtk_tree_path_free (rowPath);
 
-        // Description of the picture
-        label = gtk_label_new (_("Image Description:"));
-        gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(PictureTypesWindow))),label,FALSE,FALSE,4);
+        /* Entry for the description. */
+        desc = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                   "description_entry"));
 
-        // Entry for the description
-        desc = gtk_entry_new();
-        gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(PictureTypesWindow))),desc,FALSE,FALSE,0);
+        g_object_unref (builder);
+
         if (pic->description)
         {
-            gchar *tmp = Try_To_Validate_Utf8_String(pic->description);
-            gtk_entry_set_text(GTK_ENTRY(desc), tmp);
-            g_free(tmp);
+            gchar *tmp = Try_To_Validate_Utf8_String (pic->description);
+            gtk_entry_set_text (GTK_ENTRY (desc), tmp);
+            g_free (tmp);
         }
 
         // Behaviour following the tag type...
         switch (ETCore->ETFileDisplayed->ETFileDescription->TagType)
         {
             case MP4_TAG:
-            {
-                gtk_widget_set_sensitive(GTK_WIDGET(label), FALSE);
-                gtk_widget_set_sensitive(GTK_WIDGET(desc), FALSE);
+                gtk_widget_set_sensitive (GTK_WIDGET (desc), FALSE);
                 break;
-            }
-
-            // Other tag types
+            /* Other tag types. */
             default:
-            {
                 break;
-            }
         }
 
-        gtk_widget_show_all(PictureTypesWindow);
+        gtk_widget_show_all (PictureTypesWindow);
 
-        response = gtk_dialog_run(GTK_DIALOG(PictureTypesWindow));
-        if (response == GTK_RESPONSE_OK)
+        response = gtk_dialog_run (GTK_DIALOG (PictureTypesWindow));
+
+        if (response == GTK_RESPONSE_ACCEPT)
         {
             GtkTreeModel *modeltype;
             GtkTreeIter itertype;
 
-            modeltype     = gtk_tree_view_get_model(GTK_TREE_VIEW(type));
-            selectiontype = gtk_tree_view_get_selection(GTK_TREE_VIEW(type));
-            if (gtk_tree_selection_get_selected(selectiontype, &modeltype, &itertype))
+            modeltype = gtk_tree_view_get_model (GTK_TREE_VIEW (type));
+            selectiontype = gtk_tree_view_get_selection (GTK_TREE_VIEW (type));
+
+            if (gtk_tree_selection_get_selected (selectiontype, &modeltype,
+                                                 &itertype))
             {
                 gchar *buffer, *pic_info;
                 gint t;
 
-                gtk_tree_model_get(modeltype, &itertype,
+                gtk_tree_model_get (modeltype, &itertype,
                                    PICTURE_TYPE_COLUMN_TYPE_CODE, &t, -1);
                 pic->type = t;
 
-                buffer = g_strdup(gtk_entry_get_text(GTK_ENTRY(desc)));
+                buffer = g_strdup (gtk_entry_get_text (GTK_ENTRY (desc)));
                 g_strstrip (buffer);
-                if (pic->description)
-                    g_free(pic->description);
+
+                g_free (pic->description);
 
                 /* If the entry was empty, buffer will be the empty string "".
                  * This can be safely passed to the underlying
@@ -1686,15 +1681,15 @@ on_picture_properties_button_clicked (GObject *object,
                  * downstream bugs when 0 was passed instead. */
                 pic->description = buffer;
 
-                // Update value in the PictureEntryView
-                pic_info = Picture_Info(pic);
-                gtk_list_store_set(GTK_LIST_STORE(model), &iter,
-                                   PICTURE_COLUMN_TEXT, pic_info,
-                                   -1);
-                g_free(pic_info);
+                /* Update value in the PictureEntryView. */
+                pic_info = Picture_Info (pic);
+                gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+                                    PICTURE_COLUMN_TEXT, pic_info, -1);
+                g_free (pic_info);
             }
         }
-        gtk_widget_destroy(PictureTypesWindow);
+
+        gtk_widget_destroy (PictureTypesWindow);
     }
 
     g_list_free_full (selection_list, (GDestroyNotify)gtk_tree_path_free);
