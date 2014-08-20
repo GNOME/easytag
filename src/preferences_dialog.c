@@ -297,7 +297,6 @@ create_preferences_dialog (EtPreferencesDialog *self)
 
     /* The window */
     gtk_window_set_title (GTK_WINDOW (self), _("Preferences"));
-    gtk_window_set_transient_for (GTK_WINDOW (self), GTK_WINDOW (MainWindow));
     gtk_window_set_destroy_with_parent (GTK_WINDOW (self), TRUE);
     gtk_dialog_add_buttons (GTK_DIALOG (self), _("_Close"), GTK_RESPONSE_CLOSE,
                             NULL);
@@ -1300,7 +1299,10 @@ et_preferences_dialog_class_init (EtPreferencesDialogClass *klass)
  * Returns: a new #EtPreferencesDialog
  */
 EtPreferencesDialog *
-et_preferences_dialog_new (void)
+et_preferences_dialog_new (GtkWindow *parent)
 {
-    return g_object_new (ET_TYPE_PREFERENCES_DIALOG, NULL);
+    g_return_val_if_fail (GTK_WINDOW (parent), NULL);
+
+    return g_object_new (ET_TYPE_PREFERENCES_DIALOG, "transient-for", parent,
+                         NULL);
 }

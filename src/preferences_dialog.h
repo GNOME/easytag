@@ -46,7 +46,7 @@ struct _EtPreferencesDialogClass
 };
 
 GType et_preferences_dialog_get_type (void);
-EtPreferencesDialog *et_preferences_dialog_new (void);
+EtPreferencesDialog *et_preferences_dialog_new (GtkWindow *parent);
 void et_preferences_dialog_show_scanner (EtPreferencesDialog *self);
 
 G_END_DECLS

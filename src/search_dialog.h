@@ -46,7 +46,7 @@ struct _EtSearchDialogClass
 };
 
 GType et_search_dialog_get_type (void);
-EtSearchDialog *et_search_dialog_new (void);
+EtSearchDialog *et_search_dialog_new (GtkWindow *parent);
 void et_search_dialog_apply_changes (EtSearchDialog *self);
 
 G_END_DECLS

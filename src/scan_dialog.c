@@ -2509,7 +2509,6 @@ create_scan_dialog (EtScanDialog *self)
 
     /* The window */
     gtk_window_set_title (GTK_WINDOW (self), _("Tag and Filename Scan"));
-    gtk_window_set_transient_for (GTK_WINDOW (self), GTK_WINDOW (MainWindow));
     gtk_window_set_destroy_with_parent (GTK_WINDOW (self), TRUE);
     gtk_dialog_add_buttons (GTK_DIALOG (self), _("_Close"),
                             GTK_RESPONSE_CLOSE, NULL);
@@ -3529,7 +3528,9 @@ et_scan_dialog_class_init (EtScanDialogClass *klass)
  * Returns: a new #EtScanDialog
  */
 EtScanDialog *
-et_scan_dialog_new (void)
+et_scan_dialog_new (GtkWindow *parent)
 {
-    return g_object_new (ET_TYPE_SCAN_DIALOG, NULL);
+    g_return_val_if_fail (GTK_WINDOW (parent), NULL);
+
+    return g_object_new (ET_TYPE_SCAN_DIALOG, "transient-for", parent, NULL);
 }

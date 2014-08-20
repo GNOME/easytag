@@ -607,7 +607,6 @@ create_search_dialog (EtSearchDialog *self)
 
     priv = et_search_dialog_get_instance_private (self);
 
-    gtk_window_set_transient_for (GTK_WINDOW (self), GTK_WINDOW (MainWindow));
     gtk_window_set_title (GTK_WINDOW (self), _("Find Files"));
     g_signal_connect (self, "delete-event", G_CALLBACK (on_delete_event),
                       NULL);
@@ -947,7 +946,9 @@ et_search_dialog_class_init (EtSearchDialogClass *klass)
  * Returns: a new #EtSearchDialog
  */
 EtSearchDialog *
-et_search_dialog_new (void)
+et_search_dialog_new (GtkWindow *parent)
 {
-    return g_object_new (ET_TYPE_SEARCH_DIALOG, NULL);
+    g_return_val_if_fail (GTK_WINDOW (parent), NULL);
+
+    return g_object_new (ET_TYPE_SEARCH_DIALOG, "transient-for", parent, NULL);
 }

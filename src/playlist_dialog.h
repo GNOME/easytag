@@ -46,7 +46,7 @@ struct _EtPlaylistDialogClass
 };
 
 GType et_playlist_dialog_get_type (void);
-EtPlaylistDialog *et_playlist_dialog_new (void);
+EtPlaylistDialog *et_playlist_dialog_new (GtkWindow *window);
 
 G_END_DECLS
 

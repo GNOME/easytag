@@ -724,7 +724,7 @@ on_find (GSimpleAction *action,
     }
     else
     {
-        priv->search_dialog = GTK_WIDGET (et_search_dialog_new ());
+        priv->search_dialog = GTK_WIDGET (et_search_dialog_new (GTK_WINDOW (self)));
         gtk_widget_show_all (priv->search_dialog);
     }
 }
@@ -939,7 +939,7 @@ on_preferences (GSimpleAction *action,
     }
     else
     {
-        priv->preferences_dialog = GTK_WIDGET (et_preferences_dialog_new ());
+        priv->preferences_dialog = GTK_WIDGET (et_preferences_dialog_new (GTK_WINDOW (self)));
         gtk_widget_show_all (priv->preferences_dialog);
     }
 }
@@ -999,7 +999,7 @@ on_scanner_change (GSimpleAction *action,
         }
         else
         {
-            priv->scan_dialog = GTK_WIDGET (et_scan_dialog_new ());
+            priv->scan_dialog = GTK_WIDGET (et_scan_dialog_new (GTK_WINDOW (self)));
             gtk_widget_show (priv->scan_dialog);
         }
     }
@@ -1155,7 +1155,7 @@ on_show_load_filenames (GSimpleAction *action,
     }
     else
     {
-        priv->load_files_dialog = GTK_WIDGET (et_load_files_dialog_new ());
+        priv->load_files_dialog = GTK_WIDGET (et_load_files_dialog_new (GTK_WINDOW (self)));
         gtk_widget_show_all (priv->load_files_dialog);
     }
 }
@@ -1177,7 +1177,7 @@ on_show_playlist (GSimpleAction *action,
     }
     else
     {
-        priv->playlist_dialog = GTK_WIDGET (et_playlist_dialog_new ());
+        priv->playlist_dialog = GTK_WIDGET (et_playlist_dialog_new (GTK_WINDOW (self)));
         gtk_widget_show_all (priv->playlist_dialog);
     }
 }
@@ -1883,7 +1883,7 @@ et_application_window_show_preferences_dialog_scanner (EtApplicationWindow *self
 
     if (!priv->preferences_dialog)
     {
-        priv->preferences_dialog = GTK_WIDGET (et_preferences_dialog_new ());
+        priv->preferences_dialog = GTK_WIDGET (et_preferences_dialog_new (GTK_WINDOW (self)));
     }
 
     et_preferences_dialog_show_scanner (ET_PREFERENCES_DIALOG (priv->preferences_dialog));

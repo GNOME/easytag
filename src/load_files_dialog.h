@@ -46,7 +46,7 @@ struct _EtLoadFilesDialogClass
 };
 
 GType et_load_files_dialog_get_type (void);
-EtLoadFilesDialog *et_load_files_dialog_new (void);
+EtLoadFilesDialog *et_load_files_dialog_new (GtkWindow *parent);
 
 G_END_DECLS
 
