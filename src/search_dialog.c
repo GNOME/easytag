@@ -581,29 +581,10 @@ create_search_dialog (EtSearchDialog *self)
 {
     EtSearchDialogPrivate *priv;
     GtkWidget *content_area;
-    GtkWidget *Table;
-    GtkWidget *Label;
-    GtkWidget *Button;
-    GtkWidget *Separator;
-    GtkWidget *ScrollWindow;
-    GtkTreeViewColumn* column;
-    GtkCellRenderer* renderer;
-    const gchar *SearchResultList_Titles[] = { N_("Filename"),
-                                               N_("Title"),
-                                               N_("Artist"),
-                                               N_("Album Artist"),
-                                               N_("Album"),
-                                               N_("CD"),
-                                               N_("Year"),
-                                               N_("Track"),
-                                               N_("Genre"),
-                                               N_("Comment"),
-                                               N_("Composer"),
-                                               N_("Original Artist"),
-                                               N_("Copyright"),
-                                               N_("URL"),
-                                               N_("Encoded By")
-                                             };
+    GtkBuilder *builder;
+    GError *error = NULL;
+    GtkWidget *grid;
+    GtkWidget *button;
 
     priv = et_search_dialog_get_instance_private (self);
 
@@ -616,288 +597,84 @@ create_search_dialog (EtSearchDialog *self)
     gtk_container_set_border_width (GTK_CONTAINER (self),
                                     BOX_SPACING);
 
-    Table = gtk_grid_new ();
-    gtk_container_add (GTK_CONTAINER (content_area), Table);
-    gtk_grid_set_row_spacing (GTK_GRID (Table), BOX_SPACING);
-    gtk_grid_set_column_spacing (GTK_GRID (Table), BOX_SPACING);
+    builder = gtk_builder_new ();
+    gtk_builder_add_from_resource (builder,
+                                   "/org/gnome/EasyTAG/search_dialog.ui",
+                                   &error);
+
+    if (error != NULL)
+    {
+        g_error ("Unable to get search dialog from resource: %s",
+                 error->message);
+    }
+
+    grid = GTK_WIDGET (gtk_builder_get_object (builder, "search_grid"));
+    gtk_container_add (GTK_CONTAINER (content_area), grid);
 
     /* Words to search. */
-    priv->search_string_model = gtk_list_store_new (MISC_COMBO_COUNT, G_TYPE_STRING);
-
-    Label = gtk_label_new(_("Search:"));
-    gtk_widget_set_halign (Label, GTK_ALIGN_END);
-    gtk_grid_attach (GTK_GRID (Table), Label, 0, 0, 1, 1);
-    priv->search_string_combo = gtk_combo_box_new_with_model_and_entry (GTK_TREE_MODEL (priv->search_string_model));
+    priv->search_string_model = gtk_list_store_new (MISC_COMBO_COUNT,
+                                                    G_TYPE_STRING);
+    priv->search_string_combo = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                    "search_combo"));
+    gtk_combo_box_set_model (GTK_COMBO_BOX (priv->search_string_combo),
+                             GTK_TREE_MODEL (priv->search_string_model));
     g_object_unref (priv->search_string_model);
-    gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(priv->search_string_combo),MISC_COMBO_TEXT);
-    gtk_widget_set_size_request(GTK_WIDGET(priv->search_string_combo),200,-1);
-    gtk_grid_attach (GTK_GRID (Table), priv->search_string_combo, 1, 0, 4, 1);
-    // History List
-    Load_Search_File_List(priv->search_string_model, MISC_COMBO_TEXT);
-    gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->search_string_combo))),"");
-    gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->search_string_combo)))),
-        _("Type the word to search into files. Or type nothing to display all files."));
+    /* History List. */
+    Load_Search_File_List (priv->search_string_model, MISC_COMBO_TEXT);
+    gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->search_string_combo))),
+                        "");
 
-    // Set content of the clipboard if available
-    gtk_editable_paste_clipboard(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(priv->search_string_combo))));
+    /* Set content of the clipboard if available. */
+    gtk_editable_paste_clipboard (GTK_EDITABLE (gtk_bin_get_child (GTK_BIN (priv->search_string_combo))));
 
-    // Where...
-    Label = gtk_label_new(_("In:"));
-    gtk_widget_set_halign (Label, GTK_ALIGN_END);
-    gtk_grid_attach (GTK_GRID (Table), Label, 0, 1, 1, 1);
-    /* Translators: This option is for the previous 'in' option. For instance,
-     * translate this as "Search" "In:" "the Filename". */
-    priv->search_in_filename = gtk_check_button_new_with_label(_("the Filename"));
-    /* Translators: This option is for the previous 'in' option. For instance,
-     * translate this as "Search" "In:" "the Tag".
-     * Note: label changed to "the Tag" (to be the only one) to fix a Hungarian
-     * grammatical problem (which uses one word to say "in the tag" like here)
-     */
-    priv->search_in_tag = gtk_check_button_new_with_label (_("the Tag"));
-    gtk_grid_attach (GTK_GRID (Table), priv->search_in_filename, 1, 1, 1, 1);
-    gtk_grid_attach (GTK_GRID (Table), priv->search_in_tag, 2, 1, 1, 1);
+    priv->search_in_filename = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                   "search_filename_check"));
+    priv->search_in_tag = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                              "search_tag_check"));
     g_settings_bind (MainSettings, "search-filename", priv->search_in_filename,
                      "active", G_SETTINGS_BIND_DEFAULT);
     g_settings_bind (MainSettings, "search-tag", priv->search_in_tag,
                      "active", G_SETTINGS_BIND_DEFAULT);
 
-    Separator = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
-    et_grid_attach_full (GTK_GRID (Table), Separator, 3, 1, 1, 1, FALSE, FALSE,
-                         4, 0);
-
-    // Property of the search
-    priv->search_case_sensitive = gtk_check_button_new_with_label (_("Case sensitive"));
-    et_grid_attach_full (GTK_GRID (Table), priv->search_case_sensitive, 4, 1,
-                         1, 1, TRUE, FALSE, 0, 0);
+    /* Property of the search. */
+    priv->search_case_sensitive = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                      "search_case_check"));
     g_settings_bind (MainSettings, "search-case-sensitive",
                      priv->search_case_sensitive, "active",
                      G_SETTINGS_BIND_DEFAULT);
 
-    // Results list
-    ScrollWindow = gtk_scrolled_window_new(NULL,NULL);
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(ScrollWindow),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
-    gtk_widget_set_size_request(GTK_WIDGET(ScrollWindow), -1, 130);
-    et_grid_attach_full (GTK_GRID (Table), ScrollWindow, 0, 2, 6, 1, TRUE,
-                         TRUE, 0, 0);
+    /* Results list. */
+    priv->search_results_model = GTK_LIST_STORE (gtk_builder_get_object (builder,
+                                                                         "search_model"));
+    priv->search_results_view = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                    "search_view"));
 
-    priv->search_results_model = gtk_list_store_new(SEARCH_COLUMN_COUNT,
-                                               G_TYPE_STRING, /* Filename */
-                                               G_TYPE_STRING, /* Title */
-                                               G_TYPE_STRING, /* Artist */
-                                               G_TYPE_STRING, /* Album Artist */
-											   G_TYPE_STRING, /* Album */
-                                               G_TYPE_STRING, /* Disc Number */
-                                               G_TYPE_STRING, /* Year */
-                                               G_TYPE_STRING, /* Track + Track Total */
-                                               G_TYPE_STRING, /* Genre */
-                                               G_TYPE_STRING, /* Comment */
-                                               G_TYPE_STRING, /* Composer */
-                                               G_TYPE_STRING, /* Orig. Artist */
-                                               G_TYPE_STRING, /* Copyright */
-                                               G_TYPE_STRING, /* URL */
-                                               G_TYPE_STRING, /* Encoded by */
-
-                                               G_TYPE_INT, /* Font Weight for Filename */
-                                               G_TYPE_INT, /* Font Weight for Title */
-                                               G_TYPE_INT, /* Font Weight for Artist */
-                                               G_TYPE_INT, /* Font Weight for Album Artist */
-											   G_TYPE_INT, /* Font Weight for Album */
-                                               G_TYPE_INT, /* Font Weight for Disc Number */
-                                               G_TYPE_INT, /* Font Weight for Year */
-                                               G_TYPE_INT, /* Font Weight for Track + Track Total */
-                                               G_TYPE_INT, /* Font Weight for Genre */
-                                               G_TYPE_INT, /* Font Weight for Comment */
-                                               G_TYPE_INT, /* Font Weight for Composer */
-                                               G_TYPE_INT, /* Font Weight for Orig. Artist */
-                                               G_TYPE_INT, /* Font Weight for Copyright */
-                                               G_TYPE_INT, /* Font Weight for URL */
-                                               G_TYPE_INT, /* Font Weight for Encoded by */
-
-                                               GDK_TYPE_RGBA, /* Color Weight for Filename */
-                                               GDK_TYPE_RGBA, /* Color Weight for Title */
-                                               GDK_TYPE_RGBA, /* Color Weight for Artist */
-                                               GDK_TYPE_RGBA, /* Color Weight for Album Artist */
-                                               GDK_TYPE_RGBA, /* Color Weight for Album */
-                                               GDK_TYPE_RGBA, /* Color Weight for Disc Number */
-                                               GDK_TYPE_RGBA, /* Color Weight for Year */
-                                               GDK_TYPE_RGBA, /* Color Weight for Track + Track Total */
-                                               GDK_TYPE_RGBA, /* Color Weight for Genre */
-                                               GDK_TYPE_RGBA, /* Color Weight for Comment */
-                                               GDK_TYPE_RGBA, /* Color Weight for Composer */
-                                               GDK_TYPE_RGBA, /* Color Weight for Orig. Artist */
-                                               GDK_TYPE_RGBA, /* Color Weight for Copyright */
-                                               GDK_TYPE_RGBA, /* Color Weight for URL */
-                                               GDK_TYPE_RGBA, /* Color Weight for Encoded by */
-
-                                               G_TYPE_POINTER);
-    priv->search_results_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(priv->search_results_model));
-    g_object_unref (priv->search_results_model);
-
-    renderer = gtk_cell_renderer_text_new(); /* Filename */
-    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[0]), renderer,
-                                                      "text",           SEARCH_RESULT_FILENAME,
-                                                      "weight",         SEARCH_RESULT_FILENAME_WEIGHT,
-                                                      "foreground-rgba", SEARCH_RESULT_FILENAME_FOREGROUND,
-                                                      NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->search_results_view), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-
-    renderer = gtk_cell_renderer_text_new(); /* Title */
-    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[1]), renderer,
-                                                      "text",           SEARCH_RESULT_TITLE,
-                                                      "weight",         SEARCH_RESULT_TITLE_WEIGHT,
-                                                      "foreground-rgba", SEARCH_RESULT_TITLE_FOREGROUND,
-                                                      NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->search_results_view), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-
-    renderer = gtk_cell_renderer_text_new(); /* Artist */
-    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[2]), renderer,
-                                                      "text",           SEARCH_RESULT_ARTIST,
-                                                      "weight",         SEARCH_RESULT_ARTIST_WEIGHT,
-                                                      "foreground-rgba", SEARCH_RESULT_ARTIST_FOREGROUND,
-                                                      NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->search_results_view), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-
-	renderer = gtk_cell_renderer_text_new(); /* Album Artist */
-    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[3]), renderer,
-                                                      "text",           SEARCH_RESULT_ALBUM_ARTIST,
-                                                      "weight",         SEARCH_RESULT_ALBUM_ARTIST_WEIGHT,
-                                                      "foreground-rgba", SEARCH_RESULT_ALBUM_ARTIST_FOREGROUND,
-                                                      NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->search_results_view), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-
-    renderer = gtk_cell_renderer_text_new(); /* Album */
-    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[4]), renderer,
-                                                      "text",           SEARCH_RESULT_ALBUM,
-                                                      "weight",         SEARCH_RESULT_ALBUM_WEIGHT,
-                                                      "foreground-rgba", SEARCH_RESULT_ALBUM_FOREGROUND,
-                                                      NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->search_results_view), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-
-    renderer = gtk_cell_renderer_text_new(); /* Disc Number */
-    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[5]), renderer,
-                                                      "text",           SEARCH_RESULT_DISC_NUMBER,
-                                                      "weight",         SEARCH_RESULT_DISC_NUMBER_WEIGHT,
-                                                      "foreground-rgba", SEARCH_RESULT_DISC_NUMBER_FOREGROUND,
-                                                      NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->search_results_view), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-
-    renderer = gtk_cell_renderer_text_new(); /* Year */
-    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[6]), renderer,
-                                                      "text",           SEARCH_RESULT_YEAR,
-                                                      "weight",         SEARCH_RESULT_YEAR_WEIGHT,
-                                                      "foreground-rgba", SEARCH_RESULT_YEAR_FOREGROUND,
-                                                      NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->search_results_view), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-
-    renderer = gtk_cell_renderer_text_new(); /* Track */
-    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[7]), renderer,
-                                                      "text",           SEARCH_RESULT_TRACK,
-                                                      "weight",         SEARCH_RESULT_TRACK_WEIGHT,
-                                                      "foreground-rgba", SEARCH_RESULT_TRACK_FOREGROUND,
-                                                      NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->search_results_view), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-
-    renderer = gtk_cell_renderer_text_new(); /* Genre */
-    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[8]), renderer,
-                                                      "text",           SEARCH_RESULT_GENRE,
-                                                      "weight",         SEARCH_RESULT_GENRE_WEIGHT,
-                                                      "foreground-rgba", SEARCH_RESULT_GENRE_FOREGROUND,
-                                                      NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->search_results_view), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-
-    renderer = gtk_cell_renderer_text_new(); /* Comment */
-    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[9]), renderer,
-                                                      "text",           SEARCH_RESULT_COMMENT,
-                                                      "weight",         SEARCH_RESULT_COMMENT_WEIGHT,
-                                                      "foreground-rgba", SEARCH_RESULT_COMMENT_FOREGROUND,
-                                                      NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->search_results_view), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-
-    renderer = gtk_cell_renderer_text_new(); /* Composer */
-    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[10]), renderer,
-                                                      "text",           SEARCH_RESULT_COMPOSER,
-                                                      "weight",         SEARCH_RESULT_COMPOSER_WEIGHT,
-                                                      "foreground-rgba", SEARCH_RESULT_COMPOSER_FOREGROUND,
-                                                      NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->search_results_view), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-
-    renderer = gtk_cell_renderer_text_new(); /* Orig. Artist */
-    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[11]), renderer,
-                                                      "text",           SEARCH_RESULT_ORIG_ARTIST,
-                                                      "weight",         SEARCH_RESULT_ORIG_ARTIST_WEIGHT,
-                                                      "foreground-rgba", SEARCH_RESULT_ORIG_ARTIST_FOREGROUND,
-                                                      NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->search_results_view), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-
-    renderer = gtk_cell_renderer_text_new(); /* Copyright */
-    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[12]), renderer,
-                                                      "text",           SEARCH_RESULT_COPYRIGHT,
-                                                      "weight",         SEARCH_RESULT_COPYRIGHT_WEIGHT,
-                                                      "foreground-rgba", SEARCH_RESULT_COPYRIGHT_FOREGROUND,
-                                                      NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->search_results_view), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-
-    renderer = gtk_cell_renderer_text_new(); /* URL */
-    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[13]), renderer,
-                                                      "text",           SEARCH_RESULT_URL,
-                                                      "weight",         SEARCH_RESULT_URL_WEIGHT,
-                                                      "foreground-rgba", SEARCH_RESULT_URL_FOREGROUND,
-                                                      NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->search_results_view), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-
-    renderer = gtk_cell_renderer_text_new(); /* Encoded by */
-    column = gtk_tree_view_column_new_with_attributes(_(SearchResultList_Titles[14]), renderer,
-                                                      "text",           SEARCH_RESULT_ENCODED_BY,
-                                                      "weight",         SEARCH_RESULT_ENCODED_BY_WEIGHT,
-                                                      "foreground-rgba", SEARCH_RESULT_ENCODED_BY_FOREGROUND,
-                                                      NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->search_results_view), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-
-    gtk_container_add(GTK_CONTAINER(ScrollWindow),priv->search_results_view);
-    gtk_tree_selection_set_mode(gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->search_results_view)),
-            GTK_SELECTION_MULTIPLE);
-    //gtk_tree_view_columns_autosize(GTK_TREE_VIEW(priv->search_results_view)); // Doesn't seem to work...
-    gtk_tree_view_set_headers_clickable(GTK_TREE_VIEW(priv->search_results_view), FALSE);
-    gtk_widget_set_sensitive(GTK_WIDGET(priv->search_results_view), FALSE);
-    g_signal_connect (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->search_results_view)),
-                      "changed", G_CALLBACK(Search_Result_List_Row_Selected),
+    g_signal_connect (gtk_builder_get_object (builder, "search_selection"),
+                      "changed", G_CALLBACK (Search_Result_List_Row_Selected),
                       self);
 
     /* Button to run the search. */
-    Button = gtk_button_new_with_mnemonic (_("_Find"));
-    gtk_grid_attach (GTK_GRID (Table), Button, 5, 0, 1, 1);
-    gtk_widget_set_can_default(Button,TRUE);
-    gtk_widget_grab_default(Button);
-    g_signal_connect (Button, "clicked", G_CALLBACK (Search_File), self);
+    button = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                 "search_find_button"));
+    gtk_widget_grab_default (button);
+    g_signal_connect (button, "clicked", G_CALLBACK (Search_File), self);
     g_signal_connect (gtk_bin_get_child (GTK_BIN (priv->search_string_combo)),
                       "activate", G_CALLBACK (Search_File), self);
 
     /* Button to cancel. */
-    Button = gtk_button_new_with_mnemonic (_("_Close"));
-    gtk_grid_attach (GTK_GRID (Table), Button, 5, 1, 1, 1);
-    g_signal_connect (Button, "clicked", G_CALLBACK (on_close_clicked), self);
+    button = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                 "search_close_button"));
+    g_signal_connect (button, "clicked", G_CALLBACK (on_close_clicked), self);
 
-    // Status bar
-    priv->status_bar = gtk_statusbar_new();
-    /*gtk_grid_attach (GTK_GRID (Table), priv->status_bar, 0, 3, 5, 1);*/
-    gtk_box_pack_start(GTK_BOX(content_area),priv->status_bar,FALSE,TRUE,0);
-    priv->status_bar_context = gtk_statusbar_get_context_id(GTK_STATUSBAR(priv->status_bar),"Messages");
-    gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,_("Ready to search…"));
+    /* Status bar. */
+    priv->status_bar = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                           "search_status"));
+    priv->status_bar_context = gtk_statusbar_get_context_id (GTK_STATUSBAR (priv->status_bar),
+                                                             "Messages");
+    gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
+                        priv->status_bar_context, _("Ready to search…"));
+
+    g_object_unref (builder);
 }
 
 /*
