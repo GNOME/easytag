@@ -6,21 +6,6 @@
     <property name="can_focus">False</property>
     <property name="stock">gtk-find</property>
   </object>
-  <object class="GtkImage" id="img_invert_selection">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">easytag-invert-selection</property>
-  </object>
-  <object class="GtkImage" id="img_red_lines">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">easytag-red-lines</property>
-  </object>
-  <object class="GtkImage" id="img_unselect_all">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">easytag-unselect-all</property>
-  </object>
   <object class="GtkBox" id="mb_box">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -196,7 +181,6 @@
                     <property name="tooltip_text" translatable="yes">Invert Selections</property>
                     <property name="label" translatable="yes">toolbutton5</property>
                     <property name="use_underline">True</property>
-                    <property name="icon_widget">img_invert_selection</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -230,7 +214,6 @@
                     <property name="tooltip_text" translatable="yes">Unselect All</property>
                     <property name="label" translatable="yes">toolbutton7</property>
                     <property name="use_underline">True</property>
-                    <property name="icon_widget">img_unselect_all</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -247,7 +230,6 @@
                     <property name="tooltip_text" translatable="yes">Toggle Red Lines</property>
                     <property name="label" translatable="yes">toolbutton8</property>
                     <property name="use_underline">True</property>
-                    <property name="icon_widget">img_red_lines</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>

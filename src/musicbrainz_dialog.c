@@ -2399,8 +2399,10 @@ et_musicbrainz_dialog_init (EtMusicBrainzDialog *dialog)
     GtkWidget *cb_manual_search_in;
     GtkWidget *entry_manual_search;
     GtkWidget *box;
+    GtkWidget *image;
     GError *error;
     ET_File *et_file;
+    GtkToolButton *button;
 
     priv = dialog->priv = G_TYPE_INSTANCE_GET_PRIVATE (dialog,
                                                        et_musicbrainz_dialog_get_type (),
@@ -2488,6 +2490,19 @@ et_musicbrainz_dialog_init (EtMusicBrainzDialog *dialog)
                                     _("Track"));
 
     gtk_combo_box_set_active (GTK_COMBO_BOX (cb_manual_search_in), 1);
+
+    /* Set Icons to Toolbar Items */
+    button = GTK_TOOL_BUTTON (gtk_builder_get_object (builder, "toolbtn_invert_selection"));
+    image = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/invert-selection.png");
+    gtk_widget_set_sensitive (image, FALSE);
+    gtk_tool_button_set_icon_widget (button, image);
+    gtk_widget_set_sensitive (GTK_WIDGET (button), FALSE);
+    button = GTK_TOOL_BUTTON (gtk_builder_get_object (builder, "toolbtn_unselect_all"));
+    gtk_tool_button_set_icon_widget (button,
+                                     gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/unselect-all.png"));
+    button = GTK_TOOL_BUTTON (gtk_builder_get_object (builder, "toolbtn_toggle_red_lines"));
+    gtk_tool_button_set_icon_widget (button,
+                                     gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/red-lines.png"));
 
     /* Set the text of cb_manual_search to the album of selected file */
     get_first_selected_file (&et_file);
