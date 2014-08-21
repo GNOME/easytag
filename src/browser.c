@@ -4947,10 +4947,9 @@ void
 et_browser_show_open_files_with_dialog (EtBrowser *self)
 {
     EtBrowserPrivate *priv;
-    GtkWidget *VBox;
-    GtkWidget *HBox;
-    GtkWidget *Label;
-    GtkWidget *Button;
+    GtkBuilder *builder;
+    GError *error = NULL;
+    GtkWidget *button;
 
     g_return_if_fail (ET_BROWSER (self));
 
@@ -4962,72 +4961,65 @@ et_browser_show_open_files_with_dialog (EtBrowser *self)
         return;
     }
 
-    priv->open_files_with_dialog = gtk_dialog_new_with_buttons (_("Open Files With"),
-                                                        GTK_WINDOW (MainWindow),
-                                                        GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                        _("_Cancel"),
-                                                        GTK_RESPONSE_CANCEL,
-                                                        _("_Execute"),
-                                                        GTK_RESPONSE_OK,
-                                                        NULL);
+    builder = gtk_builder_new ();
+    gtk_builder_add_from_resource (builder,
+                                   "/org/gnome/EasyTAG/browser.ui",
+                                   &error);
 
+    if (error != NULL)
+    {
+        g_error ("Unable to get open with files dialog from resource: %s",
+                 error->message);
+    }
+
+    priv->open_files_with_dialog = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                       "open_files_dialog"));
     gtk_dialog_set_default_response (GTK_DIALOG (priv->open_files_with_dialog),
                                      GTK_RESPONSE_OK);
+    gtk_window_set_transient_for (GTK_WINDOW (priv->open_files_with_dialog),
+                                  GTK_WINDOW (MainWindow));
     g_signal_connect ((priv->open_files_with_dialog), "response",
                       G_CALLBACK (et_run_program_list_on_response), self);
 
-    gtk_container_set_border_width (GTK_CONTAINER (priv->open_files_with_dialog),
-                                    BOX_SPACING);
-
-    VBox = gtk_dialog_get_content_area (GTK_DIALOG (priv->open_files_with_dialog));
-    gtk_container_set_border_width (GTK_CONTAINER(VBox), BOX_SPACING);
-
-    Label = gtk_label_new(_("Program to run:"));
-    gtk_box_pack_start(GTK_BOX(VBox),Label,TRUE,TRUE,0);
-    gtk_label_set_line_wrap(GTK_LABEL(Label),TRUE);
-
-    HBox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
-    gtk_box_pack_start(GTK_BOX(VBox),HBox,FALSE,FALSE,0);
-
     /* The combobox to enter the program to run */
-    priv->open_files_with_combobox = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(priv->run_program_model));
-    gtk_combo_box_set_entry_text_column (GTK_COMBO_BOX (priv->open_files_with_combobox),
-                                         MISC_COMBO_TEXT);
-    gtk_box_pack_start (GTK_BOX (HBox), priv->open_files_with_combobox, TRUE,
-                        TRUE, 0);
+    priv->open_files_with_combobox = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                         "open_files_combo"));
+    gtk_combo_box_set_model (GTK_COMBO_BOX (priv->open_files_with_combobox),
+                             GTK_TREE_MODEL (priv->run_program_model));
     gtk_widget_set_size_request (GTK_WIDGET (priv->open_files_with_combobox),
                                  250, -1);
-    gtk_widget_set_tooltip_text (GTK_WIDGET (gtk_bin_get_child (GTK_BIN (priv->open_files_with_combobox))),
-                                 _("Enter the program to run. It will receive the current file as parameter."));
 
     /* History list */
-    gtk_list_store_clear(priv->run_program_model);
-    Load_Run_Program_With_File_List(priv->run_program_model, MISC_COMBO_TEXT);
+    gtk_list_store_clear (priv->run_program_model);
+    Load_Run_Program_With_File_List (priv->run_program_model, MISC_COMBO_TEXT);
     g_signal_connect_swapped (gtk_bin_get_child (GTK_BIN (priv->open_files_with_combobox)),
                               "activate",
                               G_CALLBACK (Run_Program_With_Selected_Files),
-			      self);
+			                  self);
 
     /* The button to Browse */
-    Button = gtk_button_new_with_mnemonic (_("_Open"));
-    gtk_box_pack_start(GTK_BOX(HBox),Button,FALSE,FALSE,0);
-    g_signal_connect_swapped(G_OBJECT(Button),"clicked",
-                             G_CALLBACK(File_Selection_Window_For_File),G_OBJECT(gtk_bin_get_child(GTK_BIN(priv->open_files_with_combobox))));
+    button = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                 "open_files_button"));
+    g_signal_connect_swapped (button, "clicked",
+                              G_CALLBACK (File_Selection_Window_For_File),
+                              G_OBJECT (gtk_bin_get_child (GTK_BIN (priv->open_files_with_combobox))));
+
+    g_object_unref (builder);
 
     /* Button to execute */
-    Button = gtk_dialog_get_widget_for_response (GTK_DIALOG (priv->open_files_with_dialog),
+    button = gtk_dialog_get_widget_for_response (GTK_DIALOG (priv->open_files_with_dialog),
                                                  GTK_RESPONSE_OK);
-    g_signal_connect_swapped (Button, "clicked",
+    g_signal_connect_swapped (button, "clicked",
                               G_CALLBACK (Run_Program_With_Selected_Files),
-			      self);
+			                  self);
     g_signal_connect_swapped (gtk_bin_get_child (GTK_BIN (priv->open_files_with_combobox)),
                               "changed",
                               G_CALLBACK (empty_entry_disable_widget),
-                              G_OBJECT (Button));
+                              G_OBJECT (button));
     g_signal_emit_by_name (gtk_bin_get_child (GTK_BIN (priv->open_files_with_combobox)),
                            "changed", NULL);
 
-    gtk_widget_show_all(priv->open_files_with_dialog);
+    gtk_widget_show_all (priv->open_files_with_dialog);
 }
 
 static void
