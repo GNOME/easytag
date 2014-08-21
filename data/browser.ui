@@ -1,5 +1,83 @@
 <interface domain="easytag">
     <requires lib="gtk+" version="3.4"/>
+    <object class="GtkDialog" id="open_directory_dialog">
+        <property name="border-width">12</property>
+        <property name="destroy-with-parent">True</property>
+        <property name="title" translatable="yes">Browse Directory With</property>
+        <child internal-child="vbox">
+            <object class="GtkBox" id="open_directory_vbox">
+                <child>
+                    <object class="GtkGrid" id="open_directory_grid">
+                        <property name="column-spacing">12</property>
+                        <property name="row-spacing">6</property>
+                        <property name="visible">True</property>
+                        <child>
+                            <object class="GtkLabel" id="open_directory_label">
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Run Program</property>
+                                <property name="visible">True</property>
+                                <attributes>
+                                    <attribute name="weight" value="bold"/>
+                                </attributes>
+                            </object>
+                            <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">0</property>
+                                <property name="width">2</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkComboBox" id="open_directory_combo">
+                                <property name="has-entry">True</property>
+                                <property name="entry-text-column">0</property>
+                                <property name="margin-left">12</property>
+                                <property name="tooltip-text" translatable="yes">Enter the program to run. It will receive the current directory as parameter</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">1</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkButton" id="open_directory_button">
+                                <property name="label" translatable="yes">_Open</property>
+                                <property name="use-underline">True</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left-attach">1</property>
+                                <property name="top-attach">1</property>
+                            </packing>
+                        </child>
+                    </object>
+                </child>
+                <child internal-child="action_area">
+                    <object class="GtkButtonBox" id="open_directory_button_box">
+                        <child>
+                            <object class="GtkButton" id="open_directory_cancel_button">
+                                <property name="label" translatable="yes">_Cancel</property>
+                                <property name="use-underline">True</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkButton" id="open_directory_execute_button">
+                                <property name="can-default">True</property>
+                                <property name="label" translatable="yes">_Execute</property>
+                                <property name="use-underline">True</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <action-widgets>
+            <action-widget response="-5">open_directory_execute_button</action-widget>
+            <action-widget response="-6">open_directory_cancel_button</action-widget>
+        </action-widgets>
+    </object>
     <object class="GtkDialog" id="rename_directory_dialog">
         <property name="border-width">12</property>
         <property name="destroy-with-parent">True</property>
