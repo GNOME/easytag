@@ -21,7 +21,6 @@
 #include <gdk/gdkkeysyms.h>
 #include <glib/gi18n.h>
 
-#include "gtk2_compat.h"
 #include "easytag.h"
 #include "mbentityview.h"
 #include "log.h"
