@@ -40,10 +40,11 @@ G_DEFINE_TYPE (EtMbEntityView, et_mb_entity_view, GTK_TYPE_BOX)
  * Declaration *
  ***************/
 
-char *columns [MB_ENTITY_KIND_COUNT][8] = {
+char *columns [MB_ENTITY_KIND_COUNT][10] = {
     {"Name", "Gender", "Type"},
     {"Name", "Artist", "Type"},
     {"Name", "Album", "Artist", "Time"},
+    {"FreeDB ID", "Title", "Artist"}
     };
 
 /*
@@ -471,6 +472,27 @@ add_iter_to_list_store (GtkListStore *list_store, GNode *node)
                 break;
             }
 
+            case MB_ENTITY_KIND_FREEDBID:
+            {
+                gchar freedbid [NAME_MAX_SIZE];
+                gchar title [NAME_MAX_SIZE];
+                gchar artist [NAME_MAX_SIZE];
+
+                mb5_freedbdisc_get_artist ((Mb5FreeDBDisc)entity,
+                                           artist, sizeof (artist));
+                mb5_freedbdisc_get_title ((Mb5FreeDBDisc)entity,
+                                          title, sizeof (title));
+                mb5_freedbdisc_get_id ((Mb5FreeDBDisc)entity,
+                                       freedbid, sizeof (freedbid));
+                gtk_list_store_insert_with_values (list_store, &iter, -1,
+                                                   MB_FREEDBID_COLUMNS_ID,
+                                                   freedbid,
+                                                   MB_FREEDBID_COLUMNS_NAME,
+                                                   title,
+                                                   MB_FREEDBID_COLUMNS_ARTIST,
+                                                   artist, -1);
+            }
+
             case MB_ENTITY_KIND_COUNT:
             case MB_ENTITY_KIND_DISCID:
                 break;
@@ -537,6 +559,10 @@ show_data_in_entity_view (EtMbEntityView *entity_view)
 
         case MB_ENTITY_KIND_TRACK:
             total_cols = MB_TRACK_COLUMNS_N;
+            break;
+
+        case MB_ENTITY_KIND_FREEDBID:
+            total_cols = MB_FREEDBID_COLUMNS_N;
             break;
 
         default:
@@ -682,8 +708,8 @@ search_in_levels_callback (GObject *source, GAsyncResult *res,
                           G_CALLBACK (toggle_button_clicked), entity_view);
         priv->active_toggle_button = toggle_btn;
     
-        gtk_tree_model_get (priv->list_store, &thread_data->iter, 0, &entity_name,
-                            -1);
+        gtk_tree_model_get (priv->list_store, &thread_data->iter, 0,
+                            &entity_name, -1);
         gtk_button_set_label (GTK_BUTTON (toggle_btn), entity_name);
         gtk_widget_show_all (GTK_WIDGET (priv->bread_crumb_box));
     }
@@ -724,6 +750,7 @@ search_in_levels_thread_func (GSimpleAsyncResult *res, GObject *obj,
     gchar *status_msg;
     gchar parent_entity_str [NAME_MAX_SIZE];
     gchar *child_entity_type_str;
+    MbEntityKind to_search;
 
     child_entity_type_str = NULL;
     thread_data = g_async_result_get_user_data (G_ASYNC_RESULT (res));
@@ -753,6 +780,7 @@ search_in_levels_thread_func (GSimpleAsyncResult *res, GObject *obj,
                            mbid, sizeof (mbid));
         mb5_artist_get_name (((EtMbEntity *)thread_data->child->data)->entity,
                              parent_entity_str, sizeof (parent_entity_str));
+        to_search = MB_ENTITY_KIND_ALBUM;
     }
     else if (((EtMbEntity *)thread_data->child->data)->type ==
              MB_ENTITY_KIND_ALBUM)
@@ -762,6 +790,16 @@ search_in_levels_thread_func (GSimpleAsyncResult *res, GObject *obj,
                             mbid, sizeof (mbid));
         mb5_release_get_title (((EtMbEntity *)thread_data->child->data)->entity,
                                parent_entity_str, sizeof (parent_entity_str));
+        to_search = MB_ENTITY_KIND_TRACK;
+    }
+    else if (((EtMbEntity *)thread_data->child->data)->type ==
+             MB_ENTITY_KIND_FREEDBID)
+    {
+        child_entity_type_str = g_strdup ("Albums ");
+        mb5_freedbdisc_get_title (((EtMbEntity *)thread_data->child->data)->entity,
+                                  mbid, sizeof (mbid));
+        g_stpcpy (parent_entity_str, mbid);
+        to_search = MB_ENTITY_KIND_ALBUM;
     }
 
     error = NULL;
@@ -782,7 +820,7 @@ search_in_levels_thread_func (GSimpleAsyncResult *res, GObject *obj,
         return;
     }
 
-    if (!et_musicbrainz_search_in_entity (((EtMbEntity *)thread_data->child->data)->type + 1,
+    if (!et_musicbrainz_search_in_entity (to_search,
                                           ((EtMbEntity *)thread_data->child->data)->type,
                                           mbid, thread_data->child, &error,
                                           cancellable))
@@ -830,7 +868,8 @@ tree_view_row_activated (GtkTreeView *tree_view, GtkTreePath *path,
 
     child = g_node_nth_child (priv->mb_tree_current_node,
                               depth);
-    search_in_levels (ET_MB_ENTITY_VIEW (user_data), child, &filter_iter, FALSE);
+    search_in_levels (ET_MB_ENTITY_VIEW (user_data), child, &filter_iter,
+                      FALSE);
 }
 
 static void
@@ -842,7 +881,7 @@ search_in_levels (EtMbEntityView *entity_view, GNode *child,
 
     if (((EtMbEntity *)child->data)->type ==
         MB_ENTITY_KIND_TRACK)
-    {printf ("sdsd\n");
+    {
         return;
     }
 
@@ -964,6 +1003,10 @@ et_mb_entity_view_set_tree_root (EtMbEntityView *entity_view, GNode *treeRoot)
 
             case MB_ENTITY_KIND_TRACK:
                 gtk_button_set_label (GTK_BUTTON (btn), _("Tracks"));
+                break;
+
+            case MB_ENTITY_KIND_FREEDBID:
+                gtk_button_set_label (GTK_BUTTON (btn), _("FreeDB Disc"));
                 break;
 
             default:
@@ -1198,11 +1241,9 @@ void
 et_mb_entity_view_refresh_current_level (EtMbEntityView *entity_view)
 {
     EtMbEntityViewPrivate *priv;
-    EtMbEntity *et_entity;
     GNode *child;
 
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
-    et_entity = priv->mb_tree_current_node->data;
 
     /* Delete Current Data */
     et_mb_entity_view_clear_all (entity_view);
