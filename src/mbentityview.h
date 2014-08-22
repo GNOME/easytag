@@ -182,6 +182,8 @@ et_mb_entity_view_get_selected_entity_list (EtMbEntityView *entity_view,
                                             GList **list);
 EtMbEntity *
 et_mb_entity_view_get_current_entity (EtMbEntityView *entity_view);
+void
+et_mb_entity_view_fetch_more_at_current_level (EtMbEntityView *entity_view);
 G_END_DECLS
 
 #endif /* ENABLE_MUSICBRAINZ */

@@ -116,15 +116,18 @@ gboolean
 et_musicbrainz_search_in_entity (MbEntityKind child_type,
                                  MbEntityKind parent_type,
                                  gchar *parent_mbid, GNode *root,
-                                 GError **error, GCancellable *cancellable);
+                                 int offset, GError **error, 
+                                 GCancellable *cancellable);
 gboolean
-et_musicbrainz_search (gchar *string, MbEntityKind type, GNode *root,
-                       GError **error, GCancellable *cancellable);
+et_musicbrainz_search (gchar *string, MbEntityKind type, GNode *root, 
+                       int offset, GError **error, GCancellable *cancellable);
 gchar *
 et_mb5_release_get_artists_names (Mb5Release release);
 gchar *
 et_mb5_recording_get_artists_names (Mb5Recording recording);
 void
 free_mb_tree (GNode **node);
+EtMbEntity *
+et_mb_entity_copy (EtMbEntity *etentity);
 #endif /* __MB_SEARCH_H__ */
 #endif /* ENABLE_MUSICBRAINZ */

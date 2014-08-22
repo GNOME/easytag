@@ -800,8 +800,9 @@ search_in_levels_thread_func (GSimpleAsyncResult *res, GObject *obj,
 
     if (!et_musicbrainz_search_in_entity (to_search,
                                           ((EtMbEntity *)thread_data->child->data)->type,
-                                          mbid, thread_data->child, &error,
-                                          cancellable))
+                                          mbid, thread_data->child, 
+                                          g_node_n_children (thread_data->child), 
+                                          &error, cancellable))
     {
         g_simple_async_report_gerror_in_idle (NULL,
                                               mb5_search_error_callback,
@@ -810,6 +811,21 @@ search_in_levels_thread_func (GSimpleAsyncResult *res, GObject *obj,
     }
 
     g_simple_async_result_set_op_res_gboolean (res, TRUE);
+}
+
+/*
+ * et_mb_entity_view_fetch_more_at_current_level:
+ * @entity_view: Fetch more data at current level
+ *
+ * To Fetch more results at current level.
+ */
+void
+et_mb_entity_view_fetch_more_at_current_level (EtMbEntityView *entity_view)
+{
+    EtMbEntityViewPrivate *priv;
+
+    priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
+    search_in_levels (entity_view, priv->mb_tree_current_node, NULL, TRUE);
 }
 
 /*

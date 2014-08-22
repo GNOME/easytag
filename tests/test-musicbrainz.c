@@ -95,7 +95,7 @@ mb_search_test (void)
     err = NULL;
     mbTreeNode = g_node_new (NULL);
     if (et_musicbrainz_search ("Westlife", MB_ENTITY_KIND_ARTIST, mbTreeNode,
-                               &err, NULL))
+                               0, &err, NULL))
     {
         EtMbEntity *etentity;
 
@@ -113,7 +113,7 @@ mb_search_test (void)
     mbTreeNode = g_node_new (NULL);
 
     if (et_musicbrainz_search ("Never Gone", MB_ENTITY_KIND_ALBUM, mbTreeNode,
-                               &err, NULL))
+                               0, &err, NULL))
     {
         EtMbEntity *etentity;
 
@@ -131,7 +131,7 @@ mb_search_test (void)
     mbTreeNode = g_node_new (NULL);
 
     if (et_musicbrainz_search ("I Still", MB_ENTITY_KIND_TRACK, mbTreeNode,
-                               &err, NULL))
+                               0, &err, NULL))
     {
         EtMbEntity *etentity;
 
@@ -150,7 +150,7 @@ mb_search_test (void)
 
     if (et_musicbrainz_search ("lwHl8fGzJyLXQR33ug60E8jhf4k-",
                                MB_ENTITY_KIND_DISCID, mbTreeNode,
-                               &err, NULL))
+                               0, &err, NULL))
     {
         EtMbEntity *etentity;
 
@@ -169,7 +169,7 @@ mb_search_test (void)
 
     if (et_musicbrainz_search ("24028103",
                                MB_ENTITY_KIND_FREEDBID, mbTreeNode,
-                               &err, NULL))
+                               0, &err, NULL))
     {
         EtMbEntity *etentity;
 
@@ -195,7 +195,7 @@ mb_search_in_test (void)
     mbTreeNode = g_node_new (NULL);
 
     if (et_musicbrainz_search ("Westlife", MB_ENTITY_KIND_ARTIST, mbTreeNode,
-                               &err, NULL))
+                               0, &err, NULL))
     {
         EtMbEntity *etentity;
         GNode *westlife_node;
@@ -209,7 +209,7 @@ mb_search_in_test (void)
 
         if (et_musicbrainz_search_in_entity (MB_ENTITY_KIND_ALBUM,
                                              MB_ENTITY_KIND_ARTIST, mbid,
-                                             westlife_node, &err, NULL))
+                                             westlife_node, 0, &err, NULL))
         {
             EtMbEntity *etentity;
 
@@ -230,7 +230,7 @@ mb_search_in_test (void)
     mbTreeNode = g_node_new (NULL);
 
     if (et_musicbrainz_search ("Never Gone", MB_ENTITY_KIND_ALBUM, mbTreeNode,
-                               &err, NULL))
+                               0, &err, NULL))
     {
         EtMbEntity *etentity;
         GNode *never_gone_node;
@@ -243,7 +243,7 @@ mb_search_in_test (void)
 
         if (et_musicbrainz_search_in_entity (MB_ENTITY_KIND_TRACK,
                                              MB_ENTITY_KIND_ALBUM, mbid,
-                                             never_gone_node, &err, NULL))
+                                             never_gone_node, 0, &err, NULL))
         {
             EtMbEntity *etentity;
 
