@@ -40,6 +40,7 @@
 #include "setting.h"
 #include "status_bar.h"
 #include "tag_area.h"
+#include "musicbrainz_dialog.h"
 
 /* TODO: Use G_DEFINE_TYPE_WITH_PRIVATE. */
 G_DEFINE_TYPE (EtApplicationWindow, et_application_window, GTK_TYPE_APPLICATION_WINDOW)
@@ -276,6 +277,18 @@ et_application_window_show_cddb_dialog (EtApplicationWindow *self)
         priv->cddb_dialog = GTK_WIDGET (et_cddb_dialog_new ());
         gtk_widget_show_all (priv->cddb_dialog);
     }
+}
+
+/*
+ * et_application_window_show_musicbrainz_dialog:
+ * @self: EtApplicationWindow
+ *
+ * Show MusicBrainz Dialog.
+ */
+static void
+et_application_window_show_musicbrainz_dialog (EtApplicationWindow *self)
+{
+    et_open_musicbrainz_dialog ();
 }
 
 /*
@@ -1119,6 +1132,18 @@ on_show_cddb (GSimpleAction *action,
 }
 
 static void
+on_show_musicbrainz (GSimpleAction *action,
+                     GVariant *variant,
+                     gpointer user_data)
+{
+    EtApplicationWindow *self;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+
+    et_application_window_show_musicbrainz_dialog (self);
+}
+
+static void
 on_show_load_filenames (GSimpleAction *action,
                         GVariant *variant,
                         gpointer user_data)
@@ -1525,6 +1550,7 @@ static const GActionEntry actions[] =
     /* { "browse-subdir", on_browse_subdir }, Created from GSetting. */
     /* Miscellaneous menu. */
     { "show-cddb", on_show_cddb },
+    { "show-musicbrainz", on_show_musicbrainz},
     { "show-load-filenames", on_show_load_filenames },
     { "show-playlist", on_show_playlist },
     /* Go menu. */
@@ -1683,6 +1709,9 @@ et_application_window_init (EtApplicationWindow *self)
         button = GTK_TOOL_BUTTON (gtk_builder_get_object (builder, "invert_selection_button"));
         gtk_tool_button_set_icon_widget (button,
                                          gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/invert-selection.png"));
+        button = GTK_TOOL_BUTTON (gtk_builder_get_object (builder, "musicbrainz_button"));
+        gtk_tool_button_set_icon_widget (button,
+                                         gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/musicbrainz.png"));
 
         g_object_unref (builder);
     }

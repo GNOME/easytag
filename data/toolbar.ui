@@ -145,6 +145,14 @@
             </object>
         </child>
         <child>
+            <object class="GtkToolButton" id="musicbrainz_button">
+                <property name="action-name">win.show-musicbrainz</property>
+                <property name="label" translatable="yes">MusicBrainz Search…</property>
+                <property name="tooltip-text" translatable="yes">MusicBrainz Search</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
             <object class="GtkToolButton" id="playlist_button">
                 <property name="action-name">win.show-playlist</property>
                 <property name="icon-name">document-save-as</property>

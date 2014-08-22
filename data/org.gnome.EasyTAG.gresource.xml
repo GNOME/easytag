@@ -27,5 +27,6 @@
         <file preprocess='to-pixdata'>images/red-lines.png</file>
         <file preprocess='to-pixdata'>images/sequence-track.png</file>
         <file preprocess='to-pixdata'>images/unselect-all.png</file>
+        <file preprocess='xml-stripblanks'>musicbrainz_dialog.ui</file>
     </gresource>
 </gresources>

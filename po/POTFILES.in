@@ -15,6 +15,7 @@ data/easytag-nautilus.metainfo.xml.in
 [type: gettext/glade]data/toolbar.ui
 data/org.gnome.EasyTAG.gschema.xml
 nautilus-extension/nautilus-easytag.c
+[type: gettext/glade]data/musicbrainz_dialog.ui
 src/about.c
 src/application.c
 src/application_window.c
