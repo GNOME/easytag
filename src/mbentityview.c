@@ -18,6 +18,10 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
+#include "config.h"
+
+#ifdef ENABLE_MUSICBRAINZ
+
 #include <gdk/gdkkeysyms.h>
 #include <glib/gi18n.h>
 
@@ -1153,19 +1157,7 @@ et_mb_entity_view_finalize (GObject *object)
 
     entity_view = ET_MB_ENTITY_VIEW (object);
     priv = ET_MB_ENTITY_VIEW_GET_PRIVATE (entity_view);
-<<<<<<< HEAD
-
-    if (GTK_IS_LIST_STORE (priv->list_store))
-    {
-        g_object_unref (priv->list_store);
-    }
-
-    if (GTK_WIDGET_CLASS (et_mb_entity_view_parent_class)->destroy)
-    {
-        (*GTK_WIDGET_CLASS (et_mb_entity_view_parent_class)->destroy)(object);
-    }
-=======
     g_clear_object (&priv->list_store);
     G_OBJECT_CLASS (et_mb_entity_view_parent_class)->finalize(object);
->>>>>>> 4b51406... Some Improvements after review
 }
+#endif /* ENABLE_MUSICBRAINZ */

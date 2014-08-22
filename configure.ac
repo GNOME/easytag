@@ -159,7 +159,8 @@ AC_ARG_ENABLE([wavpack],
 AC_ARG_ENABLE([nautilus_actions],
               [AS_HELP_STRING([--disable-nautilus-actions], [do not build the nautilus context menu actions (default=auto)])])
 
-
+AC_ARG_ENABLE([musicbrainz],
+              [AS_HELP_STRING([--disable-musicbrainz], [Disable support for musicbrainz (default=auto)])])
 
 dnl -------------------------------
 dnl Checks for libraries.
@@ -167,6 +168,15 @@ dnl -------------------------------
 
 dnl libmusicbrainz5
 MUSICBRAINZ_DEPS="libmusicbrainz5 >= 5.0"
+AS_IF([test "x$enable_musicbrainz" != "xno"],
+      [PKG_CHECK_EXISTS([$MUSICBRAINZ_DEPS], [have_musicbrainz=yes], [have_musicbrainz=no])],
+      [have_musicbrainz=no])
+
+AS_IF([test "x$have_musicbrainz" != "xno"],
+      [AC_DEFINE([ENABLE_MUSICBRAINZ], [], [Define for musicbrainz support])],
+      [MUSICBRAINZ_DEPS=""
+       AS_IF([test "x$enable_musicbrainz" = "xyes"],
+             [AC_MSG_ERROR([musicbrainz support requested but required dependencies ($MUSICBRAINZ_DEPS) not found])])])
 
 dnl libdiscid
 LIBDISCID_DEPS="libdiscid >= 0.2.2"
@@ -429,6 +439,7 @@ echo Ogg Opus file support ...: $have_opus
 echo FLAC file support .......: $have_flac
 echo MP4 file support ........: $have_taglib
 echo WavPack support .........: $have_wavpack
+echo MusicBrainz support .....: $have_musicbrainz
 echo NLS/gettext .............: $USE_NLS
 echo Nautilus actions ........: $have_libnautilus_extension
 echo Tests during make check .: $testing_utilities

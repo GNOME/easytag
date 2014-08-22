@@ -279,6 +279,7 @@ et_application_window_show_cddb_dialog (EtApplicationWindow *self)
     }
 }
 
+#ifdef ENABLE_MUSICBRAINZ
 /*
  * et_application_window_show_musicbrainz_dialog:
  * @self: EtApplicationWindow
@@ -290,6 +291,7 @@ et_application_window_show_musicbrainz_dialog (EtApplicationWindow *self)
 {
     et_open_musicbrainz_dialog ();
 }
+#endif
 
 /*
  * Delete the file ETFile
@@ -1131,6 +1133,7 @@ on_show_cddb (GSimpleAction *action,
     et_application_window_show_cddb_dialog (self);
 }
 
+#ifdef ENABLE_MUSICBRAINZ
 static void
 on_show_musicbrainz (GSimpleAction *action,
                      GVariant *variant,
@@ -1142,6 +1145,7 @@ on_show_musicbrainz (GSimpleAction *action,
 
     et_application_window_show_musicbrainz_dialog (self);
 }
+#endif
 
 static void
 on_show_load_filenames (GSimpleAction *action,
@@ -1550,7 +1554,9 @@ static const GActionEntry actions[] =
     /* { "browse-subdir", on_browse_subdir }, Created from GSetting. */
     /* Miscellaneous menu. */
     { "show-cddb", on_show_cddb },
+#ifdef ENABLE_MUSICBRAINZ
     { "show-musicbrainz", on_show_musicbrainz},
+#endif /* ENABLE_MUSICBRAINZ */
     { "show-load-filenames", on_show_load_filenames },
     { "show-playlist", on_show_playlist },
     /* Go menu. */

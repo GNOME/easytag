@@ -21,6 +21,10 @@
 #ifndef __MB_SEARCH_H__
 #define __MB_SEARCH_H__
 
+#include "config.h"
+
+#ifdef ENABLE_MUSICBRAINZ
+
 #include <gtk/gtk.h>
 #include <musicbrainz5/mb5_c.h>
 
@@ -99,3 +103,4 @@ et_musicbrainz_search (gchar *string, MbEntityKind type, GNode *root,
 void
 free_mb_tree (GNode *node);
 #endif /* __MB_SEARCH_H__ */
+#endif /* ENABLE_MUSICBRAINZ */

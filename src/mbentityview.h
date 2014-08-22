@@ -21,6 +21,10 @@
 #ifndef __MB_ENTITY_VIEW_H__
 #define __MB_ENTITY_VIEW_H__
 
+#include "config.h"
+
+#ifdef ENABLE_MUSICBRAINZ
+
 G_BEGIN_DECLS
 
 #include <gtk/gtk.h>
@@ -126,4 +130,5 @@ void
 et_mb_entity_view_clear_all (EtMbEntityView *entity_view);
 G_END_DECLS
 
+#endif /* ENABLE_MUSICBRAINZ */
 #endif /* __MB_ENTITY_VIEW_H__ */
