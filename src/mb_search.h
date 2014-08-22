@@ -102,6 +102,8 @@ et_musicbrainz_search (gchar *string, MbEntityKind type, GNode *root,
                        GError **error, GCancellable *cancellable);
 gchar *
 et_mb5_release_get_artists_names (Mb5Release release);
+gchar *
+et_mb5_recording_get_artists_names (Mb5Recording recording);
 void
 free_mb_tree (GNode **node);
 #endif /* __MB_SEARCH_H__ */
