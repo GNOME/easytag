@@ -268,10 +268,6 @@ void Save_Run_Program_With_File_List (GtkListStore *liststore, gint colnum);
 void Load_Search_File_List (GtkListStore *liststore, gint colnum);
 void Save_Search_File_List (GtkListStore *liststore, gint colnum);
 
-/* 'FileToLoad' combobox */
-void Load_File_To_Load_List (GtkListStore *liststore, gint colnum);
-void Save_File_To_Load_List (GtkListStore *liststore, gint colnum);
-
 /* 'CddbSearchStringEntry' combobox */
 void Load_Cddb_Search_String_List (GtkListStore *liststore, gint colnum);
 void Save_Cddb_Search_String_List (GtkListStore *liststore, gint colnum);

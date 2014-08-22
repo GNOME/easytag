@@ -2,6 +2,7 @@
 <gresources>
     <gresource prefix='/org/gnome/EasyTAG'>
         <file preprocess='xml-stripblanks'>browser.ui</file>
+        <file preprocess='xml-stripblanks'>load_files_dialog.ui</file>
         <file preprocess='xml-stripblanks'>menus.ui</file>
         <file preprocess='xml-stripblanks'>playlist_dialog.ui</file>
         <file preprocess='xml-stripblanks'>preferences_dialog.ui</file>

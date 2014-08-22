@@ -1,5 +1,5 @@
 /* EasyTAG - tag editor for audio files
- * Copyright (C) 2013  David King <amigadave@amigadave.com>
+ * Copyright (C) 2013,2014  David King <amigadave@amigadave.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -55,8 +55,7 @@ enum
 
 struct _EtLoadFilesDialogPrivate
 {
-    GtkWidget *file_to_load_combo;
-    GtkListStore *file_to_load_model;
+    GtkWidget *file_chooser;
     GtkWidget *load_file_content_view;
     GtkListStore *load_file_content_model;
     GtkWidget *load_file_content_menu;
@@ -189,47 +188,44 @@ on_response (GtkDialog *dialog, gint response_id, gpointer user_data)
  * To enable/disable sensitivity of the button 'Load'
  */
 static void
-set_load_button_sensitivity (GtkWidget *button, GtkWidget *entry)
+set_load_button_sensitivity (GtkWidget *button, GtkWidget *chooser)
 {
-    gchar *path;
     GFile *file;
     GFileInfo *info;
     GError *error = NULL;
 
-    if (!entry || !button)
-        return;
+    g_return_if_fail (button != NULL && chooser != NULL);
 
-    path = filename_from_display(gtk_entry_get_text(GTK_ENTRY(entry)));
+    file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (chooser));
 
-    if (!path)
+    if (!file)
     {
-        gtk_widget_set_sensitive(GTK_WIDGET(button),FALSE);
+        gtk_widget_set_sensitive (GTK_WIDGET (button), FALSE);
         return;
     }
 
-    file = g_file_new_for_path (path);
     info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_TYPE,
                               G_FILE_QUERY_INFO_NONE, NULL, &error);
+    g_object_unref (file);
 
     if (info && G_FILE_TYPE_REGULAR == g_file_info_get_file_type (info))
-        gtk_widget_set_sensitive(GTK_WIDGET(button),TRUE);
+    {
+        gtk_widget_set_sensitive (GTK_WIDGET (button), TRUE);
+    }
     else
     {
-        gtk_widget_set_sensitive(GTK_WIDGET(button),FALSE);
+        gtk_widget_set_sensitive (GTK_WIDGET (button), FALSE);
+
         if (!info)
         {
             Log_Print (LOG_ERROR, _("Cannot retrieve file info (%s)"),
                        error->message);
             g_error_free (error);
-            g_object_unref (file);
-            g_free (path);
             return;
         }
     }
 
     g_object_unref (info);
-    g_object_unref (file);
-    g_free(path);
 }
 
 /*
@@ -239,26 +235,24 @@ static void
 Load_File_Content (G_GNUC_UNUSED GtkButton *button, gpointer user_data)
 {
     EtLoadFilesDialogPrivate *priv;
-    GtkWidget *entry;
     GFile *file;
     GFileInputStream *istream;
     GDataInputStream *data;
     GError *error = NULL;
     gsize size_read;
-    gchar *filename;
-    const gchar *filename_utf8;
+    gchar *path;
+    gchar *filename_utf8;
     gchar *line;
     gchar *valid;
 
     priv = et_load_files_dialog_get_instance_private (ET_LOAD_FILES_DIALOG (user_data));
-    entry = gtk_bin_get_child (GTK_BIN (priv->file_to_load_combo));
+    file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (priv->file_chooser));
 
-    // The file to read
-    filename_utf8 = gtk_entry_get_text(GTK_ENTRY(entry)); // Don't free me!
-    Add_String_To_Combo_List(priv->file_to_load_model, filename_utf8);
-    filename = filename_from_display(filename_utf8);
+    /* The file to read. */
+    path = g_file_get_path (file);
+    filename_utf8 = filename_to_display (path);
+    g_free (path);
 
-    file = g_file_new_for_path (filename);
     istream = g_file_read (file, NULL, &error);
     g_object_unref (file);
 
@@ -268,10 +262,11 @@ Load_File_Content (G_GNUC_UNUSED GtkButton *button, gpointer user_data)
                    error->message);
         g_error_free (error);
         g_object_unref (file);
-        g_free(filename);
+        g_free (filename_utf8);
         return;
     }
 
+    g_free (filename_utf8);
     data = g_data_input_stream_new (G_INPUT_STREAM (istream));
     /* TODO: Find a safer alternative to _ANY. */
     g_data_input_stream_set_newline_type (data,
@@ -299,7 +294,6 @@ Load_File_Content (G_GNUC_UNUSED GtkButton *button, gpointer user_data)
 
     g_object_unref (data);
     g_object_unref (istream);
-    g_free (filename);
 }
 
 /*
@@ -550,10 +544,10 @@ on_load_file_content_view_reload_clicked (G_GNUC_UNUSED GtkButton *button,
  * To select the corresponding row in the other list
  */
 static void
-Load_Filename_Select_Row_In_Other_List (GtkWidget* treeview_target, gpointer origselection)
+Load_Filename_Select_Row_In_Other_List (GtkWidget* treeview_target,
+                                        GtkTreeSelection *selection_orig)
 {
     GtkAdjustment *ct_adj, *ce_adj;
-    GtkTreeSelection *selection_orig;
     GtkTreeSelection *selection_target;
     GtkTreeView *treeview_orig;
     GtkTreeModel *treemodel_orig;
@@ -564,10 +558,8 @@ Load_Filename_Select_Row_In_Other_List (GtkWidget* treeview_target, gpointer ori
     gint *indices_orig;
     gchar *stringiter;
 
-    if (!treeview_target || !origselection)
-        return;
+    g_return_if_fail (treeview_target != NULL && selection_orig != NULL);
 
-    selection_orig = GTK_TREE_SELECTION(origselection);
     selection_target = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview_target));
     treemodel_target = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview_target));
 
@@ -887,21 +879,13 @@ static void
 create_load_files_dialog (EtLoadFilesDialog *self)
 {
     EtLoadFilesDialogPrivate *priv;
-    GtkWidget *content_area, *hbox;
-    GtkWidget *Label;
-    GtkWidget *Button;
-    GtkWidget *Icon;
-    GtkWidget *Entry;
-    GtkWidget *ButtonLoad;
-    GtkWidget *Separator;
-    GtkWidget *ScrollWindow;
-    GtkWidget *loadedvbox;
-    GtkWidget *filelistvbox;
-    GtkWidget *vboxpaned;
+    GtkWidget *content_area;
+    GtkBuilder *builder;
+    GError *error = NULL;
+    GtkWidget *grid;
+    GtkWidget *button;
     GtkWidget *load_file_run_scanner;
     const gchar *path;
-    GtkCellRenderer* renderer;
-    GtkTreeViewColumn* column;
 
     priv = et_load_files_dialog_get_instance_private (self);
 
@@ -920,245 +904,137 @@ create_load_files_dialog (EtLoadFilesDialog *self)
     gtk_container_set_border_width (GTK_CONTAINER (self), BOX_SPACING);
     gtk_box_set_spacing (GTK_BOX (content_area), BOX_SPACING);
 
-    // Hbox for file entry and browser/load buttons
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
-    gtk_box_pack_start (GTK_BOX (content_area), hbox, FALSE, TRUE, 0);
+    builder = gtk_builder_new ();
+    gtk_builder_add_from_resource (builder,
+                                   "/org/gnome/EasyTAG/load_files_dialog.ui",
+                                   &error);
 
-    // File to load
-    priv->file_to_load_model = gtk_list_store_new (MISC_COMBO_COUNT,
-                                                   G_TYPE_STRING);
+    if (error != NULL)
+    {
+        g_error ("Unable to get scanner page from resource: %s",
+                 error->message);
+    }
 
-    Label = gtk_label_new(_("File:"));
-    gtk_widget_set_halign (Label, GTK_ALIGN_END);
-    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
-    priv->file_to_load_combo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(priv->file_to_load_model));
-    g_object_unref (priv->file_to_load_model);
-    gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(priv->file_to_load_combo),MISC_COMBO_TEXT);
-    gtk_widget_set_size_request(GTK_WIDGET(priv->file_to_load_combo), 200, -1);
-    gtk_box_pack_start(GTK_BOX(hbox),priv->file_to_load_combo,TRUE,TRUE,0);
-    // History List
-    Load_File_To_Load_List(priv->file_to_load_model, MISC_COMBO_TEXT);
-    // Initial value
+    grid = GTK_WIDGET (gtk_builder_get_object (builder, "file_grid"));
+    gtk_container_add (GTK_CONTAINER (content_area), grid);
+
+    /* File to load. */
+    priv->file_chooser = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                             "file_chooser"));
+    /* Initial value. */
     if ((path = et_application_window_get_current_path (ET_APPLICATION_WINDOW (MainWindow))) != NULL)
-        gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->file_to_load_combo))),path);
+    {
+        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (priv->file_chooser),
+                                             path);
+    }
     // the 'changed' signal is attached below to enable/disable the button to load
-    /* Button 'browse'. */
-    Button = gtk_button_new_with_mnemonic (_("_Open"));
-    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    g_signal_connect_swapped(G_OBJECT(Button),"clicked", G_CALLBACK(File_Selection_Window_For_File), G_OBJECT(gtk_bin_get_child(GTK_BIN(priv->file_to_load_combo))));
-    // Button 'load'
-    // the signal attached to this button, to load the file, is placed after the priv->load_file_content_view definition
-    ButtonLoad = gtk_button_new_with_label (_("Load"));
-    gtk_box_pack_start(GTK_BOX(hbox),ButtonLoad,FALSE,FALSE,0);
-    g_signal_connect_swapped(G_OBJECT(gtk_bin_get_child(GTK_BIN(priv->file_to_load_combo))),"changed", G_CALLBACK(set_load_button_sensitivity), G_OBJECT(ButtonLoad));
+    /* Button 'load'
+     * the signal attached to this button, to load the file, is placed after
+     * the priv->load_file_content_view definition. */
+    button = GTK_WIDGET (gtk_builder_get_object (builder, "file_load_button"));
+    g_signal_connect_swapped (priv->file_chooser, "file-set",
+                              G_CALLBACK (set_load_button_sensitivity),
+                              button);
 
-    // Vbox for loaded files
-    loadedvbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-
-    // Content of the loaded file
-    ScrollWindow = gtk_scrolled_window_new(NULL,NULL);
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(ScrollWindow),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
-    gtk_widget_set_size_request(GTK_WIDGET(ScrollWindow), 250, 200);
-    gtk_box_pack_start(GTK_BOX(loadedvbox), ScrollWindow, TRUE, TRUE, 0);
-    priv->load_file_content_model = gtk_list_store_new(LOAD_FILE_CONTENT_COUNT, G_TYPE_STRING);
-    priv->load_file_content_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(priv->load_file_content_model));
-    g_object_unref (priv->load_file_content_model);
+    /* Content of the loaded file. */
+    priv->load_file_content_model = GTK_LIST_STORE (gtk_builder_get_object (builder,
+                                                                            "file_content_model"));
+    priv->load_file_content_view = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                       "file_content_view"));
     
-    renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes (_("Content of Text File"),
-                                                      renderer, "text", LOAD_FILE_CONTENT_TEXT, NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->load_file_content_view), column);
-    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(priv->load_file_content_view), TRUE);
-    //gtk_tree_selection_set_mode(gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->load_file_content_view)),GTK_SELECTION_MULTIPLE);
-    gtk_tree_view_set_reorderable(GTK_TREE_VIEW(priv->load_file_content_view),TRUE);
-    gtk_container_add(GTK_CONTAINER(ScrollWindow),priv->load_file_content_view);
+    /* Signal to automatically load the file. */
+    g_signal_connect (button, "clicked", G_CALLBACK (Load_File_Content), self);
+    g_signal_connect (priv->load_file_content_view, "key-press-event",
+                      G_CALLBACK (Load_Filename_List_Key_Press), NULL);
 
-    // Signal to automatically load the file
-    g_signal_connect (ButtonLoad, "clicked", G_CALLBACK(Load_File_Content),
-                      self);
-    g_signal_connect(G_OBJECT(priv->load_file_content_view),"key-press-event", G_CALLBACK(Load_Filename_List_Key_Press),NULL);
+    /* Commands (like the popup menu). */
+    button = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                 "content_insert_blank"));
+    g_signal_connect_swapped (button, "clicked",
+                              G_CALLBACK (Load_Filename_List_Insert_Blank_Line),
+                              G_OBJECT (priv->load_file_content_view));
 
-    // Commands (like the popup menu)
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
-    gtk_box_pack_start(GTK_BOX(loadedvbox),hbox,FALSE,FALSE,0);
-
-    Button = gtk_button_new();
-    Icon = gtk_image_new_from_icon_name ("list-add",
-                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_container_add(GTK_CONTAINER(Button),Icon);
-    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text(Button,_("Insert a blank line before the selected line"));
-    g_signal_connect_swapped(G_OBJECT(Button),"clicked",
-                             G_CALLBACK(Load_Filename_List_Insert_Blank_Line), G_OBJECT(priv->load_file_content_view));
-
-    Button = gtk_button_new();
-    Icon = gtk_image_new_from_icon_name ("list-remove",
-                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_container_add(GTK_CONTAINER(Button),Icon);
-    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text(Button,_("Delete the selected line"));
-    g_signal_connect_swapped(G_OBJECT(Button),"clicked",
-                             G_CALLBACK(Load_Filename_List_Delete_Line), G_OBJECT(priv->load_file_content_view));
+    button = GTK_WIDGET (gtk_builder_get_object (builder, "content_remove"));
+    g_signal_connect_swapped (button, "clicked",
+                              G_CALLBACK (Load_Filename_List_Delete_Line),
+                              G_OBJECT (priv->load_file_content_view));
     
-    Button = gtk_button_new();
-    Icon = gtk_image_new_from_icon_name ("list-remove",
-                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_container_add(GTK_CONTAINER(Button),Icon);
-    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text(Button,_("Delete all blank lines"));
-    g_signal_connect_swapped(G_OBJECT(Button),"clicked",
-                             G_CALLBACK(Load_Filename_List_Delete_All_Blank_Lines), G_OBJECT(priv->load_file_content_view));
+    button = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                 "content_remove_blank"));
+    g_signal_connect_swapped (button, "clicked",
+                              G_CALLBACK (Load_Filename_List_Delete_All_Blank_Lines),
+                              G_OBJECT (priv->load_file_content_view));
     
-    Label = gtk_label_new("   ");
-    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
+    button = GTK_WIDGET (gtk_builder_get_object (builder, "content_up"));
+    g_signal_connect_swapped (button, "clicked",
+                              G_CALLBACK (Load_Filename_List_Move_Up),
+                              G_OBJECT (priv->load_file_content_view));
 
-    Button = gtk_button_new();
-    Icon = gtk_image_new_from_icon_name ("go-up", GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_container_add(GTK_CONTAINER(Button),Icon);
-    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text(Button,_("Move up the selected line"));
-    g_signal_connect_swapped(G_OBJECT(Button),"clicked",
-                             G_CALLBACK(Load_Filename_List_Move_Up), G_OBJECT(priv->load_file_content_view));
+    button = GTK_WIDGET (gtk_builder_get_object (builder, "content_down"));
+    g_signal_connect_swapped (button, "clicked",
+                              G_CALLBACK (Load_Filename_List_Move_Down),
+                              G_OBJECT (priv->load_file_content_view));
 
-    Button = gtk_button_new();
-    Icon = gtk_image_new_from_icon_name ("go-down",
-                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_container_add(GTK_CONTAINER(Button),Icon);
-    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text(Button,_("Move down the selected line"));
-    g_signal_connect_swapped(G_OBJECT(Button),"clicked",
-                             G_CALLBACK(Load_Filename_List_Move_Down), G_OBJECT(priv->load_file_content_view));
-
-    Label = gtk_label_new("   ");
-    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
-
-    Button = gtk_button_new();
-    Icon = gtk_image_new_from_icon_name ("view-refresh",
-                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_container_add(GTK_CONTAINER(Button),Icon);
-    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text(Button,_("Reload"));
-    g_signal_connect (Button, "clicked",
+    button = GTK_WIDGET (gtk_builder_get_object (builder, "content_reload"));
+    g_signal_connect (button, "clicked",
                       G_CALLBACK (on_load_file_content_view_reload_clicked),
                       self);
     
-    gtk_widget_show_all(loadedvbox);
-
+    /* List of current filenames. */
+    priv->load_file_name_model = GTK_LIST_STORE (gtk_builder_get_object (builder,
+                                                                         "file_name_model"));
+    priv->load_file_name_view = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                    "file_name_view"));
     
-    //
-    // Vbox for file list files
-    //
-    filelistvbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
+    g_signal_connect (priv->load_file_name_view, "key-press-event",
+                      G_CALLBACK (Load_Filename_List_Key_Press), NULL);
 
-    // List of current filenames
-    ScrollWindow = gtk_scrolled_window_new(NULL,NULL);
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(ScrollWindow),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
-    gtk_widget_set_size_request(GTK_WIDGET(ScrollWindow), 250, 200);
-    gtk_box_pack_start(GTK_BOX(filelistvbox), ScrollWindow, TRUE, TRUE, 0);
-    priv->load_file_name_model = gtk_list_store_new(LOAD_FILE_NAME_COUNT, G_TYPE_STRING,G_TYPE_POINTER);
-    priv->load_file_name_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(priv->load_file_name_model));
-    g_object_unref (priv->load_file_name_model);
+    /* Signals to 'select' the same row into the other list (to show the
+     * corresponding filenames). */
+    g_signal_connect_swapped (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->load_file_content_view)),
+                              "changed",
+                              G_CALLBACK (Load_Filename_Select_Row_In_Other_List),
+                              priv->load_file_name_view);
+    g_signal_connect_swapped (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->load_file_name_view)),
+                              "changed",
+                              G_CALLBACK (Load_Filename_Select_Row_In_Other_List),
+                              priv->load_file_content_view);
+
+    /* Commands (like the popup menu). */
+    button = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                 "name_insert_blank"));
+    g_signal_connect_swapped (button, "clicked",
+                              G_CALLBACK (Load_Filename_List_Insert_Blank_Line),
+                              priv->load_file_name_view);
+
+    button = GTK_WIDGET (gtk_builder_get_object (builder, "name_remove"));
+    g_signal_connect_swapped (button, "clicked",
+                              G_CALLBACK (Load_Filename_List_Delete_Line),
+                              priv->load_file_name_view);
+
+    button = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                 "name_remove_blank"));
+    g_signal_connect_swapped (button, "clicked",
+                              G_CALLBACK (Load_Filename_List_Delete_All_Blank_Lines),
+                              priv->load_file_name_view);
     
-    renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes(_("List of Files"),
-                                                      renderer, "text", LOAD_FILE_NAME_TEXT, NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->load_file_name_view), column);
-    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(priv->load_file_name_view), TRUE);
-    //gtk_tree_selection_set_mode(gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->load_file_name_view)),GTK_SELECTION_MULTIPLE);
-    gtk_tree_view_set_reorderable(GTK_TREE_VIEW(priv->load_file_name_view),TRUE);
-    g_signal_connect(G_OBJECT(priv->load_file_name_view),"key-press-event", G_CALLBACK(Load_Filename_List_Key_Press),NULL);
-    gtk_container_add(GTK_CONTAINER(ScrollWindow),priv->load_file_name_view);
+    button = GTK_WIDGET (gtk_builder_get_object (builder, "name_up"));
+    g_signal_connect_swapped (button, "clicked",
+                              G_CALLBACK (Load_Filename_List_Move_Up),
+                              priv->load_file_name_view);
 
-    // Signals to 'select' the same row into the other list (to show the corresponding filenames)
-    g_signal_connect_swapped(G_OBJECT(gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->load_file_content_view))),"changed", G_CALLBACK(Load_Filename_Select_Row_In_Other_List), G_OBJECT(priv->load_file_name_view));
-    g_signal_connect_swapped(G_OBJECT(gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->load_file_name_view))),"changed", G_CALLBACK(Load_Filename_Select_Row_In_Other_List), G_OBJECT(priv->load_file_content_view));
+    button = GTK_WIDGET (gtk_builder_get_object (builder, "name_down"));
+    g_signal_connect_swapped (button, "clicked",
+                              G_CALLBACK (Load_Filename_List_Move_Down),
+                              priv->load_file_name_view);
 
-    // Commands (like the popup menu)
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
-    gtk_box_pack_start(GTK_BOX(filelistvbox),hbox,FALSE,FALSE,0);
-
-    Button = gtk_button_new();
-    Icon = gtk_image_new_from_icon_name ("list-add",
-                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_container_add(GTK_CONTAINER(Button),Icon);
-    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text(Button,_("Insert a blank line before the selected line"));
-    g_signal_connect_swapped(G_OBJECT(Button),"clicked",
-                             G_CALLBACK(Load_Filename_List_Insert_Blank_Line), G_OBJECT(priv->load_file_name_view));
-
-    Button = gtk_button_new();
-    Icon = gtk_image_new_from_icon_name ("list-remove",
-                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_container_add(GTK_CONTAINER(Button),Icon);
-    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text(Button,_("Delete the selected line"));
-    g_signal_connect_swapped(G_OBJECT(Button),"clicked",
-                             G_CALLBACK(Load_Filename_List_Delete_Line), G_OBJECT(priv->load_file_name_view));
-
-    Button = gtk_button_new();
-    Icon = gtk_image_new_from_icon_name ("list-remove",
-                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_container_add(GTK_CONTAINER(Button),Icon);
-    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text(Button,_("Delete all blank lines"));
-    g_signal_connect_swapped(G_OBJECT(Button),"clicked",
-                             G_CALLBACK(Load_Filename_List_Delete_All_Blank_Lines), G_OBJECT(priv->load_file_name_view));
-    
-    Label = gtk_label_new("   ");
-    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
-
-    Button = gtk_button_new();
-    Icon = gtk_image_new_from_icon_name ("go-up", GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_container_add(GTK_CONTAINER(Button),Icon);
-    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text(Button,_("Move up the selected line"));
-    g_signal_connect_swapped(G_OBJECT(Button),"clicked",
-                             G_CALLBACK(Load_Filename_List_Move_Up), G_OBJECT(priv->load_file_name_view));
-
-    Button = gtk_button_new();
-    Icon = gtk_image_new_from_icon_name ("go-down",
-                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_container_add(GTK_CONTAINER(Button),Icon);
-    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text(Button,_("Move down the selected line"));
-    g_signal_connect_swapped(G_OBJECT(Button),"clicked",
-                             G_CALLBACK(Load_Filename_List_Move_Down), G_OBJECT(priv->load_file_name_view));
-
-    Label = gtk_label_new("   ");
-    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
-
-    Button = gtk_button_new();
-    Icon = gtk_image_new_from_icon_name ("view-refresh",
-                                         GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_container_add(GTK_CONTAINER(Button),Icon);
-    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    //gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text(Button,_("Reload"));
-    g_signal_connect (Button, "clicked",
+    button = GTK_WIDGET (gtk_builder_get_object (builder, "name_reload"));
+    g_signal_connect (button, "clicked",
                       G_CALLBACK (on_load_file_name_view_reload_clicked),
                       self);
     
-    gtk_widget_show_all(filelistvbox);
-
-    
-    // Load the list of files in the list widget
+    /* Load the list of files in the list widget. */
     Load_File_List (self);
-
-    vboxpaned = gtk_paned_new(GTK_ORIENTATION_HORIZONTAL);
-    gtk_paned_pack1(GTK_PANED(vboxpaned),loadedvbox,  TRUE,FALSE);
-    gtk_paned_pack2(GTK_PANED(vboxpaned),filelistvbox,TRUE,FALSE);
-    gtk_box_pack_start(GTK_BOX(content_area),vboxpaned,TRUE,TRUE,0);
 
     /* Create popup menus. */
     create_load_file_content_view_popup (self);
@@ -1172,36 +1048,25 @@ create_load_files_dialog (EtLoadFilesDialog *self)
     g_signal_connect (priv->load_file_name_view, "popup-menu",
                       G_CALLBACK (on_name_view_popup_menu), self);
 
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
-    gtk_box_pack_start(GTK_BOX(content_area),hbox,FALSE,TRUE,0);
+    /* Entry to edit a line in the list. */
+    priv->selected_line_entry = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                    "file_entry"));
+    g_signal_connect (priv->selected_line_entry, "changed",
+                      G_CALLBACK (Load_Filename_Update_Text_Line),
+                      G_OBJECT (priv->load_file_content_view));
 
-    Label = gtk_label_new(_("Selected line:"));
-    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
-
-    // Entry to edit a line into the list
-    priv->selected_line_entry = Entry = gtk_entry_new();
-    gtk_box_pack_start(GTK_BOX(hbox),Entry,TRUE,TRUE,0);
-    g_signal_connect(G_OBJECT(Entry),"changed",G_CALLBACK(Load_Filename_Update_Text_Line),G_OBJECT(priv->load_file_content_view));
-
-    // Signal to load the line text in the editing entry
+    /* Signal to load the line text in the editing entry. */
     g_signal_connect (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->load_file_content_view)),
-                      "changed", G_CALLBACK(Load_Filename_Edit_Text_Line),
+                      "changed", G_CALLBACK (Load_Filename_Edit_Text_Line),
                       self);
 
-    // Separator line
-    Separator = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
-    gtk_box_pack_start(GTK_BOX(content_area),Separator,FALSE,FALSE,0);
-
-    load_file_run_scanner = gtk_check_button_new_with_label (_("Run the current scanner for each file"));
-    gtk_box_pack_start (GTK_BOX (content_area), load_file_run_scanner, FALSE,
-                        TRUE, 0);
+    load_file_run_scanner = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                "file_scanner_check"));
     g_settings_bind (MainSettings, "load-filenames-run-scanner",
                      load_file_run_scanner, "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (load_file_run_scanner,
-                                 _("Whether to run the current scanner on files loaded from a text file"));
 
-    // To initialize 'ButtonLoad' sensivity
-    g_signal_emit_by_name(G_OBJECT(gtk_bin_get_child(GTK_BIN(priv->file_to_load_combo))),"changed");
+    /* To initialize load button sensitivity. */
+    g_signal_emit_by_name (G_OBJECT (priv->file_chooser), "file-set");
 }
 
 static void

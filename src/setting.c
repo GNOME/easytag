@@ -73,8 +73,6 @@ static const gchar RUN_PROGRAM_WITH_DIRECTORY_HISTORY_FILE[] = "run_program_with
 static const gchar RUN_PROGRAM_WITH_FILE_HISTORY_FILE[] = "run_program_with_file.history";
 // File for history of search string combobox
 static const gchar SEARCH_FILE_HISTORY_FILE[] = "search_file.history";
-// File for history of FileToLoad combobox
-static const gchar FILE_TO_LOAD_HISTORY_FILE[] = "file_to_load.history";
 // File for history of CddbSearchStringEntry combobox
 static const gchar CDDB_SEARCH_STRING_HISTORY_FILE[] = "cddb_search_string.history";
 // File for history of CddbSearchStringInResultEntry combobox
@@ -171,7 +169,6 @@ gboolean Setting_Create_Files (void)
     check_or_create_file (RUN_PROGRAM_WITH_DIRECTORY_HISTORY_FILE);
     check_or_create_file (RUN_PROGRAM_WITH_FILE_HISTORY_FILE);
     check_or_create_file (SEARCH_FILE_HISTORY_FILE);
-    check_or_create_file (FILE_TO_LOAD_HISTORY_FILE);
     check_or_create_file (CDDB_SEARCH_STRING_HISTORY_FILE);
     check_or_create_file (CDDB_SEARCH_STRING_IN_RESULT_HISTORY_FILE);
 
@@ -393,18 +390,6 @@ void Save_Search_File_List (GtkListStore *liststore, gint colnum)
 }
 
 /*
- * Functions for writing and reading list of combobox of path of file to load to rename files
- */
-void Load_File_To_Load_List (GtkListStore *liststore, gint colnum)
-{
-    Populate_List_Store_From_File(FILE_TO_LOAD_HISTORY_FILE, liststore, colnum);
-}
-void Save_File_To_Load_List (GtkListStore *liststore, gint colnum)
-{
-    Save_List_Store_To_File(FILE_TO_LOAD_HISTORY_FILE, liststore, colnum);
-}
-
-/*
  * Functions for writing and reading list of combobox of cddb search string
  */
 void Load_Cddb_Search_String_List (GtkListStore *liststore, gint colnum)
@@ -447,7 +432,6 @@ migrate_config_file_dir (const gchar *old_path, const gchar *new_path)
                                         RUN_PROGRAM_WITH_DIRECTORY_HISTORY_FILE,
                                         RUN_PROGRAM_WITH_FILE_HISTORY_FILE,
                                         SEARCH_FILE_HISTORY_FILE,
-                                        FILE_TO_LOAD_HISTORY_FILE,
                                         CDDB_SEARCH_STRING_HISTORY_FILE,
                                         CDDB_SEARCH_STRING_IN_RESULT_HISTORY_FILE,
                                         NULL
