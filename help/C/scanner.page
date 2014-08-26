@@ -40,7 +40,7 @@
 
   <p>For example, if you keep your audio files using the
   <file>artist/album/01 track title.flac</file> directory structure and
-  filenames, use the <input>%a/%b/%t %n</input> <em>format string</em> to
+  filenames, use the <input>%a/%b/%n %t</input> <em>format string</em> to
   extract the track number and title from the filename, the album title from
   the parent directory and the artist from the grandparent directory.</p>
 
@@ -58,7 +58,7 @@
   the directory where the file is currently located.</p>
 
   <p>For example, if you have a tagged file inside the <file>Music</file>
-  directory, you can use the <input>%a/%b/%t %n</input> <em>format string</em>,
+  directory, you can use the <input>%a/%b/%n %t</input> <em>format string</em>,
   it will create the <file>Music/artist/album/01 track title.flac</file> file
   structure and filename. You will see a preview of the naming scheme below
   your specified format string.</p>
