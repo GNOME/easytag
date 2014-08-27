@@ -41,7 +41,6 @@ gchar   *Get_Active_Combo_Box_Item(GtkComboBox *combo);
  * Other
  */
 void Init_Character_Translation_Table (void);
-gchar *Check_If_Executable_Exists (const gchar *program);
 
 // Mouse cursor
 void Init_Mouse_Cursor    (void);

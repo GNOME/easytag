@@ -266,8 +266,7 @@ et_run_program (const gchar *program_name, GList *args_list)
      * poorly when there are spaces in the absolute path to the binary. */
     program_tmp = g_strdup (program_name);
 
-    /* Skip the binary name and a delimiter. Same logic in
-     * Check_If_Executable_Exists()*/
+    /* Skip the binary name and a delimiter. */
 #ifdef G_OS_WIN32
     /* FIXME: Should also consider .com, .bat, .sys. See
      * g_find_program_in_path(). */
@@ -480,56 +479,6 @@ Run_Audio_Player_Using_Directory (void)
     et_run_audio_player (file_list);
 
     g_list_free_full (file_list, g_object_unref);
-}
-
-/*
- * Check if the executable passed in parameter can be launched
- * Returns the full path of the file (must be freed if not used)
- */
-gchar *Check_If_Executable_Exists (const gchar *program)
-{
-    gchar *program_tmp;
-    gchar *tmp;
-
-    g_return_val_if_fail (program != NULL, NULL);
-
-    program_tmp = g_strdup(program);
-    g_strstrip(program_tmp);
-
-#ifdef G_OS_WIN32
-    // Remove arguments if found, after '.exe'
-    if ( (tmp=strstr(program_tmp,".exe")) )
-        *(tmp + 4) = 0;
-#else /* !G_OS_WIN32 */
-    // Remove arguments if found
-    if ( (tmp=strchr(program_tmp,' ')) )
-        *tmp = 0;
-#endif /* !G_OS_WIN32 */
-
-    if (g_path_is_absolute(program_tmp))
-    {
-        if (access(program_tmp, X_OK) == 0)
-        {
-            return program_tmp;
-        } else
-        {
-            g_free(program_tmp);
-            return NULL;
-        }
-    } else
-    {
-        tmp = g_find_program_in_path(program_tmp);
-        if (tmp)
-        {
-            g_free(program_tmp);
-            return tmp;
-        }else
-        {
-            g_free(program_tmp);
-            return NULL;
-        }
-    }
-
 }
 
 /*
