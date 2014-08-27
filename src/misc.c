@@ -244,8 +244,8 @@ et_run_program (const gchar *program_name, GList *args_list)
 
     g_return_val_if_fail (program_name != NULL && args_list != NULL, FALSE);
 
-    /* Check if a name for the program have been supplied */
-    if (!program_name && *program_name)
+    /* Check if a name for the program has been supplied */
+    if (*program_name)
     {
         GtkWidget *msgdialog;
 
