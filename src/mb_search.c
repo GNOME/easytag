@@ -589,32 +589,32 @@ et_musicbrainz_set_error_from_query (Mb5Query query, tQueryResult result,
     {
         case eQuery_ConnectionError:
             g_set_error (error, ET_MB5_SEARCH_ERROR,
-                         ET_MB5_SEARCH_ERROR_CONNECTION, error_message);
+                         ET_MB5_SEARCH_ERROR_CONNECTION, "%s", error_message);
             break;
 
         case eQuery_Timeout:
             g_set_error (error, ET_MB5_SEARCH_ERROR,
-                         ET_MB5_SEARCH_ERROR_TIMEOUT, error_message);
+                         ET_MB5_SEARCH_ERROR_TIMEOUT, "%s", error_message);
             break;
 
         case eQuery_AuthenticationError:
             g_set_error (error, ET_MB5_SEARCH_ERROR,
-                         ET_MB5_SEARCH_ERROR_AUTHENTICATION, error_message);
+                         ET_MB5_SEARCH_ERROR_AUTHENTICATION, "%s",
+                         error_message);
             break;
 
         case eQuery_FetchError:
-            g_set_error (error, ET_MB5_SEARCH_ERROR,
-                         ET_MB5_SEARCH_ERROR_FETCH, error_message);
+            g_set_error (error, ET_MB5_SEARCH_ERROR, ET_MB5_SEARCH_ERROR_FETCH,                          "%s", error_message);
             break;
  
         case eQuery_RequestError:
             g_set_error (error, ET_MB5_SEARCH_ERROR,
-                         ET_MB5_SEARCH_ERROR_REQUEST, error_message);
+                         ET_MB5_SEARCH_ERROR_REQUEST, "%s", error_message);
             break;
  
         case eQuery_ResourceNotFound:
             g_set_error (error, ET_MB5_SEARCH_ERROR,
-                         ET_MB5_SEARCH_ERROR_RESOURCE_NOT_FOUND,
+                         ET_MB5_SEARCH_ERROR_RESOURCE_NOT_FOUND, "%s",
                          error_message);
             break;
 

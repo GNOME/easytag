@@ -532,7 +532,7 @@ manual_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
     if (g_cancellable_is_cancelled (cancellable))
     {
         g_set_error (&error, ET_MB5_SEARCH_ERROR,
-                     ET_MB5_SEARCH_ERROR_CANCELLED,
+                     ET_MB5_SEARCH_ERROR_CANCELLED, "%s",
                      _("Operation cancelled by user"));
         g_simple_async_report_gerror_in_idle (NULL,
                                               mb5_search_error_callback,
@@ -549,7 +549,7 @@ manual_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
     if (g_cancellable_is_cancelled (cancellable))
     {
         g_set_error (&error, ET_MB5_SEARCH_ERROR,
-                     ET_MB5_SEARCH_ERROR_CANCELLED,
+                     ET_MB5_SEARCH_ERROR_CANCELLED, "%s",
                      _("Operation cancelled by user"));
         g_simple_async_report_gerror_in_idle (NULL,
                                               mb5_search_error_callback,
@@ -572,7 +572,7 @@ manual_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
     if (g_cancellable_is_cancelled (cancellable))
     {
         g_set_error (&error, ET_MB5_SEARCH_ERROR,
-                     ET_MB5_SEARCH_ERROR_CANCELLED,
+                     ET_MB5_SEARCH_ERROR_CANCELLED, "%s",
                      _("Operation cancelled by user"));
         g_simple_async_report_gerror_in_idle (NULL,
                                               mb5_search_error_callback,
@@ -1261,9 +1261,8 @@ discid_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
     if (!discid_read_sparse (disc, discid_get_default_device (), 0))
     {
         /* Error reading disc */
-        g_set_error (&error, ET_MB5_SEARCH_ERROR,
-                     ET_MB5_SEARCH_ERROR_DISCID,
-                     discid_get_error_msg (disc));
+        g_set_error (&error, ET_MB5_SEARCH_ERROR, ET_MB5_SEARCH_ERROR_DISCID,
+                     "%s", discid_get_error_msg (disc));
         g_simple_async_report_gerror_in_idle (NULL,
                                               mb5_search_error_callback,
                                               NULL, error);
@@ -1275,7 +1274,7 @@ discid_search_thread_func (GSimpleAsyncResult *res, GObject *obj,
     if (g_cancellable_is_cancelled (cancellable))
     {
         g_set_error (&error, ET_MB5_SEARCH_ERROR,
-                     ET_MB5_SEARCH_ERROR_CANCELLED,
+                     ET_MB5_SEARCH_ERROR_CANCELLED, "%s",
                      _("Operation cancelled by user"));
         g_simple_async_report_gerror_in_idle (NULL,
                                               mb5_search_error_callback,
