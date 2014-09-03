@@ -41,8 +41,6 @@ gboolean Main_Stop_Button_Pressed;
 
 GtkWidget *MainWindow;
 
-gchar *INIT_DIRECTORY;
-
 #ifndef errno
 extern int errno;
 #endif

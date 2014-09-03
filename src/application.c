@@ -37,6 +37,7 @@ G_DEFINE_TYPE (EtApplication, et_application, GTK_TYPE_APPLICATION)
 struct _EtApplicationPrivate
 {
     guint idle_handler;
+    gchar *init_directory;
 };
 
 static const GOptionEntry entries[] =
@@ -113,10 +114,10 @@ on_idle_init (EtApplication *self)
                                         NULL);
     }
 
-    if (INIT_DIRECTORY)
+    if (priv->init_directory)
     {
         et_application_window_select_dir (ET_APPLICATION_WINDOW (MainWindow),
-                                          INIT_DIRECTORY);
+                                          priv->init_directory);
     }
     else
     {
@@ -389,6 +390,7 @@ et_application_open (GApplication *self,
                      gint n_files,
                      const gchar *hint)
 {
+    EtApplicationPrivate *priv;
     GList *windows;
     gboolean activated;
     GFile *arg;
@@ -398,6 +400,8 @@ et_application_open (GApplication *self,
     GFileType type;
     gchar *path;
     gchar *path_utf8;
+
+    priv = et_application_get_instance_private (ET_APPLICATION (self));
 
     windows = gtk_application_get_windows (GTK_APPLICATION (self));
     activated = windows ? TRUE : FALSE;
@@ -444,7 +448,7 @@ et_application_open (GApplication *self,
             }
             else
             {
-                INIT_DIRECTORY = path;
+                priv->init_directory = path;
             }
 
             g_free (path_utf8);
@@ -471,7 +475,7 @@ et_application_open (GApplication *self,
                 }
                 else
                 {
-                    INIT_DIRECTORY = g_file_get_path (parent);
+                    priv->init_directory = g_file_get_path (parent);
                 }
 
                 g_object_unref (parent);
@@ -562,6 +566,14 @@ et_application_dispose (GObject *object)
 static void
 et_application_finalize (GObject *object)
 {
+    EtApplication *self;
+    EtApplicationPrivate *priv;
+
+    self = ET_APPLICATION (object);
+    priv = et_application_get_instance_private (self);
+
+    g_free (priv->init_directory);
+
     G_OBJECT_CLASS (et_application_parent_class)->finalize (object);
 }
 

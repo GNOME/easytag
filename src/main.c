@@ -21,7 +21,6 @@
 #include <glib/gi18n.h>
 
 #include "application.h"
-#include "easytag.h"
 
 int
 main (int argc, char *argv[])
@@ -34,8 +33,6 @@ main (int argc, char *argv[])
     bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
     bind_textdomain_codeset (PACKAGE_TARNAME, "UTF-8");
 #endif /* ENABLE_NLS */
-
-    INIT_DIRECTORY = NULL;
 
 #if !GLIB_CHECK_VERSION (2, 35, 1)
     g_type_init ();
