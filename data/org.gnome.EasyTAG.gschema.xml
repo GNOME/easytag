@@ -480,7 +480,7 @@
 
     <key name="process-uppercase-prepositions" type="b">
       <summary>Upper-case prepositions</summary>
-      <description>Whether to upper-case the first letter of prepositions and some other short words such as "feat." when processing tag fields</description>
+      <description>Whether to upper-case the first letter of all words, including prepositions and other short words such as “feat.”, when processing tag fields</description>
       <default>false</default>
     </key>
 
@@ -540,7 +540,7 @@
 
     <key name="playlist-dos-separator" type="b">
       <summary>Use DOS separators for playlists</summary>
-      <description>Whether to use DOS path separators when generating playlists</description>
+      <description>Whether to use backslash as path separator when generating playlists</description>
       <default>false</default>
     </key>
 
@@ -648,43 +648,43 @@
 
     <key name="ogg-split-title" type="b">
       <summary>Split Ogg title fields</summary>
-      <description>Whether to split title fields at a " - " separator in Ogg comments</description>
+      <description>Whether to split title fields at a “ - ” separator in Ogg comments</description>
       <default>false</default>
     </key>
 
     <key name="ogg-split-artist" type="b">
       <summary>Split Ogg artist fields</summary>
-      <description>Whether to split artist fields at a " - " separator in Ogg comments</description>
+      <description>Whether to split artist fields at a “ - ” separator in Ogg comments</description>
       <default>false</default>
     </key>
 
     <key name="ogg-split-album" type="b">
       <summary>Split Ogg album fields</summary>
-      <description>Whether to split album fields at a " - " separator in Ogg comments</description>
+      <description>Whether to split album fields at a “ - ” separator in Ogg comments</description>
       <default>false</default>
     </key>
 
     <key name="ogg-split-genre" type="b">
       <summary>Split Ogg genre fields</summary>
-      <description>Whether to split genre fields at a " - " separator in Ogg comments</description>
+      <description>Whether to split genre fields at a “ - ” separator in Ogg comments</description>
       <default>false</default>
     </key>
 
     <key name="ogg-split-comment" type="b">
       <summary>Split Ogg comment fields</summary>
-      <description>Whether to split comment fields at a " - " separator in Ogg comments</description>
+      <description>Whether to split comment fields at a “ - ” separator in Ogg comments</description>
       <default>false</default>
     </key>
 
     <key name="ogg-split-composer" type="b">
       <summary>Split Ogg composer fields</summary>
-      <description>Whether to split composer fields at a " - " separator in Ogg comments</description>
+      <description>Whether to split composer fields at a “ - ” separator in Ogg comments</description>
       <default>false</default>
     </key>
 
     <key name="ogg-split-original-artist" type="b">
       <summary>Split Ogg original artist fields</summary>
-      <description>Whether to split original artist fields at a " - " separator in Ogg comments</description>
+      <description>Whether to split original artist fields at a “ - ” separator in Ogg comments</description>
       <default>false</default>
     </key>
 

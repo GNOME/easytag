@@ -31,7 +31,7 @@
                                 <property name="has-entry">True</property>
                                 <property name="entry-text-column">0</property>
                                 <property name="margin-left">12</property>
-                                <property name="tooltip-text" translatable="yes">Enter the program to run. It will receive the current directory as parameter</property>
+                                <property name="tooltip-text" translatable="yes">Enter the program to run; it will receive the current directory as a parameter</property>
                                 <property name="visible">True</property>
                             </object>
                             <packing>
@@ -109,7 +109,7 @@
                                 <property name="has-entry">True</property>
                                 <property name="entry-text-column">0</property>
                                 <property name="margin-left">12</property>
-                                <property name="tooltip-text" translatable="yes">Enter the program to run. It will receive the current files as parameter</property>
+                                <property name="tooltip-text" translatable="yes">Enter the program to run; it will receive the current files as a parameter</property>
                                 <property name="visible">True</property>
                             </object>
                             <packing>

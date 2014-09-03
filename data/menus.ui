@@ -503,7 +503,7 @@
             <item>
                 <attribute name="accel">&lt;Primary&gt;Home</attribute>
                 <attribute name="action">win.go-first</attribute>
-                <attribute name="label" translatable="yes">First File</attribute>
+                <attribute name="label" translatable="yes">_First File</attribute>
             </item>
             <item>
                 <attribute name="accel">Page_Up</attribute>

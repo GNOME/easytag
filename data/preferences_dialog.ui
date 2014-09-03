@@ -252,7 +252,7 @@
                     <object class="GtkCheckButton" id="file_name_replace_check">
                         <property name="label" translatable="yes">Replace illegal characters when renaming</property>
                         <property name="margin-left">12</property>
-                        <property name="tooltip-text" translatable="yes">Convert illegal characters for FAT32/16 and ISO9660 + Joliet filesystems ('\\', ':', ';', '*', '?', '\"', '&lt;', '&gt;', '|') of the filename to avoid problem when renaming the file. This is useful when renaming the file from the tag with the scanner.</property>
+                        <property name="tooltip-text" translatable="yes">Convert characters which cannot be represented in filenames on the FAT32/16 and Joliet filesystems (‘\’, ‘:’, ‘;’, ‘*’, ‘?’, ‘"’, ‘&lt;’, ‘&gt;’, ‘|’)</property>
                         <property name="visible">True</property>
                     </object>
                 </child>
@@ -271,7 +271,7 @@
                             <object class="GtkRadioButton" id="name_lower_radio">
                                 <property name="label" translatable="yes">Lower Case</property>
                                 <property name="name">lower-case</property>
-                                <property name="tooltip-text" translatable="yes">For example, the extension will be converted to '.mp3'</property>
+                                <property name="tooltip-text" translatable="yes">For example, the extension will be converted to ‘.mp3’</property>
                                 <property name="visible">True</property>
                             </object>
                         </child>
@@ -280,7 +280,7 @@
                                 <property name="group">name_lower_radio</property>
                                 <property name="label" translatable="yes">Upper Case</property>
                                 <property name="name">upper-case</property>
-                                <property name="tooltip-text" translatable="yes">For example, the extension will be converted to '.MP3'</property>
+                                <property name="tooltip-text" translatable="yes">For example, the extension will be converted to ‘.MP3’</property>
                                 <property name="visible">True</property>
                             </object>
                         </child>
@@ -312,27 +312,27 @@
                         <property name="label" translatable="yes">Try another character encoding</property>
                         <property name="margin-left">24</property>
                         <property name="name">try-alternative</property>
-                        <property name="tooltip-text" translatable="yes">With this option, it will try the conversion to the encoding associated to your locale (for example: ISO-8859-1 for 'fr', KOI8-R for 'ru', ISO-8859-2 for 'ro'). If it fails, it will try the character encoding ISO-8859-1</property>
+                        <property name="tooltip-text" translatable="yes">Try to use the encoding associated with your locale and if this fails, try the ISO-8859-1 character encoding</property>
                         <property name="visible">True</property>
                     </object>
                 </child>
                 <child>
                     <object class="GtkRadioButton" id="file_encoding_transliterate_radio">
                         <property name="group">file_encoding_try_alternative_radio</property>
-                        <property name="label" translatable="yes">Force using the system character encoding and transliterate characters</property>
+                        <property name="label" translatable="yes">Transliterate characters into the system character encoding</property>
                         <property name="margin-left">24</property>
                         <property name="name">transliterate</property>
-                        <property name="tooltip-text" translatable="yes">With this option, when a character cannot be represented in the target character set, it can be approximated through one or several similarly looking characters</property>
+                        <property name="tooltip-text" translatable="yes">Replace unsupported characters with a similar character from the target character encoding</property>
                         <property name="visible">True</property>
                     </object>
                 </child>
                 <child>
                     <object class="GtkRadioButton" id="file_encoding_ignore_radio">
                         <property name="group">file_encoding_try_alternative_radio</property>
-                        <property name="label" translatable="yes">Force using the system character encoding and silently discard some characters</property>
+                        <property name="label" translatable="yes">Use the system character encoding and silently discard unsupported characters</property>
                         <property name="margin-left">24</property>
                         <property name="name">ignore</property>
-                        <property name="tooltip-text" translatable="yes">With this option, when a character cannot be represented in the target character set, it will be silently discarded</property>
+                        <property name="tooltip-text" translatable="yes">Discard characters which cannot be represented in the target character encoding</property>
                         <property name="visible">True</property>
                     </object>
                 </child>
@@ -383,7 +383,7 @@
                         <property name="visible">True</property>
                         <child>
                             <object class="GtkCheckButton" id="tags_disc_check">
-                                <property name="label" translatable="yes">Whether to pad the disc field to this number of digits:</property>
+                                <property name="label" translatable="yes">Pad the number of digits in the disc field to:</property>
                                 <property name="tooltip-text" translatable="yes">Whether the disc number tag field should be padded with leading zeroes</property>
                                 <property name="visible">True</property>
                             </object>
@@ -404,7 +404,7 @@
                         </child>
                         <child>
                             <object class="GtkCheckButton" id="tags_track_check">
-                                <property name="label" translatable="yes">Whether to pad the track field to this number of digits:</property>
+                                <property name="label" translatable="yes">Pad the number of digits in the track field to:</property>
                                 <property name="tooltip-text" translatable="yes">Whether the track number tag field should be padded with leading zeroes</property>
                                 <property name="visible">True</property>
                             </object>
@@ -453,7 +453,7 @@
                         <child>
                             <object class="GtkCheckButton" id="split_title_check">
                                 <property name="label" translatable="yes">Title</property>
-                                <property name="tooltip-text" translatable="yes">Whether to split title fields at a " - " separator in Ogg comments</property>
+                                <property name="tooltip-text" translatable="yes">Whether to split title fields at a “ - ” separator in Ogg comments</property>
                                 <property name="visible">True</property>
                             </object>
                             <packing>
@@ -464,7 +464,7 @@
                         <child>
                             <object class="GtkCheckButton" id="split_artist_check">
                                 <property name="label" translatable="yes">Artist</property>
-                                <property name="tooltip-text" translatable="yes">Whether to split artist fields at a " - " separator in Ogg comments</property>
+                                <property name="tooltip-text" translatable="yes">Whether to split artist fields at a “ - ” separator in Ogg comments</property>
                                 <property name="visible">True</property>
                             </object>
                             <packing>
@@ -475,7 +475,7 @@
                         <child>
                             <object class="GtkCheckButton" id="split_album_check">
                                 <property name="label" translatable="yes">Album</property>
-                                <property name="tooltip-text" translatable="yes">Whether to split album fields at a " - " separator in Ogg comments</property>
+                                <property name="tooltip-text" translatable="yes">Whether to split album fields at a “ - ” separator in Ogg comments</property>
                                 <property name="visible">True</property>
                             </object>
                             <packing>
@@ -486,7 +486,7 @@
                         <child>
                             <object class="GtkCheckButton" id="split_genre_check">
                                 <property name="label" translatable="yes">Genre</property>
-                                <property name="tooltip-text" translatable="yes">Whether to split genre fields at a " - " separator in Ogg comments</property>
+                                <property name="tooltip-text" translatable="yes">Whether to split genre fields at a “ - ” separator in Ogg comments</property>
                                 <property name="visible">True</property>
                             </object>
                             <packing>
@@ -497,7 +497,7 @@
                         <child>
                             <object class="GtkCheckButton" id="split_comment_check">
                                 <property name="label" translatable="yes">Comment</property>
-                                <property name="tooltip-text" translatable="yes">Whether to split comment fields at a " - " separator in Ogg comments</property>
+                                <property name="tooltip-text" translatable="yes">Whether to split comment fields at a “ - ” separator in Ogg comments</property>
                                 <property name="visible">True</property>
                             </object>
                             <packing>
@@ -508,7 +508,7 @@
                         <child>
                             <object class="GtkCheckButton" id="split_composer_check">
                                 <property name="label" translatable="yes">Composer</property>
-                                <property name="tooltip-text" translatable="yes">Whether to split composer fields at a " - " separator in Ogg comments</property>
+                                <property name="tooltip-text" translatable="yes">Whether to split composer fields at a “ - ” separator in Ogg comments</property>
                                 <property name="visible">True</property>
                             </object>
                             <packing>
@@ -519,7 +519,7 @@
                         <child>
                             <object class="GtkCheckButton" id="split_orig_artist_check">
                                 <property name="label" translatable="yes">Original artist</property>
-                                <property name="tooltip-text" translatable="yes">Whether to split original artist fields at a " - " separator in Ogg comments</property>
+                                <property name="tooltip-text" translatable="yes">Whether to split original artist fields at a “ - ” separator in Ogg comments</property>
                                 <property name="visible">True</property>
                             </object>
                             <packing>
@@ -712,7 +712,7 @@
                                     <object class="GtkRadioButton" id="id3_v2_none_radio">
                                         <property name="label" translatable="yes">Report error</property>
                                         <property name="name">none</property>
-                                        <property name="tooltip-text" translatable="yes">With this option, when a character cannot be represented in the target character encoding, it isn't changed. But note that an error message will be displayed for information</property>
+                                        <property name="tooltip-text" translatable="yes">Display an error message when a character cannot be represented in the target character encoding and keep the original character</property>
                                         <property name="visible">True</property>
                                     </object>
                                 </child>
@@ -721,7 +721,7 @@
                                         <property name="group">id3_v1_none_radio</property>
                                         <property name="label" translatable="yes">Transliterate</property>
                                         <property name="name">transliterate</property>
-                                        <property name="tooltip-text" translatable="yes">With this option, when a character cannot be represented in the target character encoding, it can be approximated through one or several similar-looking characters</property>
+                                        <property name="tooltip-text" translatable="yes">Replace unsupported characters with a similar character from the target character encoding</property>
                                         <property name="visible">True</property>
                                     </object>
                                 </child>
@@ -730,7 +730,7 @@
                                         <property name="group">id3_v1_none_radio</property>
                                         <property name="label" translatable="yes">Discard</property>
                                         <property name="name">ignore</property>
-                                        <property name="tooltip-text" translatable="yes">With this option, when a character cannot be represented in the target character encoding, it will be silently discarded</property>
+                                        <property name="tooltip-text" translatable="yes">Discard characters which cannot be represented in the target character encoding</property>
                                         <property name="visible">True</property>
                                     </object>
                                 </child>
@@ -859,7 +859,7 @@
                                     <object class="GtkRadioButton" id="id3_v1_none_radio">
                                         <property name="label" translatable="yes">Report error</property>
                                         <property name="name">none</property>
-                                        <property name="tooltip-text" translatable="yes">With this option, when a character cannot be represented in the target character encoding, it isn't changed. But note that an error message will be displayed for information</property>
+                                        <property name="tooltip-text" translatable="yes">Display an error message when a character cannot be represented in the target character encoding and keep the original character</property>
                                         <property name="visible">True</property>
                                     </object>
                                 </child>
@@ -868,7 +868,7 @@
                                         <property name="group">id3_v1_none_radio</property>
                                         <property name="label" translatable="yes">Transliterate</property>
                                         <property name="name">transliterate</property>
-                                        <property name="tooltip-text" translatable="yes">With this option, when a character cannot be represented in the target character encoding, it can be approximated through one or several similar-looking characters</property>
+                                        <property name="tooltip-text" translatable="yes">Replace unsupported characters with a similar character from the target character encoding</property>
                                         <property name="visible">True</property>
                                     </object>
                                 </child>
@@ -877,7 +877,7 @@
                                         <property name="group">id3_v1_none_radio</property>
                                         <property name="label" translatable="yes">Discard</property>
                                         <property name="name">ignore</property>
-                                        <property name="tooltip-text" translatable="yes">With this option, when a character cannot be represented in the target character encoding, it will be silently discarded</property>
+                                        <property name="tooltip-text" translatable="yes">Discard characters which cannot be represented in the target character encoding</property>
                                         <property name="visible">True</property>
                                     </object>
                                 </child>
@@ -927,7 +927,7 @@
                 </child>
                 <child>
                     <object class="GtkRadioButton" id="fts_underscore_p20_radio">
-                        <property name="label" translatable="yes">Convert underscores and '%20' to spaces</property>
+                        <property name="label" translatable="yes">Convert underscores and ‘%20’ to spaces</property>
                         <property name="margin-left">24</property>
                         <property name="name">spaces</property>
                         <property name="visible">True</property>
@@ -936,7 +936,7 @@
                 <child>
                     <object class="GtkRadioButton" id="fts_spaces_radio">
                         <property name="group">fts_underscore_p20_radio</property>
-                        <property name="label" translatable="yes">Convert spaces and '%20' to underscores</property>
+                        <property name="label" translatable="yes">Convert spaces and ‘%20’ to underscores</property>
                         <property name="margin-left">24</property>
                         <property name="name">underscores</property>
                         <property name="visible">True</property>
@@ -965,7 +965,7 @@
                 </child>
                 <child>
                     <object class="GtkRadioButton" id="rfs_underscore_p20_radio">
-                        <property name="label" translatable="yes">Convert underscores and '%20' to spaces</property>
+                        <property name="label" translatable="yes">Convert underscores and ‘%20’ to spaces</property>
                         <property name="margin-left">24</property>
                         <property name="name">spaces</property>
                         <property name="visible">True</property>
@@ -974,7 +974,7 @@
                 <child>
                     <object class="GtkRadioButton" id="rfs_spaces_radio">
                         <property name="group">rfs_underscore_p20_radio</property>
-                        <property name="label" translatable="yes">Convert spaces and '%20' to underscores</property>
+                        <property name="label" translatable="yes">Convert spaces and ‘%20’ to underscores</property>
                         <property name="margin-left">24</property>
                         <property name="name">underscores</property>
                         <property name="visible">True</property>
@@ -1003,9 +1003,9 @@
                 </child>
                 <child>
                     <object class="GtkCheckButton" id="pfs_uppercase_prep_check">
-                        <property name="label" translatable="yes">Upper-case the first letters of all words, including prepositions and articles</property>
+                        <property name="label" translatable="yes">Upper-case the first letters of all words</property>
                         <property name="margin-left">24</property>
-                        <property name="tooltip-text" translatable="yes">Whether to upper-case the first letter of prepositions and some other short words such as "feat." when processing tag fields</property>
+                        <property name="tooltip-text" translatable="yes">Whether to upper-case the first letter of all words, including prepositions and other short words such as “feat.”, when processing tag fields</property>
                         <property name="visible">True</property>
                     </object>
                 </child>
@@ -1103,16 +1103,16 @@
                                 <property name="has-entry">True</property>
                                 <property name="visible">True</property>
                                 <items>
-                                    <item translatable="yes" id="host_a">freedb.freedb.org</item>
-                                    <item translatable="yes" id="host_b">www.gnudb.org</item>
-                                    <item translatable="yes" id="host_c">at.freedb.org</item>
-                                    <item translatable="yes" id="host_d">au.freedb.org</item>
-                                    <item translatable="yes" id="host_e">ca.freedb.org</item>
-                                    <item translatable="yes" id="host_f">es.freedb.org</item>
-                                    <item translatable="yes" id="host_g">fi.freedb.org</item>
-                                    <item translatable="yes" id="host_h">ru.freedb.org</item>
-                                    <item translatable="yes" id="host_i">uk.freedb.org</item>
-                                    <item translatable="yes" id="host_j">us.freedb.org</item>
+                                    <item id="host_a">freedb.freedb.org</item>
+                                    <item id="host_b">www.gnudb.org</item>
+                                    <item id="host_c">at.freedb.org</item>
+                                    <item id="host_d">au.freedb.org</item>
+                                    <item id="host_e">ca.freedb.org</item>
+                                    <item id="host_f">es.freedb.org</item>
+                                    <item id="host_g">fi.freedb.org</item>
+                                    <item id="host_h">ru.freedb.org</item>
+                                    <item id="host_i">uk.freedb.org</item>
+                                    <item id="host_j">us.freedb.org</item>
                                 </items>
                             </object>
                             <packing>
