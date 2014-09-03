@@ -1207,6 +1207,7 @@ et_browser_clear_file_model (EtBrowser *self)
     g_signal_handler_block (selection, priv->file_selected_handler);
 
     gtk_list_store_clear (priv->file_model);
+    gtk_tree_view_columns_autosize (GTK_TREE_VIEW (priv->file_view));
 
     g_signal_handler_unblock (selection, priv->file_selected_handler);
 }
