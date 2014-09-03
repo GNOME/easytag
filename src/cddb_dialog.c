@@ -66,11 +66,9 @@ struct _EtCDDBDialogPrivate
 
     GtkListStore *album_list_model;
     GtkListStore *search_string_model;
-    GtkListStore *search_string_in_result_model;
     GtkListStore *track_list_model;
 
     GtkWidget *search_string_entry;
-    GtkWidget *search_string_in_results_entry;
 
     GtkWidget *apply_button;
     GtkWidget *search_button;
@@ -288,191 +286,6 @@ update_search_button_sensitivity (EtCDDBDialog *self)
     {
         gtk_widget_set_sensitive (GTK_WIDGET (priv->search_button), FALSE);
     }
-}
-
-/*
- * Searches the Cddb Album List for specific terms
- * (this is not search the remote CDDB database...)
- */
-static void
-find_previous_string_in_results (EtCDDBDialog *self)
-{
-    EtCDDBDialogPrivate *priv;
-    gchar *string;
-    gchar  buffer[256];
-    gchar *pbuffer;
-    gchar *text;
-    gchar *temp;
-    GtkTreeSelection* treeSelection;
-    GtkTreeIter iter;
-    GtkTreePath *rowpath;
-    gboolean itemselected = FALSE;
-
-    priv = et_cddb_dialog_get_instance_private (self);
-
-    string = g_strdup(gtk_entry_get_text(GTK_ENTRY(priv->search_string_in_results_entry)));
-    if (!string || strlen(string)==0)
-        return;
-    temp = g_utf8_strdown(string, -1);
-    g_free(string);
-    string = temp;
-
-    Add_String_To_Combo_List(priv->search_string_in_result_model, string);
-
-    /* Get the currently selected row into &iter and set itemselected to reflect this */
-    treeSelection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->album_list_view));
-    if (gtk_tree_selection_get_selected(treeSelection, NULL, &iter) == TRUE)
-        itemselected = TRUE;
-
-    /* Previous result button */
-
-    /* Search in the album list (from bottom/selected-item to top) */
-    if (itemselected == TRUE)
-    {
-        rowpath = gtk_tree_model_get_path(GTK_TREE_MODEL(priv->album_list_model), &iter);
-        gtk_tree_path_prev(rowpath);
-    } else
-    {
-        rowpath = gtk_tree_path_new_from_indices(gtk_tree_model_iter_n_children(GTK_TREE_MODEL(priv->album_list_model), NULL) - 1, -1);
-    }
-
-    do
-    {
-        gboolean found;
-
-        found = gtk_tree_model_get_iter(GTK_TREE_MODEL(priv->album_list_model), &iter, rowpath);
-        if (found)
-        {
-            gtk_tree_model_get(GTK_TREE_MODEL(priv->album_list_model), &iter, CDDB_ALBUM_LIST_ALBUM, &text, -1);
-            g_utf8_strncpy(buffer,text,256);
-            temp = g_utf8_strdown(buffer, -1);
-            pbuffer = temp;
-
-            if (pbuffer && strstr(pbuffer,string) != NULL)
-            {
-                gtk_tree_selection_select_iter(treeSelection, &iter);
-                gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(priv->album_list_view), rowpath, NULL, FALSE, 0, 0);
-                gtk_tree_path_free(rowpath);
-                g_free(text);
-                g_free(temp);
-                g_free(string);
-                return;
-            }
-            g_free(temp);
-            g_free(text);
-        }
-    } while(gtk_tree_path_prev(rowpath));
-    gtk_tree_path_free(rowpath);
-}
-
-static void
-find_next_string_in_results (EtCDDBDialog *self)
-{
-    EtCDDBDialogPrivate *priv;
-    gchar *string;
-    gchar  buffer[256];
-    gchar *pbuffer;
-    gchar *text;
-    gchar *temp;
-    gint   i;
-    gint  rowcount;
-    GtkTreeSelection* treeSelection;
-    GtkTreeIter iter;
-    GtkTreePath *rowpath;
-    gboolean result;
-    gboolean itemselected = FALSE;
-    GtkTreeIter itercopy;
-
-    priv = et_cddb_dialog_get_instance_private (self);
-
-    string = g_strdup (gtk_entry_get_text (GTK_ENTRY (priv->search_string_in_results_entry)));
-    if (!string || strlen(string)==0)
-        return;
-    temp = g_utf8_strdown(string, -1);
-    g_free(string);
-    string = temp;
-
-    Add_String_To_Combo_List(priv->search_string_in_result_model, string);
-
-    /* Get the currently selected row into &iter and set itemselected to reflect this */
-    treeSelection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->album_list_view));
-    if (gtk_tree_selection_get_selected(treeSelection, NULL, &iter) == TRUE)
-        itemselected = TRUE;
-
-    rowcount = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(priv->album_list_model), NULL);
-
-    /* Search in the album list (from top to bottom) */
-    if (itemselected == TRUE)
-    {
-        gtk_tree_selection_unselect_iter(treeSelection, &iter);
-        result = gtk_tree_model_iter_next(GTK_TREE_MODEL(priv->album_list_model), &iter);
-    } else
-    {
-        result = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(priv->album_list_model), &iter);
-    }
-
-    itercopy = iter;
-
-    /* If list entries follow the previously selected item, loop through them looking for a match */
-    if(result == TRUE)
-    {
-        do /* Search following results */
-        {
-            gtk_tree_model_get(GTK_TREE_MODEL(priv->album_list_model), &iter, CDDB_ALBUM_LIST_ALBUM, &text, -1);
-            g_utf8_strncpy(buffer, text, 256);
-
-            temp = g_utf8_strdown(buffer, -1);
-            pbuffer = temp;
-
-            if (pbuffer && strstr(pbuffer, string) != NULL)
-            {
-                gtk_tree_selection_select_iter(treeSelection, &iter);
-                rowpath = gtk_tree_model_get_path(GTK_TREE_MODEL(priv->album_list_model), &iter);
-                gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(priv->album_list_view), rowpath, NULL, FALSE, 0, 0);
-                gtk_tree_path_free(rowpath);
-                g_free(text);
-                g_free(temp);
-                g_free(string);
-                return;
-            }
-            g_free(temp);
-            g_free(text);
-        } while(gtk_tree_model_iter_next(GTK_TREE_MODEL(priv->album_list_model), &iter));
-    }
-
-    for (i = 0; i < rowcount; i++)
-    {
-        gboolean found;
-
-        if (i == 0)
-            found = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(priv->album_list_model), &itercopy);
-        else
-            found = gtk_tree_model_iter_next(GTK_TREE_MODEL(priv->album_list_model), &itercopy);
-
-        if (found)
-        {
-            gtk_tree_model_get(GTK_TREE_MODEL(priv->album_list_model), &itercopy, CDDB_ALBUM_LIST_ALBUM, &text, -1);
-            g_utf8_strncpy(buffer, text, 256);
-
-            temp = g_utf8_strdown(buffer, -1);
-            pbuffer = temp;
-
-            if (pbuffer && strstr(pbuffer,string) != NULL)
-            {
-                gtk_tree_selection_select_iter(treeSelection, &itercopy);
-                rowpath = gtk_tree_model_get_path(GTK_TREE_MODEL(priv->album_list_model), &itercopy);
-                gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(priv->album_list_view), rowpath, NULL, FALSE, 0, 0);
-                gtk_tree_path_free(rowpath);
-                g_free(text);
-                g_free(temp);
-                g_free(string);
-                return;
-            }
-            g_free(temp);
-            g_free(text);
-        }
-    }
-    g_free(string);
 }
 
 /*
@@ -3243,57 +3056,6 @@ create_cddb_dialog (EtCDDBDialog *self)
     hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
     gtk_container_add(GTK_CONTAINER(Frame),hbox);
 
-    Label = gtk_label_new(_("Search:"));
-    gtk_widget_set_halign (Label, GTK_ALIGN_END);
-    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
-
-    g_assert (priv->search_string_in_result_model == NULL);
-    priv->search_string_in_result_model = gtk_list_store_new (MISC_COMBO_COUNT,
-                                                        G_TYPE_STRING);
-
-    combo = gtk_combo_box_new_with_model_and_entry (GTK_TREE_MODEL (priv->search_string_in_result_model));
-    g_object_unref (priv->search_string_in_result_model);
-    gtk_combo_box_set_entry_text_column (GTK_COMBO_BOX (combo),
-                                         MISC_COMBO_TEXT);
-    gtk_box_pack_start (GTK_BOX (hbox), combo, FALSE, FALSE, 0);
-    priv->search_string_in_results_entry = gtk_bin_get_child (GTK_BIN (combo));
-    g_signal_connect_swapped (priv->search_string_in_results_entry,
-                              "activate",
-                              G_CALLBACK (find_next_string_in_results),
-                              self);
-    gtk_widget_set_tooltip_text (priv->search_string_in_results_entry,
-                                 _("Enter the words to search in the list below"));
-
-    /* History List. */
-    Load_Cddb_Search_String_In_Result_List(priv->search_string_in_result_model, MISC_COMBO_TEXT);
-
-    gtk_entry_set_text (GTK_ENTRY (priv->search_string_in_results_entry), "");
-
-    Button = gtk_button_new ();
-    gtk_container_add (GTK_CONTAINER (Button),
-                       gtk_image_new_from_icon_name ("go-down",
-                                                     GTK_ICON_SIZE_BUTTON));
-    gtk_box_pack_start(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-    g_signal_connect_swapped (Button, "clicked",
-                              G_CALLBACK (find_next_string_in_results), self);
-    gtk_widget_set_tooltip_text(Button,_("Search Next"));
-
-    Button = gtk_button_new ();
-    gtk_container_add (GTK_CONTAINER (Button),
-                       gtk_image_new_from_icon_name ("go-up",
-                                                     GTK_ICON_SIZE_BUTTON));
-    gtk_box_pack_start (GTK_BOX (hbox), Button, FALSE, FALSE, 0);
-    gtk_button_set_relief (GTK_BUTTON (Button), GTK_RELIEF_NONE);
-    g_signal_connect_swapped (Button, "clicked",
-                              G_CALLBACK (find_previous_string_in_results),
-                              self);
-    gtk_widget_set_tooltip_text (Button, _("Search Previous"));
-
-    // Separator line
-    Separator = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
-    gtk_box_pack_start(GTK_BOX(hbox),Separator,FALSE,FALSE,0);
-
     priv->display_red_lines_toggle = gtk_toggle_button_new();
     Icon = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/red-lines.png");
     gtk_container_add(GTK_CONTAINER(priv->display_red_lines_toggle),Icon);
@@ -3355,6 +3117,8 @@ create_cddb_dialog (EtCDDBDialog *self)
                                             GDK_TYPE_RGBA);
     priv->album_list_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(priv->album_list_model));
     g_object_unref (priv->album_list_model);
+    gtk_tree_view_set_search_column (GTK_TREE_VIEW (priv->album_list_view),
+                                     CDDB_ALBUM_LIST_ALBUM);
 
     renderer = gtk_cell_renderer_pixbuf_new();
     column = gtk_tree_view_column_new_with_attributes(_(CddbAlbumList_Titles[0]), renderer,
@@ -3573,7 +3337,6 @@ et_cddb_dialog_apply_changes (EtCDDBDialog *self)
 
     /* Save combobox history lists before exit. */
     Save_Cddb_Search_String_List(priv->search_string_model, MISC_COMBO_TEXT);
-    Save_Cddb_Search_String_In_Result_List(priv->search_string_in_result_model, MISC_COMBO_TEXT);
 }
 
 /*

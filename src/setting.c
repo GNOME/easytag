@@ -75,8 +75,6 @@ static const gchar RUN_PROGRAM_WITH_FILE_HISTORY_FILE[] = "run_program_with_file
 static const gchar SEARCH_FILE_HISTORY_FILE[] = "search_file.history";
 // File for history of CddbSearchStringEntry combobox
 static const gchar CDDB_SEARCH_STRING_HISTORY_FILE[] = "cddb_search_string.history";
-// File for history of CddbSearchStringInResultEntry combobox
-static const gchar CDDB_SEARCH_STRING_IN_RESULT_HISTORY_FILE[] = "cddb_search_string_in_result.history";
 
 
 
@@ -170,7 +168,6 @@ gboolean Setting_Create_Files (void)
     check_or_create_file (RUN_PROGRAM_WITH_FILE_HISTORY_FILE);
     check_or_create_file (SEARCH_FILE_HISTORY_FILE);
     check_or_create_file (CDDB_SEARCH_STRING_HISTORY_FILE);
-    check_or_create_file (CDDB_SEARCH_STRING_IN_RESULT_HISTORY_FILE);
 
     return TRUE;
 }
@@ -402,18 +399,6 @@ void Save_Cddb_Search_String_List (GtkListStore *liststore, gint colnum)
 }
 
 /*
- * Functions for writing and reading list of combobox of cddb search string in result list
- */
-void Load_Cddb_Search_String_In_Result_List (GtkListStore *liststore, gint colnum)
-{
-    Populate_List_Store_From_File(CDDB_SEARCH_STRING_IN_RESULT_HISTORY_FILE, liststore, colnum);
-}
-void Save_Cddb_Search_String_In_Result_List (GtkListStore *liststore, gint colnum)
-{
-    Save_List_Store_To_File(CDDB_SEARCH_STRING_IN_RESULT_HISTORY_FILE, liststore, colnum);
-}
-
-/*
  * migrate_config_to_xdg_dir:
  * @old_path: (type filename): the path to migrate from
  * @new_path: (type filename): the path to migrate to
@@ -433,7 +418,6 @@ migrate_config_file_dir (const gchar *old_path, const gchar *new_path)
                                         RUN_PROGRAM_WITH_FILE_HISTORY_FILE,
                                         SEARCH_FILE_HISTORY_FILE,
                                         CDDB_SEARCH_STRING_HISTORY_FILE,
-                                        CDDB_SEARCH_STRING_IN_RESULT_HISTORY_FILE,
                                         NULL
     };
 
