@@ -81,10 +81,10 @@ on_main_window_delete_event (GtkWidget *window,
                              GdkEvent *event,
                              gpointer user_data)
 {
-    Quit_MainWindow ();
+    et_application_window_quit (ET_APPLICATION_WINDOW (window));
 
     /* Handled the event, so stop propagation. */
-    return TRUE;
+    return GDK_EVENT_STOP;
 }
 
 static void
@@ -1580,6 +1580,8 @@ et_application_window_dispose (GObject *object)
 
     save_state (self);
 
+    ET_Core_Destroy ();
+
     if (priv->cddb_dialog)
     {
         gtk_widget_destroy (priv->cddb_dialog);
@@ -2585,4 +2587,117 @@ et_application_window_browser_refresh_sort (EtApplicationWindow *self)
     priv = et_application_window_get_instance_private (self);
 
     et_browser_refresh_sort (ET_BROWSER (priv->browser));
+}
+
+static void
+quit_confirmed (EtApplicationWindow *self)
+{
+    /* Save the configuration when exiting. */
+    et_application_window_apply_changes (self);
+    
+    /* Quit EasyTAG. */
+    Log_Print (LOG_OK, _("EasyTAG: Normal exit."));
+
+    gtk_widget_destroy (GTK_WIDGET (self));
+}
+
+static void
+save_and_quit (EtApplicationWindow *self)
+{
+    /* Save modified tags */
+    if (Save_All_Files_With_Answer (FALSE) == -1)
+        return;
+
+    quit_confirmed (self);
+}
+
+void
+et_application_window_quit (EtApplicationWindow *self)
+{
+    GtkWidget *msgbox;
+    gint response;
+
+    /* If you change the displayed data and quit immediately */
+    if (ETCore->ETFileList)
+    {
+        ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+    }
+
+    /* Check if all files have been saved before exit */
+    if (g_settings_get_boolean (MainSettings, "confirm-when-unsaved-files")
+        && ET_Check_If_All_Files_Are_Saved () != TRUE)
+    {
+        /* Some files haven't been saved */
+        msgbox = gtk_message_dialog_new (GTK_WINDOW (self),
+                                         GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                         GTK_MESSAGE_QUESTION,
+                                         GTK_BUTTONS_NONE,
+                                         "%s",
+                                         _("Some files have been modified but not saved"));
+        gtk_dialog_add_buttons (GTK_DIALOG (msgbox), _("_Discard"),
+                                GTK_RESPONSE_NO, _("_Cancel"),
+                                GTK_RESPONSE_CANCEL, _("_Save"),
+                                GTK_RESPONSE_YES, NULL);
+        gtk_dialog_set_default_response (GTK_DIALOG (msgbox),
+                                         GTK_RESPONSE_YES);
+        gtk_window_set_title (GTK_WINDOW (msgbox), _("Quit"));
+        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (msgbox),
+                                                  "%s",
+                                                  _("Do you want to save them before quitting?"));
+        response = gtk_dialog_run (GTK_DIALOG (msgbox));
+        gtk_widget_destroy (msgbox);
+
+        switch (response)
+        {
+            case GTK_RESPONSE_YES:
+                save_and_quit (self);
+                break;
+            case GTK_RESPONSE_NO:
+                quit_confirmed (self);
+                break;
+            case GTK_RESPONSE_CANCEL:
+            case GTK_RESPONSE_DELETE_EVENT:
+                return;
+                break;
+            default:
+                g_assert_not_reached ();
+                break;
+        }
+
+    }
+    else if (g_settings_get_boolean (MainSettings, "confirm-quit"))
+    {
+        msgbox = gtk_message_dialog_new (GTK_WINDOW (self),
+                                         GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                         GTK_MESSAGE_QUESTION,
+                                         GTK_BUTTONS_NONE,
+                                         "%s",
+                                         _("Do you really want to quit?"));
+         gtk_dialog_add_buttons (GTK_DIALOG (msgbox), _("_Cancel"),
+                                 GTK_RESPONSE_CANCEL, _("_Quit"),
+                                 GTK_RESPONSE_CLOSE, NULL);
+        gtk_dialog_set_default_response (GTK_DIALOG (msgbox),
+                                         GTK_RESPONSE_CLOSE);
+        gtk_window_set_title (GTK_WINDOW (msgbox), _("Quit"));
+        response = gtk_dialog_run (GTK_DIALOG (msgbox));
+        gtk_widget_destroy (msgbox);
+
+        switch (response)
+        {
+            case GTK_RESPONSE_CLOSE:
+                quit_confirmed (self);
+                break;
+            case GTK_RESPONSE_CANCEL:
+            case GTK_RESPONSE_DELETE_EVENT:
+                return;
+                break;
+            default:
+                g_assert_not_reached ();
+                break;
+        }
+    }
+    else
+    {
+        quit_confirmed (self);
+    }
 }

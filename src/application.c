@@ -84,7 +84,11 @@ on_quit (GSimpleAction *action,
          GVariant *parameter,
          gpointer user_data)
 {
-    Quit_MainWindow ();
+    GList *windows;
+
+    windows = gtk_application_get_windows (GTK_APPLICATION (user_data));
+
+    et_application_window_quit (windows->data);
 }
 
 static const GActionEntry actions[] =
@@ -508,7 +512,6 @@ et_application_open (GApplication *self,
 static void
 et_application_shutdown (GApplication *application)
 {
-    ET_Core_Destroy ();
     Charset_Insert_Locales_Destroy ();
 
     G_APPLICATION_CLASS (et_application_parent_class)->shutdown (application);
