@@ -16,18 +16,18 @@
 
     <key name="browse-subdir" type="b">
       <summary>Browse subdirectories</summary>
-      <description>Whether to search subdirectories for audio files when reading a path in the browser</description>
+      <description>Whether to search subdirectories for audio files when reading a directory in the browser</description>
       <default>true</default>
     </key>
 
     <key name="browse-show-hidden" type="b">
       <summary>Show hidden directories while browsing</summary>
-      <description>Whether to show hidden directories when showing a path in the browser</description>
+      <description>Whether to show hidden directories when showing a directory in the browser</description>
       <default>false</default>
     </key>
 
     <key name="browse-expand-children" type="b">
-      <summary>Expand the subdirectories of the selected path</summary>
+      <summary>Expand the subdirectories of the selected directory</summary>
       <description>Whether to expand the subdirectories of a node in the directory browser when selecting it</description>
       <default>true</default>
     </key>
@@ -540,7 +540,7 @@
 
     <key name="playlist-dos-separator" type="b">
       <summary>Use DOS separators for playlists</summary>
-      <description>Whether to use backslash as path separator when generating playlists</description>
+      <description>Whether to use backslash as directory separator when generating playlists</description>
       <default>false</default>
     </key>
 

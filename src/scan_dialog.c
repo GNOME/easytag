@@ -307,7 +307,7 @@ Scan_Tag_With_Mask (EtScanDialog *self, ET_File *ETFile)
                 else
                 {
                     Log_Print (LOG_ERROR,
-                               _("Cannot calculate CRC value of file (%s)"),
+                               _("Cannot calculate CRC value of file ‘%s’"),
                                error->message);
                     g_error_free (error);
                 }
@@ -326,7 +326,7 @@ Scan_Tag_With_Mask (EtScanDialog *self, ET_File *ETFile)
                                               _("Tag successfully scanned"),
                                               TRUE);
     filename_utf8 = g_path_get_basename( ((File_Name *)ETFile->FileNameNew->data)->value_utf8 );
-    Log_Print(LOG_OK,_("Tag successfully scanned: %s"),filename_utf8);
+    Log_Print (LOG_OK, _("Tag successfully scanned ‘%s’"), filename_utf8);
     g_free(filename_utf8);
 }
 
@@ -368,7 +368,9 @@ Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask)
     if (i==ET_FILE_DESCRIPTION_SIZE)
     {
         gchar *tmp1 = g_path_get_basename(filename_utf8);
-        Log_Print(LOG_ERROR,_("Tag scanner: strange… the extension '%s' was not found in filename '%s'"),tmp,tmp1);
+        Log_Print (LOG_ERROR,
+                   _("The extension ‘%s’ was not found in filename ‘%s’"), tmp,
+                   tmp1);
         g_free(tmp1);
     }
 
@@ -456,7 +458,9 @@ Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask)
                     file_seq = file_seq + len; // We remove it
                 }else
                 {
-                    Log_Print(LOG_ERROR,_("Scan Error: can't find separator '%s' within '%s'"),buf,file_seq_utf8);
+                    Log_Print (LOG_ERROR,
+                               _("Cannot find separator ‘%s’ within ‘%s’"),
+                               buf, file_seq_utf8);
                 }
                 g_free(buf);
             }
@@ -485,7 +489,9 @@ Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask)
                 // Try to find the separator in 'file_seq'
                 if ( (tmp=strstr(file_seq,separator)) == NULL )
                 {
-                    Log_Print(LOG_ERROR,_("Scan Error: can't find separator '%s' within '%s'"),separator,file_seq_utf8);
+                    Log_Print (LOG_ERROR,
+                               _("Cannot find separator ‘%s’ within ‘%s’"),
+                               separator, file_seq_utf8);
                     separator[0] = 0; // Needed to avoid error when calculting 'len' below
                 }
 
@@ -708,7 +714,7 @@ Scan_Rename_File_With_Mask (EtScanDialog *self, ET_File *ETFile)
                              GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                              GTK_MESSAGE_ERROR,
                              GTK_BUTTONS_CLOSE,
-                             _("Could not convert filename '%s' into system filename encoding"),
+                             _("Could not convert filename ‘%s’ into system filename encoding"),
                              filename_generated_utf8);
         gtk_window_set_title(GTK_WINDOW(msgdialog),_("Filename translation"));
 
@@ -737,7 +743,7 @@ Scan_Rename_File_With_Mask (EtScanDialog *self, ET_File *ETFile)
                                               TRUE);
 
     filename_new_utf8 = g_path_get_basename(((File_Name *)ETFile->FileNameNew->data)->value_utf8);
-    Log_Print (LOG_OK, _("New filename successfully scanned: %s"),
+    Log_Print (LOG_OK, _("New filename successfully scanned ‘%s’"),
                filename_new_utf8);
     g_free(filename_new_utf8);
 
@@ -1093,7 +1099,7 @@ out:
     return;
 
 handle_error:
-    Log_Print (LOG_ERROR, _("Error while processing fields: %s"),
+    Log_Print (LOG_ERROR, _("Error while processing fields ‘%s’"),
                regex_error->message);
 
     g_error_free (regex_error);
@@ -2200,7 +2206,7 @@ Mask_Editor_List_Remove (EtScanDialog *self)
     treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(priv->mask_editor_view));
 
     if (gtk_tree_selection_count_selected_rows(selection) == 0) {
-        Log_Print(LOG_ERROR,_("Remove: No row selected"));
+        g_critical ("%s", "Remove: No row selected");
         return;
     }
 
@@ -2300,7 +2306,7 @@ Mask_Editor_List_Move_Up (EtScanDialog *self)
 
     if (!selectedRows)
     {
-        Log_Print(LOG_ERROR,_("Move Up: No row selected"));
+        g_critical ("%s", "Move Up: No row selected");
         return;
     }
 
@@ -2345,7 +2351,7 @@ Mask_Editor_List_Move_Down (EtScanDialog *self)
 
     if (!selectedRows)
     {
-        Log_Print(LOG_ERROR,_("Move Down: No row selected"));
+        g_critical ("%s", "Move Down: No row selected");
         return;
     }
 
@@ -2410,7 +2416,7 @@ Mask_Editor_List_Duplicate (EtScanDialog *self)
 
     if (!selectedRows)
     {
-        Log_Print(LOG_ERROR,_("Copy: No row selected"));
+        g_critical ("%s", "Copy: No row selected");
         return;
     }
 
@@ -2635,7 +2641,7 @@ create_scan_dialog (EtScanDialog *self)
     gtk_box_pack_start(GTK_BOX(HBox2),priv->scan_tag_mask_combo,TRUE,TRUE,2);
     gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->scan_tag_mask_combo)))),
         _("Select or type in a mask using codes (see Legend) to parse "
-        "filename and path. Used to fill in tag fields"));
+        "filename and directory. Used to fill in tag fields"));
     /* Signal to generate preview (preview of the new tag values). */
     g_signal_connect_swapped (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->scan_tag_mask_combo))),
                               "changed",
@@ -2689,7 +2695,7 @@ create_scan_dialog (EtScanDialog *self)
     gtk_button_set_relief (GTK_BUTTON (Button), GTK_RELIEF_NONE);
     g_signal_connect_swapped (Button, "clicked",
                               G_CALLBACK (Scan_Rename_File_Prefix_Path), self);
-    gtk_widget_set_tooltip_text (Button, _("Prefix mask with current path"));
+    gtk_widget_set_tooltip_text (Button, _("Prefix mask with current directory"));
 
     // Set up list model which is used both by the combobox and the editor
     priv->rename_masks_model = gtk_list_store_new(MASK_EDITOR_COUNT, G_TYPE_STRING);
@@ -2704,8 +2710,8 @@ create_scan_dialog (EtScanDialog *self)
     gtk_container_set_border_width(GTK_CONTAINER(HBox4), 2);
     gtk_widget_set_tooltip_text(GTK_WIDGET(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->rename_file_mask_combo)))),
         _("Select or type in a mask using codes (see Legend) to parse tag fields. "
-        "Used to rename the file.\nUse / to make directories. If the first character "
-        "is /, it's a absolute path, otherwise is relative to the old path."));
+        "Used to rename the file.\nUse ‘/’ to make directories. If the first character "
+        "is ‘/’, it is an absolute path, otherwise is relative to the old path"));
     // Signal to generate preview (preview of the new filename)
     g_signal_connect_swapped (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->rename_file_mask_combo))),
                               "changed",
@@ -2838,10 +2844,10 @@ create_scan_dialog (EtScanDialog *self)
     /* Group: character conversion */
     group = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
     gtk_box_pack_start (GTK_BOX (VBox), group, FALSE, FALSE, 0);
-    priv->process_convert_to_space_toggle = gtk_radio_button_new_with_label_from_widget (NULL, _("Convert '_' and '%20' to spaces"));
+    priv->process_convert_to_space_toggle = gtk_radio_button_new_with_label_from_widget (NULL, _("Convert ‘_’ and ‘%20’ to spaces"));
     gtk_widget_set_name (priv->process_convert_to_space_toggle, "spaces");
     priv->process_convert_to_underscores_toggle = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (priv->process_convert_to_space_toggle),
-                                                                             _("Convert ' ' to '_'"));
+                                                                             _("Convert ‘ ’ to ‘_’"));
     gtk_widget_set_name (priv->process_convert_to_underscores_toggle,
                          "underscores");
     gtk_box_pack_start (GTK_BOX (group), priv->process_convert_to_space_toggle, FALSE,
@@ -2912,13 +2918,13 @@ create_scan_dialog (EtScanDialog *self)
 
     /* Tooltips */
     gtk_widget_set_tooltip_text(priv->process_convert_to_space_toggle,
-        _("The underscore character or the string '%20' are replaced by one space. "
-          "Example, before: 'Text%20In%20An_Entry', after: 'Text In An Entry'."));
+        _("The underscore character or the string ‘%20’ is replaced by one space. "
+          "Example, before: ‘Text%20In%20An_Entry‘, after: ‘Text In An Entry’"));
     gtk_widget_set_tooltip_text(priv->process_convert_to_underscores_toggle,
         _("The space character is replaced by one underscore character. "
-          "Example, before: 'Text In An Entry', after: 'Text_In_An_Entry'."));
+          "Example, before: ‘Text In An Entry’, after: ‘Text_In_An_Entry’"));
     gtk_widget_set_tooltip_text(priv->process_convert_toggle,
-        _("Replace a string by another one. Note that the search is case sensitive."));
+        _("Replace a string by another one. Note that the search is case sensitive"));
 
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
     

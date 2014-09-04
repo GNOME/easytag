@@ -128,7 +128,8 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
             FLAC__metadata_simple_iterator_delete(iter);
         }
 
-        Log_Print(LOG_ERROR,_("Error while opening file: '%s' as FLAC (%s)."),filename_utf8,flac_error_msg);
+        Log_Print (LOG_ERROR, _("Error while opening file ‘%s’ as FLAC: %s"),
+                   filename_utf8, flac_error_msg);
         g_free(filename_utf8);
         return FALSE;
     }
@@ -348,8 +349,12 @@ gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
                             field_value = Try_To_Validate_Utf8_String(field_value_tmp);
                             g_free(field_value_tmp);
                             FileTag->year = field_value;
-                            if (g_utf8_strlen(FileTag->year, -1) > 4)
-                                Log_Print(LOG_WARNING,_("The year value '%s' seems to be invalid in file '%s'. The information will be lost while saving tag."),FileTag->year,filename_utf8);
+                            if (g_utf8_strlen (FileTag->year, -1) > 4)
+                            {
+                                Log_Print (LOG_WARNING,
+                                           _("The year value ‘%s’ seems to be invalid in file ‘%s’. The information will be lost when saving"),
+                                           FileTag->year, filename_utf8);
+                            }
                         }
                     }
                 }
@@ -847,7 +852,8 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
             FLAC__metadata_chain_delete(chain);
         }
         
-        Log_Print(LOG_ERROR,_("Error while opening file: '%s' as FLAC (%s)."),filename_utf8,flac_error_msg);
+        Log_Print (LOG_ERROR, _("Error while opening file ‘%s’ as FLAC: %s"),
+                   filename_utf8, flac_error_msg);
         return FALSE;
     }
     
@@ -857,7 +863,8 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
     {
         flac_error_msg = FLAC__Metadata_ChainStatusString[FLAC__METADATA_CHAIN_STATUS_MEMORY_ALLOCATION_ERROR];
 
-        Log_Print(LOG_ERROR,_("Error while opening file: '%s' as FLAC (%s)."),filename_utf8,flac_error_msg);
+        Log_Print (LOG_ERROR, _("Error while opening file ‘%s’ as FLAC: %s"),
+                   filename_utf8, flac_error_msg);
         return FALSE;
     }
     
@@ -1076,7 +1083,8 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
                 
                 if (!FLAC__metadata_object_picture_is_legal(picture_block, &violation))
                 {
-                    Log_Print(LOG_ERROR,_("Picture block isn't valid: '%s'"),violation);
+                    Log_Print (LOG_ERROR, _("Picture block is invalid ‘%s’"),
+                               violation);
                     FLAC__metadata_object_delete(picture_block);
                 }else
                 {
@@ -1111,12 +1119,13 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
 
         FLAC__metadata_chain_delete(chain);
         
-        Log_Print(LOG_ERROR,_("Error: Failed to write comments to file '%s' (%s)."),filename_utf8,flac_error_msg);
+        Log_Print (LOG_ERROR, _("Failed to write comments to file ‘%s’: %s"),
+                   filename_utf8, flac_error_msg);
         return FALSE;
     }else
     {
         basename_utf8 = g_path_get_basename(filename_utf8);
-        Log_Print(LOG_OK,_("Written tag of '%s'"),basename_utf8);
+        Log_Print (LOG_OK, _("Wrote tag of ‘%s’"), basename_utf8);
         g_free(basename_utf8);
     }
     

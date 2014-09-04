@@ -143,7 +143,7 @@ static void check_or_create_file (const gchar *filename)
     }
     else
     {
-        Log_Print (LOG_ERROR, _("Cannot create or open file '%s' (%s)"),
+        Log_Print (LOG_ERROR, _("Cannot create or open file ‘%s’: %s"),
                    CONFIG_FILE, g_strerror (errno));
     }
 
@@ -194,7 +194,7 @@ Save_List_Store_To_File (const gchar *filename, GtkListStore *liststore, gint co
 
     if (!Create_Easytag_Directory () || (file = fopen (file_path, "w+")) == NULL)
     {
-        Log_Print (LOG_ERROR, _("Error: Cannot write list to file: %s (%s)"),
+        Log_Print (LOG_ERROR, _("Cannot write list to file ‘%s’: %s"),
                    file_path, g_strerror (errno));
     }else
     {
@@ -212,7 +212,7 @@ Save_List_Store_To_File (const gchar *filename, GtkListStore *liststore, gint co
             {
                 if (fwrite (data->str, data->len, 1, file) != 1)
                 {
-                    Log_Print (LOG_ERROR, _("Error while writing list file: %s"),
+                    Log_Print (LOG_ERROR, _("Error while writing list file ‘%s’"),
                                file_path);
                     fclose (file);
                     g_string_free (data, TRUE);
@@ -247,7 +247,7 @@ Populate_List_Store_From_File (const gchar *filename, GtkListStore *liststore, g
 
     if ((file = fopen (file_path, "r")) == NULL)
     {
-        Log_Print (LOG_ERROR, _("Cannot open file '%s' (%s)"), file_path,
+        Log_Print (LOG_ERROR, _("Cannot open file ‘%s’: %s"), file_path,
                    g_strerror (errno));
     }else
     {
@@ -291,8 +291,8 @@ Load_Scan_Tag_Masks_List (GtkListStore *liststore, gint colnum,
 
     if (!Populate_List_Store_From_File(SCAN_TAG_MASKS_FILE, liststore, colnum))
     {
-        // Fall back to defaults
-        Log_Print(LOG_OK,_("Loading default 'Fill Tag' masks…"));
+        /* Fall back to defaults. */
+        Log_Print (LOG_OK, _("Loading default ‘Fill Tag’ masks…"));
 
         while(fallback[i])
         {
@@ -321,8 +321,8 @@ Load_Rename_File_Masks_List (GtkListStore *liststore, gint colnum,
 
     if (!Populate_List_Store_From_File(RENAME_FILE_MASKS_FILE, liststore, colnum))
     {
-        // Fall back to defaults
-        Log_Print(LOG_OK,_("Loading default 'Rename File' masks…"));
+        /* Fall back to defaults. */
+        Log_Print (LOG_OK, _("Loading default ‘Rename File’ masks…"));
 
         while(fallback[i])
         {
@@ -421,7 +421,8 @@ migrate_config_file_dir (const gchar *old_path, const gchar *new_path)
                                         NULL
     };
 
-    Log_Print (LOG_OK, _("Migrating configuration from directory '%s' to '%s'"),
+    Log_Print (LOG_OK,
+               _("Migrating configuration from directory ‘%s’ to ‘%s’"),
                old_path, new_path);
 
     for (i = 0; filenames[i]; i++)
@@ -445,7 +446,7 @@ migrate_config_file_dir (const gchar *old_path, const gchar *new_path)
                           NULL, NULL))
         {
             Log_Print (LOG_ERROR,
-                       _("Failed to migrate configuration file '%s'"),
+                       _("Failed to migrate configuration file ‘%s’"),
                        filenames[i]);
         }
 
@@ -482,7 +483,7 @@ Create_Easytag_Directory (void)
 
     if (result == -1)
     {
-        Log_Print (LOG_ERROR,_("Error: Cannot create directory '%s' (%s)"),
+        Log_Print (LOG_ERROR, _("Cannot create directory ‘%s’: %s"),
                   easytag_path, g_strerror (errno));
         g_free (easytag_path);
         return FALSE;

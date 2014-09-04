@@ -109,7 +109,7 @@ gboolean Id3tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag)
     if ( (tmpfile=open(filename,O_RDONLY)) < 0 )
     {
         gchar *filename_utf8 = filename_to_display(filename);
-        Log_Print (LOG_ERROR, _("Error while opening file: '%s' (%s)."),
+        Log_Print (LOG_ERROR, _("Error while opening file ‘%s’: %s"),
                    filename_utf8, g_strerror (errno));
         g_free(filename_utf8);
         return FALSE;
@@ -1143,7 +1143,7 @@ gboolean Id3tag_Write_File_v24Tag (ET_File *ETFile)
     if (error == 0)
     {
         basename_utf8 = g_path_get_basename(filename_utf8);
-        Log_Print(LOG_OK,_("Updated tag of '%s'"),basename_utf8);
+        Log_Print (LOG_OK, _("Updated tag of ‘%s’"), basename_utf8);
         g_free(basename_utf8);
     }
 
@@ -1654,7 +1654,7 @@ etag_write_tags (const gchar *filename,
             {
                 gchar *filename_utf8 = filename_to_display (filename);
                 gchar *basename_utf8 = g_path_get_basename (filename_utf8);
-                Log_Print (LOG_ERROR, _("Cannot save tag of file '%s'"),
+                Log_Print (LOG_ERROR, _("Cannot save tag of file ‘%s’"),
                            basename_utf8);
                 g_free (basename_utf8);
                 goto out;
@@ -1665,7 +1665,9 @@ etag_write_tags (const gchar *filename,
         {
             gchar *filename_utf8 = filename_to_display(filename);
             gchar *basename_utf8 = g_path_get_basename(filename_utf8);
-            Log_Print(LOG_ERROR,_("Size error while saving tag of '%s'"),basename_utf8);
+            Log_Print (LOG_ERROR,
+                       _("Size error while saving tag of ‘%s’"),
+                       basename_utf8);
             g_free(filename_utf8);
             g_free(basename_utf8);
             goto out;

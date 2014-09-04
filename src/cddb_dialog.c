@@ -308,12 +308,12 @@ show_album_info (EtCDDBDialog *self, GtkTreeSelection *selection)
         return;
 
     duration_str = Convert_Duration((gulong)cddbalbum->duration);
-    msg = g_strdup_printf(_("Album: '%s', "
-                            "artist: '%s', "
-                            "length: '%s', "
-                            "year: '%s', "
-                            "genre: '%s', "
-                            "ID: '%s'"),
+    msg = g_strdup_printf(_("Album: ‘%s’, "
+                            "artist: ‘%s’, "
+                            "length: ‘%s’, "
+                            "year: ‘%s’, "
+                            "genre: ‘%s’, "
+                            "disc ID: ‘%s’"),
                             cddbalbum->album ? cddbalbum->album : "",
                             cddbalbum->artist ? cddbalbum->artist : "",
                             duration_str,
@@ -668,7 +668,7 @@ Cddb_Open_Connection (EtCDDBDialog *self, const gchar *host, gint port)
         /* Create socket. */
         if ((socket_id = socket (AF_INET, SOCK_STREAM, 0)) < 0)
         {
-            msg = g_strdup_printf (_("Cannot create a new socket (%s)"),
+            msg = g_strdup_printf (_("Cannot create a new socket ‘%s’"),
                                    g_strerror (errno));
             gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
                                 priv->status_bar_context, msg);
@@ -686,7 +686,7 @@ Cddb_Open_Connection (EtCDDBDialog *self, const gchar *host, gint port)
         }
 
         /* Open connection to the server. */
-        msg = g_strdup_printf (_("Connecting to host '%s', port '%d'…"), host,
+        msg = g_strdup_printf (_("Connecting to host ‘%s’, port ‘%d’…"), host,
                                port);
         gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
                             priv->status_bar_context, msg);
@@ -699,7 +699,7 @@ Cddb_Open_Connection (EtCDDBDialog *self, const gchar *host, gint port)
 
         if (connect (socket_id, &sockaddr_in, sizeof (struct sockaddr)) < 0)
         {
-            msg = g_strdup_printf (_("Cannot connect to host '%s' (%s)"), host,
+            msg = g_strdup_printf (_("Cannot connect to host ‘%s’: %s"), host,
                                    g_strerror (errno));
             gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
                                 priv->status_bar_context, msg);
@@ -723,7 +723,7 @@ Cddb_Open_Connection (EtCDDBDialog *self, const gchar *host, gint port)
 
     if (error)
     {
-        msg = g_strdup_printf (_("Cannot resolve host '%s' (%s)"), host,
+        msg = g_strdup_printf (_("Cannot resolve host ‘%s’: %s"), host,
                                error->message);
         gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
                             priv->status_bar_context, msg);
@@ -736,7 +736,7 @@ Cddb_Open_Connection (EtCDDBDialog *self, const gchar *host, gint port)
     g_object_unref (enumerator);
     g_object_unref (cancellable);
 
-    msg = g_strdup_printf (_("Connected to host '%s'"), host);
+    msg = g_strdup_printf (_("Connected to host ‘%s’"), host);
     gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar), priv->status_bar_context,
                         msg);
     g_free (msg);
@@ -823,7 +823,7 @@ Cddb_Write_Result_To_File (EtCDDBDialog *self,
             if (fwrite (&cddb_out, bytes_read, 1, file) != 1)
             {
                  Log_Print (LOG_ERROR,
-                            _("Error while writing CDDB results to file '%s'"),
+                            _("Error while writing CDDB results to file ‘%s’"),
                             file_path);
                  break;
             }
@@ -847,14 +847,14 @@ Cddb_Write_Result_To_File (EtCDDBDialog *self,
 
         if (bytes_read < 0)
         {
-            Log_Print (LOG_ERROR, _("Error when reading CDDB response (%s)"),
+            Log_Print (LOG_ERROR, _("Error when reading CDDB response ‘%s’"),
 	               g_strerror(errno));
             return -1; // Error!
         }
 
     } else
     {
-        Log_Print (LOG_ERROR, _("Cannot create file '%s' (%s)"), file_path,
+        Log_Print (LOG_ERROR, _("Cannot create file ‘%s’: %s"), file_path,
 	           g_strerror(errno));
     }
     g_free(file_path);
@@ -916,7 +916,8 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
         // Local access
         if ( (file=fopen(cddb_server_cgi_path,"r"))==0 )
         {
-            Log_Print(LOG_ERROR,_("Can't load file: '%s' (%s)."),cddb_server_cgi_path,g_strerror(errno));
+            Log_Print (LOG_ERROR, _("Cannot load file ‘%s’: %s"),
+                       cddb_server_cgi_path, g_strerror (errno));
             return FALSE;
         }
 
@@ -990,7 +991,8 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
         while (gtk_events_pending()) gtk_main_iteration();
         if ( (bytes_written=send(socket_id,cddb_in,strlen(cddb_in)+1,0)) < 0)
         {
-            Log_Print(LOG_ERROR,_("Cannot send the request (%s)"),g_strerror(errno));
+            Log_Print (LOG_ERROR, _("Cannot send the request ‘%s’"),
+                       g_strerror (errno));
             Cddb_Close_Connection (self, socket_id);
             g_free(cddb_in);
             g_free (proxy_hostname);
@@ -1025,7 +1027,8 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
 			// For gnudb (don't check CDDB header)
 			if ( Cddb_Read_Http_Header(&file,&cddb_out) <= 0 )
 		    {
-		        gchar *msg = g_strdup_printf(_("The server returned a bad response: %s"),cddb_out);
+		        gchar *msg = g_strdup_printf (_("The server returned a bad response ‘%s’"),
+                                                      cddb_out);
 		        gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,msg);
 		        Log_Print(LOG_ERROR,"%s",msg);
 		        g_free(msg);
@@ -1040,7 +1043,8 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
 			if ( Cddb_Read_Http_Header(&file,&cddb_out) <= 0
 		      || Cddb_Read_Cddb_Header(&file,&cddb_out) <= 0 )
 		    {
-		        gchar *msg = g_strdup_printf(_("The server returned a bad response: %s"),cddb_out);
+		        gchar *msg = g_strdup_printf (_("The server returned a bad response ‘%s’"),
+                                                      cddb_out);
 		        gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,msg);
 		        Log_Print(LOG_ERROR,"%s",msg);
 		        g_free(msg);
@@ -1613,7 +1617,8 @@ Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
     while (gtk_events_pending()) gtk_main_iteration();
     if ( (bytes_written=send(socket_id,cddb_in,strlen(cddb_in)+1,0)) < 0)
     {
-        Log_Print(LOG_ERROR,_("Cannot send the request (%s)"),g_strerror(errno));
+        Log_Print (LOG_ERROR, _("Cannot send the request ‘%s’"),
+                   g_strerror (errno));
         Cddb_Close_Connection (self, socket_id);
         g_free(cddb_in);
         g_free(string);
@@ -1662,7 +1667,8 @@ Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
     // Parse server answer : Check returned code in the first line
     if (Cddb_Read_Http_Header(&file,&cddb_out) <= 0 || !cddb_out) // Order is important!
     {
-        msg = g_strdup_printf(_("The server returned a bad response: %s"),cddb_out);
+        msg = g_strdup_printf (_("The server returned a bad response ‘%s’"),
+                               cddb_out);
         gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,msg);
         Log_Print(LOG_ERROR,"%s",msg);
         g_free(msg);
@@ -1962,7 +1968,8 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
         while (gtk_events_pending()) gtk_main_iteration();
         if ( (bytes_written=send(socket_id,cddb_in,strlen(cddb_in)+1,0)) < 0)
         {
-            Log_Print(LOG_ERROR,_("Cannot send the request (%s)"),g_strerror(errno));
+            Log_Print (LOG_ERROR, _("Cannot send the request ‘%s’"),
+                       g_strerror (errno));
             Cddb_Close_Connection (self, socket_id);
             g_free (cddb_in);
             g_free (string);
@@ -2011,7 +2018,8 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
         file = NULL;
         if (Cddb_Read_Http_Header(&file,&cddb_out) <= 0 || !cddb_out) // Order is important!
         {
-            msg = g_strdup_printf(_("The server returned a bad response: %s"),cddb_out);
+            msg = g_strdup_printf (_("The server returned a bad response ‘%s’"),
+                                   cddb_out);
             gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,msg);
             Log_Print(LOG_ERROR,"%s",msg);
             g_free(msg);
@@ -2799,8 +2807,8 @@ create_cddb_dialog (EtCDDBDialog *self)
     g_signal_connect_swapped (Button, "clicked",
                               G_CALLBACK (et_cddb_dialog_search_from_selection),
                               self);
-    gtk_widget_set_tooltip_text(Button,
-                                _("Request automatically the CDDB using the selected files (the order is important) to generate the CddbID"));
+    gtk_widget_set_tooltip_text (Button,
+                                _("Generate the CDDB disc ID using the selected files (the order is important)"));
 
     // Button to stop the search
     priv->stop_auto_search_button = gtk_button_new ();
@@ -2854,8 +2862,8 @@ create_cddb_dialog (EtCDDBDialog *self)
                                          MISC_COMBO_TEXT);
     gtk_widget_set_size_request (combo, 220, -1);
     gtk_box_pack_start (GTK_BOX (hbox), combo, FALSE, TRUE, 0);
-    gtk_widget_set_tooltip_text(combo,
-                                _("Enter the words to search (separated by a space or '+')"));
+    gtk_widget_set_tooltip_text (combo,
+                                 _("Enter the words to search (separated by a space or ‘+’)"));
     /* History List. */
     Load_Cddb_Search_String_List (priv->search_string_model, MISC_COMBO_TEXT);
 
@@ -2998,7 +3006,7 @@ create_cddb_dialog (EtCDDBDialog *self)
             /* Translators: This option is for the previous 'search in' option.
              * For instance, translate this as "Search in:" "Rock". */
             { N_("Rock"),
-              N_("included: funk, soul, rap, pop, industrial, metal, etc.") },
+              N_("includes: funk, soul, rap, pop, industrial, metal and so on") },
             /* Translators: This option is for the previous 'search in' option.
              * For instance, translate this as "Search in:" "Soundtrack". */
             { N_("Soundtrack"), N_("movies, shows") }
@@ -3061,7 +3069,8 @@ create_cddb_dialog (EtCDDBDialog *self)
     gtk_container_add(GTK_CONTAINER(priv->display_red_lines_toggle),Icon);
     gtk_box_pack_start(GTK_BOX(hbox),priv->display_red_lines_toggle,FALSE,FALSE,0);
     gtk_button_set_relief(GTK_BUTTON(priv->display_red_lines_toggle),GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text(priv->display_red_lines_toggle,_("Show only red lines (or show all lines) in the 'Artist / Album' list"));
+    gtk_widget_set_tooltip_text (priv->display_red_lines_toggle,
+                                 _("Show only red lines (or show all lines) in the ‘Artist / Album’ list"));
     g_signal_connect_swapped (priv->display_red_lines_toggle, "toggled",
                               G_CALLBACK (Cddb_Display_Red_Lines_In_Result),
                               self);
@@ -3216,9 +3225,10 @@ create_cddb_dialog (EtCDDBDialog *self)
     g_signal_connect_swapped (priv->track_list_view, "button-press-event",
                               G_CALLBACK (on_track_list_button_press_event),
                               self);
-    gtk_widget_set_tooltip_text(priv->track_list_view, _("Select lines to 'apply' to "
+    gtk_widget_set_tooltip_text (priv->track_list_view,
+      _("Select lines from which tags will be applied to "
         "your files list. All lines will be processed if no line is selected.\n"
-        "You can also reorder lines in this list before using 'apply' button."));
+        "You can also reorder lines in this list before using the ‘apply’ button"));
 
     /*
      * Apply results to fields...
@@ -3304,7 +3314,8 @@ create_cddb_dialog (EtCDDBDialog *self)
     g_signal_connect_swapped (priv->apply_button, "clicked",
                               G_CALLBACK (Cddb_Set_Track_Infos_To_File_List),
                               self);
-    gtk_widget_set_tooltip_text(priv->apply_button,_("Load the selected lines or all lines (if no line selected)."));
+    gtk_widget_set_tooltip_text (priv->apply_button,
+                                 _("Load the selected lines or all lines (if no lines are selected)"));
 
     /*
      * Status bar
@@ -3419,8 +3430,8 @@ Cddb_Read_Line (FILE **file, gchar **cddb_out)
 
         if ((*file = fopen (file_path, "r")) == 0)
         {
-            Log_Print (LOG_ERROR, _("Cannot open file '%s' (%s)"), file_path,
-                       g_strerror(errno));
+            Log_Print (LOG_ERROR, _("Cannot open file ‘%s’: %s"), file_path,
+                       g_strerror (errno));
             g_free (file_path);
             return -1; // Error!
         }
@@ -3795,7 +3806,7 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
             g_free(proxy_auth);
             //g_print("Request Cddb_Search_Album_From_Selected_Files : '%s'\n", cddb_in);
 
-            msg = g_strdup_printf(_("Sending request (CddbId: %s, #tracks: %d, Disc length: %d)…"),
+            msg = g_strdup_printf(_("Sending request (disc ID: %s, #tracks: %d, Disc length: %d)…"),
                                 cddb_discid,num_tracks,disc_length);
             gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,msg);
             g_free(msg);
@@ -3805,7 +3816,8 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
 
             if ( (bytes_written=send(socket_id,cddb_in,strlen(cddb_in)+1,0)) < 0)
             {
-                Log_Print(LOG_ERROR,_("Cannot send the request (%s)"),g_strerror(errno));
+                Log_Print (LOG_ERROR, _("Cannot send the request ‘%s’"),
+                           g_strerror (errno));
                 Cddb_Close_Connection (self, socket_id);
                 g_free (cddb_in);
                 g_free (cddb_server_name);
@@ -3843,7 +3855,8 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
             file = NULL;
             if (Cddb_Read_Http_Header(&file,&cddb_out) <= 0 || !cddb_out) // Order is important!
             {
-                msg = g_strdup_printf(_("The server returned a bad response: %s"),cddb_out);
+                msg = g_strdup_printf (_("The server returned a bad response ‘%s’"),
+                                       cddb_out);
                 gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,msg);
                 Log_Print(LOG_ERROR,"%s",msg);
                 g_free(msg);
@@ -3956,7 +3969,10 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
 
     }
 
-    msg = g_strdup_printf(ngettext("DiscID '%s' gave one matching album","DiscID '%s' gave %d matching albums",g_list_length(priv->album_list)),cddb_discid,g_list_length(priv->album_list));
+    msg = g_strdup_printf (ngettext ("DiscID ‘%s’ gave one matching album",
+                                     "DiscID ‘%s’ gave %d matching albums",
+                                     g_list_length (priv->album_list)),
+                           cddb_discid, g_list_length (priv->album_list));
     gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,msg);
     g_free(msg);
 

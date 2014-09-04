@@ -88,13 +88,13 @@
                     <object class="GtkCheckButton" id="browser_subdirs_check">
                         <property name="label" translatable="yes">Browse subdirectories</property>
                         <property name="margin-left">12</property>
-                        <property name="tooltip-text" translatable="yes">Whether to search subdirectories for audio files when reading a path in the browser</property>
+                        <property name="tooltip-text" translatable="yes">Whether to search subdirectories for audio files when reading a directory in the browser</property>
                         <property name="visible">True</property>
                     </object>
                 </child>
                 <child>
                     <object class="GtkCheckButton" id="browser_expand_subdirs_check">
-                        <property name="label" translatable="yes">Expand the subdirectories of the selected path</property>
+                        <property name="label" translatable="yes">Expand the subdirectories of the selected directory</property>
                         <property name="margin-left">12</property>
                         <property name="tooltip-text" translatable="yes">Whether to expand the subdirectories of a node in the directory browser when selecting it</property>
                         <property name="visible">True</property>
@@ -104,7 +104,7 @@
                     <object class="GtkCheckButton" id="browser_hidden_check">
                         <property name="label" translatable="yes">Search hidden directories</property>
                         <property name="margin-left">12</property>
-                        <property name="tooltip-text" translatable="yes">Whether to show hidden directories when showing a path in the browser</property>
+                        <property name="tooltip-text" translatable="yes">Whether to show hidden directories when showing a directory in the browser</property>
                         <property name="visible">True</property>
                     </object>
                 </child>
@@ -628,8 +628,8 @@
                                     <item id="id3v2.4">ID3v2.4</item>
                                 </items>
                                 <property name="tooltip-text" translatable="yes">Select the ID3v2 tag version to write:
-        • ID3v2.3 is written using id3lib,
-        • ID3v2.4 is written using libid3tag (recommended)</property>
+ • ID3v2.3 is written using id3lib,
+ • ID3v2.4 is written using libid3tag (recommended)</property>
                                 <property name="visible">True</property>
                             </object>
                             <packing>
@@ -762,7 +762,7 @@
                         </child>
                         <child>
                             <object class="GtkCheckButton" id="id3_v2_crc32_check">
-                                <property name="label" translatable="yes">Use CRC32</property>
+                                <property name="label" translatable="yes">Use CRC-32</property>
                                 <property name="tooltip-text" translatable="yes">Whether to embed a CRC-32 checksum of the audio file data in ID3v2 tags</property>
                                 <property name="visible">True</property>
                             </object>
@@ -1049,7 +1049,7 @@
                 </child>
                 <child>
                     <object class="GtkCheckButton" id="crc32_default_check">
-                        <property name="label" translatable="yes">Use CRC32 as the default comment (for files with ID3 tags only)</property>
+                        <property name="label" translatable="yes">Use CRC-32 as the default comment (for files with ID3 tags only)</property>
                         <property name="margin-left">12</property>
                         <property name="tooltip-text" translatable="yes">Whether to use the CRC-32 of the audio file data as the default comment, for files with ID3 tags only</property>
                         <property name="visible">True</property>
@@ -1177,7 +1177,7 @@
                                 <property name="has-entry">True</property>
                                 <property name="visible">True</property>
                                 <items>
-                                    <item translatable="yes" id="host_musicbrainz">freedb.musicbrainz.org</item>
+                                    <item id="host_musicbrainz">freedb.musicbrainz.org</item>
                                 </items>
                             </object>
                             <packing>
@@ -1256,8 +1256,8 @@
                                 <property name="has-entry">True</property>
                                 <property name="visible">True</property>
                                 <items>
-                                    <item translatable="yes" id="host_freedb">www.freedb.org</item>
-                                    <item translatable="yes" id="host_gnudb">www.gnudb.org</item>
+                                    <item id="host_freedb">www.freedb.org</item>
+                                    <item id="host_gnudb">www.gnudb.org</item>
                                 </items>
                             </object>
                             <packing>

@@ -139,7 +139,7 @@
             <section>
                 <item>
                     <attribute name="action">win.file-artist-view</attribute>
-                    <attribute name="label" translatable="yes">Tree Browser</attribute>
+                    <attribute name="label" translatable="yes">Directory Tree</attribute>
                     <attribute name="target">file</attribute>
                 </item>
                 <item>

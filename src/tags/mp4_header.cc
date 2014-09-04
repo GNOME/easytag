@@ -42,7 +42,7 @@ gboolean Mp4_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
     {
         gchar *filename_utf8 = filename_to_display (filename);
         const GError *error = stream.getError ();
-        Log_Print (LOG_ERROR, _("Error while opening file: '%s' (%s)."),
+        Log_Print (LOG_ERROR, _("Error while opening file ‘%s’: %s"),
                    filename_utf8, error->message);
         g_free (filename_utf8);
         return FALSE;
@@ -55,8 +55,8 @@ gboolean Mp4_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
     if (!mp4file.isOpen ())
     {
         gchar *filename_utf8 = filename_to_display (filename);
-        Log_Print (LOG_ERROR, _("Error while opening file: '%s' (%s)."),
-                   filename_utf8,_("MP4 format invalid"));
+        Log_Print (LOG_ERROR, _("Error while opening file ‘%s’: %s"),
+                   filename_utf8, _("MP4 format invalid"));
         g_free (filename_utf8);
         return FALSE;
     }
@@ -66,7 +66,7 @@ gboolean Mp4_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
     if (properties == NULL)
     {
         gchar *filename_utf8 = filename_to_display (filename);
-        Log_Print (LOG_ERROR, _("Error reading properties from file: '%s'"),
+        Log_Print (LOG_ERROR, _("Error reading properties from file ‘%s’"),
                    filename_utf8);
         g_free (filename_utf8);
         return FALSE;

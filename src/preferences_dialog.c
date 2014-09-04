@@ -1128,9 +1128,9 @@ Check_DefaultPathToMp3 (EtPreferencesDialog *self)
                                                 GTK_MESSAGE_ERROR,
                                                 GTK_BUTTONS_CLOSE,
                                                 "%s",
-                                                _("The selected path for 'Default path to files' is invalid"));
+                                                _("The selected default path is invalid"));
             gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (msgdialog),
-                                                      _("Path: '%s'\nError: %s"),
+                                                      _("Path: ‘%s’\nError: %s"),
                                                       path_utf8,
                                                       g_strerror (errno));
             gtk_window_set_title (GTK_WINDOW (msgdialog),

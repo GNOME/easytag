@@ -200,7 +200,7 @@ Picture_Type_String (EtPictureType type)
         case ET_PICTURE_TYPE_OTHER:
             return _("Other");
         case ET_PICTURE_TYPE_FILE_ICON:
-            return _("32x32 pixel PNG file icon");
+            return _("32×32 pixel PNG file icon");
         case ET_PICTURE_TYPE_OTHER_FILE_ICON:
             return _("Other file icon");
         case ET_PICTURE_TYPE_FRONT_COVER:
@@ -210,7 +210,7 @@ Picture_Type_String (EtPictureType type)
         case ET_PICTURE_TYPE_LEAFLET_PAGE:
             return _("Leaflet page");
         case ET_PICTURE_TYPE_MEDIA:
-            return _("Media (e.g. label side of CD)");
+            return _("Media (such as label side of CD)");
         case ET_PICTURE_TYPE_LEAD_ARTIST_LEAD_PERFORMER_SOLOIST:
             return _("Lead artist/lead performer/soloist");
         case ET_PICTURE_TYPE_ARTIST_PERFORMER:

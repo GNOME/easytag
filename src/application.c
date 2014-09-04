@@ -178,14 +178,20 @@ common_init (EtApplication *self)
                PACKAGE_VERSION, getpid ());
 #ifdef G_OS_WIN32
     if (g_getenv("EASYTAGLANG"))
-        Log_Print(LOG_OK,_("Variable EASYTAGLANG defined. Setting locale: '%s'"),g_getenv("EASYTAGLANG"));
+    {
+        Log_Print (LOG_OK,
+                   _("Variable EASYTAGLANG defined, setting locale ‘%s’"),
+                   g_getenv ("EASYTAGLANG"));
+    }
     else
-        Log_Print(LOG_OK,_("Setting locale: '%s'"),g_getenv("LANG"));
+    {
+        Log_Print (LOG_OK, _("Setting locale: ‘%s’"), g_getenv ("LANG"));
+    }
 #endif /* G_OS_WIN32 */
 
     if (get_locale ())
         Log_Print (LOG_OK,
-                   _("System locale is '%s', using '%s'"),
+                   _("System locale is ‘%s’, using ‘%s’"),
                    get_locale (), get_encoding_from_locale (get_locale ()));
 
     if (settings_warning)
@@ -424,7 +430,7 @@ et_application_open (GApplication *self,
     {
         if (activated)
         {
-            Log_Print (LOG_ERROR, _("Error while querying information for file '%s': %s"),
+            Log_Print (LOG_ERROR, _("Error while querying information for file ‘%s’: %s"),
                        path_utf8, err->message);
 
         }
@@ -488,7 +494,7 @@ et_application_open (GApplication *self,
             }
             /* Fall through on error. */
         default:
-            Log_Print (LOG_WARNING, _("Cannot open path '%s'"), path_utf8);
+            Log_Print (LOG_WARNING, _("Cannot open path ‘%s’"), path_utf8);
             g_free (path);
             g_free (path_utf8);
             return;

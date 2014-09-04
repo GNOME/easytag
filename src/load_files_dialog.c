@@ -218,7 +218,7 @@ set_load_button_sensitivity (GtkWidget *button, GtkWidget *chooser)
 
         if (!info)
         {
-            Log_Print (LOG_ERROR, _("Cannot retrieve file info (%s)"),
+            Log_Print (LOG_ERROR, _("Cannot query file information ‘%s’"),
                        error->message);
             g_error_free (error);
             return;
@@ -258,7 +258,7 @@ Load_File_Content (G_GNUC_UNUSED GtkButton *button, gpointer user_data)
 
     if (!istream)
     {
-        Log_Print (LOG_ERROR, _("Can't open file '%s' (%s)"), filename_utf8,
+        Log_Print (LOG_ERROR, _("Cannot open file ‘%s’: %s"), filename_utf8,
                    error->message);
         g_error_free (error);
         g_object_unref (file);
@@ -288,7 +288,7 @@ Load_File_Content (G_GNUC_UNUSED GtkButton *button, gpointer user_data)
 
     if (error)
     {
-        Log_Print (LOG_ERROR, _("Error reading file (%s)"), error->message);
+        Log_Print (LOG_ERROR, _("Error reading file ‘%s’"), error->message);
         g_error_free (error);
     }
 
@@ -640,11 +640,11 @@ create_load_file_content_view_popup (EtLoadFilesDialog *self)
     MenuItem = gtk_menu_item_new();
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
 
-    MenuItem = gtk_menu_item_new_with_label(_("Move up this line"));
+    MenuItem = gtk_menu_item_new_with_label (_("Move this line up"));
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
     g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Move_Up),G_OBJECT(list));
 
-    MenuItem = gtk_menu_item_new_with_label(_("Move down this line"));
+    MenuItem = gtk_menu_item_new_with_label (_("Move this line down"));
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
     g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Move_Down),G_OBJECT(list));
 
@@ -743,11 +743,11 @@ create_load_file_name_view_popup (EtLoadFilesDialog *self)
     MenuItem = gtk_menu_item_new();
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
 
-    MenuItem = gtk_menu_item_new_with_label (_("Move up this line"));
+    MenuItem = gtk_menu_item_new_with_label (_("Move this line up"));
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
     g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Move_Up),G_OBJECT(list));
 
-    MenuItem = gtk_menu_item_new_with_label (_("Move down this line"));
+    MenuItem = gtk_menu_item_new_with_label (_("Move this line down"));
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
     g_signal_connect_swapped(G_OBJECT(MenuItem),"activate", G_CALLBACK(Load_Filename_List_Move_Down),G_OBJECT(list));
 

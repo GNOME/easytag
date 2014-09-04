@@ -299,8 +299,13 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc, File_Tag *FileTag,
     if ( (string = vorbis_comment_query(vc,"DATE",0)) != NULL && g_utf8_strlen(string, -1) > 0 )
     {
         FileTag->year = g_strdup(string);
-        if (g_utf8_strlen(FileTag->year, -1) > 4)
-            Log_Print(LOG_WARNING,_("The year value '%s' seems to be invalid in file '%s'. The information will be lost while saving tag."),FileTag->year,filename_utf8);
+
+        if (g_utf8_strlen (FileTag->year, -1) > 4)
+        {
+            Log_Print (LOG_WARNING,
+                       _("The year value ‘%s’ seems to be invalid in file ‘%s’. The information will be lost when saving"),
+                       FileTag->year, filename_utf8);
+        }
     }
 
     /*************************
@@ -702,7 +707,9 @@ ogg_tag_read_file_tag (gchar *filename, File_Tag *FileTag, GError **error)
                     goto err;
                 }
 
-                Log_Print(LOG_ERROR,_("Warning: The Ogg Vorbis file '%s' contains an ID3v2 tag."),filename_utf8);
+                Log_Print (LOG_ERROR,
+                           _("The Ogg Vorbis file ‘%s’ contains an ID3v2 tag"),
+                           filename_utf8);
             }
             else if (!g_seekable_seek (G_SEEKABLE (istream), 0L, G_SEEK_SET,
                                        NULL, error))
@@ -877,7 +884,9 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
                     goto err;
                 }
 
-                Log_Print(LOG_ERROR,_("Warning: The Ogg Vorbis file '%s' contains an ID3v2 tag."),filename_utf8);
+                Log_Print (LOG_ERROR,
+                           _("The Ogg Vorbis file ‘%s’ contains an ID3v2 tag"),
+                           filename_utf8);
             }
             else
             {
@@ -1035,7 +1044,7 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
                 if (!gdk_pixbuf_loader_write (loader, pic->data, pic->size,
                                               &error))
                 {
-                    Log_Print (LOG_ERROR, _("Error with 'loader_write': %s"),
+                    Log_Print (LOG_ERROR, _("Error parsing image data ‘%s’"),
                                error->message);
                     g_error_free (error);
                     g_object_unref (loader);
@@ -1050,7 +1059,7 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
                     if (!gdk_pixbuf_loader_close (loader, &error))
                     {
                         Log_Print (LOG_ERROR,
-                                   _("Error with 'loader_close': %s"),
+                                   _("Error parsing image data ‘%s’"),
                                    error->message);
                         g_error_free (error);
                         g_object_unref (loader);
@@ -1166,7 +1175,7 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
     else
     {
         basename_utf8 = g_path_get_basename(filename_utf8);
-        Log_Print(LOG_OK,_("Written tag of '%s'"),basename_utf8);
+        Log_Print (LOG_OK, _("Wrote tag of ‘%s’"), basename_utf8);
         g_free (basename_utf8);
 
         vcedit_clear(state);

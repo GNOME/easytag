@@ -183,9 +183,14 @@ on_apply_to_selection (GObject *object,
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
-            msg = g_strdup_printf(_("Selected files tagged with title '%s'."),string_to_set);
+        {
+            msg = g_strdup_printf (_("Selected files tagged with title ‘%s’"),
+                                   string_to_set);
+        }
         else
-            msg = g_strdup(_("Removed title from selected files."));
+        {
+            msg = g_strdup (_("Removed title from selected files"));
+        }
     }
     else if (object == G_OBJECT (priv->artist_entry))
     {
@@ -200,9 +205,14 @@ on_apply_to_selection (GObject *object,
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
-            msg = g_strdup_printf(_("Selected files tagged with artist '%s'."),string_to_set);
+        {
+            msg = g_strdup_printf (_("Selected files tagged with artist ‘%s’"),
+                                   string_to_set);
+        }
         else
-            msg = g_strdup(_("Removed artist from selected files."));
+        {
+            msg = g_strdup (_("Removed artist from selected files"));
+        }
     }
     else if (object == G_OBJECT (priv->album_artist_entry))
     {
@@ -216,9 +226,14 @@ on_apply_to_selection (GObject *object,
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
-            msg = g_strdup_printf(_("Selected files tagged with album artist '%s'."),string_to_set);
+        {
+            msg = g_strdup_printf (_("Selected files tagged with album artist ‘%s’"),
+                                   string_to_set);
+        }
         else
-            msg = g_strdup(_("Removed album artist from selected files."));
+        {
+            msg = g_strdup (_("Removed album artist from selected files"));
+        }
     }
     else if (object == G_OBJECT (priv->album_entry))
     {
@@ -233,9 +248,14 @@ on_apply_to_selection (GObject *object,
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
-            msg = g_strdup_printf(_("Selected files tagged with album '%s'."),string_to_set);
+        {
+            msg = g_strdup_printf (_("Selected files tagged with album ‘%s’"),
+                                   string_to_set);
+        }
         else
-            msg = g_strdup(_("Removed album name from selected files."));
+        {
+            msg = g_strdup (_("Removed album name from selected files"));
+        }
     }
     else if (object == G_OBJECT (priv->disc_number_entry))
     {
@@ -272,17 +292,17 @@ on_apply_to_selection (GObject *object,
             if (string_to_set1 != NULL
                 && g_utf8_strlen (string_to_set1, -1) > 0)
             {
-                msg = g_strdup_printf (_("Selected files tagged with disc number '%s/%s'."),
+                msg = g_strdup_printf (_("Selected files tagged with disc number ‘%s/%s’"),
                                        string_to_set, string_to_set1);
             }
             else
             {
-                msg = g_strdup_printf (_("Selected files tagged with disc number like 'xx'."));
+                msg = g_strdup_printf (_("Selected files tagged with disc number like ‘xx’"));
             }
         }
         else
         {
-            msg = g_strdup (_("Removed disc number from selected files."));
+            msg = g_strdup (_("Removed disc number from selected files"));
         }
     }
     else if (object == G_OBJECT (priv->year_entry))
@@ -298,9 +318,14 @@ on_apply_to_selection (GObject *object,
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
-            msg = g_strdup_printf(_("Selected files tagged with year '%s'."),string_to_set);
+        {
+            msg = g_strdup_printf (_("Selected files tagged with year ‘%s’"),
+                                   string_to_set);
+        }
         else
-            msg = g_strdup(_("Removed year from selected files."));
+        {
+            msg = g_strdup (_("Removed year from selected files"));
+        }
     }
     else if (object == G_OBJECT (priv->track_total_entry))
     {
@@ -326,14 +351,16 @@ on_apply_to_selection (GObject *object,
         {
             if ( string_to_set1 != NULL && g_utf8_strlen(string_to_set1, -1)>0 ) //&& atoi(string_to_set1)>0 )
             {
-                msg = g_strdup_printf(_("Selected files tagged with track like 'xx/%s'."),string_to_set1);
+                msg = g_strdup_printf (_("Selected files tagged with track like ‘xx/%s’"),
+                                       string_to_set1);
             }else
             {
-                msg = g_strdup_printf(_("Selected files tagged with track like 'xx'."));
+                msg = g_strdup_printf (_("Selected files tagged with track like ‘xx’"));
             }
-        }else
+        }
+        else
         {
-            msg = g_strdup(_("Removed track number from selected files."));
+            msg = g_strdup (_("Removed track number from selected files"));
         }
     }
     else if (object == G_OBJECT (priv->track_sequence_button))
@@ -391,7 +418,7 @@ on_apply_to_selection (GObject *object,
         g_free(path);
         g_free(path1);
         //msg = g_strdup_printf(_("All %d tracks numbered sequentially."), ETCore->ETFileSelectionList_Length);
-        msg = g_strdup_printf(_("Selected tracks numbered sequentially."));
+        msg = g_strdup_printf (_("Selected tracks numbered sequentially"));
     }
     else if (object==G_OBJECT(priv->track_number_button))
     {
@@ -418,10 +445,12 @@ on_apply_to_selection (GObject *object,
 
         if ( string_to_set1 != NULL && g_utf8_strlen(string_to_set1, -1)>0 ) //&& atoi(string_to_set1)>0 )
         {
-            msg = g_strdup_printf(_("Selected files tagged with track like 'xx/%s'."),string_to_set1);
-        }else
+            msg = g_strdup_printf (_("Selected files tagged with track like ‘xx/%s’"),
+                                   string_to_set1);
+        }
+        else
         {
-            msg = g_strdup(_("Removed track number from selected files."));
+            msg = g_strdup (_("Removed track number from selected files"));
         }
     }
     else if (object == G_OBJECT (gtk_bin_get_child (GTK_BIN (priv->genre_combo_entry))))
@@ -437,9 +466,14 @@ on_apply_to_selection (GObject *object,
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
-            msg = g_strdup_printf(_("Selected files tagged with genre '%s'."),string_to_set);
+        {
+            msg = g_strdup_printf (_("Selected files tagged with genre ‘%s’"),
+                                   string_to_set);
+        }
         else
-            msg = g_strdup(_("Removed genre from selected files."));
+        {
+            msg = g_strdup (_("Removed genre from selected files"));
+        }
     }
     else if (object == G_OBJECT (priv->comment_entry))
     {
@@ -461,9 +495,14 @@ on_apply_to_selection (GObject *object,
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
-            msg = g_strdup_printf(_("Selected files tagged with comment '%s'."),string_to_set);
+        {
+            msg = g_strdup_printf (_("Selected files tagged with comment ‘%s’"),
+                                   string_to_set);
+        }
         else
-            msg = g_strdup(_("Removed comment from selected files."));
+        {
+            msg = g_strdup (_("Removed comment from selected files"));
+        }
     }
     else if (object == G_OBJECT (priv->composer_entry))
     {
@@ -477,9 +516,14 @@ on_apply_to_selection (GObject *object,
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
-            msg = g_strdup_printf(_("Selected files tagged with composer '%s'."),string_to_set);
+        {
+            msg = g_strdup_printf (_("Selected files tagged with composer ‘%s’"),
+                                   string_to_set);
+        }
         else
-            msg = g_strdup(_("Removed composer from selected files."));
+        {
+            msg = g_strdup (_("Removed composer from selected files"));
+        }
     }
     else if (object == G_OBJECT (priv->orig_artist_entry))
     {
@@ -494,9 +538,14 @@ on_apply_to_selection (GObject *object,
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
-            msg = g_strdup_printf(_("Selected files tagged with original artist '%s'."),string_to_set);
+        {
+            msg = g_strdup_printf (_("Selected files tagged with original artist ‘%s’"),
+                                   string_to_set);
+        }
         else
-            msg = g_strdup(_("Removed original artist from selected files."));
+        {
+            msg = g_strdup (_("Removed original artist from selected files"));
+        }
     }
     else if (object == G_OBJECT (priv->copyright_entry))
     {
@@ -511,9 +560,14 @@ on_apply_to_selection (GObject *object,
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
-            msg = g_strdup_printf(_("Selected files tagged with copyright '%s'."),string_to_set);
+        {
+            msg = g_strdup_printf (_("Selected files tagged with copyright ‘%s’"),
+                                   string_to_set);
+        }
         else
-            msg = g_strdup(_("Removed copyright from selected files."));
+        {
+            msg = g_strdup (_("Removed copyright from selected files"));
+        }
     }
     else if (object == G_OBJECT (priv->url_entry))
     {
@@ -528,9 +582,14 @@ on_apply_to_selection (GObject *object,
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
-            msg = g_strdup_printf(_("Selected files tagged with URL '%s'."),string_to_set);
+        {
+            msg = g_strdup_printf (_("Selected files tagged with URL ‘%s’"),
+                                   string_to_set);
+        }
         else
-            msg = g_strdup(_("Removed URL from selected files."));
+        {
+            msg = g_strdup (_("Removed URL from selected files"));
+        }
     }
     else if (object == G_OBJECT (priv->encoded_by_entry))
     {
@@ -545,9 +604,14 @@ on_apply_to_selection (GObject *object,
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
-            msg = g_strdup_printf(_("Selected files tagged with encoder name '%s'."),string_to_set);
+        {
+            msg = g_strdup_printf (_("Selected files tagged with encoder name ‘%s’"),
+                                   string_to_set);
+        }
         else
-            msg = g_strdup(_("Removed encoder name from selected files."));
+        {
+            msg = g_strdup (_("Removed encoder name from selected files"));
+        }
     }
     else if (object == G_OBJECT (priv->apply_image_toolitem))
     {
@@ -579,10 +643,15 @@ on_apply_to_selection (GObject *object,
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (res)
-            msg = g_strdup (_("Selected files tagged with images."));
+        {
+            msg = g_strdup (_("Selected files tagged with images"));
+        }
         else
-            msg = g_strdup (_("Removed images from selected files."));
-        Picture_Free(res);
+        {
+            msg = g_strdup (_("Removed images from selected files"));
+        }
+
+        Picture_Free (res);
     }
 
     g_list_free(etfilelist);
@@ -745,13 +814,13 @@ on_entry_populate_popup (GtkEntry *entry,
     menu_item = gtk_menu_item_new ();
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
 
-    menu_item = gtk_menu_item_new_with_label (_("Convert '_' and '%20' to spaces"));
+    menu_item = gtk_menu_item_new_with_label (_("Convert ‘_’ and ‘%20’ to spaces"));
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     g_signal_connect_swapped (menu_item, "activate",
                               G_CALLBACK (Convert_P20_And_Underscore_Into_Spaces),
                               G_OBJECT (entry));
 
-    menu_item = gtk_menu_item_new_with_label (_("Convert ' ' to '_'"));
+    menu_item = gtk_menu_item_new_with_label (_("Convert ‘ ’ to ‘_’"));
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     g_signal_connect_swapped (menu_item, "activate",
                               G_CALLBACK (Convert_Space_Into_Underscore),
@@ -1183,8 +1252,9 @@ PictureEntry_Update (EtTagArea *self,
 
             if (!gdk_pixbuf_loader_close(loader, &error))
             {
-                Log_Print(LOG_ERROR,_("Error with 'loader_close': %s"), error->message);
-                g_error_free(error);
+                Log_Print (LOG_ERROR, _("Error parsing image data ‘%s’"),
+                           error->message);
+                g_error_free (error);
             }
 
             selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->picture_entry_view));
@@ -1241,7 +1311,7 @@ PictureEntry_Update (EtTagArea *self,
                 g_object_unref(loader);
                 
                 Log_Print (LOG_ERROR, "%s",
-                           _("Cannot display the image because not enough data has been read to determine how to create the image buffer."));
+                           _("Cannot display the image because not enough data has been read to determine how to create the image buffer"));
 
                 msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
                                                    GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -1256,10 +1326,12 @@ PictureEntry_Update (EtTagArea *self,
                 gtk_dialog_run(GTK_DIALOG(msgdialog));
                 gtk_widget_destroy(msgdialog);
             }
-        }else
+        }
+        else
         {
-            Log_Print(LOG_ERROR,_("Error with 'loader_write': %s"), error->message);
-            g_error_free(error);
+            Log_Print (LOG_ERROR, _("Error parsing image data ‘%s’"),
+                       error->message);
+            g_error_free (error);
         }
     }
 
@@ -1294,7 +1366,7 @@ load_picture_from_file (GFile *file,
 
     if (!info)
     {
-        Log_Print (LOG_ERROR, _("Image file not loaded: %s"), error->message);
+        Log_Print (LOG_ERROR, _("Image file not loaded ‘%s’"), error->message);
         g_error_free (error);
         return;
     }
@@ -1311,7 +1383,7 @@ load_picture_from_file (GFile *file,
                                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                             GTK_MESSAGE_ERROR,
                                             GTK_BUTTONS_CLOSE,
-                                            _("Cannot open file: '%s'"),
+                                            _("Cannot open file ‘%s’"),
                                             filename_utf8);
         gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG(msgdialog),
                                                   "%s", error->message);
@@ -1319,7 +1391,7 @@ load_picture_from_file (GFile *file,
         gtk_dialog_run (GTK_DIALOG (msgdialog));
         gtk_widget_destroy (msgdialog);
 
-        Log_Print (LOG_ERROR, _("Image file not loaded: %s"),
+        Log_Print (LOG_ERROR, _("Image file not loaded ‘%s’"),
                    error->message);
         g_error_free (error);
         return;
@@ -1826,7 +1898,7 @@ on_picture_save_button_clicked (GObject *object,
 
             if (!et_picture_save_file_data (pic, file, &error))
             {
-                 Log_Print (LOG_ERROR, _("Image file not saved: %s"),
+                 Log_Print (LOG_ERROR, _("Image file not saved ‘%s’"),
                             error->message);
                  g_error_free (error);
             }
@@ -2196,7 +2268,7 @@ create_tag_area (EtTagArea *self)
                       G_CALLBACK (on_apply_to_selection), self);
     gtk_widget_set_tooltip_text (priv->track_sequence_button,
                                  _("Number selected tracks sequentially. "
-                                   "Starts at 01 in each subdirectory."));
+                                   "Starts at 01 in each subdirectory"));
     /* Pixmap into priv->track_sequence_button button. */
     image = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/sequence-track.png");
     gtk_container_add (GTK_CONTAINER (priv->track_sequence_button), image);
@@ -2244,7 +2316,7 @@ create_tag_area (EtTagArea *self)
     g_signal_connect (priv->track_number_button, "clicked",
                       G_CALLBACK (on_apply_to_selection), self);
     gtk_widget_set_tooltip_text (priv->track_number_button,
-                                 _("Set the number of files, in the same directory of the displayed file, to the selected tracks."));
+                                 _("Set the number of files, in the same directory of the displayed file, to the selected tracks"));
     /* Pixmap into priv->track_number_button button. */
     image = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/sequence-track.png");
     gtk_container_add (GTK_CONTAINER (priv->track_number_button), image);

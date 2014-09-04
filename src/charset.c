@@ -511,8 +511,10 @@ filename_to_display (const gchar *string)
         if (!ret)
         {
             gchar *escaped_str = g_strescape(string, NULL);
-            Log_Print(LOG_ERROR,_("The filename '%s' couldn't be converted into UTF-8 (%s)."),
-                        escaped_str, error && error->message ? error->message : _("Invalid UTF-8"));
+            Log_Print (LOG_ERROR,
+                       _("The filename ‘%s’ could not be converted into UTF-8: %s"),
+                        escaped_str,
+                        error && error->message ? error->message : _("Invalid UTF-8"));
             g_clear_error(&error);
 
             ret = escaped_str;
@@ -622,8 +624,10 @@ gchar *filename_from_display (const gchar *string)
     {
         // Conversion KO!
         gchar *escaped_str = g_strescape(string, NULL);
-        Log_Print(LOG_ERROR,_("The UTF-8 string '%s' couldn't be converted into filename encoding (%s)."),
-                    escaped_str, error && error->message ? error->message : _("Invalid UTF-8"));
+        Log_Print (LOG_ERROR,
+                   _("The UTF-8 string ‘%s’ could not be converted into filename encoding: %s"),
+                    escaped_str,
+                    error && error->message ? error->message : _("Invalid UTF-8"));
         g_clear_error(&error);
 
         ret = escaped_str;
@@ -685,8 +689,10 @@ gchar *Try_To_Validate_Utf8_String (const gchar *string)
         if (!ret)
         {
             gchar *escaped_str = g_strescape(string, NULL);
-            Log_Print(LOG_ERROR,_("The string '%s' couldn't be converted into UTF-8 (%s)."),
-                        escaped_str, error && error->message ? error->message : _("Invalid UTF-8"));
+            Log_Print (LOG_ERROR,
+                       _("The string ‘%s’ could not be converted into UTF-8: %s"),
+                        escaped_str,
+                        error && error->message ? error->message : _("Invalid UTF-8"));
             g_clear_error(&error);
 
             ret = escaped_str;

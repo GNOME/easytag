@@ -550,7 +550,7 @@ et_browser_set_current_path_default (EtBrowser *self)
                           g_variant_new_bytestring (priv->current_path));
 
     et_application_window_status_bar_message (ET_APPLICATION_WINDOW (MainWindow),
-                                              _("New default path selected for browser"),
+                                              _("New default directory selected for browser"),
                                               TRUE);
 }
 
@@ -3841,7 +3841,7 @@ create_browser (EtBrowser *self)
                               G_CALLBACK (File_Selection_Window_For_Directory),
                               gtk_bin_get_child (GTK_BIN (priv->entry_combo)));
     gtk_widget_set_tooltip_text (priv->button,
-                                 _("Select a directory to browse."));
+                                 _("Select a directory to browse"));
 
 
     /*
@@ -4541,9 +4541,10 @@ Rename_Directory (EtBrowser *self)
                                            GTK_DIALOG_MODAL  | GTK_DIALOG_DESTROY_WITH_PARENT,
                                            GTK_MESSAGE_ERROR,
                                            GTK_BUTTONS_CLOSE,
-                                           _("Could not convert '%s' into filename encoding."),
+                                           _("Could not convert ‘%s’ into filename encoding"),
                                            directory_new_name);
-        gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),_("Please use another name"));
+        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (msgdialog),
+                                                  _("Please use another name."));
         gtk_window_set_title(GTK_WINDOW(msgdialog),_("Directory Name Error"));
 
         gtk_dialog_run(GTK_DIALOG(msgdialog));
@@ -4613,7 +4614,8 @@ Rename_Directory (EtBrowser *self)
                                                GTK_BUTTONS_CLOSE,
                                                "%s",
                                                "Cannot rename file");
-            gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),_("The directory name '%s' already exists"),new_path_utf8);
+            gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (msgdialog),
+                                                      _("The directory name ‘%s’ already exists."),new_path_utf8);
             gtk_window_set_title(GTK_WINDOW(msgdialog),_("Rename File Error"));
 
             gtk_dialog_run(GTK_DIALOG(msgdialog));

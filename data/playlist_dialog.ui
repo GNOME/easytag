@@ -87,7 +87,7 @@
             <object class="GtkCheckButton" id="playlist_dos_check">
                 <property name="label" translatable="yes">Use DOS directory separator</property>
                 <property name="margin-left">12</property>
-                <property name="tooltip-text" translatable="yes">Whether to use backslash as path separator when generating playlists</property>
+                <property name="tooltip-text" translatable="yes">Whether to use backslash as directory separator when generating playlists</property>
                 <property name="visible">True</property>
             </object>
         </child>

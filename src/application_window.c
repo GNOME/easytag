@@ -333,7 +333,7 @@ delete_file (ET_File *ETFile, gboolean multiple_files, GError **error)
                                                GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                                GTK_MESSAGE_QUESTION,
                                                GTK_BUTTONS_NONE,
-                                               _("Do you really want to delete the file '%s'?"),
+                                               _("Do you really want to delete the file ‘%s’?"),
                                                basename_utf8);
             message_area = gtk_message_dialog_get_message_area(GTK_MESSAGE_DIALOG(msgdialog));
             msgdialog_check_button = gtk_check_button_new_with_label(_("Repeat action for the remaining files"));
@@ -350,7 +350,7 @@ delete_file (ET_File *ETFile, gboolean multiple_files, GError **error)
                                                GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                                GTK_MESSAGE_QUESTION,
                                                GTK_BUTTONS_NONE,
-                                               _("Do you really want to delete the file '%s'?"),
+                                               _("Do you really want to delete the file ‘%s’?"),
                                                basename_utf8);
             gtk_window_set_title(GTK_WINDOW(msgdialog),_("Delete File"));
             gtk_dialog_add_buttons (GTK_DIALOG (msgdialog), _("_Cancel"),
@@ -379,7 +379,7 @@ delete_file (ET_File *ETFile, gboolean multiple_files, GError **error)
 
             if (g_file_delete (cur_file, NULL, error))
             {
-                gchar *msg = g_strdup_printf(_("File '%s' deleted"), basename_utf8);
+                gchar *msg = g_strdup_printf(_("File ‘%s’ deleted"), basename_utf8);
                 et_application_window_status_bar_message (ET_APPLICATION_WINDOW (MainWindow),
                                                           msg, FALSE);
                 g_free(msg);
@@ -2596,7 +2596,7 @@ quit_confirmed (EtApplicationWindow *self)
     et_application_window_apply_changes (self);
     
     /* Quit EasyTAG. */
-    Log_Print (LOG_OK, _("EasyTAG: Normal exit."));
+    Log_Print (LOG_OK, _("Normal exit"));
 
     gtk_widget_destroy (GTK_WIDGET (self));
 }

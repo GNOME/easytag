@@ -525,7 +525,7 @@ write_button_clicked (EtPlaylistDialog *self)
                                                GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                                GTK_MESSAGE_ERROR,
                                                GTK_BUTTONS_CLOSE,
-                                               _("Cannot write playlist file '%s'"),
+                                               _("Cannot write playlist file ‘%s’"),
                                                playlist_name_utf8);
             gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (msgdialog),
                                                       "%s", error->message);
@@ -537,7 +537,8 @@ write_button_clicked (EtPlaylistDialog *self)
         }else
         {
             gchar *msg;
-            msg = g_strdup_printf(_("Written playlist file '%s'"),playlist_name_utf8);
+            msg = g_strdup_printf (_("Wrote playlist file ‘%s’"),
+                                   playlist_name_utf8);
             et_application_window_status_bar_message (ET_APPLICATION_WINDOW (MainWindow),
                                                       msg, TRUE);
             g_free (msg);

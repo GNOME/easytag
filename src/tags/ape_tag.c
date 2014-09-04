@@ -2,7 +2,7 @@
 /*
  *  EasyTAG - Tag editor for MP3, Ogg Vorbis and MPC files
  *  Copyright (C) 2001-2003  Jerome Couderc <easytag@gmail.com>
- *  Copyright (C) 2002-2003  Artur Polaczy�ski <artii@o2.pl>
+ *  Copyright (C) 2002-2003  Artur Polaczyñski <artii@o2.pl>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -58,7 +58,8 @@ gboolean Ape_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
     if ((file = fopen(filename, "rb")) == NULL)
     {
         gchar *filename_utf8 = filename_to_display(filename);
-        Log_Print(LOG_ERROR,_("Error while opening file: '%s' (%s)."),filename_utf8, g_strerror(errno));
+        Log_Print (LOG_ERROR, _("Error while opening file ‘%s’: %s"),
+                   filename_utf8, g_strerror (errno));
         g_free(filename_utf8);
         return FALSE;
     }

@@ -538,7 +538,7 @@ GList *ET_Add_File_To_File_List (gchar *filename)
             if (!ogg_tag_read_file_tag (filename, FileTag, &error))
             {
                 Log_Print (LOG_ERROR,
-                           _("Error reading tag from ogg file (%s)"),
+                           _("Error reading tag from Ogg file ‘%s’"),
                            error->message);
                 g_clear_error (&error);
             }
@@ -567,7 +567,7 @@ GList *ET_Add_File_To_File_List (gchar *filename)
             if (!et_opus_tag_read_file_tag (file, FileTag, &error))
             {
                 Log_Print (LOG_ERROR,
-                           _("Error reading tag from Opus file (%s)"),
+                           _("Error reading tag from Opus file ‘%s’"),
                            error->message);
                 g_clear_error (&error);
             }
@@ -575,6 +575,7 @@ GList *ET_Add_File_To_File_List (gchar *filename)
 #endif
         case UNKNOWN_TAG:
         default:
+            /* FIXME: Translatable string. */
             Log_Print(LOG_ERROR,"FileTag: Undefined tag type (%d) for file %s",ETFileDescription->TagType,filename_utf8);
             break;
     }
@@ -625,7 +626,8 @@ GList *ET_Add_File_To_File_List (gchar *filename)
         case OPUS_FILE:
             if (!et_opus_read_file_info (file, ETFileInfo, &error))
             {
-                Log_Print (LOG_ERROR, _("Error while querying information for file '%s': %s"),
+                Log_Print (LOG_ERROR,
+                           _("Error while querying information for file ‘%s’: %s"),
                            filename_utf8, error->message);
                 g_error_free (error);
             }
@@ -633,11 +635,13 @@ GList *ET_Add_File_To_File_List (gchar *filename)
 #endif
         case UNKNOWN_FILE:
         default:
+            /* FIXME: Translatable string. */
             Log_Print(LOG_ERROR,"ETFileInfo: Undefined file type (%d) for file %s",ETFileDescription->FileType,filename_utf8);
             /* To get at least the file size. */
             if (!et_core_read_file_info (filename, ETFileInfo, &error))
             {
-                Log_Print (LOG_ERROR, _("Error while querying information for file '%s': %s"),
+                Log_Print (LOG_ERROR,
+                           _("Error while querying information for file ‘%s’: %s"),
                            filename_utf8, error->message);
                 g_error_free (error);
             }
@@ -710,7 +714,8 @@ GList *ET_Add_File_To_File_List (gchar *filename)
     FileName = (File_Name *)ETFile->FileNameNew->data;
     if ( (FileName && FileName->saved==FALSE) || (FileTag && FileTag->saved==FALSE) )
     {
-        Log_Print(LOG_INFO,_("Automatic corrections applied for file '%s'."), filename_utf8);
+        Log_Print (LOG_INFO, _("Automatic corrections applied for file ‘%s’"),
+                   filename_utf8);
     }
 
     /* Add the item to the ArtistAlbum list (placed here to take advantage of previous changes) */
@@ -2855,7 +2860,7 @@ void ET_Display_File_Data_To_UI (ET_File *ETFile)
             break;
     }
 
-    msg = g_strdup_printf(_("File: '%s'"), cur_filename_utf8);
+    msg = g_strdup_printf (_("File: ‘%s’"), cur_filename_utf8);
     et_application_window_status_bar_message (window, msg, FALSE);
     g_free (msg);
 }
@@ -3044,7 +3049,7 @@ ET_Save_File_Name_From_UI (ET_File *ETFile, File_Name *FileName)
                                            GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                            GTK_MESSAGE_ERROR,
                                            GTK_BUTTONS_CLOSE,
-                                           _("Could not convert filename '%s' into system filename encoding"),
+                                           _("Could not convert filename ‘%s’ to system filename encoding"),
                                            filename_escaped_utf8);
         gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),_("Try setting the environment variable G_FILENAME_ENCODING."));
         gtk_window_set_title(GTK_WINDOW(msgdialog), _("Filename translation"));
@@ -3504,7 +3509,7 @@ ET_Save_File_Tag_To_HD (ET_File *ETFile, GError **error)
         if (*error == NULL)
         {
             g_set_error (error, G_IO_ERROR, G_IO_ERROR_UNKNOWN,
-                         _("Error writing tag type %d to file %s (%s)"),
+                         _("Error writing tag type ‘%d’ to file ‘%s’: %s"),
                          ETFileDescription->TagType, cur_filename_utf8,
                          g_strerror (EIO));
         }

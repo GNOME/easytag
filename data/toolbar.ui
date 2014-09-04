@@ -66,7 +66,7 @@
                 <property name="action-name">win.undo-file-changes</property>
                 <property name="icon-name">edit-undo</property>
                 <property name="label" translatable="yes">_Undo</property>
-                <property name="tooltip-text" translatable="yes">Undo last file changes</property>
+                <property name="tooltip-text" translatable="yes">Undo for file</property>
                 <property name="visible">True</property>
             </object>
         </child>
@@ -75,7 +75,7 @@
                 <property name="action-name">win.redo-file-changes</property>
                 <property name="icon-name">edit-redo</property>
                 <property name="label" translatable="yes">R_edo</property>
-                <property name="tooltip-text" translatable="yes">Redo last file changes</property>
+                <property name="tooltip-text" translatable="yes">Redo for file</property>
                 <property name="visible">True</property>
             </object>
         </child>
@@ -96,7 +96,7 @@
                 <property name="action-name">win.file-artist-view</property>
                 <property name="action-target">'file'</property>
                 <property name="icon-name">audio-x-generic</property>
-                <property name="label" translatable="yes">Tree Browser</property>
+                <property name="label" translatable="yes">Directory Tree</property>
                 <property name="tooltip-text" translatable="yes">Browse directory tree</property>
                 <property name="visible">True</property>
             </object>
@@ -105,9 +105,9 @@
             <object class="GtkToggleToolButton" id="artist_view_button">
                 <property name="action-name">win.file-artist-view</property>
                 <property name="action-target">'artist'</property>
-                <property name="label" translatable="yes">Artist and Album</property>
+                <property name="label" translatable="yes">Artists and Albums</property>
                 <!--<property name="icon-widget">artist_view_image</property>-->
-                <property name="tooltip-text" translatable="yes">Browse artist and album</property>
+                <property name="tooltip-text" translatable="yes">Browse artists and albums</property>
                 <property name="visible">True</property>
             </object>
         </child>

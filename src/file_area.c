@@ -309,7 +309,7 @@ et_file_area_set_file_fields (EtFileArea *self,
         }
         else
         {
-            Log_Print (LOG_ERROR, _("Cannot query file information (%s)"),
+            Log_Print (LOG_ERROR, _("Cannot query file information ‘%s’"),
                        error->message);
             g_error_free (error);
             g_object_unref (file);

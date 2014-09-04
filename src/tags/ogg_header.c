@@ -223,7 +223,7 @@ Ogg_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
     if (!state.istream)
     {
         /* FIXME: Pass error back to calling function. */
-        Log_Print (LOG_ERROR, _("Error while opening file: '%s' (%s)"),
+        Log_Print (LOG_ERROR, _("Error while opening file ‘%s’: %s"),
                    filename_utf8, state.error->message);
         g_free (filename_utf8);
         return FALSE;
@@ -239,8 +239,10 @@ Ogg_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
             bitrate_nominal = vi->bitrate_nominal; // (b/s) Specifies the average bitrate for a VBR bitstream.
         }else
         {
-            Log_Print(LOG_ERROR,_("Ogg Vorbis: The specified bitstream does not exist or the "
-                        "file has been initialized improperly (file: '%s')."),filename_utf8);
+            Log_Print (LOG_ERROR,
+                       _("The specified bitstream does not exist or the "
+                         "file has been initialized improperly (file: ‘%s’)"),
+                       filename_utf8);
         }
 
         duration        = ov_time_total(&vf,-1); // (s) Total time.
@@ -266,7 +268,7 @@ Ogg_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
         /* On error. */
         if (state.error)
         {
-            g_debug ("Ogg Vorbis: error reading header information (%s)",
+            g_debug ("Ogg Vorbis: error reading header information ‘%s’",
                      state.error->message);
         }
 
@@ -275,19 +277,29 @@ Ogg_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
         switch (res)
         {
             case OV_EREAD:
-                Log_Print(LOG_ERROR,_("Ogg Vorbis: Read from media returned an error (file: '%s')."),filename_utf8);
+                Log_Print (LOG_ERROR,
+                           _("Read from media returned an error (file: ‘%s’)"),
+                           filename_utf8);
                 break;
             case OV_ENOTVORBIS:
-                Log_Print(LOG_ERROR,_("Ogg Vorbis: Bitstream is not Vorbis data (file: '%s')."),filename_utf8);
+                Log_Print (LOG_ERROR,
+                           _("Bitstream is not Vorbis data (file: ‘%s’)"),
+                           filename_utf8);
                 break;
             case OV_EVERSION:
-                Log_Print(LOG_ERROR,_("Ogg Vorbis: Vorbis version mismatch (file: '%s')."),filename_utf8);
+                Log_Print (LOG_ERROR,
+                           _("Vorbis version mismatch (file: ‘%s’)"),
+                           filename_utf8);
                 break;
             case OV_EBADHEADER:
-                Log_Print(LOG_ERROR,_("Ogg Vorbis: Invalid Vorbis bitstream header (file: '%s')."),filename_utf8);
+                Log_Print (LOG_ERROR,
+                           _("Invalid Vorbis bitstream header (file: ‘%s’)"),
+                           filename_utf8);
                 break;
             case OV_EFAULT:
-                Log_Print(LOG_ERROR,_("Ogg Vorbis: Internal logic fault, indicates a bug or heap/stack corruption (file: '%s')."),filename_utf8);
+                Log_Print (LOG_ERROR,
+                           _("Internal logic fault, indicates a bug or heap/stack corruption (file: ‘%s’)"),
+                           filename_utf8);
                 break;
             default:
                 break;
@@ -333,7 +345,7 @@ gboolean Speex_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
     if (!vcedit_open (state, gfile, &error))
     {
         Log_Print (LOG_ERROR,
-                   _("Error: Failed to open file: '%s' as Vorbis (%s)."),
+                   _("Failed to open file ‘%s’ as Vorbis: %s"),
                    filename_utf8, error->message);
         g_error_free (error);
         g_object_unref (gfile);

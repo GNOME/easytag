@@ -202,7 +202,7 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
 
         if (gerror)
         {
-            Log_Print (LOG_ERROR, _("Error while reading file: '%s' (%s)"),
+            Log_Print (LOG_ERROR, _("Error while reading file ‘%s’: %s"),
                        filename_utf8, gerror->message);
             g_error_free (gerror);
         }
@@ -214,7 +214,7 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
                                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                             GTK_MESSAGE_ERROR,
                                             GTK_BUTTONS_CLOSE,
-                                            _("As the following corrupted file '%s' will cause an error in id3lib, it will not be processed"),
+                                            _("As the following corrupted file ‘%s’ will cause an error in id3lib, it will not be processed"),
                                             basename_utf8);
         gtk_window_set_title (GTK_WINDOW (msgdialog), _("Corrupted file"));
 
@@ -594,13 +594,26 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
         /* Check error messages */
         if (error_strip_id3v1 == ID3E_NoError && error_strip_id3v2 == ID3E_NoError)
         {
-            Log_Print(LOG_OK,_("Removed tag of '%s'"),basename_utf8);
-        }else
+            Log_Print (LOG_OK, _("Removed tag of ‘%s’"), basename_utf8);
+        }
+        else
         {
             if (error_strip_id3v1 != ID3E_NoError)
-                Log_Print(LOG_ERROR,_("Error while removing ID3v1 tag of '%s' (%s)"),basename_utf8,Id3tag_Get_Error_Message(error_strip_id3v1));
+            {
+                Log_Print (LOG_ERROR,
+                           _("Error while removing ID3v1 tag of ‘%s’: %s"),
+                           basename_utf8,
+                           Id3tag_Get_Error_Message (error_strip_id3v1));
+            }
+
             if (error_strip_id3v2 != ID3E_NoError)
-                Log_Print(LOG_ERROR,_("Error while removing ID3v2 tag of '%s' (%s)"),basename_utf8,Id3tag_Get_Error_Message(error_strip_id3v2));
+            {
+                Log_Print (LOG_ERROR,
+                           _("Error while removing ID3v2 tag of ‘%s’: %s"),
+                           basename_utf8,
+                           Id3tag_Get_Error_Message (error_strip_id3v2));
+            }
+
             error++;
         }
 
@@ -620,7 +633,10 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
             error_update_id3v2 = ID3Tag_UpdateByTagType(id3_tag,ID3TT_ID3V2);
             if (error_update_id3v2 != ID3E_NoError)
             {
-                Log_Print(LOG_ERROR,_("Error while updating ID3v2 tag of '%s' (%s)"),basename_utf8,Id3tag_Get_Error_Message(error_update_id3v2));
+                Log_Print (LOG_ERROR,
+                           _("Error while updating ID3v2 tag of ‘%s’: %s"),
+                           basename_utf8,
+                           Id3tag_Get_Error_Message (error_update_id3v2));
                 error++;
             }else
             {
@@ -672,7 +688,10 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
             error_strip_id3v2 = ID3Tag_Strip(id3_tag,ID3TT_ID3V2);
             if (error_strip_id3v2 != ID3E_NoError)
             {
-                Log_Print(LOG_ERROR,_("Error while removing ID3v2 tag of '%s' (%s)"),basename_utf8,Id3tag_Get_Error_Message(error_strip_id3v2));
+                Log_Print (LOG_ERROR,
+                           _("Error while removing ID3v2 tag of ‘%s’: %s"),
+                           basename_utf8,
+                           Id3tag_Get_Error_Message (error_strip_id3v2));
                 error++;
             }
         }
@@ -693,7 +712,10 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
             error_update_id3v1 = ID3Tag_UpdateByTagType(id3_tag,ID3TT_ID3V1);
             if (error_update_id3v1 != ID3E_NoError)
             {
-                Log_Print(LOG_ERROR,_("Error while updating ID3v1 tag of '%s' (%s)"),basename_utf8,Id3tag_Get_Error_Message(error_update_id3v1));
+                Log_Print (LOG_ERROR,
+                           _("Error while updating ID3v1 tag of ‘%s’: %s"),
+                           basename_utf8,
+                           Id3tag_Get_Error_Message (error_update_id3v1));
                 error++;
             }
         }else
@@ -701,13 +723,18 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
             error_strip_id3v1 = ID3Tag_Strip(id3_tag,ID3TT_ID3V1);
             if (error_strip_id3v1 != ID3E_NoError)
             {
-                Log_Print(LOG_ERROR,_("Error while removing ID3v1 tag of '%s' (%s)"),basename_utf8,Id3tag_Get_Error_Message(error_strip_id3v1));
+                Log_Print (LOG_ERROR,
+                           _("Error while removing ID3v1 tag of ‘%s’: %s"),
+                           basename_utf8,
+                           Id3tag_Get_Error_Message (error_strip_id3v1));
                 error++;
             }
         }
 
         if (error == 0)
-            Log_Print(LOG_OK,_("Updated tag of '%s'"),basename_utf8);
+        {
+            Log_Print (LOG_OK, _("Updated tag of ‘%s’"), basename_utf8);
+        }
 
     }
 
@@ -1424,7 +1451,7 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
         if (error)
         {
             Log_Print (LOG_ERROR,
-                       _("Error while creating temporary file: '%s'"),
+                       _("Error while creating temporary file ‘%s’"),
                        error->message);
             g_clear_error (&error);
         }
@@ -1451,7 +1478,7 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
 
         filename = g_file_get_path (file);
         filename_utf8 = filename_to_display (filename);
-        Log_Print (LOG_ERROR, _("Error while writing to file: '%s' (%s)"),
+        Log_Print (LOG_ERROR, _("Error while writing to file ‘%s’: %s"),
                    filename_utf8, error->message);
 
         g_free (filename);

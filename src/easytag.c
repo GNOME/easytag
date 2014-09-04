@@ -287,7 +287,9 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
                                            GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                            GTK_MESSAGE_WARNING,
                                            GTK_BUTTONS_NONE,
-                                           ngettext("A file was changed by an external program","%d files were changed by an external program.",nb_files_changed_by_ext_program),
+                                           ngettext ("A file was changed by an external program",
+                                                     "%d files were changed by an external program",
+                                                     nb_files_changed_by_ext_program),
                                            nb_files_changed_by_ext_program);
         gtk_dialog_add_buttons (GTK_DIALOG (msgdialog), _("_Discard"),
                                 GTK_RESPONSE_NO, _("_Save"), GTK_RESPONSE_YES,
@@ -499,7 +501,7 @@ Save_File (ET_File *ETFile, gboolean multiple_files,
                                                GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                                GTK_MESSAGE_QUESTION,
                                                GTK_BUTTONS_NONE,
-                                               _("Do you want to write the tag of file '%s'?"),
+                                               _("Do you want to write the tag of file ‘%s’?"),
                                                basename_cur_utf8);
             gtk_window_set_title(GTK_WINDOW(msgdialog),_("Confirm Tag Writing"));
             if (multiple_files)
@@ -596,22 +598,23 @@ Save_File (ET_File *ETFile, gboolean multiple_files,
                     // Directories and filename changed
                     msgdialog_title = g_strdup (_("Rename File and Directory"));
                     msg = g_strdup(_("File and directory rename confirmation required"));
-                    msg1 = g_strdup_printf(_("Do you want to rename the file and directory '%s' to '%s'?"),
+                    msg1 = g_strdup_printf (_("Do you want to rename the file and directory ‘%s’ to ‘%s’?"),
                                            filename_cur_utf8, filename_new_utf8);
                 }else
                 {
                     // Only directories changed
                     msgdialog_title = g_strdup (_("Rename Directory"));
                     msg = g_strdup(_("Directory rename confirmation required"));
-                    msg1 = g_strdup_printf(_("Do you want to rename the directory '%s' to '%s'?"),
-                                           dirname_cur_utf8, dirname_new_utf8);
+                    msg1 = g_strdup_printf (_("Do you want to rename the directory ‘%s’ to ‘%s’?"),
+                                            dirname_cur_utf8,
+                                            dirname_new_utf8);
                 }
             }else
             {
                 // Only filename changed
                 msgdialog_title = g_strdup (_("Rename File"));
                 msg = g_strdup(_("File rename confirmation required"));
-                msg1 = g_strdup_printf(_("Do you want to rename the file '%s' to '%s'?"),
+                msg1 = g_strdup_printf (_("Do you want to rename the file ‘%s’ to ‘%s’?"),
                                        basename_cur_utf8, basename_new_utf8);
             }
 
@@ -683,7 +686,7 @@ Save_File (ET_File *ETFile, gboolean multiple_files,
                                                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                                             GTK_MESSAGE_ERROR,
                                                             GTK_BUTTONS_CLOSE,
-                                                            _("Cannot rename file '%s' to '%s'"),
+                                                            _("Cannot rename file ‘%s’ to ‘%s’"),
                                                             filename_cur_utf8,
                                                             filename_new_utf8);
                         gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (msgdialog),
@@ -697,7 +700,7 @@ Save_File (ET_File *ETFile, gboolean multiple_files,
                     }
 
                     Log_Print (LOG_ERROR,
-                               _("Cannot rename file '%s' to '%s': %s"),
+                               _("Cannot rename file ‘%s’ to ‘%s’: %s"),
                                filename_cur_utf8, filename_new_utf8,
                                error->message);
 
@@ -815,7 +818,7 @@ Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox)
     GtkWidget *msgdialog;
 
     basename_utf8 = g_path_get_basename(cur_filename_utf8);
-    msg = g_strdup_printf(_("Writing tag of '%s'"),basename_utf8);
+    msg = g_strdup_printf (_("Writing tag of ‘%s’"),basename_utf8);
     et_application_window_status_bar_message (ET_APPLICATION_WINDOW (MainWindow),
                                               msg, TRUE);
     g_free(msg);
@@ -837,7 +840,7 @@ Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox)
                              GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                              GTK_MESSAGE_ERROR,
                              GTK_BUTTONS_CLOSE,
-                             _("Cannot write tag in file '%s'"),
+                             _("Cannot write tag in file ‘%s’"),
                              basename_utf8);
         gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (msgdialog),
                                                   "%s", error->message);
@@ -915,7 +918,7 @@ gboolean Read_Directory (gchar *path_real)
                                            GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                            GTK_MESSAGE_ERROR,
                                            GTK_BUTTONS_CLOSE,
-                                           _("Cannot read directory '%s'"),
+                                           _("Cannot read directory ‘%s’"),
                                            path_utf8);
         gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (msgdialog),
                                                   "%s", error->message);
@@ -964,7 +967,7 @@ gboolean Read_Directory (gchar *path_real)
         gchar *filename_real = l->data; /* Contains real filenames. */
         gchar *filename_utf8 = filename_to_display(filename_real);
 
-        msg = g_strdup_printf(_("File: '%s'"),filename_utf8);
+        msg = g_strdup_printf (_("File: ‘%s’"), filename_utf8);
         et_application_window_status_bar_message (window, msg, FALSE);
         g_free(msg);
         g_free(filename_utf8);
@@ -1107,7 +1110,7 @@ read_directory_recursively (GList *file_list, GFileEnumerator *dir_enumerator,
                     if (!childdir_enumerator)
                     {
                         Log_Print (LOG_ERROR,
-                                   _("Error opening directory '%s' (%s)"),
+                                   _("Error opening directory ‘%s’: %s"),
                                    file_name, child_error->message);
                         g_error_free (child_error);
                         g_object_unref (child_dir);
@@ -1143,7 +1146,7 @@ read_directory_recursively (GList *file_list, GFileEnumerator *dir_enumerator,
 
     if (error)
     {
-        Log_Print (LOG_ERROR, _("Cannot read directory (%s)"), error->message);
+        Log_Print (LOG_ERROR, _("Cannot read directory ‘%s’"), error->message);
         g_error_free (error);
     }
 
