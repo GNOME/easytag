@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: easytag easytag-2-2\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=easytag&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-04-25 03:12+0000\n"
-"PO-Revision-Date: 2014-05-03 11:13+0700\n"
+"POT-Creation-Date: 2014-09-05 03:13+0000\n"
+"PO-Revision-Date: 2014-09-05 23:11+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
@@ -26,7 +26,7 @@ msgid ""
 "Vorbis, MusePack, Monkey's Audio and WavPack files."
 msgstr ""
 "Lihat dan sunting tag bagi berkas-berkas MP3, MP2, MP4/AAC, FLAC, Ogg Opus, "
-"Ogg Speex, Ogg Vorbis, MusePack, Monkey's Audio, dan WavPack."
+"Ogg Speex, Ogg Vorbis, MusePack, Monkey’s Audio, dan WavPack."
 
 #: ../data/easytag.appdata.xml.in.h:2
 msgid ""
@@ -94,7 +94,7 @@ msgstr "Andika Triwidada <andika@gmail.com>, 2014"
 msgid "View and edit tags in audio files"
 msgstr "Lihat dan sunting tag dalam berkas audio"
 
-#: ../src/ape_tag.c:61 ../src/id3v24_tag.c:112 ../src/mp4_header.cc:46
+#: ../src/ape_tag.c:61 ../src/id3v24_tag.c:113 ../src/mp4_header.cc:46
 #: ../src/mp4_header.cc:59 ../src/mp4_tag.cc:69 ../src/mp4_tag.cc:85
 #: ../src/mp4_tag.cc:90 ../src/mp4_tag.cc:262 ../src/mp4_tag.cc:278
 #: ../src/mp4_tag.cc:283
@@ -430,8 +430,8 @@ msgstr "Jadikan lagi perubahan terakhir"
 msgid "_Quit"
 msgstr "_Keluar"
 
-#: ../src/bar.c:242 ../src/easytag.c:2429 ../src/easytag.c:4564
-#: ../src/easytag.c:4596
+#: ../src/bar.c:242 ../src/easytag.c:2428 ../src/easytag.c:4550
+#: ../src/easytag.c:4582
 msgid "Quit"
 msgstr "Keluar"
 
@@ -496,14 +496,12 @@ msgid "Go to default directory"
 msgstr "Ke direktori baku"
 
 #: ../src/bar.c:267
-#, fuzzy
 msgid "Set _Current Path as Default"
-msgstr "_Pengaturan Saat Ini sebagai Bawaan"
+msgstr "_Atur Path Saat Ini sebagai Bawaan"
 
 #: ../src/bar.c:267
-#, fuzzy
 msgid "Set current path as default"
-msgstr "_Pengaturan Saat Ini sebagai Bawaan"
+msgstr "Atur path saat ini sebagai bawaan"
 
 #: ../src/bar.c:268
 msgid "Rename Directory…"
@@ -530,14 +528,12 @@ msgid "Run a command on the directory"
 msgstr "Jalankan suatu perintah pada direktori"
 
 #: ../src/bar.c:276
-#, fuzzy
 msgid "_Collapse Tree"
-msgstr "ID-Tree:"
+msgstr "_Lipat Pohon"
 
 #: ../src/bar.c:277
-#, fuzzy
 msgid "Collapse directory tree"
-msgstr "Aktifkan Garis Bentuk Pohon"
+msgstr "Lipat pohon direktori"
 
 #: ../src/bar.c:278
 msgid "_Reload Tree"
@@ -564,9 +560,8 @@ msgid "Search filenames and tags"
 msgstr "Cari nama berkas dan tag"
 
 #: ../src/bar.c:288
-#, fuzzy
 msgid "CDD_B Search…"
-msgstr "Ketik untuk mencari…"
+msgstr "Pencarian CDD_B…"
 
 #: ../src/bar.c:289
 msgid "CDDB search"
@@ -614,9 +609,8 @@ msgid "_View"
 msgstr "_Tilik"
 
 #: ../src/bar.c:306
-#, fuzzy
 msgid "_Go"
-msgstr "B_uka"
+msgstr ""
 
 #: ../src/bar.c:308
 msgid "_Help"
@@ -657,14 +651,12 @@ msgid "S_canner"
 msgstr "Pe_mindai"
 
 #: ../src/bar.c:331
-#, fuzzy
 msgid "CDDB Search Files…"
-msgstr "Cari Berka_s…"
+msgstr "Cari Berkas CDDB…"
 
 #: ../src/bar.c:331
-#, fuzzy
 msgid "CDDB search files…"
-msgstr "Cari Berka_s…"
+msgstr "Cari berkas CDDB…"
 
 #. { AM_ARTIST_OPEN_FILE_WITH,     GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
 #. { AM_ALBUM_OPEN_FILE_WITH,      GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
@@ -702,28 +694,24 @@ msgid "Tree Browser"
 msgstr "Peramban Pohon"
 
 #: ../src/bar.c:356
-#, fuzzy
 msgid "View by directory tree"
-msgstr "Model TreeView"
+msgstr "Tilik menurut pohon direktori"
 
 #: ../src/bar.c:358
 msgid "Artist and Album"
 msgstr "Artis dan album"
 
 #: ../src/bar.c:359
-#, fuzzy
 msgid "View by artist and album"
-msgstr "Edit artis, album dan judul trek disk "
+msgstr "Tilik menurut artis dan album"
 
 #: ../src/bar.c:364
-#, fuzzy
 msgid "_Fill Tags…"
-msgstr "_Tambah Tag…"
+msgstr "_Penuhi Tag…"
 
 #: ../src/bar.c:365
-#, fuzzy
 msgid "Fill tags"
-msgstr "Tag API (C/C++)"
+msgstr "Penuhi tag"
 
 #: ../src/bar.c:367
 msgid "_Rename Files and Directories…"
@@ -738,9 +726,8 @@ msgid "_Process Fields…"
 msgstr "_Proses Ruas…"
 
 #: ../src/bar.c:370 ../src/scan_dialog.c:184
-#, fuzzy
 msgid "Process Fields"
-msgstr "Ruas tabel"
+msgstr "Proses ruas"
 
 #: ../src/bar.c:428
 #, c-format
@@ -755,7 +742,7 @@ msgstr "Siap memulai"
 msgid "New default path for files selected"
 msgstr "Dipilih path baku baru bagi berkas"
 
-#: ../src/browser.c:678 ../src/easytag.c:4560
+#: ../src/browser.c:678 ../src/easytag.c:4546
 msgid "Some files have been modified but not saved"
 msgstr "Beberapa berkas telah diubah tapi tak disimpan"
 
@@ -767,103 +754,101 @@ msgstr "Apakah Anda ingin menyimpan mereka sebelum mengubah direktori?"
 msgid "Confirm Directory Change"
 msgstr "Konfirmasikan Perubahan Direktori"
 
-#: ../src/browser.c:2146
+#: ../src/browser.c:2244
 msgid "<All albums>"
 msgstr "<Semua album>"
 
-#: ../src/browser.c:2607
+#: ../src/browser.c:2707
 #, c-format
 msgid "Error: Searching for %s, could not find node %s in tree."
 msgstr "Galat: Mencari %s, tak bisa temukan node %s dalam pohon."
 
-#: ../src/browser.c:3101 ../src/browser.c:3179
+#: ../src/browser.c:3201 ../src/browser.c:3279
 msgid "Tree"
 msgstr "Pohon"
 
-#: ../src/browser.c:3102 ../src/cddb.c:803 ../src/misc.c:1903
+#: ../src/browser.c:3202 ../src/cddb.c:803 ../src/misc.c:1903
 msgid "Filename"
 msgstr "Nama berkas"
 
-#: ../src/browser.c:3102 ../src/cddb.c:804 ../src/misc.c:1904
+#: ../src/browser.c:3202 ../src/cddb.c:804 ../src/misc.c:1904
 #: ../src/prefs.c:643
 msgid "Title"
 msgstr "Judul"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Artist".
-#: ../src/browser.c:3103 ../src/browser.c:3110 ../src/cddb.c:483
+#: ../src/browser.c:3203 ../src/browser.c:3210 ../src/cddb.c:483
 #: ../src/cddb.c:805 ../src/misc.c:1905 ../src/prefs.c:644
 msgid "Artist"
 msgstr "Artis"
 
-#: ../src/browser.c:3103 ../src/misc.c:1906
+#: ../src/browser.c:3203 ../src/misc.c:1906
 msgid "Album Artist"
 msgstr "Artis Album"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Album".
-#: ../src/browser.c:3104 ../src/browser.c:3112 ../src/cddb.c:486
+#: ../src/browser.c:3204 ../src/browser.c:3212 ../src/cddb.c:486
 #: ../src/cddb.c:806 ../src/misc.c:1907 ../src/prefs.c:645
 msgid "Album"
 msgstr "Album"
 
-#: ../src/browser.c:3104 ../src/cddb.c:807 ../src/misc.c:1909
+#: ../src/browser.c:3204 ../src/cddb.c:807 ../src/misc.c:1909
 msgid "Year"
 msgstr "Tahun"
 
-#: ../src/browser.c:3104
+#: ../src/browser.c:3204
 msgid "Disc"
 msgstr "Diska"
 
-#: ../src/browser.c:3105 ../src/misc.c:1910
+#: ../src/browser.c:3205 ../src/misc.c:1910
 msgid "Track"
 msgstr "Trek"
 
-#: ../src/browser.c:3105 ../src/cddb.c:810 ../src/misc.c:1911
+#: ../src/browser.c:3205 ../src/cddb.c:810 ../src/misc.c:1911
 #: ../src/prefs.c:646
 msgid "Genre"
 msgstr "Aliran"
 
-#: ../src/browser.c:3106 ../src/misc.c:1912 ../src/prefs.c:647
+#: ../src/browser.c:3206 ../src/misc.c:1912 ../src/prefs.c:647
 msgid "Comment"
 msgstr "Komentar"
 
-#: ../src/browser.c:3106 ../src/misc.c:1913 ../src/picture.c:1060
+#: ../src/browser.c:3206 ../src/misc.c:1913 ../src/picture.c:884
 #: ../src/prefs.c:648
 msgid "Composer"
 msgstr "Komposer"
 
-#: ../src/browser.c:3107 ../src/misc.c:1914
+#: ../src/browser.c:3207 ../src/misc.c:1914
 msgid "Original Artist"
 msgstr "Artis Asli"
 
-#: ../src/browser.c:3108 ../src/misc.c:1915
+#: ../src/browser.c:3208 ../src/misc.c:1915
 msgid "Copyright"
 msgstr "Hak Cipta"
 
-#: ../src/browser.c:3108 ../src/misc.c:1916
+#: ../src/browser.c:3208 ../src/misc.c:1916
 msgid "URL"
 msgstr "URL"
 
-#: ../src/browser.c:3109 ../src/misc.c:1917
+#: ../src/browser.c:3209 ../src/misc.c:1917
 msgid "Encoded By"
 msgstr "Dienkode Oleh"
 
-#: ../src/browser.c:3110
-#, fuzzy
+#: ../src/browser.c:3210
 msgid "# Albums"
-msgstr "Album"
+msgstr "# Album"
 
-#: ../src/browser.c:3111 ../src/browser.c:3112
-#, fuzzy
+#: ../src/browser.c:3211 ../src/browser.c:3212
 msgid "# Files"
-msgstr "Berkas"
+msgstr "# Berkas"
 
-#: ../src/browser.c:3137
+#: ../src/browser.c:3237
 msgid "Enter a directory to browse."
 msgstr "Masukkan direktori yang akan diramban."
 
-#: ../src/browser.c:3146
+#: ../src/browser.c:3246
 msgid "Select a directory to browse."
 msgstr "Pilih direktori yang akan diramban."
 
@@ -871,100 +856,100 @@ msgstr "Pilih direktori yang akan diramban."
 #. * The label for displaying number of files in path (without subdirs)
 #.
 #. Translators: No files, as in "0 files".
-#: ../src/browser.c:3153 ../src/easytag.c:3468
+#: ../src/browser.c:3253 ../src/easytag.c:3454
 msgid "No files"
 msgstr "Tak ada berkas"
 
-#: ../src/browser.c:3231
+#: ../src/browser.c:3331
 msgid "Artist & Album"
 msgstr "Artis & Album"
 
 #. Only directories changed
-#: ../src/browser.c:3595 ../src/easytag.c:2880
+#: ../src/browser.c:3696 ../src/easytag.c:2879
 msgid "Rename Directory"
 msgstr "Ubah Nama Direktori"
 
-#: ../src/browser.c:3617
+#: ../src/browser.c:3718
 #, c-format
 msgid "Rename the directory '%s' to:"
 msgstr "Ubah nama direktori '%s' menjadi:"
 
-#: ../src/browser.c:3636 ../src/misc.c:1172
+#: ../src/browser.c:3737 ../src/misc.c:1172
 #, fuzzy
 msgid "Use mask:"
 msgstr "Mask Subnet:"
 
-#: ../src/browser.c:3639
-#, fuzzy
+#: ../src/browser.c:3740
 msgid "If activated, it will use masks to rename directory."
 msgstr "Bila diaktifkan, itu akan memakai mask untuk mengubah nama direktori."
 
-#: ../src/browser.c:3657
+#: ../src/browser.c:3758
 msgid ""
 "Select or type in a mask using codes (see Legend in Scanner Window) to "
 "rename the directory from tag fields."
 msgstr ""
+"Pilih atau ketikkan masker memakai kode (lihat Legenda dalam Jendela "
+"Pemindai) untuk mengubah nama direktori dari ruas tag."
 
 #. Preview label
-#: ../src/browser.c:3681
-#, fuzzy
+#: ../src/browser.c:3782
 msgid "Rename directory preview"
 msgstr "Pratinjau ubah nama direktori"
 
-#: ../src/browser.c:3773
+#: ../src/browser.c:3874
 msgid "You must type a directory name"
 msgstr "Anda mesti mengetikkan suatu nama direktori"
 
-#: ../src/browser.c:3774 ../src/browser.c:3795
+#: ../src/browser.c:3875 ../src/browser.c:3896
 msgid "Directory Name Error"
 msgstr "Galat Nama Direktori"
 
-#: ../src/browser.c:3792
+#: ../src/browser.c:3893
 #, c-format
 msgid "Could not convert '%s' into filename encoding."
 msgstr "Tak bisa mengonversi '%s' ke dalam pengodean nama berkas."
 
-#: ../src/browser.c:3794
+#: ../src/browser.c:3895
 msgid "Please use another name"
 msgstr "Silakan pakai nama lain"
 
-#: ../src/browser.c:3864
+#: ../src/browser.c:3965
 #, c-format
 msgid "The directory name '%s' already exists"
 msgstr "Nama direktori '%s' sudah ada"
 
-#: ../src/browser.c:3865 ../src/easytag.c:2963
+#: ../src/browser.c:3966 ../src/easytag.c:2962
 msgid "Rename File Error"
 msgstr "Galat Pengubahan Nama Berkas"
 
-#: ../src/browser.c:3903 ../src/browser.c:3932
+#: ../src/browser.c:4004 ../src/browser.c:4033
 msgid "Rename Directory Error"
 msgstr "Galat Pengubahan Nama Direktori"
 
-#: ../src/browser.c:3970
+#: ../src/browser.c:4071
 msgid "Directory renamed"
 msgstr "Direktori diubah nama"
 
-#: ../src/browser.c:4006
+#: ../src/browser.c:4107
 msgid "Browse Directory With"
 msgstr "Ramban Direktori Dengan"
 
-#: ../src/browser.c:4022 ../src/browser.c:4148
+#: ../src/browser.c:4123 ../src/browser.c:4249
 msgid "Program to run:"
 msgstr "Program yang akan dijalankan:"
 
-#: ../src/browser.c:4034
+#: ../src/browser.c:4135
 msgid ""
 "Enter the program to run. It will receive the current directory as parameter."
 msgstr ""
 "Masukkan nama program yang akan dijalankan. Itu akan menerima direktori saat "
 "ini sebagai parameter."
 
-#: ../src/browser.c:4128
+#: ../src/browser.c:4229
 msgid "Open Files With"
 msgstr "Buka Berkas Dengan"
 
-#: ../src/browser.c:4160
+#: ../src/browser.c:4261
 msgid ""
 "Enter the program to run. It will receive the current file as parameter."
 msgstr ""
@@ -991,9 +976,8 @@ msgid "Duration"
 msgstr "Durasi"
 
 #: ../src/cddb.c:326
-#, fuzzy
 msgid "CDDB Search"
-msgstr "Dapat dicari"
+msgstr "Pencarian CDDB"
 
 #.
 #. * 1 - Page for automatic search (generate the CDDBId from files)
@@ -1003,9 +987,8 @@ msgid "Automatic Search"
 msgstr "Pencarian Otomatis"
 
 #: ../src/cddb.c:356
-#, fuzzy
 msgid "Request CDDB"
-msgstr "Permintaan lebar"
+msgstr "Permintaan CDDB"
 
 #: ../src/cddb.c:366
 msgid ""
@@ -1062,7 +1045,7 @@ msgstr "Semua Ruas"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Other".
-#: ../src/cddb.c:492 ../src/picture.c:1038 ../src/prefs.c:807
+#: ../src/cddb.c:492 ../src/picture.c:862 ../src/prefs.c:807
 msgid "Other"
 msgstr "Lainnya"
 
@@ -1137,9 +1120,8 @@ msgid "included: funk, soul, rap, pop, industrial, metal, etc."
 msgstr "disertakan: funk, soul, rap, pop, industrial, metal, dsb."
 
 #: ../src/cddb.c:588
-#, fuzzy
 msgid "movies, shows"
-msgstr "Memutar film"
+msgstr "film, pertunjukan"
 
 #: ../src/cddb.c:589
 msgid "others that do not fit in the above categories"
@@ -1180,19 +1162,16 @@ msgstr ""
 "'Artis / Album'"
 
 #: ../src/cddb.c:655
-#, fuzzy
 msgid "Unselect all lines"
-msgstr "Keluarkan semua trek dari pilihan"
+msgstr "Tak pilih baris manapun"
 
 #: ../src/cddb.c:661
-#, fuzzy
 msgid "Invert lines selection"
-msgstr "Warna Kotak Pilihan"
+msgstr "Balikkan pilihan baris"
 
 #: ../src/cddb.c:670
-#, fuzzy
 msgid "Select all lines"
-msgstr "Pilih semua teks"
+msgstr "Pilih semua baris"
 
 #: ../src/cddb.c:788
 msgid ""
@@ -1209,23 +1188,20 @@ msgstr ""
 #. * Apply results to fields...
 #.
 #: ../src/cddb.c:795
-#, fuzzy
 msgid "Set Into:"
-msgstr "Menempelkan ke dalam %s"
+msgstr "Menjadi:"
 
 #: ../src/cddb.c:801
 msgid "All"
 msgstr "Semua"
 
 #: ../src/cddb.c:808
-#, fuzzy
 msgid "Track #"
 msgstr "Trek #"
 
 #: ../src/cddb.c:809
-#, fuzzy
 msgid "# Tracks"
-msgstr "Trek:"
+msgstr "# Trek"
 
 #. Check box to run the scanner
 #: ../src/cddb.c:847 ../src/misc.c:2992
@@ -1248,6 +1224,11 @@ msgid ""
 "used when selecting the corresponding audio file, or applying CDDB results, "
 "instead of using directly the position order."
 msgstr ""
+"Ketika mengaktifkan opsi ini, algoritma Levenshtein (DLM: Damerau-"
+"Levenshtein Metric) akan dipakai untuk mencocokkan judul CDDB terhadap "
+"setiap nama berkas dalam folder saat ini, dan untuk memilih kecocokan "
+"terbaik. Ini akan dipakai ketika memilih berkas audio yang bersesuaian, atau "
+"menerapkan hasil CDDB, sebagai ganti memakai secara langsung urutan posisi."
 
 #: ../src/cddb.c:871
 msgid "Load the selected lines or all lines (if no line selected)."
@@ -1267,9 +1248,9 @@ msgstr ""
 "Album: '%s', artis: '%s', panjang: '%s', tahun: '%s', aliran: '%s', ID: '%s'"
 
 #: ../src/cddb.c:1588
-#, fuzzy, c-format
+#, c-format
 msgid "Resolving host '%s'…"
-msgstr "Host tak dapat dihubungi"
+msgstr "Mengurai host ‘%s’…"
 
 #: ../src/cddb.c:1629
 #, c-format
@@ -1278,23 +1259,23 @@ msgstr "Tak dapat membuat soket baru (%s)"
 
 #: ../src/cddb.c:1643
 msgid "Cannot set options on the newly-created socket"
-msgstr ""
+msgstr "Tak bisa menata opsi pada soket yang baru saja dibuat"
 
 #. Open connection to the server.
 #: ../src/cddb.c:1647
-#, fuzzy, c-format
+#, c-format
 msgid "Connecting to host '%s', port '%d'…"
-msgstr "Galat saat koneksi ke host."
+msgstr "Menyambung ke host ‘%s’, port ‘%d’…"
 
 #: ../src/cddb.c:1660
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot connect to host '%s' (%s)"
-msgstr "Gagal menyambung ke host %s\n"
+msgstr "Tak dapat menyambung ke host ‘%s’ (%s)"
 
 #: ../src/cddb.c:1684
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot resolve host '%s' (%s)"
-msgstr "Resolve Nama Host Layanan"
+msgstr "Tak dapat mengurai host ‘%s’ (%s)"
 
 #: ../src/cddb.c:1697
 #, c-format
@@ -1312,9 +1293,9 @@ msgid "Receiving data (%s)…"
 msgstr "Sedang menerima data (%s)…"
 
 #: ../src/cddb.c:1801
-#, fuzzy, c-format
+#, c-format
 msgid "Error when reading CDDB response (%s)"
-msgstr "Galat saat membaca tubuh respon HTTP\n"
+msgstr "Galat saat membaca respon CDDB (%s)"
 
 #: ../src/cddb.c:1808
 #, c-format
@@ -1332,11 +1313,11 @@ msgstr "Tak dapat membuka berkas '%s' (%s)"
 #. Send the request
 #. g_print("Request Cddb_Get_Album_Tracks_List : '%s'\n", cddb_in);
 #. Send the request
-#: ../src/cddb.c:2314 ../src/cddb.c:2643 ../src/cddb.c:3516
+#: ../src/cddb.c:2362 ../src/cddb.c:2693 ../src/cddb.c:3568
 msgid "Sending request…"
 msgstr "Sedang mengirim permintaan…"
 
-#: ../src/cddb.c:2318 ../src/cddb.c:2647 ../src/cddb.c:3216 ../src/cddb.c:3520
+#: ../src/cddb.c:2366 ../src/cddb.c:2697 ../src/cddb.c:3267 ../src/cddb.c:3572
 #, c-format
 msgid "Cannot send the request (%s)"
 msgstr "Tak dapat mengirim permintaan (%s)"
@@ -1345,108 +1326,106 @@ msgstr "Tak dapat mengirim permintaan (%s)"
 #. * Read the answer
 #.
 #. Read the answer
-#: ../src/cddb.c:2344 ../src/cddb.c:3230 ../src/cddb.c:3529
+#: ../src/cddb.c:2393 ../src/cddb.c:3281 ../src/cddb.c:3581
 msgid "Receiving data…"
 msgstr "Sedang menerima data…"
 
-#: ../src/cddb.c:2351 ../src/cddb.c:2676 ../src/cddb.c:3237 ../src/cddb.c:3536
+#: ../src/cddb.c:2400 ../src/cddb.c:2726 ../src/cddb.c:3288 ../src/cddb.c:3588
 msgid "The server returned a bad response"
 msgstr "Server mengembalikan respon yang buruk"
 
-#: ../src/cddb.c:2365 ../src/cddb.c:2692 ../src/cddb.c:3252 ../src/cddb.c:3553
-#: ../src/cddb.c:3568
+#: ../src/cddb.c:2414 ../src/cddb.c:2742 ../src/cddb.c:3303 ../src/cddb.c:3605
+#: ../src/cddb.c:3620
 #, c-format
 msgid "The server returned a bad response: %s"
 msgstr "Server mengembalikan respon yang buruk: %s"
 
-#: ../src/cddb.c:2512
+#: ../src/cddb.c:2561
 #, c-format
 msgid "Sorry, the web-based search is currently not available"
 msgstr "Maaf, pencarian berbasis web saat ini tak tersedia"
 
-#: ../src/cddb.c:2514 ../src/cddb.c:2863
+#: ../src/cddb.c:2563 ../src/cddb.c:2913
 #, c-format
 msgid "Found one matching album"
 msgid_plural "Found %d matching albums"
 msgstr[0] "Menemukan %d album yang cocok"
 
-#: ../src/cddb.c:2664
+#: ../src/cddb.c:2714
 #, fuzzy, c-format
 msgid "Receiving data of page %d (album %d/%d)…"
 msgstr "album yang berisi data ini"
 
-#: ../src/cddb.c:2666
+#: ../src/cddb.c:2716
 #, fuzzy, c-format
 msgid "Receiving data of page %d…"
 msgstr "Jaringan sedang menerima data."
 
-#: ../src/cddb.c:2830
-#, fuzzy, c-format
+#: ../src/cddb.c:2880
+#, c-format
 msgid "More results to load…"
-msgstr "Cobalah memakai lebih banyak angka."
+msgstr "Lebih banyak hasil untuk dimuat..."
 
-#: ../src/cddb.c:2959
-#, fuzzy, c-format
+#: ../src/cddb.c:3009
+#, c-format
 msgid "No file selected"
 msgstr "Tak ada berkas yang dipilih"
 
 #. The CD redbook standard defines the maximum number of tracks as 99, any
 #. queries with more than 99 tracks will never return a result.
-#: ../src/cddb.c:2967
+#: ../src/cddb.c:3017
 #, c-format
 msgid "More than 99 files selected. Cannot send request"
-msgstr ""
+msgstr "Lebih dari 99 berkas dipilih. Tak bisa mengirim permintaan"
 
-#: ../src/cddb.c:2973
+#: ../src/cddb.c:3023
 #, c-format
 msgid "One file selected"
 msgid_plural "%d files selected"
 msgstr[0] "%d berkas dipilih"
 
-#: ../src/cddb.c:3056
+#: ../src/cddb.c:3107
 msgid "The path for 'Local CD Database' was not defined"
-msgstr ""
+msgstr "Path bagi ‘Basis Data CD Lokal’ tak didefinisikan"
 
 #. Translators: 'it' in this sentence refers to the local CD
 #. * database path.
-#: ../src/cddb.c:3059
+#: ../src/cddb.c:3110
 msgid "Enter it in the preferences window before using this search."
-msgstr ""
+msgstr "Masukkan ke dalam jendela preferensi sebelum memakai pencarian ini."
 
-#: ../src/cddb.c:3061
+#: ../src/cddb.c:3112
 #, fuzzy
 msgid "Local CD search"
 msgstr "Hanya cari direktori lokal saja"
 
 #. g_print("Request Cddb_Search_Album_From_Selected_Files : '%s'\n", cddb_in);
-#: ../src/cddb.c:3206
+#: ../src/cddb.c:3257
 #, c-format
 msgid "Sending request (CddbId: %s, #tracks: %d, Disc length: %d)…"
-msgstr ""
+msgstr "Mengirim permintaan (CddbId: %s, #trek: %d, Panjang cakram: %d)…"
 
-#: ../src/cddb.c:3363
+#: ../src/cddb.c:3414
 #, c-format
 msgid "DiscID '%s' gave one matching album"
 msgid_plural "DiscID '%s' gave %d matching albums"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "DiscID ‘%s’ memberikan %d album yang cocok"
 
-#: ../src/cddb.c:3460
-#, fuzzy, c-format
+#: ../src/cddb.c:3512
+#, c-format
 msgid "Can't load file: '%s' (%s)."
-msgstr "Muat Dari _Berkas"
+msgstr "Tak dapat memuat berkas '%s' (%s)."
 
 #. Load the track list of the album
-#: ../src/cddb.c:3759
-#, fuzzy
+#: ../src/cddb.c:3811
 msgid "Loading album track list…"
-msgstr "Posisi trek pada album."
+msgstr "Sedang memuat daftar trek album..."
 
-#: ../src/cddb.c:3958
+#: ../src/cddb.c:4010
 msgid "The number of CDDB results does not match the number of selected files"
-msgstr ""
+msgstr "Banyaknya hasil CDDB tak cocok dengan cacah berkas yang dipilih"
 
-#: ../src/cddb.c:3962
+#: ../src/cddb.c:4014
 #, fuzzy
 msgid "Write Tag from CDDB"
 msgstr "Hapus tag dari entri"
@@ -1635,7 +1614,7 @@ msgstr "Barat (Windows-1252)"
 #: ../src/charset.c:511
 #, c-format
 msgid "The filename '%s' couldn't be converted into UTF-8 (%s)."
-msgstr ""
+msgstr "Nama berkas ‘%s’ tak bisa dikonversi ke dalam UTF-8 (%s)."
 
 #: ../src/charset.c:512 ../src/charset.c:611 ../src/charset.c:674
 msgid "Invalid UTF-8"
@@ -1646,11 +1625,12 @@ msgstr "UTF-8 tak valid"
 msgid ""
 "The UTF-8 string '%s' couldn't be converted into filename encoding (%s)."
 msgstr ""
+"String UTF-8 ‘%s’ tak dapat dikonversi ke dalam enkoding nama berkas (%s)."
 
 #: ../src/charset.c:673
 #, c-format
 msgid "The string '%s' couldn't be converted into UTF-8 (%s)."
-msgstr ""
+msgstr "String ‘%s’ tak dapat dikonversi ke dalam UTF-8 (%s)."
 
 #. Starting messages
 #: ../src/easytag.c:185
@@ -1671,32 +1651,32 @@ msgstr "Cetak versi program"
 #: ../src/easytag.c:196
 #, c-format
 msgid "Variable EASYTAGLANG defined. Setting locale: '%s'"
-msgstr ""
+msgstr "Variabel EASYTAGLAG didefinisikan. Menata locale: ‘%s’"
 
 #: ../src/easytag.c:198
-#, fuzzy, c-format
+#, c-format
 msgid "Setting locale: '%s'"
-msgstr "Lokal Saat Ini"
+msgstr "Menata locale: '%s'"
 
 #: ../src/easytag.c:203
 #, c-format
 msgid "Currently using locale '%s' (and eventually '%s')"
-msgstr ""
+msgstr "Saat ini memakai locale ‘%s’ (dan pada akhirnya ‘%s’)"
 
 #: ../src/easytag.c:210
 #, fuzzy
 msgid "Unable to create setting directories"
 msgstr "Tak dapat membuat tampilan transien: "
 
-#: ../src/easytag.c:427 ../src/et_core.c:637 ../src/et_core.c:649
-#, fuzzy, c-format
+#: ../src/easytag.c:427 ../src/et_core.c:638 ../src/et_core.c:650
+#, c-format
 msgid "Error while querying information for file: '%s' (%s)"
-msgstr "Galat saat mengambil informasi bagi berkas '%s': %s"
+msgstr "Galat saat mengambil informasi bagi berkas ‘%s’: %s"
 
 #: ../src/easytag.c:490
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot open path '%s'"
-msgstr "Tidak bisa membuka lokasi direktori maildir: %s: %s"
+msgstr "Tak dapat membuka path '%s'"
 
 #.
 #. * Browser
@@ -1705,7 +1685,7 @@ msgstr "Tidak bisa membuka lokasi direktori maildir: %s: %s"
 msgid "Browser"
 msgstr "Peramban"
 
-#: ../src/easytag.c:604 ../src/et_core.c:2857
+#: ../src/easytag.c:604 ../src/et_core.c:2869
 msgid "File"
 msgstr "Berkas"
 
@@ -1715,7 +1695,7 @@ msgstr "Berkas"
 #. gtk_label_set_text(GTK_LABEL(VersionValueLabel),"");
 #. Version changed to encoder version
 #. Encoder version
-#: ../src/easytag.c:636 ../src/easytag.c:4231 ../src/flac_header.c:201
+#: ../src/easytag.c:636 ../src/easytag.c:4217 ../src/flac_header.c:201
 #: ../src/monkeyaudio_header.c:96 ../src/musepack_header.c:98
 #: ../src/ogg_header.c:389 ../src/opus_header.c:221 ../src/wavpack_header.c:72
 #, c-format
@@ -1733,7 +1713,7 @@ msgid "Frequency:"
 msgstr "Frekuensi:"
 
 #. Mode
-#: ../src/easytag.c:665 ../src/easytag.c:4235 ../src/mpeg_header.c:216
+#: ../src/easytag.c:665 ../src/easytag.c:4221 ../src/mpeg_header.c:216
 msgid "Mode:"
 msgstr "Mode:"
 
@@ -1746,7 +1726,7 @@ msgid "Duration:"
 msgstr "Durasi:"
 
 #. Main Frame
-#: ../src/easytag.c:726 ../src/et_core.c:2787
+#: ../src/easytag.c:726 ../src/et_core.c:2799
 msgid "Tag"
 msgstr "Tag"
 
@@ -1764,7 +1744,7 @@ msgstr "Judul:"
 
 #: ../src/easytag.c:769
 msgid "Tag selected files with this title"
-msgstr ""
+msgstr "Berkas yang dipilih tag dengan judul ini"
 
 #. Artist
 #: ../src/easytag.c:774
@@ -1773,7 +1753,7 @@ msgstr "Artis:"
 
 #: ../src/easytag.c:788
 msgid "Tag selected files with this artist"
-msgstr ""
+msgstr "Berkas yang dipilih tag dengan artis ini"
 
 #. Album Artist
 #: ../src/easytag.c:793
@@ -1782,7 +1762,7 @@ msgstr "Artis album:"
 
 #: ../src/easytag.c:807
 msgid "Tag selected files with this album artist"
-msgstr ""
+msgstr "Berkas yang dipilih tag dengan artis album ini"
 
 #. Album
 #: ../src/easytag.c:812
@@ -1791,7 +1771,7 @@ msgstr "Album:"
 
 #: ../src/easytag.c:826
 msgid "Tag selected files with this album name"
-msgstr ""
+msgstr "Berkas yang dipilih tag dengan nama album ini"
 
 #. Disc Number
 #: ../src/easytag.c:831
@@ -1800,7 +1780,7 @@ msgstr "CD:"
 
 #: ../src/easytag.c:848
 msgid "Tag selected files with this disc number"
-msgstr ""
+msgstr "Berkas yang dipilih tag dengan nomor cakram ini"
 
 #. Year
 #: ../src/easytag.c:853
@@ -1809,18 +1789,19 @@ msgstr "Tahun:"
 
 #: ../src/easytag.c:873
 msgid "Tag selected files with this year"
-msgstr ""
+msgstr "Berkas yang dipilih tag dengan tahun ini"
 
 #: ../src/easytag.c:887
 msgid "Number selected tracks sequentially. Starts at 01 in each subdirectory."
 msgstr ""
+"Banyaknya trek yang dipilih secara berurutan. Mulai dari 01 dalam setiap "
+"subdirektori."
 
 #. To have enough space to display the icon
 #. To have enough space to display the icon
 #: ../src/easytag.c:896
-#, fuzzy
 msgid "Track #:"
-msgstr "Trek %u"
+msgstr "Trek #:"
 
 #: ../src/easytag.c:927
 msgid ""
@@ -1830,7 +1811,7 @@ msgstr ""
 
 #: ../src/easytag.c:947
 msgid "Tag selected files with this number of tracks"
-msgstr ""
+msgstr "Tag berkas yang dipilih dengan nomor trek ini"
 
 #. Genre
 #: ../src/easytag.c:951
@@ -1839,7 +1820,7 @@ msgstr "Aliran:"
 
 #: ../src/easytag.c:979
 msgid "Tag selected files with this genre"
-msgstr ""
+msgstr "Tag berkas yang dipilih dengan genre ini"
 
 #. Comment
 #: ../src/easytag.c:984
@@ -1848,7 +1829,7 @@ msgstr "Komentar:"
 
 #: ../src/easytag.c:1011
 msgid "Tag selected files with this comment"
-msgstr ""
+msgstr "Tag berkas yang dipilih dengan komentar ini"
 
 #. Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(CommentView));
 #. Composer (name of the composers)
@@ -1858,7 +1839,7 @@ msgstr "Komposer:"
 
 #: ../src/easytag.c:1032
 msgid "Tag selected files with this composer"
-msgstr ""
+msgstr "Tag berkas yang dipilih dengan komposer ini"
 
 #. Translators: Original Artist / Performer. Please try to keep this string
 #. * as short as possible, as it must fit into a narrow column.
@@ -1868,7 +1849,7 @@ msgstr "Artis asli:"
 
 #: ../src/easytag.c:1053
 msgid "Tag selected files with this original artist"
-msgstr ""
+msgstr "Tag berkas yang dipilih dengan artis asli ini"
 
 #. Copyright
 #: ../src/easytag.c:1059
@@ -1877,7 +1858,7 @@ msgstr "Hak Cipta:"
 
 #: ../src/easytag.c:1073
 msgid "Tag selected files with this copyright"
-msgstr ""
+msgstr "Tag berkas yang dipilih dengan hak cipta ini"
 
 #. URL
 #: ../src/easytag.c:1079
@@ -1886,7 +1867,7 @@ msgstr "URL:"
 
 #: ../src/easytag.c:1093
 msgid "Tag selected files with this URL"
-msgstr ""
+msgstr "Tag berkas yang dipilih dengan URL ini"
 
 #. Encoded by
 #: ../src/easytag.c:1099
@@ -1896,592 +1877,570 @@ msgstr "Dienkode Oleh"
 
 #: ../src/easytag.c:1113
 msgid "Tag selected files with this encoder name"
-msgstr ""
+msgstr "Tag berkas yang dipilih dengan nama enkoder ini"
 
 #.
 #. * 2 - Page for extra tag fields
 #.
-#: ../src/easytag.c:1147 ../src/et_core.c:3229 ../src/et_core.c:3232
-#, fuzzy
+#: ../src/easytag.c:1146 ../src/et_core.c:3241 ../src/et_core.c:3244
 msgid "Images"
 msgstr "Citra"
 
-#: ../src/easytag.c:1171
+#: ../src/easytag.c:1170
 msgid "You can use drag and drop to add an image"
 msgstr ""
 
-#: ../src/easytag.c:1218
-#, fuzzy
+#: ../src/easytag.c:1217
 msgid "Add images to the tag"
-msgstr "Tambahkan gambar terpilih ke sebuah katalog"
+msgstr "Tambahkan citra ke tag"
 
-#: ../src/easytag.c:1236
-#, fuzzy
+#: ../src/easytag.c:1235
 msgid "Remove selected images from the tag"
-msgstr "Buang gambar terpilih dari katalog"
+msgstr "Buang citra yang dipilih dari tag"
 
-#: ../src/easytag.c:1250
-#, fuzzy
+#: ../src/easytag.c:1249
 msgid "Save the selected images to files"
-msgstr "Simpan trek yang dipilih ke disk sebagai file"
+msgstr "Simpan citra yang dipilih ke berkas"
 
-#: ../src/easytag.c:1261
-#, fuzzy
+#: ../src/easytag.c:1260
 msgid "Edit image properties"
-msgstr "Sunting properti proyek"
+msgstr "Sunting properti citra"
 
-#: ../src/easytag.c:1275
+#: ../src/easytag.c:1274
 msgid "Tag selected files with these images"
 msgstr ""
 
-#: ../src/easytag.c:1333
-#, fuzzy, c-format
+#: ../src/easytag.c:1332
+#, c-format
 msgid "Selected files tagged with title '%s'."
-msgstr "Daftar berkas yang dipilih terkat dengan permintaan"
+msgstr "Berkas yang dipilih ditag dengan judul ‘%s’."
 
-#: ../src/easytag.c:1335
+#: ../src/easytag.c:1334
 #, fuzzy
 msgid "Removed title from selected files."
 msgstr "Menghapus berkas yang dipilih dari proyek"
 
-#: ../src/easytag.c:1350
-#, fuzzy, c-format
+#: ../src/easytag.c:1349
+#, c-format
 msgid "Selected files tagged with artist '%s'."
-msgstr "Daftar berkas yang dipilih terkat dengan permintaan"
+msgstr "Berkas yang dipilih ditag dengan artis ‘%s’."
 
-#: ../src/easytag.c:1352
+#: ../src/easytag.c:1351
 #, fuzzy
 msgid "Removed artist from selected files."
 msgstr "Menghapus berkas yang dipilih dari proyek"
 
-#: ../src/easytag.c:1366
+#: ../src/easytag.c:1365
 #, c-format
 msgid "Selected files tagged with album artist '%s'."
 msgstr ""
 
-#: ../src/easytag.c:1368
+#: ../src/easytag.c:1367
 msgid "Removed album artist from selected files."
 msgstr ""
 
-#: ../src/easytag.c:1383
-#, fuzzy, c-format
+#: ../src/easytag.c:1382
+#, c-format
 msgid "Selected files tagged with album '%s'."
-msgstr "Daftar berkas yang dipilih terkat dengan permintaan"
+msgstr "Berkas yang dipilih ditag dengan album ‘%s’."
 
-#: ../src/easytag.c:1385
+#: ../src/easytag.c:1384
 msgid "Removed album name from selected files."
 msgstr ""
 
-#: ../src/easytag.c:1422
+#: ../src/easytag.c:1421
 #, c-format
 msgid "Selected files tagged with disc number '%s/%s'."
 msgstr ""
 
-#: ../src/easytag.c:1427
+#: ../src/easytag.c:1426
 #, c-format
 msgid "Selected files tagged with disc number like 'xx'."
 msgstr ""
 
-#: ../src/easytag.c:1432
+#: ../src/easytag.c:1431
 msgid "Removed disc number from selected files."
 msgstr ""
 
-#: ../src/easytag.c:1448
-#, fuzzy, c-format
+#: ../src/easytag.c:1447
+#, c-format
 msgid "Selected files tagged with year '%s'."
-msgstr "Daftar berkas yang dipilih terkat dengan permintaan"
+msgstr "Berkas yang dipilih ditag dengan tahun ‘%s’."
 
-#: ../src/easytag.c:1450
+#: ../src/easytag.c:1449
 #, fuzzy
 msgid "Removed year from selected files."
 msgstr "Menghapus berkas yang dipilih dari proyek"
 
-#: ../src/easytag.c:1476 ../src/easytag.c:1566
+#: ../src/easytag.c:1475 ../src/easytag.c:1565
 #, c-format
 msgid "Selected files tagged with track like 'xx/%s'."
 msgstr ""
 
-#: ../src/easytag.c:1479
+#: ../src/easytag.c:1478
 #, c-format
 msgid "Selected files tagged with track like 'xx'."
 msgstr ""
 
-#: ../src/easytag.c:1483 ../src/easytag.c:1569
+#: ../src/easytag.c:1482 ../src/easytag.c:1568
 msgid "Removed track number from selected files."
 msgstr ""
 
 #. msg = g_strdup_printf(_("All %d tracks numbered sequentially."), ETCore->ETFileSelectionList_Length);
-#: ../src/easytag.c:1539
-#, fuzzy, c-format
+#: ../src/easytag.c:1538
+#, c-format
 msgid "Selected tracks numbered sequentially."
-msgstr "Sunting informasi pada trek yang dipilih"
+msgstr "Trek yang dipilih dinomori secara berurutan."
 
-#: ../src/easytag.c:1585
-#, fuzzy, c-format
+#: ../src/easytag.c:1584
+#, c-format
 msgid "Selected files tagged with genre '%s'."
-msgstr "Daftar berkas yang dipilih terkat dengan permintaan"
+msgstr "Berkas yang dipilih ditag dengan aliran ‘%s’."
 
-#: ../src/easytag.c:1587
+#: ../src/easytag.c:1586
 #, fuzzy
 msgid "Removed genre from selected files."
 msgstr "Menghapus berkas yang dipilih dari proyek"
 
-#: ../src/easytag.c:1609
-#, fuzzy, c-format
+#: ../src/easytag.c:1608
+#, c-format
 msgid "Selected files tagged with comment '%s'."
-msgstr "Daftar berkas yang dipilih terkat dengan permintaan"
+msgstr "Berkas yang dipilih ditag dengan komentar ‘%s’."
 
-#: ../src/easytag.c:1611
+#: ../src/easytag.c:1610
 #, fuzzy
 msgid "Removed comment from selected files."
 msgstr "Menghapus berkas yang dipilih dari proyek"
 
-#: ../src/easytag.c:1625
-#, fuzzy, c-format
+#: ../src/easytag.c:1624
+#, c-format
 msgid "Selected files tagged with composer '%s'."
-msgstr "Daftar berkas yang dipilih terkat dengan permintaan"
+msgstr "Berkas yang dipilih ditag dengan komponis ‘%s’."
 
-#: ../src/easytag.c:1627
+#: ../src/easytag.c:1626
 #, fuzzy
 msgid "Removed composer from selected files."
 msgstr "Menghapus berkas yang dipilih dari proyek"
 
-#: ../src/easytag.c:1642
+#: ../src/easytag.c:1641
 #, c-format
 msgid "Selected files tagged with original artist '%s'."
 msgstr ""
 
-#: ../src/easytag.c:1644
+#: ../src/easytag.c:1643
 msgid "Removed original artist from selected files."
 msgstr ""
 
-#: ../src/easytag.c:1659
-#, fuzzy, c-format
+#: ../src/easytag.c:1658
+#, c-format
 msgid "Selected files tagged with copyright '%s'."
-msgstr "Daftar berkas yang dipilih terkat dengan permintaan"
+msgstr "Berkas yang dipilih ditag dengan hak cipta ‘%s’."
 
-#: ../src/easytag.c:1661
+#: ../src/easytag.c:1660
 #, fuzzy
 msgid "Removed copyright from selected files."
 msgstr "Menghapus berkas yang dipilih dari proyek"
 
-#: ../src/easytag.c:1676
-#, fuzzy, c-format
+#: ../src/easytag.c:1675
+#, c-format
 msgid "Selected files tagged with URL '%s'."
-msgstr "Daftar berkas yang dipilih terkat dengan permintaan"
+msgstr "Berkas yang dipilih ditag dengan URL ‘%s’."
 
-#: ../src/easytag.c:1678
+#: ../src/easytag.c:1677
 #, fuzzy
 msgid "Removed URL from selected files."
 msgstr "Menghapus berkas yang dipilih dari proyek"
 
-#: ../src/easytag.c:1693
+#: ../src/easytag.c:1692
 #, c-format
 msgid "Selected files tagged with encoder name '%s'."
 msgstr ""
 
-#: ../src/easytag.c:1695
+#: ../src/easytag.c:1694
 msgid "Removed encoder name from selected files."
 msgstr ""
 
-#: ../src/easytag.c:1727
-#, fuzzy
+#: ../src/easytag.c:1726
 msgid "Selected files tagged with images."
-msgstr "Menyimpan gambar yang dipilih dengan nama berbeda"
+msgstr "Berkas yang dipilih ditag dengan citra."
 
-#: ../src/easytag.c:1729
+#: ../src/easytag.c:1728
 #, fuzzy
 msgid "Removed images from selected files."
 msgstr "Menghapus berkas yang dipilih dari proyek"
 
-#: ../src/easytag.c:2010
+#: ../src/easytag.c:2009
 msgid "Select Mode and Mask, and redo the same action"
 msgstr ""
 
-#: ../src/easytag.c:2062
+#: ../src/easytag.c:2061
 msgid "All tags have been scanned"
 msgstr "Semua tag telah dipindai"
 
-#: ../src/easytag.c:2118
+#: ../src/easytag.c:2117
 msgid "All tags have been removed"
 msgstr "Semua tag telah dihapus"
 
-#: ../src/easytag.c:2423
+#: ../src/easytag.c:2422
 #, c-format
 msgid "A file was changed by an external program"
 msgid_plural "%d files were changed by an external program."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/easytag.c:2428
-#, fuzzy
+#: ../src/easytag.c:2427
 msgid "Do you want to continue saving the file?"
-msgstr "Anda Anda ingin menghapus %d berkas yang dipilih?"
+msgstr "Apakah Anda ingin melanjutkan menyimpan berkas?"
 
-#: ../src/easytag.c:2486 ../src/easytag.c:2506
+#: ../src/easytag.c:2485 ../src/easytag.c:2505
 msgid "Saving files was stopped"
 msgstr "Penyimpanan berkas dihentikan"
 
-#: ../src/easytag.c:2508
+#: ../src/easytag.c:2507
 msgid "All files have been saved"
 msgstr "Semua berkas telah disimpan"
 
-#: ../src/easytag.c:2643
+#: ../src/easytag.c:2642
 #, c-format
 msgid "Cannot delete file (%s)"
 msgstr "Tak dapat menghapus berkas (%s)"
 
-#: ../src/easytag.c:2664
+#: ../src/easytag.c:2663
 msgid "Files have been partially deleted"
 msgstr "Berkas-berkas telah dihapus sebagian"
 
-#: ../src/easytag.c:2666
+#: ../src/easytag.c:2665
 msgid "All files have been deleted"
 msgstr "Semua berkas telah dihapus"
 
-#: ../src/easytag.c:2782
+#: ../src/easytag.c:2781
 #, c-format
 msgid "Do you want to write the tag of file '%s'?"
 msgstr "Anda ingin menulis tag dari berkas '%s'?"
 
-#: ../src/easytag.c:2784
-#, fuzzy
+#: ../src/easytag.c:2783
 msgid "Confirm Tag Writing"
-msgstr "galat ketika menulisi `%s': %s\n"
+msgstr "Konfirmasikan Penulisan Tag"
 
-#: ../src/easytag.c:2789 ../src/easytag.c:2909 ../src/easytag.c:3172
+#: ../src/easytag.c:2788 ../src/easytag.c:2908 ../src/easytag.c:3158
 msgid "Repeat action for the remaining files"
 msgstr ""
 
 #. Directories and filename changed
-#: ../src/easytag.c:2873 ../src/scan_dialog.c:183
-#, fuzzy
+#: ../src/easytag.c:2872 ../src/scan_dialog.c:183
 msgid "Rename File and Directory"
-msgstr "Ubah nama berkas atau direktori"
+msgstr "Ubah Nama Berkas dan Direktori"
 
-#: ../src/easytag.c:2874
+#: ../src/easytag.c:2873
 msgid "File and directory rename confirmation required"
 msgstr ""
 
-#: ../src/easytag.c:2875
+#: ../src/easytag.c:2874
 #, fuzzy, c-format
 msgid "Do you want to rename the file and directory '%s' to '%s'?"
 msgstr "Anda ingin membuang perubahan dan memuat ulang berkas?"
 
-#: ../src/easytag.c:2881
-#, fuzzy
+#: ../src/easytag.c:2880
 msgid "Directory rename confirmation required"
-msgstr "Tak bisa mengubah nama direktori root"
+msgstr "Diperlukan konfirmasi pengubahan nama direktori"
 
-#: ../src/easytag.c:2882
-#, fuzzy, c-format
+#: ../src/easytag.c:2881
+#, c-format
 msgid "Do you want to rename the directory '%s' to '%s'?"
-msgstr "Apakah Anda ingin menutup koneksi '%s'?"
+msgstr "Apakah Anda ingin mengubah nama direktori ‘%s’ menjadi ‘%s’?"
 
 #. Only filename changed
-#: ../src/easytag.c:2888
+#: ../src/easytag.c:2887
 msgid "Rename File"
 msgstr "Ubah Nama Berkas"
 
-#: ../src/easytag.c:2889
+#: ../src/easytag.c:2888
 #, fuzzy
 msgid "File rename confirmation required"
 msgstr "Berkas berikut diperlukan:"
 
-#: ../src/easytag.c:2890
+#: ../src/easytag.c:2889
 #, fuzzy, c-format
 msgid "Do you want to rename the file '%s' to '%s'?"
 msgstr "Anda ingin memuat ulang berkas?"
 
-#: ../src/easytag.c:2956
-#, fuzzy, c-format
+#: ../src/easytag.c:2955
+#, c-format
 msgid "Cannot rename file '%s' to '%s'"
-msgstr ""
-"Gagal untuk mengubah nama berkas '%s' menjadi '%s': g_rename() gagal: %s"
+msgstr "Tak bisa mengubah nama berkas ‘%s’ menjadi ‘%s’"
 
-#: ../src/easytag.c:2970
-#, fuzzy, c-format
+#: ../src/easytag.c:2969
+#, c-format
 msgid "Cannot rename file '%s' to '%s': %s"
-msgstr ""
-"Gagal untuk mengubah nama berkas '%s' menjadi '%s': g_rename() gagal: %s"
+msgstr "Tak bisa mengubah nama berkas ‘%s’ menjadi ‘%s’: %s"
 
-#: ../src/easytag.c:2974
+#: ../src/easytag.c:2973
 msgid "File(s) not renamed"
 msgstr "Berkas tak diubah nama"
 
-#: ../src/easytag.c:3086
+#: ../src/easytag.c:3085
 #, fuzzy, c-format
 msgid "Writing tag of '%s'"
 msgstr "Tag Git:"
 
-#: ../src/easytag.c:3093
+#: ../src/easytag.c:3092
 msgid "Tag(s) written"
 msgstr "Tag ditulis"
 
-#: ../src/easytag.c:3108
-#, c-format
-msgid "Cannot write tag in file '%s' (%s)"
-msgstr "Tak dapat menulis tag dalam berkas '%s' (%s)"
-
-#: ../src/easytag.c:3121
+#: ../src/easytag.c:3105
 #, c-format
 msgid "Cannot write tag in file '%s'"
 msgstr "Tak dapat menulis tag dalam berkas '%s'"
 
-#: ../src/easytag.c:3124
+#: ../src/easytag.c:3109
 msgid "Tag Write Error"
 msgstr "Galat Tulis Tag"
 
-#: ../src/easytag.c:3169 ../src/easytag.c:3183
-#, fuzzy, c-format
+#: ../src/easytag.c:3155 ../src/easytag.c:3169
+#, c-format
 msgid "Do you really want to delete the file '%s'?"
-msgstr "Anda Anda ingin menghapus %d berkas yang dipilih?"
+msgstr "Apakah Anda benar-benar ingin menghapus berkas ‘%s’?"
 
-#: ../src/easytag.c:3175 ../src/easytag.c:3185
+#: ../src/easytag.c:3161 ../src/easytag.c:3171
 msgid "Delete File"
 msgstr "Hapus Berkas"
 
-#: ../src/easytag.c:3210
+#: ../src/easytag.c:3196
 #, c-format
 msgid "File '%s' deleted"
 msgstr "Berkas '%s' dihapus"
 
-#: ../src/easytag.c:3345
-#, fuzzy, c-format
+#: ../src/easytag.c:3331
+#, c-format
 msgid "Cannot read directory '%s'"
-msgstr "gagal membaca direktori 'info'"
+msgstr "Tak bisa membaca direktori '%s'"
 
-#: ../src/easytag.c:3349
-#, fuzzy
+#: ../src/easytag.c:3335
 msgid "Directory Read Error"
-msgstr "Laju Galat Pembacaan"
+msgstr "Galat Baca Direktori"
 
 #. Read the directory recursively
-#: ../src/easytag.c:3370
-#, fuzzy, c-format
+#: ../src/easytag.c:3356
+#, c-format
 msgid "Search in progress…"
-msgstr "Impor tengah berlangsung…"
+msgstr "Pencarian tengah berlangsung…"
 
-#: ../src/easytag.c:3393 ../src/et_core.c:2864
+#: ../src/easytag.c:3379 ../src/et_core.c:2876
 #, c-format
 msgid "File: '%s'"
 msgstr "Berkas: '%s'"
 
-#: ../src/easytag.c:3443
+#: ../src/easytag.c:3429
 #, c-format
 msgid "Found one file in this directory and subdirectories"
 msgid_plural "Found %d files in this directory and subdirectories"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/easytag.c:3450
+#: ../src/easytag.c:3436
 #, c-format
 msgid "Found one file in this directory"
 msgid_plural "Found %d files in this directory"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Menemukan %d berkas dalam direktori ini"
 
-#: ../src/easytag.c:3472
+#: ../src/easytag.c:3458
 msgid "No file found in this directory and subdirectories"
 msgstr ""
 
-#: ../src/easytag.c:3474
+#: ../src/easytag.c:3460
 msgid "No file found in this directory"
 msgstr "Tak ditemukan berkas pada direktori ini"
 
-#: ../src/easytag.c:3542
+#: ../src/easytag.c:3528
 #, c-format
 msgid "Error opening directory '%s' (%s)"
 msgstr "Galat saat membuka direktori '%s': (%s)"
 
-#: ../src/easytag.c:3578
+#: ../src/easytag.c:3564
 #, c-format
 msgid "Cannot read directory (%s)"
 msgstr "Tak dapat membaca direktori (%s)"
 
-#: ../src/easytag.c:3598
+#: ../src/easytag.c:3584
 msgid "Searching for audio files…"
 msgstr "Sedang mencari berkas audio…"
 
-#: ../src/easytag.c:3599
+#: ../src/easytag.c:3585
 msgid "Searching"
 msgstr "Mencari"
 
-#: ../src/easytag.c:4265
-#, fuzzy
+#: ../src/easytag.c:4251
 msgid "Select a directory to browse"
-msgstr "Tak bisa meramban direktori profil"
+msgstr "Pilih direktori untuk diramban"
 
 #. Menu items
-#: ../src/easytag.c:4411
+#: ../src/easytag.c:4397
 msgid "Tag selected files with this field"
 msgstr ""
 
-#: ../src/easytag.c:4423 ../src/scan_dialog.c:2128
+#: ../src/easytag.c:4409 ../src/scan_dialog.c:2128
 msgid "Convert '_' and '%20' to spaces"
 msgstr "Ubah '_' dan '%20' ke spasi"
 
-#: ../src/easytag.c:4430 ../src/scan_dialog.c:2130
+#: ../src/easytag.c:4416 ../src/scan_dialog.c:2130
 msgid "Convert ' ' to '_'"
 msgstr "Ubah ' ' menjadi '_'"
 
-#: ../src/easytag.c:4441
+#: ../src/easytag.c:4427
 msgid "All uppercase"
 msgstr "Semua huruf besar"
 
-#: ../src/easytag.c:4448
+#: ../src/easytag.c:4434
 msgid "All lowercase"
 msgstr "Semua huruf kecil"
 
-#: ../src/easytag.c:4455
+#: ../src/easytag.c:4441
 msgid "First letter uppercase"
 msgstr "Huruf pertama kapital"
 
-#: ../src/easytag.c:4462
+#: ../src/easytag.c:4448
 msgid "First letter uppercase of each word"
 msgstr ""
 
-#: ../src/easytag.c:4473 ../src/prefs.c:1023 ../src/scan_dialog.c:2228
+#: ../src/easytag.c:4459 ../src/prefs.c:1023 ../src/scan_dialog.c:2254
 msgid "Remove spaces"
 msgstr "Buang spasi"
 
-#: ../src/easytag.c:4480
+#: ../src/easytag.c:4466
 msgid "Insert space before uppercase letter"
 msgstr ""
 
-#: ../src/easytag.c:4487
+#: ../src/easytag.c:4473
 msgid "Remove duplicate spaces or underscores"
 msgstr ""
 
-#: ../src/easytag.c:4494
+#: ../src/easytag.c:4480
 msgid "Remove all text"
 msgstr "Buang semua teks"
 
-#: ../src/easytag.c:4513
-#, fuzzy
+#: ../src/easytag.c:4499
 msgid "EasyTAG: Normal exit."
-msgstr "Simpan saat keluar"
+msgstr "EasyTAG: Keluar normal."
 
-#: ../src/easytag.c:4565
+#: ../src/easytag.c:4551
 msgid "Do you want to save them before quitting?"
 msgstr ""
 
-#: ../src/easytag.c:4592
+#: ../src/easytag.c:4578
 msgid "Do you really want to quit?"
 msgstr "Anda benar-benar ingin berhenti?"
 
-#: ../src/et_core.c:550
+#: ../src/et_core.c:551
 #, c-format
 msgid "Error reading tag from ogg file (%s)"
 msgstr ""
 
-#: ../src/et_core.c:579
+#: ../src/et_core.c:580
 #, c-format
 msgid "Error reading tag from Opus file (%s)"
 msgstr ""
 
-#: ../src/et_core.c:722
+#: ../src/et_core.c:723
 #, c-format
 msgid "Automatic corrections applied for file '%s'."
 msgstr ""
 
-#: ../src/et_core.c:2747
+#: ../src/et_core.c:2759
 msgid "ID3 Tag"
 msgstr "Tag ID3"
 
-#: ../src/et_core.c:2753
+#: ../src/et_core.c:2765
 msgid "Ogg Vorbis Tag"
 msgstr "Tag Ogg Vorbis"
 
-#: ../src/et_core.c:2759
+#: ../src/et_core.c:2771
 msgid "FLAC Vorbis Tag"
 msgstr "Tag FLAC Vorbis"
 
-#: ../src/et_core.c:2764
+#: ../src/et_core.c:2776
 msgid "APE Tag"
 msgstr "Tag APE"
 
-#: ../src/et_core.c:2769
+#: ../src/et_core.c:2781
 msgid "MP4/M4A/AAC Tag"
-msgstr ""
+msgstr "Tag MP4/M4A/AAC"
 
-#: ../src/et_core.c:2775
+#: ../src/et_core.c:2787
 msgid "Wavpack Tag"
 msgstr "Tag Wavpack"
 
-#: ../src/et_core.c:2781
+#: ../src/et_core.c:2793
 msgid "Opus Tag"
 msgstr "Tag Opus"
 
-#: ../src/et_core.c:2801
+#: ../src/et_core.c:2813
 msgid "MP3 File"
 msgstr "Berkas MP3"
 
-#: ../src/et_core.c:2805
+#: ../src/et_core.c:2817
 msgid "MP2 File"
 msgstr "Berkas MP2"
 
-#: ../src/et_core.c:2811
+#: ../src/et_core.c:2823
 msgid "Ogg Vorbis File"
 msgstr "Berkas Ogg Vorbis"
 
-#: ../src/et_core.c:2817
+#: ../src/et_core.c:2829
 msgid "Speex File"
 msgstr "Berkas Speex"
 
-#: ../src/et_core.c:2823
+#: ../src/et_core.c:2835
 msgid "FLAC File"
 msgstr "Berkas FLAC"
 
-#: ../src/et_core.c:2828
+#: ../src/et_core.c:2840
 msgid "MusePack File"
 msgstr "Berkas MusePack"
 
-#: ../src/et_core.c:2832
+#: ../src/et_core.c:2844
 #, fuzzy
 msgid "Monkey's Audio File"
 msgstr "Peringkat dari berkas audio."
 
-#: ../src/et_core.c:2837
+#: ../src/et_core.c:2849
 msgid "MP4/AAC File"
 msgstr "Berkas MP4/AAC"
 
-#: ../src/et_core.c:2843
+#: ../src/et_core.c:2855
 msgid "Wavpack File"
 msgstr "Berkas WavPack"
 
-#: ../src/et_core.c:2849
+#: ../src/et_core.c:2861
 msgid "Opus File"
 msgstr "Berkas Opus"
 
-#: ../src/et_core.c:2908 ../src/et_core.c:2963
+#: ../src/et_core.c:2920 ../src/et_core.c:2975
 msgid "File not found"
 msgstr "Berkas tak ditemukan"
 
-#: ../src/et_core.c:2913
-#, fuzzy, c-format
+#: ../src/et_core.c:2925
+#, c-format
 msgid "Cannot query file information (%s)"
-msgstr "Tak bisa membaca informasi berkas"
+msgstr "Tak dapat meminta informasi berkas (%s)"
 
-#: ../src/et_core.c:2947
-#, fuzzy
+#: ../src/et_core.c:2959
 msgid "Read-only file"
-msgstr "Berkas Hanya-baca."
+msgstr "Berkas hanya-baca"
 
 #. And refresh the number of files in this directory
-#: ../src/et_core.c:3011
+#: ../src/et_core.c:3023
 #, c-format
 msgid "One file"
 msgid_plural "%u files"
 msgstr[0] "%u berkas"
 
-#: ../src/et_core.c:3215
+#: ../src/et_core.c:3227
 #, c-format
 msgid "Images (%d)"
 msgstr "Citra (%d)"
 
 #. Bitrate
-#: ../src/et_core.c:3257 ../src/flac_header.c:205
+#: ../src/et_core.c:3269 ../src/flac_header.c:205
 #: ../src/monkeyaudio_header.c:86 ../src/mp4_header.cc:142
 #: ../src/mpeg_header.c:206 ../src/musepack_header.c:88
 #: ../src/ogg_header.c:401 ../src/opus_header.c:227 ../src/wavpack_header.c:78
@@ -2490,7 +2449,7 @@ msgid "%d kb/s"
 msgstr "%d kb/s"
 
 #. Samplerate
-#: ../src/et_core.c:3262 ../src/flac_header.c:210
+#: ../src/et_core.c:3274 ../src/flac_header.c:210
 #: ../src/monkeyaudio_header.c:91 ../src/mp4_header.cc:147
 #: ../src/mpeg_header.c:211 ../src/musepack_header.c:93
 #: ../src/ogg_header.c:406 ../src/opus_header.c:232 ../src/wavpack_header.c:83
@@ -2498,20 +2457,20 @@ msgstr "%d kb/s"
 msgid "%d Hz"
 msgstr "%d Hz"
 
-#: ../src/et_core.c:3408 ../src/scan_dialog.c:688
+#: ../src/et_core.c:3420 ../src/scan_dialog.c:688
 #, c-format
 msgid "Could not convert filename '%s' into system filename encoding"
 msgstr ""
 
-#: ../src/et_core.c:3410
+#: ../src/et_core.c:3422
 msgid "Try setting the environment variable G_FILENAME_ENCODING."
 msgstr ""
 
-#: ../src/et_core.c:3411 ../src/scan_dialog.c:690
+#: ../src/et_core.c:3423 ../src/scan_dialog.c:690
 msgid "Filename translation"
 msgstr "Terjemahan nama berkas"
 
-#: ../src/et_core.c:4116
+#: ../src/et_core.c:4129
 #, fuzzy, c-format
 msgid "Error writing tag type %d to file %s (%s)"
 msgstr "Galat ketika menulis ke berkas unduhan."
@@ -2526,11 +2485,11 @@ msgid "Channels:"
 msgstr "Kanal:"
 
 #: ../src/flac_tag.c:131 ../src/flac_tag.c:850 ../src/flac_tag.c:860
-#, fuzzy, c-format
+#, c-format
 msgid "Error while opening file: '%s' as FLAC (%s)."
-msgstr "Kesalahan saat membuka berkas \"%s\" untuk menulis."
+msgstr "Galat saat membuka berkas: '%s' sebagai FLAC (%s)."
 
-#: ../src/flac_tag.c:352 ../src/ogg_tag.c:310
+#: ../src/flac_tag.c:352 ../src/ogg_tag.c:304
 #, c-format
 msgid ""
 "The year value '%s' seems to be invalid in file '%s'. The information will "
@@ -2543,11 +2502,11 @@ msgid "Picture block isn't valid: '%s'"
 msgstr ""
 
 #: ../src/flac_tag.c:1094
-#, fuzzy, c-format
+#, c-format
 msgid "Error: Failed to write comments to file '%s' (%s)."
-msgstr "Gagal menulis file kunci privat '%s': %s"
+msgstr "Gagal menulis file kunci privat ‘%s’: %s"
 
-#: ../src/flac_tag.c:1099 ../src/ogg_tag.c:1166
+#: ../src/flac_tag.c:1099 ../src/ogg_tag.c:1161
 #, fuzzy, c-format
 msgid "Written tag of '%s'"
 msgstr "Tag Git:"
@@ -2565,9 +2524,8 @@ msgid ""
 msgstr ""
 
 #: ../src/id3_tag.c:219
-#, fuzzy
 msgid "Corrupted file"
-msgstr "Berkas telah rusak"
+msgstr "Berkas terkorupsi"
 
 #: ../src/id3_tag.c:592
 #, fuzzy, c-format
@@ -2616,7 +2574,7 @@ msgstr ""
 msgid "Error while updating ID3v1 tag of '%s' (%s)"
 msgstr "Terjadi galat sewaktu memperbaharui berkas."
 
-#: ../src/id3_tag.c:702 ../src/id3v24_tag.c:1042
+#: ../src/id3_tag.c:702 ../src/id3v24_tag.c:1108
 #, c-format
 msgid "Updated tag of '%s'"
 msgstr ""
@@ -2677,9 +2635,8 @@ msgid "No file to parse"
 msgstr "Gagal mengurai berkas: %s"
 
 #: ../src/id3_tag.c:745
-#, fuzzy
 msgid "Attempting to write to a read-only file"
-msgstr "Mencoba mengubah model data yang hanya-baca"
+msgstr "Mencoba menulis ke suatu berkas yang hanya-baca"
 
 #: ../src/id3_tag.c:747
 msgid "Error in compression/uncompression"
@@ -2690,39 +2647,38 @@ msgstr ""
 msgid "Unknown error message"
 msgstr "Galat saat menerima pesan: %s"
 
-#: ../src/id3_tag.c:1353
-#, fuzzy, c-format
+#: ../src/id3_tag.c:1357
+#, c-format
 msgid "Error while creating temporary file: '%s'"
-msgstr "Terjadi galat ketika membuat berkas baru"
+msgstr "Galat ketika membuat berkas sementara: ‘%s’"
 
-#: ../src/id3_tag.c:1360
-#, fuzzy
+#: ../src/id3_tag.c:1364
 msgid "Error while creating temporary file"
-msgstr "Terjadi galat ketika membuat berkas baru"
+msgstr "Galat ketika membuat berkas sementara"
 
-#: ../src/id3_tag.c:1380
-#, fuzzy, c-format
+#: ../src/id3_tag.c:1384
+#, c-format
 msgid "Error while writing to file: '%s' (%s)"
-msgstr "Galat ketika menulis ke berkas \"%s\"."
+msgstr "Galat ketika menulis ke berkas: '%s' (%s)"
 
 #. Translators: The first string is a filename, the
 #. * second string is the number of bytes that were
 #. * missing (not read for some reason) while reading from
 #. * the file.
 #.
-#: ../src/id3v24_tag.c:1497
+#: ../src/id3v24_tag.c:1563
 #, c-format
 msgid "Cannot write tag of file ‘%s’ (a byte was missing)"
 msgid_plural "Cannot write tag of file ‘%s’ (%s bytes were missing)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/id3v24_tag.c:1518
-#, fuzzy, c-format
+#: ../src/id3v24_tag.c:1584
+#, c-format
 msgid "Cannot save tag of file '%s'"
-msgstr "Tak dapat menyimpan ke berkas \"{0}\"."
+msgstr "Tak dapat menyimpan tag berkas ‘%s’"
 
-#: ../src/id3v24_tag.c:1529
+#: ../src/id3v24_tag.c:1595
 #, fuzzy, c-format
 msgid "Size error while saving tag of '%s'"
 msgstr "Galat saat menyimpan informasi lagu"
@@ -2732,9 +2688,8 @@ msgid "Log"
 msgstr "Log"
 
 #: ../src/misc.c:720
-#, fuzzy
 msgid "You must type a program name"
-msgstr "Anda harus menyatakan suatu nama berkas"
+msgstr "Anda harus mengetikkan suatu nama program"
 
 #: ../src/misc.c:721
 #, fuzzy
@@ -2742,14 +2697,14 @@ msgid "Program Name Error"
 msgstr "Nama program salah: %s"
 
 #: ../src/misc.c:800
-#, fuzzy, c-format
+#, c-format
 msgid "Executed command: %s"
-msgstr "Perintah Top"
+msgstr "Perintah yang dieksekusi: %s"
 
 #: ../src/misc.c:807
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to launch program: %s"
-msgstr "Gagal meluncurkan pratilik:%s.\n"
+msgstr "Gagal meluncurkan program: %s"
 
 #: ../src/misc.c:824
 msgid "Select File"
@@ -2802,9 +2757,8 @@ msgstr ""
 
 #. Create playlist in parent directory
 #: ../src/misc.c:1219
-#, fuzzy
 msgid "Create playlist in the parent directory"
-msgstr "Buat berkas baru di direktori yang diberikan"
+msgstr "Buat daftar putar di direktori induk"
 
 #: ../src/misc.c:1222
 msgid "If activated, the playlist will be created in the parent directory."
@@ -2823,9 +2777,8 @@ msgid ""
 msgstr ""
 
 #: ../src/misc.c:1241
-#, fuzzy
 msgid "Playlist Content"
-msgstr "Ganjal Isi"
+msgstr "Isi Daftar Putar"
 
 #: ../src/misc.c:1247
 #, fuzzy
@@ -2843,21 +2796,20 @@ msgid "Write info using:"
 msgstr "Sedang mengganti info paket yang tersedia, dengan %s.\n"
 
 #: ../src/misc.c:1468
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot write playlist file '%s'"
-msgstr "Tak bisa menulis ke berkas temporer %s"
+msgstr "Tak bisa menulis berkas daftar putar ‘%s’"
 
 #: ../src/misc.c:1472
-#, fuzzy
 msgid "Playlist File Error"
-msgstr "Error menghapus berkas '%s': %s"
+msgstr "Galat Berkas Daftar Putar"
 
 #: ../src/misc.c:1480
 #, fuzzy, c-format
 msgid "Written playlist file '%s'"
 msgstr "Untuk menyimpan daftar putar ke berkas"
 
-#: ../src/misc.c:1544 ../src/scan_dialog.c:2713 ../src/scan_dialog.c:2775
+#: ../src/misc.c:1544 ../src/scan_dialog.c:2747 ../src/scan_dialog.c:2809
 #, fuzzy
 msgid "Invalid scanner mask"
 msgstr "Mask pengubah bagi akselerator"
@@ -2867,9 +2819,8 @@ msgid "CD"
 msgstr "CD"
 
 #: ../src/misc.c:1930
-#, fuzzy
 msgid "Find Files"
-msgstr "Cari berkas"
+msgstr "Cari Berkas"
 
 #: ../src/misc.c:1962
 msgid ""
@@ -2901,9 +2852,8 @@ msgstr "Tag"
 
 #. Property of the search
 #: ../src/misc.c:1990 ../src/prefs.c:335
-#, fuzzy
 msgid "Case sensitive"
-msgstr "Huruf besar berbeda dengan huruf kecil"
+msgstr "Peka huruf besar kecil"
 
 #: ../src/misc.c:2217
 #, fuzzy
@@ -2928,14 +2878,12 @@ msgstr "Berkas:"
 #. Button 'load'
 #. the signal attached to this button, to load the file, is placed after the LoadFileContentList definition
 #: ../src/misc.c:2770
-#, fuzzy
 msgid " Load "
-msgstr "Muat"
+msgstr " Muat "
 
 #: ../src/misc.c:2788
-#, fuzzy
 msgid "Content of Text File"
-msgstr "Berkas Teks Baru"
+msgstr "Isi Berkas Teks"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
 #: ../src/misc.c:2809 ../src/misc.c:2904
@@ -2944,15 +2892,13 @@ msgstr ""
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
 #: ../src/misc.c:2818 ../src/misc.c:2913
-#, fuzzy
 msgid "Delete the selected line"
-msgstr "Menghapus baris saat ini"
+msgstr "Hapus baris yang dipilih"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2827 ../src/misc.c:2922 ../src/misc.c:3408
-#, fuzzy
+#: ../src/misc.c:2827 ../src/misc.c:2922 ../src/misc.c:3403
 msgid "Delete all blank lines"
-msgstr "Hapus Sem_ua Kejadian"
+msgstr "Hapus semua baris kosong"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
 #: ../src/misc.c:2839 ../src/misc.c:2934
@@ -2967,20 +2913,17 @@ msgid "Move down the selected line"
 msgstr "Memindah baris yang dipilih sebaris ke bawah"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2860 ../src/misc.c:2955 ../src/misc.c:3432
-#, fuzzy
+#: ../src/misc.c:2860 ../src/misc.c:2955 ../src/misc.c:3427
 msgid "Reload"
 msgstr "Muat Ulang"
 
 #: ../src/misc.c:2882
-#, fuzzy
 msgid "List of Files"
-msgstr "Daftar file"
+msgstr "Daftar Berkas"
 
 #: ../src/misc.c:2977
-#, fuzzy
 msgid "Selected line:"
-msgstr "Pilih revisi dari baris yang dipilih"
+msgstr "Baris yang dipilih"
 
 #: ../src/misc.c:2995
 msgid ""
@@ -2993,29 +2936,29 @@ msgstr ""
 msgid "Cannot retrieve file info (%s)"
 msgstr "Tak bisa mengambil info berkas (%s)"
 
-#: ../src/misc.c:3144
+#: ../src/misc.c:3145
 #, c-format
 msgid "Can't open file '%s' (%s)"
 msgstr "Tak dapat membuka berkas '%s' (%s)"
 
-#: ../src/misc.c:3180
+#: ../src/misc.c:3174
 #, c-format
 msgid "Error reading file (%s)"
 msgstr "Galat saat membaca berkas (%s)"
 
-#: ../src/misc.c:3396
+#: ../src/misc.c:3391
 msgid "Insert a blank line"
 msgstr "Menyisipkan suatu baris kosong"
 
-#: ../src/misc.c:3402
+#: ../src/misc.c:3397
 msgid "Delete this line"
 msgstr "Menghapus baris ini"
 
-#: ../src/misc.c:3417
+#: ../src/misc.c:3412
 msgid "Move up this line"
 msgstr "Memindah baris ini ke atas"
 
-#: ../src/misc.c:3423
+#: ../src/misc.c:3418
 msgid "Move down this line"
 msgstr "Memindah baris ini ke bawah"
 
@@ -3116,204 +3059,204 @@ msgstr ""
 msgid "Error: Failed to open file: '%s' as Vorbis (%s)."
 msgstr "Galat: Ggagal membuka berkas: '%s' sebagai Vorbis (%s)."
 
-#: ../src/ogg_tag.c:712 ../src/ogg_tag.c:887
+#: ../src/ogg_tag.c:706 ../src/ogg_tag.c:881
 #, c-format
 msgid "Warning: The Ogg Vorbis file '%s' contains an ID3v2 tag."
 msgstr ""
 
-#: ../src/ogg_tag.c:1035 ../src/picture.c:1258
+#: ../src/ogg_tag.c:1030 ../src/picture.c:1082
 #, c-format
 msgid "Error with 'loader_write': %s"
 msgstr "Galat dengan 'loader_write': %s"
 
-#: ../src/ogg_tag.c:1050 ../src/picture.c:1181
+#: ../src/ogg_tag.c:1045 ../src/picture.c:1005
 #, c-format
 msgid "Error with 'loader_close': %s"
 msgstr "Galat dengan 'loader_close': %s"
 
-#: ../src/picture.c:104
-#, c-format
-msgid "Image file not saved: %s"
-msgstr "Berkas citra tak disimpan: %s"
-
-#: ../src/picture.c:154
-#, c-format
-msgid "Cannot open file: '%s'"
-msgstr "Tak dapat membuka berkas: '%s'"
-
-#: ../src/picture.c:158
-msgid "Image File Error"
-msgstr "Galat Berkas Citra"
-
-#: ../src/picture.c:162 ../src/picture.c:424
+#: ../src/picture.c:244 ../src/picture.c:269
 #, c-format
 msgid "Image file not loaded: %s"
 msgstr "Berkas citra tak dimuat: %s"
 
-#: ../src/picture.c:446
+#: ../src/picture.c:261
+#, c-format
+msgid "Cannot open file: '%s'"
+msgstr "Tak dapat membuka berkas: '%s'"
+
+#: ../src/picture.c:265
+msgid "Image File Error"
+msgstr "Galat Berkas Citra"
+
+#: ../src/picture.c:276
 msgid "Image file loaded"
 msgstr "Berkas citra dimuat"
 
-#: ../src/picture.c:504
+#: ../src/picture.c:334
 msgid "Add Images"
 msgstr "Tambah Citra"
 
-#: ../src/picture.c:514 ../src/picture.c:875
+#: ../src/picture.c:344 ../src/picture.c:701
 msgid "All Files"
 msgstr "Semua Berkas"
 
-#: ../src/picture.c:520 ../src/picture.c:881
+#: ../src/picture.c:350 ../src/picture.c:707
 msgid "PNG and JPEG"
 msgstr "PNG dan JPEG"
 
-#: ../src/picture.c:651
+#: ../src/picture.c:477
 #, c-format
 msgid "Image Properties %d/%d"
 msgstr "Properti Citra %d/%d"
 
-#: ../src/picture.c:677
+#: ../src/picture.c:503
 msgid "Image Type"
 msgstr "Tipe Citra"
 
 #. Description of the picture
-#: ../src/picture.c:735
+#: ../src/picture.c:561
 msgid "Image Description:"
 msgstr "Deskripsi Citra"
 
-#: ../src/picture.c:862
+#: ../src/picture.c:688
 #, c-format
 msgid "Save Image %d/%d"
 msgstr "Simpan Citra %d/%d"
 
-#: ../src/picture.c:1022
+#: ../src/picture.c:763
+#, c-format
+msgid "Image file not saved: %s"
+msgstr "Berkas citra tak disimpan: %s"
+
+#: ../src/picture.c:846
 msgid "JPEG image"
 msgstr "Citra JPEG"
 
-#: ../src/picture.c:1024
+#: ../src/picture.c:848
 msgid "PNG image"
 msgstr "Citra PNG"
 
-#: ../src/picture.c:1026
+#: ../src/picture.c:850
 msgid "GIF image"
 msgstr "Citra GIF"
 
-#: ../src/picture.c:1028
+#: ../src/picture.c:852
 msgid "Unknown image"
 msgstr "Citra tak dikenal"
 
-#: ../src/picture.c:1040
+#: ../src/picture.c:864
 msgid "32x32 pixel PNG file icon"
 msgstr ""
 
-#: ../src/picture.c:1042
+#: ../src/picture.c:866
 msgid "Other file icon"
 msgstr "Ikon berkas lain"
 
-#: ../src/picture.c:1044
+#: ../src/picture.c:868
 msgid "Cover (front)"
 msgstr "Sampul (depan)"
 
-#: ../src/picture.c:1046
+#: ../src/picture.c:870
 msgid "Cover (back)"
 msgstr "Sampul (belakang)"
 
-#: ../src/picture.c:1048
+#: ../src/picture.c:872
 msgid "Leaflet page"
 msgstr "Halaman leaflet"
 
-#: ../src/picture.c:1050
+#: ../src/picture.c:874
 msgid "Media (e.g. label side of CD)"
 msgstr ""
 
-#: ../src/picture.c:1052
+#: ../src/picture.c:876
 msgid "Lead artist/lead performer/soloist"
 msgstr ""
 
-#: ../src/picture.c:1054
+#: ../src/picture.c:878
 #, fuzzy
 msgid "Artist/performer"
 msgstr "Artis Album"
 
-#: ../src/picture.c:1056
+#: ../src/picture.c:880
 msgid "Conductor"
 msgstr "Dirigen"
 
-#: ../src/picture.c:1058
+#: ../src/picture.c:882
 msgid "Band/Orchestra"
 msgstr "Band/Orkestra"
 
-#: ../src/picture.c:1062
+#: ../src/picture.c:886
 #, fuzzy
 msgid "Lyricist/text writer"
 msgstr "Penulis Image Diska"
 
-#: ../src/picture.c:1064
+#: ../src/picture.c:888
 msgid "Recording location"
 msgstr "Lokasi perekaman"
 
-#: ../src/picture.c:1066
+#: ../src/picture.c:890
 msgid "During recording"
 msgstr "Saat perekaman"
 
-#: ../src/picture.c:1068
+#: ../src/picture.c:892
 #, fuzzy
 msgid "During performance"
 msgstr "Saat "
 
-#: ../src/picture.c:1070
+#: ../src/picture.c:894
 #, fuzzy
 msgid "Movie/video screen capture"
 msgstr "Rekam video pendek atas layar"
 
-#: ../src/picture.c:1072
+#: ../src/picture.c:896
 msgid "A bright colored fish"
 msgstr "Seekor ikan berwarna cerah"
 
-#: ../src/picture.c:1074
+#: ../src/picture.c:898
 msgid "Illustration"
 msgstr "Ilustrasi"
 
-#: ../src/picture.c:1076
+#: ../src/picture.c:900
 msgid "Band/Artist logotype"
 msgstr ""
 
-#: ../src/picture.c:1078
+#: ../src/picture.c:902
 #, fuzzy
 msgid "Publisher/studio logotype"
 msgstr "Citra 3D Studio"
 
-#: ../src/picture.c:1082
+#: ../src/picture.c:906
 msgid "Unknown image type"
 msgstr "Tipe citra tak dikenal"
 
-#: ../src/picture.c:1112 ../src/picture.c:1123
+#: ../src/picture.c:936 ../src/picture.c:947
 msgid "pixels"
 msgstr "piksel"
 
-#: ../src/picture.c:1113 ../src/picture.c:1124
+#: ../src/picture.c:937 ../src/picture.c:948
 msgid "Type"
 msgstr "Tipe"
 
-#: ../src/picture.c:1125
+#: ../src/picture.c:949
 msgid "Description"
 msgstr "Deskripsi"
 
-#: ../src/picture.c:1241
+#: ../src/picture.c:1065
 msgid ""
 "Cannot display the image because not enough data has been read to determine "
 "how to create the image buffer."
 msgstr ""
 
-#: ../src/picture.c:1248
+#: ../src/picture.c:1072
 msgid "Cannot display the image"
 msgstr "Tak data menampilkan citra"
 
-#: ../src/picture.c:1250
+#: ../src/picture.c:1074
 msgid ""
 "Not enough data has been read to determine how to create the image buffer."
 msgstr ""
 
-#: ../src/picture.c:1252
+#: ../src/picture.c:1076
 msgid "Load Image File"
 msgstr "Muat Berkas Citra"
 
@@ -3374,7 +3317,6 @@ msgstr ""
 #. * Misc
 #.
 #: ../src/prefs.c:222
-#, fuzzy
 msgid "Misc"
 msgstr "Rupa-rupa"
 
@@ -3502,29 +3444,24 @@ msgid "Ascending composer"
 msgstr "nama singkat komposer"
 
 #: ../src/prefs.c:308
-#, fuzzy
 msgid "Descending composer"
-msgstr "nama singkat komposer"
+msgstr "Komposer menurun"
 
 #: ../src/prefs.c:310
-#, fuzzy
 msgid "Ascending original artist"
-msgstr "ID Artis MB"
+msgstr "Artis asli meningkat"
 
 #: ../src/prefs.c:312
-#, fuzzy
 msgid "Descending original artist"
-msgstr "ID Artis MB"
+msgstr "Artis asli menurun"
 
 #: ../src/prefs.c:314
-#, fuzzy
 msgid "Ascending copyright"
-msgstr "Kalimat hak cipta"
+msgstr "Hak cipta meningkat"
 
 #: ../src/prefs.c:316
-#, fuzzy
 msgid "Descending copyright"
-msgstr "Kalimat hak cipta"
+msgstr "Hak cipta menurun"
 
 #: ../src/prefs.c:318
 msgid "Ascending URL"
@@ -3545,14 +3482,12 @@ msgid "Descending encoded by"
 msgstr "Terakhir Disimpan Oleh"
 
 #: ../src/prefs.c:326
-#, fuzzy
 msgid "Ascending creation date"
-msgstr "Tanggal Pembuatan Digital"
+msgstr "Tanggal pembuatan meningkat"
 
 #: ../src/prefs.c:328
-#, fuzzy
 msgid "Descending creation date"
-msgstr "Tanggal Pembuatan Digital"
+msgstr "Tanggal pembuatan menurun"
 
 #: ../src/prefs.c:332
 msgid "Select the type of file sorting when loading a directory."
@@ -3629,9 +3564,8 @@ msgstr ""
 
 #. Extension case (lower/upper?)
 #: ../src/prefs.c:441
-#, fuzzy
 msgid "Convert filename extension to:"
-msgstr "Tidak bisa mengubah nama berkas '%s' ke UTF-8: %s\n"
+msgstr "Konversikan ekstensi nama berkas menjadi:"
 
 #: ../src/prefs.c:444
 msgid "Lower Case"
@@ -3689,9 +3623,8 @@ msgstr ""
 
 #. Character Set for Filename
 #: ../src/prefs.c:481
-#, fuzzy
 msgid "Character Set for Filename"
-msgstr "Pengkodean set karakter untuk subtitel."
+msgstr "Set Karakter untuk Nama Berkas"
 
 #. Rules for character set
 #: ../src/prefs.c:493
@@ -3808,9 +3741,8 @@ msgid ""
 msgstr ""
 
 #: ../src/prefs.c:649
-#, fuzzy
 msgid "Original artist"
-msgstr "Artis Asli"
+msgstr "Artis asli"
 
 #.
 #. * ID3 Tag Settings
@@ -3886,9 +3818,8 @@ msgstr ""
 
 #. ID3v2 tags
 #: ../src/prefs.c:734
-#, fuzzy
 msgid "ID3v2 tags"
-msgstr "Tag API (C/C++)"
+msgstr "Tag ID3v2"
 
 #. Write ID3v2 tag
 #: ../src/prefs.c:747
@@ -3917,7 +3848,6 @@ msgstr ""
 #. Charset
 #. Id3V1 writing character set
 #: ../src/prefs.c:778 ../src/prefs.c:882
-#, fuzzy
 msgid "Charset:"
 msgstr "Set karakter:"
 
@@ -3938,9 +3868,8 @@ msgstr ""
 #. ID3v2 Additional iconv() options
 #. ID3V1 Additional iconv() options
 #: ../src/prefs.c:825 ../src/prefs.c:894
-#, fuzzy
 msgid "Additional settings for iconv():"
-msgstr "Pengaturan bagi depth cueing"
+msgstr "Pengaturan tambahan bagi iconv():"
 
 #: ../src/prefs.c:831 ../src/prefs.c:900
 msgid "No"
@@ -3958,15 +3887,13 @@ msgid "//TRANSLIT"
 msgstr ""
 
 #: ../src/prefs.c:850 ../src/prefs.c:919
-#, fuzzy
 msgid "//IGNORE"
-msgstr "Aba_ikan"
+msgstr "//ABAIKAN"
 
 #. ID3v1 tags
 #: ../src/prefs.c:859
-#, fuzzy
 msgid "ID3v1 tags"
-msgstr "Tag API (C/C++)"
+msgstr "Tag ID3v1"
 
 #. Write ID3v1 tag
 #: ../src/prefs.c:873
@@ -4019,7 +3946,6 @@ msgstr ""
 #. * Scanner
 #.
 #: ../src/prefs.c:980
-#, fuzzy
 msgid "Scanner"
 msgstr "Pemindai"
 
@@ -4033,9 +3959,8 @@ msgid "Convert underscore character '_' and string '%20' to space ' '"
 msgstr ""
 
 #: ../src/prefs.c:998 ../src/prefs.c:1022
-#, fuzzy
 msgid "Convert space ' ' to underscore '_'"
-msgstr "Tekan spasi untuk menjungkit."
+msgstr "Konversikan spasi ‘ ‘ ke garis bawah ‘_’"
 
 #: ../src/prefs.c:1010 ../src/prefs.c:1012
 msgid ""
@@ -4075,9 +4000,8 @@ msgstr ""
 
 #. Properties of the scanner window
 #: ../src/prefs.c:1057
-#, fuzzy
 msgid "Scanner Window"
-msgstr "Jendela Yang Tampak"
+msgstr "Jendela Pemindai"
 
 #: ../src/prefs.c:1063
 #, fuzzy
@@ -4136,9 +4060,8 @@ msgstr "CDDB"
 
 #. CDDB Server Settings (Automatic Search)
 #: ../src/prefs.c:1134
-#, fuzzy
 msgid "Server Settings for Automatic Search"
-msgstr "Cari kunci di server kunci"
+msgstr "Pengaturan Server untuk Pencarian Otomatis"
 
 #: ../src/prefs.c:1143 ../src/prefs.c:1182 ../src/prefs.c:1216
 msgid "Name:"
@@ -4150,21 +4073,18 @@ msgid "Port:"
 msgstr "Porta:"
 
 #: ../src/prefs.c:1172 ../src/prefs.c:1200 ../src/prefs.c:1234
-#, fuzzy
 msgid "CGI Path:"
-msgstr "Path Akselerator"
+msgstr "Path CGI:"
 
 #. CDDB Server Settings (Manual Search)
 #: ../src/prefs.c:1208
-#, fuzzy
 msgid "Server Settings for Manual Search"
-msgstr "Cari kunci di server kunci"
+msgstr "Pengaturan Server untuk Pencarian Manual"
 
 #. Local access for CDDB (Automatic Search)
 #: ../src/prefs.c:1242
-#, fuzzy
 msgid "Local CDDB"
-msgstr "Pada Komputer Ini Saja"
+msgstr "CDDB Lokal"
 
 #: ../src/prefs.c:1250
 msgid "Path:"
@@ -4201,9 +4121,8 @@ msgid "Name of the proxy server."
 msgstr "Server Proxy SIP"
 
 #: ../src/prefs.c:1317
-#, fuzzy
 msgid "Port of the proxy server."
-msgstr "Server Proxy SIP"
+msgstr "Port server proksi."
 
 #: ../src/prefs.c:1321
 msgid "User Name:"
@@ -4226,9 +4145,8 @@ msgstr "Silakan masukkan sandi server basis data bagi pengguna %1:"
 
 #. Track Name list (CDDB results)
 #: ../src/prefs.c:1343
-#, fuzzy
 msgid "Track Name List"
-msgstr "Nama daftar kontak:"
+msgstr "Daftar Nama Trek"
 
 #: ../src/prefs.c:1350
 msgid ""
@@ -4257,9 +4175,8 @@ msgid "Confirmation"
 msgstr "Konfirmasi"
 
 #: ../src/prefs.c:1379
-#, fuzzy
 msgid "Confirm exit from program"
-msgstr "Lepaskan _Dari Program Yang Berjalan"
+msgstr "Konfirmasikan keluar dari program"
 
 #: ../src/prefs.c:1382
 msgid ""
@@ -4268,24 +4185,20 @@ msgid ""
 msgstr ""
 
 #: ../src/prefs.c:1385
-#, fuzzy
 msgid "Confirm writing of file tag"
-msgstr "Ada error saat menulisi berkas sesi '%s': %s\n"
+msgstr "Konfirmasikan penulisan tag berkas"
 
 #: ../src/prefs.c:1389
-#, fuzzy
 msgid "Confirm renaming of file"
-msgstr "Error mengganti nama berkas \"%s\": %s"
+msgstr "Konfirmasikan penggantian nama berkas"
 
 #: ../src/prefs.c:1393
-#, fuzzy
 msgid "Confirm deleting of file"
-msgstr "Menghapus berkas .la: %r"
+msgstr "Konfirmasikan penghapusan berkas"
 
 #: ../src/prefs.c:1397
-#, fuzzy
 msgid "Confirm writing of playlist"
-msgstr "Tambah ke Daftar Putar"
+msgstr "Konfirmasikan penulisan daftar putar"
 
 #: ../src/prefs.c:1401
 msgid "Confirm changing directory when there are unsaved changes"
@@ -4308,9 +4221,8 @@ msgid "Configuration saved"
 msgstr "Konfigurasi disimpan"
 
 #: ../src/prefs.c:1622
-#, fuzzy
 msgid "Configuration unchanged"
-msgstr "Sandi tidak berubah"
+msgstr "Konfigurasi tidak berubah"
 
 #: ../src/prefs.c:1713
 msgid "The selected path for 'Default path to files' is invalid"
@@ -4334,9 +4246,8 @@ msgid "The audio file player '%s' cannot be found"
 msgstr ""
 
 #: ../src/prefs.c:1833
-#, fuzzy
 msgid "Audio Player Error"
-msgstr "Galat putar balik audio."
+msgstr "Galat Pemutar Audio"
 
 #: ../src/scan_dialog.c:182
 #, fuzzy
@@ -4379,9 +4290,9 @@ msgid "New filename successfully scanned: %s"
 msgstr "Proyek baru telah sukses dibuat."
 
 #: ../src/scan_dialog.c:1632
-#, fuzzy, c-format
+#, c-format
 msgid "Error while processing fields: %s"
-msgstr "Terjadi galat saat memroses \"{0}\": {1}"
+msgstr "Galat saat memroses ruas: %s"
 
 #. The window
 #: ../src/scan_dialog.c:1802
@@ -4391,15 +4302,13 @@ msgstr "Nama file yang hendak dibuka dan ditampilkan"
 
 #. TODO: Set related action to match AM_SCAN_FILES.
 #: ../src/scan_dialog.c:1811
-#, fuzzy
 msgid "Scan Files"
-msgstr "Semua Berkas"
+msgstr "Pindai Berkas"
 
 #. Option Menu
 #: ../src/scan_dialog.c:1839
-#, fuzzy
 msgid "Scanner:"
-msgstr "Pelarik %s"
+msgstr "Pemindai:"
 
 #: ../src/scan_dialog.c:1860
 #, fuzzy
@@ -4407,9 +4316,8 @@ msgid "Select the type of scanner to use"
 msgstr "(Usang) Tipe proksi yang akan dipakai"
 
 #: ../src/scan_dialog.c:1869
-#, fuzzy
 msgid "Scanner Preferences"
-msgstr "Preferensi Ekiga"
+msgstr "Preferensi Pemindai"
 
 #: ../src/scan_dialog.c:1878
 #, fuzzy
@@ -4417,9 +4325,8 @@ msgid "Show / Hide Masks Editor"
 msgstr "Tampilkan atau sembunyikan pembidik silang"
 
 #: ../src/scan_dialog.c:1888
-#, fuzzy
 msgid "Show / Hide Legend"
-msgstr "Tampilkan/Sembunyikan toolbar %s"
+msgstr "Tampilkan / Sembunyikan Legenda"
 
 #: ../src/scan_dialog.c:1918
 msgid ""
@@ -4452,9 +4359,8 @@ msgid "Rename file preview"
 msgstr "Pratinjau Format Berkas"
 
 #: ../src/scan_dialog.c:2030
-#, fuzzy
 msgid "Select fields:"
-msgstr "Pilih Ruas"
+msgstr "Pilih ruas:"
 
 #: ../src/scan_dialog.c:2033
 msgid ""
@@ -4572,7 +4478,6 @@ msgid "Process encoder name field"
 msgstr "Nama ruas kotak kombo"
 
 #: ../src/scan_dialog.c:2116
-#, fuzzy
 msgid "Invert selection"
 msgstr "Balik pilihan"
 
@@ -4582,121 +4487,113 @@ msgid "Select/Unselect all"
 msgstr "Keluarkan semua trek dari pilihan"
 
 #: ../src/scan_dialog.c:2138
-#, fuzzy
 msgid "Convert:"
-msgstr "_Konversi"
+msgstr "Konversikan:"
 
 #: ../src/scan_dialog.c:2140
-#, fuzzy
 msgid "to: "
-msgstr "Ke '%s':"
+msgstr "Ke ‘%s’:"
 
 #: ../src/scan_dialog.c:2147
-#, fuzzy
 msgid "Do not convert"
-msgstr "Jangan Lacak"
+msgstr "Jangan konversikan"
 
-#: ../src/scan_dialog.c:2166
+#: ../src/scan_dialog.c:2177
 msgid ""
 "The underscore character or the string '%20' are replaced by one space. "
 "Example, before: 'Text%20In%20An_Entry', after: 'Text In An Entry'."
 msgstr ""
 
-#: ../src/scan_dialog.c:2169
+#: ../src/scan_dialog.c:2180
 msgid ""
 "The space character is replaced by one underscore character. Example, "
 "before: 'Text In An Entry', after: 'Text_In_An_Entry'."
 msgstr ""
 
-#: ../src/scan_dialog.c:2172
+#: ../src/scan_dialog.c:2183
 msgid ""
 "Replace a string by another one. Note that the search is case sensitive."
 msgstr ""
 
-#: ../src/scan_dialog.c:2179
-#, fuzzy
+#: ../src/scan_dialog.c:2190
 msgid "Capitalize all"
-msgstr "Semu_a Halaman"
+msgstr "Kapitalkan semua"
 
-#: ../src/scan_dialog.c:2181
-#, fuzzy
+#: ../src/scan_dialog.c:2192
 msgid "Lowercase all"
-msgstr "Semu_a Halaman"
+msgstr "Semua huruf kecil"
 
-#: ../src/scan_dialog.c:2183
-#, fuzzy
+#: ../src/scan_dialog.c:2194
 msgid "Capitalize first letter"
-msgstr "Kapitalkan _huruf pertama kalimat"
+msgstr "Kapitalkan huruf pertama"
 
-#: ../src/scan_dialog.c:2185
+#: ../src/scan_dialog.c:2196
 msgid "Capitalize the first letter of each word"
 msgstr ""
 
-#: ../src/scan_dialog.c:2186
-#, fuzzy
+#: ../src/scan_dialog.c:2197
 msgid "Detect Roman numerals"
-msgstr "Angka Counting·Rod"
+msgstr "Deteksi angka Romawi"
 
-#: ../src/scan_dialog.c:2188
-#, fuzzy
+#: ../src/scan_dialog.c:2199
 msgid "Do not change capitalization"
-msgstr "Tidak dapat mengubah nama"
+msgstr "Jangan ubah kapitalisasi"
 
-#: ../src/scan_dialog.c:2210
+#: ../src/scan_dialog.c:2236
 msgid ""
 "Convert all words in all fields to upper case. Example, before: 'Text IN AN "
 "entry', after: 'TEXT IN AN ENTRY'."
 msgstr ""
 
-#: ../src/scan_dialog.c:2213
+#: ../src/scan_dialog.c:2239
 msgid ""
 "Convert all words in all fields to lower case. Example, before: 'TEXT IN an "
 "entry', after: 'text in an entry'."
 msgstr ""
 
-#: ../src/scan_dialog.c:2216
+#: ../src/scan_dialog.c:2242
 msgid ""
 "Convert the initial of the first word in all fields to upper case. Example, "
 "before: 'text IN An ENTRY', after: 'Text in an entry'."
 msgstr ""
 
-#: ../src/scan_dialog.c:2219
+#: ../src/scan_dialog.c:2245
 msgid ""
 "Convert the initial of each word in all fields to upper case. Example, "
 "before: 'Text in an ENTRY', after: 'Text In An Entry'."
 msgstr ""
 
-#: ../src/scan_dialog.c:2222
+#: ../src/scan_dialog.c:2248
 msgid ""
 "Force to convert to upper case the Roman numerals. Example, before: 'ix. "
 "text in an entry', after: 'IX. Text In An Entry'."
 msgstr ""
 
-#: ../src/scan_dialog.c:2230
+#: ../src/scan_dialog.c:2256
 msgid "Insert a space before uppercase letters"
 msgstr ""
 
-#: ../src/scan_dialog.c:2232
+#: ../src/scan_dialog.c:2258
 msgid "Remove duplicate spaces and underscores"
 msgstr ""
 
-#: ../src/scan_dialog.c:2234
+#: ../src/scan_dialog.c:2260
 msgid "Do not change word separators"
 msgstr ""
 
-#: ../src/scan_dialog.c:2248
+#: ../src/scan_dialog.c:2282
 msgid ""
 "All spaces between words are removed. Example, before: 'Text In An Entry', "
 "after: 'TextInAnEntry'."
 msgstr ""
 
-#: ../src/scan_dialog.c:2251
+#: ../src/scan_dialog.c:2285
 msgid ""
 "A space is inserted before each upper case letter. Example, before: "
 "'TextInAnEntry', after: 'Text In An Entry'."
 msgstr ""
 
-#: ../src/scan_dialog.c:2254
+#: ../src/scan_dialog.c:2288
 msgid ""
 "Duplicate spaces and underscores are removed. Example, before: "
 "'Text__In__An   Entry', after: 'Text_In_An Entry'."
@@ -4705,173 +4602,169 @@ msgstr ""
 #.
 #. * Frame to display codes legend
 #.
-#: ../src/scan_dialog.c:2261
-#, fuzzy
+#: ../src/scan_dialog.c:2295
 msgid "Legend"
 msgstr "Legenda"
 
-#: ../src/scan_dialog.c:2267
+#: ../src/scan_dialog.c:2301
 #, c-format
 msgid "%a: artist"
 msgstr "%a: artis"
 
-#: ../src/scan_dialog.c:2270
+#: ../src/scan_dialog.c:2304
 #, fuzzy
 msgid "%z: album artist"
 msgstr "Artis Album"
 
-#: ../src/scan_dialog.c:2273
+#: ../src/scan_dialog.c:2307
 msgid "%b: album"
 msgstr "%b: album"
 
-#: ../src/scan_dialog.c:2276
+#: ../src/scan_dialog.c:2310
 #, c-format
 msgid "%c: comment"
 msgstr "%c: komentar"
 
-#: ../src/scan_dialog.c:2279
+#: ../src/scan_dialog.c:2313
 #, fuzzy, c-format
 msgid "%p: composer"
 msgstr "Komposer"
 
-#: ../src/scan_dialog.c:2282
+#: ../src/scan_dialog.c:2316
 msgid "%r: copyright"
 msgstr "%r: hak cipta"
 
-#: ../src/scan_dialog.c:2285
+#: ../src/scan_dialog.c:2319
 #, c-format
 msgid "%d: disc number"
 msgstr "%d: nomor cakram"
 
-#: ../src/scan_dialog.c:2288
+#: ../src/scan_dialog.c:2322
 #, fuzzy, c-format
 msgid "%e: encoded by"
 msgstr "Dienkode Oleh"
 
-#: ../src/scan_dialog.c:2291
+#: ../src/scan_dialog.c:2325
 #, c-format
 msgid "%g: genre"
 msgstr "%g: aliran"
 
-#: ../src/scan_dialog.c:2294
+#: ../src/scan_dialog.c:2328
 #, c-format
 msgid "%i: ignored"
 msgstr "%i: diabaikan"
 
-#: ../src/scan_dialog.c:2297
+#: ../src/scan_dialog.c:2331
 msgid "%l: number of tracks"
 msgstr "%l: cacah trek"
 
-#: ../src/scan_dialog.c:2300
+#: ../src/scan_dialog.c:2334
 #, fuzzy, c-format
 msgid "%o: orig. artist"
 msgstr "Artis Album"
 
-#: ../src/scan_dialog.c:2303
+#: ../src/scan_dialog.c:2337
 #, c-format
 msgid "%n: track"
 msgstr "%n: trek"
 
-#: ../src/scan_dialog.c:2306
+#: ../src/scan_dialog.c:2340
 msgid "%t: title"
 msgstr "%t: judul"
 
-#: ../src/scan_dialog.c:2309
+#: ../src/scan_dialog.c:2343
 #, c-format
 msgid "%u: URL"
 msgstr "%u: URL"
 
-#: ../src/scan_dialog.c:2312
+#: ../src/scan_dialog.c:2346
 #, c-format
 msgid "%x: number of discs"
 msgstr "%x: cacah cakram"
 
-#: ../src/scan_dialog.c:2315
+#: ../src/scan_dialog.c:2349
 msgid "%y: year"
 msgstr "%y: tahun"
 
 #.
 #. * Masks Editor
 #.
-#: ../src/scan_dialog.c:2322
+#: ../src/scan_dialog.c:2356
 #, fuzzy
 msgid "Mask Editor"
 msgstr "Penulis/Penyunting"
 
-#: ../src/scan_dialog.c:2376
+#: ../src/scan_dialog.c:2410
 #, fuzzy
 msgid "Create New Mask"
 msgstr "Buat topik baru"
 
-#: ../src/scan_dialog.c:2386
+#: ../src/scan_dialog.c:2420
 #, fuzzy
 msgid "Move Up this Mask"
 msgstr "Pindah ke Area Kerja _Atas"
 
-#: ../src/scan_dialog.c:2396
+#: ../src/scan_dialog.c:2430
 #, fuzzy
 msgid "Move Down this Mask"
 msgstr "Catan URL ini"
 
-#: ../src/scan_dialog.c:2406
+#: ../src/scan_dialog.c:2440
 #, fuzzy
 msgid "Duplicate Mask"
 msgstr "Mask Subnet:"
 
-#: ../src/scan_dialog.c:2416
+#: ../src/scan_dialog.c:2450
 #, fuzzy
 msgid "Add Default Masks"
 msgstr "Jarak luar default"
 
-#: ../src/scan_dialog.c:2426
+#: ../src/scan_dialog.c:2460
 #, fuzzy
 msgid "Remove Mask"
 msgstr "Mask Subnet:"
 
-#: ../src/scan_dialog.c:2436
+#: ../src/scan_dialog.c:2470
 #, fuzzy
 msgid "Save Masks"
 msgstr "Simp_an Sebagai"
 
-#: ../src/scan_dialog.c:3016
+#: ../src/scan_dialog.c:3050
 #, fuzzy
 msgid "New_mask"
 msgstr "Mask Subnet:"
 
-#: ../src/scan_dialog.c:3055
-#, fuzzy
+#: ../src/scan_dialog.c:3089
 msgid "Copy: No row selected"
-msgstr "Tidak ada statistik yang dipilih."
+msgstr "Salin: Tak ada baris yang dipilih"
 
-#: ../src/scan_dialog.c:3148
+#: ../src/scan_dialog.c:3182
 #, fuzzy
 msgid "Remove: No row selected"
 msgstr "Tidak ada statistik yang dipilih."
 
-#: ../src/scan_dialog.c:3195
-#, fuzzy
+#: ../src/scan_dialog.c:3229
 msgid "Move Up: No row selected"
-msgstr "Memindahkan tajuk yang dipilih naik satu baris"
+msgstr "Pindah Naik: Tak ada baris yang dipilih"
 
-#: ../src/scan_dialog.c:3239
-#, fuzzy
+#: ../src/scan_dialog.c:3273
 msgid "Move Down: No row selected"
-msgstr "Memindahkan tajuk yang dipilih turun satu baris"
+msgstr "Pindah Turun: Tak ada baris yang dipilih"
 
 #: ../src/setting.c:924
-#, fuzzy, c-format
+#, c-format
 msgid "Error: Cannot write configuration file: %s (%s)"
-msgstr "gagal menulis berkas konfigurasi"
+msgstr "Galat: Tak bisa menulis berkas konfigurasi: %s (%s)"
 
 #: ../src/setting.c:944 ../src/setting.c:961 ../src/setting.c:981
-#, fuzzy, c-format
+#, c-format
 msgid "Error while writing configuration file: %s"
-msgstr "Galat ketika menulis ke berkas \"%s\"."
+msgstr "Galat ketika menulis berkas konfigurasi: %s"
 
 #: ../src/setting.c:1100
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot open configuration file '%s' (%s)"
-msgstr "Tak bisa membuka berkas konfig '%s': %s\n"
+msgstr "Tak bisa membuka berkas konfigurasi '%s' (%s)"
 
 #: ../src/setting.c:1102
 #, fuzzy
@@ -4879,9 +4772,9 @@ msgid "Loading default configuration"
 msgstr "gunakan berkas konfigurasi bukan bawaan"
 
 #: ../src/setting.c:1143
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot create or open file '%s' (%s)"
-msgstr "Buka suatu berkas atau suatu set berkas"
+msgstr "Tak bisa membuat atau membuka berkas ‘%s’ (%s)"
 
 #: ../src/setting.c:1203
 #, fuzzy, c-format
@@ -4889,9 +4782,9 @@ msgid "Error: Cannot write list to file: %s (%s)"
 msgstr "Kesalahan saat coba menulis berkas CSV"
 
 #: ../src/setting.c:1221
-#, fuzzy, c-format
+#, c-format
 msgid "Error while writing list file: %s"
-msgstr "Galat ketika menulis ke berkas \"%s\"."
+msgstr "Galat ketika menulis berkas daftar: %s"
 
 #. Fall back to defaults
 #: ../src/setting.c:1301
@@ -4922,3 +4815,6 @@ msgstr "gagal membaca berkas konfigurasi"
 #, fuzzy, c-format
 msgid "Error: Cannot create directory '%s' (%s)"
 msgstr "Tak bisa membuat direktori sementara."
+
+#~ msgid "Cannot write tag in file '%s' (%s)"
+#~ msgstr "Tak dapat menulis tag dalam berkas '%s' (%s)"
