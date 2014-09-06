@@ -158,13 +158,6 @@ et_preferences_id3v2_version_set (const GValue *value,
     return id3v24;
 }
 
-static void
-id3_settings_changed (GtkComboBox *combo,
-                      EtPreferencesDialog *self)
-{
-    notify_id3_settings_active (NULL, NULL, self);
-}
-
 static gboolean
 et_preferences_id3v2_unicode_charset_get (GValue *value,
                                           GVariant *variant,
