@@ -44,30 +44,22 @@ static const gchar *layer_names[3] =
     "III"   /* Layer 3 */
 };
 
-
-
-/**************
- * Prototypes *
- **************/
-static gchar* channel_mode_name(int mode);
-
-
-
-/*************
- * Functions *
- *************/
-
-static gchar* channel_mode_name(int mode)
+static const gchar *
+channel_mode_name (int mode)
 {
-    static const gchar *channel_mode[] =
+    static const gchar * const channel_mode[] =
     {
         N_("Stereo"),
         N_("Joint stereo"),
         N_("Dual channel"),
         N_("Single channel")
     };
+
     if (mode < 0 || mode > 3)
+    {
         return "";
+    }
+
     return _(channel_mode[mode]);
 }
 
