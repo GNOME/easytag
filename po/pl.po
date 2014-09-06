@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: easytag\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-19 16:45+0200\n"
-"PO-Revision-Date: 2014-06-19 16:48+0200\n"
+"PO-Revision-Date: 2014-09-07 01:05+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -566,7 +566,7 @@ msgstr "Wyszukaj pliki w CDD_B…"
 
 #: ../src/bar.c:289
 msgid "CDDB search"
-msgstr "Wyszukiwanie w CDDB"
+msgstr "Wyszukaj w CDDB"
 
 #: ../src/bar.c:291
 msgid "Load Filenames From a Text File…"
@@ -708,27 +708,27 @@ msgstr "Wyświetlanie według wykonawcy i albumu"
 
 #: ../src/bar.c:364
 msgid "_Fill Tags…"
-msgstr "_Wypełnij etykiety…"
+msgstr "_Wypełnianie etykiet…"
 
 #: ../src/bar.c:365
 msgid "Fill tags"
-msgstr "Wypełnij etykiety"
+msgstr "Wypełnianie etykiet"
 
 #: ../src/bar.c:367
 msgid "_Rename Files and Directories…"
-msgstr "Z_mień nazwy plików i katalogów…"
+msgstr "Z_miana nazw plików i katalogów…"
 
 #: ../src/bar.c:368
 msgid "Rename files and directories"
-msgstr "Zmień nazwy plików i katalogów"
+msgstr "Zmiana nazw plików i katalogów"
 
 #: ../src/bar.c:370
 msgid "_Process Fields…"
-msgstr "_Przetwarzaj pola…"
+msgstr "_Przetwarzanie pól…"
 
 #: ../src/bar.c:370 ../src/scan_dialog.c:184
 msgid "Process Fields"
-msgstr "Przetwarzaj pola"
+msgstr "Przetwarzanie pól"
 
 #: ../src/bar.c:428
 #, c-format
@@ -2127,7 +2127,7 @@ msgstr "Powtórzenie działania dla pozostałych plików"
 #. Directories and filename changed
 #: ../src/easytag.c:2868 ../src/scan_dialog.c:183
 msgid "Rename File and Directory"
-msgstr "Zmień nazwę pliku i katalogu"
+msgstr "Zmiana nazw plików i katalogów"
 
 #: ../src/easytag.c:2869
 msgid "File and directory rename confirmation required"
@@ -3282,8 +3282,8 @@ msgstr ""
 msgid ""
 "Load on startup the default directory or the directory passed as argument"
 msgstr ""
-"Wczytuje podczas uruchamiania katalog domyślny lub katalog podany jako "
-"parametr"
+"Wczytywanie podczas uruchamiania katalogu domyślnego lub katalogu podanego "
+"jako parametr"
 
 #: ../src/prefs.c:189
 msgid ""
@@ -3628,7 +3628,7 @@ msgid ""
 "Update modification time of the parent directory of the file (recommended "
 "when using Amarok)"
 msgstr ""
-"Aktualizuje czas modyfikacji katalogu nadrzędnego pliku (zalecane, kiedy "
+"Aktualizowanie czasu modyfikacji katalogu nadrzędnego pliku (zalecane, kiedy "
 "używany jest odtwarzacz Amarok)"
 
 #: ../src/prefs.c:473
@@ -3697,7 +3697,8 @@ msgid ""
 "Force using the system character encoding and silently discard some "
 "characters"
 msgstr ""
-"Wymuś używanie systemowego kodowania znaków i odrzuć nie pasujące znaki"
+"Wymuszenie używania systemowego kodowania znaków i odrzucanie niepasujących "
+"znaków"
 
 #: ../src/prefs.c:524 ../src/prefs.c:854 ../src/prefs.c:923
 msgid ""
@@ -4238,7 +4239,7 @@ msgid ""
 "Select corresponding audio file (according position or DLM if activated "
 "below)"
 msgstr ""
-"Proszę zaznaczyć odpowiedni plik dźwiękowy (odnośnie pozycji lub DLM, jeśli "
+"Wybieranie odpowiedniego pliku dźwiękowego (odnośnie pozycji lub DLM, jeśli "
 "włączono poniżej)"
 
 #: ../src/prefs.c:1354
