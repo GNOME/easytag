@@ -81,9 +81,6 @@ struct _EtCDDBDialogPrivate
 
     GtkWidget *run_scanner_toggle;
     GtkWidget *use_dlm2_toggle; /* '2' as also used in prefs.c */
-
-    GtkWidget *separator_h;
-    GtkWidget *category_toggle[10];
 };
 
 /*
@@ -2803,7 +2800,6 @@ create_cddb_dialog (EtCDDBDialog *self)
             GtkWidget *widget;
 
             widget = GTK_WIDGET (gtk_builder_get_object (builder, ids[i].id));
-            priv->category_toggle[i] = widget;
             g_object_set_data (G_OBJECT (widget), "flags-type",
                                GSIZE_TO_POINTER (ET_TYPE_CDDB_SEARCH_CATEGORY));
             g_settings_bind_with_mapping (MainSettings,
