@@ -73,10 +73,6 @@ struct _EtCDDBDialogPrivate
     GtkWidget *apply_button;
     GtkWidget *search_button;
     GtkWidget *stop_search_button;
-    GtkWidget *stop_auto_search_button;
-
-    GtkWidget *display_red_lines_toggle;
-    GtkWidget *show_categories_toggle;
 
     GtkWidget *status_bar;
     guint status_bar_context;
@@ -214,38 +210,6 @@ static gboolean Cddb_Get_Album_Tracks_List_CB (EtCDDBDialog *self, GtkTreeSelect
 /*
  * The window to connect to the cd data base.
  */
-
-static void
-on_show_categories_toggle_toggled (EtCDDBDialog *self)
-{
-    EtCDDBDialogPrivate *priv;
-    gsize i;
-
-    priv = et_cddb_dialog_get_instance_private (self);
-
-    /* FIXME: Toggle visibility of the container instead. */
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->show_categories_toggle)))
-    {
-        gtk_widget_show (priv->separator_h);
-
-        for (i = 0; i < 10; i++)
-        {
-            gtk_widget_show (priv->category_toggle[i]);
-        }
-    }
-    else
-    {
-        gtk_widget_hide (priv->separator_h);
-
-        for (i = 0; i < 10; i++)
-        {
-            gtk_widget_hide (priv->category_toggle[i]);
-        }
-    }
-
-    /* Force the window to be redrawn. */
-    gtk_widget_queue_resize (GTK_WIDGET (self));
-}
 
 static void
 update_apply_button_sensitivity (EtCDDBDialog *self)
@@ -1015,7 +979,6 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
             Log_Print(LOG_ERROR,"%s",msg);
             g_free(msg);
             gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
-            gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_auto_search_button),FALSE);
             return FALSE;
         }
 
@@ -1332,25 +1295,6 @@ Cddb_Load_Album_List (EtCDDBDialog *self, gboolean only_red_lines)
     }
 }
 
-static void
-Cddb_Display_Red_Lines_In_Result (EtCDDBDialog *self)
-{
-    EtCDDBDialogPrivate *priv;
-
-    priv = et_cddb_dialog_get_instance_private (self);
-
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->display_red_lines_toggle)))
-    {
-        /* Show only red lines. */
-        Cddb_Load_Album_List (self, TRUE);
-    }
-    else
-    {
-        /* Show all lines. */
-        Cddb_Load_Album_List (self, FALSE);
-    }
-}
-
 /*
  * Free priv->album_list
  */
@@ -1552,8 +1496,6 @@ Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
         *tmp = '\0';
     }
 
-    Add_String_To_Combo_List(priv->search_string_model, string);
-
     /* Convert spaces to '+' */
     while ( (tmp=strchr(string,' '))!=NULL )
         *tmp = '+';
@@ -1639,8 +1581,6 @@ Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
         Cddb_Free_Album_List (self);
     }
     gtk_widget_set_sensitive (GTK_WIDGET (priv->stop_search_button), TRUE);
-    gtk_widget_set_sensitive (GTK_WIDGET (priv->stop_auto_search_button),
-                              TRUE);
 
 
     /*
@@ -1660,7 +1600,6 @@ Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
         g_free(cddb_server_name);
         g_free(cddb_server_cgi_path);
         gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_auto_search_button),FALSE);
         return FALSE;
     }
 
@@ -1677,7 +1616,6 @@ Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
         g_free(cddb_server_cgi_path);
         g_free (proxy_hostname);
         gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_auto_search_button),FALSE);
         if (file)
             fclose(file);
         return FALSE;
@@ -1811,7 +1749,6 @@ Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
     }
 
     gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
-    gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_auto_search_button),FALSE);
 
     /* Close connection. */
     Cddb_Close_Connection (self, socket_id);
@@ -1822,9 +1759,6 @@ Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
         msg = g_strdup_printf(ngettext("Found one matching album","Found %d matching albums",g_list_length(priv->album_list)),g_list_length(priv->album_list));
     gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,msg);
     g_free(msg);
-
-    // Initialize the button
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->display_red_lines_toggle),FALSE);
 
     /* Load the albums found in the list. */
     Cddb_Load_Album_List (self, FALSE);
@@ -1891,8 +1825,6 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
         *tmp = '\0';
     }
 
-    Add_String_To_Combo_List(priv->search_string_model, string);
-
     /* Convert spaces to '+' */
     while ( (tmp=strchr(string,' '))!=NULL )
         *tmp = '+';
@@ -1906,7 +1838,6 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
         Cddb_Free_Album_List (self);
     }
     gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),TRUE);
-    gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_auto_search_button),TRUE);
 
 
     // Do a loop to load all the pages of results
@@ -1936,7 +1867,6 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
             g_free(cddb_server_cgi_path);
             g_free (proxy_hostname);
             gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
-            gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_auto_search_button),FALSE);
             return FALSE;
         }
 
@@ -1978,8 +1908,6 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
             g_free (proxy_hostname);
             gtk_widget_set_sensitive (GTK_WIDGET (priv->stop_search_button),
                                       FALSE);
-            gtk_widget_set_sensitive (GTK_WIDGET (priv->stop_auto_search_button),
-                                      FALSE);
             return FALSE;
         }
         g_free(cddb_in);
@@ -2010,7 +1938,6 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
             g_free(cddb_server_cgi_path);
             g_free (proxy_hostname);
             gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
-            gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_auto_search_button),FALSE);
             return FALSE;
         }
 
@@ -2029,7 +1956,6 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
             g_free(cddb_server_cgi_path);
             g_free (proxy_hostname);
             gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
-            gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_auto_search_button),FALSE);
             if (file)
                 fclose(file);
             return FALSE;
@@ -2190,14 +2116,10 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
 
 
     gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
-    gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_auto_search_button),FALSE);
 
     msg = g_strdup_printf(ngettext("Found one matching album","Found %d matching albums",num_albums),num_albums);
     gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,msg);
     g_free(msg);
-
-    // Initialize the button
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->display_red_lines_toggle),FALSE);
 
     /* Load the albums found in the list. */
     Cddb_Load_Album_List (self, FALSE);
@@ -2726,7 +2648,6 @@ et_cddb_dialog_on_response (EtCDDBDialog *self,
     {
         case GTK_RESPONSE_CLOSE:
             priv->stop_searching = TRUE;
-            et_cddb_dialog_apply_changes (self);
             gtk_widget_hide (GTK_WIDGET (self));
             break;
         case GTK_RESPONSE_DELETE_EVENT:
@@ -2747,22 +2668,14 @@ static void
 create_cddb_dialog (EtCDDBDialog *self)
 {
     EtCDDBDialogPrivate *priv;
-    GtkWidget *VBox, *vbox, *hbox, *notebookvbox;
-    GtkWidget *Frame;
-    GtkWidget *Table;
-    GtkWidget *Label;
-    GtkWidget *Button;
-    GtkWidget *Separator;
-    GtkWidget *ScrollWindow;
-    GtkWidget *Icon;
-    GtkWidget *combo;
-    GtkWidget *paned;
-    GtkWidget *notebook;
-    const gchar *CddbAlbumList_Titles[] = { NULL, N_("Artist / Album"), N_("Category")}; // Note: don't set "" instead of NULL else this will cause problem with translation language
-    const gchar *CddbTrackList_Titles[] = { "#", N_("Track Name"), N_("Duration")};
-    GtkCellRenderer* renderer;
-    GtkTreeViewColumn* column;
+    GtkWidget *vbox;
+    GtkWidget *grid;
+    GtkWidget *button;
+    GtkWidget *tool_button;
+    GtkWidget *image;
     GtkTreePath *path;
+    GtkBuilder *builder;
+    GError *error = NULL;
 
     priv = et_cddb_dialog_get_instance_private (self);
 
@@ -2773,114 +2686,59 @@ create_cddb_dialog (EtCDDBDialog *self)
     g_signal_connect (self, "delete-event",
                       G_CALLBACK (gtk_widget_hide_on_delete), NULL);
 
-    VBox = gtk_dialog_get_content_area (GTK_DIALOG (self));
+    vbox = gtk_dialog_get_content_area (GTK_DIALOG (self));
     gtk_container_set_border_width (GTK_CONTAINER (self), BOX_SPACING);
 
-     /*
-      * Cddb NoteBook
-      */
-    notebook = gtk_notebook_new ();
-    gtk_notebook_popup_enable (GTK_NOTEBOOK (notebook));
-    gtk_box_pack_start (GTK_BOX (VBox), notebook, FALSE, FALSE, 0);
+     /* Dialog content. */
+    builder = gtk_builder_new ();
+    gtk_builder_add_from_resource (builder,
+                                   "/org/gnome/EasyTAG/cddb_dialog.ui",
+                                   &error);
 
-    /*
-     * 1 - Page for automatic search (generate the CDDBId from files)
-     */
-    Label = gtk_label_new(_("Automatic Search"));
+    if (error != NULL)
+    {
+        g_error ("Unable to get CDDB dialog from resource: %s",
+                 error->message);
+    }
 
-    notebookvbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_container_set_border_width (GTK_CONTAINER (notebookvbox), BOX_SPACING);
-    gtk_notebook_append_page (GTK_NOTEBOOK (notebook), notebookvbox, Label);
-
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
-    gtk_box_pack_start(GTK_BOX(notebookvbox),hbox,FALSE,FALSE,0);
-
-    Label = gtk_label_new(_("Request CDDB"));
-    gtk_widget_set_halign (Label, GTK_ALIGN_END);
-    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
+    grid = GTK_WIDGET (gtk_builder_get_object (builder, "cddb_grid"));
+    gtk_box_pack_start (GTK_BOX (vbox), grid, TRUE, TRUE, 0);
 
     /* Button to generate CddbId and request string from the selected files. */
-    Button = gtk_button_new_with_mnemonic (_("_Search"));
-    gtk_box_pack_start (GTK_BOX (hbox), Button, FALSE, FALSE, 0);
-    gtk_widget_set_can_default (Button, TRUE);
-    gtk_widget_grab_default (Button);
-    g_signal_connect_swapped (Button, "clicked",
+    button = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                 "automatic_search_button"));
+    gtk_widget_set_can_default (button, TRUE);
+    gtk_widget_grab_default (button);
+    g_signal_connect_swapped (button, "clicked",
                               G_CALLBACK (et_cddb_dialog_search_from_selection),
                               self);
-    gtk_widget_set_tooltip_text (Button,
-                                _("Generate the CDDB disc ID using the selected files (the order is important)"));
 
-    // Button to stop the search
-    priv->stop_auto_search_button = gtk_button_new ();
-    gtk_container_add (GTK_CONTAINER (priv->stop_auto_search_button),
-                       gtk_image_new_from_icon_name ("process-stop",
-                                                     GTK_ICON_SIZE_BUTTON));
-    gtk_box_pack_start(GTK_BOX(hbox),priv->stop_auto_search_button,FALSE,FALSE,0);
-    gtk_button_set_relief(GTK_BUTTON(priv->stop_auto_search_button),GTK_RELIEF_NONE);
-    gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_auto_search_button),FALSE);
-    g_signal_connect_swapped (priv->stop_auto_search_button, "clicked",
+    /* Button to stop the search. */
+    priv->stop_search_button = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                   "stop_button"));
+    g_signal_connect_swapped (priv->stop_search_button, "clicked",
                               G_CALLBACK (stop_search), self);
-    gtk_widget_set_tooltip_text (priv->stop_auto_search_button,
-                                 _("Stop the search"));
-
-    // Separator line
-    Separator = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
-    gtk_box_pack_start(GTK_BOX(hbox),Separator,FALSE,FALSE,0);
 
     /* Button to quit. */
-    Button = gtk_button_new_with_mnemonic (_("_Close"));
-    gtk_box_pack_end(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    gtk_widget_set_can_default(Button,TRUE);
-    g_signal_connect_swapped (Button, "clicked",
+    button = GTK_WIDGET (gtk_builder_get_object (builder, "close_button"));
+    gtk_widget_set_can_default (button, TRUE);
+    g_signal_connect_swapped (button, "clicked",
                               G_CALLBACK (Cddb_Destroy_Window), self);
 
-    /*
-     * 2 - Page for manual search
-     */
-    Label = gtk_label_new(_("Manual Search"));
-    notebookvbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_notebook_append_page (GTK_NOTEBOOK (notebook), notebookvbox, Label);
-    gtk_container_set_border_width (GTK_CONTAINER (notebookvbox), BOX_SPACING);
-
-    /*
-     * Words to search
-     */
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
-    gtk_box_pack_start(GTK_BOX(notebookvbox),hbox,FALSE,FALSE,0);
-
-    Label = gtk_label_new(_("Words:"));
-    gtk_widget_set_halign (Label, GTK_ALIGN_END);
-    gtk_box_pack_start(GTK_BOX(hbox),Label,FALSE,FALSE,0);
-
-    g_assert (priv->search_string_model == NULL);
-    priv->search_string_model = gtk_list_store_new (MISC_COMBO_COUNT,
-                                                G_TYPE_STRING);
-
-    combo = gtk_combo_box_new_with_model_and_entry (GTK_TREE_MODEL (priv->search_string_model));
-    g_object_unref (priv->search_string_model);
-    gtk_combo_box_set_entry_text_column (GTK_COMBO_BOX (combo),
-                                         MISC_COMBO_TEXT);
-    gtk_widget_set_size_request (combo, 220, -1);
-    gtk_box_pack_start (GTK_BOX (hbox), combo, FALSE, TRUE, 0);
-    gtk_widget_set_tooltip_text (combo,
-                                 _("Enter the words to search (separated by a space or ‘+’)"));
-    /* History List. */
-    Load_Cddb_Search_String_List (priv->search_string_model, MISC_COMBO_TEXT);
-
-    priv->search_string_entry = gtk_bin_get_child (GTK_BIN (combo));
+    priv->search_string_entry = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                    "search_entry"));
     g_signal_connect_swapped (priv->search_string_entry, "activate",
                               G_CALLBACK (Cddb_Search_Album_List_From_String),
                               self);
-    gtk_entry_set_text (GTK_ENTRY (priv->search_string_entry),"");
 
     /* Set content of the clipboard if available. */
     gtk_editable_paste_clipboard (GTK_EDITABLE (priv->search_string_entry));
 
     /* Button to run the search. */
-    priv->search_button = gtk_button_new_with_mnemonic (_("_Search"));
-    gtk_box_pack_start(GTK_BOX(hbox),priv->search_button,FALSE,FALSE,0);
-    gtk_widget_set_can_default(priv->search_button,TRUE);
-    gtk_widget_grab_default(priv->search_button);
+    priv->search_button = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                              "manual_search_button"));
+    gtk_widget_set_can_default (priv->search_button, TRUE);
+    gtk_widget_grab_default (priv->search_button);
     g_signal_connect_swapped (priv->search_button, "clicked",
                               G_CALLBACK (Cddb_Search_Album_List_From_String),
                               self);
@@ -2888,69 +2746,25 @@ create_cddb_dialog (EtCDDBDialog *self)
                               G_CALLBACK (update_search_button_sensitivity),
                               self);
 
-    /* Button to stop the search. */
-    priv->stop_search_button = gtk_button_new ();
-    gtk_container_add (GTK_CONTAINER (priv->stop_search_button),
-                       gtk_image_new_from_icon_name ("process-stop",
-                                                     GTK_ICON_SIZE_BUTTON));
-    gtk_box_pack_start(GTK_BOX(hbox),priv->stop_search_button,FALSE,FALSE,0);
-    gtk_button_set_relief(GTK_BUTTON(priv->stop_search_button),GTK_RELIEF_NONE);
-    gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
-    g_signal_connect (priv->stop_search_button, "clicked",
-                      G_CALLBACK (stop_search), self);
-    gtk_widget_set_tooltip_text (priv->stop_search_button, _("Stop the search"));
-
-    /* Button to quit. */
-    Button = gtk_button_new_with_mnemonic (_("_Close"));
-    gtk_box_pack_end(GTK_BOX(hbox),Button,FALSE,FALSE,0);
-    gtk_widget_set_can_default(Button,TRUE);
-    g_signal_connect_swapped (Button, "clicked",
-                              G_CALLBACK (Cddb_Destroy_Window), self);
-
-    /*
-     * Search options
-     */
-    Frame = gtk_frame_new(_("Search In:"));
-    gtk_box_pack_start(GTK_BOX(notebookvbox),Frame,FALSE,TRUE,0);
-
-    Table = gtk_grid_new ();
-    gtk_container_add(GTK_CONTAINER(Frame),Table);
-    gtk_grid_set_row_spacing (GTK_GRID (Table), 1);
-    gtk_grid_set_column_spacing (GTK_GRID (Table), 1);
-
+    /* Search options. */
     {
         gsize i;
-        GFlagsClass *flags_class;
         static const struct
         {
-            const gchar *label;
-            /* const gchar *tooltip; */
-        } mapping[] =
+            const gchar *id;
+        } ids[] =
         {
-            /* Translators: This option is for the previous 'search in' option.
-             * For instance, translate this as "Search in:" "Artist". */
-            { N_("Artist") },
-            /* Translators: This option is for the previous 'search in' option.
-             * For instance, translate this as "Search in:" "Album". */
-            { N_("Album") },
-            /* Translators: This option is for the previous 'search in' option.
-             * For instance, translate this as "Search in:" "Track Name". */
-            { N_("Track Name") },
-            /* Translators: This option is for the previous 'search in' option.
-             * For instance, translate this as "Search in:" "Other". */
-            { N_("Other") }
+            { "artist_check" },
+            { "album_check" },
+            { "track_check" },
+            { "other_check" }
         };
 
-        flags_class = g_type_class_ref (ET_TYPE_CDDB_SEARCH_FIELD);
-
-        for (i = 0; i < G_N_ELEMENTS (mapping); i++)
+        for (i = 0; i < G_N_ELEMENTS (ids); i++)
         {
-            GFlagsValue *flags_value;
             GtkWidget *widget;
 
-            flags_value = g_flags_get_first_value (flags_class, 1 << i);
-            widget = gtk_check_button_new_with_label (gettext (mapping[i].label));
-            gtk_widget_set_name (widget, flags_value->value_nick);
+            widget = GTK_WIDGET (gtk_builder_get_object (builder, ids[i].id));
             g_object_set_data (G_OBJECT (widget), "flags-type",
                                GSIZE_TO_POINTER (ET_TYPE_CDDB_SEARCH_FIELD));
             g_settings_bind_with_mapping (MainSettings, "cddb-search-fields",
@@ -2959,72 +2773,37 @@ create_cddb_dialog (EtCDDBDialog *self)
                                           et_settings_flags_toggle_get,
                                           et_settings_flags_toggle_set,
                                           widget, NULL);
-            gtk_grid_attach (GTK_GRID (Table), widget, i, 0, 1, 1);
             g_signal_connect_swapped (widget, "toggled",
                                       G_CALLBACK (update_search_button_sensitivity),
                                       self);
         }
     }
 
-    priv->separator_h = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
-    gtk_grid_attach (GTK_GRID (Table), priv->separator_h, 0, 1, 6, 1);
-
     {
         gsize i;
-        GFlagsClass *flags_class;
         static const struct
         {
-            const gchar *label;
-            const gchar *tooltip;
-        } mapping[] =
+            const gchar *id;
+        } ids[] =
         {
-            /* Translators: This option is for the previous 'search in' option.
-             * For instance, translate this as "Search in:" "Blues". */
-            { N_("Blues"), NULL },
-            /* Translators: This option is for the previous 'search in' option.
-             * For instance, translate this as "Search in:" "Classical". */
-            { N_("Classical"), NULL },
-            /* Translators: This option is for the previous 'search in' option.
-             * For instance, translate this as "Search in:" "Country". */
-            { N_("Country"), NULL },
-            /* Translators: This option is for the previous 'search in' option.
-             * For instance, translate this as "Search in:" "Folk". */
-            { N_("Folk"), NULL },
-            /* Translators: This option is for the previous 'search in' option.
-             * For instance, translate this as "Search in:" "Jazz". */
-            { N_("Jazz"), NULL },
-            /* Translators: This option is for the previous 'search in' option.
-             * For instance, translate this as "Search in:" "Misc". */
-            { N_("Misc."),
-              N_("others that do not fit in the above categories") },
-            /* Translators: This option is for the previous 'search in' option.
-             * For instance, translate this as "Search in:" "New age". */
-            { N_("New Age"), NULL },
-            /* Translators: This option is for the previous 'search in' option.
-             * For instance, translate this as "Search in:" "Reggae". */
-            { N_("Reggae"), NULL },
-            /* Translators: This option is for the previous 'search in' option.
-             * For instance, translate this as "Search in:" "Rock". */
-            { N_("Rock"),
-              N_("includes: funk, soul, rap, pop, industrial, metal and so on") },
-            /* Translators: This option is for the previous 'search in' option.
-             * For instance, translate this as "Search in:" "Soundtrack". */
-            { N_("Soundtrack"), N_("movies, shows") }
-    
+            { "blues_check" },
+            { "classical_check" },
+            { "country_check" },
+            { "folk_check" },
+            { "jazz_check" },
+            { "misc_check"  },
+            { "newage_check" },
+            { "reggae_check" },
+            { "rock_check" },
+            { "soundtrack_check" }
         };
 
-        flags_class = g_type_class_ref (ET_TYPE_CDDB_SEARCH_CATEGORY);
-
-        for (i = 0; i < G_N_ELEMENTS (mapping); i++)
+        for (i = 0; i < G_N_ELEMENTS (ids); i++)
         {
-            GFlagsValue *flags_value;
             GtkWidget *widget;
 
-            flags_value = g_flags_get_first_value (flags_class, 1 << i);
-            widget = gtk_check_button_new_with_label (gettext (mapping[i].label));
+            widget = GTK_WIDGET (gtk_builder_get_object (builder, ids[i].id));
             priv->category_toggle[i] = widget;
-            gtk_widget_set_tooltip_text (widget, gettext (mapping[i].tooltip));
-            gtk_widget_set_name (widget, flags_value->value_nick);
             g_object_set_data (G_OBJECT (widget), "flags-type",
                                GSIZE_TO_POINTER (ET_TYPE_CDDB_SEARCH_CATEGORY));
             g_settings_bind_with_mapping (MainSettings,
@@ -3033,134 +2812,39 @@ create_cddb_dialog (EtCDDBDialog *self)
                                           et_settings_flags_toggle_get,
                                           et_settings_flags_toggle_set,
                                           widget, NULL);
-            /* 2 rows of 5 columns each. */
-            gtk_grid_attach (GTK_GRID (Table), widget, (i % 5), (i / 5) + 2, 1,
-                             1);
             g_signal_connect_swapped (G_OBJECT (widget), "toggled",
                                       G_CALLBACK (update_search_button_sensitivity),
                                       self);
         }
-
-        g_type_class_unref (flags_class);
     }
 
-    /* Button to display/hide the categories. */
-    priv->show_categories_toggle = gtk_toggle_button_new_with_label (_("Categories"));
-    gtk_grid_attach (GTK_GRID (Table), priv->show_categories_toggle, 6, 0, 1,
-                     1);
-    g_settings_bind (MainSettings, "cddb-search-show-categories",
-                     priv->show_categories_toggle, "active",
-                     G_SETTINGS_BIND_DEFAULT);
-    g_signal_connect_swapped (priv->show_categories_toggle, "toggled",
-                              G_CALLBACK (on_show_categories_toggle_toggled),
-                              self);
-
-    /*
-     * Results command
-     */
-    Frame = gtk_frame_new(_("Results:"));
-    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,TRUE,0);
-
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(Frame),hbox);
-
-    priv->display_red_lines_toggle = gtk_toggle_button_new();
-    Icon = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/red-lines.png");
-    gtk_container_add(GTK_CONTAINER(priv->display_red_lines_toggle),Icon);
-    gtk_box_pack_start(GTK_BOX(hbox),priv->display_red_lines_toggle,FALSE,FALSE,0);
-    gtk_button_set_relief(GTK_BUTTON(priv->display_red_lines_toggle),GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text (priv->display_red_lines_toggle,
-                                 _("Show only red lines (or show all lines) in the ‘Artist / Album’ list"));
-    g_signal_connect_swapped (priv->display_red_lines_toggle, "toggled",
-                              G_CALLBACK (Cddb_Display_Red_Lines_In_Result),
-                              self);
-
-    Icon = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/unselect-all.png");
-    Button = gtk_button_new ();
-    gtk_container_add (GTK_CONTAINER (Button), Icon);
-    gtk_box_pack_end (GTK_BOX (hbox), Button, FALSE, FALSE, 0);
-    gtk_button_set_relief (GTK_BUTTON (Button), GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text (Button, _("Unselect all lines"));
-    g_signal_connect_swapped (Button, "clicked",
+    /* Results command. */
+    image = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/unselect-all.png");
+    tool_button = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                      "unselect_all_button"));
+    gtk_tool_button_set_icon_widget (GTK_TOOL_BUTTON (tool_button), image);
+    g_signal_connect_swapped (tool_button, "clicked",
                               G_CALLBACK (track_list_unselect_all), self);
 
-    Icon = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/invert-selection.png");
-    Button = gtk_button_new ();
-    gtk_container_add (GTK_CONTAINER (Button), Icon);
-    gtk_box_pack_end (GTK_BOX (hbox), Button, FALSE, FALSE, 0);
-    gtk_button_set_relief (GTK_BUTTON (Button), GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text (Button, _("Invert lines selection"));
-    g_signal_connect_swapped (Button, "clicked",
+    image = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/invert-selection.png");
+    tool_button = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                      "invert_button"));
+    gtk_tool_button_set_icon_widget (GTK_TOOL_BUTTON (tool_button), image);
+    g_signal_connect_swapped (tool_button, "clicked",
                               G_CALLBACK (Cddb_Track_List_Invert_Selection),
                               self);
 
-    Button = gtk_button_new ();
-    gtk_container_add (GTK_CONTAINER (Button),
-                       gtk_image_new_from_icon_name ("edit-select-all",
-                                                     GTK_ICON_SIZE_BUTTON));
-    gtk_box_pack_end (GTK_BOX (hbox), Button, FALSE, FALSE, 0);
-    gtk_button_set_relief (GTK_BUTTON (Button), GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text (Button, _("Select all lines"));
-    g_signal_connect_swapped (Button, "clicked",
+    tool_button = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                      "select_all_button"));
+    g_signal_connect_swapped (tool_button, "clicked",
                               G_CALLBACK (track_list_select_all), self);
 
-    /*
-     * Result of search
-     */
-    paned = gtk_paned_new (GTK_ORIENTATION_HORIZONTAL);
-    gtk_box_pack_start (GTK_BOX (VBox), paned, TRUE, TRUE, 0);
-
+    /* Result of search. */
     /* List of albums. */
-    ScrollWindow = gtk_scrolled_window_new(NULL, NULL);
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(ScrollWindow),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
-    gtk_widget_set_size_request(GTK_WIDGET(ScrollWindow),-1,100);
-    gtk_paned_pack1 (GTK_PANED (paned), ScrollWindow, TRUE, FALSE);
-
-    priv->album_list_model = gtk_list_store_new(CDDB_ALBUM_LIST_COUNT,
-                                            GDK_TYPE_PIXBUF,
-                                            G_TYPE_STRING,
-                                            G_TYPE_STRING,
-                                            G_TYPE_POINTER,
-                                            PANGO_TYPE_STYLE,
-                                            G_TYPE_INT,
-                                            GDK_TYPE_RGBA);
-    priv->album_list_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(priv->album_list_model));
-    g_object_unref (priv->album_list_model);
-    gtk_tree_view_set_search_column (GTK_TREE_VIEW (priv->album_list_view),
-                                     CDDB_ALBUM_LIST_ALBUM);
-
-    renderer = gtk_cell_renderer_pixbuf_new();
-    column = gtk_tree_view_column_new_with_attributes(_(CddbAlbumList_Titles[0]), renderer,
-                                                      "pixbuf",         CDDB_ALBUM_LIST_PIXBUF,
-                                                      NULL);
-    gtk_tree_view_column_set_resizable(column, FALSE);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->album_list_view), column);
-
-    renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes(_(CddbAlbumList_Titles[1]), renderer,
-                                                      "text",           CDDB_ALBUM_LIST_ALBUM,
-                                                      "weight",         CDDB_ALBUM_LIST_FONT_WEIGHT,
-                                                      "style",          CDDB_ALBUM_LIST_FONT_STYLE,
-                                                      "foreground-rgba", CDDB_ALBUM_LIST_FOREGROUND_COLOR,
-                                                      NULL);
-    gtk_tree_view_column_set_resizable(column, TRUE);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->album_list_view), column);
-
-    renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes(_(CddbAlbumList_Titles[2]), renderer,
-                                                      "text",           CDDB_ALBUM_LIST_CATEGORY,
-                                                      "weight",         CDDB_ALBUM_LIST_FONT_WEIGHT,
-                                                      "style",          CDDB_ALBUM_LIST_FONT_STYLE,
-                                                      "foreground-rgba", CDDB_ALBUM_LIST_FOREGROUND_COLOR,
-                                                      NULL);
-    gtk_tree_view_column_set_resizable(column, TRUE);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->album_list_view), column);
-    //gtk_tree_view_columns_autosize(GTK_TREE_VIEW(priv->album_list_view));
-
-    gtk_container_add(GTK_CONTAINER(ScrollWindow), priv->album_list_view);
+    priv->album_list_model = GTK_LIST_STORE (gtk_builder_get_object (builder,
+                                                                     "album_list_model"));
+    priv->album_list_view = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                "album_view"));
 
     path = gtk_tree_path_new_first ();
     gtk_tree_view_set_cursor (GTK_TREE_VIEW (priv->album_list_view), path, NULL,
@@ -3173,104 +2857,49 @@ create_cddb_dialog (EtCDDBDialog *self)
                               G_CALLBACK (Cddb_Get_Album_Tracks_List_CB),
                               self);
 
-    // List of tracks
-    ScrollWindow = gtk_scrolled_window_new(NULL,NULL);
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(ScrollWindow),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
-
-
-    gtk_widget_set_size_request(GTK_WIDGET(ScrollWindow), -1, 100);
-    gtk_paned_pack2 (GTK_PANED (paned), ScrollWindow, TRUE, FALSE);
-
-    priv->track_list_model = gtk_list_store_new(CDDB_TRACK_LIST_COUNT,
-                                            G_TYPE_UINT,
-                                            G_TYPE_STRING,
-                                            G_TYPE_STRING,
-                                            G_TYPE_POINTER,
-                                            G_TYPE_POINTER);
-    priv->track_list_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(priv->track_list_model));
-    g_object_unref (priv->track_list_model);
-    renderer = gtk_cell_renderer_text_new();
-    g_object_set(G_OBJECT(renderer), "xalign", 1.0, NULL); // Align to the right
-    column = gtk_tree_view_column_new_with_attributes(_(CddbTrackList_Titles[0]), renderer,
-                                                      "text", CDDB_TRACK_LIST_NUMBER, NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->track_list_view), column);
-    gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(priv->track_list_model), SORT_LIST_NUMBER,
-                                    Cddb_Track_List_Sort_Func, GINT_TO_POINTER(SORT_LIST_NUMBER), NULL);
-    gtk_tree_view_column_set_sort_column_id(column, SORT_LIST_NUMBER);
-    renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes(_(CddbTrackList_Titles[1]), renderer,
-                                                      "text", CDDB_TRACK_LIST_NAME, NULL);
-    gtk_tree_view_column_set_resizable(column, TRUE);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->track_list_view), column);
-    gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(priv->track_list_model), SORT_LIST_NAME,
-                                    Cddb_Track_List_Sort_Func, GINT_TO_POINTER(SORT_LIST_NAME), NULL);
-    gtk_tree_view_column_set_sort_column_id(column, SORT_LIST_NAME);
-
-    renderer = gtk_cell_renderer_text_new();
-    g_object_set(G_OBJECT(renderer), "xalign", 1.0, NULL); // Align to the right
-    column = gtk_tree_view_column_new_with_attributes(_(CddbTrackList_Titles[2]), renderer,
-                                                      "text", CDDB_TRACK_LIST_TIME, NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->track_list_view), column);
-
-    //gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(priv->track_list_model), SORT_LIST_NUMBER, GTK_SORT_ASCENDING);
-    gtk_tree_view_set_reorderable(GTK_TREE_VIEW(priv->track_list_view), TRUE);
-
-    gtk_container_add(GTK_CONTAINER(ScrollWindow),priv->track_list_view);
-    gtk_tree_selection_set_mode(gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->track_list_view)),
-                                GTK_SELECTION_MULTIPLE);
+    /* List of tracks. */
+    priv->track_list_model = GTK_LIST_STORE (gtk_builder_get_object (builder,
+                                                                     "track_list_model"));
+    priv->track_list_view = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                "track_view"));
     g_signal_connect_swapped (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->track_list_view)),
                               "changed",
                               G_CALLBACK (Cddb_Track_List_Row_Selected), self);
     g_signal_connect_swapped (priv->track_list_view, "button-press-event",
                               G_CALLBACK (on_track_list_button_press_event),
                               self);
-    gtk_widget_set_tooltip_text (priv->track_list_view,
-      _("Select lines from which tags will be applied to "
-        "your files list. All lines will be processed if no line is selected.\n"
-        "You can also reorder lines in this list before using the ‘apply’ button"));
 
-    /*
-     * Apply results to fields...
-     */
-    Frame = gtk_frame_new(_("Set Into:"));
-    gtk_box_pack_start(GTK_BOX(VBox),Frame,FALSE,TRUE,0);
+    gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE (priv->track_list_model),
+                                     SORT_LIST_NUMBER,
+                                     Cddb_Track_List_Sort_Func,
+                                     GINT_TO_POINTER (SORT_LIST_NUMBER), NULL);
+    gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE (priv->track_list_model),
+                                     SORT_LIST_NAME, Cddb_Track_List_Sort_Func,
+                                     GINT_TO_POINTER (SORT_LIST_NAME), NULL);
 
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, BOX_SPACING);
-    gtk_container_add(GTK_CONTAINER(Frame),vbox);
-
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
-    gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
-
+    /* Apply results to fields.  */
     {
         gsize i;
-        GFlagsClass *flags_class;
         static const struct
         {
-            const gchar *label;
-            /* const gchar *tooltip; */
-        } mapping[] =
+            const gchar *id;
+        } ids[] =
         {
-            { N_("Filename") },
-            { N_("Title") },
-            { N_("Artist") },
-            { N_("Album") },
-            { N_("Year") },
-            { N_("Track #") },
-            { N_("# Tracks") },
-            { N_("Genre") }
+            { "filename_check" },
+            { "title_check" },
+            { "fill_artist_check" },
+            { "fill_album_check" },
+            { "year_check" },
+            { "fill_track_check" },
+            { "track_total_check" },
+            { "genre_check" }
         };
 
-        flags_class = g_type_class_ref (ET_TYPE_CDDB_SET_FIELD);
-
-        for (i = 0; i < G_N_ELEMENTS (mapping); i++)
+        for (i = 0; i < G_N_ELEMENTS (ids); i++)
         {
-            GFlagsValue *flags_value;
             GtkWidget *widget;
 
-            flags_value = g_flags_get_first_value (flags_class, 1 << i);
-            widget = gtk_check_button_new_with_label (gettext (mapping[i].label));
-            gtk_widget_set_name (widget, flags_value->value_nick);
+            widget = GTK_WIDGET (gtk_builder_get_object (builder, ids[i].id));
             g_object_set_data (G_OBJECT (widget), "flags-type",
                                GSIZE_TO_POINTER (ET_TYPE_CDDB_SET_FIELD));
             g_settings_bind_with_mapping (MainSettings, "cddb-set-fields",
@@ -3279,75 +2908,44 @@ create_cddb_dialog (EtCDDBDialog *self)
                                           et_settings_flags_toggle_get,
                                           et_settings_flags_toggle_set,
                                           widget, NULL);
-            gtk_box_pack_start (GTK_BOX (hbox), widget, FALSE, FALSE, 2);
             g_signal_connect_swapped (G_OBJECT (widget), "toggled",
                                       G_CALLBACK (update_apply_button_sensitivity),
                                       self);
         }
-
-        g_type_class_unref (flags_class);
     }
 
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, BOX_SPACING);
-    gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
-
-    // Check box to run the scanner
-    priv->run_scanner_toggle = gtk_check_button_new_with_label(_("Run the current scanner for each file"));
-    gtk_box_pack_start(GTK_BOX(hbox),priv->run_scanner_toggle,FALSE,TRUE,0);
+    /* Check box to run the scanner. */
+    priv->run_scanner_toggle = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                   "scanner_check"));
     g_settings_bind (MainSettings, "cddb-run-scanner",
                      priv->run_scanner_toggle, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (priv->run_scanner_toggle,
-                                 _("Whether to run the tag scanner, with the current settings, on the CDDB results"));
 
-    // Check box to use DLM (also used in the preferences window)
-    priv->use_dlm2_toggle = gtk_check_button_new_with_label(_("Match lines with the Levenshtein algorithm"));
-    gtk_box_pack_start(GTK_BOX(hbox),priv->use_dlm2_toggle,FALSE,FALSE,0);
+    /* Check box to use DLM (also used in the preferences window). */
+    priv->use_dlm2_toggle = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                "dlm_check"));
     g_settings_bind (MainSettings, "cddb-dlm-enabled", priv->use_dlm2_toggle,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    gtk_widget_set_tooltip_text (priv->use_dlm2_toggle,
-                                 _("Whether to use the DLM algorithm to match CDDB results to files"));
 
     /* Button to apply. */
-    priv->apply_button = gtk_button_new_with_mnemonic (_("_Apply"));
-    gtk_box_pack_end(GTK_BOX(hbox),priv->apply_button,FALSE,FALSE,0);
+    priv->apply_button = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                             "apply_button"));
     g_signal_connect_swapped (priv->apply_button, "clicked",
                               G_CALLBACK (Cddb_Set_Track_Infos_To_File_List),
                               self);
-    gtk_widget_set_tooltip_text (priv->apply_button,
-                                 _("Load the selected lines or all lines (if no lines are selected)"));
 
-    /*
-     * Status bar
-     */
-    priv->status_bar = gtk_statusbar_new();
-    gtk_box_pack_start(GTK_BOX(VBox),priv->status_bar,FALSE,TRUE,0);
-    gtk_widget_set_size_request(priv->status_bar, 300, -1);
-    priv->status_bar_context = gtk_statusbar_get_context_id(GTK_STATUSBAR(priv->status_bar),"Messages");
-    gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar), priv->status_bar_context,
-                        _("Ready to search"));
+    /* Status bar. */
+    priv->status_bar = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                           "cddb_bar"));
+    priv->status_bar_context = gtk_statusbar_get_context_id (GTK_STATUSBAR (priv->status_bar),
+                                                             "Messages");
+    gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
+                        priv->status_bar_context, _("Ready to search"));
 
     g_signal_emit_by_name (priv->search_string_entry, "changed");
     priv->stop_searching = FALSE;
 
-    /* TODO: Force resize window? */
-    g_signal_emit_by_name (priv->show_categories_toggle, "toggled");
-}
-
-/*
- * For the configuration file...
- */
-void
-et_cddb_dialog_apply_changes (EtCDDBDialog *self)
-{
-    EtCDDBDialogPrivate *priv;
-
-    g_return_if_fail (ET_CDDB_DIALOG (self));
-
-    priv = et_cddb_dialog_get_instance_private (self);
-
-    /* Save combobox history lists before exit. */
-    Save_Cddb_Search_String_List(priv->search_string_model, MISC_COMBO_TEXT);
+    g_object_unref (builder);
 }
 
 /*
@@ -3718,7 +3316,6 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
         Cddb_Free_Album_List (self);
     }
     gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),TRUE);
-    gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_auto_search_button),TRUE);
 
 
     {
@@ -3847,7 +3444,6 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
                 g_free(cddb_server_cgi_path);
                 g_free (proxy_hostname);
                 gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
-                gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_auto_search_button),FALSE);
                 return FALSE;
             }
 
@@ -3865,7 +3461,6 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
                 g_free(cddb_server_cgi_path);
                 g_free (proxy_hostname);
                 gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
-                gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_auto_search_button),FALSE);
                 if (file)
                     fclose(file);
                 return FALSE;
@@ -3980,12 +3575,6 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
     g_free(query_string);
 
     gtk_widget_set_sensitive (GTK_WIDGET (priv->stop_search_button), FALSE);
-    gtk_widget_set_sensitive (GTK_WIDGET (priv->stop_auto_search_button),
-	                          FALSE);
-
-    /* Initialize the button. */
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->display_red_lines_toggle),
-                                  FALSE);
 
     /* Load the albums found in the list. */
     Cddb_Load_Album_List (self, FALSE);

@@ -150,12 +150,6 @@
       <default>['blues','classical','country','folk','jazz','misc','newage','reggae','rock','soundtrack']</default>
     </key>
 
-    <key name="cddb-search-show-categories" type="b">
-      <summary>Show the categories list in the CDDB manual search</summary>
-      <description>Whether to show the list of categories which can be searched with a manual CDDB query</description>
-      <default>false</default>
-    </key>
-
     <key name="cddb-set-fields" flags="org.gnome.EasyTAG.EtCddbSetField">
       <summary>The tag fields to set when matching against CDDB results</summary>
       <description>Which tag fields should be set when matching against selected files and CDDB results</description>

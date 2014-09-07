@@ -1,0 +1,668 @@
+<interface domain="easytag">
+    <requires lib="gtk+" version="3.4"/>
+    <object class="GtkListStore" id="album_list_model">
+        <columns>
+            <column type="GdkPixbuf"/>
+            <column type="gchararray"/>
+            <column type="gchararray"/>
+            <column type="gpointer"/>
+            <column type="PangoStyle"/>
+            <column type="gint"/>
+            <column type="GdkRGBA"/>
+        </columns>
+    </object>
+    <object class="GtkListStore" id="track_list_model">
+        <columns>
+            <column type="guint"/>
+            <column type="gchararray"/>
+            <column type="gchararray"/>
+            <column type="gpointer"/>
+            <column type="gpointer"/>
+        </columns>
+    </object>
+    <object class="GtkGrid" id="cddb_grid">
+        <property name="column-spacing">6</property>
+        <property name="row-spacing">6</property>
+        <child>
+            <object class="GtkLabel" id="search_label">
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Search</property>
+                <property name="visible">True</property>
+                <attributes>
+                    <attribute name="weight" value="bold"/>
+                </attributes>
+            </object>
+            <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">0</property>
+            </packing>
+        </child>
+        <child>
+            <object class="GtkEntry" id="search_entry">
+                <property name="margin-left">12</property>
+                <property name="tooltip-text" translatable="yes">Enter the words to search (separated by a space or ‘+’)</property>
+                <property name="visible">True</property>
+            </object>
+            <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">1</property>
+            </packing>
+        </child>
+        <child>
+            <object class="GtkButton" id="manual_search_button">
+                <property name="label" translatable="yes">_Search</property>
+                <property name="tooltip-text" translatable="yes">Generate the CDDB disc ID using the selected files (the order is important)</property>
+                <property name="use-underline">True</property>
+                <property name="visible">True</property>
+            </object>
+            <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">1</property>
+            </packing>
+        </child>
+        <child>
+            <object class="GtkButton" id="automatic_search_button">
+                <property name="label" translatable="yes">Search Using Selected _Files</property>
+                <property name="use-underline">True</property>
+                <property name="visible">True</property>
+            </object>
+            <packing>
+                <property name="left-attach">2</property>
+                <property name="top-attach">1</property>
+            </packing>
+        </child>
+        <child>
+            <object class="GtkButton" id="stop_button">
+                <property name="label" translatable="yes">Stop</property>
+                <property name="sensitive">False</property>
+                <property name="tooltip-text" translatable="yes">Stop the search</property>
+                <property name="visible">True</property>
+            </object>
+            <packing>
+                <property name="left-attach">3</property>
+                <property name="top-attach">1</property>
+            </packing>
+        </child>
+        <child>
+            <object class="GtkLabel" id="manual_search_label">
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Manual Search Options</property>
+                <property name="margin-left">12</property>
+                <property name="visible">True</property>
+                <attributes>
+                    <attribute name="weight" value="bold"/>
+                </attributes>
+            </object>
+            <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">2</property>
+            </packing>
+        </child>
+        <child>
+            <object class="GtkGrid" id="search_options_grid">
+                <property name="column-spacing">6</property>
+                <property name="margin-left">24</property>
+                <property name="row-spacing">6</property>
+                <property name="visible">True</property>
+                <child>
+                    <object class="GtkLabel" id="search_fields_label">
+                        <property name="halign">start</property>
+                        <property name="label" translatable="yes">Search Fields</property>
+                        <property name="visible">True</property>
+                        <attributes>
+                            <attribute name="weight" value="bold"/>
+                        </attributes>
+                    </object>
+                    <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">0</property>
+                        <property name="width">4</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="artist_check">
+                        <property name="label" translatable="yes">Artist</property>
+                        <property name="margin-left">12</property>
+                        <property name="name">artist</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">1</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="album_check">
+                        <property name="label" translatable="yes">Album</property>
+                        <property name="name">title</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">1</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="track_check">
+                        <property name="label" translatable="yes">Track Name</property>
+                        <property name="name">track</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">2</property>
+                        <property name="top-attach">1</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="other_check">
+                        <property name="label" translatable="yes">Other</property>
+                        <property name="name">other</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">3</property>
+                        <property name="top-attach">1</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="categories_label">
+                        <property name="halign">start</property>
+                        <property name="label" translatable="yes">Categories</property>
+                        <property name="margin-left">12</property>
+                        <property name="visible">True</property>
+                        <attributes>
+                            <attribute name="weight" value="bold"/>
+                        </attributes>
+                    </object>
+                    <packing>
+                        <property name="left-attach">5</property>
+                        <property name="top-attach">0</property>
+                        <property name="width">5</property>
+                    </packing>
+                </child>
+r               <child>
+                    <object class="GtkCheckButton" id="blues_check">
+                        <property name="label" translatable="yes">Blues</property>
+                        <property name="margin-left">12</property>
+                        <property name="name">blues</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">5</property>
+                        <property name="top-attach">1</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="classical_check">
+                        <property name="label" translatable="yes">Classical</property>
+                        <property name="name">classical</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">6</property>
+                        <property name="top-attach">1</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="country_check">
+                        <property name="label" translatable="yes">Country</property>
+                        <property name="name">country</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">7</property>
+                        <property name="top-attach">1</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="folk_check">
+                        <property name="label" translatable="yes">Folk</property>
+                        <property name="name">folk</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">8</property>
+                        <property name="top-attach">1</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="jazz_check">
+                        <property name="label" translatable="yes">Jazz</property>
+                        <property name="name">jazz</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">9</property>
+                        <property name="top-attach">1</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="misc_check">
+                        <property name="label" translatable="yes">Misc.</property>
+                        <property name="name">misc</property>
+                        <property name="margin-left">12</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">5</property>
+                        <property name="top-attach">2</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="newage_check">
+                        <property name="label" translatable="yes">New Age</property>
+                        <property name="name">newage</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">6</property>
+                        <property name="top-attach">2</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="reggae_check">
+                        <property name="label" translatable="yes">Reggae</property>
+                        <property name="name">reggae</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">7</property>
+                        <property name="top-attach">2</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="rock_check">
+                        <property name="label" translatable="yes">Rock</property>
+                        <property name="name">rock</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">8</property>
+                        <property name="top-attach">2</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="soundtrack_check">
+                        <property name="label" translatable="yes">Soundtrack</property>
+                        <property name="name">soundtrack</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">9</property>
+                        <property name="top-attach">2</property>
+                    </packing>
+                </child>
+            </object>
+            <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">4</property>
+                <property name="width">4</property>
+            </packing>
+        </child>
+        <child>
+            <object class="GtkLabel" id="results_label">
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Results</property>
+                <property name="margin-top">6</property>
+                <property name="visible">True</property>
+                <attributes>
+                    <attribute name="weight" value="bold"/>
+                </attributes>
+            </object>
+            <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">5</property>
+            </packing>
+        </child>
+        <child>
+            <object class="GtkBox" id="results_box">
+                <property name="visible">True</property>
+                <property name="orientation">vertical</property>
+                <child>
+                    <object class="GtkPaned" id="results_paned">
+                        <property name="orientation">horizontal</property>
+                        <property name="margin-left">12</property>
+                        <property name="visible">True</property>
+                        <child>
+                            <object class="GtkScrolledWindow" id="album_scrolled">
+                                <property name="expand">True</property>
+                                <property name="min-content-height">225</property>
+                                <property name="min-content-width">225</property>
+                                <property name="visible">True</property>
+                                <child>
+                                    <object class="GtkTreeView" id="album_view">
+                                        <property name="model">album_list_model</property>
+                                        <property name="search-column">1</property>
+                                        <property name="visible">True</property>
+                                        <child>
+                                            <object class="GtkTreeViewColumn" id="service_column">
+                                                <child>
+                                                    <object class="GtkCellRendererPixbuf" id="service_renderer"/>
+                                                    <attributes>
+                                                        <attribute name="pixbuf">0</attribute>
+                                                    </attributes>
+                                                </child>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkTreeViewColumn" id="artist_album_column">
+                                                <property name="title" translatable="yes">Artist / Album</property>
+                                                <child>
+                                                    <object class="GtkCellRendererText" id="artist_album_renderer"/>
+                                                    <attributes>
+                                                        <attribute name="foreground-rgba">6</attribute>
+                                                        <attribute name="style">4</attribute>
+                                                        <attribute name="text">1</attribute>
+                                                        <attribute name="weight">5</attribute>
+                                                    </attributes>
+                                                </child>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkTreeViewColumn" id="category_column">
+                                                <property name="title" translatable="yes">Category</property>
+                                                <child>
+                                                    <object class="GtkCellRendererText" id="category_renderer"/>
+                                                    <attributes>
+                                                        <attribute name="foreground-rgba">6</attribute>
+                                                        <attribute name="style">4</attribute>
+                                                        <attribute name="text">2</attribute>
+                                                        <attribute name="weight">5</attribute>
+                                                    </attributes>
+                                                </child>
+                                            </object>
+                                        </child>
+                                    </object>
+                                </child>
+                            </object>
+                            <packing>
+                                <property name="resize">True</property>
+                                <property name="shrink">False</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkScrolledWindow" id="track_scrolled">
+                                <property name="expand">True</property>
+                                <property name="min-content-height">225</property>
+                                <property name="min-content-width">225</property>
+                                <property name="visible">True</property>
+                                <child>
+                                    <object class="GtkTreeView" id="track_view">
+                                        <property name="model">track_list_model</property>
+                                        <property name="tooltip-text" translatable="yes">Select lines from which tags will be applied to your files list. All lines will be processed if no line is selected.\nYou can also reorder lines in this list before using the ‘apply’ button</property>
+                                        <property name="visible">True</property>
+                                        <child>
+                                            <object class="GtkTreeViewColumn" id="number_column">
+                                                <property name="sort-column-id">0</property>
+                                                <property name="title" translatable="yes">#</property>
+                                                <child>
+                                                    <object class="GtkCellRendererText" id="number_renderer"/>
+                                                    <attributes>
+                                                        <attribute name="text">0</attribute>
+                                                    </attributes>
+                                                </child>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkTreeViewColumn" id="track_column">
+                                                <property name="sort-column-id">1</property>
+                                                <property name="title" translatable="yes">Track Name</property>
+                                                <child>
+                                                    <object class="GtkCellRendererText" id="track_renderer"/>
+                                                    <attributes>
+                                                        <attribute name="text">1</attribute>
+                                                    </attributes>
+                                                </child>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkTreeViewColumn" id="duration_column">
+                                                <property name="title" translatable="yes">Duration</property>
+                                                <child>
+                                                    <object class="GtkCellRendererText" id="duration_renderer"/>
+                                                    <attributes>
+                                                        <attribute name="text">2</attribute>
+                                                    </attributes>
+                                                </child>
+                                            </object>
+                                        </child>
+                                        <child internal-child="selection">
+                                            <object class="GtkTreeSelection" id="track_selection">
+                                                <property name="mode">multiple</property>
+                                            </object>
+                                        </child>
+                                    </object>
+                                </child>
+                            </object>
+                            <packing>
+                                <property name="resize">True</property>
+                                <property name="shrink">False</property>
+                            </packing>
+                        </child>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkToolbar" id="results_toolbar">
+                        <property name="margin-left">12</property>
+                        <property name="visible">True</property>
+                        <style>
+                            <class name="inline-toolbar"/>
+                        </style>
+                        <child>
+                            <object class="GtkToolButton" id="select_all_button">
+                                <property name="icon-name">edit-select-all</property>
+                                <property name="tooltip-text" translatable="yes">Select all lines</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkToolButton" id="invert_button">
+                                <property name="tooltip-text" translatable="yes">Invert line selection</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkToolButton" id="unselect_all_button">
+                                <property name="tooltip-text" translatable="yes">Unselect all lines</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+            </object>
+            <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">7</property>
+                <property name="width">4</property>
+            </packing>
+        </child>
+        <child>
+            <object class="GtkGrid" id="fill_tags_grid">
+                <property name="column-spacing">12</property>
+                <property name="margin-left">12</property>
+                <property name="margin-top">6</property>
+                <property name="row-spacing">12</property>
+                <property name="visible">True</property>
+                <child>
+                    <object class="GtkLabel" id="fill_tags_label">
+                        <property name="halign">start</property>
+                        <property name="label" translatable="yes">Fill Tags</property>
+                        <property name="visible">True</property>
+                        <attributes>
+                            <attribute name="weight" value="bold"/>
+                        </attributes>
+                    </object>
+                    <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">0</property>
+                        <property name="width">8</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="filename_check">
+                        <property name="label" translatable="yes">Filename</property>
+                        <property name="margin-left">12</property>
+                        <property name="name">filename</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">1</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="title_check">
+                        <property name="label" translatable="yes">Title</property>
+                        <property name="name">title</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">1</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="fill_artist_check">
+                        <property name="label" translatable="yes">Artist</property>
+                        <property name="name">artist</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">2</property>
+                        <property name="top-attach">1</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="fill_album_check">
+                        <property name="label" translatable="yes">Album</property>
+                        <property name="name">album</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">3</property>
+                        <property name="top-attach">1</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="year_check">
+                        <property name="label" translatable="yes">Year</property>
+                        <property name="name">year</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">4</property>
+                        <property name="top-attach">1</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="fill_track_check">
+                        <property name="label" translatable="yes">Track #</property>
+                        <property name="name">track</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">5</property>
+                        <property name="top-attach">1</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="track_total_check">
+                        <property name="label" translatable="yes"># Tracks</property>
+                        <property name="name">track-total</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">6</property>
+                        <property name="top-attach">1</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="genre_check">
+                        <property name="label" translatable="yes">Genre</property>
+                        <property name="name">genre</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">7</property>
+                        <property name="top-attach">1</property>
+                    </packing>
+                </child>
+            </object>
+            <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">8</property>
+                <property name="width">4</property>
+            </packing>
+        </child>
+        <child>
+            <object class="GtkBox" id="results_check_box">
+                <property name="margin-left">12</property>
+                <property name="margin-top">6</property>
+                <property name="spacing">12</property>
+                <property name="visible">True</property>
+                <child>
+                    <object class="GtkCheckButton" id="scanner_check">
+                        <property name="label" translatable="yes">Run the current scanner for each file</property>
+                        <property name="tooltip-text" translatable="yes">Whether to run the tag scanner, with the current settings, on the CDDB results</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="dlm_check">
+                        <property name="label" translatable="yes">Match lines with the Levenshtein algorithm</property>
+                        <property name="tooltip-text" translatable="yes">Whether to use the DLM algorithm to match CDDB results to files</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+            </object>
+            <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">9</property>
+                <property name="width">4</property>
+            </packing>
+        </child>
+        <child>
+            <object class="GtkBox" id="status_box">
+                <property name="margin-top">6</property>
+                <property name="orientation">horizontal</property>
+                <property name="spacing">6</property>
+                <property name="visible">True</property>
+                <child>
+                    <object class="GtkStatusbar" id="cddb_bar">
+                        <property name="hexpand">True</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkButtonBox" id="button_box">
+                        <property name="layout-style">end</property>
+                        <property name="orientation">horizontal</property>
+                        <property name="spacing">6</property>
+                        <property name="visible">True</property>
+                        <child>
+                            <object class="GtkButton" id="close_button">
+                                <property name="label" translatable="yes">_Close</property>
+                                <property name="use-underline">True</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkButton" id="apply_button">
+                                <property name="label" translatable="yes">_Apply</property>
+                                <property name="sensitive">False</property>
+                                <property name="tooltip-text" translatable="yes">Load the selected lines or all lines (if no lines are selected)</property>
+                                <property name="use-underline">True</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+            </object>
+            <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">10</property>
+                <property name="width">4</property>
+            </packing>
+        </child>
+    </object>
+</interface>

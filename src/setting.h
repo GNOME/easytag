@@ -268,10 +268,6 @@ void Save_Run_Program_With_File_List (GtkListStore *liststore, gint colnum);
 void Load_Search_File_List (GtkListStore *liststore, gint colnum);
 void Save_Search_File_List (GtkListStore *liststore, gint colnum);
 
-/* 'CddbSearchStringEntry' combobox */
-void Load_Cddb_Search_String_List (GtkListStore *liststore, gint colnum);
-void Save_Cddb_Search_String_List (GtkListStore *liststore, gint colnum);
-
 gboolean et_settings_enum_get (GValue *value, GVariant *variant,
                                gpointer user_data);
 GVariant *et_settings_enum_set (const GValue *value,

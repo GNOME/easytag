@@ -2023,11 +2023,6 @@ et_application_window_apply_changes (EtApplicationWindow *self)
         et_scan_dialog_apply_changes (ET_SCAN_DIALOG (priv->scan_dialog));
     }
 
-    if (priv->cddb_dialog)
-    {
-        et_cddb_dialog_apply_changes (ET_CDDB_DIALOG (priv->cddb_dialog));
-    }
-
     if (priv->search_dialog)
     {
         et_search_dialog_apply_changes (ET_SEARCH_DIALOG (priv->search_dialog));

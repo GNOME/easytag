@@ -46,7 +46,6 @@ struct _EtCDDBDialogClass
 
 GType et_cddb_dialog_get_type (void);
 EtCDDBDialog *et_cddb_dialog_new (void);
-void et_cddb_dialog_apply_changes (EtCDDBDialog *self);
 gboolean et_cddb_dialog_search_from_selection (EtCDDBDialog *self);
 
 G_END_DECLS
