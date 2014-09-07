@@ -20,7 +20,10 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
+
+#include "charset.h"
+
 #include <stdlib.h>
 #include <glib.h>
 #include <string.h>
@@ -31,16 +34,15 @@
 #include <langinfo.h>
 #endif
 
-#include "charset.h"
 #include "setting.h"
 #include "log.h"
-
 #include "win32/win32dep.h"
 
-
-/****************
- * Declarations *
- ****************/
+typedef struct
+{
+    const gchar *charset_title;
+    const gchar *charset_name;
+} CharsetInfo;
 
 #define CHARSET_TRANS_ARRAY_LEN ( sizeof(charset_trans_array) / sizeof((charset_trans_array)[0]) )
 static const CharsetInfo charset_trans_array[] = {
@@ -137,12 +139,6 @@ static const CharsetInfo charset_trans_array[] = {
 };
 
 static GHashTable *encodings;
-
-
-
-/*************
- * Functions *
- *************/
 
 
 /* stolen from gnome-desktop-item.c */
