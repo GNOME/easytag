@@ -134,7 +134,7 @@ gboolean Id3tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag)
     if ((tagsize = id3_tag_query((id3_byte_t const *)string1, ID3_TAG_QUERYSIZE)) <= ID3_TAG_QUERYSIZE)
     {
         /* ID3v2 tag not found! */
-        update = !g_settings_get_boolean (MainSettings, "id3v2-enabled");
+        update = g_settings_get_boolean (MainSettings, "id3v2-enabled");
     }else
     {
         /* ID3v2 tag found */
@@ -180,13 +180,17 @@ gboolean Id3tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag)
        )
     {
         /* ID3v1 tag found! */
-        if (g_settings_get_boolean (MainSettings, "id3v1-enabled"))
+        if (!g_settings_get_boolean (MainSettings, "id3v1-enabled"))
+        {
             update = 1;
+        }
     }else
     {
         /* ID3v1 tag not found! */
-        if (!g_settings_get_boolean (MainSettings, "id3v1-enabled"))
+        if (g_settings_get_boolean (MainSettings, "id3v1-enabled"))
+        {
             update = 1;
+        }
     }
 
     g_free(string1);
