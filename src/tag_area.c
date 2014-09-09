@@ -676,6 +676,15 @@ on_apply_to_selection (GObject *object,
 }
 
 static void
+on_entry_icon_release (GtkEntry *entry,
+                       GtkEntryIconPosition icon_pos,
+                       GdkEvent *event,
+                       EtTagArea *self)
+{
+    on_apply_to_selection (G_OBJECT (entry), self);
+}
+
+static void
 Convert_P20_And_Underscore_Into_Spaces (GtkWidget *entry)
 {
     gchar *string = g_strdup (gtk_entry_get_text (GTK_ENTRY (entry)));
@@ -934,7 +943,7 @@ et_tag_field_connect_signals (GtkEntry *entry,
                             G_CALLBACK (et_tag_field_on_key_press_event),
                             self);
     g_signal_connect (entry, "icon-release",
-                      G_CALLBACK (on_apply_to_selection),
+                      G_CALLBACK (on_entry_icon_release),
                       self);
     g_signal_connect (entry, "populate-popup",
                       G_CALLBACK (on_entry_populate_popup), self);
