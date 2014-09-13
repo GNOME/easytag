@@ -1654,10 +1654,10 @@ Scan_Process_Fields_First_Letters_Uppercase (EtScanDialog *self, gchar **str)
             c = g_utf8_get_char(word);
             strncpy(word, utf8_character, g_unichar_to_utf8(g_unichar_toupper(c), utf8_character));
 
-            if (!g_settings_get_boolean (MainSettings,
-                                         "process-uppercase-prepositions"))
+            if (g_settings_get_boolean (MainSettings,
+                                        "process-uppercase-prepositions"))
             {
-                break;
+                goto increment;
             }
 
             /* Lowercase the first character of this word if found in the
@@ -1673,6 +1673,7 @@ Scan_Process_Fields_First_Letters_Uppercase (EtScanDialog *self, gchar **str)
             }
         }
 
+increment:
         temp = word;
     }
 
