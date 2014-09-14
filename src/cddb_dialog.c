@@ -65,7 +65,6 @@ struct _EtCDDBDialogPrivate
     GList *album_list;
 
     GtkListStore *album_list_model;
-    GtkListStore *search_string_model;
     GtkListStore *track_list_model;
 
     GtkWidget *search_string_entry;
