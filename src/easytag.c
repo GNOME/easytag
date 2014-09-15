@@ -331,10 +331,10 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
             /* ET_Display_File_Data_To_UI ((ET_File *)l->data);
              * Use of 'currentPath' to try to increase speed. Indeed, in many
              * cases, the next file to select, is the next in the list. */
-            et_application_window_browser_select_file_by_et_file2 (window,
-                                                                   (ET_File *)l->data,
-                                                                   FALSE,
-                                                                   currentPath);
+            currentPath = et_application_window_browser_select_file_by_et_file2 (window,
+                                                                                (ET_File *)l->data,
+                                                                                FALSE,
+                                                                                currentPath);
 
             fraction = (++progress_bar_index) / (double) nb_files_to_save;
             et_application_window_progress_set_fraction (window, fraction);
