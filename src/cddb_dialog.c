@@ -770,7 +770,7 @@ Cddb_Write_Result_To_File (EtCDDBDialog *self,
         gchar cddb_out[MAX_STRING_LEN+1];
         gint  bytes_read = 0;
 
-        while ( self && !priv->stop_searching
+        while (!priv->stop_searching
         // Read data
         && (bytes_read = recv(socket_id,(void *)&cddb_out,MAX_STRING_LEN,0)) > 0 )
         {
@@ -1018,8 +1018,7 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
     }
     cddb_end_str = g_strdup(".");
 
-    while ( self && !priv->stop_searching
-    && Cddb_Read_Line(&file,&cddb_out) > 0 )
+    while (!priv->stop_searching && Cddb_Read_Line (&file, &cddb_out) > 0)
     {
         if (!cddb_out) // Empty line?
             continue;
@@ -1627,8 +1626,7 @@ Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
     art_alb_str  = g_strdup("\">");
     end_str      = g_strdup("</a>"); //"</a><br>");
     html_end_str = g_strdup("</body>"); // To avoid the cddb lookups to hang
-    while ( self && !priv->stop_searching
-    && Cddb_Read_Line(&file,&cddb_out) > 0 )
+    while (!priv->stop_searching && Cddb_Read_Line (&file, &cddb_out) > 0)
     {
         cddb_out_tmp = cddb_out;
         //g_print("%s\n",cddb_out); // To print received data
@@ -1975,8 +1973,7 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
         sraf_str     = g_strdup("<h2>Search Results, ");
         sraf_end_str = g_strdup(" albums found:</h2>");
 
-        while ( self && !priv->stop_searching
-        && Cddb_Read_Line(&file,&cddb_out) > 0 )
+        while (!priv->stop_searching && Cddb_Read_Line (&file, &cddb_out) > 0)
         {
             cddb_out_tmp = cddb_out;
             //g_print("%s\n",cddb_out); // To print received data
@@ -3474,8 +3471,8 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
              * For MusicBrainz Cddb Gateway (see http://wiki.musicbrainz.org/CddbGateway), the lines to read are like :
              *      200 jazz 7e0a100a Pink Floyd / Dark Side of the Moon
              */
-            while ( self && !priv->stop_searching
-            && Cddb_Read_Line(&file,&cddb_out) > 0 )
+            while (!priv->stop_searching
+                   && Cddb_Read_Line (&file, &cddb_out) > 0)
             {
                 cddb_out_tmp = cddb_out;
                 //g_print("%s\n",cddb_out);
