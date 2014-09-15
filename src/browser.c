@@ -625,11 +625,11 @@ et_browser_label_set_text (EtBrowser *self, const gchar *text)
     EtBrowserPrivate *priv;
 
     g_return_if_fail (ET_BROWSER (self));
+    g_return_if_fail (text != NULL);
 
     priv = et_browser_get_instance_private (self);
 
-    if (priv->label && text)
-        gtk_label_set_text (GTK_LABEL (priv->label), text ? text : "");
+    gtk_label_set_text (GTK_LABEL (priv->label), text);
 }
 
 /*
