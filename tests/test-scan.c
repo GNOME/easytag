@@ -1,4 +1,5 @@
 /* EasyTAG - tag editor for audio files
+ * Copyright (C) 2014 David King <amigadave@amigadave.com>
  * Copyright (C) 2014 Abhinav Jangda <abhijangda@hotmail.com>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -174,12 +175,63 @@ scan_letter_uppercase (void)
     {
         gchar *string, *res;
 
-        string = g_strdup (cases [i]);
+        string = g_strdup (cases[i]);
         res = Scan_Process_Fields_Letter_Uppercase (string);
-        check_string (res, results [i]);
+        check_string (res, results[i]);
 
         g_free (string);
         g_free (res);
+    }
+}
+
+static void
+scan_letters_uppercase (void)
+{
+    gsize i;
+    const gchar *cases[] = { "Foo Bar The Baz", "The", "The The",
+                             "The The The", "Vibrate (single version)",
+                             "MCMXC", "Foo Bar The III (single version)" };
+    gchar *results[] = { "Foo Bar the Baz", "The", "The The", "The the The",
+                         "Vibrate (Single Version)", "Mcmxc",
+                         "Foo Bar the Iii (Single Version)" };
+    gchar *results_roman[] = { "Foo Bar the Baz", "The", "The The",
+                               "The the The", "Vibrate (Single Version)",
+                               "MCMXC", "Foo Bar the III (Single Version)" };
+    gchar *results_preps[] = { "Foo Bar The Baz", "The", "The The",
+                               "The The The", "Vibrate (Single Version)",
+                               "Mcmxc", "Foo Bar The Iii (Single Version)" };
+    gchar *results_preps_roman[] = { "Foo Bar The Baz", "The", "The The",
+                                     "The The The", "Vibrate (Single Version)",
+                                     "MCMXC",
+                                     "Foo Bar The III (Single Version)" };
+
+    for (i = 0; i < G_N_ELEMENTS (cases); i++)
+    {
+        gchar *string;
+
+        /* Lower-case exempted words, do not handle Roman numerals. */
+        string = g_strdup (cases[i]);
+        Scan_Process_Fields_First_Letters_Uppercase (&string, FALSE, FALSE);
+        check_string (string, results[i]);
+        g_free (string);
+
+        /* Lower-case exempted words, handle Roman numerals. */
+        string = g_strdup (cases[i]);
+        Scan_Process_Fields_First_Letters_Uppercase (&string, FALSE, TRUE);
+        check_string (string, results_roman[i]);
+        g_free (string);
+
+        /* Upper-case all words, do not handle Roman numerals. */
+        string = g_strdup (cases[i]);
+        Scan_Process_Fields_First_Letters_Uppercase (&string, TRUE, FALSE);
+        check_string (string, results_preps[i]);
+        g_free (string);
+
+        /* Upper-case all words, handle Roman numerals. */
+        string = g_strdup (cases[i]);
+        Scan_Process_Fields_First_Letters_Uppercase (&string, TRUE, TRUE);
+        check_string (string, results_preps_roman[i]);
+        g_free (string);
     }
 }
 
@@ -213,6 +265,7 @@ main (int argc, char** argv)
     g_test_add_func ("/scan/all-uppercase", scan_all_uppercase);
     g_test_add_func ("/scan/all-lowercase", scan_all_lowercase);
     g_test_add_func ("/scan/letter-uppercase", scan_letter_uppercase);
+    g_test_add_func ("/scan/letters-uppercase", scan_letters_uppercase);
 
     if (g_test_perf ())
     {
@@ -230,6 +283,8 @@ main (int argc, char** argv)
                               scan_perf);
         g_test_add_data_func ("/scan/perf/letter-uppercase",
                               scan_letter_uppercase, scan_perf);
+        g_test_add_data_func ("/scan/perf/letters-uppercase",
+                              scan_letters_uppercase, scan_perf);
     }
 
     return g_test_run ();
