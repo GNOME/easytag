@@ -741,13 +741,18 @@ Convert_Letter_Uppercase (GtkWidget *entry)
 static void
 Convert_First_Letters_Uppercase (GtkWidget *entry)
 {
-    EtScanDialog *dialog;
     gchar *string;
+    gboolean uppercase_preps;
+    gboolean handle_roman;
 
     string = g_strdup (gtk_entry_get_text (GTK_ENTRY (entry)));
-    dialog = ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (MainWindow)));
+    uppercase_preps = g_settings_get_boolean (MainSettings,
+                                              "process-uppercase-prepositions");
+    handle_roman = g_settings_get_boolean (MainSettings,
+                                           "process-detect-roman-numerals");
 
-    Scan_Process_Fields_First_Letters_Uppercase (dialog, &string);
+    Scan_Process_Fields_First_Letters_Uppercase (&string, uppercase_preps,
+                                                 handle_roman);
     gtk_entry_set_text (GTK_ENTRY (entry), string);
     g_free (string);
 }

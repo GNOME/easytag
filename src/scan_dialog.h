@@ -68,6 +68,4 @@ gchar *Scan_Generate_New_Directory_Name_From_Mask (ET_File *ETFile, gchar *mask,
 
 void entry_check_rename_file_mask (GtkEntry *entry, gpointer user_data);
 
-void Scan_Process_Fields_First_Letters_Uppercase (EtScanDialog *self, gchar **str);
-
 #endif /* ET_SCAN_DIALOG_H_ */

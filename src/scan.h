@@ -33,6 +33,7 @@ void Scan_Remove_Spaces (gchar *string);
 gchar* Scan_Process_Fields_All_Uppercase (const gchar *string);
 gchar* Scan_Process_Fields_All_Downcase (const gchar *string);
 gchar* Scan_Process_Fields_Letter_Uppercase (const gchar *string);
+void Scan_Process_Fields_First_Letters_Uppercase (gchar **str, gboolean uppercase_preps, gboolean handle_roman);
 
 G_END_DECLS
 
