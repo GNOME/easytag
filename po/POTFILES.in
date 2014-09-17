@@ -6,6 +6,7 @@ data/easytag.desktop.in
 [type: gettext/glade]data/menus.ui
 [type: gettext/glade]data/playlist_dialog.ui
 [type: gettext/glade]data/preferences_dialog.ui
+[type: gettext/glade]data/scan_dialog.ui
 [type: gettext/glade]data/search_dialog.ui
 [type: gettext/glade]data/tag_area.ui
 [type: gettext/glade]data/toolbar.ui
