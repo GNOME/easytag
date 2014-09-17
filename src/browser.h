@@ -37,14 +37,14 @@ typedef struct _EtBrowserPrivate EtBrowserPrivate;
 struct _EtBrowser
 {
     /*< private >*/
-    GtkBox parent_instance;
+    GtkBin parent_instance;
     EtBrowserPrivate *priv;
 };
 
 struct _EtBrowserClass
 {
     /*< private >*/
-    GtkBoxClass parent_class;
+    GtkBinClass parent_class;
 };
 
 GType et_browser_get_type (void);

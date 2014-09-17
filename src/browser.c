@@ -51,7 +51,7 @@
 #include "win32/win32dep.h"
 
 /* TODO: Use G_DEFINE_TYPE_WITH_PRIVATE. */
-G_DEFINE_TYPE (EtBrowser, et_browser, GTK_TYPE_BOX)
+G_DEFINE_TYPE (EtBrowser, et_browser, GTK_TYPE_BIN)
 
 #define et_browser_get_instance_private(browser) (browser->priv)
 
@@ -3777,132 +3777,74 @@ static void
 create_browser (EtBrowser *self)
 {
     EtBrowserPrivate *priv;
-    GtkWidget *HBox;
-    GtkWidget *ScrollWindowDirectoryTree;
-    GtkWidget *ScrollWindowFileList;
-    GtkWidget *ScrollWindowArtistList;
-    GtkWidget *ScrollWindowAlbumList;
-    GtkWidget *Label;
-    GtkWidget *ArtistAlbumVPaned;
-    GtkWidget *BrowserHPaned;
+    GtkWidget *grid;
     gsize i;
-    GtkCellRenderer *renderer;
-    GtkTreeViewColumn *column;
     GtkBuilder *builder;
     GError *error = NULL;
     GMenuModel *menu_model;
-    const gchar *BrowserTree_Titles[] = { N_("Tree") };
-    const gchar *BrowserList_Titles[] = { N_("Filename"), N_("Title"),
-                                          N_("Artist"), N_("Album Artist"),
-                                          N_("Album"), N_("Year"), N_("Disc"),
-                                          N_("Track"), N_("Genre"),
-                                          N_("Comment"), N_("Composer"),
-                                          N_("Original Artist"),
-                                          N_("Copyright"), N_("URL"),
-                                          N_("Encoded By") };
-    const gchar *ArtistList_Titles[] = { N_("Artist"), N_("# Albums"),
-                                         N_("# Files") };
-    const gchar *AlbumList_Titles[] = { N_("Album"), N_("# Files") };
+    const gchar * const ids[] = { "filename_column", "title_column",
+                                  "artist_column", "album_artist_column",
+                                  "album_column", "year_column", "disc_column",
+                                  "track_column", "genre_column",
+                                  "comment_column", "composer_column",
+                                  "orig_artist_column", "copyright_column",
+                                  "url_column", "encoded_by_column" };
 
     priv = et_browser_get_instance_private (self);
 
     gtk_container_set_border_width (GTK_CONTAINER (self), 2);
 
-    // HBox for BrowserEntry + priv->label
-    HBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
-    gtk_box_pack_start (GTK_BOX (self), HBox, FALSE, TRUE, 0);
+    /* The entry box for displaying path. */
+    builder = gtk_builder_new ();
+    gtk_builder_add_from_resource (builder, "/org/gnome/EasyTAG/browser.ui",
+                                   &error);
 
-    /*
-     * The entry box for displaying path
-     */
-    priv->entry_model = gtk_list_store_new (MISC_COMBO_COUNT, G_TYPE_STRING);
+    if (error != NULL)
+    {
+        g_error ("Unable to get browser from resource: %s",
+                 error->message);
+    }
 
-    priv->entry_combo = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(priv->entry_model));
-    /* The model would normally be unreffed here, but the browser owns a ref so
-     * that the model is not finalized before the destroy() vfunc runs. */
-    gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(priv->entry_combo), MISC_COMBO_TEXT);
+    grid = GTK_WIDGET (gtk_builder_get_object (builder, "browser_grid"));
+    gtk_container_add (GTK_CONTAINER (self), grid);
+
+    priv->entry_model = GTK_LIST_STORE (gtk_builder_get_object (builder,
+                                                                "directory_model"));
+
+    priv->entry_combo = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                            "browser_combo"));
     /* History list */
-    Load_Path_Entry_List(priv->entry_model, MISC_COMBO_TEXT);
-    //gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(priv->entry_combo),2); // Two columns to display paths
+    Load_Path_Entry_List (priv->entry_model, MISC_COMBO_TEXT);
 
     g_signal_connect_swapped (gtk_bin_get_child (GTK_BIN (priv->entry_combo)),
                               "activate", G_CALLBACK (Browser_Entry_Activated),
-			      self);
-    gtk_box_pack_start(GTK_BOX(HBox),priv->entry_combo,TRUE,TRUE,1);
-    gtk_widget_set_tooltip_text (GTK_WIDGET (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->entry_combo)))),
-                                 _("Choose a directory to show in the browser"));
+                              self);
 
-    /*
-     * The button to select a directory to browse
-     */
-    priv->button = gtk_button_new_with_mnemonic (_("_Open"));
-    gtk_box_pack_start (GTK_BOX (HBox), priv->button, FALSE, FALSE, 1);
+    /* The button to select a directory to browse. */
+    priv->button = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                       "open_button"));
     g_signal_connect_swapped (priv->button, "clicked",
                               G_CALLBACK (File_Selection_Window_For_Directory),
                               gtk_bin_get_child (GTK_BIN (priv->entry_combo)));
-    gtk_widget_set_tooltip_text (priv->button,
-                                 _("Select a directory to browse"));
 
-
-    /*
-     * The label for displaying number of files in path (without subdirs)
-     */
+    /* The label for displaying number of files in path (without subdirs). */
     /* Translators: No files, as in "0 files". */
-    priv->label = gtk_label_new(_("No files"));
-    gtk_box_pack_start (GTK_BOX (HBox), priv->label, FALSE, FALSE, 2);
+    priv->label = GTK_WIDGET (gtk_builder_get_object (builder, "files_label"));
 
-    /* Browser NoteBook :
-     *  - one tab for the priv->tree
-     *  - one tab for the priv->artist_list and the priv->album_list
-     */
-    priv->notebook = gtk_notebook_new ();
-    gtk_notebook_set_show_tabs (GTK_NOTEBOOK (priv->notebook), FALSE);
-    gtk_notebook_set_show_border (GTK_NOTEBOOK (priv->notebook), FALSE);
+    /* Browser notebook: one tab for the priv->tree, one tab for the
+     * priv->artist_list and the priv->album_list. */
+    priv->notebook = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                         "directory_album_artist_notebook"));
 
-
-    /*
-     * The ScrollWindow and the Directory-Tree
-     */
-    ScrollWindowDirectoryTree = gtk_scrolled_window_new(NULL,NULL);
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(ScrollWindowDirectoryTree),
-                                   GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
-    priv->directory_model = gtk_tree_store_new(TREE_COLUMN_COUNT,
-                                            G_TYPE_STRING,
-                                            G_TYPE_STRING,
-                                            G_TYPE_BOOLEAN,
-                                            G_TYPE_BOOLEAN,
-                                            G_TYPE_ICON);
-
-    Label = gtk_label_new(_("Tree"));
-    gtk_notebook_append_page(GTK_NOTEBOOK(priv->notebook),ScrollWindowDirectoryTree,Label);
+    /* The ScrollWindow and the Directory-Tree. */
+    priv->directory_model = GTK_TREE_STORE (gtk_builder_get_object (builder,
+                                                                    "tree_model"));
 
     /* The tree view */
-    priv->tree = gtk_tree_view_new_with_model(GTK_TREE_MODEL(priv->directory_model));
-    g_object_unref (priv->directory_model);
-    gtk_container_add(GTK_CONTAINER(ScrollWindowDirectoryTree),priv->tree);
-    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(priv->tree), TRUE);
-
-    // Column for the pixbuf + text
-    column = gtk_tree_view_column_new();
-    gtk_tree_view_column_set_title(column, _(BrowserTree_Titles[0]));
-
-    // Cell of the column for the pixbuf
-    renderer = gtk_cell_renderer_pixbuf_new();
-    gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_attributes(column, renderer,
-                                       "gicon", TREE_COLUMN_ICON,
-                                        NULL);
-    // Cell of the column for the text
-    renderer = gtk_cell_renderer_text_new();
-    gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_attributes(column, renderer,
-                                       "text", TREE_COLUMN_DIR_NAME,
-                                        NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->tree), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+    priv->tree = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                     "directory_view"));
 
     Browser_Tree_Initialize (self);
-
 
     /* Signals */
     g_signal_connect_swapped (priv->tree, "row-expanded",
@@ -3917,7 +3859,6 @@ create_browser (EtBrowser *self)
                       G_CALLBACK (Browser_Tree_Key_Press), NULL);
 
     /* Create popup menu on browser tree view. */
-    builder = gtk_builder_new ();
     gtk_builder_add_from_resource (builder, "/org/gnome/EasyTAG/menus.ui",
                                    &error);
 
@@ -3936,92 +3877,18 @@ create_browser (EtBrowser *self)
     g_signal_connect (priv->tree, "popup-menu",
                       G_CALLBACK (on_directory_tree_popup_menu), self);
 
-    /*
-     * The ScrollWindows with the Artist and Album Lists
-     */
+    /* The ScrollWindows with the Artist and Album Lists. */
+    priv->artist_model = GTK_LIST_STORE (gtk_builder_get_object (builder,
+                                                                 "artist_model"));
 
-    ArtistAlbumVPaned = gtk_paned_new(GTK_ORIENTATION_VERTICAL);
-
-    Label = gtk_label_new(_("Artist & Album"));
-    gtk_notebook_append_page(GTK_NOTEBOOK(priv->notebook),ArtistAlbumVPaned,Label);
-
-    ScrollWindowArtistList = gtk_scrolled_window_new(NULL,NULL);
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(ScrollWindowArtistList),
-                                   GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
-
-    priv->artist_model = gtk_list_store_new (ARTIST_COLUMN_COUNT,
-                                             GDK_TYPE_PIXBUF,
-                                             G_TYPE_STRING,
-                                             G_TYPE_UINT,
-                                             G_TYPE_UINT,
-                                             G_TYPE_POINTER,
-                                             PANGO_TYPE_STYLE,
-                                             G_TYPE_INT,
-                                             GDK_TYPE_RGBA);
-
-    priv->artist_list = gtk_tree_view_new_with_model (GTK_TREE_MODEL (priv->artist_model));
-    g_object_unref (priv->artist_model);
-    gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (priv->artist_list), TRUE);
+    priv->artist_list = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                            "artist_view"));
     gtk_tree_selection_set_mode (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->artist_list)),
                                                               GTK_SELECTION_SINGLE);
-
-
-    // Artist column
-    column = gtk_tree_view_column_new();
-    gtk_tree_view_column_set_title(column, _(ArtistList_Titles[0]));
-
-    renderer = gtk_cell_renderer_pixbuf_new();
-    gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_attributes(column, renderer,
-                                        "pixbuf", ARTIST_PIXBUF,
-                                        NULL);
-    renderer = gtk_cell_renderer_text_new();
-    gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_attributes(column, renderer,
-                                        "text",           ARTIST_NAME,
-                                        "weight",         ARTIST_FONT_WEIGHT,
-                                        "style",          ARTIST_FONT_STYLE,
-                                        "foreground-rgba", ARTIST_ROW_FOREGROUND,
-                                        NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->artist_list), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-
-    // # Albums of Artist column
-    column = gtk_tree_view_column_new();
-    gtk_tree_view_column_set_title(column, _(ArtistList_Titles[1]));
-
-    renderer = gtk_cell_renderer_text_new();
-    gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_attributes(column, renderer,
-                                        "text",           ARTIST_NUM_ALBUMS,
-                                        "weight",         ARTIST_FONT_WEIGHT,
-                                        "style",          ARTIST_FONT_STYLE,
-                                        "foreground-rgba", ARTIST_ROW_FOREGROUND,
-                                        NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->artist_list), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-
-    // # Files of Artist column
-    column = gtk_tree_view_column_new();
-    gtk_tree_view_column_set_title(column, _(ArtistList_Titles[2]));
-
-    renderer = gtk_cell_renderer_text_new();
-    gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_attributes(column, renderer,
-                                        "text",           ARTIST_NUM_FILES,
-                                        "weight",         ARTIST_FONT_WEIGHT,
-                                        "style",          ARTIST_FONT_STYLE,
-                                        "foreground-rgba", ARTIST_ROW_FOREGROUND,
-                                        NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->artist_list), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-
     priv->artist_selected_handler = g_signal_connect_swapped (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->artist_list)),
                                                               "changed",
                                                               G_CALLBACK (Browser_Artist_List_Row_Selected),
                                                               self);
-
-    gtk_container_add(GTK_CONTAINER(ScrollWindowArtistList),priv->artist_list);
 
     /* Create popup menu on browser artist list. */
     menu_model = G_MENU_MODEL (gtk_builder_get_object (builder,
@@ -4033,68 +3900,18 @@ create_browser (EtBrowser *self)
                       G_CALLBACK (on_artist_tree_button_press_event), self);
     g_signal_connect (priv->artist_list, "popup-menu",
                       G_CALLBACK (on_artist_tree_popup_menu), self);
-    // Not available yet!
-    //ui_widget_set_sensitive(MENU_FILE, AM_ARTIST_OPEN_FILE_WITH, FALSE);
 
-    ScrollWindowAlbumList = gtk_scrolled_window_new(NULL,NULL);
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(ScrollWindowAlbumList),
-                                   GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
-
-    priv->album_model = gtk_list_store_new (ALBUM_COLUMN_COUNT,
-                                            G_TYPE_ICON,
-                                            G_TYPE_STRING,
-                                            G_TYPE_UINT,
-                                            G_TYPE_POINTER,
-                                            PANGO_TYPE_STYLE,
-                                            G_TYPE_INT,
-                                            GDK_TYPE_RGBA,
-                                            G_TYPE_BOOLEAN);
-
-    priv->album_list = gtk_tree_view_new_with_model (GTK_TREE_MODEL (priv->album_model));
-    g_object_unref (priv->album_model);
-    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(priv->album_list), TRUE);
-    gtk_tree_view_set_reorderable(GTK_TREE_VIEW(priv->album_list), FALSE);
-    gtk_tree_selection_set_mode(gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->album_list)), GTK_SELECTION_SINGLE);
-
-    // Album column
-    column = gtk_tree_view_column_new();
-    gtk_tree_view_column_set_title(column, _(AlbumList_Titles[0]));
-
-    renderer = gtk_cell_renderer_pixbuf_new();
-    gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_attributes (column, renderer, "gicon",
-                                         ALBUM_GICON, NULL);
-    renderer = gtk_cell_renderer_text_new();
-    gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_attributes(column, renderer,
-                                        "text",           ALBUM_NAME,
-                                        "weight",         ALBUM_FONT_WEIGHT,
-                                        "style",          ALBUM_FONT_STYLE,
-                                        "foreground-rgba", ALBUM_ROW_FOREGROUND,
-                                        NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->album_list), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-
-    // # files column
-    column = gtk_tree_view_column_new();
-    gtk_tree_view_column_set_title(column, _(AlbumList_Titles[1]));
-
-    renderer = gtk_cell_renderer_text_new();
-    gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_attributes(column, renderer,
-                                        "text",           ALBUM_NUM_FILES,
-                                        "weight",         ALBUM_FONT_WEIGHT,
-                                        "style",          ALBUM_FONT_STYLE,
-                                        "foreground-rgba", ALBUM_ROW_FOREGROUND,
-                                        NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->album_list), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+    priv->album_model = GTK_LIST_STORE (gtk_builder_get_object (builder,
+                                                                "album_model"));
+    priv->album_list = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                           "album_view"));
+    gtk_tree_selection_set_mode (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->album_list)),
+                                 GTK_SELECTION_SINGLE);
 
     priv->album_selected_handler = g_signal_connect_swapped (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->album_list)),
                                                              "changed",
                                                              G_CALLBACK (Browser_Album_List_Row_Selected),
                                                              self);
-    gtk_container_add(GTK_CONTAINER(ScrollWindowAlbumList),priv->album_list);
 
     /* Create Popup Menu on browser album list. */
     menu_model = G_MENU_MODEL (gtk_builder_get_object (builder,
@@ -4107,68 +3924,18 @@ create_browser (EtBrowser *self)
     g_signal_connect (priv->album_list, "popup-menu",
                       G_CALLBACK (on_album_tree_popup_menu), self);
 
-    // Not available yet!
-    //ui_widget_set_sensitive(MENU_FILE, AM_ALBUM_OPEN_FILE_WITH, FALSE);
-
-
-    gtk_paned_pack1(GTK_PANED(ArtistAlbumVPaned),ScrollWindowArtistList,TRUE,TRUE); // Top side
-    gtk_paned_pack2(GTK_PANED(ArtistAlbumVPaned),ScrollWindowAlbumList,TRUE,TRUE);   // Bottom side
-
-
-    /*
-     * The ScrollWindow and the List
-     */
-    ScrollWindowFileList = gtk_scrolled_window_new(NULL,NULL);
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(ScrollWindowFileList),
-                                   GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
-
     /* The file list */
-    priv->file_model = gtk_list_store_new (LIST_COLUMN_COUNT,
-                                        G_TYPE_STRING, /* Filename. */
-                                        G_TYPE_STRING, /* Title tag. */
-                                        G_TYPE_STRING, /* Artist tag. */
-                                        G_TYPE_STRING, /* Album artist tag. */
-                                        G_TYPE_STRING, /* Album tag. */
-                                        G_TYPE_STRING, /* Year tag. */
-                                        G_TYPE_STRING, /* Disc/CD number tag. */
-                                        G_TYPE_STRING, /* Track tag. */
-                                        G_TYPE_STRING, /* Genre tag. */
-                                        G_TYPE_STRING, /* Comment tag. */
-                                        G_TYPE_STRING, /* Composer tag. */
-                                        G_TYPE_STRING, /* Orig. artist tag. */
-                                        G_TYPE_STRING, /* Copyright tag. */
-                                        G_TYPE_STRING, /* URL tag. */
-                                        G_TYPE_STRING, /* Encoded by tag. */
-                                        G_TYPE_POINTER, /* File pointer. */
-                                        G_TYPE_INT, /* File key. */
-                                        G_TYPE_BOOLEAN, /* File OtherDir. */
-                                        G_TYPE_INT, /* Font weight. */
-                                        GDK_TYPE_RGBA, /* Row background. */
-                                        GDK_TYPE_RGBA); /* Row foreground. */
-
-    priv->file_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(priv->file_model));
-    g_object_unref (priv->file_model);
-    gtk_container_add(GTK_CONTAINER(ScrollWindowFileList), priv->file_view);
-    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(priv->file_view), TRUE);
+    priv->file_model = GTK_LIST_STORE (gtk_builder_get_object (builder,
+                                                               "files_model"));
+    priv->file_view = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                          "files_view"));
 
     /* Add columns to tree view. See ET_FILE_LIST_COLUMN. */
     for (i = 0; i <= LIST_FILE_ENCODED_BY; i++)
     {
-        guint ascending_sort = 2 * i;
-        column = gtk_tree_view_column_new ();
-        renderer = gtk_cell_renderer_text_new ();
+        const guint ascending_sort = 2 * i;
+        GtkTreeViewColumn *column = GTK_TREE_VIEW_COLUMN (gtk_builder_get_object (builder, ids[i]));
 
-        gtk_tree_view_column_pack_start (column, renderer, FALSE);
-        gtk_tree_view_column_set_title (column, _(BrowserList_Titles[i]));
-        gtk_tree_view_column_set_attributes(column, renderer, "text", i,
-                                            "weight", LIST_FONT_WEIGHT,
-                                            "background-rgba",
-                                            LIST_ROW_BACKGROUND,
-                                            "foreground-rgba",
-                                            LIST_ROW_FOREGROUND, NULL);
-        gtk_tree_view_column_set_resizable (column, TRUE);
-        gtk_tree_view_append_column (GTK_TREE_VIEW (priv->file_view), column);
-        gtk_tree_view_column_set_clickable (column, TRUE);
         g_object_set_data (G_OBJECT (column), "browser", self);
         g_signal_connect (column, "clicked",
                           G_CALLBACK (et_browser_on_column_clicked),
@@ -4177,8 +3944,8 @@ create_browser (EtBrowser *self)
 
     g_signal_connect_swapped (MainSettings, "changed::sort-mode",
                               G_CALLBACK (on_sort_mode_changed), self);
-    gtk_tree_view_set_reorderable(GTK_TREE_VIEW(priv->file_view), FALSE);
-    gtk_tree_selection_set_mode(gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->file_view)),GTK_SELECTION_MULTIPLE);
+    gtk_tree_selection_set_mode (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->file_view)),
+                                 GTK_SELECTION_MULTIPLE);
     /* When selecting a line. */
     gtk_tree_selection_set_select_function (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->file_view)),
                                             Browser_List_Select_Func, self,
@@ -4187,7 +3954,8 @@ create_browser (EtBrowser *self)
     gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE (priv->file_model), 0,
                                       Browser_List_Sort_Func, NULL, NULL);
     et_browser_refresh_sort (self);
-    gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(priv->file_model), 0, GTK_SORT_ASCENDING);
+    gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (priv->file_model),
+                                          0, GTK_SORT_ASCENDING);
 
     priv->file_selected_handler = g_signal_connect_swapped (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->file_view)),
                                                             "changed",
@@ -4208,24 +3976,10 @@ create_browser (EtBrowser *self)
 
     g_object_unref (builder);
 
-    /*
-     * The list store for run program combos
-     */
+    /* The list store for run program combos. */
     priv->run_program_model = gtk_list_store_new(MISC_COMBO_COUNT, G_TYPE_STRING);
 
-    /*
-     * The pane for the tree and list
-     */
-    BrowserHPaned = gtk_paned_new(GTK_ORIENTATION_HORIZONTAL);
-    gtk_box_pack_start (GTK_BOX (self), BrowserHPaned, TRUE, TRUE, 0);
-    /* Left side. */
-    gtk_paned_pack1 (GTK_PANED (BrowserHPaned), priv->notebook, TRUE, TRUE);
-    /* Right side. */
-    gtk_paned_pack2 (GTK_PANED (BrowserHPaned), ScrollWindowFileList, TRUE,
-                     TRUE);
-
     /* TODO: Give the browser area a sensible default size. */
-    gtk_paned_set_position (GTK_PANED (BrowserHPaned), 250);
     gtk_widget_show_all (GTK_WIDGET (self));
 
     /* Set home variable as current path */
@@ -5194,8 +4948,8 @@ et_browser_destroy (GtkWidget *widget)
     if (priv->entry_model)
     {
         Save_Path_Entry_List (priv->entry_model, MISC_COMBO_TEXT);
-        g_object_unref (priv->entry_model);
         priv->entry_model = NULL;
+        /* The model is disposed when the combo box is disposed. */
     }
 
     GTK_WIDGET_CLASS (et_browser_parent_class)->destroy (widget);
@@ -5251,6 +5005,5 @@ et_browser_class_init (EtBrowserClass *klass)
 EtBrowser *
 et_browser_new (void)
 {
-    return g_object_new (ET_TYPE_BROWSER, "orientation",
-                         GTK_ORIENTATION_VERTICAL, NULL);
+    return g_object_new (ET_TYPE_BROWSER, NULL);
 }

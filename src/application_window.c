@@ -260,26 +260,6 @@ et_application_window_tag_area_clear (EtApplicationWindow *self)
     et_tag_area_clear (ET_TAG_AREA (priv->tag_area));
 }
 
-static GtkWidget *
-create_browser_area (EtApplicationWindow *self)
-{
-    EtApplicationWindowPrivate *priv;
-    GtkWidget *frame;
-
-    priv = et_application_window_get_instance_private (self);
-
-    frame = gtk_frame_new (_("Browser"));
-    gtk_container_set_border_width (GTK_CONTAINER (frame), 2);
-
-    priv->browser = GTK_WIDGET (et_browser_new ());
-    gtk_container_add (GTK_CONTAINER (frame), priv->browser);
-
-    /* Don't load init dir here because Tag area hasn't been yet created!.
-     * It will be load at the end of the main function */
-
-    return frame;
-}
-
 static void
 et_application_window_show_cddb_dialog (EtApplicationWindow *self)
 {
@@ -1629,7 +1609,6 @@ et_application_window_init (EtApplicationWindow *self)
     GtkWindow *window;
     GtkWidget *main_vbox;
     GtkWidget *hbox, *vbox;
-    GtkWidget *widget;
 
     priv = self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self,
                                                      ET_TYPE_APPLICATION_WINDOW,
@@ -1712,8 +1691,8 @@ et_application_window_init (EtApplicationWindow *self)
     priv->hpaned = gtk_paned_new (GTK_ORIENTATION_HORIZONTAL);
 
     /* Browser (Tree + File list + Entry) */
-    widget = create_browser_area (self);
-    gtk_paned_pack1 (GTK_PANED (priv->hpaned), widget, TRUE, TRUE);
+    priv->browser = GTK_WIDGET (et_browser_new ());
+    gtk_paned_pack1 (GTK_PANED (priv->hpaned), priv->browser, TRUE, TRUE);
 
     /* Vertical box for FileArea + TagArea */
     vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
