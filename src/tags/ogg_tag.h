@@ -35,7 +35,7 @@
 /**************
  * Prototypes *
  **************/
-gboolean ogg_tag_read_file_tag (gchar *filename, File_Tag *FileTag,
+gboolean ogg_tag_read_file_tag (const gchar *filename, File_Tag *FileTag,
                                 GError **error);
 gboolean ogg_tag_write_file_tag (ET_File *ETFile, GError **error);
 

@@ -322,7 +322,8 @@ Ogg_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
 
 #ifdef ENABLE_SPEEX
 
-gboolean Speex_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
+gboolean
+Speex_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
 {
     vcedit_state *state;
     SpeexHeader  *si;
@@ -389,7 +390,7 @@ gboolean Speex_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
 #endif
 
 EtFileHeaderFields *
-Ogg_Header_Display_File_Info_To_UI (gchar *filename, ET_File *ETFile)
+Ogg_Header_Display_File_Info_To_UI (const gchar *filename, ET_File *ETFile)
 {
     EtFileHeaderFields *fields;
     ET_File_Info *info;

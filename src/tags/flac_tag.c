@@ -98,7 +98,8 @@ static gboolean Flac_Set_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag_n
  * Note:
  *  - if field is found but contains no info (strlen(str)==0), we don't read it
  */
-gboolean Flac_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
+gboolean
+Flac_Tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag)
 {
     FLAC__Metadata_SimpleIterator *iter;
     gchar *string = NULL;

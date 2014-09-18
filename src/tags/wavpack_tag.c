@@ -38,6 +38,7 @@
 #include "misc.h"
 #include "wavpack_tag.h"
 
+#define MAXLEN 1024
 
 /*
  * For the APEv2 tags, the following field names are officially supported and
@@ -63,7 +64,8 @@
 /*
  * Read tag data from a Wavpack file.
  */
-gboolean Wavpack_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
+gboolean
+Wavpack_Tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag)
 {
     WavpackContext *wpc;
     gchar *field, *field2;

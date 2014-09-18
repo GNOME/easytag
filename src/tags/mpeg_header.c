@@ -69,7 +69,7 @@ channel_mode_name (int mode)
  * Read infos into header of first frame
  */
 gboolean
-Mpeg_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
+Mpeg_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
 {
     /*
      * With id3lib, the header frame couldn't be read if the file contains an ID3v2 tag with an APIC frame
@@ -169,7 +169,7 @@ Mpeg_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
 
 /* For displaying header information in the main window. */
 EtFileHeaderFields *
-Mpeg_Header_Display_File_Info_To_UI (gchar *filename_utf8,
+Mpeg_Header_Display_File_Info_To_UI (const gchar *filename_utf8,
                                      ET_File *ETFile)
 {
     EtFileHeaderFields *fields;

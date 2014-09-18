@@ -191,11 +191,11 @@ typedef struct _ape_mem_cnt  apetag;
 
 /* read file and add frames */
 int
-apetag_read (apetag *mem_cnt, char *filename, int flag) ;
+apetag_read (apetag *mem_cnt, const char *filename, int flag) ;
 
 /* read file and add frames */
 int 
-apetag_read_fp (apetag *mem_cnt, FILE * fp, char *filename, int flag) ;
+apetag_read_fp (apetag *mem_cnt, FILE * fp, const char *filename, int flag) ;
 
 /* initialise new object #apetag and return */
 apetag * 

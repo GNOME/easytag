@@ -694,7 +694,7 @@ make_id3v1_tag(apetag *mem_cnt, struct _id3v1Tag *m)
     \return 0 - OK else check #atl_return
 */
 int
-apetag_read_fp(apetag *mem_cnt, FILE * fp, char *filename, int flag)
+apetag_read_fp(apetag *mem_cnt, FILE * fp, const char *filename, int flag)
 {
     int id3v1 = 0;
     int apeTag2 = 0;
@@ -810,7 +810,7 @@ apetag_read_fp(apetag *mem_cnt, FILE * fp, char *filename, int flag)
     \return 0 - OK else check #atl_return
 */
 int
-apetag_read (apetag *mem_cnt, char *filename,int flag)
+apetag_read (apetag *mem_cnt, const char *filename, int flag)
 {
     FILE *fp;
     

@@ -1567,7 +1567,8 @@ gboolean Id3tag_Write_File_Tag (ET_File *ETFile)
  * Returns the corresponding genre value of the input string (for ID3v1.x),
  * else returns 0xFF (unknown genre, but not invalid).
  */
-guchar Id3tag_String_To_Genre (gchar *genre)
+guchar
+Id3tag_String_To_Genre (const gchar *genre)
 {
     guint i;
 

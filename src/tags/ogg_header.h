@@ -25,9 +25,7 @@
 #include <glib.h>
 #include "et_core.h"
 
-/****************
- * Declarations *
- ****************/
+G_BEGIN_DECLS
 
 /*
  * Error domain and codes for errors while reading/writing OGG files
@@ -77,10 +75,11 @@ typedef enum
 
 gboolean Ogg_Header_Read_File_Info (const gchar *filename,
                                     ET_File_Info *ETFileInfo);
-EtFileHeaderFields * Ogg_Header_Display_File_Info_To_UI (gchar *filename, ET_File *ETFile);
+EtFileHeaderFields * Ogg_Header_Display_File_Info_To_UI (const gchar *filename, ET_File *ETFile);
 void et_ogg_file_header_fields_free (EtFileHeaderFields *fields);
 
-gboolean Speex_Header_Read_File_Info        (gchar *filename, ET_File_Info *ETFileInfo);
+gboolean Speex_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo);
 
+G_END_DECLS
 
 #endif /* ET_OGG_HEADER_H_ */

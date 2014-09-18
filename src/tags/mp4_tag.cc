@@ -51,7 +51,8 @@
  *
  * Read tag data into an Mp4 file.
  */
-gboolean Mp4tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
+gboolean
+Mp4tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag)
 {
     TagLib::MP4::Tag *tag;
     guint year;

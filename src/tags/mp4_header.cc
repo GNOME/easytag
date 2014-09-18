@@ -26,7 +26,8 @@
  *
  * Get header info into the ETFileInfo structure
  */
-gboolean Mp4_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
+gboolean
+Mp4_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
 {
     const TagLib::MP4::Properties *properties;
 
@@ -110,7 +111,7 @@ gboolean Mp4_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
  * Display header info in the main window
  */
 EtFileHeaderFields *
-Mp4_Header_Display_File_Info_To_UI (gchar *filename, 
+Mp4_Header_Display_File_Info_To_UI (const gchar *filename, 
                                     ET_File *ETFile)
 {
     EtFileHeaderFields *fields;

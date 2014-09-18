@@ -41,7 +41,8 @@
  * Header info *
  ***************/
 
-gboolean Mpc_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
+gboolean
+Mpc_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
 {
     StreamInfoMpc Info;
 
@@ -66,7 +67,7 @@ gboolean Mpc_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
 }
 
 EtFileHeaderFields *
-Mpc_Header_Display_File_Info_To_UI (gchar *filename_utf8,
+Mpc_Header_Display_File_Info_To_UI (const gchar *filename_utf8,
                                     ET_File *ETFile)
 {
     EtFileHeaderFields *fields;

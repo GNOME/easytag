@@ -77,7 +77,8 @@ static void error_callback_   (const FLAC__StreamDecoder *decoder, FLAC__StreamD
  * Header info of FLAC file *
  ****************************/
 
-gboolean Flac_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo)
+gboolean
+Flac_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
 {
     gint duration = 0;
     gulong filesize;
@@ -185,7 +186,7 @@ void error_callback_(const FLAC__StreamDecoder *decoder, FLAC__StreamDecoderErro
 }
 
 EtFileHeaderFields *
-Flac_Header_Display_File_Info_To_UI (gchar *filename_utf8,
+Flac_Header_Display_File_Info_To_UI (const gchar *filename_utf8,
                                      ET_File *ETFile)
 {
     EtFileHeaderFields *fields;

@@ -36,7 +36,7 @@ const gchar *flac_error_msg;
 /**************
  * Prototypes *
  **************/
-gboolean Flac_Tag_Read_File_Tag  (gchar *filename, File_Tag *FileTag);
+gboolean Flac_Tag_Read_File_Tag  (const gchar *filename, File_Tag *FileTag);
 gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile);
 
 

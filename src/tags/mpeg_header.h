@@ -17,7 +17,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-
 #ifndef ET_MPEG_HEADER_H_
 #define ET_MPEG_HEADER_H_
 
@@ -25,8 +24,8 @@
 
 G_BEGIN_DECLS
 
-gboolean Mpeg_Header_Read_File_Info (gchar *filename, ET_File_Info *ETFileInfo);
-EtFileHeaderFields * Mpeg_Header_Display_File_Info_To_UI (gchar *filename, ET_File *ETFile);
+gboolean Mpeg_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo);
+EtFileHeaderFields * Mpeg_Header_Display_File_Info_To_UI (const gchar *filename, ET_File *ETFile);
 void et_mpeg_file_header_fields_free (EtFileHeaderFields *fields);
 
 G_END_DECLS

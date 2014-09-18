@@ -23,12 +23,12 @@
 
 #include "et_core.h"
 
-/**************
- * Prototypes *
- **************/
+G_BEGIN_DECLS
 
-gboolean Mpc_Header_Read_File_Info          (gchar *filename, ET_File_Info *ETFileInfo);
-EtFileHeaderFields * Mpc_Header_Display_File_Info_To_UI (gchar *filename, ET_File *ETFile);
+gboolean Mpc_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo);
+EtFileHeaderFields * Mpc_Header_Display_File_Info_To_UI (const gchar *filename, ET_File *ETFile);
 void et_mpc_file_header_fields_free (EtFileHeaderFields *fields);
+
+G_END_DECLS
 
 #endif /* ET_MUSEPACK_HEADER_H_ */

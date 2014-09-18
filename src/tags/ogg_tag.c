@@ -648,7 +648,7 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc, File_Tag *FileTag,
  *  - if field is found but contains no info (strlen(str)==0), we don't read it
  */
 gboolean
-ogg_tag_read_file_tag (gchar *filename, File_Tag *FileTag, GError **error)
+ogg_tag_read_file_tag (const gchar *filename, File_Tag *FileTag, GError **error)
 {
     GFile *file;
     GFileInputStream *istream;

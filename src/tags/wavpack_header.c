@@ -36,7 +36,9 @@
 #include "wavpack_header.h"
 
 
-gboolean Wavpack_Header_Read_File_Info(gchar *filename, ET_File_Info *ETFileInfo)
+gboolean
+Wavpack_Header_Read_File_Info (const gchar *filename,
+                               ET_File_Info *ETFileInfo)
 {
     WavpackContext *wpc;
 
@@ -61,7 +63,7 @@ gboolean Wavpack_Header_Read_File_Info(gchar *filename, ET_File_Info *ETFileInfo
 
 
 EtFileHeaderFields *
-Wavpack_Header_Display_File_Info_To_UI (gchar *filename_utf8,
+Wavpack_Header_Display_File_Info_To_UI (const gchar *filename_utf8,
                                         ET_File *ETFile)
 {
     EtFileHeaderFields *fields;
