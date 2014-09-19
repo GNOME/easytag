@@ -35,6 +35,3 @@ UI work
 * Use a Nautilus-like path bar for directory selection
 * Detect when the main window is too large to fit on the screen
 ** Reflow tagging UI in order to fit on screen
-* Try to follow a style guide, for example the GNOME HIG
-** Remove GtkFrame from most places
-** Add a bit more padding

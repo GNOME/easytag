@@ -1,5 +1,22 @@
 <interface domain="easytag">
     <requires lib="gtk+" version="3.4"/>
+    <object class="GtkListStore" id="genre_combo_model">
+        <columns>
+            <column type="gchararray"/>
+        </columns>
+    </object>
+    <object class="GtkListStore" id="images_model">
+        <columns>
+            <column type="GdkPixbuf"/>
+            <column type="gchararray"/>
+            <column type="gpointer"/>
+        </columns>
+    </object>
+    <object class="GtkListStore" id="track_combo_model">
+        <columns>
+            <column type="gchararray"/>
+        </columns>
+    </object>
     <object class="GtkDialog" id="image_properties_dialog">
         <property name="border-width">12</property>
         <property name="destroy-with-parent">True</property>
@@ -80,5 +97,504 @@
             <action-widget response="-3">accept_button</action-widget>
             <action-widget response="-2">cancel_button</action-widget>
         </action-widgets>
+    </object>
+    <object class="GtkNotebook" id="tag_notebook">
+        <property name="border-width">2</property>
+        <property name="visible">True</property>
+        <child type="action-start">
+            <object class="GtkLabel" id="tag_label">
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Tag</property>
+                <property name="margin-left">6</property>
+                <property name="margin-right">6</property>
+                <property name="visible">True</property>
+                <attributes>
+                    <attribute name="weight" value="bold"/>
+                </attributes>
+            </object>
+        </child>
+        <child>
+            <object class="GtkGrid" id="common_grid">
+                <property name="border-width">2</property>
+                <property name="column-spacing">2</property>
+                <property name="row-spacing">2</property>
+                <property name="visible">True</property>
+                <child>
+                    <object class="GtkLabel" id="title_label">
+                        <property name="halign">end</property>
+                        <property name="label" translatable="yes">Title:</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">0</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkEntry" id="title_entry">
+                        <property name="secondary-icon-name">insert-text</property>
+                        <property name="secondary-icon-tooltip-text" translatable="yes">Tag selected files with this title</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">0</property>
+                        <property name="width">8</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="artist_label">
+                        <property name="halign">end</property>
+                        <property name="label" translatable="yes">Artist:</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">1</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkEntry" id="artist_entry">
+                        <property name="secondary-icon-name">insert-text</property>
+                        <property name="secondary-icon-tooltip-text" translatable="yes">Tag selected files with this artist</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">1</property>
+                        <property name="width">8</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="album_artist_label">
+                        <property name="halign">end</property>
+                        <property name="label" translatable="yes">Album artist:</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">2</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkEntry" id="album_artist_entry">
+                        <property name="secondary-icon-name">insert-text</property>
+                        <property name="secondary-icon-tooltip-text" translatable="yes">Tag selected files with this album artist</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">2</property>
+                        <property name="width">8</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="album_label">
+                        <property name="halign">end</property>
+                        <property name="label" translatable="yes">Album:</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">3</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkEntry" id="album_entry">
+                        <property name="secondary-icon-name">insert-text</property>
+                        <property name="secondary-icon-tooltip-text" translatable="yes">Tag selected files with this album name</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">3</property>
+                        <property name="width">6</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="disc_label">
+                        <property name="halign">end</property>
+                        <property name="label" translatable="yes">CD:</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">7</property>
+                        <property name="top-attach">3</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkEntry" id="disc_entry">
+                        <property name="secondary-icon-name">insert-text</property>
+                        <property name="secondary-icon-tooltip-text" translatable="yes">Tag selected files with this disc number</property>
+                        <property name="visible">True</property>
+                        <property name="width-chars">3</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">8</property>
+                        <property name="top-attach">3</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="year_label">
+                        <property name="halign">end</property>
+                        <property name="label" translatable="yes">Year:</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">4</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkEntry" id="year_entry">
+                        <property name="max-length">4</property>
+                        <property name="secondary-icon-name">insert-text</property>
+                        <property name="secondary-icon-tooltip-text" translatable="yes">Tag selected files with this year</property>
+                        <property name="visible">True</property>
+                        <property name="width-chars">5</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">4</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkSeparator" id="tag_separator">
+                        <property name="orientation">vertical</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">2</property>
+                        <property name="top-attach">4</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkButton" id="track_sequence_button">
+                        <property name="tooltip-text" translatable="yes">Number selected tracks sequentially. Starts at 01 in each subdirectory</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">3</property>
+                        <property name="top-attach">4</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="track_label">
+                        <property name="halign">end</property>
+                        <property name="label" translatable="yes">Track #:</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">4</property>
+                        <property name="top-attach">4</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkComboBox" id="track_combo">
+                        <property name="has-entry">True</property>
+                        <property name="model">track_combo_model</property>
+                        <property name="entry-text-column">0</property>
+                        <property name="expand">True</property>
+                        <property name="visible">True</property>
+                        <property name="wrap-width">3</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">5</property>
+                        <property name="top-attach">4</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="track_separator_label">
+                        <property name="label">/</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">6</property>
+                        <property name="top-attach">4</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkButton" id="track_number_button">
+                        <property name="tooltip-text" translatable="yes">Set the number of files, in the same directory of the displayed file, to the selected tracks</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">7</property>
+                        <property name="top-attach">4</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkEntry" id="track_total_entry">
+                        <property name="secondary-icon-name">insert-text</property>
+                        <property name="secondary-icon-tooltip-text" translatable="yes">Tag selected files with this number of tracks</property>
+                        <property name="visible">True</property>
+                        <property name="width-chars">3</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">8</property>
+                        <property name="top-attach">4</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="genre_label">
+                        <property name="halign">end</property>
+                        <property name="label" translatable="yes">Genre:</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">5</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkComboBox" id="genre_combo">
+                        <property name="has-entry">True</property>
+                        <property name="model">genre_combo_model</property>
+                        <property name="entry-text-column">0</property>
+                        <property name="visible">True</property>
+                        <property name="wrap-width">2</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">5</property>
+                        <property name="width">8</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="comment_label">
+                        <property name="halign">end</property>
+                        <property name="label" translatable="yes">Comment:</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">6</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkEntry" id="comment_entry">
+                        <property name="secondary-icon-name">insert-text</property>
+                        <property name="secondary-icon-tooltip-text" translatable="yes">Tag selected files with this comment</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">6</property>
+                        <property name="width">8</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="composer_label">
+                        <property name="halign">end</property>
+                        <property name="label" translatable="yes">Composer:</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">7</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkEntry" id="composer_entry">
+                        <property name="secondary-icon-name">insert-text</property>
+                        <property name="secondary-icon-tooltip-text" translatable="yes">Tag selected files with this composer</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">7</property>
+                        <property name="width">8</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="orig_artist_label">
+                        <property name="halign">end</property>
+                        <property name="label" translatable="yes">Orig. artist:</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">8</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkEntry" id="orig_artist_entry">
+                        <property name="secondary-icon-name">insert-text</property>
+                        <property name="secondary-icon-tooltip-text" translatable="yes">Tag selected files with this original artist</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">8</property>
+                        <property name="width">8</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="copyright_label">
+                        <property name="halign">end</property>
+                        <property name="label" translatable="yes">Copyright:</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">9</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkEntry" id="copyright_entry">
+                        <property name="secondary-icon-name">insert-text</property>
+                        <property name="secondary-icon-tooltip-text" translatable="yes">Tag selected files with this copyright</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">9</property>
+                        <property name="width">8</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="url_label">
+                        <property name="halign">end</property>
+                        <property name="label" translatable="yes">URL:</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">10</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkEntry" id="url_entry">
+                        <property name="secondary-icon-name">insert-text</property>
+                        <property name="secondary-icon-tooltip-text" translatable="yes">Tag selected files with this URL</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">10</property>
+                        <property name="width">8</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="encoded_by_label">
+                        <property name="halign">end</property>
+                        <property name="label" translatable="yes">Encoded by:</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">11</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkEntry" id="encoded_by_entry">
+                        <property name="secondary-icon-name">insert-text</property>
+                        <property name="secondary-icon-tooltip-text" translatable="yes">Tag selected files with this encoder name</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">11</property>
+                        <property name="width">8</property>
+                    </packing>
+                </child>
+            </object>
+        </child>
+        <child type="tab">
+            <object class="GtkLabel" id="common_label">
+                <property name="label" translatable="yes">Common</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkGrid" id="images_grid">
+                <property name="orientation">vertical</property>
+                <property name="visible">True</property>
+                <child>
+                    <object class="GtkScrolledWindow" id="images_scrolled">
+                        <property name="expand">True</property>
+                        <property name="shadow-type">etched-in</property>
+                        <property name="tooltip-text" translatable="yes">You can use drag and drop to add an image</property>
+                        <property name="visible">True</property>
+                        <child>
+                            <object class="GtkTreeView" id="images_view">
+                                <property name="model">images_model</property>
+                                <property name="headers-visible">False</property>
+                                <property name="visible">True</property>
+                                <child>
+                                    <object class="GtkTreeViewColumn" id="images_column">
+                                        <property name="sizing">autosize</property>
+                                        <child>
+                                            <object class="GtkCellRendererPixbuf" id="images_thumbnail_renderer"/>
+                                            <attributes>
+                                                <attribute name="pixbuf">0</attribute>
+                                            </attributes>
+                                        </child>
+                                        <child>
+                                            <object class="GtkCellRendererText" id="images_text_renderer"/>
+                                            <attributes>
+                                                <attribute name="text">1</attribute>
+                                            </attributes>
+                                        </child>
+                                    </object>
+                                </child>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkToolbar" id="images_toolbar">
+                        <property name="visible">True</property>
+                        <style>
+                            <class name="inline-toolbar"/>
+                        </style>
+                        <child>
+                            <object class="GtkToolButton" id="image_add_button">
+                                <property name="icon-name">list-add</property>
+                                <property name="tooltip-text" translatable="yes">Add images to the tag</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkToolButton" id="image_remove_button">
+                                <property name="icon-name">list-remove</property>
+                                <property name="sensitive">False</property>
+                                <property name="tooltip-text" translatable="yes">Remove selected images from the tag</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkToolButton" id="image_save_button">
+                                <property name="icon-name">document-save</property>
+                                <property name="sensitive">False</property>
+                                <property name="tooltip-text" translatable="yes">Save the selected images to files</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkToolButton" id="image_properties_button">
+                                <property name="icon-name">document-properties</property>
+                                <property name="sensitive">False</property>
+                                <property name="tooltip-text" translatable="yes">Edit image properties</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkToolButton" id="image_apply_button">
+                                <property name="icon-name">insert-image</property>
+                                <property name="tooltip-text" translatable="yes">Tag selected files with these images</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <child type="tab">
+            <object class="GtkLabel" id="images_label">
+                <property name="label" translatable="yes">Images</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
     </object>
 </interface>

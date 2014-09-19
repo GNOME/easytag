@@ -41,7 +41,7 @@ G_DEFINE_TYPE (EtTagArea, et_tag_area, GTK_TYPE_BIN)
 
 struct _EtTagAreaPrivate
 {
-    GtkWidget *frame;
+    GtkWidget *label;
     GtkWidget *notebook;
 
     GtkWidget *title_label;
@@ -80,10 +80,10 @@ struct _EtTagAreaPrivate
     GtkWidget *picture_entry_view;
 
     /* Other for picture. */
-    GtkToolItem *remove_image_toolitem;
-    GtkToolItem *add_image_toolitem;
-    GtkToolItem *save_image_toolitem;
-    GtkToolItem *image_properties_toolitem;
+    GtkWidget *remove_image_toolitem;
+    GtkWidget *add_image_toolitem;
+    GtkWidget *save_image_toolitem;
+    GtkWidget *image_properties_toolitem;
 
     /* Notebook tabs. */
     GtkWidget *images_tab;
@@ -94,7 +94,7 @@ struct _EtTagAreaPrivate
     /* Mini buttons. */
     GtkWidget *track_sequence_button;
     GtkWidget *track_number_button;
-    GtkToolItem *apply_image_toolitem;
+    GtkWidget *apply_image_toolitem;
 };
 
 enum
@@ -2105,270 +2105,136 @@ static void
 create_tag_area (EtTagArea *self)
 {
     EtTagAreaPrivate *priv;
-    GtkWidget *separator;
-    GtkWidget *table;
-    GtkWidget *label;
-    GtkWidget *scrolled_window;
-    GtkWidget *toolbar;
-    GIcon *icon;
     GtkWidget *image;
-    GtkWidget *vbox;
     GList *focus_chain = NULL;
+    GtkWidget *grid;
     GtkEntryCompletion *completion;
-    const gint MButtonSize = 13;
-    const gint TablePadding = 2;
+    GtkBuilder *builder;
+    GError *error = NULL;
 
     /* For Picture. */
     static const GtkTargetEntry drops[] = { { "text/uri-list", 0,
                                               TARGET_URI_LIST } };
-    GtkCellRenderer *renderer;
-    GtkTreeViewColumn *column;
     GtkTreeSelection *selection;
 
     priv = et_tag_area_get_instance_private (self);
 
     /* Main Frame */
-    priv->frame = gtk_frame_new (_("Tag"));
-    gtk_container_add (GTK_CONTAINER (self), priv->frame);
-    gtk_container_set_border_width (GTK_CONTAINER (priv->frame), 2);
+    builder = gtk_builder_new ();
+    gtk_builder_add_from_resource (builder,
+                                   "/org/gnome/EasyTAG/tag_area.ui",
+                                   &error);
 
-    /* Box for the notebook (only for setting a border) */
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-    gtk_container_add (GTK_CONTAINER (priv->frame), vbox);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), 2);
+    if (error != NULL)
+    {
+        g_error ("Unable to get tag area from resource: %s",
+                 error->message);
+    }
 
-    /*
-     * Note book
-     */
-    priv->notebook = gtk_notebook_new ();
-    gtk_box_pack_start (GTK_BOX (vbox), priv->notebook, TRUE, TRUE, 0);
-    gtk_notebook_set_show_border (GTK_NOTEBOOK (priv->notebook), FALSE);
-    gtk_notebook_popup_enable (GTK_NOTEBOOK (priv->notebook));
+    /* Note book. */
+    priv->notebook = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                         "tag_notebook"));
+    gtk_container_add (GTK_CONTAINER (self), priv->notebook);
+    priv->label = GTK_WIDGET (gtk_builder_get_object (builder, "tag_label"));
 
-    /*
-     * 1 - Page for common tag fields
-     */
-    label = gtk_label_new (_("Common"));
-
-    table = gtk_grid_new ();
-    gtk_notebook_append_page (GTK_NOTEBOOK (priv->notebook), table, label);
-    gtk_container_set_border_width (GTK_CONTAINER (table), 2);
-
+    /* Page for common tag fields. */
     /* Title */
-    priv->title_label = gtk_label_new (_("Title:"));
-    et_grid_attach_full (GTK_GRID (table), priv->title_label, 0, 0, 1, 1,
-                         FALSE, FALSE, TablePadding, TablePadding);
-    gtk_widget_set_halign (priv->title_label, GTK_ALIGN_END);
-
-    priv->title_entry = gtk_entry_new ();
-    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (priv->title_entry),
-                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
-    et_grid_attach_full (GTK_GRID (table), priv->title_entry, 1, 0, 9, 1, TRUE, TRUE,
-                         TablePadding, TablePadding);
-
+    priv->title_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                            "title_label"));
+    priv->title_entry = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                            "title_entry"));
     et_tag_field_connect_signals (GTK_ENTRY (priv->title_entry), self);
-    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (priv->title_entry),
-                                     GTK_ENTRY_ICON_SECONDARY,
-                                     _("Tag selected files with this title"));
 
     /* Artist */
-    priv->artist_label = gtk_label_new (_("Artist:"));
-    et_grid_attach_full (GTK_GRID (table), priv->artist_label, 0, 1, 1, 1,
-                         FALSE, FALSE, TablePadding, TablePadding);
-    gtk_widget_set_halign (priv->artist_label, GTK_ALIGN_END);
-
-    priv->artist_entry = gtk_entry_new ();
-    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (priv->artist_entry),
-                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
-    et_grid_attach_full (GTK_GRID (table), priv->artist_entry, 1, 1, 9, 1, TRUE, TRUE,
-                         TablePadding,TablePadding);
-
+    priv->artist_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                             "artist_label"));
+    priv->artist_entry = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                             "artist_entry"));
     et_tag_field_connect_signals (GTK_ENTRY (priv->artist_entry), self);
-    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (priv->artist_entry),
-                                     GTK_ENTRY_ICON_SECONDARY,
-                                     _("Tag selected files with this artist"));
 
     /* Album Artist */
-    priv->album_artist_label = gtk_label_new (_("Album artist:"));
-    et_grid_attach_full (GTK_GRID (table), priv->album_artist_label, 0, 2, 1,
-                         1, FALSE, FALSE, TablePadding, TablePadding);
-    gtk_widget_set_halign (priv->album_artist_label, GTK_ALIGN_END);
-
-    priv->album_artist_entry = gtk_entry_new ();
-    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (priv->album_artist_entry),
-                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
-    et_grid_attach_full (GTK_GRID (table), priv->album_artist_entry, 1, 2, 9, 1, TRUE,
-                         TRUE, TablePadding, TablePadding);
-
+    priv->album_artist_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                   "album_artist_label"));
+    priv->album_artist_entry = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                   "album_artist_entry"));
     et_tag_field_connect_signals (GTK_ENTRY (priv->album_artist_entry), self);
-    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (priv->album_artist_entry),
-                                     GTK_ENTRY_ICON_SECONDARY,
-                                     _("Tag selected files with this album artist"));
 
     /* Album */
-    priv->album_label = gtk_label_new (_("Album:"));
-    et_grid_attach_full (GTK_GRID (table), priv->album_label, 0, 3, 1, 1,
-                         FALSE, FALSE, TablePadding, TablePadding);
-    gtk_widget_set_halign (priv->album_label, GTK_ALIGN_END);
-
-    priv->album_entry = gtk_entry_new ();
-    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (priv->album_entry),
-                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
-    et_grid_attach_full (GTK_GRID (table), priv->album_entry, 1, 3, 6, 1, TRUE, TRUE,
-                         TablePadding, TablePadding);
-
+    priv->album_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                            "album_label"));
+    priv->album_entry = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                            "album_entry"));
     et_tag_field_connect_signals (GTK_ENTRY (priv->album_entry), self);
-    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (priv->album_entry),
-                                     GTK_ENTRY_ICON_SECONDARY,
-                                     _("Tag selected files with this album name"));
 
     /* Disc Number */
-    priv->disc_number_label = gtk_label_new (_("CD:"));
-    et_grid_attach_full (GTK_GRID (table), priv->disc_number_label, 8, 3, 1, 1,
-                         FALSE, FALSE, TablePadding, TablePadding);
-    gtk_widget_set_halign (priv->disc_number_label, GTK_ALIGN_END);
-
-    priv->disc_number_entry = gtk_entry_new ();
-    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (priv->disc_number_entry),
-                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
-    et_grid_attach_full (GTK_GRID (table), priv->disc_number_entry, 9, 3, 1, 1, TRUE,
-                         TRUE, TablePadding, TablePadding);
-    gtk_entry_set_width_chars (GTK_ENTRY (priv->disc_number_entry), 3);
+    priv->disc_number_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                  "disc_label"));
+    priv->disc_number_entry = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                  "disc_entry"));
     /* FIXME should allow to type only something like : 1/3. */
-    /*g_signal_connect(G_OBJECT(GTK_ENTRY(priv->disc_number_entry)),"insert_text",G_CALLBACK(Insert_Only_Digit),NULL); */
-
     et_tag_field_connect_signals (GTK_ENTRY (priv->disc_number_entry), self);
-    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (priv->disc_number_entry),
-                                     GTK_ENTRY_ICON_SECONDARY,
-                                     _("Tag selected files with this disc number"));
 
     /* Year */
-    priv->year_label = gtk_label_new (_("Year:"));
-    et_grid_attach_full (GTK_GRID (table), priv->year_label, 0, 4, 1, 1, FALSE,
-                         FALSE, TablePadding, TablePadding);
-    gtk_widget_set_halign (priv->year_label, GTK_ALIGN_END);
-
-    priv->year_entry = gtk_entry_new ();
-    gtk_entry_set_max_length (GTK_ENTRY (priv->year_entry), 4);
-    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (priv->year_entry),
-                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
-    et_grid_attach_full (GTK_GRID (table), priv->year_entry, 1, 4, 1, 1, TRUE, TRUE,
-                         TablePadding, TablePadding);
-    gtk_entry_set_width_chars (GTK_ENTRY (priv->year_entry), 5);
+    priv->year_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                           "year_label"));
+    priv->year_entry = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                           "year_entry"));
     g_signal_connect (priv->year_entry, "insert-text", G_CALLBACK (Insert_Only_Digit),
                       NULL);
     g_signal_connect (priv->year_entry, "activate",
                       G_CALLBACK (on_year_entry_activate), self);
     g_signal_connect (priv->year_entry, "focus-out-event",
                       G_CALLBACK (on_year_entry_focus_out_event), self);
-
     et_tag_field_connect_signals (GTK_ENTRY (priv->year_entry), self);
-    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (priv->year_entry),
-                                     GTK_ENTRY_ICON_SECONDARY,
-                                     _("Tag selected files with this year"));
-
-    /* Small vertical separator */
-    separator = gtk_separator_new (GTK_ORIENTATION_VERTICAL);
-    et_grid_attach_full (GTK_GRID (table), separator, 3, 4, 1, 1, FALSE, FALSE,
-                         TablePadding,TablePadding);
 
     /* Track and Track total */
-    priv->track_sequence_button = gtk_button_new ();
-    gtk_widget_set_size_request (priv->track_sequence_button, MButtonSize,
-                                 MButtonSize);
-    et_grid_attach_full (GTK_GRID (table), priv->track_sequence_button, 4, 4,
-                         1, 1, FALSE, FALSE, TablePadding, TablePadding);
+    priv->track_sequence_button = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                      "track_sequence_button"));
     g_signal_connect (priv->track_sequence_button, "clicked",
                       G_CALLBACK (on_apply_to_selection), self);
-    gtk_widget_set_tooltip_text (priv->track_sequence_button,
-                                 _("Number selected tracks sequentially. "
-                                   "Starts at 01 in each subdirectory"));
     /* Pixmap into priv->track_sequence_button button. */
     image = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/sequence-track.png");
     gtk_container_add (GTK_CONTAINER (priv->track_sequence_button), image);
-    gtk_widget_set_can_default (priv->track_sequence_button, TRUE);
-    gtk_widget_set_can_focus (priv->track_sequence_button, FALSE);
 
-    priv->track_label = gtk_label_new (_("Track #:"));
-    et_grid_attach_full (GTK_GRID (table), priv->track_label, 5, 4, 1, 1,
-                         FALSE, FALSE, TablePadding, TablePadding);
-    gtk_widget_set_halign (priv->track_label, GTK_ALIGN_END);
+    priv->track_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                            "track_label"));
 
-    if (priv->track_combo_model != NULL)
-    {
-        gtk_list_store_clear (priv->track_combo_model);
-    }
-    else
-    {
-        priv->track_combo_model = gtk_list_store_new (TRACK_COLUMN_COUNT,
-                                                      G_TYPE_STRING);
-    }
+    priv->track_combo_model = GTK_LIST_STORE (gtk_builder_get_object (builder,
+                                                                      "track_combo_model"));
 
     populate_track_combo (self);
 
-    priv->track_combo_entry = gtk_combo_box_new_with_model_and_entry (GTK_TREE_MODEL (priv->track_combo_model));
-    gtk_combo_box_set_entry_text_column (GTK_COMBO_BOX (priv->track_combo_entry),
-                                         TRACK_COLUMN_TRACK_NUMBER);
-    et_grid_attach_full (GTK_GRID (table), priv->track_combo_entry, 6, 4, 1, 1, TRUE,
-                         TRUE, TablePadding, TablePadding);
-    gtk_combo_box_set_wrap_width (GTK_COMBO_BOX (priv->track_combo_entry), 3); // Three columns to display track numbers list
+    priv->track_combo_entry = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                  "track_combo"));
 
     gtk_entry_set_width_chars (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->track_combo_entry))),
                                2);
     g_signal_connect (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->track_combo_entry))),
                       "insert-text", G_CALLBACK (Insert_Only_Digit), NULL);
 
-    label = gtk_label_new ("/");
-    et_grid_attach_full (GTK_GRID (table), label, 7, 4, 1, 1, FALSE, FALSE,
-                         TablePadding, TablePadding);
-
-    priv->track_number_button = gtk_button_new ();
-    gtk_widget_set_size_request (priv->track_number_button, MButtonSize,
-                                 MButtonSize);
-    et_grid_attach_full (GTK_GRID (table), priv->track_number_button, 8, 4, 1,
-                         1, FALSE, FALSE, TablePadding, TablePadding);
+    priv->track_number_button = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                    "track_number_button"));
     g_signal_connect (priv->track_number_button, "clicked",
                       G_CALLBACK (on_apply_to_selection), self);
-    gtk_widget_set_tooltip_text (priv->track_number_button,
-                                 _("Set the number of files, in the same directory of the displayed file, to the selected tracks"));
     /* Pixmap into priv->track_number_button button. */
     image = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/sequence-track.png");
     gtk_container_add (GTK_CONTAINER (priv->track_number_button), image);
-    gtk_widget_set_can_default (priv->track_number_button, TRUE);
-    gtk_widget_set_can_focus (priv->track_number_button, FALSE);
 
-    priv->track_total_entry = gtk_entry_new();
-    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (priv->track_total_entry),
-                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
-    et_grid_attach_full (GTK_GRID (table), priv->track_total_entry, 9, 4, 1, 1, TRUE,
-                         TRUE, TablePadding, TablePadding);
-    gtk_entry_set_width_chars (GTK_ENTRY (priv->track_total_entry), 3);
+    priv->track_total_entry = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                  "track_total_entry"));
     g_signal_connect (GTK_ENTRY (priv->track_total_entry), "insert-text",
                       G_CALLBACK (Insert_Only_Digit), NULL);
-
     et_tag_field_connect_signals (GTK_ENTRY (priv->track_total_entry), self);
-    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (priv->track_total_entry),
-                                     GTK_ENTRY_ICON_SECONDARY,
-                                     _("Tag selected files with this number of tracks"));
 
     /* Genre */
-    priv->genre_label = gtk_label_new (_("Genre:"));
-    et_grid_attach_full (GTK_GRID (table), priv->genre_label, 0, 5, 1, 1,
-                         FALSE, FALSE, TablePadding, TablePadding);
-    gtk_widget_set_halign (priv->genre_label, GTK_ALIGN_END);
+    priv->genre_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                            "genre_label"));
 
-    if (priv->genre_combo_model != NULL)
-    {
-        gtk_list_store_clear (priv->genre_combo_model);
-    }
-    else
-    {
-        priv->genre_combo_model = gtk_list_store_new (GENRE_COLUMN_COUNT,
-                                                      G_TYPE_STRING);
-    }
-    priv->genre_combo_entry = gtk_combo_box_new_with_model_and_entry (GTK_TREE_MODEL (priv->genre_combo_model));
-    gtk_combo_box_set_entry_text_column (GTK_COMBO_BOX (priv->genre_combo_entry),
-                                         GENRE_COLUMN_GENRE);
+    priv->genre_combo_model = GTK_LIST_STORE (gtk_builder_get_object (builder,
+                                                                      "genre_combo_model"));
+
+    priv->genre_combo_entry = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                  "genre_combo"));
     completion = gtk_entry_completion_new ();
     gtk_entry_set_icon_from_icon_name (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->genre_combo_entry))),
                                        GTK_ENTRY_ICON_SECONDARY, "insert-text");
@@ -2384,10 +2250,7 @@ create_tag_area (EtTagArea *self)
     gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (priv->genre_combo_model),
                                           GENRE_COLUMN_GENRE,
                                           GTK_SORT_ASCENDING);
-    et_grid_attach_full (GTK_GRID (table), priv->genre_combo_entry, 1, 5, 9, 1, TRUE, TRUE,
-                         TablePadding, TablePadding);
     populate_genre_combo (self);
-    gtk_combo_box_set_wrap_width (GTK_COMBO_BOX (priv->genre_combo_entry), 2); // Two columns to display genres list
 
     et_tag_field_connect_signals (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->genre_combo_entry))), self);
     gtk_entry_set_icon_tooltip_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->genre_combo_entry))),
@@ -2395,109 +2258,47 @@ create_tag_area (EtTagArea *self)
                                      _("Tag selected files with this genre"));
 
     /* Comment */
-    priv->comment_label = gtk_label_new (_("Comment:"));
-    et_grid_attach_full (GTK_GRID (table), priv->comment_label, 0, 6, 1, 1,
-                         FALSE, FALSE, TablePadding, TablePadding);
-    gtk_widget_set_halign (priv->comment_label, GTK_ALIGN_END);
-
-    priv->comment_entry = gtk_entry_new ();
-    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (priv->comment_entry),
-                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
-    et_grid_attach_full (GTK_GRID (table), priv->comment_entry, 1, 6, 9, 1, TRUE,
-                         TRUE, TablePadding, TablePadding);
-
+    priv->comment_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                              "comment_label"));
+    priv->comment_entry = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                              "comment_entry"));
     et_tag_field_connect_signals (GTK_ENTRY (priv->comment_entry), self);
-    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (priv->comment_entry),
-                                     GTK_ENTRY_ICON_SECONDARY,
-                                     _("Tag selected files with this comment"));
 
     /* Composer (name of the composers) */
-    priv->composer_label = gtk_label_new (_("Composer:"));
-    et_grid_attach_full (GTK_GRID (table), priv->composer_label, 0, 7, 1, 1,
-                         FALSE, FALSE, TablePadding, TablePadding);
-    gtk_widget_set_halign (priv->composer_label, GTK_ALIGN_END);
-
-    priv->composer_entry = gtk_entry_new ();
-    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (priv->composer_entry),
-                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
-    et_grid_attach_full (GTK_GRID (table), priv->composer_entry, 1, 7, 9, 1, TRUE,
-                         TRUE, TablePadding, TablePadding);
-
+    priv->composer_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                               "composer_label"));
+    priv->composer_entry = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                               "composer_entry"));
     et_tag_field_connect_signals (GTK_ENTRY (priv->composer_entry), self);
-    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (priv->composer_entry),
-                                     GTK_ENTRY_ICON_SECONDARY,
-                                     _("Tag selected files with this composer"));
 
     /* Translators: Original Artist / Performer. Please try to keep this string
      * as short as possible, as it must fit into a narrow column. */
-    priv->orig_artist_label = gtk_label_new (_("Orig. artist:"));
-    et_grid_attach_full (GTK_GRID (table), priv->orig_artist_label, 0, 8, 1, 1,
-                         FALSE, FALSE, TablePadding, TablePadding);
-    gtk_widget_set_halign (priv->orig_artist_label, GTK_ALIGN_END);
-
-    priv->orig_artist_entry = gtk_entry_new ();
-    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (priv->orig_artist_entry),
-                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
-    et_grid_attach_full (GTK_GRID (table), priv->orig_artist_entry, 1, 8, 9, 1, TRUE,
-                         TRUE, TablePadding, TablePadding);
-
+    priv->orig_artist_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                  "orig_artist_label"));
+    priv->orig_artist_entry = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                  "orig_artist_entry"));
     et_tag_field_connect_signals (GTK_ENTRY (priv->orig_artist_entry), self);
-    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (priv->orig_artist_entry),
-                                     GTK_ENTRY_ICON_SECONDARY,
-                                     _("Tag selected files with this original artist"));
 
     /* Copyright */
-    priv->copyright_label = gtk_label_new (_("Copyright:"));
-    et_grid_attach_full (GTK_GRID (table), priv->copyright_label, 0, 9, 1, 1,
-                         FALSE, FALSE, TablePadding, TablePadding);
-    gtk_widget_set_halign (priv->copyright_label, GTK_ALIGN_END);
-
-    priv->copyright_entry = gtk_entry_new ();
-    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (priv->copyright_entry),
-                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
-    et_grid_attach_full (GTK_GRID (table), priv->copyright_entry, 1, 9, 9, 1, TRUE,
-                         TRUE, TablePadding, TablePadding);
-
+    priv->copyright_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                "copyright_label"));
+    priv->copyright_entry = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                               "copyright_entry"));
     et_tag_field_connect_signals (GTK_ENTRY (priv->copyright_entry), self);
-    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (priv->copyright_entry),
-                                     GTK_ENTRY_ICON_SECONDARY,
-                                     _("Tag selected files with this copyright"));
-
-
 
     /* URL */
-    priv->url_label = gtk_label_new (_("URL:"));
-    et_grid_attach_full (GTK_GRID (table), priv->url_label, 0, 10, 1, 1, FALSE,
-                         FALSE, TablePadding, TablePadding);
-    gtk_widget_set_halign (priv->url_label, GTK_ALIGN_END);
-
-    priv->url_entry = gtk_entry_new ();
-    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (priv->url_entry),
-                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
-    et_grid_attach_full (GTK_GRID (table), priv->url_entry, 1, 10, 9, 1, TRUE, TRUE,
-                         TablePadding, TablePadding);
-
+    priv->url_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                          "url_label"));
+    priv->url_entry = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                          "url_entry"));
     et_tag_field_connect_signals (GTK_ENTRY (priv->url_entry), self);
-    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (priv->url_entry),
-                                     GTK_ENTRY_ICON_SECONDARY,
-                                     _("Tag selected files with this URL"));
 
     /* Encoded by */
-    priv->encoded_by_label = gtk_label_new (_("Encoded by:"));
-    et_grid_attach_full (GTK_GRID (table), priv->encoded_by_label, 0, 11, 1, 1,
-                         FALSE, FALSE, TablePadding, TablePadding);
-    gtk_widget_set_halign (priv->encoded_by_label, GTK_ALIGN_END);
-
-    priv->encoded_by_entry = gtk_entry_new ();
-    gtk_entry_set_icon_from_icon_name (GTK_ENTRY (priv->encoded_by_entry),
-                                       GTK_ENTRY_ICON_SECONDARY, "insert-text");
-    et_grid_attach_full (GTK_GRID (table), priv->encoded_by_entry, 1, 11, 9, 1, TRUE,
-                         TRUE, TablePadding, TablePadding);
-
+    priv->encoded_by_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                "encoded_by_label"));
+    priv->encoded_by_entry = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                 "encoded_by_entry"));
     et_tag_field_connect_signals (GTK_ENTRY (priv->encoded_by_entry), self);
-    gtk_entry_set_icon_tooltip_text (GTK_ENTRY (priv->encoded_by_entry),
-                                     GTK_ENTRY_ICON_SECONDARY,
-                                     _("Tag selected files with this encoder name"));
 
     /* Set focus chain. */
     focus_chain = g_list_prepend (focus_chain, priv->title_entry);
@@ -2518,56 +2319,22 @@ create_tag_area (EtTagArea *self)
     /* More efficient than using g_list_append(), which must traverse the
      * whole list. */
     focus_chain = g_list_reverse (focus_chain);
-    gtk_container_set_focus_chain (GTK_CONTAINER (table), focus_chain);
+    grid = GTK_WIDGET (gtk_builder_get_object (builder, "common_grid"));
+    gtk_container_set_focus_chain (GTK_CONTAINER (grid), focus_chain);
     g_list_free (focus_chain);
 
-    /*
-     * 2 - Page for extra tag fields
-     */
-    /* Also used in ET_Display_File_Tag_To_UI. */
-    label = gtk_label_new (_("Images"));
-
-    priv->images_tab = table = gtk_grid_new ();
-    gtk_notebook_append_page (GTK_NOTEBOOK (priv->notebook), table, label);
-    gtk_container_set_border_width (GTK_CONTAINER (table), 2);
+    /* Page for extra tag fields. */
+    priv->images_tab = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                           "images_grid"));
 
     /* Scroll window for priv->picture_entry_view. */
-    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
-                                    GTK_POLICY_AUTOMATIC,
-                                    GTK_POLICY_AUTOMATIC);
-    et_grid_attach_full (GTK_GRID (table), scrolled_window, 0, 0, 1, 1,
-                         TRUE, TRUE, TablePadding, TablePadding);
-
-    priv->images_model = gtk_list_store_new (PICTURE_COLUMN_COUNT,
-                                             GDK_TYPE_PIXBUF, G_TYPE_STRING,
-                                             G_TYPE_POINTER);
-    priv->picture_entry_view = gtk_tree_view_new_with_model (GTK_TREE_MODEL (priv->images_model));
-    g_object_unref (priv->images_model);
-    gtk_container_add (GTK_CONTAINER (scrolled_window), priv->picture_entry_view);
-    gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (priv->picture_entry_view), FALSE);
-    gtk_widget_set_size_request (priv->picture_entry_view, -1, 200);
-    gtk_widget_set_tooltip_text (priv->picture_entry_view,
-                                 _("You can use drag and drop to add an image"));
+    priv->images_model = GTK_LIST_STORE (gtk_builder_get_object (builder,
+                                                                 "images_model"));
+    priv->picture_entry_view = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                   "images_view"));
 
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->picture_entry_view));
     gtk_tree_selection_set_mode (selection, GTK_SELECTION_MULTIPLE);
-
-    renderer = gtk_cell_renderer_pixbuf_new ();
-    column = gtk_tree_view_column_new ();
-    gtk_tree_view_column_pack_start (column, renderer, FALSE);
-    gtk_tree_view_column_set_attributes (column, renderer, "pixbuf",
-                                         PICTURE_COLUMN_PIC, NULL);
-    gtk_tree_view_append_column (GTK_TREE_VIEW (priv->picture_entry_view), column);
-    gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-
-    renderer = gtk_cell_renderer_text_new ();
-    column = gtk_tree_view_column_new ();
-    gtk_tree_view_column_pack_start (column, renderer, FALSE);
-    gtk_tree_view_column_set_attributes (column, renderer, "text",
-                                         PICTURE_COLUMN_TEXT, NULL);
-    gtk_tree_view_append_column (GTK_TREE_VIEW (priv->picture_entry_view), column);
-    gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 
     /* Activate Drag'n'Drop for the priv->picture_entry_view. */
     gtk_drag_dest_set(GTK_WIDGET(priv->picture_entry_view),
@@ -2584,22 +2351,9 @@ create_tag_area (EtTagArea *self)
                       G_CALLBACK (on_picture_view_key_pressed), self);
 
     /* Picture action toolbar. */
-    toolbar = gtk_toolbar_new ();
-    gtk_style_context_add_class (gtk_widget_get_style_context (toolbar),
-                                 GTK_STYLE_CLASS_INLINE_TOOLBAR);
-    gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
-    gtk_toolbar_set_icon_size (GTK_TOOLBAR (toolbar), GTK_ICON_SIZE_MENU);
-    et_grid_attach_full (GTK_GRID (table), toolbar, 0, 1, 1, 1, FALSE, FALSE,
-                        TablePadding, TablePadding);
-
     /* TODO: Make the icons use the symbolic variants. */
-    icon = g_themed_icon_new_with_default_fallbacks ("list-add");
-    image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_MENU);
-    priv->add_image_toolitem = gtk_tool_button_new (image, NULL);
-    g_object_unref (icon);
-    gtk_toolbar_insert (GTK_TOOLBAR (toolbar), priv->add_image_toolitem, -1);
-    gtk_widget_set_tooltip_text (GTK_WIDGET (priv->add_image_toolitem),
-                                 _("Add images to the tag"));
+    priv->add_image_toolitem = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                   "image_add_button"));
     g_signal_connect (priv->add_image_toolitem, "clicked",
                       G_CALLBACK (on_picture_add_button_clicked), self);
 
@@ -2611,51 +2365,27 @@ create_tag_area (EtTagArea *self)
     g_signal_connect (priv->add_image_toolitem, "drag-data-received",
                       G_CALLBACK (on_picture_view_drag_data), self);
 
-    icon = g_themed_icon_new_with_default_fallbacks ("list-remove");
-    image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_MENU);
-    priv->remove_image_toolitem = gtk_tool_button_new (image, NULL);
-    g_object_unref (icon);
-    gtk_toolbar_insert (GTK_TOOLBAR (toolbar), priv->remove_image_toolitem,
-                        -1);
-    gtk_widget_set_tooltip_text (GTK_WIDGET (priv->remove_image_toolitem),
-                                 _("Remove selected images from the tag"));
-    gtk_widget_set_sensitive (GTK_WIDGET (priv->remove_image_toolitem), FALSE);
+    priv->remove_image_toolitem = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                      "image_remove_button"));
     g_signal_connect (priv->remove_image_toolitem, "clicked",
                       G_CALLBACK (on_picture_clear_button_clicked), self);
 
-    icon = g_themed_icon_new_with_default_fallbacks ("document-save");
-    image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_MENU);
-    priv->save_image_toolitem = gtk_tool_button_new (image, NULL);
-    g_object_unref (icon);
-    gtk_toolbar_insert (GTK_TOOLBAR (toolbar), priv->save_image_toolitem, -1);
-    gtk_widget_set_tooltip_text (GTK_WIDGET (priv->save_image_toolitem),
-                                 _("Save the selected images to files"));
-    gtk_widget_set_sensitive (GTK_WIDGET (priv->save_image_toolitem), FALSE);
+    priv->save_image_toolitem = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                    "image_save_button"));
     g_signal_connect (priv->save_image_toolitem, "clicked",
                       G_CALLBACK (on_picture_save_button_clicked), self);
 
-    icon = g_themed_icon_new_with_default_fallbacks ("document-properties");
-    image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_MENU);
-    priv->image_properties_toolitem = gtk_tool_button_new (image, NULL);
-    g_object_unref (icon);
-    gtk_toolbar_insert (GTK_TOOLBAR (toolbar), priv->image_properties_toolitem,
-                        -1);
-    gtk_widget_set_tooltip_text (GTK_WIDGET (priv->image_properties_toolitem),
-                                 _("Edit image properties"));
-    gtk_widget_set_sensitive (GTK_WIDGET (priv->image_properties_toolitem),
-                              FALSE);
+    priv->image_properties_toolitem = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                          "image_properties_button"));
     g_signal_connect (priv->image_properties_toolitem, "clicked",
                       G_CALLBACK (on_picture_properties_button_clicked), self);
 
-    icon = g_themed_icon_new_with_default_fallbacks ("insert-image");
-    image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_MENU);
-    priv->apply_image_toolitem = gtk_tool_button_new (image, NULL);
-    g_object_unref (icon);
-    gtk_toolbar_insert (GTK_TOOLBAR (toolbar), priv->apply_image_toolitem, -1);
-    gtk_widget_set_tooltip_text (GTK_WIDGET (priv->apply_image_toolitem),
-                                 _("Tag selected files with these images"));
+    priv->apply_image_toolitem = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                     "image_apply_button"));
     g_signal_connect (priv->apply_image_toolitem, "clicked",
                       G_CALLBACK (on_apply_to_selection), self);
+
+    g_object_unref (builder);
 }
 
 static void
@@ -3255,42 +2985,40 @@ et_tag_area_display_et_file (EtTagArea *self,
     {
 #ifdef ENABLE_MP3
         case ID3_TAG:
-            gtk_frame_set_label (GTK_FRAME (priv->frame), _("ID3 Tag"));
+            gtk_label_set_text (GTK_LABEL (priv->label), _("ID3 Tag"));
             break;
 #endif
 #ifdef ENABLE_OGG
         case OGG_TAG:
-            gtk_frame_set_label (GTK_FRAME (priv->frame), _("Ogg Vorbis Tag"));
+            gtk_label_set_text (GTK_LABEL (priv->label), _("Ogg Vorbis Tag"));
             break;
 #endif
 #ifdef ENABLE_FLAC
         case FLAC_TAG:
-            gtk_frame_set_label (GTK_FRAME (priv->frame),
-                                 _("FLAC Vorbis Tag"));
+            gtk_label_set_text (GTK_LABEL (priv->label), _("FLAC Vorbis Tag"));
             break;
 #endif
         case APE_TAG:
-            gtk_frame_set_label (GTK_FRAME (priv->frame), _("APE Tag"));
+            gtk_label_set_text (GTK_LABEL (priv->label), _("APE Tag"));
             break;
 #ifdef ENABLE_MP4
         case MP4_TAG:
-            gtk_frame_set_label (GTK_FRAME (priv->frame),
-                                 _("MP4/M4A/AAC Tag"));
+            gtk_label_set_text (GTK_LABEL (priv->label), _("MP4/M4A/AAC Tag"));
             break;
 #endif
 #ifdef ENABLE_WAVPACK
         case WAVPACK_TAG:
-            gtk_frame_set_label (GTK_FRAME (priv->frame), _("Wavpack Tag"));
+            gtk_label_set_text (GTK_LABEL (priv->label), _("Wavpack Tag"));
             break;
 #endif
 #ifdef ENABLE_OPUS
         case OPUS_TAG:
-            gtk_frame_set_label (GTK_FRAME (priv->frame), _("Opus Tag"));
+            gtk_label_set_text (GTK_LABEL (priv->label), _("Opus Tag"));
             break;
 #endif
         case UNKNOWN_TAG:
         default:
-            gtk_frame_set_label (GTK_FRAME (priv->frame), _("Tag"));
+            gtk_label_set_text (GTK_LABEL (priv->label), _("Tag"));
             /* FIXME: Translatable string. */
             Log_Print (LOG_ERROR,
                        "FileTag: Undefined tag type %d for file %s.",
