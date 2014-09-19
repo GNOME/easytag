@@ -34,7 +34,7 @@ G_DEFINE_TYPE (EtFileArea, et_file_area, GTK_TYPE_BIN)
 
 struct _EtFileAreaPrivate
 {
-    GtkWidget *frame;
+    GtkWidget *file_label;
 
     GtkWidget *index_label;
     GtkWidget *name_entry;
@@ -78,99 +78,73 @@ static void
 create_file_area (EtFileArea *self)
 {
     EtFileAreaPrivate *priv;
-    GtkWidget *vbox, *hbox;
-    GtkWidget *separator;
+    GtkBuilder *builder;
+    GError *error = NULL;
+    GtkWidget *grid;
 
     priv = et_file_area_get_instance_private (self);
 
-    priv->frame = gtk_frame_new (_("File"));
-    gtk_container_add (GTK_CONTAINER (self), priv->frame);
-    gtk_container_set_border_width (GTK_CONTAINER (priv->frame), 2);
+    builder = gtk_builder_new ();
+    gtk_builder_add_from_resource (builder,
+                                   "/org/gnome/EasyTAG/file_area.ui",
+                                   &error);
 
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-    gtk_container_add (GTK_CONTAINER (priv->frame), vbox);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), 2);
+    if (error != NULL)
+    {
+        g_error ("Unable to get file area from resource: %s",
+                 error->message);
+    }
 
-    /* HBox for FileEntry and IconBox */
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
+    grid = GTK_WIDGET (gtk_builder_get_object (builder, "file_grid"));
+    gtk_container_add (GTK_CONTAINER (self), grid);
 
-    /* File index (position in list + list length) */
-    priv->index_label = gtk_label_new ("0/0:");
-    gtk_box_pack_start (GTK_BOX (hbox), priv->index_label, FALSE, FALSE, 0);
+    priv->file_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                           "file_label"));
+
+    priv->index_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                            "index_label"));
 
     /* Filename. */
-    priv->name_entry = gtk_entry_new ();
-    gtk_box_pack_start (GTK_BOX (hbox), priv->name_entry, TRUE, TRUE, 2);
+    priv->name_entry = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                           "filename_entry"));
 
     g_signal_connect (priv->name_entry, "populate-popup",
                       G_CALLBACK (on_entry_populate_popup), NULL);
 
     /* File information. */
-    priv->header_grid = gtk_grid_new ();
-    gtk_container_add (GTK_CONTAINER (vbox), priv->header_grid);
-    gtk_container_set_border_width (GTK_CONTAINER (priv->header_grid), 2);
-    gtk_grid_set_row_spacing (GTK_GRID (priv->header_grid), 1);
-    gtk_grid_set_column_spacing (GTK_GRID (priv->header_grid), 2);
+    priv->header_grid = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                            "header_grid"));
+    priv->version_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                              "version_label"));
+    priv->version_value_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                    "version_value_label"));
 
-    priv->version_label = gtk_label_new (_("Encoder:"));
-    gtk_grid_attach (GTK_GRID (priv->header_grid), priv->version_label, 0, 0,
-                     1, 1);
-    priv->version_value_label = gtk_label_new ("");
-    gtk_grid_attach (GTK_GRID (priv->header_grid), priv->version_value_label,
-                     1, 0, 1, 1);
-    gtk_widget_set_halign (priv->version_label, GTK_ALIGN_END);
-    gtk_widget_set_halign (priv->version_value_label, GTK_ALIGN_START);
+    priv->bitrate_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                              "bitrate_label"));
+    priv->bitrate_value_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                    "bitrate_value_label"));
 
-    priv->bitrate_label = gtk_label_new (_("Bitrate:"));
-    gtk_grid_attach (GTK_GRID (priv->header_grid), priv->bitrate_label, 0, 1,
-                     1, 1);
-    priv->bitrate_value_label = gtk_label_new ("");
-    gtk_grid_attach (GTK_GRID (priv->header_grid), priv->bitrate_value_label,
-                     1, 1, 1, 1);
-    gtk_widget_set_halign (priv->bitrate_label, GTK_ALIGN_END);
-    gtk_widget_set_halign (priv->bitrate_value_label, GTK_ALIGN_START);
+    priv->samplerate_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                 "samplerate_label"));
+    priv->samplerate_value_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                       "samplerate_value_label"));
 
-    /* Translators: Please try to keep this string as short as possible as it
-     * is shown in a narrow column. */
-    priv->samplerate_label = gtk_label_new (_("Sample rate:"));
-    gtk_grid_attach (GTK_GRID (priv->header_grid), priv->samplerate_label, 0,
-                     2, 1, 1);
-    priv->samplerate_value_label = gtk_label_new ("");
-    gtk_grid_attach (GTK_GRID (priv->header_grid),
-                     priv->samplerate_value_label, 1, 2, 1, 1);
-    gtk_widget_set_halign (priv->samplerate_label, GTK_ALIGN_END);
-    gtk_widget_set_halign (priv->samplerate_value_label, GTK_ALIGN_START);
+    priv->mode_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                           "mode_label"));
+    priv->mode_value_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                 "mode_value_label"));
 
-    separator = gtk_separator_new (GTK_ORIENTATION_VERTICAL);
-    gtk_grid_attach (GTK_GRID (priv->header_grid), separator, 2, 0, 1, 4);
+    priv->size_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                           "size_label"));
+    priv->size_value_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                 "size_value_label"));
 
-    priv->mode_label = gtk_label_new(_("Mode:"));
-    gtk_grid_attach (GTK_GRID (priv->header_grid), priv->mode_label, 3, 0, 1,
-                     1);
-    priv->mode_value_label = gtk_label_new ("");
-    gtk_grid_attach (GTK_GRID (priv->header_grid), priv->mode_value_label, 4,
-                     0, 1, 1);
-    gtk_widget_set_halign (priv->mode_label, GTK_ALIGN_END);
-    gtk_widget_set_halign (priv->mode_value_label, GTK_ALIGN_START);
+    priv->duration_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                               "duration_label"));
+    priv->duration_value_label = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                                     "duration_value_label"));
 
-    priv->size_label = gtk_label_new (_("Size:"));
-    gtk_grid_attach (GTK_GRID (priv->header_grid), priv->size_label, 3, 1, 1,
-                     1);
-    priv->size_value_label = gtk_label_new ("");
-    gtk_grid_attach (GTK_GRID (priv->header_grid), priv->size_value_label, 4,
-                     1, 1, 1);
-    gtk_widget_set_halign (priv->size_label, GTK_ALIGN_END);
-    gtk_widget_set_halign (priv->size_value_label, GTK_ALIGN_START);
-
-    priv->duration_label = gtk_label_new (_("Duration:"));
-    gtk_grid_attach (GTK_GRID (priv->header_grid), priv->duration_label, 3, 2,
-                     1, 1);
-    priv->duration_value_label = gtk_label_new ("");
-    gtk_grid_attach (GTK_GRID (priv->header_grid), priv->duration_value_label,
-                     4, 2, 1, 1);
-    gtk_widget_set_halign (priv->duration_label, GTK_ALIGN_END);
-    gtk_widget_set_halign (priv->duration_value_label, GTK_ALIGN_START);
+    g_object_unref (builder);
 
     g_signal_connect_swapped (MainSettings, "changed::file-show-header",
                               G_CALLBACK (on_file_show_header_changed), self);
@@ -183,8 +157,6 @@ et_file_area_init (EtFileArea *self)
     self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, ET_TYPE_FILE_AREA,
                                               EtFileAreaPrivate);
     create_file_area (self);
-
-    gtk_widget_show_all (GTK_WIDGET (self));
 }
 
 static void
@@ -244,7 +216,7 @@ et_file_area_set_header_fields (EtFileArea *self,
 
     priv = et_file_area_get_instance_private (self);
 
-    gtk_frame_set_label (GTK_FRAME (priv->frame), fields->description);
+    gtk_label_set_text (GTK_LABEL (priv->file_label), fields->description);
     gtk_label_set_text (GTK_LABEL (priv->version_label),
                         fields->version_label);
     gtk_label_set_text (GTK_LABEL (priv->version_value_label),
