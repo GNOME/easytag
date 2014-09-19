@@ -212,7 +212,7 @@ apetag_save (char *filename, apetag *mem_cnt, int flag) ;
 
 /* Add text frame */
 int
-apefrm_add (apetag *mem_cnt, unsigned long flags, char *name, char *value) ;
+apefrm_add (apetag *mem_cnt, unsigned long flags, const char *name, const char *value) ;
 
 /* add binary frame */
 int
@@ -233,7 +233,7 @@ apefrm_getstr (apetag *mem_cnt, const char *name) ;
 
 /* remove frame from memory */
 void 
-apefrm_remove_real (apetag *mem_cnt, char *name) ;
+apefrm_remove_real (apetag *mem_cnt, const char *name) ;
 
 
 /**
@@ -245,7 +245,7 @@ apefrm_remove_real (apetag *mem_cnt, char *name) ;
 
 /* set frame to remove */
 void
-apefrm_remove (apetag *mem_cnt, char *name);
+apefrm_remove (apetag *mem_cnt, const char *name);
 
 /* read id3v1 and add frames */
 int 

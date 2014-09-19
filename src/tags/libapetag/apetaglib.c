@@ -273,8 +273,8 @@ libapetag_maloc_cont_text (apetag *mem_cnt, unsigned long flags,
     \return 0 - OK else check #atl_return
 */
 int
-apefrm_add (apetag *mem_cnt, unsigned long flags, char *name,
-     char *value)
+apefrm_add (apetag *mem_cnt, unsigned long flags, const char *name,
+     const char *value)
 {
     apefrm_remove_real (mem_cnt, name);
     return libapetag_maloc_cont (mem_cnt, flags, strlen (name), name, strlen (value), value);
@@ -433,7 +433,7 @@ apefrm_getstr (apetag *mem_cnt, const char *name)
     \param name     frame name for search and remove
 */
 void
-apefrm_remove_real (apetag *mem_cnt, char *name)
+apefrm_remove_real (apetag *mem_cnt, const char *name)
 {
     int n;
     struct tag **mTag;
@@ -482,7 +482,7 @@ apefrm_remove_real (apetag *mem_cnt, char *name)
     \param name     frame name for search and remove
 */
 void
-apefrm_remove (apetag *mem_cnt, char *name)
+apefrm_remove (apetag *mem_cnt, const char *name)
 {
     int n;
     struct tag **mTag;
@@ -838,7 +838,7 @@ apetag_read (apetag *mem_cnt, const char *filename, int flag)
 static int
 libapetag_qsort (struct tag **a, struct tag **b)
 {
-    char *sorting[] = { "Artist", "Year", "Album", "Track", "Title", "Genre", NULL, NULL };
+    const char * const sorting[] = { "Artist", "Year", "Album", "Track", "Title", "Genre", NULL, NULL };
     int n, m;
 
     if (!a || !b || !*a || !*b) {
