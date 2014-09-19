@@ -1,21 +1,20 @@
-/* log.c - 2007/03/25 */
-/*
- *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
- *  Copyright (C) 2000-2007  Jerome Couderc <easytag@gmail.com>
+/* EasyTAG - Tag editor for audio files
+ * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2000-2007  Jerome Couderc <easytag@gmail.com>
  *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
 #include <config.h>
@@ -38,7 +37,7 @@
 #include "win32/win32dep.h"
 
 /* TODO: Use G_DEFINE_TYPE_WITH_PRIVATE. */
-G_DEFINE_TYPE (EtLogArea, et_log_area, GTK_TYPE_FRAME)
+G_DEFINE_TYPE (EtLogArea, et_log_area, GTK_TYPE_BIN)
 
 #define et_log_area_get_instance_private(self) (self->priv)
 
@@ -151,9 +150,7 @@ static void
 et_log_area_init (EtLogArea *self)
 {
     EtLogAreaPrivate *priv;
-    GtkWidget *ScrollWindowLogList;
-    GtkCellRenderer *renderer;
-    GtkTreeViewColumn *column;
+    GtkWidget *grid;
     GtkBuilder *builder;
     GError *error = NULL;
     GMenuModel *menu_model;
@@ -163,51 +160,25 @@ et_log_area_init (EtLogArea *self)
 
     gtk_container_set_border_width (GTK_CONTAINER (self), 2);
 
-    /*
-     * The ScrollWindow and the List
-     */
-    ScrollWindowLogList = gtk_scrolled_window_new(NULL,NULL);
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(ScrollWindowLogList),
-                                   GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
-    gtk_container_add (GTK_CONTAINER (self), ScrollWindowLogList);
+    builder = gtk_builder_new ();
+    gtk_builder_add_from_resource (builder, "/org/gnome/EasyTAG/log_area.ui",
+                                   &error);
 
-    /* The file list */
-    priv->log_model = gtk_list_store_new (LOG_COLUMN_COUNT, G_TYPE_STRING,
-                                          G_TYPE_STRING, G_TYPE_STRING);
+    if (error != NULL)
+    {
+        g_error ("Unable to get log area from resource: %s",
+                 error->message);
+    }
 
-    priv->log_view = gtk_tree_view_new_with_model (GTK_TREE_MODEL (priv->log_model));
-    g_object_unref (priv->log_model);
-    gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (priv->log_view), FALSE);
-    gtk_container_add (GTK_CONTAINER (ScrollWindowLogList), priv->log_view);
-    gtk_widget_set_size_request (priv->log_view, 0, 0);
-    gtk_tree_view_set_reorderable (GTK_TREE_VIEW (priv->log_view), FALSE);
-    gtk_tree_selection_set_mode (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->log_view)),
-                                 GTK_SELECTION_MULTIPLE);
+    grid = GTK_WIDGET (gtk_builder_get_object (builder, "log_grid"));
+    gtk_container_add (GTK_CONTAINER (self), grid);
 
-    column = gtk_tree_view_column_new();
-    gtk_tree_view_append_column (GTK_TREE_VIEW (priv->log_view), column);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-
-    renderer = gtk_cell_renderer_pixbuf_new();
-    gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_attributes (column, renderer,
-                                         "icon-name", LOG_ICON_NAME,
-                                         NULL);
-
-    renderer = gtk_cell_renderer_text_new();
-    gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_attributes(column, renderer,
-                                        "text",           LOG_TIME_TEXT,
-                                        NULL);
-
-    renderer = gtk_cell_renderer_text_new();
-    gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_attributes(column, renderer,
-                                        "text",           LOG_TEXT,
-                                        NULL);
+    /* The list. */
+    priv->log_model = GTK_LIST_STORE (gtk_builder_get_object (builder,
+                                                              "log_model"));
+    priv->log_view = GTK_WIDGET (gtk_builder_get_object (builder, "log_view"));
 
     /* Create popup menu. */
-    builder = gtk_builder_new ();
     gtk_builder_add_from_resource (builder, "/org/gnome/EasyTAG/menus.ui",
                                    &error);
 
@@ -231,8 +202,6 @@ et_log_area_init (EtLogArea *self)
     /* Load pending messages in the Log list. */
     Log_Print_Tmp_List (self);
 
-    gtk_widget_show_all (GTK_WIDGET (self));
-
     g_settings_bind (MainSettings, "log-show", self, "visible",
                      G_SETTINGS_BIND_DEFAULT);
 }
@@ -241,7 +210,7 @@ et_log_area_init (EtLogArea *self)
 GtkWidget *
 et_log_area_new ()
 {
-    return g_object_new (ET_TYPE_LOG_AREA, "label", _("Log"), NULL);
+    return g_object_new (ET_TYPE_LOG_AREA, NULL);
 }
 
 /*
