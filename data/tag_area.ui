@@ -224,6 +224,7 @@
                 </child>
                 <child>
                     <object class="GtkEntry" id="disc_entry">
+                        <property name="hexpand">True</property>
                         <property name="secondary-icon-name">insert-text</property>
                         <property name="secondary-icon-tooltip-text" translatable="yes">Tag selected files with this disc number</property>
                         <property name="visible">True</property>
@@ -247,6 +248,7 @@
                 </child>
                 <child>
                     <object class="GtkEntry" id="year_entry">
+                        <property name="hexpand">True</property>
                         <property name="max-length">4</property>
                         <property name="secondary-icon-name">insert-text</property>
                         <property name="secondary-icon-tooltip-text" translatable="yes">Tag selected files with this year</property>
