@@ -31,7 +31,6 @@ Tagging features
 UI work
 -------
 
-* Use more of the standard GTK+ widgets, for example GtkAboutDialog
 * Use a Nautilus-like path bar for directory selection
 * Detect when the main window is too large to fit on the screen
 ** Reflow tagging UI in order to fit on screen

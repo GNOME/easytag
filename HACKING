@@ -36,3 +36,13 @@ indents. This has been changed slightly to the following guidelines:
 * function return values on a line separate from the function name
 
 New code should follow this style.
+
+GtkBuilder UI descriptions
+--------------------------
+
+GtkBuilder files are used for describing the EasyTAG UI. The UI files are in
+the data directory, and named *.ui. The files are not created with Glade, and
+Glade should not be used to edit them, as it will unnecessarily rearrange
+content within the file, leading to commit diffs which are difficult to read.
+The files are not installed, but instead compiled into a resource bundle and
+built into the application binary.
