@@ -99,9 +99,12 @@ static gboolean Flac_Set_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag_n
  *  - if field is found but contains no info (strlen(str)==0), we don't read it
  */
 gboolean
-Flac_Tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag)
+flac_tag_read_file_tag (const gchar *filename,
+                        File_Tag *FileTag,
+                        GError **error)
 {
     FLAC__Metadata_SimpleIterator *iter;
+    const gchar *flac_error_msg;
     gchar *string = NULL;
     gchar *filename_utf8 = filename_to_display(filename);
     guint i;
@@ -109,8 +112,7 @@ Flac_Tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag)
     //gint j = 1;
 
     g_return_val_if_fail (filename != NULL && FileTag != NULL, FALSE);
-
-    flac_error_msg = NULL;
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     // Initialize the iterator for the blocks
     iter = FLAC__metadata_simple_iterator_new();
@@ -129,9 +131,8 @@ Flac_Tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag)
             FLAC__metadata_simple_iterator_delete(iter);
         }
 
-        Log_Print (LOG_ERROR, _("Error while opening file ‘%s’ as FLAC: %s"),
-                   filename_utf8, flac_error_msg);
-        g_free(filename_utf8);
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                     _("Error while opening file: %s"), flac_error_msg);
         return FALSE;
     }
     
@@ -817,22 +818,25 @@ static gboolean Flac_Set_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag_n
 /*
  * Write Flac tag, using the level 2 flac interface
  */
-gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
+gboolean
+flac_tag_write_file_tag (ET_File *ETFile, GError **error)
 {
-    File_Tag *FileTag;
-    gchar *filename_utf8, *filename;
+    const File_Tag *FileTag;
+    const gchar *filename;
+    const gchar *filename_utf8;
     gchar *basename_utf8;
+    const gchar *flac_error_msg;
     FLAC__Metadata_Chain *chain;
     FLAC__Metadata_Iterator *iter;
     FLAC__StreamMetadata_VorbisComment_Entry vce_field_vendor_string; // To save vendor string
     gboolean vce_field_vendor_string_found = FALSE;
 
     g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL, FALSE);
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     FileTag       = (File_Tag *)ETFile->FileTag->data;
     filename      = ((File_Name *)ETFile->FileNameCur->data)->value;
     filename_utf8 = ((File_Name *)ETFile->FileNameCur->data)->value_utf8;
-    flac_error_msg = NULL;
 
     /* libFLAC is able to detect (and skip) ID3v2 tags by itself */
     
@@ -853,8 +857,9 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
             FLAC__metadata_chain_delete(chain);
         }
         
-        Log_Print (LOG_ERROR, _("Error while opening file ‘%s’ as FLAC: %s"),
-                   filename_utf8, flac_error_msg);
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                     _("Error while opening file ‘%s’ as FLAC: %s"),
+                     filename_utf8, flac_error_msg);
         return FALSE;
     }
     
@@ -864,8 +869,9 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
     {
         flac_error_msg = FLAC__Metadata_ChainStatusString[FLAC__METADATA_CHAIN_STATUS_MEMORY_ALLOCATION_ERROR];
 
-        Log_Print (LOG_ERROR, _("Error while opening file ‘%s’ as FLAC: %s"),
-                   filename_utf8, flac_error_msg);
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                     _("Error while opening file ‘%s’ as FLAC: %s"),
+                     filename_utf8, flac_error_msg);
         return FALSE;
     }
     
@@ -1120,10 +1126,12 @@ gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile)
 
         FLAC__metadata_chain_delete(chain);
         
-        Log_Print (LOG_ERROR, _("Failed to write comments to file ‘%s’: %s"),
-                   filename_utf8, flac_error_msg);
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                     _("Failed to write comments to file ‘%s’: %s"),
+                     filename_utf8, flac_error_msg);
         return FALSE;
-    }else
+    }
+    else
     {
         basename_utf8 = g_path_get_basename(filename_utf8);
         Log_Print (LOG_OK, _("Wrote tag of ‘%s’"), basename_utf8);

@@ -1,43 +1,35 @@
-/* flac_tag.h - 2003/12/27 */
-/*
- *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
- *  Copyright (C) 2001-2003  Jerome Couderc <easytag@gmail.com>
- *  Copyright (C) 2003       Pavel Minayev <thalion@front.ru>
+/* EasyTAG - Tag editor for audo files
+ * Copyright (C) 2013  David King <amigadave@amigadave.com>
+ * Copyright (C) 2001-2003  Jerome Couderc <easytag@gmail.com>
+ * Copyright (C) 2003       Pavel Minayev <thalion@front.ru>
  *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
 
-#ifndef __FLAC_TAG_H__
-#define __FLAC_TAG_H__
-
+#ifndef ET_FLAC_TAG_H_
+#define ET_FLAC_TAG_H_
 
 #include <glib.h>
 #include "et_core.h"
 
-/***************
- * Declaration *
- ***************/
-const gchar *flac_error_msg;
+G_BEGIN_DECLS
 
+gboolean flac_tag_read_file_tag (const gchar *filename, File_Tag *FileTag, GError **error);
+gboolean flac_tag_write_file_tag (ET_File *ETFile, GError **error);
 
-/**************
- * Prototypes *
- **************/
-gboolean Flac_Tag_Read_File_Tag  (const gchar *filename, File_Tag *FileTag);
-gboolean Flac_Tag_Write_File_Tag (ET_File *ETFile);
+G_END_DECLS
 
-
-#endif /* __FLAC_TAG_H__ */
+#endif /* ET_FLAC_TAG_H_ */

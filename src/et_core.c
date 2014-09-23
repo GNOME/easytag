@@ -546,7 +546,13 @@ GList *ET_Add_File_To_File_List (gchar *filename)
 #endif
 #ifdef ENABLE_FLAC
         case FLAC_TAG:
-            Flac_Tag_Read_File_Tag(filename,FileTag);
+            if (!flac_tag_read_file_tag (filename, FileTag, &error))
+            {
+                Log_Print (LOG_ERROR,
+                           _("Error reading tag from FLAC file ‘%s’: %s"),
+                           filename_utf8, error->message);
+                g_clear_error (&error);
+            }
             break;
 #endif
         case APE_TAG:
@@ -603,7 +609,13 @@ GList *ET_Add_File_To_File_List (gchar *filename)
 #endif
 #ifdef ENABLE_FLAC
         case FLAC_FILE:
-            Flac_Header_Read_File_Info(filename,ETFileInfo);
+            if (!flac_header_read_file_info (filename, ETFileInfo, &error))
+            {
+                Log_Print (LOG_ERROR,
+                           _("Error while querying information for file ‘%s’: %s"),
+                           filename_utf8, error->message);
+                g_error_free (error);
+            }
             break;
 #endif
         case MPC_FILE:
@@ -3435,7 +3447,7 @@ ET_Save_File_Tag_To_HD (ET_File *ETFile, GError **error)
 #endif
 #ifdef ENABLE_FLAC
         case FLAC_TAG:
-            state = Flac_Tag_Write_File_Tag(ETFile);
+            state = flac_tag_write_file_tag (ETFile, error);
             break;
 #endif
         case APE_TAG:

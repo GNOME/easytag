@@ -1,21 +1,20 @@
-/* flac_header.c - 2002/07/03 */
-/*
- *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
- *  Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
+/* EasyTAG - Tag editor for audio files
+ * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
  *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
 /*
@@ -32,6 +31,7 @@
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <FLAC/all.h>
+#include <errno.h>
 
 #include "easytag.h"
 #include "et_core.h"
@@ -78,7 +78,9 @@ static void error_callback_   (const FLAC__StreamDecoder *decoder, FLAC__StreamD
  ****************************/
 
 gboolean
-Flac_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
+flac_header_read_file_info (const gchar *filename,
+                            ET_File_Info *ETFileInfo,
+                            GError **error)
 {
     gint duration = 0;
     gulong filesize;
@@ -87,11 +89,15 @@ Flac_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
     file_info_struct tmp_file_info;
 
     g_return_val_if_fail (filename != NULL && ETFileInfo != NULL, FALSE);
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     /* Decoding FLAC file */
-    tmp_decoder = FLAC__stream_decoder_new();
+    tmp_decoder = FLAC__stream_decoder_new ();
+
     if (tmp_decoder == NULL)
     {
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_NOMEM, "%s",
+                     g_strerror (ENOMEM));
         return FALSE;
     }
 
@@ -99,10 +105,24 @@ Flac_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
 
     FLAC__stream_decoder_set_md5_checking     (tmp_decoder, false);
     if(FLAC__stream_decoder_init_file(tmp_decoder, filename, write_callback_, metadata_callback_, error_callback_, &tmp_file_info) != FLAC__STREAM_DECODER_INIT_STATUS_OK)
+    {
+        /* TODO: Set error message according to FLAC__StreamDecoderInitStatus.
+         */
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s",
+                     _("Error opening FLAC file"));
+        FLAC__stream_decoder_finish (tmp_decoder);
+        FLAC__stream_decoder_delete (tmp_decoder);
         return FALSE;
+    }
 
     if(!FLAC__stream_decoder_process_until_end_of_metadata(tmp_decoder))
     {
+        /* TODO: Set error message according to state fetched from
+         * FLAC__stream_decoder_get_state(). */
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s",
+                     _("Error opening FLAC file"));
+        FLAC__stream_decoder_finish (tmp_decoder);
+        FLAC__stream_decoder_delete (tmp_decoder);
         return FALSE;
     }
 
