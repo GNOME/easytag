@@ -332,7 +332,7 @@ gboolean ET_File_Name_Convert_Character          (gchar *filename_utf8);
 gchar   *ET_File_Name_Generate                   (ET_File *ETFile, gchar *new_file_name);
 guint ET_Get_Number_Of_Files_In_Directory (const gchar *path_utf8);
 
-gboolean ET_Detect_Changes_Of_File_Tag          (File_Tag  *FileTag1,  File_Tag  *FileTag2);
+gboolean ET_Detect_Changes_Of_File_Tag (const File_Tag *FileTag1, const File_Tag  *FileTag2);
 
 GList *ET_Sort_File_List (GList *ETFileList, EtSortMode Sorting_Type);
 void ET_Sort_Displayed_File_List_And_Update_UI (EtSortMode Sorting_Type);

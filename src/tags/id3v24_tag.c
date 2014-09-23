@@ -78,8 +78,8 @@ static void   Id3tag_delete_txxframes   (struct id3_tag *tag, const gchar *param
 static struct id3_frame *Id3tag_find_and_create_frame    (struct id3_tag *tag, const gchar *name);
 static int    id3taglib_set_field       (struct id3_frame *frame, const gchar *str, enum id3_field_type type, int num, int clear, int id3v1);
 static int    etag_set_tags             (const gchar *str, const char *frame_name, enum id3_field_type field_type, struct id3_tag *v1tag, struct id3_tag *v2tag, gboolean *strip_tags);
-static int etag_write_tags (const gchar *filename, struct id3_tag const *v1tag,
-                            struct id3_tag const *v2tag, gboolean strip_tags);
+static gboolean etag_write_tags (const gchar *filename, struct id3_tag const *v1tag,
+                            struct id3_tag const *v2tag, gboolean strip_tags, GError **error);
 
 /*************
  * Functions *
@@ -91,8 +91,9 @@ static int etag_write_tags (const gchar *filename, struct id3_tag const *v1tag,
  * If a tag entry exists (ex: title), we allocate memory, else value stays to NULL
  */
 gboolean
-Id3tag_Read_File_Tag (const gchar *filename,
-                      File_Tag *FileTag)
+id3tag_read_file_tag (const gchar *filename,
+                      File_Tag *FileTag,
+                      GError **error)
 {
     int tmpfile;
     struct id3_file *file;
@@ -105,15 +106,13 @@ Id3tag_Read_File_Tag (const gchar *filename,
     unsigned tmpupdate, update = 0;
     long tagsize;
 
-
     g_return_val_if_fail (filename != NULL && FileTag != NULL, FALSE);
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-    if ( (tmpfile=open(filename,O_RDONLY)) < 0 )
+    if ((tmpfile = open (filename, O_RDONLY)) < 0)
     {
-        gchar *filename_utf8 = filename_to_display(filename);
-        Log_Print (LOG_ERROR, _("Error while opening file ‘%s’: %s"),
-                   filename_utf8, g_strerror (errno));
-        g_free(filename_utf8);
+        g_set_error (error, G_FILE_ERROR, g_file_error_from_errno (errno),
+                     _("Error while opening file: %s"), g_strerror (errno));
         return FALSE;
     }
 
@@ -872,21 +871,24 @@ libid3tag_Get_Frame_Str (const struct id3_frame *frame,
 /*
  * Write the ID3 tags to the file. Returns TRUE on success, else 0.
  */
-gboolean Id3tag_Write_File_v24Tag (ET_File *ETFile)
+gboolean
+id3tag_write_file_v24tag (ET_File *ETFile, GError **error)
 {
-    File_Tag         *FileTag;
-    gchar            *filename, *filename_utf8;
-    gchar            *basename_utf8;
+    const File_Tag *FileTag;
+    const gchar *filename;
+    const gchar *filename_utf8;
+    gchar *basename_utf8;
     struct id3_tag   *v1tag, *v2tag;
     struct id3_frame *frame;
     union id3_field  *field;
     gchar            *string1;
     Picture          *pic;
-    gint error = 0;
     gboolean strip_tags = TRUE;
     guchar genre_value = ID3_INVALID_GENRE;
+    gboolean success;
 
     g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL, FALSE);
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     FileTag       = (File_Tag *)ETFile->FileTag->data;
     filename      = ((File_Name *)ETFile->FileNameCur->data)->value;
@@ -1138,7 +1140,7 @@ gboolean Id3tag_Write_File_v24Tag (ET_File *ETFile)
     /*********************************
      * Update id3v1.x and id3v2 tags *
      *********************************/
-    error |= etag_write_tags(filename, v1tag, v2tag, strip_tags);
+    success = etag_write_tags (filename, v1tag, v2tag, strip_tags, error);
 
     // Free data
     if (v1tag)
@@ -1146,16 +1148,14 @@ gboolean Id3tag_Write_File_v24Tag (ET_File *ETFile)
     if (v2tag)
         id3_tag_delete(v2tag);
 
-    if (error == 0)
+    if (success)
     {
         basename_utf8 = g_path_get_basename(filename_utf8);
         Log_Print (LOG_OK, _("Updated tag of ‘%s’"), basename_utf8);
         g_free(basename_utf8);
     }
 
-    if (error) return FALSE;
-    else       return TRUE;
-
+    return success;
 }
 
 /* Dele all frames with 'name'
@@ -1463,11 +1463,12 @@ etag_set_tags (const gchar *str,
     return 0;
 }
 
-static int
+static gboolean
 etag_write_tags (const gchar *filename, 
                  struct id3_tag const *v1tag,
                  struct id3_tag const *v2tag,
-                 gboolean strip_tags)
+                 gboolean strip_tags,
+                 GError **error)
 {
     id3_byte_t *v1buf, *v2buf;
     id3_length_t v1size = 0, v2size = 0;
@@ -1477,7 +1478,7 @@ etag_write_tags (const gchar *filename,
     long filev2size;
     gsize ctxsize;
     char *ctx = NULL;
-    int err = 0;
+    gboolean success = TRUE;
     gssize size_read = 0;
 
     v1buf = v2buf = NULL;
@@ -1521,20 +1522,21 @@ etag_write_tags (const gchar *filename,
     if (v2buf == NULL)
         v2size = 0;
 
-    if ((fd = open(filename, O_RDWR)) < 0)
+    if ((fd = open (filename, O_RDWR)) < 0)
     {
-        err = errno;
-        g_free(v1buf);
-        g_free(v2buf);
-        return (err);
+        g_set_error (error, G_FILE_ERROR, g_file_error_from_errno (errno),
+                     "%s", g_strerror (errno));
+        g_free (v1buf);
+        g_free (v2buf);
+        return FALSE;
     }
 
-    err = 1;
+    success = FALSE;
 
     /* Handle Id3v1 tag */
-    if ((curpos = lseek(fd, -128, SEEK_END)) < 0)
+    if ((curpos = lseek (fd, -128, SEEK_END)) < 0)
         goto out;
-    if ( (size_read = read(fd, tmp, ID3_TAG_QUERYSIZE)) != ID3_TAG_QUERYSIZE)
+    if ((size_read = read (fd, tmp, ID3_TAG_QUERYSIZE)) != ID3_TAG_QUERYSIZE)
     {
         goto out;
     }
@@ -1558,36 +1560,35 @@ etag_write_tags (const gchar *filename,
 
     /* Search id3v2 tags at the end of the file (before any ID3v1 tag) */
     /* XXX: Unsafe */
-    if ((curpos = lseek(fd, -ID3_TAG_QUERYSIZE, SEEK_CUR)) >= 0)
+    if ((curpos = lseek (fd, -ID3_TAG_QUERYSIZE, SEEK_CUR)) >= 0)
     {
-        if (read(fd, tmp, ID3_TAG_QUERYSIZE) != ID3_TAG_QUERYSIZE)
+        if (read (fd, tmp, ID3_TAG_QUERYSIZE) != ID3_TAG_QUERYSIZE)
             goto out;
         filev2size = id3_tag_query((id3_byte_t const *)tmp, ID3_TAG_QUERYSIZE);
-        if ( (filev2size > 10)
-        &&   (curpos = lseek(fd, -filev2size, SEEK_CUR)) )
+        if ((filev2size > 10) && (curpos = lseek (fd, -filev2size, SEEK_CUR)))
         {
-            if ( (size_read = read(fd, tmp, ID3_TAG_QUERYSIZE)) != ID3_TAG_QUERYSIZE)
+            if ((size_read = read (fd, tmp, ID3_TAG_QUERYSIZE)) != ID3_TAG_QUERYSIZE)
             {
                 goto out;
             }
             if (id3_tag_query((id3_byte_t const *)tmp, ID3_TAG_QUERYSIZE) != filev2size)
-                curpos = lseek(fd, -ID3_TAG_QUERYSIZE - filev2size, SEEK_CUR);
+                curpos = lseek (fd, -ID3_TAG_QUERYSIZE - filev2size, SEEK_CUR);
             else
-                curpos = lseek(fd, -ID3_TAG_QUERYSIZE, SEEK_CUR);
+                curpos = lseek (fd, -ID3_TAG_QUERYSIZE, SEEK_CUR);
         }
     }
 
     /* Write id3v1 tag */
     if (v1buf)
     {
-        if ( write(fd, v1buf, v1size) != v1size)
+        if (write (fd, v1buf, v1size) != v1size)
             goto out;
     }
 
     /* Truncate file (strip tags at the end of file) */
-    if ((curpos = lseek(fd, 0, SEEK_CUR)) <= 0 )
+    if ((curpos = lseek (fd, 0, SEEK_CUR)) <= 0)
         goto out;
-    if ((err = ftruncate(fd, curpos)))
+    if (ftruncate (fd, curpos) == -1)
         goto out;
 
     /* Handle Id3v2 tag */
@@ -1616,13 +1617,13 @@ etag_write_tags (const gchar *filename,
     {
         /* XXX */
         // Size of audio data (tags at the end were already removed)
-        ctxsize = lseek(fd, 0, SEEK_END) - filev2size;
+        ctxsize = lseek (fd, 0, SEEK_END) - filev2size;
 
         if ((ctx = g_try_malloc(ctxsize)) == NULL)
             goto out;
-        if ((curpos = lseek(fd, filev2size, SEEK_SET)) < 0)
+        if ((curpos = lseek (fd, filev2size, SEEK_SET)) < 0)
             goto out;
-        if ((size_read = /*err = */read(fd, ctx, ctxsize)) != ctxsize)
+        if ((size_read = read (fd, ctx, ctxsize)) != ctxsize)
         {
             gchar *filename_utf8 = filename_to_display(filename);
             gchar *basename_utf8 = g_path_get_basename(filename_utf8);
@@ -1633,24 +1634,24 @@ etag_write_tags (const gchar *filename,
              * support macros in extracted strings.
              * https://bugzilla.gnome.org/show_bug.cgi?id=705952
              */
-            Log_Print (LOG_ERROR,
-                       /* Translators: The first string is a filename, the
-                        * second string is the number of bytes that were
-                        * missing (not read for some reason) while reading from
-                        * the file.
-                        */
-                       ngettext ("Cannot write tag of file ‘%s’ (a byte was missing)",
-                                 "Cannot write tag of file ‘%s’ (%s bytes were missing)",
-                                 ctxsize - size_read),
-                       basename_utf8, bytes_missing);
-            g_free(filename_utf8);
-            g_free(basename_utf8);
+            g_set_error (error, G_FILE_ERROR, g_file_error_from_errno (errno),
+                         /* Translators: The first string is a filename, the
+                          * second string is the number of bytes that were
+                          * missing (not read for some reason) while reading
+                          * from the file.
+                          */
+                         ngettext ("Cannot write tag of file ‘%s’ (a byte was missing)",
+                                   "Cannot write tag of file ‘%s’ (%s bytes were missing)",
+                                   ctxsize - size_read),
+                         basename_utf8, bytes_missing);
+            g_free (filename_utf8);
+            g_free (basename_utf8);
             g_free (bytes_missing);
             goto out;
         }
         
         // Return to the beginning of the file
-        if (lseek(fd, 0, SEEK_SET) < 0)
+        if (lseek (fd, 0, SEEK_SET) < 0)
             goto out;
             
         // Write the ID3v2 tag
@@ -1660,8 +1661,9 @@ etag_write_tags (const gchar *filename,
             {
                 gchar *filename_utf8 = filename_to_display (filename);
                 gchar *basename_utf8 = g_path_get_basename (filename_utf8);
-                Log_Print (LOG_ERROR, _("Cannot save tag of file ‘%s’"),
-                           basename_utf8);
+                g_set_error (error, G_FILE_ERROR,
+                             g_file_error_from_errno (errno),
+                             _("Cannot save tag of file ‘%s’"), basename_utf8);
                 g_free (basename_utf8);
                 goto out;
             }
@@ -1671,29 +1673,30 @@ etag_write_tags (const gchar *filename,
         {
             gchar *filename_utf8 = filename_to_display(filename);
             gchar *basename_utf8 = g_path_get_basename(filename_utf8);
-            Log_Print (LOG_ERROR,
-                       _("Size error while saving tag of ‘%s’"),
-                       basename_utf8);
-            g_free(filename_utf8);
-            g_free(basename_utf8);
+            g_set_error (error, G_FILE_ERROR,
+                         g_file_error_from_errno (errno),
+                         _("Size error while saving tag of ‘%s’"),
+                         basename_utf8);
+            g_free (filename_utf8);
+            g_free (basename_utf8);
             goto out;
         }
 
-        if ((curpos = lseek(fd, 0, SEEK_CUR)) <= 0 )
+        if ((curpos = lseek (fd, 0, SEEK_CUR)) <= 0)
             goto out;
 
-        if ((err = ftruncate(fd, curpos)))
+        if (ftruncate (fd, curpos) < 0)
             goto out;
     }
 
-    err = 0;
+    success = TRUE;
 out:
     g_free(ctx);
     lseek(fd, 0, SEEK_SET);
     close(fd);
     g_free(v1buf);
     g_free(v2buf);
-    return err;
+    return success;
 }
 
 #endif /* ENABLE_MP3 */

@@ -1,21 +1,20 @@
-/* mpeg_header.c - 2000/05/12 */
-/*
- *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
- *  Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
+/* EasyTAG - Tag editor for MP3 and Ogg Vorbis files
+ * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
  *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
 #include "config.h"
@@ -24,6 +23,7 @@
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
+#include <errno.h>
 
 #include "mpeg_header.h"
 #include "easytag.h"
@@ -63,13 +63,13 @@ channel_mode_name (int mode)
     return _(channel_mode[mode]);
 }
 
-
-
 /*
  * Read infos into header of first frame
  */
 gboolean
-Mpeg_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
+mpeg_header_read_file_info (const gchar *filename,
+                            ET_File_Info *ETFileInfo,
+                            GError **error)
 {
     /*
      * With id3lib, the header frame couldn't be read if the file contains an ID3v2 tag with an APIC frame
@@ -78,13 +78,18 @@ Mpeg_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
     const Mp3_Headerinfo* headerInfo = NULL;
 
     g_return_val_if_fail (filename != NULL || ETFileInfo != NULL, FALSE);
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     /* Get size of file */
     ETFileInfo->size = et_get_file_size (filename);
 
     /* Get data from tag */
-    if ( (id3_tag = ID3Tag_New()) == NULL )
+    if ((id3_tag = ID3Tag_New()) == NULL)
+    {
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_NOMEM, "%s",
+                     g_strerror (ENOMEM));
         return FALSE;
+    }
 
     /* Link the file to the tag (uses ID3TT_ID3V2 to get header if APIC is present in Tag) */
     ID3Tag_LinkWithFlags(id3_tag,filename,ID3TT_ID3V2);

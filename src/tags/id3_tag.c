@@ -76,7 +76,7 @@ ID3_C_EXPORT size_t ID3Field_GetUNICODE_1 (const ID3Field *field, unicode_t *buf
 static gboolean et_id3tag_check_if_file_is_corrupted (GFile *file,
                                                       GError **error);
 
-static gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void);
+static gboolean id3tag_check_if_id3lib_is_buggy (GError **error);
 
 
 
@@ -92,7 +92,7 @@ static gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void);
  * Returns: a newly allocated string, should be freed using g_free.
  */
 gchar *
-et_id3tag_get_tpos_from_file_tag (File_Tag *FileTag)
+et_id3tag_get_tpos_from_file_tag (const File_Tag *FileTag)
 {
     GString *gstring;
     gchar *p;
@@ -135,20 +135,19 @@ et_id3tag_get_tpos_from_file_tag (File_Tag *FileTag)
  * Write the ID3 tags to the file. Returns TRUE on success, else 0.
  */
 static gboolean
-Id3tag_Write_File_v23Tag (ET_File *ETFile)
+id3tag_write_file_v23tag (ET_File *ETFile, GError **error)
 {
-    File_Tag *FileTag;
-    gchar    *filename;
-    gchar    *filename_utf8;
+    const File_Tag *FileTag;
+    const gchar *filename;
+    const gchar *filename_utf8;
     gchar    *basename_utf8;
     GFile *file;
-    GError *gerror = NULL;
     ID3Tag   *id3_tag = NULL;
     ID3_Err   error_strip_id3v1  = ID3E_NoError;
     ID3_Err   error_strip_id3v2  = ID3E_NoError;
     ID3_Err   error_update_id3v1 = ID3E_NoError;
     ID3_Err   error_update_id3v2 = ID3E_NoError;
-    gint error = 0;
+    gboolean success = TRUE;
     gint number_of_frames;
     gboolean has_title       = FALSE;
     gboolean has_artist      = FALSE;
@@ -176,6 +175,7 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
     Picture *pic;
 
     g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL, FALSE);
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     // When writing the first MP3 file, we check if the version of id3lib of the
     // system doesn't contain a bug when writting Unicode tags
@@ -183,7 +183,7 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
         && g_settings_get_boolean (MainSettings, "id3v2-enable-unicode"))
     {
         flag_first_check = FALSE;
-        flag_id3lib_bugged = Id3tag_Check_If_Id3lib_Is_Bugged ();
+        flag_id3lib_bugged = id3tag_check_if_id3lib_is_buggy (NULL);
     }
 
     FileTag  = (File_Tag *)ETFile->FileTag->data;
@@ -192,20 +192,14 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
 
     file = g_file_new_for_path (filename);
 
+    /* FIXME: Handle this in the caller instead. */
     /* This is a protection against a bug in id3lib that enters an infinite
      * loop with corrupted MP3 files (files containing only zeroes) */
-    if (et_id3tag_check_if_file_is_corrupted (file, &gerror))
+    if (et_id3tag_check_if_file_is_corrupted (file, error))
     {
         GtkWidget *msgdialog;
         gchar *basename;
         gchar *basename_utf8;
-
-        if (gerror)
-        {
-            Log_Print (LOG_ERROR, _("Error while reading file ‘%s’: %s"),
-                       filename_utf8, gerror->message);
-            g_error_free (gerror);
-        }
 
         basename = g_file_get_basename (file);
         basename_utf8 = filename_to_display (basename);
@@ -229,8 +223,12 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
 
     /* We get again the tag from the file to keep also unused data (by EasyTAG), then
      * we replace the changed data */
-    if ( (id3_tag = ID3Tag_New()) == NULL )
+    if ((id3_tag = ID3Tag_New ()) == NULL)
+    {
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_NOMEM,
+                     g_strerror (ENOMEM));
         return FALSE;
+    }
 
     basename_utf8 = g_path_get_basename(filename_utf8);
 
@@ -600,24 +598,26 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
         {
             if (error_strip_id3v1 != ID3E_NoError)
             {
-                Log_Print (LOG_ERROR,
-                           _("Error while removing ID3v1 tag of ‘%s’: %s"),
-                           basename_utf8,
-                           Id3tag_Get_Error_Message (error_strip_id3v1));
+                g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                             _("Error while removing ID3v1 tag of ‘%s’: %s"),
+                             basename_utf8,
+                             Id3tag_Get_Error_Message (error_strip_id3v1));
             }
 
             if (error_strip_id3v2 != ID3E_NoError)
             {
-                Log_Print (LOG_ERROR,
-                           _("Error while removing ID3v2 tag of ‘%s’: %s"),
-                           basename_utf8,
-                           Id3tag_Get_Error_Message (error_strip_id3v2));
+                g_clear_error (error);
+                g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                             _("Error while removing ID3v2 tag of ‘%s’: %s"),
+                             basename_utf8,
+                             Id3tag_Get_Error_Message (error_strip_id3v2));
             }
 
-            error++;
+            success = FALSE;
         }
 
-    }else
+    }
+    else
     {
         /* It's better to remove the id3v1 tag before, to synchronize it with the
          * id3v2 tag (else id3lib doesn't do it correctly)
@@ -633,12 +633,13 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
             error_update_id3v2 = ID3Tag_UpdateByTagType(id3_tag,ID3TT_ID3V2);
             if (error_update_id3v2 != ID3E_NoError)
             {
-                Log_Print (LOG_ERROR,
-                           _("Error while updating ID3v2 tag of ‘%s’: %s"),
-                           basename_utf8,
-                           Id3tag_Get_Error_Message (error_update_id3v2));
-                error++;
-            }else
+                g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                             _("Error while updating ID3v2 tag of ‘%s’: %s"),
+                             basename_utf8,
+                             Id3tag_Get_Error_Message (error_update_id3v2));
+                success = FALSE;
+            }
+            else
             {
                 /* See known problem on the top : [ 1016290 ] Unicode16 writing bug.
                  * When we write the tag in Unicode, we try to check if it was correctly
@@ -646,19 +647,17 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
                  * with the previous one. We check up to find an error (as only some
                  * characters are affected).
                  * If the patch to id3lib was applied to fix the problem (tested
-                 * by Id3tag_Check_If_Id3lib_Is_Bugged) we didn't make the following
+                 * by id3tag_check_if_id3lib_is_buggy) we didn't make the following
                  * test => OK */
                 if (flag_id3lib_bugged
                     && g_settings_get_boolean (MainSettings,
                                                "id3v2-enable-unicode"))
                 {
                     File_Tag  *FileTag_tmp = ET_File_Tag_Item_New();
-                    if (Id3tag_Read_File_Tag(filename,FileTag_tmp) == TRUE
+                    if (id3tag_read_file_tag (filename, FileTag_tmp, NULL) == TRUE
                     &&  ET_Detect_Changes_Of_File_Tag(FileTag,FileTag_tmp) == TRUE)
                     {
                         GtkWidget *msgdialog;
-
-                        //Log_Print(LOG_ERROR,msg);
 
                         msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
                                                            GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -683,16 +682,17 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
                 }
 
             }
-        }else
+        }
+        else
         {
             error_strip_id3v2 = ID3Tag_Strip(id3_tag,ID3TT_ID3V2);
             if (error_strip_id3v2 != ID3E_NoError)
             {
-                Log_Print (LOG_ERROR,
-                           _("Error while removing ID3v2 tag of ‘%s’: %s"),
-                           basename_utf8,
-                           Id3tag_Get_Error_Message (error_strip_id3v2));
-                error++;
+                g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                             _("Error while removing ID3v2 tag of ‘%s’: %s"),
+                             basename_utf8,
+                             Id3tag_Get_Error_Message (error_strip_id3v2));
+                success = FALSE;
             }
         }
 
@@ -712,26 +712,28 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
             error_update_id3v1 = ID3Tag_UpdateByTagType(id3_tag,ID3TT_ID3V1);
             if (error_update_id3v1 != ID3E_NoError)
             {
-                Log_Print (LOG_ERROR,
-                           _("Error while updating ID3v1 tag of ‘%s’: %s"),
-                           basename_utf8,
-                           Id3tag_Get_Error_Message (error_update_id3v1));
-                error++;
+                g_clear_error (error);
+                g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                             _("Error while updating ID3v1 tag of ‘%s’: %s"),
+                             basename_utf8,
+                             Id3tag_Get_Error_Message (error_update_id3v1));
+                success = FALSE;
             }
         }else
         {
             error_strip_id3v1 = ID3Tag_Strip(id3_tag,ID3TT_ID3V1);
             if (error_strip_id3v1 != ID3E_NoError)
             {
-                Log_Print (LOG_ERROR,
-                           _("Error while removing ID3v1 tag of ‘%s’: %s"),
-                           basename_utf8,
-                           Id3tag_Get_Error_Message (error_strip_id3v1));
-                error++;
+                g_clear_error (error);
+                g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                             _("Error while removing ID3v1 tag of ‘%s’: %s"),
+                             basename_utf8,
+                             Id3tag_Get_Error_Message (error_strip_id3v1));
+                success = FALSE;
             }
         }
 
-        if (error == 0)
+        if (success)
         {
             Log_Print (LOG_OK, _("Updated tag of ‘%s’"), basename_utf8);
         }
@@ -742,9 +744,7 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
     ID3Tag_Delete(id3_tag);
     g_free(basename_utf8);
 
-    if (error) return FALSE;
-    else       return TRUE;
-
+    return success;
 }
 
 
@@ -940,7 +940,8 @@ gchar *Id3tag_Get_Field (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid)
         // Data of the field must be a TEXT (ID3FTY_TEXTSTRING)
         if (ID3Field_GetType(id3_field) != ID3FTY_TEXTSTRING)
         {
-            Log_Print(LOG_ERROR,"Id3tag_Get_Field() must be used only for fields containing text.\n");
+            g_critical ("%s",
+                        "Id3tag_Get_Field() must be used only for fields containing text");
             return NULL;
         }
 
@@ -1045,7 +1046,7 @@ out:
     if (num_chars && !string1)
     {
         gchar *escaped_str = g_strescape(string, NULL);
-        Log_Print(LOG_OK,"Id3tag_Get_Field: Trying to fix string '%s'…",escaped_str);
+        g_debug ("Id3tag_Get_Field: Trying to fix string '%s'…", escaped_str);
         g_free(escaped_str);
 
         string1 = filename_to_display(string);
@@ -1098,7 +1099,8 @@ Id3tag_Set_Field (const ID3Frame *id3_frame,
         // Data of the field must be a TEXT (ID3FTY_TEXTSTRING)
         if (ID3Field_GetType(id3_field) != ID3FTY_TEXTSTRING)
         {
-            Log_Print(LOG_ERROR,"Id3tag_Set_Field() must be used only for fields containing text.");
+            g_critical ("%s",
+                        "Id3tag_Set_Field() must be used only for fields containing text");
             return ID3TE_NONE;
         }
 
@@ -1428,12 +1430,12 @@ et_id3tag_check_if_file_is_corrupted (GFile *file, GError **error)
  * Function to detect if id3lib isn't bugged when writting to Unicode
  * Returns TRUE if bugged, else FALSE
  */
-gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
+static gboolean
+id3tag_check_if_id3lib_is_buggy (GError **error)
 {
     GFile *file;
     GFileIOStream *iostream = NULL;
     GOutputStream *ostream = NULL;
-    GError *error = NULL;
     guchar tmp[16] = {0xFF, 0xFB, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
     ID3Tag *id3_tag = NULL;
@@ -1444,21 +1446,18 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
     gsize bytes_written;
     const gchar test_str[] = "\xe5\x92\xbb";
 
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
     /* Create a temporary file. */
-    file = g_file_new_tmp ("easytagXXXXXX.mp3", &iostream, &error);
+    file = g_file_new_tmp ("easytagXXXXXX.mp3", &iostream, error);
+
     if (!file)
     {
-        if (error)
+        /* TODO: Investigate whether error can be unset in this case. */
+        if (!error)
         {
-            Log_Print (LOG_ERROR,
-                       _("Error while creating temporary file ‘%s’"),
-                       error->message);
-            g_clear_error (&error);
-        }
-        else
-        {
-            Log_Print (LOG_ERROR, "%s",
-                       _("Error while creating temporary file"));
+            g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_NOENT, "%s",
+                         _("Error while creating temporary file"));
         }
 
         return FALSE;
@@ -1466,24 +1465,14 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
 
     /* Set data in the file. */
     ostream = g_io_stream_get_output_stream (G_IO_STREAM (iostream));
+
     if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream), tmp,
                                     sizeof (tmp), &bytes_written, NULL,
-                                    &error))
+                                    error))
     {
-        gchar *filename;
-        gchar *filename_utf8;
-
         g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %" G_GSIZE_FORMAT
                  " bytes of data were written", bytes_written, sizeof (tmp));
 
-        filename = g_file_get_path (file);
-        filename_utf8 = filename_to_display (filename);
-        Log_Print (LOG_ERROR, _("Error while writing to file ‘%s’: %s"),
-                   filename_utf8, error->message);
-
-        g_free (filename);
-        g_free (filename_utf8);
-        g_clear_error (&error);
         g_object_unref (file);
         g_output_stream_close (G_OUTPUT_STREAM (ostream), NULL, NULL);
 
@@ -1540,6 +1529,8 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
     }
 
     g_free (result);
+    g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s",
+                 "Buggy id3lib detected");
     return FALSE;
 }
 
@@ -1549,15 +1540,21 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
 /*
  * Write tag according the version selected by the user
  */
-gboolean Id3tag_Write_File_Tag (ET_File *ETFile)
+gboolean
+id3tag_write_file_tag (ET_File *ETFile,
+                       GError **error)
 {
 #ifdef ENABLE_ID3LIB
     if (g_settings_get_boolean (MainSettings, "id3v2-version-4"))
-        return Id3tag_Write_File_v24Tag(ETFile);
+    {
+        return id3tag_write_file_v24tag (ETFile, error);
+    }
     else
-        return Id3tag_Write_File_v23Tag(ETFile);
+    {
+        return id3tag_write_file_v23tag (ETFile, error);
+    }
 #else
-    return Id3tag_Write_File_v24Tag(ETFile);
+    return id3tag_write_file_v24tag (ETFile, error);
 #endif /* !ENABLE_ID3LIB */
 }
 

@@ -734,7 +734,7 @@ flac_tag_read_file_tag (const gchar *filename,
       && FileTag->encoded_by  == NULL
       && FileTag->picture     == NULL)
     {
-        gint rc = Id3tag_Read_File_Tag(filename,FileTag);
+        gboolean rc = id3tag_read_file_tag (filename, FileTag, NULL);
 
         // If an ID3 tag has been found (and no FLAC tag), we mark the file as
         // unsaved to rewrite a flac tag.
@@ -1155,7 +1155,7 @@ flac_tag_write_file_tag (ET_File *ETFile, GError **error)
         // With empty tag...
         ETFile_tmp->FileTagList  = g_list_append(NULL,FileTag_tmp);
         ETFile_tmp->FileTag      = ETFile_tmp->FileTagList;
-        Id3tag_Write_File_Tag(ETFile_tmp);
+        id3tag_write_file_tag (ETFile_tmp, NULL);
         ET_Free_File_List_Item(ETFile_tmp);
     }
 #endif

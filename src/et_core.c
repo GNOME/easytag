@@ -530,7 +530,13 @@ GList *ET_Add_File_To_File_List (gchar *filename)
     {
 #ifdef ENABLE_MP3
         case ID3_TAG:
-            Id3tag_Read_File_Tag(filename,FileTag);
+            if (!id3tag_read_file_tag (filename, FileTag, &error))
+            {
+                Log_Print (LOG_ERROR,
+                           "Error reading ID3 tag from file ‘%s’: %s",
+                           filename_utf8, error->message);
+                g_clear_error (&error);
+            }
             break;
 #endif
 #ifdef ENABLE_OGG
@@ -600,7 +606,13 @@ GList *ET_Add_File_To_File_List (gchar *filename)
 #if defined ENABLE_MP3 && defined ENABLE_ID3LIB
         case MP3_FILE:
         case MP2_FILE:
-            Mpeg_Header_Read_File_Info(filename,ETFileInfo);
+            if (!mpeg_header_read_file_info (filename, ETFileInfo, &error))
+            {
+                Log_Print (LOG_ERROR,
+                           _("Error while querying information for file ‘%s’: %s"),
+                           filename_utf8, error->message);
+                g_error_free (error);
+            }
             break;
 #endif
 #ifdef ENABLE_OGG
@@ -3455,7 +3467,7 @@ ET_Save_File_Tag_To_HD (ET_File *ETFile, GError **error)
     {
 #ifdef ENABLE_MP3
         case ID3_TAG:
-            state = Id3tag_Write_File_Tag(ETFile);
+            state = id3tag_write_file_tag (ETFile, error);
             break;
 #endif
 #ifdef ENABLE_OGG
@@ -3716,7 +3728,9 @@ ET_Detect_Changes_Of_File_Name (File_Name *FileName1, File_Name *FileName2)
  * Notes:
  *  - if field is '' or NULL => will be removed
  */
-gboolean ET_Detect_Changes_Of_File_Tag (File_Tag *FileTag1, File_Tag *FileTag2)
+gboolean
+ET_Detect_Changes_Of_File_Tag (const File_Tag *FileTag1,
+                               const File_Tag *FileTag2)
 {
     Picture *pic1;
     Picture *pic2;
