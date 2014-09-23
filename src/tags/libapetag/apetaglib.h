@@ -207,7 +207,7 @@ apetag_free (apetag *mem_cnt) ;
 
 /* save apetag to file */
 int
-apetag_save (char *filename, apetag *mem_cnt, int flag) ;
+apetag_save (const char *filename, apetag *mem_cnt, int flag) ;
 
 
 /* Add text frame */

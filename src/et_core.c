@@ -556,7 +556,13 @@ GList *ET_Add_File_To_File_List (gchar *filename)
             break;
 #endif
         case APE_TAG:
-            Ape_Tag_Read_File_Tag(filename,FileTag);
+            if (!ape_tag_read_file_tag (filename, FileTag, &error))
+            {
+                Log_Print (LOG_ERROR,
+                           _("Error reading APE tag from file ‘%s’: %s"),
+                           filename_utf8, error->message);
+                g_clear_error (&error);
+            }
             break;
 #ifdef ENABLE_MP4
         case MP4_TAG:
@@ -619,10 +625,22 @@ GList *ET_Add_File_To_File_List (gchar *filename)
             break;
 #endif
         case MPC_FILE:
-            Mpc_Header_Read_File_Info(filename,ETFileInfo);
+            if (!mpc_header_read_file_info (filename, ETFileInfo, &error))
+            {
+                Log_Print (LOG_ERROR,
+                           _("Error while querying information for file ‘%s’: %s"),
+                           filename_utf8, error->message);
+                g_error_free (error);
+            }
             break;
         case MAC_FILE:
-            Mac_Header_Read_File_Info(filename,ETFileInfo);
+            if (!mac_header_read_file_info (filename, ETFileInfo, &error))
+            {
+                Log_Print (LOG_ERROR,
+                           _("Error while querying information for file ‘%s’: %s"),
+                           filename_utf8, error->message);
+                g_error_free (error);
+            }
             break;
 #ifdef ENABLE_WAVPACK
         case WAVPACK_FILE:
@@ -3451,7 +3469,7 @@ ET_Save_File_Tag_To_HD (ET_File *ETFile, GError **error)
             break;
 #endif
         case APE_TAG:
-            state = Ape_Tag_Write_File_Tag(ETFile);
+            state = ape_tag_write_file_tag (ETFile, error);
             break;
 #ifdef ENABLE_MP4
         case MP4_TAG:

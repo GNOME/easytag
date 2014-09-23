@@ -1,7 +1,7 @@
 /* EasyTAG - Tag editor for audio files
  * Copyright (C) 2014  David King <amigadave@amigadave.com>
  * Copyright (C) 2001-2003  Jerome Couderc <easytag@gmail.com>
- * Copyright (C) 2002-2003  Artur Polaczy�ski <artii@o2.pl>
+ * Copyright (C) 2002-2003  Artur Polaczyñski <artii@o2.pl>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,18 +42,22 @@
  ***************/
 
 gboolean
-Mac_Header_Read_File_Info (const gchar *filename,
-                           ET_File_Info *ETFileInfo)
+mac_header_read_file_info (const gchar *filename,
+                           ET_File_Info *ETFileInfo,
+                           GError **error)
 {
     StreamInfoMac Info;
 
-    if (info_mac_read(filename, &Info))
+    g_return_val_if_fail (filename != NULL && ETFileInfo != NULL, FALSE);
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+    if (info_mac_read (filename, &Info))
     {
-        gchar *filename_utf8 = filename_to_display(filename);
-        fprintf(stderr,"MAC header not found for file '%s'\n", filename_utf8);
-        g_free(filename_utf8);
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s",
+                     _("Error opening Monkey’s Audio file"));
         return FALSE;
     }
+
     ETFileInfo->mpc_profile   = g_strdup(Info.CompresionName);
     ETFileInfo->version       = Info.Version;
     ETFileInfo->bitrate       = Info.Bitrate/1000.0;

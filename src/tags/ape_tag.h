@@ -25,8 +25,8 @@
 
 G_BEGIN_DECLS
 
-gboolean Ape_Tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag);
-gboolean Ape_Tag_Write_File_Tag (ET_File *ETFile);
+gboolean ape_tag_read_file_tag (const gchar *filename, File_Tag *FileTag, GError **error);
+gboolean ape_tag_write_file_tag (ET_File *ETFile, GError **error);
 
 G_END_DECLS
 

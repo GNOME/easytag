@@ -42,18 +42,22 @@
  ***************/
 
 gboolean
-Mpc_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
+mpc_header_read_file_info (const gchar *filename,
+                           ET_File_Info *ETFileInfo,
+                           GError **error)
 {
     StreamInfoMpc Info;
 
-    if (info_mpc_read(filename, &Info))
+    g_return_val_if_fail (filename != NULL && ETFileInfo != NULL, FALSE);
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+    if (info_mpc_read (filename, &Info))
     {
-        gchar *filename_utf8 = filename_to_display(filename);
-        fprintf(stderr,"MPC header not found for file '%s'\n", filename_utf8);
-        g_free(filename_utf8);
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s",
+                     _("Error opening Musepack file"));
         return FALSE;
     }
-    //printf("%",Info.fields);
+
     ETFileInfo->mpc_profile = g_strdup(Info.ProfileName);
     ETFileInfo->version     = Info.StreamVersion;
     ETFileInfo->bitrate     = Info.Bitrate/1000.0;

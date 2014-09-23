@@ -884,7 +884,7 @@ libapetag_qsort (struct tag **a, struct tag **b)
 
 */
 int
-apetag_save (char *filename, apetag *mem_cnt, int flag)
+apetag_save (const char *filename, apetag *mem_cnt, int flag)
 {
     FILE *fp;
     struct _id3v1Tag id3v1_tag;

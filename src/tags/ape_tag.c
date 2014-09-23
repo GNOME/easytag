@@ -46,7 +46,9 @@
  *  - if field is found but contains no info (strlen(str)==0), we don't read it
  */
 gboolean
-Ape_Tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag)
+ape_tag_read_file_tag (const gchar *filename,
+                       File_Tag *FileTag,
+                       GError **error)
 {
     FILE *file;
     gchar *string = NULL;
@@ -54,13 +56,13 @@ Ape_Tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag)
     apetag *ape_cnt;
 
     g_return_val_if_fail (filename != NULL && FileTag != NULL, FALSE);
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-    if ((file = fopen(filename, "rb")) == NULL)
+    if ((file = fopen (filename, "rb")) == NULL)
     {
-        gchar *filename_utf8 = filename_to_display(filename);
-        Log_Print (LOG_ERROR, _("Error while opening file ‘%s’: %s"),
-                   filename_utf8, g_strerror (errno));
-        g_free(filename_utf8);
+        g_set_error (error, G_FILE_ERROR, g_file_error_from_errno (errno),
+                     _("Error while opening file: %s"),
+                     g_strerror (errno));
         return FALSE;
     }
 
@@ -201,25 +203,33 @@ Ape_Tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag)
     return TRUE;
 }
 
-
-
-gboolean Ape_Tag_Write_File_Tag (ET_File *ETFile)
+gboolean
+ape_tag_write_file_tag (ET_File *ETFile,
+                        GError **error)
 {
 
-    File_Tag *FileTag;
-    gchar    *filename_in;
+    const File_Tag *FileTag;
+    const gchar *filename_in;
     //FILE     *file_in;
     gchar    *string;
     //GList    *list;
     apetag   *ape_mem;
 
-    if (!ETFile || !ETFile->FileTag)
     g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL, FALSE);
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     FileTag     = (File_Tag *)ETFile->FileTag->data;
     filename_in = ((File_Name *)ETFile->FileNameCur->data)->value;
 
-    ape_mem = apetag_init();
+    ape_mem = apetag_init ();
+
+    /* TODO: Pointless, as g_set_error() will try to malloc. */
+    if (!ape_mem)
+    {
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_NOMEM, "%s",
+                     g_strerror (ENOMEM));
+        return FALSE;
+    }
 
     /*********
      * Title *
@@ -347,9 +357,16 @@ gboolean Ape_Tag_Write_File_Tag (ET_File *ETFile)
     else
         apefrm_remove(ape_mem,"Encoded By");
 
-
     /* reread all tag-type again  excl. changed frames by apefrm_remove() */
-    apetag_save(filename_in,ape_mem,APE_TAG_V2+SAVE_NEW_OLD_APE_TAG);
+    if (apetag_save (filename_in, ape_mem, APE_TAG_V2 + SAVE_NEW_OLD_APE_TAG)
+        != 0)
+    {
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s",
+                     _("Failed to write APE tag"));
+        apetag_free (ape_mem);
+        return FALSE;
+    }
+
     apetag_free(ape_mem);
 
     return TRUE;

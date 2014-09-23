@@ -1,7 +1,7 @@
 /* EasyTAG - Tag editor for audio files
  * Copyright (C) 2014  David King <amigadave@amigadave.com>
  * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
- * Copyright (C) 2002-2003  Artur Polaczyñski <artii@o2.pl>
+ * Copyright (C) 2002-2003  Artur PolaczyÃ±ski <artii@o2.pl>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
 
 G_BEGIN_DECLS
 
-gboolean Mac_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo);
+gboolean mac_header_read_file_info (const gchar *filename, ET_File_Info *ETFileInfo, GError **error);
 EtFileHeaderFields * Mac_Header_Display_File_Info_To_UI (const gchar *filename, ET_File *ETFile);
 void et_mac_file_header_fields_free (EtFileHeaderFields *fields);
 

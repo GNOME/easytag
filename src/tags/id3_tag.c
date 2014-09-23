@@ -569,7 +569,7 @@ Id3tag_Write_File_v23Tag (ET_File *ETFile)
         // With empty tag...
         ETFile_tmp->FileTagList  = g_list_append(NULL,FileTag_tmp);
         ETFile_tmp->FileTag      = ETFile_tmp->FileTagList;
-        Ape_Tag_Write_File_Tag(ETFile_tmp);
+        ape_tag_write_file_tag (ETFile_tmp, NULL);
         ET_Free_File_List_Item(ETFile_tmp);
     }
 
