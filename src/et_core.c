@@ -544,8 +544,8 @@ GList *ET_Add_File_To_File_List (gchar *filename)
             if (!ogg_tag_read_file_tag (filename, FileTag, &error))
             {
                 Log_Print (LOG_ERROR,
-                           _("Error reading tag from Ogg file ‘%s’"),
-                           error->message);
+                           _("Error reading tag from Ogg file ‘%s’: %s"),
+                           filename_utf8, error->message);
                 g_clear_error (&error);
             }
             break;
@@ -591,8 +591,8 @@ GList *ET_Add_File_To_File_List (gchar *filename)
             if (!et_opus_tag_read_file_tag (file, FileTag, &error))
             {
                 Log_Print (LOG_ERROR,
-                           _("Error reading tag from Opus file ‘%s’"),
-                           error->message);
+                           _("Error reading tag from Opus file ‘%s’: %s"),
+                           filename_utf8, error->message);
                 g_clear_error (&error);
             }
             break;
@@ -623,12 +623,24 @@ GList *ET_Add_File_To_File_List (gchar *filename)
 #endif
 #ifdef ENABLE_OGG
         case OGG_FILE:
-            Ogg_Header_Read_File_Info(filename,ETFileInfo);
+            if (!ogg_header_read_file_info (filename, ETFileInfo, &error))
+            {
+                Log_Print (LOG_ERROR,
+                           _("Error while querying information for file ‘%s’: %s"),
+                           filename_utf8, error->message);
+                g_error_free (error);
+            }
             break;
 #endif
 #ifdef ENABLE_SPEEX
         case SPEEX_FILE:
-            Speex_Header_Read_File_Info(filename,ETFileInfo);
+            if (!speex_header_read_file_info (filename, ETFileInfo, &error))
+            {
+                Log_Print (LOG_ERROR,
+                           _("Error while querying information for file ‘%s’: %s"),
+                           filename_utf8, error->message);
+                g_error_free (error);
+            }
             break;
 #endif
 #ifdef ENABLE_FLAC

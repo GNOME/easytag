@@ -818,9 +818,9 @@ static void Ogg_Set_Tag (vorbis_comment *vc, const gchar *tag_name, gchar *value
 gboolean
 ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
 {
-    File_Tag       *FileTag;
-    gchar          *filename;
-    gchar          *filename_utf8;
+    const File_Tag *FileTag;
+    const gchar *filename;
+    const gchar *filename_utf8;
     gchar          *basename_utf8;
     GFile           *file;
     GFileInputStream *istream;

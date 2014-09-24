@@ -195,7 +195,9 @@ et_ogg_tell_func (void *datasource)
 }
 
 gboolean
-Ogg_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
+ogg_header_read_file_info (const gchar *filename,
+                           ET_File_Info *ETFileInfo,
+                           GError **error)
 {
     OggVorbis_File vf;
     vorbis_info *vi;
@@ -212,6 +214,7 @@ Ogg_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
     gchar *filename_utf8;
 
     g_return_val_if_fail (filename != NULL && ETFileInfo != NULL, FALSE);
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     state.file = g_file_new_for_path (filename);
     state.error = NULL;
@@ -222,9 +225,9 @@ Ogg_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
 
     if (!state.istream)
     {
-        /* FIXME: Pass error back to calling function. */
-        Log_Print (LOG_ERROR, _("Error while opening file ‘%s’: %s"),
-                   filename_utf8, state.error->message);
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                     _("Error while opening file ‘%s’: %s"), filename_utf8,
+                     state.error->message);
         g_free (filename_utf8);
         return FALSE;
     }
@@ -237,12 +240,16 @@ Ogg_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
             channels        = vi->channels;        // Number of channels in bitstream.
             rate            = vi->rate;            // (Hz) Sampling rate of the bitstream.
             bitrate_nominal = vi->bitrate_nominal; // (b/s) Specifies the average bitrate for a VBR bitstream.
-        }else
+        }
+        else
         {
-            Log_Print (LOG_ERROR,
+            g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
                        _("The specified bitstream does not exist or the "
                          "file has been initialized improperly (file: ‘%s’)"),
                        filename_utf8);
+            g_free (filename_utf8);
+            et_ogg_close_func (&state);
+            return FALSE;
         }
 
         duration        = ov_time_total(&vf,-1); // (s) Total time.
@@ -268,42 +275,38 @@ Ogg_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
         /* On error. */
         if (state.error)
         {
-            g_debug ("Ogg Vorbis: error reading header information ‘%s’",
-                     state.error->message);
+            gchar *message;
+
+            switch (res)
+            {
+                case OV_EREAD:
+                    message = _("Read from media returned an error");
+                    break;
+                case OV_ENOTVORBIS:
+                    message = _("Bitstream is not Vorbis data");
+                    break;
+                case OV_EVERSION:
+                    message = _("Vorbis version mismatch");
+                    break;
+                case OV_EBADHEADER:
+                    message = _("Invalid Vorbis bitstream header");
+                    break;
+                case OV_EFAULT:
+                    message = _("Internal logic fault, indicates a bug or heap/stack corruption");
+                    break;
+                default:
+                    message = "";
+                    break;
+            }
+
+            g_set_error (error, state.error->domain, state.error->code,
+                         "%s", message);
+            et_ogg_close_func (&state);
+            g_free (filename_utf8);
+            return FALSE;
         }
 
         et_ogg_close_func (&state);
-
-        switch (res)
-        {
-            case OV_EREAD:
-                Log_Print (LOG_ERROR,
-                           _("Read from media returned an error (file: ‘%s’)"),
-                           filename_utf8);
-                break;
-            case OV_ENOTVORBIS:
-                Log_Print (LOG_ERROR,
-                           _("Bitstream is not Vorbis data (file: ‘%s’)"),
-                           filename_utf8);
-                break;
-            case OV_EVERSION:
-                Log_Print (LOG_ERROR,
-                           _("Vorbis version mismatch (file: ‘%s’)"),
-                           filename_utf8);
-                break;
-            case OV_EBADHEADER:
-                Log_Print (LOG_ERROR,
-                           _("Invalid Vorbis bitstream header (file: ‘%s’)"),
-                           filename_utf8);
-                break;
-            case OV_EFAULT:
-                Log_Print (LOG_ERROR,
-                           _("Internal logic fault, indicates a bug or heap/stack corruption (file: ‘%s’)"),
-                           filename_utf8);
-                break;
-            default:
-                break;
-        }
     }
 
     filesize = et_get_file_size (filename);
@@ -323,7 +326,9 @@ Ogg_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
 #ifdef ENABLE_SPEEX
 
 gboolean
-Speex_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
+speex_header_read_file_info (const gchar *filename,
+                             ET_File_Info *ETFileInfo,
+                             GError **error)
 {
     vcedit_state *state;
     SpeexHeader  *si;
@@ -333,25 +338,23 @@ Speex_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
     glong bitrate = 0;
     gdouble duration = 0;
     gulong filesize;
-    gchar *filename_utf8;
     GFile *gfile;
-    GError *error = NULL;
+    GError *tmp_error = NULL;
 
     g_return_val_if_fail (filename != NULL && ETFileInfo != NULL, FALSE);
-
-    filename_utf8 = filename_to_display(filename);
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     state = vcedit_new_state();    // Allocate memory for 'state'
     gfile = g_file_new_for_path (filename);
-    if (!vcedit_open (state, gfile, &error))
+
+    if (!vcedit_open (state, gfile, &tmp_error))
     {
-        Log_Print (LOG_ERROR,
-                   _("Failed to open file ‘%s’ as Vorbis: %s"),
-                   filename_utf8, error->message);
-        g_error_free (error);
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                     _("Failed to open file as Vorbis: %s"),
+                     tmp_error->message);
+        g_error_free (tmp_error);
         g_object_unref (gfile);
-        g_free(filename_utf8);
-        vcedit_clear(state);
+        vcedit_clear (state);
         return FALSE;
     }
 
@@ -384,7 +387,6 @@ Speex_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
 
     vcedit_clear(state);
     g_object_unref (gfile);
-    g_free(filename_utf8);
     return TRUE;
 }
 #endif

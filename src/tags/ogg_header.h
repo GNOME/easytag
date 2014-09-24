@@ -69,16 +69,13 @@ typedef enum
     ET_OGG_ERROR_OUTPUT
 } EtOGGError;
 
-/**************
- * Prototypes *
- **************/
-
-gboolean Ogg_Header_Read_File_Info (const gchar *filename,
-                                    ET_File_Info *ETFileInfo);
+gboolean ogg_header_read_file_info (const gchar *filename,
+                                    ET_File_Info *ETFileInfo,
+                                    GError **error);
 EtFileHeaderFields * Ogg_Header_Display_File_Info_To_UI (const gchar *filename, ET_File *ETFile);
 void et_ogg_file_header_fields_free (EtFileHeaderFields *fields);
 
-gboolean Speex_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo);
+gboolean speex_header_read_file_info (const gchar *filename, ET_File_Info *ETFileInfo, GError **error);
 
 G_END_DECLS
 
