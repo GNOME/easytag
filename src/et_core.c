@@ -572,7 +572,13 @@ GList *ET_Add_File_To_File_List (gchar *filename)
             break;
 #ifdef ENABLE_MP4
         case MP4_TAG:
-            Mp4tag_Read_File_Tag(filename,FileTag);
+            if (!mp4tag_read_file_tag (filename, FileTag, &error))
+            {
+                Log_Print (LOG_ERROR,
+                           _("Error reading tag from MP4 file ‘%s’: %s"),
+                           filename_utf8, error->message);
+                g_clear_error (&error);
+            }
             break;
 #endif
 #ifdef ENABLE_WAVPACK
@@ -661,7 +667,13 @@ GList *ET_Add_File_To_File_List (gchar *filename)
 #endif
 #ifdef ENABLE_MP4
         case MP4_FILE:
-            Mp4_Header_Read_File_Info(filename,ETFileInfo);
+            if (!mp4_header_read_file_info (filename, ETFileInfo, &error))
+            {
+                Log_Print (LOG_ERROR,
+                           _("Error while querying information for file ‘%s’: %s"),
+                           filename_utf8, error->message);
+                g_error_free (error);
+            }
             break;
 #endif
 #ifdef ENABLE_OPUS
@@ -3485,7 +3497,7 @@ ET_Save_File_Tag_To_HD (ET_File *ETFile, GError **error)
             break;
 #ifdef ENABLE_MP4
         case MP4_TAG:
-            state = Mp4tag_Write_File_Tag(ETFile);
+            state = mp4tag_write_file_tag (ETFile, error);
             break;
 #endif
 #ifdef ENABLE_WAVPACK

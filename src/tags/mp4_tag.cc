@@ -52,7 +52,9 @@
  * Read tag data into an Mp4 file.
  */
 gboolean
-Mp4tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag)
+mp4tag_read_file_tag (const gchar *filename,
+                      File_Tag *FileTag,
+                      GError **error)
 {
     TagLib::MP4::Tag *tag;
     guint year;
@@ -66,9 +68,10 @@ Mp4tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag)
     if (!stream.isOpen ())
     {
         gchar *filename_utf8 = filename_to_display (filename);
-        const GError *error = stream.getError ();
-        Log_Print (LOG_ERROR, _("Error while opening file ‘%s’: %s"),
-                   filename_utf8, error->message);
+        const GError *tmp_error = stream.getError ();
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                     _("Error while opening file ‘%s’: %s"), filename_utf8,
+                     tmp_error->message);
         g_free (filename_utf8);
         return FALSE;
     }
@@ -79,17 +82,19 @@ Mp4tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag)
     if (!mp4file.isOpen ())
     {
         gchar *filename_utf8 = filename_to_display (filename);
-        const GError *error = stream.getError ();
+        const GError *tmp_error = stream.getError ();
 
-        if (error)
+        if (tmp_error)
         {
-            Log_Print (LOG_ERROR, _("Error while opening file ‘%s’: %s"),
-                       filename_utf8, error->message);
+            g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                         _("Error while opening file ‘%s’: %s"), filename_utf8,
+                         tmp_error->message);
         }
         else
         {
-            Log_Print (LOG_ERROR, _("Error while opening file ‘%s’: %s"),
-                       filename_utf8, _("MP4 format invalid"));
+            g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                         _("Error while opening file ‘%s’: %s"), filename_utf8,
+                         _("MP4 format invalid"));
         }
 
         g_free (filename_utf8);
@@ -99,8 +104,8 @@ Mp4tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag)
     if (!(tag = mp4file.tag ()))
     {
         gchar *filename_utf8 = filename_to_display (filename);
-        Log_Print (LOG_ERROR, _("Error reading tags from file ‘%s’"),
-                   filename_utf8);
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                     _("Error reading tags from file ‘%s’"), filename_utf8);
         g_free (filename_utf8);
         return FALSE;
     }
@@ -238,11 +243,13 @@ Mp4tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag)
  *
  * Write tag data into an Mp4 file.
  */
-gboolean Mp4tag_Write_File_Tag (ET_File *ETFile)
+gboolean
+mp4tag_write_file_tag (ET_File *ETFile,
+                       GError **error)
 {
-    File_Tag *FileTag;
-    gchar    *filename;
-    gchar    *filename_utf8;
+    const File_Tag *FileTag;
+    const gchar *filename;
+    const gchar *filename_utf8;
     TagLib::MP4::Tag *tag;
     gboolean success;
 
@@ -259,9 +266,10 @@ gboolean Mp4tag_Write_File_Tag (ET_File *ETFile)
     if (!stream.isOpen ())
     {
         gchar *filename_utf8 = filename_to_display (filename);
-        const GError *error = stream.getError ();
-        Log_Print (LOG_ERROR, _("Error while opening file ‘%s’: %s"),
-                   filename_utf8, error->message);
+        const GError *tmp_error = stream.getError ();
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                     _("Error while opening file ‘%s’: %s"), filename_utf8,
+                     tmp_error->message);
         g_free (filename_utf8);
         return FALSE;
     }
@@ -272,18 +280,21 @@ gboolean Mp4tag_Write_File_Tag (ET_File *ETFile)
 
     if (!mp4file.isOpen ())
     {
-        const GError *error = stream.getError ();
+        const GError *tmp_error = stream.getError ();
 
-        if (error)
+        if (tmp_error)
         {
-            Log_Print (LOG_ERROR, _("Error while opening file ‘%s’: %s"),
-                       filename_utf8, error->message);
+            g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                         _("Error while opening file ‘%s’: %s"), filename_utf8,
+                         tmp_error->message);
         }
         else
         {
-            Log_Print (LOG_ERROR, _("Error while opening file ‘%s’: %s"),
-                       filename_utf8, _("MP4 format invalid"));
+            g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                         _("Error while opening file ‘%s’: %s"), filename_utf8,
+                         _("MP4 format invalid"));
         }
+
 
         return FALSE;
     }
@@ -291,8 +302,8 @@ gboolean Mp4tag_Write_File_Tag (ET_File *ETFile)
     if (!(tag = mp4file.tag ()))
     {
         gchar *filename_utf8 = filename_to_display (filename);
-        Log_Print (LOG_ERROR, _("Error reading tags from file ‘%s’"),
-                   filename_utf8);
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                     _("Error reading tags from file ‘%s’"), filename_utf8);
         g_free (filename_utf8);
         return FALSE;
     }

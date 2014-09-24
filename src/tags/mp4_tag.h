@@ -25,8 +25,8 @@
 
 G_BEGIN_DECLS
 
-gboolean Mp4tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag);
-gboolean Mp4tag_Write_File_Tag (ET_File *ETFile);
+gboolean mp4tag_read_file_tag (const gchar *filename, File_Tag *FileTag, GError **error);
+gboolean mp4tag_write_file_tag (ET_File *ETFile, GError **error);
 
 G_END_DECLS
 

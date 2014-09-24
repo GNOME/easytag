@@ -22,12 +22,14 @@
 /* This file is intended to be included directly in mp4_tag.cc */
 
 /*
- * Mp4_Header_Read_File_Info:
+ * mp4_header_read_file_info:
  *
  * Get header info into the ETFileInfo structure
  */
 gboolean
-Mp4_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
+mp4_header_read_file_info (const gchar *filename,
+                           ET_File_Info *ETFileInfo,
+                           GError **error)
 {
     const TagLib::MP4::Properties *properties;
 
@@ -42,9 +44,10 @@ Mp4_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
     if (!stream.isOpen ())
     {
         gchar *filename_utf8 = filename_to_display (filename);
-        const GError *error = stream.getError ();
-        Log_Print (LOG_ERROR, _("Error while opening file ‘%s’: %s"),
-                   filename_utf8, error->message);
+        const GError *tmp_error = stream.getError ();
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                     _("Error while opening file ‘%s’: %s"), filename_utf8,
+                     tmp_error->message);
         g_free (filename_utf8);
         return FALSE;
     }
@@ -56,8 +59,9 @@ Mp4_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
     if (!mp4file.isOpen ())
     {
         gchar *filename_utf8 = filename_to_display (filename);
-        Log_Print (LOG_ERROR, _("Error while opening file ‘%s’: %s"),
-                   filename_utf8, _("MP4 format invalid"));
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                     _("Error while opening file ‘%s’: %s"), filename_utf8,
+                     _("MP4 format invalid"));
         g_free (filename_utf8);
         return FALSE;
     }
@@ -67,8 +71,9 @@ Mp4_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo)
     if (properties == NULL)
     {
         gchar *filename_utf8 = filename_to_display (filename);
-        Log_Print (LOG_ERROR, _("Error reading properties from file ‘%s’"),
-                   filename_utf8);
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                     _("Error reading properties from file ‘%s’"),
+                     filename_utf8);
         g_free (filename_utf8);
         return FALSE;
     }
