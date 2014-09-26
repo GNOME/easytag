@@ -295,7 +295,7 @@ ET_File      *ET_File_Item_New       (void);
 File_Name    *ET_File_Name_Item_New  (void);
 File_Tag     *ET_File_Tag_Item_New   (void);
 gboolean      ET_Free_File_Tag_Item  (File_Tag *FileTag);
-gboolean      ET_Free_File_List_Item (ET_File *ETFile);
+void      ET_Free_File_List_Item (ET_File *ETFile);
 
 gboolean ET_Copy_File_Tag_Item          (ET_File *ETFile, File_Tag *FileTag);
 gboolean ET_Set_Field_File_Name_Item    (gchar **FileNameField, gchar *value);

@@ -136,7 +136,7 @@ static const ET_File_Description *ET_Get_File_Description_From_Extension (const 
 static gboolean ET_Free_File_List                 (void);
 static gboolean ET_Free_File_Name_List            (GList *FileNameList);
 static gboolean ET_Free_File_Tag_List (GList *FileTagList);
-static gboolean ET_Free_File_Name_Item            (File_Name *FileName);
+static void ET_Free_File_Name_Item (File_Name *FileName);
 static gboolean ET_Free_File_Tag_Item_Other_Field (File_Tag *FileTag);
 static gboolean ET_Free_File_Info_Item (ET_File_Info *ETFileInfo);
 static gboolean ET_Free_History_File_List (void);
@@ -864,17 +864,16 @@ gboolean ET_Remove_File_From_File_List (ET_File *ETFile)
             ETCore->ETFileDisplayed = (ET_File *)NULL;
     }
 
-    // Remove the file from the ETFileList list
-    ETCore->ETFileList = g_list_first(g_list_remove_link(g_list_first(ETCore->ETFileList),ETFileList));
+    /* Remove the file from the ETFileList list. */
+    ETCore->ETFileList = g_list_remove (g_list_first (ETCore->ETFileList),
+                                        ETFileList);
 
     // Remove the file from the ETArtistAlbumList list
     ET_Remove_File_From_Artist_Album_List(ETFile);
 
-    // Remove the file from the ETFileDisplayedList list (if not already done)
-    if ( (ETFileDisplayedList = g_list_find(ETCore->ETFileDisplayedList,ETFile)) )
-    {
-        ETCore->ETFileDisplayedList = g_list_first(g_list_remove_link(g_list_first(ETCore->ETFileDisplayedList),ETFileDisplayedList));
-    }
+    /* Remove the file from the ETFileDisplayedList list (if not already). */
+    ETCore->ETFileDisplayedList = g_list_remove (g_list_first (ETCore->ETFileDisplayedList),
+                                                 ETFileDisplayedList);
 
     // Free data of the file
     ET_Free_File_List_Item(ETFile);
@@ -950,17 +949,12 @@ ET_Remove_File_From_Artist_Album_List (ET_File *ETFile)
 
                         if (AlbumList) /* Delete from ArtistList. */
                         {
-                            ArtistList->data = (gpointer) g_list_first (AlbumList);
+                            ArtistList->data = AlbumList;
                         }
                         else
                         {
                             /* Delete from the main list. */
                             ETCore->ETArtistAlbumFileList = g_list_remove (ArtistList,ArtistList->data);
-
-                            if (ETCore->ETArtistAlbumFileList)
-                            {
-                                ETCore->ETArtistAlbumFileList = g_list_first (ETCore->ETArtistAlbumFileList);
-                            }
 
                             return TRUE;
                         }
@@ -1152,7 +1146,7 @@ ET_Sort_File_List (GList *ETFileList, EtSortMode Sorting_Type)
     g_settings_set_enum (MainSettings, "sort-mode", Sorting_Type);
 
     //ETFileList = g_list_first(etfilelist);
-    return g_list_first(etfilelist);
+    return etfilelist;
 }
 
 
@@ -2209,7 +2203,8 @@ gboolean ET_Free_File_List (void)
 /*
  * Frees one item of the full main list of files.
  */
-gboolean ET_Free_File_List_Item (ET_File *ETFile)
+void
+ET_Free_File_List_Item (ET_File *ETFile)
 {
     if (ETFile)
     {
@@ -2238,8 +2233,6 @@ gboolean ET_Free_File_List_Item (ET_File *ETFile)
         g_free(ETFile->ETFileExtension);
         g_free(ETFile);
     }
-
-    return TRUE;
 }
 
 
@@ -2261,16 +2254,16 @@ gboolean ET_Free_File_Name_List (GList *FileNameList)
 /*
  * Frees a File_Name item.
  */
-gboolean ET_Free_File_Name_Item (File_Name *FileName)
+static void
+ET_Free_File_Name_Item (File_Name *FileName)
 {
-    g_return_val_if_fail (FileName != NULL, FALSE);
+    g_return_if_fail (FileName != NULL);
 
     g_free(FileName->value);
     g_free(FileName->value_utf8);
     g_free(FileName->value_ck);
     g_free(FileName);
 
-    return TRUE;
 }
 
 
@@ -2411,7 +2404,7 @@ ET_Free_Artist_Album_File_List (void)
     {
         GList *m;
 
-	for (m = (GList *)l->data; m != NULL; m = g_list_next (m))
+        for (m = (GList *)l->data; m != NULL; m = g_list_next (m))
         {
             GList *n = (GList *)m->data;
             if (n)
