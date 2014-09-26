@@ -1535,9 +1535,11 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
     /* Same string found? if yes => not buggy. */
     if (result && strcmp (result, test_str) != 0)
     {
+        g_free (result);
         return TRUE;
     }
 
+    g_free (result);
     return FALSE;
 }
 
