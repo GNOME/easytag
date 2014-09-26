@@ -750,81 +750,96 @@ gboolean ET_Create_Artist_Album_File_List (void)
 static gboolean
 ET_Add_File_To_Artist_Album_File_List (ET_File *ETFile)
 {
-    if (ETFile)
-    {
-        gchar *ETFile_Artist = ((File_Tag *)ETFile->FileTag->data)->artist; // Artist value of the ETFile passed in parameter
-        gchar *ETFile_Album  = ((File_Tag *)ETFile->FileTag->data)->album;  // Album  value of the ETFile passed in parameter
-        gchar *etfile_artist = NULL;
-        gchar *etfile_album  = NULL;
-        GList *ArtistList;
-        GList *AlbumList     = NULL;
-        GList *etfilelist    = NULL;
-        ET_File *etfile      = NULL;
+    const gchar *ETFile_Artist;
+    const gchar *ETFile_Album;
+    gchar *etfile_artist = NULL;
+    gchar *etfile_album = NULL;
+    GList *ArtistList;
+    GList *AlbumList = NULL;
+    GList *etfilelist = NULL;
+    ET_File *etfile = NULL;
 
-        for (ArtistList = ETCore->ETArtistAlbumFileList; ArtistList != NULL;
-             ArtistList = g_list_next (ArtistList))
+    g_return_val_if_fail (ETFile != NULL, FALSE);
+
+    /* Album value of the ETFile passed in parameter. */
+    ETFile_Album = ((File_Tag *)ETFile->FileTag->data)->album;
+    /* Artist value of the ETFile passed in parameter. */
+    ETFile_Artist = ((File_Tag *)ETFile->FileTag->data)->artist;
+
+    for (ArtistList = ETCore->ETArtistAlbumFileList; ArtistList != NULL;
+         ArtistList = g_list_next (ArtistList))
+    {
+        AlbumList = (GList *)ArtistList->data;  /* Take the first item */
+        /* Take the first item, and the first etfile item. */
+        if (AlbumList && (etfilelist = (GList *)AlbumList->data)
+            && (etfile = (ET_File *)etfilelist->data)
+            && ((File_Tag *)etfile->FileTag->data) != NULL)
         {
-            AlbumList = (GList *)ArtistList->data;  /* Take the first item */
-            if (AlbumList
-            && (etfilelist = (GList *)AlbumList->data)       /* Take the first item */
-            && (etfile     = (ET_File *)etfilelist->data)    /* Take the first etfile item */
-            && ((File_Tag *)etfile->FileTag->data) != NULL )
-            {
-                etfile_artist = ((File_Tag *)etfile->FileTag->data)->artist;
-            }else
-            {
-                etfile_artist = NULL;
-            }
-
-            if ( (etfile_artist &&  ETFile_Artist && strcmp(etfile_artist,ETFile_Artist)==0)
-            ||   (!etfile_artist && !ETFile_Artist) ) // The "artist" values correspond?
-            {
-                // The "ArtistList" item was found!
-                while (AlbumList)
-                {
-                    if ( (etfilelist = (GList *)AlbumList->data)
-                    &&   (etfile     = (ET_File *)etfilelist->data)
-                    &&   ((File_Tag *)etfile->FileTag->data) != NULL )
-                    {
-                        etfile_album  = ((File_Tag *)etfile->FileTag->data)->album;
-                    }else
-                    {
-                        etfile_album  = NULL;
-                    }
-
-                    if ( (etfile_album &&  ETFile_Album && strcmp(etfile_album,ETFile_Album)==0)
-                    ||   (!etfile_album && !ETFile_Album) ) // The "album" values correspond?
-                    {
-                        // The "AlbumList" item was found!
-                        // Add the ETFile to this AlbumList item
-                        //g_print(">>>  add to etfile list (%s)\n",g_path_get_basename(((File_Name *)ETFile->FileNameCur->data)->value));
-                        AlbumList->data = (gpointer) g_list_append((GList *)AlbumList->data,ETFile);
-                        AlbumList->data = (gpointer) g_list_sort((GList *)AlbumList->data,(GCompareFunc)ET_Comp_Func_Sort_Etfile_Item_By_Ascending_Filename);
-                        return TRUE;
-                    }
-                    AlbumList = g_list_next (AlbumList);
-                }
-                // The "AlbumList" item was NOT found! => Add a new "AlbumList" item (+...) item to the "ArtistList" list
-                etfilelist = g_list_append(NULL,ETFile);
-                //g_print(">>>  add new album (%s)\n",g_path_get_basename(((File_Name *)ETFile->FileNameCur->data)->value));
-                ArtistList->data = (gpointer) g_list_append((GList *)ArtistList->data,etfilelist);
-                ArtistList->data = (gpointer) g_list_sort((GList *)ArtistList->data,(GCompareFunc)ET_Comp_Func_Sort_Album_Item_By_Ascending_Album);
-                return TRUE;
-            }
+            etfile_artist = ((File_Tag *)etfile->FileTag->data)->artist;
         }
-        // The "ArtistList" item was NOT found! => Add a new "ArtistList" to the main list (=ETArtistAlbumFileList)
-        etfilelist = g_list_append(NULL,ETFile);
-        AlbumList  = g_list_append(NULL,etfilelist);
-        //g_print(">>>  add new artist (%s)(etfile:%x AlbumList:%x)\n",g_path_get_basename(((File_Name *)ETFile->FileNameCur->data)->value),etfilelist,AlbumList);
-        ETCore->ETArtistAlbumFileList = g_list_append(ETCore->ETArtistAlbumFileList,AlbumList);
-        // Sort the list by ascending Artist
-        ETCore->ETArtistAlbumFileList = g_list_sort(ETCore->ETArtistAlbumFileList,(GCompareFunc)ET_Comp_Func_Sort_Artist_Item_By_Ascending_Artist);
+        else
+        {
+            etfile_artist = NULL;
+        }
 
-        return TRUE;
-    }else
-    {
-        return FALSE;
+        if ((etfile_artist &&  ETFile_Artist && strcmp (etfile_artist,
+                                                        ETFile_Artist) == 0)
+            || (!etfile_artist && !ETFile_Artist)) /* The "artist" values correspond? */
+        {
+            /* The "ArtistList" item was found! */
+            while (AlbumList)
+            {
+                if ((etfilelist = (GList *)AlbumList->data)
+                    && (etfile = (ET_File *)etfilelist->data)
+                    && ((File_Tag *)etfile->FileTag->data) != NULL)
+                {
+                    etfile_album = ((File_Tag *)etfile->FileTag->data)->album;
+                }
+                else
+                {
+                    etfile_album = NULL;
+                }
+
+                if ((etfile_album && ETFile_Album && strcmp (etfile_album,
+                                                             ETFile_Album) == 0)
+                    || (!etfile_album && !ETFile_Album))
+                    /* The "album" values correspond? */
+                {
+                    /* The "AlbumList" item was found!
+                     * Add the ETFile to this AlbumList item */
+                    AlbumList->data = g_list_append ((GList *)AlbumList->data,
+                                                     ETFile);
+                    AlbumList->data = g_list_sort ((GList *)AlbumList->data,
+                                                   (GCompareFunc)ET_Comp_Func_Sort_Etfile_Item_By_Ascending_Filename);
+                    return TRUE;
+                }
+
+                AlbumList = g_list_next (AlbumList);
+            }
+
+            /* The "AlbumList" item was NOT found! => Add a new "AlbumList"
+             * item (+...) item to the "ArtistList" list. */
+            etfilelist = g_list_append (NULL, ETFile);
+            ArtistList->data = g_list_append ((GList *)ArtistList->data,
+                                              etfilelist);
+            ArtistList->data = g_list_sort ((GList *)ArtistList->data,
+                                            (GCompareFunc)ET_Comp_Func_Sort_Album_Item_By_Ascending_Album);
+            return TRUE;
+        }
     }
+
+    /* The "ArtistList" item was NOT found! => Add a new "ArtistList" to the
+     * main list (=ETArtistAlbumFileList). */
+    etfilelist = g_list_append (NULL, ETFile);
+    AlbumList  = g_list_append (NULL, etfilelist);
+    ETCore->ETArtistAlbumFileList = g_list_append (ETCore->ETArtistAlbumFileList,
+                                                   AlbumList);
+
+    /* Sort the list by ascending Artist. */
+    ETCore->ETArtistAlbumFileList = g_list_sort (ETCore->ETArtistAlbumFileList,
+                                                 (GCompareFunc)ET_Comp_Func_Sort_Artist_Item_By_Ascending_Artist);
+
+    return TRUE;
 }
 
 
