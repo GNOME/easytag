@@ -1,3 +1,17 @@
+2.2.4 - 2014-09-27 :
+====================
+
+    * Fix a crash when reloading the directory tree
+    * Fix delays, and a possible crash, when running CDDB searches
+    * Handle renaming on case-insensitive filesystems
+    * Provide a useful error message when failing to write files
+    * Fix memory leak in check for buggy id3lib version
+    * Improvements to scanner help
+    * Marek Černocký’s scanner help fixes
+    * Piotr Drąg’s Polish translation updates
+    * Andika Triwidada’s Indonesian translation
+    * Daniel Mustieles’ Spanish help translation
+
 2.2.3 - 2014-06-22 :
 ====================
 
