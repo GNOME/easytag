@@ -197,8 +197,10 @@ Section "Core ${PRODUCT_NAME} Files" SecProgram
   File "${PREFIX}/bin/libvorbis-0.dll"
   File "${PREFIX}/bin/libvorbisfile-3.dll"
   File "${PREFIX}/bin/libwavpack-1.dll"
+  File "${PREFIX}/bin/libwinpthread-1.dll"
   File "${PREFIX}/bin/glib-compile-schemas.exe"
   File "${PREFIX}/bin/gspawn-win32-helper.exe"
+  File "${PREFIX}/bin/gtk-update-icon-cache.exe"
   File "${PREFIX}/bin/pango-querymodules.exe"
   File "${PREFIX}/bin/zlib1.dll"
 
@@ -215,25 +217,15 @@ Section "Core ${PRODUCT_NAME} Files" SecProgram
   SetOutPath "$INSTDIR\etc\gtk-3.0"
   FileOpen $0 settings.ini w
   FileWrite $0 "gtk-theme-name = $\"win32$\" $\r$\n"
-  FileWrite $0 "gtk-icon-theme-name = $\"hicolor$\" $\r$\n"
   FileWrite $0 "gtk-toolbar-style = GTK_TOOLBAR_ICONS$\r$\n"
   FileClose $0
 
   SetOutPath "$INSTDIR\share\icons\hicolor"
   File "/usr/share/icons/hicolor/index.theme"
 
-  SetOutPath "$INSTDIR\share\icons\hicolor\8x8\emblems"
-  File "/usr/share/icons/gnome/8x8/emblems/emblem-unreadable.png"
-  SetOutPath "$INSTDIR\share\icons\hicolor\16x16\actions"
-  File "/usr/share/icons/gnome/16x16/actions/insert-image.png"
-  File "/usr/share/icons/gnome/16x16/actions/insert-text.png"
-  File "/usr/share/icons/gnome/16x16/devices/media-optical-cd-audio.png"
-  SetOutPath "$INSTDIR\share\icons\hicolor\16x16\mimetypes"
-  File "/usr/share/icons/gnome/16x16/mimetypes/audio-x-generic.png"
-  SetOutPath "$INSTDIR\share\icons\hicolor\16x16\places"
-  File "/usr/share/icons/gnome/16x16/places/folder.png"
-  SetOutPath "$INSTDIR\share\icons\hicolor\16x16\status"
-  File "/usr/share/icons/gnome/16x16/status/folder-open.png"
+  SetOutPath "$INSTDIR\share\icons"
+  File /r "/usr/share/icons/Adwaita"
+
   SetOutPath "$INSTDIR\share\icons\hicolor\32x32\apps"
   File "${DESTDIR}${PREFIX}/share/icons/hicolor/32x32/apps/easytag.png"
   SetOutPath "$INSTDIR\share\icons\hicolor\48x48\apps"
@@ -249,6 +241,8 @@ Section "Core ${PRODUCT_NAME} Files" SecProgram
   SetOutPath "$INSTDIR"
   nsExec::ExecToLog '"$0" /C bin\pango-querymodules.exe > etc\pango\pango.modules'
   nsExec::ExecToLog '"$0" /C bin\glib-compile-schemas.exe share\glib-2.0\schemas'
+  nsExec::ExecToLog '"$0" /C bin\gtk-update-icon-cache.exe share\icons\Adwaita'
+  nsExec::ExecToLog '"$0" /C bin\gtk-update-icon-cache.exe share\icons\hicolor'
 
   ; FIXME: ChangeLog should come from the dist dir, otherwise it does not
   ; contain the generated changelog.
@@ -401,8 +395,10 @@ Section Uninstall
 
   Delete /rebootok "$INSTDIR\bin\zlib1.dll"
   Delete /rebootok "$INSTDIR\bin\pango-querymodules.exe"
+  Delete /rebootok "$INSTDIR\bin\gtk-update-icon-cache.exe"
   Delete /rebootok "$INSTDIR\bin\gspawn-win32-helper.exe"
   Delete /rebootok "$INSTDIR\bin\glib-compile-schemas.exe"
+  Delete /rebootok "$INSTDIR\bin\libwinpthread-1.dll"
   Delete /rebootok "$INSTDIR\bin\libwavpack-1.dll"
   Delete /rebootok "$INSTDIR\bin\libvorbisfile-3.dll"
   Delete /rebootok "$INSTDIR\bin\libvorbis-0.dll"
