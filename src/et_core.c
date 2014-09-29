@@ -494,6 +494,7 @@ GList *ET_Add_File_To_File_List (gchar *filename)
     gchar        *filename_utf8 = filename_to_display(filename);
     const gchar  *locale_lc_ctype = getenv("LC_CTYPE");
     GError *error = NULL;
+    gboolean success;
 
     if (!filename)
         return ETCore->ETFileList;
@@ -618,97 +619,47 @@ GList *ET_Add_File_To_File_List (gchar *filename)
 #if defined ENABLE_MP3 && defined ENABLE_ID3LIB
         case MP3_FILE:
         case MP2_FILE:
-            if (!mpeg_header_read_file_info (filename, ETFileInfo, &error))
-            {
-                Log_Print (LOG_ERROR,
-                           _("Error while querying information for file ‘%s’: %s"),
-                           filename_utf8, error->message);
-                g_error_free (error);
-            }
+            success = mpeg_header_read_file_info (filename, ETFileInfo,
+                                                  &error);
             break;
 #endif
 #ifdef ENABLE_OGG
         case OGG_FILE:
-            if (!ogg_header_read_file_info (filename, ETFileInfo, &error))
-            {
-                Log_Print (LOG_ERROR,
-                           _("Error while querying information for file ‘%s’: %s"),
-                           filename_utf8, error->message);
-                g_error_free (error);
-            }
+            success = ogg_header_read_file_info (filename, ETFileInfo, &error);
             break;
 #endif
 #ifdef ENABLE_SPEEX
         case SPEEX_FILE:
-            if (!speex_header_read_file_info (filename, ETFileInfo, &error))
-            {
-                Log_Print (LOG_ERROR,
-                           _("Error while querying information for file ‘%s’: %s"),
-                           filename_utf8, error->message);
-                g_error_free (error);
-            }
+            success = speex_header_read_file_info (filename, ETFileInfo,
+                                                   &error);
             break;
 #endif
 #ifdef ENABLE_FLAC
         case FLAC_FILE:
-            if (!flac_header_read_file_info (filename, ETFileInfo, &error))
-            {
-                Log_Print (LOG_ERROR,
-                           _("Error while querying information for file ‘%s’: %s"),
-                           filename_utf8, error->message);
-                g_error_free (error);
-            }
+            success = flac_header_read_file_info (filename, ETFileInfo,
+                                                  &error);
             break;
 #endif
         case MPC_FILE:
-            if (!mpc_header_read_file_info (filename, ETFileInfo, &error))
-            {
-                Log_Print (LOG_ERROR,
-                           _("Error while querying information for file ‘%s’: %s"),
-                           filename_utf8, error->message);
-                g_error_free (error);
-            }
+            success = mpc_header_read_file_info (filename, ETFileInfo, &error);
             break;
         case MAC_FILE:
-            if (!mac_header_read_file_info (filename, ETFileInfo, &error))
-            {
-                Log_Print (LOG_ERROR,
-                           _("Error while querying information for file ‘%s’: %s"),
-                           filename_utf8, error->message);
-                g_error_free (error);
-            }
+            success = mac_header_read_file_info (filename, ETFileInfo, &error);
             break;
 #ifdef ENABLE_WAVPACK
         case WAVPACK_FILE:
-            if (!wavpack_header_read_file_info (filename, ETFileInfo, &error))
-            {
-                Log_Print (LOG_ERROR,
-                           _("Error while querying information for file ‘%s’: %s"),
-                           filename_utf8, error->message);
-                g_error_free (error);
-            }
+            success = wavpack_header_read_file_info (filename, ETFileInfo,
+                                                     &error);
             break;
 #endif
 #ifdef ENABLE_MP4
         case MP4_FILE:
-            if (!mp4_header_read_file_info (filename, ETFileInfo, &error))
-            {
-                Log_Print (LOG_ERROR,
-                           _("Error while querying information for file ‘%s’: %s"),
-                           filename_utf8, error->message);
-                g_error_free (error);
-            }
+            success = mp4_header_read_file_info (filename, ETFileInfo, &error);
             break;
 #endif
 #ifdef ENABLE_OPUS
         case OPUS_FILE:
-            if (!et_opus_read_file_info (file, ETFileInfo, &error))
-            {
-                Log_Print (LOG_ERROR,
-                           _("Error while querying information for file ‘%s’: %s"),
-                           filename_utf8, error->message);
-                g_error_free (error);
-            }
+            success = et_opus_read_file_info (file, ETFileInfo, &error);
             break;
 #endif
         case UNKNOWN_FILE:
@@ -716,15 +667,16 @@ GList *ET_Add_File_To_File_List (gchar *filename)
             /* FIXME: Translatable string. */
             Log_Print(LOG_ERROR,"ETFileInfo: Undefined file type (%d) for file %s",ETFileDescription->FileType,filename_utf8);
             /* To get at least the file size. */
-            if (!et_core_read_file_info (filename, ETFileInfo, &error))
-            {
-                Log_Print (LOG_ERROR,
-                           _("Error while querying information for file ‘%s’: %s"),
-                           filename_utf8, error->message);
-                g_error_free (error);
-            }
-
+            success = et_core_read_file_info (filename, ETFileInfo, &error);
             break;
+    }
+
+    if (!success)
+    {
+        Log_Print (LOG_ERROR,
+                   _("Error while querying information for file ‘%s’: %s"),
+                   filename_utf8, error->message);
+        g_error_free (error);
     }
 
     /* Restore previous value */
