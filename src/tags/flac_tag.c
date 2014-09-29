@@ -824,7 +824,6 @@ flac_tag_write_file_tag (ET_File *ETFile, GError **error)
     const File_Tag *FileTag;
     const gchar *filename;
     const gchar *filename_utf8;
-    gchar *basename_utf8;
     const gchar *flac_error_msg;
     FLAC__Metadata_Chain *chain;
     FLAC__Metadata_Iterator *iter;
@@ -1130,12 +1129,6 @@ flac_tag_write_file_tag (ET_File *ETFile, GError **error)
                      _("Failed to write comments to file ‘%s’: %s"),
                      filename_utf8, flac_error_msg);
         return FALSE;
-    }
-    else
-    {
-        basename_utf8 = g_path_get_basename(filename_utf8);
-        Log_Print (LOG_OK, _("Wrote tag of ‘%s’"), basename_utf8);
-        g_free(basename_utf8);
     }
     
     FLAC__metadata_chain_delete(chain);

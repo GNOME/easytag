@@ -876,8 +876,6 @@ id3tag_write_file_v24tag (ET_File *ETFile, GError **error)
 {
     const File_Tag *FileTag;
     const gchar *filename;
-    const gchar *filename_utf8;
-    gchar *basename_utf8;
     struct id3_tag   *v1tag, *v2tag;
     struct id3_frame *frame;
     union id3_field  *field;
@@ -892,7 +890,6 @@ id3tag_write_file_v24tag (ET_File *ETFile, GError **error)
 
     FileTag       = (File_Tag *)ETFile->FileTag->data;
     filename      = ((File_Name *)ETFile->FileNameCur->data)->value;
-    filename_utf8 = ((File_Name *)ETFile->FileNameCur->data)->value_utf8;
 
     v1tag = v2tag = NULL;
 
@@ -1147,13 +1144,6 @@ id3tag_write_file_v24tag (ET_File *ETFile, GError **error)
         id3_tag_delete(v1tag);
     if (v2tag)
         id3_tag_delete(v2tag);
-
-    if (success)
-    {
-        basename_utf8 = g_path_get_basename(filename_utf8);
-        Log_Print (LOG_OK, _("Updated tag of ‘%s’"), basename_utf8);
-        g_free(basename_utf8);
-    }
 
     return success;
 }

@@ -592,7 +592,7 @@ id3tag_write_file_v23tag (ET_File *ETFile, GError **error)
         /* Check error messages */
         if (error_strip_id3v1 == ID3E_NoError && error_strip_id3v2 == ID3E_NoError)
         {
-            Log_Print (LOG_OK, _("Removed tag of ‘%s’"), basename_utf8);
+            g_debug (_("Removed tag of ‘%s’"), basename_utf8);
         }
         else
         {
@@ -732,12 +732,6 @@ id3tag_write_file_v23tag (ET_File *ETFile, GError **error)
                 success = FALSE;
             }
         }
-
-        if (success)
-        {
-            Log_Print (LOG_OK, _("Updated tag of ‘%s’"), basename_utf8);
-        }
-
     }
 
     /* Free allocated data */
@@ -1051,10 +1045,11 @@ out:
 
         string1 = filename_to_display(string);
 
-        if (string1)
-            Log_Print(LOG_OK,"OK");
-        else
-            Log_Print(LOG_ERROR,"KO");
+        /* TODO: Set a GError instead. */
+        if (!string1)
+        {
+            g_warning ("%s", "Error converting ID3 tag field encoding");
+        }
     }
     g_free(string);
 

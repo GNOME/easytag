@@ -893,8 +893,10 @@ Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox)
 
     if (ET_Save_File_Tag_To_HD (ETFile, &error))
     {
+        msg = g_strdup_printf (_("Wrote tag of ‘%s’"), basename_utf8);
         et_application_window_status_bar_message (ET_APPLICATION_WINDOW (MainWindow),
-                                                  _("Tag(s) written"), TRUE);
+                                                  msg, TRUE);
+        g_free (msg);
         g_free (basename_utf8);
         return TRUE;
     }

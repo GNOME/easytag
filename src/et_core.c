@@ -3592,13 +3592,7 @@ ET_Save_File_Tag_To_HD (ET_File *ETFile, GError **error)
     }
     else
     {
-        if (*error == NULL)
-        {
-            g_set_error (error, G_IO_ERROR, G_IO_ERROR_UNKNOWN,
-                         _("Error writing tag type ‘%d’ to file ‘%s’: %s"),
-                         ETFileDescription->TagType, cur_filename_utf8,
-                         g_strerror (EIO));
-        }
+        g_assert (error == NULL || *error != NULL);
 
         return FALSE;
     }

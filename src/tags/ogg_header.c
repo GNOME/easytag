@@ -253,22 +253,7 @@ ogg_header_read_file_info (const gchar *filename,
         }
 
         duration        = ov_time_total(&vf,-1); // (s) Total time.
-        //g_print("play time: %ld s\n",(long)ov_time_total(&vf,-1));
-        //g_print("serialnumber: %ld\n",(long)ov_serialnumber(&vf,-1));
-        //g_print("compressed length: %ld bytes\n",(long)(ov_raw_total(&vf,-1)));
 
-        /***{
-            // Test for displaying comments
-            vorbis_comment *vc = ov_comment(&vf,-1);
-            Log_Print(LOG_OK,">>> %s",filename_utf8);
-            Log_Print(LOG_OK,"Nbr comments : %d",vc->comments);
-            Log_Print(LOG_OK,"Vendor : %s",vc->vendor);
-            char **ptr = vc->user_comments;
-            while(*ptr){
-              Log_Print(LOG_OK,"> %s",*ptr);
-              ++ptr;
-            }
-        }***/
         ov_clear(&vf); // This close also the file
     }else
     {
