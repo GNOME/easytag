@@ -20,11 +20,14 @@
 #ifndef ET_WAVPACK_HEADER_H_
 #define ET_WAVPACK_HEADER_H_
 
-
 #include "et_core.h"
 
-gboolean Wavpack_Header_Read_File_Info (const gchar *filename, ET_File_Info *ETFileInfo);
+G_BEGIN_DECLS
+
+gboolean wavpack_header_read_file_info (const gchar *filename, ET_File_Info *ETFileInfo, GError **error);
 EtFileHeaderFields * Wavpack_Header_Display_File_Info_To_UI (const gchar *filename_utf8, ET_File *ETFile);
 void et_wavpack_file_header_fields_free (EtFileHeaderFields *fields);
+
+G_END_DECLS
 
 #endif /* ET_WAVPACK_HEADER_H_ */

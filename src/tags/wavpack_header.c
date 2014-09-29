@@ -1,21 +1,20 @@
-/* wavpack_header.c - 2007/02/15 */
-/*
- *  EasyTAG - Tag editor for many file types
- *  Copyright (C) 2007 Maarten Maathuis (madman2003@gmail.com)
+/* EasyTAG - Tag editor for audio files.
+ * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2007 Maarten Maathuis (madman2003@gmail.com)
  *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
 #include <config.h>
@@ -37,14 +36,22 @@
 
 
 gboolean
-Wavpack_Header_Read_File_Info (const gchar *filename,
-                               ET_File_Info *ETFileInfo)
+wavpack_header_read_file_info (const gchar *filename,
+                               ET_File_Info *ETFileInfo,
+                               GError **error)
 {
     WavpackContext *wpc;
+    gchar message[80];
 
-    wpc = WavpackOpenFileInput(filename, NULL, 0, 0);
+    g_return_val_if_fail (filename != NULL && ETFileInfo != NULL, FALSE);
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-    if ( wpc == NULL ) {
+    /* TODO: Use WavpackOpenFileInputEx() instead. */
+    wpc = WavpackOpenFileInput (filename, message, 0, 0);
+
+    if (wpc == NULL)
+    {
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s", message);
         return FALSE;
     }
 
@@ -60,7 +67,6 @@ Wavpack_Header_Read_File_Info (const gchar *filename,
 
     return TRUE;
 }
-
 
 EtFileHeaderFields *
 Wavpack_Header_Display_File_Info_To_UI (const gchar *filename_utf8,

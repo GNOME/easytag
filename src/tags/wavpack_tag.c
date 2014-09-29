@@ -65,19 +65,26 @@
  * Read tag data from a Wavpack file.
  */
 gboolean
-Wavpack_Tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag)
+wavpack_tag_read_file_tag (const gchar *filename,
+                           File_Tag *FileTag,
+                           GError **error)
 {
     WavpackContext *wpc;
+    gchar message[80];
     gchar *field, *field2;
     guint length;
 
     int open_flags = OPEN_TAGS;
 
     g_return_val_if_fail (filename != NULL && FileTag != NULL, FALSE);
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-    wpc = WavpackOpenFileInput(filename, NULL, open_flags, 0);
+    /* TODO: Use WavpackOpenFileInputEx() instead. */
+    wpc = WavpackOpenFileInput (filename, message, open_flags, 0);
 
-    if ( wpc == NULL ) {
+    if (wpc == NULL)
+    {
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s", message);
         return FALSE;
     }
 
@@ -267,22 +274,28 @@ Wavpack_Tag_Read_File_Tag (const gchar *filename, File_Tag *FileTag)
     return TRUE;
 }
 
-
-gboolean Wavpack_Tag_Write_File_Tag (ET_File *ETFile)
+gboolean
+wavpack_tag_write_file_tag (ET_File *ETFile,
+                            GError **error)
 {
+    const gchar *filename;
+    const File_Tag *FileTag;
     WavpackContext *wpc;
-
-    gchar    *filename = ((File_Name *)((GList *)ETFile->FileNameCur)->data)->value;
-    File_Tag *FileTag  = (File_Tag *)ETFile->FileTag->data;
-    gchar    *buffer;
-
-    int open_flags = OPEN_EDIT_TAGS;
+    gchar message[80];
+    gchar *buffer;
 
     g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL, FALSE);
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-    wpc = WavpackOpenFileInput(filename, NULL, open_flags, 0);
+    filename = ((File_Name *)((GList *)ETFile->FileNameCur)->data)->value;
+    FileTag = (File_Tag *)ETFile->FileTag->data;
 
-    if ( wpc == NULL ) {
+    /* TODO: Use WavpackOpenFileInputEx() instead. */
+    wpc = WavpackOpenFileInput (filename, message, OPEN_EDIT_TAGS, 0);
+
+    if (wpc == NULL)
+    {
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s", message);
         return FALSE;
     }
 
@@ -290,21 +303,21 @@ gboolean Wavpack_Tag_Write_File_Tag (ET_File *ETFile)
      * Title
      */
     if (FileTag->title && WavpackAppendTagItem(wpc, "title", FileTag->title, strlen(FileTag->title)) == 0) {
-        return FALSE;
+        goto err;
     }
 
     /*
      * Artist
      */
     if (FileTag->artist && WavpackAppendTagItem(wpc, "artist", FileTag->artist, strlen(FileTag->artist)) == 0) {
-        return FALSE;
+        goto err;
     }
 
     /*
      * Album
      */
     if (FileTag->album && WavpackAppendTagItem(wpc, "album", FileTag->album, strlen(FileTag->album)) == 0) {
-        return FALSE;
+        goto err;
     }
 
     /*
@@ -318,7 +331,7 @@ gboolean Wavpack_Tag_Write_File_Tag (ET_File *ETFile)
         if (WavpackAppendTagItem (wpc, "part", buffer, strlen (buffer)) == 0)
         {
             g_free (buffer);
-            return FALSE;
+            goto err;
         }
         else
         {
@@ -331,7 +344,7 @@ gboolean Wavpack_Tag_Write_File_Tag (ET_File *ETFile)
                                                           FileTag->disc_number,
                                                           strlen (FileTag->disc_number)) == 0)
         {
-            return FALSE;
+            goto err;
         }
     }
 
@@ -339,7 +352,7 @@ gboolean Wavpack_Tag_Write_File_Tag (ET_File *ETFile)
      * Year
      */
     if (FileTag->year && WavpackAppendTagItem(wpc, "year", FileTag->year, strlen(FileTag->year)) == 0) {
-        return FALSE;
+        goto err;
     }
 
     /*
@@ -349,13 +362,13 @@ gboolean Wavpack_Tag_Write_File_Tag (ET_File *ETFile)
         buffer = g_strdup_printf("%s/%s", FileTag->track, FileTag->track_total);
         if (FileTag->track && WavpackAppendTagItem(wpc, "track", buffer, strlen(buffer)) == 0) {
             g_free(buffer);
-            return FALSE;
+            goto err;
         } else {
             g_free(buffer);
         }
     } else {
         if (FileTag->track && WavpackAppendTagItem(wpc, "track", FileTag->track, strlen(FileTag->track)) == 0) {
-            return FALSE;
+            goto err;
         }
     }
 
@@ -363,57 +376,65 @@ gboolean Wavpack_Tag_Write_File_Tag (ET_File *ETFile)
      * Genre
      */
     if (FileTag->genre && WavpackAppendTagItem(wpc, "genre", FileTag->genre, strlen(FileTag->genre)) == 0) {
-        return FALSE;
+        goto err;
     }
 
     /*
      * Comment
      */
     if (FileTag->comment && WavpackAppendTagItem(wpc, "comment", FileTag->comment, strlen(FileTag->comment)) == 0) {
-        return FALSE;
+        goto err;
     }
 
     /*
      * Composer
      */
     if (FileTag->composer && WavpackAppendTagItem(wpc, "composer", FileTag->composer, strlen(FileTag->composer)) == 0) {
-        return FALSE;
+        goto err;
     }
 
     /*
      * Original artist
      */
     if (FileTag->orig_artist && WavpackAppendTagItem(wpc, "original artist", FileTag->orig_artist, strlen(FileTag->orig_artist)) == 0) {
-        return FALSE;
+        goto err;
     }
 
     /*
      * Copyright
      */
     if (FileTag->copyright && WavpackAppendTagItem(wpc, "copyright", FileTag->copyright, strlen(FileTag->copyright)) == 0) {
-        return FALSE;
+        goto err;
     }
 
     /*
      * URL
      */
     if (FileTag->url && WavpackAppendTagItem(wpc, "copyright url", FileTag->url, strlen(FileTag->url)) == 0) {
-        return FALSE;
+        goto err;
     }
 
     /*
      * Encoded by
      */
     if (FileTag->encoded_by && WavpackAppendTagItem(wpc, "encoded by", FileTag->encoded_by, strlen(FileTag->encoded_by)) == 0) {
-        return FALSE;
+        goto err;
     }
 
-    WavpackWriteTag(wpc);
+    if (WavpackWriteTag (wpc) != 0)
+    {
+        goto err;
+    }
 
-    WavpackCloseFile(wpc);
+    WavpackCloseFile (wpc);
 
     return TRUE;
-}
 
+err:
+    g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s",
+                 WavpackGetErrorMessage (wpc));
+    WavpackCloseFile (wpc);
+    return FALSE;
+}
 
 #endif /* ENABLE_WAVPACK */
