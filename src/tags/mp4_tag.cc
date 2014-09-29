@@ -244,7 +244,7 @@ mp4tag_read_file_tag (const gchar *filename,
  * Write tag data into an Mp4 file.
  */
 gboolean
-mp4tag_write_file_tag (ET_File *ETFile,
+mp4tag_write_file_tag (const ET_File *ETFile,
                        GError **error)
 {
     const File_Tag *FileTag;

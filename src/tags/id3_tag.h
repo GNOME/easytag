@@ -28,8 +28,8 @@ G_BEGIN_DECLS
 #define ID3_INVALID_GENRE 255
 
 gboolean id3tag_read_file_tag (const gchar *filename, File_Tag *FileTag, GError **error);
-gboolean id3tag_write_file_v24tag (ET_File *ETFile, GError **error);
-gboolean id3tag_write_file_tag (ET_File *ETFile, GError **error);
+gboolean id3tag_write_file_v24tag (const ET_File *ETFile, GError **error);
+gboolean id3tag_write_file_tag (const ET_File *ETFile, GError **error);
 
 const gchar * Id3tag_Genre_To_String (unsigned char genre_code);
 guchar Id3tag_String_To_Genre (const gchar *genre);

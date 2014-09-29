@@ -135,7 +135,8 @@ et_id3tag_get_tpos_from_file_tag (const File_Tag *FileTag)
  * Write the ID3 tags to the file. Returns TRUE on success, else 0.
  */
 static gboolean
-id3tag_write_file_v23tag (ET_File *ETFile, GError **error)
+id3tag_write_file_v23tag (const ET_File *ETFile,
+                          GError **error)
 {
     const File_Tag *FileTag;
     const gchar *filename;
@@ -1536,7 +1537,7 @@ id3tag_check_if_id3lib_is_buggy (GError **error)
  * Write tag according the version selected by the user
  */
 gboolean
-id3tag_write_file_tag (ET_File *ETFile,
+id3tag_write_file_tag (const ET_File *ETFile,
                        GError **error)
 {
 #ifdef ENABLE_ID3LIB

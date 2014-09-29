@@ -872,7 +872,8 @@ libid3tag_Get_Frame_Str (const struct id3_frame *frame,
  * Write the ID3 tags to the file. Returns TRUE on success, else 0.
  */
 gboolean
-id3tag_write_file_v24tag (ET_File *ETFile, GError **error)
+id3tag_write_file_v24tag (const ET_File *ETFile,
+                          GError **error)
 {
     const File_Tag *FileTag;
     const gchar *filename;

@@ -47,11 +47,11 @@ struct _EtTagAreaClass
 
 GType et_tag_area_get_type (void);
 GtkWidget * et_tag_area_new (void);
-void et_tag_area_update_controls (EtTagArea *self, ET_File *ETFile);
+void et_tag_area_update_controls (EtTagArea *self, const ET_File *ETFile);
 void et_tag_area_clear (EtTagArea *self);
 void et_tag_area_title_grab_focus (EtTagArea *self);
 File_Tag * et_tag_area_create_file_tag (EtTagArea *self);
-gboolean et_tag_area_display_et_file (EtTagArea *self, ET_File *ETFile);
+gboolean et_tag_area_display_et_file (EtTagArea *self, const ET_File *ETFile);
 gboolean et_tag_area_select_all_if_focused (EtTagArea *self, GtkWidget *focused);
 gboolean et_tag_area_unselect_all_if_focused (EtTagArea *self, GtkWidget *focused);
 

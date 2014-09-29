@@ -236,7 +236,7 @@ et_application_window_tag_area_create_file_tag (EtApplicationWindow *self)
 
 gboolean
 et_application_window_tag_area_display_et_file (EtApplicationWindow *self,
-                                                ET_File *ETFile)
+                                                const ET_File *ETFile)
 {
     EtApplicationWindowPrivate *priv;
 
@@ -2054,7 +2054,7 @@ et_application_window_file_area_get_filename (EtApplicationWindow *self)
 
 void
 et_application_window_file_area_set_file_fields (EtApplicationWindow *self,
-                                                 ET_File *ETFile)
+                                                 const ET_File *ETFile)
 {
     EtApplicationWindowPrivate *priv;
 
@@ -2369,7 +2369,7 @@ et_application_window_update_actions (EtApplicationWindow *self)
  */
 void
 et_application_window_tag_area_display_controls (EtApplicationWindow *self,
-                                                 ET_File *ETFile)
+                                                 const ET_File *ETFile)
 {
     EtApplicationWindowPrivate *priv;
 

@@ -237,7 +237,7 @@ et_file_area_set_header_fields (EtFileArea *self,
  * and list length. */
 void
 et_file_area_set_file_fields (EtFileArea *self,
-                              ET_File *ETFile)
+                              const ET_File *ETFile)
 {
     EtFileAreaPrivate *priv;
     GFile *file;

@@ -204,10 +204,9 @@ ape_tag_read_file_tag (const gchar *filename,
 }
 
 gboolean
-ape_tag_write_file_tag (ET_File *ETFile,
+ape_tag_write_file_tag (const ET_File *ETFile,
                         GError **error)
 {
-
     const File_Tag *FileTag;
     const gchar *filename_in;
     //FILE     *file_in;

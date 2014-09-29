@@ -25,7 +25,7 @@
 G_BEGIN_DECLS
 
 gboolean flac_header_read_file_info (const gchar *filename, ET_File_Info *ETFileInfo, GError **error);
-EtFileHeaderFields * Flac_Header_Display_File_Info_To_UI (const gchar *filename, ET_File *ETFile);
+EtFileHeaderFields * Flac_Header_Display_File_Info_To_UI (const gchar *filename, const ET_File *ETFile);
 void et_flac_file_header_fields_free (EtFileHeaderFields *fields);
 
 G_END_DECLS

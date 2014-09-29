@@ -1,5 +1,5 @@
 /* EasyTAG - Tag editor for audio files
- * Copyright (C) 2000-2003  David King <amigadave@amigadave.com>
+ * Copyright (C) 2014  David King <amigadave@amigadave.com>
  * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -29,7 +29,7 @@
 #include <utime.h>
 #include <ctype.h>
 #include <locale.h>
-#include "errno.h"
+#include <errno.h>
 
 #include "application_window.h"
 #include "easytag.h"
@@ -129,7 +129,6 @@ GdkRGBA RED = {1.0, 0.0, 0.0, 1.0 };
  **************/
 
 //gboolean ET_File_Is_Supported (gchar *filename);
-static gchar *ET_Get_File_Extension (const gchar *filename);
 static const ET_File_Description *ET_Get_File_Description (const gchar *filename);
 static const ET_File_Description *ET_Get_File_Description_From_Extension (const gchar *extension);
 
@@ -148,8 +147,6 @@ static void ET_Initialize_File_Tag_Item (File_Tag *FileTag);
 static void ET_Initialize_File_Name_Item (File_Name *FileName);
 static void ET_Initialize_File_Info_Item (ET_File_Info *ETFileInfo);
 
-//gboolean ET_Copy_File_Tag_Item       (ET_File *ETFile, File_Tag *FileTag);
-static gboolean ET_Copy_File_Tag_Item_Other_Field (ET_File *ETFile, File_Tag *FileTag);
 //gboolean ET_Set_Field_File_Tag_Picture (gchar **FileTagField, Picture *pic);
 
 static guint ET_File_Key_New (void);
@@ -157,18 +154,18 @@ static guint ET_Undo_Key_New (void);
 
 static gboolean ET_Remove_File_From_Artist_Album_List (ET_File *ETFile);
 
-static void ET_Display_Filename_To_UI (ET_File *ETFile);
-static EtFileHeaderFields * ET_Display_File_Info_To_UI (ET_File *ETFile);
+static void ET_Display_Filename_To_UI (const ET_File *ETFile);
+static EtFileHeaderFields * ET_Display_File_Info_To_UI (const ET_File *ETFile);
 
-static gboolean ET_Save_File_Name_From_UI (ET_File *ETFile,
+static gboolean ET_Save_File_Name_From_UI (const ET_File *ETFile,
                                            File_Name *FileName);
-static gboolean ET_Save_File_Name_Internal (ET_File *ETFile, File_Name *FileName);
+static gboolean ET_Save_File_Name_Internal (const ET_File *ETFile, File_Name *FileName);
 static gboolean ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag);
 
 static void ET_Mark_File_Tag_As_Saved (ET_File *ETFile);
 
-static gboolean ET_Detect_Changes_Of_File_Name (File_Name *FileName1,
-                                                File_Name *FileName2);
+static gboolean ET_Detect_Changes_Of_File_Name (const File_Name *FileName1,
+                                                const File_Name *FileName2);
 static gboolean ET_Add_File_Name_To_List (ET_File *ETFile,
                                           File_Name *FileName);
 static gboolean ET_Add_File_Tag_To_List (ET_File *ETFile, File_Tag  *FileTag);
@@ -182,13 +179,13 @@ static gboolean et_core_read_file_info (const gchar *filename,
                                         ET_File_Info *ETFileInfo,
                                         GError **error);
 
-static gint ET_Comp_Func_Sort_Artist_Item_By_Ascending_Artist (GList *AlbumList1,
-                                                               GList *AlbumList2);
-static gint ET_Comp_Func_Sort_Album_Item_By_Ascending_Album (GList *etfilelist1,
-                                                             GList *etfilelist2);
-static gint ET_Comp_Func_Sort_Etfile_Item_By_Ascending_Filename (ET_File *ETFile1,
-                                                                 ET_File *ETFile2);
-static gchar *ET_File_Name_Format_Extension (ET_File *ETFile);
+static gint ET_Comp_Func_Sort_Artist_Item_By_Ascending_Artist (const GList *AlbumList1,
+                                                               const GList *AlbumList2);
+static gint ET_Comp_Func_Sort_Album_Item_By_Ascending_Album (const GList *etfilelist1,
+                                                             const GList *etfilelist2);
+static gint ET_Comp_Func_Sort_Etfile_Item_By_Ascending_Filename (const ET_File *ETFile1,
+                                                                 const ET_File *ETFile2);
+static gchar *ET_File_Name_Format_Extension (const ET_File *ETFile);
 
 static void set_sort_order_for_column_id (gint column_id,
                                           GtkTreeViewColumn *column,
@@ -202,7 +199,7 @@ static void set_sort_order_for_column_id (gint column_id,
 /*
  * Returns the extension of the file
  */
-static gchar *
+static const gchar *
 ET_Get_File_Extension (const gchar *filename)
 {
     if (filename)
@@ -782,8 +779,8 @@ ET_Add_File_To_Artist_Album_File_List (ET_File *ETFile)
 {
     const gchar *ETFile_Artist;
     const gchar *ETFile_Album;
-    gchar *etfile_artist = NULL;
-    gchar *etfile_album = NULL;
+    const gchar *etfile_artist;
+    const gchar *etfile_album;
     GList *ArtistList;
     GList *AlbumList = NULL;
     GList *etfilelist = NULL;
@@ -1226,10 +1223,12 @@ ET_Sort_Displayed_File_List_And_Update_UI (EtSortMode Sorting_Type)
 /*
  * Comparison function for sorting by ascending filename.
  */
-gint ET_Comp_Func_Sort_File_By_Ascending_Filename (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Ascending_Filename (const ET_File *ETFile1,
+                                              const ET_File *ETFile2)
 {
-    gchar *file1_ck   = ((File_Name *)((GList *)ETFile1->FileNameCur)->data)->value_ck;
-    gchar *file2_ck   = ((File_Name *)((GList *)ETFile2->FileNameCur)->data)->value_ck;
+    const gchar *file1_ck = ((File_Name *)((GList *)ETFile1->FileNameCur)->data)->value_ck;
+    const gchar *file2_ck = ((File_Name *)((GList *)ETFile2->FileNameCur)->data)->value_ck;
     // !!!! : Must be the same rules as "Cddb_Track_List_Sort_Func" to be
     // able to sort in the same order files in cddb and in the file list.
     return g_settings_get_boolean (MainSettings,
@@ -1240,7 +1239,9 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Filename (ET_File *ETFile1, ET_File *ET
 /*
  * Comparison function for sorting by descending filename.
  */
-gint ET_Comp_Func_Sort_File_By_Descending_Filename (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Descending_Filename (const ET_File *ETFile1,
+                                               const ET_File *ETFile2)
 {
     return ET_Comp_Func_Sort_File_By_Ascending_Filename(ETFile2,ETFile1);
 }
@@ -1250,8 +1251,8 @@ gint ET_Comp_Func_Sort_File_By_Descending_Filename (ET_File *ETFile1, ET_File *E
  * Comparison function for sorting by ascending disc number.
  */
 gint
-et_comp_func_sort_file_by_ascending_disc_number (ET_File *ETFile1,
-                                                 ET_File *ETFile2)
+et_comp_func_sort_file_by_ascending_disc_number (const ET_File *ETFile1,
+                                                 const ET_File *ETFile2)
 {
     gint track1, track2;
 
@@ -1289,8 +1290,8 @@ et_comp_func_sort_file_by_ascending_disc_number (ET_File *ETFile1,
  * Comparison function for sorting by descending disc number.
  */
 gint
-et_comp_func_sort_file_by_descending_disc_number (ET_File *ETFile1,
-                                                  ET_File *ETFile2)
+et_comp_func_sort_file_by_descending_disc_number (const ET_File *ETFile1,
+                                                  const ET_File *ETFile2)
 {
     return et_comp_func_sort_file_by_ascending_disc_number (ETFile2, ETFile1);
 }
@@ -1299,7 +1300,9 @@ et_comp_func_sort_file_by_descending_disc_number (ET_File *ETFile1,
 /*
  * Comparison function for sorting by ascending track number.
  */
-gint ET_Comp_Func_Sort_File_By_Ascending_Track_Number (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Ascending_Track_Number (const ET_File *ETFile1,
+                                                  const ET_File *ETFile2)
 {
     gint track1, track2;
 
@@ -1324,7 +1327,9 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Track_Number (ET_File *ETFile1, ET_File
 /*
  * Comparison function for sorting by descending track number.
  */
-gint ET_Comp_Func_Sort_File_By_Descending_Track_Number (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Descending_Track_Number (const ET_File *ETFile1,
+                                                   const ET_File *ETFile2)
 {
     return ET_Comp_Func_Sort_File_By_Ascending_Track_Number(ETFile2,ETFile1);
 }
@@ -1333,7 +1338,9 @@ gint ET_Comp_Func_Sort_File_By_Descending_Track_Number (ET_File *ETFile1, ET_Fil
 /*
  * Comparison function for sorting by ascending creation date.
  */
-gint ET_Comp_Func_Sort_File_By_Ascending_Creation_Date (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Ascending_Creation_Date (const ET_File *ETFile1,
+                                                   const ET_File *ETFile2)
 {
     GFile *file;
     GFileInfo *info;
@@ -1380,7 +1387,9 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Creation_Date (ET_File *ETFile1, ET_Fil
 /*
  * Comparison function for sorting by descending creation date.
  */
-gint ET_Comp_Func_Sort_File_By_Descending_Creation_Date (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Descending_Creation_Date (const ET_File *ETFile1,
+                                                    const ET_File *ETFile2)
 {
     return ET_Comp_Func_Sort_File_By_Ascending_Creation_Date(ETFile2,ETFile1);
 }
@@ -1389,7 +1398,9 @@ gint ET_Comp_Func_Sort_File_By_Descending_Creation_Date (ET_File *ETFile1, ET_Fi
 /*
  * Comparison function for sorting by ascending title.
  */
-gint ET_Comp_Func_Sort_File_By_Ascending_Title (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Ascending_Title (const ET_File *ETFile1,
+                                           const ET_File *ETFile2)
 {
    // Compare pointers just in case they are the same (e.g. both are NULL)
    if ((ETFile1->FileTag->data == ETFile2->FileTag->data)
@@ -1423,7 +1434,9 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Title (ET_File *ETFile1, ET_File *ETFil
 /*
  * Comparison function for sorting by descending title.
  */
-gint ET_Comp_Func_Sort_File_By_Descending_Title (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Descending_Title (const ET_File *ETFile1,
+                                            const ET_File *ETFile2)
 {
     return ET_Comp_Func_Sort_File_By_Ascending_Title(ETFile2,ETFile1);
 }
@@ -1432,7 +1445,9 @@ gint ET_Comp_Func_Sort_File_By_Descending_Title (ET_File *ETFile1, ET_File *ETFi
 /*
  * Comparison function for sorting by ascending artist.
  */
-gint ET_Comp_Func_Sort_File_By_Ascending_Artist (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Ascending_Artist (const ET_File *ETFile1,
+                                            const ET_File *ETFile2)
 {
    // Compare pointers just in case they are the same (e.g. both are NULL)
    if ((ETFile1->FileTag->data == ETFile2->FileTag->data)
@@ -1466,7 +1481,9 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Artist (ET_File *ETFile1, ET_File *ETFi
 /*
  * Comparison function for sorting by descending artist.
  */
-gint ET_Comp_Func_Sort_File_By_Descending_Artist (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Descending_Artist (const ET_File *ETFile1,
+                                             const ET_File *ETFile2)
 {
     return ET_Comp_Func_Sort_File_By_Ascending_Artist(ETFile2,ETFile1);
 }
@@ -1474,7 +1491,9 @@ gint ET_Comp_Func_Sort_File_By_Descending_Artist (ET_File *ETFile1, ET_File *ETF
 /*
  * Comparison function for sorting by ascending album artist.
  */
-gint ET_Comp_Func_Sort_File_By_Ascending_Album_Artist (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Ascending_Album_Artist (const ET_File *ETFile1,
+                                                  const ET_File *ETFile2)
 {
    // Compare pointers just in case they are the same (e.g. both are NULL)
    if ((ETFile1->FileTag->data == ETFile2->FileTag->data)
@@ -1508,7 +1527,9 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Album_Artist (ET_File *ETFile1, ET_File
 /*
  * Comparison function for sorting by descending album artist.
  */
-gint ET_Comp_Func_Sort_File_By_Descending_Album_Artist (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Descending_Album_Artist (const ET_File *ETFile1,
+                                                   const ET_File *ETFile2)
 {
     return ET_Comp_Func_Sort_File_By_Ascending_Album_Artist(ETFile2,ETFile1);
 }
@@ -1516,7 +1537,9 @@ gint ET_Comp_Func_Sort_File_By_Descending_Album_Artist (ET_File *ETFile1, ET_Fil
 /*
  * Comparison function for sorting by ascending album.
  */
-gint ET_Comp_Func_Sort_File_By_Ascending_Album (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Ascending_Album (const ET_File *ETFile1,
+                                           const ET_File *ETFile2)
 {
    // Compare pointers just in case they are the same (e.g. both are NULL)
    if ((ETFile1->FileTag->data == ETFile2->FileTag->data)
@@ -1550,7 +1573,9 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Album (ET_File *ETFile1, ET_File *ETFil
 /*
  * Comparison function for sorting by descending album.
  */
-gint ET_Comp_Func_Sort_File_By_Descending_Album (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Descending_Album (const ET_File *ETFile1,
+                                            const ET_File *ETFile2)
 {
     return ET_Comp_Func_Sort_File_By_Ascending_Album(ETFile2,ETFile1);
 }
@@ -1559,7 +1584,9 @@ gint ET_Comp_Func_Sort_File_By_Descending_Album (ET_File *ETFile1, ET_File *ETFi
 /*
  * Comparison function for sorting by ascending year.
  */
-gint ET_Comp_Func_Sort_File_By_Ascending_Year (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Ascending_Year (const ET_File *ETFile1,
+                                          const ET_File *ETFile2)
 {
     gint year1, year2;
 
@@ -1584,7 +1611,9 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Year (ET_File *ETFile1, ET_File *ETFile
 /*
  * Comparison function for sorting by descending year.
  */
-gint ET_Comp_Func_Sort_File_By_Descending_Year (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Descending_Year (const ET_File *ETFile1,
+                                           const ET_File *ETFile2)
 {
     return ET_Comp_Func_Sort_File_By_Ascending_Year(ETFile2,ETFile1);
 }
@@ -1593,7 +1622,9 @@ gint ET_Comp_Func_Sort_File_By_Descending_Year (ET_File *ETFile1, ET_File *ETFil
 /*
  * Comparison function for sorting by ascending genre.
  */
-gint ET_Comp_Func_Sort_File_By_Ascending_Genre (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Ascending_Genre (const ET_File *ETFile1,
+                                           const ET_File *ETFile2)
 {
    // Compare pointers just in case they are the same (e.g. both are NULL)
    if ((ETFile1->FileTag->data == ETFile2->FileTag->data)
@@ -1625,7 +1656,9 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Genre (ET_File *ETFile1, ET_File *ETFil
 /*
  * Comparison function for sorting by descending genre.
  */
-gint ET_Comp_Func_Sort_File_By_Descending_Genre (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Descending_Genre (const ET_File *ETFile1,
+                                            const ET_File *ETFile2)
 {
     return ET_Comp_Func_Sort_File_By_Ascending_Genre(ETFile2,ETFile1);
 }
@@ -1634,7 +1667,9 @@ gint ET_Comp_Func_Sort_File_By_Descending_Genre (ET_File *ETFile1, ET_File *ETFi
 /*
  * Comparison function for sorting by ascending comment.
  */
-gint ET_Comp_Func_Sort_File_By_Ascending_Comment (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Ascending_Comment (const ET_File *ETFile1,
+                                             const ET_File *ETFile2)
 {
    // Compare pointers just in case they are the same (e.g. both are NULL)
    if ((ETFile1->FileTag->data == ETFile2->FileTag->data)
@@ -1668,7 +1703,9 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Comment (ET_File *ETFile1, ET_File *ETF
 /*
  * Comparison function for sorting by descending comment.
  */
-gint ET_Comp_Func_Sort_File_By_Descending_Comment (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Descending_Comment (const ET_File *ETFile1,
+                                              const ET_File *ETFile2)
 {
     return ET_Comp_Func_Sort_File_By_Ascending_Comment(ETFile2,ETFile1);
 }
@@ -1677,7 +1714,9 @@ gint ET_Comp_Func_Sort_File_By_Descending_Comment (ET_File *ETFile1, ET_File *ET
 /*
  * Comparison function for sorting by ascending composer.
  */
-gint ET_Comp_Func_Sort_File_By_Ascending_Composer (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Ascending_Composer (const ET_File *ETFile1,
+                                              const ET_File *ETFile2)
 {
    // Compare pointers just in case they are the same (e.g. both are NULL)
    if ((ETFile1->FileTag->data == ETFile2->FileTag->data)
@@ -1711,7 +1750,9 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Composer (ET_File *ETFile1, ET_File *ET
 /*
  * Comparison function for sorting by descending composer.
  */
-gint ET_Comp_Func_Sort_File_By_Descending_Composer (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Descending_Composer (const ET_File *ETFile1,
+                                               const ET_File *ETFile2)
 {
     return ET_Comp_Func_Sort_File_By_Ascending_Composer(ETFile2,ETFile1);
 }
@@ -1720,7 +1761,9 @@ gint ET_Comp_Func_Sort_File_By_Descending_Composer (ET_File *ETFile1, ET_File *E
 /*
  * Comparison function for sorting by ascending original artist.
  */
-gint ET_Comp_Func_Sort_File_By_Ascending_Orig_Artist (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Ascending_Orig_Artist (const ET_File *ETFile1,
+                                                 const ET_File *ETFile2)
 {
    // Compare pointers just in case they are the same (e.g. both are NULL)
    if ((ETFile1->FileTag->data == ETFile2->FileTag->data)
@@ -1754,7 +1797,9 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Orig_Artist (ET_File *ETFile1, ET_File 
 /*
  * Comparison function for sorting by descending original artist.
  */
-gint ET_Comp_Func_Sort_File_By_Descending_Orig_Artist (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Descending_Orig_Artist (const ET_File *ETFile1,
+                                                  const ET_File *ETFile2)
 {
     return ET_Comp_Func_Sort_File_By_Ascending_Orig_Artist(ETFile2,ETFile1);
 }
@@ -1763,7 +1808,9 @@ gint ET_Comp_Func_Sort_File_By_Descending_Orig_Artist (ET_File *ETFile1, ET_File
 /*
  * Comparison function for sorting by ascending copyright.
  */
-gint ET_Comp_Func_Sort_File_By_Ascending_Copyright (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Ascending_Copyright (const ET_File *ETFile1,
+                                               const ET_File *ETFile2)
 {
    // Compare pointers just in case they are the same (e.g. both are NULL)
    if ((ETFile1->FileTag->data == ETFile2->FileTag->data)
@@ -1797,7 +1844,9 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Copyright (ET_File *ETFile1, ET_File *E
 /*
  * Comparison function for sorting by descending copyright.
  */
-gint ET_Comp_Func_Sort_File_By_Descending_Copyright (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Descending_Copyright (const ET_File *ETFile1,
+                                                const ET_File *ETFile2)
 {
     return ET_Comp_Func_Sort_File_By_Ascending_Copyright(ETFile2,ETFile1);
 }
@@ -1806,7 +1855,9 @@ gint ET_Comp_Func_Sort_File_By_Descending_Copyright (ET_File *ETFile1, ET_File *
 /*
  * Comparison function for sorting by ascending URL.
  */
-gint ET_Comp_Func_Sort_File_By_Ascending_Url (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Ascending_Url (const ET_File *ETFile1,
+                                         const ET_File *ETFile2)
 {
    // Compare pointers just in case they are the same (e.g. both are NULL)
    if ((ETFile1->FileTag->data == ETFile2->FileTag->data)
@@ -1840,7 +1891,9 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Url (ET_File *ETFile1, ET_File *ETFile2
 /*
  * Comparison function for sorting by descending URL.
  */
-gint ET_Comp_Func_Sort_File_By_Descending_Url (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Descending_Url (const ET_File *ETFile1,
+                                          const ET_File *ETFile2)
 {
     return ET_Comp_Func_Sort_File_By_Ascending_Url(ETFile2,ETFile1);
 }
@@ -1849,7 +1902,9 @@ gint ET_Comp_Func_Sort_File_By_Descending_Url (ET_File *ETFile1, ET_File *ETFile
 /*
  * Comparison function for sorting by ascending encoded by.
  */
-gint ET_Comp_Func_Sort_File_By_Ascending_Encoded_By (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Ascending_Encoded_By (const ET_File *ETFile1,
+                                                const ET_File *ETFile2)
 {
    // Compare pointers just in case they are the same (e.g. both are NULL)
    if ((ETFile1->FileTag->data == ETFile2->FileTag->data)
@@ -1883,7 +1938,9 @@ gint ET_Comp_Func_Sort_File_By_Ascending_Encoded_By (ET_File *ETFile1, ET_File *
 /*
  * Comparison function for sorting by descendingencoded by.
  */
-gint ET_Comp_Func_Sort_File_By_Descending_Encoded_By (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Descending_Encoded_By (const ET_File *ETFile1,
+                                                 const ET_File *ETFile2)
 {
     return ET_Comp_Func_Sort_File_By_Ascending_Encoded_By(ETFile2,ETFile1);
 }
@@ -1892,7 +1949,9 @@ gint ET_Comp_Func_Sort_File_By_Descending_Encoded_By (ET_File *ETFile1, ET_File 
 /*
  * Comparison function for sorting by ascending file type (mp3, ogg, ...).
  */
-gint ET_Comp_Func_Sort_File_By_Ascending_File_Type (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Ascending_File_Type (const ET_File *ETFile1,
+                                               const ET_File *ETFile2)
 {
     if ( !ETFile1->ETFileDescription ) return -1;
     if ( !ETFile2->ETFileDescription ) return 1;
@@ -1908,7 +1967,9 @@ gint ET_Comp_Func_Sort_File_By_Ascending_File_Type (ET_File *ETFile1, ET_File *E
 /*
  * Comparison function for sorting by descending file type (mp3, ogg, ...).
  */
-gint ET_Comp_Func_Sort_File_By_Descending_File_Type (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Descending_File_Type (const ET_File *ETFile1,
+                                                const ET_File *ETFile2)
 {
     return ET_Comp_Func_Sort_File_By_Ascending_File_Type(ETFile2,ETFile1);
 }
@@ -1917,7 +1978,9 @@ gint ET_Comp_Func_Sort_File_By_Descending_File_Type (ET_File *ETFile1, ET_File *
 /*
  * Comparison function for sorting by ascending file size.
  */
-gint ET_Comp_Func_Sort_File_By_Ascending_File_Size (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Ascending_File_Size (const ET_File *ETFile1,
+                                               const ET_File *ETFile2)
 {
     if ( !ETFile1->ETFileInfo ) return -1;
     if ( !ETFile2->ETFileInfo ) return 1;
@@ -1933,7 +1996,9 @@ gint ET_Comp_Func_Sort_File_By_Ascending_File_Size (ET_File *ETFile1, ET_File *E
 /*
  * Comparison function for sorting by descending file size.
  */
-gint ET_Comp_Func_Sort_File_By_Descending_File_Size (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Descending_File_Size (const ET_File *ETFile1,
+                                                const ET_File *ETFile2)
 {
     return ET_Comp_Func_Sort_File_By_Ascending_File_Size(ETFile2,ETFile1);
 }
@@ -1942,7 +2007,9 @@ gint ET_Comp_Func_Sort_File_By_Descending_File_Size (ET_File *ETFile1, ET_File *
 /*
  * Comparison function for sorting by ascending file duration.
  */
-gint ET_Comp_Func_Sort_File_By_Ascending_File_Duration (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Ascending_File_Duration (const ET_File *ETFile1,
+                                                   const ET_File *ETFile2)
 {
     if ( !ETFile1->ETFileInfo ) return -1;
     if ( !ETFile2->ETFileInfo ) return 1;
@@ -1958,7 +2025,9 @@ gint ET_Comp_Func_Sort_File_By_Ascending_File_Duration (ET_File *ETFile1, ET_Fil
 /*
  * Comparison function for sorting by descending file duration.
  */
-gint ET_Comp_Func_Sort_File_By_Descending_File_Duration (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Descending_File_Duration (const ET_File *ETFile1,
+                                                    const ET_File *ETFile2)
 {
     return ET_Comp_Func_Sort_File_By_Ascending_File_Duration(ETFile2,ETFile1);
 }
@@ -1967,7 +2036,9 @@ gint ET_Comp_Func_Sort_File_By_Descending_File_Duration (ET_File *ETFile1, ET_Fi
 /*
  * Comparison function for sorting by ascending file bitrate.
  */
-gint ET_Comp_Func_Sort_File_By_Ascending_File_Bitrate (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Ascending_File_Bitrate (const ET_File *ETFile1,
+                                                  const ET_File *ETFile2)
 {
     if ( !ETFile1->ETFileInfo ) return -1;
     if ( !ETFile2->ETFileInfo ) return 1;
@@ -1983,7 +2054,9 @@ gint ET_Comp_Func_Sort_File_By_Ascending_File_Bitrate (ET_File *ETFile1, ET_File
 /*
  * Comparison function for sorting by descending file bitrate.
  */
-gint ET_Comp_Func_Sort_File_By_Descending_File_Bitrate (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Descending_File_Bitrate (const ET_File *ETFile1,
+                                                   const ET_File *ETFile2)
 {
     return ET_Comp_Func_Sort_File_By_Ascending_File_Bitrate(ETFile2,ETFile1);
 }
@@ -1992,7 +2065,9 @@ gint ET_Comp_Func_Sort_File_By_Descending_File_Bitrate (ET_File *ETFile1, ET_Fil
 /*
  * Comparison function for sorting by ascending file samplerate.
  */
-gint ET_Comp_Func_Sort_File_By_Ascending_File_Samplerate (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Ascending_File_Samplerate (const ET_File *ETFile1,
+                                                     const ET_File *ETFile2)
 {
     if ( !ETFile1->ETFileInfo ) return -1;
     if ( !ETFile2->ETFileInfo ) return 1;
@@ -2008,7 +2083,9 @@ gint ET_Comp_Func_Sort_File_By_Ascending_File_Samplerate (ET_File *ETFile1, ET_F
 /*
  * Comparison function for sorting by descending file samplerate.
  */
-gint ET_Comp_Func_Sort_File_By_Descending_File_Samplerate (ET_File *ETFile1, ET_File *ETFile2)
+gint
+ET_Comp_Func_Sort_File_By_Descending_File_Samplerate (const ET_File *ETFile1,
+                                                      const ET_File *ETFile2)
 {
     return ET_Comp_Func_Sort_File_By_Ascending_File_Samplerate(ETFile2,ETFile1);
 }
@@ -2017,12 +2094,16 @@ gint ET_Comp_Func_Sort_File_By_Descending_File_Samplerate (ET_File *ETFile1, ET_
 /*
  * Comparison function for sorting by ascending artist in the ArtistAlbumList.
  */
-static gint ET_Comp_Func_Sort_Artist_Item_By_Ascending_Artist (GList *AlbumList1,
-                                                               GList *AlbumList2)
+static gint
+ET_Comp_Func_Sort_Artist_Item_By_Ascending_Artist (const GList *AlbumList1,
+                                                   const GList *AlbumList2)
 {
-    GList   *etfilelist1 = NULL,    *etfilelist2 = NULL;
-    ET_File *etfile1 = NULL,        *etfile2 = NULL;
-    gchar   *etfile1_artist, *etfile2_artist;
+    const GList *etfilelist1 = NULL;
+    const GList *etfilelist2 = NULL;
+    const ET_File *etfile1 = NULL;
+    const ET_File *etfile2 = NULL;
+    const gchar *etfile1_artist;
+    const gchar *etfile2_artist;
 
     if (!AlbumList1
     || !(etfilelist1    = (GList *)AlbumList1->data)
@@ -2046,11 +2127,13 @@ static gint ET_Comp_Func_Sort_Artist_Item_By_Ascending_Artist (GList *AlbumList1
  * Comparison function for sorting by ascending album in the ArtistAlbumList.
  */
 static gint
-ET_Comp_Func_Sort_Album_Item_By_Ascending_Album (GList *etfilelist1,
-                                                 GList *etfilelist2)
+ET_Comp_Func_Sort_Album_Item_By_Ascending_Album (const GList *etfilelist1,
+                                                 const GList *etfilelist2)
 {
-    ET_File *etfile1,       *etfile2;
-    gchar   *etfile1_album, *etfile2_album;
+    const ET_File *etfile1;
+    const ET_File *etfile2;
+    const gchar *etfile1_album;
+    const gchar *etfile2_album;
 
     if (!etfilelist1
     || !(etfile1        = (ET_File *)etfilelist1->data)
@@ -2073,8 +2156,8 @@ ET_Comp_Func_Sort_Album_Item_By_Ascending_Album (GList *etfilelist1,
  * FIX ME : should use the default sorting!
  */
 static gint
-ET_Comp_Func_Sort_Etfile_Item_By_Ascending_Filename (ET_File *ETFile1,
-                                                     ET_File *ETFile2)
+ET_Comp_Func_Sort_Etfile_Item_By_Ascending_Filename (const ET_File *ETFile1,
+                                                     const ET_File *ETFile2)
 {
 
     if (!ETFile1) return -1;
@@ -2134,7 +2217,8 @@ GList *ET_Displayed_File_List_Last (void)
 /*
  * Returns the item of the "displayed list" which correspond to the given 'ETFile' (used into browser list).
  */
-GList *ET_Displayed_File_List_By_Etfile (ET_File *ETFile)
+GList *
+ET_Displayed_File_List_By_Etfile (const ET_File *ETFile)
 {
     GList *etfilelist;
 
@@ -2479,9 +2563,10 @@ ET_Free_Artist_Album_File_List (void)
  * Duplicate the 'other' list
  */
 static gboolean
-ET_Copy_File_Tag_Item_Other_Field (ET_File *ETFile, File_Tag *FileTag)
+ET_Copy_File_Tag_Item_Other_Field (const ET_File *ETFile,
+                                   File_Tag *FileTag)
 {
-    File_Tag *FileTagCur;
+    const File_Tag *FileTagCur;
     GList *l;
 
     FileTagCur = (File_Tag *)(ETFile->FileTag)->data;
@@ -2500,9 +2585,10 @@ ET_Copy_File_Tag_Item_Other_Field (ET_File *ETFile, File_Tag *FileTag)
  * Copy data of the File_Tag structure (of ETFile) to the FileTag item.
  * Reallocate data if not null.
  */
-gboolean ET_Copy_File_Tag_Item (ET_File *ETFile, File_Tag *FileTag)
+gboolean
+ET_Copy_File_Tag_Item (const ET_File *ETFile, File_Tag *FileTag)
 {
-    File_Tag *FileTagCur;
+    const File_Tag *FileTagCur;
 
     g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL &&
                           (File_Tag *)(ETFile->FileTag)->data != NULL, FALSE);
@@ -2686,7 +2772,10 @@ gboolean ET_Copy_File_Tag_Item (ET_File *ETFile, File_Tag *FileTag)
  * Calculate also the collate key.
  * It treats numbers intelligently so that "file1" "file10" "file5" is sorted as "file1" "file5" "file10"
  */
-gboolean ET_Set_Filename_File_Name_Item (File_Name *FileName, gchar *filename_utf8, gchar *filename)
+gboolean
+ET_Set_Filename_File_Name_Item (File_Name *FileName,
+                                const gchar *filename_utf8,
+                                const gchar *filename)
 {
     g_return_val_if_fail (FileName != NULL, FALSE);
 
@@ -2743,7 +2832,8 @@ gboolean ET_Set_Field_File_Tag_Item (gchar **FileTagField, const gchar *value)
 /*
  * Set the value of a field of a FileTag Picture item.
  */
-gboolean ET_Set_Field_File_Tag_Picture (Picture **FileTagField, Picture *pic)
+gboolean
+ET_Set_Field_File_Tag_Picture (Picture **FileTagField, const Picture *pic)
 {
     g_return_val_if_fail (FileTagField != NULL, FALSE);
 
@@ -2780,12 +2870,13 @@ et_file_header_fields_free (EtFileHeaderFields *fields)
  * Display information of the file (Position + Header + Tag) to the user interface.
  * Before doing it, it saves data of the file currently displayed
  */
-void ET_Display_File_Data_To_UI (ET_File *ETFile)
+void
+ET_Display_File_Data_To_UI (ET_File *ETFile)
 {
     EtApplicationWindow *window;
     const ET_File_Description *ETFileDescription;
-    gchar *cur_filename;
-    gchar *cur_filename_utf8;
+    const gchar *cur_filename;
+    const gchar *cur_filename_utf8;
     gchar *msg;
     EtFileHeaderFields *fields;
 #ifdef ENABLE_OPUS
@@ -2904,9 +2995,9 @@ void ET_Display_File_Data_To_UI (ET_File *ETFile)
 }
 
 static void
-ET_Display_Filename_To_UI (ET_File *ETFile)
+ET_Display_Filename_To_UI (const ET_File *ETFile)
 {
-    gchar *new_filename_utf8;
+    const gchar *new_filename_utf8;
     gchar *dirname_utf8;
     gchar *text;
 
@@ -2934,7 +3025,7 @@ ET_Display_Filename_To_UI (ET_File *ETFile)
  * "Default" way to display File Info to the user interface.
  */
 static EtFileHeaderFields *
-ET_Display_File_Info_To_UI (ET_File *ETFile)
+ET_Display_File_Info_To_UI (const ET_File *ETFile)
 {
     EtFileHeaderFields *fields;
     ET_File_Info *info;
@@ -2993,12 +3084,10 @@ void ET_Save_File_Data_From_UI (ET_File *ETFile)
     File_Name *FileName;
     File_Tag  *FileTag;
     guint      undo_key;
-    gchar     *cur_filename_utf8;
+    const gchar *cur_filename_utf8;
 
-    if (!ETFile ||
-        !ETFile->FileNameCur ||
-        !ETFile->FileNameCur->data)
-        return;
+    g_return_if_fail (ETFile != NULL && ETFile->FileNameCur != NULL
+                      && ETFile->FileNameCur->data != NULL);
 
     cur_filename_utf8 = ((File_Name *)((GList *)ETFile->FileNameCur)->data)->value_utf8;
     ETFileDescription = ETFile->ETFileDescription;
@@ -3065,7 +3154,7 @@ void ET_Save_File_Data_From_UI (ET_File *ETFile)
  *        encoding, not UTF-8 (it preserves file system encoding of parent directories).
  */
 static gboolean
-ET_Save_File_Name_From_UI (ET_File *ETFile, File_Name *FileName)
+ET_Save_File_Name_From_UI (const ET_File *ETFile, File_Name *FileName)
 {
     gchar *filename_new = NULL;
     gchar *dirname = NULL;
@@ -3153,7 +3242,8 @@ ET_Save_File_Name_From_UI (ET_File *ETFile, File_Name *FileName)
  * data from the UI.
  */
 static gboolean
-ET_Save_File_Name_Internal (ET_File *ETFile, File_Name *FileName)
+ET_Save_File_Name_Internal (const ET_File *ETFile,
+                            File_Name *FileName)
 {
     gchar *filename_new = NULL;
     gchar *dirname = NULL;
@@ -3432,8 +3522,8 @@ gboolean
 ET_Save_File_Tag_To_HD (ET_File *ETFile, GError **error)
 {
     const ET_File_Description *ETFileDescription;
-    gchar *cur_filename;
-    gchar *cur_filename_utf8;
+    const gchar *cur_filename;
+    const gchar *cur_filename_utf8;
     gboolean state;
     GFile *file;
     GFileInfo *fileinfo;
@@ -3441,7 +3531,7 @@ ET_Save_File_Tag_To_HD (ET_File *ETFile, GError **error)
     g_return_val_if_fail (ETFile != NULL, FALSE);
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-    cur_filename      = ((File_Name *)(ETFile->FileNameCur)->data)->value;
+    cur_filename = ((File_Name *)(ETFile->FileNameCur)->data)->value;
     cur_filename_utf8 = ((File_Name *)(ETFile->FileNameCur)->data)->value_utf8;
 
     ETFileDescription = ETFile->ETFileDescription;
@@ -3554,7 +3644,9 @@ ET_Save_File_Tag_To_HD (ET_File *ETFile, GError **error)
  * Function used to update path of filenames into list after renaming a parent directory
  * (for ex: "/mp3/old_path/file.mp3" to "/mp3/new_path/file.mp3"
  */
-void ET_Update_Directory_Name_Into_File_List (gchar* last_path, gchar *new_path)
+void
+ET_Update_Directory_Name_Into_File_List (const gchar *last_path,
+                                         const gchar *new_path)
 {
     GList *filelist;
     ET_File *file;
@@ -3675,7 +3767,8 @@ gboolean ET_Manage_Changes_Of_File_Data (ET_File *ETFile, File_Name *FileName, F
  *  - else returns FALSE
  */
 static gboolean
-ET_Detect_Changes_Of_File_Name (File_Name *FileName1, File_Name *FileName2)
+ET_Detect_Changes_Of_File_Name (const File_Name *FileName1,
+                                const File_Name *FileName2)
 {
     const gchar *filename1_ck;
     const gchar *filename2_ck;
@@ -3714,8 +3807,8 @@ gboolean
 ET_Detect_Changes_Of_File_Tag (const File_Tag *FileTag1,
                                const File_Tag *FileTag2)
 {
-    Picture *pic1;
-    Picture *pic2;
+    const Picture *pic1;
+    const Picture *pic2;
 
     g_return_val_if_fail (FileTag1 != NULL && FileTag2 != NULL, FALSE);
 
@@ -3986,7 +4079,8 @@ gboolean ET_Undo_File_Data (ET_File *ETFile)
 /*
  * Returns TRUE if file contains undo data (filename or tag)
  */
-gboolean ET_File_Data_Has_Undo_Data (ET_File *ETFile)
+gboolean
+ET_File_Data_Has_Undo_Data (const ET_File *ETFile)
 {
     gboolean has_filename_undo_data = FALSE;
     gboolean has_filetag_undo_data  = FALSE;
@@ -4046,7 +4140,8 @@ gboolean ET_Redo_File_Data (ET_File *ETFile)
 /*
  * Returns TRUE if file contains redo data (filename or tag)
  */
-gboolean ET_File_Data_Has_Redo_Data (ET_File *ETFile)
+gboolean
+ET_File_Data_Has_Redo_Data (const ET_File *ETFile)
 {
     gboolean has_filename_redo_data = FALSE;
     gboolean has_filetag_redo_data  = FALSE;
@@ -4067,7 +4162,7 @@ gboolean ET_File_Data_Has_Redo_Data (ET_File *ETFile)
 ET_File *ET_Undo_History_File_Data (void)
 {
     ET_File *ETFile;
-    ET_History_File *ETHistoryFile;
+    const ET_History_File *ETHistoryFile;
 
     g_return_val_if_fail (ETCore->ETHistoryFileList != NULL ||
                           ET_History_File_List_Has_Undo_Data (), NULL);
@@ -4140,7 +4235,8 @@ gboolean ET_History_File_List_Has_Redo_Data (void)
  * Returns TRUE if the file has been saved.
  * Returns FALSE if some changes haven't been saved.
  */
-gboolean ET_Check_If_File_Is_Saved (ET_File *ETFile)
+gboolean
+ET_Check_If_File_Is_Saved (const ET_File *ETFile)
 {
     File_Tag  *FileTag     = NULL;
     File_Name *FileNameNew = NULL;
@@ -4288,7 +4384,9 @@ et_core_read_file_info (const gchar *filename, ET_File_Info *ETFileInfo,
  *   - ogg filename musn't exceed 255-6 characters as we use mkstemp
  */
 #if 1
-gchar *ET_File_Name_Generate (ET_File *ETFile, gchar *new_file_name_utf8)
+gchar *
+ET_File_Name_Generate (const ET_File *ETFile,
+                       const gchar *new_file_name_utf8)
 {
     gchar *dirname_utf8;
 
@@ -4376,7 +4474,7 @@ gchar *ET_File_Name_Generate (ET_File *ETFile, gchar *new_file_name_utf8)
 
 /* Convert filename extension (lower/upper/no change). */
 static gchar *
-ET_File_Name_Format_Extension (ET_File *ETFile)
+ET_File_Name_Format_Extension (const ET_File *ETFile)
 {
     EtFilenameExtensionMode mode;
 

@@ -18,7 +18,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-
 #ifndef ET_FLAC_TAG_H_
 #define ET_FLAC_TAG_H_
 
@@ -28,7 +27,7 @@
 G_BEGIN_DECLS
 
 gboolean flac_tag_read_file_tag (const gchar *filename, File_Tag *FileTag, GError **error);
-gboolean flac_tag_write_file_tag (ET_File *ETFile, GError **error);
+gboolean flac_tag_write_file_tag (const ET_File *ETFile, GError **error);
 
 G_END_DECLS
 

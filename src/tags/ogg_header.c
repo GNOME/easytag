@@ -377,7 +377,8 @@ speex_header_read_file_info (const gchar *filename,
 #endif
 
 EtFileHeaderFields *
-Ogg_Header_Display_File_Info_To_UI (const gchar *filename, ET_File *ETFile)
+Ogg_Header_Display_File_Info_To_UI (const gchar *filename,
+                                    const ET_File *ETFile)
 {
     EtFileHeaderFields *fields;
     ET_File_Info *info;

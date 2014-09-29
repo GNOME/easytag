@@ -275,7 +275,7 @@ wavpack_tag_read_file_tag (const gchar *filename,
 }
 
 gboolean
-wavpack_tag_write_file_tag (ET_File *ETFile,
+wavpack_tag_write_file_tag (const ET_File *ETFile,
                             GError **error)
 {
     const gchar *filename;

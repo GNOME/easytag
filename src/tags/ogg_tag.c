@@ -816,7 +816,8 @@ static void Ogg_Set_Tag (vorbis_comment *vc, const gchar *tag_name, gchar *value
 }
 
 gboolean
-ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
+ogg_tag_write_file_tag (const ET_File *ETFile,
+                        GError **error)
 {
     const File_Tag *FileTag;
     const gchar *filename;

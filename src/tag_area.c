@@ -2444,7 +2444,7 @@ et_tag_area_show_images_tab (EtTagArea *self)
  */
 void
 et_tag_area_update_controls (EtTagArea *self,
-                             ET_File *ETFile)
+                             const ET_File *ETFile)
 {
     EtTagAreaPrivate *priv;
 
@@ -2965,7 +2965,7 @@ et_tag_area_create_file_tag (EtTagArea *self)
 
 gboolean
 et_tag_area_display_et_file (EtTagArea *self,
-                             ET_File *ETFile)
+                             const ET_File *ETFile)
 {
     EtTagAreaPrivate *priv;
     File_Tag *FileTag = NULL;

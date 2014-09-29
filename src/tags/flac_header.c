@@ -207,7 +207,7 @@ void error_callback_(const FLAC__StreamDecoder *decoder, FLAC__StreamDecoderErro
 
 EtFileHeaderFields *
 Flac_Header_Display_File_Info_To_UI (const gchar *filename_utf8,
-                                     ET_File *ETFile)
+                                     const ET_File *ETFile)
 {
     EtFileHeaderFields *fields;
     ET_File_Info *info;

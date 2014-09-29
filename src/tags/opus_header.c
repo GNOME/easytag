@@ -210,7 +210,7 @@ et_opus_read_file_info (GFile *gfile, ET_File_Info *ETFileInfo,
  */
 EtFileHeaderFields *
 et_opus_header_display_file_info_to_ui (GFile *file,
-                                        ET_File *ETFile)
+                                        const ET_File *ETFile)
 {
     EtFileHeaderFields *fields;
     ET_File_Info *info;
