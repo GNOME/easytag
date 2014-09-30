@@ -225,7 +225,7 @@ id3tag_write_file_v23tag (ET_File *ETFile, GError **error)
      * we replace the changed data */
     if ((id3_tag = ID3Tag_New ()) == NULL)
     {
-        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_NOMEM,
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_NOMEM, "%s",
                      g_strerror (ENOMEM));
         return FALSE;
     }
