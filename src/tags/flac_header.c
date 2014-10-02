@@ -38,57 +38,245 @@
 #include "flac_header.h"
 #include "misc.h"
 
+typedef struct
+{
+    GFileInputStream *istream;
+    GError *error;
+    gboolean abort;
 
-/****************
- * Declarations *
- ****************/
-typedef struct {
-    FLAC__bool abort_flag;
-    FLAC__bool is_playing;
-    FLAC__bool eof;
-    FLAC__bool play_thread_open; /* if true, is_playing must also be true */
-    unsigned total_samples;
-    unsigned bits_per_sample;
-    unsigned channels;
-    unsigned sample_rate;
-    unsigned length_in_msec;
-    int seek_to_in_sec;
-} file_info_struct;
-
-
-static FLAC__byte reservoir_[FLAC__MAX_BLOCK_SIZE * 2 * 2 * 2]; /* *2 for max bytes-per-sample, *2 for max channels, another *2 for overflow */
-static unsigned reservoir_samples_ = 0;
+    /* *2 for max bytes-per-sample, *2 for max channels, another *2 for
+     * overflow */
+    FLAC__byte reservoir[FLAC__MAX_BLOCK_SIZE * 2 * 2 * 2];
+    guint reservoir_samples;
+    guint total_samples;
+    guint bits_per_sample;
+    guint channels;
+    guint sample_rate;
+    guint length_in_msec;
+} EtFlacState;
 
 
-/**************
- * Prototypes *
- **************/
-static FLAC__StreamDecoderWriteStatus write_callback_(const FLAC__StreamDecoder *decoder, const FLAC__Frame *frame, const FLAC__int32 * const buffer[], void *client_data);
-static void metadata_callback_(const FLAC__StreamDecoder *decoder, const FLAC__StreamMetadata *metadata, void *client_data);
-static void error_callback_   (const FLAC__StreamDecoder *decoder, FLAC__StreamDecoderErrorStatus status, void *client_data);
+/* FLAC__stream_decoder_init_stream() IO callbacks. */
+static FLAC__StreamDecoderReadStatus
+et_flac_read_func (const FLAC__StreamDecoder *decoder,
+                   FLAC__byte buffer[],
+                   size_t *bytes,
+                   void *client_data)
+{
+    EtFlacState *state = (EtFlacState *)client_data;
+    gssize bytes_read;
 
+    bytes_read = g_input_stream_read (G_INPUT_STREAM (state->istream), buffer,
+                                      *bytes, NULL, &state->error);
 
+    if (bytes_read == -1)
+    {
+        *bytes = 0;
+        return FLAC__STREAM_DECODER_READ_STATUS_ABORT;
+    }
+    else if (bytes_read == 0)
+    {
+        *bytes = 0;
+        return FLAC__STREAM_DECODER_READ_STATUS_END_OF_STREAM;
+    }
+    else
+    {
+        *bytes = bytes_read;
+        return FLAC__STREAM_DECODER_READ_STATUS_CONTINUE;
+    }
+}
 
-/*************
- * Functions *
- *************/
+static FLAC__StreamDecoderSeekStatus
+et_flac_seek_func (const FLAC__StreamDecoder *decoder,
+                   FLAC__uint64 absolute_byte_offset,
+                   void *client_data)
+{
+    EtFlacState *state = (EtFlacState *)client_data;
 
-/****************************
- * Header info of FLAC file *
- ****************************/
+    if (!g_seekable_can_seek (G_SEEKABLE (state->istream)))
+    {
+        return FLAC__STREAM_DECODER_SEEK_STATUS_UNSUPPORTED;
+    }
+    else
+    {
+        if (!g_seekable_seek (G_SEEKABLE (state->istream),
+                              absolute_byte_offset, G_SEEK_SET, NULL,
+                              &state->error))
+        {
+            return FLAC__STREAM_DECODER_SEEK_STATUS_ERROR;
+        }
+        else
+        {
+            return FLAC__STREAM_DECODER_SEEK_STATUS_OK;
+        }
+    }
+}
+
+static FLAC__StreamDecoderTellStatus
+et_flac_tell_func (const FLAC__StreamDecoder *decoder,
+                   FLAC__uint64 *absolute_byte_offset,
+                   void *client_data)
+{
+    EtFlacState *state = (EtFlacState *)client_data;
+
+    if (!g_seekable_can_seek (G_SEEKABLE (state->istream)))
+    {
+        return FLAC__STREAM_DECODER_TELL_STATUS_UNSUPPORTED;
+    }
+
+    *absolute_byte_offset = g_seekable_tell (G_SEEKABLE (state->istream));
+
+    /* TODO: Investigate whether it makes sense to return an error code. */
+    return FLAC__STREAM_DECODER_TELL_STATUS_OK;
+}
+
+static FLAC__StreamDecoderLengthStatus
+et_flac_length_func (const FLAC__StreamDecoder *decoder,
+                     FLAC__uint64 *stream_length,
+                     void *client_data)
+{
+    EtFlacState *state = (EtFlacState *)client_data;
+    GFileInfo *info;
+
+    info = g_file_input_stream_query_info (state->istream,
+                                           G_FILE_ATTRIBUTE_STANDARD_SIZE,
+                                           NULL, &state->error);
+
+    if (!info)
+    {
+        g_debug ("Error getting length of FLAC stream: %s",
+                 state->error->message);
+        return FLAC__STREAM_DECODER_LENGTH_STATUS_ERROR;
+    }
+    else
+    {
+        *stream_length = g_file_info_get_size (info);
+        g_object_unref (info);
+        return FLAC__STREAM_DECODER_LENGTH_STATUS_OK;
+    }
+}
+
+static FLAC__bool
+et_flac_eof_func (const FLAC__StreamDecoder *decoder,
+                  void *client_data)
+{
+    /* GFileInputStream does not directly support checking to tell if the
+     * stream is at EOF. */
+    return false;
+}
+
+static FLAC__StreamDecoderWriteStatus
+et_flac_write_func (const FLAC__StreamDecoder *decoder,
+                    const FLAC__Frame *frame,
+                    const FLAC__int32 * const buffer[],
+                    void *client_data)
+{
+    EtFlacState *state = (EtFlacState *)client_data;
+    const guint bps = state->bits_per_sample;
+    const guint channels = state->channels;
+    const guint wide_samples = frame->header.blocksize;
+    guint wide_sample;
+    guint sample;
+    guint channel;
+    FLAC__int8 *scbuffer = (FLAC__int8*)state->reservoir;
+    FLAC__int16 *ssbuffer = (FLAC__int16*)state->reservoir;
+
+    if (state->abort)
+    {
+        return FLAC__STREAM_DECODER_WRITE_STATUS_ABORT;
+    }
+
+    if (bps == 8)
+    {
+        for (sample = state->reservoir_samples * channels, wide_sample = 0;
+             wide_sample < wide_samples; wide_sample++)
+        {
+            for (channel = 0; channel < channels; channel++, sample++)
+            {
+                scbuffer[sample] = (FLAC__int8)buffer[channel][wide_sample];
+            }
+        }
+    }
+    else if (bps == 16)
+    {
+        for (sample = state->reservoir_samples * channels, wide_sample = 0;
+             wide_sample < wide_samples; wide_sample++)
+        {
+            for (channel = 0; channel < channels; channel++, sample++)
+            {
+                ssbuffer[sample] = (FLAC__int16)buffer[channel][wide_sample];
+            }
+        }
+    }
+    else
+    {
+        state->abort = TRUE;
+        return FLAC__STREAM_DECODER_WRITE_STATUS_ABORT;
+    }
+
+    state->reservoir_samples += wide_samples;
+
+    return FLAC__STREAM_DECODER_WRITE_STATUS_CONTINUE;
+}
+
+static void
+et_flac_metadata_func (const FLAC__StreamDecoder *decoder,
+                       const FLAC__StreamMetadata *metadata,
+                       void *client_data)
+{
+    EtFlacState *state = (EtFlacState *)client_data;
+
+    if (metadata->type == FLAC__METADATA_TYPE_STREAMINFO)
+    {
+        FLAC__ASSERT(metadata->data.stream_info.total_samples < 0x100000000); /* this plugin can only handle < 4 gigasamples */
+        state->total_samples = (unsigned)(metadata->data.stream_info.total_samples&0xffffffff);
+        state->bits_per_sample = metadata->data.stream_info.bits_per_sample;
+        state->channels = metadata->data.stream_info.channels;
+        state->sample_rate = metadata->data.stream_info.sample_rate;
+
+        /* To prevent crash... */
+        if (state->sample_rate != 0 && (state->sample_rate / 100) != 0)
+        {
+            state->length_in_msec = state->total_samples * 10
+                                    / (state->sample_rate / 100);
+        }
+    }
+}
+
+static void
+et_flac_error_func (const FLAC__StreamDecoder *decoder,
+                    FLAC__StreamDecoderErrorStatus status,
+                    void *client_data)
+{
+    EtFlacState *state = (EtFlacState *)client_data;
+
+    if (status != FLAC__STREAM_DECODER_ERROR_STATUS_LOST_SYNC)
+    {
+        state->abort = TRUE;
+    }
+}
+
+/* Not a callback for FLAC__stream_decoder_init_stream(). */
+static void
+et_flac_close (EtFlacState *state)
+{
+    g_clear_object (&state->istream);
+    g_clear_error (&state->error);
+}
+
+/* Header info of FLAC file */
 
 gboolean
-flac_header_read_file_info (const gchar *filename,
+flac_header_read_file_info (GFile *file,
                             ET_File_Info *ETFileInfo,
                             GError **error)
 {
     gint duration = 0;
-    gulong filesize;
+    GFileInfo *info;
     FLAC__StreamDecoder *tmp_decoder;
+    EtFlacState state;
 
-    file_info_struct tmp_file_info;
-
-    g_return_val_if_fail (filename != NULL && ETFileInfo != NULL, FALSE);
+    g_return_val_if_fail (file != NULL && ETFileInfo != NULL, FALSE);
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     /* Decoding FLAC file */
@@ -101,15 +289,28 @@ flac_header_read_file_info (const gchar *filename,
         return FALSE;
     }
 
-    tmp_file_info.abort_flag = false;
 
-    FLAC__stream_decoder_set_md5_checking     (tmp_decoder, false);
-    if(FLAC__stream_decoder_init_file(tmp_decoder, filename, write_callback_, metadata_callback_, error_callback_, &tmp_file_info) != FLAC__STREAM_DECODER_INIT_STATUS_OK)
+    FLAC__stream_decoder_set_md5_checking (tmp_decoder, false);
+
+    state.abort = FALSE;
+    state.error = NULL;
+    state.istream = g_file_read (file, NULL, &state.error);
+    state.reservoir_samples = 0;
+
+    if (FLAC__stream_decoder_init_stream (tmp_decoder, et_flac_read_func,
+                                          et_flac_seek_func, et_flac_tell_func,
+                                          et_flac_length_func,
+                                          et_flac_eof_func, et_flac_write_func,
+                                          et_flac_metadata_func,
+                                          et_flac_error_func, &state)
+        != FLAC__STREAM_DECODER_INIT_STATUS_OK)
     {
         /* TODO: Set error message according to FLAC__StreamDecoderInitStatus.
          */
         g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s",
                      _("Error opening FLAC file"));
+        g_debug ("Error opening FLAC stream: %s", state.error->message);
+        et_flac_close (&state);
         FLAC__stream_decoder_finish (tmp_decoder);
         FLAC__stream_decoder_delete (tmp_decoder);
         return FALSE;
@@ -121,88 +322,46 @@ flac_header_read_file_info (const gchar *filename,
          * FLAC__stream_decoder_get_state(). */
         g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s",
                      _("Error opening FLAC file"));
+        g_debug ("Error fetching metadata from FLAC stream: %s",
+                 state.error->message);
+        et_flac_close (&state);
         FLAC__stream_decoder_finish (tmp_decoder);
         FLAC__stream_decoder_delete (tmp_decoder);
         return FALSE;
     }
 
+    et_flac_close (&state);
     FLAC__stream_decoder_finish(tmp_decoder);
     FLAC__stream_decoder_delete(tmp_decoder);
     /* End of decoding FLAC file */
 
+    info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_SIZE,
+                              G_FILE_QUERY_INFO_NONE, NULL, NULL);
 
-    filesize = et_get_file_size (filename);
-    duration = (gint)tmp_file_info.length_in_msec/1000;
+    if (info)
+    {
+        ETFileInfo->size = g_file_info_get_size (info);
+        g_object_unref (info);
+    }
+    else
+    {
+        ETFileInfo->size = 0;
+    }
 
-    ETFileInfo->version     = 0; // Not defined in FLAC file
-    if (duration > 0)
-        ETFileInfo->bitrate = filesize*8/duration/1000; // FIXME : Approximation!! Needs to remove tag size!
-    ETFileInfo->samplerate  = tmp_file_info.sample_rate;
-    ETFileInfo->mode        = tmp_file_info.channels;
-    ETFileInfo->size        = filesize;
-    ETFileInfo->duration    = duration;
+    duration = (gint)state.length_in_msec / 1000;
+
+    if (duration > 0 && ETFileInfo->size > 0)
+    {
+        /* FIXME: Approximation! Needs to remove tag size. */
+        ETFileInfo->bitrate = ETFileInfo->size * 8 / duration / 1000;
+    }
+
+    ETFileInfo->version = 0; /* Not defined in FLAC file. */
+    ETFileInfo->samplerate = state.sample_rate;
+    ETFileInfo->mode = state.channels;
+    ETFileInfo->duration = duration;
 
     return TRUE;
-}
-
-
-
-FLAC__StreamDecoderWriteStatus write_callback_(const FLAC__StreamDecoder *decoder, const FLAC__Frame *frame, const FLAC__int32 * const buffer[], void *client_data)
-{
-    file_info_struct *file_info = (file_info_struct *)client_data;
-    const unsigned bps = file_info->bits_per_sample, channels = file_info->channels, wide_samples = frame->header.blocksize;
-    unsigned wide_sample, sample, channel;
-    FLAC__int8 *scbuffer = (FLAC__int8*)reservoir_;
-    FLAC__int16 *ssbuffer = (FLAC__int16*)reservoir_;
-
-    (void)decoder;
-
-    if (file_info->abort_flag)
-        return FLAC__STREAM_DECODER_WRITE_STATUS_ABORT;
-
-    if (bps == 8) {
-        for(sample = reservoir_samples_*channels, wide_sample = 0; wide_sample < wide_samples; wide_sample++)
-            for(channel = 0; channel < channels; channel++, sample++)
-                scbuffer[sample] = (FLAC__int8)buffer[channel][wide_sample];
-    }
-    else if (bps == 16) {
-        for(sample = reservoir_samples_*channels, wide_sample = 0; wide_sample < wide_samples; wide_sample++)
-            for(channel = 0; channel < channels; channel++, sample++)
-                ssbuffer[sample] = (FLAC__int16)buffer[channel][wide_sample];
-    }
-    else {
-        file_info->abort_flag = true;
-        return FLAC__STREAM_DECODER_WRITE_STATUS_ABORT;
-    }
-
-    reservoir_samples_ += wide_samples;
-
-    return FLAC__STREAM_DECODER_WRITE_STATUS_CONTINUE;
-}
-
-void metadata_callback_(const FLAC__StreamDecoder *decoder, const FLAC__StreamMetadata *metadata, void *client_data)
-{
-    file_info_struct *file_info = (file_info_struct *)client_data;
-    (void)decoder;
-    if (metadata->type == FLAC__METADATA_TYPE_STREAMINFO)
-    {
-        FLAC__ASSERT(metadata->data.stream_info.total_samples < 0x100000000); /* this plugin can only handle < 4 gigasamples */
-        file_info->total_samples = (unsigned)(metadata->data.stream_info.total_samples&0xffffffff);
-        file_info->bits_per_sample = metadata->data.stream_info.bits_per_sample;
-        file_info->channels = metadata->data.stream_info.channels;
-        file_info->sample_rate = metadata->data.stream_info.sample_rate;
-
-        if (file_info->sample_rate != 0 && (file_info->sample_rate / 100) != 0) // To prevent crash...
-            file_info->length_in_msec = file_info->total_samples * 10 / (file_info->sample_rate / 100);
-    }
-}
-
-void error_callback_(const FLAC__StreamDecoder *decoder, FLAC__StreamDecoderErrorStatus status, void *client_data)
-{
-    file_info_struct *file_info = (file_info_struct *)client_data;
-    (void)decoder;
-    if (status != FLAC__STREAM_DECODER_ERROR_STATUS_LOST_SYNC)
-        file_info->abort_flag = true;
 }
 
 EtFileHeaderFields *

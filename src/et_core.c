@@ -633,7 +633,7 @@ GList *ET_Add_File_To_File_List (gchar *filename)
 #endif
 #ifdef ENABLE_FLAC
         case FLAC_FILE:
-            success = flac_header_read_file_info (filename, ETFileInfo,
+            success = flac_header_read_file_info (file, ETFileInfo,
                                                   &error);
             break;
 #endif
