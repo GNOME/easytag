@@ -41,13 +41,35 @@
 #include "picture.h"
 #include "charset.h"
 
+/*
+ * EtFlacReadState:
+ *
+ * Used as a FLAC__IOHandle for FLAC__metadata_chain_read_with_callbacks().
+ */
+typedef struct
+{
+    GFileInputStream *istream;
+    gboolean eof;
+    GError *error;
+} EtFlacReadState;
 
-/***************
- * Declaration *
- ***************/
+/*
+ * EtFlacWriteState:
+ *
+ * Used as a FLAC__IOHandle for FLAC__metadata_chain_write_with_callbacks() and
+ * FLAC__metadata_chain_write_with_callbacks_and_tempfile().
+ */
+typedef struct
+{
+    GFile *file;
+    GFileInputStream *istream;
+    GFileOutputStream *ostream;
+    GFileIOStream *iostream;
+    gboolean eof;
+    GError *error;
+} EtFlacWriteState;
 
 #define MULTIFIELD_SEPARATOR " - "
-
 
 /* FLAC uses Ogg Vorbis comments
  * Ogg Vorbis fields names :
@@ -76,23 +98,248 @@
  * of any language.
  */
 
-
-
-/**************
- * Prototypes *
- **************/
-
 static gboolean Flac_Write_Delimetered_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag_name, gchar *values);
 static gboolean Flac_Write_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag_name, gchar *value);
 static gboolean Flac_Set_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag_name, gchar *value, gboolean split);
 
 
-/*************
- * Functions *
- *************/
+static size_t
+read_func (GInputStream *istream,
+           void *buffer,
+           gsize count,
+           gboolean *eof,
+           GError **error)
+{
+    gssize bytes_read;
+
+    *eof = FALSE;
+
+    bytes_read = g_input_stream_read (istream, buffer, count, NULL, error);
+
+    if (bytes_read == -1)
+    {
+        errno = EIO;
+        return 0;
+    }
+    else if (bytes_read == 0)
+    {
+        *eof = TRUE;
+    }
+
+    return bytes_read;
+}
+
+static size_t
+et_flac_read_read_func (void *ptr,
+                        size_t size,
+                        size_t nmemb,
+                        FLAC__IOHandle handle)
+{
+    EtFlacReadState *state;
+
+    state = (EtFlacReadState *)handle;
+
+    return read_func (G_INPUT_STREAM (state->istream), ptr, size * nmemb,
+                      &state->eof, &state->error);
+}
+
+static size_t
+et_flac_write_read_func (void *ptr,
+                         size_t size,
+                         size_t nmemb,
+                         FLAC__IOHandle handle)
+{
+    EtFlacWriteState *state;
+
+    state = (EtFlacWriteState *)handle;
+
+    return read_func (G_INPUT_STREAM (state->istream), ptr, size * nmemb,
+                      &state->eof, &state->error);
+}
+
+static size_t
+et_flac_write_write_func (const void *ptr,
+                          size_t size,
+                          size_t nmemb,
+                          FLAC__IOHandle handle)
+{
+    EtFlacWriteState *state;
+    gsize bytes_written;
+
+    state = (EtFlacWriteState *)handle;
+
+    if (!g_output_stream_write_all (G_OUTPUT_STREAM (state->ostream), ptr,
+                                    size * nmemb, &bytes_written, NULL,
+                                    &state->error))
+    {
+        g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %" G_GSIZE_FORMAT
+                 " bytes of data were written", bytes_written,
+                 size);
+        errno = EIO;
+    }
+
+    return bytes_written;
+}
+
+static gint
+seek_func (GSeekable *seekable,
+           goffset offset,
+           gint whence,
+           GError **error)
+{
+    GSeekType seektype;
+
+    if (!g_seekable_can_seek (seekable))
+    {
+        errno = EBADF;
+        return -1;
+    }
+    else
+    {
+        switch (whence)
+        {
+            case SEEK_SET:
+                seektype = G_SEEK_SET;
+                break;
+            case SEEK_CUR:
+                seektype = G_SEEK_CUR;
+                break;
+            case SEEK_END:
+                seektype = G_SEEK_END;
+                break;
+            default:
+                errno = EINVAL;
+                return -1;
+        }
+
+        if (g_seekable_seek (seekable, offset, seektype, NULL, error))
+        {
+            return 0;
+        }
+        else
+        {
+            /* TODO: More suitable error. */
+            errno = EINVAL;
+            return -1;
+        }
+    }
+}
+
+static int
+et_flac_read_seek_func (FLAC__IOHandle handle,
+                        FLAC__int64 offset,
+                        int whence)
+{
+    EtFlacReadState *state;
+
+    state = (EtFlacReadState *)handle;
+
+    return seek_func (G_SEEKABLE (state->istream), offset, whence,
+                      &state->error);
+}
+
+static int
+et_flac_write_seek_func (FLAC__IOHandle handle,
+                         FLAC__int64 offset,
+                         int whence)
+{
+    EtFlacWriteState *state;
+
+    state = (EtFlacWriteState *)handle;
+
+    /* Seeking on the IOStream causes both the input and output stream to have
+     * the same offset. */
+    return seek_func (G_SEEKABLE (state->iostream), offset, whence,
+                      &state->error);
+}
+
+static FLAC__int64
+tell_func (GSeekable *seekable)
+{
+    if (!g_seekable_can_seek (seekable))
+    {
+        errno = EBADF;
+        return -1;
+    }
+    else
+    {
+        return g_seekable_tell (seekable);
+    }
+}
+
+static FLAC__int64
+et_flac_read_tell_func (FLAC__IOHandle handle)
+{
+    EtFlacReadState *state;
+
+    state = (EtFlacReadState *)handle;
+
+    return tell_func (G_SEEKABLE (state->istream));
+}
+
+static FLAC__int64
+et_flac_write_tell_func (FLAC__IOHandle handle)
+{
+    EtFlacWriteState *state;
+
+    state = (EtFlacWriteState *)handle;
+
+    return tell_func (G_SEEKABLE (state->iostream));
+}
+
+static int
+et_flac_read_eof_func (FLAC__IOHandle handle)
+{
+    EtFlacReadState *state;
+
+    state = (EtFlacReadState *)handle;
+
+    /* EOF is not directly supported by GFileInputStream. */
+    return state->eof ? 1 : 0;
+}
+
+static int
+et_flac_write_eof_func (FLAC__IOHandle handle)
+{
+    EtFlacWriteState *state;
+
+    state = (EtFlacWriteState *)handle;
+
+    /* EOF is not directly supported by GFileInputStream. */
+    return state->eof ? 1 : 0;
+}
+
+static int
+et_flac_read_close_func (FLAC__IOHandle handle)
+{
+    EtFlacReadState *state;
+
+    state = (EtFlacReadState *)handle;
+
+    g_clear_object (&state->istream);
+    g_clear_error (&state->error);
+
+    /* Always return success. */
+    return 0;
+}
+
+static int
+et_flac_write_close_func (FLAC__IOHandle handle)
+{
+    EtFlacWriteState *state;
+
+    state = (EtFlacWriteState *)handle;
+
+    g_clear_object (&state->file);
+    g_clear_object (&state->iostream);
+    g_clear_error (&state->error);
+
+    /* Always return success. */
+    return 0;
+}
 
 /*
- * Read tag data from a FLAC file using the level 1 flac interface,
+ * Read tag data from a FLAC file using the level 2 flac interface,
  * Note:
  *  - if field is found but contains no info (strlen(str)==0), we don't read it
  */
@@ -101,11 +348,17 @@ flac_tag_read_file_tag (GFile *file,
                         File_Tag *FileTag,
                         GError **error)
 {
-    FLAC__Metadata_SimpleIterator *iter;
-    const gchar *flac_error_msg;
+    FLAC__Metadata_Chain *chain;
+    EtFlacReadState state;
+    FLAC__IOCallbacks callbacks = { et_flac_read_read_func,
+                                    NULL, /* Do not set a write callback. */
+                                    et_flac_read_seek_func,
+                                    et_flac_read_tell_func,
+                                    et_flac_read_eof_func,
+                                    et_flac_read_close_func };
+    FLAC__Metadata_Iterator *iter;
+
     gchar *string = NULL;
-    gchar *filename;
-    gchar *filename_utf8;
     guint i;
     Picture *prev_pic = NULL;
     //gint j = 1;
@@ -113,48 +366,57 @@ flac_tag_read_file_tag (GFile *file,
     g_return_val_if_fail (file != NULL && FileTag != NULL, FALSE);
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-    /* Initialize the iterator for the blocks. */
-    filename = g_file_get_path (file);
-    iter = FLAC__metadata_simple_iterator_new();
+    chain = FLAC__metadata_chain_new ();
 
-    if ( iter == NULL || !FLAC__metadata_simple_iterator_init(iter, filename, true, false) )
+    if (chain == NULL)
     {
-        if ( iter == NULL )
-        {
-            // Error with "FLAC__metadata_simple_iterator_new"
-            flac_error_msg = FLAC__Metadata_SimpleIteratorStatusString[FLAC__METADATA_SIMPLE_ITERATOR_STATUS_MEMORY_ALLOCATION_ERROR];
-        }else
-        {
-            // Error with "FLAC__metadata_simple_iterator_init"
-            FLAC__Metadata_SimpleIteratorStatus status = FLAC__metadata_simple_iterator_status(iter);
-            flac_error_msg = FLAC__Metadata_SimpleIteratorStatusString[status];
-            
-            FLAC__metadata_simple_iterator_delete(iter);
-        }
-
-        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
-                     _("Error while opening file: %s"), flac_error_msg);
-        g_free (filename);
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_NOMEM, "%s",
+                     g_strerror (ENOMEM));
         return FALSE;
     }
-    
-    filename_utf8 = filename_to_display (filename);
-    g_free (filename);
 
-    /* libFLAC is able to detect (and skip) ID3v2 tags by itself */
+    state.error = NULL;
+    state.istream = g_file_read (file, NULL, &state.error);
 
-    while (FLAC__metadata_simple_iterator_next(iter))
+    if (!FLAC__metadata_chain_read_with_callbacks (chain, &state, callbacks))
     {
-        // Get block data
-        FLAC__StreamMetadata *block = FLAC__metadata_simple_iterator_get_block(iter);
-        //g_print("Read: %d %s -> block type: %d\n",j++,g_path_get_basename(filename),FLAC__metadata_simple_iterator_get_block_type(iter));
-        
-        // Action to do according the type
-        switch ( FLAC__metadata_simple_iterator_get_block_type(iter) )
+        FLAC__Metadata_ChainStatus status;
+
+        status = FLAC__metadata_chain_status (chain);
+
+        switch (status)
         {
-            //
-            // Read the VORBIS_COMMENT block (only one should exist)
-            //
+            /* TODO: Provide a dedicated error enum corresponding to status. */
+            default:
+                g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s",
+                             _("Error opening FLAC file"));
+                et_flac_read_close_func (&state);
+                break;
+        }
+
+        return FALSE;
+    }
+
+    iter = FLAC__metadata_iterator_new ();
+
+    if (iter == NULL)
+    {
+        et_flac_read_close_func (&state);
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_NOMEM, "%s",
+                     g_strerror (ENOMEM));
+        return FALSE;
+    }
+
+    FLAC__metadata_iterator_init (iter, chain);
+
+    while (FLAC__metadata_iterator_next (iter))
+    {
+        FLAC__StreamMetadata *block;
+
+        block = FLAC__metadata_iterator_get_block (iter);
+
+        switch (block->type)
+        {
             case FLAC__METADATA_TYPE_VORBIS_COMMENT:
             {
                 FLAC__StreamMetadata_VorbisComment       *vc;
@@ -702,14 +964,11 @@ flac_tag_read_file_tag (GFile *file,
             default:
                 break;
         }
-        
-        /* Free block data. */
-        FLAC__metadata_object_delete (block);
     }
-    
-    // Free iter
-    FLAC__metadata_simple_iterator_delete(iter);
 
+    FLAC__metadata_iterator_delete (iter);
+    FLAC__metadata_chain_delete (chain);
+    et_flac_read_close_func (&state);
 
 #ifdef ENABLE_MP3
     /* If no FLAC vorbis tag found : we try to get the ID3 tag if it exists
@@ -732,8 +991,9 @@ flac_tag_read_file_tag (GFile *file,
       && FileTag->encoded_by  == NULL
       && FileTag->picture     == NULL)
     {
-        /* Ignore errors. */
-        id3tag_read_file_tag (file, FileTag, NULL);
+        gboolean rc;
+
+        rc = id3tag_read_file_tag (file, FileTag, NULL);
 
         // If an ID3 tag has been found (and no FLAC tag), we mark the file as
         // unsaved to rewrite a flac tag.
@@ -757,10 +1017,11 @@ flac_tag_read_file_tag (GFile *file,
         {
             FileTag->saved = FALSE;
         }
+
+        return rc;
     }
 #endif
 
-    g_free(filename_utf8);
     return TRUE;
 }
 
@@ -819,6 +1080,15 @@ flac_tag_write_file_tag (const ET_File *ETFile,
                          GError **error)
 {
     const File_Tag *FileTag;
+    GFile *file;
+    GFileIOStream *iostream;
+    EtFlacWriteState state;
+    FLAC__IOCallbacks callbacks = { et_flac_write_read_func,
+                                    et_flac_write_write_func,
+                                    et_flac_write_seek_func,
+                                    et_flac_write_tell_func,
+                                    et_flac_write_eof_func,
+                                    et_flac_write_close_func };
     const gchar *filename;
     const gchar *filename_utf8;
     const gchar *flac_error_msg;
@@ -836,31 +1106,55 @@ flac_tag_write_file_tag (const ET_File *ETFile,
 
     /* libFLAC is able to detect (and skip) ID3v2 tags by itself */
     
-    // Create a new chain instance to get all blocks in one time
-    chain = FLAC__metadata_chain_new();
-    if (chain == NULL || !FLAC__metadata_chain_read(chain,filename))
+    /* Create a new chain instance to get all blocks in one time. */
+    chain = FLAC__metadata_chain_new ();
+
+    if (chain == NULL)
     {
-        if (chain == NULL)
-        {
-            // Error with "FLAC__metadata_chain_new"
-            flac_error_msg = FLAC__Metadata_ChainStatusString[FLAC__METADATA_CHAIN_STATUS_MEMORY_ALLOCATION_ERROR];
-        }else
-        {
-            // Error with "FLAC__metadata_chain_read"
-            FLAC__Metadata_ChainStatus status = FLAC__metadata_chain_status(chain);
-            flac_error_msg = FLAC__Metadata_ChainStatusString[status];
-            
-            FLAC__metadata_chain_delete(chain);
-        }
+        flac_error_msg = FLAC__Metadata_ChainStatusString[FLAC__METADATA_CHAIN_STATUS_MEMORY_ALLOCATION_ERROR];
         
         g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
                      _("Error while opening file ‘%s’ as FLAC: %s"),
                      filename_utf8, flac_error_msg);
         return FALSE;
     }
+
+    file = g_file_new_for_path (filename);
+
+    state.file = file;
+    state.error = NULL;
+    /* TODO: Fallback to an in-memory copy of the file for non-local files,
+     * where creation of the GFileIOStream may fail. */
+    iostream = g_file_open_readwrite (file, NULL, &state.error);
+
+    if (iostream == NULL)
+    {
+        FLAC__metadata_chain_delete (chain);
+        g_propagate_error (error, state.error);
+        g_object_unref (file);
+        return FALSE;
+    }
+
+    state.istream = G_FILE_INPUT_STREAM (g_io_stream_get_input_stream (G_IO_STREAM (iostream)));
+    state.ostream = G_FILE_OUTPUT_STREAM (g_io_stream_get_output_stream (G_IO_STREAM (iostream)));
+    state.iostream = iostream;
+
+    if (!FLAC__metadata_chain_read_with_callbacks (chain, &state, callbacks))
+    {
+        const FLAC__Metadata_ChainStatus status = FLAC__metadata_chain_status (chain);
+        flac_error_msg = FLAC__Metadata_ChainStatusString[status];
+        FLAC__metadata_chain_delete (chain);
+
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                     _("Error while opening file ‘%s’ as FLAC: %s"),
+                     filename_utf8, flac_error_msg);
+        et_flac_write_close_func (&state);
+        return FALSE;
+    }
     
-    // Create a new iterator instance for the chain
-    iter = FLAC__metadata_iterator_new();
+    /* Create a new iterator instance for the chain. */
+    iter = FLAC__metadata_iterator_new ();
+
     if (iter == NULL)
     {
         flac_error_msg = FLAC__Metadata_ChainStatusString[FLAC__METADATA_CHAIN_STATUS_MEMORY_ALLOCATION_ERROR];
@@ -868,19 +1162,19 @@ flac_tag_write_file_tag (const ET_File *ETFile,
         g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
                      _("Error while opening file ‘%s’ as FLAC: %s"),
                      filename_utf8, flac_error_msg);
+        FLAC__metadata_chain_delete (chain);
+        et_flac_write_close_func (&state);
         return FALSE;
     }
     
-    // Initialize the iterator to point to the first metadata block in the given chain.
-    FLAC__metadata_iterator_init(iter,chain);
+    FLAC__metadata_iterator_init (iter, chain);
     
-    while (FLAC__metadata_iterator_next(iter))
+    while (FLAC__metadata_iterator_next (iter))
     {
-        //g_print("Write: %d %s -> block type: %d\n",j++,g_path_get_basename(filename),FLAC__metadata_iterator_get_block_type(iter));
-        
-        // Action to do according the type
-        switch ( FLAC__metadata_iterator_get_block_type(iter) )
+        switch (FLAC__metadata_iterator_get_block_type (iter))
         {
+            /* TODO: Modify the blocks directly, rather than deleting and
+             * recreating. */
             //
             // Delete the VORBIS_COMMENT block and convert to padding. But before, save the original vendor string.
             //
@@ -911,7 +1205,7 @@ flac_tag_write_file_tag (const ET_File *ETFile,
                 FLAC__metadata_iterator_delete_block(iter,true);
                 break;
             }
-            
+
             default:
                 break;
         }
@@ -1104,37 +1398,93 @@ flac_tag_write_file_tag (const ET_File *ETFile,
         }
     }
     
-    // Free iter
-    FLAC__metadata_iterator_delete(iter);
-    
+    FLAC__metadata_iterator_delete (iter);
     
     //
     // Prepare for writing tag
     //
     
-    // Move all PADDING blocks to the end on the metadata, and merge them into a single block.
-    FLAC__metadata_chain_sort_padding(chain);
+    FLAC__metadata_chain_sort_padding (chain);
  
     /* Write tag. */
-    if (!FLAC__metadata_chain_write (chain, /*padding*/TRUE,
-                                     g_settings_get_boolean (MainSettings,
-                                                             "file-preserve-modification-time")))
+    if (FLAC__metadata_chain_check_if_tempfile_needed (chain, true))
     {
-        // Error with "FLAC__metadata_chain_write"
-        FLAC__Metadata_ChainStatus status = FLAC__metadata_chain_status(chain);
-        flac_error_msg = FLAC__Metadata_ChainStatusString[status];
+        EtFlacWriteState temp_state;
+        GFile *temp_file;
+        GFileIOStream *temp_iostream;
+        GError *temp_error = NULL;
 
-        FLAC__metadata_chain_delete(chain);
-        
-        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
-                     _("Failed to write comments to file ‘%s’: %s"),
-                     filename_utf8, flac_error_msg);
-        return FALSE;
+        temp_file = g_file_new_tmp ("easytag-XXXXXX", &temp_iostream,
+                                    &temp_error);
+
+        if (temp_file == NULL)
+        {
+            FLAC__metadata_chain_delete (chain);
+            g_propagate_error (error, temp_error);
+            et_flac_write_close_func (&state);
+            return FALSE;
+        }
+
+        temp_state.file = temp_file;
+        temp_state.error = NULL;
+        temp_state.istream = G_FILE_INPUT_STREAM (g_io_stream_get_input_stream (G_IO_STREAM (temp_iostream)));
+        temp_state.ostream = G_FILE_OUTPUT_STREAM (g_io_stream_get_output_stream (G_IO_STREAM (temp_iostream)));
+        temp_state.iostream = temp_iostream;
+
+        if (!FLAC__metadata_chain_write_with_callbacks_and_tempfile (chain,
+                                                                     true,
+                                                                     &state,
+                                                                     callbacks,
+                                                                     &temp_state,
+                                                                     callbacks))
+        {
+            const FLAC__Metadata_ChainStatus status = FLAC__metadata_chain_status (chain);
+            flac_error_msg = FLAC__Metadata_ChainStatusString[status];
+
+            FLAC__metadata_chain_delete (chain);
+            et_flac_write_close_func (&temp_state);
+            et_flac_write_close_func (&state);
+
+            g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                         _("Failed to write comments to file ‘%s’: %s"),
+                         filename_utf8, flac_error_msg);
+            return FALSE;
+        }
+
+        if (!g_file_move (temp_file, file, G_FILE_COPY_OVERWRITE, NULL, NULL,
+                          NULL, &state.error))
+        {
+            FLAC__metadata_chain_delete (chain);
+            et_flac_write_close_func (&temp_state);
+
+            g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                         _("Failed to write comments to file ‘%s’: %s"),
+                         filename_utf8, state.error->message);
+            et_flac_write_close_func (&state);
+            return FALSE;
+        }
     }
-    
-    FLAC__metadata_chain_delete(chain);
+    else
+    {
+        if (!FLAC__metadata_chain_write_with_callbacks (chain, true, &state,
+                                                        callbacks))
+        {
+            const FLAC__Metadata_ChainStatus status = FLAC__metadata_chain_status (chain);
+            flac_error_msg = FLAC__Metadata_ChainStatusString[status];
 
-    
+            FLAC__metadata_chain_delete (chain);
+            et_flac_write_close_func (&state);
+
+            g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                         _("Failed to write comments to file ‘%s’: %s"),
+                         filename_utf8, flac_error_msg);
+            return FALSE;
+        }
+    }
+
+    FLAC__metadata_chain_delete (chain);
+    et_flac_write_close_func (&state);
+
 #ifdef ENABLE_MP3
     {
         // Delete the ID3 tags (create a dummy ETFile for the Id3tag_... function)
