@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: easytag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-27 21:27+0200\n"
-"PO-Revision-Date: 2014-09-27 21:28+0200\n"
+"POT-Creation-Date: 2014-10-05 17:45+0200\n"
+"PO-Revision-Date: 2014-10-05 17:48+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -148,7 +148,7 @@ msgstr "Proszę wybrać katalog do wyświetlenia w przeglądarce"
 msgid "Select a directory to browse"
 msgstr "Proszę wybrać katalog do przeglądania"
 
-#: ../data/browser.ui.h:18 ../src/easytag.c:1104
+#: ../data/browser.ui.h:18 ../src/easytag.c:1106
 msgid "No files"
 msgstr "Brak plików"
 
@@ -423,7 +423,7 @@ msgstr ""
 "zaznaczono)"
 
 #. Default values are MPEG data.
-#: ../data/file_area.ui.h:1 ../src/et_core.c:2919 ../src/file_area.c:192
+#: ../data/file_area.ui.h:1 ../src/et_core.c:3040 ../src/file_area.c:192
 msgid "File"
 msgstr "Plik"
 
@@ -435,9 +435,9 @@ msgstr "0/0:"
 #. Version changed to encoder version
 #. Encoder version
 #: ../data/file_area.ui.h:3 ../src/file_area.c:193
-#: ../src/tags/flac_header.c:205 ../src/tags/monkeyaudio_header.c:93
-#: ../src/tags/musepack_header.c:97 ../src/tags/ogg_header.c:418
-#: ../src/tags/opus_header.c:228 ../src/tags/wavpack_header.c:82
+#: ../src/tags/flac_header.c:384 ../src/tags/monkeyaudio_header.c:97
+#: ../src/tags/musepack_header.c:101 ../src/tags/ogg_header.c:406
+#: ../src/tags/opus_header.c:228 ../src/tags/wavpack_header.c:88
 msgid "Encoder:"
 msgstr "Koder:"
 
@@ -451,7 +451,7 @@ msgstr "Częstotliwość próbkowania:"
 
 #. Mode
 #: ../data/file_area.ui.h:6 ../src/file_area.c:197
-#: ../src/tags/mpeg_header.c:231
+#: ../src/tags/mpeg_header.c:236
 msgid "Mode:"
 msgstr "Tryb:"
 
@@ -3122,7 +3122,7 @@ msgstr "Witryna: %s"
 msgid "- Tag and rename audio files"
 msgstr "- nadawanie etykiet i zmienianie nazw plikach dźwiękowych"
 
-#: ../src/application.c:433 ../src/et_core.c:630 ../src/et_core.c:644
+#: ../src/application.c:433 ../src/et_core.c:674
 #, c-format
 msgid "Error while querying information for file ‘%s’: %s"
 msgstr "Błąd podczas odpytywania informacji o pliku \"%s\": %s"
@@ -3738,40 +3738,41 @@ msgstr "Pliki, którym nie zmieniono nazwy"
 msgid "Writing tag of ‘%s’"
 msgstr "Zapisywanie etykiety pliku \"%s\""
 
-#: ../src/easytag.c:897
-msgid "Tag(s) written"
-msgstr "Zapisano etykiety"
+#: ../src/easytag.c:896
+#, c-format
+msgid "Wrote tag of ‘%s’"
+msgstr "Zapisano etykietę pliku \"%s\""
 
-#: ../src/easytag.c:910
+#: ../src/easytag.c:912
 #, c-format
 msgid "Cannot write tag in file ‘%s’"
 msgstr "Nie można zapisać etykiety w pliku \"%s\""
 
-#: ../src/easytag.c:914
+#: ../src/easytag.c:916
 msgid "Tag Write Error"
 msgstr "Błąd zapisu etykiety"
 
-#: ../src/easytag.c:988 ../src/easytag.c:1216
+#: ../src/easytag.c:990 ../src/easytag.c:1218
 #, c-format
 msgid "Cannot read directory ‘%s’"
 msgstr "Nie można odczytać katalogu \"%s\""
 
-#: ../src/easytag.c:992
+#: ../src/easytag.c:994
 msgid "Directory Read Error"
 msgstr "Błąd odczytu katalogu"
 
 #. Read the directory recursively
-#: ../src/easytag.c:1013
+#: ../src/easytag.c:1015
 #, c-format
 msgid "Search in progress…"
 msgstr "Trwa wyszukiwanie…"
 
-#: ../src/easytag.c:1037 ../src/et_core.c:2871
+#: ../src/easytag.c:1039 ../src/et_core.c:2992
 #, c-format
 msgid "File: ‘%s’"
 msgstr "Plik: \"%s\""
 
-#: ../src/easytag.c:1084
+#: ../src/easytag.c:1086
 #, c-format
 msgid "Found one file in this directory and subdirectories"
 msgid_plural "Found %d files in this directory and subdirectories"
@@ -3779,7 +3780,7 @@ msgstr[0] "Odnaleziono jeden plik w tym katalogu i jego podkatalogach"
 msgstr[1] "Odnaleziono %d pliki w tym katalogu i jego podkatalogach"
 msgstr[2] "Odnaleziono %d plików w tym katalogu i jego podkatalogach"
 
-#: ../src/easytag.c:1091
+#: ../src/easytag.c:1093
 #, c-format
 msgid "Found one file in this directory"
 msgid_plural "Found %d files in this directory"
@@ -3787,48 +3788,68 @@ msgstr[0] "Odnaleziono jeden plik w tym katalogu"
 msgstr[1] "Odnaleziono %d pliki w tym katalogu"
 msgstr[2] "Odnaleziono %d plików w tym katalogu"
 
-#: ../src/easytag.c:1108
+#: ../src/easytag.c:1110
 msgid "No file found in this directory and subdirectories"
 msgstr "Nie odnaleziono żadnego pliku w tym katalogu i jego podkatalogach"
 
-#: ../src/easytag.c:1110
+#: ../src/easytag.c:1112
 msgid "No file found in this directory"
 msgstr "Nie odnaleziono żadnego pliku w tym katalogu"
 
-#: ../src/easytag.c:1180
+#: ../src/easytag.c:1182
 #, c-format
 msgid "Error opening directory ‘%s’: %s"
 msgstr "Błąd podczas otwierania katalogu \"%s\": %s"
 
-#: ../src/easytag.c:1236
+#: ../src/easytag.c:1238
 msgid "Searching for audio files…"
 msgstr "Wyszukiwanie plików dźwiękowych…"
 
-#: ../src/easytag.c:1237
+#: ../src/easytag.c:1239
 msgid "Searching"
 msgstr "Wyszukiwanie"
 
-#: ../src/easytag.c:1238
+#: ../src/easytag.c:1240
 msgid "_Stop"
 msgstr "_Zatrzymaj"
 
-#: ../src/et_core.c:541
+#: ../src/et_core.c:545
 #, c-format
-msgid "Error reading tag from Ogg file ‘%s’"
-msgstr "Błąd podczas odczytywania etykiety z pliku Ogg \"%s\""
+msgid "Error reading tag from Ogg file ‘%s’: %s"
+msgstr "Błąd podczas odczytywania etykiety z pliku Ogg \"%s\": %s"
 
-#: ../src/et_core.c:570
+#: ../src/et_core.c:556
 #, c-format
-msgid "Error reading tag from Opus file ‘%s’"
-msgstr "Błąd podczas odczytywania etykiety z pliku Opus \"%s\""
+msgid "Error reading tag from FLAC file ‘%s’: %s"
+msgstr "Błąd podczas odczytywania etykiety z pliku FLAC \"%s\": %s"
 
-#: ../src/et_core.c:717
+#: ../src/et_core.c:566
+#, c-format
+msgid "Error reading APE tag from file ‘%s’: %s"
+msgstr "Błąd podczas odczytywania etykiety APE z pliku \"%s\": %s"
+
+#: ../src/et_core.c:576
+#, c-format
+msgid "Error reading tag from MP4 file ‘%s’: %s"
+msgstr "Błąd podczas odczytywania etykiety z pliku MP4 \"%s\": %s"
+
+#: ../src/et_core.c:587
+#, c-format
+msgid "Error reading tag from WavPack file ‘%s’: %s"
+msgstr "Błąd podczas odczytywania etykiety z pliku WavPack \"%s\": %s"
+
+#: ../src/et_core.c:598
+#, c-format
+msgid "Error reading tag from Opus file ‘%s’: %s"
+msgstr "Błąd podczas odczytywania etykiety z pliku Opus \"%s\": %s"
+
+#: ../src/et_core.c:744
 #, c-format
 msgid "Automatic corrections applied for file ‘%s’"
 msgstr "Zastosowano automatyczne poprawki do pliku \"%s\""
 
 #. And refresh the number of files in this directory
-#: ../src/et_core.c:2895
+#: ../src/et_core.c:3016
 #, c-format
 msgid "One file"
 msgid_plural "%u files"
@@ -3837,43 +3858,38 @@ msgstr[1] "%u pliki"
 msgstr[2] "%u plików"
 
 #. Bitrate
-#: ../src/et_core.c:2926 ../src/tags/flac_header.c:209
-#: ../src/tags/monkeyaudio_header.c:87 ../src/tags/mp4_header.cc:140
-#: ../src/tags/mpeg_header.c:223 ../src/tags/musepack_header.c:91
-#: ../src/tags/ogg_header.c:430 ../src/tags/opus_header.c:232
-#: ../src/tags/wavpack_header.c:86
+#: ../src/et_core.c:3047 ../src/tags/flac_header.c:388
+#: ../src/tags/monkeyaudio_header.c:91 ../src/tags/mp4_header.cc:145
+#: ../src/tags/mpeg_header.c:228 ../src/tags/musepack_header.c:95
+#: ../src/tags/ogg_header.c:418 ../src/tags/opus_header.c:232
+#: ../src/tags/wavpack_header.c:92
 #, c-format
 msgid "%d kb/s"
 msgstr "%d kb/s"
 
 #. Samplerate
-#: ../src/et_core.c:2929 ../src/tags/flac_header.c:212
-#: ../src/tags/monkeyaudio_header.c:90 ../src/tags/mp4_header.cc:144
-#: ../src/tags/mpeg_header.c:228 ../src/tags/musepack_header.c:94
-#: ../src/tags/ogg_header.c:433 ../src/tags/opus_header.c:235
-#: ../src/tags/wavpack_header.c:89
+#: ../src/et_core.c:3050 ../src/tags/flac_header.c:391
+#: ../src/tags/monkeyaudio_header.c:94 ../src/tags/mp4_header.cc:149
+#: ../src/tags/mpeg_header.c:233 ../src/tags/musepack_header.c:98
+#: ../src/tags/ogg_header.c:421 ../src/tags/opus_header.c:235
+#: ../src/tags/wavpack_header.c:95
 #, c-format
 msgid "%d Hz"
 msgstr "%d Hz"
 
-#: ../src/et_core.c:3060
+#: ../src/et_core.c:3179
 #, c-format
 msgid "Could not convert filename ‘%s’ to system filename encoding"
 msgstr ""
 "Nie można przekonwertować nazwy pliku \"%s\" na systemowe kodowanie znaków"
 
-#: ../src/et_core.c:3062
+#: ../src/et_core.c:3181
 msgid "Try setting the environment variable G_FILENAME_ENCODING."
 msgstr "Proszę spróbować ustawić zmienną środowiskową G_FILENAME_ENCODING."
 
-#: ../src/et_core.c:3063 ../src/scan_dialog.c:712
+#: ../src/et_core.c:3182 ../src/scan_dialog.c:712
 msgid "Filename translation"
 msgstr "Tłumaczenie nazw plików"
-
-#: ../src/et_core.c:3520
-#, c-format
-msgid "Error writing tag type ‘%d’ to file ‘%s’: %s"
-msgstr "Błąd podczas zapisywania etykiety typu \"%d\" do pliku \"%s\": %s"
 
 #: ../src/file_area.c:279 ../src/file_area.c:334
 msgid "File not found"
@@ -4508,18 +4524,21 @@ msgstr "Etykieta Opus"
 msgid "Images (%d)"
 msgstr "Obrazy (%d)"
 
-#. FIXME: Pass error back to calling function.
-#: ../src/tags/ape_tag.c:61 ../src/tags/id3v24_tag.c:114
-#: ../src/tags/mp4_header.cc:46 ../src/tags/mp4_header.cc:59
-#: ../src/tags/mp4_tag.cc:70 ../src/tags/mp4_tag.cc:86
-#: ../src/tags/mp4_tag.cc:91 ../src/tags/mp4_tag.cc:263
-#: ../src/tags/mp4_tag.cc:279 ../src/tags/mp4_tag.cc:284
-#: ../src/tags/ogg_header.c:226
+#: ../src/tags/ape_tag.c:64 ../src/tags/flac_tag.c:134
+#: ../src/tags/id3v24_tag.c:115
 #, c-format
-msgid "Error while opening file ‘%s’: %s"
-msgstr "Błąd podczas otwierania pliku \"%s\": %s"
+msgid "Error while opening file: %s"
+msgstr "Błąd podczas otwierania pliku: %s"
 
-#: ../src/tags/flac_header.c:202
+#: ../src/tags/ape_tag.c:364
+msgid "Failed to write APE tag"
+msgstr "Zapisanie etykiety APE się nie powiodło"
+
+#: ../src/tags/flac_header.c:311 ../src/tags/flac_header.c:324
+msgid "Error opening FLAC file"
+msgstr "Błąd podczas otwierania pliku FLAC"
+
+#: ../src/tags/flac_header.c:381
 msgid "FLAC File"
 msgstr "Plik FLAC"
 
@@ -4527,17 +4546,11 @@ msgstr "Plik FLAC"
 #. Mode
 #. mpeg4ip library seems to always return -1
 #. Mode
-#: ../src/tags/flac_header.c:215 ../src/tags/mp4_header.cc:148
-#: ../src/tags/ogg_header.c:436 ../src/tags/opus_header.c:238
-#: ../src/tags/wavpack_header.c:92
+#: ../src/tags/flac_header.c:394 ../src/tags/mp4_header.cc:153
+#: ../src/tags/ogg_header.c:424 ../src/tags/opus_header.c:238
+#: ../src/tags/wavpack_header.c:98
 msgid "Channels:"
 msgstr "Kanały:"
-
-#: ../src/tags/flac_tag.c:132 ../src/tags/flac_tag.c:856
-#: ../src/tags/flac_tag.c:867
-#, c-format
-msgid "Error while opening file ‘%s’ as FLAC: %s"
-msgstr "Błąd podczas otwierania pliku \"%s\" jako FLAC: %s"
 
 #: ../src/tags/flac_tag.c:356 ../src/tags/ogg_tag.c:306
 #, c-format
@@ -4548,27 +4561,22 @@ msgstr ""
 "Wartość roku \"%s\" w pliku \"%s\" jest nieprawidłowa. Informacja zostanie "
 "utracona podczas zapisywania"
 
-#: ../src/tags/flac_tag.c:1087
+#: ../src/tags/flac_tag.c:860 ../src/tags/flac_tag.c:872
+#, c-format
+msgid "Error while opening file ‘%s’ as FLAC: %s"
+msgstr "Błąd podczas otwierania pliku \"%s\" jako FLAC: %s"
+
+#: ../src/tags/flac_tag.c:1092
 #, c-format
 msgid "Picture block is invalid ‘%s’"
 msgstr "Nieprawidłowy blok obrazu \"%s\""
 
-#: ../src/tags/flac_tag.c:1123
+#: ../src/tags/flac_tag.c:1129
 #, c-format
 msgid "Failed to write comments to file ‘%s’: %s"
 msgstr "Zapisanie komentarzy do pliku \"%s\" się nie powiodło: %s"
 
-#: ../src/tags/flac_tag.c:1129 ../src/tags/ogg_tag.c:1178
-#, c-format
-msgid "Wrote tag of ‘%s’"
-msgstr "Zapisano etykietę pliku \"%s\""
-
-#: ../src/tags/id3_tag.c:205
-#, c-format
-msgid "Error while reading file ‘%s’: %s"
-msgstr "Błąd podczas odczytywania pliku \"%s\": %s"
-
-#: ../src/tags/id3_tag.c:217
+#: ../src/tags/id3_tag.c:212
 #, c-format
 msgid ""
 "As the following corrupted file ‘%s’ will cause an error in id3lib, it will "
@@ -4577,26 +4585,26 @@ msgstr ""
 "Uszkodzony plik \"%s\" spowoduje błąd w bibliotece id3lib, więc nie zostanie "
 "on przetworzony"
 
-#: ../src/tags/id3_tag.c:219
+#: ../src/tags/id3_tag.c:214
 msgid "Corrupted file"
 msgstr "Uszkodzony plik"
 
-#: ../src/tags/id3_tag.c:597
+#: ../src/tags/id3_tag.c:596
 #, c-format
 msgid "Removed tag of ‘%s’"
 msgstr "Usunięto etykietę z pliku \"%s\""
 
-#: ../src/tags/id3_tag.c:604 ../src/tags/id3_tag.c:727
+#: ../src/tags/id3_tag.c:603 ../src/tags/id3_tag.c:730
 #, c-format
 msgid "Error while removing ID3v1 tag of ‘%s’: %s"
 msgstr "Błąd podczas usuwania etykiety ID3v1 pliku \"%s\": %s"
 
-#: ../src/tags/id3_tag.c:612 ../src/tags/id3_tag.c:692
+#: ../src/tags/id3_tag.c:612 ../src/tags/id3_tag.c:693
 #, c-format
 msgid "Error while removing ID3v2 tag of ‘%s’: %s"
 msgstr "Błąd podczas usuwania etykiety ID3v2 pliku \"%s\": %s"
 
-#: ../src/tags/id3_tag.c:637
+#: ../src/tags/id3_tag.c:638
 #, c-format
 msgid "Error while updating ID3v2 tag of ‘%s’: %s"
 msgstr "Błąd podczas uaktualniania etykiety ID3v2 pliku \"%s\": %s"
@@ -4632,96 +4640,81 @@ msgstr ""
 msgid "Buggy id3lib"
 msgstr "Biblioteka id3lib z błędami"
 
-#: ../src/tags/id3_tag.c:716
+#: ../src/tags/id3_tag.c:718
 #, c-format
 msgid "Error while updating ID3v1 tag of ‘%s’: %s"
 msgstr "Błąd podczas aktualizowania etykiety ID3v1 pliku \"%s\": %s"
 
-#: ../src/tags/id3_tag.c:736 ../src/tags/id3v24_tag.c:1152
-#, c-format
-msgid "Updated tag of ‘%s’"
-msgstr "Zaktualizowano etykietę pliku \"%s\""
-
-#: ../src/tags/id3_tag.c:756
+#: ../src/tags/id3_tag.c:751
 msgid "No error reported"
 msgstr "Nie zgłoszono błędów"
 
-#: ../src/tags/id3_tag.c:758
+#: ../src/tags/id3_tag.c:753
 msgid "No available memory"
 msgstr "Brak dostępnej pamięci"
 
-#: ../src/tags/id3_tag.c:760
+#: ../src/tags/id3_tag.c:755
 msgid "No data to parse"
 msgstr "Brak danych do przetwarzania"
 
-#: ../src/tags/id3_tag.c:762
+#: ../src/tags/id3_tag.c:757
 msgid "Improperly formatted data"
 msgstr "Niepoprawnie sformatowane dane"
 
-#: ../src/tags/id3_tag.c:764
+#: ../src/tags/id3_tag.c:759
 msgid "No buffer to write to"
 msgstr "Brak bufora do zapisu"
 
-#: ../src/tags/id3_tag.c:766
+#: ../src/tags/id3_tag.c:761
 msgid "Buffer is too small"
 msgstr "Bufor jest za mały"
 
-#: ../src/tags/id3_tag.c:768
+#: ../src/tags/id3_tag.c:763
 msgid "Invalid frame ID"
 msgstr "Nieprawidłowy identyfikator ramki"
 
-#: ../src/tags/id3_tag.c:770
+#: ../src/tags/id3_tag.c:765
 msgid "Requested field not found"
 msgstr "Nie odnaleziono żądanego pola"
 
-#: ../src/tags/id3_tag.c:772
+#: ../src/tags/id3_tag.c:767
 msgid "Unknown field type"
 msgstr "Nieznany typ pola"
 
-#: ../src/tags/id3_tag.c:774
+#: ../src/tags/id3_tag.c:769
 msgid "Tag is already attached to a file"
 msgstr "Plik już posiada dołączoną etykietę"
 
-#: ../src/tags/id3_tag.c:776
+#: ../src/tags/id3_tag.c:771
 msgid "Invalid tag version"
 msgstr "Nieprawidłowa wersja etykiety"
 
-#: ../src/tags/id3_tag.c:778
+#: ../src/tags/id3_tag.c:773
 msgid "No file to parse"
 msgstr "Brak pliku do przetwarzania"
 
-#: ../src/tags/id3_tag.c:780
+#: ../src/tags/id3_tag.c:775
 msgid "Attempting to write to a read-only file"
 msgstr "Próba zapisania do pliku tylko do odczytu"
 
-#: ../src/tags/id3_tag.c:782
+#: ../src/tags/id3_tag.c:777
 msgid "Error in compression/uncompression"
 msgstr "Błąd podczas kompresji/dekompresji"
 
-#: ../src/tags/id3_tag.c:784
+#: ../src/tags/id3_tag.c:779
 msgid "Unknown error message"
 msgstr "Nieznany komunikat błędu"
 
-#: ../src/tags/id3_tag.c:1454
-#, c-format
-msgid "Error while creating temporary file ‘%s’"
-msgstr "Błąd podczas tworzenia pliku tymczasowego \"%s\""
-
-#: ../src/tags/id3_tag.c:1461
+#: ../src/tags/id3_tag.c:1456
 msgid "Error while creating temporary file"
 msgstr "Błąd podczas tworzenia pliku tymczasowego"
 
-#: ../src/tags/id3_tag.c:1481
-#, c-format
-msgid "Error while writing to file ‘%s’: %s"
-msgstr "Błąd podczas zapisywania do pliku: \"%s\": %s"
-
 #. Translators: The first string is a filename, the
 #. * second string is the number of bytes that were
-#. * missing (not read for some reason) while reading from
-#. * the file.
+#. * missing (not read for some reason) while reading
+#. * from the file.
 #.
-#: ../src/tags/id3v24_tag.c:1642
+#: ../src/tags/id3v24_tag.c:1634
 #, c-format
 msgid "Cannot write tag of file ‘%s’ (a byte was missing)"
 msgid_plural "Cannot write tag of file ‘%s’ (%s bytes were missing)"
@@ -4729,41 +4722,54 @@ msgstr[0] "Nie można zapisać etykiety w pliku \"%s\" (brak jednego bajtu)"
 msgstr[1] "Nie można zapisać etykiety w pliku \"%s\" (brak %s bajtów)"
 msgstr[2] "Nie można zapisać etykiety w pliku \"%s\" (brak %s bajtów)"
 
-#: ../src/tags/id3v24_tag.c:1663
+#: ../src/tags/id3v24_tag.c:1657
 #, c-format
 msgid "Cannot save tag of file ‘%s’"
 msgstr "Nie można zapisać etykiety pliku \"%s\""
 
-#: ../src/tags/id3v24_tag.c:1675
+#: ../src/tags/id3v24_tag.c:1669
 #, c-format
 msgid "Size error while saving tag of ‘%s’"
 msgstr "Błąd rozmiaru podczas etykiety pliku \"%s\""
 
+#: ../src/tags/monkeyaudio_header.c:57
+msgid "Error opening Monkey’s Audio file"
+msgstr "Błąd podczas otwierania pliku Monkey's Audio"
+
 #. Mode changed to profile name
-#: ../src/tags/monkeyaudio_header.c:83 ../src/tags/musepack_header.c:86
+#: ../src/tags/monkeyaudio_header.c:87 ../src/tags/musepack_header.c:90
 msgid "Profile:"
 msgstr "Profil:"
 
-#: ../src/tags/mp4_header.cc:60 ../src/tags/mp4_tag.cc:92
-#: ../src/tags/mp4_tag.cc:285
+#: ../src/tags/mp4_header.cc:49 ../src/tags/mp4_header.cc:63
+#: ../src/tags/mp4_tag.cc:73 ../src/tags/mp4_tag.cc:90
+#: ../src/tags/mp4_tag.cc:96 ../src/tags/mp4_tag.cc:271
+#: ../src/tags/mp4_tag.cc:288 ../src/tags/mp4_tag.cc:294
+#: ../src/tags/ogg_header.c:229
+#, c-format
+msgid "Error while opening file ‘%s’: %s"
+msgstr "Błąd podczas otwierania pliku \"%s\": %s"
+
+#: ../src/tags/mp4_header.cc:64 ../src/tags/mp4_tag.cc:97
+#: ../src/tags/mp4_tag.cc:295
 msgid "MP4 format invalid"
 msgstr "Nieprawidłowy format MP4"
 
-#: ../src/tags/mp4_header.cc:70
+#: ../src/tags/mp4_header.cc:75
 #, c-format
 msgid "Error reading properties from file ‘%s’"
 msgstr "Błąd podczas odczytywania właściwości z pliku \"%s\""
 
-#: ../src/tags/mp4_header.cc:127
+#: ../src/tags/mp4_header.cc:132
 msgid "MP4/AAC File"
 msgstr "Plik MP4/AAC"
 
-#: ../src/tags/mp4_header.cc:136 ../src/tags/mpeg_header.c:219
+#: ../src/tags/mp4_header.cc:141 ../src/tags/mpeg_header.c:224
 #, c-format
 msgid "~%d kb/s"
 msgstr "~%d kb/s"
 
-#: ../src/tags/mp4_tag.cc:102 ../src/tags/mp4_tag.cc:294
+#: ../src/tags/mp4_tag.cc:108 ../src/tags/mp4_tag.cc:306
 #, c-format
 msgid "Error reading tags from file ‘%s’"
 msgstr "Błąd podczas odczytywania etykiet z pliku \"%s\""
@@ -4784,24 +4790,28 @@ msgstr "Dwukanałowy"
 msgid "Single channel"
 msgstr "Jednokanałowy"
 
-#: ../src/tags/mpeg_header.c:189
+#: ../src/tags/mpeg_header.c:194
 msgid "MP3 File"
 msgstr "Plik MP3"
 
-#: ../src/tags/mpeg_header.c:192
+#: ../src/tags/mpeg_header.c:197
 msgid "MP2 File"
 msgstr "Plik MP2"
 
 #. MPEG, Layer versions
-#: ../src/tags/mpeg_header.c:199
+#: ../src/tags/mpeg_header.c:204
 msgid "MPEG"
 msgstr "MPEG"
 
-#: ../src/tags/musepack_header.c:83
+#: ../src/tags/musepack_header.c:57
+msgid "Error opening Musepack file"
+msgstr "Błąd podczas otwierania pliku MusePack"
+
+#: ../src/tags/musepack_header.c:87
 msgid "MusePack File"
 msgstr "Plik MusePack"
 
-#: ../src/tags/ogg_header.c:243
+#: ../src/tags/ogg_header.c:247
 #, c-format
 msgid ""
 "The specified bitstream does not exist or the file has been initialized "
@@ -4810,44 +4820,36 @@ msgstr ""
 "Podany strumień bitów nie istnieje lub plik został niepoprawnie zainicjowany "
 "(plik: \"%s\")"
 
-#: ../src/tags/ogg_header.c:281
-#, c-format
-msgid "Read from media returned an error (file: ‘%s’)"
-msgstr "Odczyt z pliku zwrócił błąd (plik: \"%s\")"
+#: ../src/tags/ogg_header.c:268
+msgid "Read from media returned an error"
+msgstr "Odczyt z pliku multimedialnego zwrócił błąd"
 
-#: ../src/tags/ogg_header.c:286
-#, c-format
-msgid "Bitstream is not Vorbis data (file: ‘%s’)"
-msgstr "Strumień bitów nie zawiera danych Vorbis (plik \"%s\")"
+#: ../src/tags/ogg_header.c:271
+msgid "Bitstream is not Vorbis data"
+msgstr "Strumień bitów nie zawiera danych Vorbis"
 
-#: ../src/tags/ogg_header.c:291
-#, c-format
-msgid "Vorbis version mismatch (file: ‘%s’)"
-msgstr "Niezgodność wersji Vorbis (plik: \"%s\")"
+#: ../src/tags/ogg_header.c:274
+msgid "Vorbis version mismatch"
+msgstr "Niezgodność wersji Vorbis"
 
-#: ../src/tags/ogg_header.c:296
-#, c-format
-msgid "Invalid Vorbis bitstream header (file: ‘%s’)"
-msgstr "Nieprawidłowy nagłówek strumienia bitów Vorbis (plik: \"%s\")"
+#: ../src/tags/ogg_header.c:277
+msgid "Invalid Vorbis bitstream header"
+msgstr "Nieprawidłowy nagłówek strumienia bitów Vorbis"
 
-#: ../src/tags/ogg_header.c:301
-#, c-format
-msgid ""
-"Internal logic fault, indicates a bug or heap/stack corruption (file: ‘%s’)"
-msgstr ""
-"Wewnętrzny błąd logiczny, oznacza to błąd lub uszkodzenie stosu (plik: \"%s"
-"\")"
+#: ../src/tags/ogg_header.c:280
+msgid "Internal logic fault, indicates a bug or heap/stack corruption"
+msgstr "Wewnętrzny błąd logiczny, oznacza to błąd lub uszkodzenie stosu"
 
-#: ../src/tags/ogg_header.c:349
+#: ../src/tags/ogg_header.c:338
 #, c-format
-msgid "Failed to open file ‘%s’ as Vorbis: %s"
-msgstr "Otwarcie pliku \"%s\" jako Vorbis się nie powiodło: %s"
+msgid "Failed to open file as Vorbis: %s"
+msgstr "Otwarcie pliku jako Vorbis się nie powiodło: %s"
 
-#: ../src/tags/ogg_header.c:408
+#: ../src/tags/ogg_header.c:396
 msgid "Ogg Vorbis File"
 msgstr "Plik Ogg Vorbis"
 
-#: ../src/tags/ogg_header.c:411
+#: ../src/tags/ogg_header.c:399
 msgid "Speex File"
 msgstr "Plik Speex"
 
@@ -4860,6 +4862,6 @@ msgstr "Plik Ogg Vorbis \"%s\" zawiera etykietę ID3v2"
 msgid "Opus File"
 msgstr "Plik Opus"
 
-#: ../src/tags/wavpack_header.c:79
+#: ../src/tags/wavpack_header.c:85
 msgid "Wavpack File"
 msgstr "Plik WavPack"
