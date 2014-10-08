@@ -3184,8 +3184,7 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
     gchar *proxy_hostname;
     guint proxy_port;
     gint   server_try = 0;
-    gchar *tmp;
-    gchar *query_string;
+    GString *query_string;
     gchar *cddb_discid;
     gchar *cddb_end_str;
 
@@ -3268,7 +3267,7 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
     // Generate query string and compute discid from the list 'file_iterlist'
     total_id = 0;
     num_tracks = file_selectedcount;
-    query_string = g_strdup("");
+    query_string = g_string_new ("");
 
     file_iterlist = g_list_reverse (file_iterlist);
 
@@ -3281,12 +3280,14 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
         etfile = et_application_window_browser_get_et_file_from_iter (ET_APPLICATION_WINDOW (MainWindow),
                                                                       fileIter);
 
-        tmp = query_string;
-        if (strlen(query_string)>0)
-            query_string = g_strdup_printf("%s+%d", query_string, total_frames);
+        if (query_string->len > 0)
+        {
+            g_string_append_printf (query_string, "+%d", total_frames);
+        }
         else
-            query_string = g_strdup_printf("%d", total_frames);
-        g_free(tmp);
+        {
+            g_string_append_printf (query_string, "%d", total_frames);
+        }
 
         secs = etfile->ETFileInfo->duration;
         total_frames += secs * 75;
@@ -3372,6 +3373,7 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
                 g_free(cddb_server_name);
                 g_free(cddb_server_cgi_path);
                 g_free (proxy_hostname);
+                g_string_free (query_string, TRUE);
                 return FALSE;
             }
 
@@ -3392,13 +3394,13 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
                                       proxy_enabled ? cddb_server_name : "",
                                       cddb_server_cgi_path,
                                       cddb_discid,
-                                      num_tracks, query_string,
+                                      num_tracks, query_string->str,
                                       disc_length,
                                       PACKAGE_NAME, PACKAGE_VERSION,
                                       cddb_server_name,cddb_server_port,
                                       (proxy_auth=Cddb_Format_Proxy_Authentification())
                                       );
-            g_free(proxy_auth);
+            g_free (proxy_auth);
             //g_print("Request Cddb_Search_Album_From_Selected_Files : '%s'\n", cddb_in);
 
             msg = g_strdup_printf(_("Sending request (disc ID: %s, #tracks: %d, Disc length: %d)…"),
@@ -3418,6 +3420,7 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
                 g_free (cddb_server_name);
                 g_free (cddb_server_cgi_path);
                 g_free (proxy_hostname);
+                g_string_free (query_string, TRUE);
                 return FALSE;
             }
             g_free(cddb_in);
@@ -3441,6 +3444,7 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
                 g_free(cddb_server_name);
                 g_free(cddb_server_cgi_path);
                 g_free (proxy_hostname);
+                g_string_free (query_string, TRUE);
                 gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
                 return FALSE;
             }
@@ -3458,6 +3462,7 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
                 g_free(cddb_server_name);
                 g_free(cddb_server_cgi_path);
                 g_free (proxy_hostname);
+                g_string_free (query_string, TRUE);
                 gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
                 if (file)
                     fclose(file);
@@ -3559,8 +3564,9 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
             /* Close connection. */
             Cddb_Close_Connection (self, socket_id);
         }
-
     }
+
+    g_string_free (query_string, TRUE);
 
     msg = g_strdup_printf (ngettext ("DiscID ‘%s’ gave one matching album",
                                      "DiscID ‘%s’ gave %d matching albums",
@@ -3570,7 +3576,6 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
     g_free(msg);
 
     g_free(cddb_discid);
-    g_free(query_string);
 
     gtk_widget_set_sensitive (GTK_WIDGET (priv->stop_search_button), FALSE);
 
