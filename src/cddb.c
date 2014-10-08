@@ -2945,8 +2945,8 @@ Cddb_Search_Album_From_Selected_Files (void)
     gint   cddb_server_port;
     gchar *cddb_server_cgi_path;
     gint   server_try = 0;
-    gchar *tmp, *valid;
-    gchar *query_string;
+    gchar *valid;
+    GString *query_string;
     gchar *cddb_discid;
     gchar *cddb_end_str;
 
@@ -3028,7 +3028,7 @@ Cddb_Search_Album_From_Selected_Files (void)
     // Generate query string and compute discid from the list 'file_iterlist'
     total_id = 0;
     num_tracks = file_selectedcount;
-    query_string = g_strdup("");
+    query_string = g_string_new ("");
 
     file_iterlist = g_list_reverse (file_iterlist);
 
@@ -3040,12 +3040,14 @@ Cddb_Search_Album_From_Selected_Files (void)
         fileIter = (GtkTreeIter *)l->data;
         etfile = Browser_List_Get_ETFile_From_Iter(fileIter);
 
-        tmp = query_string;
-        if (strlen(query_string)>0)
-            query_string = g_strdup_printf("%s+%d", query_string, total_frames);
+        if (query_string->len > 0)
+        {
+            g_string_append_printf (query_string, "+%d", total_frames);
+        }
         else
-            query_string = g_strdup_printf("%d", total_frames);
-        g_free(tmp);
+        {
+            g_string_append_printf (query_string, "%d", total_frames);
+        }
 
         secs = etfile->ETFileInfo->duration;
         total_frames += secs * 75;
@@ -3162,6 +3164,8 @@ Cddb_Search_Album_From_Selected_Files (void)
                             cddbalbum->artist_album = Try_To_Validate_Utf8_String(cddb_out+7); // '7' to skip 'DTITLE='
                         }else
                         {
+                            gchar *tmp;
+
                             // It is at least the second time we find DTITLE
                             // So we suppose that only the album was truncated
 
@@ -3229,6 +3233,7 @@ Cddb_Search_Album_From_Selected_Files (void)
                 g_free(cddb_in);
                 g_free(cddb_server_name);
                 g_free(cddb_server_cgi_path);
+                g_string_free (query_string, TRUE);
                 return FALSE;
             }
 
@@ -3247,13 +3252,13 @@ Cddb_Search_Album_From_Selected_Files (void)
                                       "Connection: close\r\n\r\n",
                                       CDDB_USE_PROXY?"http://":"",CDDB_USE_PROXY?cddb_server_name:"", cddb_server_cgi_path,
                                       cddb_discid,
-                                      num_tracks, query_string,
+                                      num_tracks, query_string->str,
                                       disc_length,
                                       PACKAGE_NAME, PACKAGE_VERSION,
                                       cddb_server_name,cddb_server_port,
                                       (proxy_auth=Cddb_Format_Proxy_Authentification())
                                       );
-            g_free(proxy_auth);
+            g_free (proxy_auth);
             //g_print("Request Cddb_Search_Album_From_Selected_Files : '%s'\n", cddb_in);
 
             msg = g_strdup_printf(_("Sending request (CddbId: %s, #tracks: %d, Disc length: %d)…"),
@@ -3271,6 +3276,7 @@ Cddb_Search_Album_From_Selected_Files (void)
                 g_free(cddb_in);
                 g_free(cddb_server_name);
                 g_free(cddb_server_cgi_path);
+                g_string_free (query_string, TRUE);
                 return FALSE;
             }
             g_free(cddb_in);
@@ -3293,6 +3299,7 @@ Cddb_Search_Album_From_Selected_Files (void)
                 g_free(msg);
                 g_free(cddb_server_name);
                 g_free(cddb_server_cgi_path);
+                g_string_free (query_string, TRUE);
                 gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchButton),FALSE);
                 gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchAutoButton),FALSE);
                 return FALSE;
@@ -3309,6 +3316,7 @@ Cddb_Search_Album_From_Selected_Files (void)
                 g_free(cddb_out);
                 g_free(cddb_server_name);
                 g_free(cddb_server_cgi_path);
+                g_string_free (query_string, TRUE);
                 gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchButton),FALSE);
                 gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchAutoButton),FALSE);
                 if (file)
@@ -3413,12 +3421,13 @@ Cddb_Search_Album_From_Selected_Files (void)
 
     }
 
+    g_string_free (query_string, TRUE);
+
     msg = g_strdup_printf(ngettext("DiscID '%s' gave one matching album","DiscID '%s' gave %d matching albums",g_list_length(CddbAlbumList)),cddb_discid,g_list_length(CddbAlbumList));
     gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
     g_free(msg);
 
     g_free(cddb_discid);
-    g_free(query_string);
 
     gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchButton),FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchAutoButton),FALSE);
