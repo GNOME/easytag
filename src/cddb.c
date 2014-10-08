@@ -3061,9 +3061,9 @@ Cddb_Search_Album_From_Selected_Files (void)
 
     g_list_free_full (file_iterlist, (GDestroyNotify)g_free);
 
-    // Compute CddbId
-    cddb_discid = g_strdup_printf("%08x",(guint)(((total_id % 0xFF) << 24) |
-                                         (disc_length << 8) | num_tracks));
+    /* Compute CddbId. */
+    cddb_discid = g_strdup_printf ("%08x", (guint)(((total_id % 0xFF) << 24) |
+                                           (disc_length << 8) | num_tracks));
 
 
     /* Delete previous album list. */
@@ -3234,6 +3234,7 @@ Cddb_Search_Album_From_Selected_Files (void)
                 g_free(cddb_server_name);
                 g_free(cddb_server_cgi_path);
                 g_string_free (query_string, TRUE);
+                g_free (cddb_discid);
                 return FALSE;
             }
 
@@ -3277,6 +3278,7 @@ Cddb_Search_Album_From_Selected_Files (void)
                 g_free(cddb_server_name);
                 g_free(cddb_server_cgi_path);
                 g_string_free (query_string, TRUE);
+                g_free (cddb_discid);
                 return FALSE;
             }
             g_free(cddb_in);
@@ -3300,6 +3302,7 @@ Cddb_Search_Album_From_Selected_Files (void)
                 g_free(cddb_server_name);
                 g_free(cddb_server_cgi_path);
                 g_string_free (query_string, TRUE);
+                g_free (cddb_discid);
                 gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchButton),FALSE);
                 gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchAutoButton),FALSE);
                 return FALSE;
@@ -3317,6 +3320,7 @@ Cddb_Search_Album_From_Selected_Files (void)
                 g_free(cddb_server_name);
                 g_free(cddb_server_cgi_path);
                 g_string_free (query_string, TRUE);
+                g_free (cddb_discid);
                 gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchButton),FALSE);
                 gtk_widget_set_sensitive(GTK_WIDGET(CddbStopSearchAutoButton),FALSE);
                 if (file)
