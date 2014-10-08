@@ -3301,9 +3301,9 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
 
     g_list_free_full (file_iterlist, (GDestroyNotify)g_free);
 
-    // Compute CddbId
-    cddb_discid = g_strdup_printf("%08x",(guint)(((total_id % 0xFF) << 24) |
-                                         (disc_length << 8) | num_tracks));
+    /* Compute CddbId. */
+    cddb_discid = g_strdup_printf ("%08x", (guint)(((total_id % 0xFF) << 24) |
+                                           (disc_length << 8) | num_tracks));
 
 
     /* Delete previous album list. */
@@ -3374,6 +3374,7 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
                 g_free(cddb_server_cgi_path);
                 g_free (proxy_hostname);
                 g_string_free (query_string, TRUE);
+                g_free (cddb_discid);
                 return FALSE;
             }
 
@@ -3421,6 +3422,7 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
                 g_free (cddb_server_cgi_path);
                 g_free (proxy_hostname);
                 g_string_free (query_string, TRUE);
+                g_free (cddb_discid);
                 return FALSE;
             }
             g_free(cddb_in);
@@ -3445,6 +3447,7 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
                 g_free(cddb_server_cgi_path);
                 g_free (proxy_hostname);
                 g_string_free (query_string, TRUE);
+                g_free (cddb_discid);
                 gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
                 return FALSE;
             }
@@ -3463,6 +3466,7 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
                 g_free(cddb_server_cgi_path);
                 g_free (proxy_hostname);
                 g_string_free (query_string, TRUE);
+                g_free (cddb_discid);
                 gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
                 if (file)
                     fclose(file);
