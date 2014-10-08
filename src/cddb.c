@@ -3030,7 +3030,9 @@ Cddb_Search_Album_From_Selected_Files (void)
     num_tracks = file_selectedcount;
     query_string = g_strdup("");
 
-    for (l = g_list_reverse (file_iterlist); l != NULL; l = g_list_next (l))
+    file_iterlist = g_list_reverse (file_iterlist);
+
+    for (l = file_iterlist; l != NULL; l = g_list_next (l))
     {
         ET_File *etfile;
         gulong secs = 0;
@@ -3761,10 +3763,16 @@ Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
                 g_free(cddbtrackalbum);
             }else
             {
-                if (TrackOffsetList && TrackOffsetList->next)
+                GList *l;
+
+                for (l = TrackOffsetList; l != NULL; l = g_list_next (l))
                 {
-                    cddbtrackalbum->duration = ( ((CddbTrackFrameOffset *)TrackOffsetList->next->data)->offset - ((CddbTrackFrameOffset *)TrackOffsetList->data)->offset ) / 75; // Calculate time in seconds
-                    TrackOffsetList = TrackOffsetList->next;
+                    if (l->next)
+                    {
+                        cddbtrackalbum->duration = (((CddbTrackFrameOffset *)l->next->data)->offset
+                                                     - ((CddbTrackFrameOffset *)l->data)->offset)
+                                                    / 75; /* Calculate time in seconds. */
+                    }
                 }
                 cddbalbum->track_list = g_list_append(cddbalbum->track_list,cddbtrackalbum);
             }
@@ -3814,9 +3822,7 @@ Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
 
     Cddb_Show_Album_Info(gtk_tree_view_get_selection(GTK_TREE_VIEW(CddbAlbumListView)),NULL);
 
-    // Frees 'TrackOffsetList'
     g_list_free_full (TrackOffsetList, (GDestroyNotify)g_free);
-    TrackOffsetList = NULL;
     return TRUE;
 }
 
