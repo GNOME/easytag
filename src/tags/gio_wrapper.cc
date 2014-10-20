@@ -186,8 +186,7 @@ GIO_IOStream::~GIO_IOStream ()
 
     if (stream)
     {
-        g_io_stream_close (G_IO_STREAM (stream), NULL, &error);
-        clear ();
+        g_object_unref (stream);
     }
 
     g_free (filename);
