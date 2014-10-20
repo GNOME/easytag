@@ -221,7 +221,8 @@ mp4tag_read_file_tag (const gchar *filename,
     if (extra_items.contains ("covr"))
     {
         const TagLib::MP4::Item cover = extra_items["covr"];
-        const TagLib::MP4::CoverArt &art = cover.toCoverArtList ().front ();
+        const TagLib::MP4::CoverArtList covers = cover.toCoverArtList ();
+        const TagLib::MP4::CoverArt &art = covers.front ();
 
         FileTag->picture = Picture_Allocate ();
 
