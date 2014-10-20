@@ -441,6 +441,10 @@ mp4tag_write_file_tag (const ET_File *ETFile,
         TagLib::String string (FileTag->album_artist, TagLib::String::UTF8);
         extra_items.insert ("aART", TagLib::MP4::Item (string));
     }
+    else
+    {
+        extra_items.erase ("aART");
+    }
 
     /***********
      * Picture *
@@ -474,6 +478,10 @@ mp4tag_write_file_tag (const ET_File *ETFile,
 
         extra_items.insert ("covr",
                             TagLib::MP4::Item (TagLib::MP4::CoverArtList ().append (art)));
+    }
+    else
+    {
+        extra_items.erase ("covr");
     }
 
     tag->setProperties (fields);
