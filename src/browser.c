@@ -533,15 +533,27 @@ Browser_List_Button_Press (GtkTreeView *treeView, GdkEventButton *event)
 
     if (event->type==GDK_2BUTTON_PRESS && event->button==1)
     {
-        /* Double left mouse click */
-        // Select files of the same directory (useful when browsing sub-directories)
+        /* Double left mouse click. Select files of the same directory (useful
+         * when browsing sub-directories). */
+        GdkWindow *bin_window;
         GList *l;
         gchar *path_ref = NULL;
         gchar *patch_check = NULL;
         GtkTreePath *currentPath = NULL;
 
         if (!ETCore->ETFileDisplayed)
+        {
             return FALSE;
+        }
+
+        bin_window = gtk_tree_view_get_bin_window (treeView);
+
+        if (bin_window != event->window)
+        {
+            /* If the double-click is not on a tree view row, for example when
+             * resizing a header column, ignore it. */
+            return FALSE;
+        }
 
         // File taken as reference...
         path_ref = g_path_get_dirname( ((File_Name *)ETCore->ETFileDisplayed->FileNameCur->data)->value );
@@ -566,11 +578,16 @@ Browser_List_Button_Press (GtkTreeView *treeView, GdkEventButton *event)
         g_free(path_ref);
         if (currentPath)
             gtk_tree_path_free(currentPath);
+
+        return TRUE;
     }else if (event->type==GDK_3BUTTON_PRESS && event->button==1)
     {
         /* Triple left mouse click, select all files of the list. */
         et_on_action_select_all ();
+
+        return TRUE;
     }
+
     return FALSE;
 }
 

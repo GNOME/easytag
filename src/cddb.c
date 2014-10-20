@@ -1498,9 +1498,23 @@ Cddb_Track_List_Button_Press (GtkTreeView *treeView, GdkEventButton *event)
 
     if (event->type==GDK_2BUTTON_PRESS && event->button==1)
     {
+        GdkWindow *bin_window;
+
+        bin_window = gtk_tree_view_get_bin_window (treeView);
+
+        if (bin_window != event->window)
+        {
+            /* Ignore the event if it is on the header (which is not the bin
+             * window). */
+            return FALSE;
+        }
+
         /* Double left mouse click */
         Cddb_Track_List_Select_All();
+
+        return TRUE;
     }
+
     return FALSE;
 }
 
