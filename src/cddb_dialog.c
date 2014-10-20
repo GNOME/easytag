@@ -2620,16 +2620,31 @@ track_list_select_all (EtCDDBDialog *self)
 }
 
 static gboolean
-on_track_list_button_press_event (EtCDDBDialog *self, GdkEventButton *event)
+on_track_list_button_press_event (EtCDDBDialog *self,
+                                  GdkEventButton *event,
+                                  GtkTreeView *track_list_view)
 {
     if (event->type == GDK_2BUTTON_PRESS
         && event->button == GDK_BUTTON_PRIMARY)
     {
+        GdkWindow *bin_window;
+
+        bin_window = gtk_tree_view_get_bin_window (track_list_view);
+
+        if (bin_window != event->window)
+        {
+            /* Ignore the event if it is on the header (which is not the bin
+             * window. */
+            return GDK_EVENT_PROPAGATE;
+        }
+
         /* Double left mouse click */
         track_list_select_all (self);
+
+        return GDK_EVENT_STOP;
     }
 
-    return FALSE;
+    return GDK_EVENT_PROPAGATE;
 }
 
 static void

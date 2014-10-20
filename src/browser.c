@@ -2944,13 +2944,25 @@ on_file_tree_button_press_event (GtkWidget *widget,
     {
         /* Double left mouse click. Select files of the same directory (useful
          * when browsing sub-directories). */
+        GdkWindow *bin_window;
         GList *l;
         gchar *path_ref = NULL;
         gchar *patch_check = NULL;
         GtkTreePath *currentPath = NULL;
 
         if (!ETCore->ETFileDisplayed)
-            return FALSE;
+        {
+            return GDK_EVENT_PROPAGATE;
+        }
+
+        bin_window = gtk_tree_view_get_bin_window (GTK_TREE_VIEW (widget));
+
+        if (bin_window != event->window)
+        {
+            /* If the double-click is not on a tree view row, for example when
+             * resizing a header column, ignore it. */
+            return GDK_EVENT_PROPAGATE;
+        }
 
         /* File taken as reference. */
         path_ref = g_path_get_dirname (((File_Name *)ETCore->ETFileDisplayed->FileNameCur->data)->value);
@@ -2982,6 +2994,8 @@ on_file_tree_button_press_event (GtkWidget *widget,
         {
             gtk_tree_path_free (currentPath);
         }
+
+        return GDK_EVENT_STOP;
     }
     else if (event->type == GDK_3BUTTON_PRESS
              && event->button == GDK_BUTTON_PRIMARY)
@@ -2989,6 +3003,7 @@ on_file_tree_button_press_event (GtkWidget *widget,
         /* Triple left mouse click, select all files of the list. */
         g_action_group_activate_action (G_ACTION_GROUP (MainWindow),
                                         "select-all", NULL);
+        return GDK_EVENT_STOP;
     }
 
     return GDK_EVENT_PROPAGATE;
