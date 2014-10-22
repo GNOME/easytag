@@ -41,227 +41,130 @@
 typedef struct
 {
     GFileInputStream *istream;
+    gboolean eof;
     GError *error;
-    gboolean abort;
-
-    /* *2 for max bytes-per-sample, *2 for max channels, another *2 for
-     * overflow */
-    FLAC__byte reservoir[FLAC__MAX_BLOCK_SIZE * 2 * 2 * 2];
-    guint reservoir_samples;
-    guint total_samples;
-    guint bits_per_sample;
-    guint channels;
-    guint sample_rate;
-    guint length_in_msec;
 } EtFlacState;
 
-
-/* FLAC__stream_decoder_init_stream() IO callbacks. */
-static FLAC__StreamDecoderReadStatus
-et_flac_read_func (const FLAC__StreamDecoder *decoder,
-                   FLAC__byte buffer[],
-                   size_t *bytes,
-                   void *client_data)
+/* FLAC__metadata_read_with_callbacks() IO callbacks. */
+static size_t
+et_flac_read_func (void *ptr,
+                   size_t size,
+                   size_t nmemb,
+                   FLAC__IOHandle handle)
 {
-    EtFlacState *state = (EtFlacState *)client_data;
+    EtFlacState *state;
     gssize bytes_read;
 
-    bytes_read = g_input_stream_read (G_INPUT_STREAM (state->istream), buffer,
-                                      *bytes, NULL, &state->error);
+    state = (EtFlacState *)handle;
+    state->eof = FALSE;
+
+    bytes_read = g_input_stream_read (G_INPUT_STREAM (state->istream), ptr,
+                                      size * nmemb, NULL, &state->error);
 
     if (bytes_read == -1)
     {
-        *bytes = 0;
-        return FLAC__STREAM_DECODER_READ_STATUS_ABORT;
+        errno = EIO;
+        return 0;
     }
     else if (bytes_read == 0)
     {
-        *bytes = 0;
-        return FLAC__STREAM_DECODER_READ_STATUS_END_OF_STREAM;
+        state->eof = TRUE;
     }
-    else
-    {
-        *bytes = bytes_read;
-        return FLAC__STREAM_DECODER_READ_STATUS_CONTINUE;
-    }
+
+    return bytes_read;
 }
 
-static FLAC__StreamDecoderSeekStatus
-et_flac_seek_func (const FLAC__StreamDecoder *decoder,
-                   FLAC__uint64 absolute_byte_offset,
-                   void *client_data)
+static int
+et_flac_seek_func (FLAC__IOHandle handle,
+                   FLAC__int64 offset,
+                   int whence)
 {
-    EtFlacState *state = (EtFlacState *)client_data;
+    EtFlacState *state;
+    GSeekable *seekable;
+    GSeekType seektype;
 
-    if (!g_seekable_can_seek (G_SEEKABLE (state->istream)))
+    state = (EtFlacState *)handle;
+    seekable = G_SEEKABLE (state->istream);
+
+    if (!g_seekable_can_seek (seekable))
     {
-        return FLAC__STREAM_DECODER_SEEK_STATUS_UNSUPPORTED;
+        errno = EBADF;
+        return -1;
     }
     else
     {
-        if (!g_seekable_seek (G_SEEKABLE (state->istream),
-                              absolute_byte_offset, G_SEEK_SET, NULL,
-                              &state->error))
+        switch (whence)
         {
-            return FLAC__STREAM_DECODER_SEEK_STATUS_ERROR;
+            case SEEK_SET:
+                seektype = G_SEEK_SET;
+                break;
+            case SEEK_CUR:
+                seektype = G_SEEK_CUR;
+                break;
+            case SEEK_END:
+                seektype = G_SEEK_END;
+                break;
+            default:
+                errno = EINVAL;
+                return -1;
+        }
+
+        if (!g_seekable_seek (seekable, offset, seektype, NULL, &state->error))
+        {
+            /* TODO: More suitable error. */
+            errno = EINVAL;
+            return -1;
         }
         else
         {
-            return FLAC__STREAM_DECODER_SEEK_STATUS_OK;
+            return 0;
         }
     }
 }
 
-static FLAC__StreamDecoderTellStatus
-et_flac_tell_func (const FLAC__StreamDecoder *decoder,
-                   FLAC__uint64 *absolute_byte_offset,
-                   void *client_data)
+static FLAC__int64
+et_flac_tell_func (FLAC__IOHandle handle)
 {
-    EtFlacState *state = (EtFlacState *)client_data;
+    EtFlacState *state;
+    GSeekable *seekable;
 
-    if (!g_seekable_can_seek (G_SEEKABLE (state->istream)))
+    state = (EtFlacState *)handle;
+    seekable = G_SEEKABLE (state->istream);
+
+    if (!g_seekable_can_seek (seekable))
     {
-        return FLAC__STREAM_DECODER_TELL_STATUS_UNSUPPORTED;
-    }
-
-    *absolute_byte_offset = g_seekable_tell (G_SEEKABLE (state->istream));
-
-    /* TODO: Investigate whether it makes sense to return an error code. */
-    return FLAC__STREAM_DECODER_TELL_STATUS_OK;
-}
-
-static FLAC__StreamDecoderLengthStatus
-et_flac_length_func (const FLAC__StreamDecoder *decoder,
-                     FLAC__uint64 *stream_length,
-                     void *client_data)
-{
-    EtFlacState *state = (EtFlacState *)client_data;
-    GFileInfo *info;
-
-    info = g_file_input_stream_query_info (state->istream,
-                                           G_FILE_ATTRIBUTE_STANDARD_SIZE,
-                                           NULL, &state->error);
-
-    if (!info)
-    {
-        g_debug ("Error getting length of FLAC stream: %s",
-                 state->error->message);
-        return FLAC__STREAM_DECODER_LENGTH_STATUS_ERROR;
+        errno = EBADF;
+        return -1;
     }
     else
     {
-        *stream_length = g_file_info_get_size (info);
-        g_object_unref (info);
-        return FLAC__STREAM_DECODER_LENGTH_STATUS_OK;
+        return g_seekable_tell (seekable);
     }
 }
 
-static FLAC__bool
-et_flac_eof_func (const FLAC__StreamDecoder *decoder,
-                  void *client_data)
+static int
+et_flac_eof_func (FLAC__IOHandle handle)
 {
-    /* GFileInputStream does not directly support checking to tell if the
-     * stream is at EOF. */
-    return false;
+    EtFlacState *state;
+
+    state = (EtFlacState *)handle;
+
+    /* EOF is not directly supported by GFileInputStream. */
+    return state->eof ? 1 : 0;
 }
 
-static FLAC__StreamDecoderWriteStatus
-et_flac_write_func (const FLAC__StreamDecoder *decoder,
-                    const FLAC__Frame *frame,
-                    const FLAC__int32 * const buffer[],
-                    void *client_data)
+static int
+et_flac_close_func (FLAC__IOHandle handle)
 {
-    EtFlacState *state = (EtFlacState *)client_data;
-    const guint bps = state->bits_per_sample;
-    const guint channels = state->channels;
-    const guint wide_samples = frame->header.blocksize;
-    guint wide_sample;
-    guint sample;
-    guint channel;
-    FLAC__int8 *scbuffer = (FLAC__int8*)state->reservoir;
-    FLAC__int16 *ssbuffer = (FLAC__int16*)state->reservoir;
+    EtFlacState *state;
 
-    if (state->abort)
-    {
-        return FLAC__STREAM_DECODER_WRITE_STATUS_ABORT;
-    }
+    state = (EtFlacState *)handle;
 
-    if (bps == 8)
-    {
-        for (sample = state->reservoir_samples * channels, wide_sample = 0;
-             wide_sample < wide_samples; wide_sample++)
-        {
-            for (channel = 0; channel < channels; channel++, sample++)
-            {
-                scbuffer[sample] = (FLAC__int8)buffer[channel][wide_sample];
-            }
-        }
-    }
-    else if (bps == 16)
-    {
-        for (sample = state->reservoir_samples * channels, wide_sample = 0;
-             wide_sample < wide_samples; wide_sample++)
-        {
-            for (channel = 0; channel < channels; channel++, sample++)
-            {
-                ssbuffer[sample] = (FLAC__int16)buffer[channel][wide_sample];
-            }
-        }
-    }
-    else
-    {
-        state->abort = TRUE;
-        return FLAC__STREAM_DECODER_WRITE_STATUS_ABORT;
-    }
-
-    state->reservoir_samples += wide_samples;
-
-    return FLAC__STREAM_DECODER_WRITE_STATUS_CONTINUE;
-}
-
-static void
-et_flac_metadata_func (const FLAC__StreamDecoder *decoder,
-                       const FLAC__StreamMetadata *metadata,
-                       void *client_data)
-{
-    EtFlacState *state = (EtFlacState *)client_data;
-
-    if (metadata->type == FLAC__METADATA_TYPE_STREAMINFO)
-    {
-        FLAC__ASSERT(metadata->data.stream_info.total_samples < 0x100000000); /* this plugin can only handle < 4 gigasamples */
-        state->total_samples = (unsigned)(metadata->data.stream_info.total_samples&0xffffffff);
-        state->bits_per_sample = metadata->data.stream_info.bits_per_sample;
-        state->channels = metadata->data.stream_info.channels;
-        state->sample_rate = metadata->data.stream_info.sample_rate;
-
-        /* To prevent crash... */
-        if (state->sample_rate != 0 && (state->sample_rate / 100) != 0)
-        {
-            state->length_in_msec = state->total_samples * 10
-                                    / (state->sample_rate / 100);
-        }
-    }
-}
-
-static void
-et_flac_error_func (const FLAC__StreamDecoder *decoder,
-                    FLAC__StreamDecoderErrorStatus status,
-                    void *client_data)
-{
-    EtFlacState *state = (EtFlacState *)client_data;
-
-    if (status != FLAC__STREAM_DECODER_ERROR_STATUS_LOST_SYNC)
-    {
-        state->abort = TRUE;
-    }
-}
-
-/* Not a callback for FLAC__stream_decoder_init_stream(). */
-static void
-et_flac_close (EtFlacState *state)
-{
     g_clear_object (&state->istream);
     g_clear_error (&state->error);
+
+    /* Always return success. */
+    return 0;
 }
 
 /* Header info of FLAC file */
@@ -271,68 +174,98 @@ flac_header_read_file_info (GFile *file,
                             ET_File_Info *ETFileInfo,
                             GError **error)
 {
-    gint duration = 0;
     GFileInfo *info;
-    FLAC__StreamDecoder *tmp_decoder;
+    FLAC__Metadata_Chain *chain;
     EtFlacState state;
+    GFileInputStream *istream;
+    FLAC__IOCallbacks callbacks = { et_flac_read_func, NULL, et_flac_seek_func,
+                                    et_flac_tell_func, et_flac_eof_func,
+                                    et_flac_close_func };
+    FLAC__Metadata_Iterator *iter;
+    gsize metadata_len;
 
     g_return_val_if_fail (file != NULL && ETFileInfo != NULL, FALSE);
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     /* Decoding FLAC file */
-    tmp_decoder = FLAC__stream_decoder_new ();
+    chain = FLAC__metadata_chain_new ();
 
-    if (tmp_decoder == NULL)
+    if (chain == NULL)
     {
         g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_NOMEM, "%s",
                      g_strerror (ENOMEM));
         return FALSE;
     }
 
+    istream = g_file_read (file, NULL, &state.error);
 
-    FLAC__stream_decoder_set_md5_checking (tmp_decoder, false);
+    if (istream == NULL)
+    {
+        FLAC__metadata_chain_delete (chain);
+        return FALSE;
+    }
 
-    state.abort = FALSE;
+    state.eof = FALSE;
     state.error = NULL;
-    state.istream = g_file_read (file, NULL, &state.error);
-    state.reservoir_samples = 0;
+    state.istream = istream;
 
-    if (FLAC__stream_decoder_init_stream (tmp_decoder, et_flac_read_func,
-                                          et_flac_seek_func, et_flac_tell_func,
-                                          et_flac_length_func,
-                                          et_flac_eof_func, et_flac_write_func,
-                                          et_flac_metadata_func,
-                                          et_flac_error_func, &state)
-        != FLAC__STREAM_DECODER_INIT_STATUS_OK)
+    if (!FLAC__metadata_chain_read_with_callbacks (chain, &state, callbacks))
     {
-        /* TODO: Set error message according to FLAC__StreamDecoderInitStatus.
-         */
+        const FLAC__Metadata_ChainStatus status = FLAC__metadata_chain_status (chain);
+
+        g_debug ("Error reading FLAC metadata chain: %s:",
+                 FLAC__Metadata_ChainStatusString[status]);
+        FLAC__metadata_chain_delete (chain);
+        /* TODO: Provide a dedicated error enum corresponding to status. */
         g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s",
                      _("Error opening FLAC file"));
-        g_debug ("Error opening FLAC stream: %s", state.error->message);
-        et_flac_close (&state);
-        FLAC__stream_decoder_finish (tmp_decoder);
-        FLAC__stream_decoder_delete (tmp_decoder);
+        et_flac_close_func (&state);
         return FALSE;
     }
 
-    if(!FLAC__stream_decoder_process_until_end_of_metadata(tmp_decoder))
+    iter = FLAC__metadata_iterator_new ();
+
+    if (iter == NULL)
     {
-        /* TODO: Set error message according to state fetched from
-         * FLAC__stream_decoder_get_state(). */
-        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s",
-                     _("Error opening FLAC file"));
-        g_debug ("Error fetching metadata from FLAC stream: %s",
-                 state.error->message);
-        et_flac_close (&state);
-        FLAC__stream_decoder_finish (tmp_decoder);
-        FLAC__stream_decoder_delete (tmp_decoder);
+        et_flac_close_func (&state);
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_NOMEM, "%s",
+                     g_strerror (ENOMEM));
         return FALSE;
     }
 
-    et_flac_close (&state);
-    FLAC__stream_decoder_finish(tmp_decoder);
-    FLAC__stream_decoder_delete(tmp_decoder);
+    FLAC__metadata_iterator_init (iter, chain);
+    metadata_len = 0;
+
+    do
+    {
+        const FLAC__StreamMetadata *block;
+
+        block = FLAC__metadata_iterator_get_block (iter);
+
+        metadata_len += block->length;
+
+        switch (block->type)
+        {
+            case FLAC__METADATA_TYPE_STREAMINFO:
+                {
+                    const FLAC__StreamMetadata_StreamInfo *stream_info = &block->data.stream_info;
+                    ETFileInfo->duration = stream_info->total_samples
+                                           / stream_info->sample_rate;
+                    ETFileInfo->mode = stream_info->channels;
+                    ETFileInfo->samplerate = stream_info->sample_rate;
+                    ETFileInfo->version = 0; /* Not defined in FLAC file. */
+                }
+                break;
+            default:
+                /* Ignore all other metadata types. */
+                break;
+        }
+    }
+    while (FLAC__metadata_iterator_next (iter));
+
+    FLAC__metadata_iterator_delete (iter);
+    FLAC__metadata_chain_delete (chain);
+    et_flac_close_func (&state);
     /* End of decoding FLAC file */
 
     info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_SIZE,
@@ -348,18 +281,13 @@ flac_header_read_file_info (GFile *file,
         ETFileInfo->size = 0;
     }
 
-    duration = (gint)state.length_in_msec / 1000;
-
-    if (duration > 0 && ETFileInfo->size > 0)
+    if (ETFileInfo->duration > 0 && ETFileInfo->size > 0)
     {
-        /* FIXME: Approximation! Needs to remove tag size. */
-        ETFileInfo->bitrate = ETFileInfo->size * 8 / duration / 1000;
+        /* Ignore metadata blocks, and use the remainder to calculate the
+         * average bitrate (including format overhead). */
+        ETFileInfo->bitrate = (ETFileInfo->size - metadata_len) * 8 /
+                              ETFileInfo->duration / 1000;
     }
-
-    ETFileInfo->version = 0; /* Not defined in FLAC file. */
-    ETFileInfo->samplerate = state.sample_rate;
-    ETFileInfo->mode = state.channels;
-    ETFileInfo->duration = duration;
 
     return TRUE;
 }
