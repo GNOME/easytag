@@ -368,6 +368,14 @@
                     </object>
                 </child>
                 <child>
+                    <object class="GtkCheckButton" id="tags_auto_image_type_check">
+                        <property name="label" translatable="yes">Automatically select the type of the image based on its filename</property>
+                        <property name="margin-left">12</property>
+                        <property name="tooltip-text" translatable="yes">Whether to, when adding cover art, automatically select a type for an image based on its filename</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
                     <object class="GtkCheckButton" id="tags_preserve_focus_check">
                         <property name="label" translatable="yes">Preserve the tag field focus</property>
                         <property name="margin-left">12</property>

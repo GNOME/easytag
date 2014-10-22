@@ -327,6 +327,12 @@
       <range min="0" max="6" />
     </key>
 
+    <key name="tag-image-type-automatic" type="b">
+      <summary>Automatically select the type of the image based on its filename</summary>
+      <description>Whether to, when adding cover art, automatically select the type for an image based on its filename</description>
+      <default>true</default>
+    </key>
+
     <key name="tag-number-padded" type="b">
       <summary>Pad the track number tag field</summary>
       <description>Whether the track number tag field should be padded with leading zeroes</description>

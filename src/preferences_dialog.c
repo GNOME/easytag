@@ -229,6 +229,7 @@ create_preferences_dialog (EtPreferencesDialog *self)
     GtkWidget *FilenameCharacterSetApproximate;
     GtkWidget *FilenameCharacterSetDiscard;
     GtkWidget *DateAutoCompletion;
+    GtkWidget *widget;
     GtkWidget *NumberTrackFormated;
     GtkWidget *NumberTrackFormatedSpinButton;
     GtkWidget *pad_disc_number;
@@ -484,6 +485,11 @@ create_preferences_dialog (EtPreferencesDialog *self)
     DateAutoCompletion = GTK_WIDGET (gtk_builder_get_object (builder,
                                                              "tags_auto_date_check"));
     g_settings_bind (MainSettings, "tag-date-autocomplete", DateAutoCompletion,
+                     "active", G_SETTINGS_BIND_DEFAULT);
+
+    widget = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                 "tags_auto_image_type_check"));
+    g_settings_bind (MainSettings, "tag-image-type-automatic", widget,
                      "active", G_SETTINGS_BIND_DEFAULT);
 
     /* Track formatting. */

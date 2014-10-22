@@ -1432,9 +1432,17 @@ load_picture_from_file (GFile *file,
             case APE_TAG:
             case FLAC_TAG:
             case WAVPACK_TAG:
-                // By default, set the filename in the description
                 pic->description = g_strdup (filename_utf8);
-                pic->type = et_picture_type_from_filename (pic->description);
+
+                if (g_settings_get_boolean (MainSettings,
+                                            "tag-image-type-automatic"))
+                {
+                    pic->type = et_picture_type_from_filename (pic->description);
+                }
+                else
+                {
+                    pic->type = ET_PICTURE_TYPE_FRONT_COVER;
+                }
                 break;
 
             default:
