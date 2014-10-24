@@ -1470,13 +1470,13 @@ id3tag_check_if_id3lib_is_buggy (GError **error)
                  " bytes of data were written", bytes_written, sizeof (tmp));
 
         g_object_unref (file);
-        g_output_stream_close (G_OUTPUT_STREAM (ostream), NULL, NULL);
+        g_object_unref (iostream);
 
         return FALSE;
     }
 
     g_output_stream_close (G_OUTPUT_STREAM (ostream), NULL, NULL);
-    g_object_unref (ostream);
+    g_object_unref (iostream);
 
     /* Save state of switches as we must force to Unicode before writing.
      * FIXME! */
