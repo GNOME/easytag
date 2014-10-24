@@ -1388,13 +1388,13 @@ gboolean Id3tag_Check_If_Id3lib_Is_Bugged (void)
         g_free (filename_utf8);
         g_clear_error (&error);
         g_object_unref (file);
-        g_output_stream_close (G_OUTPUT_STREAM (ostream), NULL, NULL);
+        g_object_unref (iostream);
 
         return FALSE;
     }
 
     g_output_stream_close (G_OUTPUT_STREAM (ostream), NULL, NULL);
-    g_object_unref (ostream);
+    g_object_unref (iostream);
 
     // Save state of switches as we must force to Unicode before writting
     use_unicode = FILE_WRITING_ID3V2_USE_UNICODE_CHARACTER_SET;
