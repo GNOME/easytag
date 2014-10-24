@@ -99,20 +99,6 @@
  * COMMENT     : additional comments of any nature.
  */
 
-
-
-/**************
- * Prototypes *
- **************/
-
-static gboolean Ogg_Write_Delimetered_Tag (vorbis_comment *vc, const gchar *tag_name, gchar *values);
-static gboolean Ogg_Write_Tag (vorbis_comment *vc, const gchar *tag_name, gchar *value);
-static void Ogg_Set_Tag (vorbis_comment *vc, const gchar *tag_name, gchar *value, gboolean split);
-
-/*************
- * Functions *
- *************/
-
 /*
  * convert_to_byte_array:
  * @n: Integer to convert
@@ -774,44 +760,60 @@ err:
     return FALSE;
 }
 
+/*
+ * Save field value in a single tag
+ */
+static void
+et_ogg_write_tag (vorbis_comment *vc,
+                  const gchar *tag_name,
+                  const gchar *value)
+{
+    char *string = g_strconcat (tag_name, value, NULL);
+
+    vorbis_comment_add (vc, string);
+    g_free (string);
+}
 
 /*
  * Save field value in separated tags if it contains multifields
  */
-static gboolean Ogg_Write_Delimetered_Tag (vorbis_comment *vc, const gchar *tag_name, gchar *values)
+static void
+et_ogg_write_delimited_tag (vorbis_comment *vc,
+                            const gchar *tag_name,
+                            const gchar *values)
 {
-    gchar **strings = g_strsplit(values,MULTIFIELD_SEPARATOR,255);
-    unsigned int i=0;
+    gchar **strings;
+    gsize i;
+
+    strings = g_strsplit (values, MULTIFIELD_SEPARATOR, 255);
     
-    for (i=0;i<g_strv_length(strings);i++)
+    for (i = 0; strings[i] != NULL; i++)
     {
-        if (strlen(strings[i])>0)
+        if (*strings[i])
         {
-            Ogg_Write_Tag(vc,tag_name,strings[i]);
+            et_ogg_write_tag (vc, tag_name, strings[i]);
         }
     }
-    g_strfreev(strings);
-    return TRUE;
+
+    g_strfreev (strings);
 }
 
-/*
- * Save field value in a single tag
- */
-static gboolean Ogg_Write_Tag (vorbis_comment *vc, const gchar *tag_name, gchar *value)
+static void
+et_ogg_set_tag (vorbis_comment *vc,
+                const gchar *tag_name,
+                const gchar *value,
+                gboolean split)
 {
-    char *string = g_strconcat(tag_name,value,NULL);
-
-    vorbis_comment_add(vc,string);
-    g_free(string);
-    return TRUE;
-}
-
-static void Ogg_Set_Tag (vorbis_comment *vc, const gchar *tag_name, gchar *value, gboolean split)
-{
-    if ( value && split ) {
-        Ogg_Write_Delimetered_Tag(vc,tag_name,value);
-    } else if ( value ) {
-        Ogg_Write_Tag(vc,tag_name,value);
+    if (value)
+    {
+        if (split)
+        {
+            et_ogg_write_delimited_tag (vc, tag_name, value);
+        }
+        else
+        {
+            et_ogg_write_tag (vc, tag_name, value);
+        }
     }
 }
 
@@ -936,85 +938,86 @@ ogg_tag_write_file_tag (const ET_File *ETFile,
     /*********
      * Title *
      *********/
-    Ogg_Set_Tag (vc, "TITLE=", FileTag->title,
-                 g_settings_get_boolean (MainSettings, "ogg-split-title"));
+    et_ogg_set_tag (vc, "TITLE=", FileTag->title,
+                    g_settings_get_boolean (MainSettings, "ogg-split-title"));
 
     /**********
      * Artist *
      **********/
-    Ogg_Set_Tag (vc, "ARTIST=", FileTag->artist,
-                 g_settings_get_boolean (MainSettings, "ogg-split-artist"));
+    et_ogg_set_tag (vc, "ARTIST=", FileTag->artist,
+                    g_settings_get_boolean (MainSettings, "ogg-split-artist"));
 
     /****************
      * Album Artist *
      ****************/
-    Ogg_Set_Tag (vc, "ALBUMARTIST=", FileTag->album_artist,
-                 g_settings_get_boolean (MainSettings, "ogg-split-artist"));
+    et_ogg_set_tag (vc, "ALBUMARTIST=", FileTag->album_artist,
+                    g_settings_get_boolean (MainSettings, "ogg-split-artist"));
 
     /*********
      * Album *
      *********/
-    Ogg_Set_Tag (vc, "ALBUM=", FileTag->album,
-                 g_settings_get_boolean (MainSettings, "ogg-split-album"));
+    et_ogg_set_tag (vc, "ALBUM=", FileTag->album,
+                    g_settings_get_boolean (MainSettings, "ogg-split-album"));
 
     /***************
      * Disc Number *
      ***************/
-    Ogg_Set_Tag(vc,"DISCNUMBER=",FileTag->disc_number,FALSE);
-    Ogg_Set_Tag (vc, "DISCTOTAL=", FileTag->disc_total, FALSE);
+    et_ogg_set_tag (vc, "DISCNUMBER=", FileTag->disc_number, FALSE);
+    et_ogg_set_tag (vc, "DISCTOTAL=", FileTag->disc_total, FALSE);
 
     /********
      * Year *
      ********/
-    Ogg_Set_Tag(vc,"DATE=",FileTag->year,FALSE);
+    et_ogg_set_tag (vc, "DATE=", FileTag->year, FALSE);
 
     /*************************
      * Track and Total Track *
      *************************/
-    Ogg_Set_Tag(vc,"TRACKNUMBER=",FileTag->track,FALSE);
-
-    Ogg_Set_Tag(vc,"TRACKTOTAL=",FileTag->track_total,FALSE);
+    et_ogg_set_tag (vc, "TRACKNUMBER=", FileTag->track, FALSE);
+    et_ogg_set_tag (vc, "TRACKTOTAL=", FileTag->track_total, FALSE);
 
     /*********
      * Genre *
      *********/
-    Ogg_Set_Tag (vc, "GENRE=", FileTag->genre,
-                 g_settings_get_boolean (MainSettings, "ogg-split-genre"));
+    et_ogg_set_tag (vc, "GENRE=", FileTag->genre,
+                    g_settings_get_boolean (MainSettings, "ogg-split-genre"));
 
     /***********
      * Comment *
      ***********/
     /* Format of new specification. */
-    Ogg_Set_Tag (vc, "DESCRIPTION=", FileTag->comment,
-                 g_settings_get_boolean (MainSettings, "ogg-split-comment"));
+    et_ogg_set_tag (vc, "DESCRIPTION=", FileTag->comment,
+                    g_settings_get_boolean (MainSettings,
+                                            "ogg-split-comment"));
 
     /************
      * Composer *
      ************/
-    Ogg_Set_Tag (vc ,"COMPOSER=", FileTag->composer,
-                 g_settings_get_boolean (MainSettings, "ogg-split-composer"));
+    et_ogg_set_tag (vc ,"COMPOSER=", FileTag->composer,
+                    g_settings_get_boolean (MainSettings,
+                                            "ogg-split-composer"));
 
     /*******************
      * Original artist *
      *******************/
-    Ogg_Set_Tag (vc, "PERFORMER=", FileTag->orig_artist,
-                 g_settings_get_boolean (MainSettings,
-                                         "ogg-split-original-artist"));
+    et_ogg_set_tag (vc, "PERFORMER=", FileTag->orig_artist,
+                    g_settings_get_boolean (MainSettings,
+                                            "ogg-split-original-artist"));
 
     /*************
      * Copyright *
      *************/
-    Ogg_Set_Tag(vc,"COPYRIGHT=",FileTag->copyright,FALSE);
+    et_ogg_set_tag (vc, "COPYRIGHT=", FileTag->copyright, FALSE);
 
     /*******
      * URL *
      *******/
-    Ogg_Set_Tag (vc, "CONTACT=", FileTag->url, FALSE);
+    et_ogg_set_tag (vc, "CONTACT=", FileTag->url, FALSE);
 
     /**************
      * Encoded by *
      **************/
-    Ogg_Set_Tag(vc,"ENCODED-BY=",FileTag->encoded_by,FALSE);
+    et_ogg_set_tag (vc, "ENCODED-BY=", FileTag->encoded_by, FALSE);
     
     
     /***********
