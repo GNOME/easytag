@@ -121,7 +121,7 @@ on_default_path_changed (GSettings *settings,
     GVariant *default_path;
     const gchar *path;
 
-    default_path = g_settings_get_value (settings, "default-path");
+    default_path = g_settings_get_value (settings, key);
     path = g_variant_get_bytestring (default_path);
 
     gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (default_path_button),

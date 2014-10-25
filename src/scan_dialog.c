@@ -1516,7 +1516,7 @@ on_scan_mode_changed (EtScanDialog *self, gchar *key, GSettings *settings)
 
     priv = et_scan_dialog_get_instance_private (self);
 
-    mode = g_settings_get_enum (MainSettings, key);
+    mode = g_settings_get_enum (settings, key);
 
     switch (mode)
     {

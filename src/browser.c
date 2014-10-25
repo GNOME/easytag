@@ -3748,7 +3748,7 @@ on_sort_mode_changed (EtBrowser *self, gchar *key, GSettings *settings)
 
     priv = et_browser_get_instance_private (self);
 
-    sort_mode = g_settings_get_enum (MainSettings, key);
+    sort_mode = g_settings_get_enum (settings, key);
     column = et_browser_get_column_for_column_id (self, sort_mode / 2);
 
     /* If the column to sort is different than the old sorted column. */
