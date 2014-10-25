@@ -578,32 +578,3 @@ et_on_child_exited (GPid pid, gint status, gpointer user_data)
 {
     g_spawn_close_pid (pid);
 }
-
-void
-et_grid_attach_full (GtkGrid *grid,
-                     GtkWidget *child,
-                     gint left_attach,
-                     gint top_attach,
-                     gint width,
-                     gint height,
-                     gboolean hexpand,
-                     gboolean vexpand,
-                     gint hmargin,
-                     gint vmargin)
-{
-    g_object_set (G_OBJECT(child),
-                  "hexpand", hexpand,
-                  "vexpand", vexpand,
-#if GTK_CHECK_VERSION (3, 12, 0)
-                  "margin-start", hmargin,
-                  "margin-end", hmargin,
-#else
-                  "margin-left", hmargin,
-                  "margin-right", hmargin,
-#endif
-                  "margin-top", vmargin,
-                  "margin-bottom", vmargin,
-                  NULL);
-
-    gtk_grid_attach (grid, child, left_attach, top_attach, width, height);
-}
