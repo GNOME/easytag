@@ -933,7 +933,8 @@ Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox)
 #include <sys/stat.h>
 #include <unistd.h>
 #include <string.h>
-gboolean Read_Directory (gchar *path_real)
+gboolean
+Read_Directory (const gchar *path_real)
 {
     GFile *dir;
     GFileEnumerator *dir_enumerator;

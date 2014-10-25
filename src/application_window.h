@@ -78,12 +78,12 @@ GtkTreeSelection * et_application_window_browser_get_selection (EtApplicationWin
 GtkTreeViewColumn *et_application_window_browser_get_column_for_column_id (EtApplicationWindow *self, gint column_id);
 GtkSortType et_application_window_browser_get_sort_order_for_column_id (EtApplicationWindow *self, gint column_id);
 void et_application_window_browser_select_file_by_iter_string (EtApplicationWindow *self, const gchar *iter_string, gboolean select);
-void et_application_window_browser_select_file_by_et_file (EtApplicationWindow *self, ET_File *file, gboolean select);
-GtkTreePath * et_application_window_browser_select_file_by_et_file2 (EtApplicationWindow *self, ET_File *file, gboolean select, GtkTreePath *start_path);
+void et_application_window_browser_select_file_by_et_file (EtApplicationWindow *self, const ET_File *file, gboolean select);
+GtkTreePath * et_application_window_browser_select_file_by_et_file2 (EtApplicationWindow *self, const ET_File *file, gboolean select, GtkTreePath *start_path);
 ET_File * et_application_window_browser_select_file_by_dlm (EtApplicationWindow *self, const gchar *string, gboolean select);
 void et_application_window_browser_unselect_all (EtApplicationWindow *self);
 void et_application_window_browser_refresh_list (EtApplicationWindow *self);
-void et_application_window_browser_refresh_file_in_list (EtApplicationWindow *self, ET_File *file);
+void et_application_window_browser_refresh_file_in_list (EtApplicationWindow *self, const ET_File *file);
 void et_application_window_browser_refresh_sort (EtApplicationWindow *self);
 void et_application_window_hide_log_area (EtApplicationWindow *self);
 void et_application_window_show_log_area (EtApplicationWindow *self);

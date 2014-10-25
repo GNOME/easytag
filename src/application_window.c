@@ -2474,7 +2474,7 @@ et_application_window_browser_select_file_by_iter_string (EtApplicationWindow *s
 
 void
 et_application_window_browser_select_file_by_et_file (EtApplicationWindow *self,
-                                                      ET_File *file,
+                                                      const ET_File *file,
                                                       gboolean select)
 {
     EtApplicationWindowPrivate *priv;
@@ -2487,7 +2487,7 @@ et_application_window_browser_select_file_by_et_file (EtApplicationWindow *self,
 
 GtkTreePath *
 et_application_window_browser_select_file_by_et_file2 (EtApplicationWindow *self,
-                                                       ET_File *file,
+                                                       const ET_File *file,
                                                        gboolean select,
                                                        GtkTreePath *start_path)
 {
@@ -2540,7 +2540,7 @@ et_application_window_browser_refresh_list (EtApplicationWindow *self)
 
 void
 et_application_window_browser_refresh_file_in_list (EtApplicationWindow *self,
-                                                    ET_File *file)
+                                                    const ET_File *file)
 {
     EtApplicationWindowPrivate *priv;
 

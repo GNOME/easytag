@@ -76,19 +76,19 @@ void et_browser_reload (EtBrowser *self);
 void et_browser_collapse (EtBrowser *self);
 void et_browser_set_sensitive (EtBrowser *self, gboolean sensitive);
 
-void et_browser_load_file_list (EtBrowser *self, GList *etfilelist, ET_File *etfile_to_select);
+void et_browser_load_file_list (EtBrowser *self, GList *etfilelist, const ET_File *etfile_to_select);
 void et_browser_refresh_list (EtBrowser *self);
-void et_browser_refresh_file_in_list (EtBrowser *self, ET_File *ETFile);
+void et_browser_refresh_file_in_list (EtBrowser *self, const ET_File *ETFile);
 void et_browser_clear (EtBrowser *self);
-void et_browser_select_file_by_et_file (EtBrowser *self, ET_File *ETFile, gboolean select_it);
-GtkTreePath * et_browser_select_file_by_et_file2 (EtBrowser *self, ET_File *searchETFile, gboolean select_it, GtkTreePath *startPath);
+void et_browser_select_file_by_et_file (EtBrowser *self, const ET_File *ETFile, gboolean select_it);
+GtkTreePath * et_browser_select_file_by_et_file2 (EtBrowser *self, const ET_File *searchETFile, gboolean select_it, GtkTreePath *startPath);
 void et_browser_select_file_by_iter_string (EtBrowser *self, const gchar* stringiter, gboolean select_it);
 ET_File *et_browser_select_file_by_dlm (EtBrowser *self, const gchar* string, gboolean select_it);
 void et_browser_refresh_sort (EtBrowser *self);
 void et_browser_select_all (EtBrowser *self);
 void et_browser_unselect_all (EtBrowser *self);
 void et_browser_invert_selection (EtBrowser *self);
-void et_browser_remove_file (EtBrowser *self, ET_File *ETFile);
+void et_browser_remove_file (EtBrowser *self, const ET_File *ETFile);
 ET_File * et_browser_get_et_file_from_path (EtBrowser *self, GtkTreePath *path);
 ET_File * et_browser_get_et_file_from_iter (EtBrowser *self, GtkTreeIter *iter);
 

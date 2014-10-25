@@ -197,7 +197,7 @@ write_playlist (EtPlaylistDialog *self, GFile *file, GError **error)
                         /* Special case: do not replace illegal characters and
                          * do not check if there is a directory separator in
                          * the mask. */
-                        gchar *filename_generated_utf8 = Scan_Generate_New_Filename_From_Mask (etfile, mask, TRUE);
+                        gchar *filename_generated_utf8 = et_scan_generate_new_filename_from_mask (etfile, mask, TRUE);
                         gchar *filename_generated = filename_from_display (filename_generated_utf8);
 
                         to_write = g_string_new ("#EXTINF:");
@@ -316,7 +316,7 @@ write_playlist (EtPlaylistDialog *self, GFile *file, GError **error)
                     /* Special case: do not replace illegal characters and
                      * do not check if there is a directory separator in
                      * the mask. */
-                    gchar *filename_generated_utf8 = Scan_Generate_New_Filename_From_Mask (etfile, mask, TRUE);
+                    gchar *filename_generated_utf8 = et_scan_generate_new_filename_from_mask (etfile, mask, TRUE);
                     gchar *filename_generated = filename_from_display (filename_generated_utf8);
 
                     to_write = g_string_new ("#EXTINF:");
@@ -442,9 +442,9 @@ write_button_clicked (EtPlaylistDialog *self)
         /* Generate filename from tag of the current selected file (FIXME). */
         temp = filename_from_display (playlist_name);
         g_free (playlist_name);
-        playlist_basename_utf8 = Scan_Generate_New_Filename_From_Mask (ETCore->ETFileDisplayed,
-                                                                       temp,
-                                                                       FALSE);
+        playlist_basename_utf8 = et_scan_generate_new_filename_from_mask (ETCore->ETFileDisplayed,
+                                                                          temp,
+                                                                          FALSE);
         g_free (temp);
 
         /* Replace Characters (with scanner). */

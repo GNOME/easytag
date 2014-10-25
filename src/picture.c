@@ -114,7 +114,8 @@ et_picture_type_from_filename (const gchar *filename_utf8)
 }
 
 /* FIXME: Possibly use gnome_vfs_get_mime_type_for_buffer. */
-Picture_Format Picture_Format_From_Data (Picture *pic)
+Picture_Format
+Picture_Format_From_Data (const Picture *pic)
 {
     // JPEG : "\xff\xd8"
     if (pic->data && pic->size > 2
@@ -247,7 +248,7 @@ Picture_Type_String (EtPictureType type)
 }
 
 gchar *
-Picture_Info (Picture *pic)
+Picture_Info (const Picture *pic)
 {
     const gchar *format, *desc, *type;
     gchar *r, *size_str;

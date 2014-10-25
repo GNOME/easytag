@@ -1220,7 +1220,7 @@ et_browser_clear_file_model (EtBrowser *self)
 void
 et_browser_load_file_list (EtBrowser *self,
                            GList *etfilelist,
-                           ET_File *etfile_to_select)
+                           const ET_File *etfile_to_select)
 {
     EtBrowserPrivate *priv;
     GList *l;
@@ -1432,7 +1432,8 @@ et_browser_refresh_list (EtBrowser *self)
  *  - Change color is something change on the file
  */
 void
-et_browser_refresh_file_in_list (EtBrowser *self, ET_File *ETFile)
+et_browser_refresh_file_in_list (EtBrowser *self,
+                                 const ET_File *ETFile)
 {
     EtBrowserPrivate *priv;
     GList *selectedRow = NULL;
@@ -1714,7 +1715,8 @@ Browser_List_Set_Row_Appearance (EtBrowser *self, GtkTreeIter *iter)
  * Remove a file from the list, by ETFile
  */
 void
-et_browser_remove_file (EtBrowser *self, ET_File *searchETFile)
+et_browser_remove_file (EtBrowser *self,
+                        const ET_File *searchETFile)
 {
     EtBrowserPrivate *priv;
     gint row;
@@ -1803,7 +1805,7 @@ et_browser_get_et_file_from_iter (EtBrowser *self, GtkTreeIter *iter)
  */
 void
 et_browser_select_file_by_et_file (EtBrowser *self,
-                                   ET_File *file,
+                                   const ET_File *file,
                                    gboolean select_it)
 {
     GtkTreePath *currentPath = NULL;
@@ -1823,7 +1825,7 @@ et_browser_select_file_by_et_file (EtBrowser *self,
  */
 GtkTreePath *
 et_browser_select_file_by_et_file2 (EtBrowser *self,
-                                    ET_File *searchETFile,
+                                    const ET_File *searchETFile,
                                     gboolean select_it,
                                     GtkTreePath *startPath)
 {
@@ -4048,7 +4050,8 @@ rename_directory_generate_preview (EtBrowser *self)
     if (!mask)
         return;
 
-    preview_text = Scan_Generate_New_Filename_From_Mask(ETCore->ETFileDisplayed,mask,FALSE);
+    preview_text = et_scan_generate_new_filename_from_mask (ETCore->ETFileDisplayed,
+                                                            mask, FALSE);
 
     if (GTK_IS_LABEL(priv->rename_directory_preview_label))
     {
@@ -4269,9 +4272,9 @@ Rename_Directory (EtBrowser *self)
 
         mask = g_settings_get_string (MainSettings,
                                       "rename-directory-default-mask");
-        directory_new_name = Scan_Generate_New_Directory_Name_From_Mask (ETCore->ETFileDisplayed,
-                                                                         mask,
-                                                                         FALSE);
+        directory_new_name = et_scan_generate_new_directory_name_from_mask (ETCore->ETFileDisplayed,
+                                                                            mask,
+                                                                            FALSE);
         g_free (mask);
 
     }

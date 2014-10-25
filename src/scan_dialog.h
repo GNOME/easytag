@@ -54,18 +54,12 @@ void et_scan_dialog_open (EtScanDialog *self, EtScanMode scanner_type);
 void et_scan_dialog_scan_selected_files (EtScanDialog *self);
 void et_scan_dialog_update_previews (EtScanDialog *self);
 
-G_END_DECLS
-
-
-enum {
-    MASK_EDITOR_TEXT,
-    MASK_EDITOR_COUNT
-};
-
 void Scan_Select_Mode_And_Run_Scanner (EtScanDialog *self, ET_File *ETFile);
-gchar *Scan_Generate_New_Filename_From_Mask       (ET_File *ETFile, gchar *mask, gboolean no_dir_check_or_conversion);
-gchar *Scan_Generate_New_Directory_Name_From_Mask (ET_File *ETFile, gchar *mask, gboolean no_dir_check_or_conversion);
+gchar * et_scan_generate_new_filename_from_mask (const ET_File *ETFile, const gchar *mask, gboolean no_dir_check_or_conversion);
+gchar * et_scan_generate_new_directory_name_from_mask (const ET_File *ETFile, const gchar *mask, gboolean no_dir_check_or_conversion);
 
 void entry_check_rename_file_mask (GtkEntry *entry, gpointer user_data);
+
+G_END_DECLS
 
 #endif /* ET_SCAN_DIALOG_H_ */

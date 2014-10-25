@@ -60,6 +60,6 @@ gint Save_All_Files_With_Answer         (gboolean force_saving_files);
 
 void Action_Main_Stop_Button_Pressed    (void);
 
-gboolean Read_Directory               (gchar *path);
+gboolean Read_Directory (const gchar *path);
 
 #endif /* __EASYTAG_H__ */

@@ -170,6 +170,10 @@ typedef enum
 } Mask_Item_Type;
 
 
+enum {
+    MASK_EDITOR_TEXT,
+    MASK_EDITOR_COUNT
+};
 
 /*
  * Used into Rename File Scanner
@@ -604,7 +608,8 @@ Scan_Rename_File_Generate_Preview (EtScanDialog *self)
     if (!mask)
         return;
 
-    preview_text = Scan_Generate_New_Filename_From_Mask(ETCore->ETFileDisplayed,mask,FALSE);
+    preview_text = et_scan_generate_new_filename_from_mask (ETCore->ETFileDisplayed,
+                                                            mask, FALSE);
 
     if (GTK_IS_LABEL(priv->rename_file_preview_label))
     {
@@ -687,7 +692,9 @@ Scan_Rename_File_With_Mask (EtScanDialog *self, ET_File *ETFile)
 
     // Note : if the first character is '/', we have a path with the filename,
     // else we have only the filename. The both are in UTF-8.
-    filename_generated_utf8 = Scan_Generate_New_Filename_From_Mask(ETFile,mask,FALSE);
+    filename_generated_utf8 = et_scan_generate_new_filename_from_mask (ETFile,
+                                                                       mask,
+                                                                       FALSE);
     g_free(mask);
 
     if (!filename_generated_utf8)
@@ -753,7 +760,10 @@ Scan_Rename_File_With_Mask (EtScanDialog *self, ET_File *ETFile)
  *      function "Write_Playlist" for the content of the playlist.
  * Returns filename in UTF-8
  */
-gchar *Scan_Generate_New_Filename_From_Mask (ET_File *ETFile, gchar *mask, gboolean no_dir_check_or_conversion)
+gchar *
+et_scan_generate_new_filename_from_mask (const ET_File *ETFile,
+                                         const gchar *mask,
+                                         gboolean no_dir_check_or_conversion)
 {
     gchar *tmp;
     gchar **source = NULL;
@@ -1041,9 +1051,13 @@ Scan_Rename_File_Prefix_Path (EtScanDialog *self)
 }
 
 
-gchar *Scan_Generate_New_Directory_Name_From_Mask (ET_File *ETFile, gchar *mask, gboolean no_dir_check_or_conversion)
+gchar *
+et_scan_generate_new_directory_name_from_mask (const ET_File *ETFile,
+                                               const gchar *mask,
+                                               gboolean no_dir_check_or_conversion)
 {
-    return Scan_Generate_New_Filename_From_Mask(ETFile,mask,no_dir_check_or_conversion);
+    return et_scan_generate_new_filename_from_mask (ETFile, mask,
+                                                    no_dir_check_or_conversion);
 }
 
 
