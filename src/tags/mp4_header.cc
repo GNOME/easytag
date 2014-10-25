@@ -111,13 +111,12 @@ mp4_header_read_file_info (const gchar *filename,
 }
 
 /*
- * Mp4_Header_Display_File_Info_To_UI:
+ * et_mp4_header_display_file_info_to_ui:
  *
  * Display header info in the main window
  */
 EtFileHeaderFields *
-Mp4_Header_Display_File_Info_To_UI (const gchar *filename, 
-                                    const ET_File *ETFile)
+et_mp4_header_display_file_info_to_ui (const ET_File *ETFile)
 {
     EtFileHeaderFields *fields;
     ET_File_Info *info;

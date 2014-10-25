@@ -60,7 +60,7 @@ typedef enum
 
 gboolean et_opus_read_file_info (GFile *gfile, ET_File_Info *ETFileInfo, GError **error);
 OggOpusFile * et_opus_open_file (GFile *gfile, GError **error);
-EtFileHeaderFields * et_opus_header_display_file_info_to_ui (GFile *gfile, const ET_File *ETFile);
+EtFileHeaderFields * et_opus_header_display_file_info_to_ui (const ET_File *ETFile);
 void et_opus_file_header_fields_free (EtFileHeaderFields *fields);
 
 #endif /* ET_OPUS_HEADER_H_ */

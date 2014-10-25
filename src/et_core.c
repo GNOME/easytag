@@ -2875,19 +2875,14 @@ ET_Display_File_Data_To_UI (ET_File *ETFile)
 {
     EtApplicationWindow *window;
     const ET_File_Description *ETFileDescription;
-    const gchar *cur_filename;
     const gchar *cur_filename_utf8;
     gchar *msg;
     EtFileHeaderFields *fields;
-#ifdef ENABLE_OPUS
-    GFile *file;
-#endif
 
     g_return_if_fail (ETFile != NULL &&
                       ((GList *)ETFile->FileNameCur)->data != NULL);
                       /* For the case where ETFile is an "empty" structure. */
 
-    cur_filename      = ((File_Name *)((GList *)ETFile->FileNameCur)->data)->value;
     cur_filename_utf8 = ((File_Name *)((GList *)ETFile->FileNameCur)->data)->value_utf8;
     ETFileDescription = ETFile->ETFileDescription;
 
@@ -2914,67 +2909,61 @@ ET_Display_File_Data_To_UI (ET_File *ETFile)
 #if defined ENABLE_MP3 && defined ENABLE_ID3LIB
         case MP3_FILE:
         case MP2_FILE:
-            fields = Mpeg_Header_Display_File_Info_To_UI (cur_filename,
-                                                          ETFile);
+            fields = et_mpeg_header_display_file_info_to_ui (ETFile);
             et_application_window_file_area_set_header_fields (window, fields);
             et_mpeg_file_header_fields_free (fields);
             break;
 #endif
 #ifdef ENABLE_OGG
         case OGG_FILE:
-            fields = Ogg_Header_Display_File_Info_To_UI (cur_filename, ETFile);
+            fields = et_ogg_header_display_file_info_to_ui (ETFile);
             et_application_window_file_area_set_header_fields (window, fields);
             et_ogg_file_header_fields_free (fields);
             break;
 #endif
 #ifdef ENABLE_SPEEX
         case SPEEX_FILE:
-            fields = Ogg_Header_Display_File_Info_To_UI (cur_filename, ETFile);
+            fields = et_ogg_header_display_file_info_to_ui (ETFile);
             et_application_window_file_area_set_header_fields (window, fields);
             et_ogg_file_header_fields_free (fields);
             break;
 #endif
 #ifdef ENABLE_FLAC
         case FLAC_FILE:
-            fields = Flac_Header_Display_File_Info_To_UI (cur_filename,
-                                                          ETFile);
+            fields = et_flac_header_display_file_info_to_ui (ETFile);
             et_application_window_file_area_set_header_fields (window, fields);
             et_flac_file_header_fields_free (fields);
             break;
 #endif
         case MPC_FILE:
-            fields = Mpc_Header_Display_File_Info_To_UI (cur_filename, ETFile);
+            fields = et_mpc_header_display_file_info_to_ui (ETFile);
             et_application_window_file_area_set_header_fields (window, fields);
             et_mpc_file_header_fields_free (fields);
             break;
         case MAC_FILE:
-            fields = Mac_Header_Display_File_Info_To_UI (cur_filename,
-                                                         ETFile);
+            fields = et_mac_header_display_file_info_to_ui (ETFile);
             et_application_window_file_area_set_header_fields (window, fields);
             et_mac_file_header_fields_free (fields);
             break;
 #ifdef ENABLE_MP4
         case MP4_FILE:
-            fields = Mp4_Header_Display_File_Info_To_UI (cur_filename, ETFile);
+            fields = et_mp4_header_display_file_info_to_ui (ETFile);
             et_application_window_file_area_set_header_fields (window, fields);
             et_mp4_file_header_fields_free (fields);
             break;
 #endif
 #ifdef ENABLE_WAVPACK
         case WAVPACK_FILE:
-            fields = Wavpack_Header_Display_File_Info_To_UI (cur_filename,
-                                                             ETFile);
+            fields = et_wavpack_header_display_file_info_to_ui (ETFile);
             et_application_window_file_area_set_header_fields (window, fields);
             et_wavpack_file_header_fields_free (fields);
             break;
 #endif
 #ifdef ENABLE_OPUS
         case OPUS_FILE:
-            file = g_file_new_for_path (cur_filename);
-            fields = et_opus_header_display_file_info_to_ui (file, ETFile);
+            fields = et_opus_header_display_file_info_to_ui (ETFile);
             et_application_window_file_area_set_header_fields (window, fields);
             et_opus_file_header_fields_free (fields);
-            g_object_unref (file);
             break;
 #endif
         case UNKNOWN_FILE:

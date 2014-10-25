@@ -70,8 +70,7 @@ mac_header_read_file_info (const gchar *filename,
 }
 
 EtFileHeaderFields *
-Mac_Header_Display_File_Info_To_UI (const gchar *filename_utf8,
-                                    const ET_File *ETFile)
+et_mac_header_display_file_info_to_ui (const ET_File *ETFile)
 {
     EtFileHeaderFields *fields;
     ET_File_Info *info;
