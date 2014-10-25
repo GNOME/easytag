@@ -85,8 +85,6 @@ void et_application_window_browser_unselect_all (EtApplicationWindow *self);
 void et_application_window_browser_refresh_list (EtApplicationWindow *self);
 void et_application_window_browser_refresh_file_in_list (EtApplicationWindow *self, const ET_File *file);
 void et_application_window_browser_refresh_sort (EtApplicationWindow *self);
-void et_application_window_hide_log_area (EtApplicationWindow *self);
-void et_application_window_show_log_area (EtApplicationWindow *self);
 void et_application_window_scan_dialog_update_previews (EtApplicationWindow *self);
 void et_application_window_progress_set_fraction (EtApplicationWindow *self, gdouble fraction);
 void et_application_window_progress_set_text (EtApplicationWindow *self, const gchar *text);

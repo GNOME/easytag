@@ -1761,30 +1761,6 @@ et_application_window_new (GtkApplication *application)
 }
 
 void
-et_application_window_hide_log_area (EtApplicationWindow *self)
-{
-    EtApplicationWindowPrivate *priv;
-
-    g_return_if_fail (self != NULL);
-
-    priv = et_application_window_get_instance_private (self);
-
-    gtk_widget_show_all (priv->log_area);
-}
-
-void
-et_application_window_show_log_area (EtApplicationWindow *self)
-{
-    EtApplicationWindowPrivate *priv;
-
-    g_return_if_fail (self != NULL);
-
-    priv = et_application_window_get_instance_private (self);
-
-    gtk_widget_hide (priv->log_area);
-}
-
-void
 et_application_window_scan_dialog_update_previews (EtApplicationWindow *self)
 {
     EtApplicationWindowPrivate *priv;
