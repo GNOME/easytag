@@ -17,37 +17,36 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
+#include "config.h"
 
 #ifdef ENABLE_WAVPACK
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
-#include <stdio.h>
-#include <errno.h>
-#include <string.h>
 #include <wavpack/wavpack.h>
 
 #include "easytag.h"
 #include "et_core.h"
 #include "misc.h"
-#include "charset.h"
 #include "wavpack_header.h"
 
 
 gboolean
-wavpack_header_read_file_info (const gchar *filename,
-                               ET_File_Info *ETFileInfo,
-                               GError **error)
+et_wavpack_header_read_file_info (GFile *file,
+                                  ET_File_Info *ETFileInfo,
+                                  GError **error)
 {
+    gchar *filename;
     WavpackContext *wpc;
     gchar message[80];
 
-    g_return_val_if_fail (filename != NULL && ETFileInfo != NULL, FALSE);
+    g_return_val_if_fail (file != NULL && ETFileInfo != NULL, FALSE);
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     /* TODO: Use WavpackOpenFileInputEx() instead. */
+    filename = g_file_get_path (file);
     wpc = WavpackOpenFileInput (filename, message, 0, 0);
+    g_free (filename);
 
     if (wpc == NULL)
     {

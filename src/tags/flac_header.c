@@ -17,13 +17,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-/*
- * Code taken from :
- * FLAC - Free Lossless Audio Codec - v1.0.3
- * Copyright (C) 2001  Josh Coalson
- *
- */
-
 #include "config.h" /* For definition of ENABLE_FLAC. */
 
 #ifdef ENABLE_FLAC
@@ -33,7 +26,6 @@
 #include <FLAC/all.h>
 #include <errno.h>
 
-#include "easytag.h"
 #include "et_core.h"
 #include "flac_header.h"
 #include "misc.h"
@@ -170,9 +162,9 @@ et_flac_close_func (FLAC__IOHandle handle)
 /* Header info of FLAC file */
 
 gboolean
-flac_header_read_file_info (GFile *file,
-                            ET_File_Info *ETFileInfo,
-                            GError **error)
+et_flac_header_read_file_info (GFile *file,
+                               ET_File_Info *ETFileInfo,
+                               GError **error)
 {
     GFileInfo *info;
     FLAC__Metadata_Chain *chain;

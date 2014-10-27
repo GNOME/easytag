@@ -32,17 +32,9 @@
 #include "vcedit.h"
 #endif
 
-#include "easytag.h"
 #include "ogg_header.h"
 #include "et_core.h"
-#include "charset.h"
-#include "log.h"
 #include "misc.h"
-
-
-/*************
- * Functions *
- *************/
 
 /*
  * et_ogg_error_quark:
@@ -171,7 +163,6 @@ et_ogg_close_func (void *datasource)
 {
     EtOggState *state = (EtOggState *)datasource;
 
-    g_clear_object (&state->file);
     g_clear_object (&state->istream);
     g_clear_error (&state->error);
 
@@ -195,9 +186,9 @@ et_ogg_tell_func (void *datasource)
 }
 
 gboolean
-ogg_header_read_file_info (const gchar *filename,
-                           ET_File_Info *ETFileInfo,
-                           GError **error)
+et_ogg_header_read_file_info (GFile *file,
+                              ET_File_Info *ETFileInfo,
+                              GError **error)
 {
     OggVorbis_File vf;
     vorbis_info *vi;
@@ -206,29 +197,35 @@ ogg_header_read_file_info (const gchar *filename,
     glong rate = 0;
     glong bitrate_nominal = 0;
     gdouble duration = 0;
-    gulong filesize;
     gint res;
     ov_callbacks callbacks = { et_ogg_read_func, et_ogg_seek_func,
                                et_ogg_close_func, et_ogg_tell_func };
     EtOggState state;
-    gchar *filename_utf8;
+    GFileInfo *info;
 
-    g_return_val_if_fail (filename != NULL && ETFileInfo != NULL, FALSE);
+    g_return_val_if_fail (file != NULL && ETFileInfo != NULL, FALSE);
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-    state.file = g_file_new_for_path (filename);
+    info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_SIZE,
+                              G_FILE_QUERY_INFO_NONE, NULL, error);
+
+    if (!info)
+    {
+        return FALSE;
+    }
+
+    ETFileInfo->size = g_file_info_get_size (info);
+    g_object_unref (info);
+
+    state.file = file;
     state.error = NULL;
     state.istream = G_INPUT_STREAM (g_file_read (state.file, NULL,
                                                  &state.error));
 
-    filename_utf8 = filename_to_display (filename);
-
     if (!state.istream)
     {
         g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
-                     _("Error while opening file ‘%s’: %s"), filename_utf8,
-                     state.error->message);
-        g_free (filename_utf8);
+                     _("Error while opening file: %s"), state.error->message);
         return FALSE;
     }
 
@@ -243,11 +240,9 @@ ogg_header_read_file_info (const gchar *filename,
         }
         else
         {
-            g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
-                       _("The specified bitstream does not exist or the "
-                         "file has been initialized improperly (file: ‘%s’)"),
-                       filename_utf8);
-            g_free (filename_utf8);
+            g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s",
+                         _("The specified bitstream does not exist or the "
+                         "file has been initialized improperly"));
             et_ogg_close_func (&state);
             return FALSE;
         }
@@ -287,23 +282,18 @@ ogg_header_read_file_info (const gchar *filename,
             g_set_error (error, state.error->domain, state.error->code,
                          "%s", message);
             et_ogg_close_func (&state);
-            g_free (filename_utf8);
             return FALSE;
         }
 
         et_ogg_close_func (&state);
     }
 
-    filesize = et_get_file_size (filename);
-
     ETFileInfo->version    = encoder_version;
     ETFileInfo->bitrate    = bitrate_nominal/1000;
     ETFileInfo->samplerate = rate;
     ETFileInfo->mode       = channels;
-    ETFileInfo->size       = filesize;
     ETFileInfo->duration   = duration;
 
-    g_free(filename_utf8);
     return TRUE;
 }
 
@@ -311,9 +301,9 @@ ogg_header_read_file_info (const gchar *filename,
 #ifdef ENABLE_SPEEX
 
 gboolean
-speex_header_read_file_info (const gchar *filename,
-                             ET_File_Info *ETFileInfo,
-                             GError **error)
+et_speex_header_read_file_info (GFile *file,
+                                ET_File_Info *ETFileInfo,
+                                GError **error)
 {
     vcedit_state *state;
     SpeexHeader  *si;
@@ -322,26 +312,34 @@ speex_header_read_file_info (const gchar *filename,
     glong rate = 0;
     glong bitrate = 0;
     gdouble duration = 0;
-    gulong filesize;
-    GFile *gfile;
+    GFileInfo *info;
     GError *tmp_error = NULL;
 
-    g_return_val_if_fail (filename != NULL && ETFileInfo != NULL, FALSE);
+    g_return_val_if_fail (file != NULL && ETFileInfo != NULL, FALSE);
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     state = vcedit_new_state();    // Allocate memory for 'state'
-    gfile = g_file_new_for_path (filename);
 
-    if (!vcedit_open (state, gfile, &tmp_error))
+    if (!vcedit_open (state, file, &tmp_error))
     {
         g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
                      _("Failed to open file as Vorbis: %s"),
                      tmp_error->message);
         g_error_free (tmp_error);
-        g_object_unref (gfile);
         vcedit_clear (state);
         return FALSE;
     }
+
+    info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_SIZE,
+                              G_FILE_QUERY_INFO_NONE, NULL, error);
+
+    if (!info)
+    {
+        return FALSE;
+    }
+
+    ETFileInfo->size = g_file_info_get_size (info);
+    g_object_unref (info);
 
     // Get Speex information
     if ( (si=state->si) != NULL )
@@ -358,20 +356,16 @@ speex_header_read_file_info (const gchar *filename,
         //g_print("compressed length: %ld bytes\n",(long)(ov_raw_total(&vf,-1)));
     }
 
-    filesize = et_get_file_size (filename);
-
     ETFileInfo->mpc_version = g_strdup(encoder_version);
     ETFileInfo->bitrate     = bitrate/1000;
     ETFileInfo->samplerate  = rate;
     ETFileInfo->mode        = channels;
-    ETFileInfo->size        = filesize;
     //if (bitrate > 0)
     //    ETFileInfo->duration = filesize*8/bitrate/1000; // FIXME : Approximation!! Needs to remove tag size!
     //else
         ETFileInfo->duration   = duration;
 
     vcedit_clear(state);
-    g_object_unref (gfile);
     return TRUE;
 }
 #endif

@@ -175,7 +175,7 @@ static gboolean ET_Add_File_To_Artist_Album_File_List (ET_File *ETFile);
 static guint ET_Displayed_File_List_Get_Length      (void);
 static void ET_Displayed_File_List_Number (void);
 
-static gboolean et_core_read_file_info (const gchar *filename,
+static gboolean et_core_read_file_info (GFile *file,
                                         ET_File_Info *ETFileInfo,
                                         GError **error);
 
@@ -616,42 +616,40 @@ GList *ET_Add_File_To_File_List (gchar *filename)
 #if defined ENABLE_MP3 && defined ENABLE_ID3LIB
         case MP3_FILE:
         case MP2_FILE:
-            success = mpeg_header_read_file_info (filename, ETFileInfo,
-                                                  &error);
+            success = et_mpeg_header_read_file_info (file, ETFileInfo, &error);
             break;
 #endif
 #ifdef ENABLE_OGG
         case OGG_FILE:
-            success = ogg_header_read_file_info (filename, ETFileInfo, &error);
+            success = et_ogg_header_read_file_info (file, ETFileInfo, &error);
             break;
 #endif
 #ifdef ENABLE_SPEEX
         case SPEEX_FILE:
-            success = speex_header_read_file_info (filename, ETFileInfo,
-                                                   &error);
+            success = et_speex_header_read_file_info (file, ETFileInfo,
+                                                      &error);
             break;
 #endif
 #ifdef ENABLE_FLAC
         case FLAC_FILE:
-            success = flac_header_read_file_info (file, ETFileInfo,
-                                                  &error);
+            success = et_flac_header_read_file_info (file, ETFileInfo, &error);
             break;
 #endif
         case MPC_FILE:
-            success = mpc_header_read_file_info (filename, ETFileInfo, &error);
+            success = et_mpc_header_read_file_info (file, ETFileInfo, &error);
             break;
         case MAC_FILE:
-            success = mac_header_read_file_info (filename, ETFileInfo, &error);
+            success = et_mac_header_read_file_info (file, ETFileInfo, &error);
             break;
 #ifdef ENABLE_WAVPACK
         case WAVPACK_FILE:
-            success = wavpack_header_read_file_info (filename, ETFileInfo,
-                                                     &error);
+            success = et_wavpack_header_read_file_info (file, ETFileInfo,
+                                                        &error);
             break;
 #endif
 #ifdef ENABLE_MP4
         case MP4_FILE:
-            success = mp4_header_read_file_info (filename, ETFileInfo, &error);
+            success = et_mp4_header_read_file_info (file, ETFileInfo, &error);
             break;
 #endif
 #ifdef ENABLE_OPUS
@@ -664,7 +662,7 @@ GList *ET_Add_File_To_File_List (gchar *filename)
             /* FIXME: Translatable string. */
             Log_Print(LOG_ERROR,"ETFileInfo: Undefined file type (%d) for file %s",ETFileDescription->FileType,filename_utf8);
             /* To get at least the file size. */
-            success = et_core_read_file_info (filename, ETFileInfo, &error);
+            success = et_core_read_file_info (file, ETFileInfo, &error);
             break;
     }
 
@@ -4319,7 +4317,7 @@ void ET_Mark_File_Name_As_Saved (ET_File *ETFile)
 
 /*
  * et_core_read_file_info:
- * @filename: (type filename): a file from which to read information
+ * @file: a file from which to read information
  * @ETFileInfo: (out caller-allocates): a file information structure
  * @error: a #GError to provide information on erros, or %NULL to ignore
  *
@@ -4329,23 +4327,21 @@ void ET_Mark_File_Name_As_Saved (ET_File *ETFile)
  * Returns: %TRUE on success, %FALSE otherwise
  */
 static gboolean
-et_core_read_file_info (const gchar *filename, ET_File_Info *ETFileInfo,
+et_core_read_file_info (GFile *file,
+                        ET_File_Info *ETFileInfo,
                         GError **error)
 {
-    GFile *file;
     GFileInfo *info;
 
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
-    g_return_val_if_fail (filename != NULL && ETFileInfo != NULL, FALSE);
+    g_return_val_if_fail (file != NULL && ETFileInfo != NULL, FALSE);
 
-    file = g_file_new_for_path (filename);
     info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_SIZE,
                               G_FILE_QUERY_INFO_NONE, NULL, error);
 
     if (!info)
     {
         g_assert (error == NULL || *error != NULL);
-        g_object_unref (file);
         return FALSE;
     }
 
@@ -4358,7 +4354,7 @@ et_core_read_file_info (const gchar *filename, ET_File_Info *ETFileInfo,
 
     g_assert (error == NULL || *error == NULL);
     g_object_unref (info);
-    g_object_unref (file);
+
     return TRUE;
 }
 

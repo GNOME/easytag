@@ -22,47 +22,50 @@
 /* This file is intended to be included directly in mp4_tag.cc */
 
 /*
- * mp4_header_read_file_info:
+ * et_mp4_header_read_file_info:
  *
  * Get header info into the ETFileInfo structure
  */
 gboolean
-mp4_header_read_file_info (const gchar *filename,
-                           ET_File_Info *ETFileInfo,
-                           GError **error)
+et_mp4_header_read_file_info (GFile *file,
+                              ET_File_Info *ETFileInfo,
+                              GError **error)
 {
+    GFileInfo *info;
     const TagLib::MP4::Properties *properties;
 
-    g_return_val_if_fail (filename != NULL && ETFileInfo != NULL, FALSE);
+    g_return_val_if_fail (file != NULL && ETFileInfo != NULL, FALSE);
 
     /* Get size of file */
-    ETFileInfo->size = et_get_file_size (filename);
+    info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_SIZE,
+                              G_FILE_QUERY_INFO_NONE, NULL, error);
 
-    GFile *file = g_file_new_for_path (filename);
+    if (!info)
+    {
+        return FALSE;
+    }
+
+    ETFileInfo->size = g_file_info_get_size (info);
+    g_object_unref (info);
+
     GIO_InputStream stream (file);
 
     if (!stream.isOpen ())
     {
-        gchar *filename_utf8 = filename_to_display (filename);
         const GError *tmp_error = stream.getError ();
+
         g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
-                     _("Error while opening file ‘%s’: %s"), filename_utf8,
-                     tmp_error->message);
-        g_free (filename_utf8);
+                     _("Error while opening file: %s"), tmp_error->message);
         return FALSE;
     }
 
     TagLib::MP4::File mp4file (&stream);
 
-    g_object_unref (file);
-
     if (!mp4file.isOpen ())
     {
-        gchar *filename_utf8 = filename_to_display (filename);
         g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
-                     _("Error while opening file ‘%s’: %s"), filename_utf8,
+                     _("Error while opening file: %s"),
                      _("MP4 format invalid"));
-        g_free (filename_utf8);
         return FALSE;
     }
 
@@ -70,11 +73,8 @@ mp4_header_read_file_info (const gchar *filename,
 
     if (properties == NULL)
     {
-        gchar *filename_utf8 = filename_to_display (filename);
-        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
-                     _("Error reading properties from file ‘%s’"),
-                     filename_utf8);
-        g_free (filename_utf8);
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s",
+                     _("Error reading properties from file"));
         return FALSE;
     }
 

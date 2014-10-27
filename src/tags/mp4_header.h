@@ -25,7 +25,7 @@
 
 G_BEGIN_DECLS
 
-gboolean mp4_header_read_file_info (const gchar *filename, ET_File_Info *ETFileInfo, GError **error);
+gboolean et_mp4_header_read_file_info (GFile *file, ET_File_Info *ETFileInfo, GError **error);
 EtFileHeaderFields * et_mp4_header_display_file_info_to_ui (const ET_File *ETFile);
 void et_mp4_file_header_fields_free (EtFileHeaderFields *fields);
 

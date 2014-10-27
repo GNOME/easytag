@@ -18,45 +18,38 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <errno.h>
-#include <unistd.h>
 
-#include "easytag.h"
 #include "et_core.h"
 #include "misc.h"
-#include "setting.h"
-#include "charset.h"
 #include "monkeyaudio_header.h"
 #include "libapetag/info_mac.h"
 
-
-/***************
- * Header info *
- ***************/
-
 gboolean
-mac_header_read_file_info (const gchar *filename,
-                           ET_File_Info *ETFileInfo,
-                           GError **error)
+et_mac_header_read_file_info (GFile *file,
+                              ET_File_Info *ETFileInfo,
+                              GError **error)
 {
+    gchar *filename;
     StreamInfoMac Info;
 
-    g_return_val_if_fail (filename != NULL && ETFileInfo != NULL, FALSE);
+    g_return_val_if_fail (file != NULL && ETFileInfo != NULL, FALSE);
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+    filename = g_file_get_path (file);
 
     if (info_mac_read (filename, &Info))
     {
         g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s",
                      _("Error opening Monkey’s Audio file"));
+        g_free (filename);
         return FALSE;
     }
+
+    g_free (filename);
 
     ETFileInfo->mpc_profile   = g_strdup(Info.CompresionName);
     ETFileInfo->version       = Info.Version;

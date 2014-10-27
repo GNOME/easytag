@@ -200,7 +200,6 @@ et_opus_read_file_info (GFile *gfile, ET_File_Info *ETFileInfo,
 
 /*
  * et_opus_header_display_file_info_to_ui:
- * @filename: file to display info of
  * @ETFile: ET_File to display information
  *
  * Display header info from ET_File.

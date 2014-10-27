@@ -24,7 +24,7 @@
 
 G_BEGIN_DECLS
 
-gboolean wavpack_header_read_file_info (const gchar *filename, ET_File_Info *ETFileInfo, GError **error);
+gboolean et_wavpack_header_read_file_info (GFile *file, ET_File_Info *ETFileInfo, GError **error);
 EtFileHeaderFields * et_wavpack_header_display_file_info_to_ui (const ET_File *ETFile);
 void et_wavpack_file_header_fields_free (EtFileHeaderFields *fields);
 

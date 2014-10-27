@@ -26,7 +26,6 @@
 #include <errno.h>
 
 #include "mpeg_header.h"
-#include "easytag.h"
 #include "misc.h"
 
 #include <id3.h>
@@ -67,32 +66,46 @@ channel_mode_name (int mode)
  * Read infos into header of first frame
  */
 gboolean
-mpeg_header_read_file_info (const gchar *filename,
-                            ET_File_Info *ETFileInfo,
-                            GError **error)
+et_mpeg_header_read_file_info (GFile *file,
+                               ET_File_Info *ETFileInfo,
+                               GError **error)
 {
+    GFileInfo *info;
+    gchar *filename;
     /*
      * With id3lib, the header frame couldn't be read if the file contains an ID3v2 tag with an APIC frame
      */
     ID3Tag *id3_tag = NULL;    /* Tag defined by the id3lib */
     const Mp3_Headerinfo* headerInfo = NULL;
 
-    g_return_val_if_fail (filename != NULL || ETFileInfo != NULL, FALSE);
+    g_return_val_if_fail (file != NULL || ETFileInfo != NULL, FALSE);
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     /* Get size of file */
-    ETFileInfo->size = et_get_file_size (filename);
+    info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_SIZE,
+                              G_FILE_QUERY_INFO_NONE, NULL, error);
+
+    if (!info)
+    {
+        return FALSE;
+    }
+
+    ETFileInfo->size = g_file_info_get_size (info);
+    g_object_unref (info);
 
     /* Get data from tag */
     if ((id3_tag = ID3Tag_New()) == NULL)
     {
         g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_NOMEM, "%s",
                      g_strerror (ENOMEM));
+        g_object_unref (info);
         return FALSE;
     }
 
     /* Link the file to the tag (uses ID3TT_ID3V2 to get header if APIC is present in Tag) */
+    filename = g_file_get_path (file);
     ID3Tag_LinkWithFlags(id3_tag,filename,ID3TT_ID3V2);
+    g_free (filename);
 
     if ( (headerInfo = ID3Tag_GetMp3HeaderInfo(id3_tag)) )
     {
