@@ -51,7 +51,6 @@
         <child>
             <object class="GtkButton" id="manual_search_button">
                 <property name="label" translatable="yes">_Search</property>
-                <property name="tooltip-text" translatable="yes">Generate the CDDB disc ID using the selected files (the order is important)</property>
                 <property name="use-underline">True</property>
                 <property name="visible">True</property>
             </object>
@@ -63,6 +62,7 @@
         <child>
             <object class="GtkButton" id="automatic_search_button">
                 <property name="label" translatable="yes">Search Using Selected _Files</property>
+                <property name="tooltip-text" translatable="yes">Generate the CDDB disc ID using the selected files (the order is important)</property>
                 <property name="use-underline">True</property>
                 <property name="visible">True</property>
             </object>
