@@ -65,10 +65,11 @@
  * Read tag data from a Wavpack file.
  */
 gboolean
-wavpack_tag_read_file_tag (const gchar *filename,
+wavpack_tag_read_file_tag (GFile *file,
                            File_Tag *FileTag,
                            GError **error)
 {
+    gchar *filename;
     WavpackContext *wpc;
     gchar message[80];
     gchar *field, *field2;
@@ -76,11 +77,13 @@ wavpack_tag_read_file_tag (const gchar *filename,
 
     int open_flags = OPEN_TAGS;
 
-    g_return_val_if_fail (filename != NULL && FileTag != NULL, FALSE);
+    g_return_val_if_fail (file != NULL && FileTag != NULL, FALSE);
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     /* TODO: Use WavpackOpenFileInputEx() instead. */
+    filename = g_file_get_path (file);
     wpc = WavpackOpenFileInput (filename, message, open_flags, 0);
+    g_free (filename);
 
     if (wpc == NULL)
     {

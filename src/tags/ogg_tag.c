@@ -634,27 +634,29 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc, File_Tag *FileTag,
  *  - if field is found but contains no info (strlen(str)==0), we don't read it
  */
 gboolean
-ogg_tag_read_file_tag (const gchar *filename, File_Tag *FileTag, GError **error)
+ogg_tag_read_file_tag (GFile *file,
+                       File_Tag *FileTag,
+                       GError **error)
 {
-    GFile *file;
     GFileInputStream *istream;
     vcedit_state   *state;
+    gchar *filename;
     gchar *filename_utf8;
 
-    g_return_val_if_fail (filename != NULL && FileTag != NULL, FALSE);
+    g_return_val_if_fail (file != NULL && FileTag != NULL, FALSE);
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-    file = g_file_new_for_path (filename);
     istream = g_file_read (file, NULL, error);
 
     if (!istream)
     {
-        g_object_unref (file);
         g_assert (error == NULL || *error != NULL);
         return FALSE;
     }
 
+    filename = g_file_get_path (file);
     filename_utf8 = filename_to_display (filename);
+    g_free (filename);
 
     {
     // Skip the id3v2 tag
@@ -728,7 +730,6 @@ ogg_tag_read_file_tag (const gchar *filename, File_Tag *FileTag, GError **error)
     if (!vcedit_open (state, file, error))
     {
         g_assert (error == NULL || *error != NULL);
-        g_object_unref (file);
         vcedit_clear(state);
         g_free (filename_utf8);
         return FALSE;
@@ -746,8 +747,7 @@ ogg_tag_read_file_tag (const gchar *filename, File_Tag *FileTag, GError **error)
     et_add_file_tags_from_vorbis_comments (vcedit_comments(state), FileTag,
                                            filename_utf8);
     vcedit_clear(state);
-    g_object_unref (file);
-    g_free(filename_utf8);
+    g_free (filename_utf8);
 
     return TRUE;
 
@@ -755,8 +755,7 @@ err:
     g_assert (error == NULL || *error != NULL);
     g_object_unref (istream);
     g_object_unref (istream);
-    g_object_unref (file);
-    g_free(filename_utf8);
+    g_free (filename_utf8);
     return FALSE;
 }
 

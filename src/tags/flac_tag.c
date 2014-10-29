@@ -98,23 +98,26 @@ static gboolean Flac_Set_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag_n
  *  - if field is found but contains no info (strlen(str)==0), we don't read it
  */
 gboolean
-flac_tag_read_file_tag (const gchar *filename,
+flac_tag_read_file_tag (GFile *file,
                         File_Tag *FileTag,
                         GError **error)
 {
     FLAC__Metadata_SimpleIterator *iter;
     const gchar *flac_error_msg;
     gchar *string = NULL;
-    gchar *filename_utf8 = filename_to_display(filename);
+    gchar *filename;
+    gchar *filename_utf8;
     guint i;
     Picture *prev_pic = NULL;
     //gint j = 1;
 
-    g_return_val_if_fail (filename != NULL && FileTag != NULL, FALSE);
+    g_return_val_if_fail (file != NULL && FileTag != NULL, FALSE);
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-    // Initialize the iterator for the blocks
+    /* Initialize the iterator for the blocks. */
+    filename = g_file_get_path (file);
     iter = FLAC__metadata_simple_iterator_new();
+
     if ( iter == NULL || !FLAC__metadata_simple_iterator_init(iter, filename, true, false) )
     {
         if ( iter == NULL )
@@ -132,9 +135,12 @@ flac_tag_read_file_tag (const gchar *filename,
 
         g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
                      _("Error while opening file: %s"), flac_error_msg);
+        g_free (filename);
         return FALSE;
     }
     
+    filename_utf8 = filename_to_display (filename);
+    g_free (filename);
 
     /* libFLAC is able to detect (and skip) ID3v2 tags by itself */
 
@@ -733,7 +739,7 @@ flac_tag_read_file_tag (const gchar *filename,
       && FileTag->encoded_by  == NULL
       && FileTag->picture     == NULL)
     {
-        gboolean rc = id3tag_read_file_tag (filename, FileTag, NULL);
+        gboolean rc = id3tag_read_file_tag (file, FileTag, NULL);
 
         // If an ID3 tag has been found (and no FLAC tag), we mark the file as
         // unsaved to rewrite a flac tag.

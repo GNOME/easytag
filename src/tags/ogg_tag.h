@@ -31,8 +31,7 @@
 
 G_BEGIN_DECLS
 
-gboolean ogg_tag_read_file_tag (const gchar *filename, File_Tag *FileTag,
-                                GError **error);
+gboolean ogg_tag_read_file_tag (GFile *file, File_Tag *FileTag, GError **error);
 gboolean ogg_tag_write_file_tag (const ET_File *ETFile, GError **error);
 
 void et_add_file_tags_from_vorbis_comments (vorbis_comment *vc, File_Tag *FileTag, const gchar *filename_utf8);

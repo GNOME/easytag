@@ -220,7 +220,6 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
         g_object_unref (file);
         return FALSE;
     }
-    g_object_unref (file);
 
     /* We get again the tag from the file to keep also unused data (by EasyTAG), then
      * we replace the changed data */
@@ -228,6 +227,7 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
     {
         g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_NOMEM, "%s",
                      g_strerror (ENOMEM));
+        g_object_unref (file);
         return FALSE;
     }
 
@@ -655,7 +655,7 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
                                                "id3v2-enable-unicode"))
                 {
                     File_Tag  *FileTag_tmp = ET_File_Tag_Item_New();
-                    if (id3tag_read_file_tag (filename, FileTag_tmp, NULL) == TRUE
+                    if (id3tag_read_file_tag (file, FileTag_tmp, NULL) == TRUE
                     &&  ET_Detect_Changes_Of_File_Tag(FileTag,FileTag_tmp) == TRUE)
                     {
                         GtkWidget *msgdialog;
@@ -737,6 +737,7 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
 
     /* Free allocated data */
     ID3Tag_Delete(id3_tag);
+    g_object_unref (file);
     g_free(basename_utf8);
 
     return success;

@@ -528,7 +528,7 @@ GList *ET_Add_File_To_File_List (gchar *filename)
     {
 #ifdef ENABLE_MP3
         case ID3_TAG:
-            if (!id3tag_read_file_tag (filename, FileTag, &error))
+            if (!id3tag_read_file_tag (file, FileTag, &error))
             {
                 Log_Print (LOG_ERROR,
                            "Error reading ID3 tag from file ‘%s’: %s",
@@ -539,7 +539,7 @@ GList *ET_Add_File_To_File_List (gchar *filename)
 #endif
 #ifdef ENABLE_OGG
         case OGG_TAG:
-            if (!ogg_tag_read_file_tag (filename, FileTag, &error))
+            if (!ogg_tag_read_file_tag (file, FileTag, &error))
             {
                 Log_Print (LOG_ERROR,
                            _("Error reading tag from Ogg file ‘%s’: %s"),
@@ -550,7 +550,7 @@ GList *ET_Add_File_To_File_List (gchar *filename)
 #endif
 #ifdef ENABLE_FLAC
         case FLAC_TAG:
-            if (!flac_tag_read_file_tag (filename, FileTag, &error))
+            if (!flac_tag_read_file_tag (file, FileTag, &error))
             {
                 Log_Print (LOG_ERROR,
                            _("Error reading tag from FLAC file ‘%s’: %s"),
@@ -560,7 +560,7 @@ GList *ET_Add_File_To_File_List (gchar *filename)
             break;
 #endif
         case APE_TAG:
-            if (!ape_tag_read_file_tag (filename, FileTag, &error))
+            if (!ape_tag_read_file_tag (file, FileTag, &error))
             {
                 Log_Print (LOG_ERROR,
                            _("Error reading APE tag from file ‘%s’: %s"),
@@ -570,7 +570,7 @@ GList *ET_Add_File_To_File_List (gchar *filename)
             break;
 #ifdef ENABLE_MP4
         case MP4_TAG:
-            if (!mp4tag_read_file_tag (filename, FileTag, &error))
+            if (!mp4tag_read_file_tag (file, FileTag, &error))
             {
                 Log_Print (LOG_ERROR,
                            _("Error reading tag from MP4 file ‘%s’: %s"),
@@ -581,7 +581,7 @@ GList *ET_Add_File_To_File_List (gchar *filename)
 #endif
 #ifdef ENABLE_WAVPACK
         case WAVPACK_TAG:
-            if (!wavpack_tag_read_file_tag (filename, FileTag, &error))
+            if (!wavpack_tag_read_file_tag (file, FileTag, &error))
             {
                 Log_Print (LOG_ERROR,
                            _("Error reading tag from WavPack file ‘%s’: %s"),

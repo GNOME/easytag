@@ -48,61 +48,52 @@
  * Read tag data into an Mp4 file.
  */
 gboolean
-mp4tag_read_file_tag (const gchar *filename,
+mp4tag_read_file_tag (GFile *file,
                       File_Tag *FileTag,
                       GError **error)
 {
     TagLib::MP4::Tag *tag;
     guint year;
 
-    g_return_val_if_fail (filename != NULL && FileTag != NULL, FALSE);
+    g_return_val_if_fail (file != NULL && FileTag != NULL, FALSE);
 
     /* Get data from tag. */
-    GFile *file = g_file_new_for_path (filename);
     GIO_InputStream stream (file);
 
     if (!stream.isOpen ())
     {
-        gchar *filename_utf8 = filename_to_display (filename);
         const GError *tmp_error = stream.getError ();
         g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
-                     _("Error while opening file ‘%s’: %s"), filename_utf8,
-                     tmp_error->message);
-        g_free (filename_utf8);
+                     _("Error while opening file: %s"), tmp_error->message);
         return FALSE;
     }
 
     TagLib::MP4::File mp4file (&stream);
-    g_object_unref (file);
 
     if (!mp4file.isOpen ())
     {
-        gchar *filename_utf8 = filename_to_display (filename);
         const GError *tmp_error = stream.getError ();
 
         if (tmp_error)
         {
             g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
-                         _("Error while opening file ‘%s’: %s"), filename_utf8,
+                         _("Error while opening file: %s"),
                          tmp_error->message);
         }
         else
         {
             g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
-                         _("Error while opening file ‘%s’: %s"), filename_utf8,
+                         _("Error while opening file: %s"),
                          _("MP4 format invalid"));
         }
 
-        g_free (filename_utf8);
         return FALSE;
     }
 
     if (!(tag = mp4file.tag ()))
     {
-        gchar *filename_utf8 = filename_to_display (filename);
-        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
-                     _("Error reading tags from file ‘%s’"), filename_utf8);
-        g_free (filename_utf8);
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s",
+                     _("Error reading tags from file"));
         return FALSE;
     }
 

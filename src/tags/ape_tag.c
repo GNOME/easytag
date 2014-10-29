@@ -46,28 +46,34 @@
  *  - if field is found but contains no info (strlen(str)==0), we don't read it
  */
 gboolean
-ape_tag_read_file_tag (const gchar *filename,
+ape_tag_read_file_tag (GFile *file,
                        File_Tag *FileTag,
                        GError **error)
 {
-    FILE *file;
+    FILE *fp;
+    gchar *filename;
     gchar *string = NULL;
     gchar *string1 = NULL;
     apetag *ape_cnt;
 
-    g_return_val_if_fail (filename != NULL && FileTag != NULL, FALSE);
+    g_return_val_if_fail (file != NULL && FileTag != NULL, FALSE);
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-    if ((file = fopen (filename, "rb")) == NULL)
+    filename = g_file_get_path (file);
+
+    if ((fp = fopen (filename, "rb")) == NULL)
     {
         g_set_error (error, G_FILE_ERROR, g_file_error_from_errno (errno),
                      _("Error while opening file: %s"),
                      g_strerror (errno));
+        g_free (filename);
         return FALSE;
     }
 
     ape_cnt = apetag_init();
-    apetag_read_fp(ape_cnt, file, filename, 0); /* read all tags ape,id3v[12]*/
+    apetag_read_fp (ape_cnt, fp, filename, 0); /* read all tags ape,id3v[12]*/
+
+    g_free (filename);
 
     /*********
      * Title *
@@ -198,7 +204,7 @@ ape_tag_read_file_tag (const gchar *filename,
         FileTag->encoded_by = Try_To_Validate_Utf8_String(string);
 
     apetag_free(ape_cnt);
-    fclose(file);
+    fclose (fp);
 
     return TRUE;
 }

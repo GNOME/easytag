@@ -26,7 +26,7 @@
 
 G_BEGIN_DECLS
 
-gboolean flac_tag_read_file_tag (const gchar *filename, File_Tag *FileTag, GError **error);
+gboolean flac_tag_read_file_tag (GFile *file, File_Tag *FileTag, GError **error);
 gboolean flac_tag_write_file_tag (const ET_File *ETFile, GError **error);
 
 G_END_DECLS

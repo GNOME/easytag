@@ -91,11 +91,14 @@ static gboolean etag_write_tags (const gchar *filename, struct id3_tag const *v1
  * If a tag entry exists (ex: title), we allocate memory, else value stays to NULL
  */
 gboolean
-id3tag_read_file_tag (const gchar *filename,
+id3tag_read_file_tag (GFile *gfile,
                       File_Tag *FileTag,
                       GError **error)
 {
-    int tmpfile;
+    GInputStream *istream;
+    gsize bytes_read;
+    GSeekable *seekable;
+    gchar *filename;
     struct id3_file *file;
     struct id3_tag *tag;
     struct id3_frame *frame;
@@ -106,29 +109,33 @@ id3tag_read_file_tag (const gchar *filename,
     unsigned tmpupdate, update = 0;
     long tagsize;
 
-    g_return_val_if_fail (filename != NULL && FileTag != NULL, FALSE);
+    g_return_val_if_fail (gfile != NULL && FileTag != NULL, FALSE);
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-    if ((tmpfile = open (filename, O_RDONLY)) < 0)
+    istream = G_INPUT_STREAM (g_file_read (gfile, NULL, error));
+
+    if (!istream)
     {
-        g_set_error (error, G_FILE_ERROR, g_file_error_from_errno (errno),
-                     _("Error while opening file: %s"), g_strerror (errno));
         return FALSE;
     }
 
-    string1 = g_try_malloc(ID3_TAG_QUERYSIZE);
-    if (string1==NULL)
-    {
-        close(tmpfile);
-        return FALSE;
-    }
+    string1 = g_malloc0 (ID3_TAG_QUERYSIZE);
 
-    // Check if the file has an ID3v2 tag or/and an ID3v1 tags
-    // 1) ID3v2 tag
-    if (read(tmpfile, string1, ID3_TAG_QUERYSIZE) != ID3_TAG_QUERYSIZE)
+    /* Check if the file has an ID3v2 tag or/and an ID3v1 tags.
+     * 1) ID3v2 tag. */
+    if (!g_input_stream_read_all (istream, string1, ID3_TAG_QUERYSIZE,
+                                  &bytes_read, NULL, error))
     {
-        close(tmpfile);
+        g_object_unref (istream);
         g_free (string1);
+        return FALSE;
+    }
+    else if (bytes_read != ID3_TAG_QUERYSIZE)
+    {
+        g_object_unref (istream);
+        g_free (string1);
+        g_set_error (error, G_IO_ERROR, G_IO_ERROR_PARTIAL_INPUT, "%s",
+                     _("Error reading tags from file"));
         return FALSE;
     }
 
@@ -148,7 +155,11 @@ id3tag_read_file_tag (const gchar *filename,
             /* Determine version if user want to upgrade old tags */
             if (g_settings_get_boolean (MainSettings, "id3v2-convert-old")
             && (string1 = g_realloc (string1, tagsize))
-            && (read(tmpfile, &string1[ID3_TAG_QUERYSIZE], tagsize - ID3_TAG_QUERYSIZE) == tagsize - ID3_TAG_QUERYSIZE)
+                && g_input_stream_read_all (istream,
+                                            &string1[ID3_TAG_QUERYSIZE],
+                                            tagsize - ID3_TAG_QUERYSIZE,
+                                            &bytes_read, NULL, error)
+                && bytes_read == tagsize - ID3_TAG_QUERYSIZE
             && (tag = id3_tag_parse((id3_byte_t const *)string1, tagsize))
                )
             {
@@ -171,10 +182,24 @@ id3tag_read_file_tag (const gchar *filename,
         }
     }
 
-    // 2) ID3v1 tag
-    if ( (lseek(tmpfile,-128, SEEK_END) >= 0) // Go to the beginning of ID3v1 tag
+    /* 2) ID3v1 tag. */
+    seekable = G_SEEKABLE (istream);
+
+    if (!g_seekable_can_seek (seekable))
+    {
+        g_object_unref (istream);
+        g_free (string1);
+        g_set_error (error, G_IO_ERROR, G_IO_ERROR_PARTIAL_INPUT, "%s",
+                     _("Error reading tags from file"));
+        return FALSE;
+    }
+
+    /* Go to the beginning of ID3v1 tag. */
+    if (g_seekable_seek (seekable, -128, G_SEEK_END, NULL, error)
     && (string1)
-    && (read(tmpfile, string1, 3) == 3)
+        && g_input_stream_read_all (istream, string1, 3, &bytes_read, NULL,
+                                    NULL /* Ignore errors. */)
+        && bytes_read == 3
     && (string1[0] == 'T')
     && (string1[1] == 'A')
     && (string1[2] == 'G')
@@ -194,14 +219,18 @@ id3tag_read_file_tag (const gchar *filename,
         }
     }
 
-    g_free(string1);
+    g_free (string1);
+    g_object_unref (istream);
 
-    /* Takes ownership of the file descriptor on success. */
-    if ((file = id3_file_fdopen(tmpfile, ID3_FILE_MODE_READONLY)) == NULL)
+    filename = g_file_get_path (gfile);
+
+    if ((file = id3_file_open (filename, ID3_FILE_MODE_READONLY)) == NULL)
     {
-        close(tmpfile);
+        g_free (filename);
         return FALSE;
     }
+
+    g_free (filename);
 
     if ( ((tag = id3_file_tag(file)) == NULL)
     ||   (tag->nframes == 0))
