@@ -59,8 +59,6 @@
  *    NetBSD's mkdir(2).
  */
 
-// File for configuration
-static const gchar CONFIG_FILE[] = "easytagrc";
 // File of masks for tag scanner
 static const gchar SCAN_TAG_MASKS_FILE[] = "scan_tag.mask";
 // File of masks for rename file scanner
@@ -142,7 +140,7 @@ static void check_or_create_file (const gchar *filename)
     else
     {
         Log_Print (LOG_ERROR, _("Cannot create or open file ‘%s’: %s"),
-                   CONFIG_FILE, g_strerror (errno));
+                   filename, g_strerror (errno));
     }
 
     g_free (file_path);
@@ -395,8 +393,7 @@ static void
 migrate_config_file_dir (const gchar *old_path, const gchar *new_path)
 {
     gsize i;
-    static const gchar *filenames[] = { CONFIG_FILE,
-                                        SCAN_TAG_MASKS_FILE,
+    static const gchar *filenames[] = { SCAN_TAG_MASKS_FILE,
                                         RENAME_FILE_MASKS_FILE,
                                         PATH_ENTRY_HISTORY_FILE,
                                         RUN_PROGRAM_WITH_DIRECTORY_HISTORY_FILE,
