@@ -201,9 +201,6 @@ et_log_area_init (EtLogArea *self)
 
     /* Load pending messages in the Log list. */
     Log_Print_Tmp_List (self);
-
-    g_settings_bind (MainSettings, "log-show", self, "visible",
-                     G_SETTINGS_BIND_DEFAULT);
 }
 
 

@@ -1719,6 +1719,8 @@ et_application_window_init (EtApplicationWindow *self)
     /* Log */
     priv->log_area = et_log_area_new ();
     gtk_paned_pack2 (GTK_PANED (priv->vpaned), priv->log_area, FALSE, TRUE);
+    g_settings_bind (MainSettings, "log-show", priv->log_area, "visible",
+                     G_SETTINGS_BIND_DEFAULT);
 
     /* Horizontal box for Status bar + Progress bar */
     hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
