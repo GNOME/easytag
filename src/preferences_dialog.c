@@ -328,7 +328,7 @@ create_preferences_dialog (EtPreferencesDialog *self)
      */
     default_path_button = GTK_WIDGET (gtk_builder_get_object (builder,
                                                               "default_path_button"));
-    on_default_path_changed (MainSettings, "changed::default-path",
+    on_default_path_changed (MainSettings, "default-path",
                              GTK_FILE_CHOOSER_BUTTON (default_path_button));
     /* Connecting to current-folder-changed does not work if the user selects
      * a directory from the combo box list provided by the file chooser button.
