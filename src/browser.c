@@ -938,12 +938,18 @@ Browser_Tree_Node_Selected (EtBrowser *self, GtkTreeSelection *selection)
 
 #ifdef G_OS_WIN32
 static gboolean
-Browser_Win32_Get_Drive_Root (gchar *drive, GtkTreeIter *rootNode, GtkTreePath **rootPath)
+et_browser_win32_get_drive_root (EtBrowser *self,
+                                 gchar *drive,
+                                 GtkTreeIter *rootNode,
+                                 GtkTreePath **rootPath)
 {
+    EtBrowserPrivate *priv;
     gint root_index;
     gboolean found = FALSE;
     GtkTreeIter parentNode;
     gchar *nodeName;
+
+    priv = et_browser_get_instance_private (self);
 
     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(priv->directory_model), &parentNode);
 
@@ -1001,12 +1007,6 @@ et_browser_select_dir (EtBrowser *self, const gchar *current_path)
         return;
     }
 
-#ifdef G_OS_WIN32
-    /* On win32 : stat("c:\path\to\dir") succeed, while stat("c:\path\to\dir\") fails */
-    ET_Win32_Path_Remove_Trailing_Backslash(current_path);
-#endif /* G_OS_WIN32 */
-
-
     /* Don't check here if the path is valid. It will be done later when
      * selecting a node in the tree */
 
@@ -1016,8 +1016,11 @@ et_browser_select_dir (EtBrowser *self, const gchar *current_path)
 
     // Expand root node (fill parentNode and rootPath)
 #ifdef G_OS_WIN32
-    if (!Browser_Win32_Get_Drive_Root(parts[0], &parentNode, &rootPath))
+    if (!et_browser_win32_get_drive_root (self, parts[0], &parentNode,
+                                          &rootPath))
+    {
         return;
+    }
 #else /* !G_OS_WIN32 */
     if (!gtk_tree_model_get_iter_first (GTK_TREE_MODEL (priv->directory_model),
                                         &parentNode))
@@ -3212,8 +3215,11 @@ Browser_Tree_Rename_Directory (EtBrowser *self,
     textsplit = g_strsplit(last_path, G_DIR_SEPARATOR_S, 0);
 
 #ifdef G_OS_WIN32
-    if (!Browser_Win32_Get_Drive_Root(textsplit[0], &iter, &parentpath))
+    if (!et_browser_win32_get_drive_root (self, textsplit[0], &iter,
+                                          &parentpath))
+    {
         return;
+    }
 #else /* !G_OS_WIN32 */
     parentpath = gtk_tree_path_new_first();
 #endif /* !G_OS_WIN32 */
