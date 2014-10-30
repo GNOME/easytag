@@ -174,8 +174,7 @@ common_init (EtApplication *self)
     gtk_widget_show (MainWindow);
 
     /* Starting messages */
-    Log_Print (LOG_OK, _("Starting EasyTAG version %s (PID: %d)…"),
-               PACKAGE_VERSION, getpid ());
+    Log_Print (LOG_OK, _("Starting EasyTAG version %s…"), PACKAGE_VERSION);
 #ifdef G_OS_WIN32
     if (g_getenv("EASYTAGLANG"))
     {
