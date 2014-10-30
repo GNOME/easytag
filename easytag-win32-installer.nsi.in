@@ -232,6 +232,8 @@ Section "Core ${PRODUCT_NAME} Files" SecProgram
   File "${DESTDIR}${PREFIX}/share/icons/hicolor/48x48/apps/easytag.png"
 
   SetOutPath "$INSTDIR\share\glib-2.0\schemas"
+  File "${DESTDIR}${PREFIX}/share/glib-2.0/schemas/org.gnome.EasyTAG.enums.xml"
+  File "${DESTDIR}${PREFIX}/share/glib-2.0/schemas/org.gnome.EasyTAG.gschema.xml"
   File "${PREFIX}/share/glib-2.0/schemas/org.gtk.Settings.FileChooser.gschema.xml"
 
   SetOutPath "$INSTDIR\bin"
