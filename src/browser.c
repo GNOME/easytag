@@ -3022,12 +3022,9 @@ Browser_Tree_Initialize (EtBrowser *self)
 {
     EtBrowserPrivate *priv;
 #ifdef G_OS_WIN32
-    DWORD drives;
-    UINT drive_type;
-    gchar drive[] = "A:/";
-    gchar drive_backslashed[] = "A:\\";
-    gchar drive_slashless[] = "A:";
-    gchar drive_label[256];
+    GVolumeMonitor *monitor;
+    GList *mounts;
+    GList *l;
 #endif
     GtkTreeIter parent_iter;
     GtkTreeIter dummy_iter;
@@ -3040,81 +3037,45 @@ Browser_Tree_Initialize (EtBrowser *self)
     gtk_tree_store_clear (priv->directory_model);
 
 #ifdef G_OS_WIN32
-    /* Code strangely familiar with gtkfilesystemwin32.c */
+    /* TODO: Connect to the monitor changed signals. */
+    monitor = g_volume_monitor_get ();
+    mounts = g_volume_monitor_get_mounts (monitor);
 
-    drives = GetLogicalDrives();
-    if (!drives)
+    for (l = mounts; l != NULL; l = g_list_next (l))
     {
-        g_warning ("GetLogicalDrives failed");
-        drive_icon = g_themed_icon_new ("folder");
+        GMount *mount;
+        gchar *name;
+        GFile *root;
+        gchar *path;
+
+        mount = l->data;
+        drive_icon = g_mount_get_icon (mount);
+        name = g_mount_get_name (mount);
+        root = g_mount_get_root (mount);
+        path = g_file_get_path (root);
+
+        gtk_tree_store_insert_with_values (priv->directory_model,
+                                           &parent_iter, NULL, G_MAXINT,
+                                           TREE_COLUMN_DIR_NAME,
+                                           name,
+                                           TREE_COLUMN_FULL_PATH,
+                                           path,
+                                           TREE_COLUMN_HAS_SUBDIR, TRUE,
+                                           TREE_COLUMN_SCANNED, FALSE,
+                                           TREE_COLUMN_ICON, drive_icon,
+                                           -1);
+        /* Insert dummy node. */
+        gtk_tree_store_append (priv->directory_model, &dummy_iter,
+                               &parent_iter);
+
+        g_free (path);
+        g_free (name);
+        g_object_unref (root);
+        g_object_unref (drive_icon);
     }
 
-    while (drives && drive[0] <= 'Z')
-    {
-        if (drives & 1)
-        {
-            char *drive_dir_name;
-
-            drive_type = GetDriveType(drive_backslashed);
-
-            // DRIVE_REMOVABLE   2
-            // DRIVE_FIXED       3
-            // DRIVE_REMOTE      4
-            // DRIVE_CDROM       5
-            // DRIVE_RAMDISK     6
-            // DRIVE_UNKNOWN     0
-            // DRIVE_NO_ROOT_DIR 1
-            switch(drive_type)
-            {
-                case DRIVE_FIXED:
-                    drive_icon = g_themed_icon_new ("drive-harddisk");
-                    break;
-                case DRIVE_REMOVABLE:
-                    drive_icon = g_themed_icon_new ("drive-removable-media");
-                    break;
-                case DRIVE_CDROM:
-                    drive_icon = g_themed_icon_new ("drive-optical");
-                    break;
-                case DRIVE_REMOTE:
-                    drive_icon = g_themed_icon_new ("folder-remote");
-                    break;
-                case DRIVE_RAMDISK:
-                    /* FIXME: There is no standard RAM icon, so create one. */
-                    drive_icon = g_themed_icon_new ("drive-removable-media");
-                    break;
-                default:
-                    drive_icon = g_themed_icon_new ("folder");
-            }
-
-            drive_label[0] = 0;
-
-            GetVolumeInformation(drive_backslashed, drive_label, 256, NULL, NULL, NULL, NULL, 0);
-
-            /* Drive letter first so alphabetical drive list order works */
-            drive_dir_name = g_strconcat("(", drive_slashless, ") ", drive_label, NULL);
-
-            gtk_tree_store_insert_with_values (priv->directory_model,
-                                               &parent_iter, NULL, G_MAXINT,
-                                               TREE_COLUMN_DIR_NAME,
-                                               drive_dir_name,
-                                               TREE_COLUMN_FULL_PATH,
-                                               drive_backslashed,
-                                               TREE_COLUMN_HAS_SUBDIR, TRUE,
-                                               TREE_COLUMN_SCANNED, FALSE,
-                                               TREE_COLUMN_ICON, drive_icon,
-                                               -1);
-            /* Insert dummy node. */
-            gtk_tree_store_append (priv->directory_model, &dummy_iter,
-                                   &parent_iter);
-
-            g_free(drive_dir_name);
-        }
-        drives >>= 1;
-        drive[0]++;
-        drive_backslashed[0]++;
-        drive_slashless[0]++;
-    }
-
+    g_list_free_full (mounts, g_object_unref);
+    g_object_unref (monitor);
 #else /* !G_OS_WIN32 */
     drive_icon = get_gicon_for_path (G_DIR_SEPARATOR_S, ET_PATH_STATE_CLOSED);
     gtk_tree_store_insert_with_values (priv->directory_model, &parent_iter, NULL,
@@ -3127,9 +3088,9 @@ Browser_Tree_Initialize (EtBrowser *self)
                                        TREE_COLUMN_ICON, drive_icon, -1);
     /* Insert dummy node. */
     gtk_tree_store_append (priv->directory_model, &dummy_iter, &parent_iter);
-#endif /* !G_OS_WIN32 */
 
     g_object_unref (drive_icon);
+#endif /* !G_OS_WIN32 */
 }
 
 /*
