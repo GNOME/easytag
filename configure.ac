@@ -48,6 +48,10 @@ PKG_PROG_PKG_CONFIG([0.24])
 
 AC_SUBST([GLIB_COMPILE_RESOURCES], [`$PKG_CONFIG --variable glib_compile_resources gio-2.0`])
 
+AC_PATH_PROG([GDK_PIXBUF_PIXDATA], [gdk-pixbuf-pixdata])
+AS_IF([test "x$ac_cv_path_GDK_PIXBUF_PIXDATA" = "x"],
+      [AC_MSG_ERROR([gdk-pixbuf-pixdata is required for image resources])])
+
 AC_MSG_CHECKING([for glib-mkenums script])
 GLIB_MKENUMS=`$PKG_CONFIG --variable=glib_mkenums glib-2.0`
 AS_IF([test "x$GLIB_MKENUMS" = "x"],
