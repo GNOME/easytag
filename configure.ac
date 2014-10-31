@@ -385,22 +385,6 @@ AC_LANG_POP([C++])
 AC_SUBST([WARN_CXXFLAGS], ["$tested_cxx_warning_flags"])
 AC_SUBST([DEPRECATED_CPPFLAGS], ["-DG_DISABLE_SINGLE_INCLUDES -DGTK_DISABLE_SINGLE_INCLUDES -DG_DISABLE_DEPRECATED $GLIB_DEPRECATION_FLAGS $GTK_DEPRECATION_FLAGS"])
 
-dnl To enable 'gprof' profiling
-dnl CFLAGS="$CFLAGS -pg"
-
-
-dnl -------------------------------
-dnl Checks for header files.
-dnl -------------------------------
-AC_HEADER_DIRENT
-
-
-dnl -------------------------------
-dnl Checks for typedefs, structures, and compiler characteristics.
-dnl -------------------------------
-AC_TYPE_SIZE_T
-
-
 dnl -------------------------------
 dnl Checks for library functions.
 dnl -------------------------------
