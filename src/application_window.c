@@ -1942,6 +1942,29 @@ et_application_window_select_dir (EtApplicationWindow *self, const gchar *path)
     et_browser_select_dir (ET_BROWSER (priv->browser), path);
 }
 
+/*
+ * Select a file in the "main list" using the ETFile address of each item.
+ */
+void
+et_application_window_select_file_by_et_file (EtApplicationWindow *self,
+                                              ET_File *ETFile)
+{
+    if (!ETCore->ETFileDisplayedList)
+        return;
+
+    /* Save the current displayed data */
+    ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+
+    /* Display the item */
+    et_application_window_browser_select_file_by_et_file (self, ETFile, TRUE);
+    /* Just to update 'ETFileDisplayedList'. */
+    ET_Displayed_File_List_By_Etfile (ETFile);
+    ET_Display_File_Data_To_UI (ETFile);
+
+    et_application_window_update_actions (self);
+    et_application_window_scan_dialog_update_previews (self);
+}
+
 const gchar *
 et_application_window_get_current_path (EtApplicationWindow *self)
 {

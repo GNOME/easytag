@@ -149,7 +149,10 @@ Search_Result_List_Row_Selected (GtkTreeSelection *selection,
                                                                   TRUE);
             /* Display only the last file (to increase speed). */
             if (!selectedRows->next)
-                Action_Select_Nth_File_By_Etfile(ETFile);
+            {
+                et_application_window_select_file_by_et_file (ET_APPLICATION_WINDOW (MainWindow),
+                                                              ETFile);
+            }
         }
     }
 

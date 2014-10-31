@@ -94,27 +94,6 @@ static void et_on_quit_recursion_response (GtkDialog *dialog, gint response_id,
                                            gpointer user_data);
 
 /*
- * Select a file in the "main list" using the ETFile adress of each item.
- */
-void Action_Select_Nth_File_By_Etfile (ET_File *ETFile)
-{
-    if (!ETCore->ETFileDisplayedList)
-        return;
-
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
-
-    /* Display the item */
-    et_application_window_browser_select_file_by_et_file (ET_APPLICATION_WINDOW (MainWindow),
-                                                          ETFile, TRUE);
-    ET_Displayed_File_List_By_Etfile(ETFile); // Just to update 'ETFileDisplayedList'
-    ET_Display_File_Data_To_UI(ETFile);
-
-    et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
-    et_application_window_scan_dialog_update_previews (ET_APPLICATION_WINDOW (MainWindow));
-}
-
-/*
  * Action when Save button is pressed
  */
 void Action_Save_Selected_Files (void)

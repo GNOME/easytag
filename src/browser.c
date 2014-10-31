@@ -1178,7 +1178,8 @@ Browser_List_Row_Selected (EtBrowser *self, GtkTreeSelection *selection)
         {
             gtk_tree_model_get (GTK_TREE_MODEL(priv->file_model), &lastFile,
                                 LIST_FILE_POINTER, &fileETFile, -1);
-            Action_Select_Nth_File_By_Etfile (fileETFile);
+            et_application_window_select_file_by_et_file (ET_APPLICATION_WINDOW (MainWindow),
+                                                          fileETFile);
         }
         else
         {
@@ -1186,8 +1187,9 @@ Browser_List_Row_Selected (EtBrowser *self, GtkTreeSelection *selection)
         }
     }else
     {
-        // The real last selected line
-        Action_Select_Nth_File_By_Etfile(priv->last_selected_file);
+        /* The real last selected line. */
+        et_application_window_select_file_by_et_file (ET_APPLICATION_WINDOW (MainWindow),
+                                                      priv->last_selected_file);
     }
 
     g_list_free_full (selectedRows, (GDestroyNotify)gtk_tree_path_free);
@@ -2600,8 +2602,9 @@ Browser_Album_List_Load_Files (EtBrowser *self,
         ET_Set_Displayed_File_List(etfilelist);
         et_browser_load_file_list (self, etfilelist, NULL);
 
-        // Displays the first item
-        Action_Select_Nth_File_By_Etfile((ET_File *)etfilelist->data);
+        /* Displays the first item. */
+        et_application_window_select_file_by_et_file (ET_APPLICATION_WINDOW (MainWindow),
+                                                      (ET_File *)etfilelist->data);
     }
 }
 
@@ -2632,8 +2635,9 @@ Browser_Album_List_Row_Selected (EtBrowser *self, GtkTreeSelection *selection)
 
     et_browser_load_file_list (self, etfilelist, NULL);
 
-    // Displays the first item
-    Action_Select_Nth_File_By_Etfile((ET_File *)etfilelist->data);
+    /* Displays the first item. */
+    et_application_window_select_file_by_et_file (ET_APPLICATION_WINDOW (MainWindow),
+                                                  (ET_File *)etfilelist->data);
 }
 
 /*
@@ -2715,7 +2719,8 @@ et_browser_set_display_mode (EtBrowser *self,
                     etfile = (ET_File *)etfilelist->data;
                 }
 
-                Action_Select_Nth_File_By_Etfile (etfile);
+                et_application_window_select_file_by_et_file (ET_APPLICATION_WINDOW (MainWindow),
+                                                              etfile);
             }
             break;
         case ET_BROWSER_MODE_ARTIST:

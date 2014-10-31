@@ -52,8 +52,6 @@ gboolean ReadingDirectory;
 /**************
  * Prototypes *
  **************/
-void Action_Select_Nth_File_By_Etfile   (ET_File *ETFile);
-
 void Action_Save_Selected_Files         (void);
 void Action_Force_Saving_Selected_Files (void);
 gint Save_All_Files_With_Answer         (gboolean force_saving_files);
