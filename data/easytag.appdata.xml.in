@@ -4,10 +4,9 @@
     <id type="desktop">easytag.desktop</id>
     <metadata_license>CC0-1.0</metadata_license>
     <project_license>GPL-2.0+ and LGPL-2.1+</project_license>
-<!-- Both taken from the desktop file.
+<!-- Name and summary taken from the desktop file. -->
     <name>EasyTAG</name>
-    <summary></summary>
--->
+    <_summary>Edit sound file metadata</_summary>
     <description>
         <_p>View and edit tags for MP3, MP2, MP4/AAC, FLAC, Ogg Opus, Ogg
         Speex, Ogg Vorbis, MusePack, Monkey's Audio and WavPack files.</_p>
