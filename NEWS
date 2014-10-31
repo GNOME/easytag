@@ -1,30 +1,57 @@
-2.3.1 - unreleased :
+2.3.1 - 2014-10-31 :
 ====================
 
     * Add a Nautilus extension, for showing actions in the context menu
+    * Overhaul the UI, and use GtkBuilder XML descriptions throughout
     * Use GTK+ 3 only, and drop support for GTK+ 2
+    * Use GSettings for storing user preferences
+    * Add an application menu (if under GNOME 3)
     * Fix loading filenames from a text file
     * Fix saving Ogg cover art without a description
     * Fix check for broken id3lib UTF-16 writing
     * Fix keyboard navigation to allow escaping the tag area
     * Update ID3v1 genre list
     * Revert asynchronous image handling changes
-    * Andreas Winkelmann’s ID3 memory leak fix
+    * Fix a crash when reloading the directory tree
+    * Avoid a crash when browsing hidden directories
+    * Andreas Winkelmann’s crash and memory leak fixes
     * Fix image loading with HTTP URLs and empty images
+    * Fix delays, and a possible crash, when running CDDB searches
+    * Handle renaming on case-insensitive filesystems
     * Fix bogus track numbers when automatically numbering files
+    * Fix memory leak in check for buggy id3lib version
     * Add Opus and Speex MIME types to desktop file
+    * Add .m4v as a supported MP4 extension
+    * Show updated images in the Windows installer
     * Abhinav Jangda’s fix for numeric characters in ID3 TPOS fields
+    * Disable ID3v1 tag writing, and prefer ID3v2.3 to ID3v2.4, by default
     * Roman Bogorodskiy’s ID3 wrapper compilation fix
     * Improvements to MP4 GIO wrapper
+    * Improve context menu handling, especially with keyboard shortcuts
+    * Port to GtkApplication, GAction and GMenuModel
+    * Drop uses of GtkStock for text and icons
+    * Extensive internal refactoring
+    * Add tests for another scanner string manipulation function
+    * Add a setting to control whether to detect an image type automatically
+    * Fix a selection bug when double-clicking a browser list header
     * Fix a scanner bug when converting "%20" to " "
     * Fix compilation if TagLib or libogg is unavailable
     * Depend on TagLib 1.9.1 for MP4 support
     * Use CXXFLAGS from the environment
+    * Piotr Drąg’s Polish translation updates
+    * Åka Sikrom’s Norwegian bokmål translation
+    * Guillaume Bernard’s French translation update
+    * Balázs Úr’s Hungarian translation updates
+    * genodeftest’s German translation update
+    * Marek Černocký’s Czech translation updates
+    * Daniel Mustieles’ Spanish translation updates
+    * Tom Tryfonidis’ Greek translation update
+    * Seong-ho Cho’s Korean translation
     * Andika Triwidada’s Indonesian translation
     * Rafael Ferrera’s Brazilian Portuguese translation update
     * Aurimas Černius’s Lithuanian translation update
-    * Balázs Úr’s Hungarian translation update
     * Matej Urbančič’s Slovenian translation update
+    * Daniel Mustieles’ Spanish help translation
     * Dimitris Spingos’s Greek help translation
 
 2.2.0 - 2014-04-11 :
