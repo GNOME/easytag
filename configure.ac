@@ -34,7 +34,8 @@ AS_IF([test "x$USE_NLS" != "xno"],
       [AC_DEFINE([ENABLE_NLS], [1], [Native Language support is enabled])])
 
 dnl AppData
-APPDATA_XML
+m4_ifdef([APPDATA_XML], [APPDATA_XML],
+         [AC_MSG_ERROR([appdata-tools is required for appdata-xml.m4])])
 
 dnl -------------------------------
 dnl Checks for programs.
