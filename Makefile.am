@@ -254,8 +254,8 @@ endif
 
 @APPDATA_XML_RULES@
 @INTLTOOL_XML_RULE@
-appdata_in_files = data/easytag.appdata.xml.in
-appdata_XML = $(appdata_in_files:.appdata.xml.in=.appdata.xml)
+appdata_in_files = data/easytag.appdata.xml.in data/easytag-nautilus.metainfo.xml.in
+appdata_XML = $(appdata_in_files:.xml.in=.xml)
 
 @INTLTOOL_DESKTOP_RULE@
 desktopdir = $(datadir)/applications

@@ -17,6 +17,7 @@ config.status
 configure
 /data/easytag.appdata.valid
 /data/easytag.appdata.xml
+/data/easytag-nautilus.metainfo.xml
 /data/easytag.desktop
 /doc/easytag.1
 /doc/version.xml

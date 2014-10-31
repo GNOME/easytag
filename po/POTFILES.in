@@ -1,5 +1,6 @@
 data/easytag.appdata.xml.in
 data/easytag.desktop.in
+data/easytag-nautilus.metainfo.xml.in
 [type: gettext/glade]data/browser.ui
 [type: gettext/glade]data/cddb_dialog.ui
 [type: gettext/glade]data/file_area.ui
