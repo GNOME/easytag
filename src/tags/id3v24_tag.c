@@ -227,6 +227,8 @@ id3tag_read_file_tag (GFile *gfile,
     if ((file = id3_file_open (filename, ID3_FILE_MODE_READONLY)) == NULL)
     {
         g_free (filename);
+        g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "%s",
+                     _("Error reading tags from file"));
         return FALSE;
     }
 
@@ -236,6 +238,8 @@ id3tag_read_file_tag (GFile *gfile,
     ||   (tag->nframes == 0))
     {
         id3_file_close(file);
+        g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "%s",
+                     _("Error reading tags from file"));
         return FALSE;
     }
 
