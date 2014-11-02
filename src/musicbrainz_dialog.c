@@ -19,30 +19,60 @@
 
 #include "config.h"
 
+#ifdef ENABLE_MUSICBRAINZ
+
 #include "musicbrainz_dialog.h"
 
 #include <glib/gi18n.h>
 
+#include "musicbrainz.h"
+
 typedef struct
 {
-    gpointer unused;
+    EtMusicbrainz *mb;
 } EtMusicbrainzDialogPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (EtMusicbrainzDialog, et_musicbrainz_dialog, GTK_TYPE_DIALOG)
 
 static void
+et_musicbrainz_dialog_finalize (GObject *object)
+{
+    EtMusicbrainzDialog *self;
+    EtMusicbrainzDialogPrivate *priv;
+
+    self = ET_MUSICBRAINZ_DIALOG (object);
+    priv = et_musicbrainz_dialog_get_instance_private (self);
+
+    g_clear_object (&priv->mb);
+
+    G_OBJECT_CLASS (et_musicbrainz_dialog_parent_class)->finalize (object);
+}
+
+static void
 et_musicbrainz_dialog_init (EtMusicbrainzDialog *self)
 {
+    EtMusicbrainzDialogPrivate *priv;
+
+    priv = et_musicbrainz_dialog_get_instance_private (self);
+
     gtk_widget_init_template (GTK_WIDGET (self));
+
+    priv->mb = et_musicbrainz_new ();
 }
 
 static void
 et_musicbrainz_dialog_class_init (EtMusicbrainzDialogClass *klass)
 {
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+    GObjectClass *gobject_class;
+    GtkWidgetClass *widget_class;
+
+    gobject_class = G_OBJECT_CLASS (klass);
+    widget_class = GTK_WIDGET_CLASS (klass);
 
     gtk_widget_class_set_template_from_resource (widget_class,
                                                  "/org/gnome/EasyTAG/musicbrainz_dialog.ui");
+
+    gobject_class->finalize = et_musicbrainz_dialog_finalize;
 }
 
 /*
@@ -60,3 +90,5 @@ et_musicbrainz_dialog_new (GtkWindow *parent)
     return g_object_new (ET_TYPE_MUSICBRAINZ_DIALOG, "transient-for", parent,
                          NULL);
 }
+
+#endif /* ENABLE_MUSICBRAINZ */

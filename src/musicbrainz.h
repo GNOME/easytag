@@ -1,6 +1,5 @@
 /* EasyTAG - tag editor for audio files
  * Copyright (C) 2015  David King <amigadave@amigadave.com>
- * Copyright (C) 2014  Abhinav Jangda <abhijangda@hotmail.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -17,40 +16,40 @@
  * Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef ET_MUSICBRAINZ_DIALOG_H_
-#define ET_MUSICBRAINZ_DIALOG_H_
+#ifndef ET_MUSICBRAINZ_H_
+#define ET_MUSICBRAINZ_H_
 
 #include "config.h"
 
 #ifdef ENABLE_MUSICBRAINZ
 
-#include <gtk/gtk.h>
+#include <glib-object.h>
 
 G_BEGIN_DECLS
 
-#define ET_TYPE_MUSICBRAINZ_DIALOG (et_musicbrainz_dialog_get_type ())
-#define ET_MUSICBRAINZ_DIALOG(object) (G_TYPE_CHECK_INSTANCE_CAST ((object), ET_TYPE_MUSICBRAINZ_DIALOG, EtMusicbrainzDialog))
+#define ET_TYPE_MUSICBRAINZ (et_musicbrainz_get_type ())
+#define ET_MUSICBRAINZ(object) (G_TYPE_CHECK_INSTANCE_CAST ((object), ET_TYPE_MUSICBRAINZ, EtMusicbrainz))
 
-typedef struct _EtMusicbrainzDialog EtMusicbrainzDialog;
-typedef struct _EtMusicbrainzDialogClass EtMusicbrainzDialogClass;
+typedef struct _EtMusicbrainz EtMusicbrainz;
+typedef struct _EtMusicbrainzClass EtMusicbrainzClass;
 
-struct _EtMusicbrainzDialog
+struct _EtMusicbrainz
 {
     /*< private >*/
-    GtkDialog parent_instance;
+    GObject parent_instance;
 };
 
-struct _EtMusicbrainzDialogClass
+struct _EtMusicbrainzClass
 {
     /*< private >*/
-    GtkDialogClass parent_class;
+    GObjectClass parent_class;
 };
 
-GType et_musicbrainz_dialog_get_type (void);
-EtMusicbrainzDialog *et_musicbrainz_dialog_new (GtkWindow *parent);
+GType et_musicbrainz_get_type (void);
+EtMusicbrainz *et_musicbrainz_new (void);
 
 G_END_DECLS
 
 #endif /* ENABLE_MUSICBRAINZ */
 
-#endif /* !ET_MUSICBRAINZ_DIALOG_H_ */
+#endif /* !ET_MUSICBRAINZ_H_ */
