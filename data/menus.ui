@@ -454,6 +454,11 @@
                 <attribute name="label" translatable="yes">CDD_B Search…</attribute>
             </item>
             <item>
+                <attribute name="accel">&lt;Primary&gt;m</attribute>
+                <attribute name="action">win.show-musicbrainz</attribute>
+                <attribute name="label" translatable="yes">MusicBrainz Search…</attribute>
+            </item>
+            <item>
                 <attribute name="accel">&lt;Primary&gt;t</attribute>
                 <attribute name="action">win.show-load-filenames</attribute>
                 <attribute name="label" translatable="yes">Load Filenames From a Text File…</attribute>

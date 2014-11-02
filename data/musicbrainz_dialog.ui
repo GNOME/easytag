@@ -1,0 +1,136 @@
+<interface domain="easytag">
+    <requires lib="gtk+" version="3.10"/>
+    <template class="EtMusicbrainzDialog" parent="GtkDialog">
+        <property name="destroy-with-parent">True</property>
+        <property name="title" translatable="yes">MusicBrainz Search</property>
+        <signal name="delete-event" handler="gtk_widget_hide_on_delete"/>
+        <child internal-child="vbox">
+            <object class="GtkBox" id="musicbrainz_box">
+                <property name="border-width">6</property>
+                <property name="spacing">6</property>
+                <child>
+                    <object class="GtkGrid" id="musicbrainz_grid">
+                        <property name="column-spacing">6</property>
+                        <property name="row-spacing">6</property>
+                        <child>
+                            <object class="GtkLabel" id="search_label">
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Search</property>
+                                <property name="visible">True</property>
+                                <attributes>
+                                    <attribute name="weight" value="bold"/>
+                                </attributes>
+                            </object>
+                            <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">0</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkComboBoxText" id="search_combo">
+                                <items>
+                                    <item id="release_group" translatable="yes">Release Group</item>
+                                    <item id="artist" translatable="yes">Artist</item>
+                                </items>
+                                <property name="active-id">release_group</property>
+                                <property name="margin-left">12</property>
+                                <property name="tooltip-text" translatable="yes">Select the type of search</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">1</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkEntry" id="search_entry">
+                                <property name="tooltip-text" translatable="yes">Enter the search terms</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left-attach">1</property>
+                                <property name="top-attach">1</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkBox" id="search_buttons_box">
+                                <property name="orientation">horizontal</property>
+                                <property name="visible">True</property>
+                                <style>
+                                    <class name="linked"/>
+                                </style>
+                                <child>
+                                    <object class="GtkButton" id="search_button">
+                                        <property name="label" translatable="yes">_Search</property>
+                                        <property name="use-underline">True</property>
+                                        <property name="visible">True</property>
+                                    </object>
+                                </child>
+                                <child>
+                                    <object class="GtkButton" id="stop_button">
+                                        <property name="label" translatable="yes">S_top</property>
+                                        <property name="sensitive">False</property>
+                                        <property name="tooltip-text" translatable="yes">Stop the search</property>
+                                        <property name="use-underline">True</property>
+                                        <property name="visible">True</property>
+                                    </object>
+                                </child>
+                            </object>
+                            <packing>
+                                <property name="left-attach">2</property>
+                                <property name="top-attach">1</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkLabel" id="results_label">
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Results</property>
+                                <property name="margin-top">6</property>
+                                <property name="visible">True</property>
+                                <attributes>
+                                    <attribute name="weight" value="bold"/>
+                                </attributes>
+                            </object>
+                            <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">2</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkScrolledWindow" id="results_scrolled">
+                                <property name="expand">True</property>
+                                <property name="margin-left">12</property>
+                                <property name="min-content-height">225</property>
+                                <property name="min-content-width">225</property>
+                                <property name="visible">True</property>
+                                <child>
+                                    <object class="GtkTreeView" id="results_view">
+                                        <property name="visible">True</property>
+                                    </object>
+                                </child>
+                            </object>
+                            <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">3</property>
+                                <property name="width">4</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkCheckButton" id="dlm_check">
+                                <property name="label" translatable="yes">Match lines with the Levenshtein algorithm</property>
+                                <property name="margin-left">12</property>
+                                <property name="tooltip-text" translatable="yes">Whether to use the DLM algorithm to match MusicBrainz results to files</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">4</property>
+                                <property name="width">4</property>
+                            </packing>
+                        </child>
+                    </object>
+                </child>
+            </object>
+        </child>
+    </template>
+</interface>

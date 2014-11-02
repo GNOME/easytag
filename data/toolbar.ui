@@ -7,6 +7,10 @@
         <property name="resource">/org/gnome/EasyTAG/images/invert-selection.png</property>
         <property name="visible">True</property>
     </object>
+    <object class="GtkImage" id="musicbrainz_image">
+        <property name="resource">/org/gnome/EasyTAG/images/musicbrainz.png</property>
+        <property name="visible">True</property>
+    </object>
     <object class="GtkToolbar" id="main_toolbar">
         <property name="visible">True</property>
         <style>
@@ -149,6 +153,15 @@
                 <property name="icon-name">media-optical</property>
                 <property name="label" translatable="yes">CDDB Search…</property>
                 <property name="tooltip-text" translatable="yes">CDDB Search</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkToolButton" id="musicbrainz_button">
+                <property name="action-name">win.show-musicbrainz</property>
+                <property name="icon-widget">musicbrainz_image</property>
+                <property name="label" translatable="yes">MusicBrainz Search…</property>
+                <property name="tooltip-text" translatable="yes">MusicBrainz Search</property>
                 <property name="visible">True</property>
             </object>
         </child>

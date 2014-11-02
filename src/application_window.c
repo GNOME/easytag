@@ -46,6 +46,7 @@
 #ifdef ENABLE_OPUS
 #include "opus_header.h"
 #endif
+#include "musicbrainz_dialog.h"
 #include "picture.h"
 #include "playlist_dialog.h"
 #include "preferences_dialog.h"
@@ -72,6 +73,9 @@ typedef struct
 
     GtkWidget *cddb_dialog;
     GtkWidget *load_files_dialog;
+#ifdef ENABLE_MUSICBRAINZ
+    GtkWidget *musicbrainz_dialog;
+#endif /* ENABLE_MUSICBRAINZ */
     GtkWidget *playlist_dialog;
     GtkWidget *preferences_dialog;
     GtkWidget *scan_dialog;
@@ -327,6 +331,27 @@ et_application_window_show_cddb_dialog (EtApplicationWindow *self)
         priv->cddb_dialog = GTK_WIDGET (et_cddb_dialog_new ());
         gtk_widget_show_all (priv->cddb_dialog);
     }
+}
+
+static void
+et_application_window_show_musicbrainz_dialog (EtApplicationWindow *self)
+{
+#ifdef ENABLE_MUSICBRAINZ
+    EtApplicationWindowPrivate *priv;
+
+    priv = et_application_window_get_instance_private (self);
+
+    if (priv->musicbrainz_dialog)
+    {
+        gtk_widget_show (priv->musicbrainz_dialog);
+    }
+    else
+    {
+        priv->musicbrainz_dialog = GTK_WIDGET (et_musicbrainz_dialog_new (GTK_WINDOW (self)));
+        gtk_widget_show_all (priv->musicbrainz_dialog);
+    }
+#endif /* ENABLE_MUSICBRAINZ */
+    /* FIXME: Show an error message, or remove the action entirely. */
 }
 
 /*
@@ -1160,6 +1185,18 @@ on_show_cddb (GSimpleAction *action,
 }
 
 static void
+on_show_musicbrainz (GSimpleAction *action,
+                     GVariant *variant,
+                     gpointer user_data)
+{
+    EtApplicationWindow *self;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+
+    et_application_window_show_musicbrainz_dialog (self);
+}
+
+static void
 on_show_load_filenames (GSimpleAction *action,
                         GVariant *variant,
                         gpointer user_data)
@@ -1552,6 +1589,7 @@ static const GActionEntry actions[] =
     /* { "browse-subdir", on_browse_subdir }, Created from GSetting. */
     /* Miscellaneous menu. */
     { "show-cddb", on_show_cddb },
+    { "show-musicbrainz", on_show_musicbrainz },
     { "show-load-filenames", on_show_load_filenames },
     { "show-playlist", on_show_playlist },
     /* Go menu. */
@@ -1603,6 +1641,14 @@ et_application_window_dispose (GObject *object)
         gtk_widget_destroy (priv->load_files_dialog);
         priv->load_files_dialog = NULL;
     }
+
+#ifdef ENABLE_MUSICBRAINZ
+    if (priv->musicbrainz_dialog)
+    {
+        gtk_widget_destroy (priv->musicbrainz_dialog);
+        priv->musicbrainz_dialog = NULL;
+    }
+#endif /* ENABLE_MUSICBRAINZ */
 
     if (priv->playlist_dialog)
     {
