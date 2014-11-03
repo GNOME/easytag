@@ -4121,18 +4121,25 @@ Cddb_Set_Track_Infos_To_File_List (void)
 
                 if (cddbsettoallfields || cddbsettotrack)
                 {
-                    snprintf (buffer, sizeof (buffer), "%s",
-                              et_track_number_to_string (cddbtrackalbum->track_number));
+                    gchar *track_number;
 
-                    ET_Set_Field_File_Tag_Item(&FileTag->track,buffer);
+                    track_number = et_track_number_to_string (cddbtrackalbum->track_number);
+                    ET_Set_Field_File_Tag_Item (&FileTag->track, track_number);
+
+                    g_free (track_number);
                 }
 
                 if (cddbsettoallfields || cddbsettotracktotal)
                 {
-                    snprintf (buffer, sizeof (buffer), "%s",
-                              et_track_number_to_string (list_length));
+                    gchar *track_total;
 
-                    ET_Set_Field_File_Tag_Item(&FileTag->track_total,buffer);
+                    track_total = et_track_number_to_string (list_length);
+
+                    ET_Set_Field_File_Tag_Item (&FileTag->track_total,
+                                                track_total);
+
+
+                    g_free (track_total);
                 }
 
                 if ( (cddbsettoallfields || cddbsettogenre) && (cddbtrackalbum->cddbalbum->genre || cddbtrackalbum->cddbalbum->category) )
@@ -4149,23 +4156,26 @@ Cddb_Set_Track_Infos_To_File_List (void)
              */
             if ( (cddbsettoallfields || cddbsettofilename) )
             {
+                gchar *track_number;
                 gchar *filename_generated_utf8;
                 gchar *filename_new_utf8;
 
                 // Allocation of a new FileName
                 FileName = ET_File_Name_Item_New();
 
-                // Build the filename with the path
-                snprintf (buffer, sizeof (buffer), "%s",
-                          et_track_number_to_string (cddbtrackalbum->track_number));
+                /* Build the filename with the path. */
+                track_number = et_track_number_to_string (cddbtrackalbum->track_number);
 
-                filename_generated_utf8 = g_strconcat(buffer," - ",cddbtrackalbum->track_name,NULL);
+                filename_generated_utf8 = g_strconcat (track_number, " - ",
+                                                       cddbtrackalbum->track_name,
+                                                       NULL);
                 ET_File_Name_Convert_Character(filename_generated_utf8); // Replace invalid characters
                 filename_new_utf8 = ET_File_Name_Generate (etfile,
                                                            filename_generated_utf8);
 
                 ET_Set_Filename_File_Name_Item(FileName,filename_new_utf8,NULL);
 
+                g_free (track_number);
                 g_free(filename_generated_utf8);
                 g_free(filename_new_utf8);
             }
