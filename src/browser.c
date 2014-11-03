@@ -1729,6 +1729,8 @@ ET_File *Browser_List_Select_File_By_DLM (const gchar* string, gboolean select_i
                 iter2 = iter;
                 retval = current_etfile;
             }
+
+            g_free (current_filename);
         } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(fileListModel), &iter));
 
         if (select_it)
