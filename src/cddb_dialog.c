@@ -530,12 +530,12 @@ Cddb_Load_Track_Album_List (EtCDDBDialog *self, GList *track_list)
 
         for (l = g_list_first (track_list); l != NULL; l = g_list_next (l))
         {
-            gchar *row_text[1];
+            gchar *row_text;
             CddbTrackAlbum *cddbtrackalbum = l->data;
             ET_File **etfile;
             etfile = g_malloc0(sizeof(ET_File *));
 
-            row_text[0] = Convert_Duration((gulong)cddbtrackalbum->duration);
+            row_text = Convert_Duration ((gulong)cddbtrackalbum->duration);
 
             /* Load the row in the list. */
             gtk_list_store_insert_with_values (priv->track_list_model, NULL,
@@ -545,13 +545,13 @@ Cddb_Load_Track_Album_List (EtCDDBDialog *self, GList *track_list)
                                                CDDB_TRACK_LIST_NAME,
                                                cddbtrackalbum->track_name,
                                                CDDB_TRACK_LIST_TIME,
-                                               row_text[0],
+                                               row_text,
                                                CDDB_TRACK_LIST_DATA,
                                                cddbtrackalbum,
                                                CDDB_TRACK_LIST_ETFILE, etfile,
                                                -1);
 
-            g_free(row_text[0]);
+            g_free (row_text);
         }
 
         update_apply_button_sensitivity (self);
