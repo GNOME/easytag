@@ -296,7 +296,7 @@ Cddb_Track_List_Row_Selected (EtCDDBDialog *self, GtkTreeSelection *selection)
     GList *l;
     GtkTreeIter  currentFile;
     gchar       *text_path;
-    ET_File    **etfile;
+    ET_File *etfile;
 
     priv = et_cddb_dialog_get_instance_private (self);
 
@@ -327,11 +327,12 @@ Cddb_Track_List_Row_Selected (EtCDDBDialog *self, GtkTreeSelection *selection)
             if (g_settings_get_boolean (MainSettings, "cddb-dlm-enabled"))
             {
                 gtk_tree_model_get(GTK_TREE_MODEL(priv->track_list_model), &currentFile,
-                                   CDDB_TRACK_LIST_NAME, &text_path,
-                                   CDDB_TRACK_LIST_ETFILE, &etfile, -1);
-                *etfile = et_application_window_browser_select_file_by_dlm (ET_APPLICATION_WINDOW (MainWindow),
+                                   CDDB_TRACK_LIST_NAME, &text_path, -1);
+                etfile = et_application_window_browser_select_file_by_dlm (ET_APPLICATION_WINDOW (MainWindow),
                                                                             text_path,
                                                                             TRUE);
+                gtk_list_store_set (priv->track_list_model, &currentFile,
+                                    CDDB_TRACK_LIST_ETFILE, etfile, -1);
             } else
             {
                 text_path = gtk_tree_model_get_string_from_iter(GTK_TREE_MODEL(priv->track_list_model), &currentFile);
@@ -532,8 +533,6 @@ Cddb_Load_Track_Album_List (EtCDDBDialog *self, GList *track_list)
         {
             gchar *row_text;
             CddbTrackAlbum *cddbtrackalbum = l->data;
-            ET_File **etfile;
-            etfile = g_malloc0(sizeof(ET_File *));
 
             row_text = Convert_Duration ((gulong)cddbtrackalbum->duration);
 
@@ -548,7 +547,6 @@ Cddb_Load_Track_Album_List (EtCDDBDialog *self, GList *track_list)
                                                row_text,
                                                CDDB_TRACK_LIST_DATA,
                                                cddbtrackalbum,
-                                               CDDB_TRACK_LIST_ETFILE, etfile,
                                                -1);
 
             g_free (row_text);
@@ -2315,8 +2313,7 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
         /* Set values in the ETFile. */
         if (g_settings_get_boolean (MainSettings, "cddb-dlm-enabled"))
         {
-            // RQ : this part is ~ equal to code for '!CDDB_USE_DLM', but uses '*etfile' instead of 'etfile'
-            ET_File **etfile = NULL;
+            ET_File *etfile = NULL;
             File_Name *FileName = NULL;
             File_Tag *FileTag = NULL;
             guint set_fields;
@@ -2331,7 +2328,7 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
             {
                 // Allocation of a new FileTag
                 FileTag = ET_File_Tag_Item_New();
-                ET_Copy_File_Tag_Item(*etfile,FileTag);
+                ET_Copy_File_Tag_Item (etfile, FileTag);
 
                 if (set_fields & ET_CDDB_SET_FIELD_TITLE)
                 {
@@ -2409,7 +2406,8 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
 
                 filename_generated_utf8 = g_strconcat(buffer," - ",cddbtrackalbum->track_name,NULL);
                 ET_File_Name_Convert_Character(filename_generated_utf8); // Replace invalid characters
-                filename_new_utf8 = ET_File_Name_Generate(*etfile,filename_generated_utf8);
+                filename_new_utf8 = ET_File_Name_Generate (etfile,
+                                                           filename_generated_utf8);
 
                 ET_Set_Filename_File_Name_Item(FileName,filename_new_utf8,NULL);
 
@@ -2417,7 +2415,7 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
                 g_free(filename_new_utf8);
             }
 
-            ET_Manage_Changes_Of_File_Data(*etfile,FileName,FileTag);
+            ET_Manage_Changes_Of_File_Data (etfile, FileName, FileTag);
 
             /* Then run current scanner if requested. */
             if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->run_scanner_toggle)))
@@ -2428,7 +2426,7 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
 
                 if (dialog)
                 {
-                    Scan_Select_Mode_And_Run_Scanner (dialog, *etfile);
+                    Scan_Select_Mode_And_Run_Scanner (dialog, etfile);
                 }
             }
         }
