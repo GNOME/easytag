@@ -1377,7 +1377,7 @@ Cddb_Track_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
     GList *l;
     GtkTreeIter  currentFile;
     gchar       *text_path;
-    ET_File    **etfile;
+    ET_File *etfile;
 
     // Exit if we don't have to select files in the main list
     if (!CDDB_FOLLOW_FILE)
@@ -1406,9 +1406,10 @@ Cddb_Track_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
             if (CDDB_USE_DLM)
             {
                 gtk_tree_model_get(GTK_TREE_MODEL(CddbTrackListModel), &currentFile,
-                                   CDDB_TRACK_LIST_NAME, &text_path,
-                                   CDDB_TRACK_LIST_ETFILE, &etfile, -1);
-                *etfile = Browser_List_Select_File_By_DLM(text_path, TRUE);
+                                   CDDB_TRACK_LIST_NAME, &text_path, -1);
+                etfile = Browser_List_Select_File_By_DLM (text_path, TRUE);
+                gtk_list_store_set (CddbTrackListModel, &currentFile,
+                                    CDDB_TRACK_LIST_ETFILE, etfile, -1);
             } else
             {
                 text_path = gtk_tree_model_get_string_from_iter(GTK_TREE_MODEL(CddbTrackListModel), &currentFile);
@@ -2166,8 +2167,6 @@ Cddb_Load_Track_Album_List (GList *track_list)
         {
             gchar *row_text[1];
             CddbTrackAlbum *cddbtrackalbum = l->data;
-            ET_File **etfile;
-            etfile = g_malloc0(sizeof(ET_File *));
 
             row_text[0] = Convert_Duration((gulong)cddbtrackalbum->duration);
 
@@ -2182,7 +2181,6 @@ Cddb_Load_Track_Album_List (GList *track_list)
                                                row_text[0],
                                                CDDB_TRACK_LIST_DATA,
                                                cddbtrackalbum,
-                                               CDDB_TRACK_LIST_ETFILE, etfile,
                                                -1);
 
             g_free(row_text[0]);
@@ -4091,8 +4089,7 @@ Cddb_Set_Track_Infos_To_File_List (void)
         // Set values in the ETFile
         if (CDDB_USE_DLM)
         {
-            // RQ : this part is ~ equal to code for '!CDDB_USE_DLM', but uses '*etfile' instead of 'etfile'
-            ET_File **etfile = NULL;
+            ET_File *etfile = NULL;
             File_Name *FileName = NULL;
             File_Tag *FileTag = NULL;
 
@@ -4108,7 +4105,7 @@ Cddb_Set_Track_Infos_To_File_List (void)
             {
                 // Allocation of a new FileTag
                 FileTag = ET_File_Tag_Item_New();
-                ET_Copy_File_Tag_Item(*etfile,FileTag);
+                ET_Copy_File_Tag_Item (etfile, FileTag);
 
                 if (cddbsettoallfields || cddbsettotitle)
                     ET_Set_Field_File_Tag_Item(&FileTag->title,cddbtrackalbum->track_name);
@@ -4164,7 +4161,8 @@ Cddb_Set_Track_Infos_To_File_List (void)
 
                 filename_generated_utf8 = g_strconcat(buffer," - ",cddbtrackalbum->track_name,NULL);
                 ET_File_Name_Convert_Character(filename_generated_utf8); // Replace invalid characters
-                filename_new_utf8 = ET_File_Name_Generate(*etfile,filename_generated_utf8);
+                filename_new_utf8 = ET_File_Name_Generate (etfile,
+                                                           filename_generated_utf8);
 
                 ET_Set_Filename_File_Name_Item(FileName,filename_new_utf8,NULL);
 
@@ -4172,11 +4170,11 @@ Cddb_Set_Track_Infos_To_File_List (void)
                 g_free(filename_new_utf8);
             }
 
-            ET_Manage_Changes_Of_File_Data(*etfile,FileName,FileTag);
+            ET_Manage_Changes_Of_File_Data (etfile, FileName, FileTag);
 
             // Then run current scanner if asked...
             if (ScannerWindow && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(CddbRunScanner)) )
-                Scan_Select_Mode_And_Run_Scanner(*etfile);
+                Scan_Select_Mode_And_Run_Scanner (etfile);
 
         } else if (cddbtrackalbum && file_iterlist && file_iterlist->data)
         {
