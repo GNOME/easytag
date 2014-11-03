@@ -6,6 +6,9 @@
 
   <info>
     <revision pkgversion="2.1.9" date="2013-03-05" status="review"/>
+    <revision pkgversion="2.3.1" date="2014-11-03" status="review"/>
+
+    <title type="text">EasyTAG</title>
 
     <credit type="author">
       <name>Ekaterina Gerasimova</name>
@@ -16,6 +19,10 @@
 
     <title type='link'>EasyTAG</title>
     <title type='text'>EasyTAG</title>
+
+    <desc>Learn how to use <app>EasyTAG</app>, a comprehensive tag editor for
+    FLAC, Monkey's Audio, MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg
+    Vorbis and WavPack audio files.</desc>
 
   </info>
 
