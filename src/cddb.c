@@ -4064,7 +4064,6 @@ Cddb_Set_Track_Infos_To_File_List (void)
         {
             if(row == 0)
             {
-                selectedrows = g_list_first(selectedrows);
                 currentPath = (GtkTreePath *)selectedrows->data;
             } else
             {
@@ -4287,6 +4286,8 @@ Cddb_Set_Track_Infos_To_File_List (void)
     }
 
     g_list_free_full (g_list_first (file_iterlist), (GDestroyNotify)g_free);
+    g_list_free_full (g_list_first (selectedrows),
+                      (GDestroyNotify)gtk_tree_path_free);
 
     Browser_List_Refresh_Whole_List();
     ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
