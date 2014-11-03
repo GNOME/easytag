@@ -1990,6 +1990,8 @@ et_browser_select_file_by_dlm (EtBrowser *self,
                 iter2 = iter;
                 retval = current_etfile;
             }
+
+            g_free (current_filename);
         } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(priv->file_model), &iter));
 
         if (select_it)
