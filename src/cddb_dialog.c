@@ -2159,7 +2159,6 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
     GList *file_iterlist = NULL;
     GList *file_selectedrows;
     GList *selectedrows = NULL;
-    gchar buffer[256];
     gboolean CddbTrackList_Line_Selected;
     CddbTrackAlbum *cddbtrackalbum = NULL;
     GtkTreeSelection *selection = NULL;
@@ -2359,18 +2358,25 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
 
                 if (set_fields & ET_CDDB_SET_FIELD_TRACK)
                 {
-                    snprintf (buffer, sizeof (buffer), "%s",
-                              et_track_number_to_string (cddbtrackalbum->track_number));
+                    gchar *track_number;
 
-                    ET_Set_Field_File_Tag_Item (&FileTag->track, buffer);
+                    track_number = et_track_number_to_string (cddbtrackalbum->track_number);
+
+                    ET_Set_Field_File_Tag_Item (&FileTag->track, track_number);
+
+                    g_free (track_number);
                 }
 
                 if (set_fields & ET_CDDB_SET_FIELD_TRACK_TOTAL)
                 {
-                    snprintf (buffer, sizeof (buffer), "%s",
-                              et_track_number_to_string (list_length));
+                    gchar *track_total;
 
-                    ET_Set_Field_File_Tag_Item (&FileTag->track_total, buffer);
+                    track_total = et_track_number_to_string (list_length);
+
+                    ET_Set_Field_File_Tag_Item (&FileTag->track_total,
+                                                track_total);
+
+                    g_free (track_total);
                 }
 
                 if ((set_fields & ET_CDDB_SET_FIELD_GENRE)
@@ -2394,23 +2400,26 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
             /* Filename field. */
             if (set_fields & ET_CDDB_SET_FIELD_FILENAME)
             {
+                gchar *track_number;
                 gchar *filename_generated_utf8;
                 gchar *filename_new_utf8;
 
                 // Allocation of a new FileName
                 FileName = ET_File_Name_Item_New();
 
-                // Build the filename with the path
-                snprintf (buffer, sizeof (buffer), "%s",
-                          et_track_number_to_string (cddbtrackalbum->track_number));
+                /* Build the filename with the path. */
+                track_number = et_track_number_to_string (cddbtrackalbum->track_number);
 
-                filename_generated_utf8 = g_strconcat(buffer," - ",cddbtrackalbum->track_name,NULL);
+                filename_generated_utf8 = g_strconcat (track_number, " - ",
+                                                       cddbtrackalbum->track_name,
+                                                       NULL);
                 ET_File_Name_Convert_Character(filename_generated_utf8); // Replace invalid characters
                 filename_new_utf8 = ET_File_Name_Generate (etfile,
                                                            filename_generated_utf8);
 
                 ET_Set_Filename_File_Name_Item(FileName,filename_new_utf8,NULL);
 
+                g_free (track_number);
                 g_free(filename_generated_utf8);
                 g_free(filename_new_utf8);
             }
@@ -2566,7 +2575,7 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
         file_iterlist = file_iterlist->next;
     }
 
-    g_list_free_full (file_iterlist, (GDestroyNotify)g_free);
+    g_list_free_full (g_list_first (file_iterlist), (GDestroyNotify)g_free);
 
     et_application_window_browser_refresh_list (ET_APPLICATION_WINDOW (MainWindow));
     ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
