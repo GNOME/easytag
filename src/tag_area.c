@@ -834,7 +834,7 @@ on_entry_populate_popup (GtkEntry *entry,
                               G_CALLBACK (Convert_P20_And_Underscore_Into_Spaces),
                               G_OBJECT (entry));
 
-    menu_item = gtk_menu_item_new_with_label (_("Convert ‘ ’ to ‘_’"));
+    menu_item = gtk_menu_item_new_with_label (_("Convert spaces to underscores"));
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     g_signal_connect_swapped (menu_item, "activate",
                               G_CALLBACK (Convert_Space_Into_Underscore),

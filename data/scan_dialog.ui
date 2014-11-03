@@ -770,7 +770,7 @@
                 <child>
                     <object class="GtkRadioButton" id="convert_underscores_radio">
                         <property name="group">convert_space_radio</property>
-                        <property name="label" translatable="yes">Convert ‘ ’ to ‘_’</property>
+                        <property name="label" translatable="yes">Convert spaces to underscores</property>
                         <property name="margin-left">12</property>
                         <property name="name">underscores</property>
                         <property name="tooltip-text" translatable="yes">The space character is replaced by one underscore character. Example, before: ‘Text In An Entry’, after: ‘Text_In_An_Entry’</property>
