@@ -858,12 +858,16 @@ Browser_Tree_Node_Selected (EtBrowser *self, GtkTreeSelection *selection)
         {
             case GTK_RESPONSE_YES:
                 if (Save_All_Files_With_Answer(FALSE)==-1)
+                {
+                    g_free (pathName);
                     return TRUE;
+                }
                 break;
             case GTK_RESPONSE_NO:
                 break;
             case GTK_RESPONSE_CANCEL:
             case GTK_RESPONSE_DELETE_EVENT:
+                g_free (pathName);
                 return TRUE;
                 break;
             default:
