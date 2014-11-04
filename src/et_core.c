@@ -2560,7 +2560,7 @@ ET_Free_Artist_Album_File_List (void)
 /*
  * Duplicate the 'other' list
  */
-static gboolean
+static void
 ET_Copy_File_Tag_Item_Other_Field (const ET_File *ETFile,
                                    File_Tag *FileTag)
 {
@@ -2571,11 +2571,11 @@ ET_Copy_File_Tag_Item_Other_Field (const ET_File *ETFile,
 
     for (l = FileTagCur->other; l != NULL; l = g_list_next (l))
     {
-        FileTag->other = g_list_append (FileTag->other,
-                                        g_strdup ((gchar *)l->data));
+        FileTag->other = g_list_prepend (FileTag->other,
+                                         g_strdup ((gchar *)l->data));
     }
 
-    return TRUE;
+    FileTag->other = g_list_reverse (FileTag->other);
 }
 
 
