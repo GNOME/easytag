@@ -1814,14 +1814,14 @@ Cddb_Write_Result_To_File (gint socket_id, gulong *bytes_read_total)
         if (bytes_read < 0)
         {
             Log_Print (LOG_ERROR, _("Error when reading CDDB response (%s)"),
-	               g_strerror(errno));
+                   g_strerror(errno));
             return -1; // Error!
         }
 
     } else
     {
         Log_Print (LOG_ERROR, _("Cannot create file '%s' (%s)"), file_path,
-	           g_strerror(errno));
+               g_strerror(errno));
     }
     g_free(file_path);
 
@@ -1872,11 +1872,11 @@ Cddb_Read_Line (FILE **file, gchar **cddb_out)
     result = fgets(buffer,sizeof(buffer),*file);
     if (result != NULL)
     {
-	l = strlen(buffer);
+    l = strlen(buffer);
         if (l > 0 && buffer[l-1] == '\n')
             buffer[l-1] = '\0';
 
-	// Many '\r' chars may be present
+    // Many '\r' chars may be present
         while ((l = strlen(buffer)) > 0 && buffer[l-1] == '\r')
             buffer[l-1] = '\0';
 
@@ -1948,11 +1948,17 @@ Cddb_Read_Cddb_Header (FILE **file, gchar **cddb_out)
     if ( Cddb_Read_Line(file,cddb_out) < 0 )
         return -1; // Error!
 
-    // Some requests receive some strange data (arbitrary : less than 10 chars.)
-    // at the beginning (2 or 3 characters)... So we read one line more...
-    if ( !*cddb_out || strlen(*cddb_out) < 10 )
-        if ( Cddb_Read_Line(file,cddb_out) < 0 )
-            return -1; // Error!
+    /* Some requests receive some strange data (arbitrary: less than 10 chars.)
+     * at the beginning (2 or 3 characters)... So we read one line more... */
+    if (!*cddb_out || strlen (*cddb_out) < 10)
+    {
+        g_free (*cddb_out);
+
+        if (Cddb_Read_Line (file, cddb_out) < 0)
+        {
+            return -1; /* Error! */
+        }
+    }
 
     //g_print("Cddb Header : %s\n",*cddb_out);
 
@@ -2268,10 +2274,10 @@ static gboolean
 Cddb_Search_Album_List_From_String (void)
 {
     if ( strstr(CDDB_SERVER_NAME_MANUAL_SEARCH,"gnudb") != NULL )
-		// Use of gnudb
+        // Use of gnudb
         return Cddb_Search_Album_List_From_String_Gnudb();
     else
-		// Use of freedb
+        // Use of freedb
         return Cddb_Search_Album_List_From_String_Freedb();
 }
 
@@ -2341,7 +2347,7 @@ Cddb_Search_Album_List_From_String_Freedb (void)
     {
         g_free(string);
         g_free(cddb_server_name);
-	g_free(cddb_server_cgi_path);
+    g_free(cddb_server_cgi_path);
         return FALSE;
     }
 
@@ -2960,7 +2966,7 @@ Cddb_Search_Album_From_Selected_Files (void)
     gchar *valid;
     GString *query_string;
     gchar *cddb_discid;
-    gchar *cddb_end_str;
+    const gchar CDDB_END_STR[] = ".";
 
     guint total_frames = 150;   /* First offset is (almost) always 150 */
     guint disc_length  = 2;     /* and 2s elapsed before first track */
@@ -3341,8 +3347,6 @@ Cddb_Search_Album_From_Selected_Files (void)
             }
             g_free(cddb_out);
 
-            cddb_end_str = g_strdup(".");
-
             /*
              * Format :
              * For Freedb, Gnudb, the lines to read are like :
@@ -3366,7 +3370,8 @@ Cddb_Search_Album_From_Selected_Files (void)
                  * end of data is in the last block read. In this case, the last line
                  * will be a single '.'
                  */
-                if ( cddb_out_tmp && strlen(cddb_out_tmp)<=3 && strstr(cddb_out_tmp,cddb_end_str)!=NULL )
+                if (cddb_out_tmp && strlen (cddb_out_tmp) <= 3
+                    && strstr (cddb_out_tmp, CDDB_END_STR) != NULL)
                 {
                     g_free (cddb_out);
                     break;
@@ -3420,7 +3425,6 @@ Cddb_Search_Album_From_Selected_Files (void)
 
                 g_free(cddb_out);
             }
-            g_free(cddb_end_str);
             g_free(cddb_server_name);
             g_free(cddb_server_cgi_path);
 
@@ -3496,7 +3500,8 @@ Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
     CddbAlbum *cddbalbum = NULL;
     GList     *TrackOffsetList = NULL;
     gchar     *cddb_in, *cddb_out = NULL;
-    gchar     *cddb_end_str, *msg, *copy, *valid;
+    gchar *msg, *copy, *valid;
+    const gchar CDDB_END_STR[] = ".";
     gchar     *proxy_auth;
     gchar     *cddb_server_name;
     gint       cddb_server_port;
@@ -3549,46 +3554,46 @@ Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
                                              CDDB_USE_PROXY?CDDB_PROXY_PORT:cddb_server_port)) <= 0 )
             return FALSE;
 
-		if ( strstr(cddb_server_name,"gnudb") != NULL )
-		{
-			// For gnudb
-			// New version of gnudb doesn't use a cddb request, but a http request
-		    cddb_in = g_strdup_printf("GET %s%s/gnudb/"
-		                              "%s/%s"
-		                              " HTTP/1.1\r\n"
-		                              "Host: %s:%d\r\n"
-		                              "User-Agent: %s %s\r\n"
-		                              "%s"
-		                              "Connection: close\r\n"
-		                              "\r\n",
-		                              CDDB_USE_PROXY?"http://":"", CDDB_USE_PROXY?cddb_server_name:"",  // Needed when using proxy
-		                              cddbalbum->category,cddbalbum->id,
-		                              cddb_server_name,cddb_server_port,
-		                              PACKAGE_NAME, PACKAGE_VERSION,
-		                              (proxy_auth=Cddb_Format_Proxy_Authentification())
-		                              );
-		}else
-		{
-		    // CDDB Request (ex: GET /~cddb/cddb.cgi?cmd=cddb+read+jazz+0200a401&hello=noname+localhost+EasyTAG+0.31&proto=1 HTTP/1.1\r\nHost: freedb.freedb.org:80\r\nConnection: close)
-		    // Without proxy : "GET /~cddb/cddb.cgi?…" but doesn't work with a proxy.
-		    // With proxy    : "GET http://freedb.freedb.org/~cddb/cddb.cgi?…"
-		    cddb_in = g_strdup_printf("GET %s%s%s?cmd=cddb+read+"
-		                              "%s+%s"
-		                              "&hello=noname+localhost+%s+%s"
-		                              "&proto=6 HTTP/1.1\r\n"
-		                              "Host: %s:%d\r\n"
-		                              "%s"
-		                              "Connection: close\r\n\r\n",
-		                              CDDB_USE_PROXY?"http://":"",CDDB_USE_PROXY?cddb_server_name:"", cddb_server_cgi_path,
-		                              cddbalbum->category,cddbalbum->id,
-		                              PACKAGE_NAME, PACKAGE_VERSION,
-		                              cddb_server_name,cddb_server_port,
-		                              (proxy_auth=Cddb_Format_Proxy_Authentification())
-		                              );
-		}
+        if ( strstr(cddb_server_name,"gnudb") != NULL )
+        {
+            // For gnudb
+            // New version of gnudb doesn't use a cddb request, but a http request
+            cddb_in = g_strdup_printf("GET %s%s/gnudb/"
+                                      "%s/%s"
+                                      " HTTP/1.1\r\n"
+                                      "Host: %s:%d\r\n"
+                                      "User-Agent: %s %s\r\n"
+                                      "%s"
+                                      "Connection: close\r\n"
+                                      "\r\n",
+                                      CDDB_USE_PROXY?"http://":"", CDDB_USE_PROXY?cddb_server_name:"",  // Needed when using proxy
+                                      cddbalbum->category,cddbalbum->id,
+                                      cddb_server_name,cddb_server_port,
+                                      PACKAGE_NAME, PACKAGE_VERSION,
+                                      (proxy_auth=Cddb_Format_Proxy_Authentification())
+                                      );
+        }else
+        {
+            // CDDB Request (ex: GET /~cddb/cddb.cgi?cmd=cddb+read+jazz+0200a401&hello=noname+localhost+EasyTAG+0.31&proto=1 HTTP/1.1\r\nHost: freedb.freedb.org:80\r\nConnection: close)
+            // Without proxy : "GET /~cddb/cddb.cgi?…" but doesn't work with a proxy.
+            // With proxy    : "GET http://freedb.freedb.org/~cddb/cddb.cgi?…"
+            cddb_in = g_strdup_printf("GET %s%s%s?cmd=cddb+read+"
+                                      "%s+%s"
+                                      "&hello=noname+localhost+%s+%s"
+                                      "&proto=6 HTTP/1.1\r\n"
+                                      "Host: %s:%d\r\n"
+                                      "%s"
+                                      "Connection: close\r\n\r\n",
+                                      CDDB_USE_PROXY?"http://":"",CDDB_USE_PROXY?cddb_server_name:"", cddb_server_cgi_path,
+                                      cddbalbum->category,cddbalbum->id,
+                                      PACKAGE_NAME, PACKAGE_VERSION,
+                                      cddb_server_name,cddb_server_port,
+                                      (proxy_auth=Cddb_Format_Proxy_Authentification())
+                                      );
+        }
 
-		
-		g_free(proxy_auth);
+        
+        g_free(proxy_auth);
         //g_print("Request Cddb_Get_Album_Tracks_List : '%s'\n", cddb_in);
 
         // Send the request
@@ -3624,40 +3629,66 @@ Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
 
         // Parse server answer : Check HTTP Header (freedb or gnudb) and CDDB Header (freedb only)
         file = NULL;
-		if ( strstr(cddb_server_name,"gnudb") != NULL )
-		{
-			// For gnudb (don't check CDDB header)
-			if ( Cddb_Read_Http_Header(&file,&cddb_out) <= 0 )
-		    {
-		        gchar *msg = g_strdup_printf(_("The server returned a bad response: %s"),cddb_out);
-		        gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
-		        Log_Print(LOG_ERROR,"%s",msg);
-		        g_free(msg);
-		        g_free(cddb_out);
-		        if (file)
-		            fclose(file);
-		        return FALSE;
-		    }
-		}else
-		{
-			// For freedb
-			if ( Cddb_Read_Http_Header(&file,&cddb_out) <= 0
-		      || Cddb_Read_Cddb_Header(&file,&cddb_out) <= 0 )
-		    {
-		        gchar *msg = g_strdup_printf(_("The server returned a bad response: %s"),cddb_out);
-		        gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
-		        Log_Print(LOG_ERROR,"%s",msg);
-		        g_free(msg);
-		        g_free(cddb_out);
-		        if (file)
-		            fclose(file);
-		        return FALSE;
-		    }
-		}
+        if ( strstr(cddb_server_name,"gnudb") != NULL )
+        {
+            // For gnudb (don't check CDDB header)
+            if ( Cddb_Read_Http_Header(&file,&cddb_out) <= 0 )
+            {
+                gchar *msg = g_strdup_printf(_("The server returned a bad response: %s"),cddb_out);
+                gtk_statusbar_push(GTK_STATUSBAR(CddbStatusBar),CddbStatusBarContext,msg);
+                Log_Print(LOG_ERROR,"%s",msg);
+                g_free(msg);
+                g_free(cddb_out);
+                if (file)
+                    fclose(file);
+                return FALSE;
+            }
+        }else
+        {
+            /* For freedb. */
+            if (Cddb_Read_Http_Header (&file, &cddb_out) <= 0)
+            {
+                gchar *msg = g_strdup_printf (_("The server returned a bad response ‘%s’"),
+                                              cddb_out);
+                gtk_statusbar_push (GTK_STATUSBAR (CddbStatusBar),
+                                    CddbStatusBarContext, msg);
+                Log_Print (LOG_ERROR, "%s", msg);
+
+                g_free (msg);
+                g_free (cddb_out);
+
+                if (file)
+                {
+                    fclose (file);
+                }
+
+                return FALSE;
+            }
+
+            g_free (cddb_out);
+
+            if (Cddb_Read_Cddb_Header (&file, &cddb_out) <= 0)
+            {
+                gchar *msg = g_strdup_printf (_("The server returned a bad response ‘%s’"),
+                                              cddb_out);
+                gtk_statusbar_push (GTK_STATUSBAR (CddbStatusBar),
+                                    CddbStatusBarContext, msg);
+                Log_Print (LOG_ERROR, "%s", msg);
+
+                g_free (msg);
+                g_free (cddb_out);
+
+                if (file)
+                {
+                    fclose (file);
+                }
+
+                return FALSE;
+            }
+        }
         g_free(cddb_out);
 
     }
-    cddb_end_str = g_strdup(".");
 
     while ( CddbWindow && !CddbStopSearch
     && Cddb_Read_Line(&file,&cddb_out) > 0 )
@@ -3673,12 +3704,16 @@ Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
          * end of data is in the last block read. In this case, the last line
          * will be a single '.'
          */
-        if (strlen(cddb_out)<=3 && strstr(cddb_out,cddb_end_str)!=NULL)
+        if (strlen (cddb_out) <= 3 && strstr (cddb_out, CDDB_END_STR) != NULL)
+        {
+            g_free (cddb_out);
             break;
+        }
 
         if ( strstr(cddb_out,"Track frame offsets")!=NULL ) // We read the Track frame offset
         {
             read_track_offset = TRUE; // The next reads are for the tracks offset
+            g_free (cddb_out);
             continue;
 
         }else if (read_track_offset) // We are reading a track offset? (generates TrackOffsetList)
@@ -3692,6 +3727,8 @@ Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
             {
                 read_track_offset = FALSE; // No more track offset
             }
+
+            g_free (cddb_out);
             continue;
 
         }else if ( strstr(cddb_out,"Disc length: ")!=NULL ) // Length of album (in second)
@@ -3703,6 +3740,8 @@ Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
                 cddbtrackframeoffset->offset = cddbalbum->duration * 75; // It's the last offset
                 TrackOffsetList = g_list_append(TrackOffsetList,cddbtrackframeoffset);
             }
+
+            g_free (cddb_out);
             continue;
 
         }else if ( strncmp(cddb_out,"DTITLE=",7)==0 ) // "Artist / Album" names
@@ -3735,6 +3774,8 @@ Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
                 cddbalbum->album = g_strconcat(cddbalbum->album,valid,NULL);
                 g_free(copy);
             }
+
+            g_free (cddb_out);
             continue;
 
         }else if ( strncmp(cddb_out,"DYEAR=",6)==0 ) // Year
@@ -3742,6 +3783,8 @@ Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
             valid = Try_To_Validate_Utf8_String(cddb_out+6); // '6' to skip 'DYEAR='
             if (g_utf8_strlen(valid, -1))
                 cddbalbum->year = valid;
+
+            g_free (cddb_out);
             continue;
 
         }else if ( strncmp(cddb_out,"DGENRE=",7)==0 ) // Genre
@@ -3749,6 +3792,8 @@ Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
             valid = Try_To_Validate_Utf8_String(cddb_out+7); // '7' to skip 'DGENRE='
             if (g_utf8_strlen(valid, -1))
                 cddbalbum->genre = valid;
+
+            g_free (cddb_out);
             continue;
 
         }else if ( strncmp(cddb_out,"TTITLE",6)==0 ) // Track title (for exemple : TTITLE10=xxxx)
@@ -3764,6 +3809,7 @@ Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
                 cddbtrackalbum->track_name = Try_To_Validate_Utf8_String(copy+1);
             }else
             {
+                g_free (cddb_out);
                 continue;
             }
 
@@ -3797,6 +3843,8 @@ Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
                 }
                 cddbalbum->track_list = g_list_append(cddbalbum->track_list,cddbtrackalbum);
             }
+
+            g_free (cddb_out);
             continue;
 
         }else if ( strncmp(cddb_out,"EXTD=",5)==0 ) // Extended album data
@@ -3811,12 +3859,13 @@ Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
                 cddbalbum->year = g_strdup_printf("%d",atoi(year_ptr+5));
             if (genre_ptr && cddbalbum->genre)
                 cddbalbum->genre = g_strdup(Id3tag_Genre_To_String(atoi(genre_ptr+5)));
+
+            g_free (cddb_out);
             continue;
         }
 
         g_free(cddb_out);
     }
-    g_free(cddb_end_str);
 
     // Close file opened for reading lines
     if (file)
