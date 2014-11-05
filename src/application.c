@@ -335,7 +335,7 @@ et_application_local_command_line (GApplication *application,
         if ((strcmp (argv[i], "--version") == 0)
             || (strcmp (argv[i], "-v") == 0))
         {
-            g_print (PACKAGE_NAME " " PACKAGE_VERSION "\n");
+            g_print (PACKAGE_TARNAME " " PACKAGE_VERSION "\n");
             g_print (_("Website: %s"), PACKAGE_URL "\n");
             exit (0);
         }
@@ -535,6 +535,8 @@ et_application_startup (GApplication *application)
 
     G_APPLICATION_CLASS (et_application_parent_class)->startup (application);
 
+    /* gtk_init() calls setlocale(), so gettext must be called after that. */
+    g_set_application_name (_(PACKAGE_NAME));
     builder = gtk_builder_new ();
     gtk_builder_add_from_resource (builder, "/org/gnome/EasyTAG/menus.ui",
                                    &error);

@@ -102,7 +102,6 @@ et_show_about_dialog (GtkWindow *parent)
                            "documenters", documenters,
                            "license-type", GTK_LICENSE_GPL_2_0,
                            "logo-icon-name", PACKAGE_TARNAME,
-                           "program-name", PACKAGE_NAME,
                            "translator-credits", translators,
                            "version", PACKAGE_VERSION,
                            "website", PACKAGE_URL,
