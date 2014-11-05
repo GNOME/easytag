@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: easytag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-25 19:08+0200\n"
-"PO-Revision-Date: 2014-10-25 19:10+0200\n"
+"POT-Creation-Date: 2014-11-05 13:37+0100\n"
+"PO-Revision-Date: 2014-11-05 13:38+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -27,7 +27,16 @@ msgstr ""
 "X-Poedit-Language: Polish\n"
 "X-Poedit-Country: Poland\n"
 
-#: ../data/easytag.appdata.xml.in.h:1
+#. Name and summary taken from the desktop file.
+#: ../data/easytag.appdata.xml.in.h:2
+msgid "EasyTAG"
+msgstr "EasyTAG"
+
+#: ../data/easytag.appdata.xml.in.h:3 ../data/easytag.desktop.in.h:2
+msgid "Edit audio file metadata"
+msgstr "Modyfikowanie metadanych plików dźwiękowych"
+
+#: ../data/easytag.appdata.xml.in.h:4
 msgid ""
 "View and edit tags for MP3, MP2, MP4/AAC, FLAC, Ogg Opus, Ogg Speex, Ogg "
 "Vorbis, MusePack, Monkey's Audio and WavPack files."
@@ -35,7 +44,7 @@ msgstr ""
 "Wyświetlanie i modyfikowanie etykiet plików MP3, MP2, MP4/AAC, FLAC, Ogg "
 "Opus, Ogg Speex, Ogg Vorbis, MusePack, Monkey's Audio i WavPack."
 
-#: ../data/easytag.appdata.xml.in.h:2
+#: ../data/easytag.appdata.xml.in.h:5
 msgid ""
 "Look up albums in online databases, bulk edit tags, create playlists and "
 "rename a collection of files."
@@ -43,7 +52,7 @@ msgstr ""
 "Wyszukiwanie albumów w sieciowych bazach danych, masowe modyfikowanie "
 "etykiet, tworzenie list odtwarzania i zmienianie nazw zbiorów plików."
 
-#: ../data/easytag.appdata.xml.in.h:3
+#: ../data/easytag.appdata.xml.in.h:6
 msgid ""
 "A simple and nice GTK+ interface makes tagging easier under GNU/Linux and "
 "Windows."
@@ -55,14 +64,21 @@ msgstr ""
 msgid "Audio File Metadata Editor"
 msgstr "Edytor metadanych plików dźwiękowych"
 
-#: ../data/easytag.desktop.in.h:2
-msgid "Edit audio file metadata"
-msgstr "Modyfikowanie metadanych plików dźwiękowych"
-
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: ../data/easytag.desktop.in.h:4
 msgid "mp3;tag;audio;music;"
 msgstr "mp3;etykieta;znacznik;tag;tagowanie;dźwięk;audio;muzyka;"
+
+#: ../data/easytag-nautilus.metainfo.xml.in.h:1
+#: ../nautilus-extension/nautilus-easytag.c:247
+msgid "Open with EasyTAG"
+msgstr "Otwórz za pomocą EasyTAG"
+
+#: ../data/easytag-nautilus.metainfo.xml.in.h:2
+msgid "Open directories and audio files with EasyTAG using the context menu"
+msgstr ""
+"Otwieranie katalogów i plików dźwiękowych w programie EasyTAG za pomocą menu "
+"kontekstowego"
 
 #: ../data/browser.ui.h:1
 msgid "Browse Directory With"
@@ -86,9 +102,9 @@ msgstr "_Otwórz"
 
 #: ../data/browser.ui.h:5 ../data/tag_area.ui.h:3
 #: ../src/application_window.c:322 ../src/application_window.c:336
-#: ../src/application_window.c:2612 ../src/application_window.c:2650
-#: ../src/browser.c:848 ../src/cddb_dialog.c:2266 ../src/easytag.c:516
-#: ../src/easytag.c:523 ../src/easytag.c:640 ../src/misc.c:391
+#: ../src/application_window.c:2613 ../src/application_window.c:2651
+#: ../src/browser.c:848 ../src/cddb_dialog.c:2303 ../src/easytag.c:495
+#: ../src/easytag.c:502 ../src/easytag.c:619 ../src/misc.c:391
 #: ../src/playlist_dialog.c:655 ../src/tag_area.c:1489 ../src/tag_area.c:1851
 msgid "_Cancel"
 msgstr "_Anuluj"
@@ -108,7 +124,7 @@ msgstr ""
 "Proszę podać program do uruchomienia, otrzyma on bieżące pliki jako parametr"
 
 #. Only directories changed
-#: ../data/browser.ui.h:9 ../data/menus.ui.h:99 ../src/easytag.c:606
+#: ../data/browser.ui.h:9 ../data/menus.ui.h:99 ../src/easytag.c:585
 msgid "Rename Directory"
 msgstr "Zmień nazwę katalogu"
 
@@ -148,7 +164,7 @@ msgstr "Proszę wybrać katalog do wyświetlenia w przeglądarce"
 msgid "Select a directory to browse"
 msgstr "Proszę wybrać katalog do przeglądania"
 
-#: ../data/browser.ui.h:18 ../src/easytag.c:1106
+#: ../data/browser.ui.h:18 ../src/easytag.c:1086
 msgid "No files"
 msgstr "Brak plików"
 
@@ -215,7 +231,7 @@ msgstr "Komentarz"
 
 #: ../data/browser.ui.h:31 ../data/preferences_dialog.ui.h:71
 #: ../data/scan_dialog.ui.h:66 ../data/search_dialog.ui.h:21
-#: ../src/picture.c:223
+#: ../src/picture.c:224
 msgid "Composer"
 msgstr "Kompozytor"
 
@@ -251,15 +267,15 @@ msgid "_Search"
 msgstr "_Znajdź"
 
 #: ../data/cddb_dialog.ui.h:4
+msgid "Search Using Selected _Files"
+msgstr "Z_najdź używając zaznaczonych plików"
+
+#: ../data/cddb_dialog.ui.h:5
 msgid ""
 "Generate the CDDB disc ID using the selected files (the order is important)"
 msgstr ""
 "Tworzy identyfikator płyty CDDB używając zaznaczonych plików (kolejność jest "
 "ważna)"
-
-#: ../data/cddb_dialog.ui.h:5
-msgid "Search Using Selected _Files"
-msgstr "Z_najdź używając zaznaczonych plików"
 
 #: ../data/cddb_dialog.ui.h:6 ../data/toolbar.ui.h:31
 msgid "Stop"
@@ -282,7 +298,7 @@ msgid "Track Name"
 msgstr "Nazwa ścieżki"
 
 #: ../data/cddb_dialog.ui.h:13 ../data/preferences_dialog.ui.h:91
-#: ../src/picture.c:201
+#: ../src/picture.c:202
 msgid "Other"
 msgstr "Inne"
 
@@ -407,11 +423,11 @@ msgstr "Czy używać algorytmu DLM do dopasowywania wyników CDDB do plików"
 
 #: ../data/cddb_dialog.ui.h:45 ../data/search_dialog.ui.h:10
 #: ../src/load_files_dialog.c:895 ../src/preferences_dialog.c:295
-#: ../src/scan_dialog.c:2243
+#: ../src/scan_dialog.c:2257
 msgid "_Close"
 msgstr "Za_mknij"
 
-#: ../data/cddb_dialog.ui.h:46 ../src/cddb_dialog.c:2267
+#: ../data/cddb_dialog.ui.h:46 ../src/cddb_dialog.c:2304
 #: ../src/load_files_dialog.c:896
 msgid "_Apply"
 msgstr "_Zastosuj"
@@ -423,7 +439,7 @@ msgstr ""
 "zaznaczono)"
 
 #. Default values are MPEG data.
-#: ../data/file_area.ui.h:1 ../src/et_core.c:3040 ../src/file_area.c:192
+#: ../data/file_area.ui.h:1 ../src/et_core.c:3027 ../src/file_area.c:192
 msgid "File"
 msgstr "Plik"
 
@@ -435,9 +451,9 @@ msgstr "0/0:"
 #. Version changed to encoder version
 #. Encoder version
 #: ../data/file_area.ui.h:3 ../src/file_area.c:193
-#: ../src/tags/flac_header.c:312 ../src/tags/monkeyaudio_header.c:97
-#: ../src/tags/musepack_header.c:101 ../src/tags/ogg_header.c:406
-#: ../src/tags/opus_header.c:228 ../src/tags/wavpack_header.c:88
+#: ../src/tags/flac_header.c:303 ../src/tags/monkeyaudio_header.c:89
+#: ../src/tags/musepack_header.c:93 ../src/tags/ogg_header.c:399
+#: ../src/tags/opus_header.c:226 ../src/tags/wavpack_header.c:86
 msgid "Encoder:"
 msgstr "Koder:"
 
@@ -451,7 +467,7 @@ msgstr "Częstotliwość próbkowania:"
 
 #. Mode
 #: ../data/file_area.ui.h:6 ../src/file_area.c:197
-#: ../src/tags/mpeg_header.c:236
+#: ../src/tags/mpeg_header.c:248
 msgid "Mode:"
 msgstr "Tryb:"
 
@@ -530,7 +546,7 @@ msgstr "Pomo_c"
 msgid "_About"
 msgstr "_O programie"
 
-#: ../data/menus.ui.h:3 ../src/application_window.c:2651
+#: ../data/menus.ui.h:3 ../src/application_window.c:2652
 msgid "_Quit"
 msgstr "Za_kończ"
 
@@ -1953,7 +1969,7 @@ msgid "Rename file preview"
 msgstr "Podgląd zmiany nazwy pliku"
 
 #. Only filename changed
-#: ../data/scan_dialog.ui.h:51 ../src/easytag.c:615
+#: ../data/scan_dialog.ui.h:51 ../src/easytag.c:594
 msgid "Rename File"
 msgstr "Zmień nazwę pliku"
 
@@ -2131,8 +2147,8 @@ msgstr ""
 "Przykład, przed: \"Tekst%20w%20jakimś_polu\", po: \"Tekst w jakimś polu\""
 
 #: ../data/scan_dialog.ui.h:101 ../src/tag_area.c:837
-msgid "Convert ‘ ’ to ‘_’"
-msgstr "Zmienianie \" \" na \"_\""
+msgid "Convert spaces to underscores"
+msgstr "Zmienianie spacji na \"_\""
 
 #: ../data/scan_dialog.ui.h:102
 msgid ""
@@ -2212,7 +2228,7 @@ msgstr "CD"
 msgid "Image Type"
 msgstr "Typ obrazu"
 
-#: ../data/tag_area.ui.h:2 ../src/picture.c:288
+#: ../data/tag_area.ui.h:2 ../src/picture.c:289
 msgid "Description"
 msgstr "Opis"
 
@@ -2452,7 +2468,7 @@ msgstr "Wyszukaj nazwy plików i etykiety"
 msgid "CDDB Search…"
 msgstr "Wyszukaj pliki w CDDB…"
 
-#: ../data/toolbar.ui.h:28 ../src/cddb_dialog.c:2694
+#: ../data/toolbar.ui.h:28 ../src/cddb_dialog.c:2752
 msgid "CDDB Search"
 msgstr "Wyszukiwanie w CDDB"
 
@@ -3082,10 +3098,6 @@ msgstr "Otwórz w EasyTAG"
 msgid "Open the selected directory in EasyTAG"
 msgstr "Otwiera zaznaczony katalog w programie EasyTAG"
 
-#: ../nautilus-extension/nautilus-easytag.c:247
-msgid "Open with EasyTAG"
-msgstr "Otwórz za pomocą EasyTAG"
-
 #: ../nautilus-extension/nautilus-easytag.c:248
 msgid "Open the selected files in EasyTAG"
 msgstr "Otwiera zaznaczone pliki w programie EasyTAG"
@@ -3112,43 +3124,43 @@ msgstr "Wyświetla wersję i kończy działanie"
 #. Starting messages
 #: ../src/application.c:177
 #, c-format
-msgid "Starting EasyTAG version %s (PID: %d)…"
-msgstr "Uruchamianie EasyTAG %s (PID: %d)…"
+msgid "Starting EasyTAG version %s…"
+msgstr "Uruchamianie programu EasyTAG %s…"
 
-#: ../src/application.c:183
+#: ../src/application.c:182
 #, c-format
 msgid "Variable EASYTAGLANG defined, setting locale ‘%s’"
 msgstr "Podano zmienną EASYTAGLANG, stawianie lokalizacji \"%s\""
 
-#: ../src/application.c:188
+#: ../src/application.c:187
 #, c-format
 msgid "Setting locale: ‘%s’"
 msgstr "Ustawianie lokalizacji: \"%s\""
 
-#: ../src/application.c:194
+#: ../src/application.c:193
 #, c-format
 msgid "System locale is ‘%s’, using ‘%s’"
 msgstr "Lokalizacja systemu to \"%s\", używanie \"%s\""
 
-#: ../src/application.c:199
+#: ../src/application.c:198
 msgid "Unable to create setting directories"
 msgstr "Nie można utworzyć katalogów ustawień"
 
-#: ../src/application.c:340
+#: ../src/application.c:339
 #, c-format
 msgid "Website: %s"
 msgstr "Witryna: %s"
 
-#: ../src/application.c:349
+#: ../src/application.c:348
 msgid "- Tag and rename audio files"
 msgstr "- nadawanie etykiet i zmienianie nazw plikach dźwiękowych"
 
-#: ../src/application.c:433 ../src/et_core.c:674
+#: ../src/application.c:432 ../src/et_core.c:672
 #, c-format
 msgid "Error while querying information for file ‘%s’: %s"
 msgstr "Błąd podczas odpytywania informacji o pliku \"%s\": %s"
 
-#: ../src/application.c:497
+#: ../src/application.c:496
 #, c-format
 msgid "Cannot open path ‘%s’"
 msgstr "Nie można otworzyć ścieżki \"%s\""
@@ -3158,7 +3170,7 @@ msgstr "Nie można otworzyć ścieżki \"%s\""
 msgid "Do you really want to delete the file ‘%s’?"
 msgstr "Na pewno usunąć plik \"%s\"?"
 
-#: ../src/application_window.c:319 ../src/easytag.c:511 ../src/easytag.c:636
+#: ../src/application_window.c:319 ../src/easytag.c:490 ../src/easytag.c:615
 msgid "Repeat action for the remaining files"
 msgstr "Powtórzenie działania dla pozostałych plików"
 
@@ -3197,35 +3209,35 @@ msgid "All tags have been removed"
 msgstr "Wszystkie etykiety zostały usunięte"
 
 #. Quit EasyTAG.
-#: ../src/application_window.c:2573
+#: ../src/application_window.c:2574
 msgid "Normal exit"
 msgstr "Prawidłowe zakończenie działania"
 
-#: ../src/application_window.c:2610 ../src/browser.c:843
+#: ../src/application_window.c:2611 ../src/browser.c:843
 msgid "Some files have been modified but not saved"
 msgstr "Niektóre pliki zostały zmodyfikowane, ale nie zostały zapisane"
 
-#: ../src/application_window.c:2611 ../src/browser.c:847 ../src/easytag.c:294
-#: ../src/easytag.c:515 ../src/easytag.c:639 ../src/easytag.c:647
+#: ../src/application_window.c:2612 ../src/browser.c:847 ../src/easytag.c:273
+#: ../src/easytag.c:494 ../src/easytag.c:618 ../src/easytag.c:626
 msgid "_Discard"
 msgstr "O_drzuć"
 
-#: ../src/application_window.c:2613 ../src/browser.c:849 ../src/easytag.c:295
-#: ../src/easytag.c:517 ../src/easytag.c:524 ../src/easytag.c:641
-#: ../src/easytag.c:648 ../src/playlist_dialog.c:656 ../src/tag_area.c:1853
+#: ../src/application_window.c:2614 ../src/browser.c:849 ../src/easytag.c:274
+#: ../src/easytag.c:496 ../src/easytag.c:503 ../src/easytag.c:620
+#: ../src/easytag.c:627 ../src/playlist_dialog.c:656 ../src/tag_area.c:1853
 msgid "_Save"
 msgstr "_Zapisz"
 
-#: ../src/application_window.c:2617 ../src/application_window.c:2655
-#: ../src/easytag.c:300
+#: ../src/application_window.c:2618 ../src/application_window.c:2656
+#: ../src/easytag.c:279
 msgid "Quit"
 msgstr "Zakończ"
 
-#: ../src/application_window.c:2620
+#: ../src/application_window.c:2621
 msgid "Do you want to save them before quitting?"
 msgstr "Zapisać je przed zakończeniem działania?"
 
-#: ../src/application_window.c:2649
+#: ../src/application_window.c:2650
 msgid "Do you really want to quit?"
 msgstr "Na pewno zakończyć działanie?"
 
@@ -3241,46 +3253,46 @@ msgstr "Zapisać je przed zmianą katalogu?"
 msgid "Confirm Directory Change"
 msgstr "Potwierdzenie zmiany katalogu"
 
-#: ../src/browser.c:2531
+#: ../src/browser.c:2544
 msgid "<All albums>"
 msgstr "<Wszystkie albumy>"
 
-#: ../src/browser.c:4154
+#: ../src/browser.c:4135
 #, c-format
 msgid "Rename the directory ‘%s’ to:"
 msgstr "Zmiana nazwy katalogu \"%s\" na:"
 
-#: ../src/browser.c:4294
+#: ../src/browser.c:4275
 msgid "You must type a directory name"
 msgstr "Należy wprowadzić nazwę katalogu"
 
-#: ../src/browser.c:4295 ../src/browser.c:4317
+#: ../src/browser.c:4276 ../src/browser.c:4298
 msgid "Directory Name Error"
 msgstr "Błąd nazwy katalogu"
 
-#: ../src/browser.c:4313
+#: ../src/browser.c:4294
 #, c-format
 msgid "Could not convert ‘%s’ into filename encoding"
 msgstr "Nie można przekonwertować \"%s\" na kodowanie znaków nazwy pliku"
 
-#: ../src/browser.c:4316
+#: ../src/browser.c:4297
 msgid "Please use another name."
 msgstr "Proszę użyć innej nazwy."
 
-#: ../src/browser.c:4387
+#: ../src/browser.c:4368
 #, c-format
 msgid "The directory name ‘%s’ already exists."
 msgstr "Nazwa katalogu \"%s\" już istnieje."
 
-#: ../src/browser.c:4388 ../src/easytag.c:696
+#: ../src/browser.c:4369 ../src/easytag.c:675
 msgid "Rename File Error"
 msgstr "Błąd zmiany nazwy pliku"
 
-#: ../src/browser.c:4426 ../src/browser.c:4455
+#: ../src/browser.c:4407 ../src/browser.c:4436
 msgid "Rename Directory Error"
 msgstr "Błąd zmiany nazwy katalogu"
 
-#: ../src/browser.c:4494
+#: ../src/browser.c:4475
 msgid "Directory renamed"
 msgstr "Zmieniono nazwę katalogu"
 
@@ -3293,62 +3305,62 @@ msgstr ""
 "Album \"%s\", wykonawca: \"%s\", długość: \"%s\", rok: \"%s\", gatunek: \"%s"
 "\", identyfikator płyty: \"%s\""
 
-#: ../src/cddb_dialog.c:589
+#: ../src/cddb_dialog.c:587
 #, c-format
 msgid "Resolving host '%s'…"
 msgstr "Wyszukiwanie serwera \"%s\"…"
 
-#: ../src/cddb_dialog.c:631
+#: ../src/cddb_dialog.c:629
 #, c-format
 msgid "Cannot create a new socket ‘%s’"
 msgstr "Nie można utworzyć nowego gniazda \"%s\""
 
-#: ../src/cddb_dialog.c:645
+#: ../src/cddb_dialog.c:643
 msgid "Cannot set options on the newly-created socket"
 msgstr "Nie można ustawić opcji na nowo utworzonym gnieździe"
 
 #. Open connection to the server.
-#: ../src/cddb_dialog.c:649
+#: ../src/cddb_dialog.c:647
 #, c-format
 msgid "Connecting to host ‘%s’, port ‘%d’…"
 msgstr "Łączenie z serwerem \"%s\", port \"%d\"…"
 
-#: ../src/cddb_dialog.c:662
+#: ../src/cddb_dialog.c:660
 #, c-format
 msgid "Cannot connect to host ‘%s’: %s"
 msgstr "Nie można połączyć z serwerem \"%s\": %s"
 
-#: ../src/cddb_dialog.c:686
+#: ../src/cddb_dialog.c:684
 #, c-format
 msgid "Cannot resolve host ‘%s’: %s"
 msgstr "Nie można odnaleźć serwera \"%s\": %s"
 
-#: ../src/cddb_dialog.c:699
+#: ../src/cddb_dialog.c:697
 #, c-format
 msgid "Connected to host ‘%s’"
 msgstr "Połączono z serwerem \"%s\""
 
-#: ../src/cddb_dialog.c:786
+#: ../src/cddb_dialog.c:784
 #, c-format
 msgid "Error while writing CDDB results to file ‘%s’"
 msgstr "Błąd podczas zapisywania wyników CDDB do pliku \"%s\""
 
-#: ../src/cddb_dialog.c:797
+#: ../src/cddb_dialog.c:795
 #, c-format
 msgid "Receiving data (%s)…"
 msgstr "Pobieranie danych (%s)…"
 
-#: ../src/cddb_dialog.c:810
+#: ../src/cddb_dialog.c:808
 #, c-format
 msgid "Error when reading CDDB response ‘%s’"
 msgstr "Błąd podczas odczytywania odpowiedzi CDDB \"%s\""
 
-#: ../src/cddb_dialog.c:817
+#: ../src/cddb_dialog.c:815
 #, c-format
 msgid "Cannot create file ‘%s’: %s"
 msgstr "Nie można utworzyć pliku \"%s\": %s"
 
-#: ../src/cddb_dialog.c:879
+#: ../src/cddb_dialog.c:878
 #, c-format
 msgid "Cannot load file ‘%s’: %s"
 msgstr "Nie można wczytać pliku: \"%s\": %s"
@@ -3359,13 +3371,13 @@ msgstr "Nie można wczytać pliku: \"%s\": %s"
 #. Send the request
 #. g_print("Request Cddb_Search_Album_List_From_String_Gnudb : '%s'\n", cddb_in);
 #. Send the request
-#: ../src/cddb_dialog.c:950 ../src/cddb_dialog.c:1557
-#: ../src/cddb_dialog.c:1895
+#: ../src/cddb_dialog.c:949 ../src/cddb_dialog.c:1595
+#: ../src/cddb_dialog.c:1933
 msgid "Sending request…"
 msgstr "Wysyłanie żądania…"
 
-#: ../src/cddb_dialog.c:954 ../src/cddb_dialog.c:1561
-#: ../src/cddb_dialog.c:1899 ../src/cddb_dialog.c:3432
+#: ../src/cddb_dialog.c:953 ../src/cddb_dialog.c:1599
+#: ../src/cddb_dialog.c:1937 ../src/cddb_dialog.c:3496
 #, c-format
 msgid "Cannot send the request ‘%s’"
 msgstr "Nie można wysłać żądania \"%s\""
@@ -3374,34 +3386,34 @@ msgstr "Nie można wysłać żądania \"%s\""
 #.
 #. * Read the answer
 #.
-#: ../src/cddb_dialog.c:966 ../src/cddb_dialog.c:1588
-#: ../src/cddb_dialog.c:3450
+#: ../src/cddb_dialog.c:965 ../src/cddb_dialog.c:1626
+#: ../src/cddb_dialog.c:3514
 msgid "Receiving data…"
 msgstr "Pobieranie danych…"
 
-#: ../src/cddb_dialog.c:973 ../src/cddb_dialog.c:1595
-#: ../src/cddb_dialog.c:1930 ../src/cddb_dialog.c:3457
+#: ../src/cddb_dialog.c:972 ../src/cddb_dialog.c:1633
+#: ../src/cddb_dialog.c:1968 ../src/cddb_dialog.c:3521
 msgid "The server returned a bad response"
 msgstr "Serwer zwrócił błędną odpowiedź"
 
-#: ../src/cddb_dialog.c:989 ../src/cddb_dialog.c:1005
-#: ../src/cddb_dialog.c:1608 ../src/cddb_dialog.c:1946
-#: ../src/cddb_dialog.c:3474
+#: ../src/cddb_dialog.c:988 ../src/cddb_dialog.c:1003
+#: ../src/cddb_dialog.c:1024 ../src/cddb_dialog.c:1646
+#: ../src/cddb_dialog.c:1984 ../src/cddb_dialog.c:3538
 #, c-format
 msgid "The server returned a bad response ‘%s’"
 msgstr "Serwer zwrócił błędną odpowiedź \"%s\""
 
 #. Load the track list of the album
-#: ../src/cddb_dialog.c:1201
+#: ../src/cddb_dialog.c:1239
 msgid "Loading album track list…"
 msgstr "Wczytywanie listy ścieżek albumu…"
 
-#: ../src/cddb_dialog.c:1755
+#: ../src/cddb_dialog.c:1793
 #, c-format
 msgid "Sorry, the web-based search is currently not available"
 msgstr "Wyszukiwanie w sieci obecnie nie jest dostępne"
 
-#: ../src/cddb_dialog.c:1757 ../src/cddb_dialog.c:2117
+#: ../src/cddb_dialog.c:1795 ../src/cddb_dialog.c:2155
 #, c-format
 msgid "Found one matching album"
 msgid_plural "Found %d matching albums"
@@ -3409,52 +3421,52 @@ msgstr[0] "Odnaleziono jeden pasujący album"
 msgstr[1] "Odnaleziono %d pasujące albumy"
 msgstr[2] "Odnaleziono %d pasujących albumów"
 
-#: ../src/cddb_dialog.c:1918
+#: ../src/cddb_dialog.c:1956
 #, c-format
 msgid "Receiving data of page %d (album %d/%d)…"
 msgstr "Pobieranie danych ze strony %d (album %d/%d)…"
 
-#: ../src/cddb_dialog.c:1920
+#: ../src/cddb_dialog.c:1958
 #, c-format
 msgid "Receiving data of page %d…"
 msgstr "Pobieranie danych ze strony %d…"
 
-#: ../src/cddb_dialog.c:2084
+#: ../src/cddb_dialog.c:2122
 #, c-format
 msgid "More results to load…"
 msgstr "Więcej wyników do wczytania…"
 
-#: ../src/cddb_dialog.c:2265
+#: ../src/cddb_dialog.c:2302
 msgid "The number of CDDB results does not match the number of selected files"
 msgstr "Liczba wyników CDDB nie pasuje do liczby zaznaczonych plików"
 
-#: ../src/cddb_dialog.c:2271
+#: ../src/cddb_dialog.c:2308
 msgid "Write Tag from CDDB"
 msgstr "Zapisz etykiety z CDDB"
 
-#: ../src/cddb_dialog.c:2954
+#: ../src/cddb_dialog.c:3012
 msgid "Ready to search"
 msgstr "Gotowe do wyszukiwania"
 
-#: ../src/cddb_dialog.c:3042 ../src/load_files_dialog.c:261
-#: ../src/setting.c:247
+#: ../src/cddb_dialog.c:3100 ../src/load_files_dialog.c:261
+#: ../src/setting.c:245
 #, c-format
 msgid "Cannot open file ‘%s’: %s"
 msgstr "Nie można otworzyć pliku \"%s\": %s"
 
-#: ../src/cddb_dialog.c:3263
+#: ../src/cddb_dialog.c:3327
 #, c-format
 msgid "No file selected"
 msgstr "Nie zaznaczono pliku"
 
 #. The CD redbook standard defines the maximum number of tracks as 99, any
 #. queries with more than 99 tracks will never return a result.
-#: ../src/cddb_dialog.c:3271
+#: ../src/cddb_dialog.c:3335
 #, c-format
 msgid "More than 99 files selected. Cannot send request"
 msgstr "Zaznaczono więcej niż 99 plików. Nie można wysłać żądania"
 
-#: ../src/cddb_dialog.c:3277
+#: ../src/cddb_dialog.c:3341
 #, c-format
 msgid "One file selected"
 msgid_plural "%d files selected"
@@ -3463,14 +3475,14 @@ msgstr[1] "Zaznaczono %d pliki"
 msgstr[2] "Zaznaczono %d plików"
 
 #. g_print("Request Cddb_Search_Album_From_Selected_Files : '%s'\n", cddb_in);
-#: ../src/cddb_dialog.c:3422
+#: ../src/cddb_dialog.c:3486
 #, c-format
 msgid "Sending request (disc ID: %s, #tracks: %d, Disc length: %d)…"
 msgstr ""
 "Wysyłanie żądania (identyfikator płyty: %s, # ścieżki: %d, długość płyty: %d)"
 "…"
 
-#: ../src/cddb_dialog.c:3590
+#: ../src/cddb_dialog.c:3652
 #, c-format
 msgid "DiscID ‘%s’ gave one matching album"
 msgid_plural "DiscID ‘%s’ gave %d matching albums"
@@ -3679,7 +3691,7 @@ msgstr ""
 msgid "The string ‘%s’ could not be converted into UTF-8: %s"
 msgstr "Ciąg \"%s\" nie może zostać przekonwertowany na UTF-8: %s"
 
-#: ../src/easytag.c:290
+#: ../src/easytag.c:269
 #, c-format
 msgid "A file was changed by an external program"
 msgid_plural "%d files were changed by an external program"
@@ -3687,113 +3699,113 @@ msgstr[0] "Plik został zmieniony przez zewnętrzny program"
 msgstr[1] "%d pliki zostały zmienione przez zewnętrzny program"
 msgstr[2] "%d plików zostało zmienionych przez zewnętrzny program"
 
-#: ../src/easytag.c:299
+#: ../src/easytag.c:278
 msgid "Do you want to continue saving the file?"
 msgstr "Kontynuować zapisywanie pliku?"
 
-#: ../src/easytag.c:360 ../src/easytag.c:381
+#: ../src/easytag.c:339 ../src/easytag.c:360
 msgid "Saving files was stopped"
 msgstr "Zatrzymano zapisywanie plików"
 
-#: ../src/easytag.c:383
+#: ../src/easytag.c:362
 msgid "All files have been saved"
 msgstr "Wszystkie pliki zostały zapisane"
 
-#: ../src/easytag.c:504
+#: ../src/easytag.c:483
 #, c-format
 msgid "Do you want to write the tag of file ‘%s’?"
 msgstr "Zapisać etykietę pliku \"%s\"?"
 
-#: ../src/easytag.c:506
+#: ../src/easytag.c:485
 msgid "Confirm Tag Writing"
 msgstr "Potwierdzenie zapisania etykiety"
 
 #. Directories and filename changed
-#: ../src/easytag.c:599
+#: ../src/easytag.c:578
 msgid "Rename File and Directory"
 msgstr "Zmiana nazw plików i katalogów"
 
-#: ../src/easytag.c:600
+#: ../src/easytag.c:579
 msgid "File and directory rename confirmation required"
 msgstr "Wymagane jest potwierdzenie zmiany nazwy pliku i katalogu"
 
-#: ../src/easytag.c:601
+#: ../src/easytag.c:580
 #, c-format
 msgid "Do you want to rename the file and directory ‘%s’ to ‘%s’?"
 msgstr "Zmienić nazwę pliku i katalogu z \"%s\" na \"%s\"?"
 
-#: ../src/easytag.c:607
+#: ../src/easytag.c:586
 msgid "Directory rename confirmation required"
 msgstr "Wymagane jest potwierdzenie zmiany nazwy katalogu"
 
-#: ../src/easytag.c:608
+#: ../src/easytag.c:587
 #, c-format
 msgid "Do you want to rename the directory ‘%s’ to ‘%s’?"
 msgstr "Zmienić nazwę katalogu \"%s\" na \"%s\"?"
 
-#: ../src/easytag.c:616
+#: ../src/easytag.c:595
 msgid "File rename confirmation required"
 msgstr "Wymagane jest potwierdzenie zmiany nazwy pliku"
 
-#: ../src/easytag.c:617
+#: ../src/easytag.c:596
 #, c-format
 msgid "Do you want to rename the file ‘%s’ to ‘%s’?"
 msgstr "Zmienić nazwę pliku \"%s\" na \"%s\"?"
 
-#: ../src/easytag.c:689
+#: ../src/easytag.c:668
 #, c-format
 msgid "Cannot rename file ‘%s’ to ‘%s’"
 msgstr "Nie można zmienić nazwy pliku \"%s\" na \"%s\""
 
-#: ../src/easytag.c:703
+#: ../src/easytag.c:682
 #, c-format
 msgid "Cannot rename file ‘%s’ to ‘%s’: %s"
 msgstr "Nie można zmienić nazwy pliku \"%s\" na \"%s\": %s"
 
-#: ../src/easytag.c:708
+#: ../src/easytag.c:687
 msgid "File(s) not renamed"
 msgstr "Pliki, którym nie zmieniono nazwy"
 
-#: ../src/easytag.c:888
+#: ../src/easytag.c:867
 #, c-format
 msgid "Writing tag of ‘%s’"
 msgstr "Zapisywanie etykiety pliku \"%s\""
 
-#: ../src/easytag.c:896
+#: ../src/easytag.c:875
 #, c-format
 msgid "Wrote tag of ‘%s’"
 msgstr "Zapisano etykietę pliku \"%s\""
 
-#: ../src/easytag.c:912
+#: ../src/easytag.c:891
 #, c-format
 msgid "Cannot write tag in file ‘%s’"
 msgstr "Nie można zapisać etykiety w pliku \"%s\""
 
-#: ../src/easytag.c:916
+#: ../src/easytag.c:895
 msgid "Tag Write Error"
 msgstr "Błąd zapisu etykiety"
 
-#: ../src/easytag.c:990 ../src/easytag.c:1218
+#: ../src/easytag.c:970 ../src/easytag.c:1198
 #, c-format
 msgid "Cannot read directory ‘%s’"
 msgstr "Nie można odczytać katalogu \"%s\""
 
-#: ../src/easytag.c:994
+#: ../src/easytag.c:974
 msgid "Directory Read Error"
 msgstr "Błąd odczytu katalogu"
 
 #. Read the directory recursively
-#: ../src/easytag.c:1015
+#: ../src/easytag.c:995
 #, c-format
 msgid "Search in progress…"
 msgstr "Trwa wyszukiwanie…"
 
-#: ../src/easytag.c:1039 ../src/et_core.c:2992
+#: ../src/easytag.c:1019 ../src/et_core.c:2979
 #, c-format
 msgid "File: ‘%s’"
 msgstr "Plik: \"%s\""
 
-#: ../src/easytag.c:1086
+#: ../src/easytag.c:1066
 #, c-format
 msgid "Found one file in this directory and subdirectories"
 msgid_plural "Found %d files in this directory and subdirectories"
@@ -3801,7 +3813,7 @@ msgstr[0] "Odnaleziono jeden plik w tym katalogu i jego podkatalogach"
 msgstr[1] "Odnaleziono %d pliki w tym katalogu i jego podkatalogach"
 msgstr[2] "Odnaleziono %d plików w tym katalogu i jego podkatalogach"
 
-#: ../src/easytag.c:1093
+#: ../src/easytag.c:1073
 #, c-format
 msgid "Found one file in this directory"
 msgid_plural "Found %d files in this directory"
@@ -3809,28 +3821,28 @@ msgstr[0] "Odnaleziono jeden plik w tym katalogu"
 msgstr[1] "Odnaleziono %d pliki w tym katalogu"
 msgstr[2] "Odnaleziono %d plików w tym katalogu"
 
-#: ../src/easytag.c:1110
+#: ../src/easytag.c:1090
 msgid "No file found in this directory and subdirectories"
 msgstr "Nie odnaleziono żadnego pliku w tym katalogu i jego podkatalogach"
 
-#: ../src/easytag.c:1112
+#: ../src/easytag.c:1092
 msgid "No file found in this directory"
 msgstr "Nie odnaleziono żadnego pliku w tym katalogu"
 
-#: ../src/easytag.c:1182
+#: ../src/easytag.c:1162
 #, c-format
 msgid "Error opening directory ‘%s’: %s"
 msgstr "Błąd podczas otwierania katalogu \"%s\": %s"
 
-#: ../src/easytag.c:1238
+#: ../src/easytag.c:1218
 msgid "Searching for audio files…"
 msgstr "Wyszukiwanie plików dźwiękowych…"
 
-#: ../src/easytag.c:1239
+#: ../src/easytag.c:1219
 msgid "Searching"
 msgstr "Wyszukiwanie"
 
-#: ../src/easytag.c:1240
+#: ../src/easytag.c:1220
 msgid "_Stop"
 msgstr "_Zatrzymaj"
 
@@ -3864,13 +3876,13 @@ msgstr "Błąd podczas odczytywania etykiety z pliku WavPack \"%s\": %s"
 msgid "Error reading tag from Opus file ‘%s’: %s"
 msgstr "Błąd podczas odczytywania etykiety z pliku Opus \"%s\": %s"
 
-#: ../src/et_core.c:744
+#: ../src/et_core.c:742
 #, c-format
 msgid "Automatic corrections applied for file ‘%s’"
 msgstr "Zastosowano automatyczne poprawki do pliku \"%s\""
 
 #. And refresh the number of files in this directory
-#: ../src/et_core.c:3016
+#: ../src/et_core.c:3003
 #, c-format
 msgid "One file"
 msgid_plural "%u files"
@@ -3879,36 +3891,36 @@ msgstr[1] "%u pliki"
 msgstr[2] "%u plików"
 
 #. Bitrate
-#: ../src/et_core.c:3047 ../src/tags/flac_header.c:316
-#: ../src/tags/monkeyaudio_header.c:91 ../src/tags/mp4_header.cc:145
-#: ../src/tags/mpeg_header.c:228 ../src/tags/musepack_header.c:95
-#: ../src/tags/ogg_header.c:418 ../src/tags/opus_header.c:232
-#: ../src/tags/wavpack_header.c:92
+#: ../src/et_core.c:3034 ../src/tags/flac_header.c:307
+#: ../src/tags/monkeyaudio_header.c:83 ../src/tags/mp4_header.cc:144
+#: ../src/tags/mpeg_header.c:240 ../src/tags/musepack_header.c:87
+#: ../src/tags/ogg_header.c:411 ../src/tags/opus_header.c:230
+#: ../src/tags/wavpack_header.c:90
 #, c-format
 msgid "%d kb/s"
 msgstr "%d kb/s"
 
 #. Samplerate
-#: ../src/et_core.c:3050 ../src/tags/flac_header.c:319
-#: ../src/tags/monkeyaudio_header.c:94 ../src/tags/mp4_header.cc:149
-#: ../src/tags/mpeg_header.c:233 ../src/tags/musepack_header.c:98
-#: ../src/tags/ogg_header.c:421 ../src/tags/opus_header.c:235
-#: ../src/tags/wavpack_header.c:95
+#: ../src/et_core.c:3037 ../src/tags/flac_header.c:310
+#: ../src/tags/monkeyaudio_header.c:86 ../src/tags/mp4_header.cc:148
+#: ../src/tags/mpeg_header.c:245 ../src/tags/musepack_header.c:90
+#: ../src/tags/ogg_header.c:414 ../src/tags/opus_header.c:233
+#: ../src/tags/wavpack_header.c:93
 #, c-format
 msgid "%d Hz"
 msgstr "%d Hz"
 
-#: ../src/et_core.c:3179
+#: ../src/et_core.c:3166
 #, c-format
 msgid "Could not convert filename ‘%s’ to system filename encoding"
 msgstr ""
 "Nie można przekonwertować nazwy pliku \"%s\" na systemowe kodowanie znaków"
 
-#: ../src/et_core.c:3181
+#: ../src/et_core.c:3168
 msgid "Try setting the environment variable G_FILENAME_ENCODING."
 msgstr "Proszę spróbować ustawić zmienną środowiskową G_FILENAME_ENCODING."
 
-#: ../src/et_core.c:3182 ../src/scan_dialog.c:712
+#: ../src/et_core.c:3169 ../src/scan_dialog.c:719
 msgid "Filename translation"
 msgstr "Tłumaczenie nazw plików"
 
@@ -3976,107 +3988,107 @@ msgstr "Wybór pliku"
 msgid "Select Directory"
 msgstr "Wybór katalogu"
 
-#: ../src/picture.c:185
+#: ../src/picture.c:186
 msgid "JPEG image"
 msgstr "Obraz JPEG"
 
-#: ../src/picture.c:187
+#: ../src/picture.c:188
 msgid "PNG image"
 msgstr "Obraz PNG"
 
-#: ../src/picture.c:189
+#: ../src/picture.c:190
 msgid "GIF image"
 msgstr "Obraz GIF"
 
-#: ../src/picture.c:191
+#: ../src/picture.c:192
 msgid "Unknown image"
 msgstr "Nieznany obraz"
 
-#: ../src/picture.c:203
+#: ../src/picture.c:204
 msgid "32×32 pixel PNG file icon"
 msgstr "Ikona 32×32 piksele w formacie PNG"
 
-#: ../src/picture.c:205
+#: ../src/picture.c:206
 msgid "Other file icon"
 msgstr "Inny plik ikony"
 
-#: ../src/picture.c:207
+#: ../src/picture.c:208
 msgid "Cover (front)"
 msgstr "Okładka (przód)"
 
-#: ../src/picture.c:209
+#: ../src/picture.c:210
 msgid "Cover (back)"
 msgstr "Okładka (tył)"
 
-#: ../src/picture.c:211
+#: ../src/picture.c:212
 msgid "Leaflet page"
 msgstr "Środek okładki"
 
-#: ../src/picture.c:213
+#: ../src/picture.c:214
 msgid "Media (such as label side of CD)"
 msgstr "Nośnik (np. strona z nadrukiem na CD)"
 
-#: ../src/picture.c:215
+#: ../src/picture.c:216
 msgid "Lead artist/lead performer/soloist"
 msgstr "Prowadzący wykonawca/solista"
 
-#: ../src/picture.c:217
+#: ../src/picture.c:218
 msgid "Artist/performer"
 msgstr "Wykonawca"
 
-#: ../src/picture.c:219
+#: ../src/picture.c:220
 msgid "Conductor"
 msgstr "Dyrygent"
 
-#: ../src/picture.c:221
+#: ../src/picture.c:222
 msgid "Band/Orchestra"
 msgstr "Zespół/orkiestra"
 
-#: ../src/picture.c:225
+#: ../src/picture.c:226
 msgid "Lyricist/text writer"
 msgstr "Tekściarz/autor tekstów"
 
-#: ../src/picture.c:227
+#: ../src/picture.c:228
 msgid "Recording location"
 msgstr "Miejsce nagrywania"
 
-#: ../src/picture.c:229
+#: ../src/picture.c:230
 msgid "During recording"
 msgstr "Podczas nagrywania"
 
-#: ../src/picture.c:231
+#: ../src/picture.c:232
 msgid "During performance"
 msgstr "Podczas występu"
 
-#: ../src/picture.c:233
+#: ../src/picture.c:234
 msgid "Movie/video screen capture"
 msgstr "Zrzut ekranu z filmu/wideo"
 
-#: ../src/picture.c:235
+#: ../src/picture.c:236
 msgid "A bright colored fish"
 msgstr "Jaskrawo pokolorowana ryba"
 
-#: ../src/picture.c:237
+#: ../src/picture.c:238
 msgid "Illustration"
 msgstr "Ilustracja"
 
-#: ../src/picture.c:239
+#: ../src/picture.c:240
 msgid "Band/Artist logotype"
 msgstr "Logo zespołu/wykonawcy"
 
-#: ../src/picture.c:241
+#: ../src/picture.c:242
 msgid "Publisher/studio logotype"
 msgstr "Logo wydawcy/studia"
 
-#: ../src/picture.c:245
+#: ../src/picture.c:246
 msgid "Unknown image type"
 msgstr "Nieznany typ obrazu"
 
-#: ../src/picture.c:275 ../src/picture.c:286
+#: ../src/picture.c:276 ../src/picture.c:287
 msgid "pixels"
 msgstr "pikseli"
 
-#: ../src/picture.c:276 ../src/picture.c:287
+#: ../src/picture.c:277 ../src/picture.c:288
 msgid "Type"
 msgstr "Typ"
 
@@ -4094,8 +4106,8 @@ msgstr "Błąd pliku listy odtwarzania"
 msgid "Wrote playlist file ‘%s’"
 msgstr "Zapisano plik listy odtwarzania \"%s\""
 
-#: ../src/playlist_dialog.c:622 ../src/scan_dialog.c:2754
-#: ../src/scan_dialog.c:2816
+#: ../src/playlist_dialog.c:622 ../src/scan_dialog.c:2768
+#: ../src/scan_dialog.c:2830
 msgid "Invalid scanner mask"
 msgstr "Nieprawidłowa maska skanera"
 
@@ -4125,73 +4137,73 @@ msgstr ""
 msgid "Invalid Path Error"
 msgstr "Błąd nieprawidłowej ścieżki"
 
-#: ../src/scan_dialog.c:303
+#: ../src/scan_dialog.c:307
 #, c-format
 msgid "Cannot calculate CRC value of file ‘%s’"
 msgstr "Nie można obliczyć wartości CRC pliku \"%s\""
 
-#: ../src/scan_dialog.c:319
+#: ../src/scan_dialog.c:323
 msgid "Tag successfully scanned"
 msgstr "Pomyślnie zeskanowany etykiety"
 
-#: ../src/scan_dialog.c:322
+#: ../src/scan_dialog.c:326
 #, c-format
 msgid "Tag successfully scanned ‘%s’"
 msgstr "Pomyślnie zeskanowany etykiety \"%s\""
 
-#: ../src/scan_dialog.c:365
+#: ../src/scan_dialog.c:369
 #, c-format
 msgid "The extension ‘%s’ was not found in filename ‘%s’"
 msgstr "Rozszerzenie \"%s\" nie zostało odnalezione w pliku \"%s\""
 
-#: ../src/scan_dialog.c:455 ../src/scan_dialog.c:486
+#: ../src/scan_dialog.c:459 ../src/scan_dialog.c:490
 #, c-format
 msgid "Cannot find separator ‘%s’ within ‘%s’"
 msgstr "Nie można odnaleźć separatora \"%s\" wewnątrz \"%s\""
 
-#: ../src/scan_dialog.c:710
+#: ../src/scan_dialog.c:717
 #, c-format
 msgid "Could not convert filename ‘%s’ into system filename encoding"
 msgstr ""
 "Nie można przekonwertować nazwy pliku \"%s\" na systemowe kodowanie znaków"
 
-#: ../src/scan_dialog.c:735
+#: ../src/scan_dialog.c:742
 msgid "New filename successfully scanned"
 msgstr "Pomyślnie zeskanowano nową nazwę pliku"
 
-#: ../src/scan_dialog.c:739
+#: ../src/scan_dialog.c:746
 #, c-format
 msgid "New filename successfully scanned ‘%s’"
 msgstr "Pomyślnie zeskanowano nową nazwę pliku \"%s\""
 
-#: ../src/scan_dialog.c:1095
+#: ../src/scan_dialog.c:1109
 #, c-format
 msgid "Error while processing fields ‘%s’"
 msgstr "Błąd podczas przetwarzania pól \"%s\""
 
-#: ../src/scan_dialog.c:2024
+#: ../src/scan_dialog.c:2038
 msgid "New_mask"
 msgstr "Nowa_maska"
 
 #. The window
-#: ../src/scan_dialog.c:2241
+#: ../src/scan_dialog.c:2255
 msgid "Tag and Filename Scan"
 msgstr "Skanowanie etykiet i nazw plików"
 
 #. 'Scan selected files' button
-#: ../src/scan_dialog.c:2247
+#: ../src/scan_dialog.c:2261
 msgid "Scan Files"
 msgstr "Skanuj pliki"
 
-#: ../src/scan_dialog.c:2253
+#: ../src/scan_dialog.c:2267
 msgid "Scan selected files"
 msgstr "Skanuj zaznaczone pliki"
 
-#: ../src/scan_dialog.c:2891
+#: ../src/scan_dialog.c:2905
 msgid "All tags have been scanned"
 msgstr "Wszystkie etykiety zostały zeskanowane"
 
-#: ../src/search_dialog.c:542
+#: ../src/search_dialog.c:545
 #, c-format
 msgid "Found one file"
 msgid_plural "Found %d files"
@@ -4199,50 +4211,50 @@ msgstr[0] "Odnaleziono jeden plik"
 msgstr[1] "Odnaleziono %d pliki"
 msgstr[2] "Odnaleziono %d plików"
 
-#: ../src/search_dialog.c:591
+#: ../src/search_dialog.c:594
 msgid "Find Files"
 msgstr "Znajdź pliki"
 
-#: ../src/search_dialog.c:675
+#: ../src/search_dialog.c:678
 msgid "Ready to search…"
 msgstr "Gotowe do wyszukiwania…"
 
-#: ../src/setting.c:144
+#: ../src/setting.c:142
 #, c-format
 msgid "Cannot create or open file ‘%s’: %s"
 msgstr "Nie można utworzyć lub otworzyć pliku \"%s\": %s"
 
-#: ../src/setting.c:194
+#: ../src/setting.c:192
 #, c-format
 msgid "Cannot write list to file ‘%s’: %s"
 msgstr "Nie można zapisać listy do pliku \"%s\": %s"
 
-#: ../src/setting.c:212
+#: ../src/setting.c:210
 #, c-format
 msgid "Error while writing list file ‘%s’"
 msgstr "Błąd podczas zapisywania pliku listy \"%s\""
 
 #. Fall back to defaults.
-#: ../src/setting.c:292
+#: ../src/setting.c:290
 msgid "Loading default ‘Fill Tag’ masks…"
 msgstr "Wczytywanie domyślnych masek \"Wypełnianie etykiet\"…"
 
 #. Fall back to defaults.
-#: ../src/setting.c:322
+#: ../src/setting.c:320
 msgid "Loading default ‘Rename File’ masks…"
 msgstr "Wczytywanie domyślnych masek \"Zmiana nazw plików\"…"
 
-#: ../src/setting.c:409
+#: ../src/setting.c:406
 #, c-format
 msgid "Migrating configuration from directory ‘%s’ to ‘%s’"
 msgstr "Przenoszenie konfiguracji z katalogu \"%s\" do \"%s\""
 
-#: ../src/setting.c:433
+#: ../src/setting.c:430
 #, c-format
 msgid "Failed to migrate configuration file ‘%s’"
 msgstr "Przeniesienie pliku konfiguracji \"%s\" się nie powiodło"
 
-#: ../src/setting.c:470
+#: ../src/setting.c:467
 #, c-format
 msgid "Cannot create directory ‘%s’: %s"
 msgstr "Nie można utworzyć katalogu \"%s\": %s"
@@ -4434,8 +4446,8 @@ msgstr "Usuwanie powtarzających się spacji lub znaków podkreślenia"
 msgid "Remove all text"
 msgstr "Usuwanie całego tekstu"
 
-#: ../src/tag_area.c:1269 ../src/tag_area.c:1346 ../src/tags/ogg_tag.c:1050
-#: ../src/tags/ogg_tag.c:1065
+#: ../src/tag_area.c:1269 ../src/tag_area.c:1346 ../src/tags/ogg_tag.c:1049
+#: ../src/tags/ogg_tag.c:1064
 #, c-format
 msgid "Error parsing image data ‘%s’"
 msgstr "Błąd podczas przetwarzania danych obrazu \"%s\""
@@ -4545,21 +4557,23 @@ msgstr "Etykieta Opus"
 msgid "Images (%d)"
 msgstr "Obrazy (%d)"
 
-#: ../src/tags/ape_tag.c:64 ../src/tags/flac_tag.c:134
-#: ../src/tags/id3v24_tag.c:115
+#: ../src/tags/ape_tag.c:67 ../src/tags/flac_tag.c:137
+#: ../src/tags/mp4_header.cc:58 ../src/tags/mp4_header.cc:67
+#: ../src/tags/mp4_tag.cc:67 ../src/tags/mp4_tag.cc:80
+#: ../src/tags/mp4_tag.cc:86 ../src/tags/ogg_header.c:228
 #, c-format
 msgid "Error while opening file: %s"
 msgstr "Błąd podczas otwierania pliku: %s"
 
-#: ../src/tags/ape_tag.c:364
+#: ../src/tags/ape_tag.c:370
 msgid "Failed to write APE tag"
 msgstr "Zapisanie etykiety APE się nie powiodło"
 
-#: ../src/tags/flac_header.c:221
+#: ../src/tags/flac_header.c:213
 msgid "Error opening FLAC file"
 msgstr "Błąd podczas otwierania pliku FLAC"
 
-#: ../src/tags/flac_header.c:309
+#: ../src/tags/flac_header.c:300
 msgid "FLAC File"
 msgstr "Plik FLAC"
 
@@ -4567,13 +4581,13 @@ msgstr "Plik FLAC"
 #. Mode
 #. mpeg4ip library seems to always return -1
 #. Mode
-#: ../src/tags/flac_header.c:322 ../src/tags/mp4_header.cc:153
-#: ../src/tags/ogg_header.c:424 ../src/tags/opus_header.c:238
-#: ../src/tags/wavpack_header.c:98
+#: ../src/tags/flac_header.c:313 ../src/tags/mp4_header.cc:152
+#: ../src/tags/ogg_header.c:417 ../src/tags/opus_header.c:236
+#: ../src/tags/wavpack_header.c:96
 msgid "Channels:"
 msgstr "Kanały:"
 
-#: ../src/tags/flac_tag.c:356 ../src/tags/ogg_tag.c:292
+#: ../src/tags/flac_tag.c:362 ../src/tags/ogg_tag.c:292
 #, c-format
 msgid ""
 "The year value ‘%s’ seems to be invalid in file ‘%s’. The information will "
@@ -4582,17 +4596,17 @@ msgstr ""
 "Wartość roku \"%s\" w pliku \"%s\" jest nieprawidłowa. Informacja zostanie "
 "utracona podczas zapisywania"
 
-#: ../src/tags/flac_tag.c:860 ../src/tags/flac_tag.c:872
+#: ../src/tags/flac_tag.c:866 ../src/tags/flac_tag.c:878
 #, c-format
 msgid "Error while opening file ‘%s’ as FLAC: %s"
 msgstr "Błąd podczas otwierania pliku \"%s\" jako FLAC: %s"
 
-#: ../src/tags/flac_tag.c:1092
+#: ../src/tags/flac_tag.c:1098
 #, c-format
 msgid "Picture block is invalid ‘%s’"
 msgstr "Nieprawidłowy blok obrazu \"%s\""
 
-#: ../src/tags/flac_tag.c:1129
+#: ../src/tags/flac_tag.c:1135
 #, c-format
 msgid "Failed to write comments to file ‘%s’: %s"
 msgstr "Zapisanie komentarzy do pliku \"%s\" się nie powiodło: %s"
@@ -4666,76 +4680,82 @@ msgstr "Biblioteka id3lib z błędami"
 msgid "Error while updating ID3v1 tag of ‘%s’: %s"
 msgstr "Błąd podczas aktualizowania etykiety ID3v1 pliku \"%s\": %s"
 
-#: ../src/tags/id3_tag.c:751
+#: ../src/tags/id3_tag.c:752
 msgid "No error reported"
 msgstr "Nie zgłoszono błędów"
 
-#: ../src/tags/id3_tag.c:753
+#: ../src/tags/id3_tag.c:754
 msgid "No available memory"
 msgstr "Brak dostępnej pamięci"
 
-#: ../src/tags/id3_tag.c:755
+#: ../src/tags/id3_tag.c:756
 msgid "No data to parse"
 msgstr "Brak danych do przetwarzania"
 
-#: ../src/tags/id3_tag.c:757
+#: ../src/tags/id3_tag.c:758
 msgid "Improperly formatted data"
 msgstr "Niepoprawnie sformatowane dane"
 
-#: ../src/tags/id3_tag.c:759
+#: ../src/tags/id3_tag.c:760
 msgid "No buffer to write to"
 msgstr "Brak bufora do zapisu"
 
-#: ../src/tags/id3_tag.c:761
+#: ../src/tags/id3_tag.c:762
 msgid "Buffer is too small"
 msgstr "Bufor jest za mały"
 
-#: ../src/tags/id3_tag.c:763
+#: ../src/tags/id3_tag.c:764
 msgid "Invalid frame ID"
 msgstr "Nieprawidłowy identyfikator ramki"
 
-#: ../src/tags/id3_tag.c:765
+#: ../src/tags/id3_tag.c:766
 msgid "Requested field not found"
 msgstr "Nie odnaleziono żądanego pola"
 
-#: ../src/tags/id3_tag.c:767
+#: ../src/tags/id3_tag.c:768
 msgid "Unknown field type"
 msgstr "Nieznany typ pola"
 
-#: ../src/tags/id3_tag.c:769
+#: ../src/tags/id3_tag.c:770
 msgid "Tag is already attached to a file"
 msgstr "Plik już posiada dołączoną etykietę"
 
-#: ../src/tags/id3_tag.c:771
+#: ../src/tags/id3_tag.c:772
 msgid "Invalid tag version"
 msgstr "Nieprawidłowa wersja etykiety"
 
-#: ../src/tags/id3_tag.c:773
+#: ../src/tags/id3_tag.c:774
 msgid "No file to parse"
 msgstr "Brak pliku do przetwarzania"
 
-#: ../src/tags/id3_tag.c:775
+#: ../src/tags/id3_tag.c:776
 msgid "Attempting to write to a read-only file"
 msgstr "Próba zapisania do pliku tylko do odczytu"
 
-#: ../src/tags/id3_tag.c:777
+#: ../src/tags/id3_tag.c:778
 msgid "Error in compression/uncompression"
 msgstr "Błąd podczas kompresji/dekompresji"
 
-#: ../src/tags/id3_tag.c:779
+#: ../src/tags/id3_tag.c:780
 msgid "Unknown error message"
 msgstr "Nieznany komunikat błędu"
 
-#: ../src/tags/id3_tag.c:1456
+#: ../src/tags/id3_tag.c:1457
 msgid "Error while creating temporary file"
 msgstr "Błąd podczas tworzenia pliku tymczasowego"
+
+#: ../src/tags/id3v24_tag.c:138 ../src/tags/id3v24_tag.c:193
+#: ../src/tags/id3v24_tag.c:231 ../src/tags/id3v24_tag.c:242
+#: ../src/tags/mp4_tag.cc:96
+msgid "Error reading tags from file"
+msgstr "Błąd podczas odczytywania etykiet z pliku"
 
 #. Translators: The first string is a filename, the
 #. * second string is the number of bytes that were
 #. * missing (not read for some reason) while reading
 #. * from the file.
 #.
-#: ../src/tags/id3v24_tag.c:1634
+#: ../src/tags/id3v24_tag.c:1667
 #, c-format
 msgid "Cannot write tag of file ‘%s’ (a byte was missing)"
 msgid_plural "Cannot write tag of file ‘%s’ (%s bytes were missing)"
@@ -4743,146 +4763,140 @@ msgstr[0] "Nie można zapisać etykiety w pliku \"%s\" (brak jednego bajtu)"
 msgstr[1] "Nie można zapisać etykiety w pliku \"%s\" (brak %s bajtów)"
 msgstr[2] "Nie można zapisać etykiety w pliku \"%s\" (brak %s bajtów)"
 
-#: ../src/tags/id3v24_tag.c:1657
+#: ../src/tags/id3v24_tag.c:1690
 #, c-format
 msgid "Cannot save tag of file ‘%s’"
 msgstr "Nie można zapisać etykiety pliku \"%s\""
 
-#: ../src/tags/id3v24_tag.c:1669
+#: ../src/tags/id3v24_tag.c:1702
 #, c-format
 msgid "Size error while saving tag of ‘%s’"
 msgstr "Błąd rozmiaru podczas etykiety pliku \"%s\""
 
-#: ../src/tags/monkeyaudio_header.c:57
+#: ../src/tags/monkeyaudio_header.c:47
 msgid "Error opening Monkey’s Audio file"
 msgstr "Błąd podczas otwierania pliku Monkey's Audio"
 
 #. Mode changed to profile name
-#: ../src/tags/monkeyaudio_header.c:87 ../src/tags/musepack_header.c:90
+#: ../src/tags/monkeyaudio_header.c:79 ../src/tags/musepack_header.c:82
 msgid "Profile:"
 msgstr "Profil:"
 
-#: ../src/tags/mp4_header.cc:49 ../src/tags/mp4_header.cc:63
-#: ../src/tags/mp4_tag.cc:73 ../src/tags/mp4_tag.cc:90
-#: ../src/tags/mp4_tag.cc:96 ../src/tags/mp4_tag.cc:272
-#: ../src/tags/mp4_tag.cc:289 ../src/tags/mp4_tag.cc:295
-#: ../src/tags/ogg_header.c:229
-#, c-format
-msgid "Error while opening file ‘%s’: %s"
-msgstr "Błąd podczas otwierania pliku \"%s\": %s"
-
-#: ../src/tags/mp4_header.cc:64 ../src/tags/mp4_tag.cc:97
-#: ../src/tags/mp4_tag.cc:296
+#: ../src/tags/mp4_header.cc:68 ../src/tags/mp4_tag.cc:87
+#: ../src/tags/mp4_tag.cc:283
 msgid "MP4 format invalid"
 msgstr "Nieprawidłowy format MP4"
 
-#: ../src/tags/mp4_header.cc:75
-#, c-format
-msgid "Error reading properties from file ‘%s’"
-msgstr "Błąd podczas odczytywania właściwości z pliku \"%s\""
+#: ../src/tags/mp4_header.cc:77
+msgid "Error reading properties from file"
+msgstr "Błąd podczas odczytywania właściwości z pliku"
 
-#: ../src/tags/mp4_header.cc:132
+#: ../src/tags/mp4_header.cc:131
 msgid "MP4/AAC File"
 msgstr "Plik MP4/AAC"
 
-#: ../src/tags/mp4_header.cc:141 ../src/tags/mpeg_header.c:224
+#: ../src/tags/mp4_header.cc:140 ../src/tags/mpeg_header.c:236
 #, c-format
 msgid "~%d kb/s"
 msgstr "~%d kb/s"
 
-#: ../src/tags/mp4_tag.cc:108 ../src/tags/mp4_tag.cc:307
+#: ../src/tags/mp4_tag.cc:259 ../src/tags/mp4_tag.cc:276
+#: ../src/tags/mp4_tag.cc:282
+#, c-format
+msgid "Error while opening file ‘%s’: %s"
+msgstr "Błąd podczas otwierania pliku \"%s\": %s"
+
+#: ../src/tags/mp4_tag.cc:294
 #, c-format
 msgid "Error reading tags from file ‘%s’"
 msgstr "Błąd podczas odczytywania etykiet z pliku \"%s\""
 
-#: ../src/tags/mpeg_header.c:52
+#: ../src/tags/mpeg_header.c:51
 msgid "Stereo"
 msgstr "Stereo"
 
-#: ../src/tags/mpeg_header.c:53
+#: ../src/tags/mpeg_header.c:52
 msgid "Joint stereo"
 msgstr "Połączone stereo"
 
-#: ../src/tags/mpeg_header.c:54
+#: ../src/tags/mpeg_header.c:53
 msgid "Dual channel"
 msgstr "Dwukanałowy"
 
-#: ../src/tags/mpeg_header.c:55
+#: ../src/tags/mpeg_header.c:54
 msgid "Single channel"
 msgstr "Jednokanałowy"
 
-#: ../src/tags/mpeg_header.c:194
+#: ../src/tags/mpeg_header.c:206
 msgid "MP3 File"
 msgstr "Plik MP3"
 
-#: ../src/tags/mpeg_header.c:197
+#: ../src/tags/mpeg_header.c:209
 msgid "MP2 File"
 msgstr "Plik MP2"
 
 #. MPEG, Layer versions
-#: ../src/tags/mpeg_header.c:204
+#: ../src/tags/mpeg_header.c:216
 msgid "MPEG"
 msgstr "MPEG"
 
-#: ../src/tags/musepack_header.c:57
+#: ../src/tags/musepack_header.c:47
 msgid "Error opening Musepack file"
 msgstr "Błąd podczas otwierania pliku MusePack"
 
-#: ../src/tags/musepack_header.c:87
+#: ../src/tags/musepack_header.c:79
 msgid "MusePack File"
 msgstr "Plik MusePack"
 
-#: ../src/tags/ogg_header.c:247
-#, c-format
+#: ../src/tags/ogg_header.c:244
 msgid ""
 "The specified bitstream does not exist or the file has been initialized "
-"improperly (file: ‘%s’)"
+"improperly"
 msgstr ""
-"Podany strumień bitów nie istnieje lub plik został niepoprawnie zainicjowany "
-"(plik: \"%s\")"
+"Podany strumień bitów nie istnieje lub plik został niepoprawnie zainicjowany"
 
-#: ../src/tags/ogg_header.c:268
+#: ../src/tags/ogg_header.c:263
 msgid "Read from media returned an error"
 msgstr "Odczyt z pliku multimedialnego zwrócił błąd"
 
-#: ../src/tags/ogg_header.c:271
+#: ../src/tags/ogg_header.c:266
 msgid "Bitstream is not Vorbis data"
 msgstr "Strumień bitów nie zawiera danych Vorbis"
 
-#: ../src/tags/ogg_header.c:274
+#: ../src/tags/ogg_header.c:269
 msgid "Vorbis version mismatch"
 msgstr "Niezgodność wersji Vorbis"
 
-#: ../src/tags/ogg_header.c:277
+#: ../src/tags/ogg_header.c:272
 msgid "Invalid Vorbis bitstream header"
 msgstr "Nieprawidłowy nagłówek strumienia bitów Vorbis"
 
-#: ../src/tags/ogg_header.c:280
+#: ../src/tags/ogg_header.c:275
 msgid "Internal logic fault, indicates a bug or heap/stack corruption"
 msgstr "Wewnętrzny błąd logiczny, oznacza to błąd lub uszkodzenie stosu"
 
-#: ../src/tags/ogg_header.c:338
+#: ../src/tags/ogg_header.c:326
 #, c-format
 msgid "Failed to open file as Vorbis: %s"
 msgstr "Otwarcie pliku jako Vorbis się nie powiodło: %s"
 
-#: ../src/tags/ogg_header.c:396
+#: ../src/tags/ogg_header.c:389
 msgid "Ogg Vorbis File"
 msgstr "Plik Ogg Vorbis"
 
-#: ../src/tags/ogg_header.c:399
+#: ../src/tags/ogg_header.c:392
 msgid "Speex File"
 msgstr "Plik Speex"
 
-#: ../src/tags/ogg_tag.c:697 ../src/tags/ogg_tag.c:890
+#: ../src/tags/ogg_tag.c:699 ../src/tags/ogg_tag.c:889
 #, c-format
 msgid "The Ogg Vorbis file ‘%s’ contains an ID3v2 tag"
 msgstr "Plik Ogg Vorbis \"%s\" zawiera etykietę ID3v2"
 
-#: ../src/tags/opus_header.c:225
+#: ../src/tags/opus_header.c:223
 msgid "Opus File"
 msgstr "Plik Opus"
 
-#: ../src/tags/wavpack_header.c:85
+#: ../src/tags/wavpack_header.c:83
 msgid "Wavpack File"
 msgstr "Plik WavPack"
