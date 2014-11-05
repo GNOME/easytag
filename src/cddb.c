@@ -3648,7 +3648,7 @@ Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
             /* For freedb. */
             if (Cddb_Read_Http_Header (&file, &cddb_out) <= 0)
             {
-                gchar *msg = g_strdup_printf (_("The server returned a bad response ‘%s’"),
+                gchar *msg = g_strdup_printf (_("The server returned a bad response: %s"),
                                               cddb_out);
                 gtk_statusbar_push (GTK_STATUSBAR (CddbStatusBar),
                                     CddbStatusBarContext, msg);
@@ -3669,7 +3669,7 @@ Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
 
             if (Cddb_Read_Cddb_Header (&file, &cddb_out) <= 0)
             {
-                gchar *msg = g_strdup_printf (_("The server returned a bad response ‘%s’"),
+                gchar *msg = g_strdup_printf (_("The server returned a bad response: %s"),
                                               cddb_out);
                 gtk_statusbar_push (GTK_STATUSBAR (CddbStatusBar),
                                     CddbStatusBarContext, msg);
