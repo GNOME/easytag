@@ -285,13 +285,6 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc, File_Tag *FileTag,
     if ( (string = vorbis_comment_query(vc,"DATE",0)) != NULL && g_utf8_strlen(string, -1) > 0 )
     {
         FileTag->year = g_strdup(string);
-
-        if (g_utf8_strlen (FileTag->year, -1) > 4)
-        {
-            Log_Print (LOG_WARNING,
-                       _("The year value ‘%s’ seems to be invalid in file ‘%s’. The information will be lost when saving"),
-                       FileTag->year, filename_utf8);
-        }
     }
 
     /*************************

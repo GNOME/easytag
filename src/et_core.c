@@ -608,6 +608,13 @@ GList *ET_Add_File_To_File_List (gchar *filename)
             break;
     }
 
+    if (FileTag->year && g_utf8_strlen (FileTag->year, -1) > 4)
+    {
+        Log_Print (LOG_WARNING,
+                   _("The year value ‘%s’ seems to be invalid in file ‘%s’. The information will be lost when saving"),
+                   FileTag->year, filename_utf8);
+    }
+
     /* Fill the ET_File_Info structure */
     ETFileInfo = ET_File_Info_Item_New ();
 

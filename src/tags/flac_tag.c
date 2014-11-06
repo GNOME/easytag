@@ -356,12 +356,6 @@ flac_tag_read_file_tag (GFile *file,
                             field_value = Try_To_Validate_Utf8_String(field_value_tmp);
                             g_free(field_value_tmp);
                             FileTag->year = field_value;
-                            if (g_utf8_strlen (FileTag->year, -1) > 4)
-                            {
-                                Log_Print (LOG_WARNING,
-                                           _("The year value ‘%s’ seems to be invalid in file ‘%s’. The information will be lost when saving"),
-                                           FileTag->year, filename_utf8);
-                            }
                         }
                     }
                 }
