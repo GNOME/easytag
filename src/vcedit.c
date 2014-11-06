@@ -798,11 +798,9 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
             result = ogg_sync_pageout(state->oy, &ogout);
             if(result==0)
                 break;
-            if(result<0)
+            if (result < 0)
             {
-                g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_FAILED,
-                             "Corrupt or missing data, continuing…");
-                goto cleanup;
+                g_debug ("%s", "Corrupt or missing data, continuing");
             }
             else
             {
