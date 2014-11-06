@@ -817,7 +817,6 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
     gchar          *filename_utf8;
     gchar          *basename_utf8;
     GFile           *file;
-    GFileInputStream *istream;
     vcedit_state   *state;
     vorbis_comment *vc;
     gchar          *string;
@@ -832,81 +831,6 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
     filename_utf8 = ((File_Name *)ETFile->FileNameCur->data)->value_utf8;
 
     file = g_file_new_for_path (filename);
-    istream = g_file_read (file, NULL, error);
-
-    if (!istream)
-    {
-        g_object_unref (file);
-        return FALSE;
-    }
-
-    {
-    // Skip the id3v2 tag
-    gsize bytes_read;
-    guchar tmp_id3[4];
-    gulong id3v2size;
-
-    // Check if there is an ID3v2 tag...
-    if (!g_seekable_seek (G_SEEKABLE (istream), 0L, G_SEEK_SET, NULL, error))
-    {
-        goto err;
-    }
-
-    if (g_input_stream_read_all (G_INPUT_STREAM (istream), tmp_id3, 4,
-                                 &bytes_read, NULL, error))
-    {
-        // Calculate ID3v2 length
-        if (tmp_id3[0] == 'I' && tmp_id3[1] == 'D' && tmp_id3[2] == '3' && tmp_id3[3] < 0xFF)
-        {
-            // id3v2 tag skipeer $49 44 33 yy yy xx zz zz zz zz [zz size]
-            /* Size is 6-9 position */
-            if (!g_seekable_seek (G_SEEKABLE (istream), 2, G_SEEK_CUR,
-                                  NULL, error))
-            {
-                goto err;
-            }
-
-            if (g_input_stream_read_all (G_INPUT_STREAM (istream), tmp_id3, 4,
-                                         &bytes_read, NULL, error))
-            {
-                id3v2size = 10 + ( (long)(tmp_id3[3])        | ((long)(tmp_id3[2]) << 7)
-                                | ((long)(tmp_id3[1]) << 14) | ((long)(tmp_id3[0]) << 21) );
-
-                if (!g_seekable_seek (G_SEEKABLE (istream), id3v2size,
-                                      G_SEEK_SET, NULL, error))
-                {
-                    goto err;
-                }
-
-                Log_Print(LOG_ERROR,_("Warning: The Ogg Vorbis file '%s' contains an ID3v2 tag."),filename_utf8);
-            }
-            else
-            {
-                g_debug ("Only %" G_GSIZE_FORMAT " bytes out of 4 bytes of "
-                         "data were read", bytes_read);
-                goto err;
-            }
-
-        }
-        else if (!g_seekable_seek (G_SEEKABLE (istream), 0L, G_SEEK_SET,
-                                   NULL, error))
-        {
-            goto err;
-        }
-
-    }
-    else
-    {
-        g_debug ("Only %" G_GSIZE_FORMAT " bytes out of 4 bytes of data were "
-                 "read", bytes_read);
-        goto err;
-    }
-
-    }
-
-    g_assert (error == NULL || *error == NULL);
-
-    g_object_unref (istream);
 
     state = vcedit_new_state();    // Allocate memory for 'state'
 
@@ -1166,11 +1090,5 @@ ogg_tag_write_file_tag (ET_File *ETFile, GError **error)
 
     g_assert (error == NULL || *error == NULL);
     return TRUE;
-    
-err:
-    g_assert (error == NULL || *error != NULL);
-    g_object_unref (istream);
-    g_object_unref (file);
-    return FALSE;
 }
 #endif /* ENABLE_OGG */
