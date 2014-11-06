@@ -1088,15 +1088,19 @@ flac_tag_write_file_tag (const ET_File *ETFile,
                 picture_block->data.picture.height = pic->height;
                 picture_block->data.picture.depth  = 0;
 
-                // Picture data
-                FLAC__metadata_object_picture_set_data(picture_block, (FLAC__byte *)pic->data, (FLAC__uint32) pic->size, TRUE);
+                /* Picture data. */
+                FLAC__metadata_object_picture_set_data (picture_block,
+                                                        (FLAC__byte *)pic->data, (FLAC__uint32) pic->size,
+                                                        TRUE);
                 
-                if (!FLAC__metadata_object_picture_is_legal(picture_block, &violation))
+                if (!FLAC__metadata_object_picture_is_legal (picture_block,
+                                                             &violation))
                 {
-                    Log_Print (LOG_ERROR, _("Picture block is invalid ‘%s’"),
-                               violation);
-                    FLAC__metadata_object_delete(picture_block);
-                }else
+                    g_critical ("Created an invalid picture block: ‘%s’",
+                                violation);
+                    FLAC__metadata_object_delete (picture_block);
+                }
+                else
                 {
                     // Add the block to the the chain (so we don't need to free the block)
                     FLAC__metadata_iterator_insert_block_after(iter, picture_block);
