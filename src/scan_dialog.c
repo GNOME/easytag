@@ -1770,13 +1770,15 @@ Process_Fields_First_Letters_Check_Button_Toggled (EtScanDialog *self)
  * Set sensitive state of the processing check boxes : if no one is selected => all disabled
  */
 static void
-Select_Fields_Set_Sensitive (EtScanDialog *self)
+on_process_fields_changed (EtScanDialog *self,
+                           gchar *key,
+                           GSettings *settings)
 {
     EtScanDialogPrivate *priv;
 
     priv = et_scan_dialog_get_instance_private (self);
 
-    if (g_settings_get_flags (MainSettings, "process-fields") != 0)
+    if (g_settings_get_flags (settings, key) != 0)
     {
         gtk_widget_set_sensitive(GTK_WIDGET(priv->process_convert_to_space_toggle),     TRUE);
         gtk_widget_set_sensitive(GTK_WIDGET(priv->process_convert_to_underscores_toggle),         TRUE);
@@ -2445,11 +2447,11 @@ create_scan_dialog (EtScanDialog *self)
                                           et_settings_flags_toggle_get,
                                           et_settings_flags_toggle_set, widget,
                                           NULL);
-            g_signal_connect_swapped (G_OBJECT (widget), "toggled",
-                                      G_CALLBACK (Select_Fields_Set_Sensitive),
-                                      self);
         }
     }
+
+    g_signal_connect_swapped (MainSettings, "changed::process-fields",
+                              G_CALLBACK (on_process_fields_changed), self);
 
     /* Group: character conversion */
     priv->process_convert_to_space_toggle = GTK_WIDGET (gtk_builder_get_object (builder, "convert_space_radio"));
@@ -2546,7 +2548,7 @@ create_scan_dialog (EtScanDialog *self)
     g_settings_bind (MainSettings, "process-remove-duplicate-spaces",
                      priv->process_insert_one_space_toggle, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    Select_Fields_Set_Sensitive (self);
+    on_process_fields_changed (self, "process-fields", MainSettings);
 
     /*
      * Frame to display codes legend
