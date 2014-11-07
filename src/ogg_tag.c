@@ -667,23 +667,17 @@ ogg_tag_read_file_tag (gchar *filename, File_Tag *FileTag, GError **error)
     filename_utf8 = filename_to_display (filename);
 
     {
-    // Skip the id3v2 tag
+    /* Check for an unsupported ID3v2 tag. */
     guchar tmp_id3[4];
-    gulong id3v2size;
-
-    // Check if there is an ID3v2 tag...
-    if (!g_seekable_seek (G_SEEKABLE (istream), 0L, G_SEEK_SET, NULL, error))
-    {
-        goto err;
-    }
 
     if (g_input_stream_read (G_INPUT_STREAM (istream), tmp_id3, 4, NULL,
                              error) == 4)
     {
-        // Calculate ID3v2 length
-        if (tmp_id3[0] == 'I' && tmp_id3[1] == 'D' && tmp_id3[2] == '3' && tmp_id3[3] < 0xFF)
+        /* Calculate ID3v2 length. */
+        if (tmp_id3[0] == 'I' && tmp_id3[1] == 'D' && tmp_id3[2] == '3'
+            && tmp_id3[3] < 0xFF)
         {
-            // id3v2 tag skipeer $49 44 33 yy yy xx zz zz zz zz [zz size]
+            /* ID3v2 tag skipper $49 44 33 yy yy xx zz zz zz zz [zz size]. */
             /* Size is 6-9 position */
             if (!g_seekable_seek (G_SEEKABLE (istream), 2, G_SEEK_CUR,
                                   NULL, error))
@@ -694,33 +688,20 @@ ogg_tag_read_file_tag (gchar *filename, File_Tag *FileTag, GError **error)
             if (g_input_stream_read (G_INPUT_STREAM (istream), tmp_id3, 4,
                                      NULL, error) == 4)
             {
-                id3v2size = 10 + ( (long)(tmp_id3[3])        | ((long)(tmp_id3[2]) << 7)
-                                | ((long)(tmp_id3[1]) << 14) | ((long)(tmp_id3[0]) << 21) );
+                gchar *path;
 
-                if (!g_seekable_seek (G_SEEKABLE (istream), id3v2size,
-                                      G_SEEK_SET, NULL, error))
-                {
-                    goto err;
-                }
+                path = g_file_get_path (file);
+                g_debug ("Ogg file '%s' contains an ID3v2 tag", path);
+                g_free (path);
 
-                Log_Print(LOG_ERROR,_("Warning: The Ogg Vorbis file '%s' contains an ID3v2 tag."),filename_utf8);
+                /* Mark the file as modified, so that the ID3 tag is removed
+                 * upon saving. */
+                FileTag->saved = FALSE;
             }
-            else if (!g_seekable_seek (G_SEEKABLE (istream), 0L, G_SEEK_SET,
-                                       NULL, error))
-            {
-                goto err;
-            }
-
         }
-        else if (!g_seekable_seek (G_SEEKABLE (istream), 0L, G_SEEK_SET,
-                                   NULL, error))
-        {
-            goto err;
-        }
-
     }
-    else if (!g_seekable_seek (G_SEEKABLE (istream), 0L, G_SEEK_SET,
-                               NULL, error))
+
+    if (error && *error != NULL)
     {
         goto err;
     }
@@ -762,9 +743,8 @@ ogg_tag_read_file_tag (gchar *filename, File_Tag *FileTag, GError **error)
 err:
     g_assert (error == NULL || *error != NULL);
     g_object_unref (istream);
-    g_object_unref (istream);
     g_object_unref (file);
-    g_free(filename_utf8);
+    g_free (filename_utf8);
     return FALSE;
 }
 
