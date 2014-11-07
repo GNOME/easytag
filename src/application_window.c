@@ -1608,7 +1608,8 @@ et_application_window_init (EtApplicationWindow *self)
     GAction *action;
     GtkWindow *window;
     GtkWidget *main_vbox;
-    GtkWidget *hbox, *vbox;
+    GtkWidget *hbox;
+    GtkWidget *grid;
 
     priv = self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self,
                                                      ET_TYPE_APPLICATION_WINDOW,
@@ -1695,19 +1696,21 @@ et_application_window_init (EtApplicationWindow *self)
     gtk_paned_pack1 (GTK_PANED (priv->hpaned), priv->browser, TRUE, TRUE);
 
     /* Vertical box for FileArea + TagArea */
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-    gtk_paned_pack2 (GTK_PANED (priv->hpaned), vbox, FALSE, FALSE);
+    grid = gtk_grid_new ();
+    gtk_orientable_set_orientation (GTK_ORIENTABLE (grid),
+                                    GTK_ORIENTATION_VERTICAL);
+    gtk_paned_pack2 (GTK_PANED (priv->hpaned), grid, FALSE, FALSE);
 
     /* TODO: Set a sensible default size for both widgets in the paned. */
     gtk_paned_set_position (GTK_PANED (priv->hpaned), 600);
 
     /* File */
     priv->file_area = et_file_area_new ();
-    gtk_box_pack_start (GTK_BOX (vbox), priv->file_area, FALSE, FALSE, 0);
+    gtk_container_add (GTK_CONTAINER (grid), priv->file_area);
 
     /* Tag */
     priv->tag_area = et_tag_area_new ();
-    gtk_box_pack_start (GTK_BOX (vbox), priv->tag_area, FALSE, FALSE, 0);
+    gtk_container_add (GTK_CONTAINER (grid), priv->tag_area);
 
     /* Vertical pane for Browser Area + FileArea + TagArea */
     priv->vpaned = gtk_paned_new (GTK_ORIENTATION_VERTICAL);

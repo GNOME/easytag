@@ -296,7 +296,7 @@
                         <property name="has-entry">True</property>
                         <property name="model">track_combo_model</property>
                         <property name="entry-text-column">0</property>
-                        <property name="expand">True</property>
+                        <property name="hexpand">True</property>
                         <property name="visible">True</property>
                         <property name="wrap-width">3</property>
                     </object>
@@ -514,12 +514,12 @@
                 <property name="visible">True</property>
                 <child>
                     <object class="GtkScrolledWindow" id="images_scrolled">
-                        <property name="expand">True</property>
                         <property name="shadow-type">etched-in</property>
                         <property name="tooltip-text" translatable="yes">You can use drag and drop to add an image</property>
                         <property name="visible">True</property>
                         <child>
                             <object class="GtkTreeView" id="images_view">
+                                <property name="expand">True</property>
                                 <property name="model">images_model</property>
                                 <property name="headers-visible">False</property>
                                 <property name="visible">True</property>
