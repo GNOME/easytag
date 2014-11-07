@@ -73,7 +73,11 @@ static void vcedit_clear_internals(vcedit_state *state)
     }
 #endif /* ENABLE_OPUS */
 
-    g_object_unref (state->in);
+    if (state->in)
+    {
+        g_object_unref (state->in);
+    }
+
     memset(state, 0, sizeof(*state));
 }
 
@@ -291,13 +295,13 @@ vcedit_open(vcedit_state *state, GFile *file, GError **error)
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     istream = g_file_read (file, NULL, error);
+    state->in = istream;
+
     if (!istream)
     {
         g_assert (error == NULL || *error != NULL);
         return FALSE;
     }
-
-    state->in = istream;
 
     state->oy = malloc(sizeof(ogg_sync_state));
     ogg_sync_init(state->oy);
