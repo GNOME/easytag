@@ -102,15 +102,20 @@
         <property name="border-width">2</property>
         <property name="visible">True</property>
         <child type="action-start">
-            <object class="GtkLabel" id="tag_label">
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">Tag</property>
-                <property name="margin-left">6</property>
-                <property name="margin-right">6</property>
+            <object class="GtkBox" id="tag_label_box">
                 <property name="visible">True</property>
-                <attributes>
-                    <attribute name="weight" value="bold"/>
-                </attributes>
+                <child>
+                    <object class="GtkLabel" id="tag_label">
+                        <property name="halign">start</property>
+                        <property name="label" translatable="yes">Tag</property>
+                        <property name="margin-left">6</property>
+                        <property name="margin-right">6</property>
+                        <property name="visible">True</property>
+                        <attributes>
+                            <attribute name="weight" value="bold"/>
+                        </attributes>
+                    </object>
+                </child>
             </object>
         </child>
         <child>
