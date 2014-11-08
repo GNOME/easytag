@@ -28,7 +28,6 @@
 #include "opus_header.h"
 #include "et_core.h"
 #include "charset.h"
-#include "log.h"
 #include "misc.h"
 
 /*

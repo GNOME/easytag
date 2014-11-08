@@ -35,7 +35,6 @@
 #include "opus_header.h"
 #include "ogg_tag.h"
 #include "et_core.h"
-#include "log.h"
 #include "misc.h"
 #include "picture.h"
 #include "setting.h"

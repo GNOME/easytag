@@ -37,7 +37,6 @@
 #include "browser.h"
 #include "setting.h"
 #include "misc.h"
-#include "log.h"
 #include "et_core.h"
 #include "charset.h"
 

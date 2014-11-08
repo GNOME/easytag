@@ -29,7 +29,6 @@
 #include "mp4_header.h"
 #include "mp4_tag.h"
 #include "picture.h"
-#include "log.h"
 #include "misc.h"
 #include "et_core.h"
 #include "charset.h"

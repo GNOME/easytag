@@ -31,7 +31,6 @@
 #include "easytag.h"
 #include "ape_tag.h"
 #include "et_core.h"
-#include "log.h"
 #include "misc.h"
 #include "setting.h"
 #include "charset.h"
