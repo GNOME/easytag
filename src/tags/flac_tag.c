@@ -1002,7 +1002,7 @@ flac_tag_write_file_tag (const ET_File *ETFile,
          ************/
         Flac_Set_Tag (vc_block, "COMPOSER=", FileTag->composer,
                       g_settings_get_boolean (MainSettings,
-                                              "ogg-split-comment"));
+                                              "ogg-split-composer"));
 
         /*******************
          * Original artist *
