@@ -937,8 +937,7 @@ ogg_tag_write_file_tag (const ET_File *ETFile,
                 if (!gdk_pixbuf_loader_write (loader, pic->data, pic->size,
                                               &error))
                 {
-                    Log_Print (LOG_ERROR, _("Error parsing image data ‘%s’"),
-                               error->message);
+                    g_debug ("Error parsing image data: %s", error->message);
                     g_error_free (error);
                     g_object_unref (loader);
                     continue;
@@ -951,9 +950,8 @@ ogg_tag_write_file_tag (const ET_File *ETFile,
 
                     if (!gdk_pixbuf_loader_close (loader, &error))
                     {
-                        Log_Print (LOG_ERROR,
-                                   _("Error parsing image data ‘%s’"),
-                                   error->message);
+                        g_debug ("Error parsing image data: %s",
+                                 error->message);
                         g_error_free (error);
                         g_object_unref (loader);
                         continue;
