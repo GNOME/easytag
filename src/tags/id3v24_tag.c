@@ -936,10 +936,16 @@ id3tag_write_file_v24tag (const ET_File *ETFile,
 
         /* Read old v2 tag */
         if ((file = id3_file_open(filename, ID3_FILE_MODE_READWRITE)) == NULL)
+        {
+            g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "%s",
+                         _("Error reading tags from file"));
             return FALSE;
+        }
 
         if ((tmptag = id3_file_tag(file)) == NULL)
         {
+            g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "%s",
+                         _("Error reading tags from file"));
             id3_file_close(file);
             return FALSE;
         }
@@ -964,6 +970,8 @@ id3tag_write_file_v24tag (const ET_File *ETFile,
         {
             if ((v2tag = id3_tag_new()) == NULL)
             {
+                g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "%s",
+                             _("Error reading tags from file"));
                 id3_file_close(file);
                 return FALSE;
             }
@@ -1001,7 +1009,11 @@ id3tag_write_file_v24tag (const ET_File *ETFile,
     {
         v1tag = id3_tag_new();
         if (!v1tag)
+        {
+            g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "%s",
+                         _("Error reading tags from file"));
             return FALSE;
+        }
         
         id3_tag_options(v1tag, ID3_TAG_OPTION_ID3V1, ~0);
     }
