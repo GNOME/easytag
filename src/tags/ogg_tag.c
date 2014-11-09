@@ -33,6 +33,7 @@
 #include "misc.h"
 #include "picture.h"
 #include "setting.h"
+#include "tag_private.h"
 #include "charset.h"
 
 /* for mkstemp. */
@@ -133,28 +134,6 @@ add_to_guchar_str (guchar *ustr,
     }
 
     *ustr_len += str_len;
-}
-
-/*
- * read_guint_from_byte:
- * @str: the byte string
- * @start: position to start with
- *
- * Reads and returns an integer from given byte string starting from start.
- * Returns: Integer which is read
- */
-static guint32
-read_guint32_from_byte (guchar *str, gsize start)
-{
-    gsize i;
-    guint32 read = 0;
-
-    for (i = start; i < start + 4; i++)
-    {
-        read = (read << 8) + str[i];
-    }
-
-    return read;
 }
 
 /*
@@ -548,15 +527,15 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
         bytes = g_bytes_new_take (decoded_ustr, decoded_size);
 
         /* Reading picture type. */
-        pic->type = read_guint32_from_byte (decoded_ustr, 0);
+        pic->type = guint32_from_be_bytes (&decoded_ustr[0]);
         bytes_pos = 4;
 
         /* Reading MIME data. */
-        mimelen = read_guint32_from_byte (decoded_ustr, bytes_pos);
+        mimelen = guint32_from_be_bytes (&decoded_ustr[bytes_pos]);
         bytes_pos = 8 + mimelen;
 
         /* Reading description */
-        desclen = read_guint32_from_byte (decoded_ustr, bytes_pos);
+        desclen = guint32_from_be_bytes (&decoded_ustr[bytes_pos]);
         bytes_pos += 4;
 
         pic->description = g_strndup ((const gchar *)&decoded_ustr[bytes_pos],
@@ -565,7 +544,7 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
         bytes_pos += desclen + 16;
 
         /* Reading picture size */
-        data_size = read_guint32_from_byte (decoded_ustr, bytes_pos);
+        data_size = guint32_from_be_bytes (&decoded_ustr[bytes_pos]);
         bytes_pos += 4;
 
         /* Read only the image data into a new GBytes. */

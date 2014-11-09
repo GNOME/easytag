@@ -70,6 +70,7 @@ easytag_SOURCES = \
 	src/tags/libapetag/info_mac.c \
 	src/tags/libapetag/info_mpc.c \
 	src/tags/ape_tag.c \
+	src/tags/dsf_header.c \
 	src/tags/flac_header.c \
 	src/tags/flac_private.c \
 	src/tags/flac_tag.c \
@@ -84,6 +85,7 @@ easytag_SOURCES = \
 	src/tags/ogg_tag.c \
 	src/tags/opus_header.c \
 	src/tags/opus_tag.c \
+	src/tags/tag_private.c \
 	src/tags/vcedit.c \
 	src/tags/wavpack_header.c \
 	src/tags/wavpack_private.c \
@@ -124,6 +126,7 @@ easytag_headers = \
 	src/tags/libapetag/info_mac.h \
 	src/tags/libapetag/info_mpc.h \
 	src/tags/ape_tag.h \
+	src/tags/dsf_header.h \
 	src/tags/flac_header.h \
 	src/tags/flac_private.h \
 	src/tags/flac_tag.h \
@@ -138,6 +141,7 @@ easytag_headers = \
 	src/tags/ogg_tag.h \
 	src/tags/opus_header.h \
 	src/tags/opus_tag.h \
+	src/tags/tag_private.h \
 	src/tags/vcedit.h \
 	src/tags/wavpack_header.h \
 	src/tags/wavpack_private.h \

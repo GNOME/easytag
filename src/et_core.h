@@ -48,6 +48,7 @@ typedef enum
     OFR_FILE,        // OptimFROG (lossless)      : .ofr .ofs
     WAVPACK_FILE,    // Wavpack (lossless)        : .wv
     OPUS_FILE, /* Ogg Opus File: .opus */
+    DSF_FILE, /* DSD codec in DSF container: .dsf */
     UNKNOWN_FILE
 } ET_File_Type;
 

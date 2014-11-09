@@ -30,6 +30,7 @@
 #include <utime.h>
 
 #include "application_window.h"
+#include "dsf_header.h"
 #include "easytag.h"
 #include "mpeg_header.h"
 #include "monkeyaudio_header.h"
@@ -107,6 +108,7 @@ const ET_File_Description ETFileDescription[] =
     { MP4_FILE, ".m4p", MP4_TAG}, /* Implemented by Michael Ihde. */
     { MP4_FILE, ".m4v", MP4_TAG},
 #endif
+    { DSF_FILE, ".dsf", UNKNOWN_TAG },
 #ifdef ENABLE_WAVPACK
     { WAVPACK_FILE, ".wv", WAVPACK_TAG}, /* Implemented by Maarten Maathuis. */
 #endif
@@ -621,6 +623,9 @@ GList *ET_Add_File_To_File_List (gchar *filename)
             success = et_mp4_header_read_file_info (file, ETFileInfo, &error);
             break;
 #endif
+        case DSF_FILE:
+            success = et_dsf_header_read_file_info (file, ETFileInfo, &error);
+            break;
 #ifdef ENABLE_OPUS
         case OPUS_FILE:
             success = et_opus_read_file_info (file, ETFileInfo, &error);
@@ -2933,6 +2938,11 @@ ET_Display_File_Data_To_UI (ET_File *ETFile)
             et_mp4_file_header_fields_free (fields);
             break;
 #endif
+        case DSF_FILE:
+            fields = et_dsf_header_display_file_info_to_ui (ETFile);
+            et_application_window_file_area_set_header_fields (window, fields);
+            et_dsf_file_header_fields_free (fields);
+            break;
 #ifdef ENABLE_WAVPACK
         case WAVPACK_FILE:
             fields = et_wavpack_header_display_file_info_to_ui (ETFile);
