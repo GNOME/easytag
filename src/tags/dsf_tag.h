@@ -1,6 +1,5 @@
 /* EasyTAG - Tag editor for audio files
  * Copyright (C) 2014  David King <amigadave@amigadave.com>
- * Copyright (C) 2001-2003  Jerome Couderc <easytag@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,32 +16,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef ET_ID3TAG_H_
-#define ET_ID3TAG_H_
+#ifndef ET_DSF_TAG_H_
+#define ET_DSF_TAG_H_
 
-#include "config.h"
-
-#include <glib.h>
 #include "et_core.h"
 
 G_BEGIN_DECLS
 
-#define ID3_INVALID_GENRE 255
-
-gboolean id3tag_read_file_tag (GFile *file, File_Tag *FileTag, GError **error);
-gboolean id3tag_write_file_v24tag (const ET_File *ETFile, GError **error);
-gboolean id3tag_write_file_tag (const ET_File *ETFile, GError **error);
-
-const gchar * Id3tag_Genre_To_String (unsigned char genre_code);
-guchar Id3tag_String_To_Genre (const gchar *genre);
-
-gchar *et_id3tag_get_tpos_from_file_tag (const File_Tag *file_tag);
-
-#ifdef ENABLE_MP3
-#include <id3tag.h>
-gboolean et_id3tag_fill_file_tag_from_id3tag (struct id3_tag *tag, File_Tag *file_tag);
-#endif /* ENABLE_MP3 */
+gboolean et_dsf_tag_read_file_tag (GFile *file, File_Tag *FileTag, GError **error);
+gboolean et_dsf_tag_write_file_tag (const ET_File *ETFile, GError **error);
 
 G_END_DECLS
 
-#endif /* ET_ID3TAG_H_ */
+#endif /* ET_DSF_TAG_H_ */

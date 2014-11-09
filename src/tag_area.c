@@ -1419,6 +1419,7 @@ load_picture_from_file (GFile *file,
             case OPUS_TAG:
             case APE_TAG:
             case FLAC_TAG:
+            case DSF_TAG:
             case WAVPACK_TAG:
                 pic->description = g_strdup (filename_utf8);
 
@@ -2596,6 +2597,25 @@ et_tag_area_update_controls (EtTagArea *self,
             et_tag_area_show_images_tab (self);
             break;
 #endif
+
+        /* Identical to ID3v2. */
+#ifdef ENABLE_MP3
+        case DSF_TAG:
+            gtk_widget_show (priv->disc_number_label);
+            gtk_widget_show (priv->disc_number_entry);
+            gtk_widget_show (priv->composer_label);
+            gtk_widget_show (priv->composer_entry);
+            gtk_widget_show (priv->orig_artist_label);
+            gtk_widget_show (priv->orig_artist_entry);
+            gtk_widget_show (priv->copyright_label);
+            gtk_widget_show (priv->copyright_entry);
+            gtk_widget_show (priv->url_label);
+            gtk_widget_show (priv->url_entry);
+            gtk_widget_show (priv->encoded_by_label);
+            gtk_widget_show (priv->encoded_by_entry);
+            et_tag_area_show_images_tab (self);
+            break;
+#endif /* ENABLE_MP3 */
 
 #ifdef ENABLE_WAVPACK
         case WAVPACK_TAG:

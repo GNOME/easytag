@@ -65,6 +65,7 @@ typedef enum
     MP4_TAG,
     WAVPACK_TAG,
     OPUS_TAG,
+    DSF_TAG, /* ID3v2 tag in DSF file. */
     UNKNOWN_TAG
 } ET_Tag_Type;
 

@@ -37,6 +37,7 @@ src/status_bar.c
 src/tag_area.c
 src/tags/ape_tag.c
 src/tags/dsf_header.c
+src/tags/dsf_tag.c
 src/tags/flac_header.c
 src/tags/flac_tag.c
 src/tags/id3_tag.c

@@ -36,7 +36,8 @@
 #include "monkeyaudio_header.h"
 #include "musepack_header.h"
 #ifdef ENABLE_MP3
-#   include "id3_tag.h"
+#include "dsf_tag.h"
+#include "id3_tag.h"
 #endif
 #include "picture.h"
 #include "ape_tag.h"
@@ -108,7 +109,7 @@ const ET_File_Description ETFileDescription[] =
     { MP4_FILE, ".m4p", MP4_TAG}, /* Implemented by Michael Ihde. */
     { MP4_FILE, ".m4v", MP4_TAG},
 #endif
-    { DSF_FILE, ".dsf", UNKNOWN_TAG },
+    { DSF_FILE, ".dsf", DSF_TAG }, /* ID3v2 tag at offset in DSF file. */
 #ifdef ENABLE_WAVPACK
     { WAVPACK_FILE, ".wv", WAVPACK_TAG}, /* Implemented by Maarten Maathuis. */
 #endif
@@ -538,6 +539,17 @@ GList *ET_Add_File_To_File_List (gchar *filename)
             {
                 Log_Print (LOG_ERROR,
                            _("Error reading tag from MP4 file ‘%s’: %s"),
+                           filename_utf8, error->message);
+                g_clear_error (&error);
+            }
+            break;
+#endif
+#ifdef ENABLE_MP3 /* DSF tags use an embedded ID3v2 tag. */
+        case DSF_TAG:
+            if (!et_dsf_tag_read_file_tag (file, FileTag, &error))
+            {
+                Log_Print (LOG_ERROR,
+                           _("Error reading tag from DSF file ‘%s’: %s"),
                            filename_utf8, error->message);
                 g_clear_error (&error);
             }
@@ -3096,6 +3108,9 @@ void ET_Save_File_Data_From_UI (ET_File *ETFile)
 #ifdef ENABLE_MP4
         case MP4_TAG:
 #endif
+#ifdef ENABLE_MP3
+        case DSF_TAG:
+#endif
 #ifdef ENABLE_WAVPACK
         case WAVPACK_TAG:
 #endif
@@ -3548,6 +3563,11 @@ ET_Save_File_Tag_To_HD (ET_File *ETFile, GError **error)
 #ifdef ENABLE_MP4
         case MP4_TAG:
             state = mp4tag_write_file_tag (ETFile, error);
+            break;
+#endif
+#ifdef ENABLE_MP3
+        case DSF_TAG:
+            state = et_dsf_tag_write_file_tag (ETFile, error);
             break;
 #endif
 #ifdef ENABLE_WAVPACK

@@ -22,14 +22,12 @@
 
 #include "dsf_header.h"
 
+#include "dsf_private.h"
 #include "easytag.h"
 #include "et_core.h"
 #include "misc.h"
 #include "tag_private.h"
 
-#define DSF_HEADER_LENGTH 80
-#define DSF_HEADER_MAGIC "DSD "
-#define DSF_HEADER_FORMAT_MAGIC "fmt "
 
 gboolean
 et_dsf_header_read_file_info (GFile *file,
@@ -96,7 +94,7 @@ et_dsf_header_read_file_info (GFile *file,
     }
 
     /* 12 (8 bytes) total file size. */
-    file_size_header = guint64_from_le_bytes (&header[12]);
+    file_size_header = guint64_from_le_bytes (&header[DSF_HEADER_FILE_SIZE_OFFSET]);
 
     if (file_size_header != file_size)
     {

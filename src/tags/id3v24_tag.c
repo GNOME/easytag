@@ -75,168 +75,16 @@ static int    etag_set_tags             (const gchar *str, const char *frame_nam
 static gboolean etag_write_tags (const gchar *filename, struct id3_tag const *v1tag,
                             struct id3_tag const *v2tag, gboolean strip_tags, GError **error);
 
-/*************
- * Functions *
- *************/
-
-/*
- * Read id3v1.x / id3v2 tag and load data into the File_Tag structure.
- * Returns TRUE on success, else FALSE.
- * If a tag entry exists (ex: title), we allocate memory, else value stays to NULL
- */
 gboolean
-id3tag_read_file_tag (GFile *gfile,
-                      File_Tag *FileTag,
-                      GError **error)
+et_id3tag_fill_file_tag_from_id3tag (struct id3_tag *tag,
+                                     File_Tag *FileTag)
 {
-    GInputStream *istream;
-    gsize bytes_read;
-    GSeekable *seekable;
-    gchar *filename;
-    struct id3_file *file;
-    struct id3_tag *tag;
     struct id3_frame *frame;
     union id3_field *field;
     gchar *string1, *string2;
     EtPicture *prev_pic = NULL;
-    int i, j;
-    unsigned tmpupdate, update = 0;
-    long tagsize;
-
-    g_return_val_if_fail (gfile != NULL && FileTag != NULL, FALSE);
-    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
-
-    istream = G_INPUT_STREAM (g_file_read (gfile, NULL, error));
-
-    if (!istream)
-    {
-        return FALSE;
-    }
-
-    string1 = g_malloc0 (ID3_TAG_QUERYSIZE);
-
-    /* Check if the file has an ID3v2 tag or/and an ID3v1 tags.
-     * 1) ID3v2 tag. */
-    if (!g_input_stream_read_all (istream, string1, ID3_TAG_QUERYSIZE,
-                                  &bytes_read, NULL, error))
-    {
-        g_object_unref (istream);
-        g_free (string1);
-        return FALSE;
-    }
-    else if (bytes_read != ID3_TAG_QUERYSIZE)
-    {
-        g_object_unref (istream);
-        g_free (string1);
-        g_set_error (error, G_IO_ERROR, G_IO_ERROR_PARTIAL_INPUT, "%s",
-                     _("Error reading tags from file"));
-        return FALSE;
-    }
-
-    if ((tagsize = id3_tag_query((id3_byte_t const *)string1, ID3_TAG_QUERYSIZE)) <= ID3_TAG_QUERYSIZE)
-    {
-        /* ID3v2 tag not found! */
-        update = g_settings_get_boolean (MainSettings, "id3v2-enabled");
-    }else
-    {
-        /* ID3v2 tag found */
-        if (!g_settings_get_boolean (MainSettings, "id3v2-enabled"))
-        {
-            /* To delete the tag. */
-            update = 1;
-        }else
-        {
-            /* Determine version if user want to upgrade old tags */
-            if (g_settings_get_boolean (MainSettings, "id3v2-convert-old")
-            && (string1 = g_realloc (string1, tagsize))
-                && g_input_stream_read_all (istream,
-                                            &string1[ID3_TAG_QUERYSIZE],
-                                            tagsize - ID3_TAG_QUERYSIZE,
-                                            &bytes_read, NULL, error)
-                && bytes_read == tagsize - ID3_TAG_QUERYSIZE
-            && (tag = id3_tag_parse((id3_byte_t const *)string1, tagsize))
-               )
-            {
-                unsigned version = id3_tag_version(tag);
-#ifdef ENABLE_ID3LIB
-                /* Besides upgrade old tags we will downgrade id3v2.4 to id3v2.3 */
-                if (g_settings_get_boolean (MainSettings, "id3v2-version-4"))
-                {
-                    update = (ID3_TAG_VERSION_MAJOR(version) < 4);
-                }else
-                {
-                    update = ((ID3_TAG_VERSION_MAJOR(version) < 3)
-                            | (ID3_TAG_VERSION_MAJOR(version) == 4));
-                }
-#else
-                update = (ID3_TAG_VERSION_MAJOR(version) < 4);
-#endif
-                id3_tag_delete(tag);
-            }
-        }
-    }
-
-    /* 2) ID3v1 tag. */
-    seekable = G_SEEKABLE (istream);
-
-    if (!g_seekable_can_seek (seekable))
-    {
-        g_object_unref (istream);
-        g_free (string1);
-        g_set_error (error, G_IO_ERROR, G_IO_ERROR_PARTIAL_INPUT, "%s",
-                     _("Error reading tags from file"));
-        return FALSE;
-    }
-
-    /* Go to the beginning of ID3v1 tag. */
-    if (g_seekable_seek (seekable, -ID3V1_TAG_SIZE, G_SEEK_END, NULL, error)
-    && (string1)
-        && g_input_stream_read_all (istream, string1, 3, &bytes_read, NULL,
-                                    NULL /* Ignore errors. */)
-        && bytes_read == 3
-    && (string1[0] == 'T')
-    && (string1[1] == 'A')
-    && (string1[2] == 'G')
-       )
-    {
-        /* ID3v1 tag found! */
-        if (!g_settings_get_boolean (MainSettings, "id3v1-enabled"))
-        {
-            update = 1;
-        }
-    }else
-    {
-        /* ID3v1 tag not found! */
-        if (g_settings_get_boolean (MainSettings, "id3v1-enabled"))
-        {
-            update = 1;
-        }
-    }
-
-    g_free (string1);
-    g_object_unref (istream);
-
-    filename = g_file_get_path (gfile);
-
-    if ((file = id3_file_open (filename, ID3_FILE_MODE_READONLY)) == NULL)
-    {
-        g_free (filename);
-        g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "%s",
-                     _("Error reading tags from file"));
-        return FALSE;
-    }
-
-    g_free (filename);
-
-    if ( ((tag = id3_file_tag(file)) == NULL)
-    ||   (tag->nframes == 0))
-    {
-        id3_file_close(file);
-        g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "%s",
-                     _("Error reading tags from file"));
-        return FALSE;
-    }
-
+    gsize i, j;
+    gboolean tmpupdate, update = 0;
 
     /****************
      * Title (TIT2) *
@@ -487,79 +335,168 @@ id3tag_read_file_tag (GFile *gfile,
             }
         }
 
-        // Picture description
+        /* Picture description. */
         update |= libid3tag_Get_Frame_Str(frame, EASYTAG_ID3_FIELD_STRING, &pic->description);
     }
 
-    /**********************
-     * Lyrics (SYLC/USLT) *
-     **********************/
-    /** see also id3/misc_support.h  **
-    if ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_SYNCEDLYRICS)) )
+    return update;
+}
+
+/*
+ * Read id3v1.x / id3v2 tag and load data into the File_Tag structure.
+ * Returns TRUE on success, else FALSE.
+ * If a tag entry exists (ex: title), we allocate memory, else value stays to NULL
+ */
+gboolean
+id3tag_read_file_tag (GFile *gfile,
+                      File_Tag *FileTag,
+                      GError **error)
+{
+    GInputStream *istream;
+    gchar *string1;
+    gsize bytes_read;
+    GSeekable *seekable;
+    gchar *filename;
+    struct id3_file *file;
+    struct id3_tag *tag;
+    gboolean update = 0;
+    long tagsize;
+
+    g_return_val_if_fail (gfile != NULL && FileTag != NULL, FALSE);
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+    istream = G_INPUT_STREAM (g_file_read (gfile, NULL, error));
+
+    if (!istream)
     {
-        gulong  size = 0;
-        guchar *data = NULL;
-        gchar  *description = NULL;
-        gchar  *language = NULL;
-        gint timestamp_format = 0;
-        gint sync_type = 0;
+        return FALSE;
+    }
 
-        // SyncLyrics data
-        if ( (id3_field = ID3Frame_GetField(id3_frame, ID3FN_DATA)) )
+    string1 = g_malloc0 (ID3_TAG_QUERYSIZE);
+
+    /* Check if the file has an ID3v2 tag or/and an ID3v1 tags.
+     * 1) ID3v2 tag. */
+    if (!g_input_stream_read_all (istream, string1, ID3_TAG_QUERYSIZE,
+                                  &bytes_read, NULL, error))
+    {
+        g_object_unref (istream);
+        g_free (string1);
+        return FALSE;
+    }
+    else if (bytes_read != ID3_TAG_QUERYSIZE)
+    {
+        g_object_unref (istream);
+        g_free (string1);
+        g_set_error (error, G_IO_ERROR, G_IO_ERROR_PARTIAL_INPUT, "%s",
+                     _("Error reading tags from file"));
+        return FALSE;
+    }
+
+    if ((tagsize = id3_tag_query((id3_byte_t const *)string1, ID3_TAG_QUERYSIZE)) <= ID3_TAG_QUERYSIZE)
+    {
+        /* ID3v2 tag not found! */
+        update = g_settings_get_boolean (MainSettings, "id3v2-enabled");
+    }else
+    {
+        /* ID3v2 tag found */
+        if (!g_settings_get_boolean (MainSettings, "id3v2-enabled"))
         {
-            size = ID3Field_Size(id3_field);
-            data = g_malloc(size);
-            ID3Field_GetBINARY(id3_field, data, size);
-        }
-
-        // SyncLyrics description
-        description = Id3tag_Get_Field(id3_frame, ID3FN_DESCRIPTION);
-
-        // SyncLyrics language
-        language = Id3tag_Get_Field(id3_frame, ID3FN_LANGUAGE);
-
-        // SyncLyrics timestamp field
-        if ( (id3_field = ID3Frame_GetField(id3_frame, ID3FN_TIMESTAMPFORMAT)) )
+            /* To delete the tag. */
+            update = 1;
+        }else
         {
-            timestamp_format = ID3Field_GetINT(id3_field);
-        }
-
-        // SyncLyrics content type
-        if ( (id3_field = ID3Frame_GetField(id3_frame, ID3FN_CONTENTTYPE)) )
-        {
-            sync_type = ID3Field_GetINT(id3_field);
-        }
-
-        // Print data
-        // j.a. Pouwelse - pouwelse :
-        //      http://sourceforge.net/tracker/index.php?func=detail&aid=401873&group_id=979&atid=300979
-        {
-            char tag[255];
-            unsigned int time;
-            luint pos = 0;
-
-            g_print("SyncLyrics/description      : %s\n",description);
-            g_print("SyncLyrics/language         : %s\n",language);
-            g_print("SyncLyrics/timestamp format : %s (%d)\n",timestamp_format==ID3TSF_FRAME ? "ID3TSF_FRAME" : timestamp_format==ID3TSF_MS ? "ID3TSF_MS" : "" ,timestamp_format);
-            g_print("SyncLyrics/sync type        : %s (%d)\n",sync_type==ID3CT_LYRICS ? "ID3CT_LYRICS" : "",sync_type);
-
-
-            g_print("SyncLyrics size             : %d\n", size);
-            g_print("Lyrics/data :\n");
-            while (pos < size)
+            /* Determine version if user want to upgrade old tags */
+            if (g_settings_get_boolean (MainSettings, "id3v2-convert-old")
+            && (string1 = g_realloc (string1, tagsize))
+                && g_input_stream_read_all (istream,
+                                            &string1[ID3_TAG_QUERYSIZE],
+                                            tagsize - ID3_TAG_QUERYSIZE,
+                                            &bytes_read, NULL, error)
+                && bytes_read == tagsize - ID3_TAG_QUERYSIZE
+            && (tag = id3_tag_parse((id3_byte_t const *)string1, tagsize))
+               )
             {
-                strcpy(tag,data+pos);
-                //g_print("txt start=%d ",pos);
-                pos+=strlen(tag)+1;             // shift string and terminating \0
-                //g_print("txt end=%d ",pos);
-                memcpy(&time,data+pos,4);
-                pos+=4;
-                //g_print("%d -> %s\n",time,tag);
-                g_print("%s",tag);
+                unsigned version = id3_tag_version(tag);
+#ifdef ENABLE_ID3LIB
+                /* Besides upgrade old tags we will downgrade id3v2.4 to id3v2.3 */
+                if (g_settings_get_boolean (MainSettings, "id3v2-version-4"))
+                {
+                    update = (ID3_TAG_VERSION_MAJOR(version) < 4);
+                }else
+                {
+                    update = ((ID3_TAG_VERSION_MAJOR(version) < 3)
+                            | (ID3_TAG_VERSION_MAJOR(version) == 4));
+                }
+#else
+                update = (ID3_TAG_VERSION_MAJOR(version) < 4);
+#endif
+                id3_tag_delete(tag);
             }
         }
+    }
 
-    } **/
+    /* 2) ID3v1 tag. */
+    seekable = G_SEEKABLE (istream);
+
+    if (!g_seekable_can_seek (seekable))
+    {
+        g_object_unref (istream);
+        g_free (string1);
+        g_set_error (error, G_IO_ERROR, G_IO_ERROR_PARTIAL_INPUT, "%s",
+                     _("Error reading tags from file"));
+        return FALSE;
+    }
+
+    /* Go to the beginning of ID3v1 tag. */
+    if (g_seekable_seek (seekable, -ID3V1_TAG_SIZE, G_SEEK_END, NULL, error)
+    && (string1)
+        && g_input_stream_read_all (istream, string1, 3, &bytes_read, NULL,
+                                    NULL /* Ignore errors. */)
+        && bytes_read == 3
+    && (string1[0] == 'T')
+    && (string1[1] == 'A')
+    && (string1[2] == 'G')
+       )
+    {
+        /* ID3v1 tag found! */
+        if (!g_settings_get_boolean (MainSettings, "id3v1-enabled"))
+        {
+            update = 1;
+        }
+    }else
+    {
+        /* ID3v1 tag not found! */
+        if (g_settings_get_boolean (MainSettings, "id3v1-enabled"))
+        {
+            update = 1;
+        }
+    }
+
+    g_free (string1);
+    g_object_unref (istream);
+
+    filename = g_file_get_path (gfile);
+
+    if ((file = id3_file_open (filename, ID3_FILE_MODE_READONLY)) == NULL)
+    {
+        g_free (filename);
+        g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "%s",
+                     _("Error reading tags from file"));
+        return FALSE;
+    }
+
+    g_free (filename);
+
+    if ( ((tag = id3_file_tag(file)) == NULL)
+    ||   (tag->nframes == 0))
+    {
+        id3_file_close(file);
+        g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "%s",
+                     _("Error reading tags from file"));
+        return FALSE;
+    }
+
+    update |= et_id3tag_fill_file_tag_from_id3tag (tag, FileTag);
 
     if (update)
         FileTag->saved = FALSE;
