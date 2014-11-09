@@ -41,6 +41,7 @@ gchar *et_id3tag_get_tpos_from_file_tag (const File_Tag *file_tag);
 #ifdef ENABLE_MP3
 #include <id3tag.h>
 gboolean et_id3tag_fill_file_tag_from_id3tag (struct id3_tag *tag, File_Tag *file_tag);
+void et_id3tag_set_id3_tag_from_file_tag (const File_Tag *FileTag, struct id3_tag *v1tag, struct id3_tag *v2tag, gboolean *strip_tags);
 #endif /* ENABLE_MP3 */
 
 G_END_DECLS

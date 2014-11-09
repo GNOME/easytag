@@ -836,145 +836,37 @@ libid3tag_Get_Frame_Str (const struct id3_frame *frame,
     return retval;
 }
 
-
-/*
- * Write the ID3 tags to the file. Returns TRUE on success, else 0.
- */
-gboolean
-id3tag_write_file_v24tag (const ET_File *ETFile,
-                          GError **error)
+void
+et_id3tag_set_id3_tag_from_file_tag (const File_Tag *FileTag,
+                                     struct id3_tag *v1tag,
+                                     struct id3_tag *v2tag,
+                                     gboolean *strip_tags)
 {
-    const File_Tag *FileTag;
-    const gchar *filename;
-    struct id3_tag   *v1tag, *v2tag;
     struct id3_frame *frame;
-    union id3_field  *field;
-    gchar            *string1;
-    EtPicture          *pic;
-    gboolean strip_tags = TRUE;
+    union id3_field *field;
+    gchar *string1;
     guchar genre_value = ID3_INVALID_GENRE;
-    gboolean success;
-
-    g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL, FALSE);
-    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
-
-    FileTag       = (File_Tag *)ETFile->FileTag->data;
-    filename      = ((File_Name *)ETFile->FileNameCur->data)->value;
-
-    v1tag = v2tag = NULL;
-
-    /* Write ID3v2 tag. */
-    if (g_settings_get_boolean (MainSettings, "id3v2-enabled"))
-    {
-        struct id3_file *file;
-        struct id3_tag *tmptag;
-        unsigned tagsize;
-        id3_byte_t *tmpbuf = NULL;
-
-        /* Read old v2 tag */
-        if ((file = id3_file_open(filename, ID3_FILE_MODE_READWRITE)) == NULL)
-        {
-            g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "%s",
-                         _("Error reading tags from file"));
-            return FALSE;
-        }
-
-        if ((tmptag = id3_file_tag(file)) == NULL)
-        {
-            g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "%s",
-                         _("Error reading tags from file"));
-            id3_file_close(file);
-            return FALSE;
-        }
-
-        id3_tag_options(tmptag, ID3_TAG_OPTION_UNSYNCHRONISATION
-                              | ID3_TAG_OPTION_ID3V1 
-                              | ID3_TAG_OPTION_COMPRESSION 
-                              | ID3_TAG_OPTION_APPENDEDTAG,
-                        //ID3_TAG_OPTION_UNSYNCHRONISATION); // Taglib doesn't support frames with unsynchronisation (patch from Alexey Illarionov) http://bugs.kde.org/show_bug.cgi?id=138829
-                        0);
-
-        /* XXX Create new tag and copy all frames*/
-        tagsize = id3_tag_render(tmptag, NULL);
-        if ((tagsize > 10)
-        && (tmpbuf = g_try_malloc(tagsize))
-        && (id3_tag_render(tmptag, tmpbuf) != 0)
-        )
-            v2tag = id3_tag_parse(tmpbuf, tagsize);
-        g_free(tmpbuf);
-
-        if (v2tag == NULL)
-        {
-            if ((v2tag = id3_tag_new()) == NULL)
-            {
-                g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "%s",
-                             _("Error reading tags from file"));
-                id3_file_close(file);
-                return FALSE;
-            }
-        }
-
-        id3_file_close(file);
-
-        /* Set padding  XXX */
-        if ((v2tag->paddedsize < 1024)
-        || ((v2tag->paddedsize > 4096) && (tagsize < 1024))
-        )
-            v2tag->paddedsize = 1024;
-
-        /* Set options */
-        id3_tag_options(v2tag, ID3_TAG_OPTION_UNSYNCHRONISATION
-                             | ID3_TAG_OPTION_APPENDEDTAG
-                             | ID3_TAG_OPTION_ID3V1
-                             | ID3_TAG_OPTION_CRC
-                             | ID3_TAG_OPTION_COMPRESSION,
-                        //ID3_TAG_OPTION_UNSYNCHRONISATION); // Taglib doesn't support frames with unsynchronisation (patch from Alexey Illarionov) http://bugs.kde.org/show_bug.cgi?id=138829
-                        0);
-        
-        if (g_settings_get_boolean (MainSettings, "id3v2-crc32"))
-        {
-            id3_tag_options (v2tag, ID3_TAG_OPTION_CRC, ~0);
-        }
-        if (g_settings_get_boolean (MainSettings, "id3v2-compression"))
-        {
-            id3_tag_options (v2tag, ID3_TAG_OPTION_COMPRESSION, ~0);
-        }
-    }
-
-    /* Write ID3v1 tag. */
-    if (g_settings_get_boolean (MainSettings, "id3v1-enabled"))
-    {
-        v1tag = id3_tag_new();
-        if (!v1tag)
-        {
-            g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "%s",
-                         _("Error reading tags from file"));
-            return FALSE;
-        }
-        
-        id3_tag_options(v1tag, ID3_TAG_OPTION_ID3V1, ~0);
-    }
-
+    EtPicture *pic;
 
     /*********
      * Title *
      *********/
-    etag_set_tags(FileTag->title, ID3_FRAME_TITLE, ID3_FIELD_TYPE_STRINGLIST, v1tag, v2tag, &strip_tags);
+    etag_set_tags(FileTag->title, ID3_FRAME_TITLE, ID3_FIELD_TYPE_STRINGLIST, v1tag, v2tag, strip_tags);
 
     /**********
      * Artist *
      **********/
-    etag_set_tags(FileTag->artist, ID3_FRAME_ARTIST, ID3_FIELD_TYPE_STRINGLIST, v1tag, v2tag, &strip_tags);
+    etag_set_tags(FileTag->artist, ID3_FRAME_ARTIST, ID3_FIELD_TYPE_STRINGLIST, v1tag, v2tag, strip_tags);
 
     /**********
      * Album Artist *
      **********/
-    etag_set_tags(FileTag->album_artist, "TPE2", ID3_FIELD_TYPE_STRINGLIST, NULL, v2tag, &strip_tags);
+    etag_set_tags(FileTag->album_artist, "TPE2", ID3_FIELD_TYPE_STRINGLIST, NULL, v2tag, strip_tags);
 
     /*********
      * Album *
      *********/
-    etag_set_tags(FileTag->album, ID3_FRAME_ALBUM, ID3_FIELD_TYPE_STRINGLIST, v1tag, v2tag, &strip_tags);
+    etag_set_tags(FileTag->album, ID3_FRAME_ALBUM, ID3_FIELD_TYPE_STRINGLIST, v1tag, v2tag, strip_tags);
 
     /***************
      * Part of set *
@@ -983,14 +875,14 @@ id3tag_write_file_v24tag (const ET_File *ETFile,
     {
         string1 = et_id3tag_get_tpos_from_file_tag (FileTag);
         etag_set_tags (string1, "TPOS", ID3_FIELD_TYPE_STRINGLIST, NULL, v2tag,
-                       &strip_tags);
+                       strip_tags);
         g_free (string1);
     }
 
     /********
      * Year *
      ********/
-    etag_set_tags(FileTag->year, ID3_FRAME_YEAR, ID3_FIELD_TYPE_STRINGLIST, v1tag, v2tag, &strip_tags);
+    etag_set_tags(FileTag->year, ID3_FRAME_YEAR, ID3_FIELD_TYPE_STRINGLIST, v1tag, v2tag, strip_tags);
 
     /*************************
      * Track and Total Track *
@@ -1002,8 +894,8 @@ id3tag_write_file_v24tag (const ET_File *ETFile,
     else
         string1 = NULL;
 
-    etag_set_tags(string1 ? string1 : FileTag->track, ID3_FRAME_TRACK, ID3_FIELD_TYPE_STRINGLIST, NULL, v2tag, &strip_tags);
-    etag_set_tags(FileTag->track, ID3_FRAME_TRACK, ID3_FIELD_TYPE_STRINGLIST, v1tag, NULL, &strip_tags);
+    etag_set_tags(string1 ? string1 : FileTag->track, ID3_FRAME_TRACK, ID3_FIELD_TYPE_STRINGLIST, NULL, v2tag, strip_tags);
+    etag_set_tags(FileTag->track, ID3_FRAME_TRACK, ID3_FIELD_TYPE_STRINGLIST, v1tag, NULL, strip_tags);
     g_free(string1);
 
     /*********
@@ -1026,33 +918,33 @@ id3tag_write_file_v24tag (const ET_File *ETFile,
         string1 = g_strdup_printf ("(%d)",genre_value);
     }
 
-    etag_set_tags(string1, ID3_FRAME_GENRE, ID3_FIELD_TYPE_STRINGLIST, v1tag, v2tag, &strip_tags);
+    etag_set_tags(string1, ID3_FRAME_GENRE, ID3_FIELD_TYPE_STRINGLIST, v1tag, v2tag, strip_tags);
     g_free(string1);
 
     /***********
      * Comment *
      ***********/
-    etag_set_tags(FileTag->comment, ID3_FRAME_COMMENT, ID3_FIELD_TYPE_STRINGFULL, v1tag, v2tag, &strip_tags);
+    etag_set_tags(FileTag->comment, ID3_FRAME_COMMENT, ID3_FIELD_TYPE_STRINGFULL, v1tag, v2tag, strip_tags);
 
     /************
      * Composer *
      ************/
-    etag_set_tags(FileTag->composer, "TCOM", ID3_FIELD_TYPE_STRINGLIST, NULL, v2tag, &strip_tags);
+    etag_set_tags(FileTag->composer, "TCOM", ID3_FIELD_TYPE_STRINGLIST, NULL, v2tag, strip_tags);
 
     /*******************
      * Original artist *
      *******************/
-    etag_set_tags(FileTag->orig_artist, "TOPE", ID3_FIELD_TYPE_STRINGLIST, NULL, v2tag, &strip_tags);
+    etag_set_tags(FileTag->orig_artist, "TOPE", ID3_FIELD_TYPE_STRINGLIST, NULL, v2tag, strip_tags);
 
     /*************
      * Copyright *
      *************/
-    etag_set_tags(FileTag->copyright, "TCOP", ID3_FIELD_TYPE_STRINGLIST, NULL, v2tag, &strip_tags);
+    etag_set_tags(FileTag->copyright, "TCOP", ID3_FIELD_TYPE_STRINGLIST, NULL, v2tag, strip_tags);
 
     /*******
      * URL *
      *******/
-    etag_set_tags(FileTag->url, "WXXX", ID3_FIELD_TYPE_LATIN1, NULL, v2tag, &strip_tags);
+    etag_set_tags(FileTag->url, "WXXX", ID3_FIELD_TYPE_LATIN1, NULL, v2tag, strip_tags);
 
     /***************
      * Encoded by  *
@@ -1065,7 +957,7 @@ id3tag_write_file_v24tag (const ET_File *ETFile,
     //    strip_tags = FALSE;
     //}else
     // Save encoder name in TENC frame instead of the TXX frame
-    etag_set_tags(FileTag->encoded_by, "TENC", ID3_FIELD_TYPE_STRINGLIST, NULL, v2tag, &strip_tags);
+    etag_set_tags(FileTag->encoded_by, "TENC", ID3_FIELD_TYPE_STRINGLIST, NULL, v2tag, strip_tags);
     if (v2tag)
         Id3tag_delete_txxframes(v2tag, EASYTAG_STRING_ENCODEDBY, 0);
 
@@ -1121,6 +1013,123 @@ id3tag_write_file_v24tag (const ET_File *ETFile,
     /****************************************
      * File length (in milliseconds) DISCARD*
      ****************************************/
+
+}
+
+/*
+ * Write the ID3 tags to the file. Returns TRUE on success, else 0.
+ */
+gboolean
+id3tag_write_file_v24tag (const ET_File *ETFile,
+                          GError **error)
+{
+    const File_Tag *FileTag;
+    const gchar *filename;
+    struct id3_tag   *v1tag, *v2tag;
+    gboolean strip_tags = TRUE;
+    gboolean success;
+
+    g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL, FALSE);
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+    FileTag       = (File_Tag *)ETFile->FileTag->data;
+    filename      = ((File_Name *)ETFile->FileNameCur->data)->value;
+
+    v1tag = v2tag = NULL;
+
+    /* Write ID3v2 tag. */
+    if (g_settings_get_boolean (MainSettings, "id3v2-enabled"))
+    {
+        struct id3_file *file;
+        struct id3_tag *tmptag;
+        unsigned tagsize;
+        id3_byte_t *tmpbuf = NULL;
+
+        /* Read old v2 tag */
+        if ((file = id3_file_open(filename, ID3_FILE_MODE_READWRITE)) == NULL)
+        {
+            g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "%s",
+                         _("Error reading tags from file"));
+            return FALSE;
+        }
+
+        if ((tmptag = id3_file_tag(file)) == NULL)
+        {
+            g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "%s",
+                         _("Error reading tags from file"));
+            id3_file_close(file);
+            return FALSE;
+        }
+
+        id3_tag_options(tmptag, ID3_TAG_OPTION_UNSYNCHRONISATION
+                              | ID3_TAG_OPTION_ID3V1
+                              | ID3_TAG_OPTION_COMPRESSION
+                              | ID3_TAG_OPTION_APPENDEDTAG,
+                        //ID3_TAG_OPTION_UNSYNCHRONISATION); // Taglib doesn't support frames with unsynchronisation (patch from Alexey Illarionov) http://bugs.kde.org/show_bug.cgi?id=138829
+                        0);
+
+        /* XXX Create new tag and copy all frames*/
+        tagsize = id3_tag_render(tmptag, NULL);
+        if ((tagsize > 10)
+        && (tmpbuf = g_try_malloc(tagsize))
+        && (id3_tag_render(tmptag, tmpbuf) != 0)
+        )
+            v2tag = id3_tag_parse(tmpbuf, tagsize);
+        g_free(tmpbuf);
+
+        if (v2tag == NULL)
+        {
+            if ((v2tag = id3_tag_new()) == NULL)
+            {
+                g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "%s",
+                             _("Error reading tags from file"));
+                id3_file_close(file);
+                return FALSE;
+            }
+        }
+
+        id3_file_close(file);
+
+        /* Set padding  XXX */
+        if ((v2tag->paddedsize < 1024)
+        || ((v2tag->paddedsize > 4096) && (tagsize < 1024))
+        )
+            v2tag->paddedsize = 1024;
+
+        /* Set options */
+        id3_tag_options(v2tag, ID3_TAG_OPTION_UNSYNCHRONISATION
+                             | ID3_TAG_OPTION_APPENDEDTAG
+                             | ID3_TAG_OPTION_ID3V1
+                             | ID3_TAG_OPTION_CRC
+                             | ID3_TAG_OPTION_COMPRESSION,
+                        //ID3_TAG_OPTION_UNSYNCHRONISATION); // Taglib doesn't support frames with unsynchronisation (patch from Alexey Illarionov) http://bugs.kde.org/show_bug.cgi?id=138829
+                        0);
+
+        if (g_settings_get_boolean (MainSettings, "id3v2-crc32"))
+        {
+            id3_tag_options (v2tag, ID3_TAG_OPTION_CRC, ~0);
+        }
+        if (g_settings_get_boolean (MainSettings, "id3v2-compression"))
+        {
+            id3_tag_options (v2tag, ID3_TAG_OPTION_COMPRESSION, ~0);
+        }
+    }
+
+    /* Write ID3v1 tag. */
+    if (g_settings_get_boolean (MainSettings, "id3v1-enabled"))
+    {
+        v1tag = id3_tag_new();
+        if (!v1tag)
+        {
+            g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "%s",
+                         _("Error reading tags from file"));
+            return FALSE;
+        }
+
+        id3_tag_options(v1tag, ID3_TAG_OPTION_ID3V1, ~0);
+    }
+
+    et_id3tag_set_id3_tag_from_file_tag (FileTag, v1tag, v2tag, &strip_tags);
 
     /*********************************
      * Update id3v1.x and id3v2 tags *
@@ -1412,7 +1421,7 @@ id3taglib_set_field(struct id3_frame *frame,
 }
 
 
-static int
+int
 etag_set_tags (const gchar *str,
                const char *frame_name,
                enum id3_field_type field_type,

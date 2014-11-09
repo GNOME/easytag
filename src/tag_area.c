@@ -3024,6 +3024,11 @@ et_tag_area_display_et_file (EtTagArea *self,
             gtk_label_set_text (GTK_LABEL (priv->label), _("MP4/M4A/AAC Tag"));
             break;
 #endif
+#ifdef ENABLE_MP3
+        case DSF_TAG:
+            gtk_label_set_text (GTK_LABEL (priv->label), _("ID3 Tag"));
+            break;
+#endif
 #ifdef ENABLE_WAVPACK
         case WAVPACK_TAG:
             gtk_label_set_text (GTK_LABEL (priv->label), _("Wavpack Tag"));
