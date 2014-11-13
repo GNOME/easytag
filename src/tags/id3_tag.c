@@ -52,7 +52,6 @@
 /**************
  * Prototypes *
  **************/
-static gchar *Id3tag_Get_Error_Message (ID3_Err error);
 static void Id3tag_Prepare_ID3v1 (ID3Tag *id3_tag);
 static gchar *Id3tag_Rules_For_ISO_Fields (const gchar *string,
                                            const gchar *from_codeset,
@@ -125,6 +124,333 @@ et_id3tag_get_tpos_from_file_tag (const File_Tag *FileTag)
     return g_string_free (gstring, FALSE);
 }
 
+void
+et_id3tag_set_id3tag_from_file_tag (const File_Tag *FileTag,
+                                    ID3Tag *id3_tag,
+                                    gboolean *strip_tags)
+{
+    ID3Frame *id3_frame;
+    ID3Field *id3_field;
+    gchar *string1;
+    EtPicture *pic;
+
+    /*********
+     * Title *
+     *********/
+    // To avoid problem with a corrupted field, we remove it before to create a new one.
+    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_TITLE)) )
+        ID3Tag_RemoveFrame(id3_tag,id3_frame);
+
+    if (FileTag->title && g_utf8_strlen(FileTag->title, -1) > 0)
+    {
+        id3_frame = ID3Frame_NewID(ID3FID_TITLE);
+        ID3Tag_AttachFrame(id3_tag,id3_frame);
+        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, FileTag->title);
+        *strip_tags = FALSE;
+    }
+
+
+    /**********
+     * Artist *
+     **********/
+    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_LEADARTIST)) )
+        ID3Tag_RemoveFrame(id3_tag,id3_frame);
+    if (FileTag->artist && g_utf8_strlen(FileTag->artist, -1) > 0)
+    {
+        id3_frame = ID3Frame_NewID(ID3FID_LEADARTIST);
+        ID3Tag_AttachFrame(id3_tag,id3_frame);
+        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, FileTag->artist);
+        *strip_tags = FALSE;
+    }
+
+	/****************
+     * Album Artist *
+     ***************/
+    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_BAND)) )
+        ID3Tag_RemoveFrame(id3_tag,id3_frame);
+    if (FileTag->album_artist && g_utf8_strlen(FileTag->album_artist, -1) > 0)
+    {
+        id3_frame = ID3Frame_NewID(ID3FID_BAND);
+        ID3Tag_AttachFrame(id3_tag,id3_frame);
+        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, FileTag->album_artist);
+        *strip_tags = FALSE;
+    }
+
+    /*********
+     * Album *
+     *********/
+    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_ALBUM)) )
+        ID3Tag_RemoveFrame(id3_tag,id3_frame);
+    if (FileTag->album && g_utf8_strlen(FileTag->album, -1) > 0)
+    {
+        id3_frame = ID3Frame_NewID(ID3FID_ALBUM);
+        ID3Tag_AttachFrame(id3_tag,id3_frame);
+        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, FileTag->album);
+        *strip_tags = FALSE;
+    }
+
+
+    /*****************************
+     * Part of set and Set Total *
+     *****************************/
+    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_PARTINSET)) )
+        ID3Tag_RemoveFrame(id3_tag,id3_frame);
+    if (FileTag->disc_number && g_utf8_strlen(FileTag->disc_number, -1) > 0)
+    {
+        id3_frame = ID3Frame_NewID (ID3FID_PARTINSET);
+        ID3Tag_AttachFrame (id3_tag, id3_frame);
+        string1 = et_id3tag_get_tpos_from_file_tag (FileTag);
+        Id3tag_Set_Field (id3_frame, ID3FN_TEXT, string1);
+        g_free (string1);
+        *strip_tags = FALSE;
+    }
+
+
+    /********
+     * Year *
+     ********/
+    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_YEAR)) )
+        ID3Tag_RemoveFrame(id3_tag,id3_frame);
+    if (FileTag->year && g_utf8_strlen(FileTag->year, -1) > 0)
+    {
+        id3_frame = ID3Frame_NewID(ID3FID_YEAR);
+        ID3Tag_AttachFrame(id3_tag,id3_frame);
+        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, FileTag->year);
+        *strip_tags = FALSE;
+    }
+
+
+    /*************************
+     * Track and Total Track *
+     *************************/
+    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_TRACKNUM)) )
+        ID3Tag_RemoveFrame(id3_tag,id3_frame);
+    if (FileTag->track && g_utf8_strlen(FileTag->track, -1) > 0)
+    {
+        id3_frame = ID3Frame_NewID(ID3FID_TRACKNUM);
+        ID3Tag_AttachFrame(id3_tag,id3_frame);
+
+        if ( FileTag->track_total && g_utf8_strlen(FileTag->track_total, -1) > 0)
+            string1 = g_strconcat(FileTag->track,"/",FileTag->track_total,NULL);
+        else
+            string1 = g_strdup(FileTag->track);
+
+        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, string1);
+        g_free(string1);
+        *strip_tags = FALSE;
+    }
+
+
+    /*********
+     * Genre *
+     *********
+     * Genre is written like this :
+     *    - "(<genre_id>)"              -> "(3)"
+     *    - "(<genre_id>)<refinement>"  -> "(3)EuroDance"
+     */
+    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_CONTENTTYPE)) )
+        ID3Tag_RemoveFrame(id3_tag,id3_frame);
+    if (FileTag->genre && strlen(FileTag->genre)>0 )
+    {
+        gchar *genre_string_tmp;
+        guchar genre_value;
+
+        id3_frame = ID3Frame_NewID(ID3FID_CONTENTTYPE);
+        ID3Tag_AttachFrame(id3_tag,id3_frame);
+
+        genre_value = Id3tag_String_To_Genre(FileTag->genre);
+        // If genre not defined don't write genre value between brackets! (priority problem noted with some tools)
+        if ((genre_value == ID3_INVALID_GENRE)
+            || g_settings_get_boolean (MainSettings, "id3v2-text-only-genre"))
+        {
+            genre_string_tmp = g_strdup_printf("%s",FileTag->genre);
+        }
+        else
+        {
+            genre_string_tmp = g_strdup_printf("(%d)",genre_value);
+        }
+
+        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, genre_string_tmp);
+        g_free(genre_string_tmp);
+        *strip_tags = FALSE;
+    }
+
+
+    /***********
+     * Comment *
+     ***********/
+    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_COMMENT)) )
+        ID3Tag_RemoveFrame(id3_tag,id3_frame);
+    if (FileTag->comment && g_utf8_strlen(FileTag->comment, -1) > 0)
+    {
+        id3_frame = ID3Frame_NewID(ID3FID_COMMENT);
+        ID3Tag_AttachFrame(id3_tag,id3_frame);
+        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, FileTag->comment);
+        // These 2 following fields allow synchronisation between id3v2 and id3v1 tags with id3lib
+        // Disabled as when using unicode, the comment field stay in ISO.
+        //Id3tag_Set_Field(id3_frame, ID3FN_DESCRIPTION, "ID3v1 Comment");
+        //Id3tag_Set_Field(id3_frame, ID3FN_LANGUAGE, "XXX");
+        *strip_tags = FALSE;
+    }
+
+
+    /************
+     * Composer *
+     ************/
+    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_COMPOSER)) )
+        ID3Tag_RemoveFrame(id3_tag,id3_frame);
+    if (FileTag->composer && g_utf8_strlen(FileTag->composer, -1) > 0)
+    {
+        id3_frame = ID3Frame_NewID(ID3FID_COMPOSER);
+        ID3Tag_AttachFrame(id3_tag,id3_frame);
+        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, FileTag->composer);
+        *strip_tags = FALSE;
+    }
+
+
+    /*******************
+     * Original artist *
+     *******************/
+    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_ORIGARTIST)) )
+        ID3Tag_RemoveFrame(id3_tag,id3_frame);
+    if (FileTag->orig_artist && g_utf8_strlen(FileTag->orig_artist, -1) > 0)
+    {
+        id3_frame = ID3Frame_NewID(ID3FID_ORIGARTIST);
+        ID3Tag_AttachFrame(id3_tag,id3_frame);
+        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, FileTag->orig_artist);
+        *strip_tags = FALSE;
+    }
+
+
+    /*************
+     * Copyright *
+     *************/
+    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_COPYRIGHT)) )
+        ID3Tag_RemoveFrame(id3_tag,id3_frame);
+    if (FileTag->copyright && g_utf8_strlen(FileTag->copyright, -1) > 0)
+    {
+        id3_frame = ID3Frame_NewID(ID3FID_COPYRIGHT);
+        ID3Tag_AttachFrame(id3_tag,id3_frame);
+        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, FileTag->copyright);
+        *strip_tags = FALSE;
+    }
+
+
+    /*******
+     * URL *
+     *******/
+    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_WWWUSER)) )
+        ID3Tag_RemoveFrame(id3_tag,id3_frame);
+    if (FileTag->url && g_utf8_strlen(FileTag->url, -1) > 0)
+    {
+        id3_frame = ID3Frame_NewID(ID3FID_WWWUSER);
+        ID3Tag_AttachFrame(id3_tag,id3_frame);
+        Id3tag_Set_Field(id3_frame, ID3FN_URL, FileTag->url);
+        *strip_tags = FALSE;
+    }
+
+
+    /**************
+     * Encoded by *
+     **************/
+    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_ENCODEDBY)) )
+        ID3Tag_RemoveFrame(id3_tag,id3_frame);
+    if (FileTag->encoded_by && g_utf8_strlen(FileTag->encoded_by, -1) > 0)
+    {
+        id3_frame = ID3Frame_NewID(ID3FID_ENCODEDBY);
+        ID3Tag_AttachFrame(id3_tag,id3_frame);
+        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, FileTag->encoded_by);
+        *strip_tags = FALSE;
+    }
+
+
+    /***********
+     * Picture *
+     ***********/
+    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_PICTURE)) )
+        ID3Tag_RemoveFrame(id3_tag,id3_frame);
+
+    for (pic = FileTag->picture; pic != NULL; pic = pic->next)
+    {
+        Picture_Format format = Picture_Format_From_Data(pic);
+
+        id3_frame = ID3Frame_NewID(ID3FID_PICTURE);
+        ID3Tag_AttachFrame(id3_tag,id3_frame);
+
+        switch (format)
+        {
+            case PICTURE_FORMAT_JPEG:
+                if ((id3_field = ID3Frame_GetField(id3_frame,ID3FN_MIMETYPE)))
+                    ID3Field_SetASCII(id3_field, Picture_Mime_Type_String(format));
+                if ((id3_field = ID3Frame_GetField(id3_frame,ID3FN_IMAGEFORMAT)))
+                    ID3Field_SetASCII(id3_field, "JPG");
+                break;
+
+            case PICTURE_FORMAT_PNG:
+                if ((id3_field = ID3Frame_GetField(id3_frame,ID3FN_MIMETYPE)))
+                    ID3Field_SetASCII(id3_field, Picture_Mime_Type_String(format));
+                if ((id3_field = ID3Frame_GetField(id3_frame,ID3FN_IMAGEFORMAT)))
+                    ID3Field_SetASCII(id3_field, "PNG");
+                break;
+            case PICTURE_FORMAT_GIF:
+                if ((id3_field = ID3Frame_GetField (id3_frame,
+                                                    ID3FN_MIMETYPE)))
+                {
+                    ID3Field_SetASCII (id3_field,
+                                       Picture_Mime_Type_String (format));
+                }
+
+                if ((id3_field = ID3Frame_GetField (id3_frame,
+                                                    ID3FN_IMAGEFORMAT)))
+                {
+                    /* I could find no reference for what ID3FN_IMAGEFORMAT
+                     * should contain, so this is a guess. */
+                    ID3Field_SetASCII (id3_field, "GIF");
+                }
+                break;
+            default:
+                break;
+        }
+
+        if ((id3_field = ID3Frame_GetField(id3_frame, ID3FN_PICTURETYPE)))
+            ID3Field_SetINT(id3_field, pic->type);
+
+        if (pic->description)
+            Id3tag_Set_Field(id3_frame, ID3FN_DESCRIPTION, pic->description);
+
+        if ((id3_field = ID3Frame_GetField(id3_frame,ID3FN_DATA)))
+        {
+            gconstpointer data;
+            gsize data_size;
+
+            data = g_bytes_get_data (pic->bytes, &data_size);
+            ID3Field_SetBINARY (id3_field, data, data_size);
+        }
+
+        *strip_tags = FALSE;
+    }
+
+
+    /*********************************
+     * File length (in milliseconds) *
+     *********************************/
+    /* Don't write this field, not useful? *
+    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_SONGLEN)) )
+        ID3Tag_RemoveFrame(id3_tag,id3_frame);
+    if (ETFile->ETFileInfo && ((ET_File_Info *)ETFile->ETFileInfo)->duration > 0 )
+    {
+        gchar *string;
+
+        id3_frame = ID3Frame_NewID(ID3FID_SONGLEN);
+        ID3Tag_AttachFrame(id3_tag,id3_frame);
+
+        string = g_strdup_printf("%d",((ET_File_Info *)ETFile->ETFileInfo)->duration * 1000);
+        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, string);
+        g_free(string);
+        has_song_len = TRUE;
+    }*/
+}
+
 /*
  * Write the ID3 tags to the file. Returns TRUE on success, else 0.
  */
@@ -144,30 +470,10 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
     ID3_Err   error_update_id3v2 = ID3E_NoError;
     gboolean success = TRUE;
     gint number_of_frames;
-    gboolean has_title       = FALSE;
-    gboolean has_artist      = FALSE;
-    gboolean has_album_artist= FALSE;
-    gboolean has_album       = FALSE;
-    gboolean has_disc_number = FALSE;
-    gboolean has_year        = FALSE;
-    gboolean has_track       = FALSE;
-    gboolean has_genre       = FALSE;
-    gboolean has_comment     = FALSE;
-    gboolean has_composer    = FALSE;
-    gboolean has_orig_artist = FALSE;
-    gboolean has_copyright   = FALSE;
-    gboolean has_url         = FALSE;
-    gboolean has_encoded_by  = FALSE;
-    gboolean has_picture     = FALSE;
+    gboolean strip_tags = TRUE;
     //gboolean has_song_len    = FALSE;
     static gboolean flag_first_check = TRUE;
     static gboolean flag_id3lib_bugged = TRUE;
-
-    ID3Frame *id3_frame;
-    ID3Field *id3_field;
-    //gchar *string;
-    gchar *string1;
-    EtPicture *pic;
 
     g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL, FALSE);
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
@@ -232,325 +538,7 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
     /* Set padding when tag was changed, for faster writing */
     ID3Tag_SetPadding(id3_tag,TRUE);
 
-
-    /*********
-     * Title *
-     *********/
-    // To avoid problem with a corrupted field, we remove it before to create a new one.
-    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_TITLE)) )
-        ID3Tag_RemoveFrame(id3_tag,id3_frame);
-
-    if (FileTag->title && g_utf8_strlen(FileTag->title, -1) > 0)
-    {
-        id3_frame = ID3Frame_NewID(ID3FID_TITLE);
-        ID3Tag_AttachFrame(id3_tag,id3_frame);
-        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, FileTag->title);
-        has_title = TRUE;
-    }
-
-
-    /**********
-     * Artist *
-     **********/
-    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_LEADARTIST)) )
-        ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (FileTag->artist && g_utf8_strlen(FileTag->artist, -1) > 0)
-    {
-        id3_frame = ID3Frame_NewID(ID3FID_LEADARTIST);
-        ID3Tag_AttachFrame(id3_tag,id3_frame);
-        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, FileTag->artist);
-        has_artist = TRUE;
-    }
-
-	/****************
-     * Album Artist *
-     ***************/
-    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_BAND)) )
-        ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (FileTag->album_artist && g_utf8_strlen(FileTag->album_artist, -1) > 0)
-    {
-        id3_frame = ID3Frame_NewID(ID3FID_BAND);
-        ID3Tag_AttachFrame(id3_tag,id3_frame);
-        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, FileTag->album_artist);
-        has_album_artist = TRUE;
-    }
-
-    /*********
-     * Album *
-     *********/
-    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_ALBUM)) )
-        ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (FileTag->album && g_utf8_strlen(FileTag->album, -1) > 0)
-    {
-        id3_frame = ID3Frame_NewID(ID3FID_ALBUM);
-        ID3Tag_AttachFrame(id3_tag,id3_frame);
-        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, FileTag->album);
-        has_album = TRUE;
-    }
-
-
-    /*****************************
-     * Part of set and Set Total *
-     *****************************/
-    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_PARTINSET)) )
-        ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (FileTag->disc_number && g_utf8_strlen(FileTag->disc_number, -1) > 0)
-    {
-        id3_frame = ID3Frame_NewID (ID3FID_PARTINSET);
-        ID3Tag_AttachFrame (id3_tag, id3_frame);
-        string1 = et_id3tag_get_tpos_from_file_tag (FileTag);
-        Id3tag_Set_Field (id3_frame, ID3FN_TEXT, string1);
-        g_free (string1);
-        has_disc_number = TRUE;
-    }
-
-
-    /********
-     * Year *
-     ********/
-    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_YEAR)) )
-        ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (FileTag->year && g_utf8_strlen(FileTag->year, -1) > 0)
-    {
-        id3_frame = ID3Frame_NewID(ID3FID_YEAR);
-        ID3Tag_AttachFrame(id3_tag,id3_frame);
-        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, FileTag->year);
-        has_year = TRUE;
-    }
-
-
-    /*************************
-     * Track and Total Track *
-     *************************/
-    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_TRACKNUM)) )
-        ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (FileTag->track && g_utf8_strlen(FileTag->track, -1) > 0)
-    {
-        id3_frame = ID3Frame_NewID(ID3FID_TRACKNUM);
-        ID3Tag_AttachFrame(id3_tag,id3_frame);
-
-        if ( FileTag->track_total && g_utf8_strlen(FileTag->track_total, -1) > 0)
-            string1 = g_strconcat(FileTag->track,"/",FileTag->track_total,NULL);
-        else
-            string1 = g_strdup(FileTag->track);
-
-        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, string1);
-        g_free(string1);
-        has_track = TRUE;
-    }
-
-
-    /*********
-     * Genre *
-     *********
-     * Genre is written like this :
-     *    - "(<genre_id>)"              -> "(3)"
-     *    - "(<genre_id>)<refinement>"  -> "(3)EuroDance"
-     */
-    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_CONTENTTYPE)) )
-        ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (FileTag->genre && strlen(FileTag->genre)>0 )
-    {
-        gchar *genre_string_tmp;
-        guchar genre_value;
-
-        id3_frame = ID3Frame_NewID(ID3FID_CONTENTTYPE);
-        ID3Tag_AttachFrame(id3_tag,id3_frame);
-
-        genre_value = Id3tag_String_To_Genre(FileTag->genre);
-        // If genre not defined don't write genre value between brackets! (priority problem noted with some tools)
-        if ((genre_value == ID3_INVALID_GENRE)
-            || g_settings_get_boolean (MainSettings, "id3v2-text-only-genre"))
-        {
-            genre_string_tmp = g_strdup_printf("%s",FileTag->genre);
-        }
-        else
-        {
-            genre_string_tmp = g_strdup_printf("(%d)",genre_value);
-        }
-
-        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, genre_string_tmp);
-        g_free(genre_string_tmp);
-        has_genre = TRUE;
-    }
-
-
-    /***********
-     * Comment *
-     ***********/
-    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_COMMENT)) )
-        ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (FileTag->comment && g_utf8_strlen(FileTag->comment, -1) > 0)
-    {
-        id3_frame = ID3Frame_NewID(ID3FID_COMMENT);
-        ID3Tag_AttachFrame(id3_tag,id3_frame);
-        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, FileTag->comment);
-        // These 2 following fields allow synchronisation between id3v2 and id3v1 tags with id3lib
-        // Disabled as when using unicode, the comment field stay in ISO.
-        //Id3tag_Set_Field(id3_frame, ID3FN_DESCRIPTION, "ID3v1 Comment");
-        //Id3tag_Set_Field(id3_frame, ID3FN_LANGUAGE, "XXX");
-        has_comment = TRUE;
-    }
-
-
-    /************
-     * Composer *
-     ************/
-    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_COMPOSER)) )
-        ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (FileTag->composer && g_utf8_strlen(FileTag->composer, -1) > 0)
-    {
-        id3_frame = ID3Frame_NewID(ID3FID_COMPOSER);
-        ID3Tag_AttachFrame(id3_tag,id3_frame);
-        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, FileTag->composer);
-        has_composer = TRUE;
-    }
-
-
-    /*******************
-     * Original artist *
-     *******************/
-    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_ORIGARTIST)) )
-        ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (FileTag->orig_artist && g_utf8_strlen(FileTag->orig_artist, -1) > 0)
-    {
-        id3_frame = ID3Frame_NewID(ID3FID_ORIGARTIST);
-        ID3Tag_AttachFrame(id3_tag,id3_frame);
-        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, FileTag->orig_artist);
-        has_orig_artist = TRUE;
-    }
-
-
-    /*************
-     * Copyright *
-     *************/
-    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_COPYRIGHT)) )
-        ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (FileTag->copyright && g_utf8_strlen(FileTag->copyright, -1) > 0)
-    {
-        id3_frame = ID3Frame_NewID(ID3FID_COPYRIGHT);
-        ID3Tag_AttachFrame(id3_tag,id3_frame);
-        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, FileTag->copyright);
-        has_copyright = TRUE;
-    }
-
-
-    /*******
-     * URL *
-     *******/
-    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_WWWUSER)) )
-        ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (FileTag->url && g_utf8_strlen(FileTag->url, -1) > 0)
-    {
-        id3_frame = ID3Frame_NewID(ID3FID_WWWUSER);
-        ID3Tag_AttachFrame(id3_tag,id3_frame);
-        Id3tag_Set_Field(id3_frame, ID3FN_URL, FileTag->url);
-        has_composer = TRUE;
-    }
-
-
-    /**************
-     * Encoded by *
-     **************/
-    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_ENCODEDBY)) )
-        ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (FileTag->encoded_by && g_utf8_strlen(FileTag->encoded_by, -1) > 0)
-    {
-        id3_frame = ID3Frame_NewID(ID3FID_ENCODEDBY);
-        ID3Tag_AttachFrame(id3_tag,id3_frame);
-        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, FileTag->encoded_by);
-        has_encoded_by = TRUE;
-    }
-
-
-    /***********
-     * Picture *
-     ***********/
-    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_PICTURE)) )
-        ID3Tag_RemoveFrame(id3_tag,id3_frame);
-
-    has_picture = FALSE;
-
-    for (pic = FileTag->picture; pic != NULL; pic = pic->next)
-    {
-        Picture_Format format = Picture_Format_From_Data(pic);
-
-        id3_frame = ID3Frame_NewID(ID3FID_PICTURE);
-        ID3Tag_AttachFrame(id3_tag,id3_frame);
-
-        switch (format)
-        {
-            case PICTURE_FORMAT_JPEG:
-                if ((id3_field = ID3Frame_GetField(id3_frame,ID3FN_MIMETYPE)))
-                    ID3Field_SetASCII(id3_field, Picture_Mime_Type_String(format));
-                if ((id3_field = ID3Frame_GetField(id3_frame,ID3FN_IMAGEFORMAT)))
-                    ID3Field_SetASCII(id3_field, "JPG");
-                break;
-
-            case PICTURE_FORMAT_PNG:
-                if ((id3_field = ID3Frame_GetField(id3_frame,ID3FN_MIMETYPE)))
-                    ID3Field_SetASCII(id3_field, Picture_Mime_Type_String(format));
-                if ((id3_field = ID3Frame_GetField(id3_frame,ID3FN_IMAGEFORMAT)))
-                    ID3Field_SetASCII(id3_field, "PNG");
-                break;
-            case PICTURE_FORMAT_GIF:
-                if ((id3_field = ID3Frame_GetField (id3_frame,
-                                                    ID3FN_MIMETYPE)))
-                {
-                    ID3Field_SetASCII (id3_field,
-                                       Picture_Mime_Type_String (format));
-                }
-
-                if ((id3_field = ID3Frame_GetField (id3_frame,
-                                                    ID3FN_IMAGEFORMAT)))
-                {
-                    /* I could find no reference for what ID3FN_IMAGEFORMAT
-                     * should contain, so this is a guess. */
-                    ID3Field_SetASCII (id3_field, "GIF");
-                }
-                break;
-            default:
-                break;
-        }
-
-        if ((id3_field = ID3Frame_GetField(id3_frame, ID3FN_PICTURETYPE)))
-            ID3Field_SetINT(id3_field, pic->type);
-
-        if (pic->description)
-            Id3tag_Set_Field(id3_frame, ID3FN_DESCRIPTION, pic->description);
-
-        if ((id3_field = ID3Frame_GetField(id3_frame,ID3FN_DATA)))
-        {
-            gconstpointer data;
-            gsize data_size;
-
-            data = g_bytes_get_data (pic->bytes, &data_size);
-            ID3Field_SetBINARY (id3_field, data, data_size);
-        }
-
-        has_picture = TRUE;
-    }
-
-
-    /*********************************
-     * File length (in milliseconds) *
-     *********************************/
-    /* Don't write this field, not useful? *
-    while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_SONGLEN)) )
-        ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (ETFile->ETFileInfo && ((ET_File_Info *)ETFile->ETFileInfo)->duration > 0 )
-    {
-        gchar *string;
-
-        id3_frame = ID3Frame_NewID(ID3FID_SONGLEN);
-        ID3Tag_AttachFrame(id3_tag,id3_frame);
-
-        string = g_strdup_printf("%d",((ET_File_Info *)ETFile->ETFileInfo)->duration * 1000);
-        Id3tag_Set_Field(id3_frame, ID3FN_TEXT, string);
-        g_free(string);
-        has_song_len = TRUE;
-    }*/
-
+    et_id3tag_set_id3tag_from_file_tag (FileTag, id3_tag, &strip_tags);
 
     /******************************
      * Delete an APE tag if found *
@@ -584,9 +572,7 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
      * is set to TRUE, we strip the ID3v1.x and ID3v2 tags. Else, write ID3v2
      * and/or ID3v1. */
     if (g_settings_get_boolean (MainSettings, "id3-strip-empty")
-    && !has_title      && !has_artist   && !has_album_artist && !has_album       && !has_year      && !has_track
-    && !has_genre      && !has_composer && !has_orig_artist && !has_copyright && !has_url
-    && !has_encoded_by && !has_picture  && !has_comment     && !has_disc_number)//&& !has_song_len )
+        && strip_tags)
     {
         error_strip_id3v1 = ID3Tag_Strip(id3_tag,ID3TT_ID3V1);
         error_strip_id3v2 = ID3Tag_Strip(id3_tag,ID3TT_ID3V2);
@@ -744,7 +730,8 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
 }
 
 
-gchar *Id3tag_Get_Error_Message(ID3_Err error)
+gchar *
+Id3tag_Get_Error_Message (ID3_Err error)
 {
     switch (error)
     {

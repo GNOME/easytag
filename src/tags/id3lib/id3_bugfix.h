@@ -42,6 +42,8 @@ extern "C"
   ID3_C_EXPORT ID3_TextEnc           CCONV ID3Field_GetEncoding    (const ID3Field *field);
   ID3_C_EXPORT bool                  CCONV ID3Field_IsEncodable    (const ID3Field *field);
   ID3_C_EXPORT ID3_FieldType         CCONV ID3Field_GetType        (const ID3Field *field);
+  ID3_C_EXPORT size_t                CCONV ID3Tag_Render           (const ID3Tag *tag, uchar *buffer, ID3_TagType tt);
+  ID3_C_EXPORT size_t                CCONV ID3Tag_Size             (const ID3Tag *tag);
   //ID3_C_EXPORT ID3_FieldID           CCONV ID3Field_GetID          (const ID3Field *field);
 
   ID3_C_EXPORT const Mp3_Headerinfo* CCONV ID3Tag_GetMp3HeaderInfo (ID3Tag *tag);

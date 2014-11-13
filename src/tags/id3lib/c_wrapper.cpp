@@ -119,6 +119,30 @@ extern "C"
     return headerInfo;
   }
 
+  /* Filed as a patch against id3lib:
+   * http://sourceforge.net/p/id3lib/patches/75/ */
+  ID3_C_EXPORT size_t CCONV
+  ID3Tag_Render(const ID3Tag *tag, uchar *buffer, ID3_TagType tt)
+  {
+    size_t size = 0;
+    if (tag)
+    {
+      ID3_CATCH(size = reinterpret_cast<const ID3_Tag *>(tag)->Render(buffer, tt));
+    }
+    return size;
+  }
+
+  ID3_C_EXPORT size_t CCONV
+  ID3Tag_Size(const ID3Tag *tag)
+  {
+    size_t size = 0;
+    if (tag)
+    {
+      ID3_CATCH(size = reinterpret_cast<const ID3_Tag *>(tag)->Size());
+    }
+    return size;
+  }
+
   // Call with :
   //    Mp3_Headerinfo* headerInfo = malloc(sizeof(Mp3_Headerinfo));
   //    ID3Tag_GetMp3HeaderInfo(tag, headerInfo);
