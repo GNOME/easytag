@@ -24,10 +24,12 @@
 #include <errno.h>
 
 #include "id3_tag.h"
+
 #include "ape_tag.h"
 #include "picture.h"
 #include "easytag.h"
 #include "genres.h"
+#include "id3_private.h"
 #include "setting.h"
 #include "misc.h"
 #include "et_core.h"
@@ -36,7 +38,6 @@
 #ifdef ENABLE_MP3
 
 #ifdef ENABLE_ID3LIB
-#include <id3.h>
 #include "id3lib/id3_bugfix.h"
 #endif
 

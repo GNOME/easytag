@@ -135,6 +135,7 @@ easytag_headers = \
 	src/tags/flac_tag.h \
 	src/tags/gio_wrapper.h \
 	src/tags/id3_tag.h \
+	src/tags/id3_private.h \
 	src/tags/monkeyaudio_header.h \
 	src/tags/mpeg_header.h \
 	src/tags/mp4_header.h \

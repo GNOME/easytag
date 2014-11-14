@@ -31,11 +31,9 @@
 
 #ifdef ENABLE_MP3
 
-#include <id3tag.h>
-#include "id3_tag.h"
+#include "id3_private.h"
 
 #ifdef ENABLE_ID3LIB
-#include <id3.h>
 #include "id3lib/id3_bugfix.h"
 #endif
 

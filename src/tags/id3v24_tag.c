@@ -26,14 +26,15 @@
 #include <stdlib.h>
 
 #include "id3_tag.h"
-#include "picture.h"
-#include "easytag.h"
-#include "browser.h"
-#include "setting.h"
-#include "misc.h"
-#include "et_core.h"
-#include "charset.h"
 
+#include "browser.h"
+#include "charset.h"
+#include "easytag.h"
+#include "et_core.h"
+#include "id3_private.h"
+#include "misc.h"
+#include "picture.h"
+#include "setting.h"
 #include "win32/win32dep.h"
 
 
