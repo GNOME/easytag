@@ -83,9 +83,6 @@ static GtkWidget *RenameDirectoryWithMask;
 static GtkListStore *RenameDirectoryMaskModel = NULL;
 GtkWidget *RenameDirectoryPreviewLabel = NULL;
 
-/* The last ETFile selected in the BrowserList. */
-static ET_File *LastBrowserListETFileSelected;
-
 static const guint BOX_SPACING = 6;
 
 static gchar *Rename_Directory_Masks [] =
@@ -995,43 +992,44 @@ gboolean Browser_Tree_Select_Dir (const gchar *current_path)
 static void
 Browser_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
 {
-    GList *selectedRows;
-    GtkTreePath *lastSelected;
-    GtkTreeIter lastFile;
-    ET_File *fileETFile;
+    gint n_selected;
+    GtkTreePath *cursor_path;
+    GtkTreeIter cursor_iter;
+    ET_File *cursor_et_file;
 
-    selectedRows = gtk_tree_selection_get_selected_rows(selection, NULL);
+
+    n_selected = gtk_tree_selection_count_selected_rows (selection);
 
     /*
      * After a file is deleted, this function is called :
      * So we must handle the situation if no rows are selected
      */
-    if (!selectedRows)
+    if (n_selected == 0)
     {
         return;
     }
 
-    if (!LastBrowserListETFileSelected)
+    gtk_tree_view_get_cursor (GTK_TREE_VIEW (BrowserList), &cursor_path,
+                              NULL);
+
+    if (!cursor_path)
     {
-        // Returns the last line selected (in ascending line order) to display the item
-        lastSelected = (GtkTreePath *)g_list_last(selectedRows)->data;
-        if (gtk_tree_model_get_iter(GTK_TREE_MODEL(fileListModel), &lastFile, lastSelected))
-        {
-            gtk_tree_model_get (GTK_TREE_MODEL(fileListModel), &lastFile,
-                                LIST_FILE_POINTER, &fileETFile, -1);
-            Action_Select_Nth_File_By_Etfile (fileETFile);
-        }
-        else
-        {
-            g_warning ("%s", "Error getting iter from last path in selection");
-        }
-    }else
-    {
-        // The real last selected line
-        Action_Select_Nth_File_By_Etfile(LastBrowserListETFileSelected);
+        return;
     }
 
-    g_list_free_full (selectedRows, (GDestroyNotify)gtk_tree_path_free);
+    if (gtk_tree_model_get_iter (GTK_TREE_MODEL (fileListModel), &cursor_iter,
+                                 cursor_path))
+    {
+        gtk_tree_model_get (GTK_TREE_MODEL (fileListModel), &cursor_iter,
+                            LIST_FILE_POINTER, &cursor_et_file, -1);
+        Action_Select_Nth_File_By_Etfile (cursor_et_file);
+    }
+    else
+    {
+        g_warning ("%s", "Error getting iter from cursor path");
+    }
+
+    gtk_tree_path_free (cursor_path);
 }
 
 /*
@@ -1539,10 +1537,6 @@ void Browser_List_Remove_File (ET_File *searchETFile)
 
             if (currentETFile == searchETFile)
             {
-                // Reinit this value to avoid a crash after deleting files...
-                if (LastBrowserListETFileSelected == searchETFile)
-                    LastBrowserListETFileSelected = NULL;
-
                 gtk_list_store_remove(fileListModel, &currentIter);
                 break;
             }
@@ -2968,37 +2962,6 @@ get_gicon_for_path (const gchar *path, EtPathState path_state)
     return folder_icon;
 }
 
-
-/*
- * Sets the selection function. If set, this function is called before any node
- * is selected or unselected, giving some control over which nodes are selected.
- * The select function should return TRUE if the state of the node may be toggled,
- * and FALSE if the state of the node should be left unchanged.
- */
-static gboolean
-Browser_List_Select_Func (GtkTreeSelection *selection, GtkTreeModel *model, GtkTreePath *path, gboolean path_currently_selected, gpointer data)
-{
-    /* This line will be selected at the end of the event.
-     * We store the last ETFile selected, as gtk_tree_selection_get_selected_rows
-     * returns the selection, in the ascending line order, instead of the real
-     * order of line selection (so we can't displayed the last selected file)
-     * FIXME : should generate a list to get the previous selected file if unselected the last selected file */
-    if (!path_currently_selected)
-    {
-        GtkTreeIter iter;
-        if (gtk_tree_model_get_iter(GTK_TREE_MODEL(fileListModel), &iter, path))
-            gtk_tree_model_get(GTK_TREE_MODEL(fileListModel), &iter,
-                               LIST_FILE_POINTER, &LastBrowserListETFileSelected, -1);
-    }else
-    {
-        LastBrowserListETFileSelected = NULL;
-    }
-    //g_print(">>>%s -> %d -> %x\n",gtk_tree_path_to_string(path),path_currently_selected,LastBrowserListETFileSelected);
-
-    return TRUE;
-}
-
-
 /*
  * Open up a node on the browser tree
  * Scanning and showing all subdirectories
@@ -3570,8 +3533,6 @@ GtkWidget *Create_Browser_Items (GtkWidget *parent)
 
     gtk_tree_view_set_reorderable(GTK_TREE_VIEW(BrowserList), FALSE);
     gtk_tree_selection_set_mode(gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList)),GTK_SELECTION_MULTIPLE);
-    // When selecting a line
-    gtk_tree_selection_set_select_function(gtk_tree_view_get_selection(GTK_TREE_VIEW(BrowserList)), Browser_List_Select_Func, NULL, NULL);
     // To sort list
     gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE (fileListModel), 0,
                                       Browser_List_Sort_Func, NULL, NULL);
