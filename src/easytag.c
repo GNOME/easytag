@@ -530,6 +530,10 @@ Save_File (ET_File *ETFile, gboolean multiple_files,
                 if (rc != TRUE && !SF_HideMsgbox_Write_Tag)
                 {
                     stop_loop = -1;
+
+                    g_free (basename_cur_utf8);
+                    g_free (basename_new_utf8);
+
                     return stop_loop;
                 }
                 break;
@@ -539,6 +543,10 @@ Save_File (ET_File *ETFile, gboolean multiple_files,
             case GTK_RESPONSE_CANCEL:
             case GTK_RESPONSE_DELETE_EVENT:
                 stop_loop = -1;
+
+                g_free (basename_cur_utf8);
+                g_free (basename_new_utf8);
+
                 return stop_loop;
                 break;
             default:
@@ -693,6 +701,10 @@ Save_File (ET_File *ETFile, gboolean multiple_files,
                 if (!rc && !SF_HideMsgbox_Rename_File)
                 {
                     stop_loop = -1;
+
+                    g_free (basename_cur_utf8);
+                    g_free (basename_new_utf8);
+
                     return stop_loop;
                 }
 
@@ -706,6 +718,10 @@ Save_File (ET_File *ETFile, gboolean multiple_files,
             case GTK_RESPONSE_CANCEL:
             case GTK_RESPONSE_DELETE_EVENT:
                 stop_loop = -1;
+
+                g_free (basename_cur_utf8);
+                g_free (basename_new_utf8);
+
                 return stop_loop;
                 break;
             default:
