@@ -212,6 +212,23 @@ et_id3tag_set_id3tag_from_file_tag (const File_Tag *FileTag,
      ********/
     while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_YEAR)) )
         ID3Tag_RemoveFrame(id3_tag,id3_frame);
+
+    /* When libid3tag reads the year, it synthesizes a single date from several
+     * fields, including the obsolete (in ID3v2.4) TDAT and TIME frames. Delete
+     * the obsolete frames to ensure that the saved date matches the year field
+     * in the UI. */
+    while ((id3_frame = ID3Tag_FindFrameWithID (id3_tag,
+                                                ID3FID_DATE)))
+    {
+        ID3Tag_RemoveFrame (id3_tag, id3_frame);
+    }
+
+    while ((id3_frame = ID3Tag_FindFrameWithID (id3_tag,
+                                                ID3FID_TIME)))
+    {
+        ID3Tag_RemoveFrame (id3_tag, id3_frame);
+    }
+
     if (FileTag->year && g_utf8_strlen(FileTag->year, -1) > 0)
     {
         id3_frame = ID3Frame_NewID(ID3FID_YEAR);
