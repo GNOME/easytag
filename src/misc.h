@@ -51,9 +51,6 @@ gint Combo_Alphabetic_Sort (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b,
 gboolean et_run_audio_player (GList *files, GError **error);
 gboolean et_run_program (const gchar *program_name, GList *args_list, GError **error);
 
-void File_Selection_Window_For_File      (GtkWidget *entry);
-void File_Selection_Window_For_Directory (GtkWidget *entry);
-
 gchar * et_disc_number_to_string (const guint disc_number);
 gchar * et_track_number_to_string (const guint track_number);
 

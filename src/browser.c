@@ -3747,6 +3747,76 @@ on_sort_mode_changed (EtBrowser *self, gchar *key, GSettings *settings)
 }
 
 /*
+ * Open the file selection window and saves the selected file path into entry
+ */
+static void
+open_file_selection_dialog (GtkWidget *entry,
+                            const gchar *title,
+                            GtkFileChooserAction action)
+{
+    const gchar *tmp;
+    gchar *filename, *filename_utf8;
+    GtkWidget *dialog;
+    GtkWindow *parent_window = NULL;
+    gint response;
+
+    parent_window = (GtkWindow*) gtk_widget_get_toplevel (entry);
+    if (!gtk_widget_is_toplevel (GTK_WIDGET (parent_window)))
+    {
+        g_warning ("%s", "Could not get parent window");
+        return;
+    }
+
+    dialog = gtk_file_chooser_dialog_new (title, parent_window, action,
+                                          _("_Cancel"), GTK_RESPONSE_CANCEL,
+                                          _("_Open"), GTK_RESPONSE_ACCEPT,
+                                          NULL);
+
+    /* Set initial directory. */
+    tmp = gtk_entry_get_text (GTK_ENTRY (entry));
+
+    if (tmp && *tmp)
+    {
+        if (!gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (dialog), tmp))
+        {
+            gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dialog),
+                                                 tmp);
+        }
+    }
+
+    response = gtk_dialog_run (GTK_DIALOG (dialog));
+
+    if (response == GTK_RESPONSE_ACCEPT)
+    {
+        filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
+        filename_utf8 = filename_to_display (filename);
+        gtk_entry_set_text (GTK_ENTRY (entry), filename_utf8);
+        g_free (filename);
+        g_free (filename_utf8);
+        /* Useful for the button on the main window. */
+        gtk_widget_grab_focus (GTK_WIDGET (entry));
+        g_signal_emit_by_name (entry, "activate");
+    }
+
+    gtk_widget_destroy (dialog);
+}
+
+/* File selection window */
+static void
+File_Selection_Window_For_File (GtkWidget *entry)
+{
+    open_file_selection_dialog (entry, _("Select File"),
+                                GTK_FILE_CHOOSER_ACTION_OPEN);
+}
+
+static void
+File_Selection_Window_For_Directory (GtkWidget *entry)
+{
+    open_file_selection_dialog (entry, _("Select Directory"),
+                                GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
+}
+
+/*
  * Create item of the browser (Entry + Tree + List).
  */
 static void
