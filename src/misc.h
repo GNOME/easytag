@@ -30,31 +30,17 @@ G_BEGIN_DECLS
 gboolean Add_String_To_Combo_List(GtkListStore *liststore, const gchar *string);
 gchar   *Get_Active_Combo_Box_Item(GtkComboBox *combo);
 
-
-/*
- * Other
- */
-void Init_Character_Translation_Table (void);
-
-// Mouse cursor
 void Init_Mouse_Cursor    (void);
 void Set_Busy_Cursor      (void);
 void Set_Unbusy_Cursor    (void);
 
-
 gchar *Convert_Duration (gulong duration);
-
-goffset et_get_file_size (const gchar *filename);
-
-gint Combo_Alphabetic_Sort (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, gpointer data);
 
 gboolean et_run_audio_player (GList *files, GError **error);
 gboolean et_run_program (const gchar *program_name, GList *args_list, GError **error);
 
 gchar * et_disc_number_to_string (const guint disc_number);
 gchar * et_track_number_to_string (const guint track_number);
-
-void et_on_child_exited (GPid pid, gint status, gpointer user_data);
 
 G_END_DECLS
 

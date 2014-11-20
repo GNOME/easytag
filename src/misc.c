@@ -202,6 +202,12 @@ void Set_Unbusy_Cursor (void)
     Destroy_Mouse_Cursor();
 }
 
+static void
+et_on_child_exited (GPid pid, gint status, gpointer user_data)
+{
+    g_spawn_close_pid (pid);
+}
+
 /*
  * Run a program with a list of parameters
  *  - args_list : list of filename (with path)
@@ -392,43 +398,6 @@ gchar *Convert_Duration (gulong duration)
     return data;
 }
 
-/*
- * @filename: (type filename): the path to a file
- *
- * Gets the size of a file in bytes.
- *
- * Returns: the size of a file, in bytes
- */
-goffset
-et_get_file_size (const gchar *filename)
-{
-    GFile *file;
-    GFileInfo *info;
-    /* TODO: Take a GError from the caller. */
-    GError *error = NULL;
-    goffset size;
-
-    g_return_val_if_fail (filename != NULL, 0);
-
-    file = g_file_new_for_path (filename);
-    info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_SIZE,
-                              G_FILE_QUERY_INFO_NONE, NULL, &error);
-
-    if (!info)
-    {
-        g_object_unref (file);
-        g_error_free (error);
-        return FALSE;
-    }
-
-    g_object_unref (file);
-
-    size = g_file_info_get_size (info);
-    g_object_unref (info);
-
-    return size;
-}
-
 gchar *
 et_disc_number_to_string (const guint disc_number)
 {
@@ -456,10 +425,4 @@ et_track_number_to_string (const guint track_number)
     {
         return g_strdup_printf ("%d", track_number);
     }
-}
-
-void
-et_on_child_exited (GPid pid, gint status, gpointer user_data)
-{
-    g_spawn_close_pid (pid);
 }
