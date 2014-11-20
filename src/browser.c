@@ -4579,6 +4579,8 @@ Run_Program_With_Directory (EtBrowser *self)
 
     if (program_ran)
     {
+        gchar *msg;
+
         // Append newest choice to the drop down list
         Add_String_To_Combo_List(priv->run_program_model, program_name);
 
@@ -4586,6 +4588,12 @@ Run_Program_With_Directory (EtBrowser *self)
         Save_Run_Program_With_Directory_List(priv->run_program_model, MISC_COMBO_TEXT);
 
         Destroy_Run_Program_Tree_Window (self);
+
+        msg = g_strdup_printf (_("Executed command ‘%s’"), program_name);
+        et_application_window_status_bar_message (ET_APPLICATION_WINDOW (MainWindow),
+                                                  msg, TRUE);
+
+        g_free (msg);
     }
     g_free(program_name);
 }
@@ -4635,6 +4643,8 @@ Run_Program_With_Selected_Files (EtBrowser *self)
 
     if (program_ran)
     {
+        gchar *msg;
+
         // Append newest choice to the drop down list
         //gtk_list_store_prepend(GTK_LIST_STORE(priv->run_program_model), &iter);
         //gtk_list_store_set(priv->run_program_model, &iter, MISC_COMBO_TEXT, program_name, -1);
@@ -4644,6 +4654,12 @@ Run_Program_With_Selected_Files (EtBrowser *self)
         Save_Run_Program_With_File_List(priv->run_program_model, MISC_COMBO_TEXT);
 
         Destroy_Run_Program_List_Window (self);
+
+        msg = g_strdup_printf (_("Executed command ‘%s’"), program_name);
+        et_application_window_status_bar_message (ET_APPLICATION_WINDOW (MainWindow),
+                                                  msg, TRUE);
+
+        g_free (msg);
     }
     g_free(program_name);
 }

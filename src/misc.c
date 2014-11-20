@@ -26,7 +26,6 @@
 #include <sys/stat.h>
 #include <errno.h>
 
-#include "application_window.h"
 #include "misc.h"
 #include "easytag.h"
 #include "id3_tag.h"
@@ -234,7 +233,6 @@ et_run_program (const gchar *program_name, GList *args_list)
     gchar **program_args_argv = NULL;
     guint n_program_args = 0;
     gsize i;
-    gchar  *msg;
     GPid pid;
     GError *error = NULL;
     gchar **argv;
@@ -245,7 +243,7 @@ et_run_program (const gchar *program_name, GList *args_list)
     g_return_val_if_fail (program_name != NULL && args_list != NULL, FALSE);
 
     /* Check if a name for the program has been supplied */
-    if (*program_name)
+    if (!*program_name)
     {
         GtkWidget *msgdialog;
 
@@ -333,10 +331,6 @@ et_run_program (const gchar *program_name, GList *args_list)
     {
         g_child_watch_add (pid, et_on_child_exited, NULL);
 
-        msg = g_strdup_printf (_("Executed command ‘%s’"), program_name);
-        et_application_window_status_bar_message (ET_APPLICATION_WINDOW (MainWindow),
-                                                  msg, TRUE);
-        g_free (msg);
         res = TRUE;
     }
     else
