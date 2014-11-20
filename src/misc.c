@@ -1,20 +1,20 @@
-/*
- *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
- *  Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
+/* EasyTAG - Tag editor for audio files
+ * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
  *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
 #include "config.h"
@@ -32,7 +32,6 @@
 #include "browser.h"
 #include "setting.h"
 #include "preferences_dialog.h"
-#include "log.h"
 #include "charset.h"
 
 #ifdef G_OS_WIN32
@@ -226,7 +225,9 @@ void Set_Unbusy_Cursor (void)
  *  - args_list : list of filename (with path)
  */
 gboolean
-et_run_program (const gchar *program_name, GList *args_list)
+et_run_program (const gchar *program_name,
+                GList *args_list,
+                GError **error)
 {
     gchar *program_tmp;
     const gchar *program_args;
@@ -234,13 +235,13 @@ et_run_program (const gchar *program_name, GList *args_list)
     guint n_program_args = 0;
     gsize i;
     GPid pid;
-    GError *error = NULL;
     gchar **argv;
     GList *l;
     gchar *program_path;
     gboolean res = FALSE;
 
     g_return_val_if_fail (program_name != NULL && args_list != NULL, FALSE);
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     /* Check if a name for the program has been supplied */
     if (!*program_name)
@@ -327,17 +328,11 @@ et_run_program (const gchar *program_name, GList *args_list)
     /* Execution ... */
     if (g_spawn_async (NULL, argv, NULL,
                        G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
-                       NULL, NULL, &pid, &error))
+                       NULL, NULL, &pid, error))
     {
         g_child_watch_add (pid, et_on_child_exited, NULL);
 
         res = TRUE;
-    }
-    else
-    {
-        Log_Print (LOG_ERROR, _("Failed to launch program ‘%s’"),
-                   error->message);
-        g_clear_error (&error);
     }
 
     g_strfreev (program_args_argv);
@@ -412,29 +407,25 @@ static void Open_File_Selection_Window (GtkWidget *entry, gchar *title, GtkFileC
     gtk_widget_destroy(FileSelectionWindow);
 }
 
-
-
-void
-et_run_audio_player (GList *files)
+gboolean
+et_run_audio_player (GList *files,
+                     GError **error)
 {
     GFileInfo *info;
-    GError *error = NULL;
     const gchar *content_type;
     GAppInfo *app_info;
     GdkAppLaunchContext *context;
 
-    g_return_if_fail (files != NULL);
+    g_return_val_if_fail (files != NULL, FALSE);
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     info = g_file_query_info (files->data,
                               G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
-                              G_FILE_QUERY_INFO_NONE, NULL, &error);
+                              G_FILE_QUERY_INFO_NONE, NULL, error);
 
-    if (error)
+    if (info == NULL)
     {
-        g_warning ("Unable to get content type for file: %s",
-                   error->message);
-        g_error_free (error);
-        return;
+        return FALSE;
     }
 
     content_type = g_file_info_get_content_type (info);
@@ -444,35 +435,18 @@ et_run_audio_player (GList *files)
     context = gdk_display_get_app_launch_context (gdk_display_get_default ());
 
     if (!g_app_info_launch (app_info, files, G_APP_LAUNCH_CONTEXT (context),
-                            &error))
+                            error))
     {
-        Log_Print (LOG_ERROR, _("Failed to launch program ‘%s’"),
-                   error->message);
-        g_error_free (error);
+        g_object_unref (context);
+        g_object_unref (app_info);
+
+        return FALSE;
     }
 
     g_object_unref (context);
     g_object_unref (app_info);
-}
 
-void
-Run_Audio_Player_Using_Directory (void)
-{
-    GList *l;
-    GList *file_list = NULL;
-
-    for (l = g_list_first (ETCore->ETFileList); l != NULL; l = g_list_next (l))
-    {
-        ET_File *etfile = (ET_File *)l->data;
-        gchar *path = ((File_Name *)etfile->FileNameCur->data)->value;
-        file_list = g_list_prepend (file_list, g_file_new_for_path (path));
-    }
-
-    file_list = g_list_reverse (file_list);
-
-    et_run_audio_player (file_list);
-
-    g_list_free_full (file_list, g_object_unref);
+    return TRUE;
 }
 
 /*

@@ -1,34 +1,28 @@
-/* misc.h - 2000/06/28 */
-/*
- *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
- *  Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
+/* EasyTAG - Tag editor for audio files
+ * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
  *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __MISC_H__
-#define __MISC_H__
-
+#ifndef ET_MISC_H_
+#define ET_MISC_H_
 
 #include <gtk/gtk.h>
 
 G_BEGIN_DECLS
-
-/**************
- * Prototypes *
- **************/
 
 /*
  * Combobox misc functions
@@ -47,8 +41,6 @@ void Init_Mouse_Cursor    (void);
 void Set_Busy_Cursor      (void);
 void Set_Unbusy_Cursor    (void);
 
-// Run Audio Player
-void Run_Audio_Player_Using_Directory (void);
 
 gchar *Convert_Duration (gulong duration);
 
@@ -56,8 +48,8 @@ goffset et_get_file_size (const gchar *filename);
 
 gint Combo_Alphabetic_Sort (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, gpointer data);
 
-void et_run_audio_player (GList *files);
-gboolean et_run_program (const gchar *program_name, GList *args_list);
+gboolean et_run_audio_player (GList *files, GError **error);
+gboolean et_run_program (const gchar *program_name, GList *args_list, GError **error);
 
 void File_Selection_Window_For_File      (GtkWidget *entry);
 void File_Selection_Window_For_Directory (GtkWidget *entry);
@@ -69,4 +61,4 @@ void et_on_child_exited (GPid pid, gint status, gpointer user_data);
 
 G_END_DECLS
 
-#endif /* __MISC_H__ */
+#endif /* ET_MISC_H_ */

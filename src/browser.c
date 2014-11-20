@@ -330,6 +330,7 @@ et_browser_run_player_for_album_list (EtBrowser *self)
     GtkTreeSelection *selection;
     GList *l;
     GList *file_list = NULL;
+    GError *error = NULL;
 
     priv = et_browser_get_instance_private (self);
 
@@ -352,7 +353,13 @@ et_browser_run_player_for_album_list (EtBrowser *self)
 
     file_list = g_list_reverse (file_list);
 
-    et_run_audio_player (file_list);
+    if (!et_run_audio_player (file_list, &error))
+    {
+        Log_Print (LOG_ERROR, _("Failed to launch program ‘%s’"),
+                   error->message);
+        g_error_free (error);
+    }
+
     g_list_free_full (file_list, g_object_unref);
 }
 
@@ -364,6 +371,7 @@ et_browser_run_player_for_artist_list (EtBrowser *self)
     GtkTreeSelection *selection;
     GList *l, *m;
     GList *file_list = NULL;
+    GError *error = NULL;
 
     priv = et_browser_get_instance_private (self);
 
@@ -388,7 +396,13 @@ et_browser_run_player_for_artist_list (EtBrowser *self)
 
     file_list = g_list_reverse (file_list);
 
-    et_run_audio_player (file_list);
+    if (!et_run_audio_player (file_list, &error))
+    {
+        Log_Print (LOG_ERROR, _("Failed to launch program ‘%s’"),
+                   error->message);
+        g_error_free (error);
+    }
+
     g_list_free_full (file_list, g_object_unref);
 }
 
@@ -400,6 +414,7 @@ et_browser_run_player_for_selection (EtBrowser *self)
     GList *l;
     GList *file_list = NULL;
     GtkTreeSelection *selection;
+    GError *error = NULL;
 
     priv = et_browser_get_instance_private (self);
 
@@ -415,7 +430,13 @@ et_browser_run_player_for_selection (EtBrowser *self)
 
     file_list = g_list_reverse (file_list);
 
-    et_run_audio_player (file_list);
+    if (!et_run_audio_player (file_list, &error))
+    {
+        Log_Print (LOG_ERROR, _("Failed to launch program ‘%s’"),
+                   error->message);
+        g_error_free (error);
+    }
+
     g_list_free_full (file_list, g_object_unref);
     g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
 }
@@ -4560,6 +4581,7 @@ Run_Program_With_Directory (EtBrowser *self)
     gchar *current_directory;
     GList *args_list = NULL;
     gboolean program_ran;
+    GError *error = NULL;
 
     priv = et_browser_get_instance_private (self);
 
@@ -4574,7 +4596,7 @@ Run_Program_With_Directory (EtBrowser *self)
     // List of parameters (here only one! : the current directory)
     args_list = g_list_append(args_list,current_directory);
 
-    program_ran = et_run_program (program_name, args_list);
+    program_ran = et_run_program (program_name, args_list, &error);
     g_list_free(args_list);
 
     if (program_ran)
@@ -4595,6 +4617,13 @@ Run_Program_With_Directory (EtBrowser *self)
 
         g_free (msg);
     }
+    else
+    {
+        Log_Print (LOG_ERROR, _("Failed to launch program ‘%s’"),
+                   error->message);
+        g_clear_error (&error);
+    }
+
     g_free(program_name);
 }
 
@@ -4609,6 +4638,7 @@ Run_Program_With_Selected_Files (EtBrowser *self)
     GList   *args_list = NULL;
     GtkTreeIter iter;
     gboolean program_ran;
+    GError *error = NULL;
 
     priv = et_browser_get_instance_private (self);
 
@@ -4636,7 +4666,7 @@ Run_Program_With_Selected_Files (EtBrowser *self)
     }
 
     args_list = g_list_reverse (args_list);
-    program_ran = et_run_program (program_name, args_list);
+    program_ran = et_run_program (program_name, args_list, &error);
 
     g_list_free_full (selected_paths, (GDestroyNotify)gtk_tree_path_free);
     g_list_free(args_list);
@@ -4661,6 +4691,13 @@ Run_Program_With_Selected_Files (EtBrowser *self)
 
         g_free (msg);
     }
+    else
+    {
+        Log_Print (LOG_ERROR, _("Failed to launch program ‘%s’"),
+                   error->message);
+        g_clear_error (&error);
+    }
+
     g_free(program_name);
 }
 

@@ -1470,12 +1470,42 @@ on_run_player_artist (GSimpleAction *action,
     et_browser_run_player_for_artist_list (ET_BROWSER (priv->browser));
 }
 
+static gboolean
+run_audio_player_using_directory (GError **error)
+{
+    GList *l;
+    GList *file_list = NULL;
+    gboolean res;
+
+    for (l = g_list_first (ETCore->ETFileList); l != NULL; l = g_list_next (l))
+    {
+        ET_File *etfile = (ET_File *)l->data;
+        gchar *path = ((File_Name *)etfile->FileNameCur->data)->value;
+        file_list = g_list_prepend (file_list, g_file_new_for_path (path));
+    }
+
+    file_list = g_list_reverse (file_list);
+
+    res = et_run_audio_player (file_list, error);
+
+    g_list_free_full (file_list, g_object_unref);
+
+    return res;
+}
+
 static void
 on_run_player_directory (GSimpleAction *action,
                          GVariant *variant,
                          gpointer user_data)
 {
-    Run_Audio_Player_Using_Directory ();
+    GError *error = NULL;
+
+    if (!run_audio_player_using_directory (&error))
+    {
+        Log_Print (LOG_ERROR, _("Failed to launch program ‘%s’"),
+                   error->message);
+        g_error_free (error);
+    }
 }
 
 static void
