@@ -248,11 +248,11 @@ Picture_Type_String (EtPictureType type)
 }
 
 gchar *
-Picture_Info (const Picture *pic)
+Picture_Info (const Picture *pic,
+              ET_Tag_Type tag_type)
 {
     const gchar *format, *desc, *type;
     gchar *r, *size_str;
-    GString *s;
 
     format = Picture_Format_String(Picture_Format_From_Data(pic));
 
@@ -264,35 +264,29 @@ Picture_Info (const Picture *pic)
     type = Picture_Type_String(pic->type);
     size_str = g_format_size (pic->size);
 
-    s = g_string_new(0);
     // Behaviour following the tag type...
-    switch (ETCore->ETFileDisplayed->ETFileDescription->TagType)
+    switch (tag_type)
     {
         case MP4_TAG:
         {
-            g_string_printf (s, "%s (%s - %d×%d %s)\n%s: %s",
-                             format,
-                             size_str,
-                             pic->width, pic->height, _("pixels"),
-                             _("Type"), type);
+            r = g_strdup_printf ("%s (%s - %d×%d %s)\n%s: %s", format,
+                                 size_str, pic->width, pic->height,
+                                 _("pixels"), _("Type"), type);
             break;
         }
 
         // Other tag types
         default:
         {
-            g_string_printf (s, "%s (%s - %d×%d %s)\n%s: %s\n%s: %s",
-                             format,
-                             size_str,
-                             pic->width, pic->height, _("pixels"),
-                             _("Type"), type,
-                             _("Description"), desc);
+            r = g_strdup_printf ("%s (%s - %d×%d %s)\n%s: %s\n%s: %s", format,
+                                 size_str, pic->width, pic->height,
+                                 _("pixels"), _("Type"), type,
+                                 _("Description"), desc);
             break;
         }
     }
-    r = Try_To_Validate_Utf8_String(s->str);
-    g_string_free(s, TRUE); // TRUE to free also 's->str'!
-    g_free(size_str);
+
+    g_free (size_str);
 
     return r;
 }

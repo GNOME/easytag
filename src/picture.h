@@ -89,7 +89,7 @@ void           Picture_Free             (Picture *pic);
 Picture_Format Picture_Format_From_Data (const Picture *pic);
 const gchar   *Picture_Mime_Type_String (Picture_Format format);
 const gchar * Picture_Type_String (EtPictureType type);
-gchar * Picture_Info (const Picture *pic);
+gchar * Picture_Info (const Picture *pic, ET_Tag_Type tag_type);
 
 Picture *et_picture_load_file_data (GFile *file, GError **error);
 gboolean et_picture_save_file_data (const Picture *pic, GFile *file, GError **error);

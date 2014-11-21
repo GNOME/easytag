@@ -410,6 +410,7 @@ test-report perf-report full-report: $(check_PROGRAMS)
 check_PROGRAMS = \
 	tests/test-dlm \
 	tests/test-misc \
+	tests/test-picture \
 	tests/test-scan
 
 tests_test_dlm_CPPFLAGS = \
@@ -443,6 +444,22 @@ tests_test_misc_SOURCES = \
 	src/misc.c
 
 tests_test_misc_LDADD = \
+	$(EASYTAG_LIBS)
+
+tests_test_picture_CPPFLAGS = \
+	-I$(top_srcdir)/src \
+	-I$(top_builddir) \
+	$(DEPRECATED_CPPFLAGS)
+
+tests_test_picture_CFLAGS = \
+	$(WARN_CFLAGS) \
+	$(EASYTAG_CFLAGS)
+
+tests_test_picture_SOURCES = \
+	tests/test-picture.c \
+	src/picture.c
+
+tests_test_picture_LDADD = \
 	$(EASYTAG_LIBS)
 
 tests_test_scan_CPPFLAGS = \

@@ -1304,7 +1304,8 @@ PictureEntry_Update (EtTagArea *self,
                                     GDK_INTERP_BILINEAR);
                 g_object_unref(pixbuf);
 
-                pic_info = Picture_Info (pic);
+                pic_info = Picture_Info (pic,
+                                         ETCore->ETFileDisplayed->ETFileDescription->TagType);
                 gtk_list_store_insert_with_values (priv->images_model, &iter1,
                                                    G_MAXINT,
                                                    PICTURE_COLUMN_PIC,
@@ -1776,7 +1777,8 @@ on_picture_properties_button_clicked (GObject *object,
                 pic->description = buffer;
 
                 /* Update value in the PictureEntryView. */
-                pic_info = Picture_Info (pic);
+                pic_info = Picture_Info (pic,
+                                         ETCore->ETFileDisplayed->ETFileDescription->TagType);
                 gtk_list_store_set (GTK_LIST_STORE (model), &iter,
                                     PICTURE_COLUMN_TEXT, pic_info, -1);
                 g_free (pic_info);
