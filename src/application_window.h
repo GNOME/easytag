@@ -58,6 +58,8 @@ void et_application_window_file_area_clear (EtApplicationWindow *self);
 void et_application_window_file_area_set_sensitive (EtApplicationWindow *self, gboolean sensitive);
 void et_application_window_disable_command_actions (EtApplicationWindow *self);
 void et_application_window_update_actions (EtApplicationWindow *self);
+void et_application_window_set_busy_cursor (EtApplicationWindow *self);
+void et_application_window_set_normal_cursor (EtApplicationWindow *self);
 void et_application_window_tag_area_display_controls (EtApplicationWindow *self, const ET_File *ETFile);
 GtkWidget * et_application_window_get_log_area (EtApplicationWindow *self);
 void et_application_window_show_preferences_dialog_scanner (EtApplicationWindow *self);

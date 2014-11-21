@@ -43,8 +43,6 @@
  ***************/
 static const guint BOX_SPACING = 6;
 
-static GdkCursor *MouseCursor;
-
 /*
  * Add the 'string' passed in parameter to the list store
  * If this string already exists in the list store, it doesn't add it.
@@ -166,40 +164,6 @@ gchar *Get_Active_Combo_Box_Item (GtkComboBox *combo)
 
     gtk_tree_model_get(model, &iter, MISC_COMBO_TEXT, &text, -1);
     return text;
-}
-
-/*
- * Change mouse cursor
- */
-void Init_Mouse_Cursor (void)
-{
-    MouseCursor = NULL;
-}
-
-static void
-Destroy_Mouse_Cursor (void)
-{
-    if (MouseCursor)
-    {
-        g_object_unref (MouseCursor);
-        MouseCursor = NULL;
-    }
-}
-
-void Set_Busy_Cursor (void)
-{
-    /* If still built, destroy it to avoid memory leak */
-    Destroy_Mouse_Cursor();
-    /* Create the new cursor */
-    MouseCursor = gdk_cursor_new(GDK_WATCH);
-    gdk_window_set_cursor(gtk_widget_get_window(MainWindow),MouseCursor);
-}
-
-void Set_Unbusy_Cursor (void)
-{
-    /* Back to standard cursor */
-    gdk_window_set_cursor(gtk_widget_get_window(MainWindow),NULL);
-    Destroy_Mouse_Cursor();
 }
 
 static void

@@ -1001,7 +1001,7 @@ Read_Directory (const gchar *path_real)
     }
 
     /* Open the window to quit recursion (since 27/04/2007 : not only into recursion mode) */
-    Set_Busy_Cursor();
+    et_application_window_set_busy_cursor (window);
     action = g_action_map_lookup_action (G_ACTION_MAP (MainWindow), "stop");
     g_settings_bind (MainSettings, "browse-subdir", G_SIMPLE_ACTION (action),
                      "enabled", G_SETTINGS_BIND_GET);
@@ -1116,7 +1116,7 @@ Read_Directory (const gchar *path_real)
     et_application_window_progress_set_fraction (window, 0.0);
     et_application_window_status_bar_message (window, msg, FALSE);
     g_free (msg);
-    Set_Unbusy_Cursor();
+    et_application_window_set_normal_cursor (window);
     ReadingDirectory = FALSE;
 
     return TRUE;

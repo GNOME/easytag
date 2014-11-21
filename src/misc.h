@@ -30,10 +30,6 @@ G_BEGIN_DECLS
 gboolean Add_String_To_Combo_List(GtkListStore *liststore, const gchar *string);
 gchar   *Get_Active_Combo_Box_Item(GtkComboBox *combo);
 
-void Init_Mouse_Cursor    (void);
-void Set_Busy_Cursor      (void);
-void Set_Unbusy_Cursor    (void);
-
 gchar *Convert_Duration (gulong duration);
 
 gboolean et_run_audio_player (GList *files, GError **error);

@@ -66,6 +66,8 @@ struct _EtApplicationWindowPrivate
     GtkWidget *hpaned;
     GtkWidget *vpaned;
 
+    GdkCursor *cursor;
+
     gboolean is_maximized;
     gint height;
     gint width;
@@ -1628,6 +1630,12 @@ et_application_window_dispose (GObject *object)
         priv->search_dialog = NULL;
     }
 
+    if (priv->cursor)
+    {
+        g_object_unref (priv->cursor);
+        priv->cursor = NULL;
+    }
+
     G_OBJECT_CLASS (et_application_window_parent_class)->dispose (object);
 }
 
@@ -2399,6 +2407,35 @@ et_application_window_update_actions (EtApplicationWindow *self)
         set_action_state (self, "go-next", TRUE);
         set_action_state (self, "go-last", TRUE);
     }
+}
+
+void
+et_application_window_set_busy_cursor (EtApplicationWindow *self)
+{
+    EtApplicationWindowPrivate *priv;
+
+    g_return_if_fail (ET_APPLICATION_WINDOW (self));
+
+    priv = et_application_window_get_instance_private (self);
+
+    if (!priv->cursor)
+    {
+        priv->cursor = gdk_cursor_new_for_display (gdk_window_get_display (gtk_widget_get_window (GTK_WIDGET (self))),
+                                                   GDK_WATCH);
+
+    }
+
+    gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (self)),
+                           priv->cursor);
+}
+
+void
+et_application_window_set_normal_cursor (EtApplicationWindow *self)
+{
+    g_return_if_fail (ET_APPLICATION_WINDOW (self));
+
+    /* Back to standard cursor */
+    gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (self)), NULL);
 }
 
 /*
