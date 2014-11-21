@@ -16,9 +16,15 @@
  * Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __DLM_H__
-#define __DLM_H__
+#ifndef ET_DLM_H_
+#define ET_DLM_H_
 
-int dlm (const gchar *s, const gchar *t);
+#include <glib.h>
 
-#endif /* __DLM_H__ */
+G_BEGIN_DECLS
+
+gint dlm (const gchar *s, const gchar *t);
+
+G_END_DECLS
+
+#endif /* ET_DLM_H_ */

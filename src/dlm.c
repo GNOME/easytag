@@ -16,7 +16,6 @@
  * Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <glib.h>
 #include <string.h>
 
 #include "dlm.h"
@@ -27,10 +26,11 @@ static int dlm_minimum (int a, int b, int c, int d);
 /*
  * Compute the Damerau-Levenshtein Distance between utf-8 strings ds and dt.
  */
-int dlm (const gchar *ds, const gchar *dt)
+gint
+dlm (const gchar *ds, const gchar *dt)
 {
-    int i, j, n, m, metric;
-    int *d;
+    gsize n;
+    gsize m;
 
     /* Casefold for better matching of the strings. */
     gchar *s = g_utf8_casefold(ds, -1);
@@ -41,10 +41,15 @@ int dlm (const gchar *ds, const gchar *dt)
 
     if (n && m)
     {
+        gint *d;
+        gsize i;
+        gsize j;
+        gint metric;
+
         n++;
         m++;
 
-        d = (int *)g_malloc0(sizeof(int) * m * n);
+        d = (gint *)g_malloc0 (sizeof (gint) * m * n);
 
         for (i = 0; i < m; i++)
             d[i * n] = i;
@@ -69,7 +74,8 @@ int dlm (const gchar *ds, const gchar *dt)
         g_free(d);
 
         /* Count a "similarity value" */
-        metric = 1000 - (1000 * (metric * 2)) / (m + n);
+        /* Subtract the extra byte added to each string length earlier. */
+        metric = 1000 - (1000 * (metric * 2)) / (m + n - 2);
 
         g_free(t);
         g_free(s);
