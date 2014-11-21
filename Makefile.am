@@ -408,7 +408,25 @@ test-report perf-report full-report: $(check_PROGRAMS)
 	}
 
 check_PROGRAMS = \
+	tests/test-misc \
 	tests/test-scan
+
+tests_test_misc_CPPFLAGS = \
+	-I$(top_srcdir)/src \
+	-I$(top_srcdir)/src/tags \
+	-I$(top_builddir) \
+	$(DEPRECATED_CPPFLAGS)
+
+tests_test_misc_CFLAGS = \
+	$(WARN_CFLAGS) \
+	$(EASYTAG_CFLAGS)
+
+tests_test_misc_SOURCES = \
+	tests/test-misc.c \
+	src/misc.c
+
+tests_test_misc_LDADD = \
+	$(EASYTAG_LIBS)
 
 tests_test_scan_CPPFLAGS = \
 	-I$(top_srcdir)/src \
