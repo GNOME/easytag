@@ -161,16 +161,14 @@ read_guint32_from_byte (guchar *str, gsize start)
 
 /*
  * et_add_file_tags_from_vorbis_comments:
- * @vc: the byte string
- * @FileTag: position to start with
- * @filename_utf8: display filename
+ * @vc: Vorbis comment from which to fill @FileTag
+ * @FileTag: tag to populate from @vc
  *
- * Reads vorbis comments and copies them to file tag.
+ * Reads Vorbis comments and copies them to file tag.
  */
-
 void
-et_add_file_tags_from_vorbis_comments (vorbis_comment *vc, File_Tag *FileTag,
-                                       const gchar *filename_utf8)
+et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
+                                       File_Tag *FileTag)
 {
     gchar *string = NULL;
     gchar *string1 = NULL;
@@ -715,8 +713,7 @@ ogg_tag_read_file_tag (GFile *file,
             g_print("%s -> Ogg vc:'%s'\n",g_path_get_basename(filename),vc->user_comments[i]);
     }*/
 
-    et_add_file_tags_from_vorbis_comments (vcedit_comments(state), FileTag,
-                                           filename_utf8);
+    et_add_file_tags_from_vorbis_comments (vcedit_comments(state), FileTag);
     vcedit_clear(state);
     g_free (filename_utf8);
 

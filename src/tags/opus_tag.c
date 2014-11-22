@@ -58,7 +58,6 @@ et_opus_tag_read_file_tag (GFile *gfile, File_Tag *FileTag,
 {
     OggOpusFile *file;
     const OpusTags *tags;
-    GFileInfo *info;
 
     g_return_val_if_fail (gfile != NULL && FileTag != NULL, FALSE);
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
@@ -72,20 +71,10 @@ et_opus_tag_read_file_tag (GFile *gfile, File_Tag *FileTag,
     }
 
     tags = op_tags (file, 0);
-    info = g_file_query_info (gfile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
-                              G_FILE_QUERY_INFO_NONE, NULL, error);
-
-    if (!info)
-    {
-        op_free (file);
-        g_assert (error == NULL || *error != NULL);
-        return FALSE;
-    }
 
     /* The cast is safe according to the opusfile documentation. */
-    et_add_file_tags_from_vorbis_comments ((vorbis_comment *)tags, FileTag,
-                                           g_file_info_get_display_name (info));
-    g_object_unref (info);
+    et_add_file_tags_from_vorbis_comments ((vorbis_comment *)tags, FileTag);
+
     op_free (file);
 
     g_assert (error == NULL || *error == NULL);
