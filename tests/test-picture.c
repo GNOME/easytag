@@ -108,7 +108,20 @@ picture_type_from_filename (void)
         { "illustrations of grandeur", ET_PICTURE_TYPE_ILLUSTRATION },
         { "inside outside", ET_PICTURE_TYPE_LEAFLET_PAGE },
         { "front to back", ET_PICTURE_TYPE_FRONT_COVER },
-        { "back to front", ET_PICTURE_TYPE_FRONT_COVER }
+        { "back to front", ET_PICTURE_TYPE_FRONT_COVER },
+        { "inlay", ET_PICTURE_TYPE_LEAFLET_PAGE },
+        { "leaflet", ET_PICTURE_TYPE_LEAFLET_PAGE },
+        { "page", ET_PICTURE_TYPE_LEAFLET_PAGE },
+        { "multimedia", ET_PICTURE_TYPE_MEDIA },
+        { "artist band", ET_PICTURE_TYPE_ARTIST_PERFORMER },
+        { "band", ET_PICTURE_TYPE_BAND_ORCHESTRA },
+        { "orchestra", ET_PICTURE_TYPE_BAND_ORCHESTRA },
+        { "performer", ET_PICTURE_TYPE_ARTIST_PERFORMER },
+        { "composer", ET_PICTURE_TYPE_COMPOSER },
+        { "lyricist", ET_PICTURE_TYPE_LYRICIST_TEXT_WRITER },
+        { "writer", ET_PICTURE_TYPE_FRONT_COVER },
+        { "publisher", ET_PICTURE_TYPE_PUBLISHER_STUDIO_LOGOTYPE },
+        { "studio", ET_PICTURE_TYPE_FRONT_COVER }
     };
 
     for (i = 0; i < G_N_ELEMENTS (pictures); i++)

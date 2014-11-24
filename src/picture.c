@@ -73,6 +73,8 @@ EtPictureType
 et_picture_type_from_filename (const gchar *filename_utf8)
 {
     EtPictureType picture_type = ET_PICTURE_TYPE_FRONT_COVER;
+
+    /* TODO: Use g_str_tokenize_and_fold(). */
     static const struct
     {
         const gchar *type_str;
@@ -81,10 +83,21 @@ et_picture_type_from_filename (const gchar *filename_utf8)
     {
         { "front", ET_PICTURE_TYPE_FRONT_COVER },
         { "back", ET_PICTURE_TYPE_BACK_COVER },
-        { "CD", ET_PICTURE_TYPE_MEDIA },
-        { "illustration", ET_PICTURE_TYPE_ILLUSTRATION },
+        { "inlay", ET_PICTURE_TYPE_LEAFLET_PAGE },
         { "inside", ET_PICTURE_TYPE_LEAFLET_PAGE },
-        { "inlay", ET_PICTURE_TYPE_LEAFLET_PAGE }
+        { "leaflet", ET_PICTURE_TYPE_LEAFLET_PAGE },
+        { "page", ET_PICTURE_TYPE_LEAFLET_PAGE },
+        { "CD", ET_PICTURE_TYPE_MEDIA },
+        { "media", ET_PICTURE_TYPE_MEDIA },
+        { "artist", ET_PICTURE_TYPE_ARTIST_PERFORMER },
+        { "performer", ET_PICTURE_TYPE_ARTIST_PERFORMER },
+        { "conductor", ET_PICTURE_TYPE_CONDUCTOR },
+        { "band", ET_PICTURE_TYPE_BAND_ORCHESTRA },
+        { "orchestra", ET_PICTURE_TYPE_BAND_ORCHESTRA },
+        { "composer", ET_PICTURE_TYPE_COMPOSER },
+        { "lyricist", ET_PICTURE_TYPE_LYRICIST_TEXT_WRITER },
+        { "illustration", ET_PICTURE_TYPE_ILLUSTRATION },
+        { "publisher", ET_PICTURE_TYPE_PUBLISHER_STUDIO_LOGOTYPE }
     };
     gsize i;
     gchar *folded_filename;
@@ -230,7 +243,7 @@ Picture_Type_String (EtPictureType type)
             return _("During recording");
         case ET_PICTURE_TYPE_DURING_PERFORMANCE:
             return _("During performance");
-        case ET_PICTURE_TYPE_MOVIDE_VIDEO_SCREEN_CAPTURE:
+        case ET_PICTURE_TYPE_MOVIE_VIDEO_SCREEN_CAPTURE:
             return _("Movie/video screen capture");
         case ET_PICTURE_TYPE_A_BRIGHT_COLOURED_FISH:
             return _("A bright colored fish");
