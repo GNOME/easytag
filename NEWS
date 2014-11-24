@@ -1,3 +1,15 @@
+2.2.5 - 2014-11-24 :
+====================
+
+    * Fix many memory leaks in the CDDB search dialog
+    * Clear empty cover art and album artist fields in MP4 tags
+    * Fix a memory leak and invalid read in the MP4 tagging code
+    * Improve ID3v2 handling with Ogg files
+    * Improve file list selection handling
+    * Fix several memory leaks in the file browser
+    * Show updated images in the Windows installer
+    * Åka Sikrom’s Norwegian bokmål translation
+
 2.2.4 - 2014-09-27 :
 ====================
 
