@@ -23,7 +23,7 @@
 
 #ifdef ENABLE_MUSICBRAINZ
 
-#include <glib-object.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
@@ -32,6 +32,22 @@ G_BEGIN_DECLS
 
 typedef struct _EtMusicbrainz EtMusicbrainz;
 typedef struct _EtMusicbrainzClass EtMusicbrainzClass;
+
+/*
+ * EtMusicbrainzEntity:
+ * @ET_MUSICBRAINZ_ENTITY_RELEASE_GROUP:
+ * @ET_MUSICBRAINZ_ENTITY_ARTIST:
+ *
+ * Entity type to query against the MusicBrainz web service.
+ */
+typedef enum
+{
+    ET_MUSICBRAINZ_ENTITY_RELEASE_GROUP,
+    ET_MUSICBRAINZ_ENTITY_ARTIST
+} EtMusicbrainzEntity;
+
+typedef struct _EtMusicbrainzQuery EtMusicbrainzQuery;
+typedef struct _EtMusicbrainzResult EtMusicbrainzResult;
 
 struct _EtMusicbrainz
 {
@@ -47,6 +63,17 @@ struct _EtMusicbrainzClass
 
 GType et_musicbrainz_get_type (void);
 EtMusicbrainz *et_musicbrainz_new (void);
+
+void et_musicbrainz_search_async (EtMusicbrainz *self, EtMusicbrainzQuery *query, GCancellable *cancellable, GAsyncReadyCallback callback, gpointer user_data);
+EtMusicbrainzResult * et_musicbrainz_search_finish (EtMusicbrainz *self, GAsyncResult *result, GError **error);
+
+EtMusicbrainzQuery * et_musicbrainz_query_new (EtMusicbrainzEntity entity, const gchar *search_string);
+EtMusicbrainzQuery * et_musicbrainz_query_ref (EtMusicbrainzQuery *query);
+void et_musicbrainz_query_unref (EtMusicbrainzQuery *query);
+
+EtMusicbrainzResult * et_musicbrainz_result_ref (EtMusicbrainzResult *result);
+void et_musicbrainz_result_unref (EtMusicbrainzResult *result);
+GList * et_musicbrainz_result_get_results (EtMusicbrainzResult *result);
 
 G_END_DECLS
 

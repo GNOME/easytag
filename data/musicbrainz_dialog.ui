@@ -1,5 +1,10 @@
 <interface domain="easytag">
     <requires lib="gtk+" version="3.10"/>
+    <object class="GtkListStore" id="results_model">
+        <columns>
+            <column type="gchararray"/>
+        </columns>
+    </object>
     <template class="EtMusicbrainzDialog" parent="GtkDialog">
         <property name="destroy-with-parent">True</property>
         <property name="title" translatable="yes">MusicBrainz Search</property>
@@ -46,6 +51,7 @@
                             <object class="GtkEntry" id="search_entry">
                                 <property name="tooltip-text" translatable="yes">Enter the search terms</property>
                                 <property name="visible">True</property>
+                                <signal name="activate" handler="on_search_entry_activate" swapped="true"/>
                             </object>
                             <packing>
                                 <property name="left-attach">1</property>
@@ -64,6 +70,7 @@
                                         <property name="label" translatable="yes">_Search</property>
                                         <property name="use-underline">True</property>
                                         <property name="visible">True</property>
+                                        <signal name="clicked" handler="on_search_button_clicked" swapped="true"/>
                                     </object>
                                 </child>
                                 <child>
@@ -73,6 +80,7 @@
                                         <property name="tooltip-text" translatable="yes">Stop the search</property>
                                         <property name="use-underline">True</property>
                                         <property name="visible">True</property>
+                                        <signal name="clicked" handler="on_stop_button_clicked" swapped="true"/>
                                     </object>
                                 </child>
                             </object>
@@ -105,7 +113,19 @@
                                 <property name="visible">True</property>
                                 <child>
                                     <object class="GtkTreeView" id="results_view">
+                                        <property name="model">results_model</property>
                                         <property name="visible">True</property>
+                                        <child>
+                                            <object class="GtkTreeViewColumn" id="name_column">
+                                                <property name="title" translatable="yes">Name</property>
+                                                <child>
+                                                    <object class="GtkCellRendererText" id="name_renderer"/>
+                                                    <attributes>
+                                                        <attribute name="text">0</attribute>
+                                                    </attributes>
+                                                </child>
+                                            </object>
+                                        </child>
                                     </object>
                                 </child>
                             </object>
