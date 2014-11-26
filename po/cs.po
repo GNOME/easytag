@@ -962,23 +962,23 @@ msgstr ""
 
 #: ../data/playlist_dialog.ui.h:7
 msgid "Use full path for files in playlist"
-msgstr "K souborům v seznamu použít celou cestu"
+msgstr "Použít plnou cestu k souborům"
 
 #: ../data/playlist_dialog.ui.h:8
 msgid "Use relative path for files in playlist"
-msgstr "K souborům v seznamu použít relativní cestu"
+msgstr "Použít relativní cestu k souborům"
 
 #: ../data/playlist_dialog.ui.h:9
 msgid "Create playlist in the parent directory"
-msgstr "Vytvářet seznam k přehrání v nadřazené složce"
+msgstr "Vytvořit v nadřazené složce"
 
 #: ../data/playlist_dialog.ui.h:10 ../data/org.gnome.EasyTAG.gschema.xml.h:168
 msgid "Whether to create the playlist in the parent directory"
-msgstr "Zda vytvářet seznam k přehrání v nadřazené složce"
+msgstr "Zda vytvořit seznam k přehrání v nadřazené složce"
 
 #: ../data/playlist_dialog.ui.h:11
 msgid "Use DOS directory separator"
-msgstr "Používat oddělovač složek jako v systému DOS"
+msgstr "Použít oddělovač složek jako v systému DOS"
 
 #: ../data/playlist_dialog.ui.h:12 ../data/org.gnome.EasyTAG.gschema.xml.h:170
 msgid ""
