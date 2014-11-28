@@ -161,6 +161,7 @@ enum
     ALBUM_FONT_WEIGHT,
     ALBUM_ROW_FOREGROUND,
     ALBUM_ALL_ALBUMS_ROW,
+    ALBUM_ALL_ALBUMS_SEPARATOR_ROW,
     ALBUM_COLUMN_COUNT
 };
 
@@ -2554,11 +2555,16 @@ Browser_Album_List_Load_Files (EtBrowser *self,
     }
 
     gtk_list_store_insert_with_values (priv->album_model, &iter, G_MAXINT,
-                                       ALBUM_NAME, _("<All albums>"),
+                                       ALBUM_NAME, _("All albums"),
                                        ALBUM_NUM_FILES,
                                        g_list_length (g_list_first (etfilelist)),
                                        ALBUM_ETFILE_LIST_POINTER, etfilelist,
                                        ALBUM_ALL_ALBUMS_ROW, TRUE,
+                                       -1);
+
+    gtk_list_store_insert_with_values (priv->album_model, &iter, G_MAXINT,
+                                       ALBUM_ALL_ALBUMS_ROW, FALSE,
+                                       ALBUM_ALL_ALBUMS_SEPARATOR_ROW, TRUE,
                                        -1);
 
     // Create a line for each album of the artist
@@ -2581,8 +2587,7 @@ Browser_Album_List_Load_Files (EtBrowser *self,
                                            ALBUM_NUM_FILES,
                                            g_list_length (g_list_first (etfilelist)),
                                            ALBUM_ETFILE_LIST_POINTER,
-                                           etfilelist,
-                                           ALBUM_ALL_ALBUMS_ROW, FALSE, -1);
+                                           etfilelist, -1);
 
         g_object_unref (icon);
 
@@ -3814,6 +3819,19 @@ File_Selection_Window_For_Directory (GtkWidget *entry)
                                 GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
 }
 
+static gboolean
+album_list_separator_func (GtkTreeModel *model,
+                           GtkTreeIter *iter,
+                           gpointer user_data)
+{
+    gboolean separator_row;
+
+    gtk_tree_model_get (model, iter, ALBUM_ALL_ALBUMS_SEPARATOR_ROW,
+                        &separator_row, -1);
+
+    return separator_row;
+}
+
 /*
  * Create item of the browser (Entry + Tree + List).
  */
@@ -3949,6 +3967,9 @@ create_browser (EtBrowser *self)
                                                                 "album_model"));
     priv->album_list = GTK_WIDGET (gtk_builder_get_object (builder,
                                                            "album_view"));
+    gtk_tree_view_set_row_separator_func (GTK_TREE_VIEW (priv->album_list),
+                                          album_list_separator_func, NULL,
+                                          NULL);
     gtk_tree_selection_set_mode (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->album_list)),
                                  GTK_SELECTION_SINGLE);
 

@@ -59,6 +59,7 @@
             <column type="gint"/>
             <column type="GdkRGBA"/>
             <column type="gboolean"/>
+            <column type="gboolean"/>
         </columns>
     </object>
     <object class="GtkDialog" id="open_directory_dialog">
