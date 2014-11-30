@@ -1,3 +1,26 @@
+2.3.2 - 2014-11-30 :
+====================
+
+    * Fix a crash when reading empty FLAC tags
+    * Fix an assertion failure when reading empty ID3 tags
+    * Fix incorrect track durations when searching CDDB
+    * Fix the log view being forcibly shown on startup
+    * Fix launching of external applications
+    * Fix many memory leaks in the CDDB search dialog
+    * Improve setting handling for the process fields scanner
+    * Improve file list selection handling
+    * Allow the tag area images tree view to expand if space is available
+    * Improve ID3v2 handling with Ogg files
+    * Add more fragments from which to guess the image type
+    * Add AppData metainfo description for Nautilus extension
+    * Add several automated tests
+    * Add a separator row below the all albums row in the artist tree view
+    * Ekaterina Gerasimova’s improvements to the Mallard help
+    * British English translation update
+    * Marek Černocký’s Czech translation updates
+    * Piotr Drąg’s Polish translation updates
+    * Мирослав Николић’s Serbian translation
+
 2.3.1 - 2014-10-31 :
 ====================
 
