@@ -71,6 +71,7 @@ easytag_SOURCES = \
 	src/tags/libapetag/info_mpc.c \
 	src/tags/ape_tag.c \
 	src/tags/flac_header.c \
+	src/tags/flac_private.c \
 	src/tags/flac_tag.c \
 	src/tags/gio_wrapper.cc \
 	src/tags/id3_tag.c \
@@ -123,6 +124,7 @@ easytag_headers = \
 	src/tags/libapetag/info_mpc.h \
 	src/tags/ape_tag.h \
 	src/tags/flac_header.h \
+	src/tags/flac_private.h \
 	src/tags/flac_tag.h \
 	src/tags/gio_wrapper.h \
 	src/tags/id3_tag.h \

@@ -23,144 +23,14 @@
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
-#include <FLAC/all.h>
 #include <errno.h>
 
 #include "et_core.h"
 #include "flac_header.h"
+#include "flac_private.h"
 #include "misc.h"
 
-typedef struct
-{
-    GFileInputStream *istream;
-    gboolean eof;
-    GError *error;
-} EtFlacState;
-
-/* FLAC__metadata_read_with_callbacks() IO callbacks. */
-static size_t
-et_flac_read_func (void *ptr,
-                   size_t size,
-                   size_t nmemb,
-                   FLAC__IOHandle handle)
-{
-    EtFlacState *state;
-    gssize bytes_read;
-
-    state = (EtFlacState *)handle;
-    state->eof = FALSE;
-
-    bytes_read = g_input_stream_read (G_INPUT_STREAM (state->istream), ptr,
-                                      size * nmemb, NULL, &state->error);
-
-    if (bytes_read == -1)
-    {
-        errno = EIO;
-        return 0;
-    }
-    else if (bytes_read == 0)
-    {
-        state->eof = TRUE;
-    }
-
-    return bytes_read;
-}
-
-static int
-et_flac_seek_func (FLAC__IOHandle handle,
-                   FLAC__int64 offset,
-                   int whence)
-{
-    EtFlacState *state;
-    GSeekable *seekable;
-    GSeekType seektype;
-
-    state = (EtFlacState *)handle;
-    seekable = G_SEEKABLE (state->istream);
-
-    if (!g_seekable_can_seek (seekable))
-    {
-        errno = EBADF;
-        return -1;
-    }
-    else
-    {
-        switch (whence)
-        {
-            case SEEK_SET:
-                seektype = G_SEEK_SET;
-                break;
-            case SEEK_CUR:
-                seektype = G_SEEK_CUR;
-                break;
-            case SEEK_END:
-                seektype = G_SEEK_END;
-                break;
-            default:
-                errno = EINVAL;
-                return -1;
-        }
-
-        if (!g_seekable_seek (seekable, offset, seektype, NULL, &state->error))
-        {
-            /* TODO: More suitable error. */
-            errno = EINVAL;
-            return -1;
-        }
-        else
-        {
-            return 0;
-        }
-    }
-}
-
-static FLAC__int64
-et_flac_tell_func (FLAC__IOHandle handle)
-{
-    EtFlacState *state;
-    GSeekable *seekable;
-
-    state = (EtFlacState *)handle;
-    seekable = G_SEEKABLE (state->istream);
-
-    if (!g_seekable_can_seek (seekable))
-    {
-        errno = EBADF;
-        return -1;
-    }
-    else
-    {
-        return g_seekable_tell (seekable);
-    }
-}
-
-static int
-et_flac_eof_func (FLAC__IOHandle handle)
-{
-    EtFlacState *state;
-
-    state = (EtFlacState *)handle;
-
-    /* EOF is not directly supported by GFileInputStream. */
-    return state->eof ? 1 : 0;
-}
-
-static int
-et_flac_close_func (FLAC__IOHandle handle)
-{
-    EtFlacState *state;
-
-    state = (EtFlacState *)handle;
-
-    g_clear_object (&state->istream);
-    g_clear_error (&state->error);
-
-    /* Always return success. */
-    return 0;
-}
-
 /* Header info of FLAC file */
-
 gboolean
 et_flac_header_read_file_info (GFile *file,
                                ET_File_Info *ETFileInfo,
@@ -168,11 +38,14 @@ et_flac_header_read_file_info (GFile *file,
 {
     GFileInfo *info;
     FLAC__Metadata_Chain *chain;
-    EtFlacState state;
+    EtFlacReadState state;
     GFileInputStream *istream;
-    FLAC__IOCallbacks callbacks = { et_flac_read_func, NULL, et_flac_seek_func,
-                                    et_flac_tell_func, et_flac_eof_func,
-                                    et_flac_close_func };
+    FLAC__IOCallbacks callbacks = { et_flac_read_read_func,
+                                    NULL, /* Do not set a write callback. */
+                                    et_flac_read_seek_func,
+                                    et_flac_read_tell_func,
+                                    et_flac_read_eof_func,
+                                    et_flac_read_close_func };
     FLAC__Metadata_Iterator *iter;
     gsize metadata_len;
 
@@ -211,7 +84,7 @@ et_flac_header_read_file_info (GFile *file,
         /* TODO: Provide a dedicated error enum corresponding to status. */
         g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s",
                      _("Error opening FLAC file"));
-        et_flac_close_func (&state);
+        et_flac_read_close_func (&state);
         return FALSE;
     }
 
@@ -219,7 +92,7 @@ et_flac_header_read_file_info (GFile *file,
 
     if (iter == NULL)
     {
-        et_flac_close_func (&state);
+        et_flac_read_close_func (&state);
         g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_NOMEM, "%s",
                      g_strerror (ENOMEM));
         return FALSE;
@@ -257,7 +130,7 @@ et_flac_header_read_file_info (GFile *file,
 
     FLAC__metadata_iterator_delete (iter);
     FLAC__metadata_chain_delete (chain);
-    et_flac_close_func (&state);
+    et_flac_read_close_func (&state);
     /* End of decoding FLAC file */
 
     info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_SIZE,
