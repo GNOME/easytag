@@ -121,6 +121,12 @@ et_flac_header_read_file_info (GFile *file,
                     ETFileInfo->version = 0; /* Not defined in FLAC file. */
                 }
                 break;
+            case FLAC__METADATA_TYPE_VORBIS_COMMENT:
+                {
+                    const FLAC__StreamMetadata_VorbisComment *comment = &block->data.vorbis_comment;
+                    ETFileInfo->mpc_version = g_strdup (comment->vendor_string.entry);
+                }
+                break;
             default:
                 /* Ignore all other metadata types. */
                 break;
@@ -174,7 +180,15 @@ et_flac_header_display_file_info_to_ui (const ET_File *ETFile)
 
     /* Nothing to display */
     fields->version_label = _("Encoder:");
-    fields->version = g_strdup ("flac");
+
+    if (!info->mpc_version)
+    {
+        fields->version = g_strdup ("flac");
+    }
+    else
+    {
+        fields->version = g_strdup (info->mpc_version);
+    }
 
     /* Bitrate */
     fields->bitrate = g_strdup_printf (_("%d kb/s"), info->bitrate);
