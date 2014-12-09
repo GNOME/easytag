@@ -1,23 +1,20 @@
-/********************************************************************
-*    
-* Copyright (c) 2002 Artur Polaczynski (Ar't)  All rights reserved.
-*            <artii@o2.pl>        LGPL-2.1
-*       $ArtId: is_tag.c,v 1.10 2003/04/16 21:06:27 art Exp $
-********************************************************************/
-/*
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as 
- * published by the Free Software Foundation; either version 2.1 
- * of the License, or (at your option) any later version.
+/* EasyTAG - tag editor for audio files
+ * Copyright (C) 2014 David King <amigadave@amigadave.com>
+ * Copyright (C) 2002 Artur Polaczynski (Ar't) <artii@o2.pl>
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option)
+ * any later version.
  *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 51
+ * Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
 #include <string.h>

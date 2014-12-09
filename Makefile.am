@@ -246,7 +246,6 @@ dist_noinst_DATA = \
 	$(desktop_in_files) \
 	$(easytag_headers) \
 	src/id3lib/patch_id3lib_3.8.3_UTF16_writing_bug.diff \
-	src/libapetag/COPYING.LGPL \
 	src/libapetag/README.apetag \
 	src/libapetag/id3v2_read.c \
 	src/libapetag/id3v2_read.h \
