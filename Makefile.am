@@ -348,7 +348,6 @@ dist_noinst_DATA = \
 	data/org.gnome.EasyTAG.gresource.xml \
 	$(noinst_resource_files) \
 	src/tags/id3lib/patch_id3lib_3.8.3_UTF16_writing_bug.diff \
-	src/tags/libapetag/COPYING.LGPL \
 	src/tags/libapetag/README.apetag \
 	src/tags/libapetag/id3v2_read.c \
 	src/tags/libapetag/id3v2_read.h \
