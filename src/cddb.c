@@ -3425,6 +3425,7 @@ Cddb_Search_Album_From_Selected_Files (void)
 
                 g_free(cddb_out);
             }
+            g_free (cddb_out);
             g_free(cddb_server_name);
             g_free(cddb_server_cgi_path);
 
