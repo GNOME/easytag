@@ -3631,6 +3631,7 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
 
                 g_free(cddb_out);
             }
+            g_free (cddb_out);
             g_free(cddb_server_name);
             g_free(cddb_server_cgi_path);
             g_free (proxy_hostname);
