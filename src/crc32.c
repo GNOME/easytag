@@ -1,25 +1,23 @@
-/* crc32.c - the crc check algorithm for cksfv modified by oliver for easytag
+/* EasyTAG - tag editor for audio files
+ * Copyright (C) 2014 David King <amigadave@amigadave.com>
+ * Copyright (C) 2000 Bryan Call <bc@fodder.org>
+ * Copyright (C) 2003 Oliver Schinagl <oliver@are-b.org>
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 51
+ * Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
 
-   Copyright (C) 2000 Bryan Call <bc@fodder.org>
-   Copyright (C) 2003 Oliver Schinagl <oliver@are-b.org>
-
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2 of the License, or
-   (at your option) any later version.
-
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA. */
-
-#include <stdio.h>
-#include <glib.h>
-#include <gio/gio.h>
 #include "crc32.h"
 
 #define BUFFERSIZE 16384   /* (16k) buffer size for reading from the file */
@@ -96,7 +94,7 @@ static const guint32 crc32table[] = {
 
 /*
  * crc32_file_with_ID3_tag:
- * @filename: (type filename): an absolute path
+ * @file: a file from which to read audio data
  * @main_val: (out): the CRC32 value
  *
  * Calculate the CRC32 value of audio data (skips the ID3v2 and ID3v1 tags).
@@ -104,12 +102,13 @@ static const guint32 crc32table[] = {
  * Returns: %TRUE if the CRC calculation was successful, %FALSE otherwise
  */
 gboolean
-crc32_file_with_ID3_tag (const gchar *filename, guint32 *crc32, GError **err)
+crc32_file_with_ID3_tag (GFile *file,
+                         guint32 *crc32,
+                         GError **err)
 {
     gchar buf[BUFFERSIZE], *p;
     gint nr;
     guint32 crc = ~0, crc32_total = ~0;
-    GFile *file;
     guchar tmp_id3[4];
     glong id3v2size = 0;
     GFileInfo *info;
@@ -118,16 +117,14 @@ crc32_file_with_ID3_tag (const gchar *filename, guint32 *crc32, GError **err)
     gsize bytes_read;
     gboolean has_id3v1 = FALSE;
 
-    g_return_val_if_fail (filename != NULL, FALSE);
+    g_return_val_if_fail (file != NULL, FALSE);
     g_return_val_if_fail (err == NULL || *err == NULL, FALSE);
 
-    file = g_file_new_for_path (filename);
     info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_SIZE,
                               G_FILE_QUERY_INFO_NONE, NULL, err);
 
     if (!info)
     {
-        g_object_unref (file);
         g_assert (err == NULL || *err != NULL);
         return FALSE;
     }
@@ -138,7 +135,6 @@ crc32_file_with_ID3_tag (const gchar *filename, guint32 *crc32, GError **err)
     if (!istream)
     {
         g_object_unref (info);
-        g_object_unref (file);
         g_assert (err == NULL || *err != NULL);
         return FALSE;
     }
@@ -249,7 +245,6 @@ crc32_file_with_ID3_tag (const gchar *filename, guint32 *crc32, GError **err)
 out:
     g_object_unref (info);
     g_object_unref (istream);
-    g_object_unref (file);
     *crc32 = ~crc;
 
     return nr == 0;

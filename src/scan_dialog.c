@@ -284,6 +284,7 @@ Scan_Tag_With_Mask (EtScanDialog *self, ET_File *ETFile)
         && (g_settings_get_boolean (MainSettings, "fill-overwrite-tag-fields")
             || FileTag->comment == NULL || strlen (FileTag->comment) == 0))
     {
+        GFile *file;
         GError *error = NULL;
         guint32 crc32_value;
         gchar *buffer;
@@ -293,8 +294,9 @@ Scan_Tag_With_Mask (EtScanDialog *self, ET_File *ETFile)
         switch (ETFileDescription->TagType)
         {
             case ID3_TAG:
-                if (crc32_file_with_ID3_tag (((File_Name *)((GList *)ETFile->FileNameNew)->data)->value,
-                                             &crc32_value, &error))
+                file = g_file_new_for_path (((File_Name *)((GList *)ETFile->FileNameNew)->data)->value);
+
+                if (crc32_file_with_ID3_tag (file, &crc32_value, &error))
                 {
                     buffer = g_strdup_printf ("%.8" G_GUINT32_FORMAT,
                                               crc32_value);
@@ -308,6 +310,8 @@ Scan_Tag_With_Mask (EtScanDialog *self, ET_File *ETFile)
                                error->message);
                     g_error_free (error);
                 }
+
+                g_object_unref (file);
                 break;
             default:
                 break;
