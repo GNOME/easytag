@@ -67,6 +67,7 @@
         <child>
             <object class="GtkComboBox" id="search_combo">
                 <property name="has-entry">True</property>
+                <property name="hexpand">True</property>
                 <property name="entry-text-column">0</property>
                 <property name="tooltip-text" translatable="yes">Type the text to search for in the file list, or leave the field empty to display all files</property>
                 <property name="visible">True</property>
@@ -74,7 +75,6 @@
             <packing>
                 <property name="left-attach">1</property>
                 <property name="top-attach">0</property>
-                <property name="width">4</property>
             </packing>
         </child>
         <child>
@@ -85,7 +85,7 @@
                 <property name="visible">True</property>
             </object>
             <packing>
-                <property name="left-attach">5</property>
+                <property name="left-attach">2</property>
                 <property name="top-attach">0</property>
             </packing>
         </child>
@@ -101,42 +101,36 @@
             </packing>
         </child>
         <child>
-            <object class="GtkCheckButton" id="search_filename_check">
-                <property name="label" translatable="yes" comments="This option is for the previous 'in' option. For instance, translate this as 'Search' 'In:' 'the Filename'.">the Filename</property>
+            <object class="GtkBox" id="search_options_box">
+                <property name="spacing">6</property>
                 <property name="visible">True</property>
+                <child>
+                    <object class="GtkCheckButton" id="search_filename_check">
+                        <property name="label" translatable="yes" comments="This option is for the previous 'in' option. For instance, translate this as 'Search' 'In:' 'the Filename'.">the Filename</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="search_tag_check">
+                        <property name="label" translatable="yes" comments="This option is for the previous 'in' option. For instance, translate this as 'Search' 'In:' 'the Tag'.">the Tag</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkSeparator" id="search_separator">
+                        <property name="orientation">vertical</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkCheckButton" id="search_case_check">
+                        <property name="label" translatable="yes">Case sensitive</property>
+                        <property name="visible">True</property>
+                    </object>
+                </child>
             </object>
             <packing>
                 <property name="left-attach">1</property>
-                <property name="top-attach">1</property>
-            </packing>
-        </child>
-        <child>
-            <object class="GtkCheckButton" id="search_tag_check">
-                <property name="label" translatable="yes" comments="This option is for the previous 'in' option. For instance, translate this as 'Search' 'In:' 'the Tag'.">the Tag</property>
-                <property name="visible">True</property>
-            </object>
-            <packing>
-                <property name="left-attach">2</property>
-                <property name="top-attach">1</property>
-            </packing>
-        </child>
-        <child>
-            <object class="GtkSeparator" id="search_separator">
-                <property name="orientation">vertical</property>
-                <property name="visible">True</property>
-            </object>
-            <packing>
-                <property name="left-attach">3</property>
-                <property name="top-attach">1</property>
-            </packing>
-        </child>
-        <child>
-            <object class="GtkCheckButton" id="search_case_check">
-                <property name="label" translatable="yes">Case sensitive</property>
-                <property name="visible">True</property>
-            </object>
-            <packing>
-                <property name="left-attach">4</property>
                 <property name="top-attach">1</property>
             </packing>
         </child>
@@ -147,7 +141,7 @@
                 <property name="visible">True</property>
             </object>
             <packing>
-                <property name="left-attach">5</property>
+                <property name="left-attach">2</property>
                 <property name="top-attach">1</property>
             </packing>
         </child>
@@ -158,6 +152,7 @@
                 <property name="visible">True</property>
                 <child>
                     <object class="GtkTreeView" id="search_view">
+                        <property name="expand">True</property>
                         <property name="model">search_model</property>
                         <property name="sensitive">False</property>
                         <property name="visible">True</property>
@@ -367,7 +362,7 @@
             <packing>
                 <property name="left-attach">0</property>
                 <property name="top-attach">2</property>
-                <property name="width">6</property>
+                <property name="width">3</property>
             </packing>
         </child>
         <child>
@@ -377,7 +372,7 @@
             <packing>
                 <property name="left-attach">0</property>
                 <property name="top-attach">3</property>
-                <property name="width">6</property>
+                <property name="width">3</property>
             </packing>
         </child>
     </object>
