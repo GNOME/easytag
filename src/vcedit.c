@@ -74,6 +74,12 @@ static void vcedit_clear_internals(vcedit_state *state)
         vorbis_info_clear(state->vi);
         free(state->vi);
     }
+#ifdef ENABLE_SPEEX
+    if (state->si)
+    {
+        speex_header_free (state->si);
+    }
+#endif
 #ifdef ENABLE_OPUS
     if (state->oi)
     {
@@ -379,11 +385,13 @@ vcedit_open(vcedit_state *state, GFile *file, GError **error)
     else
     {
 #ifdef ENABLE_SPEEX
-        // Done after "Ogg test" to avoid to display an error message in function
-        // speex_packet_to_header when the file is not Speex.
-        state->si = malloc(sizeof(SpeexHeader));
-        if((state->si = speex_packet_to_header((char*)(&header_main)->packet,(&header_main)->bytes)))
+        /* Done after "Ogg test" to avoid to display an error message in
+         * function speex_packet_to_header() when the file is not Speex. */
+        if((state->si = speex_packet_to_header ((char*)(&header_main)->packet,
+                                                (&header_main)->bytes)))
+        {
             state->oggtype = VCEDIT_IS_SPEEX;
+        }
 #endif
 #ifdef ENABLE_OPUS
         if (state->oggtype == VCEDIT_IS_UNKNOWN)
