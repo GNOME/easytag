@@ -3092,7 +3092,7 @@ msgstr "Marek Černocký <marek@manet.cz>"
 
 #: ../src/about.c:100
 msgid "View and edit tags in audio files"
-msgstr "Zobrazování a ůpravy štítků ve zvukových souborech"
+msgstr "Zobrazování a úpravy štítků ve zvukových souborech"
 
 #: ../src/application.c:46
 msgid "Print the version and exit"
