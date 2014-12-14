@@ -1064,6 +1064,8 @@ ogg_tag_write_file_tag (const ET_File *ETFile,
         vcedit_clear (state);
     }
 
+    g_object_unref (file);
+
     g_assert (error == NULL || *error == NULL);
     return TRUE;
 }
