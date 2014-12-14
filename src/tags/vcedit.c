@@ -33,57 +33,97 @@
 
 #define CHUNKSIZE 4096
 
-vcedit_state *vcedit_new_state(void)
+struct _EtOggState
 {
-    vcedit_state *state = malloc(sizeof(vcedit_state));
-    memset(state, 0, sizeof(vcedit_state));
-    state->oggtype = VCEDIT_IS_UNKNOWN;
+    /*< private >*/
+    GFileInputStream *in;
+#ifdef ENABLE_SPEEX
+    SpeexHeader *si;
+#endif
+#ifdef ENABLE_OPUS
+    OpusHead *oi;
+#endif
+    vorbis_info *vi;
+    ogg_stream_state *os;
+    ogg_sync_state *oy;
+    vorbis_comment *vc;
+    EtOggKind oggtype;
+    glong serial;
+    guchar *mainbuf;
+    guchar *bookbuf;
+    gchar *vendor;
+    gint mainlen;
+    gint booklen;
+    gint prevW;
+    gint extrapage;
+    gint eosin;
+};
+
+EtOggState *
+vcedit_new_state (void)
+{
+    EtOggState *state = g_slice_new0 (EtOggState);
+    state->oggtype = ET_OGG_KIND_UNKNOWN;
 
     return state;
 }
 
-vorbis_comment *vcedit_comments(vcedit_state *state)
+vorbis_comment *
+vcedit_comments (EtOggState *state)
 {
     return state->vc;
 }
 
-static void vcedit_clear_internals(vcedit_state *state)
+#ifdef ENABLE_SPEEX
+const SpeexHeader *
+vcedit_speex_header (EtOggState *state)
 {
-    if(state->vc)
+    return state->si;
+}
+#endif /* ENABLE_SPEEX */
+
+static void
+vcedit_clear_internals (EtOggState *state)
+{
+    if (state->vc)
     {
-        vorbis_comment_clear(state->vc);
-        free(state->vc);
+        vorbis_comment_clear (state->vc);
+        g_slice_free (vorbis_comment, state->vc);
     }
-    if(state->os)
+
+    if (state->os)
     {
-        ogg_stream_clear(state->os);
-        free(state->os);
+        ogg_stream_clear (state->os);
+        g_slice_free (ogg_stream_state, state->os);
     }
-    if(state->oy)
+
+    if (state->oy)
     {
-        ogg_sync_clear(state->oy);
-        free(state->oy);
+        ogg_sync_clear (state->oy);
+        g_slice_free (ogg_sync_state, state->oy);
     }
-    if(state->vendor)
-        free(state->vendor);
-    if(state->mainbuf)
-        free(state->mainbuf);
-    if(state->bookbuf)
-        free(state->bookbuf);
-    if(state->vi) {
-        vorbis_info_clear(state->vi);
-        free(state->vi);
+
+    g_free (state->vendor);
+    g_free (state->mainbuf);
+    g_free (state->bookbuf);
+
+    if (state->vi)
+    {
+        vorbis_info_clear (state->vi);
+        g_slice_free (vorbis_info, state->vi);
     }
+
 #ifdef ENABLE_SPEEX
     if (state->si)
     {
         speex_header_free (state->si);
     }
 #endif
+
 #ifdef ENABLE_OPUS
     if (state->oi)
     {
-        g_free (state->oi);
+        g_slice_free (OpusHead, state->oi);
     }
 #endif /* ENABLE_OPUS */
 
@@ -92,90 +132,107 @@ static void vcedit_clear_internals(vcedit_state *state)
         g_object_unref (state->in);
     }
 
-    memset(state, 0, sizeof(*state));
+    memset (state, 0, sizeof (*state));
 }
 
-void vcedit_clear(vcedit_state *state)
+void
+vcedit_clear (EtOggState *state)
 {
-    if(state)
+    if (state)
     {
-        vcedit_clear_internals(state);
-        free(state);
+        vcedit_clear_internals (state);
+        g_slice_free (EtOggState, state);
     }
 }
 
 /* Next two functions pulled straight from libvorbis, apart from one change
  * - we don't want to overwrite the vendor string.
  */
-static void _v_writestring(oggpack_buffer *o, const char *s, int len)
+static void
+_v_writestring (oggpack_buffer *o,
+                const char *s,
+                int len)
 {
-    while(len--)
+    while (len--)
     {
-        oggpack_write(o,*s++,8);
+        oggpack_write (o, *s++, 8);
     }
 }
 
-static int _commentheader_out(vcedit_state *state, ogg_packet *op)
+static int
+_commentheader_out (EtOggState *state,
+                    ogg_packet *op)
 {
     vorbis_comment *vc = state->vc;
-    char           *vendor = state->vendor;
+    const gchar *vendor = state->vendor;
     oggpack_buffer opb;
 
-    oggpack_writeinit(&opb);
+    oggpack_writeinit (&opb);
 
-    if (state->oggtype == VCEDIT_IS_OGGVORBIS)
+    if (state->oggtype == ET_OGG_KIND_VORBIS)
     {
         /* preamble */
-        oggpack_write(&opb,0x03,8);
-        _v_writestring(&opb,"vorbis", 6);
+        oggpack_write (&opb, 0x03, 8);
+        _v_writestring (&opb, "vorbis", 6);
     }
 #ifdef ENABLE_OPUS
-    else if (state->oggtype == VCEDIT_IS_OPUS)
+    else if (state->oggtype == ET_OGG_KIND_OPUS)
     {
         _v_writestring (&opb, "OpusTags", 8);
     }
 #endif
 
     /* vendor */
-    oggpack_write(&opb,strlen(vendor),32);
-    _v_writestring(&opb,vendor, strlen(vendor));
+    oggpack_write (&opb, strlen (vendor), 32);
+    _v_writestring (&opb,vendor, strlen (vendor));
 
     /* comments */
-    oggpack_write(&opb,vc->comments,32);
-    if(vc->comments){
+    oggpack_write (&opb, vc->comments, 32);
+
+    if (vc->comments)
+    {
         int i;
-        for(i=0;i<vc->comments;i++){
-            if(vc->user_comments[i]){
-                oggpack_write(&opb,vc->comment_lengths[i],32);
-                _v_writestring(&opb,vc->user_comments[i],
-                               vc->comment_lengths[i]);
-            }else{
-                oggpack_write(&opb,0,32);
+
+        for (i=0; i < vc->comments; i++)
+        {
+            if (vc->user_comments[i])
+            {
+                oggpack_write (&opb, vc->comment_lengths[i], 32);
+                _v_writestring (&opb, vc->user_comments[i],
+                                vc->comment_lengths[i]);
+            }
+            else
+            {
+                oggpack_write (&opb, 0, 32);
             }
         }
     }
-    oggpack_write(&opb,1,1);
 
-    op->packet = _ogg_malloc(oggpack_bytes(&opb));
-    memcpy(op->packet, opb.buffer, oggpack_bytes(&opb));
+    oggpack_write (&opb, 1, 1);
 
-    op->bytes=oggpack_bytes(&opb);
-    op->b_o_s=0;
-    op->e_o_s=0;
-    op->granulepos=0;
-    if (state->oggtype == VCEDIT_IS_OGGVORBIS)
+    op->packet = _ogg_malloc (oggpack_bytes (&opb));
+    memcpy (op->packet, opb.buffer, oggpack_bytes (&opb));
+
+    op->bytes = oggpack_bytes (&opb);
+    op->b_o_s = 0;
+    op->e_o_s = 0;
+    op->granulepos = 0;
+
+    if (state->oggtype == ET_OGG_KIND_VORBIS)
     {
         op->packetno = 1;
     }
 
-    oggpack_writeclear(&opb);
+    oggpack_writeclear (&opb);
     return 0;
 }
 
-static int _blocksize(vcedit_state *s, ogg_packet *p)
+static int
+_blocksize (EtOggState *s,
+            ogg_packet *p)
 {
-    int this = vorbis_packet_blocksize(s->vi, p);
-    int ret = (this + s->prevW)/4;
+    int this = vorbis_packet_blocksize (s->vi, p);
+    int ret = (this + s->prevW) / 4;
 
     if(!s->prevW)
     {
@@ -188,7 +245,9 @@ static int _blocksize(vcedit_state *s, ogg_packet *p)
 }
 
 static gboolean
-_fetch_next_packet (vcedit_state *s, ogg_packet *p, ogg_page *page,
+_fetch_next_packet (EtOggState *s,
+                    ogg_packet *p,
+                    ogg_page *page,
                     GError **error)
 {
     int result;
@@ -197,25 +256,29 @@ _fetch_next_packet (vcedit_state *s, ogg_packet *p, ogg_page *page,
 
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-    result = ogg_stream_packetout(s->os, p);
+    result = ogg_stream_packetout (s->os, p);
 
-    if(result > 0)
+    if (result > 0)
+    {
         return TRUE;
+    }
     else
     {
-        if(s->eosin)
+        if (s->eosin)
         {
             g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_EOS,
                          "Page reached end of logical bitstream");
             g_assert (error == NULL || *error != NULL);
             return FALSE;
         }
-        while(ogg_sync_pageout(s->oy, page) <= 0)
+
+        while (ogg_sync_pageout (s->oy, page) <= 0)
         {
-            buffer = ogg_sync_buffer(s->oy, CHUNKSIZE);
+            buffer = ogg_sync_buffer (s->oy, CHUNKSIZE);
             bytes = g_input_stream_read (G_INPUT_STREAM (s->in), buffer,
                                          CHUNKSIZE, NULL, error);
-            ogg_sync_wrote(s->oy, bytes);
+            ogg_sync_wrote (s->oy, bytes);
+
             if(bytes == 0)
             {
                 g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_EOF,
@@ -229,9 +292,12 @@ _fetch_next_packet (vcedit_state *s, ogg_packet *p, ogg_page *page,
                 return FALSE;
             }
         }
-        if(ogg_page_eos(page))
+
+        if (ogg_page_eos (page))
+        {
             s->eosin = 1;
-        else if(ogg_page_serialno(page) != s->serial)
+        }
+        else if (ogg_page_serialno (page) != s->serial)
         {
             g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_SN,
                          "Page serial number and state serial number doesn't match");
@@ -240,49 +306,73 @@ _fetch_next_packet (vcedit_state *s, ogg_packet *p, ogg_page *page,
             g_assert (error == NULL || *error != NULL);
             return FALSE;
         }
+
         g_assert (error == NULL || *error == NULL);
-        ogg_stream_pagein(s->os, page);
-        return _fetch_next_packet(s, p, page, error);
+        ogg_stream_pagein (s->os, page);
+        return _fetch_next_packet (s, p, page, error);
     }
 }
 
 /*
  * Next functions pulled straight from libvorbis,
  */
-static void _v_readstring(oggpack_buffer *o,char *buf,int bytes){
-  while(bytes--){
-    *buf++=oggpack_read(o,8);
-  }
+static void
+_v_readstring (oggpack_buffer *o,
+               char *buf,
+               int bytes)
+{
+    while (bytes--)
+    {
+        *buf++ = oggpack_read (o, 8);
+    }
 }
 
 /*
  * Next functions pulled straight from libvorbis, apart from one change
  * - disabled the EOP check
  */
-static int _speex_unpack_comment(vorbis_comment *vc,oggpack_buffer *opb)
+static int
+_speex_unpack_comment (vorbis_comment *vc,
+                       oggpack_buffer *opb)
 {
     int i;
-    int vendorlen=oggpack_read(opb,32);
-    if (vendorlen<0) 
-        goto err_out;
+    int vendorlen = oggpack_read (opb, 32);
 
-    vc->vendor=_ogg_calloc(vendorlen+1,1);
-    _v_readstring(opb,vc->vendor,vendorlen);
-
-    vc->comments=oggpack_read(opb,32);
-    if (vc->comments<0)
+    if (vendorlen < 0) 
+    {
         goto err_out;
-    vc->user_comments=_ogg_calloc(vc->comments+1,sizeof(*vc->user_comments));
-    vc->comment_lengths=_ogg_calloc(vc->comments+1, sizeof(*vc->comment_lengths));
-    for (i=0;i<vc->comments;i++){
-        int len=oggpack_read(opb,32);
-        if (len<0)
-            goto err_out;
-        vc->comment_lengths[i]=len;
-        vc->user_comments[i]=_ogg_calloc(len+1,1);
-        _v_readstring(opb,vc->user_comments[i],len);
     }
-    //if(oggpack_read(opb,1)!=1)goto err_out; /* EOP check */
+
+    vc->vendor = _ogg_calloc (vendorlen + 1, 1);
+    _v_readstring (opb, vc->vendor, vendorlen);
+
+    vc->comments = oggpack_read (opb, 32);
+
+    if (vc->comments < 0)
+    {
+        goto err_out;
+    }
+
+    vc->user_comments = _ogg_calloc (vc->comments + 1,
+                                     sizeof (*vc->user_comments));
+    vc->comment_lengths = _ogg_calloc (vc->comments + 1,
+                                       sizeof (*vc->comment_lengths));
+
+    for (i = 0; i < vc->comments; i++)
+    {
+        int len = oggpack_read (opb, 32);
+
+        if (len < 0)
+        {
+            goto err_out;
+        }
+
+        vc->comment_lengths[i] = len;
+        vc->user_comments[i] = _ogg_calloc (len + 1, 1);
+        _v_readstring (opb, vc->user_comments[i], len);
+    }
+
+    /*if(oggpack_read(opb,1)!=1)goto err_out; EOP check */ 
     return(0);
 
 err_out:
@@ -291,7 +381,9 @@ err_out:
 }
 
 gboolean
-vcedit_open(vcedit_state *state, GFile *file, GError **error)
+vcedit_open (EtOggState *state,
+             GFile *file,
+             GError **error)
 {
     char *buffer;
     gssize bytes;
@@ -309,7 +401,6 @@ vcedit_open(vcedit_state *state, GFile *file, GError **error)
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
     istream = g_file_read (file, NULL, error);
-    state->in = istream;
 
     if (!istream)
     {
@@ -317,12 +408,13 @@ vcedit_open(vcedit_state *state, GFile *file, GError **error)
         return FALSE;
     }
 
-    state->oy = malloc(sizeof(ogg_sync_state));
-    ogg_sync_init(state->oy);
+    state->in = istream;
+    state->oy = g_slice_new (ogg_sync_state);
+    ogg_sync_init (state->oy);
 
     while(1)
     {
-        buffer = ogg_sync_buffer(state->oy, CHUNKSIZE);
+        buffer = ogg_sync_buffer (state->oy, CHUNKSIZE);
         bytes = g_input_stream_read (G_INPUT_STREAM (state->in), buffer,
                                      CHUNKSIZE, NULL, error);
         if (bytes == -1)
@@ -342,45 +434,46 @@ vcedit_open(vcedit_state *state, GFile *file, GError **error)
                              "Input truncated or empty");
             else
                 g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_NOTOGG,
-                             "Input is not an OGG bitstream");
+                             "Input is not an Ogg bitstream");
             goto err;
         }
     }
 
     state->serial = ogg_page_serialno(&og);
 
-    state->os = malloc(sizeof(ogg_stream_state));
-    ogg_stream_init(state->os, state->serial);
+    state->os = g_slice_new (ogg_stream_state);
+    ogg_stream_init (state->os, state->serial);
 
-    state->vi = malloc(sizeof(vorbis_info));
-    vorbis_info_init(state->vi);
+    state->vi = g_slice_new (vorbis_info);
+    vorbis_info_init (state->vi);
 
-    state->vc = malloc(sizeof(vorbis_comment));
-    vorbis_comment_init(state->vc);
+    state->vc = g_slice_new (vorbis_comment);
+    vorbis_comment_init (state->vc);
 
-    if(ogg_stream_pagein(state->os, &og) < 0)
+    if (ogg_stream_pagein (state->os, &og) < 0)
     {
         g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_PAGE,
-                     "Error reading first page of OGG bitstream");
+                     "Error reading first page of Ogg bitstream");
         goto err;
     }
 
-    if(ogg_stream_packetout(state->os, &header_main) != 1)
+    if (ogg_stream_packetout (state->os, &header_main) != 1)
     {
         g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_HEADER,
                      "Error reading initial header packet");
         goto err;
     }
 
-    // We save the main header first, (it seems speex_packet_to_header munge's it??)
+    /* Save the main header first, it seems speex_packet_to_header() munges
+     * it. */
     state->mainlen = header_main.bytes;
-    state->mainbuf = malloc(state->mainlen);
-    memcpy(state->mainbuf, header_main.packet, header_main.bytes);
+    state->mainbuf = g_memdup (header_main.packet, header_main.bytes);
 
-    state->oggtype = VCEDIT_IS_UNKNOWN;
-    if(vorbis_synthesis_headerin(state->vi, state->vc, &header_main) == 0)
+    state->oggtype = ET_OGG_KIND_UNKNOWN;
+
+    if(vorbis_synthesis_headerin (state->vi, state->vc, &header_main) == 0)
     {
-        state->oggtype = VCEDIT_IS_OGGVORBIS;
+        state->oggtype = ET_OGG_KIND_VORBIS;
     }
     else
     {
@@ -390,64 +483,80 @@ vcedit_open(vcedit_state *state, GFile *file, GError **error)
         if((state->si = speex_packet_to_header ((char*)(&header_main)->packet,
                                                 (&header_main)->bytes)))
         {
-            state->oggtype = VCEDIT_IS_SPEEX;
+            state->oggtype = ET_OGG_KIND_SPEEX;
         }
 #endif
+
 #ifdef ENABLE_OPUS
-        if (state->oggtype == VCEDIT_IS_UNKNOWN)
+        if (state->oggtype == ET_OGG_KIND_UNKNOWN)
         {
-            state->oi = g_malloc (sizeof (OpusHead));
+            state->oi = g_slice_new (OpusHead);
 
             if (opus_head_parse (state->oi,
                                  (unsigned char*)(&header_main)->packet,
                                  (&header_main)->bytes) == 0)
             {
-                state->oggtype = VCEDIT_IS_OPUS;
+                state->oggtype = ET_OGG_KIND_OPUS;
             }
         }
 #endif
     }
 
-    if (state->oggtype == VCEDIT_IS_UNKNOWN)
+    if (state->oggtype == ET_OGG_KIND_UNKNOWN)
     {
         g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_INVALID,
-                     "OGG bitstream contains neither Speex nor Vorbis data");
+                     "Ogg bitstream contains unknown data");
         goto err;
     }
 
     switch (state->oggtype)
     {
-        case VCEDIT_IS_OGGVORBIS:
+        case ET_OGG_KIND_VORBIS:
             header = &header_comments;
             headerpackets = 3;
             break;
 #ifdef ENABLE_SPEEX
-        case VCEDIT_IS_SPEEX:
+        case ET_OGG_KIND_SPEEX:
             header = &header_comments;
             headerpackets = 2 + state->si->extra_headers;
             break;
 #endif
 #ifdef ENABLE_OPUS
-        case VCEDIT_IS_OPUS:
+        case ET_OGG_KIND_OPUS:
             header = &header_comments;
             headerpackets = 2;
 #endif
+            break;
+        default:
+            g_assert_not_reached ();
+            break;
     }
+
     i = 1;
-    while(i<headerpackets)
+
+    while (i < headerpackets)
     {
-        while(i<headerpackets)
+        while (i < headerpackets)
         {
-            int result = ogg_sync_pageout(state->oy, &og);
-            if(result == 0) break; /* Too little data so far */
-            else if(result == 1)
+            int result = ogg_sync_pageout (state->oy, &og);
+
+            if (result == 0)
             {
-                ogg_stream_pagein(state->os, &og);
-                while(i< headerpackets)
+                break; /* Too little data so far */
+            }
+            else if (result == 1)
+            {
+                ogg_stream_pagein (state->os, &og);
+
+                while (i < headerpackets)
                 {
                     result = ogg_stream_packetout(state->os, header);
-                    if(result == 0) break;
-                    if(result == -1)
+                    if (result == 0)
+                    {
+                        break;
+                    }
+
+                    if (result == -1)
                     {
                         g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_CORRUPT,
                                      "Corrupt secondary header");
@@ -455,26 +564,26 @@ vcedit_open(vcedit_state *state, GFile *file, GError **error)
                     }
                     switch (state->oggtype)
                     {
-                        case VCEDIT_IS_OGGVORBIS:
-                            vorbis_synthesis_headerin(state->vi, state->vc, header);
+                        case ET_OGG_KIND_VORBIS:
+                            vorbis_synthesis_headerin (state->vi, state->vc,
+                                                       header);
                             switch (i) 
                             {
-                                // 0 packet was the vorbis header
+                                /* 0 packet was the Vorbis header. */
                                 case 1:
                                     header = &header_codebooks;
                                     break;
                                 case 2:
                                     state->booklen = header->bytes;
-                                    state->bookbuf = malloc(state->booklen);
-                                    memcpy(state->bookbuf, header->packet, 
-                                           header->bytes);
+                                    state->bookbuf = g_memdup (header->packet,
+                                                               header->bytes);
                                     break;
                             }
                             break;
-                        case VCEDIT_IS_SPEEX:
+                        case ET_OGG_KIND_SPEEX:
                             switch (i) 
                             {
-                                // 0 packet was the speex header
+                                /* 0 packet was the Speex header. */
                                 case 1:
                                     oggpack_readinit(&opb,header->packet,header->bytes);
                                     _speex_unpack_comment(state->vc,&opb);
@@ -487,7 +596,7 @@ vcedit_open(vcedit_state *state, GFile *file, GError **error)
                             }
                             break;
 #ifdef ENABLE_OPUS
-                        case VCEDIT_IS_OPUS:
+                        case ET_OGG_KIND_OPUS:
                             switch (opus_tags_parse ((OpusTags *)state->vc,
                                                      header->packet,
                                                      header->bytes))
@@ -514,32 +623,36 @@ vcedit_open(vcedit_state *state, GFile *file, GError **error)
                                     break;
                             }
 #endif
+                        default:
+                            g_assert_not_reached ();
+                            break;
                     }
+
                     i++;
                 }
             }
         }
 
-        buffer = ogg_sync_buffer(state->oy, CHUNKSIZE);
+        buffer = ogg_sync_buffer (state->oy, CHUNKSIZE);
         bytes = g_input_stream_read (G_INPUT_STREAM (state->in), buffer,
                                      CHUNKSIZE, NULL, error);
+
         if (bytes == -1)
         {
             goto err;
         }
 
-        if(bytes == 0 && i < 2)
+        if (bytes == 0 && i < 2)
         {
             g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_VORBIS,
                          "EOF before end of Vorbis headers");
             goto err;
         }
-        ogg_sync_wrote(state->oy, bytes);
+        ogg_sync_wrote (state->oy, bytes);
     }
 
     /* Copy the vendor tag */
-    state->vendor = malloc(strlen(state->vc->vendor) +1);
-    strcpy(state->vendor, state->vc->vendor);
+    state->vendor = g_strdup (state->vc->vendor);
 
     /* Headers are done! */
     g_assert (error == NULL || *error == NULL);
@@ -548,12 +661,14 @@ vcedit_open(vcedit_state *state, GFile *file, GError **error)
 
 err:
     g_assert (error == NULL || *error != NULL);
-    vcedit_clear_internals(state);
+    vcedit_clear_internals (state);
     return FALSE;
 }
 
 gboolean
-vcedit_write(vcedit_state *state, GFile *file, GError **error)
+vcedit_write (EtOggState *state,
+              GFile *file,
+              GError **error)
 {
     ogg_stream_state streamout;
     ogg_packet header_main;
@@ -566,7 +681,7 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
     int result;
     char *buffer;
     int bytes;
-    int needflush=0, needout=0;
+    int needflush = 0, needout = 0;
     GOutputStream *ostream;
     gchar *buf;
     gsize size;
@@ -603,17 +718,19 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
     header_codebooks.e_o_s = 0;
     header_codebooks.granulepos = 0;
 
-    ogg_stream_init(&streamout, state->serial);
+    ogg_stream_init (&streamout, state->serial);
 
-    _commentheader_out(state, &header_comments);
+    _commentheader_out (state, &header_comments);
 
-    ogg_stream_packetin(&streamout, &header_main);
-    ogg_stream_packetin(&streamout, &header_comments);
+    ogg_stream_packetin (&streamout, &header_main);
+    ogg_stream_packetin (&streamout, &header_comments);
 
-    if (state->oggtype == VCEDIT_IS_OGGVORBIS)
-        ogg_stream_packetin(&streamout, &header_codebooks);
+    if (state->oggtype == ET_OGG_KIND_VORBIS)
+    {
+        ogg_stream_packetin (&streamout, &header_codebooks);
+    }
 
-    while((result = ogg_stream_flush(&streamout, &ogout)))
+    while ((result = ogg_stream_flush (&streamout, &ogout)))
     {
         gsize bytes_written;
 
@@ -639,7 +756,7 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
 
     while (_fetch_next_packet (state, &op, &ogin, error))
     {
-        if(needflush)
+        if (needflush)
         {
             if (ogg_stream_flush (&streamout, &ogout))
             {
@@ -666,9 +783,9 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
                 }
             }
         }
-        else if(needout)
+        else if (needout)
         {
-            if(ogg_stream_pageout(&streamout, &ogout))
+            if(ogg_stream_pageout (&streamout, &ogout))
             {
                 gsize bytes_written;
 
@@ -696,12 +813,12 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
             }
         }
 
-        needflush=needout=0;
+        needflush = needout = 0;
 
-        if (state->oggtype == VCEDIT_IS_OGGVORBIS ||
-            state->oggtype == VCEDIT_IS_OPUS)
+        if (state->oggtype == ET_OGG_KIND_VORBIS ||
+            state->oggtype == ET_OGG_KIND_OPUS)
         {
-            if (state->oggtype == VCEDIT_IS_OGGVORBIS)
+            if (state->oggtype == ET_OGG_KIND_VORBIS)
             {
                 int size;
                 size = _blocksize(state, &op);
@@ -717,30 +834,30 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
             if(op.granulepos == -1)
             {
                 op.granulepos = granpos;
-                ogg_stream_packetin(&streamout, &op);
+                ogg_stream_packetin (&streamout, &op);
             }
             else /* granulepos is set, validly. Use it, and force a flush to 
                 account for shortened blocks (vcut) when appropriate */ 
             {
-                if(granpos > op.granulepos)
+                if (granpos > op.granulepos)
                 {
                     granpos = op.granulepos;
-                    ogg_stream_packetin(&streamout, &op);
-                    needflush=1;
+                    ogg_stream_packetin (&streamout, &op);
+                    needflush = 1;
                 }
                 else 
                 {
-                    ogg_stream_packetin(&streamout, &op);
-                    needout=1;
+                    ogg_stream_packetin (&streamout, &op);
+                    needout = 1;
                 }
             }
         }
         /* Don't know about granulepos for speex, will just assume the original 
            was appropriate. Not sure about the flushing?? */
-        else if (state->oggtype == VCEDIT_IS_SPEEX)
+        else if (state->oggtype == ET_OGG_KIND_SPEEX)
         {
-            ogg_stream_packetin(&streamout, &op);
-            needout=1;
+            ogg_stream_packetin (&streamout, &op);
+            needout = 1;
         }
     }
 
@@ -760,7 +877,8 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
     }
 
     streamout.e_o_s = 1;
-    while(ogg_stream_flush(&streamout, &ogout))
+
+    while (ogg_stream_flush (&streamout, &ogout))
     {
         gsize bytes_written;
 
@@ -808,16 +926,21 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
         }
     }
 
-    state->eosin=0; /* clear it, because not all paths to here do */
-    while(!state->eosin) /* We reached eos, not eof */
+    state->eosin = 0; /* clear it, because not all paths to here do */
+
+    while (!state->eosin) /* We reached eos, not eof */
     {
         /* We copy the rest of the stream (other logical streams)
          * through, a page at a time. */
         while(1)
         {
-            result = ogg_sync_pageout(state->oy, &ogout);
-            if(result==0)
+            result = ogg_sync_pageout (state->oy, &ogout);
+
+            if (result == 0)
+            {
                 break;
+            }
+
             if (result < 0)
             {
                 g_debug ("%s", "Corrupt or missing data, continuing");
@@ -845,7 +968,8 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
                 }
             }
         }
-        buffer = ogg_sync_buffer(state->oy, CHUNKSIZE);
+
+        buffer = ogg_sync_buffer (state->oy, CHUNKSIZE);
 
         bytes = g_input_stream_read (G_INPUT_STREAM (state->in), buffer,
                                      CHUNKSIZE, NULL, error);
@@ -856,8 +980,9 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
             goto cleanup;
         }
 
-        ogg_sync_wrote(state->oy, bytes);
-        if(bytes == 0)
+        ogg_sync_wrote (state->oy, bytes);
+
+        if (bytes == 0)
         {
             state->eosin = 1;
             break;
@@ -866,11 +991,11 @@ vcedit_write(vcedit_state *state, GFile *file, GError **error)
 
 
 cleanup:
-    ogg_stream_clear(&streamout);
-    ogg_packet_clear(&header_comments);
+    ogg_stream_clear (&streamout);
+    ogg_packet_clear (&header_comments);
 
-    free(state->mainbuf);
-    free(state->bookbuf);
+    g_free (state->mainbuf);
+    g_free (state->bookbuf);
     state->mainbuf = state->bookbuf = NULL;
 
     if (!state->eosin)

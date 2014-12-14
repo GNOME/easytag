@@ -50,7 +50,7 @@ et_ogg_error_quark (void)
 }
 
 /*
- * EtOggState:
+ * EtOggHeaderState:
  * @file: the Ogg file which is currently being parsed
  * @istream: an input stream for the current Ogg file
  * @error: either the most recent error, or %NULL
@@ -63,7 +63,7 @@ typedef struct
     GFile *file;
     GInputStream *istream;
     GError *error;
-} EtOggState;
+} EtOggHeaderState;
 
 /*
  * et_ogg_read_func:
@@ -80,7 +80,7 @@ typedef struct
 static size_t
 et_ogg_read_func (void *ptr, size_t size, size_t nmemb, void *datasource)
 {
-    EtOggState *state = (EtOggState *)datasource;
+    EtOggHeaderState *state = (EtOggHeaderState *)datasource;
     gssize bytes_read;
 
     bytes_read = g_input_stream_read (state->istream, ptr, size * nmemb, NULL,
@@ -111,7 +111,7 @@ et_ogg_read_func (void *ptr, size_t size, size_t nmemb, void *datasource)
 static int
 et_ogg_seek_func (void *datasource, ogg_int64_t offset, int whence)
 {
-    EtOggState *state = (EtOggState *)datasource;
+    EtOggHeaderState *state = (EtOggHeaderState *)datasource;
     GSeekType seektype;
 
     if (!g_seekable_can_seek (G_SEEKABLE (state->istream)))
@@ -161,7 +161,7 @@ et_ogg_seek_func (void *datasource, ogg_int64_t offset, int whence)
 static int
 et_ogg_close_func (void *datasource)
 {
-    EtOggState *state = (EtOggState *)datasource;
+    EtOggHeaderState *state = (EtOggHeaderState *)datasource;
 
     g_clear_object (&state->istream);
     g_clear_error (&state->error);
@@ -180,7 +180,7 @@ et_ogg_close_func (void *datasource)
 static long
 et_ogg_tell_func (void *datasource)
 {
-    EtOggState *state = (EtOggState *)datasource;
+    EtOggHeaderState *state = (EtOggHeaderState *)datasource;
 
     return g_seekable_tell (G_SEEKABLE (state->istream));
 }
@@ -200,7 +200,7 @@ et_ogg_header_read_file_info (GFile *file,
     gint res;
     ov_callbacks callbacks = { et_ogg_read_func, et_ogg_seek_func,
                                et_ogg_close_func, et_ogg_tell_func };
-    EtOggState state;
+    EtOggHeaderState state;
     GFileInfo *info;
 
     g_return_val_if_fail (file != NULL && ETFileInfo != NULL, FALSE);
@@ -305,9 +305,9 @@ et_speex_header_read_file_info (GFile *file,
                                 ET_File_Info *ETFileInfo,
                                 GError **error)
 {
-    vcedit_state *state;
-    SpeexHeader  *si;
-    gchar *encoder_version = NULL;
+    EtOggState *state;
+    const SpeexHeader *si;
+    const gchar *encoder_version = NULL;
     gint channels = 0;
     glong rate = 0;
     glong bitrate = 0;
@@ -341,8 +341,8 @@ et_speex_header_read_file_info (GFile *file,
     ETFileInfo->size = g_file_info_get_size (info);
     g_object_unref (info);
 
-    // Get Speex information
-    if ( (si=state->si) != NULL )
+    /* Get Speex information. */
+    if ((si = vcedit_speex_header (state)) != NULL)
     {
         encoder_version = si->speex_version;
         channels        = si->nb_channels;        // Number of channels in bitstream.

@@ -17,8 +17,8 @@
  * Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __VCEDIT_H
-#define __VCEDIT_H
+#ifndef ET_VCEDIT_H_
+#define ET_VCEDIT_H_
 
 #include "config.h"
 
@@ -40,44 +40,27 @@ G_BEGIN_DECLS
 #include <speex/speex_header.h>
 #endif
 
-#define VCEDIT_IS_UNKNOWN   0
-#define VCEDIT_IS_SPEEX     1
-#define VCEDIT_IS_OGGVORBIS 2
-#define VCEDIT_IS_OPUS      3
+typedef enum
+{
+    ET_OGG_KIND_VORBIS,
+    ET_OGG_KIND_SPEEX,
+    ET_OGG_KIND_OPUS,
+    ET_OGG_KIND_UNKNOWN
+} EtOggKind;
 
-typedef struct {
-    ogg_sync_state      *oy;
-    ogg_stream_state    *os;
+typedef struct _EtOggState EtOggState;
 
-    int                 oggtype; // Stream is Vorbis or Speex?
-    vorbis_comment      *vc;
-    vorbis_info         *vi;
+EtOggState *vcedit_new_state (void);
+void vcedit_clear (EtOggState *state);
+vorbis_comment * vcedit_comments (EtOggState *state);
 #ifdef ENABLE_SPEEX
-    SpeexHeader         *si;
-#endif
-#ifdef ENABLE_OPUS
-    OpusHead            *oi;
-#endif
-    GFileInputStream    *in;
-    long        serial;
-    unsigned char   *mainbuf;
-    unsigned char   *bookbuf;
-    int     mainlen;
-    int     booklen;
-    char   *vendor;
-    int prevW;
-    int extrapage;
-    int eosin;
-} vcedit_state;
-
-extern vcedit_state    *vcedit_new_state(void);
-extern void             vcedit_clear(vcedit_state *state);
-extern vorbis_comment  *vcedit_comments(vcedit_state *state);
-extern int              vcedit_open(vcedit_state *state, GFile *in, GError **error);
-extern int              vcedit_write(vcedit_state *state, GFile *file, GError **error);
+const SpeexHeader * vcedit_speex_header (EtOggState *state);
+#endif /* ENABLE_SPEEX */
+int vcedit_open (EtOggState *state, GFile *in, GError **error);
+int vcedit_write (EtOggState *state, GFile *file, GError **error);
 
 G_END_DECLS
 
 #endif /* ENABLE_OGG */
 
-#endif /* __VCEDIT_H */
+#endif /* ET_VCEDIT_H_ */

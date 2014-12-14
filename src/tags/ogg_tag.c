@@ -629,7 +629,7 @@ ogg_tag_read_file_tag (GFile *file,
                        GError **error)
 {
     GFileInputStream *istream;
-    vcedit_state   *state;
+    EtOggState *state;
     gchar *filename;
     gchar *filename_utf8;
 
@@ -790,7 +790,7 @@ ogg_tag_write_file_tag (const ET_File *ETFile,
     const File_Tag *FileTag;
     const gchar *filename;
     GFile           *file;
-    vcedit_state   *state;
+    EtOggState *state;
     vorbis_comment *vc;
     gchar          *string;
     GList *l;
