@@ -21,7 +21,6 @@
 
 #ifdef ENABLE_WAVPACK
 
-#include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <wavpack/wavpack.h>
 

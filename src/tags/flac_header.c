@@ -21,7 +21,6 @@
 
 #ifdef ENABLE_FLAC
 
-#include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <errno.h>
 

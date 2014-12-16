@@ -21,8 +21,7 @@
 #ifndef ET_OGG_HEADER_H_
 #define ET_OGG_HEADER_H_
 
-
-#include <glib.h>
+#include <gio/gio.h>
 #include "et_core.h"
 
 G_BEGIN_DECLS

@@ -19,7 +19,6 @@
 #ifndef ET_APPLICATION_H_
 #define ET_APPLICATION_H_
 
-#include <gio/gio.h>
 #include <gtk/gtk.h>
 
 #include "application_window.h"

@@ -20,7 +20,6 @@
 
 #include "application_window.h"
 
-#include <gdk/gdkkeysyms.h>
 #include <glib/gi18n.h>
 
 #include "browser.h"

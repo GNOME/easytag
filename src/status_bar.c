@@ -19,9 +19,10 @@
 
 #include "config.h"
 
+#include "status_bar.h"
+
 #include <glib/gi18n.h>
 
-#include "status_bar.h"
 #include "charset.h"
 
 /* TODO: Use G_DEFINE_TYPE_WITH_PRIVATE. */

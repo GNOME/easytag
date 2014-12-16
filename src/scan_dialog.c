@@ -21,11 +21,9 @@
 
 #include "scan_dialog.h"
 
-#include <gtk/gtk.h>
 #include <string.h>
 #include <stdlib.h>
 #include <gdk/gdkkeysyms.h>
-#include <config.h>
 #include <glib/gi18n.h>
 
 #include "application_window.h"

@@ -28,11 +28,9 @@
 
 #include "browser.h"
 
-#include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 #include <gdk/gdk.h>
 #include <glib/gi18n.h>
-#include <unistd.h>
 #include <stdlib.h>
 #include <dirent.h>
 #include <string.h>
@@ -4385,6 +4383,7 @@ Rename_Directory (EtBrowser *self)
     new_path = g_strconcat(directory_parent, directory_new_name_file, NULL);
     new_path_utf8 = filename_to_display(new_path);
 
+    /* TODO: Replace with g_open_dir() (or more likely g_file_move()). */
     /* Check if the new directory name doesn't already exists, and detect if
      * it's only a case change (needed for vfat) */
     if ( (dir=opendir(new_path))!=NULL )

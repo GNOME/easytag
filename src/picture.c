@@ -17,20 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
-#include <gtk/gtk.h>
-#include <gdk/gdkkeysyms.h>
-#include <gdk/gdk.h>
-#include <glib/gi18n.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <string.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <errno.h>
+#include "config.h"
 
 #include "picture.h"
+
+#include <gtk/gtk.h>
+#include <glib/gi18n.h>
+
 #include "easytag.h"
 #include "log.h"
 #include "misc.h"
@@ -39,14 +32,6 @@
 
 #include "win32/win32dep.h"
 
-
-/**************
- * Prototypes *
- **************/
-
-static const gchar *Picture_Format_String (Picture_Format format);
-
-
 /*
  * Note :
  * -> MP4_TAG :
@@ -54,10 +39,6 @@ static const gchar *Picture_Format_String (Picture_Format format);
  *      The format's don't matter to the MP4 side.
  *
  */
-
-/*************
- * Functions *
- *************/
 
 /*
  * et_picture_type_from_filename:

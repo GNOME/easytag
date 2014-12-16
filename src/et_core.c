@@ -17,7 +17,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
+#include "config.h"
+
+#include "et_core.h"
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
@@ -27,13 +29,9 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <utime.h>
-#include <ctype.h>
-#include <locale.h>
-#include <errno.h>
 
 #include "application_window.h"
 #include "easytag.h"
-#include "et_core.h"
 #include "mpeg_header.h"
 #include "monkeyaudio_header.h"
 #include "musepack_header.h"
@@ -3394,9 +3392,9 @@ ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
 
         FileTag->track = et_track_number_to_string (atoi (FileTagCur->track));
 
-        // This field must contain only digits
+        /* This field must contain only digits. */
         tmp_str = FileTag->track;
-        while (isdigit((guchar)*tmp_str)) tmp_str++;
+        while (g_ascii_isdigit (*tmp_str)) tmp_str++;
             *tmp_str = 0;
         g_strstrip (FileTag->track);
     } else

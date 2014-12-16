@@ -19,19 +19,14 @@
 
 #include "config.h"
 
-#include <gtk/gtk.h>
 #include <glib/gi18n.h>
-#include <stdio.h>
-#include <errno.h>
 #include <string.h>
-#include <ctype.h>
-#include <unistd.h>
+#include <errno.h>
 
 #include "id3_tag.h"
 #include "ape_tag.h"
 #include "picture.h"
 #include "easytag.h"
-#include "browser.h"
 #include "genres.h"
 #include "setting.h"
 #include "misc.h"
@@ -101,7 +96,7 @@ et_id3tag_get_tpos_from_file_tag (const File_Tag *FileTag)
 
     while (*p)
     {
-        if (!isdigit (*p))
+        if (!g_ascii_isdigit (*p))
         {
             break;
         }
@@ -117,7 +112,7 @@ et_id3tag_get_tpos_from_file_tag (const File_Tag *FileTag)
 
         while (*p)
         {
-            if (!isdigit (*p))
+            if (!g_ascii_isdigit (*p))
             {
                 break;
             }

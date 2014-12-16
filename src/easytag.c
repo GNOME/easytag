@@ -17,46 +17,28 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include "config.h" // For definition of ENABLE_OGG
-#include <gtk/gtk.h>
-#include <stdio.h>
-#include <string.h>
-#include <gdk/gdkkeysyms.h>
+#include "config.h"
+
+#include "easytag.h"
+
 #include <glib/gi18n.h>
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#include <errno.h>
-#ifdef ENABLE_MP3
-#include <id3tag.h>
-#endif
-#if defined ENABLE_MP3 && defined ENABLE_ID3LIB
-#include <id3.h>
-#endif
 #include <sys/types.h>
 
-#include "easytag.h"
 #include "application_window.h"
 #include "browser.h"
 #include "log.h"
 #include "misc.h"
 #include "cddb_dialog.h"
-#include "preferences_dialog.h"
 #include "setting.h"
 #include "scan_dialog.h"
-#include "mpeg_header.h"
-#include "id3_tag.h"
-#include "ogg_tag.h"
 #include "et_core.h"
-#include "picture.h"
 #include "charset.h"
 
 #include "win32/win32dep.h"
 
-
-/****************
- * Declarations *
- ****************/
 static GtkWidget *QuitRecursionWindow = NULL;
 
 /* Used to force to hide the msgbox when saving tag */
@@ -68,14 +50,6 @@ static gboolean SF_HideMsgbox_Rename_File;
 /* To remember which button was pressed when renaming file */
 static gint SF_ButtonPressed_Rename_File;
 
-#ifdef ENABLE_FLAC
-    #include <FLAC/metadata.h>
-#endif
-
-
-/**************
- * Prototypes *
- **************/
 static gboolean Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox);
 static gint Save_File (ET_File *ETFile, gboolean multiple_files,
                        gboolean force_saving_files);

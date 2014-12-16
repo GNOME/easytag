@@ -20,9 +20,7 @@
 
 #ifdef ENABLE_OPUS
 
-#include <gtk/gtk.h>
 #include <glib/gi18n.h>
-#include <errno.h>
 
 #include "easytag.h"
 #include "opus_header.h"

@@ -21,11 +21,11 @@
 #ifndef ET_BROWSER_H_
 #define ET_BROWSER_H_
 
-#include "et_core.h"
-
 #include <gtk/gtk.h>
 
 G_BEGIN_DECLS
+
+#include "et_core.h"
 
 #define ET_TYPE_BROWSER (et_browser_get_type ())
 #define ET_BROWSER(object) (G_TYPE_CHECK_INSTANCE_CAST ((object), ET_TYPE_BROWSER, EtBrowser))

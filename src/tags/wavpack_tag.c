@@ -22,13 +22,9 @@
 
 #ifdef ENABLE_WAVPACK
 
-#include <gtk/gtk.h>
 #include <glib/gi18n.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <errno.h>
-#include <unistd.h>
 #include <wavpack/wavpack.h>
 
 #include "easytag.h"

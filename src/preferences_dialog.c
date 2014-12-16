@@ -22,13 +22,9 @@
 #include "preferences_dialog.h"
 
 #include <errno.h>
-#include <stdlib.h>
 #include <gdk/gdkkeysyms.h>
 #include <glib/gi18n.h>
-#include <stdio.h>
 #include <string.h>
-#include <sys/stat.h>
-#include <unistd.h>
 
 #include "application_window.h"
 #include "setting.h"

@@ -19,14 +19,10 @@
 
 #include "config.h"
 
-#include <gtk/gtk.h>
-#include <gdk/gdkkeysyms.h>
-#include <glib/gi18n.h>
-#include <ctype.h>
-#include <sys/stat.h>
-#include <errno.h>
-
 #include "misc.h"
+
+#include <glib/gi18n.h>
+
 #include "easytag.h"
 #include "id3_tag.h"
 #include "browser.h"

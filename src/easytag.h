@@ -1,4 +1,3 @@
-/* easytag.h - 2000/04/28 */
 /*
  *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
  *  Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
@@ -19,18 +18,16 @@
  */
 
 
-#ifndef __EASYTAG_H__
-#define __EASYTAG_H__
+#ifndef ET_EASYTAG_H_
+#define ET_EASYTAG_H_
 
-
-/* 'include' and 'define' created by autoconf/automake */
 #include "config.h"
+
+#include <gtk/gtk.h>
 
 #include "et_core.h"
 
-
 #define MAX_STRING_LEN     1024
-
 
 /***************
  * Declaration *

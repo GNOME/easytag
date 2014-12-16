@@ -17,16 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <glib/gi18n.h>
-#include <errno.h>
-#include <string.h>
-#include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <time.h>
-#include <unistd.h>
 
 #include "log.h"
 #include "application_window.h"

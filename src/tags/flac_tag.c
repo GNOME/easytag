@@ -22,13 +22,8 @@
 
 #ifdef ENABLE_FLAC
 
-#include <gtk/gtk.h>
 #include <glib/gi18n.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <errno.h>
-#include <unistd.h>
 
 #include "easytag.h"
 #include "flac_private.h"

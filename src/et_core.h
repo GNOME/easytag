@@ -20,8 +20,6 @@
 #ifndef ET_CORE_H_
 #define ET_CORE_H_
 
-#include "config.h" /* For definition of ENABLE_OGG and so on. */
-
 #include "setting.h"
 
 #include <glib.h>

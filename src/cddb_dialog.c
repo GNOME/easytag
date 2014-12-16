@@ -19,8 +19,8 @@
 
 #include "config.h"
 
-#include <gtk/gtk.h>
-#include <gdk/gdkkeysyms.h>
+#include "cddb_dialog.h"
+
 #include <glib/gi18n.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -39,7 +39,6 @@
 #include <errno.h>
 
 #include "application_window.h"
-#include "cddb_dialog.h"
 #include "easytag.h"
 #include "enums.h"
 #include "et_core.h"

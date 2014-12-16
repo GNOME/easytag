@@ -24,9 +24,10 @@
 
 #ifdef ENABLE_OGG
 
+#include <gio/gio.h>
+
 G_BEGIN_DECLS
 
-#include <stdio.h>
 #include <ogg/ogg.h>
 #include <vorbis/codec.h>
 

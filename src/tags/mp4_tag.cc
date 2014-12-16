@@ -23,7 +23,6 @@
 
 #ifdef ENABLE_MP4
 
-#include <gtk/gtk.h>
 #include <glib/gi18n.h>
 
 #include "mp4_header.h"

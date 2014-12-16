@@ -20,7 +20,6 @@
 
 #include "tag_area.h"
 
-#include <ctype.h>
 #include <glib/gi18n.h>
 
 #include "application_window.h"
@@ -1074,7 +1073,7 @@ Insert_Only_Digit (GtkEditable *editable,
     if (length<=0 || !inserted_text)
         return;
 
-    if (!isdigit((guchar)inserted_text[0]) && inserted_text[0] != '-')
+    if (!g_ascii_isdigit (inserted_text[0]) && inserted_text[0] != '-')
     {
         g_signal_stop_emission_by_name(G_OBJECT(editable),"insert_text");
         return;
@@ -1091,7 +1090,7 @@ Insert_Only_Digit (GtkEditable *editable,
     // Check the rest, if any...
     for (i = 1; i < length; i++)
     {
-        if (isdigit((guchar)inserted_text[i]))
+        if (g_ascii_isdigit (inserted_text[i]))
         {
             result[j++] = inserted_text[i];
         }
