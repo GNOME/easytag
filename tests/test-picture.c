@@ -26,9 +26,11 @@ picture_copy (void)
     EtPicture *pic1;
     EtPicture *pic2;
     EtPicture *pic3;
+    EtPicture *pic4;
     EtPicture *pic1_copy;
     EtPicture *pic2_copy;
     const EtPicture *pic3_copy;
+    EtPicture *pic4_copy;
 
     pic1 = et_picture_new ();
 
@@ -83,9 +85,27 @@ picture_copy (void)
     g_assert_cmpstr (pic3_copy->description, ==, "bash.jpg");
     g_assert_cmpint (g_bytes_get_size (pic3_copy->bytes), ==, 3);
 
+    pic4 = et_picture_new ();
+
+    pic4->type = ET_PICTURE_TYPE_MEDIA;
+    pic4->width = 800;
+    pic4->height = 600;
+    pic4->description = g_strdup ("baz.gif");
+    pic4->bytes = g_bytes_new_static ("foobarbaz", 9);
+
+    pic4_copy = g_boxed_copy (ET_TYPE_PICTURE, pic4);
+
+    g_assert_cmpint (pic4_copy->type, ==, ET_PICTURE_TYPE_MEDIA);
+    g_assert_cmpint (pic4_copy->width, ==, 800);
+    g_assert_cmpint (pic4_copy->height, ==, 600);
+    g_assert_cmpstr (pic4_copy->description, ==, "baz.gif");
+    g_assert_cmpint (g_bytes_get_size (pic4_copy->bytes), ==, 9);
+
     et_picture_free (pic1_copy);
     et_picture_free (pic2_copy);
+    g_boxed_free (ET_TYPE_PICTURE, pic4_copy);
     et_picture_free (pic1);
+    et_picture_free (pic4);
 }
 
 static void
