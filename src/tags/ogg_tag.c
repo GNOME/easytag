@@ -172,7 +172,7 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     gchar *string1 = NULL;
     gchar *string2 = NULL;
     guint field_num, i;
-    Picture *prev_pic = NULL;
+    EtPicture *prev_pic = NULL;
 
     /*********
      * Title *
@@ -481,7 +481,7 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     field_num = 0;
     while ( (string = vorbis_comment_query(vc,"COVERART",field_num++)) != NULL )
     {
-        Picture *pic;
+        EtPicture *pic;
         guchar *data;
         gsize data_size;
             
@@ -489,7 +489,8 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
          * field in converted in a METADATA_PICTURE_BLOCK field. */
         FileTag->saved = FALSE;
 
-        pic = Picture_Allocate();
+        pic = et_picture_new ();
+
         if (!prev_pic)
             FileTag->picture = pic;
         else
@@ -522,14 +523,14 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     while ((string = vorbis_comment_query (vc, "METADATA_BLOCK_PICTURE",
                                            field_num++)) != NULL)
     {
-        Picture *pic;
+        EtPicture *pic;
         gsize bytes_pos, mimelen, desclen;
         guchar *decoded_ustr;
         GBytes *bytes;
         gsize decoded_size;
         gsize data_size;
 
-        pic = Picture_Allocate();
+        pic = et_picture_new ();
 
         if (!prev_pic)
         {
@@ -790,7 +791,7 @@ ogg_tag_write_file_tag (const ET_File *ETFile,
     vorbis_comment *vc;
     gchar          *string;
     GList *l;
-    Picture        *pic;
+    EtPicture *pic;
 
     g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL, FALSE);
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);

@@ -21,14 +21,14 @@
 static void
 picture_copy (void)
 {
-    Picture *pic1;
-    Picture *pic2;
-    Picture *pic3;
-    Picture *pic1_copy;
-    Picture *pic2_copy;
-    const Picture *pic3_copy;
+    EtPicture *pic1;
+    EtPicture *pic2;
+    EtPicture *pic3;
+    EtPicture *pic1_copy;
+    EtPicture *pic2_copy;
+    const EtPicture *pic3_copy;
 
-    pic1 = Picture_Allocate ();
+    pic1 = et_picture_new ();
 
     pic1->type = ET_PICTURE_TYPE_LEAFLET_PAGE;
     pic1->width = 640;
@@ -36,7 +36,7 @@ picture_copy (void)
     pic1->description = g_strdup ("foobar.png");
     pic1->bytes = g_bytes_new_static ("foobar", 6);
 
-    pic2 = Picture_Copy (pic1);
+    pic2 = et_picture_copy_all (pic1);
 
     g_assert_cmpint (pic2->type, ==, ET_PICTURE_TYPE_LEAFLET_PAGE);
     g_assert_cmpint (pic2->width, ==, 640);
@@ -47,7 +47,7 @@ picture_copy (void)
     g_assert (pic2->bytes == pic1->bytes);
     g_assert (pic2->next == NULL);
 
-    pic3 = Picture_Allocate ();
+    pic3 = et_picture_new ();
 
     pic3->type = ET_PICTURE_TYPE_ILLUSTRATION;
     pic3->width = 320;
@@ -58,7 +58,7 @@ picture_copy (void)
     pic1->next = pic2;
     pic2->next = pic3;
 
-    pic2_copy = Picture_Copy_One (pic2);
+    pic2_copy = et_picture_copy_single (pic2);
 
     g_assert_cmpint (pic2_copy->type, ==, ET_PICTURE_TYPE_LEAFLET_PAGE);
     g_assert_cmpint (pic2_copy->width, ==, 640);
@@ -67,7 +67,7 @@ picture_copy (void)
     g_assert_cmpint (g_bytes_get_size (pic2_copy->bytes), ==, 6);
     g_assert (pic2_copy->next == NULL);
 
-    pic1_copy = Picture_Copy (pic1);
+    pic1_copy = et_picture_copy_all (pic1);
 
     g_assert (pic1_copy->next != NULL);
     g_assert (pic1_copy->next->next != NULL);
@@ -81,9 +81,9 @@ picture_copy (void)
     g_assert_cmpstr (pic3_copy->description, ==, "bash.jpg");
     g_assert_cmpint (g_bytes_get_size (pic3_copy->bytes), ==, 3);
 
-    Picture_Free (pic1_copy);
-    Picture_Free (pic2_copy);
-    Picture_Free (pic1);
+    et_picture_free (pic1_copy);
+    et_picture_free (pic2_copy);
+    et_picture_free (pic1);
 }
 
 static void

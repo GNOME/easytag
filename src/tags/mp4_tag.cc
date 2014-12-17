@@ -209,7 +209,7 @@ mp4tag_read_file_tag (GFile *file,
         const TagLib::MP4::CoverArtList covers = cover.toCoverArtList ();
         const TagLib::MP4::CoverArt &art = covers.front ();
 
-        FileTag->picture = Picture_Allocate ();
+        FileTag->picture = et_picture_new ();
 
         /* TODO: Use g_bytes_new_with_free_func()? */
         FileTag->picture->bytes = g_bytes_new (art.data ().data (),

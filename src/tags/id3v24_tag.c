@@ -99,7 +99,7 @@ id3tag_read_file_tag (GFile *gfile,
     struct id3_frame *frame;
     union id3_field *field;
     gchar *string1, *string2;
-    Picture *prev_pic = NULL;
+    EtPicture *prev_pic = NULL;
     int i, j;
     unsigned tmpupdate, update = 0;
     long tagsize;
@@ -447,9 +447,9 @@ id3tag_read_file_tag (GFile *gfile,
      ******************/
     for (i = 0; (frame = id3_tag_findframe(tag, "APIC", i)); i++)
     {
-        Picture *pic;
+        EtPicture *pic;
 
-        pic = Picture_Allocate();
+        pic = et_picture_new ();
         if (!prev_pic)
             FileTag->picture = pic;
         else
@@ -914,7 +914,7 @@ id3tag_write_file_v24tag (const ET_File *ETFile,
     struct id3_frame *frame;
     union id3_field  *field;
     gchar            *string1;
-    Picture          *pic;
+    EtPicture          *pic;
     gboolean strip_tags = TRUE;
     guchar genre_value = ID3_INVALID_GENRE;
     gboolean success;

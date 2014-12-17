@@ -24,6 +24,8 @@
 
 G_BEGIN_DECLS
 
+#define ET_TYPE_PICTURE (et_picture_get_type ())
+
 /* Defined in et_core.h
 typedef struct _Picture Picture;
 struct _Picture
@@ -72,17 +74,18 @@ typedef enum
     PICTURE_FORMAT_UNKNOWN
 } Picture_Format;
 
-Picture       *Picture_Allocate         (void);
-Picture       *Picture_Copy_One         (const Picture *pic);
-Picture       *Picture_Copy             (const Picture *pic);
-void           Picture_Free             (Picture *pic);
-Picture_Format Picture_Format_From_Data (const Picture *pic);
+GType et_picture_get_type (void);
+EtPicture * et_picture_new (void);
+EtPicture * et_picture_copy_single (const EtPicture *pic);
+EtPicture * et_picture_copy_all (const EtPicture *pic);
+void et_picture_free (EtPicture *pic);
+Picture_Format Picture_Format_From_Data (const EtPicture *pic);
 const gchar   *Picture_Mime_Type_String (Picture_Format format);
 const gchar * Picture_Type_String (EtPictureType type);
-gchar * Picture_Info (const Picture *pic, ET_Tag_Type tag_type);
+gchar * et_picture_format_info (const EtPicture *pic, ET_Tag_Type tag_type);
 
-Picture *et_picture_load_file_data (GFile *file, GError **error);
-gboolean et_picture_save_file_data (const Picture *pic, GFile *file, GError **error);
+EtPicture * et_picture_load_file_data (GFile *file, GError **error);
+gboolean et_picture_save_file_data (const EtPicture *pic, GFile *file, GError **error);
 
 EtPictureType et_picture_type_from_filename (const gchar *filename_utf8);
 

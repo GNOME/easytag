@@ -83,17 +83,17 @@ struct _File_Name
 
 
 /*
- * Description of Picture item (see picture.h)
+ * Description of EtPicture item (see picture.h)
  */
-typedef struct _Picture Picture;
-struct _Picture
+typedef struct _EtPicture EtPicture;
+struct _EtPicture
 {
     gint type;
-    gchar   *description;
-    gint     width;         /* Original width of the picture */
-    gint     height;        /* Original height of the picture */
+    gchar *description;
+    gint width; /* Original width of the picture */
+    gint height; /* Original height of the picture */
     GBytes *bytes;
-    Picture *next;
+    EtPicture *next;
 };
 
 
@@ -122,7 +122,7 @@ struct _File_Tag
     gchar *copyright;      /* Copyright */
     gchar *url;            /* URL */
     gchar *encoded_by;     /* Encoded by */
-    Picture *picture;      /* Picture */
+    EtPicture *picture; /* Picture */
     GList *other;          /* List of unsupported fields (used for ogg only) */
 };
 
@@ -298,7 +298,7 @@ gboolean ET_Copy_File_Tag_Item (const ET_File *ETFile, File_Tag *FileTag);
 gboolean ET_Set_Field_File_Name_Item    (gchar **FileNameField, gchar *value);
 gboolean ET_Set_Filename_File_Name_Item (File_Name *FileName, const gchar *filename_utf8, const gchar *filename);
 gboolean ET_Set_Field_File_Tag_Item (gchar **FileTagField, const gchar *value);
-gboolean ET_Set_Field_File_Tag_Picture (Picture **FileTagField, const Picture *pic);
+gboolean ET_Set_Field_File_Tag_Picture (EtPicture **FileTagField, const EtPicture *pic);
 
 GList   *ET_Displayed_File_List_First       (void);
 GList   *ET_Displayed_File_List_Previous    (void);

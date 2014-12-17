@@ -167,7 +167,7 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
     ID3Field *id3_field;
     //gchar *string;
     gchar *string1;
-    Picture *pic;
+    EtPicture *pic;
 
     g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL, FALSE);
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);

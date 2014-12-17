@@ -32,6 +32,8 @@
 
 #include "win32/win32dep.h"
 
+G_DEFINE_BOXED_TYPE (EtPicture, et_picture, et_picture_copy_single, et_picture_free)
+
 /*
  * Note :
  * -> MP4_TAG :
@@ -109,7 +111,7 @@ et_picture_type_from_filename (const gchar *filename_utf8)
 
 /* FIXME: Possibly use gnome_vfs_get_mime_type_for_buffer. */
 Picture_Format
-Picture_Format_From_Data (const Picture *pic)
+Picture_Format_From_Data (const EtPicture *pic)
 {
     gsize size;
     gconstpointer data;
@@ -234,8 +236,8 @@ Picture_Type_String (EtPictureType type)
 }
 
 gchar *
-Picture_Info (const Picture *pic,
-              ET_Tag_Type tag_type)
+et_picture_format_info (const EtPicture *pic,
+                        ET_Tag_Type tag_type)
 {
     const gchar *format, *desc, *type;
     gchar *r, *size_str;
@@ -277,21 +279,21 @@ Picture_Info (const Picture *pic,
     return r;
 }
 
-Picture *
-Picture_Allocate (void)
+EtPicture *
+et_picture_new (void)
 {
-    Picture *pic = g_slice_new0 (Picture);
+    EtPicture *pic = g_slice_new0 (EtPicture);
     return pic;
 }
 
-Picture *
-Picture_Copy_One (const Picture *pic)
+EtPicture *
+et_picture_copy_single (const EtPicture *pic)
 {
-    Picture *pic2;
+    EtPicture *pic2;
 
     g_return_val_if_fail (pic != NULL, NULL);
 
-    pic2 = Picture_Allocate ();
+    pic2 = et_picture_new ();
     pic2->type = pic->type;
     pic2->width  = pic->width;
     pic2->height = pic->height;
@@ -306,17 +308,21 @@ Picture_Copy_One (const Picture *pic)
     return pic2;
 }
 
-Picture *
-Picture_Copy (const Picture *pic)
+EtPicture *
+et_picture_copy_all (const EtPicture *pic)
 {
-    Picture *pic2 = Picture_Copy_One(pic);
+    EtPicture *pic2 = et_picture_copy_single (pic);
+
     if (pic->next)
-        pic2->next = Picture_Copy(pic->next);
+    {
+        pic2->next = et_picture_copy_all (pic->next);
+    }
+
     return pic2;
 }
 
 void
-Picture_Free (Picture *pic)
+et_picture_free (EtPicture *pic)
 {
     if (pic == NULL)
     {
@@ -325,14 +331,14 @@ Picture_Free (Picture *pic)
 
     if (pic->next)
     {
-        Picture_Free (pic->next);
+        et_picture_free (pic->next);
     }
 
     g_free (pic->description);
     g_bytes_unref (pic->bytes);
     pic->bytes = NULL;
 
-    g_slice_free (Picture, pic);
+    g_slice_free (EtPicture, pic);
 }
 
 
@@ -345,7 +351,7 @@ Picture_Free (Picture *pic)
  *
  * Returns: an image on success, %NULL otherwise
  */
-Picture *
+EtPicture *
 et_picture_load_file_data (GFile *file, GError **error)
 {
     gsize size;
@@ -398,7 +404,7 @@ et_picture_load_file_data (GFile *file, GError **error)
     else
     {
         /* Image loaded. */
-        Picture *pic;
+        EtPicture *pic;
         gpointer data;
         gsize data_size;
 
@@ -413,7 +419,7 @@ et_picture_load_file_data (GFile *file, GError **error)
 
         g_assert (error == NULL || *error == NULL);
 
-        pic = Picture_Allocate ();
+        pic = et_picture_new ();
         data = g_memory_output_stream_steal_data (G_MEMORY_OUTPUT_STREAM (ostream));
         data_size = g_memory_output_stream_get_data_size (G_MEMORY_OUTPUT_STREAM (ostream));
         pic->bytes = g_bytes_new_take (data, data_size);
@@ -427,7 +433,7 @@ et_picture_load_file_data (GFile *file, GError **error)
 
 /*
  * et_picture_save_file_data:
- * @pic: the #Picture from which to take an image
+ * @pic: the #EtPicture from which to take an image
  * @file: the #GFile for which to save an image
  * @error: a #GError to provide information on errors, or %NULL to ignore
  *
@@ -436,7 +442,9 @@ et_picture_load_file_data (GFile *file, GError **error)
  * Returns: %TRUE on success, %FALSE otherwise
  */
 gboolean
-et_picture_save_file_data (const Picture *pic, GFile *file, GError **error)
+et_picture_save_file_data (const EtPicture *pic,
+                           GFile *file,
+                           GError **error)
 {
     GFileOutputStream *file_ostream;
     gconstpointer data;

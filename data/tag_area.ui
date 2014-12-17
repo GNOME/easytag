@@ -9,7 +9,7 @@
         <columns>
             <column type="GdkPixbuf"/>
             <column type="gchararray"/>
-            <column type="gpointer"/>
+            <column type="EtPicture"/>
         </columns>
     </object>
     <object class="GtkListStore" id="track_combo_model">

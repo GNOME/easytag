@@ -614,7 +614,7 @@ on_apply_to_selection (GObject *object,
     }
     else if (object == G_OBJECT (priv->apply_image_toolitem))
     {
-        Picture *res = NULL, *pic, *prev_pic = NULL;
+        EtPicture *res = NULL, *pic, *prev_pic = NULL;
         GtkTreeModel *model;
         GtkTreeIter iter;
 
@@ -623,8 +623,9 @@ on_apply_to_selection (GObject *object,
         {
             do
             {
-                gtk_tree_model_get(model, &iter, PICTURE_COLUMN_DATA, &pic, -1);
-                pic = Picture_Copy_One(pic);
+                gtk_tree_model_get (model, &iter, PICTURE_COLUMN_DATA, &pic,
+                                    -1);
+
                 if (!res)
                     res = pic;
                 else
@@ -638,7 +639,8 @@ on_apply_to_selection (GObject *object,
             etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
-            ET_Set_Field_File_Tag_Picture((Picture **)&FileTag->picture, res);
+            ET_Set_Field_File_Tag_Picture ((EtPicture **)&FileTag->picture,
+                                           res);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (res)
@@ -650,7 +652,7 @@ on_apply_to_selection (GObject *object,
             msg = g_strdup (_("Removed images from selected files"));
         }
 
-        Picture_Free (res);
+        et_picture_free (res);
     }
 
     g_list_free(etfilelist);
@@ -1215,31 +1217,15 @@ static void
 PictureEntry_Clear (EtTagArea *self)
 {
     EtTagAreaPrivate *priv;
-    GtkTreeModel *model;
-    GtkTreeIter iter;
-    Picture *pic;
 
     priv = et_tag_area_get_instance_private (self);
-
-    model = GTK_TREE_MODEL (priv->images_model);
-
-    /* FIXME: Make Picture a boxed type, so that it can be freed
-     * automatically. */
-    if (gtk_tree_model_get_iter_first (model, &iter))
-    {
-        do
-        {
-            gtk_tree_model_get (model, &iter, PICTURE_COLUMN_DATA, &pic, -1);
-            Picture_Free (pic);
-        } while (gtk_tree_model_iter_next (model, &iter));
-    }
 
     gtk_list_store_clear (priv->images_model);
 }
 
 static void
 PictureEntry_Update (EtTagArea *self,
-                     Picture *pic,
+                     EtPicture *pic,
                      gboolean select_it)
 {
     EtTagAreaPrivate *priv;
@@ -1305,8 +1291,8 @@ PictureEntry_Update (EtTagArea *self,
                                     GDK_INTERP_BILINEAR);
                 g_object_unref(pixbuf);
 
-                pic_info = Picture_Info (pic,
-                                         ETCore->ETFileDisplayed->ETFileDescription->TagType);
+                pic_info = et_picture_format_info (pic,
+                                                   ETCore->ETFileDisplayed->ETFileDescription->TagType);
                 gtk_list_store_insert_with_values (priv->images_model, &iter1,
                                                    G_MAXINT,
                                                    PICTURE_COLUMN_PIC,
@@ -1314,7 +1300,7 @@ PictureEntry_Update (EtTagArea *self,
                                                    PICTURE_COLUMN_TEXT,
                                                    pic_info,
                                                    PICTURE_COLUMN_DATA,
-                                                   Picture_Copy_One (pic), -1);
+                                                   pic, -1);
                 g_free(pic_info);
 
                 if (select_it)
@@ -1372,7 +1358,7 @@ static void
 load_picture_from_file (GFile *file,
                         EtTagArea *self)
 {
-    Picture *pic;
+    EtPicture *pic;
     const gchar *filename_utf8;
     GFileInfo *info;
     GError *error = NULL;
@@ -1453,7 +1439,7 @@ load_picture_from_file (GFile *file,
 
         PictureEntry_Update (self, pic, TRUE);
 
-        Picture_Free (pic);
+        et_picture_free (pic);
     }
 
     g_object_unref (info);
@@ -1614,7 +1600,7 @@ on_picture_properties_button_clicked (GObject *object,
     {
         GtkWidget *PictureTypesWindow;
         GtkTreePath *path = l->data;
-        Picture *pic = NULL;
+        EtPicture *pic = NULL;
         GtkTreeSelection *selectiontype;
         gchar *title;
         GtkTreePath *rowPath;
@@ -1778,8 +1764,8 @@ on_picture_properties_button_clicked (GObject *object,
                 pic->description = buffer;
 
                 /* Update value in the PictureEntryView. */
-                pic_info = Picture_Info (pic,
-                                         ETCore->ETFileDisplayed->ETFileDescription->TagType);
+                pic_info = et_picture_format_info (pic,
+                                                   ETCore->ETFileDisplayed->ETFileDescription->TagType);
                 gtk_list_store_set (GTK_LIST_STORE (model), &iter,
                                     PICTURE_COLUMN_TEXT, pic_info, -1);
                 g_free (pic_info);
@@ -1828,7 +1814,7 @@ on_picture_save_button_clicked (GObject *object,
     {
         GtkTreePath *path = l->data;
         GtkTreeIter iter;
-        Picture *pic;
+        EtPicture *pic;
         gchar *title;
         gboolean valid;
         gint response;
@@ -2057,13 +2043,9 @@ on_picture_clear_button_clicked (GObject *object,
     for (l = refs; l != NULL; l = g_list_next (l))
     {
         GtkTreePath *path = gtk_tree_row_reference_get_path (l->data);
-        Picture *pic;
 
         if (gtk_tree_model_get_iter (model, &iter, path))
         {
-            gtk_tree_model_get(model, &iter, PICTURE_COLUMN_DATA, &pic,-1);
-            Picture_Free(pic);
-
             gtk_list_store_remove (priv->images_model, &iter);
         }
 
@@ -2129,6 +2111,10 @@ create_tag_area (EtTagArea *self)
     GtkTreeSelection *selection;
 
     priv = et_tag_area_get_instance_private (self);
+
+    /* Ensure that the boxed type is registered before using it in
+     * GtkBuilder. */
+    et_picture_get_type ();
 
     /* Main Frame */
     builder = gtk_builder_new ();
@@ -2939,13 +2925,13 @@ et_tag_area_create_file_tag (EtTagArea *self)
 
     /* Picture */
     {
-        Picture *pic, *prev_pic = NULL;
+        EtPicture *pic, *prev_pic = NULL;
         GtkTreeModel *model;
         GtkTreeIter iter;
 
         if (FileTag->picture)
         {
-            Picture_Free (FileTag->picture);
+            et_picture_free (FileTag->picture);
             FileTag->picture = NULL;
         }
 
@@ -2955,8 +2941,9 @@ et_tag_area_create_file_tag (EtTagArea *self)
         {
             do
             {
-                gtk_tree_model_get (model, &iter, PICTURE_COLUMN_DATA, &pic,-1);
-                pic = Picture_Copy_One (pic);
+                gtk_tree_model_get (model, &iter, PICTURE_COLUMN_DATA, &pic,
+                                    -1);
+
                 if (!FileTag->picture)
                 {
                     FileTag->picture = pic;
@@ -3249,7 +3236,7 @@ et_tag_area_display_et_file (EtTagArea *self,
 
     if (FileTag && FileTag->picture)
     {
-        Picture *pic;
+        EtPicture *pic;
         guint    nbr_pic = 0;
         GtkWidget *page;
         gchar *string;

@@ -91,7 +91,7 @@ flac_tag_read_file_tag (GFile *file,
 
     gchar *string = NULL;
     guint i;
-    Picture *prev_pic = NULL;
+    EtPicture *prev_pic = NULL;
     //gint j = 1;
 
     g_return_val_if_fail (file != NULL && FileTag != NULL, FALSE);
@@ -666,12 +666,12 @@ flac_tag_read_file_tag (GFile *file,
                  * Picture *
                  ***********/
                 FLAC__StreamMetadata_Picture *p;
-                Picture *pic;
+                EtPicture *pic;
             
                 // Get picture data from block
                 p = &block->data.picture;
             
-                pic = Picture_Allocate();
+                pic = et_picture_new ();
                 if (!prev_pic)
                     FileTag->picture = pic;
                 else
@@ -1073,7 +1073,8 @@ flac_tag_write_file_tag (const ET_File *ETFile,
      * Picture *
      ***********/
     {
-        Picture *pic = FileTag->picture;
+        EtPicture *pic = FileTag->picture;
+
         while (pic)
         {
             /* TODO: Can this ever be NULL? */

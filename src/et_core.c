@@ -145,8 +145,6 @@ static void ET_Initialize_File_Tag_Item (File_Tag *FileTag);
 static void ET_Initialize_File_Name_Item (File_Name *FileName);
 static void ET_Initialize_File_Info_Item (ET_File_Info *ETFileInfo);
 
-//gboolean ET_Set_Field_File_Tag_Picture (gchar **FileTagField, Picture *pic);
-
 static guint ET_File_Key_New (void);
 static guint ET_Undo_Key_New (void);
 
@@ -2458,7 +2456,7 @@ gboolean ET_Free_File_Tag_Item (File_Tag *FileTag)
     g_free(FileTag->copyright);
     g_free(FileTag->url);
     g_free(FileTag->encoded_by);
-    Picture_Free(FileTag->picture);
+    et_picture_free (FileTag->picture);
     // Free list of other fields
     ET_Free_File_Tag_Item_Other_Field(FileTag);
 
@@ -2750,11 +2748,15 @@ ET_Copy_File_Tag_Item (const ET_File *ETFile, File_Tag *FileTag)
     if (FileTagCur->picture)
     {
         if (FileTag->picture)
-            Picture_Free(FileTag->picture);
-        FileTag->picture = Picture_Copy(FileTagCur->picture);
-    }else if (FileTag->picture)
+        {
+            et_picture_free (FileTag->picture);
+        }
+
+        FileTag->picture = et_picture_copy_all (FileTagCur->picture);
+    }
+    else if (FileTag->picture)
     {
-        Picture_Free(FileTag->picture);
+        et_picture_free (FileTag->picture);
         FileTag->picture = NULL;
     }
 
@@ -2836,18 +2838,21 @@ gboolean ET_Set_Field_File_Tag_Item (gchar **FileTagField, const gchar *value)
  * Set the value of a field of a FileTag Picture item.
  */
 gboolean
-ET_Set_Field_File_Tag_Picture (Picture **FileTagField, const Picture *pic)
+ET_Set_Field_File_Tag_Picture (EtPicture **FileTagField,
+                               const EtPicture *pic)
 {
     g_return_val_if_fail (FileTagField != NULL, FALSE);
 
     if (*FileTagField != NULL)
     {
-        Picture_Free((Picture *)*FileTagField);
+        et_picture_free ((EtPicture *)*FileTagField);
         *FileTagField = NULL;
     }
 
     if (pic)
-        *FileTagField = Picture_Copy(pic);
+    {
+        *FileTagField = et_picture_copy_all (pic);
+    }
 
     return TRUE;
 }
@@ -3495,11 +3500,15 @@ ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
     if(FileTagCur->picture)
     {
         if (FileTag->picture)
-            Picture_Free(FileTag->picture);
-        FileTag->picture = Picture_Copy(FileTagCur->picture);
-    }else if (FileTag->picture)
+        {
+            et_picture_free (FileTag->picture);
+        }
+
+        FileTag->picture = et_picture_copy_all (FileTagCur->picture);
+    }
+    else if (FileTag->picture)
     {
-        Picture_Free(FileTag->picture);
+        et_picture_free (FileTag->picture);
         FileTag->picture = NULL;
     }
 
@@ -3799,8 +3808,8 @@ gboolean
 ET_Detect_Changes_Of_File_Tag (const File_Tag *FileTag1,
                                const File_Tag *FileTag2)
 {
-    const Picture *pic1;
-    const Picture *pic2;
+    const EtPicture *pic1;
+    const EtPicture *pic2;
 
     g_return_val_if_fail (FileTag1 != NULL && FileTag2 != NULL, FALSE);
 
