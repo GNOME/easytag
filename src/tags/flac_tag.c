@@ -1199,6 +1199,8 @@ flac_tag_write_file_tag (const ET_File *ETFile,
             et_flac_write_close_func (&state);
             return FALSE;
         }
+
+        et_flac_write_close_func (&temp_state);
     }
     else
     {
