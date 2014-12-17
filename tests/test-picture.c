@@ -18,6 +18,8 @@
 
 #include "picture.h"
 
+#include <string.h>
+
 static void
 picture_copy (void)
 {
@@ -131,12 +133,46 @@ picture_type_from_filename (void)
     }
 }
 
+static void
+picture_format_from_data (void)
+{
+    gsize i;
+
+    static const struct
+    {
+        const gchar *data;
+        Picture_Format format;
+    } pictures[] =
+    {
+        { "\xff\xd8", PICTURE_FORMAT_UNKNOWN },
+        { "\xff\xd8\xff", PICTURE_FORMAT_JPEG },
+        { "\x89PNG\x0d\x0a\x1a\x0a", PICTURE_FORMAT_PNG },
+        { "GIF87a", PICTURE_FORMAT_GIF },
+        { "GIF89a", PICTURE_FORMAT_GIF },
+        { "GIF900", PICTURE_FORMAT_UNKNOWN }
+    };
+
+    for (i = 0; i < G_N_ELEMENTS (pictures); i++)
+    {
+        EtPicture *pic;
+
+        pic = et_picture_new ();
+        pic->bytes = g_bytes_new_static (pictures[i].data,
+                                         strlen (pictures[i].data) + 1);
+        g_assert_cmpint (pictures[i].format, ==,
+                         Picture_Format_From_Data (pic));
+
+        et_picture_free (pic);
+    }
+}
+
 int
 main (int argc, char** argv)
 {
     g_test_init (&argc, &argv, NULL);
 
     g_test_add_func ("/picture/copy", picture_copy);
+    g_test_add_func ("/picture/format-from-data", picture_format_from_data);
     g_test_add_func ("/picture/type-from-filename",
                      picture_type_from_filename);
 

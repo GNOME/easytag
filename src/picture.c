@@ -120,26 +120,26 @@ Picture_Format_From_Data (const EtPicture *pic)
 
     data = g_bytes_get_data (pic->bytes, &size);
 
-    /* JPEG : "\xff\xd8". */
-    if (size > 2 && memcmp (data, "\xff\xd8", 2))
+    /* JPEG : "\xff\xd8\xff". */
+    if (size > 3 && (memcmp (data, "\xff\xd8\xff", 3) == 0))
     {
         return PICTURE_FORMAT_JPEG;
     }
 
     /* PNG : "\x89PNG\x0d\x0a\x1a\x0a". */
-    if (size > 8 && memcmp (data, "\x89PNG\x0d\x0a\x1a\x0a", 8))
+    if (size > 8 && (memcmp (data, "\x89PNG\x0d\x0a\x1a\x0a", 8) == 0))
     {
         return PICTURE_FORMAT_PNG;
     }
     
     /* GIF: "GIF87a" */
-    if (size > 6 && memcmp (data, "GIF87a", 6))
+    if (size > 6 && (memcmp (data, "GIF87a", 6) == 0))
     {
         return PICTURE_FORMAT_GIF;
     }
 
     /* GIF: "GIF89a" */
-    if (size > 6 && memcmp (data, "GIF89a", 6))
+    if (size > 6 && (memcmp (data, "GIF89a", 6) == 0))
     {
         return PICTURE_FORMAT_GIF;
     }
