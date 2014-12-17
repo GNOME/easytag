@@ -22,10 +22,10 @@
 
 #include "setting.h"
 
+G_BEGIN_DECLS
+
 #include <glib.h>
 #include <gdk/gdk.h>
-
-G_BEGIN_DECLS
 
 /*
  * Colors Used (see declaration into et_core.c)
@@ -88,12 +88,11 @@ struct _File_Name
 typedef struct _Picture Picture;
 struct _Picture
 {
-    gint     type;
+    gint type;
     gchar   *description;
     gint     width;         /* Original width of the picture */
     gint     height;        /* Original height of the picture */
-    gsize size; /* Picture size in bytes (like stat) */
-    guchar  *data;
+    GBytes *bytes;
     Picture *next;
 };
 

@@ -678,8 +678,7 @@ flac_tag_read_file_tag (GFile *file,
                     prev_pic->next = pic;
                 prev_pic = pic;
 
-                pic->size = p->data_length;
-                pic->data = g_memdup(p->data,pic->size);
+                pic->bytes = g_bytes_new (p->data, p->data_length);
                 pic->type = p->type;
                 pic->description = g_strdup((gchar *)p->description);
                 // Not necessary: will be calculated later
@@ -1077,11 +1076,14 @@ flac_tag_write_file_tag (const ET_File *ETFile,
         Picture *pic = FileTag->picture;
         while (pic)
         {
-            if (pic->data)
+            /* TODO: Can this ever be NULL? */
+            if (pic->bytes)
             {
                 const gchar *violation;
                 FLAC__StreamMetadata *picture_block; // For picture data
                 Picture_Format format;
+                gconstpointer data;
+                gsize data_size;
                 
                 // Allocate block for picture data
                 picture_block = FLAC__metadata_object_new(FLAC__METADATA_TYPE_PICTURE);
@@ -1107,8 +1109,10 @@ flac_tag_write_file_tag (const ET_File *ETFile,
                 picture_block->data.picture.depth  = 0;
 
                 /* Picture data. */
+                data = g_bytes_get_data (pic->bytes, &data_size);
                 FLAC__metadata_object_picture_set_data (picture_block,
-                                                        (FLAC__byte *)pic->data, (FLAC__uint32) pic->size,
+                                                        (FLAC__byte *)data,
+                                                        (FLAC__uint32)data_size,
                                                         TRUE);
                 
                 if (!FLAC__metadata_object_picture_is_legal (picture_block,

@@ -111,42 +111,33 @@ et_picture_type_from_filename (const gchar *filename_utf8)
 Picture_Format
 Picture_Format_From_Data (const Picture *pic)
 {
-    // JPEG : "\xff\xd8"
-    if (pic->data && pic->size > 2
-    &&  pic->data[0] == 0xff
-    &&  pic->data[1] == 0xd8)
-        return PICTURE_FORMAT_JPEG;
+    gsize size;
+    gconstpointer data;
 
-    // PNG : "\x89PNG\x0d\x0a\x1a\x0a"
-    if (pic->data && pic->size > 8
-    &&  pic->data[0] == 0x89
-    &&  pic->data[1] == 0x50
-    &&  pic->data[2] == 0x4e
-    &&  pic->data[3] == 0x47
-    &&  pic->data[4] == 0x0d
-    &&  pic->data[5] == 0x0a
-    &&  pic->data[6] == 0x1a
-    &&  pic->data[7] == 0x0a)
+    g_return_val_if_fail (pic != NULL, PICTURE_FORMAT_UNKNOWN);
+
+    data = g_bytes_get_data (pic->bytes, &size);
+
+    /* JPEG : "\xff\xd8". */
+    if (size > 2 && memcmp (data, "\xff\xd8", 2))
+    {
+        return PICTURE_FORMAT_JPEG;
+    }
+
+    /* PNG : "\x89PNG\x0d\x0a\x1a\x0a". */
+    if (size > 8 && memcmp (data, "\x89PNG\x0d\x0a\x1a\x0a", 8))
+    {
         return PICTURE_FORMAT_PNG;
+    }
     
     /* GIF: "GIF87a" */
-    if (pic->data && pic->size > 6
-    &&  pic->data[0] == 0x47
-    &&  pic->data[1] == 0x49
-    &&  pic->data[2] == 0x46
-    &&  pic->data[3] == 0x38
-    &&  pic->data[4] == 0x37
-    &&  pic->data[5] == 0x61)
+    if (size > 6 && memcmp (data, "GIF87a", 6))
+    {
         return PICTURE_FORMAT_GIF;
+    }
 
     /* GIF: "GIF89a" */
-    if (pic->data && pic->size > 6
-        &&  pic->data[0] == 0x47
-        &&  pic->data[1] == 0x49
-        &&  pic->data[2] == 0x46
-        &&  pic->data[3] == 0x38
-        &&  pic->data[4] == 0x39
-        &&  pic->data[5] == 0x61)
+    if (size > 6 && memcmp (data, "GIF89a", 6))
     {
         return PICTURE_FORMAT_GIF;
     }
@@ -154,7 +145,8 @@ Picture_Format_From_Data (const Picture *pic)
     return PICTURE_FORMAT_UNKNOWN;
 }
 
-const gchar *Picture_Mime_Type_String (Picture_Format format)
+const gchar *
+Picture_Mime_Type_String (Picture_Format format)
 {
     switch (format)
     {
@@ -255,8 +247,8 @@ Picture_Info (const Picture *pic,
     else
         desc = "";
 
-    type = Picture_Type_String(pic->type);
-    size_str = g_format_size (pic->size);
+    type = Picture_Type_String (pic->type);
+    size_str = g_format_size (g_bytes_get_size (pic->bytes));
 
     // Behaviour following the tag type...
     switch (tag_type)
@@ -285,34 +277,37 @@ Picture_Info (const Picture *pic,
     return r;
 }
 
-Picture *Picture_Allocate (void)
+Picture *
+Picture_Allocate (void)
 {
-    Picture *pic = g_malloc0(sizeof(Picture));
+    Picture *pic = g_slice_new0 (Picture);
     return pic;
 }
 
-Picture *Picture_Copy_One (const Picture *pic)
+Picture *
+Picture_Copy_One (const Picture *pic)
 {
     Picture *pic2;
 
     g_return_val_if_fail (pic != NULL, NULL);
 
-    pic2 = Picture_Allocate();
+    pic2 = Picture_Allocate ();
     pic2->type = pic->type;
     pic2->width  = pic->width;
     pic2->height = pic->height;
+
     if (pic->description)
-        pic2->description = g_strdup(pic->description);
-    if (pic->data)
     {
-        pic2->size = pic->size;
-        pic2->data = g_malloc(pic2->size);
-        memcpy(pic2->data, pic->data, pic->size);
+        pic2->description = g_strdup (pic->description);
     }
+
+    pic2->bytes = g_bytes_ref (pic->bytes);
+
     return pic2;
 }
 
-Picture *Picture_Copy (const Picture *pic)
+Picture *
+Picture_Copy (const Picture *pic)
 {
     Picture *pic2 = Picture_Copy_One(pic);
     if (pic->next)
@@ -320,17 +315,24 @@ Picture *Picture_Copy (const Picture *pic)
     return pic2;
 }
 
-void Picture_Free (Picture *pic)
+void
+Picture_Free (Picture *pic)
 {
-    if (!pic)
+    if (pic == NULL)
+    {
         return;
+    }
+
     if (pic->next)
-        Picture_Free(pic->next);
-    if (pic->description)
-        g_free(pic->description);
-    if (pic->data)
-        g_free(pic->data);
-    g_free(pic);
+    {
+        Picture_Free (pic->next);
+    }
+
+    g_free (pic->description);
+    g_bytes_unref (pic->bytes);
+    pic->bytes = NULL;
+
+    g_slice_free (Picture, pic);
 }
 
 
@@ -397,6 +399,8 @@ et_picture_load_file_data (GFile *file, GError **error)
     {
         /* Image loaded. */
         Picture *pic;
+        gpointer data;
+        gsize data_size;
 
         g_object_unref (file_istream);
 
@@ -410,8 +414,10 @@ et_picture_load_file_data (GFile *file, GError **error)
         g_assert (error == NULL || *error == NULL);
 
         pic = Picture_Allocate ();
-        pic->data = g_memory_output_stream_steal_data (G_MEMORY_OUTPUT_STREAM (ostream));
-        pic->size = g_memory_output_stream_get_data_size (G_MEMORY_OUTPUT_STREAM (ostream));
+        data = g_memory_output_stream_steal_data (G_MEMORY_OUTPUT_STREAM (ostream));
+        data_size = g_memory_output_stream_get_data_size (G_MEMORY_OUTPUT_STREAM (ostream));
+        pic->bytes = g_bytes_new_take (data, data_size);
+        /* TODO: Use g_memory_output_stream_steal_as_bytes(). */
 
         g_object_unref (ostream);
         g_assert (error == NULL || *error == NULL);
@@ -433,6 +439,8 @@ gboolean
 et_picture_save_file_data (const Picture *pic, GFile *file, GError **error)
 {
     GFileOutputStream *file_ostream;
+    gconstpointer data;
+    gsize data_size;
     gsize bytes_written;
 
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
@@ -446,12 +454,14 @@ et_picture_save_file_data (const Picture *pic, GFile *file, GError **error)
         return FALSE;
     }
 
-    if (!g_output_stream_write_all (G_OUTPUT_STREAM (file_ostream), pic->data,
-                                    pic->size, &bytes_written, NULL, error))
+    data = g_bytes_get_data (pic->bytes, &data_size);
+
+    if (!g_output_stream_write_all (G_OUTPUT_STREAM (file_ostream), data,
+                                    data_size, &bytes_written, NULL, error))
     {
         g_debug ("Only %" G_GSIZE_FORMAT " bytes out of %" G_GSIZE_FORMAT
                  " bytes of picture data were written", bytes_written,
-                 pic->size);
+                 g_bytes_get_size (pic->bytes));
         g_object_unref (file_ostream);
         g_assert (error == NULL || *error != NULL);
         return FALSE;

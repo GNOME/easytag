@@ -1223,6 +1223,8 @@ PictureEntry_Clear (EtTagArea *self)
 
     model = GTK_TREE_MODEL (priv->images_model);
 
+    /* FIXME: Make Picture a boxed type, so that it can be freed
+     * automatically. */
     if (gtk_tree_model_get_iter_first (model, &iter))
     {
         do
@@ -1248,17 +1250,17 @@ PictureEntry_Update (EtTagArea *self,
 
     priv = et_tag_area_get_instance_private (self);
 
-    if (!pic->data)
-    {
-        PictureEntry_Clear (self);
-        return;
-    }
-
     loader = gdk_pixbuf_loader_new ();
 
     if (loader)
     {
-        if (gdk_pixbuf_loader_write(loader, pic->data, pic->size, &error))
+        gconstpointer data;
+        gsize data_size;
+
+        data = g_bytes_get_data (pic->bytes, &data_size);
+
+        /* TODO: Use gdk_pixbuf_loader_write_bytes(). */
+        if (gdk_pixbuf_loader_write (loader, data, data_size, &error))
         {
             GtkTreeSelection *selection;
             GdkPixbuf *pixbuf;

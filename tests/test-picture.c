@@ -34,8 +34,7 @@ picture_copy (void)
     pic1->width = 640;
     pic1->height = 480;
     pic1->description = g_strdup ("foobar.png");
-    pic1->size = 10;
-    pic1->data = g_malloc0 (pic1->size);
+    pic1->bytes = g_bytes_new_static ("foobar", 6);
 
     pic2 = Picture_Copy (pic1);
 
@@ -43,7 +42,9 @@ picture_copy (void)
     g_assert_cmpint (pic2->width, ==, 640);
     g_assert_cmpint (pic2->height, ==, 480);
     g_assert_cmpstr (pic2->description, ==, "foobar.png");
-    g_assert_cmpint (pic2->size, ==, 10);
+    g_assert_cmpint (g_bytes_hash (pic2->bytes), ==,
+                     g_bytes_hash (pic1->bytes));
+    g_assert (pic2->bytes == pic1->bytes);
     g_assert (pic2->next == NULL);
 
     pic3 = Picture_Allocate ();
@@ -52,8 +53,7 @@ picture_copy (void)
     pic3->width = 320;
     pic3->height = 240;
     pic3->description = g_strdup ("bash.jpg");
-    pic3->size = 20;
-    pic3->data = g_malloc0 (pic3->size);
+    pic3->bytes = g_bytes_new_static ("foo", 3);
 
     pic1->next = pic2;
     pic2->next = pic3;
@@ -64,7 +64,7 @@ picture_copy (void)
     g_assert_cmpint (pic2_copy->width, ==, 640);
     g_assert_cmpint (pic2_copy->height, ==, 480);
     g_assert_cmpstr (pic2_copy->description, ==, "foobar.png");
-    g_assert_cmpint (pic2_copy->size, ==, 10);
+    g_assert_cmpint (g_bytes_get_size (pic2_copy->bytes), ==, 6);
     g_assert (pic2_copy->next == NULL);
 
     pic1_copy = Picture_Copy (pic1);
@@ -79,7 +79,7 @@ picture_copy (void)
     g_assert_cmpint (pic3_copy->width, ==, 320);
     g_assert_cmpint (pic3_copy->height, ==, 240);
     g_assert_cmpstr (pic3_copy->description, ==, "bash.jpg");
-    g_assert_cmpint (pic3_copy->size, ==, 20);
+    g_assert_cmpint (g_bytes_get_size (pic3_copy->bytes), ==, 3);
 
     Picture_Free (pic1_copy);
     Picture_Free (pic2_copy);

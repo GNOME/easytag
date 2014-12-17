@@ -120,13 +120,16 @@ convert_to_byte_array (guint32 n, guchar *array)
  */
 
 static void
-add_to_guchar_str (guchar *ustr, gsize *ustr_len, guchar *str, gsize str_len)
+add_to_guchar_str (guchar *ustr,
+                   gsize *ustr_len,
+                   const guchar *str,
+                   gsize str_len)
 {
     gsize i;
 
     for (i = *ustr_len; i < *ustr_len + str_len; i++)
     {
-        ustr [i] = str [i - *ustr_len];
+        ustr[i] = str[i - *ustr_len];
     }
 
     *ustr_len += str_len;
@@ -479,6 +482,8 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     while ( (string = vorbis_comment_query(vc,"COVERART",field_num++)) != NULL )
     {
         Picture *pic;
+        guchar *data;
+        gsize data_size;
             
         /* Force marking the file as modified, so that the deprecated cover art
          * field in converted in a METADATA_PICTURE_BLOCK field. */
@@ -491,10 +496,9 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
             prev_pic->next = pic;
         prev_pic = pic;
 
-        pic->data = NULL;
-        
-        // Decode picture data
-        pic->data = g_base64_decode (string, &pic->size);
+        /* Decode picture data. */
+        data = g_base64_decode (string, &data_size);
+        pic->bytes = g_bytes_new_take (data, data_size);
 
         if ( (string = vorbis_comment_query(vc,"COVERARTTYPE",field_num-1)) != NULL )
         {
@@ -521,7 +525,9 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
         Picture *pic;
         gsize bytes_pos, mimelen, desclen;
         guchar *decoded_ustr;
-        gsize decoded_len;
+        GBytes *bytes;
+        gsize decoded_size;
+        gsize data_size;
 
         pic = Picture_Allocate();
 
@@ -536,10 +542,9 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
 
         prev_pic = pic;
 
-        pic->data = NULL;
-
         /* Decode picture data. */
-        decoded_ustr = g_base64_decode (string, &decoded_len);
+        decoded_ustr = g_base64_decode (string, &decoded_size);
+        bytes = g_bytes_new_take (decoded_ustr, decoded_size);
 
         /* Reading picture type. */
         pic->type = read_guint32_from_byte (decoded_ustr, 0);
@@ -564,18 +569,14 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
         bytes_pos += desclen + 16;
 
         /* Reading picture size */
-        pic->size = read_guint32_from_byte (decoded_ustr, bytes_pos);
+        data_size = read_guint32_from_byte (decoded_ustr, bytes_pos);
         bytes_pos += 4;
 
-        /* Reading decoded picture */
-        pic->data = g_malloc (pic->size);
+        /* Read only the image data into a new GBytes. */
+        pic->bytes = g_bytes_new_from_bytes (bytes, bytes_pos, data_size);
 
-        for (i = 0; i < pic->size; i++)
-        {
-            pic->data [i] = decoded_ustr [i + bytes_pos];
-        }
-
-        g_free (decoded_ustr);
+        /* pic->bytes still holds a ref on the decoded data. */
+        g_bytes_unref (bytes);
     }
 
     /***************************
@@ -900,139 +901,142 @@ ogg_tag_write_file_tag (const ET_File *ETFile,
      **************/
     et_ogg_set_tag (vc, "ENCODED-BY=", FileTag->encoded_by, FALSE);
     
-    
     /***********
      * Picture *
      ***********/
     for (pic = FileTag->picture; pic != NULL; pic = pic->next)
     {
-        if (pic->data)
+        const gchar *mime;
+        guchar array[4];
+        guchar *ustring = NULL;
+        gsize ustring_len = 0;
+        gchar *base64_string;
+        gsize desclen;
+        gconstpointer data;
+        gsize data_size;
+        Picture_Format format = Picture_Format_From_Data (pic);
+
+        /* According to the specification, only PNG and JPEG images should
+         * be added to Vorbis comments. */
+        if (format != PICTURE_FORMAT_PNG && format != PICTURE_FORMAT_JPEG)
         {
-            const gchar *mime;
-            guchar array[4];
-            guchar *ustring = NULL;
-            gsize ustring_len = 0;
-            gchar *base64_string;
-            gsize desclen;
-            Picture_Format format = Picture_Format_From_Data (pic);
+            GdkPixbufLoader *loader;
+            gconstpointer data;
+            gsize data_size;
+            GError *error = NULL;
 
-            /* According to the specification, only PNG and JPEG images should
-             * be added to Vorbis comments. */
-            if (format != PICTURE_FORMAT_PNG && format != PICTURE_FORMAT_JPEG)
+            loader = gdk_pixbuf_loader_new ();
+
+            data = g_bytes_get_data (pic->bytes, &data_size);
+
+            /* TODO: Use gdk_pixbuf_loader_write_bytes() */
+            if (!gdk_pixbuf_loader_write (loader, data, data_size, &error))
             {
-                GdkPixbufLoader *loader;
-                GError *error = NULL;
+                g_debug ("Error parsing image data: %s", error->message);
+                g_error_free (error);
+                g_object_unref (loader);
+                continue;
+            }
+            else
+            {
+                GdkPixbuf *pixbuf;
+                gchar *buffer;
+                gsize buffer_size;
 
-                loader = gdk_pixbuf_loader_new ();
-
-                if (!gdk_pixbuf_loader_write (loader, pic->data, pic->size,
-                                              &error))
+                if (!gdk_pixbuf_loader_close (loader, &error))
                 {
-                    g_debug ("Error parsing image data: %s", error->message);
+                    g_debug ("Error parsing image data: %s",
+                             error->message);
                     g_error_free (error);
                     g_object_unref (loader);
                     continue;
                 }
-                else
+
+                pixbuf = gdk_pixbuf_loader_get_pixbuf (loader);
+
+                if (!pixbuf)
                 {
-                    GdkPixbuf *pixbuf;
-                    gchar *buffer;
-                    gsize buffer_size;
-
-                    if (!gdk_pixbuf_loader_close (loader, &error))
-                    {
-                        g_debug ("Error parsing image data: %s",
-                                 error->message);
-                        g_error_free (error);
-                        g_object_unref (loader);
-                        continue;
-                    }
-
-                    pixbuf = gdk_pixbuf_loader_get_pixbuf (loader);
-
-                    if (!pixbuf)
-                    {
-                        g_object_unref (loader);
-                        continue;
-                    }
-
-                    g_object_ref (pixbuf);
                     g_object_unref (loader);
-
-                    /* Always convert to PNG. */
-                    if (!gdk_pixbuf_save_to_buffer (pixbuf, &buffer,
-                                                    &buffer_size, "png",
-                                                    &error, NULL))
-                    {
-                        g_debug ("Error while converting image to PNG: %s",
-                                 error->message);
-                        g_error_free (error);
-                        g_object_unref (pixbuf);
-                        continue;
-                    }
-
-                    g_object_unref (pixbuf);
-
-                    g_free (pic->data);
-                    pic->data = (guchar *)buffer;
-                    pic->size = buffer_size;
-
-                    /* Set the picture format to reflect the new data. */
-                    format = Picture_Format_From_Data (pic);
+                    continue;
                 }
+
+                g_object_ref (pixbuf);
+                g_object_unref (loader);
+
+                /* Always convert to PNG. */
+                if (!gdk_pixbuf_save_to_buffer (pixbuf, &buffer,
+                                                &buffer_size, "png",
+                                                &error, NULL))
+                {
+                    g_debug ("Error while converting image to PNG: %s",
+                             error->message);
+                    g_error_free (error);
+                    g_object_unref (pixbuf);
+                    continue;
+                }
+
+                g_object_unref (pixbuf);
+
+                g_bytes_unref (pic->bytes);
+                pic->bytes = g_bytes_new_take (buffer, buffer_size);
+
+                /* Set the picture format to reflect the new data. */
+                format = Picture_Format_From_Data (pic);
             }
-
-            mime = Picture_Mime_Type_String (format);
-
-            /* Calculating full length of byte string and allocating. */
-            desclen = pic->description ? strlen (pic->description) : 0;
-            ustring = g_malloc (4 * 8 + strlen (mime) + desclen + pic->size);
-
-            /* Adding picture type. */
-            convert_to_byte_array (pic->type, array);
-            add_to_guchar_str (ustring, &ustring_len, array, 4);
-
-            /* Adding MIME string and its length. */
-            convert_to_byte_array (strlen (mime), array);
-            add_to_guchar_str (ustring, &ustring_len, array, 4);
-            add_to_guchar_str (ustring, &ustring_len, (guchar *)mime,
-                               strlen (mime));
-
-            /* Adding picture description. */
-            convert_to_byte_array (desclen, array);
-            add_to_guchar_str (ustring, &ustring_len, array, 4);
-            add_to_guchar_str (ustring, &ustring_len,
-                               (guchar *)pic->description,
-                               desclen);
-
-            /* Adding width, height, color depth, indexed colors. */
-            convert_to_byte_array (pic->width, array);
-            add_to_guchar_str (ustring, &ustring_len, array, 4);
-
-            convert_to_byte_array (pic->height, array);
-            add_to_guchar_str (ustring, &ustring_len, array, 4);
-
-            convert_to_byte_array (0, array);
-            add_to_guchar_str (ustring, &ustring_len, array, 4);
-
-            convert_to_byte_array (0, array);
-            add_to_guchar_str (ustring, &ustring_len, array, 4);
-
-            /* Adding picture data and its size. */
-            convert_to_byte_array (pic->size, array);
-            add_to_guchar_str (ustring, &ustring_len, array, 4);
-
-            add_to_guchar_str (ustring, &ustring_len, pic->data, pic->size);
-
-            base64_string = g_base64_encode (ustring, ustring_len);
-            string = g_strconcat ("METADATA_BLOCK_PICTURE=", base64_string,
-                                  NULL);
-            vorbis_comment_add (vc, string);
-
-            g_free (base64_string);
-            g_free (ustring);
-            g_free (string);
         }
+
+        mime = Picture_Mime_Type_String (format);
+
+        data = g_bytes_get_data (pic->bytes, &data_size);
+
+        /* Calculating full length of byte string and allocating. */
+        desclen = pic->description ? strlen (pic->description) : 0;
+        ustring = g_malloc (4 * 8 + strlen (mime) + desclen + data_size);
+
+        /* Adding picture type. */
+        convert_to_byte_array (pic->type, array);
+        add_to_guchar_str (ustring, &ustring_len, array, 4);
+
+        /* Adding MIME string and its length. */
+        convert_to_byte_array (strlen (mime), array);
+        add_to_guchar_str (ustring, &ustring_len, array, 4);
+        add_to_guchar_str (ustring, &ustring_len, (guchar *)mime,
+                           strlen (mime));
+
+        /* Adding picture description. */
+        convert_to_byte_array (desclen, array);
+        add_to_guchar_str (ustring, &ustring_len, array, 4);
+        add_to_guchar_str (ustring, &ustring_len,
+                           (guchar *)pic->description,
+                           desclen);
+
+        /* Adding width, height, color depth, indexed colors. */
+        convert_to_byte_array (pic->width, array);
+        add_to_guchar_str (ustring, &ustring_len, array, 4);
+
+        convert_to_byte_array (pic->height, array);
+        add_to_guchar_str (ustring, &ustring_len, array, 4);
+
+        convert_to_byte_array (0, array);
+        add_to_guchar_str (ustring, &ustring_len, array, 4);
+
+        convert_to_byte_array (0, array);
+        add_to_guchar_str (ustring, &ustring_len, array, 4);
+
+        /* Adding picture data and its size. */
+        convert_to_byte_array (data_size, array);
+        add_to_guchar_str (ustring, &ustring_len, array, 4);
+
+        add_to_guchar_str (ustring, &ustring_len, data, data_size);
+
+        base64_string = g_base64_encode (ustring, ustring_len);
+        string = g_strconcat ("METADATA_BLOCK_PICTURE=", base64_string,
+                              NULL);
+        vorbis_comment_add (vc, string);
+
+        g_free (base64_string);
+        g_free (ustring);
+        g_free (string);
     }
 
     /**************************

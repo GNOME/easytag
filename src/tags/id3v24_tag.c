@@ -456,9 +456,7 @@ id3tag_read_file_tag (GFile *gfile,
             prev_pic->next = pic;
         prev_pic = pic;
 
-        pic->data = NULL;
-
-        // Picture file data
+        /* Picture file data. */
         for (j = 0; (field = id3_frame_field(frame, j)); j++)
         {
             switch (id3_field_type(field))
@@ -468,14 +466,21 @@ id3tag_read_file_tag (GFile *gfile,
                         id3_length_t size;
                         id3_byte_t const *data;
                         
-                        data = id3_field_getbinarydata(field, &size);
-                        if (pic->data)
-                            g_free(pic->data);
-                        if ( data && (pic->data = g_memdup(data, size)) )
-                            pic->size = size;
+                        data = id3_field_getbinarydata (field, &size);
+
+                        if (data)
+                        {
+                            if (pic->bytes)
+                            {
+                                g_bytes_unref (pic->bytes);
+                            }
+
+                            pic->bytes = g_bytes_new (data, size);
+                        }
                     }
                     break;
                 case ID3_FIELD_TYPE_INT8:
+                    /* TODO: Verify that the type matches with EtPictureType. */
                     pic->type = id3_field_getint(field);
                     break;
                 default:
@@ -1157,7 +1162,13 @@ id3tag_write_file_v24tag (const ET_File *ETFile,
                         id3_field_setint(field, pic->type);
                         break;
                     case ID3_FIELD_TYPE_BINARYDATA:
-                        id3_field_setbinarydata(field, pic->data, pic->size);
+                        {
+                            gconstpointer data;
+                            gsize data_size;
+
+                            data = g_bytes_get_data (pic->bytes, &data_size);
+                            id3_field_setbinarydata (field, data, data_size);
+                        }
                         break;
                     default:
                         break;

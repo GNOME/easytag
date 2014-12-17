@@ -520,7 +520,13 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
             Id3tag_Set_Field(id3_frame, ID3FN_DESCRIPTION, pic->description);
 
         if ((id3_field = ID3Frame_GetField(id3_frame,ID3FN_DATA)))
-            ID3Field_SetBINARY(id3_field, pic->data, pic->size);
+        {
+            gconstpointer data;
+            gsize data_size;
+
+            data = g_bytes_get_data (pic->bytes, &data_size);
+            ID3Field_SetBINARY (id3_field, data, data_size);
+        }
 
         has_picture = TRUE;
     }

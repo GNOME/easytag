@@ -3913,15 +3913,10 @@ ET_Detect_Changes_Of_File_Tag (const File_Tag *FileTag1,
         //if (!pic1->data || !pic2->data)
         //    break; // => no changes
 
-        if (!pic1->data && !pic2->data)
-            return FALSE;
-        if (pic1->data && !pic2->data)
+        if (!g_bytes_equal (pic1->bytes, pic2->bytes))
+        {
             return TRUE;
-        if (!pic1->data && pic2->data)
-            return TRUE;
-        if (pic1->size != pic2->size
-        ||  memcmp(pic1->data, pic2->data, pic1->size))
-            return TRUE;
+        }
         if (pic1->type != pic2->type)
             return TRUE;
         if (pic1->description && !pic2->description

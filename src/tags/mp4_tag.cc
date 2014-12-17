@@ -211,9 +211,9 @@ mp4tag_read_file_tag (GFile *file,
 
         FileTag->picture = Picture_Allocate ();
 
-        FileTag->picture->size = art.data ().size ();
-        FileTag->picture->data = (guchar *)g_memdup (art.data ().data (),
-                                                     art.data ().size ());
+        /* TODO: Use g_bytes_new_with_free_func()? */
+        FileTag->picture->bytes = g_bytes_new (art.data ().data (),
+                                               art.data ().size ());
     }
     else
     {
@@ -438,6 +438,8 @@ mp4tag_write_file_tag (const ET_File *ETFile,
     {
         Picture_Format pf;
         TagLib::MP4::CoverArt::Format f;
+        gconstpointer data;
+        gsize data_size;
 
         pf = Picture_Format_From_Data (FileTag->picture);
 
@@ -458,8 +460,9 @@ mp4tag_write_file_tag (const ET_File *ETFile,
                 break;
         }
 
-        TagLib::MP4::CoverArt art (f, TagLib::ByteVector((char *)FileTag->picture->data,
-                                                         FileTag->picture->size));
+        data = g_bytes_get_data (FileTag->picture->bytes, &data_size);
+        TagLib::MP4::CoverArt art (f, TagLib::ByteVector((char *)data,
+                                                         data_size));
 
         extra_items.insert ("covr",
                             TagLib::MP4::Item (TagLib::MP4::CoverArtList ().append (art)));
