@@ -3579,6 +3579,7 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
                     && strstr (cddb_out_tmp, CDDB_END_STR) != NULL)
                 {
                     g_free (cddb_out);
+                    cddb_out = NULL;
                     break;
                 }
 
