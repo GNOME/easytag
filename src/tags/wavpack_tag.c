@@ -420,7 +420,7 @@ wavpack_tag_write_file_tag (const ET_File *ETFile,
         goto err;
     }
 
-    if (WavpackWriteTag (wpc) != 0)
+    if (WavpackWriteTag (wpc) == 0)
     {
         goto err;
     }
