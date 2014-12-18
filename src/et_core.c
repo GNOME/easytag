@@ -140,10 +140,8 @@ static gboolean ET_Free_History_File_List (void);
 static gboolean ET_Free_Displayed_File_List (void);
 static gboolean ET_Free_Artist_Album_File_List (void);
 
-static void ET_Initialize_File_Item (ET_File *ETFile);
 static void ET_Initialize_File_Tag_Item (File_Tag *FileTag);
 static void ET_Initialize_File_Name_Item (File_Name *FileName);
-static void ET_Initialize_File_Info_Item (ET_File_Info *ETFileInfo);
 
 static guint ET_File_Key_New (void);
 static guint ET_Undo_Key_New (void);
@@ -257,12 +255,14 @@ gboolean ET_File_Is_Supported (const gchar *filename)
  *****************************************************************************/
 void ET_Core_Create (void)
 {
-    // Allocate
+    /* Allocate. */
     if (ETCore == NULL)
-        ETCore = g_malloc0(sizeof(ET_Core));
+    {
+        ETCore = g_slice_new (ET_Core);
+    }
 
-    // Initialize
-    ET_Core_Initialize();
+    /* Initialize. */
+    ET_Core_Initialize ();
 }
 
 void ET_Core_Initialize (void)
@@ -303,7 +303,7 @@ ET_Core_Destroy (void)
     if (ETCore)
     {
         ET_Core_Free ();
-        g_free (ETCore);
+        g_slice_free (ET_Core, ETCore);
         ETCore = NULL;
     }
 }
@@ -321,8 +321,8 @@ File_Name *ET_File_Name_Item_New (void)
 {
     File_Name *FileName;
 
-    FileName = g_malloc0(sizeof(File_Name));
-    ET_Initialize_File_Name_Item(FileName);
+    FileName = g_slice_new (File_Name);
+    ET_Initialize_File_Name_Item (FileName);
 
     return FileName;
 }
@@ -335,8 +335,8 @@ File_Tag *ET_File_Tag_Item_New (void)
 {
     File_Tag *FileTag;
 
-    FileTag = g_malloc0(sizeof(File_Tag));
-    ET_Initialize_File_Tag_Item(FileTag);
+    FileTag = g_slice_new (File_Tag);
+    ET_Initialize_File_Tag_Item (FileTag);
 
     return FileTag;
 }
@@ -350,8 +350,7 @@ ET_File_Info_Item_New (void)
 {
     ET_File_Info *ETFileInfo;
 
-    ETFileInfo = g_malloc0(sizeof(ET_File_Info));
-    ET_Initialize_File_Info_Item(ETFileInfo);
+    ETFileInfo = g_slice_new0 (ET_File_Info);
 
     return ETFileInfo;
 }
@@ -364,8 +363,7 @@ ET_File *ET_File_Item_New (void)
 {
     ET_File *ETFile;
 
-    ETFile = g_malloc0(sizeof(ET_File));
-    ET_Initialize_File_Item(ETFile);
+    ETFile = g_slice_new0 (ET_File);
 
     return ETFile;
 }
@@ -410,37 +408,6 @@ ET_Initialize_File_Tag_Item (File_Tag *FileTag)
         FileTag->encoded_by  = NULL;
         FileTag->picture     = NULL;
         FileTag->other       = NULL;
-    }
-}
-
-
-static void
-ET_Initialize_File_Info_Item (ET_File_Info *ETFileInfo)
-{
-    if (ETFileInfo)
-    {
-        ETFileInfo->mpc_profile = NULL;
-        ETFileInfo->mpc_version = NULL;
-    }
-}
-
-
-static void
-ET_Initialize_File_Item (ET_File *ETFile)
-{
-    if (ETFile)
-    {
-        ETFile->IndexKey          = 0;
-        ETFile->ETFileKey         = 0;
-        ETFile->ETFileDescription = NULL;
-        ETFile->ETFileInfo        = NULL;
-        ETFile->FileNameCur       = NULL;
-        ETFile->FileNameNew       = NULL;
-        ETFile->FileNameList      = NULL;
-        ETFile->FileNameListBak   = NULL;
-        ETFile->FileTag           = NULL;
-        ETFile->FileTagList       = NULL;
-        ETFile->FileTagListBak    = NULL;
     }
 }
 
@@ -2360,8 +2327,9 @@ ET_Free_File_List_Item (ET_File *ETFile)
         {
             ET_Free_File_Info_Item (ETFile->ETFileInfo);
         }
+
         g_free(ETFile->ETFileExtension);
-        g_free(ETFile);
+        g_slice_free (ET_File, ETFile);
     }
 }
 
@@ -2392,8 +2360,7 @@ ET_Free_File_Name_Item (File_Name *FileName)
     g_free(FileName->value);
     g_free(FileName->value_utf8);
     g_free(FileName->value_ck);
-    g_free(FileName);
-
+    g_slice_free (File_Name, FileName);
 }
 
 
@@ -2460,7 +2427,7 @@ gboolean ET_Free_File_Tag_Item (File_Tag *FileTag)
     // Free list of other fields
     ET_Free_File_Tag_Item_Other_Field(FileTag);
 
-    g_free(FileTag);
+    g_slice_free (File_Tag, FileTag);
     return TRUE;
 }
 
@@ -2476,10 +2443,16 @@ ET_Free_File_Info_Item (ET_File_Info *ETFileInfo)
     g_free(ETFileInfo->mpc_profile);
     g_free(ETFileInfo->mpc_version);
 
-    g_free(ETFileInfo);
+    g_slice_free (ET_File_Info, ETFileInfo);
     return TRUE;
 }
 
+
+static void
+et_history_file_free (ET_History_File *file)
+{
+    g_slice_free (ET_History_File, file);
+}
 
 /*
  * History list contains only pointers, so no data to free except the history structure.
@@ -2492,7 +2465,8 @@ ET_Free_History_File_List (void)
 
     ETCore->ETHistoryFileList = g_list_first (ETCore->ETHistoryFileList);
 
-    g_list_free_full (ETCore->ETHistoryFileList, g_free);
+    g_list_free_full (ETCore->ETHistoryFileList,
+                      (GDestroyNotify)et_history_file_free);
 
     ETCore->ETHistoryFileList = NULL;
 
@@ -3094,8 +3068,8 @@ void ET_Save_File_Data_From_UI (ET_File *ETFile)
     /*
      * Save filename and generate undo for filename
      */
-    FileName = g_malloc0(sizeof(File_Name));
-    ET_Initialize_File_Name_Item(FileName);
+    FileName = g_slice_new (File_Name);
+    ET_Initialize_File_Name_Item (FileName);
     FileName->key = undo_key;
     ET_Save_File_Name_From_UI(ETFile,FileName); // Used for all files!
 
@@ -4013,12 +3987,15 @@ ET_Add_File_To_History_List (ET_File *ETFile)
 
     g_return_val_if_fail (ETFile != NULL, FALSE);
 
-    ETHistoryFile = g_malloc0(sizeof(ET_History_File));
+    ETHistoryFile = g_slice_new0 (ET_History_File);
     ETHistoryFile->ETFile = ETFile;
 
     /* The undo list must contains one item before the 'first undo' data */
     if (!ETCore->ETHistoryFileList)
-        ETCore->ETHistoryFileList = g_list_append(ETCore->ETHistoryFileList,g_malloc0(sizeof(ET_History_File)));
+    {
+        ETCore->ETHistoryFileList = g_list_append (ETCore->ETHistoryFileList,
+                                                   g_slice_new0 (ET_History_File));
+    }
 
     /* Add the item to the list (cut end of list from the current element) */
     ETCore->ETHistoryFileList = g_list_append(ETCore->ETHistoryFileList,ETHistoryFile);

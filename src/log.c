@@ -344,7 +344,7 @@ Log_Print (EtLogAreaKind error_type, const gchar * const format, ...)
     }
     else
     {
-        EtLogAreaData *log_data = g_malloc0 (sizeof (EtLogAreaData));
+        EtLogAreaData *log_data = g_slice_new (EtLogAreaData);
         log_data->time = Log_Format_Date ();
         log_data->error_type = error_type;
         log_data->string = g_strdup (string);
@@ -481,7 +481,7 @@ Log_Print_Tmp_List (EtLogArea *self)
 
             g_free (log_data->string);
             g_free (log_data->time);
-            g_free (log_data);
+            g_slice_free (EtLogAreaData, log_data);
         }
 
         g_list_free (priv->log_tmp_list);

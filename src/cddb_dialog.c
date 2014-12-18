@@ -819,6 +819,12 @@ Cddb_Write_Result_To_File (EtCDDBDialog *self,
     return 0;
 }
 
+static void
+cddb_track_frame_offset_free (CddbTrackFrameOffset *offset)
+{
+    g_slice_free (CddbTrackFrameOffset, offset);
+}
+
 /*
  * Look up a specific album in freedb, and save to a CddbAlbum structure
  */
@@ -1070,7 +1076,7 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
         {
             if ( strtoul(cddb_out+1,NULL,10)>0 )
             {
-                CddbTrackFrameOffset *cddbtrackframeoffset = g_malloc0(sizeof(CddbTrackFrameOffset));
+                CddbTrackFrameOffset *cddbtrackframeoffset = g_slice_new (CddbTrackFrameOffset);
                 cddbtrackframeoffset->offset = strtoul(cddb_out+1,NULL,10);
                 TrackOffsetList = g_list_append(TrackOffsetList,cddbtrackframeoffset);
             }else
@@ -1086,7 +1092,7 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
             cddbalbum->duration = atoi(strchr(cddb_out,':')+1);
             if (TrackOffsetList) // As it must be the last item, do nothing if no previous data
             {
-                CddbTrackFrameOffset *cddbtrackframeoffset = g_malloc0(sizeof(CddbTrackFrameOffset));
+                CddbTrackFrameOffset *cddbtrackframeoffset = g_slice_new (CddbTrackFrameOffset);
                 cddbtrackframeoffset->offset = cddbalbum->duration * 75; // It's the last offset
                 TrackOffsetList = g_list_append(TrackOffsetList,cddbtrackframeoffset);
             }
@@ -1150,7 +1156,7 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
         {
             CddbTrackAlbum *cddbtrackalbum_last = NULL;
 
-            CddbTrackAlbum *cddbtrackalbum = g_malloc0(sizeof(CddbTrackAlbum));
+            CddbTrackAlbum *cddbtrackalbum = g_slice_new0 (CddbTrackAlbum);
             cddbtrackalbum->cddbalbum = cddbalbum; // To find the CddbAlbum father quickly
 
             // Here is a fix when TTITLExx doesn't contain an "=", we skip the line
@@ -1179,9 +1185,9 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
 
                 cddbtrackalbum_last->track_name = Try_To_Validate_Utf8_String(track_name);
 
-                // Frees useless allocated data previously
+                /* Frees useless allocated data previously. */
                 g_free(cddbtrackalbum->track_name);
-                g_free(cddbtrackalbum);
+                g_slice_free (CddbTrackAlbum, cddbtrackalbum);
             }else
             {
                 if (TrackOffsetList && TrackOffsetList->next)
@@ -1241,7 +1247,8 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
 
     show_album_info (self, gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->album_list_view)));
 
-    g_list_free_full (g_list_first (TrackOffsetList), (GDestroyNotify)g_free);
+    g_list_free_full (g_list_first (TrackOffsetList),
+                      (GDestroyNotify)cddb_track_frame_offset_free);
     return TRUE;
 }
 
@@ -1369,8 +1376,7 @@ Cddb_Free_Album_List (EtCDDBDialog *self)
             g_free(cddbalbum->genre);
             g_free(cddbalbum->year);
 
-            g_free(cddbalbum);
-            cddbalbum = NULL;
+            g_slice_free (CddbAlbum, cddbalbum);
         }
     }
 
@@ -1689,7 +1695,7 @@ Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
             gchar *copy;
             CddbAlbum *cddbalbum;
 
-            cddbalbum = g_malloc0(sizeof(CddbAlbum));
+            cddbalbum = g_slice_new0 (CddbAlbum);
 
 
             // Parameters of the server used
@@ -2039,7 +2045,7 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
                 gchar *valid;
                 CddbAlbum *cddbalbum;
 
-                cddbalbum = g_malloc0(sizeof(CddbAlbum));
+                cddbalbum = g_slice_new0 (CddbAlbum);
 
                 // Parameters of the server used
                 cddbalbum->server_name     = g_strdup(cddb_server_name);
@@ -3224,11 +3230,11 @@ Cddb_Free_Track_Album_List (GList *track_list)
     for (l = track_list; l != NULL; l = g_list_next (l))
     {
         CddbTrackAlbum *cddbtrackalbum = l->data;
+
         if (cddbtrackalbum)
         {
             g_free(cddbtrackalbum->track_name);
-            g_free(cddbtrackalbum);
-            cddbtrackalbum = NULL;
+            g_slice_free (CddbTrackAlbum, cddbtrackalbum);
         }
     }
 
@@ -3597,7 +3603,7 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
                     gchar* ptr;
                     CddbAlbum *cddbalbum;
 
-                    cddbalbum = g_malloc0(sizeof(CddbAlbum));
+                    cddbalbum = g_slice_new0 (CddbAlbum);
 
                     // Parameters of the server used
                     cddbalbum->server_name     = g_strdup(cddb_server_name);

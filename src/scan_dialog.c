@@ -437,7 +437,7 @@ Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask)
             /*
              * Allocate a new iten for the fill_tag_list
              */
-            mask_item = g_malloc0(sizeof(Scan_Mask_Item));
+            mask_item = g_slice_new0 (Scan_Mask_Item);
 
             // Get the code (used to determine the corresponding target entry)
             mask_item->code = tmp[1];
@@ -658,7 +658,7 @@ Scan_Free_File_Fill_Tag_List (GList *list)
         if (l->data)
         {
             g_free (((Scan_Mask_Item *)l->data)->string);
-            g_free ((Scan_Mask_Item *)l->data);
+            g_slice_free (Scan_Mask_Item, l->data);
         }
     }
 
@@ -805,7 +805,7 @@ et_scan_generate_new_filename_from_mask (const ET_File *ETFile,
         // Mask contains some characters after the code ('%b__')
         if (strlen(tmp)>2)
         {
-            mask_item = g_malloc0(sizeof(File_Mask_Item));
+            mask_item = g_slice_new0 (File_Mask_Item);
             if (counter)
             {
                 if (strchr(tmp+2,G_DIR_SEPARATOR))
@@ -822,7 +822,7 @@ et_scan_generate_new_filename_from_mask (const ET_File *ETFile,
 
         // Now, parses the code to get the corresponding string (from tag)
         source = Scan_Return_File_Tag_Field_From_Mask_Code((File_Tag *)ETFile->FileTag->data,tmp[1]);
-        mask_item = g_malloc0(sizeof(File_Mask_Item));
+        mask_item = g_slice_new0 (File_Mask_Item);
         if (source && *source && strlen(*source)>0)
         {
             mask_item->type = FIELD;
@@ -867,7 +867,7 @@ et_scan_generate_new_filename_from_mask (const ET_File *ETFile,
     // It may have some characters before the last remaining code ('__%a')
     if (mask!=NULL && strlen(mask)>0)
     {
-        mask_item = g_malloc0(sizeof(File_Mask_Item));
+        mask_item = g_slice_new0 (File_Mask_Item);
         mask_item->type = LEADING_SEPARATOR;
         mask_item->string = g_strdup(mask);
         rename_file_list = g_list_prepend(rename_file_list,mask_item);
@@ -989,7 +989,7 @@ Scan_Free_File_Rename_List (GList *list)
         if (l->data)
         {
             g_free (((File_Mask_Item *)l->data)->string);
-            g_free ((File_Mask_Item *)l->data);
+            g_slice_free (File_Mask_Item, l->data);
         }
     }
 
