@@ -406,9 +406,12 @@ gboolean Wavpack_Tag_Write_File_Tag (ET_File *ETFile)
         return FALSE;
     }
 
-    WavpackWriteTag(wpc);
+    if (WavpackWriteTag (wpc) == 0)
+    {
+        return FALSE;
+    }
 
-    WavpackCloseFile(wpc);
+    WavpackCloseFile (wpc);
 
     return TRUE;
 }
