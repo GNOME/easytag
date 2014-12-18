@@ -1006,13 +1006,13 @@ gchar *Id3tag_Get_Field (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid)
         switch ( enc )
         {
             case ID3TE_ISO8859_1:
-                string = g_malloc0(sizeof(char)*ID3V2_MAX_STRING_LEN+1);
+                string = g_malloc0 (ID3V2_MAX_STRING_LEN + 1);
                 num_chars = ID3Field_GetASCII_1(id3_field,string,ID3V2_MAX_STRING_LEN,0);
                 string1 = convert_string(string,"ISO-8859-1","UTF-8",FALSE);
                 break;
 
             case ID3TE_UTF8: // Shouldn't work with id3lib 3.8.3 (supports only ID3v2.3, not ID3v2.4)
-                string = g_malloc0(sizeof(char)*ID3V2_MAX_STRING_LEN+1);
+                string = g_malloc0 (ID3V2_MAX_STRING_LEN+1);
                 num_chars = ID3Field_GetASCII_1(id3_field,string,ID3V2_MAX_STRING_LEN,0);
                 //string1 = convert_string(string,"UTF-8","UTF-8",FALSE); // Nothing to do
                 if (g_utf8_validate(string,-1,NULL))
@@ -1029,7 +1029,7 @@ gchar *Id3tag_Get_Field (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid)
                 break;
 
             default:
-                string = g_malloc0(sizeof(char)*4*ID3V2_MAX_STRING_LEN+1);
+                string = g_malloc0 (4 * ID3V2_MAX_STRING_LEN + 1);
                 num_chars = ID3Field_GetASCII_1(id3_field,string,ID3V2_MAX_STRING_LEN,0);
                 string1 = convert_to_utf8(string);
                 break;
