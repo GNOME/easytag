@@ -94,7 +94,6 @@ et_wavpack_header_display_file_info_to_ui (const ET_File *ETFile)
     /* Mode */
     fields->mode_label = _("Channels:");
     fields->mode = g_strdup_printf ("%d", info->mode);
-    g_free (fields->mode);
 
     /* Size */
     size = g_format_size (info->size);
