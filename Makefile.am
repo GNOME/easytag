@@ -272,7 +272,10 @@ tests/test-desktop-file-validate.sh: Makefile tests/.dstamp
 		chmod +x $@
 
 # Not automake built-in TESTS_ENVIRONMENT!
-TEST_ENVIRONMENT = MALLOC_CHECK_=2 MALLOC_PERTURB_=$$(($${RANDOM:-256} % 256))
+TEST_ENVIRONMENT = \
+	MALLOC_CHECK_=2 \
+	MALLOC_PERTURB_=$$(($${RANDOM:-256} % 256)) \
+	G_SLICE=debug-blocks
 
 # test: run all tests.
 test: $(check_PROGRAMS)
