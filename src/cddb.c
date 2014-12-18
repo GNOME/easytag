@@ -3374,6 +3374,7 @@ Cddb_Search_Album_From_Selected_Files (void)
                     && strstr (cddb_out_tmp, CDDB_END_STR) != NULL)
                 {
                     g_free (cddb_out);
+                    cddb_out = NULL;
                     break;
                 }
 
