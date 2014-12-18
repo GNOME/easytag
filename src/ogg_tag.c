@@ -578,14 +578,9 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc, File_Tag *FileTag,
         desclen = read_guint32_from_byte (decoded_ustr, bytes_pos);
         bytes_pos += 4;
 
-        pic->description = g_malloc (desclen + 1);
+        pic->description = g_strndup ((const gchar *)&decoded_ustr[bytes_pos],
+                                      desclen);
 
-        for (i = 0; i < desclen; i++)
-        {
-            pic->description [i] = decoded_ustr [i + bytes_pos];
-        }
-
-        pic->description [desclen] = '\0';
         bytes_pos += desclen + 16;
 
         /* Reading picture size */
