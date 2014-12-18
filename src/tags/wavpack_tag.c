@@ -68,7 +68,8 @@ wavpack_tag_read_file_tag (GFile *file,
     gchar *filename;
     WavpackContext *wpc;
     gchar message[80];
-    gchar *field, *field2;
+    gchar field[MAXLEN] = { 0, };
+    gchar *field2;
     guint length;
 
     int open_flags = OPEN_TAGS;
@@ -90,43 +91,42 @@ wavpack_tag_read_file_tag (GFile *file,
     /*
      * Title
      */
-    field = g_malloc0(sizeof(char) * MAXLEN);
     length = WavpackGetTagItem(wpc, "title", field, MAXLEN);
 
     if ( length > 0 && FileTag->title == NULL ) {
         FileTag->title = Try_To_Validate_Utf8_String(field);
     }
 
-    g_free (field);
+    /* Fill the array with \0. */
+    strncpy (field, "", MAXLEN);
 
     /*
      * Artist
      */
-    field = g_malloc0(sizeof(char) * MAXLEN);
     length = WavpackGetTagItem(wpc, "artist", field, MAXLEN);
 
     if ( length > 0 && FileTag->artist == NULL) {
         FileTag->artist = Try_To_Validate_Utf8_String(field);
     }
 
-    g_free (field);
+    /* Fill the array with \0. */
+    strncpy (field, "", MAXLEN);
 
     /*
      * Album
      */
-    field = g_malloc0(sizeof(char) * MAXLEN);
     length = WavpackGetTagItem(wpc, "album", field, MAXLEN);
 
     if ( length > 0 && FileTag->album == NULL ) {
         FileTag->album = Try_To_Validate_Utf8_String(field);
     }
 
-    g_free (field);
+    /* Fill the array with \0. */
+    strncpy (field, "", MAXLEN);
 
     /*
      * Discnumber + Disctotal.
      */
-    field = g_malloc0 (sizeof (char) * MAXLEN);
     length = WavpackGetTagItem (wpc, "part", field, MAXLEN);
     field2 = g_utf8_strchr (field, -1, '/');
 
@@ -146,24 +146,24 @@ wavpack_tag_read_file_tag (GFile *file,
         FileTag->disc_number = et_disc_number_to_string (atoi (Try_To_Validate_Utf8_String (field)));
     }
 
-    g_free (field);
+    /* Fill the array with \0. */
+    strncpy (field, "", MAXLEN);
 
     /*
      * Year
      */
-    field = g_malloc0(sizeof(char) * MAXLEN);
     length = WavpackGetTagItem(wpc, "year", field, MAXLEN);
 
     if ( length > 0 && FileTag->year == NULL ) {
         FileTag->year = Try_To_Validate_Utf8_String(field);
     }
 
-    g_free (field);
+    /* Fill the array with \0. */
+    strncpy (field, "", MAXLEN);
 
     /*
      * Tracknumber + tracktotal
      */
-    field = g_malloc0(sizeof(char) * MAXLEN);
     length = WavpackGetTagItem(wpc, "track", field, MAXLEN);
     field2 = g_utf8_strchr(field, -1, '/');
 
@@ -182,91 +182,92 @@ wavpack_tag_read_file_tag (GFile *file,
         FileTag->track = et_track_number_to_string (atoi (Try_To_Validate_Utf8_String (field)));
     }
 
-    g_free (field);
+    /* Fill the array with \0. */
+    strncpy (field, "", MAXLEN);
 
     /*
      * Genre
      */
-    field = g_malloc0(sizeof(char) * MAXLEN);
     length = WavpackGetTagItem(wpc, "genre", field, MAXLEN);
 
     if ( length > 0 && FileTag->genre == NULL ) {
         FileTag->genre = Try_To_Validate_Utf8_String(field);
     }
 
-    g_free (field);
+    /* FIXME: Fill the array with \0. */
+    strncpy (field, "", MAXLEN);
 
     /*
      * Comment
      */
-    field = g_malloc0(sizeof(char) * MAXLEN);
     length = WavpackGetTagItem(wpc, "comment", field, MAXLEN);
 
     if ( length > 0 && FileTag->comment == NULL ) {
         FileTag->comment = Try_To_Validate_Utf8_String(field);
     }
 
-    g_free (field);
+    /* Fill the array with \0. */
+    strncpy (field, "", MAXLEN);
 
     /*
      * Composer
      */
-    field = g_malloc0(sizeof(char) * MAXLEN);
     length = WavpackGetTagItem(wpc, "composer", field, MAXLEN);
 
     if ( length > 0 && FileTag->composer == NULL ) {
         FileTag->composer = Try_To_Validate_Utf8_String(field);
     }
 
-    g_free (field);
+    /* Fill the array with \0. */
+    strncpy (field, "", MAXLEN);
 
     /*
      * Original artist
      */
-    field = g_malloc0(sizeof(char) * MAXLEN);
     length = WavpackGetTagItem(wpc, "original artist", field, MAXLEN);
 
     if ( length > 0 && FileTag->orig_artist == NULL ) {
         FileTag->orig_artist  = Try_To_Validate_Utf8_String(field);
     }
 
-    g_free (field);
+    /* Fill the array with \0. */
+    strncpy (field, "", MAXLEN);
 
     /*
      * Copyright
      */
-    field = g_malloc0(sizeof(char) * MAXLEN);
     length = WavpackGetTagItem(wpc, "copyright", field, MAXLEN);
 
     if ( length > 0 && FileTag->copyright == NULL ) {
         FileTag->copyright = Try_To_Validate_Utf8_String(field);
     }
 
-    g_free (field);
+    /* Fill the array with \0. */
+    strncpy (field, "", MAXLEN);
 
     /*
      * URL
      */
-    field = g_malloc0(sizeof(char) * MAXLEN);
     length = WavpackGetTagItem(wpc, "copyright url", field, MAXLEN);
 
     if ( length > 0 && FileTag->url == NULL ) {
         FileTag->url = Try_To_Validate_Utf8_String(field);
     }
 
-    g_free (field);
+    /* Fill the array with \0. */
+    strncpy (field, "", MAXLEN);
 
     /*
      * Encoded by
      */
-    field = g_malloc0(sizeof(char) * MAXLEN);
     length = WavpackGetTagItem(wpc, "encoded by", field, MAXLEN);
 
     if ( length > 0 && FileTag->encoded_by == NULL ) {
         FileTag->encoded_by = Try_To_Validate_Utf8_String(field);
     }
 
-    g_free (field);
+    /* Fill the array with \0. */
+    strncpy (field, "", MAXLEN);
 
     WavpackCloseFile(wpc);
 
